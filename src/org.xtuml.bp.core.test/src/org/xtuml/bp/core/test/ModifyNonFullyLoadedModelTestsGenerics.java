@@ -25,7 +25,9 @@ package org.xtuml.bp.core.test;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.ui.PlatformUI;
-
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.ModelClass_c;
 import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.Package_c;
@@ -35,6 +37,7 @@ import org.xtuml.bp.core.common.PersistenceManager;
 import org.xtuml.bp.core.ui.Selection;
 import org.xtuml.bp.test.common.BaseTest;
 import org.xtuml.bp.test.common.ExplorerUtil;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.test.common.TestingUtilities;
 import org.xtuml.bp.test.common.TransactionListener;
 import org.xtuml.bp.ui.canvas.test.CanvasTest;
@@ -42,6 +45,7 @@ import org.xtuml.bp.ui.graphics.editor.GraphicalEditor;
 import org.xtuml.bp.ui.graphics.editor.ModelEditor;
 import org.xtuml.bp.utilities.ui.CanvasUtilities;
 
+@RunWith(OrderedRunner.class)
 public class ModifyNonFullyLoadedModelTestsGenerics extends CanvasTest
 {
 
@@ -58,12 +62,13 @@ public class ModifyNonFullyLoadedModelTestsGenerics extends CanvasTest
 
     private String resultFolder;
 
-    public ModifyNonFullyLoadedModelTestsGenerics(String name) {
-        super(null, name);
-    }
+    public ModifyNonFullyLoadedModelTestsGenerics(){
+		super(null, null);
+	}
 
     @Override
-    protected void setUp() throws Exception
+    @Before
+	public void setUp() throws Exception
     {
         super.setUp();
         if (!initialized) {
@@ -127,7 +132,8 @@ public class ModifyNonFullyLoadedModelTestsGenerics extends CanvasTest
      *   load.
      * @throws Exception 
      */
-    public void testDeleteClassWithReferringImportedClass() throws Exception
+    @Test
+	public void testDeleteClassWithReferringImportedClass() throws Exception
     {
         test_id = "1";
 

@@ -24,13 +24,16 @@ package org.xtuml.bp.core.test;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.swt.widgets.Display;
-
+import org.junit.Before;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.common.PersistableModelComponent;
 import org.xtuml.bp.core.util.WorkspaceUtil;
 import org.xtuml.bp.test.common.BaseTest;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.test.common.TestingUtilities;
 import org.xtuml.bp.utilities.ui.ProjectUtilities;
 
+@RunWith(OrderedRunner.class)
 public class CoreTest extends BaseTest
 {
 	
@@ -44,7 +47,8 @@ public class CoreTest extends BaseTest
     	super(null, null);
     }
     
-    protected void setUp() throws Exception {
+    @Before
+	public void setUp() throws Exception {
 		super.setUp();
 		
 		WorkspaceUtil.setAutobuilding(false);

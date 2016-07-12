@@ -1,6 +1,5 @@
 package org.xtuml.bp.debug.engine;
 
-import java.lang.annotation.Target;
 import java.util.ArrayList;
 
 import org.eclipse.core.resources.IProject;
@@ -11,7 +10,10 @@ import org.eclipse.debug.ui.IDebugUIConstants;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;
 import org.eclipse.ui.PlatformUI;
-
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.ComponentInstance_c;
 import org.xtuml.bp.core.ComponentReference_c;
 import org.xtuml.bp.core.Component_c;
@@ -29,6 +31,7 @@ import org.xtuml.bp.core.util.UIUtil;
 import org.xtuml.bp.debug.ui.launch.BPDebugUtils;
 import org.xtuml.bp.debug.ui.test.DebugUITestUtilities;
 import org.xtuml.bp.test.common.BaseTest;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.test.common.TestingUtilities;
 import org.xtuml.bp.ui.session.SessionExplorerTreeViewer;
 import org.xtuml.bp.ui.session.views.SessionExplorerView;
@@ -55,18 +58,20 @@ import org.xtuml.bp.ui.session.views.SessionExplorerView;
 // the License.
 //========================================================================
 
+@RunWith(OrderedRunner.class)
 public class VerifierMessageTestGlobals extends BaseTest {
 
 	private static String projectName = "VerifierMessageTestGlobals";
 
-	private boolean initialized = false;
+	private static boolean initialized = false;
 
-	public VerifierMessageTestGlobals(String testName) throws Exception {
-		super(projectName, testName);
+	public VerifierMessageTestGlobals() throws Exception {
+		super(projectName, null);
 	}
 
 	@Override
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		super.setUp();
 
 		if (!initialized) {
@@ -112,6 +117,7 @@ public class VerifierMessageTestGlobals extends BaseTest {
 		}
 	}
 
+	@After
 	public void tearDown() throws Exception {
 		// terminate all launches
 		DebugUITestUtilities.terminateAllProcesses(m_sys);
@@ -126,27 +132,21 @@ public class VerifierMessageTestGlobals extends BaseTest {
 		TestingUtilities.processDisplayEvents();
 	}
 
-	public void testVerifierMessageGlobals() throws Exception {
-		doTestDeclaredToDeclaredRootToRoot();
-		doTestDeclaredToReferencedRootToRoot();
-		doTestReferencedToDeclaredRootToRoot();
-		doTestReferencedToReferencedRootToRoot();
-		doTestReferencedToReferencedJarredRootToRoot();
-		
-	}
-	
-	public void doTestDeclaredToDeclaredRootToRoot() throws InterruptedException {
+	@Test
+	public void testDeclaredToDeclaredRootToRoot() throws InterruptedException {
 		performMessageTestFromComponent("Declared to Declared", "Root to Root",
 				"Test Requirer");
 	}
 
-	public void doTestDeclaredToReferencedRootToRoot()
+	@Test
+	public void testDeclaredToReferencedRootToRoot()
 			throws InterruptedException {
 		performMessageTestFromComponent("Declared to Referenced",
 				"Root to Root", "Test Requirer");
 	}
 
-	public void doTestReferencedToDeclaredRootToRoot()
+	@Test
+	public void testReferencedToDeclaredRootToRoot()
 			throws InterruptedException {
 		performMessageTestFromReference(
 				"Referenced to Declared",
@@ -154,7 +154,8 @@ public class VerifierMessageTestGlobals extends BaseTest {
 				"VerifierMessageTestGlobals::MessageTest::Test Library::Component Execution Test Requirer");
 	}
 
-	public void doTestReferencedToReferencedRootToRoot()
+	@Test
+	public void testReferencedToReferencedRootToRoot()
 			throws InterruptedException {
 		performMessageTestFromReference(
 				"Referenced to Referenced",
@@ -162,7 +163,8 @@ public class VerifierMessageTestGlobals extends BaseTest {
 				"VerifierMessageTestGlobals::MessageTest::Test Library::Component Execution Test Requirer");
 	}
 
-	public void doTestReferencedToReferencedJarredRootToRoot()
+	@Test
+	public void testReferencedToReferencedJarredRootToRoot()
 	throws InterruptedException {
         performMessageTestFromReference(
 		"Referenced to Referenced",

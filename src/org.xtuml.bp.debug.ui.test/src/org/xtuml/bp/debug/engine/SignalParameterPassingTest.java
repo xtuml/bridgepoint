@@ -48,7 +48,10 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;
 import org.eclipse.ui.PlatformUI;
-
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.ClassStateMachine_c;
 import org.xtuml.bp.core.ComponentInstance_c;
 import org.xtuml.bp.core.Component_c;
@@ -74,22 +77,24 @@ import org.xtuml.bp.debug.ui.model.BPDebugTarget;
 import org.xtuml.bp.debug.ui.test.DebugUITestUtilities;
 import org.xtuml.bp.test.TestUtil;
 import org.xtuml.bp.test.common.BaseTest;
-import org.xtuml.bp.test.common.CVSUtils;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.test.common.TestingUtilities;
 import org.xtuml.bp.test.common.UITestingUtilities;
 import org.xtuml.bp.ui.text.activity.ActivityEditor;
 
+@RunWith(OrderedRunner.class)
 public class SignalParameterPassingTest extends BaseTest {
 	private static String projectName = "dts0100807430";
 
 	private boolean initialized = false;
 
-	public SignalParameterPassingTest(String testName) throws Exception {
-		super.setName(testName);
+	public SignalParameterPassingTest() throws Exception {
+//		super.setName(testName);
 	}
 
 	@Override
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		super.setUp();
 
 		if (!initialized) {
@@ -121,10 +126,12 @@ public class SignalParameterPassingTest extends BaseTest {
 		}
 	}
 	
+	@After
 	public void tearDown() throws Exception {
 		DebugUITestUtilities.stopSession(m_sys, projectName);
 	}
 	
+	@Test
 	public void testSignalParameterPassing() {
 		ModelRoot [] roots = Ooaofooa.getInstancesUnderSystem(projectName);
 		assertTrue("Expected 1 root: " + roots.length,

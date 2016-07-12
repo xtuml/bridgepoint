@@ -1,0 +1,176 @@
+========================================================================
+
+File:      $RCSfile$
+Version:   $Revision$
+Modified:  $Date$
+
+(c) Copyright 2007-2009 by Mentor Graphics Corp. All rights reserved.
+
+========================================================================
+This document contains information proprietary and confidential to
+Mentor Graphics Corp., and is not for external distribution.
+========================================================================
+
+BridgePoint Project Implementation Note
+Create unit tests for cut/copy/paste
+
+1. Abstract
+-----------
+See [2]
+
+2. History
+----------
+
+3. Document References
+----------------------
+[1] Bugzilla item 2803
+    http://tucson.wv.mentorg.com//bugzilla/show_bug.cgi?id=2803
+[2] Documentation/internal/technical/notes/2803.dnt
+[3] Bugzilla item 2771
+    http://tucson.wv.mentorg.com//bugzilla/show_bug.cgi?id=2771
+
+4. Background
+-------------
+See [2].
+
+5. Design
+---------
+See [2].
+
+6. Implementation Comments
+--------------------------
+
+6. 1  
+Some null pointers were found during io.mdl.test runs.  These occur due to
+specific test cases which are testing dangling references.  The
+create_label_provider.inc archetype is changed to return an empty string when
+the result element is null.  This case has only been seen in these specific
+tests.
+
+6.2 
+A one-line change was made to io.core/arc/export_functions.inc to fix issue 
+i2771 [3].  During an export, when navigating across children in a relationship 
+where the cardinality is "many", we now specify that the option to "load the 
+component" (second parameter) is true instead of false.
+It is tested using the reproducable case specifed in [3] comment 35.  
+Bug i2771 should be promoted with this issue.
+
+7. Unit Test
+------------
+See [2].
+
+8. Code Changes
+---------------
+com.mentor.nucleus.bp.core/arc/create_core_plugin_class.arc
+com.mentor.nucleus.bp.core/models/com.mentor.nucleus.bp.core/ooaofooa/Domain/
+    Data Type Package/Data Type Package.xtuml
+com.mentor.nucleus.bp.core/models/com.mentor.nucleus.bp.core/ooaofooa/Domain/
+    Domain/Domain.xtuml
+com.mentor.nucleus.bp.core/models/com.mentor.nucleus.bp.core/ooaofooa/Domain/
+    System Model/System Model.xtuml
+com.mentor.nucleus.bp.core/models/com.mentor.nucleus.bp.core/ooaofooa/
+    Functions/Context Menu Entry Functions/Context Menu Entry Functions.xtuml
+com.mentor.nucleus.bp.core/src/com/mentor/nucleus/bp/core/common/ModelRoot.java
+com.mentor.nucleus.bp.core/src/com/mentor/nucleus/bp/core/ui/
+    NewDomainWizard.java
+com.mentor.nucleus.bp.core/src/com/mentor/nucleus/bp/core/ui/PasteAction.java
+
+com.mentor.nucleus.bp.io.core/arc/export_functions.inc
+
+com.mentor.nucleus.bp.io.mdl/sql/stream.pei.sql
+
+com.mentor.nucleus.bp.ui.canvas/models/com.mentor.nucleus.bp.ui.canvas/
+    ooaofgraphics/Graphical Data/Model/Model.xtuml
+com.mentor.nucleus.bp.ui.canvas/src/com/mentor/nucleus/bp/ui/canvas/
+    CanvasCopyAction.java
+com.mentor.nucleus.bp.ui.canvas/src/com/mentor/nucleus/bp/ui/canvas/
+    CanvasCutAction.java
+com.mentor.nucleus.bp.ui.canvas/src/com/mentor/nucleus/bp/ui/canvas/
+    CanvasEditor.java
+com.mentor.nucleus.bp.ui.canvas/src/com/mentor/nucleus/bp/ui/canvas/
+    CanvasPasteAction.java
+com.mentor.nucleus.bp.ui.canvas/src/com/mentor/nucleus/bp/ui/canvas/Cl_c.java
+com.mentor.nucleus.bp.ui.canvas/generate.xml
+
+com.mentor.nucleus.bp.ui.canvas.test/expected_results/CopyPasteTests_1/
+    CopyPasteTests_1-108
+com.mentor.nucleus.bp.ui.canvas.test/expected_results/CopyPasteTests_1/
+    CopyPasteTests_1-108.jpg
+com.mentor.nucleus.bp.ui.canvas.test/expected_results/CopyPasteTests_2/
+    CopyPasteTests_2-100
+com.mentor.nucleus.bp.ui.canvas.test/expected_results/CopyPasteTests_2/
+    CopyPasteTests_2-100.jpg
+com.mentor.nucleus.bp.ui.canvas.test/expected_results/CopyTests_1/CopyTests_1-1
+com.mentor.nucleus.bp.ui.canvas.test/expected_results/CopyTests_1/
+    CopyTests_1-1.jpg
+com.mentor.nucleus.bp.ui.canvas.test/expected_results/CopyTests_1/CopyTests_1-5
+com.mentor.nucleus.bp.ui.canvas.test/expected_results/CopyTests_1/
+    CopyTests_1-5.jpg
+com.mentor.nucleus.bp.ui.canvas.test/expected_results/CutTests_1/CutTests_1-1
+com.mentor.nucleus.bp.ui.canvas.test/expected_results/CutTests_1/
+    CutTests_1-1.jpg
+com.mentor.nucleus.bp.ui.canvas.test/expected_results/CutTests_2/CutTests_2-1
+com.mentor.nucleus.bp.ui.canvas.test/expected_results/CutTests_2/
+    CutTests_2-1.jpg
+com.mentor.nucleus.bp.ui.canvas.test/expected_results/CutTests_3/CutTests_3-1
+com.mentor.nucleus.bp.ui.canvas.test/expected_results/CutTests_3/
+    CutTests_3-1.jpg
+com.mentor.nucleus.bp.ui.canvas.test/src/CanvasCCPResultSuite.java
+com.mentor.nucleus.bp.ui.canvas.test/src/CanvasCCPTestSuite.java
+com.mentor.nucleus.bp.ui.canvas.test/src/CanvasTestResultSuite.java
+com.mentor.nucleus.bp.ui.canvas.test/src/CanvasTestSuite.java
+com.mentor.nucleus.bp.ui.canvas.test/src/ModelRecreationResultSuite.java
+com.mentor.nucleus.bp.ui.canvas.test/src/ModelRecreationTestSuite.java
+com.mentor.nucleus.bp.ui.canvas.test/src/com/mentor/nucleus/bp/ui/canvas/test/
+    CanvasCopyPasteTests.java
+com.mentor.nucleus.bp.ui.canvas.test/src/com/mentor/nucleus/bp/ui/canvas/test/
+    CanvasCopyTests.java
+com.mentor.nucleus.bp.ui.canvas.test/src/com/mentor/nucleus/bp/ui/canvas/test/
+    CanvasCutTests.java
+com.mentor.nucleus.bp.ui.canvas.test/src/com/mentor/nucleus/bp/ui/canvas/test/
+    CanvasTest.java
+com.mentor.nucleus.bp.ui.canvas.test/src/com/mentor/nucleus/bp/ui/canvas/test/
+    ModelRecreationTests.java
+com.mentor.nucleus.bp.ui.canvas.test/plugin.xml
+com.mentor.nucleus.bp.ui.canvas.test/Test_Readme.txt
+
+com.mentor.nucleus.bp.ui.explorer/arc/create_label_provider.inc
+
+com.mentor.nucleus.bp.ui.text/src/com/mentor/nucleus/bp/ui/text/activity/
+    AllActivityModifier.java
+
+End
+---
+
+$Log$
+Revision 1.3  2009/01/01 23:12:57  rmulvey
+Job:4060
+Batch promotion of copyright changes from Review-i4060 and Review-i4060-01.
+
+Revision 1.2.4.1  2008/12/31 16:10:00  rmulvey
+Job:4060
+This is a batch commit of 2009 copyright changes to branch Review-i4060.  This includes the
+report that outlines all changes made (before/after for each line changed).  This report is found here: <cvs>/Documentation/internal/test_results/R2_1_2/i4060/update-copyright-results.txt.
+
+Revision 1.2  2007/08/31 21:26:36  rmulvey
+Job:2673
+Moved the notes associated with closed issue into Documentation/technical/archive/20070830/notes
+
+Revision 1.4  2007/03/22 20:43:18  rmulvey
+Job:2803 2771
+Described the change to com.mentor.nucleus.bp.io.core/arc/export_functions.inc and the fact that i2771 will be reviewed and promoted with i2803.
+
+Revision 1.3  2007/03/22 20:10:20  tlondon
+Job: 2803
+
+Add create_label_provider change to code changes section.
+
+Revision 1.2  2007/03/22 20:09:40  tlondon
+Job: 2803
+
+Add note about create_label_provider changes.
+
+Revision 1.1  2007/03/21 21:41:38  tlondon
+Job: 2803
+
+Introduce int with file changes.

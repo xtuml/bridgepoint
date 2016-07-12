@@ -36,6 +36,7 @@ public class BridgePointPreferencesModel implements IPreferenceModel {
     public String allowIntToRealPromotion;
     public String allowRealToIntCoercion;
     public boolean allowImplicitComponentAddressing;
+    public boolean enableParseOnActivtyEdits;
     public boolean allowOperationsInWhere;
     public boolean allowInterfaceNameInICMessage;
     public boolean enableErrorForEmptySynchronousMessage;
@@ -46,12 +47,14 @@ public class BridgePointPreferencesModel implements IPreferenceModel {
     public String exportOAL;
     public String exportGraphics;
     public String messageDirection;  
+    public String defaultActivityEditor;  
     public boolean showTransitionActions;
 	public boolean showEventParameters;
     public boolean enableFLAs;
     public boolean enableDSAs;
     public boolean enableDeterministicVerifier;
     public boolean enableInstanceReferences;
+    public boolean enableModelIntegrityCheck;
     public boolean enableVerifierAudit;
     public int enableSelectAudit;
     public int enableRelateAudit;
@@ -66,6 +69,7 @@ public class BridgePointPreferencesModel implements IPreferenceModel {
 	public boolean showReferenceRemovalDialog;
 	public boolean showReferenceSyncReport;
 	public boolean useDefaultNamesForNewModelElements;
+    public boolean createGraphicsDuringImport;
 	
     
 	public Class getStoreClass() {
@@ -85,8 +89,8 @@ public class BridgePointPreferencesModel implements IPreferenceModel {
         parseAllOnResourceChange = syncTo.parseAllOnResourceChange;
         allowIntToRealPromotion = syncTo.allowIntToRealPromotion;
         allowRealToIntCoercion = syncTo.allowRealToIntCoercion;
-        allowImplicitComponentAddressing =
-                                        syncTo.allowImplicitComponentAddressing;
+        allowImplicitComponentAddressing = syncTo.allowImplicitComponentAddressing;
+        enableParseOnActivtyEdits = syncTo.enableParseOnActivtyEdits;        
         allowOperationsInWhere = syncTo.allowOperationsInWhere;
         allowInterfaceNameInICMessage = syncTo.allowInterfaceNameInICMessage;
         enableErrorForEmptySynchronousMessage = syncTo.enableErrorForEmptySynchronousMessage;
@@ -97,14 +101,18 @@ public class BridgePointPreferencesModel implements IPreferenceModel {
 
         emitRTOData = syncTo.emitRTOData;
         exportOAL = syncTo.exportOAL;
+        createGraphicsDuringImport = syncTo.createGraphicsDuringImport;
         exportGraphics = syncTo.exportGraphics;
         messageDirection = syncTo.messageDirection; 
+        defaultActivityEditor = syncTo.defaultActivityEditor; 
         showTransitionActions = syncTo.showTransitionActions;
         showEventParameters = syncTo.showEventParameters;
         enableFLAs = syncTo.enableFLAs;
         enableDSAs = syncTo.enableDSAs;
         enableDeterministicVerifier = syncTo.enableDeterministicVerifier;
         enableInstanceReferences = syncTo.enableInstanceReferences;
+        enableModelIntegrityCheck = syncTo.enableModelIntegrityCheck;
+        createGraphicsDuringImport = syncTo.createGraphicsDuringImport;
 
         enableVerifierAudit = syncTo.enableVerifierAudit;
         enableSelectAudit = syncTo.enableSelectAudit;
@@ -120,6 +128,7 @@ public class BridgePointPreferencesModel implements IPreferenceModel {
         showReferenceRemovalDialog = syncTo.showReferenceRemovalDialog;
         showReferenceSyncReport = syncTo.showReferenceSyncReport;
         useDefaultNamesForNewModelElements = syncTo.useDefaultNamesForNewModelElements;
+        createGraphicsDuringImport = syncTo.createGraphicsDuringImport;
 	}
 
     public Object deepClone() {
@@ -128,6 +137,7 @@ public class BridgePointPreferencesModel implements IPreferenceModel {
         prefs.allowIntToRealPromotion = allowIntToRealPromotion;
         prefs.allowRealToIntCoercion = allowRealToIntCoercion;
         prefs.allowImplicitComponentAddressing = allowImplicitComponentAddressing;
+        prefs.enableParseOnActivtyEdits = enableParseOnActivtyEdits;       
         prefs.allowOperationsInWhere = allowOperationsInWhere;
         prefs.allowInterfaceNameInICMessage = allowInterfaceNameInICMessage;
         prefs.enableErrorForEmptySynchronousMessage = enableErrorForEmptySynchronousMessage;
@@ -140,12 +150,14 @@ public class BridgePointPreferencesModel implements IPreferenceModel {
         prefs.exportOAL = exportOAL;
         prefs.exportGraphics = exportGraphics;
         prefs.messageDirection = messageDirection;
+        prefs.defaultActivityEditor = defaultActivityEditor;
         prefs.showTransitionActions = showTransitionActions;
         prefs.showEventParameters = showEventParameters;
         prefs.enableFLAs = enableFLAs;
         prefs.enableDSAs = enableDSAs;
         prefs.enableDeterministicVerifier = enableDeterministicVerifier;
         prefs.enableInstanceReferences = enableInstanceReferences;
+        prefs.enableModelIntegrityCheck = enableModelIntegrityCheck;
 
         prefs.enableVerifierAudit = enableVerifierAudit;
         prefs.enableSelectAudit = enableSelectAudit;
@@ -162,6 +174,7 @@ public class BridgePointPreferencesModel implements IPreferenceModel {
         prefs.showReferenceRemovalDialog = showReferenceRemovalDialog;
         prefs.showReferenceSyncReport = showReferenceSyncReport;
         prefs.useDefaultNamesForNewModelElements = useDefaultNamesForNewModelElements;
+        prefs.createGraphicsDuringImport = createGraphicsDuringImport;
 
         return prefs;
     }

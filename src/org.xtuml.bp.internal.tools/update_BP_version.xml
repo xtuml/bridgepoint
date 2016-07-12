@@ -1,17 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
- File:      $RCSfile: update_BP_version.xml,v $
- Version:   $Revision: 1.23 $
- Modified:  $Date: 2013/06/24 14:49:24 $
-
- (c) Copyright 2011-2014 by Mentor Graphics Corp.  All rights reserved.
+ Usage Instructions: /doc-bridgepoint/process/HOWTO-update-the-BP-version-number.md
 
 -->
 <project name="bp.internal.tools" default="updateVersion" basedir="./..">
 
-    <property name="currentVersion" value="5.2.0" />
-    <property name="newVersion" value="5.3.0" />
+    <property name="currentVersion" value="5.3.4" />
+    <property name="newVersion" value="5.4.0" />
 
     <target name="updateVersion" description="Update the version of BridgePoint">
         <echo>Starting version update from ${currentVersion} to ${newVersion}</echo>

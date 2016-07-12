@@ -1,4 +1,5 @@
 package org.xtuml.bp.ui.canvas;
+import java.lang.reflect.Field;
 //=====================================================================
 //
 //File:      $RCSfile: Cl_c.java,v $
@@ -42,8 +43,13 @@ import org.xtuml.bp.core.ActorParticipant_c;
 import org.xtuml.bp.core.Association_c;
 import org.xtuml.bp.core.AsynchronousMessage_c;
 import org.xtuml.bp.core.BinaryAssociation_c;
+import org.xtuml.bp.core.ClassAsAssociatedOneSide_c;
 import org.xtuml.bp.core.ClassAsLink_c;
+import org.xtuml.bp.core.ClassAsSimpleFormalizer_c;
+import org.xtuml.bp.core.ClassAsSimpleParticipant_c;
 import org.xtuml.bp.core.ClassAsSubtype_c;
+import org.xtuml.bp.core.ClassAsSupertype_c;
+import org.xtuml.bp.core.ClassInAssociation_c;
 import org.xtuml.bp.core.ClassInEngine_c;
 import org.xtuml.bp.core.ClassInState_c;
 import org.xtuml.bp.core.ClassInstanceParticipant_c;
@@ -60,11 +66,13 @@ import org.xtuml.bp.core.CreationTransition_c;
 import org.xtuml.bp.core.DecisionMergeNode_c;
 import org.xtuml.bp.core.Delegation_c;
 import org.xtuml.bp.core.EnumerationDataType_c;
+import org.xtuml.bp.core.Exception_c;
 import org.xtuml.bp.core.Extend_c;
 import org.xtuml.bp.core.ExternalEntityParticipant_c;
 import org.xtuml.bp.core.ExternalEntity_c;
 import org.xtuml.bp.core.FlowFinalNode_c;
 import org.xtuml.bp.core.ForkJoinNode_c;
+import org.xtuml.bp.core.Gd_c;
 import org.xtuml.bp.core.Generalization_c;
 import org.xtuml.bp.core.ImportedClass_c;
 import org.xtuml.bp.core.ImportedProvision_c;
@@ -78,14 +86,20 @@ import org.xtuml.bp.core.Lifespan_c;
 import org.xtuml.bp.core.LinkedAssociation_c;
 import org.xtuml.bp.core.ModelClass_c;
 import org.xtuml.bp.core.Monitor_c;
+import org.xtuml.bp.core.NewStateTransition_c;
+import org.xtuml.bp.core.NoEventTransition_c;
 import org.xtuml.bp.core.ObjectNode_c;
 import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.PackageParticipant_c;
 import org.xtuml.bp.core.Package_c;
 import org.xtuml.bp.core.Provision_c;
+import org.xtuml.bp.core.ReferredToClassInAssoc_c;
+import org.xtuml.bp.core.ReferringClassInAssoc_c;
 import org.xtuml.bp.core.Requirement_c;
 import org.xtuml.bp.core.ReturnMessage_c;
 import org.xtuml.bp.core.SendSignal_c;
+import org.xtuml.bp.core.SimpleAssociation_c;
+import org.xtuml.bp.core.StateEventMatrixEntry_c;
 import org.xtuml.bp.core.StateMachineState_c;
 import org.xtuml.bp.core.StateMachine_c;
 import org.xtuml.bp.core.StructuredDataType_c;
@@ -98,6 +112,7 @@ import org.xtuml.bp.core.UseCaseParticipant_c;
 import org.xtuml.bp.core.UserDataType_c;
 import org.xtuml.bp.core.User_c;
 import org.xtuml.bp.core.common.ClassQueryInterface_c;
+import org.xtuml.bp.core.common.ILogger;
 import org.xtuml.bp.core.common.IdAssigner;
 import org.xtuml.bp.core.common.ModelRoot;
 import org.xtuml.bp.core.common.NonRootModelElement;
@@ -275,21 +290,41 @@ public class Cl_c {
     	
     	return uuid_invoke(From, Using, argTypes, args);
     }
+    
+	public static UUID Getthetargetconnectorid(final UUID Ooa_id, final int Ooa_type, final Object system) {
+		UUID id = null;
+		Object connector = Getinstancefromooa_id(Ooa_id, Ooa_type, system);
+		Class[] argTypes = new Class[0];
+		Object[] args = new Object[0];
+		return uuid_invoke(connector, "Getconnectedid", argTypes, args);
+	}
+
     public static UUID Getelementid(final Object From, int index, final String Using) {
         Class[] argTypes = new Class[1];
         argTypes[0] = int.class;
         Object[] args = new Object[1];
         args[0] = new Integer(index);
+        
+        return uuid_invoke(From, Using, argTypes, args);
+    }
+    
+    public static Object Getelementinstance(final Object From, int index, final String Using) {
+        Class[] argTypes = new Class[1];
+        argTypes[0] = int.class;
+        Object[] args = new Object[1];
+        args[0] = new Integer(index);
     	
-    	return uuid_invoke(From, Using, argTypes, args);
-}
+    	return invoke(From, Using, argTypes, args);
+    }
+    
     public static int Numconnectors(boolean elementTypesMatch,
     		                            final Object From, final String Using) {
         Class[] argTypes = new Class[1];
         argTypes[0] = boolean.class;
         Object[] args = new Object[1];
         args[0] = new Boolean(elementTypesMatch);
-    	return i_invoke(From, Using, argTypes, args);
+
+        return i_invoke(From, Using, argTypes, args);
     }
     public static int Numelements(final Object From, final String Using) {
         Class[] argTypes = null;
@@ -311,6 +346,30 @@ public class Cl_c {
 		return HierarchyUtil.Getpath(element);
 	}
 
+	public static Object Getooainstance(final UUID Ooa_id,
+            final Object rootElement) {
+		Class<Ooatype_c> ooaTypeClass = (Class<Ooatype_c>)Ooatype_c.class;
+		Field[] fields = ooaTypeClass.getDeclaredFields();
+		Object result = null;
+		for (int i = 0; i < fields.length;i++) {
+			String name = fields[i].getName();
+			if (!name.equalsIgnoreCase("OOA_UNINITIALIZED_ENUM")) {
+				Class cl = int.class;
+				int value = -1;
+				try {
+					value = (Integer)fields[i].get(cl);
+				} catch (IllegalArgumentException | IllegalAccessException e) {
+					CanvasPlugin.logError("Failed to find value for OOA_Type="+name, null);
+				}
+				result = Getinstancefromooa_id(Ooa_id, value
+	                     , rootElement);
+				if (result != null) {
+					break;
+				}
+			}
+		}
+		return result;
+	}
 	public static Object Getinstancefromooa_id(
             SystemModel_c system,
             final UUID Ooa_id,
@@ -1402,6 +1461,25 @@ public class Cl_c {
 	                    new PackageParticipant_Query_c());
             }
             return result;
+        } else if (Ooa_type == Ooatype_c.Exception) {
+            Object result = modelRoot.getInstanceList(Exception_c.class).get(
+                    Ooa_id);
+            if (result == null) {
+	            class Exception_Query_c implements ClassQueryInterface_c {
+	                public boolean evaluate(Object candidate) {
+	                    if (((Exception_c) candidate).Get_ooa_id().equals(
+	                            Ooa_id)) {
+	                        return true;
+	                    }
+	
+	                    return false;
+	                }
+	            }
+	
+	            result = Exception_c.ExceptionInstance(modelRoot,
+	                    new Exception_Query_c());
+            }
+            return result;
         } else {
             return null;
         }
@@ -1570,6 +1648,9 @@ public class Cl_c {
     }
     return null;
   }
+  public static String Getmodelrootname(Object from) {
+	  return Cl_c.getModelRootname(from);
+  }
   //
   // invoke - invoke a method
   // result of invocation is used by caller
@@ -1644,29 +1725,56 @@ private static String s_invoke(
 		      
 }
 
-private static String[] errorReportingIgnoredFor = new String[] { "Getdescription", "getDescrip", "not used", "Get_connector_tooltip"};
-public static Method findMethod (Object target, String methodName, Class[] argTypes)
-  {
-    try {
-        return
-            target.getClass().getMethod(methodName, argTypes);
-    } catch (NoSuchMethodException e) {
-    	 boolean shouldIgnore = false;
-    	 for(int i = 0; i < errorReportingIgnoredFor.length; i++)
-    		 if(errorReportingIgnoredFor[i].equals(methodName)) {
-    			 shouldIgnore = true;
-    	 		 break;
-    		 }
-    	if(shouldIgnore)
-    		return null;
-        CanvasPlugin.logError(
-            "Client method, " + methodName + " not found: ", e);
-    }  	
-    return null;
-  }
-private static boolean hasMethod (Object target, String methodName, Class[] argTypes)
+	private static final String NOT_USED="";
+	private static String[] errorReportingIgnoredFor = new String[] { "Getdescription", "getDescrip", NOT_USED, "Get_connector_tooltip"};
+
+	public static Method findMethod(Object target, String methodName, Class[] argTypes) {
+		Method result = null;
+		try {
+
+			if (!NOT_USED.equalsIgnoreCase(methodName)) {
+				result = target.getClass().getMethod(methodName, argTypes);
+			}
+		} catch (NoSuchMethodException e) {
+			// TODO BOB FIXME: I am ignoring all ClientNotFound operations right now because
+			//                 OAL added in operations made inside GD_ARS.Reconcile are being made
+			//                 against items that are not present. These are not fatal though, 
+			//                 and they are causing too much "noise". This does need to be
+			//                 put back into place and resolved by not making calls that are 
+			//                 not needed, but right now attempts to do that cause this that
+			//                 do need to be called to not get called and it is not worth chasing 
+			//                 right now.
+			
+//			boolean shouldIgnore = false;
+//			for (int i = 0; i < errorReportingIgnoredFor.length; i++) {
+//				if (errorReportingIgnoredFor[i].equals(methodName)) {
+//					shouldIgnore = true;
+//					break;
+//				}
+//			}
+//			
+//			if (!shouldIgnore) {
+//				String targetname = target.getClass().getName();
+//				String argumentTypes = "";
+//				for (int i = 0; (argTypes != null) && (i < argTypes.length); i++) {
+//					if (i > 0) {
+//						argumentTypes += ", ";
+//					}
+//					argumentTypes += argTypes[i].getSimpleName();
+//				}
+//				CanvasPlugin.logError("Client method not found. Target: " + targetname + "  OperationName: " + methodName + "  Argument(s): \"" + argumentTypes + "\"", e);
+//			}
+		}
+		return result;
+	}
+
+	private static boolean hasMethod (Object target, String methodName, Class[] argTypes)
 {
-	return CoreUtil.hasMethod(target, methodName, argTypes);
+	boolean result = false;
+	if (!NOT_USED.equalsIgnoreCase(methodName)) {
+		result = CoreUtil.hasMethod(target, methodName, argTypes);
+	}
+	return result;
 }
 public static Object doMethod (Method m, Object target, Object[] args)
   {
@@ -1920,6 +2028,14 @@ public static void Settoolbarstate(boolean readonly) {
 		CanvasPlugin.logError(message, null);
 	}
 		
+	public static void Logtracemsg(int Filteryype, String Filtervalue, String Message) {
+		CanvasPlugin.logTraceMsg(Filteryype, Filtervalue, Message);
+	}
+		
+	public static void Traceoperation(String msg) {
+		Cl_c.Logtracemsg(ILogger.OPERATION, "", msg);		
+	}
+	
 	public static boolean Connectorsupportslinking(Object connector) {
 		return hasMethod(connector, "Linkconnector", new Class[] {UUID.class}); //$NON-NLS-1$
 	}
@@ -1931,4 +2047,71 @@ public static void Settoolbarstate(boolean readonly) {
         args[0] = new Integer(end);
         return s_invoke(represents, "Get_connector_tooltip", argTypes, args);
 	}
+
+	public static boolean Tracegraphicscreationisenabled() {
+		return CanvasPlugin.stringBufferLoggingIsEnabled();
+	}
+	
+	public static void Writetracelog(String filename) {
+		if (Tracegraphicscreationisenabled()) {
+			CanvasPlugin.writeTraceLog(filename);
+		}
+	}	
+	
+	// This function gets the name of any NonRootModelElement
+    public static String Getmodelelementname(final Object From) {
+    	return s_invoke(From, "getName", null, null);
+    }
+    
+    // This is really sort-of a hack around the ooag -> ooaofooa 
+    // interface for graphics reconciliation which is
+    // defined by GD_ARS. This is a special case for 
+    // reflexives
+    public static Boolean Isreflexive(final Object connectorInstance) {
+    	boolean isReflexive = false;
+    	if (connectorInstance instanceof Association_c) {
+    		Association_c assoc = (Association_c)connectorInstance;
+			ClassAsSimpleParticipant_c[] parts = ClassAsSimpleParticipant_c
+					.getManyR_PARTsOnR207(SimpleAssociation_c.getOneR_SIMPOnR206(assoc));
+			if (parts.length == 1) {
+				// check for formalized reflexive
+				ClassAsSimpleFormalizer_c form = ClassAsSimpleFormalizer_c
+						.getOneR_FORMOnR208(SimpleAssociation_c.getOneR_SIMPOnR206(assoc));
+				if (parts[0].getObj_id() ==form.getObj_id()) {
+					isReflexive = true;
+	  			}
+			} else if (parts.length > 1) {
+    			// check for unformalized reflexive
+    			if (parts[0].getObj_id() == parts[1].getObj_id()) {
+      			  isReflexive = true;
+    			}
+    		}
+    	} else if (connectorInstance instanceof Transition_c) {
+			Transition_c trans = (Transition_c) connectorInstance;
+			StateMachineState_c smsDest = StateMachineState_c.getOneSM_STATEOnR506(trans);
+			
+			StateMachineState_c smsSourceNoEventTrans = StateMachineState_c
+					.getOneSM_STATEOnR508(NoEventTransition_c.getOneSM_NETXNOnR507(trans));
+			
+			StateMachineState_c smsSourceNewStateTrans = StateMachineState_c.getOneSM_STATEOnR503(
+					StateEventMatrixEntry_c.getOneSM_SEMEOnR504(NewStateTransition_c.getOneSM_NSTXNOnR507(trans)));
+					
+    		if ((smsDest != null) && (smsDest == smsSourceNoEventTrans || smsDest == smsSourceNewStateTrans)) {
+    			isReflexive = true;
+    		}
+    	}
+    	return isReflexive;
+    }
+    
+    public static Boolean Isooalinkedassocinstance(final Object connectorInstance) {
+    	Boolean result = false;
+    	if (connectorInstance instanceof Association_c) {
+    		LinkedAssociation_c linkedAssoc = LinkedAssociation_c.getOneR_ASSOCOnR206((Association_c)connectorInstance);    		
+    		if (linkedAssoc != null) {
+    			result = true;
+    		}
+    	}
+    	return result;
+    }
+        
 }// End Cl_c

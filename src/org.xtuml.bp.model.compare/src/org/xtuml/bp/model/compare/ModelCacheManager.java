@@ -598,7 +598,6 @@ public class ModelCacheManager {
 						streamProcessor = new ModelStreamProcessor();
 						modelInputLoader = CorePlugin.getStreamImportFactory()
 								.create(sca, compareRoot, true, new Path(""));
-						CoreImport.createUniqueIds = false;
 						streamProcessor.setContents(contents);
 						streamProcessor.setImporter(modelInputLoader);
 					}
@@ -687,7 +686,6 @@ public class ModelCacheManager {
 					errorMessage = e.getMessage();
 					ComparePlugin.writeToLog(errorMessage, e, this);
 				} finally {
-					CoreImport.createUniqueIds = true;
 					IdAssigner.setSeedOfAllInstances(0, false);
 					if (sca != null) {
 						try {

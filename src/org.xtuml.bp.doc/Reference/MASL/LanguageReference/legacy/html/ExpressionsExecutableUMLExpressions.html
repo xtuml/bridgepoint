@@ -1,0 +1,1122 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>14.16. Executable UML Expressions</title>
+<link rel="stylesheet" type="text/css" href="docbook.css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
+<meta name="keywords" content="MASL, Action Language, Action Semantics, UML, Unified Modelling Language, Shlaer Mellor">
+<link rel="home" href="index.html" title="MASL Reference Manual">
+<link rel="up" href="Expressions.html" title="Chapter 14. Expressions">
+<link rel="prev" href="ExpressionsConstantExpressions.html" title="14.15. Constant Expressions">
+<link rel="next" href="LanguageDefinedCharacteristics.html" title="Appendix A. Language Defined Characteristics">
+<link rel="preface" href="preface.html" title="Preface">
+<link rel="chapter" href="Grammars.html" title="Chapter 1. Grammars">
+<link rel="chapter" href="LexicalStructure.html" title="Chapter 2. Lexical Structure">
+<link rel="chapter" href="Types.html" title="Chapter 3. Types">
+<link rel="chapter" href="TypeConversion.html" title="Chapter 4. Type Conversion">
+<link rel="chapter" href="Domains.html" title="Chapter 5. Domains">
+<link rel="chapter" href="Objects.html" title="Chapter 6. Objects">
+<link rel="chapter" href="Relationships.html" title="Chapter 7. Relationships">
+<link rel="chapter" href="Lifecycles.html" title="Chapter 8. Lifecycles">
+<link rel="chapter" href="Functions.html" title="Chapter 9. Functions">
+<link rel="chapter" href="Services.html" title="Chapter 10. Services">
+<link rel="chapter" href="Exceptions.html" title="Chapter 11. Exceptions">
+<link rel="chapter" href="Statements.html" title="Chapter 12. Statements">
+<link rel="chapter" href="Names.html" title="Chapter 13. Names">
+<link rel="chapter" href="Expressions.html" title="Chapter 14. Expressions">
+<link rel="appendix" href="LanguageDefinedCharacteristics.html" title="Appendix A. Language Defined Characteristics">
+<link rel="appendix" href="SyntaxSummary.html" title="Appendix B. Syntax Summary">
+<link rel="index" href="ix01.html" title="Index">
+<link rel="subsection" href="ExpressionsExecutableUMLExpressions.html#ExpressionsCreateExpressions" title="14.16.1. Create Expressions">
+<link rel="subsection" href="ExpressionsExecutableUMLExpressions.html#ExpressionsFindExpressions" title="14.16.2. Find Expressions">
+<link rel="subsection" href="ExpressionsExecutableUMLExpressions.html#ExpressionsRelationshipNavigation" title="14.16.3. Relationship Navigation">
+<link rel="subsection" href="ExpressionsExecutableUMLExpressions.html#ExpressionsCorrelatedRelationshipNavigation" title="14.16.4. Correlated Relationship Navigation">
+<link rel="subsection" href="ExpressionsExecutableUMLExpressions.html#ExpressionsOrderingExpressions" title="14.16.5. Ordering Expressions">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div align="center">OFFICIAL</div>
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center">14.16. Executable UML Expressions</th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="ExpressionsConstantExpressions.html">Prev</a> </td>
+<th width="60%" align="center">Chapter 14. Expressions</th>
+<td width="20%" align="right"> <a accesskey="n" href="LanguageDefinedCharacteristics.html">Next</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h2 class="title">
+<a name="ExpressionsExecutableUMLExpressions"></a>14.16. Executable UML Expressions</h2></div></div></div>
+<div class="toc"><dl class="toc">
+<dt><span class="section"><a href="ExpressionsExecutableUMLExpressions.html#ExpressionsCreateExpressions">14.16.1. Create Expressions</a></span></dt>
+<dd><dl><dt><span class="section"><a href="ExpressionsExecutableUMLExpressions.html#ExpressionsObjectAggregates">14.16.1.1. Object Aggregates</a></span></dt></dl></dd>
+<dt><span class="section"><a href="ExpressionsExecutableUMLExpressions.html#ExpressionsFindExpressions">14.16.2. Find Expressions</a></span></dt>
+<dd><dl><dt><span class="section"><a href="ExpressionsExecutableUMLExpressions.html#ExpressionsFindConditions">14.16.2.1. Find Conditions</a></span></dt></dl></dd>
+<dt><span class="section"><a href="ExpressionsExecutableUMLExpressions.html#ExpressionsRelationshipNavigation">14.16.3. Relationship Navigation</a></span></dt>
+<dt><span class="section"><a href="ExpressionsExecutableUMLExpressions.html#ExpressionsCorrelatedRelationshipNavigation">14.16.4. Correlated Relationship Navigation</a></span></dt>
+<dt><span class="section"><a href="ExpressionsExecutableUMLExpressions.html#ExpressionsOrderingExpressions">14.16.5. Ordering Expressions</a></span></dt>
+<dd><dl>
+<dt><span class="section"><a href="ExpressionsExecutableUMLExpressions.html#ExpressionsInstanceOrderingExpressions">14.16.5.1. Instance Ordering Expressions</a></span></dt>
+<dt><span class="section"><a href="ExpressionsExecutableUMLExpressions.html#ExpressionsStructureOrderingExpressions">14.16.5.2. Structure Ordering Expressions</a></span></dt>
+</dl></dd>
+</dl></div>
+<p>
+All of the types of expression described so far have been type of expression that
+are not specific to executable UML models.
+<a class="indexterm" name="idp72414304"></a>
+An <a class="link" href="ExpressionsExecutableUMLExpressions.html#ebnf.extendedexpression">extended expression</a>
+<a class="indexterm" name="idp72416640"></a>
+is any of the
+types of expression described so far, together with the types of expression that
+are specific to executable UML models.
+</p>
+<a class="indexterm" name="idp72418528"></a><a class="indexterm" name="idp72419696"></a><a class="indexterm" name="idp72420864"></a><a class="indexterm" name="idp72422032"></a><a class="indexterm" name="idp72423200"></a><a class="indexterm" name="idp72424384"></a><a class="indexterm" name="idp72425552"></a><table width="100%" cellpadding="5" bgcolor="#F5DCB3" border="1" class="productionset" summary="EBNF"><tr><td><table border="0" width="99%" cellpadding="0" bgcolor="#F5DCB3" class="productionset" summary="EBNF productions"><tr>
+<td align="left" valign="top" width="3%">[217]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.extendedexpression"></a>
+        extended expression
+    </td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="ExpressionsExecutableUMLExpressions.html#ebnf.createexpression">create expression</a> |
+        <a href="ExpressionsExecutableUMLExpressions.html#ebnf.findexpression">find expression</a> |
+        <a href="ExpressionsExecutableUMLExpressions.html#ebnf.relationshipnavigation">relationship navigation</a> |
+        <a href="ExpressionsExecutableUMLExpressions.html#ebnf.correlatedrelationshipnavigation">correlated relationship navigation</a> |
+        <a href="ExpressionsExecutableUMLExpressions.html#ebnf.orderingexpression">ordering expression</a> |
+        <a href="ExpressionsExpression.html#ebnf.expression">expression</a>
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr></table></td></tr></table>
+<p>
+The places where
+<a class="link" href="ExpressionsExecutableUMLExpressions.html#ebnf.extendedexpression">extended expression</a>
+<a class="indexterm" name="idp72434288"></a>
+can be used is restricted to the right-hand side of an assignment. In addition,
+the results obtained from extended expression must be assigned to a variable
+or parameter and hence must be given a name.
+</p>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="ExpressionsCreateExpressions"></a>14.16.1. Create Expressions</h3></div></div></div>
+<p>
+A <a class="link" href="ExpressionsExecutableUMLExpressions.html#ebnf.createexpression"><span class="emphasis"><em>create expression</em></span></a>
+<a class="indexterm" name="idp72438336"></a>
+is used to create new instances of objects.
+</p>
+<a class="indexterm" name="idp72440144"></a><a class="indexterm" name="idp72441312"></a><a class="indexterm" name="idp72442608"></a><a class="indexterm" name="idp72443904"></a><a class="indexterm" name="idp72445072"></a><table width="100%" cellpadding="5" bgcolor="#F5DCB3" border="1" class="productionset" summary="EBNF"><tr><td><table border="0" width="99%" cellpadding="0" bgcolor="#F5DCB3" class="productionset" summary="EBNF productions"><tr>
+<td align="left" valign="top" width="3%">[218]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.createexpression"></a>
+        create expression
+    </td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        'create',
+        '.',
+        [ 'unique' ],
+        <a href="ObjectsObjectDeclaration.html#ebnf.objectname">object name</a>,
+        '(',
+        <a href="ExpressionsExecutableUMLExpressions.html#ebnf.objectaggregate">object aggregate</a>,
+        ')'
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr></table></td></tr></table>
+<p>
+For create expressions where the optional
+<a class="link" href="ExpressionsExecutableUMLExpressions.html#ebnf.createexpression"><code class="literal">unique</code></a>
+<a class="indexterm" name="idp72451024"></a>
+is not used, the
+<a class="link" href="ExpressionsExecutableUMLExpressions.html#ExpressionsCreateExpressions" title="14.16.1. Create Expressions">object aggregate</a>
+<a class="indexterm" name="idp72452784"></a>
+<a class="indexterm" name="idp72454128"></a>
+must supply initial values for all non-referential preferred attributes,
+<a class="indexterm" name="idp72455536"></a>
+otherwise a compile-time error occurs.
+</p>
+<p>
+For create expressions where the optional
+<a class="link" href="ExpressionsExecutableUMLExpressions.html#ebnf.createexpression"><code class="literal">unique</code></a>
+<a class="indexterm" name="idp72458240"></a>
+is used,
+any non-referential attributes that are not given initial values, are given by
+the architecture, suitable values that make the created instance unique. If
+suitable values cannot by found, then an exception is raised.
+</p>
+<p>
+A compile-time error occurs if the object name does not name an object that has
+already been declared in the enclosing domain.
+</p>
+<p>
+The type of a
+<a class="link" href="ExpressionsExecutableUMLExpressions.html#ebnf.createexpression"><span class="emphasis"><em>create expression</em></span></a>
+<a class="indexterm" name="idp72461328"></a>
+is the <a class="link" href="TypesInstanceTypes.html" title="3.4. Instance Types">instance type</a>
+<a class="indexterm" name="idp72463392"></a>
+of the object designated by the object name. For the evaluation of a
+<a class="link" href="ExpressionsExecutableUMLExpressions.html#ebnf.createexpression"><span class="emphasis"><em>create expression</em></span></a>,
+<a class="indexterm" name="idp72465632"></a>
+the elaboration of the object name is performed first. An instance of the
+designated object is created and values for the
+<a class="link" href="ObjectsAttributes.html" title="6.4. Attributes">attributes</a>
+<a class="indexterm" name="idp72467808"></a>
+are obtained and
+assigned into the corresponding attributes of the instance. The create
+expression yields a value that designates the created instance. The only
+exception to this is in the body of a
+<a class="link" href="LifecyclesStates.html#LifecyclesCreationStates" title="8.1.1.3. Creation States">creation state</a>
+<a class="indexterm" name="idp72469632"></a>
+of the object.
+If an initial value for the state of the created instance is not given, then the
+initial state of the created instance is set to the enclosing
+<a class="link" href="LifecyclesStates.html#LifecyclesCreationStates" title="8.1.1.3. Creation States">creation state</a>.
+<a class="indexterm" name="idp72471856"></a>
+</p>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="ExpressionsObjectAggregates"></a>14.16.1.1. Object Aggregates</h4></div></div></div>
+<p>
+An <a class="link" href="ExpressionsExecutableUMLExpressions.html#ebnf.objectaggregate"><span class="emphasis"><em>object aggregate</em></span></a>
+<a class="indexterm" name="idp72475712"></a>
+<a class="indexterm" name="idp72477328"></a>
+gives initial values for attributes and the state of the created instance in a
+<a class="link" href="ExpressionsExecutableUMLExpressions.html#ExpressionsCreateExpressions" title="14.16.1. Create Expressions">create expression</a>.
+<a class="indexterm" name="idp72479424"></a>
+</p>
+<a class="indexterm" name="idp72480928"></a><a class="indexterm" name="idp72482096"></a><a class="indexterm" name="idp72483264"></a><a class="indexterm" name="idp72484448"></a><a class="indexterm" name="idp72485632"></a><a class="indexterm" name="idp72486944"></a><a class="indexterm" name="idp72488256"></a><table width="100%" cellpadding="5" bgcolor="#F5DCB3" border="1" class="productionset" summary="EBNF"><tr><td><table border="0" width="99%" cellpadding="0" bgcolor="#F5DCB3" class="productionset" summary="EBNF productions">
+<tr>
+<td align="left" valign="top" width="3%">[219]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.objectaggregate"></a>
+        object aggregate
+    </td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="ExpressionsExecutableUMLExpressions.html#ebnf.attributeassociation">attribute association</a>,
+        {(',',
+        <a href="ExpressionsExecutableUMLExpressions.html#ebnf.attributeassociation">attribute association</a>)}
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[220]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.attributeassociation"></a>
+        attribute association
+    </td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="ObjectsAttributes.html#ebnf.attributename">attribute name</a>,
+        '=&gt;',
+        <a href="ExpressionsExpression.html#ebnf.expression">expression</a> |
+        'Current_State', '=&gt;',
+        <a href="LifecyclesStates.html#ebnf.statename">state name</a>
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+</table></td></tr></table>
+<p>
+All of the following must be true or a compile-time error will result:
+</p>
+<div class="itemizedlist"><ul class="itemizedlist">
+<li class="listitem"><p>
+The <a class="link" href="ObjectsAttributes.html" title="6.4. Attributes">attribute name</a>,
+<a class="indexterm" name="idp72499280"></a>
+in an
+<a class="link" href="ExpressionsExecutableUMLExpressions.html#ebnf.attributeassociation">attribute association</a>,
+<a class="indexterm" name="idp72501360"></a>
+names an attribute of the object being created.
+</p></li>
+<li class="listitem"><p>
+The type of the expression, in an
+<a class="link" href="ExpressionsExecutableUMLExpressions.html#ebnf.attributeassociation">attribute association</a>,
+<a class="indexterm" name="idp72504384"></a>
+is assignable to the type of the attribute named by the
+<a class="link" href="ObjectsAttributes.html" title="6.4. Attributes">attribute name</a>.
+<a class="indexterm" name="idp72506496"></a>
+</p></li>
+<li class="listitem"><p>
+The attribute named by the
+<a class="link" href="ObjectsAttributes.html" title="6.4. Attributes">attribute name</a>,
+<a class="indexterm" name="idp72509472"></a>
+in an
+<a class="link" href="ExpressionsExecutableUMLExpressions.html#ebnf.attributeassociation">attribute association</a>,
+<a class="indexterm" name="idp72511552"></a>
+is assignable (see <a class="xref" href="NamesAssignabilityofNames.html" title="13.5. Assignability of Names">Section 13.5, “Assignability of Names”</a>).
+</p></li>
+<li class="listitem"><p>
+The <a class="link" href="LifecyclesStates.html#LifecyclesStateDefinition" title="8.1.4. State Definition">state name</a>,
+<a class="indexterm" name="idp72515104"></a>
+in an
+<a class="link" href="ExpressionsExecutableUMLExpressions.html#ebnf.attributeassociation">attribute association</a>,
+<a class="indexterm" name="idp72517184"></a>
+names an
+<a class="link" href="LifecyclesStates.html#LifecyclesInstanceStates" title="8.1.1.4. Instance States">instance</a>
+<a class="indexterm" name="idp72519264"></a>
+or
+<a class="link" href="LifecyclesStates.html#LifecyclesCreationStates" title="8.1.1.3. Creation States">creation state</a>
+<a class="indexterm" name="idp72520896"></a>
+of the object being created.
+</p></li>
+<li class="listitem"><p>
+There is only one
+<a class="link" href="ExpressionsExecutableUMLExpressions.html#ebnf.attributeassociation">attribute association</a>
+<a class="indexterm" name="idp72523888"></a>
+for an attribute.
+</p></li>
+<li class="listitem"><p>
+There is only one
+<a class="link" href="ExpressionsExecutableUMLExpressions.html#ebnf.attributeassociation">attribute association</a>
+<a class="indexterm" name="idp72526864"></a>
+for the <code class="literal">Current_State</code>.
+<a class="indexterm" name="idp72528656"></a>
+</p></li>
+<li class="listitem"><p>
+If an attribute is of a type which is an
+<a class="link" href="TypesFullDeclarations.html#TypesUnconstrainedArrayTypes" title="3.7.4. Unconstrained Array Types">unconstrained array</a>
+<a class="indexterm" name="idp72531344"></a>
+type, then
+an <a class="link" href="ExpressionsExecutableUMLExpressions.html#ebnf.attributeassociation">attribute association</a>
+<a class="indexterm" name="idp72533424"></a>
+must exit to formally constrain the attribute.
+</p></li>
+</ul></div>
+<p>
+</p>
+</div>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="ExpressionsFindExpressions"></a>14.16.2. Find Expressions</h3></div></div></div>
+<p>
+Instances of an object can be obtained using a
+<a class="link" href="ExpressionsExecutableUMLExpressions.html#ebnf.findexpression"><span class="emphasis"><em>find expression</em></span></a>.
+<a class="indexterm" name="idp72538080"></a>
+</p>
+<a class="indexterm" name="idp72539856"></a><a class="indexterm" name="idp72541024"></a><a class="indexterm" name="idp72542320"></a><a class="indexterm" name="idp72543488"></a><a class="indexterm" name="idp72544656"></a><a class="indexterm" name="idp72545952"></a><a class="indexterm" name="idp72547248"></a><a class="indexterm" name="idp72548544"></a><a class="indexterm" name="idp72549712"></a><a class="indexterm" name="idp72550880"></a><a class="indexterm" name="idp72552016"></a><a class="indexterm" name="idp72553184"></a><table width="100%" cellpadding="5" bgcolor="#F5DCB3" border="1" class="productionset" summary="EBNF"><tr><td><table border="0" width="99%" cellpadding="0" bgcolor="#F5DCB3" class="productionset" summary="EBNF productions">
+<tr>
+<td align="left" valign="top" width="3%">[221]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.findexpression"></a>
+        find expression
+    </td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        'find',
+        <a href="ExpressionsExecutableUMLExpressions.html#ebnf.findspecification">find specification</a>,
+        '(',
+        <a href="ExpressionsExecutableUMLExpressions.html#ebnf.findcondition">find condition</a>,
+        ')' |
+        'find_all',
+        <a href="ExpressionsExecutableUMLExpressions.html#ebnf.findspecification">find specification</a>,
+        '(', ')' |
+        'find_one',
+        <a href="ExpressionsExecutableUMLExpressions.html#ebnf.findspecification">find specification</a>,
+        '(',
+        [<a href="ExpressionsExecutableUMLExpressions.html#ebnf.findcondition">find condition</a>],
+        ')' |
+        'find_only',
+        <a href="ExpressionsExecutableUMLExpressions.html#ebnf.findspecification">find specification</a>,
+        '(',
+        [<a href="ExpressionsExecutableUMLExpressions.html#ebnf.findcondition">find condition</a>],
+        ')'
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[222]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.findspecification"></a>
+        find specification
+    </td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="ExpressionsExecutableUMLExpressions.html#ebnf.scopedobjectname">scoped object name</a> |
+        <a href="ExpressionsInstanceandInstanceCollectionExpressions.html#ebnf.instancecollectionexpression">instance collection expression</a>
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[223]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.scopedobjectname"></a>
+        scoped object name
+    </td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="DomainsNamesandScoping.html#ebnf.scopedname">scoped name</a>
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+</table></td></tr></table>
+<p>
+There are two kinds of
+<a class="link" href="ExpressionsExecutableUMLExpressions.html#ebnf.findexpression"><span class="emphasis"><em>find expression</em></span></a>
+<a class="indexterm" name="idp72568576"></a>
+The first, finds all the
+<a class="link" href="ExpressionsInstanceandInstanceCollectionExpressions.html" title="14.14. Instance and Instance Collection Expressions">instances</a>
+<a class="indexterm" name="idp72570688"></a>
+of an object that satisfy a
+<a class="link" href="ExpressionsConditions.html" title="14.13. Conditions">condition</a>.
+<a class="indexterm" name="idp72572320"></a>
+The second, finds all the instances in an
+<a class="link" href="ExpressionsInstanceandInstanceCollectionExpressions.html" title="14.14. Instance and Instance Collection Expressions">instance collection</a>
+<a class="indexterm" name="idp72574000"></a>
+that satisfy a condition. For both kinds of
+<a class="link" href="ExpressionsExecutableUMLExpressions.html#ebnf.findexpression"><span class="emphasis"><em>find expression</em></span></a>
+<a class="indexterm" name="idp72576224"></a>
+there are four forms:
+</p>
+<div class="itemizedlist"><ul class="itemizedlist">
+<li class="listitem"><p>
+<code class="literal">find</code> finds a
+<a class="link" href="TypesCollectionTypes.html#TypesSetTypes" title="3.3.1. Set Types"><span class="type">set</span></a>
+<a class="indexterm" name="idp72580000"></a>
+of instances satisfying a
+<a class="link" href="ExpressionsConditions.html" title="14.13. Conditions">condition</a>.
+<a class="indexterm" name="idp72581760"></a>
+</p></li>
+<li class="listitem"><p>
+<code class="literal">find_all</code> finds all the instances.
+<a class="indexterm" name="idp72584016"></a>
+</p></li>
+<li class="listitem"><p>
+<code class="literal">find_one</code>
+<a class="indexterm" name="idp72586384"></a>
+finds an arbitrary instance satisfying an optional
+<a class="link" href="ExpressionsConditions.html" title="14.13. Conditions">condition</a>.
+<a class="indexterm" name="idp72588160"></a>
+</p></li>
+<li class="listitem"><p>
+<code class="literal">find_only</code>
+<a class="indexterm" name="idp72590400"></a>
+finds the only instance satisfying an optional
+<a class="link" href="ExpressionsConditions.html" title="14.13. Conditions">condition</a>.
+<a class="indexterm" name="idp72592176"></a>
+</p></li>
+</ul></div>
+<p>
+A compile-time error occurs if the
+<a class="link" href="ExpressionsExecutableUMLExpressions.html#ebnf.scopedobjectname"><span class="emphasis"><em>scoped name</em></span></a>
+<a class="indexterm" name="idp72594416"></a>
+does not name an object that has already been declared.
+</p>
+<p>
+The evaluation of a find expression proceeds in two steps:
+</p>
+<div class="orderedlist"><ol class="orderedlist" type="1">
+<li class="listitem">
+<p>
+First a target <a class="link" href="TypesCollectionTypes.html#TypesSetTypes" title="3.3.1. Set Types"><span class="type">set</span></a>
+<a class="indexterm" name="idp72597872"></a>
+is constructed. For a
+<a class="link" href="ExpressionsExecutableUMLExpressions.html#ebnf.findexpression"><span class="emphasis"><em>find expression</em></span></a>
+<a class="indexterm" name="idp72599744"></a>
+whose
+<a class="link" href="ExpressionsExecutableUMLExpressions.html#ebnf.findspecification">find specification</a>
+<a class="indexterm" name="idp72601808"></a>
+is either:
+</p>
+<div class="itemizedlist"><ul class="itemizedlist">
+<li class="listitem"><p>
+<a class="link" href="ExpressionsExecutableUMLExpressions.html#ebnf.scopedobjectname"><span class="emphasis"><em>Scoped object name</em></span></a>,
+<a class="indexterm" name="idp72604688"></a>
+the target
+<a class="link" href="TypesCollectionTypes.html#TypesSetTypes" title="3.3.1. Set Types"><span class="type">set</span></a>
+<a class="indexterm" name="idp72606880"></a>
+contains all the instances of the designated object.
+</p></li>
+<li class="listitem"><p>
+An instance
+<a class="link" href="ExpressionsInstanceandInstanceCollectionExpressions.html" title="14.14. Instance and Instance Collection Expressions">instance collection expression</a>,
+<a class="indexterm" name="idp72609600"></a>
+<a class="indexterm" name="idp72611392"></a>
+the target set contains all the instances of the collection.
+</p></li>
+</ul></div>
+<p>
+</p>
+</li>
+<li class="listitem">
+<p>
+The instances of this target
+<a class="link" href="TypesCollectionTypes.html#TypesSetTypes" title="3.3.1. Set Types"><span class="type">set</span></a>
+<a class="indexterm" name="idp72615472"></a>
+are then used to yield the result of the
+<a class="link" href="ExpressionsExecutableUMLExpressions.html#ebnf.findexpression"><span class="emphasis"><em>find expression</em></span></a>.
+<a class="indexterm" name="idp72617376"></a>
+For results for each type of
+<a class="link" href="ExpressionsExecutableUMLExpressions.html#ebnf.findexpression"><span class="emphasis"><em>find expression</em></span></a>
+<a class="indexterm" name="idp72619584"></a>
+are as follows:
+</p>
+<div class="itemizedlist"><ul class="itemizedlist">
+<li class="listitem"><p>
+For <code class="literal">find</code>, the
+<a class="link" href="ExpressionsExecutableUMLExpressions.html#ebnf.findexpression"><span class="emphasis"><em>find expression</em></span></a> 
+<a class="indexterm" name="idp72623360"></a>
+yields all the instances in the target
+<a class="link" href="TypesCollectionTypes.html#TypesSetTypes" title="3.3.1. Set Types"><span class="type">set</span></a>
+<a class="indexterm" name="idp72625584"></a>
+that satisfy the find
+<a class="link" href="ExpressionsConditions.html" title="14.13. Conditions">condition</a>.
+<a class="indexterm" name="idp72627328"></a>
+</p></li>
+<li class="listitem"><p>
+For <code class="literal">find_all</code>, the
+<a class="link" href="ExpressionsExecutableUMLExpressions.html#ebnf.findexpression"><span class="emphasis"><em>find expression</em></span></a> 
+<a class="indexterm" name="idp72630416"></a>
+yields all the instances in the target
+<a class="link" href="TypesCollectionTypes.html#TypesSetTypes" title="3.3.1. Set Types"><span class="type">set</span></a>.
+<a class="indexterm" name="idp72632640"></a>
+</p></li>
+<li class="listitem"><p>
+For <code class="literal">find_one</code>, the
+<a class="link" href="ExpressionsExecutableUMLExpressions.html#ebnf.findexpression"><span class="emphasis"><em>find expression</em></span></a> 
+<a class="indexterm" name="idp72635856"></a>
+yields an arbitrary instance in the target
+<a class="link" href="TypesCollectionTypes.html#TypesSetTypes" title="3.3.1. Set Types"><span class="type">set</span></a>.
+<a class="indexterm" name="idp72638080"></a>
+that satisfies the optional
+<a class="link" href="ExpressionsConditions.html" title="14.13. Conditions">find condition</a>.
+<a class="indexterm" name="idp72639840"></a>
+If there
+are no instances the satisfy the optional
+<a class="link" href="ExpressionsConditions.html" title="14.13. Conditions">condition</a>,
+<a class="indexterm" name="idp72641936"></a>
+then the
+<a class="link" href="ExpressionsExecutableUMLExpressions.html#ebnf.findexpression"><span class="emphasis"><em>find expression</em></span></a>
+<a class="indexterm" name="idp72643680"></a>
+yields a <code class="literal">null</code> instance.
+<a class="indexterm" name="idp72645472"></a>
+</p></li>
+<li class="listitem"><p>
+For <code class="literal">find_only</code>,
+<a class="indexterm" name="idp72647840"></a>
+the
+<a class="link" href="ExpressionsExecutableUMLExpressions.html#ebnf.findexpression"><span class="emphasis"><em>find expression</em></span></a> 
+<a class="indexterm" name="idp72649712"></a>
+yields the only instance in the target
+<a class="link" href="TypesCollectionTypes.html#TypesSetTypes" title="3.3.1. Set Types"><span class="type">set</span></a>
+<a class="indexterm" name="idp72651936"></a>
+that satisfies the
+optional <a class="link" href="ExpressionsConditions.html" title="14.13. Conditions">find condition</a>.
+<a class="indexterm" name="idp72653696"></a>
+If there are more an one instance the satisfy the optional
+<a class="link" href="ExpressionsConditions.html" title="14.13. Conditions">condition</a>,
+<a class="indexterm" name="idp72655808"></a>
+then an <a class="link" href="Exceptions.html" title="Chapter 11. Exceptions">exception</a> is raised.
+<a class="indexterm" name="idp72657424"></a>
+</p></li>
+</ul></div>
+<p>
+</p>
+</li>
+</ol></div>
+<p>
+The type of a <code class="literal">find</code>
+<a class="indexterm" name="idp72660176"></a>
+and <code class="literal">find_all</code>
+<a class="indexterm" name="idp72661648"></a>
+expression is the <a class="link" href="TypesCollectionTypes.html#TypesSetTypes" title="3.3.1. Set Types"><span class="type">set</span></a>
+<a class="indexterm" name="idp72663520"></a>
+type whose element type is the
+<a class="link" href="TypesInstanceTypes.html" title="3.4. Instance Types">instance type</a>
+<a class="indexterm" name="idp72665280"></a>
+of the object being found.
+</p>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="ExpressionsFindConditions"></a>14.16.2.1. Find Conditions</h4></div></div></div>
+<p>
+A <a class="link" href="ExpressionsExecutableUMLExpressions.html#ebnf.findcondition"><span class="emphasis"><em>find condition</em></span></a>
+<a class="indexterm" name="idp72668768"></a>
+is used to specify which instances are found by a
+<a class="link" href="ExpressionsExecutableUMLExpressions.html#ExpressionsFindExpressions" title="14.16.2. Find Expressions">find expression</a>.
+<a class="indexterm" name="idp72671104"></a>
+</p>
+<a class="indexterm" name="idp72672608"></a><a class="indexterm" name="idp72673776"></a><a class="indexterm" name="idp72674944"></a><a class="indexterm" name="idp72676240"></a><a class="indexterm" name="idp72677408"></a><a class="indexterm" name="idp72678576"></a><a class="indexterm" name="idp72679872"></a><a class="indexterm" name="idp72681040"></a><a class="indexterm" name="idp72682208"></a><a class="indexterm" name="idp72683504"></a><a class="indexterm" name="idp72684688"></a><a class="indexterm" name="idp72685888"></a><a class="indexterm" name="idp72687072"></a><a class="indexterm" name="idp72688368"></a><a class="indexterm" name="idp72689552"></a><a class="indexterm" name="idp72690752"></a><a class="indexterm" name="idp72691936"></a><a class="indexterm" name="idp72693120"></a><a class="indexterm" name="idp72694416"></a><a class="indexterm" name="idp72695584"></a><a class="indexterm" name="idp72696880"></a><a class="indexterm" name="idp72698176"></a><a class="indexterm" name="idp72699472"></a><a class="indexterm" name="idp72700640"></a><a class="indexterm" name="idp72701936"></a><table width="100%" cellpadding="5" bgcolor="#F5DCB3" border="1" class="productionset" summary="EBNF"><tr><td><table border="0" width="99%" cellpadding="0" bgcolor="#F5DCB3" class="productionset" summary="EBNF productions">
+<tr>
+<td align="left" valign="top" width="3%">[224]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.findcondition"></a>
+        find condition
+    </td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="ExpressionsExecutableUMLExpressions.html#ebnf.findxorcondition">find xor condition</a> |
+        <a href="ExpressionsExecutableUMLExpressions.html#ebnf.findcondition">find condition</a>,
+        'or',
+        <a href="ExpressionsExecutableUMLExpressions.html#ebnf.findxorcondition">find xor condition</a>
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[225]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.findxorcondition"></a>
+        find xor condition
+    </td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="ExpressionsExecutableUMLExpressions.html#ebnf.findandcondition">find and condition</a> |
+        <a href="ExpressionsExecutableUMLExpressions.html#ebnf.findxorcondition">find xor condition</a>,
+        'xor',
+        <a href="ExpressionsExecutableUMLExpressions.html#ebnf.findandcondition">find and condition</a>
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[226]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.findandcondition"></a>
+        find and condition
+    </td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="ExpressionsExecutableUMLExpressions.html#ebnf.findequalitycondition">find equality condition</a> |
+        <a href="ExpressionsExecutableUMLExpressions.html#ebnf.findandcondition">find and condition</a>,
+        'and',
+        <a href="ExpressionsExecutableUMLExpressions.html#ebnf.findequalitycondition">find equality condition</a>
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[227]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.findequalitycondition"></a>
+        find equality condition
+    </td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="ExpressionsExecutableUMLExpressions.html#ebnf.findrelationalcondition">find relational condition</a> |
+        <a href="Names.html#ebnf.name">name</a>,
+        '/=',
+        <a href="ExpressionsRelationalOperators.html#ebnf.relationalexpression">relational expression</a> |
+        <a href="Names.html#ebnf.name">name</a>,
+        '=',
+        <a href="ExpressionsRelationalOperators.html#ebnf.relationalexpression">relational expression</a>
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[228]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.findrelationalcondition"></a>
+        find relational condition
+    </td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="ExpressionsExecutableUMLExpressions.html#ebnf.findunarycondition">find unary condition</a> |
+        <a href="Names.html#ebnf.name">name</a>,
+        '&lt;',
+        <a href="ExpressionsAdditiveOperators.html#ebnf.additiveexpression">additive expression</a> |
+        <a href="Names.html#ebnf.name">name</a>,
+        '&gt;',
+        <a href="ExpressionsAdditiveOperators.html#ebnf.additiveexpression">additive expression</a> |
+        <a href="Names.html#ebnf.name">name</a>,
+        '&lt;=',
+        <a href="ExpressionsAdditiveOperators.html#ebnf.additiveexpression">additive expression</a> |
+        <a href="Names.html#ebnf.name">name</a>,
+        '&gt;=',
+        <a href="ExpressionsAdditiveOperators.html#ebnf.additiveexpression">additive expression</a>
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[229]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.findunarycondition"></a>
+        find unary condition
+    </td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        'not',
+        <a href="ExpressionsExecutableUMLExpressions.html#ebnf.findunarycondition">find unary condition</a> |
+        '(',
+        <a href="ExpressionsExecutableUMLExpressions.html#ebnf.findcondition">find condition</a>,
+        ')'
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+</table></td></tr></table>
+<p>
+A <a class="link" href="ExpressionsExecutableUMLExpressions.html#ebnf.findcondition"><span class="emphasis"><em>find condition</em></span></a>
+<a class="indexterm" name="idp72733568"></a>
+is a restricted <a class="link" href="ExpressionsConditions.html" title="14.13. Conditions">condition</a>
+<a class="indexterm" name="idp72735632"></a>
+that is evaluated in the scope of the instance being checked. This means that in
+addition to all the entities that were in scope, all of the attributes of the
+instance being checked are also in scope.
+</p>
+<p>
+A compile-tome error occurs if the name on the left-hand side does not name
+an attribute or sub-component (using either
+<a class="link" href="NamesIndexedComponents.html#ebnf.indexedcomponent">indexed</a>
+<a class="indexterm" name="idp72738000"></a>
+or <a class="link" href="NamesSelectedComponents.html" title="13.2. Selected Components">selected component</a>)
+<a class="indexterm" name="idp72740064"></a>
+of an attribute of the object being found.
+The type of a
+<a class="link" href="ExpressionsExecutableUMLExpressions.html#ebnf.findcondition"><span class="emphasis"><em>find condition</em></span></a>,
+<a class="indexterm" name="idp72742304"></a>
+<a class="link" href="ExpressionsExecutableUMLExpressions.html#ebnf.findxorcondition"><span class="emphasis"><em>find xor condition</em></span></a>,
+<a class="indexterm" name="idp72744496"></a>
+<a class="link" href="ExpressionsExecutableUMLExpressions.html#ebnf.findandcondition"><span class="emphasis"><em>find and condition</em></span></a>,
+<a class="indexterm" name="idp72747136"></a>
+<a class="link" href="ExpressionsExecutableUMLExpressions.html#ebnf.findequalitycondition"><span class="emphasis"><em>find equality condition</em></span></a>,
+<a class="indexterm" name="idp72749792"></a>
+<a class="link" href="ExpressionsExecutableUMLExpressions.html#ebnf.findrelationalcondition"><span class="emphasis"><em>find relational condition</em></span></a>
+<a class="indexterm" name="idp72752464"></a>
+and 
+<a class="link" href="ExpressionsExecutableUMLExpressions.html#ebnf.findunarycondition"><span class="emphasis"><em>find unary condition</em></span></a>
+<a class="indexterm" name="idp72755104"></a>
+is always
+<a class="link" href="TypesBuiltinTypes.html#TypesBooleanType" title="3.2.3. Boolean Type"><span class="type">boolean</span></a>.
+<a class="indexterm" name="idp72757744"></a>
+For evaluation of a
+<a class="link" href="ExpressionsExecutableUMLExpressions.html#ebnf.findcondition"><span class="emphasis"><em>find condition</em></span></a>
+<a class="indexterm" name="idp72759616"></a>
+for a specific instance, the
+<a class="link" href="ExpressionsExecutableUMLExpressions.html#ebnf.findcondition"><span class="emphasis"><em>find condition</em></span></a>
+<a class="indexterm" name="idp72761824"></a>
+is evaluated on the instance. The
+<a class="link" href="ExpressionsExecutableUMLExpressions.html#ebnf.findcondition"><span class="emphasis"><em>find condition</em></span></a>
+<a class="indexterm" name="idp72764032"></a>
+yields either true or false depending upon whether the instance satisfies the
+<a class="link" href="ExpressionsExecutableUMLExpressions.html#ebnf.findcondition"><span class="emphasis"><em>find condition</em></span></a>.
+<a class="indexterm" name="idp72766288"></a>
+</p>
+</div>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="ExpressionsRelationshipNavigation"></a>14.16.3. Relationship Navigation</h3></div></div></div>
+<p>
+A <a class="link" href="ExpressionsExecutableUMLExpressions.html#ebnf.relationshipnavigation"><span class="emphasis"><em>relationship navigation</em></span></a>
+<a class="indexterm" name="idp72770432"></a>
+allows relationships specified between objects to be read in order to determine
+the <a class="link" href="ExpressionsInstanceandInstanceCollectionExpressions.html" title="14.14. Instance and Instance Collection Expressions">instance or collection of instances</a>
+<a class="indexterm" name="idp72772608"></a>
+<a class="indexterm" name="idp72773504"></a>
+that are related to an
+<a class="link" href="ExpressionsInstanceandInstanceCollectionExpressions.html" title="14.14. Instance and Instance Collection Expressions">instance or collection of instances</a>
+<a class="indexterm" name="idp72775632"></a>
+<a class="indexterm" name="idp72776528"></a>
+of interest.
+</p>
+<a class="indexterm" name="idp72778032"></a><a class="indexterm" name="idp72779216"></a><a class="indexterm" name="idp72780400"></a><a class="indexterm" name="idp72781712"></a><a class="indexterm" name="idp72782912"></a><table width="100%" cellpadding="5" bgcolor="#F5DCB3" border="1" class="productionset" summary="EBNF"><tr><td><table border="0" width="99%" cellpadding="0" bgcolor="#F5DCB3" class="productionset" summary="EBNF productions"><tr>
+<td align="left" valign="top" width="3%">[230]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.relationshipnavigation"></a>
+        relationship navigation
+    </td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="ExpressionsInstanceandInstanceCollectionExpressions.html#ebnf.instanceexpression">instance expression</a>,
+        '-&gt;',
+        <a href="RelationshipsRelationshipSpecifications.html#ebnf.relationshipspecification">relationship specification</a>,
+        {('-&gt;',
+        <a href="RelationshipsRelationshipSpecifications.html#ebnf.relationshipspecification">relationship specification</a>)} |
+        <a href="ExpressionsInstanceandInstanceCollectionExpressions.html#ebnf.instancecollectionexpression">instance collection expression</a>,
+        '-&gt;',
+        <a href="RelationshipsRelationshipSpecifications.html#ebnf.relationshipspecification">relationship specification</a>,
+        {('-&gt;',
+        <a href="RelationshipsRelationshipSpecifications.html#ebnf.relationshipspecification">relationship specification</a>)}
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr></table></td></tr></table>
+<p>
+A compile-time error occurs if the
+<a class="link" href="RelationshipsRelationshipSpecifications.html" title="7.4. Relationship Specification">relationship specification</a>
+<a class="indexterm" name="idp72791936"></a>
+is invalid for the type being navigated from. The rules for this are described
+in <a class="xref" href="RelationshipsRelationshipSpecifications.html" title="7.4. Relationship Specification">Section 7.4, “Relationship Specification”</a>.
+The type of relationship navigation is
+described in <a class="xref" href="RelationshipsRelationshipSpecifications.html" title="7.4. Relationship Specification">Section 7.4, “Relationship Specification”</a>.
+A <a class="link" href="ExpressionsExecutableUMLExpressions.html#ebnf.relationshipnavigation"><span class="emphasis"><em>relationship navigation</em></span></a>
+<a class="indexterm" name="idp72795392"></a>
+yields either the
+<a class="link" href="ExpressionsInstanceandInstanceCollectionExpressions.html" title="14.14. Instance and Instance Collection Expressions">instance or collection of instances</a>
+<a class="indexterm" name="idp72797504"></a>
+<a class="indexterm" name="idp72799296"></a>
+that the given
+<a class="link" href="ExpressionsInstanceandInstanceCollectionExpressions.html" title="14.14. Instance and Instance Collection Expressions">instance or collection of instances</a>
+<a class="indexterm" name="idp72801856"></a>
+<a class="indexterm" name="idp72803648"></a>
+are related to using the
+<a class="link" href="RelationshipsRelationshipSpecifications.html" title="7.4. Relationship Specification">relationship specification</a>.
+<a class="indexterm" name="idp72806208"></a>
+equivalent to doing the first navigation, taking the result of this and then
+doing the second navigation and so on.
+If a navigation is performed from a <code class="literal">null</code>
+<a class="indexterm" name="idp72808144"></a>
+instance then result is either a <code class="literal">null</code>
+<a class="indexterm" name="idp72809632"></a>
+<a class="link" href="ExpressionsInstanceandInstanceCollectionExpressions.html" title="14.14. Instance and Instance Collection Expressions">instance or collection of instances.</a>
+<a class="indexterm" name="idp72811424"></a>
+<a class="indexterm" name="idp72813216"></a>
+</p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="ExpressionsCorrelatedRelationshipNavigation"></a>14.16.4. Correlated Relationship Navigation</h3></div></div></div>
+<p>
+A <a class="link" href="ExpressionsExecutableUMLExpressions.html#ebnf.correlatedrelationshipnavigation"><span class="emphasis"><em>correlated navigation</em></span></a>
+<a class="indexterm" name="idp72817696"></a>
+navigation allows
+<a class="link" href="RegularRelationships.html" title="7.2. Regular Relationships">associative relationships</a>
+<a class="indexterm" name="idp72820224"></a>
+specified between objects to be read in order to determine the instance or set
+of instances of the associative object
+<a class="indexterm" name="idp72821664"></a>
+that are related to a pair of related instances.
+</p>
+<a class="indexterm" name="idp72823136"></a><a class="indexterm" name="idp72824336"></a><a class="indexterm" name="idp72825648"></a><a class="indexterm" name="idp72826832"></a><table width="100%" cellpadding="5" bgcolor="#F5DCB3" border="1" class="productionset" summary="EBNF"><tr><td><table border="0" width="99%" cellpadding="0" bgcolor="#F5DCB3" class="productionset" summary="EBNF productions"><tr>
+<td align="left" valign="top" width="3%">[231]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.correlatedrelationshipnavigation"></a>
+        correlated relationship navigation
+    </td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="ExpressionsInstanceandInstanceCollectionExpressions.html#ebnf.instanceexpression">instance expression</a>,
+        'with',
+        <a href="ExpressionsInstanceandInstanceCollectionExpressions.html#ebnf.instanceexpression">instance expression</a>,
+        '-&gt;',
+        <a href="RelationshipsRelationshipSpecifications.html#ebnf.relationshipspecification">relationship specification</a>
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr></table></td></tr></table>
+<p>
+A compile-time error occurs if the
+<a class="link" href="RelationshipsCorrelatedRelationshipSpecification.html" title="7.5. Correlated Relationship Specification">correlated relationship specification</a>
+<a class="indexterm" name="idp72833648"></a>
+is invalid for the two <a class="link" href="TypesInstanceTypes.html" title="3.4. Instance Types">instance types</a>
+<a class="indexterm" name="idp72836176"></a>
+being navigation from. The rules for this are described in
+<a class="xref" href="RelationshipsCorrelatedRelationshipSpecification.html" title="7.5. Correlated Relationship Specification">Section 7.5, “Correlated Relationship Specification”</a>.
+Evaluation of a
+<a class="link" href="RelationshipsCorrelatedRelationshipSpecification.html" title="7.5. Correlated Relationship Specification">correlated relationship specification</a>
+<a class="indexterm" name="idp72838928"></a>
+consists of evaluation of both of the
+<a class="link" href="ExpressionsInstanceandInstanceCollectionExpressions.html" title="14.14. Instance and Instance Collection Expressions">instance expressions</a>.
+<a class="indexterm" name="idp72841488"></a>
+<a class="indexterm" name="idp72842832"></a>
+The correlated relationship navigation yields either the
+<a class="link" href="ExpressionsInstanceandInstanceCollectionExpressions.html" title="14.14. Instance and Instance Collection Expressions">instance or <span class="type">set</span> of instances</a>
+<a class="indexterm" name="idp72845424"></a>
+<a class="indexterm" name="idp72846320"></a>
+that the given instances are related to, using the
+<a class="link" href="RelationshipsCorrelatedRelationshipSpecification.html" title="7.5. Correlated Relationship Specification">correlated relationship specification</a>.
+<a class="indexterm" name="idp72848592"></a>
+</p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="ExpressionsOrderingExpressions"></a>14.16.5. Ordering Expressions</h3></div></div></div>
+<p>
+An <a class="link" href="ExpressionsExecutableUMLExpressions.html#ebnf.orderingexpression">ordering expression</a>
+<a class="indexterm" name="idp72852864"></a>
+allows the analyst to order a
+<a class="link" href="TypesCollectionTypes.html" title="3.3. Collection Types">collection</a>
+<a class="indexterm" name="idp72855168"></a>
+<a class="indexterm" name="idp72856064"></a>
+of <a class="link" href="TypesInstanceTypes.html" title="3.4. Instance Types">instances</a>
+<a class="indexterm" name="idp72858128"></a>
+<a class="indexterm" name="idp72859024"></a>
+or a <a class="link" href="TypesCollectionTypes.html" title="3.3. Collection Types">collection</a>
+<a class="indexterm" name="idp72861088"></a>
+<a class="indexterm" name="idp72861984"></a>
+of <a class="link" href="TypesFullDeclarations.html#TypesStructureTypes" title="3.7.2. Structure Types"><span class="type">structures</span></a>.
+<a class="indexterm" name="idp72864176"></a>
+<a class="indexterm" name="idp72865200"></a>
+</p>
+<a class="indexterm" name="idp72866704"></a><a class="indexterm" name="idp72867872"></a><a class="indexterm" name="idp72869056"></a><table width="100%" cellpadding="5" bgcolor="#F5DCB3" border="1" class="productionset" summary="EBNF"><tr><td><table border="0" width="99%" cellpadding="0" bgcolor="#F5DCB3" class="productionset" summary="EBNF productions"><tr>
+<td align="left" valign="top" width="3%">[232]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.orderingexpression"></a>
+        ordering expression
+    </td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="ExpressionsExecutableUMLExpressions.html#ebnf.instanceorderingexpression">instance ordering expression</a> |
+        <a href="ExpressionsExecutableUMLExpressions.html#ebnf.structureorderingexpression">structure ordering expression</a>
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr></table></td></tr></table>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="ExpressionsInstanceOrderingExpressions"></a>14.16.5.1. Instance Ordering Expressions</h4></div></div></div>
+<p>
+The elements in an <a class="link" href="TypesInstanceTypes.html" title="3.4. Instance Types">instance</a>
+<a class="link" href="TypesCollectionTypes.html" title="3.3. Collection Types">collection</a>
+<a class="indexterm" name="idp72876768"></a>
+can be explicitly ordered using an
+<a class="link" href="ExpressionsExecutableUMLExpressions.html#ebnf.instanceorderingexpression"><span class="emphasis"><em>instance ordering expression</em></span></a>.
+<a class="indexterm" name="idp72879008"></a>
+<a class="indexterm" name="idp72881072"></a>
+</p>
+<a class="indexterm" name="idp72883296"></a><a class="indexterm" name="idp72884496"></a><a class="indexterm" name="idp72885808"></a><a class="indexterm" name="idp72887008"></a><a class="indexterm" name="idp72888192"></a><a class="indexterm" name="idp72889504"></a><a class="indexterm" name="idp72890688"></a><table width="100%" cellpadding="5" bgcolor="#F5DCB3" border="1" class="productionset" summary="EBNF"><tr><td><table border="0" width="99%" cellpadding="0" bgcolor="#F5DCB3" class="productionset" summary="EBNF productions">
+<tr>
+<td align="left" valign="top" width="3%">[233]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.instanceorderingexpression"></a>
+        instance ordering expression
+    </td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="ExpressionsInstanceandInstanceCollectionExpressions.html#ebnf.instancecollectionexpression">instance collection expression</a>,
+        'ordered_by', '(',
+        <a href="ExpressionsExecutableUMLExpressions.html#ebnf.instanceordering">instance ordering</a>,
+        ')' |
+        <a href="ExpressionsInstanceandInstanceCollectionExpressions.html#ebnf.instancecollectionexpression">instance collection expression</a>,
+        'reverse ordered_by', '(',
+        <a href="ExpressionsExecutableUMLExpressions.html#ebnf.instanceordering">instance ordering</a>,
+        ')' |
+        <a href="ExpressionsExecutableUMLExpressions.html#ebnf.findexpression">find expression</a>,
+        'ordered_by', '(',
+        <a href="ExpressionsExecutableUMLExpressions.html#ebnf.instanceordering">instance ordering</a>,
+        ')' |
+        <a href="ExpressionsExecutableUMLExpressions.html#ebnf.findexpression">find expression</a>,
+        'reverse_ordered_by', '(',
+        <a href="ExpressionsExecutableUMLExpressions.html#ebnf.instanceordering">instance ordering</a>,
+        ')'
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[234]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.instanceordering"></a>
+        instance ordering
+    </td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="ObjectsAttributes.html#ebnf.attributename">attribute name</a>,
+        {(''',
+        <a href="ObjectsAttributes.html#ebnf.attributename">attribute name</a>)}
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+</table></td></tr></table>
+<p>
+A compile-time error occurs if:
+</p>
+<div class="itemizedlist"><ul class="itemizedlist">
+<li class="listitem"><p>
+The type of the
+<a class="link" href="ExpressionsExecutableUMLExpressions.html#ExpressionsFindExpressions" title="14.16.2. Find Expressions">find expression</a>
+<a class="indexterm" name="idp72905408"></a>
+is not an
+<a class="link" href="TypesInstanceTypes.html" title="3.4. Instance Types">instance</a>
+<a class="link" href="TypesCollectionTypes.html" title="3.3. Collection Types">collection</a> type.
+<a class="indexterm" name="idp72908192"></a>
+<a class="indexterm" name="idp72909984"></a>
+</p></li>
+<li class="listitem"><p>
+An attribute name in an
+<a class="link" href="ExpressionsExecutableUMLExpressions.html#ebnf.instanceordering"><span class="emphasis"><em>instance ordering</em></span></a>
+<a class="indexterm" name="idp72913536"></a>
+does not name an attribute of the object whose instances are being ordered.
+</p></li>
+<li class="listitem"><p>
+An attribute is named more than once in an
+<a class="link" href="ExpressionsExecutableUMLExpressions.html#ebnf.instanceordering"><span class="emphasis"><em>instance ordering</em></span></a>.
+<a class="indexterm" name="idp72916720"></a>
+</p></li>
+</ul></div>
+<p>
+</p>
+<p>
+The type of an
+<a class="link" href="ExpressionsExecutableUMLExpressions.html#ebnf.instanceordering"><span class="emphasis"><em>instance ordering</em></span></a>
+<a class="indexterm" name="idp72919840"></a>
+expression is the <a class="link" href="TypesCollectionTypes.html#TypesSequenceTypes" title="3.3.3. Sequence Types"><span class="type">sequence</span></a>
+type whose element type is the element type of the collection being ordered.
+Evaluation of an
+<a class="link" href="ExpressionsExecutableUMLExpressions.html#ebnf.instanceordering"><span class="emphasis"><em>instance ordering</em></span></a>
+<a class="indexterm" name="idp72922960"></a>
+expression first evaluates the <a class="link" href="TypesInstanceTypes.html" title="3.4. Instance Types">instance</a>
+<a class="link" href="TypesCollectionTypes.html" title="3.3. Collection Types">collection</a>
+<a class="indexterm" name="idp72925760"></a>
+<a class="indexterm" name="idp72927552"></a>
+expression or
+<a class="link" href="ExpressionsExecutableUMLExpressions.html#ExpressionsFindExpressions" title="14.16.2. Find Expressions">find expression</a>.
+<a class="indexterm" name="idp72930080"></a>
+Evaluation of an
+<a class="link" href="ExpressionsExecutableUMLExpressions.html#ebnf.instanceordering"><span class="emphasis"><em>instance ordering</em></span></a>
+<a class="indexterm" name="idp72932272"></a>
+yields a <a class="link" href="TypesCollectionTypes.html#TypesSequenceTypes" title="3.3.3. Sequence Types"><span class="type">sequence</span></a> that
+<a class="indexterm" name="idp72934464"></a>
+<a class="indexterm" name="idp72935488"></a>
+contains all the elements of the resultant
+<a class="link" href="TypesCollectionTypes.html" title="3.3. Collection Types">collection</a> in a specific order.
+In the case of <code class="literal">ordered_by</code>,
+<a class="indexterm" name="idp72938048"></a>
+the ordering will be such that
+for each successive element in the sequence, the first will be the element
+with lowest value of the first attribute in the instance ordering.
+In the case of <code class="literal">reverse_ordered_by</code>,
+<a class="indexterm" name="idp72939696"></a>
+the ordering will be such
+that for each successive element in the sequence, the first will be the element
+with highest value of the first attribute in the instance ordering.
+Where ordering on multiple attributes is specified, the sequence will be sorted
+by the first attribute and then within each value of this, by the second
+attribute and so on.
+</p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="ExpressionsStructureOrderingExpressions"></a>14.16.5.2. Structure Ordering Expressions</h4></div></div></div>
+<p>
+The components in a
+<a class="link" href="TypesFullDeclarations.html#TypesStructureTypes" title="3.7.2. Structure Types"><span class="type">structure</span></a>
+<a class="link" href="TypesCollectionTypes.html" title="3.3. Collection Types">collection</a>
+<a class="indexterm" name="idp72944416"></a>
+can be explicitly ordered using a
+<a class="link" href="ExpressionsExecutableUMLExpressions.html#ebnf.structureorderingexpression"><span class="emphasis"><em>structure ordering expression</em></span></a>.
+<a class="indexterm" name="idp72946928"></a>
+</p>
+<a class="indexterm" name="idp72949152"></a><a class="indexterm" name="idp72950352"></a><a class="indexterm" name="idp72951536"></a><a class="indexterm" name="idp72952848"></a><a class="indexterm" name="idp72954032"></a><a class="indexterm" name="idp72955344"></a><a class="indexterm" name="idp72956512"></a><table width="100%" cellpadding="5" bgcolor="#F5DCB3" border="1" class="productionset" summary="EBNF"><tr><td><table border="0" width="99%" cellpadding="0" bgcolor="#F5DCB3" class="productionset" summary="EBNF productions">
+<tr>
+<td align="left" valign="top" width="3%">[235]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.structureorderingexpression"></a>
+        structure ordering expression
+    </td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="NamesIndexedComponents.html#ebnf.prefix">prefix</a>,
+        'ordered_by','(',
+        <a href="ExpressionsExecutableUMLExpressions.html#ebnf.structureordering">structure ordering</a>,
+        ')' |
+        <a href="NamesIndexedComponents.html#ebnf.prefix">prefix</a>,
+        'reverse_ordered_by','(',
+        <a href="ExpressionsExecutableUMLExpressions.html#ebnf.structureordering">structure ordering</a>,
+        ')'
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[236]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.structureordering"></a>
+        structure ordering
+    </td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="TypesFullDeclarations.html#ebnf.componentname">component name</a>,
+        {(',',
+        <a href="TypesFullDeclarations.html#ebnf.componentname">component name</a>)}
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+</table></td></tr></table>
+<p>
+A compile-time error occurs if:
+</p>
+<div class="itemizedlist"><ul class="itemizedlist">
+<li class="listitem"><p>
+The type of the <a class="link" href="NamesIndexedComponents.html" title="13.1. Indexed Components">prefix</a>
+<a class="indexterm" name="idp72968256"></a>
+is not a <a class="link" href="TypesFullDeclarations.html#TypesStructureTypes" title="3.7.2. Structure Types"><span class="type">structure</span></a>
+<a class="link" href="TypesCollectionTypes.html" title="3.3. Collection Types">collection</a> type.
+<a class="indexterm" name="idp72970720"></a>
+<a class="indexterm" name="idp72972512"></a>
+</p></li>
+<li class="listitem"><p>
+A <a class="link" href="TypesFullDeclarations.html#TypesStructureTypes" title="3.7.2. Structure Types">component name</a>
+<a class="indexterm" name="idp72975920"></a>
+in a
+<a class="link" href="ExpressionsExecutableUMLExpressions.html#ebnf.structureordering"><span class="emphasis"><em>structure ordering</em></span></a>
+<a class="indexterm" name="idp72978112"></a>
+does not name a component of the
+<a class="link" href="TypesFullDeclarations.html#TypesStructureTypes" title="3.7.2. Structure Types"><span class="type">structure</span></a>
+<a class="indexterm" name="idp72980320"></a>
+whose values are being ordered.
+</p></li>
+<li class="listitem"><p>
+A <a class="link" href="TypesFullDeclarations.html#TypesStructureTypes" title="3.7.2. Structure Types">component</a>
+<a class="indexterm" name="idp72983296"></a>
+is named more than once in a structure ordering.
+</p></li>
+</ul></div>
+<p>
+</p>
+<p>
+The type of a
+<a class="link" href="ExpressionsExecutableUMLExpressions.html#ebnf.structureorderingexpression"><span class="emphasis"><em>structure ordering expression</em></span></a>
+<a class="indexterm" name="idp72986032"></a>
+is the <a class="link" href="TypesCollectionTypes.html#TypesSequenceTypes" title="3.3.3. Sequence Types"><span class="type">sequence</span></a> type
+<a class="indexterm" name="idp72988672"></a>
+whose element is the element type of the
+<a class="link" href="TypesCollectionTypes.html" title="3.3. Collection Types">collection</a>
+<a class="indexterm" name="idp72990448"></a>
+being ordered. Evaluation of a
+<a class="link" href="ExpressionsExecutableUMLExpressions.html#ebnf.structureorderingexpression"><span class="emphasis"><em>structure ordering expression</em></span></a>
+<a class="indexterm" name="idp72992240"></a>
+first evaluates the <a class="link" href="NamesIndexedComponents.html" title="13.1. Indexed Components">prefix</a>.
+<a class="indexterm" name="idp72994752"></a>
+Evaluation of a
+<a class="link" href="ExpressionsExecutableUMLExpressions.html#ebnf.structureorderingexpression"><span class="emphasis"><em>structure ordering expression</em></span></a>
+<a class="indexterm" name="idp72996528"></a>
+yields a <a class="link" href="TypesCollectionTypes.html#TypesSequenceTypes" title="3.3.3. Sequence Types"><span class="type">sequence</span></a>
+<a class="indexterm" name="idp72999168"></a>
+that contains all the elements of the resultant
+<a class="link" href="TypesCollectionTypes.html" title="3.3. Collection Types">collection</a>
+<a class="indexterm" name="idp73000944"></a>
+in a specific order.
+</p>
+<p>
+In the case of <code class="literal">ordered_by</code>,
+<a class="indexterm" name="idp73002736"></a>
+the ordering will be such that for each successive element in the
+<a class="link" href="TypesCollectionTypes.html#TypesSequenceTypes" title="3.3.3. Sequence Types"><span class="type">sequence</span></a>,
+<a class="indexterm" name="idp73004656"></a>
+the first will be the element with the lowest value of the first component in
+the structure ordering.
+In the case of <code class="literal">reverse_ordered_by</code>,
+<a class="indexterm" name="idp73006224"></a>
+the ordering will be such that for each successive element in the
+<a class="link" href="TypesCollectionTypes.html#TypesSequenceTypes" title="3.3.3. Sequence Types"><span class="type">sequence</span></a>,
+<a class="indexterm" name="idp73008144"></a>
+the first will be the element with the highest value of the first component in
+the structure ordering.
+Where ordering on multiple <a class="link" href="TypesFullDeclarations.html#TypesStructureTypes" title="3.7.2. Structure Types">component</a>
+<a class="indexterm" name="idp73010000"></a>
+is specified, the
+<a class="link" href="TypesCollectionTypes.html#TypesSequenceTypes" title="3.3.3. Sequence Types"><span class="type">sequence</span></a>
+<a class="indexterm" name="idp73011744"></a>
+will be sorted by the first component and then within each value of this,
+by the second component and so on.
+</p>
+</div>
+</div>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="ExpressionsConstantExpressions.html">Prev</a> </td>
+<td width="20%" align="center"><a accesskey="u" href="Expressions.html">Up</a></td>
+<td width="40%" align="right"> <a accesskey="n" href="LanguageDefinedCharacteristics.html">Next</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left" valign="top">14.15. Constant Expressions </td>
+<td width="20%" align="center">
+<a accesskey="h" href="index.html">Home</a> | <a accesskey="t" href="bk01-toc.html">ToC</a>
+</td>
+<td width="40%" align="right" valign="top"> Appendix A. Language Defined Characteristics</td>
+</tr>
+</table>
+</div>
+<div align="center">OFFICIAL</div>
+</body>
+</html>

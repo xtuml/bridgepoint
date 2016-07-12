@@ -22,7 +22,8 @@ package org.xtuml.bp.core.test;
 // the License.
 //========================================================================
 import org.eclipse.core.resources.IProject;
-
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.DataType_c;
 import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.Package_c;
@@ -34,9 +35,11 @@ import org.xtuml.bp.core.common.Transaction;
 import org.xtuml.bp.core.common.TransactionManager;
 import org.xtuml.bp.core.ui.Selection;
 import org.xtuml.bp.test.common.BaseTest;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.test.common.TestingUtilities;
 import org.xtuml.bp.test.common.UITestingUtilities;
 
+@RunWith(OrderedRunner.class)
 public class UserDataTypeCopyPasteTests extends BaseTest {
 
 	private static Package_c testPackage;
@@ -78,6 +81,7 @@ public class UserDataTypeCopyPasteTests extends BaseTest {
 		}
 	}
 
+	@Test
 	public void testPasteOfUDTAssignedToUDT() {
 		// must select the elements in the proper order
 		Selection.getInstance().clear();

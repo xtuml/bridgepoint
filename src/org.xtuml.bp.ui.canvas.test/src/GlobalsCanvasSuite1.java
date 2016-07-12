@@ -13,10 +13,8 @@
 //=====================================================================
 
 
-import org.eclipse.core.runtime.CoreException;
-import org.xtuml.bp.core.CorePlugin;
-import org.xtuml.bp.core.common.BridgePointPreferencesStore;
-import org.xtuml.bp.core.util.WorkspaceUtil;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
 import org.xtuml.bp.ui.canvas.test.CanvasCreationTest;
 import org.xtuml.bp.ui.canvas.test.CanvasCreationTest2;
 import org.xtuml.bp.ui.canvas.test.CanvasEditorReloadContentsTest;
@@ -24,6 +22,7 @@ import org.xtuml.bp.ui.canvas.test.CanvasEditorTestSuite;
 import org.xtuml.bp.ui.canvas.test.CanvasInitialNameTests;
 import org.xtuml.bp.ui.canvas.test.CreationTransitionTest;
 import org.xtuml.bp.ui.canvas.test.ErrorPathsTest;
+import org.xtuml.bp.ui.canvas.test.GlobalTestSetupClass;
 import org.xtuml.bp.ui.canvas.test.GlobalsCanvasTestSuite1;
 import org.xtuml.bp.ui.canvas.test.ListenerTest;
 import org.xtuml.bp.ui.canvas.test.ODMSTest;
@@ -32,49 +31,30 @@ import org.xtuml.bp.ui.canvas.test.ShapeResizeTest2;
 import org.xtuml.bp.ui.canvas.test.StateCreationTests;
 import org.xtuml.bp.ui.canvas.test.SymbolTest;
 
-import junit.framework.Test;
 import junit.framework.TestSuite;
 
 /**
  * Test all areas of the canvas
  */
+@RunWith(Suite.class)
+@Suite.SuiteClasses({
+	GlobalTestSetupClass.class,
+	ShapeResizeTest.class,
+	GlobalsCanvasTestSuite1.class,
+	ErrorPathsTest.class,
+	CanvasInitialNameTests.class,
+	SymbolTest.class,
+	ODMSTest.class,
+	CanvasEditorReloadContentsTest.class,
+	ListenerTest.class,
+	CanvasCreationTest.class,
+	CanvasCreationTest2.class,
+	StateCreationTests.class,
+	ShapeResizeTest2.class,
+	CanvasEditorTestSuite.class,
+	CreationTransitionTest.class,
+	//I634OutlineViewEmptySelectionTest.class
+})
 public class GlobalsCanvasSuite1 extends TestSuite {
-
-	/**
-	 * Returns the suite.  This is required to
-	 * use the JUnit Launcher.
-	 */
-	public static Test suite() {
-		return new GlobalsCanvasSuite1();
-	}
-	
-	/**
-	 * Construct the test suite.
-	 */
-	public GlobalsCanvasSuite1() {
-		
-		// turn off autobuild
-		try {
-			WorkspaceUtil.setAutobuilding(false);
-		} catch (CoreException e) {
-			CorePlugin.logError(e.toString(), e);
-		}
-		CorePlugin.getDefault().getPreferenceStore().setValue(BridgePointPreferencesStore.USE_DEFAULT_NAME_FOR_CREATION,true);
-        addTest(new TestSuite(ShapeResizeTest.class));
-		addTest(new TestSuite(GlobalsCanvasTestSuite1.class));
-		addTest(new TestSuite(ErrorPathsTest.class));
-        addTest(new TestSuite(CanvasInitialNameTests.class));
-		addTest(new TestSuite(SymbolTest.class));
-		addTest(new TestSuite(ODMSTest.class));
-        addTest(new TestSuite(CanvasEditorReloadContentsTest.class));
-		addTest(new TestSuite(ListenerTest.class));
-		addTest(new TestSuite(CanvasCreationTest.class));
-		addTest(new TestSuite(CanvasCreationTest2.class));
-		addTest(new TestSuite(StateCreationTests.class));
-        addTest(new TestSuite(ShapeResizeTest2.class));
-		addTest(new CanvasEditorTestSuite());
-		addTest(new TestSuite(CreationTransitionTest.class));
-		//addTest(new TestSuite(I634OutlineViewEmptySelectionTest.class));
-	}
 
 }

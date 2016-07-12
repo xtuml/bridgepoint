@@ -1,0 +1,427 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>8.1. States</title>
+<link rel="stylesheet" type="text/css" href="docbook.css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
+<meta name="keywords" content="MASL, Action Language, Action Semantics, UML, Unified Modelling Language, Shlaer Mellor">
+<link rel="home" href="index.html" title="MASL Reference Manual">
+<link rel="up" href="Lifecycles.html" title="Chapter 8. Lifecycles">
+<link rel="prev" href="Lifecycles.html" title="Chapter 8. Lifecycles">
+<link rel="next" href="LifecyclesEvents.html" title="8.2. Events">
+<link rel="preface" href="preface.html" title="Preface">
+<link rel="chapter" href="Grammars.html" title="Chapter 1. Grammars">
+<link rel="chapter" href="LexicalStructure.html" title="Chapter 2. Lexical Structure">
+<link rel="chapter" href="Types.html" title="Chapter 3. Types">
+<link rel="chapter" href="TypeConversion.html" title="Chapter 4. Type Conversion">
+<link rel="chapter" href="Domains.html" title="Chapter 5. Domains">
+<link rel="chapter" href="Objects.html" title="Chapter 6. Objects">
+<link rel="chapter" href="Relationships.html" title="Chapter 7. Relationships">
+<link rel="chapter" href="Lifecycles.html" title="Chapter 8. Lifecycles">
+<link rel="chapter" href="Functions.html" title="Chapter 9. Functions">
+<link rel="chapter" href="Services.html" title="Chapter 10. Services">
+<link rel="chapter" href="Exceptions.html" title="Chapter 11. Exceptions">
+<link rel="chapter" href="Statements.html" title="Chapter 12. Statements">
+<link rel="chapter" href="Names.html" title="Chapter 13. Names">
+<link rel="chapter" href="Expressions.html" title="Chapter 14. Expressions">
+<link rel="appendix" href="LanguageDefinedCharacteristics.html" title="Appendix A. Language Defined Characteristics">
+<link rel="appendix" href="SyntaxSummary.html" title="Appendix B. Syntax Summary">
+<link rel="index" href="ix01.html" title="Index">
+<link rel="subsection" href="LifecyclesStates.html#LifecyclesStateModifiers" title="8.1.1. State Modifiers">
+<link rel="subsection" href="LifecyclesStates.html#LifecyclesFormalStateParameters" title="8.1.2. Formal State Parameters">
+<link rel="subsection" href="LifecyclesStates.html#LifecyclesStateSignature" title="8.1.3. State Signature">
+<link rel="subsection" href="LifecyclesStates.html#LifecyclesStateDefinition" title="8.1.4. State Definition">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div align="center">OFFICIAL</div>
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center">8.1. States</th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="Lifecycles.html">Prev</a> </td>
+<th width="60%" align="center">Chapter 8. Lifecycles</th>
+<td width="20%" align="right"> <a accesskey="n" href="LifecyclesEvents.html">Next</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h2 class="title">
+<a name="LifecyclesStates"></a>8.1. States</h2></div></div></div>
+<div class="toc"><dl class="toc">
+<dt><span class="section"><a href="LifecyclesStates.html#LifecyclesStateModifiers">8.1.1. State Modifiers</a></span></dt>
+<dd><dl>
+<dt><span class="section"><a href="LifecyclesStates.html#LifecyclesAssignerStates">8.1.1.1. Assigner States</a></span></dt>
+<dt><span class="section"><a href="LifecyclesStates.html#LifecyclesStartStates">8.1.1.2. Start States</a></span></dt>
+<dt><span class="section"><a href="LifecyclesStates.html#LifecyclesCreationStates">8.1.1.3. Creation States</a></span></dt>
+<dt><span class="section"><a href="LifecyclesStates.html#LifecyclesInstanceStates">8.1.1.4. Instance States</a></span></dt>
+<dt><span class="section"><a href="LifecyclesStates.html#LifecyclesTerminalStates">8.1.1.5. Terminal States</a></span></dt>
+</dl></dd>
+<dt><span class="section"><a href="LifecyclesStates.html#LifecyclesFormalStateParameters">8.1.2. Formal State Parameters</a></span></dt>
+<dd><dl><dt><span class="section"><a href="LifecyclesStates.html#LifecyclesFormalStateParameterModes">8.1.2.1. Formal State Parameter Modes</a></span></dt></dl></dd>
+<dt><span class="section"><a href="LifecyclesStates.html#LifecyclesStateSignature">8.1.3. State Signature</a></span></dt>
+<dt><span class="section"><a href="LifecyclesStates.html#LifecyclesStateDefinition">8.1.4. State Definition</a></span></dt>
+</dl></div>
+<p>
+A state
+<a class="indexterm" name="idp65257776"></a>
+declaration
+<a class="indexterm" name="idp65258944"></a>
+defines a state in the lifecycle of an object instance
+or an assigner object.
+</p>
+<a class="indexterm" name="idp65260688"></a><a class="indexterm" name="idp65261856"></a><a class="indexterm" name="idp65263024"></a><a class="indexterm" name="idp65264320"></a><a class="indexterm" name="idp65265488"></a><a class="indexterm" name="idp65266672"></a><a class="indexterm" name="idp65267840"></a><table width="100%" cellpadding="5" bgcolor="#F5DCB3" border="1" class="productionset" summary="EBNF"><tr><td><table border="0" width="99%" cellpadding="0" bgcolor="#F5DCB3" class="productionset" summary="EBNF productions">
+<tr>
+<td align="left" valign="top" width="3%">[104]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.statedeclaration"></a>
+        state declaration
+    </td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="LifecyclesStates.html#ebnf.statemodifier">state modifier</a>,
+        'state',
+        <a href="LifecyclesStates.html#ebnf.statename">state name</a>,
+        '(',
+        <a href="ServicesDomainServices.html#ebnf.parameterdeclarationlist">parameter declaration list</a>,
+        ')', ';'
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[105]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.statename"></a>
+        state name
+    </td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="LexicalStructureIdentifiers.html#ebnf.identifier">identifier</a>
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+</table></td></tr></table>
+<p>
+The state name
+<a class="indexterm" name="idp65276192"></a>
+in a state declaration may be used to refer to the state.
+</p>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="LifecyclesStateModifiers"></a>8.1.1. State Modifiers</h3></div></div></div>
+<a class="indexterm" name="idp65278880"></a><a class="indexterm" name="idp64472544"></a><a class="indexterm" name="idp64473840"></a><a class="indexterm" name="idp64475136"></a><a class="indexterm" name="idp64476432"></a><table width="100%" cellpadding="5" bgcolor="#F5DCB3" border="1" class="productionset" summary="EBNF"><tr><td><table border="0" width="99%" cellpadding="0" bgcolor="#F5DCB3" class="productionset" summary="EBNF productions"><tr>
+<td align="left" valign="top" width="3%">[106]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.statemodifier"></a>
+        state modifier
+    </td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        'assigner', ['start'] |
+        'creation' |
+        'terminal'
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr></table></td></tr></table>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="LifecyclesAssignerStates"></a>8.1.1.1. Assigner States</h4></div></div></div>
+<p>
+A state that is declared with the modifier <code class="literal">assigner</code>
+<a class="indexterm" name="idp64481760"></a>
+is called
+an assigner state.
+<a class="indexterm" name="idp64482752"></a>
+<a class="indexterm" name="idp64484368"></a>
+An assigner state
+<a class="indexterm" name="idp64485712"></a>
+<a class="indexterm" name="idp64487056"></a>
+is always entered without reference to a particular instance.
+</p>
+<p>
+A compile-time error occurs if an attempt is made to
+reference the current instance using the reserved word <code class="literal">this</code>
+<a class="indexterm" name="idp64489440"></a>
+in the body of the state. A compile-time error also occurs if the enclosing
+object is not an associative object.
+<a class="indexterm" name="idp64490560"></a>
+</p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="LifecyclesStartStates"></a>8.1.1.2. Start States</h4></div></div></div>
+<p>
+A state that is declared with the modifier <code class="literal">start</code>
+<a class="indexterm" name="idp64494128"></a>
+is called
+a start state.
+<a class="indexterm" name="idp64495168"></a>
+One and only one state for an assigner object
+<a class="indexterm" name="idp64496816"></a>
+must be declared
+as the start state.
+<a class="indexterm" name="idp64498176"></a>
+The start state
+<a class="indexterm" name="idp64499520"></a>
+is the state in which the assigner object
+<a class="indexterm" name="idp64500896"></a>
+<a class="indexterm" name="idp64502240"></a>
+starts its lifecycle.
+</p>
+<p>
+A compile-time error occurs if an associative object
+<a class="indexterm" name="idp64504064"></a>
+has more than one assigner start state.
+<a class="indexterm" name="idp64505440"></a>
+</p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="LifecyclesCreationStates"></a>8.1.1.3. Creation States</h4></div></div></div>
+<p>
+A state that is declared with the modifier <code class="literal">creation</code>
+<a class="indexterm" name="idp64509024"></a>
+is called
+the <span class="emphasis"><em>creation state</em></span>.
+<a class="indexterm" name="idp64510496"></a>
+A <span class="emphasis"><em>creation state</em></span>
+<a class="indexterm" name="idp64512288"></a>
+is always entered without reference to a particular instance.
+</p>
+<p>
+A compile-time error occurs if an attempt is made to reference the current
+instance using the reserved word <code class="literal">this</code>
+<a class="indexterm" name="idp64514672"></a>
+in the body of the state.
+</p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="LifecyclesInstanceStates"></a>8.1.1.4. Instance States</h4></div></div></div>
+<p>
+A state that is declared without any modifiers is called an
+<span class="emphasis"><em>instance state</em></span>.
+<a class="indexterm" name="idp64517984"></a>
+An <span class="emphasis"><em>instance state</em></span>
+<a class="indexterm" name="idp64519776"></a>
+is always entered with respect to a
+particular instance, which becomes the instance to which the reserved word
+<code class="literal">this</code>
+<a class="indexterm" name="idp64521664"></a>
+refers during execution of the state body.
+</p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="LifecyclesTerminalStates"></a>8.1.1.5. Terminal States</h4></div></div></div>
+<p>
+A state that is declared with the modifier <code class="literal">terminal</code>
+<a class="indexterm" name="idp64524912"></a>
+is called
+a terminal state.
+<a class="indexterm" name="idp64525904"></a>
+A <span class="emphasis"><em>terminal state</em></span>
+<a class="indexterm" name="idp64527696"></a>
+does not necessarily
+imply that an instance in this state must cease to exist, it could simply stay
+in this state for historic purposes.
+</p>
+<p>
+A compile-time error occurs if an attempt is made to delete the current instance
+using the reserved word <code class="literal">this</code>
+<a class="indexterm" name="idp64530160"></a>
+in the body of a non-terminal state.
+</p>
+</div>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="LifecyclesFormalStateParameters"></a>8.1.2. Formal State Parameters</h3></div></div></div>
+<p>
+The optional formal parameters of a state, are specified
+by a list of comma-separated
+<a class="link" href="ServicesDomainServices.html#ebnf.parameterdeclaration"><span class="emphasis"><em>parameter declarations</em></span></a>.
+<a class="indexterm" name="idp64533904"></a>
+Each
+<a class="link" href="ServicesDomainServices.html#ebnf.parametername"><span class="emphasis"><em>parameter declaration</em></span></a>
+<a class="indexterm" name="idp64536096"></a>
+consists of a name that specifies
+the name of the parameter, a parameter mode and a type.
+The following productions are repeated from
+<a class="xref" href="ServicesDomainServices.html#ServicesDomainServiceSignature" title="10.1.3. Service Signature">Section 10.1.3, “Service Signature”</a> to make the presentation clearer.
+</p>
+<table width="100%" cellpadding="5" bgcolor="#F5DCB3" border="1" class="productionset" summary="EBNF"><tr><td><table border="0" width="99%" cellpadding="0" bgcolor="#F5DCB3" class="productionset" summary="EBNF productions">
+<tr>
+<td align="left" valign="top" width="3%">[131]</td>
+<td align="right" valign="top" width="10%"><a href="ServicesDomainServices.html#ebnf.parameterdeclarationlist">
+        parameter declaration list
+    </a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="FunctionsDomainFunctions.html#ebnf.functionparameterdeclaration">parameter declaration</a>,
+        {(',',
+        <a href="FunctionsDomainFunctions.html#ebnf.functionparameterdeclaration">parameter declaration</a>)}
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[132]</td>
+<td align="right" valign="top" width="10%"><a href="ServicesDomainServices.html#ebnf.parameterdeclaration">
+        parameter declaration
+    </a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="ServicesDomainServices.html#ebnf.parametername">parameter name</a>,
+        ':'
+        <a href="ServicesDomainServices.html#ebnf.parametermodetype">parameter mode type</a>
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[133]</td>
+<td align="right" valign="top" width="10%"><a href="ServicesDomainServices.html#ebnf.parametername">
+        parameter name
+    </a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="LexicalStructureIdentifiers.html#ebnf.identifier">identifier</a>
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+</table></td></tr></table>
+<p>
+If a state has no parameters, only an empty pair of parentheses appears in the
+state's declaration.
+</p>
+<p>
+A compile-time error occurs if two parameters are declared to have the same
+name.
+</p>
+<p>
+When the state is entered, the values of the actual argument expressions
+<a class="indexterm" name="idp66987808"></a>
+initialize newly created parameter variables, each of the declared type, before
+execution of the body of the state. The parameter name that appears in the
+parameter declaration may be used as a simple name in the body of the state
+to refer to the parameter.
+</p>
+<p>
+The scope of parameter names is the entire body of the state.
+</p>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="LifecyclesFormalStateParameterModes"></a>8.1.2.1. Formal State Parameter Modes</h4></div></div></div>
+<p>
+The mode of a formal parameter conveys the direction of information transfer
+with the actual parameter. The following production is repeated from
+<a class="xref" href="ServicesDomainServices.html#ServicesDomainServiceSignature" title="10.1.3. Service Signature">Section 10.1.3, “Service Signature”</a> to make the presentation clearer.
+</p>
+<table width="100%" cellpadding="5" bgcolor="#F5DCB3" border="1" class="productionset" summary="EBNF"><tr><td><table border="0" width="99%" cellpadding="0" bgcolor="#F5DCB3" class="productionset" summary="EBNF productions"><tr>
+<td align="left" valign="top" width="3%">[134]</td>
+<td align="right" valign="top" width="10%"><a href="ServicesDomainServices.html#ebnf.parametermodetype">
+        parameter mode type
+    </a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        'in' | 'out'
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr></table></td></tr></table>
+<p>
+Formal parameters of mode <code class="literal">in</code>
+<a class="indexterm" name="idp66994096"></a>
+are passed from the event
+generation to the state. The state is not allowed to change the value of a
+formal parameter of mode <code class="literal">in</code>.
+<a class="indexterm" name="idp66995680"></a>
+</p>
+<p>
+A compile-time error occurs if a formal parameter for a state is declared as
+mode <code class="literal">out</code>.
+<a class="indexterm" name="idp66997664"></a>
+</p>
+</div>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="LifecyclesStateSignature"></a>8.1.3. State Signature</h3></div></div></div>
+<p>
+The signature of a state
+<a class="indexterm" name="idp67000640"></a>
+consists of the name of the state
+and the number and types of parameters to the state.
+</p>
+<p>
+A compile-time error occurs if an object declares two states with the same
+signature.
+</p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="LifecyclesStateDefinition"></a>8.1.4. State Definition</h3></div></div></div>
+<p>
+A <span class="emphasis"><em>state definition</em></span>
+<a class="indexterm" name="idp67004784"></a>
+provides the specification of the behaviour of the a state.
+</p>
+<a class="indexterm" name="idp67006608"></a><a class="indexterm" name="idp67007776"></a><a class="indexterm" name="idp67008944"></a><a class="indexterm" name="idp67010240"></a><a class="indexterm" name="idp67011408"></a><a class="indexterm" name="idp67012576"></a><a class="indexterm" name="idp67013744"></a><a class="indexterm" name="idp67014880"></a><a class="indexterm" name="idp67016048"></a><a class="indexterm" name="idp67017232"></a><table width="100%" cellpadding="5" bgcolor="#F5DCB3" border="1" class="productionset" summary="EBNF"><tr><td><table border="0" width="99%" cellpadding="0" bgcolor="#F5DCB3" class="productionset" summary="EBNF productions"><tr>
+<td align="left" valign="top" width="3%">[107]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.statedefinition"></a>
+        state definition
+    </td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="LifecyclesStates.html#ebnf.statemodifier">state modifier</a>,
+        'state',
+        <a href="DomainsDomainDeclaration.html#ebnf.domainname">domain name</a>,
+        '::',
+        <a href="ObjectsObjectDeclaration.html#ebnf.objectname">object name</a>,
+        '.',
+        <a href="LifecyclesStates.html#ebnf.statename">state name</a>,
+        '(',
+        <a href="ServicesDomainServices.html#ebnf.parameterdeclarationlist">parameter declaration list</a>,
+        ')', 'is',
+        {<a href="TypesVariableDeclarations.html#ebnf.variabledeclaration">variable declaration</a>,
+        'begin',
+        <a href="ExceptionsHandlingofanException.html#ebnf.handledsequenceofstatements">handled sequence of statements</a>,
+        'end', ['state'], ';'
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr></table></td></tr></table>
+<p>
+A compile-time error occurs of the signature of the state, defined by the
+state name together with the parameter declaration list
+<a class="indexterm" name="idp67026368"></a>
+has not already
+been declared by a state declaration within the object named, by the object
+name. In addition, a compile-time error occurs if the state modifiers do not
+match the state modifiers of the corresponding state declaration.
+<a class="indexterm" name="idp67027936"></a>
+</p>
+</div>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="Lifecycles.html">Prev</a> </td>
+<td width="20%" align="center"><a accesskey="u" href="Lifecycles.html">Up</a></td>
+<td width="40%" align="right"> <a accesskey="n" href="LifecyclesEvents.html">Next</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left" valign="top">Chapter 8. Lifecycles </td>
+<td width="20%" align="center">
+<a accesskey="h" href="index.html">Home</a> | <a accesskey="t" href="bk01-toc.html">ToC</a>
+</td>
+<td width="40%" align="right" valign="top"> 8.2. Events</td>
+</tr>
+</table>
+</div>
+<div align="center">OFFICIAL</div>
+</body>
+</html>

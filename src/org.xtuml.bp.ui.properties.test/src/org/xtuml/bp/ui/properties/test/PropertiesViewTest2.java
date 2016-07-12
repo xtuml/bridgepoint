@@ -37,6 +37,9 @@ import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.views.properties.IPropertyDescriptor;
 import org.eclipse.ui.views.properties.IPropertySource;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.Association_c;
 import org.xtuml.bp.core.Attribute_c;
 import org.xtuml.bp.core.ClassInstanceParticipant_c;
@@ -58,6 +61,7 @@ import org.xtuml.bp.test.TestUtil;
 import org.xtuml.bp.test.common.BaseTest;
 import org.xtuml.bp.test.common.ExplorerUtil;
 import org.xtuml.bp.test.common.FailableRunnable;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.ui.canvas.test.CanvasTestUtilities;
 import org.xtuml.bp.ui.explorer.ExplorerView;
 import org.xtuml.bp.ui.properties.AttributeO_ATTRPropertySource;
@@ -71,6 +75,7 @@ import org.xtuml.bp.ui.properties.PackagesEP_PKGPropertySource;
 /**
  * Contains tests that exercise various aspects of the properties view.
  */
+@RunWith(OrderedRunner.class)
 public class PropertiesViewTest2 extends BaseTest 
 {
     /**
@@ -84,13 +89,14 @@ public class PropertiesViewTest2 extends BaseTest
      */
     private static Selection selection = Selection.getInstance();
 
-    public PropertiesViewTest2(String name) {
-        super(null, name);
-    }    
+    public PropertiesViewTest2(){
+		super(null, null);
+	}    
     /* (non-Javadoc)
      * @see junit.framework.TestCase#setUp()
      */
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
         super.setUp();
 
         // if it's the first test of this class that's being setup
@@ -122,6 +128,7 @@ public class PropertiesViewTest2 extends BaseTest
      * if the "Show Advanced Properties" button was depressed, is now shown 
      * regardless of the button's state.
      */
+	@Test
 	public void testNoPropertiesAreAdvancedAndBasicCategoryFirst() {
         // select the R9 association
         Association_c r9 = OoaofooaUtil.getAssociation(modelRoot, 9);
@@ -146,6 +153,7 @@ public class PropertiesViewTest2 extends BaseTest
      * Tests that attributes marked as User_Visible = false
      * are not shown in the properties view
      */
+	@Test
 	public void testPropertiesMarkedAsNotShownAreNotShown() {
     	// create and select a synchronous message
     	Message_c parent = new Message_c(modelRoot);
@@ -173,7 +181,8 @@ public class PropertiesViewTest2 extends BaseTest
      * does not succeed for model-element types which don't allow spaces in
      * their names.
      */
-    public void testSpaceNotAllowedInModelElementsNameProperty()
+    @Test
+	public void testSpaceNotAllowedInModelElementsNameProperty()
     {
         // test that we can't add a space to an attribute name
         String name = "Serial_Number";
@@ -253,7 +262,8 @@ public class PropertiesViewTest2 extends BaseTest
     /**
      * Tests 'IsFormal' while the Instance Attribute Value is Formal
      */
-    public void testIsFormalForFormalInstanceAttributeValue() 
+    @Test
+	public void testIsFormalForFormalInstanceAttributeValue() 
     {
     	ClassInstanceParticipant_c parent = new ClassInstanceParticipant_c(modelRoot);
     	InstanceAttributeValue_c AtrValue = new InstanceAttributeValue_c(modelRoot);
@@ -268,7 +278,8 @@ public class PropertiesViewTest2 extends BaseTest
     /**
      * Tests 'IsFormal' while the Instance Attribute Value is Informal
      */
-    public void testIsFormalForInformalInstanceAttributeValue() 
+    @Test
+	public void testIsFormalForInformalInstanceAttributeValue() 
     {
     	ClassInstanceParticipant_c parent = new ClassInstanceParticipant_c(modelRoot);
     	InstanceAttributeValue_c AtrValue = new InstanceAttributeValue_c(modelRoot);
@@ -281,7 +292,8 @@ public class PropertiesViewTest2 extends BaseTest
     	parent.Dispose();
     }
 
-    public void testChooserDialogForChildProperty()
+    @Test
+	public void testChooserDialogForChildProperty()
     {
     	// test that initiating the chooser dialog from
     	// a property child works

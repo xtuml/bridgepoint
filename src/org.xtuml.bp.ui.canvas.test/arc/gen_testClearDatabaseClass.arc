@@ -62,7 +62,9 @@
 // the License.
 //======================================================================== 
 package org.xtuml.bp.ui.canvas.test;
-
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.NullProgressMonitor;
@@ -72,23 +74,23 @@ import org.xtuml.bp.core.common.InstanceList;
 import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.Package_c;
 import org.xtuml.bp.test.common.BaseTest;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.test.common.TestingUtilities;
 import org.xtuml.bp.ui.canvas.*;
 
+
+@RunWith(OrderedRunner.class)
 public class I686ClearDatabaseTest extends BaseTest{
 
 	static IFile model = null;
 	static Ooaofooa modelRoot = getDefaultTestInstance();
 	
-	public I686ClearDatabaseTest(String name) throws Exception {
-		super("clearDatabase", name); //$$NON-NLS-1$$
+	public I686ClearDatabaseTest() throws Exception {
+		super("clearDatabase", null); //$$NON-NLS-1$$
 	}
 	
-	public I686ClearDatabaseTest(String projectName, String name) throws CoreException {
-		super("clearDatabase", name);	//$$NON-NLS-1$$
-	}
-	
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		super.setUp();
 		// load test model
 		TestingUtilities.importTestingProjectIntoWorkspace("canvastest");
@@ -104,7 +106,7 @@ public class I686ClearDatabaseTest extends BaseTest{
 					}
 				}).getModelRoot();
 	}
-	
+	@Test
 	public void testClearDatabase(){
 		modelRoot.clearDatabase(new NullProgressMonitor());
 		Ooaofgraphics ooaofgraphics = Ooaofgraphics.getInstance(modelRoot.getId());

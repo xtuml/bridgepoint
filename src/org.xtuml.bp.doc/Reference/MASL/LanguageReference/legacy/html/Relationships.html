@@ -1,0 +1,144 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Chapter 7. Relationships</title>
+<link rel="stylesheet" type="text/css" href="docbook.css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
+<meta name="keywords" content="MASL, Action Language, Action Semantics, UML, Unified Modelling Language, Shlaer Mellor">
+<link rel="home" href="index.html" title="MASL Reference Manual">
+<link rel="up" href="index.html" title="MASL Reference Manual">
+<link rel="prev" href="ObjectsAttributes.html" title="6.4. Attributes">
+<link rel="next" href="RelationshipsRelationshipDeclarations.html" title="7.1. Relationship Declarations">
+<link rel="preface" href="preface.html" title="Preface">
+<link rel="chapter" href="Grammars.html" title="Chapter 1. Grammars">
+<link rel="chapter" href="LexicalStructure.html" title="Chapter 2. Lexical Structure">
+<link rel="chapter" href="Types.html" title="Chapter 3. Types">
+<link rel="chapter" href="TypeConversion.html" title="Chapter 4. Type Conversion">
+<link rel="chapter" href="Domains.html" title="Chapter 5. Domains">
+<link rel="chapter" href="Objects.html" title="Chapter 6. Objects">
+<link rel="chapter" href="Relationships.html" title="Chapter 7. Relationships">
+<link rel="chapter" href="Lifecycles.html" title="Chapter 8. Lifecycles">
+<link rel="chapter" href="Functions.html" title="Chapter 9. Functions">
+<link rel="chapter" href="Services.html" title="Chapter 10. Services">
+<link rel="chapter" href="Exceptions.html" title="Chapter 11. Exceptions">
+<link rel="chapter" href="Statements.html" title="Chapter 12. Statements">
+<link rel="chapter" href="Names.html" title="Chapter 13. Names">
+<link rel="chapter" href="Expressions.html" title="Chapter 14. Expressions">
+<link rel="appendix" href="LanguageDefinedCharacteristics.html" title="Appendix A. Language Defined Characteristics">
+<link rel="appendix" href="SyntaxSummary.html" title="Appendix B. Syntax Summary">
+<link rel="index" href="ix01.html" title="Index">
+<link rel="section" href="RelationshipsRelationshipDeclarations.html" title="7.1. Relationship Declarations">
+<link rel="section" href="RegularRelationships.html" title="7.2. Regular Relationships">
+<link rel="section" href="RelationshipsSubtypeRelationships.html" title="7.3. Subtype Relationships">
+<link rel="section" href="RelationshipsRelationshipSpecifications.html" title="7.4. Relationship Specification">
+<link rel="section" href="RelationshipsCorrelatedRelationshipSpecification.html" title="7.5. Correlated Relationship Specification">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div align="center">OFFICIAL</div>
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center">Chapter 7. Relationships</th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="ObjectsAttributes.html">Prev</a> </td>
+<th width="60%" align="center"> </th>
+<td width="20%" align="right"> <a accesskey="n" href="RelationshipsRelationshipDeclarations.html">Next</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="chapter">
+<div class="titlepage"><div><div><h1 class="title">
+<a name="Relationships"></a>Chapter 7. Relationships</h1></div></div></div>
+<div class="toc">
+<div class="toc-title">Table of Contents</div>
+<dl class="toc">
+<dt><span class="section"><a href="RelationshipsRelationshipDeclarations.html">7.1. Relationship Declarations</a></span></dt>
+<dt><span class="section"><a href="RegularRelationships.html">7.2. Regular Relationships</a></span></dt>
+<dd><dl>
+<dt><span class="section"><a href="RegularRelationships.html#RelationshipsUnconditionalRelationships">7.2.1. Unconditional Relationships</a></span></dt>
+<dd><dl>
+<dt><span class="section"><a href="RegularRelationships.html#RelationshipsOnetoOneRelationships">7.2.1.1. One-to-one Relationships</a></span></dt>
+<dt><span class="section"><a href="RegularRelationships.html#RelationshipsOnetoManyRelationships">7.2.1.2. One-to-many Relationships</a></span></dt>
+<dt><span class="section"><a href="RegularRelationships.html#RelationshipsManytoManyRelationships">7.2.1.3. Many-to-many Relationships</a></span></dt>
+<dt><span class="section"><a href="RegularRelationships.html#RelationshipsReflexiveRelationsips">7.2.1.4. Reflexive Relationships</a></span></dt>
+</dl></dd>
+<dt><span class="section"><a href="RegularRelationships.html#RelationshipsConditionalRelationships">7.2.2. Conditional Relationships</a></span></dt>
+</dl></dd>
+<dt><span class="section"><a href="RelationshipsSubtypeRelationships.html">7.3. Subtype Relationships</a></span></dt>
+<dd><dl><dt><span class="section"><a href="RelationshipsSubtypeRelationships.html#RelationshipsInvalidSubtypeRelationships">7.3.1. Invalid Subtype Relationships</a></span></dt></dl></dd>
+<dt><span class="section"><a href="RelationshipsRelationshipSpecifications.html">7.4. Relationship Specification</a></span></dt>
+<dt><span class="section"><a href="RelationshipsCorrelatedRelationshipSpecification.html">7.5. Correlated Relationship Specification</a></span></dt>
+</dl>
+</div>
+<p>
+Associations
+<a class="indexterm" name="idp63793536"></a>
+between objects
+<a class="indexterm" name="idp63794592"></a>
+in a domain
+<a class="indexterm" name="idp63795488"></a>
+provide information about the way
+instances of the objects are related to one another. Such associations are
+modeled as relationships
+<a class="indexterm" name="idp63796496"></a>
+between the respective objects.
+</p>
+<p>
+Every relationship has a unique relationship number.
+<a class="indexterm" name="idp63798160"></a>
+At each end the relationship has:
+</p>
+<div class="itemizedlist"><ul class="itemizedlist">
+<li class="listitem"><p>
+A role phrase.
+<a class="indexterm" name="idp65440048"></a>
+</p></li>
+<li class="listitem"><p>
+A multiplicity
+<a class="indexterm" name="idp65442288"></a>
+</p></li>
+</ul></div>
+<p>
+</p>
+<p>
+The role phrase
+<a class="indexterm" name="idp65444560"></a>
+indicates the role played by the object
+<a class="indexterm" name="idp65445936"></a>
+attached to the end of
+the relationship near the role phrase.
+<a class="indexterm" name="idp65446800"></a>
+</p>
+<p>
+The multiplicity
+<a class="indexterm" name="idp63700416"></a>
+specifies the range of allowable cardinalities that a set may
+assume. A multiplicity specification
+<a class="indexterm" name="idp63701840"></a>
+is shown as one or many.
+</p>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="ObjectsAttributes.html">Prev</a> </td>
+<td width="20%" align="center"> </td>
+<td width="40%" align="right"> <a accesskey="n" href="RelationshipsRelationshipDeclarations.html">Next</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left" valign="top">6.4. Attributes </td>
+<td width="20%" align="center">
+<a accesskey="h" href="index.html">Home</a> | <a accesskey="t" href="bk01-toc.html">ToC</a>
+</td>
+<td width="40%" align="right" valign="top"> 7.1. Relationship Declarations</td>
+</tr>
+</table>
+</div>
+<div align="center">OFFICIAL</div>
+</body>
+</html>

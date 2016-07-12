@@ -1,0 +1,1135 @@
+<!-- 
+  UK Crown Copyright (c) 2016. All Rights Reserved
+-->
+<!-- Converted by db4-upgrade version 1.0 -->
+<section xmlns="http://docbook.org/ns/docbook" version="5.0">
+<!-- xmlns="http://docbook.org/ns/docbook" 
+ xmlns:xlink="http://www.w3.org/1999/xlink" 
+ xmlns:xi="http://www.w3.org/2001/XInclude"
+ xmlns:svg="http://www.w3.org/2000/svg"
+ xmlns:mml="http://www.w3.org/1998/Math/MathML"
+ xmlns:html="http://www.w3.org/1999/xhtml"
+ xmlns:db="http://docbook.org/ns/docbook"
+-->
+  <title>Masl Syntax</title>
+
+  <section>
+    <title>Lexical Syntax</title>
+
+    <productionset>
+      <title>Lexical Tokens</title>
+
+      <production xml:id="syntax.integer_literal">
+        <lhs>integer_literal</lhs>
+
+        <rhs><nonterminal def="#syntax.based_integer_literal">based_integer_literal</nonterminal> | <nonterminal def="#syntax.unbased_integer_literal">unbased_integer_literal</nonterminal></rhs>
+      </production>
+
+      <production xml:id="syntax.real_literal">
+        <lhs>real_literal</lhs>
+
+        <rhs><nonterminal def="#syntax.based_real_literal">based_real_literal</nonterminal> | <nonterminal def="#syntax.unbased_real_literal">unbased_real_literal</nonterminal></rhs>
+      </production>
+
+      <production xml:id="syntax.character_literal">
+        <lhs>character_literal</lhs>
+
+        <rhs>"'" , ( <nonterminal def="#syntax.escape_sequence">escape_sequence</nonterminal> | -( "'" | "\" ) ) , "'"</rhs>
+      </production>
+
+      <production xml:id="syntax.string_literal">
+        <lhs>string_literal</lhs>
+
+        <rhs>""" , { <nonterminal def="#syntax.escape_sequence">escape_sequence</nonterminal> | -( """ | "\" ) } , """</rhs>
+      </production>
+
+      <production xml:id="syntax.symbols">
+        <lhs>symbols</lhs>
+
+        <rhs>"+" | "-" | "*" | "/" | "&amp;" | "**" | "=" | "/=" | "&gt;" | "&lt;" | "&gt;=" | "&lt;=" | "&gt;&gt;&gt;" | "&gt;&gt;" | "&lt;&lt;" | "&lt;&lt;&lt;" | ":=" | ":" | "," | "." | "&lt;&gt;" | """ | ".." | "(" | ")" | "[" | "]" | "::" | ";" | "=&gt;" | "-&gt;" | "~&gt;" | "|"</rhs>
+      </production>
+
+      <production xml:id="syntax.reserved_words">
+        <lhs>reserved_words</lhs>
+
+        <rhs>"abs" | "and" | "array" | "assigner" | "at" | "bag" | "begin" | "cancel" | "cannot_happen" | "case" | "conditionally" | "console" | "create" | "creation" | "current_state" | "declare" | "deferred" | "delay" | "delete" | "delta" | "digits" | "disunion" | "domain" | "else" | "elsif" | "end" | "endl" | "enum" | "event" | "exception" | "exit" | "false" | "find" | "find_one" | "find_only" | "flush" | "for" | "function" | "generate" | "identifier" | "if" | "ignore" | "in" | "instance" | "instersection" | "is" | "is_a" | "link" | "loop" | "many" | "mod" | "non_existent" | "not" | "not_in" | "null" | "object" | "of" | "one" | "or" | "ordered_by" | "others" | "out" | "pragma" | "preferred" | "private" | "project" | "public" | "raise" | "range" | "readonly" | "referential" | "relationship" | "rem" | "return" | "reverse" | "reverse_ordered_by" | "schedule" | "sequence" | "service" | "set" | "start" | "state" | "structure" | "terminal" | "terminator" | "then" | "this" | "to" | "transition" | "true" | "type" | "unconditionally" | "union" | "unique" | "unlink" | "using" | "when" | "while" | "with" | "xor"</rhs>
+      </production>
+
+      <production xml:id="syntax.relationship_name">
+        <lhs>relationship_name</lhs>
+
+        <rhs>"R" , <nonterminal def="#syntax.non_zero_digit">non_zero_digit</nonterminal> , { <nonterminal def="#syntax.digit">digit</nonterminal> }</rhs>
+      </production>
+
+      <production xml:id="syntax.identifier">
+        <lhs>identifier</lhs>
+
+        <rhs><nonterminal def="#syntax.letter">letter</nonterminal> , { <nonterminal def="#syntax.letter">letter</nonterminal> | <nonterminal def="#syntax.digit">digit</nonterminal> | "_" }</rhs>
+      </production>
+    </productionset>
+
+    <productionset>
+      <title>Lexical Fragments</title>
+
+      <production xml:id="syntax.unbased_integer_literal">
+        <lhs>unbased_integer_literal</lhs>
+
+        <rhs><nonterminal def="#syntax.digit">digit</nonterminal> , { <nonterminal def="#syntax.digit">digit</nonterminal> }</rhs>
+      </production>
+
+      <production xml:id="syntax.unbased_real_literal">
+        <lhs>unbased_real_literal</lhs>
+
+        <rhs><nonterminal def="#syntax.digit">digit</nonterminal> , { <nonterminal def="#syntax.digit">digit</nonterminal> } , "." , <nonterminal def="#syntax.digit">digit</nonterminal> , { <nonterminal def="#syntax.digit">digit</nonterminal> } , [ <nonterminal def="#syntax.exponent">exponent</nonterminal> ]</rhs>
+      </production>
+
+      <production xml:id="syntax.exponent">
+        <lhs>exponent</lhs>
+
+        <rhs>( "e" | "E" ) , [ "+" | "-" ] , <nonterminal def="#syntax.digit">digit</nonterminal> , { <nonterminal def="#syntax.digit">digit</nonterminal> }</rhs>
+      </production>
+
+      <production xml:id="syntax.based_integer_literal">
+        <lhs>based_integer_literal</lhs>
+
+        <rhs><nonterminal def="#syntax.base">base</nonterminal> , <nonterminal def="#syntax.based_digit">based_digit</nonterminal> , { <nonterminal def="#syntax.based_digit">based_digit</nonterminal> }</rhs>
+      </production>
+
+      <production xml:id="syntax.based_real_literal">
+        <lhs>based_real_literal</lhs>
+
+        <rhs><nonterminal def="#syntax.base">base</nonterminal> , <nonterminal def="#syntax.based_digit">based_digit</nonterminal> , { <nonterminal def="#syntax.based_digit">based_digit</nonterminal> } , "." , <nonterminal def="#syntax.based_digit">based_digit</nonterminal> , { <nonterminal def="#syntax.based_digit">based_digit</nonterminal> } , [ <nonterminal def="#syntax.based_exponent">based_exponent</nonterminal> ]</rhs>
+      </production>
+
+      <production xml:id="syntax.base">
+        <lhs>base</lhs>
+
+        <rhs><nonterminal def="#syntax.digit">digit</nonterminal> , [ <nonterminal def="#syntax.digit">digit</nonterminal> ] "#"</rhs>
+      </production>
+
+      <production xml:id="syntax.based_exponent">
+        <lhs>based_exponent</lhs>
+
+        <rhs>"#" , [ "+" | "-" ] <nonterminal def="#syntax.digit">digit</nonterminal> , { <nonterminal def="#syntax.digit">digit</nonterminal> }</rhs>
+      </production>
+
+      <production xml:id="syntax.based_digit">
+        <lhs>based_digit</lhs>
+
+        <rhs><nonterminal def="#syntax.digit">digit</nonterminal> | <nonterminal def="#syntax.letter">letter</nonterminal></rhs>
+      </production>
+
+      <production xml:id="syntax.escape_sequence">
+        <lhs>escape_sequence</lhs>
+
+        <rhs><nonterminal def="#syntax.character_escape">character_escape</nonterminal> | <nonterminal def="#syntax.unicode_escape">unicode_escape</nonterminal> | <nonterminal def="#syntax.octal_escape">octal_escape</nonterminal></rhs>
+      </production>
+
+      <production xml:id="syntax.unicode_escape">
+        <lhs>unicode_escape</lhs>
+
+        <rhs>"\" , "u" , <nonterminal def="#syntax.hex_digit">hex_digit</nonterminal> , <nonterminal def="#syntax.hex_digit">hex_digit</nonterminal> , <nonterminal def="#syntax.hex_digit">hex_digit</nonterminal> , <nonterminal def="#syntax.hex_digit">hex_digit</nonterminal></rhs>
+      </production>
+
+      <production xml:id="syntax.octal_escape">
+        <lhs>octal_escape</lhs>
+
+        <rhs>"\" , [ "0" | "1" | "2" | "3" ] , [ <nonterminal def="#syntax.octal_digit">octal_digit</nonterminal> ] , <nonterminal def="#syntax.octal_digit">octal_digit</nonterminal></rhs>
+      </production>
+
+      <production xml:id="syntax.character_escape">
+        <lhs>character_escape</lhs>
+
+        <rhs>"\" ( "b" | "t" | "n" | "f" | "r" | """ | """ | "\" )</rhs>
+      </production>
+
+      <production xml:id="syntax.hex_digit">
+        <lhs>hex_digit</lhs>
+
+        <rhs><nonterminal def="#syntax.digit">digit</nonterminal> | "a" | "b" | "c" | "d" | "e" | "f" | "A" | "B" | "C" | "D" | "E" | "F"</rhs>
+      </production>
+
+      <production xml:id="syntax.octal_digit">
+        <lhs>octal_digit</lhs>
+
+        <rhs>"0" | "1" | "2" | "3" | "4" | "5" | "6" | "7"</rhs>
+      </production>
+
+      <production xml:id="syntax.digit">
+        <lhs>digit</lhs>
+
+        <rhs>"0" | <nonterminal def="#syntax.non_zero_digit">non_zero_digit</nonterminal></rhs>
+      </production>
+
+      <production xml:id="syntax.non_zero_digit">
+        <lhs>non_zero_digit</lhs>
+
+        <rhs>"1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9"</rhs>
+      </production>
+
+      <production xml:id="syntax.letter">
+        <lhs>letter</lhs>
+
+        <rhs>"A" | "B" | "C" | "D" | "E" | "F" | "G" | "H" | "I" | "J" | "K" | "L" | "M" | "N" | "O" | "P" | "Q" | "R" | "S" | "T" | "U" | "V" | "W" | "X" | "Y" | "Z" | "a" | "b" | "c" | "d" | "e" | "f" | "g" | "h" | "i" | "j" | "k" | "l" | "m" | "n" | "o" | "p" | "q" | "r" | "s" | "t" | "u" | "v" | "w" | "x" | "y" | "z"</rhs>
+      </production>
+    </productionset>
+
+    <productionset>
+      <title>Ignored Lexical Elements</title>
+
+      <production xml:id="syntax.comment">
+        <lhs>comment</lhs>
+
+        <rhs>"//" , { -( ?NEWLINE? | ?CARRIAGE_RETURN? ) } , [ ?CARRIAGE_RETURN? ] ?NEWLINE?</rhs>
+      </production>
+
+      <production xml:id="syntax.whitespace">
+        <lhs>whitespace</lhs>
+
+        <rhs><nonterminal def="#syntax.whitespace_character">whitespace_character</nonterminal> , { <nonterminal def="#syntax.whitespace_character">whitespace_character</nonterminal> }</rhs>
+      </production>
+
+      <production xml:id="syntax.whitespace_character">
+        <lhs>whitespace_character</lhs>
+
+        <rhs>?SPACE? | ?TAB? | ?FORMFEED? | ?NEWLINE? | ?CARRIAGE_RETURN?</rhs>
+      </production>
+    </productionset>
+  </section>
+
+  <section>
+    <title>Static Definition Grammar</title>
+
+    <productionset>
+      <title>Project Definition</title>
+
+      <production xml:id="syntax.project">
+        <lhs>project</lhs>
+
+        <rhs>"project" , <nonterminal def="#syntax.project_name">project_name</nonterminal> , "is" , { <nonterminal def="#syntax.project_domain_definition">project_domain_definition</nonterminal> } , "end" , [ "project" ] , ";" , { <nonterminal def="#syntax.pragma">pragma</nonterminal> }</rhs>
+      </production>
+
+      <production xml:id="syntax.project_domain_definition">
+        <lhs>project_domain_definition</lhs>
+
+        <rhs>"domain" , <nonterminal def="#syntax.domain_name">domain_name</nonterminal> , "is" , <nonterminal def="#syntax.terminator_definition">terminator_definition</nonterminal> , "end" , [ "domain" ] , ";" , { <nonterminal def="#syntax.pragma">pragma</nonterminal> }</rhs>
+      </production>
+
+      <production xml:id="syntax.project_name">
+        <lhs>project_name</lhs>
+
+        <rhs><nonterminal def="#syntax.identifier">identifier</nonterminal></rhs>
+      </production>
+    </productionset>
+
+    <productionset>
+      <title>Domain Definition</title>
+
+      <production xml:id="syntax.domain_definition">
+        <lhs>domain_definition</lhs>
+
+        <rhs>"domain" , <nonterminal def="#syntax.domain_name">domain_name</nonterminal> , "is" , { <nonterminal def="#syntax.domain_item">domain_item</nonterminal> } , "end" , "domain" , ";" , { <nonterminal def="#syntax.pragma">pragma</nonterminal> }</rhs>
+      </production>
+
+      <production xml:id="syntax.domain_item">
+        <lhs>domain_item</lhs>
+
+        <rhs> ( <nonterminal def="#syntax.object_declaration">object_declaration</nonterminal> | <nonterminal def="#syntax.service_declaration">service_declaration</nonterminal> | <nonterminal def="#syntax.function_declaration">function_declaration</nonterminal> | <nonterminal def="#syntax.terminator_definition">terminator_definition</nonterminal> | <nonterminal def="#syntax.relationship_definition">relationship_definition</nonterminal> | <nonterminal def="#syntax.object_definition">object_definition</nonterminal> | <nonterminal def="#syntax.type_declaration">type_declaration</nonterminal> | <nonterminal def="#syntax.exception_definition">exception_definition</nonterminal> ) , ";" , { <nonterminal def="#syntax.pragma">pragma</nonterminal> }</rhs>
+      </production>
+
+      <production xml:id="syntax.object_declaration">
+        <lhs>object_declaration</lhs>
+
+        <rhs>"object" , <nonterminal def="#syntax.object_name">object_name</nonterminal></rhs>
+      </production>
+
+      <production xml:id="syntax.service_declaration">
+        <lhs>service_declaration</lhs>
+
+        <rhs>[ <nonterminal def="#syntax.visibility">visibility</nonterminal> ] , "service" , <nonterminal def="#syntax.service_name">service_name</nonterminal> , <nonterminal def="#syntax.parameter_list">parameter_list</nonterminal></rhs>
+      </production>
+
+      <production xml:id="syntax.function_declaration">
+        <lhs>function_declaration</lhs>
+
+        <rhs>[ <nonterminal def="#syntax.visibility">visibility</nonterminal> ] , "function" , <nonterminal def="#syntax.service_name">service_name</nonterminal> , <nonterminal def="#syntax.parameter_list">parameter_list</nonterminal> , "return" , <nonterminal def="#syntax.return_type">return_type</nonterminal> </rhs>
+      </production>
+
+      <production xml:id="syntax.parameter_list">
+        <lhs>parameter_list</lhs>
+
+        <rhs>"(" , [ <nonterminal def="#syntax.parameter_definition">parameter_definition</nonterminal> , { "," , <nonterminal def="#syntax.parameter_definition">parameter_definition</nonterminal> } ] , ")"</rhs>
+      </production>
+
+      <production xml:id="syntax.parameter_definition">
+        <lhs>parameter_definition</lhs>
+
+        <rhs><nonterminal def="#syntax.parameter_name">parameter_name</nonterminal> , ":" , ( "in" | "out" ) , <nonterminal def="#syntax.parameter_type">parameter_type</nonterminal></rhs>
+      </production>
+
+      <production xml:id="syntax.parameter_type">
+        <lhs>parameter_type</lhs>
+
+        <rhs><nonterminal def="#syntax.type_reference">type_reference</nonterminal></rhs>
+      </production>
+
+      <production xml:id="syntax.return_type">
+        <lhs>return_type</lhs>
+
+        <rhs><nonterminal def="#syntax.type_reference">type_reference</nonterminal></rhs>
+      </production>
+
+      <production xml:id="syntax.terminator_definition">
+        <lhs>terminator_definition</lhs>
+
+        <rhs>"terminator" , <nonterminal def="#syntax.terminator_name">terminator_name</nonterminal> , "is" , ( <nonterminal def="#syntax.service_declaration">service_declaration</nonterminal> | <nonterminal def="#syntax.function_declaration">function_declaration</nonterminal> ) , "end" , "terminator"</rhs>
+      </production>
+
+      <production xml:id="syntax.exception_definition">
+        <lhs>exception_definition</lhs>
+
+        <rhs>[ <nonterminal def="#syntax.visibility">visibility</nonterminal> ] , "exception" , <nonterminal def="#syntax.exception_name">exception_name</nonterminal></rhs>
+      </production>
+
+      <production xml:id="syntax.pragma">
+        <lhs>pragma</lhs>
+
+        <rhs>"pragma" , <nonterminal def="#syntax.pragma_name">pragma_name</nonterminal> , "(" , [ <nonterminal def="#syntax.pragma_value">pragma_value</nonterminal> , { "," , <nonterminal def="#syntax.pragma_value">pragma_value</nonterminal> } ] , ")" , ";"</rhs>
+      </production>
+
+      <production xml:id="syntax.domain_name">
+        <lhs>domain_name</lhs>
+
+        <rhs><nonterminal def="#syntax.identifier">identifier</nonterminal></rhs>
+      </production>
+
+      <production xml:id="syntax.terminator_name">
+        <lhs>terminator_name</lhs>
+
+        <rhs><nonterminal def="#syntax.identifier">identifier</nonterminal></rhs>
+      </production>
+
+      <production xml:id="syntax.type_name">
+        <lhs>type_name</lhs>
+
+        <rhs><nonterminal def="#syntax.identifier">identifier</nonterminal></rhs>
+      </production>
+
+      <production xml:id="syntax.object_name">
+        <lhs>object_name</lhs>
+
+        <rhs><nonterminal def="#syntax.identifier">identifier</nonterminal></rhs>
+      </production>
+
+      <production xml:id="syntax.attribute_name">
+        <lhs>attribute_name</lhs>
+
+        <rhs><nonterminal def="#syntax.identifier">identifier</nonterminal></rhs>
+      </production>
+
+      <production xml:id="syntax.component_name">
+        <lhs>attribute_name</lhs>
+
+        <rhs><nonterminal def="#syntax.identifier">identifier</nonterminal></rhs>
+      </production>
+
+      <production xml:id="syntax.enumerator_name">
+        <lhs>enumerator_name</lhs>
+
+        <rhs><nonterminal def="#syntax.identifier">identifier</nonterminal></rhs>
+      </production>
+
+      <production xml:id="syntax.service_name">
+        <lhs>service_name</lhs>
+
+        <rhs><nonterminal def="#syntax.identifier">identifier</nonterminal></rhs>
+      </production>
+
+      <production xml:id="syntax.parameter_name">
+        <lhs>service_name</lhs>
+
+        <rhs><nonterminal def="#syntax.identifier">identifier</nonterminal></rhs>
+      </production>
+
+      <production xml:id="syntax.event_name">
+        <lhs>event_name</lhs>
+
+        <rhs><nonterminal def="#syntax.identifier">identifier</nonterminal></rhs>
+      </production>
+
+      <production xml:id="syntax.state_name">
+        <lhs>state_name</lhs>
+
+        <rhs><nonterminal def="#syntax.identifier">identifier</nonterminal></rhs>
+      </production>
+
+      <production xml:id="syntax.pragma_name">
+        <lhs>pragma_name</lhs>
+
+        <rhs><nonterminal def="#syntax.identifier">identifier</nonterminal></rhs>
+      </production>
+
+      <production xml:id="syntax.exception_name">
+        <lhs>pragma_name</lhs>
+
+        <rhs><nonterminal def="#syntax.identifier">identifier</nonterminal></rhs>
+      </production>
+
+      <production xml:id="syntax.pragma_value">
+        <lhs>pragma_value</lhs>
+
+        <rhs><nonterminal def="#syntax.identifier">identifier</nonterminal> | <nonterminal def="#syntax.literal">literal</nonterminal></rhs>
+      </production>
+
+      <production xml:id="syntax.visibility">
+        <lhs>visibility</lhs>
+
+        <rhs>"public" | "private"</rhs>
+      </production>
+    </productionset>
+
+    <productionset>
+      <title>Type Definition</title>
+
+      <production xml:id="syntax.type_declaration">
+        <lhs>type_declaration</lhs>
+
+        <rhs>[ <nonterminal def="#syntax.visibility">visibility</nonterminal> ] , "type" , <nonterminal def="#syntax.type_name">type_name</nonterminal> , "is" , <nonterminal def="#syntax.type_definition">type_definition</nonterminal></rhs>
+      </production>
+
+      <production xml:id="syntax.type_definition">
+        <lhs>type_definition</lhs>
+
+        <rhs><nonterminal def="#syntax.structure_definition">structure_definition</nonterminal> | <nonterminal def="#syntax.enumeration_definition">enumeration_definition</nonterminal> | <nonterminal def="#syntax.constrained_type_definition">constrained_type_definition</nonterminal> | <nonterminal def="#syntax.type_reference_ca">type_reference_ca</nonterminal> | <nonterminal def="#syntax.unconstrained_array_definition">unconstrained_array_definition</nonterminal></rhs>
+      </production>
+
+      <production xml:id="syntax.type_reference_ca">
+        <lhs>type_reference_ca</lhs>
+
+        <rhs><nonterminal def="#syntax.type_reference">type_reference</nonterminal> | <nonterminal def="#syntax.constrained_array_type_reference">constrained_array_type_reference</nonterminal></rhs>
+      </production>
+
+      <production xml:id="syntax.structure_definition">
+        <lhs>structure_definition</lhs>
+
+        <rhs>"structure" , { <nonterminal def="#syntax.structure_component">structure_component</nonterminal> } , "end" , [ "structure" ]</rhs>
+      </production>
+
+      <production xml:id="syntax.structure_component">
+        <lhs>structure_component</lhs>
+
+        <rhs><nonterminal def="#syntax.component_name">component_name</nonterminal> , ":" , <nonterminal def="#syntax.type_reference">type_reference</nonterminal> , [ "=" , <nonterminal def="#syntax.expression">expression</nonterminal> ] , ";" , { <nonterminal def="#syntax.pragma">pragma</nonterminal> }</rhs>
+      </production>
+
+      <production xml:id="syntax.enumeration_definition">
+        <lhs>enumeration_definition</lhs>
+
+        <rhs>"enum" , "(" , <nonterminal def="#syntax.enumerator">enumerator</nonterminal> { "," , <nonterminal def="#syntax.enumerator">enumerator</nonterminal> } , ")"</rhs>
+      </production>
+
+      <production xml:id="syntax.enumerator">
+        <lhs>enumerator</lhs>
+
+        <rhs><nonterminal def="#syntax.enumerator_name">enumerator_name</nonterminal> , [ "=" , <nonterminal def="#syntax.expression">expression</nonterminal> ]</rhs>
+      </production>
+
+      <production xml:id="syntax.constrained_type_definition">
+        <lhs>constrained_type_definition</lhs>
+
+        <rhs><nonterminal def="#syntax.type_reference">type_reference</nonterminal> , <nonterminal def="#syntax.type_constraint">type_constraint</nonterminal></rhs>
+      </production>
+
+      <production xml:id="syntax.type_reference">
+        <lhs>type_reference</lhs>
+
+        <rhs><nonterminal def="#syntax.named_type_reference">named_type_reference</nonterminal> | <nonterminal def="#syntax.instance_type_reference">instance_type_reference</nonterminal> | <nonterminal def="#syntax.collection_type_reference">collection_type_reference</nonterminal></rhs>
+      </production>
+
+      <production xml:id="syntax.constrained_array_type_reference">
+        <lhs>constrained_array_type_reference</lhs>
+
+        <rhs><nonterminal def="#syntax.named_type_reference">named_type_reference</nonterminal> , <nonterminal def="#syntax.array_bounds">array_bounds</nonterminal></rhs>
+      </production>
+
+      <production xml:id="syntax.unconstrained_array_definition">
+        <lhs>unconstrained_array_definition</lhs>
+
+        <rhs>"array" , "(" , <nonterminal def="#syntax.named_type_reference">named_type_reference</nonterminal> , "range" , "&lt;&gt;" , ")" , "of" , <nonterminal def="#syntax.type_reference">type_reference</nonterminal></rhs>
+      </production>
+
+      <production xml:id="syntax.named_type_reference">
+        <lhs>named_type_reference</lhs>
+
+        <rhs>[ <nonterminal def="#syntax.domain_name">domain_name</nonterminal> , "::" ] , <nonterminal def="#syntax.type_name">type_name</nonterminal></rhs>
+      </production>
+
+      <production xml:id="syntax.qualified_object_name">
+        <lhs>qualified_object_name</lhs>
+
+        <rhs>[ <nonterminal def="#syntax.domain_name">domain_name</nonterminal> , "::" ] , <nonterminal def="#syntax.object_name">object_name</nonterminal></rhs>
+      </production>
+
+      <production xml:id="syntax.instance_type_reference">
+        <lhs>instance_type_reference</lhs>
+
+        <rhs>"instance" , "of" , <nonterminal def="#syntax.qualified_object_name">qualified_object_name</nonterminal></rhs>
+      </production>
+
+      <production xml:id="syntax.collection_type_reference">
+        <lhs>collection_type_reference</lhs>
+
+        <rhs>( "array" , <nonterminal def="#syntax.array_bounds">array_bounds</nonterminal> | "sequence" , [ "(" , <nonterminal def="#syntax.expression">expression</nonterminal> , ")" ] | "set" | "bag" ) , "of" , <nonterminal def="#syntax.type_reference">type_reference</nonterminal></rhs>
+      </production>
+
+      <production xml:id="syntax.array_bounds">
+        <lhs>array_bounds</lhs>
+
+        <rhs>"(" , <nonterminal def="#syntax.expression">expression</nonterminal> , ")"</rhs>
+      </production>
+
+      <production xml:id="syntax.type_constraint">
+        <lhs>type_constraint</lhs>
+
+        <rhs><nonterminal def="#syntax.range_constraint">range_constraint</nonterminal> | <nonterminal def="#syntax.delta_constraint">delta_constraint</nonterminal> | <nonterminal def="#syntax.digits_constraint">digits_constraint</nonterminal></rhs>
+      </production>
+
+      <production xml:id="syntax.range_constraint">
+        <lhs>range_constraint</lhs>
+
+        <rhs>"range" , <nonterminal def="#syntax.expression">expression</nonterminal></rhs>
+      </production>
+
+      <production xml:id="syntax.delta_constraint">
+        <lhs>delta_constraint</lhs>
+
+        <rhs>"delta" , <nonterminal def="#syntax.expression">expression</nonterminal> , <nonterminal def="#syntax.range_constraint">range_constraint</nonterminal></rhs>
+      </production>
+
+      <production xml:id="syntax.digits_constraint">
+        <lhs>digits_constraint</lhs>
+
+        <rhs>"digits" , <nonterminal def="#syntax.expression">expression</nonterminal> , <nonterminal def="#syntax.range_constraint">range_constraint</nonterminal></rhs>
+      </production>
+    </productionset>
+
+    <productionset>
+      <title>Relationship Definition</title>
+
+      <production xml:id="syntax.relationship_definition">
+        <lhs>relationship_definition</lhs>
+
+        <rhs>"relationship" , <nonterminal def="#syntax.relationship_name">relationship_name</nonterminal> , "is" , ( <nonterminal def="#syntax.regular_relationship_definition">regular_relationship_definition</nonterminal> | <nonterminal def="#syntax.associative_relationship_definition">associative_relationship_definition</nonterminal> | <nonterminal def="#syntax.subtype_relationship_definition">subtype_relationship_definition</nonterminal> )</rhs>
+      </production>
+
+      <production xml:id="syntax.regular_relationship_definition">
+        <lhs>regular_relationship_definition</lhs>
+
+        <rhs><nonterminal def="#syntax.half_relationship">half_relationship</nonterminal> , "," , <nonterminal def="#syntax.half_relationship">half_relationship</nonterminal></rhs>
+      </production>
+
+      <production xml:id="syntax.associative_relationship_definition">
+        <lhs>associative_relationship_definition</lhs>
+
+        <rhs><nonterminal def="#syntax.half_relationship">half_relationship</nonterminal> , "," , <nonterminal def="#syntax.half_relationship">half_relationship</nonterminal> , "using" , <nonterminal def="#syntax.object_name">object_name</nonterminal></rhs>
+      </production>
+
+      <production xml:id="syntax.half_relationship">
+        <lhs>half_relationship</lhs>
+
+        <rhs><nonterminal def="#syntax.object_name">object_name</nonterminal> , ( "conditionally" | "unconditionally" ) , <nonterminal def="#syntax.role_phrase">role_phrase</nonterminal> , ( "one" | "many" ) , <nonterminal def="#syntax.object_name">object_name</nonterminal></rhs>
+      </production>
+
+      <production xml:id="syntax.subtype_relationship_definition">
+        <lhs>subtype_relationship_definition</lhs>
+
+        <rhs><nonterminal def="#syntax.object_name">object_name</nonterminal> , "is_a" , "(" , <nonterminal def="#syntax.object_name">object_name</nonterminal> , { "," , <nonterminal def="#syntax.object_name">object_name</nonterminal> } , ")"</rhs>
+      </production>
+
+      <production xml:id="syntax.role_phrase">
+        <lhs>role_phrase</lhs>
+
+        <rhs><nonterminal def="#syntax.identifier">identifier</nonterminal></rhs>
+      </production>
+
+      <production xml:id="syntax.relationship_spec">
+        <lhs>relationship_spec</lhs>
+
+        <rhs><nonterminal def="#syntax.relationship_name">relationship_name</nonterminal> , [ "." , <nonterminal def="#syntax.role_phrase">role_phrase</nonterminal> ] , [ "." , <nonterminal def="#syntax.object_name">object_name</nonterminal> ]</rhs>
+      </production>
+    </productionset>
+
+    <productionset>
+      <title>Object Definition</title>
+
+      <production xml:id="syntax.object_definition">
+        <lhs>object_definition</lhs>
+
+        <rhs>"object" , <nonterminal def="#syntax.object_name">object_name</nonterminal> , "is" , <nonterminal def="#syntax.object_item">object_item</nonterminal> , "end" , [ "object" ]</rhs>
+      </production>
+
+      <production xml:id="syntax.object_item">
+        <lhs>object_item</lhs>
+
+        <rhs> ( <nonterminal def="#syntax.attribute_definition">attribute_definition</nonterminal> | <nonterminal def="#syntax.identifier_definition">identifier_definition</nonterminal> | <nonterminal def="#syntax.object_service_declaration">object_service_declaration</nonterminal> | <nonterminal def="#syntax.object_function_declaration">object_function_declaration</nonterminal> | <nonterminal def="#syntax.event_definition">event_definition</nonterminal> | <nonterminal def="#syntax.state_declaration">state_declaration</nonterminal> | <nonterminal def="#syntax.state_transition_table">state_transition_table</nonterminal> ) , ";" , { <nonterminal def="#syntax.pragma">pragma</nonterminal> }</rhs>
+      </production>
+
+      <production xml:id="syntax.attribute_definition">
+        <lhs>attribute_definition</lhs>
+
+        <rhs><nonterminal def="#syntax.attribute_name">attribute_name</nonterminal> , ":" , [ "preferred" ] , [ "unique" ] , [ <nonterminal def="#syntax.attribute_referentials">attribute_referentials</nonterminal> ] , <nonterminal def="#syntax.type_reference_ca">type_reference_ca</nonterminal> , [ ":=" , <nonterminal def="#syntax.expression">expression</nonterminal> ]</rhs>
+      </production>
+
+      <production xml:id="syntax.attribute_referentials">
+        <lhs>attribute_referentials</lhs>
+
+        <rhs>"referential" , "(" , <nonterminal def="#syntax.attribute_referential">attribute_referential</nonterminal> , { "," , <nonterminal def="#syntax.attribute_referential">attribute_referential</nonterminal> } , ")"</rhs>
+      </production>
+
+      <production xml:id="syntax.attribute_referential">
+        <lhs>attribute_referential</lhs>
+
+        <rhs><nonterminal def="#syntax.relationship_spec">relationship_spec</nonterminal> , "." , <nonterminal def="#syntax.attribute_name">attribute_name</nonterminal></rhs>
+      </production>
+
+      <production xml:id="syntax.identifier_definition">
+        <lhs>identifier_definition</lhs>
+
+        <rhs>"identifier" , "is" , "(" , <nonterminal def="#syntax.attribute_name">attribute_name</nonterminal> , { "," , <nonterminal def="#syntax.attribute_name">attribute_name</nonterminal> } , ")" </rhs>
+      </production>
+
+      <production xml:id="syntax.object_service_declaration">
+        <lhs>object_service_declaration</lhs>
+
+        <rhs>[ <nonterminal def="#syntax.visibility">visibility</nonterminal> ] , [ <nonterminal def="#syntax.service_type">service_type</nonterminal> ] , "service" , <nonterminal def="#syntax.service_name">service_name</nonterminal> , <nonterminal def="#syntax.parameter_list">parameter_list</nonterminal></rhs>
+      </production>
+
+      <production xml:id="syntax.object_function_declaration">
+        <lhs>object_function_declaration</lhs>
+
+        <rhs>[ <nonterminal def="#syntax.visibility">visibility</nonterminal> ] , [ <nonterminal def="#syntax.service_type">service_type</nonterminal> ] , "function" , <nonterminal def="#syntax.service_name">service_name</nonterminal> , <nonterminal def="#syntax.parameter_list">parameter_list</nonterminal> , "returns" , <nonterminal def="#syntax.return_type">return_type</nonterminal></rhs>
+      </production>
+
+      <production xml:id="syntax.service_type">
+        <lhs>service_type</lhs>
+
+        <rhs>"instance" , [ "deferred" , "(" , <nonterminal def="#syntax.relationship_name">relationship_name</nonterminal> , ")" ]</rhs>
+      </production>
+
+      <production xml:id="syntax.event_definition">
+        <lhs>event_definition</lhs>
+
+        <rhs>[ "creation" , | "assigner" ] , "event" , <nonterminal def="#syntax.event_name">event_name</nonterminal> , <nonterminal def="#syntax.parameter_list">parameter_list</nonterminal></rhs>
+      </production>
+
+      <production xml:id="syntax.state_declaration">
+        <lhs>state_declaration</lhs>
+
+        <rhs>[ <nonterminal def="#syntax.state_type">state_type</nonterminal> ] , "state" , <nonterminal def="#syntax.state_name">state_name</nonterminal> , <nonterminal def="#syntax.parameter_list">parameter_list</nonterminal></rhs>
+      </production>
+
+      <production xml:id="syntax.state_type">
+        <lhs>state_type</lhs>
+
+        <rhs>( "assigner" | "start" | "creation" | "terminal" )</rhs>
+      </production>
+
+      <production xml:id="syntax.state_transition_table">
+        <lhs>state_transition_table</lhs>
+
+        <rhs>[ "assigner" ] , "transition" , "is" , <nonterminal def="#syntax.transition_row">transition_row</nonterminal> , { <nonterminal def="#syntax.transition_row">transition_row</nonterminal> } , "end" , "transition"</rhs>
+      </production>
+
+      <production xml:id="syntax.transition_row">
+        <lhs>transition_row</lhs>
+
+        <rhs>( "non_existent" | <nonterminal def="#syntax.state_name">state_name</nonterminal> ) , "(" , <nonterminal def="#syntax.transition">transition</nonterminal> , { "," , <nonterminal def="#syntax.transition">transition</nonterminal> } , ")" , ";" , { <nonterminal def="#syntax.pragma">pragma</nonterminal> }</rhs>
+      </production>
+
+      <production xml:id="syntax.transition">
+        <lhs>transition</lhs>
+
+        <rhs>[ <nonterminal def="#syntax.object_name">object_name</nonterminal> , "." ] , <nonterminal def="#syntax.event_name">event_name</nonterminal> , "=&gt;" , ( <nonterminal def="#syntax.state_name">state_name</nonterminal> | "ignore" | "cannot_happen" )</rhs>
+      </production>
+    </productionset>
+  </section>
+
+  <section>
+    <title>Expression Grammar</title>
+
+    <productionset>
+      <production xml:id="syntax.const_expression">
+        <lhs>const_expression</lhs>
+
+        <rhs><nonterminal def="#syntax.expression">expression</nonterminal></rhs>
+      </production>
+
+      <production xml:id="syntax.expression">
+        <lhs>expression</lhs>
+
+        <rhs><nonterminal def="#syntax.range_expression">range_expression</nonterminal></rhs>
+      </production>
+
+      <production xml:id="syntax.range_expression">
+        <lhs>range_expression</lhs>
+
+        <rhs><nonterminal def="#syntax.logical_or">logical_or</nonterminal> , [ ".." , <nonterminal def="#syntax.logical_or">logical_or</nonterminal> ]</rhs>
+      </production>
+
+      <production xml:id="syntax.logical_or">
+        <lhs>logical_or</lhs>
+
+        <rhs><nonterminal def="#syntax.logical_xor">logical_xor</nonterminal> , { "or" , <nonterminal def="#syntax.logical_xor">logical_xor</nonterminal> }</rhs>
+      </production>
+
+      <production xml:id="syntax.logical_xor">
+        <lhs>logical_xor</lhs>
+
+        <rhs><nonterminal def="#syntax.logical_and">logical_and</nonterminal> , { "xor" , <nonterminal def="#syntax.logical_and">logical_and</nonterminal> }</rhs>
+      </production>
+
+      <production xml:id="syntax.logical_and">
+        <lhs>logical_and</lhs>
+
+        <rhs><nonterminal def="#syntax.equality">equality</nonterminal> , { "and" , <nonterminal def="#syntax.equality">equality</nonterminal> }</rhs>
+      </production>
+
+      <production xml:id="syntax.equality">
+        <lhs>equality</lhs>
+
+        <rhs><nonterminal def="#syntax.relational">relational</nonterminal> , { ( "=" | "/=" ) , <nonterminal def="#syntax.relational">relational</nonterminal> }</rhs>
+      </production>
+
+      <production xml:id="syntax.relational">
+        <lhs>relational</lhs>
+
+        <rhs><nonterminal def="#syntax.additive">additive</nonterminal> , { ( "&lt;" | "&gt;" | "&lt;=" | "&gt;=" ) , <nonterminal def="#syntax.additive">additive</nonterminal> }</rhs>
+      </production>
+
+      <production xml:id="syntax.additive">
+        <lhs>additive</lhs>
+
+        <rhs><nonterminal def="#syntax.multiplicative">multiplicative</nonterminal> , { ( "+" | "-" | "&amp;" | "union" | "not_in" ) , <nonterminal def="#syntax.multiplicative">multiplicative</nonterminal> }</rhs>
+      </production>
+
+      <production xml:id="syntax.multiplicative">
+        <lhs>multiplicative</lhs>
+
+        <rhs><nonterminal def="#syntax.unary">unary</nonterminal> , { ( "*" | "/" | "mod" | "**" | "rem" | "intersection" | "disunion" ) , <nonterminal def="#syntax.unary">unary</nonterminal> }</rhs>
+      </production>
+
+      <production xml:id="syntax.unary">
+        <lhs>unary</lhs>
+
+        <rhs>( ( "-" | "+" | "not" | "abs" ) , <nonterminal def="#syntax.unary">unary</nonterminal> ) | <nonterminal def="#syntax.collection_exp">collection_exp</nonterminal></rhs>
+      </production>
+
+      <production xml:id="syntax.collection_exp">
+        <lhs>collection_exp</lhs>
+
+        <rhs><nonterminal def="#syntax.extended_exp">extended_exp</nonterminal> , { ( <nonterminal def="#syntax.navigate_exp">navigate_exp</nonterminal> | <nonterminal def="#syntax.correlate_exp">correlate_exp</nonterminal> | <nonterminal def="#syntax.order_by_exp">order_by_exp</nonterminal> ) }</rhs>
+      </production>
+
+      <production xml:id="syntax.navigate_exp">
+        <lhs>navigate_exp</lhs>
+
+        <rhs>"-&gt;" , <nonterminal def="#syntax.relationship_spec">relationship_spec</nonterminal></rhs>
+      </production>
+
+      <production xml:id="syntax.correlate_exp">
+        <lhs>correlate_exp</lhs>
+
+        <rhs>"with" , <nonterminal def="#syntax.extended_exp">extended_exp</nonterminal> , "-&gt;" , <nonterminal def="#syntax.relationship_spec">relationship_spec</nonterminal></rhs>
+      </production>
+
+      <production xml:id="syntax.order_by_exp">
+        <lhs>order_by_exp</lhs>
+
+        <rhs>( "ordered_by" | "reverse_ordered_by" ) , <nonterminal def="#syntax.sort_order">sort_order</nonterminal></rhs>
+      </production>
+
+      <production xml:id="syntax.sort_order">
+        <lhs>sort_order</lhs>
+
+        <rhs>"(" , <nonterminal def="#syntax.sort_component">sort_component</nonterminal> , { "," , <nonterminal def="#syntax.sort_component">sort_component</nonterminal> } , ")"</rhs>
+      </production>
+
+      <production xml:id="syntax.sort_component">
+        <lhs>sort_component</lhs>
+
+        <rhs>[ "reverse" ] , <nonterminal def="#syntax.identifier">identifier</nonterminal></rhs>
+      </production>
+
+      <production xml:id="syntax.extended_exp">
+        <lhs>extended_exp</lhs>
+
+        <rhs><nonterminal def="#syntax.suffix_expression">suffix_expression</nonterminal> | <nonterminal def="#syntax.create_exp">create_exp</nonterminal> | <nonterminal def="#syntax.find_exp">find_exp</nonterminal></rhs>
+      </production>
+
+      <production xml:id="syntax.create_exp">
+        <lhs>create_exp</lhs>
+
+        <rhs>"create" , [ "unique" ] , <nonterminal def="#syntax.object_name">object_name</nonterminal> , "(" , <nonterminal audience="" def="#syntax.create_argument_list" role="">create_argument_list</nonterminal>, ")"</rhs>
+      </production>
+
+      <production xml:id="syntax.create_argument_list">
+        <lhs>create_argument_list</lhs>
+
+        <rhs><nonterminal def="#syntax.create_argument">create_argument</nonterminal> , { "," , <nonterminal def="#syntax.create_argument">create_argument</nonterminal> }</rhs>
+      </production>
+
+      <production xml:id="syntax.create_argument">
+        <lhs>create_argument</lhs>
+
+        <rhs><nonterminal def="#syntax.attribute_name">attribute_name</nonterminal> , "=&gt;" , <nonterminal def="#syntax.expression">expression</nonterminal> | "current_state" , "=&gt;" , <nonterminal def="#syntax.state_name">state_name</nonterminal></rhs>
+      </production>
+
+      <production xml:id="syntax.literal">
+        <lhs>literal</lhs>
+
+        <rhs><nonterminal def="#syntax.integer_literal">integer_literal</nonterminal> | <nonterminal def="#syntax.real_literal">real_literal</nonterminal> | <nonterminal def="#syntax.string_literal">string_literal</nonterminal> | <nonterminal def="#syntax.character_literal">character_literal</nonterminal> | "true" | "false" | "null" | "flush" | "endl" | "this" | "console"</rhs>
+      </production>
+
+      <production xml:id="syntax.argument_list">
+        <lhs>argument_list</lhs>
+
+        <rhs><nonterminal def="#syntax.expression">expression</nonterminal> , { "," , <nonterminal def="#syntax.expression">expression</nonterminal> }</rhs>
+      </production>
+
+      <production xml:id="syntax.find_exp">
+        <lhs>find_exp</lhs>
+
+        <rhs>( "find" | "find_one" | "find_only" ) , <nonterminal def="#syntax.suffix_expression_no_call">suffix_expression_no_call</nonterminal> , "(" , <nonterminal def="#syntax.find_condition">find_condition</nonterminal> , ")"</rhs>
+      </production>
+
+      <production xml:id="syntax.suffix_expression_no_call">
+        <lhs>suffix_expression_no_call</lhs>
+
+        <rhs><nonterminal def="#syntax.primary_expression">primary_expression</nonterminal> , { <nonterminal def="#syntax.attribute_suffix">attribute_suffix</nonterminal> | <nonterminal def="#syntax.terminator_suffix">terminator_suffix</nonterminal> | <nonterminal def="#syntax.array_suffix">array_suffix</nonterminal> | <nonterminal def="#syntax.characteristic_suffix">characteristic_suffix</nonterminal> }</rhs>
+      </production>
+
+      <production xml:id="syntax.suffix_expression">
+        <lhs>suffix_expression</lhs>
+
+        <rhs><nonterminal def="#syntax.primary_expression">primary_expression</nonterminal> , { <nonterminal def="#syntax.call_suffix">call_suffix</nonterminal> | <nonterminal def="#syntax.attribute_suffix">attribute_suffix</nonterminal> | <nonterminal def="#syntax.terminator_suffix">terminator_suffix</nonterminal> | <nonterminal def="#syntax.array_suffix">array_suffix</nonterminal> | <nonterminal def="#syntax.characteristic_suffix">characteristic_suffix</nonterminal> }</rhs>
+      </production>
+
+      <production xml:id="syntax.call_suffix">
+        <lhs>call_suffix</lhs>
+
+        <rhs>"(" , <nonterminal def="#syntax.argument_list">argument_list</nonterminal> , ")"</rhs>
+      </production>
+
+      <production xml:id="syntax.attribute_suffix">
+        <lhs>attribute_suffix</lhs>
+
+        <rhs>"." , <nonterminal def="#syntax.attribute_name">attribute_name</nonterminal></rhs>
+      </production>
+
+      <production xml:id="syntax.terminator_suffix">
+        <lhs>terminator_suffix</lhs>
+
+        <rhs>"~&gt;" , <nonterminal def="#syntax.service_name">service_name</nonterminal></rhs>
+      </production>
+
+      <production xml:id="syntax.array_suffix">
+        <lhs>array_suffix</lhs>
+
+        <rhs>"[" , <nonterminal def="#syntax.expression">expression</nonterminal> , "]"</rhs>
+      </production>
+
+      <production xml:id="syntax.characteristic_suffix">
+        <lhs>characteristic_suffix</lhs>
+
+        <rhs>"'" , <nonterminal def="#syntax.characteristic_name">characteristic_name</nonterminal></rhs>
+      </production>
+
+      <production xml:id="syntax.characteristic_name">
+        <lhs>characteristic_name</lhs>
+
+        <rhs>"elements" | "first" | "firstcharpos" | "get_unique" | "image" | "last" | "length" | "lower" | "pred" | "range" | "succ" | "upper" | "value" | "nanoseconds" | "microseconds" | "milliseconds" | "seconds" | "minutes" | "hours" | "days" | "now"</rhs>
+      </production>
+
+      <production xml:id="syntax.primary_expression">
+        <lhs>primary_expression</lhs>
+
+        <rhs><nonterminal def="#syntax.literal">literal</nonterminal> | <nonterminal def="#syntax.parenthesised_exp">parenthesised_exp</nonterminal> | <nonterminal def="#syntax.aggregate_exp">aggregate_exp</nonterminal> | <nonterminal def="#syntax.name_exp">name_exp</nonterminal> | <nonterminal def="#syntax.type_name_exp">type_name_exp</nonterminal></rhs>
+      </production>
+
+      <production xml:id="syntax.parenthesised_exp">
+        <lhs>parenthesised_exp</lhs>
+
+        <rhs>"(" , <nonterminal def="#syntax.expression">expression</nonterminal> , ")"</rhs>
+      </production>
+
+      <production xml:id="syntax.aggregate_exp">
+        <lhs>aggregate_exp</lhs>
+
+        <rhs>"(" , <nonterminal def="#syntax.expression">expression</nonterminal> , "," , <nonterminal def="#syntax.expression">expression</nonterminal> { "," , <nonterminal def="#syntax.expression">expression</nonterminal> } , ")"</rhs>
+      </production>
+
+      <production xml:id="syntax.name_exp">
+        <lhs>name_exp</lhs>
+
+        <rhs>[ <nonterminal def="#syntax.domain_name">domain_name</nonterminal> , "::" ] , <nonterminal def="#syntax.identifier">identifier</nonterminal></rhs>
+      </production>
+
+      <production xml:id="syntax.type_name_exp">
+        <lhs>type_name_exp</lhs>
+
+        <rhs><nonterminal def="#syntax.instance_type_reference">instance_type_reference</nonterminal> | <nonterminal def="#syntax.collection_type_reference">collection_type_reference</nonterminal></rhs>
+      </production>
+
+      <production xml:id="syntax.find_condition">
+        <lhs>find_condition</lhs>
+
+        <rhs><nonterminal def="#syntax.find_logical_or">find_logical_or</nonterminal></rhs>
+      </production>
+
+      <production xml:id="syntax.find_logical_or">
+        <lhs>find_logical_or</lhs>
+
+        <rhs><nonterminal def="#syntax.find_logical_xor">find_logical_xor</nonterminal> , { "or" , <nonterminal def="#syntax.find_logical_xor">find_logical_xor</nonterminal> }</rhs>
+      </production>
+
+      <production xml:id="syntax.find_logical_xor">
+        <lhs>find_logical_xor</lhs>
+
+        <rhs><nonterminal def="#syntax.find_logical_and">find_logical_and</nonterminal> , { "xor" , <nonterminal def="#syntax.find_logical_and">find_logical_and</nonterminal> }</rhs>
+      </production>
+
+      <production xml:id="syntax.find_logical_and">
+        <lhs>find_logical_and</lhs>
+
+        <rhs><nonterminal def="#syntax.find_primary">find_primary</nonterminal> , { "and" , <nonterminal def="#syntax.find_primary">find_primary</nonterminal> }</rhs>
+      </production>
+
+      <production xml:id="syntax.find_primary">
+        <lhs>find_primary</lhs>
+
+        <rhs><nonterminal def="#syntax.find_comparison">find_comparison</nonterminal> | <nonterminal def="#syntax.find_unary">find_unary</nonterminal></rhs>
+      </production>
+
+      <production xml:id="syntax.find_comparison">
+        <lhs>find_comparison</lhs>
+
+        <rhs><nonterminal def="#syntax.find_name">find_name</nonterminal> , ( "=" | "/=" | "&lt;" | "&gt;" | "&lt;=" | "&gt;=" ) , <nonterminal def="#syntax.additive">additive</nonterminal></rhs>
+      </production>
+
+      <production xml:id="syntax.find_unary">
+        <lhs>find_unary</lhs>
+
+        <rhs>"not" , <nonterminal def="#syntax.find_unary">find_unary</nonterminal> | "(" , <nonterminal def="#syntax.find_condition">find_condition</nonterminal> , ")"</rhs>
+      </production>
+
+      <production xml:id="syntax.find_name">
+        <lhs>find_name</lhs>
+
+        <rhs><nonterminal def="#syntax.attribute_name">attribute_name</nonterminal> , { ( "." , <nonterminal def="#syntax.component_name">component_name</nonterminal> | "[" , <nonterminal def="#syntax.expression">expression</nonterminal> , "]" ) }</rhs>
+      </production>
+    </productionset>
+  </section>
+
+  <section>
+    <title>Dynamic Behaviour Grammar</title>
+
+    <productionset>
+      <title>Code Blocks</title>
+
+      <production xml:id="syntax.domain_service_definition">
+        <lhs>domain_service_definition</lhs>
+
+        <rhs><nonterminal def="#syntax.visibility">visibility</nonterminal> , "service" , <nonterminal def="#syntax.domain_name">domain_name</nonterminal> , "::" , <nonterminal def="#syntax.service_name">service_name</nonterminal> , "is" , <nonterminal def="#syntax.code_block">code_block</nonterminal> , [ "service" ] , ";" , { <nonterminal def="#syntax.pragma">pragma</nonterminal> }</rhs>
+      </production>
+
+      <production xml:id="syntax.domain_function_definition">
+        <lhs>domain_function_definition</lhs>
+
+        <rhs><nonterminal def="#syntax.visibility">visibility</nonterminal> , "function" , <nonterminal def="#syntax.domain_name">domain_name</nonterminal> , "::" , <nonterminal def="#syntax.service_name">service_name</nonterminal> , "return" , <nonterminal def="#syntax.return_type">return_type</nonterminal> , "is" , <nonterminal def="#syntax.code_block">code_block</nonterminal> , [ "function" ] , ";" , { <nonterminal def="#syntax.pragma">pragma</nonterminal> }</rhs>
+      </production>
+
+      <production xml:id="syntax.terminator_service_definition">
+        <lhs>terminator_service_definition</lhs>
+
+        <rhs><nonterminal def="#syntax.visibility">visibility</nonterminal> , "service" , <nonterminal def="#syntax.domain_name">domain_name</nonterminal> , "::" , <nonterminal def="#syntax.terminator_name">terminator_name</nonterminal> , "~&gt;" , <nonterminal def="#syntax.service_name">service_name</nonterminal> , "is" , <nonterminal def="#syntax.code_block">code_block</nonterminal> , [ "service" ] , ";" , { <nonterminal def="#syntax.pragma">pragma</nonterminal> }</rhs>
+      </production>
+
+      <production xml:id="syntax.terminator_function_definition">
+        <lhs>terminator_function_definition</lhs>
+
+        <rhs><nonterminal def="#syntax.visibility">visibility</nonterminal> , "function" , <nonterminal def="#syntax.domain_name">domain_name</nonterminal> , "::" , <nonterminal def="#syntax.terminator_name">terminator_name</nonterminal> , "~&gt;" , <nonterminal def="#syntax.service_name">service_name</nonterminal> , "return" , <nonterminal def="#syntax.return_type">return_type</nonterminal> , "is" , <nonterminal def="#syntax.code_block">code_block</nonterminal> , [ "function" ] , ";" , { <nonterminal def="#syntax.pragma">pragma</nonterminal> }</rhs>
+      </production>
+
+      <production xml:id="syntax.object_service_definition">
+        <lhs>object_service_definition</lhs>
+
+        <rhs><nonterminal def="#syntax.visibility">visibility</nonterminal> , [ "instance" ] , "service" , <nonterminal def="#syntax.domain_name">domain_name</nonterminal> , "::" , <nonterminal def="#syntax.object_name">object_name</nonterminal> , "." , <nonterminal def="#syntax.service_name">service_name</nonterminal> , "is" , <nonterminal def="#syntax.code_block">code_block</nonterminal> , [ "service" ] , ";" , { <nonterminal def="#syntax.pragma">pragma</nonterminal> }</rhs>
+      </production>
+
+      <production xml:id="syntax.object_function_definition">
+        <lhs>object_function_definition</lhs>
+
+        <rhs><nonterminal def="#syntax.visibility">visibility</nonterminal> , [ "instance" ] , "function" , <nonterminal def="#syntax.domain_name">domain_name</nonterminal> , "::" , <nonterminal def="#syntax.object_name">object_name</nonterminal> , "." , <nonterminal def="#syntax.service_name">service_name</nonterminal> , "return" , <nonterminal def="#syntax.return_type">return_type</nonterminal> , "is" , <nonterminal def="#syntax.code_block">code_block</nonterminal> , [ "function" ] , ";" , { <nonterminal def="#syntax.pragma">pragma</nonterminal> }</rhs>
+      </production>
+
+      <production xml:id="syntax.state_definition">
+        <lhs>state_definition</lhs>
+
+        <rhs>[ <nonterminal def="#syntax.state_type">state_type</nonterminal> ] , "state" , <nonterminal def="#syntax.domain_name">domain_name</nonterminal> , "::" , <nonterminal def="#syntax.object_name">object_name</nonterminal> , "." , <nonterminal def="#syntax.service_name">service_name</nonterminal> , "is" , <nonterminal def="#syntax.code_block">code_block</nonterminal> , [ "state" ] , ";" , { <nonterminal def="#syntax.pragma">pragma</nonterminal> }</rhs>
+      </production>
+
+      <production xml:id="syntax.code_block">
+        <lhs>code_block</lhs>
+
+        <rhs>{ <nonterminal def="#syntax.variable_declaration">variable_declaration</nonterminal> } , "begin" , { <nonterminal def="#syntax.statement">statement</nonterminal> } , [ "exception" , { <nonterminal def="#syntax.exception_handler">exception_handler</nonterminal> } , [ <nonterminal def="#syntax.other_handler">other_handler</nonterminal> ] ] , "end"</rhs>
+      </production>
+
+      <production xml:id="syntax.variable_declaration">
+        <lhs>variable_declaration</lhs>
+
+        <rhs><nonterminal def="#syntax.variable_name">variable_name</nonterminal> , ":" , [ "readonly" ] , <nonterminal def="#syntax.type_reference_ca">type_reference_ca</nonterminal> , [ ":=" , <nonterminal def="#syntax.expression">expression</nonterminal> ] , ";" , { <nonterminal def="#syntax.pragma">pragma</nonterminal> }</rhs>
+      </production>
+
+      <production xml:id="syntax.exception_handler">
+        <lhs>exception_handler</lhs>
+
+        <rhs>"when" , <nonterminal def="#syntax.qualified_exception_name">qualified_exception_name</nonterminal> , "=&gt;" , { <nonterminal def="#syntax.statement">statement</nonterminal> }</rhs>
+      </production>
+
+      <production xml:id="syntax.other_handler">
+        <lhs>other_handler</lhs>
+
+        <rhs>"when" , "others" , "=&gt;" , { <nonterminal def="#syntax.statement">statement</nonterminal> }</rhs>
+      </production>
+
+      <production xml:id="syntax.qualified_exception_name">
+        <lhs>qualified_exception_name</lhs>
+
+        <rhs>[ <nonterminal def="#syntax.domain_name">domain_name</nonterminal> , "::" ] <nonterminal def="#syntax.exception_name">exception_name</nonterminal></rhs>
+      </production>
+
+      <production xml:id="syntax.variable_name">
+        <lhs>variable_name</lhs>
+
+        <rhs><nonterminal def="#syntax.identifier">identifier</nonterminal> ;</rhs>
+      </production>
+    </productionset>
+
+    <productionset>
+      <title>Statements</title>
+
+      <production xml:id="syntax.statement">
+        <lhs>statement</lhs>
+
+        <rhs>[ <nonterminal def="#syntax.code_block_statement">code_block_statement</nonterminal> | <nonterminal def="#syntax.assign_statement">assign_statement</nonterminal> | <nonterminal def="#syntax.stream_statement">stream_statement</nonterminal> | <nonterminal def="#syntax.service_call_statement">service_call_statement</nonterminal> | <nonterminal def="#syntax.exit_statement">exit_statement</nonterminal> | <nonterminal def="#syntax.return_statement">return_statement</nonterminal> | <nonterminal def="#syntax.delay_statement">delay_statement</nonterminal> | <nonterminal def="#syntax.raise_statement">raise_statement</nonterminal> | <nonterminal def="#syntax.delete_statement">delete_statement</nonterminal> | <nonterminal def="#syntax.link_statement">link_statement</nonterminal> | <nonterminal def="#syntax.schedule_statement">schedule_statement</nonterminal> | <nonterminal def="#syntax.cancel_statement">cancel_statement</nonterminal> | <nonterminal def="#syntax.generate_statement">generate_statement</nonterminal> | <nonterminal def="#syntax.if_statement">if_statement</nonterminal> | <nonterminal def="#syntax.case_statement">case_statement</nonterminal> | <nonterminal def="#syntax.for_statement">for_statement</nonterminal> | <nonterminal def="#syntax.while_statement">while_statement</nonterminal> ] , ";" , { <nonterminal def="#syntax.pragma">pragma</nonterminal> }</rhs>
+      </production>
+
+      <production xml:id="syntax.code_block_statement">
+        <lhs>code_block_statement</lhs>
+
+        <rhs>[ "declare" , { <nonterminal def="#syntax.variable_declaration">variable_declaration</nonterminal> } ] , "begin" , { <nonterminal def="#syntax.statement">statement</nonterminal> } , [ "exception" , { <nonterminal def="#syntax.exception_handler">exception_handler</nonterminal> } , [ <nonterminal def="#syntax.other_handler">other_handler</nonterminal> ] ] , "end"</rhs>
+      </production>
+
+      <production xml:id="syntax.assign_statement">
+        <lhs>assign_statement</lhs>
+
+        <rhs><nonterminal def="#syntax.expression">expression</nonterminal> , ":=" , <nonterminal def="#syntax.expression">expression</nonterminal></rhs>
+      </production>
+
+      <production xml:id="syntax.stream_statement">
+        <lhs>stream_statement</lhs>
+
+        <rhs><nonterminal def="#syntax.expression">expression</nonterminal> , ( "&lt;&lt;" | "&gt;&gt;" | "&lt;&lt;&lt;" | "&gt;&gt;&gt;" ) , <nonterminal def="#syntax.expression">expression</nonterminal> , { ( "&lt;&lt;" | "&gt;&gt;" | "&lt;&lt;&lt;" | "&gt;&gt;&gt;" ) , <nonterminal def="#syntax.expression">expression</nonterminal> }</rhs>
+      </production>
+
+      <production xml:id="syntax.service_call_statement">
+        <lhs>service_call_statement</lhs>
+
+        <rhs><nonterminal def="#syntax.suffix_expression">suffix_expression</nonterminal> , <nonterminal def="#syntax.call_suffix">call_suffix</nonterminal></rhs>
+      </production>
+
+      <production xml:id="syntax.exit_statement">
+        <lhs>exit_statement</lhs>
+
+        <rhs>"exit" , [ "when" , <nonterminal def="#syntax.expression">expression</nonterminal> ]</rhs>
+      </production>
+
+      <production xml:id="syntax.return_statement">
+        <lhs>return_statement</lhs>
+
+        <rhs>"return" , <nonterminal def="#syntax.expression">expression</nonterminal></rhs>
+      </production>
+
+      <production xml:id="syntax.delay_statement">
+        <lhs>delay_statement</lhs>
+
+        <rhs>"delay" , <nonterminal def="#syntax.expression">expression</nonterminal></rhs>
+      </production>
+
+      <production xml:id="syntax.raise_statement">
+        <lhs>raise_statement</lhs>
+
+        <rhs>"raise" , <nonterminal def="#syntax.qualified_exception_name">qualified_exception_name</nonterminal></rhs>
+      </production>
+
+      <production xml:id="syntax.delete_statement">
+        <lhs>delete_statement</lhs>
+
+        <rhs>"delete" , <nonterminal def="#syntax.expression">expression</nonterminal></rhs>
+      </production>
+
+      <production xml:id="syntax.link_statement">
+        <lhs>link_statement</lhs>
+
+        <rhs>( "link" | "unlink" ) , <nonterminal def="#syntax.expression">expression</nonterminal> , <nonterminal def="#syntax.relationship_spec">relationship_spec</nonterminal> , <nonterminal def="#syntax.expression">expression</nonterminal> , [ "using" , <nonterminal def="#syntax.expression">expression</nonterminal> ]</rhs>
+      </production>
+
+      <production xml:id="syntax.schedule_statement">
+        <lhs>schedule_statement</lhs>
+
+        <rhs>"schedule" , <nonterminal def="#syntax.expression">expression</nonterminal> , <nonterminal def="#syntax.generate_statement">generate_statement</nonterminal> , ( "at" | "delay" ) , <nonterminal def="#syntax.expression">expression</nonterminal></rhs>
+      </production>
+
+      <production xml:id="syntax.cancel_statement">
+        <lhs>cancel_statement</lhs>
+
+        <rhs>"cancel" , <nonterminal def="#syntax.expression">expression</nonterminal></rhs>
+      </production>
+
+      <production xml:id="syntax.generate_statement">
+        <lhs>generate_statement</lhs>
+
+        <rhs>"generate" , <nonterminal def="#syntax.qualified_event_name">qualified_event_name</nonterminal> , "(" , <nonterminal def="#syntax.argument_list">argument_list</nonterminal> , ")" , [ "to" , <nonterminal def="#syntax.expression">expression</nonterminal> ]</rhs>
+      </production>
+
+      <production xml:id="syntax.qualified_event_name">
+        <lhs>qualified_event_name</lhs>
+
+        <rhs>[ <nonterminal def="#syntax.object_name">object_name</nonterminal> , "." ] , <nonterminal def="#syntax.event_name">event_name</nonterminal></rhs>
+      </production>
+
+      <production xml:id="syntax.if_statement">
+        <lhs>if_statement</lhs>
+
+        <rhs>"if" , <nonterminal def="#syntax.expression">expression</nonterminal> , "then" , { <nonterminal def="#syntax.statement">statement</nonterminal> } , { "elsif" , <nonterminal def="#syntax.expression">expression</nonterminal> , "then" , { <nonterminal def="#syntax.statement">statement</nonterminal> } } , [ "else" , { <nonterminal def="#syntax.statement">statement</nonterminal> } ] , "end" , [ "if" ]</rhs>
+      </production>
+
+      <production xml:id="syntax.case_statement">
+        <lhs>case_statement</lhs>
+
+        <rhs>"case" , <nonterminal def="#syntax.expression">expression</nonterminal> , "is" , { "when" , <nonterminal def="#syntax.expression">expression</nonterminal> , { "|" , <nonterminal def="#syntax.expression">expression</nonterminal> } , "=&gt;" , { <nonterminal def="#syntax.statement">statement</nonterminal> } } , [ "when" , "others" , "=&gt;" , { <nonterminal def="#syntax.statement">statement</nonterminal> } ] , "end" , [ "case" ]</rhs>
+      </production>
+
+      <production xml:id="syntax.for_statement">
+        <lhs>for_statement</lhs>
+
+        <rhs>"for" , <nonterminal def="#syntax.identifier">identifier</nonterminal> , "in" , [ "reverse" ] <nonterminal def="#syntax.expression">expression</nonterminal> , "loop" , { <nonterminal def="#syntax.statement">statement</nonterminal> } , "end" , [ "loop" ]</rhs>
+      </production>
+
+      <production xml:id="syntax.while_statement">
+        <lhs>while_statement</lhs>
+
+        <rhs>"while" , <nonterminal def="#syntax.expression">expression</nonterminal> , "loop" , { <nonterminal def="#syntax.statement">statement</nonterminal> } , "end" , [ "loop" ]</rhs>
+      </production>
+    </productionset>
+  </section>
+</section>

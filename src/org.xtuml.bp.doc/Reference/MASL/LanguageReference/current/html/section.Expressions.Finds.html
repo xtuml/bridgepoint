@@ -1,0 +1,184 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>10.12. Finds</title>
+<link rel="stylesheet" type="text/css" href="docbook.css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
+<meta name="keywords" content="MASL, Action Language, Action Semantics, UML, Unified Modelling Language, Shlaer Mellor">
+<link rel="home" href="index.html" title="MASL Reference Manual">
+<link rel="up" href="section.Expressions.html" title="Chapter 10. Expressions">
+<link rel="prev" href="section.Expressions.InstanceCreation.html" title="10.11. Instance Creation">
+<link rel="next" href="section.Expressions.SuffixExpressions.html" title="10.13. Suffix Expressions">
+<link rel="chapter" href="section.LexicalStructure.html" title="Chapter 1. Lexical Structure">
+<link rel="chapter" href="section.Types.html" title="Chapter 2. Type System">
+<link rel="chapter" href="section.Domains.html" title="Chapter 3. Domains">
+<link rel="chapter" href="section.Services.html" title="Chapter 4. Services, Functions and State Actions">
+<link rel="chapter" href="section.Relationships.html" title="Chapter 5. Relationships">
+<link rel="chapter" href="section.Exceptions.html" title="Chapter 6. Exceptions">
+<link rel="chapter" href="section.Terminators.html" title="Chapter 7. Terminators">
+<link rel="chapter" href="section.Objects.html" title="Chapter 8. Objects">
+<link rel="chapter" href="section.Statements.html" title="Chapter 9. Statements">
+<link rel="chapter" href="section.Expressions.html" title="Chapter 10. Expressions">
+<link rel="chapter" href="section.Projects.html" title="Chapter 11. Projects">
+<link rel="chapter" href="section.Pragmas.html" title="Chapter 12. Pragmas">
+<link rel="appendix" href="AlphabeticalSyntaxReference.html" title="Appendix A. Alphabetical Syntax Reference">
+<link rel="index" href="ix01.html" title="Index">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div align="center">OFFICIAL</div>
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center">10.12. Finds</th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="section.Expressions.InstanceCreation.html">Prev</a> </td>
+<th width="60%" align="center">Chapter 10. Expressions</th>
+<td width="20%" align="right"> <a accesskey="n" href="section.Expressions.SuffixExpressions.html">Next</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h2 class="title">
+<a name="section.Expressions.Finds"></a>10.12. Finds</h2></div></div></div>
+<p>todo</p>
+<table width="100%" cellpadding="5" bgcolor="#F5DCB3" border="1" class="productionset" summary="EBNF"><tr><td><table border="0" width="99%" cellpadding="0" bgcolor="#F5DCB3" class="productionset" summary="EBNF productions">
+<tr>
+<td align="left" valign="top" width="3%">[192]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.findExpression"></a>find expression</td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">[ 'find' | 'find_one' | 'find_only' ] , <a href="section.Expressions.SuffixExpressions.html#ebnf.suffixExpressionNC">suffix expression nc</a> , [ <a href="section.Expressions.Finds.html#ebnf.whereClause">where clause</a> ];</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[193]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.whereClause"></a>where clause</td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">'(' , [ <a href="section.Expressions.Finds.html#ebnf.findCondition">find condition</a> ] , ')';</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[194]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.findCondition"></a>find condition</td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="section.Expressions.Finds.html#ebnf.findLogicalOr">find logical or</a>
+      ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[195]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.findLogicalOr"></a>find logical or</td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">[ <a href="section.Expressions.Finds.html#ebnf.findLogicalOr">find logical or</a> , 'or' ] , <a href="section.Expressions.Finds.html#ebnf.findLogicalXor">find logical xor</a>;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[196]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.findLogicalXor"></a>find logical xor</td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">[ <a href="section.Expressions.Finds.html#ebnf.findLogicalXor">find logical xor</a> , 'xor' ] , <a href="section.Expressions.Finds.html#ebnf.findLogicalAnd">find logical and</a>;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[197]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.findLogicalAnd"></a>find logical and</td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">[ <a href="section.Expressions.Finds.html#ebnf.findLogicalAnd">find logical and</a> , 'and' ] , <a href="section.Expressions.Finds.html#ebnf.findPrimary">find primary</a>;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[198]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.findPrimary"></a>find primary</td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+<a href="section.Expressions.Finds.html#ebnf.findComparison">find comparison</a> | <a href="section.Expressions.Finds.html#ebnf.findUnary">find unary</a>;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[199]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.findComparison"></a>find comparison</td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+<a href="section.Expressions.Finds.html#ebnf.findName">find name</a> , ( '=' | '/=' | '&lt;' | '&gt;' | '&lt;=' | '&gt;=' ) , <a href="section.Expressions.AdditiveOperators.html#ebnf.additiveExp">additive exp</a>;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[200]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.findUnary"></a>find unary</td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">'not' , <a href="section.Expressions.Finds.html#ebnf.findUnary">find unary</a> | '(' , <a href="section.Expressions.Finds.html#ebnf.findCondition">find condition</a> , ')';</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[201]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.findName"></a>find name</td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+<a href="section.Objects.Attributes.html#ebnf.attributeName">attribute name</a> , { '.' , <a href="section.Types.Definition.html#ebnf.componentName">component name</a> | '[' ,
+      <a href="section.Expressions.Finds.html#ebnf.index">index</a> , ']' };</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[105]</td>
+<td align="right" valign="top" width="10%"><a href="section.Objects.Attributes.html#ebnf.attributeName">attribute name</a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="section.Tokenization.html#ebnf.Identifier">identifier</a>
+      ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[51]</td>
+<td align="right" valign="top" width="10%"><a href="section.Types.Definition.html#ebnf.componentName">component name</a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="section.Tokenization.html#ebnf.Identifier">identifier</a>
+      ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[202]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.index"></a>index</td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="section.Expressions.html#ebnf.expression">expression</a>
+      ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+</table></td></tr></table>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="section.Expressions.InstanceCreation.html">Prev</a> </td>
+<td width="20%" align="center"><a accesskey="u" href="section.Expressions.html">Up</a></td>
+<td width="40%" align="right"> <a accesskey="n" href="section.Expressions.SuffixExpressions.html">Next</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left" valign="top">10.11. Instance Creation </td>
+<td width="20%" align="center">
+<a accesskey="h" href="index.html">Home</a> | <a accesskey="t" href="bk01-toc.html">ToC</a>
+</td>
+<td width="40%" align="right" valign="top"> 10.13. Suffix Expressions</td>
+</tr>
+</table>
+</div>
+<div align="center">OFFICIAL</div>
+</body>
+</html>

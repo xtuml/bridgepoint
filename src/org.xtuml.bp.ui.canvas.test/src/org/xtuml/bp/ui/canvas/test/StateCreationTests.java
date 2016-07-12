@@ -15,33 +15,45 @@ package org.xtuml.bp.ui.canvas.test;
 import org.eclipse.gef.tools.AbstractTool;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.PlatformUI;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.ClassStateMachine_c;
 import org.xtuml.bp.core.InstanceStateMachine_c;
 import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.StateMachineState_c;
 import org.xtuml.bp.core.StateMachine_c;
 import org.xtuml.bp.test.common.CanvasTestUtils;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.test.common.UITestingUtilities;
 import org.xtuml.bp.ui.canvas.CanvasTransactionListener;
 import org.xtuml.bp.ui.graphics.editor.GraphicalEditor;
 import org.xtuml.bp.ui.graphics.editor.ModelEditor;
 
+@RunWith(OrderedRunner.class)
 public class StateCreationTests extends CanvasTest {
 	public static boolean generateResults = false;
 	private static String test_id = "";
 	private static boolean initialized;
 	
-	public StateCreationTests(String arg0) {
-		super(null, arg0);
+	public StateCreationTests() {
+		super(null, null);
 	}
 
 	@Override
+	@Before
 	public void setUp() throws Exception {
 		super.setUp();
 	}
 	
+	private static boolean isFirstTime = true;
 	@Override
-	protected void initialSetup() throws Exception {
+//	@Before
+	public void initialSetup() throws Exception {
+		if (!isFirstTime)
+			return;
+		isFirstTime = false;
 		setModelName("CanvasCreationModel");
 
 		Display d = Display.getCurrent();
@@ -55,7 +67,8 @@ public class StateCreationTests extends CanvasTest {
         CanvasTransactionListener.disableReconciler();
 			}
 
-	protected void tearDown() throws Exception {
+	@After
+	public void tearDown() throws Exception {
 		Ooaofooa.setPersistEnabled(false);
 		super.tearDown();
 		CanvasTransactionListener.enableReconciler();
@@ -74,6 +87,7 @@ public class StateCreationTests extends CanvasTest {
 
 	}
 
+	@Test
 	public void testCreateStateInISM() {
 		test_id = "test_16";
 		InstanceStateMachine_c ism = InstanceStateMachine_c.InstanceStateMachineInstance(modelRoot);
@@ -100,6 +114,7 @@ public class StateCreationTests extends CanvasTest {
         UITestingUtilities.deactivateTool(tool);
 	}
 	
+	@Test
 	public void testCreateStateInCSM() {
 		test_id = "test_17";
 		ClassStateMachine_c csm = ClassStateMachine_c.ClassStateMachineInstance(modelRoot);

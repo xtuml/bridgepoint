@@ -1,0 +1,160 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Chapter 14. Expressions</title>
+<link rel="stylesheet" type="text/css" href="docbook.css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
+<meta name="keywords" content="MASL, Action Language, Action Semantics, UML, Unified Modelling Language, Shlaer Mellor">
+<link rel="home" href="index.html" title="MASL Reference Manual">
+<link rel="up" href="index.html" title="MASL Reference Manual">
+<link rel="prev" href="NamesAssignabilityofNames.html" title="13.5. Assignability of Names">
+<link rel="next" href="ExpressionsEvaluationandResult.html" title="14.1. Evaluation and Result">
+<link rel="preface" href="preface.html" title="Preface">
+<link rel="chapter" href="Grammars.html" title="Chapter 1. Grammars">
+<link rel="chapter" href="LexicalStructure.html" title="Chapter 2. Lexical Structure">
+<link rel="chapter" href="Types.html" title="Chapter 3. Types">
+<link rel="chapter" href="TypeConversion.html" title="Chapter 4. Type Conversion">
+<link rel="chapter" href="Domains.html" title="Chapter 5. Domains">
+<link rel="chapter" href="Objects.html" title="Chapter 6. Objects">
+<link rel="chapter" href="Relationships.html" title="Chapter 7. Relationships">
+<link rel="chapter" href="Lifecycles.html" title="Chapter 8. Lifecycles">
+<link rel="chapter" href="Functions.html" title="Chapter 9. Functions">
+<link rel="chapter" href="Services.html" title="Chapter 10. Services">
+<link rel="chapter" href="Exceptions.html" title="Chapter 11. Exceptions">
+<link rel="chapter" href="Statements.html" title="Chapter 12. Statements">
+<link rel="chapter" href="Names.html" title="Chapter 13. Names">
+<link rel="chapter" href="Expressions.html" title="Chapter 14. Expressions">
+<link rel="appendix" href="LanguageDefinedCharacteristics.html" title="Appendix A. Language Defined Characteristics">
+<link rel="appendix" href="SyntaxSummary.html" title="Appendix B. Syntax Summary">
+<link rel="index" href="ix01.html" title="Index">
+<link rel="section" href="ExpressionsEvaluationandResult.html" title="14.1. Evaluation and Result">
+<link rel="section" href="ExpressionsTypeofanExpression.html" title="14.2. Type of an Expression">
+<link rel="section" href="ExpressionsNormalandAbruptCompletionofEvaluation.html" title="14.3. Normal and Abrupt Completion of Evaluation">
+<link rel="section" href="ExpressionsPrimaryExpression.html" title="14.4. Primary Expressions">
+<link rel="section" href="ExpressionsUnaryOperators.html" title="14.5. Unary Operators">
+<link rel="section" href="ExpressionsTypeConversion.html" title="14.6. Type Conversion">
+<link rel="section" href="ExpressionsMulitplicativeOperators.html" title="14.7. Multiplicative Operators">
+<link rel="section" href="ExpressionsAdditiveOperators.html" title="14.8. Additive Operators">
+<link rel="section" href="ExpressionsRelationalOperators.html" title="14.9. Relational Operators">
+<link rel="section" href="ExpressionsEqualityOperators.html" title="14.10. Equality Operators">
+<link rel="section" href="ExpressionsLogicalOperators.html" title="14.11. Logical Operators">
+<link rel="section" href="ExpressionsExpression.html" title="14.12. Expression">
+<link rel="section" href="ExpressionsConditions.html" title="14.13. Conditions">
+<link rel="section" href="ExpressionsInstanceandInstanceCollectionExpressions.html" title="14.14. Instance and Instance Collection Expressions">
+<link rel="section" href="ExpressionsConstantExpressions.html" title="14.15. Constant Expressions">
+<link rel="section" href="ExpressionsExecutableUMLExpressions.html" title="14.16. Executable UML Expressions">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div align="center">OFFICIAL</div>
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center">Chapter 14. Expressions</th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="NamesAssignabilityofNames.html">Prev</a> </td>
+<th width="60%" align="center"> </th>
+<td width="20%" align="right"> <a accesskey="n" href="ExpressionsEvaluationandResult.html">Next</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="chapter">
+<div class="titlepage"><div><div><h1 class="title">
+<a name="Expressions"></a>Chapter 14. Expressions</h1></div></div></div>
+<div class="toc">
+<div class="toc-title">Table of Contents</div>
+<dl class="toc">
+<dt><span class="section"><a href="ExpressionsEvaluationandResult.html">14.1. Evaluation and Result</a></span></dt>
+<dt><span class="section"><a href="ExpressionsTypeofanExpression.html">14.2. Type of an Expression</a></span></dt>
+<dt><span class="section"><a href="ExpressionsNormalandAbruptCompletionofEvaluation.html">14.3. Normal and Abrupt Completion of Evaluation</a></span></dt>
+<dt><span class="section"><a href="ExpressionsPrimaryExpression.html">14.4. Primary Expressions</a></span></dt>
+<dd><dl>
+<dt><span class="section"><a href="ExpressionsPrimaryExpression.html#ExpressionsLiterals">14.4.1. Literals</a></span></dt>
+<dd><dl><dt><span class="section"><a href="ExpressionsPrimaryExpression.html#ExpressionsEnumerationLiterals">14.4.1.1. Enumeration Literals</a></span></dt></dl></dd>
+<dt><span class="section"><a href="ExpressionsPrimaryExpression.html#Expressionsthis">14.4.2. this</a></span></dt>
+<dt><span class="section"><a href="ExpressionsPrimaryExpression.html#ExpressionsNamesasExpressions">14.4.3. Names as Expressions</a></span></dt>
+<dt><span class="section"><a href="ExpressionsPrimaryExpression.html#ExpressionsCharacteristicReferences">14.4.4. Characteristic References</a></span></dt>
+<dt><span class="section"><a href="ExpressionsPrimaryExpression.html#ExpressionsStructureAggregates">14.4.5. Structure Aggregates</a></span></dt>
+<dt><span class="section"><a href="ExpressionsPrimaryExpression.html#ExpressionsServicesasExpressions">14.4.6. Services As Expressions</a></span></dt>
+<dt><span class="section"><a href="ExpressionsPrimaryExpression.html#ExpressionsEventsAsExpressions">14.4.7. Events As Expressions</a></span></dt>
+<dt><span class="section"><a href="ExpressionsPrimaryExpression.html#ExpressionsFunctionInvocation">14.4.8. Function Invocation</a></span></dt>
+<dt><span class="section"><a href="ExpressionsPrimaryExpression.html#ExpressionsDomainFunctionInvocation">14.4.9. Domain Function Invocation</a></span></dt>
+<dt><span class="section"><a href="ExpressionsPrimaryExpression.html#ExpressionsObjectFunctionInvocation">14.4.10. Object Function Invocation</a></span></dt>
+<dt><span class="section"><a href="ExpressionsPrimaryExpression.html#ExpressionsInstanceFunctionInvocation">14.4.11. Instance Function Invocation</a></span></dt>
+<dt><span class="section"><a href="ExpressionsPrimaryExpression.html#ExpressionsCompileTimeProcessingofFunctionCalls">14.4.12. Compile-Time Processing of Function Calls</a></span></dt>
+<dt><span class="section"><a href="ExpressionsPrimaryExpression.html#ExpressionsParenthesisedExpressions">14.4.13. Parenthesized Expressions</a></span></dt>
+</dl></dd>
+<dt><span class="section"><a href="ExpressionsUnaryOperators.html">14.5. Unary Operators</a></span></dt>
+<dd><dl>
+<dt><span class="section"><a href="ExpressionsUnaryOperators.html#ExpressionsUnaryPlusandMinusOperators">14.5.1. Unary Plus and Minus Operators</a></span></dt>
+<dt><span class="section"><a href="ExpressionsUnaryOperators.html#ExpressionsLogicalNegationOperator">14.5.2. Logical Negation Operator</a></span></dt>
+<dt><span class="section"><a href="ExpressionsUnaryOperators.html#ExpressionsAbsoluteValueOperator">14.5.3. Absolute Value Operator</a></span></dt>
+</dl></dd>
+<dt><span class="section"><a href="ExpressionsTypeConversion.html">14.6. Type Conversion</a></span></dt>
+<dt><span class="section"><a href="ExpressionsMulitplicativeOperators.html">14.7. Multiplicative Operators</a></span></dt>
+<dd><dl>
+<dt><span class="section"><a href="ExpressionsMulitplicativeOperators.html#ExpressionsMulitplicationandDivisionOperators">14.7.1. Multiplication and Division Operators</a></span></dt>
+<dt><span class="section"><a href="ExpressionsMulitplicativeOperators.html#ExpressionsRemainderandModulusOperators">14.7.2. Remainder and Modulus Operators</a></span></dt>
+<dt><span class="section"><a href="ExpressionsMulitplicativeOperators.html#ExpressionsExponentationOperator">14.7.3. Exponentiation Operator</a></span></dt>
+<dt><span class="section"><a href="ExpressionsMulitplicativeOperators.html#ExpressionsSetIntersectionandDisunionOperators">14.7.4. Set Intersection and Disunion Operators</a></span></dt>
+</dl></dd>
+<dt><span class="section"><a href="ExpressionsAdditiveOperators.html">14.8. Additive Operators</a></span></dt>
+<dd><dl>
+<dt><span class="section"><a href="ExpressionsAdditiveOperators.html#ExpressionsAdditiveOperatorsforNumericTypes">14.8.1. Additive Operators for Numeric Types</a></span></dt>
+<dt><span class="section"><a href="ExpressionsAdditiveOperators.html#ExpressionsStringConcatenationOperator">14.8.2. String Concatenation Operator</a></span></dt>
+<dt><span class="section"><a href="ExpressionsAdditiveOperators.html#ExpressionsCollectionAdditionOperator">14.8.3. Collection Addition Operator</a></span></dt>
+<dt><span class="section"><a href="ExpressionsAdditiveOperators.html#ExpressionsSetUnionandNotInOperators">14.8.4. Set Union and Not In Operators</a></span></dt>
+</dl></dd>
+<dt><span class="section"><a href="ExpressionsRelationalOperators.html">14.9. Relational Operators</a></span></dt>
+<dt><span class="section"><a href="ExpressionsEqualityOperators.html">14.10. Equality Operators</a></span></dt>
+<dt><span class="section"><a href="ExpressionsLogicalOperators.html">14.11. Logical Operators</a></span></dt>
+<dd><dl><dt><span class="section"><a href="ExpressionsLogicalOperators.html#ExpressionsShortCircuitEvaluationofLogicalOperators">14.11.1. Short Circuit Evaluation of Logical Operators</a></span></dt></dl></dd>
+<dt><span class="section"><a href="ExpressionsExpression.html">14.12. Expression</a></span></dt>
+<dt><span class="section"><a href="ExpressionsConditions.html">14.13. Conditions</a></span></dt>
+<dt><span class="section"><a href="ExpressionsInstanceandInstanceCollectionExpressions.html">14.14. Instance and Instance Collection Expressions</a></span></dt>
+<dt><span class="section"><a href="ExpressionsConstantExpressions.html">14.15. Constant Expressions</a></span></dt>
+<dt><span class="section"><a href="ExpressionsExecutableUMLExpressions.html">14.16. Executable UML Expressions</a></span></dt>
+<dd><dl>
+<dt><span class="section"><a href="ExpressionsExecutableUMLExpressions.html#ExpressionsCreateExpressions">14.16.1. Create Expressions</a></span></dt>
+<dd><dl><dt><span class="section"><a href="ExpressionsExecutableUMLExpressions.html#ExpressionsObjectAggregates">14.16.1.1. Object Aggregates</a></span></dt></dl></dd>
+<dt><span class="section"><a href="ExpressionsExecutableUMLExpressions.html#ExpressionsFindExpressions">14.16.2. Find Expressions</a></span></dt>
+<dd><dl><dt><span class="section"><a href="ExpressionsExecutableUMLExpressions.html#ExpressionsFindConditions">14.16.2.1. Find Conditions</a></span></dt></dl></dd>
+<dt><span class="section"><a href="ExpressionsExecutableUMLExpressions.html#ExpressionsRelationshipNavigation">14.16.3. Relationship Navigation</a></span></dt>
+<dt><span class="section"><a href="ExpressionsExecutableUMLExpressions.html#ExpressionsCorrelatedRelationshipNavigation">14.16.4. Correlated Relationship Navigation</a></span></dt>
+<dt><span class="section"><a href="ExpressionsExecutableUMLExpressions.html#ExpressionsOrderingExpressions">14.16.5. Ordering Expressions</a></span></dt>
+<dd><dl>
+<dt><span class="section"><a href="ExpressionsExecutableUMLExpressions.html#ExpressionsInstanceOrderingExpressions">14.16.5.1. Instance Ordering Expressions</a></span></dt>
+<dt><span class="section"><a href="ExpressionsExecutableUMLExpressions.html#ExpressionsStructureOrderingExpressions">14.16.5.2. Structure Ordering Expressions</a></span></dt>
+</dl></dd>
+</dl></dd>
+</dl>
+</div>
+<p>
+The rules applicable to the different forms of expression
+<a class="indexterm" name="idp68125680"></a>
+and to their evaluation, are given in this chapter.
+</p>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="NamesAssignabilityofNames.html">Prev</a> </td>
+<td width="20%" align="center"> </td>
+<td width="40%" align="right"> <a accesskey="n" href="ExpressionsEvaluationandResult.html">Next</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left" valign="top">13.5. Assignability of Names </td>
+<td width="20%" align="center">
+<a accesskey="h" href="index.html">Home</a> | <a accesskey="t" href="bk01-toc.html">ToC</a>
+</td>
+<td width="40%" align="right" valign="top"> 14.1. Evaluation and Result</td>
+</tr>
+</table>
+</div>
+<div align="center">OFFICIAL</div>
+</body>
+</html>

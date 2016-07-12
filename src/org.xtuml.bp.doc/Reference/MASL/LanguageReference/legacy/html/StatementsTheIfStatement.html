@@ -1,0 +1,145 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>12.11. The If Statement</title>
+<link rel="stylesheet" type="text/css" href="docbook.css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
+<meta name="keywords" content="MASL, Action Language, Action Semantics, UML, Unified Modelling Language, Shlaer Mellor">
+<link rel="home" href="index.html" title="MASL Reference Manual">
+<link rel="up" href="Statements.html" title="Chapter 12. Statements">
+<link rel="prev" href="StatementsBlocks.html" title="12.10. Blocks">
+<link rel="next" href="StatementsTheCaseStatement.html" title="12.12. The Case Statement">
+<link rel="preface" href="preface.html" title="Preface">
+<link rel="chapter" href="Grammars.html" title="Chapter 1. Grammars">
+<link rel="chapter" href="LexicalStructure.html" title="Chapter 2. Lexical Structure">
+<link rel="chapter" href="Types.html" title="Chapter 3. Types">
+<link rel="chapter" href="TypeConversion.html" title="Chapter 4. Type Conversion">
+<link rel="chapter" href="Domains.html" title="Chapter 5. Domains">
+<link rel="chapter" href="Objects.html" title="Chapter 6. Objects">
+<link rel="chapter" href="Relationships.html" title="Chapter 7. Relationships">
+<link rel="chapter" href="Lifecycles.html" title="Chapter 8. Lifecycles">
+<link rel="chapter" href="Functions.html" title="Chapter 9. Functions">
+<link rel="chapter" href="Services.html" title="Chapter 10. Services">
+<link rel="chapter" href="Exceptions.html" title="Chapter 11. Exceptions">
+<link rel="chapter" href="Statements.html" title="Chapter 12. Statements">
+<link rel="chapter" href="Names.html" title="Chapter 13. Names">
+<link rel="chapter" href="Expressions.html" title="Chapter 14. Expressions">
+<link rel="appendix" href="LanguageDefinedCharacteristics.html" title="Appendix A. Language Defined Characteristics">
+<link rel="appendix" href="SyntaxSummary.html" title="Appendix B. Syntax Summary">
+<link rel="index" href="ix01.html" title="Index">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div align="center">OFFICIAL</div>
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center">12.11. The If Statement</th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="StatementsBlocks.html">Prev</a> </td>
+<th width="60%" align="center">Chapter 12. Statements</th>
+<td width="20%" align="right"> <a accesskey="n" href="StatementsTheCaseStatement.html">Next</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h2 class="title">
+<a name="StatementsTheIfStatement"></a>12.11. The If Statement</h2></div></div></div>
+<p>
+The <a class="link" href="StatementsTheIfStatement.html#ebnf.ifstatement"><code class="literal">if</code></a> statement
+<a class="indexterm" name="idp69370560"></a>
+<a class="indexterm" name="idp69372304"></a>
+allows conditional execution of a
+sequence of statements or a conditional choice of several sequence of
+statements, executing one only.
+</p>
+<a class="indexterm" name="idp69373888"></a><a class="indexterm" name="idp69375056"></a><a class="indexterm" name="idp69376352"></a><a class="indexterm" name="idp69377520"></a><a class="indexterm" name="idp69378816"></a><a class="indexterm" name="idp69379984"></a><a class="indexterm" name="idp69381280"></a><table width="100%" cellpadding="5" bgcolor="#F5DCB3" border="1" class="productionset" summary="EBNF"><tr><td><table border="0" width="99%" cellpadding="0" bgcolor="#F5DCB3" class="productionset" summary="EBNF productions"><tr>
+<td align="left" valign="top" width="3%">[166]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.ifstatement"></a>
+        if statement
+    </td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        'if',
+        <a href="ExpressionsConditions.html#ebnf.condition">condition</a>,
+        'then',
+        <a href="StatementsSequenceofStatements.html#ebnf.sequenceofstatements">sequence of statements</a>,
+        {('elsif',
+        <a href="ExpressionsConditions.html#ebnf.condition">condition</a>,
+        'then',
+        <a href="StatementsSequenceofStatements.html#ebnf.sequenceofstatements">sequence of statements</a>)},
+        [('else',
+        <a href="StatementsSequenceofStatements.html#ebnf.sequenceofstatements">sequence of statements</a>)],
+        'end', ['if'], ';'
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr></table></td></tr></table>
+<p>
+An <a class="link" href="StatementsTheIfStatement.html#ebnf.ifstatement"><code class="literal">if</code></a> statement
+<a class="indexterm" name="idp69389568"></a>
+is executed by evaluating the first
+<a class="link" href="ExpressionsConditions.html" title="14.13. Conditions"><span class="emphasis"><em>condition</em></span></a>
+<a class="indexterm" name="idp69391728"></a>
+and then the other
+<a class="link" href="ExpressionsConditions.html" title="14.13. Conditions"><span class="emphasis"><em>conditions</em></span></a>
+<a class="indexterm" name="idp69393472"></a>
+in succession, until one evaluates to
+<a class="link" href="TypesBuiltinTypes.html#TypesBooleanType" title="3.2.3. Boolean Type"><code class="literal">true</code></a>,
+<a class="indexterm" name="idp69395232"></a>
+or all
+<a class="link" href="ExpressionsConditions.html" title="14.13. Conditions"><span class="emphasis"><em>conditions</em></span></a>
+<a class="indexterm" name="idp69397104"></a>
+evaluate to
+<a class="link" href="TypesBuiltinTypes.html#TypesBooleanType" title="3.2.3. Boolean Type"><code class="literal">false</code></a>.
+<a class="indexterm" name="idp69398848"></a>
+If a <a class="link" href="ExpressionsConditions.html" title="14.13. Conditions"><span class="emphasis"><em>condition</em></span></a>
+<a class="indexterm" name="idp69400720"></a>
+evaluates to
+<a class="link" href="TypesBuiltinTypes.html#TypesBooleanType" title="3.2.3. Boolean Type"><code class="literal">true</code></a>,
+<a class="indexterm" name="idp69402464"></a>
+then the corresponding sequence of statements is executed; otherwise the
+sequence of statements following the optional else is executed.
+</p>
+<p>
+If evaluation of a
+<a class="link" href="ExpressionsConditions.html" title="14.13. Conditions"><span class="emphasis"><em>condition</em></span></a>
+<a class="indexterm" name="idp69404912"></a>
+completes abruptly
+<a class="indexterm" name="idp69405808"></a>
+for some reason, the
+<a class="link" href="StatementsTheIfStatement.html#ebnf.ifstatement"><code class="literal">if</code></a> statement
+<a class="indexterm" name="idp69407552"></a>
+completes abruptly
+<a class="indexterm" name="idp69408848"></a>
+for the same reason.
+The <a class="link" href="StatementsTheIfStatement.html#ebnf.ifstatement"><code class="literal">if</code></a> statement
+<a class="indexterm" name="idp69410608"></a>
+completes normally<a class="indexterm" name="idp69411632"></a>
+only if execution of
+the selected sequence of statements completes normally.
+</p>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="StatementsBlocks.html">Prev</a> </td>
+<td width="20%" align="center"><a accesskey="u" href="Statements.html">Up</a></td>
+<td width="40%" align="right"> <a accesskey="n" href="StatementsTheCaseStatement.html">Next</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left" valign="top">12.10. Blocks </td>
+<td width="20%" align="center">
+<a accesskey="h" href="index.html">Home</a> | <a accesskey="t" href="bk01-toc.html">ToC</a>
+</td>
+<td width="40%" align="right" valign="top"> 12.12. The Case Statement</td>
+</tr>
+</table>
+</div>
+<div align="center">OFFICIAL</div>
+</body>
+</html>

@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: BridgePoint Command Line Interface
 Bundle-SymbolicName: org.xtuml.bp.cli;singleton:=true
-Bundle-Version: 5.3.0
+Bundle-Version: 5.4.0
 Bundle-Activator: org.xtuml.bp.cli.Activator
 Bundle-Vendor: xtUML.org
 Require-Bundle: org.eclipse.core.runtime,
@@ -29,6 +29,6 @@ Require-Bundle: org.eclipse.core.runtime,
  org.xtuml.bp.io.mdl,
  org.eclipse.team.ui,
  org.xtuml.bp.mc,
- org.xtuml.bp.mc.c.binary
+ org.xtuml.bp.mc.c.source
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ActivationPolicy: lazy

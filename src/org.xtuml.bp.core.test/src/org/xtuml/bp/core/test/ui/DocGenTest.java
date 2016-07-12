@@ -6,26 +6,28 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ProjectScope;
 import org.eclipse.core.resources.ResourcesPlugin;
-import org.eclipse.core.runtime.preferences.IScopeContext;
 import org.eclipse.core.runtime.NullProgressMonitor;
-import org.osgi.service.prefs.Preferences;
+import org.eclipse.core.runtime.preferences.IScopeContext;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.ui.PlatformUI;
-
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.osgi.service.prefs.Preferences;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.SystemModel_c;
-import org.xtuml.bp.core.common.BridgePointPreferencesStore;
 import org.xtuml.bp.core.common.ClassQueryInterface_c;
 import org.xtuml.bp.core.common.PersistableModelComponent;
+import org.xtuml.bp.core.ui.Selection;
 import org.xtuml.bp.core.ui.preferences.BridgePointProjectPreferences;
 import org.xtuml.bp.core.ui.preferences.BridgePointProjectReferencesPreferences;
-import org.xtuml.bp.core.ui.Selection;
 import org.xtuml.bp.test.TestUtil;
 import org.xtuml.bp.test.common.BaseTest;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.test.common.TestingUtilities;
 import org.xtuml.bp.test.common.UITestingUtilities;
-import org.xtuml.bp.ui.graphics.editor.GraphicalEditor;
 
 //========================================================================
 //
@@ -49,6 +51,7 @@ import org.xtuml.bp.ui.graphics.editor.GraphicalEditor;
 // the License.
 //========================================================================
 
+@RunWith(OrderedRunner.class)
 public class DocGenTest extends BaseTest {
 
 	private static String modelName = "DocGenTest";
@@ -67,13 +70,16 @@ public class DocGenTest extends BaseTest {
 	}
 
     @Override
-    protected void setUp() throws Exception {
+    @Before
+	public void setUp() throws Exception {
         super.setUp();
     }
 
+	@After
 	public void tearDown() throws Exception {
 	}
 
+	@Test
 	public void testDocumentGenerationDocGenTest() throws Exception {
 
 	    modelName = "DocGenTest";
@@ -83,7 +89,8 @@ public class DocGenTest extends BaseTest {
 	    runDocGenAndCheckResults();
 	}
 
-    public void testDocumentGenerationCFMon() throws Exception {
+    @Test
+	public void testDocumentGenerationCFMon() throws Exception {
 
         modelName = "CFMon";
         projSpecificExpectedFiles = new String[]{ "doc/images/CFMon-System Model Package Diagram.png" };
@@ -92,7 +99,8 @@ public class DocGenTest extends BaseTest {
         runDocGenAndCheckResults();
     }
 
-    public void testDocumentGenerationGPSWatch_System_IPR() throws Exception {
+    @Test
+	public void testDocumentGenerationGPSWatch_System_IPR() throws Exception {
         // This test uses three different test model projects that use IPRs.
         // We load the library projects, then the system wiring project we'll
         // actually generate code for.
@@ -112,7 +120,8 @@ public class DocGenTest extends BaseTest {
         runDocGenAndCheckResults();
     }
 
-    public void testDocumentGenerationGPSWatch_System_No_IPR() throws Exception {
+    @Test
+	public void testDocumentGenerationGPSWatch_System_No_IPR() throws Exception {
         // This test runs DocGen on an IPR project but with the "Emit RTO project data"
         // preference turned off.  Thus, the resulting docs do not have info from
         // the referred-to projects included.

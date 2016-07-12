@@ -21,6 +21,8 @@ package org.xtuml.bp.ui.canvas.test;
 // the License.
 //=====================================================================
 
+import org.junit.runner.RunWith;
+import org.xtuml.bp.test.common.OrderedRunner;
 
 /**
  * Performs automated testing of the more interesting transitions between states
@@ -29,6 +31,7 @@ package org.xtuml.bp.ui.canvas.test;
  * Note that the tests contained herein are meant to be run sequentially in the order of their
  * declaration, each one using as its initial state the final state of the previous test. 
  */
+@RunWith(OrderedRunner.class)
 public class ModelToolSCTest extends StatechartTest
 {
 //	/**
@@ -39,9 +42,9 @@ public class ModelToolSCTest extends StatechartTest
 	/**
 	 * Constructor
 	 */
-	public ModelToolSCTest(String arg0)
+	public ModelToolSCTest()
 	{
-		super(arg0);
+		super();
 	}
 
 //	/**

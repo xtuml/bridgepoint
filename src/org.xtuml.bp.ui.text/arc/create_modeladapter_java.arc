@@ -218,16 +218,17 @@ public class ${modelAdapterClass}
 	.assign found = false
 	.assign is_oal = false;
 	.select many attr_set related by obj->O_ATTR[R102]
+    .select any attr from instances of O_ATTR where (false)
 	.for each attr in attr_set
 	  .if ("$l{attr.name}" == "name")
 	    .assign found = true
 	    .break for
 	  .end if
-	  .for each oal in oal_set
-	  	.if ( obj.Key_Lett == oal.Key_Lett)
-	  		.assign is_oal = true;
-	  	.end if
-	  .end for    
+	.end for    
+	.for each oal in oal_set
+	  .if ( obj.Key_Lett == oal.Key_Lett)
+	  	.assign is_oal = true;
+	  .end if
 	.end for    
 	.if (not found )
 	private static String m_getNameValid = "no"; //$$NON-NLS-1$$
@@ -360,7 +361,7 @@ public class ${modelAdapterClass}
   .for each attr in id_attr_set
     .invoke result = get_core_datatype(attr)
     .assign cdt = result.cdt
-    .if (cdt.core_typ == 4)   // string
+    .if (cdt.core_typ == 4)
       id.add($cr{attr.name});
     .else
       id.add(String.valueOf($cr{attr.name}));

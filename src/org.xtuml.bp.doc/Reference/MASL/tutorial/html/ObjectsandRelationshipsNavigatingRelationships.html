@@ -1,0 +1,164 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>5.5. Navigating Relationships</title>
+<link rel="stylesheet" type="text/css" href="docbook.css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
+<meta name="keywords" content="MASL, Action Language, Action Semantics, UML, Unified Modelling Language, Shlaer Mellor">
+<link rel="home" href="index.html" title="MASL Tutorial">
+<link rel="up" href="ObjectsandRelationships.html" title="Chapter 5. Objects and Relationships">
+<link rel="prev" href="ObjectsandRelationshipsCreatingRelationships.html" title="5.4. Creating Relationships">
+<link rel="next" href="ObjectsandRelationshipsDeletingRelationships.html" title="5.6. Deleting Relationships">
+<link rel="preface" href="preface.html" title="Preface">
+<link rel="chapter" href="Types.html" title="Chapter 1. Types">
+<link rel="chapter" href="ExecutionControl.html" title="Chapter 2. Execution Control">
+<link rel="chapter" href="CompositeTypes.html" title="Chapter 3. Composite Types">
+<link rel="chapter" href="Exceptions.html" title="Chapter 4. Exceptions">
+<link rel="chapter" href="ObjectsandRelationships.html" title="Chapter 5. Objects and Relationships">
+<link rel="chapter" href="Actions.html" title="Chapter 6. Actions">
+<link rel="chapter" href="DeviceIO.html" title="Chapter 7. Device Input/Output">
+<link rel="chapter" href="MASLExamples.html" title="Chapter 8. MASL Examples">
+<link rel="index" href="ix01.html" title="Index">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div align="center">UNCLASSIFIED</div>
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center">5.5. Navigating Relationships</th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="ObjectsandRelationshipsCreatingRelationships.html">Prev</a> </td>
+<th width="60%" align="center">Chapter 5. Objects and Relationships</th>
+<td width="20%" align="right"> <a accesskey="n" href="ObjectsandRelationshipsDeletingRelationships.html">Next</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h2 class="title">
+<a name="ObjectsandRelationshipsNavigatingRelationships"></a>5.5. Navigating Relationships</h2></div></div></div>
+<p>Relationships that have been instantiated between instances can be
+    navigated using a relationship navigation expression. A relationship
+    navigation starts with an expression that denotes either a single instance
+    or a collection of instances followed by -&gt; and a specification of the
+    relationship. For example, given the relationship shown in <a class="xref" href="ObjectsandRelationshipsCreatingRelationships.html#ObjectsandRelationshipsAssociativeRelationship" title="Figure 5.3. Associative Relationship">Figure 5.3, “Associative Relationship”</a> and an
+    aircraft instance we could navigate to the corresponding pilot by writing
+    any of:</p>
+<div class="informalexample"><pre class="programlisting">  pilot_instance := aircraft_instance -&gt; R3;
+  pilot_instance := aircraft_instance -&gt; R3.is_being_flown_by;
+  pilot_instance := aircraft_instance -&gt; R3.Pilot;
+  pilot_instance := aircraft_instance -&gt; R3.is_being_flown_by.Pilot;</pre></div>
+<p>Similarly, if we had a collection of aircraft
+    instances we could navigate to the corresponding pilots by
+    writing:</p>
+<div class="informalexample"><pre class="programlisting">  pilot_bag := aircraft_set -&gt; R3;</pre></div>
+<p>Whether a single instance or a collection of instances
+    is returned from a navigation depends upon the multiplicity of the
+    relationship in the direction being navigated. This is summarised in <a class="xref" href="ObjectsandRelationshipsNavigatingRelationships.html#ObjectsandRelationshipsMultiplicityofRelationshipNavigation" title="Table 5.1. Multiplicity of Relationship Navigation">Table 5.1, “Multiplicity of Relationship Navigation”</a>.</p>
+<div class="table">
+<a name="ObjectsandRelationshipsMultiplicityofRelationshipNavigation"></a><div class="table-title">Table 5.1. Multiplicity of Relationship Navigation</div>
+<div class="table-contents"><table class="table" border="1">
+<colgroup>
+<col align="left" class="navigation">
+<col align="center" class="singlemultiplicity">
+<col align="center" class="manymultiplicity">
+</colgroup>
+<thead>
+<tr>
+<th rowspan="2" align="left" valign="middle">Navigation Type</th>
+<th colspan="2" align="center">Multiplicity of Relationship</th>
+</tr>
+<tr>
+<th align="center">Single</th>
+<th align="center">Many</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">single instance</td>
+<td align="center">single instance</td>
+<td align="center">set of instances</td>
+</tr>
+<tr>
+<td align="left">collection of instance</td>
+<td align="center">bag of instances</td>
+<td align="center">bag of instances</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<br class="table-break"><p>Given the relationship shown in <a class="xref" href="ObjectsandRelationshipsCreatingRelationships.html#ObjectsandRelationshipsAssociativeRelationship" title="Figure 5.3. Associative Relationship">Figure 5.3, “Associative Relationship”</a> and an
+    aircraft instance we might try to navigate to the corresponding
+    associative instance by writing:</p>
+<div class="informalexample"><pre class="programlisting">  aircraft_pilot_instance := aircraft_instance -&gt; R11;    // illegal</pre></div>
+<p>This is invalid, since it is not obvious from the relationship
+    specification that we are navigating to the associative instance. Wherever
+    a relationship specification is given, the analyst must ensure that the
+    following are unambiguously specified: </p>
+<div class="itemizedlist"><ul class="itemizedlist">
+<li class="listitem"><p>the relationship</p></li>
+<li class="listitem"><p>the direction of navigation</p></li>
+<li class="listitem"><p>the destination object</p></li>
+</ul></div>
+<p>This is achieved by using one of the four forms of relationship
+    specification already seen. For example, in this case we could write
+    either of:</p>
+<div class="informalexample"><pre class="programlisting">  aircraft_pilot_instance := aircraft_instance -&gt; R11.Aircraft_Pilot;
+  aircraft_pilot_instance := aircraft_instance -&gt; R11.is_being_flown_by.Aircraft_Pilot;</pre></div>
+<p>Both of these unambiguously specify the relationship,
+    the direction and the destination object. Full examples of all possible
+    relationship specifications are given in <a class="xref" href="Bibliography.html#MASL06">[MASL06]</a></p>
+<div class="figure">
+<a name="ObjectsandRelationshipsRelationshipbetweenAirlineandPilot"></a><div class="figure-title">Figure 5.4. Relationship between Airline and Pilot</div>
+<div class="figure-contents"><div class="mediaobject" align="center"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;"><tr><td align="center" valign="middle"><img src="images/relationshippilotairline.svg" align="middle"></td></tr></table></div></div>
+</div>
+<p><br class="figure-break">It is often the case that we wish to navigate two relationships
+    in one go. For example, given the relationship in <a class="xref" href="ObjectsandRelationshipsCreatingInstances.html#ObjectsandRelationshipsRelationshipbetweenPilotandAircraft" title="Figure 5.2. Relationship between Pilot and Aircraft">Figure 5.2, “Relationship between Pilot and Aircraft”</a>
+    and <a class="xref" href="ObjectsandRelationshipsNavigatingRelationships.html#ObjectsandRelationshipsRelationshipbetweenAirlineandPilot" title="Figure 5.4. Relationship between Airline and Pilot">Figure 5.4, “Relationship between Airline and Pilot”</a> we
+    could find out which aircrafts are been flown by pilots employed by an
+    airline by writing:</p>
+<div class="informalexample"><pre class="programlisting">  pilot_bag := airline_instance -&gt; R1;
+  aircraft_bag := pilot_bag -&gt; R3;</pre></div>
+<p>or we could combine the two navigations into one
+    compound navigation.</p>
+<div class="informalexample"><pre class="programlisting">  aircraft_bag := airline_instance -&gt; R1 -&gt; R3;</pre></div>
+<p>Finally, it is common to have two instances that we know are related
+    via an associative relationship and to want to find the associative
+    instance, or instances, that relate them. For example, given the
+    relationship in <a class="xref" href="ObjectsandRelationshipsCreatingRelationships.html#ObjectsandRelationshipsAssociativeRelationship" title="Figure 5.3. Associative Relationship">Figure 5.3, “Associative Relationship”</a> we could find
+    the associative instance that an <code class="classname">Aircraft</code> and
+    <code class="classname">Pilot</code> instance are related to by
+    writing:</p>
+<div class="informalexample"><pre class="programlisting">  aircraft_pilot_bag_1 := airline_instance -&gt; R3.Aircraft_Pilot;
+  aircraft_pilot_bag_2 := route_instance -&gt; R3.Aircraft_Pilot;
+  aircraft_pilot_set := set of instance of Aircraft_Pilot(aircraft_pilot_bag_1) intersection
+  set of instance of Aircraft_Pilot(aircraft_pilot_bag_2);
+  aircraft_pilot_instance := find_only aircraft_pilot_set();</pre></div>
+<p>This is all a bit longwinded so a special form is
+    provided:</p>
+<div class="informalexample"><pre class="programlisting">  aircraft_pilot_instance := aircraft_instance with pilot_instance -&gt; R3.Aircraft_Pilot;</pre></div>
+<p>This is known as correlated navigation.</p>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="ObjectsandRelationshipsCreatingRelationships.html">Prev</a> </td>
+<td width="20%" align="center"><a accesskey="u" href="ObjectsandRelationships.html">Up</a></td>
+<td width="40%" align="right"> <a accesskey="n" href="ObjectsandRelationshipsDeletingRelationships.html">Next</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left" valign="top">5.4. Creating Relationships </td>
+<td width="20%" align="center">
+<a accesskey="h" href="index.html">Home</a> | <a accesskey="t" href="bk01-toc.html">ToC</a>
+</td>
+<td width="40%" align="right" valign="top"> 5.6. Deleting Relationships</td>
+</tr>
+</table>
+</div>
+<div align="center">UNCLASSIFIED</div>
+</body>
+</html>

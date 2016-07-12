@@ -1,0 +1,124 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>9.15. Looping</title>
+<link rel="stylesheet" type="text/css" href="docbook.css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
+<meta name="keywords" content="MASL, Action Language, Action Semantics, UML, Unified Modelling Language, Shlaer Mellor">
+<link rel="home" href="index.html" title="MASL Reference Manual">
+<link rel="up" href="section.Statements.html" title="Chapter 9. Statements">
+<link rel="prev" href="section.Statements.ConditionalProcessing.html" title="9.14. Conditional Processing">
+<link rel="next" href="section.Expressions.html" title="Chapter 10. Expressions">
+<link rel="chapter" href="section.LexicalStructure.html" title="Chapter 1. Lexical Structure">
+<link rel="chapter" href="section.Types.html" title="Chapter 2. Type System">
+<link rel="chapter" href="section.Domains.html" title="Chapter 3. Domains">
+<link rel="chapter" href="section.Services.html" title="Chapter 4. Services, Functions and State Actions">
+<link rel="chapter" href="section.Relationships.html" title="Chapter 5. Relationships">
+<link rel="chapter" href="section.Exceptions.html" title="Chapter 6. Exceptions">
+<link rel="chapter" href="section.Terminators.html" title="Chapter 7. Terminators">
+<link rel="chapter" href="section.Objects.html" title="Chapter 8. Objects">
+<link rel="chapter" href="section.Statements.html" title="Chapter 9. Statements">
+<link rel="chapter" href="section.Expressions.html" title="Chapter 10. Expressions">
+<link rel="chapter" href="section.Projects.html" title="Chapter 11. Projects">
+<link rel="chapter" href="section.Pragmas.html" title="Chapter 12. Pragmas">
+<link rel="appendix" href="AlphabeticalSyntaxReference.html" title="Appendix A. Alphabetical Syntax Reference">
+<link rel="index" href="ix01.html" title="Index">
+<link rel="subsection" href="section.Statements.Looping.html#section.Statements.While" title="9.15.1. While Statement">
+<link rel="subsection" href="section.Statements.Looping.html#section.Statements.For" title="9.15.2. For Statement">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div align="center">OFFICIAL</div>
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center">9.15. Looping</th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="section.Statements.ConditionalProcessing.html">Prev</a> </td>
+<th width="60%" align="center">Chapter 9. Statements</th>
+<td width="20%" align="right"> <a accesskey="n" href="section.Expressions.html">Next</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h2 class="title">
+<a name="section.Statements.Looping"></a>9.15. Looping</h2></div></div></div>
+<div class="toc"><dl class="toc">
+<dt><span class="section"><a href="section.Statements.Looping.html#section.Statements.While">9.15.1. While Statement</a></span></dt>
+<dt><span class="section"><a href="section.Statements.Looping.html#section.Statements.For">9.15.2. For Statement</a></span></dt>
+</dl></div>
+<p>todo</p>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="section.Statements.While"></a>9.15.1. While Statement</h3></div></div></div>
+<p>todo</p>
+<table width="100%" cellpadding="5" bgcolor="#F5DCB3" border="1" class="productionset" summary="EBNF"><tr><td><table border="0" width="99%" cellpadding="0" bgcolor="#F5DCB3" class="productionset" summary="EBNF productions">
+<tr>
+<td align="left" valign="top" width="3%">[164]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.whileStatement"></a>while statement</td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">'while' , <a href="section.Expressions.html#ebnf.condition">condition</a> , 'loop' , <a href="section.Statements.html#ebnf.statementSequence">statement sequence</a> , 'end' ,
+      [ 'loop' ];</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[168]</td>
+<td align="right" valign="top" width="10%"><a href="section.Expressions.html#ebnf.condition">condition</a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="section.Expressions.html#ebnf.expression">expression</a>
+      ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+</table></td></tr></table>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="section.Statements.For"></a>9.15.2. For Statement</h3></div></div></div>
+<p>todo</p>
+<table width="100%" cellpadding="5" bgcolor="#F5DCB3" border="1" class="productionset" summary="EBNF"><tr><td><table border="0" width="99%" cellpadding="0" bgcolor="#F5DCB3" class="productionset" summary="EBNF productions">
+<tr>
+<td align="left" valign="top" width="3%">[165]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.forStatement"></a>for statement</td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">'for' , <a href="section.Statements.Looping.html#ebnf.loopVariableSpec">loop variable spec</a> , 'loop' , <a href="section.Statements.html#ebnf.statementSequence">statement sequence</a> ,
+      'end' , [ 'loop' ];</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[166]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.loopVariableSpec"></a>loop variable spec</td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+<a href="section.Tokenization.html#ebnf.Identifier">identifier</a> , 'in' , [ 'reverse' ] , <a href="section.Expressions.html#ebnf.expression">expression</a>;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+</table></td></tr></table>
+</div>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="section.Statements.ConditionalProcessing.html">Prev</a> </td>
+<td width="20%" align="center"><a accesskey="u" href="section.Statements.html">Up</a></td>
+<td width="40%" align="right"> <a accesskey="n" href="section.Expressions.html">Next</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left" valign="top">9.14. Conditional Processing </td>
+<td width="20%" align="center">
+<a accesskey="h" href="index.html">Home</a> | <a accesskey="t" href="bk01-toc.html">ToC</a>
+</td>
+<td width="40%" align="right" valign="top"> Chapter 10. Expressions</td>
+</tr>
+</table>
+</div>
+<div align="center">OFFICIAL</div>
+</body>
+</html>

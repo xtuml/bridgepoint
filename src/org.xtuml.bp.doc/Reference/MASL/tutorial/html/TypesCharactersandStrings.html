@@ -1,0 +1,170 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>1.8. Characters and Strings</title>
+<link rel="stylesheet" type="text/css" href="docbook.css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
+<meta name="keywords" content="MASL, Action Language, Action Semantics, UML, Unified Modelling Language, Shlaer Mellor">
+<link rel="home" href="index.html" title="MASL Tutorial">
+<link rel="up" href="Types.html" title="Chapter 1. Types">
+<link rel="prev" href="TypesTheBooleanType.html" title="1.7. The Boolean Type">
+<link rel="next" href="TypesBytes.html" title="1.9. Bytes">
+<link rel="preface" href="preface.html" title="Preface">
+<link rel="chapter" href="Types.html" title="Chapter 1. Types">
+<link rel="chapter" href="ExecutionControl.html" title="Chapter 2. Execution Control">
+<link rel="chapter" href="CompositeTypes.html" title="Chapter 3. Composite Types">
+<link rel="chapter" href="Exceptions.html" title="Chapter 4. Exceptions">
+<link rel="chapter" href="ObjectsandRelationships.html" title="Chapter 5. Objects and Relationships">
+<link rel="chapter" href="Actions.html" title="Chapter 6. Actions">
+<link rel="chapter" href="DeviceIO.html" title="Chapter 7. Device Input/Output">
+<link rel="chapter" href="MASLExamples.html" title="Chapter 8. MASL Examples">
+<link rel="index" href="ix01.html" title="Index">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div align="center">UNCLASSIFIED</div>
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center">1.8. Characters and Strings</th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="TypesTheBooleanType.html">Prev</a> </td>
+<th width="60%" align="center">Chapter 1. Types</th>
+<td width="20%" align="right"> <a accesskey="n" href="TypesBytes.html">Next</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h2 class="title">
+<a name="TypesCharactersandStrings"></a>1.8. Characters and Strings</h2></div></div></div>
+<p>There are two predefined character types; <span class="type">character</span> and
+    <span class="type">wcharacter</span>. The first has values, which are 8-bit quantities
+    and encode a single-byte character. The second en-codes wide characters
+    from any character set.</p>
+<p>A character literal consists of a single character within a pair of
+    single quotes. Examples of simple character literals
+    include:</p>
+<div class="informalexample"><div class="literallayout"><p>'a', 'G'</p></div></div>
+<p>More complex examples include:</p>
+<div class="informalexample"><div class="literallayout"><p>'\'', '\065', '\u0074'</p></div></div>
+<p>The first shows how the single quote character is represented. The
+    second uses an octal escape to represent the <abbr class="abbrev">ASCII</abbr>
+    character ’<code class="literal">5</code>’. The last one uses a Unicode escape to
+    represent the <abbr class="abbrev">ASCII</abbr> character
+    ’<code class="literal">t</code>’.</p>
+<p>We can perform the operations <code class="literal">=</code>,
+    <code class="literal">/=</code>, <code class="literal">&lt;=</code>, <code class="literal">&gt;</code>
+    and <code class="literal">&gt;=</code> on characters in order to return a
+    <span class="type">boolean</span> result <code class="literal">true</code> or
+    <code class="literal">false</code>. Both operands must have the same base type. The
+    result of the comparison is based upon the lexicographic order of
+    characters. The following are all true:</p>
+<div class="informalexample"><pre class="programlisting">  'r' = 'r'
+  'c' /= 'C'
+  'd' &lt; 'n'
+  'p' &gt; 's'
+  'k' &lt;= 'k'
+  't' &gt;= 'h'</pre></div>
+<p>There are also two predefined string types; <span class="type">string</span> and
+    <span class="type">wstring</span>. The <span class="type">string</span> type is similar to a
+    sequence of <span class="type">character</span>s . The <span class="type">wstring</span> type is
+    similar to a sequence of <span class="type">wcharacter</span>s. General sequences are
+    discussed in <a class="xref" href="CompositeTypesCollections.html#CompositeTypesSequences" title="3.2.3. Sequences">Section 3.2.3, “Sequences”</a>.</p>
+<p>A typical string declaration might be:</p>
+<div class="informalexample"><pre class="programlisting">  s : string := "Hello World!";</pre></div>
+<p>This declaration uses a string literal to give the
+    string an initial value. A string literal consists of zero or more
+    characters enclosed in double quotes.</p>
+<div class="example">
+<a name="TypesExampleStringLiterals"></a><div class="example-title">Example 1.1. Example String Literals</div>
+<div class="example-contents">
+<p>"A simple string"</p>
+<p>"This has \0163ome \"strange\" char\u0061cter’s in it!"</p>
+<p>Like characters, we can perform the operations
+        <code class="literal">=</code>, <code class="literal">/=</code>, <code class="literal">&lt;=</code>,
+        <code class="literal">&gt;</code> and <code class="literal">&gt;=</code> on strings. The
+        result of the comparison is based upon the lexicographic order of
+        characters. The following are all true:</p>
+<div class="informalexample"><pre class="programlisting">  "gnu" = "gnu"
+  "gnu" /= "gNu"
+  "cat" &lt; "dog"
+  "cattle" &gt; "cat"
+  "azure" &lt;= "baboon"
+  "aadvark" &gt;= ""</pre></div>
+<p>Strings can be concatenated together using the operator &amp;.
+        It has the same precedence as binary plus. The two operands must have
+        the same base type and the result is a string whose value is obtained
+        by juxtaposing the two operands. So after:</p>
+<div class="informalexample"><pre class="programlisting">  s := "cab" &amp; "bage";</pre></div>
+<p>the value of s will be "cabbage". One or other of
+        the operands of &amp; can also be a single character.</p>
+<div class="informalexample"><pre class="programlisting">  s := "dais" &amp; 'y';
+  s := 'd' &amp; "anger";</pre></div>
+<p>After the first assignment the value of s will be
+        "<code class="literal">daisy</code>" and after the second
+        "<code class="literal">danger</code>". The individual characters of a string can
+        be referred to following the string name with an expression in
+        brackets giving a value in the range of indices of the string. If this
+        expression, known as the index value, has a value outside of the
+        range, then an exception will be raised.</p>
+<p>One way of obtaining a valid index value is to use one of the
+        two characteristics <code class="literal">first</code> or
+        <code class="literal">last</code>, which give the lower, and upper bounds of the
+        indices of a string.</p>
+<div class="informalexample"><pre class="programlisting">  declare
+    first_postion : integer;
+    last_postion  : integer;
+    s : string := “Hello World!”;
+  begin
+    first_position := s'first;
+    last_postion := s'last;
+  end;</pre></div>
+<p>We could also set the first character of a string to the
+        character ’<code class="literal">J</code>’ by writing:</p>
+<div class="informalexample"><pre class="programlisting">  s[s'first] := ’J’;</pre></div>
+<p>If a <span class="type">string</span> is empty then first and last will both
+        raise an exception.</p>
+<p>Another characteristic of a <span class="type">string</span> is length, which
+        gives the number of <span class="type">character</span>s in the
+        <span class="type">string</span>. So:</p>
+<div class="informalexample"><pre class="programlisting">  declare
+    s : string := "Hello World!";
+    l : integer;
+  begin
+    l := s'length;
+  end;</pre></div>
+<p>would result in l having the value 12.</p>
+<p>One common thing to do is to loop over all the
+        <span class="type">character</span>s in a <span class="type">string</span>. This can be done in
+        two different ways. The first uses a for statement together with the
+        two characteristics <code class="literal">first</code> and
+        <code class="literal">last</code> to loop through the index values of a
+        <span class="type">string</span>. The <code class="literal">for</code> statement is discussed
+        in <a class="xref" href="ExecutionControlLoopStatements.html" title="2.3.  Loop Statements">Section 2.3, “ Loop Statements”</a>.</p>
+</div>
+</div>
+<p><br class="example-break"></p>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="TypesTheBooleanType.html">Prev</a> </td>
+<td width="20%" align="center"><a accesskey="u" href="Types.html">Up</a></td>
+<td width="40%" align="right"> <a accesskey="n" href="TypesBytes.html">Next</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left" valign="top">1.7. The Boolean Type </td>
+<td width="20%" align="center">
+<a accesskey="h" href="index.html">Home</a> | <a accesskey="t" href="bk01-toc.html">ToC</a>
+</td>
+<td width="40%" align="right" valign="top"> 1.9. Bytes</td>
+</tr>
+</table>
+</div>
+<div align="center">UNCLASSIFIED</div>
+</body>
+</html>

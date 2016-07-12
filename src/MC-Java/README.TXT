@@ -1,13 +1,3 @@
-====================================================================
-
- File:      $Source: /arch1/products/tiger/repository/MC-Java/README.TXT,v $
- Version:   $Revision: 1.11 $
- Modified:  $Date: 2013/01/10 23:16:30 $
- By:        $Author: rmulvey $
-
- (c) Copyright 2003-2014 Mentor Graphics Corporation  All rights reserved.
-
-====================================================================
 
 Introduction and Overview
 -------------------------
@@ -21,7 +11,7 @@ into code. This process relied on the action language parser built into the
 generator executable. This tool is implemented in C++ and maintenance is limited
 to critical defects only. For this reason, MC-Java now uses the fully supported
 BridgePoint Pre-Builder infrastructure which uses a single parse step before
-export.  See section �Translating model using MC-Java� for further details. The
+export.  See section "Translating model using MC-Java" for further details. The
 original second step parse archetypes are modified to use the output of the Pre-
 Builder directly to generate the action code.
 
@@ -37,6 +27,7 @@ description of functionality that each of them covers:
 
 java.arc:
 			This acts as the controller archetype for MC-Java. 
+
 arch_utils.inc:
 			The functions in this file define the naming convention for the code
 			that it generates for entities. For example the naming convention 
@@ -46,7 +37,7 @@ arch_utils.inc:
 			
 do_type.inc:
 			This file defines mapping of model specific data types to java 
-			specific types. Any futher mappings should be defined in this 
+			specific types. Any further mappings should be defined in this 
 			archetype.
 			
 enums.inc:
@@ -71,7 +62,7 @@ translate_oal.inc:
 			The functions in this file generate action language from the 
 			populated OOA. This file is included in java.arc after the inclusion
 			of values.inc, statement.inc, and block.inc. It also uses the file 
-			reffering.inc and reffered_to.inc 
+			referring.inc and referred_to.inc 
 			
 model_element.inc:
 			This file generates code for different classes to be used of event 
@@ -98,7 +89,7 @@ sql_schema.inc:
 			These functions provide the encoded names for properties of the 
 			database.
 			
-Build.xml:
+build.xml:
 			This ANT build file is used for the two pass translation of the 
 			model.
 			
@@ -119,13 +110,13 @@ such as persistence and threading model and initialization information. The
 coloring information is provided in three different coloring (.clr) files. The 
 following sections explain each of these files:
 
-1) ${DomaniName}_import_spec.clr:
+1) ${DomainName}_import_spec.clr:
 	.function get_imports
 	  .assign attr_import = ""
 	.end function
 
-This coloring file provides method of customizing import definition at domain 
-level. It contains single function with single attribute which is described 
+This coloring file provides a method of customizing import definition at domain 
+level. It contains a single function with a single attribute which is described 
 below:
 
 - attr_import
@@ -139,7 +130,7 @@ b.	Separation of multiple imports by an end of line escape sequence (\n).
   .assign attr_import = "import java.net.*;\nimport org.xml.*;"
 .end function
  
-2)	${DomaniName}_package_spec.clr
+2)	${DomainName}_package_spec.clr
 	.function get_package
 	  .assign attr_location = ""	
 	  .assign attr_name = "com.pt.MicrowaveOven"
@@ -156,16 +147,15 @@ b.	Separation of multiple imports by an end of line escape sequence (\n).
 	  .assign attr_is_root = false
 	.end function
 
-This coloring file allows customization of overall code architecture. Each 
+This coloring file allows customization of the overall code architecture. Each 
 attribute is described below:
 
 - attr_location
-This attribute defines destination folder where code will be generated. The path
-must be specified relative to project root directory and must exist prior to 
-generation.
+This attribute defines the destination folder where code will be generated. The 
+path must be specified relative to project root directory and must exist prior 
+to generation.
 This is used in .emit statements for generating the source code file in the 
 required destination.
-
 
 - attr_name
 The attribute specifies the package name for each class. The package name is 
@@ -175,19 +165,19 @@ case sensitive.
 It should have the domain name of your model (recommended). The generated code 
 will have a class of this name. The class has a main function as well. One of 
 the tasks that this class does is writing log of the different things across the 
-code (specially in cases of exceptions). 
+code (especially in cases of exceptions). 
 
 If the attr_is_eclipse_plugin is false, it generates a main function, hence 
 acting as the main class for the program.
 
 - attr_threading_model
-The values that this can possibly have are �polling� or �one_shot�. This 
-variable effects the behavior of the application_root_class, by making it an 
+The values that this can possibly have are "polling" or "one_shot". This 
+variable affects the behavior of the application_root_class, by making it an 
 event based class or a one go class. 
 By making the application one_shot, the one_shot function of activePoller_c 
-class is to be called manually from application_root_class, and than after each 
+class is to be called manually from application_root_class, and then after each 
 event is received one manually needs to add a call to one_shot function.
-The �polling� makes the activePoller_c to continue polling for event until the 
+The "polling" makes the activePoller_c to continue polling for event until the 
 halt() is not called. Method start() of activePoller_c must be called to start 
 the polling thread.
 
@@ -207,10 +197,9 @@ IModelChangeListener.java
 IModelChangeProvider.java
 ModelDelta.java
 
-If this variable is true then every class of domain �extends� ModelElement and 
+If this variable is true then every class of domain "extends" ModelElement and 
 implements IAdaptable and Cloneable.
 This variable is used in various decisions across the code generation. 
-
 
 - attr_is_persistent
 This attribute is of type boolean. (true/false)
@@ -227,7 +216,7 @@ The name of root class for User Interface. A root UI class variable is declared
 in the application_root_class, if this variable is not empty.
 
 - attr_ui_root_class_accessor
-The name of a valid acessor function available in the UI root class, which is 
+The name of a valid accessor function available in the UI root class, which is 
 used in the application_root_class for getting an object of the UI root class.
 
 - attr_is_root
@@ -255,7 +244,7 @@ non-domain classes (which include classes for Event Generation and timers etc.).
 	  .assign attr_is_root = true
 	.end function
  
-3.	${DomaniName}_startspec.clr
+3.	${DomainName}_startspec.clr
 	.function define_startspec
 	  .assign attr_init_type  = ""
 	  .assign attr_init_var_name = ""
@@ -267,38 +256,38 @@ non-domain classes (which include classes for Event Generation and timers etc.).
 
 This coloring file is used only by the application_root_class in its init() 
 function to create the initial or main object of the domain and sending the 
-created object an event or calling a function to instentiate the program.
+created object an event or calling a function to instantiate the program.
 
 - attr_init_class
-It is the name of the class that is used to initialize the Model. 
-For example it can be Oven in case of MicrowaveOven example. 
+The name of the class that is used to initialize the Model. 
+For example it can be Oven in the case of the MicrowaveOven example. 
 
 - attr_init_var_name
-It is the name of the instance of the init_class, created by the 
+The name of the instance of the init_class, created by the
 application_root_class.
 
 - attr_init_type
-It specifies the type of system initialization call i.e. event or function of 
-init_class. Event type initialization generates an event to the instance of 
+Specifies the type of system initialization call (i.e. event or function of 
+init_class). Event type initialization generates an event to the instance of 
 init_class. Function type initialization calls a function of the init_class.
-The value for this attribute are "event" or "function".
+The value for this attribute is "event" or "function".
 
 - attr_init_stim
-It is the name of the init_class method (in the generated code) used to generate
+The name of the init_class method (in the generated code) used to generate
 a particular event for the instance or a function call that initializes the 
 system.
 
-attr_parameter1
-attr_parameter2
+- attr_parameter1
+- attr_parameter2
 These are the arguments passed to event generation function or a simple function.
 In case of event generation function these are 2nd and 3rd arguments as the 
 first argument is a Boolean (specifying a self event or otherwise, in this case
 this value is false as it is not a self event).  
 For function call initialization these are 1st and 2nd arguments.
 
-The application_root_class first create an instance of init_class with name of 
+The application_root_class first creates an instance of init_class with name of 
 init_var_name. Then it calls the init_stim by passing the paramater1 and 
-parameter2 in the right position based on value of inti_type.
+parameter2 in the right position based on value of init_type.
 
 - Sample File
 .function define_startspec
@@ -310,14 +299,14 @@ parameter2 in the right position based on value of inti_type.
   .assign attr_parameter2 = ""
 .end function
  
-Use of Parse keywords for special Code generation Commands
+Use of Parse Keywords for Special Code Generation Commands
 -----------------------------------------------------------
-A parse keyword is a piece of text places in a string attribute of a modeling 
-element by an analyst create a model with the Model Builder tool. A parse 
+A parse keyword is a piece of text placed in a string attribute of a modeling 
+element by an analyst creating a model with the Model Builder tool. A parse 
 keyword is followed by colon (:) and then  the value of the keyword e.g. 
 (import:import java.net.*;) See Design Guide (design.pdf) Page 198 for the usage
 of Parse Keywords. MC-Java uses a few parse keywords for element specific 
-information, and looks for these keywords in any Elements Description. Element 
+information, and looks for these keywords in any element's Description. Element 
 here can be a Domain, Subsystem, Class, Operation, Bridge, Event and Attribute.
 
 Following are the a few Parse keywords that can be used
@@ -340,11 +329,11 @@ For Functions, Bridges and Class operations (also called Transformers) if this
 value is native then the output is the text written in action_semantics, else it
 parses the OAL in it and generate code accordingly.
 
-For an External entity if this value is �false� then MC-Java skips that External 
+For an External entity if this value is "false" then MC-Java skips that External 
 Entity, else generates a class for each External Entity and parses the bridges 
 as well.
 
-For a subsystem if this value is �false� then MC-Java skips code generation for 
+For a subsystem if this value is "false" then MC-Java skips code generation for 
 all the classes in the subsystem.
 
 3.	Data
@@ -353,7 +342,7 @@ the class. These variables can be added using this keyword. The variables are by
 default static and initialized to null.
 
 4.	PEI
-This has string values �true� to mention that this is PEI class. Hence exist 
+This has string values "true" to mention that this is PEI class. Hence it exists 
 only in Class Description.
 
 5.	Persistent

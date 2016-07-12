@@ -145,7 +145,8 @@
   .if (useFocus == "true")
     .assign testModifier = "usingFocus"
   .end if
-    public void testRename${action.Key_Lett}${testModifier}() throws Exception
+    @Test
+	public void testRename${action.Key_Lett}${testModifier}() throws Exception
     {
   .select any owner from instances of O_OBJ where (selected.Key_Lett == action.Key_Lett)
   .invoke ocn = get_class_name(owner)
@@ -273,7 +274,8 @@
   .if (useFocus == "true")
     .assign testModifier = "usingFocus"
   .end if
-    public void testRenameWithSpace${action.Key_Lett}${testModifier}() throws Exception
+    @Test
+	public void testRenameWithSpace${action.Key_Lett}${testModifier}() throws Exception
     {
   .select any owner from instances of O_OBJ where (selected.Key_Lett == action.Key_Lett)
   .invoke ocn = get_class_name(owner)
@@ -337,7 +339,8 @@
 .function create_delete_action_test_generics
   .param inst_ref action   .// CME
   .//
-    public void testDelete${action.Key_Lett}() throws Exception
+    @Test
+	public void testDelete${action.Key_Lett}() throws Exception
     {
   .select any owner from instances of O_OBJ where (selected.Key_Lett == action.Key_Lett)
   .invoke ocn = get_class_name(owner)
@@ -508,7 +511,8 @@
 .//
 .function create_new_action_test_generics
   .param inst_ref action   .// CME
-    public void test${action.Specialism}${action.Key_Lett}$r{action.Label}() throws Exception
+    @Test
+	public void test${action.Specialism}${action.Key_Lett}$r{action.Label}() throws Exception
     {
   .select any owner from instances of O_OBJ where (selected.Key_Lett == action.Key_Lett)
   .invoke ocn = get_class_name(owner)
@@ -719,7 +723,10 @@ import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.ui.PlatformUI;
-
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.test.CoreTest;
 
 import org.xtuml.bp.core.*;
@@ -727,14 +734,17 @@ import org.xtuml.bp.core.ui.*;
 import org.xtuml.bp.test.TestUtil;
 import org.xtuml.bp.test.common.BaseTest;
 import org.xtuml.bp.test.common.TestingUtilities;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.test.common.UITestingUtilities;
 import org.xtuml.bp.core.util.OoaofgraphicsUtil;
 
+@RunWith(OrderedRunner.class)
 public class ${classname} extends CoreTest
 {
     private static boolean initialized = false;
     private Ooaofooa modelRoot = BaseTest.getDefaultTestInstance();
-    protected void setUp() throws Exception
+    @Before
+	public void setUp() throws Exception
     {
         super.setUp();
         Ooaofooa.setPersistEnabled(false);
@@ -933,17 +943,17 @@ ${cnat.body}\
     // as part of bp.ui.explorer.test.ExplorerTest.
     // testDomainDeleteFromModelExplorer();
 
-.elif (new_action.Key_Lett ==  "CP_CP")
-.elif (new_action.Key_Lett ==  "S_DOM")
-.elif (new_action.Key_Lett ==  "IP_IP")
-.elif (new_action.Key_Lett ==  "S_FPK")
-.elif (new_action.Key_Lett ==  "S_EEPK")
-.elif (new_action.Key_Lett ==  "S_SS") 
-.elif (new_action.Key_Lett ==  "SQ_S")
-.elif (new_action.Key_Lett ==  "A_A") 
-.elif (new_action.Key_Lett ==  "COMM_COMM")
+.elif (delete_action.Key_Lett ==  "CP_CP")
+.elif (delete_action.Key_Lett ==  "S_DOM")
+.elif (delete_action.Key_Lett ==  "IP_IP")
+.elif (delete_action.Key_Lett ==  "S_FPK")
+.elif (delete_action.Key_Lett ==  "S_EEPK")
+.elif (delete_action.Key_Lett ==  "S_SS") 
+.elif (delete_action.Key_Lett ==  "SQ_S")
+.elif (delete_action.Key_Lett ==  "A_A") 
+.elif (delete_action.Key_Lett ==  "COMM_COMM")
 .elif ((((delete_action.Key_Lett == "SPR_PO") or (delete_action.Key_Lett == "SPR_PS")) or (delete_action.Key_Lett == "SPR_RO")) or (delete_action.Key_Lett == "SPR_RS"))
-.elif (new_action.Key_Lett ==  "UC_UCC")
+.elif (delete_action.Key_Lett ==  "UC_UCC")
   .else
   .invoke cdat = create_delete_action_test_generics( delete_action )
 ${cdat.body}\
@@ -1073,8 +1083,13 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.TreeItem;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PlatformUI;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.test.TestUtil;
 import org.xtuml.bp.test.common.TestingUtilities;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.core.common.PersistableModelComponent;
 import org.xtuml.bp.core.common.ClassQueryInterface_c;
 import org.xtuml.bp.core.test.CoreTest;
@@ -1086,6 +1101,7 @@ import org.xtuml.bp.io.mdl.ImportModel;
 import org.xtuml.bp.ui.explorer.ExplorerTreeViewer;
 import org.xtuml.bp.ui.explorer.ExplorerView;
 
+@RunWith(OrderedRunner.class)
 public class ${classname} extends CoreTest
 {
     private static boolean firstTime = true;
@@ -1115,7 +1131,8 @@ public class ${classname} extends CoreTest
 	
     }
 
-    protected void setUp() throws Exception {
+    @Before
+	public void setUp() throws Exception {
 		super.setUp();
 		Ooaofooa.setPersistEnabled(false);
 		Ooaofooa.setConsistencyEnabled(true);
@@ -1222,7 +1239,8 @@ ${crat.body}\
 .//
 .function create_handle_rename_test_generics
   .param inst_ref action   .// CME
-    public void test${action.Specialism}${action.Key_Lett}$r{action.Label}() throws Exception
+    @Test
+	public void test${action.Specialism}${action.Key_Lett}$r{action.Label}() throws Exception
     {
           Package_c root= createRootPackge();
     	  .if (action.Key_Lett == "S_SYS")
@@ -1446,7 +1464,10 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.internal.handlers.WizardHandler.New;
 import org.eclipse.ui.internal.progress.BlockedJobsDialog;
-
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.common.BridgePointPreferencesStore;
 import org.xtuml.bp.core.common.ClassQueryInterface_c;
 import org.xtuml.bp.core.common.NonRootModelElement;
@@ -1457,6 +1478,7 @@ import org.xtuml.bp.core.ui.*;
 import org.xtuml.bp.test.TestUtil;
 import org.xtuml.bp.test.common.BaseTest;
 import org.xtuml.bp.test.common.CanvasTestUtils;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.test.common.TestingUtilities;
 import org.xtuml.bp.test.common.UITestingUtilities;
 import org.xtuml.bp.ui.canvas.Model_c;
@@ -1468,14 +1490,15 @@ import org.xtuml.bp.core.util.OoaofgraphicsUtil;
 import org.xtuml.bp.core.util.WorkspaceUtil;
 
 
-
+@RunWith(OrderedRunner.class)
 public class ${classname} extends CoreTest
 {
    private static boolean initialized = false;
 	private static GraphicalEditor editor = null;
 	private Ooaofooa modelRoot = BaseTest.getDefaultTestInstance();
 
-    protected void setUp() throws Exception {
+    @Before
+	public void setUp() throws Exception {
 	    super.setUp();
 		Ooaofooa.setPersistEnabled(true);
 		modelRoot.clearDatabase(new NullProgressMonitor());
@@ -1484,7 +1507,8 @@ public class ${classname} extends CoreTest
 		editor = ((ModelEditor) PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActiveEditor()).getGraphicalEditor();
 			
 	}
-   	protected void tearDown() throws Exception {
+   	@After
+	public void tearDown() throws Exception {
 		PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().closeAllEditors(false);
 		Package_c[] pkgs = Package_c.getManyEP_PKGsOnR1401(m_sys);
 		for (int i = 0; i < pkgs.length; i++) {
@@ -1870,6 +1894,7 @@ ConstantSpecification_c createConstDataType(Package_c pkg)
 ${cnat.body}\
 
 .end for
+	@Test
 	public void testNoDialogForImportedClassFromPalette() {
 		Package_c root = createRootPackge();
 		Selection.getInstance().clear();
@@ -1900,6 +1925,7 @@ ${cnat.body}\
 	}
 
 	
+	@Test
 	public void testNoDialogForComponentReferenceFromPalette() {
 		Package_c root = createRootPackge();
 		Selection.getInstance().clear();
@@ -1928,6 +1954,7 @@ ${cnat.body}\
 		assertNotNull(compref);
 		
 	}
+	@Test
 	public void testRenameDialogShowsWhenTheDefaultNameOptionIsSet() {
 		Package_c root = createRootPackge();
 		Selection.getInstance().clear();
@@ -1971,6 +1998,7 @@ ${cnat.body}\
 
 			
 	}
+	@Test
 	public void testCreatingComponentWithInvalidNameNotAffectFileSystem() throws IOException, InterruptedException, CoreException
 	
 	{  
@@ -2018,7 +2046,8 @@ ${cnat.body}\
         testProject.delete(true, null);
 	}
 //dts0100911019.int 8.2
-public void testCreatingComponentWithValidName() throws IOException, InterruptedException, CoreException
+@Test
+	public void testCreatingComponentWithValidName() throws IOException, InterruptedException, CoreException
 {  
     
     // Turn off autobuild to stop MC-3020 builders from running

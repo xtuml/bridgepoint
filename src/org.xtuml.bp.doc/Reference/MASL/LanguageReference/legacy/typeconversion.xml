@@ -1,0 +1,897 @@
+<!-- 
+  UK Crown Copyright (c) 2016. All Rights Reserved
+-->
+<!-- Converted by db4-upgrade version 1.0 -->
+<chapter xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="TypeConversion"><info><title>Type Conversion</title></info>
+
+<indexterm significance="preferred">
+    <primary>type</primary>
+    <secondary>conversion</secondary>
+</indexterm>
+<section xml:id="TypeConversionTypesanstheirSubtypes"><info><title>Types and their Subtypes</title></info>
+
+<para>
+The set of types in a program form a type hierarchy.
+<indexterm significance="preferred">
+    <primary>type</primary>
+    <secondary>hierarchy</secondary>
+</indexterm>
+This type hierarchy defines:
+<itemizedlist mark="bullet">
+<listitem>
+<para>
+The implicit type conversions
+<indexterm>
+    <primary>type</primary>
+    <secondary>conversion</secondary>
+    <tertiary>implicit</tertiary>
+</indexterm>
+that can occur.
+</para>
+</listitem>
+<listitem>
+<para>
+The explicit type conversions
+<indexterm>
+    <primary>type</primary>
+    <secondary>conversion</secondary>
+    <tertiary>explicit</tertiary>
+</indexterm>
+that can be applied.
+</para>
+</listitem>
+</itemizedlist>
+</para>
+<para>
+When an expression of one type is used where an expression of another type
+is expected.
+</para>
+<para>
+The first section of this chapter describes the general rules for implicit
+and explicit type conversions between types in the type hierarchy. The rest
+of the chapter describes the pre-defined type hierarchy for the built-in types,
+the collection types and the special case of numeric types.
+</para>
+<section xml:id="TypeConversionTypesandtheirSubtypes"><info><title>Types and their Subtypes</title></info>
+
+<para>
+If a type is a
+<link linkend="TypesTypeDeclarations"><literal>subtype</literal></link>
+<indexterm>
+    <primary>subtype</primary>
+</indexterm>
+of another
+<link linkend="TypesTypeSpecification"><literal>type</literal></link>,
+<indexterm>
+    <primary>type</primary>
+</indexterm>
+then there is an implicit conversion
+that occurs when an expression of the
+<link linkend="TypesTypeDeclarations"><literal>subtype</literal></link>
+<indexterm>
+    <primary>subtype</primary>
+</indexterm>
+is used where an expression of the original
+<link linkend="TypesTypeSpecification"><literal>type</literal></link>
+<indexterm>
+    <primary>type</primary>
+</indexterm>
+is expected. In addition, there is an implicit conversion that
+occurs when an expression of the original
+<link linkend="TypesTypeSpecification"><literal>type</literal></link>
+<indexterm>
+    <primary>type</primary>
+</indexterm>
+is used where an expression of the
+<link linkend="TypesTypeDeclarations"><literal>subtype</literal></link>
+<indexterm>
+    <primary>subtype</primary>
+</indexterm>
+is expected. When this
+<link linkend="TypesTypeSpecification"><literal>type</literal></link>
+<indexterm>
+    <primary>type</primary>
+</indexterm>
+conversion is evaluated, the value of
+the expression is converted to the corresponding value of the target
+<link linkend="TypesTypeSpecification"><literal>type</literal></link>
+<indexterm>
+    <primary>type</primary>
+</indexterm>
+if any. If there is no value of the target
+<link linkend="TypesTypeSpecification"><literal>type</literal></link>
+<indexterm>
+    <primary>type</primary>
+</indexterm>
+that corresponds to the value, an exception is raised.
+</para>
+<para>
+A subtype of a
+<link linkend="TypesTypeSpecification"><literal>type</literal></link>
+that is itself a
+<link linkend="TypesTypeDeclarations"><literal>subtype</literal></link>
+of another, is also a
+<link linkend="TypesTypeDeclarations"><literal>subtype</literal></link> of
+this <link linkend="TypesTypeSpecification"><literal>type</literal></link>.
+</para>
+<para>
+If a <link linkend="TypesTypeSpecification"><literal>type</literal></link>
+<indexterm>
+    <primary>type</primary>
+</indexterm>
+is defined in terms of another
+<link linkend="TypesTypeSpecification"><literal>type</literal></link>
+<indexterm>
+    <primary>type</primary>
+</indexterm>
+then an explicit type conversion can be used to convert a value of one
+<link linkend="TypesTypeSpecification"><literal>type</literal></link>
+<indexterm>
+    <primary>type</primary>
+</indexterm>
+into a value of the other. If there is no value of the target
+<link linkend="TypesTypeSpecification"><literal>type</literal></link>
+<indexterm>
+    <primary>type</primary>
+</indexterm>
+that corresponds to the value, an exception is raised.
+</para>
+<para>
+<example xml:id="TypeConversionTypeandSubtypeDeclarations"><info><title>Type and Subtype Declarations</title></info>
+
+<programlisting>
+
+type A is enum (REDM BLUE, GREEN);
+type B is enum (RED, YELLOW, BLUE);
+subtype C is A;
+subtype D is A;
+type E is A;
+subtype F is C;
+
+</programlisting>
+</example>
+</para>
+<para>
+If we declare variables <varname>a</varname> to <varname>f</varname> of types
+<varname>A</varname> to <varname>F</varname> respectively, then 
+<xref linkend="TypeConversionTypeConversionExample"/> shows, for each
+possible assignment between the variables, which conversion is valid.
+</para>
+<para>
+Note that even though type <varname>A</varname> and <varname>B</varname> have
+literals of the same lexical form, there are no valid type conversions between
+values of one type to another.
+<example xml:id="TypeConversionTypeConversionExample"><info><title>Simple type hierarchy conversions</title></info>
+
+<programlisting>
+
+a := a;     // no conversion required
+a := b;     // invalid
+a := c;     // implicit conversion
+a := d;     // implicit conversion
+a := e;     // invalid, an explicit conversion of the form
+            // a := A(e) is required
+a := f;     // implicit conversion
+
+b := a;     // invalid
+b := b;     // no conversion required
+b := c;     // invalid
+b := d;     // invalid
+b := e;     // invalid
+b := f;     // invalid
+
+c := a;     // implicit conversion that may raise an exception
+c := b;     // invalid
+c := c;     // no conversion required
+c := d;     // implicit conversion that may raise an exception
+c := e;     // invalid, an explicit conversion of the form
+            // c := C(e) or c := (A)e is required that may
+            // raise an exception
+c := f;     // implicit conversion
+
+d := a;     // implicit conversion that may raise an exception
+d := b;     // invalid
+d := c;     // implicit conversion that may raise an exception
+d := d;     // no conversion required
+d := e;     // invalid, an explicit conversion of the form
+            // d := D(e) is required that may raise an
+            // exception
+d := f;     // implicit conversion that may raise an exception
+
+e := a;     // invalid, an explicit conversion of the form
+            // e := E(a) is required that may raise an
+            // exception
+e := b;     // invalid
+e := c;     // invalid, an explicit conversion of the form
+            // e := E(c) is required that may raise an
+            // exception
+e := d;     // invalid, an explicit conversion of the form
+            // e := E(d) is required that may raise an
+            // exception
+e := e;     // no conversion required
+e := f;     // invalid, an explicit conversion of the form
+            // e := E(f) is required that may raise an
+            // exception
+
+f := a;     // implicit conversion that may raise an exception
+f := b;     // invalid
+f := c;     // implicit conversion that may raise an exception
+f := d;     // implicit conversion that may raise an exception
+f := e;     // invalid, an explicit conversion of the form
+            // f := F(e) or f := A(e) is required that may
+            // raise an exception
+f := f;     // no conversion required
+
+</programlisting>
+</example>
+</para>
+</section>
+<section xml:id="TypeConversionPropertiesofTypes"><info><title>Properties of Types</title></info>
+
+<para>
+The properties that are defined by a type hierarchy
+<indexterm>
+    <primary>type</primary>
+    <secondary>hierarchy</secondary>
+    <tertiary>properties</tertiary>
+</indexterm>
+also define the implicit conversion
+<indexterm>
+    <primary>type</primary>
+    <secondary>conversion</secondary>
+    <tertiary>implicit</tertiary>
+</indexterm>
+that can occur. The explicit type conversions
+<indexterm>
+    <primary>type</primary>
+    <secondary>conversion</secondary>
+    <tertiary>explicit</tertiary>
+</indexterm>
+that can be applied
+are known as assignable and convertible.
+</para>
+<para>
+A value of type <type>T</type> is convertible to a type
+<type>S</type> if <type>T</type> and <type>S</type> share a
+common type. Converting a value of type <varname>T</varname> to an entity of
+type <type>S</type> will not raise an exception if navigating the type
+hierarchy from type <type>T</type> to this common type passes over the
+type <type>S</type>. In all other case the conversion may raise an
+exception.
+</para>
+<para>
+A value of type <type>T</type> is assignable to a type
+<type>S</type> if <type>T</type> and <type>S</type> share a
+common subtype. Assigning a value of type <type>T</type> to an entity of
+type <type>S</type> will not raise an exception if navigating the type
+hierarchy from type <type>T</type> to this common subtype passes over the
+type <type>S</type>. In all other case the conversion may raise an
+exception.
+</para>
+</section>
+<section xml:id="TypeConversionBaseandBasisTypes"><info><title>Base and Basis Types</title></info>
+
+<para>
+The <emphasis>base type</emphasis>
+<indexterm>
+    <primary>type</primary>
+    <secondary>base</secondary>
+</indexterm>
+<indexterm>
+    <primary>base type</primary>
+</indexterm>
+of a type <type>T</type> is the type
+obtained by navigating up the type hierarchy as far as possible using only
+subtype relationships.
+</para>
+<para>
+The <emphasis>basis type</emphasis>
+<indexterm>
+    <primary>type</primary>
+    <secondary>basis</secondary>
+</indexterm>
+<indexterm>
+    <primary>basis type</primary>
+</indexterm>
+of a type <type>T</type> is the type
+obtained by navigating up the type hierarchy as far as possible using both
+subtype and type relationships.
+</para>
+<para>
+Both <link linkend="TypesTypeSpecification"><emphasis>base types</emphasis></link>
+<indexterm>
+    <primary>type</primary>
+    <secondary>base</secondary>
+</indexterm>
+<indexterm>
+    <primary>base type</primary>
+</indexterm>
+and <link linkend="TypesTypeSpecification"><emphasis>basis types</emphasis></link>
+<indexterm>
+    <primary>type</primary>
+    <secondary>basis</secondary>
+</indexterm>
+<indexterm>
+    <primary>basis type</primary>
+</indexterm>
+are used to describe the types of the values returned by expressions.
+</para>
+</section>
+</section>
+<section xml:id="TypeConversionBuiltinTypes"><info><title>Built-in Types</title></info>
+
+<para>
+The <link linkend="TypesBuiltinTypes"><emphasis>built-in types</emphasis></link>
+<indexterm>
+    <primary>type</primary>
+    <secondary>built-in</secondary>
+</indexterm>
+<indexterm>
+    <primary>built-in type</primary>
+</indexterm>
+have the following type hierarchy:
+<itemizedlist mark="bullet">
+<listitem>
+<para>
+<link linkend="TypesCharacterType"><type>character</type></link>
+<indexterm>
+    <primary><type>character</type></primary>
+</indexterm>
+is a subtype of
+<link linkend="TypesWideCharacterType"><type>wcharacter</type></link>.
+<indexterm>
+    <primary><type>wcharacter</type></primary>
+</indexterm>
+</para>
+</listitem>
+<listitem>
+<para>
+<link linkend="TypesBooleanType"><type>boolean</type></link>
+<indexterm>
+    <primary><type>boolean</type></primary>
+</indexterm>
+is not a subtype of another type.
+</para>
+</listitem>
+<listitem>
+<para>
+<link linkend="TypesByteType"><type>byte</type></link>
+<indexterm>
+    <primary><type>byte</type></primary>
+</indexterm>
+is a type of
+<link linkend="TypesNumericTypes"><type>numeric</type></link>.
+<indexterm>
+    <primary><type>numeric</type></primary>
+</indexterm>
+</para>
+</listitem>
+<listitem>
+<para>
+<link linkend="TypesStringType"><type>string</type></link>
+<indexterm>
+    <primary><type>string</type></primary>
+</indexterm>
+is a subtype of
+<link linkend="TypesWideStringType"><type>wstring</type></link>
+<indexterm>
+    <primary><type>wstring</type></primary>
+</indexterm>
+</para>
+</listitem>
+</itemizedlist>
+</para>
+<para>
+Hence, the value of type
+<link linkend="TypesCharacterType"><type>character</type></link>
+<indexterm>
+    <primary><type>character</type></primary>
+</indexterm>
+can be used where a value of type
+<link linkend="TypesWideCharacterType"><type>wcharacter</type></link>
+<indexterm>
+    <primary><type>wcharacter</type></primary>
+</indexterm>
+is expected. In addition, a value of type
+<link linkend="TypesWideCharacterType"><type>wcharacter</type></link>
+<indexterm>
+    <primary><type>wcharacter</type></primary>
+</indexterm>
+can be used where a value of type
+<link linkend="TypesCharacterType"><type>character</type></link>
+<indexterm>
+    <primary><type>character</type></primary>
+</indexterm>
+is expected. This second conversion may cause an exception to be raised.
+Similarly for values of type
+<link linkend="TypesStringType"><type>string</type></link> and
+<indexterm>
+    <primary><type>string</type></primary>
+</indexterm>
+<link linkend="TypesWideStringType"><type>wstring</type></link>.
+<indexterm>
+    <primary><type>wstring</type></primary>
+</indexterm>
+The <link linkend="TypesNumericTypes"><type>numeric</type></link>
+<indexterm>
+    <primary><type>numeric</type></primary>
+</indexterm>
+type cannot be used a type, but enables type
+conversions between two numeric types, where one is not a subtype or type of
+the other. Numeric types are discussed in
+<xref linkend="TypeConversionNumericTypes"/>.
+</para>
+</section>
+<section xml:id="TypeConversionCollectionTypes"><info><title>Collection Types</title></info>
+
+<para>
+Collection types
+<indexterm>
+    <primary>collection type</primary>
+</indexterm>
+<indexterm>
+    <primary>type</primary>
+    <secondary>collection</secondary>
+</indexterm>
+of a specific type (<type>T</type>) have the type
+hierarchy shown in <xref linkend="CollectionTypeHierarchy"/>. This means that
+there are implicit conversions between values of <type>set</type>,
+<indexterm>
+    <primary><type>set</type></primary>
+</indexterm>
+<type>bag</type>
+<indexterm>
+    <primary><type>bag</type></primary>
+</indexterm>
+and <type>sequence</type>
+<indexterm>
+    <primary><type>sequence</type></primary>
+</indexterm>
+types.
+<figure xml:id="CollectionTypeHierarchy"><info><title>Collection Type Hierarchy</title></info>
+
+<indexterm>
+    <primary>collection type</primary>
+    <secondary>hierarchy</secondary>
+</indexterm>
+<indexterm>
+    <primary>type</primary>
+    <secondary>collection</secondary>
+    <tertiary>hierarchy</tertiary>
+</indexterm>
+<mediaobject>
+    <imageobject>
+        <imagedata format="svg" fileref="images/collectiontypehierarchy.svg" align="center" valign="middle"/>
+    </imageobject>
+    <textobject><phrase>Collection Type Hierarchy</phrase></textobject>
+</mediaobject>
+</figure>
+</para>
+<para>
+The collection type cannot be used as a type, but enables type conversions
+between values of two collection types of the same type.
+</para>
+<para>
+Values of a collection type can be converted to a different collection type of
+the same element type by using explicit conversion. This type conversion may
+raise an exception if the original value cannot be converted to a value of the
+new type.
+</para>
+<para>
+Given <varname>a</varname> is of type
+<link linkend="TypesArrayTypes"><type>array</type></link>,
+<indexterm>
+    <primary><type>array</type></primary>
+</indexterm>
+<varname>b</varname> is of type
+<link linkend="TypesBagTypes"><type>bag</type></link>,
+<indexterm>
+    <primary><type>bag</type></primary>
+</indexterm>
+<varname>s</varname> is of type
+<link linkend="TypesSetTypes"><type>set</type></link>,
+<indexterm>
+    <primary><type>set</type></primary>
+</indexterm>
+<varname>q</varname> is of type
+<link linkend="TypesSequenceTypes"><type>sequence</type></link>,
+<indexterm>
+    <primary><type>sequence</type></primary>
+</indexterm>
+and <emphasis>x</emphasis> and <emphasis>y</emphasis> are integer
+literals (where <emphasis>x</emphasis> &lt; <emphasis>y</emphasis>). Then
+<xref linkend="ConversionsforaCollectionTypeHierarchy"/> describes for each
+possible assignment between variables when an exception will be raised.
+<table xml:id="ConversionsforaCollectionTypeHierarchy" frame="all"><info><title>Conversions for a Collection Type Hierarchy</title></info>
+
+<tgroup cols="2" align="left" colsep="1" rowsep="1">
+<colspec colname="Assignment"/>
+<colspec colname="Description"/>
+<thead>
+<row>
+    <entry>Assignment</entry>
+    <entry>Description</entry>
+</row>
+</thead>
+<tbody>
+<row>
+    <entry><literal>s := set of T(b)</literal></entry>
+    <entry>
+    Raises an exception if there are duplicate elements in the bag.
+    </entry>
+</row>
+<row>
+    <entry><literal>s := set of T(q)</literal></entry>
+    <entry>
+    Raises an exception if there are duplicate elements in the sequence.
+    </entry>
+</row>
+<row>
+    <entry><literal>s := set of T(a)</literal></entry>
+    <entry>
+    Raises an exception if there are duplicate elements in the array.
+    </entry>
+</row>
+<row>
+    <entry><literal>b := bag of T(s)</literal></entry>
+    <entry>
+    Never raises an exception.
+    </entry>
+</row>
+<row>
+    <entry><literal>b := bag of T(q)</literal></entry>
+    <entry>
+    Never raises an exception.
+    </entry>
+</row>
+<row>
+    <entry><literal>b := bag of T(a)</literal></entry>
+    <entry>
+    Never raises an exception.
+    </entry>
+</row>
+<row>
+    <entry><literal>q := sequence of T(s)</literal></entry>
+    <entry>
+    Never raises an exception. The order of the elements in the
+    sequence will be arbitrary.
+    </entry>
+</row>
+<row>
+    <entry><literal>q := sequence of T(b)</literal></entry>
+    <entry>
+    Never raises an exception. The order of the elements in the
+    sequence will be arbitrary.
+    </entry>
+</row>
+<row>
+    <entry><literal>q := sequence of T(a)</literal></entry>
+    <entry>
+    Never raises an exception. The order of the elements in the
+    sequence will be the same as the array.
+    </entry>
+</row>
+<row>
+    <entry><literal>q := array(</literal><emphasis>x</emphasis>
+    <literal>..</literal>
+    <emphasis>y</emphasis><literal>) of T(s)</literal></entry>
+    <entry>
+    Raises an exception if the number of elements in the set is not the same
+    as the length of the array. The order of the elements in the array will be
+    arbitrary.
+    </entry>
+</row>
+<row>
+    <entry><literal>q := array(</literal><emphasis>x</emphasis>
+    <literal>..</literal>
+    <emphasis>y</emphasis><literal>) of T(b)</literal></entry>
+    <entry>
+    Raises an exception if the number of elements in the bag is not the same
+    as the length of the array. The order of the elements in the array will be
+    arbitrary.
+    </entry>
+</row>
+<row>
+    <entry><literal>q := array(</literal><emphasis>x</emphasis>
+    <literal>..</literal>
+    <emphasis>y</emphasis><literal>) of T(q)</literal></entry>
+    <entry>
+    Raises an exception if the number of elements in the sequence is not the
+    same as the length of the array. The order of the elements in the array
+    will be the same as the sequence.
+    </entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+</para>
+<para>
+To convert a <link linkend="TypesBagTypes"><type>bag</type></link>,
+<indexterm>
+    <primary><type>bag</type></primary>
+</indexterm>
+<link linkend="TypesSequenceTypes"><type>sequence</type></link> or
+<indexterm>
+    <primary><type>sequence</type></primary>
+</indexterm>
+<link linkend="TypesSetTypes"><type>set</type></link>
+<indexterm>
+    <primary><type>set</type></primary>
+</indexterm>
+without raising an exception, the operation
+<literal>get_unique</literal>
+<indexterm>
+    <primary><literal>get_unique</literal></primary>
+</indexterm>
+ can be used (see<xref linkend="LanguageDefinedCharacteristics"/>).
+</para>
+<section xml:id="TypeConversionCollectionTypesofSubtypes"><info><title>Collection Types of Subtypes</title></info>
+
+<para>
+A collection type of a subtype of another type is a subtype of the collection
+type
+<indexterm>
+    <primary>collection</primary>
+    <secondary>subtype</secondary>
+</indexterm>
+<indexterm>
+    <primary>type</primary>
+    <secondary>collection</secondary>
+    <tertiary>subtype</tertiary>
+</indexterm>
+of the original type.
+</para>
+<para>
+For example, if we declare:
+<example xml:id="TypeConversionCollectionTypeofaSubtype"><info><title>Collection Type of a Subtype</title></info>
+
+<programlisting>
+
+type T is enum (REDM BLUE, GREEN);
+subtype S is T;
+st:set of T;
+ss:set of S;
+
+</programlisting>
+</example>
+</para>
+<para>
+<xref linkend="TypeConversionsforCollectionTypeHierarchy"/>
+<indexterm>
+    <primary>collection</primary>
+    <secondary>type conversions</secondary>
+</indexterm>
+<indexterm>
+    <primary>type conversion</primary>
+    <secondary>collection</secondary>
+</indexterm>
+describes, for each
+possible assignment between variables, which conversions are valid.
+<table xml:id="TypeConversionsforCollectionTypeHierarchy" frame="all"><info><title>Type conversions for Collection Type Hierarchy</title></info>
+
+<tgroup cols="2" align="left" colsep="1" rowsep="1">
+<colspec colname="Assignment"/>
+<colspec colname="Description"/>
+<thead>
+<row>
+    <entry>Assignment</entry>
+    <entry>Description</entry>
+</row>
+</thead>
+<tbody>
+<row>
+    <entry><literal>st := st</literal></entry>
+    <entry>
+    No conversion required.
+    </entry>
+</row>
+<row>
+    <entry><literal>st := ss</literal></entry>
+    <entry>
+    Implicit conversion required.
+    </entry>
+</row>
+<row>
+    <entry><literal>ss := st</literal></entry>
+    <entry>
+    Implicit conversion that may raise an exception if any of the element
+    values cannot be converted into a value of type <varname>T</varname>.
+    </entry>
+</row>
+<row>
+    <entry><literal>ss := ss</literal></entry>
+    <entry>
+    No conversion required.
+    </entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+Similarly for <literal>bag</literal>, <literal>sequence</literal> and
+<literal>array</literal> types.
+</para>
+</section>
+<section xml:id="TypeConversionCollectionElementTypes"><info><title>Collection Element Types</title></info>
+
+<para>
+There is a special implicit conversion that can occur between a collection type
+and its element type.
+</para>
+<para>
+For example, if we declare:
+<example xml:id="TypeConversionCollectionElementTypeConversion"><info><title>Collection Element Type Conversion</title></info>
+
+<programlisting>
+
+type T is enum (REDM BLUE, GREEN);
+t:T;
+s:set of T;
+
+</programlisting>
+<para>
+then the following is valid:
+</para>
+<programlisting>
+
+s := t;
+
+</programlisting>
+</example>
+Similarly, for <link linkend="TypesBagTypes"><type>bag</type></link>,
+<indexterm>
+    <primary><type>bag</type></primary>
+</indexterm>
+<link linkend="TypesSequenceTypes"><type>sequence</type></link> types
+<indexterm>
+    <primary><type>sequence</type></primary>
+</indexterm>
+and <link linkend="TypesArrayTypes"><type>array</type></link> types
+<indexterm>
+    <primary><type>array</type></primary>
+</indexterm>
+whose length is equal to 1.
+</para>
+</section>
+</section>
+<section xml:id="TypeConversionStructureTypes"><info><title>Structure Types</title></info>
+
+<para>
+There is a special type conversion
+<indexterm>
+    <primary><type>structure</type></primary>
+    <secondary>type conversion</secondary>
+</indexterm>
+that can occur between a type and a
+structure type that has only one component of that type.
+For example, if we declare:
+<example xml:id="TypeConversionStructureTypeTypeConversion"><info><title>Structure Type, Type Conversion</title></info>
+
+<programlisting>
+
+type T is enum (REDM, BLUE,GREEN);
+
+type Structure_type is structure
+    c : T;
+end structure;
+
+</programlisting>
+<para>
+then the following is valid:
+</para>
+<programlisting>
+
+t : T := REDM;
+s : Structure_type;
+begin
+    s := t;
+end;
+
+</programlisting>
+</example>
+</para>
+</section>
+<section xml:id="TypeConversionNumericTypes"><info><title>Numeric Types</title></info>
+
+<para>
+<indexterm significance="preferred">
+    <primary><type>numeric</type></primary>
+    <secondary>type conversion</secondary>
+</indexterm>
+All <link linkend="TypesNumericTypes"><emphasis>numeric types</emphasis></link>
+<indexterm>
+    <primary><type>numeric</type></primary>
+</indexterm>
+are implicit types of the
+<link linkend="TypesNumericTypes"><type>numeric</type> type</link>.
+<indexterm>
+    <primary><type>numeric</type></primary>
+</indexterm>
+The <link linkend="TypesNumericTypes"><emphasis>numeric type</emphasis></link>
+<indexterm>
+    <primary><type>numeric</type></primary>
+</indexterm>
+cannot be used in a type declaration, but enables type conversions between
+values of two
+<link linkend="TypesNumericTypes"><emphasis>numeric types</emphasis></link>,
+<indexterm>
+    <primary><type>numeric</type></primary>
+</indexterm>
+where one is not a
+subtype or type of the other.
+<example xml:id="TypeConversionNumericTypeDeclaration"><info><title>Numeric Type Declaration</title></info>
+
+<programlisting>
+
+type N is numeric range 0 .. 100;
+type M is numeric digits 7 range 0 .. 50;
+
+</programlisting>
+</example>
+Then <type>N</type> is a type of <type>numeric</type>
+<indexterm>
+    <primary><type>numeric</type></primary>
+</indexterm>
+and <type>M</type> is a type of <type>numeric</type>.
+<indexterm>
+    <primary><type>numeric</type></primary>
+</indexterm>
+</para>
+<para>
+If we declare variables <varname>n</varname> and <varname>m</varname>
+of types <type>N</type> and <type>M</type> respectively,
+<xref linkend="ConversionsforaNumericHierarchy"/> describes, for each
+possible assignment between variables, which conversions are valid.
+</para>
+<para>
+Converting a value of one numeric type to another only raises an exception if
+the value is outside the range of the new numeric type. For conversions
+involving real numeric types, the result is within the accuracy of the specified
+target type. The conversion of a real value to a integer type rounds to the
+nearest integer; if the value is halfway between two integers rounding may be
+either up or down.
+</para>
+<para>
+<table xml:id="ConversionsforaNumericHierarchy" frame="all"><info><title>Conversions for a Numeric Hierarchy</title></info>
+
+<tgroup cols="2" align="left" colsep="1" rowsep="1">
+<colspec colname="Assignment"/>
+<colspec colname="Description"/>
+<thead>
+<row>
+    <entry>Assignment</entry>
+    <entry>Description</entry>
+</row>
+</thead>
+<tbody>
+<row>
+    <entry><literal>n := n;</literal></entry>
+    <entry>
+    No conversion required.
+    </entry>
+</row>
+<row>
+    <entry><literal>n := m;</literal></entry>
+    <entry>
+    Invalid, an explicit conversion of the form
+    <literal>n := N(m)</literal> is required, that may raised an exception.
+    </entry>
+</row>
+<row>
+    <entry><literal>m := a;</literal></entry>
+    <entry>
+    Invalid, en explicit conversion of the form
+    <literal>m := M(n)</literal> is required, that may raised an exception.
+    </entry>
+</row>
+<row>
+    <entry><literal>m := m;</literal></entry>
+    <entry>
+    No conversion required.
+    </entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+</para>
+</section>
+</chapter>

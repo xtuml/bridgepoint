@@ -51,6 +51,10 @@ public class ProblemModelChangeListener implements IModelChangeListener {
             IModelDelta delta) {
     }
 
+    public void modelElementMoved(ModelChangedEvent event,
+            IModelDelta delta) {
+    }
+    
     public void modelElementLoaded(ModelChangedEvent event) {
     }
 

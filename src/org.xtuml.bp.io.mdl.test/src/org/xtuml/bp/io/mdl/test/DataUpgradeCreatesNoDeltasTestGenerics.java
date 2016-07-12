@@ -27,7 +27,8 @@ import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PartInitException;
-
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.Package_c;
 import org.xtuml.bp.core.PackageableElement_c;
@@ -41,8 +42,10 @@ import org.xtuml.bp.core.common.TransactionManager;
 import org.xtuml.bp.core.util.UIUtil;
 import org.xtuml.bp.test.TestUtil;
 import org.xtuml.bp.test.common.BaseTest;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.ui.explorer.ExplorerView;
 
+@RunWith(OrderedRunner.class)
 public class DataUpgradeCreatesNoDeltasTestGenerics extends BaseTest {
     static PersistenceManager manager = null;
 
@@ -59,6 +62,7 @@ public class DataUpgradeCreatesNoDeltasTestGenerics extends BaseTest {
 			                             "wims",
 			                             "wimx"};
 	
+	@Test
 	public void testUpgradeCreatesNoDeltas() throws Exception {
 		loadProject("CommunicationTestModel");
 		for (int i = 0; i < unaffectedDomNames.length; i++) {

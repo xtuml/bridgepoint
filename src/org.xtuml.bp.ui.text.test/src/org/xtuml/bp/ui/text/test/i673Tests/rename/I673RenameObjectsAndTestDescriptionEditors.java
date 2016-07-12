@@ -29,7 +29,9 @@ import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.PlatformUI;
-
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.Association_c;
 import org.xtuml.bp.core.AttributeReferenceInClass_c;
 import org.xtuml.bp.core.Attribute_c;
@@ -59,6 +61,8 @@ import org.xtuml.bp.core.common.ClassQueryInterface_c;
 import org.xtuml.bp.core.ui.GenericPackageCantHappenInStateOnSM_EVTAction;
 import org.xtuml.bp.core.ui.GenericPackageCantHappenInStateOnSM_EVTWizardPage1;
 import org.xtuml.bp.core.ui.Selection;
+import org.xtuml.bp.test.common.OrderedRunner;
+import org.xtuml.bp.test.common.TestingUtilities;
 import org.xtuml.bp.test.common.TextEditorUtils;
 import org.xtuml.bp.ui.canvas.Cl_c;
 import org.xtuml.bp.ui.text.description.DescriptionEditor;
@@ -66,20 +70,22 @@ import org.xtuml.bp.ui.text.test.UITextTest;
 import org.xtuml.bp.ui.text.test.description.DescriptionEditorInteraction;
 
 
+@RunWith(OrderedRunner.class)
 public class I673RenameObjectsAndTestDescriptionEditors extends UITextTest {
 
-	public I673RenameObjectsAndTestDescriptionEditors(String projectName, String name) throws CoreException {
-		super(null, name);
+	public I673RenameObjectsAndTestDescriptionEditors() throws CoreException {
+ 		super();
 	}
 	
-	public I673RenameObjectsAndTestDescriptionEditors(String name) throws CoreException {
-		super(null, name);
-	}
-	private static boolean isFirstTime=true;
+//	public I673RenameObjectsAndTestDescriptionEditors(String name) throws CoreException {
+//		super(null, name);
+//	}
+  	private static boolean isFirstTime=true;
 	private static String testModelName = "testDescrip1";
 	
-	protected void setUp() throws Exception {
-		super.setUp();
+	@Before
+	public void setUp() throws Exception {
+ 		super.setUp();
 		
 		PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().closeAllEditors(false);
 
@@ -91,6 +97,9 @@ public class I673RenameObjectsAndTestDescriptionEditors extends UITextTest {
 		if(isFirstTime)
 		{
 			loadProject(testModelName);
+			while( d.readAndDispatch() ){}			
+			TestingUtilities.allowJobCompletion();
+
 			isFirstTime=false;
 		}
 	}
@@ -118,6 +127,7 @@ public class I673RenameObjectsAndTestDescriptionEditors extends UITextTest {
 		return PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActiveEditor();
 	}
 	
+	@Test
 	public void testRenamePackage(){
 		ClassQueryInterface_c pkgQuery = new ClassQueryInterface_c(){
             public boolean evaluate(Object candidate){
@@ -133,6 +143,7 @@ public class I673RenameObjectsAndTestDescriptionEditors extends UITextTest {
 		PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().closeEditor(ed, false);
 	}
 	
+	@Test
 	public void testRenameExternalEntity(){
 		ExternalEntity_c ee = ExternalEntity_c.ExternalEntityInstance(modelRoot);
 		assertNotNull(ee);
@@ -141,6 +152,7 @@ public class I673RenameObjectsAndTestDescriptionEditors extends UITextTest {
 		PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().closeAllEditors(false);		
 	}
 	
+	@Test
 	public void testRenameBridge_c(){
 		Bridge_c brg = Bridge_c.BridgeInstance(modelRoot);
 		assertNotNull(brg);
@@ -152,6 +164,7 @@ public class I673RenameObjectsAndTestDescriptionEditors extends UITextTest {
 		PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().closeEditor(ed, false);
 	}
 	
+	@Test
 	public void testRenameEnumerator(){
 		Enumerator_c v_enum = Enumerator_c.EnumeratorInstance(modelRoot);
 		assertNotNull(v_enum);
@@ -160,6 +173,7 @@ public class I673RenameObjectsAndTestDescriptionEditors extends UITextTest {
 		PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().closeEditor(ed, false);
 	}
 	
+	@Test
 	public void testRenameFunction(){
 		Function_c func = Function_c.FunctionInstance(modelRoot);
 		assertNotNull(func);
@@ -168,6 +182,7 @@ public class I673RenameObjectsAndTestDescriptionEditors extends UITextTest {
 		PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().closeEditor(ed, false);
 	}
 	
+	@Test
 	public void testRenameAssociation(){
 		Association_c assoc = Association_c.AssociationInstance(modelRoot);
 		assertNotNull(assoc);
@@ -187,6 +202,7 @@ public class I673RenameObjectsAndTestDescriptionEditors extends UITextTest {
 		PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().closeAllEditors(false);
 	}
 	
+	@Test
 	public void testRenameStateMachineEventDataItem(){
 		StateMachineEventDataItem_c smevtdi= StateMachineEventDataItem_c.StateMachineEventDataItemInstance(modelRoot);
 		assertNotNull(smevtdi);
@@ -195,6 +211,7 @@ public class I673RenameObjectsAndTestDescriptionEditors extends UITextTest {
 		PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().closeEditor(ed, false);
 	}
 	
+	@Test
 	public void testRenameOperation(){
 		Operation_c op = Operation_c.OperationInstance(modelRoot);
 		assertNotNull(op);
@@ -207,6 +224,7 @@ public class I673RenameObjectsAndTestDescriptionEditors extends UITextTest {
 		
 	}
 	
+	@Test
 	public void testRenameAttribute(){
 		AttributeReferenceInClass_c ref = AttributeReferenceInClass_c.AttributeReferenceInClassInstance(modelRoot);
 		assertNotNull(ref);
@@ -227,6 +245,7 @@ public class I673RenameObjectsAndTestDescriptionEditors extends UITextTest {
 		PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().closeAllEditors(false);	
 	}
 	
+	@Test
 	public void testRenameModelClass(){
 		ModelClass_c obj = ModelClass_c.ModelClassInstance(modelRoot);
 		assertNotNull(obj);
@@ -278,10 +297,12 @@ public class I673RenameObjectsAndTestDescriptionEditors extends UITextTest {
 		PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().closeAllEditors(false);
 	}
 	
+	@Test
 	public void testRenameAttributeReferenceInClass(){
 		//We do no longer need to test it as no attribute in this class affects its name 
 	}
 	
+	@Test
 	public void testRenameUserDataType(){
 		UserDataType_c udt= UserDataType_c.UserDataTypeInstance(modelRoot);
 		assertNotNull(udt);
@@ -290,6 +311,7 @@ public class I673RenameObjectsAndTestDescriptionEditors extends UITextTest {
 		PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().closeEditor(ed, false);
 	}
 	
+	@Test
 	public void testRenameEnumerationDataType(){
 		EnumerationDataType_c edt= EnumerationDataType_c.EnumerationDataTypeInstance(modelRoot);
 		assertNotNull(edt);
@@ -298,6 +320,7 @@ public class I673RenameObjectsAndTestDescriptionEditors extends UITextTest {
 		PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().closeEditor(ed, false);
 	}
 	
+	@Test
 	public void testRenameStateMachineState(){
 		ClassQueryInterface_c stateQuery = new ClassQueryInterface_c(){
 			public boolean evaluate(Object candidate) {
@@ -335,6 +358,7 @@ public class I673RenameObjectsAndTestDescriptionEditors extends UITextTest {
 		PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().closeAllEditors(false);
 	}
 	
+	@Test
 	public void testRenameStateMachineEventWithEventIgnored(){
 		StateMachineEvent_c event = StateMachineEvent_c.StateMachineEventInstance(modelRoot);
 		assertNotNull(event);
@@ -391,6 +415,7 @@ public class I673RenameObjectsAndTestDescriptionEditors extends UITextTest {
 		PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().closeAllEditors(false);
 	}
 	
+	@Test
 	public void testRenameStateMachineEventWithCantHappen(){
 		class QueryStateEventWithName implements ClassQueryInterface_c{
 			private String name = null;
@@ -450,6 +475,7 @@ public class I673RenameObjectsAndTestDescriptionEditors extends UITextTest {
 		PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().closeAllEditors(false);
 	}
 	
+	@Test
 	public void testEventIgnoredToCantHappen(){
 		//_- Select 'T_T1:first' from explorer tree
 		//_- Select Event Can't Happen entry from context menu.

@@ -31,7 +31,12 @@ import org.eclipse.core.runtime.Platform;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.TreeItem;
 import org.eclipse.ui.PlatformUI;
-
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Rule;
+import org.junit.Test;
+import org.junit.rules.TestName;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.ActionNode_c;
 import org.xtuml.bp.core.ActivityDiagramAction_c;
 import org.xtuml.bp.core.ActivityEdge_c;
@@ -79,6 +84,7 @@ import org.xtuml.bp.test.common.BaseTest;
 import org.xtuml.bp.test.common.CanvasTestUtils;
 import org.xtuml.bp.test.common.CompareTestUtilities;
 import org.xtuml.bp.test.common.GitUtil;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.test.common.TestingUtilities;
 import org.xtuml.bp.test.common.ZipUtil;
 import org.xtuml.bp.ui.canvas.Connector_c;
@@ -87,19 +93,31 @@ import org.xtuml.bp.ui.canvas.Model_c;
 import org.xtuml.bp.ui.canvas.Ooaofgraphics;
 import org.xtuml.bp.ui.canvas.Shape_c;
 
+@RunWith(OrderedRunner.class)
 public class ModelMergeTests extends BaseTest {
 
 	private String test_repositories = Platform.getInstanceLocation().getURL()
 			.getFile()
 			+ "/" + "test_repositories";
 
+	@Rule public TestName name = new TestName();
+	
+	@Override
+	public String getName(){
+		return name.getMethodName();
+	}
 	/*
 	 * (non-Javadoc)
 	 * 
 	 * @see org.xtuml.bp.test.common.BaseTest#initialSetup()
 	 */
+	public static boolean isFirstTime = true;
 	@Override
-	protected void initialSetup() throws Exception {
+	@Before
+	public void initialSetup() throws Exception {
+		if(!isFirstTime)
+			return;
+		isFirstTime = false;		
 		CorePlugin
 				.getDefault()
 				.getPreferenceStore()
@@ -128,6 +146,7 @@ public class ModelMergeTests extends BaseTest {
 	}
 
 	@Override
+	@Before
 	public void setUp() throws Exception {
 		super.setUp();
 		loadProject("HierarchyTestModel");
@@ -135,12 +154,14 @@ public class ModelMergeTests extends BaseTest {
 	}
 
 	@Override
+	@After
 	public void tearDown() throws Exception {
 		super.tearDown();
 		PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage()
 				.closeAllEditors(false);
 	}
 
+	@Test
 	public void testMergeOfTransitionNoOrphanedTransitions() throws Exception {
 		String projectName = "dts0101042909";
 		// import git repository from models repo
@@ -200,6 +221,7 @@ public class ModelMergeTests extends BaseTest {
 		TestUtil.deleteProject(getProjectHandle(projectName));
 	}
 
+	@Test
 	public void testNoGraphicalElementCopiedWithoutSemanticCopy()
 			throws Exception {
 		String projectName = "dts0101042915";
@@ -245,6 +267,7 @@ public class ModelMergeTests extends BaseTest {
 		TestUtil.deleteProject(getProjectHandle(projectName));
 	}
 
+	@Test
 	public void testGraphicalElementDifferencesOnlyCausesDirtyEditor() {
 		String projectName = "dts0101054289";
 		// import git repository from models repo
@@ -267,6 +290,7 @@ public class ModelMergeTests extends BaseTest {
 		TestUtil.deleteProject(getProjectHandle(projectName));
 	}
 	
+	@Test
 	public void testMergeWithStateMachineAddedInSeparateBranches()
 			throws Exception {
 		String projectName = "dts0101009925";
@@ -361,6 +385,7 @@ public class ModelMergeTests extends BaseTest {
 		TestUtil.deleteProject(getProjectHandle(projectName));
 	}
 
+	@Test
 	public void testNoGraphicalDataInCompareEditor() throws CoreException {
 		TestingUtilities.createProject("testNoGraphics");
 		m_sys = getSystemModel("testNoGraphics");
@@ -408,6 +433,7 @@ public class ModelMergeTests extends BaseTest {
 		}
 	}
 
+	@Test
 	public void testAutomaticGraphicalMergeElementDeletion() throws Exception {
 		String projectName = "AutomaticGraphicalMerge";
 		// import git repository from models repo
@@ -498,6 +524,7 @@ public class ModelMergeTests extends BaseTest {
 		TestUtil.deleteProject(getProjectHandle(projectName));
 	}
 
+	@Test
 	public void testAutomaticGraphicalMergeElementAdded() throws Exception {
 		String projectName = "AutomaticGraphicalMergeAddition";
 		// import git repository from models repo
@@ -556,6 +583,7 @@ public class ModelMergeTests extends BaseTest {
 		TestUtil.deleteProject(getProjectHandle(projectName));
 	}
 
+	@Test
 	public void testAddStatesAndTransitionsNoExceptions() throws Exception {
 		String projectName = "dts0101009924";
 		// import git repository from models repo
@@ -575,6 +603,7 @@ public class ModelMergeTests extends BaseTest {
 		TestUtil.deleteProject(getProjectHandle(projectName));
 	}
 
+	@Test
 	public void testConnectorTextDoesNotDisappear() throws Exception {
 		String projectName = "dts0101039702";
 		// import git repository from models repo
@@ -618,6 +647,7 @@ public class ModelMergeTests extends BaseTest {
 		TestUtil.deleteProject(getProjectHandle(projectName));
 	}
 
+	@Test
 	public void testValueModificationOfDescriptionThroughCompareDialog()
 			throws CoreException {
 		modelRoot = Ooaofooa.getInstance(Ooaofooa.createModelRootId(
@@ -646,6 +676,7 @@ public class ModelMergeTests extends BaseTest {
 				clazz.getDescrip().equals(""));
 	}
 
+	@Test
 	public void testAssociationComparable() {
 		modelRoot = Ooaofooa.getInstance(Ooaofooa.createModelRootId(
 				getProject(), "Classes", true));
@@ -670,6 +701,7 @@ public class ModelMergeTests extends BaseTest {
 				!comparable1.equals(comparable2));
 	}
 
+	@Test
 	public void testLocationDetection() throws CoreException {
 		modelRoot = Ooaofooa.getInstance(Ooaofooa.createModelRootId(
 				getProject(), "Classes", true));
@@ -727,6 +759,7 @@ public class ModelMergeTests extends BaseTest {
 				viewer.getDifferencer().getLeftDifferences().size() == 0);
 	}
 
+	@Test
 	public void testIntegerValueMerge() throws Exception {
 		Package_c pkg = Package_c.getOneEP_PKGOnR1401(m_sys,
 				new ClassQueryInterface_c() {
@@ -769,6 +802,7 @@ public class ModelMergeTests extends BaseTest {
 				compareAssoc.getNumb() != 22);
 	}
 
+	@Test
 	public void testCantHappenCreationOnNewState() throws Exception {
 		modelRoot = Ooaofooa.getInstance(Ooaofooa.createModelRootId(
 				getProject(), "Classes", true));
@@ -823,6 +857,7 @@ public class ModelMergeTests extends BaseTest {
 				newSemeCount > existingSemeCount);
 	}
 
+	@Test
 	public void testCantHappenCreationOnNewEvent() throws Exception {
 		modelRoot = Ooaofooa.getInstance(Ooaofooa.createModelRootId(
 				getProject(), "Classes", true));
@@ -875,6 +910,7 @@ public class ModelMergeTests extends BaseTest {
 				newSemeCount > existingSemeCount);
 	}
 
+	@Test
 	public void testUnassignEventFromTransitionMerge() throws Exception {
 		modelRoot = Ooaofooa.getInstance(Ooaofooa.createModelRootId(
 				getProject(), "Classes", true));
@@ -926,6 +962,7 @@ public class ModelMergeTests extends BaseTest {
 				viewer.getDifferencer().getLeftDifferences().size() == 0);
 	}
 
+	@Test
 	public void testGitConflictAnnotationRemoval() throws Exception {
 		String projectName = "GitAnnotationRemovalTest";
 		// import git repository from models repo
@@ -982,6 +1019,7 @@ public class ModelMergeTests extends BaseTest {
 		TestUtil.deleteProject(getProjectHandle(projectName));
 	}
 	
+	@Test
 	public void testAutocrlfOption() throws Exception {
 
 	}

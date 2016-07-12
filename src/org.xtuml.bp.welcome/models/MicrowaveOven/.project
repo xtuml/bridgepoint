@@ -6,7 +6,7 @@
 	</projects>
 	<buildSpec>
 		<buildCommand>
-			<name>org.xtuml.bp.mc.c.binary.export_builder</name>
+			<name>org.xtuml.bp.mc.c.source.export_builder</name>
 			<arguments>
 			</arguments>
 		</buildCommand>
@@ -78,7 +78,7 @@
 	</buildSpec>
 	<natures>
 		<nature>org.xtuml.bp.core.xtumlnature</nature>
-		<nature>org.xtuml.bp.mc.c.binary.MCNature</nature>
+		<nature>org.xtuml.bp.mc.c.source.MCNature</nature>
 		<nature>org.eclipse.cdt.core.cnature</nature>
 		<nature>org.eclipse.cdt.core.ccnature</nature>
 		<nature>org.eclipse.cdt.managedbuilder.core.managedBuildNature</nature>

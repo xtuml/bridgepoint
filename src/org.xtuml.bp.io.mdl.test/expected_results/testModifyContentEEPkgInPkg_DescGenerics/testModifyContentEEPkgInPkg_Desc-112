@@ -1,6 +1,6 @@
 drawRectangle(...)
-drawText("«external entity»", ...)
+drawText("«external en...", ...)
 drawText("EE1", ...)
 drawline(...)
 drawline(...)
-drawText("«operation»Operation1 : void", ...)
+drawText("«operation»Operation1 :...", ...)

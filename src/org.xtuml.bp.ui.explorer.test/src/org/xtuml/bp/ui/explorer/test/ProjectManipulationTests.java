@@ -20,8 +20,10 @@ import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.jface.viewers.TreeViewer;
-import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.Package_c;
@@ -33,16 +35,21 @@ import org.xtuml.bp.core.common.TransactionManager;
 import org.xtuml.bp.test.TestUtil;
 import org.xtuml.bp.test.common.BaseTest;
 import org.xtuml.bp.test.common.ExplorerUtil;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.ui.graphics.editor.GraphicalEditor;
 import org.xtuml.bp.ui.graphics.editor.ModelEditor;
 
 /**
  * Performs tests of model-explorer functionality.
  */
-public class ProjectManipulationTests extends BaseTest
+@RunWith(OrderedRunner.class)
+	public class ProjectManipulationTests extends BaseTest
 {
-    public ProjectManipulationTests(String name) {
-        super(packageName, name);
+//    public ProjectManipulationTests(String name) {
+//        super(packageName, name);
+//    }
+    public ProjectManipulationTests() {
+        super(packageName, null);
     }
     
     /**
@@ -64,7 +71,8 @@ public class ProjectManipulationTests extends BaseTest
     /* (non-Javadoc)
      * @see junit.framework.TestCase#setUp()
      */
-    protected void setUp() throws Exception
+    @Before
+	public void setUp() throws Exception
     {
         super.setUp();
 		CorePlugin
@@ -82,7 +90,8 @@ public class ProjectManipulationTests extends BaseTest
     }
     
     // enforces ordering of the tests in this class
-    public void testProjectManipulation() throws CoreException,IOException {
+    @Test
+	public void testProjectManipulation() throws CoreException,IOException {
     	dotestProjectOpenThenClose();
     	dotestProjectDelete();
     	dotestDomainDeleteFromModelExplorer();

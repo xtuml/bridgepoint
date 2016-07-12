@@ -23,13 +23,18 @@
 package org.xtuml.bp.als.oal.test;
 
 import org.eclipse.jface.preference.IPreferenceStore;
+import org.junit.After;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.common.BridgePointPreferencesStore;
+import org.xtuml.bp.test.common.OrderedRunner;
 
 import antlr.RecognitionException;
 import antlr.TokenStreamException;
 import junit.framework.TestCase;
 
+@RunWith(OrderedRunner.class)
 public class TestSelect_Generics_Ordered extends TestCase {
 	public TestSelect_Generics_Ordered() {
 		super();
@@ -37,7 +42,8 @@ public class TestSelect_Generics_Ordered extends TestCase {
 		store.setValue(BridgePointPreferencesStore.ALLOW_OPERATIONS_IN_WHERE, true);
 	}
 
-	protected void tearDown() throws Exception {
+	@After
+	public void tearDown() throws Exception {
 		try {
 			super.tearDown();
 			OalParserTest_Generics.tearDownActionData();
@@ -48,18 +54,8 @@ public class TestSelect_Generics_Ordered extends TestCase {
 		}
 	}
 
-	/**
-	 * Note that these tests must be run in order, therefore the methods in this
-	 * test should not be changed.
-	 * 
-	 * @throws Exception
-	 */
-	public void testSelectOutsideOfWhere() throws Exception {
-		doTestSelectedVarOutsideWhere();
-		doTestSelectedAttrOutsideWhere();
-	}
-
-	public void doTestSelectedVarOutsideWhere() throws RecognitionException, TokenStreamException {
+	@Test
+	public void testSelectedVarOutsideWhere() throws RecognitionException, TokenStreamException {
 		String act = "selected = 1;"; //$NON-NLS-1$
 		String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC,
 				OalParserTest_Generics.TEST_VOID_NO_PARM);
@@ -72,7 +68,8 @@ public class TestSelect_Generics_Ordered extends TestCase {
 		TestSelect_Generics.badSelectValidate(var_list, 0, 0, 1);
 	}
 
-	public void doTestSelectedAttrOutsideWhere() throws RecognitionException, TokenStreamException {
+	@Test
+	public void testSelectedAttrOutsideWhere() throws RecognitionException, TokenStreamException {
 		String act = "select any selected from instances of D_D;\nselected.Disk_ID = 1;"; //$NON-NLS-1$
 		String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC,
 				OalParserTest_Generics.TEST_VOID_NO_PARM);

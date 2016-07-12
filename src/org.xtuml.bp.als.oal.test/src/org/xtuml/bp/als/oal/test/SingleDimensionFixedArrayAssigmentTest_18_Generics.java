@@ -26,17 +26,17 @@
 
 package org.xtuml.bp.als.oal.test;
 
-import antlr.RecognitionException;
-import antlr.TokenStreamException;
-import org.eclipse.ui.IEditorPart;
-
-import org.xtuml.bp.core.*;
-import org.xtuml.bp.core.common.NonRootModelElement;
-import org.xtuml.bp.test.common.*;
-import org.xtuml.bp.ui.canvas.*;
-import org.xtuml.bp.ui.canvas.test.*;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.ui.graphics.editor.GraphicalEditor;
 
+import antlr.RecognitionException;
+import antlr.TokenStreamException;
+
+@RunWith(OrderedRunner.class)
 public class SingleDimensionFixedArrayAssigmentTest_18_Generics extends ArrayBaseTest {
 
     private static boolean configured = false;
@@ -45,18 +45,20 @@ public class SingleDimensionFixedArrayAssigmentTest_18_Generics extends ArrayBas
 		return super.getResultName();
 	}
 
-	public SingleDimensionFixedArrayAssigmentTest_18_Generics(String arg0) {
-		super("APVT", arg0);
+	public SingleDimensionFixedArrayAssigmentTest_18_Generics() {
+		super("APVT", null);
 	}
 
-    protected void setUp() throws Exception {
+    @Before
+	public void setUp() throws Exception {
         if (!configured) {
             super.setUp();
             configured = true;
         }
     }
 
-	protected void tearDown() throws Exception {
+	@After
+	public void tearDown() throws Exception {
 		super.tearDown();
 	}
 
@@ -95,6 +97,7 @@ public class SingleDimensionFixedArrayAssigmentTest_18_Generics extends ArrayBas
 	 * (T1LV6D2).
 	 * 
 	 */
+	@Test
 	public void testT1RV10D2_T1LV6D2() {
 		test_id = getTestId("T1RV10D2", "T1LV6D2", "2");
 
@@ -153,6 +156,7 @@ public class SingleDimensionFixedArrayAssigmentTest_18_Generics extends ArrayBas
 	 * (T1LV6D4).
 	 * 
 	 */
+	@Test
 	public void testT1RV10D2_T1LV6D4() {
 		test_id = getTestId("T1RV10D2", "T1LV6D4", "4");
 
@@ -181,6 +185,7 @@ public class SingleDimensionFixedArrayAssigmentTest_18_Generics extends ArrayBas
 	 * (T1LV6D5).
 	 * 
 	 */
+	@Test
 	public void testT1RV10D2_T1LV6D5() {
 		test_id = getTestId("T1RV10D2", "T1LV6D5", "5");
 
@@ -209,6 +214,7 @@ public class SingleDimensionFixedArrayAssigmentTest_18_Generics extends ArrayBas
 	 * (T1LV6D6).
 	 * 
 	 */
+	@Test
 	public void testT1RV10D2_T1LV6D6() {
 		test_id = getTestId("T1RV10D2", "T1LV6D6", "6");
 
@@ -237,6 +243,7 @@ public class SingleDimensionFixedArrayAssigmentTest_18_Generics extends ArrayBas
 	 * (T1LV6D7).
 	 * 
 	 */
+	@Test
 	public void testT1RV10D2_T1LV6D7() {
 		test_id = getTestId("T1RV10D2", "T1LV6D7", "7");
 
@@ -265,6 +272,7 @@ public class SingleDimensionFixedArrayAssigmentTest_18_Generics extends ArrayBas
 	 * (T1LV6D8).
 	 * 
 	 */
+	@Test
 	public void testT1RV10D2_T1LV6D8() {
 		test_id = getTestId("T1RV10D2", "T1LV6D8", "8");
 
@@ -293,6 +301,7 @@ public class SingleDimensionFixedArrayAssigmentTest_18_Generics extends ArrayBas
 	 * (T1LV6D9).
 	 * 
 	 */
+	@Test
 	public void testT1RV10D2_T1LV6D9() {
 		test_id = getTestId("T1RV10D2", "T1LV6D9", "9");
 
@@ -351,6 +360,7 @@ public class SingleDimensionFixedArrayAssigmentTest_18_Generics extends ArrayBas
 	 * (T1LV7D2).
 	 * 
 	 */
+	@Test
 	public void testT1RV10D2_T1LV7D2() {
 		test_id = getTestId("T1RV10D2", "T1LV7D2", "11");
 
@@ -409,6 +419,7 @@ public class SingleDimensionFixedArrayAssigmentTest_18_Generics extends ArrayBas
 	 * (T1LV8D1).
 	 * 
 	 */
+	@Test
 	public void testT1RV10D2_T1LV8D1() {
 		test_id = getTestId("T1RV10D2", "T1LV8D1", "13");
 
@@ -438,6 +449,7 @@ public class SingleDimensionFixedArrayAssigmentTest_18_Generics extends ArrayBas
 	 * (T1LV8D2).
 	 * 
 	 */
+	@Test
 	public void testT1RV10D2_T1LV8D2() {
 		test_id = getTestId("T1RV10D2", "T1LV8D2", "14");
 
@@ -466,6 +478,7 @@ public class SingleDimensionFixedArrayAssigmentTest_18_Generics extends ArrayBas
 	 * (T1LV8D3).
 	 * 
 	 */
+	@Test
 	public void testT1RV10D2_T1LV8D3() {
 		test_id = getTestId("T1RV10D2", "T1LV8D3", "15");
 
@@ -495,6 +508,7 @@ public class SingleDimensionFixedArrayAssigmentTest_18_Generics extends ArrayBas
 	 * (T1LV9D1).
 	 * 
 	 */
+	@Test
 	public void testT1RV10D2_T1LV9D1() {
 		test_id = getTestId("T1RV10D2", "T1LV9D1", "16");
 
@@ -524,6 +538,7 @@ public class SingleDimensionFixedArrayAssigmentTest_18_Generics extends ArrayBas
 	 * (T1LV9D2).
 	 * 
 	 */
+	@Test
 	public void testT1RV10D2_T1LV9D2() {
 		test_id = getTestId("T1RV10D2", "T1LV9D2", "17");
 
@@ -552,6 +567,7 @@ public class SingleDimensionFixedArrayAssigmentTest_18_Generics extends ArrayBas
 	 * (T1LV9D3).
 	 * 
 	 */
+	@Test
 	public void testT1RV10D2_T1LV9D3() {
 		test_id = getTestId("T1RV10D2", "T1LV9D3", "18");
 
@@ -581,6 +597,7 @@ public class SingleDimensionFixedArrayAssigmentTest_18_Generics extends ArrayBas
 	 * (T1LV10D1).
 	 * 
 	 */
+	@Test
 	public void testT1RV10D2_T1LV10D1() {
 		test_id = getTestId("T1RV10D2", "T1LV10D1", "19");
 
@@ -610,6 +627,7 @@ public class SingleDimensionFixedArrayAssigmentTest_18_Generics extends ArrayBas
 	 * (T1LV10D2).
 	 * 
 	 */
+	@Test
 	public void testT1RV10D2_T1LV10D2() {
 		test_id = getTestId("T1RV10D2", "T1LV10D2", "20");
 
@@ -638,6 +656,7 @@ public class SingleDimensionFixedArrayAssigmentTest_18_Generics extends ArrayBas
 	 * (T1LV10D3).
 	 * 
 	 */
+	@Test
 	public void testT1RV10D2_T1LV10D3() {
 		test_id = getTestId("T1RV10D2", "T1LV10D3", "21");
 
@@ -667,6 +686,7 @@ public class SingleDimensionFixedArrayAssigmentTest_18_Generics extends ArrayBas
 	 * (T1LV11D1).
 	 * 
 	 */
+	@Test
 	public void testT1RV10D2_T1LV11D1() {
 		test_id = getTestId("T1RV10D2", "T1LV11D1", "22");
 
@@ -696,6 +716,7 @@ public class SingleDimensionFixedArrayAssigmentTest_18_Generics extends ArrayBas
 	 * (T1LV11D2).
 	 * 
 	 */
+	@Test
 	public void testT1RV10D2_T1LV11D2() {
 		test_id = getTestId("T1RV10D2", "T1LV11D2", "23");
 
@@ -724,6 +745,7 @@ public class SingleDimensionFixedArrayAssigmentTest_18_Generics extends ArrayBas
 	 * (T1LV11D3).
 	 * 
 	 */
+	@Test
 	public void testT1RV10D2_T1LV11D3() {
 		test_id = getTestId("T1RV10D2", "T1LV11D3", "24");
 
@@ -783,6 +805,7 @@ public class SingleDimensionFixedArrayAssigmentTest_18_Generics extends ArrayBas
 	 * (T1LV12D2).
 	 * 
 	 */
+	@Test
 	public void testT1RV10D2_T1LV12D2() {
 		test_id = getTestId("T1RV10D2", "T1LV12D2", "26");
 
@@ -871,6 +894,7 @@ public class SingleDimensionFixedArrayAssigmentTest_18_Generics extends ArrayBas
 	 * (T1LV13D2).
 	 * 
 	 */
+	@Test
 	public void testT1RV10D2_T1LV13D2() {
 		test_id = getTestId("T1RV10D2", "T1LV13D2", "29");
 
@@ -959,6 +983,7 @@ public class SingleDimensionFixedArrayAssigmentTest_18_Generics extends ArrayBas
 	 * (T1LV14D2).
 	 * 
 	 */
+	@Test
 	public void testT1RV10D2_T1LV14D2() {
 		test_id = getTestId("T1RV10D2", "T1LV14D2", "32");
 
@@ -1047,6 +1072,7 @@ public class SingleDimensionFixedArrayAssigmentTest_18_Generics extends ArrayBas
 	 * (T1LV15D2).
 	 * 
 	 */
+	@Test
 	public void testT1RV10D2_T1LV15D2() {
 		test_id = getTestId("T1RV10D2", "T1LV15D2", "35");
 
@@ -1165,6 +1191,7 @@ public class SingleDimensionFixedArrayAssigmentTest_18_Generics extends ArrayBas
 	 * (T1LV1D3).
 	 * 
 	 */
+	@Test
 	public void testT1RV10D3_T1LV1D3() {
 		test_id = getTestId("T1RV10D3", "T1LV1D3", "39");
 
@@ -1193,6 +1220,7 @@ public class SingleDimensionFixedArrayAssigmentTest_18_Generics extends ArrayBas
 	 * (T1LV1D4).
 	 * 
 	 */
+	@Test
 	public void testT1RV10D3_T1LV1D4() {
 		test_id = getTestId("T1RV10D3", "T1LV1D4", "40");
 
@@ -1221,6 +1249,7 @@ public class SingleDimensionFixedArrayAssigmentTest_18_Generics extends ArrayBas
 	 * (T1LV1D5).
 	 * 
 	 */
+	@Test
 	public void testT1RV10D3_T1LV1D5() {
 		test_id = getTestId("T1RV10D3", "T1LV1D5", "41");
 
@@ -1249,6 +1278,7 @@ public class SingleDimensionFixedArrayAssigmentTest_18_Generics extends ArrayBas
 	 * (T1LV1D6).
 	 * 
 	 */
+	@Test
 	public void testT1RV10D3_T1LV1D6() {
 		test_id = getTestId("T1RV10D3", "T1LV1D6", "42");
 
@@ -1277,6 +1307,7 @@ public class SingleDimensionFixedArrayAssigmentTest_18_Generics extends ArrayBas
 	 * (T1LV1D7).
 	 * 
 	 */
+	@Test
 	public void testT1RV10D3_T1LV1D7() {
 		test_id = getTestId("T1RV10D3", "T1LV1D7", "43");
 
@@ -1305,6 +1336,7 @@ public class SingleDimensionFixedArrayAssigmentTest_18_Generics extends ArrayBas
 	 * (T1LV1D8).
 	 * 
 	 */
+	@Test
 	public void testT1RV10D3_T1LV1D8() {
 		test_id = getTestId("T1RV10D3", "T1LV1D8", "44");
 
@@ -1333,6 +1365,7 @@ public class SingleDimensionFixedArrayAssigmentTest_18_Generics extends ArrayBas
 	 * (T1LV1D9).
 	 * 
 	 */
+	@Test
 	public void testT1RV10D3_T1LV1D9() {
 		test_id = getTestId("T1RV10D3", "T1LV1D9", "45");
 
@@ -1421,6 +1454,7 @@ public class SingleDimensionFixedArrayAssigmentTest_18_Generics extends ArrayBas
 	 * (T1LV2D3).
 	 * 
 	 */
+	@Test
 	public void testT1RV10D3_T1LV2D3() {
 		test_id = getTestId("T1RV10D3", "T1LV2D3", "48");
 
@@ -1449,6 +1483,7 @@ public class SingleDimensionFixedArrayAssigmentTest_18_Generics extends ArrayBas
 	 * (T1LV2D4).
 	 * 
 	 */
+	@Test
 	public void testT1RV10D3_T1LV2D4() {
 		test_id = getTestId("T1RV10D3", "T1LV2D4", "49");
 
@@ -1477,6 +1512,7 @@ public class SingleDimensionFixedArrayAssigmentTest_18_Generics extends ArrayBas
 	 * (T1LV2D5).
 	 * 
 	 */
+	@Test
 	public void testT1RV10D3_T1LV2D5() {
 		test_id = getTestId("T1RV10D3", "T1LV2D5", "50");
 
@@ -1505,6 +1541,7 @@ public class SingleDimensionFixedArrayAssigmentTest_18_Generics extends ArrayBas
 	 * (T1LV2D6).
 	 * 
 	 */
+	@Test
 	public void testT1RV10D3_T1LV2D6() {
 		test_id = getTestId("T1RV10D3", "T1LV2D6", "51");
 
@@ -1533,6 +1570,7 @@ public class SingleDimensionFixedArrayAssigmentTest_18_Generics extends ArrayBas
 	 * (T1LV2D7).
 	 * 
 	 */
+	@Test
 	public void testT1RV10D3_T1LV2D7() {
 		test_id = getTestId("T1RV10D3", "T1LV2D7", "52");
 
@@ -1561,6 +1599,7 @@ public class SingleDimensionFixedArrayAssigmentTest_18_Generics extends ArrayBas
 	 * (T1LV2D8).
 	 * 
 	 */
+	@Test
 	public void testT1RV10D3_T1LV2D8() {
 		test_id = getTestId("T1RV10D3", "T1LV2D8", "53");
 
@@ -1589,6 +1628,7 @@ public class SingleDimensionFixedArrayAssigmentTest_18_Generics extends ArrayBas
 	 * (T1LV2D9).
 	 * 
 	 */
+	@Test
 	public void testT1RV10D3_T1LV2D9() {
 		test_id = getTestId("T1RV10D3", "T1LV2D9", "54");
 
@@ -1677,6 +1717,7 @@ public class SingleDimensionFixedArrayAssigmentTest_18_Generics extends ArrayBas
 	 * (T1LV3D3).
 	 * 
 	 */
+	@Test
 	public void testT1RV10D3_T1LV3D3() {
 		test_id = getTestId("T1RV10D3", "T1LV3D3", "57");
 
@@ -1705,6 +1746,7 @@ public class SingleDimensionFixedArrayAssigmentTest_18_Generics extends ArrayBas
 	 * (T1LV3D4).
 	 * 
 	 */
+	@Test
 	public void testT1RV10D3_T1LV3D4() {
 		test_id = getTestId("T1RV10D3", "T1LV3D4", "58");
 
@@ -1733,6 +1775,7 @@ public class SingleDimensionFixedArrayAssigmentTest_18_Generics extends ArrayBas
 	 * (T1LV3D5).
 	 * 
 	 */
+	@Test
 	public void testT1RV10D3_T1LV3D5() {
 		test_id = getTestId("T1RV10D3", "T1LV3D5", "59");
 
@@ -1761,6 +1804,7 @@ public class SingleDimensionFixedArrayAssigmentTest_18_Generics extends ArrayBas
 	 * (T1LV3D6).
 	 * 
 	 */
+	@Test
 	public void testT1RV10D3_T1LV3D6() {
 		test_id = getTestId("T1RV10D3", "T1LV3D6", "60");
 
@@ -1789,6 +1833,7 @@ public class SingleDimensionFixedArrayAssigmentTest_18_Generics extends ArrayBas
 	 * (T1LV3D7).
 	 * 
 	 */
+	@Test
 	public void testT1RV10D3_T1LV3D7() {
 		test_id = getTestId("T1RV10D3", "T1LV3D7", "61");
 
@@ -1817,6 +1862,7 @@ public class SingleDimensionFixedArrayAssigmentTest_18_Generics extends ArrayBas
 	 * (T1LV3D8).
 	 * 
 	 */
+	@Test
 	public void testT1RV10D3_T1LV3D8() {
 		test_id = getTestId("T1RV10D3", "T1LV3D8", "62");
 
@@ -1845,6 +1891,7 @@ public class SingleDimensionFixedArrayAssigmentTest_18_Generics extends ArrayBas
 	 * (T1LV3D9).
 	 * 
 	 */
+	@Test
 	public void testT1RV10D3_T1LV3D9() {
 		test_id = getTestId("T1RV10D3", "T1LV3D9", "63");
 
@@ -1933,6 +1980,7 @@ public class SingleDimensionFixedArrayAssigmentTest_18_Generics extends ArrayBas
 	 * (T1LV4D3).
 	 * 
 	 */
+	@Test
 	public void testT1RV10D3_T1LV4D3() {
 		test_id = getTestId("T1RV10D3", "T1LV4D3", "66");
 
@@ -1961,6 +2009,7 @@ public class SingleDimensionFixedArrayAssigmentTest_18_Generics extends ArrayBas
 	 * (T1LV4D4).
 	 * 
 	 */
+	@Test
 	public void testT1RV10D3_T1LV4D4() {
 		test_id = getTestId("T1RV10D3", "T1LV4D4", "67");
 
@@ -1989,6 +2038,7 @@ public class SingleDimensionFixedArrayAssigmentTest_18_Generics extends ArrayBas
 	 * (T1LV4D5).
 	 * 
 	 */
+	@Test
 	public void testT1RV10D3_T1LV4D5() {
 		test_id = getTestId("T1RV10D3", "T1LV4D5", "68");
 
@@ -2017,6 +2067,7 @@ public class SingleDimensionFixedArrayAssigmentTest_18_Generics extends ArrayBas
 	 * (T1LV4D6).
 	 * 
 	 */
+	@Test
 	public void testT1RV10D3_T1LV4D6() {
 		test_id = getTestId("T1RV10D3", "T1LV4D6", "69");
 
@@ -2045,6 +2096,7 @@ public class SingleDimensionFixedArrayAssigmentTest_18_Generics extends ArrayBas
 	 * (T1LV4D7).
 	 * 
 	 */
+	@Test
 	public void testT1RV10D3_T1LV4D7() {
 		test_id = getTestId("T1RV10D3", "T1LV4D7", "70");
 
@@ -2073,6 +2125,7 @@ public class SingleDimensionFixedArrayAssigmentTest_18_Generics extends ArrayBas
 	 * (T1LV4D8).
 	 * 
 	 */
+	@Test
 	public void testT1RV10D3_T1LV4D8() {
 		test_id = getTestId("T1RV10D3", "T1LV4D8", "71");
 
@@ -2101,6 +2154,7 @@ public class SingleDimensionFixedArrayAssigmentTest_18_Generics extends ArrayBas
 	 * (T1LV4D9).
 	 * 
 	 */
+	@Test
 	public void testT1RV10D3_T1LV4D9() {
 		test_id = getTestId("T1RV10D3", "T1LV4D9", "72");
 
@@ -2189,6 +2243,7 @@ public class SingleDimensionFixedArrayAssigmentTest_18_Generics extends ArrayBas
 	 * (T1LV5D3).
 	 * 
 	 */
+	@Test
 	public void testT1RV10D3_T1LV5D3() {
 		test_id = getTestId("T1RV10D3", "T1LV5D3", "75");
 
@@ -2217,6 +2272,7 @@ public class SingleDimensionFixedArrayAssigmentTest_18_Generics extends ArrayBas
 	 * (T1LV5D4).
 	 * 
 	 */
+	@Test
 	public void testT1RV10D3_T1LV5D4() {
 		test_id = getTestId("T1RV10D3", "T1LV5D4", "76");
 
@@ -2245,6 +2301,7 @@ public class SingleDimensionFixedArrayAssigmentTest_18_Generics extends ArrayBas
 	 * (T1LV5D5).
 	 * 
 	 */
+	@Test
 	public void testT1RV10D3_T1LV5D5() {
 		test_id = getTestId("T1RV10D3", "T1LV5D5", "77");
 
@@ -2273,6 +2330,7 @@ public class SingleDimensionFixedArrayAssigmentTest_18_Generics extends ArrayBas
 	 * (T1LV5D6).
 	 * 
 	 */
+	@Test
 	public void testT1RV10D3_T1LV5D6() {
 		test_id = getTestId("T1RV10D3", "T1LV5D6", "78");
 
@@ -2301,6 +2359,7 @@ public class SingleDimensionFixedArrayAssigmentTest_18_Generics extends ArrayBas
 	 * (T1LV5D7).
 	 * 
 	 */
+	@Test
 	public void testT1RV10D3_T1LV5D7() {
 		test_id = getTestId("T1RV10D3", "T1LV5D7", "79");
 
@@ -2329,6 +2388,7 @@ public class SingleDimensionFixedArrayAssigmentTest_18_Generics extends ArrayBas
 	 * (T1LV5D8).
 	 * 
 	 */
+	@Test
 	public void testT1RV10D3_T1LV5D8() {
 		test_id = getTestId("T1RV10D3", "T1LV5D8", "80");
 
@@ -2357,6 +2417,7 @@ public class SingleDimensionFixedArrayAssigmentTest_18_Generics extends ArrayBas
 	 * (T1LV5D9).
 	 * 
 	 */
+	@Test
 	public void testT1RV10D3_T1LV5D9() {
 		test_id = getTestId("T1RV10D3", "T1LV5D9", "81");
 
@@ -2445,6 +2506,7 @@ public class SingleDimensionFixedArrayAssigmentTest_18_Generics extends ArrayBas
 	 * (T1LV6D3).
 	 * 
 	 */
+	@Test
 	public void testT1RV10D3_T1LV6D3() {
 		test_id = getTestId("T1RV10D3", "T1LV6D3", "84");
 
@@ -2473,6 +2535,7 @@ public class SingleDimensionFixedArrayAssigmentTest_18_Generics extends ArrayBas
 	 * (T1LV6D4).
 	 * 
 	 */
+	@Test
 	public void testT1RV10D3_T1LV6D4() {
 		test_id = getTestId("T1RV10D3", "T1LV6D4", "85");
 
@@ -2501,6 +2564,7 @@ public class SingleDimensionFixedArrayAssigmentTest_18_Generics extends ArrayBas
 	 * (T1LV6D5).
 	 * 
 	 */
+	@Test
 	public void testT1RV10D3_T1LV6D5() {
 		test_id = getTestId("T1RV10D3", "T1LV6D5", "86");
 
@@ -2529,6 +2593,7 @@ public class SingleDimensionFixedArrayAssigmentTest_18_Generics extends ArrayBas
 	 * (T1LV6D6).
 	 * 
 	 */
+	@Test
 	public void testT1RV10D3_T1LV6D6() {
 		test_id = getTestId("T1RV10D3", "T1LV6D6", "87");
 
@@ -2557,6 +2622,7 @@ public class SingleDimensionFixedArrayAssigmentTest_18_Generics extends ArrayBas
 	 * (T1LV6D7).
 	 * 
 	 */
+	@Test
 	public void testT1RV10D3_T1LV6D7() {
 		test_id = getTestId("T1RV10D3", "T1LV6D7", "88");
 
@@ -2585,6 +2651,7 @@ public class SingleDimensionFixedArrayAssigmentTest_18_Generics extends ArrayBas
 	 * (T1LV6D8).
 	 * 
 	 */
+	@Test
 	public void testT1RV10D3_T1LV6D8() {
 		test_id = getTestId("T1RV10D3", "T1LV6D8", "89");
 
@@ -2613,6 +2680,7 @@ public class SingleDimensionFixedArrayAssigmentTest_18_Generics extends ArrayBas
 	 * (T1LV6D9).
 	 * 
 	 */
+	@Test
 	public void testT1RV10D3_T1LV6D9() {
 		test_id = getTestId("T1RV10D3", "T1LV6D9", "90");
 
@@ -2701,6 +2769,7 @@ public class SingleDimensionFixedArrayAssigmentTest_18_Generics extends ArrayBas
 	 * (T1LV7D3).
 	 * 
 	 */
+	@Test
 	public void testT1RV10D3_T1LV7D3() {
 		test_id = getTestId("T1RV10D3", "T1LV7D3", "93");
 
@@ -2729,6 +2798,7 @@ public class SingleDimensionFixedArrayAssigmentTest_18_Generics extends ArrayBas
 	 * (T1LV8D1).
 	 * 
 	 */
+	@Test
 	public void testT1RV10D3_T1LV8D1() {
 		test_id = getTestId("T1RV10D3", "T1LV8D1", "94");
 
@@ -2758,6 +2828,7 @@ public class SingleDimensionFixedArrayAssigmentTest_18_Generics extends ArrayBas
 	 * (T1LV8D2).
 	 * 
 	 */
+	@Test
 	public void testT1RV10D3_T1LV8D2() {
 		test_id = getTestId("T1RV10D3", "T1LV8D2", "95");
 
@@ -2787,6 +2858,7 @@ public class SingleDimensionFixedArrayAssigmentTest_18_Generics extends ArrayBas
 	 * (T1LV8D3).
 	 * 
 	 */
+	@Test
 	public void testT1RV10D3_T1LV8D3() {
 		test_id = getTestId("T1RV10D3", "T1LV8D3", "96");
 
@@ -2815,6 +2887,7 @@ public class SingleDimensionFixedArrayAssigmentTest_18_Generics extends ArrayBas
 	 * (T1LV9D1).
 	 * 
 	 */
+	@Test
 	public void testT1RV10D3_T1LV9D1() {
 		test_id = getTestId("T1RV10D3", "T1LV9D1", "97");
 
@@ -2844,6 +2917,7 @@ public class SingleDimensionFixedArrayAssigmentTest_18_Generics extends ArrayBas
 	 * (T1LV9D2).
 	 * 
 	 */
+	@Test
 	public void testT1RV10D3_T1LV9D2() {
 		test_id = getTestId("T1RV10D3", "T1LV9D2", "98");
 
@@ -2873,6 +2947,7 @@ public class SingleDimensionFixedArrayAssigmentTest_18_Generics extends ArrayBas
 	 * (T1LV9D3).
 	 * 
 	 */
+	@Test
 	public void testT1RV10D3_T1LV9D3() {
 		test_id = getTestId("T1RV10D3", "T1LV9D3", "99");
 
@@ -2901,6 +2976,7 @@ public class SingleDimensionFixedArrayAssigmentTest_18_Generics extends ArrayBas
 	 * (T1LV10D1).
 	 * 
 	 */
+	@Test
 	public void testT1RV10D3_T1LV10D1() {
 		test_id = getTestId("T1RV10D3", "T1LV10D1", "100");
 
@@ -2930,6 +3006,7 @@ public class SingleDimensionFixedArrayAssigmentTest_18_Generics extends ArrayBas
 	 * (T1LV10D2).
 	 * 
 	 */
+	@Test
 	public void testT1RV10D3_T1LV10D2() {
 		test_id = getTestId("T1RV10D3", "T1LV10D2", "101");
 
@@ -2959,6 +3036,7 @@ public class SingleDimensionFixedArrayAssigmentTest_18_Generics extends ArrayBas
 	 * (T1LV10D3).
 	 * 
 	 */
+	@Test
 	public void testT1RV10D3_T1LV10D3() {
 		test_id = getTestId("T1RV10D3", "T1LV10D3", "102");
 
@@ -2987,6 +3065,7 @@ public class SingleDimensionFixedArrayAssigmentTest_18_Generics extends ArrayBas
 	 * (T1LV11D1).
 	 * 
 	 */
+	@Test
 	public void testT1RV10D3_T1LV11D1() {
 		test_id = getTestId("T1RV10D3", "T1LV11D1", "103");
 
@@ -3016,6 +3095,7 @@ public class SingleDimensionFixedArrayAssigmentTest_18_Generics extends ArrayBas
 	 * (T1LV11D2).
 	 * 
 	 */
+	@Test
 	public void testT1RV10D3_T1LV11D2() {
 		test_id = getTestId("T1RV10D3", "T1LV11D2", "104");
 
@@ -3045,6 +3125,7 @@ public class SingleDimensionFixedArrayAssigmentTest_18_Generics extends ArrayBas
 	 * (T1LV11D3).
 	 * 
 	 */
+	@Test
 	public void testT1RV10D3_T1LV11D3() {
 		test_id = getTestId("T1RV10D3", "T1LV11D3", "105");
 
@@ -3133,6 +3214,7 @@ public class SingleDimensionFixedArrayAssigmentTest_18_Generics extends ArrayBas
 	 * (T1LV12D3).
 	 * 
 	 */
+	@Test
 	public void testT1RV10D3_T1LV12D3() {
 		test_id = getTestId("T1RV10D3", "T1LV12D3", "108");
 
@@ -3221,6 +3303,7 @@ public class SingleDimensionFixedArrayAssigmentTest_18_Generics extends ArrayBas
 	 * (T1LV13D3).
 	 * 
 	 */
+	@Test
 	public void testT1RV10D3_T1LV13D3() {
 		test_id = getTestId("T1RV10D3", "T1LV13D3", "111");
 
@@ -3309,6 +3392,7 @@ public class SingleDimensionFixedArrayAssigmentTest_18_Generics extends ArrayBas
 	 * (T1LV14D3).
 	 * 
 	 */
+	@Test
 	public void testT1RV10D3_T1LV14D3() {
 		test_id = getTestId("T1RV10D3", "T1LV14D3", "114");
 
@@ -3397,6 +3481,7 @@ public class SingleDimensionFixedArrayAssigmentTest_18_Generics extends ArrayBas
 	 * (T1LV15D3).
 	 * 
 	 */
+	@Test
 	public void testT1RV10D3_T1LV15D3() {
 		test_id = getTestId("T1RV10D3", "T1LV15D3", "117");
 

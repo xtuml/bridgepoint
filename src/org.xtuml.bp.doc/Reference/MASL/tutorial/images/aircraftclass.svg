@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   version="1.0"
+   width="531.49603"
+   height="177.16534"
+   id="svg2">
+  <defs
+     id="defs4" />
+  <rect
+     width="129.25111"
+     height="29.251114"
+     x="195.37444"
+     y="47.539783"
+     style="fill:white;fill-opacity:1;stroke:black;stroke-width:0.74888563;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+     id="rect2930" />
+  <rect
+     width="129.29843"
+     height="39.298447"
+     x="195.35077"
+     y="77.516121"
+     style="fill:white;fill-opacity:1;stroke:black;stroke-width:0.70155168;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+     id="rect2932" />
+  <text
+     x="254.89648"
+     y="67.001289"
+     style="font-size:14px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;fill:black;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Helvetica"
+     id="text2934"
+     xml:space="preserve"><tspan
+       x="254.89648"
+       y="67.001289"
+       id="tspan2936">Aircraft</tspan></text>
+  <text
+     x="199.63086"
+     y="89.639961"
+     style="font-size:12px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:100%;writing-mode:lr-tb;text-anchor:start;fill:black;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Helvetica"
+     id="text2938"
+     xml:space="preserve"><tspan
+       x="199.63086"
+       y="89.639961"
+       id="tspan2940">serial number {I=(*1)}</tspan></text>
+  <text
+     x="199.63086"
+     y="104.78059"
+     style="font-size:12px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:100%;writing-mode:lr-tb;text-anchor:start;fill:black;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Helvetica"
+     id="text2942"
+     xml:space="preserve"><tspan
+       x="199.63086"
+       y="104.78059"
+       id="tspan2944">speed</tspan></text>
+</svg>

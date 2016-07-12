@@ -24,13 +24,12 @@ package org.xtuml.bp.core.common;
 
 import org.eclipse.jface.dialogs.MessageDialogWithToggle;
 import org.eclipse.jface.preference.IPreferenceStore;
-
 import org.xtuml.bp.ui.preference.BasePlugin;
 import org.xtuml.bp.ui.preference.IPreferenceModel;
 import org.xtuml.bp.ui.preference.IPreferenceModelStore;
 
 public class BridgePointPreferencesStore implements IPreferenceModelStore {
-    private static final String PREFIX = "bridgepoint_prefs_";  //$NON-NLS-1$
+    public static final String PREFIX = "bridgepoint_prefs_";  //$NON-NLS-1$
 
     public static final String PARSE_ALL_ON_RESOURCE_CHANGE = PREFIX + "parse_all_on_resource_change"; //$NON-NLS-1$
     public static final String ALLOW_INT_TO_REAL_PROMOTION = PREFIX + "allow_int_to_real_promotion"; //$NON-NLS-1$
@@ -38,6 +37,7 @@ public class BridgePointPreferencesStore implements IPreferenceModelStore {
     public static final String ALLOW_OPERATIONS_IN_WHERE = PREFIX + "allow_operations_in_where"; //$NON-NLS-1$
     public static final String ALLOW_INTERFACE_NAME_IN_IC_MESSAGE = PREFIX + "allow_interface_name_in_ic_message"; //$NON-NLS-1$
     public static final String ALLOW_IMPLICIT_COMPONENT_ADDRESSING = PREFIX + "allow_implicit_component_addressing"; //$NON-NLS-1$
+    public static final String ENABLE_PARSE_ON_ACTIVITY_EDITS = PREFIX + "enable_parse_on_activity_edits"; //$NON-NLS-1$
     public static final String ENABLE_ERROR_FOR_EMPTY_SYNCHRONOUS_MESSAGE = PREFIX + "enable_error_for_empty_synchronous_message"; //$NON-NLS-1$
     public static final String ENABLE_ERROR_FOR_EMPTY_SYNCHRONOUS_MESSAGE_REALIZED = PREFIX + "enable_error_for_empty_synchronous_message_realized"; //$NON-NLS-1$
     public static final String DISABLE_GRADIENTS = PREFIX + "disable_gradients"; //$NON-NLS-1$
@@ -46,6 +46,7 @@ public class BridgePointPreferencesStore implements IPreferenceModelStore {
     public static final String EXPORT_OAL = PREFIX + "export_oal"; //$NON-NLS-1$
     public static final String EXPORT_GRAPHICS = PREFIX + "export_graphics"; //$NON-NLS-1$
     public static final String MESSAGE_DIRECTION = PREFIX + "message_direction";
+    public static final String DEFAULT_ACTIVITY_EDITOR = PREFIX + "default_activity_editor";
     public static final String SHOW_TRANSITION_ACTIONS = PREFIX + "show_transition_actions"; //$NON-NLS-1$
     public static final String SHOW_EVENT_PARAMETERS = PREFIX + "show_event_parameters"; //$NON-NLS-1$
     public static final String ENABLE_FIXED_LENGTH_ARRAYS = PREFIX + "enable_fixed_length_arrays"; //$NON-NLS-1$
@@ -66,6 +67,9 @@ public class BridgePointPreferencesStore implements IPreferenceModelStore {
     public static final String SHOW_SYNC_DELETION_DIALOG = PREFIX + "show_reference_delete_warning"; //$NON-NLS-1$
     public static final String SHOW_SYNC_REPORT = PREFIX + "show_reference_sync_report"; //$NON-NLS-1$
     public static final String USE_DEFAULT_NAME_FOR_CREATION = PREFIX + "use_default_name_for_new_element_creation"; //$NON-NLS-1$
+    public static final String CREATE_GRAPHICS_DURING_IMPORT = PREFIX + "create_graphics_during_import"; //$NON-NLS-1$
+    public static final String ENABLE_MODEL_INTEGRITY_CHECK = PREFIX + "enable_model_integrity_check"; //$NON-NLS-1$
+	public final static String EnableModelIntegrityToolTip = "When enabled, model integrity checks run during most BridgePoint model opertions and validate the integrity of the model for the opertion performed. This can be useful to assure there is no model corruption, but there is performance overhead when enabled.";
 
 	public static final String RECTILINEAR_ROUTING = "RECTILINEAR_ROUTING"; //$NON-NLS-1$
 
@@ -73,6 +77,7 @@ public class BridgePointPreferencesStore implements IPreferenceModelStore {
 
 	public static final String TO_PROVIDER = "to provider"; //$NON-NLS-1$
 	
+	public static final String OAL_EDITOR = "OAL"; //$NON-NLS-1$
 		
     public Class getModelClass() {
         return BridgePointPreferencesModel.class;
@@ -89,6 +94,7 @@ public class BridgePointPreferencesStore implements IPreferenceModelStore {
         store.setValue(ALLOW_INT_TO_REAL_PROMOTION, prefs.allowIntToRealPromotion);
         store.setValue(ALLOW_REAL_TO_INT_COERCION, prefs.allowRealToIntCoercion);
         store.setValue(ALLOW_IMPLICIT_COMPONENT_ADDRESSING, prefs.allowImplicitComponentAddressing);
+        store.setValue(ENABLE_PARSE_ON_ACTIVITY_EDITS, prefs.enableParseOnActivtyEdits);
         store.setValue(ALLOW_OPERATIONS_IN_WHERE, prefs.allowOperationsInWhere);
         store.setValue(ALLOW_INTERFACE_NAME_IN_IC_MESSAGE, prefs.allowInterfaceNameInICMessage);
         store.setValue(ENABLE_ERROR_FOR_EMPTY_SYNCHRONOUS_MESSAGE, prefs.enableErrorForEmptySynchronousMessage);
@@ -99,12 +105,16 @@ public class BridgePointPreferencesStore implements IPreferenceModelStore {
         store.setValue(EXPORT_OAL, prefs.exportOAL);
         store.setValue(EXPORT_GRAPHICS, prefs.exportGraphics);
         store.setValue(MESSAGE_DIRECTION, prefs.messageDirection); 
+        store.setValue(DEFAULT_ACTIVITY_EDITOR, prefs.defaultActivityEditor); 
         store.setValue(SHOW_TRANSITION_ACTIONS, prefs.showTransitionActions);
         store.setValue(SHOW_EVENT_PARAMETERS, prefs.showEventParameters);
         store.setValue(ENABLE_FIXED_LENGTH_ARRAYS, prefs.enableFLAs);
         store.setValue(ENABLE_DYNAMICALLY_SIZED_ARRAYS, prefs.enableDSAs);
         store.setValue(ENABLE_DETERMINISTIC_VERIFIER, prefs.enableDeterministicVerifier);
         store.setValue(ENABLE_INSTANCE_REFERENCES, prefs.enableInstanceReferences);
+        store.setValue(ENABLE_MODEL_INTEGRITY_CHECK, prefs.enableModelIntegrityCheck);
+        
+                
 
         store.setValue(ENABLE_VERIFIER_AUDIT, prefs.enableVerifierAudit);
         store.setValue(ENABLE_SELECT_AUDIT, prefs.enableSelectAudit);
@@ -121,6 +131,7 @@ public class BridgePointPreferencesStore implements IPreferenceModelStore {
         store.setValue(SHOW_SYNC_DELETION_DIALOG, prefs.showReferenceRemovalDialog);
         store.setValue(SHOW_SYNC_REPORT, prefs.showReferenceSyncReport);
         store.setValue(USE_DEFAULT_NAME_FOR_CREATION, prefs.useDefaultNamesForNewModelElements);        
+        store.setValue(CREATE_GRAPHICS_DURING_IMPORT, prefs.createGraphicsDuringImport);
     }
 
     public IPreferenceModel loadModel(IPreferenceStore store, BasePlugin plugin, IPreferenceModel model) {
@@ -143,6 +154,8 @@ public class BridgePointPreferencesStore implements IPreferenceModelStore {
             store.getString(BridgePointPreferencesStore.ALLOW_REAL_TO_INT_COERCION);
         prefs.allowImplicitComponentAddressing =
             store.getBoolean(BridgePointPreferencesStore.ALLOW_IMPLICIT_COMPONENT_ADDRESSING);
+        prefs.enableParseOnActivtyEdits =
+                store.getBoolean(BridgePointPreferencesStore.ENABLE_PARSE_ON_ACTIVITY_EDITS);
         prefs.allowOperationsInWhere =
             store.getBoolean(BridgePointPreferencesStore.ALLOW_OPERATIONS_IN_WHERE);
         prefs.allowInterfaceNameInICMessage = 
@@ -166,6 +179,8 @@ public class BridgePointPreferencesStore implements IPreferenceModelStore {
             store.getString(BridgePointPreferencesStore.EXPORT_GRAPHICS);
         prefs.messageDirection =
             store.getString(BridgePointPreferencesStore.MESSAGE_DIRECTION);
+        prefs.defaultActivityEditor =
+            store.getString(BridgePointPreferencesStore.DEFAULT_ACTIVITY_EDITOR);
         prefs.showTransitionActions =
             store.getBoolean(BridgePointPreferencesStore.SHOW_TRANSITION_ACTIONS);
         prefs.showEventParameters =
@@ -181,6 +196,9 @@ public class BridgePointPreferencesStore implements IPreferenceModelStore {
 
         prefs.enableInstanceReferences =
             store.getBoolean(BridgePointPreferencesStore.ENABLE_INSTANCE_REFERENCES);
+        
+        prefs.enableModelIntegrityCheck =
+                store.getBoolean(ENABLE_MODEL_INTEGRITY_CHECK);
         
         prefs.enableVerifierAudit =
           store.getBoolean(BridgePointPreferencesStore.ENABLE_VERIFIER_AUDIT);
@@ -205,6 +223,8 @@ public class BridgePointPreferencesStore implements IPreferenceModelStore {
         
         prefs.useDefaultNamesForNewModelElements =
             store.getBoolean(BridgePointPreferencesStore.USE_DEFAULT_NAME_FOR_CREATION);
+        prefs.createGraphicsDuringImport =
+            store.getBoolean(BridgePointPreferencesStore.CREATE_GRAPHICS_DURING_IMPORT);
                 
         return prefs;
     }
@@ -223,6 +243,7 @@ public class BridgePointPreferencesStore implements IPreferenceModelStore {
         prefs.allowIntToRealPromotion = MessageDialogWithToggle.ALWAYS;
         prefs.allowRealToIntCoercion = MessageDialogWithToggle.ALWAYS;
         prefs.allowImplicitComponentAddressing = false;
+        prefs.enableParseOnActivtyEdits = false;
         prefs.allowOperationsInWhere = false;
         prefs.allowInterfaceNameInICMessage = false;
         prefs.enableErrorForEmptySynchronousMessage = true;
@@ -235,10 +256,12 @@ public class BridgePointPreferencesStore implements IPreferenceModelStore {
         prefs.enableFLAs = true;
         prefs.enableDSAs = true;
         prefs.enableInstanceReferences = true;
+        prefs.enableModelIntegrityCheck = true;
         prefs.emitRTOData = true;        
         prefs.exportOAL = MessageDialogWithToggle.NEVER;
         prefs.exportGraphics = MessageDialogWithToggle.ALWAYS;
         prefs.messageDirection = TO_PROVIDER;
+        prefs.defaultActivityEditor = OAL_EDITOR;
         
         prefs.enableVerifierAudit = false;
         prefs.enableSelectAudit = 1;
@@ -256,5 +279,6 @@ public class BridgePointPreferencesStore implements IPreferenceModelStore {
         prefs.showReferenceRemovalDialog = true;
         prefs.showReferenceSyncReport = true;
         prefs.useDefaultNamesForNewModelElements = false;
+        prefs.createGraphicsDuringImport = false;
     }
 }

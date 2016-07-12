@@ -4,8 +4,8 @@ import org.xtuml.bp.test.GlobalsTestEnabler;
 
 public class UITextGlobalsTest extends GlobalsTestEnabler {
 
-	public UITextGlobalsTest(String name) {
-		super("org.xtuml.bp.ui.text.test", name);
+	public UITextGlobalsTest() {
+		super("org.xtuml.bp.ui.text.test", "UITextGlobalsTest");
 	}
 
 }

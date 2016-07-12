@@ -1,0 +1,164 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>3.6. Type Declarations</title>
+<link rel="stylesheet" type="text/css" href="docbook.css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
+<meta name="keywords" content="MASL, Action Language, Action Semantics, UML, Unified Modelling Language, Shlaer Mellor">
+<link rel="home" href="index.html" title="MASL Reference Manual">
+<link rel="up" href="Types.html" title="Chapter 3. Types">
+<link rel="prev" href="TypesUserDefinedTypes.html" title="3.5. User Defined Types">
+<link rel="next" href="TypesFullDeclarations.html" title="3.7. Full Type Declarations">
+<link rel="preface" href="preface.html" title="Preface">
+<link rel="chapter" href="Grammars.html" title="Chapter 1. Grammars">
+<link rel="chapter" href="LexicalStructure.html" title="Chapter 2. Lexical Structure">
+<link rel="chapter" href="Types.html" title="Chapter 3. Types">
+<link rel="chapter" href="TypeConversion.html" title="Chapter 4. Type Conversion">
+<link rel="chapter" href="Domains.html" title="Chapter 5. Domains">
+<link rel="chapter" href="Objects.html" title="Chapter 6. Objects">
+<link rel="chapter" href="Relationships.html" title="Chapter 7. Relationships">
+<link rel="chapter" href="Lifecycles.html" title="Chapter 8. Lifecycles">
+<link rel="chapter" href="Functions.html" title="Chapter 9. Functions">
+<link rel="chapter" href="Services.html" title="Chapter 10. Services">
+<link rel="chapter" href="Exceptions.html" title="Chapter 11. Exceptions">
+<link rel="chapter" href="Statements.html" title="Chapter 12. Statements">
+<link rel="chapter" href="Names.html" title="Chapter 13. Names">
+<link rel="chapter" href="Expressions.html" title="Chapter 14. Expressions">
+<link rel="appendix" href="LanguageDefinedCharacteristics.html" title="Appendix A. Language Defined Characteristics">
+<link rel="appendix" href="SyntaxSummary.html" title="Appendix B. Syntax Summary">
+<link rel="index" href="ix01.html" title="Index">
+<link rel="subsection" href="TypesTypeDeclarations.html#TypesTypeModifiers" title="3.6.1. Type Modifiers">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div align="center">OFFICIAL</div>
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center">3.6. Type Declarations</th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="TypesUserDefinedTypes.html">Prev</a> </td>
+<th width="60%" align="center">Chapter 3. Types</th>
+<td width="20%" align="right"> <a accesskey="n" href="TypesFullDeclarations.html">Next</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h2 class="title">
+<a name="TypesTypeDeclarations"></a>3.6. Type Declarations</h2></div></div></div>
+<div class="toc"><dl class="toc">
+<dt><span class="section"><a href="TypesTypeDeclarations.html#TypesTypeModifiers">3.6.1. Type Modifiers</a></span></dt>
+<dd><dl>
+<dt><span class="section"><a href="TypesTypeDeclarations.html#PublicTypes">3.6.1.1. Public Types</a></span></dt>
+<dt><span class="section"><a href="TypesTypeDeclarations.html#PrivateTypes">3.6.1.2. Private Types</a></span></dt>
+</dl></dd>
+</dl></div>
+<p>
+A <span class="emphasis"><em>type declaration</em></span>
+<a class="indexterm" name="idp66377776"></a>
+provides the analyst with a way to
+construct new user defined types. There are two forms of
+<span class="emphasis"><em>type declaration</em></span>,
+<a class="indexterm" name="idp66379920"></a>
+full type declarations and subtype declarations.
+<a class="indexterm" name="idp66381296"></a>
+</p>
+<a class="indexterm" name="idp66383248"></a><a class="indexterm" name="idp66384416"></a><a class="indexterm" name="idp66385584"></a><a class="indexterm" name="idp66386880"></a><a class="indexterm" name="idp66388048"></a><a class="indexterm" name="idp66389344"></a><a class="indexterm" name="idp66390512"></a><a class="indexterm" name="idp66391680"></a><a class="indexterm" name="idp66392848"></a><table width="100%" cellpadding="5" bgcolor="#F5DCB3" border="1" class="productionset" summary="EBNF"><tr><td><table border="0" width="99%" cellpadding="0" bgcolor="#F5DCB3" class="productionset" summary="EBNF productions">
+<tr>
+<td align="left" valign="top" width="3%">[52]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.typedeclaration"></a>type declaration</td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="TypesTypeDeclarations.html#ebnf.typemodifier">type modifier</a>,
+        'type',
+        <a href="TypesTypeDeclarations.html#ebnf.typename">type name</a>,
+        'is'
+        <a href="TypesFullDeclarations.html#ebnf.typedefinition">type definition</a>,
+        ';' |
+        <a href="TypesTypeDeclarations.html#ebnf.typemodifier">type modifier</a>,
+        'subtype',
+        <a href="TypesTypeDeclarations.html#ebnf.typename">type name</a>,
+        'is'
+        <a href="TypesSubtypeDeclarations.html#ebnf.subtypedefinition">subtype definition</a>
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[53]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.typename"></a>type name</td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="LexicalStructureIdentifiers.html#ebnf.identifier">identifier</a>
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+</table></td></tr></table>
+<p>
+A compile-time error occurs if the type name naming a type is already declared
+as a type in the enclosing domain.
+</p>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="TypesTypeModifiers"></a>3.6.1. Type Modifiers</h3></div></div></div>
+<a class="indexterm" name="idp66404720"></a><a class="indexterm" name="idp66406336"></a><a class="indexterm" name="idp66407504"></a><a class="indexterm" name="idp66408800"></a><table width="100%" cellpadding="5" bgcolor="#F5DCB3" border="1" class="productionset" summary="EBNF"><tr><td><table border="0" width="99%" cellpadding="0" bgcolor="#F5DCB3" class="productionset" summary="EBNF productions"><tr>
+<td align="left" valign="top" width="3%">[54]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.typemodifier"></a>type modifier</td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        [ ( 'public' | 'private' ) ]
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr></table></td></tr></table>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="PublicTypes"></a>3.6.1.1. Public Types</h4></div></div></div>
+<p>
+If a type is declared public,
+<a class="indexterm" name="idp66413792"></a>
+then it may be accessed by any code that can
+access the domain in which it is declared.
+</p>
+<p>
+A compile-time error occurs if a public type or subtype is declared in terms of
+some private type.
+<a class="indexterm" name="idp66416016"></a>
+</p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="PrivateTypes"></a>3.6.1.2. Private Types</h4></div></div></div>
+<p>
+If a type is declared private,
+<a class="indexterm" name="idp66419120"></a>
+then access is permitted only when it occurs from
+within the domain in which it is declared.
+</p>
+</div>
+</div>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="TypesUserDefinedTypes.html">Prev</a> </td>
+<td width="20%" align="center"><a accesskey="u" href="Types.html">Up</a></td>
+<td width="40%" align="right"> <a accesskey="n" href="TypesFullDeclarations.html">Next</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left" valign="top">3.5. User Defined Types </td>
+<td width="20%" align="center">
+<a accesskey="h" href="index.html">Home</a> | <a accesskey="t" href="bk01-toc.html">ToC</a>
+</td>
+<td width="40%" align="right" valign="top"> 3.7. Full Type Declarations</td>
+</tr>
+</table>
+</div>
+<div align="center">OFFICIAL</div>
+</body>
+</html>
