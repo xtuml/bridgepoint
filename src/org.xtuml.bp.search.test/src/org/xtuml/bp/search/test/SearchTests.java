@@ -7,7 +7,10 @@ import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.search.ui.ISearchPageContainer;
 import org.eclipse.ui.IWorkingSet;
 import org.eclipse.ui.PlatformUI;
-
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.ModelClass_c;
 import org.xtuml.bp.core.Ooaofooa;
@@ -19,23 +22,30 @@ import org.xtuml.bp.core.SystemModel_c;
 import org.xtuml.bp.core.common.ClassQueryInterface_c;
 import org.xtuml.bp.test.common.BaseTest;
 import org.xtuml.bp.test.common.ExplorerUtil;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.test.common.SearchUtilities;
 import org.xtuml.bp.test.common.TestingUtilities;
 
+@RunWith(OrderedRunner.class)
 public class SearchTests extends BaseTest {
 	private static SystemModel_c otherSystem;
 	private static ModelClass_c searchClass;
 	private static Operation_c searchOperation;
 	
-	public SearchTests(String testName) throws Exception {
-		super(null,testName);
+	public static boolean firstTime = true;
+	
+	public SearchTests() throws Exception {
+		super(null, null);
 	}
 
 	private static String projectName = "TestSearch";
 
 	@Override
+	@Before
 	public void initialSetup() throws CoreException {
 
+		if (!firstTime)
+			return;
 		loadProject(projectName);
 		m_sys = getSystemModel(projectName);
 		m_sys = SystemModel_c.SystemModelInstance(Ooaofooa
@@ -62,6 +72,7 @@ public class SearchTests extends BaseTest {
 		searchOperation = Operation_c.getOneO_TFROnR115(searchClass);
 	}
 	
+	@Test
 	public void testCaseSensitivity() {
 		SearchUtilities.configureAndRunSearch("find me", false, false, true,
 				true, ISearchPageContainer.WORKSPACE_SCOPE, "");
@@ -77,6 +88,7 @@ public class SearchTests extends BaseTest {
 						""));
 	}
 	
+	@Test
 	public void testRegularExpression() {
 		SearchUtilities.configureAndRunSearch("Fi.*e", true, false, true,
 				true, ISearchPageContainer.WORKSPACE_SCOPE, "");
@@ -92,6 +104,7 @@ public class SearchTests extends BaseTest {
 						""));
 	}
 	
+	@Test
 	public void testActionLanguageOnlyUnderComponent() {
 		SearchUtilities.configureAndRunSearch("Searched Text", false, false, true,
 				false, ISearchPageContainer.WORKSPACE_SCOPE, "");
@@ -103,6 +116,7 @@ public class SearchTests extends BaseTest {
 						""));		
 	}
 	
+	@Test
 	public void testActionLanguageOnly() {
 		SearchUtilities.configureAndRunSearch("Find me", false, false, true,
 				false, ISearchPageContainer.WORKSPACE_SCOPE, "");
@@ -114,6 +128,7 @@ public class SearchTests extends BaseTest {
 						""));		
 	}
 	
+	@Test
 	public void testDescriptionsOnly() {
 		SearchUtilities.configureAndRunSearch("Find me", false, false, false,
 				true, ISearchPageContainer.WORKSPACE_SCOPE, "");
@@ -124,6 +139,7 @@ public class SearchTests extends BaseTest {
 						false, false, true, ISearchPageContainer.WORKSPACE_SCOPE,
 						""));		 
 	}
+	@Test
 	public void testDescriptionsOnlyUnderComponent() {
 		SearchUtilities.configureAndRunSearch("Searched Text", false, false, false,
 				true, ISearchPageContainer.WORKSPACE_SCOPE, "");
@@ -135,6 +151,7 @@ public class SearchTests extends BaseTest {
 				""));		
 	}
 
+	@Test
 	public void testSelectedResourcesScope() {
 		// add the two test elements to the selection
 		ExplorerUtil.getView().setFocus();
@@ -160,6 +177,7 @@ public class SearchTests extends BaseTest {
 						false, true, true, ISearchPageContainer.SELECTION_SCOPE,
 						""));
 	}
+	@Test
 	public void testEnclosingProjectScope() {
 		// add the two test elements to the selection
 		ExplorerUtil.getView().setFocus();
@@ -187,6 +205,7 @@ public class SearchTests extends BaseTest {
 						""));
 	}
 	
+	@Test
 	public void testWorkingSetScope() {
 		IWorkingSet workingSet = PlatformUI.getWorkbench()
 				.getWorkingSetManager().createWorkingSet("searchWorkingSet",
@@ -213,6 +232,7 @@ public class SearchTests extends BaseTest {
 						"otherWorkingSet"));
 	}
 	
+	@Test
 	public void testSelectedResourcesMultipleTimes() throws CoreException {
 		// import the MicrowaveOven
 		loadProject("MicrowaveOven");

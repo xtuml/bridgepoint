@@ -1,0 +1,1279 @@
+<!-- 
+  UK Crown Copyright (c) 2016. All Rights Reserved
+-->
+<!-- Converted by db4-upgrade version 1.0 -->
+<chapter xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="Services"><info><title>Services</title></info>
+
+<para>
+A service
+<indexterm significance="preferred">
+    <primary>service</primary>
+</indexterm>
+is a unit of executable code that can be invoked, passing
+a fixed number of values as arguments.
+</para>
+<para>
+There are two forms of services; domain services and object services.
+</para>
+<section xml:id="ServicesDomainServices"><info><title>Domain Services</title></info>
+
+<para>
+A domain service
+<indexterm significance="preferred">
+    <primary>domain</primary>
+    <secondary>service</secondary>
+</indexterm>
+allows a domain to be thought of
+as a black box. Domain services provide an interface to entities outside of
+the domain.
+</para>
+<para>
+A <link linkend="ebnf.domainservicedeclaration"><emphasis>domain service declaration</emphasis></link>
+<indexterm significance="preferred">
+    <primary>domain</primary>
+    <secondary>service</secondary>
+    <tertiary>declaration</tertiary>
+</indexterm>
+declares a domain service.
+</para>
+<indexterm zone="ebnf.domainservicedeclaration">
+    <primary>domain service declaration</primary>
+</indexterm>
+<indexterm zone="ebnf.domainservicedeclaration">
+    <primary>domain service modifier</primary>
+</indexterm>
+<indexterm zone="ebnf.domainservicedeclaration">
+    <primary><literal>service</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.domainservicedeclaration">
+    <primary>service name</primary>
+</indexterm>
+<indexterm zone="ebnf.domainservicedeclaration">
+    <primary>service parameter declaration list</primary>
+</indexterm>
+<indexterm zone="ebnf.domainservicedeclaration">
+    <primary>raises expression</primary>
+</indexterm>
+<indexterm zone="ebnf.servicename">
+    <primary>service name</primary>
+</indexterm>
+<indexterm zone="ebnf.servicename">
+    <primary>identifier</primary>
+</indexterm>
+<productionset>
+<production xml:id="ebnf.domainservicedeclaration">
+    <lhs>
+        domain service declaration
+    </lhs>
+    <rhs>
+        <nonterminal def="#ebnf.domainservicemodifier">domain service modifier</nonterminal>,
+        'service',
+        <nonterminal def="#ebnf.servicename">service name</nonterminal>,
+        '(',
+        <nonterminal def="#ebnf.functionparameterdeclarationlist">parameter declaration list</nonterminal>,
+        ')',
+        [<nonterminal def="#ebnf.raisesexpression">raises expression</nonterminal>],
+        ';'
+    </rhs>
+</production>
+<production xml:id="ebnf.servicename">
+    <lhs>
+        service name
+    </lhs>
+    <rhs>
+        <nonterminal def="#ebnf.identifier">identifier</nonterminal>
+    </rhs>
+</production>
+</productionset>
+<para>
+The service name in a
+<link linkend="ebnf.domainservicemodifier"><emphasis>domain service declaration</emphasis></link>
+<indexterm zone="ebnf.domainservicemodifier">
+    <primary>domain</primary>
+    <secondary>service</secondary>
+    <tertiary>declaration</tertiary>
+</indexterm>
+may be used to refer to the service.
+</para>
+<section xml:id="ServicesDomainServiceModifiers"><info><title>Domain Service Modifiers</title></info>
+
+<indexterm zone="ebnf.domainservicemodifier">
+    <primary>domain service modifier</primary>
+</indexterm>
+<indexterm zone="ebnf.domainservicemodifier">
+    <primary><literal>public</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.domainservicemodifier">
+    <primary><literal>private</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.domainservicemodifier">
+    <primary><literal>native</literal></primary>
+</indexterm>
+<productionset>
+<production xml:id="ebnf.domainservicemodifier">
+    <lhs>
+        domain service modifier
+    </lhs>
+    <rhs>
+        'public' | 'private' | 'native'
+    </rhs>
+</production>
+</productionset>
+<section xml:id="ServicesPublicDomainServices"><info><title>Public Domain Services</title></info>
+
+<para>
+If a domain service
+<indexterm significance="preferred">
+    <primary>domain</primary>
+    <secondary>service</secondary>
+    <tertiary>public</tertiary>
+</indexterm>
+is declared with the modifier
+<link linkend="ebnf.domainservicemodifier"><literal>public</literal></link>,
+<indexterm>
+    <primary><literal>public</literal></primary>
+</indexterm>
+then it may be accessed by any code that can access the domain in which it
+is declared. By default, all domain services are declared public.
+</para>
+</section>
+<section xml:id="ServicesPrivateDomainServices"><info><title>Private Domain Services</title></info>
+
+<para>
+If a domain service
+<indexterm significance="preferred">
+    <primary>domain</primary>
+    <secondary>service</secondary>
+    <tertiary>private</tertiary>
+</indexterm>
+is declared with the modifier
+<link linkend="ebnf.domainservicemodifier"><literal>private</literal></link>,
+<indexterm>
+    <primary><literal>private</literal></primary>
+</indexterm>
+then access is permitted only when it occurs from within the domain in which
+it is declared.
+</para>
+</section>
+<section xml:id="ServicesNativeDomainServices"><info><title>Native Domain Services</title></info>
+
+<para>
+If a domain service is declared with the modifier
+<link linkend="ebnf.domainservicemodifier"><literal>native</literal></link>,
+<indexterm>
+    <primary><literal>native</literal></primary>
+</indexterm>
+then it may be accessed by an code that can access the domain in which it is
+declared. The body of the service is implemented in a native language.
+</para>
+</section>
+</section>
+<section xml:id="ServicesDomainServiceFormalParameters"><info><title>Formal Parameters</title></info>
+
+<para>
+The <link linkend="ebnf.parameterdeclarationlist"><literal>formal parameters</literal></link>
+<indexterm>
+    <primary>domain</primary>
+    <secondary>service</secondary>
+    <tertiary>formal parameters</tertiary>
+</indexterm>
+of a domain service, if any, are specified by a list of comma-separated
+<link linkend="ebnf.parameterdeclaration"><emphasis>parameter declarations</emphasis></link>.
+<indexterm>
+    <primary>domain</primary>
+    <secondary>service</secondary>
+    <tertiary>parameter declaration</tertiary>
+</indexterm>
+Each
+<link linkend="ebnf.parameterdeclaration"><emphasis>parameter declaration</emphasis></link>
+consists of a name the specifies the
+<link linkend="ebnf.parametername">name of the parameter</link>,
+<indexterm>
+    <primary>parameter</primary>
+    <secondary>name</secondary>
+</indexterm>
+a <link linkend="ServicesDomainServiceFormalParameterModes">parameter mode</link>
+and type.
+<indexterm>
+    <primary>parameter</primary>
+    <secondary>mode</secondary>
+</indexterm>
+</para>
+<indexterm zone="ebnf.parameterdeclarationlist">
+    <primary>parameter declaration list</primary>
+</indexterm>
+<indexterm zone="ebnf.parameterdeclarationlist">
+    <primary>parameter declaration</primary>
+</indexterm>
+<indexterm zone="ebnf.parameterdeclaration">
+    <primary>parameter name</primary>
+</indexterm>
+<indexterm zone="ebnf.parameterdeclaration">
+    <primary>parameter mode type</primary>
+</indexterm>
+<indexterm zone="ebnf.parametername">
+    <primary>parameter name</primary>
+</indexterm>
+<indexterm zone="ebnf.parametername">
+    <primary>identifier</primary>
+</indexterm>
+<productionset>
+<production xml:id="ebnf.parameterdeclarationlist">
+    <lhs>
+        parameter declaration list
+    </lhs>
+    <rhs>
+        <nonterminal def="#ebnf.functionparameterdeclaration">parameter declaration</nonterminal>,
+        {(',',
+        <nonterminal def="#ebnf.functionparameterdeclaration">parameter declaration</nonterminal>)}
+    </rhs>
+</production>
+<production xml:id="ebnf.parameterdeclaration">
+    <lhs>
+        parameter declaration
+    </lhs>
+    <rhs>
+        <nonterminal def="#ebnf.parametername">parameter name</nonterminal>,
+        ':'
+        <nonterminal def="#ebnf.parametermodetype">parameter mode type</nonterminal>
+    </rhs>
+</production>
+<production xml:id="ebnf.parametername">
+    <lhs>
+        parameter name
+    </lhs>
+    <rhs>
+        <nonterminal def="#ebnf.identifier">identifier</nonterminal>
+    </rhs>
+</production>
+</productionset>
+<para>
+If a service has no parameters, only an empty pair of parentheses appears in the
+services declaration.
+</para>
+<para>
+A compile-time occurs if any two parameters are declared to have the same name,
+or if a parameter of mode out is declared as an
+<link linkend="ebnf.unconstrainedarraytypedefinition">unconstrained array type</link>.
+<indexterm>
+    <primary>array</primary>
+    <secondary>unconstrained</secondary>
+</indexterm>
+</para>
+<para>
+When the service is invoked
+<indexterm>
+    <primary>domain</primary>
+    <secondary>service</secondary>
+    <tertiary>invocation</tertiary>
+</indexterm>
+(see <xref linkend="StatementsInvocationStatement"/>, the
+values of the actual argument expressions initialize newly created parameter
+variables, each of the declared type, before execution of the body of the
+service. The parameter name that appears in the parameter declaration may be
+used as a simple name in the body of the service to refer to the parameter.
+</para>
+<para>
+The scope of the parameter names is the entire body of the service.
+</para>
+<section xml:id="ServicesDomainServiceFormalParameterModes"><info><title>Formal Parameter Modes</title></info>
+
+<para>
+The mode of a formal parameter
+<indexterm>
+    <primary>domain</primary>
+    <secondary>service</secondary>
+    <tertiary>formal parameter mode</tertiary>
+</indexterm>
+conveys the direction of information transfer of the actual parameter.
+</para>
+<indexterm zone="ebnf.parametermodetype">
+    <primary>parameter mode type</primary>
+</indexterm>
+<indexterm zone="ebnf.parametermodetype">
+    <primary><literal>in</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.parametermodetype">
+    <primary><literal>out</literal></primary>
+</indexterm>
+<productionset>
+<production xml:id="ebnf.parametermodetype">
+    <lhs>
+        parameter mode type
+    </lhs>
+    <rhs>
+        'in' | 'out'
+    </rhs>
+</production>
+</productionset>
+<para>
+Formal parameters of mode <literal>in</literal>
+<indexterm>
+    <primary><literal>in</literal></primary>
+</indexterm>
+are passed from the caller to
+the service. The service is not allowed to change the value of a formal
+parameter of mode <literal>in</literal>.
+<indexterm>
+    <primary><literal>in</literal></primary>
+</indexterm>
+</para>
+<para>
+Formal parameters of mode <literal>out</literal>
+<indexterm>
+    <primary><literal>out</literal></primary>
+</indexterm>
+are passed from the service
+back to the caller on completion of the service. This means that the caller
+must supply an expression that denotes a variable as the value of the actual
+argument expression. On completion of the service the value of the formal
+parameter is assigned to the supplied variable.
+</para>
+</section>
+</section>
+<section xml:id="ServicesDomainServiceSignature"><info><title>Service Signature</title></info>
+
+<para>
+The signature of a domain service
+<indexterm significance="preferred">
+    <primary>domain</primary>
+    <secondary>service</secondary>
+    <tertiary>signature</tertiary>
+</indexterm>
+consists of the name of the service and the name and types of parameters to the
+service.
+</para>
+<para>
+A compile-time error occurs if a domain declares two domain services with
+the same signature.
+</para>
+</section>
+<section xml:id="ServicesOverloading"><info><title>Overloading</title></info>
+
+<para>
+If two services of a domain have the same but different signatures,
+<indexterm>
+    <primary>domain</primary>
+    <secondary>service</secondary>
+    <tertiary>signature</tertiary>
+</indexterm>
+then the service is said to be overloaded.
+<indexterm significance="preferred">
+    <primary>domain</primary>
+    <secondary>service</secondary>
+    <tertiary>overloading</tertiary>
+</indexterm>
+When a domain service
+is invoked (see <xref linkend="StatementsInvocationStatement"/>), the number of
+arguments
+<indexterm>
+    <primary>argument</primary>
+</indexterm>
+and the compile-time types of the arguments are used to determine the
+signature of the service
+<indexterm>
+    <primary>domain</primary>
+    <secondary>service</secondary>
+    <tertiary>signature</tertiary>
+</indexterm>
+that will be invoked.
+</para>
+</section>
+<section xml:id="ServicesDomainServiceRaisesExpression"><info><title>Raises Expression</title></info>
+
+<para>
+A <link linkend="ebnf.raisesexpression"><emphasis>raises expression</emphasis></link>
+<indexterm>
+    <primary>expression</primary>
+    <secondary>raises</secondary>
+</indexterm>
+is used to declare any exceptions
+(see <xref linkend="ExceptionCompileTimeCheckingofExceptions"/>) that can result
+from the execution of a service.
+</para>
+<indexterm zone="ebnf.raisesexpression">
+    <primary>raises expression</primary>
+</indexterm>
+<indexterm zone="ebnf.raisesexpression">
+    <primary><literal>raises</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.raisesexpression">
+    <primary>exception specification</primary>
+</indexterm>
+<productionset>
+<production xml:id="ebnf.raisesexpression">
+    <lhs>
+        raises expression
+    </lhs>
+    <rhs>
+        'raises', '(',
+        <nonterminal def="#ebnf.exceptionspecification">exception specification</nonterminal>,
+        {<nonterminal def="#ebnf.exceptionspecification">exception specification</nonterminal>},
+        ')'
+    </rhs>
+</production>
+</productionset>
+<para>
+The following production is repeated from 
+<xref linkend="ExceptionsHandlingofanException"/> to make the presentation
+here clearer.
+</para>
+<productionset>
+<productionrecap linkend="ebnf.exceptionspecification"/>
+</productionset>
+<para>
+A compile-time error occurs if an exception that can result from the
+execution of the body of a service is not mentioned in the raises
+expression in the declaration of the service.
+</para>
+<para>
+See <xref linkend="Exceptions"/> for more information about exceptions.
+</para>
+</section>
+<section xml:id="ServicesDomainServiceDefinition"><info><title>Domain Service Definition</title></info>
+
+<para>
+A
+<link linkend="ebnf.domainservicedefinition"><emphasis>domain service definition</emphasis></link>
+<indexterm>
+    <primary>domain</primary>
+    <secondary>service</secondary>
+    <tertiary>definition</tertiary>
+</indexterm>
+provides the specification of the behaviour of a domain service.
+</para>
+<indexterm zone="ebnf.domainservicedefinition">
+    <primary>domain service definition</primary>
+</indexterm>
+<indexterm zone="ebnf.domainservicedefinition">
+    <primary><literal>native</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.domainservicedefinition">
+    <primary><literal>service</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.domainservicedefinition">
+    <primary>domain name</primary>
+</indexterm>
+<indexterm zone="ebnf.domainservicedefinition">
+    <primary><literal>::</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.domainservicedefinition">
+    <primary>service name</primary>
+</indexterm>
+<indexterm zone="ebnf.domainservicedefinition">
+    <primary>parameter declaration list</primary>
+</indexterm>
+<indexterm zone="ebnf.domainservicedefinition">
+    <primary>raises expression</primary>
+</indexterm>
+<indexterm zone="ebnf.domainservicedefinition">
+    <primary><literal>is</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.domainservicedefinition">
+    <primary>native code</primary>
+</indexterm>
+<indexterm zone="ebnf.domainservicedefinition">
+    <primary>domain service modifier</primary>
+</indexterm>
+<indexterm zone="ebnf.domainservicedefinition">
+    <primary>variable declaration</primary>
+</indexterm>
+<indexterm zone="ebnf.domainservicedefinition">
+    <primary><literal>begin</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.domainservicedefinition">
+    <primary>handled sequence of statements</primary>
+</indexterm>
+<indexterm zone="ebnf.domainservicedefinition">
+    <primary><literal>end</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.nativecode">
+    <primary>native code</primary>
+</indexterm>
+<indexterm zone="ebnf.nativecode">
+    <primary><literal>$NATIVE</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.nativecode">
+    <primary>line terminator</primary>
+</indexterm>
+<indexterm zone="ebnf.nativecode">
+    <primary>native code line</primary>
+</indexterm>
+<indexterm zone="ebnf.nativecode">
+    <primary><literal>$ENDNATIVE</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.nativecode">
+    <primary>native code</primary>
+</indexterm>
+<indexterm zone="ebnf.nativecodeline">
+    <primary>native code line</primary>
+</indexterm>
+<indexterm zone="ebnf.nativecodeline">
+    <primary>letter</primary>
+</indexterm>
+<indexterm zone="ebnf.nativecodeline">
+    <primary>digit</primary>
+</indexterm>
+<indexterm zone="ebnf.nativecodeline">
+    <primary>other character</primary>
+</indexterm>
+<indexterm zone="ebnf.nativecodeline">
+    <primary>underscore</primary>
+</indexterm>
+<indexterm zone="ebnf.nativecodeline">
+    <primary>white space</primary>
+</indexterm>
+<indexterm zone="ebnf.nativecodeline">
+    <primary>line terminator</primary>
+</indexterm>
+<productionset>
+<production xml:id="ebnf.domainservicedefinition">
+    <lhs>
+       domain service definition
+    </lhs>
+    <rhs>
+        ('native', 'service',
+        <nonterminal def="#ebnf.domainname">domain name</nonterminal>,
+        '::',
+        <nonterminal def="#ebnf.servicename">service name</nonterminal>,
+        '(',
+        <nonterminal def="#ebnf.parameterdeclarationlist">parameter declaration list</nonterminal>,
+        ')',
+        [<nonterminal def="#ebnf.raisesexpression">raises expression</nonterminal>],
+        'is',
+        <nonterminal def="#ebnf.nativecode">native code</nonterminal>) |
+        (<nonterminal def="#ebnf.domainservicemodifier">domain service modifier</nonterminal>,
+        'service',
+        <nonterminal def="#ebnf.domainname">domain name</nonterminal>,
+        '::',
+        <nonterminal def="#ebnf.servicename">service name</nonterminal>,
+        '(',
+        <nonterminal def="#ebnf.parameterdeclarationlist">parameter declaration list</nonterminal>,
+        ')',
+        [<nonterminal def="#ebnf.raisesexpression">raise expression</nonterminal>],
+        'is',        
+        {<nonterminal def="#ebnf.variabledeclaration">variable declaration</nonterminal>},
+        'begin',
+        <nonterminal def="#ebnf.handledsequenceofstatements">handled sequence of statements</nonterminal>,
+        'end', ['service'], ';'
+    </rhs>
+</production>
+<production xml:id="ebnf.nativecode">
+    <lhs>
+       native code
+    </lhs>
+    <rhs>
+        '$NATIVE',
+        <nonterminal def="#ebnf.lineterminator">line terminator</nonterminal>,
+        {<nonterminal def="#ebnf.nativecodeline">native code line</nonterminal>},
+        '$ENDNATIVE',
+        <nonterminal def="#ebnf.lineterminator">line terminator</nonterminal>
+    </rhs>
+</production>
+<production xml:id="ebnf.nativecodeline">
+    <lhs>
+       native code line
+    </lhs>
+    <rhs>
+        {(<nonterminal def="#ebnf.letter">letter</nonterminal> |
+        <nonterminal def="#ebnf.digit">digit</nonterminal> |
+        <nonterminal def="#ebnf.othercharacter">other character</nonterminal> |
+        <nonterminal def="#ebnf.underscore">underscore</nonterminal> |
+        <nonterminal def="#ebnf.whitespace">white space</nonterminal>)},
+        <nonterminal def="#ebnf.lineterminator">line terminator</nonterminal>
+    </rhs>
+</production>
+</productionset>
+<para>
+The native code is a sequence of code statements embraced by
+<link linkend="ebnf.nativecode"><literal>$NATIVE</literal></link>
+<indexterm>
+    <primary>$NATIVE</primary>
+</indexterm>
+and <link linkend="ebnf.nativecode"><literal>$ENDNATIVE</literal></link>.
+<indexterm>
+    <primary>$NATIVE</primary>
+</indexterm>
+All statements between these two markers are ignored for the purposes of MASL
+parsing.
+</para>
+<para>
+A compile-time error occurs if:
+<itemizedlist mark="bullet">
+<listitem>
+<para>
+The signature of the service,
+<indexterm>
+    <primary>domain</primary>
+    <secondary>service</secondary>
+    <tertiary>signature</tertiary>
+</indexterm>
+named by the service name together with the
+parameter declaration list has not already been declared by a domain service
+declaration.
+</para>
+</listitem>
+<listitem>
+<para>
+The modifiers
+<indexterm>
+    <primary>domain</primary>
+    <secondary>service</secondary>
+    <tertiary>modifiers</tertiary>
+</indexterm>
+do not match the modifiers of the corresponding domain service
+declaration.
+</para>
+</listitem>
+<listitem>
+<para>
+The raises expression
+<indexterm>
+    <primary>expression</primary>
+    <secondary>raises</secondary>
+</indexterm>
+does not match the raise expression of the corresponding domain service
+declaration.
+<indexterm>
+    <primary>domain</primary>
+    <secondary>service</secondary>
+    <tertiary>declaration</tertiary>
+</indexterm>
+</para>
+</listitem>
+</itemizedlist>
+</para>
+</section>
+</section>
+<section xml:id="ServicesObjectServices"><info><title>Object Services</title></info>
+
+<para>
+An object service
+<indexterm significance="preferred">
+    <primary>object</primary>
+    <secondary>service</secondary>
+</indexterm>
+gives an interface to an object. An
+<link linkend="ebnf.objectservicedeclaration"><emphasis>object service declaration</emphasis></link>
+<indexterm significance="preferred">
+    <primary>object</primary>
+    <secondary>service</secondary>
+    <tertiary>declaration</tertiary>
+</indexterm>
+declares an object service.
+</para>
+<indexterm zone="ebnf.objectservicedeclaration">
+    <primary>object service declaration</primary>
+</indexterm>
+<indexterm zone="ebnf.objectservicedeclaration">
+    <primary>object service modifier</primary>
+</indexterm>
+<indexterm zone="ebnf.objectservicedeclaration">
+    <primary>service name</primary>
+</indexterm>
+<indexterm zone="ebnf.objectservicedeclaration">
+    <primary>parameter declaration list</primary>
+</indexterm>
+<indexterm zone="ebnf.objectservicedeclaration">
+    <primary>raise expression</primary>
+</indexterm>
+<productionset>
+<production xml:id="ebnf.objectservicedeclaration">
+    <lhs>
+        object service declaration
+    </lhs>
+    <rhs>
+        <nonterminal def="#ebnf.objectservicemodifier">object service modifier</nonterminal>,
+        'service',
+        <nonterminal def="#ebnf.servicename">service name</nonterminal>,
+        '(',
+        <nonterminal def="#ebnf.parameterdeclarationlist">parameter declaration list</nonterminal>,
+        ')',
+        [<nonterminal def="#ebnf.raisesexpression">raise expression</nonterminal>],
+        ';'
+    </rhs>
+</production>
+</productionset>
+<para>
+The service name in an object service declaration
+<indexterm significance="preferred">
+    <primary>object</primary>
+    <secondary>service</secondary>
+    <tertiary>declaration</tertiary>
+</indexterm>
+may be used to refer to the service.
+</para>
+<section xml:id="ServicesObjectServiceModifiers"><info><title>Object Service Modifiers</title></info>
+
+<indexterm significance="preferred">
+    <primary>object</primary>
+    <secondary>service</secondary>
+    <tertiary>modifier</tertiary>
+</indexterm>
+<indexterm zone="ebnf.objectservicemodifier">
+    <primary>object service modifier</primary>
+</indexterm>
+<indexterm zone="ebnf.objectservicemodifier">
+    <primary><literal>public</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.objectservicemodifier">
+    <primary><literal>private</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.objectservicemodifier">
+    <primary><literal>native</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.objectservicemodifier">
+    <primary><literal>instance</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.objectservicemodifier">
+    <primary><literal>deferred</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.objectservicemodifier">
+    <primary>relationship number</primary>
+</indexterm>
+<productionset>
+<production xml:id="ebnf.objectservicemodifier">
+    <lhs>
+        object service modifier
+    </lhs>
+    <rhs>
+        ('public' | 'private' | 'native'),
+        ['instance', [('deferred', '(',
+        <nonterminal def="#ebnf.relationshipnumber">relationship number</nonterminal>,
+        ')')]]
+    </rhs>
+</production>
+</productionset>
+<section xml:id="ServicesPublicObjectServices"><info><title>Public Object Services</title></info>
+
+<para>
+If an object service
+<indexterm significance="preferred">
+    <primary>object</primary>
+    <secondary>service</secondary>
+    <tertiary>public</tertiary>
+</indexterm>
+is declared with the modifier
+<link linkend="ebnf.objectservicemodifier"><literal>public</literal></link>,
+<indexterm significance="preferred">
+    <primary><literal>public</literal></primary>
+</indexterm>
+then it may be accessed by any code that can access the object in which it is
+declared.
+</para>
+<para>
+By default, all object services are declared
+<link linkend="ebnf.objectservicemodifier"><literal>public</literal></link>.
+<indexterm significance="preferred">
+    <primary><literal>public</literal></primary>
+</indexterm>
+</para>
+</section>
+<section xml:id="ServicesPrivateObjectServices"><info><title>Private Object Services</title></info>
+
+<para>
+If an object service is declared with the modifier
+<link linkend="ebnf.objectservicemodifier"><literal>private</literal></link>,
+<indexterm significance="preferred">
+    <primary><literal>private</literal></primary>
+</indexterm>
+then access is permitted only when it occurs from within the object in which it
+is declared.
+</para>
+</section>
+<section xml:id="ServicesInstanceObjectServices"><info><title>Instance Object Services</title></info>
+
+<para>
+An object service that is declared with the modifier
+<link linkend="ebnf.objectservicemodifier"><literal>instance</literal></link>
+<indexterm significance="preferred">
+    <primary>instance</primary>
+    <secondary>service</secondary>
+</indexterm>
+is called an instance service An instance
+service is always invoked with respect to a particular instance, which
+becomes the current instance to which the reserved word
+<link linkend="Names"><literal>this</literal></link>
+<indexterm>
+    <primary><literal>this</literal></primary>
+</indexterm>
+refers, during execution
+of the service body. An object service that is not declared with the modifier
+<link linkend="ebnf.objectservicemodifier"><literal>instance</literal></link>
+<indexterm>
+    <primary><literal>instance</literal></primary>
+</indexterm>
+is called a non-instance service
+A non-instance service is always invoked without reference to a particular
+instance. A compile-time error occurs if an attempt is made to reference
+the current instance using the reserved word
+<link linkend="Names"><literal>this</literal></link>
+<indexterm>
+    <primary><literal>this</literal></primary>
+</indexterm>
+in the body of a non-instance service.
+</para>
+</section>
+<section xml:id="ServicesDeferredObjectServices"><info><title>Deferred Object Services</title></info>
+
+<para>
+A object service
+<indexterm significance="preferred">
+    <primary>instance</primary>
+    <secondary>service</secondary>
+    <tertiary>deferred</tertiary>
+</indexterm>
+that is declared with the modifier
+<link linkend="ebnf.objectservicemodifier"><literal>deferred</literal></link>
+<indexterm>
+    <primary><literal>deferred</literal></primary>
+</indexterm>
+is called a deferred service. Only instance services can be deferred.
+</para>
+<para>
+A deferred service is an instance service whose implementation is deferred to
+a subtype of the enclosing object. Which subtype hierarchy the service is
+deferred to is given by the relationship number after the reserved word
+<link linkend="ebnf.objectservicemodifier"><literal>deferred</literal></link>.
+</para>
+<para>
+A compile-time error occurs if the following are not true:
+<itemizedlist mark="bullet">
+<listitem>
+<para>
+The relationship number
+<indexterm>
+    <primary>relationship</primary>
+    <secondary>number</secondary>
+</indexterm>
+specified after the reserved word
+<link linkend="ebnf.objectservicemodifier"><literal>deferred</literal></link>
+<indexterm>
+    <primary><literal>deferred</literal></primary>
+</indexterm>
+must be a subtype relationship
+<indexterm>
+    <primary>relationship</primary>
+    <secondary>subtype</secondary>
+</indexterm>
+of the enclosing object.
+</para>
+</listitem>
+<listitem>
+<para>
+For every direct subtype in the subtype hierarchy
+<indexterm>
+    <primary>relationship</primary>
+    <secondary>subtype</secondary>
+    <tertiary>hierarchy</tertiary>
+</indexterm>
+that the service is deferred
+to, the subtype must declare an instance service
+<indexterm>
+    <primary>instance</primary>
+    <secondary>service</secondary>
+</indexterm>
+with the same signature as the deferred service.
+<indexterm>
+    <primary>instance</primary>
+    <secondary>service</secondary>
+    <tertiary>deferred</tertiary>
+</indexterm>
+</para>
+</listitem>
+</itemizedlist>
+</para>
+<para>
+An instance service
+<indexterm>
+    <primary>instance</primary>
+    <secondary>service</secondary>
+</indexterm>
+that has been deferred to an object by one of its
+super-types can also be deferred, by the object, to one of its subtype
+hierarchies.
+<indexterm>
+    <primary>relationship</primary>
+    <secondary>subtype</secondary>
+    <tertiary>hierarchy</tertiary>
+</indexterm>
+</para>
+<para>
+When the service is invoked,
+<indexterm>
+    <primary>instance</primary>
+    <secondary>service</secondary>
+    <tertiary>invocation</tertiary>
+</indexterm>
+which implementation is actually executed
+depends upon the current subtype of the instance that the service was
+invoked on.
+</para>
+<para>
+A deferred service is always invoked with respect to a particular instance,
+the current subtype instance of this instance becomes the current instance to
+which the reserved word
+<link linkend="Names"><literal>this</literal></link>
+<indexterm>
+    <primary><literal>this</literal></primary>
+</indexterm>
+refers during execution of the appropriate service body.
+</para>
+</section>
+</section>
+<section xml:id="ServicesObjectServiceFormalParameters"><info><title>Formal Parameters</title></info>
+
+<para>
+The <link linkend="ebnf.parameterdeclarationlist"><literal>formal parameters</literal></link>
+<indexterm>
+    <primary>object</primary>
+    <secondary>service</secondary>
+    <tertiary>formal parameters</tertiary>
+</indexterm>
+of an object service, if any, are specified by a list of comma-separated
+<link linkend="ebnf.parameterdeclaration"><emphasis>parameter declarations</emphasis></link>.
+<indexterm>
+    <primary>object</primary>
+    <secondary>service</secondary>
+    <tertiary>parameter declaration</tertiary>
+</indexterm>
+Each
+<link linkend="ebnf.parameterdeclaration"><emphasis>parameter declaration</emphasis></link>
+consists of a name the specifies the
+<link linkend="ebnf.parametername">name of the parameter</link>,
+<indexterm>
+    <primary>parameter</primary>
+    <secondary>name</secondary>
+</indexterm>
+a <link linkend="ServicesObjectServiceFormalParameterModes">parameter mode</link> and type.
+<indexterm>
+    <primary>parameter</primary>
+    <secondary>mode</secondary>
+</indexterm>
+</para>
+<productionset>
+<productionrecap linkend="ebnf.parameterdeclarationlist"/>
+<productionrecap linkend="ebnf.parameterdeclaration"/>
+<productionrecap linkend="ebnf.parametername"/>
+</productionset>
+<para>
+If a service has no parameters, only an empty pair of parentheses appears in the
+services declaration.
+</para>
+<para>
+A compile-time error occurs if any two parameters are declared to have the same name,
+or if a parameter of mode out is declared as an
+<link linkend="ebnf.unconstrainedarraytypedefinition">unconstrained array type</link>.
+</para>
+<para>
+When the service is invoked
+<indexterm>
+    <primary>object</primary>
+    <secondary>service</secondary>
+    <tertiary>invocation</tertiary>
+</indexterm>
+(see <xref linkend="StatementsInvocationStatement"/>, the
+values of the actual argument expressions initialize newly created parameter
+variables, each of the declared type, before execution of the body of the
+service. The parameter name that appears in the parameter declaration may be
+used as a simple name in the body of the service to refer to the parameter.
+</para>
+<para>
+The scope of the parameter names is the entire body of the service.
+</para>
+<section xml:id="ServicesObjectServiceFormalParameterModes"><info><title>Formal Parameter Modes</title></info>
+
+<para>
+The mode of a formal parameter
+<indexterm>
+    <primary>object</primary>
+    <secondary>service</secondary>
+    <tertiary>formal parameter mode</tertiary>
+</indexterm>
+conveys the direction of information transfer of the actual parameter.
+</para>
+<productionset>
+<productionrecap linkend="ebnf.parametermodetype"/>
+</productionset>
+<para>
+Formal parameters of mode <literal>in</literal>
+<indexterm>
+    <primary><literal>in</literal></primary>
+</indexterm>
+are passed from the caller to
+the service. The service is not allowed to change the value of a formal
+parameter of mode <literal>in</literal>.
+<indexterm>
+    <primary><literal>in</literal></primary>
+</indexterm>
+
+</para>
+<para>
+Formal parameters of mode <literal>out</literal>
+<indexterm>
+    <primary><literal>out</literal></primary>
+</indexterm>
+are passed from the service
+back to the caller on completion of the service. This means that the caller
+must supply an expression that denotes a variable as the value of the actual
+argument expression. On completion of the service the value of the formal
+parameter is assigned to the supplied variable.
+</para>
+</section>
+</section>
+<section xml:id="ServicesObjectServiceSignature"><info><title>Service Signature</title></info>
+
+<para>
+The signature of a object service
+<indexterm significance="preferred">
+    <primary>object</primary>
+    <secondary>service</secondary>
+    <tertiary>signature</tertiary>
+</indexterm>
+consists of the name of
+the service and the name and types of parameters to the service.
+</para>
+<para>
+A compile-time error occurs if a object declares two domain services with
+the same signature.
+</para>
+</section>
+<section xml:id="ServiceOverloading"><info><title>Overloading</title></info>
+
+<para>
+If two services of a object have the same but different signatures,
+<indexterm>
+    <primary>object</primary>
+    <secondary>service</secondary>
+    <tertiary>signature</tertiary>
+</indexterm>
+then the service is said to be overloaded.
+<indexterm significance="preferred">
+    <primary>object</primary>
+    <secondary>service</secondary>
+    <tertiary>overloading</tertiary>
+</indexterm>
+When an object
+service is invoked (see <xref linkend="StatementsInvocationStatement"/>), the number of
+arguments
+<indexterm>
+    <primary>argument</primary>
+</indexterm>
+and the compile-time types of the arguments
+<indexterm>
+    <primary>argument</primary>
+</indexterm>
+are used to determine the
+signature of the service
+<indexterm>
+    <primary>object</primary>
+    <secondary>service</secondary>
+    <tertiary>signature</tertiary>
+</indexterm>
+that will be invoked.
+</para>
+</section>
+<section xml:id="ServicesObjectServiceRaisesExpression"><info><title>Raises Expression</title></info>
+
+<para>
+A <emphasis>raises expression</emphasis>
+<indexterm>
+    <primary>expression</primary>
+    <secondary>raises</secondary>
+</indexterm>
+is used to declare any exceptions
+(see <xref linkend="ExceptionCompileTimeCheckingofExceptions"/>) that can result
+from the execution of a service.
+</para>
+<productionset>
+<productionrecap linkend="ebnf.raisesexpression"/>
+</productionset>
+<para>
+The following production is repeated from 
+<xref linkend="ExceptionsHandlingofanException"/> to make the presentation
+here clearer.
+</para>
+<productionset>
+<productionrecap linkend="ebnf.exceptionspecification"/>
+</productionset>
+<para>
+A compile-time error occurs if an exception that can result from the
+execution of the body of a service is not mentioned in the raises
+expression in the declaration of the service.
+</para>
+<para>
+See <xref linkend="Exceptions"/> for more information about exceptions.
+</para>
+</section>
+<section xml:id="ServicesObjectServiceDefinition"><info><title>Object Service Definition</title></info>
+
+<para>
+An
+<link linkend="ebnf.objectservicedefinition"><emphasis>object service definition</emphasis></link>
+<indexterm>
+    <primary>object</primary>
+    <secondary>service</secondary>
+    <tertiary>definition</tertiary>
+</indexterm>
+provides the specification of the behaviour of a object service.
+</para>
+<indexterm zone="ebnf.objectservicedefinition">
+    <primary>object service definition</primary>
+</indexterm>
+<indexterm zone="ebnf.objectservicedefinition">
+    <primary><literal>native</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.objectservicedefinition">
+    <primary><literal>service</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.objectservicedefinition">
+    <primary>domain name</primary>
+</indexterm>
+<indexterm zone="ebnf.objectservicedefinition">
+    <primary><literal>::</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.objectservicedefinition">
+    <primary>object name</primary>
+</indexterm>
+<indexterm zone="ebnf.objectservicedefinition">
+    <primary>service name</primary>
+</indexterm>
+<indexterm zone="ebnf.objectservicedefinition">
+    <primary>parameter declaration list</primary>
+</indexterm>
+<indexterm zone="ebnf.objectservicedefinition">
+    <primary>raises expression</primary>
+</indexterm>
+<indexterm zone="ebnf.objectservicedefinition">
+    <primary><literal>is</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.objectservicedefinition">
+    <primary>native code</primary>
+</indexterm>
+<indexterm zone="ebnf.objectservicedefinition">
+    <primary>object service modifier</primary>
+</indexterm>
+<indexterm zone="ebnf.objectservicedefinition">
+    <primary>variable declaration</primary>
+</indexterm>
+<indexterm zone="ebnf.objectservicedefinition">
+    <primary><literal>begin</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.objectservicedefinition">
+    <primary>handled sequence of statements</primary>
+</indexterm>
+<indexterm zone="ebnf.objectservicedefinition">
+    <primary><literal>end</literal></primary>
+</indexterm>
+<productionset>
+<production xml:id="ebnf.objectservicedefinition">
+    <lhs>
+       object service definition
+    </lhs>
+    <rhs>
+        ('native', 'service',
+        <nonterminal def="#ebnf.domainname">domain name</nonterminal>,
+        '::',
+        <nonterminal def="#ebnf.objectname">object name</nonterminal>,
+        '.'
+        <nonterminal def="#ebnf.servicename">service name</nonterminal>,
+        '(',
+        <nonterminal def="#ebnf.parameterdeclarationlist">parameter declaration list</nonterminal>,
+        ')',
+        [<nonterminal def="#ebnf.raisesexpression">raise expression</nonterminal>],
+        'is',
+        <nonterminal def="#ebnf.nativecode">native code</nonterminal>) |
+        (<nonterminal def="#ebnf.objectservicemodifier">object service modifier</nonterminal>,
+        'service',
+        <nonterminal def="#ebnf.domainname">domain name</nonterminal>,
+        '::',
+        <nonterminal def="#ebnf.objectname">object name</nonterminal>,
+        '.'
+        <nonterminal def="#ebnf.servicename">service name</nonterminal>,
+        '(',
+        <nonterminal def="#ebnf.parameterdeclarationlist">parameter declaration list</nonterminal>,
+        ')',
+        [<nonterminal def="#ebnf.raisesexpression">raises expression</nonterminal>],
+        'is',        
+        {<nonterminal def="#ebnf.variabledeclaration">variable declaration</nonterminal>},
+        'begin',
+        <nonterminal def="#ebnf.handledsequenceofstatements">handled sequence of statements</nonterminal>,
+        'end', ['service'], ';'
+    </rhs>
+</production>
+<productionrecap xml:id="recap.ebnf.nativecode" linkend="ebnf.nativecode"/>
+<productionrecap xml:id="recap.ebnf.nativecodeline" linkend="ebnf.nativecodeline"/>
+</productionset>
+<para>
+The native code is a sequence of code statements embraced by
+<link linkend="ebnf.nativecode"><literal>$NATIVE</literal></link>
+<indexterm>
+    <primary><literal>$NATIVE</literal></primary>
+</indexterm>
+and
+<link linkend="ebnf.nativecode"><literal>$ENDNATIVE</literal></link>.
+<indexterm>
+    <primary><literal>$ENDNATIVE</literal></primary>
+</indexterm>
+All statements between these two markers are ignored for the purposes of MASL
+parsing.
+</para>
+<para>
+A compile-time error occurs if:
+<itemizedlist mark="bullet">
+<listitem>
+<para>
+The signature of the service,
+<indexterm>
+    <primary>object</primary>
+    <secondary>service</secondary>
+    <tertiary>signature</tertiary>
+</indexterm>
+named by the service name together with the
+parameter declaration list has not already been declared by an object service
+declaration.
+<indexterm>
+    <primary>object</primary>
+    <secondary>service</secondary>
+    <tertiary>declaration</tertiary>
+</indexterm>
+</para>
+</listitem>
+<listitem>
+<para>
+The modifiers
+<indexterm>
+    <primary>object</primary>
+    <secondary>service</secondary>
+    <tertiary>modifier</tertiary>
+</indexterm>
+do not match the modifiers of the corresponding object service
+declaration.
+<indexterm>
+    <primary>object</primary>
+    <secondary>service</secondary>
+    <tertiary>declaration</tertiary>
+</indexterm>
+</para>
+</listitem>
+<listitem>
+<para>
+The raises expression
+<indexterm>
+    <primary>expression</primary>
+    <secondary>raises</secondary>
+</indexterm>
+does not match the raise expression of the corresponding object service
+declaration.
+<indexterm>
+    <primary>object</primary>
+    <secondary>service</secondary>
+    <tertiary>declaration</tertiary>
+</indexterm>
+</para>
+</listitem>
+</itemizedlist>
+</para>
+</section>
+</section>
+</chapter>

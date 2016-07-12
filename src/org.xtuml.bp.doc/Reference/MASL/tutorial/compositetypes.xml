@@ -1,0 +1,704 @@
+<!-- 
+  UK Crown Copyright (c) 2016. All Rights Reserved
+-->
+<!-- Converted by db4-upgrade version 1.0 -->
+<chapter xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="CompositeTypes"><info><title>Composite Types</title></info>
+  
+
+  <para>In this section we describe the composite types, these are either
+  structures or collections.</para>
+
+  <section xml:id="CompositeTypesStructures"><info><title>Structures</title></info>
+    
+
+    <para>A structure is a composite entity consisting of named components
+    which may be of different types. Consider the following:<informalexample>
+        <programlisting>  subtype day_number_type is integer range 1 .. 31;
+  type month_name_type is enum (JAN, FEB, MAR, APR, MAY, JUN, JUL, AUG, SEP, OCT, NOV, DEC);
+
+  type date is structure
+    day : day_number_type;
+    month : month_name_type;
+    year : integer;
+  end structure;</programlisting>
+      </informalexample></para>
+
+    <para>This declares the type date to be a structure containing three named
+    components: <varname remap="structfield">day</varname>,
+    <varname remap="structfield">month</varname> and <varname remap="structfield">year</varname>. We
+    can declare variables and constants of structure types in the usual
+    way.<informalexample>
+        <programlisting>  d : date;</programlisting>
+      </informalexample>declares a variable <varname>d</varname> which is a
+    <type>date</type>. The individual components of <varname>d</varname> can
+    be denoted by following <varname>d</varname> with a dot and the component
+    name. Therefore we could write:<informalexample>
+        <programlisting>  d.day := 20;
+  d.month := SEP;
+  d.year := 1969;</programlisting>
+      </informalexample>in order to assign new values to the individual
+    components. Structures can be manipulated as whole entities. Literal
+    values can be written as aggregates. So we could write:<informalexample>
+        <programlisting>  d : date := (20, SEP, 1969);
+  e : date;</programlisting>
+      </informalexample>and then:<informalexample>
+        <programlisting>  e := d;</programlisting>
+      </informalexample>or:<informalexample>
+        <programlisting>  e := (20, SEP, 1969);</programlisting>
+      </informalexample>It is possible to give default expression for some or
+    all of the components in the type definition. Therefore:<informalexample>
+        <programlisting>  type complex_type is structure
+    real : integer := 0;
+    image : integer := 0;
+  end structure;</programlisting>
+      </informalexample>declares a structure type containing two components of
+    type integer and gives a default expression of 0 for each. The components
+    of a structure can be of any type except those in terms of some instance
+    type <xref linkend="MASL06"/>.</para>
+
+    <para>It is important to note that variables declared as a structure type
+    cannot be subsequently used in statements that incorporate the comparison
+    operators.</para>
+  </section>
+
+  <section xml:id="CompositeTypesCollections"><info><title>Collections</title></info>
+    
+
+    <para>A collection is a composite entity consisting of a number of
+    elements all of the same type. <abbrev>MASL</abbrev> has four types of
+    collections; <type>set</type>s, <type>bag</type>s, <type>sequence</type>s
+    and <type>array</type>s, each of which have different behaviours.</para>
+
+  <section xml:id="CompositeTypesSets"><info><title>Sets</title></info>
+    
+
+    <para>A <type>set</type> consists of a number of elements. The elements of
+    a <type>set</type> are unordered. Sets are used to group elements together
+    when there is no need for any particular order for the elements. Beside
+    lacking order, <type>set</type>s do not allow multiple occurrences of the
+    same element. This means that inserting a value that is already an element
+    of a set leaves the set unchanged.</para>
+
+    <para>A <type>bag</type> is a collection that keeps track of what it's
+    elements are and also the number of occurrences of each element. In other
+    words, <type>bag</type>s allow duplicate elements. Like
+    <type>set</type>s,<type>bag</type>s are unordered.</para>
+
+    <para>A <type>sequence</type> is a collection that associates a position
+    with each element based on insertion order. <type>sequence</type>s allow
+    duplicates.</para>
+
+    <para>An <type>array</type> is like a <type>sequence</type> except that
+    the number of elements in the <type>array</type> is fixed at compile
+    time.</para>
+
+    <para><xref linkend="CompositeTypeDecisionTreeforCollectionTypes"/> gives
+    a simple decision tree to help choose the collection type to suit a
+    particular behaviour requirement.<figure xml:id="CompositeTypeDecisionTreeforCollectionTypes"><info><title>Decision Tree for Collection Types</title></info>
+        
+
+        <mediaobject>
+          <imageobject>
+            <imagedata align="center" fileref="images/decisiontreeforcollectiontypes.svg" format="svg" valign="middle"/>
+          </imageobject>
+        </mediaobject>
+      </figure></para>
+
+    <para>After the first assignment, <varname>s</varname> will contain the
+    single element <literal>15</literal>. After the second assignment,
+    <type>s</type> will contain the three elements <literal>15</literal>,
+    <literal>31</literal> and <literal>57</literal>. After the third
+    assignment, <varname>s</varname> will still contain the three elements
+    <literal>15</literal>, <literal>31</literal> and <literal>57</literal>.
+    Notice that duplicates are removed and order is not preserved.</para>
+
+    <para> If we now declare:<informalexample>
+        <programlisting>  r : set of integer;
+  t : set of integer;</programlisting>
+      </informalexample>then:<informalexample>
+        <programlisting>  t := t &amp; 31 &amp; 44  &amp; 15;
+  r := s &amp; t;</programlisting>
+      </informalexample>will result in r containing the elements
+    <literal>15</literal>, <literal>31</literal>, <literal>44</literal> and
+    <literal>57</literal>. Sets have various characteristics. length gives the
+    number of elements in a set. So using our current example:<informalexample>
+        <literallayout>  r’length = 4
+  s’length = 3
+  t’length = 3</literallayout>
+      </informalexample></para>
+
+    <para>In order to loop over all the elements of a set we can use a for
+    statement together with the characteristic elements. For
+    example:<informalexample>
+        <programlisting>  for i in r’elements loop
+    // …
+  end loop;</programlisting>
+      </informalexample></para>
+
+    <para>This declares <varname>i</varname> to be of type integer and
+    executes the loop with the values of the elements of <varname>r</varname>
+    in turn. Since the elements in a set are unordered, the order in which the
+    elements are taken is arbitrary. In our example, <varname>i</varname>
+    might take the values <literal>44</literal>, <literal>31</literal>,
+    <literal>15</literal> and <literal>57</literal> in turn.</para>
+
+    <para>Set types have four other operators; <literal>union</literal>,
+    <literal>intersection</literal>, <literal>not_in</literal> and
+    <literal>disunion</literal>. These are all binary operators which take
+    operands of the same set base type and whose result is of that type. They
+    correspond to the notions of set union, set intersection, set subtraction
+    and set disunion respectively. Union and not_in have the same precedence
+    as binary plus, intersection and disunion have the same precedence as
+    multiplication.</para>
+
+    <note>
+      <para>For set types, <literal>&amp;</literal> is equivalent to
+      <literal>union</literal>.</para>
+    </note>
+  </section>
+
+  <section xml:id="CompositeTypesBags"><info><title>Bags</title></info>
+    
+
+    <para>A typical bag declaration might be:<informalexample>
+        <programlisting>  b : bag of integer;</programlisting>
+      </informalexample>This declares <varname>b</varname> to be a variable
+    which has a number of elements, each of which is of type
+    <type>integer</type>. Like <type>set</type>s, <type>bag</type>s can be
+    concatenated together using the operator <literal>&amp;</literal>. Again
+    it has the same precedence as binary plus. The two operands must be of the
+    same base type and the result is a <type>bag</type> of that type whose
+    value contains all the elements of the two <type>bag</type>s. One or other
+    of the operands of <literal>&amp;</literal> can also be a single value of
+    the element type. So, for example:<informalexample>
+        <programlisting>  b := b &amp; 15;
+  b := 31 &amp; b &amp; 57;
+  b := b &amp; 31;</programlisting>
+      </informalexample>After the first assignment, <varname>b</varname> will
+    contain the single element <literal>15</literal>. After the second
+    assignment, <varname>b</varname> will contain the three elements
+    <literal>15</literal>, <literal>31</literal> and <literal>57</literal>.
+    After the third assignment, <varname>b</varname> will contain the elements
+    <literal>15</literal>, <literal>31</literal> twice and
+    <literal>57</literal>. Notice that unlike <literal>set</literal>s,
+    duplicates are not removed.</para>
+
+    <para>If we now declare:<informalexample>
+        <programlisting>  a : bag of integer;
+  c : bag of integer;</programlisting>
+      </informalexample>then:<informalexample>
+        <programlisting>  c := c &amp; 31 &amp; 44 &amp; 15;
+  a := b &amp; c;</programlisting>
+      </informalexample>will result in a containing the elements
+    <literal>15</literal> twice, <literal>31</literal> three times,
+    <literal>44</literal> once and <literal>57</literal> once. Bags, like
+    sets, have various characteristics. <literal>length</literal> gives the
+    number of elements in a <type>bag</type>. So using our current
+    example:<informalexample>
+        <literallayout>  a’length = 7
+  b’length = 4
+  c’length = 3</literallayout>
+      </informalexample></para>
+
+    <para>We can loop over all the elements in a <type>bag</type> in the same
+    way as we did with <type>set</type>s by using a <literal>for</literal>
+    statement together with the characteristic elements. <informalexample>
+        <programlisting>  for i in a’elements loop
+    // …
+  end loop;</programlisting>
+      </informalexample>This declares <varname>i</varname> to be of type
+    <type>integer</type> and executes the loop with the values of the elements
+    of a in turn. Again, like a <type>set</type>, the order in which the
+    elements are taken is arbitrary. If a <type>bag</type> contains duplicate
+    elements then the loop will be executed for each of these duplicate
+    elements. In our example, <varname>i</varname> might take the values
+    <literal>15</literal>, <literal>31</literal>, <literal>44</literal>,
+    <literal>31</literal>, <literal>15</literal>, <literal>57</literal> and
+    <literal>31</literal> in turn.</para>
+  </section>
+
+  <section xml:id="CompositeTypesSequences"><info><title>Sequences</title></info>
+    
+
+    <para>A typical sequence declaration might be:<informalexample>
+        <programlisting>  q : sequence of integer;</programlisting>
+      </informalexample></para>
+
+    <para>This declares <varname>q</varname> to be a variable which has a
+    number of elements, each of which is of type <type>integer</type>. Like
+    <type>set</type>s and <type>bag</type>s, <type>sequence</type>s can be
+    concatenated together using the operator <literal>&amp;</literal>. Again
+    it has the same precedence as binary plus. The two operands must be of the
+    same type and the result is a <type>sequence</type> of the same type whose
+    value contains all the elements of the two sequences. In addition, the
+    order of the elements in the resultant sequence is obtained by juxtaposing
+    the two operands. One or other of the operands of <literal>&amp;</literal>
+    can also be a single value of the element type.</para>
+
+    <para>So, for example:<informalexample>
+        <programlisting>  q := q &amp; 15;
+  q := 31 &amp; q &amp; 57;
+  q := q &amp; 31;</programlisting>
+      </informalexample></para>
+
+    <para>After the first assignment, <varname>q</varname> will contain the
+    single element <literal>15</literal>. After the second assignment,
+    <varname>q</varname> will contain the three elements
+    <literal>31</literal>, <literal>15</literal> and <literal>57</literal> in
+    that order. After the third assignment, <varname>q</varname> will contain
+    the elements <literal>31</literal>, <literal>15</literal>,
+    <literal>57</literal> and <literal>31</literal> in that order.</para>
+
+    <para>If we now declare:<informalexample>
+        <programlisting>  n : sequence of integer;
+  p : sequence of integer;</programlisting>
+      </informalexample>then:<informalexample>
+        <programlisting>  p := p &amp; 31 &amp; 44 &amp; 15;
+  n := p &amp; q;</programlisting>
+      </informalexample></para>
+
+    <para>will result in <varname>n</varname> containing the elements
+    <literal>31</literal>, <literal>44</literal>, <literal>15</literal>,
+    <literal>31</literal>, <literal>15</literal>, <literal>57</literal> and
+    <literal>31</literal> in that order. <type>sequence</type>s, like
+    <type>set</type>s and <type>bag</type>s, have various characteristics.
+    <literal>length</literal> gives the number elements in a
+    <type>sequence</type>. So using our current example:<informalexample>
+        <literallayout>  n’length = 7
+  p’length = 3
+  q’length = 4</literallayout>
+      </informalexample></para>
+
+    <para>We can loop over all the elements in a <type>sequence</type> in the
+    same way as we did with <type>set</type>s and <type>bag</type>s by using a
+    for statement together with the characteristic elements.<informalexample>
+        <programlisting>  for i in n’elements loop
+    // …
+  end loop;</programlisting>
+      </informalexample>This declares <varname>i</varname> to be of type
+    <type>integer</type> and executes the loop with the values of the elements
+    of <varname>n</varname> in turn. Since the elements in a sequence are
+    ordered, the order in which the elements are taken is given by that order.
+    In our example, <varname>i</varname> would take the values
+    <literal>31</literal>, <literal>44</literal>, <literal>15</literal>,
+    <literal>31</literal>, <literal>15</literal>, <literal>57</literal> and
+    <literal>31</literal> in that order.</para>
+
+    <para>The individual elements of a <type>sequence</type> can be referred
+    to by following the <type>sequence</type> name with an expression in
+    brackets giving a value in the range of indices of the
+    <type>sequence</type>. If this expression, known as the index value, has a
+    value outside of the range, then an exception will be raised.</para>
+
+    <para>One way of obtaining a valid index value is to use one of the two
+    characteristics <literal>first</literal> or <literal>last</literal>, which
+    give the lower and upper bounds of the indices of <varname>q</varname>.
+    For example, we could set the first element of a <type>sequence</type> to
+    zero by writing:<informalexample>
+        <programlisting>  q[q'first] := 0;</programlisting>
+      </informalexample></para>
+
+    <para>If a <type>sequence</type> is empty both <literal>first</literal>
+    and <literal>last</literal> will raise an exception. Using
+    <literal>first</literal> and <literal>last</literal> we could loop though
+    the index values of a <literal>sequence</literal>.<informalexample>
+        <programlisting>  for i in n'first .. n'last loop
+    q[i] := 0;
+  end loop;</programlisting>
+      </informalexample></para>
+
+    <para>The expression <varname>q</varname><literal>'first ..
+    </literal><varname>q</varname><literal>'last</literal> is so common that a
+    shorthand <varname>q</varname><literal>'range</literal> is provided. Hence
+    we could have written the previous loop as:<informalexample>
+        <programlisting>  for i in n'range loop
+    q[i] := 0;
+  end loop;</programlisting>
+      </informalexample></para>
+
+    <para>Finally, we can denote a slice of a sequence by following the
+    sequence name with a discrete range in brackets. So:<informalexample>
+        <programlisting>  q := n[n'first + 2 .. n'last - 2];</programlisting>
+      </informalexample>results in <varname>q</varname> containing the
+    elements <literal>15</literal>, <literal>31</literal> and
+    <literal>15</literal> in that order.</para>
+  </section>
+
+  <section xml:id="CompositeTypesArrays"><info><title>Arrays</title></info>
+    
+
+    <para>A typical array declaration might be:<informalexample>
+        <programlisting>  a : array (1 .. 6) of  integer;</programlisting>
+      </informalexample>This declares <varname>a</varname> to be a variable
+    which has a six elements, each of which is of type <type>integer</type>.
+    The range of an <type>array</type> can be in terms of any discrete type
+    that is any <type>integer</type> <type>numeric</type> type or any
+    enumeration type. For example, given:<informalexample>
+        <programlisting>  type day_type is enum (MON, TUE, WED, THU, FRI, SAT, SUN);</programlisting>
+      </informalexample>we could declare an array to have elements for each
+    day of the week by writing:<informalexample>
+        <programlisting>  hours_worked : array (MON .. SUN) of integer;</programlisting>
+      </informalexample></para>
+
+    <para>or better:<informalexample>
+        <programlisting>  hours_worked : array (day_type’range) of integer;</programlisting>
+      </informalexample></para>
+
+    <para>Since <type>array</type>s have a fixed size they cannot be
+    concatenated together like <type>bag</type>s, <type>set</type>s and
+    <type>sequence</type>s. Arrays, like all the other collection types, have
+    various characteristics. Length gives the number of elements in an
+    <type>array</type>. So using our current example:<informalexample>
+        <literallayout>  a’length = 6</literallayout>
+      </informalexample>Note that because <type>array</type>s have a fixed
+    size this value will never change. </para>
+
+    <para>We can loop over all the elements in an <type>array</type> in the
+    same way as we did with <type>sequence</type>s by using a
+    <literal>for</literal> statement together with the characteristic
+    elements. <informalexample>
+        <programlisting>  for i in a’elements loop
+    // …
+  end loop;</programlisting>
+      </informalexample>This declares <varname>i</varname> to be of type
+    <type>integer</type> and executes the loop with the values of the elements
+    of <varname>a</varname> in turn. Since the elements in an
+    <type>array</type> are ordered, the order in which the elements are taken
+    is given by that order.</para>
+
+    <para>Like <type>sequence</type>s, the individual elements of an
+    <type>array</type> can be referred to by following the <type>array</type>
+    name with an expression in brackets giving a value in the range of indices
+    of the <type>array</type>. If this expression, known as the index value,
+    has a value outside of the range, then an exception will be raised.</para>
+
+    <para>One way of obtaining a valid index value is to use one of the two
+    characteristics <literal>first</literal> or <literal>last</literal> which
+    give the lower and upper bounds of the indices of <varname>a</varname>.
+    For example we could set the first element of an <type>array</type> to
+    zero by writing:<informalexample>
+        <programlisting>  a[a'first] := 0;.</programlisting>
+      </informalexample></para>
+
+    <para>Since we explicitly define the upper and lower bounds of the indices
+    of an <type>array</type> in its declaration, we could have equally done
+    this by using an explicit value in this range.<informalexample>
+        <programlisting>  a[1] := 0;
+  hours_worked[WED] := 0;</programlisting>
+      </informalexample></para>
+
+    <para>Using <literal>first</literal> and <literal>last</literal> we could
+    loop though the index values of an <type>array</type>.<informalexample>
+        <programlisting>  for i in a'first .. a'last loop
+    a[i] := 0;
+  end loop;</programlisting>
+      </informalexample></para>
+
+    <para>Again, as for <type>sequence</type>s, we could have used the
+    shorthand <varname>a</varname><literal>'range</literal> instead of
+    <varname>a</varname><literal>'first..
+    </literal><varname>a</varname><literal>'last</literal>.<informalexample>
+        <programlisting>  for i in a'range loop
+    a[i] := 0;
+  end loop;</programlisting>
+      </informalexample></para>
+
+    <para>Finally, we can denote a slice of an <type>array</type> by following
+    the <type>array</type> name with a discrete range in brackets.
+    So:<informalexample>
+        <programlisting>  declare
+    q : sequence of integer;
+  begin
+    q := a[3 .. 5];
+  end;</programlisting>
+      </informalexample>results in <varname>q</varname> containing the
+    elements at indices <literal>3</literal>, <literal>4</literal> and
+    <literal>5</literal> of the <type>array</type> <varname>a</varname> in
+    that order. Notice that taking a slice of an <type>array</type> results in
+    a <type>sequence</type> of the same element type.</para>
+  </section>
+
+  </section>
+
+  <section xml:id="CompositeTypesCollectionTypes"><info><title>Collection Types</title></info>
+    
+
+    <para>The collections we introduced in the last section did not have an
+    explicit type name. They were in fact of anonymous type. Reconsidering the
+    example of the set, we could write:<informalexample>
+        <programlisting>  type integer_set_type is set of integer;</programlisting>
+      </informalexample>and then declare <varname>s</varname> using the type
+    name in the usual way:<informalexample>
+        <programlisting>  s : integer_set_type;</programlisting>
+      </informalexample></para>
+
+    <para>Whether or not we introduce a type name for particular collection
+    types depends very much on the abstract view of each situation. If we are
+    thinking of a collection as a complete entity in its own right then we
+    should use a type name.</para>
+  </section>
+
+  <section xml:id="CompositeTypesAssigningCollectionstootherCollections"><info><title>Assigning Collections to other Collections</title></info>
+    
+
+    <para>Values of a collection type can be converted to a different
+    collection type with the same element type by using an explicit type
+    conversion. This type conversion may raise an exception if the original
+    value cannot be converted into a value of the new type.</para>
+
+    <para>For example, if we declare:<informalexample>
+        <programlisting>  s : set of T;
+  b : bag of T;
+  q : sequence of T;
+  a : array (1 .. 10) of T;</programlisting>
+      </informalexample>Then the following is perfectly legal from the
+    syntactic point of view.</para>
+
+    <informaltable>
+      <tgroup cols="2">
+        <tbody>
+          <row>
+            <entry><programlisting>s := set of T(b);</programlisting></entry>
+
+            <entry>Raises an exception if there are duplicate elements in the
+            <type>bag</type>.</entry>
+          </row>
+
+          <row>
+            <entry><programlisting>s := set of T(q);</programlisting></entry>
+
+            <entry>Raises an exception if there are duplicate elements in the
+            <type>sequence</type>.</entry>
+          </row>
+
+          <row>
+            <entry><programlisting>s := set of T(a);</programlisting></entry>
+
+            <entry>Raises an exception if there are duplicate elements in the
+            <type>array</type>.</entry>
+          </row>
+
+          <row>
+            <entry><programlisting>b := bag of T(s);</programlisting></entry>
+
+            <entry>Never raises an exception.</entry>
+          </row>
+
+          <row>
+            <entry><programlisting>b := bag of T(q);</programlisting></entry>
+
+            <entry>Never raises an exception.</entry>
+          </row>
+
+          <row>
+            <entry><programlisting>b := bag of T(a);</programlisting></entry>
+
+            <entry>Never raises an exception.</entry>
+          </row>
+
+          <row>
+            <entry><programlisting>q := sequence of T(s);</programlisting></entry>
+
+            <entry>Never raises an exception. The order of the elements in the
+            <type>sequence</type> will be arbitrary.</entry>
+          </row>
+
+          <row>
+            <entry><programlisting>q := sequence of T(b);</programlisting></entry>
+
+            <entry>Never raises an exception. The order of the elements in the
+            <type>sequence</type> will be arbitrary.</entry>
+          </row>
+
+          <row>
+            <entry><programlisting>q := sequence of T(a);</programlisting></entry>
+
+            <entry>Never raises an exception. The order of the elements in the
+            <type>sequence</type> will be the same as the
+            <type>array</type>.</entry>
+          </row>
+
+          <row>
+            <entry><programlisting>a := array (1 .. 10) of T(s);</programlisting></entry>
+
+            <entry>Raises an exception if the number of elements in the
+            <type>set</type> is not the same as the size of the
+            <type>array</type>. The order of the elements in the
+            <type>sequence</type> will be arbitrary.</entry>
+          </row>
+
+          <row>
+            <entry><programlisting>a := array (1 .. 10) of T(b);</programlisting></entry>
+
+            <entry>Raises an exception if the number of elements in the
+            <type>bag</type> is not the same as the size of the
+            <type>array</type>. The order of the elements in the
+            <type>sequence</type> will be arbitrary.</entry>
+          </row>
+
+          <row>
+            <entry><programlisting>a := array (1 .. 10) of T(q);</programlisting></entry>
+
+            <entry>Raises an exception if the number of elements in the
+            <type>sequence</type> is not the same as the size of the
+            <type>array</type>. The order of the elements in the
+            <type>array</type> will be the same as the
+            <type>sequence</type>.</entry>
+          </row>
+        </tbody>
+      </tgroup>
+    </informaltable>
+
+    <para>As you can see converting <type>bag</type>s, <type>sequence</type>s
+    and <type>array</type>s to sets will raise an exception if there are
+    duplicate elements in the collection. It is often the case that we want to
+    take a collection and remove all the duplicates without raising an
+    exception. To do this the characteristic <literal>get_unique</literal> is
+    provided for <type>bag</type>s, <type>sequence</type>s and
+    <type>array</type>s.<informalexample>
+        <programlisting>  s := b'get_unique;
+  s := q'get_unique;
+  s := a'get_unique;</programlisting>
+      </informalexample></para>
+
+    <para>Now consider a subtype <type>S</type> of type <type>T</type>. A
+    collection of <type>S</type> is a subtype of a collection of
+    <type>T</type>.</para>
+
+    <para>For example, if we declare:<informalexample>
+        <programlisting>  sb : bag of S;
+  ss : set of S;
+  sq : sequence of S;
+  sa : array (1 .. 10) of S;</programlisting>
+      </informalexample>he following is perfectly legal from the syntactic
+    point of view.<informalexample>
+        <programlisting>  sb := b;
+  ss := s;
+  sq := q;
+  sa := a;</programlisting>
+      </informalexample>Of course, on execution, the elements of a collection
+    of type <type>T</type> may not satisfy the constraints of subtype
+    <type>S</type>, in which case an exception is raised. Assignment if the
+    other direction:<informalexample>
+        <programlisting>  b := sb;
+  s := ss;
+  q := sq;
+  a := sa;</programlisting>
+      </informalexample>will, of course, always work. Finally, conversion
+    between <type>array</type>s is legal but only if the following conditions
+    are all met:</para>
+
+    <itemizedlist>
+      <listitem>
+        <para>The types of the <type>array</type> are the same or one type is
+        a subtype of another.</para>
+      </listitem>
+
+      <listitem>
+        <para>The <type>array</type> size is not only the same but the indices
+        are in the same range.</para>
+      </listitem>
+    </itemizedlist>
+
+    <para>Hence, if we declare:<informalexample>
+        <programlisting>  subtype X is T;
+  aa : array (1 .. 10) of T;
+  ab : array (1 .. 10) of T;
+  ac : array (5 .. 10) of T;
+  ad : array (1 .. 10) of X;
+  ae : array (10 .. 20) of T;
+  af : array (1 .. 10) of Y;</programlisting>
+      </informalexample>Then the following are legal:<informalexample>
+        <programlisting>  aa := ab;
+  ac := aa[5..10];
+  aa := ad;</programlisting>
+      </informalexample>and the following are illegal:<informalexample>
+        <programlisting>  aa := ac;                // illegal : different array size
+  aa := af;                // illegal : different types
+  aa := ae;                // illegal : different indices
+  ab := ae[10 .. 20];      // illegal : different size and different indices</programlisting>
+      </informalexample></para>
+  </section>
+
+  <section xml:id="CompositeTypesSummary"><info><title>Summary</title></info>
+    
+
+    <para>All the operators introduced in this chapter are shown in <xref linkend="CompositeTypesMoreOperators"/> grouped by precedence level. In
+    all the cases of binary operators, the two operands must be of the same
+    base type.</para>
+
+    <table xml:id="CompositeTypesMoreOperators"><info><title>More Operators</title></info>
+      
+
+      <tgroup cols="4">
+        <thead>
+          <row>
+            <entry>Operator</entry>
+
+            <entry>Operation</entry>
+
+            <entry>Operand(s)</entry>
+
+            <entry>Result</entry>
+          </row>
+        </thead>
+
+        <tbody>
+          <row>
+            <entry><literal>&amp;</literal></entry>
+
+            <entry>collection concatenation </entry>
+
+            <entry><type>set</type>, <type>bag</type> or
+            <type>sequence</type></entry>
+
+            <entry>same</entry>
+          </row>
+
+          <row>
+            <entry><literal>union</literal></entry>
+
+            <entry>set union </entry>
+
+            <entry><type>set</type>, <type>bag</type> or
+            <type>sequence</type></entry>
+
+            <entry>same</entry>
+          </row>
+
+          <row>
+            <entry><literal>not_in</literal></entry>
+
+            <entry>set subtraction</entry>
+
+            <entry><type>set</type>, <type>bag</type> or
+            <type>sequence</type></entry>
+
+            <entry>same</entry>
+          </row>
+
+          <row>
+            <entry><literal>intersection</literal></entry>
+
+            <entry>set intersection</entry>
+
+            <entry><type>set</type></entry>
+
+            <entry>same</entry>
+          </row>
+
+          <row>
+            <entry><literal>disunion</literal></entry>
+
+            <entry>set disunion</entry>
+
+            <entry><type>set</type>, <type>bag</type> or
+            <type>sequence</type></entry>
+
+            <entry>same</entry>
+          </row>
+        </tbody>
+      </tgroup>
+    </table>
+  </section>
+</chapter>

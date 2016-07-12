@@ -30,7 +30,10 @@ import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.MenuItem;
-
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.ComponentInstance_c;
 import org.xtuml.bp.core.ComponentReference_c;
 import org.xtuml.bp.core.Component_c;
@@ -46,20 +49,23 @@ import org.xtuml.bp.core.ui.perspective.BridgePointPerspective;
 import org.xtuml.bp.debug.ui.test.DebugUITestUtilities;
 import org.xtuml.bp.test.TestUtil;
 import org.xtuml.bp.test.common.BaseTest;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.test.common.TestingUtilities;
 import org.xtuml.bp.test.common.UITestingUtilities;
 
+@RunWith(OrderedRunner.class)
 public class VerifierLaunchActionTests extends BaseTest {
 
 	private static String projectName = "VerifierLaunchConfigurationTests";
 	private boolean initialized = false;
 
-	public VerifierLaunchActionTests(String testName) throws Exception {
-		super(projectName , testName);
+	public VerifierLaunchActionTests() throws Exception {
+		super(projectName , null);
 	}
 	
 	@Override
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
         super.setUp();
         
     	if(!initialized) {    		
@@ -96,6 +102,7 @@ public class VerifierLaunchActionTests extends BaseTest {
     	}
 	}
 	
+	@After
 	public void tearDown() throws Exception {
 		DebugUITestUtilities.stopSession(m_sys, projectName);
 	}
@@ -103,6 +110,7 @@ public class VerifierLaunchActionTests extends BaseTest {
 	/* TODO dts0100656068
 	 *   Consistenly get failure between expected and actual result.
 	 *
+	@Test
 	public void testLaunchComponentPackage() {
 		ComponentPackage_c compPackage = ComponentPackage_c.getOneCP_CPOnR4606(m_sys, new ClassQueryInterface_c() {
 			public boolean evaluate(Object candidate) {
@@ -137,6 +145,7 @@ public class VerifierLaunchActionTests extends BaseTest {
 		assertEquals(expected_results, actual_results);
 	}*/
 
+	@Test
 	public void testLaunchComponent() {
 		Component_c component = Component_c.getOneC_COnR8001(
 				PackageableElement_c.getManyPE_PEsOnR8000(Package_c
@@ -180,6 +189,7 @@ public class VerifierLaunchActionTests extends BaseTest {
     /* TODO dts0100656068
      *   Consistenly get failure between expected and actual result.
      *
+	@Test
 	public void testLaunchAssignedImportedComponent() {
 		ComponentReference_c icomponent = ComponentReference_c.getOneCL_ICOnR4201(Component_c.getManyC_CsOnR4608(ComponentPackage_c.getManyCP_CPsOnR4606(m_sys)), new ClassQueryInterface_c() {
 		
@@ -219,6 +229,7 @@ public class VerifierLaunchActionTests extends BaseTest {
 		assertEquals(expected_results, actual_results);
 	}*/
 	
+	@Test
 	public void testLaunchNotAssignedImportedComponent() {
 		ComponentReference_c icomponent = ComponentReference_c.getOneCL_ICOnR8001(
 				PackageableElement_c.getManyPE_PEsOnR8000(Package_c

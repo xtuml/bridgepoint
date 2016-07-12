@@ -18,20 +18,25 @@ import java.util.List;
 import java.util.Vector;
 
 import org.eclipse.swt.widgets.Display;
-
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.common.IModelDelta;
 import org.xtuml.bp.core.common.ModelChangeAdapter;
 import org.xtuml.bp.core.common.ModelChangedEvent;
 import org.xtuml.bp.test.common.BaseTest;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.ui.canvas.Ooaofgraphics;
 
+@RunWith(OrderedRunner.class)
 public class ModelChangeListenersBatchingTestGenerics extends CoreTest {
 
 	public ModelChangeListenersBatchingTestGenerics() {
 		super();
 	}
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		m_wp = null; // make sure widgets are updated and not disposed
 		super.setUp();
 	}
@@ -39,14 +44,16 @@ public class ModelChangeListenersBatchingTestGenerics extends CoreTest {
 	TestModelChangeListener instantListener = new TestModelChangeListener(false);
 	TestModelChangeListener batchedListener = new TestModelChangeListener(true);
 
-	public void testModelCHange() throws Exception{
-		doTestCreateModelElement();
-		doTestDeleteModelElement();
-		doTestRenameSQ_CP();
-		doTestRenameO_ATTR();
-	}
+//	@Test
+//	public void testModelCHange() throws Exception{
+//		doTestCreateModelElement();
+//		doTestDeleteModelElement();
+//		doTestRenameSQ_CP();
+//		doTestRenameO_ATTR();
+//	}
 
-	public void doTestCreateModelElement() throws Exception {
+	@Test
+	public void testCreateModelElement() throws Exception {
 		ActionTestGenerics test = new ActionTestGenerics();
 		test.setUp();
 		modelRoot = BaseTest.getDefaultTestInstance();
@@ -98,7 +105,8 @@ public class ModelChangeListenersBatchingTestGenerics extends CoreTest {
 				.removeModelChangeListener(batchedListener);
 	}
 
-	public void doTestDeleteModelElement() throws Exception {
+	@Test
+	public void testDeleteModelElement() throws Exception {
 		BaseTest.dispatchEvents(0);
 		ActionTestGenerics delAction = new ActionTestGenerics();
 		delAction.setUp();
@@ -141,7 +149,8 @@ public class ModelChangeListenersBatchingTestGenerics extends CoreTest {
 				.removeModelChangeListener(batchedListener);
 	}
 
-	public void doTestRenameSQ_CP() throws Exception {
+	@Test
+	public void testRenameSQ_CP() throws Exception {
 		RenameTestGenerics renTest = new RenameTestGenerics();
 		renTest.setUp();
 		Display d = Display.getDefault();
@@ -183,7 +192,8 @@ public class ModelChangeListenersBatchingTestGenerics extends CoreTest {
 				.removeModelChangeListener(batchedListener);
 	}
 
-	public void doTestRenameO_ATTR() throws Exception {
+	@Test
+	public void testRenameO_ATTR() throws Exception {
 		RenameTestGenerics renTest = new RenameTestGenerics();
 		renTest.setUp();
 		Display d = Display.getDefault();

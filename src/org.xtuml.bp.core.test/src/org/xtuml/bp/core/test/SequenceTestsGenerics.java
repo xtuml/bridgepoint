@@ -37,7 +37,9 @@ import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.PlatformUI;
-
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.AsynchronousMessage_c;
 import org.xtuml.bp.core.Attribute_c;
 import org.xtuml.bp.core.BridgeParameter_c;
@@ -85,6 +87,7 @@ import org.xtuml.bp.test.TestUtil;
 import org.xtuml.bp.test.common.BaseTest;
 import org.xtuml.bp.test.common.CanvasTestUtils;
 import org.xtuml.bp.test.common.FailableRunnable;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.test.common.UITestingUtilities;
 import org.xtuml.bp.ui.canvas.Ooaofgraphics;
 import org.xtuml.bp.ui.canvas.test.CanvasTest;
@@ -95,14 +98,14 @@ import org.xtuml.bp.utilities.ui.CanvasUtilities;
 /**
  * Contains tests that exercise the functionality of sequence diagrams.
  */
+@RunWith(OrderedRunner.class)
 public class SequenceTestsGenerics extends CanvasTest {
 	private String test_id;
 
 	private boolean generateResults = false;
 
-	public SequenceTestsGenerics(String arg0) {
-		super(null, arg0);
-
+	public SequenceTestsGenerics(){
+		super(null, null);
 	}
 
 	/**
@@ -122,7 +125,8 @@ public class SequenceTestsGenerics extends CanvasTest {
 	 * 
 	 * @see junit.framework.TestCase#setUp()
 	 */
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		super.setUp();
 
 		//m_sys = getSystemModel("Default Project");
@@ -139,52 +143,54 @@ public class SequenceTestsGenerics extends CanvasTest {
 		}
 	}
 
-	public void testSequenceTest(){
-		  doTestFormalSequenceModeling();
-	      doTestInformalSequenceModeling();
-	      doTestSequenceInSequenceModeling();
-	      doTestFormalizeInstanceWithNestedClass();
-	      doTestFormalizeFormalizedInstance();
-	      doTestUnformalizeInstanceRestoresInformalAVs();
-	      doTestFormalizeImportedClassWithNestedClass();
-	      doTestFormalizeFormalizedImportedClassWithClass();
-	      doTestUnformalizeImportedClassRestoresInformalAttributes();
-	      doTestFormalizeFunctionPackage();
-	      doTestFormalizeFormalizedFunctionPackage();
-	      doTestFormalizeEE();
-	      doTestFormalizeFormalizedEE();
-	      doTestFormalizeSynchronousMessageCB();
-	      doTestFormalizeFormalizedSynchronousMessageCB();
-	      doTestFormalizeSynchronousMessageIB();
-	      doTestFormalizeSynchronousMessageWithFunction();
-	      doTestFormalizeSynchronousMessageWithBridgeOperation();
-	      doTestFormalizeAsynchronousMessageWithCBEvent();
-	      doTestFormalizeAsynchronousMessageWithCreationEvent();
-	      doTestFormalizeFormalizedAsynchronousMessageWithCBEvent();
-	      doTestFormalizeAsynchronousMessageWithIBEvent();
-	      doTestUnformalizeFunctionPackage();
-	      doTestUnformalizeEE();
-	      doTestUnformalizeSynchronousMessage();
-	      doTestUnformalizeAsynchronousMessage();
-	      doTestFormalizedInstanceElementChangesAreReflected();
-	      doTestFormalizedEEElementChangesAreReflected();
-	      doTestFormalizedFPElementChangesAreReflected();
-	      doTestFormalMessageArgumentCannotDeleteRename();
-	      doTestFormalAttributeValueCannotDeleteRename();
-	      doTestUnformalizeDisabled();
-	      doTestRenamingAttributeValueRepresentedByLabel();
-	      doTestSequenceInSubsystemModeling();
-	      doTestSequenceInDomainModeling();
-	      doTestFormalizationOfNestedSequenceElement();
-	      doTestCreateInformalSequenceUnderSystem();
-	      doTestCreateInformalSequenceUnderComponent();
-	      doTestDeleteReferredToComponent();
-	}
+//	@Test
+//	public void testSequenceTest(){
+//		  doTestFormalSequenceModeling();
+//	      doTestInformalSequenceModeling();
+//	      doTestSequenceInSequenceModeling();
+//	      doTestFormalizeInstanceWithNestedClass();
+//	      doTestFormalizeFormalizedInstance();
+//	      doTestUnformalizeInstanceRestoresInformalAVs();
+//	      doTestFormalizeImportedClassWithNestedClass();
+//	      doTestFormalizeFormalizedImportedClassWithClass();
+//	      doTestUnformalizeImportedClassRestoresInformalAttributes();
+//	      doTestFormalizeFunctionPackage();
+//	      doTestFormalizeFormalizedFunctionPackage();
+//	      doTestFormalizeEE();
+//	      doTestFormalizeFormalizedEE();
+//	      doTestFormalizeSynchronousMessageCB();
+//	      doTestFormalizeFormalizedSynchronousMessageCB();
+//	      doTestFormalizeSynchronousMessageIB();
+//	      doTestFormalizeSynchronousMessageWithFunction();
+//	      doTestFormalizeSynchronousMessageWithBridgeOperation();
+//	      doTestFormalizeAsynchronousMessageWithCBEvent();
+//	      doTestFormalizeAsynchronousMessageWithCreationEvent();
+//	      doTestFormalizeFormalizedAsynchronousMessageWithCBEvent();
+//	      doTestFormalizeAsynchronousMessageWithIBEvent();
+//	      doTestUnformalizeFunctionPackage();
+//	      doTestUnformalizeEE();
+//	      doTestUnformalizeSynchronousMessage();
+//	      doTestUnformalizeAsynchronousMessage();
+//	      doTestFormalizedInstanceElementChangesAreReflected();
+//	      doTestFormalizedEEElementChangesAreReflected();
+//	      doTestFormalizedFPElementChangesAreReflected();
+//	      doTestFormalMessageArgumentCannotDeleteRename();
+//	      doTestFormalAttributeValueCannotDeleteRename();
+//	      doTestUnformalizeDisabled();
+//	      doTestRenamingAttributeValueRepresentedByLabel();
+//	      doTestSequenceInSubsystemModeling();
+//	      doTestSequenceInDomainModeling();
+//	      doTestFormalizationOfNestedSequenceElement();
+//	      doTestCreateInformalSequenceUnderSystem();
+//	      doTestCreateInformalSequenceUnderComponent();
+//	      doTestDeleteReferredToComponent();
+//	}
 
 	/**
 	 * Tests that formal sequence modeling is drawn correctly
 	 */
-	public void doTestFormalSequenceModeling() {
+	@Test
+	public void testFormalSequenceModeling() {
 		test_id = "1";
 		String diagramName = "Formal SQ In SS";
 		Package_c formalSequence = getPackage(diagramName);
@@ -198,7 +204,8 @@ public class SequenceTestsGenerics extends CanvasTest {
 	 * Tests that informal sequence modeling is drawn correctly as well as
 	 * sequences in domains
 	 */
-	public void doTestInformalSequenceModeling() {
+	@Test
+	public void testInformalSequenceModeling() {
 		test_id = "2";
 		final String diagramName = "Informal SQ In Domain";
 		Package_c informalSequence = getPackage(diagramName);
@@ -211,7 +218,8 @@ public class SequenceTestsGenerics extends CanvasTest {
 	/**
 	 * Tests that sequences can be drawn in sequences
 	 */
-	public void doTestSequenceInSequenceModeling() {
+	@Test
+	public void testSequenceInSequenceModeling() {
 		test_id = "3";
 		final String diagramName = "SQ In SQ";
 		Package_c sis = getPackage(diagramName);
@@ -224,7 +232,8 @@ public class SequenceTestsGenerics extends CanvasTest {
 	/**
 	 * Tests that an instance can be formalized with a nested class
 	 */
-	public void doTestFormalizeInstanceWithNestedClass() {
+	@Test
+	public void testFormalizeInstanceWithNestedClass() {
 		test_id = "4";
 		// open the canvas editor to test on
 		String diagramName = "Informal SQ In Domain";
@@ -261,7 +270,8 @@ public class SequenceTestsGenerics extends CanvasTest {
 	/**
 	 * Tests that a formalized instance can be formalized again
 	 */
-	public void doTestFormalizeFormalizedInstance() {
+	@Test
+	public void testFormalizeFormalizedInstance() {
 		test_id = "5";
 		// open the canvas editor to test on
 		String diagramName = "Informal SQ In Domain";
@@ -299,7 +309,8 @@ public class SequenceTestsGenerics extends CanvasTest {
 	 * Tests that a when a formalized instances is unformalized the previous
 	 * informal attribute values are restored
 	 */
-	public void doTestUnformalizeInstanceRestoresInformalAVs() {
+	@Test
+	public void testUnformalizeInstanceRestoresInformalAVs() {
 		test_id = "6";
 		// open the canvas editor to test on
 		String diagramName = "Informal SQ In Domain";
@@ -330,7 +341,8 @@ public class SequenceTestsGenerics extends CanvasTest {
 	/**
 	 * Tests that an imported class can be formalized with a nested class
 	 */
-	public void doTestFormalizeImportedClassWithNestedClass() {
+	@Test
+	public void testFormalizeImportedClassWithNestedClass() {
 		test_id = "7";
 		// open the canvas editor to test on
 		String diagramName = "Informal SQ In Domain";
@@ -367,7 +379,8 @@ public class SequenceTestsGenerics extends CanvasTest {
 	/**
 	 * Tests that an imported class can be formalized with a nested class
 	 */
-	public void doTestFormalizeFormalizedImportedClassWithClass() {
+	@Test
+	public void testFormalizeFormalizedImportedClassWithClass() {
 		test_id = "8";
 		// open the canvas editor to test on
 		String diagramName = "Informal SQ In Domain";
@@ -405,7 +418,8 @@ public class SequenceTestsGenerics extends CanvasTest {
 	 * Tests that when an imported class is unformalized the informal attributes
 	 * are restored
 	 */
-	public void doTestUnformalizeImportedClassRestoresInformalAttributes() {
+	@Test
+	public void testUnformalizeImportedClassRestoresInformalAttributes() {
 		test_id = "9";
 		// open the canvas editor to test on
 		String diagramName = "Informal SQ In Domain";
@@ -437,7 +451,8 @@ public class SequenceTestsGenerics extends CanvasTest {
 	 * Tests that an imported function package may be formalized with a nested
 	 * function package
 	 */
-	public void doTestFormalizeFunctionPackage() {
+	@Test
+	public void testFormalizeFunctionPackage() {
 		test_id = "10";
 		// open the canvas editor to test on
 		String diagramName = "Informal SQ In Domain";
@@ -475,7 +490,8 @@ public class SequenceTestsGenerics extends CanvasTest {
 	 * Tests that an formalized imported function package may be formalized with
 	 * a function package
 	 */
-	public void doTestFormalizeFormalizedFunctionPackage() {
+	@Test
+	public void testFormalizeFormalizedFunctionPackage() {
 		test_id = "11";
 		// open the canvas editor to test on
 		String diagramName = "Informal SQ In Domain";
@@ -512,7 +528,8 @@ public class SequenceTestsGenerics extends CanvasTest {
 	/**
 	 * Tests that an imported ee may be formalized with a nested ee
 	 */
-	public void doTestFormalizeEE() {
+	@Test
+	public void testFormalizeEE() {
 		test_id = "12";
 		// open the canvas editor to test on
 		String diagramName = "Informal SQ In Domain";
@@ -549,7 +566,8 @@ public class SequenceTestsGenerics extends CanvasTest {
 	/**
 	 * Tests that an imported ee may be formalized with a nested ee
 	 */
-	public void doTestFormalizeFormalizedEE() {
+	@Test
+	public void testFormalizeFormalizedEE() {
 		test_id = "13";
 		// open the canvas editor to test on
 		String diagramName = "Informal SQ In Domain";
@@ -587,7 +605,8 @@ public class SequenceTestsGenerics extends CanvasTest {
 	 * Tests that a synchronous message may be formalized against a Class Based
 	 * operation
 	 */
-	public void doTestFormalizeSynchronousMessageCB() {
+	@Test
+	public void testFormalizeSynchronousMessageCB() {
 		test_id = "14";
 		// open the canvas editor to test on
 		String diagramName = "Formal SQ In SS";
@@ -637,7 +656,8 @@ public class SequenceTestsGenerics extends CanvasTest {
 	 * Tests that a formalized synchronous message may be formalized against a
 	 * Class Based operation
 	 */
-	public void doTestFormalizeFormalizedSynchronousMessageCB() {
+	@Test
+	public void testFormalizeFormalizedSynchronousMessageCB() {
 		test_id = "15";
 		// open the canvas editor to test on
 		String diagramName = "Formal SQ In SS";
@@ -687,7 +707,8 @@ public class SequenceTestsGenerics extends CanvasTest {
 	 * Tests that a synchronous message may be formalized against an Instance
 	 * Based operation
 	 */
-	public void doTestFormalizeSynchronousMessageIB() {
+	@Test
+	public void testFormalizeSynchronousMessageIB() {
 		test_id = "16";
 		// open the canvas editor to test on
 		String diagramName = "Formal SQ In SS";
@@ -738,7 +759,8 @@ public class SequenceTestsGenerics extends CanvasTest {
 	/**
 	 * Tests that a synchronous message may be formalized against a function
 	 */
-	public void doTestFormalizeSynchronousMessageWithFunction() {
+	@Test
+	public void testFormalizeSynchronousMessageWithFunction() {
 		test_id = "17";
 		// open the canvas editor to test on
 		String diagramName = "Informal SQ In Domain";
@@ -788,7 +810,8 @@ public class SequenceTestsGenerics extends CanvasTest {
 	 * Tests that a synchronous message may be formalized against a bridge
 	 * operation
 	 */
-	public void doTestFormalizeSynchronousMessageWithBridgeOperation() {
+	@Test
+	public void testFormalizeSynchronousMessageWithBridgeOperation() {
 		test_id = "18";
 		// open the canvas editor to test on
 		String diagramName = "Informal SQ In Domain";
@@ -838,7 +861,8 @@ public class SequenceTestsGenerics extends CanvasTest {
 	 * Tests that an asynchronous message may be formalized against a class
 	 * based event
 	 */
-	public void doTestFormalizeAsynchronousMessageWithCBEvent() {
+	@Test
+	public void testFormalizeAsynchronousMessageWithCBEvent() {
 		test_id = "19";
 		// open the canvas editor to test on
 		String diagramName = "Formal SQ In SS";
@@ -888,7 +912,8 @@ public class SequenceTestsGenerics extends CanvasTest {
 	 * Tests that an asynchronous message may be formalized against a creation
 	 * event
 	 */
-	public void doTestFormalizeAsynchronousMessageWithCreationEvent() {
+	@Test
+	public void testFormalizeAsynchronousMessageWithCreationEvent() {
 		test_id = "20";
 		// open the canvas editor to test on
 		String diagramName = "Informal SQ In Domain";
@@ -940,7 +965,8 @@ public class SequenceTestsGenerics extends CanvasTest {
 	 * Tests that a formalized asynchronous message may be formalized against a
 	 * class based event
 	 */
-	public void doTestFormalizeFormalizedAsynchronousMessageWithCBEvent() {
+	@Test
+	public void testFormalizeFormalizedAsynchronousMessageWithCBEvent() {
 		test_id = "21";
 		// open the canvas editor to test on
 		String diagramName = "Formal SQ In SS";
@@ -990,7 +1016,8 @@ public class SequenceTestsGenerics extends CanvasTest {
 	 * Tests that an asynchronous message may be formalized against an instance
 	 * based event, as well as an inherited event
 	 */
-	public void doTestFormalizeAsynchronousMessageWithIBEvent() {
+	@Test
+	public void testFormalizeAsynchronousMessageWithIBEvent() {
 		test_id = "22";
 		// open the canvas editor to test on
 		String diagramName = "Informal SQ In Domain";
@@ -1039,7 +1066,8 @@ public class SequenceTestsGenerics extends CanvasTest {
 	/**
 	 * Tests unformalizing a Package
 	 */
-	public void doTestUnformalizeFunctionPackage() {
+	@Test
+	public void testUnformalizeFunctionPackage() {
 		test_id = "23";
 		// open the canvas editor to test on
 		String diagramName = "Formal SQ In SS";
@@ -1070,7 +1098,8 @@ public class SequenceTestsGenerics extends CanvasTest {
 	/**
 	 * Tests unformalizing an ee
 	 */
-	public void doTestUnformalizeEE() {
+	@Test
+	public void testUnformalizeEE() {
 		test_id = "24";
 		// open the canvas editor to test on
 		String diagramName = "Formal SQ In SS";
@@ -1101,7 +1130,8 @@ public class SequenceTestsGenerics extends CanvasTest {
 	/**
 	 * Tests unformalizing a synchronous message
 	 */
-	public void doTestUnformalizeSynchronousMessage() {
+	@Test
+	public void testUnformalizeSynchronousMessage() {
 		test_id = "25";
 		// open the canvas editor to test on
 		String diagramName = "Formal SQ In SS";
@@ -1132,7 +1162,8 @@ public class SequenceTestsGenerics extends CanvasTest {
 	/**
 	 * Tests unformalizing a asynchronous message
 	 */
-	public void doTestUnformalizeAsynchronousMessage() {
+	@Test
+	public void testUnformalizeAsynchronousMessage() {
 		test_id = "26";
 		// open the canvas editor to test on
 		String diagramName = "Formal SQ In SS";
@@ -1165,7 +1196,8 @@ public class SequenceTestsGenerics extends CanvasTest {
 	 * elements are reflected in the Package Diagram
 	 * 
 	 */
-	public void doTestFormalizedInstanceElementChangesAreReflected() {
+	@Test
+	public void testFormalizedInstanceElementChangesAreReflected() {
 		// open the canvas editor to test on
 		String diagramName = "SQ Reflected Changes";
 		Package_c sequence = getPackage(diagramName);
@@ -1304,7 +1336,8 @@ public class SequenceTestsGenerics extends CanvasTest {
 	 * elements are reflected in the Package Diagram
 	 * 
 	 */
-	public void doTestFormalizedEEElementChangesAreReflected() {
+	@Test
+	public void testFormalizedEEElementChangesAreReflected() {
 		// open the canvas editor to test on
 		String diagramName = "SQ Reflected Changes";
 		Package_c sequence = getPackage(diagramName);
@@ -1359,7 +1392,8 @@ public class SequenceTestsGenerics extends CanvasTest {
 	 * elements are reflected in the Package Diagram
 	 * 
 	 */
-	public void doTestFormalizedFPElementChangesAreReflected() {
+	@Test
+	public void testFormalizedFPElementChangesAreReflected() {
 		// open the canvas editor to test on
 		String diagramName = "SQ Reflected Changes";
 		Package_c sequence = getPackage(diagramName);
@@ -1413,7 +1447,8 @@ public class SequenceTestsGenerics extends CanvasTest {
 	 * formalized
 	 * 
 	 */
-	public void doTestFormalMessageArgumentCannotDeleteRename() {
+	@Test
+	public void testFormalMessageArgumentCannotDeleteRename() {
 		// select any formal message argument
 		MessageArgument_c argument = MessageArgument_c.MessageArgumentInstance(
 				modelRoot, new ClassQueryInterface_c() {
@@ -1436,7 +1471,8 @@ public class SequenceTestsGenerics extends CanvasTest {
 	 * formalized
 	 * 
 	 */
-	public void doTestFormalAttributeValueCannotDeleteRename() {
+	@Test
+	public void testFormalAttributeValueCannotDeleteRename() {
 		// create a formal attribute value
 		ClassInstanceParticipant_c cip = new ClassInstanceParticipant_c(
 				modelRoot);
@@ -1455,7 +1491,8 @@ public class SequenceTestsGenerics extends CanvasTest {
 	 * Tests that unformalize menu item is not available when elements are not
 	 * formal
 	 */
-	public void doTestUnformalizeDisabled() {
+	@Test
+	public void testUnformalizeDisabled() {
 		// test that an informal instance does not have the menu item
 		ClassInstanceParticipant_c instance = ClassInstanceParticipant_c
 				.ClassInstanceParticipantInstance(modelRoot,
@@ -1570,7 +1607,8 @@ public class SequenceTestsGenerics extends CanvasTest {
 	 * editor used for renaming elements
 	 * 
 	 */
-	public void doTestRenamingAttributeValueRepresentedByLabel() {
+	@Test
+	public void testRenamingAttributeValueRepresentedByLabel() {
 		InstanceAttributeValue_c value = InstanceAttributeValue_c
 				.InstanceAttributeValueInstance(modelRoot,
 						new ClassQueryInterface_c() {
@@ -1600,7 +1638,8 @@ public class SequenceTestsGenerics extends CanvasTest {
 	/**
 	 * Tests that sequences are shown correctly in subsystems
 	 */
-	public void doTestSequenceInSubsystemModeling() {
+	@Test
+	public void testSequenceInSubsystemModeling() {
 		test_id = "41";
 		final String diagramName = "SS A";
 		Package_c subsystem = Package_c.PackageInstance(modelRoot,
@@ -1621,7 +1660,8 @@ public class SequenceTestsGenerics extends CanvasTest {
 	/**
 	 * Tests that sequences are shown correctly in subsystems
 	 */
-	public void doTestSequenceInDomainModeling() {
+	@Test
+	public void testSequenceInDomainModeling() {
 		test_id = "42";
 		final String diagramName = "SequenceTestModel";
 		Package_c domain = Package_c.PackageInstance(modelRoot,
@@ -1638,7 +1678,8 @@ public class SequenceTestsGenerics extends CanvasTest {
 
 	 */
 
-	public void doTestFormalizationOfNestedSequenceElement() {
+	@Test
+	public void testFormalizationOfNestedSequenceElement() {
 		ClassInstanceParticipant_c cip = ClassInstanceParticipant_c
 				.ClassInstanceParticipantInstance(modelRoot,
 						new ClassQueryInterface_c() {
@@ -1661,7 +1702,8 @@ public class SequenceTestsGenerics extends CanvasTest {
 	/**
 	 * Test creating sequences under the system level
 	 */
-	public void doTestCreateInformalSequenceUnderSystem() {
+	@Test
+	public void testCreateInformalSequenceUnderSystem() {
 		test_id = "43";
 		CanvasUtilities.openCanvasEditor(m_sys);
 		GraphicalEditor activeEditor = (GraphicalEditor) UITestingUtilities
@@ -1718,7 +1760,8 @@ public class SequenceTestsGenerics extends CanvasTest {
 	 * Test creating sequence under component
 	 */
 
-	public void doTestCreateInformalSequenceUnderComponent() {
+	@Test
+	public void testCreateInformalSequenceUnderComponent() {
 		resizeMainWindow();
 		Display d = Display.getCurrent();
 		while (d.readAndDispatch());
@@ -1758,7 +1801,8 @@ public class SequenceTestsGenerics extends CanvasTest {
 		validateOrGenerateResultsGenerics(activeEditor, generateResults, false);
 	}
 
-	public void doTestDeleteReferredToComponent() {
+	@Test
+	public void testDeleteReferredToComponent() {
 		resizeMainWindow();
 		Display d = Display.getCurrent();
 		while (d.readAndDispatch());

@@ -1120,11 +1120,11 @@ if(not_empty system)
 end if;
 select many events related by machine->SM_EVT[R502];
 for each evt in events
-  if(evt != self and evt.getSignature() == self.getSignature())
+  if(evt != self and evt.getSignature(flavor:0) == self.getSignature(flavor:0))
     MI_IM::createIssue(sys_id:sys_id, description:
                "Found another event under the same state machine with a " +
                                                           "matching signature."
-          + GD::newline() + GD::newline() + "Signature: " + self.getSignature(),
+          + GD::newline() + GD::newline() + "Signature: " + self.getSignature(flavor:0),
                                       severity:Severity::Error, name:self.Mning,
                            path:self.getPath(),
                             id:self.SMevt_ID, element:self.convertToInstance());
@@ -1150,29 +1150,98 @@ INSERT INTO O_TFR
 	1,
 	'/**
  *  Return a string representation of this events signature
+ *  with the specified flavor
+ *  0 = named parameters
+ *  1 = positional parameters
+ *  named signature = event(param1:type, param2:type, param3:type)
+ *  parameters for the named flavor are sorted alphanumerically
+ *  positional signature = event(param1_type, param2_type, param3_type)
  */
-signature = self.Mning;
-count = 0;
-select many parameters related by self->SM_EVTDI[R532];
-paramLength = cardinality parameters;
-if(paramLength > 0)
-  signature = signature + "(";
-end if;
-for each parameter in parameters
-  select one type related by parameter->S_DT[R524];
-  if(count > 0 and count != paramLength - 1)
-    signature = signature + ", ";
+ 
+signature = "";
+
+// Get name
+signature = signature + self.Mning;
+
+// Get parameters
+
+if ( 1 == param.flavor )
+
+  // Get the first parameter.
+  select any parameter related by self->SM_EVTDI[R532];
+  first_param = parameter;
+  while ( not_empty parameter )
+	first_param = parameter;
+	select one parameter related by parameter->SM_EVTDI[R533.''succeeds''];
+  end while;
+
+  if( not_empty first_param )
+	signature = signature + "(";
   end if;
-  signature = signature + type.Name;
-  count = count + 1;
-end for;
-if(paramLength > 0)
-  signature = signature + ")";
+  separator = "";
+  parameter = first_param;
+  while ( not_empty parameter )
+	select one type related by parameter->S_DT[R524];
+	signature = signature + separator + type.Name;
+	separator = ", ";
+	select one parameter related by parameter->SM_EVTDI[R533.''precedes''];
+  end while;
+  if( not_empty first_param )
+	signature = signature + ")";
+  end if;
+
+elif ( 0 == param.flavor )
+
+  // get the parameters in sorted order
+  separator = "";
+  select many parameters related by self->SM_EVTDI[R532];
+  num_params = cardinality parameters; 
+  if ( num_params > 0 )
+	signature = signature + "(";
+  end if;
+
+  // the following time complexity is n^2
+  count = 0;
+  select any last_param from instances of SM_EVTDI where false;
+  select any curr_param from instances of SM_EVTDI where false;
+  while ( count < num_params )
+    for each parameter in parameters
+      if ( ( empty curr_param and empty last_param )
+           or ( empty curr_param and not_empty last_param and parameter != last_param and parameter.Name >= last_param.Name )
+           or ( not_empty curr_param and empty last_param and parameter.Name < curr_param.Name )
+           or ( not_empty curr_param and not_empty last_param and parameter != last_param and parameter.Name >= last_param.Name and parameter.Name < curr_param.Name ) )
+        curr_param = parameter;
+      end if;
+    end for;
+    
+    select one type related by curr_param->S_DT[R524];
+    signature = signature + separator + curr_param.Name + ":" + type.Name;
+    separator = ", ";
+
+    last_param = curr_param;
+    select any curr_param from instances of SM_EVTDI where false;
+    count = count + 1;
+  end while;
+
+  if ( num_params > 0 )
+	signature = signature + ")";
+  end if;
+  
 end if;
+
 return signature;',
 	1,
 	'',
 	"8cc8f452-6a5b-42c2-850a-e3cbfd1e3e18");
+INSERT INTO O_TPARM
+	VALUES ("2d089a33-201b-4408-8f24-68b6283227e7",
+	"388f5142-ef39-449b-8bc0-c24e6b6fdf9f",
+	'flavor',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
 INSERT INTO O_NBATTR
 	VALUES ("230b2bab-457c-4eae-bfe1-b824ac2f5324",
 	"31832e28-c7f1-4e83-9c56-28614980fb33");

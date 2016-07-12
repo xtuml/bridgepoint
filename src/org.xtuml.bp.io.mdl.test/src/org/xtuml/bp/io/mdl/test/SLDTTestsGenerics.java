@@ -28,7 +28,8 @@ package org.xtuml.bp.io.mdl.test;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
-
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.CoreDataType_c;
 import org.xtuml.bp.core.DataType_c;
 import org.xtuml.bp.core.GlobalElementInSystem_c;
@@ -36,9 +37,11 @@ import org.xtuml.bp.core.PackageableElement_c;
 import org.xtuml.bp.core.SystemModel_c;
 import org.xtuml.bp.core.UserDataType_c;
 import org.xtuml.bp.test.common.BaseTest;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.test.common.TestingUtilities;
 
 
+@RunWith(OrderedRunner.class)
 public class SLDTTestsGenerics extends BaseTest {
 
 	/**
@@ -47,6 +50,7 @@ public class SLDTTestsGenerics extends BaseTest {
 	 * 
 	 * @throws CoreException
 	 */
+	@Test
 	public void testCoreTypeOfSLDTForNewProject()
 			throws CoreException {
 		IProject testProject = TestingUtilities

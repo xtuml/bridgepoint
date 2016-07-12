@@ -227,6 +227,7 @@ INSERT INTO CME VALUES ('Types',  'Structured DataType',      'EP_PKG',    'S_SD
 INSERT INTO CME VALUES ('Types',  'Constant Specification',   'EP_PKG',    'CNST_CSP',      false, '', '', false, '', false, false, '' ,'->PE_PE[R8000]->CNST_CSP[R8001]');
 INSERT INTO CME VALUES ('Types',  'User DataType',  		  'EP_PKG',    'S_UDT',         false, '', '', false, '', false, false, '' ,'->PE_PE[R8000]->S_DT[R8001]->S_UDT[R17]');
 INSERT INTO CME VALUES ('Usecase',  'Usecase',  			  'EP_PKG',    'IA_UCP',         false, '', '', false, '', false, false, '' ,'->PE_PE[R8000]->SQ_P[R8001]->IA_UCP[R930]');
+INSERT INTO CME VALUES ('Exceptions', 'Exception', 'EP_PKG', 'S_EXP', false, '', '', false, '', false, false, '' ,'->PE_PE[R8000]->S_EXP[R8001]');
 INSERT INTO CME VALUES ('New',    'Function',           'EP_PKG',    'S_SYNC',               false, '', '', false, '', false, false, '' ,'->PE_PE[R8000]->S_SYNC[R8001]');
 INSERT INTO CME VALUES ('New','Package',                'EP_PKG',   'EP_PKG',                false, '', '', false, '', false, false, '' ,'->PE_PE[R8000]->EP_PKG[R8001]');
 INSERT INTO CME VALUES ('',       'Publish References',  'O_OBJ',   '',                      false, '' );
@@ -343,6 +344,8 @@ INSERT INTO CME VALUES ('', 'Set To Provider',                         'C_AS', '
 INSERT INTO CME VALUES ('', 'Set From Provider',                         'C_AS', '',                 false );
 INSERT INTO CME VALUES ('', 'Set To Provider',                         'C_IO', '',                 false );
 INSERT INTO CME VALUES ('', 'Set From Provider',                         'C_IO', '',                 false );
+INSERT INTO CME VALUES ('Delete', '',                         'S_EXP',    '',              true );
+INSERT INTO CME VALUES ('Rename', '',                         'S_EXP',   '',              true );
 --
 INSERT INTO MEF VALUES ('New',	  'Package',                  'C_C',   'new', 'package' );
 INSERT INTO MEF VALUES ('New',    'Component',         		  'C_C',   'new', 'component' );

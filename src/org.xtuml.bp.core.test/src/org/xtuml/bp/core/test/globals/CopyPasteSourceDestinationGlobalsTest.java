@@ -1,22 +1,28 @@
 package org.xtuml.bp.core.test.globals;
 
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 import org.xtuml.bp.test.GlobalsTestEnabler;
 
 public class CopyPasteSourceDestinationGlobalsTest extends GlobalsTestEnabler {
 
-	public CopyPasteSourceDestinationGlobalsTest(String name) {
-        super(null, name);
+	public CopyPasteSourceDestinationGlobalsTest(){
+		super(null, null);
 	}
 
-    protected void setUp() throws Exception {
+    @Before
+	public void setUp() throws Exception {
         super.setUp();
     }
 
-    protected void tearDown() throws Exception {
+    @After
+	public void tearDown() throws Exception {
         super.tearDown();
     }
 
-    public void testCopyPasteSourceDestinationGlobalsTest() {
+    @Test
+	public void testCopyPasteSourceDestinationGlobalsTest() {
         assert(true);
     }
 

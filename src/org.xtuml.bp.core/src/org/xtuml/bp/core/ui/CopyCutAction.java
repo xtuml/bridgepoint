@@ -27,7 +27,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.eclipse.core.runtime.NullProgressMonitor;
-import org.eclipse.jface.action.Action;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.swt.dnd.Clipboard;
 import org.eclipse.swt.dnd.TextTransfer;
@@ -45,30 +44,12 @@ import org.xtuml.bp.core.common.Transaction;
 import org.xtuml.bp.core.common.TransactionManager;
 import org.xtuml.bp.core.util.OoaofgraphicsUtil;
 
-public abstract class CopyCutAction extends Action {
+public abstract class CopyCutAction extends CutCopyPasteAction {
 
 	public static final String GENERIC_PACKAGE_HEADER = "-- generics"; //$NON-NLS-1$
 
-	protected int COPY_TYPE = 0;
-
-	protected int CUT_TYPE = 1;
-
-	private String transactioName;
-
 	public CopyCutAction() {
-		if (getActionType() == CUT_TYPE) {
-			setImageDescriptor(PlatformUI.getWorkbench().getSharedImages()
-					.getImageDescriptor(ISharedImages.IMG_TOOL_CUT));
-			setText("Cut");
-			setToolTipText("Cut the selected model elements.");
-			transactioName = "Cut";
-		} else if (getActionType() == COPY_TYPE) {
-			setImageDescriptor(PlatformUI.getWorkbench().getSharedImages()
-					.getImageDescriptor(ISharedImages.IMG_TOOL_COPY));
-			setText("Copy");
-			setToolTipText("Copy the selected model elements.");
-			transactioName = "Copy";
-		}
+		super();
 	}
 
 	public void run() {
@@ -82,33 +63,26 @@ public abstract class CopyCutAction extends Action {
 					new Transfer[] { getSecondaryTransfer() });
 			return;
 		}
-		TransactionManager manager = getTransactionManager();
-		Transaction transaction = null;
-		int old_val = 0;
 		try {
-			// only start a transaction for a cut, this allows for
-			// restoration via undo
+			List<NonRootModelElement> elementList = null;
 			if (getActionType() == CUT_TYPE) {
-				transaction = manager
-						.startTransaction(transactioName, new ModelRoot[] {
-								Ooaofooa.getDefaultInstance(),
-								(ModelRoot) OoaofgraphicsUtil.getGraphicsRoot(
-										Ooaofooa.DEFAULT_WORKING_MODELSPACE,
-										OoaofgraphicsUtil.getGraphicsClass()) });
-				Ooaofooa.beginSaveOperation();
-				// only respond to DELETE events
-				old_val = Ooaofooa.Enablemodelchangelistenersfor(
-						Ooaofooa.getDefaultInstance(), Modeleventnotification_c.DELTA_DELETE,
-						Modeleventnotification_c.MODEL_ELEMENT_CHANGED);
+				MOVE_IS_IN_PROGRESS = true;
+				// In move we do not include graphical elements in the list.
+				// We don't need them, we go get them.
+				elementList = Arrays.asList(getElementsToBeCopied(false));
+				ELEMENT_MOVE_SOURCE_SELECTION = elementList;
+			} else {
+				MOVE_IS_IN_PROGRESS = false;
+				elementList = Arrays.asList(getElementsToBeCopied(true));
 			}
+			
 			ByteArrayOutputStream out = new ByteArrayOutputStream();
 			String streamContents = "";
-			NonRootModelElement[] elements = getElementsToBeCopied(true);
-			List<NonRootModelElement> elementList = Arrays.asList(elements);
 			String packagingHeader = getPackagingHeaderFromElements(elementList);
+			NonRootModelElement[] nrmeList = new NonRootModelElement[elementList.size()];
 			IRunnableWithProgress progress = CorePlugin
-						.getStreamExportFactory()
-						.create(out, elements, true, false);
+							.getStreamExportFactory()
+							.create(out, elementList.toArray(nrmeList), true, false);
 			progress.run(new NullProgressMonitor());
 			out.close();
 			streamContents = new String(out.toByteArray());
@@ -120,25 +94,11 @@ public abstract class CopyCutAction extends Action {
 				cb.setContents(new Object[] { streamContents, secondary },
 						new Transfer[] { TextTransfer.getInstance(), getSecondaryTransfer()});
 			}
+
 			postRun();
 		} catch (Exception e) {
-			if(getActionType() == CUT_TYPE) {
-				if (transaction != null && manager != null
-						&& manager.getActiveTransaction() == transaction) {
-					manager.cancelTransaction(transaction, e);
-					transaction = null;
-				}
-			}
 			// log error
 			CorePlugin.logError("Exception during cut/copy of selection.", e);
-		} finally {
-			if (transaction != null)
-				manager.endTransaction(transaction);
-			if(getActionType() == CUT_TYPE) {
-				Ooaofooa.Enablemodelchangelistenersfor(Ooaofooa.getDefaultInstance(),
-						old_val, old_val);
-				Ooaofooa.endSaveOperation();
-			}
 		}
 	}
 
@@ -157,7 +117,5 @@ public abstract class CopyCutAction extends Action {
 	protected abstract NonRootModelElement[] getElementsToBeCopied(boolean includeGraphics);
 
 	protected abstract int getActionType();
-
-	protected abstract void postRun();
 
 }

@@ -691,7 +691,8 @@
       .end for
       .for each sub in sub_set
         .if (obj.Key_Lett != "S_DT")   .// this execlude is addressed in issue  dts0100762545
-	    public void test$r{obj.Name}Dispose$r{sub.Name}() throws Exception
+	    @Test
+	public void test$r{obj.Name}Dispose$r{sub.Name}() throws Exception
 	    {   
 	      .invoke cdt = create_dispose_test_generics( obj, op, gpr.result, gfr.result, rel_num, sub.Key_Lett, -1, "ERROR" )
 	      ${cdt.body}\
@@ -707,7 +708,8 @@
               .select many l2_sub_set related by loop2->R_SUBSUP[R206]->R_SUB[R213]->R_RGO[R205]->R_OIR[R203]->O_OBJ[R201] where ( (selected.Key_Lett != "SM_MEALY") and (selected.Key_Lett != "SM_MEAH"))
               .for each l2_sub in l2_sub_set
                 .invoke l2fcn = get_class_name( l2_sub )
-    public void test$r{obj.Name}Dispose$r{l1_sub.Name}$r{l2_sub.Name}() throws Exception
+    @Test
+	public void test$r{obj.Name}Dispose$r{l1_sub.Name}$r{l2_sub.Name}() throws Exception
     {
   .invoke cdt = create_dispose_test_generics( obj, op, gpr.result, gfr.result, loop1.Numb, l1_sub.Key_Lett, loop2.Numb, l2_sub.Key_Lett )
 ${cdt.body}\
@@ -733,7 +735,8 @@ ${cdt.body}\
         .elif (obj.Key_Lett == "S_FPK")
         .elif (obj.Key_Lett == "S_EEPK")        
         .else   					  
-	    public void test$r{obj.Name}Dispose() throws Exception
+	    @Test
+	public void test$r{obj.Name}Dispose() throws Exception
 	    {
 	  .// last arguments will be ignored
 	  .invoke cdt = create_dispose_test_generics( obj, op, gpr.result, gfr.result, -1, "ERROR", -1, "ERROR" )
@@ -765,14 +768,19 @@ package org.xtuml.bp.core.test;
 //
 
 import org.eclipse.core.runtime.NullProgressMonitor;
-
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.test.CoreTest;
 
 import org.xtuml.bp.core.*;
 import org.xtuml.bp.test.TestUtil;
 import org.xtuml.bp.test.common.BaseTest;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.core.common.ClassQueryInterface_c;
 
+@RunWith(OrderedRunner.class)
 public class ${classname} extends CoreTest
 {
     Ooaofooa modelRoot = BaseTest.getDefaultTestInstance();
@@ -785,7 +793,8 @@ public class ${classname} extends CoreTest
     /* (non-Javadoc)
      * @see junit.framework.TestCase#setUp()
      */
-    protected void setUp() throws Exception {
+    @Before
+	public void setUp() throws Exception {
         super.setUp();
 
         if (!fixtureSetUp) {
@@ -798,7 +807,8 @@ public class ${classname} extends CoreTest
 	}
 
 	@Override
-	protected void tearDown() throws Exception {
+	@After
+	public void tearDown() throws Exception {
 		super.tearDown();
 		Ooaofooa.setInUnitTest(false);
 	}

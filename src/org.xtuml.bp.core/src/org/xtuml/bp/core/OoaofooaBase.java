@@ -68,8 +68,7 @@ abstract class OoaofooaBase extends ModelRoot
     private SystemModel_c m_root = null;
 
     private ModelChangeListener modelChangeListener;
-    private SystemModelChangeListener systemModelChangeListener;
-
+    
     private ITransactionListener transactionListener;
     
     protected static Map<String, OoaofooaBase> rootInstanceMap = new Hashtable<String, OoaofooaBase>();
@@ -85,10 +84,8 @@ abstract class OoaofooaBase extends ModelRoot
         
         if(isDefaultWorkModelRoot()) {
             modelChangeListener = new ModelChangeListener();
-            systemModelChangeListener = new SystemModelChangeListener();
             transactionListener = new ModelRootTransactionListener();
             Ooaofooa.getDefaultInstance().addModelChangeListener(modelChangeListener);
-            Ooaofooa.getDefaultInstance().addModelChangeListener(systemModelChangeListener);
             TransactionManager.getSingleton().addTransactionListener(
                     transactionListener, true);
         }
@@ -181,13 +178,7 @@ abstract class OoaofooaBase extends ModelRoot
         return parts[5];
     }
     
-    protected static ILogger getLog() {return log;}
-    
-    public boolean isLoaded()
-    {
-		// TODO: BOB remove this obsolete function
-        return false;
-    }    
+    protected static ILogger getLog() {return log;} 
     
     public void delete() {
     	delete(false);
@@ -206,7 +197,6 @@ abstract class OoaofooaBase extends ModelRoot
 	        instanceListMap.clear();
 	        if(isDefaultWorkModelRoot()) {
 	            Ooaofooa.getDefaultInstance().removeModelChangeListener(modelChangeListener);
-	            Ooaofooa.getDefaultInstance().removeModelChangeListener(systemModelChangeListener);
 	            TransactionManager.getSingleton().removeTransactionListener(transactionListener);
 	        }
     	}
@@ -380,24 +370,6 @@ abstract class OoaofooaBase extends ModelRoot
             OoaofgraphicsUtil.setId(oldId, rootId);
           }
         }
-    }
-
-    /** 
-     * Listens for changes that occur to the system-model of the domain
-     * associated with this model-root.  This code has to be separate 
-     * from the ModelChangeListener inner class between syste-models
-     * are held in a different model-root than are all the other model
-     * elements. 
-     */
-    public class SystemModelChangeListener extends ModelChangeAdapter 
-    {
-    	//TODO: BOB This listener is doing nothing, remove it
-        public void modelElementUnloaded(ModelChangedEvent event) {
-        }
-
-        public void modelElementDeleted(ModelChangedEvent event, IModelDelta delta) {
-        }
-        
     }
 
     /** 

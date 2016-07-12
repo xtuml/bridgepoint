@@ -1,0 +1,271 @@
+<!-- 
+  UK Crown Copyright (c) 2016. All Rights Reserved
+-->
+<!-- Converted by db4-upgrade version 1.0 -->
+<bibliography xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="Bibliography"><info><title>Bibliography</title></info>
+
+
+<bibliodiv xml:id="BibliographyBooks"><info><title>Books</title></info>
+
+<biblioentry xml:id="Ada83">
+    <citetitle>Reference Manual for the Ada Programming Language</citetitle>
+    <authorgroup>
+        <author><orgname>American National Standards Institute</orgname></author>
+    </authorgroup>
+    <pubdate>1983</pubdate>
+    <biblioid class="pubnumber">ANSI/MIL-STD-1815A-1983</biblioid>
+    <publisher>
+        <publishername>American National Standards Institute</publishername>
+    </publisher>
+</biblioentry>
+
+<biblioentry xml:id="Ada95">
+    <citetitle>Information technology - Programming languages - Ada</citetitle>
+    <authorgroup>
+        <author><orgname>International Organization for Standardization</orgname></author>
+    </authorgroup>
+    <pubdate>2001</pubdate>
+    <copyright>
+        <year>1995</year>
+        <year>2001</year>
+        <holder>International Organization for Standardization</holder>
+    </copyright>
+    <biblioid class="pubnumber">ISO/IEC 8652:1995</biblioid>
+    <publisher>
+        <publishername>International Organization for Standardization</publishername>
+    </publisher>
+</biblioentry>
+
+<biblioentry xml:id="ASCII91">
+    <citetitle>Information technology - ISO 7-bit coded character set for information interchange</citetitle>
+    <authorgroup>
+        <author><orgname>International Organization for Standardization</orgname></author>
+    </authorgroup>
+    <pubdate>1991</pubdate>
+    <copyright>
+        <year>1991</year>
+        <year>2002</year>
+        <holder>International Organization for Standardization</holder>
+    </copyright>
+    <biblioid class="pubnumber">ISO/IEC 646:1991</biblioid>
+    <publisher>
+        <publishername>International Organization for Standardization</publishername>
+    </publisher>
+</biblioentry>
+
+<biblioentry xml:id="Barnes98">
+    <citetitle>Programming in Ada 95</citetitle>
+    <authorgroup>
+        <author><personname><firstname>John</firstname><surname>Barnes</surname></personname></author>
+    </authorgroup>
+    <edition>2nd Edition</edition>
+    <pubdate>1998</pubdate>
+    <biblioid class="isbn">ISBN 0-201-34293-6</biblioid>
+    <publisher>
+        <publishername>Addison Wesley Professional</publishername>
+    </publisher>
+</biblioentry>
+
+<biblioentry xml:id="CCS92">
+    <citetitle>Information technology - Control functions for coded character sets</citetitle>
+    <authorgroup>
+        <author><orgname>International Organization for Standardization</orgname></author>
+    </authorgroup>
+    <pubdate>1992</pubdate>
+    <copyright>
+        <year>1992</year>
+        <year>2002</year>
+        <holder>International Organization for Standardization</holder>
+    </copyright>
+    <biblioid class="pubnumber">ISO/IEC 6429:1992</biblioid>
+    <publisher>
+        <publishername>International Organization for Standardization</publishername>
+    </publisher>
+</biblioentry>
+
+<biblioentry xml:id="EBNF96">
+    <citetitle>Information technology - Syntactic metalanguage - Extended BNF</citetitle>
+    <authorgroup>
+        <author><orgname>International Organization for Standardization</orgname></author>
+    </authorgroup>
+    <pubdate>1996</pubdate>
+    <copyright>
+        <year>1996</year>
+        <year>2001</year>
+        <holder>International Organization for Standardization</holder>
+    </copyright>
+    <biblioid class="pubnumber">ISO/IEC 14977:1996</biblioid>
+    <publisher>
+        <publishername>International Organization for Standardization</publishername>
+    </publisher>
+</biblioentry>
+
+<biblioentry xml:id="Gosling00">
+    <citetitle>The <trademark class="trade">Java</trademark> Language Specification</citetitle>
+    <authorgroup>
+        <author><personname><firstname>James</firstname><surname>Gosling</surname></personname></author>
+        <author><personname><firstname>Bill</firstname><surname>Joy</surname></personname></author>
+        <author><personname><firstname>Guy</firstname><surname>Steele</surname></personname></author>
+        <author><personname><firstname>Gilad</firstname><surname>Bracha</surname></personname></author>
+    </authorgroup>
+    <edition>2nd Edition</edition>
+    <pubdate>2000</pubdate>
+    <copyright>
+        <year>1996</year>
+        <year>1997</year>
+        <year>1998</year>
+        <year>1999</year>
+        <year>2000</year>
+        <holder>Sun Microsystems, Inc.</holder>
+    </copyright>
+    <biblioid class="isbn">ISBN 0-201-31008-2</biblioid>
+    <publisher>
+        <publishername>Addison Wesley Professional</publishername>
+    </publisher>
+</biblioentry>
+
+<biblioentry xml:id="Mellor02">
+    <citetitle>Executable UML</citetitle>
+    <subtitle>A Foundation for Model-Driven Architecture</subtitle>
+    <authorgroup>
+        <author><personname><firstname>Stephen</firstname><surname>Mellor</surname></personname></author>
+        <author><personname><firstname>Marc</firstname><surname>Balcer</surname></personname></author>
+    </authorgroup>
+    <pubdate>2002</pubdate>
+    <biblioid class="isbn">ISBN 0-201-74804-5</biblioid>
+    <publisher>
+        <publishername>Addison Wesley Professional.</publishername>
+    </publisher>
+</biblioentry>
+
+<biblioentry xml:id="OMG97">
+    <citetitle>The Common Object Request Broker: Architecture and Specification</citetitle>
+    <authorgroup>
+        <author><orgname>Object Management Group, Inc.</orgname></author>
+    </authorgroup>
+    <edition>Revision 2.1</edition>
+    <pubdate>1997</pubdate>
+    <publisher>
+        <publishername>Object Management Group, Inc.</publishername>
+    </publisher>
+</biblioentry>
+
+<biblioentry xml:id="Shlaer88">
+    <citetitle>Object Oriented Analysis: Modeling the World in Data</citetitle>
+    <authorgroup>
+        <author><personname><firstname>Sally</firstname><surname>Shlaer</surname></personname></author>
+        <author><personname><firstname>Stephen</firstname><surname>Mellor</surname></personname></author>
+    </authorgroup>
+    <pubdate>1988</pubdate>
+    <biblioid class="isbn">ISBN 0-13-629023-X</biblioid>
+    <publisher>
+        <publishername>Prentice Hall, Inc.</publishername>
+    </publisher>
+</biblioentry>
+
+<biblioentry xml:id="Shlaer92">
+    <citetitle>Object Oriented Analysis: Modeling the World in States</citetitle>
+    <authorgroup>
+        <author><personname><firstname>Sally</firstname><surname>Shlaer</surname></personname></author>
+        <author><personname><firstname>Stephen</firstname><surname>Mellor</surname></personname></author>
+    </authorgroup>
+    <pubdate>1992</pubdate>
+    <biblioid class="isbn">ISBN 0-13-629940-7</biblioid>
+    <publisher>
+        <publishername>Prentice Hall, Inc.</publishername>
+    </publisher>
+</biblioentry>
+</bibliodiv>
+
+<bibliodiv xml:id="BibliographyPapers"><info><title>Papers</title></info>
+
+<biblioentry xml:id="ASL96">
+    <citetitle>The Action Specification Language</citetitle>
+    <authorgroup>
+        <author><personname><firstname>Ian</firstname><surname>Wilkie</surname></personname></author>
+        <author><personname><firstname>Adrian</firstname><surname>King</surname></personname></author>
+        <author><personname><firstname>Mike</firstname><surname>Clarke</surname></personname></author>
+        <author><personname><firstname>Chris</firstname><surname>Weaver</surname></personname></author>
+    </authorgroup>
+    <edition>Version 2.5</edition>
+    <pubdate>1996</pubdate>
+    <biblioid class="pubnumber">KC/OOA/CTN/06</biblioid>
+    <copyright>
+        <year>1996</year>
+        <holder>Kennedy Carter</holder>
+    </copyright>
+    <publisher>
+        <publishername>Kennedy Carter</publishername>
+    </publisher>
+</biblioentry>
+
+<biblioentry xml:id="OOA97">
+    <citetitle>OOA97</citetitle>
+    <authorgroup>
+        <author><personname><firstname>Ian</firstname><surname>Wilkie</surname></personname></author>
+        <author><personname><firstname>Colin</firstname><surname>Carter</surname></personname></author>
+        <author><personname><firstname>Paul</firstname><surname>Francis</surname></personname></author>
+    </authorgroup>
+    <edition>Issue 1.0</edition>
+    <pubdate>1997</pubdate>
+    <biblioid class="pubnumber">KC/OOA/CTN/53</biblioid>
+    <copyright>
+        <year>1997</year>
+        <holder>Kennedy Carter</holder>
+    </copyright>
+    <publisher>
+        <publishername>Kennedy Carter</publishername>
+    </publisher>
+</biblioentry>
+
+<biblioentry xml:id="OOA96">
+    <citetitle>The OOA96 Report</citetitle>
+    <authorgroup>
+        <author><personname><firstname>Sally</firstname><surname>Shlaer</surname></personname></author>
+        <author><personname><firstname>Neil</firstname><surname>Lang</surname></personname></author>
+    </authorgroup>
+    <pubdate>1996</pubdate>
+    <edition>Version 1.0</edition>
+    <copyright>
+        <year>1996</year>
+        <holder>Project Technology, Inc.</holder>
+    </copyright>
+    <publisher>
+        <publishername>Project Technology, Inc.</publishername>
+    </publisher>
+</biblioentry>
+
+<biblioentry xml:id="ProjTech97">
+    <citetitle>Action Language</citetitle>
+    <authorgroup>
+        <author><orgname>Project Technology, Inc.</orgname></author>
+    </authorgroup>
+    <pubdate>1997</pubdate>
+    <copyright>
+        <year>1997</year>
+        <holder>Project Technology, Inc.</holder>
+    </copyright>
+    <publisher>
+        <publishername>Project Technology, Inc.</publishername>
+    </publisher>
+</biblioentry>
+
+<biblioentry xml:id="Shlaer97">
+    <citetitle>Data Types in OOA</citetitle>
+    <authorgroup>
+        <author><personname><firstname>Sally</firstname><surname>Shlaer</surname></personname></author>
+        <author><personname><firstname>Stephen</firstname><surname>Mellor</surname></personname></author>
+    </authorgroup>
+    <edition>Version 971031</edition>
+    <pubdate>1997</pubdate>
+    <copyright>
+        <year>1997</year>
+        <holder>Project Technology, Inc.</holder>
+    </copyright>
+    <publisher>
+        <publishername>Project Technology, Inc.</publishername>
+    </publisher>
+</biblioentry>
+
+</bibliodiv>
+</bibliography>

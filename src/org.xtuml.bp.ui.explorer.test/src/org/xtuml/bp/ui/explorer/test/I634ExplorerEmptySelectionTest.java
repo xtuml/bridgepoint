@@ -27,29 +27,39 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.ui.IWorkbenchPage;
-
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.ui.Selection;
 import org.xtuml.bp.test.common.BaseTest;
 import org.xtuml.bp.test.common.ExplorerUtil;
+import org.xtuml.bp.test.common.OrderedRunner;
 
-public class I634ExplorerEmptySelectionTest extends BaseTest{
+@RunWith(OrderedRunner.class)
+	public class I634ExplorerEmptySelectionTest extends BaseTest{
 	
 	static IWorkbenchPage m_wp = null;
 
-	public I634ExplorerEmptySelectionTest(String name) {
-		super("org.xtuml.bp.ui.explorer.test", name);		//$NON-NLS-1$
+//	public I634ExplorerEmptySelectionTest(String name) {
+//		super("org.xtuml.bp.ui.explorer.test", name);		//$NON-NLS-1$
+//	}
+	public I634ExplorerEmptySelectionTest() {
+		super("org.xtuml.bp.ui.explorer.test", null);		//$NON-NLS-1$
 	}
 
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		m_wp= switchPerspective("org.xtuml.bp.core.perspective"); //$NON-NLS-1$
 		ExplorerUtil.showModelExplorer();
         super.setUp();
 	}
 	
+	@Test
 	public void testOpenOnEmptyExplorer() throws CoreException{
 		sendEventAndCheckLog(ExplorerUtil.getTreeViewer().getTree(), SWT.DefaultSelection, new Event());	    	
 	}
 	
+	@Test
 	public void testOpenOnLoadedModelInExplorer() throws Throwable{
         ExplorerTest.restoreProject();
         ensureAvailableAndLoaded("small", false);

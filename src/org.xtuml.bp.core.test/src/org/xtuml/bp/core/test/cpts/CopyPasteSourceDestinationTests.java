@@ -41,13 +41,14 @@ import org.eclipse.swt.dnd.Clipboard;
 import org.eclipse.swt.dnd.TextTransfer;
 import org.eclipse.ui.IViewReference;
 import org.eclipse.ui.PlatformUI;
-
+import org.junit.After;
+import org.junit.Before;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.compare.ComparePlugin;
 import org.xtuml.bp.compare.ModelCacheManager;
 import org.xtuml.bp.compare.ModelCacheManager.ModelLoadException;
 import org.xtuml.bp.compare.structuremergeviewer.ModelCompareStructureCreator.CompareDocumentRangeNode;
 import org.xtuml.bp.core.ClassStateMachine_c;
-import org.xtuml.bp.core.Component_c;
 import org.xtuml.bp.core.CoreDataType_c;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.DataType_c;
@@ -75,6 +76,7 @@ import org.xtuml.bp.core.ui.Selection;
 import org.xtuml.bp.core.ui.marker.DelayedMarkerJob;
 import org.xtuml.bp.core.util.WorkspaceUtil;
 import org.xtuml.bp.test.common.BaseTest;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.test.common.TestingUtilities;
 import org.xtuml.bp.test.common.UITestingUtilities;
 import org.xtuml.bp.ui.canvas.CanvasTransactionListener;
@@ -82,6 +84,7 @@ import org.xtuml.bp.ui.canvas.Ooaofgraphics;
 import org.xtuml.bp.ui.canvas.test.CanvasTest;
 import org.xtuml.bp.ui.graphics.editor.GraphicalEditor;
 
+@RunWith(OrderedRunner.class)
 public class CopyPasteSourceDestinationTests extends CanvasTest {
 
     static private boolean initialized = false;
@@ -130,7 +133,8 @@ public class CopyPasteSourceDestinationTests extends CanvasTest {
 		}
 	}
 
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
         super.setUp();
         
     	if(!initialized ) {
@@ -225,7 +229,8 @@ public class CopyPasteSourceDestinationTests extends CanvasTest {
     	
     }
 
-    protected void tearDown() throws Exception {
+    @After
+	public void tearDown() throws Exception {
     	// close any editors that were opened
     	// during the test
     	PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage()

@@ -99,7 +99,7 @@ public class EclipseOoaofooa extends OoaofooaBase {
     {
         Ooaofooa modelRoot = Ooaofooa.getInstance(id);
 
-        if (forceLoad && isFileBasedID(id) && !modelRoot.isLoaded()) {
+        if (forceLoad && isFileBasedID(id) ) {
             String projectName = getProjectNameFromModelRootId(id);
             String fileName = getDomainFileNameFromModelRootId(id);
             IProject[] project_set = CorePlugin.getWorkspace().getRoot().getProjects();
@@ -160,7 +160,7 @@ public class EclipseOoaofooa extends OoaofooaBase {
             modelRoot = getInstance(id, false);
         }
 
-        if (forceLoad && !modelRoot.isLoaded()) {
+        if (forceLoad ) {
             modelRoot = loadInstanceFromFile(file);
             }
         return modelRoot;

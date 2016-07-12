@@ -1,0 +1,3524 @@
+<!-- 
+  UK Crown Copyright (c) 2016. All Rights Reserved
+-->
+<!-- Converted by db4-upgrade version 1.0 -->
+<chapter xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="Statements"><info><title>Statements</title></info>
+
+<para>
+A statement
+<indexterm significance="preferred">
+    <primary>statement</primary>
+</indexterm>
+defines an action to be performed upon its execution. Some
+statements contain other statements as part of their structure; such other
+statements are sub-statements of the statement. In the same manner, some
+statements contain expressions as part of their structure.
+</para>
+<para>
+The first section of this chapter discusses the distinction between normal
+<indexterm>
+    <primary>normal completion</primary>
+</indexterm>
+and abrupt completion
+<indexterm>
+    <primary>abrupt completion</primary>
+</indexterm>
+of statements. The remaining sections explain the various
+kinds of statements, describing in detail both their normal behaviour and any 
+special treatment of abrupt completion.
+<indexterm>
+    <primary>abrupt completion</primary>
+</indexterm>
+</para>
+<section xml:id="StatementsNormalandAbruptCompletionofStatements"><info><title>Normal and Abrupt Completion of Statements</title></info>
+
+<para>
+Every statement has a normal mode of execution in which certain computational
+steps are carried out. The following sections describe the normal mode of
+execution for each kind of statement. If all the steps are carried out as
+described, with no indication of abrupt completion,
+<indexterm>
+    <primary>abrupt completion</primary>
+</indexterm>
+<indexterm significance="preferred">
+    <primary>abrupt completion</primary>
+</indexterm>
+the statement is said to
+complete normally.
+<indexterm>
+    <primary>normal completion</primary>
+</indexterm>
+However, certain events may prevent a statement from
+completing normally:
+<indexterm significance="preferred">
+    <primary>normal completion</primary>
+</indexterm>
+<itemizedlist>
+<listitem>
+<para>
+The <link linkend="StatementsTheExitStatement"><literal>exit</literal></link> statement
+<indexterm significance="preferred">
+    <primary>statement</primary>
+    <secondary><literal>exit</literal></secondary>
+</indexterm>
+causes a transfer of control that may prevent normal completion
+<indexterm>
+    <primary>normal completion</primary>
+</indexterm>
+of statements that contain them.
+</para>
+</listitem>
+<listitem>
+<para>
+Evaluation of certain expressions may raise exceptions; these exceptions are
+summarized in
+<xref linkend="ExpressionsNormalandAbruptCompletionofEvaluation"/>. An explicit
+<link linkend="ebnf.raisestatement"><literal>raise</literal></link> statement
+<indexterm>
+    <primary><literal>raise</literal></primary>
+</indexterm>
+also results in an exception. An exception causes a transfer of
+control that may prevent normal completion
+<indexterm>
+    <primary>normal completion</primary>
+</indexterm>
+of statements.
+</para>
+</listitem>
+</itemizedlist>
+</para>
+<para>
+If such an event occurs, then execution of one or more statements may be
+terminated before all steps of their normal mode of execution have completed;
+such statements are said to complete abruptly.
+<indexterm>
+    <primary>abrupt completion</primary>
+</indexterm>
+</para>
+<para>
+The terms complete normally and complete abruptly
+<indexterm>
+    <primary>abrupt completion</primary>
+</indexterm>
+also apply to the evaluation of
+expressions. The only reason an expression can complete abruptly
+<indexterm>
+    <primary>abrupt completion</primary>
+</indexterm>
+is that an
+exception is raised because of a run-time exception or error.
+</para>
+<para>
+If statement evaluates an expression, abrupt completion
+<indexterm>
+    <primary>abrupt completion</primary>
+</indexterm>
+of the expression always
+causes the immediate abrupt completion
+<indexterm>
+    <primary>abrupt completion</primary>
+</indexterm>
+of the statement, with the same reason.
+All succeeding steps in the normal mode of execution are not performed.
+</para>
+<para>
+Unless otherwise specified in this chapter, abrupt completion
+<indexterm>
+    <primary>abrupt completion</primary>
+</indexterm>
+of a expression
+causes the immediate abrupt completion
+<indexterm>
+    <primary>abrupt completion</primary>
+</indexterm>
+of the statement itself, with the
+same reason and all succeeding steps in the normal mode of execution of the
+statement are not performed.
+</para>
+<para>
+Unless otherwise specified in this chapter, abrupt completion
+<indexterm>
+    <primary>abrupt completion</primary>
+</indexterm>
+of a sub-statement
+<indexterm>
+    <primary>sub-statement</primary>
+</indexterm>
+cause the immediate abrupt completion
+<indexterm>
+    <primary>abrupt completion</primary>
+</indexterm>
+of the statement itself, with the same
+reason and all succeeding steps in the normal mode of execution of the statement
+are not performed.
+</para>
+<para>
+Unless otherwise specified, a statement completes normally if all expressions it
+evaluates and all sub-statements it executes, complete normally.
+</para>
+</section>
+<section xml:id="StatementsSequenceofStatements"><info><title>Sequence of Statements</title></info>
+
+<para>
+A <emphasis>sequence of statements</emphasis>
+<indexterm significance="preferred">
+    <primary>statement</primary>
+    <secondary>sequence</secondary>
+</indexterm>
+is a sequence of one or more statements.
+</para>
+<indexterm zone="ebnf.sequenceofstatements">
+    <primary>sequence of statements</primary>
+</indexterm>
+<indexterm zone="ebnf.sequenceofstatements">
+    <primary>statements</primary>
+</indexterm>
+<productionset>
+<production xml:id="ebnf.sequenceofstatements">
+    <lhs>
+        sequence of statements
+    </lhs>
+    <rhs>
+        <nonterminal def="#ebnf.statement">statement</nonterminal>,
+        {<nonterminal def="#ebnf.statement">statement</nonterminal>}
+    </rhs>
+</production>
+</productionset>
+<para>
+A <link linkend="ebnf.sequenceofstatements"><emphasis>sequence of statements</emphasis></link>
+<indexterm>
+    <primary>statement</primary>
+    <secondary>sequence</secondary>
+</indexterm>
+is executed by executing each
+of the statements in order from first to last (left to right). If all of these
+statements complete normally,
+<indexterm>
+    <primary>normal completion</primary>
+</indexterm>
+then the sequence of statements completes
+normally.
+<indexterm>
+    <primary>normal completion</primary>
+</indexterm>
+If any of these statements complete abruptly
+<indexterm>
+    <primary>abrupt completion</primary>
+</indexterm>
+for any reason, then the
+<link linkend="ebnf.sequenceofstatements"><emphasis>sequence of statements</emphasis></link>
+<indexterm>
+    <primary>statement</primary>
+    <secondary>sequence</secondary>
+</indexterm>
+completes abruptly
+<indexterm>
+    <primary>abrupt completion</primary>
+</indexterm>
+for the same reasons.
+</para>
+</section>
+<section xml:id="StatementsStatements"><info><title>Statements</title></info>
+
+<para>
+There are many kinds of statements in the language. A
+<link linkend="ebnf.statement"><emphasis>statement</emphasis></link> is either
+simple
+<indexterm significance="preferred">
+    <primary>statement</primary>
+    <secondary>simple</secondary>
+</indexterm>
+or compound.
+<indexterm significance="preferred">
+    <primary>statement</primary>
+    <secondary>compound</secondary>
+</indexterm>
+A
+<link linkend="ebnf.simplestatement"><emphasis>simple statement</emphasis></link>
+<indexterm>
+    <primary>statement</primary>
+    <secondary>simple</secondary>
+</indexterm>
+encloses no other statement. A
+<link linkend="ebnf.compoundstatement"><emphasis>compound statement</emphasis></link>
+<indexterm>
+    <primary>statement</primary>
+    <secondary>compound</secondary>
+</indexterm>
+encloses other statements as part of their structure.
+</para>
+<indexterm zone="ebnf.statement">
+    <primary>statement</primary>
+</indexterm>
+<indexterm zone="ebnf.statement">
+    <primary>simple statement</primary>
+</indexterm>
+<indexterm zone="ebnf.statement">
+    <primary>compound statement</primary>
+</indexterm>
+<indexterm zone="ebnf.simplestatement">
+    <primary>simple statement</primary>
+</indexterm>
+<indexterm zone="ebnf.simplestatement">
+    <primary>null statement</primary>
+</indexterm>
+<indexterm zone="ebnf.simplestatement">
+    <primary>assignment statement</primary>
+</indexterm>
+<indexterm zone="ebnf.simplestatement">
+    <primary>output statement</primary>
+</indexterm>
+<indexterm zone="ebnf.simplestatement">
+    <primary>input statement</primary>
+</indexterm>
+<indexterm zone="ebnf.simplestatement">
+    <primary>input line statement</primary>
+</indexterm>
+<indexterm zone="ebnf.simplestatement">
+    <primary>invocation statement</primary>
+</indexterm>
+<indexterm zone="ebnf.simplestatement">
+    <primary>exit statement</primary>
+</indexterm>
+<indexterm zone="ebnf.simplestatement">
+    <primary>raise statement</primary>
+</indexterm>
+<indexterm zone="ebnf.simplestatement">
+    <primary>delay statement</primary>
+</indexterm>
+<indexterm zone="ebnf.simplestatement">
+    <primary>link statement</primary>
+</indexterm>
+<indexterm zone="ebnf.simplestatement">
+    <primary>unlink statement</primary>
+</indexterm>
+<indexterm zone="ebnf.simplestatement">
+    <primary>generate statement</primary>
+</indexterm>
+<indexterm zone="ebnf.simplestatement">
+    <primary>pragma statement</primary>
+</indexterm>
+<indexterm zone="ebnf.compoundstatement">
+    <primary>compound statement</primary>
+</indexterm>
+<indexterm zone="ebnf.compoundstatement">
+    <primary>block statement</primary>
+</indexterm>
+<indexterm zone="ebnf.compoundstatement">
+    <primary>if statement</primary>
+</indexterm>
+<indexterm zone="ebnf.compoundstatement">
+    <primary>case statement</primary>
+</indexterm>
+<indexterm zone="ebnf.compoundstatement">
+    <primary>for statement</primary>
+</indexterm>
+<indexterm zone="ebnf.compoundstatement">
+    <primary>while statement</primary>
+</indexterm>
+<productionset>
+<production xml:id="ebnf.statement">
+    <lhs>
+        statement
+    </lhs>
+    <rhs>
+        <nonterminal def="#ebnf.simplestatement">simple statement</nonterminal> |
+        <nonterminal def="#ebnf.compoundstatement">compound statement</nonterminal>
+    </rhs>
+</production>
+<production xml:id="ebnf.simplestatement">
+    <lhs>
+        simple statement
+    </lhs>
+    <rhs>
+        <nonterminal def="#ebnf.nullstatement">null statement</nonterminal> |
+        <nonterminal def="#ebnf.assignmentstatement">assignment statement</nonterminal> |
+        <nonterminal def="#ebnf.outputstream">output stream</nonterminal> |
+        <nonterminal def="#ebnf.inputstream">input stream</nonterminal> |
+        <nonterminal def="#ebnf.inputlinestream">input line stream</nonterminal> |
+        <nonterminal def="#ebnf.invocationstatement">invocation statement</nonterminal> |
+        <nonterminal def="#ebnf.exitstatement">exit statement</nonterminal> |
+        <nonterminal def="#ebnf.raisestatement">raise statement</nonterminal> |
+        <nonterminal def="#ebnf.delaystatement">delay statement</nonterminal> |
+        <nonterminal def="#ebnf.linkstatement">link statement</nonterminal> |
+        <nonterminal def="#ebnf.unlinkstatement">unlink statement</nonterminal> |
+        <nonterminal def="#ebnf.associatestatement">associate statement</nonterminal> |
+        <nonterminal def="#ebnf.unassociatestatement">unassociate statement</nonterminal> |
+        <nonterminal def="#ebnf.generatestatement">generate statement</nonterminal> |
+        <nonterminal def="#ebnf.pragmastatement">pragma statement</nonterminal>
+    </rhs>
+</production>
+<production xml:id="ebnf.compoundstatement">
+    <lhs>
+        compound statement
+    </lhs>
+    <rhs>
+        <nonterminal def="#ebnf.blockstatement">block statement</nonterminal> |
+        <nonterminal def="#ebnf.ifstatement">if statement</nonterminal> |
+        <nonterminal def="#ebnf.casestatement">case statement</nonterminal> |
+        <nonterminal def="#ebnf.forstatement">for statement</nonterminal> |
+        <nonterminal def="#ebnf.whilestatement">while statement</nonterminal>
+        </rhs>
+</production>
+</productionset>
+</section>
+<section xml:id="StatementsTheNullStatement"><info><title>The Null Statement</title></info>
+
+<para>
+The <link linkend="ebnf.nullstatement"><emphasis>null statement</emphasis></link>
+<indexterm significance="preferred">
+    <primary>statement</primary>
+    <secondary>null</secondary>
+</indexterm>
+<indexterm significance="preferred">
+    <primary>null</primary>
+</indexterm>
+does nothing.
+</para>
+<indexterm zone="ebnf.nullstatement">
+    <primary>null statement</primary>
+</indexterm>
+<indexterm zone="ebnf.nullstatement">
+    <primary><literal>null</literal></primary>
+</indexterm>
+<productionset>
+<production xml:id="ebnf.nullstatement">
+    <lhs>
+        null statement
+    </lhs>
+    <rhs>
+        'null', ';'
+    </rhs>
+</production>
+</productionset>
+<para>
+Execution of a null statement always completes normally.
+<indexterm>
+    <primary>normal completion</primary>
+</indexterm>
+</para>
+</section>
+<section xml:id="StatementsAssignment"><info><title>Assignment</title></info>
+
+<para>
+An assignment statement
+<indexterm significance="preferred">
+    <primary>statement</primary>
+    <secondary>assignment</secondary>
+</indexterm>
+assigns the value of the right-hand side to the entity denoted by the left-hand
+side.
+</para>
+<indexterm zone="ebnf.assignmentstatement">
+    <primary>assignment statement</primary>
+</indexterm>
+<indexterm zone="ebnf.assignmentstatement">
+    <primary>name</primary>
+</indexterm>
+<indexterm zone="ebnf.assignmentstatement">
+    <primary><literal>:=</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.assignmentstatement">
+    <primary>extended expression</primary>
+</indexterm>
+<productionset>
+<production xml:id="ebnf.assignmentstatement">
+    <lhs>
+        assignment statement
+    </lhs>
+    <rhs>
+        {<nonterminal def="#ebnf.name">name</nonterminal>},
+        ':=',
+        <nonterminal def="#ebnf.extendedexpression">extended expression</nonterminal>,
+        ';'
+    </rhs>
+</production>
+</productionset>
+<para>
+A compile-time error occurs if either of the following are true:
+<itemizedlist mark="bullet">
+<listitem>
+<para>
+The type of the right-hand side is not assignable to the type of left-hand side.
+</para>
+</listitem>
+<listitem>
+<para>
+The entity denoted by the left-hand side is not assignable
+(see <xref linkend="NamesAssignabilityofNames"/> for a description of names that
+are assignable and names that are not).
+</para>
+</listitem>
+</itemizedlist>
+</para>
+<para>
+If run-time evaluation of either the left-hand side or the right-hand side
+completes abruptly,
+<indexterm>
+    <primary>abrupt completion</primary>
+</indexterm>
+then the assignment statement completes abruptly
+<indexterm>
+    <primary>abrupt completion</primary>
+</indexterm>
+for the
+same reason and no assignment occurs.
+</para>
+</section>
+<section xml:id="StatementsOutputStream"><info><title>Output Stream</title></info>
+
+<para>
+The output stream statement
+<indexterm significance="preferred">
+    <primary>statement</primary>
+    <secondary>output stream</secondary>
+</indexterm>
+<indexterm significance="preferred">
+    <primary>output stream</primary>
+</indexterm>
+outputs the value of the right-hand side to the
+<link linkend="ebnf.deviceliteral"><type>device</type></link>
+<indexterm>
+    <primary><type>device</type></primary>
+</indexterm>
+denoted by the left-hand side. This can be a
+<link linkend="ebnf.name"><emphasis>name</emphasis></link> or
+<indexterm>
+    <primary>name</primary>
+</indexterm>
+<link linkend="ebnf.deviceliteral"><emphasis>device literal</emphasis></link>.
+<indexterm>
+    <primary>device literal</primary>
+</indexterm>
+The only
+<link linkend="ebnf.deviceliteral"><emphasis>device literal</emphasis></link>
+<indexterm>
+    <primary>device literal</primary>
+</indexterm>
+available is <literal>console</literal>
+<indexterm>
+    <primary>device literal</primary>
+    <secondary>console</secondary>
+</indexterm>
+<indexterm>
+    <primary>console</primary>
+</indexterm>
+which maps to the standard output. The iteration allows multiple expressions
+to be output to the device in a single
+<link linkend="ebnf.simplestatement"><emphasis>simple statement</emphasis></link>.
+<indexterm>
+    <primary>statement</primary>
+    <secondary>simple</secondary>
+</indexterm>
+</para>
+<indexterm zone="ebnf.outputstream">
+    <primary>output statement</primary>
+</indexterm>
+<indexterm zone="ebnf.outputstream">
+    <primary>name</primary>
+</indexterm>
+<indexterm zone="ebnf.outputstream">
+    <primary><literal>&lt;&lt;</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.outputstream">
+    <primary>expression</primary>
+</indexterm>
+<indexterm zone="ebnf.outputstream">
+    <primary>device literal</primary>
+</indexterm>
+<productionset>
+<production xml:id="ebnf.outputstream">
+    <lhs>
+        output statement
+    </lhs>
+    <rhs>
+        (<nonterminal def="#ebnf.name">name</nonterminal>,
+        '&lt;&lt;',
+        <nonterminal def="#ebnf.expression">expression</nonterminal>,
+        {('&lt;&lt;',
+        <nonterminal def="#ebnf.expression">expression</nonterminal>},
+        ';') |
+        <nonterminal def="#ebnf.deviceliteral">device literal</nonterminal>,
+        '&lt;&lt;',
+        <nonterminal def="#ebnf.expression">expression</nonterminal>,
+        {('&lt;&lt;',
+        <nonterminal def="#ebnf.expression">expression</nonterminal>},
+        ';')
+    </rhs>
+</production>
+</productionset>
+<para>
+A compile-time error occurs if the type of
+<link linkend="ebnf.name"><emphasis>name</emphasis></link>
+<indexterm>
+    <primary>name</primary>
+</indexterm>
+on the left-hand side is not of type
+<link linkend="TypesDeviceType"><type>device</type></link>.
+<indexterm significance="preferred">
+    <primary><type>device</type></primary>
+</indexterm>
+</para>
+</section>
+<section xml:id="StatementsInputStream"><info><title>Input Stream</title></info>
+
+<para>
+The <link linkend="ebnf.inputstream"><emphasis>input stream</emphasis></link>
+<indexterm significance="preferred">
+    <primary>statement</primary>
+    <secondary>input stream</secondary>
+</indexterm>
+<indexterm significance="preferred">
+    <primary>input stream</primary>
+</indexterm>
+statement inputs the value from input of
+the left-hand side device to the right-hand side. The left-hand side can be a
+<link linkend="ebnf.name"><emphasis>name</emphasis></link> or
+<indexterm>
+    <primary>name</primary>
+</indexterm>
+<link linkend="ebnf.deviceliteral"><emphasis>device literal</emphasis></link>.
+<indexterm>
+    <primary>device literal</primary>
+</indexterm>
+The only
+<link linkend="ebnf.deviceliteral"><emphasis>device literal</emphasis></link>
+<indexterm>
+    <primary>device literal</primary>
+</indexterm>
+available is <literal>console</literal>
+available is <literal>console</literal>
+<indexterm>
+    <primary>device literal</primary>
+    <secondary>console</secondary>
+</indexterm>
+<indexterm>
+    <primary>console</primary>
+</indexterm>
+which maps to the standard input. The iteration allows multiple expressions
+to be input from the device in a single
+<link linkend="ebnf.simplestatement"><emphasis>simple statement</emphasis></link>.
+<indexterm>
+    <primary>statement</primary>
+    <secondary>simple</secondary>
+</indexterm>
+</para>
+<indexterm zone="ebnf.inputstream">
+    <primary>input statement</primary>
+</indexterm>
+<indexterm zone="ebnf.inputstream">
+    <primary>name</primary>
+</indexterm>
+<indexterm zone="ebnf.inputstream">
+    <primary>&gt;&gt;</primary>
+</indexterm>
+<indexterm zone="ebnf.inputstream">
+    <primary>device literal</primary>
+</indexterm>
+<productionset>
+<production xml:id="ebnf.inputstream">
+    <lhs>
+        input stream
+    </lhs>
+    <rhs>
+        (<nonterminal def="#ebnf.name">name</nonterminal>,
+        '&gt;&gt;',
+        <nonterminal def="#ebnf.name">name</nonterminal>,
+        {('&gt;&gt;',
+        <nonterminal def="#ebnf.name">name</nonterminal>},
+        ';') |
+        <nonterminal def="#ebnf.deviceliteral">device literal</nonterminal>,
+        '&gt;&gt;',
+        <nonterminal def="#ebnf.name">name</nonterminal>,
+        {('&gt;&gt;',
+        <nonterminal def="#ebnf.name">name</nonterminal>},
+        ';')
+    </rhs>
+</production>
+</productionset>
+<para>
+A compile-time error occurs if the entity denoted by the right-hand side is
+not assignable
+(see <xref linkend="NamesAssignabilityofNames"/> for a description of names that
+are assignable and names that are not).
+</para>
+</section>
+<section xml:id="StatementsInputLineStream"><info><title>Input Line Stream</title></info>
+
+<para>
+The <link linkend="ebnf.inputlinestream"><emphasis>input line stream</emphasis></link>
+statement
+<indexterm significance="preferred">
+    <primary>statement</primary>
+    <secondary>input line stream</secondary>
+</indexterm>
+<indexterm significance="preferred">
+    <primary>input line stream</primary>
+</indexterm>
+inputs the value from input
+of the left-hand side device to the right-hand side. The value is a stream of
+data terminated by a new line character. The left-hand side can be a
+<link linkend="ebnf.name"><emphasis>name</emphasis></link> or
+<indexterm>
+    <primary>name</primary>
+</indexterm>
+<link linkend="ebnf.deviceliteral"><emphasis>device literal</emphasis></link>.
+<indexterm>
+    <primary>device literal</primary>
+</indexterm>
+The only
+<link linkend="ebnf.deviceliteral"><emphasis>device literal</emphasis></link>
+<indexterm>
+    <primary>device literal</primary>
+</indexterm>
+available is <literal>console</literal>
+<indexterm>
+    <primary>device literal</primary>
+    <secondary>console</secondary>
+</indexterm>
+<indexterm>
+    <primary>console</primary>
+</indexterm>
+which maps to the standard input. The iteration allows multiple expressions
+to be input from the device in a single
+<link linkend="ebnf.simplestatement"><emphasis>simple statement</emphasis></link>.
+<indexterm>
+    <primary>statement</primary>
+    <secondary>simple</secondary>
+</indexterm>
+</para>
+<indexterm zone="ebnf.inputlinestream">
+    <primary>input statement</primary>
+</indexterm>
+<indexterm zone="ebnf.inputlinestream">
+    <primary>name</primary>
+</indexterm>
+<indexterm zone="ebnf.inputlinestream">
+    <primary>&gt;&gt;&gt;</primary>
+</indexterm>
+<indexterm zone="ebnf.inputlinestream">
+    <primary>device literal</primary>
+</indexterm>
+<productionset>
+<production xml:id="ebnf.inputlinestream">
+    <lhs>
+        input line stream
+    </lhs>
+    <rhs>
+        (<nonterminal def="#ebnf.name">name</nonterminal>,
+        '&gt;&gt;&gt;',
+        <nonterminal def="#ebnf.name">name</nonterminal>,
+        {('&gt;&gt;&gt;',
+        <nonterminal def="#ebnf.name">name</nonterminal>},
+        ';') |
+        <nonterminal def="#ebnf.deviceliteral">device literal</nonterminal>,
+        '&gt;&gt;&gt;',
+        <nonterminal def="#ebnf.name">name</nonterminal>,
+        {('&gt;&gt;&gt;',
+        <nonterminal def="#ebnf.name">name</nonterminal>},
+        ';')
+    </rhs>
+</production>
+</productionset>
+<para>
+A compile-time error occurs if the entity denoted by the right-hand side is
+not assignable
+(see <xref linkend="NamesAssignabilityofNames"/> for a description of names that
+are assignable and names that are not).
+</para>
+</section>
+<section xml:id="StatementsInvocationStatement"><info><title>Invocation Statements</title></info>
+
+<para>
+An <link linkend="ebnf.invocationstatement"><emphasis>invocation statement</emphasis></link>
+<indexterm significance="preferred">
+    <primary>statement</primary>
+    <secondary>invocation</secondary>
+</indexterm>
+<indexterm significance="preferred">
+    <primary>invocation</primary>
+</indexterm>
+is used to invoke a domain,
+<indexterm>
+    <primary>domain</primary>
+    <secondary>service</secondary>
+</indexterm>
+object
+<indexterm>
+    <primary>object</primary>
+    <secondary>service</secondary>
+</indexterm>
+or instance service.
+<indexterm>
+    <primary>instance</primary>
+    <secondary>service</secondary>
+</indexterm>
+</para>
+<indexterm zone="ebnf.invocationstatement">
+    <primary>invocation statement</primary>
+</indexterm>
+<indexterm zone="ebnf.invocationstatement">
+    <primary>domain service invocation</primary>
+</indexterm>
+<indexterm zone="ebnf.invocationstatement">
+    <primary>object service invocation</primary>
+</indexterm>
+<indexterm zone="ebnf.invocationstatement">
+    <primary>instance service invocation</primary>
+</indexterm>
+<productionset>
+<production xml:id="ebnf.invocationstatement">
+    <lhs>
+        invocation statement
+    </lhs>
+    <rhs>
+        <nonterminal def="#ebnf.domainserviceinvocation">domain service invocation</nonterminal> |
+        <nonterminal def="#ebnf.objectserviceinvocation">object service invocation</nonterminal> |
+        <nonterminal def="#ebnf.instanceserviceinvocation">instance service invocation</nonterminal>
+    </rhs>
+</production>
+</productionset>
+<section xml:id="StatementsDomainServiceInvocation"><info><title>Domain Service Invocation</title></info>
+
+<para>
+A <link linkend="ebnf.domainserviceinvocation"><emphasis>domain service invocation</emphasis></link>
+<indexterm significance="preferred">
+    <primary>statement</primary>
+    <secondary>domain service invocation</secondary>
+</indexterm>
+is used to invoke a domain service.
+</para>
+<indexterm zone="ebnf.domainserviceinvocation">
+    <primary>domain service invocation</primary>
+</indexterm>
+<indexterm zone="ebnf.domainserviceinvocation">
+    <primary>domain name</primary>
+</indexterm>
+<indexterm zone="ebnf.domainserviceinvocation">
+    <primary><literal>::</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.domainserviceinvocation">
+    <primary>service name</primary>
+</indexterm>
+<indexterm zone="ebnf.domainserviceinvocation">
+    <primary>argument list</primary>
+</indexterm>
+<productionset>
+<production xml:id="ebnf.domainserviceinvocation">
+    <lhs>
+        domain service invocation
+    </lhs>
+    <rhs>
+        (<nonterminal def="#ebnf.domainname">domain name</nonterminal>,
+        '::',
+        <nonterminal def="#ebnf.servicename">service name</nonterminal>,
+        '(',
+        <nonterminal def="#ebnf.argumentlist">argument list</nonterminal>,
+        ')', ';') |
+        (<nonterminal def="#ebnf.servicename">service name</nonterminal>,
+        '(',
+        <nonterminal def="#ebnf.argumentlist">argument list</nonterminal>,
+        ')', ';')
+    </rhs>
+</production>
+</productionset>
+<para>
+A compile-time error occurs if either of the following are true:
+<itemizedlist mark="bullet">
+<listitem>
+<para>
+The <link linkend="ServicesDomainServiceSignature">signature</link>
+<indexterm>
+    <primary>domain</primary>
+    <secondary>service</secondary>
+    <tertiary>signature</tertiary>
+</indexterm>
+of the domain service to be invoked, named by the
+<link linkend="ebnf.servicename"><emphasis>service name</emphasis></link>
+<indexterm>
+    <primary>domain</primary>
+    <secondary>service</secondary>
+    <tertiary>name</tertiary>
+</indexterm>
+together with the
+<link linkend="ebnf.argumentlist"><emphasis>argument list</emphasis></link>
+<indexterm>
+    <primary>domain</primary>
+    <secondary>service</secondary>
+    <tertiary>argument list</tertiary>
+</indexterm>
+has not been declared, by a
+<link linkend="ebnf.domainservicedeclaration"><emphasis>domain service declaration</emphasis></link>,
+<indexterm>
+    <primary>domain</primary>
+    <secondary>service</secondary>
+    <tertiary>declaration</tertiary>
+</indexterm>
+as a service of either:
+<itemizedlist mark="opencircle">
+<listitem>
+<para>
+The domain named by the
+<link linkend="DomainsDomainDeclaration"><emphasis>domain name</emphasis></link>,
+in the form
+<package>domain_name</package><literal>::</literal><methodname>service_name</methodname>.
+</para>
+</listitem>
+<listitem>
+<para>
+The enclosing domain, in the form consisting of just a
+<methodname>service name</methodname>.
+<indexterm>
+    <primary>domain</primary>
+    <secondary>service</secondary>
+    <tertiary>name</tertiary>
+</indexterm>
+</para>
+</listitem>
+</itemizedlist>
+</para>
+</listitem>
+<listitem>
+<para>
+The <link linkend="ebnf.domainservicedeclaration"><emphasis>domain service declaration</emphasis></link>
+<indexterm>
+    <primary>domain</primary>
+    <secondary>service</secondary>
+    <tertiary>declaration</tertiary>
+</indexterm>
+is not accessible
+(see <xref linkend="StatementsCompileTimeProcessingofServiceInvocations"/>) to
+the invocation statement.
+</para>
+</listitem>
+</itemizedlist>
+</para>
+<para>
+A <link linkend="ebnf.domainserviceinvocation"><emphasis>domain service invocation</emphasis></link>
+<indexterm>
+    <primary>domain</primary>
+    <secondary>service</secondary>
+    <tertiary>invocation</tertiary>
+</indexterm>
+is executed by evaluating the argument expressions.
+If the evaluation of any argument expression completes abruptly,
+<indexterm>
+    <primary>abrupt completion</primary>
+</indexterm>
+then the
+invocation statement completes abruptly
+<indexterm>
+    <primary>abrupt completion</primary>
+</indexterm>
+for the same reason.
+The domain service definition is then executed. If this completes normally
+<indexterm>
+    <primary>normal completion</primary>
+</indexterm>
+any necessary assigning back of formal to actual parameters occurs.
+</para>
+</section>
+<section xml:id="StatementsObjectServiceInvocation"><info><title>Object Service Invocation</title></info>
+
+<para>
+An <link linkend="ebnf.objectserviceinvocation"><emphasis>object service invocation</emphasis></link>
+<indexterm>
+    <primary>object</primary>
+    <secondary>service</secondary>
+    <tertiary>invocation</tertiary>
+</indexterm>
+is used to invoke an object based service.
+</para>
+<indexterm zone="ebnf.objectserviceinvocation">
+    <primary>object service invocation</primary>
+</indexterm>
+<indexterm zone="ebnf.objectserviceinvocation">
+    <primary>object name</primary>
+</indexterm>
+<indexterm zone="ebnf.objectserviceinvocation">
+    <primary>service name</primary>
+</indexterm>
+<indexterm zone="ebnf.objectserviceinvocation">
+    <primary>argument list</primary>
+</indexterm>
+<indexterm zone="ebnf.objectserviceinvocation">
+    <primary>instance expression</primary>
+</indexterm>
+<productionset>
+<production xml:id="ebnf.objectserviceinvocation">
+    <lhs>
+        object service invocation
+    </lhs>
+    <rhs>
+        (<nonterminal def="#ebnf.domainname">object name</nonterminal>,
+        '.',
+        <nonterminal def="#ebnf.servicename">service name</nonterminal>,
+        '(',
+        <nonterminal def="#ebnf.argumentlist">argument list</nonterminal>,
+        ')', ';') |
+        (<nonterminal def="#ebnf.instanceexpression">instance expression</nonterminal>,
+        '.',
+        <nonterminal def="#ebnf.servicename">service name</nonterminal>,
+        '(',
+        <nonterminal def="#ebnf.argumentlist">argument list</nonterminal>,
+        ')', ';') |
+        (<nonterminal def="#ebnf.servicename">service name</nonterminal>,
+        '(',
+        <nonterminal def="#ebnf.argumentlist">argument list</nonterminal>,
+        ')', ';')
+    </rhs>
+</production>
+</productionset>
+<para>
+A compile-time error will occur if:
+<itemizedlist mark="bullet">
+<listitem>
+<para>
+The signature of the object base service to be invoked, named by the service
+name
+<indexterm>
+    <primary>object</primary>
+    <secondary>service</secondary>
+    <tertiary>name</tertiary>
+</indexterm>
+together with the argument list
+<indexterm>
+    <primary>object</primary>
+    <secondary>service</secondary>
+    <tertiary>argument list</tertiary>
+</indexterm>
+has not been declared, by an object service
+declaration, as a non-instance service of either:
+<itemizedlist mark="opencircle">
+<listitem>
+<para>
+The object, in the enclosing domain, named by the object name, in the form
+<classname>object_name</classname><literal>.</literal><methodname>service_name</methodname>.
+</para>
+</listitem>
+<listitem>
+<para>
+The object, given by the object of the
+<link linkend="TypesInstanceTypes">instance type</link>
+<indexterm>
+    <primary>type</primary>
+    <secondary>instance</secondary>
+</indexterm>
+of the
+<link linkend="ExpressionsInstanceandInstanceCollectionExpressions">instance expression</link>,
+<indexterm>
+    <primary>expression</primary>
+    <secondary>instance</secondary>
+</indexterm>
+in the form
+<emphasis>instance_expression</emphasis><literal>.</literal><methodname>service_name</methodname>.
+</para>
+</listitem>
+<listitem>
+<para>
+The enclosing object, in the form consisting of just a
+<methodname>service name</methodname>.
+<indexterm>
+    <primary>object</primary>
+    <secondary>service</secondary>
+    <tertiary>name</tertiary>
+</indexterm>
+</para>
+</listitem>
+</itemizedlist>
+</para>
+</listitem>
+<listitem>
+<para>
+The object service declaration
+<indexterm>
+    <primary>object</primary>
+    <secondary>service</secondary>
+    <tertiary>declaration</tertiary>
+</indexterm>
+is not accessible
+(see <xref linkend="StatementsCompileTimeProcessingofServiceInvocations"/>) to
+the invocation statement.
+</para>
+</listitem>
+</itemizedlist>
+</para>
+<para>
+An <link linkend="ebnf.objectserviceinvocation"><emphasis>object service invocation</emphasis></link>
+<indexterm>
+    <primary>object</primary>
+    <secondary>service</secondary>
+    <tertiary>invocation</tertiary>
+</indexterm>
+is executed by evaluating the
+argument expressions. If the evaluation of any argument expression completes
+abruptly,
+<indexterm>
+    <primary>abrupt completion</primary>
+</indexterm>
+then the object service invocation completes abruptly
+<indexterm>
+    <primary>abrupt completion</primary>
+</indexterm>
+for the same
+reason. Note, that for an object service invocation of the form
+<classname>instance_expression</classname><literal>.</literal><methodname>service_name</methodname>,
+the
+<link linkend="ExpressionsInstanceandInstanceCollectionExpressions">instance expression</link>
+<indexterm>
+    <primary>expression</primary>
+    <secondary>instance</secondary>
+</indexterm>
+is not evaluated.
+The object service definition is then executed. If this completes normally,
+<indexterm>
+    <primary>normal completion</primary>
+</indexterm>
+any necessary assigning back of formal to actual parameters occurs.
+</para>
+</section>
+<section xml:id="StatementsInstanceServiceInvocation"><info><title>Instance Service Invocation</title></info>
+
+<para>
+An <link linkend="ebnf.instanceserviceinvocation"><emphasis>instance service invocation</emphasis></link>
+<indexterm significance="preferred">
+    <primary>instance</primary>
+    <secondary>service</secondary>
+    <tertiary>invocation</tertiary>
+</indexterm>
+is used to invoke an object instance service.
+</para>
+<indexterm zone="ebnf.instanceserviceinvocation">
+    <primary>instance service invocation</primary>
+</indexterm>
+<indexterm zone="ebnf.instanceserviceinvocation">
+    <primary>instance expression</primary>
+</indexterm>
+<indexterm zone="ebnf.instanceserviceinvocation">
+    <primary>service name</primary>
+</indexterm>
+<indexterm zone="ebnf.instanceserviceinvocation">
+    <primary>argument list</primary>
+</indexterm>
+<productionset>
+<production xml:id="ebnf.instanceserviceinvocation">
+    <lhs>
+        instance service invocation
+    </lhs>
+    <rhs>
+        (<nonterminal def="#ebnf.instanceexpression">instance expression</nonterminal>,
+        '.',
+        <nonterminal def="#ebnf.servicename">service name</nonterminal>,
+        '(',
+        <nonterminal def="#ebnf.argumentlist">argument list</nonterminal>,
+        ')', ';') |
+        (<nonterminal def="#ebnf.servicename">service name</nonterminal>,
+        '(',
+        <nonterminal def="#ebnf.argumentlist">argument list</nonterminal>,
+        ')', ';')
+    </rhs>
+</production>
+</productionset>
+<para>
+A compile-time error occurs if:
+<itemizedlist mark="bullet">
+<listitem>
+<para>
+The signature of the object instance service to be invoked, named by the service
+name together with the argument list has not been declared, by an object service
+declaration, as a non-instance service of either:
+<itemizedlist mark="opencircle">
+<listitem>
+<para>
+The object, given by the object of the
+<link linkend="TypesInstanceTypes">instance type</link>
+<indexterm>
+    <primary>type</primary>
+    <secondary>instance</secondary>
+</indexterm>
+of the
+<link linkend="ExpressionsInstanceandInstanceCollectionExpressions">instance expression</link>,
+<indexterm>
+    <primary>expression</primary>
+    <secondary>instance</secondary>
+</indexterm>
+in the form
+<classname>instance_expression</classname><literal>.</literal><methodname>service_name</methodname>.
+</para>
+</listitem>
+<listitem>
+<para>
+The enclosing object, in the form consisting of just a
+<methodname>service name</methodname>.
+<indexterm>
+    <primary>instance</primary>
+    <secondary>service</secondary>
+    <tertiary>name</tertiary>
+</indexterm>
+</para>
+</listitem>
+</itemizedlist>
+</para>
+</listitem>
+<listitem>
+<para>
+The instance service declaration
+<indexterm>
+    <primary>instance</primary>
+    <secondary>service</secondary>
+    <tertiary>declaration</tertiary>
+</indexterm>
+is not accessible
+(see <xref linkend="StatementsCompileTimeProcessingofServiceInvocations"/>) to
+the invocation statement.
+</para>
+</listitem>
+</itemizedlist>
+</para>
+<para>
+An <link linkend="ebnf.instanceserviceinvocation"><emphasis>instance service invocation</emphasis></link>
+<indexterm>
+    <primary>instance</primary>
+    <secondary>service</secondary>
+    <tertiary>invocation</tertiary>
+</indexterm>
+is executed by first evaluating either:
+<itemizedlist mark="bullet">
+<listitem>
+<para>
+The <link linkend="ExpressionsInstanceandInstanceCollectionExpressions">instance expression</link>
+<indexterm>
+    <primary>expression</primary>
+    <secondary>instance</secondary>
+</indexterm>
+in the form
+<classname>instance_expression</classname><literal>.</literal><methodname>service_name</methodname>
+<indexterm>
+    <primary>instance</primary>
+    <secondary>service</secondary>
+    <tertiary>name</tertiary>
+</indexterm>
+</para>
+</listitem>
+<listitem>
+<para>
+The reserved word <literal>this</literal>
+<indexterm>
+    <primary><literal>this</literal></primary>
+</indexterm>
+in the form consisting of just a service name.
+<indexterm>
+    <primary>instance</primary>
+    <secondary>service</secondary>
+    <tertiary>name</tertiary>
+</indexterm>
+</para>
+</listitem>
+</itemizedlist>
+</para>
+<para>
+The result of this evaluation is known as the target reference.
+If evaluation of either the
+<link linkend="ExpressionsInstanceandInstanceCollectionExpressions">instance expression</link>
+<indexterm>
+    <primary>expression</primary>
+    <secondary>instance</secondary>
+</indexterm>
+or the reserved word
+<link linkend="Names"><literal>this</literal></link>
+<indexterm>
+    <primary><literal>this</literal></primary>
+</indexterm>
+completes abruptly
+<indexterm>
+    <primary>abrupt completion</primary>
+</indexterm>
+or the
+evaluation results in a null instance, then the invocation statement completes
+abruptly
+<indexterm>
+    <primary>abrupt completion</primary>
+</indexterm>
+for the same reason.
+</para>
+<para>
+The argument expressions are the evaluated. If the evaluation of any argument 
+expression completes abruptly,
+<indexterm>
+    <primary>abrupt completion</primary>
+</indexterm>
+then the invocation statement completes abruptly
+<indexterm>
+    <primary>abrupt completion</primary>
+</indexterm>
+for the same reason. The instance service definition for the target reference
+is then executed. Finally, if this completes normally.
+<indexterm>
+    <primary>normal completion</primary>
+</indexterm>
+then after it is left,
+any necessary assigning back of formal to actual parameters occurs.
+</para>
+</section>
+<section xml:id="StatementsCompileTimeProcessingofServiceInvocations"><info><title>Compile-Time Processing of Service Invocations</title></info>
+
+<para>
+Although the invocation of domain, object and instance service are split in
+the grammar, the three types of invocation are in many ways inseparable. This
+is because of the ambiguity between the three that is only resolved by using
+the current scope of the invocation statement.
+<indexterm>
+    <primary>service</primary>
+    <secondary>invocation</secondary>
+    <tertiary>compile-time processing</tertiary>
+</indexterm>
+Determining the service that
+will be invoked in an invocation statement involves the following steps:
+<orderedlist numeration="arabic">
+<listitem>
+<para>
+If the form is
+<classname>domain_name</classname><literal>::</literal><methodname>service_name</methodname>,
+then the invocation statement is a
+domain service invocation.
+</para>
+</listitem>
+<listitem>
+<para>
+If the form is
+<classname>object_name</classname><literal>::</literal><methodname>service_name</methodname>,
+then the invocation statement is a
+object service invocation.
+</para>
+</listitem>
+<listitem>
+<para>
+If the form is <classname>instance_expression</classname><literal>::</literal><methodname>service_name</methodname>,
+then:
+<orderedlist numeration="lowerroman">
+<listitem>
+<para>
+If there is an instance service declared by the object, given by the object of
+the <link linkend="TypesInstanceTypes">instance type</link> of the
+<indexterm>
+    <primary>type</primary>
+    <secondary>instance</secondary>
+</indexterm>
+<link linkend="ExpressionsInstanceandInstanceCollectionExpressions">instance expression</link>,
+<indexterm>
+    <primary>expression</primary>
+    <secondary>instance</secondary>
+</indexterm>
+that is applicable and accessible, the the invocation statement is an instance
+service invocation.
+<indexterm>
+    <primary>instance</primary>
+    <secondary>service</secondary>
+    <tertiary>invocation</tertiary>
+</indexterm>
+</para>
+</listitem>
+<listitem>
+<para>
+Otherwise the invocation statement is an object service invocation.
+<indexterm>
+    <primary>object</primary>
+    <secondary>service</secondary>
+    <tertiary>invocation</tertiary>
+</indexterm>
+</para>
+</listitem>
+</orderedlist>
+</para>
+</listitem>
+<listitem>
+<para>
+If the form consists of just
+<link linkend="ebnf.servicename"><emphasis>service name</emphasis></link>
+then:
+<orderedlist numeration="lowerroman">
+<listitem>
+<para>
+If the invocation statement is in an instance state or an instance service and
+there is an instance service declared by the enclosing object that is
+applicable and accessible, then the invocation statement is an instance
+service invocation.
+<indexterm>
+    <primary>instance</primary>
+    <secondary>service</secondary>
+    <tertiary>invocation</tertiary>
+</indexterm>
+</para>
+</listitem>
+<listitem>
+<para>
+Otherwise, if the invocation statement is in a state or an object service and
+there is a non-instance service declared by the enclosing object that is
+applicable and accessible, then the invocation statement is an object service
+invocation.
+<indexterm>
+    <primary>object</primary>
+    <secondary>service</secondary>
+    <tertiary>invocation</tertiary>
+</indexterm>
+</para>
+</listitem>
+<listitem>
+<para>
+Otherwise, the invocation statement is a domain service invocation.
+<indexterm>
+    <primary>domain</primary>
+    <secondary>service</secondary>
+    <tertiary>invocation</tertiary>
+</indexterm>
+</para>
+</listitem>
+</orderedlist>
+</para>
+</listitem>
+</orderedlist>
+</para>
+<para>
+A service declaration is applicable to a service invocation if and only if both
+the following are true:
+<itemizedlist mark="bullet">
+<listitem>
+<para>
+The number of parameters in the service declaration is the same as the number of
+argument expressions in the service invocation.
+</para>
+</listitem>
+<listitem>
+<para>
+The type of each actual argument is assignable to the type of the corresponding
+parameter.
+</para>
+</listitem>
+</itemizedlist>
+</para>
+<para>
+Whether a service declaration is accessible to a service
+invocation depends upon the access modifier (<literal>public</literal>,
+<indexterm>
+    <primary><literal>public</literal></primary>
+</indexterm>
+<literal>private</literal>
+<indexterm>
+    <primary><literal>private</literal></primary>
+</indexterm>
+or none) in the service declaration in relation to
+the service invocation.
+</para>
+</section>
+<section xml:id="StatementsArgumentLists"><info><title>Argument Lists</title></info>
+
+<para>
+The arguments of a service invocation are given in an
+<link linkend="ebnf.argumentlist"><emphasis>argument list</emphasis></link>.
+<indexterm significance="preferred">
+    <primary>statements</primary>
+    <secondary>argument list</secondary>
+</indexterm>
+<indexterm significance="preferred">
+    <primary>argument list</primary>
+</indexterm>
+</para>
+<indexterm zone="ebnf.argumentlist">
+    <primary>argument list</primary>
+</indexterm>
+<indexterm zone="ebnf.argumentlist">
+    <primary>argument</primary>
+</indexterm>
+<indexterm zone="ebnf.argument">
+    <primary>argument</primary>
+</indexterm>
+<indexterm zone="ebnf.argument">
+    <primary>expression</primary>
+</indexterm>
+<productionset>
+<production xml:id="ebnf.argumentlist">
+    <lhs>
+        argument list
+    </lhs>
+    <rhs>
+        (<nonterminal def="#ebnf.argument">argument</nonterminal>,
+        {(',',
+        <nonterminal def="#ebnf.argument">argument</nonterminal>}
+    </rhs>
+</production>
+<production xml:id="ebnf.argument">
+    <lhs>
+        argument
+    </lhs>
+    <rhs>
+        <nonterminal def="#ebnf.expression">expression</nonterminal>
+    </rhs>
+</production>
+</productionset>
+<para>
+The number of arguments in an invocation must equal the number of parameters in
+the services declaration. In addition, the type of each argument must be
+assignable to the type of the corresponding parameter. If a service is
+overloaded, the number of arguments and the compile-time types of the
+arguments are used, at compile-time, to determine the service that will be
+invoked (see
+<xref linkend="StatementsCompileTimeProcessingofServiceInvocations"/>).
+</para>
+</section>
+</section>
+<section xml:id="StatementsBlocks"><info><title>Blocks</title></info>
+
+<para>
+A <link linkend="ebnf.blockstatement"><emphasis>block statement</emphasis></link>
+<indexterm significance="preferred">
+    <primary>statement</primary>
+    <secondary>block</secondary>
+</indexterm>
+<indexterm significance="preferred">
+    <primary>block</primary>
+</indexterm>
+is a sequence of
+<link linkend="ebnf.variabledeclaration">variable declarations</link>
+<indexterm>
+    <primary>variable</primary>
+    <secondary>declaration</secondary>
+</indexterm>
+followed by a
+<link linkend="ebnf.handledsequenceofstatements">handled sequence of statements</link>.
+<indexterm>
+    <primary>statement</primary>
+    <secondary>handled sequence</secondary>
+</indexterm>
+</para>
+<indexterm zone="ebnf.blockstatement">
+    <primary>block statement</primary>
+</indexterm>
+<indexterm zone="ebnf.blockstatement">
+    <primary>variable declaration</primary>
+</indexterm>
+<indexterm zone="ebnf.blockstatement">
+    <primary>handled sequence of statements</primary>
+</indexterm>
+<productionset>
+<production xml:id="ebnf.blockstatement">
+    <lhs>
+        block statement
+    </lhs>
+    <rhs>
+        ['declare',
+        <nonterminal def="#ebnf.variabledeclaration">variable declaration</nonterminal>,
+        {<nonterminal def="#ebnf.variabledeclaration">variable declaration</nonterminal>}],
+        'begin',
+        <nonterminal def="#ebnf.handledsequenceofstatements">handled sequence of statements</nonterminal>,
+        'end', ';'
+    </rhs>
+</production>
+</productionset>
+<para>
+A block statement
+<indexterm significance="preferred">
+    <primary>block</primary>
+</indexterm>
+is executed by executing each of the variable declarations
+in order from first to last, followed by the execution of the handled sequence
+of statements. If all of these complete normally,
+<indexterm>
+    <primary>normal completion</primary>
+</indexterm>
+then the block statement
+completes normally.
+<indexterm>
+    <primary>normal completion</primary>
+</indexterm>
+If any of these complete abruptly
+<indexterm>
+    <primary>abrupt completion</primary>
+</indexterm>
+for any reason, then the
+block statement completes abruptly
+<indexterm>
+    <primary>abrupt completion</primary>
+</indexterm>
+for the same reason.
+</para>
+</section>
+<section xml:id="StatementsTheIfStatement"><info><title>The If Statement</title></info>
+
+<para>
+The <link linkend="ebnf.ifstatement"><literal>if</literal></link> statement
+<indexterm significance="preferred">
+    <primary>statement</primary>
+    <secondary><literal>if</literal></secondary>
+</indexterm>
+<indexterm significance="preferred">
+    <primary><literal>if</literal></primary>
+</indexterm>
+allows conditional execution of a
+sequence of statements or a conditional choice of several sequence of
+statements, executing one only.
+</para>
+<indexterm zone="ebnf.ifstatement">
+    <primary>if statement</primary>
+</indexterm>
+<indexterm zone="ebnf.ifstatement">
+    <primary><literal>if</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.ifstatement">
+    <primary>condition</primary>
+</indexterm>
+<indexterm zone="ebnf.ifstatement">
+    <primary><literal>then</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.ifstatement">
+    <primary>sequence of statements</primary>
+</indexterm>
+<indexterm zone="ebnf.ifstatement">
+    <primary><literal>elsif</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.ifstatement">
+    <primary><literal>end</literal></primary>
+</indexterm>
+<productionset>
+<production xml:id="ebnf.ifstatement">
+    <lhs>
+        if statement
+    </lhs>
+    <rhs>
+        'if',
+        <nonterminal def="#ebnf.condition">condition</nonterminal>,
+        'then',
+        <nonterminal def="#ebnf.sequenceofstatements">sequence of statements</nonterminal>,
+        {('elsif',
+        <nonterminal def="#ebnf.condition">condition</nonterminal>,
+        'then',
+        <nonterminal def="#ebnf.sequenceofstatements">sequence of statements</nonterminal>)},
+        [('else',
+        <nonterminal def="#ebnf.sequenceofstatements">sequence of statements</nonterminal>)],
+        'end', ['if'], ';'
+    </rhs>
+</production>
+</productionset>
+<para>
+An <link linkend="ebnf.ifstatement"><literal>if</literal></link> statement
+<indexterm significance="preferred">
+    <primary><literal>if</literal></primary>
+</indexterm>
+is executed by evaluating the first
+<link linkend="ExpressionsConditions"><emphasis>condition</emphasis></link>
+<indexterm>
+    <primary>condition</primary>
+</indexterm>
+and then the other
+<link linkend="ExpressionsConditions"><emphasis>conditions</emphasis></link>
+<indexterm>
+    <primary>condition</primary>
+</indexterm>
+in succession, until one evaluates to
+<link linkend="TypesBooleanType"><literal>true</literal></link>,
+<indexterm>
+    <primary><literal>true</literal></primary>
+</indexterm>
+or all
+<link linkend="ExpressionsConditions"><emphasis>conditions</emphasis></link>
+<indexterm>
+    <primary>condition</primary>
+</indexterm>
+evaluate to
+<link linkend="TypesBooleanType"><literal>false</literal></link>.
+<indexterm>
+    <primary><literal>false</literal></primary>
+</indexterm>
+If a <link linkend="ExpressionsConditions"><emphasis>condition</emphasis></link>
+<indexterm>
+    <primary>condition</primary>
+</indexterm>
+evaluates to
+<link linkend="TypesBooleanType"><literal>true</literal></link>,
+<indexterm>
+    <primary><literal>true</literal></primary>
+</indexterm>
+then the corresponding sequence of statements is executed; otherwise the
+sequence of statements following the optional else is executed.
+</para>
+<para>
+If evaluation of a
+<link linkend="ExpressionsConditions"><emphasis>condition</emphasis></link>
+<indexterm>
+    <primary>condition</primary>
+</indexterm>
+completes abruptly
+<indexterm>
+    <primary>abrupt completion</primary>
+</indexterm>
+for some reason, the
+<link linkend="ebnf.ifstatement"><literal>if</literal></link> statement
+<indexterm significance="preferred">
+    <primary><literal>if</literal></primary>
+</indexterm>
+completes abruptly
+<indexterm>
+    <primary>abrupt completion</primary>
+</indexterm>
+for the same reason.
+The <link linkend="ebnf.ifstatement"><literal>if</literal></link> statement
+<indexterm>
+    <primary><literal>if</literal></primary>
+</indexterm>
+completes normally<indexterm>
+    <primary>normal completion</primary>
+</indexterm>
+only if execution of
+the selected sequence of statements completes normally.
+</para>
+</section>
+<section xml:id="StatementsTheCaseStatement"><info><title>The Case Statement</title></info>
+
+<para>
+The <link linkend="ebnf.casestatement"><literal>case</literal></link> statement
+<indexterm significance="preferred">
+    <primary>statement</primary>
+    <secondary><literal>case</literal></secondary>
+</indexterm>
+<indexterm significance="preferred">
+    <primary><literal>case</literal></primary>
+</indexterm>
+transfers control to one of several
+sequences of statements depending on the value of an expression.
+</para>
+<indexterm zone="ebnf.casestatement">
+    <primary>case statement</primary>
+</indexterm>
+<indexterm zone="ebnf.casestatement">
+    <primary><literal>case</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.casestatement">
+    <primary>expression</primary>
+</indexterm>
+<indexterm zone="ebnf.casestatement">
+    <primary><literal>is</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.casestatement">
+    <primary>case statement alternative</primary>
+</indexterm>
+<indexterm zone="ebnf.casestatement">
+    <primary><literal>end</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.casestatementalternative">
+    <primary>case statement alternative</primary>
+</indexterm>
+<indexterm zone="ebnf.casestatementalternative">
+    <primary><literal>when</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.casestatementalternative">
+    <primary>discrete choice list</primary>
+</indexterm>
+<indexterm zone="ebnf.casestatementalternative">
+    <primary><literal>=&gt;</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.casestatementalternative">
+    <primary>sequence of statements</primary>
+</indexterm>
+<indexterm zone="ebnf.discretechoice">
+    <primary>discrete choice</primary>
+</indexterm>
+<indexterm zone="ebnf.discretechoice">
+    <primary>constant expression</primary>
+</indexterm>
+<indexterm zone="ebnf.discretechoice">
+    <primary><literal>others</literal></primary>
+</indexterm>
+<productionset>
+<production xml:id="ebnf.casestatement">
+    <lhs>
+        case statement
+    </lhs>
+    <rhs>
+        'case',
+        <nonterminal def="#ebnf.expression">expression</nonterminal>,
+        'is',
+        {<nonterminal def="#ebnf.casestatementalternative">case statement alternative</nonterminal>},
+        'end', ['case'], ';'
+    </rhs>
+</production>
+<production xml:id="ebnf.casestatementalternative">
+    <lhs>
+        case statement alternative
+    </lhs>
+    <rhs>
+        'when',
+        <nonterminal def="#ebnf.discretechoicelist">discrete choice list</nonterminal>,
+        '=&gt;',
+        <nonterminal def="#ebnf.sequenceofstatements">sequence of statements</nonterminal>
+    </rhs>
+</production>
+<production xml:id="ebnf.discretechoicelist">
+    <lhs>
+        discrete choice list
+    </lhs>
+    <rhs>
+        <nonterminal def="#ebnf.discretechoice">discrete choice</nonterminal>,
+        {'|',
+        <nonterminal def="#ebnf.discretechoicelist">discrete choice list</nonterminal>}
+    </rhs>
+</production>
+<production xml:id="ebnf.discretechoice">
+    <lhs>
+        discrete choice
+    </lhs>
+    <rhs>
+        <nonterminal def="#ebnf.constantexpression">constant expression</nonterminal> |
+        'others'
+    </rhs>
+</production>
+</productionset>
+<para>
+All of the following must be true or a compile-time error will result:
+<itemizedlist mark="bullet">
+<listitem>
+<para>
+The type of the expression must have an equality operator
+<indexterm>
+    <primary>operator</primary>
+    <secondary>equality</secondary>
+</indexterm>
+defined.
+</para>
+</listitem>
+<listitem>
+<para>
+The type of every constant expression
+<indexterm>
+    <primary>expression</primary>
+    <secondary>constant</secondary>
+</indexterm>
+associated with a <emphasis>case statement</emphasis>
+<indexterm>
+    <primary><literal>case</literal></primary>
+</indexterm>
+must be assignable to the type of the expression.
+</para>
+</listitem>
+<listitem>
+<para>
+No two of the constant expressions
+<indexterm>
+    <primary>expression</primary>
+    <secondary>constant</secondary>
+</indexterm>
+associated with a case statement may have the same value.
+</para>
+</listitem>
+<listitem>
+<para>
+At most one <literal>others</literal>
+<indexterm>
+    <primary><literal>case</literal></primary>
+    <secondary><literal>others</literal></secondary>
+</indexterm>
+discrete choice may be associated with the
+same case statement and it must appear as the last case statement alternative
+<indexterm>
+    <primary><literal>case</literal></primary>
+    <secondary>alternative</secondary>
+</indexterm>
+on its own.
+</para>
+</listitem>
+</itemizedlist>
+</para>
+<para>
+When the
+<link linkend="ebnf.casestatement"><emphasis>case statement</emphasis></link>,
+<indexterm>
+    <primary><literal>case</literal></primary>
+</indexterm>
+is executed, first the expression is evaluated. If
+evaluation of the expression completes abruptly
+<indexterm>
+    <primary>abrupt completion</primary>
+</indexterm>
+for some reason, the case statement completes abruptly
+for the same reason.
+Otherwise execution continues by comparing the value of the expression with each
+case statement alternative. Then there is a choice:
+<itemizedlist mark="bullet">
+<listitem>
+<para>
+If one of the
+<link linkend="ebnf.constantexpression"><emphasis>constant expressions</emphasis></link>
+<indexterm>
+    <primary>expression</primary>
+    <secondary>constant</secondary>
+</indexterm>
+is equal to the value of the expression, then we say it matches and the
+<link linkend="ebnf.sequenceofstatements"><emphasis>sequence of statements</emphasis></link>
+<indexterm>
+    <primary>statement</primary>
+    <secondary>sequence</secondary>
+</indexterm>
+after the matching <literal>=&gt;</literal> is executed. If the
+<link linkend="ebnf.sequenceofstatements"><emphasis>sequence of statements</emphasis></link>
+<indexterm>
+    <primary>statement</primary>
+    <secondary>sequence</secondary>
+</indexterm>
+completed normally,
+<indexterm>
+    <primary>normal completion</primary>
+</indexterm>
+then the entire
+<link linkend="ebnf.casestatement"><emphasis>case statement</emphasis></link>
+<indexterm>
+    <primary><literal>case</literal></primary>
+</indexterm>
+completes normally.
+<indexterm>
+    <primary>normal completion</primary>
+</indexterm>
+</para>
+</listitem>
+<listitem>
+<para>
+If no
+<link linkend="ebnf.casestatement"><emphasis>case statement</emphasis></link>
+<indexterm>
+    <primary><literal>case</literal></primary>
+</indexterm>
+alternative matches but there is a
+<link linkend="ebnf.casestatement"><emphasis>case statement</emphasis></link>
+<indexterm>
+    <primary><literal>case</literal></primary>
+</indexterm>
+alternative with the reserved word <literal>others</literal>, then the
+sequence of statements after the matching <literal>=&gt;</literal> is executed.
+If the
+<link linkend="ebnf.sequenceofstatements"><emphasis>sequence of statements</emphasis></link>
+completed normally,
+<indexterm>
+    <primary>normal completion</primary>
+</indexterm>
+then the entire
+<link linkend="ebnf.casestatement"><emphasis>case statement</emphasis></link>
+completes normally.
+<indexterm>
+    <primary>normal completion</primary>
+</indexterm>
+</para>
+</listitem>
+<listitem>
+<para>
+If no
+<link linkend="ebnf.casestatement"><emphasis>case statement</emphasis></link>
+alternative matches and there is no case statement alternative with the reserved
+word <literal>other</literal>,
+<indexterm>
+    <primary><literal>case</literal></primary>
+    <secondary><literal>others</literal></secondary>
+</indexterm>
+then an exception is raised.
+</para>
+</listitem>
+</itemizedlist>
+If any statement immediately contained by the
+<link linkend="ebnf.sequenceofstatements"><emphasis>sequence of statements</emphasis></link>
+complete abruptly,
+<indexterm>
+    <primary>abrupt completion</primary>
+</indexterm>
+the
+<link linkend="ebnf.casestatement"><emphasis>case statement</emphasis></link>
+completes abruptly
+<indexterm>
+    <primary>abrupt completion</primary>
+</indexterm>
+for the same reason.
+</para>
+</section>
+<section xml:id="StatementsTheWhileStatement"><info><title>The While Statement</title></info>
+
+<para>
+The <link linkend="ebnf.whilestatement"><literal>while</literal></link> statement
+<indexterm significance="preferred">
+    <primary>statement</primary>
+    <secondary><literal>while</literal></secondary>
+</indexterm>
+<indexterm significance="preferred">
+    <primary><literal>while</literal></primary>
+</indexterm>
+executes a
+<link linkend="ebnf.sequenceofstatements"><emphasis>sequence of statements</emphasis></link>
+<indexterm>
+    <primary>statement</primary>
+    <secondary>sequence</secondary>
+</indexterm>
+repeatedly until the value of the
+<link linkend="ExpressionsConditions"><emphasis>condition</emphasis></link>
+<indexterm>
+    <primary>condition</primary>
+</indexterm>
+is false.
+</para>
+<indexterm zone="ebnf.whilestatement">
+    <primary>while statement</primary>
+</indexterm>
+<indexterm zone="ebnf.whilestatement">
+    <primary><literal>while</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.whilestatement">
+    <primary>condition</primary>
+</indexterm>
+<indexterm zone="ebnf.whilestatement">
+    <primary><literal>loop</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.whilestatement">
+    <primary>sequence of statements</primary>
+</indexterm>
+<indexterm zone="ebnf.whilestatement">
+    <primary><literal>end</literal></primary>
+</indexterm>
+<productionset>
+<production xml:id="ebnf.whilestatement">
+    <lhs>
+        while statement
+    </lhs>
+    <rhs>
+        'while',
+        <nonterminal def="#ebnf.condition">condition</nonterminal>,
+        'loop',
+        <nonterminal def="#ebnf.sequenceofstatements">sequence of statements</nonterminal>,
+        'end', ['loop'], ';'
+    </rhs>
+</production>
+</productionset>
+<para>
+A <link linkend="StatementsTheWhileStatement"><literal>while</literal></link> statement
+<indexterm>
+    <primary><literal>while</literal></primary>
+</indexterm>
+is executed by first evaluating the
+<link linkend="ExpressionsConditions"><emphasis>condition</emphasis></link>.
+<indexterm>
+    <primary>condition</primary>
+</indexterm>
+If evaluation of the
+<link linkend="ExpressionsConditions"><emphasis>condition</emphasis></link>
+<indexterm>
+    <primary>condition</primary>
+</indexterm>
+completes abruptly
+<indexterm>
+    <primary>abrupt completion</primary>
+</indexterm>
+for some reason, the
+<link linkend="StatementsTheWhileStatement"><literal>while</literal></link> statement
+<indexterm>
+    <primary><literal>while</literal></primary>
+</indexterm>
+completes abruptl
+<indexterm>
+    <primary>abrupt completion</primary>
+</indexterm>
+for the same reason. Otherwise, execution continues by making
+a choice based on the resulting value:
+<itemizedlist mark="bullet">
+<listitem>
+<para>
+If the value is <literal>true</literal>, then the contained
+<link linkend="ebnf.sequenceofstatements"><emphasis>sequence of statements</emphasis></link>
+<indexterm>
+    <primary>statement</primary>
+    <secondary>sequence</secondary>
+</indexterm>
+is executed. Then there is a choice:
+<itemizedlist mark="opencircle">
+<listitem>
+<para>
+If the execution of the
+<link linkend="ebnf.sequenceofstatements"><emphasis>sequence of statements</emphasis></link>
+<indexterm>
+    <primary>statement</primary>
+    <secondary>sequence</secondary>
+</indexterm>
+completes normally,
+<indexterm>
+    <primary>normal completion</primary>
+</indexterm>
+then the entire
+<link linkend="StatementsTheWhileStatement"><literal>while</literal></link> statement
+<indexterm>
+    <primary><literal>while</literal></primary>
+</indexterm>
+is executed again, beginning by re-evaluating the
+<link linkend="ExpressionsConditions"><emphasis>condition</emphasis></link>.
+<indexterm>
+    <primary>condition</primary>
+</indexterm>
+</para>
+</listitem>
+<listitem>
+<para>
+If the execution of the
+<link linkend="ebnf.sequenceofstatements"><emphasis>sequence of statements</emphasis></link>
+<link linkend="StatementsWhileAbruptCompletion">completes abruptly</link>,
+<indexterm>
+    <primary>abrupt completion</primary>
+</indexterm>
+see <xref linkend="StatementsWhileAbruptCompletion"/> below.
+</para>
+</listitem>
+</itemizedlist>
+</para>
+</listitem>
+<listitem>
+<para>
+If the value of the
+<link linkend="ExpressionsConditions"><emphasis>condition</emphasis></link>.
+<indexterm>
+    <primary>condition</primary>
+</indexterm>
+is false,then no further action is taken and the
+<link linkend="StatementsTheWhileStatement"><literal>while</literal></link> statement
+<indexterm>
+    <primary><literal>while</literal></primary>
+</indexterm>
+completes normally.
+<indexterm>
+    <primary>normal completion</primary>
+</indexterm>
+</para>
+</listitem>
+</itemizedlist>
+If the value of the
+<link linkend="ExpressionsConditions"><emphasis>condition</emphasis></link>.
+<indexterm>
+    <primary>condition</primary>
+</indexterm>
+is false the first time it is evaluated, then the
+<link linkend="ebnf.sequenceofstatements"><emphasis>sequence of statements</emphasis></link>
+<indexterm>
+    <primary>statement</primary>
+    <secondary>sequence</secondary>
+</indexterm>
+is not executed.
+</para>
+<section xml:id="StatementsWhileAbruptCompletion"><info><title>Abrupt Completion</title></info>
+
+<para>
+Abrupt completion
+<indexterm significance="preferred">
+    <primary>statement</primary>
+    <secondary><literal>while</literal></secondary>
+    <tertiary>abrupt completion</tertiary>
+</indexterm>
+<indexterm significance="preferred">
+    <primary><literal>while</literal></primary>
+    <secondary>abrupt completion</secondary>
+</indexterm>
+of the contained
+<link linkend="ebnf.sequenceofstatements"><emphasis>sequence of statements</emphasis></link>
+<indexterm>
+    <primary>statement</primary>
+    <secondary>sequence</secondary>
+</indexterm>
+is handled in the following manner:
+<itemizedlist mark="bullet">
+<listitem>
+<para>
+If execution of the
+<link linkend="ebnf.sequenceofstatements"><emphasis>sequence of statements</emphasis></link>
+<indexterm>
+    <primary>statement</primary>
+    <secondary>sequence</secondary>
+</indexterm>
+completes abruptly
+<indexterm>
+    <primary>abrupt completion</primary>
+</indexterm>
+because of an
+<link linkend="ebnf.exitstatement"><literal>exit</literal></link> statement, no
+<indexterm>
+    <primary><literal>exit</literal></primary>
+</indexterm>
+further action is taken and the
+<link linkend="StatementsTheWhileStatement"><literal>while</literal></link> statement
+<indexterm>
+    <primary><literal>while</literal></primary>
+</indexterm>
+completes normally.
+<indexterm>
+    <primary>normal completion</primary>
+</indexterm>
+</para>
+</listitem>
+<listitem>
+<para>
+If execution of the
+<link linkend="ebnf.sequenceofstatements"><emphasis>sequence of statements</emphasis></link>
+<indexterm>
+    <primary>statement</primary>
+    <secondary>sequence</secondary>
+</indexterm>
+completes abruptly
+<indexterm>
+    <primary>abrupt completion</primary>
+</indexterm>
+for any other reason, the
+<link linkend="StatementsTheWhileStatement"><literal>while</literal></link> statement
+<indexterm>
+    <primary><literal>while</literal></primary>
+</indexterm>
+completes abruptly
+<indexterm>
+    <primary>abrupt completion</primary>
+</indexterm>
+for the same reason.
+</para>
+</listitem>
+</itemizedlist>
+</para>
+</section>
+</section>
+<section xml:id="StatementsTheForStatement"><info><title>The For Statement</title></info>
+
+<para>
+The <link linkend="ebnf.forstatement"><literal>for</literal></link> statement
+<indexterm significance="preferred">
+    <primary>statement</primary>
+    <secondary><literal>for</literal></secondary>
+</indexterm>
+<indexterm significance="preferred">
+    <primary><literal>for</literal></primary>
+</indexterm>
+executes a
+<link linkend="ebnf.loopparameterspecification"><emphasis>loop parameter specification</emphasis></link>,
+<indexterm>
+    <primary>loop parameter</primary>
+</indexterm>
+then executes a
+<link linkend="ebnf.sequenceofstatements"><emphasis>sequence of statements</emphasis></link>
+<indexterm>
+    <primary>statement</primary>
+    <secondary>sequence</secondary>
+</indexterm>
+repeatedly until all the values specified by the
+<link linkend="ebnf.loopparameterspecification"><emphasis>loop parameter specification</emphasis></link>
+<indexterm>
+    <primary>loop parameter</primary>
+</indexterm>
+have been covered.
+</para>
+<indexterm zone="ebnf.forstatement">
+    <primary>for statement</primary>
+</indexterm>
+<indexterm zone="ebnf.forstatement">
+    <primary><literal>for</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.forstatement">
+    <primary>loop parameter specification</primary>
+</indexterm>
+<indexterm zone="ebnf.forstatement">
+    <primary><literal>loop</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.forstatement">
+    <primary>sequence of statements</primary>
+</indexterm>
+<indexterm zone="ebnf.forstatement">
+    <primary><literal>end</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.loopparameterspecification">
+    <primary>loop parameter specification</primary>
+</indexterm>
+<indexterm zone="ebnf.loopparameterspecification">
+    <primary>variable name</primary>
+</indexterm>
+<indexterm zone="ebnf.loopparameterspecification">
+    <primary><literal>in</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.loopparameterspecification">
+    <primary><literal>reverse</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.loopparameterspecification">
+    <primary>range</primary>
+</indexterm>
+<productionset>
+<production xml:id="ebnf.forstatement">
+    <lhs>
+        for statement
+    </lhs>
+    <rhs>
+        'for',
+        <nonterminal def="#ebnf.loopparameterspecification">loop parameter specification</nonterminal>,
+        'loop',
+        <nonterminal def="#ebnf.sequenceofstatements">sequence of statements</nonterminal>,
+        'end', ['loop'], ';'
+    </rhs>
+</production>
+<production xml:id="ebnf.loopparameterspecification">
+    <lhs>
+        loop parameter specification
+    </lhs>
+    <rhs>
+         <nonterminal def="#ebnf.variablename">variable name</nonterminal>,
+         'in',
+         ['reverse'],
+         <nonterminal def="#ebnf.range">range</nonterminal>
+    </rhs>
+</production>
+</productionset>
+<para>
+For execution of a
+<link linkend="ebnf.forstatement"><literal>for</literal></link> statement,
+<indexterm>
+    <primary><literal>for</literal></primary>
+</indexterm>
+the
+<link linkend="ebnf.loopparameterspecification"><emphasis>loop parameter specification</emphasis></link>
+<indexterm>
+    <primary>loop parameter</primary>
+</indexterm>
+is first elaborated. This elaboration creates the loop parameter and elaborates
+the <link linkend="ebnf.range"><emphasis>range</emphasis></link>.
+<indexterm>
+    <primary>range</primary>
+</indexterm>
+If the
+<link linkend="ebnf.range"><emphasis>range</emphasis></link>
+<indexterm>
+    <primary>range</primary>
+</indexterm>
+defines a empty range, then execution is complete.
+Otherwise, the
+<link linkend="ebnf.sequenceofstatements"><emphasis>sequence of statements</emphasis></link>
+<indexterm>
+    <primary>statement</primary>
+    <secondary>sequence</secondary>
+</indexterm>
+is executed once for each value of the
+<link linkend="ebnf.range"><emphasis>range</emphasis></link> (or until the
+<link linkend="ebnf.forstatement"><literal>for</literal></link> statement
+is left as a consequence of a transfer of control). Prior to each iteration, the
+corresponding value of the
+<link linkend="ebnf.range"><emphasis>range</emphasis></link> is assigned to the
+loop parameter. These values
+are assigned in increasing order unless the reserved word
+<literal>reverse</literal>
+<indexterm>
+    <primary><literal>for</literal></primary>
+    <secondary><literal>reverse</literal></secondary>
+</indexterm>
+is present, in which case the values are assigned in decreasing order.
+</para>
+<para>
+The <link linkend="ebnf.range"><emphasis>range</emphasis></link>
+<indexterm>
+    <primary>range</primary>
+</indexterm>
+shall resolve to some specific
+<link linkend="TypesNumericTypes"><type>integer</type></link> or
+<indexterm>
+    <primary><type>integer</type></primary>
+</indexterm>
+<link linkend="TypesEnumerationTypes"><type>enumeration</type></link> type.
+<indexterm>
+    <primary><type>enumeration</type></primary>
+</indexterm>
+If the type of the <link linkend="ebnf.range"><emphasis>range</emphasis></link>
+<indexterm>
+    <primary>range</primary>
+</indexterm>
+resolves to a <link linkend="TypesNumericTypes"><type>numeric</type></link>,
+<indexterm>
+    <primary><type>numeric</type></primary>
+</indexterm>
+then the <link linkend="ebnf.range"><emphasis>range</emphasis></link>
+<indexterm>
+    <primary>range</primary>
+</indexterm>
+is defined to be of the pre-defined type
+<link linkend="TypesNumericTypes"><type>integer</type></link>
+<indexterm>
+    <primary><type>integer</type></primary>
+</indexterm>
+with bounds given by a conversion to integer of bounds of the range.
+</para>
+<section xml:id="StatementsForAbruptCompletion"><info><title>Abrupt Completion</title></info>
+
+<para>
+Abrupt completion of the contained
+<link linkend="ebnf.sequenceofstatements"><emphasis>sequence of statements</emphasis></link>
+<indexterm>
+    <primary>statement</primary>
+    <secondary>sequence</secondary>
+</indexterm>
+is handled in the following manner:
+<itemizedlist mark="bullet">
+<listitem>
+<para>
+If execution of the
+<link linkend="ebnf.sequenceofstatements"><emphasis>sequence of statements</emphasis></link>
+<indexterm>
+    <primary>statement</primary>
+    <secondary>sequence</secondary>
+</indexterm>
+completes abruptly
+<indexterm>
+    <primary>abrupt completion</primary>
+</indexterm>
+because of an
+<link linkend="ebnf.exitstatement"><literal>exit</literal></link>
+<indexterm>
+    <primary><literal>exit</literal></primary>
+</indexterm>
+statement, no further action is taken and the
+<link linkend="ebnf.forstatement"><literal>for</literal></link> statement
+<indexterm>
+    <primary><literal>for</literal></primary>
+</indexterm>
+completes abruptly
+<indexterm>
+    <primary>abrupt completion</primary>
+</indexterm>
+for the same reason.
+</para>
+</listitem>
+</itemizedlist>
+</para>
+</section>
+</section>
+<section xml:id="StatementsTheExitStatement"><info><title>The Exit Statement</title></info>
+
+<para>
+An <link linkend="ebnf.exitstatement"><literal>exit</literal></link> statement
+<indexterm significance="preferred">
+    <primary>statement</primary>
+    <secondary><literal>exit</literal></secondary>
+</indexterm>
+<indexterm significance="preferred">
+    <primary><literal>exit</literal></primary>
+</indexterm>
+transfers control out of an enclosing
+<link linkend="StatementsTheWhileStatement"><literal>while</literal></link> statement
+<indexterm significance="preferred">
+    <primary><literal>while</literal></primary>
+</indexterm>
+or
+<link linkend="StatementsTheForStatement"><literal>for</literal></link> statement.
+<indexterm significance="preferred">
+    <primary><literal>for</literal></primary>
+</indexterm>
+</para>
+<indexterm zone="ebnf.exitstatement">
+    <primary>exit statement</primary>
+</indexterm>
+<indexterm zone="ebnf.exitstatement">
+    <primary><literal>exit</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.exitstatement">
+    <primary><literal>when</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.exitstatement">
+    <primary>condition</primary>
+</indexterm>
+<productionset>
+<production xml:id="ebnf.exitstatement">
+    <lhs>
+        exit statement
+    </lhs>
+    <rhs>
+        'exit',
+        [('when',
+        <nonterminal def="#ebnf.condition">condition</nonterminal>)],
+        ';'
+    </rhs>
+</production>
+</productionset>
+<para>
+An <link linkend="ebnf.exitstatement"><emphasis>exit statement</emphasis></link>
+<indexterm>
+    <primary><literal>exit</literal></primary>
+</indexterm>
+is executed by evaluating the optional
+<link linkend="ExpressionsConditions"><emphasis>condition</emphasis></link>.
+<indexterm>
+    <primary>condition</primary>
+</indexterm>
+If the
+<link linkend="ExpressionsConditions"><emphasis>condition</emphasis></link>
+<indexterm>
+    <primary>condition</primary>
+</indexterm>
+evaluates to true or if no condition is present, then the
+<link linkend="ebnf.exitstatement"><literal>exit</literal></link> statement
+<indexterm>
+    <primary><literal>exit</literal></primary>
+</indexterm>
+transfers control to the innermost enclosing
+<link linkend="StatementsTheWhileStatement"><literal>while</literal></link> statement
+<indexterm>
+    <primary><literal>while</literal></primary>
+</indexterm>
+or
+<link linkend="StatementsTheForStatement"><literal>for</literal></link> statement;
+<indexterm>
+    <primary><literal>for</literal></primary>
+</indexterm>
+this statement, which is called the break target, then immediately completes
+normally.
+<indexterm>
+    <primary>normal completion</primary>
+</indexterm>
+</para>
+<para>
+A compile-time error occurs if there is no
+<link linkend="StatementsTheWhileStatement"><literal>while</literal></link> statement
+<indexterm>
+    <primary><literal>while</literal></primary>
+</indexterm>
+or
+<link linkend="StatementsTheForStatement"><literal>for</literal></link> statement;
+<indexterm>
+    <primary><literal>for</literal></primary>
+</indexterm>
+that encloses the 
+<link linkend="ebnf.exitstatement"><literal>exit</literal></link> statement.
+<indexterm>
+    <primary><literal>exit</literal></primary>
+</indexterm>
+</para>
+</section>
+<section xml:id="StatementsTheRaiseStatement"><info><title>The Raise Statement</title></info>
+
+<para>
+The <link linkend="ebnf.raisestatement"><literal>raise</literal></link> statement
+<indexterm significance="preferred">
+    <primary>statement</primary>
+    <secondary><literal>raise</literal></secondary>
+</indexterm>
+<indexterm significance="preferred">
+    <primary><literal>raise</literal></primary>
+</indexterm>
+causes an <link linkend="Exceptions">exception</link>
+<indexterm>
+    <primary>exception</primary>
+</indexterm>
+to be raised. The result is an immediate transfer of control.
+</para>
+<indexterm zone="ebnf.raisestatement">
+    <primary>raise statement</primary>
+</indexterm>
+<indexterm zone="ebnf.raisestatement">
+    <primary><literal>raise</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.raisestatement">
+    <primary>exception specification</primary>
+</indexterm>
+<productionset>
+<production xml:id="ebnf.raisestatement">
+    <lhs>
+        raise statement
+    </lhs>
+    <rhs>
+        'raise',
+        [<nonterminal def="#ebnf.exceptionspecification">exception specification</nonterminal>],
+        ';'
+    </rhs>
+</production>
+</productionset>
+<para>
+The following production is repeated from
+<xref linkend="ExceptionsHandlingofanException"/> to make the presentation
+here clearer:
+</para>
+<productionset>
+<productionrecap linkend="ebnf.exceptionspecification"/>
+</productionset>
+<para>
+A compile-time error occurs if:
+<itemizedlist mark="bullet">
+<listitem>
+<para>
+The exception to be raised has not been declared by an
+<link linkend="ExceptionsExceptionDeclarations"><emphasis>exception declaration</emphasis></link>,
+<indexterm>
+    <primary>exception</primary>
+    <secondary>declaration</secondary>
+</indexterm>
+as an exception of either:
+<itemizedlist mark="opencircle">
+<listitem>
+<para>
+The domain named by the
+<link linkend="DomainsDomainDeclaration"><emphasis>domain name</emphasis></link>,
+<indexterm>
+    <primary>domain</primary>
+    <secondary>name</secondary>
+</indexterm>
+in the form
+<package>domain_name</package><literal>::</literal><methodname>service_name</methodname>.
+</para>
+</listitem>
+<listitem>
+<para>
+The enclosing domain, in the form consisting of just an exception name.
+</para>
+</listitem>
+</itemizedlist>
+</para>
+</listitem>
+<listitem>
+<para>
+A <link linkend="ebnf.raisestatement"><emphasis>raise statement</emphasis></link>
+<indexterm>
+    <primary><literal>raise</literal></primary>
+</indexterm>
+of the form that has no
+<link linkend="ExceptionsHandlingofanException"><emphasis>exception specification</emphasis></link>,
+<indexterm>
+    <primary>exception</primary>
+    <secondary>specification</secondary>
+</indexterm>
+that is used outside an exception handler.
+</para>
+</listitem>
+</itemizedlist>
+</para>
+</section>
+<section xml:id="StatementsTheDeleteStatement"><info><title>The Delete Statement</title></info>
+
+<para>
+A <link linkend="ebnf.deletestatement"><literal>delete</literal></link> statement
+<indexterm significance="preferred">
+    <primary>statement</primary>
+    <secondary><literal>delete</literal></secondary>
+</indexterm>
+<indexterm significance="preferred">
+    <primary><literal>delete</literal></primary>
+</indexterm>
+allows instances of objects to be deleted.
+</para>
+<indexterm zone="ebnf.deletestatement">
+    <primary>delete statement</primary>
+</indexterm>
+<indexterm zone="ebnf.deletestatement">
+    <primary><literal>delete</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.deletestatement">
+    <primary>name</primary>
+</indexterm>
+<indexterm zone="ebnf.deletestatement">
+    <primary><literal>this</literal></primary>
+</indexterm>
+<productionset>
+<production xml:id="ebnf.deletestatement">
+    <lhs>
+        delete statement
+    </lhs>
+    <rhs>
+        ('delete',
+        <nonterminal def="#ebnf.name">name</nonterminal>,
+        ';') |
+        ('delete', 'this', ';')
+    </rhs>
+</production>
+</productionset>
+<para>
+When a delete on a <link linkend="Names"><emphasis>name</emphasis></link>
+<indexterm>
+    <primary>name</primary>
+</indexterm>
+is specified the <link linkend="Names"><emphasis>name</emphasis></link>
+<indexterm>
+    <primary>name</primary>
+</indexterm>
+must be an instance or an instance
+<link linkend="TypesCollectionTypes">collection type</link>.
+<indexterm>
+    <primary>collection</primary>
+</indexterm>
+In each case the
+delete will set the <link linkend="Names"><emphasis>name</emphasis></link>
+<indexterm>
+    <primary>name</primary>
+</indexterm>
+to a null or empty collection respectively.
+</para>
+<para>
+When an instance of an object is deleted, it is no longer available to the
+domain where the object is defined.
+</para>
+<para>
+If an instance collection
+<indexterm>
+    <primary>instance</primary>
+    <secondary>collection</secondary>
+</indexterm>
+is used, then all the instances specified will be
+deleted. Deletion of an instance will not cause the deletion of any attached
+relationships. The analyst must explicitly unlink relationships, or the case of
+associative objects, unassociate relationships before deleting
+the participating object instances.
+</para>
+<para>
+A compile-time error occurs if an attempt to delete
+<link linkend="Names"><literal>this</literal></link>
+<indexterm>
+    <primary><literal>this</literal></primary>
+</indexterm>
+is made in a non-terminal state.
+<indexterm>
+    <primary>state</primary>
+    <secondary>non-terminal</secondary>
+</indexterm>
+A <link linkend="ebnf.deletestatement"><literal>delete</literal></link>
+statement is
+<indexterm>
+    <primary><literal>delete</literal></primary>
+</indexterm>
+executed by evaluating the
+<link linkend="ExpressionsInstanceandInstanceCollectionExpressions">instance expression</link>
+<indexterm>
+    <primary>expression</primary>
+    <secondary>instance</secondary>
+</indexterm>
+or the instance collection expression. If this evaluation completes abruptly,
+<indexterm>
+    <primary>abrupt completion</primary>
+</indexterm>
+then the
+<link linkend="ebnf.deletestatement"><literal>delete</literal></link>
+<indexterm>
+    <primary><literal>delete</literal></primary>
+</indexterm>
+completes abruptly
+<indexterm>
+    <primary>abrupt completion</primary>
+</indexterm>
+for the same reason; no instances are deleted. The instance or instances
+determined by the
+<link linkend="ExpressionsInstanceandInstanceCollectionExpressions">instance expression</link>
+<indexterm>
+    <primary>expression</primary>
+    <secondary>instance</secondary>
+</indexterm>
+or instance collection
+<indexterm>
+    <primary>collection</primary>
+    <secondary>instance</secondary>
+</indexterm>
+expression are then deleted.
+</para>
+</section>
+<section xml:id="StatementsTheDelayStatement"><info><title>The Delay Statement</title></info>
+
+<para>
+A <link linkend="ebnf.delaystatement"><literal>delay</literal></link> statement
+<indexterm significance="preferred">
+    <primary>statement</primary>
+    <secondary><literal>delay</literal></secondary>
+</indexterm>
+<indexterm significance="preferred">
+    <primary><literal>delay</literal></primary>
+</indexterm>
+provides the means to direct the architecture to pause for a period of time
+defined as duration in seconds.
+</para>
+<indexterm zone="ebnf.delaystatement">
+    <primary>delay statement</primary>
+</indexterm>
+<indexterm zone="ebnf.delaystatement">
+    <primary><literal>delay</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.delaystatement">
+    <primary>expression</primary>
+</indexterm>
+<productionset>
+<production xml:id="ebnf.delaystatement">
+    <lhs>
+        delay statement
+    </lhs>
+    <rhs>
+        'delay',
+        <nonterminal def="#ebnf.expression">expression</nonterminal>
+        ';'
+    </rhs>
+</production>
+</productionset>
+<para>
+A compile-time error occurs if the expression does not evaluate to a type of <type>duration</type>.
+<indexterm>
+    <primary><type>duration</type></primary>
+</indexterm>
+</para>
+</section>
+<section xml:id="StatementsTheLinkStatement"><info><title>The Link Statement</title></info>
+
+<para>
+A <link linkend="ebnf.linkstatement"><literal>link</literal></link> statement
+<indexterm significance="preferred">
+    <primary>statement</primary>
+    <secondary><literal>link</literal></secondary>
+</indexterm>
+<indexterm significance="preferred">
+    <primary><literal>link</literal></primary>
+</indexterm>
+allows a relationship to be created.
+</para>
+<indexterm zone="ebnf.linkstatement">
+    <primary>link statement</primary>
+</indexterm>
+<indexterm zone="ebnf.linkstatement">
+    <primary><literal>link</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.linkstatement">
+    <primary>instance expression</primary>
+</indexterm>
+<indexterm zone="ebnf.linkstatement">
+    <primary>relationship specification</primary>
+</indexterm>
+<indexterm zone="ebnf.linkstatement">
+    <primary><literal>using</literal></primary>
+</indexterm>
+<productionset>
+<production xml:id="ebnf.linkstatement">
+    <lhs>
+        link statement
+    </lhs>
+    <rhs>
+        'link',
+        <nonterminal def="#ebnf.instanceexpression">instance expression</nonterminal>,
+        <nonterminal def="#ebnf.relationshipspecification">relationship specification</nonterminal>,
+        <nonterminal def="#ebnf.instanceexpression">instance expression</nonterminal>,
+        [('using',
+        <nonterminal def="#ebnf.instanceexpression">instance expression</nonterminal>)],
+        ';'
+    </rhs>
+</production>
+</productionset>
+<para>
+All of the following must be true or a compile-time error will result:
+<itemizedlist mark="bullet">
+<listitem>
+<para>
+The <link linkend="RelationshipsRelationshipSpecifications"><emphasis>relationship specification</emphasis></link>
+<indexterm>
+    <primary>relationship</primary>
+    <secondary>specification</secondary>
+</indexterm>
+is a valid navigation
+<indexterm>
+    <primary>relationship</primary>
+    <secondary>navigation</secondary>
+</indexterm>
+from the first instance to either an instance or
+collection of instances
+<indexterm>
+    <primary>instance</primary>
+    <secondary>collection</secondary>
+</indexterm>
+of the object that the second instance is an instance
+of.
+</para>
+</listitem>
+<listitem>
+<para>
+The first and second instances are not associative instances
+<indexterm>
+    <primary>instance</primary>
+    <secondary>associative</secondary>
+</indexterm>
+of the
+<link linkend="RegularRelationships">relationship</link>
+<indexterm>
+    <primary>relationship</primary>
+    <secondary>regular</secondary>
+</indexterm>
+being linked.
+</para>
+</listitem>
+<listitem>
+<para>
+If the relationship is an
+<link linkend="RegularRelationships">associative relationship</link>
+<indexterm>
+    <primary>relationship</primary>
+    <secondary>associative</secondary>
+</indexterm>
+then the optional using clause must be used.
+</para>
+</listitem>
+<listitem>
+<para>
+The optional third instance is an associative instance
+<indexterm>
+    <primary>instance</primary>
+    <secondary>associative</secondary>
+</indexterm>
+of the
+<link linkend="RegularRelationships"><emphasis>relationship</emphasis></link>
+<indexterm>
+    <primary>relationship</primary>
+</indexterm>
+being linked.
+</para>
+</listitem>
+</itemizedlist>
+A <link linkend="ebnf.linkstatement"><emphasis>link statement</emphasis></link>
+<indexterm>
+    <primary><literal>link</literal></primary>
+</indexterm>
+is executed by evaluating all of the
+<link linkend="ExpressionsInstanceandInstanceCollectionExpressions">instance expressions</link>.
+<indexterm>
+    <primary>expression</primary>
+    <secondary>instance</secondary>
+</indexterm>
+If this evaluation completes abruptly,
+<indexterm>
+    <primary>abrupt completion</primary>
+</indexterm>
+then the
+<link linkend="ebnf.linkstatement"><emphasis>link statement</emphasis></link>
+<indexterm>
+    <primary><literal>link</literal></primary>
+</indexterm>
+completes abruptly
+<indexterm>
+    <primary>abrupt completion</primary>
+</indexterm>
+for the same reason. The
+<link linkend="RelationshipsRelationshipSpecifications"><emphasis>relationship specification</emphasis></link>
+<indexterm>
+    <primary>relationship</primary>
+    <secondary>specification</secondary>
+</indexterm>
+is elaborated and the instances determined are linked. An attempt to link
+instances that are already linked for the specified
+<link linkend="RelationshipsRelationshipSpecifications"><emphasis>relationship specification</emphasis></link>
+<indexterm>
+    <primary>relationship</primary>
+    <secondary>specification</secondary>
+</indexterm>
+raises an exception.
+<indexterm>
+    <primary>exception</primary>
+</indexterm>
+Any
+<link linkend="ObjectsReferentialAttributes"><emphasis>referential attributes</emphasis></link>
+<indexterm>
+    <primary>attribute</primary>
+    <secondary>referential</secondary>
+</indexterm>
+of the instances that are determined by the given relationship are set
+to the correct values.
+</para>
+</section>
+<section xml:id="StatementsTheUnlinkStatement"><info><title>The Unlink Statement</title></info>
+
+<para>
+An <link linkend="ebnf.unlinkstatement"><literal>unlink</literal></link> statement
+<indexterm significance="preferred">
+    <primary>statement</primary>
+    <secondary><literal>unlink</literal></secondary>
+</indexterm>
+<indexterm significance="preferred">
+    <primary><literal>unlink</literal></primary>
+</indexterm>
+allows a relationship to be deleted.
+</para>
+<indexterm zone="ebnf.unlinkstatement">
+    <primary>unlink statement</primary>
+</indexterm>
+<productionset>
+<production xml:id="ebnf.unlinkstatement">
+    <lhs>
+        unlink statement
+    </lhs>
+    <rhs>
+        'unlink',
+        <nonterminal def="#ebnf.instanceexpression">instance expression</nonterminal>,
+        <nonterminal def="#ebnf.relationshipspecification">relationship specification</nonterminal>,
+        <nonterminal def="#ebnf.instanceexpression">instance expression</nonterminal>,
+        [('using',
+        <nonterminal def="#ebnf.instanceexpression">instance expression</nonterminal>)],
+        ';'
+    </rhs>
+</production>
+</productionset>
+<para>
+All of the following must be true or a compile-time error will result:
+<itemizedlist mark="bullet">
+<listitem>
+<para>
+The <link linkend="RelationshipsRelationshipSpecifications"><emphasis>relationship specification</emphasis></link>
+<indexterm>
+    <primary>relationship</primary>
+    <secondary>specification</secondary>
+</indexterm>
+is a valid navigation from the first instance to either an instance or
+collection of instances of the object that the second instance is an instance
+of.
+</para>
+</listitem>
+<listitem>
+<para>
+The first and second instances are not associative instances
+<indexterm>
+    <primary>instance</primary>
+    <secondary>associative</secondary>
+</indexterm>
+of the
+<link linkend="RegularRelationships"><emphasis>relationship</emphasis></link>
+<indexterm>
+    <primary>relationship</primary>
+</indexterm>
+being linked.
+</para>
+</listitem>
+<listitem>
+<para>
+If the relationship is an
+<link linkend="RegularRelationships"><emphasis>associative relationship</emphasis></link>
+<indexterm>
+    <primary>relationship</primary>
+    <secondary>associative</secondary>
+</indexterm>
+then the optional using clause must be used.
+</para>
+</listitem>
+<listitem>
+<para>
+The optional third instance is an associative instance of the
+<link linkend="RegularRelationships"><emphasis>relationship</emphasis></link>
+<indexterm>
+    <primary>relationship</primary>
+</indexterm>
+being linked.
+</para>
+</listitem>
+</itemizedlist>
+A <link linkend="ebnf.unlinkstatement"><literal>unlink</literal></link> statement
+<indexterm>
+    <primary><literal>unlink</literal></primary>
+</indexterm>
+is executed by evaluating all of the 
+<link linkend="ExpressionsInstanceandInstanceCollectionExpressions">instance expressions</link>.
+<indexterm>
+    <primary>expression</primary>
+    <secondary>instance</secondary>
+</indexterm>
+If this evaluation completes abruptly,
+<indexterm>
+    <primary>abrupt completion</primary>
+</indexterm>
+then the
+<link linkend="ebnf.unlinkstatement"><emphasis>unlink statement</emphasis></link>
+<indexterm>
+    <primary><literal>unlink</literal></primary>
+</indexterm>
+completes abruptly
+<indexterm>
+    <primary>abrupt completion</primary>
+</indexterm>
+ for the same reason. The
+<link linkend="RelationshipsRelationshipSpecifications"><emphasis>relationship specification</emphasis></link>
+<indexterm>
+    <primary>relationship</primary>
+    <secondary>specification</secondary>
+</indexterm>
+is elaborated and the instances determined are unlinked. An attempt to unlink
+instances that are already unlinked for the specified
+<link linkend="RelationshipsRelationshipSpecifications"><emphasis>relationship specification</emphasis></link>
+<indexterm>
+    <primary>relationship</primary>
+    <secondary>specification</secondary>
+</indexterm>
+raises an exception.
+<indexterm>
+    <primary>exception.</primary>
+</indexterm>
+Any
+<link linkend="ObjectsReferentialAttributes"><emphasis>referential attributes</emphasis></link>
+<indexterm>
+    <primary>attribute</primary>
+    <secondary>referential</secondary>
+</indexterm>
+of the instances that are determined by the given relationship are unset. An
+attempt to access these values subsequent results in an exception.
+</para>
+</section>
+<section xml:id="StatementsTheAssociateStatement"><info><title>The Associate Statement</title></info>
+
+<para>
+The <link linkend="ebnf.associatestatement"><literal>associate</literal></link>
+<indexterm>
+    <primary><literal>associate</literal></primary>
+</indexterm>
+allows an associative object
+instance to be added to a
+<link linkend="RegularRelationships">relationship</link>
+<indexterm>
+    <primary>relationship</primary>
+</indexterm>
+between two object instances.
+</para>
+<indexterm zone="ebnf.associatestatement">
+    <primary>associate statement</primary>
+</indexterm>
+<indexterm zone="ebnf.associatestatement">
+    <primary>instance expression</primary>
+</indexterm>
+<indexterm zone="ebnf.associatestatement">
+    <primary>relationship specification</primary>
+</indexterm>
+<productionset>
+<production xml:id="ebnf.associatestatement">
+    <lhs>associate statement</lhs>
+    <rhs>
+        'associate',
+        <nonterminal def="#ebnf.instanceexpression">instance expression</nonterminal>,
+        <nonterminal def="#ebnf.relationshipspecification">relationship specification</nonterminal>,
+        <nonterminal def="#ebnf.instanceexpression">instance expression</nonterminal>,
+        'to',
+        <nonterminal def="#ebnf.instanceexpression">instance expression</nonterminal>,
+        ';'        
+    </rhs>
+</production>
+</productionset>
+<para>
+All of the following must be true or a compile-time error will result:
+<itemizedlist mark="bullet">
+<listitem>
+<para>
+The <link linkend="RelationshipsRelationshipSpecifications">relationship specification</link>
+<indexterm>
+    <primary>relationship</primary>
+    <secondary>specification</secondary>
+</indexterm>
+is a valid navigation from the first instance
+to either an instance or collection of instances of the object that the second
+instance is an instance of.
+</para>
+</listitem>
+<listitem>
+<para>
+The first and second instances are not associative instances of the
+<link linkend="RegularRelationships">relationship</link>
+<indexterm>
+    <primary>relationship</primary>
+</indexterm>
+being linked.
+</para>
+</listitem>
+<listitem>
+<para>
+The third instance is an associative instance of the
+<link linkend="RegularRelationships">relationship</link>
+<indexterm>
+    <primary>relationship</primary>
+</indexterm>
+being linked.
+</para>
+</listitem>
+</itemizedlist>
+</para>
+<para>
+An <link linkend="ebnf.associatestatement"><literal>associate</literal></link>
+<indexterm>
+    <primary><literal>associate</literal></primary>
+</indexterm>
+statement is executed by evaluating all the
+<link linkend="ExpressionsInstanceandInstanceCollectionExpressions">instance expressions</link>.
+<indexterm>
+    <primary>expression</primary>
+    <secondary>instance</secondary>
+</indexterm>
+If this evaluation completes abruptly, then the
+<link linkend="ebnf.associatestatement"><literal>associate</literal></link>
+<indexterm>
+    <primary><literal>associate</literal></primary>
+</indexterm>
+statement completes abruptly for the same reason. The
+<link linkend="RelationshipsRelationshipSpecifications">relationship specification</link>
+<indexterm>
+    <primary>relationship</primary>
+    <secondary>specification</secondary>
+</indexterm>
+is elaborated and the instances determined are associated.
+</para>
+<para>
+An attempt to associate an associative instance to two instances that are not already
+linked raise an exception.
+</para>
+<para>
+An attempt to associate an instance that is already associated raises an exception.
+</para>
+<para>
+Any referential attributes of the instances that are determined by the given
+<link linkend="RegularRelationships">relationship</link>
+<indexterm>
+    <primary>relationship</primary>
+</indexterm>
+are set to the correct values.
+</para>
+</section>
+<section xml:id="StatementsTheUnassociateStatement"><info><title>The Unassociate Statement</title></info>
+
+<para>
+The <link linkend="ebnf.unassociatestatement"><literal>unassociate</literal></link>
+<indexterm>
+    <primary><literal>unassociate</literal></primary>
+</indexterm>
+statement allows an associative object
+instance to be removed from a
+<link linkend="RegularRelationships">relationship</link>
+<indexterm>
+    <primary>relationship</primary>
+</indexterm>
+between two object instances.
+</para>
+<indexterm zone="ebnf.unassociatestatement">
+    <primary>unassociate statement</primary>
+</indexterm>
+<indexterm zone="ebnf.unassociatestatement">
+    <primary><literal>unassociate</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.unassociatestatement">
+    <primary>instance expression</primary>
+</indexterm>
+<indexterm zone="ebnf.unassociatestatement">
+    <primary>relationship specification</primary>
+</indexterm>
+<indexterm zone="ebnf.unassociatestatement">
+    <primary><literal>from</literal></primary>
+</indexterm>
+<productionset>
+<production xml:id="ebnf.unassociatestatement">
+    <lhs>unassociate statement</lhs>
+    <rhs>
+        'unassociate',
+        <nonterminal def="#ebnf.instanceexpression">instance expression</nonterminal>,
+        <nonterminal def="#ebnf.relationshipspecification">relationship specification</nonterminal>,
+        <nonterminal def="#ebnf.instanceexpression">instance expression</nonterminal>,
+        'from',
+        <nonterminal def="#ebnf.instanceexpression">instance expression</nonterminal>,
+        ';'        
+    </rhs>
+</production>
+</productionset>
+<para>
+All of the following must be true of a compile-time error will result:
+<itemizedlist mark="bullet">
+<listitem>
+<para>
+The <link linkend="RelationshipsRelationshipSpecifications">relationship specification</link>
+<indexterm>
+    <primary>relationship</primary>
+    <secondary>specification</secondary>
+</indexterm>
+is a valid navigation from the first instance
+to either an instance or collection of instances of the object that the second
+instance is an instance of.
+</para>
+</listitem>
+<listitem>
+<para>
+The first and second instances are not associative instances of the
+<link linkend="RegularRelationships">relationship</link>
+<indexterm>
+    <primary>relationship</primary>
+</indexterm>
+being linked.
+</para>
+</listitem>
+<listitem>
+<para>
+The third instance is an associative instance of the
+<link linkend="RegularRelationships">relationship</link>
+<indexterm>
+    <primary>relationship</primary>
+</indexterm>
+being linked.
+</para>
+</listitem>
+</itemizedlist>
+</para>
+<para>
+An <link linkend="ebnf.unassociatestatement"><literal>unassociate</literal></link>
+<indexterm>
+    <primary><literal>unassociate</literal></primary>
+</indexterm>
+statement is executed by evaluating all of the
+<link linkend="ExpressionsInstanceandInstanceCollectionExpressions">instance expressions</link>.
+<indexterm>
+    <primary>expression</primary>
+    <secondary>instance</secondary>
+</indexterm>
+If this evaluation completes abruptly, then the
+<link linkend="ebnf.unassociatestatement"><literal>unassociate</literal></link>
+<indexterm>
+    <primary><literal>unassociate</literal></primary>
+</indexterm>
+statement completes abruptly for the same reason. The
+<link linkend="RelationshipsRelationshipSpecifications">relationship specification</link>
+<indexterm>
+    <primary>relationship</primary>
+    <secondary>specification</secondary>
+</indexterm>
+is elaborated and the instance determined are unassociated.
+</para>
+<para>
+An attempt to unassociate an associative instance that is not associated to the
+other two instances raise an exception.
+</para>
+<para>
+Any referential attributes of the instances that are determined by the given
+<link linkend="RegularRelationships">relationship</link>
+<indexterm>
+    <primary>relationship</primary>
+</indexterm>
+are unset. An attempt to access these values subsequently results in an
+exception.
+</para>
+</section>
+<section xml:id="StatementsTheGenerateStatement"><info><title>The Generate Statement</title></info>
+
+<para>
+The <link linkend="ebnf.generatestatement"><literal>generate</literal></link> statement
+<indexterm significance="preferred">
+    <primary>statement</primary>
+    <secondary><literal>generate</literal></secondary>
+</indexterm>
+<indexterm significance="preferred">
+    <primary><literal>generate</literal></primary>
+</indexterm>
+generates an event to either an object or a specific instance of an object.
+</para>
+<indexterm zone="ebnf.generatestatement">
+    <primary>generate statement</primary>
+</indexterm>
+<indexterm zone="ebnf.generatestatement">
+    <primary><literal>generate</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.generatestatement">
+    <primary>event specification</primary>
+</indexterm>
+<indexterm zone="ebnf.generatestatement">
+    <primary>argument list</primary>
+</indexterm>
+<indexterm zone="ebnf.generatestatement">
+    <primary><literal>to</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.generatestatement">
+    <primary>instance expression</primary>
+</indexterm>
+<indexterm zone="ebnf.eventspecification">
+    <primary>event specification</primary>
+</indexterm>
+<indexterm zone="ebnf.eventspecification">
+    <primary>object name</primary>
+</indexterm>
+<indexterm zone="ebnf.eventspecification">
+    <primary>event name</primary>
+</indexterm>
+<productionset>
+<production xml:id="ebnf.generatestatement">
+    <lhs>
+        generate statement
+    </lhs>
+    <rhs>
+        'generate',
+        <nonterminal def="#ebnf.eventspecification">event specification</nonterminal>,
+        '(',
+        <nonterminal def="#ebnf.argumentlist">argument list</nonterminal>,
+        ')',
+        [('to',
+        <nonterminal def="#ebnf.instanceexpression">instance expression</nonterminal>)],
+        ';'
+    </rhs>
+</production>
+<production xml:id="ebnf.eventspecification">
+    <lhs>
+        event specification
+    </lhs>
+    <rhs>
+        (<nonterminal def="#ebnf.objectname">object name</nonterminal>,
+        '.',
+        <nonterminal def="#ebnf.eventname">event name</nonterminal>) |
+        <nonterminal def="#ebnf.eventname">event name</nonterminal>
+    </rhs>
+</production>
+</productionset>
+<para>
+All of the following must be true or a compile-time error will result:
+<itemizedlist mark="bullet">
+<listitem>
+<para>
+The <link linkend="LifecyclesStateSignature">signature</link>
+<indexterm>
+    <primary>state</primary>
+    <secondary>signature</secondary>
+</indexterm>
+of the <link linkend="LifecyclesEvents">event</link>
+<indexterm>
+    <primary>event</primary>
+</indexterm>
+to be generated, named by the
+<link linkend="ebnf.eventname">event name</link>
+<indexterm>
+    <primary>event</primary>
+    <secondary>name</secondary>
+</indexterm>
+together with the argument list must be declared, by an
+<link linkend="ebnf.eventdeclaration">event declaration</link>,
+<indexterm>
+    <primary>event</primary>
+    <secondary>declaration</secondary>
+</indexterm>
+as an event of either:
+<itemizedlist mark="opencircle">
+<listitem>
+<para>
+The object, in the enclosing domain, named by the object name, in the form
+<classname>object_name</classname><literal>.</literal><methodname>event_name</methodname>.
+</para>
+</listitem>
+<listitem>
+<para>
+The enclosing object, in the form consisting of just an
+<link linkend="ebnf.eventname"><emphasis>event name</emphasis></link>.
+<indexterm>
+    <primary>event</primary>
+    <secondary>name</secondary>
+</indexterm>
+</para>
+</listitem>
+</itemizedlist>
+</para>
+</listitem>
+<listitem>
+<para>
+If the event is an instance event then the optional
+<link linkend="ExpressionsInstanceandInstanceCollectionExpressions">instance expression</link>
+<indexterm>
+    <primary>expression</primary>
+    <secondary>instance</secondary>
+</indexterm>
+must be provided.
+</para>
+</listitem>
+<listitem>
+<para>
+If the event is either a
+<link linkend="LifecyclesCreationEvents">creation</link>
+<indexterm>
+    <primary>event</primary>
+    <secondary>creation</secondary>
+</indexterm>
+or
+<link linkend="LifecyclesAssignerEvents">assigner event</link>
+<indexterm>
+    <primary>event</primary>
+    <secondary>assigner</secondary>
+</indexterm>
+event then the optional
+<link linkend="ExpressionsInstanceandInstanceCollectionExpressions">instance expression</link>
+<indexterm>
+    <primary>expression</primary>
+    <secondary>instance</secondary>
+</indexterm>
+must not be used.
+</para>
+</listitem>
+<listitem>
+<para>
+The optional
+<link linkend="ExpressionsInstanceandInstanceCollectionExpressions">instance expression</link>
+<indexterm>
+    <primary>expression</primary>
+    <secondary>instance</secondary>
+</indexterm>
+is an instance of the object that the event belongs to.
+</para>
+</listitem>
+</itemizedlist>
+A <link linkend="ebnf.generatestatement"><literal>generate</literal></link> statement
+<indexterm>
+    <primary><literal>generate</literal></primary>
+</indexterm>
+is executed by evaluating the argument expressions. If the evaluation of any
+argument expression completes abruptly,
+<indexterm>
+    <primary>abrupt completion</primary>
+</indexterm>
+then the
+<link linkend="ebnf.generatestatement"><literal>generate</literal></link> statement
+<indexterm>
+    <primary><literal>generate</literal></primary>
+</indexterm>
+completes abruptly
+<indexterm>
+    <primary>abrupt completion</primary>
+</indexterm>
+for the same reason. The optional
+<link linkend="ExpressionsInstanceandInstanceCollectionExpressions">instance expression</link>
+<indexterm>
+    <primary>expression</primary>
+    <secondary>instance</secondary>
+</indexterm>
+is then evaluated. If this evaluation completes abruptly,
+<indexterm>
+    <primary>abrupt completion</primary>
+</indexterm>
+then the
+<link linkend="ebnf.generatestatement"><literal>generate</literal></link> statement
+<indexterm>
+    <primary><literal>generate</literal></primary>
+</indexterm>
+completes abruptly
+<indexterm>
+    <primary>abrupt completion</primary>
+</indexterm>
+for the same reason. The result of this evaluation is known
+as the target reference. If the optional
+<link linkend="ExpressionsInstanceandInstanceCollectionExpressions">instance expression</link>
+<indexterm>
+    <primary>expression</primary>
+    <secondary>instance</secondary>
+</indexterm>
+is not given, then the target reference is the object of the event. The optional
+instance expression must be a non-null instance of the object otherwise an
+exception is raised. The event is then generated to the target reference.
+</para>
+</section>
+<section xml:id="StatementsThePragmaStatement"><info><title>The Pragma Statement</title></info>
+
+<para>
+The <link linkend="ebnf.pragmastatement"><literal>pragma</literal></link> statement
+<indexterm significance="preferred">
+    <primary>statement</primary>
+    <secondary><literal>pragma</literal></secondary>
+</indexterm>
+<indexterm significance="preferred">
+    <primary><literal>pragma</literal></primary>
+</indexterm>
+provides the means to define a language pragma within a statement.
+</para>
+<indexterm zone="ebnf.pragmastatement">
+    <primary>pragma statement</primary>
+</indexterm>
+<indexterm zone="ebnf.pragmastatement">
+    <primary>pragma</primary>
+</indexterm>
+<productionset>
+<production xml:id="ebnf.pragmastatement">
+    <lhs>
+        pragma statement
+    </lhs>
+    <rhs>
+        <nonterminal def="#ebnf.pragma">pragma</nonterminal>,
+        ';'
+    </rhs>
+</production>
+</productionset>
+</section>
+</chapter>

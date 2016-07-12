@@ -64,8 +64,11 @@ public class CheckModelIntegrity implements IActionDelegate {
 				IStructuredSelection ss = (IStructuredSelection) selection;
 				for (Iterator<?> iterator = ss.iterator(); iterator.hasNext();) {
 					NonRootModelElement element = (NonRootModelElement) iterator.next();
+					// There is a preference to cause the integrity checker not to 
+					// run on every transaction, but this CME ignores that and 
+					// always run the integrity check
 					issues.addAll(Arrays.asList(IntegrityChecker
-							.runIntegrityCheck(element, manager)));
+							.runIntegrityCheck(element, manager, false, true)));
 				}
 				SystemModel_c system = SystemModel_c.getOneS_SYSOnR1301(manager);
 				if(system != null) {

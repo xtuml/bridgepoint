@@ -25,6 +25,9 @@ package org.xtuml.bp.als.oal.test;
 import java.util.UUID;
 
 import org.eclipse.jface.preference.IPreferenceStore;
+import org.junit.After;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.Association_c;
 import org.xtuml.bp.core.AttributeValueReference_c;
 import org.xtuml.bp.core.BinaryOperation_c;
@@ -47,11 +50,13 @@ import org.xtuml.bp.core.Variable_c;
 import org.xtuml.bp.core.common.BridgePointPreferencesStore;
 import org.xtuml.bp.core.common.ClassQueryInterface_c;
 import org.xtuml.bp.core.common.IdAssigner;
+import org.xtuml.bp.test.common.OrderedRunner;
 
 import antlr.RecognitionException;
 import antlr.TokenStreamException;
 import junit.framework.TestCase;
 
+@RunWith(OrderedRunner.class)
 public class TestSelect_Generics extends TestCase {
     public TestSelect_Generics() {
         super();
@@ -70,7 +75,8 @@ public class TestSelect_Generics extends TestCase {
         assertEquals(0, cl.length);
     }
 
-    protected void tearDown() throws Exception {
+    @After
+	public void tearDown() throws Exception {
         try {
             super.tearDown();
             OalParserTest_Generics.tearDownActionData();
@@ -293,14 +299,16 @@ public void goodSelectValidate(
 	}
 }
 
-public void testSelectAnyFromImplicit() throws RecognitionException, TokenStreamException {
+@Test
+	public void testSelectAnyFromImplicit() throws RecognitionException, TokenStreamException {
 	String act = "select any x from instances of D_D;"; //$NON-NLS-1$
 	String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
 	assertEquals("", x); //$NON-NLS-1$
 	String[] var_list = { "x" };//$NON-NLS-1$
 	goodSelectValidate(true, "any", true, false, 1, 1, var_list, 1, "D_D", 4, "", 1, true);//$NON-NLS-1$//$NON-NLS-2$//$NON-NLS-3$
 }
-public void testSelectAnyFrom() throws RecognitionException, TokenStreamException {
+@Test
+	public void testSelectAnyFrom() throws RecognitionException, TokenStreamException {
 	String act = "create object instance x of D_D; select any x from instances of D_D;"; //$NON-NLS-1$
 	String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
 	assertEquals("", x); //$NON-NLS-1$
@@ -308,28 +316,32 @@ public void testSelectAnyFrom() throws RecognitionException, TokenStreamExceptio
 	goodSelectValidate(false, "any", true, false, 2, 1, var_list, 1, "D_D", 4, "", 1, true);//$NON-NLS-1$//$NON-NLS-2$//$NON-NLS-3$
 }
 
-public void testSelectAnyFromWhereImplicit() throws RecognitionException, TokenStreamException {
+@Test
+	public void testSelectAnyFromWhereImplicit() throws RecognitionException, TokenStreamException {
 	String act = "select any x from instances of D_D where selected.Disk_ID == 1;"; //$NON-NLS-1$
 	String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
 	assertEquals("", x); //$NON-NLS-1$
 	String[] var_list = { "x" };//$NON-NLS-1$
 	goodSelectValidate(true, "any", true, true, 1, 1, var_list, 4, "D_D", 4, "", 1, true, true, 1, 0);//$NON-NLS-1$//$NON-NLS-2$//$NON-NLS-3$
 }
-public void testSelectAnyFromWhere() throws RecognitionException, TokenStreamException {
+@Test
+	public void testSelectAnyFromWhere() throws RecognitionException, TokenStreamException {
 	String act = "create object instance x of D_D; select any x from instances of D_D where selected.Disk_ID == 1;"; //$NON-NLS-1$
 	String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
 	assertEquals("", x); //$NON-NLS-1$
 	String[] var_list = { "x" };//$NON-NLS-1$
 	goodSelectValidate(false, "any", true, true, 2, 1, var_list, 4, "D_D", 4, "", 1, true, true, 1, 0);//$NON-NLS-1$//$NON-NLS-2$//$NON-NLS-3$
 }
-public void testSelectAnyFromWhereSelected() throws RecognitionException, TokenStreamException {
+@Test
+	public void testSelectAnyFromWhereSelected() throws RecognitionException, TokenStreamException {
 	String act = "create object instance x of D_D; select any x from instances of D_D where selected == x;"; //$NON-NLS-1$
 	String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
 	assertEquals("", x); //$NON-NLS-1$
 	String[] var_list = { "x" };//$NON-NLS-1$
 	goodSelectValidate(false, "any", true, true, 2, 1, var_list, 3, "D_D", 4, "", 1, false);//$NON-NLS-1$//$NON-NLS-2$//$NON-NLS-3$
 }
-public void testSelectAnyFromWhereSelectedIOp() throws RecognitionException, TokenStreamException {
+@Test
+	public void testSelectAnyFromWhereSelectedIOp() throws RecognitionException, TokenStreamException {
     IPreferenceStore store = CorePlugin.getDefault().getPreferenceStore();
     store.setValue(BridgePointPreferencesStore.ALLOW_OPERATIONS_IN_WHERE, true);
 	String act = "create object instance x of D_D; select any x from instances of D_D where selected.testIBoolNoParm();"; //$NON-NLS-1$
@@ -339,28 +351,32 @@ public void testSelectAnyFromWhereSelectedIOp() throws RecognitionException, Tok
     //       one parses without error.  We can't call goodSelectValidate because
     //       the V_SLR class isn't setup to handle IB operation invocations
 }
-public void testSelectManyFromImplicit() throws RecognitionException, TokenStreamException {
+@Test
+	public void testSelectManyFromImplicit() throws RecognitionException, TokenStreamException {
 	String act = "select many x from instances of D_D;"; //$NON-NLS-1$
 	String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
 	assertEquals("", x); //$NON-NLS-1$
 	String[] var_list = { "x" };//$NON-NLS-1$
 	goodSelectValidate(true, "many", true, false, 1, 1, var_list, 1, "D_D", 4, "", 1, true);//$NON-NLS-1$//$NON-NLS-2$//$NON-NLS-3$
 }
-public void testSelectManyFrom() throws RecognitionException, TokenStreamException {
+@Test
+	public void testSelectManyFrom() throws RecognitionException, TokenStreamException {
 	String act = "select many x from instances of D_D;\nselect many x from instances of D_D;"; //$NON-NLS-1$
 	String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
 	assertEquals("", x); //$NON-NLS-1$
 	String[] var_list = { "x" };//$NON-NLS-1$
 	goodSelectValidate(false, "many", true, false, 2, 2, var_list, 1, "D_D", 4, "", 1, true);//$NON-NLS-1$//$NON-NLS-2$//$NON-NLS-3$
 }
-public void testSelectManyFromWhereImplicit() throws RecognitionException, TokenStreamException {
+@Test
+	public void testSelectManyFromWhereImplicit() throws RecognitionException, TokenStreamException {
 	String act = "select many x from instances of D_D where selected.Disk_ID == 1;"; //$NON-NLS-1$
 	String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
 	assertEquals("", x); //$NON-NLS-1$
 	String[] var_list = { "x" };//$NON-NLS-1$
 	goodSelectValidate(true, "many", true, true, 1, 1, var_list, 4, "D_D", 4, "", 1, true, true, 1, 0);//$NON-NLS-1$//$NON-NLS-2$//$NON-NLS-3$
 }
-public void testSelectManyFromWhere() throws RecognitionException, TokenStreamException {
+@Test
+	public void testSelectManyFromWhere() throws RecognitionException, TokenStreamException {
 	String act = "select many x from instances of D_D;\nselect many x from instances of D_D where selected.Disk_ID == 1;"; //$NON-NLS-1$
 	String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
 	assertEquals("", x); //$NON-NLS-1$
@@ -378,7 +394,8 @@ private void chainLinkValidate(ChainLink_c cl, String phrase, String keyLett, in
 	assertNotNull(obj);
 	assertEquals(keyLett, obj.getKey_lett());
 }
-public void testSelectOneRelatedByImplicit() throws RecognitionException, TokenStreamException {
+@Test
+	public void testSelectOneRelatedByImplicit() throws RecognitionException, TokenStreamException {
 	String act = "select any d from instances of D_D;\nselect one h related by d->D_H[R4];"; //$NON-NLS-1$
 	String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
 	assertEquals("", x); //$NON-NLS-1$
@@ -386,7 +403,8 @@ public void testSelectOneRelatedByImplicit() throws RecognitionException, TokenS
 	goodSelectValidate(true, "one", false, false, 2, 1, var_list, 1, "D_H", 4, "", 1, true);//$NON-NLS-1$//$NON-NLS-2$//$NON-NLS-3$
     OalParserTest_Generics.clearActionData(OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
 }
-public void testSelectOneRelatedByImplicitWhere() throws RecognitionException, TokenStreamException {
+@Test
+	public void testSelectOneRelatedByImplicitWhere() throws RecognitionException, TokenStreamException {
 	String act = "select any d from instances of D_D;\nselect one h related by d->D_H[R4] where ( selected.Row_Number == 1);"; //$NON-NLS-1$
 	String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
 	assertEquals("", x); //$NON-NLS-1$
@@ -394,7 +412,8 @@ public void testSelectOneRelatedByImplicitWhere() throws RecognitionException, T
 	goodSelectValidate(true, "one", false, true, 2, 1, var_list, 5, "D_H", 4, "", 1, true, true, 1, 1);//$NON-NLS-1$//$NON-NLS-2$//$NON-NLS-3$
 	OalParserTest_Generics.clearActionData(OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
 }
-public void testSelectOneRelatedByImplicitFromSelf() throws RecognitionException, TokenStreamException {
+@Test
+	public void testSelectOneRelatedByImplicitFromSelf() throws RecognitionException, TokenStreamException {
 	String act = "select one d related by self->D_D[R4];"; //$NON-NLS-1$
 	String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_IB_OP, OalParserTest_Generics.TEST_VOID_NO_PARM);
 	assertEquals("", x); //$NON-NLS-1$
@@ -402,7 +421,8 @@ public void testSelectOneRelatedByImplicitFromSelf() throws RecognitionException
 	goodSelectValidate(true, "one", false, false, 1, 1, var_list, 1, "D_D", 4, "", 1, true);//$NON-NLS-1$//$NON-NLS-2$//$NON-NLS-3$
 	OalParserTest_Generics.clearActionData(OalParserTest_Generics.ACTIVITY_TYPE_IB_OP, OalParserTest_Generics.TEST_VOID_NO_PARM);
 }
-public void testSelectOneRelatedByImplicitWhereFromSelf() throws RecognitionException, TokenStreamException {
+@Test
+	public void testSelectOneRelatedByImplicitWhereFromSelf() throws RecognitionException, TokenStreamException {
 	String act = "select one d related by self->D_D[R4] where ( selected.Disk_ID == 1);"; //$NON-NLS-1$
 	String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_IB_OP, OalParserTest_Generics.TEST_VOID_NO_PARM);
 	assertEquals("", x); //$NON-NLS-1$
@@ -411,42 +431,48 @@ public void testSelectOneRelatedByImplicitWhereFromSelf() throws RecognitionExce
 	OalParserTest_Generics.clearActionData(OalParserTest_Generics.ACTIVITY_TYPE_IB_OP, OalParserTest_Generics.TEST_VOID_NO_PARM);
 }
 
-public void testSelectUnformalized() throws RecognitionException, TokenStreamException {
+@Test
+	public void testSelectUnformalized() throws RecognitionException, TokenStreamException {
 	String act = "select any tst from instances of D_TST; select one h related by tst->D_H[R16];"; //$NON-NLS-1$
 	String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
 	assertEquals("", x); //$NON-NLS-1$
 	String[] var_list = { "tst", "h" };//$NON-NLS-1$//$NON-NLS-2$
 	goodSelectValidate(true, "one", false, false, 2, 1, var_list, 1, "D_H", 16, "", 1, false);//$NON-NLS-1$//$NON-NLS-2$//$NON-NLS-3$
 }
-public void testSelectUnformalizedWithPhrase() throws RecognitionException, TokenStreamException {
+@Test
+	public void testSelectUnformalizedWithPhrase() throws RecognitionException, TokenStreamException {
 	String act = "select any tst from instances of D_TST; select one h related by tst->D_H[R16.'ends'];"; //$NON-NLS-1$
 	String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
 	assertEquals("", x); //$NON-NLS-1$
 	String[] var_list = { "tst", "h" };//$NON-NLS-1$//$NON-NLS-2$
 	goodSelectValidate(true, "one", false, false, 2, 1, var_list, 1, "D_H", 16, "'ends'", 1, false);//$NON-NLS-1$//$NON-NLS-2$//$NON-NLS-3$
 }
-public void testSelectUnformalizedOtherDirection() throws RecognitionException, TokenStreamException {
+@Test
+	public void testSelectUnformalizedOtherDirection() throws RecognitionException, TokenStreamException {
 	String act = "select any h from instances of D_H; select one tst related by h->D_TST[R16];"; //$NON-NLS-1$
 	String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
 	assertEquals("", x); //$NON-NLS-1$
 	String[] var_list = { "h", "tst" };//$NON-NLS-1$//$NON-NLS-2$
 	goodSelectValidate(true, "one", false, false, 2, 1, var_list, 1, "D_TST", 16, "", 1, false);//$NON-NLS-1$//$NON-NLS-2$//$NON-NLS-3$
 }
-public void testSelectUnformalizedOtherDirectionWithPhrase() throws RecognitionException, TokenStreamException {
+@Test
+	public void testSelectUnformalizedOtherDirectionWithPhrase() throws RecognitionException, TokenStreamException {
 	String act = "select any h from instances of D_H; select one tst related by h->D_TST[R16.'starts'];"; //$NON-NLS-1$
 	String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
 	assertEquals("", x); //$NON-NLS-1$
 	String[] var_list = { "h", "tst" };//$NON-NLS-1$//$NON-NLS-2$
 	goodSelectValidate(true, "one", false, false, 2, 1, var_list, 1, "D_TST", 16, "'starts'", 1, false);//$NON-NLS-1$//$NON-NLS-2$//$NON-NLS-3$
 }
-public void testSelectUnformalizedReflexiveWithPhrase() throws RecognitionException, TokenStreamException {
+@Test
+	public void testSelectUnformalizedReflexiveWithPhrase() throws RecognitionException, TokenStreamException {
 	String act = "select any tst from instances of D_TST; select one tst2 related by tst->D_TST[R17.'starts'];"; //$NON-NLS-1$
 	String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
 	assertEquals("", x); //$NON-NLS-1$
 	String[] var_list = { "tst", "tst2" };//$NON-NLS-1$//$NON-NLS-2$
 	goodSelectValidate(true, "one", false, false, 2, 1, var_list, 1, "D_TST", 17, "'starts'", 1, false);//$NON-NLS-1$//$NON-NLS-2$//$NON-NLS-3$
 }
-public void testSelectUnformalizedReflexiveOtherDirectionWithPhrase() throws RecognitionException, TokenStreamException {
+@Test
+	public void testSelectUnformalizedReflexiveOtherDirectionWithPhrase() throws RecognitionException, TokenStreamException {
 	String act = "select any tst from instances of D_TST; select one tst2 related by tst->D_TST[R17.'ends'];"; //$NON-NLS-1$
 	String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
 	assertEquals("", x); //$NON-NLS-1$
@@ -480,7 +506,8 @@ private void validateNLinkChain(Select_c sel, int num, String [] objs, int relNu
 		}
 	}
 }
-public void testSelectOneRelatedBy2Links() throws RecognitionException, TokenStreamException {
+@Test
+	public void testSelectOneRelatedBy2Links() throws RecognitionException, TokenStreamException {
 	String act = "select any d from instances of D_D;\nselect one d related by d->D_H[R4]->D_D[R4];"; //$NON-NLS-1$
 	String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
 	assertEquals("", x); //$NON-NLS-1$
@@ -491,7 +518,8 @@ public void testSelectOneRelatedBy2Links() throws RecognitionException, TokenStr
 	String[] kls = { "D_H", "D_D" };
 	validateNLinkChain(sel[0], 2, kls, 4, phrases);//$NON-NLS-1$//$NON-NLS-2$
 }
-public void testSelectOneRelatedBy2LinksWith1PhraseFirst() throws RecognitionException, TokenStreamException {
+@Test
+	public void testSelectOneRelatedBy2LinksWith1PhraseFirst() throws RecognitionException, TokenStreamException {
 	String act = "select any d from instances of D_D;\nselect one d related by d->D_H[R4.'is permanently assigned to']->D_D[R4];"; //$NON-NLS-1$
 	String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
 	assertEquals("", x); //$NON-NLS-1$
@@ -502,7 +530,8 @@ public void testSelectOneRelatedBy2LinksWith1PhraseFirst() throws RecognitionExc
 	String[] kls = { "D_H", "D_D" };
 	validateNLinkChain(sel[0], 2, kls, 4, phrases);//$NON-NLS-1$//$NON-NLS-2$
 }
-public void testSelectOneRelatedBy2LinksWith1PhraseSecond() throws RecognitionException, TokenStreamException {
+@Test
+	public void testSelectOneRelatedBy2LinksWith1PhraseSecond() throws RecognitionException, TokenStreamException {
 	String act = "select any d from instances of D_D;\nselect one d related by d->D_H[R4]->D_D[R4.'is permanent home for'];"; //$NON-NLS-1$
 	String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
 	assertEquals("", x); //$NON-NLS-1$
@@ -513,7 +542,8 @@ public void testSelectOneRelatedBy2LinksWith1PhraseSecond() throws RecognitionEx
 	String[] kls = { "D_H", "D_D" };
 	validateNLinkChain(sel[0], 2, kls, 4, phrases);//$NON-NLS-1$//$NON-NLS-2$
 }
-public void testSelectOneRelatedBy3LinksWith1PhraseMiddle() throws RecognitionException, TokenStreamException {
+@Test
+	public void testSelectOneRelatedBy3LinksWith1PhraseMiddle() throws RecognitionException, TokenStreamException {
 	String act = "select any d from instances of D_D;\nselect one h related by d->D_H[R4]->D_D[R4.'is permanent home for']->D_H[R4];"; //$NON-NLS-1$
 	String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
 	assertEquals("", x); //$NON-NLS-1$
@@ -524,7 +554,8 @@ public void testSelectOneRelatedBy3LinksWith1PhraseMiddle() throws RecognitionEx
 	String[] kls = { "D_H", "D_D", "D_H" };
 	validateNLinkChain(sel[0], 3, kls, 4, phrases);//$NON-NLS-1$//$NON-NLS-2$
 }
-public void testSelectOneRelatedBy2LinksWhere() throws RecognitionException, TokenStreamException {
+@Test
+	public void testSelectOneRelatedBy2LinksWhere() throws RecognitionException, TokenStreamException {
 	String act = "select any d from instances of D_D;\nselect one d related by d->D_H[R4]->D_D[R4] where selected.Disk_ID == 1;"; //$NON-NLS-1$
 	String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
 	assertEquals("", x); //$NON-NLS-1$
@@ -538,7 +569,8 @@ public void testSelectOneRelatedBy2LinksWhere() throws RecognitionException, Tok
 	String[] kls = { "D_H", "D_D" };
 	validateNLinkChain(sel[0], 2, kls, 4, phrases);//$NON-NLS-1$//$NON-NLS-2$
 }
-public void testSelectAnyRelatedByManyImplicit() throws RecognitionException, TokenStreamException {
+@Test
+	public void testSelectAnyRelatedByManyImplicit() throws RecognitionException, TokenStreamException {
 	String act = "select many d from instances of D_D;\nselect any h related by d->D_H[R4];"; //$NON-NLS-1$
 	String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
 	assertEquals("", x); //$NON-NLS-1$
@@ -549,7 +581,8 @@ public void testSelectAnyRelatedByManyImplicit() throws RecognitionException, To
 	InstanceSet_c[] irs = InstanceSet_c.InstanceSetInstances(OalParserTest_Generics.modelRoot);
 	assertEquals(1, irs.length);
 }
-public void testSelectAnyRelatedByManyImplicitWhere() throws RecognitionException, TokenStreamException {
+@Test
+	public void testSelectAnyRelatedByManyImplicitWhere() throws RecognitionException, TokenStreamException {
 	String act = "select many d from instances of D_D;\nselect any h related by d->D_H[R4] where ( selected.Row_Number == 1);"; //$NON-NLS-1$
 	String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
 	assertEquals("", x); //$NON-NLS-1$
@@ -560,21 +593,24 @@ public void testSelectAnyRelatedByManyImplicitWhere() throws RecognitionExceptio
 	InstanceSet_c[] irs = InstanceSet_c.InstanceSetInstances(OalParserTest_Generics.modelRoot);
 	assertEquals(1, irs.length);
 }
-public void testSelectManyRelatedByManyImplicit() throws RecognitionException, TokenStreamException {
+@Test
+	public void testSelectManyRelatedByManyImplicit() throws RecognitionException, TokenStreamException {
 	String act = "select many d from instances of D_D;\nselect many h related by d->D_H[R4];"; //$NON-NLS-1$
 	String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
 	assertEquals("", x); //$NON-NLS-1$
 	String[] var_list = { "d", "h" };//$NON-NLS-1$//$NON-NLS-2$
 	goodSelectValidate(true, "many", false, false, 2, 1, var_list, 1, "D_H", 4, "", 1, true);//$NON-NLS-1$//$NON-NLS-2$//$NON-NLS-3$
 }
-public void testSelectManyRelatedByManyImplicitWhere() throws RecognitionException, TokenStreamException {
+@Test
+	public void testSelectManyRelatedByManyImplicitWhere() throws RecognitionException, TokenStreamException {
 	String act = "select many d from instances of D_D;\nselect many h related by d->D_H[R4] where ( selected.Row_Number == 1);"; //$NON-NLS-1$
 	String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
 	assertEquals("", x); //$NON-NLS-1$
 	String[] var_list = { "d", "h" };//$NON-NLS-1$//$NON-NLS-2$
 	goodSelectValidate(true, "many", false, true, 2, 1, var_list, 5, "D_H", 4, "", 1, true, true, 1, 1);//$NON-NLS-1$//$NON-NLS-2$//$NON-NLS-3$
 }
-public void testSelectAnyRelatedByManyRelImplicit() throws RecognitionException, TokenStreamException {
+@Test
+	public void testSelectAnyRelatedByManyRelImplicit() throws RecognitionException, TokenStreamException {
 	String act = "select any d from instances of D_D;\nselect any dq related by d->D_DQ[R1];"; //$NON-NLS-1$
 	String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
 	assertEquals("", x); //$NON-NLS-1$
@@ -585,7 +621,8 @@ public void testSelectAnyRelatedByManyRelImplicit() throws RecognitionException,
 	InstanceSet_c[] irs = InstanceSet_c.InstanceSetInstances(OalParserTest_Generics.modelRoot);
 	assertEquals(0, irs.length);
 }
-public void testSelectAnyRelatedByManyRelImplicitWhere() throws RecognitionException, TokenStreamException {
+@Test
+	public void testSelectAnyRelatedByManyRelImplicitWhere() throws RecognitionException, TokenStreamException {
 	String act = "select any d from instances of D_D;\nselect any dq related by d->D_DQ[R1] where (selected.Qualified_Process_ID == 1);"; //$NON-NLS-1$
 	String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
 	assertEquals("", x); //$NON-NLS-1$
@@ -596,35 +633,40 @@ public void testSelectAnyRelatedByManyRelImplicitWhere() throws RecognitionExcep
 	InstanceSet_c[] irs = InstanceSet_c.InstanceSetInstances(OalParserTest_Generics.modelRoot);
 	assertEquals(0, irs.length);
 }
-public void testSelectManyRelatedByManyRelImplicit() throws RecognitionException, TokenStreamException {
+@Test
+	public void testSelectManyRelatedByManyRelImplicit() throws RecognitionException, TokenStreamException {
 	String act = "select any d from instances of D_D;\nselect many dq related by d->D_DQ[R1];"; //$NON-NLS-1$
 	String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
 	assertEquals("", x); //$NON-NLS-1$
 	String[] var_list = { "d", "dq" };//$NON-NLS-1$//$NON-NLS-2$
 	goodSelectValidate(true, "many", false, false, 2, 1, var_list, 1, "D_DQ", 1, "", 1, true);//$NON-NLS-1$//$NON-NLS-2$//$NON-NLS-3$
 }
-public void testSelectManyRelatedByManyRelImplicitWhere() throws RecognitionException, TokenStreamException {
+@Test
+	public void testSelectManyRelatedByManyRelImplicitWhere() throws RecognitionException, TokenStreamException {
 	String act = "select any d from instances of D_D;\nselect many dq related by d->D_DQ[R1] where (selected.Qualified_Process_ID == 1);"; //$NON-NLS-1$
 	String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
 	assertEquals("", x); //$NON-NLS-1$
 	String[] var_list = { "d", "dq" };//$NON-NLS-1$//$NON-NLS-2$
 	goodSelectValidate(true, "many", false, true, 2, 1, var_list, 5, "D_DQ", 1, "", 1, true, true, 1, 1);//$NON-NLS-1$//$NON-NLS-2$//$NON-NLS-3$
 }
-public void testSelectOneRelatedByAssocRelImplicit() throws RecognitionException, TokenStreamException {
+@Test
+	public void testSelectOneRelatedByAssocRelImplicit() throws RecognitionException, TokenStreamException {
 	String act = "select any d from instances of D_D;\nselect one qp related by d->D_QP[R2];"; //$NON-NLS-1$
 	String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
 	assertEquals("", x); //$NON-NLS-1$
 	String[] var_list = { "d", "qp" };//$NON-NLS-1$//$NON-NLS-2$
 	goodSelectValidate(true, "one", false, false, 2, 1, var_list, 1, "D_QP", 2, "", 1, true);//$NON-NLS-1$//$NON-NLS-2$//$NON-NLS-3$
 }
-public void testSelectOneRelatedByAssocRelImplicitWhere() throws RecognitionException, TokenStreamException {
+@Test
+	public void testSelectOneRelatedByAssocRelImplicitWhere() throws RecognitionException, TokenStreamException {
 	String act = "select any d from instances of D_D;\nselect one qp related by d->D_QP[R2] where (selected.Qualified_Process_ID == 1);"; //$NON-NLS-1$
 	String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
 	assertEquals("", x); //$NON-NLS-1$
 	String[] var_list = { "d", "qp" };//$NON-NLS-1$//$NON-NLS-2$
 	goodSelectValidate(true, "one", false, true, 2, 1, var_list, 5, "D_QP", 2, "", 1, true, true, 1, 1);//$NON-NLS-1$//$NON-NLS-2$//$NON-NLS-3$
 }
-public void testSelectOneRelatedByAssocRel2Implicit() throws RecognitionException, TokenStreamException {
+@Test
+	public void testSelectOneRelatedByAssocRel2Implicit() throws RecognitionException, TokenStreamException {
 	String act = "select any d from instances of D_D;\nselect one qp related by d->D_DO[R2]->D_QP[R2];"; //$NON-NLS-1$
 	String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
 	assertEquals("", x); //$NON-NLS-1$
@@ -640,7 +682,8 @@ public void testSelectOneRelatedByAssocRel2Implicit() throws RecognitionExceptio
 	String[] kls = { "D_DO", "D_QP" };
 	validateNLinkChain(sel[0], 2, kls, 2, phrases);//$NON-NLS-1$//$NON-NLS-2$
 }
-public void testSelectOneRelatedByAssocRel2ImplicitWhere() throws RecognitionException, TokenStreamException {
+@Test
+	public void testSelectOneRelatedByAssocRel2ImplicitWhere() throws RecognitionException, TokenStreamException {
 	String act = "select any d from instances of D_D;\nselect one qp related by d->D_DO[R2]->D_QP[R2] where selected.Qualified_Process_ID == 1;"; //$NON-NLS-1$
 	String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
 	assertEquals("", x); //$NON-NLS-1$
@@ -654,126 +697,144 @@ public void testSelectOneRelatedByAssocRel2ImplicitWhere() throws RecognitionExc
 	String[] kls = { "D_DO", "D_QP" };
 	validateNLinkChain(sel[0], 2, kls, 2, phrases);//$NON-NLS-1$//$NON-NLS-2$
 }
-public void testSelectOneGoodReflexive() throws RecognitionException, TokenStreamException {
+@Test
+	public void testSelectOneGoodReflexive() throws RecognitionException, TokenStreamException {
 	String act = "select any d from instances of D_D; select one d2 related by d->D_D[R12.'precedes'];"; //$NON-NLS-1$
 	String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
 	assertEquals("", x); //$NON-NLS-1$
 	String[] var_list = { "d", "d2" };//$NON-NLS-1$//$NON-NLS-2$
 	goodSelectValidate(true, "one", false, false, 2, 1, var_list, 1, "D_D", 12, "'precedes'", 1, true);//$NON-NLS-1$//$NON-NLS-2$//$NON-NLS-3$
 }
-public void testSelectOneGoodReflexive2() throws RecognitionException, TokenStreamException {
+@Test
+	public void testSelectOneGoodReflexive2() throws RecognitionException, TokenStreamException {
 	String act = "select any d from instances of D_D; select one d2 related by d->D_D[R12.'follows'];"; //$NON-NLS-1$
 	String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
 	assertEquals("", x); //$NON-NLS-1$
 	String[] var_list = { "d", "d2" };//$NON-NLS-1$//$NON-NLS-2$
 	goodSelectValidate(true, "one", false, false, 2, 1, var_list, 1, "D_D", 12, "'follows'", 1, true);//$NON-NLS-1$//$NON-NLS-2$//$NON-NLS-3$
 }
-public void testSelectOneGoodReflexive3() throws RecognitionException, TokenStreamException {
+@Test
+	public void testSelectOneGoodReflexive3() throws RecognitionException, TokenStreamException {
 	String act = "select any t from instances of D_TST; select one t2 related by t->D_TST[R18.'has parent'];"; //$NON-NLS-1$
 	String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
 	assertEquals("", x); //$NON-NLS-1$
 	String[] var_list = { "t", "t2" };//$NON-NLS-1$//$NON-NLS-2$
 	goodSelectValidate(true, "one", false, false, 2, 1, var_list, 1, "D_TST", 18, "'has parent'", 1, true);//$NON-NLS-1$//$NON-NLS-2$//$NON-NLS-3$
 }
-public void testSelectAnyGoodReflexive() throws RecognitionException, TokenStreamException {
+@Test
+	public void testSelectAnyGoodReflexive() throws RecognitionException, TokenStreamException {
 	String act = "select many d from instances of D_D; select any d2 related by d->D_D[R12.'precedes'];"; //$NON-NLS-1$
 	String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
 	assertEquals("", x); //$NON-NLS-1$
 	String[] var_list = { "d", "d2" };//$NON-NLS-1$//$NON-NLS-2$
 	goodSelectValidate(true, "any", false, false, 2, 1, var_list, 1, "D_D", 12, "'precedes'", 1, true);//$NON-NLS-1$//$NON-NLS-2$//$NON-NLS-3$
 }
-public void testSelectAnyGoodReflexive2() throws RecognitionException, TokenStreamException {
+@Test
+	public void testSelectAnyGoodReflexive2() throws RecognitionException, TokenStreamException {
 	String act = "select any t from instances of D_TST; select any t2 related by t->D_TST[R18.'is parent of'];"; //$NON-NLS-1$
 	String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
 	assertEquals("", x); //$NON-NLS-1$
 	String[] var_list = { "t", "t2" };//$NON-NLS-1$//$NON-NLS-2$
 	goodSelectValidate(true, "any", false, false, 2, 1, var_list, 1, "D_TST", 18, "'is parent of'", 1, true);//$NON-NLS-1$//$NON-NLS-2$//$NON-NLS-3$
 }
-public void testSelectAnyGoodReflexiveWhere() throws RecognitionException, TokenStreamException {
+@Test
+	public void testSelectAnyGoodReflexiveWhere() throws RecognitionException, TokenStreamException {
 	String act = "select many d from instances of D_D; select any d2 related by d->D_D[R12.'precedes'] where selected.Disk_ID == 1;"; //$NON-NLS-1$
 	String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
 	assertEquals("", x); //$NON-NLS-1$
 	String[] var_list = { "d", "d2" };//$NON-NLS-1$//$NON-NLS-2$
 	goodSelectValidate(true, "any", false, true, 2, 1, var_list, 5, "D_D", 12, "'precedes'", 1, true, true, 1, 1);//$NON-NLS-1$//$NON-NLS-2$//$NON-NLS-3$
 }
-public void testSelectManyGoodReflexive() throws RecognitionException, TokenStreamException {
+@Test
+	public void testSelectManyGoodReflexive() throws RecognitionException, TokenStreamException {
 	String act = "select many d from instances of D_D; select many d2 related by d->D_D[R12.'follows'];"; //$NON-NLS-1$
 	String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
 	assertEquals("", x); //$NON-NLS-1$
 	String[] var_list = { "d", "d2" };//$NON-NLS-1$//$NON-NLS-2$
 	goodSelectValidate(true, "many", false, false, 2, 1, var_list, 1, "D_D", 12, "'follows'", 1, true);//$NON-NLS-1$//$NON-NLS-2$//$NON-NLS-3$
 }
-public void testSelectManyGoodReflexive2() throws RecognitionException, TokenStreamException {
+@Test
+	public void testSelectManyGoodReflexive2() throws RecognitionException, TokenStreamException {
 	String act = "select any t from instances of D_TST; select many t2 related by t->D_TST[R18.'is parent of'];"; //$NON-NLS-1$
 	String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
 	assertEquals("", x); //$NON-NLS-1$
 	String[] var_list = { "t", "t2" };//$NON-NLS-1$//$NON-NLS-2$
 	goodSelectValidate(true, "many", false, false, 2, 1, var_list, 1, "D_TST", 18, "'is parent of'", 1, true);//$NON-NLS-1$//$NON-NLS-2$//$NON-NLS-3$
 }
-public void testSelectOneAssocGoodReflexive() throws RecognitionException, TokenStreamException {
+@Test
+	public void testSelectOneAssocGoodReflexive() throws RecognitionException, TokenStreamException {
 	String act = "select any qpo from instances of D_QPO; select one qp related by qpo->D_QP[R13.'precedes'];"; //$NON-NLS-1$
 	String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
 	assertEquals("", x); //$NON-NLS-1$
 	String[] var_list = { "qpo", "qp" };//$NON-NLS-1$//$NON-NLS-2$
 	goodSelectValidate(true, "one", false, false, 2, 1, var_list, 1, "D_QP", 13, "'precedes'", 1, true);//$NON-NLS-1$//$NON-NLS-2$//$NON-NLS-3$
 }
-public void testSelectOneAssocGoodReflexive2() throws RecognitionException, TokenStreamException {
+@Test
+	public void testSelectOneAssocGoodReflexive2() throws RecognitionException, TokenStreamException {
 	String act = "select any qpo from instances of D_QPO; select one qp related by qpo->D_QP[R13.'follows'];"; //$NON-NLS-1$
 	String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
 	assertEquals("", x); //$NON-NLS-1$
 	String[] var_list = { "qpo", "qp" };//$NON-NLS-1$//$NON-NLS-2$
 	goodSelectValidate(true, "one", false, false, 2, 1, var_list, 1, "D_QP", 13, "'follows'", 1, true);//$NON-NLS-1$//$NON-NLS-2$//$NON-NLS-3$
 }
-public void testSelectOneAssocGoodReflexive3() throws RecognitionException, TokenStreamException {
+@Test
+	public void testSelectOneAssocGoodReflexive3() throws RecognitionException, TokenStreamException {
 	String act = "select any t from instances of D_TST; select one t2 related by t->D_TST[R19.'has parent'];"; //$NON-NLS-1$
 	String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
 	assertEquals("", x); //$NON-NLS-1$
 	String[] var_list = { "t", "t2" };//$NON-NLS-1$//$NON-NLS-2$
 	goodSelectValidate(true, "one", false, false, 2, 1, var_list, 1, "D_TST", 19, "'has parent'", 1, true);//$NON-NLS-1$//$NON-NLS-2$//$NON-NLS-3$
 }
-public void testSelectAnyAssocGoodReflexive() throws RecognitionException, TokenStreamException {
+@Test
+	public void testSelectAnyAssocGoodReflexive() throws RecognitionException, TokenStreamException {
 	String act = "select many qpo from instances of D_QPO; select any qp related by qpo->D_QP[R13.'precedes'];"; //$NON-NLS-1$
 	String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
 	assertEquals("", x); //$NON-NLS-1$
 	String[] var_list = { "qpo", "qp" };//$NON-NLS-1$//$NON-NLS-2$
 	goodSelectValidate(true, "any", false, false, 2, 1, var_list, 1, "D_QP", 13, "'precedes'", 1, true);//$NON-NLS-1$//$NON-NLS-2$//$NON-NLS-3$
 }
-public void testSelectAnyAssocGoodReflexive2() throws RecognitionException, TokenStreamException {
+@Test
+	public void testSelectAnyAssocGoodReflexive2() throws RecognitionException, TokenStreamException {
 	String act = "select any t from instances of D_TST; select any t2 related by t->D_TST[R19.'is parent of'];"; //$NON-NLS-1$
 	String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
 	assertEquals("", x); //$NON-NLS-1$
 	String[] var_list = { "t", "t2" };//$NON-NLS-1$//$NON-NLS-2$
 	goodSelectValidate(true, "any", false, false, 2, 1, var_list, 1, "D_TST", 19, "'is parent of'", 1, true);//$NON-NLS-1$//$NON-NLS-2$//$NON-NLS-3$
 }
-public void testSelectManyAssocGoodReflexive() throws RecognitionException, TokenStreamException {
+@Test
+	public void testSelectManyAssocGoodReflexive() throws RecognitionException, TokenStreamException {
 	String act = "select many qpo from instances of D_QPO; select many qp related by qpo->D_QP[R13.'follows'];"; //$NON-NLS-1$
 	String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
 	assertEquals("", x); //$NON-NLS-1$
 	String[] var_list = { "qpo", "qp" };//$NON-NLS-1$//$NON-NLS-2$
 	goodSelectValidate(true, "many", false, false, 2, 1, var_list, 1, "D_QP", 13, "'follows'", 1, true);//$NON-NLS-1$//$NON-NLS-2$//$NON-NLS-3$
 }
-public void testSelectManyAssocGoodReflexive2() throws RecognitionException, TokenStreamException {
+@Test
+	public void testSelectManyAssocGoodReflexive2() throws RecognitionException, TokenStreamException {
    String act = "select any t from instances of D_TST; select many t2 related by t->D_TST[R19.'is parent of'];"; //$NON-NLS-1$
    String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
    assertEquals("", x); //$NON-NLS-1$
    String[] var_list = { "t", "t2" };//$NON-NLS-1$//$NON-NLS-2$
    goodSelectValidate(true, "many", false, false, 2, 1, var_list, 1, "D_TST", 19, "'is parent of'", 1, true);//$NON-NLS-1$//$NON-NLS-2$//$NON-NLS-3$
 }
-public void testSelectOneAssocRelGoodReflexive() throws RecognitionException, TokenStreamException {
+@Test
+	public void testSelectOneAssocRelGoodReflexive() throws RecognitionException, TokenStreamException {
 	String act = "select any t from instances of D_TST; select one t2 related by t->D_N[R19.'has parent'];"; //$NON-NLS-1$
 	String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
 	assertEquals("", x); //$NON-NLS-1$
 	String[] var_list = { "t", "t2" };//$NON-NLS-1$//$NON-NLS-2$
 	goodSelectValidate(true, "one", false, false, 2, 1, var_list, 1, "D_N", 19, "'has parent'", 1, true);//$NON-NLS-1$//$NON-NLS-2$//$NON-NLS-3$
 }
-public void testSelectAnyAssocRelGoodReflexive() throws RecognitionException, TokenStreamException {
+@Test
+	public void testSelectAnyAssocRelGoodReflexive() throws RecognitionException, TokenStreamException {
 	String act = "select any qp from instances of D_QP; select any qpo related by qp->D_QPO[R13.'precedes'];"; //$NON-NLS-1$
 	String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
 	assertEquals("", x); //$NON-NLS-1$
 	String[] var_list = { "qp", "qpo" };//$NON-NLS-1$//$NON-NLS-2$
 	goodSelectValidate(true, "any", false, false, 2, 1, var_list, 1, "D_QPO", 13, "'precedes'", 1, true);//$NON-NLS-1$//$NON-NLS-2$//$NON-NLS-3$
 }
-public void testSelectAnyAssocRelGoodReflexive2() throws RecognitionException, TokenStreamException {
+@Test
+	public void testSelectAnyAssocRelGoodReflexive2() throws RecognitionException, TokenStreamException {
    String act = "select any qp from instances of D_QP; select any qp2 related by qp->D_QPO[R13.'precedes']->D_QP[R13.'precedes'];"; //$NON-NLS-1$
    String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
    assertEquals("", x); //$NON-NLS-1$
@@ -787,7 +848,8 @@ public void testSelectAnyAssocRelGoodReflexive2() throws RecognitionException, T
    String[] kls = { "D_QPO", "D_QP" };
    validateNLinkChain(sel[0], 2, kls, 13, phrases);//$NON-NLS-1$//$NON-NLS-2$
 }
-public void testSelectAnyAssocRelGoodReflexive3() throws RecognitionException, TokenStreamException {
+@Test
+	public void testSelectAnyAssocRelGoodReflexive3() throws RecognitionException, TokenStreamException {
   String act = "select any qp from instances of D_QP; select any qp2 related by qp->D_QPO[R13.'precedes']->D_QP[R13.'follows'];"; //$NON-NLS-1$
   String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
   assertEquals("", x); //$NON-NLS-1$
@@ -801,14 +863,16 @@ public void testSelectAnyAssocRelGoodReflexive3() throws RecognitionException, T
   String[] kls = { "D_QPO", "D_QP" };
   validateNLinkChain(sel[0], 2, kls, 13, phrases);//$NON-NLS-1$//$NON-NLS-2$
 }
-public void testSelectAnyAssocRelGoodReflexive4() throws RecognitionException, TokenStreamException {
+@Test
+	public void testSelectAnyAssocRelGoodReflexive4() throws RecognitionException, TokenStreamException {
    String act = "select any t from instances of D_TST; select any t2 related by t->D_N[R19.'is parent of'];"; //$NON-NLS-1$
    String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
    assertEquals("", x); //$NON-NLS-1$
    String[] var_list = { "t", "t2" };//$NON-NLS-1$//$NON-NLS-2$
    goodSelectValidate(true, "any", false, false, 2, 1, var_list, 1, "D_N", 19, "'is parent of'", 1, true);//$NON-NLS-1$//$NON-NLS-2$//$NON-NLS-3$
 }
-public void testSelectManyAssocRelGoodReflexive() throws RecognitionException, TokenStreamException {
+@Test
+	public void testSelectManyAssocRelGoodReflexive() throws RecognitionException, TokenStreamException {
 	String act = "select any qp from instances of D_QP; select many qpo related by qp->D_QPO[R13.'follows'];"; //$NON-NLS-1$
 	String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
 	assertEquals("", x); //$NON-NLS-1$
@@ -823,49 +887,56 @@ public void testSelectManyAssocRelGoodReflexive() throws RecognitionException, T
 	ChainLink_c cl = ChainLink_c.getOneACT_LNKOnR637(sel[0]);
 	chainLinkValidate(cl, "'follows'", "D_QPO", 13, IdAssigner.NULL_UUID);//$NON-NLS-1$//$NON-NLS-2$
 }
-public void testSelectOneRelatedByFromSup() throws RecognitionException, TokenStreamException {
+@Test
+	public void testSelectOneRelatedByFromSup() throws RecognitionException, TokenStreamException {
 	String act = "select any d from instances of D_D;\nselect one od related by d->D_OD[R3];"; //$NON-NLS-1$
 	String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
 	assertEquals("", x); //$NON-NLS-1$
 	String[] var_list = { "d", "od" };//$NON-NLS-1$//$NON-NLS-2$
 	goodSelectValidate(true, "one", false, false, 2, 1, var_list, 1, "D_OD", 3, "", 1, true);//$NON-NLS-1$//$NON-NLS-2$//$NON-NLS-3$
 }
-public void testSelectAnyRelatedByFromManySup() throws RecognitionException, TokenStreamException {
+@Test
+	public void testSelectAnyRelatedByFromManySup() throws RecognitionException, TokenStreamException {
 	String act = "select many d from instances of D_D;\nselect any od related by d->D_OD[R3];"; //$NON-NLS-1$
 	String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
 	assertEquals("", x); //$NON-NLS-1$
 	String[] var_list = { "d", "od" };//$NON-NLS-1$//$NON-NLS-2$
 	goodSelectValidate(true, "any", false, false, 2, 1, var_list, 1, "D_OD", 3, "", 1, true);//$NON-NLS-1$//$NON-NLS-2$//$NON-NLS-3$
 }
-public void testSelectManyRelatedByFromManySup() throws RecognitionException, TokenStreamException {
+@Test
+	public void testSelectManyRelatedByFromManySup() throws RecognitionException, TokenStreamException {
 	String act = "select many d from instances of D_D;\nselect many od related by d->D_OD[R3];"; //$NON-NLS-1$
 	String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
 	assertEquals("", x); //$NON-NLS-1$
 	String[] var_list = { "d", "od" };//$NON-NLS-1$//$NON-NLS-2$
 	goodSelectValidate(true, "many", false, false, 2, 1, var_list, 1, "D_OD", 3, "", 1, true);//$NON-NLS-1$//$NON-NLS-2$//$NON-NLS-3$
 }
-public void testSelectOneRelatedByFromSub() throws RecognitionException, TokenStreamException {
+@Test
+	public void testSelectOneRelatedByFromSub() throws RecognitionException, TokenStreamException {
 	String act = "select any od from instances of D_OD;\nselect one d related by od->D_D[R3];"; //$NON-NLS-1$
 	String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
 	assertEquals("", x); //$NON-NLS-1$
 	String[] var_list = { "od", "d" };//$NON-NLS-1$//$NON-NLS-2$
 	goodSelectValidate(true, "one", false, false, 2, 1, var_list, 1, "D_D", 3, "", 1, true);//$NON-NLS-1$//$NON-NLS-2$//$NON-NLS-3$
 }
-public void testSelectAnyRelatedByFromManySub() throws RecognitionException, TokenStreamException {
+@Test
+	public void testSelectAnyRelatedByFromManySub() throws RecognitionException, TokenStreamException {
 	String act = "select many od from instances of D_OD;\nselect any d related by od->D_D[R3];"; //$NON-NLS-1$
 	String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
 	assertEquals("", x); //$NON-NLS-1$
 	String[] var_list = { "od", "d" };//$NON-NLS-1$//$NON-NLS-2$
 	goodSelectValidate(true, "any", false, false, 2, 1, var_list, 1, "D_D", 3, "", 1, true);//$NON-NLS-1$//$NON-NLS-2$//$NON-NLS-3$
 }
-public void testSelectManyRelatedByFromManySub() throws RecognitionException, TokenStreamException {
+@Test
+	public void testSelectManyRelatedByFromManySub() throws RecognitionException, TokenStreamException {
 	String act = "select many od from instances of D_OD;\nselect many d related by od->D_D[R3];"; //$NON-NLS-1$
 	String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
 	assertEquals("", x); //$NON-NLS-1$
 	String[] var_list = { "od", "d" };//$NON-NLS-1$//$NON-NLS-2$
 	goodSelectValidate(true, "many", false, false, 2, 1, var_list, 1, "D_D", 3, "", 1, true);//$NON-NLS-1$//$NON-NLS-2$//$NON-NLS-3$
 }
-public void testSelectAnyFromWhereImplicitNoSelected() throws RecognitionException, TokenStreamException {
+@Test
+	public void testSelectAnyFromWhereImplicitNoSelected() throws RecognitionException, TokenStreamException {
 	String act = "select any x from instances of D_D where true;"; //$NON-NLS-1$
 	String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
 	String lines[] = x.split("\n");//$NON-NLS-1$
@@ -874,7 +945,8 @@ public void testSelectAnyFromWhereImplicitNoSelected() throws RecognitionExcepti
 	String[] var_list = {"x"};
 	goodSelectValidate(true, "any", true, true, 1, 1, var_list, 1, "D_D", 1, "", 1, true, false, 0, 0);
 }
-public void testSelectOneRelatedByNoSelectedWhere() throws RecognitionException, TokenStreamException {
+@Test
+	public void testSelectOneRelatedByNoSelectedWhere() throws RecognitionException, TokenStreamException {
 	String act = "select any d from instances of D_D;\nselect one h related by d->D_H[R4] where ( true );"; //$NON-NLS-1$
 	String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
 	String lines[] = x.split("\n");//$NON-NLS-1$
@@ -883,7 +955,8 @@ public void testSelectOneRelatedByNoSelectedWhere() throws RecognitionException,
 	String[] var_list = { "d", "h" };//$NON-NLS-1$
 	goodSelectValidate(true, "one", false, true, 2, 1, var_list, 2, "D_H", 4, "", 1, true, false, 0, 0);
 }
-public void testSelectOneFromImplicit() throws RecognitionException, TokenStreamException {
+@Test
+	public void testSelectOneFromImplicit() throws RecognitionException, TokenStreamException {
 	String act = "select one x from instances of D_D;"; //$NON-NLS-1$
 	String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
 	String lines[] = x.split("\n");//$NON-NLS-1$
@@ -895,7 +968,8 @@ public void testSelectOneFromImplicit() throws RecognitionException, TokenStream
 	Value_c[] val = Value_c.ValueInstances(OalParserTest_Generics.modelRoot);
 	assertEquals(0, val.length);
 }
-public void testSelectOneFrom() throws RecognitionException, TokenStreamException {
+@Test
+	public void testSelectOneFrom() throws RecognitionException, TokenStreamException {
 	String act = "create object instance x of D_D;\nselect one x from instances of D_D;"; //$NON-NLS-1$
 	String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
 	String lines[] = x.split("\n");//$NON-NLS-1$
@@ -904,7 +978,8 @@ public void testSelectOneFrom() throws RecognitionException, TokenStreamExceptio
 	String[] var_list = { "x" };//$NON-NLS-1$
 	badSelectValidate(var_list, 1, 0, 0);
 }
-public void testSelectAnyRelatedByOneImplicit() throws RecognitionException, TokenStreamException {
+@Test
+	public void testSelectAnyRelatedByOneImplicit() throws RecognitionException, TokenStreamException {
 	String act = "select any d from instances of D_D;\nselect any h related by d->D_H[R4];"; //$NON-NLS-1$
 	String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
 	String lines[] = x.split("\n");//$NON-NLS-1$
@@ -913,7 +988,8 @@ public void testSelectAnyRelatedByOneImplicit() throws RecognitionException, Tok
 	String[] var_list = { "d" };//$NON-NLS-1$
 	badSelectValidate(var_list, 1, 1, 0);
 }
-public void testSelectAnyRelatedByOneImplicitWhere() throws RecognitionException, TokenStreamException {
+@Test
+	public void testSelectAnyRelatedByOneImplicitWhere() throws RecognitionException, TokenStreamException {
 	String act = "select any d from instances of D_D;\nselect any h related by d->D_H[R4] where selected.Row_Number == 1;"; //$NON-NLS-1$
 	String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
 	String lines[] = x.split("\n");//$NON-NLS-1$
@@ -922,7 +998,8 @@ public void testSelectAnyRelatedByOneImplicitWhere() throws RecognitionException
 	String[] var_list = { "d" };//$NON-NLS-1$
 	badSelectValidate(var_list, 1, 1, 1);
 }
-public void testSelectManyRelatedByOneImplicit() throws RecognitionException, TokenStreamException {
+@Test
+	public void testSelectManyRelatedByOneImplicit() throws RecognitionException, TokenStreamException {
 	String act = "select any d from instances of D_D;\nselect many h related by d->D_H[R4];"; //$NON-NLS-1$
 	String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
 	String lines[] = x.split("\n");//$NON-NLS-1$
@@ -931,7 +1008,8 @@ public void testSelectManyRelatedByOneImplicit() throws RecognitionException, To
 	String[] var_list = { "d" };//$NON-NLS-1$
 	badSelectValidate(var_list, 1, 1, 0);
 }
-public void testSelectManyRelatedByOneImplicitWhere() throws RecognitionException, TokenStreamException {
+@Test
+	public void testSelectManyRelatedByOneImplicitWhere() throws RecognitionException, TokenStreamException {
 	String act = "select any d from instances of D_D;\nselect many h related by d->D_H[R4] where selected.Row_Number == 1;"; //$NON-NLS-1$
 	String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
 	String lines[] = x.split("\n");//$NON-NLS-1$
@@ -940,7 +1018,8 @@ public void testSelectManyRelatedByOneImplicitWhere() throws RecognitionExceptio
 	String[] var_list = { "d" };//$NON-NLS-1$
 	badSelectValidate(var_list, 1, 1, 1);
 }
-public void testSelectOneRelatedByManyImplicit() throws RecognitionException, TokenStreamException {
+@Test
+	public void testSelectOneRelatedByManyImplicit() throws RecognitionException, TokenStreamException {
 	String act = "select many d from instances of D_D;\nselect one h related by d->D_H[R4];"; //$NON-NLS-1$
 	String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
 	String lines[] = x.split("\n");//$NON-NLS-1$
@@ -949,7 +1028,8 @@ public void testSelectOneRelatedByManyImplicit() throws RecognitionException, To
 	String[] var_list = { "d" };//$NON-NLS-1$
 	badSelectValidate(var_list, 1, 1, 0);
 }
-public void testSelectOneRelatedByManyImplicitWhere() throws RecognitionException, TokenStreamException {
+@Test
+	public void testSelectOneRelatedByManyImplicitWhere() throws RecognitionException, TokenStreamException {
 	String act = "select many d from instances of D_D;\nselect one h related by d->D_H[R4] where selected.Row_Number == 1;"; //$NON-NLS-1$
 	String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
 	String lines[] = x.split("\n");//$NON-NLS-1$
@@ -958,7 +1038,8 @@ public void testSelectOneRelatedByManyImplicitWhere() throws RecognitionExceptio
 	String[] var_list = { "d" };//$NON-NLS-1$
 	badSelectValidate(var_list, 1, 1, 1);
 }
-public void testSelectOneRelatedByManyRelImplicit() throws RecognitionException, TokenStreamException {
+@Test
+	public void testSelectOneRelatedByManyRelImplicit() throws RecognitionException, TokenStreamException {
 	String act = "select any d from instances of D_D;\nselect one dq related by d->D_DQ[R1];"; //$NON-NLS-1$
 	String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
 	String lines[] = x.split("\n");//$NON-NLS-1$
@@ -967,7 +1048,8 @@ public void testSelectOneRelatedByManyRelImplicit() throws RecognitionException,
 	String[] var_list = { "d" };//$NON-NLS-1$
 	badSelectValidate(var_list, 1, 1, 0);
 }
-public void testSelectOneRelatedByManyRelImplicitWhere() throws RecognitionException, TokenStreamException {
+@Test
+	public void testSelectOneRelatedByManyRelImplicitWhere() throws RecognitionException, TokenStreamException {
 	String act = "select any d from instances of D_D;\nselect one dq related by d->D_DQ[R1] where selected.Qualified_Process_ID == 1;"; //$NON-NLS-1$
 	String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
 	String lines[] = x.split("\n");//$NON-NLS-1$
@@ -976,7 +1058,8 @@ public void testSelectOneRelatedByManyRelImplicitWhere() throws RecognitionExcep
 	String[] var_list = { "d" };//$NON-NLS-1$
 	badSelectValidate(var_list, 1, 1, 1);
 }
-public void testSelectOneRelatedByManyAssocRelImplicit() throws RecognitionException, TokenStreamException {
+@Test
+	public void testSelectOneRelatedByManyAssocRelImplicit() throws RecognitionException, TokenStreamException {
 	String act = "select any d from instances of D_D;\nselect one qp related by d->D_QP[R1];"; //$NON-NLS-1$
 	String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
 	String lines[] = x.split("\n");//$NON-NLS-1$
@@ -985,7 +1068,8 @@ public void testSelectOneRelatedByManyAssocRelImplicit() throws RecognitionExcep
 	String[] var_list = { "d" };//$NON-NLS-1$
 	badSelectValidate(var_list, 1, 1, 0);
 }
-public void testSelectOneRelatedByManyAssocRelImplicitWhere() throws RecognitionException, TokenStreamException {
+@Test
+	public void testSelectOneRelatedByManyAssocRelImplicitWhere() throws RecognitionException, TokenStreamException {
 	String act = "select any d from instances of D_D;\nselect one qp related by d->D_QP[R1] where selected.Qualified_Process_ID == 1;"; //$NON-NLS-1$
 	String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
 	String lines[] = x.split("\n");//$NON-NLS-1$
@@ -994,7 +1078,8 @@ public void testSelectOneRelatedByManyAssocRelImplicitWhere() throws Recognition
 	String[] var_list = { "d" };//$NON-NLS-1$
 	badSelectValidate(var_list, 1, 1, 1);
 }
-public void testSelectOneRelatedByManyAssoc2RelImplicit() throws RecognitionException, TokenStreamException {
+@Test
+	public void testSelectOneRelatedByManyAssoc2RelImplicit() throws RecognitionException, TokenStreamException {
 	String act = "select any d from instances of D_D;\nselect one qp related by d->D_DQ[R1]->D_QP[R1];"; //$NON-NLS-1$
 	String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
 	String lines[] = x.split("\n");//$NON-NLS-1$
@@ -1003,7 +1088,8 @@ public void testSelectOneRelatedByManyAssoc2RelImplicit() throws RecognitionExce
 	String[] var_list = { "d" };//$NON-NLS-1$
 	badSelectValidate(var_list, 1, 1, 0);
 }
-public void testSelectOneRelatedByManyAssoc2RelImplicitWhere() throws RecognitionException, TokenStreamException {
+@Test
+	public void testSelectOneRelatedByManyAssoc2RelImplicitWhere() throws RecognitionException, TokenStreamException {
 	String act = "select any d from instances of D_D;\nselect one qp related by d->D_DQ[R1]->D_QP[R1] where selected.Qualified_Process_ID == 1;"; //$NON-NLS-1$
 	String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
 	String lines[] = x.split("\n");//$NON-NLS-1$
@@ -1012,7 +1098,8 @@ public void testSelectOneRelatedByManyAssoc2RelImplicitWhere() throws Recognitio
 	String[] var_list = { "d" };//$NON-NLS-1$
 	badSelectValidate(var_list, 1, 1, 1);
 }
-public void testSelectOneRelatedBy2LinksBadWhere() throws RecognitionException, TokenStreamException {
+@Test
+	public void testSelectOneRelatedBy2LinksBadWhere() throws RecognitionException, TokenStreamException {
 	String act = "select any d from instances of D_D;\nselect one d related by d->D_H[R4]->D_D[R4] where selected.Disk_ID;"; //$NON-NLS-1$
 	String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
 	String lines[] = x.split("\n");//$NON-NLS-1$
@@ -1021,7 +1108,8 @@ public void testSelectOneRelatedBy2LinksBadWhere() throws RecognitionException, 
 	String[] var_list = { "d" };//$NON-NLS-1$
 	badSelectValidate(var_list, 1, 1, 1);
 }
-public void testSelectBinaryBadRelNum() throws RecognitionException, TokenStreamException {
+@Test
+	public void testSelectBinaryBadRelNum() throws RecognitionException, TokenStreamException {
 	String act = "select any x from instances of D_D;\nselect one y related by x->D_D[R99];"; //$NON-NLS-1$
 	String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
 	String lines[] = x.split("\n");//$NON-NLS-1$
@@ -1031,7 +1119,8 @@ public void testSelectBinaryBadRelNum() throws RecognitionException, TokenStream
 	String[] var_list = { "x" };//$NON-NLS-1$
 	badSelectValidate(var_list, 1, 1, 0);
 }
-public void testSelectBinaryWrongRelNum() throws RecognitionException, TokenStreamException {
+@Test
+	public void testSelectBinaryWrongRelNum() throws RecognitionException, TokenStreamException {
 	String act = "select any x from instances of D_D;\nselect one y related by x->D_D[R4];"; //$NON-NLS-1$
 	String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
 	String lines[] = x.split("\n");//$NON-NLS-1$
@@ -1042,7 +1131,8 @@ public void testSelectBinaryWrongRelNum() throws RecognitionException, TokenStre
 	String[] var_list = { "x" };//$NON-NLS-1$
 	badSelectValidate(var_list, 1, 1, 0);
 }
-public void testSelectBinaryWrongPhraseNotReflexive() throws RecognitionException, TokenStreamException {
+@Test
+	public void testSelectBinaryWrongPhraseNotReflexive() throws RecognitionException, TokenStreamException {
 	String act = "select any d1 from instances of D_D;\nselect one h related by d1->D_H[R4.'is permanent home for'];"; //$NON-NLS-1$
 	String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
 	String lines[] = x.split("\n");//$NON-NLS-1$
@@ -1053,7 +1143,8 @@ public void testSelectBinaryWrongPhraseNotReflexive() throws RecognitionExceptio
 	String[] var_list = { "d1" };//$NON-NLS-1$
 	badSelectValidate(var_list, 1, 1, 0);
 }
-public void testSelectBinaryBadPhraseNotReflexive() throws RecognitionException, TokenStreamException {
+@Test
+	public void testSelectBinaryBadPhraseNotReflexive() throws RecognitionException, TokenStreamException {
 	String act = "select any d1 from instances of D_D;\nselect one h related by d1->D_H[R4.'bad phrase'];"; //$NON-NLS-1$
 	String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
 	String lines[] = x.split("\n");//$NON-NLS-1$
@@ -1064,7 +1155,8 @@ public void testSelectBinaryBadPhraseNotReflexive() throws RecognitionException,
 	String[] var_list = { "d1" };//$NON-NLS-1$
 	badSelectValidate(var_list, 1, 1, 0);
 }
-public void testSelectBinaryBadPhraseReflexive() throws RecognitionException, TokenStreamException {
+@Test
+	public void testSelectBinaryBadPhraseReflexive() throws RecognitionException, TokenStreamException {
 	String act = "select any d1 from instances of D_D;\nselect one d2 related by d1->D_D[R12.'neither'];"; //$NON-NLS-1$
 	String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
 	String lines[] = x.split("\n");//$NON-NLS-1$
@@ -1075,7 +1167,8 @@ public void testSelectBinaryBadPhraseReflexive() throws RecognitionException, To
 	String[] var_list = { "d1" };//$NON-NLS-1$
 	badSelectValidate(var_list, 1, 1, 0);
 }
-public void testSelectBinaryBadNoPhraseReflexive() throws RecognitionException, TokenStreamException {
+@Test
+	public void testSelectBinaryBadNoPhraseReflexive() throws RecognitionException, TokenStreamException {
 	String act = "select any d1 from instances of D_D;\nselect one d2 related by d1->D_D[R12];"; //$NON-NLS-1$
 	String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
 	String lines[] = x.split("\n");//$NON-NLS-1$
@@ -1086,7 +1179,8 @@ public void testSelectBinaryBadNoPhraseReflexive() throws RecognitionException, 
 	String[] var_list = { "d1" };//$NON-NLS-1$
 	badSelectValidate(var_list, 1, 1, 0);
 }
-public void testSelectUnformalizedReflexiveNoPhrase() throws RecognitionException, TokenStreamException {
+@Test
+	public void testSelectUnformalizedReflexiveNoPhrase() throws RecognitionException, TokenStreamException {
 	String act = "select any tst from instances of D_TST;\nselect one tst2 related by tst->D_TST[R17];"; //$NON-NLS-1$
 	String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
 	String lines[] = x.split("\n");//$NON-NLS-1$
@@ -1097,7 +1191,8 @@ public void testSelectUnformalizedReflexiveNoPhrase() throws RecognitionExceptio
 	String[] var_list = { "tst" };//$NON-NLS-1$
 	badSelectValidate(var_list, 1, 1, 0);
 }
-public void testSelectBinaryPhraseSubtype() throws RecognitionException, TokenStreamException {
+@Test
+	public void testSelectBinaryPhraseSubtype() throws RecognitionException, TokenStreamException {
 	String act = "select any d1 from instances of D_D;\nselect one od related by d1->D_OD[R3.'is a'];"; //$NON-NLS-1$
 	String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
 	String lines[] = x.split("\n");//$NON-NLS-1$
@@ -1108,7 +1203,8 @@ public void testSelectBinaryPhraseSubtype() throws RecognitionException, TokenSt
 	String[] var_list = { "d1" };//$NON-NLS-1$
 	badSelectValidate(var_list, 1, 1, 0);
 }
-public void testSelectBinaryTwoSubtypes() throws RecognitionException, TokenStreamException {
+@Test
+	public void testSelectBinaryTwoSubtypes() throws RecognitionException, TokenStreamException {
 	String act = "select any od1 from instances of D_OND;\nselect one od2 related by od1->D_OD[R3];"; //$NON-NLS-1$
 	String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
 	String lines[] = x.split("\n");//$NON-NLS-1$
@@ -1119,7 +1215,8 @@ public void testSelectBinaryTwoSubtypes() throws RecognitionException, TokenStre
 	String[] var_list = { "od1" };//$NON-NLS-1$
 	badSelectValidate(var_list, 1, 1, 0);
 }
-public void testSelectAssocBadAone() throws RecognitionException, TokenStreamException {
+@Test
+	public void testSelectAssocBadAone() throws RecognitionException, TokenStreamException {
 	String act = "select any h from instances of D_H;\nselect any qp related by h->D_DQ[R1]->D_QP[R1];"; //$NON-NLS-1$
 	String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
 	String lines[] = x.split("\n");//$NON-NLS-1$
@@ -1128,7 +1225,8 @@ public void testSelectAssocBadAone() throws RecognitionException, TokenStreamExc
 	String[] var_list = { "h" };//$NON-NLS-1$
 	badSelectValidate(var_list, 1, 1, 0);
 }
-public void testSelectAssocBadAoneNoAssr() throws RecognitionException, TokenStreamException {
+@Test
+	public void testSelectAssocBadAoneNoAssr() throws RecognitionException, TokenStreamException {
 	String act = "select any h from instances of D_H;\nselect any qp related by h->D_QP[R1];"; //$NON-NLS-1$
 	String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
 	String lines[] = x.split("\n");//$NON-NLS-1$
@@ -1139,7 +1237,8 @@ public void testSelectAssocBadAoneNoAssr() throws RecognitionException, TokenStr
 	String[] var_list = { "h" };//$NON-NLS-1$
 	badSelectValidate(var_list, 1, 1, 0);
 }
-public void testSelectAssocBadAoth() throws RecognitionException, TokenStreamException {
+@Test
+	public void testSelectAssocBadAoth() throws RecognitionException, TokenStreamException {
 	String act = "select any d from instances of D_D;\nselect any h related by d->D_DQ[R1]->D_H[R1];"; //$NON-NLS-1$
 	String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
 	String lines[] = x.split("\n");//$NON-NLS-1$
@@ -1150,7 +1249,8 @@ public void testSelectAssocBadAoth() throws RecognitionException, TokenStreamExc
 	String[] var_list = { "d" };//$NON-NLS-1$
 	badSelectValidate(var_list, 1, 1, 0);
 }
-public void testSelectAssocBadAothNoAssr() throws RecognitionException, TokenStreamException {
+@Test
+	public void testSelectAssocBadAothNoAssr() throws RecognitionException, TokenStreamException {
 	String act = "select any d from instances of D_D;\nselect any h related by d->D_H[R1];"; //$NON-NLS-1$
 	String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
 	String lines[] = x.split("\n");//$NON-NLS-1$
@@ -1161,7 +1261,8 @@ public void testSelectAssocBadAothNoAssr() throws RecognitionException, TokenStr
 	String[] var_list = { "d" };//$NON-NLS-1$
 	badSelectValidate(var_list, 1, 1, 0);
 }
-public void testSelectAssocBadAssr() throws RecognitionException, TokenStreamException {
+@Test
+	public void testSelectAssocBadAssr() throws RecognitionException, TokenStreamException {
 	String act = "select any d from instances of D_D;\nselect any h related by d->D_H[R1]->D_QP[R1];"; //$NON-NLS-1$
 	String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
 	String lines[] = x.split("\n");//$NON-NLS-1$
@@ -1170,7 +1271,8 @@ public void testSelectAssocBadAssr() throws RecognitionException, TokenStreamExc
 	String[] var_list = { "d" };//$NON-NLS-1$
 	badSelectValidate(var_list, 1, 1, 0);
 }
-public void testSelectAssocBadReflexiveNoPhrase() throws RecognitionException, TokenStreamException {
+@Test
+	public void testSelectAssocBadReflexiveNoPhrase() throws RecognitionException, TokenStreamException {
 	String act = "select any qp1 from instances of D_QP;\nselect any qp2 related by qp1->D_QPO[R13]->D_QP[R13];"; //$NON-NLS-1$
 	String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
 	String lines[] = x.split("\n");//$NON-NLS-1$
@@ -1179,7 +1281,8 @@ public void testSelectAssocBadReflexiveNoPhrase() throws RecognitionException, T
 	String[] var_list = { "qp1" };//$NON-NLS-1$
 	badSelectValidate(var_list, 1, 1, 0);
 }
-public void testSelectAssocBadReflexiveNoPhraseNoAssr() throws RecognitionException, TokenStreamException {
+@Test
+	public void testSelectAssocBadReflexiveNoPhraseNoAssr() throws RecognitionException, TokenStreamException {
 	String act = "select any qp1 from instances of D_QP;\n select any qp2 related by qp1->D_QP[R13];"; //$NON-NLS-1$
 	String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
 	String lines[] = x.split("\n");//$NON-NLS-1$
@@ -1190,7 +1293,8 @@ public void testSelectAssocBadReflexiveNoPhraseNoAssr() throws RecognitionExcept
 	String[] var_list = { "qp1" };//$NON-NLS-1$
 	badSelectValidate(var_list, 1, 1, 0);
 }
-public void testSelectAssocBadReflexiveBadPhrase() throws RecognitionException, TokenStreamException {
+@Test
+	public void testSelectAssocBadReflexiveBadPhrase() throws RecognitionException, TokenStreamException {
 	String act = "select any qp1 from instances of D_QP;\nselect any qp2 related by qp1->D_QPO[R13.'neither']->D_QP[R13];"; //$NON-NLS-1$
 	String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
 	String lines[] = x.split("\n");//$NON-NLS-1$
@@ -1199,7 +1303,8 @@ public void testSelectAssocBadReflexiveBadPhrase() throws RecognitionException, 
 	String[] var_list = { "qp1" };//$NON-NLS-1$
 	badSelectValidate(var_list, 1, 1, 0);
 }
-public void testSelectAssocBadReflexiveBadPhraseNoAssr() throws RecognitionException, TokenStreamException {
+@Test
+	public void testSelectAssocBadReflexiveBadPhraseNoAssr() throws RecognitionException, TokenStreamException {
 	String act = "select any qp1 from instances of D_QP;\nselect any qp2 related by qp1->D_QP[R13.'neither'];"; //$NON-NLS-1$
 	String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
 	String lines[] = x.split("\n");//$NON-NLS-1$
@@ -1210,7 +1315,8 @@ public void testSelectAssocBadReflexiveBadPhraseNoAssr() throws RecognitionExcep
 	String[] var_list = { "qp1" };//$NON-NLS-1$
 	badSelectValidate(var_list, 1, 1, 0);
 }
-public void testSelectOneAssocBadReflexive() throws RecognitionException, TokenStreamException {
+@Test
+	public void testSelectOneAssocBadReflexive() throws RecognitionException, TokenStreamException {
 	String act = "select any t from instances of D_TST; select one t2 related by t->D_TST[R19.'is parent of'];"; //$NON-NLS-1$
 	String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
 	String lines[] = x.split("\n");//$NON-NLS-1$
@@ -1221,7 +1327,8 @@ public void testSelectOneAssocBadReflexive() throws RecognitionException, TokenS
 	Value_c[] val = Value_c.ValueInstances(OalParserTest_Generics.modelRoot);
 	assertEquals(0, val.length);
 }
-public void testSelectAnyAssocBadReflexive() throws RecognitionException, TokenStreamException {
+@Test
+	public void testSelectAnyAssocBadReflexive() throws RecognitionException, TokenStreamException {
 	String act = "select any t from instances of D_TST; select any t2 related by t->D_TST[R19.'has parent'];"; //$NON-NLS-1$
 	String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
 	String lines[] = x.split("\n");//$NON-NLS-1$
@@ -1232,7 +1339,8 @@ public void testSelectAnyAssocBadReflexive() throws RecognitionException, TokenS
 	Value_c[] val = Value_c.ValueInstances(OalParserTest_Generics.modelRoot);
 	assertEquals(0, val.length);
 }
-public void testSelectAnyFromBadVar() throws RecognitionException, TokenStreamException {
+@Test
+	public void testSelectAnyFromBadVar() throws RecognitionException, TokenStreamException {
 	String act = "x = 1;\nselect any x from instances of D_H;"; //$NON-NLS-1$
 	String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
 	String lines[] = x.split("\n");//$NON-NLS-1$
@@ -1241,7 +1349,8 @@ public void testSelectAnyFromBadVar() throws RecognitionException, TokenStreamEx
 	String[] var_list = { "x" };//$NON-NLS-1$
 	badSelectValidate(var_list, 1, 0, 2);
 }
-public void testSelectAnyFromWrongVar() throws RecognitionException, TokenStreamException {
+@Test
+	public void testSelectAnyFromWrongVar() throws RecognitionException, TokenStreamException {
 	String act = "create object instance x of D_D;\nselect any x from instances of D_H;"; //$NON-NLS-1$
 	String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
 	String lines[] = x.split("\n");//$NON-NLS-1$
@@ -1250,7 +1359,8 @@ public void testSelectAnyFromWrongVar() throws RecognitionException, TokenStream
 	String[] var_list = { "x" };//$NON-NLS-1$
 	badSelectValidate(var_list, 1, 0, 0);
 }
-public void testSelectManyFromBadVar() throws RecognitionException, TokenStreamException {
+@Test
+	public void testSelectManyFromBadVar() throws RecognitionException, TokenStreamException {
 	String act = "x = 1;\nselect many x from instances of D_H;"; //$NON-NLS-1$
 	String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
 	String lines[] = x.split("\n");//$NON-NLS-1$
@@ -1259,7 +1369,8 @@ public void testSelectManyFromBadVar() throws RecognitionException, TokenStreamE
 	String[] var_list = { "x" };//$NON-NLS-1$
 	badSelectValidate(var_list, 1, 0, 2);
 }
-public void testSelectManyFromWrongVar() throws RecognitionException, TokenStreamException {
+@Test
+	public void testSelectManyFromWrongVar() throws RecognitionException, TokenStreamException {
 	String act = "select many x from instances of D_D;\nselect many x from instances of D_H;"; //$NON-NLS-1$
 	String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
 	String lines[] = x.split("\n");//$NON-NLS-1$
@@ -1268,7 +1379,8 @@ public void testSelectManyFromWrongVar() throws RecognitionException, TokenStrea
 	String[] var_list = { "x" };//$NON-NLS-1$
 	badSelectValidate(var_list, 1, 1, 0);
 }
-public void testSelectOneFromWhereImplicit() throws RecognitionException, TokenStreamException {
+@Test
+	public void testSelectOneFromWhereImplicit() throws RecognitionException, TokenStreamException {
 	String act = "select one x from instances of D_D where selected.Disk_ID == 1;"; //$NON-NLS-1$
 	String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
 	String lines[] = x.split("\n");//$NON-NLS-1$
@@ -1277,7 +1389,8 @@ public void testSelectOneFromWhereImplicit() throws RecognitionException, TokenS
 	String[] var_list = {};
 	badSelectValidate(var_list, 0, 0, 1);
 }
-public void testSelectOneFromWhere() throws RecognitionException, TokenStreamException {
+@Test
+	public void testSelectOneFromWhere() throws RecognitionException, TokenStreamException {
 	String act = "create object instance x of D_H;\nselect one x from instances of D_D where selected.Disk_ID == 1;"; //$NON-NLS-1$
 	String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
 	String lines[] = x.split("\n");//$NON-NLS-1$
@@ -1286,7 +1399,8 @@ public void testSelectOneFromWhere() throws RecognitionException, TokenStreamExc
 	String[] var_list = { "x" };//$NON-NLS-1$
 	badSelectValidate(var_list, 1, 0, 1);
 }
-public void testSelectAnyFromBadVarWhere() throws RecognitionException, TokenStreamException {
+@Test
+	public void testSelectAnyFromBadVarWhere() throws RecognitionException, TokenStreamException {
 	String act = "x = 1;\nselect any x from instances of D_D where selected.Disk_ID == 1;"; //$NON-NLS-1$
 	String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
 	String lines[] = x.split("\n");//$NON-NLS-1$
@@ -1295,7 +1409,8 @@ public void testSelectAnyFromBadVarWhere() throws RecognitionException, TokenStr
 	String[] var_list = { "x" };//$NON-NLS-1$
 	badSelectValidate(var_list, 1, 0, 3);
 }
-public void testSelectAnyFromWrongVarWhere() throws RecognitionException, TokenStreamException {
+@Test
+	public void testSelectAnyFromWrongVarWhere() throws RecognitionException, TokenStreamException {
 	String act = "create object instance x of D_H;\nselect any x from instances of D_D where selected.Disk_ID == 1;"; //$NON-NLS-1$
 	String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
 	String lines[] = x.split("\n");//$NON-NLS-1$
@@ -1304,7 +1419,8 @@ public void testSelectAnyFromWrongVarWhere() throws RecognitionException, TokenS
 	String[] var_list = { "x" };//$NON-NLS-1$
 	badSelectValidate(var_list, 1, 0, 1);
 }
-public void testSelectManyFromBadVarWhere() throws RecognitionException, TokenStreamException {
+@Test
+	public void testSelectManyFromBadVarWhere() throws RecognitionException, TokenStreamException {
 	String act = "x = 1;\nselect many x from instances of D_D where selected.Disk_ID == 1;"; //$NON-NLS-1$
 	String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
 	String lines[] = x.split("\n");//$NON-NLS-1$
@@ -1313,7 +1429,8 @@ public void testSelectManyFromBadVarWhere() throws RecognitionException, TokenSt
 	String[] var_list = { "x" };//$NON-NLS-1$
 	badSelectValidate(var_list, 1, 0, 3);
 }
-public void testSelectManyFromWrongVarWhere() throws RecognitionException, TokenStreamException {
+@Test
+	public void testSelectManyFromWrongVarWhere() throws RecognitionException, TokenStreamException {
 	String act = "select many x from instances of D_H;\nselect many x from instances of D_D where selected.Disk_ID == 1;"; //$NON-NLS-1$
 	String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
 	String lines[] = x.split("\n");//$NON-NLS-1$
@@ -1322,7 +1439,8 @@ public void testSelectManyFromWrongVarWhere() throws RecognitionException, Token
 	String[] var_list = { "x" };//$NON-NLS-1$
 	badSelectValidate(var_list, 1, 1, 1);
 }
-public void testSelectAnyFromWhereImplicitBadAttr() throws RecognitionException, TokenStreamException {
+@Test
+	public void testSelectAnyFromWhereImplicitBadAttr() throws RecognitionException, TokenStreamException {
 	String act = "select any x from instances of D_D where selected.Bad == 1;"; //$NON-NLS-1$
 	String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
 	String lines[] = x.split("\n");//$NON-NLS-1$
@@ -1331,7 +1449,8 @@ public void testSelectAnyFromWhereImplicitBadAttr() throws RecognitionException,
 	String[] var_list = {};
 	badSelectValidate(var_list, 0, 0, 1);
 }
-public void testSelectManyFromWhereBadAttr() throws RecognitionException, TokenStreamException {
+@Test
+	public void testSelectManyFromWhereBadAttr() throws RecognitionException, TokenStreamException {
 	String act = "select many x from instances of D_D;\nselect many x from instances of D_D where selected.Bad == 1;"; //$NON-NLS-1$
 	String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
 	String lines[] = x.split("\n");//$NON-NLS-1$
@@ -1340,7 +1459,8 @@ public void testSelectManyFromWhereBadAttr() throws RecognitionException, TokenS
 	String[] var_list = { "x" };//$NON-NLS-1$
 	badSelectValidate(var_list, 1, 1, 1);
 }
-public void testSelectAnyFromWhereImplicitJustSelected() throws RecognitionException, TokenStreamException {
+@Test
+	public void testSelectAnyFromWhereImplicitJustSelected() throws RecognitionException, TokenStreamException {
 	String act = "select any x from instances of D_D where selected;"; //$NON-NLS-1$
 	String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
 	String lines[] = x.split("\n");//$NON-NLS-1$
@@ -1350,7 +1470,8 @@ public void testSelectAnyFromWhereImplicitJustSelected() throws RecognitionExcep
 	String[] var_list = {};
 	badSelectValidate(var_list, 0, 0, 0);
 }
-public void testSelectOneRelatedByNotBooleanWhere() throws RecognitionException, TokenStreamException {
+@Test
+	public void testSelectOneRelatedByNotBooleanWhere() throws RecognitionException, TokenStreamException {
 	String act = "select any d from instances of D_D;\nselect one h related by d->D_H[R4] where ( selected.Row_Number );"; //$NON-NLS-1$
 	String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
 	String lines[] = x.split("\n");//$NON-NLS-1$
@@ -1360,7 +1481,8 @@ public void testSelectOneRelatedByNotBooleanWhere() throws RecognitionException,
 	String[] var_list = { "d" };//$NON-NLS-1$
 	badSelectValidate(var_list, 1, 1, 1);
 }
-public void testSelectOneRelatedByBadAttrWhere() throws RecognitionException, TokenStreamException {
+@Test
+	public void testSelectOneRelatedByBadAttrWhere() throws RecognitionException, TokenStreamException {
 	String act = "select any d from instances of D_D;\nselect one h related by d->D_H[R4] where ( selected.xxx == 1 );"; //$NON-NLS-1$
 	String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
 	String lines[] = x.split("\n");//$NON-NLS-1$
@@ -1371,7 +1493,8 @@ public void testSelectOneRelatedByBadAttrWhere() throws RecognitionException, To
 	String[] var_list = { "d" };//$NON-NLS-1$
 	badSelectValidate(var_list, 1, 1, 0);
 }
-public void testSelectManyFromWhereNotBool() throws RecognitionException, TokenStreamException {
+@Test
+	public void testSelectManyFromWhereNotBool() throws RecognitionException, TokenStreamException {
 	String act = "select many x from instances of D_D;\nselect many x from instances of D_D where selected.Disk_ID;"; //$NON-NLS-1$
 	String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
 	String lines[] = x.split("\n");//$NON-NLS-1$
@@ -1381,7 +1504,8 @@ public void testSelectManyFromWhereNotBool() throws RecognitionException, TokenS
 	String[] var_list = { "x" };//$NON-NLS-1$
 	badSelectValidate(var_list, 1, 1, 1);
 }
-public void testSelectFromWhereSelectedMisspelled() throws RecognitionException, TokenStreamException {
+@Test
+	public void testSelectFromWhereSelectedMisspelled() throws RecognitionException, TokenStreamException {
 	String act = "select any d from instances of D_D where selectd.Disk_ID = 1;"; //$NON-NLS-1$
 	String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
 	String lines[] = x.split("\n");//$NON-NLS-1$
@@ -1390,7 +1514,8 @@ public void testSelectFromWhereSelectedMisspelled() throws RecognitionException,
 	String[] var_list = {};
 	badSelectValidate(var_list, 0, 0, 0);
 }
-public void testSelectRelatedByWhereSelectedMisspelled() throws RecognitionException, TokenStreamException {
+@Test
+	public void testSelectRelatedByWhereSelectedMisspelled() throws RecognitionException, TokenStreamException {
 	String act = "select any d from instances of D_D;\nselect one h related by d->D_H[R4] where slected.Disk_ID = 1;"; //$NON-NLS-1$
 	String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
 	String lines[] = x.split("\n");//$NON-NLS-1$
@@ -1399,7 +1524,8 @@ public void testSelectRelatedByWhereSelectedMisspelled() throws RecognitionExcep
 	String[] var_list = { "d" };//$NON-NLS-1$
 	badSelectValidate(var_list, 1, 1, 0);
 }
-public void testSelectAnyRelatedByFromSup() throws RecognitionException, TokenStreamException {
+@Test
+	public void testSelectAnyRelatedByFromSup() throws RecognitionException, TokenStreamException {
 	String act = "select any d from instances of D_D;\nselect any od related by d->D_OD[R3];"; //$NON-NLS-1$
 	String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
 	String lines[] = x.split("\n");//$NON-NLS-1$
@@ -1409,7 +1535,8 @@ public void testSelectAnyRelatedByFromSup() throws RecognitionException, TokenSt
 	String[] var_list = { "d" };//$NON-NLS-1$
 	badSelectValidate(var_list, 1, 1, 0);
 }
-public void testSelectManyRelatedByFromSup() throws RecognitionException, TokenStreamException {
+@Test
+	public void testSelectManyRelatedByFromSup() throws RecognitionException, TokenStreamException {
 	String act = "select any d from instances of D_D;\nselect many od related by d->D_OD[R3];"; //$NON-NLS-1$
 	String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
 	String lines[] = x.split("\n");//$NON-NLS-1$
@@ -1419,7 +1546,8 @@ public void testSelectManyRelatedByFromSup() throws RecognitionException, TokenS
 	String[] var_list = { "d" };//$NON-NLS-1$
 	badSelectValidate(var_list, 1, 1, 0);
 }
-public void testSelectAnyRelatedByFromSub() throws RecognitionException, TokenStreamException {
+@Test
+	public void testSelectAnyRelatedByFromSub() throws RecognitionException, TokenStreamException {
 	String act = "select any od from instances of D_OD;\nselect any d related by od->D_D[R3];"; //$NON-NLS-1$
 	String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
 	String lines[] = x.split("\n");//$NON-NLS-1$
@@ -1429,7 +1557,8 @@ public void testSelectAnyRelatedByFromSub() throws RecognitionException, TokenSt
 	String[] var_list = { "od" };//$NON-NLS-1$
 	badSelectValidate(var_list, 1, 1, 0);
 }
-public void testSelectManyRelatedByFromSub() throws RecognitionException, TokenStreamException {
+@Test
+	public void testSelectManyRelatedByFromSub() throws RecognitionException, TokenStreamException {
 	String act = "select any od from instances of D_OD;\nselect many d related by od->D_D[R3];"; //$NON-NLS-1$
 	String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
 	String lines[] = x.split("\n");//$NON-NLS-1$

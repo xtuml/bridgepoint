@@ -25,30 +25,24 @@ package org.xtuml.bp.io.mdl.test.pkgcm;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.swt.widgets.Display;
-
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.Ooaofooa;
-import org.xtuml.bp.core.Package_c;
-import org.xtuml.bp.core.SystemModel_c;
-import org.xtuml.bp.core.common.PersistableModelComponent;
-import org.xtuml.bp.core.common.PersistenceManager;
-import org.xtuml.bp.core.common.Transaction;
-import org.xtuml.bp.core.common.TransactionException;
-import org.xtuml.bp.test.common.TestingUtilities;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.ui.canvas.Ooaofgraphics;
 
+@RunWith(OrderedRunner.class)
 public class PkgCMDeleteTestGenerics extends DeleteTest {
 
     protected static       String projectName="MultiLevelModelSystem";
     protected static boolean firstTime = false;
     protected static IPath mdlClassPath = null;
     
-    public PkgCMDeleteTestGenerics(String projName, String name) {
-        super(null, name);
-        showModelExplorer();
-    }
-    public PkgCMDeleteTestGenerics(String name) {
-		super(projectName, name);
+    public PkgCMDeleteTestGenerics() {
+		super(projectName, null);
 	}
 	protected static boolean reCopy=true;
 
@@ -76,27 +70,33 @@ public class PkgCMDeleteTestGenerics extends DeleteTest {
 		project = getProjectHandle(projectName);
 	}
 
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		super.setUp();
         setupProjectAndTestModel();
     }    
     
-    protected void tearDown() throws Exception {
+    @After
+	public void tearDown() throws Exception {
         dispatchEvents(0);
         super.tearDown();
     }
 	/*  STARTS CODE: delete through Model Explorer */
 	
+	@Test
 	public void testDeleteMclass_ThruME_CanvasFocused() throws Exception{
 		performDeleteComponentThruMEGenerics("ModelClass","A", EditorTestUtilities.EDITOR_TYPE_CANVAS, 4);
     }
+	@Test
 	public void testDeleteDTPInPkg_ThruME_CanvasFocused() throws Exception{
         performDeleteComponentThruMEGenerics("Package", "SubDataTypes",EditorTestUtilities.EDITOR_TYPE_CANVAS, 4);
     }
-    public void testDeleteISM_ThruME_CanvasFocused() throws Exception{
+    @Test
+	public void testDeleteISM_ThruME_CanvasFocused() throws Exception{
         reCopy = true;
         performDeleteComponentThruMEGenerics("InstanceStateMachine","X", EditorTestUtilities.EDITOR_TYPE_CANVAS, 3);
     }
+	@Test
 	public void testDeleteSSInSS_ThruME_CanvasFocused() throws Exception{
         performDeleteComponentThruMEGenerics("Package", "SSInSS1",EditorTestUtilities.EDITOR_TYPE_CANVAS, 4);
     }
@@ -104,9 +104,11 @@ public class PkgCMDeleteTestGenerics extends DeleteTest {
 //        reCopy = true;
 //        performDeleteComponentThruMEGenerics("Package", null,EditorTestUtilities.EDITOR_TYPE_CANVAS, 4);
 //    }
-    public void testDeleteEEP_ThruME_CanvasFocused() throws Exception{
+    @Test
+	public void testDeleteEEP_ThruME_CanvasFocused() throws Exception{
         performDeleteComponentThruMEGenerics("Package", "External Entities",EditorTestUtilities.EDITOR_TYPE_CANVAS, 6);
     }
+	@Test
 	public void testDeleteDomain_ThruME_CanvasFocused() throws Exception{
         reCopy=true;
         performDeleteComponentThruMEGenerics("Package", null,EditorTestUtilities.EDITOR_TYPE_CANVAS, 4);
@@ -115,30 +117,38 @@ public class PkgCMDeleteTestGenerics extends DeleteTest {
 //        reCopy=true;
 //        performDeleteComponentThruMEGenerics("SystemModel",null,EditorTestUtilities.EDITOR_TYPE_CANVAS, 3);
 //    }
-    public void testDeleteISM_ThruME_ActivityFocused() throws Exception{        
+    @Test
+	public void testDeleteISM_ThruME_ActivityFocused() throws Exception{        
         performDeleteComponentThruMEGenerics("InstanceStateMachine", "X",EditorTestUtilities.EDITOR_TYPE_ACTIVITY, 3);
     }
+	@Test
 	public void testDeleteMclass_ThruME_ActivityFocused() throws Exception{
         reCopy = true;
         performDeleteComponentThruMEGenerics("ModelClass","A", EditorTestUtilities.EDITOR_TYPE_ACTIVITY, 4);
     }
-    public void testDeleteSSinSS_ThruME_ActivityFocused() throws Exception{
+    @Test
+	public void testDeleteSSinSS_ThruME_ActivityFocused() throws Exception{
         performDeleteComponentThruMEGenerics("Package", "SSInSS1", EditorTestUtilities.EDITOR_TYPE_ACTIVITY, 4);
     }
-    public void testDeleteEEP_ThruME_ActivityFocused() throws Exception{
+    @Test
+	public void testDeleteEEP_ThruME_ActivityFocused() throws Exception{
         reCopy=true;
         performDeleteComponentThruMEGenerics("Package", "External Entities",EditorTestUtilities.EDITOR_TYPE_ACTIVITY, 6);
     }
+	@Test
 	public void testDeleteISM_ThruME_DescriptionFocused() throws Exception{
         performDeleteComponentThruMEGenerics("InstanceStateMachine","X", EditorTestUtilities.EDITOR_TYPE_DESC, 3);
     }
+	@Test
 	public void testDeleteDTPInPkg_ThruME_DescriptionFocused() throws Exception{
         performDeleteComponentThruMEGenerics("Package", "SubDataTypes", EditorTestUtilities.EDITOR_TYPE_DESC, 4);
     }
+	@Test
 	public void testDeleteMclass_ThruME_DescriptionFocused() throws Exception{
         reCopy = true;
         performDeleteComponentThruMEGenerics("ModelClass","A", EditorTestUtilities.EDITOR_TYPE_DESC, 4);
     }
+	@Test
 	public void testDeleteSSinSS_ThruME_DescriptionFocused() throws Exception{
         performDeleteComponentThruMEGenerics("Package", "SSInSS1", EditorTestUtilities.EDITOR_TYPE_DESC, 4);
     }
@@ -146,9 +156,11 @@ public class PkgCMDeleteTestGenerics extends DeleteTest {
 //        reCopy = true;
 //        performDeleteComponentThruMEGenerics("Package", null, EditorTestUtilities.EDITOR_TYPE_DESC, 4);
 //    }
-    public void testDeleteEEP_ThruME_DescriptionFocused() throws Exception{
+    @Test
+	public void testDeleteEEP_ThruME_DescriptionFocused() throws Exception{
         performDeleteComponentThruMEGenerics("Package", "External Entities",EditorTestUtilities.EDITOR_TYPE_DESC, 6);
     }
+	@Test
 	public void testDeleteDomain_ThruME_DescriptionFocused() throws Exception{
         reCopy = true;
 		performDeleteComponentThruMEGenerics("Package",null,EditorTestUtilities.EDITOR_TYPE_DESC, 4);
@@ -157,44 +169,55 @@ public class PkgCMDeleteTestGenerics extends DeleteTest {
 //        reCopy=true;
 //        performDeleteComponentThruMEGenerics("SystemModel",null,EditorTestUtilities.EDITOR_TYPE_DESC, 3);
 //    }
+	@Test
 	public void testDeleteISM_ThruME_NoEditor() throws Exception{
         performDeleteComponentThruMEGenerics("InstanceStateMachine","A",EditorTestUtilities.EDITOR_TYPE_NONE, 0);
     }
+	@Test
 	public void testDeleteMclass_ThruME_NoEditor() throws Exception{
         performDeleteComponentThruMEGenerics("ModelClass","A",EditorTestUtilities.EDITOR_TYPE_NONE, 0);
     }
+	@Test
 	public void testDeleteDTPInPkg_ThruME_NoEditor() throws Exception{
         performDeleteComponentThruMEGenerics("Package", "SubDataTypes",EditorTestUtilities.EDITOR_TYPE_NONE, 0);
     }
+	@Test
 	public void testDeleteSSInSS_ThruME_NoEditor() throws Exception{
 	    performDeleteComponentThruMEGenerics("Package", "SSInSS1",EditorTestUtilities.EDITOR_TYPE_NONE, 0);
     }
+	@Test
 	public void testDeleteSS_ThruME_NoEditor() throws Exception{
 		reCopy = true;
 		performDeleteComponentThruMEGenerics("Package", null,EditorTestUtilities.EDITOR_TYPE_NONE, 0);
 	    
     }
-    public void testDeleteEEP_ThruME_NoEditor() throws Exception{
+    @Test
+	public void testDeleteEEP_ThruME_NoEditor() throws Exception{
     	
         performDeleteComponentThruMEGenerics("Package", "External Entities",EditorTestUtilities.EDITOR_TYPE_NONE, 0);
     }
-    public void testDeleteDomain_ThruME_NoEditor() throws Exception{
+    @Test
+	public void testDeleteDomain_ThruME_NoEditor() throws Exception{
 		reCopy = true;
         performDeleteComponentThruMEGenerics("Package", null,EditorTestUtilities.EDITOR_TYPE_NONE, 0);
     }	
 	/*  STARTS CODE: delete through Canvas Editor */
 	
+	@Test
 	public void testDeleteMclass_ThruCE_CanvasFocused() throws Exception{
         performDeleteComponentThruCEGenerics("ModelClass", "A",EditorTestUtilities.EDITOR_TYPE_CANVAS, 4);
     }
+	@Test
 	public void testDeleteDTPInPkg_ThruCE_CanvasFocused() throws Exception{
         reCopy = true;
         performDeleteComponentThruCEGenerics("Package","SubDataTypes",EditorTestUtilities.EDITOR_TYPE_CANVAS, 4);
 	}
+	@Test
 	public void testDeleteSSinSS_ThruCE_CanvasFocused() throws Exception{
         performDeleteComponentThruCEGenerics("Package", "SSInSS1",EditorTestUtilities.EDITOR_TYPE_CANVAS, 4);
     }
-    public void testDeleteEEP_ThruCE_CanvasFocused() throws Exception{
+    @Test
+	public void testDeleteEEP_ThruCE_CanvasFocused() throws Exception{
         reCopy = true;
         performDeleteComponentThruCEGenerics("Package", "External Entities",EditorTestUtilities.EDITOR_TYPE_CANVAS, 6);
     }
@@ -206,28 +229,33 @@ public class PkgCMDeleteTestGenerics extends DeleteTest {
 	/*  ENDS CODE: delete through  Canvas Editor*/
 
     /*  STARTS CODE: delete through Resource Navigator */
-    public void testDeleteISM_ThruRN_CanvasFocused() throws Exception{
+    @Test
+	public void testDeleteISM_ThruRN_CanvasFocused() throws Exception{
         performDeleteComponentThruRN("InstanceStateMachine", "A",EditorTestUtilities.EDITOR_TYPE_CANVAS, 2);
     }    
 //    public void testDeleteMclass_ThruRN_CanvasFocused() throws Exception{
 //        performDeleteComponentThruRN("ModelClass", "X",EditorTestUtilities.EDITOR_TYPE_CANVAS, 2);
 //    }    
-    public void testDeleteDTPInPkg_ThruRN_CanvasFocused() throws Exception{
+    @Test
+	public void testDeleteDTPInPkg_ThruRN_CanvasFocused() throws Exception{
         performDeleteComponentThruRN("Package", "SubDataTypes",EditorTestUtilities.EDITOR_TYPE_CANVAS, 2);
     }
 //    public void testDeleteSSInSS_ThruRN_CanvasFocused() throws Exception{
 //        performDeleteComponentThruRN("Package", "SSInSS1",EditorTestUtilities.EDITOR_TYPE_CANVAS, 2);
 //    }
-    public void testDeleteSS_ThruRN_CanvasFocused() throws Exception{
+    @Test
+	public void testDeleteSS_ThruRN_CanvasFocused() throws Exception{
         reCopy = true;
         performDeleteComponentThruRN("Package", null,EditorTestUtilities.EDITOR_TYPE_CANVAS, 2);
     }
-    public void testDeleteEEP_ThruRN_CanvasFocused() throws Exception{
+    @Test
+	public void testDeleteEEP_ThruRN_CanvasFocused() throws Exception{
         reCopy = true;
         performDeleteComponentThruRN("Package", "External Entities",EditorTestUtilities.EDITOR_TYPE_CANVAS,3);
     }
     
-    public void testDeleteISM_ThruRN_ActivityFocused() throws Exception{
+    @Test
+	public void testDeleteISM_ThruRN_ActivityFocused() throws Exception{
         performDeleteComponentThruRN("InstanceStateMachine", "X",EditorTestUtilities.EDITOR_TYPE_ACTIVITY, 3);
     }
 //    public void testDeleteMclass_ThruRN_ActivityFocused() throws Exception{
@@ -237,13 +265,16 @@ public class PkgCMDeleteTestGenerics extends DeleteTest {
 //        performDeleteComponentThruRN("ExternalEntityPackage", "External Entities",EditorTestUtilities.EDITOR_TYPE_ACTIVITY, 3);
 //    }
   
-    public void testDeleteISM_ThruRN_DescriptionFocused() throws Exception{
+    @Test
+	public void testDeleteISM_ThruRN_DescriptionFocused() throws Exception{
         performDeleteComponentThruRN("InstanceStateMachine", "A",EditorTestUtilities.EDITOR_TYPE_DESC, 2);
     }
-    public void testDeleteDTPInPkg_ThruRN_DescriptionFocused() throws Exception{
+    @Test
+	public void testDeleteDTPInPkg_ThruRN_DescriptionFocused() throws Exception{
         performDeleteComponentThruRN("Package", "SubDataTypes",EditorTestUtilities.EDITOR_TYPE_DESC, 2);
     }
-    public void testDeleteMclass_ThruRN_DescriptionFocused() throws Exception{
+    @Test
+	public void testDeleteMclass_ThruRN_DescriptionFocused() throws Exception{
         performDeleteComponentThruRN("ModelClass", "B",EditorTestUtilities.EDITOR_TYPE_DESC, 1);
     }
 //    public void testDeleteSSinSS_ThruRN_DescriptionFocused() throws Exception{
@@ -254,39 +285,49 @@ public class PkgCMDeleteTestGenerics extends DeleteTest {
 //        reCopy = true;
 //        performDeleteComponentThruRN("Package", null,EditorTestUtilities.EDITOR_TYPE_DESC, 2);
 //    }
-    public void testDeleteEEP_ThruRN_DescriptionFocused() throws Exception{
+    @Test
+	public void testDeleteEEP_ThruRN_DescriptionFocused() throws Exception{
         performDeleteComponentThruRN("Package", "External Entities",EditorTestUtilities.EDITOR_TYPE_DESC, 3);
     }
-    public void testDeleteDomain_ThruRN_DescriptionFocused() throws Exception{
+    @Test
+	public void testDeleteDomain_ThruRN_DescriptionFocused() throws Exception{
         reCopy = true;
         performDeleteComponentThruRN("Package", null,EditorTestUtilities.EDITOR_TYPE_DESC, 2);
     }
     
     
-    public void testDeleteISM_ThruRN_NoEditor() throws Exception{
+    @Test
+	public void testDeleteISM_ThruRN_NoEditor() throws Exception{
         performDeleteComponentThruRN("InstanceStateMachine","X",EditorTestUtilities.EDITOR_TYPE_NONE, 2);
     }
-    public void testDeleteMclass_ThruRN_NoEditor() throws Exception{
+    @Test
+	public void testDeleteMclass_ThruRN_NoEditor() throws Exception{
         performDeleteComponentThruRN("ModelClass","A",EditorTestUtilities.EDITOR_TYPE_NONE, 2);
     }
-    public void testDeleteDTPInPkg_ThruRN_NoEditor() throws Exception{
+    @Test
+	public void testDeleteDTPInPkg_ThruRN_NoEditor() throws Exception{
         performDeleteComponentThruRN("Package", "SubDataTypes",EditorTestUtilities.EDITOR_TYPE_NONE, 2);
     }
-    public void testDeleteSSInSS_ThruRN_NoEditor() throws Exception{
+    @Test
+	public void testDeleteSSInSS_ThruRN_NoEditor() throws Exception{
         performDeleteComponentThruRN("Package", "SSInSS1",EditorTestUtilities.EDITOR_TYPE_NONE, 2);
     }
-    public void testDeleteSS_ThruRN_NoEditor() throws Exception{
+    @Test
+	public void testDeleteSS_ThruRN_NoEditor() throws Exception{
     	reCopy =true;
         performDeleteComponentThruRN("Package", null,EditorTestUtilities.EDITOR_TYPE_NONE, 2);
     }
-    public void testDeleteEEP_ThruRN_NoEditor() throws Exception{
+    @Test
+	public void testDeleteEEP_ThruRN_NoEditor() throws Exception{
         performDeleteComponentThruRN("Package", "External Entities",EditorTestUtilities.EDITOR_TYPE_NONE, 0);
     }
-    public void testDeleteDomain_ThruRN_NoEditor() throws Exception{
+    @Test
+	public void testDeleteDomain_ThruRN_NoEditor() throws Exception{
         reCopy=true;
         performDeleteComponentThruRN("Package", null,EditorTestUtilities.EDITOR_TYPE_NONE, 2);
     }
 
+	@Test
 	public void testDeleteSystem_ThruME_NoEditor() throws Exception{
         reCopy=true;
         performDeleteComponentThruMEGenerics("SystemModel", null,EditorTestUtilities.EDITOR_TYPE_NONE, 0);

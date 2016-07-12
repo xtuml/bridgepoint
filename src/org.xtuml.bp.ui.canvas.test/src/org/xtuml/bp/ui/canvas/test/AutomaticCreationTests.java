@@ -14,7 +14,8 @@ import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.gef.tools.AbstractTool;
 import org.eclipse.ui.PlatformUI;
-
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.Component_c;
 import org.xtuml.bp.core.InterfaceReference_c;
 import org.xtuml.bp.core.Package_c;
@@ -26,14 +27,17 @@ import org.xtuml.bp.core.Satisfaction_c;
 import org.xtuml.bp.core.common.ClassQueryInterface_c;
 import org.xtuml.bp.core.common.Transaction;
 import org.xtuml.bp.test.common.BaseTest;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.test.common.UITestingUtilities;
 import org.xtuml.bp.ui.canvas.GraphicalElement_c;
 import org.xtuml.bp.ui.canvas.Model_c;
 import org.xtuml.bp.ui.canvas.Shape_c;
 import org.xtuml.bp.ui.graphics.editor.GraphicalEditor;
 
+@RunWith(OrderedRunner.class)
 public class AutomaticCreationTests extends BaseTest {
 
+	@Test
 	public void testProvidedInterfaceTool() {
 		// create a new package and two new components
 		Transaction transaction = startTransaction();
@@ -99,6 +103,7 @@ public class AutomaticCreationTests extends BaseTest {
 		assertNotNull("The provision was not created on the starting component.", pro);
 	}
 	
+	@Test
 	public void testRequiredInterfaceTool() {
 		// create a new package and two new components
 		Transaction transaction = startTransaction();

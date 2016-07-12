@@ -1,0 +1,79 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>5.3. Deleting Instances</title>
+<link rel="stylesheet" type="text/css" href="docbook.css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
+<meta name="keywords" content="MASL, Action Language, Action Semantics, UML, Unified Modelling Language, Shlaer Mellor">
+<link rel="home" href="index.html" title="MASL Tutorial">
+<link rel="up" href="ObjectsandRelationships.html" title="Chapter 5. Objects and Relationships">
+<link rel="prev" href="ObjectsandRelationshipsObtainingInstances.html" title="5.2. Obtaining instances">
+<link rel="next" href="ObjectsandRelationshipsCreatingRelationships.html" title="5.4. Creating Relationships">
+<link rel="preface" href="preface.html" title="Preface">
+<link rel="chapter" href="Types.html" title="Chapter 1. Types">
+<link rel="chapter" href="ExecutionControl.html" title="Chapter 2. Execution Control">
+<link rel="chapter" href="CompositeTypes.html" title="Chapter 3. Composite Types">
+<link rel="chapter" href="Exceptions.html" title="Chapter 4. Exceptions">
+<link rel="chapter" href="ObjectsandRelationships.html" title="Chapter 5. Objects and Relationships">
+<link rel="chapter" href="Actions.html" title="Chapter 6. Actions">
+<link rel="chapter" href="DeviceIO.html" title="Chapter 7. Device Input/Output">
+<link rel="chapter" href="MASLExamples.html" title="Chapter 8. MASL Examples">
+<link rel="index" href="ix01.html" title="Index">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div align="center">UNCLASSIFIED</div>
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center">5.3. Deleting Instances</th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="ObjectsandRelationshipsObtainingInstances.html">Prev</a> </td>
+<th width="60%" align="center">Chapter 5. Objects and Relationships</th>
+<td width="20%" align="right"> <a accesskey="n" href="ObjectsandRelationshipsCreatingRelationships.html">Next</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h2 class="title">
+<a name="ObjectsandRelationshipsDeletingInstances"></a>5.3. Deleting Instances</h2></div></div></div>
+<p>Once we have finished with an instance or a set of instances we can
+    delete them using a <code class="literal">delete</code> statement. A
+    <code class="literal">delete</code> statement starts with the reserved word
+    <code class="literal">delete</code> followed by an expression that denotes either a
+    specific single instance or a collection of instances. Given the examples
+    already seen we might write:</p>
+<div class="informalexample"><pre class="programlisting">delete aircraft_instance;</pre></div>
+<p>to delete a single aircraft instance,
+    or:</p>
+<div class="informalexample"><pre class="programlisting">delete aircraft_set;</pre></div>
+<p>to delete all the aircraft instances in a set.</p>
+<p>If an instance that participates in a relationship is deleted,
+    before the relationship is unlinked, then an exception will be
+    raised.</p>
+<p>Deleting either the null instance or an empty collection does not
+    have any effect.</p>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="ObjectsandRelationshipsObtainingInstances.html">Prev</a> </td>
+<td width="20%" align="center"><a accesskey="u" href="ObjectsandRelationships.html">Up</a></td>
+<td width="40%" align="right"> <a accesskey="n" href="ObjectsandRelationshipsCreatingRelationships.html">Next</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left" valign="top">5.2. Obtaining instances </td>
+<td width="20%" align="center">
+<a accesskey="h" href="index.html">Home</a> | <a accesskey="t" href="bk01-toc.html">ToC</a>
+</td>
+<td width="40%" align="right" valign="top"> 5.4. Creating Relationships</td>
+</tr>
+</table>
+</div>
+<div align="center">UNCLASSIFIED</div>
+</body>
+</html>

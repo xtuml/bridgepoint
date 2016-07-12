@@ -91,7 +91,7 @@ INSERT INTO C VALUES ( '${obj.Name}', '${attr.Name}', '${next_attr.Name}', '${dt
         .if ( empty battr )
           .select any rel related by attr->O_RATTR[R106]->O_REF[R108]->R_RGO[R111]->R_SUB[R205]->R_SUBSUP[R213]->R_REL[R206]
           .if (not_empty rel)
-            .if ("${rel.Descrip:Optional}" != ""))
+            .if ("${rel.Descrip:Optional}" != "")
 , true, ${rel.Descrip:Optional} );
             .else
 , true, false );

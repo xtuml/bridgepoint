@@ -1,0 +1,50 @@
+<!-- 
+  UK Crown Copyright (c) 2016. All Rights Reserved
+-->
+<!-- Converted by db4-upgrade version 1.0 -->
+<book xmlns="http://docbook.org/ns/docbook" xmlns:xi="http://www.w3.org/2001/XInclude" version="5.0" security="UNCLASSIFIED" status="draft">
+    
+    <info><title>MASL Tutorial</title>
+        
+        <copyright>
+            <year>2000-2007</year>
+            <holder>Crown Copyright</holder>
+        </copyright>
+       <pubdate>January 2007</pubdate>
+        <releaseinfo>Version 1.4</releaseinfo>
+        <subjectset scheme="IEEE">
+            <subject>
+                <subjectterm>Computer language</subjectterm>
+            </subject>
+            <subject>
+                <subjectterm>Computer aided software engineering</subjectterm>
+            </subject>
+            <subject>
+                <subjectterm>Programming</subjectterm>
+            </subject>
+            <subject>
+                <subjectterm>Modelling</subjectterm>
+            </subject>
+        </subjectset>
+        <keywordset>
+            <keyword>MASL</keyword>
+            <keyword>Action Language</keyword>
+            <keyword>Action Semantics</keyword>
+            <keyword>UML</keyword>
+            <keyword>Unified Modelling Language</keyword>
+            <keyword>Shlaer Mellor</keyword>
+        </keywordset>
+        
+    </info>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="preface.xml"/>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="bibliography.xml"/>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="types.xml"/>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="executioncontrol.xml"/>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="compositetypes.xml"/>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="exceptions.xml"/>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="objectsandrelationships.xml"/>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="actions.xml"/>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="deviceio.xml"/>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="maslexamples.xml"/>
+    <index/>
+</book>

@@ -1,0 +1,390 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AUTOSAR xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://autosar.org/3.0.2" xsi:schemaLocation="http://autosar.org/3.0.2 autosar.xsd">
+  <TOP-LEVEL-PACKAGES>
+    <AR-PACKAGE UUID="8782111e-e417-49a9-8cc6-390537a871ba">
+      <SHORT-NAME>pk_Simple</SHORT-NAME>
+      <ELEMENTS>
+        <MODE-DECLARATION-GROUP UUID="60ec0e3e-0acb-4084-88c7-2d1e6a70b236">
+          <SHORT-NAME>mdg_Simple</SHORT-NAME>
+          <INITIAL-MODE-REF DEST="MODE-DECLARATION">/pk_Simple/mdg_Simple/md_Init</INITIAL-MODE-REF>
+          <MODE-DECLARATIONS>
+            <MODE-DECLARATION UUID="dfb059d9-cd20-46e6-b133-12309a8beef9">
+              <SHORT-NAME>md_Init</SHORT-NAME>
+            </MODE-DECLARATION>
+            <MODE-DECLARATION UUID="f6309809-1ae1-47a9-829b-96cd8e441ffe">
+              <SHORT-NAME>md_Run</SHORT-NAME>
+            </MODE-DECLARATION>
+          </MODE-DECLARATIONS>
+        </MODE-DECLARATION-GROUP>
+        <CLIENT-SERVER-INTERFACE UUID="a136562b-e35c-4820-96e2-3ef2b3f5d35a">
+          <SHORT-NAME>in_Interface_operation</SHORT-NAME>
+          <IS-SERVICE>false</IS-SERVICE>
+          <OPERATIONS>
+            <OPERATION-PROTOTYPE UUID="e05f1853-b9ad-4768-a426-98a9f2bace6f">
+              <SHORT-NAME>op_operation</SHORT-NAME>
+              <ARGUMENTS/>
+              <POSSIBLE-ERROR-REFS/>
+            </OPERATION-PROTOTYPE>
+          </OPERATIONS>
+          <POSSIBLE-ERRORS/>
+        </CLIENT-SERVER-INTERFACE>
+        <SENDER-RECEIVER-INTERFACE UUID="70dc01ae-2506-4fe0-a955-4329f6572450">
+          <SHORT-NAME>modeIfc</SHORT-NAME>
+          <DATA-ELEMENTS/>
+          <MODE-GROUPS>
+            <MODE-DECLARATION-GROUP-PROTOTYPE UUID="210449b8-8230-4463-be86-0ad4e58626cd">
+              <SHORT-NAME>mdgp_Simple</SHORT-NAME>
+              <TYPE-TREF DEST="MODE-DECLARATION-GROUP">/pk_Simple/mdg_Simple</TYPE-TREF>
+            </MODE-DECLARATION-GROUP-PROTOTYPE>
+          </MODE-GROUPS>
+        </SENDER-RECEIVER-INTERFACE>
+        <APPLICATION-SOFTWARE-COMPONENT-TYPE UUID="bcb7a326-6775-49b4-96d7-23abcddcad8e">
+          <SHORT-NAME>co_comp1</SHORT-NAME>
+          <PORTS>
+            <P-PORT-PROTOTYPE UUID="98c1f526-49fb-4898-af78-b46fc1581d01">
+              <SHORT-NAME>pt_Port1_operation</SHORT-NAME>
+              <CALIBRATION-PORT-ANNOTATIONS/>
+              <IO-HW-ABSTRACTION-SERVER-ANNOTATIONS/>
+              <SENDER-RECEIVER-ANNOTATIONS/>
+              <PROVIDED-COM-SPECS/>
+              <PROVIDED-INTERFACE-TREF DEST="CLIENT-SERVER-INTERFACE">/pk_Simple/in_Interface_operation</PROVIDED-INTERFACE-TREF>
+            </P-PORT-PROTOTYPE>
+            <R-PORT-PROTOTYPE UUID="c208e88c-500a-4bf2-8c8a-33ba3dee746c">
+              <SHORT-NAME>pt_comp1_init</SHORT-NAME>
+              <CALIBRATION-PORT-ANNOTATIONS/>
+              <IO-HW-ABSTRACTION-SERVER-ANNOTATIONS/>
+              <SENDER-RECEIVER-ANNOTATIONS/>
+              <REQUIRED-COM-SPECS/>
+              <REQUIRED-INTERFACE-TREF DEST="SENDER-RECEIVER-INTERFACE">/pk_Simple/modeIfc</REQUIRED-INTERFACE-TREF>
+            </R-PORT-PROTOTYPE>
+          </PORTS>
+        </APPLICATION-SOFTWARE-COMPONENT-TYPE>
+        <APPLICATION-SOFTWARE-COMPONENT-TYPE UUID="e873e98a-b9f8-40ab-b181-e0b3b6c86bea">
+          <SHORT-NAME>co_comp2</SHORT-NAME>
+          <PORTS>
+            <R-PORT-PROTOTYPE UUID="a4b9054d-e66e-4f2f-8371-80215d026ccb">
+              <SHORT-NAME>pt_Port1_operation</SHORT-NAME>
+              <CALIBRATION-PORT-ANNOTATIONS/>
+              <IO-HW-ABSTRACTION-SERVER-ANNOTATIONS/>
+              <SENDER-RECEIVER-ANNOTATIONS/>
+              <REQUIRED-COM-SPECS/>
+              <REQUIRED-INTERFACE-TREF DEST="CLIENT-SERVER-INTERFACE">/pk_Simple/in_Interface_operation</REQUIRED-INTERFACE-TREF>
+            </R-PORT-PROTOTYPE>
+            <R-PORT-PROTOTYPE UUID="73fee791-fb52-4d7d-a54f-7dfdb5fd1cd2">
+              <SHORT-NAME>pt_comp2_init</SHORT-NAME>
+              <CALIBRATION-PORT-ANNOTATIONS/>
+              <IO-HW-ABSTRACTION-SERVER-ANNOTATIONS/>
+              <SENDER-RECEIVER-ANNOTATIONS/>
+              <REQUIRED-COM-SPECS/>
+              <REQUIRED-INTERFACE-TREF DEST="SENDER-RECEIVER-INTERFACE">/pk_Simple/modeIfc</REQUIRED-INTERFACE-TREF>
+            </R-PORT-PROTOTYPE>
+          </PORTS>
+        </APPLICATION-SOFTWARE-COMPONENT-TYPE>
+        <COMPOSITION-TYPE UUID="dde1b2d7-c017-48e1-a099-3d02813f29be">
+          <SHORT-NAME>cz_comp1</SHORT-NAME>
+          <PORTS>
+            <P-PORT-PROTOTYPE UUID="5444f0b5-28fa-406d-b8de-d1d3b86cc6c2">
+              <SHORT-NAME>pt_Port1_operation</SHORT-NAME>
+              <CALIBRATION-PORT-ANNOTATIONS/>
+              <IO-HW-ABSTRACTION-SERVER-ANNOTATIONS/>
+              <SENDER-RECEIVER-ANNOTATIONS/>
+              <PROVIDED-COM-SPECS/>
+              <PROVIDED-INTERFACE-TREF DEST="CLIENT-SERVER-INTERFACE">/pk_Simple/in_Interface_operation</PROVIDED-INTERFACE-TREF>
+            </P-PORT-PROTOTYPE>
+          </PORTS>
+          <COMPONENTS>
+            <COMPONENT-PROTOTYPE UUID="fcb4d8c9-1091-419f-a3f4-6324ce439433">
+              <SHORT-NAME>cp_comp1</SHORT-NAME>
+              <TYPE-TREF DEST="APPLICATION-SOFTWARE-COMPONENT-TYPE">/pk_Simple/co_comp1</TYPE-TREF>
+            </COMPONENT-PROTOTYPE>
+          </COMPONENTS>
+          <CONNECTORS>
+            <DELEGATION-CONNECTOR-PROTOTYPE UUID="8b129f0f-80af-4aec-b9a5-67393689ad4f">
+              <SHORT-NAME>cn_Port1_operation</SHORT-NAME>
+              <INNER-PORT-IREF>
+                <COMPONENT-PROTOTYPE-REF DEST="COMPONENT-PROTOTYPE">/pk_Simple/cz_comp1/cp_comp1</COMPONENT-PROTOTYPE-REF>
+                <PORT-PROTOTYPE-REF DEST="P-PORT-PROTOTYPE">/pk_Simple/co_comp1/pt_Port1_operation</PORT-PROTOTYPE-REF>
+              </INNER-PORT-IREF>
+              <OUTER-PORT-REF DEST="P-PORT-PROTOTYPE">/pk_Simple/cz_comp1/pt_Port1_operation</OUTER-PORT-REF>
+            </DELEGATION-CONNECTOR-PROTOTYPE>
+          </CONNECTORS>
+        </COMPOSITION-TYPE>
+        <COMPOSITION-TYPE UUID="02d16705-a6ad-4235-bd7f-a0294246a6a0">
+          <SHORT-NAME>cz_comp2</SHORT-NAME>
+          <PORTS>
+            <R-PORT-PROTOTYPE UUID="82f06cfb-c87d-4f7d-8a92-b210a7f88447">
+              <SHORT-NAME>pt_Port1_operation</SHORT-NAME>
+              <CALIBRATION-PORT-ANNOTATIONS/>
+              <IO-HW-ABSTRACTION-SERVER-ANNOTATIONS/>
+              <SENDER-RECEIVER-ANNOTATIONS/>
+              <REQUIRED-COM-SPECS/>
+              <REQUIRED-INTERFACE-TREF DEST="CLIENT-SERVER-INTERFACE">/pk_Simple/in_Interface_operation</REQUIRED-INTERFACE-TREF>
+            </R-PORT-PROTOTYPE>
+          </PORTS>
+          <COMPONENTS>
+            <COMPONENT-PROTOTYPE UUID="c33d6d4e-aff6-49f9-bd52-e306e7cd0281">
+              <SHORT-NAME>cp_comp2</SHORT-NAME>
+              <TYPE-TREF DEST="APPLICATION-SOFTWARE-COMPONENT-TYPE">/pk_Simple/co_comp2</TYPE-TREF>
+            </COMPONENT-PROTOTYPE>
+          </COMPONENTS>
+          <CONNECTORS>
+            <DELEGATION-CONNECTOR-PROTOTYPE UUID="f61d6b76-1e20-4fca-a9fb-97e775b31b7b">
+              <SHORT-NAME>cn_Port1_operation</SHORT-NAME>
+              <INNER-PORT-IREF>
+                <COMPONENT-PROTOTYPE-REF DEST="COMPONENT-PROTOTYPE">/pk_Simple/cz_comp2/cp_comp2</COMPONENT-PROTOTYPE-REF>
+                <PORT-PROTOTYPE-REF DEST="R-PORT-PROTOTYPE">/pk_Simple/co_comp2/pt_Port1_operation</PORT-PROTOTYPE-REF>
+              </INNER-PORT-IREF>
+              <OUTER-PORT-REF DEST="R-PORT-PROTOTYPE">/pk_Simple/cz_comp2/pt_Port1_operation</OUTER-PORT-REF>
+            </DELEGATION-CONNECTOR-PROTOTYPE>
+          </CONNECTORS>
+        </COMPOSITION-TYPE>
+        <COMPOSITION-TYPE UUID="19742ec6-e3f9-4326-9d6b-25397ce7b212">
+          <SHORT-NAME>cz_default</SHORT-NAME>
+          <PORTS/>
+          <COMPONENTS>
+            <COMPONENT-PROTOTYPE UUID="e42a12c5-7956-423e-a76d-4c0b4ee79d45">
+              <SHORT-NAME>cp_cz_comp1</SHORT-NAME>
+              <TYPE-TREF DEST="COMPOSITION-TYPE">/pk_Simple/cz_comp1</TYPE-TREF>
+            </COMPONENT-PROTOTYPE>
+            <COMPONENT-PROTOTYPE UUID="3bd19fe5-754c-4b8e-87f9-5110b42f87ec">
+              <SHORT-NAME>cp_cz_comp2</SHORT-NAME>
+              <TYPE-TREF DEST="COMPOSITION-TYPE">/pk_Simple/cz_comp2</TYPE-TREF>
+            </COMPONENT-PROTOTYPE>
+          </COMPONENTS>
+          <CONNECTORS>
+            <ASSEMBLY-CONNECTOR-PROTOTYPE UUID="98ead580-000e-4e13-9887-c4d84172885e">
+              <SHORT-NAME>cn_Port1_operation</SHORT-NAME>
+              <PROVIDER-IREF>
+                <COMPONENT-PROTOTYPE-REF DEST="COMPONENT-PROTOTYPE">/pk_Simple/cz_default/cp_cz_comp1</COMPONENT-PROTOTYPE-REF>
+                <P-PORT-PROTOTYPE-REF DEST="P-PORT-PROTOTYPE">/pk_Simple/cz_comp1/pt_Port1_operation</P-PORT-PROTOTYPE-REF>
+              </PROVIDER-IREF>
+              <REQUESTER-IREF>
+                <COMPONENT-PROTOTYPE-REF DEST="COMPONENT-PROTOTYPE">/pk_Simple/cz_default/cp_cz_comp2</COMPONENT-PROTOTYPE-REF>
+                <R-PORT-PROTOTYPE-REF DEST="R-PORT-PROTOTYPE">/pk_Simple/cz_comp2/pt_Port1_operation</R-PORT-PROTOTYPE-REF>
+              </REQUESTER-IREF>
+            </ASSEMBLY-CONNECTOR-PROTOTYPE>
+          </CONNECTORS>
+        </COMPOSITION-TYPE>
+        <INTERNAL-BEHAVIOR UUID="2c236a53-0d4e-44f1-b253-b34ac6b38b02">
+          <SHORT-NAME>ib_comp1</SHORT-NAME>
+          <COMPONENT-REF DEST="APPLICATION-SOFTWARE-COMPONENT-TYPE">/pk_Simple/co_comp1</COMPONENT-REF>
+          <EVENTS>
+            <TIMING-EVENT UUID="f0a05ca0-eb3a-47d3-beba-b41e7648ff89">
+              <SHORT-NAME>ev_comp1_Timer</SHORT-NAME>
+              <START-ON-EVENT-REF DEST="RUNNABLE-ENTITY">/pk_Simple/ib_comp1/ru_comp1_Timer</START-ON-EVENT-REF>
+              <PERIOD>1.0</PERIOD>
+            </TIMING-EVENT>
+            <MODE-SWITCH-EVENT UUID="b7e4e158-9b27-48a2-a8ba-700ad69a469f">
+              <SHORT-NAME>ev_comp1_Initialize</SHORT-NAME>
+              <START-ON-EVENT-REF DEST="RUNNABLE-ENTITY">/pk_Simple/ib_comp1/ru_comp1_Initialize</START-ON-EVENT-REF>
+              <ACTIVATION>ENTRY</ACTIVATION>
+              <MODE-IREF>
+                <R-PORT-PROTOTYPE-REF DEST="R-PORT-PROTOTYPE">/pk_Simple/co_comp1/pt_comp1_init</R-PORT-PROTOTYPE-REF>
+                <MODE-DECLARATION-GROUP-PROTOTYPE-REF DEST="MODE-DECLARATION-GROUP-PROTOTYPE">/pk_Simple/modeIfc/mdgp_Simple</MODE-DECLARATION-GROUP-PROTOTYPE-REF>
+                <MODE-DECLARATION-REF DEST="MODE-DECLARATION">/pk_Simple/mdg_Simple/md_Init</MODE-DECLARATION-REF>
+              </MODE-IREF>
+            </MODE-SWITCH-EVENT>
+            <OPERATION-INVOKED-EVENT UUID="de0e2a74-5dbf-46e8-93dc-8f7aa9760acf">
+              <SHORT-NAME>ev_Port1_operation</SHORT-NAME>
+              <START-ON-EVENT-REF DEST="RUNNABLE-ENTITY">/pk_Simple/ib_comp1/ru_Port1_operation</START-ON-EVENT-REF>
+              <OPERATION-IREF>
+                <P-PORT-PROTOTYPE-REF DEST="P-PORT-PROTOTYPE">/pk_Simple/co_comp1/pt_Port1_operation</P-PORT-PROTOTYPE-REF>
+                <OPERATION-PROTOTYPE-REF DEST="OPERATION-PROTOTYPE">/pk_Simple/in_Interface_operation/op_operation</OPERATION-PROTOTYPE-REF>
+              </OPERATION-IREF>
+            </OPERATION-INVOKED-EVENT>
+          </EVENTS>
+          <EXCLUSIVE-AREAS>
+            <EXCLUSIVE-AREA UUID="e3a69c8e-fec5-4120-aeca-cdd936cc000c">
+              <SHORT-NAME>ea_comp1</SHORT-NAME>
+            </EXCLUSIVE-AREA>
+          </EXCLUSIVE-AREAS>
+          <INTER-RUNNABLE-VARIABLES/>
+          <PER-INSTANCE-CALPRMS/>
+          <PER-INSTANCE-MEMORYS/>
+          <PORT-API-OPTIONS/>
+          <RUNNABLES>
+            <RUNNABLE-ENTITY UUID="49f48614-7a28-42a2-a28c-750c2c04a4c6">
+              <SHORT-NAME>ru_comp1_Timer</SHORT-NAME>
+              <CALPRM-ACCESSS/>
+              <CAN-BE-INVOKED-CONCURRENTLY>true</CAN-BE-INVOKED-CONCURRENTLY>
+              <CAN-ENTER-EXCLUSIVE-AREA-REFS>
+                <CAN-ENTER-EXCLUSIVE-AREA-REF DEST="EXCLUSIVE-AREA">/pk_Simple/ib_comp1/ea_comp1</CAN-ENTER-EXCLUSIVE-AREA-REF>
+              </CAN-ENTER-EXCLUSIVE-AREA-REFS>
+              <DATA-READ-ACCESSS/>
+              <DATA-RECEIVE-POINTS/>
+              <DATA-SEND-POINTS/>
+              <DATA-WRITE-ACCESSS/>
+              <MODE-SWITCH-POINTS/>
+              <PER-INSTANCE-CALPRM-ACCESS-REFS/>
+              <READ-VARIABLE-REFS/>
+              <RUNS-INSIDE-EXCLUSIVE-AREA-REFS/>
+              <SERVER-CALL-POINTS/>
+              <SHARED-CALPRM-ACCESS-REFS/>
+              <SYMBOL>ib_comp1_ru_comp1Timer</SYMBOL>
+              <WAIT-POINTS/>
+              <WRITTEN-VARIABLE-REFS/>
+            </RUNNABLE-ENTITY>
+            <RUNNABLE-ENTITY UUID="1b8d7a94-5c62-418c-96c7-1259fdc48a4b">
+              <SHORT-NAME>ru_comp1_Initialize</SHORT-NAME>
+              <CALPRM-ACCESSS/>
+              <CAN-BE-INVOKED-CONCURRENTLY>true</CAN-BE-INVOKED-CONCURRENTLY>
+              <CAN-ENTER-EXCLUSIVE-AREA-REFS>
+                <CAN-ENTER-EXCLUSIVE-AREA-REF DEST="EXCLUSIVE-AREA">/pk_Simple/ib_comp1/ea_comp1</CAN-ENTER-EXCLUSIVE-AREA-REF>
+              </CAN-ENTER-EXCLUSIVE-AREA-REFS>
+              <DATA-READ-ACCESSS/>
+              <DATA-RECEIVE-POINTS/>
+              <DATA-SEND-POINTS/>
+              <DATA-WRITE-ACCESSS/>
+              <MODE-SWITCH-POINTS/>
+              <PER-INSTANCE-CALPRM-ACCESS-REFS/>
+              <READ-VARIABLE-REFS/>
+              <RUNS-INSIDE-EXCLUSIVE-AREA-REFS/>
+              <SERVER-CALL-POINTS/>
+              <SHARED-CALPRM-ACCESS-REFS/>
+              <SYMBOL>ib_comp1_ru_comp1_Initialize</SYMBOL>
+              <WAIT-POINTS/>
+              <WRITTEN-VARIABLE-REFS/>
+            </RUNNABLE-ENTITY>
+            <RUNNABLE-ENTITY UUID="f1bc20f2-c614-40c8-926f-f379451b7c9e">
+              <SHORT-NAME>ru_Port1_operation</SHORT-NAME>
+              <CALPRM-ACCESSS/>
+              <CAN-BE-INVOKED-CONCURRENTLY>true</CAN-BE-INVOKED-CONCURRENTLY>
+              <CAN-ENTER-EXCLUSIVE-AREA-REFS>
+                <CAN-ENTER-EXCLUSIVE-AREA-REF DEST="EXCLUSIVE-AREA">/pk_Simple/ib_comp1/ea_comp1</CAN-ENTER-EXCLUSIVE-AREA-REF>
+              </CAN-ENTER-EXCLUSIVE-AREA-REFS>
+              <DATA-READ-ACCESSS/>
+              <DATA-RECEIVE-POINTS/>
+              <DATA-SEND-POINTS/>
+              <DATA-WRITE-ACCESSS/>
+              <MODE-SWITCH-POINTS/>
+              <PER-INSTANCE-CALPRM-ACCESS-REFS/>
+              <READ-VARIABLE-REFS/>
+              <RUNS-INSIDE-EXCLUSIVE-AREA-REFS/>
+              <SERVER-CALL-POINTS/>
+              <SHARED-CALPRM-ACCESS-REFS/>
+              <SYMBOL>ib_comp1_ru_Port1_operation</SYMBOL>
+              <WAIT-POINTS/>
+              <WRITTEN-VARIABLE-REFS/>
+            </RUNNABLE-ENTITY>
+          </RUNNABLES>
+          <SERVICE-NEEDSS/>
+          <SHARED-CALPRMS/>
+          <SUPPORTS-MULTIPLE-INSTANTIATION>true</SUPPORTS-MULTIPLE-INSTANTIATION>
+        </INTERNAL-BEHAVIOR>
+        <INTERNAL-BEHAVIOR UUID="557fb90a-9b11-4d88-a984-9287784eeb34">
+          <SHORT-NAME>ib_comp2</SHORT-NAME>
+          <COMPONENT-REF DEST="APPLICATION-SOFTWARE-COMPONENT-TYPE">/pk_Simple/co_comp2</COMPONENT-REF>
+          <EVENTS>
+            <TIMING-EVENT UUID="65cba9e2-684e-404a-b7fb-8ca74fc883a3">
+              <SHORT-NAME>ev_comp2_Timer</SHORT-NAME>
+              <START-ON-EVENT-REF DEST="RUNNABLE-ENTITY">/pk_Simple/ib_comp2/ru_comp2_Timer</START-ON-EVENT-REF>
+              <PERIOD>1.0</PERIOD>
+            </TIMING-EVENT>
+            <MODE-SWITCH-EVENT UUID="8c57a311-a86a-41d6-814a-b9df19f0fbb7">
+              <SHORT-NAME>ev_comp2_Initialize</SHORT-NAME>
+              <START-ON-EVENT-REF DEST="RUNNABLE-ENTITY">/pk_Simple/ib_comp2/ru_comp2_Initialize</START-ON-EVENT-REF>
+              <ACTIVATION>ENTRY</ACTIVATION>
+              <MODE-IREF>
+                <R-PORT-PROTOTYPE-REF DEST="R-PORT-PROTOTYPE">/pk_Simple/co_comp2/pt_comp2_init</R-PORT-PROTOTYPE-REF>
+                <MODE-DECLARATION-GROUP-PROTOTYPE-REF DEST="MODE-DECLARATION-GROUP-PROTOTYPE">/pk_Simple/modeIfc/mdgp_Simple</MODE-DECLARATION-GROUP-PROTOTYPE-REF>
+                <MODE-DECLARATION-REF DEST="MODE-DECLARATION">/pk_Simple/mdg_Simple/md_Init</MODE-DECLARATION-REF>
+              </MODE-IREF>
+            </MODE-SWITCH-EVENT>
+          </EVENTS>
+          <EXCLUSIVE-AREAS>
+            <EXCLUSIVE-AREA UUID="ef775b02-638f-43c4-99a8-dccf1af7e69f">
+              <SHORT-NAME>ea_comp2</SHORT-NAME>
+            </EXCLUSIVE-AREA>
+          </EXCLUSIVE-AREAS>
+          <INTER-RUNNABLE-VARIABLES/>
+          <PER-INSTANCE-CALPRMS/>
+          <PER-INSTANCE-MEMORYS/>
+          <PORT-API-OPTIONS/>
+          <RUNNABLES>
+            <RUNNABLE-ENTITY UUID="f32e0895-29c2-4847-8548-d3a5f5ceed60">
+              <SHORT-NAME>ru_comp2_Timer</SHORT-NAME>
+              <CALPRM-ACCESSS/>
+              <CAN-BE-INVOKED-CONCURRENTLY>true</CAN-BE-INVOKED-CONCURRENTLY>
+              <CAN-ENTER-EXCLUSIVE-AREA-REFS>
+                <CAN-ENTER-EXCLUSIVE-AREA-REF DEST="EXCLUSIVE-AREA">/pk_Simple/ib_comp2/ea_comp2</CAN-ENTER-EXCLUSIVE-AREA-REF>
+              </CAN-ENTER-EXCLUSIVE-AREA-REFS>
+              <DATA-READ-ACCESSS/>
+              <DATA-RECEIVE-POINTS/>
+              <DATA-SEND-POINTS/>
+              <DATA-WRITE-ACCESSS/>
+              <MODE-SWITCH-POINTS/>
+              <PER-INSTANCE-CALPRM-ACCESS-REFS/>
+              <READ-VARIABLE-REFS/>
+              <RUNS-INSIDE-EXCLUSIVE-AREA-REFS/>
+              <SERVER-CALL-POINTS>
+                <SYNCHRONOUS-SERVER-CALL-POINT UUID="bab8dfc5-7ac5-4464-8036-7178212a8b32">
+                  <SHORT-NAME>Port1_operation</SHORT-NAME>
+                  <OPERATION-IREFS>
+                    <OPERATION-IREF>
+                      <R-PORT-PROTOTYPE-REF DEST="R-PORT-PROTOTYPE">/pk_Simple/co_comp2/pt_Port1_operation</R-PORT-PROTOTYPE-REF>
+                      <OPERATION-PROTOTYPE-REF DEST="OPERATION-PROTOTYPE">/pk_Simple/in_Interface_operation/op_operation</OPERATION-PROTOTYPE-REF>
+                    </OPERATION-IREF>
+                  </OPERATION-IREFS>
+                  <TIMEOUT>0.5</TIMEOUT>
+                </SYNCHRONOUS-SERVER-CALL-POINT>
+              </SERVER-CALL-POINTS>
+              <SHARED-CALPRM-ACCESS-REFS/>
+              <SYMBOL>ib_comp2_ru_comp2Timer</SYMBOL>
+              <WAIT-POINTS/>
+              <WRITTEN-VARIABLE-REFS/>
+            </RUNNABLE-ENTITY>
+            <RUNNABLE-ENTITY UUID="90caa25f-4a5d-49a9-9577-2e8c3c8d4f52">
+              <SHORT-NAME>ru_comp2_Initialize</SHORT-NAME>
+              <CALPRM-ACCESSS/>
+              <CAN-BE-INVOKED-CONCURRENTLY>true</CAN-BE-INVOKED-CONCURRENTLY>
+              <CAN-ENTER-EXCLUSIVE-AREA-REFS>
+                <CAN-ENTER-EXCLUSIVE-AREA-REF DEST="EXCLUSIVE-AREA">/pk_Simple/ib_comp2/ea_comp2</CAN-ENTER-EXCLUSIVE-AREA-REF>
+              </CAN-ENTER-EXCLUSIVE-AREA-REFS>
+              <DATA-READ-ACCESSS/>
+              <DATA-RECEIVE-POINTS/>
+              <DATA-SEND-POINTS/>
+              <DATA-WRITE-ACCESSS/>
+              <MODE-SWITCH-POINTS/>
+              <PER-INSTANCE-CALPRM-ACCESS-REFS/>
+              <READ-VARIABLE-REFS/>
+              <RUNS-INSIDE-EXCLUSIVE-AREA-REFS/>
+              <SERVER-CALL-POINTS/>
+              <SHARED-CALPRM-ACCESS-REFS/>
+              <SYMBOL>ib_comp2_ru_comp2_Initialize</SYMBOL>
+              <WAIT-POINTS/>
+              <WRITTEN-VARIABLE-REFS/>
+            </RUNNABLE-ENTITY>
+          </RUNNABLES>
+          <SERVICE-NEEDSS/>
+          <SHARED-CALPRMS/>
+          <SUPPORTS-MULTIPLE-INSTANTIATION>true</SUPPORTS-MULTIPLE-INSTANTIATION>
+        </INTERNAL-BEHAVIOR>
+        <SWC-IMPLEMENTATION UUID="fd1abd54-7c8d-45a0-9cf2-7da3f0705782">
+          <SHORT-NAME>im_comp1</SHORT-NAME>
+          <CODE-DESCRIPTORS/>
+          <CODE-GENERATOR>BridgePoint xtUML MC3020</CODE-GENERATOR>
+          <COMPILERS/>
+          <IMPLEMENTATION-DEPENDENCIES/>
+          <LINKERS/>
+          <PROCESSOR-REFS/>
+          <PROGRAMMING-LANGUAGE>C</PROGRAMMING-LANGUAGE>
+          <BEHAVIOR-REF DEST="INTERNAL-BEHAVIOR">/pk_Simple/ib_comp1</BEHAVIOR-REF>
+          <PER-INSTANCE-MEMORY-SIZES/>
+        </SWC-IMPLEMENTATION>
+        <SWC-IMPLEMENTATION UUID="7edd84b2-4892-41fc-b9ae-3c8b8253bc43">
+          <SHORT-NAME>im_comp2</SHORT-NAME>
+          <CODE-DESCRIPTORS/>
+          <CODE-GENERATOR>BridgePoint xtUML MC3020</CODE-GENERATOR>
+          <COMPILERS/>
+          <IMPLEMENTATION-DEPENDENCIES/>
+          <LINKERS/>
+          <PROCESSOR-REFS/>
+          <PROGRAMMING-LANGUAGE>C</PROGRAMMING-LANGUAGE>
+          <BEHAVIOR-REF DEST="INTERNAL-BEHAVIOR">/pk_Simple/ib_comp2</BEHAVIOR-REF>
+          <PER-INSTANCE-MEMORY-SIZES/>
+        </SWC-IMPLEMENTATION>
+      </ELEMENTS>
+      <SUB-PACKAGES/>
+    </AR-PACKAGE>
+  </TOP-LEVEL-PACKAGES>
+</AUTOSAR>

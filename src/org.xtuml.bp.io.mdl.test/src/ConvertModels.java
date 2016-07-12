@@ -20,19 +20,9 @@
 // the License.
 //=====================================================================
 
-import java.io.File;
+import org.junit.Test;
 
 import junit.framework.TestCase;
-
-import org.eclipse.core.runtime.NullProgressMonitor;
-
-import org.xtuml.bp.core.CorePlugin;
-import org.xtuml.bp.core.Ooaofooa;
-import org.xtuml.bp.core.SystemModel_c;
-import org.xtuml.bp.io.mdl.ExportModel;
-import org.xtuml.bp.io.mdl.ImportModel;
-import org.xtuml.bp.test.common.BaseTest;
-
 /**
  * This is actually a utility program, rather than a test class.
  * It converts BP SQL files and earlier-format Tiger model files 
@@ -55,7 +45,8 @@ import org.xtuml.bp.test.common.BaseTest;
  */
 public class ConvertModels extends TestCase
 {
-    public void testConvertModels() throws Exception
+    @Test
+	public void testConvertModels() throws Exception
     {
     	//removed after io.sql removal
     }

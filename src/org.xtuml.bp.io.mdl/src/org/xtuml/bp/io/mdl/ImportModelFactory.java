@@ -61,7 +61,7 @@ public class ImportModelFactory extends AbstractModelImportFactory {
 			boolean parseAll,
 			boolean clearDatabase,
 			boolean parseGraphics,
-			boolean isTemplate) throws IOException {
+			boolean isTemplate ) throws IOException {
 			return new ImportModel(
 				inStream,
 				aModelRoot,
@@ -79,7 +79,7 @@ public class ImportModelFactory extends AbstractModelImportFactory {
 			boolean parseAll,
 			boolean clearDatabase,
 			boolean parseGraphics,
-			boolean isTemplate) throws IOException {
+			boolean isTemplate ) throws IOException {
 			return new ImportModelComponent(
 				file,
 				aModelRoot,

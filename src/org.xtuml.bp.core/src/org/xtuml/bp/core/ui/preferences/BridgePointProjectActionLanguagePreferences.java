@@ -15,13 +15,13 @@ import org.eclipse.swt.widgets.Control;
 import org.osgi.service.prefs.Preferences;
 
 import org.xtuml.bp.core.CorePlugin;
+import org.xtuml.bp.core.common.BridgePointPreferencesStore;
 
 public class BridgePointProjectActionLanguagePreferences extends
 		BridgePointProjectPreferences {
 
-	private static final String PREFIX = "bridgepoint_prefs_";  //$NON-NLS-1$
-    public static final String ENABLE_ERROR_FOR_EMPTY_SYNCHRONOUS_MESSAGE = PREFIX + "enable_error_for_empty_synchronous_message"; //$NON-NLS-1$
-    public static final String ENABLE_ERROR_FOR_EMPTY_SYNCHRONOUS_MESSAGE_REALIZED = PREFIX + "enable_error_for_empty_synchronous_message_realized"; //$NON-NLS-1$
+    public static final String ENABLE_ERROR_FOR_EMPTY_SYNCHRONOUS_MESSAGE = BridgePointPreferencesStore.PREFIX + "enable_error_for_empty_synchronous_message"; //$NON-NLS-1$
+    public static final String ENABLE_ERROR_FOR_EMPTY_SYNCHRONOUS_MESSAGE_REALIZED = BridgePointPreferencesStore.PREFIX + "enable_error_for_empty_synchronous_message_realized"; //$NON-NLS-1$
 
 
 	private Button enableErrorForEmptySynchronousMessage;

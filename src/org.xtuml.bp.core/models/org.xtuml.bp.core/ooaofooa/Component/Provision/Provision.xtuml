@@ -452,8 +452,17 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000002",
 	1,
-	'select many satisfactions related by self->C_SF[R4002];
-return cardinality satisfactions;',
+	'count = 0;
+select one outerPkg related by self->C_IR[R4009]->C_PO[R4016]->C_C[R4010]->PE_PE[R8001]->EP_PKG[R8000];
+select many satisfactions related by self->C_SF[R4002];
+for each satisfaction in satisfactions
+  select one sPkg related by satisfaction->PE_PE[R8001]->EP_PKG[R8000];
+  if (outerPkg.Package_ID == sPkg.Package_ID)
+    count = count+1;
+  end if;
+end for;
+return count;
+',
 	1,
 	'',
 	"e235d99a-030b-46cf-be8d-ca85d8821d1d");
@@ -757,6 +766,23 @@ INSERT INTO O_TPARM
 	'',
 	"00000000-0000-0000-0000-000000000000",
 	'');
+INSERT INTO O_TFR
+	VALUES ("971bb865-9ab3-49d5-bd4d-236619a2efd2",
+	"8969f73f-606a-4e4e-a698-aafd54115472",
+	'getConnectedId',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	1,
+	'select any satisfactionInstance related by self->C_SF[R4002] where (selected.Provision_Id == self.get_ooa_id());
+if(not empty satisfactionInstance)
+  return satisfactionInstance.Requirement_Id;
+else 
+  return GD::NULL_UNIQUE_ID();
+end if;
+',
+	1,
+	'',
+	"7aabcf02-d18b-4cb4-aea4-44fd3aa2eeab");
 INSERT INTO O_DBATTR
 	VALUES ("27631bb9-8516-4e83-8464-65ea2aeaa5f9",
 	"8969f73f-606a-4e4e-a698-aafd54115472",

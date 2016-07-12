@@ -38,7 +38,7 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.swt.dnd.Clipboard;
 import org.eclipse.swt.dnd.TextTransfer;
 import org.eclipse.swt.widgets.Event;
-
+import org.eclipse.ui.PartInitException;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.common.InstanceList;
@@ -48,6 +48,7 @@ import org.xtuml.bp.core.common.NonRootModelElement;
 import org.xtuml.bp.core.common.TransactionManager;
 import org.xtuml.bp.core.ui.PasteAction;
 import org.xtuml.bp.core.ui.Selection;
+import org.xtuml.bp.ui.canvas.CanvasPlugin;
 import org.xtuml.bp.ui.canvas.Cl_c;
 import org.xtuml.bp.ui.canvas.Connector_c;
 import org.xtuml.bp.ui.canvas.ContainingShape_c;
@@ -62,6 +63,7 @@ import org.xtuml.bp.ui.canvas.Model_c;
 import org.xtuml.bp.ui.canvas.Ooaofgraphics;
 import org.xtuml.bp.ui.canvas.Shape_c;
 import org.xtuml.bp.ui.graphics.editor.GraphicalEditor;
+import org.xtuml.bp.ui.graphics.editor.GraphicalEditorInput;
 import org.xtuml.bp.ui.graphics.tools.GraphicalPanningSelectionTool;
 import org.xtuml.bp.ui.graphics.utilities.GraphicsUtil;
 
@@ -95,12 +97,13 @@ public class CanvasPasteAction extends PasteAction {
 		super.runWithEvent(event);
 	}
 
-	public void runSubtypeProcessing(NonRootModelElement destination) {
+	@Override 
+	public void processGraphics(NonRootModelElement destination) throws Exception {
 		// we only want to do graphical processing
 		// if the destination is the diagram
 		if (getDestinations().size() == 1
 				&& getDestinations().get(0) == m_editor.getModel()
-						.getRepresents()) {
+						.getRepresents() && !MOVE_IS_IN_PROGRESS) {
 			NonRootModelElement[] elements = getLoadedGraphicalInstances((NonRootModelElement) m_editor
 					.getModel().getRepresents());
 			graphicElements = getPastedGraphicalElements((NonRootModelElement) m_editor
@@ -134,32 +137,57 @@ public class CanvasPasteAction extends PasteAction {
 
 	public static void handleNonDiagramElementAsDestination(
 			NonRootModelElement destination,
-			HashMap<NonRootModelElement, ModelStreamProcessor> processorMap) {
+			HashMap<NonRootModelElement, ModelStreamProcessor> processorMap) throws Exception {
 		// we are pasting into a shape, we need to move the
 		// graphical elements to the new Model_c instance
-		Model_c model = getModelForDestination(destination);
+		Model_c destGD_MD = getModel(destination);
 		// skip if no diagram
-		if (model == null) {
+		if (destGD_MD == null) {
 			return;
 		}
-		GraphicalElement_c[] pastedGraphicalElements = getPastedGraphicalElements(
-				destination, processorMap);
-		NonRootModelElement[] loadedGraphicalElements = processorMap.get(
-				destination).getImporter().getLoadedGraphicalInstances();
-		updateGraphicalElementRoots(loadedGraphicalElements, model.getModelRoot());
-		for (GraphicalElement_c element : pastedGraphicalElements) {
-			element.relateAcrossR1To(model);
-			updateContainement(model, element);
-		}
-		// move the elements so they do not overlap any existing elements
-		moveGraphicalElementsToPreventOverlapping(pastedGraphicalElements, model);
-		if (model.Hascontainersymbol()) {
-			Shape_c container = Shape_c.getOneGD_SHPOnR2(GraphicalElement_c
-					.getOneGD_GEOnR1(model));
-			ContainingShape_c cs = ContainingShape_c
-					.getOneGD_CTROnR28(container);
-			if (cs != null) {
-				cs.Autoresize();
+		if (MOVE_IS_IN_PROGRESS) {
+			NonRootModelElement[] selectedElements = new NonRootModelElement[ELEMENT_MOVE_SOURCE_SELECTION.size()];
+			selectedElements = ELEMENT_MOVE_SOURCE_SELECTION.toArray(selectedElements);
+
+			// updateGraphicalElementRoots(selectedElements,
+			// destModel.getModelRoot());
+
+			for (NonRootModelElement nrme : ELEMENT_MOVE_SOURCE_SELECTION) {
+				GraphicalElement_c movedGraphicalElement = null;
+				Ooaofgraphics ooaofg = Ooaofgraphics.getInstance(nrme.getModelRoot().getId());
+				movedGraphicalElement = CanvasPlugin.getGraphicalElement(ooaofg, nrme);
+
+				// If there is a graphical element we need to update its
+				// containment by unassociating it from the source canvas
+				// and associating it with the destination
+				if (movedGraphicalElement != null) {
+					Model_c oldMD = Model_c.getOneGD_MDOnR1(movedGraphicalElement);
+					movedGraphicalElement.unrelateAcrossR1From(oldMD);
+					movedGraphicalElement.relateAcrossR1To(destGD_MD);
+					updateContainement(destGD_MD, movedGraphicalElement);
+				}
+			}
+			
+		} else {
+	 		GraphicalElement_c[] pastedGraphicalElements = getPastedGraphicalElements(
+					destination, processorMap);
+			NonRootModelElement[] loadedGraphicalElements = processorMap.get(
+					destination).getImporter().getLoadedGraphicalInstances();
+			updateGraphicalElementRoots(loadedGraphicalElements, destGD_MD.getModelRoot());
+			for (GraphicalElement_c element : pastedGraphicalElements) {
+				element.relateAcrossR1To(destGD_MD);
+				updateContainement(destGD_MD, element);
+			}
+			// move the elements so they do not overlap any existing elements
+			moveGraphicalElementsToPreventOverlapping(pastedGraphicalElements, destGD_MD);
+			if (destGD_MD.Hascontainersymbol()) {
+				Shape_c container = Shape_c.getOneGD_SHPOnR2(GraphicalElement_c
+						.getOneGD_GEOnR1(destGD_MD));
+				ContainingShape_c cs = ContainingShape_c
+						.getOneGD_CTROnR28(container);
+				if (cs != null) {
+					cs.Autoresize();
+				}
 			}
 		}
 	}
@@ -211,7 +239,7 @@ public class CanvasPasteAction extends PasteAction {
 		return east;
 	}
 
-	private static Model_c getModelForDestination(NonRootModelElement destination) {
+	private static Model_c getModel(NonRootModelElement destination) {
 		Ooaofgraphics graphicsRoot = Ooaofgraphics.getInstance(destination.getModelRoot().getId());
 		Model_c[] models = Model_c.ModelInstances(graphicsRoot);
 		for(Model_c model : models) {
@@ -274,10 +302,10 @@ public class CanvasPasteAction extends PasteAction {
 			}
 			InstanceList parentList = modelRoot
 					.getInstanceList(elements[i].getClass());
-			synchronized (list) {
+			synchronized (parentList) {
 				parentList.add(elements[i]);
+				parentList.put(elements[i].getInstanceKey(), elements[i]);
 			}
-			parentList.put(elements[i].getInstanceKey(), elements[i]);
 			elements[i].setModelRoot(modelRoot);
 		}
 	}
@@ -462,33 +490,9 @@ public class CanvasPasteAction extends PasteAction {
 		return nw;
 	}
 	
-	/**
-	 * Determines whether or not the clipboard contains any model elements
-	 * that may be pasted into the current editor.
-	 */
-	public boolean clipboardContainsPastableModelElements() {
-		Clipboard cb = CorePlugin.getSystemClipboard();
-		if(m_editor == null) return false;
-		if(cb == null || cb.isDisposed()) return false;
-		boolean result = true;
-		Object contents = cb
-				.getContents(TextTransfer.getInstance());
-		for(NonRootModelElement destination : getDestinations()) {
-			if (contents instanceof String) {
-				String types[] = getClipboardTypes((String) contents, destination);
-				for (int i = 0; i < types.length; i++) {
-					result = Cl_c.supportsPaste(destination, types[i]);
-					if(!result)
-						break;
-				}
-				if(types.length == 0) {
-					result = false;
-				}
-			} else {
-				result = false;
-			}
-		}
-		return result;
+	@Override
+	protected boolean supportsPaste(Object target, String child) {
+		return Cl_c.supportsPaste(target, child);
 	}
 	
 	public TransactionManager getTransactionManager() {
@@ -529,9 +533,9 @@ public class CanvasPasteAction extends PasteAction {
 
 	@Override
 	public boolean isEnabled() {
-		if(!super.isEnabled()) {
+		if(!super.isEnabled() || (m_editor == null) ) {
 			return false;
 		}
-		return clipboardContainsPastableModelElements();
+		return true;
 	}
 }

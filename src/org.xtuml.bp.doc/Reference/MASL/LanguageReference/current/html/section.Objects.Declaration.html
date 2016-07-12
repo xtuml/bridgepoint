@@ -1,0 +1,95 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>8.1. Object Declaration</title>
+<link rel="stylesheet" type="text/css" href="docbook.css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
+<meta name="keywords" content="MASL, Action Language, Action Semantics, UML, Unified Modelling Language, Shlaer Mellor">
+<link rel="home" href="index.html" title="MASL Reference Manual">
+<link rel="up" href="section.Objects.html" title="Chapter 8. Objects">
+<link rel="prev" href="section.Objects.html" title="Chapter 8. Objects">
+<link rel="next" href="section.Objects.Definition.html" title="8.2. Object Definition">
+<link rel="chapter" href="section.LexicalStructure.html" title="Chapter 1. Lexical Structure">
+<link rel="chapter" href="section.Types.html" title="Chapter 2. Type System">
+<link rel="chapter" href="section.Domains.html" title="Chapter 3. Domains">
+<link rel="chapter" href="section.Services.html" title="Chapter 4. Services, Functions and State Actions">
+<link rel="chapter" href="section.Relationships.html" title="Chapter 5. Relationships">
+<link rel="chapter" href="section.Exceptions.html" title="Chapter 6. Exceptions">
+<link rel="chapter" href="section.Terminators.html" title="Chapter 7. Terminators">
+<link rel="chapter" href="section.Objects.html" title="Chapter 8. Objects">
+<link rel="chapter" href="section.Statements.html" title="Chapter 9. Statements">
+<link rel="chapter" href="section.Expressions.html" title="Chapter 10. Expressions">
+<link rel="chapter" href="section.Projects.html" title="Chapter 11. Projects">
+<link rel="chapter" href="section.Pragmas.html" title="Chapter 12. Pragmas">
+<link rel="appendix" href="AlphabeticalSyntaxReference.html" title="Appendix A. Alphabetical Syntax Reference">
+<link rel="index" href="ix01.html" title="Index">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div align="center">OFFICIAL</div>
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center">8.1. Object Declaration</th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="section.Objects.html">Prev</a> </td>
+<th width="60%" align="center">Chapter 8. Objects</th>
+<td width="20%" align="right"> <a accesskey="n" href="section.Objects.Definition.html">Next</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h2 class="title">
+<a name="section.Objects.Declaration"></a>8.1. Object Declaration</h2></div></div></div>
+<p>
+      An object declaration declares a new object. The declaration specifies the name of the object only, to enable the object to 
+      be used in relationship and type definitions before it has been fully defined in an 
+      <a class="link" href="section.Objects.Definition.html" title="8.2. Object Definition">object definition</a>. 
+    </p>
+<p>
+      A compile-time errors occurs if the name of the object is already in use within the current domain scope.
+    </p>
+<table width="100%" cellpadding="5" bgcolor="#F5DCB3" border="1" class="productionset" summary="EBNF"><tr><td><table border="0" width="99%" cellpadding="0" bgcolor="#F5DCB3" class="productionset" summary="EBNF productions">
+<tr>
+<td align="left" valign="top" width="3%">[100]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.objectDeclaration"></a>object declaration</td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">'object' , <a href="section.Objects.Declaration.html#ebnf.objectName">object name</a> , ';' , <a href="section.Pragmas.html#ebnf.pragmaList">pragma list</a>;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[101]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.objectName"></a>object name</td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="section.Tokenization.html#ebnf.Identifier">identifier</a>
+      ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+</table></td></tr></table>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="section.Objects.html">Prev</a> </td>
+<td width="20%" align="center"><a accesskey="u" href="section.Objects.html">Up</a></td>
+<td width="40%" align="right"> <a accesskey="n" href="section.Objects.Definition.html">Next</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left" valign="top">Chapter 8. Objects </td>
+<td width="20%" align="center">
+<a accesskey="h" href="index.html">Home</a> | <a accesskey="t" href="bk01-toc.html">ToC</a>
+</td>
+<td width="40%" align="right" valign="top"> 8.2. Object Definition</td>
+</tr>
+</table>
+</div>
+<div align="center">OFFICIAL</div>
+</body>
+</html>

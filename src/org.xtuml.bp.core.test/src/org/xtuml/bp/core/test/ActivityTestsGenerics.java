@@ -24,19 +24,11 @@ package org.xtuml.bp.core.test;
 
 import java.lang.reflect.Method;
 
-import org.eclipse.gef.GraphicalEditPart;
-import org.eclipse.swt.graphics.Point;
-import org.eclipse.ui.PlatformUI;
-
-import org.xtuml.bp.core.Package_c;
-import org.xtuml.bp.core.Component_c;
-import org.xtuml.bp.core.common.IdAssigner;
-import org.xtuml.bp.test.TestUtil;
-import org.xtuml.bp.test.common.UITestingUtilities;
-import org.xtuml.bp.ui.canvas.Ooaofgraphics;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.ui.canvas.test.CanvasTest;
-import org.xtuml.bp.ui.canvas.test.CanvasTestUtilities;
-import org.xtuml.bp.ui.graphics.editor.GraphicalEditor;
 
 /**
  * 
@@ -44,13 +36,14 @@ import org.xtuml.bp.ui.graphics.editor.GraphicalEditor;
  * 
  * Contains tests that exercise the functionality of communication diagrams.
  */
+@RunWith(OrderedRunner.class)
 public class ActivityTestsGenerics extends CanvasTest {
 	private String test_id;
 
 	private boolean generateResults = false;
 
-	public ActivityTestsGenerics(String arg0) {
-		super(null, arg0);
+	public ActivityTestsGenerics(){
+		super(null, null);
 	}
 
 	/**
@@ -64,7 +57,8 @@ public class ActivityTestsGenerics extends CanvasTest {
 	 * 
 	 * @see junit.framework.TestCase#setUp()
 	 */
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		super.setUp();
 
 		// if it's the first test of this class that's being setup
@@ -77,6 +71,7 @@ public class ActivityTestsGenerics extends CanvasTest {
 	/**
 	 * Test creating activity under the system level
 	 */
+	@Test
 	public void testCreateInformalActivityUnderSystem() {
 		test_id = "1";
 		//		CanvasTestUtilities.openCanvasEditor(m_sys);
@@ -96,6 +91,7 @@ public class ActivityTestsGenerics extends CanvasTest {
 	 * Test creating activity under component package
 	 */
 
+	@Test
 	public void testCreateInformalActivityUnderComponentPackage() {
 		//		test_id = "2";
 		//		CanvasTestUtilities.openCanvasEditor(m_sys);
@@ -123,6 +119,7 @@ public class ActivityTestsGenerics extends CanvasTest {
 	 * Test creating activity under component
 	 */
 
+	@Test
 	public void testCreateInformalActivityUnderComponent() {
 		//		SequenceTests.resizeMainWindow();
 		//		test_id = "3";

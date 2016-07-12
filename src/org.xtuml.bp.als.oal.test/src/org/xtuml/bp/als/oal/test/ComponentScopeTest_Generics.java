@@ -4,11 +4,9 @@ import java.io.StringReader;
 import java.util.UUID;
 
 import org.eclipse.jface.preference.IPreferenceStore;
-
-import antlr.RecognitionException;
-import antlr.TokenStreamException;
-import antlr.TokenStreamRecognitionException;
-
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.als.oal.OalLexer;
 import org.xtuml.bp.als.oal.OalParser;
 import org.xtuml.bp.als.oal.Oal_validate;
@@ -25,8 +23,14 @@ import org.xtuml.bp.core.PackageableElement_c;
 import org.xtuml.bp.core.common.BridgePointPreferencesStore;
 import org.xtuml.bp.core.common.ClassQueryInterface_c;
 import org.xtuml.bp.test.common.BaseTest;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.test.common.TestingUtilities;
 
+import antlr.RecognitionException;
+import antlr.TokenStreamException;
+import antlr.TokenStreamRecognitionException;
+
+@RunWith(OrderedRunner.class)
 public class ComponentScopeTest_Generics extends BaseTest {
 
 	public static boolean configured = false;
@@ -39,7 +43,8 @@ public class ComponentScopeTest_Generics extends BaseTest {
 	/* (non-Javadoc)
 	 * @see junit.framework.TestCase#setUp()
 	 */
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		if (configured) {
 			return;
 		}
@@ -65,31 +70,37 @@ public class ComponentScopeTest_Generics extends BaseTest {
           BridgePointPreferencesStore.ALLOW_IMPLICIT_COMPONENT_ADDRESSING, true);
 	}
 
+	@Test
 	public void testInScopeSingletonClassReference() {
 		String x = parseAction("create object instance gsc of GSC;",
                                          "Good Syntax", "Good Singleton Class");
 		assertEquals("Unexpected error:", "", x);
 	}
+	@Test
 	public void testInScopeDuplicateClassReference() {
 		String x = parseAction("create object instance gsc of GDC;",
                                          "Good Syntax", "Good Singleton Class");
 		assertEquals("Unexpected error:", "", x);
 	}
+	@Test
 	public void testInScopeSingletonAssociationReference() {
 		String x = parseAction("select one gdc related by self->GDC[R1];",
                                          "Good Syntax", "Good Singleton Class");
 		assertEquals("Unexpected error:", "", x);
 	}
+	@Test
 	public void testInScopeGoodDuplicateAssociationReference() {
 		String x = parseAction("select one gdc related by self->GDC[R2];",
                                          "Good Syntax", "Good Singleton Class");
 		assertEquals("Unexpected error:", "", x);
 	}
+	@Test
 	public void testOutOfScopeSingletonClassReference() {
 		String x = parseAction("create object instance gsc of GSC;",
                                          "Component Scoping Test", "Bad Duplicate Class I");
 		assertEquals("Unexpected error:", ":1:31-33: Cannot find specified class key letters ->GSC<-.\nline 1:35: expecting Semicolon, found 'null'\n", x);
 	}
+	@Test
 	public void testInScopeBadDuplicateAssociationReference() {
 		String x = parseAction("select one gdc related by self->GDC[R3];",
                                          "Component Scoping Test", "Bad Duplicate Class I");

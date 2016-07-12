@@ -37,31 +37,38 @@ package org.xtuml.bp.ui.canvas.test;
 
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.viewers.ISelection;
-import org.eclipse.swt.graphics.Rectangle;
-
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.ModelClass_c;
 import org.xtuml.bp.core.common.BridgePointPreferencesStore;
 import org.xtuml.bp.core.common.NonRootModelElement;
 import org.xtuml.bp.core.ui.Selection;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.test.common.UITestingUtilities;
 import org.xtuml.bp.ui.canvas.CanvasPlugin;
-import org.xtuml.bp.ui.canvas.Model_c;
 import org.xtuml.bp.ui.graphics.editor.GraphicalEditor;
 
+@RunWith(OrderedRunner.class)
 public class ODMSTest extends CanvasTest {
 
 	private static Selection selection = Selection.getInstance();
 
-	public ODMSTest(String arg0) {
-		super("org.xtuml.bp.ui.canvas.test", arg0);
+	public ODMSTest() {
+		super("org.xtuml.bp.ui.canvas.test", null);
 	}
 
 	private static boolean generateResults = false;
 	private static String test_id = "ODMS";
 	
+	private static boolean isFirstTime = true;
 	@Override
+//	@Before
 	public void initialSetup() throws Exception {
+		if (!isFirstTime)
+			return;
+		isFirstTime = false;
 		setModelName("odms");
 
 		IPreferenceStore store = CorePlugin.getDefault().getPreferenceStore();
@@ -75,6 +82,7 @@ public class ODMSTest extends CanvasTest {
 		return test_id;
 	}
 
+	@Test
 	public void testODMSClassDiagramDisplayWithSelection() throws Exception {
 		test_id = "ODMSDisplaySelected";
 		ModelClass_c[] objs = ModelClass_c.ModelClassInstances(modelRoot);
@@ -86,6 +94,7 @@ public class ODMSTest extends CanvasTest {
 		UITestingUtilities.clearGraphicalSelection();
 	}
 
+	@Test
 	public void testODMSClassDiagramDisplayZoomedToSelection() throws Exception {
 		// This test bypasses the default 'zoom all' behavior so
 		// that 'zoom to selected' behavior is tested.

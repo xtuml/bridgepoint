@@ -22,13 +22,21 @@
 //
 package org.xtuml.bp.ui.explorer.ui.actions;
 
-import org.eclipse.swt.dnd.Transfer;
+import java.util.Iterator;
+
+import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.TreeViewer;
+import org.eclipse.swt.dnd.Transfer;
+import org.xtuml.bp.core.PackageableElement_c;
+import org.xtuml.bp.core.SystemModel_c;
 import org.xtuml.bp.core.common.NonRootModelElement;
+import org.xtuml.bp.core.common.PersistableModelComponent;
+import org.xtuml.bp.core.common.PersistenceManager;
 import org.xtuml.bp.core.common.TransactionManager;
 import org.xtuml.bp.core.ui.CutAction;
-import org.xtuml.bp.core.ui.DeleteAction;
 import org.xtuml.bp.core.ui.Selection;
+import org.xtuml.bp.core.util.CoreUtil;
 
 public class ExplorerCutAction extends CutAction {
 
@@ -52,12 +60,14 @@ public class ExplorerCutAction extends CutAction {
 
 	@Override
 	public boolean isEnabled() {
-		boolean cuttable = ExplorerCopyAction.isSelectionCopiable(viewer,
-				getElementsToBeCopied(false));
-		if(cuttable) {
-			cuttable = DeleteAction.canDeleteAction();
-		}
-		return cuttable;
+// TODO FIXME: this is disabled while move functionality is completed.
+return false;		
+//		boolean cuttable = ExplorerCopyAction.isSelectionCopiable(viewer,
+//				getElementsToBeCopied(false));
+//		if(cuttable) {
+//			cuttable = selectionContainsOnlyPEs();
+//		}
+//		return cuttable;
 	}
 
 	@Override

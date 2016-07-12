@@ -21,8 +21,8 @@ INSERT INTO GD_MD
 	1,
 	2064,
 	1908,
-	0,
-	0,
+	200,
+	150,
 	0,
 	'3.4.5.3',
 	'org.xtuml.bp.ui.canvas::ooaofgraphics::Datatypes');
@@ -456,6 +456,30 @@ INSERT INTO DIM_GE
 	"00000000-0000-0000-0000-000000000000");
 INSERT INTO DIM_ELE
 	VALUES ("9a38d9fb-e07f-4832-943a-cc0ee9ac5af2",
+	0,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO GD_GE
+	VALUES ("e04519e5-b0de-417d-b13d-70306c5fd2e5",
+	"258d5d91-0792-42d1-a0bb-c67008f1ed29",
+	"f5459df2-3331-4f4e-ba72-4fbdb9f1c148",
+	52,
+	0,
+	'org.xtuml.bp.ui.canvas::ooaofgraphics::Datatypes::LoggerType');
+INSERT INTO GD_SHP
+	VALUES ("e04519e5-b0de-417d-b13d-70306c5fd2e5");
+INSERT INTO GD_NCS
+	VALUES ("e04519e5-b0de-417d-b13d-70306c5fd2e5");
+INSERT INTO DIM_ND
+	VALUES (200.000000,
+	150.000000,
+	"e04519e5-b0de-417d-b13d-70306c5fd2e5");
+INSERT INTO DIM_GE
+	VALUES (2941.000000,
+	2070.000000,
+	"e04519e5-b0de-417d-b13d-70306c5fd2e5",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("e04519e5-b0de-417d-b13d-70306c5fd2e5",
 	0,
 	"00000000-0000-0000-0000-000000000000");
 INSERT INTO DIM_DIA
@@ -1486,6 +1510,12 @@ INSERT INTO S_ENUM
 	'Value:802',
 	"89cd32c4-a73f-44f5-ac4f-6468ce4ae2bb",
 	"9ae71a0c-fc77-48c1-be04-3341f2a367b0");
+INSERT INTO S_ENUM
+	VALUES ("d86b95a7-f176-4e7c-976a-3fdbdf338930",
+	'Exception',
+	'Value:207',
+	"89cd32c4-a73f-44f5-ac4f-6468ce4ae2bb",
+	"20c255bb-cc91-458b-8ebb-45204f0f0328");
 INSERT INTO PE_PE
 	VALUES ("89cd32c4-a73f-44f5-ac4f-6468ce4ae2bb",
 	1,
@@ -1598,6 +1628,72 @@ INSERT INTO S_ENUM
 	"d341c715-ffcd-4d28-940f-aa61325f2008");
 INSERT INTO PE_PE
 	VALUES ("9308c9a9-a020-44f8-bc62-0e25b5e5d85c",
+	1,
+	"8ab7ebd4-741d-4d90-af5a-e5e461b87386",
+	"00000000-0000-0000-0000-000000000000",
+	3);
+INSERT INTO S_DT
+	VALUES ("f5459df2-3331-4f4e-ba72-4fbdb9f1c148",
+	"00000000-0000-0000-0000-000000000000",
+	'LoggerType',
+	'This is used by the trace log feature. The vlaues here mirror what are 
+found in bp/core/common/ILogger.java. Note that this is taking advantage 
+of the fact that MCJava''s implemenation defines enumerators at int, and
+it gives them their value staring with the value 1 in the order they
+appear in the tool.',
+	'');
+INSERT INTO S_EDT
+	VALUES ("f5459df2-3331-4f4e-ba72-4fbdb9f1c148");
+INSERT INTO S_ENUM
+	VALUES ("66d37013-7afa-4051-970e-3c3f08b43d12",
+	'FUNCTION',
+	'Value:1',
+	"f5459df2-3331-4f4e-ba72-4fbdb9f1c148",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO S_ENUM
+	VALUES ("f54e1163-82ff-4695-8eca-378ade97845b",
+	'OPERATION',
+	'Value:2',
+	"f5459df2-3331-4f4e-ba72-4fbdb9f1c148",
+	"66d37013-7afa-4051-970e-3c3f08b43d12");
+INSERT INTO S_ENUM
+	VALUES ("8645585d-5c3c-4202-af1b-ee9499e65aa2",
+	'STATE_MACHINE',
+	'Value:3',
+	"f5459df2-3331-4f4e-ba72-4fbdb9f1c148",
+	"f54e1163-82ff-4695-8eca-378ade97845b");
+INSERT INTO S_ENUM
+	VALUES ("8a1d2c0d-4282-429f-a970-c67d130dc6d2",
+	'SQL',
+	'Value:4',
+	"f5459df2-3331-4f4e-ba72-4fbdb9f1c148",
+	"8645585d-5c3c-4202-af1b-ee9499e65aa2");
+INSERT INTO S_ENUM
+	VALUES ("77a50233-d599-4e14-8f84-85ddc6e79d08",
+	'BRIDGE',
+	'Value:5',
+	"f5459df2-3331-4f4e-ba72-4fbdb9f1c148",
+	"8a1d2c0d-4282-429f-a970-c67d130dc6d2");
+INSERT INTO S_ENUM
+	VALUES ("34eb6a80-2903-4d8f-a0f5-d58fd1581551",
+	'MECH',
+	'Value:6',
+	"f5459df2-3331-4f4e-ba72-4fbdb9f1c148",
+	"77a50233-d599-4e14-8f84-85ddc6e79d08");
+INSERT INTO S_ENUM
+	VALUES ("55f8ec96-32cb-458b-a3ab-161376e88f11",
+	'DELETE',
+	'Value:7',
+	"f5459df2-3331-4f4e-ba72-4fbdb9f1c148",
+	"34eb6a80-2903-4d8f-a0f5-d58fd1581551");
+INSERT INTO S_ENUM
+	VALUES ("69c390f4-4d1e-437b-a4d0-df0facf5fe8b",
+	'CONSISTENCY',
+	'Value:8',
+	"f5459df2-3331-4f4e-ba72-4fbdb9f1c148",
+	"55f8ec96-32cb-458b-a3ab-161376e88f11");
+INSERT INTO PE_PE
+	VALUES ("f5459df2-3331-4f4e-ba72-4fbdb9f1c148",
 	1,
 	"8ab7ebd4-741d-4d90-af5a-e5e461b87386",
 	"00000000-0000-0000-0000-000000000000",

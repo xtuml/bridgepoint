@@ -21,30 +21,19 @@
 //======================================================================== 
 package org.xtuml.bp.core.test;
 
-import java.io.FileInputStream;
-
-import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.IProject;
-import org.eclipse.core.resources.IProjectDescription;
-import org.eclipse.core.resources.IResourceStatus;
-import org.eclipse.core.resources.IWorkspaceRunnable;
-import org.eclipse.core.resources.ResourcesPlugin;
-import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.IPath;
-import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PlatformUI;
-
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.CantHappen_c;
-
 import org.xtuml.bp.core.EventIgnored_c;
 import org.xtuml.bp.core.InstanceStateMachine_c;
-import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.SemEvent_c;
 import org.xtuml.bp.core.StateEventMatrixEntry_c;
 import org.xtuml.bp.core.StateMachineEvent_c;
@@ -59,17 +48,14 @@ import org.xtuml.bp.core.ui.GenericPackageIgnoreEventOnSM_STATEWizardPage1;
 import org.xtuml.bp.core.ui.GenericPackageIgnoreInStateOnSM_EVTAction;
 import org.xtuml.bp.core.ui.GenericPackageIgnoreInStateOnSM_EVTWizardPage1;
 import org.xtuml.bp.core.ui.Selection;
-import org.xtuml.bp.io.mdl.ImportModel;
-import org.xtuml.bp.test.common.BaseTest;
 import org.xtuml.bp.test.common.CanvasTestUtils;
-import org.xtuml.bp.test.common.ExplorerUtil;
-import org.xtuml.bp.ui.canvas.CanvasPlugin;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.ui.canvas.Cl_c;
 import org.xtuml.bp.ui.canvas.GraphicalElement_c;
-import org.xtuml.bp.ui.canvas.Ooaofgraphics;
 import org.xtuml.bp.ui.canvas.Shape_c;
 import org.xtuml.bp.ui.canvas.test.CanvasTest;
 
+@RunWith(OrderedRunner.class)
 public class CantHappenEvtIgnoreEvtTestsGenerics extends CanvasTest {
 
 	IWorkbenchPage m_wp = PlatformUI.getWorkbench().getActiveWorkbenchWindow()
@@ -84,8 +70,8 @@ public class CantHappenEvtIgnoreEvtTestsGenerics extends CanvasTest {
 
 	private static Selection selection = Selection.getInstance();
 
-	public CantHappenEvtIgnoreEvtTestsGenerics(String name) {
-		super(null, name);
+	public CantHappenEvtIgnoreEvtTestsGenerics(){
+		super(null, null);
 	}
 
 	protected String getResultName() {
@@ -119,7 +105,8 @@ public class CantHappenEvtIgnoreEvtTestsGenerics extends CanvasTest {
 	//		return null;
 	//	}
 
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		super.setUp();
 		Display d = Display.getCurrent();
 		while (d.readAndDispatch());
@@ -129,7 +116,8 @@ public class CantHappenEvtIgnoreEvtTestsGenerics extends CanvasTest {
 		}
 	}
 
-	protected void tearDown() throws Exception {
+	@After
+	public void tearDown() throws Exception {
 		super.tearDown();
 	}
 
@@ -143,6 +131,7 @@ public class CantHappenEvtIgnoreEvtTestsGenerics extends CanvasTest {
 		CanvasTestUtils.openCanvasEditor(ism);
 	}
 
+	@Test
 	public void testIgnoreEvtMenuItemTest() {
 		CanvasTestUtils ctu = new CanvasTestUtils();
 		Shape_c shp = CanvasTestUtils.getModelStateShape(modelRoot,
@@ -156,6 +145,7 @@ public class CantHappenEvtIgnoreEvtTestsGenerics extends CanvasTest {
 		assertTrue(sms.Actionfilter("can", "ignore generic pkg"));
 		assertFalse(sms.Actionfilter("can", "ch generic pkg"));
 	}
+	@Test
 	public void testCHEvtMenuItemTest() {
 		CanvasTestUtils ctu = new CanvasTestUtils();
 		Shape_c shp = CanvasTestUtils.getModelStateShape(modelRoot,
@@ -169,6 +159,7 @@ public class CantHappenEvtIgnoreEvtTestsGenerics extends CanvasTest {
 		assertTrue(sms.Actionfilter("can", "ch generic pkg"));
 		assertFalse(sms.Actionfilter("can", "ignore generic pkg"));
 	}
+	@Test
 	public void testCHEvtIgnoreEvtMenuItemTest() {
 		CanvasTestUtils ctu = new CanvasTestUtils();
 		Shape_c shp = CanvasTestUtils.getModelStateShape(modelRoot,
@@ -183,6 +174,7 @@ public class CantHappenEvtIgnoreEvtTestsGenerics extends CanvasTest {
 		assertTrue(sms.Actionfilter("can", "ignore generic pkg"));
 		assertTrue(sms.Actionfilter("can", "ch generic pkg"));
 	}
+	@Test
 	public void testMarkAsCHEvt() {
 		openISC("CHT State 1");
 		CanvasTestUtils ctu = new CanvasTestUtils();
@@ -213,6 +205,7 @@ public class CantHappenEvtIgnoreEvtTestsGenerics extends CanvasTest {
 						.getOneSM_SEMEOnR503(sem));
 		assertNotNull(ch);
 	}
+	@Test
 	public void testMarkAsIgnoreEvt() {
 		openISC("IgnoreEvtTest State 1");
 		CanvasTestUtils ctu = new CanvasTestUtils();
@@ -243,6 +236,7 @@ public class CantHappenEvtIgnoreEvtTestsGenerics extends CanvasTest {
 						.getOneSM_SEMEOnR503(sme));
 		assertNotNull(ig);
 	}
+	@Test
 	public void testMarkAsIgnoreEvtOnEvent() {
 		openISC("IgnoreEvtEvent State 1");
 		CanvasTestUtils ctu = new CanvasTestUtils();
@@ -272,6 +266,7 @@ public class CantHappenEvtIgnoreEvtTestsGenerics extends CanvasTest {
 						.getManySM_SEMEsOnR503(sevt));
 		assertNotNull(ei);
 	}
+	@Test
 	public void testMarkAsCHEvtOnEvent() {
 		openISC("CHEvtEvent State 1");
 		CanvasTestUtils ctu = new CanvasTestUtils();

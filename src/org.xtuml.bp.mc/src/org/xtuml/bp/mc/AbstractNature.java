@@ -1,14 +1,5 @@
 //========================================================================
-//
-//File:      $RCSfile: AbstractNature.java,v $
-//Version:   $Revision: 1.13 $
-//Modified:  $Date: 2013/06/12 13:07:58 $
-//
-//(c) Copyright 2005-2014 by Mentor Graphics Corp. All rights reserved.
-//
-//========================================================================
-//This document contains information proprietary and confidential to
-//Mentor Graphics Corp. and is not for external distribution.
+//File:      AbstractNature.java
 //========================================================================
 package org.xtuml.bp.mc;
 
@@ -62,13 +53,11 @@ public abstract class AbstractNature implements IProjectNature {
 	public static final String C_BINARY_MC_ID = "org.xtuml.bp.mc.c.binary";
 	public static final String SYSTEMC_SOURCE_MC_ID = "org.xtuml.bp.mc.systemc.source";
 	public static final String CPP_SOURCE_MC_ID = "org.xtuml.bp.mc.cpp.source";
-	public static final String VHDL_SOURCE_MC_ID = "org.xtuml.bp.mc.vhdl.source";
 
 	public static final String C_SOURCE_MC_ID_OLD = "com.mentor.nucleus.bp.mc.c.source";
 	public static final String C_BINARY_MC_ID_OLD = "com.mentor.nucleus.bp.mc.c.binary";
 	public static final String SYSTEMC_SOURCE_MC_ID_OLD = "com.mentor.nucleus.bp.mc.systemc.source";
 	public static final String CPP_SOURCE_MC_ID_OLD = "com.mentor.nucleus.bp.mc.cpp.source";
-	public static final String VHDL_SOURCE_MC_ID_OLD = "com.mentor.nucleus.bp.mc.vhdl.source";
 
 	public static final String MC_LAUNCH_ID = "Model Compiler.launch"; //$NON-NLS-1$
 
@@ -85,10 +74,6 @@ public abstract class AbstractNature implements IProjectNature {
 	// This file is used to identify the fact that the SystemC model compiler is
 	// present
 	public static final String SystemC_Archetype = "t.sysc_main.c"; //$NON-NLS-1$
-
-	// This file is used to identify the fact that the VHDL model compiler is
-	// present
-	public static final String VHDL_Archetype = "t.sys_main.vhd"; //$NON-NLS-1$
 
 	public static String LAUNCH_ATTR_TOOL_LOCATION = "org.eclipse.ui.externaltools.ATTR_LOCATION"; //$NON-NLS-1$
     public static String LAUNCH_ATTR_TOOL_ARGS = "org.eclipse.ui.externaltools.ATTR_TOOL_ARGUMENTS"; //$NON-NLS-1$
@@ -189,17 +174,11 @@ public abstract class AbstractNature implements IProjectNature {
                 if (natures[curIndex].matches(".*bp.+mc.*MC.*Nature")) {
                     removeNature(project, natures[curIndex]);
                 }
-                if (natures[curIndex].matches(".*bp.+mc.*XMIExportNature")) {
-                    removeNature(project, natures[curIndex]);
-                }
             }
             
             // Next remove the prior builders for pre-builder and the MC itself
             BuilderManagement.findAndRemoveBuilder(project, ".*bp.+mc.*export_builder.*");
             BuilderManagement.findAndRemoveBuilder(project, ".*externalToolBuilders.*Model Compiler.+launch.*");
-            
-            // Housekeeping to remove old (deprecated) XMI builder.
-            BuilderManagement.findAndRemoveBuilder(project, ".*bp.+mc.*XMIExportBuilder.*");
         } catch (CoreException ce) {
             abstractActivator.logError(
                     "Could not read project description data for  "
