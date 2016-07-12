@@ -37,9 +37,9 @@ Setup Instructions
     ```  
     The build runs __a lot__ faster if the pypy python tool is available.  We recommend it be installed:
     ```
-    $ sudo add-apt-repository ppa:pypy/ppa
-    $ sudo apt-get update
-    $ sudo apt-get install pypy pypy-dev
+    sudo add-apt-repository ppa:pypy/ppa
+    sudo apt-get update
+    sudo apt-get install pypy pypy-dev
     ```   
     - __WINDOWS__
       - Perl ([We recommend strawberry perl.](http://strawberryperl.com/ "strawberry perl"))
