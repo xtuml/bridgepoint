@@ -23,7 +23,6 @@ package org.xtuml.bp.ui.explorer.test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
-import junit.framework.Test;
 import junit.framework.TestSuite;
 
 
