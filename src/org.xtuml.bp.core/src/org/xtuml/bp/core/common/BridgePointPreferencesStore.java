@@ -243,7 +243,7 @@ public class BridgePointPreferencesStore implements IPreferenceModelStore {
         prefs.allowIntToRealPromotion = MessageDialogWithToggle.ALWAYS;
         prefs.allowRealToIntCoercion = MessageDialogWithToggle.ALWAYS;
         prefs.allowImplicitComponentAddressing = false;
-        prefs.enableParseOnActivtyEdits = false;
+        prefs.enableParseOnActivtyEdits = true;
         prefs.allowOperationsInWhere = false;
         prefs.allowInterfaceNameInICMessage = false;
         prefs.enableErrorForEmptySynchronousMessage = true;
