@@ -43,12 +43,13 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.TreeItem;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.PlatformUI;
-
+import org.junit.After;
+import org.junit.Before;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.ClassStateMachine_c;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.InstanceStateMachine_c;
 import org.xtuml.bp.core.Ooaofooa;
-import org.xtuml.bp.core.common.ClassQueryInterface_c;
 import org.xtuml.bp.core.common.IPersistenceHierarchyMetaData;
 import org.xtuml.bp.core.common.NonRootModelElement;
 import org.xtuml.bp.core.common.PersistableModelComponent;
@@ -59,13 +60,13 @@ import org.xtuml.bp.test.common.BaseTest;
 import org.xtuml.bp.test.common.CanvasEditorUtils;
 import org.xtuml.bp.test.common.CanvasTestUtils;
 import org.xtuml.bp.test.common.ExplorerUtil;
+import org.xtuml.bp.test.common.ExplorerUtil.ISelectionCriteria;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.test.common.TestingUtilities;
 import org.xtuml.bp.test.common.UITestingUtilities;
-import org.xtuml.bp.test.common.ExplorerUtil.ISelectionCriteria;
 import org.xtuml.bp.ui.canvas.Cl_c;
 import org.xtuml.bp.ui.canvas.ElementSpecification_c;
 import org.xtuml.bp.ui.canvas.ModelTool_c;
-import org.xtuml.bp.ui.canvas.Ooaofgraphics;
 import org.xtuml.bp.ui.canvas.Shape_c;
 import org.xtuml.bp.ui.canvas.test.CanvasTest;
 import org.xtuml.bp.ui.explorer.test.ExplorerTest;
@@ -74,6 +75,7 @@ import org.xtuml.bp.ui.graphics.tools.GraphicsCreationTool;
 import org.xtuml.bp.ui.text.activity.ActivityEditor;
 import org.xtuml.bp.ui.text.description.DescriptionEditor;
 
+@RunWith(OrderedRunner.class)
 public class PkgCMBaseTest extends CanvasTest {
 
     protected static final int TEST_ONLY = 1;
@@ -139,7 +141,8 @@ public class PkgCMBaseTest extends CanvasTest {
             }
         }
     }
-    protected void setUp() throws Exception {
+    @Before
+	public void setUp() throws Exception {
         properties = new Properties();
         try {
             String sPath = System.getProperty("Property_File");
@@ -169,7 +172,8 @@ public class PkgCMBaseTest extends CanvasTest {
         }
     }
 
-    protected void tearDown() throws Exception {
+    @After
+	public void tearDown() throws Exception {
         String sPath = System.getProperty("Property_File");
         if (sPath != null) {
             IPath path = new Path(sPath);

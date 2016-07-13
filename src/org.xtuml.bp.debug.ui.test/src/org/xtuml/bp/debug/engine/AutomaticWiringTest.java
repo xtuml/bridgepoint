@@ -1,10 +1,11 @@
 package org.xtuml.bp.debug.engine;
 
-import org.xtuml.bp.core.ComponentInstance_c;
-import org.xtuml.bp.core.Ooaofooa;
-import org.xtuml.bp.core.SystemModel_c;
+import org.junit.After;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.debug.test.VerifierTest;
 import org.xtuml.bp.test.TestUtil;
+import org.xtuml.bp.test.common.OrderedRunner;
 
 
 //========================================================================
@@ -29,12 +30,14 @@ import org.xtuml.bp.test.TestUtil;
 // the License.
 //========================================================================
 
+@RunWith(OrderedRunner.class)
 public class AutomaticWiringTest extends VerifierTest {
 
 	public AutomaticWiringTest() {
 		super(new String[]{"Wiring","SAMP", "CMN"});
 	}
 
+	@Test
 	public void testWiringVerifyingDomains()throws InterruptedException {
 	    redirectOutput("Wiring1");
 		executeModel();
@@ -42,6 +45,7 @@ public class AutomaticWiringTest extends VerifierTest {
 		compareOutput("Wiring1");
 	}
 	
+	@Test
 	public void testWiringNotVerifyingDomains()throws InterruptedException {
 	    redirectOutput("Wiring2");
 		executeModel();
@@ -50,6 +54,7 @@ public class AutomaticWiringTest extends VerifierTest {
 		TestUtil.deleteProject(project);
 	}	
 	
+	@After
 	public void tearDown() throws InterruptedException {
 		super.tearDown();
 	}

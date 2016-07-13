@@ -15,8 +15,9 @@
 package org.xtuml.bp.core.test;
 
 import org.eclipse.swt.widgets.Display;
-
-import org.xtuml.bp.core.ActionHome_c;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.Action_c;
 import org.xtuml.bp.core.Association_c;
 import org.xtuml.bp.core.Attribute_c;
@@ -37,7 +38,6 @@ import org.xtuml.bp.core.DerivedAssociation_c;
 import org.xtuml.bp.core.ImportedClass_c;
 import org.xtuml.bp.core.InstanceStateMachine_c;
 import org.xtuml.bp.core.ModelClass_c;
-import org.xtuml.bp.core.MooreActionHome_c;
 import org.xtuml.bp.core.NoEventTransition_c;
 import org.xtuml.bp.core.NonLocalEvent_c;
 import org.xtuml.bp.core.Ooaofooa;
@@ -50,22 +50,22 @@ import org.xtuml.bp.core.StateMachineEventDataItem_c;
 import org.xtuml.bp.core.StateMachineEvent_c;
 import org.xtuml.bp.core.StateMachineState_c;
 import org.xtuml.bp.core.StateMachine_c;
-import org.xtuml.bp.core.SystemModel_c;
 import org.xtuml.bp.core.Transition_c;
 import org.xtuml.bp.core.common.ClassQueryInterface_c;
-import org.xtuml.bp.core.common.ModelRoot;
-import org.xtuml.bp.test.TestUtil;
+import org.xtuml.bp.test.common.OrderedRunner;
 
+@RunWith(OrderedRunner.class)
 public class GetNameTestGenerics extends CoreTest {
 
 	static boolean initialized = false;
 
-	public GetNameTestGenerics(String name) {
-		super("Default Project", name);
+	public GetNameTestGenerics() {
+		super("Default Project", null);
 
 	}
 
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		super.setUp();
 		if (!initialized) {
 
@@ -77,44 +77,47 @@ public class GetNameTestGenerics extends CoreTest {
 		}
 	}
 
-	public void testGetNameTestGenerics() throws Exception{
-		 doTestActionGetName(); 
-	       doTestClassAsAssociatedOneSideGetName(); 
-	       doTestClassAsAssociatedOtherSideGetName(); 
-	       doTestClassAsSimpleParticipantGetName(); 
-	       doTestClassAsSupertypeGetName(); 
-	       doTestClassAsDerivedOneSideGetName(); 
-	       doTestClassAsDerivedOtherSideGetName(); 
-	       doTestClassAsLinkGetName(); 
-	       doTestClassAsSimpleFormalizerGetName(); 
-	       doTestClassAsSubtypeGetName(); 
-	       doTestClassIdentifierGetName(); 
-	       doTestCoreDataTypeGetName(); 
-	       doTestDerivedAssociationGetName(); 
-	       doTestEventSupplementalDataGetNameLocalEmpty(); 
-	       doTestEventSupplementalDataGetNameLocalOne(); 
-	       doTestEventSupplementalDataGetNameLocalTwo(); 
-	       doTestEventSupplementalDataGetNameNonLocalEmpty(); 
-	       doTestEventSupplementalDataGetNameNonLocalOne(); 
-	       doTestEventSupplementalDataGetNameNonLocalTwo(); 
-	       doTestEventSupplementalDataGetNamePolyEmpty(); 
-	       doTestEventSupplementalDataGetNamePolyOne(); 
-	       doTestEventSupplementalDataGetNamePolyTwo(); 
-	       doTestImportedClassGetName(); 
-	       doTestNoEventTransitionGetName(); 
-	       doTestNonLocalEventGetName(); 
-	       doTestReferentialAttributeGetName(); 
-	       doTestReferentialAttributeReferringToRefAttrGetName();
-	}
+//	@Test
+//	public void testGetNameTestGenerics() throws Exception{
+//		 doTestActionGetName(); 
+//	       doTestClassAsAssociatedOneSideGetName(); 
+//	       doTestClassAsAssociatedOtherSideGetName(); 
+//	       doTestClassAsSimpleParticipantGetName(); 
+//	       doTestClassAsSupertypeGetName(); 
+//	       doTestClassAsDerivedOneSideGetName(); 
+//	       doTestClassAsDerivedOtherSideGetName(); 
+//	       doTestClassAsLinkGetName(); 
+//	       doTestClassAsSimpleFormalizerGetName(); 
+//	       doTestClassAsSubtypeGetName(); 
+//	       doTestClassIdentifierGetName(); 
+//	       doTestCoreDataTypeGetName(); 
+//	       doTestDerivedAssociationGetName(); 
+//	       doTestEventSupplementalDataGetNameLocalEmpty(); 
+//	       doTestEventSupplementalDataGetNameLocalOne(); 
+//	       doTestEventSupplementalDataGetNameLocalTwo(); 
+//	       doTestEventSupplementalDataGetNameNonLocalEmpty(); 
+//	       doTestEventSupplementalDataGetNameNonLocalOne(); 
+//	       doTestEventSupplementalDataGetNameNonLocalTwo(); 
+//	       doTestEventSupplementalDataGetNamePolyEmpty(); 
+//	       doTestEventSupplementalDataGetNamePolyOne(); 
+//	       doTestEventSupplementalDataGetNamePolyTwo(); 
+//	       doTestImportedClassGetName(); 
+//	       doTestNoEventTransitionGetName(); 
+//	       doTestNonLocalEventGetName(); 
+//	       doTestReferentialAttributeGetName(); 
+//	       doTestReferentialAttributeReferringToRefAttrGetName();
+//	}
 
-	public void doTestActionGetName() throws Exception {
+	@Test
+	public void testActionGetName() throws Exception {
 		//      - return ->SM_AH[R514]->SM_MOAH[R513]->SM_STATE[R511].Name
 
 		Action_c act = Action_c.ActionInstance(modelRoot);
 		String result = act.Get_name();
 		assertEquals("State Action", result);
 	}
-	public void doTestClassAsAssociatedOneSideGetName() throws Exception {
+	@Test
+	public void testClassAsAssociatedOneSideGetName() throws Exception {
 		//      - return ->R_RTO[R204]->R_OIR[R203]->O_OBJ[R201].Name
 		ClassAsAssociatedOneSide_c aone = ClassAsAssociatedOneSide_c
 				.ClassAsAssociatedOneSideInstance(modelRoot);
@@ -124,7 +127,8 @@ public class GetNameTestGenerics extends CoreTest {
 						.getOneR_RTOOnR204(aone)));
 		assertEquals(obj.getName(), result);
 	}
-	public void doTestClassAsAssociatedOtherSideGetName() throws Exception {
+	@Test
+	public void testClassAsAssociatedOtherSideGetName() throws Exception {
 		//      - return ->R_RTO[R204]->R_OIR[R203]->O_OBJ[R201].Name
 		ClassAsAssociatedOtherSide_c aoth = ClassAsAssociatedOtherSide_c
 				.ClassAsAssociatedOtherSideInstance(modelRoot);
@@ -134,7 +138,8 @@ public class GetNameTestGenerics extends CoreTest {
 						.getOneR_RTOOnR204(aoth)));
 		assertEquals(obj.getName(), result);
 	}
-	public void doTestClassAsSimpleParticipantGetName() throws Exception {
+	@Test
+	public void testClassAsSimpleParticipantGetName() throws Exception {
 		//      - return ->R_RTO[R204]->R_OIR[R203]->O_OBJ[R201].Name
 		ClassAsSimpleParticipant_c part = ClassAsSimpleParticipant_c
 				.ClassAsSimpleParticipantInstance(modelRoot);
@@ -144,7 +149,8 @@ public class GetNameTestGenerics extends CoreTest {
 						.getOneR_RTOOnR204(part)));
 		assertEquals(obj.getName(), result);
 	}
-	public void doTestClassAsSupertypeGetName() throws Exception {
+	@Test
+	public void testClassAsSupertypeGetName() throws Exception {
 		//      - return ->R_RTO[R204]->R_OIR[R203]->O_OBJ[R201].Name
 		ClassAsSupertype_c sup = ClassAsSupertype_c
 				.ClassAsSupertypeInstance(modelRoot);
@@ -155,7 +161,8 @@ public class GetNameTestGenerics extends CoreTest {
 		assertEquals(obj.getName(), result);
 	}
 
-	public void doTestClassAsDerivedOneSideGetName() throws Exception {
+	@Test
+	public void testClassAsDerivedOneSideGetName() throws Exception {
 		//      - return ->R_OIR[R203]->O_OBJ[R201].Name
 		ClassAsDerivedOneSide_c cone = ClassAsDerivedOneSide_c
 				.ClassAsDerivedOneSideInstance(modelRoot);
@@ -165,7 +172,8 @@ public class GetNameTestGenerics extends CoreTest {
 		assertEquals(obj.getName(), result);
 	}
 
-	public void doTestClassAsDerivedOtherSideGetName() throws Exception {
+	@Test
+	public void testClassAsDerivedOtherSideGetName() throws Exception {
 		//      - return ->R_OIR[R203]->O_OBJ[R201].Name
 		ClassAsDerivedOtherSide_c coth = ClassAsDerivedOtherSide_c
 				.ClassAsDerivedOtherSideInstance(modelRoot);
@@ -175,7 +183,8 @@ public class GetNameTestGenerics extends CoreTest {
 		assertEquals(obj.getName(), result);
 	}
 
-	public void doTestClassAsLinkGetName() throws Exception {
+	@Test
+	public void testClassAsLinkGetName() throws Exception {
 		//      - return ->R_RGO[R205]->R_OIR[R203]->O_OBJ[R201].Name
 		ClassAsLink_c link = ClassAsLink_c.ClassAsLinkInstance(modelRoot);
 		String result = link.Get_name();
@@ -185,7 +194,8 @@ public class GetNameTestGenerics extends CoreTest {
 		assertEquals(obj.getName(), result);
 	}
 
-	public void doTestClassAsSimpleFormalizerGetName() throws Exception {
+	@Test
+	public void testClassAsSimpleFormalizerGetName() throws Exception {
 		//      - return ->R_RGO[R205]->R_OIR[R203]->O_OBJ[R201].Name
 		ClassAsSimpleFormalizer_c form = ClassAsSimpleFormalizer_c
 				.ClassAsSimpleFormalizerInstance(modelRoot);
@@ -196,7 +206,8 @@ public class GetNameTestGenerics extends CoreTest {
 		assertEquals(obj.getName(), result);
 	}
 
-	public void doTestClassAsSubtypeGetName() throws Exception {
+	@Test
+	public void testClassAsSubtypeGetName() throws Exception {
 		//      - return ->R_RGO[R205]->R_OIR[R203]->O_OBJ[R201].Name
 		ClassAsSubtype_c sub = ClassAsSubtype_c
 				.ClassAsSubtypeInstance(modelRoot);
@@ -207,7 +218,8 @@ public class GetNameTestGenerics extends CoreTest {
 		assertEquals(obj.getName(), result);
 	}
 
-	public void doTestClassIdentifierGetName() throws Exception {
+	@Test
+	public void testClassIdentifierGetName() throws Exception {
 		//  - return "*" + INTEGER_TO_STRING(Oid_ID+1)
 		ClassIdentifier_c oid = ClassIdentifier_c
 				.ClassIdentifierInstance(modelRoot);
@@ -215,7 +227,8 @@ public class GetNameTestGenerics extends CoreTest {
 		assertEquals("*" + String.valueOf(oid.getOid_id() + 1), result);
 	}
 
-	public void doTestCoreDataTypeGetName() throws Exception {
+	@Test
+	public void testCoreDataTypeGetName() throws Exception {
 		//        - return ->S_DT[R17].Name
 		CoreDataType_c cdt = CoreDataType_c.CoreDataTypeInstance(Ooaofooa.getDefaultInstance());
 		String result = cdt.Get_name();
@@ -223,7 +236,8 @@ public class GetNameTestGenerics extends CoreTest {
 		assertEquals(dt.getName(), result);
 	}
 
-	public void doTestDerivedAssociationGetName() throws Exception {
+	@Test
+	public void testDerivedAssociationGetName() throws Exception {
 		//      - return ->R_REL[R206].get_name()
 		DerivedAssociation_c da = DerivedAssociation_c
 				.DerivedAssociationInstance(modelRoot);
@@ -285,57 +299,67 @@ public class GetNameTestGenerics extends CoreTest {
 		result = result + ")";
 		return result;
 	}
-	public void doTestEventSupplementalDataGetNameLocalEmpty() throws Exception {
+	@Test
+	public void testEventSupplementalDataGetNameLocalEmpty() throws Exception {
 		//      - return ->SM_EVTDI[R532] list separated by commas
 		String result = validateSuppData("B", "local");
 		assertEquals("()", result);
 	}
 
-	public void doTestEventSupplementalDataGetNameLocalOne() throws Exception {
+	@Test
+	public void testEventSupplementalDataGetNameLocalOne() throws Exception {
 		//      - return ->SM_EVTDI[R532] list separated by commas
 		String result = validateSuppData("B", "local_one");
 		assertEquals("(test)", result);
 	}
-	public void doTestEventSupplementalDataGetNameLocalTwo() throws Exception {
+	@Test
+	public void testEventSupplementalDataGetNameLocalTwo() throws Exception {
 		//      - return ->SM_EVTDI[R532] list separated by commas
 		String result = validateSuppData("B", "local_two");
 		assertEquals("(test,test2)", result);
 	}
-	public void doTestEventSupplementalDataGetNameNonLocalEmpty()
+	@Test
+	public void testEventSupplementalDataGetNameNonLocalEmpty()
 			throws Exception {
 		//      - return ->SM_EVTDI[R532] list separated by commas
 		String result = validateSuppData("B", "test");
 		assertEquals("()", result);
 	}
 
-	public void doTestEventSupplementalDataGetNameNonLocalOne() throws Exception {
+	@Test
+	public void testEventSupplementalDataGetNameNonLocalOne() throws Exception {
 		//      - return ->SM_EVTDI[R532] list separated by commas
 		String result = validateSuppData("B", "test_one");
 		assertEquals("(test1)", result);
 	}
-	public void doTestEventSupplementalDataGetNameNonLocalTwo() throws Exception {
+	@Test
+	public void testEventSupplementalDataGetNameNonLocalTwo() throws Exception {
 		//      - return ->SM_EVTDI[R532] list separated by commas
 		String result = validateSuppData("B", "test_two");
 		assertEquals("(test1,test2)", result);
 	}
-	public void doTestEventSupplementalDataGetNamePolyEmpty() throws Exception {
+	@Test
+	public void testEventSupplementalDataGetNamePolyEmpty() throws Exception {
 		//      - return ->SM_EVTDI[R532] list separated by commas
 		String result = validateSuppData("C", "test");
 		assertEquals("()", result);
 	}
 
-	public void doTestEventSupplementalDataGetNamePolyOne() throws Exception {
+	@Test
+	public void testEventSupplementalDataGetNamePolyOne() throws Exception {
 		//      - return ->SM_EVTDI[R532] list separated by commas
 		String result = validateSuppData("C", "test_one");
 		assertEquals("(test1)", result);
 	}
-	public void doTestEventSupplementalDataGetNamePolyTwo() throws Exception {
+	@Test
+	public void testEventSupplementalDataGetNamePolyTwo() throws Exception {
 		//      - return ->SM_EVTDI[R522] list separated by commas
 		String result = validateSuppData("C", "test_two");
 		assertEquals("(test1,test2)", result);
 	}
 
-	public void doTestImportedClassGetName() throws Exception {
+	@Test
+	public void testImportedClassGetName() throws Exception {
 		//      - return ->O_OBJ[R101].Name
 		ImportedClass_c ic = ImportedClass_c.ImportedClassInstance(modelRoot);
 		String result = ic.Get_name();
@@ -343,7 +367,8 @@ public class GetNameTestGenerics extends CoreTest {
 		assertEquals(obj.getName(), result);
 	}
 
-	public void doTestNoEventTransitionGetName() throws Exception {
+	@Test
+	public void testNoEventTransitionGetName() throws Exception {
 		//      - return ->SM_STATE[R508].Name + "/" + ->SM_TXN[R507]->SM_STATE[R506].Name
 		NoEventTransition_c net = NoEventTransition_c
 				.NoEventTransitionInstance(modelRoot);
@@ -358,7 +383,8 @@ public class GetNameTestGenerics extends CoreTest {
 				result);
 	}
 
-	public void doTestNonLocalEventGetName() throws Exception {
+	@Test
+	public void testNonLocalEventGetName() throws Exception {
 		//      - return ->SM_SEVT[R526]->SM_EVT[R525].get_name()
 		NonLocalEvent_c nle = NonLocalEvent_c.NonLocalEventInstance(modelRoot);
 		String result = nle.Get_name();
@@ -367,7 +393,8 @@ public class GetNameTestGenerics extends CoreTest {
 		assertEquals(evt.Get_name(), result);
 	}
 
-	public void doTestReferentialAttributeGetName() throws Exception {
+	@Test
+	public void testReferentialAttributeGetName() throws Exception {
 		ReferentialAttribute_c ra = ReferentialAttribute_c
 				.ReferentialAttributeInstance(modelRoot);
 		String result = ra.Get_name();
@@ -375,7 +402,8 @@ public class GetNameTestGenerics extends CoreTest {
 		assertEquals(expected, result);
 	}
 
-	public void doTestReferentialAttributeReferringToRefAttrGetName()
+	@Test
+	public void testReferentialAttributeReferringToRefAttrGetName()
 			throws Exception {
 		ModelClass_c mc = ModelClass_c.ModelClassInstance(modelRoot,
 				new findModelClass("D"));

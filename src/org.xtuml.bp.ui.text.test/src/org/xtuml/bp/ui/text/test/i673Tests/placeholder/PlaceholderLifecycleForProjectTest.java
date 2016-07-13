@@ -28,12 +28,14 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.PlatformUI;
-
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.ModelClass_c;
 import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.Operation_c;
 import org.xtuml.bp.core.Package_c;
 import org.xtuml.bp.core.common.PersistenceManager;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.ui.text.activity.ActivityEditor;
 import org.xtuml.bp.ui.text.activity.ActivityEditorInputFactory;
 import org.xtuml.bp.ui.text.description.DescriptionEditor;
@@ -42,16 +44,24 @@ import org.xtuml.bp.ui.text.test.UITextTest;
 import org.xtuml.bp.ui.text.test.activity.ActivityEditorInteraction;
 import org.xtuml.bp.ui.text.test.description.DescriptionEditorInteraction;
 
+@RunWith(OrderedRunner.class)
 public class PlaceholderLifecycleForProjectTest extends UITextTest {
 
-	public PlaceholderLifecycleForProjectTest(String projectName, String name) throws CoreException {
-		super("testOpen", name); //$NON-NLS-1$
-	}
+//	public PlaceholderLifecycleForProjectTest(String projectName, String name) throws CoreException {
+//		super("testOpen", name); //$NON-NLS-1$
+//	}
+//	
+//	public PlaceholderLifecycleForProjectTest(String name) throws CoreException {
+//		super("testOpen", name); //$NON-NLS-1$
+//	}
 	
-	public PlaceholderLifecycleForProjectTest(String name) throws CoreException {
-		super("testOpen", name); //$NON-NLS-1$
+	public PlaceholderLifecycleForProjectTest() throws CoreException {
+		super();
+//		super("testOpen", null); //$NON-NLS-1$
+		// TODO Auto-generated constructor stub
 	}
-	
+
+	@Test
 	public void testOpenProjectWithFiles() throws Exception{
 		IProject currentProject = getProject();
         Ooaofooa.setInUnitTest(true);

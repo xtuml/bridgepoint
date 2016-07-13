@@ -24,15 +24,12 @@ package org.xtuml.bp.als.oal.test;
 
 import java.util.UUID;
 
-import junit.framework.TestCase;
-
 import org.eclipse.jface.dialogs.MessageDialogWithToggle;
 import org.eclipse.jface.preference.IPreferenceStore;
-
-import antlr.RecognitionException;
-import antlr.TokenStreamException;
-
-import org.xtuml.bp.core.Attribute_c;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.BinaryOperation_c;
 import org.xtuml.bp.core.Block_c;
 import org.xtuml.bp.core.CorePlugin;
@@ -41,7 +38,6 @@ import org.xtuml.bp.core.Instance_c;
 import org.xtuml.bp.core.LiteralBoolean_c;
 import org.xtuml.bp.core.LiteralInteger_c;
 import org.xtuml.bp.core.LiteralReal_c;
-import org.xtuml.bp.core.ModelClass_c;
 import org.xtuml.bp.core.ReturnStmt_c;
 import org.xtuml.bp.core.Statement_c;
 import org.xtuml.bp.core.TransientValueReference_c;
@@ -50,16 +46,22 @@ import org.xtuml.bp.core.UnaryOperation_c;
 import org.xtuml.bp.core.Value_c;
 import org.xtuml.bp.core.Variable_c;
 import org.xtuml.bp.core.common.BridgePointPreferencesStore;
-import org.xtuml.bp.core.common.IdAssigner;
 import org.xtuml.bp.test.common.BaseTest;
+import org.xtuml.bp.test.common.OrderedRunner;
 
+import antlr.RecognitionException;
+import antlr.TokenStreamException;
+import junit.framework.TestCase;
+
+@RunWith(OrderedRunner.class)
 public class TestBPPrefAllowPromotion_Generics extends TestCase {
 
     private TestAssign_Generics assignTest = new TestAssign_Generics();
     private TestExpr_Generics exprTest = new TestExpr_Generics();
     private TestAttribute_Generics attrTest = new TestAttribute_Generics();
 
-    protected void setUp() throws Exception {
+    @Before
+	public void setUp() throws Exception {
         super.setUp();
 
         IPreferenceStore store = CorePlugin.getDefault().getPreferenceStore();
@@ -69,7 +71,8 @@ public class TestBPPrefAllowPromotion_Generics extends TestCase {
                 MessageDialogWithToggle.NEVER);
     }
 
-    protected void tearDown() throws Exception {
+    @After
+	public void tearDown() throws Exception {
         try {
             super.tearDown();
             OalParserTest_Generics.tearDownActionData();
@@ -92,6 +95,7 @@ public class TestBPPrefAllowPromotion_Generics extends TestCase {
         exprTest.binaryOpTest(p_action, op1_dt, bin_dt, op2_dt, result_dt, bin_index, numStatements);
     }
 
+	@Test
 	public void testAssignTypeBooleanV2V() throws RecognitionException,
 			TokenStreamException {
 		UUID id = BaseTest.getTypeID_Generic(OalParserTest_Generics.modelRoot, "boolean");//$NON-NLS-1$
@@ -99,6 +103,7 @@ public class TestBPPrefAllowPromotion_Generics extends TestCase {
 				"assign x = true; assign y = false; assign x = y; ", id, id, 2, 0, 0); //$NON-NLS-1$
 	}
 
+	@Test
 	public void testAssignTypeIntV2V() throws RecognitionException,
 			TokenStreamException {
 		UUID id = BaseTest.getTypeID_Generic(OalParserTest_Generics.modelRoot, "integer");//$NON-NLS-1$
@@ -106,6 +111,7 @@ public class TestBPPrefAllowPromotion_Generics extends TestCase {
 				"assign x = 1; assign y = 27; assign x = y; ", id, id, 2, 0, 0); //$NON-NLS-1$
 	}
 
+	@Test
 	public void testAssignTypeRealV2V() throws RecognitionException,
 			TokenStreamException {
 		UUID id = BaseTest.getTypeID_Generic(OalParserTest_Generics.modelRoot, "real");//$NON-NLS-1$
@@ -113,6 +119,7 @@ public class TestBPPrefAllowPromotion_Generics extends TestCase {
 				"assign x = 1.3; assign y = 2.7; assign x = y; ", id, id, 2, 0, 0); //$NON-NLS-1$
 	}
 
+	@Test
 	public void testIAssignTypeBooleanV2V() throws RecognitionException,
 			TokenStreamException {
 		UUID id = BaseTest.getTypeID_Generic(OalParserTest_Generics.modelRoot, "boolean");//$NON-NLS-1$
@@ -120,18 +127,21 @@ public class TestBPPrefAllowPromotion_Generics extends TestCase {
 				"x = true; y = false; x = y; ", id, id, 2, 0, 0); //$NON-NLS-1$
 	}
 
+	@Test
 	public void testIAssignTypeIntV2V() throws RecognitionException,
 			TokenStreamException {
 		UUID id = BaseTest.getTypeID_Generic(OalParserTest_Generics.modelRoot, "integer");//$NON-NLS-1$
 		AssignTypeV2Vtest("x = 1; y = 27; x = y; ", id, id, 2, 0, 0); //$NON-NLS-1$
 	}
 
+	@Test
 	public void testIAssignTypeRealV2V() throws RecognitionException,
 			TokenStreamException {
 		UUID id = BaseTest.getTypeID_Generic(OalParserTest_Generics.modelRoot, "real");//$NON-NLS-1$
 		AssignTypeV2Vtest("x = 1.3; y = 2.7; x = y; ", id, id, 2, 0, 0); //$NON-NLS-1$
 	}
 
+	@Test
 	public void testIAssignTypeIV2RV() throws RecognitionException,
 			TokenStreamException {
 		UUID id1 = BaseTest.getTypeID_Generic(OalParserTest_Generics.modelRoot, "real");//$NON-NLS-1$
@@ -139,6 +149,7 @@ public class TestBPPrefAllowPromotion_Generics extends TestCase {
 		AssignTypeV2Vtest("x = 5.13; y = 99; x = y; ", id1, id2, 2, 0, 0); //$NON-NLS-1$
 	}
 
+	@Test
 	public void testTransValPop() throws RecognitionException, TokenStreamException {
 		String x = OalParserTest_Generics.parseAction("x = 1; y = x; z = y; z = x;", OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM); //$NON-NLS-1$
 		assertEquals("", x); //$NON-NLS-1$
@@ -203,13 +214,15 @@ public class TestBPPrefAllowPromotion_Generics extends TestCase {
 		assertEquals(numIRS, isv.length);
 	}
 
-    public void testAssignTypeMismatchRV2IV() throws RecognitionException,
+    @Test
+	public void testAssignTypeMismatchRV2IV() throws RecognitionException,
             TokenStreamException {
         UUID id1 = BaseTest.getTypeID_Generic(OalParserTest_Generics.modelRoot, "real");//$NON-NLS-1$
         UUID id2 = BaseTest.getTypeID_Generic(OalParserTest_Generics.modelRoot, "integer");//$NON-NLS-1$
         assignTypeMismatchTest("x = 1;\ny = 3.14;\nx = y;\n ", id2, id1, 2, 0, 0); //$NON-NLS-1$
     }
 
+	@Test
 	public void testAssignTypeMismatchB2I() throws RecognitionException,
 			TokenStreamException {
 		UUID intId = BaseTest.getTypeID_Generic(OalParserTest_Generics.modelRoot, "integer");//$NON-NLS-1$
@@ -219,6 +232,7 @@ public class TestBPPrefAllowPromotion_Generics extends TestCase {
 				"x = 1;\ny = true;\nx = y;\n ", intId, boolId, 2, 0, 0); //$NON-NLS-1$
 	}
 
+	@Test
 	public void testAssignTypeMismatchI2S() throws RecognitionException,
 			TokenStreamException {
 		UUID strId = BaseTest.getTypeID_Generic(OalParserTest_Generics.modelRoot, "string");//93//$NON-NLS-1$
@@ -227,6 +241,7 @@ public class TestBPPrefAllowPromotion_Generics extends TestCase {
 				"x = \"test\";\ny = 2;\nx = y;\n ", strId, intId, 2, 0, 0); //$NON-NLS-1$
 	}
 
+	@Test
 	public void testAssignTypeMismatchB2R() throws RecognitionException,
 			TokenStreamException {
 		UUID boolId = BaseTest.getTypeID_Generic(OalParserTest_Generics.modelRoot, "boolean");//90//$NON-NLS-1$
@@ -235,6 +250,7 @@ public class TestBPPrefAllowPromotion_Generics extends TestCase {
 				"x = 5.13;\ny = false;\nx = y;\n ", realId, boolId, 2, 0, 0); //$NON-NLS-1$
 	}
 
+	@Test
 	public void testAssignTypeMismatchI2B() throws RecognitionException,
 			TokenStreamException {
 		UUID boolId = BaseTest.getTypeID_Generic(OalParserTest_Generics.modelRoot, "boolean");//90//$NON-NLS-1$
@@ -243,6 +259,7 @@ public class TestBPPrefAllowPromotion_Generics extends TestCase {
 				"x = false;\ny = 1;\nx = y;\n ", boolId, intId, 2, 0, 0); //$NON-NLS-1$
 	}
 
+	@Test
 	public void testAssignTypeMismatchR2B() throws RecognitionException,
 			TokenStreamException {
 		UUID boolId = BaseTest.getTypeID_Generic(OalParserTest_Generics.modelRoot, "boolean");//90//$NON-NLS-1$
@@ -251,37 +268,43 @@ public class TestBPPrefAllowPromotion_Generics extends TestCase {
 				"x = false;\ny = 1.1111;\nx = y;\n ", boolId, realId, 2, 0, 0); //$NON-NLS-1$
 	}
 
+	@Test
 	public void testAssignInt2UDT() throws RecognitionException, TokenStreamException {
 		String act = "select any t from instances of D_TST; t.u_int = 13;"; //$NON-NLS-1$
 		String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
 		assertEquals("", x); //$NON-NLS-1$
 		OalParserTest_Generics.validateBlkStmtVal( 1, 2, 3 );
 	}
+	@Test
 	public void testAssignUDT2Int() throws RecognitionException, TokenStreamException {
 		String act = "select any t from instances of D_TST; x = 12; x = t.u_int;"; //$NON-NLS-1$
 		String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
 		assertEquals("", x); //$NON-NLS-1$
 		OalParserTest_Generics.validateBlkStmtVal( 1, 3, 5 );
 	}
+	@Test
 	public void testAssignReal2UDT() throws RecognitionException, TokenStreamException {
 		String act = "select any t from instances of D_TST; t.u_real = 1.3;"; //$NON-NLS-1$
 		String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
 		assertEquals("", x); //$NON-NLS-1$
 		OalParserTest_Generics.validateBlkStmtVal( 1, 2, 3 );
 	}
+	@Test
 	public void testAssignUDT2Real() throws RecognitionException, TokenStreamException {
 		String act = "select any t from instances of D_TST; x = 1.2; x = t.u_real;"; //$NON-NLS-1$
 		String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
 		assertEquals("", x); //$NON-NLS-1$
 		OalParserTest_Generics.validateBlkStmtVal( 1, 3, 5 );
 	}
- 	public void testAssignInt2RealUDT() throws RecognitionException, TokenStreamException {
+ 	@Test
+	public void testAssignInt2RealUDT() throws RecognitionException, TokenStreamException {
 		String act = "select any t from instances of D_TST; t.u_real = 13;"; //$NON-NLS-1$
 		String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
 		assertEquals("", x); //$NON-NLS-1$
 		OalParserTest_Generics.validateBlkStmtVal( 1, 2, 3 );
 	}
-    public void testAssignRealUDT2Int() throws RecognitionException, TokenStreamException {
+    @Test
+	public void testAssignRealUDT2Int() throws RecognitionException, TokenStreamException {
         String act = "select any t from instances of D_TST; x = 12; x = t.u_real;"; //$NON-NLS-1$
         String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
         String lines[] = x.split("\n");//$NON-NLS-1$
@@ -290,7 +313,8 @@ public class TestBPPrefAllowPromotion_Generics extends TestCase {
         assertEquals("line 1:60: expecting Semicolon, found 'null'", lines[1]);
         OalParserTest_Generics.validateBlkStmtVal( 1, 2, 4 );
     }
-    public void testAssignReal2IntUDT() throws RecognitionException, TokenStreamException {
+    @Test
+	public void testAssignReal2IntUDT() throws RecognitionException, TokenStreamException {
         String act = "select any t from instances of D_TST; t.u_int = 1.3;"; //$NON-NLS-1$
         String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
         String lines[] = x.split("\n");//$NON-NLS-1$
@@ -299,12 +323,14 @@ public class TestBPPrefAllowPromotion_Generics extends TestCase {
         assertEquals("line 1:53: expecting Semicolon, found 'null'", lines[1]);
         OalParserTest_Generics.validateBlkStmtVal( 1, 1, 2 );
     }
+	@Test
 	public void testAssignIntUDT2Real() throws RecognitionException, TokenStreamException {
 		String act = "select any t from instances of D_TST; x = 1.2; x = t.u_int;"; //$NON-NLS-1$
 		String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
 		assertEquals("", x); //$NON-NLS-1$
 		OalParserTest_Generics.validateBlkStmtVal( 1, 3, 5 );
 	}
+	@Test
 	public void testAssignInt2StringUDT() throws RecognitionException, TokenStreamException {
 		String act = "select any t from instances of D_TST; t.u_str = 23;"; //$NON-NLS-1$
 		String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
@@ -314,6 +340,7 @@ public class TestBPPrefAllowPromotion_Generics extends TestCase {
 		assertEquals("line 1:52: expecting Semicolon, found 'null'", lines[1]);
 		OalParserTest_Generics.validateBlkStmtVal( 1, 1, 2 );
 	}
+	@Test
 	public void testAssignBool2IntUDT() throws RecognitionException, TokenStreamException {
 		String act = "select any t from instances of D_TST; t.u_int = true;"; //$NON-NLS-1$
 		String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
@@ -323,6 +350,7 @@ public class TestBPPrefAllowPromotion_Generics extends TestCase {
 		assertEquals("line 1:54: expecting Semicolon, found 'null'", lines[1]);
 		OalParserTest_Generics.validateBlkStmtVal( 1, 1, 2 );
 	}
+	@Test
 	public void testAssignBool2RealUDT() throws RecognitionException, TokenStreamException {
 		String act = "select any t from instances of D_TST; t.u_real = true;"; //$NON-NLS-1$
 		String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
@@ -335,7 +363,8 @@ public class TestBPPrefAllowPromotion_Generics extends TestCase {
 
 
     // Expression tests
-    public void testAddExprI2I() throws RecognitionException,
+    @Test
+	public void testAddExprI2I() throws RecognitionException,
             TokenStreamException {
         UUID intId = BaseTest.getTypeID_Generic(OalParserTest_Generics.modelRoot, "integer");//$NON-NLS-1$
         binaryOpTest("x = 1 + 2;", intId, intId, intId, intId, 1, 1); //$NON-NLS-1$
@@ -351,7 +380,8 @@ public class TestBPPrefAllowPromotion_Generics extends TestCase {
                 "+", lin[0].getValue_id(), lin[1].getValue_id()); //$NON-NLS-1$
     }
 
-    public void testAddExprI2PI2IP() throws RecognitionException,
+    @Test
+	public void testAddExprI2PI2IP() throws RecognitionException,
             TokenStreamException {
         String x = OalParserTest_Generics
                 .parseAction(
@@ -401,7 +431,8 @@ public class TestBPPrefAllowPromotion_Generics extends TestCase {
         exprTest.postExpr3op(op1_val_id, op2_val_id, op3_val_id, op1, op2);
     }
 
-    public void testAddExprI2I2I() throws RecognitionException,
+    @Test
+	public void testAddExprI2I2I() throws RecognitionException,
             TokenStreamException {
         UUID intId = BaseTest.getTypeID_Generic(OalParserTest_Generics.modelRoot, "integer");//$NON-NLS-1$
         expr3op("x = 1 + 2 - 3;", intId, intId, intId, intId, intId, intId); //$NON-NLS-1$
@@ -415,7 +446,8 @@ public class TestBPPrefAllowPromotion_Generics extends TestCase {
                 .getValue_id(), "+", "-");//$NON-NLS-1$//$NON-NLS-2$
     }
 
-    public void testAddExprI2I2R() throws RecognitionException,
+    @Test
+	public void testAddExprI2I2R() throws RecognitionException,
             TokenStreamException {
         UUID intId = BaseTest.getTypeID_Generic(OalParserTest_Generics.modelRoot, "integer");//$NON-NLS-1$
         UUID realId = BaseTest.getTypeID_Generic(OalParserTest_Generics.modelRoot, "real");//$NON-NLS-1$
@@ -433,7 +465,8 @@ public class TestBPPrefAllowPromotion_Generics extends TestCase {
                 .getValue_id(), "+", "-"); //$NON-NLS-1$//$NON-NLS-2$
     }
 
-    public void testAddExprI2R2I() throws RecognitionException,
+    @Test
+	public void testAddExprI2R2I() throws RecognitionException,
             TokenStreamException {
         UUID intId = BaseTest.getTypeID_Generic(OalParserTest_Generics.modelRoot, "integer");//$NON-NLS-1$
         UUID realId = BaseTest.getTypeID_Generic(OalParserTest_Generics.modelRoot, "real");//$NON-NLS-1$
@@ -451,7 +484,8 @@ public class TestBPPrefAllowPromotion_Generics extends TestCase {
                 .getValue_id(), "+", "-"); //$NON-NLS-1$//$NON-NLS-2$
     }
 
-    public void testAddExprR2I2I() throws RecognitionException,
+    @Test
+	public void testAddExprR2I2I() throws RecognitionException,
             TokenStreamException {
         UUID intId = BaseTest.getTypeID_Generic(OalParserTest_Generics.modelRoot, "integer");//$NON-NLS-1$
         UUID realId = BaseTest.getTypeID_Generic(OalParserTest_Generics.modelRoot, "real");//$NON-NLS-1$
@@ -469,7 +503,8 @@ public class TestBPPrefAllowPromotion_Generics extends TestCase {
                 .getValue_id(), "+", "-");//$NON-NLS-1$//$NON-NLS-2$
     }
 
-    public void testAddExprI2R2R() throws RecognitionException,
+    @Test
+	public void testAddExprI2R2R() throws RecognitionException,
             TokenStreamException {
         UUID intId = BaseTest.getTypeID_Generic(OalParserTest_Generics.modelRoot, "integer");//$NON-NLS-1$
         UUID realId = BaseTest.getTypeID_Generic(OalParserTest_Generics.modelRoot, "real");//$NON-NLS-1$
@@ -487,7 +522,8 @@ public class TestBPPrefAllowPromotion_Generics extends TestCase {
                 .getValue_id(), "+", "-");//$NON-NLS-1$//$NON-NLS-2$
     }
 
-    public void testAddExprR2I2R() throws RecognitionException,
+    @Test
+	public void testAddExprR2I2R() throws RecognitionException,
             TokenStreamException {
         UUID intId = BaseTest.getTypeID_Generic(OalParserTest_Generics.modelRoot, "integer");//$NON-NLS-1$
         UUID realId = BaseTest.getTypeID_Generic(OalParserTest_Generics.modelRoot, "real");//$NON-NLS-1$
@@ -505,7 +541,8 @@ public class TestBPPrefAllowPromotion_Generics extends TestCase {
                 .getValue_id(), "+", "-");//$NON-NLS-1$//$NON-NLS-2$
     }
 
-    public void testAddExprR2R2I() throws RecognitionException,
+    @Test
+	public void testAddExprR2R2I() throws RecognitionException,
             TokenStreamException {
         UUID intId = BaseTest.getTypeID_Generic(OalParserTest_Generics.modelRoot, "integer");//$NON-NLS-1$
         UUID realId = BaseTest.getTypeID_Generic(OalParserTest_Generics.modelRoot, "real");//$NON-NLS-1$
@@ -523,7 +560,8 @@ public class TestBPPrefAllowPromotion_Generics extends TestCase {
                 .getValue_id(), "+", "-");//$NON-NLS-1$//$NON-NLS-2$
     }
 
-    public void testAddExprPI2IP2I() throws RecognitionException,
+    @Test
+	public void testAddExprPI2IP2I() throws RecognitionException,
             TokenStreamException {
         String x = OalParserTest_Generics
                 .parseAction(
@@ -562,7 +600,8 @@ public class TestBPPrefAllowPromotion_Generics extends TestCase {
                 "-", bin[0].getValue_id(), lin[2].getValue_id());//$NON-NLS-1$
     }
 
-    public void testAddExprR2R() throws RecognitionException,
+    @Test
+	public void testAddExprR2R() throws RecognitionException,
             TokenStreamException {
         UUID realId = BaseTest.getTypeID_Generic(OalParserTest_Generics.modelRoot, "real");//$NON-NLS-1$
         binaryOpTest("x = 1.1 - 2.9;", realId, realId, realId, realId, 1, 1); //$NON-NLS-1$
@@ -578,7 +617,8 @@ public class TestBPPrefAllowPromotion_Generics extends TestCase {
                 "-", lr[0].getValue_id(), lr[1].getValue_id());//$NON-NLS-1$
     }
 
-    public void testAddExprR2R2R() throws RecognitionException,
+    @Test
+	public void testAddExprR2R2R() throws RecognitionException,
             TokenStreamException {
         UUID realId = BaseTest.getTypeID_Generic(OalParserTest_Generics.modelRoot, "real");//$NON-NLS-1$
         expr3op("x = 0.1 + 0.2 - 0.3;", realId, realId, realId, realId, realId, realId); //$NON-NLS-1$
@@ -592,7 +632,8 @@ public class TestBPPrefAllowPromotion_Generics extends TestCase {
                 .getValue_id(), "+", "-");//$NON-NLS-1$//$NON-NLS-2$
     }
 
-    public void testAddExprI2R() throws RecognitionException,
+    @Test
+	public void testAddExprI2R() throws RecognitionException,
             TokenStreamException {
         UUID intId = BaseTest.getTypeID_Generic(OalParserTest_Generics.modelRoot, "integer");//$NON-NLS-1$
         UUID realId = BaseTest.getTypeID_Generic(OalParserTest_Generics.modelRoot, "real");//$NON-NLS-1$
@@ -612,7 +653,8 @@ public class TestBPPrefAllowPromotion_Generics extends TestCase {
                 "-", lin[0].getValue_id(), lr[0].getValue_id());//$NON-NLS-1$
     }
 
-    public void testAddExprR2I() throws RecognitionException,
+    @Test
+	public void testAddExprR2I() throws RecognitionException,
             TokenStreamException {
         UUID intId = BaseTest.getTypeID_Generic(OalParserTest_Generics.modelRoot, "integer");//$NON-NLS-1$
         UUID realId = BaseTest.getTypeID_Generic(OalParserTest_Generics.modelRoot, "real");//$NON-NLS-1$
@@ -632,7 +674,8 @@ public class TestBPPrefAllowPromotion_Generics extends TestCase {
                 "+", lr[0].getValue_id(), lin[0].getValue_id());//$NON-NLS-1$
     }
 
-    public void testMultExprI2I() throws RecognitionException,
+    @Test
+	public void testMultExprI2I() throws RecognitionException,
             TokenStreamException {
         UUID intId = BaseTest.getTypeID_Generic(OalParserTest_Generics.modelRoot, "integer");//$NON-NLS-1$
         binaryOpTest("x = 1 * 2;", intId, intId, intId, intId, 1, 1); //$NON-NLS-1$
@@ -648,7 +691,8 @@ public class TestBPPrefAllowPromotion_Generics extends TestCase {
                 "*", lin[0].getValue_id(), lin[1].getValue_id());//$NON-NLS-1$
     }
 
-    public void testMultExprI2I2I() throws RecognitionException,
+    @Test
+	public void testMultExprI2I2I() throws RecognitionException,
             TokenStreamException {
         UUID intId = BaseTest.getTypeID_Generic(OalParserTest_Generics.modelRoot, "integer");//$NON-NLS-1$
         expr3op("x = 1 * 2 / 3;", intId, intId, intId, intId, intId, intId); //$NON-NLS-1$
@@ -662,7 +706,8 @@ public class TestBPPrefAllowPromotion_Generics extends TestCase {
                 .getValue_id(), "*", "/");//$NON-NLS-1$//$NON-NLS-2$
     }
 
-    public void testMultExprR2R() throws RecognitionException,
+    @Test
+	public void testMultExprR2R() throws RecognitionException,
             TokenStreamException {
         UUID realId = BaseTest.getTypeID_Generic(OalParserTest_Generics.modelRoot, "real");//$NON-NLS-1$
         binaryOpTest("x = 2.1 / 2.2;", realId, realId, realId, realId, 1, 1); //$NON-NLS-1$
@@ -678,7 +723,8 @@ public class TestBPPrefAllowPromotion_Generics extends TestCase {
                 "/", lr[0].getValue_id(), lr[1].getValue_id());//$NON-NLS-1$
     }
 
-    public void testMultExprR2R2R() throws RecognitionException,
+    @Test
+	public void testMultExprR2R2R() throws RecognitionException,
             TokenStreamException {
         UUID realId = BaseTest.getTypeID_Generic(OalParserTest_Generics.modelRoot, "real");//$NON-NLS-1$
         expr3op("x = 0.1 / 0.2 * 0.3;", realId, realId, realId, realId, realId, realId); //$NON-NLS-1$
@@ -692,7 +738,8 @@ public class TestBPPrefAllowPromotion_Generics extends TestCase {
                 .getValue_id(), "/", "*");//$NON-NLS-1$//$NON-NLS-2$
     }
 
-    public void testMultExprNotI() throws RecognitionException,
+    @Test
+	public void testMultExprNotI() throws RecognitionException,
             TokenStreamException {
         String x = OalParserTest_Generics
                 .parseAction(
@@ -704,7 +751,8 @@ public class TestBPPrefAllowPromotion_Generics extends TestCase {
         noValuesPresent(0);
     }
 
-    public void testMultExprNotR() throws RecognitionException,
+    @Test
+	public void testMultExprNotR() throws RecognitionException,
             TokenStreamException {
         String x = OalParserTest_Generics
                 .parseAction(
@@ -716,7 +764,8 @@ public class TestBPPrefAllowPromotion_Generics extends TestCase {
         noValuesPresent(0);
     }
 
-    public void testConjunctionExprBaB2() throws RecognitionException,
+    @Test
+	public void testConjunctionExprBaB2() throws RecognitionException,
             TokenStreamException {
         String x = OalParserTest_Generics
                 .parseAction(
@@ -765,7 +814,8 @@ public class TestBPPrefAllowPromotion_Generics extends TestCase {
         exprTest.noValuesPresent(numStatements);
     }
 
-    public void testConjunctionExprIaI() throws RecognitionException,
+    @Test
+	public void testConjunctionExprIaI() throws RecognitionException,
             TokenStreamException {
         String x = OalParserTest_Generics
                 .parseAction(
@@ -777,7 +827,8 @@ public class TestBPPrefAllowPromotion_Generics extends TestCase {
         noValuesPresent(0);
     }
 
-    public void testConjunctionExprIaR() throws RecognitionException,
+    @Test
+	public void testConjunctionExprIaR() throws RecognitionException,
             TokenStreamException {
         String x = OalParserTest_Generics
                 .parseAction(
@@ -789,7 +840,8 @@ public class TestBPPrefAllowPromotion_Generics extends TestCase {
         noValuesPresent(0);
     }
 
-    public void testConjunctionExprRoI() throws RecognitionException,
+    @Test
+	public void testConjunctionExprRoI() throws RecognitionException,
             TokenStreamException {
         String x = OalParserTest_Generics
                 .parseAction(
@@ -801,7 +853,8 @@ public class TestBPPrefAllowPromotion_Generics extends TestCase {
         noValuesPresent(0);
     }
 
-    public void testConjunctionExprRaR() throws RecognitionException,
+    @Test
+	public void testConjunctionExprRaR() throws RecognitionException,
             TokenStreamException {
         String x = OalParserTest_Generics
                 .parseAction(
@@ -813,7 +866,8 @@ public class TestBPPrefAllowPromotion_Generics extends TestCase {
         noValuesPresent(0);
     }
 
-    public void testSubExprIoI() throws RecognitionException,
+    @Test
+	public void testSubExprIoI() throws RecognitionException,
             TokenStreamException {
         String x = OalParserTest_Generics
                 .parseAction(
@@ -825,7 +879,8 @@ public class TestBPPrefAllowPromotion_Generics extends TestCase {
         noValuesPresent(0);
     }
 
-    public void testSubExprRoR() throws RecognitionException,
+    @Test
+	public void testSubExprRoR() throws RecognitionException,
             TokenStreamException {
         String x = OalParserTest_Generics
                 .parseAction(
@@ -837,7 +892,8 @@ public class TestBPPrefAllowPromotion_Generics extends TestCase {
         noValuesPresent(0);
     }
 
-    public void testTermEmptyI() throws RecognitionException,
+    @Test
+	public void testTermEmptyI() throws RecognitionException,
             TokenStreamException {
         String x = OalParserTest_Generics
                 .parseAction(
@@ -858,7 +914,8 @@ public class TestBPPrefAllowPromotion_Generics extends TestCase {
         assertEquals("x", t[1].getName());//$NON-NLS-1$
     }
 
-    public void testTermNotEmptyR() throws RecognitionException,
+    @Test
+	public void testTermNotEmptyR() throws RecognitionException,
             TokenStreamException {
         String x = OalParserTest_Generics
                 .parseAction(
@@ -879,7 +936,8 @@ public class TestBPPrefAllowPromotion_Generics extends TestCase {
         assertEquals("x", t[1].getName());//$NON-NLS-1$
     }
 
-    public void testUnaryPlusI() throws RecognitionException,
+    @Test
+	public void testUnaryPlusI() throws RecognitionException,
             TokenStreamException {
         String x = OalParserTest_Generics
                 .parseAction(
@@ -909,7 +967,8 @@ public class TestBPPrefAllowPromotion_Generics extends TestCase {
         assertEquals(1, st.length);
     }
 
-    public void testRelExprI2I() throws RecognitionException,
+    @Test
+	public void testRelExprI2I() throws RecognitionException,
             TokenStreamException {
         UUID boolId = BaseTest.getTypeID_Generic(OalParserTest_Generics.modelRoot, "boolean");//$NON-NLS-1$
         UUID intId = BaseTest.getTypeID_Generic(OalParserTest_Generics.modelRoot, "integer");//$NON-NLS-1$
@@ -926,7 +985,8 @@ public class TestBPPrefAllowPromotion_Generics extends TestCase {
                 "<", lin[0].getValue_id(), lin[1].getValue_id());//$NON-NLS-1$
     }
 
-    public void testRelExprR2R() throws RecognitionException,
+    @Test
+	public void testRelExprR2R() throws RecognitionException,
             TokenStreamException {
         UUID boolId = BaseTest.getTypeID_Generic(OalParserTest_Generics.modelRoot, "boolean");//$NON-NLS-1$
         UUID realId = BaseTest.getTypeID_Generic(OalParserTest_Generics.modelRoot, "real");//$NON-NLS-1$
@@ -943,7 +1003,8 @@ public class TestBPPrefAllowPromotion_Generics extends TestCase {
                 ">", lr[0].getValue_id(), lr[1].getValue_id());//$NON-NLS-1$
     }
 
-    public void testRelExprI2R() throws RecognitionException,
+    @Test
+	public void testRelExprI2R() throws RecognitionException,
             TokenStreamException {
         String x = OalParserTest_Generics
                 .parseAction(
@@ -968,7 +1029,8 @@ public class TestBPPrefAllowPromotion_Generics extends TestCase {
                 "<", lin[0].getValue_id(), lr[0].getValue_id());//$NON-NLS-1$
     }
 
-    public void testRelExprI2B() throws RecognitionException,
+    @Test
+	public void testRelExprI2B() throws RecognitionException,
             TokenStreamException {
         String x = OalParserTest_Generics
                 .parseAction(
@@ -990,7 +1052,8 @@ public class TestBPPrefAllowPromotion_Generics extends TestCase {
         assertEquals(0, lbool.length);
     }
 
-    public void testNestedExpr() throws RecognitionException,
+    @Test
+	public void testNestedExpr() throws RecognitionException,
             TokenStreamException {
         String x = OalParserTest_Generics
                 .parseAction(
@@ -1055,7 +1118,8 @@ public class TestBPPrefAllowPromotion_Generics extends TestCase {
         attrTest.goodAttrWriteCheck(attr_name, dt_id, var_name, kl, numStmt);
     }
 
-    public void testAttributeWriteI2R() throws RecognitionException, TokenStreamException {
+    @Test
+	public void testAttributeWriteI2R() throws RecognitionException, TokenStreamException {
         String x = OalParserTest_Generics.parseAction("create object instance d1 of D_D; \nd1.real_attr = 1;", OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM); //$NON-NLS-1$
         assertEquals("", x);//$NON-NLS-1$
         UUID intId = BaseTest.getTypeID_Generic(OalParserTest_Generics.modelRoot, "integer");//91//$NON-NLS-1$
@@ -1067,7 +1131,8 @@ public class TestBPPrefAllowPromotion_Generics extends TestCase {
         attrTest.badAttrWriteCheck(numStmts, numVars, numVals);
     }
 
-    public void testBadAttributeWriteR2I() throws RecognitionException, TokenStreamException {
+    @Test
+	public void testBadAttributeWriteR2I() throws RecognitionException, TokenStreamException {
         String x = OalParserTest_Generics.parseAction("create object instance d1 of D_D; \nd1.Disk_ID = 1.1;", OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM); //$NON-NLS-1$
         String lines[] = x.split("\n");//$NON-NLS-1$
         assertEquals(":2:14-16: Attribute ->Disk_ID<- is a different type", lines[0]); //$NON-NLS-1$
@@ -1078,7 +1143,8 @@ public class TestBPPrefAllowPromotion_Generics extends TestCase {
 
 
     // Control tests
-    public void testCleanupBeforeContinuing() throws RecognitionException, TokenStreamException {
+    @Test
+	public void testCleanupBeforeContinuing() throws RecognitionException, TokenStreamException {
         // This is not really a test.  It is just a container for some cleanup
         // functions that need to run before continuing.
         OalParserTest_Generics.clearActionData(OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
@@ -1087,7 +1153,8 @@ public class TestBPPrefAllowPromotion_Generics extends TestCase {
 
     }
 
-    public void testReturnIFromI() throws RecognitionException, TokenStreamException {
+    @Test
+	public void testReturnIFromI() throws RecognitionException, TokenStreamException {
         for (int i = OalParserTest_Generics.ACTIVITY_TYPE_FUNC; i <= OalParserTest_Generics.ACTIVITY_TYPE_IB_OP; ++i) {
             String x = OalParserTest_Generics.parseAction("return 1;", i, OalParserTest_Generics.TEST_INT_NO_PARM); //$NON-NLS-1$
             assertEquals("", x); //$NON-NLS-1$
@@ -1106,7 +1173,8 @@ public class TestBPPrefAllowPromotion_Generics extends TestCase {
             OalParserTest_Generics.clearActionData(i, OalParserTest_Generics.TEST_INT_NO_PARM);
         }
     }
-    public void testReturnRFromR() throws RecognitionException, TokenStreamException {
+    @Test
+	public void testReturnRFromR() throws RecognitionException, TokenStreamException {
         for (int i = OalParserTest_Generics.ACTIVITY_TYPE_FUNC; i <= OalParserTest_Generics.ACTIVITY_TYPE_IB_OP; ++i) {
             String x = OalParserTest_Generics.parseAction("return 1.1;", i, OalParserTest_Generics.TEST_REAL_NO_PARM); //$NON-NLS-1$
             assertEquals("", x); //$NON-NLS-1$
@@ -1127,7 +1195,8 @@ public class TestBPPrefAllowPromotion_Generics extends TestCase {
             OalParserTest_Generics.clearActionData(i, OalParserTest_Generics.TEST_REAL_NO_PARM);
         }
     }
-    public void testReturnIFromR() throws RecognitionException, TokenStreamException {
+    @Test
+	public void testReturnIFromR() throws RecognitionException, TokenStreamException {
         for (int i = OalParserTest_Generics.ACTIVITY_TYPE_FUNC; i <= OalParserTest_Generics.ACTIVITY_TYPE_IB_OP; ++i) {
             String x = OalParserTest_Generics.parseAction("return 1;", i, OalParserTest_Generics.TEST_REAL_NO_PARM); //$NON-NLS-1$
             assertEquals("", x); //$NON-NLS-1$
@@ -1148,7 +1217,8 @@ public class TestBPPrefAllowPromotion_Generics extends TestCase {
             OalParserTest_Generics.clearActionData(i, OalParserTest_Generics.TEST_REAL_NO_PARM);
         }
     }
-    public void testReturnRFromI() throws RecognitionException, TokenStreamException {
+    @Test
+	public void testReturnRFromI() throws RecognitionException, TokenStreamException {
         for (int i = OalParserTest_Generics.ACTIVITY_TYPE_FUNC; i <= OalParserTest_Generics.ACTIVITY_TYPE_IB_OP; ++i) {
             String x = OalParserTest_Generics.parseAction("return 1.1;", i, OalParserTest_Generics.TEST_INT_NO_PARM); //$NON-NLS-1$
             String lines[] = x.split("\n");//$NON-NLS-1$

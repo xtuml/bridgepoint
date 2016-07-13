@@ -701,7 +701,7 @@ INSERT INTO O_TFR
 select one package related by self->O_OBJ[R115]->PE_PE[R8001]->EP_PKG[R8000];
 select many operations related by self->O_OBJ[R115]->O_TFR[R115];
 for each operation in operations
-  if(operation != self and operation.getSignature() == self.getSignature())
+  if(operation != self and operation.getSignature(flavor:0) == self.getSignature(flavor:0))
     select one system related by package->S_SYS[R1405];
     sys_id = GD::NULL_UNIQUE_ID();
     if(not_empty system)
@@ -711,7 +711,7 @@ for each operation in operations
 	MI_IM::createIssue(sys_id:sys_id, description:
 	               "Found another operation under the same class " +
 	     "with a matching signature." + GD::newline() + GD::newline()
-	            + "Signature: " + self.getSignature(), severity:Severity::Error,
+	            + "Signature: " + self.getSignature(flavor:0), severity:Severity::Error,
 	                                                             name:self.Name,
 	   path:class.getPath(path:self.Name, includeSelf:true), id:self.Tfr_ID,
 	                                          element:self.convertToInstance());
@@ -728,30 +728,103 @@ INSERT INTO O_TFR
 	"ba5eda7a-def5-0000-0000-000000000004",
 	1,
 	'/**
- *  Return a string representation of this functions signature
+ *  Return a string representation of this operations signature
+ *  with the specified flavor
+ *  0 = named parameters
+ *  1 = positional parameters
+ *  named signature = return_type operation(param1:type, param2:type, param3:type)
+ *  parameters for the named flavor are sorted alphanumerically
+ *  positional signature = return_type operation(param1_type, param2_type, param3_type)
  */
-signature = self.Name;
-count = 0;
-select many parameters related by self->O_TPARM[R117];
-paramLength = cardinality parameters;
-if(paramLength > 0)
-  signature = signature + "(";
-end if;
-for each parameter in parameters
-  select one type related by parameter->S_DT[R118];
-  if(count > 0 and count != paramLength - 1)
-    signature = signature + ", ";
+ 
+signature = "";
+
+// Get return type
+select one returntype related by self->S_DT[R116];
+signature = signature + returntype.Name + " ";
+ 
+// Get name
+signature = signature + self.Name;
+
+// Get parameters
+
+if ( 1 == param.flavor )
+
+  // Get the first parameter.
+  select any parameter related by self->O_TPARM[R117];
+  first_param = parameter;
+  while ( not_empty parameter )
+	first_param = parameter;
+	select one parameter related by parameter->O_TPARM[R124.''succeeds''];
+  end while;
+
+  if( not_empty first_param )
+	signature = signature + "(";
   end if;
-  signature = signature + type.Name;
-  count = count + 1;
-end for;
-if(paramLength > 0)
-  signature = signature + ")";
+  separator = "";
+  parameter = first_param;
+  while ( not_empty parameter )
+	select one type related by parameter->S_DT[R118];
+	signature = signature + separator + type.Name;
+	separator = ", ";
+	select one parameter related by parameter->O_TPARM[R124.''precedes''];
+  end while;
+  if( not_empty first_param )
+	signature = signature + ")";
+  end if;
+
+elif ( 0 == param.flavor )
+
+  // get the parameters in sorted order
+  separator = "";
+  select many parameters related by self->O_TPARM[R117];
+  num_params = cardinality parameters; 
+  if ( num_params > 0 )
+	signature = signature + "(";
+  end if;
+
+  // the following time complexity is n^2
+  count = 0;
+  select any last_param from instances of O_TPARM where false;
+  select any curr_param from instances of O_TPARM where false;
+  while ( count < num_params )
+    for each parameter in parameters
+      if ( ( empty curr_param and empty last_param )
+           or ( empty curr_param and not_empty last_param and parameter != last_param and parameter.Name >= last_param.Name )
+           or ( not_empty curr_param and empty last_param and parameter.Name < curr_param.Name )
+           or ( not_empty curr_param and not_empty last_param and parameter != last_param and parameter.Name >= last_param.Name and parameter.Name < curr_param.Name ) )
+        curr_param = parameter;
+      end if;
+    end for;
+    
+    select one type related by curr_param->S_DT[R118];
+    signature = signature + separator + curr_param.Name + ":" + type.Name;
+    separator = ", ";
+
+    last_param = curr_param;
+    select any curr_param from instances of O_TPARM where false;
+    count = count + 1;
+  end while;
+
+  if ( num_params > 0 )
+	signature = signature + ")";
+  end if;
+  
 end if;
+
 return signature;',
 	1,
 	'',
 	"ca6f4164-2b36-4e87-a092-a73d2ed55435");
+INSERT INTO O_TPARM
+	VALUES ("fe7adf66-2e41-4eee-b20e-1883ff031b71",
+	"8ba04a71-31b7-4503-90bc-f7c72b75672d",
+	'flavor',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
 INSERT INTO O_NBATTR
 	VALUES ("fedd7310-e864-45bb-abf6-b4c4e4a09551",
 	"32854b2d-b225-40d9-abb2-4519ff4e4af7");

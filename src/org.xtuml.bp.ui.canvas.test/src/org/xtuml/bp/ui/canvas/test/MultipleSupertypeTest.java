@@ -23,12 +23,15 @@ package org.xtuml.bp.ui.canvas.test;
 //
 // 
 import org.eclipse.jface.viewers.ISelection;
-
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.ImportedClass_c;
 import org.xtuml.bp.core.common.ClassQueryInterface_c;
 import org.xtuml.bp.core.common.NonRootModelElement;
 import org.xtuml.bp.core.ui.Selection;
 import org.xtuml.bp.test.common.CanvasTestUtils;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.test.common.UITestingUtilities;
 import org.xtuml.bp.ui.canvas.Cl_c;
 import org.xtuml.bp.ui.canvas.Connector_c;
@@ -42,6 +45,7 @@ import org.xtuml.bp.ui.graphics.editor.GraphicalEditor;
 /**
  * Performs various scenario tests dealing with connectors. 
  */
+@RunWith(OrderedRunner.class)
 public class MultipleSupertypeTest extends CanvasTest 
 {
 	String test_id = null;
@@ -51,14 +55,15 @@ public class MultipleSupertypeTest extends CanvasTest
 	/**
 	 * Constructor
 	 */
-	public MultipleSupertypeTest(String arg0) 
+	public MultipleSupertypeTest() 
 	{
-		super(null, arg0);
+		super(null, null);
 	}
 	
 	/**
 	 * See parent method overridden.
 	 */
+	@Before
 	public void setUp() throws Exception 
 	{
 		super.setUp();
@@ -102,6 +107,7 @@ public class MultipleSupertypeTest extends CanvasTest
 	/**
 	 * Tests selection of a subtype line to a class with multiple supertypes.  
 	 */
+	@Test
 	public void test_selectSubtype() throws Exception 
 	{
 		test_id = "1";
@@ -112,6 +118,7 @@ public class MultipleSupertypeTest extends CanvasTest
 	/**
 	 * Tests selection of a subtype line to an imported class with multiple supertypes.  
 	 */
+	@Test
 	public void test_selectImportedSubtype() throws Exception 
 	{
 		test_id = "2";

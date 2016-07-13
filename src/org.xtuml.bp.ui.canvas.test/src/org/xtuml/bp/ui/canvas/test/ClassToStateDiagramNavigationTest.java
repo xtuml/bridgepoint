@@ -29,7 +29,9 @@ import org.eclipse.swt.graphics.Point;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.WorkbenchPart;
-
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.InstanceStateMachine_c;
 import org.xtuml.bp.core.ModelClass_c;
 import org.xtuml.bp.core.Package_c;
@@ -40,6 +42,7 @@ import org.xtuml.bp.core.util.EditorUtil;
 import org.xtuml.bp.core.util.OoaofooaUtil;
 import org.xtuml.bp.test.common.BaseTest;
 import org.xtuml.bp.test.common.CanvasTestUtils;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.test.common.UITestingUtilities;
 import org.xtuml.bp.ui.canvas.Diagram_c;
 import org.xtuml.bp.ui.canvas.Graphnode_c;
@@ -54,6 +57,7 @@ import org.xtuml.bp.ui.graphics.editor.GraphicalEditor;
  * diagrams, as well to the functionality of the marker-icons displayed
  * within a class shape to represent the associated state machines.
  */
+@RunWith(OrderedRunner.class)
 public class ClassToStateDiagramNavigationTest extends BaseTest
 {
     /**
@@ -78,14 +82,15 @@ public class ClassToStateDiagramNavigationTest extends BaseTest
     private static boolean firstTime = true;
 
     
-    public ClassToStateDiagramNavigationTest(String arg0){
-        super("Navigation", arg0);
+    public ClassToStateDiagramNavigationTest(){
+        super("Navigation", null);
     }
     
     /* (non-Javadoc)
      * @see junit.framework.TestCase#setUp()
      */
-    public void setUp()throws Exception
+    @Before
+	public void setUp()throws Exception
     {
         super.setUp();
         // if we haven't yet imported the model used for these tests
@@ -119,7 +124,8 @@ public class ClassToStateDiagramNavigationTest extends BaseTest
      * correct state machine diagram, which depends upon whether the class 
      * has an associated instance and/or class state machine (or neither).
      */
-    public void testOpenActionOnClassOpensStateDiagram()
+    @Test
+	public void testOpenActionOnClassOpensStateDiagram()
     {
         // select a class which we know should only be displaying an 
         // instance state machine marker-icon
@@ -200,7 +206,8 @@ public class ClassToStateDiagramNavigationTest extends BaseTest
      * Also tests whether the tooltip text and context menu shown 
      * for the marker-icons are correct. 
      */
-    public void testDoubleClickOnMarkerIconOpensStateDiagram()
+    @Test
+	public void testDoubleClickOnMarkerIconOpensStateDiagram()
     {
         // find a class which we know is displaying an 
         // instance state machine marker-icon

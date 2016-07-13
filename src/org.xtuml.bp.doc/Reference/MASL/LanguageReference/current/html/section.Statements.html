@@ -1,0 +1,144 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Chapter 9. Statements</title>
+<link rel="stylesheet" type="text/css" href="docbook.css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
+<meta name="keywords" content="MASL, Action Language, Action Semantics, UML, Unified Modelling Language, Shlaer Mellor">
+<link rel="home" href="index.html" title="MASL Reference Manual">
+<link rel="up" href="index.html" title="MASL Reference Manual">
+<link rel="prev" href="section.Objects.Lifecycles.html" title="8.6. Object Lifecycles">
+<link rel="next" href="section.Statements.CodeBlock.html" title="9.1. Code Block">
+<link rel="chapter" href="section.LexicalStructure.html" title="Chapter 1. Lexical Structure">
+<link rel="chapter" href="section.Types.html" title="Chapter 2. Type System">
+<link rel="chapter" href="section.Domains.html" title="Chapter 3. Domains">
+<link rel="chapter" href="section.Services.html" title="Chapter 4. Services, Functions and State Actions">
+<link rel="chapter" href="section.Relationships.html" title="Chapter 5. Relationships">
+<link rel="chapter" href="section.Exceptions.html" title="Chapter 6. Exceptions">
+<link rel="chapter" href="section.Terminators.html" title="Chapter 7. Terminators">
+<link rel="chapter" href="section.Objects.html" title="Chapter 8. Objects">
+<link rel="chapter" href="section.Statements.html" title="Chapter 9. Statements">
+<link rel="chapter" href="section.Expressions.html" title="Chapter 10. Expressions">
+<link rel="chapter" href="section.Projects.html" title="Chapter 11. Projects">
+<link rel="chapter" href="section.Pragmas.html" title="Chapter 12. Pragmas">
+<link rel="appendix" href="AlphabeticalSyntaxReference.html" title="Appendix A. Alphabetical Syntax Reference">
+<link rel="index" href="ix01.html" title="Index">
+<link rel="section" href="section.Statements.CodeBlock.html" title="9.1. Code Block">
+<link rel="section" href="section.Statements.EmptyStatement.html" title="9.2. Empty Statement">
+<link rel="section" href="section.Statements.Assignment.html" title="9.3. Assignment">
+<link rel="section" href="section.Statements.Stream.html" title="9.4. Stream">
+<link rel="section" href="section.Statements.ServiceCall.html" title="9.5. Service Call">
+<link rel="section" href="section.Statements.Exit.html" title="9.6. Exit Statement">
+<link rel="section" href="section.Statements.Return.html" title="9.7. Return Statement">
+<link rel="section" href="section.Statements.Delay.html" title="9.8. Delay Statement">
+<link rel="section" href="section.Statements.Raise.html" title="9.9. Raise Exception">
+<link rel="section" href="section.Statements.Delete.html" title="9.10. Delete Instance">
+<link rel="section" href="section.Statements.Link.html" title="9.11. Link Instances">
+<link rel="section" href="section.Statements.Unlink.html" title="9.12. Unlink Instances">
+<link rel="section" href="section.Statements.EventGeneration.html" title="9.13. Event Generation">
+<link rel="section" href="section.Statements.ConditionalProcessing.html" title="9.14. Conditional Processing">
+<link rel="section" href="section.Statements.Looping.html" title="9.15. Looping">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div align="center">OFFICIAL</div>
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center">Chapter 9. Statements</th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="section.Objects.Lifecycles.html">Prev</a> </td>
+<th width="60%" align="center"> </th>
+<td width="20%" align="right"> <a accesskey="n" href="section.Statements.CodeBlock.html">Next</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="chapter">
+<div class="titlepage"><div><div><h1 class="title">
+<a name="section.Statements"></a>Chapter 9. Statements</h1></div></div></div>
+<div class="toc">
+<div class="toc-title">Table of Contents</div>
+<dl class="toc">
+<dt><span class="section"><a href="section.Statements.CodeBlock.html">9.1. Code Block</a></span></dt>
+<dt><span class="section"><a href="section.Statements.EmptyStatement.html">9.2. Empty Statement</a></span></dt>
+<dt><span class="section"><a href="section.Statements.Assignment.html">9.3. Assignment</a></span></dt>
+<dt><span class="section"><a href="section.Statements.Stream.html">9.4. Stream</a></span></dt>
+<dt><span class="section"><a href="section.Statements.ServiceCall.html">9.5. Service Call</a></span></dt>
+<dt><span class="section"><a href="section.Statements.Exit.html">9.6. Exit Statement</a></span></dt>
+<dt><span class="section"><a href="section.Statements.Return.html">9.7. Return Statement</a></span></dt>
+<dt><span class="section"><a href="section.Statements.Delay.html">9.8. Delay Statement</a></span></dt>
+<dt><span class="section"><a href="section.Statements.Raise.html">9.9. Raise Exception</a></span></dt>
+<dt><span class="section"><a href="section.Statements.Delete.html">9.10. Delete Instance</a></span></dt>
+<dt><span class="section"><a href="section.Statements.Link.html">9.11. Link Instances</a></span></dt>
+<dd><dl>
+<dt><span class="section"><a href="section.Statements.Link.html#section.Statements.Link.Simple">9.11.1. Simple Relationships</a></span></dt>
+<dt><span class="section"><a href="section.Statements.Link.html#section.Statements.Link.Associative">9.11.2. Associative Relationships</a></span></dt>
+<dt><span class="section"><a href="section.Statements.Link.html#section.Statements.Link.Supertype">9.11.3. Supertype Relationships</a></span></dt>
+</dl></dd>
+<dt><span class="section"><a href="section.Statements.Unlink.html">9.12. Unlink Instances</a></span></dt>
+<dd><dl>
+<dt><span class="section"><a href="section.Statements.Unlink.html#section.Statements.Unink.Simple">9.12.1. Simple Relationships</a></span></dt>
+<dt><span class="section"><a href="section.Statements.Unlink.html#section.Statements.Unink.Associative">9.12.2. Associative Relationships</a></span></dt>
+<dt><span class="section"><a href="section.Statements.Unlink.html#section.Statements.Unlink.Supertype">9.12.3. Supertype Relationships</a></span></dt>
+</dl></dd>
+<dt><span class="section"><a href="section.Statements.EventGeneration.html">9.13. Event Generation</a></span></dt>
+<dt><span class="section"><a href="section.Statements.ConditionalProcessing.html">9.14. Conditional Processing</a></span></dt>
+<dt><span class="section"><a href="section.Statements.Looping.html">9.15. Looping</a></span></dt>
+<dd><dl>
+<dt><span class="section"><a href="section.Statements.Looping.html#section.Statements.While">9.15.1. While Statement</a></span></dt>
+<dt><span class="section"><a href="section.Statements.Looping.html#section.Statements.For">9.15.2. For Statement</a></span></dt>
+</dl></dd>
+</dl>
+</div>
+<p>A statement defines an action to be performed upon its execution. Some statements contain other statements as
+  part of their structure; such other statements are sub-statements of the statement. In the same manner, some
+  statements contain <a class="link" href="section.Expressions.html" title="Chapter 10. Expressions">expressions</a> as part of their structure.</p>
+<p>A statement will always complete the action specified in the following sections unless any of the sub-statements
+  or sub-expressions cause an exception to be raised or an exit or return statement are encountered as sub-statements.
+  In this case the statement is deemed to have completed unsuccessfully. A statement sequence will complete each of the
+  statements it contains in that order, unless once of those statements does not complete successfully. In this case,
+  any remaining statements in the sequence will not be performed, and the sequence is also deemed to have completed
+  unsucessfully.</p>
+<table width="100%" cellpadding="5" bgcolor="#F5DCB3" border="1" class="productionset" summary="EBNF"><tr><td><table border="0" width="99%" cellpadding="0" bgcolor="#F5DCB3" class="productionset" summary="EBNF productions">
+<tr>
+<td align="left" valign="top" width="3%">[127]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.statementSequence"></a>statement sequence</td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">{ <a href="section.Statements.html#ebnf.statement">statement</a> };</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[128]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.statement"></a>statement</td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">( <a href="section.Statements.CodeBlock.html#ebnf.codeBlockStatement">code block statement</a> | <a href="section.Statements.Assignment.html#ebnf.assignStatement">assign statement</a> | <a href="section.Statements.Stream.html#ebnf.streamStatement">stream statement</a> | <a href="section.Statements.EmptyStatement.html#ebnf.nullStatement">null statement</a> | <a href="section.Statements.ServiceCall.html#ebnf.callStatement">call statement</a> | <a href="section.Statements.Exit.html#ebnf.exitStatement">exit statement</a> | <a href="section.Statements.Return.html#ebnf.returnStatement">return statement</a> | <a href="section.Statements.Delay.html#ebnf.delayStatement">delay statement</a> | <a href="section.Statements.Raise.html#ebnf.raiseStatement">raise statement</a> | <a href="section.Statements.Delete.html#ebnf.deleteStatement">delete statement</a> | <a href="section.Statements.Link.html#ebnf.linkStatement">link statement</a> | <a href="section.Statements.Unlink.html#ebnf.unlinkStatement">unlink statement</a> | <a href="section.Statements.EventGeneration.html#ebnf.scheduleStatement">schedule statement</a> | <a href="section.Statements.EventGeneration.html#ebnf.cancelTimerStatement">cancel timer statement</a> | <a href="section.Statements.EventGeneration.html#ebnf.generateStatement">generate statement</a> | <a href="section.Statements.ConditionalProcessing.html#ebnf.ifStatement">if statement</a> | <a href="section.Statements.ConditionalProcessing.html#ebnf.caseStatement">case statement</a> | <a href="section.Statements.Looping.html#ebnf.forStatement">for statement</a> |
+      <a href="section.Statements.Looping.html#ebnf.whileStatement">while statement</a> | <a href="section.Statements.EmptyStatement.html#ebnf.emptyStatement">empty statement</a> ) , ';' , <a href="section.Pragmas.html#ebnf.pragmaList">pragma list</a>;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+</table></td></tr></table>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="section.Objects.Lifecycles.html">Prev</a> </td>
+<td width="20%" align="center"> </td>
+<td width="40%" align="right"> <a accesskey="n" href="section.Statements.CodeBlock.html">Next</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left" valign="top">8.6. Object Lifecycles </td>
+<td width="20%" align="center">
+<a accesskey="h" href="index.html">Home</a> | <a accesskey="t" href="bk01-toc.html">ToC</a>
+</td>
+<td width="40%" align="right" valign="top"> 9.1. Code Block</td>
+</tr>
+</table>
+</div>
+<div align="center">OFFICIAL</div>
+</body>
+</html>

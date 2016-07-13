@@ -113,6 +113,13 @@ the License.
       <topic label="Overview" href="Reference/Translation/HTML/Overview.htm" />
       <topic label="The Translation Process in Detail" href="Reference/Translation/HTML/Detail.htm" />
     </topic>
+    <topic label="MASL">
+      <topic label="MASL Conversion Guide" href="Reference/MASL/MASLConversionGuide/MASLConversionGuide.html"/>
+      <topic label="MASL Reference Manual" href="Reference/MASL/LanguageReference/current/html/bk01-toc.html"/>
+      <topic label="MASL Tutorial" href="Reference/MASL/tutorial/html/bk01-toc.html"/>
+      <topic label="masl2xtuml" href="Reference/MASL/masl2xtuml/masl2xtuml.html"/>
+      <topic label="xtuml2masl" href="Reference/MASL/xtuml2masl/xtuml2masl.html"/>
+    </topic>
 	<topic label="System Modeling with Components" href="Reference/UserInterface/SystemModeling/HTML/SystemModeling.htm">
     </topic>
     <topic label="Metamodel Reference">

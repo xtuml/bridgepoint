@@ -1,0 +1,644 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>8.7. Control Statements</title>
+<link rel="stylesheet" type="text/css" href="docbook.css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
+<meta name="keywords" content="MASL, Action Language, Action Semantics, UML, Unified Modelling Language, Shlaer Mellor">
+<link rel="home" href="index.html" title="MASL Tutorial">
+<link rel="up" href="MASLExamples.html" title="Chapter 8. MASL Examples">
+<link rel="prev" href="MASLExamplesFindStatements.html" title="8.6. Find Statements">
+<link rel="next" href="MASLExamplesArrays.html" title="8.8. Arrays">
+<link rel="preface" href="preface.html" title="Preface">
+<link rel="chapter" href="Types.html" title="Chapter 1. Types">
+<link rel="chapter" href="ExecutionControl.html" title="Chapter 2. Execution Control">
+<link rel="chapter" href="CompositeTypes.html" title="Chapter 3. Composite Types">
+<link rel="chapter" href="Exceptions.html" title="Chapter 4. Exceptions">
+<link rel="chapter" href="ObjectsandRelationships.html" title="Chapter 5. Objects and Relationships">
+<link rel="chapter" href="Actions.html" title="Chapter 6. Actions">
+<link rel="chapter" href="DeviceIO.html" title="Chapter 7. Device Input/Output">
+<link rel="chapter" href="MASLExamples.html" title="Chapter 8. MASL Examples">
+<link rel="index" href="ix01.html" title="Index">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div align="center">UNCLASSIFIED</div>
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center">8.7. Control Statements</th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="MASLExamplesFindStatements.html">Prev</a> </td>
+<th width="60%" align="center">Chapter 8. MASL Examples</th>
+<td width="20%" align="right"> <a accesskey="n" href="MASLExamplesArrays.html">Next</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h2 class="title">
+<a name="MASLExamplesControlStatements"></a>8.7. Control Statements</h2></div></div></div>
+<p>
+</p>
+<pre class="programlisting">
+
+declare
+  i    : integer := 1;
+  b    : integer := 0;
+  t    : string  := "hello";
+  f    : boolean := true;
+  date : Calendar::Date;
+  time : Calendar::Time_of_Day;
+  ds   : sequence of record_structure_type;
+  ia   : array (octal_type'range) of string;
+  ea   : array (colour_type'range) of string;
+  p    : instance of Pilot;
+  ins  : sequence of instance of Pilot;
+begin
+  //if statement
+  if (i/=1) then
+    raise Standard::constraint_error;
+  end if;
+  if (i=1) then
+    i:= 2;
+  end if;
+  if (i/=2) then
+    raise Standard::constraint_error;
+  end if;
+
+  if (i/=2) then
+    raise Standard::constraint_error;
+  else
+    i := 3;
+  end if;
+  if (i/=3) then
+    raise Standard::constraint_error;
+  end if;
+  if (i=3) then
+    i := 4;
+  else
+    raise Standard::constraint_error;
+  end if;
+  if (i/=4) then
+    raise Standard::constraint_error;
+  end if;
+
+  if (i/=4) then
+    raise Standard::constraint_error;
+  elsif (i/=4) then 
+    raise Standard::constraint_error;
+  end if;
+  if (i/=4) then
+    raise Standard::constraint_error;
+  elsif (i=4) then 
+    i := 5;
+  end if;
+  if (i/=5) then
+    raise Standard::constraint_error;
+  end if;
+
+  if (i/=5) then
+    raise Standard::constraint_error;
+  elsif (i=5) then 
+    i := 6;
+  else
+    raise Standard::constraint_error;
+  end if;
+  if (i/=6) then
+    raise Standard::constraint_error;
+  end if;
+
+  if (i/=6) then
+    raise Standard::constraint_error;
+  elsif (i/=6) then 
+    raise Standard::constraint_error;
+  else
+    i := 7;
+  end if;
+  if (i/=7) then
+    raise Standard::constraint_error;
+  end if;
+
+  if f then
+    f := false;
+  end if;
+  if f then 
+    raise Standard::constraint_error;
+  end if;
+
+  //case statement
+  i := 3;
+  case i is
+    when 1=&gt;
+      b:=1;
+    when 2=&gt;
+      b:=2;
+    when others=&gt;
+      b:=1000;
+  end case;
+  if (b/=1000) then
+    raise Standard::constraint_error;
+  end if;
+  i := 1;
+  case i is
+    when 1=&gt;
+      b:=1;
+    when 2=&gt;
+      b:=2;
+    when others=&gt;
+      b:=1000;
+  end case;
+  if (b/=1) then
+    raise Standard::constraint_error;
+  end if;
+  i := 2;
+  case i is
+    when 1=&gt;
+      b:=1;
+    when 2=&gt;
+      b:=2;
+    when others=&gt;
+      b:=1000;
+  end case;
+  if (b/=2) then
+    raise Standard::constraint_error;
+  end if;
+  i := 2;
+  case i is
+    when 1 | 2=&gt;
+      b:=1;
+    when 3=&gt;
+      b:=3;
+    when others=&gt;
+      b:=1000;
+  end case;
+  if (b/=1) then
+    raise Standard::constraint_error;
+  end if;
+
+  //while statement
+  i:=0;
+  b:=0;
+  while (i&gt;0) loop
+    i := i-1;
+    b := b+1;
+  end loop;
+  if (b/=0) then
+    raise Standard::constraint_error;
+  end if;
+  i:=0;
+  b:=0;
+  while (i&gt;=0) loop
+    i := i-1;
+    b := b+1;
+  end loop;
+  if (b/=1) then
+    raise Standard::constraint_error;
+  end if;
+  i:=2;
+  b:=0;
+  while (i&gt;=1) loop
+    i := i-1;
+    b := b+1;
+  end loop;
+  if (b/=2) then
+    raise Standard::constraint_error;
+  end if;
+
+  //exit statement
+  i:=0;
+  b:= 0;
+  while (i=0) loop
+    b:=b+1;
+    exit;
+  end loop;
+  if (b/=1) then
+    raise Standard::constraint_error;
+  end if;
+  i:=0;
+  b:= 0;
+  while (i=0) loop
+    b:=b+1;
+    exit when b=2;
+  end loop;
+  if (b/=2) then
+    raise Standard::constraint_error;
+  end if;
+
+  //for statement, int loop
+  b:=0;
+  for i in 1..10 loop
+    b:=b+1;
+    if (b/=i) then
+      raise Standard::constraint_error;
+    end if;
+  end loop;
+  if (b/=10) then
+    raise Standard::constraint_error;
+  end if;
+  b:=0;
+  for i in reverse 1..10 loop
+    b:=b+1;
+    if (b=i) then
+      raise Standard::constraint_error;
+    end if;
+  end loop;
+  if (b/=10) then
+    raise Standard::constraint_error;
+  end if;
+
+  //for statement, derived and subtypes of int loop
+  b:=0;
+  for i in octal_type'range loop
+    if (b/=i) then
+      raise Standard::constraint_error;
+    end if;
+    b:=b+1;
+  end loop;
+  if (b/=8) then
+    raise Standard::constraint_error;
+  end if;
+
+  //for statement, enum loop
+  t := "";
+  for e in SECOND..DAY loop
+    t := t &amp; "," &amp; e'image;
+  end loop;
+  if (t/=",SECOND,MINUTE,HOUR,DAY") then
+    raise Standard::constraint_error;
+  end if;
+  t := "";
+  for e in reverse SECOND..DAY loop
+    t := t &amp; "," &amp; e'image;
+  end loop;
+  if (t/=",DAY,HOUR,MINUTE,SECOND") then
+    raise Standard::constraint_error;
+  end if;
+
+  //for statement, enum type loop
+  t := "";
+  for e in Time_Unit'range loop
+    t := t &amp; "," &amp; e'image;
+  end loop;
+  if (t/=",MILLISECOND,SECOND,MINUTE,HOUR,DAY") then
+    raise Standard::constraint_error;
+  end if;
+
+  //for statement, data set loop 
+  for x in 1..3 loop
+    ds := ds &amp; (x,1.2,x'image,date,time,blue);
+  end loop;
+  t := "";
+  for x in ds'elements loop
+    t := t &amp; x.text_field;
+  end loop;
+  if (t /= "123") then
+    raise Standard::constraint_error;
+  end if;
+  t := "";
+  for x in ds'range loop
+    t := t &amp; ds[x].text_field;
+  end loop;
+  if (t /= "123") then
+    raise Standard::constraint_error;
+  end if;
+  t := "";
+  for x in ds'first..ds'last loop
+    t := t &amp; ds[x].text_field;
+  end loop;
+  if (t /= "123") then
+    raise Standard::constraint_error;
+  end if;
+  t := "";
+  for x in ds'last..ds'first loop
+    t := t &amp; ds[x].text_field;
+  end loop;
+  if (t /= "") then
+    raise Standard::constraint_error;
+  end if;
+  t := "";
+  for x in reverse ds'elements loop
+    t := t &amp; x.text_field;
+  end loop;
+  if (t /= "321") then
+    raise Standard::constraint_error;
+  end if;
+  t := "";
+  for x in reverse ds'range loop
+    t := t &amp; ds[x].text_field;
+  end loop;
+  if (t /= "321") then
+    raise Standard::constraint_error;
+  end if;
+  t := "";
+  for x in reverse ds'first..ds'last loop
+    t := t &amp; ds[x].text_field;
+  end loop;
+  if (t /= "321") then
+    raise Standard::constraint_error;
+  end if;
+  t := "";
+  for x in reverse ds'last..ds'first loop
+    t := t &amp; ds[x].text_field;
+  end loop;
+  if (t /= "") then
+    raise Standard::constraint_error;
+  end if;
+
+  //for statement, array loop integer index
+  for x in octal_type'range loop
+    ia[x] := x'image;
+  end loop;
+  t := "";
+  for x in ia'elements loop
+    t := t &amp; x;
+  end loop;
+  if (t /= "01234567") then
+    raise Standard::constraint_error;
+  end if;
+  t := "";
+  for x in ia'range loop
+    t := t &amp; ia[x];
+  end loop;
+  if (t /= "01234567") then
+    raise Standard::constraint_error;
+  end if;
+  t := "";
+  for x in ia'first..ia'last loop
+    t := t &amp; ia[x];
+  end loop;
+  if (t /= "01234567") then
+    raise Standard::constraint_error;
+  end if;
+  t := "";
+  for x in octal_type'range loop
+    t := t &amp; ia[x];
+  end loop;
+  if (t /= "01234567") then
+    raise Standard::constraint_error;
+  end if;
+  t := "";
+  for x in octal_type'first..octal_type'last loop
+    t := t &amp; ia[x];
+  end loop;
+  if (t /= "01234567") then
+    raise Standard::constraint_error;
+  end if;
+  t := "";
+  for x in ia'last..ia'first loop
+    t := t &amp; ia[x];
+  end loop;
+  if (t /= "") then
+    raise Standard::constraint_error;
+  end if;
+  t := "";
+  for x in octal_type'last..octal_type'first loop
+    t := t &amp; ia[x];
+  end loop;
+  if (t /= "") then
+    raise Standard::constraint_error;
+  end if;
+  t := "";
+  for x in reverse ia'elements loop
+    t := t &amp; x;
+  end loop;
+  if (t /= "76543210") then
+    raise Standard::constraint_error;
+  end if;
+  t := "";
+  for x in reverse ia'range loop
+    t := t &amp; ia[x];
+  end loop;
+  if (t /= "76543210") then
+    raise Standard::constraint_error;
+  end if;
+  t := "";
+  for x in reverse ia'first..ia'last loop
+    t := t &amp; ia[x];
+  end loop;
+  if (t /= "76543210") then
+    raise Standard::constraint_error;
+  end if;
+  t := "";
+  for x in reverse octal_type'range loop
+    t := t &amp; ia[x];
+  end loop;
+  if (t /= "76543210") then
+    raise Standard::constraint_error;
+  end if;
+  t := "";
+  for x in reverse octal_type'first..octal_type'last loop
+    t := t &amp; ia[x];
+  end loop;
+  if (t /= "76543210") then
+    raise Standard::constraint_error;
+  end if;
+  t := "";
+  for x in reverse ia'last..ia'first loop
+    t := t &amp; ia[x];
+  end loop;
+  if (t /= "") then
+    raise Standard::constraint_error;
+  end if;
+  t := "";
+  for x in reverse octal_type'last..octal_type'first loop
+    t := t &amp; ia[x];
+  end loop;
+  if (t /= "") then
+    raise Standard::constraint_error;
+  end if;
+
+  //for statement, array loop enum index
+  for x in colour_type'range loop
+    ea[x] := x'image;
+  end loop;
+  t := "";
+  for x in ea'elements loop
+    t := t &amp; x;
+  end loop;
+  if (t /= "redgreenblue") then
+    raise Standard::constraint_error;
+  end if;
+  t := "";
+  for x in ea'range loop
+    t := t &amp; ea[x];
+  end loop;
+  if (t /= "redgreenblue") then
+    raise Standard::constraint_error;
+  end if;
+  t := "";
+  for x in ea'first..ea'last loop
+    t := t &amp; ea[x];
+  end loop;
+  if (t /= "redgreenblue") then
+    raise Standard::constraint_error;
+  end if;
+  t := "";
+  for x in colour_type'range loop
+    t := t &amp; ea[x];
+  end loop;
+  if (t /= "redgreenblue") then
+    raise Standard::constraint_error;
+  end if;
+  t := "";
+  for x in colour_type'first..colour_type'last loop
+    t := t &amp; ea[x];
+  end loop;
+  if (t /= "redgreenblue") then
+    raise Standard::constraint_error;
+  end if;
+  t := "";
+  for x in ea'last..ea'first loop
+    t := t &amp; ea[x];
+  end loop;
+  if (t /= "") then
+    raise Standard::constraint_error;
+  end if;
+  t := "";
+  for x in colour_type'last..colour_type'first loop
+    t := t &amp; ea[x];
+  end loop;
+  if (t /= "") then
+    raise Standard::constraint_error;
+  end if;
+  t := "";
+  for x in reverse ea'elements loop
+    t := t &amp; x;
+  end loop;
+  if (t /= "bluegreenred") then
+    raise Standard::constraint_error;
+  end if;
+  t := "";
+  for x in reverse ea'range loop
+    t := t &amp; ea[x];
+  end loop;
+  if (t /= "bluegreenred") then
+    raise Standard::constraint_error;
+  end if;
+  t := "";
+  for x in reverse ea'first..ea'last loop
+    t := t &amp; ea[x];
+  end loop;
+  if (t /= "bluegreenred") then
+    raise Standard::constraint_error;
+  end if;
+  t := "";
+  for x in reverse colour_type'range loop
+    t := t &amp; ea[x];
+  end loop;
+  if (t /= "bluegreenred") then
+    raise Standard::constraint_error;
+  end if;
+  t := "";
+  for x in reverse colour_type'first..colour_type'last loop
+    t := t &amp; ea[x];
+  end loop;
+  if (t /= "bluegreenred") then
+    raise Standard::constraint_error;
+  end if;
+  t := "";
+  for x in reverse ea'last..ea'first loop
+    t := t &amp; ea[x];
+  end loop;
+  if (t /= "") then
+    raise Standard::constraint_error;
+  end if;
+  t := "";
+  for x in reverse colour_type'last..colour_type'first loop
+    t := t &amp; ea[x];
+  end loop;
+  if (t /= "") then
+    raise Standard::constraint_error;
+  end if;
+
+  //for statement, instance set loop
+  p:= create Pilot(age=&gt;20,name=&gt;"1");
+  ins := ins &amp; p;
+  p:= create Pilot(age=&gt;20,name=&gt;"2");
+  ins := ins &amp; p;
+  p:= create Pilot(age=&gt;20,name=&gt;"3");
+  ins := ins &amp; p;
+  t := "";
+  for x in ins'elements loop
+    t := t &amp; x.name;
+  end loop;
+  if (t /= "123") then
+    raise Standard::constraint_error;
+  end if;
+  t := "";
+  for x in ins'range loop
+    t := t &amp; ins[x].name;
+  end loop;
+  if (t /= "123") then
+    raise Standard::constraint_error;
+  end if;
+  t := "";
+  for x in ins'first..ins'last loop
+    t := t &amp; ins[x].name;
+  end loop;
+  if (t /= "123") then
+    raise Standard::constraint_error;
+  end if;
+  t := "";
+  for x in ins'last..ins'first loop
+    t := t &amp; ins[x].name;
+  end loop;
+  if (t /= "") then
+    raise Standard::constraint_error;
+  end if;
+  t := "";
+  for x in reverse ins'elements loop
+    t := t &amp; x.name;
+  end loop;
+  if (t /= "321") then
+    raise Standard::constraint_error;
+  end if;
+  t := "";
+  for x in reverse ins'range loop
+    t := t &amp; ins[x].name;
+  end loop;
+  if (t /= "321") then
+    raise Standard::constraint_error;
+  end if;
+  t := "";
+  for x in reverse ins'first..ins'last loop
+    t := t &amp; ins[x].name;
+  end loop;
+  if (t /= "321") then
+    raise Standard::constraint_error;
+  end if;
+  t := "";
+  for x in reverse ins'last..ins'first loop
+    t := t &amp; ins[x].name;
+  end loop;
+  if (t /= "") then
+    raise Standard::constraint_error;
+  end if;
+end;
+
+</pre>
+<p>
+</p>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="MASLExamplesFindStatements.html">Prev</a> </td>
+<td width="20%" align="center"><a accesskey="u" href="MASLExamples.html">Up</a></td>
+<td width="40%" align="right"> <a accesskey="n" href="MASLExamplesArrays.html">Next</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left" valign="top">8.6. Find Statements </td>
+<td width="20%" align="center">
+<a accesskey="h" href="index.html">Home</a> | <a accesskey="t" href="bk01-toc.html">ToC</a>
+</td>
+<td width="40%" align="right" valign="top"> 8.8. Arrays</td>
+</tr>
+</table>
+</div>
+<div align="center">UNCLASSIFIED</div>
+</body>
+</html>

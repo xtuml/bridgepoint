@@ -27,16 +27,21 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PlatformUI;
-
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.Package_c;
 import org.xtuml.bp.core.common.ClassQueryInterface_c;
 import org.xtuml.bp.core.ui.perspective.BridgePointPerspective;
 import org.xtuml.bp.test.common.CanvasTestUtils;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.ui.canvas.CanvasPlugin;
 import org.xtuml.bp.ui.canvas.test.CanvasTest;
 import org.xtuml.bp.ui.explorer.ExplorerView;
 import org.xtuml.bp.ui.graphics.editor.GraphicalEditor;
 
+@RunWith(OrderedRunner.class)
 public class IOMdlUnicodeTestGenerics extends CanvasTest {
 
 	IWorkbenchPage m_wp = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
@@ -47,14 +52,15 @@ public class IOMdlUnicodeTestGenerics extends CanvasTest {
 	
 	static String workspace_path = "";
     
-	public IOMdlUnicodeTestGenerics(String arg0) {
-		super("org.xtuml.bp.io.mdl.test", arg0);
+	public IOMdlUnicodeTestGenerics(){
+		super("org.xtuml.bp.io.mdl.test", null);
 	}
 	protected String getResultName() {
 		return "Unicode" + "_" + test_id;
 	}	
 
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		super.setUp();
 		if (workspace_path == null || workspace_path.equals(""))
 		{
@@ -92,7 +98,8 @@ public class IOMdlUnicodeTestGenerics extends CanvasTest {
 		loadProject("unicodetest");
 	}
 
-	protected void tearDown() throws Exception {
+	@After
+	public void tearDown() throws Exception {
 		super.tearDown();
 	}
 	public void setGenerateResults() {
@@ -106,7 +113,8 @@ public class IOMdlUnicodeTestGenerics extends CanvasTest {
 
 	}
 
-    public void testUnicode() {
+    @Test
+	public void testUnicode() {
         test_id = "testGenerics";
         Package_c uut = Package_c.getOneEP_PKGOnR1405(m_sys, new ClassQueryInterface_c() {
             public boolean evaluate(Object candidate) {

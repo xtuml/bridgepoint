@@ -34,11 +34,13 @@ import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.ide.IDE;
-
-import org.xtuml.bp.core.ModelClass_c;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.Operation_c;
-import org.xtuml.bp.core.common.ClassQueryInterface_c;
 import org.xtuml.bp.test.common.BaseTest;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.test.common.TestingUtilities;
 import org.xtuml.bp.test.common.TextEditorUtils;
 import org.xtuml.bp.ui.text.ModelAdapter;
@@ -47,26 +49,30 @@ import org.xtuml.bp.ui.text.activity.ActivityEditor;
 import org.xtuml.bp.ui.text.activity.ActivityEditorInputFactory;
 import org.xtuml.bp.ui.text.placeholder.PlaceHolderManager;
 
+@RunWith(OrderedRunner.class)
 public class I2046IncorrectPlaceHolderMappingTest  extends BaseTest {
 
     static String projectName = "org.xtuml.bp.core";
     static String modelName = "ooaofooa";
 
-    public I2046IncorrectPlaceHolderMappingTest(String name) throws CoreException {
-        super(projectName, name); 
-    }
+//    public I2046IncorrectPlaceHolderMappingTest(String name) throws CoreException {
+//        super(projectName, name); 
+//    }
     
-    protected void setUp() throws Exception {
+    @Before
+	public void setUp() throws Exception {
         super.setUp();
         TestingUtilities.importDevelopmentProjectIntoWorkspace(projectName);
     }
 
     
-	protected void tearDown() throws Exception {
+	@After
+	public void tearDown() throws Exception {
 		super.tearDown();
 	}
 
-    public void testCorrectPlaceHolderMappingForSameNameActivities(){
+    @Test
+	public void testCorrectPlaceHolderMappingForSameNameActivities(){
         // Fetch all operations with same name
         Operation_c[] operations = new Operation_c[0];
 // TODO: Bob - FIXME - This was left after GPs were implemented, and SPs were

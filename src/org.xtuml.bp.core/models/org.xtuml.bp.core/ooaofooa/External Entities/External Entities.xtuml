@@ -1936,7 +1936,7 @@ INSERT INTO S_BPARM
 INSERT INTO S_BRG
 	VALUES ("97dc6905-4d92-4135-9d67-fab99ffd9c52",
 	"b69262ac-62eb-4030-b329-b967033f0ee0",
-	'collectModelElementsNames',
+	'reportElementDowngraded',
 	'This bridge will add element names that are affected by the datatype/Interfacce
 being deleted to a list that is kept in the TransactionManager . 
 The TransactionManager will check this list and display a confirmation
@@ -1945,26 +1945,35 @@ Translate:native
 ',
 	0,
 	"ba5eda7a-def5-0000-0000-000000000000",
-	'TransactionManager.collectModelElementsNames(p_Elementtype,p_Elementname);',
+	'TransactionManager.reportElementDowngraded(p_Rgodowngraded, p_Rto, p_Relationship);',
 	0,
 	'');
 INSERT INTO S_BPARM
 	VALUES ("fca3cf3f-a0ed-4315-9d88-b606c3889ee0",
 	"97dc6905-4d92-4135-9d67-fab99ffd9c52",
-	'elementName',
-	"ba5eda7a-def5-0000-0000-000000000004",
+	'rgoDowngraded',
+	"bc3722c8-5188-4529-8519-cf9eb9816b17",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
 	'');
 INSERT INTO S_BPARM
-	VALUES ("aaf7ff3f-86ac-4d6d-98fc-a03a7e7cad03",
+	VALUES ("1d07acbd-74ca-469e-bf5c-33c4adae6080",
 	"97dc6905-4d92-4135-9d67-fab99ffd9c52",
-	'elementType',
-	"ba5eda7a-def5-0000-0000-000000000004",
+	'rto',
+	"bc3722c8-5188-4529-8519-cf9eb9816b17",
 	0,
 	'',
 	"fca3cf3f-a0ed-4315-9d88-b606c3889ee0",
+	'');
+INSERT INTO S_BPARM
+	VALUES ("41cdbaee-61c3-42d9-a8f1-273b9f2687dc",
+	"97dc6905-4d92-4135-9d67-fab99ffd9c52",
+	'relationship',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"1d07acbd-74ca-469e-bf5c-33c4adae6080",
 	'');
 INSERT INTO S_BRG
 	VALUES ("e1aec319-656f-4f73-884d-c58690aaaec6",

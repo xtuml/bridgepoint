@@ -27,6 +27,7 @@
   .select many statements related by blck->ACT_SMT[R602]
   .select many else_statements  related by blck->ACT_SMT[R602]->ACT_E[R603]->ACT_SMT[R603]
   .select many elif_statements  related by blck->ACT_SMT[R602]->ACT_EL[R603]->ACT_SMT[R603]
+  .select any last_statement from instances of ACT_SMT where (false)
   .assign statements = statements - else_statements
   .assign statements = statements - elif_statements
   .for each last_statement in statements

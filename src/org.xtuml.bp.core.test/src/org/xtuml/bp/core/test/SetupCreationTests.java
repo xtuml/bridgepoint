@@ -29,6 +29,10 @@ import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.PlatformUI;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.osgi.framework.Bundle;
 import org.xtuml.bp.core.ActorParticipant_c;
 import org.xtuml.bp.core.CorePlugin;
@@ -43,6 +47,7 @@ import org.xtuml.bp.core.common.ClassQueryInterface_c;
 import org.xtuml.bp.core.common.NonRootModelElement;
 import org.xtuml.bp.core.common.Transaction;
 import org.xtuml.bp.test.common.CanvasTestUtils;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.test.common.TestingUtilities;
 import org.xtuml.bp.test.common.TextEditorUtils;
 import org.xtuml.bp.test.common.UITestingUtilities;
@@ -55,13 +60,14 @@ import org.xtuml.bp.ui.text.activity.ActivityEditorInputFactory;
 import org.xtuml.bp.ui.text.description.DescriptionEditorInputFactory;
 import org.xtuml.bp.utilities.ui.CanvasUtilities;
 
+@RunWith(OrderedRunner.class)
 public class SetupCreationTests extends CanvasTest {
 
 	String test_id = null;
 	private boolean generateResults = getGenerateResults();
 
-	public SetupCreationTests(String name) throws CoreException {
-		super("org.xtuml.bp.core.test", name);
+	public SetupCreationTests() throws CoreException {
+		super("org.xtuml.bp.core.test", null);
 
 		CorePlugin.getDefault().getPreferenceStore().setValue(BridgePointPreferencesStore.USE_DEFAULT_NAME_FOR_CREATION,
 				true);
@@ -81,14 +87,16 @@ public class SetupCreationTests extends CanvasTest {
 		return "TigerNatureTestSetup" + "_" + test_id;
 	}
 
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		super.setUp();
 		Display d = Display.getCurrent();
 		while (d.readAndDispatch());
 		Ooaofooa.setPersistEnabled(true);
 	}
 
-	protected void tearDown() throws Exception {
+	@After
+	public void tearDown() throws Exception {
 		super.tearDown();
 	}
 
@@ -131,16 +139,18 @@ public class SetupCreationTests extends CanvasTest {
 	 * the expected results are not correct
 	 */
 	// Enforce ordering of the test functions
-	public void testSetupCreationTests() throws CoreException {
-		dotestSetupInitialProjects();
-		dotestCreatePackage();
-		dotestCreatePackageInPackage();
-		dotestCreateSequenceInPackage();
-		dotestCreateUseCaseDiagramInSystem();
-		dotestCreatePackageInPackageInPackage();
-	}
+//	@Test
+//	public void testSetupCreationTests() throws CoreException {
+//		dotestSetupInitialProjects();
+//		dotestCreatePackage();
+//		dotestCreatePackageInPackage();
+//		dotestCreateSequenceInPackage();
+//		dotestCreateUseCaseDiagramInSystem();
+//		dotestCreatePackageInPackageInPackage();
+//	}
 
-	public void dotestSetupInitialProjects() throws CoreException {
+	@Test
+	public void testSetupInitialProjects() throws CoreException {
 		Ooaofooa.setPersistEnabled(true);
 		IProject testproject1 = TestingUtilities.createProject("Test Project 1");
 		SystemModel_c sysModProject1 = SystemModel_c.SystemModelInstance(Ooaofooa.getDefaultInstance(),
@@ -249,7 +259,8 @@ public class SetupCreationTests extends CanvasTest {
 		CanvasTestUtils.openCanvasEditor(sequence);
 	}
 
-	public void dotestCreatePackage() throws CoreException {
+	@Test
+	public void testCreatePackage() throws CoreException {
 		test_id = "CreatePackage";
 		final String projectName = "Package Test Project";
 		IProject project = TestingUtilities.createProject(projectName);
@@ -279,7 +290,8 @@ public class SetupCreationTests extends CanvasTest {
 		validateOrGenerateResults(ce, generateResults, true);
 	}
 
-	public void dotestCreatePackageInPackage() {
+	@Test
+	public void testCreatePackageInPackage() {
 		test_id = "CreatePackageInPackage";
 		final String projectName = "Package Test Project";
 		SystemModel_c system = SystemModel_c.SystemModelInstance(Ooaofooa.getDefaultInstance(),
@@ -309,7 +321,8 @@ public class SetupCreationTests extends CanvasTest {
 		validateOrGenerateResults(ce, generateResults, true);
 	}
 
-	public void dotestCreateSequenceInPackage() {
+	@Test
+	public void testCreateSequenceInPackage() {
 		test_id = "CreateSequenceInPackage";
 		final String projectName = "Package Test Project";
 		SystemModel_c system = SystemModel_c.SystemModelInstance(Ooaofooa.getDefaultInstance(),
@@ -342,7 +355,8 @@ public class SetupCreationTests extends CanvasTest {
 		validateOrGenerateResults(ce, generateResults, true);
 	}
 
-	public void dotestCreateUseCaseDiagramInSystem() {
+	@Test
+	public void testCreateUseCaseDiagramInSystem() {
 		test_id = "CreateUseCaseDiagramInSystem";
 		final String projectName = "Package Test Project";
 		SystemModel_c system = SystemModel_c.SystemModelInstance(Ooaofooa.getDefaultInstance(),
@@ -394,7 +408,8 @@ public class SetupCreationTests extends CanvasTest {
 		}
 	}
 
-	public void dotestCreatePackageInPackageInPackage() {
+	@Test
+	public void testCreatePackageInPackageInPackage() {
 		test_id = "CreatePackageInPackageInPackage";
 		final String projectName = "Package Test Project";
 		SystemModel_c system = SystemModel_c.SystemModelInstance(Ooaofooa.getDefaultInstance(),

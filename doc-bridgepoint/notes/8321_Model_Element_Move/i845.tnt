@@ -1,0 +1,301 @@
+Tiger Project Technical Note
+Multi file persistence
+
+Abstract
+--------
+This note captures the initial brain-storming done regarding the multi-level 
+configurable items.
+
+History
+-------
+ initial - i845-062405-01.rvm
+
+Document References
+-------------------
+[1] Documentation/internal/technical/Persistence/i392.ant
+[2] Documentation/internal/technical/Model_Explorer-Outline_View/i738.dnt
+[3] Documentation/internal/technical/Persistence/i845.ant
+
+Design
+------
+1. Directory Structure    
+
+The analysis note [3] specifies one probable directory structure. The following  
+is another alternative to that is speficied:
+
+1.1 Alaternative Directory Structure
+1.3 Conclusion
+
+Considering the benefits achieved by the analysis note hierarchy and the 
+shortcomings of a flat structure, it is decided to use the following hierarchy:
+
++-+ projectname Project 
+  |
+  +-+ models
+    |
+    + projectname.xtuml(system data)
+    |
+    +-+ domain1
+    | |
+    | + domain1.xtuml (data for domain 1) 
+    | |
+    | +-+ subsystem1
+    |   |
+    |   + subsystem1.xtuml (data for subsystem 1)
+    |   |
+    |   +-+ statemachine1
+    |     |
+    |     + statemachine1.xtuml (data for state machine 1)
+    |
+    +-+ domain2
+    | |
+    | + domain2.xtuml (data for domain 2)
+    |
+    etc.
+
+Also mapping file is no longer required. 
+
+The name collision that can happen between components at the same level shall be 
+handled by appending the digits.  
+    
+2. Architecture
+
+Instead of using seperate proxy classes, a design as proposed under i738 [2] 
+is pursued. The design is as follows:
+Each configurable model element class shall act as its own proxy. The instance 
+is completely populated (i.e. lazy loaded) once the associate file is loaded.
+
+2.1  Cache Mechanism
+
+2.1.1  Configurable Element / Proxy Classes
+
+The coloring file bp.core/color/ooaofooa_package_spec.clr is already used to 
+specify proxy classes. Further elements shall be added to it in the similar 
+manner. The class for such model elements is generated with implementations of 
+following methods:
+- isProxy() 
+  Returns 'true' if the model element is not yet loaded.
+  
+- migrateFromProxy()  
+  Loads the associated configured component from the resource.
+
+When a model element class is not marked as supporting proxies, the class is 
+generated with an implementation of isProxy() that always returns false,  and 
+a migrateFromProxy() that does nothing.
+
+2.1.2  Information to Cache
+
+All the attributes, of those model elements that are defined as seperately 
+configurable, shall be cached automatically in their parent model element. To 
+updated the cached element during load, a mechanism is followed to avoid 
+duplicate insertion of model elements. This mechanism is described in 
+section 2.2.2 below.
+
+Cache Issues:
+- How do we handle caching of returned values from methods based on parameters. 
+For example value returned from the method get_compartment_text(int) is based 
+on the paramter value, hence we can not use a single variable to store the value
+of the method. This problem is evident in the case of Imported Class in a 
+subsystem.
+
+2.2 Persistence Mechanism
+
+2.2.1  Model Root Hierarchy
+
+Each seperately configurable model element act as a Model Root. While 
+all model roots in the model shall also have parent child relationship. A lot of 
+existing code specifically written for Ooaofooa can be refactored and made 
+generic.
+
+ModelRoot shall implement the interface IPersistableModelElement.
+
+- IPersistableModelElement
+  . persist()
+    Uses the AbstractModelExportFactory class to get the appropriate export 
+    class for a given model element.
+  
+  . IResource getResource()
+    The resource returned from this method may or may not exist. Avoid calling 
+    exists() method on the returned resource, instead use isSatisfied() if 
+    needed.
+  
+  . ModelElement getParent() 
+    The parent model element in the persistence hierarchy.
+  
+  . boolean isSatisfied()
+    Returns false if the underlying file does not exist.
+  
+2.2.1.1
+
+Unify code in OoaofooaBase and EclipseOoafooa as ModelRootBase and 
+EclipseBasedModelRoot.
+
+2.2.1.2  Problem in navigation using the instance list
+
+It is already a known problem that accessing Domain instances from System Model 
+(i.e. calling  Domain_c.getManyS_DOMsOnR28(SystemModel_c target) method) does
+not return the associated domain instance since the SystemModel_c has a 
+different ModelRoot then the ModelRoot of Domain_c and ModelRoot contains all 
+the InstanceLists of all model elements).
+
+So In case where each seperately configurable model element has its own 
+ModelRoot, this problem will make various such navigations void which is 
+definitely not acceptable. 
+
+The getMany*(NonRootModelElement target) method uses the instance list of the 
+ModelRoot taken from the 'target' parameter. Since these methods are 'static' it
+is also not possible to get the ModelRoot of the calling class itself.
+
+2.2.1.3  Seperating instance list management and persistence management.
+
+To avoid the situation considered earlier in section 2.2.1.2 it is suggested 
+to delegate the responsibility of maintining InstanceLists to a single ModelRoot 
+which shall be at the top level in the ModelRoot hierarchy (i.e. in our case the 
+ModelRoot managing Domain_c). 
+While the other seperately configurable model elements shall continue to perform
+other responsibilties such as persistence.
+
+- Hence every model element created shall added its instance to the tope most
+  parent model Root.
+- Events are fired using the top model root. 
+
+All child ModelRoot _must not_ have elements in their instance lists. An 
+attempt to add an instance in a ModelRoot that is not the top most parent, shall 
+throw an Exception.
+
+Following method shall be added to the ModelRoot class:
+
+. boolean isIntanceListManager()
+  This value must be set while creating a ModelRoot instance.
+
+2.2.2  Generate export & Import classes
+Generate seperate classes (like ExportModel class) for each sperately configured 
+model element using the already available code in the io.mdl. This would also 
+require writing the proxy file while exporting and fixing the proxy instances 
+as soon as an import as done. 
+
+Since the proxy classes are saved with their unique_id's importing the original 
+object would allow udpating the information of the proxy instance as well. This 
+would also allow to mapping/resolving those instances whose certain other 
+attributes may have changed.
+
+2.2.3  Listeners update
+However the model change propagation mechanism shall be updated. This would be 
+done by first propagating the event to the top level parent which will then 
+distribute it to its children.
+It is possible that a change in one model element lying in a configurable 
+component can effect other configurable component(s). Hence the event must be 
+distributed amongst all configurable components(s) in a domain (i.e. the root 
+that does not have a parent).
+
+2.2.4
+To allow the dynamic lazy loading support, all the getAny/Many*() methods 
+are updated to check if the element is proxy and if so, they should call 
+migrateFromProxy(). This code shall only be generated for those classes 
+that are colored as proxy.
+
+2.2.5  Proxy Migration Mechanism
+
+Let us consider a scenario:
+Consider a Data type package is loaded from a file into the memory. The data 
+type package will also hold proxy instances of the 'Attributes' to which 
+Datatypes were related. The ModelRoot for the datatype package (call it R1 for 
+further reference) shall now contain in its instance list proxy instances of 
+Attributes. Let's suppose that the original Subsystem that contained some of 
+those proxy Attributes was loaded in its own ModelRoot (call it R2). 
+As a principle some of the Attributes were removed from the instance list of 
+R1 since their original instance were added to R2. All relations between 
+Datatypes and Attributes that were broken are recreated with the instances of 
+Attributes in R2.
+
+Now in case where one needs to get all the attributes related to a certain data 
+type using getMany*() navigation function, it is required to search both the
+Model Roots R1 and R2.
+
+2.2.5.1  Approach 1.
+
+In one approach, the proxy intances will be persisted in alien file but when
+loaded in memory, their instances will be created in home model root. The model
+root however, will still be marked as unloaded. On access to proxy instance, 
+that will require other instances to be loaded will result in loading of the 
+model and migration of proxies to the original model element. This will allow 
+us to consider use of same instance to use as proxy and real loaded model 
+element.
+
+2.2.6  Persistance Format
+
+Goals for the selction of format:
+- Improved performance
+- Partial Loading
+
+Format alternatives:
+- Current SQL statements based file
+- Java's native persistence/serialization API.
+
+3. Mapping existing behavior onto mulitple files
+
+3.1  Behavior in the Navigator View
+3.1.1  Copy / Paste
+    
+Copy/Pasting a new configurable child component in a directory (e.g. a 
+subsystem pasted in the Subsytems folder) would not associate the subsystem 
+with any domain. Instead an 'Orphaned' category will be shown in the model 
+explorer. A user can then right click the children in the Orphaned category 
+and associate that to any parent. This linking support can not be provided 
+untill Canvas 4 work is done, as it shall require adding the subsystem's 
+graphical element into the DPD.
+As per History [i845-062405-01.rvm], Comment 07 this scheme is not intended and 
+as per design mentioned section 1.3 a pasted component physical location defines
+its hierarchy. Also this model element will be shown in the model explorer view 
+with its name and then can be loaded when needed.
+  
+3.1.2  Double Click
+Double clicking any configured component will open it in its default editor. 
+The parent of that component will only be loaded if required (the lazy laoding 
+rules apply). The parent can be found as per the physical hierarchy.
+
+3.1.2.1  Independent treatment of a model file
+
+
+3.2 Handling name conflict
+It was suggested earlier that, to avoid resource naming conflict, both the 
+file name and the model element name must be appended with digits. It is also 
+believed that a facility can be provided to the user to change the resource name 
+without changing the model element name or vice versa. 
+
+The name conflict scenario can easily appear while creating a new configurable 
+component. The current behavior of the Tiger can create as many "Unnamded 
+<element>" model elements. But since new files shall be created in case of 
+a configrurbale component, such as subsystem, we have two options:
+- Avoid resource naming conflict by adding a 1 to the name, and still keep the 
+  file and resoruce name in-sync.
+  
+- Avoid resource naming conflict by adding a 1 to the resrouce name only, but 
+  keeping the model element name same as the old one.
+
+3.3 Updates in the Compare
+Compare needs to be updated to provide support for comparing two configurable 
+components independently of thier parents and children. 
+
+- Difference between collecitve and independent comparison 
+  - Usage of mapping file and its advantage in case of a collective comparison.
+
+
+3.4 Updating Model Explorer behavior
+The model explorer behavior needs to be generalized for handling the CVS 
+operations on all the confgiurable components.
+
+3.5 Updates in the PlaceHolder mechansim
+The location for the creation of PlaceHolder files shall now change, and they 
+will be created in their respective modelRoot's directory.
+
+4  Extended Features
+ 
+Following features that are related to this module, but are not discussed under 
+this this issue:
+-  Support of linking/importing model components across different domains and 
+   systems. 
+-  Migration of old .xtuml file to this new hierarchy.
+
+End
+---

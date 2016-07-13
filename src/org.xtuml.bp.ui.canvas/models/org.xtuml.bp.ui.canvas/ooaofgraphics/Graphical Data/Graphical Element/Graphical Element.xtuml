@@ -957,6 +957,37 @@ User_Visible:true',
 	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
+INSERT INTO O_NBATTR
+	VALUES ("8bed6453-7065-459b-9f3b-262716145a8d",
+	"9d561ba9-b78b-4769-9ab2-c793c6b1b46c");
+INSERT INTO O_BATTR
+	VALUES ("8bed6453-7065-459b-9f3b-262716145a8d",
+	"9d561ba9-b78b-4769-9ab2-c793c6b1b46c");
+INSERT INTO O_ATTR
+	VALUES ("8bed6453-7065-459b-9f3b-262716145a8d",
+	"9d561ba9-b78b-4769-9ab2-c793c6b1b46c",
+	"b7b151e3-cf02-41ee-85bf-2d6f37b0e805",
+	'connectors_created_during_reconciliation',
+	'Persistent:false
+User_Visible:false
+This is used during graphics reconciliation. Specifically 
+during GD_ARS.reconcileConnectorsNoExistingGraphics. In that 
+operation we iterations over every shape in a container and
+find each ooaofooa connector for the shape. Given one such
+connector we the recursively call this same operation to find the
+otehr side, if there is one, for the connector. At the high level,
+we iterate over all shapes in the container. If side1 was already
+operated on, then all its connector will have been created. This
+flag is used indicate that this occured. This is then used as we
+operate on side2 to assure that we do not create that same
+connector again.
+',
+	'',
+	'connectors_created_during_reconciliation',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000001",
+	'',
+	'');
 INSERT INTO O_ID
 	VALUES (0,
 	"9d561ba9-b78b-4769-9ab2-c793c6b1b46c");

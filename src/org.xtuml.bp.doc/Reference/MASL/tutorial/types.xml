@@ -1,0 +1,1020 @@
+<!-- 
+  UK Crown Copyright (c) 2016. All Rights Reserved
+-->
+<!-- Converted by db4-upgrade version 1.0 -->
+<chapter xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="Types"><info><title>Types</title></info>
+  
+
+  <para>This section starts by considering the declaration of entities, the
+  assignment of values to them and the ideas of scope and visibility. We then
+  introduce the important concepts of type, subtype and constraints. As
+  examples of types, the remainder of the chapter discusses the numeric types
+  integer and real, enumeration types in general, the type boolean, the date
+  and time types, the character and string types and the operations on
+  them.</para>
+
+  <section xml:id="TypesDeclarationsandAssignments"><info><title>Declarations and Assignments</title></info>
+    
+
+    <para>Values can be stored in entities, which are declared to be of a
+    specific type. Entities are either variables, in which case their value
+    may change (or vary) as the program executes, or they may be constants, in
+    which case they keep their same initial value throughout their life. A
+    variable is introduced into a program by a declaration, which consists of
+    the name (that is, the identifier) of the variable followed by a colon and
+    then the name of the type. This can then optionally be followed by the :=
+    symbol and an initial value. The declaration terminates with a semicolon.
+    Thus, we might write: <informalexample>
+        <programlisting>  x : integer;
+  y : integer := 29;</programlisting>
+      </informalexample> This introduces the variable <varname>x</varname> of
+    type <type>integer</type> but gives it no particular initial value and
+    then the variable <varname>y</varname> and gives it the specific initial
+    value of <literal>29</literal>. If a variable is declared and not given an
+    initial value then great care must be taken not to use the undefined value
+    of the variable until one has been properly given to it. A common way to
+    give a value to a variable is by using an assignment statement. In this,
+    the identifier of the variable is followed by := and then some expression
+    giving the new value. The statement terminates with a semicolon. An
+    example might look like: <informalexample>
+        <programlisting>  declare
+    x : integer;
+    y : integer := 29;
+  begin
+    x := 14;
+    y := x + 71;
+  end;</programlisting>
+      </informalexample> Both are valid assignment statements and place new
+    values in <varname>x</varname> and <varname>y</varname> thereby
+    overwriting their previous values. Note that <literal>:=</literal> can be
+    followed by any expression provided that it produces a value of the type
+    of the variable being assigned to.</para>
+
+    <para>A constant is declared in a similar way to a variable by inserting
+    the reserved word <literal>readonly</literal> after the colon. Of course,
+    a constant must be initialised in its declaration otherwise it would be
+    useless. An example might be: <informalexample>
+        <programlisting>  e : readonly real := 2.718281828;</programlisting>
+      </informalexample></para>
+  </section>
+
+  <section xml:id="TypesBlocksandScope"><info><title>Blocks and Scopes</title></info>
+    
+
+    <para><abbrev>MASL</abbrev> carefully distinguishes between declarations,
+    which introduce new identifiers, and statements that do not. It is clearly
+    only sensible that the declarations which introduce new identifiers should
+    precede the statements which manipulate them. Accordingly, declarations
+    and statements occur in separate places in the program text. The simplest
+    fragment of text, which includes declarations and statements, is a block.
+    A block commences with the reserved word declare, some declarations,
+    begin, some statements and concludes with the reserved word end and the
+    terminating semi-colon. A trivial example is: <informalexample>
+        <programlisting>  declare
+    x : integer := 2;       // declarations here
+  begin
+    x := x + 63;            // statements here
+  end;</programlisting>
+      </informalexample></para>
+
+    <para>A block is itself an example of a statement and so one of the
+    statements in its body could be another block. This textual nesting of
+    blocks can continue indefinitely. Since a block is a statement it can be
+    executed like any other statement. When this happens the declarations in
+    its declarative part (the bit between the <literal>declare</literal> and
+    the <literal>begin</literal>) are elaborated in order and then the
+    statements in the body (between the <literal>begin</literal> and the
+    <literal>end</literal>) are executed in the usual way. Note the
+    terminology, we elaborate declarations and execute statements. All that
+    the elaboration of a declaration does is make the thing being declared
+    come into existence and then evaluate and assign any initial value to it.
+    When we come to the end of the block all the things, which were declared
+    in the block automatically, cease to exist.</para>
+
+    <para>The scope determines both the visibility and lifetime of names
+    defined within that scope. For example:<informalexample>
+        <programlisting>  declare
+    x : integer := 47;
+  begin
+    // only x available
+    declare
+      y : integer := 3;
+    begin
+      // both x and y available
+    end;
+    // only x available, y out of scope
+  end;</programlisting>
+      </informalexample>A variable declared within a scope is available only
+    to the end of that scope. Note that you can do the
+    following:<informalexample>
+        <literallayout>  declare
+    x : integer := 12;
+  begin
+    declare
+      x : integer := 96;   // previous x hidden
+    begin
+
+    end;
+  end;</literallayout>
+      </informalexample>The redeclaration of <varname>x</varname> in the inner
+    block is allowed, but this hides the previous declaration, contained in
+    the outer scope.</para>
+  </section>
+
+  <section xml:id="TypesTypes"><info><title>Types</title></info>
+    
+
+    <para>A type is characterised by a set of values, and a set of operations,
+    which implement the fundamental aspects of its semantics. Every type has a
+    name, which is introduced in a type declaration. Moreover, every type
+    declaration introduces a new type quite distinct from any other type. The
+    set of values belonging to two distinct types are themselves quite
+    distinct al-though in some cases the actual lexical form of the values may
+    be identical – which one is meant at any point is determined by the
+    context. Values of one type cannot be assigned to variables of another
+    type. This is the fundamental rule of strong typing.</para>
+
+    <para>A type declaration consists of the reserved word
+    <literal>type</literal>, the identifier to be associated with the type,
+    the reserved word <literal>is</literal> and then the definition of the
+    type followed by the terminating semicolon. The type definition between
+    <literal>is</literal> and the semicolon gives in some way the set of
+    values belonging to the type. As a concrete example, consider the
+    following:<informalexample>
+        <programlisting>  type colour type is enum (BLUE, RED, GREEN);</programlisting>
+      </informalexample>This introduces a new type called
+    <type>colour_type</type>. Moreover, it states that there are only three
+    values of this type and they are denoted by the identifiers
+    <literal>BLUE</literal>, <literal>RED</literal> and
+    <literal>GREEN</literal>. Variables of this type can then be declared in
+    the usual ways:<informalexample>
+        <programlisting>  c : colour_type;
+  d : colour_type := RED;               // initial value can be supplied
+  e : readonly colour_type := BLUE;     // a constant can be declared</programlisting>
+      </informalexample>We have stated that values (or variables) of one type
+    cannot be assigned to variables of another type. Therefore, one cannot
+    assign colours to integers and so the assignment shown below is
+    illegal.<informalexample>
+        <programlisting>  declare
+    i : integer;
+    c : colour_type := RED;
+  begin
+    i := c;     //  illegal
+  end;</programlisting>
+      </informalexample></para>
+  </section>
+
+  <section xml:id="TypesSubtypes"><info><title>Subtypes</title></info>
+    
+
+    <para>We now introduce subtypes and constraints. A subtype, as its name
+    suggests, characterises a set of values, which is just a subset of the
+    values of some other type known as the base type. The subset is defined by
+    means of a constraint. Constraints take various forms according to the
+    category of the base type. As is usual with subsets, the subset may be the
+    complete set. There is, however, no way of restricting this set of
+    operations of the base type. The subtype takes all the operations; sub
+    setting applies only to the values. As an example, we declare a subtype
+    thus:<informalexample>
+        <programlisting>  subtype day_number_type is integer range 1 .. 31;</programlisting>
+      </informalexample>We can then declare variables and constants using the
+    subtype identifier in exactly the same way as a type
+    identifier:<informalexample>
+        <programlisting>  d : day_number_type;</programlisting>
+      </informalexample></para>
+
+    <para>We are then assured that the variable <varname>d</varname> can take
+    only integer values from <literal>1</literal> to <literal>31</literal>
+    inclusive. The compiler will insert run-time checks if necessary to ensure
+    that this is so; if a check fails then an exception is raised.</para>
+
+    <para>It is important to realise that a subtype declaration does not
+    introduce a new distinct type. An entity such as <varname>d</varname> is
+    of type <type>integer</type> and so the following is perfectly legal from
+    the syntactic point of view.<informalexample>
+        <programlisting>  declare
+    d : day_number_type;
+    i : integer;
+  begin
+    d := i;
+  end;</programlisting>
+      </informalexample>Of course, on execution, the value of i may or may not
+    lie in the range 1 ..31.If it does, then all is well; if not then an
+    exception will be raised. Assignment in the other
+    direction:<informalexample>
+        <programlisting>  i := d;</programlisting>
+      </informalexample> will always work. It is not always necessary to
+    impose a constraint. It is perfectly legal to write: <informalexample>
+        <programlisting>  subtype unconstrained_day_number_type is integer;</programlisting>
+      </informalexample>although in this instance it is not of much value. A
+    subtype may be defined in terms of a previous subtype:<informalexample>
+        <programlisting>  subtype february_day_number_type is day_number_type range 1 .. 29;</programlisting>
+      </informalexample>Any additional constraint must of course satisfy
+    existing constraints:<informalexample>
+        <programlisting>  subtype illegal_type is day_number_type range 0 .. 10;        // illegal</programlisting>
+      </informalexample>would be incorrect and cause a compile-time
+    error.</para>
+
+    <para>We conclude this section by summarising the assignment statement and
+    the rules of strong typing. Assignment has the form: <informalexample>
+        <programlisting>  variable := expression;</programlisting>
+      </informalexample>and the two rules are:<itemizedlist>
+        <listitem>
+          <para>Both sides must have the same base type.</para>
+        </listitem>
+
+        <listitem>
+          <para>The expression must satisfy any constraints on the variables;
+          if it does not, the assignment does not take place and an exception
+          is raised instead.</para>
+        </listitem>
+      </itemizedlist></para>
+
+    <note>
+      <para>The general principle is that type errors (violations of the first
+      rule) are detected during compilation whereas subtype errors (violations
+      of the second rule) are detected during execution by the raising of an
+      exception.</para>
+    </note>
+  </section>
+
+  <section xml:id="TypesSimpleNumericTypes"><info><title>Simple Numeric Types</title></info>
+    
+
+    <para>The types <type>integer</type> and <type>real</type> are not
+    built-in MASL types. They both have been declared somewhere in terms of
+    the built-in <type>numeric</type> type. For the moment, however, we will
+    suppose that they are both built-in.</para>
+
+    <para>As we have seen, a constraint may be imposed on type integer by
+    using the reserved word <literal>range</literal>. This is then followed by
+    two expressions separated by two dots, which, of course, must produce
+    values of <type>integer</type> type.</para>
+
+    <para>We turn now to a brief consideration of the floating-point types. It
+    is possible to apply constraints to the type <type>real</type> in order to
+    reduce the range and precision. A discussion of this is deferred until
+    later. The predefined operations that can be performed on
+    <type>numeric</type> types are much as one would expect. They are
+    summarised in the table below.</para>
+
+    <table xml:id="TypesFloatingPointOperators"><info><title>Floating-Point Operators</title></info>
+      
+
+      <tgroup cols="2">
+        <colspec colname="operator" colnum="1" colwidth="1*"/>
+
+        <colspec colname="description" colnum="2" colwidth="2*"/>
+
+        <thead>
+          <row>
+            <entry>Operator</entry>
+
+            <entry>Description</entry>
+          </row>
+        </thead>
+
+        <tbody>
+          <row>
+            <entry><literal>+</literal> <literal>-</literal></entry>
+
+            <entry>These are either unary operators (that is, taking a single
+            operand) or binary operators taking two operands. In the case of a
+            unary operator, the operand can be of any numeric type; the result
+            will be of the same type. Unary
+            <literal><literal>+</literal></literal> effectively does nothing.
+            Unary <literal><literal>-</literal></literal> changes the sign. In
+            the case of a binary operator, both operands must have the same
+            <type>numeric</type> base type; the result will be of that type.
+            Normal addition or subtraction is performed.</entry>
+          </row>
+
+          <row>
+            <entry><literal>*</literal></entry>
+
+            <entry>Multiplication; both operands must be of some
+            <type>numeric</type> type. If both operands have the same
+            <type>numeric</type> base type, then the result will be of that
+            type, otherwise the result will be the basis type of the
+            operands.</entry>
+          </row>
+
+          <row>
+            <entry><literal>/</literal></entry>
+
+            <entry>Division; both operands must be of some
+            <type>numeric</type> type. If both operands have the same
+            <type>numeric</type> base type, then the result will be of that
+            type, otherwise the result will be the basis type of the
+            operands.</entry>
+          </row>
+
+          <row>
+            <entry><literal>rem</literal></entry>
+
+            <entry>Remainder; both operands must have the same
+            <type>integer</type> base type and the result is of that type. It
+            is the remainder on division.</entry>
+          </row>
+
+          <row>
+            <entry><literal>mod</literal></entry>
+
+            <entry>Modulo; both operands must have the same
+            <type>integer</type> base type and the result is of that type.
+            This is the mathematical modulo operation.</entry>
+          </row>
+
+          <row>
+            <entry><literal>abs</literal></entry>
+
+            <entry>Absolute value; this is a unary operator and the single
+            operand may be of any <type>numeric</type> type. The result is of
+            the same type and is the absolute value. That is, if the operand
+            is positive, the result is the same but if it is negative, the
+            result is the corresponding positive value.</entry>
+          </row>
+
+          <row>
+            <entry><literal>**</literal></entry>
+
+            <entry>Exponentiation; this raises the first operand to the power
+            of the second. Both operands must have the same
+            <type>numeric</type> base type; the result will be of that
+            type.</entry>
+          </row>
+        </tbody>
+      </tgroup>
+    </table>
+
+    <para>In addition, we can perform the operations <literal>=</literal>,
+    <literal>/=</literal>, <literal>&lt;</literal>, <literal>&lt;=</literal>,
+    <literal>&gt;</literal> and <literal>&gt;=</literal> in order to return a
+    <type>Boolean</type> result <literal>true</literal> or
+    <literal>false</literal>. Again, both operands must have the same base
+    type.</para>
+
+    <note>
+      <para>The form of the not equals operator is
+      <literal>/=</literal>.</para>
+    </note>
+
+    <para>Numeric types follow the general rules of types and subtypes. It is
+    not possible to add an <type>integer</type> value to a <type>real</type>
+    value; both must have the same base type. A change of type from
+    <type>integer</type> to <type>real</type> or visa versa can be done by
+    using the desired type name (or indeed subtype name) followed by the
+    expression to be converted in brackets. So given:<informalexample>
+        <programlisting>  i : integer := 8;
+  j : integer;
+  r : real := 5.4;
+  s : real;</programlisting>
+      </informalexample>we cannot write:<programlisting>  s := i + r;        // illegal</programlisting>but
+    we must write:<informalexample>
+        <programlisting>  s := real(i) + r;</programlisting>
+      </informalexample>which uses real addition to give <varname>s</varname>
+    the value <literal>13.4</literal> ,or:<informalexample>
+        <programlisting>  j := i + integer(r);</programlisting>
+      </informalexample>which uses integer addition to give
+    <varname>j</varname> the value <literal>13</literal>.</para>
+
+    <para>Conversion from real to integer always rounds rather than truncates,
+    therefore 3.2 becomes 3 and 1,8 becomes 2. A value midway between two
+    integers, such as 9.5, may be rounded up or down according to the
+    implementation.</para>
+
+    <para>We conclude this section with a brief discussion on combining
+    operators in an expression. As is usual the operators have different
+    precedence levels and the natural precedence can be overruled by the use
+    of brackets. Operators of the same precedence are applied in order from
+    left to right. A sub expression in brackets obviously has to be evaluated
+    before it can be used. The precedence levels of the operators we have met
+    so far are shown below in increasing order of precedence:</para>
+
+    <informaltable colsep="0" frame="none" rowsep="0">
+      <tgroup align="center" cols="1" colsep="0" rowsep="0">
+        <tbody>
+          <row>
+            <entry><para><literal>=</literal>
+            <literal>/=</literal></para></entry>
+          </row>
+
+          <row>
+            <entry><para><literal>&lt;&lt;=</literal>
+            <literal>&gt;&gt;=</literal></para></entry>
+          </row>
+
+          <row>
+            <entry><para><literal>+</literal> <literal>-</literal>
+            (binary)</para></entry>
+          </row>
+
+          <row>
+            <entry><para><literal>*</literal> <literal>/</literal>
+            <literal>mod</literal> <literal>rem</literal>
+            <literal>**</literal></para></entry>
+          </row>
+
+          <row>
+            <entry><para><literal>+</literal> <literal>-</literal>
+            <literal>abs</literal> (unary)</para></entry>
+          </row>
+        </tbody>
+      </tgroup>
+    </informaltable>
+  </section>
+
+  <section xml:id="TypesEnumerationTypes"><info><title>Enumeration Types</title></info>
+    
+
+    <para>Here are some examples of declarations of enumeration types starting
+    with <type>colour_type</type>, which we introduced when discussing types
+    in general. <programlisting>type colour_type is enum (BLUE, RED, GREEN);
+type signal_colour_type is enum (RED, AMBER, GREEN);</programlisting>This
+    introduces an example of overloading. The literal <literal>RED</literal>
+    can represent a <type>colour_type</type> or a
+    <type>signal_colour_type</type>. Both meanings of the same name are
+    visible together and the second declaration does not hide the first. We
+    can usually tell which is meant from the context but in those odd cases
+    when we cannot we can always qualify the literal by preceding it by an
+    appropriate type mark (that is its type name or a relevant subtype name)
+    and a dot. Therefore:<informalexample>
+        <programlisting>  declare
+    p : colour_type;
+    f : signal_colour_type;
+  begin
+    p := colour_type.RED;
+    f := signal_colour_type.RED;
+  end;</programlisting>
+      </informalexample></para>
+
+    <para>There is no upper limit on the number of values in an enumeration
+    type, but there must be at least one; an empty enumeration type is not
+    allowed. Constraints on enumeration types and subtypes are much as for
+    integer numeric types. So we can write:<informalexample>
+        <programlisting>  subtype week_day_type is day_type range MON .. FRI;</programlisting>
+      </informalexample>and then we know that any entity declared of type
+    <type>week_day_type</type> cannot be <literal>SAT</literal> or
+    <literal>SUN</literal>. There are built-in characteristics to give the
+    successor or predecessor of an enumeration value. These consist of
+    <literal>succ</literal> and <literal>pred</literal> following an entity
+    (of the type) and a prime (<literal>’</literal>). Therefore
+    given:<informalexample>
+        <programlisting>  declare
+    d : day_type := WED;
+    f : signal_colour_type := AMBER;
+  begin
+    d := d'succ;
+    f := f'pred;
+  end;</programlisting>
+      </informalexample>the values of <varname>d</varname> and
+    <varname>f</varname> will be <literal>THU</literal> and
+    <literal>RED</literal> respectively. If we try to take the predecessor of
+    the first value or the successor of the last then an exception is
+    raised.</para>
+
+    <para>Another characteristic is <literal>pos</literal>. This gives the
+    positional number of the enumeration value that is the position in the
+    declaration with the first one having a position number of one.
+    So:<informalexample>
+        <programlisting>  declare
+    d : day_type := SAT;
+    i : integer;
+  begin
+    i := d'pos;
+  end;</programlisting>
+      </informalexample>will result in i having the value
+    <literal>6</literal>.</para>
+
+    <para>Finally, a characteristic called <literal>image</literal> is
+    provided that will take an <literal>enum</literal> value and return its
+    text representation. Therefore, we could write the
+    following:<informalexample>
+        <programlisting>  declare
+    d : day_type := SAT;
+    s : string;
+  begin
+    s := d'image;
+  end;</programlisting>
+      </informalexample>and <varname>s</varname> would contain the string
+    “<literal>SAT</literal>”. There is currently no <literal>enum</literal>
+    characteristic for the reverse direction (<literal>string</literal> =&gt;
+    <literal>enum</literal> value).</para>
+
+    <para>It should be noted that these characteristics
+    <literal>succ</literal>, <literal>pred</literal>, <literal>pos</literal>
+    and <literal>image</literal> may also be applied to subtypes but they are
+    identical to the same characteristics of the corresponding base type.
+    Finally, the operators <literal>=</literal>, <literal>/=</literal>,
+    <literal>&lt;</literal>, <literal>&lt;=</literal>, <literal>&gt;</literal>
+    and <literal>&gt;=</literal> also apply to enumeration types. The result
+    is defined by the order of the values in the type declaration. So we could
+    write:<informalexample>
+        <programlisting>  declare
+    b : boolean;
+  begin
+    b := BLUE &lt; GREEN;
+    b := WED &gt;= THU;
+  end;</programlisting>
+      </informalexample>and the value of <varname>b</varname> will first be
+    set to <literal>true</literal> and then <literal>false</literal>.</para>
+  </section>
+
+  <section xml:id="TypesTheBooleanType"><info><title>The Boolean Type</title></info>
+    
+
+    <para>The <type>boolean</type> type is a predefined enumeration type whose
+    declaration is considered to be:<informalexample>
+        <programlisting>  type boolean is enum (false, true);</programlisting>
+      </informalexample></para>
+
+    <para>Boolean values are used in constructions such as the if statement
+    that we will meet later. Boolean values are produced by the operators
+    <literal>=</literal>, <literal>/=</literal>, <literal>&lt;</literal>,
+    <literal>&lt;=</literal>, <literal>&gt;</literal> and
+    <literal>&gt;=</literal> which have their expected meaning and apply to
+    many types. So we can write constructions such as:<informalexample>
+        <programlisting>  declare
+    today : day_type;
+    tomorrow : day_type;
+  begin
+    if today = SUN then
+      tomorrow := MON;
+    end if;
+  end;</programlisting>
+      </informalexample></para>
+
+    <para>The equality operators <literal>=</literal> and
+    <literal>/=</literal> apply to values of the <type>boolean</type> type and
+    have the obvious meaning. The <type>boolean</type> type also has other
+    operators which are as follows :</para>
+
+    <table xml:id="TypesBooleanTypeOperators"><info><title><type>boolean</type> Type Operators</title></info>
+      
+
+      <tgroup cols="2">
+        <colspec colname="operator" colnum="1" colwidth="1*"/>
+
+        <colspec colname="description" colnum="2" colwidth="2*"/>
+
+        <thead>
+          <row>
+            <entry>Operator</entry>
+
+            <entry>Description</entry>
+          </row>
+        </thead>
+
+        <tbody>
+          <row>
+            <entry><literal>not</literal></entry>
+
+            <entry>This is an unary operator and changes
+            <literal>true</literal> to <literal>false</literal> and vice
+            versa.</entry>
+          </row>
+
+          <row>
+            <entry><literal>and</literal></entry>
+
+            <entry>This is a binary operator. The result is
+            <literal>true</literal> if both operands are
+            <literal>true</literal>, and <literal>false</literal>
+            otherwise.</entry>
+          </row>
+
+          <row>
+            <entry><literal>or</literal></entry>
+
+            <entry>This is a binary operator. The result is
+            <literal>true</literal> if one or other or both operands are
+            <literal>true</literal>, and <literal>false</literal> only if they
+            are both <literal>false</literal>.</entry>
+          </row>
+
+          <row>
+            <entry><literal>xor</literal></entry>
+
+            <entry>This is a binary operator. The result is
+            <literal>true</literal> if one or other operand but not both are
+            <literal>true</literal>. (Hence the name eXclusive OR). Another
+            way of looking as it is to note that the result is
+            <literal>true</literal> if and only if the operands are
+            different.</entry>
+          </row>
+        </tbody>
+      </tgroup>
+    </table>
+
+    <para>In the case of <literal>and</literal> and <literal>or</literal> the
+    left hand operand is always evaluated first and the right hand operand is
+    only evaluated if it is necessary in order to determine the result. So
+    in:<informalexample>
+        <literallayout>  X and Y</literallayout>
+      </informalexample>X is evaluated first. If X is false, the answer is
+    false whatever the value of Y and so Y is not evaluated. If X is true, Y
+    has to be evaluated and the value of Y is the answer. Similarly
+    in:<informalexample>
+        <literallayout>  X or Y</literallayout>
+      </informalexample>X is evaluated first. If X is true, the answer is true
+    whatever the value of Y and so Y is not evaluated. If X is false, Y has to
+    be evaluated and the value of Y is the answer.</para>
+
+    <para>The precedences of <literal>and</literal>, <literal>xor</literal>
+    and <literal>or</literal> are in that order (from high to low) and lower
+    than that of any other operator. In particular they are of lower
+    precedence than the relational operators <literal>=</literal>,
+    <literal>/=</literal>, <literal>&lt;</literal>, <literal>&lt;=</literal>,
+    <literal>&gt;</literal> and <literal>&gt;=</literal>.</para>
+
+    <para>In particular the precedence of <literal>not</literal> is higher
+    than <literal>and</literal>, <literal>or</literal> and
+    <literal>xor</literal> and so :<informalexample>
+        <literallayout>  not A or B</literallayout>
+      </informalexample>means<informalexample>
+        <literallayout>  (not A) or B</literallayout>
+      </informalexample></para>
+
+    <para>Boolean variables and constants can be declared and manipulated in
+    the usual way.<informalexample>
+        <programlisting>  declare
+    danger : boolean;
+    signal : colour_type;
+  begin
+    danger := (signal = RED);
+  end;</programlisting>
+      </informalexample>The variable <varname>danger</varname> is then
+    <literal>true</literal> if the <varname>signal</varname> is
+    <literal>RED</literal>. We can then write:<informalexample>
+        <programlisting>  if danger then
+    // …
+  end if;</programlisting>
+      </informalexample></para>
+  </section>
+
+  <section xml:id="TypesCharactersandStrings"><info><title>Characters and Strings</title></info>
+    
+
+    <para>There are two predefined character types; <type>character</type> and
+    <type>wcharacter</type>. The first has values, which are 8-bit quantities
+    and encode a single-byte character. The second en-codes wide characters
+    from any character set.</para>
+
+    <para>A character literal consists of a single character within a pair of
+    single quotes. Examples of simple character literals
+    include:<informalexample>
+        <literallayout>'a', 'G'</literallayout>
+      </informalexample></para>
+
+    <para>More complex examples include:<informalexample>
+        <literallayout>'\'', '\065', '\u0074'</literallayout>
+      </informalexample></para>
+
+    <para>The first shows how the single quote character is represented. The
+    second uses an octal escape to represent the <abbrev>ASCII</abbrev>
+    character ’<literal>5</literal>’. The last one uses a Unicode escape to
+    represent the <abbrev>ASCII</abbrev> character
+    ’<literal>t</literal>’.</para>
+
+    <para>We can perform the operations <literal>=</literal>,
+    <literal>/=</literal>, <literal>&lt;=</literal>, <literal>&gt;</literal>
+    and <literal>&gt;=</literal> on characters in order to return a
+    <type>boolean</type> result <literal>true</literal> or
+    <literal>false</literal>. Both operands must have the same base type. The
+    result of the comparison is based upon the lexicographic order of
+    characters. The following are all true:<informalexample>
+        <programlisting>  'r' = 'r'
+  'c' /= 'C'
+  'd' &lt; 'n'
+  'p' &gt; 's'
+  'k' &lt;= 'k'
+  't' &gt;= 'h'</programlisting>
+      </informalexample></para>
+
+    <para>There are also two predefined string types; <type>string</type> and
+    <type>wstring</type>. The <type>string</type> type is similar to a
+    sequence of <type>character</type>s . The <type>wstring</type> type is
+    similar to a sequence of <type>wcharacter</type>s. General sequences are
+    discussed in <xref linkend="CompositeTypesSequences"/>.</para>
+
+    <para>A typical string declaration might be:<informalexample>
+        <programlisting>  s : string := "Hello World!";</programlisting>
+      </informalexample>This declaration uses a string literal to give the
+    string an initial value. A string literal consists of zero or more
+    characters enclosed in double quotes.<example xml:id="TypesExampleStringLiterals"><info><title>Example String Literals</title></info>
+        
+
+        <para>"A simple string"</para>
+
+        <para>"This has \0163ome \"strange\" char\u0061cter’s in it!"</para>
+
+        <para>Like characters, we can perform the operations
+        <literal>=</literal>, <literal>/=</literal>, <literal>&lt;=</literal>,
+        <literal>&gt;</literal> and <literal>&gt;=</literal> on strings. The
+        result of the comparison is based upon the lexicographic order of
+        characters. The following are all true:<informalexample>
+            <programlisting>  "gnu" = "gnu"
+  "gnu" /= "gNu"
+  "cat" &lt; "dog"
+  "cattle" &gt; "cat"
+  "azure" &lt;= "baboon"
+  "aadvark" &gt;= ""</programlisting>
+          </informalexample></para>
+
+        <para>Strings can be concatenated together using the operator &amp;.
+        It has the same precedence as binary plus. The two operands must have
+        the same base type and the result is a string whose value is obtained
+        by juxtaposing the two operands. So after:<informalexample>
+            <programlisting>  s := "cab" &amp; "bage";</programlisting>
+          </informalexample>the value of s will be "cabbage". One or other of
+        the operands of &amp; can also be a single character.<informalexample>
+            <programlisting>  s := "dais" &amp; 'y';
+  s := 'd' &amp; "anger";</programlisting>
+          </informalexample>After the first assignment the value of s will be
+        "<literal>daisy</literal>" and after the second
+        "<literal>danger</literal>". The individual characters of a string can
+        be referred to following the string name with an expression in
+        brackets giving a value in the range of indices of the string. If this
+        expression, known as the index value, has a value outside of the
+        range, then an exception will be raised.</para>
+
+        <para>One way of obtaining a valid index value is to use one of the
+        two characteristics <literal>first</literal> or
+        <literal>last</literal>, which give the lower, and upper bounds of the
+        indices of a string.<informalexample>
+            <programlisting>  declare
+    first_postion : integer;
+    last_postion  : integer;
+    s : string := “Hello World!”;
+  begin
+    first_position := s'first;
+    last_postion := s'last;
+  end;</programlisting>
+          </informalexample></para>
+
+        <para>We could also set the first character of a string to the
+        character ’<literal>J</literal>’ by writing:<informalexample>
+            <programlisting>  s[s'first] := ’J’;</programlisting>
+          </informalexample></para>
+
+        <para>If a <type>string</type> is empty then first and last will both
+        raise an exception.</para>
+
+        <para>Another characteristic of a <type>string</type> is length, which
+        gives the number of <type>character</type>s in the
+        <type>string</type>. So:<informalexample>
+            <programlisting>  declare
+    s : string := "Hello World!";
+    l : integer;
+  begin
+    l := s'length;
+  end;</programlisting>
+          </informalexample>would result in l having the value 12.</para>
+
+        <para>One common thing to do is to loop over all the
+        <type>character</type>s in a <type>string</type>. This can be done in
+        two different ways. The first uses a for statement together with the
+        two characteristics <literal>first</literal> and
+        <literal>last</literal> to loop through the index values of a
+        <type>string</type>. The <literal>for</literal> statement is discussed
+        in <xref linkend="ExecutionControlLoopStatements"/>.</para>
+      </example></para>
+  </section>
+
+  <section xml:id="TypesBytes"><info><title>Bytes</title></info>
+    
+
+    <para>The <type>byte</type> type is a predefined type, it is an 8-bit
+    quantity that is guaranteed not to undergo any conversion when transmitted
+    by a communication system. We can perform the operations
+    <literal>=</literal> and <literal>/=</literal> on bytes to test for
+    equality or inequality.</para>
+  </section>
+
+  <section xml:id="TypesDateandTime"><info><title>Date and Time</title></info>
+    
+
+    <para><abbrev>MASL</abbrev> incorporates a type call
+    <type>time_type</type>, which is used to store a current point in time,
+    the implementation of this type is defined by the specific architecture in
+    use. As this type represents a current point in time it represents not
+    just a time (hours, minutes and seconds) but also a date (day, month and
+    year). The date and time elements that can be extracted from this type are
+    represented by two structures. The date is defined as a structure type
+    called <type>date_type</type> and is shown below:<informalexample>
+        <programlisting>  type day_type is numeric range 1..31;
+  type month_type is enum (JANUARY=1, FEBRUARY, MARCH, APRIL, MAY, JUNE, JULY, AUGUST, SEPTEMBER, OCTOBER, NOVEMBER, DECEMBER);
+
+  type year_type is numeric range 1970..2036;
+
+  type date_type is structure
+    day : day_type;
+    month : month_type;
+    year : year_type
+  end structure;</programlisting>
+      </informalexample></para>
+
+    <para>The time is defined as a structure type called
+    <type>time_of_day_type</type> and is shown below:<informalexample>
+        <programlisting>  type hour_type    is numeric range 0..23;
+  type minute_type  is numeric range 0..59;
+  type second_type  is numeric delta 0.1 range 0..59;
+
+  type time_of_day_type is structure
+    hour   : hour_type;
+    minute : minute_type;
+    second : second_type;
+  end structure;</programlisting>
+      </informalexample></para>
+
+    <para>A series of architecture-defined services are provided to manipulate
+    and convert the date and time types described, from one form to another
+    (see <xref linkend="MASL06"/>). For example:<informalexample>
+        <programlisting>  declare
+    previous_date : Calendar::date_type := (12,Calendar::JANUARY,2000);
+    previous_time : Calendar::time_of_day_type;
+    current_date  : Calendar::date_type;
+    current_time  : Calendar::time_of_day_type;
+    current_time_point : Calendar::time_type;
+ 
+  begin
+    previous_time := (12,30,00);
+    Calendar::get_clock(current_time_point);
+    Calendar::split(current_time_point,current_date,current_time);
+  end;</programlisting>
+      </informalexample></para>
+
+    <para>The usual relational operators <literal>=</literal>,
+    <literal>!=</literal>, <literal>&lt;</literal>,<literal>&gt;</literal>
+    etc. are available for operations on variables of type
+    <type>time_type</type>, but as the <type>date_type</type> and
+    <type>time_of_day_type</type> are structures these relational operators
+    are not allowed. Therefore:<informalexample>
+        <programlisting>  declare
+    previous_date : Calendar::date_type := (12,Calendar::JANUARY,2000); 
+    current_date  : Calendar::date_type := (14,Calendar::JANUARY,2000); 
+  begin
+    if previous_date = current_date then        // illegal := not available on structure type.
+      // …
+    end if;
+  end;</programlisting>
+      </informalexample>is illegal. To achieve the desired operation the
+    example <abbrev>MASL</abbrev> code below would be
+    required:<informalexample>
+        <programlisting>  declare
+    previous_date : Calendar::date_type := (12,Calendar::JANUARY,2000); 
+    current_date  : Calendar::date_type := (14,Calendar::JANUARY,2000); 
+  begin
+    if previous_date.day = current_date.day and
+      previous_date.month = current_date.month and
+      previous_date.year = current_date.year then
+      // …
+    end if;
+  end;</programlisting>
+      </informalexample></para>
+  </section>
+
+  <section xml:id="TypesExpressionSummary"><info><title>Expression Summary</title></info>
+    
+
+    <para>All the operators introduced so far are shown in <xref linkend="TypesOperatorsTable"/> , grouped by precedence level. In all the
+    cases of binary operators, except for multiplication
+    (<literal>*</literal>) and division (<literal>/</literal>), the two
+    operands must have same base type. For multiplication and division, the
+    two operands must have the same basis type.</para>
+
+    <table xml:id="TypesOperatorsTable"><info><title>Operators</title></info>
+      
+
+      <tgroup cols="4">
+        <thead>
+          <row>
+            <entry align="center">Operator</entry>
+
+            <entry align="center">Operation</entry>
+
+            <entry align="center">Operand(s)</entry>
+
+            <entry align="center">Result</entry>
+          </row>
+        </thead>
+
+        <tbody>
+          <row>
+            <entry><literal>or</literal></entry>
+
+            <entry>inclusive or</entry>
+
+            <entry><type>boolean</type></entry>
+
+            <entry><type>boolean</type></entry>
+          </row>
+
+          <row>
+            <entry><literal>xor</literal></entry>
+
+            <entry>exclusive or</entry>
+
+            <entry><type>boolean</type></entry>
+
+            <entry><type>boolean</type></entry>
+          </row>
+
+          <row>
+            <entry><literal>and</literal></entry>
+
+            <entry>conjunction</entry>
+
+            <entry><type>boolean</type></entry>
+
+            <entry><type>boolean</type></entry>
+          </row>
+
+          <row>
+            <entry>=</entry>
+
+            <entry>equality</entry>
+
+            <entry align="left"><type>boolean</type>, <type>numeric</type>,
+            enumeration, <type>character</type>, <type>wcharacter</type> ,
+            <type>string</type>, <type>wstring</type>,
+            <type>byte</type></entry>
+
+            <entry><type>boolean</type></entry>
+          </row>
+
+          <row>
+            <entry><literal>/=</literal></entry>
+
+            <entry>inequality</entry>
+
+            <entry align="left"><type>boolean</type>, <type>numeric</type>,
+            enumeration, <type>character</type>, <type>wcharacter</type> ,
+            <type>string</type>, <type>wstring</type>,
+            <type>byte</type></entry>
+
+            <entry><type>boolean</type></entry>
+          </row>
+
+          <row>
+            <entry><literal>&lt;</literal></entry>
+
+            <entry>less than</entry>
+
+            <entry align="left"><type>numeric</type>, enumeration,
+            <type>character</type>, <type>wcharacter</type> ,
+            <type>string</type>, <type>wstring</type></entry>
+
+            <entry><type>boolean</type></entry>
+          </row>
+
+          <row>
+            <entry><literal>&gt;</literal></entry>
+
+            <entry>greater than</entry>
+
+            <entry align="left"><type>numeric</type>, enumeration,
+            <type>character</type>, <type>wcharacter</type> ,
+            <type>string</type>, <type>wstring</type></entry>
+
+            <entry><type>boolean</type></entry>
+          </row>
+
+          <row>
+            <entry><literal>&lt;=</literal></entry>
+
+            <entry>less than or equal</entry>
+
+            <entry align="left"><type>numeric</type>, enumeration,
+            <type>character</type>, <type>wcharacter</type> ,
+            <type>string</type>, <type>wstring</type></entry>
+
+            <entry><type>boolean</type></entry>
+          </row>
+
+          <row>
+            <entry><literal>&gt;=</literal></entry>
+
+            <entry>greater than or equal</entry>
+
+            <entry align="left"><type>numeric</type>, enumeration,
+            <type>character</type>, <type>wcharacter</type> ,
+            <type>string</type>, <type>wstring</type></entry>
+
+            <entry><type>boolean</type></entry>
+          </row>
+
+          <row>
+            <entry><literal>+</literal></entry>
+
+            <entry>addition</entry>
+
+            <entry align="left"><type>numeric</type></entry>
+
+            <entry><emphasis>same</emphasis></entry>
+          </row>
+        </tbody>
+      </tgroup>
+    </table>
+  </section>
+</chapter>

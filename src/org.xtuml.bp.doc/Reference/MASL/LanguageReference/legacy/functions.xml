@@ -1,0 +1,978 @@
+<!-- 
+  UK Crown Copyright (c) 2016. All Rights Reserved
+-->
+<!-- Converted by db4-upgrade version 1.0 -->
+<chapter xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="Functions"><info><title>Functions</title></info>
+
+<para>
+A function
+<indexterm significance="preferred">
+    <primary>function</primary>
+</indexterm>
+is a unit of executable code that can be invoked, passing a fixed
+number of values as arguments and returns a value of a given type.
+</para>
+<para>
+There are two forms of functions; domain functions and object functions.
+</para>
+<section xml:id="FunctionsDomainFunctions"><info><title>Domain Functions</title></info>
+
+<para>
+A domain function
+<indexterm significance="preferred">
+    <primary>domain</primary>
+    <secondary>function</secondary>
+</indexterm>
+allows a domain to be thought of as
+a black box. Domain functions
+<indexterm significance="preferred">
+    <primary>domain</primary>
+    <secondary>function</secondary>
+</indexterm>
+provide an interface to entities outside the domain.
+</para>
+<para>
+A <link linkend="ebnf.domainfunctiondeclaration"><emphasis>domain function declaration</emphasis></link>
+<indexterm significance="preferred">
+    <primary>domain</primary>
+    <secondary>function</secondary>
+    <tertiary>declaration</tertiary>
+</indexterm>
+declares a domain function.
+</para>
+<indexterm zone="ebnf.domainfunctiondeclaration">
+    <primary>domain function declaration</primary>
+</indexterm>
+<indexterm zone="ebnf.domainfunctiondeclaration">
+    <primary>domain function modifier</primary>
+</indexterm>
+<indexterm zone="ebnf.domainfunctiondeclaration">
+    <primary><literal>function</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.domainfunctiondeclaration">
+    <primary>function name</primary>
+</indexterm>
+<indexterm zone="ebnf.domainfunctiondeclaration">
+    <primary>function parameter declaration</primary>
+</indexterm>
+<indexterm zone="ebnf.domainfunctiondeclaration">
+    <primary><literal>return</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.domainfunctiondeclaration">
+    <primary><literal>type</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.domainfunctiondeclaration">
+    <primary>raises expression</primary>
+</indexterm>
+<indexterm zone="ebnf.functionname">
+    <primary>function name</primary>
+</indexterm>
+<indexterm zone="ebnf.functionname">
+    <primary>identifier</primary>
+</indexterm>
+<productionset>
+<production xml:id="ebnf.domainfunctiondeclaration">
+    <lhs>
+        domain function declaration
+    </lhs>
+    <rhs>
+        <nonterminal def="#ebnf.domainfunctionmodifier">domain function modifier</nonterminal>,
+        'function',
+        <nonterminal def="#ebnf.functionname">function name</nonterminal>,
+        '(',
+        <nonterminal def="#ebnf.functionparameterdeclarationlist">function parameter declaration list</nonterminal>,
+        ')', 'return',
+        <nonterminal def="#ebnf.type">type</nonterminal>,
+        [<nonterminal def="#ebnf.raisesexpression">raises expression</nonterminal>],
+        ';'
+    </rhs>
+</production>
+<production xml:id="ebnf.functionname">
+    <lhs>
+        function name
+    </lhs>
+    <rhs>
+        <nonterminal def="#ebnf.identifier">identifier</nonterminal>
+    </rhs>
+</production>
+</productionset>
+<section xml:id="FunctionsDomainFunctionModifiers"><info><title>Domain Function Modifiers</title></info>
+
+<indexterm significance="preferred">
+    <primary>domain</primary>
+    <secondary>function</secondary>
+    <tertiary>modifier</tertiary>
+</indexterm>
+<indexterm zone="ebnf.domainfunctionmodifier">
+    <primary>domain function modifier</primary>
+</indexterm>
+<indexterm zone="ebnf.domainfunctionmodifier">
+    <primary>modifier</primary>
+    <secondary>domain function</secondary>
+</indexterm>
+<indexterm zone="ebnf.domainfunctionmodifier">
+    <primary><literal>public</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.domainfunctionmodifier">
+    <primary><literal>private</literal></primary>
+</indexterm>
+<productionset>
+<production xml:id="ebnf.domainfunctionmodifier">
+    <lhs>
+        domain function modifier
+    </lhs>
+    <rhs>
+        'public' | 'private'
+    </rhs>
+</production>
+</productionset>
+<section xml:id="FunctionsPublicDomainFunctions"><info><title>Public Domain Functions</title></info>
+
+<para>
+If a domain function is declared with the modifier
+<link linkend="ebnf.domainfunctionmodifier"><literal>public</literal></link>,
+<indexterm>
+    <primary><literal>public</literal></primary>
+</indexterm>
+then it may be accessed by any code that can access the domain in which it is
+declared.
+</para>
+</section>
+<section xml:id="FunctionsPrivateDomainFunctions"><info><title>Private Domain Functions</title></info>
+
+<para>
+If a domain is declared with the modifier
+<link linkend="ebnf.domainfunctionmodifier"><literal>private</literal></link>, then
+<indexterm>
+    <primary><literal>private</literal></primary>
+</indexterm>
+access is permitted only when it occurs from within the domain in which it is
+declared.
+</para>
+</section>
+</section>
+<section xml:id="FunctionsDomainFunctionFormalParameters"><info><title>Formal Parameters</title></info>
+
+<para>
+The formal parameter of a domain function,
+<indexterm significance="preferred">
+    <primary>domain</primary>
+    <secondary>function</secondary>
+    <tertiary>formal parameters</tertiary>
+</indexterm>
+if any, are specified by a list of comma-separated parameter declarations.
+<indexterm significance="preferred">
+    <primary>domain</primary>
+    <secondary>function</secondary>
+    <tertiary>parameter declaration list</tertiary>
+</indexterm>
+Each parameter declaration
+<indexterm significance="preferred">
+    <primary>domain</primary>
+    <secondary>function</secondary>
+    <tertiary>parameter declaration</tertiary>
+</indexterm>
+consists of a name that specifies the name of the
+parameter, a parameter mode and a type.
+</para>
+<indexterm zone="ebnf.functionparameterdeclarationlist">
+    <primary>function parameter declaration list</primary>
+</indexterm>
+<indexterm zone="ebnf.functionparameterdeclarationlist">
+    <primary>function parameter declaration</primary>
+</indexterm>
+<indexterm zone="ebnf.functionparameterdeclaration">
+    <primary>function parameter declaration</primary>
+</indexterm>
+<indexterm zone="ebnf.functionparameterdeclaration">
+    <primary>function parameter name</primary>
+</indexterm>
+<indexterm zone="ebnf.functionparameterdeclaration">
+    <primary><literal>in</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.functionparameterdeclaration">
+    <primary>type</primary>
+</indexterm>
+<indexterm zone="ebnf.functionparametername">
+    <primary>function parameter name</primary>
+</indexterm>
+<indexterm zone="ebnf.functionparametername">
+    <primary>identifier</primary>
+</indexterm>
+<productionset>
+<production xml:id="ebnf.functionparameterdeclarationlist">
+    <lhs>
+        function parameter declaration list
+    </lhs>
+    <rhs>
+        <nonterminal def="#ebnf.functionparameterdeclaration">function parameter declaration</nonterminal>,
+        {(',',
+        <nonterminal def="#ebnf.functionparameterdeclaration">function parameter declaration</nonterminal>)}
+    </rhs>
+</production>
+<production xml:id="ebnf.functionparameterdeclaration">
+    <lhs>
+        function parameter declaration
+    </lhs>
+    <rhs>
+        <nonterminal def="#ebnf.functionparametername">function parameter name</nonterminal>,
+        ':', 'in',
+        <nonterminal def="#ebnf.type">type</nonterminal>
+    </rhs>
+</production>
+<production xml:id="ebnf.functionparametername">
+    <lhs>
+        function parameter name
+    </lhs>
+    <rhs>
+        <nonterminal def="#ebnf.identifier">identifier</nonterminal>
+    </rhs>
+</production>
+</productionset>
+<para>
+If a function has no parameters, only an empty pair of parentheses appears in
+the function declaration.
+</para>
+<para>
+A compile-time error occurs if any two parameters are declared to have the
+same name.
+</para>
+<para>
+When the function is invoked (see
+<xref linkend="ExpressionsPrimaryExpression"/>), the values of the actual
+argument expressions initialize newly created parameter variables, each of the
+declared type, before the execution of the body of the function. The parameter
+name that appears in the parameter declaration may be used as a simple name
+in the body of the function to refer to the parameter. The scope of the
+parameter names is the entire body of the function. The body the function must
+return a value of the declared function return type.
+</para>
+</section>
+<section xml:id="FunctionsDomainFunctionSignatures"><info><title>Function Signatures</title></info>
+
+<para>
+The signature of a function consists of the name of the
+function,
+<indexterm significance="preferred">
+    <primary>domain</primary>
+    <secondary>function</secondary>
+    <tertiary>signature</tertiary>
+</indexterm>
+the name and types of parameters to the function and the type of
+the parameter returned from the function.
+</para>
+<para>
+A compile-time error occurs if a domain declares two domain functions with the
+same signature.
+</para>
+</section>
+<section xml:id="FunctionsDomainFunctionOverloading"><info><title>Overloading</title></info>
+
+<para>
+If two domain functions of a domain have the same name but different
+<link linkend="FunctionsDomainFunctionSignatures">signatures</link>,
+<indexterm>
+    <primary>domain</primary>
+    <secondary>function</secondary>
+    <tertiary>signature</tertiary>
+</indexterm>
+then the function is said to be overloaded.
+<indexterm significance="preferred">
+    <primary>domain</primary>
+    <secondary>function</secondary>
+    <tertiary>overloading</tertiary>
+</indexterm>
+When a domain
+function is invoked (see <xref linkend="ExpressionsPrimaryExpression"/>), the
+number of arguments and the compile-time types of the arguments are used to
+determine the
+<link linkend="FunctionsDomainFunctionSignatures">signature</link>
+<indexterm>
+    <primary>domain</primary>
+    <secondary>function</secondary>
+    <tertiary>signature</tertiary>
+</indexterm>
+of the function that will be invoked.
+</para>
+<para>
+A function cannot be overloaded on the return type.
+<indexterm>
+    <primary>domain</primary>
+    <secondary>function</secondary>
+    <tertiary>return type</tertiary>
+</indexterm>
+A compile time error
+will be raised if two functions have the same name, same input parameter profile
+but different return types.
+</para>
+</section>
+<section xml:id="FunctionsDomainFunctionRaisesExpression"><info><title>Raises Expression</title></info>
+
+<para>
+A raises expression is used to declare any exceptions (see
+<xref linkend="Exceptions"/> that can result from the execution of a
+function.
+</para>
+<productionset>
+<productionrecap linkend="ebnf.raisesexpression"/>
+</productionset>
+<para>
+The following is repeated from
+<xref linkend="ExceptionsHandlingofanException"/> to make the representation
+clearer:
+<indexterm>
+    <primary>exception</primary>
+    <secondary>specification</secondary>
+</indexterm>
+</para>
+<productionset>
+<productionrecap linkend="ebnf.exceptionspecification"/>
+</productionset>
+<para RevisionFlag="deleted">
+A compile-time error occurs if an exception that can result from the execution
+of the body of a function is not mentioned in the raises expression in the
+declaration of the function.
+</para>
+<para>
+See <xref linkend="Exceptions"/> for more information on exceptions.
+</para>
+</section>
+<section xml:id="FunctionsDomainFunctionDefinition"><info><title>Domain Function Definition</title></info>
+
+<para>
+A domain function definition
+<indexterm significance="preferred">
+    <primary>domain</primary>
+    <secondary>function</secondary>
+    <tertiary>definition</tertiary>
+</indexterm>
+provides the specification of the behavior of a domain function.
+</para>
+<indexterm zone="ebnf.domainfunctiondefinition">
+    <primary>domain function definition</primary>
+</indexterm>
+<indexterm zone="ebnf.domainfunctiondefinition">
+    <primary>domain name</primary>
+</indexterm>
+<indexterm zone="ebnf.domainfunctiondefinition">
+    <primary>function name</primary>
+</indexterm>
+<indexterm zone="ebnf.domainfunctiondefinition">
+    <primary>function parameter declaration list</primary>
+</indexterm>
+<indexterm zone="ebnf.domainfunctiondefinition">
+    <primary><literal>return</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.domainfunctiondefinition">
+    <primary>type</primary>
+</indexterm>
+<indexterm zone="ebnf.domainfunctiondefinition">
+    <primary>raises expression</primary>
+</indexterm>
+<indexterm zone="ebnf.domainfunctiondefinition">
+    <primary><literal>is</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.domainfunctiondefinition">
+    <primary>variable declaration</primary>
+</indexterm>
+<indexterm zone="ebnf.domainfunctiondefinition">
+    <primary><literal>begin</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.domainfunctiondefinition">
+    <primary>handled sequence of statements</primary>
+</indexterm>
+<indexterm zone="ebnf.domainfunctiondefinition">
+    <primary><literal>end</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.domainfunctiondefinition">
+    <primary><literal>function</literal></primary>
+</indexterm>
+<productionset>
+<production xml:id="ebnf.domainfunctiondefinition">
+    <lhs>
+        domain function definition
+    </lhs>
+    <rhs>
+        'function',
+        <nonterminal def="#ebnf.domainname">domain name</nonterminal>,
+        '::',
+        <nonterminal def="#ebnf.functionname">function name</nonterminal>,
+        '(',
+        <nonterminal def="#ebnf.functionparameterdeclarationlist">function parameter declaration list</nonterminal>,
+        ')', 'return',
+        <nonterminal def="#ebnf.type">type</nonterminal>,
+        [<nonterminal def="#ebnf.raisesexpression">raises expression</nonterminal>],
+        'is',
+        {<nonterminal def="#ebnf.variabledeclaration">variable declaration</nonterminal>},
+        'begin'
+        <nonterminal def="#ebnf.handledsequenceofstatements">handled sequence of statements</nonterminal>,
+        'end', ['function'], ';'
+    </rhs>
+</production>
+</productionset>
+<para>
+A compile-time error occurs if:
+<itemizedlist mark="bullet">
+<listitem>
+<para>
+The <link linkend="FunctionsDomainFunctionSignatures">signature</link>
+<indexterm>
+    <primary>domain</primary>
+    <secondary>function</secondary>
+    <tertiary>signature</tertiary>
+</indexterm>
+of the function, named by the function name together with the
+<link linkend="ebnf.functionparameterdeclarationlist">parameter declaration list</link>
+<indexterm>
+    <primary>parameter</primary>
+    <secondary>declaration list</secondary>
+</indexterm>
+has not already been declared, by a
+<link linkend="ebnf.domainfunctiondefinition">domain function declaration</link>,
+<indexterm>
+    <primary>domain</primary>
+    <secondary>function</secondary>
+    <tertiary>declaration</tertiary>
+</indexterm>
+as a domain function of the domain named by the domain name.
+</para>
+</listitem>
+<listitem>
+<para>
+The modifiers do not match the modifiers of the corresponding domain function
+declaration.
+</para>
+</listitem>
+<listitem>
+<para>
+The raise expression does not match the raises expression of the corresponding
+domain function declaration.
+</para>
+</listitem>
+<listitem>
+<para>
+The <link linkend="ebnf.handledsequenceofstatements"><emphasis>handled sequence of statements</emphasis></link>
+<indexterm>
+    <primary>statements</primary>
+    <secondary>handled sequence</secondary>
+</indexterm>
+does not include at least one
+<link linkend="ebnf.domainfunctiondefinition"><literal>return</literal></link>
+<indexterm>
+    <primary><literal>return</literal></primary>
+</indexterm>
+statement.
+</para>
+</listitem>
+</itemizedlist>
+</para>
+</section>
+</section>
+<section xml:id="FunctionsObjectFunctions"><info><title>Object Functions</title></info>
+
+<indexterm significance="preferred" zone="ebnf.objectfunctiondeclaration">
+    <primary>object function modifier</primary>
+</indexterm>
+<indexterm zone="ebnf.objectfunctiondeclaration">
+    <primary><literal>function</literal></primary>
+</indexterm>    
+<indexterm zone="ebnf.objectfunctiondeclaration">
+    <primary>function name</primary>
+</indexterm>
+<indexterm zone="ebnf.objectfunctiondeclaration">
+    <primary>function parameter declaration list</primary>
+</indexterm>
+<indexterm zone="ebnf.objectfunctiondeclaration">
+    <primary><literal>return</literal></primary>
+</indexterm>    
+<indexterm zone="ebnf.objectfunctiondeclaration">
+    <primary>type</primary>
+</indexterm>    
+<indexterm zone="ebnf.objectfunctiondeclaration">
+    <primary>raises expression</primary>
+</indexterm>    
+<productionset>
+<production xml:id="ebnf.objectfunctiondeclaration">
+    <lhs>
+        object function declaration
+    </lhs>
+    <rhs>
+        <nonterminal def="#ebnf.objectfunctionmodifier">object function modifier</nonterminal>,
+        'function',
+        <nonterminal def="#ebnf.functionname">function name</nonterminal>,
+        '(',
+        <nonterminal def="#ebnf.functionparameterdeclarationlist">function parameter declaration list</nonterminal>,
+        ')', 'return',
+        <nonterminal def="#ebnf.type">type</nonterminal>,
+        [<nonterminal def="#ebnf.raisesexpression">raises expression</nonterminal>],
+        ';'
+    </rhs>
+</production>
+</productionset>
+<section xml:id="FunctionsObjectFunctionModifiers"><info><title>Object Function Modifiers</title></info>
+
+<indexterm significance="preferred" zone="ebnf.objectfunctionmodifier">
+    <primary>object function modifier</primary>
+</indexterm>    
+<indexterm zone="ebnf.objectfunctionmodifier">
+    <primary><literal>public</literal></primary>
+</indexterm>    
+<indexterm zone="ebnf.objectfunctionmodifier">
+    <primary><literal>private</literal></primary>
+</indexterm>    
+<indexterm zone="ebnf.objectfunctionmodifier">
+    <primary><literal>instance</literal></primary>
+</indexterm>    
+<indexterm zone="ebnf.objectfunctionmodifier">
+    <primary><literal>deferred</literal></primary>
+</indexterm>    
+<indexterm zone="ebnf.objectfunctionmodifier">
+    <primary>relationship number</primary>
+</indexterm>    
+<productionset>
+<production xml:id="ebnf.objectfunctionmodifier">
+    <lhs>
+        object function modifier
+    </lhs>
+    <rhs>
+        ('public' | 'private'),
+        ['instance', ['deferred', '(',
+        <nonterminal def="#ebnf.relationshipnumber">relationship number</nonterminal>,
+        ')']]
+    </rhs>
+</production>
+</productionset>
+<section xml:id="FunctionsPublicObjectFunctions"><info><title>Public Object Functions</title></info>
+
+<para>
+If an object function is declared with the modifier
+<link linkend="ebnf.objectfunctionmodifier"><literal>public</literal></link>,
+<indexterm>
+    <primary><literal>public</literal></primary>
+</indexterm>    
+then it may be accessed by any code that can access the object in which it is
+declared.
+<indexterm significance="preferred">
+    <primary>object</primary>
+    <secondary>function</secondary>
+    <tertiary>public</tertiary>
+</indexterm>    
+</para>
+<para>
+By default, all object functions are declared
+<link linkend="ebnf.objectfunctionmodifier"><literal>public</literal></link>.
+<indexterm>
+    <primary><literal>public</literal></primary>
+</indexterm>    
+</para>
+</section>
+<section xml:id="FunctionsPrivateObjectFunctions"><info><title>Private Object Functions</title></info>
+
+<para>
+If an object function is declared with the modifier
+<link linkend="ebnf.objectfunctionmodifier"><literal>private</literal></link>,
+<indexterm>
+    <primary><literal>private</literal></primary>
+</indexterm>    
+then access is permitted only when it occurs from with the object in which it
+is declared.
+</para>
+</section>
+<section xml:id="FunctionsInstanceObjectFunctions"><info><title>Instance Object Functions</title></info>
+
+<para>
+An object function that is declared with the modifier
+<link linkend="ebnf.objectfunctionmodifier"><literal>instance</literal></link>
+<indexterm>
+    <primary><literal>instance</literal></primary>
+</indexterm>
+is called an instance function.
+<indexterm significance="preferred">
+    <primary>instance</primary>
+    <secondary>function</secondary>
+</indexterm>
+An instance
+function is always invoked with respect to a particular instance, which
+becomes the current instance to which the reserved word
+<link linkend="Names"><literal>this</literal></link>
+<indexterm>
+    <primary><literal>this</literal></primary>
+</indexterm>
+refers, during execution of the function body.
+An object function that is not declared with the modifier
+<link linkend="ebnf.objectfunctionmodifier"><literal>instance</literal></link>
+<indexterm>
+    <primary><literal>instance</literal></primary>
+</indexterm>
+is called a non-instance function.
+A non-instance function is always invoked without reference to a particular
+instance. A compile-time error occurs if an attempt is made to reference
+the current instance using the reserved word
+<link linkend="Names"><literal>this</literal></link>
+<indexterm>
+    <primary><literal>this</literal></primary>
+</indexterm>
+in the body of a non-instance function.
+</para>
+</section>
+<section xml:id="FunctionsDeferredObjectFunctions"><info><title>Deferred Object Functions</title></info>
+
+<para>
+A object function that is declared with the modifier
+<link linkend="FunctionsObjectFunctionModifiers"><literal>deferred</literal></link>
+<indexterm>
+    <primary><literal>deferred</literal></primary>
+</indexterm>
+is called a deferred function.
+<indexterm significance="preferred">
+    <primary>instance</primary>
+    <secondary>function</secondary>
+    <tertiary>deferred</tertiary>
+</indexterm>
+Only instance functions can be deferred.
+</para>
+<para>
+A deferred function is an instance function whose implementation is deferred to
+a subtype of the enclosing object. Which subtype hierarchy the function is
+deferred to is given by the relationship number after the reserved word
+<link linkend="FunctionsObjectFunctionModifiers"><literal>deferred</literal></link>
+<indexterm>
+    <primary><literal>deferred</literal></primary>
+</indexterm>
+</para>
+<para>
+A compile-time error occurs if the following are not true:
+<itemizedlist mark="bullet">
+<listitem>
+<para>
+The relationship number specified after the reserved word
+<link linkend="FunctionsObjectFunctionModifiers"><literal>deferred</literal></link>
+<indexterm>
+    <primary><literal>deferred</literal></primary>
+</indexterm>
+must be a subtype relationship of the enclosing object.
+</para>
+</listitem>
+<listitem>
+<para>
+For every direct subtype
+<indexterm>
+    <primary>subtype</primary>
+</indexterm>
+in the subtype hierarchy that the function is deferred
+to, the subtype must declare an instance function with the same
+<link linkend="FunctionsObjectFunctionSignatures">signature</link>
+<indexterm>
+    <primary>instance</primary>
+    <secondary>function</secondary>
+    <tertiary>signature</tertiary>
+</indexterm>
+as the deferred function.
+</para>
+</listitem>
+</itemizedlist>
+</para>
+<para>
+An instance function that has been deferred to an object by one of its
+super-types
+<indexterm>
+    <primary>super-type</primary>
+</indexterm>
+can also be deferred, by the object, to one of its subtype
+<indexterm>
+    <primary>subtype</primary>
+</indexterm>
+hierarchies.
+</para>
+<para>
+When the function is invoked, which implementation is actually executed
+depends upon the current subtype
+<indexterm>
+    <primary>subtype</primary>
+</indexterm>
+of the instance that the function was invoked on.
+</para>
+<para>
+A deferred function is always invoked with respect to a particular instance,
+the current subtype
+<indexterm>
+    <primary>subtype</primary>
+</indexterm>
+instance of this instance becomes the current instance to
+which the reserved word
+<link linkend="Names"><literal>this</literal></link>
+<indexterm>
+    <primary><literal>this</literal></primary>
+</indexterm>
+refers during execution of the appropriate function body.
+</para>
+</section>
+</section>
+<section xml:id="FunctionsObjectFunctionFormalParameters"><info><title>Formal Parameters</title></info>
+
+<para>
+The formal parameters
+<indexterm significance="preferred">
+    <primary>object</primary>
+    <secondary>function</secondary>
+    <tertiary>formal parameters</tertiary>
+</indexterm>
+of an object function, if any,
+are specified by a list of comma-separated parameter declarations. Each
+parameter declaration
+<indexterm>
+    <primary>object</primary>
+    <secondary>function</secondary>
+    <tertiary>parameter declaration</tertiary>
+</indexterm>
+consists of a name that specifies the name of the
+parameter, a parameter mode and a type.
+</para>
+<productionset>
+<productionrecap linkend="ebnf.functionparameterdeclarationlist"/>
+<productionrecap linkend="ebnf.functionparameterdeclaration"/>
+<productionrecap linkend="ebnf.functionparametername"/>
+</productionset>
+<para>
+If a function has no parameters, only an empty pair of parentheses appears
+in the function declaration.
+</para>
+<para>
+A compile-time error occurs if any two parameters are declared to have the
+same name.
+</para>
+<para>
+When the function is invoked (see 
+<xref linkend="ExpressionsPrimaryExpression"/>), the values of the actual
+argument expressions initialize newly created parameter variables, each of
+the declared type, before execution of the body of the function. The parameter
+name that appears in the parameter declaration may be used as a simple name in
+the body of the function to refer to the parameter.
+</para>
+<para>
+The scope of parameter names is the entire body of the function.
+The body of the function must return a value of the declared function type.
+</para>
+</section>
+<section xml:id="FunctionsObjectFunctionSignatures"><info><title>Function Signatures</title></info>
+
+<para>
+The signature of a function consists of the name of the
+function,
+<indexterm significance="preferred">
+    <primary>object</primary>
+    <secondary>function</secondary>
+    <tertiary>signature</tertiary>
+</indexterm>
+the name and types of parameters to the function and the type of
+the parameter returned from the function.
+</para>
+<para>
+A compile-time error occurs if an object declares two domain functions with
+the same signature.
+</para>
+</section>
+<section xml:id="FunctionsObjectFunctionOverloading"><info><title>Overloading</title></info>
+
+<para>
+If two object functions of an object have the same name but different
+<link linkend="FunctionsObjectFunctionSignatures">signatures</link>,
+<indexterm>
+    <primary>object</primary>
+    <secondary>function</secondary>
+    <tertiary>signature</tertiary>
+</indexterm>
+then the function is said to be overloaded.
+<indexterm significance="preferred">
+    <primary>object</primary>
+    <secondary>function</secondary>
+    <tertiary>overloading</tertiary>
+</indexterm>
+When a domain function is invoked (see
+<xref linkend="ExpressionsPrimaryExpression"/>), the
+number of arguments and the compile-time types of the arguments are used to
+determine the
+<link linkend="FunctionsObjectFunctionSignatures">signature</link>
+<indexterm>
+    <primary>object</primary>
+    <secondary>function</secondary>
+    <tertiary>signature</tertiary>
+</indexterm>
+of the function that will be invoked.
+</para>
+<para>
+A function cannot be overloaded on the return type.
+<indexterm>
+    <primary>object</primary>
+    <secondary>function</secondary>
+    <tertiary>return type</tertiary>
+</indexterm>
+A compile time error
+will be raised if two functions have the same name, same input parameter profile
+but different return types.
+</para>
+</section>
+<section xml:id="FunctionsObjectFunctionRaisesExpression"><info><title>Raises Expression</title></info>
+
+<para>
+A raises expression is used to declare any exceptions (see
+<xref linkend="Exceptions"/> that can result from the execution of a
+function.
+</para>
+<productionset>
+<productionrecap linkend="ebnf.raisesexpression"/>
+</productionset>
+<para>
+The following is repeated from
+<xref linkend="ExceptionsHandlingofanException"/> to make the representation
+clearer:
+</para>
+<productionset>
+<productionrecap linkend="ebnf.exceptionspecification"/>
+</productionset>
+<para>
+A compile-time error occurs if an exception that can result from the execution
+of the body of a function is not mentioned in the raises expression in the
+declaration of the function.
+</para>
+<para>
+See <xref linkend="Exceptions"/> for more information on exceptions.
+</para>
+</section>
+<section xml:id="FunctionsObjectFunctionDefinition"><info><title>Object Function Definition</title></info>
+
+<para>
+An <link linkend="ebnf.objectfunctiondefinition"><emphasis>object function definition</emphasis></link>
+<indexterm significance="preferred">
+    <primary>object</primary>
+    <secondary>function</secondary>
+    <tertiary>definition</tertiary>
+</indexterm>
+provides the specification of the behaviour of an object service.
+</para>
+<indexterm zone="ebnf.objectfunctiondefinition">
+    <primary>object function definition</primary>
+</indexterm>
+<indexterm zone="ebnf.objectfunctiondefinition">
+    <primary>domain name</primary>
+</indexterm>
+<indexterm zone="ebnf.objectfunctiondefinition">
+    <primary>object name</primary>
+</indexterm>
+<indexterm zone="ebnf.objectfunctiondefinition">
+    <primary>function name</primary>
+</indexterm>
+<indexterm zone="ebnf.objectfunctiondefinition">
+    <primary>function parameter declaration list</primary>
+</indexterm>
+<indexterm zone="ebnf.objectfunctiondefinition">
+    <primary><literal>return</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.objectfunctiondefinition">
+    <primary>type</primary>
+</indexterm>
+<indexterm zone="ebnf.objectfunctiondefinition">
+    <primary>raises expression</primary>
+</indexterm>
+<indexterm zone="ebnf.objectfunctiondefinition">
+    <primary><literal>is</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.objectfunctiondefinition">
+    <primary>variable declaration</primary>
+</indexterm>
+<indexterm zone="ebnf.objectfunctiondefinition">
+    <primary><literal>begin</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.objectfunctiondefinition">
+    <primary>handled sequence of statements</primary>
+</indexterm>
+<indexterm zone="ebnf.objectfunctiondefinition">
+    <primary><literal>end</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.objectfunctiondefinition">
+    <primary><literal>function</literal></primary>
+</indexterm>
+<productionset>
+<production xml:id="ebnf.objectfunctiondefinition">
+    <lhs>
+        object function definition
+    </lhs>
+    <rhs>
+        <nonterminal def="#ebnf.objectfunctionmodifier">object function modifier</nonterminal>,
+        'function',
+        <nonterminal def="#ebnf.domainname">domain name</nonterminal>,
+        '::',
+        <nonterminal def="#ebnf.objectname">object name</nonterminal>,
+        '.'
+        <nonterminal def="#ebnf.functionname">function name</nonterminal>,
+        '(',
+        <nonterminal def="#ebnf.functionparameterdeclarationlist">function parameter declaration list</nonterminal>,
+        ')', 'return',
+        <nonterminal def="#ebnf.type">type</nonterminal>,
+        [<nonterminal def="#ebnf.raisesexpression">raise expression</nonterminal>],
+        'is',
+        {<nonterminal def="#ebnf.variabledeclaration">variable declaration</nonterminal>},
+        'begin',
+        <nonterminal def="#ebnf.handledsequenceofstatements">handled sequence of statements</nonterminal>,
+        'end', ['function'], ';'
+    </rhs>
+</production>
+</productionset>
+<para>
+A compile-time error occurs if:
+<itemizedlist mark="bullet">
+<listitem>
+<para>
+The
+<link linkend="FunctionsObjectFunctionSignatures">signature</link>
+<indexterm>
+    <primary>object</primary>
+    <secondary>function</secondary>
+    <tertiary>signature</tertiary>
+</indexterm>
+of the function, named by the function name together with the
+<link linkend="ebnf.functionparameterdeclarationlist"><emphasis>parameter declaration list</emphasis></link>
+<indexterm>
+    <primary>parameter</primary>
+    <secondary>declaration list</secondary>
+</indexterm>
+has not already been declared, by an
+<link linkend="ebnf.objectfunctiondefinition"><emphasis>object function definition</emphasis></link>,
+<indexterm>
+    <primary>object</primary>
+    <secondary>function</secondary>
+    <tertiary>declaration</tertiary>
+</indexterm>
+as a function of the object named by the object name, in the
+domain named by the domain name.
+</para>
+</listitem>
+<listitem>
+<para>
+The modifiers do not match the modifiers of the corresponding object function
+declaration.
+</para>
+</listitem>
+<listitem>
+<para>
+The raise expression does not match the raises expression of the corresponding
+domain function declaration.
+</para>
+</listitem>
+<listitem>
+<para>
+The <link linkend="ExceptionsHandlingofanException"><emphasis>handled sequence of statements</emphasis></link>
+<indexterm>
+    <primary>statements</primary>
+    <secondary>handled sequence</secondary>
+</indexterm>
+does not include at least one
+<link linkend="ebnf.objectfunctiondefinition"><literal>return</literal></link>
+statement.
+</para>
+</listitem>
+</itemizedlist>
+</para>
+</section>
+</section>
+</chapter>

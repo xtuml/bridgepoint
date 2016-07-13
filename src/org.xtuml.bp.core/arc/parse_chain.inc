@@ -71,7 +71,7 @@
     .if (not_empty nav.class)
       .invoke cn = get_class_name(nav.class)
       .if (not_empty nav.rel)
-        .invoke result = get_nav_func_name(nav.class, nav.rel, p_nav_card) //Creates the function call to get related instances
+        .invoke result = get_nav_func_name(nav.class, nav.rel, p_nav_card) .//Creates the function call to get related instances
         .assign nav_func_name = "${result.body}"
 ${cn.body}.${nav_func_name}${nav.phrase}(
         .assign num_parens = num_parens + 1

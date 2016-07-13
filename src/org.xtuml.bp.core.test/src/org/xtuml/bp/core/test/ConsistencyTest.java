@@ -30,7 +30,10 @@ import java.io.InputStreamReader;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
-
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.EclipseOoaofooa;
 import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.SystemModel_c;
@@ -45,13 +48,16 @@ import org.xtuml.bp.core.test.consistency.Subtypeleft_c;
 import org.xtuml.bp.core.test.consistency.Subtyperight_c;
 import org.xtuml.bp.core.test.consistency.Supertypetest_c;
 import org.xtuml.bp.core.util.OoaofgraphicsUtil;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.test.common.TestingUtilities;
 
+@RunWith(OrderedRunner.class)
 public class ConsistencyTest extends CoreTest {
 	
     private static Consistency cst = Consistency.getDefaultInstance();
 
     // A primary identifier check
+	@Test
 	public void testPrimaryID()throws Exception {
 		
 	    initialize("blankTest"); //$NON-NLS-1$
@@ -71,6 +77,7 @@ public class ConsistencyTest extends CoreTest {
 	    
 	}
 	// A secondary identifier check
+	@Test
 	public void testSecondaryID()throws Exception {
 		
 	    initialize("blankTest"); //$NON-NLS-1$
@@ -90,6 +97,7 @@ public class ConsistencyTest extends CoreTest {
 	    
 	}
 	// A tertiary identifier check
+	@Test
 	public void testTertiaryID()throws Exception {
 		
 	    initialize("blankTest"); //$NON-NLS-1$
@@ -109,6 +117,7 @@ public class ConsistencyTest extends CoreTest {
 
 	}
 	// A test of an unconditional mutiplicity one participant
+	@Test
 	public void testUnconSinglePart()throws Exception {
 	
 	    initialize("blankTest"); //$NON-NLS-1$
@@ -129,6 +138,7 @@ public class ConsistencyTest extends CoreTest {
 	    read_error_log("!MESSAGE Consistency:",1); //$NON-NLS-1$
 	    clear_log();
 	}
+	@Test
 	public void testZeroPart() throws Exception {
 	    initialize("blankTest"); //$NON-NLS-1$
 	    
@@ -146,6 +156,7 @@ public class ConsistencyTest extends CoreTest {
 	
 	}
 	// A test of an unconditional multiplicity one formalizer
+	@Test
 	public void testUnconSingleForm()throws Exception {
 
 		initialize("blankTest"); //$NON-NLS-1$
@@ -168,6 +179,7 @@ public class ConsistencyTest extends CoreTest {
 	    read_error_log("!MESSAGE Consistency:",1); //$NON-NLS-1$
 	    clear_log();
 	}
+	@Test
 	public void testZeroFormalizer() throws Exception {
 		initialize("blankTest"); //$NON-NLS-1$
 	    
@@ -183,6 +195,7 @@ public class ConsistencyTest extends CoreTest {
 	    read_error_log("!MESSAGE Consistency:",1); //$NON-NLS-1$
 	    clear_log();		
 	}
+	@Test
 	public void testMultSubtype()throws Exception {
 
 		initialize("blankTest"); //$NON-NLS-1$
@@ -203,6 +216,7 @@ public class ConsistencyTest extends CoreTest {
 	    read_error_log("!MESSAGE Consistency:",1); //$NON-NLS-1$
 		clear_log();
 	}
+	@Test
 	public void testZeroSubtype() throws Exception {
 		initialize("blankTest"); //$NON-NLS-1$
 		
@@ -218,6 +232,7 @@ public class ConsistencyTest extends CoreTest {
 	    read_error_log("!MESSAGE Consistency:",1); //$NON-NLS-1$
 		clear_log();	
 	}
+	@Test
 	public void testMultSupertype() throws Exception {
 		initialize("blankTest"); //$NON-NLS-1$
 	    
@@ -238,6 +253,7 @@ public class ConsistencyTest extends CoreTest {
 	    read_error_log("!MESSAGE Consistency:",1); //$NON-NLS-1$
 		clear_log();		
 	}
+	@Test
 	public void testZeroSupertype() throws Exception {
 		initialize("blankTest"); //$NON-NLS-1$
 		
@@ -253,6 +269,7 @@ public class ConsistencyTest extends CoreTest {
 	    read_error_log("!MESSAGE Consistency:",1); //$NON-NLS-1$
 		clear_log();			
 	}
+	@Test
 	public void testMultLink() throws Exception {
 		initialize("blankTest"); //$NON-NLS-1$
 		
@@ -274,6 +291,7 @@ public class ConsistencyTest extends CoreTest {
 	    read_error_log("!MESSAGE Consistency:",1); //$NON-NLS-1$
 		clear_log();			
 	}
+	@Test
 	public void testZeroLink() throws Exception {
 		initialize("blankTest"); //$NON-NLS-1$
 		
@@ -292,6 +310,7 @@ public class ConsistencyTest extends CoreTest {
 		clear_log();			
 
 	}
+	@Test
 	public void testMultOneSide() throws Exception {
 		initialize("blankTest"); //$NON-NLS-1$
 		
@@ -315,6 +334,7 @@ public class ConsistencyTest extends CoreTest {
 	    read_error_log("!MESSAGE Consistency:",1); //$NON-NLS-1$
 		clear_log();				
 	}
+	@Test
 	public void testZeroOneSide() throws Exception {
 		initialize("blankTest"); //$NON-NLS-1$
 		
@@ -334,6 +354,7 @@ public class ConsistencyTest extends CoreTest {
 	    read_error_log("!MESSAGE Consistency:",1); //$NON-NLS-1$
 		clear_log();						
 	}
+	@Test
 	public void testMultOtherSide() throws Exception {
 		initialize("blankTest"); //$NON-NLS-1$
 		
@@ -355,6 +376,7 @@ public class ConsistencyTest extends CoreTest {
 	    read_error_log("!MESSAGE Consistency:",1); //$NON-NLS-1$
 		clear_log();		
 	}
+	@Test
 	public void testZeroOtherSide() throws Exception {
 		initialize("blankTest"); //$NON-NLS-1$
 		
@@ -421,11 +443,13 @@ public class ConsistencyTest extends CoreTest {
         }
 		
 	}
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		super.setUp();
 		EclipseOoaofooa.setPersistEnabled(true);
 	}
-	protected void tearDown() throws Exception {
+	@After
+	public void tearDown() throws Exception {
     // CoreTest expects the log to be empty
 	// overriding tearDown so that it does not check
     }	

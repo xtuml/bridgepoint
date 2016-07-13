@@ -1,6 +1,9 @@
 package org.xtuml.bp.debug.engine;
 
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.debug.test.VerifierTest;
+import org.xtuml.bp.test.common.OrderedRunner;
 
 //========================================================================
 //
@@ -24,11 +27,13 @@ import org.xtuml.bp.debug.test.VerifierTest;
 // the License.
 //========================================================================
 
+@RunWith(OrderedRunner.class)
 public class TimerTest extends VerifierTest {
 	public TimerTest() {
 		super("TimerTest-i1702");
 	}
 
+	@Test
 	public void testTimer()throws InterruptedException {
 	    redirectOutput("timer_test");
 		executeModel();

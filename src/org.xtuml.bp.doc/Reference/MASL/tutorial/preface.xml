@@ -1,0 +1,44 @@
+<!-- 
+  UK Crown Copyright (c) 2016. All Rights Reserved
+-->
+<!-- Converted by db4-upgrade version 1.0 -->
+<preface xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="preface"><info><title>Preface</title></info>
+
+<para>
+This tutorial is not an introduction to programming but an overall description
+of programming in <abbrev>MASL</abbrev><xref linkend="MASL06"/>. It is assumed
+that the reader will have significant experience of programming in some high
+level language, along with knowledge of Shlaer-Mellor OOA modelling
+(<xref linkend="Shlaer88"/>, 
+<xref linkend="Shlaer92"/> and
+<xref linkend="Mellor02"/>).
+</para>
+<para>
+In <xref linkend="Types"/>, we introduce the notion of declaration and
+assignment together with the ideas of scope and visibility.
+The important concepts of type, subtype and constraints are then explained.
+The remainder of this chapter discusses some of the specific and general types
+in <abbrev>MASL</abbrev>.
+</para>
+<para>
+In <xref linkend="ExecutionControl"/> we learn about the main sequential control
+structures of <abbrev>MASL</abbrev>.
+<xref linkend="CompositeTypes"/> continues from where
+<xref linkend="Types"/> left off, by describing the more complex types of
+<abbrev>MASL</abbrev>.
+<xref linkend="Exceptions"/> describes the use of exceptions and exception
+handling.
+In <xref linkend="ObjectsandRelationships"/> we finally get to the main use
+of <abbrev>OOA</abbrev>, and describe how instances of objects are created,
+found and deleted. In addition, this section discusses how we create, navigate
+and delete relationships between these instances.
+In <xref linkend="Actions"/> we discuss actions, which are the places where
+statements, together with appropriate declarations, that encapsulate a set
+of processes are held.
+Finally, in <xref linkend="DeviceIO"/> we discuss how to read and write data to
+and from devices and files.
+This tutorial is a companion to the MASL Reference Manual
+<xref linkend="MASL06"/>, which should be
+referenced for a completion language description.
+</para>
+</preface>

@@ -562,8 +562,8 @@ ${attrs.body}\
       .end if
       .assign addExportRGOProxyCall = false
       .if(not_empty parent_table)
-        .select any class from instances of O_OBJ where (selected.Key_Lett == parent_table.Key_Lett)
-        .select one root_pkg related by class->PE_PE[R8001]->EP_PKG[R8000]->PE_PE[R8001]->EP_PKG[R8000]
+        .select any clazz from instances of O_OBJ where (selected.Key_Lett == parent_table.Key_Lett)
+        .select one root_pkg related by clazz->PE_PE[R8001]->EP_PKG[R8000]->PE_PE[R8001]->EP_PKG[R8000]
         .// no need to export RGO proxies for ooaofgraphics
         .// currently only data types are supported
 		.invoke rgoResolution = rgo_resolution_supported(parent_table.Key_Lett)
@@ -574,7 +574,7 @@ ${attrs.body}\
           .assign addExportRGOProxyCall = true
   public void export_${parent_name}_RGO_Proxies(${parent_name} inst) {
     if (!m_fileExportInProgress) {
-          .select many rtos related by class->R_OIR[R201]->R_RTO[R203]
+          .select many rtos related by clazz->R_OIR[R201]->R_RTO[R203]
           .for each rto in rtos
             .assign proxy_index = proxy_index + 1
             .select one rel related by rto->R_OIR[R203]->R_REL[R201]
@@ -832,8 +832,8 @@ throws IOException
       .if ( multilevel and (not_empty parent_table) )
         .// export the cross component proxy instances
         .assign proxy_index = 0
-        .select any class from instances of O_OBJ where (selected.Key_Lett == parent_table.Key_Lett)
-        .select many rgo_set related by class->R_OIR[R201]->R_RGO[R203]
+        .select any clazz from instances of O_OBJ where (selected.Key_Lett == parent_table.Key_Lett)
+        .select many rgo_set related by clazz->R_OIR[R201]->R_RGO[R203]
         .for each rgo in rgo_set
           .assign proxy_index = proxy_index + 1
           .select one rel related by rgo->R_OIR[R203]->R_REL[R201]
@@ -875,7 +875,7 @@ ${gpe.body}\
 // only export the supertypes if this element was selected for export
 // without its parents
 if(m_inst == inst && exportSupertypes) {
-				  .invoke gsws = gen_supertype_write_statements(rel, class, "")
+				  .invoke gsws = gen_supertype_write_statements(rel, clazz, "")
 ${gsws.body}
 }
 				.else

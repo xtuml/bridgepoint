@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+  UK Crown Copyright (c) 2016. All Rights Reserved
+-->
+<chapter xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook" version="5.0" xml:id="section.Terminators">
+  <title>Terminators</title>
+  <para>
+    A terminator is used to encapsulate services that the domain can call to publish information about itself, and services and 
+    functions that it can call to provide information information it requires. These services and functions differ from <link 
+    linkend="section.Domains.Services">domain services and functions</link> in that they typically are used as an interface to 
+    subject matters which lie outside the scope of the domain. Further details on services and functions in general can be found 
+    in <xref linkend="section.Services"/>. 
+  </para>
+  <section xml:id="section.Terminators.Definition">
+    <title>Definition</title>
+    <para>
+      Each terminator definition defines the services and functions that the enclosing domain wishes to provide or requires 
+      regarding one subject matter. 
+    </para>
+    <productionset>
+      <xi:include href="syntax.xml" xpointer="ebnf.terminatorDefinition"/>
+      <xi:include href="syntax.xml" xpointer="ebnf.terminatorName"/>
+      <xi:include href="syntax.xml" xpointer="ebnf.terminatorItem"/>
+    </productionset>
+    <section xml:id="section.Terminators.Service">
+      <title>Terminator Service</title>
+      <section xml:id="section.Terminators.Service.Declaration">
+        <title>Declaration</title>
+        <para>
+          A terminator service or function declaration declares that the domain wishes to publish a set of information about 
+          itself or that it requires certain information to be provided to it. The parameters on the service define what that 
+          information is, with published information contained in <code>in</code> parameters, and required information contained 
+          in <code>out</code> parameters or a function return value. Full details of service and function declarations are 
+          provided in <xref linkend="section.Services.Declaration"/>.
+        </para>
+        <productionset>
+          <xi:include href="syntax.xml" xpointer="ebnf.terminatorServiceDeclaration"/>
+          <xi:include href="syntax.xml" xpointer="ebnf.terminatorFunctionDeclaration"/>
+          <productionrecap linkend="ebnf.serviceVisibility"/>
+          <productionrecap linkend="ebnf.terminatorName"/>
+          <productionrecap linkend="ebnf.serviceName"/>
+          <productionrecap linkend="ebnf.parameterList"/>
+          <productionrecap linkend="ebnf.parameterDefinition"/>
+          <productionrecap linkend="ebnf.parameterName"/>
+          <productionrecap linkend="ebnf.parameterMode"/>
+          <productionrecap linkend="ebnf.parameterType"/>
+          <productionrecap linkend="ebnf.returnType"/>
+        </productionset>
+      </section>
+      <section xml:id="section.Terminators.Service.Definition">
+        <title>Declaration</title>
+        <para>
+          A terminator service definition defines the action that will publish or provide the information provided or required by 
+          the declaration. Full details of action definitions are provided in <xref linkend="section.Services.Definition"/>. 
+        </para>
+        <productionset>
+          <xi:include href="syntax.xml" xpointer="ebnf.terminatorServiceDefinition"/>
+          <xi:include href="syntax.xml" xpointer="ebnf.terminatorFunctionDefinition"/>
+          <productionrecap linkend="ebnf.domainName"/>
+          <productionrecap linkend="ebnf.terminatorName"/>
+          <productionrecap linkend="ebnf.serviceName"/>
+          <productionrecap linkend="ebnf.codeBlock"/>
+        </productionset>
+      </section>
+    </section>
+  </section>
+</chapter>

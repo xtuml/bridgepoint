@@ -39,6 +39,7 @@ import org.xtuml.bp.model.compare.contentmergeviewer.ModelContentMergeViewer;
 import org.xtuml.bp.model.compare.providers.ModelCompareContentProvider;
 import org.xtuml.bp.model.compare.providers.ModelCompareLabelProvider;
 import org.xtuml.bp.ui.canvas.CanvasModelListener;
+import org.xtuml.bp.ui.canvas.CanvasPlugin;
 import org.xtuml.bp.ui.canvas.Model_c;
 import org.xtuml.bp.ui.canvas.Ooaofgraphics;
 
@@ -101,7 +102,6 @@ public class MergeWorkbenchAdvisor extends BPCLIWorkbenchAdvisor {
 					"r");
 			byte[] leftBytes = new byte[(int) left.length()];
 			left.read(leftBytes);
-			CoreImport.createUniqueIds = false;
 			IModelImport leftImporter = streamImportFactory.create(
 					new ByteArrayInputStream(leftBytes), leftCompareRoot, true,
 					new Path(""));
@@ -131,15 +131,15 @@ public class MergeWorkbenchAdvisor extends BPCLIWorkbenchAdvisor {
 			}
 			Model_c[] models = Model_c.ModelInstances(Ooaofgraphics.getInstance(leftCompareRoot.getId()));
 			for(Model_c model : models) {
-				CanvasModelListener.setGraphicalRepresents(model);
+				CanvasPlugin.setGraphicalRepresents(model);
 			}
 			models = Model_c.ModelInstances(Ooaofgraphics.getInstance(rightCompareRoot.getId()));
 			for(Model_c model : models) {
-				CanvasModelListener.setGraphicalRepresents(model);
+				CanvasPlugin.setGraphicalRepresents(model);
 			}
 			models = Model_c.ModelInstances(Ooaofgraphics.getInstance(ancestorCompareRoot.getId()));
 			for(Model_c model : models) {
-				CanvasModelListener.setGraphicalRepresents(model);
+				CanvasPlugin.setGraphicalRepresents(model);
 			}
 			final NonRootModelElement leftRoot = leftImporter
 					.getRootModelElement();

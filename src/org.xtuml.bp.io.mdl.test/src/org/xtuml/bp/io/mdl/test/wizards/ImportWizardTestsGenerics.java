@@ -30,7 +30,8 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.gef.tools.AbstractTool;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.ui.PlatformUI;
-
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.Package_c;
 import org.xtuml.bp.core.SystemModel_c;
 import org.xtuml.bp.core.common.ClassQueryInterface_c;
@@ -40,12 +41,14 @@ import org.xtuml.bp.io.mdl.wizards.ModelExportWizard;
 import org.xtuml.bp.io.mdl.wizards.ModelImportPage;
 import org.xtuml.bp.io.mdl.wizards.ModelImportWizard;
 import org.xtuml.bp.test.common.BaseTest;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.test.common.TestingUtilities;
 import org.xtuml.bp.test.common.UITestingUtilities;
 import org.xtuml.bp.ui.canvas.GraphicalElement_c;
 import org.xtuml.bp.ui.canvas.Ooaofgraphics;
 import org.xtuml.bp.ui.canvas.test.CanvasTestUtilities;
 
+@RunWith(OrderedRunner.class)
 public class ImportWizardTestsGenerics extends BaseTest {
 
 	/**
@@ -54,6 +57,7 @@ public class ImportWizardTestsGenerics extends BaseTest {
 	 * 
 	 * @throws CoreException
 	 */
+	@Test
 	public void testNoOrphanedElementsOnImportOfCoreDataTypePackage()
 			throws CoreException {
 		IProject testProject = TestingUtilities

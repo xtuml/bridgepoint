@@ -3,15 +3,13 @@ package org.xtuml.bp.io.mdl.test;
 import java.lang.reflect.Method;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.NullProgressMonitor;
-import org.eclipse.core.runtime.Path;
-
+import org.junit.After;
+import org.junit.Before;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.SystemModel_c;
 import org.xtuml.bp.core.common.ClassQueryInterface_c;
@@ -20,18 +18,21 @@ import org.xtuml.bp.core.common.NonRootModelElement;
 import org.xtuml.bp.core.common.PersistableModelComponent;
 import org.xtuml.bp.core.common.PersistenceManager;
 import org.xtuml.bp.test.common.BaseTest;
+import org.xtuml.bp.test.common.OrderedRunner;
 
+@RunWith(OrderedRunner.class)
 public class MultilevelIntermTest extends BaseTest {
 	boolean setupDone = false;
 
 	Ooaofooa modelRoot = null;
 	IFile file = null;
 
-	public MultilevelIntermTest(String name) throws CoreException {
-		super("multilevel", name);
+	public MultilevelIntermTest() throws CoreException {
+		super("multilevel", null);
 	}
 
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		super.setUp();
 		if (!setupDone) {
 			file = importFile(Ooaofooa.MODELS_DIRNAME
@@ -51,7 +52,8 @@ public class MultilevelIntermTest extends BaseTest {
 		}
 	}
 	
-	protected void tearDown() throws Exception {
+	@After
+	public void tearDown() throws Exception {
 	}
 
 	

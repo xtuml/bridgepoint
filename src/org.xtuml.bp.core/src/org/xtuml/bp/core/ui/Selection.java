@@ -97,7 +97,12 @@ public class Selection implements ISelectionProvider
 	}
 	
 	public NonRootModelElement[] getSelectedNonRootModelElements() {
-		Object[] selectedObjects = getStructuredSelection().toArray();
+		return Selection.getSelectedNonRootModelElements(getStructuredSelection());
+	}
+	
+
+	public static NonRootModelElement[] getSelectedNonRootModelElements(IStructuredSelection selection) {
+		Object[] selectedObjects = selection.toArray();
 		ArrayList<NonRootModelElement> list = new ArrayList<NonRootModelElement>();
 		for(int i = 0; i < selectedObjects.length; i++) {
 			if(selectedObjects[i] instanceof NonRootModelElement) {
@@ -107,7 +112,6 @@ public class Selection implements ISelectionProvider
 		return list.toArray(new NonRootModelElement[list.size()]);
 	}
 	
-
     /**
      * Returns which model elements and their wrapper are currently selected in the UI.
      * This method <b>should not</b> be used from BP source. Use <code>getStructuredSelection</code>

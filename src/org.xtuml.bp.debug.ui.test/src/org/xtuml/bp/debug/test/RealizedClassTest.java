@@ -45,7 +45,10 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;
 import org.eclipse.ui.PlatformUI;
-
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.ComponentInstance_c;
 import org.xtuml.bp.core.Component_c;
 import org.xtuml.bp.core.CorePlugin;
@@ -67,22 +70,24 @@ import org.xtuml.bp.debug.ui.model.BPDebugTarget;
 import org.xtuml.bp.debug.ui.test.DebugUITestUtilities;
 import org.xtuml.bp.test.TestUtil;
 import org.xtuml.bp.test.common.BaseTest;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.test.common.TestingUtilities;
 import org.xtuml.bp.test.common.UITestingUtilities;
-import org.xtuml.bp.test.common.BaseTest.Function_by_name_c;
 import org.xtuml.bp.ui.text.activity.ActivityEditor;
 
+@RunWith(OrderedRunner.class)
 public class RealizedClassTest extends BaseTest {
 	private static String projectName = "RealizedClassTest";
 
 	static private boolean initialized = false;
 
-	public RealizedClassTest(String testName) throws Exception {
-		super(null,testName);
+	public RealizedClassTest() throws Exception {
+		super(null, null);
 	}
 
 	@Override
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		super.setUp();
 		if (!initialized){
 			loadProject("RealizedClassTest");
@@ -110,10 +115,12 @@ public class RealizedClassTest extends BaseTest {
 		}
 	}
 	
+	@After
 	public void tearDown() throws Exception {
 		DebugUITestUtilities.stopSession(m_sys, projectName);
 	}
 	
+	@Test
 	public void testExectureTest() {
 		ModelRoot [] roots = Ooaofooa.getInstancesUnderSystem(projectName);
 		
@@ -148,6 +155,7 @@ public class RealizedClassTest extends BaseTest {
 
 	}
 	
+	@Test
 	public void testBridgeParameterOrdering() throws CoreException {
 	    loadProject("BridgeParameterOrderingTest");
 	    Function_c testFunction = Function_c

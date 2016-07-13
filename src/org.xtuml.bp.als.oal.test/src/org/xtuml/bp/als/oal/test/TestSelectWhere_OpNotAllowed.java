@@ -2,32 +2,39 @@ package org.xtuml.bp.als.oal.test;
 
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.jface.preference.IPreferenceStore;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.Variable_c;
 import org.xtuml.bp.core.common.BridgePointPreferencesStore;
 import org.xtuml.bp.test.common.BaseTest;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.test.common.TestingUtilities;
 
 import antlr.RecognitionException;
 import antlr.TokenStreamException;
 
+@RunWith(OrderedRunner.class)
 public class TestSelectWhere_OpNotAllowed extends BaseTest {
 
     private static String m_projectName = "select_where_test";
     private static boolean firstSetup = false;
     static public Ooaofooa modelRoot = BaseTest.getDefaultTestInstance();
 
-    public TestSelectWhere_OpNotAllowed(String arg0) {
-        super(null, arg0);
-    }
+    public TestSelectWhere_OpNotAllowed() {
+        super(null, null);
+	}
 
     /*
      * (non-Javadoc)
      * 
      * @see junit.framework.TestCase#setUp()
      */
-    protected void setUp() throws Exception {
+    @Before
+	public void setUp() throws Exception {
         super.setUp();
 
         if (!firstSetup) {
@@ -60,7 +67,8 @@ public class TestSelectWhere_OpNotAllowed extends BaseTest {
      * 
      * @see junit.framework.TestCase#tearDown()
      */
-    protected void tearDown() throws Exception {
+    @After
+	public void tearDown() throws Exception {
         try {
             super.tearDown();
             TestSelectWhere_Generics.tearDownActionData();
@@ -73,7 +81,8 @@ public class TestSelectWhere_OpNotAllowed extends BaseTest {
         }
     }
 
-    public void testSelectAnyFromWhereSelectedCOp1() throws RecognitionException, TokenStreamException {
+    @Test
+	public void testSelectAnyFromWhereSelectedCOp1() throws RecognitionException, TokenStreamException {
         String act = "select any My_Class from instances of The_Class where (The_Class::class_based_op() == true);"; //$NON-NLS-1$
         String x = TestSelectWhere_Generics.parseAction(act, TestSelectWhere_Generics.ACTIVITY_TYPE_FUNC, TestSelectWhere_Generics.TEST_OAL);
         String lines[] = x.split("\n");//$NON-NLS-1$
@@ -85,7 +94,8 @@ public class TestSelectWhere_OpNotAllowed extends BaseTest {
         assertEquals(0, vars.length);
     }
 
-    public void testSelectAnyFromWhereSelectedCOp2() throws RecognitionException, TokenStreamException {
+    @Test
+	public void testSelectAnyFromWhereSelectedCOp2() throws RecognitionException, TokenStreamException {
         String act = "select any My_Class from instances of The_Class where (true == The_Class::class_based_op());"; //$NON-NLS-1$
         String x = TestSelectWhere_Generics.parseAction(act, TestSelectWhere_Generics.ACTIVITY_TYPE_FUNC, TestSelectWhere_Generics.TEST_OAL);
         String lines[] = x.split("\n");//$NON-NLS-1$
@@ -97,7 +107,8 @@ public class TestSelectWhere_OpNotAllowed extends BaseTest {
         assertEquals(0, vars.length);
     }
 
-    public void testSelectAnyFromWhereSelectedCOp3() throws RecognitionException, TokenStreamException {
+    @Test
+	public void testSelectAnyFromWhereSelectedCOp3() throws RecognitionException, TokenStreamException {
         String act = "select any My_Class from instances of The_Class where (The_Class::class_based_op());"; //$NON-NLS-1$
         String x = TestSelectWhere_Generics.parseAction(act, TestSelectWhere_Generics.ACTIVITY_TYPE_FUNC, TestSelectWhere_Generics.TEST_OAL);
         String lines[] = x.split("\n");//$NON-NLS-1$
@@ -109,7 +120,8 @@ public class TestSelectWhere_OpNotAllowed extends BaseTest {
         assertEquals(0, vars.length);
     }
 
-    public void testSelectAnyFromWhereSelectedBrg1() throws RecognitionException, TokenStreamException {
+    @Test
+	public void testSelectAnyFromWhereSelectedBrg1() throws RecognitionException, TokenStreamException {
         String act = "select any My_Class from instances of The_Class where (TEST::getTrue() == true);"; //$NON-NLS-1$
         String x = TestSelectWhere_Generics.parseAction(act, TestSelectWhere_Generics.ACTIVITY_TYPE_FUNC, TestSelectWhere_Generics.TEST_OAL);
         String lines[] = x.split("\n");//$NON-NLS-1$
@@ -121,7 +133,8 @@ public class TestSelectWhere_OpNotAllowed extends BaseTest {
         assertEquals(0, vars.length);
     }
 
-    public void testSelectAnyFromWhereSelectedBrg2() throws RecognitionException, TokenStreamException {
+    @Test
+	public void testSelectAnyFromWhereSelectedBrg2() throws RecognitionException, TokenStreamException {
         String act = "select any My_Class from instances of The_Class where (true == TEST::getTrue());"; //$NON-NLS-1$
         String x = TestSelectWhere_Generics.parseAction(act, TestSelectWhere_Generics.ACTIVITY_TYPE_FUNC, TestSelectWhere_Generics.TEST_OAL);
         String lines[] = x.split("\n");//$NON-NLS-1$
@@ -133,7 +146,8 @@ public class TestSelectWhere_OpNotAllowed extends BaseTest {
         assertEquals(0, vars.length);
     }
     
-    public void testSelectAnyFromWhereSelectedBrg3() throws RecognitionException, TokenStreamException {
+    @Test
+	public void testSelectAnyFromWhereSelectedBrg3() throws RecognitionException, TokenStreamException {
         String act = "select any My_Class from instances of The_Class where (TEST::getTrue());"; //$NON-NLS-1$
         String x = TestSelectWhere_Generics.parseAction(act, TestSelectWhere_Generics.ACTIVITY_TYPE_FUNC, TestSelectWhere_Generics.TEST_OAL);
         String lines[] = x.split("\n");//$NON-NLS-1$
@@ -145,7 +159,8 @@ public class TestSelectWhere_OpNotAllowed extends BaseTest {
         assertEquals(0, vars.length);
     }
 
-    public void testSelectAnyFromWhereSelectedIOp1() throws RecognitionException, TokenStreamException {
+    @Test
+	public void testSelectAnyFromWhereSelectedIOp1() throws RecognitionException, TokenStreamException {
         IPreferenceStore store = CorePlugin.getDefault().getPreferenceStore();
         store.setValue(BridgePointPreferencesStore.ALLOW_OPERATIONS_IN_WHERE, false);
 
@@ -160,7 +175,8 @@ public class TestSelectWhere_OpNotAllowed extends BaseTest {
         assertEquals(0, vars.length);
     }
 
-    public void testSelectAnyFromWhereSelectedIOp2() throws RecognitionException, TokenStreamException {
+    @Test
+	public void testSelectAnyFromWhereSelectedIOp2() throws RecognitionException, TokenStreamException {
         String act = "select any My_Class from instances of The_Class where (0 == selected.get_A());"; //$NON-NLS-1$
         String x = TestSelectWhere_Generics.parseAction(act, TestSelectWhere_Generics.ACTIVITY_TYPE_FUNC, TestSelectWhere_Generics.TEST_OAL);
         String lines[] = x.split("\n");//$NON-NLS-1$
@@ -172,7 +188,8 @@ public class TestSelectWhere_OpNotAllowed extends BaseTest {
         assertEquals(0, vars.length);
     }
 
-    public void testSelectAnyFromWhereSelectedIOp3() throws RecognitionException, TokenStreamException {
+    @Test
+	public void testSelectAnyFromWhereSelectedIOp3() throws RecognitionException, TokenStreamException {
         String act = "select any My_Class from instances of The_Class where (selected.getTrue());"; //$NON-NLS-1$
         String x = TestSelectWhere_Generics.parseAction(act, TestSelectWhere_Generics.ACTIVITY_TYPE_FUNC, TestSelectWhere_Generics.TEST_OAL);
         String lines[] = x.split("\n");//$NON-NLS-1$
@@ -184,7 +201,8 @@ public class TestSelectWhere_OpNotAllowed extends BaseTest {
         assertEquals(0, vars.length);
     }
 
-    public void testSelectAnyFromWhereSelectedMDA1() throws RecognitionException, TokenStreamException {
+    @Test
+	public void testSelectAnyFromWhereSelectedMDA1() throws RecognitionException, TokenStreamException {
         String act = "select any My_Class from instances of The_Class where (selected.Attr_B == 10);"; //$NON-NLS-1$
         String x = TestSelectWhere_Generics.parseAction(act, TestSelectWhere_Generics.ACTIVITY_TYPE_FUNC, TestSelectWhere_Generics.TEST_OAL);
         String lines[] = x.split("\n");//$NON-NLS-1$
@@ -196,7 +214,8 @@ public class TestSelectWhere_OpNotAllowed extends BaseTest {
         assertEquals(0, vars.length);
     }
 
-    public void testSelectAnyFromWhereSelectedMDA2() throws RecognitionException, TokenStreamException {
+    @Test
+	public void testSelectAnyFromWhereSelectedMDA2() throws RecognitionException, TokenStreamException {
         String act = "select any My_Class from instances of The_Class where (10 == selected.Attr_B);"; //$NON-NLS-1$
         String x = TestSelectWhere_Generics.parseAction(act, TestSelectWhere_Generics.ACTIVITY_TYPE_FUNC, TestSelectWhere_Generics.TEST_OAL);
         String lines[] = x.split("\n");//$NON-NLS-1$
@@ -208,7 +227,8 @@ public class TestSelectWhere_OpNotAllowed extends BaseTest {
         assertEquals(0, vars.length);
     }
 
-    public void testSelectAnyFromWhereSelectedMDA3() throws RecognitionException, TokenStreamException {
+    @Test
+	public void testSelectAnyFromWhereSelectedMDA3() throws RecognitionException, TokenStreamException {
         String act = "select any My_Class from instances of The_Class where (selected.Attr_true);"; //$NON-NLS-1$
         String x = TestSelectWhere_Generics.parseAction(act, TestSelectWhere_Generics.ACTIVITY_TYPE_FUNC, TestSelectWhere_Generics.TEST_OAL);
         String lines[] = x.split("\n");//$NON-NLS-1$
@@ -220,7 +240,8 @@ public class TestSelectWhere_OpNotAllowed extends BaseTest {
         assertEquals(0, vars.length);
     }
 
-    public void testSelectAnyFromWhereSelectedMsgOp1() throws RecognitionException, TokenStreamException {
+    @Test
+	public void testSelectAnyFromWhereSelectedMsgOp1() throws RecognitionException, TokenStreamException {
         String act = "select any My_Class from instances of The_Class where (my_if::if_op() == true);"; //$NON-NLS-1$
         String x = TestSelectWhere_Generics.parseAction(act, TestSelectWhere_Generics.ACTIVITY_TYPE_FUNC, TestSelectWhere_Generics.TEST_OAL);
         String lines[] = x.split("\n");//$NON-NLS-1$
@@ -232,7 +253,8 @@ public class TestSelectWhere_OpNotAllowed extends BaseTest {
         assertEquals(0, vars.length);        
     }
 
-    public void testSelectAnyFromWhereSelectedMsgOp2() throws RecognitionException, TokenStreamException {
+    @Test
+	public void testSelectAnyFromWhereSelectedMsgOp2() throws RecognitionException, TokenStreamException {
         String act = "select any My_Class from instances of The_Class where (true == my_if::if_op());"; //$NON-NLS-1$
         String x = TestSelectWhere_Generics.parseAction(act, TestSelectWhere_Generics.ACTIVITY_TYPE_FUNC, TestSelectWhere_Generics.TEST_OAL);
         String lines[] = x.split("\n");//$NON-NLS-1$
@@ -244,7 +266,8 @@ public class TestSelectWhere_OpNotAllowed extends BaseTest {
         assertEquals(0, vars.length);                
     }
 
-    public void testSelectAnyFromWhereSelectedMsgOp3() throws RecognitionException, TokenStreamException {
+    @Test
+	public void testSelectAnyFromWhereSelectedMsgOp3() throws RecognitionException, TokenStreamException {
         String act = "select any My_Class from instances of The_Class where (my_if::if_op());"; //$NON-NLS-1$
         String x = TestSelectWhere_Generics.parseAction(act, TestSelectWhere_Generics.ACTIVITY_TYPE_FUNC, TestSelectWhere_Generics.TEST_OAL);
         String lines[] = x.split("\n");//$NON-NLS-1$
@@ -256,7 +279,8 @@ public class TestSelectWhere_OpNotAllowed extends BaseTest {
         assertEquals(0, vars.length);                
     }
 
-    public void testSelectAnyFromWhereSelectedDomFunc1() throws RecognitionException, TokenStreamException {
+    @Test
+	public void testSelectAnyFromWhereSelectedDomFunc1() throws RecognitionException, TokenStreamException {
         String act = "select any My_Class from instances of The_Class where (::gfunc() == true);"; //$NON-NLS-1$
         String x = TestSelectWhere_Generics.parseAction(act, TestSelectWhere_Generics.ACTIVITY_TYPE_FUNC, TestSelectWhere_Generics.TEST_OAL);
         String lines[] = x.split("\n");//$NON-NLS-1$
@@ -268,7 +292,8 @@ public class TestSelectWhere_OpNotAllowed extends BaseTest {
         assertEquals(0, vars.length);
     }
 
-    public void testSelectAnyFromWhereSelectedDomFunc2() throws RecognitionException, TokenStreamException {
+    @Test
+	public void testSelectAnyFromWhereSelectedDomFunc2() throws RecognitionException, TokenStreamException {
         String act = "select any My_Class from instances of The_Class where (true == ::gfunc());"; //$NON-NLS-1$
         String x = TestSelectWhere_Generics.parseAction(act, TestSelectWhere_Generics.ACTIVITY_TYPE_FUNC, TestSelectWhere_Generics.TEST_OAL);
         String lines[] = x.split("\n");//$NON-NLS-1$
@@ -280,7 +305,8 @@ public class TestSelectWhere_OpNotAllowed extends BaseTest {
         assertEquals(0, vars.length);
     }
 
-    public void testSelectAnyFromWhereSelectedDomFunc3() throws RecognitionException, TokenStreamException {
+    @Test
+	public void testSelectAnyFromWhereSelectedDomFunc3() throws RecognitionException, TokenStreamException {
         String act = "select any My_Class from instances of The_Class where (::gfunc());"; //$NON-NLS-1$
         String x = TestSelectWhere_Generics.parseAction(act, TestSelectWhere_Generics.ACTIVITY_TYPE_FUNC, TestSelectWhere_Generics.TEST_OAL);
         String lines[] = x.split("\n");//$NON-NLS-1$

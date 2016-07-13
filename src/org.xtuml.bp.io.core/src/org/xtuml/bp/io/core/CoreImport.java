@@ -67,13 +67,12 @@ public abstract class CoreImport implements IModelImport {
     protected boolean m_templateFile;
 
     protected NonRootModelElement rootModelElement = null;
-    public static boolean createUniqueIds = true;
 
     /**
      * The version string found in BP SQL model files.
      */
     public static String bpSqlVersion = "6.1D";
-
+    
     public CoreImport(Ooaofooa modelRoot, InputStream inStream, boolean clearDatabase, boolean templateFile)
             throws IOException {
         m_success = false;
@@ -104,6 +103,7 @@ public abstract class CoreImport implements IModelImport {
         m_modelRoot = null;
         m_fileName = inFile.toString();
         m_inFile = inFile.toFile();
+
         if (!m_inFile.exists() || !m_inFile.isFile())
             throw new FileNotFoundException(inFile + " not found");
     }

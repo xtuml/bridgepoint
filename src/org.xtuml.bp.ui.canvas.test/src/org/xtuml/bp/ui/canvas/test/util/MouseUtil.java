@@ -25,7 +25,6 @@ package org.xtuml.bp.ui.canvas.test.util;
 import java.awt.geom.Point2D;
 
 import org.eclipse.swt.graphics.Point;
-
 import org.xtuml.bp.test.common.CanvasTestUtils;
 import org.xtuml.bp.ui.canvas.Model_c;
 

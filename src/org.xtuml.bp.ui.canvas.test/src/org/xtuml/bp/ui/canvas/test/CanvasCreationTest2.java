@@ -15,6 +15,10 @@ package org.xtuml.bp.ui.canvas.test;
 import org.eclipse.gef.tools.AbstractTool;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.PlatformUI;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.EnumerationDataType_c;
 import org.xtuml.bp.core.ExternalEntity_c;
 import org.xtuml.bp.core.ImportedClass_c;
@@ -23,32 +27,40 @@ import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.Package_c;
 import org.xtuml.bp.core.UserDataType_c;
 import org.xtuml.bp.test.common.CanvasTestUtils;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.test.common.UITestingUtilities;
 import org.xtuml.bp.ui.graphics.editor.GraphicalEditor;
 import org.xtuml.bp.ui.graphics.editor.ModelEditor;
 
+@RunWith(OrderedRunner.class)
 public class CanvasCreationTest2 extends CanvasTest {
 	public static boolean generateResults = false;
 	private static String test_id = "";
 	
-	public CanvasCreationTest2(String arg0) {
-		super(null, arg0);
+	public CanvasCreationTest2() {
+		super(null, null);
 	}
 
 	@Override
+	@Before
 	public void setUp() throws Exception {
 		super.setUp();
 	}
-	
+	private static boolean isFirstTime = true;
 	@Override
-	protected void initialSetup() throws Exception {
+//	@Before
+	public void initialSetup() throws Exception {
+		if (!isFirstTime)
+			return;
+		isFirstTime = false;
 		setModelName("CanvasCreationModel");
 
 		Display d = Display.getCurrent();
 		while ( d.readAndDispatch() ) ;
 	}
 
-	protected void tearDown() throws Exception {
+	@After
+	public void tearDown() throws Exception {
 		Ooaofooa.setPersistEnabled(false);
 		super.tearDown();
 	}
@@ -66,17 +78,8 @@ public class CanvasCreationTest2 extends CanvasTest {
 
 	}
 
-	// Because of the way the draw logs are created, these tests need to
-	// run in a consistent order
-	public void testCanvasCreationTests2() {
-		dotestCreateModelClassInPackage();
-		dotestCreateImportedModelClassInSubsystem();
-		dotestCreateUserDatatypeInDataTypePackage();
-		dotestCreateEnumDatatypeInDataTypePackage();
-		dotestCreateEEInEEPackage();
-	}
-	
-	public void dotestCreateModelClassInPackage() {
+	@Test
+	public void testCreateModelClassInPackage() {
 		test_id = "test_8";
 		Package_c ss = Package_c.PackageInstance(modelRoot);
 		assertNotNull(ss);
@@ -102,7 +105,8 @@ public class CanvasCreationTest2 extends CanvasTest {
         validateOrGenerateResultsGenerics(ce, generateResults);
         UITestingUtilities.deactivateTool(tool);
 	}
-	public void dotestCreateImportedModelClassInSubsystem() {
+	@Test
+	public void testCreateImportedModelClassInSubsystem() {
 		test_id = "test_9";
 		Package_c ss = Package_c.PackageInstance(modelRoot);
 		assertNotNull(ss);
@@ -128,7 +132,8 @@ public class CanvasCreationTest2 extends CanvasTest {
         validateOrGenerateResultsGenerics(ce, generateResults); 
         UITestingUtilities.deactivateTool(tool);
 	}
-	public void dotestCreateUserDatatypeInDataTypePackage() {
+	@Test
+	public void testCreateUserDatatypeInDataTypePackage() {
 		test_id = "test_12";
 		Package_c []dpks = Package_c.PackageInstances(modelRoot);
 		assertEquals(2, dpks.length);
@@ -158,7 +163,8 @@ public class CanvasCreationTest2 extends CanvasTest {
         UITestingUtilities.deactivateTool(tool);
 	}
 
-	public void dotestCreateEnumDatatypeInDataTypePackage() {
+	@Test
+	public void testCreateEnumDatatypeInDataTypePackage() {
 		test_id = "test_13";
 		Package_c []dpks = Package_c.PackageInstances(modelRoot);
 		assertEquals(2, dpks.length);
@@ -188,7 +194,8 @@ public class CanvasCreationTest2 extends CanvasTest {
         UITestingUtilities.deactivateTool(tool);
 	}
 	
-	public void dotestCreateEEInEEPackage() {
+	@Test
+	public void testCreateEEInEEPackage() {
 		test_id = "test_14";
 		Package_c epk = Package_c.PackageInstance(modelRoot);
 		assertNotNull(epk);

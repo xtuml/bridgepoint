@@ -22,10 +22,9 @@
 //
 package org.xtuml.bp.als.oal.test;
 
-import junit.framework.TestCase;
-import antlr.RecognitionException;
-import antlr.TokenStreamException;
-
+import org.junit.After;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.Association_c;
 import org.xtuml.bp.core.Block_c;
 import org.xtuml.bp.core.CreateNoVariable_c;
@@ -40,10 +39,17 @@ import org.xtuml.bp.core.UnrelateUsing_c;
 import org.xtuml.bp.core.Unrelate_c;
 import org.xtuml.bp.core.Value_c;
 import org.xtuml.bp.core.Variable_c;
+import org.xtuml.bp.test.common.OrderedRunner;
 
+import antlr.RecognitionException;
+import antlr.TokenStreamException;
+import junit.framework.TestCase;
+
+@RunWith(OrderedRunner.class)
 public class TestCRUD_Generics extends TestCase {
 
-    protected void tearDown() throws Exception {
+    @After
+	public void tearDown() throws Exception {
         try {
             super.tearDown();
             OalParserTest_Generics.tearDownActionData();
@@ -54,6 +60,7 @@ public class TestCRUD_Generics extends TestCase {
         }
     }
 
+	@Test
 	public void testObjectKeyletterFound() throws RecognitionException, TokenStreamException {
 		String x = OalParserTest_Generics.parseAction("create object instance d1 of D_D; ", OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM); //$NON-NLS-1$
 		assertEquals("", x); //$NON-NLS-1$
@@ -81,6 +88,7 @@ public class TestCRUD_Generics extends TestCase {
         ModelClass_c mc = ModelClass_c.getOneO_OBJOnR818(iv[0]);
 		assertEquals("D_D", mc.getKey_lett()); //$NON-NLS-1$
 	}
+	@Test
 	public void testObjectKeyletterFoundNoVar() throws RecognitionException, TokenStreamException {
 		String x = OalParserTest_Generics.parseAction("create object instance of D_D; ", OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM); //$NON-NLS-1$
 		assertEquals("", x); //$NON-NLS-1$
@@ -103,6 +111,7 @@ public class TestCRUD_Generics extends TestCase {
 		InstanceHandle_c[] iv = InstanceHandle_c.InstanceHandleInstances(OalParserTest_Generics.modelRoot);
 		assertEquals(0, iv.length);
 	}
+	@Test
 	public void testObjectKeyletterNotFound() throws RecognitionException, TokenStreamException {
 		String x = OalParserTest_Generics.parseAction("create object instance nsi of XX ; ", OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM); //$NON-NLS-1$
 		String lines[] = x.split("\n"); //$NON-NLS-1$
@@ -116,6 +125,7 @@ public class TestCRUD_Generics extends TestCase {
 		InstanceHandle_c[] iv = InstanceHandle_c.InstanceHandleInstances(OalParserTest_Generics.modelRoot);
 		assertEquals(0, iv.length);
 	}
+	@Test
 	public void testObjectKeyletterNotFoundNoVar() throws RecognitionException, TokenStreamException {
 		String x = OalParserTest_Generics.parseAction("create object instance of XX ; ", OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM); //$NON-NLS-1$
 		String lines[] = x.split("\n"); //$NON-NLS-1$
@@ -129,6 +139,7 @@ public class TestCRUD_Generics extends TestCase {
 		InstanceHandle_c[] iv = InstanceHandle_c.InstanceHandleInstances(OalParserTest_Generics.modelRoot);
 		assertEquals(0, iv.length);
 	}
+	@Test
 	public void testCreateWrongVarType() throws RecognitionException, TokenStreamException {
 		String x = OalParserTest_Generics.parseAction("x = 1; create object instance x of D_D;", OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM); //$NON-NLS-1$
 		String lines[] = x.split("\n");//$NON-NLS-1$
@@ -146,6 +157,7 @@ public class TestCRUD_Generics extends TestCase {
 		Create_c[] cre = Create_c.CreateInstances(OalParserTest_Generics.modelRoot);
 		assertEquals(0, cre.length);
 	}
+	@Test
 	public void testCreateWrongClassType() throws RecognitionException, TokenStreamException {
 		String x = OalParserTest_Generics.parseAction("create object instance x of D_D;\ncreate object instance x of D_H;", OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM); //$NON-NLS-1$
 		String lines[] = x.split("\n");//$NON-NLS-1$
@@ -163,6 +175,7 @@ public class TestCRUD_Generics extends TestCase {
 		Create_c[] cre = Create_c.CreateInstances(OalParserTest_Generics.modelRoot);
 		assertEquals(1, cre.length);
 	}
+	@Test
 	public void testDelete() throws RecognitionException, TokenStreamException {
 		String x = OalParserTest_Generics.parseAction("create object instance d1 of D_D; delete object instance d1;", OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM); //$NON-NLS-1$
 		assertEquals("", x); //$NON-NLS-1$
@@ -182,6 +195,7 @@ public class TestCRUD_Generics extends TestCase {
 		assertEquals(st[1].getStatement_id(), del[0].getStatement_id());
 		assertEquals(t[0].getVar_id(), del[0].getVar_id());
 	}
+	@Test
 	public void testDeleteI() throws RecognitionException, TokenStreamException {
 		String x = OalParserTest_Generics.parseAction("x = 5; delete object instance x;", OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM); //$NON-NLS-1$
 		String lines[] = x.split("\n");//$NON-NLS-1$
@@ -268,6 +282,7 @@ public class TestCRUD_Generics extends TestCase {
 			assertEquals(relNum, r_rel.getNumb());
 		}
 	}
+	@Test
 	public void testRelateBinary() throws RecognitionException, TokenStreamException {
 		String act = "create object instance d1 of D_D;\ncreate object instance h of D_H;\nrelate d1 to h across R4;"; //$NON-NLS-1$
 		String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
@@ -278,6 +293,7 @@ public class TestCRUD_Generics extends TestCase {
 		assertEquals("", x); //$NON-NLS-1$
 		goodUnrelateValidate(var_list, 4, 3, "", false);//$NON-NLS-1$
 	}
+	@Test
 	public void testRelateBinaryGoodPhraseNotReflexive() throws RecognitionException, TokenStreamException {
 		String act = "create object instance d1 of D_D;\ncreate object instance h of D_H;\nrelate d1 to h across R4.'is permanently assigned to';"; //$NON-NLS-1$
 		String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
@@ -288,6 +304,7 @@ public class TestCRUD_Generics extends TestCase {
 		assertEquals("", x); //$NON-NLS-1$
 		goodUnrelateValidate(var_list, 4, 3, "'is permanently assigned to'", false);//$NON-NLS-1$
 	}
+	@Test
 	public void testRelateBinaryGoodReflexive() throws RecognitionException, TokenStreamException {
 		String act = "create object instance d1 of D_D;\ncreate object instance d2 of D_D;\nrelate d1 to d2 across R12.'precedes';"; //$NON-NLS-1$
 		String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
@@ -298,6 +315,7 @@ public class TestCRUD_Generics extends TestCase {
 		assertEquals("", x); //$NON-NLS-1$
 		goodUnrelateValidate(var_list, 12, 3, "'precedes'", false);//$NON-NLS-1$
 	}
+	@Test
 	public void testRelateBinaryGoodReflexive2() throws RecognitionException, TokenStreamException {
 		String act = "create object instance d1 of D_D;\ncreate object instance d2 of D_D;\nrelate d1 to d2 across R12.'follows';"; //$NON-NLS-1$
 		String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
@@ -308,6 +326,7 @@ public class TestCRUD_Generics extends TestCase {
 		assertEquals("", x); //$NON-NLS-1$
 		goodUnrelateValidate(var_list, 12, 3, "'follows'", false);//$NON-NLS-1$
 	}
+	@Test
 	public void testRelateSubtypeGood() throws RecognitionException, TokenStreamException {
 		String act = "create object instance d1 of D_D;\ncreate object instance od of D_OD;\nrelate d1 to od across R3;"; //$NON-NLS-1$
 		String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
@@ -318,6 +337,7 @@ public class TestCRUD_Generics extends TestCase {
 		assertEquals("", x); //$NON-NLS-1$
 		goodUnrelateValidate(var_list, 3, 3, "", false);//$NON-NLS-1$
 	}
+	@Test
 	public void testRelateAssocGood() throws RecognitionException, TokenStreamException {
 		String act = "create object instance d1 of D_D;\ncreate object instance q of D_QP;\ncreate object instance dq of D_DQ;\nrelate d1 to q across R1 using dq;"; //$NON-NLS-1$
 		String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
@@ -328,6 +348,7 @@ public class TestCRUD_Generics extends TestCase {
 		assertEquals("", x); //$NON-NLS-1$
 		goodUnrelateValidate(var_list, 1, 4, "", true);//$NON-NLS-1$
 	}
+	@Test
 	public void testRelateAssocGood2() throws RecognitionException, TokenStreamException {
 		String act = "create object instance q of D_QP;\ncreate object instance d1 of D_D;\ncreate object instance dq of D_DQ;\nrelate q to d1 across R1 using dq;"; //$NON-NLS-1$
 		String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
@@ -338,6 +359,7 @@ public class TestCRUD_Generics extends TestCase {
 		assertEquals("", x); //$NON-NLS-1$
 		goodUnrelateValidate(var_list, 1, 4, "", true);//$NON-NLS-1$
 	}
+	@Test
 	public void testRelateAssocGoodWithPhrase() throws RecognitionException, TokenStreamException {
 		String act = "create object instance d1 of D_D;\ncreate object instance q of D_QP;\ncreate object instance dq of D_DQ;\nrelate d1 to q across R1.'needed by' using dq;"; //$NON-NLS-1$
 		String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
@@ -348,6 +370,7 @@ public class TestCRUD_Generics extends TestCase {
 		assertEquals("", x); //$NON-NLS-1$
 		goodUnrelateValidate(var_list, 1, 4, "'needed by'", true);//$NON-NLS-1$
 	}
+	@Test
 	public void testRelateAssocGoodReflexive() throws RecognitionException, TokenStreamException {
 		String act = "create object instance qp1 of D_QP;\ncreate object instance qp2 of D_QP;\ncreate object instance qpo of D_QPO;\nrelate qp1 to qp2 across R13.'precedes' using qpo;"; //$NON-NLS-1$
 		String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
@@ -358,6 +381,7 @@ public class TestCRUD_Generics extends TestCase {
 		assertEquals("", x); //$NON-NLS-1$
 		goodUnrelateValidate(var_list, 13, 4, "'precedes'", true);//$NON-NLS-1$
 	}
+	@Test
 	public void testRelateAssocGoodReflexive2() throws RecognitionException, TokenStreamException {
 		String act = "create object instance qp1 of D_QP;\ncreate object instance qp2 of D_QP;\ncreate object instance qpo of D_QPO;\nrelate qp1 to qp2 across R13.'follows' using qpo;"; //$NON-NLS-1$
 		String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
@@ -368,6 +392,7 @@ public class TestCRUD_Generics extends TestCase {
 		assertEquals("", x); //$NON-NLS-1$
 		goodUnrelateValidate(var_list, 13, 4, "'follows'", true);//$NON-NLS-1$
 	}
+	@Test
 	public void testRelateBinaryWrongPhraseNotReflexive() throws RecognitionException, TokenStreamException {
 		String act = "create object instance d1 of D_D;\ncreate object instance h of D_H;\nrelate d1 to h across R4.'is permanent home for';"; //$NON-NLS-1$
 		String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
@@ -382,6 +407,7 @@ public class TestCRUD_Generics extends TestCase {
 		assertEquals("line 3:54: expecting Semicolon, found 'null'", lines[1]); //$NON-NLS-1$
 		OalParserTest_Generics.badRelationshipValidate(var_list, 2, 0, 0);
 	}
+	@Test
 	public void testRelateBinaryBadPhraseNotReflexive() throws RecognitionException, TokenStreamException {
 		String act = "create object instance d1 of D_D;\ncreate object instance h of D_H;\nrelate d1 to h across R4.'bad phrase';"; //$NON-NLS-1$
 		String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
@@ -396,6 +422,7 @@ public class TestCRUD_Generics extends TestCase {
 		assertEquals("line 3:43: expecting Semicolon, found 'null'", lines[1]); //$NON-NLS-1$
 		OalParserTest_Generics.badRelationshipValidate(var_list, 2, 0, 0);
 	}
+	@Test
 	public void testRelateBinaryBadPhraseReflexive() throws RecognitionException, TokenStreamException {
 		String act = "create object instance d1 of D_D;\ncreate object instance d2 of D_D;\nrelate d1 to d2 across R12.'neither';"; //$NON-NLS-1$
 		String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
@@ -410,6 +437,7 @@ public class TestCRUD_Generics extends TestCase {
 		assertEquals("line 3:42: expecting Semicolon, found 'null'", lines[1]); //$NON-NLS-1$
 		OalParserTest_Generics.badRelationshipValidate(var_list, 2, 0, 0);
 	}
+	@Test
 	public void testRelateBinaryBadNoPhraseReflexive() throws RecognitionException, TokenStreamException {
 		String act = "create object instance d1 of D_D;\ncreate object instance d2 of D_D;\nrelate d1 to d2 across R12;"; //$NON-NLS-1$
 		String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
@@ -424,6 +452,7 @@ public class TestCRUD_Generics extends TestCase {
 		assertEquals("line 3:32: expecting Semicolon, found 'null'", lines[1]); //$NON-NLS-1$
 		OalParserTest_Generics.badRelationshipValidate(var_list, 2, 0, 0);
 	}
+	@Test
 	public void testRelateBinaryPhraseSubtype() throws RecognitionException, TokenStreamException {
 		String act = "create object instance d1 of D_D;\ncreate object instance od of D_OD;\nrelate d1 to od across R3.'is a';"; //$NON-NLS-1$
 		String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
@@ -438,6 +467,7 @@ public class TestCRUD_Generics extends TestCase {
 		assertEquals("line 3:38: expecting Semicolon, found 'null'", lines[1]); //$NON-NLS-1$
 		OalParserTest_Generics.badRelationshipValidate(var_list, 2, 0, 0);
 	}
+	@Test
 	public void testRelateBinaryTwoSubtypes() throws RecognitionException, TokenStreamException {
 		String act = "create object instance od1 of D_OND;\ncreate object instance od2 of D_OD;\nrelate od1 to od2 across R3;"; //$NON-NLS-1$
 		String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
@@ -452,6 +482,7 @@ public class TestCRUD_Generics extends TestCase {
 		assertEquals("line 3:33: expecting Semicolon, found 'null'", lines[1]); //$NON-NLS-1$
 		OalParserTest_Generics.badRelationshipValidate(var_list, 2, 0, 0);
 	}
+	@Test
 	public void testRelateBinaryBadRelNum() throws RecognitionException, TokenStreamException {
 		String act = "create object instance x of D_D;\ncreate object instance y of D_D;\nrelate x to y across R99;"; //$NON-NLS-1$
 		String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
@@ -466,6 +497,7 @@ public class TestCRUD_Generics extends TestCase {
 		assertEquals("line 3:30: expecting Semicolon, found 'null'", lines[1]); //$NON-NLS-1$
 		OalParserTest_Generics.badRelationshipValidate(var_list, 2, 0, 0);
 	}
+	@Test
 	public void testRelateBinaryWrongRelNum() throws RecognitionException, TokenStreamException {
 		String act = "create object instance x of D_D;\ncreate object instance y of D_OD;\nrelate x to y across R4;"; //$NON-NLS-1$
 		String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
@@ -480,6 +512,7 @@ public class TestCRUD_Generics extends TestCase {
 		assertEquals("line 3:29: expecting Semicolon, found 'null'", lines[1]); //$NON-NLS-1$
 		OalParserTest_Generics.badRelationshipValidate(var_list, 2, 0, 0);
 	}
+	@Test
 	public void testRelateBinaryBadWithUsing() throws RecognitionException, TokenStreamException {
 		String act = "create object instance d1 of D_D;\ncreate object instance h of D_H;\ncreate object instance dq of D_DQ;\nrelate d1 to h across R4 using dq;"; //$NON-NLS-1$
 		String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
@@ -494,6 +527,7 @@ public class TestCRUD_Generics extends TestCase {
 		assertEquals("line 4:39: expecting Semicolon, found 'null'", lines[1]); //$NON-NLS-1$
 		OalParserTest_Generics.badRelationshipValidate(var_list, 3, 0, 0);
 	}
+	@Test
 	public void testRelateAssocBadNoUsing() throws RecognitionException, TokenStreamException {
 		String act = "create object instance d1 of D_D;\ncreate object instance q of D_QP;\nrelate d1 to q across R1;"; //$NON-NLS-1$
 		String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
@@ -508,6 +542,7 @@ public class TestCRUD_Generics extends TestCase {
 		assertEquals("line 3:30: expecting Semicolon, found 'null'", lines[1]); //$NON-NLS-1$
 		OalParserTest_Generics.badRelationshipValidate(var_list, 2, 0, 0);
 	}
+	@Test
 	public void testRelateAssocBadAone() throws RecognitionException, TokenStreamException {
 		String act = "create object instance h of D_H;\ncreate object instance qp of D_QP;\ncreate object instance dq of D_DQ;\nrelate h to qp across R1 using dq;"; //$NON-NLS-1$
 		String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
@@ -522,6 +557,7 @@ public class TestCRUD_Generics extends TestCase {
 		assertEquals("line 4:39: expecting Semicolon, found 'null'", lines[1]); //$NON-NLS-1$
 		OalParserTest_Generics.badRelationshipValidate(var_list, 3, 0, 0);
 	}
+	@Test
 	public void testRelateAssocBadAoth() throws RecognitionException, TokenStreamException {
 		String act = "create object instance d1 of D_D;\ncreate object instance h of D_H;\ncreate object instance dq of D_DQ;\nrelate d1 to h across R1 using dq;"; //$NON-NLS-1$
 		String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
@@ -536,6 +572,7 @@ public class TestCRUD_Generics extends TestCase {
 		assertEquals("line 4:39: expecting Semicolon, found 'null'", lines[1]); //$NON-NLS-1$
 		OalParserTest_Generics.badRelationshipValidate(var_list, 3, 0, 0);
 	}
+	@Test
 	public void testRelateAssocBadAssr() throws RecognitionException, TokenStreamException {
 		String act = "create object instance d1 of D_D;\ncreate object instance qp of D_QP;\ncreate object instance h of D_H;\nrelate d1 to qp across R1 using h;"; //$NON-NLS-1$
 		String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
@@ -550,6 +587,7 @@ public class TestCRUD_Generics extends TestCase {
 		assertEquals("line 4:39: expecting Semicolon, found 'null'", lines[1]); //$NON-NLS-1$
 		OalParserTest_Generics.badRelationshipValidate(var_list, 3, 0, 0);
 	}
+	@Test
 	public void testRelateAssocWrongOrderAssr() throws RecognitionException, TokenStreamException {
 		String act = "create object instance d1 of D_D;\ncreate object instance qp of D_QP;\ncreate object instance dq of D_DQ;\nrelate d1 to dq across R1 using qp;"; //$NON-NLS-1$
 		String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
@@ -564,6 +602,7 @@ public class TestCRUD_Generics extends TestCase {
 		assertEquals("line 4:40: expecting Semicolon, found 'null'", lines[1]); //$NON-NLS-1$
 		OalParserTest_Generics.badRelationshipValidate(var_list, 3, 0, 0);
 	}
+	@Test
 	public void testRelateAssocBadReflexiveNoPhrase() throws RecognitionException, TokenStreamException {
 		String act = "create object instance qp1 of D_QP;\ncreate object instance qp2 of D_QP;\ncreate object instance qpo of D_QPO;\nrelate qp1 to qp2 across R13 using qpo;"; //$NON-NLS-1$
 		String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
@@ -578,6 +617,7 @@ public class TestCRUD_Generics extends TestCase {
 		assertEquals("line 4:44: expecting Semicolon, found 'null'", lines[1]); //$NON-NLS-1$
 		OalParserTest_Generics.badRelationshipValidate(var_list, 3, 0, 0);
 	}
+	@Test
 	public void testRelateAssocBadReflexiveBadPhrase() throws RecognitionException, TokenStreamException {
 		String act = "create object instance qp1 of D_QP;\ncreate object instance qp2 of D_QP;\ncreate object instance qpo of D_QPO;\nrelate qp1 to qp2 across R13.'neither' using qpo;"; //$NON-NLS-1$
 		String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
@@ -592,6 +632,7 @@ public class TestCRUD_Generics extends TestCase {
 		assertEquals("line 4:54: expecting Semicolon, found 'null'", lines[1]); //$NON-NLS-1$
 		OalParserTest_Generics.badRelationshipValidate(var_list, 3, 0, 0);
 	}
+	@Test
 	public void testInvalidRelSpecInChain() throws RecognitionException, TokenStreamException {
 		String act = "select any h from instances of D_H; select one d related by h->D_D[R];"; //$NON-NLS-1$
 		String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
@@ -604,6 +645,7 @@ public class TestCRUD_Generics extends TestCase {
 		String[] var_list = { "h" };//$NON-NLS-1$
 		OalParserTest_Generics.badRelationshipValidate(var_list, 1, 1, 0);
 	}
+	@Test
 	public void testInvalidRelSpecInRelate() throws RecognitionException, TokenStreamException {
 		String act = "select any h from instances of D_H; select any d from instances of D_D; relate d to h across R;"; //$NON-NLS-1$
 		String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
@@ -622,6 +664,7 @@ public class TestCRUD_Generics extends TestCase {
 		assertEquals("line 1:100: expecting Semicolon, found 'null'", lines[2]);
 		OalParserTest_Generics.badRelationshipValidate(var_list, 2, 2, 0);
 	}
+	@Test
 	public void testInvalidRelSpecInRelateUsing() throws RecognitionException, TokenStreamException {
 		String act = "select any h from instances of D_H; select any d from instances of D_D; create object instance dq of D_DQ;\nrelate d to h across R using dq;"; //$NON-NLS-1$
 		String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);

@@ -19,6 +19,9 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.swt.widgets.Menu;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.ClassStateMachine_c;
 import org.xtuml.bp.core.Component_c;
 import org.xtuml.bp.core.CorePlugin;
@@ -44,10 +47,12 @@ import org.xtuml.bp.core.ui.Selection;
 import org.xtuml.bp.test.TestUtil;
 import org.xtuml.bp.test.common.BaseTest;
 import org.xtuml.bp.test.common.CanvasTestUtils;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.test.common.UITestingUtilities;
 import org.xtuml.bp.ui.graphics.editor.GraphicalEditor;
 import org.xtuml.bp.utilities.ui.CanvasUtilities;
 
+@RunWith(OrderedRunner.class)
 public class ComponentContextMenuTests2 extends BaseTest {
 	/**
 	 * The editor upon which these tests operate.
@@ -66,13 +71,14 @@ public class ComponentContextMenuTests2 extends BaseTest {
 	 * Constructor.
 	 */
 
-	public ComponentContextMenuTests2(String name) {
-		super(null, name);
+	public ComponentContextMenuTests2(){
+		super(null, null);
 	}
 
 	/* (non-Javadoc)
 	 * @see junit.framework.TestCase#setUp()
 	 */
+	@Before
 	public void setUp() throws Exception {
 		super.setUp();
 
@@ -93,25 +99,28 @@ public class ComponentContextMenuTests2 extends BaseTest {
 	}
 
 	// Enforce ordering of the tests in this class
-	public void testComponentCMETests2() {
-		dotestContextMenuAssignSignalActionOnSM_TXN();
-		dotestContextMenuAssignSignalActionOnSM_TXNInnerComponent();
-		dotestContextMenuAssignSignalActionOnSM_TXNCantUseSameTwice();
-		dotestContextMenuAssignSignalActionOnSM_TXNCantUseSameTwiceInnerComponent();
-		dotestContextMenuAssignSignalActionOnSM_TXNGoesAway();
-		dotestContextMenuAssignSignalActionOnSM_TXNInteractionWithEvent();
-		dotestContextMenuAssignSignalActionOnSM_TXNGoesAwayInnerComponent();
-		dotestContextMenuAssignSignalActionOnSM_TXNInteractionWithEventInnerComponent();
-		dotestFormalizationEntriesAreNotPresentForDelegation();
-		dotestFormalizationEntriesAreNotPresentForDelegationForCL_IC();
-	}
+//	@Test
+//	public void testComponentCMETests2() {
+//		dotestContextMenuAssignSignalActionOnSM_TXN();
+//		dotestContextMenuAssignSignalActionOnSM_TXNInnerComponent();
+//		dotestContextMenuAssignSignalActionOnSM_TXNCantUseSameTwice();
+//		dotestContextMenuAssignSignalActionOnSM_TXNCantUseSameTwiceInnerComponent();
+//		dotestContextMenuAssignSignalActionOnSM_TXNGoesAway();
+//		dotestContextMenuAssignSignalActionOnSM_TXNInteractionWithEvent();
+//		dotestContextMenuAssignSignalActionOnSM_TXNGoesAwayInnerComponent();
+//		dotestContextMenuAssignSignalActionOnSM_TXNInteractionWithEventInnerComponent();
+//		dotestFormalizationEntriesAreNotPresentForDelegation();
+//		dotestFormalizationEntriesAreNotPresentForDelegationForCL_IC();
+//	}
 
-	public void dotestContextMenuAssignSignalActionOnSM_TXN() {
+	@Test
+	public void testContextMenuAssignSignalActionOnSM_TXN() {
 		Transition_c obj = Transition_c.TransitionInstance(modelRoot);
 		performContextMenuAssignSignalActionOnSM_TXN(obj);
 	}
 
-	public void dotestContextMenuAssignSignalActionOnSM_TXNInnerComponent() {
+	@Test
+	public void testContextMenuAssignSignalActionOnSM_TXNInnerComponent() {
 		ModelClass_c cut = ModelClass_c.ModelClassInstance(modelRoot, new ClassQueryInterface_c() {
 			public boolean evaluate(Object candidate) {
 				return ((ModelClass_c) candidate).getName().equals("Test Class");
@@ -159,10 +168,12 @@ public class ComponentContextMenuTests2 extends BaseTest {
 		}
 		wd.close();
 	}
-	public void dotestContextMenuAssignSignalActionOnSM_TXNCantUseSameTwice() {
+	@Test
+	public void testContextMenuAssignSignalActionOnSM_TXNCantUseSameTwice() {
 		performContextMenuAssignSignalActionOnSM_TXNCantUseSameTwice("owner_state", "Port_CMT");
 	}
-	public void dotestContextMenuAssignSignalActionOnSM_TXNCantUseSameTwiceInnerComponent() {
+	@Test
+	public void testContextMenuAssignSignalActionOnSM_TXNCantUseSameTwiceInnerComponent() {
 		performContextMenuAssignSignalActionOnSM_TXNCantUseSameTwice("Destination Test State", "IC_Port_CMT");
 	}
 	private void performContextMenuAssignSignalActionOnSM_TXNCantUseSameTwice(final String stateName,
@@ -253,19 +264,23 @@ public class ComponentContextMenuTests2 extends BaseTest {
 		assertFalse(sm.Canassignsignal(reference.getId(), isigs[0].getId(), obj.getTrans_id()));
 		assertTrue(sm.Canassignsignal(reference.getId(), isigs[1].getId(), obj.getTrans_id()));
 	}
-	public void dotestContextMenuAssignSignalActionOnSM_TXNGoesAway() {
+	@Test
+	public void testContextMenuAssignSignalActionOnSM_TXNGoesAway() {
 		performContextMenuAssignSignalActionOnSM_TXNGoesAway("B", "Port_TC", "aSignal");
 	}
 
-	public void dotestContextMenuAssignSignalActionOnSM_TXNInteractionWithEvent() {
+	@Test
+	public void testContextMenuAssignSignalActionOnSM_TXNInteractionWithEvent() {
 		performContextMenuAssignSignalActionOnSM_TXNInteractionWithEvent("B", "TC_A1");
 	}
 
-	public void dotestContextMenuAssignSignalActionOnSM_TXNGoesAwayInnerComponent() {
+	@Test
+	public void testContextMenuAssignSignalActionOnSM_TXNGoesAwayInnerComponent() {
 		performContextMenuAssignSignalActionOnSM_TXNGoesAway("Inner State B", "IC_Port_TC", "aSignal");
 	}
 
-	public void dotestContextMenuAssignSignalActionOnSM_TXNInteractionWithEventInnerComponent() {
+	@Test
+	public void testContextMenuAssignSignalActionOnSM_TXNInteractionWithEventInnerComponent() {
 		performContextMenuAssignSignalActionOnSM_TXNInteractionWithEvent("Inner State B", "TC2_A1");
 	}
 
@@ -409,7 +424,8 @@ public class ComponentContextMenuTests2 extends BaseTest {
 	 * Test the formalize and unformalize entries 
 	 * are removed for delegation 
 	 */
-	public void dotestFormalizationEntriesAreNotPresentForDelegation() {
+	@Test
+	public void testFormalizationEntriesAreNotPresentForDelegation() {
 		String projectName = "Delegation";
 		try {
 			loadProject(projectName);
@@ -453,7 +469,8 @@ public class ComponentContextMenuTests2 extends BaseTest {
 		assertFalse(UITestingUtilities.checkItemStatusInContextMenu(menu, "Unformalize", "", m_readonly));
 	}
 
-	public void dotestFormalizationEntriesAreNotPresentForDelegationForCL_IC() {
+	@Test
+	public void testFormalizationEntriesAreNotPresentForDelegationForCL_IC() {
 		// NOTE: This test relies on the Delegation test model set up in the previous test
 
 		Package_c pkg = Package_c.getOneEP_PKGOnR1401(m_sys, new Package_by_name_c("System"));

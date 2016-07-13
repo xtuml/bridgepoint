@@ -1,0 +1,560 @@
+<!-- 
+  UK Crown Copyright (c) 2016. All Rights Reserved
+-->
+<!-- Converted by db4-upgrade version 1.0 -->
+<chapter xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="ObjectsandRelationships"><info><title>Objects and Relationships</title></info>
+  
+
+  <para>This chapter starts by describing how instances of objects are created
+  followed by a description of how instances that have already been created
+  are obtained, and how to delete instances.</para>
+
+  <para>We then move onto relationships and mirror the first part of this
+  chapter describing how relationships are created followed by a description
+  of navigating existing relation-ships, and how to delete
+  relationships.</para>
+
+  <section xml:id="ObjectsandRelationshipsCreatingInstances"><info><title>Creating Instances</title></info>
+    
+
+    <para>An instance of an object is created by using a create expression. A
+    create expression starts with the reserved word <literal>create</literal>
+    followed by the name of an object and an object aggregate. The object
+    aggregate is a list of attribute associations, each of which consists of a
+    name of an attribute followed by <literal>=&gt;</literal> and then some
+    expression giving the initial value, all enclosed by brackets.<figure xml:id="ObjectsandRelationshipsAircraftObject"><info><title>Aircraft Object</title></info>
+        
+
+        <mediaobject>
+          <imageobject>
+            <imagedata align="center" fileref="images/aircraftclass.svg" format="svg" valign="middle"/>
+          </imageobject>
+        </mediaobject>
+      </figure></para>
+
+    <para>Given the <classname>Aircraft</classname> object shown in <xref linkend="ObjectsandRelationshipsAircraftObject"/> we might
+    write:<informalexample>
+        <programlisting>  create Aircraft(serial_number =&gt; 76);</programlisting>
+      </informalexample></para>
+
+    <para>This creates a new Aircraft instance with a serial number of
+    <literal>76</literal>. The object aggregate must supply initial values for
+    all non-referential preferred attributes; otherwise, a compile-time error
+    will occur. If, at run-time, these initial values do not define a unique
+    instance, object instance with same preferred id(s) already exists, then
+    an exception will be raised.</para>
+
+    <para>If the <classname>Aircraft</classname> object was an active object,
+    and hence instances of it had a <varname>Current_State</varname>
+    attribute, then the initial state of an instance must also be set when it
+    is created (this also includes creation states).<informalexample>
+        <programlisting>  create Aircraft(serial_number =&gt; 76, Current_State =&gt; parked);</programlisting>
+      </informalexample>This creates a new <classname>Aircraft</classname>
+    instance with a serial number of <literal>76</literal>, in the initial
+    state <literal>parked</literal>.</para>
+
+    <para>Having created an instance we might want to access its attributes.
+    We can do this by assigning the created instance to a variable of the
+    appropriate instance type. Each object within a model has a corresponding
+    instance type. Variables of a specific instance type can refer to specific
+    instances of the corresponding object. To declare a variable of the
+    instance type of the <classname>Aircraft</classname> object we might
+    write:<informalexample>
+        <programlisting>  aircraft_instance : instance of Aircraft;</programlisting>
+      </informalexample></para>
+
+    <para>We could then assign the created instance to this
+    variable.<informalexample>
+        <programlisting>  declare
+    aircraft_instance : instance of Aircraft;
+  begin
+    aircraft_instance := create Aircraft(serial_number =&gt; 76);
+  end;</programlisting>
+      </informalexample></para>
+
+    <para>Attributes of an instance can be denoted by following the instance
+    name with a dot and the attribute name. Therefore we might
+    write:<informalexample>
+        <programlisting>  declare
+    serial_number : integer;
+  begin
+    aircraft_instance := create Aircraft(serial_number =&gt; 76);
+    serial_number := aircraft.serial_number;
+    aircraft_instance.speed := 0;
+  end;</programlisting>
+      </informalexample></para>
+
+    <para>Notice that we can both set and get the values of attributes.
+    Certain types of attributes cannot have their values set in this way. If
+    an attribute is either preferred or referential then its value cannot be
+    set in this manner.</para>
+
+    <figure xml:id="ObjectsandRelationshipsRelationshipbetweenPilotandAircraft"><info><title>Relationship between Pilot and Aircraft</title></info>
+      
+
+      <mediaobject>
+        <imageobject>
+          <imagedata align="center" fileref="images/relationshippilotandaircraft.svg" format="svg" valign="middle"/>
+        </imageobject>
+      </mediaobject>
+    </figure>
+
+    <para>For example, given the relationship shown in <xref linkend="ObjectsandRelationshipsRelationshipbetweenPilotandAircraft"/>
+    the following assignments are illegal:<informalexample>
+        <programlisting>  declare
+    aircraft_instance : instance of Aircraft;
+    pilot_instance    : instance of Pilot;
+  begin
+    aircraft_instance  := create Aircraft(serial_number =&gt; 76);
+    pilot_instance     := create Pilot(name =&gt; “Peter Smith”);
+
+    aircraft_instance.serial_number := 38;     // illegal : preferred id cannot be reset
+    aircraft_instance.pilot_name := "Fred";    // illegal : referential cannot be set
+  end;</programlisting>
+      </informalexample></para>
+  </section>
+
+  <section xml:id="ObjectsandRelationshipsObtainingInstances"><info><title>Obtaining instances</title></info>
+    
+
+    <para>In that last section we showed how we could obtain the instance
+    produced by a <literal>create</literal> expression. If we want to obtain
+    instances that have already been created we can use a
+    <literal>find</literal> expression. There are four forms of find
+    expression:</para>
+
+    <itemizedlist>
+      <listitem>
+        <para><literal>find</literal></para>
+      </listitem>
+
+      <listitem>
+        <para><literal>find_all</literal></para>
+      </listitem>
+
+      <listitem>
+        <para><literal>find_one</literal></para>
+      </listitem>
+
+      <listitem>
+        <para><literal>find_only</literal></para>
+      </listitem>
+    </itemizedlist>
+
+    <para>The <literal>find</literal> locates all the instances of an object
+    satisfying a specified condition. This form starts with the reserved word
+    <literal>find</literal> followed by the name of an object and a condition
+    enclosed by brackets. Given the <classname>Aircraft</classname> object we
+    might write:<informalexample>
+        <programlisting>  find Aircraft(speed &lt; 100);</programlisting>
+      </informalexample>This finds all instances of the
+    <classname>Aircraft</classname> object whose speed is less than
+    <literal>100</literal>. The condition can of course, be of arbitrary
+    complexity with the restriction that left-hand side of an equality
+    (<literal>=</literal> and <literal>/=</literal>) or relational expression
+    (<literal>&gt;</literal>, <literal>&lt;</literal>,
+    <literal>&gt;=</literal> and <literal>&lt;=</literal>) must be the name of
+    an attribute of the object being found. A more complex example might
+    be:<informalexample>
+        <programlisting>  find Aircraft(speed &gt;= 3 * (10 ** 8) and pilot_name /= "Fred Bloggs");</programlisting>
+      </informalexample>This would find all instances of the
+    <classname>Aircraft</classname> object whose speed is greater than or
+    equal to the speed of light and is not been flown by Fred Bloggs. In order
+    to use the set of instances returned from the find expression we must
+    assign it to a variable of the appropriate type. Therefore we might
+    write:<informalexample>
+        <programlisting>  aircraft_set : set of instance of Aircraft;
+  begin
+    aircraft_set := find Aircraft(speed &lt; 100);
+  end;</programlisting>
+      </informalexample></para>
+
+    <para>If there are no instances that satisfy the condition then the
+    <type>sequence</type> returned from the <literal>find</literal> expression
+    will be empty. One of the most common things to do once we have obtained a
+    set of instances is to loop around the set performing some operation on
+    each instance.<informalexample>
+        <programlisting>  for i in aircraft_set’elements loop
+    // …
+  end loop;</programlisting>
+      </informalexample></para>
+
+    <para>The order in which instances from the <type>set</type> are taken is
+    arbitrary. If we wanted to use a specific order we would have to use an
+    ordering expression. An ordering expression allows the analyst to order a
+    collection of instances using a specific attribute of each instance. For
+    example we could order the aircraft set by their speeds by writing
+    :<informalexample>
+        <programlisting>  aircraft_sequence := aircraft_set ordered_by (speed);</programlisting>
+      </informalexample>The resultant <type>sequence</type> will be such that
+    for each successive element in the <type>sequence</type>, the first will
+    be the element with the lowest speed. We could reverse the ordering by
+    writing:<informalexample>
+        <programlisting>  aircraft_sequence := aircraft_set reverse_ordered_by (speed);</programlisting>
+      </informalexample>It is also possible to specify multiple attributes.
+    For example:<informalexample>
+        <programlisting>  aircraft_sequence := aircraft_set ordered_by (speed, serial_number);. </programlisting>
+      </informalexample>The resultant <type>sequence</type> will be sorted by
+    the speed, and then within each value of this, by the serial number. It is
+    so common to order the set of instances returned from a
+    <literal>find</literal> expression that a <literal>find</literal>
+    expression can be immediately followed by an ordering expression. Hence,
+    we could have written:<informalexample>
+        <programlisting>  aircraft_sequence := find Aircraft(speed &lt; 100) ordered_by (serial_number);</programlisting>
+      </informalexample></para>
+
+    <para>It is common to want to find all the instances of an object. We
+    might try and write:<informalexample>
+        <programlisting>  find Aircraft(true);    // illegal</programlisting>
+      </informalexample>However, this syntax is illegal. To find all instances
+    of an object the second form of find must be used:<informalexample>
+        <programlisting>  find_all Aircraft();</programlisting>
+      </informalexample>Notice that no condition is supplied, since we are
+    finding all the instances.</para>
+
+    <para>The third form of find, finds an arbitrary instance of an object
+    satisfying a condition. This form starts with the reserved word
+    <literal>find_one</literal> followed by the name of an object and a
+    condition enclosed by brackets. So we might write:<informalexample>
+        <programlisting>  find_one Aircraft(speed &lt; 100);</programlisting>
+      </informalexample>This finds an arbitrary instance of the
+    <classname>Aircraft</classname> object whose speed less than
+    <literal>100</literal>. Again, the condition can be of arbitrary
+    complexity with the same restrictions as before. In order to use the
+    instance returned from the <literal>find</literal> expression we must
+    assign it to a variable of the appropriate type. Thus we might
+    write:<informalexample>
+        <programlisting>  aircraft_instance : instance of Aircraft;
+  begin
+    aircraft_instance := find_one Aircraft(speed &lt; 100);
+  end;</programlisting>
+      </informalexample>If there are no instances that satisfy the condition
+    then the <literal>null</literal> instance is returned. We could check for
+    this by writing:<informalexample>
+        <programlisting>  if aircraft_instance = null then
+    // …
+  end if;</programlisting>
+      </informalexample></para>
+
+    <para>It is common to want to find an instance of an object and in
+    addition make sure that it is the only such instance. The fourth, and
+    final, form of find is provided to do this:<informalexample>
+        <programlisting>  find_only Aircraft(speed &lt; 100);</programlisting>
+      </informalexample>If there is only one <classname>Aircraft</classname>
+    instance that satisfies the condition then all is well and the find
+    expression returns that instance. If there are either more than one or no
+    <classname>Aircraft</classname> instances that satisfy the condition then
+    an exception will be raised.</para>
+
+    <para>For each form of find expression, the name of the object being found
+    can be replaced with an expression that denotes a collection of instances.
+    This can be used to filter a collection of instances to a either a set of
+    instances or a specific instance that satisfies a condition. For example
+    given the appropriate declarations we might write:<informalexample>
+        <programlisting>  aircraft_set := find Aircraft(speed &lt; 100);
+  stopped_aircraft_set := find aircraft_set(speed = 0);
+  freds_aircraft := find_one aircraft_set(pilot_name = "Fred Bloggs");</programlisting>
+      </informalexample></para>
+
+    <para>In summary:</para>
+
+    <itemizedlist>
+      <listitem>
+        <para><literal>find</literal> locate all the instances satisfying a
+        condition.</para>
+      </listitem>
+
+      <listitem>
+        <para><literal>find_all</literal> finds all the instances.</para>
+      </listitem>
+
+      <listitem>
+        <para><literal>find_one</literal> finds an arbitrary instance
+        satisfying a condition.</para>
+      </listitem>
+
+      <listitem>
+        <para><literal>find_only</literal> finds the only instance satisfying
+        a condition.</para>
+      </listitem>
+
+      <listitem>
+        <para><literal>ordered_by</literal> orders a collection of instances
+        by attribute values.</para>
+      </listitem>
+
+      <listitem>
+        <para><literal>reverse_ordered_by</literal> reverse orders a
+        collection of instances by attribute values.</para>
+      </listitem>
+    </itemizedlist>
+  </section>
+
+  <section xml:id="ObjectsandRelationshipsDeletingInstances"><info><title>Deleting Instances</title></info>
+    
+
+    <para>Once we have finished with an instance or a set of instances we can
+    delete them using a <literal>delete</literal> statement. A
+    <literal>delete</literal> statement starts with the reserved word
+    <literal>delete</literal> followed by an expression that denotes either a
+    specific single instance or a collection of instances. Given the examples
+    already seen we might write:<informalexample>
+        <programlisting>delete aircraft_instance;</programlisting>
+      </informalexample>to delete a single aircraft instance,
+    or:<informalexample>
+        <programlisting>delete aircraft_set;</programlisting>
+      </informalexample>to delete all the aircraft instances in a set.</para>
+
+    <para>If an instance that participates in a relationship is deleted,
+    before the relationship is unlinked, then an exception will be
+    raised.</para>
+
+    <para>Deleting either the null instance or an empty collection does not
+    have any effect.</para>
+  </section>
+
+  <section xml:id="ObjectsandRelationshipsCreatingRelationships"><info><title>Creating Relationships</title></info>
+    
+
+    <para>Relationships between instances are created using a
+    <literal>link</literal> statement. The simplest form of
+    <literal>link</literal> statement starts with the reserved word link
+    followed by an expression that denotes an specific single instance, a
+    specification of a relationship and then another expression that denotes
+    another specific single instance. Given the relationship between the
+    <classname>Pilot</classname> and <classname>Aircraft</classname> objects
+    in <xref linkend="ObjectsandRelationshipsRelationshipbetweenPilotandAircraft"/> we
+    might write:<informalexample>
+        <programlisting>  link aircraft_instance R3 pilot_instance;</programlisting>
+      </informalexample>This links the instance denoted by
+    <varname>aircraft_instance</varname> to the instance denoted by
+    <varname>pilot_instance</varname> via the relationship
+    <literal>R3</literal>.</para>
+
+    <para>The specification of the relationship between the two instances must
+    be a valid navigation for the <literal>link</literal> statement to be
+    valid. This is discussed in <xref linkend="ObjectsandRelationshipsNavigatingRelationships"/>. If by linking
+    the two instances together we “break” the model, then an exception is
+    raised. This would happen, for example, if an instance was related to more
+    than one instance in a one-to-one relationship.</para>
+
+    <para>When a relationship is created between two instances, any
+    referential attributes that are determined by the relationship are set to
+    the correct values. In our example, if the name of the pilot was “Fred
+    Bloggs” then the pilot name attribute of the aircraft instance would have
+    this value set. Relationships are bi-directional, hence, we would have the
+    same result if we had written:<informalexample>
+        <programlisting>  link pilot_instance R3 aircraft_instance;</programlisting>
+      </informalexample></para>
+
+    <para>To create associative relationships the using form of the
+    <literal>link</literal> statement is used. This looks exactly like the
+    simple form with the addition of the reserved word using followed by an
+    expression that denotes a specific single instance of the associative
+    object.<figure xml:id="ObjectsandRelationshipsAssociativeRelationship"><info><title>Associative Relationship</title></info>
+        
+
+        <mediaobject>
+          <imageobject>
+            <imagedata align="center" fileref="images/associativerelationship.svg" format="svg" valign="middle"/>
+          </imageobject>
+        </mediaobject>
+      </figure>Given the relationship shown in <xref linkend="ObjectsandRelationshipsAssociativeRelationship"/> we might
+    write:<informalexample>
+        <programlisting>  link aircraft_instance R11 pilot_instance using aircraft_pilot_instance;</programlisting>
+      </informalexample>This links the instance denoted by
+    <varname>aircraft_instance</varname> to the instance denoted by
+    <varname>pilot_instance</varname> via the relationship
+    <literal>R3</literal> using the instance denoted by
+    <varname>aircraft_pilot_instance</varname>. Again, the specification of
+    the relationship between the two instances must be a valid navigation for
+    the link statement to be valid. In addition, by linking the two instances
+    using the third we must not “break” the model, any referential attributes
+    that are determined by the relationship are set to the correct values. In
+    this example, all the attributes of the associative instance will have
+    their values set to the appropriate values.</para>
+  </section>
+
+  <section xml:id="ObjectsandRelationshipsNavigatingRelationships"><info><title>Navigating Relationships</title></info>
+    
+
+    <para>Relationships that have been instantiated between instances can be
+    navigated using a relationship navigation expression. A relationship
+    navigation starts with an expression that denotes either a single instance
+    or a collection of instances followed by -&gt; and a specification of the
+    relationship. For example, given the relationship shown in <xref linkend="ObjectsandRelationshipsAssociativeRelationship"/> and an
+    aircraft instance we could navigate to the corresponding pilot by writing
+    any of:<informalexample>
+        <programlisting>  pilot_instance := aircraft_instance -&gt; R3;
+  pilot_instance := aircraft_instance -&gt; R3.is_being_flown_by;
+  pilot_instance := aircraft_instance -&gt; R3.Pilot;
+  pilot_instance := aircraft_instance -&gt; R3.is_being_flown_by.Pilot;</programlisting>
+      </informalexample>Similarly, if we had a collection of aircraft
+    instances we could navigate to the corresponding pilots by
+    writing:<informalexample>
+        <programlisting>  pilot_bag := aircraft_set -&gt; R3;</programlisting>
+      </informalexample>Whether a single instance or a collection of instances
+    is returned from a navigation depends upon the multiplicity of the
+    relationship in the direction being navigated. This is summarised in <xref linkend="ObjectsandRelationshipsMultiplicityofRelationshipNavigation"/>.</para>
+
+    <table xml:id="ObjectsandRelationshipsMultiplicityofRelationshipNavigation"><info><title>Multiplicity of Relationship Navigation</title></info>
+      
+
+      <tgroup cols="3">
+        <colspec align="left" colname="navigation" colnum="1"/>
+
+        <colspec align="center" colname="singlemultiplicity" colnum="2"/>
+
+        <colspec align="center" colname="manymultiplicity" colnum="3"/>
+
+        <thead>
+          <row>
+            <entry colname="navigation" morerows="1" valign="middle">Navigation Type</entry>
+
+            <entry align="center" nameend="manymultiplicity" namest="singlemultiplicity">Multiplicity of Relationship</entry>
+          </row>
+
+          <row>
+            <entry align="center" colname="singlemultiplicity">Single</entry>
+
+            <entry align="center" colname="manymultiplicity">Many</entry>
+          </row>
+        </thead>
+
+        <tbody>
+          <row>
+            <entry>single instance</entry>
+
+            <entry>single instance</entry>
+
+            <entry>set of instances</entry>
+          </row>
+
+          <row>
+            <entry>collection of instance</entry>
+
+            <entry>bag of instances</entry>
+
+            <entry>bag of instances</entry>
+          </row>
+        </tbody>
+      </tgroup>
+    </table>
+
+    <para>Given the relationship shown in <xref linkend="ObjectsandRelationshipsAssociativeRelationship"/> and an
+    aircraft instance we might try to navigate to the corresponding
+    associative instance by writing:<informalexample>
+        <programlisting>  aircraft_pilot_instance := aircraft_instance -&gt; R11;    // illegal</programlisting>
+      </informalexample></para>
+
+    <para>This is invalid, since it is not obvious from the relationship
+    specification that we are navigating to the associative instance. Wherever
+    a relationship specification is given, the analyst must ensure that the
+    following are unambiguously specified: </para>
+
+    <itemizedlist>
+      <listitem>
+        <para>the relationship</para>
+      </listitem>
+
+      <listitem>
+        <para>the direction of navigation</para>
+      </listitem>
+
+      <listitem>
+        <para>the destination object</para>
+      </listitem>
+    </itemizedlist>
+
+    <para>This is achieved by using one of the four forms of relationship
+    specification already seen. For example, in this case we could write
+    either of:<informalexample>
+        <programlisting>  aircraft_pilot_instance := aircraft_instance -&gt; R11.Aircraft_Pilot;
+  aircraft_pilot_instance := aircraft_instance -&gt; R11.is_being_flown_by.Aircraft_Pilot;</programlisting>
+      </informalexample>Both of these unambiguously specify the relationship,
+    the direction and the destination object. Full examples of all possible
+    relationship specifications are given in <xref linkend="MASL06"/></para>
+
+    <para><figure xml:id="ObjectsandRelationshipsRelationshipbetweenAirlineandPilot"><info><title>Relationship between Airline and Pilot</title></info>
+        
+
+        <mediaobject>
+          <imageobject>
+            <imagedata align="center" fileref="images/relationshippilotairline.svg" format="svg" valign="middle"/>
+          </imageobject>
+        </mediaobject>
+      </figure>It is often the case that we wish to navigate two relationships
+    in one go. For example, given the relationship in <xref linkend="ObjectsandRelationshipsRelationshipbetweenPilotandAircraft"/>
+    and <xref linkend="ObjectsandRelationshipsRelationshipbetweenAirlineandPilot"/> we
+    could find out which aircrafts are been flown by pilots employed by an
+    airline by writing:<informalexample>
+        <programlisting>  pilot_bag := airline_instance -&gt; R1;
+  aircraft_bag := pilot_bag -&gt; R3;</programlisting>
+      </informalexample>or we could combine the two navigations into one
+    compound navigation.<informalexample>
+        <programlisting>  aircraft_bag := airline_instance -&gt; R1 -&gt; R3;</programlisting>
+      </informalexample></para>
+
+    <para>Finally, it is common to have two instances that we know are related
+    via an associative relationship and to want to find the associative
+    instance, or instances, that relate them. For example, given the
+    relationship in <xref linkend="ObjectsandRelationshipsAssociativeRelationship"/> we could find
+    the associative instance that an <classname>Aircraft</classname> and
+    <classname>Pilot</classname> instance are related to by
+    writing:<informalexample>
+        <programlisting>  aircraft_pilot_bag_1 := airline_instance -&gt; R3.Aircraft_Pilot;
+  aircraft_pilot_bag_2 := route_instance -&gt; R3.Aircraft_Pilot;
+  aircraft_pilot_set := set of instance of Aircraft_Pilot(aircraft_pilot_bag_1) intersection
+  set of instance of Aircraft_Pilot(aircraft_pilot_bag_2);
+  aircraft_pilot_instance := find_only aircraft_pilot_set();</programlisting>
+      </informalexample>This is all a bit longwinded so a special form is
+    provided:<informalexample>
+        <programlisting>  aircraft_pilot_instance := aircraft_instance with pilot_instance -&gt; R3.Aircraft_Pilot;</programlisting>
+      </informalexample>This is known as correlated navigation.</para>
+  </section>
+
+  <section xml:id="ObjectsandRelationshipsDeletingRelationships"><info><title>Deleting Relationships</title></info>
+    
+
+    <para>Once we have finished with a relationship we can delete it using an
+    <literal>unlink</literal> statement. The <literal>unlink</literal>
+    statement is the exact opposite of a link statement. The simplest form of
+    <literal>unlink</literal> statement starts with the reserved word
+    <literal>unlink</literal> followed by an expression that denotes a single
+    instance, a specification of a relationship and then another expression
+    that denotes another specific single instance.</para>
+
+    <para>So to delete the relationship between an
+    <classname>Aircraft</classname> and a <classname>Pilot</classname> via the
+    relationship shown in <xref linkend="ObjectsandRelationshipsRelationshipbetweenPilotandAircraft"/> we
+    might write:<informalexample>
+        <programlisting>  unlink aircraft_instance R3 pilot_instance;</programlisting>
+      </informalexample>This unlinks the instance denoted by the
+    <varname>aircraft_instance</varname> from the instance denoted by
+    <varname>pilot_instance</varname> via the relationship
+    <literal>R3</literal>. As before the specification of the relationship
+    between the two instances must be valid. If the two instances are not
+    linked via the relationship then an exception is raised. Any attempt to
+    access the values of any referential attributes that where determined by
+    the relationship will result in an exception. As before, relationships are
+    bidirectional, so we could have deleted the relationship by
+    writing:<informalexample>
+        <programlisting>  unlink pilot_instance R3 aircraft_instance;</programlisting>
+      </informalexample>To delete associative relationships the using form of
+    the <literal>unlink</literal> statement must be used. So given the
+    relationship shown in <xref linkend="ObjectsandRelationshipsAssociativeRelationship"/> we might
+    write:<informalexample>
+        <programlisting>  unlink aircraft_instance R11 pilot_instance using aircraft_pilot_instance;</programlisting>
+      </informalexample>This unlinks the instance denoted by
+    <varname>aircraft_instance</varname> from the instance denoted by
+    <varname>pilot_instance</varname> via the relationship
+    <literal>R3</literal> using the instance denoted by
+    <varname>aircraft_pilot_instance</varname>. Again, the specification of
+    the relationship between the two instances must be a valid navigation for
+    the <link linkend="ObjectsandRelationshipsAssociativeRelationship">unlink</link>
+    statement to be valid. Also the two instances must have been linked
+    together using the third otherwise an exception is raised. Like before,
+    any attempt to access the values of any referential attributes that where
+    determined by the relationship will result in an exception.</para>
+  </section>
+</chapter>
