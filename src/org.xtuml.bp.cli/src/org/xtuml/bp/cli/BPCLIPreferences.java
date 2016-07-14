@@ -98,7 +98,8 @@ public class BPCLIPreferences {
 			if (key.equalsIgnoreCase(preferenceData[i].key)) {
 				foundKey = true;
 				if (preferenceData[i].value instanceof String) {
-					if ((String) preferenceData[i].value != "") {
+					String prefVal = (String) preferenceData[i].value;
+					if ( (prefVal != null) && !prefVal.isEmpty()) {
 						throw new BPCLIException("The command-line option \""
 								+ key + "\""
 								+ " was specified more than one time.");

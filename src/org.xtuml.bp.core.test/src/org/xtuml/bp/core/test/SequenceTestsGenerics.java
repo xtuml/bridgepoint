@@ -1897,7 +1897,7 @@ public class SequenceTestsGenerics extends CanvasTest {
 			Point location, String toolName) {
 		Dimension size = new Dimension(200, 200);
 		CanvasTestUtils.translateDimension(size, activeEditor.getModel());
-		if(toolName == "Package") {
+		if(toolName.equals("Package")) {
 			UITestingUtilities.createShapeInDiagram(activeEditor, new Rectangle(
 					location.x, location.y, size.width, size.height), toolName);			
 		} else {
