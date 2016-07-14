@@ -197,7 +197,7 @@ public class T {
 			                        final String instRefName, String optionalAttrName) {
         Local_c[] locals = Local_c.getManyL_LCLsOnR3000(
         		          BlockInStackFrame_c.getManyI_BSFsOnR2923(stackFrame));
-		if (optionalAttrName != "") {
+		if ((optionalAttrName != null) && !optionalAttrName.isEmpty()) {
 		  // select many variables related by locals->L_LCR[R3001]->
 		  //       V_INT[R3004]->V_VAR[R814] where selected.Name == instRefName;
 		

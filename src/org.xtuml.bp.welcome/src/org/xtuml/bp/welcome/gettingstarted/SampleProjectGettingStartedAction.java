@@ -116,7 +116,7 @@ public class SampleProjectGettingStartedAction implements IIntroAction {
 	
 	            modelPath = resolvePath(IGettingStartedConstants.modelFolder
 	                    + "/" + modelName + "." + Ooaofooa.MODELS_EXT); //$NON-NLS-1$ //$NON-NLS-2$
-	            if (modelPath != "") {
+	            if (!modelPath.isEmpty()) {
 	            	setupSucceeded = ProjectUtilities.importModelUsingWizard(systemModel, modelPath, false);
 	            }
             } else {
@@ -126,7 +126,7 @@ public class SampleProjectGettingStartedAction implements IIntroAction {
 	            modelPath = resolvePath(IGettingStartedConstants.modelFolder
 	                    + "/" + modelName); //$NON-NLS-1$
 
-	            if (modelPath != "") {
+	            if (!modelPath.isEmpty()) {
 	            	setupSucceeded = ProjectUtilities.importExistingProject(modelPath);
 	            }
            	}

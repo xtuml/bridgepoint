@@ -38,15 +38,12 @@ ECLIPSE_VER="4.5"
 # Assume windows unless we case-insensitively match Linux on the argument
 OS="windows"
 BP_BASE_DIR="${STAGING_PATH}/${PRODUCT_NAME}_e${ECLIPSE_VER}"
-MCMC_EXE="org.xtuml.bp.mc.c.source_${BP_VERSION}/mc3020/bin/mcmc.exe"
 if [ "${OS_ARG,,}" = "linux" ] || [ "${OS_ARG,,}" = "osx" ]; then
   OS="linux"
   BP_BASE_DIR="${STAGING_PATH}/${PRODUCT_NAME}_for_Linux_e${ECLIPSE_VER}"
-  MCMC_EXE="org.xtuml.bp.mc.c.source_${BP_VERSION}/mc3020/bin/mcmc"
 fi
 
 TEMP_DIR="/tmp"
-SERVER="xtuml.org"
 EXT_SRC_FILE="${PRODUCT_NAME}_extension_${PRODUCT_BRANCH}.zip"
 INSTALLER_DATA_DIR="${BP_BASE_DIR}/EclipseDeliverables/eclipse"
 
