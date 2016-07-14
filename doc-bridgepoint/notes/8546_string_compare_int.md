@@ -38,19 +38,19 @@ string compare, so these places need to be fixed.  Refer to this [Stackoverflow 
 ----------------
 5.1 Search the BridgePoint Java code base using regexp and do the required 
   conversion.  
-* '==\s*"' to '<variable>.equals(<string>)'
-* '"\s*==' to '<variable>.equals(<string>)'
-* '==\s*[A-Za-z]+' to '<variable>.equals(<variable>)' (see note 1 below)
+* '==\s*"' to '&lt;variable&gt;.equals(&lt;string&gt;)'
+* '"\s*==' to '&lt;variable&gt;.equals(&lt;string&gt;)'
+* '==\s*[A-Za-z]+' to '&lt;variable&gt;.equals(&lt;variable&gt;)' (see note 1 below)
 * '!=\s*[A-Za-z]+' (see note 2)
-* '!=\s*"' to '!<variable>.isEmpty()'
+* '!=\s*"' to '!&lt;variable&gt;.isEmpty()'
 
 Notes:  
-# This search returns over 30,000 hits, the majority of which are '== null'.  
-  When I exclude most generated files ('<file>_c.java') from the search it goes
+1) This search returns over 30,000 hits, the majority of which are '== null'.  
+  When I exclude most generated files ('&lt;file&gt;_c.java') from the search it goes
   down to 8800 hits.  I browsed through these fairly quickly and found and fixed
   a few string variable comparisons.   
-# This search returns over 19,000 hits, even with the generated 
-  ('<file>_c.java') files excluded.  A spot check of a number of files showed 
+2) This search returns over 19,000 hits, even with the generated 
+  ('&lt;file&gt;_c.java') files excluded.  A spot check of a number of files showed 
   all hits were '!= null' checks.  I did not do a more detailed look at all
   hits.   
    
