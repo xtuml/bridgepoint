@@ -790,7 +790,7 @@ public class ModelMergeProcessor {
 		ByteArrayInputStream in = new ByteArrayInputStream(export.getBytes());
 		try {
 			IModelImport importer = CorePlugin.getStreamImportFactory().create(
-					in, modelRoot, false, Path.EMPTY, false);
+					in, modelRoot, false, Path.EMPTY);
 			processor.runImporter(importer, new NullProgressMonitor());
 			// locate the new object from the loaded instances
 			NonRootModelElement[] loadedInstances = importer
@@ -1510,7 +1510,7 @@ public class ModelMergeProcessor {
 		ByteArrayInputStream in = new ByteArrayInputStream(export.getBytes());
 		try {
 			IModelImport importer = CorePlugin.getStreamImportFactory().create(
-					in, Ooaofooa.getInstance(modelRoot.getId()), false, Path.EMPTY, false);
+					in, Ooaofooa.getInstance(modelRoot.getId()), false, Path.EMPTY);
 			processor.runImporter(importer, new NullProgressMonitor());
 			// locate the new object from the loaded instances
 			NonRootModelElement[] loadedInstances = importer

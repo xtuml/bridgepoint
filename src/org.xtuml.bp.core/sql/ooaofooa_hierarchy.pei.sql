@@ -145,6 +145,7 @@ INSERT INTO T_TNS VALUES (317, 'InterfaceSignal.gif',            'MSG_SIG',  '',
 INSERT INTO T_TNS VALUES (318, 'Operation.gif',            'MSG_IA',  '', '','',                 'Informal Argument', 						-1, '');
 INSERT INTO T_TNS VALUES (319, 'Transition.gif',            'SM_CRTXN',  '', '','',                 'Creation Transitions', 						-1, '');
 INSERT INTO T_TNS VALUES (382, 'Port.gif',                  'CL_POR',  '', 'Name', '',                 'Port Reference',                        -1, '');
+INSERT INTO T_TNS VALUES (383, 'Exception.gif', 'S_EXP', '', 'Name', '', 'Exception', -1, '');
 
 INSERT INTO T_TPS VALUES (7, 3,  17, '->S_DT[R25]', 'Return Type', true);
 INSERT INTO T_TPS VALUES (8, 3,  4,  '->S_SPARM[R24]', '', false);
@@ -399,6 +400,7 @@ INSERT INTO T_TPS VALUES (377, 125, 125, '->PE_PE[R8003]->C_C[R8001]', 'Componen
 INSERT INTO T_TPS VALUES (378, 125, 126, '->PE_PE[R8003]->CL_IC[R8001]', '', false);
 INSERT INTO T_TPS VALUES (379, 125, 130, '->PE_PE[R8003]->C_I[R8001]', '', false);
 INSERT INTO T_TPS VALUES (380, 125, 74,  '->PE_PE[R8003]->S_DT[R8001]->S_UDT[R17]', '', false);
+INSERT INTO T_TPS VALUES (381, 297, 383, '->PE_PE[R8000]->S_EXP[R8001]', '', false);
 
 -- Next available T_TPS ID 412
 -- The entries below specify the data association between tree elements, it captures

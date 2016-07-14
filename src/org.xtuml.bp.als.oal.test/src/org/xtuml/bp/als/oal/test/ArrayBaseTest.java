@@ -619,7 +619,7 @@ public class ArrayBaseTest extends CanvasTest {
 		} else
 			assertTrue(
 					"An instance with degree of freedom type \"T\" was not found.  Instance Name: "
-							+ element + ".", ele != "");
+							+ element + ".", !ele.isEmpty());
 		return ele;
 	}
 

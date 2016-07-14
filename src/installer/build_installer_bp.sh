@@ -16,7 +16,7 @@ if [ $# -lt 5 ]; then
     echo "      staging_path -- path to the location of the Eclipse bases and BridgePoint deliverables"
     echo "      output_dir -- path to the location to output the installers"
     echo "      os - windows, linux or osx"
-    echo "      release_version -- e.g. 5.3.4"
+    echo "      release_version -- e.g. 5.4.0"
     echo "   optional:"
     echo "      SCP_UPLOAD_FOLDER_SPEC -- folder specification for scp upload: user@myserver.com:/myfolder"
     echo
@@ -38,17 +38,12 @@ ECLIPSE_VER="4.5"
 # Assume windows unless we case-insensitively match Linux on the argument
 OS="windows"
 BP_BASE_DIR="${STAGING_PATH}/${PRODUCT_NAME}_e${ECLIPSE_VER}"
-DOCGEN_EXE="docgen.exe"
-MCMC_EXE="org.xtuml.bp.mc.c.source_${BP_VERSION}/mc3020/bin/mcmc.exe"
 if [ "${OS_ARG,,}" = "linux" ] || [ "${OS_ARG,,}" = "osx" ]; then
   OS="linux"
   BP_BASE_DIR="${STAGING_PATH}/${PRODUCT_NAME}_for_Linux_e${ECLIPSE_VER}"
-  MCMC_EXE="org.xtuml.bp.mc.c.source_${BP_VERSION}/mc3020/bin/mcmc"
-  DOCGEN_EXE="docgen"
 fi
 
 TEMP_DIR="/tmp"
-SERVER="xtuml.org"
 EXT_SRC_FILE="${PRODUCT_NAME}_extension_${PRODUCT_BRANCH}.zip"
 INSTALLER_DATA_DIR="${BP_BASE_DIR}/EclipseDeliverables/eclipse"
 
@@ -119,9 +114,8 @@ cp -r "${TEMP_DIR}/${PRODUCT_NAME}/eclipse/plugins" .
 rm -rf "${TEMP_DIR}/${PRODUCT_NAME}"
 echo "INFO: Done."
 
-echo "INFO: Setting up docgen executable"
+echo "INFO: Setting up docgen"
 cd "${BP_BASE_DIR}/BridgePointDeliverables/tools/docgen"
-cp -f "${INSTALLER_DATA_DIR}/plugins/${MCMC_EXE}" ${DOCGEN_EXE}
 cp -f "./docgen.xsl" "./docbook/docbook-xsl-1.75.1/xhtml/"
 echo "INFO: Done."
 

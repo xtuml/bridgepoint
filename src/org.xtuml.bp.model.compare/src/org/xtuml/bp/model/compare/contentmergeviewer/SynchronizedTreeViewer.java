@@ -1049,7 +1049,7 @@ public class SynchronizedTreeViewer extends TreeViewer implements
 		if(tip == null) {
 			tip = new ErrorToolTip(getTree().getShell());
 		}
-		if(errorMessage != "") {
+		if((errorMessage != null) && !errorMessage.isEmpty()) {
 			tip.setVisible(false);
 			TreeItem treeItem = getTree().getSelection()[0];
 			TreeColumn column = getTree().getColumn(0);

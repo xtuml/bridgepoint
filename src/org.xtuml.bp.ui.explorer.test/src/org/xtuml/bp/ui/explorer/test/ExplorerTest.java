@@ -515,8 +515,8 @@ import org.xtuml.bp.utilities.ui.CanvasUtilities;
 						.getElement()));
 		assertTrue(
 				"Label provider did not return same text for the MultipleOccurrenceElement as it did for the real element.",
-				labelProvider.getText(ele) == labelProvider.getText(ele
-						.getElement()));
+				labelProvider.getText(ele).equals(labelProvider.getText(ele
+						.getElement())));
 		Selection.getInstance().clear();
 		Selection.getInstance().addToSelection(ele);
 		assertTrue(
@@ -656,8 +656,8 @@ import org.xtuml.bp.utilities.ui.CanvasUtilities;
 						.getElement()));
 		assertTrue(
 				"Label provider did not return same text for the MultipleOccurrenceElement as it did for the real element.",
-				labelProvider.getText(ele) == labelProvider.getText(ele
-						.getElement()));
+				labelProvider.getText(ele).equals(labelProvider.getText(ele
+						.getElement())));
 		Selection.getInstance().clear();
 		Selection.getInstance().addToSelection(ele);
 		assertTrue(

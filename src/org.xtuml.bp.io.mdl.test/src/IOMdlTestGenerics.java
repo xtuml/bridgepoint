@@ -294,7 +294,7 @@ public class IOMdlTestGenerics extends TestCase {
 	@Test
 	public void testImportSyntaxError() throws FileNotFoundException
 	{
-		ImportModel impMod = new ImportModel(m_workspace_path + Ooaofooa.MODELS_DIRNAME + "/badGenerics." + Ooaofooa.MODELS_EXT, modelRoot, m_system, true, true, false, true); //$NON-NLS-1$
+		ImportModel impMod = new ImportModel(m_workspace_path + Ooaofooa.MODELS_DIRNAME + "/badGenerics." + Ooaofooa.MODELS_EXT, modelRoot, m_system, true, true, false); //$NON-NLS-1$
 		impMod.run(new NullProgressMonitor());
 		assertEquals( false, impMod.m_success );
 		assertEquals( "line 7:1: expecting \"values\", found 'null'\n", //$NON-NLS-1$
@@ -310,7 +310,7 @@ public class IOMdlTestGenerics extends TestCase {
             importSuccess = TestingUtilities
                     .importModelUsingWizard(m_system, loc,
                             false);
-            ImportModel impMod = new ImportModel("odms.xxx", modelRoot, m_system, true, true, false, true);  //$NON-NLS-1$
+            ImportModel impMod = new ImportModel("odms.xxx", modelRoot, m_system, true, true, false);  //$NON-NLS-1$
             int i = impMod.countAndValidateInsertStatements();
             assertTrue ( i > 0 );
             impMod.run(new NullProgressMonitor());
@@ -328,7 +328,7 @@ public class IOMdlTestGenerics extends TestCase {
         String m_errorMessage = null;
         try {
             ImportModel impMod = new ImportModel(
-                    "mdl", modelRoot, m_system, true, true, false, true); //$NON-NLS-1$
+                    "mdl", modelRoot, m_system, true, true, false); //$NON-NLS-1$
             int i = impMod.countAndValidateInsertStatements();
             assertTrue(i > 0);
             impMod.run(new NullProgressMonitor());

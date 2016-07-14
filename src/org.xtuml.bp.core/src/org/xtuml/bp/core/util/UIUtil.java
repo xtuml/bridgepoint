@@ -362,11 +362,11 @@ public class UIUtil
 	public static boolean openScrollableTextDialog(Shell parentShell,
 			boolean allowCancel, String title, String textContents,
 			String message, String optionalText, String preferenceKey,
-			boolean defaultReturn) {
+			boolean defaultReturn, boolean usePrintAndSave) {
 		if (CoreUtil.IsRunningHeadless) {
 			outputTextForheadlessRun(BPMessageTypes.QUESTION, title, message, String.valueOf(defaultReturn));
 		} else {
-    		ScrolledTextDialog dialog = new ScrolledTextDialog(parentShell, allowCancel, title, textContents, message, optionalText, preferenceKey);
+    		ScrolledTextDialog dialog = new ScrolledTextDialog(parentShell, allowCancel, title, textContents, message, optionalText, preferenceKey, usePrintAndSave);
     		int result = dialog.open();
     		if(result == Window.OK) {
     			return true;

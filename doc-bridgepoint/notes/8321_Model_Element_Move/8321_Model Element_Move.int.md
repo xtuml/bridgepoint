@@ -35,6 +35,14 @@ from a defined test matrix.
 This is a delivery milestone for the project. What is included in this intermediate, internal deliverable 
 is defined in (the Work Required section below)[#milestone1].  
 
+<a id="2.7"></a>2.7 [Milestone 2 -  #8492](https://support.onefact.net/issues/8492)  
+This is a delivery milestone for the project. I covers the work to update GUI 
+dialogs to account for changes due to this new functionality and add 
+enhancements to the dialog.  
+
+<a id="2.8"></a>2.8 [Test Model Creation -  #8458](https://support.onefact.net/issues/8458)  
+Test model(s) for this issue.  
+
 3. Background
 -------------
 
@@ -114,29 +122,130 @@ faciliate 6.2.3.
 6.2.5 An attempt to paste to the same location that the copy was made from is considered an 
 invalid selection and shall not be allowed.  
 
-TODO: Add implementation detail  
+6.2.5.1. Disable paste when the selected target is the same as the source.  
+6.2.5.1.1. `bp/ui/explorer/actions/ui/Explorer{Cut | Copy | Paste}Action.java::isEnabled()` 
+implements this behavior on behalf of the org.eclipse.jface.action.Action abstract class. 
+This is where BridgePoint determines if the CME should be enabled or not. Note that there 
+is an analogous implementation for canvas in 
+`bp.ui.graphics.actions/Canvas{Cut | Copy | Paste}Action.java::isEnabled()`  
+6.2.5.1.2. The operation called out in the prior step is implemented to check the source and destination to
+see if the CME should be enabled or not.  
+6.2.5.1.3. In the PasteAction case, the operations look to see if the destination allows paste for 
+elements in the source being pasted to the target. It does this by calling an ooaofooa 
+operation that is of the form {target model element instance}.Paste{Source Model Element Name}
+. The structure of this code was such that this behavior 
+was essentially duplicated in `{Explorer | Canvas}PasteAction.java`. I refactored this and 
+"moved up" an operation named `clipboardContainsPastableModelElements()` into the parent class
+`core/ui/PasteAction.java` to facilitate adding the check to assure that on move the
+if the source and target PMCs match paste is not enabled.  
+6.2.5.1.4 The actual code added to assure paste is disabled if the source and target PMCs match was added to the refactored
+`core/ui/PasteAction.java::isEnabled()` function.  
+6.2.5.1.4.1 The change was specific to move, copy/paste still allows paste into the same PMC as it did before this change.  
+6.2.5.2. In PasteAction.java::isEnabled() if a move is in progress do not allow more than 1 
+selected destination. This is another chage that is specific to move and is still allowed by copy/paste.  
 
-Note that same location does not mean same model root. A move should be allowed to the 
-same model root as long as it is not the exact same location inside that root.  
-
-6.3 Reuse the current tree view that shows Model Elements affected by the 
-cut/paste operation  
-TODO: Add implementation detail  
-
-6.3.1 The dialog shall allow the user to cancel   
-TODO: Add implementation detail  
+6.3.1 The dialog allows the user to cancel.  On cancel, no action is performed
+  on the underlying model data.   
 
 6.3.2 In the type demotion dialog, consider adding text to tell the user to consider turning on IPRs or checking package visibility.  
-TODO: Add implementation detail  
+@see 6.4  
 
-6.3.3 As per the SOW [[2.3](#2.3)], the dialog needs to have save and print optons added.  
-TODO: Add implementation detail  
+6.3.3 As per the SOW [[2.3](#2.3)], the dialog needs to have save and print options added.  
+6.3.3.1  Updated `ScrolledTextDialog.java` to take a new parameter in the
+  constructor that indicates if the save and print buttons shall be used.  
+6.3.3.2  Updated the existing callers of ScrolledTextDialog such that the 
+  `TransactionManager.java` is the only one that uses save and print.  Other 
+  users retain existing behavior and do not use save and print.  
+6.3.3.3  Added code to implement button "Save...".  This button opens a modal
+  dialog that allows the user to select a file to save into.  The contents of 
+  the list box (the affected elements) are written to the file if the user 
+  completes the dialog.  No action is taken if the user cancels the dialog.   
+6.3.3.4  Added code to implement button "Print...".  This button opens a modal
+  printer selection dialog.  The contents of the list box (the affected 
+  elements) are sent to the printer if the user completes the dialog.  No action
+  is taken if the user cancels the dialog.  
 
 6.4 Modify all resolution operations to first search by ID  instead of name  
-TODO: Add implementation detail  
+6.4.1 Analysis of this problem  
+During paste, after the elements are put in their new destination, the source elements must be
+cleaned-up from the previous location. In the existing cut/paste implementation this meant 
+performing a delete.  It is during the delete that elements (Datatypes) are "downgraded". 
+In S_DT.Dispose() as a datatype is disposed the OAL disconnects the datatype, reconnects to 
+the default type, and then calls a bridge that is used to record the "downgrade" so that 
+it may be reported to the user. An example of what this looks like for one datatype, 
+Bridges, is as follows:  
+```
+select many brgs related by self->S_BRG[R20];
+for each brg in brgs
+  unrelate self from brg across R20;
+  relate brg to voidDt across R20;
+  Util::collectModelElementsNames(elementType:"- Bridge : ",elementName:brg.Name);
+end for;
+```  
+
+`PasteAction.java::run()` is responsible for paste in both the copy/paste and cut/paste senarios. When a cut/paste occurs, after the elements are moved to their new home they most be removed from their source home. In this senario, where the elements were simple moved (their IDs are the same) we do NOT want to call the ooaofooa Dispose operations on the elements. However, we DO need to perfom some cleanup. The cleanup needed is:  
+* Remove the elements from the source root's instance list  
+* remove the files  
+  * This happens in the Transaction end operation. The ComponentTransactionListener.transactionEnded() operation looks to see if there were deletions in the transaction, and if so, it calls PersistableModelComponent.deleteSelfAndChildren()  
+
+6.4.1.1. core/ui/DeleteAction(ISelection) is generated. It deletes the model types in the given selection in a specific order (starting with S_SYS).  The archetype generates code that finds the count of a given type (example EP_PKG) in the selection and then iterates over them one at a time calling <Element instance>.Dispose() on each one.  
+6.4.1.2. <Element Instance>.Dispose() is of course generated from MC-Java and of course each model element in ooaofooa has a Dispose operation. MC-Java adds some code to the bottom of each of these operations that looks like this:  
+```
+    if (delete()) {
+			Ooaofooa.getDefaultInstance()
+					.fireModelElementDeleted(new BaseModelDelta(Modeleventnotification_c.DELTA_DELETE, this));
+		}
+```  
+6.4.1.2.1 the delete() operation is generated for each model element.  
+6.4.1.2.1.1 What this does first is to call super.delete() (NonRootModelElement.java::delete()), which assures the element is not orphaned. (Being orphanded means the element does not exist in the root's instance list.), and if not orphanded we remove the elements from this roots instance list (and return true. Additionally, it is worth noting there is a special case in this situation for merge. It looks like this:  
+```
+      ...
+			// During merge we do not convert elements, they are moved
+			// as is from one side to the other.  During a merge undo we
+			// can hit a case where RTOs are removed before the RGO, causing
+			// the check for external references to be true.
+			if(hasExternalRefs && !getModelRoot().isCompareRoot()) {
+				convertToProxy();
+			} else {
+				delete_unchecked();
+			}
+			return true;
+			...
+```  
+6.4.1.2.1.1.1 Note that delete_unchecked() is where we remove the elements from the roots instance list as described 
+in 2.1.  
+6.4.1.2.1.2 delete() then has code that tests to assure relationships were torn down by the element's Dispose() properly, and reports non-fatal errors is the relationships were not properly disposed.  
+
+6.4.2 Resolution for cut/paste's problem of "downgrading" model elements and improper element "deletion" on move.  
+6.4.2.1  modify MC-Java's handling of the Dispose() operation and wrap the body of the OAL action in a conditional expression that check to see if a move is in progress, and do NOT call the action body if a move is in progress.  
+6.4.2.2 modify the generated delete() operations to check to see if a move is in progress and if a move is in progress do not report the error about relationships not being torn down.  
+6.4.2.3 Investigate the "convertToProxy()" used in NonRootModelElement.delete()   
+
+6.4.3 In the type demotion dialog, we considered adding text to tell the user to consider turning on IPRs or checking package visibility and decided against it for now since the issue at hand actual does not include IPR support.  
 
 6.5 Fix inconsistent proxy paths [[2.4](#2.4)]  
-TODO: Add implementation detail  
+6.5.1 I removed all generated code from the operations that load and write the proxies.  
+This was a very small change. The change to stub out proxies writes was in:
+`io/core/arc/export_functions.inc::public void write_${r.body}_proxy_sql(${r.body} inst)`
+
+The change to stub out proxies load was in:
+`io/core/arc/import_functions.inc::private void create${stn.body} (${main_class_name} modelRoot, String table, Vector parms, Vector rawParms, int numParms, IProgressMonitor pm)`.  
+
+6.5.2 I also modified io/core/arc/gen_import_java.inc and removed a List variable generated into
+each of the import classes that is no longer used. It's name was:
+    `private List<NonRootModelElement> loadedProxies = new Vector<NonRootModelElement>();`  
+6.5.3 I modified NonRootModelElement.java::isProxy() to always return false.  
+6.5.4 I manually tested this by:  
+* run the tool in a workspace with GPS Watch
+* search the model for all occurrences of "INSERT INTO .*PROXY" in *.xtuml
+* result is lots of hits
+* open Model Explorer, select GPS Watch, right click -> BridgePoint Utilities -> Load and Persist
+* result is all files are marked dirty
+* search the model for all occurrences of "INSERT INTO .*PROXY" in *.xtuml
+* result is 0 occurrences 
+* exit and restart
+* assure there are no errors loading GPS Watch
+  
 
 6. Implementation Comments
 --------------------------
@@ -145,7 +254,7 @@ NONE
 
 7. Unit Test
 ------------
-TODO: Add implementation detail  
+The test model is found with the [Test Model Creation Issue](#2.8).  
 
 7.1 Use the [[test generation utility]](#2.2) to generate tests for all source and target permutations. Note that documentation for this utility is found in the header of this perl script.  The goal of these generated tests is to assure all requirements are satisfied for each generated test. This assure that requirements are satisfied for each test permutation.  
 

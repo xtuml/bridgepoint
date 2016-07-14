@@ -54,6 +54,7 @@ public class BridgePointPreferencesModel implements IPreferenceModel {
     public boolean enableDSAs;
     public boolean enableDeterministicVerifier;
     public boolean enableInstanceReferences;
+    public boolean enableModelIntegrityCheck;
     public boolean enableVerifierAudit;
     public int enableSelectAudit;
     public int enableRelateAudit;
@@ -110,6 +111,7 @@ public class BridgePointPreferencesModel implements IPreferenceModel {
         enableDSAs = syncTo.enableDSAs;
         enableDeterministicVerifier = syncTo.enableDeterministicVerifier;
         enableInstanceReferences = syncTo.enableInstanceReferences;
+        enableModelIntegrityCheck = syncTo.enableModelIntegrityCheck;
         createGraphicsDuringImport = syncTo.createGraphicsDuringImport;
 
         enableVerifierAudit = syncTo.enableVerifierAudit;
@@ -155,6 +157,7 @@ public class BridgePointPreferencesModel implements IPreferenceModel {
         prefs.enableDSAs = enableDSAs;
         prefs.enableDeterministicVerifier = enableDeterministicVerifier;
         prefs.enableInstanceReferences = enableInstanceReferences;
+        prefs.enableModelIntegrityCheck = enableModelIntegrityCheck;
 
         prefs.enableVerifierAudit = enableVerifierAudit;
         prefs.enableSelectAudit = enableSelectAudit;

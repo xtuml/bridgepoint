@@ -68,14 +68,12 @@ public abstract class CoreImport implements IModelImport {
 
     protected NonRootModelElement rootModelElement = null;
 
-    protected boolean m_createUniqueIdDuringImport = true;
-    
     /**
      * The version string found in BP SQL model files.
      */
     public static String bpSqlVersion = "6.1D";
     
-    public CoreImport(Ooaofooa modelRoot, InputStream inStream, boolean clearDatabase, boolean templateFile, boolean createUniqueIdDuringImport)
+    public CoreImport(Ooaofooa modelRoot, InputStream inStream, boolean clearDatabase, boolean templateFile)
             throws IOException {
         m_success = false;
         m_errorMessage = ""; //$NON-NLS-1$
@@ -83,11 +81,10 @@ public abstract class CoreImport implements IModelImport {
         m_fileName = "";
         m_clear_database = clearDatabase;
         m_templateFile = templateFile;
-        m_createUniqueIdDuringImport = createUniqueIdDuringImport;
         read(inStream);
     }
 
-    public CoreImport(Ooaofooa modelRoot, String inFile, boolean clearDatabase, boolean templateFile, boolean createUniqueIdDuringImport)
+    public CoreImport(Ooaofooa modelRoot, String inFile, boolean clearDatabase, boolean templateFile)
             throws FileNotFoundException {
         m_success = false;
         m_errorMessage = ""; //$NON-NLS-1$
@@ -96,7 +93,6 @@ public abstract class CoreImport implements IModelImport {
         m_inFile = new File(inFile);
         m_clear_database = clearDatabase;
         m_templateFile = templateFile;
-        m_createUniqueIdDuringImport = createUniqueIdDuringImport;
         if (!m_inFile.exists() || !m_inFile.isFile())
             throw new FileNotFoundException(inFile + " not found");
     }
@@ -259,7 +255,7 @@ public abstract class CoreImport implements IModelImport {
             SqlParser parser = new SqlParser(lexer, m_modelRoot, this);
             // Parse the input expression
             parser.sql_file(pm);
-            if (parser.m_output != "") //$NON-NLS-1$
+            if (!parser.m_output.isEmpty())
             {
                 m_errorMessage = parser.m_output;
                 pm.done();

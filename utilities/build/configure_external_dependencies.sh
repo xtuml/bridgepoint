@@ -61,6 +61,14 @@ get_user_supplied_binaries ()
         missing_files+="./mcmc.exe"
     fi
     
+    if [ ! -e  ./docgen ]; then
+        missing_files+="./docgen"
+    fi
+    
+    if [ ! -e  ./docgen.exe ]; then
+        missing_files+="./docgen.exe"
+    fi
+    
     if [ "$missing_files" != "" ]; then
        echo -e "Error!: Missing files: $missing_files"
        return 1
@@ -100,6 +108,8 @@ configure_mcc_src()
     cp -fp $user_supplied_files/msvcp60.dll       ./bin
     cp -fp $user_supplied_files/vgal8c.dll        ./bin
     cp -fp $user_supplied_files/vgalaxy8.vr       ./bin
+    cp -fp $user_supplied_files/docgen            ./bin
+    cp -fp $user_supplied_files/docgen.exe        ./bin
     
     # Since we're using the plug-in files themselves to build BridgePoint, make sure
     # they are executable and the xtumlmc_build.exe is in the right state (Windows vs. Linux)
@@ -113,6 +123,7 @@ configure_mcc_src()
     chmod a+x ./bin/xtumlmc_build*
 	chmod a+x ./bin/gen_erate*
 	chmod a+x ./bin/mcmc*
+	chmod a+x ./bin/docgen*
     
     cd ${bp_src_dir}
     cp -fp $user_supplied_files/mc3020_doc.zip $mc3020_help/doc.zip
