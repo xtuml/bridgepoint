@@ -246,7 +246,7 @@ public class BridgePointPreferencesStore implements IPreferenceModelStore {
         prefs.enableParseOnActivtyEdits = true;
         prefs.allowOperationsInWhere = false;
         prefs.allowInterfaceNameInICMessage = false;
-        prefs.enableErrorForEmptySynchronousMessage = true;
+        prefs.enableErrorForEmptySynchronousMessage = false;
         prefs.enableErrorForEmptySynchronousMessageRealized = false;
         prefs.disableGradients = true;
         prefs.invertGradients = false;
