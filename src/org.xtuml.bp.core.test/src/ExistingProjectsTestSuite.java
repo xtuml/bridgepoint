@@ -13,17 +13,13 @@
 //=====================================================================
 
 
-import org.eclipse.core.runtime.CoreException;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
-import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.test.ExistingProjectsInitialChecks;
 import org.xtuml.bp.core.test.GlobalTestSetupClass;
 import org.xtuml.bp.core.test.NewShapeAfterRestart;
 import org.xtuml.bp.core.test.TigerNatureExistingProjectsTestGenerics;
-import org.xtuml.bp.core.util.WorkspaceUtil;
 
-import junit.framework.Test;
 import junit.framework.TestSuite;
 
 /**
@@ -32,10 +28,9 @@ import junit.framework.TestSuite;
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
 	GlobalTestSetupClass.class,
-
-   ExistingProjectsInitialChecks.class,
-   NewShapeAfterRestart.class,
-   TigerNatureExistingProjectsTestGenerics.class,
+	ExistingProjectsInitialChecks.class,
+	NewShapeAfterRestart.class,
+	TigerNatureExistingProjectsTestGenerics.class,
 })
 public class ExistingProjectsTestSuite extends TestSuite {
 
