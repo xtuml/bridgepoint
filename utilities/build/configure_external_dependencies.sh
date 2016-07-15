@@ -37,18 +37,6 @@ get_user_supplied_binaries ()
         missing_files+="./gen_erate.exe"
     fi
 
-    if [ ! -e  ./vgalaxy8.vr ]; then
-        missing_files+="./vgalaxy8.vr"
-    fi
-
-    if [ ! -e  ./vgal8c.dll ]; then
-        missing_files+="./vgal8c.dll"
-    fi
-
-    if [ ! -e  ./msvcrt.dll ]; then
-        missing_files+="./msvcrt.dll"
-    fi
-
     if [ ! -e  ./mc3020_doc.zip ]; then
         missing_files+="./mc3020_doc.zip"
     fi
@@ -95,7 +83,6 @@ configure_mcc_src()
     mv ./schema/default-manifest.xml ./
 
     cd $mcc_src/mc3020
-    cp -fp ${git_repo_root}/mc/libTRANS/libTRANS.dll ./bin
     
     cp -fp $user_supplied_files/xtumlmc_build.exe ./bin
     cp -fp $user_supplied_files/gen_erate.exe     ./bin
@@ -103,11 +90,6 @@ configure_mcc_src()
     cp -fp $user_supplied_files/mcmc              ./bin
     cp -fp $user_supplied_files/mcmc64            ./bin
     cp -fp $user_supplied_files/mcmc.exe          ./bin
-    cp -fp $user_supplied_files/msvcrt.dll        ./bin
-    cp -fp $user_supplied_files/msvcirt.dll       ./bin
-    cp -fp $user_supplied_files/msvcp60.dll       ./bin
-    cp -fp $user_supplied_files/vgal8c.dll        ./bin
-    cp -fp $user_supplied_files/vgalaxy8.vr       ./bin
     cp -fp $user_supplied_files/docgen            ./bin
     cp -fp $user_supplied_files/docgen.exe        ./bin
     
@@ -154,10 +136,12 @@ configure_mcsystemc_src()
     mv ./schema/colors/system.mark ./schema/colors/system.mark.orig
     cat ./schema/colors/system.mark.sysc ./schema/colors/system.mark.orig > ./schema/colors/system.mark
     
-    # We don't want the model-based MC for this version, so remove it
+    # We don't want the model-based MC or docgen for this version, so remove it
     rm -f ./bin/mcmc
     rm -f ./bin/mcmc64
     rm -f ./bin/mcmc.exe
+    rm -f ./bin/docgen
+    rm -f ./bin/docgen.exe
 
     cd $mcsystemc_src/mc3020
     chmod -R g+w .
@@ -179,10 +163,12 @@ configure_mccpp_src()
     rm -rf ./arc/c
     mv ./arc/sysc ./arc/specialized
 
-    # We don't want the model-based MC for this version, so remove it
+    # We don't want the model-based MC or docgen for this version, so remove it
     rm -f ./bin/mcmc
     rm -f ./bin/mcmc64
     rm -f ./bin/mcmc.exe
+    rm -f ./bin/docgen
+    rm -f ./bin/docgen.exe
 
     cd $mccpp_src/mc3020
     chmod -R g+w .
@@ -201,10 +187,12 @@ configure_java_src()
     cd mc3020
     rm -rf ./arc
     
-    # We don't want the model-based MC for this version, so remove it
-    rm -f ./mc3020/bin/mcmc
-    rm -f ./mc3020/bin/mcmc64
-    rm -f ./mc3020/bin/mcmc.exe
+    # We don't want the model-based MC or docgen for this version, so remove it
+    rm -f ./bin/mcmc
+    rm -f ./bin/mcmc64
+    rm -f ./bin/mcmc.exe
+    rm -f ./bin/docgen
+    rm -f ./bin/docgen.exe
 
     cd $mcjava_src/mc3020
     chmod -R g+w .
