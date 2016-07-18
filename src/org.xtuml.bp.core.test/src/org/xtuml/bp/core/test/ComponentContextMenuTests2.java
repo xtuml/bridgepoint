@@ -98,21 +98,6 @@ public class ComponentContextMenuTests2 extends BaseTest {
 		}
 	}
 
-	// Enforce ordering of the tests in this class
-//	@Test
-//	public void testComponentCMETests2() {
-//		dotestContextMenuAssignSignalActionOnSM_TXN();
-//		dotestContextMenuAssignSignalActionOnSM_TXNInnerComponent();
-//		dotestContextMenuAssignSignalActionOnSM_TXNCantUseSameTwice();
-//		dotestContextMenuAssignSignalActionOnSM_TXNCantUseSameTwiceInnerComponent();
-//		dotestContextMenuAssignSignalActionOnSM_TXNGoesAway();
-//		dotestContextMenuAssignSignalActionOnSM_TXNInteractionWithEvent();
-//		dotestContextMenuAssignSignalActionOnSM_TXNGoesAwayInnerComponent();
-//		dotestContextMenuAssignSignalActionOnSM_TXNInteractionWithEventInnerComponent();
-//		dotestFormalizationEntriesAreNotPresentForDelegation();
-//		dotestFormalizationEntriesAreNotPresentForDelegationForCL_IC();
-//	}
-
 	@Test
 	public void testContextMenuAssignSignalActionOnSM_TXN() {
 		Transition_c obj = Transition_c.TransitionInstance(modelRoot);
