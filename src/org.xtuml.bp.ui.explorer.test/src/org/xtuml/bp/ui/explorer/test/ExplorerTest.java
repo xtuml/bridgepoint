@@ -520,10 +520,6 @@ import org.xtuml.bp.utilities.ui.CanvasUtilities;
 		Selection.getInstance().clear();
 		Selection.getInstance().addToSelection(ele);
 		assertTrue(
-				"Unable to find Cut menu item for MultipleOccurrenceElement.",
-				UITestingUtilities.checkItemStatusInContextMenu(menu, "Cut",
-						"", false));
-		assertTrue(
 				"Unable to find Copy menu item for MultipleOccurrenceElement.",
 				UITestingUtilities.checkItemStatusInContextMenu(menu, "Copy",
 						"", false));
@@ -660,10 +656,6 @@ import org.xtuml.bp.utilities.ui.CanvasUtilities;
 						.getElement())));
 		Selection.getInstance().clear();
 		Selection.getInstance().addToSelection(ele);
-		assertTrue(
-				"Unable to find Cut menu item for MultipleOccurrenceElement.",
-				UITestingUtilities.checkItemStatusInContextMenu(menu, "Cut",
-						"", false));
 		assertTrue(
 				"Unable to find Copy menu item for MultipleOccurrenceElement.",
 				UITestingUtilities.checkItemStatusInContextMenu(menu, "Copy",
