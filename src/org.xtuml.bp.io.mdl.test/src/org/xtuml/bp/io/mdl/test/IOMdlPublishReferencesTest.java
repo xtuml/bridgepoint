@@ -1,9 +1,7 @@
-     package org.xtuml.bp.io.mdl.test;
+package org.xtuml.bp.io.mdl.test;
 //=====================================================================
 //
-//File:      IOMdlNestedTestGenerics.java
-//
-//(c) Copyright 2004-2014 by Mentor Graphics Corp. All rights reserved.
+//File:      IOMdlPublishReferencesTest.java
 //
 //=====================================================================
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not 
@@ -33,9 +31,9 @@ import org.xtuml.bp.test.common.BaseTest;
 import org.xtuml.bp.test.common.OrderedRunner;
 
 @RunWith(OrderedRunner.class)
-public class IOMdlNestedTestGenerics extends BaseTest {
+public class IOMdlPublishReferencesTest extends BaseTest {
 
-	public IOMdlNestedTestGenerics() {
+	public IOMdlPublishReferencesTest() {
 		super("org.xtuml.bp.io.mdl.test", null);
 	}
 

@@ -25,7 +25,7 @@ import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.common.BridgePointPreferencesStore;
 import org.xtuml.bp.core.test.GlobalTestSetupClass;
 import org.xtuml.bp.io.mdl.test.IOMdlGlobalsTestGenerics;
-import org.xtuml.bp.io.mdl.test.IOMdlNestedTestGenerics;
+import org.xtuml.bp.io.mdl.test.IOMdlPublishReferencesTest;
 import org.xtuml.bp.io.mdl.test.IOMdlUnicodeTestGenerics;
 import org.xtuml.bp.io.mdl.test.ImportPasteElementsWithIPRTest;
 import org.xtuml.bp.io.mdl.test.ImportReferencedIPRModelTest;
@@ -38,7 +38,7 @@ import junit.framework.TestSuite;
 @Suite.SuiteClasses({
    GlobalTestSetupClass.class,
    IOMdlGlobalsTestGenerics.class,
-   IOMdlNestedTestGenerics.class,
+   IOMdlPublishReferencesTest.class,
    IOMdlTestGenerics.class,
    IOMdlUnicodeTestGenerics.class,
    ImportReferencedIPRModelTest.class,
