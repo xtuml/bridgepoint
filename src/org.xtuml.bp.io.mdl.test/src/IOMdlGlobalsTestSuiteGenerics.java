@@ -1,8 +1,6 @@
 //=====================================================================
 //
-//File:      $RCSfile: IOMdlGlobalsTestSuiteGenerics.java,v $
-//Version:   $Revision: 1.5 $
-//Modified:  $Date: 2013/05/10 05:15:20 $
+//File:      IOMdlGlobalsTestSuiteGenerics.java
 //
 //(c) Copyright 2004-2014 by Mentor Graphics Corp. All rights reserved.
 //
