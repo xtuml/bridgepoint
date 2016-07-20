@@ -1693,7 +1693,7 @@ INSERT INTO S_BPARM
 INSERT INTO S_BRG
 	VALUES ("94009a26-ffdc-4196-bc0f-2325ca36374f",
 	"f168c92b-6d64-4ecb-a677-5a1d7cce8352",
-	'isOOALinkedAssocInstance',
+	'isConnectedToLine',
 	'',
 	0,
 	"ba5eda7a-def5-0000-0000-000000000001",

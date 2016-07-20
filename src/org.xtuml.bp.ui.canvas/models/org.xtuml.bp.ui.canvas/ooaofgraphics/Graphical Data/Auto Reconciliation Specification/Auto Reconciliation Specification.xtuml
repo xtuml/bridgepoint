@@ -412,19 +412,18 @@ while (j < connectorCount)
     if ((connectorOOAId == param.connector_ooa_id_to_find))
       if (graphicalElement.represents != param.shape_ooa_instance_to_find)
         // if pass 3 then we are only here if shape_ooa_instance_to_find is the 
-        // ClassInLink. Since we are here looking for the other side, the 
-		// other side in this case will be one of the 2 classes in the linked
-        // association. If this is the case then we need to return the GD_GE
+        // ClassInLink or Subtype. If this is the case then we need to return the GD_GE
         // of the connector, not the GD_GE of the shape
-        if (param.passNumber == 3 and CL::isOOALinkedAssocInstance(connectorOOAInstance:connectorInstance))
-          select any linkedAssocGDGEInstance related by model->GD_GE[R1] where selected.represents==connectorInstance;
-          if (not empty linkedAssocGDGEInstance)
-            side2GDGEId = linkedAssocGDGEInstance.elementId;
+        if (param.passNumber == 3 and (CL::isConnectedToLine(connectorOOAInstance:connectorInstance) or 
+        	CL::isConnectedToLine(connectorOOAInstance:connectorInstance)))
+          select any connectorGDGEInstance related by model->GD_GE[R1] where selected.represents==connectorInstance;
+          if (not empty connectorGDGEInstance)
+            side2GDGEId = connectorGDGEInstance.elementId;
           else
 				// Given this ooaoaoof id find the GD_GE of this assocation
           		// See the note above. The GD_GE for this must have already
           		// been created. If not this will fail.             
-          		CL::logError(message:"Failed to find the GD_GE instance for Linked Association (" + 
+          		CL::logError(message:"Failed to find the GD_GE instance for Linked Association or Subtype (" + 
             			CL::getModelElementName(from:graphicalElement.represents) + 
             			"::" + 
             			CL::getModelElementName(from:connectorInstance) +
@@ -477,8 +476,8 @@ while (j < connectorCount)
             select one connectorSpec related  by shapeARSInstance->GD_ES[R31];
             if  (connectorSpec.symbolType=="connector")
               if (not empty connectorSpec)
-                // The Class As Link is only handled during the last pass after the other connectors have been created
-                if (param.passNumber!=3 and shapeARSInstance.Bridge_NumElements=="Getclassaslinkcount")
+                // The Class As Link and subtype are only handled during the last pass after the other connectors have been created
+                if (param.passNumber!=3 and (shapeARSInstance.Bridge_NumElements=="Getclassaslinkcount" or shapeARSInstance.Bridge_NumElements=="Getsubtypecount"))
                   continue;
                 end if;
                 side2_GD_GEId = shapeARSInstance.reconcileConnectorsNoExistingGraphics(diagram_id:model.diagramId, 
@@ -545,6 +544,10 @@ while (j < connectorCount)
                                     rootInst: model.represents,
                                     OOA_ID: newConnector.OOA_ID,
                                     OOA_Type: newConnector.OOA_Type );
+      if (newConnector.represents == OS::NULL_INSTANCE())
+        // log an error it makes no sense that we would not be able to find the ooaofooa instance at this point
+        CL::logError(message:"Failed to find the ooaofooa instance during graphics reconciliation.  ooaofooa id: " + OS::uniqueIdToString(id:newConnector.OOA_ID) + "  ooaofooa type: " + OS::ooaTypeToString(id:newConnector.OOA_Type));
+      end if;
       unrelate sourceSpec from newConnector across R16;
     end if;
   end if;
