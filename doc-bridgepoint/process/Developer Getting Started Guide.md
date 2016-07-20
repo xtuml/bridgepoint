@@ -12,7 +12,7 @@ Preparation
 4) <a id="help"></a>If you have any problems or questions, check the [FAQ](https://github.com/xtuml/bridgepoint/blob/master/doc-bridgepoint/process/FAQ.md#bpdevelopers) or post to the [xtUML.org Forums] (https://xtuml.org/community/forum/xtuml-forum/) for help.
 
 
-Instructions
+Setup Instructions
 ------------
 
   - If you do not already have a Github.com account, [create one now.](https://github.com/join)
@@ -33,12 +33,22 @@ Instructions
     - __LINUX__ - Linux Ubuntu installation commands are presented below.  If installing in a 
     different Linux distribution you must use the [commands appropriate for your Linux distribution](https://github.com/xtuml/bridgepoint/blob/master/doc-bridgepoint/process/FAQ.md#linux).
     ```
-    sudo apt-get install libxtst6:i386 libgtk2.0-0:i386 gtk2-engines:i386 gtk2-engines-*:i386 --reinstall unity-gtk2-module:i386 libgtkmm-2.4-1c2:i386 libcanberra-gtk-module:i386 tofrodos wine libstdc++5 g++ ant git default-jdk  
+    sudo apt-get install libxtst6:i386 libgtk2.0-0:i386 gtk2-engines:i386 gtk2-engines-*:i386 --reinstall unity-gtk2-module:i386 libgtkmm-2.4-1c2:i386 libcanberra-gtk-module:i386 tofrodos libstdc++5 g++ ant git default-jdk  
+    ```  
+    The build runs __a lot__ faster if the pypy python tool is available.  We recommend it be installed:
     ```
+    sudo add-apt-repository ppa:pypy/ppa
+    sudo apt-get update
+    sudo apt-get install pypy pypy-dev
+    ```   
     - __WINDOWS__
       - Perl ([We recommend strawberry perl.](http://strawberryperl.com/ "strawberry perl"))
       - [JDK](http://www.oracle.com/technetwork/java/javase/downloads/index.html "Oracle JDK")
       - [Cygwin](http://cygwin.com/install.html "Cygwin Install") (Make sure to select Git)
+
+GUI Build Instructions
+------------
+The instructions in this section describe how to use the eclipse BridgePoint UI to build the BridgePoint plug-ins.   
 
   - Clone the repositories:
   ```
@@ -50,7 +60,7 @@ Instructions
     
   - Prepare the development environment to call gen_erate. In the command below replace "\<version\>" with the version of the product:
   ```
-  cp -Rp ~/xtuml/BridgePoint/eclipse/plugins/org.xtuml.bp.mc.c.binary_<version>/mc3020/* ~/git/bridgepoint/src/org.xtuml.bp.mc.c.binary/mc3020
+  cp -Rp ~/xtuml/BridgePoint/eclipse/plugins/org.xtuml.bp.mc.c.source_<version>/mc3020/* ~/git/bridgepoint/src/org.xtuml.bp.mc.c.source/mc3020
   ```
   - Prepare your development workspace with the required preferences. 
   ```
@@ -83,3 +93,5 @@ Instructions
   - If you want to run BridgePoint unit tests, instructions are available in [HOWTO Run the BridgePoint Unit Tests](https://github.com/xtuml/bridgepoint/blob/master/doc-bridgepoint/process/HOWTO-run-bridgepoint-unit-tests.md)
    
 
+### Additional Notes
+  - Information about running the BridgePoint build via the command line may be found [in the FAQ](https://github.com/xtuml/bridgepoint/blob/master/doc-bridgepoint/process/FAQ.md#clibuild).

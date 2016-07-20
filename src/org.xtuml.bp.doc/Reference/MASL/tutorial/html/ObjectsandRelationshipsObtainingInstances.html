@@ -1,0 +1,191 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>5.2. Obtaining instances</title>
+<link rel="stylesheet" type="text/css" href="docbook.css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
+<meta name="keywords" content="MASL, Action Language, Action Semantics, UML, Unified Modelling Language, Shlaer Mellor">
+<link rel="home" href="index.html" title="MASL Tutorial">
+<link rel="up" href="ObjectsandRelationships.html" title="Chapter 5. Objects and Relationships">
+<link rel="prev" href="ObjectsandRelationshipsCreatingInstances.html" title="5.1. Creating Instances">
+<link rel="next" href="ObjectsandRelationshipsDeletingInstances.html" title="5.3. Deleting Instances">
+<link rel="preface" href="preface.html" title="Preface">
+<link rel="chapter" href="Types.html" title="Chapter 1. Types">
+<link rel="chapter" href="ExecutionControl.html" title="Chapter 2. Execution Control">
+<link rel="chapter" href="CompositeTypes.html" title="Chapter 3. Composite Types">
+<link rel="chapter" href="Exceptions.html" title="Chapter 4. Exceptions">
+<link rel="chapter" href="ObjectsandRelationships.html" title="Chapter 5. Objects and Relationships">
+<link rel="chapter" href="Actions.html" title="Chapter 6. Actions">
+<link rel="chapter" href="DeviceIO.html" title="Chapter 7. Device Input/Output">
+<link rel="chapter" href="MASLExamples.html" title="Chapter 8. MASL Examples">
+<link rel="index" href="ix01.html" title="Index">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div align="center">UNCLASSIFIED</div>
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center">5.2. Obtaining instances</th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="ObjectsandRelationshipsCreatingInstances.html">Prev</a> </td>
+<th width="60%" align="center">Chapter 5. Objects and Relationships</th>
+<td width="20%" align="right"> <a accesskey="n" href="ObjectsandRelationshipsDeletingInstances.html">Next</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h2 class="title">
+<a name="ObjectsandRelationshipsObtainingInstances"></a>5.2. Obtaining instances</h2></div></div></div>
+<p>In that last section we showed how we could obtain the instance
+    produced by a <code class="literal">create</code> expression. If we want to obtain
+    instances that have already been created we can use a
+    <code class="literal">find</code> expression. There are four forms of find
+    expression:</p>
+<div class="itemizedlist"><ul class="itemizedlist">
+<li class="listitem"><p><code class="literal">find</code></p></li>
+<li class="listitem"><p><code class="literal">find_all</code></p></li>
+<li class="listitem"><p><code class="literal">find_one</code></p></li>
+<li class="listitem"><p><code class="literal">find_only</code></p></li>
+</ul></div>
+<p>The <code class="literal">find</code> locates all the instances of an object
+    satisfying a specified condition. This form starts with the reserved word
+    <code class="literal">find</code> followed by the name of an object and a condition
+    enclosed by brackets. Given the <code class="classname">Aircraft</code> object we
+    might write:</p>
+<div class="informalexample"><pre class="programlisting">  find Aircraft(speed &lt; 100);</pre></div>
+<p>This finds all instances of the
+    <code class="classname">Aircraft</code> object whose speed is less than
+    <code class="literal">100</code>. The condition can of course, be of arbitrary
+    complexity with the restriction that left-hand side of an equality
+    (<code class="literal">=</code> and <code class="literal">/=</code>) or relational expression
+    (<code class="literal">&gt;</code>, <code class="literal">&lt;</code>,
+    <code class="literal">&gt;=</code> and <code class="literal">&lt;=</code>) must be the name of
+    an attribute of the object being found. A more complex example might
+    be:</p>
+<div class="informalexample"><pre class="programlisting">  find Aircraft(speed &gt;= 3 * (10 ** 8) and pilot_name /= "Fred Bloggs");</pre></div>
+<p>This would find all instances of the
+    <code class="classname">Aircraft</code> object whose speed is greater than or
+    equal to the speed of light and is not been flown by Fred Bloggs. In order
+    to use the set of instances returned from the find expression we must
+    assign it to a variable of the appropriate type. Therefore we might
+    write:</p>
+<div class="informalexample"><pre class="programlisting">  aircraft_set : set of instance of Aircraft;
+  begin
+    aircraft_set := find Aircraft(speed &lt; 100);
+  end;</pre></div>
+<p>If there are no instances that satisfy the condition then the
+    <span class="type">sequence</span> returned from the <code class="literal">find</code> expression
+    will be empty. One of the most common things to do once we have obtained a
+    set of instances is to loop around the set performing some operation on
+    each instance.</p>
+<div class="informalexample"><pre class="programlisting">  for i in aircraft_set’elements loop
+    // …
+  end loop;</pre></div>
+<p>The order in which instances from the <span class="type">set</span> are taken is
+    arbitrary. If we wanted to use a specific order we would have to use an
+    ordering expression. An ordering expression allows the analyst to order a
+    collection of instances using a specific attribute of each instance. For
+    example we could order the aircraft set by their speeds by writing
+    :</p>
+<div class="informalexample"><pre class="programlisting">  aircraft_sequence := aircraft_set ordered_by (speed);</pre></div>
+<p>The resultant <span class="type">sequence</span> will be such that
+    for each successive element in the <span class="type">sequence</span>, the first will
+    be the element with the lowest speed. We could reverse the ordering by
+    writing:</p>
+<div class="informalexample"><pre class="programlisting">  aircraft_sequence := aircraft_set reverse_ordered_by (speed);</pre></div>
+<p>It is also possible to specify multiple attributes.
+    For example:</p>
+<div class="informalexample"><pre class="programlisting">  aircraft_sequence := aircraft_set ordered_by (speed, serial_number);. </pre></div>
+<p>The resultant <span class="type">sequence</span> will be sorted by
+    the speed, and then within each value of this, by the serial number. It is
+    so common to order the set of instances returned from a
+    <code class="literal">find</code> expression that a <code class="literal">find</code>
+    expression can be immediately followed by an ordering expression. Hence,
+    we could have written:</p>
+<div class="informalexample"><pre class="programlisting">  aircraft_sequence := find Aircraft(speed &lt; 100) ordered_by (serial_number);</pre></div>
+<p>It is common to want to find all the instances of an object. We
+    might try and write:</p>
+<div class="informalexample"><pre class="programlisting">  find Aircraft(true);    // illegal</pre></div>
+<p>However, this syntax is illegal. To find all instances
+    of an object the second form of find must be used:</p>
+<div class="informalexample"><pre class="programlisting">  find_all Aircraft();</pre></div>
+<p>Notice that no condition is supplied, since we are
+    finding all the instances.</p>
+<p>The third form of find, finds an arbitrary instance of an object
+    satisfying a condition. This form starts with the reserved word
+    <code class="literal">find_one</code> followed by the name of an object and a
+    condition enclosed by brackets. So we might write:</p>
+<div class="informalexample"><pre class="programlisting">  find_one Aircraft(speed &lt; 100);</pre></div>
+<p>This finds an arbitrary instance of the
+    <code class="classname">Aircraft</code> object whose speed less than
+    <code class="literal">100</code>. Again, the condition can be of arbitrary
+    complexity with the same restrictions as before. In order to use the
+    instance returned from the <code class="literal">find</code> expression we must
+    assign it to a variable of the appropriate type. Thus we might
+    write:</p>
+<div class="informalexample"><pre class="programlisting">  aircraft_instance : instance of Aircraft;
+  begin
+    aircraft_instance := find_one Aircraft(speed &lt; 100);
+  end;</pre></div>
+<p>If there are no instances that satisfy the condition
+    then the <code class="literal">null</code> instance is returned. We could check for
+    this by writing:</p>
+<div class="informalexample"><pre class="programlisting">  if aircraft_instance = null then
+    // …
+  end if;</pre></div>
+<p>It is common to want to find an instance of an object and in
+    addition make sure that it is the only such instance. The fourth, and
+    final, form of find is provided to do this:</p>
+<div class="informalexample"><pre class="programlisting">  find_only Aircraft(speed &lt; 100);</pre></div>
+<p>If there is only one <code class="classname">Aircraft</code>
+    instance that satisfies the condition then all is well and the find
+    expression returns that instance. If there are either more than one or no
+    <code class="classname">Aircraft</code> instances that satisfy the condition then
+    an exception will be raised.</p>
+<p>For each form of find expression, the name of the object being found
+    can be replaced with an expression that denotes a collection of instances.
+    This can be used to filter a collection of instances to a either a set of
+    instances or a specific instance that satisfies a condition. For example
+    given the appropriate declarations we might write:</p>
+<div class="informalexample"><pre class="programlisting">  aircraft_set := find Aircraft(speed &lt; 100);
+  stopped_aircraft_set := find aircraft_set(speed = 0);
+  freds_aircraft := find_one aircraft_set(pilot_name = "Fred Bloggs");</pre></div>
+<p>In summary:</p>
+<div class="itemizedlist"><ul class="itemizedlist">
+<li class="listitem"><p><code class="literal">find</code> locate all the instances satisfying a
+        condition.</p></li>
+<li class="listitem"><p><code class="literal">find_all</code> finds all the instances.</p></li>
+<li class="listitem"><p><code class="literal">find_one</code> finds an arbitrary instance
+        satisfying a condition.</p></li>
+<li class="listitem"><p><code class="literal">find_only</code> finds the only instance satisfying
+        a condition.</p></li>
+<li class="listitem"><p><code class="literal">ordered_by</code> orders a collection of instances
+        by attribute values.</p></li>
+<li class="listitem"><p><code class="literal">reverse_ordered_by</code> reverse orders a
+        collection of instances by attribute values.</p></li>
+</ul></div>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="ObjectsandRelationshipsCreatingInstances.html">Prev</a> </td>
+<td width="20%" align="center"><a accesskey="u" href="ObjectsandRelationships.html">Up</a></td>
+<td width="40%" align="right"> <a accesskey="n" href="ObjectsandRelationshipsDeletingInstances.html">Next</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left" valign="top">5.1. Creating Instances </td>
+<td width="20%" align="center">
+<a accesskey="h" href="index.html">Home</a> | <a accesskey="t" href="bk01-toc.html">ToC</a>
+</td>
+<td width="40%" align="right" valign="top"> 5.3. Deleting Instances</td>
+</tr>
+</table>
+</div>
+<div align="center">UNCLASSIFIED</div>
+</body>
+</html>

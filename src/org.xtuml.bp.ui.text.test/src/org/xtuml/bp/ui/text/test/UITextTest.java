@@ -41,10 +41,13 @@ import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.ide.IDE;
 import org.eclipse.ui.texteditor.MarkerUtilities;
-
+import org.junit.After;
+import org.junit.Before;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.Association_c;
 import org.xtuml.bp.core.Attribute_c;
 import org.xtuml.bp.core.Bridge_c;
+import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.DataType_c;
 import org.xtuml.bp.core.EnumerationDataType_c;
 import org.xtuml.bp.core.Enumerator_c;
@@ -60,29 +63,40 @@ import org.xtuml.bp.core.StateMachineEventDataItem_c;
 import org.xtuml.bp.core.StateMachineEvent_c;
 import org.xtuml.bp.core.StateMachineState_c;
 import org.xtuml.bp.core.UserDataType_c;
+import org.xtuml.bp.core.common.BridgePointPreferencesStore;
 import org.xtuml.bp.core.common.NonRootModelElement;
 import org.xtuml.bp.core.common.Transaction;
 import org.xtuml.bp.core.common.TransactionException;
 import org.xtuml.bp.core.common.TransactionManager;
 import org.xtuml.bp.test.common.BaseTest;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.ui.text.ModelAdapter;
 import org.xtuml.bp.ui.text.ModelElementID;
 import org.xtuml.bp.ui.text.TextPlugin;
 import org.xtuml.bp.ui.text.placeholder.PlaceHolderManager;
 
+@RunWith(OrderedRunner.class)
 public class UITextTest extends BaseTest
 {
     public UITextTest(String projectName, String name) throws CoreException {
 		super(projectName, name);	
+		
+		// Historically, these tests were written in a way that expected parse on editing.  So turn on parser pref on
+		CorePlugin.getDefault().getPreferenceStore().setValue(BridgePointPreferencesStore.ENABLE_PARSE_ON_ACTIVITY_EDITS,
+				true);
+	}
+    public UITextTest() throws CoreException {
 	}
 
-    protected void setUp() throws Exception {
+    @Before
+	public void setUp() throws Exception {
         super.setUp();
 		Display d = Display.getCurrent();
 		while ( d.readAndDispatch() ) ;
     }
 
-    protected void tearDown() throws Exception {
+    @After
+	public void tearDown() throws Exception {
         super.tearDown();
     }
     

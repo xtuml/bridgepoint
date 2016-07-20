@@ -80,7 +80,8 @@
       .assign isSecond = result.Second
       .assign ooa_type = 5
     .end if
-  	public void doTest$r{test_name}() {
+  	@Test
+	public void test$r{test_name}() {
   		test_id = "test_${count}";
     .if (test_count == 1)
       .if (objtype == "State")
@@ -203,7 +204,8 @@
       .assign isSecond = result.Second
       .assign ooa_type = 5
     .end if
-  	public void doTest$r{test_name}() {
+  	@Test
+	public void test$r{test_name}() {
   		test_id = "test_${count}";
     .if (test_count == 1)
       .if (objtype == "State")
@@ -279,57 +281,36 @@
 //
 package org.xtuml.bp.core.test;
 
-import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.IProject;
-import org.eclipse.core.resources.IProjectDescription;
-import org.eclipse.core.resources.IResource;
-import org.eclipse.core.resources.IResourceStatus;
-import org.eclipse.core.resources.IWorkspaceRunnable;
-import org.eclipse.core.resources.ResourcesPlugin;
-import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.IPath;
-import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.jface.preference.IPreferenceStore;
-import org.eclipse.jface.viewers.IStructuredSelection;
-import org.eclipse.jface.viewers.StructuredSelection;
-import org.eclipse.jface.viewers.TreeViewer;
-import org.eclipse.swt.graphics.Rectangle;
-import org.eclipse.ui.IWorkbenchPage;
-import org.eclipse.ui.PlatformUI;
 import org.eclipse.swt.widgets.Display;
-
-import org.xtuml.bp.core.common.BridgePointPreferencesStore;
-import org.xtuml.bp.core.common.ClassQueryInterface_c;
-import org.xtuml.bp.core.common.IdAssigner;
-import org.xtuml.bp.core.common.PersistableModelComponent;
+import org.eclipse.ui.PlatformUI;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.CorePlugin;
-
 import org.xtuml.bp.core.ImportedClass_c;
 import org.xtuml.bp.core.InstanceStateMachine_c;
 import org.xtuml.bp.core.ModelClass_c;
-import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.Package_c;
-
-import org.xtuml.bp.core.SystemModel_c;
-import org.xtuml.bp.core.XtUMLNature;
+import org.xtuml.bp.core.common.BridgePointPreferencesStore;
+import org.xtuml.bp.core.common.ClassQueryInterface_c;
 import org.xtuml.bp.core.ui.DeleteAction;
 import org.xtuml.bp.core.ui.Selection;
-import org.xtuml.bp.core.ui.perspective.BridgePointPerspective;
-import org.xtuml.bp.io.mdl.ImportModel;
-import org.xtuml.bp.ui.graphics.editor.*;
-import org.xtuml.bp.ui.canvas.CanvasPlugin;
+import org.xtuml.bp.test.common.CanvasTestUtils;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.ui.canvas.Cl_c;
 import org.xtuml.bp.ui.canvas.Connector_c;
 import org.xtuml.bp.ui.canvas.Graphconnector_c;
 import org.xtuml.bp.ui.canvas.Graphedge_c;
 import org.xtuml.bp.ui.canvas.Graphelement_c;
 import org.xtuml.bp.ui.canvas.GraphicalElement_c;
-import org.xtuml.bp.ui.canvas.Ooaofgraphics;
 import org.xtuml.bp.ui.canvas.Shape_c;
 import org.xtuml.bp.ui.canvas.test.CanvasTest;
-import org.xtuml.bp.test.common.CanvasTestUtils;
+import org.xtuml.bp.ui.graphics.editor.GraphicalEditor;
+import org.xtuml.bp.ui.graphics.editor.ModelEditor;
 
+@RunWith(OrderedRunner.class)
 public class DeleteTestGenerics extends CanvasTest {
 
 	String test_id = null;
@@ -337,15 +318,16 @@ public class DeleteTestGenerics extends CanvasTest {
     private static boolean initialized = false;
 	static String workspace_path = "";
 
-	public DeleteTestGenerics(String name) {
-		super("Delete Test", name);
+	public DeleteTestGenerics(){
+		super("Delete Test", null);
 	}
 
 	protected String getResultName() {
 		return "DeleteTest" + "_" + test_id;
 	} 
 
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		super.setUp();
 
 		IPreferenceStore store = CorePlugin.getDefault().getPreferenceStore();
@@ -361,7 +343,8 @@ public class DeleteTestGenerics extends CanvasTest {
 		while ( d.readAndDispatch() ) ;
 	}
 
-	protected void tearDown() throws Exception {
+	@After
+	public void tearDown() throws Exception {
 		super.tearDown();
 	}
 	public class Package_by_name_c implements ClassQueryInterface_c {
@@ -412,55 +395,55 @@ public class DeleteTestGenerics extends CanvasTest {
 .select many ics related by ss->PE_PE[R8000]->O_IOBJ[R8001] where (selected.Obj_KL != "T_IMPOTH")
 .for each ic in ics
   .invoke result = processClass(ic, "IOBJ", "${ss.Name}")
-  			this.doTest$r{result.name}();
+  			this.test$r{result.name}();
 .end for
 .select any ss from instances of EP_PKG where (selected.Name == "R_REL_Delete")
 .select many ics related by ss->PE_PE[R8000]->O_IOBJ[R8001] where (selected.Obj_KL == "T_IMPREL")
 .for each ic in ics
-			this.doTest$r{ic.Obj_Name}();
+			this.test$r{ic.Obj_Name}();
 .end for
 .select many classes from instances of O_OBJ where (selected.KEY_LETT == "T_CLSRELCON")
 .for each class in classes
-  			this.doTest$r{class.Name}();
+  			this.test$r{class.Name}();
 .end for
 .select any ss from instances of EP_PKG where (selected.Name == "R_SUPER_Delete")
 .select many ics related by ss->PE_PE[R8000]->O_IOBJ[R8001] where (selected.Obj_KL == "T_IMPSUPER")
 .for each ic in ics
-			this.doTest$r{ic.Obj_Name}();
+			this.test$r{ic.Obj_Name}();
 .end for
 .select many classes from instances of O_OBJ where (selected.KEY_LETT == "T_CLSSUPERCON")
 .for each class in classes
-  			this.doTest$r{class.Name}();
+  			this.test$r{class.Name}();
 .end for
 .select any ss from instances of EP_PKG where (selected.Name == "R_SUB_Delete")
 .select many ics related by ss->PE_PE[R8000]->O_IOBJ[R8001] where (selected.Obj_KL == "T_IMPSUB")
 .for each ic in ics
-			this.doTest$r{ic.Obj_Name}();
+			this.test$r{ic.Obj_Name}();
 .end for
 .select many classes from instances of O_OBJ where (selected.KEY_LETT == "T_CLSSUBCON")
 .for each class in classes
-  			this.doTest$r{class.Name}();
+  			this.test$r{class.Name}();
 .end for
 .select any ss from instances of EP_PKG where (selected.Name == "R_ASSR_Delete")
 .select many ics related by ss->PE_PE[R8000]->O_IOBJ[R8001] where (selected.Obj_KL == "T_IMPASSR")
 .for each ic in ics
-			this.doTest$r{ic.Obj_Name}();
+			this.test$r{ic.Obj_Name}();
 .end for
 .select many classes from instances of O_OBJ where (selected.KEY_LETT == "T_CLSASSRCON")
 .for each class in classes
-  			this.doTest$r{class.Name}();
+  			this.test$r{class.Name}();
 .end for
 .select any ss from instances of EP_PKG where (selected.Name == "Import Subsystem")
 .select one class related by ss->PE_PE[R8000]->O_OBJ[R8001] where (selected.Name == "Test Import Class")
 .select one isc related by class->SM_ISM[R518]->SM_SM[R517]
 .select many states related by isc->SM_STATE[R501] where (selected.Name != "Test State OtherSide")
 .for each state in states
-			this.doTest$r{state.Name}();
+			this.test$r{state.Name}();
 .end for
 .select any ss from instances of EP_PKG where (selected.Name == "O_OBJ_Delete")
 .select many mc_set related by ss->PE_PE[R8000]->O_OBJ[R8001] where (selected.Key_Lett != "T_OTH")
 .for each mc in mc_set
-  			this.doTest$r{mc.Name}();
+  			this.test$r{mc.Name}();
 .end for
 		} catch (Exception e) {
 			System.out.println(
@@ -469,63 +452,7 @@ public class DeleteTestGenerics extends CanvasTest {
 
 	}
 	
-		public void testDeleteTestGenerics() {
-		
-.select any ss from instances of EP_PKG where (selected.Name == "O_IOBJ_Delete")
-.select many ics related by ss->PE_PE[R8000]->O_IOBJ[R8001] where (selected.Obj_KL != "T_IMPOTH")
-.for each ic in ics
-  .invoke result = processClass(ic, "IOBJ", "${ss.Name}")
-  			this.doTest$r{result.name}();
-.end for
-.select any ss from instances of EP_PKG where (selected.Name == "R_REL_Delete")
-.select many ics related by ss->PE_PE[R8000]->O_IOBJ[R8001] where (selected.Obj_KL == "T_IMPREL")
-.for each ic in ics
-			this.doTest$r{ic.Obj_Name}();
-.end for
-.select many classes from instances of O_OBJ where (selected.KEY_LETT == "T_CLSRELCON")
-.for each class in classes
-  			this.doTest$r{class.Name}();
-.end for
-.select any ss from instances of EP_PKG where (selected.Name == "R_SUPER_Delete")
-.select many ics related by ss->PE_PE[R8000]->O_IOBJ[R8001] where (selected.Obj_KL == "T_IMPSUPER")
-.for each ic in ics
-			this.doTest$r{ic.Obj_Name}();
-.end for
-.select many classes from instances of O_OBJ where (selected.KEY_LETT == "T_CLSSUPERCON")
-.for each class in classes
-  			this.doTest$r{class.Name}();
-.end for
-.select any ss from instances of EP_PKG where (selected.Name == "R_SUB_Delete")
-.select many ics related by ss->PE_PE[R8000]->O_IOBJ[R8001] where (selected.Obj_KL == "T_IMPSUB")
-.for each ic in ics
-			this.doTest$r{ic.Obj_Name}();
-.end for
-.select many classes from instances of O_OBJ where (selected.KEY_LETT == "T_CLSSUBCON")
-.for each class in classes
-  			this.doTest$r{class.Name}();
-.end for
-.select any ss from instances of EP_PKG where (selected.Name == "R_ASSR_Delete")
-.select many ics related by ss->PE_PE[R8000]->O_IOBJ[R8001] where (selected.Obj_KL == "T_IMPASSR")
-.for each ic in ics
-			this.doTest$r{ic.Obj_Name}();
-.end for
-.select many classes from instances of O_OBJ where (selected.KEY_LETT == "T_CLSASSRCON")
-.for each class in classes
-  			this.doTest$r{class.Name}();
-.end for
-.select any ss from instances of EP_PKG where (selected.Name == "Import Subsystem")
-.select one class related by ss->PE_PE[R8000]->O_OBJ[R8001] where (selected.Name == "Test Import Class")
-.select one isc related by class->SM_ISM[R518]->SM_SM[R517]
-.select many states related by isc->SM_STATE[R501] where (selected.Name != "Test State OtherSide")
-.for each state in states
-			this.doTest$r{state.Name}();
-.end for
-.select any ss from instances of EP_PKG where (selected.Name == "O_OBJ_Delete")
-.select many mc_set related by ss->PE_PE[R8000]->O_OBJ[R8001] where (selected.Key_Lett != "T_OTH")
-.for each mc in mc_set
-  			this.doTest$r{mc.Name}();
-.end for
-	}
+	
 .//
 .// Create O_IOBJ delete tests
 .//

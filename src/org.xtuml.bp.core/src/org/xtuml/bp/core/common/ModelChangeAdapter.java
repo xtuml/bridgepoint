@@ -104,6 +104,10 @@ public abstract class ModelChangeAdapter implements IModelChangeListener {
 		performDefault(event, delta);
 	}
 	
+	public void modelElementMoved(ModelChangedEvent event, IModelDelta delta) {
+		performDefault(event, delta);
+	}
+	
 	public void systemAboutToBeDisabled(SystemModel_c system) {
 	}
 	

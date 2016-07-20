@@ -25,8 +25,8 @@ package org.xtuml.bp.core.test;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.swt.widgets.Display;
-
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.InteractionParticipant_c;
 import org.xtuml.bp.core.PackageParticipant_c;
 import org.xtuml.bp.core.Package_c;
@@ -38,7 +38,9 @@ import org.xtuml.bp.core.util.WorkspaceUtil;
 import org.xtuml.bp.test.TestUtil;
 import org.xtuml.bp.test.common.BaseTest;
 import org.xtuml.bp.test.common.FailableRunnable;
+import org.xtuml.bp.test.common.OrderedRunner;
 
+@RunWith(OrderedRunner.class)
 public class TestVisibilityInElementChooser extends BaseTest {
 
 	private static final String TEST_PROJECT_NAME = "testVisibilityFilterInElementChooser";
@@ -52,6 +54,7 @@ public class TestVisibilityInElementChooser extends BaseTest {
 		m_sys = getSystemModel(TEST_PROJECT_NAME);
 	}
 	
+	@Test
 	public void testVisibilityFilterInElementChooser() throws Exception {
 		// locate the test instance
 		Package_c container = Package_c.getOneEP_PKGOnR1405(m_sys, new ClassQueryInterface_c() {			

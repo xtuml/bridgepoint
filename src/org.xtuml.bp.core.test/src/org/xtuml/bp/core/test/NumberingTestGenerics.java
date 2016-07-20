@@ -16,6 +16,9 @@ package org.xtuml.bp.core.test;
 
 import java.util.UUID;
 
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.Association_c;
 import org.xtuml.bp.core.ClassStateMachine_c;
 import org.xtuml.bp.core.InstanceStateMachine_c;
@@ -26,11 +29,12 @@ import org.xtuml.bp.core.PackageableElement_c;
 import org.xtuml.bp.core.StateMachineEvent_c;
 import org.xtuml.bp.core.StateMachineState_c;
 import org.xtuml.bp.core.StateMachine_c;
-import org.xtuml.bp.test.TestUtil;
+import org.xtuml.bp.test.common.OrderedRunner;
 
 /**
  * Tests the numbering of certain kinds of model elements.
  */
+@RunWith(OrderedRunner.class)
 public class NumberingTestGenerics extends CoreTest {
 
 	/**
@@ -47,7 +51,8 @@ public class NumberingTestGenerics extends CoreTest {
 	/**
 	 * See parent method overridden.
 	 */
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		// if this is the first test being run within this class, set up the
 		// fixture
 		// that all these tests will use
@@ -148,6 +153,7 @@ public class NumberingTestGenerics extends CoreTest {
 		void createLastElement();
 	}
 
+	@Test
 	public void testNumberingTestGenerics() throws Exception{
 		dotTestModelClassNumbering();
 		dotTestAssociationNumbering();

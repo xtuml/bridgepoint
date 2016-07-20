@@ -433,6 +433,26 @@ end if;',
 	1,
 	'',
 	"2276f499-5c58-440d-bbc0-b5fedd0e4fff");
+INSERT INTO O_TFR
+	VALUES ("732d7504-f549-4ea3-8251-a00d8615790e",
+	"fe361322-0fa4-4c04-a60c-db0fe0cf4b4e",
+	'getConnectedId',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	1,
+	'select any satisfactionInstance related by self->C_SF[R4705] where (selected.Provision_Id == self.get_ooa_id());
+result = GD::NULL_UNIQUE_ID();
+if (not empty satisfactionInstance)
+  select one interfaceReference related by satisfactionInstance->C_P[R4002]->C_IR[R4009] ;
+  select any importedReference related by interfaceReference->CL_IIR[R4701] where selected.Ref_Id==satisfactionInstance.Requirement_Id;
+  if (not_empty importedReference)   
+    result = importedReference.Id;
+  end if;
+end if;
+return result;',
+	1,
+	'',
+	"cc7670bc-4871-40cc-a42b-298e99716eb5");
 INSERT INTO O_DBATTR
 	VALUES ("ca46ed3b-50b1-48b7-82ed-3d2722ada32a",
 	"fe361322-0fa4-4c04-a60c-db0fe0cf4b4e",

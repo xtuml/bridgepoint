@@ -1,0 +1,211 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>13.1. Indexed Components</title>
+<link rel="stylesheet" type="text/css" href="docbook.css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
+<meta name="keywords" content="MASL, Action Language, Action Semantics, UML, Unified Modelling Language, Shlaer Mellor">
+<link rel="home" href="index.html" title="MASL Reference Manual">
+<link rel="up" href="Names.html" title="Chapter 13. Names">
+<link rel="prev" href="Names.html" title="Chapter 13. Names">
+<link rel="next" href="NamesSelectedComponents.html" title="13.2. Selected Components">
+<link rel="preface" href="preface.html" title="Preface">
+<link rel="chapter" href="Grammars.html" title="Chapter 1. Grammars">
+<link rel="chapter" href="LexicalStructure.html" title="Chapter 2. Lexical Structure">
+<link rel="chapter" href="Types.html" title="Chapter 3. Types">
+<link rel="chapter" href="TypeConversion.html" title="Chapter 4. Type Conversion">
+<link rel="chapter" href="Domains.html" title="Chapter 5. Domains">
+<link rel="chapter" href="Objects.html" title="Chapter 6. Objects">
+<link rel="chapter" href="Relationships.html" title="Chapter 7. Relationships">
+<link rel="chapter" href="Lifecycles.html" title="Chapter 8. Lifecycles">
+<link rel="chapter" href="Functions.html" title="Chapter 9. Functions">
+<link rel="chapter" href="Services.html" title="Chapter 10. Services">
+<link rel="chapter" href="Exceptions.html" title="Chapter 11. Exceptions">
+<link rel="chapter" href="Statements.html" title="Chapter 12. Statements">
+<link rel="chapter" href="Names.html" title="Chapter 13. Names">
+<link rel="chapter" href="Expressions.html" title="Chapter 14. Expressions">
+<link rel="appendix" href="LanguageDefinedCharacteristics.html" title="Appendix A. Language Defined Characteristics">
+<link rel="appendix" href="SyntaxSummary.html" title="Appendix B. Syntax Summary">
+<link rel="index" href="ix01.html" title="Index">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div align="center">OFFICIAL</div>
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center">13.1. Indexed Components</th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="Names.html">Prev</a> </td>
+<th width="60%" align="center">Chapter 13. Names</th>
+<td width="20%" align="right"> <a accesskey="n" href="NamesSelectedComponents.html">Next</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h2 class="title">
+<a name="NamesIndexedComponents"></a>13.1. Indexed Components</h2></div></div></div>
+<p>
+An <a class="link" href="NamesIndexedComponents.html#ebnf.indexedcomponent"><span class="emphasis"><em>indexed component</em></span></a>
+<a class="indexterm" name="idp68091680"></a>
+denotes an element of a
+<a class="link" href="TypesCollectionTypes.html#TypesSequenceTypes" title="3.3.3. Sequence Types"><span class="type">sequence</span></a>,
+<a class="indexterm" name="idp68093888"></a>
+<a class="link" href="TypesCollectionTypes.html#TypesArrayTypes" title="3.3.4. Array Types"><span class="type">array</span></a>,
+<a class="indexterm" name="idp68140896"></a>
+<a class="link" href="TypesBuiltinTypes.html#TypesStringType" title="3.2.5. String Type"><span class="type">string</span></a>
+<a class="indexterm" name="idp68142768"></a>
+or <a class="link" href="TypesBuiltinTypes.html#TypesWideStringType" title="3.2.6. Wide String Type"><span class="type">wstring</span></a>.
+<a class="indexterm" name="idp68144640"></a>
+</p>
+<a class="indexterm" name="idp68145824"></a><a class="indexterm" name="idp68146992"></a><a class="indexterm" name="idp68148160"></a><a class="indexterm" name="idp68149328"></a><a class="indexterm" name="idp68150496"></a><a class="indexterm" name="idp68151664"></a><table width="100%" cellpadding="5" bgcolor="#F5DCB3" border="1" class="productionset" summary="EBNF"><tr><td><table border="0" width="99%" cellpadding="0" bgcolor="#F5DCB3" class="productionset" summary="EBNF productions">
+<tr>
+<td align="left" valign="top" width="3%">[186]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.indexedcomponent"></a>
+        indexed component
+    </td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="NamesIndexedComponents.html#ebnf.prefix">prefix</a>,
+        '[',
+        <a href="ExpressionsExpression.html#ebnf.expression">expression</a>,
+        ']'
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[187]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.prefix"></a>
+        prefix
+    </td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="Names.html#ebnf.name">name</a>
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+</table></td></tr></table>
+<p>
+A compile-time error occurs if:
+</p>
+<div class="itemizedlist"><ul class="itemizedlist">
+<li class="listitem"><p>
+The type of the <a class="link" href="NamesIndexedComponents.html#ebnf.prefix"><span class="emphasis"><em>prefix</em></span></a>
+<a class="indexterm" name="idp68161296"></a>
+is not a <a class="link" href="TypesCollectionTypes.html#TypesSequenceTypes" title="3.3.3. Sequence Types"><span class="type">sequence</span></a> type,
+<a class="indexterm" name="idp68163040"></a>
+an <a class="link" href="TypesCollectionTypes.html#TypesArrayTypes" title="3.3.4. Array Types"><span class="type">array</span></a> type,
+<a class="indexterm" name="idp68164912"></a>
+a <a class="link" href="TypesBuiltinTypes.html#TypesStringType" title="3.2.5. String Type"><span class="type">string</span></a> type
+<a class="indexterm" name="idp68166784"></a>
+of a<a class="link" href="TypesBuiltinTypes.html#TypesWideStringType" title="3.2.6. Wide String Type"><span class="type">wstring</span></a> type.
+<a class="indexterm" name="idp68168656"></a>
+</p></li>
+<li class="listitem"><p>
+The type of the expression is not the corresponding index type.
+<a class="indexterm" name="idp68170544"></a>
+</p></li>
+</ul></div>
+<p>
+</p>
+<p>
+When the type of the
+<a class="link" href="NamesIndexedComponents.html#ebnf.prefix"><span class="emphasis"><em>prefix</em></span></a>
+<a class="indexterm" name="idp68173216"></a>
+is a <a class="link" href="TypesCollectionTypes.html#TypesSequenceTypes" title="3.3.3. Sequence Types"><span class="type">sequence</span></a> type,
+<a class="indexterm" name="idp68174960"></a>
+the <a class="link" href="NamesIndexedComponents.html#ebnf.indexedcomponent"><span class="emphasis"><em>indexed component</em></span></a>
+<a class="indexterm" name="idp68176832"></a>
+denotes the element of the
+<a class="link" href="TypesCollectionTypes.html#TypesSequenceTypes" title="3.3.3. Sequence Types"><span class="type">sequence</span></a>
+<a class="indexterm" name="idp68179040"></a>
+with the specified index value. The type of the
+<a class="link" href="NamesIndexedComponents.html#ebnf.indexedcomponent"><span class="emphasis"><em>indexed component</em></span></a>
+<a class="indexterm" name="idp68180944"></a>
+is the element type of the
+<a class="link" href="TypesCollectionTypes.html#TypesSequenceTypes" title="3.3.3. Sequence Types"><span class="type">sequence</span></a> type.
+<a class="indexterm" name="idp68183152"></a>
+</p>
+<p>
+When the type of the
+<a class="link" href="NamesIndexedComponents.html#ebnf.prefix"><span class="emphasis"><em>prefix</em></span></a>
+<a class="indexterm" name="idp68185472"></a>
+is an <a class="link" href="TypesCollectionTypes.html#TypesArrayTypes" title="3.3.4. Array Types"><span class="type">array</span></a> type,
+<a class="indexterm" name="idp68187216"></a>
+the
+<a class="link" href="NamesIndexedComponents.html#ebnf.indexedcomponent"><span class="emphasis"><em>indexed component</em></span></a>
+denotes the element of the <a class="link" href="TypesCollectionTypes.html#TypesArrayTypes" title="3.3.4. Array Types"><span class="type">array</span></a>
+with the specified index value. The type of the
+<a class="link" href="NamesIndexedComponents.html#ebnf.indexedcomponent"><span class="emphasis"><em>indexed component</em></span></a>
+<a class="indexterm" name="idp68190832"></a>
+is the element type of the
+<a class="link" href="TypesCollectionTypes.html#TypesArrayTypes" title="3.3.4. Array Types"><span class="type">array</span></a> type.
+<a class="indexterm" name="idp68193040"></a>
+</p>
+<p>
+When the type of the
+<a class="link" href="NamesIndexedComponents.html#ebnf.prefix"><span class="emphasis"><em>prefix</em></span></a>
+<a class="indexterm" name="idp68195360"></a>
+is an string type, the
+<a class="link" href="NamesIndexedComponents.html#ebnf.indexedcomponent"><span class="emphasis"><em>indexed component</em></span></a>
+<a class="indexterm" name="idp68197120"></a>
+denotes the element of the
+<a class="link" href="TypesBuiltinTypes.html#TypesStringType" title="3.2.5. String Type"><span class="type">string</span></a>
+<a class="indexterm" name="idp68199328"></a>
+with the specified index value. The type of the
+<a class="link" href="NamesIndexedComponents.html#ebnf.indexedcomponent"><span class="emphasis"><em>indexed component</em></span></a>
+<a class="indexterm" name="idp68201232"></a>
+is <a class="link" href="TypesBuiltinTypes.html#TypesCharacterType" title="3.2.1. Character Type"><span class="type">character</span></a>.
+<a class="indexterm" name="idp68605648"></a>
+When the type of the
+<a class="link" href="NamesIndexedComponents.html#ebnf.prefix"><span class="emphasis"><em>prefix</em></span></a>
+<a class="indexterm" name="idp68607520"></a>
+is a <a class="link" href="TypesBuiltinTypes.html#TypesWideStringType" title="3.2.6. Wide String Type"><span class="type">wstring</span></a> type,
+<a class="indexterm" name="idp68609264"></a>
+the <a class="link" href="NamesIndexedComponents.html#ebnf.indexedcomponent"><span class="emphasis"><em>indexed component</em></span></a>
+<a class="indexterm" name="idp68611136"></a>
+denotes the element of the <a class="link" href="TypesBuiltinTypes.html#TypesWideStringType" title="3.2.6. Wide String Type">wstring</a>
+<a class="indexterm" name="idp68613216"></a>
+with the specified index value.
+<a class="indexterm" name="idp68614256"></a>
+The type of the
+<a class="link" href="NamesIndexedComponents.html#ebnf.indexedcomponent"><span class="emphasis"><em>indexed component</em></span></a>
+<a class="indexterm" name="idp68616000"></a>
+is <code class="literal">wcharacter</code>.
+<a class="indexterm" name="idp68617792"></a>
+A check is made that the
+index value belongs to the corresponding index range
+<a class="indexterm" name="idp68618784"></a>
+of the type of the
+<a class="link" href="NamesIndexedComponents.html#ebnf.prefix"><span class="emphasis"><em>prefix</em></span></a>.
+<a class="indexterm" name="idp68620528"></a>
+An <a class="link" href="Exceptions.html" title="Chapter 11. Exceptions">exception</a>
+<a class="indexterm" name="idp68622144"></a>
+is raised if this check fails.
+</p>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="Names.html">Prev</a> </td>
+<td width="20%" align="center"><a accesskey="u" href="Names.html">Up</a></td>
+<td width="40%" align="right"> <a accesskey="n" href="NamesSelectedComponents.html">Next</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left" valign="top">Chapter 13. Names </td>
+<td width="20%" align="center">
+<a accesskey="h" href="index.html">Home</a> | <a accesskey="t" href="bk01-toc.html">ToC</a>
+</td>
+<td width="40%" align="right" valign="top"> 13.2. Selected Components</td>
+</tr>
+</table>
+</div>
+<div align="center">OFFICIAL</div>
+</body>
+</html>

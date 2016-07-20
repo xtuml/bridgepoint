@@ -17,10 +17,14 @@ package org.xtuml.bp.ui.canvas.test;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.ui.PlatformUI;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.Package_c;
 import org.xtuml.bp.core.common.ClassQueryInterface_c;
 import org.xtuml.bp.test.common.BaseTest;
 import org.xtuml.bp.test.common.CanvasTestUtils;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.ui.canvas.Graphnode_c;
 import org.xtuml.bp.ui.canvas.Shape_c;
 import org.xtuml.bp.ui.graphics.editor.GraphicalEditor;
@@ -29,17 +33,19 @@ import org.xtuml.bp.ui.graphics.editor.ModelEditor;
 /**
  * Contains various tests involving the resizing of shapes on diagrams.
  */
+@RunWith(OrderedRunner.class)
 public class ShapeResizeTest2 extends BaseTest
 {
     /**
      * Constructor.
      */
-    public ShapeResizeTest2(String name)
+    public ShapeResizeTest2()
     {
-        super(null, name);
+        super(null, null);
     }
 
-    public void setUp() throws Exception {
+    @Before
+	public void setUp() throws Exception {
         super.setUp();
     }
     
@@ -48,7 +54,8 @@ public class ShapeResizeTest2 extends BaseTest
      * resizes to operate incorrectly
      * @throws CoreException 
      */
-    public void testResizeWorksAfterResizeUndo() throws CoreException
+    @Test
+	public void testResizeWorksAfterResizeUndo() throws CoreException
     {
         // import the model used for this test
     	loadProject("odms");
@@ -127,7 +134,8 @@ public class ShapeResizeTest2 extends BaseTest
      * Tests that shape resizing still works when the user clicks over a
      * hotspot but produces no mouse movement
      */
-    public void testResizeWorksAfterCancelledMove()
+    @Test
+	public void testResizeWorksAfterCancelledMove()
     {
     	Package_c ss = Package_c.PackageInstance(modelRoot, new ClassQueryInterface_c() {
             public boolean evaluate(Object candidate) {

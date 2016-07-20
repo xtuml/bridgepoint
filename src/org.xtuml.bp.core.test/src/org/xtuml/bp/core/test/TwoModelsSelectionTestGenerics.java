@@ -23,28 +23,32 @@
 package org.xtuml.bp.core.test;
 
 import org.eclipse.jface.viewers.StructuredSelection;
-
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.ModelClass_c;
 import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.Package_c; //import org.xtuml.bp.core.Subsystem_c;
 import org.xtuml.bp.core.common.ClassQueryInterface_c;
 import org.xtuml.bp.core.ui.Selection;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.ui.canvas.Cl_c;
 
 /**
  * Tests involving the selection of model elements when
  * two different models are open within the product.
  */
+@RunWith(OrderedRunner.class)
 public class TwoModelsSelectionTestGenerics extends CoreTest {
 
-	public TwoModelsSelectionTestGenerics(String name) {
-		super(null, name);
+	public TwoModelsSelectionTestGenerics(){
+		super(null, null);
 	}
 	/**
 	 * For issue 856.  Tests that selecting a class in one model
 	 * does not cause a class in a diagram of another model
 	 * to appear as selected, do to their having identical ID's. 
 	 */
+	@Test
 	public void testSelectionAffectsOnlyOneModel() throws Exception {
 		// setup the test project and load a model
 		loadProject("odms");

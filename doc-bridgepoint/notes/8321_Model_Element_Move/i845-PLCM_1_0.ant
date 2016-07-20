@@ -1,0 +1,624 @@
+========================================================================
+
+File:      $RCSfile: i845-PLCM_1_0.ant,v $
+Version:   $Revision: 1.1 $
+Modified:  $Date: 2009/09/03 18:22:28 $
+
+(c) Copyright 2006-2009 by Mentor Graphics Corp. All rights reserved.
+
+========================================================================
+This document contains information proprietary and confidential to
+Mentor Graphics Corp., and is not for external distribution.
+========================================================================
+
+BridgePoint Project Analysis Note
+Multi-File Model Persistence (Package Level Configuration Management (PLCM))
+
+Abstract
+--------
+This document describes the requirements for persisting models across multiple
+file resources.  
+
+History
+-------
+update-i845-PLCM_1_0-020306-01.rvm
+update-i845-PLCM_1_0-020706-01.rvm
+
+Document References
+-------------------
+[1]  Bugzilla issue 845
+[2]  Bugzilla issue 597
+[3]  <CVS>/Documenation/internal/technical/Persistence/i845.ant
+     The analysis note for the original PLCM project.  This document is based
+	 on this note.
+[4]  http://phoenix.projtech.com/bugzilla_mfp/
+     This is the issue database that was created during initial development of 
+	 PLCM.
+[5]  Bugzilla issue 1602
+[6]  <CVS>/Documenation/external/requirements/SRS_7-1.doc
+[7]  Bugzilla issue 1307
+[8]  Bugzilla issue 1554
+[9]  http://metrics.sourceforge.net/
+     This is a tool for measuring source code related metrics.
+[10] Bugzila issues 1204 and 1234
+	 These issues were raised to modify the MC-3020 and MC-2020 plugins as 
+	 needed for PLCM.  These issue were completed and promted to head, but
+	 may need to be revisted to account for changes to the PLCM folder 
+	 structure.
+	      
+Background
+----------
+R1.0 of the BridgePoint tool stores models in a single monolithic file. This
+solution is unacceptable for many customers, because it hampers team working.
+This document describes the required characteristics and behavior associated
+with storing models across multiple files.
+
+The initial attempt to create the PLCM feature in Bridgepoint [3] met with some
+problems that caused the initial design to be refactored during implementation.
+The project was almost completed, but complexities in the final solution 
+resulted in a product that the team was not happy with.  This analysis note
+is being introduced to help move the PLCM project to completion.  With this 
+note, the PLCM project is essentially being restarted from a process point of
+view.
+
+The goal of this analysis is to leverage the original note but call-out all the
+issues that were implemented that have been identifed as being overly complex 
+and problematic.  This analysis note will repeat the information from the 
+original note that remains the same and will extend it to define solutions for 
+the problems that were encountered in the initial implementation.
+
+Analysis
+--------
+This section has been expanded from the original PLCM analysis [3] to address 
+issues that made some of the implemenation of the initial PLCM project overly 
+complex.  Items numbered 1 - 3.6 below come directly from the original PLCM 
+analyis note [3].  Items numbered 3.7 and greater address additional issues that 
+were identifed as complexities that caused problems in the initial PLCM
+implemenation.
+
+1. Repository Structure
+The file structure for the system after these changes have been applied is as
+follows:
+
++-+ projectname 
+  |
+  +-+ models
+    |
+	+-+ projectname
+	  |
+	  + projectname.xtuml(system data)
+	  |
+	  +-+ domain1
+	  | |
+	  | + domain1.xtuml (data for domain 1) 
+	  | |
+	  | +-+ subsystem1
+	  |   |
+	  |   + subsystem1.xtuml (data for subsystem 1)
+	  |   |
+	  |   +-+ class1
+	  |     |
+	  |     + class1.xtuml
+	  |     |
+	  |     +-+ ClassStateMachine
+	  |	    | |
+	  |	    | +-+ ClassStateMachine.xtuml
+      |	    |
+	  |     +-+ InstanceStateMachine
+	  |       |
+	  |       +-+ InstanceStateMachine.xtuml (data for state machine 1)
+	  |
+      +-+ domain2
+	  | |
+	  | + domain2.xtuml (data for domain 2)
+	  | |
+	  | etc.
+	  etc.
+    
+Each component kind has its own folder in the resource structure. This allows
+name scoping rules to be met without having to expose the user to numbered post-
+fixes to filenames.
+
+Note that this analysis note does not address the actual requirements for break-
+down of the model into file components, that specification work is done
+elsewhere [6]. The breakdown specified above is for example only. The hierarchy, 
+for the purposes of this analysis, is restated abstractly thus:
+
++-+ projectname Project 
+  |
+  +-+ models
+    |
+    +-+ projectname
+	  |
+	  +-+ projectname.xtuml(system data)
+	    |
+	    +-+ component1
+	    | |
+	    | + component1.xtuml (data for component 1) 
+	    | |
+	    | +-+ component2
+	    |   |
+	    |   + component2.xtuml (data for component 2)
+	    |   |
+	    |   +-+ component3
+	    |     |
+	    |     + component3.xtuml (data for component 3)
+	    |
+	    +-+ component4
+	    | |
+	    | + component4.xtuml (data for component 4)
+	    |
+	    etc.
+
+Notice that, once inside the initial fixed 'models' folder, the data structure
+is completely regular, regardless of the component contents or position within
+the hierarchy.
+
+It is a new requirement that there be a system data file. Currently, system data
+is special cased and inferred from the project name. This policy has changed.
+Note that it is likely that additional data shall be stored in this file beyond
+the S_SYS instance as requirements for R1.0 become clear.
+
+2. Dangling Reference handling
+Once model storage is spread across multiple files, it is possible for parts of
+the model storage to be deleted outside of the tool. The resource listener
+behavior shall function as it did before to detect such changes (see 3.2 below).
+If at any time in the normal performance of the tool an attempt is made to
+access data in an instance that was in a since-deleted resource, the tool shall
+handle this gracefully by displaying the message, 'The selected element is no
+longer in the workspace' in the bottom status bar line. This architectural
+feature shall ensure that the user always gets some feedback about why something
+they expected to work, didn't.
+
+Additional User Interface behaviors shall be added by other work (this work
+focuses on providing the architectural support for multi file persistence).
+These behaviors will prevent the above fallback behavior being seen and give the
+user better cues as to what is wrong. Examples of such enhanced behavior are
+showing an error marker in the Model Explorer and Resource navigator trees, or
+displaying an error icon on a diagram symbol that represents a dangling
+reference.
+
+It shall be possible to delete a diagram element that represents a dangling
+reference. This shall be treated as a change to the enclosing component, just
+like any other change. Removal of a dangling diagam element shall therefore
+cause the Team interface to expect a new revision etc.
+
+An 'Orphaned' name is unacceptable at all times, so naming information for
+potentially dangling components shall always be cached where required. Displayed
+cached values for dangling references to model elements shall always be
+readonly.
+
+Instances and instance sets obtained when traversing dangling references shall
+return an empty instance or set. It shall be up to the analyst to ensure that
+suitable handling is in place for all places in the OAL where this can happen.
+A new requirement is placed on the dangling reference test tool[2] to reliably
+detect failure to do this.
+
+3. Mapping Existing Behavior onto multiple files
+3.1 The renaming behavior present in the current release shall be retained and
+    shall be responsible for keeping the component name, component data file
+    name and the enclosing folder name synchronized at all times for changes 
+    made inside the tool.  Changes made outside of the tool will be handled
+    gracefully, but synchronization is not required.  See the the Team coherant
+    thread policy (3.10.3.7) for additional information.
+
+3.2 Resource change listeners shall behave as they did for the first version of
+    the tool, but shall listen for changes individually for each component.
+    Deletion shall be handled by removing the deleted component from the model.
+    When a resource changes on disk, the component (not the whole model) shall
+    be reloaded and syntax checked as is currently done. In all cases, the
+    resource listener shall trigger update of the problems list for dangling
+    references caused or removed by the detected resource change.
+
+3.3 Lazy loading behavior shall be unchanged from release 1.0, except of course
+    that it applies to all files. i.e. the data for a component is loaded only
+    when needed. Multiple file storage introduces the possibility that a
+    subordinate component can be loaded before its parent. Lazy loading policy
+    applies equally in this case, the data for the parent is not loaded unless
+    needed. Notice that in many cases immediate loading of parent data will
+    always be triggered. For example, a class diagram shows the type of its
+    attributes and so unless there are no attributes to display, the
+    corresponding domain data must be loaded.
+    
+3.4 Model compare functionality shall work as expected for individual file
+    components. That is, the compare function shall handle cases where the
+    passed model file is not a complete model. Where the comparison is being
+    done against a tree (whether the component is the root of the tree or not),
+    compare shall show all differences for the whole model. Where only component
+    information is available, only the component data shall be compared. This
+    latter situation exists when comparing two revisions of a component in the
+    resource history. In this case, the component could have been combined with
+    any revision of its child components. Since it cannot be known which child
+    component revision is the correct one to compare with, it makes no sense to
+    attempt to compare more than the component data.
+
+3.5 Parsing behavior shall be as for the current tool, except that its behavior
+    shall be robust for components that have been removed by Resource Navigator
+    or Team operations. Since dangling reference problems are reported
+    immediately by a requirement stated elsewhere, existing parser error
+    messages are adequate and no additional error messages are anticipated. In
+    the presence of a dangling reference, the parser shall behave as if it found
+    a reference to something that does not exist.
+
+3.6 The MC-3020 and MC-2020 plugins shall do whatever additional work is 
+    required to work with multiple model components. This work shall be done 
+    under a separate issue.
+
+3.7 Resource Listeners
+	There are two types of listeners: Transaction Listener and Resource 
+	Listener.  The Transaction Listener manages changes to the model that occur
+	within a Bridgepoint transaction.  The Resource Listener manages changes 
+	that occur to the model through the Eclipse resource change listener.  While 
+	the notification mechanisms are different, the changes that must be made are
+	essentially the same.  Our solution should take advantage of this.
+3.7.1 The resource listeners will be modeled.
+3.7.1.1
+	There are three types of resouces; files, folders, and projects.
+	Files, folders, and projects have similar attributes and behaviors (in 
+	eclipse they all inherit from IResource), but our listeners must handle them 
+	differently.  Therefore, we will create separate start charts (and 
+	STT) for file, folder, and project.  The listener is responsible for 
+	determining the resource type (project, folder, or file), and dispatching 
+	the appropriate event for that resource.  
+3.7.1.2
+	The state model for the various resource types will live in the supertype.  
+	The subtypes will contain the actions (the actions are different for each 
+	type of resource).
+3.7.2 The following items describe the interactions between the Transaction 
+      Listener and the Resource Listener.
+3.7.2.1	The Transaction Listener has the ability to tell the Resource Listener
+		to ignore changes.
+3.7.2.2	The Resource Listener has the ability to tell the Transaction Listener
+		to ignore changes.
+3.7.3 Implementation will be based on the model that is created.
+3.7.3.1 Change messages can occur on different threads.  The solution will be
+        thread-safe.
+3.7.4 The Resource Listener and the Transaction Listener perform the same basic 
+	  functionality.  The model and code will take advantage of this.
+3.7.5 We will generate the implementation code if feasible in our given time 
+	  frame.  If not, then hand-craft code will be written in a way that 
+	  factors-out the commonality between the resource listener and the 
+	  transaction listener.  
+
+3.7.6 The following is a state table that can be utilized by both listeners.  
+	  This table can be used to help model the resource listeners.  Note that
+	  in the model there will need to be class that dispathes events to these
+	  listeners.  This will be a singleton, and it will be responsible for 
+	  handling the requirement that each resource listener may tell the other to 
+	  ignore changes ( items 3.7.2.1 and 3.7.2.2).
+	  
+	  CH=Can't happen
+										Events
+										------
+				creator		open_resource	rename		contents_changed	delete		close	done	die
+				-------		-------------   ------  	----------------    ------ 		-----   ----    ---
+Initializing	ignore		Open			ignore		ignore				ignore		ignore	CH  	CH
+Open			CH			ignore			Renaming	Changing			Removing	Closing	ignore 	CH
+Changing		CH  		CH  			ignore		ignore				ignore		ignore	Open	CH
+Renaming		CH  		CH  			ignore		ignore				ignore		ignore	Open	CH
+Closed			CH  		Open			CH  		CH  				Removing	ignore	ignore	CH
+Removing		CH  		CH			    CH  		CH  				ignore		ignore	ignore	"final state"
+
+3.8   The following items enumerate high-level rules for persistence.
+3.8.1 We shall not write files except those the user associates with a given 
+      change.
+3.8.2 The loading behavior shall be uniform across all associations, regardless 
+      of direction.
+3.8.3 Neither metamodel analysts, nor writers of custom transactions and queries 
+      on the model,  shall have to know anything about the underlying 
+      construction of the model (so long as hand written code uses the generated 
+      traversal mechanisms).
+3.8.4 Model data shall be loaded just before it is needed.
+
+3.9	  The follow items enumerate low-level consequences of the high-level rule
+      from the 3.8.	 
+3.9.1 The 'select any from instances of' statement needs to keep loading 
+      components until one instance is found
+3.9.2 In the above case with a where clause, loading proceeds until an instance 
+      is found that passes the filter
+3.9.3 The 'select many from instances of' statement needs to load all components 
+      that could contain an instance of the target class
+3.9.4 The above rules apply equally to 'select related by' statements traversing 
+      in the "Referred To" to "Referring Class" direction. 
+      (e.g. Data Type -> Attribute)
+
+3.10	 Proxy Policy
+         The rules defining proxy policy will be simple and as consistent as
+         possible.
+3.10.1   Current Policy
+3.10.1.1 If a relationship exists between two component root model elements then 
+         a proxy will be created for the parent class (RGO) in the 
+         child class (RTO class).
+3.10.1.2 If a relationship exists between two cross-component model elements 
+         where both are non-root or one of them is the root model element, 
+         then the proxy will be generated for RTO in the component containing  
+         the RGO.
+3.10.1.3 There is currently special-case handling for the domain to subsystem 
+         relation (R43).  For this case, first rule (3.10.2.1) is ignored and 
+         a proxy is generated against the second rule.
+         
+3.10.2   New Proxy Policy
+3.10.2.1 Proxies will only be created for parent classes (RTO classes) and they 
+         will be held in the child class (RGO class).
+3.10.2.2 No new data structures will be introduced to cache proxy information.
+3.10.2.3 The implementation will take advantage of the file system hierarchy to 
+		 establish containment associations and maximize lazy loading benefits.
+3.10.2.3.1
+		 The files may be filtered based on content type while searching.
+3.10.2.4 When the name of a ME is changed, the proxies will not be updated.
+		 Instead, when loading a proxy, a UUID will be used to determine if the 
+		 correct ME is being referred-to by the Proxy path.  If it is not, all
+		 ME's will be searched to find the correct ME. This will involve loading
+		 components successively until the component is found. If the correct ME
+		 is not located after all components have been loaded, then the dangling
+		 reference behavior is invoked.
+3.10.2.5 The design should not need proxy reference counting.
+3.10.2.6 We will allow inconsistency between the Canvas and Model Explorer in 
+         cases where the user has changed files outside the use case defined 
+         by our "Team coherent thread policy" (3.10.3.7).
+3.10.2.7 Team coherent thread policy		 
+		 The use case under which _no_ behavioral artifacts are acceptable is
+		 where the user brings a previously tagged set of model files into his 
+		 workspace.  The tag could be HEAD, a branch or a version.  Assuming the 
+		 tagging was done when the model was in a consistent state, the tool 
+		 shall return to that consistent state. If the user steps outside this 
+		 use case by loading a model file at a revision inconsistent with the 
+		 surrounding files, then the tool must react gracefully (i.e. not 
+		 crash), but the different parts of the UI may not necessarily be 
+		 consistent.
+
+3.11   Undo/Redo Support
+3.11.1 PLCM feature will contain suport for Undo/Redo.  The support for this 
+       functionality will come from a seperate project [7].
+       
+3.12   This project will use soure code metrics to help assure that the 
+       implementation is not getting overly complex.  
+3.12.1 The following tool will be used: Metrics [9].
+3.12.2 This tool will be run at least weekly and results (or a reference to the
+       results) will be checked into CVS under the main PLCM issue.
+
+3.13   Accelerated code wear-out
+	   The PLCM code-base has not yet been released to the field, and yet it has
+	   already gone through quite a lot of maintanance.  Our goal for designs 
+	   will be to provide simple, elegant solutions.  Using the design notes, we 
+	   should call-out places where maintance has caused complexity and consider 
+	   rewritting to fit this goal and the rules specified in this analysis 
+	   note.
+
+	   
+Work Required
+-------------
+1. Evaluate the open bugzilla issues with respect to this design.  Issues that 
+   will be addressed by the refactoring outlined by this note should be marked 
+   "Won't Fix" and they should include a comment that says: "Issue addressed by 
+   PLCM_1_0 refactoring".
+1.1 Create a chart that contains each of the bugzilla items that remain open 
+    after step 1 above, and lists the amount of time it will take to complete
+    the item.
+    
+2. All issues being worked-on should have a bugzilla item associated with them,
+   therefore a bugzilla item will be created for each of the following tasks.
+3. Implement Model Compare functionality as described in Analysis section 3.4.
+
+4. Model the Resource Listeners
+4.1 
+   Implement/Refactor the resource listeners based on this analysis note and
+   the model created.
+   
+5. Complete the design and implementation for dangling reference support.
+
+6. A design note will be written that identifies the refactoring that will be
+   required to support this analysis note.  This will call-out the changes that
+   must be made to the existing PLCM code base to enforce the rules and support
+   the features defined in this note.  Some things this note should cover are:
+   -Refactoring to account for the new proxy policy (3.10.2).
+   -Refactoring to account for the new persistence rules (3.8 and 3.9).
+   
+7. Create a plan for assuring source metrics are captured regularly.
+
+8. Team control over the parent model file should be handled separately from 
+   the associated resource tree (bugzilla issue 1608).
+   
+9.  Modify the dangling reference test tool [3] to support the requirements 
+    outlined in section 2 of this document.
+
+10. Modify the MC-3020 and MC-2020 plugins as needed to work with PLCM.  Note 
+    that most of this work has been completed [10], but changes to PLCM that 
+    have occured since these plugins were initially modified to account for PLCM
+	require that this be revisted.
+	
+Acceptance  Test
+---------------
+For an _arbitrary_ selected component hierarchy of:
+
+  - System > Domain > Subsystem > State Machine
+                    > Data Type Package > Data Type Package
+                    > External Entity Package > External Entity Package
+
+The tool shall function as it does today, except:
+
+  - Resource Navigator entries shall be present (in nested folders as specified
+    above) for all the component kinds above.
+  - Team decorations shall be shown against all the component kinds above. 
+  - Delete, Rename and Team operations shall be available on all the component
+    kinds listed above in the Model Explorer.
+  - Delete, Rename and Team operations shall be handled as expected by Bridge-
+    Point.
+  - Problems introduced by components being removed or introduced by Team or
+    Resource Navigator operations shall be listed in a timely manner.
+  - Attempted navigation to elements in components that have been removed are
+    all handled gracefully.
+  - Changes using the Team and Resource History interfaces shall be reflected in
+    the model state in a timely manner.
+  
+Use cases
+---------
+
+The following scenarios will have the following behavior:
+
+1. Rename model element that is a component from Model Explorer
+
+    Precondition:  Model Element exists in Model Explorer
+    Action:  User changes name of model element
+       Variation 1: Using Model Explorer
+       Variation 2: Using Properties view
+       Variation 3: Rename the ptoject
+    Postcondition:
+       - Model Element name changes in BridgePoint perspective
+       - Component file and folder for model element are renamed
+       - Model Element naming data is updated in <component>.xtuml file       
+
+2. Rename component file
+
+    Precondition:  Model component file exists in Resource Navigator
+    Action:  User changes name of file
+       Variation 1: Component data is loaded in Model Explorer
+       Variation 2: Component data is not loaded in Model Explorer
+    Postcondition:
+       - Nothing happens.  Changes outside the tool, such as this one, are not
+         supported.
+
+3. Rename component folder
+
+    Precondition:  Model component folder exists in Resource Navigator
+    Action:  User changes name of folder
+       Variation 1: Component data is loaded in Model Explorer
+       Variation 2: Component data is not loaded in Model Explorer
+    Postcondition:
+       - Component file and folder are renamed
+       - Model Element name changes in BridgePoint perspective
+       - Model Element naming data is updated in <component>.xtuml file       
+
+4. Delete model element that is a component from Model Explorer
+
+    Precondition:  Model Element exists in Model Explorer
+    Action:  User selects 'Delete' for model element
+    Postcondition:
+       - Model Element no longer appears in BridgePoint perspective
+       - Component file and all child files are deleted
+       - Model Element graphical data (if present) deleted from file.
+       
+5. Delete component file
+
+    Precondition:  Model component file exists in Resource Navigator
+    Action:  User deletes file
+       Variation 1: Component data is loaded in Model Explorer
+       Variation 2: Component data is not loaded in Model Explorer
+    Postcondition:
+       - Component file and folder are removed
+       - Model Element is removed from BridgePoint perspective
+
+6. Delete component folder
+
+    Precondition:  Model component folder exists in Resource Navigator
+    Action:  User deletes folder
+       Variation 1: Component data is loaded in Model Explorer
+       Variation 2: Component data is not loaded in Model Explorer
+    Postcondition:
+       - Component file and folder are removed
+       - Model Element is removed from BridgePoint perspective
+
+7. Replace component from Model Explorer
+
+    Precondition:  Model Element with changes exists in Model Explorer.
+    Action:  User selects 'Replace with Latest...'
+       Variation 1: Changes are only in Model Element
+       Variation 2: Change is that a sub-component was added to the Model Element
+       Variation 3: Change is that a sub-component was removed.
+    Postcondition:
+       - Component file is replaced with latest version
+
+8. Replace component file
+
+    Precondition:  Model component file exists in Resource Navigator with 
+       changes.
+    Action:  User selects 'Replace with Latest...'
+       Variation 1: Changes are only in Model Element
+       Variation 2: Change is a sub-component added to Model Element
+       Variation 3: Change is that a sub-component was removed.
+    Postcondition:  The behavior will be consistent with our "Team coherent 
+                    thread policy" (3.10.3.7).
+
+9. Restore deleted component file
+
+    Precondition:  Model component file was deleted from Resource Naviator
+       Variation 1: File was deleted by use case 4
+       Variation 2: File was deleted by use case 5
+       Variation 3: File was deleted by use case 6
+    Action:  User selects 'Restore from Local History...', and selects 
+        deleted file
+    Postcondition:  The behavior will be consistent with our "Team coherent 
+                    thread policy" (3.10.3.7).
+
+End
+---
+
+$Log: i845-PLCM_1_0.ant,v $
+Revision 1.1  2009/09/03 18:22:28  rmulvey
+job:dts0100616734
+Archive documentation and other development notes following the R3_0_0 release.  These are being archived under Documentation/internal/technical/archive/20090903
+
+Revision 1.10  2009/01/01 23:13:08  rmulvey
+Job:4060
+Batch promotion of copyright changes from Review-i4060 and Review-i4060-01.
+
+Revision 1.9.28.1  2008/12/31 16:10:12  rmulvey
+Job:4060
+This is a batch commit of 2009 copyright changes to branch Review-i4060.  This includes the
+report that outlines all changes made (before/after for each line changed).  This report is found here: <cvs>/Documentation/internal/test_results/R2_1_2/i4060/update-copyright-results.txt.
+
+Revision 1.9  2006/02/16 21:50:07  rmulvey
+Job:845
+Modified the analysis note based on the final review.  The analysis note is now complete.
+
+Revision 1.8  2006/02/09 23:07:54  rmulvey
+Job:845
+Several small changes based on looking-over the whole document one more time.
+
+Revision 1.7  2006/02/09 22:25:54  campbell
+Job: 845
+Clarified component loading behavior when a Proxy path is obsolete. Added Team Thread consistency policy.
+
+Revision 1.6  2006/02/09 21:55:07  campbell
+Job: 845
+Clarified Proxy creation policy.
+
+Revision 1.5  2006/02/09 21:42:08  rmulvey
+Job:845
+Updated the new proxy policy.
+
+Revision 1.4  2006/02/07 06:38:39  rmulvey
+Job:845
+Fixed a few grammar errrors.
+
+Revision 1.3  2006/02/07 06:25:03  rmulvey
+Job:845
+Fixed a few grammar errrors.
+
+Revision 1.2  2006/02/07 06:09:26  rmulvey
+Job:845
+Updated the analysis note based on our last review and also updated the review minutes accordingly.
+
+Revision 1.1  2006/02/06 17:39:18  rmulvey
+Job:845
+The keyword that was defined for the PLCM project is PLCM_1_0, therefore I renamed i845-PLCM.ant to i845-PLCM_1_0.ant to match theis "large project's" bugzilla keyword.
+
+Revision 1.4  2006/02/03 13:12:18  babar
+Job:845
+Added some thoughts and findings.
+
+Revision 1.3  2006/02/02 04:01:09  rmulvey
+Job:845
+Added 3.12 to discuss problems with proxy reference counting.
+
+Revision 1.2  2006/02/02 03:30:26  rmulvey
+Job:845
+Fixed a numbering problem.
+
+Revision 1.1  2006/02/02 03:14:56  rmulvey
+Job:845
+Introduced the initial analysis note for the PLCM v2 project.   We are treating this as a new project from a process point of view, so we start with this Analysis note.  This initial version of the note is based on 3 things:
+1) The original i845.ant analysis note
+2) The "Complexities" document written by Babar.  Items 3.7-3.9 in the     Analysis section come verbatim from this document. Note that I am also checking this document into CVS as .../persistence/i845-Complexities.doc.
+3) Discussions that have occurred over the last few days.
+

@@ -1,0 +1,204 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>2.3.  Loop Statements</title>
+<link rel="stylesheet" type="text/css" href="docbook.css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
+<meta name="keywords" content="MASL, Action Language, Action Semantics, UML, Unified Modelling Language, Shlaer Mellor">
+<link rel="home" href="index.html" title="MASL Tutorial">
+<link rel="up" href="ExecutionControl.html" title="Chapter 2. Execution Control">
+<link rel="prev" href="ExecutionControlCaseStatement.html" title="2.2. case Statement">
+<link rel="next" href="CompositeTypes.html" title="Chapter 3. Composite Types">
+<link rel="preface" href="preface.html" title="Preface">
+<link rel="chapter" href="Types.html" title="Chapter 1. Types">
+<link rel="chapter" href="ExecutionControl.html" title="Chapter 2. Execution Control">
+<link rel="chapter" href="CompositeTypes.html" title="Chapter 3. Composite Types">
+<link rel="chapter" href="Exceptions.html" title="Chapter 4. Exceptions">
+<link rel="chapter" href="ObjectsandRelationships.html" title="Chapter 5. Objects and Relationships">
+<link rel="chapter" href="Actions.html" title="Chapter 6. Actions">
+<link rel="chapter" href="DeviceIO.html" title="Chapter 7. Device Input/Output">
+<link rel="chapter" href="MASLExamples.html" title="Chapter 8. MASL Examples">
+<link rel="index" href="ix01.html" title="Index">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div align="center">UNCLASSIFIED</div>
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center">2.3.  Loop Statements</th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="ExecutionControlCaseStatement.html">Prev</a> </td>
+<th width="60%" align="center">Chapter 2. Execution Control</th>
+<td width="20%" align="right"> <a accesskey="n" href="CompositeTypes.html">Next</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h2 class="title">
+<a name="ExecutionControlLoopStatements"></a>2.3.  Loop Statements</h2></div></div></div>
+<p><abbr class="abbrev">MASL</abbr> has two forms of loop statement; the
+    <code class="literal">while</code> statement and the <code class="literal">for</code>
+    statement. Both repeat a sequence of statements. The
+    <code class="literal">while</code> statement starts with the reserved word while
+    followed by a condition and the reserved word <code class="literal">loop</code>.
+    This is then followed by a sequence of statements, which will be executed
+    at each iteration of the loop. The end of the sequence is indicated by the
+    closing <code class="literal">end loop</code>.A simple example is:</p>
+<div class="informalexample"><pre class="programlisting">  declare
+    n : integer;
+    i : integer;
+    term : real;
+    e : real;
+  begin
+    while i /= n loop
+      i :=i+1;
+      term := term / i;
+      e := e + term;
+    end loop;
+  end;</pre></div>
+<p>At each iteration of the loop, the condition is tested, in this case
+    <code class="literal">i /=n</code>, and if true the sequence of statements is
+    executed. If the condition is false then the loop terminates at once and
+    control passes to the point immediately after end loop. Note that if the
+    condition is false the first time it is evaluated, then the sequence of
+    statements is never executed. </p>
+<p>Sometimes it is necessary to break out of a loop prematurely. We can
+    do this with the <code class="literal">exit</code> statement:</p>
+<pre class="programlisting">  exit;</pre>
+<p>If this is executed inside a loop then the loop terminates at once
+    and control passes to the point immediately after the end loop. Suppose we
+    decide to stop when term is equal to zero. We can do this as
+    follows:</p>
+<div class="informalexample"><pre class="programlisting">  declare
+    n : integer; i : integer;
+    term : real; e : real;
+  begin
+    while i /= n loop
+      i :=i+1;
+      term := term / i;
+      if term = 0.0 then
+        exit;
+      end if;
+      e := e + term;
+    end loop;
+  end;</pre></div>
+<p>The construction:</p>
+<div class="informalexample"><pre class="programlisting">  if condition then
+    exit;
+  end if;</pre></div>
+<p>is so common that a special shorthand is provided
+    <code class="literal">exit</code> when condition. So we could have written the loop
+    as:</p>
+<div class="informalexample"><pre class="programlisting">  declare
+    n : integer; i : integer;
+    term : real; e : real;
+  begin
+    while i /= n loop
+      i :=i+1;
+      term := term / i;
+      exit when term = 0.0;
+      e := e + term;
+    end loop;
+  end;</pre></div>
+<p>The <code class="literal">for</code> statement allows a specific number of
+    iterations with a loop parameter taking in turn all the values of a
+    discrete range. Our example could be recast as:</p>
+<div class="informalexample"><pre class="programlisting">  declare
+    n : integer;
+    term : real; 
+    e : real;
+  begin
+    for i in 1 .. n loop
+      term := term / i;
+      e := e + term;
+    end loop;
+  end;</pre></div>
+<p>where <code class="varname">i</code> takes the values
+    <code class="literal">1</code>, <code class="literal">2</code>, <code class="literal">3</code>, ...
+    <code class="literal">n</code>. The variable <code class="varname">i</code> is declared by its
+    appearance in the iteration scheme and does not have to be declared
+    outside of the for statement. It takes its type from the discrete range
+    and within the loop behaves as a constant so that it cannot be changed
+    except by the loop mechanism itself. When we leave the loop (by whatever
+    means) <code class="varname">i</code> ceases to exist (because it was declared by
+    the loop) and so we cannot read its final value from outside.</p>
+<p>The values of the discrete range are normally taken in ascending
+    order. Descending order can be specified by writing:</p>
+<div class="informalexample"><div class="literallayout"><p>for i in reverse 1 .. n loop</p></div></div>
+<p>but the range itself is always written in ascending order. It is not
+    possible to specify a numeric step size other than one. This should not be
+    a problem since the vast majority of loops go up by steps of one and
+    almost all the rest go down by steps of one. The very few which do behave
+    otherwise can be explicitly programmed using the while form of
+    loop.</p>
+<p>The range can be null (this would happen if <code class="varname">n</code> was
+    zero or negative in our example) in which case the sequence of statements
+    will not be executed at all. Of course, the range itself is evaluated only
+    once and cannot be changed inside the loop. Thus declare:</p>
+<div class="informalexample"><pre class="programlisting">    n : integer;
+  begin
+    n := 4;
+    for i in 1 .. n loop
+      // …
+      n := 10;
+    end loop;
+  end;</pre></div>
+<p>results in the loop being executed just four times
+    despite the fact that the value of <code class="varname">n</code> is changed to
+    ten.</p>
+<p>Our examples have all shown the lower bound of the range being
+    <code class="literal">1</code>. This, of course, need not be the case. Both bounds
+    can be arbitrary dynamically evaluated expressions. Furthermore the loop
+    parameter need not be of <span class="type">integer</span> type. We could, for
+    instance, simulate a week’s activity by:</p>
+<div class="informalexample"><pre class="programlisting">  for today in MON .. SUN loop
+    // …
+  end loop;</pre></div>
+<p>This declares today to be of type day and obeys the loop with the
+    values <code class="literal">MON</code>, <code class="literal">TUE</code>,… <span class="type">SUN</span>
+    in turn. Other forms of discrete range are of advantage here. The essence
+    of <code class="literal">MON .. SUN</code> is that it embraces all the values of
+    type day. It is therefore better to write the loop using a form of
+    discrete range that conveys the idea of completeness. For
+    example:</p>
+<div class="informalexample"><pre class="programlisting">  for today in day_type'range loop
+    // …
+  end loop;</pre></div>
+<p>As already stated, the type of the loop parameter is determined from
+    the type of the discrete range after the reserved word
+    <code class="literal">in</code>. It is therefore necessary for the type of the
+    discrete range to be unambiguous in the <code class="literal">for</code> statement.
+    This is usually the case but if we had two enumeration types with two
+    overloaded literals such as:</p>
+<div class="informalexample"><pre class="programlisting">  type colour_type is enum (BLUE, RED, GREEN);
+  type signal_colour_type is enum (RED, AMBER, GREEN);</pre></div>
+<p>then:</p>
+<div class="informalexample"><pre class="programlisting">for s in RED .. GREEN loop</pre></div>
+<p>would be ambiguous. We could resolve the problem be
+    qualifying either of the expressions. For example:</p>
+<div class="informalexample"><pre class="programlisting">for s in signal_colour_type.RED .. GREEN loop</pre></div>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="ExecutionControlCaseStatement.html">Prev</a> </td>
+<td width="20%" align="center"><a accesskey="u" href="ExecutionControl.html">Up</a></td>
+<td width="40%" align="right"> <a accesskey="n" href="CompositeTypes.html">Next</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left" valign="top">2.2. <code class="literal">case</code> Statement </td>
+<td width="20%" align="center">
+<a accesskey="h" href="index.html">Home</a> | <a accesskey="t" href="bk01-toc.html">ToC</a>
+</td>
+<td width="40%" align="right" valign="top"> Chapter 3. Composite Types</td>
+</tr>
+</table>
+</div>
+<div align="center">UNCLASSIFIED</div>
+</body>
+</html>

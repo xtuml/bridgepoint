@@ -32,8 +32,10 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.preferences.IScopeContext;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.ui.PlatformUI;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.osgi.service.prefs.Preferences;
-
 import org.xtuml.bp.core.ComponentReference_c;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.Gd_c;
@@ -45,26 +47,30 @@ import org.xtuml.bp.core.common.ModelRoot;
 import org.xtuml.bp.core.ui.preferences.BridgePointProjectPreferences;
 import org.xtuml.bp.test.TestUtil;
 import org.xtuml.bp.test.common.BaseTest;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.test.common.TestingUtilities;
 import org.xtuml.bp.test.common.UITestingUtilities;
 import org.xtuml.bp.ui.graphics.editor.GraphicalEditor;
 import org.xtuml.bp.ui.graphics.editor.ModelEditor;
 import org.xtuml.bp.utilities.ui.CanvasUtilities;
 
+@RunWith(OrderedRunner.class)
 public class ImportPasteElementsWithIPRTest extends BaseTest {
 	
 	private String projectName = "System";
 	
 
-	public ImportPasteElementsWithIPRTest(String testName) throws Exception {
-		super("System",testName);
+	public ImportPasteElementsWithIPRTest() throws Exception {
+		super("System", null);
 	}
 	
 	@Override
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		super.setUp();
 	}
 	
+	@Test
 	public void test_ImportModelWithIPR() throws CoreException{
 		
 		final IProject project = ResourcesPlugin.getWorkspace().getRoot()
@@ -93,6 +99,7 @@ public class ImportPasteElementsWithIPRTest extends BaseTest {
 
 	}
 
+	@Test
 	public void testCopyPasteElementWithIPR() {
 		
 		// create new package to paste Component reference in

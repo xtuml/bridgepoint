@@ -23,22 +23,30 @@
 
 package org.xtuml.bp.ui.canvas.test;
 
-import junit.framework.TestCase;
-
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.test.common.CanvasTestUtils;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.ui.graphics.editor.GraphicalEditor;
 
+import junit.framework.TestCase;
+
+@RunWith(OrderedRunner.class)
 public class CloseCanvasEditor extends TestCase {
 
-	public CloseCanvasEditor(String arg0) {
-		super(arg0);
+	public CloseCanvasEditor() {
+		super();
 	}
 	
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		super.setUp();
 	}
 
-	protected void tearDown() throws Exception {
+	@After
+	public void tearDown() throws Exception {
 		super.tearDown();
 	}
 	
@@ -56,11 +64,13 @@ public class CloseCanvasEditor extends TestCase {
 		}
 	}
 	
+	@Test
 	public void testClosePD()
 	{	
 		closeCanvasEditor("odms");
 	}
 
+	@Test
 	public void testCloseSC()
 	{	
 		closeCanvasEditor("Disk");

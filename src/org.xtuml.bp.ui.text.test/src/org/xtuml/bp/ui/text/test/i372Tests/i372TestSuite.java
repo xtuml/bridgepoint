@@ -22,14 +22,16 @@
 
 package org.xtuml.bp.ui.text.test.i372Tests;
 
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
+
 import junit.framework.TestSuite;
 
-public class i372TestSuite extends TestSuite {
+@RunWith(Suite.class)
+@Suite.SuiteClasses({
+	NavigationTest.class,
+	NavigationAfterModelElementDeletionTest.class
+})
+public class i372TestSuite {
 
-	
-	public i372TestSuite() 
-	{
-		addTest(new TestSuite(NavigationTest.class));
-		addTest(new TestSuite(NavigationAfterModelElementDeletionTest.class));		
-	}
 }

@@ -16,9 +16,6 @@ package org.xtuml.bp.als.oal.test;
 import java.io.StringReader;
 import java.util.UUID;
 
-import antlr.RecognitionException;
-import antlr.TokenStreamException;
-
 import org.xtuml.bp.als.oal.OalLexer;
 import org.xtuml.bp.als.oal.OalParser;
 import org.xtuml.bp.core.Body_c;
@@ -29,6 +26,9 @@ import org.xtuml.bp.core.Oalconstants_c;
 import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.common.IdAssigner;
 import org.xtuml.bp.test.common.BaseTest;
+
+import antlr.RecognitionException;
+import antlr.TokenStreamException;
 
 
 /**

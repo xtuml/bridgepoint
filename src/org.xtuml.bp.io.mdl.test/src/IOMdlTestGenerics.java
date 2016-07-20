@@ -1,9 +1,7 @@
 
 //=====================================================================
 //
-//File:      $RCSfile: IOMdlTestGenerics.java,v $
-//Version:   $Revision: 1.8 $
-//Modified:  $Date: 2013/05/13 22:51:33 $
+//File:      IOMdlTestGenerics.java
 //
 //(c) Copyright 2004-2014 by Mentor Graphics Corp. All rights reserved.
 //
@@ -24,30 +22,42 @@
 import java.io.FileNotFoundException;
 import java.lang.reflect.InvocationTargetException;
 
-import junit.framework.TestCase;
-
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
+import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.ui.PlatformUI;
-
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Rule;
+import org.junit.Test;
+import org.junit.rules.TestName;
+import org.junit.runner.RunWith;
+import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.Package_c;
 import org.xtuml.bp.core.SystemModel_c;
+import org.xtuml.bp.core.common.BridgePointPreferencesStore;
 import org.xtuml.bp.core.common.ClassQueryInterface_c;
+import org.xtuml.bp.core.common.GeneralPurposeLogger;
 import org.xtuml.bp.core.common.IdAssigner;
 import org.xtuml.bp.core.ui.Selection;
 import org.xtuml.bp.io.mdl.ExportModel;
 import org.xtuml.bp.io.mdl.ImportModel;
 import org.xtuml.bp.test.common.BaseTest;
-import org.xtuml.bp.test.common.GeneralPurposeLogger;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.test.common.TestingUtilities;
 import org.xtuml.bp.ui.canvas.Ooaofgraphics;
 import org.xtuml.bp.utilities.ui.ProjectUtilities;
 
+import junit.framework.TestCase;
+
+@RunWith(OrderedRunner.class)
 public class IOMdlTestGenerics extends TestCase {
+
+	@Rule public TestName name = new TestName();
 
     GeneralPurposeLogger log1;  // log for core
     GeneralPurposeLogger log2;  // log for canvas
@@ -72,17 +82,22 @@ public class IOMdlTestGenerics extends TestCase {
      */
     private static boolean generateResults = false;
 
-	public IOMdlTestGenerics(String arg0) {
-		super(arg0);
-		// they all start with "test_"
-		m_domain_name = arg0.substring(5, arg0.length());
-	
+	public IOMdlTestGenerics() {
+		super(null);
+		
+		// Change default for the parse on resource change preference to
+		// "always"
+		IPreferenceStore store = CorePlugin.getDefault().getPreferenceStore();
+		store.setValue(BridgePointPreferencesStore.EXPORT_GRAPHICS, "always"); //$NON-NLS-1$
 	}
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
+		String methodName = name.getMethodName();
+		m_domain_name = methodName.substring(5, methodName.length());
 		PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().closeAllEditors(false);
 		while(PlatformUI.getWorkbench().getDisplay().readAndDispatch());
 		super.setUp();
-        IdAssigner.setSeedOfAllInstances(getName().hashCode(), true);
+        IdAssigner.setSeedOfAllInstances(methodName.hashCode(), true);
         if (m_workspace_path == null || m_workspace_path.equals(""))
         {
             m_workspace_path = System.getProperty("WORKSPACE_PATH");
@@ -106,7 +121,8 @@ public class IOMdlTestGenerics extends TestCase {
 		Ooaofgraphics.log = log2;		
 	}
 
-	protected void tearDown() throws Exception {
+	@After
+	public void tearDown() throws Exception {
 		super.tearDown();
         BaseTest.staticTearDown();
 	}
@@ -117,89 +133,161 @@ public class IOMdlTestGenerics extends TestCase {
 	}
   
 	
+	@Test
 	public void test_InteractionDiagramUpgradeTestsGenerics() {
 		importModel(Ooaofooa.MODELS_DIRNAME + "/");
 		exportModel(TestingUtilities.getExpectedResultsPath() + Ooaofooa.MODELS_DIRNAME + "/");
     }	
+    @Test
     public void test_nested_testGenerics() {
 		importModel(Ooaofooa.MODELS_DIRNAME + "/");
 		exportModel(TestingUtilities.getExpectedResultsPath() + Ooaofooa.MODELS_DIRNAME + "/");
 	}
+	@Test
 	public void test_odmsGenerics() {
 		importModel(Ooaofooa.MODELS_DIRNAME + "/");
 		exportModel(TestingUtilities.getExpectedResultsPath() + Ooaofooa.MODELS_DIRNAME + "/");
 	}
+	@Test
 	public void test_ooaofooa() { doTest(); }
+	@Test
 	public void test_ooaofgraphics() { doTest(); }
 
+	@Test
 	public void test_asc() { doTest(); }
+	@Test
 	public void test_BP50_evt() { doTest(); }
+	@Test
 	public void test_BP50_evt2() { doTest(); }
+	@Test
 	public void test_br1() { doTest(); }
+	@Test
 	public void test_br2() { doTest(); }
+	@Test
 	public void test_br1f() { doTest(); }
+	@Test
 	public void test_br2f() { doTest(); }
+	@Test
 	public void test_bridges() { doTest(); }
+	@Test
 	public void test_cl() { doTest(); }
+	@Test
 	public void test_dogs() { doTest(); }
+	@Test
 	public void test_enum1() { doTest(); }
+	@Test
 	public void test_enum2() { doTest(); }
+	@Test
 	public void test_enum3() { doTest(); }
+	@Test
 	public void test_enum4() { doTest(); }
+	@Test
 	public void test_event() { doTest(); }
+	@Test
 	public void test_ex1() { doTest(); }
+	@Test
 	public void test_ex2() { doTest(); }
+	@Test
 	public void test_ex3() { doTest(); }
 
+	@Test
 	public void test_G_ALL_G_EVT_LE_precreated() { doTest(); }
+	@Test
 	public void test_G_ALL_R_BRG_tim() { doTest(); }
+	@Test
 	public void test_G_ALL_multiple_exit_return() { doTest(); }
+	@Test
 	public void test_G_ALL_nested_invoke() { doTest(); }
+	@Test
 	public void test_G_ALL_performance_test1() { doTest(); }
+	@Test
 	public void test_G_ALL_performance_test2() { doTest(); }
+	@Test
 	public void test_G_ALL_performance_test3() { doTest(); }
+	@Test
 	public void test_G_ALL_performance_test4() { doTest(); }
+	@Test
 	public void test_G_ALL_performance_test5() { doTest(); }
+	@Test
 	public void test_G_ALL_performance_test6() { doTest(); }
+	@Test
 	public void test_G_ALL_performance_test7() { doTest(); }
+	@Test
 	public void test_G_ALL_select_where_enum() { doTest(); }
+	@Test
 	public void test_G_BRG_G_ALL_interop() { doTest(); }
+	@Test
 	public void test_G_COP_R_ALL_interop() { doTest(); }
+	@Test
 	public void test_G_EVT_PE_G_EVT_NLE_nle_ignored() { doTest(); }
+	@Test
 	public void test_G_IOP_MDA_self_event() { doTest(); }
+	@Test
 	public void test_G_IOP_R_ALL_interop() { doTest(); }
+	@Test
 	public void test_G_MDA_R_ALL_interop() { doTest(); }
+	@Test
 	public void test_G_STE_G_COP_compare_date() { doTest(); }
+	@Test
 	public void test_G_STE_G_EVT_PE_to_creation() { doTest(); }
+	@Test
 	public void test_G_STE_G_STE_pe_le_same_state() { doTest(); }
+	@Test
 	public void test_G_STE_assoc_rel() { doTest(); }
+	@Test
 	public void test_G_STE_del_inst_mult() { doTest(); }
 
+	@Test
 	public void test_im1() { doTest(); }
+	@Test
 	public void test_im2() { doTest(); }
+	@Test
 	public void test_im3() { doTest(); }
+	@Test
 	public void test_im4() { doTest(); }
+	@Test
 	public void test_ims() { doTest(); }
+	@Test
 	public void test_ims2() { doTest(); }
+	@Test
 	public void test_imx() { doTest(); }
+	@Test
 	public void test_init1() { doTest(); }
+	@Test
 	public void test_init2() { doTest(); }
+	@Test
 	public void test_interop_otherdom() { doTest(); }
+	@Test
 	public void test_memleak() { doTest(); }
+	@Test
 	public void test_mt1() { doTest(); }
+	@Test
 	public void test_no_inst() { doTest(); }
+	@Test
 	public void test_poly() { doTest(); }
+	@Test
 	public void test_reflexive() { doTest(); }
+	@Test
 	public void test_select() { doTest(); }
+	@Test
 	public void test_self() { doTest(); }
+	@Test
 	public void test_sm() { doTest(); }
+	@Test
 	public void test_sync() { doTest(); }
+	@Test
 	public void test_syntax() { doTest(); }
+	@Test
 	public void test_trans() { doTest(); }
+	@Test
 	public void test_wim2() { doTest(); }
+	@Test
 	public void test_wim3() { doTest(); }
+	@Test
 	public void test_wims() { doTest(); }
+	@Test
 	public void test_wimx() { doTest(); }
+	@Test
 	public void testImportSyntaxError() throws FileNotFoundException
 	{
 		ImportModel impMod = new ImportModel(m_workspace_path + Ooaofooa.MODELS_DIRNAME + "/badGenerics." + Ooaofooa.MODELS_EXT, modelRoot, m_system, true, true, false); //$NON-NLS-1$
@@ -209,6 +297,7 @@ public class IOMdlTestGenerics extends TestCase {
 		   impMod.m_errorMessage );
 	}
 
+    @Test
     public void testImportOdmsFNF() throws FileNotFoundException {
         String m_errorMessage = null;
         boolean importSuccess = true;
@@ -230,6 +319,7 @@ public class IOMdlTestGenerics extends TestCase {
                 m_errorMessage );
     }
 
+    @Test
     public void testImportOdmsAccessError() {
         String m_errorMessage = null;
         try {
@@ -245,6 +335,7 @@ public class IOMdlTestGenerics extends TestCase {
                 m_errorMessage);
     }
 
+	@Test
 	public void testExportOdmsWithGraphicsFNF()
 	{
 		try {
@@ -265,6 +356,7 @@ public class IOMdlTestGenerics extends TestCase {
 							+ "odms.xxx (" + systemError + ")", f.toString()); //$NON-NLS-1$
 		}
 	}
+	@Test
 	public void testExportOdmsWithGraphicsAccessError()
 	{
 		boolean accessError = false;
@@ -291,6 +383,7 @@ public class IOMdlTestGenerics extends TestCase {
 		assertTrue("access error did not occur", accessError);//$NON-NLS-1$
 	}
 	
+    @Test
     public void testExportOdmsWithGraphics()
     {
         m_domain_name = "odmsGenerics";

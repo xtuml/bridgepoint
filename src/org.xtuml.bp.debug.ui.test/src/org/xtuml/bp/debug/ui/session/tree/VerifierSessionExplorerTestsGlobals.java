@@ -32,7 +32,10 @@ import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.ui.PlatformUI;
-
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.Component_c;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.Function_c;
@@ -49,10 +52,12 @@ import org.xtuml.bp.debug.ui.launch.BPDebugUtils;
 import org.xtuml.bp.debug.ui.test.DebugUITestUtilities;
 import org.xtuml.bp.test.TestUtil;
 import org.xtuml.bp.test.common.BaseTest;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.test.common.TestingUtilities;
 import org.xtuml.bp.test.common.UITestingUtilities;
 import org.xtuml.bp.ui.session.views.SessionExplorerView;
 
+@RunWith(OrderedRunner.class)
 public class VerifierSessionExplorerTestsGlobals extends BaseTest {
 
 	private static String projectName = "VerifierInterfaceExecutionTests";
@@ -64,7 +69,8 @@ public class VerifierSessionExplorerTestsGlobals extends BaseTest {
 	}
 
 	@Override
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
     if (!initialized)
       delayGlobalUpgrade = true;
 		super.setUp();
@@ -127,10 +133,12 @@ public class VerifierSessionExplorerTestsGlobals extends BaseTest {
 		}
 	}
 
+	@After
 	public void tearDown() throws Exception {
 		DebugUITestUtilities.stopSession(m_sys, projectName);
 	}
 	
+	@Test
 	public void testComponentsInSessionExplorerTree() {
     Package_c cp = Package_c.getOneEP_PKGOnR1405(m_sys, new ClassQueryInterface_c() {
       
@@ -167,6 +175,7 @@ public class VerifierSessionExplorerTestsGlobals extends BaseTest {
 		assertEquals(expected_results, result);
 	}
 	
+	@Test
 	public void testDeleteDisabledForModelElement() {
     Package_c cp = Package_c.getOneEP_PKGOnR1405(m_sys, new ClassQueryInterface_c() {
       
@@ -201,6 +210,7 @@ public class VerifierSessionExplorerTestsGlobals extends BaseTest {
 				UITestingUtilities.getMenuItem(menu, "Delete") == null);
 	}
 
+	@Test
 	public void testRenameDisabledForModelElement() {
     Package_c cp = Package_c.getOneEP_PKGOnR1405(m_sys, new ClassQueryInterface_c() {
       
@@ -235,6 +245,7 @@ public class VerifierSessionExplorerTestsGlobals extends BaseTest {
 				UITestingUtilities.getMenuItem(menu, "Rename") == null);
 	}
 	
+	@Test
 	public void testInstanceViewingAndNavigation() {
     Package_c cp = Package_c.getOneEP_PKGOnR1405(m_sys, new ClassQueryInterface_c() {
       

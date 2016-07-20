@@ -40,12 +40,15 @@ import org.eclipse.gmf.runtime.draw2d.ui.geometry.PointListUtilities;
 import org.eclipse.gmf.runtime.draw2d.ui.internal.routers.OrthogonalRouterUtilities;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.ui.PlatformUI;
-
+import org.junit.After;
+import org.junit.Before;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.common.BridgePointPreferencesStore;
 import org.xtuml.bp.core.common.NonRootModelElement;
 import org.xtuml.bp.core.ui.Selection;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.test.common.UITestingUtilities;
 import org.xtuml.bp.ui.canvas.Connector_c;
 import org.xtuml.bp.ui.canvas.GraphicalElement_c;
@@ -60,6 +63,7 @@ import org.xtuml.bp.ui.graphics.parts.DiagramEditPart;
 import org.xtuml.bp.ui.graphics.parts.ShapeEditPart;
 import org.xtuml.bp.utilities.ui.CanvasUtilities;
 
+@RunWith(OrderedRunner.class)
 public class RectilinearRoutingTests extends CanvasTest {
 	public static boolean generateResults = false;
 	public static boolean useDrawResults = false;
@@ -83,14 +87,15 @@ public class RectilinearRoutingTests extends CanvasTest {
 	}
 
 	public RectilinearRoutingTests(String subTypeClassName, String subTypeArg0) {
-		super(null, subTypeArg0);
+		super(null, null);
 	}
 
 	protected String getTestId(String src, String dest, String count) {
 		return "test_" + count;
 	}
 
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		super.setUp();
 		Ooaofooa.disableChangeNotification();
 		Ooaofooa.setPersistEnabled(false);
@@ -120,7 +125,8 @@ public class RectilinearRoutingTests extends CanvasTest {
 			;
 	}
 
-	protected void tearDown() throws Exception {
+	@After
+	public void tearDown() throws Exception {
 		if(fActiveEditor != null) {
 			Model_c model = fActiveEditor.getModel();
 			GraphicalElement_c[] elements = GraphicalElement_c
@@ -144,7 +150,7 @@ public class RectilinearRoutingTests extends CanvasTest {
 	public String getName() {
 		StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
 		for(StackTraceElement trace : stackTrace) {
-			if(trace.getMethodName().contains("doTest")) {
+			if(trace.getMethodName().contains("test")) {
 				return trace.getMethodName();
 			}
 		}

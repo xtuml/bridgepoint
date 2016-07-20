@@ -26,13 +26,14 @@ import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.PlatformUI;
-
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.CorePlugin;
-import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.Operation_c;
 import org.xtuml.bp.core.UserDataType_c;
 import org.xtuml.bp.core.ui.Selection;
-import org.xtuml.bp.test.common.BaseTest;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.ui.text.activity.ActivityEditor;
 import org.xtuml.bp.ui.text.activity.ActivityEditorInputFactory;
 import org.xtuml.bp.ui.text.description.DescriptionEditor;
@@ -41,21 +42,27 @@ import org.xtuml.bp.ui.text.test.UITextTest;
 import org.xtuml.bp.ui.text.test.activity.ActivityEditorInteraction;
 import org.xtuml.bp.ui.text.test.description.DescriptionEditorInteraction;
 
+@RunWith(OrderedRunner.class)
 public class PlaceholderLifecyleForDeleteModelElementTest extends UITextTest {
+
+	public PlaceholderLifecyleForDeleteModelElementTest() throws CoreException {
+		super();
+	}
 
 	private static boolean firstSetup = true;
 	private static String testModelName = "testDescrip1";
 	
-	public PlaceholderLifecyleForDeleteModelElementTest(String projectName,
-			String name) throws CoreException {
-		super(null, name);
-	}
+//	public PlaceholderLifecyleForDeleteModelElementTest(String projectName,
+//			String name) throws CoreException {
+//		super(null, name);
+//	}
+//
+//	public PlaceholderLifecyleForDeleteModelElementTest(String name) throws CoreException {
+//		super(null, name);
+//	}
 
-	public PlaceholderLifecyleForDeleteModelElementTest(String name) throws CoreException {
-		super(null, name);
-	}
-
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		super.setUp();
 		if (firstSetup) {
 			loadProject(testModelName);
@@ -67,6 +74,7 @@ public class PlaceholderLifecyleForDeleteModelElementTest extends UITextTest {
 		}
 	}
 
+	@Test
 	public void testLifecycleForDescriptionEditor(){
 		UserDataType_c udt = UserDataType_c.UserDataTypeInstance(modelRoot);
 		
@@ -103,6 +111,7 @@ public class PlaceholderLifecyleForDeleteModelElementTest extends UITextTest {
 		assertFalse(file.exists());
 	}
 	
+	@Test
 	public void testLifecycleForActivityEditor(){
 		Operation_c op = Operation_c.OperationInstance(modelRoot);
 		

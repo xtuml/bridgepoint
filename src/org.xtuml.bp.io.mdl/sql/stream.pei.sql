@@ -37,7 +37,8 @@ INSERT INTO EO VALUES ( '24.10.15',  '1.6.4.1.1', '24.10.16',  'External Entity'
 INSERT INTO EO VALUES ( '24.10.16',  '1.7.4.1.1', '24.10.17',  'Function', 8001, 'one', 'first', false );
 INSERT INTO EO VALUES ( '24.10.17',  '6.2.8.1', '24.10.18',  'Use Case Association', 8001, 'one', 'first', false );
 INSERT INTO EO VALUES ( '24.10.18',  '',        '24.10.19',  'Satisfaction', 8001, 'one', 'first', false );
-INSERT INTO EO VALUES ( '24.10.19',  '12.4.9.1.1', '',       'Delegation', 8001, 'one', 'first', false );
+INSERT INTO EO VALUES ( '24.10.19',  '12.4.9.1.1', '24.10.20',       'Delegation', 8001, 'one', 'first', false );
+INSERT INTO EO VALUES ( '24.10.20',  '', '',                       'Exception', 8001, 'one', 'first', true );
 
 INSERT INTO EO VALUES ( '12.4.1',       '',    '12.4.3',     'ComponentDiagram', 0, '', 'first', false );
 INSERT INTO EO VALUES ( '12.4.3',     '12.4.3.1',  '12.4.9',      'Port', 4010, 'many', 'first', false );             

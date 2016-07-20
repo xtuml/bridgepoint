@@ -23,14 +23,24 @@
 package org.xtuml.bp.io.mdl.test.pkgcm;
 
 import org.eclipse.core.runtime.CoreException;
-
+import org.junit.Before;
+import org.junit.Rule;
+import org.junit.Test;
+import org.junit.rules.TestName;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.Ooaofooa;
-import org.xtuml.bp.test.common.BaseTest;
-import org.xtuml.bp.test.common.TestingUtilities;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.ui.canvas.Ooaofgraphics;
 
+@RunWith(OrderedRunner.class)
 public class PkgCMRenameTestGenerics extends RenameTest {
+
+	@Rule public TestName name = new TestName();
+	
+	public String getName(){
+		return name.getMethodName();
+	}
 
     protected static  String projectName="MultiLevelModelSystem";
     protected static  String mdlClassUnderTest="X";
@@ -38,15 +48,17 @@ public class PkgCMRenameTestGenerics extends RenameTest {
     protected static  String subsysInSubsysUnderTest="SSInSS1";
     protected static  String eepUnderTest="EEP1";
     
-    public PkgCMRenameTestGenerics(String name) {
-        this(projectName, name);
-    }
-    public PkgCMRenameTestGenerics(String projName,String name) {
-        super(projName, name);
+    public PkgCMRenameTestGenerics() {
+        super(projectName, null);
         showModelExplorer();
     }
+//    public PkgCMRenameTestGenerics() {
+//        super(projName, null);
+//        showModelExplorer();
+//    }
     protected static boolean firstTime=true;
-    protected void setUp() throws Exception {
+    @Before
+	public void setUp() throws Exception {
         super.setUp();
         CorePlugin.disableParseAllOnResourceChange();
         setupProjectAndTestModel();
@@ -82,21 +94,24 @@ public class PkgCMRenameTestGenerics extends RenameTest {
 
 /*  Rename components through Model Explorer : start */  
 //  Domain
-    public void testRenameDomain_ThruME_NoEditor() throws Exception{
+    @Test
+	public void testRenameDomain_ThruME_NoEditor() throws Exception{
         performRenameComponentThruMEGenerics("Package",null,EditorTestUtilities.EDITOR_TYPE_NONE, false,0);
     }
     /**
      * Focused     : Canvas Editor
      * Not Focused : Description Editor
      */
-    public void testRenameDomain_ThruME_CanvasFocused() throws Exception{
+    @Test
+	public void testRenameDomain_ThruME_CanvasFocused() throws Exception{
         performRenameComponentThruMEGenerics("Package",null, EditorTestUtilities.EDITOR_TYPE_CANVAS, false, 2);
     }
     /**
      * Focused     : Description Editor
      * Not Focused : Canvas Editor
      */
-    public void testRenameDomain_ThruME_DescFocused() throws Exception{
+    @Test
+	public void testRenameDomain_ThruME_DescFocused() throws Exception{
         performRenameComponentThruMEGenerics("Package",null, EditorTestUtilities.EDITOR_TYPE_DESC, false, 2);
     }
     
@@ -105,7 +120,8 @@ public class PkgCMRenameTestGenerics extends RenameTest {
      * Focused     : Canvas Editor
      * Not Focused : Description Editor
      */
-    public void testRenameSubSystem_ThruME_CanvasFocused() throws Exception{
+    @Test
+	public void testRenameSubSystem_ThruME_CanvasFocused() throws Exception{
         performRenameComponentThruMEGenerics("Package",null, EditorTestUtilities.EDITOR_TYPE_CANVAS, false, 2);
     }
 
@@ -113,10 +129,12 @@ public class PkgCMRenameTestGenerics extends RenameTest {
      * Focused     : Description Editor
      * Not Focused : Canvas Editor
      */
-    public void testRenameSubSystem_ThruME_DescFocused() throws Exception{
+    @Test
+	public void testRenameSubSystem_ThruME_DescFocused() throws Exception{
         performRenameComponentThruMEGenerics("Package",null, EditorTestUtilities.EDITOR_TYPE_DESC, false, 2);
     }
-    public void testRenameSubSystem_ThruME_NoEditor() throws Exception{
+    @Test
+	public void testRenameSubSystem_ThruME_NoEditor() throws Exception{
         performRenameComponentThruMEGenerics("Package",null, EditorTestUtilities.EDITOR_TYPE_NONE, false, 0);
     }
     //EEP in Pkg
@@ -124,7 +142,8 @@ public class PkgCMRenameTestGenerics extends RenameTest {
      * Focused     : Canvas Editor
      * Not Focused : None
      */
-    public void testRenameEEPinPkg_ThruME_CanvasFocused() throws Exception{
+    @Test
+	public void testRenameEEPinPkg_ThruME_CanvasFocused() throws Exception{
         performRenameComponentThruMEGenerics("Package",eepUnderTest, EditorTestUtilities.EDITOR_TYPE_CANVAS, false,2);
         if(toRunTests())//avoid to rename in setup pass
         eepUnderTest+="_n";
@@ -134,12 +153,14 @@ public class PkgCMRenameTestGenerics extends RenameTest {
      * Focused     : None
      * Not Focused : Canvas Editor
      */
-    public void testRenameEEPinPkg_ThruME_CanvasNotFocused() throws Exception{
+    @Test
+	public void testRenameEEPinPkg_ThruME_CanvasNotFocused() throws Exception{
         performRenameComponentThruMEGenerics("Package",eepUnderTest, EditorTestUtilities.EDITOR_TYPE_CANVAS, true, 2);
         if(toRunTests())//avoid to rename in setup pass
         eepUnderTest+="_n";
     }
-    public void testRenameEEPinPkg_ThruME_NoEditor() throws Exception{
+    @Test
+	public void testRenameEEPinPkg_ThruME_NoEditor() throws Exception{
         performRenameComponentThruMEGenerics("Package",eepUnderTest, EditorTestUtilities.EDITOR_TYPE_NONE, false, 0);
         if(toRunTests())//avoid to rename in setup pass
         eepUnderTest+="_n";
@@ -149,7 +170,8 @@ public class PkgCMRenameTestGenerics extends RenameTest {
      * Focused     : Canvas Editor
      * Not Focused : Description Editor
      */
-    public void testRenameSubSystemInSubsys_ThruME_CanvasFocused() throws Exception{
+    @Test
+	public void testRenameSubSystemInSubsys_ThruME_CanvasFocused() throws Exception{
         performRenameComponentThruMEGenerics("Package",subsysInSubsysUnderTest, EditorTestUtilities.EDITOR_TYPE_CANVAS, false, 2);
         if(toRunTests())//avoid to rename in setup pass
         subsysInSubsysUnderTest+="_n";
@@ -159,12 +181,14 @@ public class PkgCMRenameTestGenerics extends RenameTest {
      * Focused     : Description Editor
      * Not Focused : Canvas Editor
      */
-    public void testRenameSubSysteInSubsysm_ThruME_DescFocused() throws Exception{
+    @Test
+	public void testRenameSubSysteInSubsysm_ThruME_DescFocused() throws Exception{
         performRenameComponentThruMEGenerics("Package",subsysInSubsysUnderTest, EditorTestUtilities.EDITOR_TYPE_DESC, false, 2);
         if(toRunTests())//avoid to rename in setup pass
         subsysInSubsysUnderTest+="_n";
     }
-    public void testRenameSubSystemInSubsys_ThruME_NoEditor() throws Exception{
+    @Test
+	public void testRenameSubSystemInSubsys_ThruME_NoEditor() throws Exception{
         performRenameComponentThruMEGenerics("Package",subsysInSubsysUnderTest, EditorTestUtilities.EDITOR_TYPE_NONE, false, 0);
         if(toRunTests())//avoid to rename in setup pass
         subsysInSubsysUnderTest+="_n";
@@ -176,7 +200,8 @@ public class PkgCMRenameTestGenerics extends RenameTest {
      * Focused     : Canvas Editor
      * Not Focused : None
      */
-    public void testRenameDatatypePackageInPkg_ThruME_CanvasFocused() throws Exception{
+    @Test
+	public void testRenameDatatypePackageInPkg_ThruME_CanvasFocused() throws Exception{
         performRenameComponentThruMEGenerics("Package", dtpUnderTest, EditorTestUtilities.EDITOR_TYPE_CANVAS, false, 2);
         if(toRunTests())//avoid to rename in setup pass
         dtpUnderTest+="_n";
@@ -186,12 +211,14 @@ public class PkgCMRenameTestGenerics extends RenameTest {
      * Focused     : None
      * Not Focused : Canvas Editor
      */
-    public void testRenameDatatypePackageInPkg_ThruME_CanvasNotFocused() throws Exception{
+    @Test
+	public void testRenameDatatypePackageInPkg_ThruME_CanvasNotFocused() throws Exception{
         performRenameComponentThruMEGenerics("Package", dtpUnderTest, EditorTestUtilities.EDITOR_TYPE_CANVAS, true, 2);
         if(toRunTests())//avoid to rename in setup pass
         dtpUnderTest+="_n";
     }
-    public void testRenameDatatypePackageInPkg_ThruME_NoEditor() throws Exception{
+    @Test
+	public void testRenameDatatypePackageInPkg_ThruME_NoEditor() throws Exception{
         performRenameComponentThruMEGenerics("Package", dtpUnderTest, EditorTestUtilities.EDITOR_TYPE_NONE, false, 0);
         if(toRunTests())//avoid to rename in setup pass
         dtpUnderTest+="_n";
@@ -201,7 +228,8 @@ public class PkgCMRenameTestGenerics extends RenameTest {
      * Focused     : Canvas Editor
      * Not Focused : Description Editor
      */
-    public void testRenameModelClass_ThruME_CanvasFocused() throws Exception{
+    @Test
+	public void testRenameModelClass_ThruME_CanvasFocused() throws Exception{
         performRenameComponentThruMEGenerics("ModelClass", mdlClassUnderTest, EditorTestUtilities.EDITOR_TYPE_CANVAS, false, 5);
         if(toRunTests())//avoid to rename in setup pass
         mdlClassUnderTest+="_n";
@@ -211,12 +239,14 @@ public class PkgCMRenameTestGenerics extends RenameTest {
      * Focused     : Description Editor
      * Not Focused : Canvas Editor
      */
-    public void testRenameModelClass_ThruME_DescFocused() throws Exception{
+    @Test
+	public void testRenameModelClass_ThruME_DescFocused() throws Exception{
         performRenameComponentThruMEGenerics("ModelClass", mdlClassUnderTest, EditorTestUtilities.EDITOR_TYPE_DESC, false, 5);
         if(toRunTests())//avoid to rename in setup pass
         mdlClassUnderTest+="_n";
     }
-    public void testRenameModelClass_ThruME_NoEditor() throws Exception{
+    @Test
+	public void testRenameModelClass_ThruME_NoEditor() throws Exception{
         performRenameComponentThruMEGenerics("ModelClass", mdlClassUnderTest, EditorTestUtilities.EDITOR_TYPE_NONE, false, 0);
         if(toRunTests())//avoid to rename in setup pass
             mdlClassUnderTest+="_n";
@@ -236,7 +266,8 @@ public class PkgCMRenameTestGenerics extends RenameTest {
      * Focused     : Canvas Editor
      * Not Focused : Description Editor
      */
-    public void testRenameSubSystemInSubsys_ThruCE() throws Exception{
+    @Test
+	public void testRenameSubSystemInSubsys_ThruCE() throws Exception{
         performRenameComponentThruCEGenerics("Package",subsysInSubsysUnderTest, 2);
         if(toRunTests())//avoid to rename in setup pass
         subsysInSubsysUnderTest+="_n";
@@ -245,7 +276,8 @@ public class PkgCMRenameTestGenerics extends RenameTest {
      * Focused     : Canvas Editor
      * Not Focused : None
      */
-    public void testRenameDatatypePackageInPkg_ThruCE() throws Exception{
+    @Test
+	public void testRenameDatatypePackageInPkg_ThruCE() throws Exception{
         performRenameComponentThruCEGenerics("Package", dtpUnderTest, 2);
         if(toRunTests())//avoid to rename in setup pass
         dtpUnderTest+="_n";
@@ -255,7 +287,8 @@ public class PkgCMRenameTestGenerics extends RenameTest {
      * Focused     : Canvas Editor
      * Not Focused : None
      */
-    public void testRenameEEPinPkg_ThruCE() throws Exception{
+    @Test
+	public void testRenameEEPinPkg_ThruCE() throws Exception{
         performRenameComponentThruCEGenerics("Package",eepUnderTest, 2);
         if(toRunTests())//avoid to rename in setup pass
         eepUnderTest+="_n";
@@ -265,7 +298,8 @@ public class PkgCMRenameTestGenerics extends RenameTest {
      * Focused     : Canvas Editor
      * Not Focused : Description Editor
      */
-    public void testRenameModelClass_ThruCE() throws Exception{
+    @Test
+	public void testRenameModelClass_ThruCE() throws Exception{
         performRenameComponentThruCEGenerics("ModelClass", mdlClassUnderTest, 5);
         if(toRunTests())//avoid to rename in setup pass
             mdlClassUnderTest+="_n";
@@ -282,17 +316,20 @@ public class PkgCMRenameTestGenerics extends RenameTest {
      * Focused     : Canvas Editor
      * Not Focused : None
      */
-    public void testRenameEEPinPkg_ThruRN_CanvasFocused() throws Exception{
+    @Test
+	public void testRenameEEPinPkg_ThruRN_CanvasFocused() throws Exception{
         performRenameComponentThruRNGenerics("Package",eepUnderTest,EditorTestUtilities.EDITOR_TYPE_CANVAS,false, 3);
 }
      /**
      * Focused     : None
      * Not Focused : Canvas Editor
      */
-    public void testRenameEEPinPkg_ThruRN_CanvasNotFocused() throws Exception{
+    @Test
+	public void testRenameEEPinPkg_ThruRN_CanvasNotFocused() throws Exception{
         performRenameComponentThruRNGenerics("Package",eepUnderTest,EditorTestUtilities.EDITOR_TYPE_CANVAS,true, 3);
     }
-    public void testRenameEEPinPkg_ThruRN_NoEditor() throws Exception{
+    @Test
+	public void testRenameEEPinPkg_ThruRN_NoEditor() throws Exception{
         performRenameComponentThruRNGenerics("Package",eepUnderTest,EditorTestUtilities.EDITOR_TYPE_NONE,false, 0);
     }
     
@@ -337,17 +374,20 @@ public class PkgCMRenameTestGenerics extends RenameTest {
      * Focused     : Canvas Editor
      * Not Focused : Description Editor
      */
-    public void testRenameSubSystem_ThruRN_CanvasFocused() throws Exception{
+    @Test
+	public void testRenameSubSystem_ThruRN_CanvasFocused() throws Exception{
         performRenameComponentThruRNGenerics("Package",null,EditorTestUtilities.EDITOR_TYPE_CANVAS,false, 2);
     }
     /**
      * Focused     : Description Editor
      * Not Focused : Canvas Editor
      */
-    public void testRenameSubSystem_ThruRN_DescFocused() throws Exception{
+    @Test
+	public void testRenameSubSystem_ThruRN_DescFocused() throws Exception{
         performRenameComponentThruRNGenerics("Package",null,EditorTestUtilities.EDITOR_TYPE_DESC,false, 2);
     }
-    public void testRenameSubSystem_ThruRN_NoEditor() throws Exception{
+    @Test
+	public void testRenameSubSystem_ThruRN_NoEditor() throws Exception{
         performRenameComponentThruRNGenerics("Package",null,EditorTestUtilities.EDITOR_TYPE_NONE,false, 0);
     }
     //  DTPinPkg
@@ -355,17 +395,20 @@ public class PkgCMRenameTestGenerics extends RenameTest {
      * Focused     : Canvas Editor
      * Not Focused : None
      */
-    public void testRenameDatatypePackageInPkg_ThruRN_CanvasFocused() throws Exception{
+    @Test
+	public void testRenameDatatypePackageInPkg_ThruRN_CanvasFocused() throws Exception{
         performRenameComponentThruRNGenerics("Package", dtpUnderTest,EditorTestUtilities.EDITOR_TYPE_CANVAS,false, 2);
     }
     /**
      * Focused     : None
      * Not Focused : Canvas Editor
      */
-    public void testRenameDatatypePackageInPkg_ThruRN_CanvasNotFocused() throws Exception{
+    @Test
+	public void testRenameDatatypePackageInPkg_ThruRN_CanvasNotFocused() throws Exception{
         performRenameComponentThruRNGenerics("Package", dtpUnderTest,EditorTestUtilities.EDITOR_TYPE_CANVAS,true, 2);
     }
-    public void testRenameDatatypePackageInPkg_ThruRN_NoEditor() throws Exception{
+    @Test
+	public void testRenameDatatypePackageInPkg_ThruRN_NoEditor() throws Exception{
         performRenameComponentThruRNGenerics("Package", dtpUnderTest,EditorTestUtilities.EDITOR_TYPE_NONE,false, 0);
     }
     
@@ -374,20 +417,25 @@ public class PkgCMRenameTestGenerics extends RenameTest {
      * Focused     : Canvas Editor
      * Not Focused : Description Editor
      */
-    public void testRenameDomain_ThruRN_CanvasFocused() throws Exception{
+    @Test
+	public void testRenameDomain_ThruRN_CanvasFocused() throws Exception{
         performRenameComponentThruRNGenerics("Package", null,EditorTestUtilities.EDITOR_TYPE_CANVAS,false, 2);
     }
-    public void testRenameDomain_ThruRN_DescFocused() throws Exception{
+    @Test
+	public void testRenameDomain_ThruRN_DescFocused() throws Exception{
         performRenameComponentThruRNGenerics("Package", null,EditorTestUtilities.EDITOR_TYPE_DESC,false, 2);
     }
-    public void testRenameDomain_ThruRN_NoEditor() throws Exception{
+    @Test
+	public void testRenameDomain_ThruRN_NoEditor() throws Exception{
         performRenameComponentThruRNGenerics("Package", null,EditorTestUtilities.EDITOR_TYPE_NONE,false, 0);
     }
-    public void testRenameSystem_ThruRN_NoEditor() throws Exception{
+    @Test
+	public void testRenameSystem_ThruRN_NoEditor() throws Exception{
         performRenameComponentThruRNGenerics("SystemModel",projectName,EditorTestUtilities.EDITOR_TYPE_NONE,false, 0);
     }
 //  System
-    public void testRenameSystem_ThruME_NoEditor() throws Exception{
+    @Test
+	public void testRenameSystem_ThruME_NoEditor() throws Exception{
         performRenameComponentThruMEGenerics("SystemModel",projectName, EditorTestUtilities.EDITOR_TYPE_NONE, false, 0);
         if(toRunTests())//avoid to rename in setup pass
         projectName+="_n"; //projectName changed for coming tests

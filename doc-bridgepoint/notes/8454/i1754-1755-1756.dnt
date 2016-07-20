@@ -1,0 +1,223 @@
+Skip to content
+This repository
+Search
+Pull requests
+Issues
+Gist
+ @rmulvey
+ Unwatch 11
+  Star 0
+ Fork 1 xtuml/internal PRIVATE
+ Code  Issues 71  Pull requests 4  Wiki  Pulse  Graphs  Settings
+Tree: 71c842bdcd Find file Copy pathinternal/Documentation_archive/20090903/technical/Persistence/i1754-1755-1756.dnt
+71c842b  on Jun 29, 2015
+@travislondon travislondon Introduce documentation archive to github
+1 contributor
+RawBlameHistory     206 lines (159 sloc)  8.04 KB
+========================================================================
+
+File:      $RCSfile: i1754-1755-1756.dnt,v $
+Version:   $Revision: 1.1 $
+Modified:  $Date: 2009/09/03 18:22:28 $
+
+(c) Copyright 2005-2009 by Mentor Graphics Corp. All rights reserved.
+
+========================================================================
+This document contains information proprietary and confidential to
+Mentor Graphics Corp., and is not for external distribution.
+========================================================================
+
+Tiger Project Design Note
+New Persistence policy
+
+Abstract
+--------
+This note describes the changes required to implement the new proxy policy as
+defined in the PLCM analysis note [2].
+
+History
+-------
+update i1754-i1755-i1756-041206-01.rvm
+
+Document References
+-------------------
+[1] Documentation/Persistence/i1757.tnt
+[2] Documentation/Persistence/i845-PLCM_1_0.ant
+[3] BZ Issue 1754
+[4] BZ Issue 1755
+[5] BZ Issue 1756
+
+Background
+----------
+Information about the previous proxy policy can be found in the PLCM analysis
+note [2] under section 3.10.  The decision was made to change the 
+policy in order to create a cleaner and simpler implementation.   
+
+Analysis
+--------
+Currently we have multiple proxy persistence policies [2] section 3.10.  It was
+decided in the PLCM analysis [2] to create a uniform proxy policy.  
+According to this new proxy policy [2] section 3.10.2.1, proxies will only be 
+created for parent classes (RTO classes) and they will be held in the child 
+class (RGO class).
+
+Design
+------
+1. Link classes when used in a containment relationship such as "Subsystem In 
+   Subsystem" or "Subsystem in Domain" are configured to be stored in the child 
+   component.    
+
+1.1 file.pei.sql changes.
+    There will be two instances of the Link class in the EO table. The first
+    (existing) is used to maintain and traverse the persistence hierarchy
+    (not persisted).  The second will be used to store it in the component
+    containing the many-side class element of the association.
+
+1.2 To prevent persistence(1.1) set the value of the WritePosition attribute to
+    "none" in the first insert statement (existing) of the association class.
+    
+2.  Proxies will only be created for the RTO classes.
+
+2.1 Remove the containment proxy code in the gen_export.inc.
+
+2.2 To prevent dangling reference proxy from persistence[1] section 10, Add a
+    check to prevent writing of proxies where a real instance is expected in
+    write_sql function.
+   
+3.  Update Persistable Model Component and Manager.
+ 
+3.1 Update Persistable Model Component and Manager as given in [1] section 9.
+
+3.2 During RTO to RGO navigations we have to find the appropriate components. A 
+    sorted map of components will be maintained to satisfy the querying of 
+    components. Earlier we were using ArrayList. Sequential search on this list
+    was very slow. So, SortedMap is used to optimize searching of component by
+    path.
+3.3 Components will be created and added to the list at tool startup.
+
+3.4 New components are added to the component list when new files are added to
+    the workspace.
+
+3.5 Components will be removed from the component list when component file is 
+    removed from the workspace.
+        
+4.  Lazy Loading
+    
+4.1 Change the navigation methods to support new proxy policy [1] section 3 and 
+    4.
+    
+4.2 Disabling lazy loading
+    Lazy loading is undesirable during component unload. Following are some of 
+    the possible reasons that we need a mechanism to disable lazy loading.
+    
+    a) Lazy loading during component unload can cause heterogeneous loading of
+       components.
+       
+    b) During component unload we have to find whether an element being removed is
+       a proxy candidate. To determine this RGOs should be looked in the memory. With lazy
+       loading enabled finding RGOs can lead to heterogeneous loading of
+       components.
+       
+    c) Export
+       Export code should not cause other components to be loaded. It can cause to
+       load other components when it navigates to its proxy instances.
+       
+    d) Import Code
+       Import code can cause an infinite recursive load loop if lazy loading is
+       not disabled. Resolving any model elements against its insert statement
+       will try to load all the components containing elements of given type 
+       including the component being loaded.
+       
+    e) Compare   
+       In PLCM we are comparing a single component, there is no need to load
+       other components in the compare code.
+       
+    To disable lazy loading, an overridden method for all methods that can cause
+    lazy loading is provided. We already have many
+    overridden  methods to disable lazy loading (ex Navigation methods).
+
+4.3 Remove unnecessary lazy loading code
+    According to our new proxy policy; Navigation from RTO to RGO(s) will cause
+    the finding and loading of all possible components containing RGO 
+    components.
+    We have following drawbacks with this approach.
+    a) The comparison for finding the appropriate components is string based 
+       (Path).  This takes too much time in navigation methods.
+    b) Many RTO->RGO navigations cause unnecessary loading of RGO components.
+       (Ex. ModelClass to Operation on 115, ModelClass to Attribute on 102). 
+       So, a ModelClass navigating to its Attributes will cause all 
+       ModelClass components to be loaded.
+       
+     Therefore, we need to generate lazy loading code only for the truly cross 
+     component relations.
+
+4.4 How to determine if a given relation is truly cross component?
+    1) If a given relation is a containment relation, it is cross component.
+    2) For a given relation get the class at both ends of the relation. 
+       Using export ordering, find the root model element for both of the 
+       classes. If the root model elements of both the classes is the same, it  
+       is assumed that they are contained in the same component.  
+    3) We do have exceptions to this assumption. Those elements will be
+       explicitly marked as cross-component.
+
+5.  Update the affected unit tests.
+    
+6.  ComponentTransactionListener changes
+    The component for the newly created graphical elements(Persistable) is never 
+    set until the component is reloaded. This is not the desired behavior. This
+    is also causing many tests to fail. Graphical model element filter is
+    removed to allow the processing of new event for the graphical elements in
+    the ComponentTransactionListener class.
+  
+7.  Regenerate models with the new format
+
+Unit Test
+---------
+_- Run all unit tests
+_R All unit test pass
+
+End
+---
+$Log: i1754-1755-1756.dnt,v $
+Revision 1.1  2009/09/03 18:22:28  rmulvey
+job:dts0100616734
+Archive documentation and other development notes following the R3_0_0 release.  These are being archived under Documentation/internal/technical/archive/20090903
+
+Revision 1.12  2009/01/01 23:13:08  rmulvey
+Job:4060
+Batch promotion of copyright changes from Review-i4060 and Review-i4060-01.
+
+Revision 1.11.24.1  2008/12/31 16:10:11  rmulvey
+Job:4060
+This is a batch commit of 2009 copyright changes to branch Review-i4060.  This includes the
+report that outlines all changes made (before/after for each line changed).  This report is found here: <cvs>/Documentation/internal/test_results/R2_1_2/i4060/update-copyright-results.txt.
+
+Revision 1.11  2006/04/13 07:04:23  araza
+Job:1754
+Addressed review meeting observations
+
+Revision 1.10  2006/04/12 13:06:07  araza
+Job:1754
+Corrected some gramatic errors.
+
+Revision 1.8  2006/04/12 12:00:00  araza
+Job:1754
+Stated where lazy loading is not required.
+
+Revision 1.6  2006/04/12 06:39:36  araza
+Job:1754
+Addressed Bob's pre-review comments. Arranged sections.
+
+Revision 1.5  2006/04/12 06:16:18  araza
+Job:1754
+Addressed Bob's review comments.
+
+Revision 1.4  2006/04/10 16:02:54  rmulvey
+Job:1754
+Minor changes during pre-review.
+
+Revision 1.3  2006/04/10 15:38:20  araza
+Job:1754
+Arranged Design section.
+Status API Training Shop Blog About
+© 2016 GitHub, Inc. Terms Privacy Security Contact Help

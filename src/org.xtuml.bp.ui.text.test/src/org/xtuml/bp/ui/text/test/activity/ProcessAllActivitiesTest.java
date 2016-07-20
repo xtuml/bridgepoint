@@ -22,31 +22,33 @@
 
 package org.xtuml.bp.ui.text.test.activity;
 
-import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.ILogListener;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.jface.text.BadLocationException;
-
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.CorePlugin;
-import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.Package_c;
-import org.xtuml.bp.test.TestUtil;
 import org.xtuml.bp.test.common.BaseTest;
-import org.xtuml.bp.test.common.TestingUtilities;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.ui.text.activity.AllActivityModifier;
 
+@RunWith(OrderedRunner.class)
 public class ProcessAllActivitiesTest extends BaseTest {
 	
 	private static boolean firstSetup = true;
 	private static String testModelName = "i592_ProcessAllActivitiesTest";
 	
-	public ProcessAllActivitiesTest(String name) throws Exception {
-		super(null, name); //$NON-NLS-1$
-	}
+//	public ProcessAllActivitiesTest(String name) throws Exception {
+//		super(null, name); //$NON-NLS-1$
+//	}
 	
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		super.setUp();
 		
         // make sure the user isn't prompted to do a parse all
@@ -65,6 +67,7 @@ public class ProcessAllActivitiesTest extends BaseTest {
     boolean errorLogged = false;
     
 	Throwable badLocEx= null;
+	@Test
 	public void testProcessAllActivitiesNPE() throws Throwable{
         AllActivityModifier aam = new AllActivityModifier(Package_c.PackageInstance(modelRoot), new NullProgressMonitor());
 		class UITextLogListener implements ILogListener{
@@ -83,7 +86,8 @@ public class ProcessAllActivitiesTest extends BaseTest {
         Platform.removeLogListener(ll);
 	}
 	
-	protected void tearDown() throws Exception {
+	@After
+	public void tearDown() throws Exception {
 		super.tearDown();
 	}
 }

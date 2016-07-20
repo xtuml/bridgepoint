@@ -22,24 +22,27 @@
 package org.xtuml.bp.ui.canvas.test;
 
 import org.eclipse.ui.PlatformUI;
-
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.Package_c;
 import org.xtuml.bp.core.common.Transaction;
 import org.xtuml.bp.core.common.TransactionManager;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.test.common.TestingUtilities;
 import org.xtuml.bp.test.common.UITestingUtilities;
 import org.xtuml.bp.ui.canvas.Ooaofgraphics;
 import org.xtuml.bp.ui.graphics.editor.GraphicalEditor;
 import org.xtuml.bp.utilities.ui.CanvasUtilities;
 
+@RunWith(OrderedRunner.class)
 public class AutoReconciliationTests extends CanvasTest {
 	
 	private String test_id;
 	public static boolean generateResults = false;
 
-	public AutoReconciliationTests(String arg0) {
-		super(arg0);
+	public AutoReconciliationTests() {
+		super(null);
 	}
 
 	@Override
@@ -47,6 +50,7 @@ public class AutoReconciliationTests extends CanvasTest {
 		return "AutoReconciliationTests" + "_" + test_id;
 	}
 
+	@Test
 	public void testGraphicalRepresentsSet() throws Exception {
 		test_id = "1";
 		

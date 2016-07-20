@@ -14,23 +14,26 @@ package org.xtuml.bp.als.oal.test;
 // the License.
 //=====================================================================
 import org.eclipse.jface.preference.IPreferenceStore;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.ActionHome_c;
 import org.xtuml.bp.core.Action_c;
-import org.xtuml.bp.core.ClassStateMachine_c;
 import org.xtuml.bp.core.CorePlugin;
-import org.xtuml.bp.core.ModelClass_c;
 import org.xtuml.bp.core.MooreActionHome_c;
 import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.StateMachineState_c;
 import org.xtuml.bp.core.StateMachine_c;
 import org.xtuml.bp.core.common.BridgePointPreferencesStore;
-import org.xtuml.bp.core.common.ClassQueryInterface_c;
 import org.xtuml.bp.test.common.BaseTest;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.test.common.TestingUtilities;
 
 import antlr.RecognitionException;
 import antlr.TokenStreamException;
 
+@RunWith(OrderedRunner.class)
 public class TestAllowInterfaceNameInICMsg_Generics extends BaseTest {
 
 	public static boolean configured = false;
@@ -44,7 +47,8 @@ public class TestAllowInterfaceNameInICMsg_Generics extends BaseTest {
      * 
      * @see junit.framework.TestCase#setUp()
      */
-    protected void setUp() throws Exception {
+    @Before
+	public void setUp() throws Exception {
 		if (configured) {
 			return;
 		}
@@ -61,7 +65,8 @@ public class TestAllowInterfaceNameInICMsg_Generics extends BaseTest {
     /* (non-Javadoc)
      * @see junit.framework.TestCase#tearDown()
      */
-    protected void tearDown() throws Exception {
+    @After
+	public void tearDown() throws Exception {
       try {
         super.tearDown();
         OalParserTest_Generics.tearDownActionData();
@@ -72,7 +77,8 @@ public class TestAllowInterfaceNameInICMsg_Generics extends BaseTest {
       }
     }
     
-    public void testSendUsingInterfaceNameWhenInterfaceNameDisallowed() throws RecognitionException, TokenStreamException {
+    @Test
+	public void testSendUsingInterfaceNameWhenInterfaceNameDisallowed() throws RecognitionException, TokenStreamException {
         IPreferenceStore store = CorePlugin.getDefault().getPreferenceStore();
         store.setValue(BridgePointPreferencesStore.ALLOW_INTERFACE_NAME_IN_IC_MESSAGE, false);
 
@@ -82,7 +88,8 @@ public class TestAllowInterfaceNameInICMsg_Generics extends BaseTest {
         assertEquals(":1:80-95: Interface names are not allowed for sending messages.  Use the port name.", lines[0]); //$NON-NLS-1$
     }
 
-    public void testSendUsingPortNameWhenIntefaceNameDisallowed() throws RecognitionException, TokenStreamException {
+    @Test
+	public void testSendUsingPortNameWhenIntefaceNameDisallowed() throws RecognitionException, TokenStreamException {
         String act = "select any monitor from instances of HeartRateMonitor; send HR::heartRateChanged(heartRate: monitor.recentHeartRate); "; //$NON-NLS-1$
         String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_STATE, STATE_ASM_IDLE);
         assertEquals("", x); //$NON-NLS-1$
@@ -90,7 +97,8 @@ public class TestAllowInterfaceNameInICMsg_Generics extends BaseTest {
 
     // Now we test the above sends with the preference set to allow the behavior
     // and expect to not get syntax errors reported
-    public void testSendUsingInterfaceNameWhenInterfaceNameAllowed() throws RecognitionException, TokenStreamException {
+    @Test
+	public void testSendUsingInterfaceNameWhenInterfaceNameAllowed() throws RecognitionException, TokenStreamException {
         IPreferenceStore store = CorePlugin.getDefault().getPreferenceStore();
         store.setValue(BridgePointPreferencesStore.ALLOW_INTERFACE_NAME_IN_IC_MESSAGE, true);
 
@@ -99,7 +107,8 @@ public class TestAllowInterfaceNameInICMsg_Generics extends BaseTest {
         assertEquals("", x); //$NON-NLS-1$
     }
 
-    public void testSendUsingPortNameWhenIntefaceNameAllowed() throws RecognitionException, TokenStreamException {
+    @Test
+	public void testSendUsingPortNameWhenIntefaceNameAllowed() throws RecognitionException, TokenStreamException {
         String act = "select any monitor from instances of HeartRateMonitor; send HR::heartRateChanged(heartRate: monitor.recentHeartRate); "; //$NON-NLS-1$
         String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_STATE, STATE_ASM_IDLE);
         assertEquals("", x); //$NON-NLS-1$

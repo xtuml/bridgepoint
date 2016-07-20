@@ -54,7 +54,8 @@ import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.views.properties.IPropertyDescriptor;
-
+import org.junit.Before;
+import org.junit.Test;
 import org.xtuml.bp.core.*;
 import org.xtuml.bp.test.common.BaseTest;
 import org.xtuml.bp.core.common.ClassQueryInterface_c;
@@ -69,6 +70,7 @@ public class ${class_name} extends BaseTest
   	super(null, name);
   }	
     static private boolean firstTime = true;
+	@Before
 	public void setUp() throws Exception {
         if ( firstTime ) {
         PersistableModelComponent domain_pmc = ensureAvailableAndLoaded("testProp", false, false);
@@ -85,7 +87,8 @@ public class ${class_name} extends BaseTest
     .select any meta_model_obj from instances of O_OBJ where (selected.Key_Lett == node.Key_Lett)
     .invoke formatted_name = get_class_name(meta_model_obj)
     .invoke gia = get_instance_accessor(meta_model_obj)
-    public void test$r{meta_model_obj.Name}_$r{node.CategoryName}Properties() throws Exception
+    @Test
+	public void test$r{meta_model_obj.Name}_$r{node.CategoryName}Properties() throws Exception
     {
     .// special case: only interested in the domain testProp
     .if(node.Key_Lett == "S_DOM")

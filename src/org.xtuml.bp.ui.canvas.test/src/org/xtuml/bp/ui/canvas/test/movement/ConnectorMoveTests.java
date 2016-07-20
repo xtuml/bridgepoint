@@ -40,7 +40,9 @@ import org.eclipse.gef.editparts.ZoomManager;
 import org.eclipse.gmf.runtime.draw2d.ui.geometry.LineSeg;
 import org.eclipse.gmf.runtime.draw2d.ui.geometry.PointListUtilities;
 import org.eclipse.ui.PlatformUI;
-
+import org.junit.After;
+import org.junit.Before;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.Association_c;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.InteractionParticipant_c;
@@ -55,6 +57,7 @@ import org.xtuml.bp.core.common.ClassQueryInterface_c;
 import org.xtuml.bp.core.common.NonRootModelElement;
 import org.xtuml.bp.core.common.PersistableModelComponent;
 import org.xtuml.bp.core.util.WorkspaceUtil;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.test.common.UITestingUtilities;
 import org.xtuml.bp.ui.canvas.Connector_c;
 import org.xtuml.bp.ui.canvas.GraphicalElement_c;
@@ -63,6 +66,7 @@ import org.xtuml.bp.ui.canvas.test.anchors.GraphicalAnchorTests;
 import org.xtuml.bp.ui.graphics.editor.GraphicalEditor;
 import org.xtuml.bp.ui.graphics.parts.ConnectorEditPart;
 
+@RunWith(OrderedRunner.class)
 public class ConnectorMoveTests extends CanvasTest {
 	public static boolean generateResults = false;
 	public static boolean useDrawResults = false;
@@ -87,14 +91,15 @@ public class ConnectorMoveTests extends CanvasTest {
 	}
 
 	public ConnectorMoveTests(String subTypeClassName, String subTypeArg0) {
-		super(subTypeClassName, subTypeArg0);
+		super(subTypeClassName, null);
 	}
 
 	protected String getTestId(String src, String dest, String count) {
 		return "test_" + src + "_" + dest + "_" + count;
 	}
 
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		super.setUp();
 		ConnectorEditPart.setToleranceForTests(15);
 		// load the test model
@@ -124,7 +129,8 @@ public class ConnectorMoveTests extends CanvasTest {
 		}
 	}
 
-	protected void tearDown() throws Exception {
+	@After
+	public void tearDown() throws Exception {
 		super.tearDown();
 		testPart = null;
 		diagramZoomed = false;

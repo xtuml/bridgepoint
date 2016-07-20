@@ -33,8 +33,8 @@ import org.xtuml.bp.core.ui.IModelImport;
 
 public class ImportStreamFactory extends AbstractStreamImportFactory {
 
-	public IModelImport create(InputStream inStream,
-			Ooaofooa aModelRoot, boolean clearDatabase, IPath projectRelativePath) throws IOException {
+	public IModelImport create(InputStream inStream, Ooaofooa aModelRoot, boolean clearDatabase,
+			IPath projectRelativePath) throws IOException {
 		return new ImportModelStream(inStream, aModelRoot, clearDatabase, projectRelativePath);
 	}
 }

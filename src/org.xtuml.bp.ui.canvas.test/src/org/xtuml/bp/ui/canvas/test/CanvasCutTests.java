@@ -25,18 +25,20 @@ import org.eclipse.core.resources.IFileState;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.ui.PlatformUI;
-
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.ModelClass_c;
 import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.Package_c;
 import org.xtuml.bp.core.PackageableElement_c;
-import org.xtuml.bp.core.SystemModel_c;
 import org.xtuml.bp.core.common.ClassQueryInterface_c;
 import org.xtuml.bp.core.common.NonRootModelElement;
 import org.xtuml.bp.core.common.Transaction;
 import org.xtuml.bp.core.ui.Selection;
 import org.xtuml.bp.test.common.CanvasTestUtils;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.test.common.UITestingUtilities;
 import org.xtuml.bp.ui.canvas.Cl_c;
 import org.xtuml.bp.ui.graphics.actions.CanvasCutAction;
@@ -44,6 +46,7 @@ import org.xtuml.bp.ui.graphics.editor.GraphicalEditor;
 import org.xtuml.bp.ui.graphics.editor.ModelEditor;
 import org.xtuml.bp.utilities.ui.CanvasUtilities;
 
+@RunWith(OrderedRunner.class)
 public class CanvasCutTests extends CanvasTest {
 
 	private String testModelName = "CutTestModel";
@@ -51,10 +54,11 @@ public class CanvasCutTests extends CanvasTest {
 	private String test_id;
 	public static boolean generateResults = false;
 
-	public CanvasCutTests(String name) {
-		super(null, name);
+	public CanvasCutTests() {
+		super(null, null);
 	}
 
+	@Before
 	public void setUp() throws Exception {
 		super.setUp();
 		if(!initialized) {
@@ -64,6 +68,7 @@ public class CanvasCutTests extends CanvasTest {
 		}
 	}
 
+	@Test
 	public void testCutRemovesElementAndUndoRestores() {
 		test_id = "1";
 		
@@ -101,6 +106,7 @@ public class CanvasCutTests extends CanvasTest {
 		validateOrGenerateResults(ce, generateResults);
 	}
 
+	@Test
 	public void testCutAvailableAfterReload() {
 		// Part 1:  We will verify the cut is still NOT on the element in the
 		//          specialized package

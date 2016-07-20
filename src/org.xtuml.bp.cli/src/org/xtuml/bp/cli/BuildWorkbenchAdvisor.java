@@ -23,7 +23,7 @@ import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.SystemModel_c;
 import org.xtuml.bp.core.common.ClassQueryInterface_c;
 import org.xtuml.bp.core.common.PersistenceManager;
-import org.xtuml.bp.mc.c.binary.ExportBuilder;
+import org.xtuml.bp.mc.c.source.ExportBuilder;
 
 public class BuildWorkbenchAdvisor extends BPCLIWorkbenchAdvisor {
 	String projectName = null;
@@ -94,7 +94,7 @@ public class BuildWorkbenchAdvisor extends BPCLIWorkbenchAdvisor {
 				}
 
 				IConfiguration orginalConfig = null;
-				if (buildConfigString != "") {
+				if (!buildConfigString.isEmpty()) {
 					if (debug) {
 						System.out.println("Setting the specified build configuration of: " + buildConfigString + " for: " + project.getName());
 					}
@@ -117,7 +117,7 @@ public class BuildWorkbenchAdvisor extends BPCLIWorkbenchAdvisor {
 					System.out.println("Build finished for: " + project.getName());
 				}
 				
-				if (buildConfigString != "") {
+				if (!buildConfigString.isEmpty()) {
 					if (debug) {
 						System.out.println("Restoring original build configuration for: " + project.getName());
 					}

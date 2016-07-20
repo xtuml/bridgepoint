@@ -28,12 +28,15 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
-
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.Association_c;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.Package_c;
 import org.xtuml.bp.core.common.ClassQueryInterface_c;
 import org.xtuml.bp.core.common.PersistenceManager;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.test.common.TextEditorUtils;
 import org.xtuml.bp.ui.text.TextPlugin;
 import org.xtuml.bp.ui.text.activity.AllActivityModifier;
@@ -42,20 +45,26 @@ import org.xtuml.bp.ui.text.activity.AllActivityModifier;
  * Holds tests related to performing a parse-all on a model
  * which contains relationships with duplicate numbers.
  */
+@RunWith(OrderedRunner.class)
 public class DuplicateRelationshipNumberParseAllTest extends UITextTest
 {
+	public DuplicateRelationshipNumberParseAllTest() throws CoreException {
+		super();
+	}
+
 	private static boolean firstSetup = true;
 	private static String testModelName = "odms";
 	
     /**
      * Constructor.
      */
-    public DuplicateRelationshipNumberParseAllTest(String name) throws CoreException
-    {
-        super(null, name);
-    }
+//    public DuplicateRelationshipNumberParseAllTest(String name) throws CoreException
+//    {
+//        super(null, name);
+//    }
     
-    protected void setUp() throws Exception {
+    @Before
+	public void setUp() throws Exception {
         super.setUp();
         if ( firstSetup ) {
         	loadProject(testModelName);
@@ -73,7 +82,8 @@ public class DuplicateRelationshipNumberParseAllTest extends UITextTest
      * are removed by a second parse-all following the relationship 
      * having been renumbered to no longer conflict. 
      */
-    public void testProblemsRemovedByParseAllAfterDuplicateRelationshipNumberChanged()
+    @Test
+	public void testProblemsRemovedByParseAllAfterDuplicateRelationshipNumberChanged()
     {
         // add a relationship to the model which has the same
         // number as an existing relationship

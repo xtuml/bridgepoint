@@ -112,7 +112,8 @@
 	      .end if
 	      .for each element in path_to_parent
 	         .if (not_first path_to_parent)
-	 		     .select one table related by element->EI[R3]->T[R4]
+	 		     .select any ei from instances of EI where ( selected.Name == element.Name )
+                 .select one table related by ei->T[R4]
 	             .if(element.rel_chain != "")
                    .invoke nav = generate_backward_rel_chain_nav_from_kl_with_query_(table.Key_Lett, element.rel_chain, element.Card, "(${class_name.body}) element", "", false, "", false);
                    .assign attr_chain_text = "${nav.body}"
@@ -187,11 +188,15 @@
     .param inst_ref_set path
     .param string child_var
     .param string params
-    .param string cardinality
+    .param string cardinality_
     .//     
     .assign parent_picked = true
     .select any parent_element from instances of EO where ( selected.Id == "-1" )
-    .select one parent_table related by parent_element->EI[R3]->T[R4]
+    .select any parent_table from instances of T where ( false )
+    .if ( not_empty parent_element )
+      .select any parent_ei from instances of EI where ( selected.Name == parent_element.Name )
+      .select one parent_table related by parent_ei->T[R4]
+    .end if
     .assign child_element = parent_element
     .assign inner_path = path
     .assign rel_chain = ""
@@ -211,6 +216,12 @@
         .assign expected = count + 1
         .assign next_rel_chain = ""
         .assign nextRelPhrase = ""
+        .select any ei from instances of EI where ( selected.Name == element.Name )
+        .select one table related by ei->T[R4]
+        .if(first path)
+          .assign parent_element = element
+          .assign parent_table = table
+        .end if
         .for each e in inner_path
           .assign innerCount = innerCount + 1
           .if(innerCount == expected)
@@ -219,7 +230,6 @@
             .assign nextRelPhrase = e.rel_phrase
           .end if
         .end for
-   		  .select one table related by element->EI[R3]->T[R4]
         .if(next_rel_chain != "")
           .invoke reversed_chain = reverse_rel_chain_sense(table.Key_Lett, next_rel_chain)
           .assign rel_chain = reversed_chain.reversed_chain + rel_chain
@@ -230,18 +240,16 @@
           .end if
           .assign rel_chain = "->${table.Key_Lett}[${relNumbAndPhrase}]" + rel_chain
         .end if
-        .if(first path)
-          .assign parent_element = element
-          .assign parent_table = table
-        .end if
       .end if
     .end for
     .invoke child_class_name = get_class_name(child_element)
     .if(params != "")
       .assign params = ", " + params
     .end if
-    .invoke nav = generate_backward_rel_chain_nav_from_kl(parent_table.Key_Lett, rel_chain, cardinality, "(${child_class_name.body})${child_var}${params}", "", false);
+    .if ( not_empty parent_table )
+      .invoke nav = generate_backward_rel_chain_nav_from_kl(parent_table.Key_Lett, rel_chain, cardinality_, "(${child_class_name.body})${child_var}${params}", "", false);
 ${nav.body}
+    .end if
 .end function
 .//
 .// this function serves as a wrapper around

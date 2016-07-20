@@ -19,13 +19,13 @@
 // License for the specific language governing permissions and limitations under
 // the License.
 //=====================================================================
-import junit.framework.Test;
-import junit.framework.TestSuite;
-
 import org.xtuml.bp.ui.canvas.test.AutoReconciliationTests;
 import org.xtuml.bp.ui.canvas.test.CanvasCreationTest;
 import org.xtuml.bp.ui.canvas.test.CanvasTestResultCreator;
 import org.xtuml.bp.ui.canvas.test.FreeFloatingConnectorTest;
+
+import junit.framework.Test;
+import junit.framework.TestSuite;
 
 
 public class CanvasTestResultSuite extends TestSuite {

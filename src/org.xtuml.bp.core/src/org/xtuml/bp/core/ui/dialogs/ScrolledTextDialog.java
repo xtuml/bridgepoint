@@ -22,22 +22,32 @@
 //
 package org.xtuml.bp.core.ui.dialogs;
 
+import java.io.FileWriter;
+import java.io.IOException;
+
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.resource.JFaceResources;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.ScrolledComposite;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.printing.PrintDialog;
+import org.eclipse.swt.printing.Printer;
+import org.eclipse.swt.printing.PrinterData;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.PlatformUI;
-
 import org.xtuml.bp.core.CorePlugin;
 
 public class ScrolledTextDialog extends Dialog {
@@ -49,9 +59,10 @@ public class ScrolledTextDialog extends Dialog {
 	private String optionalText;
 	private Button optionalButton;
 	private String preferenceKey;
+	private boolean usePrintAndSave;
 
 	public ScrolledTextDialog(Shell parentShell, boolean allowCancel,
-			String title, String textContents, String message, String optionalText, String preferenceKey) {
+			String title, String textContents, String message, String optionalText, String preferenceKey, boolean usePrintAndSave) {
 		super(parentShell);
 		this.title = title;
 		this.textContents = textContents;
@@ -59,6 +70,7 @@ public class ScrolledTextDialog extends Dialog {
 		this.allowCancel = allowCancel;
 		this.optionalText = optionalText;
 		this.preferenceKey = preferenceKey;
+		this.usePrintAndSave = usePrintAndSave;
 	}
 
 	@Override
@@ -69,6 +81,59 @@ public class ScrolledTextDialog extends Dialog {
 
 	@Override
 	protected void createButtonsForButtonBar(Composite parent) {
+		if(usePrintAndSave) {
+			((GridLayout) parent.getLayout()).numColumns++;
+			Button printButton;
+			printButton = new Button(parent, SWT.PUSH);
+			printButton.setText("Print...");
+			printButton.setFont(JFaceResources.getDialogFont());
+			printButton.addSelectionListener(new SelectionAdapter() {
+				public void widgetSelected(SelectionEvent e) {
+					PrintDialog dialog = new PrintDialog(Display.getCurrent().getActiveShell());
+					PrinterData data = dialog.open();
+					if ( null != data ) {
+						Printer printer = new Printer(data);
+
+						if (printer.startJob("DowngradeList-Print")) {
+							GC gc = new GC(printer);
+							if (printer.startPage()) {
+								gc.drawText(textContents, 0, 0);
+								printer.endPage();
+							}
+							printer.endJob();
+						}
+						printer.dispose();
+					}
+				}
+			});
+			setButtonLayoutData(printButton);
+			
+			((GridLayout) parent.getLayout()).numColumns++;
+			Button saveasButton;
+			saveasButton = new Button(parent, SWT.PUSH);
+			saveasButton.setText("Save...");
+			saveasButton.setFont(JFaceResources.getDialogFont());
+			saveasButton.addSelectionListener(new SelectionAdapter() {
+				public void widgetSelected(SelectionEvent e) {
+					FileDialog dialog = new FileDialog(Display.getCurrent().getActiveShell(), SWT.SAVE);
+					String filename = dialog.open();
+					if ( !filename.isEmpty() ) {
+						FileWriter writer = null;
+						try {
+							writer = new FileWriter(filename);
+							writer.write(textContents);
+						}
+						catch (IOException ioe) {
+							System.err.println("Exception occured: File not saved!");
+						}
+						finally {
+							try { writer.close(); } catch (Exception ex) {}
+						} 
+					}
+				}
+			});
+			setButtonLayoutData(saveasButton);
+		}
 		if(optionalText != null) {
 			((GridLayout) parent.getLayout()).numColumns++;
 			optionalButton = new Button(parent, SWT.CHECK);
@@ -104,8 +169,8 @@ public class ScrolledTextDialog extends Dialog {
 	@Override
 	protected Control createDialogArea(Composite container) {
 		Point size = new Point(600, 400);
-		if (PlatformUI.getWorkbench().getDisplay().getActiveShell() != null)
-			size = PlatformUI.getWorkbench().getDisplay().getActiveShell()
+		if (PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell() != null)
+			size = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell()
 					.getSize();
         Composite parent = (Composite) super.createDialogArea(container);
 		((GridData) parent.getLayoutData()).widthHint = Math.max(size.x / 4,

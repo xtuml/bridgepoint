@@ -14,19 +14,17 @@
 
 package org.xtuml.bp.core.test.util;
 
-import junit.framework.TestCase;
-
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.wizard.IWizard;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.ui.PlatformUI;
-
 import org.xtuml.bp.core.CreationTransition_c;
-import org.xtuml.bp.core.Transition_c;
 import org.xtuml.bp.core.ui.GenericPackageAssignEventOnSM_CRTXNAction;
 import org.xtuml.bp.core.ui.GenericPackageAssignEventOnSM_CRTXNWizardPage1;
 import org.xtuml.bp.core.ui.Selection;
+
+import junit.framework.TestCase;
 
 /**
  * Contains various utility methods related to testing event selection in the 

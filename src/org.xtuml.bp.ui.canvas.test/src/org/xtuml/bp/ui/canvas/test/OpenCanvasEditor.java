@@ -24,25 +24,31 @@
 package org.xtuml.bp.ui.canvas.test;
 
 import org.eclipse.ui.PlatformUI;
-
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.InstanceStateMachine_c;
 import org.xtuml.bp.core.ModelClass_c;
 import org.xtuml.bp.core.Package_c;
 import org.xtuml.bp.core.common.ClassQueryInterface_c;
 import org.xtuml.bp.test.common.BaseTest;
 import org.xtuml.bp.test.common.CanvasTestUtils;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.ui.graphics.editor.GraphicalEditor;
 import org.xtuml.bp.ui.graphics.editor.ModelEditor;
 
+@RunWith(OrderedRunner.class)
 public class OpenCanvasEditor extends BaseTest {
 	
     private static boolean initialized = false;
 
-	public OpenCanvasEditor(String arg0) {
-		super("org.xtuml.bp.ui.canvas.test", arg0);
+	public OpenCanvasEditor() {
+		super("org.xtuml.bp.ui.canvas.test", null);
 	}
 	
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		super.setUp();
 
         if ( !initialized )
@@ -55,7 +61,8 @@ public class OpenCanvasEditor extends BaseTest {
 			
 	}
 
-	protected void tearDown() throws Exception {
+	@After
+	public void tearDown() throws Exception {
 		super.tearDown();
 	}
 	
@@ -72,6 +79,7 @@ public class OpenCanvasEditor extends BaseTest {
 
 	}	
 	
+	@Test
 	public void testOpenPackageDiagram()
 	{	
 		final Package_c uut = Package_c.PackageInstance(modelRoot, new ClassQueryInterface_c() {
@@ -85,6 +93,7 @@ public class OpenCanvasEditor extends BaseTest {
 		validateCanvasEditor("odms", uut.getDescrip());
 	}
 	
+	@Test
 	public void testOpenInstanceStateChartDiagram()
 	{
 		CanvasTestUtils ctu = new CanvasTestUtils();

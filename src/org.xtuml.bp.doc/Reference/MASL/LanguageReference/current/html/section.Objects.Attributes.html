@@ -1,0 +1,200 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>8.3. Object Attributes</title>
+<link rel="stylesheet" type="text/css" href="docbook.css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
+<meta name="keywords" content="MASL, Action Language, Action Semantics, UML, Unified Modelling Language, Shlaer Mellor">
+<link rel="home" href="index.html" title="MASL Reference Manual">
+<link rel="up" href="section.Objects.html" title="Chapter 8. Objects">
+<link rel="prev" href="section.Objects.Definition.html" title="8.2. Object Definition">
+<link rel="next" href="section.Objects.Identifiers.html" title="8.4. Object Identifiers">
+<link rel="chapter" href="section.LexicalStructure.html" title="Chapter 1. Lexical Structure">
+<link rel="chapter" href="section.Types.html" title="Chapter 2. Type System">
+<link rel="chapter" href="section.Domains.html" title="Chapter 3. Domains">
+<link rel="chapter" href="section.Services.html" title="Chapter 4. Services, Functions and State Actions">
+<link rel="chapter" href="section.Relationships.html" title="Chapter 5. Relationships">
+<link rel="chapter" href="section.Exceptions.html" title="Chapter 6. Exceptions">
+<link rel="chapter" href="section.Terminators.html" title="Chapter 7. Terminators">
+<link rel="chapter" href="section.Objects.html" title="Chapter 8. Objects">
+<link rel="chapter" href="section.Statements.html" title="Chapter 9. Statements">
+<link rel="chapter" href="section.Expressions.html" title="Chapter 10. Expressions">
+<link rel="chapter" href="section.Projects.html" title="Chapter 11. Projects">
+<link rel="chapter" href="section.Pragmas.html" title="Chapter 12. Pragmas">
+<link rel="appendix" href="AlphabeticalSyntaxReference.html" title="Appendix A. Alphabetical Syntax Reference">
+<link rel="index" href="ix01.html" title="Index">
+<link rel="subsection" href="section.Objects.Attributes.html#section.Objects.Attributes.Preferred" title="8.3.1. Preferred Attribute">
+<link rel="subsection" href="section.Objects.Attributes.html#section.Objects.Attributes.Unique" title="8.3.2. Unique Attribute">
+<link rel="subsection" href="section.Objects.Attributes.html#section.Objects.Attributes.DefaultValue" title="8.3.3. Default Value">
+<link rel="subsection" href="section.Objects.Attributes.html#section.Objects.Attributes.Referential" title="8.3.4. Referential Attributes">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div align="center">OFFICIAL</div>
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center">8.3. Object Attributes</th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="section.Objects.Definition.html">Prev</a> </td>
+<th width="60%" align="center">Chapter 8. Objects</th>
+<td width="20%" align="right"> <a accesskey="n" href="section.Objects.Identifiers.html">Next</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h2 class="title">
+<a name="section.Objects.Attributes"></a>8.3. Object Attributes</h2></div></div></div>
+<div class="toc"><dl class="toc">
+<dt><span class="section"><a href="section.Objects.Attributes.html#section.Objects.Attributes.Preferred">8.3.1. Preferred Attribute</a></span></dt>
+<dt><span class="section"><a href="section.Objects.Attributes.html#section.Objects.Attributes.Unique">8.3.2. Unique Attribute</a></span></dt>
+<dt><span class="section"><a href="section.Objects.Attributes.html#section.Objects.Attributes.DefaultValue">8.3.3. Default Value</a></span></dt>
+<dt><span class="section"><a href="section.Objects.Attributes.html#section.Objects.Attributes.Referential">8.3.4. Referential Attributes</a></span></dt>
+</dl></div>
+<p>
+      Object attributes are used to store the internal state of an object. The type of an attribute is used to determine the 
+      values that the attribute can hold. An attribute's type may not be
+      <a class="link" href="section.Types.TypeConversion.html#section.Types.Convertible" title="2.1.4. Convertible">convertible</a> to an 
+      <a class="link" href="section.Types.Definition.html#section.Types.Instance" title="2.4.5. Instance Types">instance type</a>, or be a structure or collection 
+      containing an <a class="link" href="section.Types.Definition.html#section.Types.Instance" title="2.4.5. Instance Types">instance type</a>
+    </p>
+<p>
+      A compile-time errors occurs if the name of the attribute is already in use within the current object scope.
+    </p>
+<table width="100%" cellpadding="5" bgcolor="#F5DCB3" border="1" class="productionset" summary="EBNF"><tr><td><table border="0" width="99%" cellpadding="0" bgcolor="#F5DCB3" class="productionset" summary="EBNF productions">
+<tr>
+<td align="left" valign="top" width="3%">[104]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.attributeDefinition"></a>attribute definition</td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+<a href="section.Objects.Attributes.html#ebnf.attributeName">attribute name</a> , ':' , [ 'preferred' ] , [ 'unique' ] , [ <a href="section.Objects.Attributes.html#ebnf.attReferentials">attribute referentials</a> ] , <a href="section.Objects.Attributes.html#ebnf.attributeType">attribute type</a> , [ ':=' , <a href="section.Objects.Attributes.html#ebnf.attributeDefaultValue">attribute default value</a> ] , ';' , <a href="section.Pragmas.html#ebnf.pragmaList">pragma list</a>;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[105]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.attributeName"></a>attribute name</td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="section.Tokenization.html#ebnf.Identifier">identifier</a>
+      ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[106]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.attributeType"></a>attribute type</td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="section.Types.Reference.html#ebnf.typeRef">type ref</a>
+      ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+</table></td></tr></table>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="section.Objects.Attributes.Preferred"></a>8.3.1. Preferred Attribute</h3></div></div></div>
+<p> An attribute should be marked as <code class="code">preferred</code> if it forms part of the
+        preferred <a class="link" href="section.Objects.Identifiers.html" title="8.4. Object Identifiers">identifier</a> for the object. Note
+        that the preferred identifier is not specified explicity using an identifier definition, but
+        is formed implicitly from the attributes marked as preferred. As an object must have a
+        preferred identifier, at least one attribute of each object must be marked as
+          <code class="code">preferred</code>. </p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="section.Objects.Attributes.Unique"></a>8.3.2. Unique Attribute</h3></div></div></div>
+<p> An attribute should be marked as <code class="code">unique</code> if the actual value of the
+        attribute is unimportant, but required to be unique within all instances of the current
+        object. This is typically the case when an object has no natural combination of attributes
+        to form an identifier, and an artificial identifier must be created. The type of a preferred
+        identifier attribute must be <a class="link" href="section.Types.TypeConversion.html#section.Types.Convertible" title="2.1.4. Convertible">convertible</a> to
+        an <a class="link" href="section.Types.Definition.html#section.Types.Integer" title="2.4.1.2. Integer Types">integer</a>. </p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="section.Objects.Attributes.DefaultValue"></a>8.3.3. Default Value</h3></div></div></div>
+<p> If a default value is specified, then the expression is evaluated and assigned to the
+        attribute each time an instance of the object is created using an <a class="link" href="section.Expressions.InstanceCreation.html" title="10.11. Instance Creation">instance creation
+          expression</a>, and an explicit value is not supplied for the attribute. The expression
+        must be valid within the scope of the current object. </p>
+<p>
+        A compile time error occurs if the default value is not <a class="link" href="section.Types.TypeConversion.html#section.Types.Assignable" title="2.1.3. Assignable">assignable</a> to
+        the attribute. 
+      </p>
+<table width="100%" cellpadding="5" bgcolor="#F5DCB3" border="1" class="productionset" summary="EBNF"><tr><td><table border="0" width="99%" cellpadding="0" bgcolor="#F5DCB3" class="productionset" summary="EBNF productions"><tr>
+<td align="left" valign="top" width="3%">[107]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.attributeDefaultValue"></a>attribute default value</td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="section.Expressions.html#ebnf.constExpression">const expression</a>
+      ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr></table></td></tr></table>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="section.Objects.Attributes.Referential"></a>8.3.4. Referential Attributes</h3></div></div></div>
+<p>
+        A <a class="link" href="section.Relationships.html" title="Chapter 5. Relationships">relationship</a> between two or more objects must be formalized using 
+        referential attributes. The object or objects that formalize the relationship must specify referential attributes for 
+        each of the <a class="link" href="section.Objects.Identifiers.html" title="8.4. Object Identifiers">identifier attributes</a> of one identifier of the other 
+        objects participating in the relationship. Each attribute may specify <a class="link" href="section.Objects.Attributes.html#ebnf.attReferentials"> multiple 
+        referentials</a>, which indicates that the matching identifier attributes must all have the same value for the 
+        relationship to be valid. Each <a class="link" href="section.Objects.Attributes.html#ebnf.attReferentials">referential</a> must specify which relationship it 
+        refers to, along with the name of the identifier attribute that it formalizes. Further details on formalizing 
+        relationships may be found in <a class="xref" href="section.Relationships.Formalism.html" title="5.5. Formalism">Section 5.5, “Formalism”</a>. 
+      </p>
+<p>
+        The value of a referential attribute is automatically set when the first relationship which it formalizes is formed, or 
+        on instance creation if it is also an identifier. A non-identifier attribute has an undefined value if it is not involved 
+        in formalizing any relationships. An attempt to read an undefined value will result in an exception being raised. Once 
+        the attribute has a defined value, any further relationships formed with the instance must cause the attribute to have 
+        the same value. The value may not be set manually, other than during instance creation for an identifier attribute. 
+      </p>
+<table width="100%" cellpadding="5" bgcolor="#F5DCB3" border="1" class="productionset" summary="EBNF"><tr><td><table border="0" width="99%" cellpadding="0" bgcolor="#F5DCB3" class="productionset" summary="EBNF productions">
+<tr>
+<td align="left" valign="top" width="3%">[108]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.attReferentials"></a>attribute referentials</td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">'referential' , '(' , <a href="section.Objects.Attributes.html#ebnf.attReferential">attribute referential</a> , { ',' , <a href="section.Objects.Attributes.html#ebnf.attReferential">attribute referential</a> } , ')';</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[109]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.attReferential"></a>attribute referential</td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+<a href="section.Expressions.RelationshipNavigation.html#ebnf.relationshipSpec">relationship spec</a> , '.' , <a href="section.Objects.Attributes.html#ebnf.attributeName">attribute name</a>;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+</table></td></tr></table>
+</div>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="section.Objects.Definition.html">Prev</a> </td>
+<td width="20%" align="center"><a accesskey="u" href="section.Objects.html">Up</a></td>
+<td width="40%" align="right"> <a accesskey="n" href="section.Objects.Identifiers.html">Next</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left" valign="top">8.2. Object Definition </td>
+<td width="20%" align="center">
+<a accesskey="h" href="index.html">Home</a> | <a accesskey="t" href="bk01-toc.html">ToC</a>
+</td>
+<td width="40%" align="right" valign="top"> 8.4. Object Identifiers</td>
+</tr>
+</table>
+</div>
+<div align="center">OFFICIAL</div>
+</body>
+</html>

@@ -23,7 +23,8 @@ package org.xtuml.bp.core.test;
 //========================================================================
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
-
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.Component_c;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.InterfaceReference_c;
@@ -37,11 +38,13 @@ import org.xtuml.bp.core.inspector.ObjectElement;
 import org.xtuml.bp.core.inspector.ProvisionInspector;
 import org.xtuml.bp.model.compare.providers.ModelCompareLabelProvider;
 import org.xtuml.bp.test.common.BaseTest;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.test.common.UITestingUtilities;
 import org.xtuml.bp.ui.canvas.Cl_c;
 import org.xtuml.bp.ui.canvas.test.CanvasTestUtilities;
 import org.xtuml.bp.ui.graphics.editor.GraphicalEditor;
 
+@RunWith(OrderedRunner.class)
 public class HierarchyTests extends BaseTest {
 
 	@Override
@@ -80,6 +83,7 @@ public class HierarchyTests extends BaseTest {
 				"Provided Interface");
 	}
 
+	@Test
 	public void testInterfacePathCreation() {
 		Interface_c iface = Interface_c.getOneC_IOnR8001(PackageableElement_c
 				.getManyPE_PEsOnR8000(Package_c.getManyEP_PKGsOnR1401(m_sys)));
@@ -88,6 +92,7 @@ public class HierarchyTests extends BaseTest {
 				"Default Project::Unnamed Package::Unnamed Interface", path);
 	}
 
+	@Test
 	public void testInterfaceReferenceChildren() {
 		Provision_c provision = Provision_c
 				.getOneC_POnR4009(InterfaceReference_c
