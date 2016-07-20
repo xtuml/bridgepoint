@@ -1,8 +1,6 @@
 //=====================================================================
 //
-//File:      $RCSfile: RelocatableTagCreationUtil.java,v $
-//Version:   $Revision: 1.13 $
-//Modified:  $Date: 2012/01/23 21:29:27 $
+//File:      RelocatableTagCreationUtil.java
 //
 //(c) Copyright 2006-2014 by Mentor Graphics Corp. All rights reserved.
 //
@@ -699,7 +697,7 @@ public class RelocatableTagCreationUtil
                 invocateeKeyLettersColumn - 1, activityText);
             tagSpec.length = invocateeKeyLetters.length();
             tagSpec.tag = formTag(
-                relocatableType == Relocatables.Types.operationName ?
+                relocatableType.equals(Relocatables.Types.operationName) ?
                     Relocatables.Types.modelClassKeyLetters : 
                     Relocatables.Types.externalEntityKeyLetters,
                 new UUID[] {invocateeKeyLettersEntityId}, 
@@ -765,7 +763,7 @@ public class RelocatableTagCreationUtil
         String paramRelocatableType = null;
         UUID paramId = null;
         final String paramName = param.getName();
-        if (invocateeNameRelocatableType == Relocatables.Types.functionName) {
+        if (invocateeNameRelocatableType.equals(Relocatables.Types.functionName)) {
             // use the corresponding relocatable type for the parameter
             paramRelocatableType = Relocatables.Types.functionParameterName;
 
@@ -792,7 +790,7 @@ public class RelocatableTagCreationUtil
         }
 
         // else, if the invocatee is an operation
-        else if (invocateeNameRelocatableType == Relocatables.Types.operationName) {
+        else if (invocateeNameRelocatableType.equals(Relocatables.Types.operationName)) {
             // use the corresponding relocatable type for the parameter
             paramRelocatableType = Relocatables.Types.operationParameterName;
 
@@ -819,7 +817,7 @@ public class RelocatableTagCreationUtil
         }
 
         // else, if the invocatee is a bridge
-        else if (invocateeNameRelocatableType == Relocatables.Types.bridgeName) {
+        else if (invocateeNameRelocatableType.equals(Relocatables.Types.bridgeName)) {
             // use the corresponding relocatable type for the parameter
             paramRelocatableType = Relocatables.Types.bridgeParameterName;
 
@@ -845,8 +843,8 @@ public class RelocatableTagCreationUtil
         }
         
         // else, if the invocatee is a state machine event
-        else if (invocateeNameRelocatableType == 
-            Relocatables.Types.stateMachineEventDerivedLabel) {
+        else if (invocateeNameRelocatableType.equals( 
+            Relocatables.Types.stateMachineEventDerivedLabel)) {
             // use the corresponding relocatable type for the event data item
             paramRelocatableType = Relocatables.Types.stateMachineEventDataItemName;
 
@@ -865,8 +863,8 @@ public class RelocatableTagCreationUtil
         }
         
         // else, if the invocatee is an external entity event
-        else if (invocateeNameRelocatableType == 
-            Relocatables.Types.externalEntityEventDerivedLabel) {
+        else if (invocateeNameRelocatableType.equals( 
+            Relocatables.Types.externalEntityEventDerivedLabel)) {
             // use the corresponding relocatable type for the event data item
             paramRelocatableType = Relocatables.Types.externalEntityEventDataItemName;
 

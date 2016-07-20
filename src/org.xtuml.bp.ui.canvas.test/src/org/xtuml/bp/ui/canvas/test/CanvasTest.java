@@ -498,7 +498,7 @@ public abstract class CanvasTest extends BaseTest {
         String name = getResultName() + "-" + model_type;
         if(!resultNamePostFix.equals(""))
             name = name + "-" + resultNamePostFix;
-        if(getResultFileName() != "") {
+        if(!getResultFileName().isEmpty()) {
         	name = getResultFileName();
         }
         return name;

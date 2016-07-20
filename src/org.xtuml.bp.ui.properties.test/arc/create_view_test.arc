@@ -100,9 +100,6 @@
       ..end if
     ..end if
   .elif ( child_node.Key_Lett == "SM_SEME" )
-      ..select one smsevt related by SM_SEMEclass->SM_SEVT[R503]
-      ..select any evt from instances of SM_EVT where ((selected.SMevt_ID == smsevt.SMevt_ID) and (selected.SM_ID == smsevt.SM_ID) and (selected.SMspd_ID == smsevt.SMspd_ID))
-      ..select one state related by SM_SEMEclass->SM_STATE[R503]
             "State Event Matrix Entry (test_poly::B Class)" },
   .elif ( child_node.Key_Lett == "SM_ACT" )
       ..select one state related by SM_ACTclass->SM_AH[R514]->SM_MOAH[R513]->SM_STATE[R511]
@@ -233,7 +230,13 @@
   .elif(kl == "SM_CRTXN")
     .assign attr_result = false
    .elif(kl == "CL_POR")
-    .assign attr_result = false      
+    .assign attr_result = false
+  .elif(kl == "SM_STATE")
+    .// Test case commented out, see DEI 8588
+    .assign attr_result = false
+  .elif(kl == "SM_TXN")
+    .// Test case commented out, see DEI 8588
+    .assign attr_result = false          
 .// START: dts0100656086  
   .elif(kl == "S_DOM")
     .assign attr_result = false
@@ -453,6 +456,9 @@ public class ${class_name}Data
   .elif(node.Key_Lett == "S_UDT")
   ..select any dt from instances of S_DT where (selected.Name == "date")
   ..select one ${mm_obj_var} related by dt->S_UDT[R17];
+  .elif(node.Key_Lett == "SM_STATE")
+  ..select any cclass from instances of O_OBJ where (selected.Name == "C class")
+  ..select any ${mm_obj_var} related by cclass->SM_ISM[R518]->SM_SM[R517]->SM_STATE[R501]
   .else
   ..select any ${mm_obj_var} from instances of ${meta_model_obj.Key_Lett}
   .end if

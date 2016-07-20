@@ -1,18 +1,12 @@
  package org.xtuml.bp.debug.ui.model;
  
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.HashMap;
 import java.util.UUID;
- 
-import org.eclipse.core.runtime.IAdaptable;
+
 import org.eclipse.debug.core.DebugException;
 import org.eclipse.debug.core.ILaunch;
 import org.eclipse.debug.core.model.IDebugTarget;
 import org.eclipse.debug.core.model.IValue;
 import org.eclipse.debug.core.model.IVariable;
- 
 import org.xtuml.bp.core.ArrayValue_c;
 import org.xtuml.bp.core.Association_c;
 import org.xtuml.bp.core.AttributeValue_c;
@@ -44,12 +38,6 @@ import org.xtuml.bp.core.StructuredValue_c;
 import org.xtuml.bp.core.Transition_c;
 import org.xtuml.bp.core.ValueInArray_c;
 import org.xtuml.bp.core.ValueInStructure_c;
-import org.xtuml.bp.core.common.NonRootModelElement;
-import org.xtuml.bp.core.common.Transaction;
-import org.xtuml.bp.ui.session.adapters.AssociationsAdapter;
-import org.xtuml.bp.ui.session.adapters.InstancesAdapter;
-import com.sun.corba.se.spi.orbutil.fsm.State;
-import com.sun.xml.internal.bind.v2.runtime.unmarshaller.XsiNilLoader.Array;
 
 public class BPValue extends BPDebugElement implements IValue {
     Object value = null;
@@ -247,7 +235,7 @@ public class BPValue extends BPDebugElement implements IValue {
 			if (value instanceof Association_c) {
 				Instance_c[] firstInstance = null;
 
-				if (name == "Origin Of") {
+				if (name.equals("Origin Of")) {
 					Link_c[] instanceLinks = this.var.getInstanceLinksForAnAssociation();
 
 					firstInstance = Instance_c .getManyI_INSsOnR2958(
@@ -258,7 +246,7 @@ public class BPValue extends BPDebugElement implements IValue {
 								LinkParticipation_c .getManyI_LIPsOnR2902(
 										instanceLinks));
 
-				} else if (name == "Destination Of") {
+				} else if (name.equals("Destination Of")) {
 					Link_c[] instanceLinks = this.var.getInstanceLinksForAnAssociation();
 
 					firstInstance = Instance_c .getManyI_INSsOnR2958(
@@ -269,7 +257,7 @@ public class BPValue extends BPDebugElement implements IValue {
 								LinkParticipation_c .getManyI_LIPsOnR2901(
 										instanceLinks));
 				} 
-				else if (name == "Associator For") {
+				else if (name.equals("Associator For")) {
 					Link_c[] instanceLinks = this.var.getInstanceLinksForAnAssociation();
 
 					Instance_c[] first = Instance_c.getManyI_INSsOnR2958(
@@ -523,7 +511,7 @@ public class BPValue extends BPDebugElement implements IValue {
 						if (value instanceof Association_c) {
 							Instance_c[] firstInstance = null;
 			
-							if (name == "Origin Of") {
+							if (name.equals("Origin Of")) {
 								Link_c[] instanceLinks = this.var.getInstanceLinksForAnAssociation();
 			
 								firstInstance = Instance_c .getManyI_INSsOnR2958(
@@ -534,7 +522,7 @@ public class BPValue extends BPDebugElement implements IValue {
 											LinkParticipation_c .getManyI_LIPsOnR2902(
 													instanceLinks));
 			
-							} else if (name == "Destination Of") {
+							} else if (name.equals("Destination Of")) {
 								Link_c[] instanceLinks = this.var.getInstanceLinksForAnAssociation();
 			
 								firstInstance = Instance_c .getManyI_INSsOnR2958(
@@ -546,7 +534,7 @@ public class BPValue extends BPDebugElement implements IValue {
 													instanceLinks));
 							} 
 			
-							else if (name == "Associator For") {
+							else if (name.equals("Associator For")) {
 								Link_c[] instanceLinks = this.var.getInstanceLinksForAnAssociation();
 			
 			

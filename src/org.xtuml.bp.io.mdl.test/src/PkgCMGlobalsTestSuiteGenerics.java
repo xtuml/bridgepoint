@@ -19,12 +19,8 @@
 // License for the specific language governing permissions and limitations under
 // the License.
 //=====================================================================
-import org.eclipse.core.runtime.CoreException;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
-import org.xtuml.bp.core.CorePlugin;
-import org.xtuml.bp.core.common.BridgePointPreferencesStore;
-import org.xtuml.bp.core.util.WorkspaceUtil;
 import org.xtuml.bp.io.mdl.test.GlobalTestSetupClass;
 import org.xtuml.bp.io.mdl.test.PkgCMGlobalsTestGenerics;
 import org.xtuml.bp.io.mdl.test.pkgcm.PkgCMCreateTestGenerics;
@@ -33,7 +29,6 @@ import org.xtuml.bp.io.mdl.test.pkgcm.PkgCMModifyContentsTestGenerics;
 import org.xtuml.bp.io.mdl.test.pkgcm.PkgCMModifyRelationTestGenerics;
 import org.xtuml.bp.io.mdl.test.pkgcm.PkgCMRenameTestGenerics;
 
-import junit.framework.Test;
 import junit.framework.TestSuite;
 
 @RunWith(Suite.class)
@@ -48,6 +43,5 @@ import junit.framework.TestSuite;
 	
 })
 public class PkgCMGlobalsTestSuiteGenerics extends TestSuite {
-
 
 }

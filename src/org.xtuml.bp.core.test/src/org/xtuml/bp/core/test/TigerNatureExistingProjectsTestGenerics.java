@@ -157,24 +157,6 @@ public class TigerNatureExistingProjectsTestGenerics extends CanvasTest {
 		return null;
 	}
 
-//	@Test
-//	public void testExistingProjects() throws Exception {
-//		doTestNewShapeAfterRestartOnSequenceDiagram();
-//		doTestEditorsRemainOpenAfterClose();
-//		doTestPlacholderInstances();
-//		doTestInterfaceAssignmentInterfaceContainedInDifferentPackageRoot();
-//		doTestComponentAssignmentComponentContainedInDifferentPackageRoot();
-//		doTestDataTypeAssignmentInterfaceOperationInDifferentPackageRoot();
-//		doTestDataTypeAssignmentPropertyParameterInDifferentPackageRoot();
-//		doTestUseCasePackageOnRestart();
-//		doTestPackageParticipantFormalizedToIPREditorRestoration();
-//		doTestComponentParticipantFormalizedToIPREditorRestoration();
-//		doTestExternalEntityParticipantFormalizedToIPREditorRestoration();
-//		doTestClassParticipantFormalizedToIPREditorRestoration();
-//		doTestClassInstanceParticipantFormalizedToIPREditorRestoration();
-//		
-//	}
-	
 	/**
 	 * Create a new shape on an existing sequence diagram, testing
 	 * that it is drawn correctly.

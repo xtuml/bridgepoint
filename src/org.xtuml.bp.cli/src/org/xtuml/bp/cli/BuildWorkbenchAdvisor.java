@@ -94,7 +94,7 @@ public class BuildWorkbenchAdvisor extends BPCLIWorkbenchAdvisor {
 				}
 
 				IConfiguration orginalConfig = null;
-				if (buildConfigString != "") {
+				if (!buildConfigString.isEmpty()) {
 					if (debug) {
 						System.out.println("Setting the specified build configuration of: " + buildConfigString + " for: " + project.getName());
 					}
@@ -117,7 +117,7 @@ public class BuildWorkbenchAdvisor extends BPCLIWorkbenchAdvisor {
 					System.out.println("Build finished for: " + project.getName());
 				}
 				
-				if (buildConfigString != "") {
+				if (!buildConfigString.isEmpty()) {
 					if (debug) {
 						System.out.println("Restoring original build configuration for: " + project.getName());
 					}

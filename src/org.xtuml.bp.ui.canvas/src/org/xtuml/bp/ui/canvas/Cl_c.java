@@ -1736,7 +1736,7 @@ private static String s_invoke(
 				result = target.getClass().getMethod(methodName, argTypes);
 			}
 		} catch (NoSuchMethodException e) {
-			// TODO BOB FIXME: I am ignoring all ClientNotFound operations right now because
+			// TODO: ClientNotFound operations are ignored right now because
 			//                 OAL added in operations made inside GD_ARS.Reconcile are being made
 			//                 against items that are not present. These are not fatal though, 
 			//                 and they are causing too much "noise". This does need to be
@@ -1784,8 +1784,16 @@ public static Object doMethod (Method m, Object target, Object[] args)
         CanvasPlugin.logError(
                  "Client method, " + m.getName() + " cannot be accessed: ", e);
       } catch (InvocationTargetException e) {
-        CanvasPlugin.logError(
-                 "Client method, " + m.getName() + " is illegal target: ", e);
+			// TODO: ClientNotFound operations are ignored right now because
+			//                 OAL added in operations made inside GD_ARS.Reconcile are being made
+			//                 against items that are not present. These are not fatal though, 
+			//                 and they are causing too much "noise". This does need to be
+			//                 put back into place and resolved by not making calls that are 
+			//                 not needed, but right now attempts to do that cause this that
+			//                 do need to be called to not get called and it is not worth chasing 
+			//                 right now.
+//        CanvasPlugin.logError(
+//                 "Client method, " + m.getName() + " is illegal target: ", e);
       }
     return null;
   }

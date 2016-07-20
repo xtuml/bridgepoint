@@ -110,7 +110,7 @@ public class TraceLogger extends GeneralPurposeLogger implements ILogger  {
 					{
 						toPrint = getThreadInfo() + toPrint;
 						System.out.println(toPrint);
-						if (filterValue==TraceLogger.UseTheStringBufferStringValue) {
+						if (filterValue.equals(TraceLogger.UseTheStringBufferStringValue)) {
 							stringLogger.println(0, "", toPrint);							
 						}
 					}
