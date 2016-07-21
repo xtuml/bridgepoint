@@ -1,597 +1,297 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 <html>
-
 <head>
-<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
-<meta name=Generator content="Microsoft Word 14 (filtered)">
-<title>Data Type Package</title>
-<style>
-<!--
- /* Font Definitions */
- @font-face
-	{font-family:SimSun;
-	panose-1:2 1 6 0 3 1 1 1 1 1;}
-@font-face
-	{font-family:SimSun;
-	panose-1:2 1 6 0 3 1 1 1 1 1;}
-@font-face
-	{font-family:Webdings;
-	panose-1:5 3 1 2 1 5 9 6 7 3;}
-@font-face
-	{font-family:"\@SimSun";
-	panose-1:2 1 6 0 3 1 1 1 1 1;}
- /* Style Definitions */
- p.MsoNormal, li.MsoNormal, div.MsoNormal
-	{margin:0in;
-	margin-bottom:.0001pt;
-	font-size:12.0pt;
-	font-family:"Times New Roman","serif";}
-h1
-	{mso-style-link:"Heading 1 Char";
-	margin-right:0in;
-	margin-left:0in;
-	font-size:18.0pt;
-	font-family:"Arial","sans-serif";
-	color:black;
-	font-weight:normal;}
-h2
-	{mso-style-link:"Heading 2 Char";
-	margin-right:0in;
-	margin-left:0in;
-	line-height:15.6pt;
-	font-size:12.0pt;
-	font-family:"Arial","sans-serif";
-	color:navy;
-	font-weight:bold;}
-h3
-	{mso-style-link:"Heading 3 Char";
-	margin-right:0in;
-	margin-bottom:2.4pt;
-	margin-left:0in;
-	font-size:11.0pt;
-	font-family:"Arial","sans-serif";
-	color:navy;
-	font-weight:bold;}
-h4
-	{mso-style-link:"Heading 4 Char";
-	margin-top:7.5pt;
-	margin-right:7.5pt;
-	margin-bottom:2.4pt;
-	margin-left:7.5pt;
-	font-size:11.0pt;
-	font-family:"Arial","sans-serif";
-	color:#0176B9;
-	font-weight:bold;}
-a:link, span.MsoHyperlink
-	{color:navy;
-	text-decoration:underline;}
-a:visited, span.MsoHyperlinkFollowed
-	{color:#0176B9;
-	text-decoration:underline;}
-p
-	{margin:7.5pt;
-	font-size:10.0pt;
-	font-family:"Times New Roman","serif";}
-span.Heading1Char
-	{mso-style-name:"Heading 1 Char";
-	mso-style-link:"Heading 1";
-	font-family:"Cambria","serif";
-	color:#365F91;
-	font-weight:bold;}
-span.Heading2Char
-	{mso-style-name:"Heading 2 Char";
-	mso-style-link:"Heading 2";
-	font-family:"Cambria","serif";
-	color:#4F81BD;
-	font-weight:bold;}
-span.Heading3Char
-	{mso-style-name:"Heading 3 Char";
-	mso-style-link:"Heading 3";
-	font-family:"Cambria","serif";
-	color:#4F81BD;
-	font-weight:bold;}
-span.Heading4Char
-	{mso-style-name:"Heading 4 Char";
-	mso-style-link:"Heading 4";
-	font-family:"Cambria","serif";
-	color:#4F81BD;
-	font-weight:bold;
-	font-style:italic;}
-p.preformatted-tpcode, li.preformatted-tpcode, div.preformatted-tpcode
-	{mso-style-name:preformatted-tp_code;
-	margin-top:15.0pt;
-	margin-right:0in;
-	margin-bottom:15.0pt;
-	margin-left:0in;
-	background:silver;
-	border:none;
-	padding:0in;
-	font-size:10.0pt;
-	font-family:"Courier New";}
-p.normalnotoc, li.normalnotoc, div.normalnotoc
-	{mso-style-name:normalnotoc;
-	margin:7.5pt;
-	font-size:11.0pt;
-	font-family:"Times New Roman","serif";}
-span.codeChar
-	{mso-style-name:"code Char";
-	mso-style-link:code;
-	font-family:"Courier New";}
-p.code, li.code, div.code
-	{mso-style-name:code;
-	mso-style-link:"code Char";
-	margin:7.5pt;
-	font-size:11.0pt;
-	font-family:"Courier New";}
-p.tpcode, li.tpcode, div.tpcode
-	{mso-style-name:tp_code;
-	margin:7.5pt;
-	font-size:10.0pt;
-	font-family:"Courier New";}
-p.tpinput, li.tpinput, div.tpinput
-	{mso-style-name:tp_input;
-	margin:7.5pt;
-	font-size:10.0pt;
-	font-family:"Times New Roman","serif";
-	font-weight:bold;}
-p.tpui, li.tpui, div.tpui
-	{mso-style-name:tp_ui;
-	margin:7.5pt;
-	font-size:10.0pt;
-	font-family:"Times New Roman","serif";
-	color:navy;}
-p.tpvar, li.tpvar, div.tpvar
-	{mso-style-name:tp_var;
-	margin:7.5pt;
-	font-size:10.0pt;
-	font-family:"Times New Roman","serif";
-	font-style:italic;}
-p.tpfooter, li.tpfooter, div.tpfooter
-	{mso-style-name:tp_footer;
-	margin:7.5pt;
-	text-align:center;
-	background:white;
-	font-size:9.0pt;
-	font-family:"Times New Roman","serif";}
-p.sub, li.sub, div.sub
-	{mso-style-name:sub;
-	margin:7.5pt;
-	font-size:10.0pt;
-	font-family:"Times New Roman","serif";}
-p.sublstbody, li.sublstbody, div.sublstbody
-	{mso-style-name:sublstbody;
-	margin:7.5pt;
-	font-size:10.0pt;
-	font-family:"Times New Roman","serif";}
-span.tpfile
-	{mso-style-name:tp_file;
-	color:#990000;
-	letter-spacing:1.2pt;}
-span.tpnote
-	{mso-style-name:tp_note;
-	font-weight:bold;}
-span.tpmenuarrow
-	{mso-style-name:tp_menuarrow;
-	font-family:Webdings;
-	color:navy;}
-span.hypertext
-	{mso-style-name:hypertext;}
-.MsoChpDefault
-	{font-size:10.0pt;}
-@page WordSection1
-	{size:8.5in 11.0in;
-	margin:1.0in 1.25in 1.0in 1.25in;}
-div.WordSection1
-	{page:WordSection1;}
- /* List Definitions */
- ol
-	{margin-bottom:0in;}
-ul
-	{margin-bottom:0in;}
--->
-</style>
-
+	<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+	<title>Data Type Package</title>
+	<meta name="generator" content="LibreOffice 5.1.4.2 (Linux)"/>
+	<meta name="created" content="00:00:00"/>
+	<meta name="changed" content="2016-07-21T16:04:17.334956040"/>
+	<meta name="created" content="00:00:00">
+	<meta name="changed" content="2016-07-21T16:00:42.835453099">
+	<style type="text/css">
+		p { margin-left: 0.1in; margin-right: 0.1in; margin-top: 0.1in; margin-bottom: 0.1in; font-family: "Times New Roman", serif; font-size: 10pt }
+		h2 { color: #000080; font-family: "Arial", sans-serif; font-size: 12pt; line-height: 0.22in }
+		h3 { margin-bottom: 0.03in; color: #000080; font-family: "Arial", sans-serif; font-size: 11pt }
+		h4 { margin-left: 0.1in; margin-right: 0.1in; margin-top: 0.1in; margin-bottom: 0.03in; color: #0176b9; font-family: "Arial", sans-serif; font-size: 11pt }
+		a:visited { color: #0176b9 }
+	</style>
 </head>
-
-<body bgcolor=white lang=EN-US link=navy vlink="#0176B9">
-
-<div class=WordSection1>
-
+<body lang="en-US" vlink="#0176b9" bgcolor="#ffffff" dir="ltr">
 <h2>Data Types</h2>
-
-<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>Data
-types fall into the following categories:</span></p>
-
-<p style='margin-left:43.5pt;text-indent:-.25in;line-height:15.6pt'><span
-style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-</span></span><span style='font-family:"Arial","sans-serif"'>Primitive types </span></p>
-
-<p style='margin-left:43.5pt;text-indent:-.25in;line-height:15.6pt'><span
-style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-</span></span><span style='font-family:"Arial","sans-serif"'>User data types</span></p>
-
-<p style='margin-left:43.5pt;text-indent:-.25in;line-height:15.6pt'><span
-style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-</span></span><span style='font-family:"Arial","sans-serif"'>Structured data
-types</span></p>
-
-<p style='margin-left:43.5pt;text-indent:-.25in;line-height:15.6pt'><span
-style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-</span></span><span style='font-family:"Arial","sans-serif"'>Enumerations</span></p>
-
-<p style='margin-left:43.5pt;text-indent:-.25in;line-height:15.6pt'><span
-style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-</span></span><span style='font-family:"Arial","sans-serif"'>Constant
-specifications</span></p>
-
+<p style="line-height: 0.22in"><font face="Arial, sans-serif">Data
+types fall into the following categories:</font></p>
+<p style="margin-left: 0.6in"><font face="Symbol">Â·</font><span style="font-variant: normal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span><font face="Arial, sans-serif">Primitive types </font>
+</p>
+<p style="margin-left: 0.6in"><font face="Symbol">Â·</font><span style="font-variant: normal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span><font face="Arial, sans-serif">User data types</font></p>
+<p style="margin-left: 0.6in"><font face="Symbol">Â·</font><span style="font-variant: normal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span><font face="Arial, sans-serif">Structured data types</font></p>
+<p style="margin-left: 0.6in"><font face="Symbol">Â·</font><span style="font-variant: normal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span><font face="Arial, sans-serif">Enumerations</font></p>
+<p style="margin-left: 0.6in"><font face="Symbol">Â·</font><span style="font-variant: normal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span><font face="Arial, sans-serif">Constant specifications</font></p>
 <h3>Primitive types</h3>
-
-<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>Primitive
-types are built-in and provided by BridgePoint.  You cannot add to, or remove
-from the set of primitive types.  The primitive types are:</span></p>
-
+<p style="line-height: 0.22in"><font face="Arial, sans-serif">Primitive
+types are built-in and provided by BridgePoint.&nbsp; You cannot add
+to, or remove from the set of primitive types.&nbsp; The primitive
+types are:</font></p>
 <h4>void</h4>
-
-<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>A
-primitive data type representing emptiness or nothingness.</span></p>
-
+<p style="line-height: 0.22in"><font face="Arial, sans-serif">A
+primitive data type representing emptiness or nothingness.</font></p>
 <h4>boolean</h4>
-
-<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>An
-enumeration whose only allowable values are </span><span class=codeChar><span
-style='font-size:11.0pt'>true</span></span><span style='font-family:"Arial","sans-serif"'>
-and </span><span class=codeChar><span style='font-size:11.0pt'>false</span></span><span
-style='font-family:"Arial","sans-serif"'>. This type is a core data type that
-supports the following operators: </span><span class=codeChar><span
-style='font-size:11.0pt'>and</span></span><span style='font-family:"Arial","sans-serif"'>,
-</span><span class=codeChar><span style='font-size:11.0pt'>or</span></span><span
-style='font-family:"Arial","sans-serif"'>, and </span><span class=codeChar><span
-style='font-size:11.0pt'>not</span></span><span style='font-family:"Arial","sans-serif"'>.</span></p>
-
+<p style="line-height: 0.22in"><font face="Arial, sans-serif">An
+enumeration whose only allowable values are </font><font size="2" style="font-size: 11pt">true</font>
+<font face="Arial, sans-serif">and </font><font size="2" style="font-size: 11pt">false</font><font face="Arial, sans-serif">.
+This type is a core data type that supports the following operators:
+</font><font size="2" style="font-size: 11pt">and</font><font face="Arial, sans-serif">,
+</font><font size="2" style="font-size: 11pt">or</font><font face="Arial, sans-serif">,
+and </font><font size="2" style="font-size: 11pt">not</font><font face="Arial, sans-serif">.</font></p>
 <h4>integer</h4>
-
-<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>A
-primitive data type whose literal values represent whole numbers, i.e., </span><span
-style='font-family:"Arial","sans-serif"'>1</span><span style='font-family:"Arial","sans-serif"'>,
-</span><span style='font-family:"Arial","sans-serif"'>2</span><span
-style='font-family:"Arial","sans-serif"'>, </span><span style='font-family:
-"Arial","sans-serif"'>3</span><span style='font-family:"Arial","sans-serif"'>,
-and so on. The </span><span style='font-family:"Arial","sans-serif"'>integer</span><span
-style='font-family:"Arial","sans-serif"'> type supports the following
-arithmetic operations: </span><span style='font-family:"Arial","sans-serif"'>+</span><span
-style='font-family:"Arial","sans-serif"'>, </span><span style='font-family:
-"Arial","sans-serif"'>-</span><span style='font-family:"Arial","sans-serif"'>, </span><span
-style='font-family:"Arial","sans-serif"'>*</span><span style='font-family:"Arial","sans-serif"'>,
-</span><span style='font-family:"Arial","sans-serif"'>/</span><span
-style='font-family:"Arial","sans-serif"'>, </span><span style='font-family:
-"Arial","sans-serif"'>%</span><span style='font-family:"Arial","sans-serif"'>,
-unary operations: </span><span style='font-family:"Arial","sans-serif"'>+</span><span
-style='font-family:"Arial","sans-serif"'>, </span><span style='font-family:
-"Arial","sans-serif"'>-</span><span style='font-family:"Arial","sans-serif"'>,
-and comparison operations: </span><span class=codeChar><span style='font-size:
-11.0pt'>==</span></span><span style='font-family:"Arial","sans-serif"'>, </span><span
-class=codeChar><span style='font-size:11.0pt'>!=</span></span><span
-style='font-family:"Arial","sans-serif"'>, </span><span class=codeChar><span
-style='font-size:11.0pt'>&lt;</span></span><span style='font-family:"Arial","sans-serif"'>,
-</span><span class=codeChar><span style='font-size:11.0pt'>&gt;</span></span><span
-style='font-family:"Arial","sans-serif"'>, </span><span class=codeChar><span
-style='font-size:11.0pt'>&lt;=</span></span><span style='font-family:"Arial","sans-serif"'>,
-</span><span class=codeChar><span style='font-size:11.0pt'>&gt;=</span></span><span
-style='font-family:"Arial","sans-serif"'>.</span></p>
-
+<p style="line-height: 0.22in"><font face="Arial, sans-serif">A
+primitive data type whose literal values represent whole numbers,
+i.e., 1, 2, 3, and so on. The integer</font> <font face="Arial, sans-serif">type
+supports the following arithmetic operations: +, -, *, /, %, unary
+operations: +, -, and comparison operations: </font><font size="2" style="font-size: 11pt">==</font><font face="Arial, sans-serif">,
+</font><font size="2" style="font-size: 11pt">!=</font><font face="Arial, sans-serif">,
+</font><font size="2" style="font-size: 11pt">&lt;</font><font face="Arial, sans-serif">,
+</font><font size="2" style="font-size: 11pt">&gt;</font><font face="Arial, sans-serif">,
+</font><font size="2" style="font-size: 11pt">&lt;=</font><font face="Arial, sans-serif">,
+</font><font size="2" style="font-size: 11pt">&gt;=</font><font face="Arial, sans-serif">.</font></p>
 <h4>real</h4>
-
-<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>A
-primitive data type whose literal values represent real numbers, i.e., those
-that can contain a fractional part as in: </span><span style='font-family:"Arial","sans-serif"'>1.0</span><span
-style='font-family:"Arial","sans-serif"'>, </span><span style='font-family:
-"Arial","sans-serif"'>2.4</span><span style='font-family:"Arial","sans-serif"'>,
-</span><span style='font-family:"Arial","sans-serif"'>3.14159</span><span
-style='font-family:"Arial","sans-serif"'>, and so on. The </span><span
-style='font-family:"Arial","sans-serif"'>real</span><span style='font-family:
-"Arial","sans-serif"'> type supports the following arithmetic operations: </span><span
-class=codeChar><span style='font-size:11.0pt'>+</span></span><span
-style='font-family:"Arial","sans-serif"'>, </span><span class=codeChar><span
-style='font-size:11.0pt'>-</span></span><span style='font-family:"Arial","sans-serif"'>,
-</span><span class=codeChar><span style='font-size:11.0pt'>*</span></span><span
-style='font-family:"Arial","sans-serif"'>, </span><span class=codeChar><span
-style='font-size:11.0pt'>/</span></span><span style='font-family:"Arial","sans-serif"'>,
-</span><span class=codeChar><span style='font-size:11.0pt'>%</span></span><span
-style='font-family:"Arial","sans-serif"'>, unary operations: </span><span
-class=codeChar><span style='font-size:11.0pt'>+</span></span><span
-style='font-family:"Arial","sans-serif"'>, </span><span class=codeChar><span
-style='font-size:11.0pt'>-</span></span><span style='font-family:"Arial","sans-serif"'>,
-and comparison operations: </span><span class=codeChar><span style='font-size:
-11.0pt'>==</span></span><span style='font-family:"Arial","sans-serif"'>, </span><span
-class=codeChar><span style='font-size:11.0pt'>!=</span></span><span
-style='font-family:"Arial","sans-serif"'>, </span><span class=codeChar><span
-style='font-size:11.0pt'>&lt;</span></span><span style='font-family:"Arial","sans-serif"'>,
-</span><span class=codeChar><span style='font-size:11.0pt'>&gt;</span></span><span
-style='font-family:"Arial","sans-serif"'>, </span><span class=codeChar><span
-style='font-size:11.0pt'>&lt;=</span></span><span style='font-family:"Arial","sans-serif"'>,
-</span><span class=codeChar><span style='font-size:11.0pt'>&gt;=</span></span><span
-style='font-family:"Arial","sans-serif"'>.</span></p>
-
+<p style="line-height: 0.22in"><font face="Arial, sans-serif">A
+primitive data type whose literal values represent real numbers,
+i.e., those that can contain a fractional part as in: 1.0, 2.4,
+3.14159, and so on. The real</font> <font face="Arial, sans-serif">type
+supports the following arithmetic operations: </font><font size="2" style="font-size: 11pt">+</font><font face="Arial, sans-serif">,
+</font><font size="2" style="font-size: 11pt">-</font><font face="Arial, sans-serif">,
+</font><font size="2" style="font-size: 11pt">*</font><font face="Arial, sans-serif">,
+</font><font size="2" style="font-size: 11pt">/</font><font face="Arial, sans-serif">,
+</font><font size="2" style="font-size: 11pt">%</font><font face="Arial, sans-serif">,
+unary operations: </font><font size="2" style="font-size: 11pt">+</font><font face="Arial, sans-serif">,
+</font><font size="2" style="font-size: 11pt">-</font><font face="Arial, sans-serif">,
+and comparison operations: </font><font size="2" style="font-size: 11pt">==</font><font face="Arial, sans-serif">,
+</font><font size="2" style="font-size: 11pt">!=</font><font face="Arial, sans-serif">,
+</font><font size="2" style="font-size: 11pt">&lt;</font><font face="Arial, sans-serif">,
+</font><font size="2" style="font-size: 11pt">&gt;</font><font face="Arial, sans-serif">,
+</font><font size="2" style="font-size: 11pt">&lt;=</font><font face="Arial, sans-serif">,
+</font><font size="2" style="font-size: 11pt">&gt;=</font><font face="Arial, sans-serif">.</font></p>
 <h4>string</h4>
-
-<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>A
-primitive data type used to define a sequence of characters. A literal string
-is always enclosed in a set of double quotes, for example </span><span
-style='font-family:"Arial","sans-serif"'>“abcdefg”</span><span
-style='font-family:"Arial","sans-serif"'>. String types support concatenation (</span><span
-class=codeChar><span style='font-size:11.0pt'>+</span></span><span
-style='font-family:"Arial","sans-serif"'> operator) and the following lexical
-comparisons: </span><span class=codeChar><span style='font-size:11.0pt'>==</span></span><span
-style='font-family:"Arial","sans-serif"'>, </span><span class=codeChar><span
-style='font-size:11.0pt'>!=</span></span><span style='font-family:"Arial","sans-serif"'>,
-</span><span class=codeChar><span style='font-size:11.0pt'>&lt;</span></span><span
-style='font-family:"Arial","sans-serif"'>, </span><span class=codeChar><span
-style='font-size:11.0pt'>&gt;</span></span><span style='font-family:"Arial","sans-serif"'>,
-</span><span class=codeChar><span style='font-size:11.0pt'>&lt;=</span></span><span
-style='font-family:"Arial","sans-serif"'>, </span><span class=codeChar><span
-style='font-size:11.0pt'>&gt;=</span></span><span style='font-family:"Arial","sans-serif"'>.</span></p>
-
+<p style="line-height: 0.22in"><font face="Arial, sans-serif">A
+primitive data type used to define a sequence of characters. A
+literal string is always enclosed in a set of double quotes, for
+example </font>â€œ<font face="Arial, sans-serif">abcdefgâ€. String
+types support concatenation (</font><font size="2" style="font-size: 11pt">+</font>
+<font face="Arial, sans-serif">operator) and the following lexical
+comparisons: </font><font size="2" style="font-size: 11pt">==</font><font face="Arial, sans-serif">,
+</font><font size="2" style="font-size: 11pt">!=</font><font face="Arial, sans-serif">,
+</font><font size="2" style="font-size: 11pt">&lt;</font><font face="Arial, sans-serif">,
+</font><font size="2" style="font-size: 11pt">&gt;</font><font face="Arial, sans-serif">,
+</font><font size="2" style="font-size: 11pt">&lt;=</font><font face="Arial, sans-serif">,
+</font><font size="2" style="font-size: 11pt">&gt;=</font><font face="Arial, sans-serif">.</font></p>
 <h4>unique_id</h4>
-
-<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>A
-primitive data type that provides an arbitrary value generated by the system
-and guaranteed to be unique across all instances of the same class. Modelers
-should use an arbitrary identifier (aka unique_id) when using natural
-identifying attributes is either not possible or cumbersome. Only equality (</span><span
-class=codeChar><span style='font-size:11.0pt'>==</span></span><span
-style='font-family:"Arial","sans-serif"'>) and inequality (</span><span
-class=codeChar><span style='font-size:11.0pt'>!=</span></span><span
-style='font-family:"Arial","sans-serif"'>) operators are supported.</span></p>
-
+<p style="line-height: 0.22in"><font face="Arial, sans-serif">A
+primitive data type that provides an arbitrary value generated by the
+system and guaranteed to be unique across all instances of the same
+class. Modelers should use an arbitrary identifier (aka unique_id)
+when using natural identifying attributes is either not possible or
+cumbersome. Only equality (</font><font size="2" style="font-size: 11pt">==</font><font face="Arial, sans-serif">)
+and inequality (</font><font size="2" style="font-size: 11pt">!=</font><font face="Arial, sans-serif">)
+operators are supported.</font></p>
 <h4>state&lt;State_Model&gt;</h4>
-
-<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>A
-primitive data type used internally by xtUML to keep track of the current state
-of classes with state diagrams.  Variables of this type cannot be manipulated
-or assigned by the user.</span></p>
-
+<p style="line-height: 0.22in"><font face="Arial, sans-serif">A
+primitive data type used internally by xtUML to keep track of the
+current state of classes with state diagrams.&nbsp; Variables of this
+type cannot be manipulated or assigned by the user.</font></p>
 <h4>same_as&lt;Base_Attribute&gt;</h4>
-
-<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>A
+<p style="line-height: 0.22in"><font face="Arial, sans-serif">A
 primitive data type used internally by xtUML to make sure association
-referential attributes use the same type on both sides of the association. 
-Variables of this type cannot be manipulated or assigned by the user.</span></p>
-
+referential attributes use the same type on both sides of the
+association.&nbsp; Variables of this type cannot be manipulated or
+assigned by the user.</font></p>
 <h4>inst_ref&lt;Object&gt;</h4>
-
-<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>A
-primitive data type representing a reference to a modeled class. Variables
-created via a “</span><span class=codeChar><span style='font-size:11.0pt'>create
-object instance</span></span><span style='font-family:"Arial","sans-serif"'>”,
-”</span><span class=codeChar><span style='font-size:11.0pt'>select one</span></span><span
-style='font-family:"Arial","sans-serif"'>“ or “</span><span class=codeChar><span
-style='font-size:11.0pt'>select any</span></span><span style='font-family:"Arial","sans-serif"'>”
-statement are of this type.  Class attributes</span><span style='font-family:
-"Arial","sans-serif"'> are accessed via the “</span><span class=codeChar><span
-style='font-size:11.0pt'>.</span></span><span style='font-family:"Arial","sans-serif"'>”
-operator.</span></p>
-
+<p style="line-height: 0.22in"><font face="Arial, sans-serif">A
+primitive data type representing a reference to a modeled class.
+Variables created via a â€œ</font><font size="2" style="font-size: 11pt">create
+object instance</font>â€<font face="Arial, sans-serif">, â€</font><font size="2" style="font-size: 11pt">select
+one</font>â€œ <font face="Arial, sans-serif">or â€œ</font><font size="2" style="font-size: 11pt">select
+any</font>â€ <font face="Arial, sans-serif">statement are of this
+type.&nbsp; Class attributes</font> <font face="Arial, sans-serif">are
+accessed via the â€œ</font><font size="2" style="font-size: 11pt">.</font>â€
+<font face="Arial, sans-serif">operator.</font></p>
 <h4>inst_ref_set&lt;Object&gt;</h4>
-
-<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>A
-primitive data type representing a collection of references to a modeled class.
-Variables created via a ”</span><span class=codeChar><span style='font-size:
-11.0pt'>select many</span></span><span style='font-family:"Arial","sans-serif"'>”
-statement are of this type.  Each element in the collection is of type </span><span
-class=codeChar><span style='font-size:11.0pt'>inst_ref&lt;Object&gt;</span></span><span
-style='font-family:"Arial","sans-serif"'>.</span></p>
-
+<p style="line-height: 0.22in"><font face="Arial, sans-serif">A
+primitive data type representing a collection of references to a
+modeled class. Variables created via a â€</font><font size="2" style="font-size: 11pt">select
+many</font>â€ <font face="Arial, sans-serif">statement are of this
+type.&nbsp; Each element in the collection is of type
+</font><font size="2" style="font-size: 11pt">inst_ref&lt;Object&gt;</font><font face="Arial, sans-serif">.</font></p>
 <h4>inst&lt;Event&gt;</h4>
-
-<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>A
-primitive data type representing a reference to a modeled event. Variables
-created via a “</span><span class=codeChar><span style='font-size:11.0pt'>create
-event instance</span></span><span style='font-family:"Arial","sans-serif"'>” statement
-are of this type.</span></p>
-
+<p style="line-height: 0.22in"><font face="Arial, sans-serif">A
+primitive data type representing a reference to a modeled event.
+Variables created via a â€œ</font><font size="2" style="font-size: 11pt">create
+event instance</font>â€ <font face="Arial, sans-serif">statement are
+of this type.</font></p>
 <h4>inst&lt;Mapping&gt;</h4>
-
-<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>A
-primitive data type from which a user-defined type can be derived, an instance
-mapping is used when an xtUML model requires access to a data structure in
-another xtUML model or legacy code. Although there are no hard and set rules
-for when to use an instance mapping over an instance reference mapping, the
-decision usually revolves around the operations supported. </span></p>
-
-<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>Instance
-mappings are commonly used when manipulating the data structure as a whole.</span></p>
-
-<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>All
-comparison operations are available for instance mappings in OAL: </span><span
-class=codeChar><span style='font-size:11.0pt'>==</span></span><span
-class=codeChar><span style='font-family:"Arial","sans-serif"'>, </span></span><span
-class=codeChar><span style='font-size:11.0pt'>!=</span></span><span
-class=codeChar><span style='font-family:"Arial","sans-serif"'>, </span></span><span
-class=codeChar><span style='font-size:11.0pt'>&lt;</span></span><span
-class=codeChar><span style='font-family:"Arial","sans-serif"'>, </span></span><span
-class=codeChar><span style='font-size:11.0pt'>&gt;</span></span><span
-class=codeChar><span style='font-family:"Arial","sans-serif"'>, </span></span><span
-class=codeChar><span style='font-size:11.0pt'>&lt;=</span></span><span
-class=codeChar><span style='font-family:"Arial","sans-serif"'>, </span></span><span
-class=codeChar><span style='font-size:11.0pt'>&gt;=</span></span><span
-class=codeChar><span style='font-family:"Arial","sans-serif"'>.  However, due
-to their implementation-specific nature, Verifier cannot use variables of this
-type in a meaningful way.</span></span></p>
-
-<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>The
-implementation of mappings and the markings used to realize them are provided
-by the BridgePoint Compiler.  See the documentation for the marking </span><span
-class=codeChar><span style='font-size:11.0pt'>MapDataTypeAsPointer</span></span><span
-style='font-family:"Arial","sans-serif"'> in </span><span class=codeChar><span
-style='font-size:11.0pt'>&lt;project&gt;/gen/datatype.mark</span></span><span
-style='font-family:"Arial","sans-serif"'> for additional information.</span></p>
-
+<p style="line-height: 0.22in"><font face="Arial, sans-serif">A
+primitive data type from which a user-defined type can be derived, an
+instance mapping is used when an xtUML model requires access to a
+data structure in another xtUML model or legacy code. Although there
+are no hard and set rules for when to use an instance mapping over an
+instance reference mapping, the decision usually revolves around the
+operations supported. </font>
+</p>
+<p style="line-height: 0.22in"><font face="Arial, sans-serif">Instance
+mappings are commonly used when manipulating the data structure as a
+whole.</font></p>
+<p style="line-height: 0.22in"><font face="Arial, sans-serif">All
+comparison operations are available for instance mappings in OAL: </font><font size="2" style="font-size: 11pt">==</font><font face="Arial, sans-serif">,
+</font><font size="2" style="font-size: 11pt">!=</font><font face="Arial, sans-serif">,
+</font><font size="2" style="font-size: 11pt">&lt;</font><font face="Arial, sans-serif">,
+</font><font size="2" style="font-size: 11pt">&gt;</font><font face="Arial, sans-serif">,
+</font><font size="2" style="font-size: 11pt">&lt;=</font><font face="Arial, sans-serif">,
+</font><font size="2" style="font-size: 11pt">&gt;=</font><font face="Arial, sans-serif">.&nbsp;
+However, due to their implementation-specific nature, Verifier cannot
+use variables of this type in a meaningful way.</font></p>
+<p style="line-height: 0.22in"><font face="Arial, sans-serif">The
+implementation of mappings and the markings used to realize them are
+provided by the BridgePoint Compiler.&nbsp; See the documentation for
+the marking </font><font size="2" style="font-size: 11pt">MapDataTypeAsPointer</font>
+<font face="Arial, sans-serif">in </font><font size="2" style="font-size: 11pt">&lt;project&gt;/gen/datatype.mark</font>
+<font face="Arial, sans-serif">for additional information.</font></p>
 <h4>inst_ref&lt;Mapping&gt;</h4>
-
-<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>A primitive
-data type from which a user-defined type is derived, an instance reference
-mapping is used when an xtUML model requires access to a data structure in
-another xtUML model or legacy code. Although there are no hard and set rules
-for when to use an instance reference mapping over an instance mapping, the
-decision usually revolves around the operations supported. </span></p>
-
-<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>Instance
-reference mappings are commonly used when manipulating the data structure by
-reference.</span></p>
-
-<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>The
-equality and inequality operators are available for instance reference mappings
-in OAL: </span><span class=codeChar><span style='font-size:11.0pt'>==</span></span><span
-style='font-family:"Arial","sans-serif"'>, </span><span class=codeChar><span
-style='font-size:11.0pt'>!=</span></span><span style='font-family:"Arial","sans-serif"'>. 
-</span><span class=codeChar><span style='font-family:"Arial","sans-serif"'>However,
-due to their implementation-specific nature, Verifier cannot use variables of
-this type in a meaningful way.</span></span></p>
-
-<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>The
-implementation of mappings and the markings used to realize them are provided
-by the BridgePoint Compiler.  See the documentation for the marking </span><span
-class=codeChar><span style='font-size:11.0pt'>MapDataTypeAsPointer</span></span><span
-style='font-family:"Arial","sans-serif"'> in </span><span class=codeChar><span
-style='font-size:11.0pt'>&lt;project&gt;/gen/datatype.mark</span></span><span
-style='font-family:"Arial","sans-serif"'> for additional information.</span></p>
-
+<p style="line-height: 0.22in"><font face="Arial, sans-serif">A
+primitive data type from which a user-defined type is derived, an
+instance reference mapping is used when an xtUML model requires
+access to a data structure in another xtUML model or legacy code.
+Although there are no hard and set rules for when to use an instance
+reference mapping over an instance mapping, the decision usually
+revolves around the operations supported. </font>
+</p>
+<p style="line-height: 0.22in"><font face="Arial, sans-serif">Instance
+reference mappings are commonly used when manipulating the data
+structure by reference.</font></p>
+<p style="line-height: 0.22in"><font face="Arial, sans-serif">The
+equality and inequality operators are available for instance
+reference mappings in OAL: </font><font size="2" style="font-size: 11pt">==</font><font face="Arial, sans-serif">,
+</font><font size="2" style="font-size: 11pt">!=</font><font face="Arial, sans-serif">.&nbsp;
+However, due to their implementation-specific nature, Verifier cannot
+use variables of this type in a meaningful way.</font></p>
+<p style="line-height: 0.22in"><font face="Arial, sans-serif">The
+implementation of mappings and the markings used to realize them are
+provided by the BridgePoint Compiler.&nbsp; See the documentation for
+the marking </font><font size="2" style="font-size: 11pt">MapDataTypeAsPointer</font>
+<font face="Arial, sans-serif">in </font><font size="2" style="font-size: 11pt">&lt;project&gt;/gen/datatype.mark</font>
+<font face="Arial, sans-serif">for additional information.</font></p>
 <h4>component_ref</h4>
-
-<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>A
-primitive data type representing a reference to a modeled component. The </span><span
-class=codeChar><span style='font-size:11.0pt'>sender</span></span><span
-style='font-family:"Arial","sans-serif"'> keyword in OAL is always of this
-type.  This type may be used the same place other primitive data types are
-used.  It is also valid in OAL as the target in a “</span><span class=codeChar><span
-style='font-size:11.0pt'>send … to &lt;component_ref&gt;</span></span><span
-style='font-family:"Arial","sans-serif"'>” command when performing
-inter-component messaging.  Class attributes, parameters, return values, and
-transients may all use this type.</span></p>
-
-<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>Variables
-of this type support equality and inequality operations in Verifier: ==, !=</span></p>
-
-<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>Variables
-of this type are not yet supported in MC-3020.</span></p>
-
+<p style="line-height: 0.22in"><font face="Arial, sans-serif">A
+primitive data type representing a reference to a modeled component.
+The </font><font size="2" style="font-size: 11pt">sender</font>
+<font face="Arial, sans-serif">keyword in OAL is always of this
+type.&nbsp; This type may be used the same place other primitive data
+types are used.&nbsp; It is also valid in OAL as the target in a
+â€œ</font><font size="2" style="font-size: 11pt">send â€¦ to
+&lt;component_ref&gt;</font>â€ <font face="Arial, sans-serif">command
+when performing inter-component messaging.&nbsp; Class attributes,
+parameters, return values, and transients may all use this type.</font></p>
+<p style="line-height: 0.22in"><font face="Arial, sans-serif">Variables
+of this type support equality and inequality operations in Verifier:
+==, !=</font></p>
+<p style="line-height: 0.22in"><font face="Arial, sans-serif">Variables
+of this type are not yet supported in MC-3020.</font></p>
 <h4>date</h4>
-
-<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>A
-primitive data type representing an xtUML date. Variables created via a “</span><span
-class=codeChar><span style='font-size:11.0pt'>TIM::create_date</span></span><span
-style='font-family:"Arial","sans-serif"'>” or “</span><span class=codeChar><span
-style='font-size:11.0pt'>TIM::current_date</span></span><span style='font-family:
-"Arial","sans-serif"'>” statement are of this type. </span><span
-class=codeChar><span style='font-size:11.0pt'>date</span></span><span
-style='font-family:"Arial","sans-serif"'>s may be stored in class attributes,
-passed as parameters and return values, and manipulated via </span><span
-class=codeChar><span style='font-size:11.0pt'>TIM</span></span><span
-style='font-family:"Arial","sans-serif"'> bridge operations.</span></p>
-
-<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>Variables
+<p style="line-height: 0.22in"><font face="Arial, sans-serif">A
+primitive data type representing an xtUML date. Variables created via
+a â€œ</font><font size="2" style="font-size: 11pt">TIM::create_date</font>â€
+<font face="Arial, sans-serif">or â€œ</font><font size="2" style="font-size: 11pt">TIM::current_date</font>â€
+<font face="Arial, sans-serif">statement are of this type. </font><font size="2" style="font-size: 11pt">date</font><font face="Arial, sans-serif">s
+may be stored in class attributes, passed as parameters and return
+values, and manipulated via </font><font size="2" style="font-size: 11pt">TIM</font>
+<font face="Arial, sans-serif">bridge operations.</font></p>
+<p style="line-height: 0.22in"><font face="Arial, sans-serif">Variables
 of this type support equality, inequality, comparison, and assignment
-operations: ==, !=, &gt;, &lt;, &gt;=, &lt;=, =</span></p>
-
+operations: ==, !=, &gt;, &lt;, &gt;=, &lt;=, =</font></p>
 <h4>inst_ref&lt;Timer&gt;</h4>
-
-<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>A
-primitive data type representing a reference to a xtUML timer. Variables
-created via a “</span><span class=codeChar><span style='font-size:11.0pt'>TIM::timer_start</span></span><span
-style='font-family:"Arial","sans-serif"'>” or “</span><span class=codeChar><span
-style='font-size:11.0pt'>TIM::timer_start_recurring</span></span><span
-style='font-family:"Arial","sans-serif"'>” statement are of this type. Timer
-references may be stored in class attributes, passed as parameters and return
-values, and manipulated via </span><span class=codeChar><span style='font-size:
-11.0pt'>TIM</span></span><span style='font-family:"Arial","sans-serif"'> bridge
-operations.</span></p>
-
-<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>Variables
-of this type support equality, inequality, and assignment operations: ==, !=, =</span></p>
-
+<p style="line-height: 0.22in"><font face="Arial, sans-serif">A
+primitive data type representing a reference to a xtUML timer.
+Variables created via a â€œ</font><font size="2" style="font-size: 11pt">TIM::timer_start</font>â€
+<font face="Arial, sans-serif">or â€œ</font><font size="2" style="font-size: 11pt">TIM::timer_start_recurring</font>â€
+<font face="Arial, sans-serif">statement are of this type. Timer
+references may be stored in class attributes, passed as parameters
+and return values, and manipulated via </font><font size="2" style="font-size: 11pt">TIM</font>
+<font face="Arial, sans-serif">bridge operations.</font></p>
+<p style="line-height: 0.22in"><font face="Arial, sans-serif">Variables
+of this type support equality, inequality, and assignment operations:
+==, !=, =</font></p>
 <h4>timestamp</h4>
-
-<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>A
-primitive data type representing a specific xtUML time. Variables created via a
-“</span><span class=codeChar><span style='font-size:11.0pt'>TIM::current_clock</span></span><span
-style='font-family:"Arial","sans-serif"'>” statement are of this type. </span><span
-class=codeChar><span style='font-size:11.0pt'>timestamp</span></span><span
-style='font-family:"Arial","sans-serif"'>s may be stored in class attributes,
-passed as parameters and return values.</span></p>
-
-<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>Variables
+<p style="line-height: 0.22in"><font face="Arial, sans-serif">A
+primitive data type representing a specific xtUML time. Variables
+created via a â€œ</font><font size="2" style="font-size: 11pt">TIM::current_clock</font>â€
+<font face="Arial, sans-serif">statement are of this type. </font><font size="2" style="font-size: 11pt">timestamp</font><font face="Arial, sans-serif">s
+may be stored in class attributes, passed as parameters and return
+values.</font></p>
+<p style="line-height: 0.22in"><font face="Arial, sans-serif">Variables
 of this type support equality, inequality, comparison, and assignment
-operations: ==, !=, &gt;, &lt;, &gt;=, &lt;=, =</span></p>
-
+operations: ==, !=, &gt;, &lt;, &gt;=, &lt;=, =</font></p>
+<h4>MASLtype</h4>
+<p style="line-height: 0.22in"><font face="Arial, sans-serif">A
+primitive data type created in converted MASL models. This serves as
+the base type for MASL types and collections that do not directly map
+to an xtUML core type (e.g. integer).  MASLtype is a UDT whose core
+type is string.</font></p>
 <h3>User data types</h3>
-
-<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>A
-type based on one of the primitive data types. User data types (UDTs) may be
-based on the following primitive types: </span><span class=codeChar><span
-style='font-size:11.0pt'>boolean</span></span><span style='font-family:"Arial","sans-serif"'>,
-</span><span class=codeChar><span style='font-size:11.0pt'>integer</span></span><span
-style='font-family:"Arial","sans-serif"'>, </span><span class=codeChar><span
-style='font-size:11.0pt'>real</span></span><span style='font-family:"Arial","sans-serif"'>,
-</span><span class=codeChar><span style='font-size:11.0pt'>string</span></span><span
-style='font-family:"Arial","sans-serif"'>, </span><span class=codeChar><span
-style='font-size:11.0pt'>unique</span></span><span style='font-family:"Arial","sans-serif"'>_id</span><span
-style='font-family:"Arial","sans-serif"'>, </span><span class=codeChar><span
-style='font-size:11.0pt'>inst&lt;Mapping&gt;,</span></span><span
-style='font-family:"Arial","sans-serif"'> and </span><span class=codeChar><span
-style='font-size:11.0pt'>inst_ref&lt;Mapping&gt;.</span></span><span
-style='font-family:"Arial","sans-serif"'>  User data types inherit all
-operators from the primitive type and are completely compatible and
-interchangeable with their primitive type.  UDTs allow the modeler to give a
-more meaningful type name to a core type.  In some programming languages, this
-feature is known as a “typedef”. </span></p>
-
+<p style="line-height: 0.22in"><font face="Arial, sans-serif">A type
+based on one of the primitive data types. User data types (UDTs) may
+be based on the following primitive types: </font><font size="2" style="font-size: 11pt">boolean</font><font face="Arial, sans-serif">,
+</font><font size="2" style="font-size: 11pt">integer</font><font face="Arial, sans-serif">,
+</font><font size="2" style="font-size: 11pt">real</font><font face="Arial, sans-serif">,
+</font><font size="2" style="font-size: 11pt">string</font><font face="Arial, sans-serif">,
+</font><font size="2" style="font-size: 11pt">unique</font><font face="Arial, sans-serif">_id,
+</font><font size="2" style="font-size: 11pt">inst&lt;Mapping&gt;,</font>
+<font face="Arial, sans-serif">and </font><font size="2" style="font-size: 11pt">inst_ref&lt;Mapping&gt;.</font>&nbsp;
+<font face="Arial, sans-serif">User data types inherit all operators
+from the primitive type and are completely compatible and
+interchangeable with their primitive type.&nbsp; UDTs allow the
+modeler to give a more meaningful type name to a core type.&nbsp; In
+some programming languages, this feature is known as a â€œtypedefâ€.
+</font>
+</p>
 <h3>Structured data types</h3>
-
-<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>A
-structured data type (SDT) is a collection of structure members of various
-types. Structure members are accessed via the “</span><span class=codeChar><span
-style='font-size:11.0pt'>.</span></span><span style='font-family:"Arial","sans-serif"'>”
-operator.  SDTs may be used as return values, parameters, or class attributes.
-Automatic (transient) variables become SDTs when initialized to a return value
-or variable whose type is an SDT.  Only the assignment operation is valid on
-the SDT itself.  The individual structure members may be operated on according
-to the valid operations for their respective types.</span></p>
-
+<p style="line-height: 0.22in"><font face="Arial, sans-serif">A
+structured data type (SDT) is a collection of structure members of
+various types. Structure members are accessed via the â€œ</font><font size="2" style="font-size: 11pt">.</font>â€
+<font face="Arial, sans-serif">operator.&nbsp; SDTs may be used as
+return values, parameters, or class attributes. Automatic (transient)
+variables become SDTs when initialized to a return value or variable
+whose type is an SDT.&nbsp; Only the assignment operation is valid on
+the SDT itself.&nbsp; The individual structure members may be
+operated on according to the valid operations for their respective
+types.</font></p>
 <h3>Enumerations</h3>
-
-<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>A
-data type that can take on one of a list of uniquely named values (enumerators)
-at any one time.  Variables of the enumeration type may only be assigned one of
-the corresponding enumerators as a value.  Enumerators are accessed in OAL
-using </span><span class=codeChar><span style='font-size:11.0pt'>&lt;enumeration
-name&gt;::&lt;enumerator name&gt;</span></span><span style='font-family:"Arial","sans-serif"'>
-with full scoping to avoid name conflicts with transients, constants, class
-attributes, etc.</span></p>
-
-<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>Variables
-of an enumeration type support equality, inequality, and assignment operations:
-==, !=, =</span></p>
-
+<p style="line-height: 0.22in"><font face="Arial, sans-serif">A data
+type that can take on one of a list of uniquely named values
+(enumerators) at any one time.&nbsp; Variables of the enumeration
+type may only be assigned one of the corresponding enumerators as a
+value.&nbsp; Enumerators are accessed in OAL using </font><font size="2" style="font-size: 11pt">&lt;enumeration
+name&gt;::&lt;enumerator name&gt;</font> <font face="Arial, sans-serif">with
+full scoping to avoid name conflicts with transients, constants,
+class attributes, etc.</font></p>
+<p style="line-height: 0.22in"><font face="Arial, sans-serif">Variables
+of an enumeration type support equality, inequality, and assignment
+operations: ==, !=, =</font></p>
 <h3>Constant specifications</h3>
-
-<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>Constant
-specifications are groupings of related constants.  Constant specifications may
-be named or unnamed.  The name, if any exists, has no semantic use or meaning
-in OAL.  Constant specifications are composed of zero to many Constants.  A
-constant has a name, type, and value.  The type is restricted to </span><span
-class=codeChar><span style='font-size:11.0pt'>integer, real, boolean, </span></span><span
-style='font-family:"Arial","sans-serif"'>or</span><span class=codeChar><span
-style='font-size:11.0pt'> string</span></span><span style='font-family:"Arial","sans-serif"'>. 
-The value is restricted to meaningful data based on the chosen type.  Integer
-constant values may be specified in either decimal, hexadecimal (beginning with
-</span><span class=codeChar><span style='font-size:11.0pt'>0x</span></span><span
-style='font-family:"Arial","sans-serif"'>), or binary (beginning with </span><span
-class=codeChar><span style='font-size:11.0pt'>0b</span></span><span
-style='font-family:"Arial","sans-serif"'>).</span></p>
-
-<p style='margin-left:0in;line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>&nbsp;</span></p>
-
-</div>
-
+<p style="line-height: 0.22in"><font face="Arial, sans-serif">Constant
+specifications are groupings of related constants.&nbsp; Constant
+specifications may be named or unnamed.&nbsp; The name, if any
+exists, has no semantic use or meaning in OAL.&nbsp; Constant
+specifications are composed of zero to many Constants.&nbsp; A
+constant has a name, type, and value.&nbsp; The type is restricted to
+</font><font size="2" style="font-size: 11pt">integer, real, boolean,
+</font><font face="Arial, sans-serif">or</font> <font size="2" style="font-size: 11pt">string</font><font face="Arial, sans-serif">.&nbsp;
+The value is restricted to meaningful data based on the chosen type.&nbsp;
+Integer constant values may be specified in either decimal,
+hexadecimal (beginning with </font><font size="2" style="font-size: 11pt">0x</font><font face="Arial, sans-serif">),
+or binary (beginning with </font><font size="2" style="font-size: 11pt">0b</font><font face="Arial, sans-serif">).</font></p>
+<p style="margin-left: 0in; margin-right: 0in; line-height: 0.22in">&nbsp;</p>
 </body>
-
 </html>
