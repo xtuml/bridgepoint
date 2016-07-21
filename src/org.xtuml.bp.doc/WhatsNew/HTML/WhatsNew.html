@@ -5,7 +5,7 @@
 	<title>What's New</title>
 	<meta name="generator" content="LibreOffice 4.2.8.2 (Linux)">
 	<meta name="created" content="0;0">
-	<meta name="changed" content="20151228;145734994769945">
+	<meta name="changed" content="20160721;14606737851307">
 	<style type="text/css">
 	<!--
 		p { color: #000000 }
@@ -17,22 +17,52 @@
 	</style>
 </head>
 <body lang="en-US" text="#000000" link="#0000ff" vlink="#800080" dir="ltr" style="background: transparent">
-<h1>What's New in BridgePoint 5.2</h1>
-<p><a href="../../ReleaseNotes/HTML/ReleaseNotes.html">Release Notes</a></p>
+<h1>What's New in BridgePoint 5.4</h1>
+<p>Release Highlights</p>
+<ul>
+	<li><p>MASL</p>
+	<ul>
+		<li><p>convert, import, and export</p>
+		<li><p>Xtext-based MASL editor</p>
+	</ul>
+	<li><p>New Generator</p>
+	<li><p>Model Compiler</p>
+	<ul>
+		<li><p>major re-organization of MC internals</p>
+		<li><p>Separate docgen out of mcmc</p>
+		<li><p>MASL tooling</p>
+	</ul>
+	<li><p>New preference to disable parse on edit</p>
+	<li><p>Exceptions (S_EXP) in the meta-model</p>
+	<li><p>Graphics auto reconciliation</p>
+</ul>
 <hr>
 <table width="100%" cellpadding="0" cellspacing="0">
 	<col width="51*">
 	<col width="205*">
 	<tr>
 		<td width="20%" style="border: none; padding: 0in">
-			<p align="center"><b>Move to Eclipse 4.5</b></p>
+			<p align="center"><b>MASL</b></p>
 		</td>
 		<td width="80%" style="border: none; padding: 0in">
-			<p align="left">BridgePoint has been upgraded to use Eclipse Mars
-			as the underlying platform.  This includes updates to the
-			associated tools such as CDT, JDT, Egit, and others.  For more
-			details, check out the <a href="https://www.eclipse.org/eclipse/news/4.5/">Eclipse
-			Mars – New and Noteworthy</a> page.</p>
+			<p align="left"><br><br>
+			</p>
+			<p align="left">Modified Action Syntax Language support is a new
+			feature in this release.  MASL files specify both the structural
+			and procedural parts of the model.  BridgePoint now has the
+			ability to convert MASL models into xtUML.  The xtUML is imported
+			into BridgePoint, edited in BridgePoint as usual, and then may be
+			exported back out in MASL format in order to feed into downstream
+			MASL model compilers (not included).</p>
+			<p align="left">Most users will not yet take advantage of the MASL
+			features and will continue to model in xtUML and use xtUML model
+			compilers.  For interested users, the MASL documentation may be
+			found at <b>Help &gt; Help Contents &gt; BridgePoint UML Suite
+			Help &gt; Reference &gt; MASL</b>.</p>
+			<p align="left">BridgePoint includes a new MASL editor with syntax
+			highlighting as part of the new feature set:</p>
+			<p align="left"><img src="MASL_editor.png">
+			</p>
 		</td>
 	</tr>
 </table>
@@ -40,33 +70,23 @@
 <table width="100%" cellpadding="10" cellspacing="10">
 	<tr>
 		<td width="20%" style="border: none; padding: 0in">
-			<p align="center"><b>OOA of OOA Removes Specialized Packages</b></p>
+			<p align="center"><b>New Generator</b></p>
 		</td>
 		<td style="border: none; padding: 0in">
-			<p align="left">The xtUML metamodel (the OOA of OOA) has been
-			cleaned of all classes that support specialized packages.  The
-			following classes are removed: 
+			<p align="left"><br><br>
 			</p>
-			<ul>
-				<li><p align="left" style="margin-bottom: 0.2in">A_A</p>
-				<li><p align="left" style="margin-bottom: 0.2in">COMM_COMM</p>
-				<li><p align="left" style="margin-bottom: 0.2in">CP_CP</p>
-				<li><p align="left" style="margin-bottom: 0.2in">S_DPK</p>
-				<li><p align="left" style="margin-bottom: 0.2in">IP_IP</p>
-				<li><p align="left" style="margin-bottom: 0.2in">SQ_S</p>
-				<li><p align="left" style="margin-bottom: 0.2in">UC_UCC</p>
-				<li><p align="left" style="margin-bottom: 0.2in">EP_PIP</p>
-				<li><p align="left" style="margin-bottom: 0.2in">S_SS</p>
-				<li><p align="left" style="margin-bottom: 0.2in">S_EEPK</p>
-				<li><p align="left" style="margin-bottom: 0.2in">S_FPK</p>
-				<li><p align="left" style="margin-bottom: 0.2in">S_DOM</p>
-			</ul>
-			<p align="left" style="margin-bottom: 0.2in"><br><br>
+			<p align="left">BridgePoint now includes a new generator
+			application that is built on python.  The new generator does not
+			require wine to run on Linux and is free of Microsoft runtime DLL
+			dependencies.</p>
+			<p align="left">The new generator is fully backwards compatible
+			and will work seamlessly to translate new and existing projects,
+			including BridgePoint itself.  The source code and ongoing
+			development may be found at <a href="http://github.com/xtuml/pyrsl">http://github.com/xtuml/pyrsl</a>
+			and <a href="http://github.com/xtuml/pyxtuml">http://github.com/xtuml/pyxtuml</a>.
+						</p>
+			<p align="left"><br>
 			</p>
-			<p align="left">Any models that contain specialized packages will
-			not be able to be opened with BridgePoint 5.2 and beyond.  Users
-			must first open these models in BridgePoint 5.0 to convert them to
-			generic packages.  Then they can be opened in BridgePoint 5.2.</p>
 		</td>
 	</tr>
 </table>
@@ -76,12 +96,23 @@
 	<col width="205*">
 	<tr>
 		<td width="20%" style="border: none; padding: 0in">
-			<p align="center"><b>Parse All Activities Easily</b></p>
+			<p align="center"><b>Model Compiler</b></p>
 		</td>
 		<td width="80%" style="border: none; padding: 0in">
-			<p align="left">The “Parse All Activities” action may now be
-			used on xtUML Projects.  This makes it much easier for a user to
-			parse activities in projects that contain many packages.</p>
+			<p align="left"><br><br>
+			</p>
+			<p align="left">The BridgePoint model compiler source models have
+			been completely re-organized ahead of this release.  The model
+			compiler xtUML meta-model now lives it its own project in the
+			model compiler repository.   This re-organization allows the xtUML
+			model compiler developers to have access to the xtUML meta-model
+			in separate and individual tools that each packaged in their own
+			project.  This allowed the xtUML developers to split docgen (a
+			model-based MC) out of mcmc (the modeled portion of xtUML MCs).</p>
+			<p align="left">The MASL model compiler tools are also part of the
+			re-organization.</p>
+			<p align="left"><br>
+			</p>
 		</td>
 	</tr>
 </table>
@@ -90,26 +121,25 @@
 	<col width="51*">
 	<col width="205*">
 	<tr>
-		<td width="20%" style="border: none; padding: 0in">
-			<p align="center"><b>Require Port Names in     OAL    </b>
+		<td width="20%" height="550" style="border: none; padding: 0in">
+			<p align="center"><b>Disable Parse on Edit </b>
 			</p>
 		</td>
 		<td width="80%" valign="top" style="border: none; padding: 0in">
-			<p align="left">A single component may provide or require the same
-			interface multiple times.  Every interface is exposed by a
-			component through a uniquely named port.  It is legal to send
-			interface messages out of a component using either the interface
-			name or port name, but using the interface name can easily be
-			ambiguous whereas the port name cannot.  BridgePoint now enforces
-			a rule to use the port name.  Usages of the interface name are
-			flagged as OAL errors.  
+			<p align="left"><br><br>
 			</p>
-			<p align="left">We highly recommend changing application models
-			that show the error to use the appropriate port name in place of
-			an interface name.  But since this may not be practical in some
-			cases, the xtUML preferences include an option to allow interface
-			names in OAL without flagging a parse error.</p>
-			<p align="left"><img src="port_pref.png">
+			<p align="left">Users sometimes find degraded performance when
+			editing very large action bodies.  This is due to the fact that
+			the OAL parser runs over the entire action body for each edit in
+			order to provide real-time input about invalid OAL.  
+			</p>
+			<p align="left">BridgePoint now includes a preference that allows
+			the user to turn off parsing while editing OAL.  When this
+			preference is set, the user must manually run “Parse All
+			Activities” in order to flag invalid OAL.  The preference is
+			found at <b>Window &gt; Preferences &gt; xtUML &gt; Action
+			Language</b>:</p>
+			<p align="left"><img src="Parse_on_edit.png">
 			</p>
 		</td>
 	</tr>
@@ -120,13 +150,16 @@
 	<col width="205*">
 	<tr>
 		<td width="20%" style="border: none; padding: 0in">
-			<p align="center"><b>Integration with          Papyrus-RT</b></p>
+			<p align="center"><b>Exception</b></p>
 		</td>
 		<td width="80%" valign="top" style="border: none; padding: 0in">
-			<p align="left">This release includes the Papyrus-RT UML modeling
-			tools.  The BridgePoint team created a <a href="https://www.youtube.com/watch?v=f6LPv5Ln19k">video
-			demonstration</a> detailing how to interface a BridgePoint xtUML
-			application with a Papyrus-RT application.</p>
+			<p align="left"><br><br>
+			</p>
+			<p align="left">This release includes an xtUML meta-model change
+			to add the class Exception (S_EXP).  This element is used to store
+			exceptions specified in MASL models.</p>
+			<p align="left"> 
+			</p>
 		</td>
 	</tr>
 </table>
@@ -136,21 +169,15 @@
 	<col width="205*">
 	<tr>
 		<td width="20%" style="border: none; padding: 0in">
-			<p align="center"><b>GPS Watch Updates</b></p>
+			<p align="center"><b>Graphics Auto Reconciliation</b></p>
 		</td>
 		<td width="80%" style="border: none; padding: 0in">
-			<p align="left">The GPS Watch example project has been extended:</p>
-			<ul>
-				<li><p align="left">The application model is extended to include
-				support for Goal tracking.  When activated, the watch display
-				uses the goal tracking to cause up and down arrows to be
-				displayed on the watch face to notify the user if they should
-				increase or decrease their pace.</p>
-				<li><p align="left">The UI bridge implementation is enhanced to
-				natively support Linux as well as Windows for socket
-				communication between the application model and the user
-				interface.</p>
-			</ul>
+			<p align="left"><br><br>
+			</p>
+			<p align="left">Graphical elements, both shapes and connectors,
+			are now created automatically when the user opens a canvas-based
+			editor and graphics do not already exist for the contained
+			elements.</p>
 			<p align="left"><br>
 			</p>
 		</td>
