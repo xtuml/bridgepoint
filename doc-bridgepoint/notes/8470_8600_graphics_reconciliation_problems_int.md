@@ -93,11 +93,27 @@ none
 
 9. Code Changes
 ---------------
-Branch name: < enter your branch name here >
+Branch name: < rmulvey 8470_reconcile_subsuper >
 
 <pre>
 
-< Put the file list here >
+doc-bridgepoint/notes/8470_8600_graphics_reconciliation_problems_int.md
+
+org.xtuml.bp.core/models/org.xtuml.bp.core/ooaofooa/Subsystem/Imported Class/
+    Imported Class.xtuml
+org.xtuml.bp.core/models/org.xtuml.bp.core/ooaofooa/Subsystem/Model Class/
+    Model Class.xtuml
+
+org.xtuml.bp.ui.canvas/models/org.xtuml.bp.ui.canvas/ooaofgraphics/
+    External Entities/External Entities.xtuml
+org.xtuml.bp.ui.canvas/models/org.xtuml.bp.ui.canvas/ooaofgraphics/
+    Graphical Data/Auto Reconciliation Specification/
+    Auto Reconciliation Specification.xtuml
+org.xtuml.bp.ui.canvas/models/org.xtuml.bp.ui.canvas/ooaofgraphics/
+    Graphical Data/Model/Model.xtuml
+org.xtuml.bp.ui.canvas/src/org/xtuml/bp/ui/canvas/Cl_c.java
+
+
 
 </pre>
 
