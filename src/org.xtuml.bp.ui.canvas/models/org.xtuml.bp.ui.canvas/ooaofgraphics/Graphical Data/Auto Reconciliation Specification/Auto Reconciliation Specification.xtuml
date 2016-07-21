@@ -1071,13 +1071,14 @@ while (i < numRoots)
             if  (connectorSpec.symbolType=="connector")
               if (not empty connectorSpec)
                 if (param.passNumber==2)
-                  if (shapeARSInstance.Bridge_NumElements=="Getclassaslinkcount")
-                    // We can''t create this until we get the association between the 2 linked class drawn
+                  // We can''t create these until we get the association between the 2 linked classes drawn / the supertype
+                  if (shapeARSInstance.Bridge_NumElements=="Getclassaslinkcount" or shapeARSInstance.Bridge_NumElements=="Getsubtypecount")
                     continue;
                   end if;
+                  
                 elif (param.passNumber==3)
-                  if (shapeARSInstance.Bridge_NumElements!="Getclassaslinkcount")
-                    // We only need to create the associative link drawn in this pass.
+                    // We only need to create the associative link drawn and subtypes in this pass.
+                  if (shapeARSInstance.Bridge_NumElements!="Getclassaslinkcount" and shapeARSInstance.Bridge_NumElements!="Getsubtypecount")
                     continue;
                   end if;
                   
