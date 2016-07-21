@@ -2134,5 +2134,22 @@ public static void Settoolbarstate(boolean readonly) {
     	}
     	return result;
     }
+    
+    /**
+     * If the element passed in is a ClassAsSubtype_c (R_SUB) instance then return the associated 
+     * ClassAsSuperType (R_SUPER) instance.
+     * 
+     * @param connectorInstance
+     * @return
+     */
+	public static Object Getr_relfromsubtype(final Object connectorInstance) {
+		Object result = null;
+		if (connectorInstance instanceof ClassAsSubtype_c) {
+			result = Association_c.getOneR_RELOnR206(
+					SubtypeSupertypeAssociation_c.getOneR_SUBSUPOnR213((ClassAsSubtype_c) connectorInstance));
+		}
+
+		return result;
+	}
         
 }// End Cl_c
