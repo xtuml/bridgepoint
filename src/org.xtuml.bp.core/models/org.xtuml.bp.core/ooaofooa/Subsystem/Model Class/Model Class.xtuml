@@ -1954,7 +1954,7 @@ for each rSubtype in rSubtypes
   if (classPkg.Package_ID == relPkg.Package_ID)
     count = count+1;
     if (count == param.index)
-      id = rSubtype.Rel_ID;
+      id = rSubtype.OIR_ID;
       break;
     end if;
   end if;
