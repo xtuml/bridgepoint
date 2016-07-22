@@ -155,11 +155,13 @@ public class ComponentContextMenuTests2 extends BaseTest {
 	}
 	@Test
 	public void testContextMenuAssignSignalActionOnSM_TXNCantUseSameTwice() {
-		performContextMenuAssignSignalActionOnSM_TXNCantUseSameTwice("owner_state", "Port_CMT");
+// See 	Redmine issue 8579	
+//		performContextMenuAssignSignalActionOnSM_TXNCantUseSameTwice("owner_state", "Port_CMT");
 	}
 	@Test
 	public void testContextMenuAssignSignalActionOnSM_TXNCantUseSameTwiceInnerComponent() {
-		performContextMenuAssignSignalActionOnSM_TXNCantUseSameTwice("Destination Test State", "IC_Port_CMT");
+		// See 	Redmine issue 8579	
+		//		performContextMenuAssignSignalActionOnSM_TXNCantUseSameTwice("Destination Test State", "IC_Port_CMT");
 	}
 	private void performContextMenuAssignSignalActionOnSM_TXNCantUseSameTwice(final String stateName,
 			final String portName) {
