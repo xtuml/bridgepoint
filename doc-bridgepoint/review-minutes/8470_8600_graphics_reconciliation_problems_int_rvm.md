@@ -13,13 +13,13 @@ Present:  Bob, Keith, Cort, Levi, Jason
 <pre>
 
 -- Num Type  Who     Section  Comment
-_- 01  min   Keith   3        paragraph 3 "suptype" -> "subtype"
-_- 02  min   Keith   5.2.2    "Noow" -> "Now"
-_- 03  min   Ketih   6        Numbering typos
-_- 04  min   Keith   *        Keith notes that this has been promoted and tests 7.1 and 7.2 passed
-_- 05  min   Bob     *        Bob notes that the test case from Levis branch works
-_- 06  min   Cort    *        Cort comments that he could not reproduce the issue on Windows
-_- 07  min   Keith   GD_ARS   Keith asks question about need for "not empty" versus "not_empty". Cort acknowleges that both exist, notes that "not_empty" is one operation while "not empty" is two. 
+x- 01  min   Keith   3        paragraph 3 "suptype" -> "subtype"
+x- 02  min   Keith   5.2.2    "Noow" -> "Now"
+x- 03  min   Ketih   6        Numbering typos
+o- 04  min   Keith   *        Keith notes that this has been promoted and tests 7.1 and 7.2 passed
+o- 05  min   Bob     *        Bob notes that the test case from Levis branch works
+o- 06  min   Cort    *        Cort comments that he could not reproduce the issue on Windows
+o- 07  min   Keith   GD_ARS   Keith asks question about need for "not empty" versus "not_empty". Cort acknowleges that both exist, notes that "not_empty" is one operation while "not empty" is two. 
 
 </pre>
    

@@ -16,7 +16,7 @@ This issue is raised to fix it.
 ----------------------
 <a id="2.1"></a>2.1 [BridgePoint DEI #8470](https://support.onefact.net/issues/8470) 
 Graphics not rendered properly for subsuper relationships.  
-<a id="2.2"></a>2.3 [BridgePoint DEI #8600](https://support.onefact.net/issues/8600) 
+<a id="2.2"></a>2.2 [BridgePoint DEI #8600](https://support.onefact.net/issues/8600) 
 Graphics reconciliation sometimes modifies diagrams and models it should not.  
 
 3. Background
@@ -35,7 +35,7 @@ is being connected from the super to the sub directly (and incorrectly of
 course). What should occur is that the supertype conncetor is created first with no
 subtypes, and then subtypes are created and connected to the supertype connector.
 
-Next I created a test model with just a supertype, no suptype. Reconciliation of it 
+Next I created a test model with just a supertype, no subtype. Reconciliation of it 
 did the right thing (though the line was 0 length). 
 
 This led me to believe that the reconciliation order was the main cause of the 
@@ -81,7 +81,7 @@ so it can use the Rel_ID.
 5.2.1 {O_OBJ | O_IOBJ}.getSubtypeid()  were modified to return the OIR_ID instead of the Rel_ID for 
 the subtype.  
 
-5.2.2 Noow that we use the Subtype's OIR_ID we DO find the ooaofooa instance. However, now 
+5.2.2 Now that we use the Subtype's OIR_ID we DO find the ooaofooa instance. However, now 
 when we go to find the "other side" there is no match because the superype's id is using the 
 rel_ID.
 
@@ -95,11 +95,11 @@ connector reconciliation.
 
 6. Implementation Comments
 --------------------------
-5.1 In testing this issue I first used the test model with only a supertype association. This test worked, 
+6.1 In testing this issue I first used the test model with only a supertype association. This test worked, 
 but I observed that another model in my test workspace was also modified during reconcilation. I raised issue #8600
 for this problem. I fixed this problem in this same branch.
 
-5.1.1 In GD_MD::newConnector() in the case when there are noExistingGraphics is true, there 
+6.1.1 In GD_MD::newConnector() in the case when there are noExistingGraphics is true, there 
 was a blind select GD_ES->GD_GE[R10] that was used to find the "endElementGE". The endElementGE 
 represents the element that a connector connects to. In some cases, for example a supertype with no 
 subtype, is does not connect to anything, and in this case we expect endElementGE to be null. Before this 
@@ -111,7 +111,7 @@ instances are not necessarily in the same diagram or even model.
 ------------
 7.1 Assure graphics reconciliation works for models with supertype/subtype 
 relationships.
-* Import a model that has a supertype and multiple suptypes (and no graphics)
+* Import a model that has a supertype and multiple subtypes (and no graphics)
 * Open Model Explorer and select the model
 * BridgePoint Utilities > Reconcile Graphics
 * Result is that the graphics are correctly reconciled
