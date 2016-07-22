@@ -166,6 +166,8 @@ public class WelcomePageTestGPS extends TestCase {
 	@Test
 	public void testProjectCreation() {
 		runGPSGettingStartedAction();
+		
+		TestUtil.selectButtonInDialog(3000, "Yes");
 		runGPSGettingStartedAction();
 
 		// Give the import time to work
