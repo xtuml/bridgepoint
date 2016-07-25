@@ -23,8 +23,6 @@ select one spec related by self->GD_ES[R30];
 select many connectors related by  spec->GD_GE[R10]->GD_CON[R2];
 for each connector in connectors
   select one ge related by connector->GD_GE[R2];
-  if (CL::isContainedInSystem( element:ge.represents,
-                                 system_id:param.system_id))
     if (ge.represents == OS::NULL_INSTANCE())
       ge.represents = CL::getInstanceFromOOA_ID(
   	                                   rootInst:ge.convertToInstance(),
@@ -33,9 +31,11 @@ for each connector in connectors
     end if;
     id = CL::getOOAId(from:ge.represents);
     if (id == param.connectorID)
-      return ge.elementId;
+      if ( param.look_outside_system or CL::isContainedInSystem( element:ge.represents,
+                                                                 system_id:param.system_id))
+        return ge.elementId;
+      end if;
     end if;
-  end if;
 end for;
 return OS::NULL_UNIQUE_ID();',
 	1,
@@ -58,6 +58,15 @@ INSERT INTO O_TPARM
 	0,
 	'',
 	"42d98f22-42d8-42d9-bcdb-0c595e38daa3",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("af5f70f3-3af0-497e-a2d3-ae9c3a262a3f",
+	"01e90c90-3e42-4325-9395-f04aa3dcdeec",
+	'look_outside_system',
+	"ba5eda7a-def5-0000-0000-000000000001",
+	0,
+	'',
+	"e778441b-bf81-4f84-8a91-3c13411da5f1",
 	'');
 INSERT INTO O_TFR
 	VALUES ("c02376d4-138e-44c1-8e19-e42d4e5bdff4",
@@ -750,11 +759,13 @@ if( CL::isContainedInSystem(element:graphicalElement.represents, system_id:param
   	    templateConId = CL::getConnectorID(from:graphicalElement.represents,
                    index:j, elementTypesMatch:sourceSpec == targetSpec,
                                               using:self.Bridge_GetConnectorIDConditional);
+        look_outside_system = true;
   	    if templateConId == OS::NULL_UNIQUE_ID()
   	      templateConId = connectorId;
+          look_outside_system = false;
   	    end if;
   	    
-  	    conID = self.findConnector(connectorID:templateConId, system_id:param.system_id);
+  	    conID = self.findConnector(connectorID:templateConId, system_id:param.system_id, look_outside_system:look_outside_system);
   	    select one model related by graphicalElement->GD_MD[R1];
         if (empty model)
           msg = " GD_GE.diagramId: " + OS::uniqueIdToString(id:graphicalElement.diagramId) + 
