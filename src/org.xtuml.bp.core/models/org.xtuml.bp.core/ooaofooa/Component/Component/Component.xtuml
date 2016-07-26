@@ -1388,8 +1388,10 @@ for each ireference in ireferences
   select one rPkg related by requirement->C_IR[R4009]->C_PO[R4016]->C_C[R4010]->PE_PE[R8001]->EP_PKG[R8000];
   if (not_empty requirement and (outerPkg.Package_ID == rPkg.Package_ID))
     select one delegation related by ireference->C_DG[R4014];
-    if (not param.filterDelegations)
-      count = count + 1;
+    if (param.filterDelegations)
+      if (empty delegation)
+        count = count + 1;
+      end if;
     else
       // if including delegations, only include those in the same package
       select one dPkg related by delegation->PE_PE[R8001]->EP_PKG[R8000];
