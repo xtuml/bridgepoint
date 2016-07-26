@@ -8038,7 +8038,29 @@ INSERT INTO R_SIMP
 INSERT INTO R_REL
 	VALUES ("e0546353-cd04-4daa-9198-96a6c96ea5b0",
 	29,
-	'',
+	'R29 represents the "parenthood" relationship of an element specification (GD_ES) to multiple GD_ARSs.
+It is conditional one on the GD_ES side, because a GD_ARS can be defined in a GD_ES or a GD_MS (R33).
+
+In the PEI data, GD_ES is represented by the "<symbol>" tag, while GD_MS is represented by the "<defaultFor>"
+tag. For example:
+
+<symbol						this is a GD_ES instance. it is an element on the canvas
+  class="..."
+  name="..."
+  ...
+  <autoReconcile>			this is a GD_ARS instance related to the GD_ES through R29
+    ...
+  </autoReconcile>
+</symbol>
+
+<defaultFor					this is a GD_MS instance. it is a single diagram or canvas editor (component diagram, package diagram, state diagram, etc)
+  class="..."
+  name="..."
+  ...
+  <autoReconcile>			this is a GD_ARS instance related to the GD_MS through R33
+    ...
+  </autoReconcile>
+</defaultFor>',
 	"00000000-0000-0000-0000-000000000000");
 INSERT INTO R_PART
 	VALUES ("76253415-b575-4583-9248-5d403cee7647",
@@ -8100,7 +8122,8 @@ INSERT INTO R_SIMP
 INSERT INTO R_REL
 	VALUES ("93193641-db8b-4f52-b5f4-67c898b2dbf1",
 	30,
-	'',
+	'R30 represents the relationship between a GD_ARS and a target to reconcile. The target is an element
+specification (GD_ES). In the PEI data, it corresponds to the "targetSymbol" attribute',
 	"00000000-0000-0000-0000-000000000000");
 INSERT INTO R_FORM
 	VALUES ("0849862c-76a0-4d0f-bb84-cf5aef617874",
@@ -8152,7 +8175,13 @@ INSERT INTO R_SIMP
 INSERT INTO R_REL
 	VALUES ("49109c60-6e67-416e-9029-17b9838a13bf",
 	31,
-	'',
+	'R31 represents the relationship between a GD_ARS and a source symbol. The source symbol is an element specification
+that provides extra information to reconciliation. For example, imported interface references have the real interface
+reference as a source symbol. This allows the auto reconciler to make decisions about the relative position and
+orientation of the new imported interface reference based on the real interface reference. In the PEI data, R31
+corresponds to the "sourceSymbol" attribute. If the "sourceSymbol" attribute is not provided, R31 is used to relate
+the GD_ARS to the target symbol. In other words, if "sourceSymbol" is missing, the source and target symbols refer
+to the same instance of GD_ES.',
 	"00000000-0000-0000-0000-000000000000");
 INSERT INTO R_FORM
 	VALUES ("0849862c-76a0-4d0f-bb84-cf5aef617874",
@@ -8285,7 +8314,29 @@ INSERT INTO R_SIMP
 INSERT INTO R_REL
 	VALUES ("e524f7e2-81e0-40fa-a788-37e7a47fe940",
 	33,
-	'',
+	'R33 represents the "parenthood" relationship of an model specification (GD_MS) to multiple GD_ARSs.
+It is conditional one on the GD_MS side, because a GD_ARS can be defined in a GD_MS or a GD_ES (R29).
+
+In the PEI data, GD_ES is represented by the "<symbol>" tag, while GD_MS is represented by the "<defaultFor>"
+tag. For example:
+
+<symbol						this is a GD_ES instance. it is an element on the canvas
+  class="..."
+  name="..."
+  ...
+  <autoReconcile>			this is a GD_ARS instance related to the GD_ES through R29
+    ...
+  </autoReconcile>
+</symbol>
+
+<defaultFor					this is a GD_MS instance. it is a single diagram or canvas editor (component diagram, package diagram, state diagram, etc)
+  class="..."
+  name="..."
+  ...
+  <autoReconcile>			this is a GD_ARS instance related to the GD_MS through R33
+    ...
+  </autoReconcile>
+</defaultFor>',
 	"00000000-0000-0000-0000-000000000000");
 INSERT INTO R_FORM
 	VALUES ("0849862c-76a0-4d0f-bb84-cf5aef617874",
