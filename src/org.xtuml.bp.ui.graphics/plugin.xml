@@ -2571,6 +2571,12 @@
                
                class="org.xtuml.bp.core.Component_c"/>     
             <autoReconcile
+               targetSymbol="Component Container"
+               Bridge_NumElements="Getcomponentcount"
+               Bridge_GetElementID="Getcomponentid"
+               
+               class="org.xtuml.bp.core.Component_c"/>     
+            <autoReconcile
                targetSymbol="Component Reference"
                Bridge_NumElements="Getcomprefcount"
                Bridge_GetElementID="Getcomprefid"
