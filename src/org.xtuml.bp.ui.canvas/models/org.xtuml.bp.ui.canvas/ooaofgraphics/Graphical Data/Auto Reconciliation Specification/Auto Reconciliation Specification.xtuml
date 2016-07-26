@@ -756,6 +756,11 @@ if( CL::isContainedInSystem(element:graphicalElement.represents, system_id:param
           continue;
         end if;
 
+        // templateConId is a connector ID that serves as a template to reconcile against
+        // in the case of an imported interface reference, the template ID is the ID of the 
+        // real interface reference. This connector does not get created, but merely aids in
+        // the creation of the new connector. An interface reference dictates the relative 
+        // position and orientation of a new imported interface reference that is created.
   	    templateConId = CL::getConnectorID(from:graphicalElement.represents,
                    index:j, elementTypesMatch:sourceSpec == targetSpec,
                                               using:self.Bridge_GetConnectorIDConditional);
