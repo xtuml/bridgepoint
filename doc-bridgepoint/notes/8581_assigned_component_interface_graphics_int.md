@@ -22,6 +22,7 @@ when there are no existing graphics. Issue #8603 is raised to fix these issues
 <a id="2.2"></a>2.2 [#2409 Inter-Project references manual test](https://support.onefact.net/issues/2409)  
 <a id="2.3"></a>2.3 [#8472 graphics reconciliation is creating graphics for connectors when it shouldnt](https://support.onefact.net/issues/8472)  
 <a id="2.4"></a>2.4 [#8603 Required Interfaces missing from component diagram.](https://support.onefact.net/issues/8603)  
+<a id="2.5"></a>2.5 [#8615l Enable automated testing for graphics reconciliation](https://support.onefact.net/issues/8615)  
 
 3. Background
 -------------
@@ -67,14 +68,15 @@ only if it is looking for a template connector.
 3.2 Issue #8603
 
 The issue states that requirements are not drawn on component diagrams although
-they appear in on the component in the package diagram.
+they appear on the component in the package diagram.
 
 An update states that in MASL models where all graphics are created on import,
 no interfaces appear in the component diagram.
 
-To analyze the issue, I created two test models in a git repository. Model 1 had
-a single component in a package. Model 2 had a single component in a package,
-with one provided and one required interface reference. Graphics were removed.
+To analyze the issue, I created two test models in a git repository. Model 1
+had a single component in a package. Model 2 had a single component in a
+package, with one provided and one required interface reference. Graphics were
+removed from Model 2.
 
 The first test case was to create a requirement in the package diagram of Model
 1 and see if the requirement showed up in the component diagram. The second test
@@ -118,7 +120,7 @@ _look_outside_system_ as true to _findConnector_ if looking for a template
 connector  
 
 5.3 Modify `C_C` _getRequirementID_ to match the pattern of _getProvisionID_  
-5.4 Fix logical errors in `EP_PKG` operations  
+5.4 Fix logical errors in `EP_PKG` operations (see section 3.2 paragraph 5)  
 
 5.5 Add `GD_ARS` for "Component Container" for Package  
 
@@ -131,16 +133,18 @@ none
 7.1.1 Create a test case as described in section 3.1  
 7.1.2 Assign the component reference in Project 2 to the component in Project 1  
 7.1.3 Verify that the graphics for the imported interface references are drawn on
-the component reference  
+the component reference (4.1)  
 
 7.2.1 Create test cases as described in section 3.2  
 7.2.2 Create a requirement in the package diagram of Model 1  
-7.2.3 Verify that the requirement showed up in the component diagram  
+7.2.3 Verify that the requirement showed up in the component diagram (4.2)  
 7.2.4 Create a requirement in the component diagram of Model 1  
-7.2.5 Verify that the requirement showed up in the package diagram  
+7.2.5 Verify that the requirement showed up in the package diagram (4.3)  
 7.2.6 Reconcile graphics on Model 2 (_BridgePoint Utilities > Reconcile
 Graphics_)  
-7.2.7 Verify that all the graphics were created properly in both diagrams  
+7.2.7 Verify that all the graphics were created properly in both diagrams (4.4)  
+
+An issue was raised to automate these tests [[2.5]](#2.5)  
 
 8. User Documentation
 ---------------------
@@ -152,11 +156,18 @@ Branch name: leviathan747/8581_assigned_component_interface_graphics
 
 <pre>
 
- src/org.xtuml.bp.core/models/org.xtuml.bp.core/ooaofooa/Component/Component/Component.xtuml                                                           |  6 ++++--
- src/org.xtuml.bp.core/models/org.xtuml.bp.core/ooaofooa/Element Packaging/Package/Package.xtuml                                                       |  8 ++++----
- .../models/org.xtuml.bp.ui.canvas/ooaofgraphics/Graphical Data/Auto Reconciliation Specification/Auto Reconciliation Specification.xtuml              | 21 ++++++++++++++++-----
- src/org.xtuml.bp.ui.graphics/plugin.xml                                                                                                               |  6 ++++++
- 4 files changed, 30 insertions(+), 11 deletions(-)
+org.xtuml.bp.core/models/org.xtuml.bp.core/ooaofooa/Component/Component/
+    Component.xtuml
+org.xtuml.bp.core/models/org.xtuml.bp.core/ooaofooa/Element Packaging/Package/
+    Package.xtuml
+
+org.xtuml.bp.ui.canvas/models/org.xtuml.bp.ui.canvas/ooaofgraphics/
+    Graphical Data/Graphical Data.xtuml
+org.xtuml.bp.ui.canvas/models/org.xtuml.bp.ui.canvas/ooaofgraphics/
+    Graphical Data/Auto Reconciliation Specification/
+    Auto Reconciliation Specification.xtuml
+
+org.xtuml.bp.ui.graphics/plugin.xml
 
 </pre>
 
