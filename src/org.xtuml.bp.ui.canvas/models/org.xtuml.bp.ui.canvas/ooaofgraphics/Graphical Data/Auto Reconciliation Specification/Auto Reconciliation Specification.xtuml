@@ -23,6 +23,8 @@ select one spec related by self->GD_ES[R30];
 select many connectors related by  spec->GD_GE[R10]->GD_CON[R2];
 for each connector in connectors
   select one ge related by connector->GD_GE[R2];
+  if (param.look_outside_system or CL::isContainedInSystem( element:ge.represents,
+                                   system_id:param.system_id))
     if (ge.represents == OS::NULL_INSTANCE())
       ge.represents = CL::getInstanceFromOOA_ID(
   	                                   rootInst:ge.convertToInstance(),
@@ -31,11 +33,9 @@ for each connector in connectors
     end if;
     id = CL::getOOAId(from:ge.represents);
     if (id == param.connectorID)
-      if ( param.look_outside_system or CL::isContainedInSystem( element:ge.represents,
-                                                                 system_id:param.system_id))
-        return ge.elementId;
-      end if;
+      return ge.elementId;
     end if;
+  end if;
 end for;
 return OS::NULL_UNIQUE_ID();',
 	1,
