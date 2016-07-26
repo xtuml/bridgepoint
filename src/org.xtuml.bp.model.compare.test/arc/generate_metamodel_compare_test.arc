@@ -77,7 +77,7 @@ public class ModelComparisonTests extends BaseTest {
 
 	private static String modifyString = "_modified";
 	
-		@Override
+	@Override
 	public void initialSetup() throws CoreException, IOException {
 		// load test model 
 		WorkspaceUtil.setAutobuilding(false);
