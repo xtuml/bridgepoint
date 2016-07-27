@@ -37,7 +37,8 @@ import junit.framework.TestSuite;
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
 	GlobalTestSetupClass.class,
-	ModelComparisonTests.class,
+// See issue 8612 (https://support.onefact.net/issues/8612#note-3)	
+//	ModelComparisonTests.class,
 	ElementOrderingTests.class,
 	ModelMergeTests.class,
 	ModelMergeTests2.class,
