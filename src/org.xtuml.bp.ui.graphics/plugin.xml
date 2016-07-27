@@ -75,8 +75,10 @@
        					the graphical data properly represents the actual
        					ooaofooa model elements.
 				
-               	targetSymbol:	This is the name is the "name" of the target model 
-               					element type to reconcile
+               	targetSymbol:	        This is the name is the "name" of the target model 
+               					element type to reconcile (this corresponds to R30 in the model)
+                sourceSymbol:           This is the name of the model element type used as a "template" to reconcile
+                                                the target symbol (this corresponds to R31 in the model).
                	Bridge_NumElements:	This is the name of the operation, found in the ooaofooa 
                					container we are reconciling , that is used to find out home
                					many of this type of targetSymbol exist in the container.
@@ -2566,6 +2568,12 @@
                class="org.xtuml.bp.core.ModelClass_c" />     
             <autoReconcile
                targetSymbol="Component"
+               Bridge_NumElements="Getcomponentcount"
+               Bridge_GetElementID="Getcomponentid"
+               
+               class="org.xtuml.bp.core.Component_c"/>     
+            <autoReconcile
+               targetSymbol="Component Container"
                Bridge_NumElements="Getcomponentcount"
                Bridge_GetElementID="Getcomponentid"
                
