@@ -22,7 +22,10 @@ package org.xtuml.bp.core.test;
 //=====================================================================
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
-
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.Interface_c;
 import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.Package_c;
@@ -33,8 +36,10 @@ import org.xtuml.bp.core.common.Transaction;
 import org.xtuml.bp.core.common.TransactionException;
 import org.xtuml.bp.core.common.TransactionManager;
 import org.xtuml.bp.test.common.BaseTest;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.test.common.TestingUtilities;
 
+@RunWith(OrderedRunner.class)
 public class LazyLoadingTests extends BaseTest {
 
 	private static IProject this_project;
@@ -51,6 +56,7 @@ public class LazyLoadingTests extends BaseTest {
 	}
 	
 	@Override
+	@Before
 	public void setUp() throws Exception {
 		super.setUp();
 		// enable persistence
@@ -58,12 +64,14 @@ public class LazyLoadingTests extends BaseTest {
 	}
 	
 	@Override
+	@After
 	public void tearDown() throws Exception {
 		super.tearDown();
 		// disable persistence
 		Ooaofooa.setPersistEnabled(false);
 	}
 	
+	@Test
 	public void testInterfaceUnderPackage() {
 		Interface_c iface = null;
 		Package_c pkg = null;

@@ -22,25 +22,21 @@
 
 package org.xtuml.bp.ui.text.test;
 
-import java.io.File;
-
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFileState;
-import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IMarker;
-import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.ui.IEditorPart;
-
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.CorePlugin;
-import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.common.NonRootModelElement;
 import org.xtuml.bp.core.common.PersistableModelComponent;
 import org.xtuml.bp.core.common.PersistenceManager;
 import org.xtuml.bp.core.util.WorkspaceUtil;
-import org.xtuml.bp.test.TestUtil;
-import org.xtuml.bp.test.common.TestingUtilities;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.test.common.TextEditorUtils;
 import org.xtuml.bp.ui.text.AbstractModelElementEditorInput;
 import org.xtuml.bp.ui.text.activity.ActivityEditor;
@@ -50,8 +46,13 @@ import org.xtuml.bp.ui.text.description.DescriptionEditor;
  * Performs tests related to the updating of an editor's 
  * contents when a model is reloaded from disk.
  */
+@RunWith(OrderedRunner.class)
 public class TextEditorReloadContentsTest extends UITextTest
 {
+	public TextEditorReloadContentsTest() throws CoreException {
+		super();
+	}
+
 	private static boolean firstSetup = true;
 	
     /**
@@ -62,12 +63,13 @@ public class TextEditorReloadContentsTest extends UITextTest
     /**
      * Constructor.
      */
-    public TextEditorReloadContentsTest(String name) throws CoreException
-    {
-        super(null, name);
-    }
+//    public TextEditorReloadContentsTest(String name) throws CoreException
+//    {
+//        super(null, name);
+//    }
     
-    protected void setUp() throws Exception {
+    @Before
+	public void setUp() throws Exception {
         super.setUp();
         if ( firstSetup ) {
         	loadProject(testModelName);
@@ -86,7 +88,8 @@ public class TextEditorReloadContentsTest extends UITextTest
      * that the editor's contents revert and that the marker
      * has been deleted. 
      */
-    public void testActivityEditorUpdatesOnReload() throws Exception
+    @Test
+	public void testActivityEditorUpdatesOnReload() throws Exception
     {
         // open an editor on an activity in the domain
         String stateName = "Waiting for a Disk to be Waiting";
@@ -135,7 +138,8 @@ public class TextEditorReloadContentsTest extends UITextTest
      * then recopies over the associated model file with the original, 
      * checking to see that the editor's contents revert.
      */
-    public void testDescriptionEditorUpdatesOnReload() throws Exception
+    @Test
+	public void testDescriptionEditorUpdatesOnReload() throws Exception
     {
         // open a description editor on the domain
         DescriptionEditor editor = 

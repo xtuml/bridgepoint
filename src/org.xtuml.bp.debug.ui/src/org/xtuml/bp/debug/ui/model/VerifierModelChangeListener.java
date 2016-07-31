@@ -56,6 +56,9 @@ public class VerifierModelChangeListener implements IModelChangeListener {
       }
 	}
 
+	public void modelElementMoved(ModelChangedEvent event, IModelDelta delta) {
+	}
+
 	public void modelElementCreated(ModelChangedEvent event, IModelDelta delta) {
 	}
 

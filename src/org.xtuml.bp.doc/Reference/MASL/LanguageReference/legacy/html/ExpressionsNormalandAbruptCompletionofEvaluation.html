@@ -1,0 +1,153 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>14.3. Normal and Abrupt Completion of Evaluation</title>
+<link rel="stylesheet" type="text/css" href="docbook.css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
+<meta name="keywords" content="MASL, Action Language, Action Semantics, UML, Unified Modelling Language, Shlaer Mellor">
+<link rel="home" href="index.html" title="MASL Reference Manual">
+<link rel="up" href="Expressions.html" title="Chapter 14. Expressions">
+<link rel="prev" href="ExpressionsTypeofanExpression.html" title="14.2. Type of an Expression">
+<link rel="next" href="ExpressionsPrimaryExpression.html" title="14.4. Primary Expressions">
+<link rel="preface" href="preface.html" title="Preface">
+<link rel="chapter" href="Grammars.html" title="Chapter 1. Grammars">
+<link rel="chapter" href="LexicalStructure.html" title="Chapter 2. Lexical Structure">
+<link rel="chapter" href="Types.html" title="Chapter 3. Types">
+<link rel="chapter" href="TypeConversion.html" title="Chapter 4. Type Conversion">
+<link rel="chapter" href="Domains.html" title="Chapter 5. Domains">
+<link rel="chapter" href="Objects.html" title="Chapter 6. Objects">
+<link rel="chapter" href="Relationships.html" title="Chapter 7. Relationships">
+<link rel="chapter" href="Lifecycles.html" title="Chapter 8. Lifecycles">
+<link rel="chapter" href="Functions.html" title="Chapter 9. Functions">
+<link rel="chapter" href="Services.html" title="Chapter 10. Services">
+<link rel="chapter" href="Exceptions.html" title="Chapter 11. Exceptions">
+<link rel="chapter" href="Statements.html" title="Chapter 12. Statements">
+<link rel="chapter" href="Names.html" title="Chapter 13. Names">
+<link rel="chapter" href="Expressions.html" title="Chapter 14. Expressions">
+<link rel="appendix" href="LanguageDefinedCharacteristics.html" title="Appendix A. Language Defined Characteristics">
+<link rel="appendix" href="SyntaxSummary.html" title="Appendix B. Syntax Summary">
+<link rel="index" href="ix01.html" title="Index">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div align="center">OFFICIAL</div>
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center">14.3. Normal and Abrupt Completion of Evaluation</th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="ExpressionsTypeofanExpression.html">Prev</a> </td>
+<th width="60%" align="center">Chapter 14. Expressions</th>
+<td width="20%" align="right"> <a accesskey="n" href="ExpressionsPrimaryExpression.html">Next</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h2 class="title">
+<a name="ExpressionsNormalandAbruptCompletionofEvaluation"></a>14.3. Normal and Abrupt Completion of Evaluation</h2></div></div></div>
+<p>
+Every expression has a mode of evaluation in which certain computational steps
+are carried out. The following sections describe the normal mode of evaluation
+for each kind of expression. If all the steps are carried out without an
+exception being raised, the expression is said to complete normally.
+<a class="indexterm" name="idp68045952"></a>
+If, however, evaluation of an expression raises an exception,
+<a class="indexterm" name="idp68046896"></a>
+then the expression is said to complete abruptly.
+<a class="indexterm" name="idp68047824"></a>
+An abrupt completion always has an associated
+reason, which is always an exception with a given value.
+</p>
+<p>
+Run-time exceptions are thrown by the pre-defined operators as follows:
+</p>
+<div class="itemizedlist"><ul class="itemizedlist">
+<li class="listitem"><p>
+A <a class="link" href="ExpressionsExecutableUMLExpressions.html#ExpressionsCreateExpressions" title="14.16.1. Create Expressions">create expression</a>
+<a class="indexterm" name="idp68051056"></a>
+or concatenation operator expression raises an
+<a class="link" href="Exceptions.html" title="Chapter 11. Exceptions">exception</a>
+<a class="indexterm" name="idp68053600"></a>
+if there is insufficient memory available.
+</p></li>
+<li class="listitem"><p>
+A selected attribute expression raises an
+<a class="link" href="Exceptions.html" title="Chapter 11. Exceptions">exception</a>
+<a class="indexterm" name="idp68056176"></a>
+if the value of the instance prefix is <code class="literal">null</code>.
+<a class="indexterm" name="idp68057552"></a>
+</p></li>
+<li class="listitem"><p>
+An <a class="link" href="NamesIndexedComponents.html" title="13.1. Indexed Components">indexed component</a>
+<a class="indexterm" name="idp68268272"></a>
+expression
+raises an <a class="link" href="Exceptions.html" title="Chapter 11. Exceptions">exception</a>
+<a class="indexterm" name="idp68269888"></a>
+if the value of the
+index expression
+<a class="indexterm" name="idp68270752"></a>
+is not within the bounds of the corresponding index type.
+<a class="indexterm" name="idp68271696"></a>
+</p></li>
+<li class="listitem"><p>
+A <a class="link" href="TypeConversion.html" title="Chapter 4. Type Conversion">type conversion</a>
+<a class="indexterm" name="idp68274208"></a>
+raises an
+<a class="link" href="Exceptions.html" title="Chapter 11. Exceptions">exception</a>
+<a class="indexterm" name="idp68275824"></a>
+if there is no value of the target type that corresponds to the operand
+value.
+</p></li>
+<li class="listitem"><p>
+An integer division or integer remainder raises an
+<a class="link" href="Exceptions.html" title="Chapter 11. Exceptions">exception</a>
+<a class="indexterm" name="idp68278336"></a>
+if the value of the right hand operand expression is zero.
+</p></li>
+</ul></div>
+<p>
+I an <a class="link" href="Exceptions.html" title="Chapter 11. Exceptions">exception</a>
+<a class="indexterm" name="idp68280480"></a>
+occurs, then evaluation of one
+or more expressions may be terminated before all steps of their normal mode
+of evaluation are complete; such expressions are said to complete abruptly.
+<a class="indexterm" name="idp68281552"></a>
+The terms "complete normally"
+<a class="indexterm" name="idp68282464"></a>
+and "complete abruptly"
+<a class="indexterm" name="idp68283376"></a>
+are also applied to the
+execution of statements. A statement may complete abruptly for a variety of
+reasons, not just because an exception is raised.
+</p>
+<p>
+If evaluation of an expression requires evaluation of a sub-expression, abrupt
+completion of the sub-expression always causes the immediate abrupt completion
+<a class="indexterm" name="idp71064768"></a>
+of the expression itself, with the same reason and all succeeding steps in the
+normal mode of evaluation are not performed.
+</p>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="ExpressionsTypeofanExpression.html">Prev</a> </td>
+<td width="20%" align="center"><a accesskey="u" href="Expressions.html">Up</a></td>
+<td width="40%" align="right"> <a accesskey="n" href="ExpressionsPrimaryExpression.html">Next</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left" valign="top">14.2. Type of an Expression </td>
+<td width="20%" align="center">
+<a accesskey="h" href="index.html">Home</a> | <a accesskey="t" href="bk01-toc.html">ToC</a>
+</td>
+<td width="40%" align="right" valign="top"> 14.4. Primary Expressions</td>
+</tr>
+</table>
+</div>
+<div align="center">OFFICIAL</div>
+</body>
+</html>

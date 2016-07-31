@@ -25,7 +25,9 @@ import java.util.List;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.Label;
 import org.eclipse.gef.GraphicalEditPart;
-
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.CreationTransition_c;
 import org.xtuml.bp.core.EnumerationDataType_c;
 import org.xtuml.bp.core.Ooaofooa;
@@ -35,18 +37,26 @@ import org.xtuml.bp.core.Transition_c;
 import org.xtuml.bp.core.UserDataType_c;
 import org.xtuml.bp.core.common.ClassQueryInterface_c;
 import org.xtuml.bp.test.common.BaseTest;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.test.common.UITestingUtilities;
 
+@RunWith(OrderedRunner.class)
 public class TestDescriptionHover extends BaseTest {
 
 	/* (non-Javadoc)
 	 * @see org.xtuml.bp.test.common.BaseTest#initialSetup()
 	 */
+	private static boolean isFirstTime = true;
 	@Override
-	protected void initialSetup() throws Exception {
+//	@Before
+	public void initialSetup() throws Exception {
+		if (!isFirstTime)
+			return;
+		isFirstTime = false;
 		loadProject("TestHoverDescriptions");
 	}
 
+	@Test
 	public void testHoverTextUserDataType() throws Exception {
 		modelRoot = Ooaofooa
 				.getInstance("/TestHoverDescriptions/models/TestHoverDescriptions/Package/Package.xtuml");
@@ -57,6 +67,7 @@ public class TestDescriptionHover extends BaseTest {
 		assertFalse("Did not find a tooltip.", toolTip.equals(""));
 	}
 
+	@Test
 	public void testHoverTextEnumerationDataType() throws Exception {
 		modelRoot = Ooaofooa
 				.getInstance("/TestHoverDescriptions/models/TestHoverDescriptions/Package/Package.xtuml");
@@ -67,6 +78,7 @@ public class TestDescriptionHover extends BaseTest {
 		assertFalse("Did not find a tooltip.", toolTip.equals(""));
 	}
 
+	@Test
 	public void testHoverTextStructuredDataType() throws Exception {
 		modelRoot = Ooaofooa
 				.getInstance("/TestHoverDescriptions/models/TestHoverDescriptions/Package/Package.xtuml");
@@ -77,6 +89,7 @@ public class TestDescriptionHover extends BaseTest {
 		assertFalse("Did not find a tooltip.", toolTip.equals(""));
 	}
 	
+	@Test
 	public void testHoverTextState() throws Exception {
 		modelRoot = Ooaofooa
 				.getInstance("/TestHoverDescriptions/models/TestHoverDescriptions/Package/Package.xtuml");
@@ -87,6 +100,7 @@ public class TestDescriptionHover extends BaseTest {
 		assertFalse("Did not find a tooltip.", toolTip.equals(""));
 	}
 
+	@Test
 	public void testHoverTextTransition() throws Exception {
 		modelRoot = Ooaofooa
 				.getInstance("/TestHoverDescriptions/models/TestHoverDescriptions/Package/Package.xtuml");
@@ -105,6 +119,7 @@ public class TestDescriptionHover extends BaseTest {
 		assertFalse("Did not find a tooltip.", toolTip.equals(""));
 	}
 
+	@Test
 	public void testHoverTextCreationTransition() throws Exception {
 		modelRoot = Ooaofooa
 				.getInstance("/TestHoverDescriptions/models/TestHoverDescriptions/Package/Package.xtuml");

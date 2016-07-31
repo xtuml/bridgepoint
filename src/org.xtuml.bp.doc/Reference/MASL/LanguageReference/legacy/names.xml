@@ -1,0 +1,794 @@
+<!-- 
+  UK Crown Copyright (c) 2016. All Rights Reserved
+-->
+<!-- Converted by db4-upgrade version 1.0 -->
+<chapter xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="Names"><info><title>Names</title></info>
+
+<para>
+Names
+<indexterm significance="preferred">
+    <primary>names</primary>
+</indexterm>
+are used to refer to declared entities. A declared entity is an
+attribute, a parameter or a variable. Names can also denote components,
+elements and attributes of other names, or attributes of the instance
+denoted by the reserved word <literal>this</literal>.
+<indexterm>
+    <primary><literal>this</literal></primary>
+</indexterm>
+</para>
+<indexterm zone="ebnf.name">
+    <primary>names</primary>
+</indexterm>
+<indexterm zone="ebnf.name">
+    <primary>attribute name</primary>
+</indexterm>
+<indexterm zone="ebnf.name">
+    <primary>parameter name</primary>
+</indexterm>
+<indexterm zone="ebnf.name">
+    <primary>variable name</primary>
+</indexterm>
+<indexterm zone="ebnf.name">
+    <primary>indexed component</primary>
+</indexterm>
+<indexterm zone="ebnf.name">
+    <primary>selected component</primary>
+</indexterm>
+<indexterm zone="ebnf.name">
+    <primary>selected attribute</primary>
+</indexterm>
+<productionset>
+<production xml:id="ebnf.name">
+    <lhs>
+        name
+    </lhs>
+    <rhs>
+        <nonterminal def="#ebnf.attributename">attribute name</nonterminal> |
+        <nonterminal def="#ebnf.parametername">parameter name</nonterminal> |
+        <nonterminal def="#ebnf.variablename">variable name</nonterminal> |
+        <nonterminal def="#ebnf.indexedcomponent">indexed component</nonterminal> |
+        <nonterminal def="#ebnf.selectedcomponent">selected component</nonterminal> |
+        <nonterminal def="#ebnf.selectedattribute">selected attribute</nonterminal> |
+        <nonterminal def="#ebnf.slice">slice</nonterminal>
+    </rhs>
+</production>
+</productionset>
+<para>
+A compile-time error occurs if:
+<itemizedlist>
+<listitem>
+<para>
+An attribute name does not name an attribute of the enclosing object. Note that
+this will only be possible within an instance state or an instance service.
+</para>
+</listitem>
+<listitem>
+<para>
+A parameter name does not name a parameter of the enclosing state or service.
+</para>
+</listitem>
+<listitem>
+<para>
+A variable name does not name a variable currently in scope.
+</para>
+</listitem>
+<listitem>
+<para>
+<literal>this</literal>
+<indexterm>
+    <primary><literal>this</literal></primary>
+</indexterm>
+is used outside an
+<link linkend="LifecyclesInstanceStates">instance state</link>
+<indexterm>
+    <primary>state</primary>
+    <secondary>instance</secondary>
+</indexterm>
+or an
+<link linkend="ServicesObjectServices">instance service</link>.
+<indexterm>
+    <primary>object</primary>
+    <secondary>instance</secondary>
+    <tertiary>service</tertiary>
+</indexterm>
+</para>
+</listitem>
+</itemizedlist>
+</para>
+<para>
+Certain forms of <emphasis>name</emphasis>
+<indexterm>
+    <primary>names</primary>
+</indexterm>
+(
+<link linkend="NamesIndexedComponents">indexed components</link>,
+<indexterm>
+    <primary>component</primary>
+    <secondary>indexed</secondary>
+</indexterm>
+<link linkend="NamesSelectedComponents">selected components</link>
+<indexterm>
+    <primary>component</primary>
+    <secondary>selected</secondary>
+</indexterm>
+and <link linkend="NamesSelectedAttributes">selected attributes</link>
+<indexterm>
+    <primary>attribute</primary>
+    <secondary>selected</secondary>
+</indexterm>
+) include a
+<link linkend="NamesIndexedComponents">prefix</link>
+<indexterm>
+    <primary>prefix</primary>
+</indexterm>
+that designates some related entity.
+</para>
+<para>
+The evaluation of a name determines the entity denoted by the name. This
+evaluation has no other effect for a name that is an
+<link linkend="ObjectsAttributes">attribute name</link>,
+<indexterm>
+    <primary>attribute</primary>
+    <secondary>name</secondary>
+</indexterm>
+a parameter name
+<indexterm>
+    <primary>parameter</primary>
+    <secondary>name</secondary>
+</indexterm>
+or a variable name.
+<indexterm>
+    <primary>variable</primary>
+    <secondary>name</secondary>
+</indexterm>
+</para>
+<para>
+The evaluation of a name that has a
+<link linkend="NamesIndexedComponents">prefix</link>
+<indexterm>
+    <primary>prefix</primary>
+</indexterm>
+includes evaluation of the
+<link linkend="NamesIndexedComponents">prefix</link>.
+<indexterm>
+    <primary>prefix</primary>
+</indexterm>
+The evaluation of the <link linkend="NamesIndexedComponents">prefix</link>
+<indexterm>
+    <primary>prefix</primary>
+</indexterm>
+consists of the evaluation of the name or
+the reserved word <literal>this</literal>.
+<indexterm>
+    <primary><literal>this</literal></primary>
+</indexterm>
+The type of the
+<link linkend="NamesIndexedComponents">prefix</link>
+<indexterm>
+    <primary>prefix</primary>
+</indexterm>
+is the type of the name or reserved word <literal>this</literal>.
+<indexterm>
+    <primary><literal>this</literal></primary>
+</indexterm>
+</para>
+<para>
+A name may be used as an expression
+(see <xref linkend="ExpressionsNamesasExpressions"/>).
+</para>
+<section xml:id="NamesIndexedComponents"><info><title>Indexed Components</title></info>
+
+<para>
+An <link linkend="ebnf.indexedcomponent"><emphasis>indexed component</emphasis></link>
+<indexterm>
+    <primary>component</primary>
+    <secondary>indexed</secondary>
+</indexterm>
+denotes an element of a
+<link linkend="TypesSequenceTypes"><type>sequence</type></link>,
+<indexterm>
+    <primary><type>sequence</type></primary>
+</indexterm>
+<link linkend="TypesArrayTypes"><type>array</type></link>,
+<indexterm>
+    <primary><type>array</type></primary>
+</indexterm>
+<link linkend="TypesStringType"><type>string</type></link>
+<indexterm>
+    <primary><type>string</type></primary>
+</indexterm>
+or <link linkend="TypesWideStringType"><type>wstring</type></link>.
+<indexterm>
+    <primary><type>wstring</type></primary>
+</indexterm>
+</para>
+<indexterm zone="ebnf.indexedcomponent">
+    <primary>indexed component</primary>
+</indexterm>
+<indexterm zone="ebnf.indexedcomponent">
+    <primary>prefix</primary>
+</indexterm>
+<indexterm zone="ebnf.indexedcomponent">
+    <primary>expression</primary>
+</indexterm>
+<indexterm zone="ebnf.prefix">
+    <primary>prefix</primary>
+</indexterm>
+<indexterm zone="ebnf.prefix">
+    <primary>name</primary>
+</indexterm>
+<indexterm zone="ebnf.prefix">
+    <primary><literal>this</literal></primary>
+</indexterm>
+<productionset>
+<production xml:id="ebnf.indexedcomponent">
+    <lhs>
+        indexed component
+    </lhs>
+    <rhs>
+        <nonterminal def="#ebnf.prefix">prefix</nonterminal>,
+        '[',
+        <nonterminal def="#ebnf.expression">expression</nonterminal>,
+        ']'
+    </rhs>
+</production>
+<production xml:id="ebnf.prefix">
+    <lhs>
+        prefix
+    </lhs>
+    <rhs>
+        <nonterminal def="#ebnf.name">name</nonterminal>
+    </rhs>
+</production>
+</productionset>
+<para>
+A compile-time error occurs if:
+<itemizedlist mark="bullet">
+<listitem>
+<para>
+The type of the <link linkend="ebnf.prefix"><emphasis>prefix</emphasis></link>
+<indexterm>
+    <primary>prefix</primary>
+</indexterm>
+is not a <link linkend="TypesSequenceTypes"><type>sequence</type></link> type,
+<indexterm>
+    <primary><type>sequence</type></primary>
+</indexterm>
+an <link linkend="TypesArrayTypes"><type>array</type></link> type,
+<indexterm>
+    <primary><type>array</type></primary>
+</indexterm>
+a <link linkend="TypesStringType"><type>string</type></link> type
+<indexterm>
+    <primary><type>string</type></primary>
+</indexterm>
+of a<link linkend="TypesWideStringType"><type>wstring</type></link> type.
+<indexterm>
+    <primary><type>wstring</type></primary>
+</indexterm>
+</para>
+</listitem>
+<listitem>
+<para>
+The type of the expression is not the corresponding index type.
+<indexterm>
+    <primary>index type</primary>
+</indexterm>
+</para>
+</listitem>
+</itemizedlist>
+</para>
+<para>
+When the type of the
+<link linkend="ebnf.prefix"><emphasis>prefix</emphasis></link>
+<indexterm>
+    <primary>prefix</primary>
+</indexterm>
+is a <link linkend="TypesSequenceTypes"><type>sequence</type></link> type,
+<indexterm>
+    <primary><type>sequence</type></primary>
+</indexterm>
+the <link linkend="ebnf.indexedcomponent"><emphasis>indexed component</emphasis></link>
+<indexterm>
+    <primary>component</primary>
+    <secondary>indexed</secondary>
+</indexterm>
+denotes the element of the
+<link linkend="TypesSequenceTypes"><type>sequence</type></link>
+<indexterm>
+    <primary><type>sequence</type></primary>
+</indexterm>
+with the specified index value. The type of the
+<link linkend="ebnf.indexedcomponent"><emphasis>indexed component</emphasis></link>
+<indexterm>
+    <primary>component</primary>
+    <secondary>indexed</secondary>
+</indexterm>
+is the element type of the
+<link linkend="TypesSequenceTypes"><type>sequence</type></link> type.
+<indexterm>
+    <primary><type>sequence</type></primary>
+</indexterm>
+</para>
+<para>
+When the type of the
+<link linkend="ebnf.prefix"><emphasis>prefix</emphasis></link>
+<indexterm>
+    <primary>prefix</primary>
+</indexterm>
+is an <link linkend="TypesArrayTypes"><type>array</type></link> type,
+<indexterm>
+    <primary><type>array</type></primary>
+</indexterm>
+the
+<link linkend="ebnf.indexedcomponent"><emphasis>indexed component</emphasis></link>
+denotes the element of the <link linkend="TypesArrayTypes"><type>array</type></link>
+with the specified index value. The type of the
+<link linkend="ebnf.indexedcomponent"><emphasis>indexed component</emphasis></link>
+<indexterm>
+    <primary>component</primary>
+    <secondary>indexed</secondary>
+</indexterm>
+is the element type of the
+<link linkend="TypesArrayTypes"><type>array</type></link> type.
+<indexterm>
+    <primary><type>array</type></primary>
+</indexterm>
+</para>
+<para>
+When the type of the
+<link linkend="ebnf.prefix"><emphasis>prefix</emphasis></link>
+<indexterm>
+    <primary>prefix</primary>
+</indexterm>
+is an string type, the
+<link linkend="ebnf.indexedcomponent"><emphasis>indexed component</emphasis></link>
+<indexterm>
+    <primary>component</primary>
+    <secondary>indexed</secondary>
+</indexterm>
+denotes the element of the
+<link linkend="TypesStringType"><type>string</type></link>
+<indexterm>
+    <primary><type>string</type></primary>
+</indexterm>
+with the specified index value. The type of the
+<link linkend="ebnf.indexedcomponent"><emphasis>indexed component</emphasis></link>
+<indexterm>
+    <primary>component</primary>
+    <secondary>indexed</secondary>
+</indexterm>
+is <link linkend="TypesCharacterType"><type>character</type></link>.
+<indexterm>
+    <primary><type>character</type></primary>
+</indexterm>
+When the type of the
+<link linkend="ebnf.prefix"><emphasis>prefix</emphasis></link>
+<indexterm>
+    <primary>prefix</primary>
+</indexterm>
+is a <link linkend="TypesWideStringType"><type>wstring</type></link> type,
+<indexterm>
+    <primary><type>wstring</type></primary>
+</indexterm>
+the <link linkend="ebnf.indexedcomponent"><emphasis>indexed component</emphasis></link>
+<indexterm>
+    <primary>component</primary>
+    <secondary>indexed</secondary>
+</indexterm>
+denotes the element of the <link linkend="TypesWideStringType">wstring</link>
+<indexterm>
+    <primary><type>wstring</type></primary>
+</indexterm>
+with the specified index value.
+<indexterm>
+    <primary>index value</primary>
+</indexterm>
+The type of the
+<link linkend="ebnf.indexedcomponent"><emphasis>indexed component</emphasis></link>
+<indexterm>
+    <primary>component</primary>
+    <secondary>indexed</secondary>
+</indexterm>
+is <literal>wcharacter</literal>.
+<indexterm>
+    <primary><type>wcharacter</type></primary>
+</indexterm>
+A check is made that the
+index value belongs to the corresponding index range
+<indexterm>
+    <primary>index range</primary>
+</indexterm>
+of the type of the
+<link linkend="ebnf.prefix"><emphasis>prefix</emphasis></link>.
+<indexterm>
+    <primary>prefix</primary>
+</indexterm>
+An <link linkend="Exceptions">exception</link>
+<indexterm>
+    <primary>exception</primary>
+</indexterm>
+is raised if this check fails.
+</para>
+</section>
+<section xml:id="NamesSelectedComponents"><info><title>Selected Components</title></info>
+
+<para>
+A <link linkend="ebnf.selectedcomponent"><emphasis>selected component</emphasis></link>
+<indexterm>
+    <primary>component</primary>
+    <secondary>selected</secondary>
+</indexterm>
+is used to denote a component of a structure.
+</para>
+<indexterm zone="ebnf.selectedcomponent">
+    <primary>selected component</primary>
+</indexterm>
+<indexterm zone="ebnf.selectedcomponent">
+    <primary>prefix</primary>
+</indexterm>
+<indexterm zone="ebnf.selectedcomponent">
+    <primary>component name</primary>
+</indexterm>
+<productionset>
+<production xml:id="ebnf.selectedcomponent">
+    <lhs>
+        selected component
+    </lhs>
+    <rhs>
+        <nonterminal def="#ebnf.prefix">prefix</nonterminal>,
+        '.',
+        <nonterminal def="#ebnf.componentname">component name</nonterminal>
+    </rhs>
+</production>
+</productionset>
+<para>
+All of the following must be true or a compile-time error will result:
+<itemizedlist mark="bullet">
+<listitem>
+<para>
+The type of the <link linkend="NamesIndexedComponents">prefix</link>
+<indexterm>
+    <primary>prefix</primary>
+</indexterm>
+is a structure type.
+</para>
+</listitem>
+<listitem>
+<para>
+The component name
+<indexterm>
+    <primary>component</primary>
+    <secondary>name</secondary>
+</indexterm>
+names a component of the structure type.
+<indexterm>
+    <primary>type</primary>
+    <secondary>structure</secondary>
+</indexterm>
+</para>
+</listitem>
+</itemizedlist>
+</para>
+</section>
+<section xml:id="NamesSelectedAttributes"><info><title>Selected Attributes</title></info>
+
+<para>
+A selected attribute is used to denote an attribute
+<indexterm>
+    <primary>attribute</primary>
+</indexterm>
+of an instance.
+</para>
+<indexterm zone="ebnf.selectedattribute">
+    <primary>selected attribute</primary>
+</indexterm>
+<indexterm zone="ebnf.selectedattribute">
+    <primary>prefix</primary>
+</indexterm>
+<indexterm zone="ebnf.selectedattribute">
+    <primary>attribute name</primary>
+</indexterm>
+<productionset>
+<production xml:id="ebnf.selectedattribute">
+    <lhs>
+        selected attribute
+    </lhs>
+    <rhs>
+        <nonterminal def="#ebnf.prefix">prefix</nonterminal>,
+        '.',
+        <nonterminal def="#ebnf.attributename">attribute name</nonterminal>
+    </rhs>
+</production>
+</productionset>
+<para>
+All of the following must be true or a compile-time error will result:
+<itemizedlist mark="bullet">
+<listitem>
+<para>
+The type of the <link linkend="NamesIndexedComponents">prefix</link>
+<indexterm>
+    <primary>prefix</primary>
+</indexterm>
+is an object instance.
+<indexterm>
+    <primary>type</primary>
+    <secondary>structure</secondary>
+</indexterm>
+</para>
+</listitem>
+<listitem>
+<para>
+The attribute name names an
+<link linkend="ObjectsAttributes">attribute of the object</link>
+<indexterm>
+    <primary>object</primary>
+    <secondary>attributes</secondary>
+</indexterm>
+of the <link linkend="TypesInstanceTypes">instance type</link>.
+<indexterm>
+    <primary>instance</primary>
+    <secondary>type</secondary>
+</indexterm>
+<indexterm>
+    <primary>type</primary>
+    <secondary>instance</secondary>
+</indexterm>
+</para>
+</listitem>
+</itemizedlist>
+A check is made that the value of the
+<link linkend="NamesIndexedComponents">prefix</link>
+<indexterm>
+    <primary>prefix</primary>
+</indexterm>
+is not a null instance.
+<indexterm>
+    <primary>instance</primary>
+    <secondary>null</secondary>
+</indexterm>
+An exception is raised if this check fails.
+</para>
+</section>
+<section xml:id="NamesSlices"><info><title>Slices</title></info>
+
+<para>
+A <link linkend="ebnf.slice"><emphasis>slice</emphasis></link>
+<indexterm>
+    <primary>slice</primary>
+</indexterm>
+denotes a value that is formed by a sequence of consecutive elements of a
+<link linkend="TypesSequenceTypes"><type>sequence</type></link>,
+<indexterm>
+    <primary><type>sequence</type></primary>
+</indexterm>
+<link linkend="TypesArrayTypes"><type>array</type></link>,
+<indexterm>
+    <primary><type>array</type></primary>
+</indexterm>
+<link linkend="TypesStringType"><type>string</type></link> or
+<indexterm>
+    <primary><type>string</type></primary>
+</indexterm>
+<link linkend="TypesWideStringType"><type>wstring</type></link>.
+<indexterm>
+    <primary><type>wstring</type></primary>
+</indexterm>
+</para>
+<indexterm zone="ebnf.slice">
+    <primary>slice</primary>
+</indexterm>
+<indexterm zone="ebnf.slice">
+    <primary>prefix</primary>
+</indexterm>
+<indexterm zone="ebnf.slice">
+    <primary>range</primary>
+</indexterm>
+<productionset>
+<production xml:id="ebnf.slice">
+    <lhs>
+        slice
+    </lhs>
+    <rhs>
+        <nonterminal def="#ebnf.prefix">prefix</nonterminal>,
+        '[',
+        <nonterminal def="#ebnf.range">range</nonterminal>,
+        ']'
+    </rhs>
+</production>
+</productionset>
+<para>
+A compile-time error occurs if:
+<itemizedlist mark="bullet">
+<listitem>
+<para>
+The type of the <link linkend="NamesIndexedComponents">prefix</link>
+<indexterm>
+    <primary>prefix</primary>
+</indexterm>
+is not a
+<link linkend="TypesSequenceTypes"><type>sequence</type></link> type,
+<indexterm>
+    <primary><type>sequence</type></primary>
+</indexterm>
+an <link linkend="TypesArrayTypes"><type>array</type></link> type,
+<indexterm>
+    <primary><type>array</type></primary>
+</indexterm>
+a <link linkend="TypesStringType"><type>string</type></link> type
+<indexterm>
+    <primary><type>string</type></primary>
+</indexterm>
+or a <link linkend="TypesWideStringType"><type>wstring</type></link> type.
+<indexterm>
+    <primary><type>wstring</type></primary>
+</indexterm>
+</para>
+</listitem>
+<listitem>
+<para>
+The set of values defined by the <link linkend="TypesNumericTypes">range</link>
+<indexterm>
+    <primary><type>range</type></primary>
+</indexterm>
+is not a subset of the set of values of the corresponding index type.
+</para>
+</listitem>
+</itemizedlist>
+For a <link linkend="NamesIndexedComponents">prefix</link>
+<indexterm>
+    <primary>prefix</primary>
+</indexterm>
+whose type is a
+<link linkend="TypesSequenceTypes"><type>sequence</type></link>,
+<indexterm>
+    <primary><type>sequence</type></primary>
+</indexterm>
+<link linkend="TypesStringType"><type>string</type></link>
+<indexterm>
+    <primary><type>string</type></primary>
+</indexterm>
+or <link linkend="TypesWideStringType"><type>wstring</type></link> type,
+<indexterm>
+    <primary><type>wstring</type></primary>
+</indexterm>
+the type of a <link linkend="ebnf.slice"><emphasis>slice</emphasis></link>
+<indexterm>
+    <primary>slice</primary>
+</indexterm>
+is the type of the <link linkend="NamesIndexedComponents">prefix</link>.
+<indexterm>
+    <primary>prefix</primary>
+</indexterm>
+For a <link linkend="NamesIndexedComponents">prefix</link>
+<indexterm>
+    <primary>prefix</primary>
+</indexterm>
+whose type is an <link linkend="TypesArrayTypes"><type>array</type></link> type,
+<indexterm>
+    <primary><type>array</type></primary>
+</indexterm>
+the type of a 
+<link linkend="ebnf.slice"><emphasis>slice</emphasis></link>
+<indexterm>
+    <primary>slice</primary>
+</indexterm>
+is the <link linkend="TypesSequenceTypes"><type>sequence</type></link> type
+<indexterm>
+    <primary><type>sequence</type></primary>
+</indexterm>
+whose element type is the same as the element type of the prefix.
+</para>
+<para>
+A <link linkend="ebnf.slice"><emphasis>slice</emphasis></link>
+<indexterm>
+    <primary>slice</primary>
+</indexterm>
+denotes a value that is formed by the sequence of consecutive elements of a
+<link linkend="TypesSequenceTypes"><type>sequence</type></link>,
+<indexterm>
+    <primary><type>sequence</type></primary>
+</indexterm>
+<link linkend="TypesArrayTypes"><type>array</type></link>,
+<indexterm>
+    <primary><type>array</type></primary>
+</indexterm>
+<link linkend="TypesStringType"><type>string</type></link>
+<indexterm>
+    <primary><type>string</type></primary>
+</indexterm>
+or <link linkend="TypesWideStringType"><type>wstring</type></link>
+<indexterm>
+    <primary><type>wstring</type></primary>
+</indexterm>
+denoted by
+the <link linkend="NamesIndexedComponents">prefix</link>,
+<indexterm>
+    <primary>prefix</primary>
+</indexterm>
+corresponding to the range of values of the index given by the
+<link linkend="TypesNumericTypes">range</link>.
+<indexterm>
+    <primary><type>range</type></primary>
+</indexterm>
+</para>
+<para>
+If the <link linkend="ebnf.slice"><emphasis>slice</emphasis></link>
+<indexterm>
+    <primary>slice</primary>
+</indexterm>
+is not a null slice (a <link linkend="ebnf.slice"><emphasis>slice</emphasis></link>
+<indexterm>
+    <primary>slice</primary>
+</indexterm>
+where the <link linkend="TypesNumericTypes">range</link>
+<indexterm>
+    <primary><type>range</type></primary>
+</indexterm>
+is a null range), then a check is made that the set of values given by
+the <link linkend="TypesNumericTypes">range</link>
+<indexterm>
+    <primary><type>range</type></primary>
+</indexterm>
+belong to the index range of the
+<link linkend="TypesSequenceTypes"><type>sequence</type></link>,
+<indexterm>
+    <primary><type>sequence</type></primary>
+</indexterm>
+<link linkend="TypesArrayTypes"><type>array</type></link>,
+<indexterm>
+    <primary><type>array</type></primary>
+</indexterm>
+
+<link linkend="TypesStringType"><type>string</type></link>
+<indexterm>
+    <primary><type>string</type></primary>
+</indexterm>
+or <link linkend="TypesWideStringType"><type>wstring</type></link>
+<indexterm>
+    <primary><type>wstring</type></primary>
+</indexterm>
+denoted by
+the <link linkend="NamesIndexedComponents">prefix</link>.
+<indexterm>
+    <primary>prefix</primary>
+</indexterm>
+An <link linkend="Exceptions">exception</link>
+<indexterm>
+    <primary>exception</primary>
+</indexterm>
+is raised if this check fails.
+</para>
+</section>
+<section xml:id="NamesAssignabilityofNames"><info><title>Assignability of Names</title></info>
+
+<para>
+When a name is used on the left-hand side of an assignment or on the right-hand
+side of an input stream, a check is made that the name is assignable. If it is
+not a compile-time error occurs. An attribute name is assignable if the
+attribute it names is not preferred or referential.
+A parameter name is assignable if the parameter it names is of mode out.
+A variable name is assignable if the variable it names is not read only.
+<literal>this</literal> is not assignable.
+An <link linkend="NamesIndexedComponents">indexed component</link>
+<indexterm>
+    <primary>component</primary>
+    <secondary>indexed</secondary>
+</indexterm>
+is assignable
+if its <link linkend="NamesIndexedComponents">prefix</link>
+<indexterm>
+    <primary>prefix</primary>
+</indexterm>
+is assignable.
+A selected component is assignable if its
+<link linkend="NamesIndexedComponents">prefix</link>
+<indexterm>
+    <primary>prefix</primary>
+</indexterm>
+is assignable. A selected attribute is assignable if the attribute it names is
+not preferred or referential.
+</para>
+</section>
+</chapter>

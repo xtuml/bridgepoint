@@ -23,11 +23,10 @@ package org.xtuml.bp.io.mdl.test;
 
 import java.io.File;
 
+import org.xtuml.bp.ui.canvas.test.ModelRecreationTests;
+
 import junit.framework.Test;
 import junit.framework.TestSuite;
-
-import org.xtuml.bp.io.mdl.test.MCModelConsistencyGenericsGlobals;
-import org.xtuml.bp.ui.canvas.test.ModelRecreationTests;
 
 
 public class ConsistencyTestSuite extends TestSuite {
@@ -45,13 +44,13 @@ public class ConsistencyTestSuite extends TestSuite {
 	    
 	   public static void initializeConsistencySuite(TestSuite suite) {
 			
-			File[] testModels = ModelRecreationTests.getTestModelNames();
-			int modelCount = testModels.length;
-			for(int i = 0; i < modelCount; i++) {
-				MCModelConsistencyGenericsGlobals test = new MCModelConsistencyGenericsGlobals(MCModelConsistencyGenericsGlobals.StaticTestName);
-				test.modelNumber = i;
-				test.testModel = testModels[i];
-				suite.addTest(test);
-			}
+//			File[] testModels = ModelRecreationTests.getTestModelNames();
+//			int modelCount = testModels.length;
+//			for(int i = 0; i < modelCount; i++) {
+//				MCModelConsistencyGenericsGlobals test = new MCModelConsistencyGenericsGlobals(MCModelConsistencyGenericsGlobals.StaticTestName);
+//				test.modelNumber = i;
+//				test.testModel = testModels[i];
+//				suite.addTest(test);
+//			}
 	    }
 }

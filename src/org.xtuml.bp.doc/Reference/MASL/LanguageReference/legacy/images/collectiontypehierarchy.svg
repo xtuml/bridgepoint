@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   version="1.0"
+   width="531.49603"
+   height="354.33069"
+   id="svg2">
+  <defs
+     id="defs4" />
+  <text
+     x="265.48438"
+     y="109.52307"
+     style="font-size:14px;font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:100%;writing-mode:lr-tb;text-anchor:middle;font-family:Helvetica"
+     id="text1306"
+     xml:space="preserve"><tspan
+       x="265.48438"
+       y="109.52307"
+       style="font-size:14px;font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:100%;writing-mode:lr-tb;text-anchor:middle;font-family:Helvetica"
+       id="tspan1308">collection of T</tspan></text>
+  <text
+     x="124.61868"
+     y="168.71814"
+     style="font-size:14px;font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:100%;writing-mode:lr-tb;text-anchor:middle;font-family:Helvetica"
+     id="bagofT"
+     xml:space="preserve"><tspan
+       x="124.61868"
+       y="168.71814"
+       style="font-size:14px;font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:100%;writing-mode:lr-tb;text-anchor:middle;font-family:Helvetica"
+       id="tspan1312"><tspan
+   style="font-size:14px;font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:100%;writing-mode:lr-tb;text-anchor:middle;font-family:Helvetica"
+   id="tspan1995">bag</tspan> of T</tspan></text>
+  <text
+     x="394.48056"
+     y="168.71814"
+     style="font-size:14px;font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:100%;writing-mode:lr-tb;text-anchor:middle;font-family:Helvetica"
+     id="text1314"
+     xml:space="preserve"><tspan
+       x="394.48056"
+       y="168.71814"
+       style="font-size:14px;font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:100%;writing-mode:lr-tb;text-anchor:middle;font-family:Helvetica"
+       id="tspan1316">array of T</tspan></text>
+  <text
+     x="125.34961"
+     y="244.52307"
+     style="font-size:14px;font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:100%;writing-mode:lr-tb;text-anchor:middle;font-family:Helvetica"
+     id="setofT"
+     xml:space="preserve"><tspan
+       x="125.34961"
+       y="244.52307"
+       style="font-size:14px;font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:100%;writing-mode:lr-tb;text-anchor:middle;font-family:Helvetica"
+       id="tspan1320">set of T</tspan></text>
+  <text
+     x="269.30859"
+     y="244.52307"
+     style="font-size:14px;font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:100%;writing-mode:lr-tb;text-anchor:middle;font-family:Helvetica"
+     id="collectionofT"
+     xml:space="preserve"><tspan
+       x="269.30859"
+       y="244.52307"
+       style="font-size:14px;font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:100%;writing-mode:lr-tb;text-anchor:middle;font-family:Helvetica"
+       id="tspan1324">sequence of T</tspan></text>
+  <path
+     d="M 130.5,148.83069 C 241.00003,119.83069 241.00003,119.83069 241.00003,119.83069"
+     style="font-size:12px;fill:none;fill-opacity:0.75;fill-rule:evenodd;stroke:black;stroke-width:1"
+     id="path1326" />
+  <path
+     d="M 124.5,222.83068 C 124.5,179.83069 124.5,179.83069 124.5,179.83069"
+     style="font-size:12px;fill:none;fill-opacity:0.75;fill-rule:evenodd;stroke:black;stroke-width:1"
+     id="path1328" />
+  <path
+     d="M 144.62405,179.49094 C 265.58644,224.51898 265.58644,224.51898 265.58644,224.51898"
+     style="font-size:12px;fill:none;fill-opacity:0.75;fill-rule:evenodd;stroke:black;stroke-width:1.04434121"
+     id="path1330" />
+  <path
+     d="M 396,148.83069 C 285.5,119.83069 285.5,119.83069 285.5,119.83069"
+     style="font-size:12px;fill:none;fill-opacity:0.75;fill-rule:evenodd;stroke:black;stroke-width:1"
+     id="path2286" />
+</svg>

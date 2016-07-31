@@ -14,10 +14,12 @@
 package org.xtuml.bp.core.test;
 
 import org.eclipse.ui.PlatformUI;
-
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.xtuml.bp.core.ComponentReference_c;
 import org.xtuml.bp.core.Component_c;
 import org.xtuml.bp.core.Gd_c;
-import org.xtuml.bp.core.ComponentReference_c;
 import org.xtuml.bp.core.ImportedReference_c;
 import org.xtuml.bp.core.InterfaceReference_c;
 import org.xtuml.bp.core.Interface_c;
@@ -30,18 +32,21 @@ import org.xtuml.bp.core.Provision_c;
 import org.xtuml.bp.core.common.ClassQueryInterface_c;
 import org.xtuml.bp.core.common.ModelRoot;
 import org.xtuml.bp.test.common.BaseTest;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.test.common.UITestingUtilities;
 import org.xtuml.bp.ui.graphics.editor.GraphicalEditor;
 import org.xtuml.bp.utilities.ui.CanvasUtilities;
+@RunWith(OrderedRunner.class)
 public class ImportedComponentIFTests extends BaseTest {
 
 	private static boolean initialized = false;
 
-	public ImportedComponentIFTests(String name) {
-		super(null, name);
+	public ImportedComponentIFTests(){
+		super(null, null);
 	}
 
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		super.setUp();
 		if (!initialized) {
 			loadProject("SystemComponentTesting");
@@ -52,12 +57,14 @@ public class ImportedComponentIFTests extends BaseTest {
 	}
 
 	// Enforce ordering of the tests in this class
-	public void testImportedComponentIFTests() {
-		dotestSingleComponentInScopeInterface();
-		dotestMultipleComponentAtLeastOneInScopeIF();
-		dotestRemovalOfImportedReferenceOnReFormalization();
-	}
-	public void dotestSingleComponentInScopeInterface() {
+//	@Test
+//	public void testImportedComponentIFTests() {
+//		dotestSingleComponentInScopeInterface();
+//		dotestMultipleComponentAtLeastOneInScopeIF();
+//		dotestRemovalOfImportedReferenceOnReFormalization();
+//	}
+	@Test
+	public void testSingleComponentInScopeInterface() {
 		Interface_c iface = getInterface(true);
 		assertNotNull(iface);
 		Component_c compWithRef = Component_c.ComponentInstance(modelRoot,
@@ -78,7 +85,8 @@ public class ImportedComponentIFTests extends BaseTest {
 		runScopeMenuTest(true);
 	}
 
-	public void dotestMultipleComponentAtLeastOneInScopeIF() {
+	@Test
+	public void testMultipleComponentAtLeastOneInScopeIF() {
 		Package_c compPackage = Package_c
 				.PackageInstance(modelRoot,
 						new ClassQueryInterface_c() {
@@ -117,7 +125,8 @@ public class ImportedComponentIFTests extends BaseTest {
 	 * not result in duplicate imported reference instances
 	 * 
 	 */
-	public void dotestRemovalOfImportedReferenceOnReFormalization() {
+	@Test
+	public void testRemovalOfImportedReferenceOnReFormalization() {
 		ModelRoot.disableChangeNotification();
 		PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage()
 				.closeAllEditors(false);

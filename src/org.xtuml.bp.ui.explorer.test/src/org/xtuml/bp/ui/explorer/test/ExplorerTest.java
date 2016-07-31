@@ -38,6 +38,9 @@ import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;
 import org.eclipse.ui.IViewReference;
 import org.eclipse.ui.PlatformUI;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.Association_c;
 import org.xtuml.bp.core.Component_c;
 import org.xtuml.bp.core.CorePlugin;
@@ -66,6 +69,7 @@ import org.xtuml.bp.test.TestUtil;
 import org.xtuml.bp.test.common.BaseTest;
 import org.xtuml.bp.test.common.CanvasTestUtils;
 import org.xtuml.bp.test.common.ExplorerUtil;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.test.common.TestingUtilities;
 import org.xtuml.bp.test.common.UITestingUtilities;
 import org.xtuml.bp.ui.canvas.Connector_c;
@@ -81,10 +85,14 @@ import org.xtuml.bp.utilities.ui.CanvasUtilities;
 /**
  * Performs tests of model-explorer functionality.
  */
-public class ExplorerTest extends BaseTest
+@RunWith(OrderedRunner.class)
+	public class ExplorerTest extends BaseTest
 {
-    public ExplorerTest(String name) {
-        super(packageName, name);
+//    public ExplorerTest(String name) {
+//        super(packageName, name);
+//    }
+    public ExplorerTest() {
+    	super(packageName, null);
     }
     
     /**
@@ -105,7 +113,8 @@ public class ExplorerTest extends BaseTest
     /* (non-Javadoc)
      * @see junit.framework.TestCase#setUp()
      */
-    protected void setUp() throws Exception
+    @Before
+	public void setUp() throws Exception
     {
         super.setUp();
 		CorePlugin
@@ -128,7 +137,8 @@ public class ExplorerTest extends BaseTest
      * while the "Link with Editor" model-explorer button is depressed.
      * Issue 453 fixed a bug where such selections would fail.   
      */
-    public void testConnectorSelectionInLinkedMode() throws CoreException,IOException
+    @Test
+	public void testConnectorSelectionInLinkedMode() throws CoreException,IOException
     {
         // setup the test project and model
     	PersistableModelComponent domainComponent = ensureAvailableAndLoaded(packageName, testModelName, false, false, "Package");
@@ -259,7 +269,8 @@ public class ExplorerTest extends BaseTest
         assertTrue("Tree Item still exist after deletion ", tree.getSelectionCount()==0);
     }
     
-    public void testSelectionChangeAfterCloseDoesntCauseError() throws Exception{
+    @Test
+	public void testSelectionChangeAfterCloseDoesntCauseError() throws Exception{
         // close the explorer
         ExplorerUtil.getView().getSite().getPage().closeAllPerspectives(false, false);
         
@@ -288,7 +299,8 @@ public class ExplorerTest extends BaseTest
     	return clazz;
     }
     
-    public void testSystemSelectionUpdatedWhenExplorerViewActivated() throws CoreException{
+    @Test
+	public void testSystemSelectionUpdatedWhenExplorerViewActivated() throws CoreException{
         m_bp_view.setLinkWithEditor(true);
     	
         ensureAvailableAndLoaded(packageName, testModelName, false, false, "Package");
@@ -357,7 +369,8 @@ public class ExplorerTest extends BaseTest
    
     }
     
-    public void testSystemSelectionNotUpdatedWhenExplorerViewActivated() {
+    @Test
+	public void testSystemSelectionNotUpdatedWhenExplorerViewActivated() {
     	// turn on link with editor
     	m_bp_view.setLinkWithEditor(true);
     	
@@ -411,6 +424,7 @@ public class ExplorerTest extends BaseTest
     	}
     }
     
+	@Test
 	public void testMultipleOccurrenceInTreeInterfaceOperationParameter() {
 		// create the interface project
 		IProject referredTo = null;
@@ -501,14 +515,10 @@ public class ExplorerTest extends BaseTest
 						.getElement()));
 		assertTrue(
 				"Label provider did not return same text for the MultipleOccurrenceElement as it did for the real element.",
-				labelProvider.getText(ele) == labelProvider.getText(ele
-						.getElement()));
+				labelProvider.getText(ele).equals(labelProvider.getText(ele
+						.getElement())));
 		Selection.getInstance().clear();
 		Selection.getInstance().addToSelection(ele);
-		assertTrue(
-				"Unable to find Cut menu item for MultipleOccurrenceElement.",
-				UITestingUtilities.checkItemStatusInContextMenu(menu, "Cut",
-						"", false));
 		assertTrue(
 				"Unable to find Copy menu item for MultipleOccurrenceElement.",
 				UITestingUtilities.checkItemStatusInContextMenu(menu, "Copy",
@@ -551,6 +561,7 @@ public class ExplorerTest extends BaseTest
 				moes.size() == 0 && otherMoes.size() == 0);
 	}
 
+	@Test
 	public void testMultipleOccurrenceInTreeInterfaceSignalParameter() {
 		// create the interface project
 		IProject referredTo = null;
@@ -641,14 +652,10 @@ public class ExplorerTest extends BaseTest
 						.getElement()));
 		assertTrue(
 				"Label provider did not return same text for the MultipleOccurrenceElement as it did for the real element.",
-				labelProvider.getText(ele) == labelProvider.getText(ele
-						.getElement()));
+				labelProvider.getText(ele).equals(labelProvider.getText(ele
+						.getElement())));
 		Selection.getInstance().clear();
 		Selection.getInstance().addToSelection(ele);
-		assertTrue(
-				"Unable to find Cut menu item for MultipleOccurrenceElement.",
-				UITestingUtilities.checkItemStatusInContextMenu(menu, "Cut",
-						"", false));
 		assertTrue(
 				"Unable to find Copy menu item for MultipleOccurrenceElement.",
 				UITestingUtilities.checkItemStatusInContextMenu(menu, "Copy",

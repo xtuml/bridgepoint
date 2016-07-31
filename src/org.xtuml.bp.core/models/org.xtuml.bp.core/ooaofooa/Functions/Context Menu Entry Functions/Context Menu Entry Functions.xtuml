@@ -7240,6 +7240,69 @@ INSERT INTO PE_PE
 	"42d5848f-dabe-43e1-9ac4-b840f2789360",
 	"00000000-0000-0000-0000-000000000000",
 	1);
+INSERT INTO S_SYNC
+	VALUES ("0ef933fa-a3ee-4a2b-ad32-6f7cb87c497a",
+	"00000000-0000-0000-0000-000000000000",
+	'S_EXP_Delete',
+	'ContextMenuFunction: TRUE
+',
+	'select many exps from instances of S_EXP where USER::selectOne(id:selected.Exception_ID);
+for each exp in exps
+  exp.dispose();
+end for;',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'');
+INSERT INTO PE_PE
+	VALUES ("0ef933fa-a3ee-4a2b-ad32-6f7cb87c497a",
+	1,
+	"42d5848f-dabe-43e1-9ac4-b840f2789360",
+	"00000000-0000-0000-0000-000000000000",
+	1);
+INSERT INTO S_SYNC
+	VALUES ("44c38ef4-24a8-498a-b5c8-70b560445d9b",
+	"00000000-0000-0000-0000-000000000000",
+	'S_EXP_Rename',
+	'ContextMenuFunction: TRUE
+',
+	'select any exp from instances of S_EXP where USER::selectOne(id:selected.Exception_ID);
+exp.Name = param.new_name;',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'');
+INSERT INTO S_SPARM
+	VALUES ("be49743f-4e6a-4d95-9938-96608476cba8",
+	"44c38ef4-24a8-498a-b5c8-70b560445d9b",
+	'new_name',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO PE_PE
+	VALUES ("44c38ef4-24a8-498a-b5c8-70b560445d9b",
+	1,
+	"42d5848f-dabe-43e1-9ac4-b840f2789360",
+	"00000000-0000-0000-0000-000000000000",
+	1);
+INSERT INTO S_SYNC
+	VALUES ("e79667b6-083a-443f-b102-d62d66155e2a",
+	"00000000-0000-0000-0000-000000000000",
+	'EP_PKG_ExceptionsException',
+	'ContextMenuFunction: TRUE
+',
+	'select any pkg from instances of EP_PKG where USER::selectOne(id:selected.Package_ID);
+pkg.newException();
+',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'');
+INSERT INTO PE_PE
+	VALUES ("e79667b6-083a-443f-b102-d62d66155e2a",
+	1,
+	"42d5848f-dabe-43e1-9ac4-b840f2789360",
+	"00000000-0000-0000-0000-000000000000",
+	1);
 INSERT INTO PE_PE
 	VALUES ("42d5848f-dabe-43e1-9ac4-b840f2789360",
 	1,

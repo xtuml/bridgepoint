@@ -1,0 +1,218 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>12.13. The While Statement</title>
+<link rel="stylesheet" type="text/css" href="docbook.css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
+<meta name="keywords" content="MASL, Action Language, Action Semantics, UML, Unified Modelling Language, Shlaer Mellor">
+<link rel="home" href="index.html" title="MASL Reference Manual">
+<link rel="up" href="Statements.html" title="Chapter 12. Statements">
+<link rel="prev" href="StatementsTheCaseStatement.html" title="12.12. The Case Statement">
+<link rel="next" href="StatementsTheForStatement.html" title="12.14. The For Statement">
+<link rel="preface" href="preface.html" title="Preface">
+<link rel="chapter" href="Grammars.html" title="Chapter 1. Grammars">
+<link rel="chapter" href="LexicalStructure.html" title="Chapter 2. Lexical Structure">
+<link rel="chapter" href="Types.html" title="Chapter 3. Types">
+<link rel="chapter" href="TypeConversion.html" title="Chapter 4. Type Conversion">
+<link rel="chapter" href="Domains.html" title="Chapter 5. Domains">
+<link rel="chapter" href="Objects.html" title="Chapter 6. Objects">
+<link rel="chapter" href="Relationships.html" title="Chapter 7. Relationships">
+<link rel="chapter" href="Lifecycles.html" title="Chapter 8. Lifecycles">
+<link rel="chapter" href="Functions.html" title="Chapter 9. Functions">
+<link rel="chapter" href="Services.html" title="Chapter 10. Services">
+<link rel="chapter" href="Exceptions.html" title="Chapter 11. Exceptions">
+<link rel="chapter" href="Statements.html" title="Chapter 12. Statements">
+<link rel="chapter" href="Names.html" title="Chapter 13. Names">
+<link rel="chapter" href="Expressions.html" title="Chapter 14. Expressions">
+<link rel="appendix" href="LanguageDefinedCharacteristics.html" title="Appendix A. Language Defined Characteristics">
+<link rel="appendix" href="SyntaxSummary.html" title="Appendix B. Syntax Summary">
+<link rel="index" href="ix01.html" title="Index">
+<link rel="subsection" href="StatementsTheWhileStatement.html#StatementsWhileAbruptCompletion" title="12.13.1. Abrupt Completion">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div align="center">OFFICIAL</div>
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center">12.13. The While Statement</th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="StatementsTheCaseStatement.html">Prev</a> </td>
+<th width="60%" align="center">Chapter 12. Statements</th>
+<td width="20%" align="right"> <a accesskey="n" href="StatementsTheForStatement.html">Next</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h2 class="title">
+<a name="StatementsTheWhileStatement"></a>12.13. The While Statement</h2></div></div></div>
+<div class="toc"><dl class="toc"><dt><span class="section"><a href="StatementsTheWhileStatement.html#StatementsWhileAbruptCompletion">12.13.1. Abrupt Completion</a></span></dt></dl></div>
+<p>
+The <a class="link" href="StatementsTheWhileStatement.html#ebnf.whilestatement"><code class="literal">while</code></a> statement
+<a class="indexterm" name="idp69497632"></a>
+<a class="indexterm" name="idp69499376"></a>
+executes a
+<a class="link" href="StatementsSequenceofStatements.html#ebnf.sequenceofstatements"><span class="emphasis"><em>sequence of statements</em></span></a>
+<a class="indexterm" name="idp69501488"></a>
+repeatedly until the value of the
+<a class="link" href="ExpressionsConditions.html" title="14.13. Conditions"><span class="emphasis"><em>condition</em></span></a>
+<a class="indexterm" name="idp69503696"></a>
+is false.
+</p>
+<a class="indexterm" name="idp69504752"></a><a class="indexterm" name="idp69505920"></a><a class="indexterm" name="idp69507216"></a><a class="indexterm" name="idp69508384"></a><a class="indexterm" name="idp69509680"></a><a class="indexterm" name="idp69510848"></a><table width="100%" cellpadding="5" bgcolor="#F5DCB3" border="1" class="productionset" summary="EBNF"><tr><td><table border="0" width="99%" cellpadding="0" bgcolor="#F5DCB3" class="productionset" summary="EBNF productions"><tr>
+<td align="left" valign="top" width="3%">[171]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.whilestatement"></a>
+        while statement
+    </td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        'while',
+        <a href="ExpressionsConditions.html#ebnf.condition">condition</a>,
+        'loop',
+        <a href="StatementsSequenceofStatements.html#ebnf.sequenceofstatements">sequence of statements</a>,
+        'end', ['loop'], ';'
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr></table></td></tr></table>
+<p>
+A <a class="link" href="StatementsTheWhileStatement.html" title="12.13. The While Statement"><code class="literal">while</code></a> statement
+<a class="indexterm" name="idp69517040"></a>
+is executed by first evaluating the
+<a class="link" href="ExpressionsConditions.html" title="14.13. Conditions"><span class="emphasis"><em>condition</em></span></a>.
+<a class="indexterm" name="idp69518928"></a>
+If evaluation of the
+<a class="link" href="ExpressionsConditions.html" title="14.13. Conditions"><span class="emphasis"><em>condition</em></span></a>
+<a class="indexterm" name="idp69520672"></a>
+completes abruptly
+<a class="indexterm" name="idp69521568"></a>
+for some reason, the
+<a class="link" href="StatementsTheWhileStatement.html" title="12.13. The While Statement"><code class="literal">while</code></a> statement
+<a class="indexterm" name="idp69523328"></a>
+completes abruptl
+<a class="indexterm" name="idp69524352"></a>
+for the same reason. Otherwise, execution continues by making
+a choice based on the resulting value:
+</p>
+<div class="itemizedlist"><ul class="itemizedlist">
+<li class="listitem">
+<p>
+If the value is <code class="literal">true</code>, then the contained
+<a class="link" href="StatementsSequenceofStatements.html#ebnf.sequenceofstatements"><span class="emphasis"><em>sequence of statements</em></span></a>
+<a class="indexterm" name="idp69527776"></a>
+is executed. Then there is a choice:
+</p>
+<div class="itemizedlist"><ul class="itemizedlist">
+<li class="listitem"><p>
+If the execution of the
+<a class="link" href="StatementsSequenceofStatements.html#ebnf.sequenceofstatements"><span class="emphasis"><em>sequence of statements</em></span></a>
+<a class="indexterm" name="idp69531152"></a>
+completes normally,
+<a class="indexterm" name="idp69532496"></a>
+then the entire
+<a class="link" href="StatementsTheWhileStatement.html" title="12.13. The While Statement"><code class="literal">while</code></a> statement
+<a class="indexterm" name="idp69534256"></a>
+is executed again, beginning by re-evaluating the
+<a class="link" href="ExpressionsConditions.html" title="14.13. Conditions"><span class="emphasis"><em>condition</em></span></a>.
+<a class="indexterm" name="idp69536160"></a>
+</p></li>
+<li class="listitem"><p>
+If the execution of the
+<a class="link" href="StatementsSequenceofStatements.html#ebnf.sequenceofstatements"><span class="emphasis"><em>sequence of statements</em></span></a>
+<a class="link" href="StatementsTheWhileStatement.html#StatementsWhileAbruptCompletion" title="12.13.1. Abrupt Completion">completes abruptly</a>,
+<a class="indexterm" name="idp69539568"></a>
+see <a class="xref" href="StatementsTheWhileStatement.html#StatementsWhileAbruptCompletion" title="12.13.1. Abrupt Completion">Section 12.13.1, “Abrupt Completion”</a> below.
+</p></li>
+</ul></div>
+<p>
+</p>
+</li>
+<li class="listitem"><p>
+If the value of the
+<a class="link" href="ExpressionsConditions.html" title="14.13. Conditions"><span class="emphasis"><em>condition</em></span></a>.
+<a class="indexterm" name="idp69543264"></a>
+is false,then no further action is taken and the
+<a class="link" href="StatementsTheWhileStatement.html" title="12.13. The While Statement"><code class="literal">while</code></a> statement
+<a class="indexterm" name="idp69545056"></a>
+completes normally.
+<a class="indexterm" name="idp69546080"></a>
+</p></li>
+</ul></div>
+<p>
+If the value of the
+<a class="link" href="ExpressionsConditions.html" title="14.13. Conditions"><span class="emphasis"><em>condition</em></span></a>.
+<a class="indexterm" name="idp69548304"></a>
+is false the first time it is evaluated, then the
+<a class="link" href="StatementsSequenceofStatements.html#ebnf.sequenceofstatements"><span class="emphasis"><em>sequence of statements</em></span></a>
+<a class="indexterm" name="idp69550096"></a>
+is not executed.
+</p>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="StatementsWhileAbruptCompletion"></a>12.13.1. Abrupt Completion</h3></div></div></div>
+<p>
+Abrupt completion
+<a class="indexterm" name="idp69553104"></a>
+<a class="indexterm" name="idp69555296"></a>
+of the contained
+<a class="link" href="StatementsSequenceofStatements.html#ebnf.sequenceofstatements"><span class="emphasis"><em>sequence of statements</em></span></a>
+<a class="indexterm" name="idp69557856"></a>
+is handled in the following manner:
+</p>
+<div class="itemizedlist"><ul class="itemizedlist">
+<li class="listitem"><p>
+If execution of the
+<a class="link" href="StatementsSequenceofStatements.html#ebnf.sequenceofstatements"><span class="emphasis"><em>sequence of statements</em></span></a>
+<a class="indexterm" name="idp69561216"></a>
+completes abruptly
+<a class="indexterm" name="idp69562560"></a>
+because of an
+<a class="link" href="StatementsTheExitStatement.html#ebnf.exitstatement"><code class="literal">exit</code></a> statement, no
+<a class="indexterm" name="idp69564304"></a>
+further action is taken and the
+<a class="link" href="StatementsTheWhileStatement.html" title="12.13. The While Statement"><code class="literal">while</code></a> statement
+<a class="indexterm" name="idp69566208"></a>
+completes normally.
+<a class="indexterm" name="idp69567232"></a>
+</p></li>
+<li class="listitem"><p>
+If execution of the
+<a class="link" href="StatementsSequenceofStatements.html#ebnf.sequenceofstatements"><span class="emphasis"><em>sequence of statements</em></span></a>
+<a class="indexterm" name="idp69569888"></a>
+completes abruptly
+<a class="indexterm" name="idp69571232"></a>
+for any other reason, the
+<a class="link" href="StatementsTheWhileStatement.html" title="12.13. The While Statement"><code class="literal">while</code></a> statement
+<a class="indexterm" name="idp69573008"></a>
+completes abruptly
+<a class="indexterm" name="idp69574032"></a>
+for the same reason.
+</p></li>
+</ul></div>
+<p>
+</p>
+</div>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="StatementsTheCaseStatement.html">Prev</a> </td>
+<td width="20%" align="center"><a accesskey="u" href="Statements.html">Up</a></td>
+<td width="40%" align="right"> <a accesskey="n" href="StatementsTheForStatement.html">Next</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left" valign="top">12.12. The Case Statement </td>
+<td width="20%" align="center">
+<a accesskey="h" href="index.html">Home</a> | <a accesskey="t" href="bk01-toc.html">ToC</a>
+</td>
+<td width="40%" align="right" valign="top"> 12.14. The For Statement</td>
+</tr>
+</table>
+</div>
+<div align="center">OFFICIAL</div>
+</body>
+</html>

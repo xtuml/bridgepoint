@@ -1,12 +1,8 @@
 package org.xtuml.bp.debug.test;
 
-import java.io.File;
-import java.util.ArrayList;
-
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.NullProgressMonitor;
-import org.eclipse.debug.core.DebugException;
 import org.eclipse.debug.core.model.IDebugTarget;
 import org.eclipse.debug.core.model.IProcess;
 import org.eclipse.debug.internal.ui.DebugUIPlugin;
@@ -15,61 +11,53 @@ import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.MenuItem;
-import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;
 import org.eclipse.ui.PlatformUI;
-
-import org.xtuml.bp.core.ClassStateMachine_c;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.ComponentInstance_c;
 import org.xtuml.bp.core.Component_c;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.Function_c;
-import org.xtuml.bp.core.InterfaceReference_c;
-import org.xtuml.bp.core.ModelClass_c;
 import org.xtuml.bp.core.Ooaofooa;
-import org.xtuml.bp.core.Operation_c;
 import org.xtuml.bp.core.Package_c;
 import org.xtuml.bp.core.PackageableElement_c;
-import org.xtuml.bp.core.Port_c;
-import org.xtuml.bp.core.ProvidedExecutableProperty_c;
-import org.xtuml.bp.core.ProvidedOperation_c;
-import org.xtuml.bp.core.Provision_c;
-import org.xtuml.bp.core.RequiredExecutableProperty_c;
-import org.xtuml.bp.core.RequiredOperation_c;
-import org.xtuml.bp.core.RequiredSignal_c;
-import org.xtuml.bp.core.Requirement_c;
-import org.xtuml.bp.core.StateMachineState_c;
-import org.xtuml.bp.core.StateMachine_c;
 import org.xtuml.bp.core.SystemModel_c;
 import org.xtuml.bp.core.common.BridgePointPreferencesStore;
 import org.xtuml.bp.core.common.ClassQueryInterface_c;
-import org.xtuml.bp.core.common.NonRootModelElement;
 import org.xtuml.bp.core.common.PersistableModelComponent;
 import org.xtuml.bp.core.ui.Selection;
 import org.xtuml.bp.core.ui.perspective.BridgePointPerspective;
-import org.xtuml.bp.debug.ui.actions.ExecuteAction;
 import org.xtuml.bp.debug.ui.launch.BPDebugUtils;
 import org.xtuml.bp.debug.ui.test.DebugUITestUtilities;
 import org.xtuml.bp.test.TestUtil;
 import org.xtuml.bp.test.common.BaseTest;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.test.common.TestingUtilities;
 import org.xtuml.bp.test.common.UITestingUtilities;
-import org.xtuml.bp.ui.session.SessionExplorerTreeViewer;
-import org.xtuml.bp.ui.session.views.SessionExplorerView;
 import org.xtuml.bp.ui.text.activity.ActivityEditor;
 
+@RunWith(OrderedRunner.class)
 public class InstanceVariableViewTests extends BaseTest {
 
 	private static String projectName = "135_dts0100895768";
 
 	private static boolean testComplete = false;
 
-	public InstanceVariableViewTests(String testName) throws Exception {
-		super(projectName, testName);
+	private static boolean isFirstTime = true;
+
+	public InstanceVariableViewTests() throws Exception {
+		super(projectName, null);
 	}
 
 	@Override
-	protected void initialSetup() throws Exception {
+	@Before
+	public void initialSetup() throws Exception {
+			if (!isFirstTime)
+				return;
+			isFirstTime  = false;
 			delayGlobalUpgrade = true;
 			CorePlugin.disableParseAllOnResourceChange();
 
@@ -121,6 +109,7 @@ public class InstanceVariableViewTests extends BaseTest {
             PrepareTest();
 	}
 
+	@After
 	public void tearDown() throws Exception {
 		if (!testComplete )
 			return;
@@ -143,6 +132,7 @@ public class InstanceVariableViewTests extends BaseTest {
 		initTest();
 	}
 	
+	@Test
 	public void testDisplayPendingEvent() {
 		TreeItem[] children = DebugUITestUtilities.expandValueinVariablesView("student1");
 		
@@ -151,6 +141,7 @@ public class InstanceVariableViewTests extends BaseTest {
 		
 	}
 	
+	@Test
 	public void testDisplayCurrentState() {
 		TreeItem[] children = DebugUITestUtilities.expandValueinVariablesView("student1");
 		
@@ -159,6 +150,7 @@ public class InstanceVariableViewTests extends BaseTest {
 		
 	}
 	
+	@Test
 	public void testDisplayBinaryRelatedIsntances() {
 		TreeItem[] children = DebugUITestUtilities.expandValueinVariablesView("student1");
 		
@@ -168,6 +160,7 @@ public class InstanceVariableViewTests extends BaseTest {
 	}
 	
 	
+	@Test
 	public void testDisplayAssociativeRelatedIsntances() {
 		TreeItem[] children = DebugUITestUtilities.expandValueinVariablesView("student1");
 		

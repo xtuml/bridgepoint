@@ -8,7 +8,10 @@ import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.debug.internal.ui.DebugUIPlugin;
 import org.eclipse.debug.ui.IDebugUIConstants;
 import org.eclipse.ui.PlatformUI;
-
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.Component_c;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.Function_c;
@@ -23,19 +26,22 @@ import org.xtuml.bp.debug.ui.launch.BPDebugUtils;
 import org.xtuml.bp.debug.ui.test.DebugUITestUtilities;
 import org.xtuml.bp.test.TestUtil;
 import org.xtuml.bp.test.common.BaseTest;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.test.common.TestingUtilities;
 
+@RunWith(OrderedRunner.class)
 public class VerifierExecuteFragmentTest extends BaseTest {
 	private static String projectName = "VerifierFragmentExecutionTest";
 
 	private boolean initialized = false;
 
-	public VerifierExecuteFragmentTest(String testName) throws Exception {
-		super(null, testName);
+	public VerifierExecuteFragmentTest() throws Exception {
+		super(null, null);
 	}
 
 	@Override
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		if (!initialized)
 			delayGlobalUpgrade = true;
 		super.setUp();
@@ -87,6 +93,7 @@ public class VerifierExecuteFragmentTest extends BaseTest {
 		}
 	}
 
+	@Test
 	public void testtopLevelFragment() throws Exception {
 		Package_c p1 = Package_c.getOneEP_PKGOnR1405(m_sys,
 				new ClassQueryInterface_c() {
@@ -162,6 +169,7 @@ public class VerifierExecuteFragmentTest extends BaseTest {
 		assertEquals(expected_results, actual_results);
 	}
 
+	@Test
 	public void testnestedFragment() throws Exception {
 		Package_c p1 = Package_c.getOneEP_PKGOnR1405(m_sys,
 				new ClassQueryInterface_c() {
@@ -248,6 +256,7 @@ public class VerifierExecuteFragmentTest extends BaseTest {
 		assertEquals(expected_results, actual_results);
 	}
 
+	@After
 	public void tearDown() throws Exception {
 		DebugUITestUtilities.stopSession(m_sys, projectName);
 	}

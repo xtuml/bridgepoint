@@ -60,6 +60,7 @@ public class ActionLanguagePreferences
     private Button allowInterfaceNameInICMessage;
     private Button enableErrorForEmptySynchronousMessage;
 	private Button enableErrorForEmptySynchronousMessageRealized;
+	private Button enableParseOnActivtyEdits;
     
     protected IPreferenceModel model;
 
@@ -152,6 +153,14 @@ public class ActionLanguagePreferences
     allowImplicitComponentAddressing.setText(
     		                             "Allow implicit component addressing");
 
+    enableParseOnActivtyEdits = new Button(composite, SWT.CHECK | SWT.LEFT);
+    enableParseOnActivtyEdits.setText("Parse while editing OAL activities");
+    enableParseOnActivtyEdits.setToolTipText("Enabling this option causes the parser to run as you edit OAL.\n" +
+    										"When enabled, syntax errors are shown as you type. The\n" +
+    										"disadvantage is that large action bodies may take a long time to parse.\n" +
+    										"When disabled, you must manually parse the OAL using the \n" +
+    										" Parse All Activities option found in the context menu.");
+
     allowOperationsInWhere = new Button(composite, SWT.CHECK | SWT.LEFT);
     allowOperationsInWhere.setText("Allow operations inside where clauses of select statements");
     allowOperationsInWhere.setToolTipText(
@@ -236,6 +245,12 @@ public class ActionLanguagePreferences
       else {
     	  bpPrefs.allowImplicitComponentAddressing = false;
       }
+      if (enableParseOnActivtyEdits.getSelection()) {
+    	  bpPrefs.enableParseOnActivtyEdits = true;
+      }
+      else {
+    	  bpPrefs.enableParseOnActivtyEdits = false;
+      }      
       if (allowOperationsInWhere.getSelection()) {
           bpPrefs.allowOperationsInWhere = true;
       }
@@ -248,10 +263,18 @@ public class ActionLanguagePreferences
       else {
           bpPrefs.allowInterfaceNameInICMessage = false;
       }
-	  bpPrefs.enableErrorForEmptySynchronousMessage = enableErrorForEmptySynchronousMessage
-			.getSelection();
-	  bpPrefs.enableErrorForEmptySynchronousMessageRealized = enableErrorForEmptySynchronousMessageRealized
-			.getSelection();
+	  if (enableErrorForEmptySynchronousMessage.getSelection()) {
+          bpPrefs.enableErrorForEmptySynchronousMessage = true;
+      }
+      else {
+          bpPrefs.enableErrorForEmptySynchronousMessage = false;
+      }
+	  if (enableErrorForEmptySynchronousMessageRealized.getSelection()) {
+          bpPrefs.enableErrorForEmptySynchronousMessageRealized = true;
+      }
+      else {
+          bpPrefs.enableErrorForEmptySynchronousMessageRealized = false;
+      }
       model.getStore().saveModel(getPreferenceStore(), model);
       return true;
   }
@@ -301,6 +324,7 @@ public class ActionLanguagePreferences
           allowCoercionNoRadio.setEnabled(true);
       }
       allowImplicitComponentAddressing.setSelection(bpPrefs.allowImplicitComponentAddressing);
+      enableParseOnActivtyEdits.setSelection(bpPrefs.enableParseOnActivtyEdits);      
       allowOperationsInWhere.setSelection(bpPrefs.allowOperationsInWhere);
       allowInterfaceNameInICMessage.setSelection(bpPrefs.allowInterfaceNameInICMessage);
 	  enableErrorForEmptySynchronousMessage

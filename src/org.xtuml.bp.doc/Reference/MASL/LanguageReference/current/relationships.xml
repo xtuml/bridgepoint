@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+  UK Crown Copyright (c) 2016. All Rights Reserved
+-->
+<chapter version="5.0" xml:id="section.Relationships"
+         xmlns="http://docbook.org/ns/docbook"
+         xmlns:xlink="http://www.w3.org/1999/xlink"
+         xmlns:xi="http://www.w3.org/2001/XInclude"
+         xmlns:svg="http://www.w3.org/2000/svg"
+         xmlns:mml="http://www.w3.org/1998/Math/MathML"
+         xmlns:html="http://www.w3.org/1999/xhtml"
+         xmlns:db="http://docbook.org/ns/docbook">
+  <title>Relationships</title>
+
+    <section xml:id="section.Relationships.Definition"><title>Definition</title><para>to do</para>
+
+      <productionset>
+        <xi:include href="syntax.xml" xpointer="ebnf.relationshipDefinition"/>
+        <xi:include href="syntax.xml" xpointer="ebnf.regularRelationshipDefinition"/>
+        <xi:include href="syntax.xml" xpointer="ebnf.assocRelationshipDefinition"/>
+        <xi:include href="syntax.xml" xpointer="ebnf.halfRelationshipDefinition"/>
+        <xi:include href="syntax.xml" xpointer="ebnf.subtypeRelationshipDefinition"/>
+        <xi:include href="syntax.xml" xpointer="ebnf.relationshipName"/>
+        <xi:include href="syntax.xml" xpointer="ebnf.rolePhrase"/>
+        <xi:include href="syntax.xml" xpointer="ebnf.assocObjectName"/>
+        <xi:include href="syntax.xml" xpointer="ebnf.supertypeObjectName"/>
+        <xi:include href="syntax.xml" xpointer="ebnf.subtypeObjectName"/>
+        <productionrecap linkend="ebnf.objectName"/>
+      </productionset>
+
+    </section>
+    <section xml:id="section.Relationships.Simple"><title>Simple Relationships</title><para>to do</para></section>
+    <section xml:id="section.Relationships.Associative"><title>Associative Relationships</title><para>to do</para></section>
+    <section xml:id="section.Relationships.Supertype"><title>Supertype Relationships</title><para>to do</para></section>
+    <section xml:id="section.Relationships.Formalism"><title>Formalism</title><para>to do</para></section>
+    <section xml:id="section.Relationships.ReferentialIntegrity"><title>Formalism</title><para>to do</para></section>
+
+
+</chapter>

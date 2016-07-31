@@ -1,19 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-
- File:      $RCSfile: generate.xml,v $
- Version:   $Revision: 1.41 $
- Modified:  $Date: 2013/01/10 23:20:58 $
-
- (c) Copyright 2004-2014 by Mentor Graphics Corp.  All rights reserved.
-
--->
 <project name="bp.ui.text" default="all" basedir=".">
   <!-- The property ${eclipse-home} should be passed into this script -->
   <!-- Set a meaningful default value for when it is not. -->
   <property name="eclipse-home" value="${basedir}/../.."/>
   <property name="plugins-home" value="${ant.home}/../.."/>
-  <property name="util_bin_dir" value="${eclipse-home}/src/org.xtuml.bp.mc.c.binary/mc3020/bin"/>
+  <property name="util_bin_dir" value="${eclipse-home}/src/org.xtuml.bp.mc.c.source/mc3020/bin"/>
 
   <target name="all"
           description="Generate all code for this project"

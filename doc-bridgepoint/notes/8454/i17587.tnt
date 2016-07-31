@@ -1,0 +1,176 @@
+========================================================================
+
+File:      $RCSfile: i1757.tnt,v $
+Version:   $Revision: 1.1 $
+Modified:  $Date: 2009/09/03 18:22:27 $
+
+(c) Copyright 2005-2009 by Mentor Graphics Corp. All rights reserved.
+
+========================================================================
+This document contains information proprietary and confidential to
+Mentor Graphics Corp., and is not for external distribution.
+========================================================================
+
+Tiger Project Technical Note
+Code changes required to implement PLCM proxy and persistence policy
+
+Abstract
+--------
+This note captures the initial brain-storming done regarding the code changes
+required to implement PLCM proxy and persistence policy.
+
+History
+-------
+update i1757-03232006-01.rvm
+
+Document References
+-------------------
+[1] Issue 1757
+[2] Documentation/persistence/i845-PLCM_1_0.ant
+[3] Issue 1754 new Proxy policy.
+[4] Issue 1755 new persistence rule.
+[5] Issue 1756 proxy lazy loading.
+
+Background
+----------
+Analysis note [2] identifies many complexities in current PLCM implementation.
+This issue addresses new proxy and persistence policy to reduce this 
+complication.
+The current proxy implementation for PLCM is overly complex causing many 
+reliability issues. This note is intended to identify code changes required to 
+meet new rules, see [2] section 3.8, 3.9 and 3.10.
+
+Analysis
+--------
+In the current proxy implementation there are multiple proxy policies to store
+cross component references. These different policies have introduced much 
+unreliable special case code to support these policies.
+Two locations that have this special case handling are
+- Special case handling for the loading of proxies in navigation methods.
+- Special handling in persistence
+
+Design
+------
+1.  Proxy creation
+    Proxy will only be for the cross component RTO element in the RGO element
+    component. There will be no other special case.
+    
+2.  RGO to RTO navigation
+    RGO to RTO navigation is straight forward. RGO element component has created
+    proxy for RTO while loading. When navigating from RGO to RTO simply load RTO
+    component referred by Proxy and return.
+   
+3.  RTO to RGO navigation
+    There are two policies for RTO to RGO navigation.
+3.1 getOne* Navigation
+    In getOne* navigation, RGO element will be searched in the memory first.
+    If not found then list of all the unloaded components possibly containing
+    RGOs will be obtained. Each component will be loaded and search will be
+    performed for the desired RGO element in the memory.
+    Loading will be stopped when element founds or there is no more unloaded 
+    component.
+3.2 getMany* Navigation
+    In getMany* navigation, this will be made sure that all possible components
+    containing RGOs are loaded, than RGO element will be searched in the memory.
+    For RTO to RGO navigation we need not to load all components if RGO is not
+    in a different component. Reducing this unnecessary loading will boost lazy 
+    loading performance. Example: StateMachineEventDataItem->StateMachine.
+
+4.  Select Instances
+4.1 *Instance
+	In Select any statement(*Instance), element of the given type will be looked
+	in the memory. if not found then all unloaded components possibly containing
+	RGOs will be obtained. Each component will be loaded and search will be
+	performed for the desired element in the memory. Loading will be stopped
+	when element founds or there is no more unloaded component.
+4.2 *Instances
+	In Select many (*Instances), this will be made sure that all possible
+	components containing elements of given type are loaded, than desired
+	elements will be searched in the memory. 
+    
+5.  All code will be removed violating above rules.
+         
+6   Storage Component for the association link class
+    Where Associative is associating across 1:* the link class will be placed in 
+    the component containing the many-side of the association.
+6.1 Move SubsystemInDomain to subsystem component, so deletion of subsystem will
+    not affect domain. see [2] section 3.8.1.
+
+7.  Requires lazy loading to be disabled
+    Any method that can cause lazy loading must have an overloaded signature to
+    disable lazy loading.
+
+8.  Identify code that requires disabled of lazy loading 
+8.1 Export code
+8.2 Import code
+8.3 Finding RGOs in PersistenceHierarchyMetaData. While unloading and deleting 
+    components PersistenceHierarchyMetaData is queried to obtain in memory 
+    reference, to determine whether or not given element should be removed from
+    memory. This search should be perform on in-memory elements only.
+
+Note: This is only a hint, a complete list will be provided in the design note
+for the proxy refactoring[5]
+
+9.  Update Persistable Model Component and Manager.
+    Distribute responsibilities of both.
+9.1 Persistable Model component (PMC)
+    a) PMC should only have code logically applicable to one component.
+9.2 Persistance Manager (PM)
+    a) PM should contain code applicable to collection of PMCs.
+    b) PM will maintain list of components.
+       We need to keep list of all components to answer many queries, required
+       to support new proxy policy.
+    c) Move instanceList from PMC to PM.
+	d) Move all functionality applicable to PM under rule(a) to PM from PMC. ex.
+	   (findInstance(IPath),findOrCreateComponent(), etc)
+
+10. Don't persist proxy where real instance is required.
+    It is possible that a dangling reference proxy created by one component may
+    be persisted into the component that is supposed to contain dangled 
+    reference in current persistence policy.
+
+Unit Test
+---------
+_- Run all unit tests
+_R All unit test pass
+End
+---
+
+$Log: i1757.tnt,v $
+Revision 1.1  2009/09/03 18:22:27  rmulvey
+job:dts0100616734
+Archive documentation and other development notes following the R3_0_0 release.  These are being archived under Documentation/internal/technical/archive/20090903
+
+Revision 1.7  2009/01/01 23:13:08  rmulvey
+Job:4060
+Batch promotion of copyright changes from Review-i4060 and Review-i4060-01.
+
+Revision 1.6.24.1  2008/12/31 16:10:11  rmulvey
+Job:4060
+This is a batch commit of 2009 copyright changes to branch Review-i4060.  This includes the
+report that outlines all changes made (before/after for each line changed).  This report is found here: <cvs>/Documentation/internal/test_results/R2_1_2/i4060/update-copyright-results.txt.
+
+Revision 1.6  2006/03/31 06:44:23  araza
+Job:1755
+Addressed review minutes.
+
+Revision 1.5  2006/03/23 13:14:42  araza
+Job:1757
+Corrected reference.
+
+Revision 1.4  2006/03/22 13:18:10  araza
+Job:1757
+Orginazed sections.
+
+Revision 1.3  2006/03/21 04:33:42  rmulvey
+Job:1757
+Reviewed.  Fixed some grammer issues.  This looks likes good starting point for the dnt to me.
+
+Revision 1.2  2006/03/20 11:47:32  araza
+Job:1757
+Orginazed sections.
+
+Revision 1.1  2006/03/17 13:48:42  araza
+Job:1757
+Rough and initial brain-storming.
+

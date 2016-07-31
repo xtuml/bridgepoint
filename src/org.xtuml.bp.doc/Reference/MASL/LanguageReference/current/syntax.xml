@@ -1,0 +1,1111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+  UK Crown Copyright (c) 2016. All Rights Reserved
+-->
+<chapter xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="Syntax">
+  <productionset>
+    <production xml:id="ebnf.CharacterSet">
+      <lhs>character set</lhs>
+      <rhs><nonterminal def="#ebnf.Digit"/> | <nonterminal def="#ebnf.Letter"/> | <nonterminal def="#ebnf.PunctuationCharacter"/> | <nonterminal def="#ebnf.WhitespaceCharacter"/></rhs>
+    </production>
+    <production xml:id="ebnf.Digit">
+      <lhs>digit</lhs>
+      <rhs>'0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9'</rhs>
+    </production>
+    <production xml:id="ebnf.Letter">
+      <lhs>letter</lhs>
+      <rhs>'a' | 'b' | 'c' | 'd' | 'e' | 'f' | 'g' | 'h' | 'i' | 'j' | 'k' | 'l' | 'm' | <sbr/>'n' | 'o' | 'p' | 'q' |
+      'r' | 's' | 't' | 'u' | 'v' | 'w' | 'x' | 'y' | 'z' | <sbr/>'A' | 'B' | 'C' | 'D' | 'E' | 'F' | 'G' | 'H' | 'I' |
+      'J' | 'K' | 'L' | 'M' | <sbr/>'N' | 'O' | 'P' | 'Q' | 'R' | 'S' | 'T' | 'U' | 'V' | 'W' | 'X' | 'Y' | 'Z'</rhs>
+    </production>
+    <production xml:id="ebnf.PunctuationCharacter">
+      <lhs>punctuation character</lhs>
+      <rhs>'_' | '{' | '}' | '[' | ']' | '#' | '(' | ')' | '&lt;' | '&gt;' | '%' | ':' | ';' |'.' | '?' | <sbr/> '*' |
+      '+' | '-' | '/' | '^' | '&amp;' | '|' | '~' | '!' | '=' | ',' | '\' | '"' | '''</rhs>
+    </production>
+    <production xml:id="ebnf.WhitespaceCharacter">
+      <lhs>whitespace character</lhs>
+      <rhs><nonterminal def="#ebnf.InlineWhitespaceCharacter"/> | <nonterminal def="#ebnf.EndOfLineCharacter"/></rhs>
+    </production>
+    <production xml:id="ebnf.InlineWhitespaceCharacter">
+      <lhs>inline whitespace character</lhs>
+      <rhs>? ISO 646 SP character ? |<sbr/> ? ISO 646 HT character ? |<sbr/> ? ISO 646 FF character ?</rhs>
+    </production>
+    <production xml:id="ebnf.EndOfLineCharacter">
+      <lhs>end of line character</lhs>
+      <rhs>? ISO 646 CR character ? |<sbr/> ? ISO 646 LF character ?</rhs>
+    </production>
+    <production xml:id="ebnf.Comment">
+      <lhs>comment</lhs>
+      <rhs>'/' , '/' , { <nonterminal def="#ebnf.SingleLineCharacter"/> } , <nonterminal def="#ebnf.EndOfLine"/></rhs>
+    </production>
+    <production xml:id="ebnf.Whitespace">
+      <lhs>whitespace</lhs>
+      <rhs><nonterminal def="#ebnf.WhitespaceCharacter"/> , { <nonterminal def="#ebnf.WhitespaceCharacter"/> }</rhs>
+    </production>
+    <production xml:id="ebnf.ReservedWord">
+      <lhs>reserved word</lhs>
+      <rhs>'Cannot_Happen' | 'Current_State' | 'Ignore' | 'Non_Existent' | 'anonymous' | 'array' | 'assigner' | 'at' |
+      'bag' | 'begin' | 'cancel' | 'case' | 'conditionally' | 'console' | 'create' | 'creation' | 'declare' | 'deferred'
+      | 'delay' | 'delete' | 'delta' | 'digits' | 'domain' | 'else' | 'elsif' | 'end' | 'endl' | 'enum' | 'event' |
+      'exception' | 'exit' | 'false' | 'find' | 'find_one' | 'find_only' | 'flush' | 'for' | 'function' | 'generate' |
+      'identifier' | 'if' | 'in' | 'instance' | 'is' | 'is_a' | 'link' | 'loop' | 'many' | 'null' | 'object' | 'of' |
+      'one' | 'ordered_by' | 'others' | 'out' | 'pragma' | 'preferred' | 'private' | 'project' | 'public' | 'raise' |
+      'range' | 'readonly' | 'referential' | 'relationship' | 'return' | 'reverse' | 'reverse_ordered_by' | 'schedule' |
+      'sequence' | 'service' | 'set' | 'start' | 'state' | 'structure' | 'terminal' | 'terminator' | 'then' | 'this' |
+      'to' | 'transition' | 'true' | 'type' | 'unconditionally' | 'unique' | 'unlink' | 'using' | 'when' | 'while' |
+      'with'</rhs>
+    </production>
+    <production xml:id="ebnf.Punctuator">
+      <lhs>punctuator</lhs>
+      <rhs>'+' | '-' | '&amp;' | '/' | '*' | '**' | '=' | '/=' | '&gt;' | &gt;=' | '&lt;' | '&lt;=' | '&gt;&gt;'
+      |'&gt;&gt;&gt;' | '&lt;&lt;' |'&lt;&lt;&lt;' | ':=' | ':' | ',' | '.' | '&lt;&gt;' | ''' | '..' | '(' | ')' | '['
+      | ']' | '::' | ';' | '=&gt;' | '-&gt;' | '~&gt;' | '|'</rhs>
+    </production>
+    <production xml:id="ebnf.RelationshipName">
+      <lhs>relationship name</lhs>
+      <rhs>'R' , ( <nonterminal def="#ebnf.Digit"/> - '0' ) , { <nonterminal def="#ebnf.Digit"/> }</rhs>
+    </production>
+    <production xml:id="ebnf.Identifier">
+      <lhs>identifier</lhs>
+      <rhs>( ( <nonterminal def="#ebnf.Letter"/> | '_' ) , { <nonterminal def="#ebnf.Letter"/> | <nonterminal def="#ebnf.Digit"/> | '_' } ) - <nonterminal def="#ebnf.ReservedWord"/> - <nonterminal def="#ebnf.RelationshipName"/></rhs>
+    </production>
+    <production xml:id="ebnf.IntegerLiteral">
+      <lhs>integer literal</lhs>
+      <rhs><nonterminal def="#ebnf.Digits"/> | <nonterminal def="#ebnf.Base"/> , <nonterminal def="#ebnf.BasedDigits"/></rhs>
+    </production>
+    <production xml:id="ebnf.RealLiteral">
+      <lhs>real literal</lhs>
+      <rhs>[ <nonterminal def="#ebnf.Digits"/> ] , '.' , <nonterminal def="#ebnf.Digits"/> , [ <nonterminal def="#ebnf.Exponent"/> ] |<sbr/> <nonterminal def="#ebnf.Digits"/> , [ '.' , <nonterminal def="#ebnf.Digits"/> ] ,
+      <nonterminal def="#ebnf.Exponent"/> |<sbr/> <nonterminal def="#ebnf.Base"/> , [ <nonterminal def="#ebnf.BasedDigits"/> ] , '.' , <nonterminal def="#ebnf.BasedDigits"/> , [ <nonterminal def="#ebnf.BasedExponent"/> ] |<sbr/> <nonterminal def="#ebnf.Base"/> , <nonterminal def="#ebnf.BasedDigits"/> , [
+      '.' , <nonterminal def="#ebnf.BasedDigits"/> ] , <nonterminal def="#ebnf.BasedExponent"/></rhs>
+    </production>
+    <production xml:id="ebnf.DurationLiteral">
+      <lhs>duration literal</lhs>
+      <rhs>'@' , ? ISO 8601:2004 Duration General Format with Designators (Section 4.4.3.2) ? , '@'</rhs>
+    </production>
+    <production xml:id="ebnf.TimestampLiteral">
+      <lhs>timestamp literal</lhs>
+      <rhs>'@' , ? ISO 8601:2004 Date Format (non-expanded) (Section 4.1) ? , '@' | <sbr/>'@' , ? ISO 8601:2004 Date and
+      Time of Day Format (non-expanded) (Section 4.3) ? , '@'</rhs>
+    </production>
+    <production xml:id="ebnf.CharacterLiteral">
+      <lhs>character literal</lhs>
+      <rhs><nonterminal def="#ebnf.SingleQuoteCharacter"/> , ( <nonterminal def="#ebnf.CharacterSet"/> - ( <nonterminal def="#ebnf.EscapeCharacter"/> | <nonterminal def="#ebnf.SingleQuoteCharacter"/> |
+      <nonterminal def="#ebnf.EndOfLineCharacter"/> ) | <nonterminal def="#ebnf.EscapeSequence"/> ) , <nonterminal def="#ebnf.SingleQuoteCharacter"/></rhs>
+    </production>
+    <production xml:id="ebnf.StringLiteral">
+      <lhs>string literal</lhs>
+      <rhs><nonterminal def="#ebnf.DoubleQuoteCharacter"/> , ( <nonterminal def="#ebnf.CharacterSet"/> - ( <nonterminal def="#ebnf.EscapeCharacter"/> | <nonterminal def="#ebnf.DoubleQuoteCharacter"/> |
+      <nonterminal def="#ebnf.EndOfLineCharacter"/> ) | <nonterminal def="#ebnf.EscapeSequence"/> ) , <nonterminal def="#ebnf.DoubleQuoteCharacter"/></rhs>
+    </production>
+    <production xml:id="ebnf.SingleLineCharacter">
+      <lhs>single line character</lhs>
+      <rhs><nonterminal def="#ebnf.Digit"/> | <nonterminal def="#ebnf.Letter"/> | <nonterminal def="#ebnf.PunctuationCharacter"/> | <nonterminal def="#ebnf.InlineWhitespaceCharacter"/></rhs>
+    </production>
+    <production xml:id="ebnf.EndOfLine">
+      <lhs>end of line</lhs>
+      <rhs>? ISO 646 CR character ? |<sbr/> ? ISO 646 LF character ? | <sbr/> ? ISO 646 CR character ? , ? ISO 646 LF
+      character ?</rhs>
+    </production>
+    <production xml:id="ebnf.Digits">
+      <lhs>digits</lhs>
+      <rhs><nonterminal def="#ebnf.Digit"/> , { <nonterminal def="#ebnf.Digit"/> }</rhs>
+    </production>
+    <production xml:id="ebnf.Exponent">
+      <lhs>exponent</lhs>
+      <rhs>('e' | 'E') , [ '+' | '-' ] , <nonterminal def="#ebnf.Digits"/></rhs>
+    </production>
+    <production xml:id="ebnf.Base">
+      <lhs>base</lhs>
+      <rhs><nonterminal def="#ebnf.Digits"/> , [ <nonterminal def="#ebnf.Digits"/> ], '#'</rhs>
+    </production>
+    <production xml:id="ebnf.BasedDigit">
+      <lhs>based digit</lhs>
+      <rhs><nonterminal def="#ebnf.Digit"/> | <nonterminal def="#ebnf.Letter"/></rhs>
+    </production>
+    <production xml:id="ebnf.BasedDigits">
+      <lhs>based digits</lhs>
+      <rhs><nonterminal def="#ebnf.BasedDigit"/> , { <nonterminal def="#ebnf.BasedDigit"/> }</rhs>
+    </production>
+    <production xml:id="ebnf.BasedExponent">
+      <lhs>based exponent</lhs>
+      <rhs>'#' [ '+' | '-' ] , <nonterminal def="#ebnf.Digits"/></rhs>
+    </production>
+    <production xml:id="ebnf.EscapeCharacter">
+      <lhs>escape character</lhs>
+      <rhs>'\'</rhs>
+    </production>
+    <production xml:id="ebnf.SingleQuoteCharacter">
+      <lhs>single quote character</lhs>
+      <rhs>'''</rhs>
+    </production>
+    <production xml:id="ebnf.DoubleQuoteCharacter">
+      <lhs>double quote character</lhs>
+      <rhs>'"'</rhs>
+    </production>
+    <production xml:id="ebnf.EscapeSequence">
+      <lhs>escape sequence</lhs>
+      <rhs><nonterminal def="#ebnf.EscapeCharacter"/> , ( 'b' | 't' | 'n' | 'f' | 'r' | '"' | ''' | '\' ) | <nonterminal def="#ebnf.UnicodeEscape"/> | <nonterminal def="#ebnf.OctalEscape"/></rhs>
+    </production>
+    <production xml:id="ebnf.OctalEscape">
+      <lhs>octal escape</lhs>
+      <rhs><nonterminal def="#ebnf.EscapeCharacter"/> , [ <nonterminal def="#ebnf.OctalFirstDigit"/> ] , [ <nonterminal def="#ebnf.OctalDigit"/> ] , <nonterminal def="#ebnf.OctalDigit"/></rhs>
+    </production>
+    <production xml:id="ebnf.UnicodeEscape">
+      <lhs>unicode escape</lhs>
+      <rhs><nonterminal def="#ebnf.EscapeCharacter"/> , 'u' , <nonterminal def="#ebnf.HexDigit"/> , <nonterminal def="#ebnf.HexDigit"/> , <nonterminal def="#ebnf.HexDigit"/> , <nonterminal def="#ebnf.HexDigit"/></rhs>
+    </production>
+    <production xml:id="ebnf.OctalDigit">
+      <lhs>octal digit</lhs>
+      <rhs>'0' | '1' | '2' | '3' | '4' | '5' | '6' | '7'</rhs>
+    </production>
+    <production xml:id="ebnf.OctalFirstDigit">
+      <lhs>octal first digit</lhs>
+      <rhs>'0' | '1' | '2' | '3'</rhs>
+    </production>
+    <production xml:id="ebnf.HexDigit">
+      <lhs>hex digit</lhs>
+      <rhs><nonterminal def="#ebnf.Digit"/> | 'a' | 'b' | 'c' | 'd' | 'e' | 'f' | 'A' | 'B' | 'C' | 'D' | 'E' |
+      'F'</rhs>
+    </production>
+    <production xml:id="ebnf.domainDefinition">
+      <lhs>domain definition</lhs>
+      <rhs>'domain' , <nonterminal def="#ebnf.domainName"/> , 'is' , { <nonterminal def="#ebnf.domainMember"/> } , 'end'
+      , [ 'domain' ] , ';' , <nonterminal def="#ebnf.pragmaList"/></rhs>
+    </production>
+    <production xml:id="ebnf.domainMember">
+      <lhs>domain member</lhs>
+      <rhs><nonterminal def="#ebnf.objectDeclaration"/> | <nonterminal def="#ebnf.domainServiceDeclaration"/> |
+      <nonterminal def="#ebnf.domainFunctionDeclaration"/> | <nonterminal def="#ebnf.terminatorDefinition"/> |
+      <nonterminal def="#ebnf.relationshipDefinition"/> | <nonterminal def="#ebnf.objectDefinition"/> | <nonterminal def="#ebnf.typeDeclaration"/> | <nonterminal def="#ebnf.exceptionDeclaration"/></rhs>
+    </production>
+    <production xml:id="ebnf.domainName">
+      <lhs>domain name</lhs>
+      <rhs>
+        <nonterminal def="#ebnf.Identifier"/>
+      </rhs>
+    </production>
+    <production xml:id="ebnf.typeDeclaration">
+      <lhs>type declaration</lhs>
+      <rhs>[ <nonterminal def="#ebnf.typeVisibility"/> ] , 'type' , <nonterminal def="#ebnf.typeName"/> , 'is' ,
+      <nonterminal def="#ebnf.typeDefinition"/> , ';' , <nonterminal def="#ebnf.pragmaList"/></rhs>
+    </production>
+    <production xml:id="ebnf.typeDefinition">
+      <lhs>type definition</lhs>
+      <rhs><nonterminal def="#ebnf.structureTypeDefinition"/> | <nonterminal def="#ebnf.enumerationTypeDefinition"/> |
+      <nonterminal def="#ebnf.constrainedTypeDefinition"/> | <nonterminal def="#ebnf.typeRef"/></rhs>
+    </production>
+    <production xml:id="ebnf.typeVisibility">
+      <lhs>type visibility</lhs>
+      <rhs>'private' | 'public'</rhs>
+    </production>
+    <production xml:id="ebnf.constrainedTypeDefinition">
+      <lhs>constrained type definition</lhs>
+      <rhs><nonterminal def="#ebnf.namedTypeRef"/> , <nonterminal def="#ebnf.typeConstraint"/></rhs>
+    </production>
+    <production xml:id="ebnf.typeConstraint">
+      <lhs>type constraint</lhs>
+      <rhs><nonterminal def="#ebnf.rangeConstraint"/> | <nonterminal def="#ebnf.deltaConstraint"/> | <nonterminal def="#ebnf.digitsConstraint"/></rhs>
+    </production>
+    <production xml:id="ebnf.rangeConstraint">
+      <lhs>range constraint</lhs>
+      <rhs>'range' , <nonterminal def="#ebnf.expression"/></rhs>
+    </production>
+    <production xml:id="ebnf.deltaConstraint">
+      <lhs>delta constraint</lhs>
+      <rhs>'delta' , <nonterminal def="#ebnf.constExpression"/> , <nonterminal def="#ebnf.rangeConstraint"/></rhs>
+    </production>
+    <production xml:id="ebnf.digitsConstraint">
+      <lhs>digits constraint</lhs>
+      <rhs>'digits' , <nonterminal def="#ebnf.constExpression"/> , <nonterminal def="#ebnf.rangeConstraint"/></rhs>
+    </production>
+    <production xml:id="ebnf.structureTypeDefinition">
+      <lhs>structure type definition</lhs>
+      <rhs>'structure' , <nonterminal def="#ebnf.structureComponentDefinition"/> , { <nonterminal def="#ebnf.structureComponentDefinition"/> } , 'end' , [ 'structure' ]</rhs>
+    </production>
+    <production xml:id="ebnf.structureComponentDefinition">
+      <lhs>structure component definition</lhs>
+      <rhs><nonterminal def="#ebnf.componentName"/> , ':' , <nonterminal def="#ebnf.typeRef"/> , [ ':=' ,
+      <nonterminal def="#ebnf.componentDefaultValue"/> ] , ';' , <nonterminal def="#ebnf.pragmaList"/></rhs>
+    </production>
+    <production xml:id="ebnf.componentName">
+      <lhs>component name</lhs>
+      <rhs>
+        <nonterminal def="#ebnf.Identifier"/>
+      </rhs>
+    </production>
+    <production xml:id="ebnf.enumerationTypeDefinition">
+      <lhs>enumeration type definition</lhs>
+      <rhs>'enum' , '(' , <nonterminal def="#ebnf.enumerator"/> , { ',' , <nonterminal def="#ebnf.enumerator"/> } ,
+      ')'</rhs>
+    </production>
+    <production xml:id="ebnf.enumerator">
+      <lhs>enumerator</lhs>
+      <rhs><nonterminal def="#ebnf.enumeratorName"/> , [ ':=' , <nonterminal def="#ebnf.enumeratorValue"/> ]</rhs>
+    </production>
+    <production xml:id="ebnf.enumeratorName">
+      <lhs>enumerator name</lhs>
+      <rhs>
+        <nonterminal def="#ebnf.Identifier"/>
+      </rhs>
+    </production>
+    <production xml:id="ebnf.enumeratorValue">
+      <lhs>enumerator value</lhs>
+      <rhs>
+        <nonterminal def="#ebnf.constExpression"/>
+      </rhs>
+    </production>
+    <production xml:id="ebnf.typeRef">
+      <lhs>type ref</lhs>
+      <rhs><nonterminal def="#ebnf.namedTypeRef"/> | <nonterminal def="#ebnf.instanceTypeRef"/> | <nonterminal def="#ebnf.collectionTypeRef"/></rhs>
+    </production>
+    <production xml:id="ebnf.instanceTypeRef">
+      <lhs>instance type ref</lhs>
+      <rhs>[ 'anonymous' ] , 'instance' , 'of' , <nonterminal def="#ebnf.objectName"/></rhs>
+    </production>
+    <production xml:id="ebnf.namedTypeRef">
+      <lhs>named type ref</lhs>
+      <rhs><nonterminal def="#ebnf.builtinTypeRef"/> | <nonterminal def="#ebnf.userDefinedTypeRef"/></rhs>
+    </production>
+    <production xml:id="ebnf.userDefinedTypeRef">
+      <lhs>user defined type ref</lhs>
+      <rhs>[ <nonterminal def="#ebnf.domainName"/> , '::' ] , <nonterminal def="#ebnf.typeName"/></rhs>
+    </production>
+    <production xml:id="ebnf.typeName">
+      <lhs>type name</lhs>
+      <rhs>
+        <nonterminal def="#ebnf.Identifier"/>
+      </rhs>
+    </production>
+    <production xml:id="ebnf.builtinTypeRef">
+      <lhs>builtin type ref</lhs>
+      <rhs>[ 'anonymous' ] ( 'character' | 'string' | 'boolean' | 'byte' | 'integer' | 'long_integer' | 'real' |
+      'device' | 'duration' | 'timestamp' | 'timer' )</rhs>
+    </production>
+    <production xml:id="ebnf.arrayBounds">
+      <lhs>array bounds</lhs>
+      <rhs>'(' , <nonterminal def="#ebnf.expression"/> , ')'</rhs>
+    </production>
+    <production xml:id="ebnf.collectionTypeRef">
+      <lhs>collection type ref</lhs>
+      <rhs>[ 'anonymous' ] , 'sequence' , [ '(' , <nonterminal def="#ebnf.expression"/> , ')' ] , 'of' , <nonterminal def="#ebnf.typeRef"/> |<sbr/>  [ 'anonymous' ] , 'array' , <nonterminal def="#ebnf.arrayBounds"/> , 'of' ,
+      <nonterminal def="#ebnf.typeRef"/> |<sbr/>  [ 'anonymous' ] , 'set' , 'of' , <nonterminal def="#ebnf.typeRef"/> |<sbr/>  [ 'anonymous' ] , 'bag' , 'of' , <nonterminal def="#ebnf.typeRef"/> |<sbr/>  [
+      'anonymous' ] , 'dictionary' , [ [ <nonterminal def="#ebnf.dictionaryKeyType"/> ] , 'of' , <nonterminal def="#ebnf.typeRef"/> ]</rhs>
+    </production>
+    <production xml:id="ebnf.dictionaryKeyType">
+      <lhs>dictionary key type</lhs>
+      <rhs><nonterminal def="#ebnf.namedTypeRef"/> | <nonterminal def="#ebnf.instanceTypeRef"/></rhs>
+    </production>
+    <production xml:id="ebnf.objectDeclaration">
+      <lhs>object declaration</lhs>
+      <rhs>'object' , <nonterminal def="#ebnf.objectName"/> , ';' , <nonterminal def="#ebnf.pragmaList"/></rhs>
+    </production>
+    <production xml:id="ebnf.objectDefinition">
+      <lhs>object definition</lhs>
+      <rhs>'object' , <nonterminal def="#ebnf.objectName"/> , 'is' , { <nonterminal def="#ebnf.objectMember"/> } , 'end'
+      , [ 'object' ] , ';' , <nonterminal def="#ebnf.pragmaList"/></rhs>
+    </production>
+    <production xml:id="ebnf.objectMember">
+      <lhs>object member</lhs>
+      <rhs><nonterminal def="#ebnf.attributeDefinition"/> | <nonterminal def="#ebnf.identifierDefinition"/> |
+      <nonterminal def="#ebnf.objectServiceDeclaration"/> | <nonterminal def="#ebnf.objectFunctionDeclaration"/> |
+      <nonterminal def="#ebnf.eventDefinition"/> | <nonterminal def="#ebnf.stateDeclaration"/> | <nonterminal def="#ebnf.transitionTable"/></rhs>
+    </production>
+    <production xml:id="ebnf.attributeDefinition">
+      <lhs>attribute definition</lhs>
+      <rhs><nonterminal def="#ebnf.attributeName"/> , ':' , [ 'preferred' ] , [ 'unique' ] , [ <nonterminal def="#ebnf.attReferentials"/> ] , <nonterminal def="#ebnf.attributeType"/> , [ ':=' , <nonterminal def="#ebnf.attributeDefaultValue"/> ] , ';' , <nonterminal def="#ebnf.pragmaList"/></rhs>
+    </production>
+    <production xml:id="ebnf.attributeDefaultValue">
+      <lhs>attribute default value</lhs>
+      <rhs>
+        <nonterminal def="#ebnf.constExpression"/>
+      </rhs>
+    </production>
+    <production xml:id="ebnf.componentDefaultValue">
+      <lhs>component default value</lhs>
+      <rhs>
+        <nonterminal def="#ebnf.constExpression"/>
+      </rhs>
+    </production>
+    <production xml:id="ebnf.attributeType">
+      <lhs>attribute type</lhs>
+      <rhs>
+        <nonterminal def="#ebnf.typeRef"/>
+      </rhs>
+    </production>
+    <production xml:id="ebnf.attReferentials">
+      <lhs>attribute referentials</lhs>
+      <rhs>'referential' , '(' , <nonterminal def="#ebnf.attReferential"/> , { ',' , <nonterminal def="#ebnf.attReferential"/> } , ')'</rhs>
+    </production>
+    <production xml:id="ebnf.attReferential">
+      <lhs>attribute referential</lhs>
+      <rhs><nonterminal def="#ebnf.relationshipSpec"/> , '.' , <nonterminal def="#ebnf.attributeName"/></rhs>
+    </production>
+    <production xml:id="ebnf.relationshipSpec">
+      <lhs>relationship spec</lhs>
+      <rhs><nonterminal def="#ebnf.relationshipName"/> , [ '.' , <nonterminal def="#ebnf.rolePhrase"/> ] , [ '.' ,
+      <nonterminal def="#ebnf.objectName"/> ]</rhs>
+    </production>
+    <production xml:id="ebnf.objectServiceDeclaration">
+      <lhs>object service declaration</lhs>
+      <rhs>[ <nonterminal def="#ebnf.serviceVisibility"/> ] , [ <nonterminal def="#ebnf.serviceType"/> ] , 'service' ,
+      <nonterminal def="#ebnf.serviceName"/> , <nonterminal def="#ebnf.parameterList"/> , ';' , <nonterminal def="#ebnf.pragmaList"/></rhs>
+    </production>
+    <production xml:id="ebnf.objectFunctionDeclaration">
+      <lhs>object function declaration</lhs>
+      <rhs>[ <nonterminal def="#ebnf.serviceVisibility"/> ] , [ <nonterminal def="#ebnf.serviceType"/> ] , 'function' ,
+      <nonterminal def="#ebnf.serviceName"/> , <nonterminal def="#ebnf.parameterList"/> , 'return' , <nonterminal def="#ebnf.returnType"/> , ';' , <nonterminal def="#ebnf.pragmaList"/></rhs>
+    </production>
+    <production xml:id="ebnf.serviceType">
+      <lhs>service type</lhs>
+      <rhs>'instance' , [ 'deferred' , '(' , <nonterminal def="#ebnf.relationshipName"/> , ')' ]</rhs>
+    </production>
+    <production xml:id="ebnf.identifierDefinition">
+      <lhs>identifier definition</lhs>
+      <rhs>'identifier' , 'is' , '(' , <nonterminal def="#ebnf.attributeName"/> , { ',' , <nonterminal def="#ebnf.attributeName"/> } , ')' , ';' , <nonterminal def="#ebnf.pragmaList"/></rhs>
+    </production>
+    <production xml:id="ebnf.eventDefinition">
+      <lhs>event definition</lhs>
+      <rhs>[ <nonterminal def="#ebnf.eventType"/> ] , 'event' , <nonterminal def="#ebnf.eventName"/> , <nonterminal def="#ebnf.parameterList"/> , ';' , <nonterminal def="#ebnf.pragmaList"/></rhs>
+    </production>
+    <production xml:id="ebnf.eventName">
+      <lhs>event name</lhs>
+      <rhs>
+        <nonterminal def="#ebnf.Identifier"/>
+      </rhs>
+    </production>
+    <production xml:id="ebnf.eventType">
+      <lhs>event type</lhs>
+      <rhs>'assigner' | 'creation'</rhs>
+    </production>
+    <production xml:id="ebnf.stateDeclaration">
+      <lhs>state declaration</lhs>
+      <rhs>[ <nonterminal def="#ebnf.stateType"/> ] , 'state' , <nonterminal def="#ebnf.stateName"/> , <nonterminal def="#ebnf.parameterList"/> , ';' , <nonterminal def="#ebnf.pragmaList"/></rhs>
+    </production>
+    <production xml:id="ebnf.stateName">
+      <lhs>state name</lhs>
+      <rhs>
+        <nonterminal def="#ebnf.Identifier"/>
+      </rhs>
+    </production>
+    <production xml:id="ebnf.stateType">
+      <lhs>state type</lhs>
+      <rhs>'assigner' | 'assigner' , 'start' | 'creation' | 'terminal'</rhs>
+    </production>
+    <production xml:id="ebnf.transitionTable">
+      <lhs>transition table</lhs>
+      <rhs>[ 'assigner' ] , 'transition' , 'is' , <nonterminal def="#ebnf.transitionRow"/> , { <nonterminal def="#ebnf.transitionRow"/> } , 'end' , 'transition' , ';' , <nonterminal def="#ebnf.pragmaList"/></rhs>
+    </production>
+    <production xml:id="ebnf.transitionRow">
+      <lhs>transition row</lhs>
+      <rhs><nonterminal def="#ebnf.startState"/> , '(' , <nonterminal def="#ebnf.transitionOption"/> , { ',' ,
+      <nonterminal def="#ebnf.transitionOption"/> } , ')' , ';' , <nonterminal def="#ebnf.pragmaList"/></rhs>
+    </production>
+    <production xml:id="ebnf.transitionOption">
+      <lhs>transition option</lhs>
+      <rhs><nonterminal def="#ebnf.incomingEvent"/> , '=&gt;' , <nonterminal def="#ebnf.endState"/></rhs>
+    </production>
+    <production xml:id="ebnf.incomingEvent">
+      <lhs>incoming event</lhs>
+      <rhs>[ <nonterminal def="#ebnf.objectName"/> , '.' ] , <nonterminal def="#ebnf.eventName"/></rhs>
+    </production>
+    <production xml:id="ebnf.startState">
+      <lhs>start state</lhs>
+      <rhs>'Non_Existent' | <nonterminal def="#ebnf.stateName"/></rhs>
+    </production>
+    <production xml:id="ebnf.endState">
+      <lhs>end state</lhs>
+      <rhs><nonterminal def="#ebnf.stateName"/> | 'Ignore' | 'Cannot_Happen'</rhs>
+    </production>
+    <production xml:id="ebnf.relationshipDefinition">
+      <lhs>relationship definition</lhs>
+      <rhs>'relationship' , <nonterminal def="#ebnf.relationshipName"/> , 'is' , ( <nonterminal def="#ebnf.regularRelationshipDefinition"/> | <nonterminal def="#ebnf.assocRelationshipDefinition"/> |
+      <nonterminal def="#ebnf.subtypeRelationshipDefinition"/> ) , ';' , <nonterminal def="#ebnf.pragmaList"/></rhs>
+    </production>
+    <production xml:id="ebnf.regularRelationshipDefinition">
+      <lhs>regular relationship definition</lhs>
+      <rhs><nonterminal def="#ebnf.halfRelationshipDefinition"/> , ',' , <nonterminal def="#ebnf.halfRelationshipDefinition"/></rhs>
+    </production>
+    <production xml:id="ebnf.assocRelationshipDefinition">
+      <lhs>assoc relationship definition</lhs>
+      <rhs><nonterminal def="#ebnf.halfRelationshipDefinition"/> , ',' , <nonterminal def="#ebnf.halfRelationshipDefinition"/> , 'using' , <nonterminal def="#ebnf.assocObjectName"/></rhs>
+    </production>
+    <production xml:id="ebnf.assocObjectName">
+      <lhs>assoc object name</lhs>
+      <rhs>
+        <nonterminal def="#ebnf.objectName"/>
+      </rhs>
+    </production>
+    <production xml:id="ebnf.halfRelationshipDefinition">
+      <lhs>half relationship definition</lhs>
+      <rhs><nonterminal def="#ebnf.objectName"/> , [ 'unconditionally' | 'conditionally' ] , <nonterminal def="#ebnf.rolePhrase"/> , [ 'one' | 'many' ] , <nonterminal def="#ebnf.objectName"/></rhs>
+    </production>
+    <production xml:id="ebnf.subtypeRelationshipDefinition">
+      <lhs>subtype relationship definition</lhs>
+      <rhs><nonterminal def="#ebnf.supertypeObjectName"/> , 'is_a' , '(' , <nonterminal def="#ebnf.subtypeObjectName"/>
+      , { ',' , <nonterminal def="#ebnf.subtypeObjectName"/> } , ')'</rhs>
+    </production>
+    <production xml:id="ebnf.supertypeObjectName">
+      <lhs>supertype object name</lhs>
+      <rhs>
+        <nonterminal def="#ebnf.objectName"/>
+      </rhs>
+    </production>
+    <production xml:id="ebnf.subtypeObjectName">
+      <lhs>subtype object name</lhs>
+      <rhs>
+        <nonterminal def="#ebnf.objectName"/>
+      </rhs>
+    </production>
+    <production xml:id="ebnf.rolePhrase">
+      <lhs>role phrase</lhs>
+      <rhs>
+        <nonterminal def="#ebnf.Identifier"/>
+      </rhs>
+    </production>
+    <production xml:id="ebnf.projectDefinition">
+      <lhs>project definition</lhs>
+      <rhs>'project' , <nonterminal def="#ebnf.projectName"/> , 'is' , { <nonterminal def="#ebnf.projectItem"/> } ,
+      'end' , [ 'project' ] , ';' , <nonterminal def="#ebnf.pragmaList"/></rhs>
+    </production>
+    <production xml:id="ebnf.projectItem">
+      <lhs>project item</lhs>
+      <rhs>
+        <nonterminal def="#ebnf.domainPrjDefinition"/>
+      </rhs>
+    </production>
+    <production xml:id="ebnf.domainPrjDefinition">
+      <lhs>domain prj definition</lhs>
+      <rhs>'domain' , <nonterminal def="#ebnf.domainName"/> , 'is' , { <nonterminal def="#ebnf.domainPrjItem"/> } ,
+      'end' , [ 'domain' ] , ';' , <nonterminal def="#ebnf.pragmaList"/></rhs>
+    </production>
+    <production xml:id="ebnf.domainPrjItem">
+      <lhs>domain prj item</lhs>
+      <rhs>
+        <nonterminal def="#ebnf.terminatorDefinition"/>
+      </rhs>
+    </production>
+    <production xml:id="ebnf.projectName">
+      <lhs>project name</lhs>
+      <rhs>
+        <nonterminal def="#ebnf.Identifier"/>
+      </rhs>
+    </production>
+    <production xml:id="ebnf.exceptionDeclaration">
+      <lhs>exception declaration</lhs>
+      <rhs>[ <nonterminal def="#ebnf.exceptionVisibility"/> ] , 'exception' , <nonterminal def="#ebnf.exceptionName"/> ,
+      ';' , <nonterminal def="#ebnf.pragmaList"/></rhs>
+    </production>
+    <production xml:id="ebnf.exceptionName">
+      <lhs>exception name</lhs>
+      <rhs>
+        <nonterminal def="#ebnf.Identifier"/>
+      </rhs>
+    </production>
+    <production xml:id="ebnf.exceptionVisibility">
+      <lhs>exception visibility</lhs>
+      <rhs>'private' | 'public'</rhs>
+    </production>
+    <production xml:id="ebnf.terminatorName">
+      <lhs>terminator name</lhs>
+      <rhs>
+        <nonterminal def="#ebnf.Identifier"/>
+      </rhs>
+    </production>
+    <production xml:id="ebnf.terminatorDefinition">
+      <lhs>terminator definition</lhs>
+      <rhs>'terminator' , <nonterminal def="#ebnf.terminatorName"/> , 'is' , { <nonterminal def="#ebnf.terminatorItem"/>
+      } , 'end' , [ 'terminator' ] , ';' , <nonterminal def="#ebnf.pragmaList"/></rhs>
+    </production>
+    <production xml:id="ebnf.terminatorItem">
+      <lhs>terminator item</lhs>
+      <rhs><nonterminal def="#ebnf.terminatorServiceDeclaration"/> | <nonterminal def="#ebnf.terminatorFunctionDeclaration"/></rhs>
+    </production>
+    <production xml:id="ebnf.terminatorServiceDeclaration">
+      <lhs>terminator service declaration</lhs>
+      <rhs>[ <nonterminal def="#ebnf.serviceVisibility"/> ] , 'service' , <nonterminal def="#ebnf.serviceName"/> ,
+      <nonterminal def="#ebnf.parameterList"/> , ';' , <nonterminal def="#ebnf.pragmaList"/></rhs>
+    </production>
+    <production xml:id="ebnf.terminatorFunctionDeclaration">
+      <lhs>terminator function declaration</lhs>
+      <rhs>[ <nonterminal def="#ebnf.serviceVisibility"/> ] , 'function' , <nonterminal def="#ebnf.serviceName"/> ,
+      <nonterminal def="#ebnf.parameterList"/> , 'return' , <nonterminal def="#ebnf.returnType"/> , ';' , <nonterminal def="#ebnf.pragmaList"/></rhs>
+    </production>
+    <production xml:id="ebnf.objectName">
+      <lhs>object name</lhs>
+      <rhs>
+        <nonterminal def="#ebnf.Identifier"/>
+      </rhs>
+    </production>
+    <production xml:id="ebnf.attributeName">
+      <lhs>attribute name</lhs>
+      <rhs>
+        <nonterminal def="#ebnf.Identifier"/>
+      </rhs>
+    </production>
+    <production xml:id="ebnf.domainServiceDeclaration">
+      <lhs>domain service declaration</lhs>
+      <rhs>[ <nonterminal def="#ebnf.serviceVisibility"/> ] , 'service' , <nonterminal def="#ebnf.serviceName"/> ,
+      <nonterminal def="#ebnf.parameterList"/> , ';' , <nonterminal def="#ebnf.pragmaList"/></rhs>
+    </production>
+    <production xml:id="ebnf.domainFunctionDeclaration">
+      <lhs>domain function declaration</lhs>
+      <rhs>[ <nonterminal def="#ebnf.serviceVisibility"/> ] , 'function' , <nonterminal def="#ebnf.serviceName"/> ,
+      <nonterminal def="#ebnf.parameterList"/> , 'return' , <nonterminal def="#ebnf.returnType"/> , ';' , <nonterminal def="#ebnf.pragmaList"/></rhs>
+    </production>
+    <production xml:id="ebnf.parameterList">
+      <lhs>parameter list</lhs>
+      <rhs>'(' , [ <nonterminal def="#ebnf.parameterDefinition"/> ] , { ',' , <nonterminal def="#ebnf.parameterDefinition"/> } , ')'</rhs>
+    </production>
+    <production xml:id="ebnf.parameterDefinition">
+      <lhs>parameter definition</lhs>
+      <rhs><nonterminal def="#ebnf.parameterName"/> , ':' , <nonterminal def="#ebnf.parameterMode"/> , <nonterminal def="#ebnf.parameterType"/></rhs>
+    </production>
+    <production xml:id="ebnf.serviceVisibility">
+      <lhs>service visibility</lhs>
+      <rhs>'private' | 'public'</rhs>
+    </production>
+    <production xml:id="ebnf.parameterMode">
+      <lhs>parameter mode</lhs>
+      <rhs>'in' | 'out'</rhs>
+    </production>
+    <production xml:id="ebnf.serviceName">
+      <lhs>service name</lhs>
+      <rhs>
+        <nonterminal def="#ebnf.Identifier"/>
+      </rhs>
+    </production>
+    <production xml:id="ebnf.parameterName">
+      <lhs>parameter name</lhs>
+      <rhs>
+        <nonterminal def="#ebnf.Identifier"/>
+      </rhs>
+    </production>
+    <production xml:id="ebnf.parameterType">
+      <lhs>parameter type</lhs>
+      <rhs>
+        <nonterminal def="#ebnf.typeRef"/>
+      </rhs>
+    </production>
+    <production xml:id="ebnf.returnType">
+      <lhs>return type</lhs>
+      <rhs>
+        <nonterminal def="#ebnf.typeRef"/>
+      </rhs>
+    </production>
+    <production xml:id="ebnf.relationshipName">
+      <lhs>relationship name</lhs>
+      <rhs>
+        <nonterminal def="#ebnf.RelationshipName"/>
+      </rhs>
+    </production>
+    <production xml:id="ebnf.pragmaList">
+      <lhs>pragma list</lhs>
+      <rhs>{ <nonterminal def="#ebnf.pragma"/> , ';' }</rhs>
+    </production>
+    <production xml:id="ebnf.pragma">
+      <lhs>pragma</lhs>
+      <rhs>'pragma' , <nonterminal def="#ebnf.pragmaName"/> , '(' , [ <nonterminal def="#ebnf.pragmaValue"/> , { ',' ,
+      <nonterminal def="#ebnf.pragmaValue"/> } ] , ')'</rhs>
+    </production>
+    <production xml:id="ebnf.pragmaValue">
+      <lhs>pragma value</lhs>
+      <rhs><nonterminal def="#ebnf.Identifier"/> | <nonterminal def="#ebnf.literal"/></rhs>
+    </production>
+    <production xml:id="ebnf.pragmaName">
+      <lhs>pragma name</lhs>
+      <rhs>
+        <nonterminal def="#ebnf.Identifier"/>
+      </rhs>
+    </production>
+    <production xml:id="ebnf.domainServiceDefinition">
+      <lhs>domain service definition</lhs>
+      <rhs>[ <nonterminal def="#ebnf.serviceVisibility"/> ] , 'service' , <nonterminal def="#ebnf.domainName"/> , '::' ,
+      <nonterminal def="#ebnf.serviceName"/> , <nonterminal def="#ebnf.parameterList"/> , 'is' , <nonterminal def="#ebnf.codeBlock"/> , 'end' , [ 'service' ] , ';' , <nonterminal def="#ebnf.pragmaList"/></rhs>
+    </production>
+    <production xml:id="ebnf.domainFunctionDefinition">
+      <lhs>domain function definition</lhs>
+      <rhs>[ <nonterminal def="#ebnf.serviceVisibility"/> ] , 'function' , <nonterminal def="#ebnf.domainName"/> , '::'
+      , <nonterminal def="#ebnf.serviceName"/> , <nonterminal def="#ebnf.parameterList"/> , 'return' , <nonterminal def="#ebnf.returnType"/> , 'is' , <nonterminal def="#ebnf.codeBlock"/> , 'end' , [ 'function' ] , ';' ,
+      <nonterminal def="#ebnf.pragmaList"/></rhs>
+    </production>
+    <production xml:id="ebnf.objectServiceDefinition">
+      <lhs>object service definition</lhs>
+      <rhs>[ <nonterminal def="#ebnf.serviceVisibility"/> ] , [ 'instance' ] , 'service' , <nonterminal def="#ebnf.domainName"/> , '::' , <nonterminal def="#ebnf.objectName"/> , '.' , <nonterminal def="#ebnf.serviceName"/> , <nonterminal def="#ebnf.parameterList"/> , 'is' , <nonterminal def="#ebnf.codeBlock"/>
+      , 'end' , [ 'service' ] , ';' , <nonterminal def="#ebnf.pragmaList"/></rhs>
+    </production>
+    <production xml:id="ebnf.terminatorServiceDefinition">
+      <lhs>terminator service definition</lhs>
+      <rhs>[ <nonterminal def="#ebnf.serviceVisibility"/> ] , 'service' , <nonterminal def="#ebnf.domainName"/> , '::' ,
+      <nonterminal def="#ebnf.terminatorName"/> , '~&gt;' , <nonterminal def="#ebnf.serviceName"/> , <nonterminal def="#ebnf.parameterList"/> , 'is' , <nonterminal def="#ebnf.codeBlock"/> , 'end' , [ 'service' ] , ';' ,
+      <nonterminal def="#ebnf.pragmaList"/></rhs>
+    </production>
+    <production xml:id="ebnf.terminatorFunctionDefinition">
+      <lhs>terminator function definition</lhs>
+      <rhs>[ <nonterminal def="#ebnf.serviceVisibility"/> ] , 'function' , <nonterminal def="#ebnf.domainName"/> , '::'
+      , <nonterminal def="#ebnf.terminatorName"/> , '~&gt;' , <nonterminal def="#ebnf.serviceName"/> , <nonterminal def="#ebnf.parameterList"/> , 'return' , <nonterminal def="#ebnf.returnType"/> , 'is' , <nonterminal def="#ebnf.codeBlock"/> , 'end' , [ 'function' ] , ';' , <nonterminal def="#ebnf.pragmaList"/></rhs>
+    </production>
+    <production xml:id="ebnf.objectFunctionDefinition">
+      <lhs>object function definition</lhs>
+      <rhs>[ <nonterminal def="#ebnf.serviceVisibility"/> ] , <nonterminal def="#ebnf.serviceType"/> , 'function' ,
+      <nonterminal def="#ebnf.domainName"/> , '::' , <nonterminal def="#ebnf.objectName"/> , '.' , <nonterminal def="#ebnf.serviceName"/> , <nonterminal def="#ebnf.parameterList"/> , 'return' , <nonterminal def="#ebnf.returnType"/> , 'is' , <nonterminal def="#ebnf.codeBlock"/> , 'end' , [ 'function' ] , ';' ,
+      <nonterminal def="#ebnf.pragmaList"/></rhs>
+    </production>
+    <production xml:id="ebnf.stateDefinition">
+      <lhs>state definition</lhs>
+      <rhs><nonterminal def="#ebnf.stateType"/> , 'state' , <nonterminal def="#ebnf.domainName"/> , '::' , <nonterminal def="#ebnf.objectName"/> , '.' , <nonterminal def="#ebnf.stateName"/> , <nonterminal def="#ebnf.parameterList"/> ,
+      'is' , <nonterminal def="#ebnf.codeBlock"/> , 'end' , [ 'state' ] , ';' , <nonterminal def="#ebnf.pragmaList"/></rhs>
+    </production>
+    <production xml:id="ebnf.codeBlock">
+      <lhs>code block</lhs>
+      <rhs>{ <nonterminal def="#ebnf.variableDeclaration"/> } , 'begin' , <nonterminal def="#ebnf.statementSequence"/> , [
+      'exception' , { <nonterminal def="#ebnf.exceptionHandler"/> } , [ <nonterminal def="#ebnf.otherHandler"/> ]
+      ]</rhs>
+    </production>
+    <production xml:id="ebnf.statementSequence">
+      <lhs>statement sequence</lhs>
+      <rhs>{ <nonterminal def="#ebnf.statement"/> }</rhs>
+    </production>
+    <production xml:id="ebnf.statement">
+      <lhs>statement</lhs>
+      <rhs>( <nonterminal def="#ebnf.codeBlockStatement"/> | <nonterminal def="#ebnf.assignStatement"/> | <nonterminal def="#ebnf.streamStatement"/> | <nonterminal def="#ebnf.nullStatement"/> | <nonterminal def="#ebnf.callStatement"/> | <nonterminal def="#ebnf.exitStatement"/> | <nonterminal def="#ebnf.returnStatement"/> | <nonterminal def="#ebnf.delayStatement"/> | <nonterminal def="#ebnf.raiseStatement"/> | <nonterminal def="#ebnf.deleteStatement"/> | <nonterminal def="#ebnf.linkStatement"/> | <nonterminal def="#ebnf.unlinkStatement"/> | <nonterminal def="#ebnf.scheduleStatement"/> | <nonterminal def="#ebnf.cancelTimerStatement"/> | <nonterminal def="#ebnf.generateStatement"/> | <nonterminal def="#ebnf.ifStatement"/> | <nonterminal def="#ebnf.caseStatement"/> | <nonterminal def="#ebnf.forStatement"/> |
+      <nonterminal def="#ebnf.whileStatement"/> | <nonterminal def="#ebnf.emptyStatement"/> ) , ';' , <nonterminal def="#ebnf.pragmaList"/></rhs>
+    </production>
+    <production xml:id="ebnf.emptyStatement">
+      <lhs>empty statement</lhs>
+      <rhs/>
+    </production>
+    <production xml:id="ebnf.nullStatement">
+      <lhs>null statement</lhs>
+      <rhs>'null'</rhs>
+    </production>
+    <production xml:id="ebnf.assignStatement">
+      <lhs>assign statement</lhs>
+      <rhs><nonterminal def="#ebnf.expression"/> , ':=' , <nonterminal def="#ebnf.expression"/></rhs>
+    </production>
+    <production xml:id="ebnf.streamValue">
+      <lhs>stream value</lhs>
+      <rhs>( '&gt;&gt;' | '&lt;&lt;' | '&gt;&gt;&gt;' | '&lt;&lt;&lt;' ) , <nonterminal def="#ebnf.expression"/></rhs>
+    </production>
+    <production xml:id="ebnf.streamStatement">
+      <lhs>stream statement</lhs>
+      <rhs><nonterminal def="#ebnf.deviceExpression"/> , <nonterminal def="#ebnf.streamValue"/> , { <nonterminal def="#ebnf.streamValue"/> }</rhs>
+    </production>
+    <production xml:id="ebnf.deviceExpression">
+      <lhs>device expression</lhs>
+      <rhs>
+        <nonterminal def="#ebnf.expression"/>
+      </rhs>
+    </production>
+    <production xml:id="ebnf.callStatement">
+      <lhs>call statement</lhs>
+      <rhs><nonterminal def="#ebnf.domainServiceCall"/> | <nonterminal def="#ebnf.terminatorServiceCall"/> | <nonterminal def="#ebnf.objectServiceCall"/> | <nonterminal def="#ebnf.instanceServiceCall"/></rhs>
+    </production>
+    <production xml:id="ebnf.domainServiceCall">
+      <lhs>domain service call</lhs>
+      <rhs> [ <nonterminal def="#ebnf.domainName"/> , '::' ] , <nonterminal def="#ebnf.serviceName"/> , '(' , [ <nonterminal def="#ebnf.argumentList"/> ] , ')'</rhs>
+    </production>
+    <production xml:id="ebnf.terminatorServiceCall">
+      <lhs>terminator service call</lhs>
+      <rhs><nonterminal def="#ebnf.terminatorName"/> , '~&gt;' , <nonterminal def="#ebnf.serviceName"/> , '(' , [ <nonterminal def="#ebnf.argumentList"/> ] , ')'</rhs>
+    </production>
+    <production xml:id="ebnf.objectServiceCall">
+      <lhs>object service call</lhs>
+      <rhs>[ <nonterminal def="#ebnf.objectName"/> , '.' ] , <nonterminal def="#ebnf.serviceName"/> , '(' , [ <nonterminal def="#ebnf.argumentList"/> ] , ')'</rhs>
+    </production>
+    <production xml:id="ebnf.instanceServiceCall">
+      <lhs>instance service call</lhs>
+      <rhs>[ <nonterminal def="#ebnf.suffixExpression"/> , '.' ] , <nonterminal def="#ebnf.serviceName"/> , '(' , [ <nonterminal def="#ebnf.argumentList"/> ] , ')'</rhs>
+    </production>
+    <production xml:id="ebnf.exitStatement">
+      <lhs>exit statement</lhs>
+      <rhs>'exit' , [ 'when' , <nonterminal def="#ebnf.condition"/> ]</rhs>
+    </production>
+    <production xml:id="ebnf.returnStatement">
+      <lhs>return statement</lhs>
+      <rhs>'return' , <nonterminal def="#ebnf.expression"/></rhs>
+    </production>
+    <production xml:id="ebnf.delayStatement">
+      <lhs>delay statement</lhs>
+      <rhs>'delay' , <nonterminal def="#ebnf.expression"/></rhs>
+    </production>
+    <production xml:id="ebnf.raiseStatement">
+      <lhs>raise statement</lhs>
+      <rhs>'raise' , <nonterminal def="#ebnf.qualifiedExceptionName"/> , [ '(' , [ <nonterminal def="#ebnf.expression"/>
+      ] , ')' ]</rhs>
+    </production>
+    <production xml:id="ebnf.deleteStatement">
+      <lhs>delete statement</lhs>
+      <rhs>'delete' , <nonterminal def="#ebnf.expression"/></rhs>
+    </production>
+    <production xml:id="ebnf.linkStatement">
+      <lhs>link statement</lhs>
+      <rhs>'link' , <nonterminal def="#ebnf.navigateExpression"/> , <nonterminal def="#ebnf.relationshipSpec"/> , <nonterminal def="#ebnf.navigateExpression"/> , [ 'using' , <nonterminal def="#ebnf.navigateExpression"/> ]</rhs>
+    </production>
+    <production xml:id="ebnf.unlinkStatement">
+      <lhs>unlink statement</lhs>
+      <rhs>'unlink' , <nonterminal def="#ebnf.navigateExpression"/> , <nonterminal def="#ebnf.relationshipSpec"/> , [ <nonterminal def="#ebnf.navigateExpression"/> , [ 'using' , <nonterminal def="#ebnf.navigateExpression"/> ] ]</rhs>
+    </production>
+    <production xml:id="ebnf.scheduleStatement">
+      <lhs>schedule statement</lhs>
+      <rhs>'schedule' , <nonterminal def="#ebnf.timerId"/> , <nonterminal def="#ebnf.generateStatement"/> , ( 'at' | 'delay' ) ,
+      <nonterminal def="#ebnf.expression"/> 
+      , [ 'delta' , <nonterminal def="#ebnf.expression"/> ]</rhs>
+    </production>
+    <production xml:id="ebnf.cancelTimerStatement">
+      <lhs>cancel timer statement</lhs>
+      <rhs>'cancel' , <nonterminal def="#ebnf.timerId"/></rhs>
+    </production>
+    <production xml:id="ebnf.timerId">
+      <lhs>timer id</lhs>
+      <rhs>
+        <nonterminal def="#ebnf.expression"/>
+      </rhs>
+    </production>
+    <production xml:id="ebnf.generateStatement">
+      <lhs>generate statement</lhs>
+      <rhs>'generate' , <nonterminal def="#ebnf.qualifiedEventName"/> , '(' , [ <nonterminal def="#ebnf.argumentList"/>
+      ] , ')' , [ 'to' , <nonterminal def="#ebnf.expression"/> ]</rhs>
+    </production>
+    <production xml:id="ebnf.qualifiedEventName">
+      <lhs>qualified event name</lhs>
+      <rhs>[ <nonterminal def="#ebnf.objectName"/> , '.' ] , <nonterminal def="#ebnf.eventName"/></rhs>
+    </production>
+    <production xml:id="ebnf.ifStatement">
+      <lhs>if statement</lhs>
+      <rhs>'if' , <nonterminal def="#ebnf.condition"/> , 'then' , <nonterminal def="#ebnf.statementSequence"/> , {
+      <nonterminal def="#ebnf.elsifBlock"/> } , [ <nonterminal def="#ebnf.elseBlock"/> ] , 'end' , [ 'if' ]</rhs>
+    </production>
+    <production xml:id="ebnf.elsifBlock">
+      <lhs>elsif block</lhs>
+      <rhs>'elsif' , <nonterminal def="#ebnf.condition"/> , 'then' , <nonterminal def="#ebnf.statementSequence"/></rhs>
+    </production>
+    <production xml:id="ebnf.elseBlock">
+      <lhs>else block</lhs>
+      <rhs>'else' , <nonterminal def="#ebnf.statementSequence"/></rhs>
+    </production>
+    <production xml:id="ebnf.whileStatement">
+      <lhs>while statement</lhs>
+      <rhs>'while' , <nonterminal def="#ebnf.condition"/> , 'loop' , <nonterminal def="#ebnf.statementSequence"/> , 'end' ,
+      [ 'loop' ]</rhs>
+    </production>
+    <production xml:id="ebnf.condition">
+      <lhs>condition</lhs>
+      <rhs>
+        <nonterminal def="#ebnf.expression"/>
+      </rhs>
+    </production>
+    <production xml:id="ebnf.caseStatement">
+      <lhs>case statement</lhs>
+      <rhs>'case' , <nonterminal def="#ebnf.expression"/> , 'is' , { <nonterminal def="#ebnf.caseAlternative"/> } , [
+      <nonterminal def="#ebnf.caseOthers"/> ] , 'end' , [ 'case' ]</rhs>
+    </production>
+    <production xml:id="ebnf.caseAlternative">
+      <lhs>case alternative</lhs>
+      <rhs>'when' , <nonterminal def="#ebnf.choiceList"/> , '=&gt;' , <nonterminal def="#ebnf.statementSequence"/></rhs>
+    </production>
+    <production xml:id="ebnf.choiceList">
+      <lhs>choice list</lhs>
+      <rhs><nonterminal def="#ebnf.expression"/> , { '|' , <nonterminal def="#ebnf.expression"/> }</rhs>
+    </production>
+    <production xml:id="ebnf.caseOthers">
+      <lhs>case others</lhs>
+      <rhs>'when' , 'others' , '=&gt;' , <nonterminal def="#ebnf.statementSequence"/></rhs>
+    </production>
+    <production xml:id="ebnf.forStatement">
+      <lhs>for statement</lhs>
+      <rhs>'for' , <nonterminal def="#ebnf.loopVariableSpec"/> , 'loop' , <nonterminal def="#ebnf.statementSequence"/> ,
+      'end' , [ 'loop' ]</rhs>
+    </production>
+    <production xml:id="ebnf.loopVariableSpec">
+      <lhs>loop variable spec</lhs>
+      <rhs><nonterminal def="#ebnf.Identifier"/> , 'in' , [ 'reverse' ] , <nonterminal def="#ebnf.expression"/></rhs>
+    </production>
+    <production xml:id="ebnf.codeBlockStatement">
+      <lhs>code block statement</lhs>
+      <rhs>[ 'declare' , { <nonterminal def="#ebnf.variableDeclaration"/> } ] , 'begin' , <nonterminal def="#ebnf.statementSequence"/> , [ 'exception' , { <nonterminal def="#ebnf.exceptionHandler"/> } , [ <nonterminal def="#ebnf.otherHandler"/> ] ] , 'end'</rhs>
+    </production>
+    <production xml:id="ebnf.variableDeclaration">
+      <lhs>variable declaration</lhs>
+      <rhs><nonterminal def="#ebnf.variableName"/> , ':' , [ 'readonly' ] , <nonterminal def="#ebnf.typeRef"/> , [
+      ':=' , <nonterminal def="#ebnf.expression"/> ] , ';' , <nonterminal def="#ebnf.pragmaList"/></rhs>
+    </production>
+    <production xml:id="ebnf.exceptionHandler">
+      <lhs>exception handler</lhs>
+      <rhs>'when' , <nonterminal def="#ebnf.qualifiedExceptionName"/> , '=&gt;' , <nonterminal def="#ebnf.statementSequence"/>
+      </rhs>
+    </production>
+    <production xml:id="ebnf.otherHandler">
+      <lhs>other handler</lhs>
+      <rhs>'when' , 'others' , '=&gt;' , <nonterminal def="#ebnf.statementSequence"/></rhs>
+    </production>
+    <production xml:id="ebnf.qualifiedExceptionName">
+      <lhs>qualified exception name</lhs>
+      <rhs>[ <nonterminal def="#ebnf.domainName"/> , '::' ] , <nonterminal def="#ebnf.exceptionName"/></rhs>
+    </production>
+    <production xml:id="ebnf.variableName">
+      <lhs>variable name</lhs>
+      <rhs>
+        <nonterminal def="#ebnf.Identifier"/>
+      </rhs>
+    </production>
+    <production xml:id="ebnf.findCondition">
+      <lhs>find condition</lhs>
+      <rhs>
+        <nonterminal def="#ebnf.findLogicalOr"/>
+      </rhs>
+    </production>
+    <production xml:id="ebnf.findLogicalOr">
+      <lhs>find logical or</lhs>
+      <rhs>[ <nonterminal def="#ebnf.findLogicalOr"/> , 'or' ] , <nonterminal def="#ebnf.findLogicalXor"/></rhs>
+    </production>
+    <production xml:id="ebnf.findLogicalXor">
+      <lhs>find logical xor</lhs>
+      <rhs>[ <nonterminal def="#ebnf.findLogicalXor"/> , 'xor' ] , <nonterminal def="#ebnf.findLogicalAnd"/></rhs>
+    </production>
+    <production xml:id="ebnf.findLogicalAnd">
+      <lhs>find logical and</lhs>
+      <rhs>[ <nonterminal def="#ebnf.findLogicalAnd"/> , 'and' ] , <nonterminal def="#ebnf.findPrimary"/></rhs>
+    </production>
+    <production xml:id="ebnf.findPrimary">
+      <lhs>find primary</lhs>
+      <rhs><nonterminal def="#ebnf.findComparison"/> | <nonterminal def="#ebnf.findUnary"/></rhs>
+    </production>
+    <production xml:id="ebnf.findUnary">
+      <lhs>find unary</lhs>
+      <rhs>'not' , <nonterminal def="#ebnf.findUnary"/> | '(' , <nonterminal def="#ebnf.findCondition"/> , ')'</rhs>
+    </production>
+    <production xml:id="ebnf.findComparison">
+      <lhs>find comparison</lhs>
+      <rhs><nonterminal def="#ebnf.findName"/> , ( '=' | '/=' | '&lt;' | '&gt;' | '&lt;=' | '&gt;=' ) , <nonterminal def="#ebnf.additiveExp"/></rhs>
+    </production>
+    <production xml:id="ebnf.findName">
+      <lhs>find name</lhs>
+      <rhs><nonterminal def="#ebnf.attributeName"/> , { '.' , <nonterminal def="#ebnf.componentName"/> | '[' ,
+      <nonterminal def="#ebnf.index"/> , ']' }</rhs>
+    </production>
+    <production xml:id="ebnf.index">
+      <lhs>index</lhs>
+      <rhs>
+        <nonterminal def="#ebnf.expression"/>
+      </rhs>
+    </production>
+    <production xml:id="ebnf.constExpression">
+      <lhs>const expression</lhs>
+      <rhs>
+        <nonterminal def="#ebnf.expression"/>
+      </rhs>
+    </production>
+    <production xml:id="ebnf.expression">
+      <lhs>expression</lhs>
+      <rhs>
+        <nonterminal def="#ebnf.rangeExpression"/>
+      </rhs>
+    </production>
+    <production xml:id="ebnf.rangeExpression">
+      <lhs>range expression</lhs>
+      <rhs><nonterminal def="#ebnf.logicalOr"/> , [ '..' , <nonterminal def="#ebnf.logicalOr"/> ]</rhs>
+    </production>
+    <production xml:id="ebnf.logicalOr">
+      <lhs>logical or</lhs>
+      <rhs>[ <nonterminal def="#ebnf.logicalOr"/> , 'or' ] , <nonterminal def="#ebnf.logicalXor"/></rhs>
+    </production>
+    <production xml:id="ebnf.logicalXor">
+      <lhs>logical xor</lhs>
+      <rhs>[ <nonterminal def="#ebnf.logicalXor"/> , 'xor' ] , <nonterminal def="#ebnf.logicalAnd"/></rhs>
+    </production>
+    <production xml:id="ebnf.logicalAnd">
+      <lhs>logical and</lhs>
+      <rhs>[ <nonterminal def="#ebnf.logicalAnd"/> , 'and' ] , <nonterminal def="#ebnf.equalityExp"/></rhs>
+    </production>
+    <production xml:id="ebnf.equalityExp">
+      <lhs>equality exp</lhs>
+      <rhs>[ <nonterminal def="#ebnf.equalityExp"/> , ( '=' | '/=' ) ] , <nonterminal def="#ebnf.relationalExp"/></rhs>
+    </production>
+    <production xml:id="ebnf.relationalExp">
+      <lhs>relational exp</lhs>
+      <rhs>[ <nonterminal def="#ebnf.relationalExp"/> , ( '&lt;' | '&gt;' | '&lt;=' | '&gt;=' ) ] , <nonterminal def="#ebnf.additiveExp"/></rhs>
+    </production>
+    <production xml:id="ebnf.additiveExp">
+      <lhs>additive exp</lhs>
+      <rhs>[ <nonterminal def="#ebnf.additiveExp"/> , ( '+' | '-' | '&amp;' | 'union' | 'not_in' ) ] ,
+      <nonterminal def="#ebnf.multiplicativeExp"/></rhs>
+    </production>
+    <production xml:id="ebnf.multiplicativeExp">
+      <lhs>multiplicative exp</lhs>
+      <rhs>[ <nonterminal def="#ebnf.multiplicativeExp"/> , ( '*' | '/' | 'mod' | '**' | 'rem' | 'intersection' |
+      'disunion' ) ] , <nonterminal def="#ebnf.unaryExp"/></rhs>
+    </production>
+    <production xml:id="ebnf.unaryExp">
+      <lhs>unary exp</lhs>
+      <rhs>( '-' | '+' | 'not' | 'abs' ) , <nonterminal def="#ebnf.unaryExp"/> | <nonterminal def="#ebnf.linkExpression"/>| <nonterminal def="#ebnf.unlinkExpression"/></rhs>
+    </production>
+    <production xml:id="ebnf.linkExpression">
+      <lhs>link expression</lhs>
+      <rhs><nonterminal def="#ebnf.navigateExpression"/> | 'link' , <nonterminal def="#ebnf.navigateExpression"/> , <nonterminal def="#ebnf.relationshipSpec"/> , <nonterminal def="#ebnf.navigateExpression"/></rhs>
+    </production>
+    <production xml:id="ebnf.unlinkExpression">
+      <lhs>unlink expression</lhs>
+      <rhs><nonterminal def="#ebnf.navigateExpression"/> | 'unlink' , <nonterminal def="#ebnf.navigateExpression"/> , <nonterminal def="#ebnf.relationshipSpec"/> , [ <nonterminal def="#ebnf.navigateExpression"/> ]</rhs>
+    </production>
+    <production xml:id="ebnf.navigateExpression">
+      <lhs>navigate expression</lhs>
+      <rhs><nonterminal def="#ebnf.extendedExpression"/> | <nonterminal def="#ebnf.simpleNavExpression"/> | <nonterminal def="#ebnf.correlatedNavExpression"/> | <nonterminal def="#ebnf.orderingExpression"/></rhs>
+    </production>
+    <production xml:id="ebnf.simpleNavExpression">
+      <lhs>simple nav expression</lhs>
+      <rhs><nonterminal def="#ebnf.navigateExpression"/> , '-&gt;' , <nonterminal def="#ebnf.relationshipSpec"/> , [
+      <nonterminal def="#ebnf.whereClause"/> ]</rhs>
+    </production>
+    <production xml:id="ebnf.correlatedNavExpression">
+      <lhs>correlated nav expression</lhs>
+      <rhs><nonterminal def="#ebnf.navigateExpression"/> , 'with' , <nonterminal def="#ebnf.extendedExpression"/> ,
+      '-&gt;' , <nonterminal def="#ebnf.relationshipSpec"/></rhs>
+    </production>
+    <production xml:id="ebnf.orderingExpression">
+      <lhs>ordering expression</lhs>
+      <rhs><nonterminal def="#ebnf.navigateExpression"/> , [ 'ordered_by' | 'reverse_ordered_by' ] , <nonterminal def="#ebnf.sortOrder"/></rhs>
+    </production>
+    <production xml:id="ebnf.extendedExpression">
+      <lhs>extended expression</lhs>
+      <rhs><nonterminal def="#ebnf.suffixExpression"/> | <nonterminal def="#ebnf.createExpression"/> | <nonterminal def="#ebnf.findExpression"/></rhs>
+    </production>
+    <production xml:id="ebnf.sortOrder">
+      <lhs>sort order</lhs>
+      <rhs>'(' , [ <nonterminal def="#ebnf.sortOrderComponent"/> , { ',' , <nonterminal def="#ebnf.sortOrderComponent"/>
+      } ] , ')'</rhs>
+    </production>
+    <production xml:id="ebnf.sortOrderComponent">
+      <lhs>sort order component</lhs>
+      <rhs>[ 'reverse' ] , <nonterminal def="#ebnf.Identifier"/></rhs>
+    </production>
+    <production xml:id="ebnf.createExpression">
+      <lhs>create expression</lhs>
+      <rhs>'create' , [ 'unique' ] , <nonterminal def="#ebnf.objectName"/> , <nonterminal def="#ebnf.createArgumentList"/></rhs>
+    </production>
+    <production xml:id="ebnf.createArgumentList">
+      <lhs>create argument list</lhs>
+      <rhs>'(' , [ <nonterminal def="#ebnf.createArgument"/> , { ',' , <nonterminal def="#ebnf.createArgument"/> } ] ,
+      ')'</rhs>
+    </production>
+    <production xml:id="ebnf.createArgument">
+      <lhs>create argument</lhs>
+      <rhs><nonterminal def="#ebnf.attributeName"/> , '=&gt;' , <nonterminal def="#ebnf.expression"/> | 'Current_State'
+      , '=&gt;' , <nonterminal def="#ebnf.stateName"/></rhs>
+    </production>
+    <production xml:id="ebnf.findExpression">
+      <lhs>find expression</lhs>
+      <rhs>[ 'find' | 'find_one' | 'find_only' ] , <nonterminal def="#ebnf.suffixExpressionNC"/> , [ <nonterminal def="#ebnf.whereClause"/> ]</rhs>
+    </production>
+    <production xml:id="ebnf.whereClause">
+      <lhs>where clause</lhs>
+      <rhs>'(' , [ <nonterminal def="#ebnf.findCondition"/> ] , ')'</rhs>
+    </production>
+    <production xml:id="ebnf.suffixExpression">
+      <lhs>suffix expression</lhs>
+      <rhs><nonterminal def="#ebnf.primaryExpression"/> | <nonterminal def="#ebnf.componentAccessExpression"/> |
+      <nonterminal def="#ebnf.attributeAccessExpression"/> | <nonterminal def="#ebnf.sliceExpression"/> | <nonterminal def="#ebnf.characteristicExpression"/> | <nonterminal def="#ebnf.castExpression"/> | <nonterminal def="#ebnf.instanceFncallExpression"/> | <nonterminal def="#ebnf.objectFncallExpression"/> | <nonterminal def="#ebnf.domainFncallExpression"/> | <nonterminal def="#ebnf.terminatorFncallExpression"/></rhs>
+    </production>
+    <production xml:id="ebnf.componentAccessExpression">
+      <lhs>component access expression</lhs>
+      <rhs><nonterminal def="#ebnf.suffixExpression"/> , '.' , <nonterminal def="#ebnf.attributeName"/></rhs>
+    </production>
+    <production xml:id="ebnf.attributeAccessExpression">
+      <lhs>attribute access expression</lhs>
+      <rhs><nonterminal def="#ebnf.suffixExpression"/> , '.' , <nonterminal def="#ebnf.componentName"/></rhs>
+    </production>
+    <production xml:id="ebnf.sliceExpression">
+      <lhs>slice expression</lhs>
+      <rhs><nonterminal def="#ebnf.suffixExpression"/> , '[' , <nonterminal def="#ebnf.index"/> , ']'</rhs>
+    </production>
+    <production xml:id="ebnf.characteristicExpression">
+      <lhs>characteristic expression</lhs>
+      <rhs><nonterminal def="#ebnf.suffixExpression"/> , ''' , <nonterminal def="#ebnf.characteristic"/> , [ '(' , [
+      <nonterminal def="#ebnf.argumentList"/> ] , ')' ]</rhs>
+    </production>
+    <production xml:id="ebnf.castExpression">
+      <lhs>cast expression</lhs>
+      <rhs><nonterminal def="#ebnf.typeRef"/> , '(' , <nonterminal def="#ebnf.expression"/> , ')'</rhs>
+    </production>
+    <production xml:id="ebnf.instanceFncallExpression">
+      <lhs>instance fn call expression</lhs>
+      <rhs>[ <nonterminal def="#ebnf.suffixExpression"/> , '.' ] , <nonterminal def="#ebnf.serviceName"/> , '(' , [
+      <nonterminal def="#ebnf.argumentList"/> ] , ')'</rhs>
+    </production>
+    <production xml:id="ebnf.objectFncallExpression">
+      <lhs>object fn call expression</lhs>
+      <rhs>[ <nonterminal def="#ebnf.objectName"/> , '.' ] , <nonterminal def="#ebnf.serviceName"/>, '(' , [
+      <nonterminal def="#ebnf.argumentList"/> ] , ')'</rhs>
+    </production>
+    <production xml:id="ebnf.domainFncallExpression">
+      <lhs>domain fn call expression</lhs>
+      <rhs>[ <nonterminal def="#ebnf.domainName"/> , '::' ] , <nonterminal def="#ebnf.serviceName"/>, '(' , [
+      <nonterminal def="#ebnf.argumentList"/> ] , ')'</rhs>
+    </production>
+    <production xml:id="ebnf.terminatorFncallExpression">
+      <lhs>terminator fn call expression</lhs>
+      <rhs><nonterminal def="#ebnf.terminatorName"/> , '~&gt;' , <nonterminal def="#ebnf.serviceName"/>, '(' , [
+      <nonterminal def="#ebnf.argumentList"/> ] , ')'</rhs>
+    </production>
+    <production xml:id="ebnf.suffixExpressionNC">
+      <lhs>suffix expression nc</lhs>
+      <rhs><nonterminal def="#ebnf.primaryExpression"/> | <nonterminal def="#ebnf.componentAccessExpressionNC"/> |
+      <nonterminal def="#ebnf.attributeAccessExpressionNC"/> | <nonterminal def="#ebnf.sliceExpressionNC"/> |
+      <nonterminal def="#ebnf.characteristicExpressionNC"/></rhs>
+    </production>
+    <production xml:id="ebnf.componentAccessExpressionNC">
+      <lhs>component access expression nc</lhs>
+      <rhs><nonterminal def="#ebnf.suffixExpressionNC"/> , '.' , <nonterminal def="#ebnf.componentName"/></rhs>
+    </production>
+    <production xml:id="ebnf.attributeAccessExpressionNC">
+      <lhs>attribute access expression nc</lhs>
+      <rhs><nonterminal def="#ebnf.suffixExpressionNC"/> , '.' , <nonterminal def="#ebnf.attributeName"/></rhs>
+    </production>
+    <production xml:id="ebnf.sliceExpressionNC">
+      <lhs>slice expression nc</lhs>
+      <rhs><nonterminal def="#ebnf.suffixExpressionNC"/> , '[' , <nonterminal def="#ebnf.index"/> , ']'</rhs>
+    </production>
+    <production xml:id="ebnf.characteristicExpressionNC">
+      <lhs>characteristic expression nc</lhs>
+      <rhs><nonterminal def="#ebnf.suffixExpressionNC"/> , ''' , <nonterminal def="#ebnf.characteristic"/></rhs>
+    </production>
+    <production xml:id="ebnf.primaryExpression">
+      <lhs>primary expression</lhs>
+      <rhs><nonterminal def="#ebnf.literal"/> | <nonterminal def="#ebnf.parenthesisedExpression"/> | <nonterminal def="#ebnf.nameExpression"/></rhs>
+    </production>
+    <production xml:id="ebnf.nameExpression">
+      <lhs>name expression</lhs>
+      <rhs><nonterminal def="#ebnf.variableName"/> | <nonterminal def="#ebnf.parameterName"/> | <nonterminal def="#ebnf.attributeName"/></rhs>
+    </production>
+    <production xml:id="ebnf.parenthesisedExpression">
+      <lhs>parenthesised expression</lhs>
+      <rhs><nonterminal def="#ebnf.structureAggregateExpression"/> | '(' , <nonterminal def="#ebnf.expression"/> ,
+      ')'</rhs>
+    </production>
+    <production xml:id="ebnf.structureAggregateExpression">
+      <lhs>structure aggregate expression</lhs>
+      <rhs>'(' , <nonterminal def="#ebnf.expression"/> , ',' , <nonterminal def="#ebnf.expression"/> , { ',' ,
+      <nonterminal def="#ebnf.expression"/> } , ')'</rhs>
+    </production>
+    <production xml:id="ebnf.argumentList">
+      <lhs>argument list</lhs>
+      <rhs><nonterminal def="#ebnf.argument"/> , { ',' , <nonterminal def="#ebnf.argument"/> }</rhs>
+    </production>
+    <production xml:id="ebnf.argument">
+      <lhs>argument</lhs>
+      <rhs><nonterminal def="#ebnf.expression"/></rhs>
+    </production>
+    <production xml:id="ebnf.literal">
+      <lhs>literal</lhs>
+      <rhs><nonterminal def="#ebnf.IntegerLiteral"/> | <nonterminal def="#ebnf.RealLiteral"/> | <nonterminal def="#ebnf.CharacterLiteral"/> | <nonterminal def="#ebnf.StringLiteral"/> | <nonterminal def="#ebnf.TimestampLiteral"/> | <nonterminal def="#ebnf.DurationLiteral"/> | 'true' | 'false' | 'null' | 'flush'
+      | 'endl' | 'this' | 'console' | '#LINE#' | '#FILE#'</rhs>
+    </production>
+    <production xml:id="ebnf.characteristic">
+      <lhs>characteristic</lhs>
+      <rhs>
+        <nonterminal def="#ebnf.Identifier"/>
+      </rhs>
+    </production>
+  </productionset>
+</chapter>

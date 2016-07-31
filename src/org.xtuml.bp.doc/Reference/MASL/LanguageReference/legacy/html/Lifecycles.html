@@ -1,0 +1,154 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Chapter 8. Lifecycles</title>
+<link rel="stylesheet" type="text/css" href="docbook.css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
+<meta name="keywords" content="MASL, Action Language, Action Semantics, UML, Unified Modelling Language, Shlaer Mellor">
+<link rel="home" href="index.html" title="MASL Reference Manual">
+<link rel="up" href="index.html" title="MASL Reference Manual">
+<link rel="prev" href="RelationshipsCorrelatedRelationshipSpecification.html" title="7.5. Correlated Relationship Specification">
+<link rel="next" href="LifecyclesStates.html" title="8.1. States">
+<link rel="preface" href="preface.html" title="Preface">
+<link rel="chapter" href="Grammars.html" title="Chapter 1. Grammars">
+<link rel="chapter" href="LexicalStructure.html" title="Chapter 2. Lexical Structure">
+<link rel="chapter" href="Types.html" title="Chapter 3. Types">
+<link rel="chapter" href="TypeConversion.html" title="Chapter 4. Type Conversion">
+<link rel="chapter" href="Domains.html" title="Chapter 5. Domains">
+<link rel="chapter" href="Objects.html" title="Chapter 6. Objects">
+<link rel="chapter" href="Relationships.html" title="Chapter 7. Relationships">
+<link rel="chapter" href="Lifecycles.html" title="Chapter 8. Lifecycles">
+<link rel="chapter" href="Functions.html" title="Chapter 9. Functions">
+<link rel="chapter" href="Services.html" title="Chapter 10. Services">
+<link rel="chapter" href="Exceptions.html" title="Chapter 11. Exceptions">
+<link rel="chapter" href="Statements.html" title="Chapter 12. Statements">
+<link rel="chapter" href="Names.html" title="Chapter 13. Names">
+<link rel="chapter" href="Expressions.html" title="Chapter 14. Expressions">
+<link rel="appendix" href="LanguageDefinedCharacteristics.html" title="Appendix A. Language Defined Characteristics">
+<link rel="appendix" href="SyntaxSummary.html" title="Appendix B. Syntax Summary">
+<link rel="index" href="ix01.html" title="Index">
+<link rel="section" href="LifecyclesStates.html" title="8.1. States">
+<link rel="section" href="LifecyclesEvents.html" title="8.2. Events">
+<link rel="section" href="LifecyclesTransitions.html" title="8.3. Transitions">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div align="center">OFFICIAL</div>
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center">Chapter 8. Lifecycles</th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="RelationshipsCorrelatedRelationshipSpecification.html">Prev</a> </td>
+<th width="60%" align="center"> </th>
+<td width="20%" align="right"> <a accesskey="n" href="LifecyclesStates.html">Next</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="chapter">
+<div class="titlepage"><div><div><h1 class="title">
+<a name="Lifecycles"></a>Chapter 8. Lifecycles</h1></div></div></div>
+<div class="toc">
+<div class="toc-title">Table of Contents</div>
+<dl class="toc">
+<dt><span class="section"><a href="LifecyclesStates.html">8.1. States</a></span></dt>
+<dd><dl>
+<dt><span class="section"><a href="LifecyclesStates.html#LifecyclesStateModifiers">8.1.1. State Modifiers</a></span></dt>
+<dd><dl>
+<dt><span class="section"><a href="LifecyclesStates.html#LifecyclesAssignerStates">8.1.1.1. Assigner States</a></span></dt>
+<dt><span class="section"><a href="LifecyclesStates.html#LifecyclesStartStates">8.1.1.2. Start States</a></span></dt>
+<dt><span class="section"><a href="LifecyclesStates.html#LifecyclesCreationStates">8.1.1.3. Creation States</a></span></dt>
+<dt><span class="section"><a href="LifecyclesStates.html#LifecyclesInstanceStates">8.1.1.4. Instance States</a></span></dt>
+<dt><span class="section"><a href="LifecyclesStates.html#LifecyclesTerminalStates">8.1.1.5. Terminal States</a></span></dt>
+</dl></dd>
+<dt><span class="section"><a href="LifecyclesStates.html#LifecyclesFormalStateParameters">8.1.2. Formal State Parameters</a></span></dt>
+<dd><dl><dt><span class="section"><a href="LifecyclesStates.html#LifecyclesFormalStateParameterModes">8.1.2.1. Formal State Parameter Modes</a></span></dt></dl></dd>
+<dt><span class="section"><a href="LifecyclesStates.html#LifecyclesStateSignature">8.1.3. State Signature</a></span></dt>
+<dt><span class="section"><a href="LifecyclesStates.html#LifecyclesStateDefinition">8.1.4. State Definition</a></span></dt>
+</dl></dd>
+<dt><span class="section"><a href="LifecyclesEvents.html">8.2. Events</a></span></dt>
+<dd><dl>
+<dt><span class="section"><a href="LifecyclesEvents.html#LifecyclesEventModifiers">8.2.1. Event Modifiers</a></span></dt>
+<dd><dl>
+<dt><span class="section"><a href="LifecyclesEvents.html#LifecyclesAssignerEvents">8.2.1.1. Assigner Events</a></span></dt>
+<dt><span class="section"><a href="LifecyclesEvents.html#LifecyclesCreationEvents">8.2.1.2. Creation Events</a></span></dt>
+<dt><span class="section"><a href="LifecyclesEvents.html#LifecyclesInstanceEvents">8.2.1.3. Instance Events</a></span></dt>
+<dt><span class="section"><a href="LifecyclesEvents.html#LifecyclesPolymorphicEvents">8.2.1.4. Polymorphic Events</a></span></dt>
+</dl></dd>
+<dt><span class="section"><a href="LifecyclesEvents.html#FormalEventParameters">8.2.2. Formal Event Parameters</a></span></dt>
+<dd><dl><dt><span class="section"><a href="LifecyclesEvents.html#LifecyclesFormalEventParameterModes">8.2.2.1. Formal Event Parameter Modes</a></span></dt></dl></dd>
+<dt><span class="section"><a href="LifecyclesEvents.html#LifecyclesEventSignature">8.2.3. Event Signature</a></span></dt>
+</dl></dd>
+<dt><span class="section"><a href="LifecyclesTransitions.html">8.3. Transitions</a></span></dt>
+<dd><dl>
+<dt><span class="section"><a href="LifecyclesTransitions.html#LifecyclesTransitionModifiers">8.3.1. Transition Modifiers</a></span></dt>
+<dd><dl>
+<dt><span class="section"><a href="LifecyclesTransitions.html#LifecyclesAssignerTransitions">8.3.1.1. Assigner Transitions</a></span></dt>
+<dt><span class="section"><a href="LifecyclesTransitions.html#LifecyclesInstanceTransitions">8.3.1.2. Instance Transitions</a></span></dt>
+</dl></dd>
+<dt><span class="section"><a href="LifecyclesTransitions.html#LifecyclesTransitionRows">8.3.2. Transition Rows</a></span></dt>
+</dl></dd>
+</dl>
+</div>
+<p>
+Objects can be either passive or active. Active objects
+<a class="indexterm" name="idp64745648"></a>
+can have a lifecycle.
+<a class="indexterm" name="idp63824320"></a>
+States represents a stage in that lifecycle. Events cause an instance to change
+from one state
+<a class="indexterm" name="idp63825568"></a>
+to another. What new state is achieved when an instance of an
+object in a given state receives a particular event is defined within a state
+transition table.
+<a class="indexterm" name="idp63826608"></a>
+</p>
+<p>
+Each associative object
+<a class="indexterm" name="idp63828368"></a>
+in a domain can also have an assigner lifecycle.
+<a class="indexterm" name="idp63829744"></a>
+Assigner
+<a class="indexterm" name="idp63831088"></a>
+lifecycles provide a single point of control through which competing requests
+are serialized. Because of this, there is only one copy of an assigner lifecycle
+<a class="indexterm" name="idp64777456"></a>
+for all instances of the associative object.
+<a class="indexterm" name="idp64778832"></a>
+</p>
+<p>
+Assigner state
+<a class="indexterm" name="idp64780624"></a>
+represent a stage in that lifecycle. Assigner events
+<a class="indexterm" name="idp64782000"></a>
+cause an
+assigner to change from one state in its lifecycle to another. What new state
+is achieved when an assigner in a given state receives a particular event is
+defined within an assigner transition table.
+<a class="indexterm" name="idp64783536"></a>
+
+</p>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="RelationshipsCorrelatedRelationshipSpecification.html">Prev</a> </td>
+<td width="20%" align="center"> </td>
+<td width="40%" align="right"> <a accesskey="n" href="LifecyclesStates.html">Next</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left" valign="top">7.5. Correlated Relationship Specification </td>
+<td width="20%" align="center">
+<a accesskey="h" href="index.html">Home</a> | <a accesskey="t" href="bk01-toc.html">ToC</a>
+</td>
+<td width="40%" align="right" valign="top"> 8.1. States</td>
+</tr>
+</table>
+</div>
+<div align="center">OFFICIAL</div>
+</body>
+</html>

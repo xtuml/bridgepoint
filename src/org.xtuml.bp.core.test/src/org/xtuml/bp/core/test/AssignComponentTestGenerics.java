@@ -27,7 +27,10 @@ import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PlatformUI;
-
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.ComponentReference_c;
 import org.xtuml.bp.core.Package_c;
 import org.xtuml.bp.core.common.ClassQueryInterface_c;
@@ -36,11 +39,13 @@ import org.xtuml.bp.core.ui.actions.GenericPackageAssignComponentOnCL_ICAction;
 import org.xtuml.bp.test.TestUtil;
 import org.xtuml.bp.test.common.BaseTest;
 import org.xtuml.bp.test.common.CanvasTestUtils;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.test.common.TestingUtilities;
 import org.xtuml.bp.ui.canvas.Cl_c;
 import org.xtuml.bp.ui.canvas.test.CanvasTest;
 import org.xtuml.bp.ui.explorer.ExplorerView;
 
+@RunWith(OrderedRunner.class)
 public class AssignComponentTestGenerics extends CanvasTest {
 
 	IWorkbenchPage m_wp = PlatformUI.getWorkbench().getActiveWorkbenchWindow()
@@ -54,15 +59,16 @@ public class AssignComponentTestGenerics extends CanvasTest {
 
 	private static Selection selection = Selection.getInstance();
 
-	public AssignComponentTestGenerics(String name) {
-		super("Default Project", name);
+	public AssignComponentTestGenerics() {
+		super("Default Project", null);
 	}
 
 	protected String getResultName() {
 		return "AssignComponent" + "_" + test_id;
 	}
 
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		super.setUp();
 		Display d = Display.getCurrent();
 		while (d.readAndDispatch());
@@ -72,7 +78,8 @@ public class AssignComponentTestGenerics extends CanvasTest {
 		}
 	}
 
-	protected void tearDown() throws Exception {
+	@After
+	public void tearDown() throws Exception {
 		super.tearDown();
 	}
 	public void setGenerateResults() {
@@ -105,6 +112,7 @@ public class AssignComponentTestGenerics extends CanvasTest {
 		CanvasTestUtils.openCanvasEditor(uut);
 	}
 
+	@Test
 	public void testAssignComponent() {
 		test_id = "1";
 		ComponentReference_c ic = ComponentReference_c
@@ -122,6 +130,7 @@ public class AssignComponentTestGenerics extends CanvasTest {
 		aca.CL_IC_GenericPackageAssignComponent(structuredSelection);
 
 	}
+	@Test
 	public void testCheckTableItemForAssignComponent() {
 		test_id = "2";
 		BaseTest.ensureFolderExists(m_workspace_path

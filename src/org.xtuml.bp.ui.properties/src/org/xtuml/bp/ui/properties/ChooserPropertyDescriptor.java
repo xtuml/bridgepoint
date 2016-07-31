@@ -53,7 +53,7 @@ public class ChooserPropertyDescriptor extends PropertyDescriptor
 		super(id, displayName);
         m_cl = cl;
         m_readOnly = readOnly;
-        if (actionClassName != "unknowntypeAction") {
+        if (!actionClassName.equals("unknowntypeAction")) {
           try {
             m_actionClass = (Class<IObjectActionDelegate>)Class.
                                                        forName(actionClassName);

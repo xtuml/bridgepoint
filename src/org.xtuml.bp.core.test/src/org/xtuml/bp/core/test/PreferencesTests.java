@@ -24,36 +24,33 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ProjectScope;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.preferences.IScopeContext;
+import org.eclipse.jface.preference.IPreferenceStore;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.osgi.service.prefs.BackingStoreException;
 import org.osgi.service.prefs.Preferences;
-
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.Pref_c;
+import org.xtuml.bp.core.common.BridgePointPreferencesStore;
 import org.xtuml.bp.core.ui.preferences.BridgePointProjectActionLanguagePreferences;
 import org.xtuml.bp.core.ui.preferences.BridgePointProjectPreferences;
 import org.xtuml.bp.test.common.BaseTest;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.test.common.TestingUtilities;
 
+@RunWith(OrderedRunner.class)
 public class PreferencesTests extends BaseTest {
 	
-	public void testPreferencesTest() throws Exception{
-	      doTestWorkspaceDefaults(); 
-	      doTestProjectDefaults(); 
-	      doTestProjectDefaultsFromWorkspaceDefaults(); 
-	      doTestProjectDefaultsOverrideWorkspaceDefaults(); 
-	}
-	public void doTestWorkspaceDefaults() {
-		boolean enabledForNonRealized = CorePlugin
-				.getDefault()
-				.getPreferenceStore()
+	@Test
+	public void testWorkspaceDefaults() {
+		IPreferenceStore prefStore = CorePlugin.getDefault().getPreferenceStore();
+		boolean enabledForNonRealized = prefStore
 				.getBoolean(
-						BridgePointProjectActionLanguagePreferences.ENABLE_ERROR_FOR_EMPTY_SYNCHRONOUS_MESSAGE);
-		boolean enabledForRealized = CorePlugin
-				.getDefault()
-				.getPreferenceStore()
+						BridgePointPreferencesStore.ENABLE_ERROR_FOR_EMPTY_SYNCHRONOUS_MESSAGE);
+		boolean enabledForRealized = prefStore
 				.getBoolean(
-						BridgePointProjectActionLanguagePreferences.ENABLE_ERROR_FOR_EMPTY_SYNCHRONOUS_MESSAGE_REALIZED);
-		assertTrue(
+						BridgePointPreferencesStore.ENABLE_ERROR_FOR_EMPTY_SYNCHRONOUS_MESSAGE_REALIZED);
+		assertFalse(
 				"Default for empty synchronous parse errors is not correct.",
 				enabledForNonRealized);
 		assertFalse(
@@ -61,7 +58,8 @@ public class PreferencesTests extends BaseTest {
 				enabledForRealized);
 	}
 
-	public void doTestProjectDefaults() throws CoreException {
+	@Test
+	public void testProjectDefaults() throws CoreException {
 		IProject project = TestingUtilities
 				.createProject("test_project_preferences");
 		boolean enabledForNonRealized = Pref_c
@@ -72,7 +70,7 @@ public class PreferencesTests extends BaseTest {
 				.Getsystemboolean(
 						BridgePointProjectActionLanguagePreferences.ENABLE_ERROR_FOR_EMPTY_SYNCHRONOUS_MESSAGE_REALIZED,
 						project.getName());
-		assertTrue(
+		assertFalse(
 				"Default for empty synchronous parse errors is not correct.",
 				enabledForNonRealized);
 		assertFalse(
@@ -80,7 +78,8 @@ public class PreferencesTests extends BaseTest {
 				enabledForRealized);
 	}
 
-	public void doTestProjectDefaultsFromWorkspaceDefaults() {
+	@Test
+	public void testProjectDefaultsFromWorkspaceDefaults() {
 		IProject project = getProjectHandle("test_project_preferences");
 		// set the values in the workspace to non-defaults
 		CorePlugin
@@ -143,7 +142,8 @@ public class PreferencesTests extends BaseTest {
 						false);
 	}
 
-	public void doTestProjectDefaultsOverrideWorkspaceDefaults()
+	@Test
+	public void testProjectDefaultsOverrideWorkspaceDefaults()
 			throws BackingStoreException {
 		IProject project = getProjectHandle("test_project_preferences");
 		IScopeContext projectScope = new ProjectScope(project);

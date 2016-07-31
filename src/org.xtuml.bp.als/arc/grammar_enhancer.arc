@@ -226,7 +226,7 @@ ${s}\
     .assign node.validation_required = true
     .select one first_child_node related by rule->NLN[R2]->N[R8]
     .invoke result = is_node_bang(first_child_node)
-    .if (result.rc = true)
+    .if (result.rc == true)
       .assign node.validation_required = false
       .select many child_nodes related by rule->N[R6]
       .for each child_node in child_nodes

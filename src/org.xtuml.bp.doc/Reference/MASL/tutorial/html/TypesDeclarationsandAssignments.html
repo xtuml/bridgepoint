@@ -1,0 +1,101 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>1.1. Declarations and Assignments</title>
+<link rel="stylesheet" type="text/css" href="docbook.css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
+<meta name="keywords" content="MASL, Action Language, Action Semantics, UML, Unified Modelling Language, Shlaer Mellor">
+<link rel="home" href="index.html" title="MASL Tutorial">
+<link rel="up" href="Types.html" title="Chapter 1. Types">
+<link rel="prev" href="Types.html" title="Chapter 1. Types">
+<link rel="next" href="TypesBlocksandScope.html" title="1.2. Blocks and Scopes">
+<link rel="preface" href="preface.html" title="Preface">
+<link rel="chapter" href="Types.html" title="Chapter 1. Types">
+<link rel="chapter" href="ExecutionControl.html" title="Chapter 2. Execution Control">
+<link rel="chapter" href="CompositeTypes.html" title="Chapter 3. Composite Types">
+<link rel="chapter" href="Exceptions.html" title="Chapter 4. Exceptions">
+<link rel="chapter" href="ObjectsandRelationships.html" title="Chapter 5. Objects and Relationships">
+<link rel="chapter" href="Actions.html" title="Chapter 6. Actions">
+<link rel="chapter" href="DeviceIO.html" title="Chapter 7. Device Input/Output">
+<link rel="chapter" href="MASLExamples.html" title="Chapter 8. MASL Examples">
+<link rel="index" href="ix01.html" title="Index">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div align="center">UNCLASSIFIED</div>
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center">1.1. Declarations and Assignments</th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="Types.html">Prev</a> </td>
+<th width="60%" align="center">Chapter 1. Types</th>
+<td width="20%" align="right"> <a accesskey="n" href="TypesBlocksandScope.html">Next</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h2 class="title">
+<a name="TypesDeclarationsandAssignments"></a>1.1. Declarations and Assignments</h2></div></div></div>
+<p>Values can be stored in entities, which are declared to be of a
+    specific type. Entities are either variables, in which case their value
+    may change (or vary) as the program executes, or they may be constants, in
+    which case they keep their same initial value throughout their life. A
+    variable is introduced into a program by a declaration, which consists of
+    the name (that is, the identifier) of the variable followed by a colon and
+    then the name of the type. This can then optionally be followed by the :=
+    symbol and an initial value. The declaration terminates with a semicolon.
+    Thus, we might write: </p>
+<div class="informalexample"><pre class="programlisting">  x : integer;
+  y : integer := 29;</pre></div>
+<p> This introduces the variable <code class="varname">x</code> of
+    type <span class="type">integer</span> but gives it no particular initial value and
+    then the variable <code class="varname">y</code> and gives it the specific initial
+    value of <code class="literal">29</code>. If a variable is declared and not given an
+    initial value then great care must be taken not to use the undefined value
+    of the variable until one has been properly given to it. A common way to
+    give a value to a variable is by using an assignment statement. In this,
+    the identifier of the variable is followed by := and then some expression
+    giving the new value. The statement terminates with a semicolon. An
+    example might look like: </p>
+<div class="informalexample"><pre class="programlisting">  declare
+    x : integer;
+    y : integer := 29;
+  begin
+    x := 14;
+    y := x + 71;
+  end;</pre></div>
+<p> Both are valid assignment statements and place new
+    values in <code class="varname">x</code> and <code class="varname">y</code> thereby
+    overwriting their previous values. Note that <code class="literal">:=</code> can be
+    followed by any expression provided that it produces a value of the type
+    of the variable being assigned to.</p>
+<p>A constant is declared in a similar way to a variable by inserting
+    the reserved word <code class="literal">readonly</code> after the colon. Of course,
+    a constant must be initialised in its declaration otherwise it would be
+    useless. An example might be: </p>
+<div class="informalexample"><pre class="programlisting">  e : readonly real := 2.718281828;</pre></div>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="Types.html">Prev</a> </td>
+<td width="20%" align="center"><a accesskey="u" href="Types.html">Up</a></td>
+<td width="40%" align="right"> <a accesskey="n" href="TypesBlocksandScope.html">Next</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left" valign="top">Chapter 1. Types </td>
+<td width="20%" align="center">
+<a accesskey="h" href="index.html">Home</a> | <a accesskey="t" href="bk01-toc.html">ToC</a>
+</td>
+<td width="40%" align="right" valign="top"> 1.2. Blocks and Scopes</td>
+</tr>
+</table>
+</div>
+<div align="center">UNCLASSIFIED</div>
+</body>
+</html>

@@ -1,10 +1,6 @@
 .//=====================================================================
 .//
-.// File:      $RCSfile: function_body.inc,v $
-.// Version:   $Revision: 1.45.80.1 $
-.// Modified:  $Date: 2013/07/19 12:25:14 $
-.//
-.// (c) Copyright 2005-2014 by Mentor Graphics Corp. All rights reserved.
+.// File:      function_body.inc
 .//
 .//=====================================================================
 .// Licensed under the Apache License, Version 2.0 (the "License"); you may not
@@ -29,7 +25,7 @@
   .// obtain the workflow corresponding to the passed function
   .//
   .select one wfl related by function->W_WOF[R2001]
-  .select one cme related by wfl->CME[R2012]
+  .select any cme from instances of CME where ((selected.Specialism == wfl.Specialism) and (selected.Label == wfl.Label) and (selected.Key_Lett == wfl.Key_Lett))
   .if (not_empty wfl)
     .select any field related by wfl->W_STEP[R2005]->W_FLD[R2009]
     .if (not_empty field)
@@ -47,6 +43,7 @@
       .assign sel_decl = "IStructuredSelection"
       .assign iteration_req = false
       .select many context_items related by wfl->W_CTI[R2003]
+      .select any context_item from instances of W_CTI where (false)
       .for each context_item in context_items
         .if (context_item.Type == "many")
           .assign iteration_req = true
@@ -179,13 +176,6 @@
           .invoke cn = get_class_name(class)
           .assign class_name = "${class.Name}"
       ${cn.body} v_${context_item.Name} = (${cn.body})context;
-      PersistableModelComponent.ensureCoreDataTypesAvailable(v_${context_item.Name}.getModelRoot());
-          .if(class.Key_Lett == "S_SYS")
-      PersistableModelComponent.ensureSystemCoreDataTypesAvailable(v_${context_item.Name});
-          .else
-            .invoke loadCode = gen_code_for_loading_core_types(class.Key_Lett, "v_${context_item.Name}");
-        ${loadCode.result}
-          .end if
         .end for
       .end if
 	.else
@@ -216,7 +206,7 @@
     .if (usesTransactions)
 	TransactionUtil.TransactionGroup transactionGroup = 
 		TransactionUtil.startTransactionsOnSelectedModelRoots("${transaction_name.name}");
-	.if (((((cme.Specialism == "Classes") or(cme.Specialism == "Components"))or ((cme.Specialism == "External")or(cme.Specialism == "Interaction")))or(((cme.Specialism == "New")or(cme.Specialism == "Activity"))or((cme.Specialism == "Types")or(cme.Specialism == "Usecase"))))and (cme.Resultant_Class_RelChain!=""))
+        .if ((((((cme.Specialism == "Classes") or(cme.Specialism == "Components"))or ((cme.Specialism == "External")or(cme.Specialism == "Interaction")))or(((cme.Specialism == "New")or(cme.Specialism == "Activity"))or((cme.Specialism == "Types")or(cme.Specialism == "Usecase"))))or(cme.Specialism == "Exceptions"))and (cme.Resultant_Class_RelChain!=""))
      boolean abortTransaction = false;
     .end if 
     try {
@@ -247,14 +237,8 @@ for(Iterator<?> iterator = selection.iterator(); iterator.hasNext();) {
 		  .// close the for loop
 }
 		.end if
-.if ((cme.Key_Lett =="C_C")and ((cme.Specialism == "New") or(cme.Specialism == "Components")))
- // TODO: BOB FIXME.  This is a place where I want to see the generated
- // code before updating the function_body.inc archetype.  This condition was:
- // if (v_${context_item.Name}.isInGenericPackage())
- if (true) 
-     {
-.end if 		
- .if (((((cme.Specialism == "Classes") or(cme.Specialism == "Components"))or ((cme.Specialism == "External")or(cme.Specialism == "Interaction")))or(((cme.Specialism == "New")or(cme.Specialism == "Activity"))or((cme.Specialism == "Types")or(cme.Specialism == "Usecase"))))and (cme.Resultant_Class_RelChain!=""))
+
+ .if ((((((cme.Specialism == "Classes") or(cme.Specialism == "Components"))or ((cme.Specialism == "External")or(cme.Specialism == "Interaction")))or(((cme.Specialism == "New")or(cme.Specialism == "Activity"))or((cme.Specialism == "Types")or(cme.Specialism == "Usecase"))))or(cme.Specialism == "Exceptions"))and (cme.Resultant_Class_RelChain!=""))
 	      .assign temp = "v_"+"${context_item.Name}" 
 		  .invoke rel_nav = backward_rel_chain_nav(cn.body,temp, cme.Resultant_Class_RelChain, "many", false);
       		NonRootModelElement[] children = ${rel_nav.body};
@@ -272,11 +256,7 @@ for(Iterator<?> iterator = selection.iterator(); iterator.hasNext();) {
 					abortTransaction = true;
 				}
 			}	
-	 .end if 
-	.if ((cme.Key_Lett =="C_C")and ((cme.Specialism == "New") or(cme.Specialism == "Components")))
-  
-     }
-     .end if 			
+	 .end if
          // end critical section
         Ooaofooa.endSaveOperation();
           .else
@@ -293,7 +273,7 @@ for(Iterator<?> iterator = selection.iterator(); iterator.hasNext();) {
 		TransactionUtil.cancelTransactions(transactionGroup, e);
     	CorePlugin.logError("Transaction: ${transaction_name.name} failed", e);//$$NON-NLS-1$$
 	}
-     .if (((((cme.Specialism == "Classes") or(cme.Specialism == "Components"))or ((cme.Specialism == "External")or(cme.Specialism == "Interaction")))or(((cme.Specialism == "New")or(cme.Specialism == "Activity"))or((cme.Specialism == "Types")or(cme.Specialism == "Usecase"))))and (cme.Resultant_Class_RelChain!=""))
+     .if ((((((cme.Specialism == "Classes") or(cme.Specialism == "Components"))or ((cme.Specialism == "External")or(cme.Specialism == "Interaction")))or(((cme.Specialism == "New")or(cme.Specialism == "Activity"))or((cme.Specialism == "Types")or(cme.Specialism == "Usecase"))))or(cme.Specialism == "Exceptions"))and (cme.Resultant_Class_RelChain!=""))
     	if((! CorePlugin.getDefault().getPreferenceStore().getBoolean(BridgePointPreferencesStore.USE_DEFAULT_NAME_FOR_CREATION)) &&abortTransaction)
 		{
 			TransactionUtil.cancelTransactions(transactionGroup);
@@ -333,7 +313,7 @@ for(Iterator<?> iterator = selection.iterator(); iterator.hasNext();) {
   .param string class_name
 .//  
   .assign attr_name = ""
-  .select one cme related by wfl->CME[R2012]
+  .select any cme from instances of CME where ((selected.Specialism == wfl.Specialism) and (selected.Label == wfl.Label) and (selected.Key_Lett == wfl.Key_Lett))
   .if (not_empty cme)
     .if (cme.Specialism != "")
       .if (cme.Label != "")
@@ -354,16 +334,6 @@ for(Iterator<?> iterator = selection.iterator(); iterator.hasNext();) {
         .assign attr_name = attr_name + "${class_name}"
       .end if
     .end if
-  .end if
-.end function
-.function gen_code_for_loading_core_types
-  .param String kl
-  .param String var
-  .assign attr_result = ""
-  .if(kl == "C_C")
-    .assign attr_result = "		PersistableModelComponent.ensureComponentCoreDataTypesAvailable(${var});\n"
-  .elif(kl == "CP_CP")
-    .assign attr_result = "		PersistableModelComponent.ensureComponentPackageCoreDataTypesAvailable(${var});\n"
   .end if
 .end function
 .function get_pe_traversal

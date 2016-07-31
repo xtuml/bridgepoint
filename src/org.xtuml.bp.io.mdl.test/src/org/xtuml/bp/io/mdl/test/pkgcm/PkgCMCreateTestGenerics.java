@@ -24,16 +24,27 @@ package org.xtuml.bp.io.mdl.test.pkgcm;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
-
+import org.junit.Before;
+import org.junit.Rule;
+import org.junit.Test;
+import org.junit.rules.TestName;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.Attribute_c;
 import org.xtuml.bp.core.ModelClass_c;
 import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.common.ClassQueryInterface_c;
 import org.xtuml.bp.core.common.PersistableModelComponent;
 import org.xtuml.bp.core.common.PersistenceManager;
-import org.xtuml.bp.test.common.TestingUtilities;
+import org.xtuml.bp.test.common.OrderedRunner;
 
+@RunWith(OrderedRunner.class)
 public class PkgCMCreateTestGenerics extends CreateTest {
+
+	@Rule public TestName name = new TestName();
+	
+	public String getName(){
+		return name.getMethodName();
+	}
 
     protected static String projectName = "MultiLevelModelSystem";
 
@@ -41,18 +52,15 @@ public class PkgCMCreateTestGenerics extends CreateTest {
 
     protected static IPath mdlClassPath = null;
 
-    public PkgCMCreateTestGenerics(String projName, String name) {
-        super(null, name);
+    public PkgCMCreateTestGenerics() {
+        super(projectName, null);
         showModelExplorer();
-    }
-
-    public PkgCMCreateTestGenerics(String name) {
-        this(projectName, name);
     }
 
     protected static boolean firstTime_create = true;
 
-    protected void setUp() throws Exception {
+    @Before
+	public void setUp() throws Exception {
         super.setUp();
         setupProjectAndTestModel();
     }
@@ -74,24 +82,29 @@ public class PkgCMCreateTestGenerics extends CreateTest {
         
     }
 
-    public void testCreatePackage_ThruCE() throws Exception {
+    @Test
+	public void testCreatePackage_ThruCE() throws Exception {
     	performCreateComponentThruCEGenerics("Package","MultiLevelModel","Package");
     }
 
-    public void testCreatePackageInPackage_ThruCE() throws Exception {  
+    @Test
+	public void testCreatePackageInPackage_ThruCE() throws Exception {  
         performCreateComponentThruCEGenerics("Package", "SS1","Package");
     }
 
-    public void testCreateDatatypePackageInPkg_ThruCE() throws Exception {
+    @Test
+	public void testCreateDatatypePackageInPkg_ThruCE() throws Exception {
         performCreateComponentThruCEGenerics("Package", "/MultiLevelModelSystem/models/MultiLevelModelSystem/MultiLevelModel/Datatypes/Datatypes.xtuml", "Package");
     }
 
-    public void testCreateEEPkgInPkg_ThruCE() throws Exception {
+    @Test
+	public void testCreateEEPkgInPkg_ThruCE() throws Exception {
         performCreateComponentThruCEGenerics("Package", "External Entities", "Package");
     }
 
     // ModelClass
-    public void testCreateModelClass_ThruCE() throws Exception {
+    @Test
+	public void testCreateModelClass_ThruCE() throws Exception {
         // save pmc for next ism test
         PersistableModelComponent pmc=performCreateComponentThruCEGenerics("Package", "SS1", "Class");
         //it could be null during setup
@@ -99,7 +112,8 @@ public class PkgCMCreateTestGenerics extends CreateTest {
             mdlClassPath = pmc.getFullPath();
     }
 
-    public void testCreateISM_ThruME() throws Exception {
+    @Test
+	public void testCreateISM_ThruME() throws Exception {
         performCreateComponentThruMEGenerics("ModelClass",mdlClassPath.toString(), EditorTestUtilities.EDITOR_TYPE_CANVAS,"ISM","");
         if(!toRunTests()){
             return ;
@@ -121,12 +135,14 @@ public class PkgCMCreateTestGenerics extends CreateTest {
     }
 
     /* Create components through Model Explorer : start */
-    public void testCreateSystem_ThruME_NoEditor() throws Exception {
+    @Test
+	public void testCreateSystem_ThruME_NoEditor() throws Exception {
         performCreateComponentThruMEGenerics("SystemModel",null,
                 EditorTestUtilities.EDITOR_TYPE_NONE, "SystemModel" ,"TestSysThruME");
     }
 
-    public void testCreateDomain_ThruME_NoEditor() throws Exception {
+    @Test
+	public void testCreateDomain_ThruME_NoEditor() throws Exception {
         performCreateComponentThruMEGenerics("SystemModel","TestSysThruME",
                 EditorTestUtilities.EDITOR_TYPE_NONE ,"Package","TestDomainThuME");
     }

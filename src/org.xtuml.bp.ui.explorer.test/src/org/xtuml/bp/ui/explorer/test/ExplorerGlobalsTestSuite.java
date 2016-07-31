@@ -1,8 +1,6 @@
 //=====================================================================
 //
-//File:      $RCSfile: ExplorerGlobalsTestSuite.java,v $
-//Version:   $Revision: 1.3 $
-//Modified:  $Date: 2013/01/10 23:19:40 $
+//File:      ExplorerGlobalsTestSuite.java
 //
 //(c) Copyright 2004-2014 by Mentor Graphics Corp. All rights reserved.
 //
@@ -22,31 +20,23 @@
 
 package org.xtuml.bp.ui.explorer.test;
 
-import junit.framework.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
+
 import junit.framework.TestSuite;
 
-public class ExplorerGlobalsTestSuite extends TestSuite {
 
-    /**
-     * Returns the suite.  This is required to
-     * use the JUnit Launcher.
-     */
-    public static Test suite() {
-        return new ExplorerGlobalsTestSuite();
-    }
+@RunWith(Suite.class)
+@Suite.SuiteClasses({
+	ExplorerGlobalsTest.class,
+	ExplorerTest.class,
+	ProjectManipulationTests.class,
+	I634ExplorerEmptySelectionTest.class,
+	FunctionKeyActivationTest.class,
+	//this test should run at the end of all others as it removes
+	// any existing projects before its run
+	AlphaSortingTest.class
+})
+public class ExplorerGlobalsTestSuite extends TestSuite {
     
-    /**
-     * Constructs the test suite.
-     */
-    public ExplorerGlobalsTestSuite() {
-        addTest(new TestSuite(ExplorerGlobalsTest.class));
-        addTest(new TestSuite(ExplorerTest.class));
-        addTest(new TestSuite(ProjectManipulationTests.class));
-        addTest(new TestSuite(I634ExplorerEmptySelectionTest.class));
-        addTest(new TestSuite(FunctionKeyActivationTest.class));
-        //this test should run at the end of all others as it removes
-        // any existing projects before its run
-        addTest(new TestSuite(AlphaSortingTest.class));
-    	
-    }
 }

@@ -33,10 +33,13 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.preferences.IScopeContext;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.osgi.framework.Bundle;
 import org.osgi.service.prefs.BackingStoreException;
 import org.osgi.service.prefs.Preferences;
-
 import org.xtuml.bp.core.Bridge_c;
 import org.xtuml.bp.core.Component_c;
 import org.xtuml.bp.core.CorePlugin;
@@ -49,25 +52,34 @@ import org.xtuml.bp.core.common.NonRootModelElement;
 import org.xtuml.bp.core.ui.preferences.BridgePointProjectActionLanguagePreferences;
 import org.xtuml.bp.core.ui.preferences.BridgePointProjectPreferences;
 import org.xtuml.bp.test.common.BaseTest;
+import org.xtuml.bp.test.common.OrderedRunner;
 
+@RunWith(OrderedRunner.class)
 public class ParseErrorForEmptySynchronousMessagesTests extends BaseTest {
-	String projectName = "testParseErrorForEmptySynchronousMessage";
+	static private String projectName = "testParseErrorForEmptySynchronousMessage";
+	static private boolean initialized = false;
 
-	@Override
-	public void initialSetup() throws Exception {
-		loadProject(projectName);
-	}
-
-	/**
-	 * These tests must be ordered, do not change the order
-	 * 
-	 */
-	public void testParseErrorForEmptySynchronousMessagesTest()  throws Exception {
-		doTestParseErrorPreferencesPackage();
-		doTestParseErrorPreferencesComponent();
+	public ParseErrorForEmptySynchronousMessagesTests() throws Exception {
+		super(null, null);
 	}
 	
-	public void doTestParseErrorPreferencesPackage() throws BackingStoreException, CoreException {
+	@Override
+	@Before
+	public void setUp() throws Exception {
+		super.setUp();
+		if (!initialized){
+			loadProject(projectName);
+			initialized = true;
+		}
+	}
+
+	@After
+	public void tearDown() throws Exception {
+		super.tearDown();
+	}
+
+	@Test
+	public void testParseErrorPreferencesPackage() throws BackingStoreException, CoreException {
 		Package_c testPkg = Package_c.getOneEP_PKGOnR1401(m_sys,
 				new ClassQueryInterface_c() {
 
@@ -104,7 +116,8 @@ public class ParseErrorForEmptySynchronousMessagesTests extends BaseTest {
 				errors.length);
 	}
 
-	public void doTestParseErrorPreferencesComponent() throws BackingStoreException, CoreException {
+	@Test
+	public void testParseErrorPreferencesComponent() throws BackingStoreException, CoreException {
 		project = getProjectHandle(projectName);
 		Package_c testPkg = Package_c.getOneEP_PKGOnR1401(m_sys,
 				new ClassQueryInterface_c() {

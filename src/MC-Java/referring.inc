@@ -21,13 +21,13 @@
       .select one rto related by ario->O_RTIDA[R111]->R_RTO[R110]
       .select one aone related by rto->R_AONE[R204]
       .if ( not_empty aone )
-        .if ( aone.Txt_Phrs == text_phrase) )
+        .if ( aone.Txt_Phrs == text_phrase)
           .assign attr_result = true
         .end if
       .else
         .select one aoth related by rto->R_AOTH[R204]
         .if ( not_empty aoth )
-          .if ( aoth.Txt_Phrs == text_phrase) )
+          .if ( aoth.Txt_Phrs == text_phrase)
             .assign attr_result = true
           .end if
         .end if
@@ -342,7 +342,7 @@ public static ${locn.body} ${nfn.body}${func_suffix}(ModelRoot modelRoot, ${tocn
   
   result=find_${nfn.body}${func_suffix}(modelRoot,target,test);
   if (result==null && (loadComponent)) {
-  .if(isContainment.result))
+  .if(isContainment.result)
      // Containment Relation
      List comps =  PersistenceManager.findAllChildComponents(target.getPersistableComponent(),modelRoot,${locn.body}.class);
   .else
