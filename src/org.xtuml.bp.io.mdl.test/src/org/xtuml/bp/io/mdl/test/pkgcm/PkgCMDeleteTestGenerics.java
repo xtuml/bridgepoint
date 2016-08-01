@@ -27,7 +27,9 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.swt.widgets.Display;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.TestName;
 import org.junit.runner.RunWith;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.Ooaofooa;
@@ -36,6 +38,12 @@ import org.xtuml.bp.ui.canvas.Ooaofgraphics;
 
 @RunWith(OrderedRunner.class)
 public class PkgCMDeleteTestGenerics extends DeleteTest {
+
+	@Rule public TestName name = new TestName();
+	
+	public String getName(){
+		return name.getMethodName();
+	}
 
     protected static       String projectName="MultiLevelModelSystem";
     protected static boolean firstTime = false;

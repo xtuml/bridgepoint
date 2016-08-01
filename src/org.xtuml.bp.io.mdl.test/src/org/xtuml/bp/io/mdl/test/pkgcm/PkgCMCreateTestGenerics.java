@@ -25,7 +25,9 @@ package org.xtuml.bp.io.mdl.test.pkgcm;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.TestName;
 import org.junit.runner.RunWith;
 import org.xtuml.bp.core.Attribute_c;
 import org.xtuml.bp.core.ModelClass_c;
@@ -37,6 +39,12 @@ import org.xtuml.bp.test.common.OrderedRunner;
 
 @RunWith(OrderedRunner.class)
 public class PkgCMCreateTestGenerics extends CreateTest {
+
+	@Rule public TestName name = new TestName();
+	
+	public String getName(){
+		return name.getMethodName();
+	}
 
     protected static String projectName = "MultiLevelModelSystem";
 

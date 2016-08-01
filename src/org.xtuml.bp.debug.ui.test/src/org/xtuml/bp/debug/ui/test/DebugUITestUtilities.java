@@ -777,7 +777,7 @@ public class DebugUITestUtilities {
 									if ( len  != 0){
 										for (int k = 0; k < treeItems.length; k++) {
 											String text = treeItems[k].getText();
-											if ( text == "" ){
+											if ( text.equals("") ){
 												continue outer;
 											}
 										}

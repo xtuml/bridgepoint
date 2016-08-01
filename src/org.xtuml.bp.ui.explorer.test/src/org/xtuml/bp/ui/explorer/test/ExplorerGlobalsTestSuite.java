@@ -1,8 +1,6 @@
 //=====================================================================
 //
-//File:      $RCSfile: ExplorerGlobalsTestSuite.java,v $
-//Version:   $Revision: 1.3 $
-//Modified:  $Date: 2013/01/10 23:19:40 $
+//File:      ExplorerGlobalsTestSuite.java
 //
 //(c) Copyright 2004-2014 by Mentor Graphics Corp. All rights reserved.
 //
@@ -25,7 +23,6 @@ package org.xtuml.bp.ui.explorer.test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
-import junit.framework.Test;
 import junit.framework.TestSuite;
 
 
@@ -41,13 +38,5 @@ import junit.framework.TestSuite;
 	AlphaSortingTest.class
 })
 public class ExplorerGlobalsTestSuite extends TestSuite {
-
-    /**
-     * Returns the suite.  This is required to
-     * use the JUnit Launcher.
-     */
-    public static Test suite() {
-        return new ExplorerGlobalsTestSuite();
-    }
     
 }

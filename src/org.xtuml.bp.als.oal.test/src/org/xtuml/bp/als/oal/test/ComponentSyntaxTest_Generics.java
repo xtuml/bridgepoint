@@ -415,7 +415,7 @@ public class ComponentSyntaxTest_Generics extends BaseTest {
 		assertTrue("Test component not found: Good Syntax", comp != null);
 		ModelClass_c modelClass = null;
 		parser.m_oal_context = new Oal_validate(comp);
-		if (componentName == "Good Syntax") {
+		if (componentName.equals("Good Syntax")) {
 			class ModelClassNameTest implements ClassQueryInterface_c {
 				public boolean evaluate(Object candidate) {
 					ModelClass_c selected = (ModelClass_c) candidate;

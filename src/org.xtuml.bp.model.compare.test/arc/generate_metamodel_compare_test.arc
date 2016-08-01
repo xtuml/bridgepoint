@@ -77,7 +77,12 @@ public class ModelComparisonTests extends BaseTest {
 
 	private static String modifyString = "_modified";
 	
-		@Override
+	@Before
+	public void setUp() throws Exception {
+		super.setUp();
+	}
+
+	@Override
 	public void initialSetup() throws CoreException, IOException {
 		// load test model 
 		WorkspaceUtil.setAutobuilding(false);
@@ -100,6 +105,12 @@ public class ModelComparisonTests extends BaseTest {
 				..getPersistableComponent();
 		sys_comp.loadComponentAndChildren(new NullProgressMonitor());
 	}
+	
+	@After
+	public void tearDown() throws Exception {
+		super.tearDown();
+	}
+		
 	
 .end function
 .function generate_helper_methods

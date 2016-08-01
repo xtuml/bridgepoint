@@ -103,6 +103,7 @@ import org.xtuml.bp.core.StateEventMatrixEntry_c;
 import org.xtuml.bp.core.StateMachineState_c;
 import org.xtuml.bp.core.StateMachine_c;
 import org.xtuml.bp.core.StructuredDataType_c;
+import org.xtuml.bp.core.SubtypeSupertypeAssociation_c;
 import org.xtuml.bp.core.SynchronousMessage_c;
 import org.xtuml.bp.core.SystemModel_c;
 import org.xtuml.bp.core.TimeSpan_c;
@@ -1736,7 +1737,7 @@ private static String s_invoke(
 				result = target.getClass().getMethod(methodName, argTypes);
 			}
 		} catch (NoSuchMethodException e) {
-			// TODO BOB FIXME: I am ignoring all ClientNotFound operations right now because
+			// TODO: ClientNotFound operations are ignored right now because
 			//                 OAL added in operations made inside GD_ARS.Reconcile are being made
 			//                 against items that are not present. These are not fatal though, 
 			//                 and they are causing too much "noise". This does need to be
@@ -1784,8 +1785,16 @@ public static Object doMethod (Method m, Object target, Object[] args)
         CanvasPlugin.logError(
                  "Client method, " + m.getName() + " cannot be accessed: ", e);
       } catch (InvocationTargetException e) {
-        CanvasPlugin.logError(
-                 "Client method, " + m.getName() + " is illegal target: ", e);
+			// TODO: ClientNotFound operations are ignored right now because
+			//                 OAL added in operations made inside GD_ARS.Reconcile are being made
+			//                 against items that are not present. These are not fatal though, 
+			//                 and they are causing too much "noise". This does need to be
+			//                 put back into place and resolved by not making calls that are 
+			//                 not needed, but right now attempts to do that cause this that
+			//                 do need to be called to not get called and it is not worth chasing 
+			//                 right now.
+//        CanvasPlugin.logError(
+//                 "Client method, " + m.getName() + " is illegal target: ", e);
       }
     return null;
   }
@@ -2103,15 +2112,44 @@ public static void Settoolbarstate(boolean readonly) {
     	return isReflexive;
     }
     
-    public static Boolean Isooalinkedassocinstance(final Object connectorInstance) {
+    /**
+     * This return true if the given connector instance is a type that is connected to another
+     * connector (a line) as opposed to being connected to a shape.
+     * 
+     * @param connectorInstance
+     * @return
+     */
+    public static Boolean Isconnectedtoline(final Object connectorInstance) {
     	Boolean result = false;
     	if (connectorInstance instanceof Association_c) {
     		LinkedAssociation_c linkedAssoc = LinkedAssociation_c.getOneR_ASSOCOnR206((Association_c)connectorInstance);    		
     		if (linkedAssoc != null) {
     			result = true;
+    		} else {
+        		SubtypeSupertypeAssociation_c subSuperdAssoc = SubtypeSupertypeAssociation_c.getOneR_SUBSUPOnR206((Association_c)connectorInstance);    		
+        		if (subSuperdAssoc != null) {
+        			result = true;
+        		}
     		}
     	}
     	return result;
     }
+    
+    /**
+     * If the element passed in is a ClassAsSubtype_c (R_SUB) instance then return the associated 
+     * ClassAsSuperType (R_SUPER) instance.
+     * 
+     * @param connectorInstance
+     * @return
+     */
+	public static Object Getr_relfromsubtype(final Object connectorInstance) {
+		Object result = null;
+		if (connectorInstance instanceof ClassAsSubtype_c) {
+			result = Association_c.getOneR_RELOnR206(
+					SubtypeSupertypeAssociation_c.getOneR_SUBSUPOnR213((ClassAsSubtype_c) connectorInstance));
+		}
+
+		return result;
+	}
         
 }// End Cl_c

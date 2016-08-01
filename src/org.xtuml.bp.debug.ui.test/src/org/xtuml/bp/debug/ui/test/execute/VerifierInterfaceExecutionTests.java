@@ -1753,7 +1753,7 @@ public class VerifierInterfaceExecutionTests extends BaseTest {
 		
 		// verify the return
 		String result = DebugUITestUtilities.getValueForVariable("result");
-		if(result == "")
+		if(result.equals(""))
 		{
 			int x =  5000;
 			while (--x>0)
