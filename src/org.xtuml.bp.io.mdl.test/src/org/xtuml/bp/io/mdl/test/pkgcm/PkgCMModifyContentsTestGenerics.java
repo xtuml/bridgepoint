@@ -44,6 +44,10 @@ public class PkgCMModifyContentsTestGenerics extends ModifyContentsTest {
 
 	@Rule public TestName name = new TestName();
 	
+	public String getName(){
+		return name.getMethodName();
+	}
+	
     protected static String mdlClassUnderTest = "X";
 
     protected static String dtpUnderTest = "SubDataTypes";

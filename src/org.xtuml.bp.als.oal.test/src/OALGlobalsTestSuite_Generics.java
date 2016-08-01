@@ -81,7 +81,6 @@ import junit.framework.TestSuite;
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
 	
-	ParseErrorForEmptySynchronousMessagesTests.class,
 	OalParserGlobalsTest_Generics.class,
 	OalParserTest_Generics.class,
 	TestArray_Generics.class,
@@ -130,6 +129,7 @@ import junit.framework.TestSuite;
 	TestConstant_Generics.class,
 	TestAllowInterfaceNameInICMsg_Generics.class,
 	PolyEventTest.class,
+	ParseErrorForEmptySynchronousMessagesTests.class,
 	SupportConstantsViaIPRTests.class,
 })
 public class OALGlobalsTestSuite_Generics extends TestSuite {

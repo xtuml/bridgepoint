@@ -265,6 +265,22 @@ public abstract class NonRootModelElement extends ModelElement implements IAdapt
 		}
 	}
     
+	/**
+	 * Return this element's associated PE_PE or null if this is not
+	 * a PE_PE. This takes advantage of the instance list to avoid
+	 * the need to know the specific type of element this is as would be required
+	 * to get this information via PE_PE.getOnePE_PEOnR8001(<specific type>)
+	 */
+	public PackageableElement_c getPE() {
+		InstanceList instances = getModelRoot().getInstanceList(PackageableElement_c.class);
+		PackageableElement_c result = (PackageableElement_c)instances.get(this.Get_ooa_id());
+		if ( result == null ) {
+			instances = getParentRoot().getInstanceList(PackageableElement_c.class);
+		    result = (PackageableElement_c)instances.get(this.Get_ooa_id());
+		}
+		return result;
+	}
+	
 	private int getElementType() {
 		PackageableElement_c pe = PackageableElement_c.getOnePE_PEOnR8000(getFirstParentPackage());
 		if(pe == null) {
@@ -481,6 +497,7 @@ public abstract class NonRootModelElement extends ModelElement implements IAdapt
     public void setComponent(PersistableModelComponent aComponent){
     	setComponent(aComponent, true);
     }
+    
     public void setComponent(PersistableModelComponent aComponent, boolean resetRoot){
     	// do not set the component for clipboard root elements
     	if(getModelRoot().getId().equals(Ooaofooa.CLIPBOARD_MODEL_ROOT_NAME)) return;

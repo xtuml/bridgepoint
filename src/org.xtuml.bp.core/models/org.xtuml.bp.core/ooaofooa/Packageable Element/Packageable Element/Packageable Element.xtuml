@@ -117,6 +117,11 @@ if not_empty ee
   unrelate ee from self across R8001;
   ee.dispose();
 end if;
+select one exp related by self->S_EXP[R8001];
+if not_empty exp
+  unrelate exp from self across R8001;
+  exp.dispose();
+end if;
 select one sat related by self->C_SF[R8001];
 if not_empty sat
   unrelate sat from self across R8001;
@@ -867,6 +872,12 @@ INSERT INTO O_TFR
 	1,
 	'select one package related by self->EP_PKG[R8000];
 select one component related by self->C_C[R8003];
+// If this is a system package this is the "orginating package" for this query.
+// Note that in this case, package.collectVisibleElementsForName ends-up calling
+// system.collectVisibleElementsForName to iterate over all packages in the system
+if (empty component and empty package)
+  select one package related by self->EP_PKG[R8001];
+end if;
 if not_empty component
   component.clearScope();
   component.collectVisibleElementsForName(name:"",
@@ -874,7 +885,7 @@ if not_empty component
                        originatingContainerID:component.Id,
                               delegatingContainerID:GD::NULL_UNIQUE_ID(),
                                                          collectGlobally:true);
-else
+elif (not_empty package)
   package.clearScope();
   package.collectVisibleElementsForName(name:"",
            type:param.type, descending:false,

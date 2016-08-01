@@ -67,7 +67,6 @@ public abstract class CoreImport implements IModelImport {
     protected boolean m_templateFile;
 
     protected NonRootModelElement rootModelElement = null;
-    public static boolean createUniqueIds = true;
 
     /**
      * The version string found in BP SQL model files.
@@ -256,7 +255,7 @@ public abstract class CoreImport implements IModelImport {
             SqlParser parser = new SqlParser(lexer, m_modelRoot, this);
             // Parse the input expression
             parser.sql_file(pm);
-            if (parser.m_output != "") //$NON-NLS-1$
+            if (!parser.m_output.isEmpty())
             {
                 m_errorMessage = parser.m_output;
                 pm.done();

@@ -1238,9 +1238,7 @@ endWidth = 2;
 endHeight = 2;
 
 select any endElementGE related by self->GD_GE[R1] where (selected.elementId == param.endingGD_GEId);
-if (empty endElementGE)
-  select any endElementGE related by sourceSpec->GD_GE[R10];
-end if;
+
 
 select one endElement related by endElementGE->GD_SHP[R2]->DIM_ND[R19]->DIM_GE[R301];
 // if it is not a shape see if it is a connector

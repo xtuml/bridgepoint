@@ -102,7 +102,6 @@ public class MergeWorkbenchAdvisor extends BPCLIWorkbenchAdvisor {
 					"r");
 			byte[] leftBytes = new byte[(int) left.length()];
 			left.read(leftBytes);
-			CoreImport.createUniqueIds = false;
 			IModelImport leftImporter = streamImportFactory.create(
 					new ByteArrayInputStream(leftBytes), leftCompareRoot, true,
 					new Path(""));

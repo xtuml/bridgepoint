@@ -741,7 +741,7 @@ ${setSize.body}
                 	}
                 }
                 helper.addPortReferenceInstances(loadedInstances);
-                if(createUniqueIds) {                
+
 	                // then for every loaded instance update
 	                // any unique id UUID value
 	                for (int i = 0; i < loadedInstances.size(); i++) {
@@ -786,7 +786,6 @@ ${setSize.body}
 	                        ges[i].setOoa_id(newId);
 	                    }
 	                }
-	           }
         .else
         helper.importPreBP7_1LineSegments();
         helper.importPreBP7_1Connectors();
@@ -794,7 +793,7 @@ ${setSize.body}
         if((!actualVersion.equals("7.1.2")) && (!actualVersion.equals("7.1.3")))
             helper.createAnchorsOnSegmentsForPre7_1_2Connectors();
         .end if
-    .if(setComponent or (not multilevel and not setComponent))
+    .if(setComponent or ((not multilevel) and (not setComponent)))
       .if ( multilevel )
         PersistableModelComponent parentComp = m_component.getParent();
         SystemModel_c parent = null;

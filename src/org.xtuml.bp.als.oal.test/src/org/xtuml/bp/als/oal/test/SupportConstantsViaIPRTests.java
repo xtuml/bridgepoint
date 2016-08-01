@@ -31,6 +31,8 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Platform;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.osgi.framework.Bundle;
@@ -45,11 +47,26 @@ import org.xtuml.bp.test.common.OrderedRunner;
 
 @RunWith(OrderedRunner.class)
 public class SupportConstantsViaIPRTests extends BaseTest {
-	String projectName = "Constant_Project";
+	static private String projectName = "Constant_Project";
+	static private boolean initialized = false;
 
+	public SupportConstantsViaIPRTests() throws Exception {
+		super(null, null);
+	}
+	
 	@Override
-	public void initialSetup() throws Exception {
-		loadProject(projectName);
+	@Before
+	public void setUp() throws Exception {
+		super.setUp();
+		if (!initialized){
+			loadProject(projectName);
+			initialized = true;
+		}
+	}
+
+	@After
+	public void tearDown() throws Exception {
+		super.tearDown();
 	}
 
 	@Test

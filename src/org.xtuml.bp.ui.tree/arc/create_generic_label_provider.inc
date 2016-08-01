@@ -83,8 +83,6 @@ public class ${provider_name} extends LabelProvider {
    * @see ILabelProvider#getImage(Object)
    */
   public Image getImage(Object element) {
-    .select any domain_class from instances of O_OBJ where (selected.Key_Lett == "S_DOM")
-    .invoke ncn = get_class_name(domain_class)
     return CorePlugin.getImageFor(element);
     }
   /**

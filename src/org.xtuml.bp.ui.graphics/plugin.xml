@@ -75,8 +75,10 @@
        					the graphical data properly represents the actual
        					ooaofooa model elements.
 				
-               	targetSymbol:	This is the name is the "name" of the target model 
-               					element type to reconcile
+               	targetSymbol:	        This is the name is the "name" of the target model 
+               					element type to reconcile (this corresponds to R30 in the model)
+                sourceSymbol:           This is the name of the model element type used as a "template" to reconcile
+                                                the target symbol (this corresponds to R31 in the model).
                	Bridge_NumElements:	This is the name of the operation, found in the ooaofooa 
                					container we are reconciling , that is used to find out home
                					many of this type of targetSymbol exist in the container.
@@ -614,6 +616,21 @@
             <dependsOn
                   class="org.xtuml.bp.core.SupplementalDataItems_c">
             </dependsOn>
+         </symbol>
+         <symbol
+               class="org.xtuml.bp.core.Exception_c"
+               createMethod="Newexception"
+               defaultHeight="150"
+               defaultWidth="200"
+               elemType="org.xtuml.bp.ui.canvas.Ooatype_c.Exception"
+               icon="newexp.gif"
+               name="Exception"
+               symbolType="shape">
+            <color
+                  b="255"
+                  g="255"
+                  r="255">
+            </color>
          </symbol>
          <symbol
                class="org.xtuml.bp.core.CoreDataType_c"
@@ -2460,6 +2477,7 @@
             <validSymbol name="Constant Specification" 	tool_category="Types"/>
             <validSymbol name="Structured Data Type" 	tool_category="Types"/>
             <validSymbol name="Enumeration Data Type" 	tool_category="Types"/>            
+            <validSymbol name="Exception" 			tool_category="Exceptions"/>
             <validSymbol name="External Entity" 		tool_category="External" class="org.xtuml.bp.core.ExternalEntity_c"/>
             <validSymbol name="Class" 					tool_category="Classes"/>
             <validSymbol name="Imported Class" 			tool_category="Classes"/>
@@ -2555,6 +2573,12 @@
                
                class="org.xtuml.bp.core.Component_c"/>     
             <autoReconcile
+               targetSymbol="Component Container"
+               Bridge_NumElements="Getcomponentcount"
+               Bridge_GetElementID="Getcomponentid"
+               
+               class="org.xtuml.bp.core.Component_c"/>     
+            <autoReconcile
                targetSymbol="Component Reference"
                Bridge_NumElements="Getcomprefcount"
                Bridge_GetElementID="Getcomprefid"
@@ -2590,6 +2614,11 @@
                Bridge_NumElements="Getinstancecount"
                Bridge_GetElementID="Getinstanceid"
                />     
+            <autoReconcile
+               targetSymbol="Exception"
+               Bridge_NumElements="Getexceptioncount"
+               Bridge_GetElementID="Getexceptionid"
+               class="org.xtuml.bp.core.Exception_c" />   
             <autoReconcile
                targetSymbol="External Entity"
                Bridge_NumElements="Geteecount"

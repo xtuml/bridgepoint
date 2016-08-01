@@ -650,7 +650,7 @@ count = -1;
 for each rsub in rSubtypes
   count = count + 1;
   if (count == param.index)
-    id = rsub.Rel_ID;
+    id = rsub.OIR_ID;
     break;
   end if;
 end for; 

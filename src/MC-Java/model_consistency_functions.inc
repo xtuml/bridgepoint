@@ -208,7 +208,7 @@
     .assign actual_value = "Integer.toString( objs${arraynum} ) "
   .end if
     {
-.invoke test_error = create_test_class_error(error_message.body, actual_value, identifier_string, package, object)
+.invoke test_error = create_test_class_error(error_message, actual_value, identifier_string, package, object)
 ${test_error.body}
     }
 .end function
@@ -285,10 +285,10 @@ ${test_error.body}
           Exception e = new Exception();
           ${package.plugin_classname}.logError("${error_message}" ${identifier_string}, e); //$$NON-NLS-1$$
       }
-    .end if
       .else
       System.out.println("${error_message}" ${identifier_string}); //$$NON-NLS-1$$
       .end if
+    .end if
   .end if
       retval = false;
 .end function

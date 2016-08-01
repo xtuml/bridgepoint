@@ -37,18 +37,6 @@ get_user_supplied_binaries ()
         missing_files+="./gen_erate.exe"
     fi
 
-    if [ ! -e  ./vgalaxy8.vr ]; then
-        missing_files+="./vgalaxy8.vr"
-    fi
-
-    if [ ! -e  ./vgal8c.dll ]; then
-        missing_files+="./vgal8c.dll"
-    fi
-
-    if [ ! -e  ./msvcrt.dll ]; then
-        missing_files+="./msvcrt.dll"
-    fi
-
     if [ ! -e  ./mc3020_doc.zip ]; then
         missing_files+="./mc3020_doc.zip"
     fi
@@ -59,6 +47,14 @@ get_user_supplied_binaries ()
 
     if [ ! -e  ./mcmc.exe ]; then
         missing_files+="./mcmc.exe"
+    fi
+    
+    if [ ! -e  ./docgen ]; then
+        missing_files+="./docgen"
+    fi
+    
+    if [ ! -e  ./docgen.exe ]; then
+        missing_files+="./docgen.exe"
     fi
     
     if [ "$missing_files" != "" ]; then
@@ -87,23 +83,15 @@ configure_mcc_src()
     mv ./schema/default-manifest.xml ./
 
     cd $mcc_src/mc3020
-    cp -fp ${git_repo_root}/mc/libTRANS/libTRANS.dll ./bin
     
     cp -fp $user_supplied_files/xtumlmc_build.exe ./bin
     cp -fp $user_supplied_files/gen_erate.exe     ./bin
-    # The following line is just moving the linux generator out of the way so that the
-    # build server still uses the windows generator.  Once we get BP building with the linux
-    # python generator, the following line will not rename the file to .py and build_install_bp.sh should
-    # be modified to remove the copy file handling on gen_erate.py
-    cp -fp $user_supplied_files/gen_erate.pyz     ./bin/gen_erate.py
+    cp -fp $user_supplied_files/gen_erate.pyz     ./bin
     cp -fp $user_supplied_files/mcmc              ./bin
     cp -fp $user_supplied_files/mcmc64            ./bin
     cp -fp $user_supplied_files/mcmc.exe          ./bin
-    cp -fp $user_supplied_files/msvcrt.dll        ./bin
-    cp -fp $user_supplied_files/msvcirt.dll       ./bin
-    cp -fp $user_supplied_files/msvcp60.dll       ./bin
-    cp -fp $user_supplied_files/vgal8c.dll        ./bin
-    cp -fp $user_supplied_files/vgalaxy8.vr       ./bin
+    cp -fp $user_supplied_files/docgen            ./bin
+    cp -fp $user_supplied_files/docgen.exe        ./bin
     
     # Since we're using the plug-in files themselves to build BridgePoint, make sure
     # they are executable and the xtumlmc_build.exe is in the right state (Windows vs. Linux)
@@ -117,6 +105,7 @@ configure_mcc_src()
     chmod a+x ./bin/xtumlmc_build*
 	chmod a+x ./bin/gen_erate*
 	chmod a+x ./bin/mcmc*
+	chmod a+x ./bin/docgen*
     
     cd ${bp_src_dir}
     cp -fp $user_supplied_files/mc3020_doc.zip $mc3020_help/doc.zip
@@ -147,10 +136,12 @@ configure_mcsystemc_src()
     mv ./schema/colors/system.mark ./schema/colors/system.mark.orig
     cat ./schema/colors/system.mark.sysc ./schema/colors/system.mark.orig > ./schema/colors/system.mark
     
-    # We don't want the model-based MC for this version, so remove it
+    # We don't want the model-based MC or docgen for this version, so remove it
     rm -f ./bin/mcmc
     rm -f ./bin/mcmc64
     rm -f ./bin/mcmc.exe
+    rm -f ./bin/docgen
+    rm -f ./bin/docgen.exe
 
     cd $mcsystemc_src/mc3020
     chmod -R g+w .
@@ -172,10 +163,12 @@ configure_mccpp_src()
     rm -rf ./arc/c
     mv ./arc/sysc ./arc/specialized
 
-    # We don't want the model-based MC for this version, so remove it
+    # We don't want the model-based MC or docgen for this version, so remove it
     rm -f ./bin/mcmc
     rm -f ./bin/mcmc64
     rm -f ./bin/mcmc.exe
+    rm -f ./bin/docgen
+    rm -f ./bin/docgen.exe
 
     cd $mccpp_src/mc3020
     chmod -R g+w .
@@ -194,10 +187,12 @@ configure_java_src()
     cd mc3020
     rm -rf ./arc
     
-    # We don't want the model-based MC for this version, so remove it
-    rm -f ./mc3020/bin/mcmc
-    rm -f ./mc3020/bin/mcmc64
-    rm -f ./mc3020/bin/mcmc.exe
+    # We don't want the model-based MC or docgen for this version, so remove it
+    rm -f ./bin/mcmc
+    rm -f ./bin/mcmc64
+    rm -f ./bin/mcmc.exe
+    rm -f ./bin/docgen
+    rm -f ./bin/docgen.exe
 
     cd $mcjava_src/mc3020
     chmod -R g+w .

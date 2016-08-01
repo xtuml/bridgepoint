@@ -30,6 +30,8 @@ import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.part.FileEditorInputFactory;
 import org.xtuml.bp.ui.text.ModelElementID;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import org.xtuml.bp.core.inspector.IModelClassInspector;
 import org.xtuml.bp.core.inspector.ModelInspector;
 
@@ -255,18 +257,8 @@ public class MASLEditorInputFactory extends FileEditorInputFactory{
         IFile file;
 
         // get name
-        String name;
-        if ( ( modelElement instanceof RequiredOperation_c || modelElement instanceof RequiredSignal_c || 
-               modelElement instanceof ProvidedOperation_c || modelElement instanceof ProvidedSignal_c ) &&
-                getParent(getParent(modelElement)) instanceof Port_c ) {
-            name = getParent(getParent(modelElement)).getName() + "_" + modelElement.getName();
-        }
-        else if ( modelElement instanceof Bridge_c && getParent(modelElement) instanceof ExternalEntity_c ) {
-            name = getParent(modelElement).getName() + "_" + modelElement.getName();
-        }
-        else {
-            name = modelElement.getName();
-        }
+        String name = getFileNameForModelElement( modelElement );
+
         IPath path = modelElement.getFile().getFullPath();
         IWorkspaceRoot workspace = ResourcesPlugin.getWorkspace().getRoot();
         IProject project = workspace.getProject( path.segment(0) );
@@ -281,11 +273,92 @@ public class MASLEditorInputFactory extends FileEditorInputFactory{
         return file;
     }
 
-    private NonRootModelElement getParent( NonRootModelElement element ) {
+    public static String getFileNameForModelElement( NonRootModelElement modelElement ) {
+        // get name
+        StringBuilder name = new StringBuilder("");
+        if ( ( modelElement instanceof RequiredOperation_c || modelElement instanceof RequiredSignal_c ||                       // Interface messages
+               modelElement instanceof ProvidedOperation_c || modelElement instanceof ProvidedSignal_c ) &&
+                getParent(getParent(modelElement)) instanceof Port_c ) {
+            // get the executable property for getting signatures
+            NonRootModelElement message = null;
+            if ( modelElement instanceof RequiredOperation_c ) message = InterfaceOperation_c.getOneC_IOOnR4004(ExecutableProperty_c.getOneC_EPOnR4500(RequiredExecutableProperty_c.getOneSPR_REPOnR4502((RequiredOperation_c)modelElement)));
+            else if ( modelElement instanceof RequiredSignal_c ) message = InterfaceSignal_c.getOneC_ASOnR4004(ExecutableProperty_c.getOneC_EPOnR4500(RequiredExecutableProperty_c.getOneSPR_REPOnR4502((RequiredSignal_c)modelElement)));
+            else if ( modelElement instanceof ProvidedOperation_c ) message = InterfaceOperation_c.getOneC_IOOnR4004(ExecutableProperty_c.getOneC_EPOnR4501(ProvidedExecutableProperty_c.getOneSPR_PEPOnR4503((ProvidedOperation_c)modelElement)));
+            else message = InterfaceSignal_c.getOneC_ASOnR4004(ExecutableProperty_c.getOneC_EPOnR4501(ProvidedExecutableProperty_c.getOneSPR_PEPOnR4503((ProvidedSignal_c)modelElement)));
+
+            name.append( getParent(getParent(modelElement)).getName() + "_" + modelElementGetSignature( message, 1 ) );
+        }
+        else if ( modelElement instanceof Bridge_c && getParent(modelElement) instanceof ExternalEntity_c ) {                   // Bridges
+            name.append( getParent(modelElement).getName() + "_" + modelElementGetSignature( modelElement, 1 ) );
+        }
+        else if ( modelElement instanceof StateMachineState_c ) {                                                               // States (do not have signatures)
+            StateMachineState_c sm_state = (StateMachineState_c)modelElement;
+            name.append( sm_state.getName() );
+        }
+        else {                                                                                                                  // Functions, operations, states
+            name.append( modelElementGetSignature( modelElement, 1 ) );
+        }
+
+        // cleanse name
+        int i;
+        while ( (i=name.indexOf(",")) != -1
+             || (i=name.indexOf("(")) != -1
+             || (i=name.indexOf(" ")) != -1 ) {
+            name.setCharAt(i, '_');
+        }
+        while ( (i=name.indexOf(")")) != -1 ) {
+            name.deleteCharAt( i );
+        }
+        while ( (i=name.indexOf("__")) != -1 ) {
+            name.deleteCharAt( i );
+        }
+
+        return name.toString();
+    }
+
+    private static NonRootModelElement getParent( NonRootModelElement element ) {
         if ( element == null ) return null;
         ModelInspector inspector = new ModelInspector();
         IModelClassInspector elementInspector = inspector.getInspector(element.getClass());
         return (NonRootModelElement)elementInspector.getParent(element);
+    }
+
+    private static String modelElementGetSignature( NonRootModelElement modelElement, int flavor ) {
+        // check arg
+        if ( null == modelElement ) return "";
+
+        // look for "Getsignature" method on the class
+        Class elementClass = modelElement.getClass();
+
+        // get the method
+        Method m = null;
+        try {
+            m = elementClass.getMethod( "Getsignature", int.class );
+        } catch ( NoSuchMethodException e ) {
+            System.out.println( e );
+        } catch ( SecurityException e ) {
+            System.out.println( e );
+        }
+
+        // invoke the method
+        if ( m != null ) {
+        	Object ret = null;
+        	try {
+        		ret = m.invoke( modelElement, flavor );
+        	} catch ( IllegalAccessException e) {
+        		System.out.println(e);
+        	} catch ( IllegalArgumentException e) {
+        		System.out.println(e);
+        	} catch ( InvocationTargetException e) {
+        		System.out.println(e);
+        	}
+            if ( ret != null ) {
+                return (String)ret;
+            }
+            else return "";
+        }
+        else return "";
+
     }
 
 }

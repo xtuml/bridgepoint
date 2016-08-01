@@ -1,10 +1,6 @@
 .//=====================================================================
 .//
-.// File:      $RCSfile: chooser_elements_provider.inc,v $
-.// Version:   $Revision: 1.5 $
-.// Modified:  $Date: 2013/01/10 22:54:05 $
-.//
-.// (c) Copyright 2005-2014 by Mentor Graphics Corp. All rights reserved.
+.// File:      chooser_elements_provider.inc
 .//
 .//=====================================================================
 .// Licensed under the Apache License, Version 2.0 (the "License"); you may not
@@ -21,18 +17,17 @@
 .//=====================================================================
 .//
 .// The function declared below is responsible for creating the body
-.// of a method that delivers the list of elemenst to be presented in a chooser.
+.// of a method that delivers the list of elements to be presented in a chooser.
 .//
 .//
 .function generate_chooser_element_function
   .param inst_ref function
   .select one wfl related by function->W_WOF[R2001]
-  .select one cme related by wfl->CME[R2012]
-  .print "Generating chooser element provider for ${cme}"
+  .select any cme from instances of CME where ((selected.Specialism == wfl.Specialism) and (selected.Label == wfl.Label) and (selected.Key_Lett == wfl.Key_Lett))
   .if (not_empty wfl)
       .assign sel_decl = "IStructuredSelection"
       .assign iteration_req = false
-	  .select any class from instances of O_OBJ where selected.Obj_id == 0;
+	  .select any class from instances of O_OBJ where (selected.Obj_id == 0)
 	  .assign elemClass = class
       .select many context_items related by wfl->W_CTI[R2003]
 	  .assign firstContextItemName = ""
@@ -52,8 +47,6 @@ public static ${cn.body}[] getElements(${contextClName.body} v_${firstContextIte
 	  .invoke traversal = get_pe_traversal(elemClass.Key_Lett)
 	  .assign peTraversal = traversal.result
 	  .assign secondaryPETraversal = traversal.result2
-	  .print "${class.Key_Lett} peTraversal: ${peTraversal}"
-	  .print "elemClass: ${elemClass.Key_Lett}"
 	  .if (peTraversal != "")
       PackageableElement_c pe = PackageableElement_c.getOnePE_PEOnR8001(${peTraversal});
 	    .if(secondaryPETraversal != "")
@@ -155,10 +148,7 @@ public static ${cn.body}[] getElements(${contextClName.body} v_${firstContextIte
 						${cn.body}[] elementInstances = ${cn.body}.$r{class_name}Instances(instancesUnderSystem[j]);
 						for (int k = 0; k < elementInstances.length; k++) {
 							${cn.body} elem = elementInstances[k];
-//							if (instancesUnderSystem[j].getInstanceList(
-//									ComponentPackage_c.class).isEmpty()) {
 								elementList.add(elem);
-//							}
 						}
 					}
 				}

@@ -1,0 +1,224 @@
+========================================================================
+
+File:      $RCSfile$
+Version:   $Revision$
+Modified:  $Date$
+
+(c) Copyright 2007-2009 by Mentor Graphics Corp. All rights reserved.
+
+========================================================================
+This document contains information proprietary and confidential to
+Mentor Graphics Corp., and is not for external distribution.
+========================================================================
+
+BridgePoint Project Design Note
+Support data type move capabilities through cut, copy, paste
+
+1. Abstract
+-----------
+This note describes the changes required to support a move capability for data
+types using the current cut, copy, paste infrastructure.
+
+2. History
+----------
+
+3. Document References
+----------------------
+[1] Bugzilla item 3532
+    http://tucson.wv.mentorg.com/bugzilla/show_bug.cgi?id=3532
+[2] Bugzilla item 3531
+    http://tucson.wv.mentorg.com/bugzilla/show_bug.cgi?id=3531
+    
+4. Background
+-------------
+Support for moving data types within the same system has been requested.
+
+5. Analysis
+-----------
+After careful consideration it was determined that the most desirable solution
+for an element move would be through cut, copy, and paste.
+
+In order to support this we need to be able to resolve referring references in
+the destination model, and match them to what was previously referring to the
+same cut, copied element.  This can be done in the same way that we resolve
+referred to elements.  The only data requiered is a proxy entry for the
+referring element.
+
+Once we have the data specified above, we can match a referring element by id.
+If such a match exists in the destination and the match is associated with the
+default element, we will replace the current association with the pasted
+element.  An example of the default element mentioned above is the void data
+type for operations.
+
+For certain elements, scoping comes into play.  In this case we are supporting
+data types and the scoping rules are as follows:
+
+1) If the data type is pasted at the system level, it is available to all
+   elements
+2) If the data type is pasted at the domain level (or formal component level),
+   it is available to only those elements defined in the same domain (formal
+   component)
+
+Generic support for all elements will be completed with [2].
+
+6. Design
+---------
+6.1 Export proxies for referring elements
+
+A referring element is modeled as an R_RGO.  Thus, we need to export R_RGO
+proxies for the S_DT as an R_RTO (model for a referred to element).
+
+Archetype is added which will find all R_RGO instances associated with any
+R_RTO and generate code which will export a proxy for each instance.
+Considering that this work only supports data type moving, a special case is
+added to check that the current element having code generated has the S_DT key
+letters.
+
+6.2 Generate resolve methods for referring elements
+
+A an archetype is created which will generate a method for each possible R_RGO
+associated with an R_RTO.  This archetype is contained in core, and is called
+out in MC-Java.  The generated methods will live in the R_RTO generated class.
+The generated methods will locate a matching element by id, then will associate
+that element with the R_RTO instance as long as the rules stated in 5 are
+followed.
+
+The current stream importer was assigning new id values to all proxies.  This
+breaks the matching capabilities stated above.  No good reason was determined
+for performing this id allocation, therefore the importer is changed to only
+allocate new ids for non-proxy elements.
+
+The code in ModelStreamProcessor.java is updated to locate R_RTO instances in
+the list of imported elements, and call the generated resolve methods if they
+exist.  The call is never made unless an associated R_RGO proxy exists in the
+sream.
+
+For better control of scoping rules, each element which requires scoping must
+have a hand written operation added to the Model Class.  For this work each
+R_RGO has a canReferToDataType operation added which follows the rules described
+in 5.  Note that if such an operation does not exist, then the resolution is
+allowed without any check.
+
+The R_RGO instances that have resolve methods generated are:
+
+Interface Operation
+Property Parameter
+Bridge
+Bridge Parameter
+Function
+Function Parameter
+Structure Member
+User Data Type
+State Machine Event Data Item
+Attribute
+Operation
+Operation Parameter
+Transient Var
+Value
+Variable
+
+6.3 Support lazy loading when traversing R_RTO -> R_RGO
+
+Currently the code in PersistenceManager.java assumes that an R_RTO -> R_RGO
+association is always within the same file structure.  For instance it assumes
+that a data type as an R_RTO is in the hierarchical structure as an interface
+operation.  It uses this assumption to handle Persistable Model Component
+locating.  This code is updated to search the entire hierarchy starting at the
+system level.
+
+7. Design Comments
+------------------
+
+8. Work Required
+----------------
+All work required is specified in the design section.
+
+9. Unit Test
+------------
+
+For each instance listed in 6.2 repeat the following steps:
+
+- Resolvable
+
+  _- Cut the referred to data type
+  _R The element is set to the default type
+  _- Paste the referred to data type into the same location
+  _R The element is set back to the pasted data type
+
+  _- Cut the referred to data type
+  _R The element is set to the default type
+  _- Set the element to a non-default type
+  _- Paste the referred to data type into the same location
+  _R The element is not set back to the pasted data type
+
+For Interface Operation and Property Parameter repeat the following:
+
+- Non-resolvable
+
+  _- Cut the referred to data type
+  _R The element is set to the default type
+  _- Paste the referred to data type in a domain
+  _R The element is left at the default type
+
+- Resolvable
+
+  _- Cut the referred to data type
+  _R The element is set to the default type
+  _- Paste the referred to data type at the system level
+  _R The element is set back to the pasted data type
+
+For other elements (not Interface Operations or Property Parameters) repeat the
+following:
+
+- Non-resolvable
+
+  _- Cut the referred to data type
+  _R The element is set to the default type
+  _- Paste the referred to data type in a different domain or formal component,
+     then the one which hosts the element
+  _R The element is left at the default type
+  
+- Resolvable (element in formal component)
+
+  _- Cut the referred to data type
+  _R The element is set to the default type
+  _- Paste the referred to data type at the system level
+  _R The element is set back to the pasted data type
+
+  _- Cut the referred to data type
+  _R The element is set to the default type
+  _- Paste the referred to data type into the same formal component
+  _R The element is set back to the pasted data type
+
+- Resolvable (element in non-formal component)
+
+  _- Cut the referred to data type
+  _R The element is set to the default type
+  _- Paste the referred to data type into the same domain
+  _R The element is set back to the pasted data type
+
+End
+---
+
+$Log$
+Revision 1.2  2009/01/01 23:13:01  rmulvey
+Job:4060
+Batch promotion of copyright changes from Review-i4060 and Review-i4060-01.
+
+Revision 1.1.4.1  2008/12/31 16:10:04  rmulvey
+Job:4060
+This is a batch commit of 2009 copyright changes to branch Review-i4060.  This includes the
+report that outlines all changes made (before/after for each line changed).  This report is found here: <cvs>/Documentation/internal/test_results/R2_1_2/i4060/update-copyright-results.txt.
+
+Revision 1.1  2008/06/06 14:47:19  rmulvey
+Job:3526
+Archived the issues resolved during the R2_0_0 thru R2__0_2 releases into the Documentation/archive/20080606 folder.  Updated the Documentation/archive/20080606/README.tnt note accordingly.
+
+Revision 1.1  2008/05/21 22:44:00  tlondon
+Job: 3532
+
+Introduced.
+
+Revision 1.10  2008/04/07 21:07:54  rmulvey
+Job:3462
+Updated the copyright for 2008.

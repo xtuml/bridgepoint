@@ -96,17 +96,6 @@ public class WelcomePageTestGPS extends TestCase {
 		super();
 	}
 
-//	// enforce ordering of tests in this class
-//	@Test
-//	public void testWelcomePageGPSProject() throws CoreException, Exception {
-//		testProjectCreation();
-//		testNoProjectOverwrite();
-//		testProjectOverwrite();
-//		testImportLoadPersistAndBuild();
-//		testSmartPreBuild();
-//		testExternalEntityDefaults();
-//	}
-
 	public void runGPSGettingStartedAction() {
 		// create and run new instances of GettingStarted for the GPS Watch model
 		SampleProjectGettingStartedAction action = new SampleProjectGettingStartedAction();
@@ -166,6 +155,8 @@ public class WelcomePageTestGPS extends TestCase {
 	@Test
 	public void testProjectCreation() {
 		runGPSGettingStartedAction();
+		
+		TestUtil.selectButtonInDialog(3000, "Yes");
 		runGPSGettingStartedAction();
 
 		// Give the import time to work
@@ -345,18 +336,7 @@ public class WelcomePageTestGPS extends TestCase {
 		if (orphaned.length > 0) {
 			String elements = TreeUtilities.getTextResultForOrphanedElementList(orphaned);
 	        assertTrue("Orphaned elements are present: " + elements, false);			
-		}
-        
-        // TODO: Check the Eclipse build console view
-        
-        // TODO: Check the console view
-
-//		IViewReference[] refs = PlatformUI.getWorkbench()
-//				.getActiveWorkbenchWindow().getActivePage().getViewReferences();
-//		for (int i = 0; i < refs.length; i++) {
-//			System.out.println( refs[i].getId() );
-//		}
-		
+		}		
 	}
 	
 	private void buildProject(final IProject project) throws Exception {

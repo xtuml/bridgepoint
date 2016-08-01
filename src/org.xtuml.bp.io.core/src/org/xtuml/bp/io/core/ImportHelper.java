@@ -165,6 +165,7 @@ import org.xtuml.bp.ui.canvas.Shape_c;
 import org.xtuml.bp.ui.canvas.Waypoint_c;
 import org.xtuml.bp.ui.graphics.commands.CreateConnectionCommand;
 import org.xtuml.bp.ui.text.masl.MASLEditorInput;
+import org.xtuml.bp.ui.text.masl.MASLEditorInputFactory;
 
 /**
  * Holds Java-only methods that were previously specified as part of
@@ -453,7 +454,7 @@ public class ImportHelper
                 // copy the codeblock locations into the descrips of the new formalized provision
                 String description = c_p.getDescrip();
 
-                // parse codeblock mapping (op name, filename)
+                // parse codeblock mapping (op signature, filename)
                 if ( !description.isEmpty() ) {
                     Matcher m = Pattern.compile( "routine:(.*),(codeblock:.*)" ).matcher( description );
                     while ( m.find() ) {
@@ -462,7 +463,12 @@ public class ImportHelper
                         ProvidedExecutableProperty_c[] spr_peps = ProvidedExecutableProperty_c.getManySPR_PEPsOnR4501( c_p );
                         for ( ProvidedExecutableProperty_c spr_pep : spr_peps ) {
                             spr_po = ProvidedOperation_c.getOneSPR_POOnR4503( spr_pep );
-                            if ( spr_po != null && spr_po.getName().equals( m.group(1) ) ) break;
+                            if ( spr_po != null ) {
+                                InterfaceOperation_c c_io = InterfaceOperation_c.getOneC_IOOnR4004(
+                                                            ExecutableProperty_c.getOneC_EPOnR4501(
+                                                            ProvidedExecutableProperty_c.getOneSPR_PEPOnR4503(spr_po)));
+                                if ( c_io.Getsignature(1).equals( m.group(1) ) ) break;
+                            }
                         }
 
                         // put the codeblock in the action semantics field
@@ -565,18 +571,7 @@ public class ImportHelper
                     IFile file;
 
                     // get name
-                    String name;
-                    if ( ( el instanceof RequiredOperation_c || el instanceof RequiredSignal_c ||
-                           el instanceof ProvidedOperation_c || el instanceof ProvidedSignal_c ) &&
-                            getParent(getParent(el)) instanceof Port_c ) {
-                        name = getParent(getParent(el)).getName() + "_" + el.getName();
-                    }
-                    else if ( el instanceof Bridge_c && getParent(el) instanceof ExternalEntity_c ) {
-                        name = getParent(el).getName() + "_" + el.getName();
-                    }
-                    else {
-                        name = el.getName();
-                    }
+                    String name = MASLEditorInputFactory.getFileNameForModelElement( el );
 
                     // find the xtuml file path
                     PersistableModelComponent pmc = el.getPersistableComponent();
@@ -609,14 +604,6 @@ public class ImportHelper
 
             }
         }
-    }
-
-    /** helper function to get parent element of a model element */
-    private NonRootModelElement getParent( NonRootModelElement element ) {
-        if ( element == null ) return null;
-        ModelInspector inspector = new ModelInspector();
-        IModelClassInspector elementInspector = inspector.getInspector(element.getClass());
-        return (NonRootModelElement)elementInspector.getParent(element);
     }
 
     /**

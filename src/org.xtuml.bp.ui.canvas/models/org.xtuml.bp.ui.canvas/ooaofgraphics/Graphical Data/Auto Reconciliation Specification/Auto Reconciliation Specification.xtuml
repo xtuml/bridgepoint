@@ -16,21 +16,25 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
-	'select any model related by self->GD_ES[R29]->GD_EMS[R11]->
-                                                          GD_MS[R11]->GD_MD[R9];
+	'if (param.connectorID == OS::NULL_UNIQUE_ID())
+  return OS::NULL_UNIQUE_ID();
+end if;
 select one spec related by self->GD_ES[R30];
 select many connectors related by  spec->GD_GE[R10]->GD_CON[R2];
 for each connector in connectors
   select one ge related by connector->GD_GE[R2];
-  if (ge.represents == OS::NULL_INSTANCE())
-    ge.represents = CL::getInstanceFromOOA_ID(
+  if (param.look_outside_system or CL::isContainedInSystem( element:ge.represents,
+                                   system_id:param.system_id))
+    if (ge.represents == OS::NULL_INSTANCE())
+      ge.represents = CL::getInstanceFromOOA_ID(
   	                                   rootInst:ge.convertToInstance(),
   	                                   OOA_ID:ge.OOA_ID, 
   	                                   OOA_Type:ge.OOA_Type );
-  end if;
-  id = CL::getOOAId(from:ge.represents);
-  if (id == param.connectorID)
-    return ge.elementId;
+    end if;
+    id = CL::getOOAId(from:ge.represents);
+    if (id == param.connectorID)
+      return ge.elementId;
+    end if;
   end if;
 end for;
 return OS::NULL_UNIQUE_ID();',
@@ -45,6 +49,24 @@ INSERT INTO O_TPARM
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("e778441b-bf81-4f84-8a91-3c13411da5f1",
+	"01e90c90-3e42-4325-9395-f04aa3dcdeec",
+	'system_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"42d98f22-42d8-42d9-bcdb-0c595e38daa3",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("af5f70f3-3af0-497e-a2d3-ae9c3a262a3f",
+	"01e90c90-3e42-4325-9395-f04aa3dcdeec",
+	'look_outside_system',
+	"ba5eda7a-def5-0000-0000-000000000001",
+	0,
+	'',
+	"e778441b-bf81-4f84-8a91-3c13411da5f1",
 	'');
 INSERT INTO O_TFR
 	VALUES ("c02376d4-138e-44c1-8e19-e42d4e5bdff4",
@@ -393,25 +415,23 @@ while (j < connectorCount)
   connectorName = CL::getModelElementName(from:connectorInstance);
 
   // This is used only by the reflexive call, and
-  // the reflive call ends with this block.
+  // the reflexive call ends with this block.
   if (searchingForSide2)
     side2GDGEId=OS::NULL_UNIQUE_ID();
     if ((connectorOOAId == param.connector_ooa_id_to_find))
       if (graphicalElement.represents != param.shape_ooa_instance_to_find)
         // if pass 3 then we are only here if shape_ooa_instance_to_find is the 
-        // ClassInLink. Since we are here looking for the other side, the 
-		// other side in this case will be one of the 2 classes in the linked
-        // association. If this is the case then we need to return the GD_GE
+        // ClassInLink or Subtype. If this is the case then we need to return the GD_GE
         // of the connector, not the GD_GE of the shape
-        if (param.passNumber == 3 and CL::isOOALinkedAssocInstance(connectorOOAInstance:connectorInstance))
-          select any linkedAssocGDGEInstance related by model->GD_GE[R1] where selected.represents==connectorInstance;
-          if (not empty linkedAssocGDGEInstance)
-            side2GDGEId = linkedAssocGDGEInstance.elementId;
+        if (param.passNumber == 3 and CL::isConnectedToLine(connectorOOAInstance:connectorInstance) )
+          select any connectorGDGEInstance related by model->GD_GE[R1] where selected.represents==connectorInstance;
+          if (not empty connectorGDGEInstance)
+            side2GDGEId = connectorGDGEInstance.elementId;
           else
-				// Given this ooaoaoof id find the GD_GE of this assocation
+				// Given this ooaofooa id find the GD_GE of this assocation
           		// See the note above. The GD_GE for this must have already
           		// been created. If not this will fail.             
-          		CL::logError(message:"Failed to find the GD_GE instance for Linked Association (" + 
+          		CL::logError(message:"Failed to find the GD_GE instance for Linked Association or Subtype (" + 
             			CL::getModelElementName(from:graphicalElement.represents) + 
             			"::" + 
             			CL::getModelElementName(from:connectorInstance) +
@@ -428,7 +448,17 @@ while (j < connectorCount)
         if (isReflexive) 
           side2GDGEId = param.element_id;      
         end if;        
-        
+        // If this is a subtype then the connectorInstance is of type ClassAsSubtype_c
+        if (side2GDGEId == OS::NULL_UNIQUE_ID())
+          superTypeOOAInstance = CL::getR_RELFromSubtype(nrme:connectorInstance);
+          if (superTypeOOAInstance != OS::NULL_INSTANCE())
+            // find the GD_GE of associated with the R_SUPER ooaofooa instance
+            select any connectorGDGEInstance related by model->GD_GE[R1] where selected.represents==superTypeOOAInstance;
+            if (not empty connectorGDGEInstance)
+              side2GDGEId = connectorGDGEInstance.elementId;
+            end if;
+          end if;
+        end if;
       end if;
       if (side2GDGEId != OS::NULL_UNIQUE_ID())
         return side2GDGEId;
@@ -458,14 +488,14 @@ while (j < connectorCount)
 	  else // exhauseively search for the other side
         select many shapes related by model->GD_GE[R1];
         for each shapeInPackage in shapes
-          // Get all the conenctor reconciliation specs for this shape type
+          // Get all the connector reconciliation specs for this shape type
           select many shapeARSInstances related by shapeInPackage->GD_ES[R10]->GD_ARS[R30]->GD_ES[R31]->GD_ARS[R29];
           for each shapeARSInstance in shapeARSInstances
             select one connectorSpec related  by shapeARSInstance->GD_ES[R31];
             if  (connectorSpec.symbolType=="connector")
               if (not empty connectorSpec)
-                // The Class As Link is only handled during the last pass after the other connectors have been created
-                if (param.passNumber!=3 and shapeARSInstance.Bridge_NumElements=="Getclassaslinkcount")
+                // The Class As Link and subtype are only handled during the last pass after the other connectors have been created
+                if (param.passNumber!=3 and (shapeARSInstance.Bridge_NumElements=="Getclassaslinkcount" or shapeARSInstance.Bridge_NumElements=="Getsubtypecount"))
                   continue;
                 end if;
                 side2_GD_GEId = shapeARSInstance.reconcileConnectorsNoExistingGraphics(diagram_id:model.diagramId, 
@@ -532,6 +562,10 @@ while (j < connectorCount)
                                     rootInst: model.represents,
                                     OOA_ID: newConnector.OOA_ID,
                                     OOA_Type: newConnector.OOA_Type );
+      if (newConnector.represents == OS::NULL_INSTANCE())
+        // log an error it makes no sense that we would not be able to find the ooaofooa instance at this point
+        CL::logError(message:"Failed to find the ooaofooa instance during graphics reconciliation.  ooaofooa id: " + OS::uniqueIdToString(id:newConnector.OOA_ID) + "  ooaofooa type: " + OS::ooaTypeToString(id:newConnector.OOA_Type));
+      end if;
       unrelate sourceSpec from newConnector across R16;
     end if;
   end if;
@@ -722,14 +756,21 @@ if( CL::isContainedInSystem(element:graphicalElement.represents, system_id:param
           continue;
         end if;
 
+        // templateConId is a connector ID that serves as a template to reconcile against
+        // in the case of an imported interface reference, the template ID is the ID of the 
+        // real interface reference. This connector does not get created, but merely aids in
+        // the creation of the new connector. An interface reference dictates the relative 
+        // position and orientation of a new imported interface reference that is created.
   	    templateConId = CL::getConnectorID(from:graphicalElement.represents,
                    index:j, elementTypesMatch:sourceSpec == targetSpec,
                                               using:self.Bridge_GetConnectorIDConditional);
+        look_outside_system = true;
   	    if templateConId == OS::NULL_UNIQUE_ID()
   	      templateConId = connectorId;
+          look_outside_system = false;
   	    end if;
   	    
-  	    conID = self.findConnector(connectorID:templateConId);
+  	    conID = self.findConnector(connectorID:templateConId, system_id:param.system_id, look_outside_system:look_outside_system);
   	    select one model related by graphicalElement->GD_MD[R1];
         if (empty model)
           msg = " GD_GE.diagramId: " + OS::uniqueIdToString(id:graphicalElement.diagramId) + 
@@ -1055,13 +1096,14 @@ while (i < numRoots)
             if  (connectorSpec.symbolType=="connector")
               if (not empty connectorSpec)
                 if (param.passNumber==2)
-                  if (shapeARSInstance.Bridge_NumElements=="Getclassaslinkcount")
-                    // We can''t create this until we get the association between the 2 linked class drawn
+                  // We can''t create these until we get the association between the 2 linked classes drawn / the supertype
+                  if (shapeARSInstance.Bridge_NumElements=="Getclassaslinkcount" or shapeARSInstance.Bridge_NumElements=="Getsubtypecount")
                     continue;
                   end if;
+                  
                 elif (param.passNumber==3)
-                  if (shapeARSInstance.Bridge_NumElements!="Getclassaslinkcount")
-                    // We only need to create the associative link drawn in this pass.
+                    // We only need to create the associative link drawn and subtypes in this pass.
+                  if (shapeARSInstance.Bridge_NumElements!="Getclassaslinkcount" and shapeARSInstance.Bridge_NumElements!="Getsubtypecount")
                     continue;
                   end if;
                   

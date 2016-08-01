@@ -24,7 +24,9 @@ package org.xtuml.bp.io.mdl.test.pkgcm;
 
 import org.eclipse.core.runtime.CoreException;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.TestName;
 import org.junit.runner.RunWith;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.Ooaofooa;
@@ -33,6 +35,12 @@ import org.xtuml.bp.ui.canvas.Ooaofgraphics;
 
 @RunWith(OrderedRunner.class)
 public class PkgCMModifyRelationTestGenerics extends ModifyRelationTest {
+
+	@Rule public TestName name = new TestName();
+	
+	public String getName(){
+		return name.getMethodName();
+	}
 
     protected static String projectName = "MultiLevelModelSystem";
 

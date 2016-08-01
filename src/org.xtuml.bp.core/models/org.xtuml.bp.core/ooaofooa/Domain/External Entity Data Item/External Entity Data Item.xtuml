@@ -26,6 +26,28 @@ delete object instance self;',
 	1,
 	'',
 	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_TFR
+	VALUES ("f4fcc00a-a92c-4f45-9078-cb16663cd916",
+	"a88f50c7-5695-415c-a7b8-24466cfb1378",
+	'convertToInstance',
+	'A utility operation to cast an instance of this type to the
+instance datatype.
+
+Translate: native',
+	"bc3722c8-5188-4529-8519-cf9eb9816b17",
+	1,
+	'// just return this instance as an Object
+return this;',
+	0,
+	'',
+	"20b23a2b-654e-4ba9-9d3b-557971d7052e");
+INSERT INTO S_DT_PROXY
+	VALUES ("bc3722c8-5188-4529-8519-cf9eb9816b17",
+	"00000000-0000-0000-0000-000000000000",
+	'instance',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_NBATTR
 	VALUES ("dcda0fda-3da4-4f8f-82a1-9875221507a7",
 	"a88f50c7-5695-415c-a7b8-24466cfb1378");

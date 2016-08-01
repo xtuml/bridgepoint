@@ -58,7 +58,7 @@ public class ExplorerPasteAction extends PasteAction {
 	}
 
 	@Override
-	public void runSubtypeProcessing(NonRootModelElement destination) {
+	public void processGraphics(NonRootModelElement destination) {
 		// move graphical data if present
 		Class<?> canvasPasteActionClass = OoaofgraphicsUtil
 				.getCanvasPasteActionClass();
@@ -81,38 +81,9 @@ public class ExplorerPasteAction extends PasteAction {
 		}
 	}
 
-	private boolean clipboardCanBePastedIntoSelection() {
-		Clipboard cb = CorePlugin.getSystemClipboard();
-		if(cb == null || cb.isDisposed()) return false;
-		boolean result = true;
-		Object contents = cb
-				.getContents(TextTransfer.getInstance());
-		for(NonRootModelElement destination : getDestinations()) {
-			if (contents instanceof String) {
-				String types[] = getClipboardTypes((String) contents, destination);
-				for (int i = 0; i < types.length; i++) {
-					result = CoreUtil.supportsPaste(destination, types[i], true);
-					if(!result)
-						break;
-				}
-				if(types.length == 0)
-					result = false;
-				if(!result) {
-					return false;
-				}
-			} else {
-				result = false;
-			}
-		}
-		return result;
-	}
-
 	@Override
-	public boolean isEnabled() {
-		if(!super.isEnabled()) {
-			return false;
-		}
-		return clipboardCanBePastedIntoSelection();
+	protected boolean supportsPaste(Object target, String child) {
+		return CoreUtil.supportsPaste(target, child, true);
 	}
 	
 }
