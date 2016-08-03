@@ -82,7 +82,7 @@ public class BridgePointProjectReferencesPreferences extends
 		allowIPRClasses = new Button(
 				iprUsageGroup, SWT.CHECK | SWT.LEFT);
 		allowIPRClasses
-				.setText("Allow class access via IPR");
+				.setText("Allow class and function access via IPR");
 		GridData childData = new GridData();
 		childData.horizontalIndent = 20;
 		childData.horizontalSpan = 2;
