@@ -316,14 +316,17 @@ INSERT INTO O_TFR
     // collect visible classes, and return true if any
     // are available
     if(not_empty package)
+      select one sys related by package->S_SYS[R1405];
       // should never be empty until we support
       // classes directly on the component diagram
+      allowIPRClasses = PREF::getSystemBoolean(systemName:sys.Name,
+                     name:"bp.project.class_references");
       package.clearScope();
       package.collectVisibleElementsForName(name:"",
                          type:ElementTypeConstants::CLASS, descending:false,
                                       originatingContainerID:package.Package_ID,
                                           delegatingPkgID:GD::NULL_UNIQUE_ID(),
-                                                         collectGlobally:true);
+                                                         collectGlobally:allowIPRClasses);
       select many srs related by package->PE_SRS[R8005]
                            where (selected.Type == ElementTypeConstants::CLASS);
       select many pes related by srs->PE_VIS[R8006]->PE_PE[R8002];
