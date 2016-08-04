@@ -71,11 +71,13 @@ for the next phase (2.2).
   functions.  This parameter is replaced with a preference check for the new
   preference that determines if we shall check other projects via IPR or not.   
 5.2.1  The following functions are modified: 
- ```Object_keyletters_validate
-    Relationship_validate
-    Identifier_validate
-    Invocation_function_validate
-    Function_function_validate```
+ ```
+ Object_keyletters_validate
+ Relationship_validate
+ Identifier_validate
+ Invocation_function_validate
+ Function_function_validate
+ ```
 
 5.3 Imported Class assignments  
 5.3.1  Update Imported Class (O_IOBJ) ```actionFilter``` OAL operation to check 
