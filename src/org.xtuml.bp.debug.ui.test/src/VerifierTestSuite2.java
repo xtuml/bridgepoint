@@ -42,9 +42,10 @@ import junit.framework.TestSuite;
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
 	GlobalTestSetupClass.class,
-	VerifierMessageTestGlobals.class,
-	RealizedClassRelaunchTest.class,
-	DLLRelaunchTest.class,
+	// These are disabled until 8609 is resolved
+//	VerifierMessageTestGlobals.class,
+//	RealizedClassRelaunchTest.class,
+//	DLLRelaunchTest.class,
 	RecursionExecutionTest.class,
 	BlockedComponentExecutionTest.class,
 	VariableViewTests.class,

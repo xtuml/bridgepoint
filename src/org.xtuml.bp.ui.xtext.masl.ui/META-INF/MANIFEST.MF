@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: BridgePoint xText MASL UI
 Bundle-Vendor: xtUML.org
-Bundle-Version: 5.4.0
+Bundle-Version: 5.5.0
 Bundle-SymbolicName: org.xtuml.bp.ui.xtext.masl.ui; singleton:=true
 Bundle-ActivationPolicy: lazy
 Require-Bundle: org.xtuml.bp.ui.xtext.masl,

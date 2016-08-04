@@ -67,9 +67,10 @@ import junit.framework.TestSuite;
 	VerifierLaunchTestSuite.class,
 	VerifierExecuteFragmentTest.class,		
 	VerifierExecuteActionTests.class,
-	RealizedComponentTest.class,
-	VIECTest.class,
-	VIECParameterTest.class,
+	// These are disabled until 8608 is resolved 
+	// RealizedComponentTest.class,
+	// VIECTest.class,
+	// VIECParameterTest.class,
 	SignalParameterPassingTest.class,
 	VerifierInterfaceExecutionTests.class,
 	VerifierTransitionActionTests.class,
