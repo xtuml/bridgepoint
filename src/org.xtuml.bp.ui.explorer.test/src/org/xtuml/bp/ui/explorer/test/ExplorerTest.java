@@ -515,14 +515,10 @@ import org.xtuml.bp.utilities.ui.CanvasUtilities;
 						.getElement()));
 		assertTrue(
 				"Label provider did not return same text for the MultipleOccurrenceElement as it did for the real element.",
-				labelProvider.getText(ele) == labelProvider.getText(ele
-						.getElement()));
+				labelProvider.getText(ele).equals(labelProvider.getText(ele
+						.getElement())));
 		Selection.getInstance().clear();
 		Selection.getInstance().addToSelection(ele);
-		assertTrue(
-				"Unable to find Cut menu item for MultipleOccurrenceElement.",
-				UITestingUtilities.checkItemStatusInContextMenu(menu, "Cut",
-						"", false));
 		assertTrue(
 				"Unable to find Copy menu item for MultipleOccurrenceElement.",
 				UITestingUtilities.checkItemStatusInContextMenu(menu, "Copy",
@@ -656,14 +652,10 @@ import org.xtuml.bp.utilities.ui.CanvasUtilities;
 						.getElement()));
 		assertTrue(
 				"Label provider did not return same text for the MultipleOccurrenceElement as it did for the real element.",
-				labelProvider.getText(ele) == labelProvider.getText(ele
-						.getElement()));
+				labelProvider.getText(ele).equals(labelProvider.getText(ele
+						.getElement())));
 		Selection.getInstance().clear();
 		Selection.getInstance().addToSelection(ele);
-		assertTrue(
-				"Unable to find Cut menu item for MultipleOccurrenceElement.",
-				UITestingUtilities.checkItemStatusInContextMenu(menu, "Cut",
-						"", false));
 		assertTrue(
 				"Unable to find Copy menu item for MultipleOccurrenceElement.",
 				UITestingUtilities.checkItemStatusInContextMenu(menu, "Copy",

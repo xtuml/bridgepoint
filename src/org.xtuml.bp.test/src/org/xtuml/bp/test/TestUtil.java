@@ -758,7 +758,7 @@ public class TestUtil
                 
                 // add the line to the results string we're building
                 if (linesRead > 0) contents.append(lineSeparator);
-                contents.append(line);
+                contents.append(line.trim());
                 
                 linesRead++;
             }

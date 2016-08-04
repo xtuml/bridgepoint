@@ -263,10 +263,18 @@ public class ActionLanguagePreferences
       else {
           bpPrefs.allowInterfaceNameInICMessage = false;
       }
-	  bpPrefs.enableErrorForEmptySynchronousMessage = enableErrorForEmptySynchronousMessage
-			.getSelection();
-	  bpPrefs.enableErrorForEmptySynchronousMessageRealized = enableErrorForEmptySynchronousMessageRealized
-			.getSelection();
+	  if (enableErrorForEmptySynchronousMessage.getSelection()) {
+          bpPrefs.enableErrorForEmptySynchronousMessage = true;
+      }
+      else {
+          bpPrefs.enableErrorForEmptySynchronousMessage = false;
+      }
+	  if (enableErrorForEmptySynchronousMessageRealized.getSelection()) {
+          bpPrefs.enableErrorForEmptySynchronousMessageRealized = true;
+      }
+      else {
+          bpPrefs.enableErrorForEmptySynchronousMessageRealized = false;
+      }
       model.getStore().saveModel(getPreferenceStore(), model);
       return true;
   }

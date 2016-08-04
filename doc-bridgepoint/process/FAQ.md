@@ -23,6 +23,7 @@
     * [How do I run BridgePoint Unit Tests?](https://github.com/xtuml/bridgepoint/blob/master/doc-bridgepoint/process/HOWTO-run-bridgepoint-unit-tests.md)
     * [Common BridgePoint Unit Test Problems](#unittesting)
     * [How do I turn on Tracing/Debugging statements in BridgePoint](#tracing)
+    * [Command Line Build Instructions](#clibuild)
   * [Verifier](#verifier)
     * [What does "Nothing to verify." mean?](#nothingtoverify) 
   * [Model Translation / Model Compilers](#mcs)
@@ -196,7 +197,27 @@ BridgePoint Developer Issues <a id="bpdevelopers"></a>
   
 * **How to turn on Tracing/Debugging statements in BridgePoint** <a id="tracing"></a>
   - Bridgepoint utilizes the Eclipse platform tracing debug facility. There is a very nice [Eclipse tracing FAQ](https://wiki.eclipse.org/FAQ_How_do_I_use_the_platform_debug_tracing_facility) that describes how to use this. A quick example of what you will learn by looking at this [Eclipse tracing FAQ](https://wiki.eclipse.org/FAQ_How_do_I_use_the_platform_debug_tracing_facility) is that you can modify an Eclipse launch configuration, go to the Tracing tab, select the plugin you want to trace/debug, and select the available debug options from there. For example, you can do this for the org.xtuml.bp.core plugin to trace/debug that plugin.
+
+* **Command line Build Instructions** <a id="clibuild"></a>
+  - The instructions in this section describe how to use command line scripts on Linux to build the BridgePoint plug-ins and package them into a full zipfile.  These instructions assume the build area will be under the user home folder.        
+
+  - Set up the build folder
+  ```
+  cd ~
+  mkdir -p build/work
+  cd build/work
+  wget https://raw.githubusercontent.com/xtuml/bridgepoint/master/utilities/build/run_build.sh
+  wget https://raw.githubusercontent.com/xtuml/bridgepoint/master/utilities/build/init_git_repositories.sh
+  chmod 755 *.sh
+  ```   
+
+  -  Once the previous instructions have set up your environment, you can now launch the build repeatedly with a command like the following.  See the header of run_build.sh for descriptions of the arguments.
+  ```
+  nohup ./run_build.sh /home/kbrown/xtuml/BridgePoint/ /home/kbrown/ testing xtuml "" no yes
+  ```   
   
+  This will clone the repositories into `~/build/git` if they do not exist locally, switch to the correct branch to build (here "testing") and run the build and packaging.   After the build is done, you can inspect the build workspace that was used.  Simply launch BridgePoint and choose the workspace (e.g. `/home/kbrown/build/work/testing`)   
+
 Verifer <a id="verifier"></a>
 ------------
 
