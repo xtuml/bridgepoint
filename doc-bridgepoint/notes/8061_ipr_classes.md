@@ -16,7 +16,8 @@ references.
 
 2. Document References
 ----------------------
-<a id="2.1"></a>2.1 [BridgePoint DEI #8061](https://support.onefact.net/issues/8061) TODO: Add description here.  
+<a id="2.1"></a>2.1 [BridgePoint DEI #8061](https://support.onefact.net/issues/8061) Headline issue  
+<a id="2.2"></a>2.2 [BridgePoint DEI #8072](https://support.onefact.net/issues/8072) Imported packages
 
 3. Background
 -------------
@@ -27,6 +28,10 @@ class that lives in another project. This will allow for the creation of
 An imported class assigned via an inter-project reference shall then be treated 
 like a locally-assigned imported class. Create, relate, select, member access 
 shall all work.  
+
+This work is the first step towards greater support in BridgePoint for using 
+imported elements from other "library" projects.  A follow on issue is raised
+for the next phase (2.2).  
 
 4. Requirements
 ---------------
