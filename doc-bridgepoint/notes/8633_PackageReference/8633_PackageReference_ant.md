@@ -31,7 +31,7 @@ allowed classes to be made visible across projects (Inter-Project References
 for classes and functions).  A clever hack was made to the model compiler to
 allow an empty Package to refer to another Package somewhere in the workspace
 (using labels in the `Descrip` fields).  The combination of opened up IPRs
-and hacked Package importing proved power and extremely useful.  A major
+and hacked Package importing proved powerful and extremely useful.  A major
 refactoring of the model compiler models (escher, mcooa, Document, docgen,
 etc.) followed.  The result is cleaner and exhibits strong reuse.
 
@@ -106,15 +106,63 @@ References and the way they are edited.
 -----------
 #### 5.1 Use Case 1  
 Consider a system involving communication.  The model for the communication
-involves classes that define the structure of messages.  The model contains
-state machines the govern the sequencing of sending and receiving these
-messages.  Such class diagrams and state machines need to be used
-5.1.1 Class diagram defined in 
-* Example List Element
+includes classes that define the structure of messages.  The classes contain
+state machines that govern the sequencing of message sending and receiving.
 
-5.2 Item 2  
-5.2.1 Example sub-item
-* Example List Element
+Such class diagrams and state machines need to be (re)used within multiple
+subsystems and configurations of a networked system.  Namely, the _Master_
+and the _Slave_, or two peers on the communication network that have different
+purposes but exchange messages using the same protocol.
+
+5.1.1 xtUML Project _Messaging_  
+Inside Messaging is a package called "Messaging" containing classes
+Message, Header, Payload and Address.  The Message class has a state
+machine that sequences sending and receiving data using a particular
+protocol.  
+5.1.2 xtUML Project _Master_  
+5.1.2.1 Inside Master is a package called "Heart Rate Monitor"
+containing classes such as Sample Rate, Threshold and Display.  
+5.1.2.2 Inside Master is a package called "Deployment" containing
+a component called "Heart Rate Node".  Inside Heart Rate Node are two
+Package References.  The first Package Reference refers to (imports)
+Heart Rate Monitor.  The second Package Reference imports Messaging.
+5.1.3 xtUML Project _Slave_  
+5.1.3.1 Inside Slave is a package called "Data Aquisition" containing
+classes such as Sample, Filter and Buffer.  
+5.1.3.2 Inside Slave is a package called "Deployment" containing
+a component called "Sensor Node".  Inside Sensor Node are two
+Package References.  The first Package Reference imports Data Aqcuisition.
+The second Package Reference imports Messaging.
+
+5.2 User Interface Considerations  
+5.2.1 New Graphical Element  
+The approach proposed in the requirements section assumes and actually
+dictates that no new graphical elements will be introduced.  Such an
+approach is inconsistent with what is currently found with Imported Classes
+(`O_IOBJ`) and Component References (`CL_IC`).  Both of these elements have
+items in the Palette and have (minor) distinctives in their graphical
+representations.
+
+An alternative approach would be to introduce a new glyph in the Palette
+and a distinctive look on the graphical representation of a Package
+Reference.
+
+This approach might clarify some of the user interface actions (such
+as avoiding the placement of model elements inside of a Package Reference).
+But the cost is added graphical complexity.
+
+5.2.2 Fix the Others  
+Another thought is to "fix" what is overly complex with Component
+References and Imported Classes.  Perhaps these could be simplified to
+remove the distinctive graphical elements and changed to be assignments
+of the base element (Component gets assigned as Component Reference,
+and Class gets assigned as Imported Class).  These elements are already
+only minorly distinctive with the fully qualified path being the 
+primary means of discrimination.
+
+While fixing Component Reference and Imported Class, the metamodel
+could also be simplified.  There is a great deal of duplication around
+these reference-oriented model elements.
 
 6. Work Required
 ----------------
@@ -122,22 +170,19 @@ messages.  Such class diagrams and state machines need to be used
 6.1.1 Suggested changes to bp.core/ooaofooa and mcooa/ooaofooa.  
 ![Package Reference](pkgref.png)
 
-6.2 Item 2  
-6.2.1 Example sub-item
-* Example List Element
+6.1.2 A "Name" attribute should be considered for Package Reference.
+The name displayed on the Package Reference could be implemented as
+a derived attribute on Package (`EP_PKG`).  But it may make sense to
+keep the original Name on Package (`EP_PKG`) and use an attribute (derived
+or otherwise) on Package Reference (`EP_PKGREF`).
 
 7. Acceptance Test
 ------------------
-In this section, list the tests that need to be performed in order to
-verify that all the requirements are satisfied. Here is an example reference to the Document References section [[2.1]](#2.1)
-
-7.1 Item 1  
-7.1.1 Example sub-item
-* Example List Element
-
-7.2 Item 2  
-7.2.1 Example sub-item
-* Example List Element
+7.1 Editor Test  
+7.2 Verifier Test  
+7.3 Model Compiler Test  
+7.3.1 escher  
+7.3.2 docgen  
 
 End
 ---
