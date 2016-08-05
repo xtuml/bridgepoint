@@ -1,22 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
- File:      $RCSfile: generate.xml,v $
- Version:   $Revision: 1.32 $
- Modified:  $Date: 2013/01/10 22:49:48 $
-
- (c) Copyright 2004-2014 by Mentor Graphics Corp.  All rights reserved.
+ File:      generate.xml
 
 -->
 <project name="bp.compare" default="all" basedir=".">
   <target name="all"
           description="Generate Compare tree"
           depends="java">
-  </target>
-
-  <target name="nb_all"
-        description="Nightly build target"
-        depends="java">
   </target>
 
   <property name="mcj_path" value="../MC-Java" />
@@ -62,52 +53,6 @@
     <delete file="remainder.txt" />
 
     <touch file="src/org/xtuml/bp/compare/ComparePluginMessages.properties" />
-  </target>
-
-  <!-- COMPILE TARGETS -->
-
-  <!-- This target is not used in the eclipse environment.  The eclipse Java
-       builder handles the java compilation when building BridgePoint under
-       eclipse.  This target is used only when building BridgePoint from the
-       command line on the build server. -->
-  <target name="compile"
-        description="Compile project" >
-
-    <echo>Compiling ${ant.project.name}</echo>
-
-    <mkdir dir="../org.xtuml.bp.compare/bin" />
-
-    <javac memoryinitialsize="512m" memorymaximumsize="512m" source="1.6"
-        fork="yes" destdir="../org.xtuml.bp.compare/bin"
-        debug="true" debuglevel="lines,vars,source" encoding="UTF-8">
-       <src path="../org.xtuml.bp.compare/src/org/xtuml/bp/compare" />
-       <classpath>
-         <pathelement path="../org.xtuml.bp.core/bin" />
-         <pathelement path="../org.xtuml.bp.io.mdl/bin" />
-         <pathelement path="../org.xtuml.bp.io.core/bin" />
-         <fileset dir="${eclipse-home}/plugins" casesensitive="yes">
-           <include name="**/org.eclipse.osgi_*.jar" />
-           <include name="**/org.eclipse.jface_*.jar" />
-           <include name="**/org.eclipse.jface.text_*.jar" />
-           <include name="**/org.eclipse.ui.views_*.jar" />
-           <include name="**/org.eclipse.core.resources_*.jar" />
-           <include name="**/org.eclipse.ui_*.jar" />
-           <include name="**/org.eclipse.text_*.jar" />
-           <include name="**/org.eclipse.ui.workbench_*.jar" />
-           <include name="**/org.eclipse.ui.win32_*.jar" />
-           <include name="**/org.eclipse.swt.win32.win32.x86_*.jar" />
-           <include name="**/org.eclipse.ui.workbench.texteditor_*.jar" />
-           <include name="**/org.eclipse.ui.editors_*.jar" />
-           <include name="**/org.eclipse.compare_*.jar" />
-           <include name="**/org.eclipse.core.boot_*.jar" />
-           <include name="**/org.eclipse.core.runtime_*.jar" />
-           <include name="**/org.eclipse.equinox.common_*.jar"/>
-           <include name="**/org.eclipse.equinox.registry_*.jar"/>
-           <include name="**/org.eclipse.core.commands_*.jar"/>
-          </fileset>
-       </classpath>
-    </javac>
-
   </target>
 
   <!-- CLEAN TARGETS -->
