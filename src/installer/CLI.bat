@@ -55,10 +55,6 @@ set BP_JVM=%BPHOMEDIR%\jre\bin\java.exe
 :: Save the user current working directory
 pushd .
 
-:: Check for fonts that trip up generator
-cd %BPHOMEDIR%\tools\fontchecker
-fontchecker.exe
-
 :: Configure to run MinGW
 call %BPHOMEDIR%\MinGW\mingwgnu.bat
 @echo off
