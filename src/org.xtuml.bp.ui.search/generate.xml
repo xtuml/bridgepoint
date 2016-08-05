@@ -22,4 +22,7 @@
 		<delete verbose="true" dir="bin" />
 	</target>
 
+	<target name="nb_all"
+  description="Perform nightly build actions (ignored for this plugin)"/>
+
 </project>

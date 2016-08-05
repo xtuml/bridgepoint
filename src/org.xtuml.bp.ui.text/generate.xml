@@ -8,8 +8,13 @@
 
   <target name="all"
           description="Generate all code for this project"
+          depends="nb_all,format_java">
+  </target>
+
+  <target name="nb_all"
+          description="Generate all code for this project (nightly build)"
           depends="create_gen,plugin_xml,modeladapter_java,editorinputfactories_java,
-            literal_rule, delete_gen,format_java">
+          literal_rule, delete_gen">
   </target>
 
   <property name="core_sql_dir" value="../org.xtuml.bp.core/sql" />

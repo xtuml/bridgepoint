@@ -10,6 +10,11 @@
           depends="sql,schema,compile_grammar,format_java">
   </target>
 
+  <target name="nb_all"
+          description="Generate all code for this project"
+          depends="sql,schema,compile_grammar">
+  </target>
+
   <property name="eclipse-home" value="${basedir}/../.."/>
   <property name="plugins-home" value="${ant.home}/../.."/>
   <property name="util_bin_dir" value="${eclipse-home}/src/org.xtuml.bp.mc.c.source/mc3020/bin"/>

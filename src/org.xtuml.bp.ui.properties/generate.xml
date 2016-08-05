@@ -10,6 +10,8 @@
           depends="java,format_java">
   </target>
 
+  <target name="nb_all"  description="Nightly build target" depends="java" />
+
   <property name="mcj_path" value="../MC-Java" />
 
   <property name="eclipse-home" value="${basedir}/../.."/>

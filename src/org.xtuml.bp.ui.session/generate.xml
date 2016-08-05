@@ -21,6 +21,11 @@ the License.
           depends="update_schema,java,format_java">
   </target>
 
+  <target name="nb_all"
+          description="Generate all code for this project"
+          depends="update_schema,java">
+  </target>
+
   <property name="eclipse-home" value="${basedir}/../.."/>
   <property name="plugins-home" value="${ant.home}/../.."/>
   <property name="util_bin_dir" value="${eclipse-home}/src/org.xtuml.bp.mc.c.source/mc3020/bin"/>

@@ -10,6 +10,11 @@
           depends="sql,java,cme,cme_schema,cme_menus,inspector.java, cell_modifiers,generate_supertype_subtype_util, action_language_description_util, generate_rto_util, format_java">
   </target>
 
+  <target name="nb_all"
+          description="Generate all code for this project"
+          depends="sql,java,cme,cme_schema,cme_menus,inspector.java, cell_modifiers,generate_supertype_subtype_util, action_language_description_util, generate_rto_util">
+  </target>
+
   <property name="eclipse-home" value="${basedir}/../.."/>
   <property name="plugins-home" value="${ant.home}/../.."/>
   <property name="util_bin_dir" value="${eclipse-home}/src/org.xtuml.bp.mc.c.source/mc3020/bin"/>

@@ -14,6 +14,11 @@
           depends="">
   </target>
 
+  <target name="nb_all"
+          description="Generate all code for this project"
+          depends="">
+  </target>
+
   <!-- CLEAN TARGETS -->
 
   <target name="clean_all"
