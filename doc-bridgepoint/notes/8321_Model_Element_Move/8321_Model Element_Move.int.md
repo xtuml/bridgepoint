@@ -9,8 +9,8 @@ This work is licensed under the Creative Commons CC0 License
 
 1. Abstract
 -----------
-In this section, give a summary of the design that this note aims to
-describe.
+This note describes the work performed to implement the Model Element Move
+feature.
 
 2. Document References
 ----------------------
@@ -45,16 +45,15 @@ Test model(s) for this issue.
 
 3. Background
 -------------
-
 See the background in [[2.2]](#2.2) as well as the background in the SOW [[2.3]](#2.3).
 
 4. Requirements
 ---------------
-see [Design note for Model Element Move](8321_Model_Element_Move.dnt.md)
+See [Design note for Model Element Move](8321_Model_Element_Move.dnt.md)
 
 5. Work Required
 ----------------
-6.1 Modify cut/paste operation to be analogous to "move" by making it a 
+5.1 Modify cut/paste operation to be analogous to "move" by making it a 
 single long-lived transaction. This shall adhere to the ACID properties 
 of transactions.  
 
@@ -79,7 +78,7 @@ is used in the generated file `ImportModelStream.java::finishLoad()` to
 prevent the code that changes the IDs from running. There was a quite a
 bit of fallout from this change because the change was made to an
 archetype that generates a lot of different types of import classes. For 
-example, this generaates the import classes for both stream and file 
+example, this generates the import classes for both stream and file 
 import. This change is specific to the stream import, but the archetype 
 generates both.  
 
@@ -89,48 +88,48 @@ the value of this new parameter is set to true, because we DO update the
 IDs in most cases. In addition to this new case just added, the only other 
 cases where we were not updating IDs are in model merge.  
 
-6.2 Modify the paste action (`core/ui/PasteAction.java`).  
-@see 6.1  
+5.2 Modify the paste action (`core/ui/PasteAction.java`).  
+@see 5.1  
 
-6.2.1 The source element ID(s) shall be used and no new IDs shall be created  
-@see 6.1  
+5.2.1 The source element ID(s) shall be used and no new IDs shall be created  
+@see 5.1  
 
-6.2.2 The element is created in the target model root.  
-@see 6.1 and 6.2.3
+5.2.2 The element is created in the target model root.  
+@see 5.1 and 5.2.3
 
-6.2.3 This is where requirement 4.2 is handled.  
+5.2.3 This is where requirement 4.2 is handled.  
 As described in the design note, the desire is that we could have a situation 
 where diff, after move of a model root, would show no changes and thus have a 
 good chance for RCS system to handle it as a move. After move, there are changes 
-in the target. The specific changes follow.  6.2.3.1 is the biggest hurdle to 
+in the target. The specific changes follow.  5.2.3.1 is the biggest hurdle to 
 this WRT trying to be RCS friendly. Of course the changeset of the move from 
 a diff point of view now that IDs are not changed is very small, but it is a diff. 
 However, these diffs do not deter RCS systems that implements move from treating 
 this as a move.  
-6.2.3.1 The model root has changed. This means, for example, if moving a package 
+5.2.3.1 The model root has changed. This means, for example, if moving a package 
 from under one package to another, the PE_PE.Package_ID changes accordingly   
-6.2.3.2 Proxies get updated (when we are able to remove proxies, this change this will go away)   
-6.2.3.3 graphics - GD_GE instances contain a path to the location of the ooaofooa model element they represent (GD_GE.represents_path). This path gets updated with the move.  
+5.2.3.2 Proxies get updated (when we are able to remove proxies, this change this will go away)   
+5.2.3.3 graphics - GD_GE instances contain a path to the location of the ooaofooa model element they represent (GD_GE.represents_path). This path gets updated with the move.  
 
-6.2.4 Where deletion of elements is required (paste is performed to a different model root) 
+5.2.4 Where deletion of elements is required (paste is performed to a different model root) 
 the deletion of the source elements will occur. The deletion shall occur after the paste to
-faciliate 6.2.3.  
-@see 6.1  
+faciliate 5.2.3.  
+@see 5.1  
 
 <a id="milestone1"></a>(Milestone 1) [#2.6] - Everything above this point is included in Milestone 1.
 
-6.2.5 An attempt to paste to the same location that the copy was made from is considered an 
+5.2.5 An attempt to paste to the same location that the copy was made from is considered an 
 invalid selection and shall not be allowed.  
 
-6.2.5.1. Disable paste when the selected target is the same as the source.  
-6.2.5.1.1. `bp/ui/explorer/actions/ui/Explorer{Cut | Copy | Paste}Action.java::isEnabled()` 
+5.2.5.1. Disable paste when the selected target is the same as the source.  
+5.2.5.1.1. `bp/ui/explorer/actions/ui/Explorer{Cut | Copy | Paste}Action.java::isEnabled()` 
 implements this behavior on behalf of the org.eclipse.jface.action.Action abstract class. 
 This is where BridgePoint determines if the CME should be enabled or not. Note that there 
 is an analogous implementation for canvas in 
 `bp.ui.graphics.actions/Canvas{Cut | Copy | Paste}Action.java::isEnabled()`  
-6.2.5.1.2. The operation called out in the prior step is implemented to check the source and destination to
+5.2.5.1.2. The operation called out in the prior step is implemented to check the source and destination to
 see if the CME should be enabled or not.  
-6.2.5.1.3. In the PasteAction case, the operations look to see if the destination allows paste for 
+5.2.5.1.3. In the PasteAction case, the operations look to see if the destination allows paste for 
 elements in the source being pasted to the target. It does this by calling an ooaofooa 
 operation that is of the form {target model element instance}.Paste{Source Model Element Name}
 . The structure of this code was such that this behavior 
@@ -138,35 +137,35 @@ was essentially duplicated in `{Explorer | Canvas}PasteAction.java`. I refactore
 "moved up" an operation named `clipboardContainsPastableModelElements()` into the parent class
 `core/ui/PasteAction.java` to facilitate adding the check to assure that on move the
 if the source and target PMCs match paste is not enabled.  
-6.2.5.1.4 The actual code added to assure paste is disabled if the source and target PMCs match was added to the refactored
+5.2.5.1.4 The actual code added to assure paste is disabled if the source and target PMCs match was added to the refactored
 `core/ui/PasteAction.java::isEnabled()` function.  
-6.2.5.1.4.1 The change was specific to move, copy/paste still allows paste into the same PMC as it did before this change.  
-6.2.5.2. In PasteAction.java::isEnabled() if a move is in progress do not allow more than 1 
+5.2.5.1.4.1 The change was specific to move, copy/paste still allows paste into the same PMC as it did before this change.  
+5.2.5.2. In PasteAction.java::isEnabled() if a move is in progress do not allow more than 1 
 selected destination. This is another chage that is specific to move and is still allowed by copy/paste.  
 
-6.3.1 The dialog allows the user to cancel.  On cancel, no action is performed
+5.3.1 The dialog allows the user to cancel.  On cancel, no action is performed
   on the underlying model data.   
 
-6.3.2 In the type demotion dialog, consider adding text to tell the user to consider turning on IPRs or checking package visibility.  
-@see 6.4  
+5.3.2 In the type demotion dialog, consider adding text to tell the user to consider turning on IPRs or checking package visibility.  
+@see 5.4  
 
-6.3.3 As per the SOW [[2.3](#2.3)], the dialog needs to have save and print options added.  
-6.3.3.1  Updated `ScrolledTextDialog.java` to take a new parameter in the
+5.3.3 As per the SOW [[2.3](#2.3)], the dialog needs to have save and print options added.  
+5.3.3.1  Updated `ScrolledTextDialog.java` to take a new parameter in the
   constructor that indicates if the save and print buttons shall be used.  
-6.3.3.2  Updated the existing callers of ScrolledTextDialog such that the 
+5.3.3.2  Updated the existing callers of ScrolledTextDialog such that the 
   `TransactionManager.java` is the only one that uses save and print.  Other 
   users retain existing behavior and do not use save and print.  
-6.3.3.3  Added code to implement button "Save...".  This button opens a modal
+5.3.3.3  Added code to implement button "Save...".  This button opens a modal
   dialog that allows the user to select a file to save into.  The contents of 
   the list box (the affected elements) are written to the file if the user 
   completes the dialog.  No action is taken if the user cancels the dialog.   
-6.3.3.4  Added code to implement button "Print...".  This button opens a modal
+5.3.3.4  Added code to implement button "Print...".  This button opens a modal
   printer selection dialog.  The contents of the list box (the affected 
   elements) are sent to the printer if the user completes the dialog.  No action
   is taken if the user cancels the dialog.  
 
-6.4 Modify all resolution operations to first search by ID  instead of name  
-6.4.1 Analysis of this problem  
+5.4 Modify all resolution operations to first search by ID  instead of name  
+5.4.1 Analysis of this problem  
 During paste, after the elements are put in their new destination, the source elements must be
 cleaned-up from the previous location. In the existing cut/paste implementation this meant 
 performing a delete.  It is during the delete that elements (Datatypes) are "downgraded". 
@@ -188,16 +187,16 @@ end for;
 * remove the files  
   * This happens in the Transaction end operation. The ComponentTransactionListener.transactionEnded() operation looks to see if there were deletions in the transaction, and if so, it calls PersistableModelComponent.deleteSelfAndChildren()  
 
-6.4.1.1. core/ui/DeleteAction(ISelection) is generated. It deletes the model types in the given selection in a specific order (starting with S_SYS).  The archetype generates code that finds the count of a given type (example EP_PKG) in the selection and then iterates over them one at a time calling <Element instance>.Dispose() on each one.  
-6.4.1.2. <Element Instance>.Dispose() is of course generated from MC-Java and of course each model element in ooaofooa has a Dispose operation. MC-Java adds some code to the bottom of each of these operations that looks like this:  
+5.4.1.1. core/ui/DeleteAction(ISelection) is generated. It deletes the model types in the given selection in a specific order (starting with S_SYS).  The archetype generates code that finds the count of a given type (example EP_PKG) in the selection and then iterates over them one at a time calling <Element instance>.Dispose() on each one.  
+5.4.1.2. <Element Instance>.Dispose() is of course generated from MC-Java and of course each model element in ooaofooa has a Dispose operation. MC-Java adds some code to the bottom of each of these operations that looks like this:  
 ```
     if (delete()) {
 			Ooaofooa.getDefaultInstance()
 					.fireModelElementDeleted(new BaseModelDelta(Modeleventnotification_c.DELTA_DELETE, this));
 		}
 ```  
-6.4.1.2.1 the delete() operation is generated for each model element.  
-6.4.1.2.1.1 What this does first is to call super.delete() (NonRootModelElement.java::delete()), which assures the element is not orphaned. (Being orphanded means the element does not exist in the root's instance list.), and if not orphanded we remove the elements from this roots instance list (and return true. Additionally, it is worth noting there is a special case in this situation for merge. It looks like this:  
+5.4.1.2.1 the delete() operation is generated for each model element.  
+5.4.1.2.1.1 What this does first is to call super.delete() (NonRootModelElement.java::delete()), which assures the element is not orphaned. (Being orphanded means the element does not exist in the root's instance list.), and if not orphanded we remove the elements from this roots instance list (and return true. Additionally, it is worth noting there is a special case in this situation for merge. It looks like this:  
 ```
       ...
 			// During merge we do not convert elements, they are moved
@@ -212,30 +211,30 @@ end for;
 			return true;
 			...
 ```  
-6.4.1.2.1.1.1 Note that delete_unchecked() is where we remove the elements from the roots instance list as described 
+5.4.1.2.1.1.1 Note that delete_unchecked() is where we remove the elements from the roots instance list as described 
 in 2.1.  
-6.4.1.2.1.2 delete() then has code that tests to assure relationships were torn down by the element's Dispose() properly, and reports non-fatal errors is the relationships were not properly disposed.  
+5.4.1.2.1.2 delete() then has code that tests to assure relationships were torn down by the element's Dispose() properly, and reports non-fatal errors is the relationships were not properly disposed.  
 
-6.4.2 Resolution for cut/paste's problem of "downgrading" model elements and improper element "deletion" on move.  
-6.4.2.1  modify MC-Java's handling of the Dispose() operation and wrap the body of the OAL action in a conditional expression that check to see if a move is in progress, and do NOT call the action body if a move is in progress.  
-6.4.2.2 modify the generated delete() operations to check to see if a move is in progress and if a move is in progress do not report the error about relationships not being torn down.  
-6.4.2.3 Investigate the "convertToProxy()" used in NonRootModelElement.delete()   
+5.4.2 Resolution for cut/paste's problem of "downgrading" model elements and improper element "deletion" on move.  
+5.4.2.1  modify MC-Java's handling of the Dispose() operation and wrap the body of the OAL action in a conditional expression that check to see if a move is in progress, and do NOT call the action body if a move is in progress.  
+5.4.2.2 modify the generated delete() operations to check to see if a move is in progress and if a move is in progress do not report the error about relationships not being torn down.  
+5.4.2.3 Investigate the "convertToProxy()" used in NonRootModelElement.delete()   
 
-6.4.3 In the type demotion dialog, we considered adding text to tell the user to consider turning on IPRs or checking package visibility and decided against it for now since the issue at hand actual does not include IPR support.  
+5.4.3 In the type demotion dialog, we considered adding text to tell the user to consider turning on IPRs or checking package visibility and decided against it for now since the issue at hand actual does not include IPR support.  
 
-6.5 Fix inconsistent proxy paths [[2.4](#2.4)]  
-6.5.1 I removed all generated code from the operations that load and write the proxies.  
+5.5 Fix inconsistent proxy paths [[2.4](#2.4)]  
+5.5.1 I removed all generated code from the operations that load and write the proxies.  
 This was a very small change. The change to stub out proxies writes was in:
 `io/core/arc/export_functions.inc::public void write_${r.body}_proxy_sql(${r.body} inst)`
 
 The change to stub out proxies load was in:
 `io/core/arc/import_functions.inc::private void create${stn.body} (${main_class_name} modelRoot, String table, Vector parms, Vector rawParms, int numParms, IProgressMonitor pm)`.  
 
-6.5.2 I also modified io/core/arc/gen_import_java.inc and removed a List variable generated into
+5.5.2 I also modified io/core/arc/gen_import_java.inc and removed a List variable generated into
 each of the import classes that is no longer used. It's name was:
     `private List<NonRootModelElement> loadedProxies = new Vector<NonRootModelElement>();`  
-6.5.3 I modified NonRootModelElement.java::isProxy() to always return false.  
-6.5.4 I manually tested this by:  
+5.5.3 I modified NonRootModelElement.java::isProxy() to always return false.  
+5.5.4 I manually tested this by:  
 * run the tool in a workspace with GPS Watch
 * search the model for all occurrences of "INSERT INTO .*PROXY" in *.xtuml
 * result is lots of hits
@@ -249,7 +248,33 @@ each of the import classes that is no longer used. It's name was:
 
 6. Implementation Comments
 --------------------------
-NONE
+6.1 When a model element is moved from one location to another, BridgePoint
+  needs to perform some work to clean up "referring" and "referred to" links to 
+  the element being moved.   This work must be done in both the originating and 
+  target containers.  Here is pseudo-code describing the work to be performed:
+  
+```
+for each selectedElement
+  // Downgrade src 
+  find RGOs
+  for each rgo in RGOs
+    if ( !isVisibleFromSrcToDestination )
+      downgrade rgo
+      add to list of downgraded elements
+    end if
+  end for
+
+  // Downgrade dest 
+  find RTOs
+  for each rto in RTOs
+    if ( !isVisibleFromDestinationToSrc )
+      downgrade rto
+      add to list of downgraded elements
+    end if
+  end for
+
+end for
+```
 
 
 7. Unit Test
@@ -284,7 +309,7 @@ TODO: Describe the end user documentation that was added for this change.
 
 9. Code Changes
 ---------------
-Branch name: < enter your branch name here >
+Branch name: 8321_Model_Element_Move
 
 <pre>
 

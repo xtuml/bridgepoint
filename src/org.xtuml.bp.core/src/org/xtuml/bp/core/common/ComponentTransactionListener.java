@@ -177,7 +177,6 @@ public class ComponentTransactionListener implements ITransactionListener {
 							ModelElementMovedModelDelta modelDelta = (ModelElementMovedModelDelta) delta;
 							NonRootModelElement elementMoved=(NonRootModelElement) delta.getModelElement();
 							ComponentTransactionListener.movePMC(elementMoved, modelDelta.getDestination());
-							PersistableModelComponent pmcToPersist = modelDelta.getDestination().getPersistableComponent(true);
 							persistRenamedME(persisted, modelDelta.getDestination());
 						}
                     } else if (delta instanceof AttributeChangeModelDelta) {
