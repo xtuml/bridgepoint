@@ -17343,15 +17343,21 @@ INSERT INTO S_SYNC
 	'ParserValidateFunction: TRUE',
 	's1 = ::get_var_in_scope( name:"Selected", rule_token: param.a1_rule_token );
 select any var from instances of V_VAR where (selected.Var_ID == s1 );
-var.dispose();
+if ( not_empty var )
+  var.dispose();
+end if;
 
 s2 = ::get_var_in_scope( name:"SELECTED", rule_token: param.a1_rule_token );
 select any var from instances of V_VAR where (selected.Var_ID == s2 );
-var.dispose();
+if ( not_empty var )
+  var.dispose();
+end if;
 
 s3 = ::get_var_in_scope( name:"selected", rule_token: param.a1_rule_token );
 select any var from instances of V_VAR where (selected.Var_ID == s3 );
-var.dispose();
+if ( not_empty var )
+  var.dispose();
+end if;
 
 current_scope = ::get_current_scope();
 select any blk from instances of ACT_BLK where (selected.Block_ID == current_scope);
