@@ -5565,7 +5565,7 @@ select many ireferences related by self->PE_PE[R8000]->C_C[R8001]->C_PO[R4010]->
 for each ireference in ireferences
   select one provision related by ireference->C_P[R4009];
   if (not_empty provision)
-    if (not param.filterDelegations)
+    if (param.filterDelegations)
       count = count+1;
     else
       select one delegation related by ireference->C_DG[R4014];
@@ -5602,7 +5602,7 @@ count = -1;
 for each ireference in ireferences
   select one provision related by ireference->C_P[R4009];
   if (not_empty provision)
-    if (not param.filterDelegations)
+    if (param.filterDelegations)
       count = count+1;
     else
       select one delegation related by ireference->C_DG[R4014];
@@ -5649,7 +5649,7 @@ select many ireferences related by self->PE_PE[R8000]->C_C[R8001]->C_PO[R4010]->
 for each ireference in ireferences
   select one requirement related by ireference->C_R[R4009];
   if (not_empty requirement)
-    if (not param.filterDelegations)
+    if (param.filterDelegations)
       count = count+1;
     else
       select one delegation related by ireference->C_DG[R4014];
@@ -5686,7 +5686,7 @@ count = -1;
 for each ireference in ireferences
   select one requirement related by ireference->C_R[R4009];
   if (not_empty requirement)
-    if (not param.filterDelegations)
+    if (param.filterDelegations)
       count = count + 1;
     else
       select one delegation related by ireference->C_DG[R4014];

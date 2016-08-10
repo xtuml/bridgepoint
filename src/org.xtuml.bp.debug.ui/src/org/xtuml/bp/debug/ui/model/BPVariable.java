@@ -179,7 +179,7 @@ public class BPVariable extends BPDebugElement implements IVariable {
     		  return "Last Executed Transition";
     	  }
     	  if (value instanceof Association_c){ 
-    		  if (name == "Origin Of") {
+    		  if (name.equals("Origin Of")) {
     			  Link_c[] instanceLinks = getInstanceLinksForAnAssociation();
     			  LinkParticipation_c lp = LinkParticipation_c .getOneI_LIPOnR2902( instanceLinks);
     			  if (lp == null)
@@ -187,7 +187,7 @@ public class BPVariable extends BPDebugElement implements IVariable {
     			  else 
     				  return lp.getLabel();
 
-    		  } else if (name == "Destination Of") {
+    		  } else if (name.equals("Destination Of")) {
     			  Link_c[] instanceLinks = getInstanceLinksForAnAssociation();
     			  LinkParticipation_c lp = LinkParticipation_c .getOneI_LIPOnR2901( instanceLinks);
     			  if (lp == null)
@@ -195,7 +195,7 @@ public class BPVariable extends BPDebugElement implements IVariable {
     			  else 
     				  return lp.getLabel();
     		  } 
-    		  else if (name == "Associator For") {
+    		  else if (name.equals("Associator For")) {
     			  return "R" + ((Association_c)value).getNumb();
 
     		  }

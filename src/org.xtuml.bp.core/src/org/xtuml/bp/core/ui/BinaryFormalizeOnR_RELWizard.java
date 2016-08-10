@@ -156,7 +156,7 @@ public class BinaryFormalizeOnR_RELWizard extends Wizard {
 	}
 
 	private void setPrefixs(SimpleAssociation_c vARel) {
-		if (v_IdentifierPrefix  == "" ){
+		if (v_IdentifierPrefix.equals("")){
 			return;
 		}
 		ReferringClassInAssoc_c other = ReferringClassInAssoc_c.getOneR_RGOOnR205(ClassAsSimpleFormalizer_c.getOneR_FORMOnR208(vARel));

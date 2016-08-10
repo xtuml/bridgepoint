@@ -150,7 +150,7 @@ public void goodSelectValidate(
 	for (int i = 0; i < var_list.length; ++i)
 		assertEquals(var_list[i], var[i].getName());
 	if (from_inst && where) {
-		if (mult != "many") {//$NON-NLS-1$
+		if (!mult.equals("many")) {//$NON-NLS-1$
 			InstanceHandle_c[] inst = InstanceHandle_c.InstanceHandleInstances(OalParserTest_Generics.modelRoot);
 			assertEquals(var_list.length, inst.length);
 			for (int i = 0; i < var_list.length; ++i)
@@ -211,7 +211,7 @@ public void goodSelectValidate(
 		  }
 		}
 	} else if (from_inst && !where) {
-		if (mult != "many") {//$NON-NLS-1$
+		if (!mult.equals("many")) {//$NON-NLS-1$
 			InstanceHandle_c[] inst = InstanceHandle_c.InstanceHandleInstances(OalParserTest_Generics.modelRoot);
 			assertEquals(var_list.length, inst.length);
 			for (int i = 0; i < var_list.length; ++i)
@@ -283,7 +283,7 @@ public void goodSelectValidate(
 		Value_c[] val = Value_c.ValueInstances(OalParserTest_Generics.modelRoot);
 		assertEquals(numVal, val.length);
 		Select_c sel[] = Select_c.SelectInstances(OalParserTest_Generics.modelRoot);
-		if (mult != "many") {//$NON-NLS-1$
+		if (!mult.equals("many")) {//$NON-NLS-1$
 			InstanceHandle_c inst_var = InstanceHandle_c.getOneV_INTOnR814(Variable_c.getOneV_VAROnR638(sel[0]));
             ModelClass_c mc = ModelClass_c.getOneO_OBJOnR818(inst_var);
 			assertEquals(finalKL, mc.getKey_lett());

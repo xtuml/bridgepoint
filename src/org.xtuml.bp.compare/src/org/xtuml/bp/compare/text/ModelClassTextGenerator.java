@@ -292,9 +292,9 @@ public class ModelClassTextGenerator
 	
 	public static String getTextRepresentation(Object object, boolean loadDefault){
 		String value = getStringByMethodDynamically(object, "getName");      //$NON-NLS-1$
-		if (value == null || value == "")                                    //$NON-NLS-1$
+		if (value == null || value.equals(""))                                    //$NON-NLS-1$
 			value = getStringByMethodDynamically(object, "Get_name");        //$NON-NLS-1$
-		if ((value == null || value == "") && loadDefault){                  //$NON-NLS-1$
+		if ((value == null || value.equals("")) && loadDefault){                  //$NON-NLS-1$
 			value = getLongName(object);
 		}
 		return value;

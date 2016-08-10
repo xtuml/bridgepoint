@@ -30,10 +30,12 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.xtuml.bp.core.Association_c;
+import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.ModelClass_c;
 import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.Package_c;
 import org.xtuml.bp.core.PackageableElement_c;
+import org.xtuml.bp.core.common.BridgePointPreferencesStore;
 import org.xtuml.bp.core.common.ClassQueryInterface_c;
 import org.xtuml.bp.core.common.NonRootModelElement;
 import org.xtuml.bp.core.common.Transaction;
@@ -223,6 +225,9 @@ public class CanvasCopyPasteTests extends CanvasTest {
 	
 	@Test
 	public void testPasteOutsideOfGraphicsAllowsUpdateOfGraphicalElementModelRoots() {
+		CorePlugin.getDefault().getPreferenceStore().setValue(
+				BridgePointPreferencesStore.USE_DEFAULT_NAME_FOR_CREATION, true);		
+
 		// create a new package, with two classes
 		// do this inside of a transaction
 		Package_c testPackage = null;

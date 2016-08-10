@@ -1,9 +1,6 @@
-
 //=====================================================================
 //
-//File:      $RCSfile: CoreGlobalsTestSuiteGenerics.java,v $
-//Version:   $Revision: 1.4 $
-//Modified:  $Date: 2013/01/10 22:49:08 $
+//File:      CoreGlobalsTestSuiteGenerics.java
 //
 //(c) Copyright 2007-2014 by Mentor Graphics Corp. All rights reserved.
 //
@@ -64,6 +61,7 @@ import junit.framework.TestSuite;
 		GlobalTestSetupClass.class,
 		CoreGlobalsTestSuiteIGenerics.class,
 		CoreTestSuiteIGenerics.class,
+		PreferencesTests.class,
 		SetTypeTestGenerics.class,
 		AssignComponentTestGenerics.class,		
 		AssignClassTestGenerics.class,		
@@ -83,25 +81,8 @@ import junit.framework.TestSuite;
 		OperationsTestGenerics.class,
 		DeleteTestGenerics.class,
 		TigerNatureTestGenerics.class,
-		PreferencesTests.class,
 })
 public class CoreGlobalsTestSuiteGenerics extends TestSuite {
-
-	/**
-	 * Returns the suite.  This is required to
-	 * use the JUnit Launcher.
-	 * @throws CoreException
-	 */
-//	public static Test suite() throws CoreException {
-//		return new CoreGlobalsTestSuiteGenerics();
-//	}
-//	
-//	/**
-//	 * Construct the test suite.
-//	 */
-//	public CoreGlobalsTestSuiteGenerics() throws CoreException {
-//
-//	}
 	
 	@Test
 	public void prepare() throws CoreException{

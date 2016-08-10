@@ -154,6 +154,7 @@ public class SearchTests extends BaseTest {
 	@Test
 	public void testSelectedResourcesScope() {
 		// add the two test elements to the selection
+		ExplorerUtil.expandAll();
 		ExplorerUtil.getView().setFocus();
 		ExplorerUtil.getView().getSite().getSelectionProvider().setSelection(
 				new StructuredSelection(new Object[] { searchClass,

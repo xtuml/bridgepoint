@@ -25,6 +25,7 @@ package org.xtuml.bp.ui.text.test.i673Tests.rename;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IEditorPart;
@@ -65,6 +66,7 @@ import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.test.common.TestingUtilities;
 import org.xtuml.bp.test.common.TextEditorUtils;
 import org.xtuml.bp.ui.canvas.Cl_c;
+import org.xtuml.bp.ui.explorer.ExplorerView;
 import org.xtuml.bp.ui.text.description.DescriptionEditor;
 import org.xtuml.bp.ui.text.test.UITextTest;
 import org.xtuml.bp.ui.text.test.description.DescriptionEditorInteraction;
@@ -99,7 +101,12 @@ public class I673RenameObjectsAndTestDescriptionEditors extends UITextTest {
 			loadProject(testModelName);
 			while( d.readAndDispatch() ){}			
 			TestingUtilities.allowJobCompletion();
-
+			
+			ExplorerView view = (ExplorerView) PlatformUI.getWorkbench()
+					.getActiveWorkbenchWindow().getActivePage().showView(
+							"org.xtuml.bp.ui.explorer.ExplorerView");
+			view.getTreeViewer().expandToLevel(m_sys, TreeViewer.ALL_LEVELS);			
+			
 			isFirstTime=false;
 		}
 	}
@@ -129,6 +136,7 @@ public class I673RenameObjectsAndTestDescriptionEditors extends UITextTest {
 	
 	@Test
 	public void testRenamePackage(){
+
 		ClassQueryInterface_c pkgQuery = new ClassQueryInterface_c(){
             public boolean evaluate(Object candidate){
                 return (((Package_c)candidate).getName().equals(testModelName));
@@ -186,7 +194,7 @@ public class I673RenameObjectsAndTestDescriptionEditors extends UITextTest {
 	public void testRenameAssociation(){
 		Association_c assoc = Association_c.AssociationInstance(modelRoot);
 		assertNotNull(assoc);
-		
+
 		//Get attribute reference in class is effected by Association name so create instance of that as well
 		AttributeReferenceInClass_c ref = AttributeReferenceInClass_c.getOneO_REFOnR111(ReferringClassInAssoc_c.getOneR_RGOOnR203(ClassInAssociation_c.getOneR_OIROnR201(assoc)));
 		assertNotNull(ref);

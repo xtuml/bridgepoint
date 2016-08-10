@@ -104,7 +104,7 @@ public class ModelTransactionTestGenerics extends BaseTest {
 		thisModelRoot = modelRoot;
 		result_folder = new String(m_workspace_path
 				+ "/expected_results/linux/TransactionTest/"); //$NON-NLS-1$
-		if(Platform.getOS() != "linux") {
+		if(!Platform.getOS().equals("linux")) {
 			result_folder = new String(m_workspace_path
 					+ "/expected_results/TransactionTest/"); //$NON-NLS-1$			
 		}

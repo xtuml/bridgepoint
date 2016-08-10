@@ -41,30 +41,15 @@ import junit.framework.TestSuite;
  */
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-//	GlobalTestSetupClass.class,
 	CanvasCCPTestsSuite.class,
-	CanvasCutTests.class,
+// TODO: Issue 8587 describes why these tests were removed. When Model Element Move functionality is complete these tests must be
+//  turned back on.
+//
+//	CanvasCutTests.class,
 	CanvasCopyTests.class,
 	CanvasCopyPasteTests.class,
 })
 public class CanvasCCPGlobalsTestSuite extends TestSuite {
 
-//	/**
-//	 * Returns the suite.  This is required to
-//	 * use the JUnit Launcher.
-//	 */
-//	public static Test suite() {
-//		return new CanvasCCPGlobalsTestSuite();
-//	}
-//	
-//	/**
-//	 * Construct the test suite.
-//	 */
-//	public CanvasCCPGlobalsTestSuite() {
-//		CorePlugin.getDefault().getPreferenceStore().setValue(BridgePointPreferencesStore.USE_DEFAULT_NAME_FOR_CREATION,true);
-//		addTestSuite(CanvasStateMachineCopyPasteTests.class);
-//		TestSuite testSuite = new ModelRecreationTestSuite();
-//		addTest(testSuite);
-//	}
 
 }
