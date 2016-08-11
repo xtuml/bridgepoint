@@ -11,13 +11,6 @@ import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 
-import lib.BPBoolean;
-import lib.BPFloat;
-import lib.BPInteger;
-import lib.BPString;
-import lib.BPUniqueId;
-import lib.LOG;
-
 import org.xtuml.bp.core.ActualParameter_c;
 import org.xtuml.bp.core.ArrayValue_c;
 import org.xtuml.bp.core.BlockInStackFrame_c;
@@ -75,9 +68,15 @@ import org.xtuml.bp.core.Variable_c;
 import org.xtuml.bp.core.Vm_c;
 import org.xtuml.bp.core.common.IdAssigner;
 import org.xtuml.bp.core.common.ModelRoot;
-import org.xtuml.bp.core.ui.cells.providers.ComponentInstanceCellProvider;
 import org.xtuml.bp.core.util.BPClassLoader;
 import org.xtuml.bp.debug.ui.model.BPThread;
+
+import lib.BPBoolean;
+import lib.BPFloat;
+import lib.BPInteger;
+import lib.BPString;
+import lib.BPUniqueId;
+import lib.LOG;
 
 public class VerifierInvocationHandler implements InvocationHandler {
 
@@ -1486,6 +1485,73 @@ ValueInStackFrame_c localVsf = ValueInStackFrame_c.getOneI_VSFOnR2951(localStack
 		// Must be an enumerated or structured type, there is no core type
 		return dt;
 	}
+	
+    static Class<?> getClassForCoreTypeOf(DataType_c dt, boolean byRef) {
+        DataType_c coreDt = getCoreTypeForDt(dt);
+        CoreDataType_c cdt = CoreDataType_c.getOneS_CDTOnR17(coreDt);
+        StructuredDataType_c sdt = StructuredDataType_c
+                .getOneS_SDTOnR17(coreDt);
+        EnumerationDataType_c edt = EnumerationDataType_c
+                .getOneS_EDTOnR17(coreDt);
+        UserDataType_c udt = UserDataType_c.getOneS_UDTOnR17(dt);
+        if (cdt != null) {
+            DataType_c superType = DataType_c.getOneS_DTOnR17(cdt);
+            if (superType.getName().equals("integer")) {
+                return byRef ? BPInteger.class : int.class;
+            } else if (superType.getName().equals("real")) {
+                return byRef ? BPFloat.class : float.class;
+            } else if (superType.getName().equals("string")) {
+                return byRef ? BPString.class : java.lang.String.class;
+            } else if (superType.getName().equals("boolean")) {
+                return byRef ? BPBoolean.class : boolean.class;
+            } else if (superType.getName().equals("unique_id")) {
+                return byRef ? BPUniqueId.class : java.util.UUID.class;
+            } else if (superType.getName().equals("component_ref")) {
+                return java.lang.Object.class;
+            } else if (superType.getName().equals("state<State_Model>")) {
+                return java.lang.Object.class;
+            } else if (superType.getName().equals("inst_ref<Object>")) {
+                return java.lang.Object.class;
+            } else if (superType.getName().equals("inst_ref_set<Object>")) {
+                return java.lang.Object.class;
+            } else if (superType.getName().equals("inst<Event>")) {
+                return java.lang.Object.class;
+            } else if (superType.getName().equals("inst<Event>")) {
+                return java.lang.Object.class;
+            } else if (superType.getName().equals("date")) {
+                return java.lang.Object.class;
+            } else if (superType.getName().equals("inst_ref<Timer>")) {
+                return java.lang.Object.class;
+            } else if (superType.getName().equals("timestamp")) {
+                return java.lang.Object.class;
+            } else if (superType.getName().equals("void")) {
+                return void.class;
+            }
+        } else if (sdt != null || edt != null) {
+            Package_c pkg = Package_c.getOneEP_PKGOnR8000(PackageableElement_c
+                    .getOnePE_PEOnR8001(coreDt));
+            if (pkg != null) {
+                String typeName = pathToClassName(pkg.Getpath("") + "::" + coreDt.getName());
+                Class<?> realizedDT = null;
+                BPClassLoader bpcl = Vm_c.getVmCl(pkg.Getsystemid());
+                try {
+                    realizedDT = bpcl.loadClass(typeName);
+                } catch (ClassNotFoundException cnf) {
+                    // Do nothing, this will be reported elsewhere
+                }
+                if (realizedDT != null) {
+                    return realizedDT;
+                }
+            }
+        } else if (udt != null) {
+            DataType_c definition = DataType_c.getOneS_DTOnR18(udt);    
+            if (definition != null) {
+                return getClassForCoreTypeOf(definition, byRef);
+            }
+            
+        }
+        return null;
+    }
 
 	public static void handleReturnValue(Stack_c stack) {
 		ComponentInstance_c ci = ComponentInstance_c.getOneI_EXEOnR2930(stack);
