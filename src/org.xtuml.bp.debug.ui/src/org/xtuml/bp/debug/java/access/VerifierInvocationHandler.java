@@ -545,7 +545,7 @@ public class VerifierInvocationHandler implements InvocationHandler {
 				// Normal operation, do nothing ...
 			}
 			if (meth != null) {
-				Class<?> memberClass = getClassForType(type);
+				Class<?> memberClass = getClassForCoreTypeOf(type, false);
 				if (memberClass != null && 
 						   memberClass.isAssignableFrom(meth.getReturnType())) {
 					try {
