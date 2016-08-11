@@ -22,7 +22,7 @@ During development of modeled model compiler features, the BridgePoint team
 realized that a feature was missing from BridgePoint.  There was no way to
 easily reuse class diagrams in multiple deployments.  Classes themselves
 were not sharable between projects.  Together with the requirement that all
-executable configuration require components for Verifier or model compilers
+executable configurations require components for Verifier or model compilers
 to process them, this limitation greatly impacted the ability to share a
 common class diagram.
 
@@ -74,7 +74,7 @@ qualified (with double-colons) name of the referred to Package.
 
 #### 4.3 Persistence  
 4.3.1 The underlying model element data for a Package Reference shall be
-persisted in proximity (same file) to Package that was created to serve
+persisted in proximity (same file) to the Package that was created to serve
 as the reference.
 
 #### 4.4 Navigation  
@@ -134,7 +134,7 @@ a component called "Sensor Node".  Inside Sensor Node are two
 Package References.  The first Package Reference imports Data Aqcuisition.
 The second Package Reference imports Messaging.
 
-5.2 User Interface Considerations  
+#### 5.2 User Interface Considerations  
 5.2.1 New Graphical Element  
 The approach proposed in the requirements section assumes and actually
 dictates that no new graphical elements will be introduced.  Such an
