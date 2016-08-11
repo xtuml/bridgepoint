@@ -51,6 +51,7 @@ public class VerifierInvocationAuditor {
     final static String CR = System.getProperty("line.separator");
 
     public static String performRealizedCodeAudit(Package_c pkg) {
+    	BPClassLoader.resetTheDefinitionsCache(); // Make BP reload Java classes
         String result = "Beginning binding check on package " + pkg.getName()
                 + CR + CR;
         try {
@@ -63,6 +64,7 @@ public class VerifierInvocationAuditor {
     }
 
     public static String performRealizedCodeAudit(Component_c comp) {
+    	BPClassLoader.resetTheDefinitionsCache(); // Make BP reload Java classes
         String result = "Beginning binding check on component "
                 + comp.getName() + CR + CR;
         try {
