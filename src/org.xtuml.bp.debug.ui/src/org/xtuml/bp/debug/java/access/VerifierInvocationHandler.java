@@ -1302,7 +1302,7 @@ ValueInStackFrame_c localVsf = ValueInStackFrame_c.getOneI_VSFOnR2951(localStack
 									LOG.LogInfo("Illegal access exception while getting field value for realized data type: " + ex);
 								}
 							}
-							setField(result, member, field, rVal, memberDt,
+							setField(clazz, result, member, field, rVal, memberDt,
 									value, ci);
 							// continue to next member
 							break;
@@ -1313,18 +1313,48 @@ ValueInStackFrame_c localVsf = ValueInStackFrame_c.getOneI_VSFOnR2951(localStack
 		return result;
 	}
 
-	private static void setField(Object result, StructureMember_c member,
+	private static void setField(Class<?> clazz, Object result, StructureMember_c member,
 			Field field, RuntimeValue_c rVal, DataType_c memberDt, Object value, ComponentInstance_c ci) {
 		Dimensions_c [] dims = Dimensions_c.getManyS_DIMsOnR53(member);
 		value = marshallContentOut(rVal, memberDt, value, dims.length, false, ci);
+
+		Method meth = null;
 		try {
-			field.set(result, value);
-		} catch (IllegalArgumentException e) {
+			meth = clazz.getDeclaredMethod("set" + field.getName(), 
+					getClassForCoreTypeOf(memberDt, false));
+		} catch (SecurityException e) {
 			String ex = e.getLocalizedMessage();
-			LOG.LogInfo("Illegal argument exception while setting field value for realized data type: " + ex);
-		} catch (IllegalAccessException e) {
-			String ex = e.getLocalizedMessage();
-			LOG.LogInfo("Illegal access exception while setting field value for realized data type: " + ex);
+			LOG.LogInfo("Security exception while calling setter for realized data type: " + ex);
+		} catch (NoSuchMethodException e) {
+			// Expected code path, do nothing
+		}
+		
+		if(meth != null) {
+			// Found setter, use it
+			try {
+				meth.invoke(result, value);
+			} catch (IllegalAccessException e) {
+				String ex = e.getLocalizedMessage();
+				LOG.LogInfo("Illegal access exception while calling setter for realized data type: " + ex);
+			} catch (IllegalArgumentException e) {
+				String ex = e.getLocalizedMessage();
+				LOG.LogInfo("Illegal argument exception while calling setter for realized data type: " + ex);
+			} catch (InvocationTargetException e) {
+				String ex = e.getLocalizedMessage();
+				LOG.LogInfo("Invocation target exception while calling setter for realized data type: " + ex);
+			}
+		}
+		else {
+			// No setter, fall back to direct field modification.
+			try {
+				field.set(result, value);
+			} catch (IllegalArgumentException e) {
+				String ex = e.getLocalizedMessage();
+				LOG.LogInfo("Illegal argument exception while setting field value for realized data type: " + ex);
+			} catch (IllegalAccessException e) {
+				String ex = e.getLocalizedMessage();
+				LOG.LogInfo("Illegal access exception while setting field value for realized data type: " + ex);
+			}
 		}
 	}
 
