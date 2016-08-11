@@ -47,14 +47,14 @@ This is the final PLCM analysis note. The PLCM project was long-lived, and there
 <a id="2.7.3"></a>2.7.3 [Issue 845 - PLCM Design Note for milestone 2](i845-2.dnt)  
 This note captures the design note of PLCM as related to proxies.  
 
-<a id="2.8"></a>2.8 [Issuse 8458 - Test Cases for Model Element Move](https://support.onefact.net/issues/8458)  
+<a id="2.8"></a>2.8 [Issue 8458 - Test Cases for Model Element Move](https://support.onefact.net/issues/8458)  
 
 <a id="2.9"></a>2.9 Documentation associated with use of proxies for model compare and merge  
 <a id="2.9.1"></a>2.9.1 [Issue 244 Design note - Fix corruption caused by class merges](244_class_merge.dnt.md)  
 
 <a id="2.10"></a>2.10 [Issue 3532 design note - Support data type move capabilities through cut, copy, paste](../8031_Analyze_Model_Element_Move/i3532.dnt)  
 
-<a id="2.11"></a>2.11 [Eclipse Team Interface associted with element move](http://help.eclipse.org/mars/index.jsp?topic=%2Forg.eclipse.platform.doc.isv%2Fguide%2FresAdv_hooks.htm)  
+<a id="2.11"></a>2.11 [Eclipse Team Interface associated with element move](http://help.eclipse.org/mars/index.jsp?topic=%2Forg.eclipse.platform.doc.isv%2Fguide%2FresAdv_hooks.htm)  
 This is documentation for Eclipse Team plugin providers. It shows that file move support could be 
 implemented by a provider.  
 
@@ -65,6 +65,22 @@ This issue shows an example where file system changes made by BridgePoint had a 
 -------------     
 
 See the background in [the analysis note](../8031_Analyze_Model_Element_Move/8031_Analyze_Model_Element_Move.ant.md).
+
+This design note was reviewed and approved early in the Model Element Move project. Implementation 
+uncovered problems that prevented the original design from working as described. At the heart of the problem was the original design's intention to use the existing copy/paste infrastructure in the implementation of the move behavior. Reusing the copy/paste infrastructure allowed much of the 
+complexity of this project to be handled via the existing infrastructure. Prior to the work done by this issue, BridgePoint did have the ability to perform cut/paste. However, this cut/paste behavior took 
+full advantage of copy/paste. In fact, the cut/paste behavior was simply copy/paste followed by delete. 
+The paste in the situation resulted in new UUIDs for all elements pasted. The original design took the 
+approach that the change to make that prior cut/paste behavior a move was essentially simple a matter
+of preventing new UUIDs  from being created for the pasted elements. Implementation came to the conclusion that this approach would not satisfy the requirements. Specifically, the fact that reuse of the existing infrastructure would require delete to be called after the "move" was unacceptable. The delete() operation is modeled. Each meta-model element implements delete and the implementation is recursive. In the initial design it was believed that the implementation would simply modify the delete operations to prevent the recursive delete. However, this was not an appropriate solution. What is came down to, although quite a painful decision, was that "move is not copy/paste/delete" and it can not be treated as such.  
+
+After the implementation discovery above it was determined that move should not reuse the copy/paste 
+infrastructure. This led to significant design changes. Upon re-reviewing the project design it was determined during the [re-review](../../doc-bridgepoint/review-minutes/8321_Model_Element_Move.dnt.rvm2.md) that this design note should be updated. However, it was decided that we should do our best to leave the original approved design in place to make it clear what was changed between the original design and the modified design. To facilitate this, in the note that follows you will see 
+```html
+<s>strikethrough</s>  where items were removed from the original design and 
+<b>bold</b> where things were added.
+```.
+
 
 4. Requirements   
 ---------------   
@@ -99,9 +115,9 @@ For example, a data type can be moved without affecting the attributes and
 parameters typed by it so long as the data type remains visible to those 
 elements typed by it.  
 
-4.5 The model-element move capability is enabled only when all model 
-elements within the current selection are supported model element types for 
-the move capability.  
+4.5 The model-element move capability is enabled in the user interface only 
+when all model elements within the current selection are supported model 
+element types for the move capability.  
 
 4.5.1 The option to move shall be present but disabled when a selection is 
 not a valid move selection.  
@@ -122,9 +138,11 @@ is desirable to remove proxies.
 
 5.1 Choice of design options from the analysis note.
 
-The option to use the existing infrastructure, [2.2](#2.2) section 5.3, shall 
-be used. This option takes advantage of both the existing UI infrastructure and 
+```html
+<s>The option to use the existing infrastructure, [2.2](#2.2) section 5.3, shall 
+be used. </s>This option takes advantage of both the existing UI infrastructure and 
 the infrastructure that is used to perform target selection and validation. 
+```
 
 5.1.1 Atomic transaction requirement
 
@@ -181,12 +199,14 @@ proxies (section 3.3)](i845-PLCM_1_0.ant), that lazy-loading had limitations.
 Over time what has been observed is that lazy loading has done more harm 
 than good.  
 
-[[4.6](#4.6)] is a blocker to this issue because if 
+```html
+<s>[[4.6](#4.6)] is a blocker to this issue because if 
 proxies remain and are not persisted consistently the move operation will have 
 failures caused by the inconsistent proxies paths. The following section 
 examines proxy usage with an eye to the possibility of removing proxies 
 as a solution to [[4.6](#4.6)]. Section 6.5 describes the steps to perform 
-this removal.  
+this removal.</s>  
+```
 
 5.2.1 Proxy implemenation  
 As described in the [PLCM design note for proxies](i845-2.dnt), proxies are 
@@ -224,13 +244,15 @@ further analysis of this is done at this time.
 
 6. Design   
 ----------------   
-
-As described in the analysis section, the copy/paste infrastructure shall be 
+```html
+<s>As described in the analysis section, the copy/paste infrastructure shall be 
 used in order to take advantage of it's ability to perform selection 
 and target validation as well as minimize changes to the BridgePoint user 
-interface. This section describes how we will modify this existing
+interface. This section describes how to modify this existing
 infrastructure to change the behavior of cut/paste so that it is analogous with
 move.  
+</s>
+```
 
 6.1 Modify cut/paste operation to be analogous to "move" by making it a 
 single long-lived transaction. This shall adhere to the ACID properties 
@@ -244,15 +266,20 @@ separate transactions. In addition to this abstract class, the classes that
 extend this shall also be modified as required for this change. These are:  
 * `core/ui/CopyAction.java` - This shall be modified as needed to adhere to interface 
 changes, but functionality shall not be changed.
-* `core/ui/CutAction.java` - The deletion of selected elements will no longer be 
+* `core/ui/CutAction.java` - 
+```html
+<s>The deletion of selected elements will no longer be 
 performed during cut. Instead, this deletion will be moved to the paste 
 operation so that no change is actually made until paste occurs.  
+</s>
+```
 
 6.2 Modify the paste action (`core/ui/PasteAction.java`).  
 
 The copy/paste behavior shall not be changed during this change.  
 
-The paste operation behavior is implemented in the generated 
+```html
+<s>The paste operation behavior is implemented in the generated 
 file io/mdl/ImportModelStream.java (generated from `io/mdl/arc/gen_stream_import.arc`). 
 The PasteAction.java class invokes this through the same BridgePoint 
 interface that is used for all model element loading (`IModelImport.java`). 
@@ -263,35 +290,47 @@ to copy/paste). When cut/paste is indicated, the generated model element constru
 calls will be made in a way that assures:  
 6.2.1 The source element ID(s) shall be used and no new IDs shall be created  
 6.2.2 The element is created in the target model root.  
-6.2.3 The when model root(s) are included in the selection being moved, the paste 
+6.2.3 When model root(s) are included in the selection being moved, the paste 
 action shall perform the move in a way that facilitates the ability of the team interface 
 to handle the action as a move as opposed to a cut/paste (which would lose RCS history). 
 This is where requirement 4.2 is handled.  
 6.2.3.1 The implementation shall proceed by first modifying the in-memory instances without 
-regard to the persistence layer. When this task is complete, the persistence layer is 
-seperate, and in theory will require no addtional because, since IDs are not changed, if 
-a file whose contents are identical is deleted and created the team interface should be 
-able to manage this as a move [2.11](#2.11).  However, BridgePoint deals with 
+regard to the persistence layer. When this task is complete, because the persistence layer is 
+seperate, in theory no additional work shall be required because. The reason is, since IDs are not 
+changed, if a file whose contents are identical is deleted and created the team interface should be 
+able to manage this as a move [2.11](#2.11).  BridgePoint deals with 
 these changes at the file system level, and it is for the provider to handle the team 
-opertions appropriately. BridgePoint does not even directly ever communicate with the 
-Eclipse team interface, with 1 expception (compare and merge - `bp/model/compare/contentmergeviewer/ModelContentMergeViewer.java`).  What BridgePoibt code
-can, and has done to help facilite preferred RCS behavior is to assure that file operations 
-are performed in the best order, and this issue shall seek to do this. An example of where 
-was done in the past may be seen here [2.12](#2.12).  
+operations appropriately. BridgePoint does not directly ever communicate with the 
+Eclipse team interface, with 1 exception (compare and merge - 
+`bp/model/compare/contentmergeviewer/ModelContentMergeViewer.java`).  What BridgePoint 
+code can, and has done to help facilitate preferred RCS behavior is to 
+assure that file operations are performed in the best order, and this issue 
+shall seek to do this. An example of where this was done in the past may be seen 
+here [2.12](#2.12).  
 
 6.2.4 Where deletion of elements is required (paste is performed to a different model root) 
 the deletion of the source elements will occur. The deletion shall occur after the paste to
 faciliate 6.2.3.  
+<s>
+```
+
 6.2.5 An attempt to paste to the same location that the copy was made from is considered an 
 invalid selection and shall not be allowed.  
 
-6.3 Reuse the current tree view that shows Model Elements affected by the 
+6.3 Reuse the current tree list box that shows Model Elements affected by the 
 cut/paste operation  
 
-6.3.1 The dialof shall allow the user to cancel   
+6.3.1 The dialog shall allow the user to cancel   
 
 6.3.2 In the type demotion dialog, consider adding text to tell the user to 
 consider turning on IPRs or checking package visibility.  
+
+```html
+<b>
+6.3.2.1 The implementation shall consider that fact that visibility checks that may result in
+demotion will need to be performed on both the source and the target (RTOs and RGOs).
+</b>
+```
 
 6.3.3 As per the SOW [[2.3](#2.3)], the dialog needs to have save and print optons added.  
 
@@ -312,7 +351,7 @@ perform a test of proxy removal, and the steps to do so shall be outlined here
 [6.5.1]. This task of resolving the inconsistent proxy paths is intentionally 
 left as the last task in the project. If the attempt to remove proxies results
 in unexpected problems that time constraints do not allow us to resolve then 
-these problems shall be recored and we shall resolve this requirement by 
+these problems shall be recorded and we shall resolve this requirement by 
 fixing the bug in the existing proxy code [6.5.2].
 
 6.5.1 Remove proxies from BridgePoint  
@@ -366,9 +405,9 @@ none
 ---------------------  
 8.1 This issue changes the behavior of cut/paste making it analogous to move. 
 BridgePoint documenation shall be updated accordingly.  
-8.1.1 The cut operation no longer causes any change. Whej cut is selected, no 
+8.1.1 The cut operation no longer causes any change. When cut is selected, no 
 change occurs until and unless paste is performed.  
-8.1.2 Unlike copy/paste which creates new elements on pase, the modified cut/paste operation leaves identifers intact.  
+8.1.2 Unlike copy/paste which creates new elements on paste, the modified cut/paste operation leaves identifers intact.  
 8.1.2.1 This means that while a copied buffer may be pasted muitple times, a cut buffer can be pasted only 1 time.  
 
 9. Acceptance Test   
@@ -389,6 +428,12 @@ moved model element and other model elements shall be maintained.
 
 9.4.1 Test to assure that when visibility does not permit the connection between 
 model elements to be maintained proper defaults are used.
+
+```html
+<b>
+9.4.2 The above test shall be extended to test both RTO and RGO downgrades.
+</b>
+```
 
 9.5 Test to assure the model-element move capability is only enabled for 
 valid model element selections and is present but disabled otherwise.
