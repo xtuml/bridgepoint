@@ -296,7 +296,8 @@ here [2.12](#2.12).
 
 6.2.4 Where deletion of elements is required (paste is performed to a different model root) 
 the deletion of the source elements will occur. The deletion shall occur after the paste to
-faciliate 6.2.3.  <s>
+faciliate 6.2.3.  
+</s>
 
 6.2.5 An attempt to paste to the same location that the copy was made from is considered an 
 invalid selection and shall not be allowed.  
@@ -309,10 +310,8 @@ cut/paste operation
 6.3.2 In the type demotion dialog, consider adding text to tell the user to 
 consider turning on IPRs or checking package visibility.  
 
-<b>
-6.3.2.1 The implementation shall consider that fact that visibility checks that may result in
-demotion will need to be performed on both the source and the target (RTOs and RGOs).
-</b>
+<b>6.3.2.1 The implementation shall consider that fact that visibility checks that may result in
+demotion will need to be performed on both the source and the target (RTOs and RGOs).</b>
 
 6.3.3 As per the SOW [[2.3](#2.3)], the dialog needs to have save and print optons added.  
 
