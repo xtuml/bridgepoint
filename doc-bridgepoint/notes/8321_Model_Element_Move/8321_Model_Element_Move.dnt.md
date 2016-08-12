@@ -75,11 +75,8 @@ approach that the change to make that prior cut/paste behavior a move was essent
 of preventing new UUIDs  from being created for the pasted elements. Implementation came to the conclusion that this approach would not satisfy the requirements. Specifically, the fact that reuse of the existing infrastructure would require delete to be called after the "move" was unacceptable. The delete() operation is modeled. Each meta-model element implements delete and the implementation is recursive. In the initial design it was believed that the implementation would simply modify the delete operations to prevent the recursive delete. However, this was not an appropriate solution. What is came down to, although quite a painful decision, was that "move is not copy/paste/delete" and it can not be treated as such.  
 
 After the implementation discovery above it was determined that move should not reuse the copy/paste 
-infrastructure. This led to significant design changes. Upon re-reviewing the project design it was determined during the [re-review](../../doc-bridgepoint/review-minutes/8321_Model_Element_Move.dnt.rvm2.md) that this design note should be updated. However, it was decided that we should do our best to leave the original approved design in place to make it clear what was changed between the original design and the modified design. To facilitate this, in the note that follows you will see 
-```html
-<s>strikethrough</s>  where items were removed from the original design and 
+infrastructure. This led to significant design changes. Upon re-reviewing the project design it was determined during the [re-review](../../doc-bridgepoint/review-minutes/8321_Model_Element_Move.dnt.rvm2.md) that this design note should be updated. However, it was decided that we should do our best to leave the original approved design in place to make it clear what was changed between the original design and the modified design. To facilitate this, in the note that follows you will see <s>strikethrough</s>  where items were removed from the original design and 
 <b>bold</b> where things were added.
-```.
 
 
 4. Requirements   
@@ -138,11 +135,9 @@ is desirable to remove proxies.
 
 5.1 Choice of design options from the analysis note.
 
-```html
 <s>The option to use the existing infrastructure, [2.2](#2.2) section 5.3, shall 
 be used. </s>This option takes advantage of both the existing UI infrastructure and 
 the infrastructure that is used to perform target selection and validation. 
-```
 
 5.1.1 Atomic transaction requirement
 
@@ -199,14 +194,12 @@ proxies (section 3.3)](i845-PLCM_1_0.ant), that lazy-loading had limitations.
 Over time what has been observed is that lazy loading has done more harm 
 than good.  
 
-```html
 <s>[[4.6](#4.6)] is a blocker to this issue because if 
 proxies remain and are not persisted consistently the move operation will have 
 failures caused by the inconsistent proxies paths. The following section 
 examines proxy usage with an eye to the possibility of removing proxies 
 as a solution to [[4.6](#4.6)]. Section 6.5 describes the steps to perform 
 this removal.</s>  
-```
 
 5.2.1 Proxy implemenation  
 As described in the [PLCM design note for proxies](i845-2.dnt), proxies are 
@@ -244,7 +237,6 @@ further analysis of this is done at this time.
 
 6. Design   
 ----------------   
-```html
 <s>As described in the analysis section, the copy/paste infrastructure shall be 
 used in order to take advantage of it's ability to perform selection 
 and target validation as well as minimize changes to the BridgePoint user 
@@ -252,7 +244,6 @@ interface. This section describes how to modify this existing
 infrastructure to change the behavior of cut/paste so that it is analogous with
 move.  
 </s>
-```
 
 6.1 Modify cut/paste operation to be analogous to "move" by making it a 
 single long-lived transaction. This shall adhere to the ACID properties 
@@ -266,19 +257,14 @@ separate transactions. In addition to this abstract class, the classes that
 extend this shall also be modified as required for this change. These are:  
 * `core/ui/CopyAction.java` - This shall be modified as needed to adhere to interface 
 changes, but functionality shall not be changed.
-* `core/ui/CutAction.java` - 
-```html
-<s>The deletion of selected elements will no longer be 
+* `core/ui/CutAction.java` - <s>The deletion of selected elements will no longer be 
 performed during cut. Instead, this deletion will be moved to the paste 
-operation so that no change is actually made until paste occurs.  
-</s>
-```
+operation so that no change is actually made until paste occurs.  </s>
 
 6.2 Modify the paste action (`core/ui/PasteAction.java`).  
 
 The copy/paste behavior shall not be changed during this change.  
 
-```html
 <s>The paste operation behavior is implemented in the generated 
 file io/mdl/ImportModelStream.java (generated from `io/mdl/arc/gen_stream_import.arc`). 
 The PasteAction.java class invokes this through the same BridgePoint 
@@ -310,9 +296,7 @@ here [2.12](#2.12).
 
 6.2.4 Where deletion of elements is required (paste is performed to a different model root) 
 the deletion of the source elements will occur. The deletion shall occur after the paste to
-faciliate 6.2.3.  
-<s>
-```
+faciliate 6.2.3.  <s>
 
 6.2.5 An attempt to paste to the same location that the copy was made from is considered an 
 invalid selection and shall not be allowed.  
@@ -325,12 +309,10 @@ cut/paste operation
 6.3.2 In the type demotion dialog, consider adding text to tell the user to 
 consider turning on IPRs or checking package visibility.  
 
-```html
 <b>
 6.3.2.1 The implementation shall consider that fact that visibility checks that may result in
 demotion will need to be performed on both the source and the target (RTOs and RGOs).
 </b>
-```
 
 6.3.3 As per the SOW [[2.3](#2.3)], the dialog needs to have save and print optons added.  
 
@@ -429,11 +411,9 @@ moved model element and other model elements shall be maintained.
 9.4.1 Test to assure that when visibility does not permit the connection between 
 model elements to be maintained proper defaults are used.
 
-```html
 <b>
 9.4.2 The above test shall be extended to test both RTO and RGO downgrades.
 </b>
-```
 
 9.5 Test to assure the model-element move capability is only enabled for 
 valid model element selections and is present but disabled otherwise.
