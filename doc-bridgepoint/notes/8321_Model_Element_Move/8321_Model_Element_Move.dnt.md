@@ -198,8 +198,8 @@ than good.
 proxies remain and are not persisted consistently the move operation will have 
 failures caused by the inconsistent proxies paths. The following section 
 examines proxy usage with an eye to the possibility of removing proxies 
-as a solution to [[4.6](#4.6)]. Section 6.5 describes the steps to perform 
-this removal.</s>  
+as a solution to [[4.6](#4.6)].</s> Section 6.5 describes the steps to perform 
+this removal.  
 
 5.2.1 Proxy implemenation  
 As described in the [PLCM design note for proxies](i845-2.dnt), proxies are 
