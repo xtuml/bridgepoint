@@ -32,10 +32,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
-import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.jface.action.Action;
-
 import org.eclipse.jface.dialogs.ProgressMonitorDialog;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.swt.SWT;
@@ -43,18 +40,11 @@ import org.eclipse.swt.dnd.Clipboard;
 import org.eclipse.swt.dnd.TextTransfer;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Shell;
-import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.PlatformUI;
-
 import org.xtuml.bp.core.CorePlugin;
-import org.xtuml.bp.core.Gd_c;
-import org.xtuml.bp.core.Modeleventnotification_c;
 import org.xtuml.bp.core.Ooaofooa;
-import org.xtuml.bp.core.Package_c;
 import org.xtuml.bp.core.PackageableElement_c;
 import org.xtuml.bp.core.SystemModel_c;
-import org.xtuml.bp.core.common.AttributeChangeModelDelta;
-import org.xtuml.bp.core.common.BaseModelDelta;
 import org.xtuml.bp.core.common.IPasteListener;
 import org.xtuml.bp.core.common.IPersistenceHierarchyMetaData;
 import org.xtuml.bp.core.common.ModelElementMovedModelDelta;
@@ -411,7 +401,6 @@ public abstract class PasteAction extends CutCopyPasteAction  {
 		if (cb != null && !cb.isDisposed()) {
 			Object contents = cb.getContents(TextTransfer.getInstance());
 			if (contents instanceof String) {
-				String stringContents = (String) contents;
 				List<NonRootModelElement> destinations = getDestinations();
 				// If this is a move. only 1 destination is allowed
 				if (MOVE_IS_IN_PROGRESS && destinations.size() > 1) {
@@ -423,24 +412,10 @@ public abstract class PasteAction extends CutCopyPasteAction  {
 						for (int i = 0; i < types.length; i++) {
 							if (MOVE_IS_IN_PROGRESS) {								
 								// If this is a move, the source and destination can not be the same.
-								boolean destinationIsSys = getClassName(destination).equals("systemmodel");
 								for (NonRootModelElement sourceElement : ELEMENT_MOVE_SOURCE_SELECTION ) {
 									NonRootModelElement sourceContainer = getContainerForMove(sourceElement);
 									if (destination == sourceContainer) {
 										return false;
-									}
-
-									if (!destinationIsSys) {
-										// If the destination is not visible to the source BEFORE the
-										// move then we will not allow this move to occur.
-										PackageableElement_c sourcePE = sourceElement.getPE();
-										PackageableElement_c destPE = destination.getPE();
-										if ((sourcePE != null) &&
-											(destPE != null) &&
-											(!sourcePE.Iselementvisibletoself(destination.Get_ooa_id(),
-												destPE.getType())) ) {
-											return false;
-										}
 									}
 								}
 							}
