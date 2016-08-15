@@ -966,13 +966,9 @@ public class TransactionManager {
 		return persisting;
 	}
 
-	public static void reportElementDowngraded(Object p_rgodowngraded, Object p_rto, String p_relationship,
-			boolean failedToReconnectRGO) {
+	public static void reportElementDowngraded(Object p_rgodowngraded, Object p_rto, String p_relationship) {
 		if (p_rgodowngraded != null) {	
-			if (CutCopyPasteAction.moveIsInProgress() && !failedToReconnectRGO) {
-				// If move is in progress then we are going to attempt to stitch-up
-				// the RGO during paste. If successful we do not need to tell the user
-				// it was downgraded, but it we fail we do need to report it.
+			if (CutCopyPasteAction.moveIsInProgress()) {
 				PasteAction.addDownGradedElement((NonRootModelElement)p_rto, (NonRootModelElement)p_rgodowngraded, p_relationship);
 			} else {
 				String qualifedName = "";
@@ -987,10 +983,6 @@ public class TransactionManager {
 		}		
 	}
 	
-	public static void reportElementDowngraded(Object p_rgodowngraded, Object p_rto, String p_relationship) {		
-		reportElementDowngraded(p_rgodowngraded, p_rto, p_relationship, false);
-	}
-
 	/**
 	 * Clears this manager's undo and redo stacks.
 	 */
