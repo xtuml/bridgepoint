@@ -18,19 +18,6 @@ the License.
 -->
 <plugin>
 
-     <extension
-         id="MCJavaNature"
-         name="model compiler nature"
-         point="org.eclipse.core.resources.natures">
-      <runtime>
-         <run
-               class="org.xtuml.bp.internal.tools.mcjava.MCJavaNature">
-         </run>
-      </runtime>
-      <builder
-            id="org.xtuml.bp.internal.tools.mc_java_export_builder">
-      </builder>
-   </extension>
    <extension point="org.eclipse.ui.viewActions">
 		<viewContribution 
 			id="org.xtuml.bp.internal.tools.process.scrapeCodeChanges" 
@@ -141,13 +128,5 @@ the License.
             class="org.xtuml.bp.internal.tools.views.BPInstancePopulationView"
             id="org.xtuml.bp.internal.tools.views.BPInstancePopulationView">
       </view>
-   </extension>
-   <extension
-         id="mc_java_export_builder"
-         name="Java Model Compiler Pre-Builder"
-         point="org.eclipse.core.resources.builders">
-      <builder>
-        <run class="org.xtuml.bp.internal.tools.mcjava.JavaExportBuilder" />
-      </builder>
    </extension>
 </plugin>
