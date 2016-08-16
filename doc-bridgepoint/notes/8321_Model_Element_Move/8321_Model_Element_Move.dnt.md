@@ -558,6 +558,51 @@ for each selectedElement
 end for
 ```
 
+6.2 Pseudo code for the "new" Model Element Move implementation  
+```
+- PasteAction::run() - MOVE_IS_IN_PROGRESS flow
+
+  Start Transaction
+  for each element in selection
+    run disconnect() if it exists
+    unhook on from parent pkg/comp on R8000/R8003
+  end for
+  processGraphics - move graphical model roots
+  for each element in selection
+    update model root
+  end for
+  for each element in selection
+    run modeled Paste() operation to move the element to the destination
+  end for    
+  End Transaction
+  if ( transaction successful )
+    continue = displayProblemsDialog()
+    if (!continue)
+      // paste cancelled, transaction reverted by displayProblemsDialog()
+      return
+    end if
+    run ParseAll on destination
+    run PasteCompleted listener on elements in selection
+  end if
+```
+
+6.3 Introduction of Disconnect operation for elements that have a more complex disconnnect than R8000/R8003
+```
+[8/12/16, 1:03:37 PM] Keith Brown: during the MEM review, we made a review comment about how we seem to recall adding a model function we call via reflection, but we didn't remember what it was for or where it was used.
+[8/12/16, 1:04:28 PM] Bob Mulvey: I am very surprised but I do not see where we documented it. However, it was Disconnect
+[8/12/16, 1:04:45 PM] Bob Mulvey: And you can see where we use it right now in PasteAction.java::run
+[8/12/16, 1:05:39 PM] Bob Mulvey: We currently use it in the case where there is more to have to disconnect then just R8000/R8003
+[8/12/16, 1:06:26 PM] Bob Mulvey: So, we look to see if the Disconnect operation exists on the element being moved and if it does we call it
+```
+
+6.4 Design for graphics reconciliation
+```
+Note that in the graphics move we are simply discconecting and reconnnecting graphics on R1. 
+The exception is in the situation where components references are unassigned, in this 
+case we must run graphics reconcilaition to remove the provision and requirements when the
+element is unassigned. However, note that since unassign is beingdone, this should happen
+so no reconciliation should be needed
+```
 
 8. User Documentation   
 ---------------------  
