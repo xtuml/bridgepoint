@@ -391,13 +391,14 @@ public class ComponentResourceListener implements IResourceChangeListener, IReso
 
 	private boolean checkForDuplicateProjects(IProject project, PersistableModelComponent com) {
         IFile file = project.getFile("/"+ Ooaofooa.MODELS_DIRNAME + "/"+  project.getName() + "/"+  project.getName() +"."+ Ooaofooa.MODELS_EXT);
+        IFile actionFile = project.getFile("/"+ Ooaofooa.MODELS_DIRNAME + "/"+  project.getName() + "/"+  project.getName() +"."+PersistableModelComponent.ACTION_FILE_EXT+"."+ Ooaofooa.MODELS_EXT);
 
 		IModelImport importer;
 		try {
 			if (file.exists()) {
 				importer = CorePlugin
 						.getModelImportFactory()
-						.create(file, Ooaofooa.getDefaultInstance(),
+						.create(file, actionFile, Ooaofooa.getDefaultInstance(),
 								com, false, false, false, false);
 				IFileHeader header = importer.getHeader();
 				InputStream contents = file.getContents();

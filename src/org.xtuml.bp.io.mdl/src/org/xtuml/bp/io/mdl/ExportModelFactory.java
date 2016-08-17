@@ -70,6 +70,12 @@ public class ExportModelFactory extends AbstractModelExportFactory {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public IRunnableWithProgress create(NonRootModelElement element, String outfileName, String outActionFileName,
+			boolean exportGraphics) throws FileNotFoundException {
+		return new ExportModelComponent((Ooaofooa)element.getModelRoot(), outfileName, exportGraphics, element);
+	}
 	
 }
 

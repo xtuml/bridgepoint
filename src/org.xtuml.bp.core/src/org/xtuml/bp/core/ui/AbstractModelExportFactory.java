@@ -50,6 +50,9 @@ public abstract class AbstractModelExportFactory {
 	public abstract IRunnableWithProgress create(NonRootModelElement element, String outfileName,
 			boolean exportGraphics) throws FileNotFoundException;
 	
+	public abstract IRunnableWithProgress create(NonRootModelElement element, String outfileName, String outActionFileName,
+			boolean exportGraphics) throws FileNotFoundException;
+	
 	public abstract IRunnableWithProgress create(String outfileName,
 			NonRootModelElement me) throws FileNotFoundException;
 

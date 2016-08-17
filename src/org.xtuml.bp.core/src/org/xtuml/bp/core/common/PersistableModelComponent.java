@@ -97,6 +97,8 @@ public class PersistableModelComponent implements Comparable {
     public static final int STATUS_PERSISTING = 4;
     
     private final String dummyCompareName = "__dummyCompareProj/__dummyFile.xtuml";
+
+    public static final String ACTION_FILE_EXT = "oal";
     
     // Although type can be determined at runtime, this variable is used "only"
     // when component is not loaded
@@ -104,6 +106,7 @@ public class PersistableModelComponent implements Comparable {
     private String componentType;
 
     private IFile underlyingResource;
+    private IFile actionFile;
 
     // instance of ME when component is loaded otherwise it will be null;
     private NonRootModelElement componentRootME;
@@ -130,6 +133,8 @@ public class PersistableModelComponent implements Comparable {
 
         underlyingResource = ResourcesPlugin.getWorkspace().getRoot().getFile(
                 modelFilePath);
+        actionFile = ResourcesPlugin.getWorkspace().getRoot().getFile(
+                modelFilePath.removeFileExtension().addFileExtension(ACTION_FILE_EXT).addFileExtension(Ooaofooa.MODELS_EXT));
         if (PersistenceManager.findComponent(modelFilePath) != null)
             throw new WorkbenchException(
                     "Another component with same path already exists");
@@ -171,6 +176,8 @@ public class PersistableModelComponent implements Comparable {
         IPath modelFilePath = getChildPath(parent.getFullPath(), name);
         underlyingResource = ResourcesPlugin.getWorkspace().getRoot().getFile(
                 modelFilePath);
+        actionFile = ResourcesPlugin.getWorkspace().getRoot().getFile(
+                modelFilePath.removeFileExtension().addFileExtension(ACTION_FILE_EXT).addFileExtension(Ooaofooa.MODELS_EXT));
         checkComponentConsistancy(null);
         
         // we don't check if underlying resource exists for the case when the ME
@@ -196,6 +203,8 @@ public class PersistableModelComponent implements Comparable {
         
         underlyingResource = ResourcesPlugin.getWorkspace().getRoot().getFile(
                 getRootComponentPath(systemModel.getName()));
+        actionFile = ResourcesPlugin.getWorkspace().getRoot().getFile(
+                getRootComponentPath(systemModel.getName()).removeFileExtension().addFileExtension(ACTION_FILE_EXT).addFileExtension(Ooaofooa.MODELS_EXT));
          checkComponentConsistancy(null);
         
         componentRootME = systemModel;
@@ -217,6 +226,7 @@ public class PersistableModelComponent implements Comparable {
         componentRootME = systemModel;
         componentType = PersistenceManager.getHierarchyMetaData().getComponentType(systemModel);
       underlyingResource=ResourcesPlugin.getWorkspace().getRoot().getFile(new Path(dummyCompareName));
+      actionFile=ResourcesPlugin.getWorkspace().getRoot().getFile(new Path(dummyCompareName).removeFileExtension().addFileExtension(ACTION_FILE_EXT).addFileExtension(Ooaofooa.MODELS_EXT));
         setComponent(systemModel);
 
     }
@@ -503,6 +513,13 @@ public class PersistableModelComponent implements Comparable {
         return null;
     }
 
+    public IFile getActionFile() {
+      if (actionFile != null)
+        return actionFile;
+      else
+        return null;
+    }
+
     // we need to synchronized with loaded MEs
     public void refresh() throws CoreException {
         if (!isLoaded()) {
@@ -578,6 +595,7 @@ public class PersistableModelComponent implements Comparable {
         }
 
         IFile file = getFile();
+        IFile actionFile = getActionFile();
 
         persisting = true;
         // create an export-factory and have it perform the persistence
@@ -585,7 +603,7 @@ public class PersistableModelComponent implements Comparable {
                 .getInstance();
         try {
             IRunnableWithProgress runnable = factory.create(componentRootME,
-                    file.getLocation().toString(), true);
+                    file.getLocation().toString(), actionFile.getLocation().toString(), true);
             runnable.run(monitor);
         
             // get Eclipse to notice that the model's file has changed on disk
@@ -801,7 +819,7 @@ public class PersistableModelComponent implements Comparable {
         }
     }
 
-    private IModelImport createImporter(IFile file, Ooaofooa modelRoot,
+    private IModelImport createImporter(IFile file, IFile actionFile, Ooaofooa modelRoot,
             boolean parseOal) throws IOException {
         if (!file.exists() ) {
             // can't import file from a closed project or that doesn't exist
@@ -814,14 +832,14 @@ public class PersistableModelComponent implements Comparable {
             modelRoot = Ooaofooa.getInstance(getUniqueID());
         }
         
-        return factory.create(file, modelRoot, this, parseOal, true, true,
+        return factory.create(file, actionFile, modelRoot, this, parseOal, true, true,
                 false);
     }
     
     private IModelImport createImporter(Ooaofooa modelRoot, boolean parseOal)
             throws IOException {
 
-        return createImporter(getFile(), modelRoot, parseOal);
+        return createImporter(getFile(), getActionFile(), modelRoot, parseOal);
     }
     
     public PersistableModelComponent getDomainComponent() {
@@ -860,7 +878,7 @@ public class PersistableModelComponent implements Comparable {
 
     private String getComponentType(IFile componentFile) throws CoreException {
         try {
-            IModelImport im = createImporter(componentFile, null, false);
+            IModelImport im = createImporter(componentFile, null, null, false);
             if (im == null) {
                 // we're trying to load a file in a closed project
                 return "";
@@ -1072,6 +1090,8 @@ public class PersistableModelComponent implements Comparable {
         }
         PersistenceManager.removeComponent(this);
         underlyingResource = newFile;
+        IPath actionFilePath = newFile.getFullPath().removeFileExtension().addFileExtension(ACTION_FILE_EXT).addFileExtension(Ooaofooa.MODELS_EXT);
+        actionFile = ResourcesPlugin.getWorkspace().getRoot().getFile(actionFilePath);
         PersistenceManager.addComponent(this);
         if (thisMe != null && thisMe.isProxy()) {
             thisMe.updateContentPath(underlyingResource.getFullPath());
