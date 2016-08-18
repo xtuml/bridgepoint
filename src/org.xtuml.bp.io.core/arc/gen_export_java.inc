@@ -81,6 +81,10 @@ public class ${class_name} extends CoreExport
 	protected Path m_path;
 	boolean m_isUpdate = false;
 	ByteArrayOutputStream m_updateData;
+        .if ( class_name == "ExportModelComponent" )
+        protected PrintStream m_afh; // handle for actions
+	ByteArrayOutputStream m_actionUpdateData;
+        .end if;
     .end if
 
     public ${class_name}(${var.main_class_name} modelRoot, String outfileName, boolean export_graphics)
@@ -143,10 +147,19 @@ public class ${class_name} extends CoreExport
             m_isUpdate = true;
             m_updateData = new ByteArrayOutputStream();
             m_fh = new PrintStream(m_updateData);
+            .if ( class_name == "ExportModelComponent" )
+            m_actionUpdateData = new ByteArrayOutputStream();
+            m_afh = new PrintStream(m_actionUpdateData);
+            .end if
         } else {
             File fh = m_path.toFile();
             FileOutputStream fs = new FileOutputStream(fh);
             m_fh = new PrintStream(fs);
+            .if ( class_name == "ExportModelComponent" )
+            File afh = m_path.removeFileExtension().addFileExtension(PersistableModelComponent.ACTION_FILE_EXT).addFileExtension(Ooaofooa.MODELS_EXT).toFile();
+            FileOutputStream afs = new FileOutputStream(afh);
+            m_afh = new PrintStream(afs);
+            .end if
         }
     }
     .end if	
@@ -233,6 +246,9 @@ public class ${class_name} extends CoreExport
          				.end if
             }
             m_fh.close();
+            .if ( class_name == "ExportModelComponent" )
+            m_afh.close();
+            .end if
     .if (callingProject == "NBP")
 			if (m_isUpdate) {
 				InputStream stream = new ByteArrayInputStream(m_updateData.toByteArray());
@@ -243,6 +259,15 @@ public class ${class_name} extends CoreExport
 				} else {
 				f.setContents(stream, true, true, pm);
 			}
+                                .if ( class_name == "ExportModelComponent" )
+				InputStream astream = new ByteArrayInputStream(m_actionUpdateData.toByteArray());
+                                IFile af = mc.getActionFile();
+                                if (!af.exists()) {
+				    af.create(astream, true, pm);
+                                } else {
+				    af.setContents(astream, true, true, pm);
+                                }
+                                .end if
 			}
     .end if
 			pm.done();
@@ -256,11 +281,20 @@ public class ${class_name} extends CoreExport
     .end if
 	}
 
-    .invoke export_methods = gen_export_methods(multilevel, "", tool, false);
+    .assign stream_export = false
+    .if ( class_name == "ExportModelStream" )
+      .assign stream_export = true
+    .end if
+    .invoke export_methods = gen_export_methods(multilevel, stream_export, "", tool, false);
 ${export_methods.body}\
 
     .invoke sql_statements = gen_sql_write_statements(callingProject, multilevel, false);
 ${sql_statements.body}\
+
+    .if ( multilevel )
+      .invoke action_statements = gen_action_write_statements();
+${action_statements.body}\
+    .end if
 
 .invoke diagram_export = gen_diagram_export_statements();
 ${diagram_export.body}\

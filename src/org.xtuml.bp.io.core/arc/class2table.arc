@@ -39,6 +39,10 @@
       .end if
 INSERT INTO EI VALUES ( '${obj.Name}' );
 INSERT INTO T VALUES ( '${obj.Name}', '${obj.Key_Lett}', '${obj.Name}', '${domain_name}' );
+    .select any action_semantics related by obj->O_ATTR[R102] where ( selected.Name == "Action_Semantics_internal" )
+    .if ( not_empty action_semantics )
+INSERT INTO AB VALUES ( '${obj.Name}' );
+    .end if
     .select many attr_set related by obj->O_ATTR[R102]
     .for each attr in attr_set
       .invoke aip = attr_is_persistent(attr)
