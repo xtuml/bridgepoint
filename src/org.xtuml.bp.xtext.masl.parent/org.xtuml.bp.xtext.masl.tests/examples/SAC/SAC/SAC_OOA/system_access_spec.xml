@@ -1,0 +1,35 @@
+<SystemAccessSpec>
+   <Group>
+      <GroupName>group1</GroupName>
+      <GroupOperation>
+         <OperationName>operation1</OperationName>
+         <OperationName>operation2</OperationName>
+      </GroupOperation>
+   </Group>
+   <Group>
+      <GroupName>group2</GroupName>
+      <GroupOperation>
+         <OperationName>operation3</OperationName>
+         <OperationName>operation4</OperationName>
+      </GroupOperation>
+   </Group>
+   <Group>
+      <GroupName>group3</GroupName>
+      <GroupOperation>
+         <OperationName>operation1</OperationName>
+         <OperationName>operation3</OperationName>
+      </GroupOperation>
+   </Group>
+   <Group>
+      <GroupName>group4</GroupName>
+      <GroupOperation>
+         <OperationName>operation2</OperationName>
+         <OperationName>operation4</OperationName>
+      </GroupOperation>
+   </Group>
+   <SessionSpec>
+      <HeartbeatTime>PT30S</HeartbeatTime>
+      <HeartbeatFailureThreshold>3</HeartbeatFailureThreshold>
+   </SessionSpec>
+</SystemAccessSpec>
+

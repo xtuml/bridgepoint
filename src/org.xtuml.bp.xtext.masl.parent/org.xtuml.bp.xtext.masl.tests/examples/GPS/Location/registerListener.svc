@@ -1,0 +1,4 @@
+public service Location::registerListener () is
+begin
+  null;
+end service;

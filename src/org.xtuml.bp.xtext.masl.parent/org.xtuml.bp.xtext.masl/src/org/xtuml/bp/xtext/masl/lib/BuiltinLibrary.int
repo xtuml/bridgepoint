@@ -1,0 +1,36 @@
+/////////////////////////////////////////////////////////////
+// Types and characteristics built-in into the MASL language
+//
+builtin is
+	// built-in types
+	type character;
+	type string;
+	type boolean;
+	type byte;
+	type integer;
+	type long_integer;
+	type real;
+	type device;
+	type duration;
+	type timestamp;
+	type timer;
+	
+	
+	// built-in characteristics (currently not bound to any type)
+	'image;
+	'upper;
+	'lower;
+	'firstcharpos;
+	'first;
+	'last;
+	'size;
+	'pred;
+	'succ;
+	'pos;
+	'value;
+	'length;
+	'now';
+	'elements';
+	'parse';
+end builtin;
+	

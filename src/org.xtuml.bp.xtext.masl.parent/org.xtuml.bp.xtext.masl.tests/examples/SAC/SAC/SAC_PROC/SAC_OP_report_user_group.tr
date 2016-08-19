@@ -1,0 +1,16 @@
+//
+// Filename: SAC_OP_report_user_group.tr
+//
+// Description: 
+//
+// UK Crown Copyright (c) 2011,2014. All rights reserved.
+//
+private service SAC::Operator~>report_user_group (uid        : in  integer,
+                                                  group_name : in  string,
+                                                  login_name : in  string,
+                                                  session_id : in  integer) is
+begin
+   
+   I_DC::info_User_Group(group_name, login_name, session_id);
+   
+end service;

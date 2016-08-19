@@ -1,0 +1,12 @@
+//
+// Filename: CL_Engage_Clutch.tr
+//
+// Description: 
+//
+// UK Crown Copyright (c) 2007,2009. All rights reserved.
+//
+private service PSC::CLUTCH~>Engage_Clutch () is
+
+begin
+  null;
+end service;

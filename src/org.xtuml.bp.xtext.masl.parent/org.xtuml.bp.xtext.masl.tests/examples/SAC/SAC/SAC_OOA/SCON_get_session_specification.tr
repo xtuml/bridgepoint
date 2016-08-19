@@ -1,0 +1,26 @@
+//
+// Filename: SCON_get_session_specification.tr
+//
+// Description: this shall return teh details about the heartbeat for
+//              managing the user sessions.
+//
+// UK Crown Copyright (c) 2010. All rights reserved.
+//
+private service SAC::System_Configuration~>get_session_specification (heartbeat_time              : out duration,
+                                                                      heartbeat_failure_threshold : out integer) is
+the_data : sequence of INI::data_item_type;
+
+begin
+   
+   INI::get_data("session spec", the_data);
+   for data in the_data'elements loop
+      for a_name_value in data.name_value'elements loop
+         if a_name_value.name = "heartbeat time" then
+            heartbeat_time := duration'parse(a_name_value.value);
+         elsif a_name_value.name = "heartbeat failure threshold" then
+            heartbeat_failure_threshold := integer'parse(a_name_value.value);
+         end if;
+      end loop;
+   end loop;   
+   
+end service;

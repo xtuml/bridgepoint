@@ -1,0 +1,63 @@
+//
+// Filename: S_delete_session.svc
+//
+// Description: This shall delete the session. This can happen when a user
+//              is logged out or a user is forced to logout due to another
+//              user logging in.
+//
+// UK Crown Copyright (c) 2010-2011,2014. All rights reserved.
+//
+public instance service SAC::Session.delete_session () is
+the_user : instance of User;
+the_workstation : instance of Workstation;
+this_session_operations : sequence of instance of Operation;
+session_operation : instance of Session_Operation;
+operations_to_remove : sequence of instance of Operation;
+the_group : instance of Group;
+   
+begin
+   
+   the_user := this -> R3.User;
+   the_workstation := this -> R3.Workstation;
+   // inform the operator
+   Operator~>user_session_deleted(this.session_id);
+   
+   this_session_operations := this -> R5.Operation;
+   // remove the link to the groups
+   for a_group_session in (this -> R2.Group_For_Session)'elements loop
+      the_group := a_group_session->R2.Group;
+      Operator~>user_group_removed(the_user.user_id, the_group.group_name, the_user.login_name, this.session_id);
+      unlink this R2 (a_group_session->R2.Group) using a_group_session;
+      delete a_group_session;
+   end loop;
+   
+   // remove the operations that this user has that 
+   // do not apply to any other sessions for that user 
+   for a_session_operation in this_session_operations'elements loop
+      session_operation := a_session_operation with this -> R5.Session_Operation;
+      Operator~>user_operation_removed(this.user_id, a_session_operation.operation_name, the_user.login_name, this.session_id);
+      unlink a_session_operation R5 this using session_operation;
+      delete session_operation;
+      // check if the operation is no longer in use and if not then delete it
+      if (a_session_operation -> R5.Session)'length = 0 and (a_session_operation -> R1.Group)'length = 0 then
+         delete a_session_operation;
+      end if;
+   end loop;
+   
+   unlink the_workstation R3 the_user using this;
+   delete this;
+   
+   if (the_user -> R3.Session)'length = 0 then
+      Operator~>user_removed(the_user.user_id, the_user.login_name);
+      delete the_user;
+   else
+      // verify that the sessions have not timed out
+      if (find_one (the_user -> R3.Session)(has_timed_out = false)) = null then
+         // all sessions have timed out so report the user login as suspect
+         the_user.is_logged_on := suspect;
+         Operator~>report_user(the_user.user_id, the_user.login_name, 
+                                the_user.user_name, the_user.is_logged_on);
+      end if;
+   end if;
+   
+end service;
