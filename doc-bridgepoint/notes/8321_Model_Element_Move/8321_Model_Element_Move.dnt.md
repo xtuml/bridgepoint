@@ -345,11 +345,11 @@ below is to a large extent implemented at this location.
   end for
 
   show the user the elements that will be downgraded
-  if (user DOES NOT want to continue)
-     Abort Move transaction
+  if (user DOES want to continue)
+    End Move Transaction
+  else 
+    Abort Move transaction
   end if
-
-  End Move Transaction
 
   if (move occured)
     Parse all
