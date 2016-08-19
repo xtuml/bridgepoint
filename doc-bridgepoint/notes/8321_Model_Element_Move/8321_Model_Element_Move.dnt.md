@@ -19,12 +19,12 @@ This is a link to this issue in the issue tracking system.
 
 <a id="2.2"></a>2.2 [Analysis note for Model Element Move Issue](https://support.onefact.net/issues/8031) 
 The [analysis note produced by this work]
-(../8031_Analyze_Model_Element_Move/8031_Analyze_Model_Element_Move.ant.md) was used 
-during the SOW creation to help define the requirements for this project.  
+(../8031_Analyze_Model_Element_Move/8031_Analyze_Model_Element_Move.ant.md) was 
+used during the SOW creation to help define the requirements for this project.  
 
 <a id="2.3"></a>2.3 [Statement of Work for Model Element Move](https://docs.google.com/document/d/1_T4H7StO-VM8zfIFjr-V7VwUQMXML1c7nFJJofU0vGs/edit)  
-This is a link to this issue's Statement of Work document.  This document is internal to the 
-One Fact team.
+This is a link to this issue's Statement of Work document.  This document is 
+internal to the One Fact team.
 
 <a id="2.4"></a>2.4 [Inconsistent proxy paths (Issue 8454)](https://support.onefact.net/issues/8454)  
 Proxy paths are not written consistently.  
@@ -34,15 +34,20 @@ This document describes the MC-Java implementation.
 
 <a id="2.6"></a>2.6 [Issue 8455 - Remove dead code associated with proxies](https://support.onefact.net/issues/8455)  
   
-<a id="2.7"></a>2.7 Documentation associated with the introduction of proxies in BridgePoint  
-Proxies were introduced into BridgePoint when multi-file persistence (PLCM) was introduced. The following 
-engineering documents describe this:  
+<a id="2.7"></a>2.7 Documentation associated with the introduction of proxies in 
+BridgePoint  Proxies were introduced into BridgePoint when multi-file persistence 
+(PLCM) was introduced. The following engineering documents describe this:  
 
 <a id="2.7.1"></a>2.7.1 [Issue 845 - PLCM Technical Note](i845.tnt)  
-This note captures the initial brain-storming done regarding the PLCM project.  PLCM stands for package level configuration management. Over the years since this feature was introduced the term PLCM has been dropped and this is now more commonally referred to as multi-file persistence.  
+This note captures the initial brain-storming done regarding the PLCM project. 
+PLCM stands for package level configuration management. Over the years since 
+this feature was introduced the term PLCM has been dropped and this is now more 
+commonly referred to as multi-file persistence.  
 
 <a id="2.7.2"></a>2.7.2 [Issue 845 - PLCM Final Analysis Note](i845-PLCM_1_0.ant)  
-This is the final PLCM analysis note. The PLCM project was long-lived, and there was an initial analysis note but this one was created at the time the project was split into smaller deliverables.  
+This is the final PLCM analysis note. The PLCM project was long-lived, and 
+there was an initial analysis note but this one was created at the time the 
+project was split into smaller deliverables.  
 
 <a id="2.7.3"></a>2.7.3 [Issue 845 - PLCM Design Note for milestone 2](i845-2.dnt)  
 This note captures the design note of PLCM as related to proxies.  
@@ -55,28 +60,78 @@ This note captures the design note of PLCM as related to proxies.
 <a id="2.10"></a>2.10 [Issue 3532 design note - Support data type move capabilities through cut, copy, paste](../8031_Analyze_Model_Element_Move/i3532.dnt)  
 
 <a id="2.11"></a>2.11 [Eclipse Team Interface associated with element move](http://help.eclipse.org/mars/index.jsp?topic=%2Forg.eclipse.platform.doc.isv%2Fguide%2FresAdv_hooks.htm)  
-This is documentation for Eclipse Team plugin providers. It shows that file move support could be 
-implemented by a provider.  
+This is documentation for Eclipse Team plugin providers. It shows that file move 
+support could be implemented by a provider.  
 
-<a id="2.12"></a>2.12 [Engineering notes associted with dts0100911019](dts0100911019)  
-This issue shows an example where file system changes made by BridgePoint had a undesirable effect on a specific type of revision control system. The specified system was not really the relevant issue, though it was ClearCase. The issue was more general and was the fact the ClearCase system used pessimistic locking. The issue referenced because it is an example where the BridgePoint team handled this issue by modify the file system change so the RCS team interface would handle it in a more favorable way.  
+<a id="2.12"></a>2.12 [Engineering notes associated with dts0100911019](dts0100911019)  
+This issue shows an example where file system changes made by BridgePoint had a 
+undesirable effect on a specific type of revision control system. The specified 
+system was not really the relevant issue, though it was ClearCase. The issue 
+was more general and was the fact the ClearCase system used pessimistic 
+locking. The issue referenced because it is an example where the BridgePoint 
+team handled this issue by modify the file system change so the RCS team 
+interface would handle it in a more favorable way.  
+
+<a id="2.13"></a>2.13 [Original Model Element Move Design note - before redesign](https://github.com/xtuml/bridgepoint/blob/82f9dace19ee79c8011f687eb2d12315ea6e8dc3/doc-bridgepoint/notes/8321_Model_Element_Move/8321_Model_Element_Move.dnt.md)  
+This Model Element Move project's original selected design encountered problems 
+during implementation and a different design approach, outlined in this note, 
+was taken. This link shows the original design. The background section below 
+describes more about the problems encountered during implementation that 
+caused this change of direction.  
 
 3. Background   
 -------------     
 
-See the background in [the analysis note](../8031_Analyze_Model_Element_Move/8031_Analyze_Model_Element_Move.ant.md).
+[This project's original design note](https://github.com/xtuml/bridgepoint/blob/82f9dace19ee79c8011f687eb2d12315ea6e8dc3/doc-bridgepoint/notes/8321_Model_Element_Move/8321_Model_Element_Move.dnt.md) 
+was reviewed and approved early in the Model Element Move project. Implementation 
+of that design uncovered multiple problems that prevented the original 
+design from working as described. At the heart of the problems was the original
+design's intention to use the existing copy/paste infrastructure in the 
+implementation of the move behavior. Reusing the copy/paste infrastructure 
+allowed much of the complexity of this project to be handled via the existing 
+infrastructure. Even the [background section in the project's analysis note] 
+(../8031_Analyze_Model_Element_Move/8031_Analyze_Model_Element_Move.ant.md)
+looked quite a bit at the existing infrastructure for the solution.  
 
-This design note was reviewed and approved early in the Model Element Move project. Implementation 
-uncovered problems that prevented the original design from working as described. At the heart of the problem was the original design's intention to use the existing copy/paste infrastructure in the implementation of the move behavior. Reusing the copy/paste infrastructure allowed much of the 
-complexity of this project to be handled via the existing infrastructure. Prior to the work done by this issue, BridgePoint did have the ability to perform cut/paste. However, this cut/paste behavior took 
-full advantage of copy/paste. In fact, the cut/paste behavior was simply copy/paste followed by delete. 
-The paste in the situation resulted in new UUIDs for all elements pasted. The original design took the 
-approach that the change to make that prior cut/paste behavior a move was essentially simple a matter
-of preventing new UUIDs  from being created for the pasted elements. Implementation came to the conclusion that this approach would not satisfy the requirements. Specifically, the fact that reuse of the existing infrastructure would require delete to be called after the "move" was unacceptable. The delete() operation is modeled. Each meta-model element implements delete and the implementation is recursive. In the initial design it was believed that the implementation would simply modify the delete operations to prevent the recursive delete. However, this was not an appropriate solution. What is came down to, although quite a painful decision, was that "move is not copy/paste/delete" and it can not be treated as such.  
+Prior to the work done for the original design's implementation, BridgePoint 
+did have the ability to perform cut/paste. However, this "old" cut/paste 
+behavior took full advantage of copy/paste. In fact, the cut/paste behavior 
+was simply copy/paste followed by delete. The paste in the situation 
+resulted in new UUIDs for all elements pasted. The original design took 
+the approach that the change to make that prior cut/paste behavior a move 
+was essentially simply a matter of preventing new UUIDs  from 
+being created for the pasted elements. 
 
-After the implementation discovery above it was determined that move should not reuse the copy/paste 
-infrastructure. This led to significant design changes. Upon re-reviewing the project design it was determined during the [re-review](../../review-minutes/8321_Model_Element_Move.dnt.rvm2.md) that this design note should be updated. However, it was decided that we should do our best to leave the original approved design in place to make it clear what was changed between the original design and the modified design. To facilitate this, in the note that follows you will see <s>strikethrough</s>  where items were removed from the original design and 
-<b>bold</b> where things were added.
+Implementation showed that this approach would not satisfy the requirements. 
+Specifically, the fact that reuse of the existing infrastructure would 
+require delete to be called after the "move" was unacceptable. The 
+delete() operation is modeled. Each meta-model element implements delete and 
+the implementation is recursive. In the initial design it was believed that 
+the implementation could simply modify the delete operations to prevent the 
+recursive delete. However, this was not an appropriate solution. The new move 
+operation does not delete element's, but it does "unhook" the elements and 
+reconnect to the selected destination. Reusing the copy/paste infrastructure 
+did not allow the element deletion and "unhooking" to be done independently.  
+
+It is further noted that the original design called out that proxy removal 
+would be done with this issue. Proxy removal is desirable and the note calls 
+out that the removal of proxies would have helped this issue WRT the requirement 
+that a minimal change set is performed on move. However, proxy removal caused 
+problems. The problems were in the area of model reload and model compare, 
+both of which use the proxies. This resulted in the need to leave the proxies 
+which, in turn, caused requirement 4.2 to not be met.  
+
+What is came down to, although quite a painful decision, was that "move 
+is not copy/paste/delete" and it can not be treated as such. This meant that 
+the original design choice, and even the original analysis had to be revisited.  
+
+The design note that follow is the result of this revisiting the 
+original analysis and design for this project. A different solution was selected 
+that was not presented in the original analysis. This design note describes this 
+approach. A [link to the original design](#2.13) that was abandoned is 
+left in place for historical purposes, but the design note that follows 
+is the approach taken.
+
 
 
 4. Requirements   
@@ -119,137 +174,40 @@ element types for the move capability.
 4.5.1 The option to move shall be present but disabled when a selection is 
 not a valid move selection.  
 
-4.6 Proxy paths are currently written inconsistently [[2.2](#2.2)]. This bug 
-shall be resolved.
 
 5. Analysis   
 -----------   
-See the [Analysis Note](../8031_Analyze_Model_Element_Move/8031_Analyze_Model_Element_Move.ant.md). 
+As described in the background section above, the [initial design](#2.13) and 
+analysis for this issue led to an implementation that was not 
+acceptable. The following calls out a different approach. 
 
-In this analysis section we will add some additional proxy analysis. We do 
-this because it is observed that there are multiple ways to perform the 
-implementation for this task, and we want to assure we look at overall 
-product roadmap as we perform this task to leverage the work to move us 
-toward longer term product goals that may be related. Specifically, it 
-is desirable to remove proxies.  
+5.1 Move elements by disconnecting selected elements from their 
+containers and reconnecting them to the selected destination container.  
 
-5.1 Choice of design options from the analysis note.
+5.1.1 Almost every element in BridgePoint is a sub-type of PackackagableElement (PE_PE). All Model 
+Elements being moved [4.3] inherit from PE_PE. 
 
-<s>The option to use the existing infrastructure, [2.2](#2.2) section 5.3, shall 
-be used. </s>This option takes advantage of both the existing UI infrastructure and 
-the infrastructure that is used to perform target selection and validation. 
+5.1.2 All PackackagableElements are contained in either a Package or a Component. 
+5.1.2.1 PackackagableElements inside Packages (EP_PKG) have a relationship with EP_PKG via R8000.
+5.1.2.1 PackackagableElements inside Components (C_C) have a relationship with C_C via R8003.
 
-5.1.1 Atomic transaction requirement
-
-The analysis note, [2.2](#2.2), wrote that the choice to modify the implementation of 
-the cut/paste operation such that IDs would not be changed would 
-result in a transaction that was not atomic. This was true. However, the implementation 
-proposed by this design will result in an atomic transaction. It will result 
-in a move that adheres to the ACID properties of transactions. That is, 
-the move implemented via cut/paste shall be atomic, consistent, isolated, 
-and durable. 
-
-5.1.2 Making the cut/paste (move) an ACID-compliant transaction in BridgePoint.
-
-In this work we shall modify the cut/paste operation to be a single, 
-long-lived transaction. It is referred to as long-lived because it survives
-across multiple user operations (cut and paste). With this change, cut/paste is
-analogous to move.
-
-5.1.2.1 The move transaction shall not terminate until either:  
-5.1.2.1.1 The paste is performed  
-5.1.2.1.2 The transaction is terminated before paste is performed  
-The move transaction shall be canceled if any other transaction is initiated
-before the paste operation is completed.  
-
-5.2 Proxy analysis with an eye to proxy removal  
-Requirement 4.6 calls out a bug in proxy implementation. This design note shall describe
-2 ways to resolve this problem. One way is proxy removal. This is the desired approach. 
-This section provides an analysis of this proxy removal approach. The design section 
-of this note describes how we will determine which approach to take.  
-
-Section 1 of the [PLCM design note for proxies](i845-2.dnt) describes the BridgePoint 
-proxy implementation.  
-
-The BridgePoint NonRootModelElement.java class contains an operation, boolean isProxy(), 
-used to determine if an in-memory instance is a proxy or not. To determine if the 
-element is a proxy, it looks at the string attribute 
-NonRootModelElement.java::m_contentPath and if that attribute is not null 
-then the element is a proxy.  
-
-Experience working with BridgePoint over the years has led the BridgePoint team 
-to believe that the introduction of proxies when multi-file persistence (PLCM) 
-was added to the tool was a mistake. Proxies were introduced with the idea 
-that they would help validate the distributed files introduced during the PLCM
-project. Additionally, the concept of lazy loading of model files was made 
-possible by proxies and it was seen as a great benefit because users no longer
-needed to wait for a model to load the first time a model element was opened.  
-
-What the BridgePoint team believes, and has shown with tests of model load time, 
-is that the amount of time to load a model, even a large model is not 
-significant when compared to the architectural clutter at the persistence layer
-introduced by proxies. Over time maintenance around proxy issues has been
-high. Furthermore, it is observed even in the [original note that introduced 
-proxies (section 3.3)](i845-PLCM_1_0.ant), that lazy-loading had limitations. 
-Over time what has been observed is that lazy loading has done more harm 
-than good.  
-
-<s>[[4.6](#4.6)] is a blocker to this issue because if 
-proxies remain and are not persisted consistently the move operation will have 
-failures caused by the inconsistent proxies paths. The following section 
-examines proxy usage with an eye to the possibility of removing proxies 
-as a solution to [[4.6](#4.6)].</s> Section 6.5 describes the steps to perform 
-this removal.  
-
-5.2.1 Proxy implemenation  
-As described in the [PLCM design note for proxies](i845-2.dnt), proxies are 
-implemented with the followed generated operations:  
-*  `createProxy(..[all parameters].., String filePath)`  
-Returns an instance.  
-*  `resolveInstance(..[all parameters]..)`   
-Searches, by UUID for a matching instance and returns the instance if found. If 
-not found, creates a new instance.  
-* `convertToProxy()`  
-Convert a real instance to a proxy.
-* `convertToRealInstance(..[all parameters]..)`  
-Convert a proxy to a real instance.  
-
-5.2.2.1 lazy loading  
-Lazy loading policy provides that data for the parent (RTO) is not loaded unless
-needed. However, in many cases immediate loading of parent data  
-triggered. For example, a class diagram shows the type of its
-attributes and so unless there are no attributes to display, the
-corresponding data type data must be loaded. 
-
-This issue shall take the position that maintenance and problems
-around lazy loading support are not worthy of the feature benefits.  
-
-5.2.2.2 Model Compare  
-Model Compare and merge provides comparison of changes on a per-file basis. 
-The comparison is not graphical, but it is structural based on the meta-model 
-(it is more than a simple textual compare). This functionality has been modified 
-quite a bit to add features and introduce bug fixes [2.9](#2.9). This feature 
-does utilize proxies. Further analysis of the use of proxies by model compare 
-and merge will be required in order to remove proxies from the tool. There 
-were a lot of the features/fixes in this area, and will be easiest to 
-analyze these further by removing the proxy functionality first.  Therefore, no
-further analysis of this is done at this time.  
 
 6. Design   
 ----------------   
-<s>As described in the analysis section, the copy/paste infrastructure shall be 
-used in order to take advantage of it's ability to perform selection 
-and target validation as well as minimize changes to the BridgePoint user 
-interface. This section describes how to modify this existing
-infrastructure to change the behavior of cut/paste so that it is analogous with
-move.  
-</s>
 
 6.1 Modify cut/paste operation to be analogous to "move" by making it a 
-single long-lived transaction. This shall adhere to the ACID properties 
-of transactions.  
+single long-lived transaction. It is referred to as long-lived because it 
+survives across multiple user operations (cut and paste). With this change, 
+cut/paste is analogous to move.
 
-6.1.1 The current infrastructure uses an abstract class, 
+The move transaction shall not terminate until either:  
+* The paste is performed  
+*  The transaction is terminated before paste is performed  
+
+6.1.1 The move transaction shall be canceled if any other transaction is initiated
+before the paste operation is completed.  
+
+6.1.2 The current infrastructure uses an abstract class, 
 core/ui/CopyCutAction.java extends org.eclipse.jface.action.Action, 
 to define the behavior of cut/copy operations this interface shall be modified 
 to allow the cut/paste operation to be a single transaction as opposed to 2 
@@ -257,132 +215,11 @@ separate transactions. In addition to this abstract class, the classes that
 extend this shall also be modified as required for this change. These are:  
 * `core/ui/CopyAction.java` - This shall be modified as needed to adhere to interface 
 changes, but functionality shall not be changed.
-* `core/ui/CutAction.java` - <s>The deletion of selected elements will no longer be 
-performed during cut. Instead, this deletion will be moved to the paste 
-operation so that no change is actually made until paste occurs.  </s>
-
-6.2 Modify the paste action (`core/ui/PasteAction.java`).  
-
-The copy/paste behavior shall not be changed during this change.  
-
-<s>The paste operation behavior is implemented in the generated 
-file io/mdl/ImportModelStream.java (generated from `io/mdl/arc/gen_stream_import.arc`). 
-The PasteAction.java class invokes this through the same BridgePoint 
-interface that is used for all model element loading (`IModelImport.java`). 
-`ImportModelStream` is used for model export as well as paste, therefore to introduce 
-the ability to cause element load to use the source IDs instead of creating new ones
-a flag will be introduced to indicate that cut/paste is being performed (as opposed 
-to copy/paste). When cut/paste is indicated, the generated model element constructor 
-calls will be made in a way that assures:  
-6.2.1 The source element ID(s) shall be used and no new IDs shall be created  
-6.2.2 The element is created in the target model root.  
-6.2.3 When model root(s) are included in the selection being moved, the paste 
-action shall perform the move in a way that facilitates the ability of the team interface 
-to handle the action as a move as opposed to a cut/paste (which would lose RCS history). 
-This is where requirement 4.2 is handled.  
-6.2.3.1 The implementation shall proceed by first modifying the in-memory instances without 
-regard to the persistence layer. When this task is complete, because the persistence layer is 
-seperate, in theory no additional work shall be required because. The reason is, since IDs are not 
-changed, if a file whose contents are identical is deleted and created the team interface should be 
-able to manage this as a move [2.11](#2.11).  BridgePoint deals with 
-these changes at the file system level, and it is for the provider to handle the team 
-operations appropriately. BridgePoint does not directly ever communicate with the 
-Eclipse team interface, with 1 exception (compare and merge - 
-`bp/model/compare/contentmergeviewer/ModelContentMergeViewer.java`).  What BridgePoint 
-code can, and has done to help facilitate preferred RCS behavior is to 
-assure that file operations are performed in the best order, and this issue 
-shall seek to do this. An example of where this was done in the past may be seen 
-here [2.12](#2.12).  
-
-6.2.4 Where deletion of elements is required (paste is performed to a different model root) 
-the deletion of the source elements will occur. The deletion shall occur after the paste to
-faciliate 6.2.3.  
-</s>
-
-6.2.5 An attempt to paste to the same location that the copy was made from is considered an 
-invalid selection and shall not be allowed.  
-
-6.3 Reuse the current tree list box that shows Model Elements affected by the 
-cut/paste operation  
-
-6.3.1 The dialog shall allow the user to cancel   
-
-6.3.2 In the type demotion dialog, consider adding text to tell the user to 
-consider turning on IPRs or checking package visibility.  
-
-<b>6.3.2.1 The implementation shall consider that fact that visibility checks that may result in
-demotion will need to be performed on both the source and the target (RTOs and RGOs).</b>
-
-6.3.3 As per the SOW [[2.3](#2.3)], the dialog needs to have save and print optons added.  
-
-6.4 Modify all resolution operations to first search by ID  instead of name  
-
-Section 6.2 of [[2.10](../8031_Analyze_Model_Element_Move/i3532.dnt)] describes 
-how resolution operations were introduced to perform this search by ID. There 
-should be no further action to take on this, but if testing shows otherwise, 
-this is the pattern to follow to complete this task.
-
-6.5 Fix inconsistent proxy paths [[2.4](#2.4)]  
-
-It is desirable to resolve this problem by simply removing proxies from 
-BridgePoint as described in the analysis section. However, doing so may 
-be beyond the scope of this project. The primary concern is around unexpected 
-consequences involving self hosting. However, it should not be difficult to 
-perform a test of proxy removal, and the steps to do so shall be outlined here 
-[6.5.1]. This task of resolving the inconsistent proxy paths is intentionally 
-left as the last task in the project. If the attempt to remove proxies results
-in unexpected problems that time constraints do not allow us to resolve then 
-these problems shall be recorded and we shall resolve this requirement by 
-fixing the bug in the existing proxy code [6.5.2].
-
-6.5.1 Remove proxies from BridgePoint  
-
-6.5.1.1 Remove generated code used to read and write proxies  
-* remove convertToProxy()
-* Stop generating the operations that read/write proxies in:
-  * `io.core/arc/import_functions.inc`
-  * `io.core/arc/export_functions.inc`
-  * `io.mdl/arc/gen_stream_import_.arc`
-  * `io.mdl/arc/gen_stream_export_.arc`
-
-6.5.1.2 Load the whole model at startup
-```
-// nrme is the NonRootModelElement associated with the SystemModel_c instance
-PersistableModelComponent pmc = nrme.getPersistableComponent();
-			pmc.loadComponentAndChildren(new NullProgressMonitor());
-```  
-6.5.1.3 Remove generation of convertFromProxy() and delayed problem marker code  
-```java
-    public void convertFromProxy() {
-        if (isProxy()) {
-            m_contentPath = null;
-            UmlProblem.proxyResolved(this);
-        }
-    }
-```  
-6.5.1.4 Remove generation of `convertToRealInstance()`  
-6.5.1.5 Remove generation of `createProxy()`  
-6.5.1.6 Test and fix fallout of proxy removal on compare and merge  
+* `core/ui/CutAction.java` - The deletion of selected elements will no longer be 
+performed during cut. Additionally, cut does not start a transaction any longer.
 
 
-6.5.2 Write proxy paths consistently  
-
-If the proxy removal encounters problems then this path to 
-resolve [[2.4](#2.4)] shall be taken. The proxy path is 
-obtained by 
-bp.core.util.PersistenceUtil.java::resolveRelativePath(currentPath, relativePath). 
-This routine gets called by the createProxy() operation which is generated for all 
-NonRootModelElements. The RSL for this is found in MC-Java/java.arc::createProxy 
-(around line 743 you can find the call to resolveRelativePath()). This code will be
-debugged and the problem found and fixed.  
-
-
-7. Design Comments   
-------------------   
-5.1 Modify cut/paste operation to be analogous to "move" by making it a 
-single long-lived transaction.  
-
-5.1.1 Introduce a new abstract class, `CutCopyPasteAction extends Action`, and
+6.1.3 Introduce a new abstract class, `CutCopyPasteAction extends Action`, and
 I modified the  existing `CutCopyAction` and `PasteAction` classes
 to extend this new class instead of extending Action directly as was done before this
 change. Move common implementation from `CutCopyAction` "up" into this new
@@ -390,43 +227,31 @@ class. This change allows PasteAction to know when the user has selected cut vs
 copy and to perform the cut/paste (move) in a single transaction that occurs
 in PasteAction (previously cut was performed in a transaction of its own). 
 
-5.1.2 Moved the code that was deleting elements out of `CutAction.java::postRun()`
+6.1.4 Moved the code that was deleting elements out of `CutAction.java::postRun()`
 and put this into `PasteAction::run()` at the point AFTER the move has taken place. 
 Rework this code as needed to account for the fact that elements are no longer being 
 deleted.
 
-5.1.3 Add an attribute to CutCopyPasteAction named ELEMENT_MOVE_SOURCE_SELECTION that 
+6.1.5 Add an attribute to CutCopyPasteAction named ELEMENT_MOVE_SOURCE_SELECTION that 
 holds the selection made by the user during cut.  
 
-5.2 Introduce a move transaction  
-The file move operation happens after the memory model has been modified. To perform this 
-move at the file system level a new transactoin type shall be introduced.  
+6.2 Assure that the cut CME is only enabled when it should be.  
+An attempt to paste to the same location that the copy was made from is considered an 
+invalid selection and shall not be allowed. Modify {Explorer & Canvas}CutAction.java::isEnabled()
+to assure that cut is not enabled if the source and destination are the same. 
 
-5.2.1 In Datatypes/ModelEventNotification add a new enum DELTA_MODEL_ELEMENT_MOVE. 
-Note that this enum is actually used in a bitset implementation so the value of this new element shall be 16384 ( 0b0010000000000000). 
+6.2.1. Disable paste when the selected target is the same as the source.  
 
-5.2.2 Introduce the  Java code required to use the new ModelDelta type.  
-
-5.2.2.1  Introduce class ModelElementMovedModelDelta extends BaseModelDelta, and add a new interface operation, void modelElementMoved(ModelChangedEvent event, IModelDelta delta), to IModelChangeListener.   
-
-5.2.2.2 Updated places as needed that have to implement this interface. Note that the only one that has a non-empty implementation is ComponentTransactionListener.java, and in it is where we shall add code that performs the 
-folder move when the transaction ends.  
-
-5.2.2.3 Introduce ComponentTransactionListener::movePMC(NonRootModel  
-
-  
-5.2.5 An attempt to paste to the same location that the cut was made from is considered an 
-invalid selection and shall not be allowed.  
-
-5.2.5.1. Disable paste when the selected target is the same as the source.  
-5.2.5.1.1. `bp/ui/explorer/actions/ui/Explorer{Cut | Copy | Paste}Action.java::isEnabled()` 
+6.2.1.1. `bp/ui/explorer/actions/ui/Explorer{Cut | Copy | Paste}Action.java::isEnabled()` 
 implements this behavior on behalf of the org.eclipse.jface.action.Action abstract class. 
 This is where BridgePoint determines if the CME should be enabled or not. Note that there 
 is an analogous implementation for canvas in 
 `bp.ui.graphics.actions/Canvas{Cut | Copy | Paste}Action.java::isEnabled()`  
-5.2.5.1.2. The operation called out in the prior step is implemented to check the source and destination to
-see if the CME should be enabled or not.  
-5.2.5.1.3. In the PasteAction case, the operations look to see if the destination allows paste for 
+
+6.2.1.2. The operation called out in the prior step is implemented to check the 
+source and destination to see if the CME should be enabled or not.  
+
+6.2.1.3. In the PasteAction case, the operations look to see if the destination allows paste for 
 elements in the source being pasted to the target. It does this by calling an ooaofooa 
 operation that is of the form {target model element instance}.Paste{Source Model Element Name}
 . The structure of this code was such that this behavior 
@@ -434,11 +259,128 @@ was essentially duplicated in `{Explorer | Canvas}PasteAction.java`. I refactore
 "moved up" an operation named `clipboardContainsPastableModelElements()` into the parent class
 `core/ui/PasteAction.java` to facilitate adding the check to assure that on move the
 if the source and target PMCs match paste is not enabled.  
-5.2.5.1.4 The actual code added to assure paste is disabled if the source and target PMCs match was added to the refactored
-`core/ui/PasteAction.java::isEnabled()` function.  
-5.2.5.1.4.1 The change was specific to move, copy/paste still allows paste into the same PMC as it did before this change.  
-5.2.5.2. In PasteAction.java::isEnabled() if a move is in progress do not allow more than 1 
-selected destination. This is another chage that is specific to move and is still allowed by copy/paste.  
+
+6.2.1.4 The actual code added to assure paste is disabled if the source and 
+target PMCs match was added to the refactored `core/ui/PasteAction.java::isEnabled()` 
+function.  
+
+6.2.1.4.1 The change was specific to move, copy/paste still allows paste into the same PMC as it did before this change.  
+
+6.2.2. In PasteAction.java::isEnabled() if a move is in progress do not allow more than 1 
+selected destination. This is another change that is specific to move and is still allowed by copy/paste.  
+
+6.3 Introduce a move transaction  
+The file move operation happens after the memory model has been modified. To 
+perform this move at the file system level a new transaction type shall be 
+introduced.  
+
+6.3.1 In Datatypes/ModelEventNotification add a new enum DELTA_MODEL_ELEMENT_MOVE. 
+Note that this enum is actually used in a bitset implementation so the value 
+of this new element shall be 16384 ( 0b0010000000000000). 
+
+6.3.2 Introduce the  Java code required to use the new ModelDelta type.  
+
+6.3.2.1  Introduce class ModelElementMovedModelDelta extends BaseModelDelta, and 
+add a new interface operation, void modelElementMoved(ModelChangedEvent event, IModelDelta delta), 
+to IModelChangeListener.   
+
+6.3.2.2 Updated places as needed that have to implement this interface. Note 
+that the only one that has a non-empty implementation is 
+ComponentTransactionListener.java, and in it is where we shall add code that 
+performs the folder move when the transaction ends.  
+
+6.3.2.3 Introduce ComponentTransactionListener::movePMC(NonRootModel  
+
+6.4 Modify the paste action (`core/ui/PasteAction.java`).  
+
+It is PasteAction::Run() that drives the changes made during paste. The 
+tool goes through this same location for processing both copy/paste and cut/paste.
+
+<b>The copy/paste behavior shall not be changed during this change.</b>  
+
+6.4.1 Pseudo code for the "new" Model Element Move implementation.  
+Since it is PasteAction::run() that drives the paste change the pseudo code
+below is to a large extent implemented at this location.
+```
+  User Makes a Selection through either Model Explorer or Canvas
+  
+  User Right-clicks the selection
+  
+  Cut is enabled only if the selection is valid
+  
+  User Selects Cut
+  
+  Selection is stored in a list<NonRootModelElement> (ELEMENTS_TO_MOVE). 
+  
+  Start a Move Transaction
+  
+  for each selected_element in ELEMENTS_TO_MOVE
+    run disconnect() via reflection if it exists (note: this is for rare cases where there is more to disconnect than R8000/R8003)
+    unhook the selected_element from container pkg/comp on R8000/R8003
+  end for
+    
+  for each selected_element in ELEMENTS_TO_MOVE 
+      Find the GraphicalElement (GD_GE) associated with selected_element
+      Find the Model (GD_MD) associated with the GraphicalElement
+      unrelate the GraphicalElement from the Model across R1  
+      relate the GraphicalElement to the destiantion's Model across R1
+	  update the selected_element's associated container symbol on R307 if containment has changed
+  end for 
+   
+  for each selected_element in ELEMENTS_TO_MOVE
+    update selected_element's  model root and set it to the destination model root
+  end for
+  
+  for each selected_element in ELEMENTS_TO_MOVE
+     // Connect selected_element to the destination
+    run <destination instance>.Paste<selected element class type name>() operation via reflection to move the element to the destination
+    
+    Add ModelElementMovedModelDelta to the transaction
+  end for    
+
+  for each selected_element in ELEMENTS_TO_MOVE
+    if (selected_element downgrade is needed)
+      add_to_downgrade_dialog
+    end if
+  end for
+
+  End Move Transaction
+
+  show the user the elements that will be downgraded
+  if (user DOES want to continue)
+     run ParseAll on destination
+  else
+     revert transaction
+  end if
+
+```
+
+6.5 Reuse the current tree list box that shows Model Elements affected by the 
+cut/paste operation  
+
+6.5.1 The dialog shall allow the user to cancel   
+
+6.5.2 Text shall be added to tell the user to enabled IPRs and
+check visibility.  
+
+6.5.3 As per the SOW [[2.3](#2.3)], the dialog shall have save and print options.  
+
+6.6 Introduce of a Disconnect operation for each element in ooaofooa that may be 
+moved and that has to be disconnected by performing more work than a simple 
+unrelate on R8000/R8003
+
+6.6.1 This situation is actually unique to Package (EP_PKG). The reason is that it is also 
+connected to S_SYS on R1401/1405.
+
+
+
+
+7. Design Comments   
+------------------   
+
+
+
+  
 
 
 5.3 User Interface  
@@ -558,42 +500,8 @@ for each selectedElement
 end for
 ```
 
-6.2 Pseudo code for the "new" Model Element Move implementation  
-```
-- PasteAction::run() - MOVE_IS_IN_PROGRESS flow
 
-  Start Transaction
-  for each element in selection
-    run disconnect() if it exists
-    unhook on from parent pkg/comp on R8000/R8003
-  end for
-  processGraphics - move graphical model roots
-  for each element in selection
-    update model root
-  end for
-  for each element in selection
-    run modeled Paste() operation to move the element to the destination
-  end for    
-  End Transaction
-  if ( transaction successful )
-    continue = displayProblemsDialog()
-    if (!continue)
-      // paste cancelled, transaction reverted by displayProblemsDialog()
-      return
-    end if
-    run ParseAll on destination
-    run PasteCompleted listener on elements in selection
-  end if
-```
 
-6.3 Introduction of Disconnect operation for elements that have a more complex disconnnect than R8000/R8003
-```
-[8/12/16, 1:03:37 PM] Keith Brown: during the MEM review, we made a review comment about how we seem to recall adding a model function we call via reflection, but we didn't remember what it was for or where it was used.
-[8/12/16, 1:04:28 PM] Bob Mulvey: I am very surprised but I do not see where we documented it. However, it was Disconnect
-[8/12/16, 1:04:45 PM] Bob Mulvey: And you can see where we use it right now in PasteAction.java::run
-[8/12/16, 1:05:39 PM] Bob Mulvey: We currently use it in the case where there is more to have to disconnect then just R8000/R8003
-[8/12/16, 1:06:26 PM] Bob Mulvey: So, we look to see if the Disconnect operation exists on the element being moved and if it does we call it
-```
 
 6.4 Design for graphics reconciliation
 ```
@@ -603,6 +511,12 @@ case we must run graphics reconcilaition to remove the provision and requirement
 element is unassigned. However, note that since unassign is beingdone, this should happen
 so no reconciliation should be needed
 ```
+
+??????????????????????????????????
+
+<b>6.3.2.1 The implementation shall consider that fact that visibility checks that may result in
+demotion will need to be performed on both the source and the target (RTOs and RGOs).</b>
+
 
 8. User Documentation   
 ---------------------  
