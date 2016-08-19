@@ -1053,6 +1053,14 @@ throws IOException
 if(inst != null && !inst.isProxy()){
   m_afh.print( "{{" ); //$$NON-NLS-1$$
   m_afh.print( inst.getName() ); //$$NON-NLS-1$$
+  m_afh.print( "::" ); //$$NON-NLS-1$$
+  m_afh.print( "${action_body.Key_Lett}" ); //$$NON-NLS-1$$
+  m_afh.print( "::" ); //$$NON-NLS-1$$
+  m_afh.print( inst.get$cr{action_body.ID_attr}() ); //$$NON-NLS-1$$
+    .if ( "" != action_body.ID_attr2 )
+  m_afh.print( "--" ); //$$NON-NLS-1$$
+  m_afh.print( inst.get$cr{action_body.ID_attr2}() ); //$$NON-NLS-1$$
+    .end if
   m_afh.print( "}}\n" ); //$$NON-NLS-1$$
   m_afh.print( inst.getAction_semantics_internal() ); //$$NON-NLS-1$$
   m_afh.print( "\n" ); //$$NON-NLS-1$$
