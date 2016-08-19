@@ -344,14 +344,17 @@ below is to a large extent implemented at this location.
     end if
   end for
 
+  show the user the elements that will be downgraded
+  if (user DOES NOT want to continue)
+     Abort Move transaction
+  end if
+
   End Move Transaction
 
-  show the user the elements that will be downgraded
-  if (user DOES want to continue)
-     run ParseAll on destination
-  else
-     revert transaction
+  if (move occured)
+    Parse all
   end if
+
 
 ```
 
