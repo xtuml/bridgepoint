@@ -340,6 +340,10 @@ public abstract class CoreImport implements IModelImport {
     }
     
     protected boolean doLoadActions(IProgressMonitor pm) {
+        if ( m_actionFile == null || !m_actionFile.exists() ) {
+            pm.done();
+            return true;
+        }
         // here's where the code is actually read
         try {
             Reader reader = getActionInputReader();

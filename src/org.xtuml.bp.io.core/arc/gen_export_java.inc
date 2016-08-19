@@ -263,9 +263,16 @@ public class ${class_name} extends CoreExport
 				InputStream astream = new ByteArrayInputStream(m_actionUpdateData.toByteArray());
                                 IFile af = mc.getActionFile();
                                 if (!af.exists()) {
-				    af.create(astream, true, pm);
+                                    if ( m_actionUpdateData.toByteArray().length != 0 ) {
+				        af.create(astream, true, pm);
+                                    }
                                 } else {
-				    af.setContents(astream, true, true, pm);
+                                    if ( m_actionUpdateData.toByteArray().length != 0 ) {
+				        af.setContents(astream, true, true, pm);
+                                    }
+                                    else {
+                                        af.delete(true, false, pm);
+                                    }
                                 }
                                 .end if
 			}
