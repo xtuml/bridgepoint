@@ -48,6 +48,7 @@ public class ImportModelFactory extends AbstractModelImportFactory {
 
 		return new ImportModel(
 				fileName,
+				actionFileName,
 				aModelRoot,
 				system,
 				parseAll,
@@ -84,6 +85,7 @@ public class ImportModelFactory extends AbstractModelImportFactory {
 			boolean isTemplate ) throws IOException {
 			return new ImportModelComponent(
 				file,
+				actionFile,
 				aModelRoot,
 				component,
 				parseAll,

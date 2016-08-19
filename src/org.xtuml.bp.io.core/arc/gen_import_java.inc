@@ -473,8 +473,8 @@ public class ${class_name} extends CoreImport
             .assign parentC = "SystemModel_c"
       .end if
     .if(multilevel and setComponent)
-    public ${class_name}(IFile file, ${var.main_class_name} aModelRoot, PersistableModelComponent component, boolean parseAll, boolean clearDatabase, boolean parseGraphics, boolean isTemplate) throws IOException {
-        super(aModelRoot, file.getLocation().toOSString(), clearDatabase, isTemplate);
+    public ${class_name}(IFile file, IFile actionFile, ${var.main_class_name} aModelRoot, PersistableModelComponent component, boolean parseAll, boolean clearDatabase, boolean parseGraphics, boolean isTemplate) throws IOException {
+        super(aModelRoot, (file != null ? file.getLocation().toOSString() : ""), (actionFile != null ? actionFile.getLocation().toOSString() : ""), clearDatabase, isTemplate);
         m_component = component;
         m_parseAll = parseAll;
         m_parseGraphics = parseGraphics;
@@ -517,15 +517,15 @@ public class ${class_name} extends CoreImport
             .end if
         .end if
         .if(not multilevel)
-    public ${class_name}(String fileName, ${var.main_class_name} aModelRoot, ${parentC} parent, boolean parseAll, boolean clearDatabase, boolean isTemplate) throws FileNotFoundException {
-        super(aModelRoot, fileName, clearDatabase, isTemplate);
+    public ${class_name}(String fileName, String actionFileName, ${var.main_class_name} aModelRoot, ${parentC} parent, boolean parseAll, boolean clearDatabase, boolean isTemplate) throws FileNotFoundException {
+        super(aModelRoot, fileName, actionFileName, clearDatabase, isTemplate);
         m_inFile = fileName;
         m_parseAll = parseAll;
         m_parent = parent;
     }
 
-    public ${class_name}(IPath filePath) throws FileNotFoundException {
-        super(filePath);
+    public ${class_name}(IPath filePath, IPath actionFilePath) throws FileNotFoundException {
+        super(filePath, actionFilePath);
     }
        .end if
     .end if
@@ -538,6 +538,10 @@ public class ${class_name} extends CoreImport
     	helper.eesToUpgradeForIsRealized.clear();
     .end if
         m_success = doLoadSql(pm);
+        .if (class_name == "ImportModelComponent")
+        boolean actions_loaded = doLoadActions(pm);
+        m_success = ( m_success && actions_loaded );
+        .end if;
         .if(not setComponent)
         finishLoad(pm);
     .end if
@@ -701,6 +705,29 @@ public class ${class_name} extends CoreImport
             return PPS_ERROR;
         }
         return PPS_OK;
+        .end if
+    }
+
+    public void processAction( String name, String body, IProgressMonitor pm ) {
+	.if (class_name == "ImportModelComponent")
+        System.out.println("LEVI name: " + name);
+        System.out.println("LEVI body: " + body);
+	class Function_test_c implements ClassQueryInterface_c {
+            Function_test_c( String a_name ) {
+                m_name = a_name;
+            }
+            private String m_name;
+	    public boolean evaluate(Object candidate) {
+	        Function_c selected = (Function_c) candidate;
+		return (selected.getName() == m_name);
+	    }
+	}
+	Function_c v_func = Function_c.FunctionInstance(Ooaofooa.getDefaultInstance(), new Function_test_c(name));
+        if ( null != v_func ) {
+            v_func.setAction_semantics_internal(body);
+        }
+        .else
+        // not implemented
         .end if
     }
 
