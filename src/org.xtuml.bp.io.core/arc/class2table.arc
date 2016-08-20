@@ -48,7 +48,7 @@ INSERT INTO T VALUES ( '${obj.Name}', '${obj.Key_Lett}', '${obj.Name}', '${domai
       .end if
       .if ( (cardinality o_attrs) == 1 )
         .for each o_id_attr in o_attrs
-INSERT INTO AB VALUES ( '${obj.Name}', '${obj.Key_Lett}', '${o_id_attr.Name}' );
+INSERT INTO AB VALUES ( '${obj.Name}', '${obj.Key_Lett}', '${o_id_attr.Name}', '' );
         .end for
       .elif ( (cardinality o_attrs) == 2 )
         .for each o_id_attr in o_attrs
