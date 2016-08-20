@@ -113,35 +113,35 @@ INSERT INTO O_TFR
 select one other_rattr related by other_attr->O_RATTR[R106];
 select many other_ref_set related by other_rattr->O_REF[R108];
    
-// find last O_REF in self''s ref list R112
-select any ref related by self->O_REF[R108];
-select one next_ref related by ref->O_REF[R112.''precedes''];
-while (not_empty next_ref)
-  select one next_ref related by ref->O_REF[R112.''precedes''];
-  if (not_empty next_ref)
-    ref = next_ref;
-  end if;
-end while;
- 
-for each other_ref in other_ref_set
-  unrelate other_ref from other_rattr across R108;
-  relate other_ref to self across R108;  
-  // add other_ref to self''s ref list R112
-  relate other_ref to ref across R112.''succeeds'';
-  ref = other_ref;    
-end for;
-// Check for identifying
-select one attr related by self->O_ATTR[R106];
-select any oida related by attr->O_OIDA[R105];
-if (empty oida)
-  select any oida related by other_attr->O_OIDA[R105];
-  if ( not_empty oida )
-    // Ensure combined attribute is identifying
-    select one id related by oida->O_ID[R105];
-    relate attr to id across R105 using oida; 
-  end if;
-end if;
-other_attr.dispose();',
+   // find last O_REF in self''s ref list R112
+   select any ref related by self->O_REF[R108];
+   select one next_ref related by ref->O_REF[R112.''precedes''];
+   while (not_empty next_ref)
+     select one next_ref related by ref->O_REF[R112.''precedes''];
+     if (not_empty next_ref)
+       ref = next_ref;
+     end if;
+   end while;
+   
+   for each other_ref in other_ref_set
+     unrelate other_ref from other_rattr across R108;
+     relate other_ref to self across R108;  
+     // add other_ref to self''s ref list R112
+     relate other_ref to ref across R112.''succeeds'';
+     ref = other_ref;    
+   end for;
+   // Check for identifying
+   select one attr related by self->O_ATTR[R106];
+   select any oida related by attr->O_OIDA[R105];
+   if (empty oida)
+     select any oida related by other_attr->O_OIDA[R105];
+     if ( not_empty oida )
+       // Ensure combined attribute is identifying
+       select one id related by oida->O_ID[R105];
+       relate attr to id across R105 using oida; 
+     end if;
+   end if;
+   other_attr.dispose();',
 	1,
 	'',
 	"02ec5b84-0de6-4c57-923c-1a1986a821a5");
@@ -164,33 +164,33 @@ INSERT INTO O_TFR
 	'select any other_ref related by self->O_REF[R108]
        where selected.ARef_ID == param.other_id;
        
-// remove other_ref from self''s R112 list
-select one next_ref related by other_ref->O_REF[R112.''precedes''];
-select one prev_ref related by other_ref->O_REF[R112.''succeeds''];
-if (empty next_ref)
-  unrelate prev_ref from other_ref across R112.''precedes'';  
-elif (empty prev_ref)
-  unrelate other_ref from next_ref across R112.''precedes''; 
-else
-  unrelate other_ref from next_ref across R112.''precedes''; 
-  unrelate prev_ref from other_ref across R112.''precedes''; 
-  relate next_ref to prev_ref across R112.''succeeds'';  
-end if; 
- 
-unrelate other_ref from self across R108;
-// create referential attribute
-select any oida related by self->O_ATTR[R106]->O_OIDA[R105];
-select one mc related by self->O_ATTR[R106]->O_OBJ[R102];
-rid = -1;
-if (not empty oida)
-  rid = oida.Oid_ID;
-end if;
-newAttr_id = mc.newReferentialAttribute(ref_obj_id: other_ref.RObj_ID, 
-  ref_oid_id: other_ref.ROid_ID, ref_attr_id: other_ref.RAttr_ID, id:rid);
-
-select any newRattr related by mc->O_ATTR[R102]->O_RATTR[R106] 
-     where selected.Attr_ID == newAttr_id;
-relate other_ref to newRattr across R108;',
+   // remove other_ref from self''s R112 list
+   select one next_ref related by other_ref->O_REF[R112.''precedes''];
+   select one prev_ref related by other_ref->O_REF[R112.''succeeds''];
+   if (empty next_ref)
+     unrelate prev_ref from other_ref across R112.''precedes'';  
+   elif (empty prev_ref)
+     unrelate other_ref from next_ref across R112.''precedes''; 
+   else
+     unrelate other_ref from next_ref across R112.''precedes''; 
+     unrelate prev_ref from other_ref across R112.''precedes''; 
+     relate next_ref to prev_ref across R112.''succeeds'';  
+   end if; 
+    
+   unrelate other_ref from self across R108;
+   // create referential attribute
+   select any oida related by self->O_ATTR[R106]->O_OIDA[R105];
+   select one mc related by self->O_ATTR[R106]->O_OBJ[R102];
+   rid = -1;
+   if (not empty oida)
+     rid = oida.Oid_ID;
+   end if;
+   newAttr_id = mc.newReferentialAttribute(ref_obj_id: other_ref.RObj_ID, 
+       ref_oid_id: other_ref.ROid_ID, ref_attr_id: other_ref.RAttr_ID, id:rid);
+   
+   select any newRattr related by mc->O_ATTR[R102]->O_RATTR[R106] 
+        where selected.Attr_ID == newAttr_id;
+   relate other_ref to newRattr across R108;',
 	1,
 	'',
 	"151163eb-26ef-4501-9362-0eaa4aa4e3ff");
