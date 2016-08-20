@@ -41,13 +41,23 @@ actions [ IProgressMonitor pm ]
     ;
 action[ IProgressMonitor pm ]
     :
-    { String name; String body; }
+    { String name = "";
+      String key_lett = "";
+      String id1 = "";
+      String id2 = "";
+      String body = ""; }
     TOK_LBRACK
     name = text
+    TOK_COLCOL
+    key_lett = text
+    TOK_COLCOL
+    id1 = text
+    ( TOK_DASH
+    id2 = text )?
     TOK_RBRACK
     body = text
       {
-      	m_ci.processAction( name, body, pm );
+      	m_ci.processAction( name.trim(), key_lett.trim(), id1.trim(), id2.trim(), body.trim(), pm );
       }
     ;
 text returns [String s]
@@ -64,5 +74,7 @@ options {
     charVocabulary = '\u0000'..'\ufffe';
 }
 TOK_LBRACK : "{{";
-TOK_RBRACK : "}}\n";
+TOK_RBRACK : "}}";
+TOK_COLCOL : "::";
+TOK_DASH   : "--";
 TOK_CHAR   : .;

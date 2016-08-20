@@ -170,7 +170,7 @@ public abstract class CoreImport implements IModelImport {
 
     public abstract int postprocessStatements();
 
-    public abstract void processAction( String name, String body, IProgressMonitor pm );
+    public abstract void processAction( String name, String key_lett, String id1, String id2, String body, IProgressMonitor pm );
 
     protected Ooaofooa getModelRoot() {
         return m_modelRoot;
