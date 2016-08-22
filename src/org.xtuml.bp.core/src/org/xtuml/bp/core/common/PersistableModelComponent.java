@@ -97,8 +97,6 @@ public class PersistableModelComponent implements Comparable {
     public static final int STATUS_PERSISTING = 4;
     
     private final String dummyCompareName = "__dummyCompareProj/__dummyFile.xtuml";
-
-    public static final String ACTION_FILE_EXT = "oal";
     
     // Although type can be determined at runtime, this variable is used "only"
     // when component is not loaded
@@ -106,7 +104,7 @@ public class PersistableModelComponent implements Comparable {
     private String componentType;
 
     private IFile underlyingResource;
-    private IFile actionFile;
+    private ActionFileManager afm;
 
     // instance of ME when component is loaded otherwise it will be null;
     private NonRootModelElement componentRootME;
@@ -133,8 +131,7 @@ public class PersistableModelComponent implements Comparable {
 
         underlyingResource = ResourcesPlugin.getWorkspace().getRoot().getFile(
                 modelFilePath);
-        actionFile = ResourcesPlugin.getWorkspace().getRoot().getFile(
-                modelFilePath.removeFileExtension().addFileExtension(ACTION_FILE_EXT).addFileExtension(Ooaofooa.MODELS_EXT));
+        afm = new ActionFileManager(modelFilePath);
         if (PersistenceManager.findComponent(modelFilePath) != null)
             throw new WorkbenchException(
                     "Another component with same path already exists");
@@ -176,8 +173,7 @@ public class PersistableModelComponent implements Comparable {
         IPath modelFilePath = getChildPath(parent.getFullPath(), name);
         underlyingResource = ResourcesPlugin.getWorkspace().getRoot().getFile(
                 modelFilePath);
-        actionFile = ResourcesPlugin.getWorkspace().getRoot().getFile(
-                modelFilePath.removeFileExtension().addFileExtension(ACTION_FILE_EXT).addFileExtension(Ooaofooa.MODELS_EXT));
+        afm = new ActionFileManager(modelFilePath);
         checkComponentConsistancy(null);
         
         // we don't check if underlying resource exists for the case when the ME
@@ -203,8 +199,7 @@ public class PersistableModelComponent implements Comparable {
         
         underlyingResource = ResourcesPlugin.getWorkspace().getRoot().getFile(
                 getRootComponentPath(systemModel.getName()));
-        actionFile = ResourcesPlugin.getWorkspace().getRoot().getFile(
-                getRootComponentPath(systemModel.getName()).removeFileExtension().addFileExtension(ACTION_FILE_EXT).addFileExtension(Ooaofooa.MODELS_EXT));
+        afm = new ActionFileManager(getRootComponentPath(systemModel.getName()));
          checkComponentConsistancy(null);
         
         componentRootME = systemModel;
@@ -226,7 +221,7 @@ public class PersistableModelComponent implements Comparable {
         componentRootME = systemModel;
         componentType = PersistenceManager.getHierarchyMetaData().getComponentType(systemModel);
       underlyingResource=ResourcesPlugin.getWorkspace().getRoot().getFile(new Path(dummyCompareName));
-      actionFile=ResourcesPlugin.getWorkspace().getRoot().getFile(new Path(dummyCompareName).removeFileExtension().addFileExtension(ACTION_FILE_EXT).addFileExtension(Ooaofooa.MODELS_EXT));
+        afm = new ActionFileManager(new Path(dummyCompareName));
         setComponent(systemModel);
 
     }
@@ -514,8 +509,8 @@ public class PersistableModelComponent implements Comparable {
     }
 
     public IFile getActionFile() {
-      if (actionFile != null)
-        return actionFile;
+      if (afm != null)
+        return afm.getFile();
       else
         return null;
     }
@@ -1090,8 +1085,7 @@ public class PersistableModelComponent implements Comparable {
         }
         PersistenceManager.removeComponent(this);
         underlyingResource = newFile;
-        IPath actionFilePath = newFile.getFullPath().removeFileExtension().addFileExtension(ACTION_FILE_EXT).addFileExtension(Ooaofooa.MODELS_EXT);
-        actionFile = ResourcesPlugin.getWorkspace().getRoot().getFile(actionFilePath);
+        afm.updateFiles(newFile.getFullPath());
         PersistenceManager.addComponent(this);
         if (thisMe != null && thisMe.isProxy()) {
             thisMe.updateContentPath(underlyingResource.getFullPath());

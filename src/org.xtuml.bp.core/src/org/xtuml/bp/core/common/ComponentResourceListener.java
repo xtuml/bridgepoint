@@ -344,7 +344,7 @@ public class ComponentResourceListener implements IResourceChangeListener, IReso
         	if ((isComponentFile(resource) || isComponentActionFile(resource)) && ((delta.getFlags() & IResourceDelta.CONTENT)==IResourceDelta.CONTENT)) {
                 PersistableModelComponent component = PersistenceManager.findOrCreateComponent(resource.getFullPath());
                 if ( isComponentActionFile(resource) ) {
-                    component = PersistenceManager.findOrCreateComponent(resource.getFullPath().removeFileExtension().removeFileExtension().addFileExtension(Ooaofooa.MODELS_EXT));
+                    component = PersistenceManager.findOrCreateComponent(ActionFileManager.getComponentPath(resource.getFullPath()));
                 }
                 if (component != null) {
                 	if (!component.isPersisting()) {
@@ -352,7 +352,7 @@ public class ComponentResourceListener implements IResourceChangeListener, IReso
                     }
                 } else {
                         if ( isComponentActionFile(resource) ) {
-                            component = PersistenceManager.findInconsistentComponent(resource.getFullPath().removeFileExtension().removeFileExtension().addFileExtension(Ooaofooa.MODELS_EXT));
+                            component = PersistenceManager.findInconsistentComponent(ActionFileManager.getComponentPath(resource.getFullPath()));
                         }
                 	component = PersistenceManager.findInconsistentComponent(resource.getFullPath());
                 	if(component != null) {
@@ -397,7 +397,7 @@ public class ComponentResourceListener implements IResourceChangeListener, IReso
 
 	private boolean checkForDuplicateProjects(IProject project, PersistableModelComponent com) {
         IFile file = project.getFile("/"+ Ooaofooa.MODELS_DIRNAME + "/"+  project.getName() + "/"+  project.getName() +"."+ Ooaofooa.MODELS_EXT);
-        IFile actionFile = project.getFile("/"+ Ooaofooa.MODELS_DIRNAME + "/"+  project.getName() + "/"+  project.getName() +"."+PersistableModelComponent.ACTION_FILE_EXT+"."+ Ooaofooa.MODELS_EXT);
+        IFile actionFile = project.getFile(ActionFileManager.getPathFromComponent(file, ActionFileManager.getDefaultDialect()));
 
 		IModelImport importer;
 		try {
@@ -819,7 +819,7 @@ public class ComponentResourceListener implements IResourceChangeListener, IReso
     }
 
     private static boolean isComponentActionFile(IPath p){
-        IPath path = p.removeFileExtension().removeFileExtension().addFileExtension(Ooaofooa.MODELS_EXT);
+        IPath path = ActionFileManager.getComponentPath(p);
         if(Ooaofooa.MODELS_EXT.equalsIgnoreCase(path.getFileExtension())){
             int size = path.segmentCount();
             if(path.removeFileExtension().lastSegment().equals(path.segment(size-2))){

@@ -156,7 +156,7 @@ public class ${class_name} extends CoreExport
             FileOutputStream fs = new FileOutputStream(fh);
             m_fh = new PrintStream(fs);
             .if ( class_name == "ExportModelComponent" )
-            File afh = m_path.removeFileExtension().addFileExtension(PersistableModelComponent.ACTION_FILE_EXT).addFileExtension(Ooaofooa.MODELS_EXT).toFile();
+            File afh = ActionFileManager.getPathFromComponent(m_path, ActionFileManager.getDefaultDialect()).toFile();
             FileOutputStream afs = new FileOutputStream(afh);
             m_afh = new PrintStream(afs);
             .end if
