@@ -341,13 +341,19 @@ public class ComponentResourceListener implements IResourceChangeListener, IReso
     				}
     			}
     		}
-        	if (isComponentFile(resource) && ((delta.getFlags() & IResourceDelta.CONTENT)==IResourceDelta.CONTENT)) {
+        	if ((isComponentFile(resource) || isComponentActionFile(resource)) && ((delta.getFlags() & IResourceDelta.CONTENT)==IResourceDelta.CONTENT)) {
                 PersistableModelComponent component = PersistenceManager.findOrCreateComponent(resource.getFullPath());
+                if ( isComponentActionFile(resource) ) {
+                    component = PersistenceManager.findOrCreateComponent(resource.getFullPath().removeFileExtension().removeFileExtension().addFileExtension(Ooaofooa.MODELS_EXT));
+                }
                 if (component != null) {
                 	if (!component.isPersisting()) {
                 		handleComponentReplaced(component, delta);
                     }
                 } else {
+                        if ( isComponentActionFile(resource) ) {
+                            component = PersistenceManager.findInconsistentComponent(resource.getFullPath().removeFileExtension().removeFileExtension().addFileExtension(Ooaofooa.MODELS_EXT));
+                        }
                 	component = PersistenceManager.findInconsistentComponent(resource.getFullPath());
                 	if(component != null) {
                 		// if the component was previously stored as inconsistent
@@ -796,6 +802,24 @@ public class ComponentResourceListener implements IResourceChangeListener, IReso
     }
 
     private static boolean isComponentFile(IPath path){
+        if(Ooaofooa.MODELS_EXT.equalsIgnoreCase(path.getFileExtension())){
+            int size = path.segmentCount();
+            if(path.removeFileExtension().lastSegment().equals(path.segment(size-2))){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static boolean isComponentActionFile(IResource resource){
+        if(resource instanceof IFile){
+            return isComponentActionFile(resource.getFullPath());
+        }
+        return false;
+    }
+
+    private static boolean isComponentActionFile(IPath p){
+        IPath path = p.removeFileExtension().removeFileExtension().addFileExtension(Ooaofooa.MODELS_EXT);
         if(Ooaofooa.MODELS_EXT.equalsIgnoreCase(path.getFileExtension())){
             int size = path.segmentCount();
             if(path.removeFileExtension().lastSegment().equals(path.segment(size-2))){
