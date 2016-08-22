@@ -43,9 +43,9 @@ See Abstract.
   to put the ```antlr.jar``` into the right spot   
 5.6  Put a ```.gitignore``` into ```org.xtuml.bp.als/lib/``` to ignore ```antlr.jar```, 
   which will also serve to keep the ```lib/ dir``` from disappearing from 
-  revision control due to being empty.
-5.6.1  Add a README in that folder that says, "See the dev getting started" for 
-  instructions about pt_antlr   
+  revision control due to being empty.   
+5.6.1  Add a README in that folder that says tells the developer to see the 
+  getting started guide instructions about ```pt_antlr```   
 
 6. Implementation Comments
 --------------------------
