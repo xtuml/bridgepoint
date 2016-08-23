@@ -12,6 +12,8 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.jface.preference.IPreferenceStore;
+import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.Ooaofooa;
 
 public class ActionFileManager {
@@ -47,7 +49,7 @@ public class ActionFileManager {
 	// get the dialect for this action file manager. This will check to see if actions exist
 	// for one dialect, if not it will go to the default dialect
 	public String getDialect() {
-		return "oal";
+		return getDefaultDialect();
 	}
 	
 	// get the file for this action file manager. This will check to see if actions exist
@@ -57,7 +59,8 @@ public class ActionFileManager {
 	}
 	
 	public static String getDefaultDialect() {
-		return "oal";
+                IPreferenceStore store = CorePlugin.getDefault().getPreferenceStore();
+                return store.getString(BridgePointPreferencesStore.DEFAULT_ACTION_LANGUAGE_DIALECT).toLowerCase();
 	}
 	
 	// get the action file path from the component file path
