@@ -57,10 +57,10 @@ looked quite a bit at the existing infrastructure for the solution.
 Prior to the work done for the original design's implementation, BridgePoint 
 did have the ability to perform cut/paste. However, this "old" cut/paste 
 behavior took full advantage of copy/paste. In fact, the cut/paste behavior 
-was simply copy/paste followed by delete. The paste in the situation 
+was simply copy/paste followed by delete. The paste in this situation 
 resulted in new UUIDs for all elements pasted. The original design took 
 the approach that the change to make that prior cut/paste behavior a move 
-was essentially simply a matter of preventing new UUIDs  from 
+was essentially simply a matter of preventing new UUIDs from 
 being created for the pasted elements. 
 
 Implementation showed that this approach would not satisfy the requirements. 
@@ -69,9 +69,9 @@ require delete to be called after the "move" was unacceptable. The
 delete() operation is modeled. Each meta-model element implements delete and 
 the implementation is recursive. In the initial design it was believed that 
 the implementation could simply modify the delete operations to prevent the 
-recursive delete. However, this was not an appropriate solution. The new move 
-operation does not delete element's, but it does "unhook" the elements and 
-reconnect to the selected destination. Reusing the copy/paste infrastructure 
+recursive delete. However, this was not an appropriate solution. The move 
+operation can not delete elements, but it does "unhook" the elements and 
+reconnect them to the selected destination. Reusing the copy/paste infrastructure 
 did not allow the element deletion and "unhooking" to be done independently.  
 
 It is further noted that the original design called out that proxy removal 
@@ -79,29 +79,25 @@ would be done with this issue. Proxy removal is desirable and the note calls
 out that the removal of proxies would have helped this issue WRT the requirement 
 that a minimal change set is performed on move. However, proxy removal caused 
 problems. The problems were in the area of model reload and model compare, 
-both of which use the proxies. This resulted in the need to leave the proxies 
-which, in turn, caused requirement 4.2 to not be met.  
+both of which use the proxies. This resulted in the need to leave the proxies, 
+which in turn caused requirement 4.2 to not be met.  
 
-What is came down to, although quite a painful decision, was that "move 
+It was a painful decision, but what it came down to was that "move 
 is not copy/paste/delete" and it can not be treated as such. This meant that 
 the original design choice, and even the original analysis had to be revisited.  
 
-The design note that follow is the result of this revisiting the 
-original analysis and design for this project. A different solution was selected 
-that was not presented in the original analysis. This design note describes this 
-approach. A [link to the original design](#2.7) that was abandoned is 
-left in place for historical purposes, but the design note that follows 
-is the approach taken.
+The design note that follows is the result of this revisiting of the 
+original analysis and design for this project.  
 
-
+A different solution has been selected that was not presented in the original 
+analysis. This design note describes this approach. A 
+[link to the original design](#2.7) that was abandoned is left in place for 
+historical purposes, but the design note that follows is the approach taken.  
 
 4. Requirements   
 ---------------   
 The requirements are defined in this issue's [Statement of Work](#2.3). For convenience, 
-the requirements defined in the SOW are being carried forward here. This design 
-shall create some additional requirements based on the selected implementation. 
-These additional requirements shall be placed after the last requirement copied  
-from the SOW.  
+the requirements defined in the SOW are being carried forward here.  
 
 4.1 Selected model elements are moved in a single operation that can be undone with 
 a single undo operation.  
@@ -148,10 +144,9 @@ containers and reconnecting them to the selected destination container.
 5.1.1 Almost every element in BridgePoint is a sub-type of PackackagableElement (PE_PE). All Model 
 Elements being moved [4.3] inherit from PE_PE. 
 
-5.1.2 All PackackagableElements are contained in either a Package or a Component. 
-5.1.2.1 PackackagableElements inside Packages (EP_PKG) have a relationship with EP_PKG via R8000.
-5.1.2.1 PackackagableElements inside Components (C_C) have a relationship with C_C via R8003.
-
+5.1.2 All PackackagableElements are contained in either a Package or a Component.  
+5.1.2.1 PackackagableElements inside Packages (EP_PKG) have a relationship with EP_PKG via R8000.  
+5.1.2.1 PackackagableElements inside Components (C_C) have a relationship with C_C via R8003.  
 
 6. Design   
 ----------------   
@@ -219,31 +214,31 @@ single transaction.
 
 6.1.1 The current infrastructure uses an abstract class, 
 `core/ui/CopyCutAction.java extends org.eclipse.jface.action.Action`. 
-To define the behavior of move operation this interface shall be modified 
-to allow the cut/paste operation to be a single transaction as opposed to 2 
-separate transactions. This new transaction shall be started and ending
-within `PasteAction.java::run()`.
+To define the behavior of the move operation, this interface shall be modified 
+to allow the cut/paste operation to be done a single transaction as opposed to 2 
+separate transactions. This new transaction shall be started and ended
+within `PasteAction.java::run()`.  
 
-
-In addition modifications to this abstract class, the classes that 
-extend this shall also be modified as required for this change. These are:  
+In addition to modifications in the abstract class, the classes that 
+extend this shall also be modified as required for this change. These classes are:  
 * `core/ui/CopyAction.java` - This shall be modified as needed to adhere to interface 
 changes, but functionality shall not be changed.
 * `core/ui/CutAction.java` - The deletion of selected elements will no longer be 
-performed during cut. Additionally, cut does not start a transaction any longer.
+performed during cut. Additionally, cut does not start a transaction any longer.  
 
+6.1.2 Introduce a new abstract class, `CutCopyPasteAction extends Action`  
+Modify the existing CutCopyAction and PasteAction classes to extend this 
+new class instead of extending the Action class directly as was done before this
+change.  
 
-6.1.2 Introduce a new abstract class, `CutCopyPasteAction extends Action`, and
-modify the  existing `CutCopyAction` and `PasteAction` classes
-to extend this new class instead of extending Action directly as was done before this
-change. Move the common implementation from `CutCopyAction` "up" into this new
-class. This change allows `PasteAction` to know when the user has selected cut vs
-copy and to perform the cut/paste (move) in a single transaction that occurs
-in PasteAction (previously cut was performed in a transaction of its own). 
+Move the common implementation from `CutCopyAction` "up" into this new
+class. This change allows `PasteAction` to know when the user has selected 
+cut vs copy and to perform the cut/paste (move) in a single transaction 
+that occurs in PasteAction (previously cut was performed in a transaction of its own).  
 
-6.1.3 Delete the code that was deleting elements out of `CutAction.java::postRun()`.   
-Rework this code as needed to account for the fact that elements are no longer being 
-deleted.  
+6.1.3 Remove the code that was deleting elements during cut.
+This change is in `CutAction.java::postRun()`. Rework this code as needed to 
+account for the fact that elements are no longer being deleted.  
 
 6.1.4 Add an attribute to CutCopyPasteAction, `ELEMENT_MOVE_SOURCE_SELECTION`, that 
 holds the selection made by the user when cut is selected.  
@@ -251,7 +246,7 @@ holds the selection made by the user when cut is selected.
 6.2 Introduce a BridgePoint transaction type for Move  
 In BridgePoint, during a transaction the memory model is modified as needed to perform a
 specified task. When the memory model changes are completed the transaction is ended and
-at that time, file persistence occurs. The move operation requires file handling that is 
+at that time file persistence occurs. The move operation requires file handling that is 
 different than what is done by other BridgePoint transaction types. For example, there are
 transation types for element creation and deletion, but move is different at the file 
 system level and requires different processing.  
