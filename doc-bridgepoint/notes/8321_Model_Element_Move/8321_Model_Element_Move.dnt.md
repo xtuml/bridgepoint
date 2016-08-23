@@ -14,13 +14,12 @@ Move functionality in BridgePoint.
 
 2. Document References     
 ----------------------   
-<a id="2.1"></a>2.1 [Model Element move (Issue 8321)](https://support.onefact.net/issues/8321) 
+<a id="2.1"></a>2.1 [Model Element move (Issue 8321)](https://support.onefact.net/issues/8321)  
 This is a link to this issue in the issue tracking system.  
 
 <a id="2.2"></a>2.2 [Analysis note for Model Element Move Issue](https://support.onefact.net/issues/8031) 
-The [analysis note produced by this work]
-(../8031_Analyze_Model_Element_Move/8031_Analyze_Model_Element_Move.ant.md) was 
-used during the SOW creation to help define the requirements for this project.  
+The [analysis note produced by this work](../8031_Analyze_Model_Element_Move/8031_Analyze_Model_Element_Move.ant.md) 
+was used during the SOW creation to help define the requirements for this project.  
 
 <a id="2.3"></a>2.3 [Statement of Work for Model Element Move](https://docs.google.com/document/d/1_T4H7StO-VM8zfIFjr-V7VwUQMXML1c7nFJJofU0vGs/edit)  
 This is a link to this issue's Statement of Work document.  This document is 
@@ -29,50 +28,12 @@ internal to the One Fact team.
 <a id="2.4"></a>2.4 [Inconsistent proxy paths (Issue 8454)](https://support.onefact.net/issues/8454)  
 Proxy paths are not written consistently.  
 
-<a id="2.5"></a>2.5 [MC-Java README.TXT](https://github.com/xtuml/bridgepoint/blob/master/src/MC-Java/README.TXT)  
-This document describes the MC-Java implementation.  
+<a id="2.5"></a>2.5 [Issue 8458 - Create Test Model for Model Element Move](https://support.onefact.net/issues/8458)  
 
-<a id="2.6"></a>2.6 [Issue 8455 - Remove dead code associated with proxies](https://support.onefact.net/issues/8455)  
-  
-<a id="2.7"></a>2.7 Documentation associated with the introduction of proxies in 
-BridgePoint  Proxies were introduced into BridgePoint when multi-file persistence 
-(PLCM) was introduced. The following engineering documents describe this:  
+<a id="2.6"></a>2.6 [Issue 3532 design note - Support data type move capabilities through cut, copy, paste](../8031_Analyze_Model_Element_Move/i3532.dnt)  
+This is the note introduced when datatype move support was introduced into BridgePoint.  
 
-<a id="2.7.1"></a>2.7.1 [Issue 845 - PLCM Technical Note](i845.tnt)  
-This note captures the initial brain-storming done regarding the PLCM project. 
-PLCM stands for package level configuration management. Over the years since 
-this feature was introduced the term PLCM has been dropped and this is now more 
-commonly referred to as multi-file persistence.  
-
-<a id="2.7.2"></a>2.7.2 [Issue 845 - PLCM Final Analysis Note](i845-PLCM_1_0.ant)  
-This is the final PLCM analysis note. The PLCM project was long-lived, and 
-there was an initial analysis note but this one was created at the time the 
-project was split into smaller deliverables.  
-
-<a id="2.7.3"></a>2.7.3 [Issue 845 - PLCM Design Note for milestone 2](i845-2.dnt)  
-This note captures the design note of PLCM as related to proxies.  
-
-<a id="2.8"></a>2.8 [Issue 8458 - Test Cases for Model Element Move](https://support.onefact.net/issues/8458)  
-
-<a id="2.9"></a>2.9 Documentation associated with use of proxies for model compare and merge  
-<a id="2.9.1"></a>2.9.1 [Issue 244 Design note - Fix corruption caused by class merges](244_class_merge.dnt.md)  
-
-<a id="2.10"></a>2.10 [Issue 3532 design note - Support data type move capabilities through cut, copy, paste](../8031_Analyze_Model_Element_Move/i3532.dnt)  
-
-<a id="2.11"></a>2.11 [Eclipse Team Interface associated with element move](http://help.eclipse.org/mars/index.jsp?topic=%2Forg.eclipse.platform.doc.isv%2Fguide%2FresAdv_hooks.htm)  
-This is documentation for Eclipse Team plugin providers. It shows that file move 
-support could be implemented by a provider.  
-
-<a id="2.12"></a>2.12 [Engineering notes associated with dts0100911019](dts0100911019)  
-This issue shows an example where file system changes made by BridgePoint had a 
-undesirable effect on a specific type of revision control system. The specified 
-system was not really the relevant issue, though it was ClearCase. The issue 
-was more general and was the fact the ClearCase system used pessimistic 
-locking. The issue referenced because it is an example where the BridgePoint 
-team handled this issue by modify the file system change so the RCS team 
-interface would handle it in a more favorable way.  
-
-<a id="2.13"></a>2.13 [Original Model Element Move Design note - before redesign](https://github.com/xtuml/bridgepoint/blob/82f9dace19ee79c8011f687eb2d12315ea6e8dc3/doc-bridgepoint/notes/8321_Model_Element_Move/8321_Model_Element_Move.dnt.md)  
+<a id="2.7"></a>2.7 [Original Model Element Move Design note - before redesign](https://github.com/xtuml/bridgepoint/blob/82f9dace19ee79c8011f687eb2d12315ea6e8dc3/doc-bridgepoint/notes/8321_Model_Element_Move/8321_Model_Element_Move.dnt.md)  
 This Model Element Move project's original selected design encountered problems 
 during implementation and a different design approach, outlined in this note, 
 was taken. This link shows the original design. The background section below 
@@ -128,7 +89,7 @@ the original design choice, and even the original analysis had to be revisited.
 The design note that follow is the result of this revisiting the 
 original analysis and design for this project. A different solution was selected 
 that was not presented in the original analysis. This design note describes this 
-approach. A [link to the original design](#2.13) that was abandoned is 
+approach. A [link to the original design](#2.7) that was abandoned is 
 left in place for historical purposes, but the design note that follows 
 is the approach taken.
 
@@ -177,7 +138,7 @@ not a valid move selection.
 
 5. Analysis   
 -----------   
-As described in the background section above, the [initial design](#2.13) and 
+As described in the background section above, the [initial design](#2.7) and 
 analysis for this issue led to an implementation that was not 
 acceptable. The following calls out a different approach. 
 
@@ -194,114 +155,12 @@ Elements being moved [4.3] inherit from PE_PE.
 
 6. Design   
 ----------------   
+The following is Pseudo code for the "new" Model Element Move implementation.  
+`PasteAction.java::run()` drives the paste change procedure, therefore the pseudo code
+below is to a large extent implemented at PasteAction.java::run().  <b>The 
+copy/paste behavior shall not be changed during this change.</b>  
 
-6.1 Modify cut/paste operation to be analogous to "move" by making it a 
-single long-lived transaction. It is referred to as long-lived because it 
-survives across multiple user operations (cut and paste). With this change, 
-cut/paste is analogous to move.
-
-The move transaction shall not terminate until either:  
-* The paste is performed  
-*  The transaction is terminated before paste is performed  
-
-6.1.1 The move transaction shall be canceled if any other transaction is initiated
-before the paste operation is completed.  
-
-6.1.2 The current infrastructure uses an abstract class, 
-core/ui/CopyCutAction.java extends org.eclipse.jface.action.Action, 
-to define the behavior of cut/copy operations this interface shall be modified 
-to allow the cut/paste operation to be a single transaction as opposed to 2 
-separate transactions. In addition to this abstract class, the classes that 
-extend this shall also be modified as required for this change. These are:  
-* `core/ui/CopyAction.java` - This shall be modified as needed to adhere to interface 
-changes, but functionality shall not be changed.
-* `core/ui/CutAction.java` - The deletion of selected elements will no longer be 
-performed during cut. Additionally, cut does not start a transaction any longer.
-
-
-6.1.3 Introduce a new abstract class, `CutCopyPasteAction extends Action`, and
-I modified the  existing `CutCopyAction` and `PasteAction` classes
-to extend this new class instead of extending Action directly as was done before this
-change. Move common implementation from `CutCopyAction` "up" into this new
-class. This change allows PasteAction to know when the user has selected cut vs
-copy and to perform the cut/paste (move) in a single transaction that occurs
-in PasteAction (previously cut was performed in a transaction of its own). 
-
-6.1.4 Moved the code that was deleting elements out of `CutAction.java::postRun()`
-and put this into `PasteAction::run()` at the point AFTER the move has taken place. 
-Rework this code as needed to account for the fact that elements are no longer being 
-deleted.
-
-6.1.5 Add an attribute to CutCopyPasteAction named ELEMENT_MOVE_SOURCE_SELECTION that 
-holds the selection made by the user during cut.  
-
-6.2 Assure that the cut CME is only enabled when it should be.  
-An attempt to paste to the same location that the copy was made from is considered an 
-invalid selection and shall not be allowed. Modify {Explorer & Canvas}CutAction.java::isEnabled()
-to assure that cut is not enabled if the source and destination are the same. 
-
-6.2.1. Disable paste when the selected target is the same as the source.  
-
-6.2.1.1. `bp/ui/explorer/actions/ui/Explorer{Cut | Copy | Paste}Action.java::isEnabled()` 
-implements this behavior on behalf of the org.eclipse.jface.action.Action abstract class. 
-This is where BridgePoint determines if the CME should be enabled or not. Note that there 
-is an analogous implementation for canvas in 
-`bp.ui.graphics.actions/Canvas{Cut | Copy | Paste}Action.java::isEnabled()`  
-
-6.2.1.2. The operation called out in the prior step is implemented to check the 
-source and destination to see if the CME should be enabled or not.  
-
-6.2.1.3. In the PasteAction case, the operations look to see if the destination allows paste for 
-elements in the source being pasted to the target. It does this by calling an ooaofooa 
-operation that is of the form {target model element instance}.Paste{Source Model Element Name}
-. The structure of this code was such that this behavior 
-was essentially duplicated in `{Explorer | Canvas}PasteAction.java`. I refactored this and 
-"moved up" an operation named `clipboardContainsPastableModelElements()` into the parent class
-`core/ui/PasteAction.java` to facilitate adding the check to assure that on move the
-if the source and target PMCs match paste is not enabled.  
-
-6.2.1.4 The actual code added to assure paste is disabled if the source and 
-target PMCs match was added to the refactored `core/ui/PasteAction.java::isEnabled()` 
-function.  
-
-6.2.1.4.1 The change was specific to move, copy/paste still allows paste into the same PMC as it did before this change.  
-
-6.2.2. In PasteAction.java::isEnabled() if a move is in progress do not allow more than 1 
-selected destination. This is another change that is specific to move and is still allowed by copy/paste.  
-
-6.3 Introduce a move transaction  
-The file move operation happens after the memory model has been modified. To 
-perform this move at the file system level a new transaction type shall be 
-introduced.  
-
-6.3.1 In Datatypes/ModelEventNotification add a new enum DELTA_MODEL_ELEMENT_MOVE. 
-Note that this enum is actually used in a bitset implementation so the value 
-of this new element shall be 16384 ( 0b0010000000000000). 
-
-6.3.2 Introduce the  Java code required to use the new ModelDelta type.  
-
-6.3.2.1  Introduce class ModelElementMovedModelDelta extends BaseModelDelta, and 
-add a new interface operation, void modelElementMoved(ModelChangedEvent event, IModelDelta delta), 
-to IModelChangeListener.   
-
-6.3.2.2 Updated places as needed that have to implement this interface. Note 
-that the only one that has a non-empty implementation is 
-ComponentTransactionListener.java, and in it is where we shall add code that 
-performs the folder move when the transaction ends.  
-
-6.3.2.3 Introduce ComponentTransactionListener::movePMC(NonRootModel  
-
-6.4 Modify the paste action (`core/ui/PasteAction.java`).  
-
-It is PasteAction::Run() that drives the changes made during paste. The 
-tool goes through this same location for processing both copy/paste and cut/paste.
-
-<b>The copy/paste behavior shall not be changed during this change.</b>  
-
-6.4.1 Pseudo code for the "new" Model Element Move implementation.  
-Since it is PasteAction::run() that drives the paste change the pseudo code
-below is to a large extent implemented at this location.
-```
+<pre>
   User Makes a Selection through either Model Explorer or Canvas
   
   User Right-clicks the selection
@@ -320,15 +179,12 @@ below is to a large extent implemented at this location.
   end for
     
   for each selected_element in ELEMENTS_TO_MOVE 
-      Find the GraphicalElement (GD_GE) associated with selected_element
-      Find the Model (GD_MD) associated with the GraphicalElement
-      unrelate the GraphicalElement from the Model across R1  
-      relate the GraphicalElement to the destiantion's Model across R1
-	  update the selected_element's associated container symbol on R307 if containment has changed
+      disconnect the graphical element associated selected_element from its canvas
+      connect selected_element to the canvas associated with the destination
   end for 
    
   for each selected_element in ELEMENTS_TO_MOVE
-    update selected_element's  model root and set it to the destination model root
+    update selected_element''s  model root and set it to the destination model root
   end for
   
   for each selected_element in ELEMENTS_TO_MOVE
@@ -356,130 +212,121 @@ below is to a large extent implemented at this location.
   end if
 
 
-```
+</pre>
 
-6.5 Reuse the current tree list box that shows Model Elements affected by the 
-cut/paste operation  
+6.1 Modify the cut/paste operation to be analogous to "move" by making it a 
+single transaction.  
 
-6.5.1 The dialog shall allow the user to cancel   
+6.1.1 The current infrastructure uses an abstract class, 
+`core/ui/CopyCutAction.java extends org.eclipse.jface.action.Action`. 
+To define the behavior of move operation this interface shall be modified 
+to allow the cut/paste operation to be a single transaction as opposed to 2 
+separate transactions. This new transaction shall be started and ending
+within `PasteAction.java::run()`.
 
-6.5.2 Text shall be added to tell the user to enabled IPRs and
-check visibility.  
 
-6.5.3 As per the SOW [[2.3](#2.3)], the dialog shall have save and print options.  
+In addition modifications to this abstract class, the classes that 
+extend this shall also be modified as required for this change. These are:  
+* `core/ui/CopyAction.java` - This shall be modified as needed to adhere to interface 
+changes, but functionality shall not be changed.
+* `core/ui/CutAction.java` - The deletion of selected elements will no longer be 
+performed during cut. Additionally, cut does not start a transaction any longer.
 
-6.6 Introduce of a Disconnect operation for each element in ooaofooa that may be 
+
+6.1.2 Introduce a new abstract class, `CutCopyPasteAction extends Action`, and
+modify the  existing `CutCopyAction` and `PasteAction` classes
+to extend this new class instead of extending Action directly as was done before this
+change. Move the common implementation from `CutCopyAction` "up" into this new
+class. This change allows `PasteAction` to know when the user has selected cut vs
+copy and to perform the cut/paste (move) in a single transaction that occurs
+in PasteAction (previously cut was performed in a transaction of its own). 
+
+6.1.3 Delete the code that was deleting elements out of `CutAction.java::postRun()`.   
+Rework this code as needed to account for the fact that elements are no longer being 
+deleted.  
+
+6.1.4 Add an attribute to CutCopyPasteAction, `ELEMENT_MOVE_SOURCE_SELECTION`, that 
+holds the selection made by the user when cut is selected.  
+
+6.2 Introduce a BridgePoint transaction type for Move  
+In BridgePoint, during a transaction the memory model is modified as needed to perform a
+specified task. When the memory model changes are completed the transaction is ended and
+at that time, file persistence occurs. The move operation requires file handling that is 
+different than what is done by other BridgePoint transaction types. For example, there are
+transation types for element creation and deletion, but move is different at the file 
+system level and requires different processing.  
+
+6.2.1 In Datatypes/ModelEventNotification add a new enum DELTA_MODEL_ELEMENT_MOVE.  
+Note that this enum is actually used in a bitset implementation so the value 
+of this new element shall be 16384 ( 0b0010000000000000). 
+
+6.2.2 Introduce the Java code required to use the new ModelDelta type.  
+
+6.2.2.1  Introduce class ModelElementMovedModelDelta extends BaseModelDelta, and 
+add a new interface operation, void modelElementMoved(ModelChangedEvent event, IModelDelta delta), 
+to IModelChangeListener.   
+
+6.2.2.2 Updated places as needed that have to implement this interface. Note 
+that the only one that has a non-empty implementation is 
+ComponentTransactionListener.java, and in it is where we shall add code that 
+performs the folder move when the transaction ends.  
+
+6.2.2.3 Introduce ComponentTransactionListener::movePMC() to handle the 
+processing of the new ModelElementMovedModelDelta that may exist in a transaction.
+
+This new operation is invoked only by ComponentTransactionListener.java::endTransaction(), 
+and only when the new ModelElementMovedModelDelta is part of the transaction being processed.  
+
+6.3 Handle disconnecting of elements for which a simple unrelate on R8000/R8003 
+does not fully disconnect the element  
+
+6.3.1 Introduce of a Disconnect operation for each element in ooaofooa that may be 
 moved and that has to be disconnected by performing more work than a simple 
 unrelate on R8000/R8003
 
-6.6.1 This situation is actually unique to Package (EP_PKG). The reason is that it is also 
+6.3.1.1 This situation is actually unique to Package (EP_PKG). The reason is that it is also 
 connected to S_SYS on R1401/1405.
 
+6.4 Make changes necessary to move graphics  
 
+To move the graphics associated with model elements being moved we shall take the same
+"disconnect/reconnect" approach that is taken to move the selected ooaofooa elements. For
+graphics the container that a selected element needs to be disconnected from is 
+represented in the ooaofgraphics by GD_MD->GD_GE[R1]. 
 
+The exception is in the situation where component references are unassigned, in this 
+case we must run graphics reconciliation to remove the provision and requirements when the
+element is unassigned. However, note that since unassign is being performed in this situation, 
+no code change outside of the unassign is required.
 
-7. Design Comments   
-------------------   
+6.4.1 Modify PasteAction.java::run() to call the abstract operation PasteAction.java::processGraphics() 
+at the point during the move operation that we are ready to disconnect and reconnect the graphical elements
+associated with each user-selected model element.  
 
+The implementation of processGraphics() is found in `{Explorer | Canvas}PasteAction.java`.  However, the 
+implementation in ExplorerPasteAction.java shall be modified to redirect all processing for this action to 
+CanvasPasteAction.java so that implementation for this is in a single location. 
 
+6.4.1.1 Modify CanvasPasteAction.java::handleNonDiagramElementAsDestination() to
+handle this move case.  
 
-  
+Here is the pseudo code: 
 
-
-5.3 User Interface  
-
-5.3.1 The dialog allows the user to cancel.  On cancel, no action is performed
-  on the underlying model data.   
-
-5.3.2 In the type demotion dialog, consider adding text to tell the user to consider turning on IPRs or checking package visibility.  
-@see 5.4  
-
-5.3.3 As per the SOW [[2.3](#2.3)], the dialog needs to have save and print options added.  
-5.3.3.1  Updated `ScrolledTextDialog.java` to take a new parameter in the
-  constructor that indicates if the save and print buttons shall be used.  
-5.3.3.2  Updated the existing callers of ScrolledTextDialog such that the 
-  `TransactionManager.java` is the only one that uses save and print.  Other 
-  users retain existing behavior and do not use save and print.  
-5.3.3.3  Added code to implement button "Save...".  This button opens a modal
-  dialog that allows the user to select a file to save into.  The contents of 
-  the list box (the affected elements) are written to the file if the user 
-  completes the dialog.  No action is taken if the user cancels the dialog.   
-5.3.3.4  Added code to implement button "Print...".  This button opens a modal
-  printer selection dialog.  The contents of the list box (the affected 
-  elements) are sent to the printer if the user completes the dialog.  No action
-  is taken if the user cancels the dialog.  
-
-
-5.4 Modify all resolution operations to first search by ID  instead of name  
-5.4.1 Analysis of this problem  
-During paste, after the elements are put in their new destination, the source elements must be
-cleaned-up from the previous location. In the existing cut/paste implementation this meant 
-performing a delete.  It is during the delete that elements (Datatypes) are "downgraded". 
-In S_DT.Dispose() as a datatype is disposed the OAL disconnects the datatype, reconnects to 
-the default type, and then calls a bridge that is used to record the "downgrade" so that 
-it may be reported to the user. An example of what this looks like for one datatype, 
-Bridges, is as follows:  
 ```
-select many brgs related by self->S_BRG[R20];
-for each brg in brgs
-  unrelate self from brg across R20;
-  relate brg to voidDt across R20;
-  Util::collectModelElementsNames(elementType:"- Bridge : ",elementName:brg.Name);
-end for;
+  Find the GraphicalElement (GD_GE) associated with selected_element
+  Find the Model (GD_MD) associated with the GraphicalElement
+  unrelate the GraphicalElement from the Model across R1  
+  relate the GraphicalElement to the destination's Model across R1
+  update the selected_element's associated container symbol on R307 if containment has changed
 ```  
 
-`PasteAction.java::run()` is responsible for paste in both the copy/paste and cut/paste scenarios. When a cut/paste occurs, after the elements are moved to their new home they must be removed from their source home. In this scenario, where the elements were simply moved (their IDs are the same) we do NOT want to call the ooaofooa Dispose operations on the elements. However, we DO need to perfom some cleanup. The cleanup needed is:  
-* Remove the elements from the source root's instance list  
-* remove the files  
-  * This happens in the Transaction end operation. The ComponentTransactionListener.transactionEnded() operation looks to see if there were deletions in the transaction, and if so, it calls PersistableModelComponent.deleteSelfAndChildren()  
+6.5 Downgrade model elements that lose visibility to their referred-to types during move  
 
-5.4.1.1. core/ui/DeleteAction(ISelection) is generated. It deletes the model types in the given selection in a specific order (starting with S_SYS).  The archetype generates code that finds the count of a given type (example EP_PKG) in the selection and then iterates over them one at a time calling <Element instance>.Dispose() on each one.  
-5.4.1.2. <Element Instance>.Dispose() is of course generated from MC-Java and of course each model element in ooaofooa has a Dispose operation. MC-Java adds some code to the bottom of each of these operations that looks like this:  
-```
-    if (delete()) {
-			Ooaofooa.getDefaultInstance()
-					.fireModelElementDeleted(new BaseModelDelta(Modeleventnotification_c.DELTA_DELETE, this));
-		}
-```  
-5.4.1.2.1 the delete() operation is generated for each model element.  
-5.4.1.2.1.1 What this does first, is to call super.delete() (NonRootModelElement.java::delete()), which assures the element is not orphaned. Note that being orphanded means the element does not exist in the root's instance list. If not orphanded, we remove the elements from this root's instance list and return true. Additionally, it is worth noting there is a special case in this situation for merge. It looks like this:  
-```
-      ...
-			// During merge we do not convert elements, they are moved
-			// as is from one side to the other.  During a merge undo we
-			// can hit a case where RTOs are removed before the RGO, causing
-			// the check for external references to be true.
-			if(hasExternalRefs && !getModelRoot().isCompareRoot()) {
-				convertToProxy();
-			} else {
-				delete_unchecked();
-			}
-			return true;
-			...
-```  
-5.4.1.2.1.1.1 Note that delete_unchecked() is where we remove the elements from the root's instance list as described 
-in 2.1.  
-5.4.1.2.1.2 delete() then has code that tests to assure relationships were torn down by the element's Dispose() properly, and reports non-fatal errors if the relationships were not properly disposed.  
+When a model element is moved from one location to another, BridgePoint
+needs to perform work to clean up "referring" (RGO) and "referred to" (RTO) 
+links to the element being moved.  This work must be done in both the originating and 
+target containers.  Here is pseudo-code describing the work to be performed:
 
-5.4.2 Resolution for cut/paste's problem of "downgrading" model elements and improper element "deletion" on move.  
-<b>TODO: Rework these sub-items</b>  
-<s>5.4.2.1  modify MC-Java's handling of the Dispose() operation and wrap the body of the OAL action in a conditional expression that check to see if a move is in progress, and do NOT call the action body if a move is in progress.  
-5.4.2.2 modify the generated delete() operations to check to see if a move is in progress and if a move is in progress do not report the error about relationships not being torn down.  
-5.4.2.3 Investigate the "convertToProxy()" used in NonRootModelElement.delete()   
-</s>
-
-<b>5.4.3 In the type demotion dialog, we shall add text to tell the user to assure IPRs are enabled and to check package visibility.</b>  
-
-
-
-5.5 Fix inconsistent proxy paths [[2.4](#2.4)]  
-Investigation into this problem showed that there was no problem with the way proxy paths were being written. After this investigation no additional actoin was required.  
-
-6.1 When a model element is moved from one location to another, BridgePoint
-  needs to perform work to clean up "referring" and "referred to" links to 
-  the element being moved.   This work must be done in both the originating and 
-  target containers.  Here is pseudo-code describing the work to be performed:
-  
 ```
 for each selectedElement
   // Downgrade src 
@@ -504,36 +351,92 @@ end for
 ```
 
 
+6.6 UI Changes
+
+6.6.1 Modify the tree list box that shows Model Elements affected by the 
+cut/paste operation.  
+
+6.6.1.1 The dialog shall allow the user to cancel   
+
+When cancel is selected no action is performed on the underlaying model.
+
+6.6.1.2 Text shall be added to tell the user to enabled IPRs and
+check visibility.  
+
+6.6.1.3 As per the SOW [[2.3](#2.3)], add save and print options to the dialog.  
+
+6.6.1.3.1  Update `ScrolledTextDialog.java` to take a new parameter in the
+constructor that indicates if the save and print buttons shall be used.  
+
+6.6.1.3.2  Update the existing callers of ScrolledTextDialog such that the 
+`TransactionManager.java` is the only one that uses save and print.  Other 
+users retain existing behavior and do not use save and print.  
+
+6.6.1.3.3  Add code to implement button "Save...".  This button opens a modal
+dialog that allows the user to select a file to save into.  The contents of 
+the list box (the affected elements) are written to the file if the user 
+completes the dialog.  No action is taken if the user cancels the dialog.   
+
+6.6.1.3.4  Add code to implement button "Print...".  This button opens a modal
+printer selection dialog.  The contents of the list box (the affected 
+elements) are sent to the printer if the user completes the dialog.  No action
+is taken if the user cancels the dialog.  
+
+6.6.2 Assure that the cut CME is only enabled when it should be.  
+
+`bp/ui/explorer/actions/ui/Explorer{Cut | Copy | Paste}Action.java::isEnabled()` 
+is where BridgePoint determines if the CME should be enabled or not. Additionally, 
+there is an analogous implementation for canvas in 
+`bp.ui.graphics.actions/Canvas{Cut | Copy | Paste}Action.java::isEnabled()`  
+
+6.6.2.1. Disable paste when the selected target is the same as the source.  
+
+An attempt to paste to the same location that the copy was made from is 
+considered an invalid selection and shall not be allowed.  
+
+In the PasteAction, the operations look to see if the destination allows paste 
+for elements in the source being pasted to the target. It does this by calling 
+an ooaofooa operation that is of the from {target model element instance}.Paste{Source Model Element Name}. 
+The structure of this code is such that this behavior is essentially duplicated 
+in `{Explorer | Canvas}PasteAction.java`.  
+
+6.6.2.1.1 Refactor this and "move up" the operation named `clipboardContainsPastableModelElements()` 
+into the parent class`core/ui/PasteAction.java` to facilitate adding the check 
+to assure that on move, if the source and target PMCs match, paste is not enabled.  
+
+6.6.2.1.2 The code added to assure paste is disabled if the source and 
+target PMCs match was added to the refactored `core/ui/PasteAction.java::isEnabled()` 
+function.  
+
+6.6.2.1.3 The change is specific to move, copy/paste still allows paste into the 
+same PMC as it did before this change.  
+
+6.6.3 If a move is in progress do not allow more than 1 selected destination 
+for paste. This is another change that is specific to move and is still allowed 
+by copy/paste.  
 
 
-6.4 Design for graphics reconciliation
-```
-Note that in the graphics move we are simply discconecting and reconnnecting graphics on R1. 
-The exception is in the situation where components references are unassigned, in this 
-case we must run graphics reconcilaition to remove the provision and requirements when the
-element is unassigned. However, note that since unassign is beingdone, this should happen
-so no reconciliation should be needed
-```
-
-??????????????????????????????????
-
-<b>6.3.2.1 The implementation shall consider that fact that visibility checks that may result in
-demotion will need to be performed on both the source and the target (RTOs and RGOs).</b>
-
+7. Design Comments   
+------------------   
+7.1 Fix inconsistent proxy paths [[2.4](#2.4)]  
+Investigation into fixing this problem showed that there was no problem with 
+the way proxy paths were being written. After this investigation no additional 
+action was required.  
 
 8. User Documentation   
 ---------------------  
 8.1 This issue changes the behavior of cut/paste making it analogous to move. 
-BridgePoint documenation shall be updated accordingly.  
+BridgePoint documentation shall be updated accordingly.  
 8.1.1 The cut operation no longer causes any change. When cut is selected, no 
-change occurs until and unless paste is performed.  
-8.1.2 Unlike copy/paste which creates new elements on paste, the modified cut/paste operation leaves identifers intact.  
-8.1.2.1 This means that while a copied buffer may be pasted muitple times, a cut buffer can be pasted only 1 time.  
+change occurs unless paste is performed.  
+8.1.2 Unlike copy/paste which creates new elements on paste, the modified cut/paste operation leaves identifiers intact.  
+8.1.2.1 This means that while a copied buffer may be pasted multiple times, a cut buffer can be pasted only 1 time.  
 
 9. Acceptance Test   
 ------------------  
 
-Use cases for the tests below are found in the SOW [[2.3](#2.3)]. The unit test model(s) and use case implementations shall be further described by [[2.8](#2.8)].
+Use cases for the tests below are found in the SOW [[2.3](#2.3)]. The unit test 
+model(s) and use case implementations shall be further described by [[2.5](#2.5)].  
  
 9.1 Test to assure that the move operation is atomic  
 
@@ -549,19 +452,12 @@ moved model element and other model elements shall be maintained.
 9.4.1 Test to assure that when visibility does not permit the connection between 
 model elements to be maintained proper defaults are used.
 
-<b>
-9.4.2 The above test shall be extended to test both RTO and RGO downgrades.
-</b>
+9.4.1.1 The above test shall be extended to test both RTO and RGO downgrades.
 
 9.5 Test to assure the model-element move capability is only enabled for 
 valid model element selections and is present but disabled otherwise.
 
-9.6 Assure that proxy paths are written consistently.  
-Include use cases in this issue's test model(s) that cause the proxy path 
-problems described by [[2.2](#2.2)]. Run these use cases to assure these 
-problem are resolved.  
-
-9.7 Assure that the user documenation has been updated (see section 8).  
+9.6 Assure that the user documentation has been updated (see section 8).  
 
 End
 ---
