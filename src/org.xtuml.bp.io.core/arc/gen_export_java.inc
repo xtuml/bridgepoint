@@ -82,6 +82,7 @@ public class ${class_name} extends CoreExport
 	boolean m_isUpdate = false;
 	ByteArrayOutputStream m_updateData;
         .if ( class_name == "ExportModelComponent" )
+        boolean m_updateActions = false;
         protected PrintStream m_afh; // handle for actions
 	ByteArrayOutputStream m_actionUpdateData;
         .end if;
@@ -263,11 +264,11 @@ public class ${class_name} extends CoreExport
 				InputStream astream = new ByteArrayInputStream(m_actionUpdateData.toByteArray());
                                 IFile af = mc.getActionFile();
                                 if (!af.exists()) {
-                                    if ( m_actionUpdateData.toByteArray().length != 0 ) {
+                                    if ( m_actionUpdateData.toByteArray().length != 0 && m_updateActions ) {
 				        af.create(astream, true, pm);
                                     }
                                 } else {
-                                    if ( m_actionUpdateData.toByteArray().length != 0 ) {
+                                    if ( m_actionUpdateData.toByteArray().length != 0 && m_updateActions ) {
 				        af.setContents(astream, true, true, pm);
                                     }
                                     else {

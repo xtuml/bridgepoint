@@ -7,6 +7,10 @@
 package org.xtuml.bp.core.common;
 
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Arrays;
+import java.util.List;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.ResourcesPlugin;
@@ -18,7 +22,7 @@ import org.xtuml.bp.core.Ooaofooa;
 
 public class ActionFileManager {
 	
-	private static final String[] DIALECTS = { "oal", "masl" };
+	private static final String[] DIALECTS = { "oal" }; //, "masl" };
 	
 	private HashMap<String,IFile> fileMap;
 	
@@ -49,7 +53,26 @@ public class ActionFileManager {
 	// get the dialect for this action file manager. This will check to see if actions exist
 	// for one dialect, if not it will go to the default dialect
 	public String getDialect() {
-		return getDefaultDialect();
+            String dialect = "";
+            Iterator<Map.Entry<String,IFile>> it = fileMap.entrySet().iterator();
+            while ( it.hasNext() ) {
+                Map.Entry<String,IFile> entry = (Map.Entry<String,IFile>)it.next();
+                IFile file = entry.getValue();
+                if ( file != null && file.exists() ) {
+                    if ( "" == dialect ) {
+                        dialect = entry.getKey();
+                    }
+                    else {
+	                return getDefaultDialect(); // more than one action file exists
+                    }
+                }
+            }
+            if ( dialect == "" ) {
+	        return getDefaultDialect(); // no action file exists
+            }
+            else {
+                return dialect.toLowerCase();
+            }
 	}
 	
 	// get the file for this action file manager. This will check to see if actions exist
@@ -60,7 +83,16 @@ public class ActionFileManager {
 	
 	public static String getDefaultDialect() {
                 IPreferenceStore store = CorePlugin.getDefault().getPreferenceStore();
-                return store.getString(BridgePointPreferencesStore.DEFAULT_ACTION_LANGUAGE_DIALECT).toLowerCase();
+                String prefDialect = store.getString(BridgePointPreferencesStore.DEFAULT_ACTION_LANGUAGE_DIALECT).toLowerCase();
+                if ( Arrays.asList( DIALECTS ).contains( prefDialect ) ) {
+                    return prefDialect;
+                }
+                else if ( DIALECTS.length > 0 ) {
+                    return DIALECTS[0];     // if the preference does not match a dialect, use the first dialect in the list
+                }
+                else {
+                    return "";
+                }
 	}
 	
 	// get the action file path from the component file path

@@ -1062,7 +1062,12 @@ if(inst != null && !inst.isProxy()){
   m_afh.print( inst.get$cr{action_body.ID_attr2}() ); //$$NON-NLS-1$$
     .end if
   m_afh.print( "}}\n" ); //$$NON-NLS-1$$
-  m_afh.print( inst.getAction_semantics_internal() ); //$$NON-NLS-1$$
+  String action_semantics = inst.getAction_semantics_internal(); //$$NON-NLS-1$$
+  if ( !action_semantics.trim().isEmpty() ) {
+    m_afh.print( inst.getAction_semantics_internal() ); //$$NON-NLS-1$$
+    m_afh.print( "\n" ); //$$NON-NLS-1$$
+    m_updateActions = true;
+  }
   m_afh.print( "\n" ); //$$NON-NLS-1$$
 }
 }
