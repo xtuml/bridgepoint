@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
- File:      $RCSfile: generate.xml,v $
- Version:   $Revision: 1.94.8.1 $
- Modified:  $Date: 2013/07/31 21:17:58 $
-
- (c) Copyright 2004-2014 by Mentor Graphics Corp.  All rights reserved.
+ File:      generate.xml
 
 -->
 <project name="bp.core.test" default="all" basedir=".">
@@ -460,28 +456,6 @@
   </target>
 
   <!-- End Consistency Properties and Targets -->
-  <!-- COMPILE TARGETS -->
-
-    <!-- This target is not used in the eclipse environment.  The eclipse Java
-         builder handles the java compilation when building BridgePoint under
-         eclipse.  This target is used only when building BridgePoint from the
-         command line on the build server. -->
-  <target name="compile" description="Compile project">
-
-    <echo>Compiling ${ant.project.name}</echo>
-
-    <mkdir dir="bin" />
-
-    <javac memoryinitialsize="512m" memorymaximumsize="512m" source="1.6"
-            fork="yes" destdir="bin" debug="true" debuglevel="lines,vars,source"  encoding="UTF-8">
-      <src path="src/org/xtuml/bp/core/test" />
-      <classpath>
-        <pathelement path="../org.xtuml.bp.core/bin" />
-        <pathelement path="../org.xtuml.bp.ui.explorer/bin" />
-      </classpath>
-    </javac>
-
-  </target>
 
   <!-- CLEAN TARGETS -->
 

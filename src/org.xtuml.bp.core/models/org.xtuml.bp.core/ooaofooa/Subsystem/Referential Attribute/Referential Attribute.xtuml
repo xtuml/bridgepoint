@@ -130,12 +130,18 @@ select many other_ref_set related by other_rattr->O_REF[R108];
      relate other_ref to ref across R112.''succeeds'';
      ref = other_ref;    
    end for;
-   select any oida related by other_attr->O_OIDA[R105];
-   if ( not_empty oida )  // attribute is identifying
-     other_rattr.migrateToBase();
-   else
-     other_attr.dispose();
-   end if;',
+   // Check for identifying
+   select one attr related by self->O_ATTR[R106];
+   select any oida related by attr->O_OIDA[R105];
+   if (empty oida)
+     select any oida related by other_attr->O_OIDA[R105];
+     if ( not_empty oida )
+       // Ensure combined attribute is identifying
+       select one id related by oida->O_ID[R105];
+       relate attr to id across R105 using oida; 
+     end if;
+   end if;
+   other_attr.dispose();',
 	1,
 	'',
 	"02ec5b84-0de6-4c57-923c-1a1986a821a5");
@@ -173,9 +179,14 @@ INSERT INTO O_TFR
     
    unrelate other_ref from self across R108;
    // create referential attribute
+   select any oida related by self->O_ATTR[R106]->O_OIDA[R105];
    select one mc related by self->O_ATTR[R106]->O_OBJ[R102];
+   rid = -1;
+   if (not empty oida)
+     rid = oida.Oid_ID;
+   end if;
    newAttr_id = mc.newReferentialAttribute(ref_obj_id: other_ref.RObj_ID, 
-       ref_oid_id: other_ref.ROid_ID, ref_attr_id: other_ref.RAttr_ID, id: -1 );
+       ref_oid_id: other_ref.ROid_ID, ref_attr_id: other_ref.RAttr_ID, id:rid);
    
    select any newRattr related by mc->O_ATTR[R102]->O_RATTR[R106] 
         where selected.Attr_ID == newAttr_id;
