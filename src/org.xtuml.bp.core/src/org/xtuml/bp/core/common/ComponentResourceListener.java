@@ -242,6 +242,21 @@ public class ComponentResourceListener implements IResourceChangeListener, IReso
 								"Unable to refresh component file tree.", e);
 					}
 					UIUtil.refresh(null);
+                                } else if (isComponentActionFile(newPath)) {// incase file was renamed
+									    // back and have valid action file
+									    // path
+					IFile file = ResourcesPlugin.getWorkspace().getRoot()
+							.getFile(newPath);
+					IContainer parent = file.getParent();
+					// refresh component children
+					try {
+						PersistenceManager
+								.traverseResourceContainer((IFolder) parent);
+					} catch (CoreException e) {
+						CorePlugin.logError(
+								"Unable to refresh component file tree.", e);
+					}
+					UIUtil.refresh(null);
 				}
 
             }else{//if component added
@@ -263,6 +278,17 @@ public class ComponentResourceListener implements IResourceChangeListener, IReso
 						// problmes, give a chance to the Marker framwork
 						UmlProblem.handleComponentAdded(com);
 					}
+                }
+                else if (isComponentActionFile(resource)) {
+					PersistableModelComponent com = PersistenceManager
+							.findComponent(ActionFileManager.getComponentPath(resource.getFullPath()));
+                                        if ( com != null ) {
+					    handleComponentReplaced(com, delta);
+						// A new model file has been added this may correct some
+						// problmes, give a chance to the Marker framwork
+						UmlProblem.handleComponentAdded(com);
+					}
+					UIUtil.refresh(null);
                 }
                 else if(resource instanceof IProject){
                     IProject project = (IProject)resource;
