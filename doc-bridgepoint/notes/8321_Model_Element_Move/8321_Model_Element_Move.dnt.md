@@ -217,7 +217,7 @@ single transaction.
 6.1.1 The current infrastructure uses an abstract class, 
 `core/ui/CopyCutAction.java extends org.eclipse.jface.action.Action`. 
 To define the behavior of the move operation, this interface shall be modified 
-to allow the cut/paste operation to be done a single transaction as opposed to 2 
+to allow the cut/paste operation to be done in a single transaction as opposed to 2 
 separate transactions. This new transaction shall be started and ended
 within `PasteAction.java::run()`.  
 
@@ -357,7 +357,7 @@ cut/paste operation.
 
 When cancel is selected no action is performed on the underlying model.
 
-6.6.1.2 Text shall be added to tell the user to enabled IPRs and
+6.6.1.2 Text shall be added to tell the user to enable IPRs and
 check visibility.  
 
 6.6.1.3 As per the SOW [[2.3](#2.3)], add save and print options to the dialog.  
