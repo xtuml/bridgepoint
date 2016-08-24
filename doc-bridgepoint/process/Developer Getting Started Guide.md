@@ -21,7 +21,7 @@ Setup Instructions
     __WARNING!:__ If you already have a fork, [assure your fork is up to date]( https://help.github.com/articles/merging-an-upstream-repository-into-your-fork).
     - https://github.com/xtuml/bridgepoint
     - https://github.com/xtuml/mc
-    - https://github.com/xtuml/packaging
+    - https://github.com/xtuml/pt_antlr
     - https://github.com/xtuml/models
     
   - [Download the latest released version of the tool](http://xtuml.org/download/ "xtuml.org/download").
@@ -54,7 +54,7 @@ The instructions in this section describe how to use the eclipse BridgePoint UI 
   ```
   git clone https://github.com/"username"/bridgepoint.git ~/git/bridgepoint
   git clone https://github.com/"username"/mc.git ~/git/mc
-  git clone https://github.com/"username"/packaging.git ~/git/packaging
+  git clone https://github.com/"username"/pt_antlr.git ~/git/pt_antlr
   git clone https://github.com/"username"/models.git ~/git/models
   ```
     
@@ -68,6 +68,11 @@ The instructions in this section describe how to use the eclipse BridgePoint UI 
   cp -f ~/git/bridgepoint/utilities/build/preferences/*  ~/workspace/.metadata/.plugins/org.eclipse.core.runtime/.settings
   ```
 
+  - Set up pt_antlr for building BridgePoint 
+  ```
+  cp -f ~/git/pt_antlr/pt_antlr/antlr.jar  ~/git/bridgepoint/src/org.xtuml.bp.als/lib/antlr.jar
+  ```
+
   - Launch BridgePoint (```~/xtuml/BridgePoint/eclipse/Launcher.sh```)
     - During startup, enter the name of a new eclipse workspace that will become your development workspace.   
     (Example:  ```~/workspace```)
@@ -79,9 +84,6 @@ The instructions in this section describe how to use the eclipse BridgePoint UI 
     - __WARNING!:__ Import all projects from this bridgepoint repository, but do NOT import any projects from the other repositories.  Only projects from bridgepoint are needed in the workspace.
 
   - Switch to the Java perspective
-    - Close these projects (Right click on the project, select Close Project):
-      - libTrans
-      - pt_antlr
 
   - Select Project > Build Automatically
     - This will cause each project in the workspace to build.  The builder will build dependent projects first. Since all projects are being processed, the build will take a while and should finish successfully.
