@@ -178,8 +178,7 @@ copy/paste behavior shall not be changed during this change.</b>
   Start a Move Transaction
 
   for each selected_element in ELEMENTS_TO_MOVE
-    run disconnect() via reflection if it exists (note: this is for rare cases where there is more to disconnect than R8000/R8003)
-    unhook the selected_element from container pkg/comp on R8000/R8003
+    unhook the selected_element from container it is attached to (R8000/R8003)
   end for
 
   for each selected_element in ELEMENTS_TO_MOVE 
@@ -192,29 +191,23 @@ copy/paste behavior shall not be changed during this change.</b>
   end for
 
   for each selected_element in ELEMENTS_TO_MOVE
-     // Connect selected_element to the destination
-    run <destination instance>.Paste<selected element class type name>() operation via reflection to move the element to the destination
-
-    Add ModelElementMovedModelDelta to the transaction
-  end for    
+     Connect selected_element to the destination
+     Add a "ModelElementMovedModelDelta" to the ongoing transaction
+  end for
 
   for each selected_element in ELEMENTS_TO_MOVE
     if (selected_element downgrade is needed)
-      add_to_downgrade_dialog
+      perform the downgrade
+      add to the downgraded elements list
     end if
   end for
 
-  show the user the elements that will be downgraded
+  show the user the elements that were downgraded
   if (user DOES want to continue)
-    End Move Transaction
+    Complete the Move Transaction (this is where any affected files or folders get moved on disk)
   else 
-    Abort Move transaction
+    Abort the Move transaction
   end if
-
-  if (move occured)
-    Parse all
-  end if
-
 
 </pre>
 
