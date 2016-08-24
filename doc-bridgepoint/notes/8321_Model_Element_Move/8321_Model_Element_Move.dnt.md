@@ -76,11 +76,12 @@ did not allow the element deletion and "unhooking" to be done independently.
 
 It is further noted that the original design called out that proxy removal 
 would be done with this issue. Proxy removal is desirable and the note calls 
-out that the removal of proxies would have helped this issue WRT the requirement 
-that a minimal change set is performed on move. However, proxy removal caused 
-problems. The problems were in the area of model reload and model compare, 
-both of which use the proxies. This resulted in the need to leave the proxies, 
-which in turn caused requirement 4.2 to not be met.  
+out that the removal of proxies would have helped this issue with regard
+the requirement that a minimal change set is performed on move. However, 
+proxy removal caused problems. The problems were in the area of model 
+reload and model compare, both of which use the proxies. This resulted 
+in the need to leave the proxies, which in turn caused requirement 
+4.2 to not be met.  
 
 It was a painful decision, but what it came down to was that "move 
 is not copy/paste/delete" and it can not be treated as such. This meant that 
@@ -165,6 +166,12 @@ copy/paste behavior shall not be changed during this change.</b>
   User Selects Cut
   
   Selection is stored in a list<NonRootModelElement> (ELEMENTS_TO_MOVE). 
+
+  User Makes a Selection through either Model Explorer or Canvas
+  
+  Paste is enabled only if the selection is valid
+  
+  User Selects Paste
   
   Start a Move Transaction
   
@@ -248,7 +255,7 @@ In BridgePoint, during a transaction the memory model is modified as needed to p
 specified task. When the memory model changes are completed the transaction is ended and
 at that time file persistence occurs. The move operation requires file handling that is 
 different than what is done by other BridgePoint transaction types. For example, there are
-transation types for element creation and deletion, but move is different at the file 
+transaction types for element creation and deletion, but move is different at the file 
 system level and requires different processing.  
 
 6.2.1 In Datatypes/ModelEventNotification add a new enum DELTA_MODEL_ELEMENT_MOVE.  
@@ -353,7 +360,7 @@ cut/paste operation.
 
 6.6.1.1 The dialog shall allow the user to cancel   
 
-When cancel is selected no action is performed on the underlaying model.
+When cancel is selected no action is performed on the underlying model.
 
 6.6.1.2 Text shall be added to tell the user to enabled IPRs and
 check visibility.  
