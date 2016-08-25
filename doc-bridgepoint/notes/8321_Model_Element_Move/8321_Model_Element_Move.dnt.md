@@ -347,6 +347,10 @@ for each selectedElement
 end for
 ```  
 
+<b>TODO: This section is not finished.</b>
+There is still some final work ongoing on this piece of the work. The analysis and design for this is
+captured in a seperate document right now. When complete, it will be moved here, but for now here is the link:
+https://docs.google.com/document/d/1y65rak0hc1gwUGiDslN1MjxDSPF5gk5u-i7YAEbNaZ8/edit  
 
 6.6 UI Changes
 
