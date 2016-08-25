@@ -263,9 +263,10 @@ public abstract class PasteAction extends CutCopyPasteAction  {
 				return;
 			}
 			
+			boolean transactionWasCanceled = false;
 			try {				
 				Ooaofooa.beginSaveOperation();
-					
+				
 				if (MOVE_IS_IN_PROGRESS ) {
 					// Move only allows 1 destination to be selected
 					processPasteForMove(destinations.get(0));
@@ -277,26 +278,39 @@ public abstract class PasteAction extends CutCopyPasteAction  {
 			} catch (Exception e) {
 				CorePlugin.logError("Paste failed.", e); //$NON-NLS-1$
 				if (manager.getActiveTransaction() == transaction) {
+					// this will revert the transaction, thus aborting it
 					manager.cancelTransaction(transaction, e);
 					transaction = null;
+					transactionWasCanceled = true;
 				}
 			} finally {
-				manager.endTransaction(transaction);
+				if (!transactionWasCanceled) {
+					manager.endTransaction(transaction);
+				}
+				
+				// This call is simply used as, essentially, a critical section for verifier execution.
+				// Regardless of what is going on with transaction processing (abort vs end) it 
+				// must always be called to release the critical section.
 				Ooaofooa.endSaveOperation();
-			}
-
-			// only perform finishing work if the transaction
-			// was successful
-			boolean continueProcessing = displayProblemDialog(monitor);
-			if (!continueProcessing) {
-				// The user canceled the paste operation, revert the transaction and exit
-				Transaction revertTransaction = manager.revertTransaction(transaction, false, false, monitor);
-				manager.removeTransactionFromStack(revertTransaction, Transaction.REDO_TYPE);
-				ModelStreamProcessor.fProblemElements.clear();
-				return;
+				
+				// If an exception was caught during the transaction then the transaction has been aborted.
+				// the is no reason to go another farther.
+				if (transactionWasCanceled) {
+					return;
+				}
 			}
 
 			if (!MOVE_IS_IN_PROGRESS) {
+				boolean continueProcessing = displayProblemDialog(monitor);
+				if (!continueProcessing) {
+					// The user canceled the paste operation, revert the transaction and exit
+					Transaction revertTransaction = manager.revertTransaction(transaction, false, false, monitor);
+					manager.removeTransactionFromStack(revertTransaction, Transaction.REDO_TYPE);
+					ModelStreamProcessor.fProblemElements.clear();
+					return;
+				}
+
+				
 				// Since copy/paste only affects the destination we only need to parse the new elements
 				// that were created.
 				for (NonRootModelElement destination : destinations) {
