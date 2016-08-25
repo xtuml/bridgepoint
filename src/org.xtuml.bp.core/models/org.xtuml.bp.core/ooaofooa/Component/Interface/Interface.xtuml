@@ -803,6 +803,26 @@ INSERT INTO S_DT_PROXY
 	'',
 	'',
 	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("041af5ee-823a-4764-bccf-d6d3d28a8672",
+	"f021c5c6-f37d-4215-afe4-a3e777964197",
+	'downgradeCheck',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'',
+	3,
+	'',
+	"9d36ddbe-8916-41bc-8164-04af9f5ba9fc");
+INSERT INTO O_TPARM
+	VALUES ("e6a7af00-9b6a-4b33-9eb8-9592f29c53c1",
+	"041af5ee-823a-4764-bccf-d6d3d28a8672",
+	'forceDowngrade',
+	"ba5eda7a-def5-0000-0000-000000000001",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
 INSERT INTO O_NBATTR
 	VALUES ("7f16eece-6595-4e3d-be9a-4f17d2b638a3",
 	"f021c5c6-f37d-4215-afe4-a3e777964197");

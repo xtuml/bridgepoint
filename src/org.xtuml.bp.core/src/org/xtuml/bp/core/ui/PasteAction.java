@@ -190,6 +190,27 @@ public abstract class PasteAction extends CutCopyPasteAction  {
 							ModelElementMovedModelDelta change = new ModelElementMovedModelDelta(sourceElement
 									,destination);
 							Ooaofooa.getDefaultInstance().fireModelElementMoved(change);									
+						}
+						
+						// Check if anything (RTOs or RGOs) must be downgraded. Only run the
+						// check function if it exists. We don't want to throw an error if it
+						// does not exist.
+						for (NonRootModelElement sourceElement : ELEMENT_MOVE_SOURCE_SELECTION) {
+							try {
+								String opName = "Downgradecheck"; //$NON-NLS-1$
+								Class<?> clazz = sourceElement.getClass();
+								Method downgradeCheckMethod = null;
+								Method[] methods = clazz.getMethods();
+								for (int i = 0; downgradeCheckMethod==null && i < methods.length; i++) {
+									if (methods[i].getName().equals(opName)) {
+										downgradeCheckMethod = methods[i];
+										downgradeCheckMethod.invoke(sourceElement, new Object[] { false });
+									}
+								}
+							} catch (Exception e) {
+								CorePlugin.logError("Unable to run downgradeCheck() for " + getClassName(sourceElement), e); //$NON-NLS-1$
+								throw e;
+							}
 						} 
 					} else {
 						for (NonRootModelElement destination : destinations) {
