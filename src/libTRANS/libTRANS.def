@@ -1,6 +1,0 @@
-LIBRARY  libTRANS
-
-EXPORTS
-	pt_TranslateInit
-	pt_TranslateString
-	pt_TranslateCleanup
