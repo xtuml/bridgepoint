@@ -15,11 +15,14 @@ import org.eclipse.core.runtime.preferences.IScopeContext;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Group;
 import org.osgi.service.prefs.BackingStoreException;
 import org.osgi.service.prefs.Preferences;
 
@@ -35,9 +38,11 @@ public class BridgePointProjectReferencesPreferences extends
 	// will not be honored
 	// For any future id strings do NOT include the full plug-in name
 	public final static String BP_PROJECT_REFERENCES_ID = "com.mentor.nucleus.bp.ui.project.references"; //$NON-NLS-1$
+	public final static String BP_PROJECT_CLASS_REFERENCES_ID = "bp.project.class_references"; //$NON-NLS-1$
 	public final static String BP_PROJECT_EMITRTODATA_ID = "com.mentor.nucleus.bp.ui.project.emitRTOData"; //$NON-NLS-1$
 	
 	private Button allowInterProjectReferences;
+	private Button allowIPRClasses;
 	private Button emitRTOData;
 
 	public BridgePointProjectReferencesPreferences(Preferences projectNode) {
@@ -61,21 +66,47 @@ public class BridgePointProjectReferencesPreferences extends
 		data.grabExcessHorizontalSpace = true;
 		data.horizontalIndent = -1;
 
-		allowInterProjectReferences = new Button(composite, SWT.CHECK
+	    Group iprUsageGroup = new Group(composite, SWT.None);
+	    iprUsageGroup.setText("IPR Usage");
+	    iprUsageGroup.setLayout(new GridLayout(2, false));
+	    GridData iprUsageGroupData = new GridData(GridData.FILL_HORIZONTAL);
+	    iprUsageGroup.setLayoutData(iprUsageGroupData);
+		
+		allowInterProjectReferences = new Button(iprUsageGroup, SWT.CHECK
 				| SWT.LEFT);
 		allowInterProjectReferences
 				.setText("Allow inter-project model references");
 		allowInterProjectReferences.setLayoutData(new GridData());
-		allowInterProjectReferences.setEnabled(false);
-		IStructuredSelection structuredSelection = Selection.getInstance()
-				.getStructuredSelection();
-		if (structuredSelection != null) {
-			Object selection = structuredSelection.getFirstElement();
-			if (selection instanceof SystemModel_c) {
-				SystemModel_c sysMdl = (SystemModel_c) selection;
-				allowInterProjectReferences.setEnabled(sysMdl.getUseglobals());
+		allowInterProjectReferences.setEnabled(true);
+
+		allowIPRClasses = new Button(
+				iprUsageGroup, SWT.CHECK | SWT.LEFT);
+		allowIPRClasses
+				.setText("Allow class and function access via IPR");
+		GridData childData = new GridData();
+		childData.horizontalIndent = 20;
+		childData.horizontalSpan = 2;
+		allowIPRClasses.setLayoutData(childData);
+		allowIPRClasses.setEnabled(true);
+		
+		allowInterProjectReferences.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				// if this button is deselected, deselect the class button
+				if (!allowInterProjectReferences.getSelection()) {
+					allowIPRClasses.setSelection(false);
+				}
 			}
-		}
+		});
+		allowIPRClasses.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				// If this button is checked, the main IPR button must be checked
+				if (allowIPRClasses.getSelection()) {
+					allowInterProjectReferences.setSelection(true);
+				}
+			}
+		});
 
 		emitRTOData = new Button(composite, SWT.CHECK | SWT.LEFT);
 		emitRTOData.setText(BuildTranslationPreferences.emitRTODataBtnName);
@@ -90,6 +121,7 @@ public class BridgePointProjectReferencesPreferences extends
 	@Override
 	public void subtypePerformDefaults() {
 		allowInterProjectReferences.setSelection(false);
+		allowIPRClasses.setSelection(false);
 		emitRTOData.setSelection(getEmitRTODataWorkspaceSetting());
 	}
 
@@ -97,6 +129,8 @@ public class BridgePointProjectReferencesPreferences extends
 	protected void syncUIWithPreferences() {
 		allowInterProjectReferences.setSelection(getStore().getBoolean(
 				BP_PROJECT_REFERENCES_ID, false));
+		allowIPRClasses.setSelection(getStore().getBoolean(
+				BP_PROJECT_CLASS_REFERENCES_ID, false));
 		emitRTOData.setSelection(getStore().getBoolean(
 				BP_PROJECT_EMITRTODATA_ID, getEmitRTODataWorkspaceSetting()));
 	}
@@ -105,6 +139,8 @@ public class BridgePointProjectReferencesPreferences extends
 	protected void syncPreferencesWithUI() {
 		getStore().putBoolean(BP_PROJECT_REFERENCES_ID,
 				allowInterProjectReferences.getSelection());
+		getStore().putBoolean(BP_PROJECT_CLASS_REFERENCES_ID,
+				allowIPRClasses.getSelection());
 		getStore().putBoolean(BP_PROJECT_EMITRTODATA_ID,
 				emitRTOData.getSelection());
 	}

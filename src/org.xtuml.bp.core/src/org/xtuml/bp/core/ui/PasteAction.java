@@ -22,6 +22,7 @@
 package org.xtuml.bp.core.ui;
 
 import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -54,6 +55,7 @@ import org.xtuml.bp.core.common.NonRootModelElement;
 import org.xtuml.bp.core.common.PersistableModelComponent;
 import org.xtuml.bp.core.common.PersistenceManager;
 import org.xtuml.bp.core.common.Transaction;
+import org.xtuml.bp.core.common.TransactionException;
 import org.xtuml.bp.core.common.TransactionManager;
 import org.xtuml.bp.core.util.OoaofgraphicsUtil;
 import org.xtuml.bp.core.util.UIUtil;
@@ -88,219 +90,248 @@ public abstract class PasteAction extends CutCopyPasteAction  {
 	public PasteAction() {
 		super();
 	}
+	
+	/**
+	 * This class defines what occurs during paste. An inner class is created here 
+	 * to clarify the difference in processing between the copy/paste case
+	 * and the cut/paste move) case which share the UI but have different 
+	 * implementation.
+	 * 
+	 */
+	class PasteRunnable implements IRunnableWithProgress {
+		
+		/**
+		 * This paste is only used when the user has selected cut/paste (move)
+		 * 
+		 * @param destination - The destination selection by the user
+		 * @throws Exception
+		 */
+		private void processPasteForMove(NonRootModelElement destination) throws Exception {			
+				
+			// Iterate over each element that was selected. Note that
+			// this is the actual selection. This is NOT using the "importer"
+			// to suck in all dependent elements
+			for (NonRootModelElement sourceElement : ELEMENT_MOVE_SOURCE_SELECTION) {
+				PackageableElement_c srcPE = sourceElement.getPE();
 
-	public void run() {
-		// clear the processor map
-		processorMap.clear();
-		IRunnableWithProgress runnable = new IRunnableWithProgress() {
-
-			public void run(final IProgressMonitor monitor)
-					throws InvocationTargetException, InterruptedException {
-				TransactionManager manager = getTransactionManager();
-				Transaction transaction = null;
-				List<NonRootModelElement> destinations = getDestinations();
+				// disconnect
 				try {
-					transaction = manager
-						.startTransaction(
-							"Paste", //$NON-NLS-1$
-							new ModelRoot[] {
-									Ooaofooa.getDefaultInstance(),
-									(ModelRoot) OoaofgraphicsUtil
-									.getGraphicsRoot(
-											Ooaofooa.DEFAULT_WORKING_MODELSPACE,
-											OoaofgraphicsUtil
-											.getGraphicsClass()) });
-					Ooaofooa.beginSaveOperation();
+					NonRootModelElement parentNRME = getContainerForMove(sourceElement);
 
-						
-					if (MOVE_IS_IN_PROGRESS ) {
-						// Move only allows a single destination
-						NonRootModelElement destination = destinations.get(0);
-							
-						// Iterate over each element that was selected. Note that
-						// this is the actual selection. This is NOT using the "importer"
-						// to suck in all dependent elements
-						for (NonRootModelElement sourceElement : ELEMENT_MOVE_SOURCE_SELECTION) {
-							PackageableElement_c srcPE = sourceElement.getPE();
-
-							// disconnect
-							try {
-								NonRootModelElement parentNRME = getContainerForMove(sourceElement);
-
-								// If a "disconnect" operation exists on this source class type then 
-								// we will use it.
-								Class<?> clazz = sourceElement.getClass();
-								String opName = "Disconnect";
-								Method disconnectMethod = null;
-								Method[] methods = clazz.getMethods();
-								for (int i = 0; disconnectMethod==null && i < methods.length; i++) {
-									if (methods[i].getName().equals(opName)) {
-										disconnectMethod = methods[i];
-										disconnectMethod.invoke(sourceElement);
-									}
-								}
-								
-								// Now, use the generated operation for disconnecting the PE from parent 
-								// package or component, skip if we're directly under the System
-								boolean parentIsSys = parentNRME instanceof SystemModel_c;
-								if ( !parentIsSys ) {
-									opName = "unrelateAcrossR8000From";
-									if (getClassName(parentNRME).equals("component")) {
-										opName = "unrelateAcrossR8003From";
-									}
-									clazz = srcPE.getClass();
-									disconnectMethod = clazz.getMethod(opName,
-											new Class[] { parentNRME.getClass(), boolean.class });
-									disconnectMethod.invoke(srcPE, new Object[] { parentNRME, true });	
-								}							
-							} catch (Exception e) {
-								CorePlugin.logError(
-										"Unable to disconnect the PE_PE for " + getClassName(sourceElement) + "  (" + sourceElement.getName() //$NON-NLS-1$
-												+ ") from its parent container.", e);
-								throw e;
-							}
+					// If a "disconnect" operation exists on this source class type then 
+					// we will use it.
+					Class<?> clazz = sourceElement.getClass();
+					String opName = "Disconnect";
+					Method disconnectMethod = null;
+					Method[] methods = clazz.getMethods();
+					for (int i = 0; disconnectMethod==null && i < methods.length; i++) {
+						if (methods[i].getName().equals(opName)) {
+							disconnectMethod = methods[i];
+							disconnectMethod.invoke(sourceElement);
 						}
-							
-						// Move the graphics to their graphical model root
-						processGraphics(destination); 
-									
-						// Move imported elements to the destination model root
-						for (NonRootModelElement sourceElement : ELEMENT_MOVE_SOURCE_SELECTION) {
-							sourceElement.updateModelRoot(destination.getModelRoot()); 
-						}									
-	
-						// connect the selected elements to their destination
-						for (NonRootModelElement sourceElement : ELEMENT_MOVE_SOURCE_SELECTION) {
-							try {
-								String opName = "Paste" + getClassName(sourceElement); //$NON-NLS-1$
-								Class<?> clazz = destination.getClass();
-								Method pasteMethod = clazz.getMethod(opName, new Class[] { UUID.class });
-								pasteMethod.invoke(destination, new Object[] { sourceElement.Get_ooa_id() });
-										
-							} catch (Exception e) {
-								CorePlugin.logError("Unable to connect " + getClassName(sourceElement) + "  (" //$NON-NLS-1$
-										+ sourceElement.getName() + ") to " + destination.getClass().getSimpleName()
-										+ " (" + destination.getName() + ") ", e);
-								throw e;
-							}
-	
-							// All the work prior to this changed the in memory model.
-							// The transaction processing for this type of transaction 
-							// will update the files on disk as needed.
-							ModelElementMovedModelDelta change = new ModelElementMovedModelDelta(sourceElement
-									,destination);
-							Ooaofooa.getDefaultInstance().fireModelElementMoved(change);									
+					}
+					
+					// Now, use the generated operation for disconnecting the PE from parent 
+					// package or component, skip if we're directly under the System
+					boolean parentIsSys = parentNRME instanceof SystemModel_c;
+					if ( !parentIsSys ) {
+						opName = "unrelateAcrossR8000From";
+						if (getClassName(parentNRME).equals("component")) {
+							opName = "unrelateAcrossR8003From";
 						}
+						clazz = srcPE.getClass();
+						disconnectMethod = clazz.getMethod(opName,
+								new Class[] { parentNRME.getClass(), boolean.class });
+						disconnectMethod.invoke(srcPE, new Object[] { parentNRME, true });	
+					}							
+				} catch (Exception e) {
+					CorePlugin.logError(
+							"Unable to disconnect the PE_PE for " + getClassName(sourceElement) + "  (" + sourceElement.getName() //$NON-NLS-1$
+									+ ") from its parent container.", e);
+					throw e;
+				}
+			}
+				
+			// Move the graphics to their graphical model root
+			processGraphics(destination); 
 						
-						// Check if anything (RTOs or RGOs) must be downgraded. Only run the
-						// check function if it exists. We don't want to throw an error if it
-						// does not exist.
-						for (NonRootModelElement sourceElement : ELEMENT_MOVE_SOURCE_SELECTION) {
-							try {
-								String opName = "Downgradecheck"; //$NON-NLS-1$
-								Class<?> clazz = sourceElement.getClass();
-								Method downgradeCheckMethod = null;
-								Method[] methods = clazz.getMethods();
-								for (int i = 0; downgradeCheckMethod==null && i < methods.length; i++) {
-									if (methods[i].getName().equals(opName)) {
-										downgradeCheckMethod = methods[i];
-										downgradeCheckMethod.invoke(sourceElement, new Object[] { false });
-									}
-								}
-							} catch (Exception e) {
-								CorePlugin.logError("Unable to run downgradeCheck() for " + getClassName(sourceElement), e); //$NON-NLS-1$
-								throw e;
-							}
-						} 
-					} else {
-						for (NonRootModelElement destination : destinations) {
+			// Move imported elements to the destination model root
+			for (NonRootModelElement sourceElement : ELEMENT_MOVE_SOURCE_SELECTION) {
+				sourceElement.updateModelRoot(destination.getModelRoot()); 
+			}									
 
-							ModelStreamProcessor processor = new ModelStreamProcessor();
-							processorMap.put(destination, processor);
-							processor.setDestinationElement(destination);
-							Object contents = CorePlugin.getSystemClipboard()
-									.getContents(TextTransfer.getInstance());
-							if (contents instanceof String) {
-								String clipboardContents = (String) contents;
-								processor.setContents(clipboardContents);
-								String modelContents = clipboardContents
-										.substring(clipboardContents.indexOf("\n") + 1);
-								ByteArrayInputStream in = new ByteArrayInputStream(
-										modelContents.getBytes());
-								IModelImport importer = CorePlugin
-										.getStreamImportFactory()
-										.create(
-												in,
-												Ooaofooa
-														.getInstance(Ooaofooa.CLIPBOARD_MODEL_ROOT_NAME),
-												true,
-												destination
-														.getPersistableComponent()
-														.getFile().getFullPath());
-								// Import elements from the clipboard creating new UUIDs for the elements
-								processor.runImporter(importer, monitor); 
-								// Move imported elements to the destination model root
-								processor.processFirstStep(monitor); 
-								// move the imported graphical elements to the new model roots
-								processGraphics(destination); 
-							}
-							// call paste* operation to connect the model element, set the PMC, and call resolution operation to batch relate
-							processor.processSecondStep(monitor); 
+			// connect the selected elements to their destination
+			for (NonRootModelElement sourceElement : ELEMENT_MOVE_SOURCE_SELECTION) {
+				try {
+					String opName = "Paste" + getClassName(sourceElement); //$NON-NLS-1$
+					Class<?> clazz = destination.getClass();
+					Method pasteMethod = clazz.getMethod(opName, new Class[] { UUID.class });
+					pasteMethod.invoke(destination, new Object[] { sourceElement.Get_ooa_id() });
+							
+				} catch (Exception e) {
+					CorePlugin.logError("Unable to connect " + getClassName(sourceElement) + "  (" //$NON-NLS-1$
+							+ sourceElement.getName() + ") to " + destination.getClass().getSimpleName()
+							+ " (" + destination.getName() + ") ", e);
+					throw e;
+				}
+
+				// All the work prior to this changed the in memory model.
+				// The transaction processing for this type of transaction 
+				// will update the files on disk as needed.
+				ModelElementMovedModelDelta change = new ModelElementMovedModelDelta(sourceElement
+						,destination);
+				Ooaofooa.getDefaultInstance().fireModelElementMoved(change);									
+			} 
+			
+			// Check if anything (RTOs or RGOs) must be downgraded. Only run the
+			// check function if it exists. We don't want to throw an error if it
+			// does not exist.
+			for (NonRootModelElement sourceElement : ELEMENT_MOVE_SOURCE_SELECTION) {
+				try {
+					String opName = "Downgradecheck"; //$NON-NLS-1$
+					Class<?> clazz = sourceElement.getClass();
+					Method downgradeCheckMethod = null;
+					Method[] methods = clazz.getMethods();
+					for (int i = 0; downgradeCheckMethod==null && i < methods.length; i++) {
+						if (methods[i].getName().equals(opName)) {
+							downgradeCheckMethod = methods[i];
+							downgradeCheckMethod.invoke(sourceElement, new Object[] { false });
 						}
 					}
 				} catch (Exception e) {
-					CorePlugin
-							.logError("Paste failed.", e); //$NON-NLS-1$
-					if (transaction != null && manager != null
-							&& manager.getActiveTransaction() == transaction) {
-						manager.cancelTransaction(transaction, e);
-						transaction = null;
-					}
-				} finally {
-					if (transaction != null) {
-						manager.endTransaction(transaction);
-					}
-					Ooaofooa.endSaveOperation();
+					CorePlugin.logError("Unable to run downgradeCheck() for " + getClassName(sourceElement), e); //$NON-NLS-1$
+					throw e;
 				}
-				if(transaction != null) {
-					// only perform finishing work if the transaction
-					// was successful
-					boolean continueProcessing = displayProblemDialog(manager, transaction, monitor);
-					if(!continueProcessing) {
-						// return as the user has cancelled the paste
-						return;
+			} 
+		}
+		
+		/**
+		 * This paste is only used when the user has selected copy/paste
+		 * 
+		 * @param destination - The destination selection by the user
+		 * @throws Exception
+		 */
+		private void processPasteForCopy(NonRootModelElement destination, final IProgressMonitor monitor) throws Exception {
+				ModelStreamProcessor processor = new ModelStreamProcessor();
+				processorMap.put(destination, processor);
+				processor.setDestinationElement(destination);
+				Object contents = CorePlugin.getSystemClipboard()
+						.getContents(TextTransfer.getInstance());
+				if (contents instanceof String) {
+					String clipboardContents = (String) contents;
+					processor.setContents(clipboardContents);
+					String modelContents = clipboardContents
+							.substring(clipboardContents.indexOf("\n") + 1);
+					ByteArrayInputStream in = new ByteArrayInputStream(
+							modelContents.getBytes());
+					IModelImport importer = CorePlugin
+							.getStreamImportFactory()
+							.create(
+									in,
+									Ooaofooa
+											.getInstance(Ooaofooa.CLIPBOARD_MODEL_ROOT_NAME),
+									true,
+									destination
+											.getPersistableComponent()
+											.getFile().getFullPath());
+					// Import elements from the clipboard creating new UUIDs for the elements
+					processor.runImporter(importer, monitor); 
+					// Move imported elements to the destination model root
+					processor.processFirstStep(monitor); 
+					// move the imported graphical elements to the new model roots
+					processGraphics(destination); 
+				}
+				// call paste* operation to connect the model element, set the PMC, and call resolution operation to batch relate
+				processor.processSecondStep(monitor); 
+		}
+	
+		@Override
+		public void run(final IProgressMonitor monitor)
+				throws InvocationTargetException, InterruptedException {
+			TransactionManager manager = getTransactionManager();
+			List<NonRootModelElement> destinations = getDestinations();
+			Transaction transaction = null;
+			try {
+				transaction = manager
+						.startTransaction("Paste", //$NON-NLS-1$
+								new ModelRoot[] { Ooaofooa.getDefaultInstance(),
+										(ModelRoot) OoaofgraphicsUtil.getGraphicsRoot(
+												Ooaofooa.DEFAULT_WORKING_MODELSPACE,
+												OoaofgraphicsUtil.getGraphicsClass()) });
+			} catch (TransactionException e1) {
+				CorePlugin.logError("Failed to start the Paste transaction.", e1); //$NON-NLS-1$
+				return;
+			}
+			
+			try {				
+				Ooaofooa.beginSaveOperation();
+					
+				if (MOVE_IS_IN_PROGRESS ) {
+					// Move only allows 1 destination to be selected
+					processPasteForMove(destinations.get(0));
+				} else {
+					for (NonRootModelElement destination : destinations) {
+						processPasteForCopy(destination, monitor);
 					}
+				}
+			} catch (Exception e) {
+				CorePlugin.logError("Paste failed.", e); //$NON-NLS-1$
+				if (manager.getActiveTransaction() == transaction) {
+					manager.cancelTransaction(transaction, e);
 					transaction = null;
-					for(NonRootModelElement destination : destinations) {
-						if (MOVE_IS_IN_PROGRESS) {
-							CorePlugin.parseAll(destination, monitor);
-						} else {
-							ModelStreamProcessor processor = processorMap.get(destination);
-							processor.runParseOnImportedElements(manager, monitor);
-						}
-					}
-					// gather all of the loaded instances, including graphical
-					for(NonRootModelElement destination : destinations) {
-						List<NonRootModelElement> instances = new ArrayList<NonRootModelElement>();
-						if (MOVE_IS_IN_PROGRESS) {
-							instances.addAll(ELEMENT_MOVE_SOURCE_SELECTION);
-						} else {							
-							ModelStreamProcessor processor = processorMap.get(destination);
-							NonRootModelElement[] loadedInstances = processor
-									.getImporter().getLoadedInstances();
-							NonRootModelElement[] loadedGraphicalInstances = processor
-									.getImporter().getLoadedGraphicalInstances();
-							instances.addAll(Arrays.asList(loadedInstances));
-							instances.addAll(Arrays.asList(loadedGraphicalInstances));
-						}
-						for(IPasteListener listener : CorePlugin.getPasteListeners()) {
-							listener.pasteCompleted(destination, instances);
-						}
-					}					
 				}
+			} finally {
+				manager.endTransaction(transaction);
+				Ooaofooa.endSaveOperation();
 			}
 
-		};
+			// only perform finishing work if the transaction
+			// was successful
+			boolean continueProcessing = displayProblemDialog(monitor);
+			if (!continueProcessing) {
+				// The user canceled the paste operation, revert the transaction and exit
+				Transaction revertTransaction = manager.revertTransaction(transaction, false, false, monitor);
+				manager.removeTransactionFromStack(revertTransaction, Transaction.REDO_TYPE);
+				ModelStreamProcessor.fProblemElements.clear();
+				return;
+			}
+
+			if (!MOVE_IS_IN_PROGRESS) {
+				// Since copy/paste only affects the destination we only need to parse the new elements
+				// that were created.
+				for (NonRootModelElement destination : destinations) {
+					ModelStreamProcessor processor = processorMap.get(destination);
+					processor.runParseOnImportedElements(manager, monitor);
+				}
+				
+				// gather all of the loaded instances, including graphical
+				//
+				// The <PasteListener>.pasteCompeted operation (called below) is used to move any elements
+				// still on the clipboard to the destination model root (see GraphicalPasteListener)
+				for (NonRootModelElement destination : destinations) {
+					List<NonRootModelElement> instances = new ArrayList<NonRootModelElement>();
+					ModelStreamProcessor processor = processorMap.get(destination);
+					NonRootModelElement[] loadedInstances = processor.getImporter().getLoadedInstances();
+					NonRootModelElement[] loadedGraphicalInstances = processor.getImporter()
+							.getLoadedGraphicalInstances();
+					instances.addAll(Arrays.asList(loadedInstances));
+					instances.addAll(Arrays.asList(loadedGraphicalInstances));
+					for (IPasteListener listener : CorePlugin.getPasteListeners()) {
+						listener.pasteCompleted(destination, instances);
+					}
+				}
+			}
+		}
+		
+	}
+	
+	/**
+	 * This run routine handles paste for both the copy and cut (move cases)
+	 */
+	public void run() {
+		// clear the processor map
+		processorMap.clear();
+		IRunnableWithProgress runnable = new PasteRunnable();
 		ProgressMonitorDialog dialog = new ProgressMonitorDialog(PlatformUI
 				.getWorkbench().getActiveWorkbenchWindow().getShell());
 		try {
@@ -308,7 +339,6 @@ public abstract class PasteAction extends CutCopyPasteAction  {
 		} catch (Throwable e) {
 			CorePlugin.logError("Unable to import contents from clipboard.", e); //$NON-NLS-1$
 		} finally {
-			// Regardless of if this was a move or not we can reset this flag now.
 			if (MOVE_IS_IN_PROGRESS) {
 				// Clear the clipboard to prevent another paste
 				CorePlugin.getSystemClipboard().clearContents();
@@ -342,8 +372,8 @@ public abstract class PasteAction extends CutCopyPasteAction  {
 	 * @param transaction
 	 * @param monitor
 	 */
-	private boolean displayProblemDialog(TransactionManager manager,
-			Transaction transaction, IProgressMonitor monitor) {
+	private boolean displayProblemDialog(IProgressMonitor monitor) {
+		boolean proceed = true;
 		if (ModelStreamProcessor.fProblemElements.size() != 0) {
 			Set<String> textSet = ModelStreamProcessor.fProblemElements
 					.keySet();
@@ -366,23 +396,14 @@ public abstract class PasteAction extends CutCopyPasteAction  {
 						.getActiveWorkbenchWindow().getShell();
 				Image image = PlatformUI.getWorkbench().getDisplay()
 						.getSystemImage(SWT.ICON_WARNING);
-				boolean proceed = UIUtil.openMessageDialog(shell,
+				proceed = UIUtil.openMessageDialog(shell,
 						"Problems during paste", image, messageText,
 						UIUtil.BPMessageTypes.WARNING,
 						new String[] { "Proceed", "Undo" }, 0);
-				Transaction revertTransaction = null;
-				if (!proceed) {
-					revertTransaction = manager.revertTransaction(transaction,
-							false, false, monitor);
-					manager.removeTransactionFromStack(revertTransaction,
-							Transaction.REDO_TYPE);
-					ModelStreamProcessor.fProblemElements.clear();
-					return false;
-				}
 			}
 			ModelStreamProcessor.fProblemElements.clear();
 		}
-		return true;
+		return proceed;
 	}
 
 	/**

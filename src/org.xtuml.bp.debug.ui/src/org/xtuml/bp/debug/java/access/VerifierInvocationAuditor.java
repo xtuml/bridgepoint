@@ -11,12 +11,6 @@ import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
-import lib.BPBoolean;
-import lib.BPFloat;
-import lib.BPInteger;
-import lib.BPString;
-import lib.BPUniqueId;
-
 import org.xtuml.bp.core.ComponentInstance_c;
 import org.xtuml.bp.core.ComponentReference_c;
 import org.xtuml.bp.core.Component_c;
@@ -51,6 +45,7 @@ public class VerifierInvocationAuditor {
     final static String CR = System.getProperty("line.separator");
 
     public static String performRealizedCodeAudit(Package_c pkg) {
+    	BPClassLoader.resetTheDefinitionsCache(); // Make BP reload Java classes
         String result = "Beginning binding check on package " + pkg.getName()
                 + CR + CR;
         try {
@@ -63,6 +58,7 @@ public class VerifierInvocationAuditor {
     }
 
     public static String performRealizedCodeAudit(Component_c comp) {
+    	BPClassLoader.resetTheDefinitionsCache(); // Make BP reload Java classes
         String result = "Beginning binding check on component "
                 + comp.getName() + CR + CR;
         try {
@@ -387,7 +383,7 @@ public class VerifierInvocationAuditor {
                 if (className != null) {
                     class4DT = cl.loadClass(className);
                 } else {
-                    class4DT = getClassForCoreTypeOf(dt, byRef);
+                    class4DT = VerifierInvocationHandler.getClassForCoreTypeOf(dt, byRef);
                 }
             } catch (ClassNotFoundException cnf) {
                 // Some data types will not have a realized class so do nothing
@@ -443,7 +439,7 @@ public class VerifierInvocationAuditor {
                     if (className != null) {
                         expectedReturnType = cl.loadClass(className);
                     } else {
-                        expectedReturnType = getClassForCoreTypeOf(
+                        expectedReturnType = VerifierInvocationHandler.getClassForCoreTypeOf(
                                 modeledReturnType, false);
                     }
                 } catch (ClassNotFoundException cnf) {
@@ -514,7 +510,7 @@ public class VerifierInvocationAuditor {
                         try {
                             DataType_c memberDt = DataType_c
                                     .getOneS_DTOnR45(member);
-                            Class<?> coreType = getClassForCoreTypeOf(memberDt,
+                            Class<?> coreType = VerifierInvocationHandler.getClassForCoreTypeOf(memberDt,
                                     false);
                             setAccessor = realizedSDT.getDeclaredMethod("set"
                                     + member.getName(),
@@ -638,7 +634,7 @@ public class VerifierInvocationAuditor {
                     // Expected outcome, do nothing
                 }
                 try {
-                    Class<?> coreType = getClassForCoreTypeOf(dataType, false);
+                    Class<?> coreType = VerifierInvocationHandler.getClassForCoreTypeOf(dataType, false);
                     setAccessor = realizedUDT.getDeclaredMethod("setValue",
                             new Class<?>[] { coreType });
                 } catch (SecurityException e) {
@@ -778,74 +774,6 @@ public class VerifierInvocationAuditor {
         return result;
     }
 
-    private static Class<?> getClassForCoreTypeOf(DataType_c dt, boolean byRef) {
-        DataType_c coreDt = VerifierInvocationHandler.getCoreTypeForDt(dt);
-        CoreDataType_c cdt = CoreDataType_c.getOneS_CDTOnR17(coreDt);
-        StructuredDataType_c sdt = StructuredDataType_c
-                .getOneS_SDTOnR17(coreDt);
-        EnumerationDataType_c edt = EnumerationDataType_c
-                .getOneS_EDTOnR17(coreDt);
-        UserDataType_c udt = UserDataType_c.getOneS_UDTOnR17(dt);
-        if (cdt != null) {
-            DataType_c superType = DataType_c.getOneS_DTOnR17(cdt);
-            if (superType.getName().equals("integer")) {
-                return byRef ? BPInteger.class : int.class;
-            } else if (superType.getName().equals("real")) {
-                return byRef ? BPFloat.class : float.class;
-            } else if (superType.getName().equals("string")) {
-                return byRef ? BPString.class : java.lang.String.class;
-            } else if (superType.getName().equals("boolean")) {
-                return byRef ? BPBoolean.class : boolean.class;
-            } else if (superType.getName().equals("unique_id")) {
-                return byRef ? BPUniqueId.class : java.util.UUID.class;
-            } else if (superType.getName().equals("component_ref")) {
-                return java.lang.Object.class;
-            } else if (superType.getName().equals("state<State_Model>")) {
-                return java.lang.Object.class;
-            } else if (superType.getName().equals("inst_ref<Object>")) {
-                return java.lang.Object.class;
-            } else if (superType.getName().equals("inst_ref_set<Object>")) {
-                return java.lang.Object.class;
-            } else if (superType.getName().equals("inst<Event>")) {
-                return java.lang.Object.class;
-            } else if (superType.getName().equals("inst<Event>")) {
-                return java.lang.Object.class;
-            } else if (superType.getName().equals("date")) {
-                return java.lang.Object.class;
-            } else if (superType.getName().equals("inst_ref<Timer>")) {
-                return java.lang.Object.class;
-            } else if (superType.getName().equals("timestamp")) {
-                return java.lang.Object.class;
-            } else if (superType.getName().equals("void")) {
-                return void.class;
-            }
-        } else if (sdt != null || edt != null) {
-            Package_c pkg = Package_c.getOneEP_PKGOnR8000(PackageableElement_c
-                    .getOnePE_PEOnR8001(coreDt));
-            if (pkg != null) {
-                String typeName = VerifierInvocationHandler.pathToClassName(pkg
-                        .Getpath("")
-                        + "::" + coreDt.getName());
-                Class<?> realizedDT = null;
-                BPClassLoader bpcl = Vm_c.getVmCl(pkg.Getsystemid());
-                try {
-                    realizedDT = bpcl.loadClass(typeName);
-                } catch (ClassNotFoundException cnf) {
-                    // Do nothing, this will be reported elsewhere
-                }
-                if (realizedDT != null) {
-                    return realizedDT;
-                }
-            }
-        } else if (udt != null) {
-            DataType_c definition = DataType_c.getOneS_DTOnR18(udt);    
-            if (definition != null) {
-                return getClassForCoreTypeOf(definition, byRef);
-            }
-            
-        }
-        return null;
-    }
 
     private static String getNameForCoreTpeOf(DataType_c dt, boolean byRef) {
         DataType_c coreDt = VerifierInvocationHandler.getCoreTypeForDt(dt);
