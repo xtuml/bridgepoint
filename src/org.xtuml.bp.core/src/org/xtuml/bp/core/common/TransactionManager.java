@@ -968,9 +968,9 @@ public class TransactionManager {
 
 	public static void reportElementDowngraded(Object p_rgodowngraded, Object p_rto, String p_relationship) {
 		if (p_rgodowngraded != null) {	
-			if (CutCopyPasteAction.moveIsInProgress()) {
-				PasteAction.addDownGradedElement((NonRootModelElement)p_rto, (NonRootModelElement)p_rgodowngraded, p_relationship);
-			} else {
+//			if (CutCopyPasteAction.moveIsInProgress()) {
+//				PasteAction.addDownGradedElement((NonRootModelElement)p_rto, (NonRootModelElement)p_rgodowngraded, p_relationship);
+//			} else {
 				String qualifedName = "";
 				if (p_rgodowngraded != null) {
 					qualifedName = ((NonRootModelElement)p_rgodowngraded).getPath();
@@ -980,7 +980,7 @@ public class TransactionManager {
 					affectedModelElementsNames.add(message); 
 				}
 			}
-		}		
+//		}		
 	}
 	
 	/**

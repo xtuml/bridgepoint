@@ -810,8 +810,12 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
-	'',
-	3,
+	'//check types (return and param) on each op & signal
+  // call downgradeCheck functions on these classes that does this work
+  
+//check interface references/imported references/ports that refer to self
+',
+	1,
 	'',
 	"9d36ddbe-8916-41bc-8164-04af9f5ba9fc");
 INSERT INTO O_TPARM

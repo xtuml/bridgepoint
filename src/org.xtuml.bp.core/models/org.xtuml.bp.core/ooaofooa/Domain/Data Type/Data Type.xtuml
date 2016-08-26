@@ -765,8 +765,8 @@ for each udt in udts
   end if;
 end for;
 
-// Next we check other types we refer to (RTOs)
-// TODO',
+// RTOs checking is done by the individual subtype downgradeCheck() operations
+',
 	1,
 	'',
 	"2bf571a5-4f94-404e-899f-1b2ed2dafc5a");

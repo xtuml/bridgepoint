@@ -623,9 +623,19 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
-	'select one dt related by self->S_DT[R17];
+	'// The Data Type superclass can check all the RGOs
+select one dt related by self->S_DT[R17];
 dt.downgradeCheck(forceDowngrade: param.forceDowngrade);
-',
+
+// Now we do RTO checking
+// See if we''re based on another UDT.  Check if that UDT is visible.
+isVisible = self.canReferToDataType();
+
+if ( not isVisible )
+  select one dt related by self->S_DT[R18];
+  Util::reportElementDowngraded(rto:self.convertToInstance(), rgoDowngraded:dt.convertToInstance(), relationship:"R18");
+  self.changeCoreType(typeName:"integer");
+end if;',
 	1,
 	'',
 	"d9b28ec7-1e4d-4244-8780-5449b797cd90");
