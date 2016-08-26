@@ -62,31 +62,8 @@ import org.xtuml.bp.core.util.UIUtil;
 
 public abstract class PasteAction extends CutCopyPasteAction  {
 
-	// This variable is only specified here because it calls a public
-	// static function that clears the list of downgraded
-	// elements prior to paste running. While it is really not necessary,
-	// it is good for the static to have a clear place or origin, and this
-	// is that place.
-    @SuppressWarnings("unused")
-    
 	protected HashMap<NonRootModelElement, ModelStreamProcessor> processorMap = new HashMap<NonRootModelElement, ModelStreamProcessor>();
 
-	/**
-	 * This is how we add elements to the list to be hooked back up during paste.
-	 * Note that we clear this list
-	 */
-	private static ArrayList<DowngradedElement> downgradedElements = new ArrayList<DowngradedElement>(); 
-	static class DowngradedElement {
-		DowngradedElement(NonRootModelElement rto, NonRootModelElement rgo, String associationDowngraded) {
-			this.rto = rto;
-			this.rgo = rgo;
-			this.associationDowngraded = associationDowngraded;
-		}
-		NonRootModelElement rto;
-		NonRootModelElement rgo;
-		String associationDowngraded;
-	}
-    
 	public PasteAction() {
 		super();
 	}
@@ -487,11 +464,6 @@ public abstract class PasteAction extends CutCopyPasteAction  {
 		return isEnabled;
 	}
 		
-	public static void addDownGradedElement(NonRootModelElement rto, NonRootModelElement rgo, String associationDowngraded) {
-		DowngradedElement element = new DowngradedElement(rto, rgo, associationDowngraded);
-		downgradedElements.add(element);
-	}
-	
 	@Override
 	protected int getActionType() {
 		return PASTE_TYPE;
