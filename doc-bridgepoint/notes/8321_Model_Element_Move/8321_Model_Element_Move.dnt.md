@@ -352,6 +352,63 @@ for each selectedElement
 end for
 ```
 
+<b>TODO: This section is not finished.</b>
+There is still some final work ongoing on this piece of the work. The analysis and design for this is
+captured in a seperate document right now. When complete, it will be moved here, but for now here is the link:
+https://docs.google.com/document/d/1y65rak0hc1gwUGiDslN1MjxDSPF5gk5u-i7YAEbNaZ8/edit  
+
+6.6 UI Changes
+
+6.6.1 Modify the tree list box that shows Model Elements affected by the 
+cut/paste operation.  
+
+6.6.1.1 The dialog shall allow the user to cancel   
+
+When cancel is selected no action is performed on the underlying model.
+
+6.6.1.2 Text shall be added to tell the user to enable IPRs and
+check visibility.  
+
+6.6.1.3 As per the SOW [[2.3](#2.3)], add save and print options to the dialog.  
+
+6.6.1.3.1  Update `ScrolledTextDialog.java` to take a new parameter in the
+constructor that indicates if the save and print buttons shall be used.  
+
+6.6.1.3.2  Update the existing callers of ScrolledTextDialog such that the 
+`TransactionManager.java` is the only one that uses save and print.  Other 
+users retain existing behavior and do not use save and print.  
+
+6.6.1.3.3  Add code to implement button "Save...".  This button opens a modal
+dialog that allows the user to select a file to save into.  The contents of 
+the list box (the affected elements) are written to the file if the user 
+completes the dialog.  No action is taken if the user cancels the dialog.   
+
+6.6.1.3.4  Add code to implement button "Print...".  This button opens a modal
+printer selection dialog.  The contents of the list box (the affected 
+elements) are sent to the printer if the user completes the dialog.  No action
+is taken if the user cancels the dialog.  
+
+6.6.2 Assure that the cut CME is only enabled when it should be.  
+
+`bp/ui/explorer/actions/ui/Explorer{Cut | Copy | Paste}Action.java::isEnabled()` 
+is where BridgePoint determines if the CME should be enabled or not. Additionally, 
+there is an analogous implementation for canvas in 
+`bp.ui.graphics.actions/Canvas{Cut | Copy | Paste}Action.java::isEnabled()`  
+
+6.6.2.1. Disable paste when the selected target is the same as the source.  
+
+An attempt to paste to the same location that the copy was made from is 
+considered an invalid selection and shall not be allowed.  
+
+In the PasteAction, the operations look to see if the destination allows paste 
+for elements in the source being pasted to the target. It does this by calling 
+an ooaofooa operation that is of the from {target model element instance}.Paste{Source Model Element Name}. 
+The structure of this code is such that this behavior is essentially duplicated 
+in `{Explorer | Canvas}PasteAction.java`.  
+
+6.6.2.1.1 Refactor this and "move up" the operation named `clipboardContainsPastableModelElements()` 
+into the parent class`core/ui/PasteAction.java` to facilitate adding the check 
+to assure that on move, if the source and target PMCs match, paste is not enabled.  
 
 6.6 UI Changes
 
