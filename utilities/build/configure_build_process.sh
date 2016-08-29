@@ -79,10 +79,12 @@ function configure_masl_files {
 
     # Download the ANTLR used during the build
     cd ${bp_deliverables_linux}/tools/masl/lib
-    wget http://www.antlr3.org/download/antlr-3.5.2-complete.jar
+    ANTLR_JAR="antlr-3.5.2-complete.jar"
+    wget http://www.antlr3.org/download/${ANTLR_JAR}
     
     # Build the MASL parser
     cd ${git_mc}/masl/parser
+    cp -fp ${bp_deliverables_linux}/tools/masl/lib/${ANTLR_JAR} ./lib
     ant dist
     
     cd ${bp_deliverables_linux}/tools/masl
