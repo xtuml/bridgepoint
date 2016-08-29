@@ -76,8 +76,10 @@ function configure_masl_files {
     chmod a+x lib/masl 2>>${error_file}
     chmod a+x lib/m2x  2>>${error_file}
     chmod a+x lib/x2m  2>>${error_file}
-    
-    cp -fp ${git_mc}/masl/parser/lib/antlr-3.5.2-complete.jar ./lib
+
+    # Download the ANTLR used during the build
+    cd ${bp_deliverables_linux}/tools/masl/lib
+    wget http://www.antlr3.org/download/antlr-3.5.2-complete.jar
     
     # Build the MASL parser
     cd ${git_mc}/masl/parser
