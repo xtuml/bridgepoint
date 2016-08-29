@@ -14,7 +14,7 @@ Move functionality in BridgePoint.
 
 2. Document References     
 ----------------------   
-<a id="2.1"></a>2.1 [Model Element move (Issue 8321)](https://support.onefact.net/issues/8321)  
+<a id="2.1"></a>2.1 [Model Element move (Issue 8321)](https://support.onefact.net/issues/8321) 
 This is a link to this issue in the issue tracking system.  
 
 <a id="2.2"></a>2.2 [Analysis note for Model Element Move Issue](https://support.onefact.net/issues/8031) 
@@ -32,7 +32,7 @@ Proxy paths are not written consistently.
 
 <a id="2.6"></a>2.6 [Issue 3532 design note - Support data type move capabilities through cut, copy, paste](../8031_Analyze_Model_Element_Move/i3532.dnt)  
 This is the note introduced when datatype move support was introduced into BridgePoint.  
-
+  
 <a id="2.7"></a>2.7 [Original Model Element Move Design note - before redesign](https://github.com/xtuml/bridgepoint/blob/82f9dace19ee79c8011f687eb2d12315ea6e8dc3/doc-bridgepoint/notes/8321_Model_Element_Move/8321_Model_Element_Move.dnt.md)  
 This Model Element Move project's original selected design encountered problems 
 during implementation and a different design approach, outlined in this note, 
@@ -158,61 +158,56 @@ copy/paste behavior shall not be changed during this change.</b>
 
 <pre>
   User Makes a Selection through either Model Explorer or Canvas
-  
+
   User Right-clicks the selection
-  
+
   Cut is enabled only if the selection is valid
-  
+
   User Selects Cut
-  
+
   Selection is stored in a list<NonRootModelElement> (ELEMENTS_TO_MOVE). 
 
   User Makes a Selection through either Model Explorer or Canvas
-  
+
+  User Right-clicks the selection
+
   Paste is enabled only if the selection is valid
-  
+
   User Selects Paste
-  
+
   Start a Move Transaction
-  
+
   for each selected_element in ELEMENTS_TO_MOVE
-    run disconnect() via reflection if it exists (note: this is for rare cases where there is more to disconnect than R8000/R8003)
-    unhook the selected_element from container pkg/comp on R8000/R8003
+    unhook the selected_element from container it is attached to (R8000/R8003)
   end for
-    
+
   for each selected_element in ELEMENTS_TO_MOVE 
       disconnect the graphical element associated selected_element from its canvas
       connect selected_element to the canvas associated with the destination
   end for 
-   
+
   for each selected_element in ELEMENTS_TO_MOVE
     update selected_element''s  model root and set it to the destination model root
   end for
-  
+
   for each selected_element in ELEMENTS_TO_MOVE
-     // Connect selected_element to the destination
-    run <destination instance>.Paste<selected element class type name>() operation via reflection to move the element to the destination
-    
-    Add ModelElementMovedModelDelta to the transaction
-  end for    
+     Connect selected_element to the destination
+     Add a "ModelElementMovedModelDelta" to the ongoing transaction
+  end for
 
   for each selected_element in ELEMENTS_TO_MOVE
     if (selected_element downgrade is needed)
-      add_to_downgrade_dialog
+      perform the downgrade
+      add to the downgraded elements list
     end if
   end for
 
-  show the user the elements that will be downgraded
+  show the user the elements that were downgraded
   if (user DOES want to continue)
-    End Move Transaction
+    Complete the Move Transaction (this is where any affected files or folders get moved on disk)
   else 
-    Abort Move transaction
+    Abort the Move transaction
   end if
-
-  if (move occured)
-    Parse all
-  end if
-
 
 </pre>
 
@@ -222,7 +217,7 @@ single transaction.
 6.1.1 The current infrastructure uses an abstract class, 
 `core/ui/CopyCutAction.java extends org.eclipse.jface.action.Action`. 
 To define the behavior of the move operation, this interface shall be modified 
-to allow the cut/paste operation to be done a single transaction as opposed to 2 
+to allow the cut/paste operation to be done in a single transaction as opposed to 2 
 separate transactions. This new transaction shall be started and ended
 within `PasteAction.java::run()`.  
 
@@ -329,7 +324,7 @@ needs to perform work to clean up "referring" (RGO) and "referred to" (RTO)
 links to the element being moved.  This work must be done in both the originating and 
 target containers.  Here is pseudo-code describing the work to be performed:
 
-```
+```  
 for each selectedElement
   // Downgrade src 
   find RGOs
@@ -350,8 +345,12 @@ for each selectedElement
   end for
 
 end for
-```
+```  
 
+<b>TODO: This section is not finished.</b>
+There is still some final work ongoing on this piece of the work. The analysis and design for this is
+captured in a seperate document right now. When complete, it will be moved here, but for now here is the link:
+https://docs.google.com/document/d/1y65rak0hc1gwUGiDslN1MjxDSPF5gk5u-i7YAEbNaZ8/edit  
 
 6.6 UI Changes
 
@@ -362,7 +361,7 @@ cut/paste operation.
 
 When cancel is selected no action is performed on the underlying model.
 
-6.6.1.2 Text shall be added to tell the user to enabled IPRs and
+6.6.1.2 Text shall be added to tell the user to enable IPRs and
 check visibility.  
 
 6.6.1.3 As per the SOW [[2.3](#2.3)], add save and print options to the dialog.  
@@ -424,6 +423,7 @@ by copy/paste.
 Investigation into fixing this problem showed that there was no problem with 
 the way proxy paths were being written. After this investigation no additional 
 action was required.  
+
 
 8. User Documentation   
 ---------------------  
