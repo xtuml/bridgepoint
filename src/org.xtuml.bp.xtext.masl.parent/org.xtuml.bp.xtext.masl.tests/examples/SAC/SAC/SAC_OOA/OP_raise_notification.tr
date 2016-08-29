@@ -1,0 +1,12 @@
+//
+// Filename: OP_raise_notification.tr
+//
+// Description: Report a condition to the operator
+//
+// UK Crown Copyright (c) 2012. All rights reserved.
+//
+private service SAC::Operator~>raise_notification (condition_description : in  string,
+                                                   condition_name        : in  string) is
+begin
+  null;
+end;

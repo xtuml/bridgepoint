@@ -1,0 +1,12 @@
+//
+// Filename: AT_Transaction_Pending.tr
+//
+// Description: 
+//
+// UK Crown Copyright (c) 2007,2009. All rights reserved.
+//
+private service PSC::ATTENDANT~>Transaction_Pending () is
+
+begin
+  null;
+end service;

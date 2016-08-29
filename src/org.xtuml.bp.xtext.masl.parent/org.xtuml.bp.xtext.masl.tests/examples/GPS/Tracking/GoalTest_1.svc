@@ -1,0 +1,4 @@
+private service Tracking::GoalTest_1 () is
+begin
+  null;
+end service;

@@ -1,0 +1,16 @@
+//
+// Filename: METER_Delivers_Fuel_Unit_For_Pump_2_4.ext
+//
+// Description: METER Delivers Fuel Unit For Pump 2
+//
+// UK Crown Copyright (c) 2007. All rights reserved.
+//
+private service PSC::METER_Delivers_Fuel_Unit_For_Pump_2_4 () is
+  delivery_instance : instance of DELIVERY; 
+
+begin
+  //# The delivery needs to be informed about each metered fuel delivery
+  
+  delivery_instance := find_one DELIVERY (Pump_Number = 2);
+  generate DELIVERY.Fuel_Unit_Delivered() to delivery_instance;
+end service;

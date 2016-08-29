@@ -1,0 +1,12 @@
+//
+// Filename: AT_Delivery_Cancelled.tr
+//
+// Description: 
+//
+// UK Crown Copyright (c) 2007,2009. All rights reserved.
+//
+private service PSC::ATTENDANT~>Delivery_Cancelled () is
+
+begin
+  null;
+end service;

@@ -1,0 +1,13 @@
+//
+// Filename: populate_domain_1.scn
+//
+// Description: populate domain
+//
+// UK Crown Copyright (c) 2010-2011. All rights reserved.
+//
+private service SAC::populate_domain_1 () is
+begin
+   
+   SAC::populate_domain(false);
+   
+end service;

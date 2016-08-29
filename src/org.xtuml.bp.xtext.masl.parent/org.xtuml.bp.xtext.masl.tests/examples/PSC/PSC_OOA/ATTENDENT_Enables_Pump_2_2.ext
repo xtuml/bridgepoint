@@ -1,0 +1,14 @@
+//
+// Filename: ATTENDENT_Enables_Pump_2_2.ext
+//
+// Description: ATTENDENT Enables Pump 2
+//
+// UK Crown Copyright (c) 2007. All rights reserved.
+//
+private service PSC::ATTENDENT_Enables_Pump_2_2 () is
+
+begin
+  //# Attendent enables Pump number 2
+  
+  generate DELIVERY.Create_Delivery(2);
+end service;

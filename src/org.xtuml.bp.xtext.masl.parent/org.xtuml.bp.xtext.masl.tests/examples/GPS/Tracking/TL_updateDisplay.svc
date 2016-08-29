@@ -1,0 +1,4 @@
+public instance service Tracking::TrackLog.updateDisplay () is
+begin
+  null;
+end service;

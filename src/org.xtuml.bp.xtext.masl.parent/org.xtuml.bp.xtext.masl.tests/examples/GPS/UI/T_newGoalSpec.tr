@@ -1,0 +1,4 @@
+private service UI::Tracking~>newGoalSpec (        spanType : in Tracking::GoalSpan,        criteriaType : in Tracking::GoalCriteria,        span : in real,        maximum : in real,        minimum : in real,        sequenceNumber : in integer) is
+begin
+  null;
+end service;

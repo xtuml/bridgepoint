@@ -1,0 +1,12 @@
+//
+// Filename: MO_Stop_Motor.tr
+//
+// Description: 
+//
+// UK Crown Copyright (c) 2007,2009. All rights reserved.
+//
+private service PSC::MOTOR~>Stop_Motor () is
+
+begin
+  null;
+end service;

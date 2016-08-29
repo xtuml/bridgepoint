@@ -1,0 +1,12 @@
+//
+// Filename: PETROL_PROC.prj
+//
+// Description: Petrol Station
+//
+//
+// UK Crown Copyright (c) 2008. All rights reserved.
+//
+project PETROL_PROC is
+  domain PSC is
+  end domain;
+end project;
