@@ -4,12 +4,20 @@ Xtext editor development getting started
 This document provides the information required to get started developing the
 Xtext MASL editor
 
+Preparation
+-----------
+
+1. Fork and clone the "xtuml/bridgepoint" repository  
+2. Checkout the **8441_masl_editor_2** branch, or create a new branch and merge
+this branch into your local branch  
+
 Setup Instructions
 ------------------
 
 1. Follow the developer getting started guide found [here](Developer Getting Started Guide.md)  
     _Note: do not import any of the Xtext projects into the workspace during
     this step_  
+    _Note: be sure that you checkout the **8441_masl_editor_2** branch before building_
 2. Disable "Build Automatically" in Eclipse  
 3. Navigate to the parent Xtext project directory
 (`src/org.xtuml.bp.xtext.masl.parent/`) and perform a clean build with `mvn
