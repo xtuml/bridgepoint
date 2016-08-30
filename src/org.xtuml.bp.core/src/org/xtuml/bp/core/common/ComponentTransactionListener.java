@@ -177,7 +177,10 @@ public class ComponentTransactionListener implements ITransactionListener {
 							ModelElementMovedModelDelta modelDelta = (ModelElementMovedModelDelta) delta;
 							NonRootModelElement elementMoved=(NonRootModelElement) delta.getModelElement();
 							ComponentTransactionListener.movePMC(elementMoved, modelDelta.getDestination());
-							persistRenamedME(persisted, modelDelta.getDestination());
+							// Note that the 3rd parameter here specifies that we will NOT for the RGOs
+							// to be persisted. In the move case we do NOT update RGOs we intentionally leave the
+							// stale proxy paths because we do not want to force checkout of RGOs.
+							persistRenamedME(persisted, modelDelta.getDestination(), false);
 						}
                     } else if (delta instanceof AttributeChangeModelDelta) {
                         NonRootModelElement element=(NonRootModelElement) delta.getModelElement();
@@ -194,7 +197,7 @@ public class ComponentTransactionListener implements ITransactionListener {
 										modelElementRenamed((AttributeChangeModelDelta) delta);
 										persistRenamedME(persisted,
 												(NonRootModelElement) delta
-												.getModelElement());
+												.getModelElement(), true);
 									}
 								} else if(modelDelta.getAttributeName().equals("Represents")) {
 									// special case to avoid persistence caused by the setting
@@ -273,7 +276,7 @@ public class ComponentTransactionListener implements ITransactionListener {
 	}
 
 	private void persistRenamedME(HashSet<PersistableModelComponent> persisted,
-			NonRootModelElement me) {
+			NonRootModelElement me, boolean includeRGOs) {
 
 		IPersistenceHierarchyMetaData metaData = PersistenceManager
 				.getHierarchyMetaData();
@@ -295,7 +298,7 @@ public class ComponentTransactionListener implements ITransactionListener {
 					NullProgressMonitor nullMon = new NullProgressMonitor();
 					child.load(nullMon);
 				}
-				persistRenamedME(persisted, child.getRootModelElement());
+				persistRenamedME(persisted, child.getRootModelElement(), includeRGOs);
 			} catch (CoreException e) {
 				CorePlugin.logError("Could not load component for updation. "
 						+ child.getFullPath(), e);
@@ -303,23 +306,26 @@ public class ComponentTransactionListener implements ITransactionListener {
 		}
 		// Persist this
 		persist(comp);
+		
 		// now persist all RGO proxies
-		List selfExternalRGOs = metaData.findExternalRGOsToContainingComponent(
-				me, true);
-		for (Iterator iterator = selfExternalRGOs.iterator(); iterator
-				.hasNext();) {
-			PersistableModelComponent target = ((NonRootModelElement) iterator
-					.next()).getPersistableComponent();
-			if (target != null && !persisted.contains(target)) {
-				try {
-					if (!target.isLoaded()) {
-						NullProgressMonitor nullMon = new NullProgressMonitor();
-						target.load(nullMon);
+		if (includeRGOs) {
+			List selfExternalRGOs = metaData.findExternalRGOsToContainingComponent(
+					me, true);
+			for (Iterator iterator = selfExternalRGOs.iterator(); iterator
+					.hasNext();) {
+				PersistableModelComponent target = ((NonRootModelElement) iterator
+						.next()).getPersistableComponent();
+				if (target != null && !persisted.contains(target)) {
+					try {
+						if (!target.isLoaded()) {
+							NullProgressMonitor nullMon = new NullProgressMonitor();
+							target.load(nullMon);
+						}
+						persist(target);
+					} catch (CoreException e) {
+						CorePlugin.logError(
+								"Could not update persisted model file.", e);
 					}
-					persist(target);
-				} catch (CoreException e) {
-					CorePlugin.logError(
-							"Could not update persisted model file.", e);
 				}
 			}
 		}
