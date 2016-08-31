@@ -74,8 +74,8 @@ public class TransactionManager {
 
 	int maxStackSize = 87;
 
-	ArrayList<Transaction> undoStack = new ArrayList<Transaction>();
-	ArrayList<Transaction> redoStack = new ArrayList<Transaction>();
+	private ArrayList<Transaction> undoStack = new ArrayList<Transaction>();
+	private ArrayList<Transaction> redoStack = new ArrayList<Transaction>();
 
 	private static ArrayList<IFile> affectedComponents = new ArrayList<IFile>();
 
@@ -110,8 +110,8 @@ public class TransactionManager {
 				new ModelFileChangeListener());
 	}
 
-	public ArrayList<Transaction> getUndoStack() {
-		return undoStack;
+	public boolean undoStackIsEmpty() {
+		return undoStack.isEmpty();
 	}
 	
 	public Transaction getActiveTransaction() {
