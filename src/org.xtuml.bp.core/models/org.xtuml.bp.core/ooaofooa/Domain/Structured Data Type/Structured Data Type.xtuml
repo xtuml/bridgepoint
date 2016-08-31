@@ -480,27 +480,18 @@ INSERT INTO O_TFR
 	1,
 	'// The Data Type superclass can check all the RGOs
 select one dt related by self->S_DT[R17];
-dt.downgradeCheck(forceDowngrade: param.forceDowngrade);
+dt.downgradeCheck();
 
 // Now we do RTO checking
 // loop over the members, checking each one for type downgrade
 select many s_mbrs related by self->S_MBR[R44];
 for each s_mbr in s_mbrs
-  s_mbr.downgradeCheck(forceDowngrade:param.forceDowngrade);
+  s_mbr.downgradeCheck();
 end for;
 ',
 	1,
 	'',
 	"08d480cd-e130-4cce-b18d-e7954ec58ceb");
-INSERT INTO O_TPARM
-	VALUES ("2860d56f-044d-4e0c-91e5-13a5d53c017b",
-	"370c0e72-4b66-46c2-a515-dad23d70c2e1",
-	'forceDowngrade',
-	"ba5eda7a-def5-0000-0000-000000000001",
-	0,
-	'',
-	"00000000-0000-0000-0000-000000000000",
-	'');
 INSERT INTO O_REF
 	VALUES ("7df3083a-b3d9-4c10-9be4-db85fdd83e5e",
 	"ead52fac-9782-434b-a35c-c07452c3b26d",

@@ -564,11 +564,9 @@ isVisible = false;
 // Domain Subsystem
 select many brgs related by self->S_BRG[R20];
 for each brg in brgs
-  if ( not param.forceDowngrade )
-    select one pe_pe related by brg->S_EE[R19]->PE_PE[R8001];
-    isVisible = pe_pe.canReferToDataType(dtID:self.DT_ID, dtName:self.Name);
-  end if;
-  if ( param.forceDowngrade or not isVisible )
+  select one pe_pe related by brg->S_EE[R19]->PE_PE[R8001];
+  isVisible = pe_pe.canReferToDataType(dtID:self.DT_ID, dtName:self.Name);
+  if ( not isVisible )
     unrelate self from brg across R20;
     relate brg to voidDt across R20;
     Util::reportElementDowngraded(rto:self.convertToInstance(), rgoDowngraded:brg.convertToInstance(), relationship:"R20");
@@ -576,11 +574,9 @@ for each brg in brgs
 end for;
 select many bparms related by self->S_BPARM[R22];
 for each bparm in bparms
-  if ( not param.forceDowngrade )
-    select one pe_pe related by bparm->S_BRG[R21]->S_EE[R19]->PE_PE[R8001];
-    isVisible = pe_pe.canReferToDataType(dtID:self.DT_ID, dtName:self.Name);
-  end if;
-  if ( param.forceDowngrade or not isVisible )
+  select one pe_pe related by bparm->S_BRG[R21]->S_EE[R19]->PE_PE[R8001];
+  isVisible = pe_pe.canReferToDataType(dtID:self.DT_ID, dtName:self.Name);
+  if ( not isVisible )
     unrelate self from bparm across R22;
     relate bparm to intdt across R22;
     Util::reportElementDowngraded(rto:self.convertToInstance(), rgoDowngraded:bparm.convertToInstance(), relationship:"R22");
@@ -588,11 +584,9 @@ for each bparm in bparms
 end for;
 select many eedis related by self->S_EEDI[R15];
 for each eedi in eedis
-  if ( not param.forceDowngrade )
-    select one pe_pe related by eedi->S_EE[R11]->PE_PE[R8001];
-    isVisible = pe_pe.canReferToDataType(dtID:self.DT_ID, dtName:self.Name);
-  end if;
-  if ( param.forceDowngrade or not isVisible )
+  select one pe_pe related by eedi->S_EE[R11]->PE_PE[R8001];
+  isVisible = pe_pe.canReferToDataType(dtID:self.DT_ID, dtName:self.Name);
+  if ( not isVisible )
     unrelate self from eedi across R15;
     relate eedi to intdt across R15;
     Util::reportElementDowngraded(rto:self.convertToInstance(), rgoDowngraded:eedi.convertToInstance(), relationship:"R15");
@@ -600,11 +594,9 @@ for each eedi in eedis
 end for;
 select many eeedis related by self->S_EEEDI[R16];
 for each eeedi in eeedis
-  if ( not param.forceDowngrade )
-    select one pe_pe related by eeedi->S_EE[R12]->PE_PE[R8001];
-    isVisible = pe_pe.canReferToDataType(dtID:self.DT_ID, dtName:self.Name);
-  end if;
-  if ( param.forceDowngrade or not isVisible )
+  select one pe_pe related by eeedi->S_EE[R12]->PE_PE[R8001];
+  isVisible = pe_pe.canReferToDataType(dtID:self.DT_ID, dtName:self.Name);
+  if ( not isVisible )
     unrelate self from eeedi across R16;
     relate eeedi to intdt across R16;
     Util::reportElementDowngraded(rto:self.convertToInstance(), rgoDowngraded:eeedi.convertToInstance(), relationship:"R16");
@@ -612,11 +604,9 @@ for each eeedi in eeedis
 end for;
 select many sparms related by self->S_SPARM[R26];
 for each sparm in sparms
-  if ( not param.forceDowngrade )
-    select one pe_pe related by sparm->S_SYNC[R24]->PE_PE[R8001];
-    isVisible = pe_pe.canReferToDataType(dtID:self.DT_ID, dtName:self.Name);
-  end if;
-  if ( param.forceDowngrade or not isVisible )
+  select one pe_pe related by sparm->S_SYNC[R24]->PE_PE[R8001];
+  isVisible = pe_pe.canReferToDataType(dtID:self.DT_ID, dtName:self.Name);
+  if ( not isVisible )
     unrelate self from sparm across R26;
     relate sparm to intdt across R26;
     Util::reportElementDowngraded(rto:self.convertToInstance(), rgoDowngraded:sparm.convertToInstance(), relationship:"R26");
@@ -624,11 +614,9 @@ for each sparm in sparms
 end for;
 select many fns related by self->S_SYNC[R25];
 for each fn in fns
-  if ( not param.forceDowngrade )
-    select one pe_pe related by fn->PE_PE[R8001];
-    isVisible = pe_pe.canReferToDataType(dtID:self.DT_ID, dtName:self.Name);
-  end if;
-  if ( param.forceDowngrade or not isVisible )
+  select one pe_pe related by fn->PE_PE[R8001];
+  isVisible = pe_pe.canReferToDataType(dtID:self.DT_ID, dtName:self.Name);
+  if ( not isVisible )
     unrelate self from fn across R25;
     relate fn to voidDt across R25;
     Util::reportElementDowngraded(rto:self.convertToInstance(), rgoDowngraded:fn.convertToInstance(), relationship:"R25");
@@ -636,14 +624,12 @@ for each fn in fns
 end for;
 select many evtdis related by self->SM_EVTDI[R524];
 for each evtdi in evtdis
-  if ( not param.forceDowngrade )
-    select one pe_pe related by evtdi->SM_SM[R516]->SM_ISM[R517]->O_OBJ[R518]->PE_PE[R8001];
-    if ( empty pe_pe )
-      select one pe_pe related by evtdi->SM_SM[R516]->SM_ASM[R517]->O_OBJ[R519]->PE_PE[R8001];
-    end if;
-    isVisible = pe_pe.canReferToDataType(dtID:self.DT_ID, dtName:self.Name);
+  select one pe_pe related by evtdi->SM_SM[R516]->SM_ISM[R517]->O_OBJ[R518]->PE_PE[R8001];
+  if ( empty pe_pe )
+    select one pe_pe related by evtdi->SM_SM[R516]->SM_ASM[R517]->O_OBJ[R519]->PE_PE[R8001];
   end if;
-  if ( param.forceDowngrade or not isVisible )
+  isVisible = pe_pe.canReferToDataType(dtID:self.DT_ID, dtName:self.Name);
+  if ( not isVisible )
     unrelate self from evtdi across R524;
     relate evtdi to intdt across R524;
     Util::reportElementDowngraded(rto:self.convertToInstance(), rgoDowngraded:evtdi.convertToInstance(), relationship:"R524");
@@ -651,11 +637,9 @@ for each evtdi in evtdis
 end for;
 select many opers related by self->O_TFR[R116];
 for each oper in opers
-  if ( not param.forceDowngrade )
-    select one pe_pe related by oper->O_OBJ[R115]->PE_PE[R8001];
-    isVisible = pe_pe.canReferToDataType(dtID:self.DT_ID, dtName:self.Name);
-  end if;
-  if ( param.forceDowngrade or not isVisible )
+  select one pe_pe related by oper->O_OBJ[R115]->PE_PE[R8001];
+  isVisible = pe_pe.canReferToDataType(dtID:self.DT_ID, dtName:self.Name);
+  if ( not isVisible )
     unrelate self from oper across R116;
     relate oper to voidDt across R116;
     Util::reportElementDowngraded(rto:self.convertToInstance(), rgoDowngraded:oper.convertToInstance(), relationship:"R116");
@@ -663,11 +647,9 @@ for each oper in opers
 end for;
 select many oparms related by self->O_TPARM[R118];
 for each oparm in oparms
-  if ( not param.forceDowngrade )
-    select one pe_pe related by oparm->O_TFR[R117]->O_OBJ[R115]->PE_PE[R8001];
-    isVisible = pe_pe.canReferToDataType(dtID:self.DT_ID, dtName:self.Name);
-  end if;
-  if ( param.forceDowngrade or not isVisible )
+  select one pe_pe related by oparm->O_TFR[R117]->O_OBJ[R115]->PE_PE[R8001];
+  isVisible = pe_pe.canReferToDataType(dtID:self.DT_ID, dtName:self.Name);
+  if ( not isVisible )
     unrelate self from oparm across R118;
     relate oparm to intdt across R118;
     Util::reportElementDowngraded(rto:self.convertToInstance(), rgoDowngraded:oparm.convertToInstance(), relationship:"R118");
@@ -675,11 +657,9 @@ for each oparm in oparms
 end for;
 select many attrs related by self->O_ATTR[R114];
 for each attr in attrs
-  if ( not param.forceDowngrade )
-    select one pe_pe related by attr->O_OBJ[R102]->PE_PE[R8001];
-    isVisible = pe_pe.canReferToDataType(dtID:self.DT_ID, dtName:self.Name);
-  end if;
-  if ( param.forceDowngrade or not isVisible )
+  select one pe_pe related by attr->O_OBJ[R102]->PE_PE[R8001];
+  isVisible = pe_pe.canReferToDataType(dtID:self.DT_ID, dtName:self.Name);
+  if ( not isVisible )
     unrelate self from attr across R114;
     relate attr to intdt across R114;
     Util::reportElementDowngraded(rto:self.convertToInstance(), rgoDowngraded:attr.convertToInstance(), relationship:"R114");
@@ -687,11 +667,9 @@ for each attr in attrs
 end for;
 select many members related by self->S_MBR[R45];
 for each member in members
-  if ( not param.forceDowngrade )
-    select one pe_pe related by member->S_SDT[R44]->S_DT[R17]->PE_PE[R8001];
-    isVisible = pe_pe.canReferToDataType(dtID:self.DT_ID, dtName:self.Name);
-  end if;
-  if ( param.forceDowngrade or not isVisible )
+  select one pe_pe related by member->S_SDT[R44]->S_DT[R17]->PE_PE[R8001];
+  isVisible = pe_pe.canReferToDataType(dtID:self.DT_ID, dtName:self.Name);
+  if ( not isVisible )
     unrelate self from member across R45;
     relate member to intdt across R45;
     Util::reportElementDowngraded(rto:self.convertToInstance(), rgoDowngraded:member.convertToInstance(), relationship:"R45");
@@ -699,11 +677,9 @@ for each member in members
 end for;
 select many sycs related by self->CNST_SYC[R1500];
 for each syc in sycs
-  if ( not param.forceDowngrade )
-    select one pe_pe related by syc->CNST_CSP[R1504]->PE_PE[R8001];
-    isVisible = pe_pe.canReferToDataType(dtID:self.DT_ID, dtName:self.Name);
-  end if;
-  if ( param.forceDowngrade or not isVisible )
+  select one pe_pe related by syc->CNST_CSP[R1504]->PE_PE[R8001];
+  isVisible = pe_pe.canReferToDataType(dtID:self.DT_ID, dtName:self.Name);
+  if ( not isVisible )
     syc.setToDefaultDatatype();
     Util::reportElementDowngraded(rto:self.convertToInstance(), rgoDowngraded:syc.convertToInstance(), relationship:"R1500");
   end if;
@@ -751,11 +727,9 @@ select one cdt related by self->S_CDT[R17];
 assign isCoreType = not_empty cdt;
 select many udts related by self->S_UDT[R18];
 for each udt in udts
-  if ( not param.forceDowngrade )
-    select one pe_pe related by udt->S_DT[R17]->PE_PE[R8001];
-    isVisible = pe_pe.canReferToDataType(dtID:self.DT_ID, dtName:self.Name);
-  end if;
-  if ( param.forceDowngrade or not isVisible )
+  select one pe_pe related by udt->S_DT[R17]->PE_PE[R8001];
+  isVisible = pe_pe.canReferToDataType(dtID:self.DT_ID, dtName:self.Name);
+  if ( not isVisible )
     unrelate self from udt across R18;
     udt.changeCoreType(typeName:"integer");
     select one udtDt related by udt->S_DT[R17];
@@ -770,15 +744,6 @@ end for;
 	1,
 	'',
 	"2bf571a5-4f94-404e-899f-1b2ed2dafc5a");
-INSERT INTO O_TPARM
-	VALUES ("fc55b4c5-26c6-4d6e-a60c-e42bed3620ad",
-	"57932e59-c7e1-4095-97ff-031fd470e233",
-	'forceDowngrade',
-	"ba5eda7a-def5-0000-0000-000000000001",
-	0,
-	'',
-	"00000000-0000-0000-0000-000000000000",
-	'For the caller to indicate if the downgrade should be forced to occur or not.');
 INSERT INTO O_NBATTR
 	VALUES ("cbfb448a-f0dc-4961-8e66-276b89eed6d4",
 	"ead52fac-9782-434b-a35c-c07452c3b26d");

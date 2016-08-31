@@ -625,7 +625,7 @@ INSERT INTO O_TFR
 	1,
 	'// The Data Type superclass can check all the RGOs
 select one dt related by self->S_DT[R17];
-dt.downgradeCheck(forceDowngrade: param.forceDowngrade);
+dt.downgradeCheck();
 
 // Now we do RTO checking
 // See if we''re based on another UDT.  Check if that UDT is visible.
@@ -639,15 +639,6 @@ end if;',
 	1,
 	'',
 	"d9b28ec7-1e4d-4244-8780-5449b797cd90");
-INSERT INTO O_TPARM
-	VALUES ("62824202-f980-4dcc-975b-9c315386dbae",
-	"dcdf61ff-379f-42f2-b16c-6e42aafdadf4",
-	'forceDowngrade',
-	"ba5eda7a-def5-0000-0000-000000000001",
-	0,
-	'',
-	"00000000-0000-0000-0000-000000000000",
-	'');
 INSERT INTO O_NBATTR
 	VALUES ("a681e0de-40d5-491f-a628-c369bf13952a",
 	"2150fa65-813f-46c3-a6f9-7c7dbae3aced");

@@ -2211,7 +2211,16 @@ INSERT INTO O_TFR
 select many o_attrs related by self->O_ATTR[R102];
 for each o_attr in o_attrs
   select one s_dt related by o_attr->S_DT[R114];
-  s_dt.downgradeCheck(forceDowngrade:param.forceDowngrade);
+  isVisible = o_attr.canReferToDataType();
+  if ( not isVisible )
+    Util::reportElementDowngraded(rto:s_dt.convertToInstance(), rgoDowngraded:self.convertToInstance(), relationship:"R114");
+    // TODO - fix up datatype.  Perhaps add a short-circuit for a pre-searched integer so we
+    // don''t have to do the resolveDatatypeToSelf call lots of times for integer.  Also, see example function structure member.changeType()
+    //    elementType = Util::getSimpleClassName(element:o_attr.convertToInstance());
+    //    defaultTypeName = S_DT::getDefaultDataTypeName(elementType:elementType);
+    //    call pe_pe.resolveDataTypeRelativeToSelf()
+    //    unhook old and rehook new
+  end if;
 end for;
 
 // Loop over operations, check parameters and return values for downgrade
@@ -2219,19 +2228,29 @@ select many o_tfrs related by self->O_TFR[R115];
 for each o_tfr in o_tfrs
   // rval
   select one s_dt related by o_tfr->S_DT[R116];
-  s_dt.downgradeCheck(forceDowngrade:param.forceDowngrade);
+  isVisible = o_tfr.canReferToDataType();
+  if ( not isVisible )
+    Util::reportElementDowngraded(rto:s_dt.convertToInstance(), rgoDowngraded:self.convertToInstance(), relationship:"R116");
+    // TODO - unrelated current s_dt, relate to void (or integer???)
+  end if;
   // params
   select many o_tparms related by o_tfr->O_TPARM[R117];
   for each o_tparm in o_tparms
     select one s_dt related by o_tparm->S_DT[R118];
-    s_dt.downgradeCheck(forceDowngrade:param.forceDowngrade);
+    isVisible = o_tparm.canReferToDataType();
+    if ( not isVisible )
+      Util::reportElementDowngraded(rto:s_dt.convertToInstance(), rgoDowngraded:self.convertToInstance(), relationship:"R118");
+      // TODO - unrelated current s_dt, relate to integer
+    end if;
   end for;
 end for;
+
+// TODO - process into ISMs and ASMs
 
 // Loop over imported classes that refer to self, check for downgrade
 select many o_iobjs related by self->O_IOBJ[R101];
 for each o_iobj in o_iobjs
-  o_iobj.downgradeCheck(forceDowngrade:param.forceDowngrade);
+  o_iobj.downgradeCheck();
 end for;
 
 // TODO: need to handle IRDTs to this class. The instance data for the IRDTs are 
@@ -2242,15 +2261,6 @@ end for;
 	1,
 	'',
 	"d14a6f60-5a6b-47d0-80ba-518b2780b970");
-INSERT INTO O_TPARM
-	VALUES ("47d13ec9-190b-4e4d-83a9-7d8350b3f00d",
-	"f3fe145f-45a8-4b16-a710-e24001ba26d9",
-	'forceDowngrade',
-	"ba5eda7a-def5-0000-0000-000000000001",
-	0,
-	'',
-	"00000000-0000-0000-0000-000000000000",
-	'');
 INSERT INTO O_NBATTR
 	VALUES ("abd8f188-4260-4e03-9844-41b21ef751b3",
 	"b7630071-9e2a-4183-9986-779dca14c275");

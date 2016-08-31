@@ -3332,19 +3332,13 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
-	'',
-	3,
+	'select many pe_pes related by self->PE_PE[R8003];
+for each pe_pe in pe_pes
+  pe_pe.downgradeCheck();
+end for;',
+	1,
 	'',
 	"eb42ec03-f0d3-49b9-9ef6-784b43bbeb81");
-INSERT INTO O_TPARM
-	VALUES ("9183f603-d316-45a5-993e-928014c8d021",
-	"2eb3cb57-7b4f-4607-b24d-577d9e8a13ee",
-	'forceDowngrade',
-	"ba5eda7a-def5-0000-0000-000000000001",
-	0,
-	'',
-	"00000000-0000-0000-0000-000000000000",
-	'');
 INSERT INTO O_NBATTR
 	VALUES ("44ad7e17-9251-42cf-aa73-ac271023c8a3",
 	"2786d973-1537-44a1-81d6-3ddbd2377865");

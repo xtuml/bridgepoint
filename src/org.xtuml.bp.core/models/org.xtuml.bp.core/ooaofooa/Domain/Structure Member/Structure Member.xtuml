@@ -547,15 +547,6 @@ end if;',
 	1,
 	'',
 	"846bd721-d453-43de-b690-5f7ad0262f88");
-INSERT INTO O_TPARM
-	VALUES ("deecc60b-57a1-4185-9e8a-870f05550aa2",
-	"8902acba-4d7f-44df-b1c1-c9a7b17ba175",
-	'forceDowngrade',
-	"ba5eda7a-def5-0000-0000-000000000001",
-	0,
-	'',
-	"00000000-0000-0000-0000-000000000000",
-	'');
 INSERT INTO O_NBATTR
 	VALUES ("e98dcff5-ffa0-4ec8-b702-a91009ca2cbe",
 	"10bbec7e-549f-48a0-bf2e-2c442db77b30");
