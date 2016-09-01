@@ -17,19 +17,7 @@ INSERT INTO O_TFR
 	'create object instance mbr of S_MBR;
 relate self to mbr across R44;
 
-    select one sys related by self->S_DT[R17]->PE_PE[R8001]->EP_PKG[R8000]->S_SYS[R1405];
-    intdt_id = GD::NULL_UNIQUE_ID();
-    if not_empty sys
-      intdt_id = sys.getCoreTypeId(name:"integer");
-    end if;
-    select any pe from instances of PE_PE where selected.Element_ID == intdt_id;
-    select one int_dt related by pe->S_DT[R8001]; 
-    if (empty int_dt)
-      select any int_dt related by sys->EP_PKG[R1405]->PE_PE[R8000]->S_DT[R8001] where (selected.Name == "integer");
-    end if;
-
-
-relate mbr to int_dt across R45;
+mbr.setToDefaultDataType();
 mbr.initialize(newname:"Unnamed Structured Member");',
 	1,
 	'',

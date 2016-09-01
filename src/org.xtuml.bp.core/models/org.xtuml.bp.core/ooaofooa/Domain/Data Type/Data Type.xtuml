@@ -640,13 +640,7 @@ for each attr in attrs
 end for;
 select many members related by self->S_MBR[R45];
 for each member in members
-  select one pe_pe related by member->S_SDT[R44]->S_DT[R17]->PE_PE[R8001];
-  isVisible = pe_pe.canReferToDataType(dtID:self.DT_ID, dtName:self.Name);
-  if ( not isVisible )
-    unrelate self from member across R45;
-    relate member to intdt across R45;
-    Util::reportElementDowngraded(rto:self.convertToInstance(), rgoDowngraded:member.convertToInstance(), relationship:"R45");
-  end if;
+  member.downgradeCheck();
 end for;
 select many sycs related by self->CNST_SYC[R1500];
 for each syc in sycs
