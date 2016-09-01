@@ -624,46 +624,19 @@ for each fn in fns
 end for;
 select many evtdis related by self->SM_EVTDI[R524];
 for each evtdi in evtdis
-  select one pe_pe related by evtdi->SM_SM[R516]->SM_ISM[R517]->O_OBJ[R518]->PE_PE[R8001];
-  if ( empty pe_pe )
-    select one pe_pe related by evtdi->SM_SM[R516]->SM_ASM[R517]->O_OBJ[R519]->PE_PE[R8001];
-  end if;
-  isVisible = pe_pe.canReferToDataType(dtID:self.DT_ID, dtName:self.Name);
-  if ( not isVisible )
-    unrelate self from evtdi across R524;
-    relate evtdi to intdt across R524;
-    Util::reportElementDowngraded(rto:self.convertToInstance(), rgoDowngraded:evtdi.convertToInstance(), relationship:"R524");
-  end if;
+  evtdi.downgradeCheck();
 end for;
 select many opers related by self->O_TFR[R116];
 for each oper in opers
-  select one pe_pe related by oper->O_OBJ[R115]->PE_PE[R8001];
-  isVisible = pe_pe.canReferToDataType(dtID:self.DT_ID, dtName:self.Name);
-  if ( not isVisible )
-    unrelate self from oper across R116;
-    relate oper to voidDt across R116;
-    Util::reportElementDowngraded(rto:self.convertToInstance(), rgoDowngraded:oper.convertToInstance(), relationship:"R116");
-  end if;
+  oper.downgradeCheck();
 end for;
 select many oparms related by self->O_TPARM[R118];
 for each oparm in oparms
-  select one pe_pe related by oparm->O_TFR[R117]->O_OBJ[R115]->PE_PE[R8001];
-  isVisible = pe_pe.canReferToDataType(dtID:self.DT_ID, dtName:self.Name);
-  if ( not isVisible )
-    unrelate self from oparm across R118;
-    relate oparm to intdt across R118;
-    Util::reportElementDowngraded(rto:self.convertToInstance(), rgoDowngraded:oparm.convertToInstance(), relationship:"R118");
-  end if;
+  oparm.downgradeCheck();
 end for;
 select many attrs related by self->O_ATTR[R114];
 for each attr in attrs
-  select one pe_pe related by attr->O_OBJ[R102]->PE_PE[R8001];
-  isVisible = pe_pe.canReferToDataType(dtID:self.DT_ID, dtName:self.Name);
-  if ( not isVisible )
-    unrelate self from attr across R114;
-    relate attr to intdt across R114;
-    Util::reportElementDowngraded(rto:self.convertToInstance(), rgoDowngraded:attr.convertToInstance(), relationship:"R114");
-  end if;
+  attr.downgradeCheck();
 end for;
 select many members related by self->S_MBR[R45];
 for each member in members

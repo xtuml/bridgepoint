@@ -2210,42 +2210,30 @@ INSERT INTO O_TFR
 	'// Loop over attributes, check datatypes for downgrade
 select many o_attrs related by self->O_ATTR[R102];
 for each o_attr in o_attrs
-  select one s_dt related by o_attr->S_DT[R114];
-  isVisible = o_attr.canReferToDataType();
-  if ( not isVisible )
-    Util::reportElementDowngraded(rto:s_dt.convertToInstance(), rgoDowngraded:self.convertToInstance(), relationship:"R114");
-    // TODO - fix up datatype.  Perhaps add a short-circuit for a pre-searched integer so we
-    // don''t have to do the resolveDatatypeToSelf call lots of times for integer.  Also, see example function structure member.changeType()
-    //    elementType = Util::getSimpleClassName(element:o_attr.convertToInstance());
-    //    defaultTypeName = S_DT::getDefaultDataTypeName(elementType:elementType);
-    //    call pe_pe.resolveDataTypeRelativeToSelf()
-    //    unhook old and rehook new
-  end if;
+  o_attr.downgradeCheck();
 end for;
 
 // Loop over operations, check parameters and return values for downgrade
 select many o_tfrs related by self->O_TFR[R115];
 for each o_tfr in o_tfrs
   // rval
-  select one s_dt related by o_tfr->S_DT[R116];
-  isVisible = o_tfr.canReferToDataType();
-  if ( not isVisible )
-    Util::reportElementDowngraded(rto:s_dt.convertToInstance(), rgoDowngraded:self.convertToInstance(), relationship:"R116");
-    // TODO - unrelated current s_dt, relate to void (or integer???)
-  end if;
+  o_tfr.downgradeCheck();
   // params
   select many o_tparms related by o_tfr->O_TPARM[R117];
   for each o_tparm in o_tparms
-    select one s_dt related by o_tparm->S_DT[R118];
-    isVisible = o_tparm.canReferToDataType();
-    if ( not isVisible )
-      Util::reportElementDowngraded(rto:s_dt.convertToInstance(), rgoDowngraded:self.convertToInstance(), relationship:"R118");
-      // TODO - unrelated current s_dt, relate to integer
-    end if;
+    o_tparm.downgradeCheck();
   end for;
 end for;
 
-// TODO - process into ISMs and ASMs
+// Loop over ISM and ASM event data items
+select many sm_evtdis related by self->SM_ISM[R518]->SM_SM[R517]->SM_EVTDI[R516];
+for each sm_evtdi in sm_evtdis
+  sm_evtdi.downgradeCheck();
+end for;
+select many sm_evtdis related by self->SM_ASM[R519]->SM_SM[R517]->SM_EVTDI[R516];
+for each sm_evtdi in sm_evtdis
+  sm_evtdi.downgradeCheck();
+end for;
 
 // Loop over imported classes that refer to self, check for downgrade
 select many o_iobjs related by self->O_IOBJ[R101];
