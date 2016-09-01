@@ -444,8 +444,12 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
-	'',
-	3,
+	'select many cnst_sycs related by self->CNST_SYC[R1504];
+for each cnst_syc in cnst_sycs
+  cnst_syc.downgradeCheck();
+end for;
+',
+	1,
 	'',
 	"3590b53e-2e3e-44dd-8238-146d3ce81172");
 INSERT INTO O_NBATTR

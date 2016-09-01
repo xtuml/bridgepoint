@@ -644,12 +644,7 @@ for each member in members
 end for;
 select many sycs related by self->CNST_SYC[R1500];
 for each syc in sycs
-  select one pe_pe related by syc->CNST_CSP[R1504]->PE_PE[R8001];
-  isVisible = pe_pe.canReferToDataType(dtID:self.DT_ID, dtName:self.Name);
-  if ( not isVisible )
-    syc.setToDefaultDatatype();
-    Util::reportElementDowngraded(rto:self.convertToInstance(), rgoDowngraded:syc.convertToInstance(), relationship:"R1500");
-  end if;
+  syc.downgradeCheck();
 end for;
 //
 // Value Subsystem
