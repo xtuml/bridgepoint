@@ -172,7 +172,7 @@ public abstract class PasteAction extends CutCopyPasteAction  {
 					for (int i = 0; downgradeCheckMethod==null && i < methods.length; i++) {
 						if (methods[i].getName().equals(opName)) {
 							downgradeCheckMethod = methods[i];
-							downgradeCheckMethod.invoke(sourceElement, new Object[] { false });
+							downgradeCheckMethod.invoke(sourceElement);
 						}
 					}
 				} catch (Exception e) {
