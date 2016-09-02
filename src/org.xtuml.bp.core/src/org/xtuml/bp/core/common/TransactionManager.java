@@ -340,9 +340,11 @@ public class TransactionManager {
 			boolean result = UIUtil.openScrollableTextDialog(PlatformUI
 					.getWorkbench().getDisplay().getActiveShell(), true,
 					"Confirm Changes", message, 
-					"The following elements on the right side of each sentence will have\n" +
-					"their type reset to the default type as a result of this operation.\n" +
-					"Would you like to proceed ?",
+					"The requested change will cause elements to be reset to their default values. " +
+					"This is due to a loss of visibility inside the destination.\nConsider allowing " +
+					"inter-project references for this project and relaxing package visibility settings " +
+					"before proceeding with this change.\n\n" +
+					"Do you want to continue?",
 					null,
 					BridgePointPreferencesStore.SHOW_SYNC_DELETION_DIALOG, true, true);			
 			if(!result) {
@@ -973,7 +975,7 @@ public class TransactionManager {
 				qualifedName = ((NonRootModelElement)p_rgodowngraded).getPath();
 			}
 			if (!qualifedName.isEmpty() && !affectedModelElementsNames.contains(qualifedName)) {
-				String message = ((NonRootModelElement)p_rto).getPath() + "  is referred to by  " + qualifedName;
+				String message = ((NonRootModelElement)p_rto).getPath() + "  is associated with  " + qualifedName;
 				affectedModelElementsNames.add(message); 
 			}
 		}
