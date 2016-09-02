@@ -588,9 +588,10 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
-	'// Owning Class is in a package . . .
-select one system related by self->O_TFR[R117]->O_OBJ[R115]->PE_PE[R8001]->
-                                                    EP_PKG[R8000]->S_SYS[R1405];
+	'elementType = Util::getSimpleClassName(element:self.convertToInstance());
+defaultTypeName = S_DT::getDefaultDataTypeName(elementType:elementType);
+
+select one system related by self->O_TFR[R117]->O_OBJ[R115]->PE_PE[R8001]->EP_PKG[R8000]->S_SYS[R1405];
 if not_empty system
   // Unhook from the current data type (if any)
   select one currentDt related by self->S_DT[R118];
@@ -598,8 +599,6 @@ if not_empty system
     unrelate self from currentDt across R118;
   end if;
   // Now connect to the default type
-  elementType = Util::getSimpleClassName(element:self.convertToInstance());
-  defaultTypeName = S_DT::getDefaultDataTypeName(elementType:elementType);
   dt_id = system.getCoreTypeId(name:defaultTypeName);
   select any pe from instances of PE_PE where selected.Element_ID == dt_id;
   select one defaultDt related by pe->S_DT[R8001]; 
@@ -607,7 +606,7 @@ if not_empty system
 else
   // this is an error, if the system is not
   // found we cannot find the core type
-  USER::logError(msg:"Unable to locate system root for data type: integer",path:"");
+  USER::logError(msg:"Unable to locate system root for data type: " + defaultTypeName,path:"");
 end if;
 ',
 	1,

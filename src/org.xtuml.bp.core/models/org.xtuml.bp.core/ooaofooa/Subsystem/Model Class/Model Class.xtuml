@@ -2207,22 +2207,16 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
-	'// Loop over attributes, check datatypes for downgrade
+	'// attributes
 select many o_attrs related by self->O_ATTR[R102];
 for each o_attr in o_attrs
   o_attr.downgradeCheck();
 end for;
 
-// Loop over operations, check parameters and return values for downgrade
+// operations
 select many o_tfrs related by self->O_TFR[R115];
 for each o_tfr in o_tfrs
-  // rval
   o_tfr.downgradeCheck();
-  // params
-  select many o_tparms related by o_tfr->O_TPARM[R117];
-  for each o_tparm in o_tparms
-    o_tparm.downgradeCheck();
-  end for;
 end for;
 
 // Loop over ISM and ASM event data items

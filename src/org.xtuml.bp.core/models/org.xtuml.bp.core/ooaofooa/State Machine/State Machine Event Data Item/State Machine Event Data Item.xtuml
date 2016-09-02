@@ -540,11 +540,12 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
-	'select one system related by self->SM_SM[R516]->SM_ISM[R517]->O_OBJ[R518]->PE_PE[R8001]->
-                                                    EP_PKG[R8000]->S_SYS[R1405];
+	'elementType = Util::getSimpleClassName(element:self.convertToInstance());
+defaultTypeName = S_DT::getDefaultDataTypeName(elementType:elementType);
+
+select one system related by self->SM_SM[R516]->SM_ISM[R517]->O_OBJ[R518]->PE_PE[R8001]->EP_PKG[R8000]->S_SYS[R1405];
 if ( empty system )
-  select one system related by self->SM_SM[R516]->SM_ASM[R517]->O_OBJ[R519]->PE_PE[R8001]->
-                                                    EP_PKG[R8000]->S_SYS[R1405];
+  select one system related by self->SM_SM[R516]->SM_ASM[R517]->O_OBJ[R519]->PE_PE[R8001]->EP_PKG[R8000]->S_SYS[R1405];
 end if;
 
 if not_empty system
@@ -554,8 +555,6 @@ if not_empty system
     unrelate self from currentDt across R524;
   end if;
   // Now connect to the default type
-  elementType = Util::getSimpleClassName(element:self.convertToInstance());
-  defaultTypeName = S_DT::getDefaultDataTypeName(elementType:elementType);
   dt_id = system.getCoreTypeId(name:defaultTypeName);
   select any pe from instances of PE_PE where selected.Element_ID == dt_id;
   select one defaultDt related by pe->S_DT[R8001]; 
@@ -563,7 +562,7 @@ if not_empty system
 else
   // this is an error, if the system is not
   // found we cannot find the core type
-  USER::logError(msg:"Unable to locate system root for data type: integer",path:"");
+  USER::logError(msg:"Unable to locate system root for data type: " + defaultTypeName,path:"");
 end if;
 ',
 	1,

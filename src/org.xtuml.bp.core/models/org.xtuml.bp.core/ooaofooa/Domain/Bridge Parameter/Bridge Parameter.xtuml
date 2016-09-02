@@ -605,6 +605,54 @@ end for;',
 	1,
 	'',
 	"8fe48bcf-f2a9-46f9-aba1-e015773db445");
+INSERT INTO O_TFR
+	VALUES ("1b8e20d1-c279-403e-80fd-230e74311589",
+	"b6e08131-fb43-412a-8d6c-4c30a1664b17",
+	'setToDefaultDataType',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'elementType = Util::getSimpleClassName(element:self.convertToInstance());
+defaultTypeName = S_DT::getDefaultDataTypeName(elementType:elementType);
+
+select one system related by self->S_BRG[R21]->S_EE[R19]->PE_PE[R8001]->EP_PKG[R8000]->S_SYS[R1405];
+if not_empty system
+  // Unhook from the current data type (if any)
+  select one currentDt related by self->S_DT[R22];
+  if ( not_empty currentDt )
+    unrelate self from currentDt across R22;
+  end if;
+  // Now connect to the default type
+  dt_id = system.getCoreTypeId(name:defaultTypeName);
+  select any pe from instances of PE_PE where selected.Element_ID == dt_id;
+  select one defaultDt related by pe->S_DT[R8001]; 
+  relate self to defaultDt across R22;
+else
+  // this is an error, if the system is not
+  // found we cannot find the core type
+  USER::logError(msg:"Unable to locate system root for data type: " + defaultTypeName,path:"");
+end if;
+',
+	1,
+	'',
+	"5883f770-5cb3-48a9-a0ca-e376b240f4fb");
+INSERT INTO O_TFR
+	VALUES ("e7f86aad-a5b0-4bb0-9b3e-a72a45f42f71",
+	"b6e08131-fb43-412a-8d6c-4c30a1664b17",
+	'downgradeCheck',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'isVisible = self.canReferToDataType();
+if ( not isVisible )
+  select one s_dt related by self->S_DT[R22];
+  Util::reportElementDowngraded(rto:s_dt.convertToInstance(), rgoDowngraded:self.convertToInstance(), relationship:"R22");
+  self.setToDefaultDataType();
+end if;
+',
+	1,
+	'',
+	"1b8e20d1-c279-403e-80fd-230e74311589");
 INSERT INTO O_NBATTR
 	VALUES ("8d625520-f25f-4d8c-8d3a-3158467d9cf9",
 	"b6e08131-fb43-412a-8d6c-4c30a1664b17");

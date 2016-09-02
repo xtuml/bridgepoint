@@ -634,7 +634,9 @@ isVisible = self.canReferToDataType();
 if ( not isVisible )
   select one dt related by self->S_DT[R18];
   Util::reportElementDowngraded(rto:self.convertToInstance(), rgoDowngraded:dt.convertToInstance(), relationship:"R18");
-  self.changeCoreType(typeName:"integer");
+  elementType = Util::getSimpleClassName(element:self.convertToInstance());
+  defaultTypeName = S_DT::getDefaultDataTypeName(elementType:elementType);
+  self.changeCoreType(typeName:defaultTypeName);
 end if;',
 	1,
 	'',

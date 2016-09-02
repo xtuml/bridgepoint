@@ -466,8 +466,25 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
-	'',
-	3,
+	'// Check Bridges
+select many s_brgs related by self->S_BRG[R19];
+for each s_brg in s_brgs
+  s_brg.downgradeCheck();
+end for;
+
+// Check External Entity Data Items
+select many s_eedis related by self->S_EEDI[R11];
+for each s_eedi in s_eedis
+  s_eedi.downgradeCheck();
+end for;
+
+// Check External Entity Event Data Item
+select many s_eeedis related by self->S_EEEDI[R12];
+for each s_eeedi in s_eeedis
+  s_eeedi.downgradeCheck();
+end for;
+',
+	1,
 	'',
 	"5b99f4e3-05b2-4f5c-9671-aeff98f8aba3");
 INSERT INTO O_NBATTR
