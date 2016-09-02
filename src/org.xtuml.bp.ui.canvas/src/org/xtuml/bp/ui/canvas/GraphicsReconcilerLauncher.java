@@ -147,8 +147,7 @@ public class GraphicsReconcilerLauncher {
 				if (deltas[i].getKind() == Modeleventnotification_c.DELTA_NEW
 						|| deltas[i].getKind() == Modeleventnotification_c.DELTA_DELETE
 						|| deltas[i].getKind() == Modeleventnotification_c.DELTA_ELEMENT_RELATED
-						|| deltas[i].getKind() == Modeleventnotification_c.DELTA_ELEMENT_UNRELATED 
-						|| deltas[i].getKind() == Modeleventnotification_c.DELTA_MODEL_ELEMENT_MOVE) 
+						|| deltas[i].getKind() == Modeleventnotification_c.DELTA_ELEMENT_UNRELATED) 
 				{
 					return true;
 				}
