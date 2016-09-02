@@ -169,6 +169,8 @@ copy/paste behavior shall not be changed during this change.</b>
 
   User Makes a Selection through either Model Explorer or Canvas
   
+  User Right-clicks the selection
+
   Paste is enabled only if the selection is valid
   
   User Selects Paste
@@ -176,8 +178,7 @@ copy/paste behavior shall not be changed during this change.</b>
   Start a Move Transaction
   
   for each selected_element in ELEMENTS_TO_MOVE
-    run disconnect() via reflection if it exists (note: this is for rare cases where there is more to disconnect than R8000/R8003)
-    unhook the selected_element from container pkg/comp on R8000/R8003
+    unhook the selected_element from container it is attached to (R8000/R8003)
   end for
     
   for each selected_element in ELEMENTS_TO_MOVE 
@@ -190,27 +191,22 @@ copy/paste behavior shall not be changed during this change.</b>
   end for
   
   for each selected_element in ELEMENTS_TO_MOVE
-     // Connect selected_element to the destination
-    run <destination instance>.Paste<selected element class type name>() operation via reflection to move the element to the destination
-    
-    Add ModelElementMovedModelDelta to the transaction
+     Connect selected_element to the destination
+     Add a "ModelElementMovedModelDelta" to the ongoing transaction
   end for    
 
   for each selected_element in ELEMENTS_TO_MOVE
     if (selected_element downgrade is needed)
-      add_to_downgrade_dialog
+      perform the downgrade
+      add to the downgraded elements list
     end if
   end for
 
-  show the user the elements that will be downgraded
+  show the user the elements that were downgraded
   if (user DOES want to continue)
-    End Move Transaction
+    Complete the Move Transaction (this is where any affected files or folders get moved on disk)
   else 
-    Abort Move transaction
-  end if
-
-  if (move occured)
-    Parse all
+    Abort the Move transaction
   end if
 
 
@@ -222,7 +218,7 @@ single transaction.
 6.1.1 The current infrastructure uses an abstract class, 
 `core/ui/CopyCutAction.java extends org.eclipse.jface.action.Action`. 
 To define the behavior of the move operation, this interface shall be modified 
-to allow the cut/paste operation to be done a single transaction as opposed to 2 
+to allow the cut/paste operation to be done in a single transaction as opposed to 2 
 separate transactions. This new transaction shall be started and ended
 within `PasteAction.java::run()`.  
 
@@ -367,59 +363,6 @@ cut/paste operation.
 When cancel is selected no action is performed on the underlying model.
 
 6.6.1.2 Text shall be added to tell the user to enable IPRs and
-check visibility.  
-
-6.6.1.3 As per the SOW [[2.3](#2.3)], add save and print options to the dialog.  
-
-6.6.1.3.1  Update `ScrolledTextDialog.java` to take a new parameter in the
-constructor that indicates if the save and print buttons shall be used.  
-
-6.6.1.3.2  Update the existing callers of ScrolledTextDialog such that the 
-`TransactionManager.java` is the only one that uses save and print.  Other 
-users retain existing behavior and do not use save and print.  
-
-6.6.1.3.3  Add code to implement button "Save...".  This button opens a modal
-dialog that allows the user to select a file to save into.  The contents of 
-the list box (the affected elements) are written to the file if the user 
-completes the dialog.  No action is taken if the user cancels the dialog.   
-
-6.6.1.3.4  Add code to implement button "Print...".  This button opens a modal
-printer selection dialog.  The contents of the list box (the affected 
-elements) are sent to the printer if the user completes the dialog.  No action
-is taken if the user cancels the dialog.  
-
-6.6.2 Assure that the cut CME is only enabled when it should be.  
-
-`bp/ui/explorer/actions/ui/Explorer{Cut | Copy | Paste}Action.java::isEnabled()` 
-is where BridgePoint determines if the CME should be enabled or not. Additionally, 
-there is an analogous implementation for canvas in 
-`bp.ui.graphics.actions/Canvas{Cut | Copy | Paste}Action.java::isEnabled()`  
-
-6.6.2.1. Disable paste when the selected target is the same as the source.  
-
-An attempt to paste to the same location that the copy was made from is 
-considered an invalid selection and shall not be allowed.  
-
-In the PasteAction, the operations look to see if the destination allows paste 
-for elements in the source being pasted to the target. It does this by calling 
-an ooaofooa operation that is of the from {target model element instance}.Paste{Source Model Element Name}. 
-The structure of this code is such that this behavior is essentially duplicated 
-in `{Explorer | Canvas}PasteAction.java`.  
-
-6.6.2.1.1 Refactor this and "move up" the operation named `clipboardContainsPastableModelElements()` 
-into the parent class`core/ui/PasteAction.java` to facilitate adding the check 
-to assure that on move, if the source and target PMCs match, paste is not enabled.  
-
-6.6 UI Changes
-
-6.6.1 Modify the tree list box that shows Model Elements affected by the 
-cut/paste operation.  
-
-6.6.1.1 The dialog shall allow the user to cancel   
-
-When cancel is selected no action is performed on the underlying model.
-
-6.6.1.2 Text shall be added to tell the user to enabled IPRs and
 check visibility.  
 
 6.6.1.3 As per the SOW [[2.3](#2.3)], add save and print options to the dialog.  

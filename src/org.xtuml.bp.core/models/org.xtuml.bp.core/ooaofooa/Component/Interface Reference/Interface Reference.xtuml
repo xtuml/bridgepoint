@@ -1272,11 +1272,7 @@ INSERT INTO O_TFR
 
 // We only need to run this check if this interface reference is formalized
 if ( self.isFormal() )
-  if ( true == param.forceDowngrade )
-    isAccessible = false;
-  else
-    isAccessible = self.canReferToInterface();
-  end if;
+  isAccessible = self.canReferToInterface();
 
   if ( not isAccessible )
     select one interface related by self->C_I[R4012];
@@ -1288,15 +1284,6 @@ end if;
 	1,
 	'',
 	"358c47b4-0a46-4b22-8b5e-b2fb4f7ed401");
-INSERT INTO O_TPARM
-	VALUES ("8c4d1d7e-9bf8-4f69-b3a7-28fbb4ff2574",
-	"c7281ab0-d7dd-40ff-b679-5a74f4713c42",
-	'forceDowngrade',
-	"ba5eda7a-def5-0000-0000-000000000001",
-	0,
-	'',
-	"00000000-0000-0000-0000-000000000000",
-	'');
 INSERT INTO O_REF
 	VALUES ("d45618a1-5ecf-4b4d-95a8-ab89b70dec11",
 	"2205f09b-595f-431e-98d5-73d007d124b6",

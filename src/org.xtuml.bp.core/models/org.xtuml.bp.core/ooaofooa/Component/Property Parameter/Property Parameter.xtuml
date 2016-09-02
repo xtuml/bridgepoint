@@ -14,25 +14,7 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
-	'select one packageableElem related by self->C_EP[R4006]->C_I[R4003]->PE_PE[R8001];
-select one package related by packageableElem->EP_PKG[R8000];
-select one component related by packageableElem->C_C[R8003];
-
-select one ep related by self->C_EP[R4006];
-ep.addPropertyParameterToOrder(id:self.PP_Id);
-    select one system related by package->S_SYS[R1405];  
-  if (empty system)
-    rootCompIdInPkg = component.getRootComponentId();
-    select any rootComponent from instances of C_C where (selected.Id == rootCompIdInPkg);
-    select one system related by rootComponent->PE_PE[R8001]->EP_PKG[R8000]->S_SYS[R1405];
-  end if;
-def_dt_id = GD::NULL_UNIQUE_ID();
-if not_empty system
-  def_dt_id = system.getCoreTypeId(name:"integer");
-end if;
-select any pe from instances of PE_PE where selected.Element_ID == def_dt_id;
-select one def_dt related by pe->S_DT[R8001]; 
-relate self to def_dt across R4007;
+	'self.setToDefaultDataType();
 name = ::getUniqueInitialName( 
     instance: self.convertToInstance(),
     candidateName: "Unnamed Parameter");
@@ -609,6 +591,54 @@ end for;',
 	1,
 	'',
 	"825723f5-f499-44f9-98d5-1b1bc95b28af");
+INSERT INTO O_TFR
+	VALUES ("6fa2b067-98ae-436a-842d-82db6ebdfb9d",
+	"dcbde5c3-c845-4c4a-99bf-003c6b74e026",
+	'setToDefaultDataType',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'elementType = Util::getSimpleClassName(element:self.convertToInstance());
+defaultTypeName = S_DT::getDefaultDataTypeName(elementType:elementType);
+
+select one system related by self->C_EP[R4006]->C_I[R4003]->PE_PE[R8001]->EP_PKG[R8000]->S_SYS[R1405];
+if not_empty system
+  // Unhook from the current data type (if any)
+  select one currentDt related by self->S_DT[R4007];
+  if ( not_empty currentDt )
+    unrelate self from currentDt across R4007;
+  end if;
+  // Now connect to the default type
+  dt_id = system.getCoreTypeId(name:defaultTypeName);
+  select any pe from instances of PE_PE where selected.Element_ID == dt_id;
+  select one defaultDt related by pe->S_DT[R8001]; 
+  relate self to defaultDt across R4007;
+else
+  // this is an error, if the system is not
+  // found we cannot find the core type
+  USER::logError(msg:"Unable to locate system root for data type: " + defaultTypeName,path:"");
+end if;
+',
+	1,
+	'',
+	"d367ac9f-c65e-4af4-85d1-69a1eb34897b");
+INSERT INTO O_TFR
+	VALUES ("18182e66-04ca-4cb5-83b8-41842888357c",
+	"dcbde5c3-c845-4c4a-99bf-003c6b74e026",
+	'downgradeCheck',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'isVisible = self.canReferToDataType();
+if ( not isVisible )
+  select one s_dt related by self->S_DT[R4007];
+  Util::reportElementDowngraded(rto:s_dt.convertToInstance(), rgoDowngraded:self.convertToInstance(), relationship:"R4007");
+  self.setToDefaultDataType();
+end if;
+',
+	1,
+	'',
+	"6fa2b067-98ae-436a-842d-82db6ebdfb9d");
 INSERT INTO O_NBATTR
 	VALUES ("1b92be00-6fc2-4d3f-8cf6-f370882d6255",
 	"dcbde5c3-c845-4c4a-99bf-003c6b74e026");

@@ -6305,6 +6305,20 @@ end if;
 	1,
 	'',
 	"106f6a4c-e49b-4879-ad83-2f3e652b18d1");
+INSERT INTO O_TFR
+	VALUES ("12903e07-fb7b-44f1-a698-f648059f3ee1",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'downgradeCheck',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'select many pe_pes related by self->PE_PE[R8000];
+for each pe_pe in pe_pes
+  pe_pe.downgradeCheck();
+end for;',
+	1,
+	'',
+	"71f25991-161d-4092-b684-a166114dab97");
 INSERT INTO O_NBATTR
 	VALUES ("bceab74d-6f82-4823-b3be-7791bab58106",
 	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e");
