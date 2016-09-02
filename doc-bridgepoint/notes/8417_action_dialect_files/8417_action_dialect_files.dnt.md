@@ -44,7 +44,6 @@ should have its own file, or if they should be consolidated in one file
 4.4 Model editing behavior of BridgePoint (including signature editing and
 editing of the action text) shall remain unchanged  
 4.5 Architecture shall be designed to support multiple action language dialects
-in the future  
 
 5. Analysis
 -----------
@@ -120,43 +119,234 @@ actions are added. Decisions on these questions will be provided in the design.
 6. Design
 ---------
 
-6.1 ActionFileManager
+6.1 _ActionFileManager_
+
+A new class _ActionFileManager_ will be introduced. This class will internally
+maintain a map of files keyed by dialect. It will contain static utility
+functions to convert from the name of a PMC file to the corresponding action
+file and vice versa. _ActionFileManager_ will also be able to retrieve a handle
+to the current action file at the instance level. The action file will be chosen
+based on existence of actions and a preference. If a single dialect contains
+actions while all other dialects are empty, that dialect is chosen. If no
+dialect contains actions, or more than one dialect contain actions, a preference
+is used to select the default (see 6.7).
 
 6.2 Changes to PMC and PersistenceManager
 
-6.3 Modifications to model export
+Each PMC will be contain an instance of _ActionFileManager_. This instance will
+be maintained alongside the existing `underlyingResouce` attribute that
+represents the file. A method shall be added to PersistableModelComponent to
+retrieve the current action file using the _ActionFileManager_.
 
-6.3.1 New Action Body class
+6.3 File existence, naming, extensions
 
-6.3.2 Archetype changes
+* A file shall be created for each dialect and shall correspond to a PMC  
+* The files shall be named with a unique file extension for each dialect. This
+will allow external editors to distinguish the files for syntax highlighting  
+* A dialect file shall only exist if at least one activity in the group
+(package, component, class, etc.) contains actions  
+
+For example, a package called "functions" containing an OAL function and a MASL
+function may have files on disk, `functions.xtuml`, `functions.masl`, and
+`functions.oal`
+
+For this incremental change, activity signatures shall be stored in the
+structural portion of the model (SQL statements) and only the action semantics
+shall be stored in separate files. This is because in order to store signatures
+in external files, a much more complex parser is needed. To store action
+semantics in external files, no instances need be created on load, the actions
+simply need to be inserted into existing instances.
+
+With the above in mind, the format of the action files (for OAL will be as
+follows):
+```
+{{<activity name>::<type key letters>::<primary id>}}
+// body of actions
+```
+
+For example:
+```
+{{foo::S_SYNC::bc9a6c16-8809-4681-92ab-421898fa108a}}
+// this is the function foo
+```
+
+Derived attributes and Transition/State actions have two primary identifiers. In
+these cases, the two identifiers are separated by "--". For example:
+```
+{{bar::O_DBATTR::638bee3f-c63f-4fc3-91f3-8419830a9810--bc9a6c16-8809-4681-92ab-421898fa108a}}
+// this is the derived attribute bar
+```
+
+The key letters and the primary identifiers of the activity instance is enough
+to properly select the instance and insert the action semantics. This is an ugly
+"signature", however it should be noted that in this change, the editor within
+Eclipse is still the preferred way to edit activities and this change focuses on
+separating the actions in the persistence layer. Development of a better
+signature, with textual parameter and type editing should be deferred until a
+better editor (perhaps Xtext based) is introduced. It would be wasted time to
+complicate the import parser with a signature at this time.
 
 6.4 Modifications to model import (load)
 
-6.4.1 Parser grammar
+6.4.1 Constructor changes
 
-6.4.2 Statement handler
+The importer class must now be created with a reference to two files -- one for
+the SQL statements and one for the actions. This change is made in the importer
+classes themselves as well as all the calls to the creation of these classes.
 
-6.5 Resource listener
+In some cases, an importer is created outside of the context of a PMC instance.
+In these situations the default action language dialect is chosen for the action
+file name. These cases do not depend on the actions, so using a default dialect
+here is not a problem.
 
-6.6 Preferences and how they are used
+6.4.2 Parser grammar
+
+A simple grammar shall be introduced alongside the SQL parse grammar to parse
+the file format laid out in section 6.3. This parser shall be invoked after the
+SQL parser has loaded and created instances and the batch relate has occurred.
+
+6.4.3 Statement handler
+
+The action parser shall invoke a routine to select the proper instance and set
+the `Action_Semantics_internal` attribute. This routine will consist of an
+`if`-`else if`-`else` block with a case for each type of activity. Within the
+body of each case, a query will be constructed from specific information about
+the class given the primary identifiers as arguments to the query. Once an
+instance is selected, the attribute setter will be used to replace the action
+semantics with the parsed body from the file. This routine will be constructed
+by an archetype using PEI data as described in section 6.5.1
+
+6.5 Modifications to model export
+
+6.5.1 New Action Body class
+
+A new class _Action Body_ (key letters `AB`) shall be added to the _FileIO_
+model. A section of the model is included here with a brief explanation for the
+reader.
+
+![fileio.png](fileio.png)
+
+The _Export Ordering_ class is the king of this model. An archetype scans the
+OOA of OOA and produces instances of _SQL Table_, _Column_, and _Export Item_,
+these instances are then linked with PEI data instances of _Export Ordering_ by
+name. The export ordering PEI data allows the developer to define how
+BridgePoint will recursively call export routines that utilize the _SQL Table_
+and _Column_ instances to dump SQL insert statements. Each _Export Ordering_ has
+a first child and next sibling. When finished exporting, the first child export
+routine is invoked. When all the children are finished exporting, the next
+sibling is invoked.
+
+_Action Body_ instances are also created at the same time as _SQL Table_ and
+_Column_ instances by scanning the OOA of OOA. If a class has the attribute
+`Action_Semantics_internal`, an `AB` instance is created. The name of the class,
+key letters, and the names of the primary identifier attribute(s) are stored in
+the `AB` instance. It is linked by name to the `EI` instance that is created for
+that class.
+
+6.5.2 Archetype changes
+
+A second output buffer is added to point to the action file (retrieved from the
+_ActionFileManager_ of the PMC). Code is added to persist this buffer to the
+file alongside the persistence of the regular model data file.
+
+A function `gen_write_action_statements` is created to handle writing out of
+actions. For each `AB` instance, a method is created to output action bodies
+according to the format presented in section 6.3. The key letters are used
+directly from the `AB` instances. The name(s) of the primary identifying
+attribute(s) is used to call the attribute accessor.
+
+Calls to the "write_action" methods are introduced within the export methods of
+elements that have an associated `AB` instance.
+
+Serialization of the `Action_Semantics_internal` attribute is suppressed. In its
+place an empty string is written to the SQL instance.
+
+6.6 Scope of I/O changes
+
+The archetype changes to the import and export flows is limited to "Component"
+import and export. We have three different types of import and export --
+component, model, and stream. Stream is used for copy and paste, model is used
+for importing and exporting single file models, and component is used for the
+loading and persisting of multi-file models in an Eclipse project. All of the
+archetype changes are limited to the component import and export. In this way,
+single model import/export and copy/paste functionality is left untouched,
+satisfying requirements 4.3 and 4.4.
+
+The scope of this change may need to be broadened in the future as the strategy
+for handling multiple dialects develops. It should be noted that if there were
+multiple existing dialects in one model, a single model file export would only
+serialize the actions that happened to be in memory at the time.
+
+6.7 Resource listener
+
+The component file resource listener shall be modified to recognize changes,
+additions and deletions of action files as well as `.xtuml` model files and fire
+a reload of the PMC accordingly.
+
+6.8 Preferences and how they are used
+
+A preference is added to specify the default action language dialect. This
+preference will be used to dispel ambiguity in situations where no action
+language exists, or multiple dialects of the same activity exist.
+
+A common example of this is when opening an editor on a newly created action. A
+user creates a function, then double clicks the function to open the activity
+editor. In this case, no actions have been added, so it is impossible for
+BridgePoint to know which dialect he desires to edit. The preference is used to
+decide which editor to open. After he has edited, the existence of actions in
+that dialect can be used to infer the decision.
+
+Note: This preference was pre-existing, but shall be moved to a new and more
+intuitive location. Previously there was a page _xtUML > Default Activity
+Editor_. The preference has been moved to the _xtUML > Action Language_ page.
+
+6.9 Limitations
+
+The biggest limitation of this change is that the `Action_Semantics_internal`
+attribute is still necessary. Only one dialect of actions can be in the in
+memory OOA of OOA a time. Hopefully in the future, an advanced editor/parser
+plugin can be queried for actions and other plugins will looking in the OOA of
+OOA for action semantics. For this incremental step, it is a limitation,
+particularly in copy/paste and single file import/export.
+
+7. Design Comments
+------------------
 
 8. User Documentation
 ---------------------
-Describe the end user documentation that was added for this change. 
+
+8.1 Update section 4.4.3 of the "MASL Conversion Guide" to reflect the change of
+location of the default action language dialect preference.
 
 9. Unit Test
 ------------
-Outline all the unit tests that need to pass and describe the method that you
-will use to design and perform the tests. Here is an example reference to the Document References section [[2.1]](#2.1)
 
-9.1 Item 1  
-9.1.1 Example sub-item
-* Example List Element
+9.1 Create a test model. Add elements containing actions (functions, operations,
+states, etc.). Add action semantics to the activities you added.  
+9.2 On the file system, use a search tool (e.g. `grep`) to verify that the
+action semantics added exist nowhere in any `.xtuml` file.  
+9.3 Verify that for each component, package, class, and state machine to which
+actions were added has a corresponding file `<name>.<dialect>` alongside the
+`<name>.xtuml` file.  
+9.4 Verify that the actions that were added exist in these files  
 
-9.2 Item 2  
-9.2.1 Example sub-item
-* Example List Element
+9.5 Switch to the Java perspective. Right click on the project and select "Close
+Project". Right click again and select "Open Project".  
+9.6 Verify that the activities can be opened again and that the actions that
+were added were loaded properly.  
+
+9.7 In the xtUML Modeling perspective, right click the test project, then select
+"Export".  
+9.8 Export the model to a single file.  
+9.9 Create another test project and import the exported model into the new
+project.  
+9.10 Verify that all the action semantics that were added exist in the new
+project.  
+
+9.11 Copy a model element containing actions. Paste the element into a new
+location.  
+9.12 Verify that that the actions exist in the pasted element in BridgePoint and
+in the proper place on the file system.
 
 End
 ---
-
