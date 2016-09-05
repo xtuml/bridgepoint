@@ -10,8 +10,9 @@ This work is licensed under the Creative Commons CC0 License
 1. Abstract
 -----------
 Currently, BridgePoint stores action language in an attribute on model
-instances in the meta-model. This approach has a few key disadvantages:
-* Mixing of concerns between the models and the actions
+instances in persisted SQL statements. This approach has a few key
+disadvantages:
+* Mixing of textual action language and SQL
 * Not easily extensible to support multiple dialects of action language
 (think OAL, MASL, ALF)
 
@@ -29,8 +30,19 @@ language dialects, and provide a more pleasing user experience.
 -------------
 The reader should take a look at both [[2.2]](#2.2) and [[2.3]](#2.3) before
 continuing. These notes represent work that was previously done in this area
-that has been abandoned. Problems during implementation that made the design
-infeasible, however, it is important to know the work that came before.
+that has been abandoned. Problems arose during implementation that made the
+design infeasible, however, it is important to know the work that came before.
+
+The main issue with the previous design was that it did not utilize the existing
+persistence framework. Because of this, copy and paste, rename, etc. of model
+elements containing actions would need to be specialized to handle the files.
+Additionally, the design relied on placeholder files which are deep within the
+text editor plugin. It would have been unwise to tie up persistence of actions
+with the editor.
+
+The old design proposed removing dependence on the `Action_Semantics` attribute
+entirely. This is not only an enormous change, but it has since been called into
+question. This design does not aim to remove `Action_Semantics`.
 
 4. Requirements
 ---------------
@@ -73,7 +85,7 @@ ask the editor for the text of the actions. The Xtext parser can populate OOA
 `V_` and `ACT_` instances and the old parser can be deprecated. In the future,
 a concrete syntax of xtUML combined with Xtext integration could be used to
 populate the full OOA of OOA and serialize back to text, simplifying and
-deprecating the I/O plugin (except for graphical instances).
+deprecating the I/O plugin.
 
 5.1.3 The above state can be reached through a series of incremental steps. This
 design takes aim at the first step. Observe the two solid pink arrows. This
