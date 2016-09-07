@@ -310,6 +310,8 @@ public abstract class NonRootModelElement extends ModelElement implements IAdapt
 					path = "Class State Machine" + "::" + path;
 				} else if (parent instanceof InstanceStateMachine_c) {
 					path = "Instance State Machine" + "::" + path;
+				} else if (parent instanceof UserDataType_c) {
+					// Already set the last segment of the path
 				} else {
 					path = parent.getName() + "::" + path;
 				}
