@@ -62,6 +62,9 @@ import org.xtuml.bp.core.util.UIUtil;
 
 public abstract class PasteAction extends CutCopyPasteAction  {
 
+	public static final String TranactionNameForMove = "Model Element Move";
+	public static final String TranactionNameForCopyPaste = "Paste";
+
 	protected HashMap<NonRootModelElement, ModelStreamProcessor> processorMap = new HashMap<NonRootModelElement, ModelStreamProcessor>();
 
 	public PasteAction() {
@@ -229,8 +232,13 @@ public abstract class PasteAction extends CutCopyPasteAction  {
 			List<NonRootModelElement> destinations = getDestinations();
 			Transaction transaction = null;
 			try {
+				String pasteTransactionName = TranactionNameForCopyPaste;
+				if (MOVE_IS_IN_PROGRESS) {
+					pasteTransactionName = TranactionNameForMove;
+				}
+				
 				transaction = manager
-						.startTransaction("Paste", //$NON-NLS-1$
+						.startTransaction(pasteTransactionName, //$NON-NLS-1$
 								new ModelRoot[] { Ooaofooa.getDefaultInstance(),
 										(ModelRoot) OoaofgraphicsUtil.getGraphicsRoot(
 												Ooaofooa.DEFAULT_WORKING_MODELSPACE,
@@ -339,7 +347,7 @@ public abstract class PasteAction extends CutCopyPasteAction  {
 		}
 	}
 
-	private static NonRootModelElement getContainerForMove(NonRootModelElement sourceElement) {
+	public static NonRootModelElement getContainerForMove(NonRootModelElement sourceElement) {
 		PersistableModelComponent srcPMC = sourceElement.getPersistableComponent(true);
 		IPersistenceHierarchyMetaData hmd = PersistenceManager.getHierarchyMetaData();
 		// If this element is a model root then we will unrelate from the parent
