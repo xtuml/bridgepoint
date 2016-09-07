@@ -44,6 +44,7 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.PlatformUI;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.Ooaofooa;
+import org.xtuml.bp.core.Package_c;
 import org.xtuml.bp.core.PackageableElement_c;
 import org.xtuml.bp.core.SystemModel_c;
 import org.xtuml.bp.core.common.IPasteListener;
@@ -452,11 +453,23 @@ public abstract class PasteAction extends CutCopyPasteAction  {
 					if(types.length > 0) {
 						for (int i = 0; i < types.length; i++) {
 							if (MOVE_IS_IN_PROGRESS) {								
-								// If this is a move, the source and destination can not be the same.
 								for (NonRootModelElement sourceElement : ELEMENT_MOVE_SOURCE_SELECTION ) {
+									
+									// If this is a move, the source and destination can not be the same.
 									NonRootModelElement sourceContainer = getContainerForMove(sourceElement);
 									if (destination == sourceContainer) {
 										return false;
+									}
+
+									// Don't allow move of a package to a package under the source selection
+									if (sourceElement instanceof Package_c) {
+										NonRootModelElement tempParent = destination.getParentPackage();
+										while (tempParent != null) {
+											if (tempParent == sourceElement) {
+												return false;
+											}
+											tempParent = tempParent.getParentPackage();
+										}
 									}
 								}
 							}
