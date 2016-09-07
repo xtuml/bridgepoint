@@ -177,10 +177,9 @@ public class ComponentTransactionListener implements ITransactionListener {
 							ModelElementMovedModelDelta modelDelta = (ModelElementMovedModelDelta) delta;
 							NonRootModelElement elementMoved=(NonRootModelElement) delta.getModelElement();
 							ComponentTransactionListener.movePMC(elementMoved, modelDelta.getDestination());
-							// Note that the 3rd parameter here specifies that we will NOT for the RGOs
-							// to be persisted. In the move case we do NOT update RGOs we intentionally leave the
-							// stale proxy paths because we do not want to force checkout of RGOs.
-							persistRenamedME(persisted, modelDelta.getDestination(), false);
+							// Note that the 3rd parameter here specifies that we WILL persist RGOs. 
+							// This will cause RGOs to be updated in order to update proxy paths.
+							persistRenamedME(persisted, modelDelta.getDestination(), true);
 						}
                     } else if (delta instanceof AttributeChangeModelDelta) {
                         NonRootModelElement element=(NonRootModelElement) delta.getModelElement();
