@@ -154,7 +154,7 @@ public class CanvasPasteAction extends PasteAction {
 
 			for (NonRootModelElement nrme : ELEMENT_MOVE_SOURCE_SELECTION) {
 				GraphicalElement_c movedGraphicalElement = null;
-				Ooaofgraphics ooaofg = Ooaofgraphics.getInstance(nrme.getModelRoot().getId());
+				Ooaofgraphics ooaofg = Ooaofgraphics.getInstance(PasteAction.getContainerForMove(nrme).getModelRoot().getId());
 				movedGraphicalElement = CanvasPlugin.getGraphicalElement(ooaofg, nrme);
 
 				// If there is a graphical element we need to update its
