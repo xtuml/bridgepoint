@@ -23,6 +23,7 @@ import org.eclipse.jface.action.Action;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.PlatformUI;
+import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.PackageableElement_c;
 import org.xtuml.bp.core.common.NonRootModelElement;
 
@@ -38,9 +39,9 @@ public abstract class CutCopyPasteAction extends Action {
 	
 	protected String transactioName;
 	
-	protected static boolean MOVE_IS_IN_PROGRESS = false;
+	private static boolean MOVE_IS_IN_PROGRESS = false;
 
-	protected static List<NonRootModelElement> ELEMENT_MOVE_SOURCE_SELECTION = new ArrayList<NonRootModelElement>();
+	public static ArrayList<NonRootModelElement> ELEMENT_MOVE_SOURCE_SELECTION = new ArrayList<NonRootModelElement>();
 	public CutCopyPasteAction() {
 		if (getActionType() == CUT_TYPE) {
 			setImageDescriptor(PlatformUI.getWorkbench().getSharedImages()
@@ -67,6 +68,18 @@ public abstract class CutCopyPasteAction extends Action {
 		return MOVE_IS_IN_PROGRESS;
 	}
 	
+	public static void startMove() {
+		MOVE_IS_IN_PROGRESS = true;
+		ELEMENT_MOVE_SOURCE_SELECTION.clear();
+	}
+	
+	public static void stopMove() {
+		MOVE_IS_IN_PROGRESS = false;
+		ELEMENT_MOVE_SOURCE_SELECTION.clear();
+		// Clear the clipboard to prevent another paste
+		CorePlugin.getSystemClipboard().clearContents();
+	}
+		
 	public static boolean selectionContainsOnlyPEs() {
 		NonRootModelElement[] selectedNRMEs = Selection.getInstance().getSelectedNonRootModelElements();;
 		for(int i = 0; i < selectedNRMEs.length; i++) {

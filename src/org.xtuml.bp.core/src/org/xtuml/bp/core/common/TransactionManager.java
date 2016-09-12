@@ -191,6 +191,12 @@ public class TransactionManager {
 					+ "' is already in progress");
 		}
 
+		// If a Move is in progress we require that the next transaction be the paste. If the user
+		// does anything else before that, we cancel the move operation.
+		if (PasteAction.moveIsInProgress() && !displayName.equals(PasteAction.TranactionNameForMove)) {
+			PasteAction.stopMove();
+		}
+		
 		if (consistencyListener == null) {
 			consistencyListener = new ConsistencyTransactionListener();
 			addTransactionListener(consistencyListener);
@@ -413,6 +419,7 @@ public class TransactionManager {
 							affectedComponents.remove(component.getFile());
 						}
 					}
+					// If we change the name of a ModelRoot then we update all RGOs in order to assure all proxies are updated
 					if (delta instanceof AttributeChangeModelDelta) {
 						AttributeChangeModelDelta modelDelta = (AttributeChangeModelDelta) delta;
 						if (modelDelta.isPersistenceRelatedChange()) {
@@ -422,40 +429,13 @@ public class TransactionManager {
 									// rgos, and children components if this
 									// element
 									// is a component root
-									if (PersistenceManager
-											.getHierarchyMetaData()
-											.isComponentRoot(modelElement)) {
-								List<PersistableModelComponent> children = gatherChildrenComponents(component);
-								for (PersistableModelComponent child : children) {
-											if (!affectedComponents
-													.contains(child.getFile())) {
-										affectedComponents.add(child
-												.getFile());
-									}
-
-								}
-									}
-
-								// now look for rgos
-								List<?> selfExternalRGOs = PersistenceManager
-								.getHierarchyMetaData()
-								.findExternalRGOsToContainingComponent(
-										component
-										.getRootModelElement(),
-										true);
-								for (Object rgo : selfExternalRGOs) {
-									PersistableModelComponent target = ((NonRootModelElement) rgo)
-									.getPersistableComponent();
-									if (target != null
-											&& !affectedComponents
-											.contains(target
-													.getFile())) {
-										affectedComponents.add(target
-												.getFile());
-									}
-								}
+									addRGOsToAffectedComponentsList(modelElement);
 							}
 						}
+					}
+					// Like the rename of a  ModelRoot above, we change the name of a PMC then we update all RGOs in order to assure all proxies are updated
+					if (delta instanceof ModelElementMovedModelDelta) {
+						addRGOsToAffectedComponentsList(modelElement);						
 					}
 				}
 			}
@@ -492,6 +472,30 @@ public class TransactionManager {
 		}
 	}
 
+	private void addRGOsToAffectedComponentsList(NonRootModelElement elementChanged) {
+		PersistableModelComponent pmcChanged = elementChanged.getPersistableComponent(true);
+		if (PersistenceManager.getHierarchyMetaData().isComponentRoot(elementChanged)) {
+			List<PersistableModelComponent> children = gatherChildrenComponents(pmcChanged);
+			for (PersistableModelComponent child : children) {
+				if (!affectedComponents.contains(child.getFile())) {
+					affectedComponents.add(child.getFile());
+				}
+
+			}
+		}
+
+		// now look for rgos
+		List<?> selfExternalRGOs = PersistenceManager.getHierarchyMetaData()
+				.findExternalRGOsToContainingComponent(pmcChanged.getRootModelElement(), true);
+		for (Object rgo : selfExternalRGOs) {
+			PersistableModelComponent target = ((NonRootModelElement) rgo).getPersistableComponent();
+			if (target != null && !affectedComponents.contains(target.getFile())) {
+				affectedComponents.add(target.getFile());
+			}
+		}
+		
+	}
+	
 	private List<PersistableModelComponent> gatherChildrenComponents(PersistableModelComponent component) {
 		List<PersistableModelComponent> collection = new ArrayList<PersistableModelComponent>();
 		Collection<?> children = component.getChildren();

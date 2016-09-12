@@ -234,7 +234,7 @@ public abstract class PasteAction extends CutCopyPasteAction  {
 			Transaction transaction = null;
 			try {
 				String pasteTransactionName = TranactionNameForCopyPaste;
-				if (MOVE_IS_IN_PROGRESS) {
+				if (moveIsInProgress()) {
 					pasteTransactionName = TranactionNameForMove;
 				}
 				
@@ -253,7 +253,7 @@ public abstract class PasteAction extends CutCopyPasteAction  {
 			try {				
 				Ooaofooa.beginSaveOperation();
 				
-				if (MOVE_IS_IN_PROGRESS ) {
+				if (moveIsInProgress() ) {
 					// Move only allows 1 destination to be selected
 					processPasteForMove(destinations.get(0));
 				} else {
@@ -286,7 +286,7 @@ public abstract class PasteAction extends CutCopyPasteAction  {
 				}
 			}
 
-			if (!MOVE_IS_IN_PROGRESS) {
+			if (!moveIsInProgress()) {
 				boolean continueProcessing = displayProblemDialog(monitor);
 				if (!continueProcessing) {
 					// The user canceled the paste operation, revert the transaction and exit
@@ -339,11 +339,8 @@ public abstract class PasteAction extends CutCopyPasteAction  {
 		} catch (Throwable e) {
 			CorePlugin.logError("Unable to import contents from clipboard.", e); //$NON-NLS-1$
 		} finally {
-			if (MOVE_IS_IN_PROGRESS) {
-				// Clear the clipboard to prevent another paste
-				CorePlugin.getSystemClipboard().clearContents();
-				ELEMENT_MOVE_SOURCE_SELECTION = new ArrayList<NonRootModelElement>();
-				MOVE_IS_IN_PROGRESS = false;
+			if (moveIsInProgress()) {
+				stopMove();
 			}
 		}
 	}
@@ -445,14 +442,14 @@ public abstract class PasteAction extends CutCopyPasteAction  {
 			if (contents instanceof String) {
 				List<NonRootModelElement> destinations = getDestinations();
 				// If this is a move. only 1 destination is allowed
-				if (MOVE_IS_IN_PROGRESS && destinations.size() > 1) {
+				if (moveIsInProgress() && destinations.size() > 1) {
 					return false;
 				}
 				for (NonRootModelElement destination : destinations) {
 					String types[] = getClipboardTypes((String) contents, destination);
 					if(types.length > 0) {
 						for (int i = 0; i < types.length; i++) {
-							if (MOVE_IS_IN_PROGRESS) {								
+							if (moveIsInProgress()) {								
 								for (NonRootModelElement sourceElement : ELEMENT_MOVE_SOURCE_SELECTION ) {
 									
 									// If this is a move, the source and destination can not be the same.
