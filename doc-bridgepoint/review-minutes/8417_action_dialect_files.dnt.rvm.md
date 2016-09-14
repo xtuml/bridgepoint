@@ -13,21 +13,21 @@ Present:  Cort, Bob, Levi, Jason, Keith
 <pre>
 
 -- Num Type  Who  Section  Comment
-_- 01  min   KB   4.2      "have a corresponding a file" > "have a corresponding file"
-_- 02  min   KB   4.2      clarify that package contains both Functions and EEs
+x- 01  min   KB   4.2      "have a corresponding a file" > "have a corresponding file"
+x- 02  min   KB   4.2      clarify that package contains both Functions and EEs
 _- 03  min   CS   5.1.2    Note the we still use *.oal for error markers, so this section could conflict
-_- 04  min   LS   5.1.3    Clarify that the xtext editor is a reference to the MASL editor and not part of this work 
+x- 04  min   LS   5.1.3    Clarify that the xtext editor is a reference to the MASL editor and not part of this work 
 _- 05  min   BM   5.2      Make this section a link or copy it and add it to our FAQ as "What is a PMC?"
-_- 06  min   CS   6.3      "created on load," > "created on load;"
-_- 07  min   BM   6.3      Clarify... does it create all files on first entry, or only the one(s) that are needed?
-_- 08  min   BM   6        Consider re-ordering the points in this section for readability
+x- 06  min   CS   6.3      "created on load," > "created on load;"
+x- 07  min   BM   6.3      Clarify... does it create all files on first entry, or only the one(s) that are needed?
+x- 08  min   BM   6        Consider re-ordering the points in this section for readability
 _- 09  min   BM   6.5.1    Another spot to add to the FAQ about the Persistence mechanism
-_- 10  min   CS   6.5.2    ActionBody may be logically the same as ActionFileManager.  Consider this.
-_- 11  min   BM   6.5.1    Add a brief description of the interaction with file_io.pei.sql and stream.pei.sql
-_- 12  min   KB   6.6      Clarify is component means Persistable Model Component or xtUML Component
+x- 10  min   CS   6.5.2    ActionBody may be logically the same as ActionFileManager.  Consider this.
+x- 11  min   BM   6.5.1    Add a brief description of the interaction with file_io.pei.sql and stream.pei.sql
+x- 12  min   KB   6.6      Clarify is component means Persistable Model Component or xtUML Component
 _- 13  min   BM   6        Consider and record the implications on model compare of these changes
-_- 14  min   JR   6.9      Couple of grammar issues in this paragraph
-_- 15  min   BM   7        Add "None"
+x- 14  min   JR   6.9      Couple of grammar issues in this paragraph
+x- 15  min   BM   7        Add "None"
 _- 16  min   BM   9        We have OAL test models that exist to have action bodies in every action home.  We should reuse this model (and extend it if necessary)
 _- 17  min   BM   9        If no automated test is done, a manual test must be created to capture testing that can be re-run later.
 </pre>

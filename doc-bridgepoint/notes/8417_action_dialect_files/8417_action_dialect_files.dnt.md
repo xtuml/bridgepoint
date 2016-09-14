@@ -48,7 +48,8 @@ question. This design does not aim to remove `Action_Semantics`.
 ---------------
 4.1 Actions shall be stored separate from SQL model data in their own files  
 4.2 Each component, package, class, and state machine shall have a corresponding
-a file to contain all actions within the element  
+file to contain all actions within the element  
+_Note: EEs do not have their own file, but are part of the package file_  
 4.2.2 Analysis shall be done to decide whether each action language dialect
 should have its own file, or if they should be consolidated in one file  
 4.2.3 Analysis shall be done to decide an appropriate file extension scheme  
@@ -93,10 +94,12 @@ design outlines the plan to modify the I/O plugin so that action semantics can
 be peeled away from the structural model and stored in separate files.
 Minor modification to the export flow and PEI data can achieve this. The
 importer can be modified to look in these separate files to populate the action
-semantics instead of the SQL model data. The Xtext editor can also access these
+semantics instead of the SQL model data. The MASL Xtext editor can also access these
 files and focus on editing only. This modification to the I/O plugin allows
-BridgePoint to function normally while the Xtext editor grows and develops full
-integration.
+BridgePoint to function normally while the MASL Xtext editor grows and develops full
+integration.  
+_Note: the MASL Xtext editor is part of further development, and while it
+informs this desgin, it is not directly part of this work_
 
 5.2 PMCs
 
@@ -131,24 +134,24 @@ actions are added. Decisions on these questions will be provided in the design.
 6. Design
 ---------
 
-6.1 _ActionFileManager_
+6.1 Changes to PMC and PersistenceManager
 
-A new class _ActionFileManager_ will be introduced. This class will internally
+Each PMC will be contain an instance of _ActionFile_. This instance will be
+maintained alongside the existing `underlyingResouce` attribute that represents
+the file. A method shall be added to PersistableModelComponent to retrieve the
+current action file using the _ActionFile_.
+
+6.2 _ActionFile_
+
+A new class _ActionFile_ will be introduced. This class will internally
 maintain a map of files keyed by dialect. It will contain static utility
 functions to convert from the name of a PMC file to the corresponding action
-file and vice versa. _ActionFileManager_ will also be able to retrieve a handle
-to the current action file at the instance level. The action file will be chosen
-based on existence of actions and a preference. If a single dialect contains
-actions while all other dialects are empty, that dialect is chosen. If no
-dialect contains actions, or more than one dialect contain actions, a preference
-is used to select the default (see 6.7).
-
-6.2 Changes to PMC and PersistenceManager
-
-Each PMC will be contain an instance of _ActionFileManager_. This instance will
-be maintained alongside the existing `underlyingResouce` attribute that
-represents the file. A method shall be added to PersistableModelComponent to
-retrieve the current action file using the _ActionFileManager_.
+file and vice versa. _ActionFile_ will also be able to retrieve a handle to the
+current action file at the instance level. The action file will be chosen based
+on existence of actions and a preference. If a single dialect contains actions
+while all other dialects are empty, that dialect is chosen. If no dialect
+contains actions, or more than one dialect contain actions, a preference is
+used to select the default (see 6.8).
 
 6.3 File existence, naming, extensions
 
@@ -162,11 +165,16 @@ For example, a package called "functions" containing an OAL function and a MASL
 function may have files on disk, `functions.xtuml`, `functions.masl`, and
 `functions.oal`
 
+Note that in the Eclipse file system model, file instances can be present
+without existing on disk. All dialect file _instances_ shall be created,
+however the file will not be persisted on disk until at least one activity
+contains actions.
+
 For this incremental change, activity signatures shall be stored in the
 structural portion of the model (SQL statements) and only the action semantics
 shall be stored in separate files. This is because in order to store signatures
 in external files, a much more complex parser is needed. To store action
-semantics in external files, no instances need be created on load, the actions
+semantics in external files, no instances need be created on load; the actions
 simply need to be inserted into existing instances.
 
 With the above in mind, the format of the action files (for OAL will be as
@@ -248,6 +256,13 @@ a first child and next sibling. When finished exporting, the first child export
 routine is invoked. When all the children are finished exporting, the next
 sibling is invoked.
 
+Two files are used to store the PEI data for _Export Ordeing_ instances:
+`file_io.pei.sql` and `stream.pei.sql`, both located in
+`bridgepoint/src/org.xtuml.bp.io.core/sql/`. The two different files are used
+for two different types of export.  The instances in the file use string
+identifiers to create a tree to export instances as described in the above
+paragraph.
+
 _Action Body_ instances are also created at the same time as _SQL Table_ and
 _Column_ instances by scanning the OOA of OOA. If a class has the attribute
 `Action_Semantics_internal`, an `AB` instance is created. The name of the class,
@@ -258,8 +273,8 @@ that class.
 6.5.2 Archetype changes
 
 A second output buffer is added to point to the action file (retrieved from the
-_ActionFileManager_ of the PMC). Code is added to persist this buffer to the
-file alongside the persistence of the regular model data file.
+_ActionFile_ of the PMC). Code is added to persist this buffer to the file
+alongside the persistence of the regular model data file.
 
 A function `gen_write_action_statements` is created to handle writing out of
 actions. For each `AB` instance, a method is created to output action bodies
@@ -282,7 +297,9 @@ for importing and exporting single file models, and component is used for the
 loading and persisting of multi-file models in an Eclipse project. All of the
 archetype changes are limited to the component import and export. In this way,
 single model import/export and copy/paste functionality is left untouched,
-satisfying requirements 4.3 and 4.4.
+satisfying requirements 4.3 and 4.4. Here _component_ refers to an xtUML model
+that is broken up into many files abstracted by _PersistableModelComponent_
+instances. It does not refer to the xtUML class _Component_.
 
 The scope of this change may need to be broadened in the future as the strategy
 for handling multiple dialects develops. It should be noted that if there were
@@ -315,14 +332,13 @@ Editor_. The preference has been moved to the _xtUML > Action Language_ page.
 6.9 Limitations
 
 The biggest limitation of this change is that the `Action_Semantics_internal`
-attribute is still necessary. Only one dialect of actions can be in the in
-memory OOA of OOA a time. Hopefully in the future, an advanced editor/parser
-plugin can be queried for actions and other plugins will looking in the OOA of
-OOA for action semantics. For this incremental step, it is a limitation,
-particularly in copy/paste and single file import/export.
+attribute is still necessary. Only one dialect of actions can be held by the in
+memory OOA of OOA at a given time. For this incremental step, it is a
+limitation, particularly in copy/paste and single file import/export.
 
 7. Design Comments
 ------------------
+None
 
 8. User Documentation
 ---------------------
