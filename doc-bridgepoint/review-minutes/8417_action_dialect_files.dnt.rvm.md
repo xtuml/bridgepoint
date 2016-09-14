@@ -17,11 +17,11 @@ x- 01  min   KB   4.2      "have a corresponding a file" > "have a corresponding
 x- 02  min   KB   4.2      clarify that package contains both Functions and EEs
 _- 03  min   CS   5.1.2    Note the we still use *.oal for error markers, so this section could conflict
 x- 04  min   LS   5.1.3    Clarify that the xtext editor is a reference to the MASL editor and not part of this work 
-_- 05  min   BM   5.2      Make this section a link or copy it and add it to our FAQ as "What is a PMC?"
+x- 05  min   BM   5.2      Make this section a link or copy it and add it to our FAQ as "What is a PMC?"
 x- 06  min   CS   6.3      "created on load," > "created on load;"
 x- 07  min   BM   6.3      Clarify... does it create all files on first entry, or only the one(s) that are needed?
 x- 08  min   BM   6        Consider re-ordering the points in this section for readability
-_- 09  min   BM   6.5.1    Another spot to add to the FAQ about the Persistence mechanism
+x- 09  min   BM   6.5.1    Another spot to add to the FAQ about the Persistence mechanism
 x- 10  min   CS   6.5.2    ActionBody may be logically the same as ActionFileManager.  Consider this.
 x- 11  min   BM   6.5.1    Add a brief description of the interaction with file_io.pei.sql and stream.pei.sql
 x- 12  min   KB   6.6      Clarify is component means Persistable Model Component or xtUML Component
