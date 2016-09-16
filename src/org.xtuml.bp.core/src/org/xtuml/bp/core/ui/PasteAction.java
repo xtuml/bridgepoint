@@ -63,8 +63,8 @@ import org.xtuml.bp.core.util.UIUtil;
 
 public abstract class PasteAction extends CutCopyPasteAction  {
 
-	public static final String TranactionNameForMove = "Model Element Move";
-	public static final String TranactionNameForCopyPaste = "Paste";
+	public static final String TransactionNameForMove = "Model Element Move";
+	public static final String TransactionNameForCopyPaste = "Paste";
 
 	protected HashMap<NonRootModelElement, ModelStreamProcessor> processorMap = new HashMap<NonRootModelElement, ModelStreamProcessor>();
 
@@ -233,9 +233,9 @@ public abstract class PasteAction extends CutCopyPasteAction  {
 			List<NonRootModelElement> destinations = getDestinations();
 			Transaction transaction = null;
 			try {
-				String pasteTransactionName = TranactionNameForCopyPaste;
+				String pasteTransactionName = TransactionNameForCopyPaste;
 				if (moveIsInProgress()) {
-					pasteTransactionName = TranactionNameForMove;
+					pasteTransactionName = TransactionNameForMove;
 				}
 				
 				transaction = manager
