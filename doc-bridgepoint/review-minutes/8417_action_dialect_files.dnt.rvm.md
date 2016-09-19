@@ -25,7 +25,7 @@ x- 09  min   BM   6.5.1    Another spot to add to the FAQ about the Persistence 
 x- 10  min   CS   6.5.2    ActionBody may be logically the same as ActionFileManager.  Consider this.
 x- 11  min   BM   6.5.1    Add a brief description of the interaction with file_io.pei.sql and stream.pei.sql
 x- 12  min   KB   6.6      Clarify is component means Persistable Model Component or xtUML Component
-_- 13  min   BM   6        Consider and record the implications on model compare of these changes
+x- 13  min   BM   6        Consider and record the implications on model compare of these changes
 x- 14  min   JR   6.9      Couple of grammar issues in this paragraph
 x- 15  min   BM   7        Add "None"
 _- 16  min   BM   9        We have OAL test models that exist to have action bodies in every action home.  We should reuse this model (and extend it if necessary)

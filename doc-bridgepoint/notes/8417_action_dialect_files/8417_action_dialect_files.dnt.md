@@ -131,6 +131,12 @@ extensions do we use? Are there multiple files for dialects or does one file
 contain them? Is an action file guaranteed to exist, or does it appear once
 actions are added. Decisions on these questions will be provided in the design.
 
+5.4 Model Compare
+
+Model compare was analyzed and it is determined that it will not be affected by this
+change. Model compare uses the "stream" model importer and exporter and therefore
+is out of the scope of this change. See section 6.6.
+
 6. Design
 ---------
 
