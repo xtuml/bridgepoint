@@ -102,7 +102,7 @@ public class ActionFile {
 
 	public static IPath getPathFromComponent( IPath path, String tag ) {
 		if ( null != path ) {
-			return path.removeFileExtension().addFileExtension(tag).addFileExtension(Ooaofooa.MODELS_EXT);
+			return path.removeFileExtension().addFileExtension(tag);
 		}
 		else {
 			return null;
@@ -125,7 +125,7 @@ public class ActionFile {
 	// get the component file path from the action file path
 	public static IPath getComponentPath( IPath path ) {
 		if ( null != path ) {
-			return path.removeFileExtension().removeFileExtension().addFileExtension(Ooaofooa.MODELS_EXT);
+			return path.removeFileExtension().addFileExtension(Ooaofooa.MODELS_EXT);
 		}
 		else {
 			return null;
