@@ -142,11 +142,11 @@ public class GraphicsReconcilerLauncher {
 	}
 
 	private static boolean elementsMustBeReconciled(Transaction transaction) {
-		// We should not need to run reconcilation on a Move 
+		// We should not need to run reconciliation on a Move 
 		// Note that when move was removed the question came up about disabling on copy/paste.
 		// It is worth noting that in the case where elements are copied from ME, all graphics ARE
 		// also copied, so it is not the reconciler that "recreates" graphics during copy/paste it
-		// is the copy that is smart en oughto get any graphics associated with the ME selection. 
+		// is the copy that is smart enough to get any graphics associated with the ME selection. 
 		// However, on paste in that situation the container symbol for the element being pasted IS
 		// created by graphics reconciliation. Therefore, for now only move is filtered.		
 		if (!PasteAction.TranactionNameForMove.equals(transaction.getDisplayName())) {
