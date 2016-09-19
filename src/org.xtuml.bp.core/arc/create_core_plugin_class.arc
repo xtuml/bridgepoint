@@ -112,7 +112,7 @@ import org.xtuml.bp.core.common.ModelRoot;
 import org.xtuml.bp.core.common.NonRootModelElement;
 import org.xtuml.bp.core.common.PersistenceChangeTracker;
 import org.xtuml.bp.core.common.PersistableModelComponent;
-import org.xtuml.bp.core.common.ActionFileManager;
+import org.xtuml.bp.core.common.ActionFile;
 import org.xtuml.bp.core.ui.AbstractModelExportFactory;
 import org.xtuml.bp.core.ui.AbstractModelImportFactory;
 import org.xtuml.bp.core.ui.AbstractStreamExportFactory;
@@ -293,7 +293,7 @@ public class CorePlugin extends AbstractUIPlugin {
 		IProgressMonitor monitor,
 		boolean parseAll, boolean isTemplate) {
 		try {
-			String actionFilePath = ActionFileManager.getPathFromComponent(model.getAbsolutePath(), ActionFileManager.getDefaultDialect()).toFile().getAbsolutePath();
+			String actionFilePath = ActionFile.getPathFromComponent(model.getAbsolutePath(), ActionFile.getDefaultDialect()).toFile().getAbsolutePath();
 			IModelImport im = importFactory.create(
 				model.getAbsolutePath(),
                                 actionFilePath,

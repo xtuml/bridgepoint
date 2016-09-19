@@ -104,7 +104,7 @@ public class PersistableModelComponent implements Comparable {
     private String componentType;
 
     private IFile underlyingResource;
-    private ActionFileManager afm;
+    private ActionFile afm;
 
     // instance of ME when component is loaded otherwise it will be null;
     private NonRootModelElement componentRootME;
@@ -131,7 +131,7 @@ public class PersistableModelComponent implements Comparable {
 
         underlyingResource = ResourcesPlugin.getWorkspace().getRoot().getFile(
                 modelFilePath);
-        afm = new ActionFileManager(modelFilePath);
+        afm = new ActionFile(modelFilePath);
         if (PersistenceManager.findComponent(modelFilePath) != null)
             throw new WorkbenchException(
                     "Another component with same path already exists");
@@ -173,7 +173,7 @@ public class PersistableModelComponent implements Comparable {
         IPath modelFilePath = getChildPath(parent.getFullPath(), name);
         underlyingResource = ResourcesPlugin.getWorkspace().getRoot().getFile(
                 modelFilePath);
-        afm = new ActionFileManager(modelFilePath);
+        afm = new ActionFile(modelFilePath);
         checkComponentConsistancy(null);
         
         // we don't check if underlying resource exists for the case when the ME
@@ -199,7 +199,7 @@ public class PersistableModelComponent implements Comparable {
         
         underlyingResource = ResourcesPlugin.getWorkspace().getRoot().getFile(
                 getRootComponentPath(systemModel.getName()));
-        afm = new ActionFileManager(getRootComponentPath(systemModel.getName()));
+        afm = new ActionFile(getRootComponentPath(systemModel.getName()));
          checkComponentConsistancy(null);
         
         componentRootME = systemModel;
@@ -221,7 +221,7 @@ public class PersistableModelComponent implements Comparable {
         componentRootME = systemModel;
         componentType = PersistenceManager.getHierarchyMetaData().getComponentType(systemModel);
       underlyingResource=ResourcesPlugin.getWorkspace().getRoot().getFile(new Path(dummyCompareName));
-        afm = new ActionFileManager(new Path(dummyCompareName));
+        afm = new ActionFile(new Path(dummyCompareName));
         setComponent(systemModel);
 
     }

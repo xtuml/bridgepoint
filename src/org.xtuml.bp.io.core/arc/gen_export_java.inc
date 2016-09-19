@@ -157,7 +157,7 @@ public class ${class_name} extends CoreExport
             FileOutputStream fs = new FileOutputStream(fh);
             m_fh = new PrintStream(fs);
             .if ( class_name == "ExportModelComponent" )
-            File afh = ActionFileManager.getPathFromComponent(m_path, ActionFileManager.getDefaultDialect()).toFile();
+            File afh = ActionFile.getPathFromComponent(m_path, ActionFile.getDefaultDialect()).toFile();
             FileOutputStream afs = new FileOutputStream(afh);
             m_afh = new PrintStream(afs);
             .end if

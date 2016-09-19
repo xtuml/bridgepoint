@@ -1,6 +1,6 @@
 // ========================================================================
 //
-//File: $RCSfile: ActionFileManager.java,v $
+//File: ActionFile.java
 //
 //========================================================================
 //
@@ -20,13 +20,13 @@ import org.eclipse.jface.preference.IPreferenceStore;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.Ooaofooa;
 
-public class ActionFileManager {
+public class ActionFile {
 	
 	private static final String[] DIALECTS = { "oal" }; //, "masl" };
 	
 	private HashMap<String,IFile> fileMap;
 	
-	public ActionFileManager( String componentFileName ) {
+	public ActionFile( String componentFileName ) {
 		fileMap = new HashMap<String,IFile>();
 		for ( int i = 0; i < DIALECTS.length; i++ ) {
 			IPath actionFilePath = getPathFromComponent(componentFileName, DIALECTS[i]);
@@ -34,7 +34,7 @@ public class ActionFileManager {
 		}
 	}
 	
-	public ActionFileManager( IPath componentPath ) {
+	public ActionFile( IPath componentPath ) {
 		fileMap = new HashMap<String,IFile>();
 		for ( int i = 0; i < DIALECTS.length; i++ ) {
 			IPath actionFilePath = getPathFromComponent(componentPath, DIALECTS[i]);
