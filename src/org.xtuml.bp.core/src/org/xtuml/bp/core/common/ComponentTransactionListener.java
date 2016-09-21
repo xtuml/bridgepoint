@@ -46,6 +46,7 @@ import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.Modeleventnotification_c;
 import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.SystemModel_c;
+import org.xtuml.bp.core.ui.PasteAction;
 import org.xtuml.bp.core.util.CoreUtil;
 
 public class ComponentTransactionListener implements ITransactionListener {
@@ -109,6 +110,7 @@ public class ComponentTransactionListener implements ITransactionListener {
 				}
 			}
 		}
+		
 		for (int i = 0; i < modelRoots.length; i++) {
 			// Persist changes for all model roots with matching id
 			// i.e., graphics changes and model changes
@@ -134,6 +136,14 @@ public class ComponentTransactionListener implements ITransactionListener {
 								}
 							}
 						}
+					} else if (delta instanceof ModelElementMovedModelDelta) {
+						NonRootModelElement elementMoved = (NonRootModelElement) delta.getModelElement();
+	
+						PersistableModelComponent sourceContainer = PasteAction.getContainerForMove(elementMoved).getPersistableComponent();
+						ComponentResourceListener.setIgnoreResourceChangesMarker(true);
+						ComponentTransactionListener.movePMC(elementMoved, ((ModelElementMovedModelDelta)delta).getDestination());
+						persist(sourceContainer);
+						persistRenamedME(elementMoved);
 					}
 				}
 
@@ -170,17 +180,6 @@ public class ComponentTransactionListener implements ITransactionListener {
 												element));
 						}
 						persist(target);
-					} else if (delta instanceof ModelElementMovedModelDelta) {
-						NonRootModelElement element = (NonRootModelElement) delta.getModelElement();
-						target = PersistenceManager.findElementComponent(element, true);
-						if (target != null) {
-							ModelElementMovedModelDelta modelDelta = (ModelElementMovedModelDelta) delta;
-							NonRootModelElement elementMoved=(NonRootModelElement) delta.getModelElement();
-							ComponentTransactionListener.movePMC(elementMoved, modelDelta.getDestination());
-							// Note that the 3rd parameter here specifies that we WILL persist RGOs. 
-							// This will cause RGOs to be updated in order to update proxy paths.
-							persistRenamedME(persisted, modelDelta.getDestination(), true);
-						}
                     } else if (delta instanceof AttributeChangeModelDelta) {
                         NonRootModelElement element=(NonRootModelElement) delta.getModelElement();
 						target = PersistenceManager.findElementComponent(element, true);
@@ -194,9 +193,7 @@ public class ComponentTransactionListener implements ITransactionListener {
 											.getHierarchyMetaData()
 											.isComponentRoot(modelElement)) {
 										modelElementRenamed((AttributeChangeModelDelta) delta);
-										persistRenamedME(persisted,
-												(NonRootModelElement) delta
-												.getModelElement(), true);
+										persistRenamedME(element);
 									}
 								} else if(modelDelta.getAttributeName().equals("Represents")) {
 									// special case to avoid persistence caused by the setting
@@ -274,15 +271,11 @@ public class ComponentTransactionListener implements ITransactionListener {
 		return false;
 	}
 
-	private void persistRenamedME(HashSet<PersistableModelComponent> persisted,
-			NonRootModelElement me, boolean includeRGOs) {
+	private void persistRenamedME(NonRootModelElement me) {
 
 		IPersistenceHierarchyMetaData metaData = PersistenceManager
 				.getHierarchyMetaData();
 
-		if (!metaData.isComponentRoot(me)) {
-			return;
-		}
 		// we need to update all proxy reference to renamed component and all of
 		// its children
 		PersistableModelComponent comp = me.getPersistableComponent();
@@ -297,34 +290,34 @@ public class ComponentTransactionListener implements ITransactionListener {
 					NullProgressMonitor nullMon = new NullProgressMonitor();
 					child.load(nullMon);
 				}
-				persistRenamedME(persisted, child.getRootModelElement(), includeRGOs);
 			} catch (CoreException e) {
-				CorePlugin.logError("Could not load component for updation. "
+				CorePlugin.logError("Failed to load component, unable to persist it. "
 						+ child.getFullPath(), e);
 			}
+			// This returns false if the element was already persisted. If it was
+			// not yet persisted then recurse into it.
+			if (persist(child)) {
+				persistRenamedME(child.getRootModelElement());
+			}
+			
 		}
 		// Persist this
 		persist(comp);
 		
 		// now persist all RGO proxies
-		if (includeRGOs) {
-			List selfExternalRGOs = metaData.findExternalRGOsToContainingComponent(
-					me, true);
-			for (Iterator iterator = selfExternalRGOs.iterator(); iterator
-					.hasNext();) {
-				PersistableModelComponent target = ((NonRootModelElement) iterator
-						.next()).getPersistableComponent();
-				if (target != null && !persisted.contains(target)) {
-					try {
-						if (!target.isLoaded()) {
-							NullProgressMonitor nullMon = new NullProgressMonitor();
-							target.load(nullMon);
-						}
-						persist(target);
-					} catch (CoreException e) {
+		List selfExternalRGOs = metaData.findExternalRGOsToContainingComponent(me, true);
+		for (Iterator iterator = selfExternalRGOs.iterator(); iterator.hasNext();) {
+			PersistableModelComponent target = ((NonRootModelElement) iterator.next()).getPersistableComponent();
+			if (target != null && !persisted.contains(target)) {
+				try {
+					if (!target.isLoaded()) {
+						NullProgressMonitor nullMon = new NullProgressMonitor();
+						target.load(nullMon);
+					}
+					persist(target);
+				} catch (CoreException e) {
 						CorePlugin.logError(
 								"Could not update persisted model file.", e);
-					}
 				}
 			}
 		}
@@ -416,40 +409,40 @@ public class ComponentTransactionListener implements ITransactionListener {
 	 * @param destination This is the destination selected by the user
 	 */
 	private static void movePMC(NonRootModelElement elementMoved, NonRootModelElement destination) {
-		try {
-			final IWorkspaceRoot wsRoot = ResourcesPlugin.getWorkspace().getRoot();
-			
-			PersistableModelComponent destinationPMC = destination.getPersistableComponent(true);
-			IPersistenceHierarchyMetaData metadata = PersistenceManager.getHierarchyMetaData();
-			if (metadata.isComponentRoot(elementMoved)) {
-				// This is the PMC associated with the xtuml file
-				PersistableModelComponent elementPMC = elementMoved.getPersistableComponent(true);
-				
-				// This is folder that the xtuml file is in
-				IPath elementParentDirectory = elementPMC.getContainingDirectoryPath();
-				IFolder containingFolder = wsRoot.getFolder(elementParentDirectory);			
-	
-				// Now get the destination folder
-				IPath destPath = destinationPMC.getContainingDirectoryPath().append(elementMoved.getName());
-	
-				// move the folder from the original location to the destination folder
-				// allow the move to keep the local history
+		final IWorkspaceRoot wsRoot = ResourcesPlugin.getWorkspace().getRoot();
+		
+		PersistableModelComponent destinationPMC = destination.getPersistableComponent(true);
+		IPersistenceHierarchyMetaData metadata = PersistenceManager.getHierarchyMetaData();
+		if (metadata.isComponentRoot(elementMoved)) {
+			// This is the PMC associated with the xtuml file
+			PersistableModelComponent elementPMC = elementMoved.getPersistableComponent(true);
+
+			// This is folder that the xtuml file is in
+			IPath elementParentDirectory = elementPMC.getContainingDirectoryPath();
+			IFolder containingFolder = wsRoot.getFolder(elementParentDirectory);
+
+			// Now get the destination folder
+			IPath destPath = destinationPMC.getContainingDirectoryPath().append(elementMoved.getName());
+
+			// move the folder from the original location to the destination folder
+			// allow the move to keep the local history
+			try {
 				containingFolder.move(destPath, true, true, null);
-				
 				// Update the underlying resource and its children (if any)
 				String elementName = elementMoved.getName();
-				IFile newFile = wsRoot
-						.getFile(destPath.append(elementName + "." + Ooaofooa.MODELS_EXT));
+				IFile newFile = wsRoot.getFile(destPath.append(elementName + "." + Ooaofooa.MODELS_EXT));
 				elementPMC.updateResource(newFile);
-			} else {
-				// We're just a normal element, update our containing PMC
-				elementMoved.setComponent(destinationPMC);
+			} catch (CoreException e) {
+				CorePlugin.logError("Could not move the folder from  " + containingFolder.toString() + " to "
+						+ destPath.toString() + " Element being moved: " + elementMoved.getName(), e);
 			}
-		} catch (Exception e) {
-			CorePlugin.logError("Could not move file resources for " + elementMoved.getName(), e);
-		}
+				
+		} 			
+
+		// Update the containing PMC
+		elementMoved.setComponent(destinationPMC);
 	}
-	
+
 	public static void setDontMakeResourceChanges(boolean newValue) {
 		dontMakeResourceChanges = newValue;
 	}
