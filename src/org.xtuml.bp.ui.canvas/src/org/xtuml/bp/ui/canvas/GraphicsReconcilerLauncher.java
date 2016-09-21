@@ -149,7 +149,7 @@ public class GraphicsReconcilerLauncher {
 		// is the copy that is smart enough to get any graphics associated with the ME selection. 
 		// However, on paste in that situation the container symbol for the element being pasted IS
 		// created by graphics reconciliation. Therefore, for now only move is filtered.		
-		if (!PasteAction.TranactionNameForMove.equals(transaction.getDisplayName())) {
+		if (!PasteAction.TransactionNameForMove.equals(transaction.getDisplayName())) {
 			IModelDelta[] deltas = transaction.getDeltas(Ooaofooa.getDefaultInstance());
 			if (deltas != null) {
 				for (int i = 0; i < deltas.length; i++) {

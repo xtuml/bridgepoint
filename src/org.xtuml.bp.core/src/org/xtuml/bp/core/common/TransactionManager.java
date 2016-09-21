@@ -193,7 +193,7 @@ public class TransactionManager {
 
 		// If a Move is in progress we require that the next transaction be the paste. If the user
 		// does anything else before that, we cancel the move operation.
-		if (PasteAction.moveIsInProgress() && !displayName.equals(PasteAction.TranactionNameForMove)) {
+		if (PasteAction.moveIsInProgress() && !displayName.equals(PasteAction.TransactionNameForMove)) {
 			PasteAction.stopMove();
 		}
 		

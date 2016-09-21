@@ -500,7 +500,7 @@ select one component related by self->PE_PE[R8001]->C_C[R8003];
     else
       path = package.getQualifiedName();
     end if;
-  else
+  elif not_empty component
     if(path != "")
       path = component.getQualifiedName() + "::" + path;
     else
