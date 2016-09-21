@@ -304,8 +304,9 @@ public class ComponentTransactionListener implements ITransactionListener {
 		// Persist this
 		persist(comp);
 		
-		// now persist all RGO proxies
+		// now persist all RGO proxies		
 		List selfExternalRGOs = metaData.findExternalRGOsToContainingComponent(me, true);
+		
 		for (Iterator iterator = selfExternalRGOs.iterator(); iterator.hasNext();) {
 			PersistableModelComponent target = ((NonRootModelElement) iterator.next()).getPersistableComponent();
 			if (target != null && !persisted.contains(target)) {

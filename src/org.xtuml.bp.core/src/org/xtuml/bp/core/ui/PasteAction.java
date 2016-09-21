@@ -468,17 +468,6 @@ public abstract class PasteAction extends CutCopyPasteAction  {
 											tempParent = tempParent.getParentPackage();
 										}
 									}
-
-									// Don't allow move of a package to a package under the source selection
-									if (sourceElement instanceof Package_c) {
-										NonRootModelElement tempParent = destination.getParentPackage();
-										while (tempParent != null) {
-											if (tempParent == sourceElement) {
-												return false;
-											}
-											tempParent = tempParent.getParentPackage();
-										}
-									}
 								}
 							}
 							isEnabled = supportsPaste(destination, types[i]);
