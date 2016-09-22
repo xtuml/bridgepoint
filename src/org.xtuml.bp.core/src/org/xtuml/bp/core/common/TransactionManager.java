@@ -496,7 +496,7 @@ public class TransactionManager {
 		
 	}
 	
-	private List<PersistableModelComponent> gatherChildrenComponents(PersistableModelComponent component) {
+	public static List<PersistableModelComponent> gatherChildrenComponents(PersistableModelComponent component) {
 		List<PersistableModelComponent> collection = new ArrayList<PersistableModelComponent>();
 		Collection<?> children = component.getChildren();
 		// now persist any other proxy data that is out there
