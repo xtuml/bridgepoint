@@ -25,6 +25,9 @@ This is a link to this issue's Statement of Work document, which contains the us
 <a id="2.4"></a>2.4 [Model Element Move Analysis Note #8031](https://github.com/xtuml/bridgepoint/blob/8031_Analyze_Model_Element_Move/8031_Analyze_Model_Element_Move.ant.md)
 Analysis referenced in design note.  
 
+<a id="2.5"></a>2.5 [Model Element Move User Test Cases #8726](https://support.onefact.net/issues/8726)   
+
+
 3. Background   
 -------------     
 
@@ -44,7 +47,6 @@ See the [Analysis Note](#2.4).
 
 6.1 See the [Design Note](#2.1).  
 
-6.2  
 
 
 7. Test Cases  
@@ -194,7 +196,82 @@ visibility items.
 related across R3 in Source package is moved to Destination package.  
 >* Options menu is shown for displaying information of the removal of the 
 imported class.  
->* Perform undo.  
+>* Perform undo.   
  
+7.13 Pessimistic Locking Test - test checkout of RGOs with a Pessimistic locking RCS.
+>* 1. Move a RTO that will cause one or more RGOs to be marked dirty
+>* 2. Result is the user should see a dialog warning them that shows them the files that will be checked out. The user should have the chance to cancel at this point.
+
+7.14 Moving a Package
+>* 1.    Create a xtUML project
+>* 2.    Create a package named P1 at top level
+>* 3.    Create a package named P1-1 in P1
+>* 4.    Create a package named P2 at top level
+>* 5.    Cut P1-1
+>* 6.    Paste into P2
+>* 7.    Open CME on P1-1 (in P2), Cut is enabled.  Close the CME.
+>* 8.    Create a package named P3 at top level
+>* 9.    Cut P2
+>* 10.   Paste into P3
+>* 11.   P2 graphic at top level is gone, P2 graphic is added to P3
+>* 12.   Restart BridgePoint
+>* 13.   P2 is not available at top level, P2 is under P3   
+  
+7.15 Move class into component
+>* 1.       Create a xtUML project
+>* 2.       Create a package named P1 at top level
+>* 3.       Create a class named CL1 in P1
+>* 4.       Create a component named COMP1 in P1
+>* 5.       Create a package named COMP1-P1 in COMP1
+>* 6.       Cut CL1
+>* 7.       Paste into COMP1-P1  
+
+7.16  Move class in association into component
+>* 1.    Create a xtUML project
+>* 2.    Create a package named P1 at top level
+>* 3.    Create a component named COMP1 in P1
+>* 4.    Create a package named COMP1-P1 in COMP1
+>* 5.    Create a package named COMP1-P2 in COMP1
+>* 6.    Create a class named CL1 in P1
+>* 7.    Create a class named CL2 in P1
+>* 8.    Create an attribute named Id in CL2
+>* 9.    Add Id as identifier
+>* 10.   Create an association R1 between CL1 and CL2
+>* 11.   Formalize association R1 using Id
+>* 12.   Cut CL2, should that be ok?
+>* 13.   Paste in COMP1-P1
+>* 14.   Graphic in COMP1-P1 is incorrect and probably the consistency of the model, Error!
+>* 15.    
+>* 16.   Alternate the Cut of CL2 with a Cut of CL1 should that be ok?
+>* 17.   Paste in COMP1-P1
+>* 18.   Graphic in COMP1-P1 is incorrect and probably the consistency of the model, Error!      
+
+7.17  Data Type at top level within project
+>* 1.       Create a xtUML project Test1
+>* 2.       Create a package named P1 at top level
+>* 3.       Create a package named P2 at top level
+>* 4.       Create a package named P3 at top level
+>* 5.       Create a data type My_DT in P1
+>* 6.       Create a component COMP1 in P2
+>* 7.       Create a package COMP1-P1 in COMP1
+>* 8.       Create a class CL1 in COMP1-P1
+>* 9.       Create a attribute Attr in CL1
+>* 10.   Set the attribute type to be My_DT
+>* 11.   Cut My_DT from P1
+>* 12.   Paste My_DT into P3
+>* 13.   Check the attribute type of Attr in CL1 by opening the set type dialog of the attribute, path Test::P3 will be shown and data type Test::P3 will not be selectable in the dialog (Correct)
+>* 14.   Restart BridgePoint
+>* 15.   Check the attribute type of Attr in CL1 by opening the set type dialog of the attribute, path will be empty and data type Test::P3 will be selectable in the dialog (Fail). Now it looks like that the data type is incorrect.
+>* 16.   Look into the p3.xtuml and cl1.xtuml files and find the instances of S_DT for My_DT and for O_ATTR of Attr, find out that the correct data type is assigned to the attribute
+>* 17.   The model is correct but the editor does not show the correct information. Our tests will be very time consuming looking into the core xtuml file for finding the behavior.
+
+7.18 Data type inside component
+>* 1.       Same as 7.17 but define the data type inside COMP1
+>* 2.       The same behavior as in 7.17
+
+7.19 Data type at top level across project
+>* 1.       Same as 7.17 but also create another project with a package at top level. Paste the data type into the package in the other project
+>* 2.       The same behavior as in 7.17
+
 End
 ---
