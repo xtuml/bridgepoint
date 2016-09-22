@@ -45,6 +45,7 @@ import org.xtuml.bp.core.Component_c;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.Modeleventnotification_c;
 import org.xtuml.bp.core.Ooaofooa;
+import org.xtuml.bp.core.Package_c;
 import org.xtuml.bp.core.SystemModel_c;
 import org.xtuml.bp.core.ui.PasteAction;
 import org.xtuml.bp.core.util.CoreUtil;
@@ -276,50 +277,29 @@ public class ComponentTransactionListener implements ITransactionListener {
 		IPersistenceHierarchyMetaData metaData = PersistenceManager
 				.getHierarchyMetaData();
 
-		// we need to update all proxy reference to renamed component and all of
-		// its children
+
+		// Persist this PMC and all PMCs under it
 		PersistableModelComponent comp = me.getPersistableComponent();
-		Collection children = comp.getChildren();
-		// now persist any other proxy data that is out there
-		// referring to this component
-		for (Iterator iter = children.iterator(); iter.hasNext();) {
-			PersistableModelComponent child = (PersistableModelComponent) iter
-					.next();
-			try {
-				if (!child.isLoaded()) {
-					NullProgressMonitor nullMon = new NullProgressMonitor();
-					child.load(nullMon);
-				}
-			} catch (CoreException e) {
-				CorePlugin.logError("Failed to load component, unable to persist it. "
-						+ child.getFullPath(), e);
-			}
-			// This returns false if the element was already persisted. If it was
-			// not yet persisted then recurse into it.
-			if (persist(child)) {
-				persistRenamedME(child.getRootModelElement());
-			}
-			
-		}
-		// Persist this
 		persist(comp);
+		Collection<PersistableModelComponent> children = TransactionManager.gatherChildrenComponents(comp);
+		for (Iterator<PersistableModelComponent> iter = children.iterator(); iter.hasNext();) {
+			PersistableModelComponent child = (PersistableModelComponent) iter.next();
+			persist(child);
+		}
 		
 		// now persist all RGO proxies		
-		List selfExternalRGOs = metaData.findExternalRGOsToContainingComponent(me, true);
+ 		List selfExternalRGOs;
+		if (me instanceof Package_c) {
+			selfExternalRGOs = metaData.findExternalRGOsToContainingComponent(me, true);
+		} else {			
+			Package_c packageContainer = me.getFirstParentPackage();
+			selfExternalRGOs = metaData.findExternalRGOsToContainingComponent(packageContainer, true);
+		}
 		
 		for (Iterator iterator = selfExternalRGOs.iterator(); iterator.hasNext();) {
 			PersistableModelComponent target = ((NonRootModelElement) iterator.next()).getPersistableComponent();
 			if (target != null && !persisted.contains(target)) {
-				try {
-					if (!target.isLoaded()) {
-						NullProgressMonitor nullMon = new NullProgressMonitor();
-						target.load(nullMon);
-					}
-					persist(target);
-				} catch (CoreException e) {
-						CorePlugin.logError(
-								"Could not update persisted model file.", e);
-				}
+				persist(target);
 			}
 		}
 	}
@@ -414,9 +394,10 @@ public class ComponentTransactionListener implements ITransactionListener {
 		
 		PersistableModelComponent destinationPMC = destination.getPersistableComponent(true);
 		IPersistenceHierarchyMetaData metadata = PersistenceManager.getHierarchyMetaData();
+		// This is the PMC associated with the xtuml file
+		PersistableModelComponent elementPMC = elementMoved.getPersistableComponent(true);
+		IFile newFile = destinationPMC.getFile();
 		if (metadata.isComponentRoot(elementMoved)) {
-			// This is the PMC associated with the xtuml file
-			PersistableModelComponent elementPMC = elementMoved.getPersistableComponent(true);
 
 			// This is folder that the xtuml file is in
 			IPath elementParentDirectory = elementPMC.getContainingDirectoryPath();
@@ -431,16 +412,17 @@ public class ComponentTransactionListener implements ITransactionListener {
 				containingFolder.move(destPath, true, true, null);
 				// Update the underlying resource and its children (if any)
 				String elementName = elementMoved.getName();
-				IFile newFile = wsRoot.getFile(destPath.append(elementName + "." + Ooaofooa.MODELS_EXT));
-				elementPMC.updateResource(newFile);
+				newFile = wsRoot.getFile(destPath.append(elementName + "." + Ooaofooa.MODELS_EXT));
 			} catch (CoreException e) {
 				CorePlugin.logError("Could not move the folder from  " + containingFolder.toString() + " to "
 						+ destPath.toString() + " Element being moved: " + elementMoved.getName(), e);
 			}
 				
-		} 			
+		}
+		// Update the PMCs file resource
+		elementPMC.updateResource(newFile);
 
-		// Update the containing PMC
+		// Update the PMC in the NonRootModelElement
 		elementMoved.setComponent(destinationPMC);
 	}
 
