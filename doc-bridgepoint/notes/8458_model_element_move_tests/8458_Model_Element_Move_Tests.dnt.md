@@ -82,8 +82,7 @@ VisibleInterface.
 >* Perform undo.  
 
 7.3 Use Case 4.3  
-7.3.1. ComponentMovePass1 in Source package FailureCasesComponentPackage is 
-moved to Destination package.  
+7.3.1. ComponentMovePass1 in Source package is moved to Destination package.  
 >* Result is successful move with no option menu shown for list of lost 
 visibility items.  
 >* Perform undo.  
