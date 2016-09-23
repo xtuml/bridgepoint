@@ -25,7 +25,9 @@ This is a link to this issue's Statement of Work document, which contains the us
 <a id="2.4"></a>2.4 [Model Element Move Analysis Note #8031](https://github.com/xtuml/bridgepoint/blob/8031_Analyze_Model_Element_Move/8031_Analyze_Model_Element_Move.ant.md)
 Analysis referenced in design note.  
 
-<a id="2.5"></a>2.5 [Model Element Move User Test Cases #8726](https://support.onefact.net/issues/8726)   
+<a id="2.5"></a>2.5 [Model Element Move User Test Cases #8726](https://support.onefact.net/issues/8726)    
+
+<a id="2.6"></a>2.6 [Model Element Move Test Model](https://github.com/keithbrown/sandbox/tree/master/models/movetest)   
 
 
 3. Background   
@@ -271,7 +273,24 @@ imported class.
 
 7.19 Data type at top level across project
 >* 1.       Same as 7.17 but also create another project with a package at top level. Paste the data type into the package in the other project
->* 2.       The same behavior as in 7.17
+>* 2.       The same behavior as in 7.17   
+
+7.20 Check graphics moved with element
+>* 1. Start BridgePoint with no canvases open
+>* 2. Cut and paste a top-level package into another top-level pacakge from Model Explorer with no Canvas open.
+>* 3. Open the System-level package
+>* 4. The graphic on the system-level diagram is has been removed
+>*       --- ERROR! Currently it is an empty white box.
+>* 5. The Graphic on the target is fine when the target package is opened
+>*       --- ERROR! Currently, the graphic is not present as it should be
+   
+7.21 Move UDT causing downgrade (Uses test model 2.6)
+>* 1. Expand movetest/p1/impl
+>* 2. Cut mysubtype
+>* 3. Expand movetest/p2/impl2
+>* 4. Paste mysubtype to impl2
+>* 5. Downgrade dialog indicates downgrades on elements under p1 that have lost visibility to mysubtype
+>* 6. Downgrade dialog indicates downgrade on mysubtype inside p2 since it lost visibility to mybasetype  
 
 End
 ---
