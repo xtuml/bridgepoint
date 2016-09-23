@@ -25,6 +25,7 @@ package org.xtuml.bp.core.common;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 
@@ -440,13 +441,15 @@ public class TransactionManager {
 							}
 						}
 					}
-					// Like the rename of a  ModelRoot above, we change the name of a PMC then we update all RGOs in order to assure all proxies are updated
-					// WARNING TODO! This is called BEFORE endTransaction processing which is where the file actually
-					// gets moved on disk. At the point this is at here, the move has taken place in memory but no changes
-					// have occurred on disk. This makes is hark for the ExternalLinkEvaluator to find the RGOs because the source element(s) is 
-					// still associated with the source container, not the destination container, on disk.
+					
 					if (delta instanceof ModelElementMovedModelDelta) {
-						addRGOsToAffectedComponentsList(modelElement);						
+						// assure all rgos are persisted
+						HashSet<PersistableModelComponent> rgosAffectedByMove = ((ModelElementMovedModelDelta) delta)
+								.getRGOsAffectedByMove();
+						for (Iterator<PersistableModelComponent> iter = rgosAffectedByMove.iterator(); iter.hasNext();) {
+							PersistableModelComponent rgo = (PersistableModelComponent) iter.next();
+							addRGOsToAffectedComponentsList(rgo.getRootModelElement());						
+						}
 					}
 				}
 			}
