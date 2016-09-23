@@ -304,5 +304,13 @@ imported class.
 >* 5. Downgrade dialog indicates downgrades on p1/impl/refs/Unassigned Imported Class (the src) that has lost visibility to clz
 >* 6. Downgrade dialog indicates downgrade on attributes and operations inside clz (the dest) since they lost visibility to types under p1/impl  
 
+7.24 Move component causing downgrade in source and destination (Uses test model [2.6](#2.6))
+>* 1. Expand movetest/p1/impl
+>* 2. Cut comp
+>* 3. Expand movetest/p2/impl2
+>* 4. Paste comp to impl2
+>* 5. Downgrade dialog indicates downgrades on p1/impl/refs/Unassigned Imported Component (the src) that has lost visibility to comp
+>* 6. Downgrade dialog indicates downgrade on internalType UDT inside comp/internals (the dest) since it lost visibility to type under p1/impl
+
 End
 ---
