@@ -274,12 +274,19 @@ public class TransactionManager {
 
 	private void addTransactionToStack(ArrayList<Transaction> stack,
 			Transaction transaction) {
-		if (stack.size() == maxStackSize) {
-			// if this stack is at its limit
-			// remove the bottom transaction
-			stack.remove(0);
+		// Move will not be undoable until https://support.onefact.net/issues/8755 has been resolved.
+		// Until then we prevent undo on Model Element Moves
+		if (PasteAction.TransactionNameForMove.equals(transaction.getDisplayName())) {
+			clearStacks();
+			setUndoRedoActionsState();
+		} else {
+			if (stack.size() == maxStackSize) {
+				// if this stack is at its limit
+				// remove the bottom transaction
+				stack.remove(0);
+			}
+			stack.add(transaction);
 		}
-		stack.add(transaction);
 	}
 
 	/**
@@ -434,6 +441,10 @@ public class TransactionManager {
 						}
 					}
 					// Like the rename of a  ModelRoot above, we change the name of a PMC then we update all RGOs in order to assure all proxies are updated
+					// WARNING TODO! This is called BEFORE endTransaction processing which is where the file actually
+					// gets moved on disk. At the point this is at here, the move has taken place in memory but no changes
+					// have occurred on disk. This makes is hark for the ExternalLinkEvaluator to find the RGOs because the source element(s) is 
+					// still associated with the source container, not the destination container, on disk.
 					if (delta instanceof ModelElementMovedModelDelta) {
 						addRGOsToAffectedComponentsList(modelElement);						
 					}
