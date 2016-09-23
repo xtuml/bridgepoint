@@ -337,6 +337,22 @@ imported class.
 >* 5. Downgrade dialog indicates downgrade of the imported class (in the dest) since it lost visibility to clz under p1/impl
 >* 6. Proceed with the move
 >* 7. p2/impl2 canvas contains "Unassigned Imported Class", the graphics are correct.
+>* 8. Restart BridgePoint
+>* 9. Open the p1/impl/refs canvas, the imported class is gone.
+>* 10. Open the p2/impl2 canvas, the Unassigned Imported Class shows
+
+7.28 Move package causing downgrade in destination (Uses test model [2.6](#2.6))
+>* 1. Open the canvas for movetest/p1/impl
+>* 2. Cut package EEs
+>* 3. Expand movetest/p2/impl2
+>* 4. Paste EEs into impl2
+>* 5. Downgrade dialog indicates downgrade of the TestEE bridge param and return values (in the dest) since they lost visibility to mysubtype under p1/impl
+>* 6. Proceed with the move
+>* 7. p2/impl2 canvas contains EEs pkg, the graphics are correct.
+>* 8. TestEE::testBridgeParam::p has type integer, TestEE::testBridgeRval has type void
+>* 9. Restart BridgePoint
+>* 10. Open the p2/impl2/EEs, verify TestEE::testBridgeParam::p has type integer, TestEE::testBridgeRval has type void
+
 
 End
 ---
