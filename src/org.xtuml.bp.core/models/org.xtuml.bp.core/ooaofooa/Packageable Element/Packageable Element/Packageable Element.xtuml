@@ -973,7 +973,20 @@ end if;
 // Data Type
 select one s_dt related by self->S_DT[R8001];
 if ( not_empty s_dt )
-  s_dt.downgradeCheck();
+  // When checking a datatype, we want to initiate the check on the subtype and let it
+  // do the supertype check as part of its processing.
+  select one s_udt related by s_dt->S_UDT[R17];
+  if ( not_empty s_udt )
+    s_udt.downgradeCheck();
+  end if;
+  select one s_sdt related by s_dt->S_SDT[R17];
+  if ( not_empty s_sdt )
+    s_sdt.downgradeCheck();
+  end if;
+  select one s_edt related by s_dt->S_EDT[R17];
+  if ( not_empty s_edt )
+    s_edt.downgradeCheck();
+  end if;
   return;
 end if;
 
