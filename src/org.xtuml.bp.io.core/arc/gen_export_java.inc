@@ -88,23 +88,37 @@ public class ${class_name} extends CoreExport
         .end if;
     .end if
 
-    public ${class_name}(${var.main_class_name} modelRoot, String outfileName, boolean export_graphics)
+    public ${class_name}(${var.main_class_name} modelRoot, String outfileName,
+    .if (multilevel)
+    String outActionFileName,
+    .end if
+    boolean export_graphics)
     	throws FileNotFoundException 
     {
 		super(modelRoot, CoreExport.YES);
     .if (callingProject == "NBP")
-        determineUpdateStatus(modelRoot.getFile(), outfileName);
+        determineUpdateStatus(modelRoot.getFile(), outfileName
+        .if (multilevel)
+        , outActionFileName
+        .end if
+        );
 	.else
 		Path path = new Path(outfileName);
 		File fh = path.toFile();
 		FileOutputStream fs = new FileOutputStream(fh);
 		m_fh = new PrintStream(fs);
+                .if (multilevel)
+		Path actionPath = new Path(outActionFileName);
+		File afh = actionPath.toFile();
+		FileOutputStream afs = new FileOutputStream(afh);
+		m_afh = new PrintStream(afs);
+                .end if
 	.end if
         m_export_graphics = export_graphics;
     }
 	.if(multilevel)
 
-	public ExportModelComponent(String outfileName,
+	public ExportModelComponent(String outfileName, String outActionFileName,
 			NonRootModelElement element)
 			throws FileNotFoundException {
 		super((Ooaofooa) element.getModelRoot(), CoreExport.YES);
@@ -114,30 +128,47 @@ public class ${class_name} extends CoreExport
         m_fh = new PrintStream(fs);
 		m_inst = element;
 		m_export_graphics = true;
+        Path actionPath = new Path(outActionFileName);
+        File afh = actionPath.toFile();
+        FileOutputStream afs = new FileOutputStream(afh);
+        m_afh = new PrintStream(afs);
 	}
 	
-	public ExportModelComponent(Ooaofooa modelRoot, ByteArrayOutputStream baos,
+	public ExportModelComponent(Ooaofooa modelRoot, ByteArrayOutputStream baos, ByteArrayOutputStream actionbaos,
 			NonRootModelElement element) {
     	super(modelRoot, CoreExport.YES);
     	m_fh = new PrintStream(baos);
+    	m_afh = new PrintStream(actionbaos);
     	m_inst = element;
     	m_export_graphics = true;
 	}
 	
-	public ${class_name}(${var.main_class_name} modelRoot, String outfileName, boolean export_graphics, NonRootModelElement instance)
+	public ${class_name}(${var.main_class_name} modelRoot, String outfileName,
+        .if (multilevel)
+        String outActionFileName,
+        .end if
+        boolean export_graphics, NonRootModelElement instance)
     	throws FileNotFoundException 
     {
 		super(modelRoot, CoreExport.YES);
         PersistableModelComponent mc = 
             PersistenceManager.getComponent(instance);
         IFile f = MdlPlugin.getWorkspace().getRoot().getFile(mc.getFullPath());
-        determineUpdateStatus(f, outfileName);
+        determineUpdateStatus(f, outfileName
+        .if (multilevel)
+        , outActionFileName
+        .end if
+        );
 		m_inst = instance;
         m_export_graphics = export_graphics;
     }
 	.end if	
     .if (callingProject == "NBP")
-    private void determineUpdateStatus(IFile mrFile, String outfileName)
+    private void determineUpdateStatus(IFile mrFile, String outfileName
+    .if (multilevel)
+    , String outActionFileName
+    .end if
+    )
     throws FileNotFoundException {
         m_path = new Path(outfileName);
         // getLocation() is null for some unit tests
@@ -157,7 +188,8 @@ public class ${class_name} extends CoreExport
             FileOutputStream fs = new FileOutputStream(fh);
             m_fh = new PrintStream(fs);
             .if ( class_name == "ExportModelComponent" )
-            File afh = ActionFile.getPathFromComponent(m_path, ActionFile.getDefaultDialect()).toFile();
+            Path actionPath = new Path(outActionFileName);
+            File afh = actionPath.toFile();
             FileOutputStream afs = new FileOutputStream(afh);
             m_afh = new PrintStream(afs);
             .end if
