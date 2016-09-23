@@ -312,5 +312,31 @@ imported class.
 >* 5. Downgrade dialog indicates downgrades on p1/impl/refs/Unassigned Imported Component (the src) that has lost visibility to comp
 >* 6. Downgrade dialog indicates downgrade on internalType UDT inside comp/internals (the dest) since it lost visibility to type under p1/impl
 
+7.25 Move interface causing downgrade in source and destination (Uses test model [2.6](#2.6))
+>* 1. Expand movetest/p1/impl
+>* 2. Cut TestInterface
+>* 3. Expand movetest/p2/impl2
+>* 4. Paste TestInterface to impl2
+>* 5. Downgrade dialog indicates downgrades on Port1 (the src) that has lost visibility to comp
+>* 6. Downgrade dialog indicates downgrade on TestInterface operations and signals use of UDT (the dest) since they lost visibility to type mysubtype under p1/impl
+
+7.26 Move component reference causing downgrade in destination (Uses test model [2.6](#2.6))
+>* 1. Expand movetest/p1/impl/refs
+>* 2. Cut Component reference
+>* 3. Expand movetest/p2/impl2
+>* 4. Paste TestInterface to impl2
+>* 5. Downgrade dialog indicates downgrade on TestInterface operations and signals use of UDT (the dest) since they lost visibility to type mysubtype under p1/impl
+>* 6. Proceed with the move
+>* 7. p2/impl2 contains "Unassigned Imported Component", the graphics for the p2/impl2 canvas are correct.
+
+7.27 Move imported class causing downgrade in destination (Uses test model [2.6](#2.6))
+>* 1. Open the canvas for movetest/p1/impl/refs
+>* 2. Cut Imported class clz
+>* 3. Expand movetest/p2/impl2
+>* 4. Paste to impl2
+>* 5. Downgrade dialog indicates downgrade of the imported class (in the dest) since it lost visibility to clz under p1/impl
+>* 6. Proceed with the move
+>* 7. p2/impl2 canvas contains "Unassigned Imported Class", the graphics are correct.
+
 End
 ---
