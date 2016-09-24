@@ -17,12 +17,12 @@ Move functionality in BridgePoint.
 <a id="2.1"></a>2.1 [BridgePoint DEI #8458](https://support.onefact.net/issues/8458) 
 This is a link to this issue in the issue tracking system.  
 
-<a id="2.2"></a>2.2 [Model Element Move Design Note #8321](https://github.com/xtuml/bridgepoint/blob/8321_Model_Element_Move/8321_Model_Element_Move.dnt.md)   
+<a id="2.2"></a>2.2 [Model Element Move Design Note #8321](https://github.com/xtuml/bridgepoint/blob/master/doc-bridgepoint/notes/8321_Model_Element_Move/8321_Model_Element_Move.dnt.md)   
 
 <a id="2.3"></a>2.3 [Statement of Work](https://docs.google.com/document/d/1_T4H7StO-VM8zfIFjr-V7VwUQMXML1c7nFJJofU0vGs/edit)  
 This is a link to this issue's Statement of Work document, which contains the use cases.  
 
-<a id="2.4"></a>2.4 [Model Element Move Analysis Note #8031](https://github.com/xtuml/bridgepoint/blob/8031_Analyze_Model_Element_Move/8031_Analyze_Model_Element_Move.ant.md)
+<a id="2.4"></a>2.4 [Model Element Move Analysis Note #8031](https://github.com/xtuml/bridgepoint/blob/master/doc-bridgepoint/notes/8031_Analyze_Model_Element_Move/8031_Analyze_Model_Element_Move.ant.md)
 Analysis referenced in design note.  
 
 <a id="2.5"></a>2.5 [Model Element Move User Test Cases #8726](https://support.onefact.net/issues/8726)    
@@ -44,7 +44,20 @@ The requirements are defined in this issue's [Statement of Work](#2.3).
 
 5. Analysis   
 -----------   
-See the [Analysis Note](#2.4). 
+See the [Analysis Note](#2.4).  
+
+5.1 Out-of-scope (downgradable) elements:  
+1. Reference to a user defined type  
+2. Interface reference  
+3. Component reference  
+4. Class refernce due to relationship  
+5. Class reference held by imported class  
+6. External Entity reference  
+7. Parse of action language containing downgraded references.  
+
+5.2 Places where a downgrade (scope change) occurs:  
+1. Downgrade in source  
+2. Downgrade in destination  
 
 
 6. Design   
@@ -72,8 +85,10 @@ visibility items.
 
 7.1.2. VisibleDataType in Source package is moved to 
 DestinationComponentPackage.  
->* Options menu is shown for displaying all items typed to VisibleDataType, that
-are now going to be set to the default type.  
+>* Options menu is shown for displaying downgrades.  
+>>* Check the following items to ensure a downgrade occurred: 
+>>>* ComponentMovePass1.ComponentMovePassClass.attribute1 to default
+>>>* FailureCasesComponent.FailureMoveClass.systemViewAttribute to default
 >* Perform undo.  
 
 7.2 Use Case 4.2  (Uses test model [2.8](#2.8))  
@@ -84,8 +99,14 @@ visibility items.
 
 7.2.2. VisibleInterface in Source package is moved to 
 DestinationComponentPackage.  
->* Option menu is shown for displaying all ports that referenced 
-VisibleInterface.  
+>* Options menu is shown for displaying downgrades.  
+>>* Check the following items to ensure a downgrade occurred:  
+>>>* ComponentMovePass1.ComponentMovePassPort.VisibleInterface to unassigned
+>>>* ComponentMovePass3.ModelElementMoveTests::Source::VisibleComponent1.VisibleComponent1Port.VisibleInterface to unassigned
+>>>* ComponentMovePass4.ModelElementMoveTests::Source::VisibleComponent1.VisibleComponent1Port.VisibleInterface to unassigned
+>>>* ComponentMovePass4.ModelElementMoveTests::Source::VisibleComponent2.VisibleComponent2Port.VisibleInterface to unassigned
+>>>* VisibleComponent1.VisibleComponent1Port.VisibleInterface to unassigned
+>>>* VisibleComponent2.VisibleComponent2Port.VisibleInterface to unassigned
 >* Perform undo.  
 
 7.3 Use Case 4.3  (Uses test model [2.8](#2.8))  
@@ -95,10 +116,12 @@ visibility items.
 >* Perform undo.  
 
 7.3.2. FailureMoveComponent1 in Source package is moved to Destination package.  
->* Option menu is shown for displaying FailureMoveClass.attribute1 set to 
-default type and FailureMoveComponent1Port InvisibleInterface no longer visible.
-A parse of FailureMoveClass.operation1 will result in failure due to EE no
-longer visible.  
+>* Options menu is shown for displaying downgrades.  
+>>* Check the following items to ensure a downgrade occurred:  
+>>>* FailureCasesComponent.FailureMoveClass.systemViewAttribute to default
+>>>* FailureCasesComponent.FailureMoveComponent1.FailureMoveComponentInComponent.FailureMoveComponentInComponentPort.InvisibleInterface to unassigned
+>>>* FailureCasesComponent.FailureMoveComponent1.FailureMoveComponent1Port.InvisibleInterface to unassigned
+>>>* PARSE of FailureCasesComponent.FailureMoveComponent1.FailureMoveComponent1Package.FailureMoveClass.operation1 on line 2 due to out-of-scope bridge reference.
 >* Perform undo.  
 
 7.4 Use Case 4.4  (Uses test model [2.8](#2.8))  
@@ -110,10 +133,9 @@ visibility items.
 
 7.4.2. FailureMoveComponent1 in Source package is moved to DestinationComponent 
 in Destination package.  
->* Option menu is shown for displaying FailureMoveClass.attribute1 set to 
-default type and FailureMoveComponent1Port InvisibleInterface no longer visible.
-A parse of FailureMoveClass.operation1 will result in failure due to EE no
-longer visible.  
+>* Options menu is shown for displaying downgrades.  
+>>* Check the following items to ensure a downgrade occurred:  
+>>>* Same as 7.3.2
 >* Perform undo.  
 
 7.5 Use Case 4.5  (Uses test model [2.8](#2.8))  
@@ -125,8 +147,9 @@ visibility items.
 
 7.5.2. FailureMoveComponentInComponent in FailureMoveComponent1 in Source 
 package is moved to Destination package.  
->* Option menu is shown for displaying FailureMoveComponent1Port 
-InvisibleInterface no longer visible.  
+>* Options menu is shown for displaying downgrades.  
+>>* Check the following items to ensure a downgrade occurred:  
+>>>* FailureCasesComponent.FailureMoveComponent1.FailureMoveComponentInComponent.FailureMoveComponentInComponentPort.InvisibleInterface to unassigned
 >* Perform undo.  
 
 7.6 Use Case 4.6  (Uses test model [2.8](#2.8))  
@@ -138,8 +161,9 @@ visibility items.
 
 7.6.2. FailureMoveComponentInComponent in FailureMoveComponent1 in Source 
 package is moved to DestinationComponent in Destination package.  
->* Option menu is shown for displaying FailureMoveComponent1Port 
-InvisibleInterface no longer visible.  
+>* Options menu is shown for displaying downgrades.  
+>>* Check the following items to ensure a downgrade occurred:  
+>>>* Same as 7.5.2
 >* Perform undo.  
 
 7.7 Use Case 4.7  (Uses test model [2.8](#2.8))  
@@ -149,8 +173,9 @@ visibility items.
 >* Perform undo.  
 
 7.7.2. FailureMoveComponent2 in Source package is moved to Destination package.  
->* Option menu is shown for displaying that contained component reference has
-lost visibility to the referred component.  
+>* Options menu is shown for displaying downgrades.  
+>>* Check the following items to ensure a downgrade occurred:  
+>>>* FailureCasesComponent.FailureMoveComponent2.ModelElementMoveTests::Source::FailureCasesComponent::FailureCasesComponentPackage::InvisibleComponent1 to unassigned
 >* Perform undo.  
 
 7.8 Use Case 4.8  (Uses test model [2.8](#2.8))  
@@ -160,8 +185,9 @@ visibility items.
 >* Perform undo.  
 
 7.8.2. FailureMoveClass in Source package is moved to Destination package.
->* Options menu is shown for displaying that FailureMoveClass.failureAttribute
-has been set to the default data type.  
+>* Options menu is shown for displaying downgrades.  
+>>* Check the following items to ensure a downgrade occurred:  
+>>>* FailureCasesComponent.FailureMoveClass.failureAttribute to default
 >* Perform undo.  
 
 7.9 Use Case 4.9  (Uses test model [2.8](#2.8))  
@@ -185,9 +211,10 @@ visibility items.
 >* Perform undo.  
 
 7.11.2. FailureMoveComponent3 in Source package is moved to Destination package.  
->* Options menu is shown for displaying information that both components 
-referenced and the interface formalized to the port connection are no longer 
-visible.  
+>* Options menu is shown for displaying downgrades.  
+>>* Check the following items to ensure a downgrade occurred:  
+>>>* FailureCasesComponent.FailureMoveComponent3.ModelElementMoveTests::Source::FailureCasesComponent::FailureCasesComponentPackage::InvisibleComponent1 to unassigned
+>>>* FailureCasesComponent.FailureMoveComponent3.ModelElementMoveTests::Source::FailureCasesComponent::FailureCasesComponentPackage::InvisibleComponent2 to unassigned
 >* Perform undo.  
 
 7.12 Use Case 4.12  (Uses test model [2.8](#2.8))  
@@ -199,8 +226,9 @@ visibility items.
 
 7.12.2. ImportFailClass1, ImportFailClass2, R1, R2, and the imported class 
 related across R3 in Source package is moved to Destination package.  
->* Options menu is shown for displaying information of the removal of the 
-imported class.  
+>* Options menu is shown for displaying downgrades.  
+>>* Check the following items to ensure a downgrade occurred:  
+>>>* Imported class reference to ModelElementMoveTests::Source::FailureCasesComponent::FailureCasesComponentPackage::InvisibleImports::InvisibleImportClass to unassigned
 >* Perform undo.   
  
 7.13 Pessimistic Locking Test - test checkout of RGOs with a Pessimistic locking RCS. (Uses test model [??](#??))  
