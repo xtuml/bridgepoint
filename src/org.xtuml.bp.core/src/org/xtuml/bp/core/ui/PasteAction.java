@@ -28,6 +28,7 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
@@ -88,6 +89,19 @@ public abstract class PasteAction extends CutCopyPasteAction  {
 		 * @throws Exception
 		 */
 		private void processPasteForMove(NonRootModelElement destination) throws Exception {			
+			HashSet<PersistableModelComponent> rgosAffectedByMove = new HashSet<PersistableModelComponent>();
+			// find all RGOs that this move would affect. Do this before we move things around!
+			// @see ModelElementMovedDelta.java
+			IPersistenceHierarchyMetaData metaData = PersistenceManager.getHierarchyMetaData();
+			for (NonRootModelElement sourceElement : ELEMENT_MOVE_SOURCE_SELECTION) {
+				List selfExternalRGOs = metaData.findExternalRGOsToContainingComponent(sourceElement.getFirstParentPackage(), true);		
+				for (Iterator iterator = selfExternalRGOs.iterator(); iterator.hasNext();) {
+					PersistableModelComponent target = ((NonRootModelElement) iterator.next()).getPersistableComponent();
+					if (target != null && !rgosAffectedByMove.contains(target)) {
+						rgosAffectedByMove.add(target);
+					}
+				}
+			}
 				
 			// Iterate over each element that was selected. Note that
 			// this is the actual selection. This is NOT using the "importer"
@@ -136,11 +150,6 @@ public abstract class PasteAction extends CutCopyPasteAction  {
 			// Move the graphics to their graphical model root
 			processGraphics(destination); 
 						
-			// Move imported elements to the destination model root
-			for (NonRootModelElement sourceElement : ELEMENT_MOVE_SOURCE_SELECTION) {
-				sourceElement.updateModelRoot(destination.getModelRoot()); 
-			}									
-
 			// connect the selected elements to their destination
 			for (NonRootModelElement sourceElement : ELEMENT_MOVE_SOURCE_SELECTION) {
 				try {
@@ -159,8 +168,8 @@ public abstract class PasteAction extends CutCopyPasteAction  {
 				// All the work prior to this changed the in memory model.
 				// The transaction processing for this type of transaction 
 				// will update the files on disk as needed.
-				ModelElementMovedModelDelta change = new ModelElementMovedModelDelta(sourceElement
-						,destination);
+				ModelElementMovedModelDelta change = new ModelElementMovedModelDelta(sourceElement, destination,
+						rgosAffectedByMove);
 				Ooaofooa.getDefaultInstance().fireModelElementMoved(change);									
 			} 
 		
@@ -253,7 +262,7 @@ public abstract class PasteAction extends CutCopyPasteAction  {
 			try {				
 				Ooaofooa.beginSaveOperation();
 				
-				if (moveIsInProgress() ) {
+				if (moveIsInProgress() ) {						
 					// Move only allows 1 destination to be selected
 					processPasteForMove(destinations.get(0));
 				} else {
