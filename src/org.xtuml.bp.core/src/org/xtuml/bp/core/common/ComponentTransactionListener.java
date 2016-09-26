@@ -43,6 +43,7 @@ import org.eclipse.core.runtime.jobs.Job;
 
 import org.xtuml.bp.core.Component_c;
 import org.xtuml.bp.core.CorePlugin;
+import org.xtuml.bp.core.DataType_c;
 import org.xtuml.bp.core.Modeleventnotification_c;
 import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.Package_c;
@@ -168,6 +169,11 @@ public class ComponentTransactionListener implements ITransactionListener {
 									.getRGOsAffectedByMove();
 							for (Iterator<PersistableModelComponent> iter = rgosAffectedByMove.iterator(); iter.hasNext();) {
 								PersistableModelComponent rgo = (PersistableModelComponent) iter.next();
+								NullProgressMonitor nullMon = new NullProgressMonitor();
+								try {
+									rgo.load(null, false, false);
+								} catch (CoreException e) {
+								}
 								persist(rgo);
 							}
 						}
@@ -325,6 +331,10 @@ public class ComponentTransactionListener implements ITransactionListener {
 		for (Iterator iterator = selfExternalRGOs.iterator(); iterator.hasNext();) {
 			PersistableModelComponent target = ((NonRootModelElement) iterator.next()).getPersistableComponent();
 			if (target != null && !persisted.contains(target)) {
+				try {
+					target.load(null, false, false);
+				} catch (CoreException e) {
+				}
 				persist(target);
 			}
 		}
@@ -451,9 +461,21 @@ public class ComponentTransactionListener implements ITransactionListener {
 
 		// Update the PMC in the moved element. 
 		// Note that the PMC is held in the NonRootElement's Model Root.
-		elementMoved.setComponent(destinationPMC);
-
+		elementMoved.setComponent(destinationPMC);			
+		// Update the moved element's ModelRoot to be the destination's model root
 		elementMoved.updateModelRoot(destinationPMC.getRootModelElement().getModelRoot()); 
+
+		NonRootModelElement rto = elementMoved.getRTOElementForResolution();
+		if (rto instanceof DataType_c) {
+			// If this is a datatype we must set it's PMC too. If we do not, then in-memory
+			// the specific type of datatype is fine, but during persistence we use the RTO.
+			// The issue here is that the Datatype_c and the specific type (example UserDataType_c)
+			// each have a PMC in memory. We have to update both of them.
+			// since it is the real container f 
+			rto.setComponent(destinationPMC);			
+			// Update the moved element's ModelRoot to be the destination's model root
+			rto.updateModelRoot(destinationPMC.getRootModelElement().getModelRoot()); 
+		}
 
 
 		return folderWasMoved;
