@@ -150,11 +150,6 @@ public abstract class PasteAction extends CutCopyPasteAction  {
 			// Move the graphics to their graphical model root
 			processGraphics(destination); 
 						
-			// Move imported elements to the destination model root
-			for (NonRootModelElement sourceElement : ELEMENT_MOVE_SOURCE_SELECTION) {
-				sourceElement.updateModelRoot(destination.getModelRoot()); 
-			}									
-
 			// connect the selected elements to their destination
 			for (NonRootModelElement sourceElement : ELEMENT_MOVE_SOURCE_SELECTION) {
 				try {

@@ -443,15 +443,19 @@ public class ComponentTransactionListener implements ITransactionListener {
 				CorePlugin.logError("Could not move the folder from  " + containingFolder.toString() + " to "
 						+ destPath.toString() + " Element being moved: " + elementMoved.getName(), e);
 				throw e;
-			}
-				
+			}				
+			
 			// Update the PMCs file resource to point at its new file
 			elementPMC.updateResource(newFile);
-
-			// Update the PMC in the moved element. 
-			// Note that the PMC is held in the NonRootElement's Model Root.
-			elementMoved.setComponent(destinationPMC);
 		}
+
+		// Update the PMC in the moved element. 
+		// Note that the PMC is held in the NonRootElement's Model Root.
+		elementMoved.setComponent(destinationPMC);
+
+		elementMoved.updateModelRoot(destinationPMC.getRootModelElement().getModelRoot()); 
+
+
 		return folderWasMoved;
 	}
 
