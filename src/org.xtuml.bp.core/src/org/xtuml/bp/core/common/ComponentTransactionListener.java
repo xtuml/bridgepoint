@@ -240,7 +240,7 @@ public class ComponentTransactionListener implements ITransactionListener {
 		}
 
 		/**
-		 * Persist all the RGOs, if any associated with the Move operation
+		 * Persist all the RGOs, if any, associated with the Move operation
 		 */
 		for (Iterator<PersistableModelComponent> iter = rgosAffectedByMove.iterator(); iter.hasNext();) {
 			PersistableModelComponent rgo = (PersistableModelComponent) iter.next();
@@ -338,10 +338,6 @@ public class ComponentTransactionListener implements ITransactionListener {
 			for (Iterator iterator = selfExternalRGOs.iterator(); iterator.hasNext();) {
 				PersistableModelComponent target = ((NonRootModelElement) iterator.next()).getPersistableComponent();
 				if (target != null && !persisted.contains(target)) {
-					try {
-						target.load(null, false, false);
-					} catch (CoreException e) {
-					}
 					persist(target);
 				}
 			}
