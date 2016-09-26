@@ -146,7 +146,6 @@ public class CanvasPasteAction extends PasteAction {
 			return;
 		}
 		if (moveIsInProgress()) {
-
 			for (NonRootModelElement nrme : ELEMENT_MOVE_SOURCE_SELECTION) {
 				GraphicalElement_c movedGraphicalElement = null;
 				Ooaofgraphics ooaofg = Ooaofgraphics.getInstance(PasteAction.getContainerForMove(nrme).getModelRoot().getId());
@@ -156,13 +155,16 @@ public class CanvasPasteAction extends PasteAction {
 				// containment by unassociating it from the source canvas
 				// and associating it with the destination
 				if (movedGraphicalElement != null) {
+					NonRootModelElement graphicalElementList[] = new NonRootModelElement[1];
+					graphicalElementList[0] = movedGraphicalElement;	
+					updateGraphicalElementRoots(graphicalElementList, destGD_MD.getModelRoot());			
+					
 					Model_c oldMD = Model_c.getOneGD_MDOnR1(movedGraphicalElement);
 					movedGraphicalElement.unrelateAcrossR1From(oldMD);
 					movedGraphicalElement.relateAcrossR1To(destGD_MD);
 					updateContainement(destGD_MD, movedGraphicalElement);
 				}
 			}
-			
 		} else {
 	 		GraphicalElement_c[] pastedGraphicalElements = getPastedGraphicalElements(
 					destination, processorMap);
