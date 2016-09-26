@@ -463,22 +463,22 @@ public class ComponentTransactionListener implements ITransactionListener {
 			elementPMC.updateResource(newFile);
 		}
 
+		// Update the moved element's ModelRoot to be the destination's model root
+		elementMoved.updateModelRoot(destinationPMC.getRootModelElement().getModelRoot()); 
 		// Update the PMC in the moved element. 
 		// Note that the PMC is held in the NonRootElement's Model Root.
 		elementMoved.setComponent(destinationPMC);			
-		// Update the moved element's ModelRoot to be the destination's model root
-		elementMoved.updateModelRoot(destinationPMC.getRootModelElement().getModelRoot()); 
 
 		NonRootModelElement rto = elementMoved.getRTOElementForResolution();
 		if (rto instanceof DataType_c) {
+			// Update the moved element's ModelRoot to be the destination's model root
+			rto.updateModelRoot(destinationPMC.getRootModelElement().getModelRoot()); 
 			// If this is a datatype we must set it's PMC too. If we do not, then in-memory
 			// the specific type of datatype is fine, but during persistence we use the RTO.
 			// The issue here is that the Datatype_c and the specific type (example UserDataType_c)
 			// each have a PMC in memory. We have to update both of them.
 			// since it is the real container f 
 			rto.setComponent(destinationPMC);			
-			// Update the moved element's ModelRoot to be the destination's model root
-			rto.updateModelRoot(destinationPMC.getRootModelElement().getModelRoot()); 
 		}
 
 
