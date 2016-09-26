@@ -22,6 +22,7 @@
 //
 package org.xtuml.bp.core.common;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -40,7 +41,7 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.Job;
-
+import org.eclipse.ui.PlatformUI;
 import org.xtuml.bp.core.Component_c;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.DataType_c;
@@ -92,7 +93,8 @@ public class ComponentTransactionListener implements ITransactionListener {
 
 		persisted.clear();
 		ModelRoot[] modelRoots = transaction.getParticipatingModelRoots();
-
+		HashSet<PersistableModelComponent> rgosAffectedByMove = new HashSet<PersistableModelComponent> ();
+		
 		// first persist all model elements created
 		// this is so later proxy changes in parent will work correctly
 		for (int i = 0; i < modelRoots.length; i++) {
@@ -139,6 +141,9 @@ public class ComponentTransactionListener implements ITransactionListener {
 							}
 						}
 					} else if (delta instanceof ModelElementMovedModelDelta) {
+						// When multiple elements are being moved we will re-persist elements
+						persisted.clear();
+						
 						NonRootModelElement elementMoved = (NonRootModelElement) delta.getModelElement();
 	
 						PersistableModelComponent sourcePMC = PasteAction.getContainerForMove(elementMoved).getPersistableComponent();
@@ -158,24 +163,16 @@ public class ComponentTransactionListener implements ITransactionListener {
 						}		
 
 						if (!errorDuringFileMove) {
+							
 							// persist the moved element and all its RGOs
-							persistRenamedME(elementMoved, destinationPMC);
+							persistRenamedME(elementMoved, destinationPMC, false);
 							
 							// In case it was not yet persisted above in persistRenamedME, do it now
 							persist(sourcePMC);
 							
 							// assure all rgos are persisted
-							HashSet<PersistableModelComponent> rgosAffectedByMove = ((ModelElementMovedModelDelta) delta)
-									.getRGOsAffectedByMove();
-							for (Iterator<PersistableModelComponent> iter = rgosAffectedByMove.iterator(); iter.hasNext();) {
-								PersistableModelComponent rgo = (PersistableModelComponent) iter.next();
-								NullProgressMonitor nullMon = new NullProgressMonitor();
-								try {
-									rgo.load(null, false, false);
-								} catch (CoreException e) {
-								}
-								persist(rgo);
-							}
+							rgosAffectedByMove.addAll(((ModelElementMovedModelDelta) delta)
+									.getRGOsAffectedByMove());
 						}
 					}
 				}
@@ -226,7 +223,7 @@ public class ComponentTransactionListener implements ITransactionListener {
 											.getHierarchyMetaData()
 											.isComponentRoot(modelElement)) {
 										modelElementRenamed((AttributeChangeModelDelta) delta);
-										persistRenamedME(element, element.getPersistableComponent());
+										persistRenamedME(element, element.getPersistableComponent(), true);
 									}
 								} else if(modelDelta.getAttributeName().equals("Represents")) {
 									// special case to avoid persistence caused by the setting
@@ -241,6 +238,15 @@ public class ComponentTransactionListener implements ITransactionListener {
 				}
 			}
 		}
+
+		/**
+		 * Persist all the RGOs, if any associated with the Move operation
+		 */
+		for (Iterator<PersistableModelComponent> iter = rgosAffectedByMove.iterator(); iter.hasNext();) {
+			PersistableModelComponent rgo = (PersistableModelComponent) iter.next();
+			persist(rgo);
+		}
+		
 		Ooaofooa[] instances = Ooaofooa.getInstances();
 		for(int i = 0; i < instances.length; i++) {
 			instances[i].clearUnreferencedProxies();
@@ -304,7 +310,7 @@ public class ComponentTransactionListener implements ITransactionListener {
 		return false;
 	}
 
-	private void persistRenamedME(NonRootModelElement elementRenamed, PersistableModelComponent newPMC) {
+	private void persistRenamedME(NonRootModelElement elementRenamed, PersistableModelComponent newPMC, boolean persistRGOs) {
 
 		IPersistenceHierarchyMetaData metaData = PersistenceManager
 				.getHierarchyMetaData();
@@ -317,25 +323,27 @@ public class ComponentTransactionListener implements ITransactionListener {
 			PersistableModelComponent child = (PersistableModelComponent) iter.next();
 			persist(child);
 		}
-		
-		// now persist all RGO proxies		
- 		List selfExternalRGOs;
- 		Package_c packageContainer;
-		if (elementRenamed instanceof Package_c) {
-			packageContainer = (Package_c)elementRenamed;
-		} else {			
-			packageContainer = elementRenamed.getFirstParentPackage();
-		}
-		selfExternalRGOs = metaData.findExternalRGOsToContainingComponent(packageContainer, true);
-		
-		for (Iterator iterator = selfExternalRGOs.iterator(); iterator.hasNext();) {
-			PersistableModelComponent target = ((NonRootModelElement) iterator.next()).getPersistableComponent();
-			if (target != null && !persisted.contains(target)) {
-				try {
-					target.load(null, false, false);
-				} catch (CoreException e) {
+
+		if (persistRGOs) {
+			// now persist all RGO proxies		
+	 		List selfExternalRGOs;
+	 		Package_c packageContainer;
+			if (elementRenamed instanceof Package_c) {
+				packageContainer = (Package_c)elementRenamed;
+			} else {			
+				packageContainer = elementRenamed.getFirstParentPackage();
+			}
+			selfExternalRGOs = metaData.findExternalRGOsToContainingComponent(packageContainer, true);
+			
+			for (Iterator iterator = selfExternalRGOs.iterator(); iterator.hasNext();) {
+				PersistableModelComponent target = ((NonRootModelElement) iterator.next()).getPersistableComponent();
+				if (target != null && !persisted.contains(target)) {
+					try {
+						target.load(null, false, false);
+					} catch (CoreException e) {
+					}
+					persist(target);
 				}
-				persist(target);
 			}
 		}
 	}
