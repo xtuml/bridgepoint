@@ -299,7 +299,7 @@ public class BuildWorkbenchAdvisor extends BPCLIWorkbenchAdvisor {
 			}
 		}
         
-        // for mc-java based project, MC Java export builder will be used, Otherwise, we are using the bp.mc.c binary plugin to instantiate the EXportBuilder
+        // for mc-java based project, MC Java export builder will be used, Otherwise, we are using the bp.mc.c.source plugin to instantiate the ExportBuilder
 		if (exportBuilderCommand != null) {
 
 			Map<String, String> arguments = exportBuilderCommand.getArguments();
@@ -314,11 +314,7 @@ public class BuildWorkbenchAdvisor extends BPCLIWorkbenchAdvisor {
 
 		}else{
 			
-			ExportBuilder eb = new ExportBuilder();   // Note that we are using the bp.mc.c binary plugin to instantiate this EXportBuilder
-											         // We are only using the "Export Builder" license atomic, so it does not matter 
-													   // which Model Compiler is used, and the binary MC is always supplied with any
-											         // system licensed for a model compiler.  Note that DocGen takes this same approach
-											         // to acquire an ExportBuilder instance.
+			ExportBuilder eb = new ExportBuilder();
 
 			IPath destPath = eb.getCodeGenFolderPath(project);
 			if (!destPath.toFile().exists()) {
