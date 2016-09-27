@@ -34,6 +34,8 @@ public class BuildWorkbenchAdvisor extends BPCLIWorkbenchAdvisor {
 	boolean prebuilderOnly = false;
 	boolean cleanBuild = false;
 	
+	public static final String JAVA_EXPORT_BUILDER_ID = "org.xtuml.bp.mc.java.source.export_builder"; //NON-NLS-1
+	
 	protected BuildWorkbenchAdvisor(BPCLIPreferences prefs) {
 		super(prefs);
 		debug = cmdLine.getBooleanValue("-debugCLI");		
@@ -291,11 +293,13 @@ public class BuildWorkbenchAdvisor extends BPCLIWorkbenchAdvisor {
          ICommand[] commands = description.getBuildSpec();
          ICommand exportBuilderCommand = null;
          for (ICommand iCommand : commands) {
-			if (iCommand.getBuilderName().equals("org.xtuml.bp.mc.java.source.export_builder")){
+			if (iCommand.getBuilderName().equals(JAVA_EXPORT_BUILDER_ID)){
 				exportBuilderCommand= iCommand;
 				break;
 			}
 		}
+        
+        // for mc-java based project, MC Java export builder will be used, Otherwise, we are using the bp.mc.c binary plugin to instantiate the EXportBuilder
 		if (exportBuilderCommand != null) {
 
 			Map<String, String> arguments = exportBuilderCommand.getArguments();
