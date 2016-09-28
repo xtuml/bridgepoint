@@ -433,54 +433,68 @@ public class ComponentTransactionListener implements ITransactionListener {
 		final IWorkspaceRoot wsRoot = ResourcesPlugin.getWorkspace().getRoot();
 		boolean folderWasMoved = false;
 		IPersistenceHierarchyMetaData metadata = PersistenceManager.getHierarchyMetaData();
-		// This is the PMC associated with the xtuml file
-		PersistableModelComponent elementPMC = elementMoved.getPersistableComponent(true);
 		IFile newFile = destinationPMC.getFile();
+		PersistableModelComponent containerOfTheElementMoved = PasteAction.getContainerForMove(elementMoved).getPersistableComponent();
+		PersistableModelComponent startingPMCOfTheElementMoved = elementMoved.getPersistableComponent();
+		// This is folder that the xtuml file is in
+		IPath sourcePathOfTheElementMoved = startingPMCOfTheElementMoved.getContainingDirectoryPath();
+		IFolder sourceFolderOfTheElementMoved = wsRoot.getFolder(sourcePathOfTheElementMoved);
+		// Now get the destination folder
+		IPath destinationPath = destinationPMC.getContainingDirectoryPath().append(elementMoved.getName());
+		
+
+		// start: move the element to the new ModelRoot in memory
+		// 		To implement undo, this in-memory section will be moved
+		//		from here into PasteAction, and any NRME modified here will
+		//		be be saved-off into the transaction in its state BEFORE
+		//		any changes are made to it. Similar to what we do for a 
+		//		ModelElementChanged transaction. In fact we can use a Transaction
+		//		group for move and use ModelElementChanged to store these before and
+		//		after NRMEs.
+		NonRootModelElement rto = elementMoved.getRTOElementForResolution();
 		if (metadata.isComponentRoot(elementMoved)) {
+			// Update the moved element's ModelRoot to be the destination's model root
+			elementMoved.updateModelRoot(destinationPMC.getRootModelElement().getModelRoot()); 
+		} else {			
+			if (rto instanceof DataType_c) {
+				elementMoved.move_unchecked(destinationPMC.getRootModelElement().getModelRoot());
+				rto.updateModelRoot(destinationPMC.getRootModelElement().getModelRoot());
+			} else {
+				rto.updateModelRoot(destinationPMC.getRootModelElement().getModelRoot());				
+			}
+		}
+		// end: move the element to the new ModelRoot in memory
 
-			// This is folder that the xtuml file is in
-			IPath elementParentDirectory = elementPMC.getContainingDirectoryPath();
-			IFolder containingFolder = wsRoot.getFolder(elementParentDirectory);
-
-			// Now get the destination folder
-			IPath destPath = destinationPMC.getContainingDirectoryPath().append(elementMoved.getName());
+		// Move the folder on disk, if needed
+		if (metadata.isComponentRoot(elementMoved)) {
 
 			// move the folder from the original location to the destination folder
 			// allow the move to keep the local history
 			try {
-				containingFolder.move(destPath, true, true, null);
+				sourceFolderOfTheElementMoved.move(destinationPath, true, true, null);
 				// Update the underlying resource and its children (if any)
 				String elementName = elementMoved.getName();
-				newFile = wsRoot.getFile(destPath.append(elementName + "." + Ooaofooa.MODELS_EXT));
+				newFile = wsRoot.getFile(destinationPath.append(elementName + "." + Ooaofooa.MODELS_EXT));
 				folderWasMoved = true;
 			} catch (CoreException e) {
-				CorePlugin.logError("Could not move the folder from  " + containingFolder.toString() + " to "
-						+ destPath.toString() + " Element being moved: " + elementMoved.getName(), e);
+				CorePlugin.logError("Could not move the folder from  " + sourceFolderOfTheElementMoved.toString() + " to "
+						+ destinationPath.toString() + "   Element being moved: " + elementMoved.getName(), e);
 				throw e;
 			}				
 			
-			// Update the PMCs file resource to point at its new file
-			elementPMC.updateResource(newFile);
+			// Update the moved PMCs file resource to point at its new file
+			elementMoved.getPersistableComponent().updateResource(newFile);
+			if (rto instanceof DataType_c) {
+				rto.getPersistableComponent().updateResource(newFile);			
+			}
+		} else {
+			// Update the PMC in the moved element to point at it new home
+			elementMoved.setComponent(destinationPMC);			
+			if (rto instanceof DataType_c) {
+				rto.setComponent(destinationPMC);			
+			}
 		}
-
-		// Update the moved element's ModelRoot to be the destination's model root
-		elementMoved.updateModelRoot(destinationPMC.getRootModelElement().getModelRoot()); 
-		// Update the PMC in the moved element. 
-		// Note that the PMC is held in the NonRootElement's Model Root.
-		elementMoved.setComponent(destinationPMC);			
-
-		NonRootModelElement rto = elementMoved.getRTOElementForResolution();
-		if (rto instanceof DataType_c) {
-			// Update the moved element's ModelRoot to be the destination's model root
-			rto.updateModelRoot(destinationPMC.getRootModelElement().getModelRoot()); 
-			// If this is a datatype we must set it's PMC too. If we do not, then in-memory
-			// the specific type of datatype is fine, but during persistence we use the RTO.
-			// The issue here is that the Datatype_c and the specific type (example UserDataType_c)
-			// each have a PMC in memory. We have to update both of them.
-			// since it is the real container f 
-			rto.setComponent(destinationPMC);			
-		}
-
+		
 
 		return folderWasMoved;
 	}
