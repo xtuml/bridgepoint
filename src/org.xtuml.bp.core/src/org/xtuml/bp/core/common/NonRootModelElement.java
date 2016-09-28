@@ -438,7 +438,7 @@ public abstract class NonRootModelElement extends ModelElement implements IAdapt
         }		
         InstanceList destinationInstanceList = destination.getInstanceList(getClass());
         synchronized (destinationInstanceList) {
-        	destinationInstanceList.remove(this);
+        	destinationInstanceList.add(this);
         }		
 	}
 	
