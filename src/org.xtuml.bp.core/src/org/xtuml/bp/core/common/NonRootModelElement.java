@@ -425,6 +425,23 @@ public abstract class NonRootModelElement extends ModelElement implements IAdapt
         }
 	}
 
+	/**
+	 * Move this element from its current InstanceList to the 
+	 * list in the provided ModelRoot
+	 * 
+	 * @param destination
+	 */
+	public void move_unchecked(ModelRoot destination) {
+		InstanceList sourceInstanceList = getInstanceList();
+        synchronized (sourceInstanceList) {
+        	sourceInstanceList.remove(this);
+        }		
+        InstanceList destinationInstanceList = destination.getInstanceList(getClass());
+        synchronized (destinationInstanceList) {
+        	destinationInstanceList.remove(this);
+        }		
+	}
+	
 	public ModelRoot getModelRoot() {
 		if(m_this_root == null)
 			return m_parent_root;
