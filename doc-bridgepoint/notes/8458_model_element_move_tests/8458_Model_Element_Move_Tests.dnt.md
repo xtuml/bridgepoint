@@ -118,7 +118,7 @@ visibility items.
 7.3.2. FailureMoveComponent1 in Source package is moved to Destination package.  
   * Options menu is shown for displaying downgrades.  
     * Check the following items to ensure a downgrade occurred:  
-      * FailureCasesComponent.FailureMoveClass.systemViewAttribute to default
+      * FailureCasesComponent.FailureMoveComponent1.FailureMoveComponent1Package.FailureMoveClass.attribute1 to default
       * FailureCasesComponent.FailureMoveComponent1.FailureMoveComponentInComponent.FailureMoveComponentInComponentPort.InvisibleInterface to unassigned
       * FailureCasesComponent.FailureMoveComponent1.FailureMoveComponent1Port.InvisibleInterface to unassigned
       * PARSE of FailureCasesComponent.FailureMoveComponent1.FailureMoveComponent1Package.FailureMoveClass.operation1 on line 2 due to out-of-scope bridge reference.
