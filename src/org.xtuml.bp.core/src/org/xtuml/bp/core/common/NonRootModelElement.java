@@ -296,7 +296,12 @@ public abstract class NonRootModelElement extends ModelElement implements IAdapt
 
 	public String getPath() {
 		ModelInspector inspector = new ModelInspector();
-		String path = getName();
+		String path = "";
+		if ( !(this instanceof DataType_c) ) {
+			// If this is a datatype, the name will be handled by the subtype
+			// via the "parent" handling below.
+			path = getName();
+		}
 		if (this instanceof ClassStateMachine_c) {
 			path = "Class State Machine";
 		} else if (this instanceof InstanceStateMachine_c) {
@@ -312,10 +317,12 @@ public abstract class NonRootModelElement extends ModelElement implements IAdapt
 					path = "Class State Machine" + "::" + path;
 				} else if (parent instanceof InstanceStateMachine_c) {
 					path = "Instance State Machine" + "::" + path;
-				} else if (parent instanceof UserDataType_c) {
-					// Already set the last segment of the path
 				} else {
-					path = parent.getName() + "::" + path;
+					if ( path.isEmpty() ) {
+						path = parent.getName();	
+					} else {
+						path = parent.getName() + "::" + path;
+					}
 				}
 				parent = (NonRootModelElement) inspector.getParent(parent);
 			}
