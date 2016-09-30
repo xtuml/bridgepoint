@@ -113,8 +113,8 @@ BuiltinLibraryDefinition:
 	'end' 'builtin'? ';';
 
 BuiltinTypeDeclaration returns TypeDeclaration:
-	{BuiltinTypeDeclaration}
-	'type' name=ID ';';
+	TypeDeclaration 
+	| {BuiltinTypeDeclaration} anonymous?='anonymous'? 'builtin' name=ID ';';
 
 Characteristic:
 	'\'' name=ID ';';
@@ -193,7 +193,7 @@ AbstractTypeReference:
 	| AbstractCollectionTypeReference
 	| DeprecatedTypeReference;
 
-AbstractTypeReferenceWithCA:
+AbstractTypeReferenceWithCA returns AbstractTypeReference:
 	AbstractTypeReference
 	| ConstrainedArrayTypeReference;
 
@@ -235,9 +235,9 @@ BagTypeReference:
 	'bag' 'of' elementType=AbstractTypeReference;
 
 DictionaryTypeReference:
-	{DictionaryTypeRef}
+	{DictionaryTypeReference}
 	anonymous?='anonymous'?
-	'dictionary' (keyType=AbstractDictKeyTypeRef? 'of' valueType=AbstractTypeReference)?;
+	'dictionary' (keyType=AbstractDictKeyTypeRef? 'of' elementType=AbstractTypeReference)?;
 
 AbstractDictKeyTypeRef:
 	NamedTypeReference | InstanceTypeReference;
@@ -247,7 +247,7 @@ AbstractDictKeyTypeRef:
 //---------------------------------------------------------
 TerminatorDefinition:
 	'terminator' name=ID 'is' 
-	(operations+=TerminatorServiceDeclaration
+	(services+=TerminatorServiceDeclaration
 	| functions+=TerminatorFunctionDeclaration)*
 	'end' 'terminator'? 
 	PragmaList;
@@ -262,6 +262,10 @@ TerminatorFunctionDeclaration:
 	ParameterList
 	'return' returnType=AbstractTypeReference
 	PragmaList;
+	
+TerminatorTypeReference returns AbstractTypeReference:
+	{TerminatorTypeReference}
+	terminator=[TerminatorDefinition];
 
 //---------------------------------------------------------
 // Object Definition
@@ -608,7 +612,7 @@ CodeBlock:
 
 VariableDeclaration:
 	name=ID ':'
-	readOnly='readonly'? type=AbstractTypeReferenceWithCA
+	readOnly='readonly'? type=AbstractTypeReference
 	(':=' expression=Expression)?
 	PragmaList;
 
@@ -689,7 +693,7 @@ AdditiveExp returns Expression:
 	MultExp ({AdditiveExp.lhs=current} operator=('+' | '-' | '&' | 'union' | 'not_in') rhs=MultExp)*;
 
 MultExp returns Expression:
-	UnaryExp ({MultExp.lhs=current} operator=('*' | '/' | 'mode' | '**' | 'rem' | 'intersection' | 'disunion')
+	UnaryExp ({MultExp.lhs=current} operator=('*' | '/' | 'mod' | '**' | 'rem' | 'intersection' | 'disunion')
 	rhs=UnaryExp)*;
 
 UnaryExp returns Expression:
@@ -753,9 +757,9 @@ enum FindType:
 
 PostfixExpression returns Expression:
 	PrimaryExpression
-	( {OperationCall.receiver=current} =>('.' /* feature=[AbstractFeature] */ featureName=ID '(') (arguments+=Expression (',' arguments+=Expression)*)? ')'
-	| {SimpleFeatureCall.receiver=current} '.' /* feature=[AbstractFeature] */ featureName=ID
-	| {TerminatorOperationCall.receiver=current} '~>' terminalOperation=[AbstractTerminalOperation] '(' (arguments+=Expression (',' arguments+=Expression)*)? ')'
+	( {OperationCall.receiver=current} =>('.' feature=[AbstractFeature] '(') (arguments+=Expression (',' arguments+=Expression)*)? ')'
+	| {SimpleFeatureCall.receiver=current} '.' feature=[AbstractFeature] 
+	| {TerminatorOperationCall.receiver=current} '~>' terminalOperation=[AbstractFeature] '(' (arguments+=Expression (',' arguments+=Expression)*)? ')'
 	| {IndexedExpression.receiver=current} '[' brackets=Expression ']'
 	| {CharacteristicCall.receiver=current} '\'' characteristic=[Characteristic] (=> '('
 		(arguments+=Expression (',' arguments+=Expression)*)?
@@ -803,10 +807,8 @@ AbstractFeature:
 	| ObjectFunctionDeclaration
 	| ObjectServiceDeclaration
 	| DomainFunctionDeclaration
-	| DomainServiceDeclaration;
-
-AbstractTerminalOperation:
-	TerminatorFunctionDeclaration 
+	| DomainServiceDeclaration
+	| TerminatorFunctionDeclaration 
 	| TerminatorServiceDeclaration;
 	
 ParenthesisedExpression returns Expression:

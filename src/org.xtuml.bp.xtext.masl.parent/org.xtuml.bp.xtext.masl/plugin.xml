@@ -14,5 +14,12 @@
             class="org.xtuml.bp.xtext.masl.maslBase.MaslBasePackage"
             genModel="model/MaslBase.genmodel"/>
    </extension>
+   <extension
+         point="org.eclipse.emf.ecore.uri_mapping">
+      <mapping
+            source="lib:/BuiltinLibrary.int"
+            target="platform:/plugin/org.xtuml.bp.xtext.masl/org/xtuml/bp/xtext/masl/lib/BuiltinLibrary.int">
+      </mapping>
+   </extension>
 
 </plugin>

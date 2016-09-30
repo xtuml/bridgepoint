@@ -8,6 +8,11 @@ import org.apache.log4j.Logger
 import org.eclipse.emf.common.util.URI
 import org.eclipse.xtext.resource.IResourceDescription
 import org.eclipse.xtext.resource.XtextResourceSet
+import org.eclipse.emf.ecore.resource.impl.URIMappingRegistryImpl
+import java.util.Map
+import org.eclipse.xtext.EcoreUtil2
+import org.xtuml.bp.xtext.masl.masl.TypeDeclaration
+import org.eclipse.emf.ecore.util.EcoreUtil
 
 /**
  * Built-in types like 'real' or 'integer' are provided by a library model. 
@@ -17,7 +22,8 @@ import org.eclipse.xtext.resource.XtextResourceSet
 @Singleton
 class MASLLibraryProvider {
 
-	public static val MODEL_URI = URI.createURI('classpath:/org/xtuml/bp/xtext/masl/lib/BuiltinLibrary.int')
+	public static val MODEL_URI = URI.createURI('lib:/BuiltinLibrary.int')
+	static val MODEL_PATH = "org/xtuml/bp/xtext/masl/lib/BuiltinLibrary.int"
 
 	static val LOG = Logger.getLogger(MASLLibraryProvider)
 
@@ -25,19 +31,41 @@ class MASLLibraryProvider {
 	@Inject IResourceDescription.Manager resourceDescriptionManager
 	List<IResourceDescription> libraryDescriptions
 
+	Map<String, URI> typesMap
+
 	def synchronized List<IResourceDescription> getResourceDescriptions() {
+		initialize
+		libraryDescriptions
+	}
+	
+	def getBuiltinTypeURI(String name) {
+		initialize
+		typesMap.get(name)
+	}
+	
+	private def initialize() {
 		if (libraryDescriptions == null) {
 			libraryDescriptions = newArrayList
 			try {
 				val resourceSet = resourceSetProvider.get
-				resourceSet.classpathURIContext = this
 				val resource = resourceSet.getResource(MODEL_URI, true)
 				libraryDescriptions += resourceDescriptionManager.getResourceDescription(resource);
+				typesMap = newHashMap
+				EcoreUtil2
+					.getAllContents(resource, true)
+					.filter(TypeDeclaration)
+					.forEach[
+						typesMap.put(name, EcoreUtil.getURI(it))
+					]
 			} catch (Exception exc) {
 				LOG.error('Error loading MASL library', exc)
 			}
 		}
-		libraryDescriptions
 	}
-
+	
+	def static register() {
+		val url = MASLLibraryProvider.classLoader.getResource(MODEL_PATH)
+		val uri = URI.createURI(url.toString)
+		URIMappingRegistryImpl.INSTANCE.put(MODEL_URI, uri)
+	}
 }

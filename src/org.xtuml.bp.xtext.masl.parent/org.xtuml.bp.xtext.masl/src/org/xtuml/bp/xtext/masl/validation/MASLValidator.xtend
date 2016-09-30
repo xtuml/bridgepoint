@@ -56,12 +56,14 @@ import org.xtuml.bp.xtext.masl.masl.TransitionRow
 import org.xtuml.bp.xtext.masl.maslBase.MaslBasePackage
 
 import static org.xtuml.bp.xtext.masl.validation.IssueCodes.*
+import org.eclipse.xtext.validation.ComposedChecks
 
 /**
  * This class contains custom validation rules. 
  * 
  * See https://www.eclipse.org/Xtext/documentation/303_runtime_concepts.html#validation
  */
+@ComposedChecks(validators=#[MASLTypeValidator])
 class MASLValidator extends AbstractMASLValidator {
 
 	@Inject extension MaslPackage
@@ -220,7 +222,7 @@ class MASLValidator extends AbstractMASLValidator {
 	
 	@Check
 	def terminatorNamesAreUnique(TerminatorDefinition it) {
-		checkNamesAreGloballyUnique(operations + functions, terminatorServiceDeclaration, terminatorFunctionDeclaration)
+		checkNamesAreGloballyUnique(services + functions, terminatorServiceDeclaration, terminatorFunctionDeclaration)
 	}
 	
 	@Check

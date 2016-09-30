@@ -1,20 +1,25 @@
 /////////////////////////////////////////////////////////////
-// Types and characteristics built-in into the MASL language
+// primitives and characteristics built-in into the MASL language
 //
 builtin is
-	// built-in types
-	type character;
-	type string;
-	type boolean;
-	type byte;
-	type integer;
-	type long_integer;
-	type real;
-	type device;
-	type duration;
-	type timestamp;
-	type timer;
+	// built-in primitives
+	builtin character;
+	builtin string;
+	builtin boolean;
+	builtin byte;
+	builtin integer;
+	builtin long_integer;
+	builtin real;
+	builtin device;
+	builtin duration;
+	builtin timestamp;
+	builtin timer;
 	
+	// needed by the typesystem
+	anonymous builtin any_type;  // the type of null
+	anonymous builtin no_type; 
+	anonymous builtin stream_type;
+	anonymous builtin stream_manipulator_type;
 	
 	// built-in characteristics (currently not bound to any type)
 	'image;
@@ -29,8 +34,8 @@ builtin is
 	'pos;
 	'value;
 	'length;
-	'now';
-	'elements';
-	'parse';
+	'now;
+	'elements;
+	'parse;
 end builtin;
 	

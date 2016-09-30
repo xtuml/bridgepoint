@@ -82,7 +82,7 @@ class MASLScopeProvider extends AbstractMASLScopeProvider {
 					if(receiver instanceof SimpleFeatureCall) {
 						val feature = receiver.feature
 						if(feature instanceof TerminatorDefinition) {
-							return scopeFor(feature.operations)		
+							return scopeFor(feature.services + feature.functions)		
 						}						
 					}
 				} 
