@@ -3,7 +3,6 @@ package org.xtuml.bp.xtext.masl.tests.typesystem
 import com.google.inject.Inject
 import org.junit.Test
 import org.xtuml.bp.xtext.masl.tests.AbstractMaslModelTest
-import org.xtuml.bp.xtext.masl.typesystem.MaslTypeExtensions
 import org.xtuml.bp.xtext.masl.typesystem.MaslTypeProvider
 
 import static org.junit.Assert.*
@@ -11,11 +10,10 @@ import static org.junit.Assert.*
 class DeclarationTypeProviderTest extends AbstractMaslModelTest {
 	
 	@Inject extension MaslTypeProvider
-	@Inject extension MaslTypeExtensions
 	
 	@Test
 	def void testCreateExpression() {
-		assertType('object Foo; object Foo is end;', 'create Foo()', 'instance Foo')
+		assertType('object Foo; object Foo is end;', 'create Foo()', 'instance of Foo')
 	}
 
 	@Test
@@ -24,11 +22,20 @@ class DeclarationTypeProviderTest extends AbstractMaslModelTest {
 	}
 
 	@Test
+	def void testStructureCall() {
+		assertType('type Foo is structure a: integer; end;', 'Foo', '''
+			type Foo is structure
+				a : builtin integer;
+			end
+			''')
+	}
+
+	@Test
 	def void testObjectCall() {
 		'''
 			object Foo; 
 			object Foo is end;
-		'''.assertType('Foo', 'instance Foo')
+		'''.assertType('Foo', 'instance of Foo')
 	}
 
 	@Test
@@ -48,7 +55,7 @@ class DeclarationTypeProviderTest extends AbstractMaslModelTest {
 
 	@Test
 	def void testTypeCall() {
-		assertType('type Foo is integer;', 'Foo', 'type Foo is integer')
+		assertType('type Foo is integer;', 'Foo', 'type Foo is builtin integer')
 	}
 
 	@Test
@@ -68,7 +75,7 @@ class DeclarationTypeProviderTest extends AbstractMaslModelTest {
 			object Foo is
 				service foo();
 			end;
-		'''.assertType('Foo::foo()', 'anonymous builtin no_type')
+		'''.assertType('Foo::foo()', 'builtin no_type')
 	}
 
 	@Test
@@ -82,7 +89,7 @@ class DeclarationTypeProviderTest extends AbstractMaslModelTest {
 	def void testDomainServiceCall() {
 		'''
 			service foo();
-		'''.assertType('foo()', 'anonymous builtin no_type')
+		'''.assertType('foo()', 'builtin no_type')
 	}
 
 	@Test
@@ -100,11 +107,11 @@ class DeclarationTypeProviderTest extends AbstractMaslModelTest {
 			terminator Arnold is 
 				service foo();
 			end;
-		'''.assertType('Arnold~>foo()', 'anonymous builtin no_type')
+		'''.assertType('Arnold~>foo()', 'builtin no_type')
 	}
 
 	protected def assertType(CharSequence domainDeclaration, CharSequence expression, String expected) {
 		val expr = getElement(domainDeclaration, '', expression)
-		assertEquals(expected, getType(expr)?.asString)
+		assertEquals(expected, getMaslType(expr)?.toString)
 	}
 }

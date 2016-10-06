@@ -12,13 +12,6 @@ Workflow {
 	bean = StandaloneSetup {
 		platformUri = '..'
 	}
-	component = org.eclipse.emf.mwe.utils.DirectoryCleaner {
-        directory = "emf-gen"
-    }
-	component = EcoreGenerator {
-		genModel = "platform:/resource/org.xtuml.bp.xtext.masl/model/MaslBase.genmodel"
-		srcPath = "src"
-	}
 	
 	// now generate the MASL language
 	component = XtextGenerator {
@@ -44,7 +37,9 @@ Workflow {
 			}
 		}
 		language = StandardLanguage {
-			referencedResource = "platform:/resource/org.xtuml.bp.xtext.masl/model/MaslBase.genmodel"
+			referencedResource = "platform:/resource/org.xtuml.bp.xtext.masl/model/MaslBehavior.xcore"
+			referencedResource = "platform:/resource/org.xtuml.bp.xtext.masl/model/MaslStructure.xcore"
+			referencedResource = "platform:/resource/org.xtuml.bp.xtext.masl/model/MaslTypes.xcore"
 			name = "org.xtuml.bp.xtext.masl.MASL"
 			fileExtensions = "mod,tr,ext,scn,al,int,svc,prj,fn"
 			serializer = {

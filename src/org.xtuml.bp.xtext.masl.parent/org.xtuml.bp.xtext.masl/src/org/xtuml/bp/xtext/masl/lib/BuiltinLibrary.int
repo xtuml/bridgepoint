@@ -18,9 +18,8 @@ builtin is
 	// needed by the typesystem
 	anonymous builtin any_type;  // the type of null
 	anonymous builtin no_type; 
-	anonymous builtin stream_type;
 	anonymous builtin stream_manipulator_type;
-	
+
 	// built-in characteristics (currently not bound to any type)
 	'image;
 	'upper;

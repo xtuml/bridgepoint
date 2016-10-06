@@ -10,21 +10,35 @@ import org.eclipse.emf.ecore.EReference
 import org.eclipse.xtext.resource.impl.ResourceDescriptionsProvider
 import org.eclipse.xtext.scoping.IScope
 import org.xtuml.bp.xtext.masl.MASLExtensions
-import org.xtuml.bp.xtext.masl.masl.AssocRelationshipDefinition
-import org.xtuml.bp.xtext.masl.masl.AttributeReferential
-import org.xtuml.bp.xtext.masl.masl.CreateExpression
-import org.xtuml.bp.xtext.masl.masl.GenerateStatement
-import org.xtuml.bp.xtext.masl.masl.MaslPackage
-import org.xtuml.bp.xtext.masl.masl.ObjectDeclaration
-import org.xtuml.bp.xtext.masl.masl.ObjectDefinition
-import org.xtuml.bp.xtext.masl.masl.RegularRelationshipDefinition
-import org.xtuml.bp.xtext.masl.masl.RelationshipNavigation
-import org.xtuml.bp.xtext.masl.masl.SimpleFeatureCall
-import org.xtuml.bp.xtext.masl.masl.SubtypeRelationshipDefinition
-import org.xtuml.bp.xtext.masl.masl.TerminatorDefinition
-import org.xtuml.bp.xtext.masl.masl.TerminatorOperationCall
-import org.xtuml.bp.xtext.masl.masl.TransitionOption
-import org.xtuml.bp.xtext.masl.masl.TransitionRow
+import org.xtuml.bp.xtext.masl.masl.behavior.AttributeReferential
+import org.xtuml.bp.xtext.masl.masl.behavior.BehaviorPackage
+import org.xtuml.bp.xtext.masl.masl.behavior.CodeBlock
+import org.xtuml.bp.xtext.masl.masl.behavior.CreateExpression
+import org.xtuml.bp.xtext.masl.masl.behavior.ForStatement
+import org.xtuml.bp.xtext.masl.masl.behavior.GenerateStatement
+import org.xtuml.bp.xtext.masl.masl.behavior.OperationCall
+import org.xtuml.bp.xtext.masl.masl.behavior.SimpleFeatureCall
+import org.xtuml.bp.xtext.masl.masl.behavior.TerminatorOperationCall
+import org.xtuml.bp.xtext.masl.masl.structure.AssocRelationshipDefinition
+import org.xtuml.bp.xtext.masl.masl.structure.DomainFunctionDefinition
+import org.xtuml.bp.xtext.masl.masl.structure.DomainServiceDefinition
+import org.xtuml.bp.xtext.masl.masl.structure.ObjectDeclaration
+import org.xtuml.bp.xtext.masl.masl.structure.ObjectDefinition
+import org.xtuml.bp.xtext.masl.masl.structure.ObjectFunctionDefinition
+import org.xtuml.bp.xtext.masl.masl.structure.ObjectServiceDefinition
+import org.xtuml.bp.xtext.masl.masl.structure.Parameter
+import org.xtuml.bp.xtext.masl.masl.structure.RegularRelationshipDefinition
+import org.xtuml.bp.xtext.masl.masl.structure.RelationshipNavigation
+import org.xtuml.bp.xtext.masl.masl.structure.StateDefinition
+import org.xtuml.bp.xtext.masl.masl.structure.StructurePackage
+import org.xtuml.bp.xtext.masl.masl.structure.SubtypeRelationshipDefinition
+import org.xtuml.bp.xtext.masl.masl.structure.TerminatorDefinition
+import org.xtuml.bp.xtext.masl.masl.structure.TerminatorFunctionDefinition
+import org.xtuml.bp.xtext.masl.masl.structure.TerminatorServiceDefinition
+import org.xtuml.bp.xtext.masl.masl.structure.TransitionOption
+import org.xtuml.bp.xtext.masl.masl.structure.TransitionRow
+import org.xtuml.bp.xtext.masl.typesystem.InstanceType
+import org.xtuml.bp.xtext.masl.typesystem.MaslTypeProvider
 
 import static org.eclipse.xtext.scoping.Scopes.*
 
@@ -38,14 +52,19 @@ import static extension org.eclipse.xtext.EcoreUtil2.*
  */
 class MASLScopeProvider extends AbstractMASLScopeProvider {
 
-	@Inject extension MaslPackage 
+	@Inject extension StructurePackage structurePackage
+	@Inject extension BehaviorPackage 
 	
 	@Inject extension MASLExtensions
+	
+	@Inject extension MaslTypeProvider
 	
 	@Inject ResourceDescriptionsProvider resourceDescriptionsProvider
 
 	override getScope(EObject context, EReference reference) {
 		switch reference {
+			case featureCall_Feature:
+				return context.featureScope
 			case generateStatement_Event: {
 				if(context instanceof GenerateStatement) 
 					return createObjectScope(context.object, [events])
@@ -87,7 +106,7 @@ class MASLScopeProvider extends AbstractMASLScopeProvider {
 					}
 				} 
 			}
-			case relationshipNavigation_ObjectOrRole: {
+			case structurePackage.relationshipNavigation_ObjectOrRole: {
 				if(context instanceof RelationshipNavigation) {
 					val relationShip = context.relationship
 					switch relationShip {
@@ -108,7 +127,7 @@ class MASLScopeProvider extends AbstractMASLScopeProvider {
 					}
  				}
 			}
-			case relationshipNavigation_Object: {
+			case structurePackage.relationshipNavigation_Object: {
 				if(context instanceof RelationshipNavigation) {
 					val relationShip = context.relationship
 					switch relationShip {
@@ -131,17 +150,21 @@ class MASLScopeProvider extends AbstractMASLScopeProvider {
 		super.getScope(context, reference)
 	}
 	
-	private def <T extends EObject> createObjectScope(ObjectDefinition object, (ObjectDefinition)=>List<T> reference) {
+	private def <T extends EObject> createObjectScope(ObjectDefinition object, (ObjectDefinition)=>Iterable<? extends T> reference, IScope parentScope) {
 		if(object == null || object.eIsProxy)
 			return IScope.NULLSCOPE
 		val index = resourceDescriptionsProvider.getResourceDescriptions(object.eResource)
 		scopeFor(object
 			.getAllSupertypes(index)
 			.map[reference.apply(it)]
-			.flatten)
+			.flatten, parentScope)
+	}
+	
+	private def <T extends EObject> createObjectScope(ObjectDefinition object, (ObjectDefinition)=>Iterable<? extends T> reference) {
+		createObjectScope(object, reference, IScope.NULLSCOPE)
 	}
 
-	private def <T extends EObject> createObjectScope(ObjectDeclaration object, (ObjectDefinition)=>List<T> reference) {
+	private def <T extends EObject> createObjectScope(ObjectDeclaration object, (ObjectDefinition)=>Iterable<? extends T> reference, IScope parentScope) {
 		if(object == null || object.eIsProxy)
 			return IScope.NULLSCOPE
 		val index = resourceDescriptionsProvider.getResourceDescriptions(object.eResource)
@@ -149,6 +172,96 @@ class MASLScopeProvider extends AbstractMASLScopeProvider {
 		scopeFor(definition
 			.getAllSupertypes(index)
 			.map[reference.apply(it)]
-			.flatten)
+			.flatten, parentScope)
+	}
+
+	private def <T extends EObject> createObjectScope(ObjectDeclaration object, (ObjectDefinition)=>Iterable<? extends T> reference) {
+		createObjectScope(object, reference, IScope.NULLSCOPE)
+	}
+	
+	private def dispatch IScope getFeatureScope(SimpleFeatureCall call) {
+		if(call.receiver == null) {
+			return call.getLocalSimpleFeatureScope(delegate.getScope(call, featureCall_Feature))
+		} else {
+			val type = call.receiver.maslType
+			switch type {
+				InstanceType:
+					return type.instance.createObjectScope[attributes]
+			}
+		}
+		return IScope.NULLSCOPE
+	}
+	
+	private def IScope getLocalSimpleFeatureScope(EObject expr, IScope parentScope) {
+		if(expr == null)
+			return IScope.NULLSCOPE
+		val parent = expr.eContainer
+		switch expr {
+			CodeBlock:
+				return scopeFor(expr.variables, parent.getLocalSimpleFeatureScope(parentScope))
+			ForStatement:
+				return scopeFor(#[expr.variable], parent.getLocalSimpleFeatureScope(parentScope))
+			DomainFunctionDefinition:
+				return scopeFor(expr.parameters, parentScope)
+			DomainServiceDefinition:
+				return scopeFor(expr.parameters, parentScope)
+			ObjectFunctionDefinition:
+				return getSimpleFeatureScopeForObjectAction(expr.parameters, expr.object, parentScope)
+			ObjectServiceDefinition:
+				return getSimpleFeatureScopeForObjectAction(expr.parameters, expr.object, parentScope)
+			StateDefinition:
+				return getSimpleFeatureScopeForObjectAction(expr.parameters, expr.object, parentScope)
+			TerminatorFunctionDefinition:
+				return scopeFor(expr.parameters, parentScope) 
+			TerminatorServiceDefinition:
+				return scopeFor(expr.parameters, parentScope) 
+			default: 
+				return parent.getLocalSimpleFeatureScope(parentScope)
+		}
+	}
+	
+	private def getSimpleFeatureScopeForObjectAction(List<Parameter> parameters, ObjectDeclaration context, IScope parentScope) {
+		scopeFor(parameters, context.createObjectScope([attributes], parentScope))
+	}
+	
+	private def dispatch IScope getFeatureScope(OperationCall call) {
+		if(call.receiver == null) {
+			return call.getLocalOperationScope(delegate.getScope(call, featureCall_Feature))
+		} else {
+			val type = call.receiver.maslType
+			switch type {
+				InstanceType:
+					return type.instance.createObjectScope[services + functions]
+			}
+		}
+		return IScope.NULLSCOPE
+	}
+	
+	private def IScope getLocalOperationScope(EObject expr, IScope parentScope) {
+		if(expr == null)
+			return IScope.NULLSCOPE
+		val parent = expr.eContainer
+		switch expr {
+			DomainFunctionDefinition:
+				return scopeFor(expr.domain.services + expr.domain.functions, parentScope)
+			DomainServiceDefinition:
+				return scopeFor(expr.domain.services + expr.domain.functions, parentScope)
+			ObjectFunctionDefinition:
+				return expr.object.createObjectScope([functions + services], parentScope)
+			ObjectServiceDefinition:
+				return expr.object.createObjectScope([functions + services], parentScope)
+			StateDefinition:
+				return expr.object.createObjectScope([functions + services], parentScope)
+			TerminatorFunctionDefinition:
+				return scopeFor(expr.terminator.functions + expr.terminator.services, parentScope)
+			TerminatorServiceDefinition:
+				return scopeFor(expr.terminator.functions + expr.terminator.services, parentScope)
+			default: 
+				return parent.getLocalSimpleFeatureScope(parentScope)
+		}
+	}
+	
+	private def dispatch IScope getFeatureScope(EObject call) {
+		IScope.NULLSCOPE
 	}
 }

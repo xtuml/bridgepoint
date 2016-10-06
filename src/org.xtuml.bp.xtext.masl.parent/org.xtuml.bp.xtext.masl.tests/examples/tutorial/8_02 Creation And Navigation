@@ -1,0 +1,43 @@
+service tutorial::creation_and_navigation() is
+  pilot         : instance of Pilot;
+  airplane      : instance of Airplane;
+  aps           : instance of Airplane_Pilot_Assignment;
+  wing          : instance of Wing;
+  wings         : sequence of instance of Wing;
+  wheel         : instance of Wheel;
+  wheels        : sequence of instance of Wheel;
+  i             : integer;
+begin
+  i:= 0;
+  begin
+    wheels := pilot->R2->R3->R7;
+    i := 1;
+  exception
+    when Standard::constraint_error =>
+      i:= 2;
+  end;
+  if (i/=2 or wheels'length /= 0) then
+    raise Standard::constraint_error;
+  end if;
+
+  airplane := create Airplane (model=>747);
+
+  wing  := create Wing(span=>300);
+  wheel := create Wheel(size=>36);
+  link wheel R7 wing;
+  link wing R3 airplane;
+ 
+  wing  := create Wing(span=>300);
+  wheel := create Wheel(size=>36);
+  link wheel R7 wing;
+  link wing R3 airplane;
+ 
+  pilot := create Pilot(age=>33);
+  aps := create Airplane_Pilot_Assignment(Current_State=>state_one);
+  link airplane R2 pilot using aps;
+
+  wheels := pilot->R2->R3->R7;
+  if (wheels'length /= 2 or wheels[wheels'first].size /= 36) then
+    raise Standard::constraint_error;
+  end if;
+end service;

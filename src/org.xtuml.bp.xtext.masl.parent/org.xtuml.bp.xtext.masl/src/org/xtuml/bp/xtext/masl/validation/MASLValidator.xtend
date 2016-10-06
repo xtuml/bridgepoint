@@ -14,49 +14,50 @@ import org.eclipse.xtext.naming.IQualifiedNameProvider
 import org.eclipse.xtext.resource.IResourceDescriptions
 import org.eclipse.xtext.resource.impl.ResourceDescriptionsProvider
 import org.eclipse.xtext.validation.Check
+import org.eclipse.xtext.validation.ComposedChecks
 import org.xtuml.bp.xtext.masl.MASLExtensions
-import org.xtuml.bp.xtext.masl.masl.AssocRelationshipDefinition
-import org.xtuml.bp.xtext.masl.masl.CharacteristicCall
-import org.xtuml.bp.xtext.masl.masl.CodeBlock
-import org.xtuml.bp.xtext.masl.masl.DomainDefinition
-import org.xtuml.bp.xtext.masl.masl.DomainFunctionDeclaration
-import org.xtuml.bp.xtext.masl.masl.DomainFunctionDefinition
-import org.xtuml.bp.xtext.masl.masl.DomainServiceDeclaration
-import org.xtuml.bp.xtext.masl.masl.DomainServiceDefinition
-import org.xtuml.bp.xtext.masl.masl.EnumerationTypeDefinition
-import org.xtuml.bp.xtext.masl.masl.IdentifierDefinition
-import org.xtuml.bp.xtext.masl.masl.IndexedExpression
-import org.xtuml.bp.xtext.masl.masl.MaslModel
-import org.xtuml.bp.xtext.masl.masl.MaslPackage
-import org.xtuml.bp.xtext.masl.masl.ObjectDeclaration
-import org.xtuml.bp.xtext.masl.masl.ObjectDefinition
-import org.xtuml.bp.xtext.masl.masl.ObjectFunctionDeclaration
-import org.xtuml.bp.xtext.masl.masl.ObjectFunctionDefinition
-import org.xtuml.bp.xtext.masl.masl.ObjectServiceDeclaration
-import org.xtuml.bp.xtext.masl.masl.ObjectServiceDefinition
-import org.xtuml.bp.xtext.masl.masl.OperationCall
-import org.xtuml.bp.xtext.masl.masl.Parameterized
-import org.xtuml.bp.xtext.masl.masl.ProjectDefinition
-import org.xtuml.bp.xtext.masl.masl.RegularRelationshipDefinition
-import org.xtuml.bp.xtext.masl.masl.RelationshipDefinition
-import org.xtuml.bp.xtext.masl.masl.RelationshipEnd
-import org.xtuml.bp.xtext.masl.masl.RelationshipNavigation
-import org.xtuml.bp.xtext.masl.masl.SimpleFeatureCall
-import org.xtuml.bp.xtext.masl.masl.StateDeclaration
-import org.xtuml.bp.xtext.masl.masl.StateDefinition
-import org.xtuml.bp.xtext.masl.masl.StructureTypeDefinition
-import org.xtuml.bp.xtext.masl.masl.SubtypeRelationshipDefinition
-import org.xtuml.bp.xtext.masl.masl.TerminatorDefinition
-import org.xtuml.bp.xtext.masl.masl.TerminatorFunctionDeclaration
-import org.xtuml.bp.xtext.masl.masl.TerminatorFunctionDefinition
-import org.xtuml.bp.xtext.masl.masl.TerminatorOperationCall
-import org.xtuml.bp.xtext.masl.masl.TerminatorServiceDeclaration
-import org.xtuml.bp.xtext.masl.masl.TerminatorServiceDefinition
-import org.xtuml.bp.xtext.masl.masl.TransitionRow
-import org.xtuml.bp.xtext.masl.maslBase.MaslBasePackage
+import org.xtuml.bp.xtext.masl.masl.behavior.BehaviorPackage
+import org.xtuml.bp.xtext.masl.masl.behavior.CharacteristicCall
+import org.xtuml.bp.xtext.masl.masl.behavior.CodeBlock
+import org.xtuml.bp.xtext.masl.masl.behavior.IndexedExpression
+import org.xtuml.bp.xtext.masl.masl.behavior.OperationCall
+import org.xtuml.bp.xtext.masl.masl.behavior.SimpleFeatureCall
+import org.xtuml.bp.xtext.masl.masl.behavior.TerminatorOperationCall
+import org.xtuml.bp.xtext.masl.masl.structure.AssocRelationshipDefinition
+import org.xtuml.bp.xtext.masl.masl.structure.DomainDefinition
+import org.xtuml.bp.xtext.masl.masl.structure.DomainFunctionDeclaration
+import org.xtuml.bp.xtext.masl.masl.structure.DomainFunctionDefinition
+import org.xtuml.bp.xtext.masl.masl.structure.DomainServiceDeclaration
+import org.xtuml.bp.xtext.masl.masl.structure.DomainServiceDefinition
+import org.xtuml.bp.xtext.masl.masl.structure.IdentifierDefinition
+import org.xtuml.bp.xtext.masl.masl.structure.MaslModel
+import org.xtuml.bp.xtext.masl.masl.structure.ObjectDeclaration
+import org.xtuml.bp.xtext.masl.masl.structure.ObjectDefinition
+import org.xtuml.bp.xtext.masl.masl.structure.ObjectFunctionDeclaration
+import org.xtuml.bp.xtext.masl.masl.structure.ObjectFunctionDefinition
+import org.xtuml.bp.xtext.masl.masl.structure.ObjectServiceDeclaration
+import org.xtuml.bp.xtext.masl.masl.structure.ObjectServiceDefinition
+import org.xtuml.bp.xtext.masl.masl.structure.Parameterized
+import org.xtuml.bp.xtext.masl.masl.structure.ProjectDefinition
+import org.xtuml.bp.xtext.masl.masl.structure.RegularRelationshipDefinition
+import org.xtuml.bp.xtext.masl.masl.structure.RelationshipDefinition
+import org.xtuml.bp.xtext.masl.masl.structure.RelationshipEnd
+import org.xtuml.bp.xtext.masl.masl.structure.RelationshipNavigation
+import org.xtuml.bp.xtext.masl.masl.structure.StateDeclaration
+import org.xtuml.bp.xtext.masl.masl.structure.StateDefinition
+import org.xtuml.bp.xtext.masl.masl.structure.StructurePackage
+import org.xtuml.bp.xtext.masl.masl.structure.SubtypeRelationshipDefinition
+import org.xtuml.bp.xtext.masl.masl.structure.TerminatorDefinition
+import org.xtuml.bp.xtext.masl.masl.structure.TerminatorFunctionDeclaration
+import org.xtuml.bp.xtext.masl.masl.structure.TerminatorFunctionDefinition
+import org.xtuml.bp.xtext.masl.masl.structure.TerminatorServiceDeclaration
+import org.xtuml.bp.xtext.masl.masl.structure.TerminatorServiceDefinition
+import org.xtuml.bp.xtext.masl.masl.structure.TransitionRow
+import org.xtuml.bp.xtext.masl.masl.types.EnumerationTypeDefinition
+import org.xtuml.bp.xtext.masl.masl.types.StructureTypeDefinition
+import org.xtuml.bp.xtext.masl.masl.types.TypesPackage
 
 import static org.xtuml.bp.xtext.masl.validation.IssueCodes.*
-import org.eclipse.xtext.validation.ComposedChecks
 
 /**
  * This class contains custom validation rules. 
@@ -66,8 +67,9 @@ import org.eclipse.xtext.validation.ComposedChecks
 @ComposedChecks(validators=#[MASLTypeValidator])
 class MASLValidator extends AbstractMASLValidator {
 
-	@Inject extension MaslPackage
-	@Inject extension MaslBasePackage
+	@Inject extension StructurePackage structurePackage
+	@Inject extension BehaviorPackage
+	@Inject extension TypesPackage
 	@Inject extension MASLExtensions
 	@Inject extension IQualifiedNameProvider
 	@Inject extension ResourceDescriptionsProvider
@@ -113,7 +115,7 @@ class MASLValidator extends AbstractMASLValidator {
 		project.domains.forEach [
 			 (objects + services + functions + relationships + objectDefs + typeForwards + types + exceptions)
 			 .forEach[
-			 	error('Only terminator definitions are allowed in a project', it, abstractNamed_Name)
+			 	error('Only terminator definitions are allowed in a project', it, structurePackage.abstractNamed_Name)
 			 ]
 		]
 	}
@@ -147,10 +149,10 @@ class MASLValidator extends AbstractMASLValidator {
 		if (objectOrRole != null && object != null) {
 			if (objectOrRole instanceof RelationshipEnd) {
 				if ((objectOrRole as RelationshipEnd).to != object) {
-					error('Role refers to another object', it, relationshipNavigation_ObjectOrRole, INCONSISTENT_RELATIONSHIP_NAVIGATION)
+					error('Role refers to another object', it, structurePackage.relationshipNavigation_ObjectOrRole, INCONSISTENT_RELATIONSHIP_NAVIGATION)
 				}
 			} else {
-				error('Role refers to an object', it, relationshipNavigation_ObjectOrRole, INCONSISTENT_RELATIONSHIP_NAVIGATION)
+				error('Role refers to an object', it, structurePackage.relationshipNavigation_ObjectOrRole, INCONSISTENT_RELATIONSHIP_NAVIGATION)
 			}
 		}
 	}
@@ -241,8 +243,8 @@ class MASLValidator extends AbstractMASLValidator {
 	@Check
 	def relationNamesAreUnique(RegularRelationshipDefinition it) {
 		if(forwards.name == backwards.name) {
-			error('Duplicate role name ' + forwards.name, forwards, abstractNamed_Name, DUPLICATE_NAME)
-			error('Duplicate role name ' + backwards.name, backwards, abstractNamed_Name, DUPLICATE_NAME)
+			error('Duplicate role name ' + forwards.name, forwards, structurePackage.abstractNamed_Name, DUPLICATE_NAME)
+			error('Duplicate role name ' + backwards.name, backwards, structurePackage.abstractNamed_Name, DUPLICATE_NAME)
 		}
 	}
 	
@@ -255,7 +257,7 @@ class MASLValidator extends AbstractMASLValidator {
 	private def checkNamesAreLocallyUnique(Iterable<? extends EObject> elements) {
 		val name2element = HashMultimap.create
 		for(element: elements) {
-			val name = element.eGet(abstractNamed_Name)
+			val name = element.eGet(structurePackage.abstractNamed_Name)
 			name2element.put(name, element)
 			val duplicates = name2element.get(name)
 			switch duplicates.size {
@@ -264,10 +266,10 @@ class MASLValidator extends AbstractMASLValidator {
 				}
 				case 2: 
 					duplicates.forEach[
-						error('Duplicate name ' + name, it, abstractNamed_Name, DUPLICATE_NAME)
+						error('Duplicate name ' + name, it, structurePackage.abstractNamed_Name, DUPLICATE_NAME)
 					]
 				default:
-					error('''Duplicate «element.eClass.name» named '«name»'«»''', element, abstractNamed_Name, DUPLICATE_NAME)
+					error('''Duplicate «element.eClass.name» named '«name»'«»''', element, structurePackage.abstractNamed_Name, DUPLICATE_NAME)
 			}
 		}
 	}
@@ -290,7 +292,7 @@ class MASLValidator extends AbstractMASLValidator {
 					siblings.next
 					if(siblings.hasNext) {
 						error('''Duplicate «eClasses.map[name].join('/')» named '«elementName.toString('::')»'«»''', 
-							element, abstractNamed_Name, DUPLICATE_NAME)
+							element, structurePackage.abstractNamed_Name, DUPLICATE_NAME)
 					}
 				}
 			}
@@ -300,97 +302,97 @@ class MASLValidator extends AbstractMASLValidator {
 	@Check
 	def declarationPresent(ObjectDefinition it) {
 		if(getDeclarations(objectDeclaration, index).empty)
-			warning('Object is has not been declared', it, abstractNamed_Name, MISSING_DECLARATION)
+			warning('Object is has not been declared', it, structurePackage.abstractNamed_Name, MISSING_DECLARATION)
 	}	
 	
 	@Check
 	def declarationPresent(ObjectFunctionDefinition it) {
 		if(getDeclarations(objectFunctionDeclaration, index).empty)
-			warning('Object function has not been declared', it, abstractNamed_Name, MISSING_DECLARATION)
+			warning('Object function has not been declared', it, structurePackage.abstractNamed_Name, MISSING_DECLARATION)
 	}	
 	
 	@Check
 	def declarationPresent(ObjectServiceDefinition it) {
 		if(getDeclarations(objectServiceDeclaration, index).empty)
-			warning('Object service has not been declared', it, abstractNamed_Name, MISSING_DECLARATION)
+			warning('Object service has not been declared', it, structurePackage.abstractNamed_Name, MISSING_DECLARATION)
 	}
 	
 	@Check
 	def declarationPresent(StateDefinition it) {
 		if(getDeclarations(stateDeclaration, index).empty)
-			warning('State has not been declared', it, abstractNamed_Name, MISSING_DECLARATION)
+			warning('State has not been declared', it, structurePackage.abstractNamed_Name, MISSING_DECLARATION)
 	}
 	
 	@Check
 	def declarationPresent(DomainFunctionDefinition it) {
 		if(getDeclarations(domainFunctionDeclaration, index).empty)
-			warning('Domain function has not been declared', it, abstractNamed_Name, MISSING_DECLARATION)
+			warning('Domain function has not been declared', it, structurePackage.abstractNamed_Name, MISSING_DECLARATION)
 	}	
 	
 	@Check
 	def declarationPresent(DomainServiceDefinition it) {
 		if(getDeclarations(domainServiceDeclaration, index).empty)
-			warning('Domain service has not been declared', it, abstractNamed_Name, MISSING_DECLARATION)
+			warning('Domain service has not been declared', it, structurePackage.abstractNamed_Name, MISSING_DECLARATION)
 	}
 	
 	@Check
 	def declarationPresent(TerminatorFunctionDefinition it) {
 		if(getDeclarations(terminatorFunctionDeclaration, index).empty)
-			warning('Terminator function has not been declared', it, abstractNamed_Name, MISSING_DECLARATION)
+			warning('Terminator function has not been declared', it, structurePackage.abstractNamed_Name, MISSING_DECLARATION)
 	}	
 	
 	@Check
 	def declarationPresent(TerminatorServiceDefinition it) {
 		if(getDeclarations(terminatorServiceDeclaration, index).empty)
-			warning('Terminator service has not been declared', it, abstractNamed_Name, MISSING_DECLARATION)
+			warning('Terminator service has not been declared', it, structurePackage.abstractNamed_Name, MISSING_DECLARATION)
 	}
 	
 	@Check
 	def definitionPresent(ObjectDeclaration it) {
 		if(getDefinitions(objectDefinition, index).empty)
-			warning('Object has not been defined', it, abstractNamed_Name, MISSING_DEFINITION)
+			warning('Object has not been defined', it, structurePackage.abstractNamed_Name, MISSING_DEFINITION)
 	}	
 	
 	@Check
 	def definitionPresent(ObjectFunctionDeclaration it) {
 		if(getDefinitions(objectFunctionDefinition, index).empty)
-			warning('Object function has not been defined', it, abstractNamed_Name, MISSING_DEFINITION)
+			warning('Object function has not been defined', it, structurePackage.abstractNamed_Name, MISSING_DEFINITION)
 	}	
 	
 	@Check
 	def definitionPresent(ObjectServiceDeclaration it) {
 		if(getDefinitions(objectServiceDefinition, index).empty)
-			warning('Object service has not been defined', it, abstractNamed_Name, MISSING_DEFINITION)
+			warning('Object service has not been defined', it, structurePackage.abstractNamed_Name, MISSING_DEFINITION)
 	}	
 	
 	@Check
 	def definitionPresent(StateDeclaration it) {
 		if(getDefinitions(stateDefinition, index).empty)
-			warning('State has not been defined', it, abstractNamed_Name, MISSING_DEFINITION)
+			warning('State has not been defined', it, structurePackage.abstractNamed_Name, MISSING_DEFINITION)
 	}	
 	
 	@Check
 	def definitionPresent(DomainFunctionDeclaration it) {
 		if(getDefinitions(domainFunctionDefinition, index).empty)
-			warning('Domain function has not been defined', it, abstractNamed_Name, MISSING_DEFINITION)
+			warning('Domain function has not been defined', it, structurePackage.abstractNamed_Name, MISSING_DEFINITION)
 	}	
 	
 	@Check
 	def definitionPresent(DomainServiceDeclaration it) {
 		if(getDefinitions(domainServiceDefinition, index).empty)
-			warning('Domain service has not been defined', it, abstractNamed_Name, MISSING_DEFINITION)
+			warning('Domain service has not been defined', it, structurePackage.abstractNamed_Name, MISSING_DEFINITION)
 	}	
 	
 	@Check
 	def definitionPresent(TerminatorFunctionDeclaration it) {
 		if(getDefinitions(terminatorFunctionDefinition, index).empty)
-			warning('Terminator function has not been defined', it, abstractNamed_Name, MISSING_DEFINITION)
+			warning('Terminator function has not been defined', it, structurePackage.abstractNamed_Name, MISSING_DEFINITION)
 	}	
 	
 	@Check
 	def definitionPresent(TerminatorServiceDeclaration it) {
 		if(getDefinitions(terminatorServiceDefinition, index).empty)
-			warning('Terminator service has not been defined', it, abstractNamed_Name, MISSING_DEFINITION)
+			warning('Terminator service has not been defined', it, structurePackage.abstractNamed_Name, MISSING_DEFINITION)
 	}	
 	
 	private def IResourceDescriptions getIndex(EObject element) {
@@ -402,15 +404,15 @@ class MASLValidator extends AbstractMASLValidator {
 	@Check
 	def relationName(RelationshipDefinition it) {
 		if(!name.startsWith('R'))
-			warning("Relationship name should start with an 'R'", it, abstractNamed_Name)
+			warning("Relationship name should start with an 'R'", it, structurePackage.abstractNamed_Name)
 		if(!INT_PATTERN.matcher(name.substring(1)).matches)
-			warning("Relationship name should end with an integer number", it, abstractNamed_Name)
+			warning("Relationship name should end with an integer number", it, structurePackage.abstractNamed_Name)
 	} 
 	
 	@Check
 	def inheritanceCycle(ObjectDeclaration it) {
 		if(findInheritanceCycle(newHashSet)) {
-			error('Object has a cycle in its supertype hierarchy', it, abstractNamed_Name, CYCLIC_INHERITANCE)
+			error('Object has a cycle in its supertype hierarchy', it, structurePackage.abstractNamed_Name, CYCLIC_INHERITANCE)
 		}
 	}
 	
@@ -441,7 +443,7 @@ class MASLValidator extends AbstractMASLValidator {
 			}
 			if(!expectedFileExtensions.contains(fileExtension)) {
 				error('''«eClass.name» elements should be defined in a file with extension «
-				expectedFileExtensions.map['\'.'+ it + '\''].join(' or ')».''', it, abstractNamed_Name)
+				expectedFileExtensions.map['\'.'+ it + '\''].join(' or ')».''', it, structurePackage.abstractNamed_Name)
 			}
 		]
 	}

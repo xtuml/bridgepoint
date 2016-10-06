@@ -1,27 +1,28 @@
 package org.xtuml.bp.xtext.masl.tests.validation
 
 import com.google.inject.Inject
+import org.eclipse.emf.ecore.EObject
+import org.eclipse.emf.ecore.util.EcoreUtil
 import org.eclipse.xtext.junit4.InjectWith
 import org.eclipse.xtext.junit4.XtextRunner
 import org.eclipse.xtext.junit4.util.ParseHelper
 import org.eclipse.xtext.junit4.validation.ValidationTestHelper
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.xtuml.bp.xtext.masl.masl.DomainDefinition
-import org.xtuml.bp.xtext.masl.masl.MaslModel
-import org.xtuml.bp.xtext.masl.masl.MaslPackage
+import org.xtuml.bp.xtext.masl.masl.structure.DomainDefinition
+import org.xtuml.bp.xtext.masl.masl.structure.MaslModel
+import org.xtuml.bp.xtext.masl.masl.structure.StructurePackage
 import org.xtuml.bp.xtext.masl.tests.MASLInjectorProvider
 
 import static org.xtuml.bp.xtext.masl.validation.IssueCodes.*
-import org.eclipse.emf.ecore.EObject
-import org.eclipse.emf.ecore.util.EcoreUtil
 
 @RunWith(XtextRunner)
 @InjectWith(MASLInjectorProvider)
 class ValidatorTest {
+	
 	@Inject extension ParseHelper<MaslModel>
 	@Inject extension ValidationTestHelper
-	@Inject extension MaslPackage
+	@Inject extension StructurePackage
 
 	@Test
 	def void testInheritanceCycle() {

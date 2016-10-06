@@ -8,14 +8,14 @@ import org.eclipse.xtext.junit4.util.ParseHelper
 import org.eclipse.xtext.resource.EObjectAtOffsetHelper
 import org.eclipse.xtext.resource.XtextResource
 import org.junit.runner.RunWith
-import org.xtuml.bp.xtext.masl.masl.CodeBlock
-import org.xtuml.bp.xtext.masl.masl.MaslModel
+import org.xtuml.bp.xtext.masl.masl.behavior.CodeBlock
+import org.xtuml.bp.xtext.masl.masl.structure.MaslModel
 
 import static extension org.eclipse.xtext.EcoreUtil2.*
 
 @RunWith(XtextRunner)
 @InjectWith(MASLInjectorProvider)
-class AbstractMaslModelTest {
+abstract class AbstractMaslModelTest {
 	
 	@Inject extension ParseHelper<MaslModel>
 	@Inject extension EObjectAtOffsetHelper 

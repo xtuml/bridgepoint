@@ -6,12 +6,9 @@ package org.xtuml.bp.xtext.masl.formatting2
 import com.google.inject.Inject
 import org.eclipse.xtext.formatting2.AbstractFormatter2
 import org.eclipse.xtext.formatting2.IFormattableDocument
-import org.xtuml.bp.xtext.masl.masl.AbstractTopLevelElement
-import org.xtuml.bp.xtext.masl.masl.MaslModel
-import org.xtuml.bp.xtext.masl.masl.Pragma
-import org.xtuml.bp.xtext.masl.masl.Pragmatized
+import org.xtuml.bp.xtext.masl.masl.structure.MaslModel
+import org.xtuml.bp.xtext.masl.masl.structure.StructurePackage
 import org.xtuml.bp.xtext.masl.services.MASLGrammarAccess
-import org.xtuml.bp.xtext.masl.masl.MaslPackage
 
 /** 
  * A very simple formatter
@@ -19,7 +16,7 @@ import org.xtuml.bp.xtext.masl.masl.MaslPackage
 class MASLFormatter extends AbstractFormatter2 {
 	
 	@Inject extension MASLGrammarAccess
-	@Inject extension MaslPackage
+	@Inject extension StructurePackage
 
 	def dispatch void format(MaslModel maslModel, extension IFormattableDocument document) {
 		maslModel.allRegionsFor.keywordPairs("is", "end").forEach [

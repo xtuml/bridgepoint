@@ -4,15 +4,15 @@ import com.google.inject.Inject
 import com.google.inject.Provider
 import com.google.inject.Singleton
 import java.util.List
+import java.util.Map
 import org.apache.log4j.Logger
 import org.eclipse.emf.common.util.URI
+import org.eclipse.emf.ecore.resource.impl.URIMappingRegistryImpl
+import org.eclipse.emf.ecore.util.EcoreUtil
+import org.eclipse.xtext.EcoreUtil2
 import org.eclipse.xtext.resource.IResourceDescription
 import org.eclipse.xtext.resource.XtextResourceSet
-import org.eclipse.emf.ecore.resource.impl.URIMappingRegistryImpl
-import java.util.Map
-import org.eclipse.xtext.EcoreUtil2
-import org.xtuml.bp.xtext.masl.masl.TypeDeclaration
-import org.eclipse.emf.ecore.util.EcoreUtil
+import org.xtuml.bp.xtext.masl.masl.types.TypeDeclaration
 
 /**
  * Built-in types like 'real' or 'integer' are provided by a library model. 

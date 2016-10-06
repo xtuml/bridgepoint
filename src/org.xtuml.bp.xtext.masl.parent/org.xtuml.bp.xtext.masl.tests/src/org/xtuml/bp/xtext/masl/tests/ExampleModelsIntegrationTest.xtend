@@ -13,12 +13,13 @@ import org.eclipse.xtext.junit4.InjectWith
 import org.eclipse.xtext.junit4.XtextRunner
 import org.eclipse.xtext.junit4.util.ParseHelper
 import org.eclipse.xtext.junit4.validation.ValidationTestHelper
+import org.eclipse.xtext.resource.FileExtensionProvider
 import org.eclipse.xtext.resource.XtextResourceSet
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.xtuml.bp.xtext.masl.masl.MaslModel
+import org.xtuml.bp.xtext.masl.masl.structure.MaslModel
+
 import static org.junit.Assert.*
-import org.eclipse.xtext.resource.FileExtensionProvider
 
 @RunWith(XtextRunner)
 @InjectWith(MASLInjectorProvider)

@@ -1,7 +1,8 @@
 grammar org.xtuml.bp.xtext.masl.MASL hidden(WS, SL_COMMENT)
 
-generate masl "http://www.xtuml.org/bp/xtext/masl/MASL"
-import "http://www.xtuml.org/bp/xtext/masl/MASLbase" as base
+import "http://www.xtuml.org/bp/xtext/masl/MASLStructure"
+import "http://www.xtuml.org/bp/xtext/masl/MASLTypes"
+import "http://www.xtuml.org/bp/xtext/masl/MASLBehavior"
 import "http://www.eclipse.org/emf/2002/Ecore" as ecore
 
 MaslModel:
@@ -11,44 +12,17 @@ MaslModel:
 AbstractTopLevelElement:
 	ProjectDefinition
 	| DomainDefinition
-	| ObjectServiceDefinition
-	| ObjectFunctionDefinition
-	| StateDefinition
-	| DomainServiceDefinition
 	| DomainFunctionDefinition
-	| TerminatorServiceDefinition
+	| DomainServiceDefinition
+	| ObjectFunctionDefinition
+	| ObjectServiceDefinition
+	| StateDefinition
 	| TerminatorFunctionDefinition
-;
+	| TerminatorServiceDefinition;
 
 //---------------------------------------------------------
 // Common rules and fragments
 //---------------------------------------------------------
-
-// this supertype makes sure the name attribute goes to a common supertype
-AbstractNamed returns base::AbstractNamed:
-	AbstractFeature
-	| AbstractTopLevelElement
-	| AttributeDefinition
-	| DomainDefinition
-	| DomainFunctionDeclaration
-	| DomainServiceDeclaration
-	| EventDefinition
-	| Enumerator
-	| ExceptionDeclaration
-	| LoopVariable
-	| ObjectDeclaration
-	| ObjectDefinition
-	| ObjectFunctionDeclaration
-	| ObjectServiceDeclaration
-	| Parameter
-	| RelationshipDefinition
-	| RelationshipEnd
-	| StateDeclaration
-	| TerminatorDefinition
-	| TerminatorFunctionDeclaration
-	| TerminatorServiceDeclaration
-	| TypeForwardDeclaration
-	| VariableDeclaration;
 
 ScopedName:
 	(ID '::')? ID;
@@ -239,7 +213,7 @@ DictionaryTypeReference:
 	anonymous?='anonymous'?
 	'dictionary' (keyType=AbstractDictKeyTypeRef? 'of' elementType=AbstractTypeReference)?;
 
-AbstractDictKeyTypeRef:
+AbstractDictKeyTypeRef returns AbstractTypeReference:
 	NamedTypeReference | InstanceTypeReference;
 
 //---------------------------------------------------------
@@ -263,10 +237,6 @@ TerminatorFunctionDeclaration:
 	'return' returnType=AbstractTypeReference
 	PragmaList;
 	
-TerminatorTypeReference returns AbstractTypeReference:
-	{TerminatorTypeReference}
-	terminator=[TerminatorDefinition];
-
 //---------------------------------------------------------
 // Object Definition
 //---------------------------------------------------------
@@ -339,7 +309,7 @@ StateDeclaration:
 	ParameterList
 	PragmaList;
 
-StateTypeSyntax returns base::StateType:
+StateTypeSyntax returns StateType:
 	'assigner' 'start'? | 'creation' | 'terminal';
 
 TransitionTable:
@@ -422,10 +392,6 @@ enum Multiplicity:
 RelationshipNavigation:
 	relationship=[RelationshipDefinition|ScopedName]
 	('.' objectOrRole=[ObjectOrRole] ('.' object=[ObjectDeclaration])?)?;
-
-// Common supertype needed for the reference RelationshipNavigation#objectOrRole
-ObjectOrRole:
-	ObjectDeclaration | RelationshipEnd;
 
 //---------------------------------------------------------
 // Dynamic Behaviour
@@ -540,12 +506,12 @@ enum LinkType:
 ScheduleStatement:
 	'schedule' timerId=Expression
 	generateStatement=GenerateStatement
-	type=scheduleType time=Expression ('delta' period=Expression)?;
+	type=ScheduleType time=Expression ('delta' period=Expression)?;
 
 CancelTimerStatement:
 	'cancel' timerId=Expression;
 
-enum scheduleType:
+enum ScheduleType:
 	at
 	| delay;
 
@@ -795,22 +761,6 @@ FeatureCall:
 SimpleFeatureCall:
 	feature=[AbstractFeature|ScopedName];
 
-AbstractFeature:
-	Enumerator
-	| VariableDeclaration
-	| ObjectDeclaration
-	| TerminatorDefinition
-	| LoopVariable
-	| Parameter
-	| AttributeDefinition
-	| TypeDeclaration
-	| ObjectFunctionDeclaration
-	| ObjectServiceDeclaration
-	| DomainFunctionDeclaration
-	| DomainServiceDeclaration
-	| TerminatorFunctionDeclaration 
-	| TerminatorServiceDeclaration;
-	
 ParenthesisedExpression returns Expression:
 	'(' Expression
 		({StructureAggregateExpression.elements+=current} (',' elements+=Expression)+)?

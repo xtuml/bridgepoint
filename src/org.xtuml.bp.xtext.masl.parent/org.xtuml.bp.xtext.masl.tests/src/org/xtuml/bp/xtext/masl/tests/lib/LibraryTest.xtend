@@ -13,14 +13,14 @@ import org.eclipse.xtext.resource.impl.ResourceDescriptionsProvider
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.xtuml.bp.xtext.masl.lib.MASLLibraryProvider
-import org.xtuml.bp.xtext.masl.masl.BuiltinTypeDeclaration
-import org.xtuml.bp.xtext.masl.masl.DomainDefinition
-import org.xtuml.bp.xtext.masl.masl.MaslModel
-import org.xtuml.bp.xtext.masl.masl.MaslPackage
-import org.xtuml.bp.xtext.masl.masl.NamedTypeReference
+import org.xtuml.bp.xtext.masl.masl.structure.DomainDefinition
+import org.xtuml.bp.xtext.masl.masl.structure.MaslModel
+import org.xtuml.bp.xtext.masl.masl.types.BuiltinTypeDeclaration
+import org.xtuml.bp.xtext.masl.masl.types.NamedTypeReference
 import org.xtuml.bp.xtext.masl.tests.MASLInjectorProvider
 
 import static org.junit.Assert.*
+import org.xtuml.bp.xtext.masl.masl.types.TypesPackage
 
 @RunWith(XtextRunner)
 @InjectWith(MASLInjectorProvider)
@@ -32,7 +32,7 @@ class LibraryTest {
 	@Inject ResourceDescriptionsProvider resourceDescriptionsProvider
 	
 	@Inject extension ParseHelper<MaslModel> 
-	extension MaslPackage = MaslPackage.eINSTANCE
+	@Inject extension TypesPackage
 	
 	@Inject MASLLibraryProvider libProvider
 	

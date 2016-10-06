@@ -12,13 +12,14 @@ import org.eclipse.xtext.scoping.IScopeProvider
 import org.eclipse.xtext.scoping.impl.AbstractDeclarativeScopeProvider
 import org.xtuml.bp.xtext.masl.lib.MASLContainerManager
 import org.xtuml.bp.xtext.masl.lib.MASLDelegatingAllContainerState
-import org.xtuml.bp.xtext.masl.masl.MaslPackage
+import org.xtuml.bp.xtext.masl.masl.behavior.BehaviorPackage
+import org.xtuml.bp.xtext.masl.masl.structure.StructurePackage
+import org.xtuml.bp.xtext.masl.masl.types.TypesPackage
 import org.xtuml.bp.xtext.masl.parser.MASLValueConverters
 import org.xtuml.bp.xtext.masl.scoping.MASLImportScopeProvider
 import org.xtuml.bp.xtext.masl.scoping.MASLQualifiedNameConverter
 import org.xtuml.bp.xtext.masl.scoping.MASLQualifiedNameProvider
 import org.xtuml.bp.xtext.masl.scoping.MASLResourceDescriptionStrategy
-import org.xtuml.bp.xtext.masl.maslBase.MaslBasePackage
 
 /**
  * Use this class to register components to be used at runtime / without the Equinox extension registry.
@@ -51,12 +52,16 @@ class MASLRuntimeModule extends AbstractMASLRuntimeModule {
 		MASLContainerManager
 	}
 	
-	def configureMASLPackage(Binder binder) {
-		binder.bind(MaslPackage).toInstance(MaslPackage.eINSTANCE)
+	def configureStructurePackage(Binder binder) {
+		binder.bind(StructurePackage).toInstance(StructurePackage.eINSTANCE)
 	}
 	
-	def configureMASLBasePackage(Binder binder) {
-		binder.bind(MaslBasePackage).toInstance(MaslBasePackage.eINSTANCE)
+	def configureBehaviorPackage(Binder binder) {
+		binder.bind(BehaviorPackage).toInstance(BehaviorPackage.eINSTANCE)
+	}
+	
+	def configureTypesPackage(Binder binder) {
+		binder.bind(TypesPackage).toInstance(TypesPackage.eINSTANCE)
 	}
 	
 	def Class<? extends IDefaultResourceDescriptionStrategy> bindIDefaultResourceDescriptionStrategy() {
