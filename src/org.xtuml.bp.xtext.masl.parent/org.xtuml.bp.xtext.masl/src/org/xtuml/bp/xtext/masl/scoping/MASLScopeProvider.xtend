@@ -39,7 +39,6 @@ import org.xtuml.bp.xtext.masl.masl.structure.TerminatorServiceDefinition
 import org.xtuml.bp.xtext.masl.masl.structure.TransitionOption
 import org.xtuml.bp.xtext.masl.masl.structure.TransitionRow
 import org.xtuml.bp.xtext.masl.typesystem.CollectionType
-import org.xtuml.bp.xtext.masl.typesystem.EnumType
 import org.xtuml.bp.xtext.masl.typesystem.InstanceType
 import org.xtuml.bp.xtext.masl.typesystem.MaslExpectedTypeProvider
 import org.xtuml.bp.xtext.masl.typesystem.MaslTypeProvider
@@ -188,11 +187,7 @@ class MASLScopeProvider extends AbstractMASLScopeProvider {
 	
 	private def dispatch IScope getFeatureScope(SimpleFeatureCall call) {
 		if(call.receiver == null) {
-			val expectedType = call.expectedType.primitiveType
-			if(expectedType instanceof EnumType) 
-				return scopeFor(expectedType.enumType.enumerators)
-			else 
-				return call.getLocalSimpleFeatureScope(delegate.getScope(call, featureCall_Feature), false)
+			return call.getLocalSimpleFeatureScope(delegate.getScope(call, featureCall_Feature), false)
 		} else {
 			val type = call.receiver.maslType
 			switch type {

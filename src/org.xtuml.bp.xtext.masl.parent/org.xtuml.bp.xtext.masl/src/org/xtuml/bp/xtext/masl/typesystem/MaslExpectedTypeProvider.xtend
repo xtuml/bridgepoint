@@ -8,10 +8,9 @@ import org.xtuml.bp.xtext.masl.masl.behavior.BehaviorPackage
 import org.xtuml.bp.xtext.masl.masl.behavior.CaseAlternative
 import org.xtuml.bp.xtext.masl.masl.behavior.CaseStatement
 import org.xtuml.bp.xtext.masl.masl.behavior.CreateArgument
-import org.xtuml.bp.xtext.masl.masl.behavior.Equality
+import org.xtuml.bp.xtext.masl.masl.behavior.VariableDeclaration
 
 import static org.xtuml.bp.xtext.masl.typesystem.BuiltinType.*
-import org.xtuml.bp.xtext.masl.masl.behavior.VariableDeclaration
 
 class MaslExpectedTypeProvider {
 	
@@ -25,8 +24,6 @@ class MaslExpectedTypeProvider {
 			return (context as CreateArgument).attribute.maslType
 		if (reference == caseAlternative_Choices && context instanceof CaseAlternative)
 			return ((context as CaseAlternative).eContainer as CaseStatement).value.maslType
-		if (reference == equality_Rhs && context instanceof Equality) 
-			return (context as Equality).lhs.maslType
 		if (reference == variableDeclaration_Expression && context instanceof VariableDeclaration) 
 			return (context as VariableDeclaration).type.maslType
 		return new BuiltinType(ANY_TYPE)
