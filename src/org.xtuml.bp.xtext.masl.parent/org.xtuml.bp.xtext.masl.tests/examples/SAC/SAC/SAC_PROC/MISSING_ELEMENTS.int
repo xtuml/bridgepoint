@@ -1,5 +1,14 @@
 domain INI is
-	type data_item_type is integer;
+	type data_item_type is structure 
+		name_value: sequence of name_value; 
+		index: integer;
+		index_dtr_name: string;
+		index_config_file: string;
+	end;
+	type name_value is structure 
+		name: string;
+		value: string;
+	end;
 	service get_data(); 
 	service reload_ini_files();
 	service get_indexed_data();
@@ -8,12 +17,37 @@ end domain;
 domain SAC is 
 	object _TEST_Operator_report_group; 
 	object _TEST_Operator_report_group_operation;
-	object _TEST_Operator_report_user;
+	object _TEST_Operator_report_group_operation is 
+	end;	
+	object _TEST_Operator_report_user; 
+	object _TEST_Operator_report_user is 
+		user_id: integer;
+		logged_on: logged_on_type;
+	end;
 	object _TEST_Operator_report_user_operation;
+	object _TEST_Operator_report_user_operation is
+		user_id: integer;
+		operation_name: string;
+	end;
 	object _TEST_Operator_report_user_session;
+	object _TEST_Operator_report_user_session is
+		user_id: integer;
+		workstation_hostname: string;
+		session_timed_out: boolean;
+	end;
 	object _TEST_Operator_user_session_deleted;
+	object _TEST_Operator_user_session_deleted is
+		session_id: integer;
+	end;
 	object _TEST_Operator_user_operation_removed;
+	object _TEST_Operator_user_operation_removed is
+		user_id: integer;
+		operation_name: string;
+	end;
 	object _TEST_Operator_user_removed;
+	object _TEST_Operator_user_removed is
+		user_id: integer;
+	end;
 end domain;
 
 domain SOA is

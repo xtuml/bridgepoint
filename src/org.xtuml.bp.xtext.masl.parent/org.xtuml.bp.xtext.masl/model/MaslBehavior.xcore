@@ -166,18 +166,6 @@ class CodeBlockStatement extends AbstractStatement {
 class FindCondition {
 }
 
-class FindComparison extends FindCondition {
-	contains FindName lhs
-	String operator
-	contains Expression rhs
-}
-
-class FindName {
-	String attribute
-	String[] comps
-	contains Expression[] brackets
-}
-
 class ConstExpression {
 }
 
@@ -205,7 +193,7 @@ class CreateArgument {
 class FindExpression extends Expression {
 	FindType ^type
 	contains Expression expression
-	contains FindCondition where
+	contains Expression where
 }
 
 enum FindType {
@@ -280,21 +268,6 @@ class AssignStatement extends Expression {
 	contains Expression rhs
 }
 
-class FindLogicalOr extends FindCondition {
-	contains FindCondition lhs
-	contains FindCondition rhs
-}
-
-class FindLogicalXor extends FindCondition {
-	contains FindCondition lhs
-	contains FindCondition rhs
-}
-
-class FindLogicalAnd extends FindCondition {
-	contains FindCondition lhs
-	contains FindCondition rhs
-}
-
 class StreamExpression extends Expression {
 	contains Expression lhs
 	String operator
@@ -365,7 +338,7 @@ class LinkExpression extends Expression {
 class NavigateExpression extends Expression {
 	contains Expression lhs
 	contains RelationshipNavigation navigation
-	contains FindCondition where
+	contains Expression where
 	contains Expression rhs
 	contains RelationshipNavigation relationship
 	contains SortOrder order

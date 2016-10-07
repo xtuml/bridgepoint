@@ -10,6 +10,7 @@ import org.xtuml.bp.xtext.masl.masl.behavior.BooleanLiteral
 import org.xtuml.bp.xtext.masl.masl.behavior.CancelTimerStatement
 import org.xtuml.bp.xtext.masl.masl.behavior.CaseStatement
 import org.xtuml.bp.xtext.masl.masl.behavior.CharacterLiteral
+import org.xtuml.bp.xtext.masl.masl.behavior.CharacteristicCall
 import org.xtuml.bp.xtext.masl.masl.behavior.CodeBlockStatement
 import org.xtuml.bp.xtext.masl.masl.behavior.ConsoleLiteral
 import org.xtuml.bp.xtext.masl.masl.behavior.CreateExpression
@@ -59,9 +60,11 @@ import org.xtuml.bp.xtext.masl.masl.structure.ObjectDeclaration
 import org.xtuml.bp.xtext.masl.masl.structure.ObjectFunctionDeclaration
 import org.xtuml.bp.xtext.masl.masl.structure.ObjectServiceDeclaration
 import org.xtuml.bp.xtext.masl.masl.structure.Parameter
+import org.xtuml.bp.xtext.masl.masl.structure.RangeTypeReference
 import org.xtuml.bp.xtext.masl.masl.structure.TerminatorDefinition
 import org.xtuml.bp.xtext.masl.masl.structure.TerminatorFunctionDeclaration
 import org.xtuml.bp.xtext.masl.masl.structure.TerminatorServiceDeclaration
+import org.xtuml.bp.xtext.masl.masl.structure.TypeParameter
 import org.xtuml.bp.xtext.masl.masl.types.AbstractTypeDefinition
 import org.xtuml.bp.xtext.masl.masl.types.AbstractTypeReference
 import org.xtuml.bp.xtext.masl.masl.types.ArrayTypeReference
@@ -82,11 +85,16 @@ import org.xtuml.bp.xtext.masl.masl.types.TypeDeclaration
 import org.xtuml.bp.xtext.masl.masl.types.UnconstrainedArrayDefinition
 
 import static org.xtuml.bp.xtext.masl.typesystem.BuiltinType.*
+import org.xtuml.bp.xtext.masl.masl.types.StructureComponentDefinition
+import org.xtuml.bp.xtext.masl.masl.structure.RelationshipNavigation
+import org.xtuml.bp.xtext.masl.masl.structure.RelationshipEnd
+import org.xtuml.bp.xtext.masl.masl.behavior.NavigateExpression
 
 @Log
 class MaslTypeProvider {
 
 	@Inject extension MASLExtensions
+	@Inject extension TypeParameterResolver
 	
 	def MaslType getMaslType(EObject it) {
 		try {
@@ -95,6 +103,14 @@ class MaslTypeProvider {
 					return new BuiltinType(NO_TYPE)
 				Expression:
 					return maslTypeOfExpression
+				AttributeDefinition:
+					return type.maslTypeOfTypeReference
+				StructureComponentDefinition:
+					return type.maslTypeOfTypeReference
+				AbstractTypeReference:
+					return maslTypeOfTypeReference
+				RelationshipNavigation:
+					return maslTypeOfRelationshipNavigation
 				CodeBlockStatement,
 				ExitStatement,
 				ReturnStatement,
@@ -119,14 +135,16 @@ class MaslTypeProvider {
 		}
 	}
 	
-	protected def MaslType getMaslTypeOfExpression(Expression it) {
+	private def MaslType getMaslTypeOfExpression(Expression it) {
 		switch it {
 			AbstractTypeReference:
 				return maslTypeOfTypeReference
+			NavigateExpression:
+				return maslTypeOfNavigateExpression
 			StreamExpression:
 				return new BuiltinType(DEVICE, true)
 			RangeExpression:
-				return new ArrayType(from.maslType, true)
+				return new RangeType(from.maslType, true)
 			LogicalOr,
 			LogicalXor,
 			LogicalAnd,
@@ -134,23 +152,25 @@ class MaslTypeProvider {
 			RelationalExp:
 				return new BuiltinType(BOOLEAN, true)
 			AdditiveExp:
-				return typeOfAdditive
+				return maslTypeOfAdditive
 			MultExp:
-				return typeOfMult
+				return maslTypeOfMult
 			UnaryExp:
 				return operand.maslType
 			LinkExpression:
-				return typeOfLinkExpression
+				return maslTypeOfLinkExpression
 			CreateExpression:
 				return new InstanceType(object)		
 			OperationCall:
-				return feature.callType
+				return feature.maslTypeOfFeature
 			SimpleFeatureCall:
-				return feature.callType
+				return feature.maslTypeOfFeature
 			TerminatorOperationCall:
-				return terminalOperation.callType
+				return terminalOperation.maslTypeOfFeature
+			CharacteristicCall:
+				return maslTypeOfCharacteristicCall
 			ThisLiteral:
-				return typeOfThis
+				return maslTypeOfThis
 			IntegerLiteral:
 				return new BuiltinType(INTEGER, true)
 			RealLiteral:
@@ -181,7 +201,7 @@ class MaslTypeProvider {
 		}
 	}
 	
-	protected def MaslType getMaslTypeOfTypeReference(AbstractTypeReference it) {
+	private def MaslType getMaslTypeOfTypeReference(AbstractTypeReference it) {
 		switch it {
 			ArrayTypeReference:
 				return new ArrayType(elementType.maslTypeOfTypeReference, anonymous)
@@ -193,34 +213,37 @@ class MaslTypeProvider {
 				return new SetType(elementType.maslTypeOfTypeReference, anonymous)
 			DictionaryTypeReference:
 				return new DictionaryType(keyType.maslTypeOfTypeReference, elementType.maslTypeOfTypeReference, anonymous)
+			RangeTypeReference:
+				return new RangeType(elementType.maslTypeOfTypeReference, true)
 			ConstrainedArrayTypeReference:
-				return new ArrayType(elementType.maslTypeOfTypeDeclaration)
+				return new ArrayType(elementType.getMaslTypeOfTypeDeclaration(false))
 				// TODO
 //			DeprecatedTypeReference:
 //				return new InstanceType(null, false)
 			InstanceTypeReference:
 				return new InstanceType(instance, anonymous)
 			NamedTypeReference: {
-				if(type instanceof BuiltinTypeDeclaration)
-					return new BuiltinType(type.name, anonymous)
-				else 
-					return new NamedType(type.name, type.maslTypeOfTypeDeclaration, anonymous)
+				type.getMaslTypeOfTypeDeclaration(anonymous)
 			}
 			TerminatorTypeReference:
 				return new TerminatorType(terminator)
 			default:
-				throw new UnsupportedOperationException('Missing type for type ref ' + eClass?.name)
+				throw new UnsupportedOperationException('Missing type for type ref ' + it?.eClass?.name)
 		}
 	}
 	
-	protected def MaslType getMaslTypeOfTypeDeclaration(TypeDeclaration declaration) {
-		if(declaration instanceof BuiltinTypeDeclaration)
-			return new BuiltinType(declaration.name)
-		else 
-			new NamedType(declaration.name, declaration.definition.maslTypeOfTypeDefinition)
+	private def MaslType getMaslTypeOfTypeDeclaration(TypeDeclaration declaration, boolean anonymous) {
+		switch declaration {
+			BuiltinTypeDeclaration:
+				return new BuiltinType(declaration.name, anonymous)
+			TypeParameter:
+				return new TypeParameterType(declaration.name, anonymous)
+			default:
+				new NamedType(declaration.name, declaration.definition.maslTypeOfTypeDefinition, anonymous)
+		}
 	}
 	
-	protected def MaslType getMaslTypeOfTypeDefinition(AbstractTypeDefinition definition) {
+	private def MaslType getMaslTypeOfTypeDefinition(AbstractTypeDefinition definition) {
 		switch definition {
 			AbstractTypeReference:
 				return definition.maslTypeOfTypeReference
@@ -230,7 +253,7 @@ class MaslTypeProvider {
 				return new EnumType(definition)
 			StructureTypeDefinition: {
 				val structureComponents = definition.components.map[new StructureComponent(name, type.maslTypeOfTypeReference)]
-				return new StructureType(structureComponents)
+				return new StructureType(definition, structureComponents, false)
 			}
 			UnconstrainedArrayDefinition:
 				return definition.elementType.maslTypeOfTypeReference
@@ -239,7 +262,7 @@ class MaslTypeProvider {
 		}
 	}
 	
-	protected def MaslType getCallType(AbstractFeature feature) {
+	private def MaslType getMaslTypeOfFeature(AbstractFeature feature) {
 		switch feature {
 			Enumerator:
 				return new EnumType(feature.eContainer as EnumerationTypeDefinition)
@@ -255,8 +278,10 @@ class MaslTypeProvider {
 				return feature.type.maslTypeOfTypeReference
 			AttributeDefinition:
 				return feature.type.maslTypeOfTypeReference
+			StructureComponentDefinition:
+				return feature.type.maslTypeOfTypeReference
 			TypeDeclaration:
-				return feature.maslTypeOfTypeDeclaration
+				return feature.getMaslTypeOfTypeDeclaration(false)
 			ObjectFunctionDeclaration:
 				return feature.returnType.maslTypeOfTypeReference
 			DomainFunctionDeclaration:
@@ -272,12 +297,45 @@ class MaslTypeProvider {
 		}
 	}
 	
-	protected def MaslType getTypeOfLinkExpression(LinkExpression it) {
+	private def MaslType getMaslTypeOfLinkExpression(LinkExpression it) {
 		// TODO
 		null
 	}
 	
-	protected def MaslType getTypeOfThis(ThisLiteral it) {
+	private def MaslType getMaslTypeOfNavigateExpression(NavigateExpression navigate) {
+		if(navigate.navigation != null) 
+			navigate.navigation.maslTypeOfRelationshipNavigation
+		else if (navigate.relationship != null)
+			navigate.relationship.maslTypeOfRelationshipNavigation
+		else
+			navigate.lhs.maslTypeOfExpression
+	}
+	
+	private def MaslType getMaslTypeOfRelationshipNavigation(RelationshipNavigation navigation) {
+		if(navigation.object != null)
+			return new InstanceType(navigation.object, true)
+		val objectOrRole = navigation.objectOrRole 
+		if(objectOrRole instanceof ObjectDeclaration)
+			return new InstanceType(objectOrRole)
+		if(objectOrRole instanceof RelationshipEnd)
+			return new InstanceType(objectOrRole.to)
+		throw new UnsupportedOperationException("Missing type implementation for subtype of ObjectOrRole '" + objectOrRole?.eClass?.name + "'")
+	}
+	
+	private def MaslType getMaslTypeOfCharacteristicCall(CharacteristicCall call) {
+		val returnType = call.characteristic.returnType.maslTypeOfTypeReference
+		val typeParam = call.characteristic.typeParam
+		if(typeParam == null) {
+			returnType
+		} else {
+			val replace = new TypeParameterType(typeParam.name, true)
+			val replacement = call.receiver.maslType.componentType
+			val returnValue = returnType.resolve(replace, replacement)
+			return returnValue			
+		}
+	}
+	
+	private def MaslType getMaslTypeOfThis(ThisLiteral it) {
 		val object = containerObject
 		if(containerObject != null)
 			return new InstanceType(object)
@@ -285,7 +343,7 @@ class MaslTypeProvider {
 			throw new UnsupportedOperationException('Cannot determine type of \'this\'.')
 	}
 	
-	protected def MaslType getTypeOfAdditive(AdditiveExp it) {
+	private def MaslType getMaslTypeOfAdditive(AdditiveExp it) {
 		val lType = lhs.maslType
 		switch operator {
 			case '+', case '-':
@@ -305,7 +363,7 @@ class MaslTypeProvider {
 		}
 	}
 	
-	protected def MaslType getTypeOfMult(MultExp it) {
+	private def MaslType getMaslTypeOfMult(MultExp it) {
 		val lType = lhs.maslType
 		switch operator {
 			case '*', case '/':
@@ -332,9 +390,13 @@ class MaslTypeProvider {
 	}
 	
 	private def MaslType getComponentType(MaslType type) {
-		if(type instanceof CollectionType)
-			type.elementType
-		else 
-			type
+		switch type {
+			CollectionType:
+				type.elementType
+			RangeType:
+				type.elementType
+			default:
+				type
+		}
 	} 
 }

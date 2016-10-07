@@ -8,6 +8,7 @@ import org.xtuml.bp.xtext.masl.masl.structure.ObjectDeclaration
 import org.xtuml.bp.xtext.masl.masl.structure.TerminatorDefinition
 import org.xtuml.bp.xtext.masl.masl.types.EnumerationTypeDefinition
 import org.xtuml.bp.xtext.masl.masl.types.TypeDeclaration
+import org.xtuml.bp.xtext.masl.masl.types.StructureTypeDefinition
 
 /**
  * Dealing with EMF objects is tedious, so we define our own types
@@ -110,6 +111,36 @@ class NamedType extends AbstractMaslType {
 
 @Data
 @FinalFieldsConstructor
+class RangeType extends AbstractMaslType {
+	val MaslType elementType
+
+	new(MaslType type, boolean anonymous) {
+		super(anonymous)
+		this.elementType = type
+	}
+
+	override getPrimitiveType() {
+		this
+	}
+}
+
+@Data
+@FinalFieldsConstructor
+class TypeParameterType extends AbstractMaslType {
+	val String name
+
+	new(String name, boolean anonymous) {
+		super(anonymous)
+		this.name = name
+	}
+
+	override getPrimitiveType() {
+		this
+	}
+}
+
+@Data
+@FinalFieldsConstructor
 abstract class CollectionType extends AbstractMaslType {
 	val MaslType elementType
 
@@ -183,9 +214,11 @@ class ArrayType extends CollectionType {
 @FinalFieldsConstructor
 class StructureType extends AbstractMaslType {
 	List<? extends StructureComponent> components
+	@Accessors(PUBLIC_GETTER) transient StructureTypeDefinition structureType
 
-	new(List<? extends StructureComponent> components, boolean anonymous) {
+	new(StructureTypeDefinition structureType, List<? extends StructureComponent> components, boolean anonymous) {
 		super(anonymous)
+		this.structureType = structureType
 		this.components = components
 	}
 

@@ -59,6 +59,16 @@ class DeclarationTypeProviderTest extends AbstractMaslModelTest {
 	}
 
 	@Test
+	def void testInstanceObjectFunctionCall() {
+		'''
+			object Foo; 
+			object Foo is
+				function foo() return integer;
+			end;
+		'''.assertType('foo()', 'builtin integer')
+	}
+
+	@Test
 	def void testObjectFunctionCall() {
 		'''
 			object Foo; 

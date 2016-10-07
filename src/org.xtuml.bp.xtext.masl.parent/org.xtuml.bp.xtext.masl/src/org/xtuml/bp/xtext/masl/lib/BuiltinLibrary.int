@@ -19,7 +19,7 @@ builtin is
 	anonymous builtin any_type;  // the type of null
 	anonymous builtin no_type; 
 	anonymous builtin stream_manipulator_type;
-
+	
 	// built-in characteristics (currently not bound to any type)
 	'image;
 	'upper;
@@ -34,7 +34,10 @@ builtin is
 	'value;
 	'length;
 	'now;
-	'elements;
+	<T> 'elements(p: in array (null) of T) return range of T;
+	<T> 'elements(p: in bag of T) return range of T;
+	<T> 'elements(p: in set of T) return range of T;
+	<T> 'elements(p: in sequence of T) return range of T;
 	'parse;
 end builtin;
 	

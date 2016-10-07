@@ -28,10 +28,10 @@ abstract class AbstractNamed {
 	String name
 }
 
-abstract class AbstractTopLevelElement extends AbstractNamed, Pragmatized {
+class AbstractTopLevelElement extends AbstractNamed, Pragmatized {
 }
 
-abstract class AbstractFeature extends AbstractNamed {
+class AbstractFeature extends AbstractNamed {
 }
 
 abstract class Parameterized {
@@ -166,10 +166,18 @@ class BuiltinLibraryDefinition extends MaslModel {
 	contains Characteristic[] characteristics
 }
 
-class Characteristic {
+class Characteristic extends Parameterized {
 	String name
+	contains TypeParameter typeParam
+	contains AbstractTypeReference returnType
 }
 
+class TypeParameter extends TypeDeclaration {
+}
+
+class RangeTypeReference extends AbstractTypeReference {
+	contains AbstractTypeReference elementType
+}
 
 // **********************************************************************
 // *  Objects

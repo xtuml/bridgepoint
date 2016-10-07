@@ -65,8 +65,7 @@ class StructureTypeDefinition extends AbstractTypeDefinition {
 	contains StructureComponentDefinition[] components
 }
 
-class StructureComponentDefinition extends Pragmatized {
-	String name
+class StructureComponentDefinition extends AbstractFeature, Pragmatized {
 	contains AbstractTypeReference ^type
 	contains ConstExpression defaultValue
 }
@@ -75,7 +74,7 @@ class EnumerationTypeDefinition extends AbstractTypeDefinition {
 	contains Enumerator[] enumerators
 }
 
-class Enumerator extends AbstractNamed , AbstractFeature {
+class Enumerator extends AbstractFeature {
 	contains ConstExpression expression
 }
 

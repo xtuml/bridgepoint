@@ -38,11 +38,18 @@ import org.xtuml.bp.xtext.masl.masl.structure.TerminatorServiceDefinition
 import org.xtuml.bp.xtext.masl.masl.structure.TransitionOption
 import org.xtuml.bp.xtext.masl.masl.structure.TransitionRow
 import org.xtuml.bp.xtext.masl.typesystem.InstanceType
+import org.xtuml.bp.xtext.masl.typesystem.MaslExpectedTypeProvider
 import org.xtuml.bp.xtext.masl.typesystem.MaslTypeProvider
 
 import static org.eclipse.xtext.scoping.Scopes.*
 
 import static extension org.eclipse.xtext.EcoreUtil2.*
+import org.xtuml.bp.xtext.masl.typesystem.EnumType
+import org.xtuml.bp.xtext.masl.typesystem.StructureType
+import org.xtuml.bp.xtext.masl.typesystem.NamedType
+import org.xtuml.bp.xtext.masl.masl.behavior.FindExpression
+import javax.swing.plaf.synth.ColorType
+import org.xtuml.bp.xtext.masl.typesystem.CollectionType
 
 /**
  * This class contains custom scoping description.
@@ -58,6 +65,7 @@ class MASLScopeProvider extends AbstractMASLScopeProvider {
 	@Inject extension MASLExtensions
 	
 	@Inject extension MaslTypeProvider
+	@Inject extension MaslExpectedTypeProvider
 	
 	@Inject ResourceDescriptionsProvider resourceDescriptionsProvider
 
@@ -181,26 +189,51 @@ class MASLScopeProvider extends AbstractMASLScopeProvider {
 	
 	private def dispatch IScope getFeatureScope(SimpleFeatureCall call) {
 		if(call.receiver == null) {
-			return call.getLocalSimpleFeatureScope(delegate.getScope(call, featureCall_Feature))
+			val expectedType = call.expectedType.primitiveType
+			if(expectedType instanceof EnumType) 
+				return scopeFor(expectedType.enumType.enumerators)
+			else 
+				return call.getLocalSimpleFeatureScope(delegate.getScope(call, featureCall_Feature), false)
 		} else {
 			val type = call.receiver.maslType
 			switch type {
 				InstanceType:
 					return type.instance.createObjectScope[attributes]
+				NamedType: {
+					val innerType = type.type
+					if(innerType instanceof StructureType) 
+						return scopeFor(innerType.structureType.components)
+				}
 			}
 		}
 		return IScope.NULLSCOPE
 	}
 	
-	private def IScope getLocalSimpleFeatureScope(EObject expr, IScope parentScope) {
+	private def IScope getLocalSimpleFeatureScope(EObject expr, IScope parentScope, boolean isFindExpression_Expression) {
 		if(expr == null)
 			return IScope.NULLSCOPE
 		val parent = expr.eContainer
 		switch expr {
+			FindExpression: {
+				if(!isFindExpression_Expression) {
+					val maslType = expr.expression.maslType
+					val instance = 
+						switch maslType {
+							InstanceType: 
+								 maslType.instance
+							CollectionType case maslType.elementType instanceof InstanceType:
+								(maslType.elementType as InstanceType).instance
+							default:
+								null							
+						}
+					if (instance != null)
+						return instance.createObjectScope([attributes], parent.getLocalSimpleFeatureScope(parentScope, false))
+				}
+			}
 			CodeBlock:
-				return scopeFor(expr.variables, parent.getLocalSimpleFeatureScope(parentScope))
+				return scopeFor(expr.variables, parent.getLocalSimpleFeatureScope(parentScope, false))
 			ForStatement:
-				return scopeFor(#[expr.variable], parent.getLocalSimpleFeatureScope(parentScope))
+				return scopeFor(#[expr.variable], parent.getLocalSimpleFeatureScope(parentScope, false))
 			DomainFunctionDefinition:
 				return scopeFor(expr.parameters, parentScope)
 			DomainServiceDefinition:
@@ -215,9 +248,8 @@ class MASLScopeProvider extends AbstractMASLScopeProvider {
 				return scopeFor(expr.parameters, parentScope) 
 			TerminatorServiceDefinition:
 				return scopeFor(expr.parameters, parentScope) 
-			default: 
-				return parent.getLocalSimpleFeatureScope(parentScope)
 		}
+		return parent.getLocalSimpleFeatureScope(parentScope, expr.eContainmentFeature == findExpression_Expression)
 	}
 	
 	private def getSimpleFeatureScopeForObjectAction(List<Parameter> parameters, ObjectDeclaration context, IScope parentScope) {
@@ -257,7 +289,7 @@ class MASLScopeProvider extends AbstractMASLScopeProvider {
 			TerminatorServiceDefinition:
 				return scopeFor(expr.terminator.functions + expr.terminator.services, parentScope)
 			default: 
-				return parent.getLocalSimpleFeatureScope(parentScope)
+				return parent.getLocalOperationScope(parentScope)
 		}
 	}
 	

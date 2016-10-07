@@ -91,7 +91,19 @@ BuiltinTypeDeclaration returns TypeDeclaration:
 	| {BuiltinTypeDeclaration} anonymous?='anonymous'? 'builtin' name=ID ';';
 
 Characteristic:
-	'\'' name=ID ';';
+	 typeParam=TypeParameter? '\'' name=ID
+	 ParameterList? 
+	 ('return' returnType=AbstractTypeReferenceWithRange)? ';';
+
+TypeParameter:
+	'<' name=ID '>';
+
+AbstractTypeReferenceWithRange returns AbstractTypeReference:
+	AbstractTypeReference
+	| RangeTypeReference;
+	
+RangeTypeReference:
+	'range' 'of' elementType=AbstractTypeReference;
 
 //---------------------------------------------------------
 // Exception Declaration
@@ -170,6 +182,7 @@ AbstractTypeReference:
 AbstractTypeReferenceWithCA returns AbstractTypeReference:
 	AbstractTypeReference
 	| ConstrainedArrayTypeReference;
+
 
 DeprecatedTypeReference:
 	typeName=('instance'
@@ -315,8 +328,7 @@ StateTypeSyntax returns StateType:
 TransitionTable:
 	type=TransTableType? 'transition' 'is'
 	rows+=TransitionRow+
-	'end' 'transition'? PragmaList
-;
+	'end' 'transition'? PragmaList;
 
 enum TransTableType:
 	assigner;
@@ -591,33 +603,41 @@ DefaultExceptionHandler:
 //---------------------------------------------------------
 // Find Condition Definition
 //---------------------------------------------------------
-FindCondition:
+FindCondition returns Expression:
 	FindLogicalOr;
 
-FindLogicalOr returns FindCondition:
-	FindLogicalXor ({FindLogicalOr.lhs=current} 'or' rhs=FindLogicalXor)*;
+FindLogicalOr returns Expression:
+	FindLogicalXor ({LogicalOr.lhs=current} 'or' rhs=FindLogicalXor)*;
 
-FindLogicalXor returns FindCondition:
-	FindLogicalAnd ({FindLogicalXor.lhs=current} 'xor' rhs=FindLogicalAnd)*;
+FindLogicalXor returns Expression:
+	FindLogicalAnd ({LogicalXor.lhs=current} 'xor' rhs=FindLogicalAnd)*;
 
-FindLogicalAnd returns FindCondition:
-	FindPrimary ({FindLogicalAnd.lhs=current} 'and' rhs=FindPrimary)*;
+FindLogicalAnd returns Expression:
+	FindPrimary ({LogicalAnd.lhs=current} 'and' rhs=FindPrimary)*;
 
-FindPrimary returns FindCondition:
-	FindComparison
+FindPrimary returns Expression:
+	FindEquality
 	| FindUnary;
 
-FindUnary returns FindCondition:
+FindUnary returns Expression:
 	'not' FindUnary
 	| '(' FindCondition ')';
 
-FindComparison:
-	lhs=FindName operator=('=' | '/=' | '<' | '>' | '<=' | '>=') rhs=AdditiveExp;
+FindEquality returns Expression:
+	FindRelationExp 
+	({Equality.lhs=current} operator=('=' | '/=') rhs=AdditiveExp)?;
 
-FindName:
-	(attribute=ID)
-	('.' comps+=ID
-	| '[' brackets+=Expression ']')*;
+FindRelationExp returns Expression:
+	FindName 
+	({RelationalExp.lhs=current} operator=('<' | '>' | '<=' | '>=') rhs=AdditiveExp)?;
+
+FindName returns Expression:
+	FindReceiverAttribute
+	( {SimpleFeatureCall.receiver = current} '.' feature=[AbstractFeature]
+	| {IndexedExpression.receiver = current} '[' brackets=Expression ']')*;
+
+FindReceiverAttribute returns SimpleFeatureCall:
+	feature=[AttributeDefinition];
 
 //---------------------------------------------------------
 // Expression Definition
