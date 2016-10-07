@@ -91,7 +91,7 @@ BuiltinTypeDeclaration returns TypeDeclaration:
 	| {BuiltinTypeDeclaration} anonymous?='anonymous'? 'builtin' name=ID ';';
 
 Characteristic:
-	 typeParam=TypeParameter? '\'' name=ID
+	 typeParam=TypeParameter? '\'' name=CharacteristicID
 	 ParameterList? 
 	 ('return' returnType=AbstractTypeReferenceWithRange)? ';';
 
@@ -149,8 +149,9 @@ DigitsConstraint:
 	'digits' digits=ConstExpression constraint=RangeConstraint;
 
 StructureTypeDefinition:
+	{StructureTypeDefinition}
 	'structure'
-	components+=StructureComponentDefinition+
+	components+=StructureComponentDefinition*
 	'end' 'structure'?;
 
 StructureComponentDefinition:
@@ -719,8 +720,12 @@ SortOrder:
 	')';
 
 SortOrderComponent:
-	reverse?='reverse'? name=ID;
+	reverse?='reverse'? feature=SortOrderFeature;
 
+SortOrderFeature returns SimpleFeatureCall:
+	{SortOrderFeature} feature=[AbstractFeature] 
+	({SimpleFeatureCall.receiver=current} '.' feature=[AbstractFeature])*;
+	
 CreateExpression:
 	'create' unique?='unique'? object=[ObjectDeclaration] '('
 	(arguments+=CreateArgument (',' arguments+=CreateArgument)*)?
@@ -747,10 +752,13 @@ PostfixExpression returns Expression:
 	| {SimpleFeatureCall.receiver=current} '.' feature=[AbstractFeature] 
 	| {TerminatorOperationCall.receiver=current} '~>' terminalOperation=[AbstractFeature] '(' (arguments+=Expression (',' arguments+=Expression)*)? ')'
 	| {IndexedExpression.receiver=current} '[' brackets=Expression ']'
-	| {CharacteristicCall.receiver=current} '\'' characteristic=[Characteristic] (=> '('
+	| {CharacteristicCall.receiver=current} '\'' characteristic=[Characteristic|CharacteristicID] (=> '('
 		(arguments+=Expression (',' arguments+=Expression)*)?
 	  ')')?
 	)*;
+
+CharacteristicID:
+		ID | 'range';
 
 PostfixNoOperationCallExpression returns Expression:
 	PrimaryNoOperationCallExpression

@@ -17,8 +17,10 @@ import org.xtuml.bp.xtext.masl.masl.behavior.CreateExpression
 import org.xtuml.bp.xtext.masl.masl.behavior.FindExpression
 import org.xtuml.bp.xtext.masl.masl.behavior.ForStatement
 import org.xtuml.bp.xtext.masl.masl.behavior.GenerateStatement
+import org.xtuml.bp.xtext.masl.masl.behavior.NavigateExpression
 import org.xtuml.bp.xtext.masl.masl.behavior.OperationCall
 import org.xtuml.bp.xtext.masl.masl.behavior.SimpleFeatureCall
+import org.xtuml.bp.xtext.masl.masl.behavior.SortOrderFeature
 import org.xtuml.bp.xtext.masl.masl.behavior.TerminatorOperationCall
 import org.xtuml.bp.xtext.masl.masl.structure.AssocRelationshipDefinition
 import org.xtuml.bp.xtext.masl.masl.structure.DomainFunctionDefinition
@@ -41,6 +43,7 @@ import org.xtuml.bp.xtext.masl.masl.structure.TransitionRow
 import org.xtuml.bp.xtext.masl.typesystem.CollectionType
 import org.xtuml.bp.xtext.masl.typesystem.InstanceType
 import org.xtuml.bp.xtext.masl.typesystem.MaslExpectedTypeProvider
+import org.xtuml.bp.xtext.masl.typesystem.MaslType
 import org.xtuml.bp.xtext.masl.typesystem.MaslTypeProvider
 import org.xtuml.bp.xtext.masl.typesystem.NamedType
 import org.xtuml.bp.xtext.masl.typesystem.StructureType
@@ -63,7 +66,6 @@ class MASLScopeProvider extends AbstractMASLScopeProvider {
 	@Inject extension MASLExtensions
 	
 	@Inject extension MaslTypeProvider
-	@Inject extension MaslExpectedTypeProvider
 	
 	@Inject ResourceDescriptionsProvider resourceDescriptionsProvider
 
@@ -185,22 +187,31 @@ class MASLScopeProvider extends AbstractMASLScopeProvider {
 		createObjectScope(object, reference, IScope.NULLSCOPE)
 	}
 	
+	private def dispatch IScope getFeatureScope(SortOrderFeature call) {
+		call.getContainerOfType(NavigateExpression).maslType.componentType.typeFeatureScope
+	}
+	
 	private def dispatch IScope getFeatureScope(SimpleFeatureCall call) {
 		if(call.receiver == null) {
 			return call.getLocalSimpleFeatureScope(delegate.getScope(call, featureCall_Feature), false)
 		} else {
 			val type = call.receiver.maslType
-			switch type {
-				InstanceType:
-					return type.instance.createObjectScope[attributes]
-				NamedType: {
-					val innerType = type.type
-					if(innerType instanceof StructureType) 
-						return scopeFor(innerType.structureType.components)
-				}
-			}
+			return getTypeFeatureScope(type)
 		}
-		return IScope.NULLSCOPE
+	}
+	
+	private def IScope getTypeFeatureScope(MaslType type) {
+		switch type {
+			InstanceType:
+				return type.instance.createObjectScope[attributes]
+			NamedType: {
+				val innerType = type.type
+				if (innerType instanceof StructureType)
+					return scopeFor(innerType.structureType.components)
+			}
+			default:
+				return IScope.NULLSCOPE
+		}
 	}
 	
 	private def IScope getLocalSimpleFeatureScope(EObject expr, IScope parentScope, boolean isFindExpression_Expression) {

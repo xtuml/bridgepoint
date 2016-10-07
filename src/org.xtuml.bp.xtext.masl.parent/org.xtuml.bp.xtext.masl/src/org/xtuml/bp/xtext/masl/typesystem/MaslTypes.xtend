@@ -18,6 +18,8 @@ interface MaslType {
 	def MaslType getPrimitiveType()
 
 	def boolean isAnonymous()
+	
+	def MaslType getComponentType()
 }
 
 @FinalFieldsConstructor
@@ -30,6 +32,10 @@ abstract class AbstractMaslType implements MaslType {
 		anonymous = false
 	}
 
+	override MaslType getComponentType() {
+		this
+	}
+	
 	protected def prefix() {
 		(if (anonymous) 'anonymous ' else '') 
 	}
@@ -111,6 +117,10 @@ class RangeType extends AbstractMaslType {
 		this
 	}
 	
+	override getComponentType() {
+		elementType
+	}
+	
 	override String toString() {
 		prefix + 'range of ' + elementType
 	}
@@ -139,6 +149,10 @@ abstract class CollectionType extends AbstractMaslType {
 	new(MaslType type, boolean anonymous) {
 		super(anonymous)
 		this.elementType = type
+	}
+
+	override getComponentType() {
+		elementType
 	}
 
 	override getPrimitiveType() {

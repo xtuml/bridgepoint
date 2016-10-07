@@ -23,10 +23,12 @@ import org.xtuml.bp.xtext.masl.masl.behavior.EraseStatement
 import org.xtuml.bp.xtext.masl.masl.behavior.ExitStatement
 import org.xtuml.bp.xtext.masl.masl.behavior.Expression
 import org.xtuml.bp.xtext.masl.masl.behavior.FileNameLiteral
+import org.xtuml.bp.xtext.masl.masl.behavior.FindExpression
 import org.xtuml.bp.xtext.masl.masl.behavior.FlushLiteral
 import org.xtuml.bp.xtext.masl.masl.behavior.ForStatement
 import org.xtuml.bp.xtext.masl.masl.behavior.GenerateStatement
 import org.xtuml.bp.xtext.masl.masl.behavior.IfStatement
+import org.xtuml.bp.xtext.masl.masl.behavior.IndexedExpression
 import org.xtuml.bp.xtext.masl.masl.behavior.IntegerLiteral
 import org.xtuml.bp.xtext.masl.masl.behavior.LineNoLiteral
 import org.xtuml.bp.xtext.masl.masl.behavior.LinkExpression
@@ -35,6 +37,7 @@ import org.xtuml.bp.xtext.masl.masl.behavior.LogicalOr
 import org.xtuml.bp.xtext.masl.masl.behavior.LogicalXor
 import org.xtuml.bp.xtext.masl.masl.behavior.LoopVariable
 import org.xtuml.bp.xtext.masl.masl.behavior.MultExp
+import org.xtuml.bp.xtext.masl.masl.behavior.NavigateExpression
 import org.xtuml.bp.xtext.masl.masl.behavior.NullLiteral
 import org.xtuml.bp.xtext.masl.masl.behavior.OperationCall
 import org.xtuml.bp.xtext.masl.masl.behavior.RaiseStatement
@@ -61,6 +64,8 @@ import org.xtuml.bp.xtext.masl.masl.structure.ObjectFunctionDeclaration
 import org.xtuml.bp.xtext.masl.masl.structure.ObjectServiceDeclaration
 import org.xtuml.bp.xtext.masl.masl.structure.Parameter
 import org.xtuml.bp.xtext.masl.masl.structure.RangeTypeReference
+import org.xtuml.bp.xtext.masl.masl.structure.RelationshipEnd
+import org.xtuml.bp.xtext.masl.masl.structure.RelationshipNavigation
 import org.xtuml.bp.xtext.masl.masl.structure.TerminatorDefinition
 import org.xtuml.bp.xtext.masl.masl.structure.TerminatorFunctionDeclaration
 import org.xtuml.bp.xtext.masl.masl.structure.TerminatorServiceDeclaration
@@ -79,16 +84,13 @@ import org.xtuml.bp.xtext.masl.masl.types.InstanceTypeReference
 import org.xtuml.bp.xtext.masl.masl.types.NamedTypeReference
 import org.xtuml.bp.xtext.masl.masl.types.SequenceTypeReference
 import org.xtuml.bp.xtext.masl.masl.types.SetTypeReference
+import org.xtuml.bp.xtext.masl.masl.types.StructureComponentDefinition
 import org.xtuml.bp.xtext.masl.masl.types.StructureTypeDefinition
 import org.xtuml.bp.xtext.masl.masl.types.TerminatorTypeReference
 import org.xtuml.bp.xtext.masl.masl.types.TypeDeclaration
 import org.xtuml.bp.xtext.masl.masl.types.UnconstrainedArrayDefinition
 
 import static org.xtuml.bp.xtext.masl.typesystem.BuiltinType.*
-import org.xtuml.bp.xtext.masl.masl.types.StructureComponentDefinition
-import org.xtuml.bp.xtext.masl.masl.structure.RelationshipNavigation
-import org.xtuml.bp.xtext.masl.masl.structure.RelationshipEnd
-import org.xtuml.bp.xtext.masl.masl.behavior.NavigateExpression
 
 @Log
 class MaslTypeProvider {
@@ -141,6 +143,8 @@ class MaslTypeProvider {
 				return maslTypeOfTypeReference
 			NavigateExpression:
 				return maslTypeOfNavigateExpression
+			FindExpression:
+				return maslTypeOfFindExpression 
 			StreamExpression:
 				return new BuiltinType(DEVICE, true)
 			RangeExpression:
@@ -165,6 +169,8 @@ class MaslTypeProvider {
 				return feature.maslTypeOfFeature
 			SimpleFeatureCall:
 				return feature.maslTypeOfFeature
+			IndexedExpression:
+				return receiver.maslTypeOfExpression.componentType
 			TerminatorOperationCall:
 				return terminalOperation.maslTypeOfFeature
 			CharacteristicCall:
@@ -302,6 +308,19 @@ class MaslTypeProvider {
 		null
 	}
 	
+	private def MaslType getMaslTypeOfFindExpression(FindExpression find) {
+		val componentType = find.expression.maslType.componentType
+		switch find.type {
+			case FIND:
+				new SequenceType(componentType, true)
+			case FIND_ONE, 
+			case FIND_ONLY:
+				componentType
+			default: 
+				throw new UnsupportedOperationException("Unknown find type '" + find.type + "'")
+		}
+	}
+	
 	private def MaslType getMaslTypeOfNavigateExpression(NavigateExpression navigate) {
 		if(navigate.navigation != null) 
 			navigate.navigation.maslTypeOfRelationshipNavigation
@@ -389,14 +408,4 @@ class MaslTypeProvider {
 			new BuiltinType(REAL, true)
 	}
 	
-	private def MaslType getComponentType(MaslType type) {
-		switch type {
-			CollectionType:
-				type.elementType
-			RangeType:
-				type.elementType
-			default:
-				type
-		}
-	} 
 }

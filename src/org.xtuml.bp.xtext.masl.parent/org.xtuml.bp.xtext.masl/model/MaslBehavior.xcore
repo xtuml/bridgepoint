@@ -175,7 +175,10 @@ class SortOrder {
 
 class SortOrderComponent {
 	boolean reverse
-	String name
+	contains SimpleFeatureCall feature
+}
+
+class SortOrderFeature extends SimpleFeatureCall {
 }
 
 class CreateExpression extends Expression {

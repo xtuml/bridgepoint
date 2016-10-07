@@ -54,7 +54,7 @@ class LibraryTest {
 		val resource = rs.getResource(MASLLibraryProvider.MODEL_URI, true)
 		assertTrue(resource.loaded)
 		assertFalse(resource.contents.empty)
-		assertTrue(resource.errors.empty)
+		assertTrue(resource.errors.map[message].join('\n'), resource.errors.empty)
 		assertTrue(resource.warnings.empty)
 	}	
 	

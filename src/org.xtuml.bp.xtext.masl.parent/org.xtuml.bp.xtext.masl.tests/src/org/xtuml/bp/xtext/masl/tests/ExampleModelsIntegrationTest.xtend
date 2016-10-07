@@ -31,6 +31,11 @@ class ExampleModelsIntegrationTest {
 	@Inject FileExtensionProvider fileExtensionProvider
 	
 	@Test
+	def void testExamplesFromTutorial() {
+		testProject('examples/tutorial')
+	}
+
+	@Test
 	def void testCharacteristicsExample() {
 		testProject('examples/Characteristics')
 	}

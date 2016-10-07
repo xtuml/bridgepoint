@@ -389,7 +389,7 @@ begin
   end if;
   if (xpilots[8].name /= "sid") then
     raise Standard::constraint_error;
-  end if;
+  end if; 
 
   //xpilots := find_all Pilot() ordered_by(age,name,NI,qualified);
 
