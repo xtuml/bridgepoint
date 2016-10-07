@@ -13,74 +13,151 @@ class PrimitiveTypesTest extends AbstractMaslModelTest {
 
 	@Test
 	def testEnum() {
-		assertPrimitiveType('type bar is enum (BAR, BAZ);', '', 'BAR', 'enum bar')		
-		assertPrimitiveType('type bar is enum (BAR, BAZ);', 'b: bar', 'b', 'enum bar')		
+		assertPrimitiveType('''
+			domain dom is
+				service svc();
+			 	type bar is enum (BAR, BAZ);
+			end;
+		''', '''
+			service dom::scv(b0: in bar) is
+				b1: bar;
+			begin
+				^b0;
+				^b1 := ^BAR;
+			end;
+		''', 'enum bar')		
 	}
 	
 	@Test
-	def testIntegerType() {
-		assertPrimitiveType('type Bar is integer;', 'b: Bar', 'Bar', 'builtin long_integer')		
-		assertPrimitiveType('type Bar is integer;', 'b: Bar', 'b', 'builtin long_integer')		
-		assertPrimitiveType('type Bar is integer; type Baz is Bar;', 'b: Baz', 'Baz', 'builtin long_integer')		
-		assertPrimitiveType('type Bar is integer; type Baz is Bar;', 'b: Baz', 'b', 'builtin long_integer')		
+	def testIntegerTypes() {
+		for(typeName: #['integer', 'byte', 'long_integer'])
+			assertPrimitiveType('''
+				domain dom is
+					service svc();
+					type Bar is «typeName»;
+					type Baz is Bar;
+				end;
+			''', '''
+				service dom::scv() is
+					b0: Bar;
+					b1: Baz;
+				begin
+					^b0;
+					^b1;
+					1;
+				end;
+			''', 'builtin long_integer')		
 	}
 	
 	@Test
-	def testByteType() {
-		assertPrimitiveType('type Bar is byte;', 'b: Bar', 'Bar', 'builtin long_integer')		
-		assertPrimitiveType('type Bar is byte;', 'b: Bar', 'b', 'builtin long_integer')		
-		assertPrimitiveType('type Bar is byte; type Baz is Bar;', 'b: Baz', 'Baz', 'builtin long_integer')		
-		assertPrimitiveType('type Bar is byte; type Baz is Bar;', 'b: Baz', 'b', 'builtin long_integer')		
-	}
-	
-	@Test
-	def testRealType() {
-		assertPrimitiveType('type Bar is real;', 'b: Bar', 'Bar', 'builtin real')		
-		assertPrimitiveType('type Bar is real;', 'b: Bar', 'b', 'builtin real')		
-	}
-	
-	@Test
-	def testCharacterType() {
-		assertPrimitiveType('type Bar is character;', 'b: Bar', 'Bar', 'builtin character')		
-		assertPrimitiveType('type Bar is character;', 'b: Bar', 'b', 'builtin character')		
+	def testOtherBuiltinTypes() {
+		for (typeName : #['character', 'string', 'boolean', 'real', 'device',
+			'duration', 'timestamp', 'timer'])
+			assertPrimitiveType('''
+				domain dom is
+					service svc();
+					type Bar is «typeName»;
+					type Baz is Bar;
+				end;
+			''', '''
+				service dom::scv() is
+					b0: Bar;
+					b1: Baz;
+				begin
+					^b0;
+					^b1;
+				end;
+			''', 'builtin ' + typeName)		
 	}
 	
 	@Test
 	def testObjectType() {
-		assertPrimitiveType('object Foo; object Foo is end;', 'f: instance of Foo', 'f', 'instance of Foo')		
+		assertPrimitiveType('''
+			domain dom is
+				service svc();
+				object Foo; 
+				object Foo is end;
+			end;
+		''', '''
+			service dom::scv(f0: in instance of Foo) is
+				f1: instance of Foo;
+			begin
+				^f0;
+				^f1;
+			end;
+		''', 'instance of Foo')		
 	}
-	
-	@Test
-	def testIntegerLiteral() {
-		assertPrimitiveType('', '', '1', 'builtin long_integer')		
-	}
-	
+//	
 	@Test
 	def testCollections() {
-		assertPrimitiveType('', 'b: bag of integer', 'b', 'sequence of builtin integer')		
-		assertPrimitiveType('', 'b: sequence of integer', 'b', 'sequence of builtin integer')		
-		assertPrimitiveType('', 'b: set of integer', 'b', 'sequence of builtin integer')		
-		assertPrimitiveType('', 'b: array (1..1) of integer', 'b', 'sequence of builtin integer')		
-		assertPrimitiveType('type Con is integer (1..1)', 'c: Con', 'c', 'sequence of builtin integer')		
-		assertPrimitiveType('type Con is integer (1..1)', 'c: Con', 'c', 'sequence of builtin integer')		
+		for(collectionType: #['bag', 'set', 'sequence'])
+			assertPrimitiveType('''
+				domain dom is
+					service svc();
+					type c is «collectionType» of integer;
+				end;
+			''', '''
+				service dom::scv(c0: in c) is
+					c1: c;
+				begin
+					^c0;
+					^c1;
+				end;
+			''', 'sequence of builtin integer')		
 	}
-	
+
+	@Test
+	def testArray() {
+		assertPrimitiveType('''
+			domain dom is
+				service svc();
+				type c is integer (1..1);
+			end;
+		''', '''
+			service dom::scv(c0: in c) is
+				c1: c;
+			begin
+				^c0;
+				^c1;
+			end;
+		''', 'sequence of builtin integer')		
+	}
+
 	@Test
 	def testTerminator() {
-		assertPrimitiveType('terminator Arnold is end;', '', 'Arnold', 'terminator Arnold')		
+		assertPrimitiveType('''
+			domain dom is
+				service svc();
+				terminator Arnold is end;
+			end;
+		''', '''
+			service dom::scv() is
+			begin
+				^Arnold;
+			end;
+		''', 'terminator Arnold')		
 	}
 	
 	@Test 
 	def void testStruct() {
 		assertPrimitiveType('''
-			type i is integer;
-			type j is i;
-			type s is structure  
-				b: integer := 1 
-				c: i
-				d: j
+			domain dom is
+				service svc();
+				type i is integer;
+				type j is i;
+				type s is structure
+					b: integer := 1;
+					c: i;
+					d: j;
+				end;
 			end;
-		''', 'x: s', 'x', '''
+		''', '''
+			service dom::scv() is
+				x: s;
+			begin
+				^x;
+			end;
+		''', '''
 			structure
 				builtin long_integer;
 				builtin long_integer;
@@ -89,8 +166,8 @@ class PrimitiveTypesTest extends AbstractMaslModelTest {
 		''')		
 	}
 	
-	protected def assertPrimitiveType(CharSequence domainDeclaration, CharSequence variableDeclaration, CharSequence expression, String expectedPrimitiveType) {
-		val expr = getElement(domainDeclaration, variableDeclaration, expression)
-		assertEquals(expectedPrimitiveType, expr.maslType.primitiveType.toString)
+	protected def assertPrimitiveType(CharSequence modFile, CharSequence extFile, String expectedPrimitiveType) {
+		for (expr: getElementsAtCarets('dummy.mod' -> modFile, 'dummy.ext' -> extFile)) 
+			assertEquals(expectedPrimitiveType, expr.maslType.primitiveType.toString)
 	}
 }

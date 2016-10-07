@@ -1,4 +1,4 @@
-service tutorial::strign_literals() is 
+service tutorial::string_literals() is 
   i    : integer   := 10;
   r    : real      := 88.8;
   c    : character := 'g';

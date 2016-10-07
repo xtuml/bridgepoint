@@ -11,7 +11,9 @@ import java.util.regex.Pattern
 import org.eclipse.emf.ecore.EClass
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.xtext.naming.IQualifiedNameProvider
-import org.eclipse.xtext.resource.IResourceDescriptions
+import org.eclipse.xtext.resource.IContainer
+import org.eclipse.xtext.resource.IResourceDescription
+import org.eclipse.xtext.resource.ISelectable
 import org.eclipse.xtext.resource.impl.ResourceDescriptionsProvider
 import org.eclipse.xtext.validation.Check
 import org.eclipse.xtext.validation.ComposedChecks
@@ -73,6 +75,8 @@ class MASLValidator extends AbstractMASLValidator {
 	@Inject extension MASLExtensions
 	@Inject extension IQualifiedNameProvider
 	@Inject extension ResourceDescriptionsProvider
+	@Inject extension IResourceDescription.Manager 
+	@Inject IContainer.Manager containerManager
 
 	@Check
 	def void structureComponentDefs(StructureTypeDefinition it) {
@@ -279,7 +283,7 @@ class MASLValidator extends AbstractMASLValidator {
 			val resource = elements.head.eResource
 			val uri = resource.URI
 			val fileExtension = uri.fileExtension
-			val index = resource.resourceDescriptions		
+			val index = elements.head.index
 			for(element: elements) {
 				val elementName = element.fullyQualifiedName
 				val siblings = eClasses.map[
@@ -395,8 +399,11 @@ class MASLValidator extends AbstractMASLValidator {
 			warning('Terminator service has not been defined', it, structurePackage.abstractNamed_Name, MISSING_DEFINITION)
 	}	
 	
-	private def IResourceDescriptions getIndex(EObject element) {
-		element.eResource.resourceDescriptions	
+	private def ISelectable getIndex(EObject element) {
+		val resource = element.eResource
+		val resourceIndex = getResourceDescription(resource)
+		val workspaceIndex = getResourceDescriptions(resource)
+		containerManager.getContainer(resourceIndex, workspaceIndex)
 	}
 	
 	static val INT_PATTERN = Pattern.compile('[0-9]+')

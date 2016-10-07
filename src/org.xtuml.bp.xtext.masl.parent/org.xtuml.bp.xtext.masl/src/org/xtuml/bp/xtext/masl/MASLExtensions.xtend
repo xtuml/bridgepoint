@@ -9,6 +9,7 @@ import org.eclipse.emf.ecore.util.EcoreUtil
 import org.eclipse.xtext.naming.IQualifiedNameProvider
 import org.eclipse.xtext.nodemodel.util.NodeModelUtils
 import org.eclipse.xtext.resource.IResourceDescriptions
+import org.eclipse.xtext.resource.ISelectable
 import org.xtuml.bp.xtext.masl.masl.behavior.Expression
 import org.xtuml.bp.xtext.masl.masl.behavior.FeatureCall
 import org.xtuml.bp.xtext.masl.masl.behavior.FindExpression
@@ -35,13 +36,13 @@ import org.xtuml.bp.xtext.masl.masl.structure.Parameter
 import org.xtuml.bp.xtext.masl.masl.structure.RelationshipEnd
 import org.xtuml.bp.xtext.masl.masl.structure.RelationshipNavigation
 import org.xtuml.bp.xtext.masl.masl.structure.StateDefinition
+import org.xtuml.bp.xtext.masl.masl.structure.StructurePackage
 import org.xtuml.bp.xtext.masl.masl.structure.SubtypeRelationshipDefinition
 import org.xtuml.bp.xtext.masl.masl.structure.TerminatorFunctionDeclaration
 import org.xtuml.bp.xtext.masl.masl.structure.TerminatorFunctionDefinition
 import org.xtuml.bp.xtext.masl.masl.structure.TerminatorServiceDeclaration
 import org.xtuml.bp.xtext.masl.masl.structure.TerminatorServiceDefinition
 import org.xtuml.bp.xtext.masl.masl.types.TypeDeclaration
-import org.xtuml.bp.xtext.masl.masl.structure.StructurePackage
 
 /**
  * Utility methods for MASL model elements.
@@ -176,7 +177,7 @@ class MASLExtensions {
 		return null
 	}
 	
-	def Iterable<EObject> getDefinitions(EObject declaration, EClass definitionClass, IResourceDescriptions index) {
+	def Iterable<EObject> getDefinitions(EObject declaration, EClass definitionClass, ISelectable index) {
 		if (declaration != null && definitionClass != null) {
 			val entries = index.getExportedObjects(definitionClass, declaration.fullyQualifiedName, false)
 			return entries.map[EcoreUtil.resolve(EObjectOrProxy, declaration)]
@@ -184,7 +185,7 @@ class MASLExtensions {
 		return null
 	}
 
-	def Iterable<EObject> getDeclarations(EObject definition, EClass declarationClass, IResourceDescriptions index) {
+	def Iterable<EObject> getDeclarations(EObject definition, EClass declarationClass, ISelectable index) {
 		if (definition != null && declarationClass != null) {
 			val entries = index.getExportedObjects(declarationClass, definition.fullyQualifiedName, false)
 			return entries.map[EcoreUtil.resolve(EObjectOrProxy, definition)] 

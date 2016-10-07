@@ -18,7 +18,17 @@ class DeclarationTypeProviderTest extends AbstractMaslModelTest {
 
 	@Test
 	def void testEnumerationCall() {
-		assertType('type Foo is enum (BAR, BAZ);', 'BAR', 'enum Foo')
+		doAssertType('''
+			domain dom is
+				type Foo is enum (BAR, BAZ);
+			end;
+		''', '''
+			service dom::scv() is
+				f: Foo;
+			begin
+				^f := ^BAR;
+			end;
+		''', 'type Foo is enum Foo')
 	}
 
 	@Test
@@ -27,15 +37,17 @@ class DeclarationTypeProviderTest extends AbstractMaslModelTest {
 			type Foo is structure
 				a : builtin integer;
 			end
-			''')
+		''')
 	}
 
 	@Test
 	def void testObjectCall() {
 		'''
-			object Foo; 
-			object Foo is end;
-		'''.assertType('Foo', 'instance of Foo')
+			object Foo;
+			object Foo is 
+				f: instance of Foo;
+			end;
+		'''.assertType('^Foo; ^(Foo.f)', 'instance of Foo')
 	}
 
 	@Test
@@ -60,12 +72,20 @@ class DeclarationTypeProviderTest extends AbstractMaslModelTest {
 
 	@Test
 	def void testInstanceObjectFunctionCall() {
-		'''
-			object Foo; 
-			object Foo is
-				function foo() return integer;
+		doAssertType('''
+			domain dom is
+				object Foo; 
+				object Foo is
+					function foo() return integer;
+				end;
 			end;
-		'''.assertType('foo()', 'builtin integer')
+		''', '''
+			service dom::scv() is
+				f: instance of Foo;
+			begin
+				^(f.foo());
+			end;
+		''', 'builtin integer')
 	}
 
 	@Test
@@ -121,7 +141,21 @@ class DeclarationTypeProviderTest extends AbstractMaslModelTest {
 	}
 
 	protected def assertType(CharSequence domainDeclaration, CharSequence expression, String expected) {
-		val expr = getElement(domainDeclaration, '', expression)
-		assertEquals(expected, getMaslType(expr)?.toString)
+		doAssertType('''
+			domain dom is
+				service svc();
+				«domainDeclaration»
+			end;
+		''', '''
+			service dom::svc() is
+			begin
+				«IF !expression.toString.contains('^')»^(«expression»)«ELSE»«expression»«ENDIF»;
+			end;
+		''', expected);
+	}
+	
+	protected def doAssertType(CharSequence modFile, CharSequence extFile, String expected) {
+		for (expr: getElementsAtCarets('dummy.mod' -> modFile, 'dummy.ext' -> extFile)) 
+			assertEquals(expected, getMaslType(expr)?.toString)
 	}
 }

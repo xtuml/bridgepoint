@@ -34,14 +34,14 @@ class TypeProviderTest extends AbstractMaslModelTest {
 		'console << endl'.assertType('anonymous builtin device')
 		'console <<< ""'.assertType('anonymous builtin device')
 		'console << endl << flush'.assertType('anonymous builtin device')
-		'console >> foo'.assertType('anonymous builtin device')
-		'console >> foo >> bar'.assertType('anonymous builtin device')
-		'console >>> foo'.assertType('anonymous builtin device')
+		'console >> "foo"'.assertType('anonymous builtin device')
+		'console >> "foo" >> "bar"'.assertType('anonymous builtin device')
+		'console >>> "foo"'.assertType('anonymous builtin device')
 	}
 	
 	@Test
 	def void testRange() {
-		'1..2'.assertType('anonymous array of anonymous builtin integer')
+		'1..2'.assertType('anonymous range of anonymous builtin integer')
 	}
 	
 	@Test 
@@ -134,7 +134,7 @@ class TypeProviderTest extends AbstractMaslModelTest {
 	
 	@Test 
 	def void testLoopVariable() {
-		assertType('for baz in bar loop ^baz; end', 'bar: bag of integer', 'builtin integer')
+		assertType("for baz in bar'elements loop ^baz; end", 'bar: bag of integer', 'builtin integer')
 	}
 	
 	@Test 
@@ -147,7 +147,21 @@ class TypeProviderTest extends AbstractMaslModelTest {
 	}
 
 	protected def assertType(CharSequence expression, CharSequence varDeclaration, String expected) {
-		val expr = getElement('', varDeclaration, expression)
+		val expr = getElementAtCaret('dummy.mod' -> '''
+			domain foo is 
+				service foo(param: in integer);
+			end domain;
+		''',
+			'dummy.svc' -> '''
+			service foo::foo(param: in integer) 
+			is
+				«IF !varDeclaration.toString.empty»«varDeclaration»;«ENDIF»
+			begin
+				«IF !expression.toString.contains('^')»^(«expression»)«ELSE»«expression»«ENDIF»;
+			end;
+		''')
 		assertEquals(expected, getMaslType(expr)?.toString)
 	}
+	
+	
 }

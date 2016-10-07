@@ -41,32 +41,20 @@ class BuiltinType extends AbstractMaslType {
 	val String name
 
 	public static val CHARACTER = 'character'
-
 	public static val STRING =  'string'
-
 	public static val BOOLEAN = 'boolean'
-
 	public static val BYTE = 'byte'
-
 	public static val INTEGER = 'integer'
-
 	public static val LONG_INTEGER = 'long_integer'
-
 	public static val REAL = 'real'
-
 	public static val DEVICE = 'device'
-
 	public static val DURATION = 'duration'
-
 	public static val TIMESTAMP = 'timestamp'
-
 	public static val TIMER = 'timer'
 
 	// needed by the typesystem
 	public static val ANY_TYPE = 'any_type'
-
 	public static val NO_TYPE = 'no_type'
-
 	public static val STREAM_MANIPULATOR = 'stream_manipulator_type'
 
 	new(String name, boolean anonymous) {
@@ -121,6 +109,10 @@ class RangeType extends AbstractMaslType {
 
 	override getPrimitiveType() {
 		this
+	}
+	
+	override String toString() {
+		prefix + 'range of ' + elementType
 	}
 }
 

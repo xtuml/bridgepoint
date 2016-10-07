@@ -14,6 +14,7 @@ import org.xtuml.bp.xtext.masl.masl.behavior.AttributeReferential
 import org.xtuml.bp.xtext.masl.masl.behavior.BehaviorPackage
 import org.xtuml.bp.xtext.masl.masl.behavior.CodeBlock
 import org.xtuml.bp.xtext.masl.masl.behavior.CreateExpression
+import org.xtuml.bp.xtext.masl.masl.behavior.FindExpression
 import org.xtuml.bp.xtext.masl.masl.behavior.ForStatement
 import org.xtuml.bp.xtext.masl.masl.behavior.GenerateStatement
 import org.xtuml.bp.xtext.masl.masl.behavior.OperationCall
@@ -37,19 +38,17 @@ import org.xtuml.bp.xtext.masl.masl.structure.TerminatorFunctionDefinition
 import org.xtuml.bp.xtext.masl.masl.structure.TerminatorServiceDefinition
 import org.xtuml.bp.xtext.masl.masl.structure.TransitionOption
 import org.xtuml.bp.xtext.masl.masl.structure.TransitionRow
+import org.xtuml.bp.xtext.masl.typesystem.CollectionType
+import org.xtuml.bp.xtext.masl.typesystem.EnumType
 import org.xtuml.bp.xtext.masl.typesystem.InstanceType
 import org.xtuml.bp.xtext.masl.typesystem.MaslExpectedTypeProvider
 import org.xtuml.bp.xtext.masl.typesystem.MaslTypeProvider
+import org.xtuml.bp.xtext.masl.typesystem.NamedType
+import org.xtuml.bp.xtext.masl.typesystem.StructureType
 
 import static org.eclipse.xtext.scoping.Scopes.*
 
 import static extension org.eclipse.xtext.EcoreUtil2.*
-import org.xtuml.bp.xtext.masl.typesystem.EnumType
-import org.xtuml.bp.xtext.masl.typesystem.StructureType
-import org.xtuml.bp.xtext.masl.typesystem.NamedType
-import org.xtuml.bp.xtext.masl.masl.behavior.FindExpression
-import javax.swing.plaf.synth.ColorType
-import org.xtuml.bp.xtext.masl.typesystem.CollectionType
 
 /**
  * This class contains custom scoping description.
