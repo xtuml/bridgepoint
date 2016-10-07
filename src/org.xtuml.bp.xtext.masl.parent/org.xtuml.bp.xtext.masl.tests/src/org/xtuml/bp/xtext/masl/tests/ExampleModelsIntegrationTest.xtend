@@ -36,11 +36,6 @@ class ExampleModelsIntegrationTest {
 	}
 
 	@Test
-	def void testCharacteristicsExample() {
-		testProject('examples/Characteristics')
-	}
-
-	@Test
 	def void testGPSExample() {
 		testProject('examples/GPS')
 	}
@@ -52,7 +47,7 @@ class ExampleModelsIntegrationTest {
 
 	@Test
 	def void testSACExample() {
-		testProject('examples/SAC')
+		testProject('examples/SAC_old')
 	}
 
 	protected def testProject(String folderName) {
