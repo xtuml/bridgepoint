@@ -11,16 +11,8 @@ import org.eclipse.xtext.nodemodel.util.NodeModelUtils
 import org.eclipse.xtext.resource.IResourceDescriptions
 import org.eclipse.xtext.resource.ISelectable
 import org.xtuml.bp.xtext.masl.masl.behavior.Expression
-import org.xtuml.bp.xtext.masl.masl.behavior.FeatureCall
-import org.xtuml.bp.xtext.masl.masl.behavior.FindExpression
-import org.xtuml.bp.xtext.masl.masl.behavior.LoopVariable
-import org.xtuml.bp.xtext.masl.masl.behavior.NavigateExpression
 import org.xtuml.bp.xtext.masl.masl.behavior.OperationCall
-import org.xtuml.bp.xtext.masl.masl.behavior.SimpleFeatureCall
-import org.xtuml.bp.xtext.masl.masl.behavior.ThisLiteral
-import org.xtuml.bp.xtext.masl.masl.behavior.VariableDeclaration
 import org.xtuml.bp.xtext.masl.masl.structure.AbstractNamed
-import org.xtuml.bp.xtext.masl.masl.structure.AttributeDefinition
 import org.xtuml.bp.xtext.masl.masl.structure.DomainDefinition
 import org.xtuml.bp.xtext.masl.masl.structure.DomainFunctionDeclaration
 import org.xtuml.bp.xtext.masl.masl.structure.DomainFunctionDefinition
@@ -32,7 +24,6 @@ import org.xtuml.bp.xtext.masl.masl.structure.ObjectFunctionDeclaration
 import org.xtuml.bp.xtext.masl.masl.structure.ObjectFunctionDefinition
 import org.xtuml.bp.xtext.masl.masl.structure.ObjectServiceDeclaration
 import org.xtuml.bp.xtext.masl.masl.structure.ObjectServiceDefinition
-import org.xtuml.bp.xtext.masl.masl.structure.Parameter
 import org.xtuml.bp.xtext.masl.masl.structure.RelationshipEnd
 import org.xtuml.bp.xtext.masl.masl.structure.RelationshipNavigation
 import org.xtuml.bp.xtext.masl.masl.structure.StateDefinition
@@ -214,27 +205,6 @@ class MASLExtensions {
 		return null
 	}
 
-	/**
-	 * Poor man's type system...
-	 */
-	def boolean isInstanceValued(Expression it) {
-		switch it {
-			VariableDeclaration,
-			ObjectDeclaration,
-			LoopVariable,
-			Parameter,
-			AttributeDefinition,
-			ThisLiteral,
-			SimpleFeatureCall,
-			FeatureCall,
-			NavigateExpression,
-			FindExpression:
-				true
-			default:
-				false
-		}
-	}
-	
 	def boolean isOperation(EObject it) {
 		switch it {
 			DomainFunctionDeclaration,

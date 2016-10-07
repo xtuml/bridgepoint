@@ -98,6 +98,10 @@ class NamedType extends AbstractMaslType {
 		type.primitiveType
 	}
 
+	override getComponentType() {
+		type.componentType
+	}
+	
 	override String toString() {
 		prefix + 'type ' + name + ' is ' + type
 	}

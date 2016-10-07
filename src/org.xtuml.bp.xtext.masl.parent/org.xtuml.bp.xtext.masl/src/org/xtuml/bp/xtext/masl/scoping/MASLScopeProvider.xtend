@@ -42,7 +42,6 @@ import org.xtuml.bp.xtext.masl.masl.structure.TransitionOption
 import org.xtuml.bp.xtext.masl.masl.structure.TransitionRow
 import org.xtuml.bp.xtext.masl.typesystem.CollectionType
 import org.xtuml.bp.xtext.masl.typesystem.InstanceType
-import org.xtuml.bp.xtext.masl.typesystem.MaslExpectedTypeProvider
 import org.xtuml.bp.xtext.masl.typesystem.MaslType
 import org.xtuml.bp.xtext.masl.typesystem.MaslTypeProvider
 import org.xtuml.bp.xtext.masl.typesystem.NamedType

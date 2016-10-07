@@ -19,7 +19,6 @@ import org.eclipse.xtext.validation.Check
 import org.eclipse.xtext.validation.ComposedChecks
 import org.xtuml.bp.xtext.masl.MASLExtensions
 import org.xtuml.bp.xtext.masl.masl.behavior.BehaviorPackage
-import org.xtuml.bp.xtext.masl.masl.behavior.CharacteristicCall
 import org.xtuml.bp.xtext.masl.masl.behavior.CodeBlock
 import org.xtuml.bp.xtext.masl.masl.behavior.IndexedExpression
 import org.xtuml.bp.xtext.masl.masl.behavior.OperationCall
@@ -58,7 +57,13 @@ import org.xtuml.bp.xtext.masl.masl.structure.TransitionRow
 import org.xtuml.bp.xtext.masl.masl.types.EnumerationTypeDefinition
 import org.xtuml.bp.xtext.masl.masl.types.StructureTypeDefinition
 import org.xtuml.bp.xtext.masl.masl.types.TypesPackage
+import org.xtuml.bp.xtext.masl.typesystem.BuiltinType
+import org.xtuml.bp.xtext.masl.typesystem.CollectionType
+import org.xtuml.bp.xtext.masl.typesystem.InstanceType
+import org.xtuml.bp.xtext.masl.typesystem.MaslTypeProvider
+import org.xtuml.bp.xtext.masl.typesystem.StructureType
 
+import static org.xtuml.bp.xtext.masl.typesystem.BuiltinType.*
 import static org.xtuml.bp.xtext.masl.validation.IssueCodes.*
 
 /**
@@ -77,6 +82,7 @@ class MASLValidator extends AbstractMASLValidator {
 	@Inject extension ResourceDescriptionsProvider
 	@Inject extension IResourceDescription.Manager 
 	@Inject IContainer.Manager containerManager
+	@Inject extension MaslTypeProvider
 
 	@Check
 	def void structureComponentDefs(StructureTypeDefinition it) {
@@ -163,20 +169,31 @@ class MASLValidator extends AbstractMASLValidator {
 
 	@Check
 	def simpleFeatureCall(SimpleFeatureCall it) {
-		if(receiver != null && !receiver.eIsProxy && !receiver.instanceValued)		
-			error('Cannot call a feature on ' + receiver?.eClass?.name + ' ' + receiver.fullyQualifiedName?.lastSegment, it, featureCall_Receiver)
+		if(receiver != null && !receiver.eIsProxy) {
+			val primitiveType = receiver.maslType.primitiveType
+			switch primitiveType {
+				InstanceType, StructureType: {
+					// noop
+				} 
+				default:	
+					error('Cannot call a feature on ' + receiver?.eClass?.name + ' ' + receiver.fullyQualifiedName?.lastSegment, it, featureCall_Receiver)
+			}
+		} 
 		if(feature != null && !feature.eIsProxy && feature.isOperation) 
 			error('Operation ' + feature.fullyQualifiedName?.lastSegment + ' must be called with parentheses', it, featureCall_Feature)
 	}
 
 	@Check
 	def operationCall(OperationCall it) {
-		if(receiver != null && !receiver.eIsProxy && !receiver.instanceValued)		
-			error('Cannot call an operation on ' + receiver?.eClass?.name + ' ' + receiver.fullyQualifiedName?.lastSegment, it, featureCall_Receiver)
+		if(receiver != null && !receiver.eIsProxy) {
+			val primitiveType = receiver.maslType.primitiveType
+			if(!(primitiveType instanceof InstanceType)) 
+				error('Cannot call an operation on ' + receiver?.eClass?.name + ' ' + receiver.fullyQualifiedName?.lastSegment, it, featureCall_Receiver)
+		}
 		if(feature != null && !feature.eIsProxy && !feature.isOperation && !isCastExpression) 
 			error('Feature ' + feature.fullyQualifiedName?.lastSegment + ' cannot be called with parentheses', it, featureCall_Feature)
 	}
-
+	
 	@Check
 	def terminatorOperationCallReceiver(TerminatorOperationCall it) {
 		switch receiver {
@@ -191,16 +208,19 @@ class MASLValidator extends AbstractMASLValidator {
 	
 	@Check
 	def indexedExpression(IndexedExpression it) {
-		if(!receiver.instanceValued)	
-			error('Cannot use ' + receiver.eClass.name + ' as indexed element', receiver, null)
+		if (receiver != null && !receiver.eIsProxy) {
+			val primitiveType = receiver.maslType.primitiveType
+			switch primitiveType {
+				CollectionType,
+				BuiltinType case new BuiltinType(STRING): {
+					// noop
+				}
+				default:
+					error('Cannot use ' + receiver.eClass.name + ' as indexed element', receiver, null)
+			}
+		}
 	}
 	
-	@Check
-	def characteristicCallReceiver(CharacteristicCall it) {
-		if(!receiver.instanceValued)
-			error('Cannot call characteristic on ' + receiver.eClass.name, receiver, null)
-	}
-
 	@Check
 	def modelNamesAreUnique(MaslModel it) {
 		val allDomainsInFile = elements.filter(DomainDefinition) 

@@ -32,6 +32,40 @@ class DeclarationTypeProviderTest extends AbstractMaslModelTest {
 	}
 
 	@Test
+	def void testIndexedCall() {
+		doAssertType('''
+			domain dom is
+				type Foo is array(1..2) of integer;
+			end;
+		''', '''
+			service dom::scv() is
+				f: Foo;
+			begin
+				^(f[1]);
+			end;
+		''', 'builtin integer')
+	}
+
+	@Test
+	def void testIndexedCall1() {
+		doAssertType('''
+			domain dom is
+				object Foo;
+				object Foo is
+					foo: instance of Foo;
+				end;
+			end;
+		''', '''
+			service dom::scv() is
+				arr: array (1..10) of instance of Foo;
+			begin
+				^(arr[1]);
+				^(arr[1].foo);
+			end;
+		''', 'instance of Foo')
+	}
+
+	@Test
 	def void testStructureCall() {
 		assertType('type Foo is structure a: integer; end;', 'Foo', '''
 			type Foo is structure
