@@ -40,11 +40,14 @@ import org.eclipse.swt.dnd.TextTransfer;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.ui.PartInitException;
 import org.xtuml.bp.core.CorePlugin;
+import org.xtuml.bp.core.DataType_c;
 import org.xtuml.bp.core.Ooaofooa;
+import org.xtuml.bp.core.common.IPersistenceHierarchyMetaData;
 import org.xtuml.bp.core.common.InstanceList;
 import org.xtuml.bp.core.common.ModelRoot;
 import org.xtuml.bp.core.common.ModelStreamProcessor;
 import org.xtuml.bp.core.common.NonRootModelElement;
+import org.xtuml.bp.core.common.PersistenceManager;
 import org.xtuml.bp.core.common.TransactionManager;
 import org.xtuml.bp.core.ui.PasteAction;
 import org.xtuml.bp.core.ui.Selection;
@@ -146,24 +149,9 @@ public class CanvasPasteAction extends PasteAction {
 			return;
 		}
 		if (moveIsInProgress()) {
-			for (NonRootModelElement nrme : ELEMENT_MOVE_SOURCE_SELECTION) {
-				GraphicalElement_c movedGraphicalElement = null;
-				Ooaofgraphics ooaofg = Ooaofgraphics.getInstance(PasteAction.getContainerForMove(nrme).getModelRoot().getId());
-				movedGraphicalElement = CanvasPlugin.getGraphicalElement(ooaofg, nrme);
-
-				// If there is a graphical element we need to update its
-				// containment by unassociating it from the source canvas
-				// and associating it with the destination
-				if (movedGraphicalElement != null) {
-					NonRootModelElement graphicalElementList[] = new NonRootModelElement[1];
-					graphicalElementList[0] = movedGraphicalElement;	
-					updateGraphicalElementRoots(graphicalElementList, destGD_MD.getModelRoot());			
-					
-					Model_c oldMD = Model_c.getOneGD_MDOnR1(movedGraphicalElement);
-					movedGraphicalElement.unrelateAcrossR1From(oldMD);
-					movedGraphicalElement.relateAcrossR1To(destGD_MD);
-					updateContainement(destGD_MD, movedGraphicalElement);
-				}
+			ArrayList<GraphicalElement_c> graphicalElementsToMove = new ArrayList<GraphicalElement_c>();
+			for (NonRootModelElement ooaElementMoved : ELEMENT_MOVE_SOURCE_SELECTION) {	
+				moveGraphicalElement(ooaElementMoved, destGD_MD);
 			}
 		} else {
 	 		GraphicalElement_c[] pastedGraphicalElements = getPastedGraphicalElements(
@@ -189,6 +177,44 @@ public class CanvasPasteAction extends PasteAction {
 		}
 	}
 
+	/**
+	 * If there is a graphical element we need to update its
+	 * containment by unassociating it from it's source canvas
+	 * and associating it with the destination
+	 * 
+	 * @param ooaElementMoved
+	 * @param destGD_MD
+	 */
+	private static void moveGraphicalElement(NonRootModelElement ooaElementMoved, Model_c destGD_MD) {
+		Ooaofgraphics ooaofg = Ooaofgraphics
+				.getInstance(PasteAction.getContainerForMove(ooaElementMoved).getModelRoot().getId());
+		GraphicalElement_c graphicalElementMoved = CanvasPlugin.getGraphicalElement(ooaofg, ooaElementMoved);
+		
+		if (graphicalElementMoved != null) {
+			NonRootModelElement[] rootsToMove = null;
+//			Model_c graphicalRoot = Model_c.getOneGD_MDOnR1(graphicalElementMoved);
+//			if (graphicalRoot != null) {
+//				rootsToMove = new NonRootModelElement[2];
+//				rootsToMove[0] = graphicalElementMoved;
+//				rootsToMove[1] = graphicalRoot;
+//			} else {
+				rootsToMove = new NonRootModelElement[1];				
+				rootsToMove[0] = graphicalElementMoved;
+//			}
+			updateGraphicalElementRoots(rootsToMove, destGD_MD.getModelRoot());
+			
+
+			Model_c oldMD = Model_c.getOneGD_MDOnR1(graphicalElementMoved);
+			graphicalElementMoved.unrelateAcrossR1From(oldMD);
+			graphicalElementMoved.relateAcrossR1To(destGD_MD);
+			updateContainement(destGD_MD, graphicalElementMoved);
+			
+			GraphicalElement_c graphicalElementList[] = new GraphicalElement_c[1];
+			graphicalElementList[0] = graphicalElementMoved;
+			moveGraphicalElementsToPreventOverlapping(graphicalElementList, destGD_MD);
+		}
+	}
+	
 	private static void moveGraphicalElementsToPreventOverlapping(
 			GraphicalElement_c[] elements, Model_c model) {
 		// store current selection
