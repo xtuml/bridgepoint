@@ -9,7 +9,6 @@ service tutorial::characteristics() is
   ds : sequence of record_structure_type;
   p  : instance of Pilot;
   ps : sequence of instance of Pilot;
-
 begin
    //image
   t := i'image;
@@ -153,26 +152,26 @@ begin
   end if;
 
   //pos
-  //i := Time_Unit'pos(MILLISECOND);
-  //if (i/=1) then
-  //  raise Standard::constraint_error;
-  //end if;
+  i := Time_Unit'pos(MILLISECOND);
+  if (i/=1) then
+    raise Standard::constraint_error;
+  end if;
 
   //value
-  //e := Time_Unit'value("MILLISECOND");
-  //if (e/=MILLISECOND) then
-  //  raise Standard::constraint_error;
-  //end if;
-  //t := "DAY";
-  //e := Time_Unit'value(t);
-  //if (e/=DAY) then
-  //  raise Standard::constraint_error;
-  //end if;
+  e := Time_Unit'value("MILLISECOND");
+  if (e/=MILLISECOND) then
+    raise Standard::constraint_error;
+  end if;
+  t := "DAY";
+  e := Time_Unit'value(t);
+  if (e/=DAY) then
+    raise Standard::constraint_error;
+  end if;
 
   //find length
-  //i := find_all Pilot ()'length;
-  //if (i=0)  then
-  //  raise Standard::constraint_error;
-  //end if;
+  i := (find_all Pilot ())'length;
+  if (i=0)  then
+    raise Standard::constraint_error;
+  end if;
 
 end;

@@ -21,24 +21,61 @@ builtin is
 	anonymous builtin stream_manipulator_type;
 	
 	// built-in characteristics (currently not bound to any type)
-	'image;
-	'upper;
-	'lower;
-	'firstcharpos;
-	'first;
-	'last;
-	'size;
-	'pred;
-	'succ;
-	'pos;
-	'value;
-	'length;
-	'now;
-	'range;
-	<T> 'elements(p: in array (null) of T) return range of T;
-	<T> 'elements(p: in bag of T) return range of T;
-	<T> 'elements(p: in set of T) return range of T;
-	<T> 'elements(p: in sequence of T) return range of T;
-	'parse;
+	(character)   'image() return string;
+	(boolean)     'image() return string;
+	(byte)        'image() return string;
+	(integer)     'image() return string;
+	(long_integer)'image() return string;
+	(real)        'image() return string;
+	(duration)    'image() return string;
+	(timestamp)   'image() return string;
+	<T> T         'image() return string;
+	
+	<T> T'parse(s: in string) return T;
+
+	<enum E> E'first()             return integer;
+	<enum E> E'last()              return integer;
+	<enum E> E'size()              return integer;
+	<enum E> E'pos(p: in E)        return integer;
+	<enum E> E'value(p: in string) return E;
+	<enum E> E'range()             return range of integer;
+	<enum E> (E)'pred() return E;
+	<enum E> (E)'succ() return E;
+	
+	(string)'upper()                       return string;
+	(string)'lower()                       return string;
+	(string)'firstcharpos(c: in character) return integer;
+	(string)'first()                       return character;
+	(string)'last()                        return character;
+	(string)'length()                      return integer;
+	(string)'range()                       return range of integer;
+
+	timestamp'now() return timestamp;
+
+	<T> (array (null) of T)'elements()   return range of T;
+	<T> (array (null) of T)'length()     return integer;
+	<T> (array (null) of T)'first()      return integer;
+	<T> (array (null) of T)'last()       return integer;
+	<T> (array (null) of T)'range()      return range of integer;
+	<T> (array (null) of T)'get_unique() return sequence of T;
+
+	<T> (sequence of T)'elements()   return range of T;
+	<T> (sequence of T)'length()     return integer;
+	<T> (sequence of T)'first()      return integer;
+	<T> (sequence of T)'last()       return integer;
+	<T> (sequence of T)'range()      return range of integer;
+	<T> (sequence of T)'get_unique() return sequence of T;
+
+	<T> (bag of T)'elements()   return range of T;
+	<T> (bag of T)'length()     return integer;
+	<T> (bag of T)'get_unique() return sequence of T;
+	
+	<T> (set of T)'elements() return range of T;
+	<T> (set of T)'length()   return integer;
+
+	<K,V> (dictionary K of V)'contains(key: in K) return boolean;
+	<K,V> (dictionary K of V)'keys() return set of K;
+	<K,V> (dictionary K of V)'values() return bag of V;
+	
 end builtin;
 	

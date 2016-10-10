@@ -14,7 +14,7 @@ begin
     my_int_array_2[i] := 9;
     my_int_array_3[i] := 10;
   end loop;
-  if (my_int_array_2[5] /= 9) then
+  if (my_int_array_2[5] /= 9) then 
     raise Standard::constraint_error;
   end if;
 

@@ -18,10 +18,14 @@ class MaslTypeConformanceComputer {
 		if (source == target)
 			return true
 
-		// 
+		val sourcePrimitive = source.primitiveType
+		val targetPrimitive = target.primitiveType 
 		// covers 3) An named type is assignable to an anonymous type if they have the same primitive type
 		if (source instanceof NamedType && target.anonymous)
-			return source.primitiveType == target.primitiveType
+			return sourcePrimitive == targetPrimitive
+
+		if(source == new BuiltinType(CHARACTER) && target == new BuiltinType(STRING))
+			return true
 
 		if (source instanceof InstanceType) {
 			if (target instanceof InstanceType) {
@@ -37,32 +41,37 @@ class MaslTypeConformanceComputer {
 			// covers 2) 
 			// An anonymous type is assignable to a named type if they have the same primitive type
 			if (target instanceof NamedTypeReference)
-				return source.primitiveType == target.primitiveType
+				return sourcePrimitive == targetPrimitive
 
 			// covers 4) 
 			// An anonymous integer type is assignable to any type with a primitive type of real
-			if (source == new BuiltinType(INTEGER))
-				return target.primitiveType == 'builtin real'
+			if (sourcePrimitive == new BuiltinType(LONG_INTEGER)) {
+				return target == new BuiltinType(REAL) || target == new BuiltinType(BYTE)
+			}
+
+			if (source == new BuiltinType(ANY_TYPE)) {
+				return target instanceof InstanceType
+			}
 
 			// covers 5) 
 			// An anonymous structure is assignable to a type with a primitive type of a structure
 			// if the individual components are assignable. If the primitive type of the expression to be 
 			// assigned is not a structure, it should be promoted to an anonymous structure with a single 
 			// component of the original expression before trying this test.
-			if (source instanceof StructureType)
-				return source.primitiveType == target.primitiveType
-			if (source.primitiveType.wrapInStructure == target.primitiveType)
-				return true
+			if (targetPrimitive instanceof StructureType) {
+				if(sourcePrimitive == targetPrimitive || sourcePrimitive.wrapInStructure == targetPrimitive)
+					return true
+			}
 				
 			// covers 6) 
 			// An anonymous collection (set, array, bag or sequence) is assignable to a type with a
 			// primitive type of sequence if the contained elements are assignable. If the primitive
 			// type of the expression to be assigned is not a sequence, it should be promoted to an 
 			// anonymous sequence with a single element of the original expression before trying this test.
-			if (source instanceof CollectionType)
-				return source.primitiveType == target.primitiveType
-			if (source.primitiveType.wrapInSequence == target.primitiveType)
-				return true
+			if (targetPrimitive instanceof CollectionType) {
+				if(sourcePrimitive == targetPrimitive || sourcePrimitive.wrapInSequence == targetPrimitive)
+					return true
+			}
 		}
 		return false
 	}

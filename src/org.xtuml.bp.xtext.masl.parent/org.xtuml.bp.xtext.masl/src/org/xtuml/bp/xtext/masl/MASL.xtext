@@ -91,12 +91,14 @@ BuiltinTypeDeclaration returns TypeDeclaration:
 	| {BuiltinTypeDeclaration} anonymous?='anonymous'? 'builtin' name=ID ';';
 
 Characteristic:
-	 typeParam=TypeParameter? '\'' name=CharacteristicID
+	 ('<' typeParams+=TypeParameter (',' typeParams+=TypeParameter)* '>')?
+	 ((forValue?='(' receiverType=AbstractTypeReference ')') | (receiverType=AbstractTypeReference))
+	 '\'' name=CharacteristicID
 	 ParameterList? 
 	 ('return' returnType=AbstractTypeReferenceWithRange)? ';';
 
 TypeParameter:
-	'<' name=ID '>';
+	 ^enum?='enum'? name=ID;
 
 AbstractTypeReferenceWithRange returns AbstractTypeReference:
 	AbstractTypeReference

@@ -7,8 +7,8 @@ import org.eclipse.xtend.lib.annotations.FinalFieldsConstructor
 import org.xtuml.bp.xtext.masl.masl.structure.ObjectDeclaration
 import org.xtuml.bp.xtext.masl.masl.structure.TerminatorDefinition
 import org.xtuml.bp.xtext.masl.masl.types.EnumerationTypeDefinition
-import org.xtuml.bp.xtext.masl.masl.types.TypeDeclaration
 import org.xtuml.bp.xtext.masl.masl.types.StructureTypeDefinition
+import org.xtuml.bp.xtext.masl.masl.types.TypeDeclaration
 
 /**
  * Dealing with EMF objects is tedious, so we define our own types
@@ -160,7 +160,7 @@ abstract class CollectionType extends AbstractMaslType {
 	}
 
 	override getPrimitiveType() {
-		new SequenceType(elementType)
+		new SequenceType(elementType.primitiveType)
 	}
 }
 
@@ -243,8 +243,7 @@ class StructureType extends AbstractMaslType {
 			«FOR c : components»
 				«c»;
 			«ENDFOR»	
-		end
-	'''
+		end'''
 }
 
 @Data
@@ -312,19 +311,19 @@ class TerminatorType extends AbstractMaslType {
 @FinalFieldsConstructor
 class DictionaryType extends AbstractMaslType {
 	MaslType keyType
-	MaslType elementType
+	MaslType valueType
 
 	new(MaslType keyType, MaslType elementType, boolean anonymous) {
 		super(anonymous)
 		this.keyType = keyType
-		this.elementType = elementType
+		this.valueType = elementType
 	}
 	
 	override getPrimitiveType() {
-		new DictionaryType(keyType.primitiveType, elementType.primitiveType)
+		new DictionaryType(keyType.primitiveType, valueType.primitiveType)
 	}
 
 	override toString() {
-		prefix + 'dictionary ' + keyType.toString + ' of ' + elementType.toString 
+		prefix + 'dictionary ' + keyType.toString + ' of ' + valueType.toString 
 	}
 }

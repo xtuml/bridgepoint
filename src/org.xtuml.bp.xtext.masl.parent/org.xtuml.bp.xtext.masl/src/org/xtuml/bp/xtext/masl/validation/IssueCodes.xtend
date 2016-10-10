@@ -14,4 +14,5 @@ interface IssueCodes {
 	val CYCLIC_INHERITANCE = PREFIX + 'cyclicInheritance'
 	val MISSING_DEFINITION = PREFIX + 'missingDefinition' 
 	val MISSING_DECLARATION = PREFIX + 'missingDeclaration' 
+	val WRONG_TYPE = PREFIX + 'wrongType'
 }

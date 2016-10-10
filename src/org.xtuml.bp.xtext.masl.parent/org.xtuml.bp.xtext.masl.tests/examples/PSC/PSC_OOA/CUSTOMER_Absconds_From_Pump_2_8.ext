@@ -14,11 +14,11 @@ begin
   //# Customer absconds from Pump 2 without paying
   
   pump_instance := find_one PUMP (Pump_Number = 2);
-  
+   
   current_pending_transaction := pump_instance->R9;
   
   if current_pending_transaction /= null then
   	current_transaction := current_pending_transaction->R4;
   	generate TRANSACTION.Customer_Absconds("Details") to current_transaction;
-  end if;
+  end if; 
 end service;

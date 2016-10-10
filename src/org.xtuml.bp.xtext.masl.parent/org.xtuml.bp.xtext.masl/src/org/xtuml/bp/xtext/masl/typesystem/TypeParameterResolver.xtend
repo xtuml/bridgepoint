@@ -27,7 +27,7 @@ class TypeParameterResolver {
 			SetType:
 				new SetType(elementType.resolve(typeParam, replacement), anonymous)
 			DictionaryType:
-				new DictionaryType(keyType.resolve(typeParam, replacement), elementType.resolve(typeParam, replacement), anonymous)
+				new DictionaryType(keyType.resolve(typeParam, replacement), valueType.resolve(typeParam, replacement), anonymous)
 			StructureType:
 				new StructureType(structureType, components.map[new StructureComponent(name, type.resolve(typeParam, replacement))], anonymous)
 		}

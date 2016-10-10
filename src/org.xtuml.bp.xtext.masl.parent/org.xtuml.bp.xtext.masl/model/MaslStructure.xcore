@@ -168,11 +168,14 @@ class BuiltinLibraryDefinition extends MaslModel {
 
 class Characteristic extends Parameterized {
 	String name
-	contains TypeParameter typeParam
+	boolean forValue
+	contains TypeParameter[] typeParams
+	contains AbstractTypeReference receiverType
 	contains AbstractTypeReference returnType
 }
 
 class TypeParameter extends TypeDeclaration {
+	boolean ^enum
 }
 
 class RangeTypeReference extends AbstractTypeReference {

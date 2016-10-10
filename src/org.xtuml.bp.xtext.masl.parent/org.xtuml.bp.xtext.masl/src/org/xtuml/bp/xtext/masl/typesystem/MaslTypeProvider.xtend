@@ -49,6 +49,7 @@ import org.xtuml.bp.xtext.masl.masl.behavior.ScheduleStatement
 import org.xtuml.bp.xtext.masl.masl.behavior.SimpleFeatureCall
 import org.xtuml.bp.xtext.masl.masl.behavior.StreamExpression
 import org.xtuml.bp.xtext.masl.masl.behavior.StringLiteral
+import org.xtuml.bp.xtext.masl.masl.behavior.StructureAggregateExpression
 import org.xtuml.bp.xtext.masl.masl.behavior.TerminatorOperationCall
 import org.xtuml.bp.xtext.masl.masl.behavior.ThisLiteral
 import org.xtuml.bp.xtext.masl.masl.behavior.TimestampLiteral
@@ -56,6 +57,7 @@ import org.xtuml.bp.xtext.masl.masl.behavior.UnaryExp
 import org.xtuml.bp.xtext.masl.masl.behavior.VariableDeclaration
 import org.xtuml.bp.xtext.masl.masl.behavior.WhileStatement
 import org.xtuml.bp.xtext.masl.masl.structure.AbstractFeature
+import org.xtuml.bp.xtext.masl.masl.structure.AssocRelationshipDefinition
 import org.xtuml.bp.xtext.masl.masl.structure.AttributeDefinition
 import org.xtuml.bp.xtext.masl.masl.structure.DomainFunctionDeclaration
 import org.xtuml.bp.xtext.masl.masl.structure.DomainServiceDeclaration
@@ -64,8 +66,10 @@ import org.xtuml.bp.xtext.masl.masl.structure.ObjectFunctionDeclaration
 import org.xtuml.bp.xtext.masl.masl.structure.ObjectServiceDeclaration
 import org.xtuml.bp.xtext.masl.masl.structure.Parameter
 import org.xtuml.bp.xtext.masl.masl.structure.RangeTypeReference
+import org.xtuml.bp.xtext.masl.masl.structure.RegularRelationshipDefinition
 import org.xtuml.bp.xtext.masl.masl.structure.RelationshipEnd
 import org.xtuml.bp.xtext.masl.masl.structure.RelationshipNavigation
+import org.xtuml.bp.xtext.masl.masl.structure.SubtypeRelationshipDefinition
 import org.xtuml.bp.xtext.masl.masl.structure.TerminatorDefinition
 import org.xtuml.bp.xtext.masl.masl.structure.TerminatorFunctionDeclaration
 import org.xtuml.bp.xtext.masl.masl.structure.TerminatorServiceDeclaration
@@ -169,8 +173,13 @@ class MaslTypeProvider {
 				return feature.maslTypeOfFeature
 			SimpleFeatureCall:
 				return feature.maslTypeOfFeature
-			IndexedExpression:
-				return receiver.maslTypeOfExpression.componentType
+			IndexedExpression: {
+				val maslType = receiver.maslTypeOfExpression
+				if (maslType == new BuiltinType(STRING))
+					return new BuiltinType(CHARACTER, true)
+				else
+					return maslType.componentType
+			}
 			TerminatorOperationCall:
 				return terminalOperation.maslTypeOfFeature
 			CharacteristicCall:
@@ -202,6 +211,8 @@ class MaslTypeProvider {
 			LineNoLiteral,
 			FileNameLiteral:
 				return new BuiltinType('no_type', true)
+			StructureAggregateExpression:
+				return new StructureType(null, elements.map[new StructureComponent(null, maslTypeOfExpression)],true)
 			default:
 				throw new UnsupportedOperationException('Missing type for expression ' + eClass?.name)
 		}
@@ -229,7 +240,7 @@ class MaslTypeProvider {
 			InstanceTypeReference:
 				return new InstanceType(instance, anonymous)
 			NamedTypeReference: {
-				type.getMaslTypeOfTypeDeclaration(anonymous)
+				return type.getMaslTypeOfTypeDeclaration(anonymous)
 			}
 			TerminatorTypeReference:
 				return new TerminatorType(terminator)
@@ -244,8 +255,13 @@ class MaslTypeProvider {
 				return new BuiltinType(declaration.name, anonymous)
 			TypeParameter:
 				return new TypeParameterType(declaration.name, anonymous)
-			default:
-				new NamedType(declaration.name, declaration.definition.maslTypeOfTypeDefinition, anonymous)
+			default: {
+				val definitionType = declaration.definition.maslTypeOfTypeDefinition
+				if(definitionType instanceof EnumType) 
+					return definitionType
+				else 
+					return new NamedType(declaration.name, definitionType, anonymous)
+			}
 		}
 	}
 	
@@ -335,22 +351,63 @@ class MaslTypeProvider {
 			return new InstanceType(navigation.object, true)
 		val objectOrRole = navigation.objectOrRole 
 		if(objectOrRole instanceof ObjectDeclaration)
-			return new InstanceType(objectOrRole)
+			return new InstanceType(objectOrRole, true)
 		if(objectOrRole instanceof RelationshipEnd)
-			return new InstanceType(objectOrRole.to)
-		throw new UnsupportedOperationException("Missing type implementation for subtype of ObjectOrRole '" + objectOrRole?.eClass?.name + "'")
+			return new InstanceType(objectOrRole.to, true)
+		val relationship = navigation.relationship
+		val parent = navigation.eContainer
+		val from = switch parent {
+			NavigateExpression: parent.lhs
+			LinkExpression:  parent.lhs
+		}
+		val fromType = from.maslType
+		switch relationship {
+			RegularRelationshipDefinition: 
+				return relationship.forwards.getMaslTypeOfOtherEnd(fromType)
+			AssocRelationshipDefinition: 
+				return relationship.forwards.getMaslTypeOfOtherEnd(fromType)
+			SubtypeRelationshipDefinition:
+				return new InstanceType(relationship.supertype, true)
+		}
+		throw new UnsupportedOperationException("Cannot determine type of relationship navigation")
+	}
+	
+	private def getMaslTypeOfOtherEnd(RelationshipEnd relationEnd, MaslType fromType) {
+		val relationFromType = relationEnd.from.maslTypeOfFeature
+		if(fromType == relationFromType)
+			new InstanceType(relationEnd.to, true)
+		else
+			new InstanceType(relationEnd.from, true)	
 	}
 	
 	private def MaslType getMaslTypeOfCharacteristicCall(CharacteristicCall call) {
-		val returnType = call.characteristic.returnType.maslTypeOfTypeReference
-		val typeParam = call.characteristic.typeParam
-		if(typeParam == null) {
-			returnType
-		} else {
-			val replace = new TypeParameterType(typeParam.name, true)
-			val replacement = call.receiver.maslType.componentType
-			val returnValue = returnType.resolve(replace, replacement)
-			return returnValue			
+		val characteristic = call.characteristic
+		val returnType = characteristic.returnType.maslTypeOfTypeReference
+		val typeParams = call.characteristic.typeParams
+		switch typeParams.size {
+			case 0:
+				return returnType
+			case 1: {
+				val replace = new TypeParameterType(typeParams.head.name, true)
+				val replacement = call.receiver.maslType.componentType
+				val returnValue = returnType.resolve(replace, replacement)
+				return returnValue			
+			}
+			case 2: {
+				var replacement = call.receiver.maslType
+				if(replacement instanceof NamedType)
+					replacement = replacement.type
+				if(replacement instanceof DictionaryType) {
+					val returnValue = returnType
+						.resolve(new TypeParameterType(typeParams.head.name, true), replacement.keyType)
+						.resolve(new TypeParameterType(typeParams.last.name, true), replacement.valueType)
+					return returnValue			
+				} else {
+					throw new UnsupportedOperationException("Two type parameters are only supported for dictionary types")
+				}
+			}
+			default:
+				throw new UnsupportedOperationException("More than two type parameters are not supported")
 		}
 	}
 	

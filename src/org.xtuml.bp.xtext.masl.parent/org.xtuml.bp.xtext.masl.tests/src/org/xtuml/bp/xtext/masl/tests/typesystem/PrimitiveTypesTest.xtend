@@ -103,7 +103,7 @@ class PrimitiveTypesTest extends AbstractMaslModelTest {
 					^c0;
 					^c1;
 				end;
-			''', 'sequence of builtin integer')		
+			''', 'sequence of builtin long_integer')		
 	}
 
 	@Test
@@ -120,7 +120,7 @@ class PrimitiveTypesTest extends AbstractMaslModelTest {
 				^c0;
 				^c1;
 			end;
-		''', 'sequence of builtin integer')		
+		''', 'sequence of builtin long_integer')		
 	}
 
 	@Test
@@ -168,6 +168,6 @@ class PrimitiveTypesTest extends AbstractMaslModelTest {
 	
 	protected def assertPrimitiveType(CharSequence modFile, CharSequence extFile, String expectedPrimitiveType) {
 		for (expr: getElementsAtCarets('dummy.mod' -> modFile, 'dummy.ext' -> extFile)) 
-			assertEquals(expectedPrimitiveType, expr.maslType.primitiveType.toString)
+			assertEquals(expectedPrimitiveType.trim, expr.maslType.primitiveType.toString.trim)
 	}
 }

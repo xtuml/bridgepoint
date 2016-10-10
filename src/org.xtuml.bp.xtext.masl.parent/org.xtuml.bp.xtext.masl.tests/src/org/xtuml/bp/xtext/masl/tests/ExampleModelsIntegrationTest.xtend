@@ -64,7 +64,7 @@ class ExampleModelsIntegrationTest {
 			i++
 		}
 		assertTrue(i > 0)
-		println('Validated ' + i + ' resources')
+		//println('Validated ' + i + ' resources')
 	}
 
 	protected def void load(File file, ResourceSet resourceSet) {
