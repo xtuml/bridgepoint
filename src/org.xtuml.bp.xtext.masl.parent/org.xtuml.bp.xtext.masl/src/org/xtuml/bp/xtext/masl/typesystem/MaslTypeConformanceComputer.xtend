@@ -1,16 +1,16 @@
 package org.xtuml.bp.xtext.masl.typesystem
 
 import com.google.inject.Inject
-import org.eclipse.xtext.resource.impl.ResourceDescriptionsProvider
 import org.xtuml.bp.xtext.masl.MASLExtensions
 import org.xtuml.bp.xtext.masl.masl.types.NamedTypeReference
+import org.xtuml.bp.xtext.masl.scoping.ProjectScopeIndexProvider
 
 import static org.xtuml.bp.xtext.masl.typesystem.BuiltinType.*
 
 class MaslTypeConformanceComputer {
 
 	@Inject extension MASLExtensions
-	@Inject extension ResourceDescriptionsProvider
+	@Inject extension ProjectScopeIndexProvider
 
 	def isAssignableTo(MaslType source, MaslType target) {
 		// covers 1) 
@@ -26,7 +26,7 @@ class MaslTypeConformanceComputer {
 
 		if (source instanceof InstanceType) {
 			if (target instanceof InstanceType) {
-				val index = source.instance.eResource.resourceDescriptions
+				val index = source.instance.index
 				val definition = source.instance.getObjectDefinition(index)
 				if (definition != null)
 					return definition.getAllSupertypes(index).exists[it == target.instance.getObjectDefinition(index)]

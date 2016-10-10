@@ -7,7 +7,6 @@ import com.google.inject.Inject
 import java.util.List
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.emf.ecore.EReference
-import org.eclipse.xtext.resource.impl.ResourceDescriptionsProvider
 import org.eclipse.xtext.scoping.IScope
 import org.xtuml.bp.xtext.masl.MASLExtensions
 import org.xtuml.bp.xtext.masl.masl.behavior.AttributeReferential
@@ -61,12 +60,9 @@ class MASLScopeProvider extends AbstractMASLScopeProvider {
 
 	@Inject extension StructurePackage structurePackage
 	@Inject extension BehaviorPackage 
-	
 	@Inject extension MASLExtensions
-	
 	@Inject extension MaslTypeProvider
-	
-	@Inject ResourceDescriptionsProvider resourceDescriptionsProvider
+	@Inject extension ProjectScopeIndexProvider
 
 	override getScope(EObject context, EReference reference) {
 		switch reference {
@@ -160,7 +156,7 @@ class MASLScopeProvider extends AbstractMASLScopeProvider {
 	private def <T extends EObject> createObjectScope(ObjectDefinition object, (ObjectDefinition)=>Iterable<? extends T> reference, IScope parentScope) {
 		if(object == null || object.eIsProxy)
 			return IScope.NULLSCOPE
-		val index = resourceDescriptionsProvider.getResourceDescriptions(object.eResource)
+		val index = object.index
 		scopeFor(object
 			.getAllSupertypes(index)
 			.map[reference.apply(it)]
@@ -174,7 +170,7 @@ class MASLScopeProvider extends AbstractMASLScopeProvider {
 	private def <T extends EObject> createObjectScope(ObjectDeclaration object, (ObjectDefinition)=>Iterable<? extends T> reference, IScope parentScope) {
 		if(object == null || object.eIsProxy)
 			return IScope.NULLSCOPE
-		val index = resourceDescriptionsProvider.getResourceDescriptions(object.eResource)
+		val index = object.index
 		val definition = object.getObjectDefinition(index)
 		scopeFor(definition
 			.getAllSupertypes(index)

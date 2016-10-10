@@ -8,7 +8,6 @@ import org.eclipse.emf.ecore.EReference
 import org.eclipse.emf.ecore.util.EcoreUtil
 import org.eclipse.xtext.naming.IQualifiedNameProvider
 import org.eclipse.xtext.nodemodel.util.NodeModelUtils
-import org.eclipse.xtext.resource.IResourceDescriptions
 import org.eclipse.xtext.resource.ISelectable
 import org.xtuml.bp.xtext.masl.masl.behavior.Expression
 import org.xtuml.bp.xtext.masl.masl.behavior.OperationCall
@@ -113,13 +112,13 @@ class MASLExtensions {
 	/**
 	 * @return all supertypes including the object itself.
 	 */
-	def Iterable<ObjectDefinition> getAllSupertypes(ObjectDefinition object, IResourceDescriptions index) {
+	def Iterable<ObjectDefinition> getAllSupertypes(ObjectDefinition object, ISelectable  index) {
 		val result = newHashSet
 		internalGetAllSupertypes(object, index, result)
 		result
 	}
 
-	private def void internalGetAllSupertypes(ObjectDefinition object, IResourceDescriptions index,
+	private def void internalGetAllSupertypes(ObjectDefinition object, ISelectable index,
 		Set<ObjectDefinition> result) {
 		if (object == null || !result.add(object))
 			return // definition already captured
@@ -134,7 +133,7 @@ class MASLExtensions {
 	/**
 	 * @return the object definition associated with an object declaration, by means of index lookup. 
 	 */
-	def ObjectDefinition getObjectDefinition(ObjectDeclaration it, IResourceDescriptions index) {
+	def ObjectDefinition getObjectDefinition(ObjectDeclaration it, ISelectable index) {
 		val defs = getDefinitions(objectDefinition, index) 
 		if(defs.size != 1)
 			return null

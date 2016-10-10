@@ -11,10 +11,6 @@ import java.util.regex.Pattern
 import org.eclipse.emf.ecore.EClass
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.xtext.naming.IQualifiedNameProvider
-import org.eclipse.xtext.resource.IContainer
-import org.eclipse.xtext.resource.IResourceDescription
-import org.eclipse.xtext.resource.ISelectable
-import org.eclipse.xtext.resource.impl.ResourceDescriptionsProvider
 import org.eclipse.xtext.validation.Check
 import org.eclipse.xtext.validation.ComposedChecks
 import org.xtuml.bp.xtext.masl.MASLExtensions
@@ -57,6 +53,7 @@ import org.xtuml.bp.xtext.masl.masl.structure.TransitionRow
 import org.xtuml.bp.xtext.masl.masl.types.EnumerationTypeDefinition
 import org.xtuml.bp.xtext.masl.masl.types.StructureTypeDefinition
 import org.xtuml.bp.xtext.masl.masl.types.TypesPackage
+import org.xtuml.bp.xtext.masl.scoping.ProjectScopeIndexProvider
 import org.xtuml.bp.xtext.masl.typesystem.BuiltinType
 import org.xtuml.bp.xtext.masl.typesystem.CollectionType
 import org.xtuml.bp.xtext.masl.typesystem.InstanceType
@@ -79,10 +76,8 @@ class MASLValidator extends AbstractMASLValidator {
 	@Inject extension TypesPackage
 	@Inject extension MASLExtensions
 	@Inject extension IQualifiedNameProvider
-	@Inject extension ResourceDescriptionsProvider
-	@Inject extension IResourceDescription.Manager 
-	@Inject IContainer.Manager containerManager
 	@Inject extension MaslTypeProvider
+	@Inject extension ProjectScopeIndexProvider
 
 	@Check
 	def void structureComponentDefs(StructureTypeDefinition it) {
@@ -418,13 +413,6 @@ class MASLValidator extends AbstractMASLValidator {
 		if(getDefinitions(terminatorServiceDefinition, index).empty)
 			warning('Terminator service has not been defined', it, structurePackage.abstractNamed_Name, MISSING_DEFINITION)
 	}	
-	
-	private def ISelectable getIndex(EObject element) {
-		val resource = element.eResource
-		val resourceIndex = getResourceDescription(resource)
-		val workspaceIndex = getResourceDescriptions(resource)
-		containerManager.getContainer(resourceIndex, workspaceIndex)
-	}
 	
 	static val INT_PATTERN = Pattern.compile('[0-9]+')
 	
