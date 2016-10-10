@@ -32,13 +32,13 @@ begin
   for i in reverse text'range loop
     text2 := text2 & text[i];
   end loop;
-  if (text2 /= "helloolleh") then
+  if (text2 /= "helloolleh") then  
     raise Standard::constraint_error;
   end if;
 
   text := "hello";
   if (text /= "hello") then
-    raise Standard::constraint_error;
+    raise Standard::constraint_error
   end if;
 
   text := "hello";

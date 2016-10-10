@@ -10,6 +10,8 @@ import org.eclipse.xtext.resource.containers.IAllContainersState
 import org.eclipse.xtext.ui.editor.hyperlinking.IHyperlinkHelper
 import org.xtuml.bp.xtext.masl.lib.MASLDelegatingAllContainerState
 import org.xtuml.bp.xtext.masl.ui.hyperlink.MASLHyperlinkHelper
+import org.xtuml.bp.xtext.masl.ide.highlighting.MaslSemanticHighligtingCalculator
+import org.eclipse.xtext.ide.editor.syntaxcoloring.DefaultSemanticHighlightingCalculator
 
 /**
  * Use this class to register components to be used within the Eclipse IDE.
@@ -29,5 +31,9 @@ class MASLUiModule extends AbstractMASLUiModule {
 	
 	def Class<? extends IHyperlinkHelper> bindIHyperlinkHelper() {
 		MASLHyperlinkHelper
+	}
+	
+	def Class<? extends DefaultSemanticHighlightingCalculator> bindDefaultSemanticHighlightingCalculator() {
+		MaslSemanticHighligtingCalculator
 	}
 }
