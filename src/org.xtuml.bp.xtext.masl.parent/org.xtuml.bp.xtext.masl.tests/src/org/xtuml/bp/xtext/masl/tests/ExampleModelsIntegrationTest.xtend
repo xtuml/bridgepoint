@@ -46,8 +46,13 @@ class ExampleModelsIntegrationTest {
 	}
 
 	@Test
-	def void testSACExample() {
+	def void testSACExample_old() {
 		testProject('examples/SAC_old')
+	}
+
+	@Test
+	def void testSACExample() {
+		testProject('examples/SAC')
 	}
 
 	protected def testProject(String folderName) {

@@ -460,13 +460,13 @@ class MASLValidator extends AbstractMASLValidator {
 		val fileExtension = model.eResource.URI.fileExtension
 		model.elements.forEach [
 			val expectedFileExtensions = switch it {
-				ProjectDefinition: #['prj']
-				DomainDefinition: #['mod', 'int']
-				ObjectServiceDefinition: #['svc']
-				DomainServiceDefinition: #['ext', 'scn', 'svc']
-				ObjectFunctionDefinition, DomainFunctionDefinition: #['fn']
-				TerminatorServiceDefinition, TerminatorFunctionDefinition: #['tr']
-				StateDefinition: #['al']
+				ProjectDefinition: #['prj', 'masl']
+				DomainDefinition: #['mod', 'int', 'masl']
+				ObjectServiceDefinition: #['svc', 'masl']
+				DomainServiceDefinition: #['ext', 'scn', 'svc', 'masl']
+				ObjectFunctionDefinition, DomainFunctionDefinition: #['fn', 'masl']
+				TerminatorServiceDefinition, TerminatorFunctionDefinition: #['tr', 'masl']
+				StateDefinition: #['al','masl']
 			}
 			if(!expectedFileExtensions.contains(fileExtension)) {
 				error('''«eClass.name» elements should be defined in a file with extension «

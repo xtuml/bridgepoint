@@ -29,7 +29,7 @@ ScopedName:
 	(ID '::')? ID;
 
 fragment PragmaList returns Pragmatized:
-	';' (pragmas+=Pragma ';')*;
+	(pragmas+=Pragma ';')*;
 
 Pragma:
 	'pragma' name=ID
@@ -56,7 +56,7 @@ ProjectDefinition:
 	'project' name=ID 'is'
 	domains+=DomainDefinition*
 	'end' 'project'? 
-	PragmaList;
+	';'? PragmaList;
 
 //---------------------------------------------------------
 // Domain Definition
@@ -75,7 +75,7 @@ DomainDefinition:
 		| exceptions+=ExceptionDeclaration
 	)*
 	'end' 'domain'? 
-	PragmaList;
+	';'? PragmaList;
 
 //---------------------------------------------------------
 // Library Definition 
@@ -113,19 +113,19 @@ RangeTypeReference:
 //---------------------------------------------------------
 ExceptionDeclaration:
 	visibility=Visibility? 'exception' name=ID
-	PragmaList;
+	';' PragmaList;
 
 //---------------------------------------------------------
 // Type Definition
 //---------------------------------------------------------
 TypeForwardDeclaration:
 	visibility=Visibility? 'type' name=ID 
-	PragmaList;
+	';' PragmaList;
 
 TypeDeclaration:
 	visibility=Visibility? 'type' name=ID 'is'
 	definition=AbstractTypeDefinition 
-	PragmaList;
+	';' PragmaList;
 
 AbstractTypeDefinition:
 	StructureTypeDefinition
@@ -160,7 +160,7 @@ StructureTypeDefinition:
 StructureComponentDefinition:
 	name=ID ':' type=AbstractTypeReference
 	(':=' defaultValue=ConstExpression)?
-	PragmaList;
+	';' PragmaList;
 
 EnumerationTypeDefinition:
 	{EnumerationTypeDefinition}
@@ -228,7 +228,7 @@ BagTypeReference:
 DictionaryTypeReference:
 	{DictionaryTypeReference}
 	anonymous?='anonymous'?
-	'dictionary' keyType=AbstractDictKeyTypeRef? ('of' elementType=AbstractTypeReference)?;
+	'dictionary' (keyType=AbstractDictKeyTypeRef? 'of' elementType=AbstractTypeReference)?;
 
 AbstractDictKeyTypeRef returns AbstractTypeReference:
 	NamedTypeReference | InstanceTypeReference;
@@ -241,24 +241,25 @@ TerminatorDefinition:
 	(services+=TerminatorServiceDeclaration
 	| functions+=TerminatorFunctionDeclaration)*
 	'end' 'terminator'? 
-	PragmaList;
+	';' PragmaList;
 
 TerminatorServiceDeclaration:
 	visibility=Visibility? 'service' name=ID
 	ParameterList
-	PragmaList;
+	';' PragmaList;
 
 TerminatorFunctionDeclaration:
 	visibility=Visibility? 'function' name=ID
 	ParameterList
 	'return' returnType=AbstractTypeReference
-	PragmaList;
+	';' PragmaList;
 	
 //---------------------------------------------------------
 // Object Definition
 //---------------------------------------------------------
 ObjectDeclaration:
-	'object' name=ID PragmaList;
+	'object' name=ID 
+	';' PragmaList;
 
 ObjectDefinition:
 	'object' name=ID 'is' 
@@ -270,7 +271,7 @@ ObjectDefinition:
 	| states+=StateDeclaration
 	| transitions+=TransitionTable)*
 	'end' 'object'? 
-	PragmaList;
+	';' PragmaList;
 
 AttributeDefinition:
 	name=ID ':'
@@ -280,7 +281,7 @@ AttributeDefinition:
 	)?
 	type=AbstractTypeReference
 	(':=' defaultValue=ConstExpression)?
-	PragmaList;
+	';' PragmaList;
 
 AttributeReferential returns RelationshipNavigation:
 	{AttributeReferential}
@@ -296,7 +297,7 @@ ObjectServiceDeclaration:
 	('deferred' relationship=[RelationshipDefinition])?
 	'service' name=ID
 	ParameterList
-	PragmaList;
+	';' PragmaList;
 
 ObjectFunctionDeclaration:
 	visibility=Visibility?
@@ -305,17 +306,17 @@ ObjectFunctionDeclaration:
 	'function' name=ID
 	ParameterList
 	'return' returnType=AbstractTypeReference
-	PragmaList;
+	';' PragmaList;
 
 IdentifierDefinition:
 	'identifier' 'is'
 	'(' (attributes+=[AttributeDefinition] (',' attributes+=[AttributeDefinition])*)? ')' 
-	PragmaList;
+	';' PragmaList;
 
 EventDefinition:
 	type=EventType? 'event' name=ID
 	ParameterList
-	PragmaList;
+	';' PragmaList;
 
 enum EventType:
 	assigner
@@ -324,7 +325,7 @@ enum EventType:
 StateDeclaration:
 	type=StateTypeSyntax? 'state' name=ID
 	ParameterList
-	PragmaList;
+	';' PragmaList;
 
 StateTypeSyntax returns StateType:
 	'assigner' 'start'? | 'creation' | 'terminal';
@@ -332,7 +333,8 @@ StateTypeSyntax returns StateType:
 TransitionTable:
 	type=TransTableType? 'transition' 'is'
 	rows+=TransitionRow+
-	'end' 'transition'? PragmaList;
+	'end' 'transition'? 
+	';' PragmaList;
 
 enum TransTableType:
 	assigner;
@@ -340,7 +342,7 @@ enum TransTableType:
 TransitionRow:
 	(start=[StateDeclaration] | nonExistant?=('Non_Existent' | 'Non_Existant' | 'non_existent' | 'non_existant'))
 	'(' (options+=TransitionOption (',' options+=TransitionOption)*)? ')' 
-	PragmaList;
+	';' PragmaList;
 
 TransitionOption:
 	event=[EventDefinition|ScopedName] '=>'
@@ -352,14 +354,14 @@ TransitionOption:
 DomainServiceDeclaration:
 	visibility=Visibility? 'service' name=ID
 	ParameterList
-	PragmaList;
+	';' PragmaList;
 
 DomainFunctionDeclaration:
 	visibility=Visibility?
 	'function' name=ID
 	ParameterList
 	'return' returnType=AbstractTypeReference
-	PragmaList;
+	';' PragmaList;
 
 enum ParameterMode:
 	in
@@ -373,7 +375,7 @@ RelationshipDefinition:
 	(RegularRelationshipDefinition
 	| AssocRelationshipDefinition
 	| SubtypeRelationshipDefinition) 
-	PragmaList;
+	';' PragmaList;
 
 RegularRelationshipDefinition:
 	name=ID 'is'
@@ -418,7 +420,7 @@ DomainServiceDefinition:
 	ParameterList
 	'is' body=CodeBlock
 	'service'? 
-	PragmaList;
+	';'? PragmaList;
 
 DomainFunctionDefinition:
 	visibility=Visibility? 'function'
@@ -427,7 +429,7 @@ DomainFunctionDefinition:
 	'return' returnType=AbstractTypeReference
 	'is' body=CodeBlock
 	'function'? 
-	PragmaList;
+	';'? PragmaList;
 
 ObjectServiceDefinition:
 	visibility=Visibility? instance?='instance'? 'service'
@@ -435,7 +437,7 @@ ObjectServiceDefinition:
 	ParameterList
 	'is' body=CodeBlock
 	'service'? 
-	PragmaList;
+	';'? PragmaList;
 
 // TODO: this looks strangely assymetric to ObjectServiceDefinition
 ObjectFunctionDefinition:
@@ -445,7 +447,7 @@ ObjectFunctionDefinition:
 	'return' returnType=AbstractTypeReference
 	'is' body=CodeBlock
 	'function'? 
-	PragmaList;
+	';'? PragmaList;
 
 TerminatorServiceDefinition:
 	visibility=Visibility? 'service'
@@ -453,7 +455,7 @@ TerminatorServiceDefinition:
 	ParameterList
 	'is' body=CodeBlock
 	'service'? 
-	PragmaList;
+	';'? PragmaList;
 
 TerminatorFunctionDefinition:
 	visibility=Visibility? 'function'
@@ -462,7 +464,7 @@ TerminatorFunctionDefinition:
 	'return' returnType=AbstractTypeReference
 	'is' body=CodeBlock
 	'function'? 
-	PragmaList;
+	';'? PragmaList;
 
 StateDefinition:
 	type=StateTypeSyntax? 'state'
@@ -470,7 +472,7 @@ StateDefinition:
 	ParameterList
 	'is' body=CodeBlock
 	'state'? 
-	PragmaList;
+	';'? PragmaList;
 
 //---------------------------------------------------------
 // Statements
@@ -491,7 +493,7 @@ AbstractStatement:
 	| CaseStatement
 	| ForStatement
 	| WhileStatement)
-	PragmaList;
+	';' PragmaList;
 
 AssignStatement returns Expression:
 	Expression ({AssignStatement.lhs=current} ':=' rhs=Expression)?;
@@ -596,7 +598,7 @@ VariableDeclaration:
 	name=ID ':'
 	readOnly='readonly'? type=AbstractTypeReference
 	(':=' expression=Expression)?
-	PragmaList;
+	';' PragmaList;
 
 ExceptionHandler:
 	'when' exception=[ExceptionDeclaration|ScopedName] '=>' statements+=AbstractStatement*;

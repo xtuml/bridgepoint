@@ -41,12 +41,12 @@ Workflow {
 			referencedResource = "platform:/resource/org.xtuml.bp.xtext.masl/model/MaslStructure.xcore"
 			referencedResource = "platform:/resource/org.xtuml.bp.xtext.masl/model/MaslTypes.xcore"
 			name = "org.xtuml.bp.xtext.masl.MASL"
-			fileExtensions = "mod,tr,ext,scn,al,int,svc,prj,fn"
+			fileExtensions = "mod,tr,ext,scn,al,int,svc,prj,fn,masl"
 			serializer = {
 				generateStub = false
 			}
 			parserGenerator = {
-//				debugGrammar=true
+				debugGrammar=true
 				// needed for custom lexer
 				combinedGrammar = false
 				options = {
