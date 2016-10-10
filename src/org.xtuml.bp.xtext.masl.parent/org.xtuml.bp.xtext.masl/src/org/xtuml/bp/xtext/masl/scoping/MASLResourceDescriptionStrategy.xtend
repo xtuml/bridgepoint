@@ -14,6 +14,7 @@ import org.eclipse.xtext.resource.EObjectDescription
 import org.xtuml.bp.xtext.masl.MASLExtensions
 import com.google.inject.Inject
 import org.eclipse.xtext.naming.QualifiedName
+import org.xtuml.bp.xtext.masl.masl.structure.TerminatorDefinition
 
 class MASLResourceDescriptionStrategy extends DefaultResourceDescriptionStrategy {
 	
@@ -37,6 +38,7 @@ class MASLResourceDescriptionStrategy extends DefaultResourceDescriptionStrategy
 		return eObject instanceof ObjectDefinition 
 			|| eObject instanceof DomainDefinition 
 			|| eObject instanceof MaslModel
+			|| eObject instanceof TerminatorDefinition
 	}
 	
 }

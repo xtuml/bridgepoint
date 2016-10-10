@@ -20,6 +20,8 @@ import org.xtuml.bp.xtext.masl.scoping.MASLImportScopeProvider
 import org.xtuml.bp.xtext.masl.scoping.MASLQualifiedNameConverter
 import org.xtuml.bp.xtext.masl.scoping.MASLQualifiedNameProvider
 import org.xtuml.bp.xtext.masl.scoping.MASLResourceDescriptionStrategy
+import org.eclipse.xtext.documentation.IEObjectDocumentationProvider
+import org.xtuml.bp.xtext.masl.doc.MaslEObjectDocumentationProvider
 
 /**
  * Use this class to register components to be used at runtime / without the Equinox extension registry.
@@ -72,4 +74,7 @@ class MASLRuntimeModule extends AbstractMASLRuntimeModule {
 		MASLValueConverters
 	}
 	
+	def Class<? extends IEObjectDocumentationProvider> bindIEObjectDocumentationProvider() {
+		MaslEObjectDocumentationProvider
+	}
 }

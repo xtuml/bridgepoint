@@ -212,7 +212,7 @@ class MASLValidator extends AbstractMASLValidator {
 			val primitiveType = receiver.maslType.primitiveType
 			switch primitiveType {
 				CollectionType,
-				BuiltinType case new BuiltinType(STRING): {
+				BuiltinType case STRING: {
 					// noop
 				}
 				default:

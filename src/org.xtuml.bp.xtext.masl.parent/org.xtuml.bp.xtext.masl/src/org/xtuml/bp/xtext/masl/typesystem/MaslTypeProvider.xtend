@@ -107,7 +107,7 @@ class MaslTypeProvider {
 		try {
 			switch it {
 				AssignStatement:
-					return new BuiltinType(NO_TYPE)
+					return NO_TYPE
 				Expression:
 					return maslTypeOfExpression
 				AttributeDefinition:
@@ -132,13 +132,13 @@ class MaslTypeProvider {
 				CaseStatement,
 				ForStatement,
 				WhileStatement:
-					return new BuiltinType(NO_TYPE)
+					return NO_TYPE
 				default:
 					throw new UnsupportedOperationException('Missing type for ' + eClass?.name)
 			}
 		} catch (Exception exc) {
 			LOG.error(exc.message)
-			return new BuiltinType(NO_TYPE)
+			return MISSING_TYPE
 		}
 	}
 	
@@ -151,7 +151,7 @@ class MaslTypeProvider {
 			FindExpression:
 				return maslTypeOfFindExpression 
 			StreamExpression:
-				return new BuiltinType(DEVICE, true)
+				return ANONYMOUS_DEVICE
 			RangeExpression:
 				return new RangeType(from.maslType, true)
 			LogicalOr,
@@ -159,7 +159,7 @@ class MaslTypeProvider {
 			LogicalAnd,
 			Equality,
 			RelationalExp:
-				return new BuiltinType(BOOLEAN, true)
+				return ANONYMOUS_BOOLEAN
 			AdditiveExp:
 				return maslTypeOfAdditive
 			MultExp:
@@ -176,8 +176,8 @@ class MaslTypeProvider {
 				return feature.maslTypeOfFeature
 			IndexedExpression: {
 				val maslType = receiver.maslTypeOfExpression
-				if (maslType == new BuiltinType(STRING))
-					return new BuiltinType(CHARACTER, true)
+				if (maslType == STRING)
+					return ANONYMOUS_CHARACTER
 				else
 					return maslType.componentType
 			}
@@ -188,30 +188,29 @@ class MaslTypeProvider {
 			ThisLiteral:
 				return maslTypeOfThis
 			IntegerLiteral:
-				return new BuiltinType(INTEGER, true)
+				return ANONYMOUS_INTEGER
 			RealLiteral:
-				return new BuiltinType(REAL, true)
+				return ANONYMOUS_REAL
 			CharacterLiteral:
-				return new BuiltinType(CHARACTER, true)
+				return ANONYMOUS_CHARACTER
 			StringLiteral:
-				return new BuiltinType(STRING, true)
+				return ANONYMOUS_STRING
 			DurationLiteral:
-				return new BuiltinType(DURATION, true)
+				return ANONYMOUS_DURATION
 			TimestampLiteral:
-				return new BuiltinType(TIMESTAMP, true)
+				return ANONYMOUS_TIMESTAMP
 			BooleanLiteral:
-				return new BuiltinType(BOOLEAN, true)
+				return ANONYMOUS_BOOLEAN
 			NullLiteral:
-				return new BuiltinType(ANY_TYPE, true)
-			FlushLiteral:
-				return new BuiltinType(STREAM_MANIPULATOR, true)
-			ConsoleLiteral:
-				return new BuiltinType(DEVICE, true)
+				return ANY_TYPE
+			FlushLiteral,
 			EndlLiteral:
-				return new BuiltinType(STREAM_MANIPULATOR, true)
+				return STREAM_MANIPULATOR
+			ConsoleLiteral:
+				return ANONYMOUS_DEVICE
 			LineNoLiteral,
 			FileNameLiteral:
-				return new BuiltinType('no_type', true)
+				return NO_TYPE
 			StructureAggregateExpression:
 				return new StructureType(null, elements.map[new StructureComponent(null, maslTypeOfExpression)],true)
 			default:
@@ -231,8 +230,8 @@ class MaslTypeProvider {
 				return new SetType(elementType.maslTypeOfTypeReference, anonymous)
 			DictionaryTypeReference: 
 				return new DictionaryType(
-					keyType?.maslTypeOfTypeReference ?: new BuiltinType(STRING, true), 
-					elementType?.maslTypeOfTypeReference ?: new BuiltinType(STRING, true), anonymous)
+					keyType?.maslTypeOfTypeReference ?: ANONYMOUS_STRING, 
+					elementType?.maslTypeOfTypeReference ?: ANONYMOUS_STRING, anonymous)
 			RangeTypeReference:
 				return new RangeType(elementType.maslTypeOfTypeReference, true)
 			ConstrainedArrayTypeReference:
@@ -316,7 +315,7 @@ class MaslTypeProvider {
 			ObjectServiceDeclaration,
 			DomainServiceDeclaration,
 			TerminatorServiceDeclaration:
-				return new BuiltinType(NO_TYPE)
+				return NO_TYPE
 			default:
 				throw new UnsupportedOperationException('Missing type for feature ' + feature?.eClass?.name)
 		}
@@ -428,15 +427,15 @@ class MaslTypeProvider {
 			case '+', case '-':
 				return getCommonNumericType(lType, rhs.maslType)
 			case '&':
-				if(lType == new BuiltinType(STRING) || lType instanceof CollectionType) 
+				if(lType == STRING || lType instanceof CollectionType) 
 					return lType
 				else 
-					return new BuiltinType(NO_TYPE)
+					return NO_TYPE
 			case 'union', case 'not_in':
 				if(lType instanceof CollectionType) 
-					lType 
+					return lType 
 				else 
-					new BuiltinType(NO_TYPE)
+					return NO_TYPE
 			default:
 				throw new UnsupportedOperationException('Missing type for additive expression ' + eClass?.name)
 		}
@@ -448,24 +447,25 @@ class MaslTypeProvider {
 			case '*', case '/':
 				return getCommonNumericType(lType, rhs.maslType)
 			case 'mod', case 'rem':
-				return new BuiltinType(INTEGER, true)
+				return ANONYMOUS_INTEGER
 			case '**':
-				return new BuiltinType(REAL, true)
+				return ANONYMOUS_REAL
 			case 'disunion', case 'intersection':
 				if(lType instanceof CollectionType) 
 					lType 
 				else 
-					new BuiltinType(NO_TYPE)
+					NO_TYPE
 			default:
 				throw new UnsupportedOperationException('Missing type for multiplicative expression ' + eClass?.name)
 		}
 	}
 	
 	private def MaslType getCommonNumericType(EObject it, MaslType a, MaslType b) {
-		if(a == new BuiltinType(INTEGER) && b == new BuiltinType(INTEGER))
-			new BuiltinType(INTEGER, true)
+		if(a == INTEGER && b == INTEGER)
+			// TODO what type is byte + integer, byte + byte, integer + long_integer, long_integer + byte, etc
+			ANONYMOUS_INTEGER
 		else 
-			new BuiltinType(REAL, true)
+			ANONYMOUS_REAL
 	}
 	
 }

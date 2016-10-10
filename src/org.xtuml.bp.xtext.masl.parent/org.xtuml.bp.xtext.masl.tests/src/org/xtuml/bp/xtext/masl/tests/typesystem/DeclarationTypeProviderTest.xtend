@@ -183,7 +183,7 @@ class DeclarationTypeProviderTest extends AbstractMaslModelTest {
 			object Foo is
 				service foo();
 			end;
-		'''.assertType('Foo::foo()', 'builtin no_type')
+		'''.assertType('Foo::foo()', 'anonymous builtin no_type')
 	}
 
 	@Test
@@ -197,7 +197,7 @@ class DeclarationTypeProviderTest extends AbstractMaslModelTest {
 	def void testDomainServiceCall() {
 		'''
 			service foo();
-		'''.assertType('foo()', 'builtin no_type')
+		'''.assertType('foo()', 'anonymous builtin no_type')
 	}
 
 	@Test
@@ -215,7 +215,7 @@ class DeclarationTypeProviderTest extends AbstractMaslModelTest {
 			terminator Arnold is 
 				service foo();
 			end;
-		'''.assertType('Arnold~>foo()', 'builtin no_type')
+		'''.assertType('Arnold~>foo()', 'anonymous builtin no_type')
 	}
 
 	@Test

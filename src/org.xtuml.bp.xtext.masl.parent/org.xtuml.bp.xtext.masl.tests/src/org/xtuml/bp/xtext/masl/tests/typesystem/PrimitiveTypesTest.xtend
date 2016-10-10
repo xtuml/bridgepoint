@@ -50,8 +50,28 @@ class PrimitiveTypesTest extends AbstractMaslModelTest {
 	}
 	
 	@Test
+	def testString() {
+		assertPrimitiveType('''
+			domain dom is
+				service svc();
+				type Bar is string;
+				type Baz is Bar;
+			end;
+		''', '''
+			service dom::scv() is
+				b0: Bar;
+				b1: Baz;
+			begin
+				^b0;
+				^b1;
+				1;
+			end;
+		''', 'sequence of builtin character')		
+	}
+	
+	@Test
 	def testOtherBuiltinTypes() {
-		for (typeName : #['character', 'string', 'boolean', 'real', 'device',
+		for (typeName : #['character', 'boolean', 'real', 'device',
 			'duration', 'timestamp', 'timer'])
 			assertPrimitiveType('''
 				domain dom is

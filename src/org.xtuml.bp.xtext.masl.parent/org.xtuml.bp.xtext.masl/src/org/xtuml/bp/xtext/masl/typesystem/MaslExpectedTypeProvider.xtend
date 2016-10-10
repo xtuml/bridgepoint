@@ -26,7 +26,7 @@ class MaslExpectedTypeProvider {
 			return ((context as CaseAlternative).eContainer as CaseStatement).value.maslType
 		if (reference == variableDeclaration_Expression && context instanceof VariableDeclaration) 
 			return (context as VariableDeclaration).type.maslType
-		return new BuiltinType(ANY_TYPE)
+		return ANY_TYPE
 	}
 	
 	def MaslType getExpectedType(EObject element) {

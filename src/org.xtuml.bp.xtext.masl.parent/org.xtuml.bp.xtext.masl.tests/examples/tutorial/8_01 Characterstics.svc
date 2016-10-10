@@ -10,7 +10,7 @@ service tutorial::characteristics() is
   p  : instance of Pilot;
   ps : sequence of instance of Pilot;
 begin
-   //image
+   //image 
   t := i'image;
   if (t/="1") then
     raise Standard::constraint_error;

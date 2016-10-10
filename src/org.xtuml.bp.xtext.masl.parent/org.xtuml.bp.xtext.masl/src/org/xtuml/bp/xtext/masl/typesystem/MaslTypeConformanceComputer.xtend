@@ -24,9 +24,6 @@ class MaslTypeConformanceComputer {
 		if (source instanceof NamedType && target.anonymous)
 			return sourcePrimitive == targetPrimitive
 
-		if(source == new BuiltinType(CHARACTER) && target == new BuiltinType(STRING))
-			return true
-
 		if (source instanceof InstanceType) {
 			if (target instanceof InstanceType) {
 				val index = source.instance.eResource.resourceDescriptions
@@ -45,11 +42,11 @@ class MaslTypeConformanceComputer {
 
 			// covers 4) 
 			// An anonymous integer type is assignable to any type with a primitive type of real
-			if (sourcePrimitive == new BuiltinType(LONG_INTEGER)) {
-				return target == new BuiltinType(REAL) || target == new BuiltinType(BYTE)
+			if (sourcePrimitive == LONG_INTEGER) {
+				return target == REAL || target == BYTE
 			}
 
-			if (source == new BuiltinType(ANY_TYPE)) {
+			if (source == ANY_TYPE) {
 				return target instanceof InstanceType
 			}
 
