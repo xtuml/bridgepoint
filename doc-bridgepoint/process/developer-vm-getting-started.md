@@ -4,14 +4,14 @@ the developer VirtualBox image
 
 Preparation 
 -----------
-0) Read and understand the [Developer Getting Started Guide](process/Developer%20Getting%20Started%20Guide.md).
+0) Read and understand the [Developer Getting Started Guide](Developer%20Getting%20Started%20Guide.md).
 
 1) Download and install [VirtualBox](https://www.virtualbox.org/wiki/Downloads).
 
 2) Download the developer VirtualBox image [here](https://s3.amazonaws.com/1f-outgoing/BridgePointDeveloperStart.ova). Import the
 image into VirtualBox (instructions for importing an image [here](https://www.virtualbox.org/manual/ch01.html#ovf)).
 
-3) Follow the instructions in the [Developer Getting Started Guide](process/Developer%20Getting%20Started%20Guide.md) to create a Github
+3) Follow the instructions in the [Developer Getting Started Guide](Developer%20Getting%20Started%20Guide.md) to create a Github
 account and fork the xtUML repositories
 
 Setup Instructions
