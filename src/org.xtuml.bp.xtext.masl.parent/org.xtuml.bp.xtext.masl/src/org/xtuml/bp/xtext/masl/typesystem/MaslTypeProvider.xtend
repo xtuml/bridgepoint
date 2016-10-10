@@ -2,7 +2,6 @@ package org.xtuml.bp.xtext.masl.typesystem
 
 import com.google.inject.Inject
 import org.eclipse.emf.ecore.EObject
-import org.eclipse.xtext.util.internal.Log
 import org.xtuml.bp.xtext.masl.MASLExtensions
 import org.xtuml.bp.xtext.masl.masl.behavior.AdditiveExp
 import org.xtuml.bp.xtext.masl.masl.behavior.AssignStatement
@@ -95,10 +94,12 @@ import org.xtuml.bp.xtext.masl.masl.types.TypeDeclaration
 import org.xtuml.bp.xtext.masl.masl.types.UnconstrainedArrayDefinition
 
 import static org.xtuml.bp.xtext.masl.typesystem.BuiltinType.*
+import org.apache.log4j.Logger
 
-@Log
 class MaslTypeProvider {
 
+	static val LOG = Logger.getLogger(MaslTypeProvider)
+	
 	@Inject extension MASLExtensions
 	@Inject extension TypeParameterResolver
 	
@@ -228,8 +229,10 @@ class MaslTypeProvider {
 				return new SequenceType(elementType.maslTypeOfTypeReference, anonymous)
 			SetTypeReference:
 				return new SetType(elementType.maslTypeOfTypeReference, anonymous)
-			DictionaryTypeReference:
-				return new DictionaryType(keyType.maslTypeOfTypeReference, elementType.maslTypeOfTypeReference, anonymous)
+			DictionaryTypeReference: 
+				return new DictionaryType(
+					keyType?.maslTypeOfTypeReference ?: new BuiltinType(STRING, true), 
+					elementType?.maslTypeOfTypeReference ?: new BuiltinType(STRING, true), anonymous)
 			RangeTypeReference:
 				return new RangeType(elementType.maslTypeOfTypeReference, true)
 			ConstrainedArrayTypeReference:

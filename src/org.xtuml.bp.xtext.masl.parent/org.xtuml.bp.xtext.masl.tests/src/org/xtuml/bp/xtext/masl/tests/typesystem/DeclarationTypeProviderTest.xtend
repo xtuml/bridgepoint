@@ -294,6 +294,38 @@ class DeclarationTypeProviderTest extends AbstractMaslModelTest {
 		''', 'builtin boolean')
 	}
 
+	@Test
+	def void testDictionaryTypeCharacteristics3() {
+		doAssertType('''
+			domain dom is
+				service svc();
+				type Foo is dictionary;
+			end;
+		''','''
+			service dom::svc() is
+				f: Foo;
+			begin
+				^(Foo'keys);
+			end;
+		''', 'set of anonymous builtin string')
+	}
+
+	@Test
+	def void testDictionaryTypeCharacteristics4() {
+		doAssertType('''
+			domain dom is
+				service svc();
+				type Foo is dictionary;
+			end;
+		''','''
+			service dom::svc() is
+				f: Foo;
+			begin
+				^(Foo'values);
+			end;
+		''', 'bag of anonymous builtin string')
+	}
+
 	protected def assertType(CharSequence domainDeclaration, CharSequence expression, String expected) {
 		doAssertType('''
 			domain dom is

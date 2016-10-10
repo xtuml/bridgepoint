@@ -1,3 +1,4 @@
+
 grammar org.xtuml.bp.xtext.masl.MASL hidden(WS, SL_COMMENT)
 
 import "http://www.xtuml.org/bp/xtext/masl/MASLStructure"
@@ -227,7 +228,7 @@ BagTypeReference:
 DictionaryTypeReference:
 	{DictionaryTypeReference}
 	anonymous?='anonymous'?
-	'dictionary' (keyType=AbstractDictKeyTypeRef? 'of' elementType=AbstractTypeReference)?;
+	'dictionary' keyType=AbstractDictKeyTypeRef? ('of' elementType=AbstractTypeReference)?;
 
 AbstractDictKeyTypeRef returns AbstractTypeReference:
 	NamedTypeReference | InstanceTypeReference;
