@@ -34,7 +34,7 @@ class AbstractTopLevelElement extends AbstractNamed, Pragmatized {
 class AbstractFeature extends AbstractNamed {
 }
 
-abstract class Parameterized {
+abstract class Parameterized extends AbstractNamed, Pragmatized {
 	contains Parameter[] parameters
 }
 
@@ -97,11 +97,11 @@ class DomainDefinition extends AbstractTopLevelElement {
 	contains ExceptionDeclaration[] exceptions
 }
 
-class DomainServiceDeclaration extends AbstractNamed , Parameterized , Pragmatized , AbstractFeature {
+class DomainServiceDeclaration extends Parameterized , AbstractFeature {
 	Visibility visibility
 }
 
-class DomainFunctionDeclaration extends AbstractNamed , Parameterized , Pragmatized , AbstractFeature {
+class DomainFunctionDeclaration extends Parameterized , AbstractFeature {
 	Visibility visibility
 	contains AbstractTypeReference returnType
 }
@@ -133,11 +133,11 @@ class TerminatorDefinition extends AbstractNamed , Pragmatized , AbstractFeature
 	contains TerminatorFunctionDeclaration[] functions
 }
 
-class TerminatorServiceDeclaration extends AbstractNamed , Parameterized , Pragmatized , AbstractFeature {
+class TerminatorServiceDeclaration extends Parameterized , AbstractFeature {
 	Visibility visibility
 }
 
-class TerminatorFunctionDeclaration extends AbstractNamed , Parameterized , Pragmatized , AbstractFeature {
+class TerminatorFunctionDeclaration extends Parameterized , AbstractFeature {
 	Visibility visibility
 	contains AbstractTypeReference returnType
 }
@@ -167,7 +167,6 @@ class BuiltinLibraryDefinition extends MaslModel {
 }
 
 class Characteristic extends Parameterized {
-	String name
 	boolean forValue
 	contains TypeParameter[] typeParams
 	contains AbstractTypeReference receiverType
@@ -211,13 +210,13 @@ class IdentifierDefinition extends Pragmatized {
 	refers AttributeDefinition[] attributes
 }
 
-class ObjectServiceDeclaration extends AbstractNamed , Parameterized , Pragmatized , AbstractFeature {
+class ObjectServiceDeclaration extends Parameterized , AbstractFeature {
 	Visibility visibility
 	boolean instance
 	refers RelationshipDefinition relationship
 }
 
-class ObjectFunctionDeclaration extends AbstractNamed , Parameterized , Pragmatized , AbstractFeature {
+class ObjectFunctionDeclaration extends Parameterized , AbstractFeature {
 	Visibility visibility
 	boolean instance
 	refers RelationshipDefinition relationship
@@ -297,7 +296,7 @@ class ObjectOrRole {
 // **********************************************************************
 // *  Statemachine
 // **********************************************************************
-class EventDefinition extends AbstractNamed , Parameterized , Pragmatized {
+class EventDefinition extends Parameterized {
 	EventType ^type
 }
 
@@ -306,7 +305,7 @@ enum EventType {
 	creation = 1
 }
 
-class StateDeclaration extends AbstractNamed , Parameterized , Pragmatized {
+class StateDeclaration extends Parameterized {
 	StateType ^type
 }
 

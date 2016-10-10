@@ -118,6 +118,10 @@ class MaslTypeProvider {
 					return maslTypeOfTypeReference
 				RelationshipNavigation:
 					return maslTypeOfRelationshipNavigation
+				AbstractTypeDefinition:
+					return maslTypeOfTypeDefinition
+				AbstractFeature:
+					return maslTypeOfFeature
 				CodeBlockStatement,
 				ExitStatement,
 				ReturnStatement,
