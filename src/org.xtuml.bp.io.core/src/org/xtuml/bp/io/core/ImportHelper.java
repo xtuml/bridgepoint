@@ -339,12 +339,12 @@ public class ImportHelper
     /**
      * Resolve the MASL project
      *   - Assign unassigned component references
-     *   - Unhook temporary interface definitions and reattach to existing interfaces in domains
-     *   - Create satisfactions between matching provisions and requirements
+     *   - Unhook temporary interface definitions and re-attach to existing interfaces in domains
      */
     public void resolveMASLproject( NonRootModelElement[] elements ) {
         if ( elements == null ) return;
 
+        // first pass, assign componenent references and swap interfaces
         for ( NonRootModelElement el : elements ) {
             // process the unassigned component references
             if ( el instanceof ComponentReference_c ) {
@@ -353,30 +353,46 @@ public class ImportHelper
 
                 ComponentReference_c cl_ic = (ComponentReference_c)el;
 
-                // get the name of the component we're looking for from the Descrip field
-            	String description = cl_ic.getDescrip();
-
-                // parse name
-                String cl_ic_name = "";
-                if ( !description.isEmpty() ) {
-                    Matcher m = Pattern.compile( "name:.*" ).matcher( description );
-                    if ( m.find() ) {
-                        cl_ic_name = m.group().substring(5);
-            	        cl_ic.setDescrip( m.replaceAll("") );
+                // check if containing package is a MASL project package
+                boolean masl_project = false;
+                Package_c pkg = Package_c.getOneEP_PKGOnR8000( PackageableElement_c.getOnePE_PEOnR8001( cl_ic ) );
+                if ( null != pkg ) {
+            	    String pkg_descrip = pkg.getDescrip();
+                    if ( !pkg_descrip.isEmpty() ) {
+                        Matcher m = Pattern.compile( "masl_project" ).matcher( pkg_descrip );
+                        if ( m.find() ) {
+                            masl_project = true;
+                        }
                     }
                 }
 
-		// ensure that all Components are loaded
-		PersistenceManager.ensureAllInstancesLoaded(cl_ic.getModelRoot(), Component_c.class);
-                // get reachable components
-		Component_c[] components = GenericPackageAssignComponentOnCL_ICAction.getElements( cl_ic );
+                if ( masl_project ) {
 
-                // match the ComponentReference with the Component
-                for ( Component_c c_c : components ) {
-                    if ( c_c.getName().equals( cl_ic_name ) ) {
-                        // assign the component reference to the component
-                        cl_ic.Assigntocomp( c_c.getId() );
-                        break;
+                    // get the name of the component we're looking for from the Descrip field
+                    String description = cl_ic.getDescrip();
+
+                    // parse name
+                    String cl_ic_name = "";
+                    if ( !description.isEmpty() ) {
+                        Matcher m = Pattern.compile( "name:.*" ).matcher( description );
+                        if ( m.find() ) {
+                            cl_ic_name = m.group().substring(5);
+                            cl_ic.setDescrip( m.replaceAll("") );
+                        }
+                    }
+
+                    // ensure that all Components are loaded
+                    PersistenceManager.ensureAllInstancesLoaded(cl_ic.getModelRoot(), Component_c.class);
+                    // get reachable components
+                    Component_c[] components = GenericPackageAssignComponentOnCL_ICAction.getElements( cl_ic );
+
+                    // match the ComponentReference with the Component
+                    for ( Component_c c_c : components ) {
+                        if ( c_c.getName().equals( cl_ic_name ) ) {
+                            // assign the component reference to the component
+                            cl_ic.Assigntocomp( c_c.getId() );
+                            break;
+                        }
                     }
                 }
 
