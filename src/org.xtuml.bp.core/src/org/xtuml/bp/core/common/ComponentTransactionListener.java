@@ -48,6 +48,7 @@ import org.xtuml.bp.core.DataType_c;
 import org.xtuml.bp.core.Modeleventnotification_c;
 import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.Package_c;
+import org.xtuml.bp.core.PackageableElement_c;
 import org.xtuml.bp.core.SystemModel_c;
 import org.xtuml.bp.core.ui.PasteAction;
 import org.xtuml.bp.core.util.CoreUtil;
@@ -452,17 +453,20 @@ public class ComponentTransactionListener implements ITransactionListener {
 		//		group for move and use ModelElementChanged to store these before and
 		//		after NRMEs.
 		NonRootModelElement rto = elementMoved.getRTOElementForResolution();
-		if (metadata.isComponentRoot(elementMoved)) {
+		ModelRoot destinationModelRoot = destinationPMC.getRootModelElement().getModelRoot();
+		if (metadata.isComponentRoot(elementMoved)) {			
 			// Update the moved element's ModelRoot to be the destination's model root
-			elementMoved.updateModelRoot(destinationPMC.getRootModelElement().getModelRoot()); 
+			elementMoved.updateModelRoot(destinationModelRoot);			
 		} else {			
 			if (rto instanceof DataType_c) {
-				elementMoved.move_unchecked(destinationPMC.getRootModelElement().getModelRoot());
-				rto.updateModelRoot(destinationPMC.getRootModelElement().getModelRoot());
+				elementMoved.move_unchecked(destinationModelRoot);
+				rto.updateModelRoot(destinationModelRoot);
 			} else {
-				rto.updateModelRoot(destinationPMC.getRootModelElement().getModelRoot());				
+				rto.updateModelRoot(destinationModelRoot);				
 			}
 		}
+		PackageableElement_c pe = elementMoved.getPE();
+		pe.updateModelRoot(destinationModelRoot); 
 		// end: move the element to the new ModelRoot in memory
 
 		// Move the folder on disk, if needed
