@@ -10,7 +10,6 @@ import org.eclipse.xtext.naming.IQualifiedNameProvider
 import org.eclipse.xtext.nodemodel.util.NodeModelUtils
 import org.eclipse.xtext.resource.ISelectable
 import org.xtuml.bp.xtext.masl.masl.behavior.Expression
-import org.xtuml.bp.xtext.masl.masl.behavior.OperationCall
 import org.xtuml.bp.xtext.masl.masl.structure.AbstractNamed
 import org.xtuml.bp.xtext.masl.masl.structure.DomainDefinition
 import org.xtuml.bp.xtext.masl.masl.structure.DomainFunctionDeclaration
@@ -32,7 +31,6 @@ import org.xtuml.bp.xtext.masl.masl.structure.TerminatorFunctionDeclaration
 import org.xtuml.bp.xtext.masl.masl.structure.TerminatorFunctionDefinition
 import org.xtuml.bp.xtext.masl.masl.structure.TerminatorServiceDeclaration
 import org.xtuml.bp.xtext.masl.masl.structure.TerminatorServiceDefinition
-import org.xtuml.bp.xtext.masl.masl.types.TypeDeclaration
 
 /**
  * Utility methods for MASL model elements.
@@ -217,12 +215,7 @@ class MASLExtensions {
 				false		
 		}
 	}
-	
-	def boolean isCastExpression(OperationCall it) {
-		receiver == null && feature instanceof TypeDeclaration
-	}
-	
-	
+		
 	def ObjectDeclaration getContainerObject(Expression expr) {
 		var parent = expr.eContainer
 		while (parent != null) {

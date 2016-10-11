@@ -625,7 +625,6 @@ public class BehaviorSwitch<T> extends Switch<T> {
 			case BehaviorPackage.OPERATION_CALL: {
 				OperationCall operationCall = (OperationCall)theEObject;
 				T result = caseOperationCall(operationCall);
-				if (result == null) result = caseFeatureCall(operationCall);
 				if (result == null) result = caseExpression(operationCall);
 				if (result == null) result = caseAbstractStatement(operationCall);
 				if (result == null) result = caseConstExpression(operationCall);

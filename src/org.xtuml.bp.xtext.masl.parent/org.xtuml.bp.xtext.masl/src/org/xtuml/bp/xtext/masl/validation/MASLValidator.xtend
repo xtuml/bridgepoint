@@ -62,6 +62,8 @@ import org.xtuml.bp.xtext.masl.typesystem.StructureType
 
 import static org.xtuml.bp.xtext.masl.typesystem.BuiltinType.*
 import static org.xtuml.bp.xtext.masl.validation.IssueCodes.*
+import org.xtuml.bp.xtext.masl.masl.types.TypeDeclaration
+import org.xtuml.bp.xtext.masl.masl.types.AbstractTypeReference
 
 /**
  * This class contains custom validation rules. 
@@ -171,22 +173,26 @@ class MASLValidator extends AbstractMASLValidator {
 					// noop
 				} 
 				default:	
-					error('Cannot call a feature on ' + receiver?.eClass?.name + ' ' + receiver.fullyQualifiedName?.lastSegment, it, featureCall_Receiver)
+					error('Cannot call a feature on ' + receiver?.eClass?.name + ' ' + receiver.fullyQualifiedName?.lastSegment, it, featureCall_Receiver, INVALID_FEATURE_CALL)
 			}
 		} 
-		if(feature != null && !feature.eIsProxy && feature.isOperation) 
-			error('Operation ' + feature.fullyQualifiedName?.lastSegment + ' must be called with parentheses', it, featureCall_Feature)
+		if(feature != null && !feature.eIsProxy && feature.isOperation && !(eContainer instanceof OperationCall)) 
+			error('Operation ' + feature.fullyQualifiedName?.lastSegment + ' must be called with parentheses', it, featureCall_Feature, INVALID_FEATURE_CALL)
 	}
 
 	@Check
 	def operationCall(OperationCall it) {
+		val receiver = it.receiver
 		if(receiver != null && !receiver.eIsProxy) {
-			val primitiveType = receiver.maslType.primitiveType
-			if(!(primitiveType instanceof InstanceType)) 
-				error('Cannot call an operation on ' + receiver?.eClass?.name + ' ' + receiver.fullyQualifiedName?.lastSegment, it, featureCall_Receiver)
+			switch receiver {
+				SimpleFeatureCall: {
+					if(receiver.feature.isOperation || receiver.feature instanceof TypeDeclaration)
+						return;
+				}
+				AbstractTypeReference: return
+			}
+			error('Cannot call ' + receiver.eClass.name + ' with parentheses', it, operationCall_Receiver, INVALID_OPERATION_CALL)
 		}
-		if(feature != null && !feature.eIsProxy && !feature.isOperation && !isCastExpression) 
-			error('Feature ' + feature.fullyQualifiedName?.lastSegment + ' cannot be called with parentheses', it, featureCall_Feature)
 	}
 	
 	@Check

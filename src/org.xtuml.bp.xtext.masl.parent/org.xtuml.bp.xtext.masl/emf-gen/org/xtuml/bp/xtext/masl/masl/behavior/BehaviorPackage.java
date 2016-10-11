@@ -3384,22 +3384,13 @@ public interface BehaviorPackage extends EPackage {
 	int OPERATION_CALL__RECEIVER = EXPRESSION_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Feature</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int OPERATION_CALL__FEATURE = EXPRESSION_FEATURE_COUNT + 1;
-
-	/**
 	 * The feature id for the '<em><b>Arguments</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int OPERATION_CALL__ARGUMENTS = EXPRESSION_FEATURE_COUNT + 2;
+	int OPERATION_CALL__ARGUMENTS = EXPRESSION_FEATURE_COUNT + 1;
 
 	/**
 	 * The number of structural features of the '<em>Operation Call</em>' class.
@@ -3408,7 +3399,7 @@ public interface BehaviorPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int OPERATION_CALL_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 3;
+	int OPERATION_CALL_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 2;
 
 	/**
 	 * The number of operations of the '<em>Operation Call</em>' class.
@@ -5541,6 +5532,17 @@ public interface BehaviorPackage extends EPackage {
 	EClass getOperationCall();
 
 	/**
+	 * Returns the meta object for the containment reference '{@link org.xtuml.bp.xtext.masl.masl.behavior.OperationCall#getReceiver <em>Receiver</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Receiver</em>'.
+	 * @see org.xtuml.bp.xtext.masl.masl.behavior.OperationCall#getReceiver()
+	 * @see #getOperationCall()
+	 * @generated
+	 */
+	EReference getOperationCall_Receiver();
+
+	/**
 	 * Returns the meta object for the containment reference list '{@link org.xtuml.bp.xtext.masl.masl.behavior.OperationCall#getArguments <em>Arguments</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -7270,6 +7272,14 @@ public interface BehaviorPackage extends EPackage {
 		 * @generated
 		 */
 		EClass OPERATION_CALL = eINSTANCE.getOperationCall();
+
+		/**
+		 * The meta object literal for the '<em><b>Receiver</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference OPERATION_CALL__RECEIVER = eINSTANCE.getOperationCall_Receiver();
 
 		/**
 		 * The meta object literal for the '<em><b>Arguments</b></em>' containment reference list feature.

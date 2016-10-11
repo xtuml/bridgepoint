@@ -20,10 +20,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
 
 import org.xtuml.bp.xtext.masl.masl.behavior.BehaviorPackage;
 import org.xtuml.bp.xtext.masl.masl.behavior.Expression;
-import org.xtuml.bp.xtext.masl.masl.behavior.FeatureCall;
 import org.xtuml.bp.xtext.masl.masl.behavior.OperationCall;
-
-import org.xtuml.bp.xtext.masl.masl.structure.AbstractFeature;
 
 /**
  * <!-- begin-user-doc -->
@@ -34,7 +31,6 @@ import org.xtuml.bp.xtext.masl.masl.structure.AbstractFeature;
  * </p>
  * <ul>
  *   <li>{@link org.xtuml.bp.xtext.masl.masl.behavior.impl.OperationCallImpl#getReceiver <em>Receiver</em>}</li>
- *   <li>{@link org.xtuml.bp.xtext.masl.masl.behavior.impl.OperationCallImpl#getFeature <em>Feature</em>}</li>
  *   <li>{@link org.xtuml.bp.xtext.masl.masl.behavior.impl.OperationCallImpl#getArguments <em>Arguments</em>}</li>
  * </ul>
  *
@@ -50,16 +46,6 @@ public class OperationCallImpl extends ExpressionImpl implements OperationCall {
 	 * @ordered
 	 */
 	protected Expression receiver;
-
-	/**
-	 * The cached value of the '{@link #getFeature() <em>Feature</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getFeature()
-	 * @generated
-	 * @ordered
-	 */
-	protected AbstractFeature feature;
 
 	/**
 	 * The cached value of the '{@link #getArguments() <em>Arguments</em>}' containment reference list.
@@ -138,44 +124,6 @@ public class OperationCallImpl extends ExpressionImpl implements OperationCall {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public AbstractFeature getFeature() {
-		if (feature != null && feature.eIsProxy()) {
-			InternalEObject oldFeature = (InternalEObject)feature;
-			feature = (AbstractFeature)eResolveProxy(oldFeature);
-			if (feature != oldFeature) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, BehaviorPackage.OPERATION_CALL__FEATURE, oldFeature, feature));
-			}
-		}
-		return feature;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public AbstractFeature basicGetFeature() {
-		return feature;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setFeature(AbstractFeature newFeature) {
-		AbstractFeature oldFeature = feature;
-		feature = newFeature;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, BehaviorPackage.OPERATION_CALL__FEATURE, oldFeature, feature));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EList<Expression> getArguments() {
 		if (arguments == null) {
 			arguments = new EObjectContainmentEList<Expression>(Expression.class, this, BehaviorPackage.OPERATION_CALL__ARGUMENTS);
@@ -209,9 +157,6 @@ public class OperationCallImpl extends ExpressionImpl implements OperationCall {
 		switch (featureID) {
 			case BehaviorPackage.OPERATION_CALL__RECEIVER:
 				return getReceiver();
-			case BehaviorPackage.OPERATION_CALL__FEATURE:
-				if (resolve) return getFeature();
-				return basicGetFeature();
 			case BehaviorPackage.OPERATION_CALL__ARGUMENTS:
 				return getArguments();
 		}
@@ -229,9 +174,6 @@ public class OperationCallImpl extends ExpressionImpl implements OperationCall {
 		switch (featureID) {
 			case BehaviorPackage.OPERATION_CALL__RECEIVER:
 				setReceiver((Expression)newValue);
-				return;
-			case BehaviorPackage.OPERATION_CALL__FEATURE:
-				setFeature((AbstractFeature)newValue);
 				return;
 			case BehaviorPackage.OPERATION_CALL__ARGUMENTS:
 				getArguments().clear();
@@ -252,9 +194,6 @@ public class OperationCallImpl extends ExpressionImpl implements OperationCall {
 			case BehaviorPackage.OPERATION_CALL__RECEIVER:
 				setReceiver((Expression)null);
 				return;
-			case BehaviorPackage.OPERATION_CALL__FEATURE:
-				setFeature((AbstractFeature)null);
-				return;
 			case BehaviorPackage.OPERATION_CALL__ARGUMENTS:
 				getArguments().clear();
 				return;
@@ -272,46 +211,10 @@ public class OperationCallImpl extends ExpressionImpl implements OperationCall {
 		switch (featureID) {
 			case BehaviorPackage.OPERATION_CALL__RECEIVER:
 				return receiver != null;
-			case BehaviorPackage.OPERATION_CALL__FEATURE:
-				return feature != null;
 			case BehaviorPackage.OPERATION_CALL__ARGUMENTS:
 				return arguments != null && !arguments.isEmpty();
 		}
 		return super.eIsSet(featureID);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public int eBaseStructuralFeatureID(int derivedFeatureID, Class<?> baseClass) {
-		if (baseClass == FeatureCall.class) {
-			switch (derivedFeatureID) {
-				case BehaviorPackage.OPERATION_CALL__RECEIVER: return BehaviorPackage.FEATURE_CALL__RECEIVER;
-				case BehaviorPackage.OPERATION_CALL__FEATURE: return BehaviorPackage.FEATURE_CALL__FEATURE;
-				default: return -1;
-			}
-		}
-		return super.eBaseStructuralFeatureID(derivedFeatureID, baseClass);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public int eDerivedStructuralFeatureID(int baseFeatureID, Class<?> baseClass) {
-		if (baseClass == FeatureCall.class) {
-			switch (baseFeatureID) {
-				case BehaviorPackage.FEATURE_CALL__RECEIVER: return BehaviorPackage.OPERATION_CALL__RECEIVER;
-				case BehaviorPackage.FEATURE_CALL__FEATURE: return BehaviorPackage.OPERATION_CALL__FEATURE;
-				default: return -1;
-			}
-		}
-		return super.eDerivedStructuralFeatureID(baseFeatureID, baseClass);
 	}
 
 } //OperationCallImpl

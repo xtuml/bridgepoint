@@ -15,4 +15,6 @@ interface IssueCodes {
 	val MISSING_DEFINITION = PREFIX + 'missingDefinition' 
 	val MISSING_DECLARATION = PREFIX + 'missingDeclaration' 
 	val WRONG_TYPE = PREFIX + 'wrongType'
+	val INVALID_OPERATION_CALL = PREFIX + 'invalidOperationCall'
+	val INVALID_FEATURE_CALL = PREFIX + 'invalidFeatureCall'
 }

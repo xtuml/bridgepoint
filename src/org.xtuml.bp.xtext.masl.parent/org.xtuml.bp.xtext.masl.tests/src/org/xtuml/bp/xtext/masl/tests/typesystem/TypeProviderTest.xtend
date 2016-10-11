@@ -142,6 +142,12 @@ class TypeProviderTest extends AbstractMaslModelTest {
 		assertType('param', 'builtin integer')
 	}
 	
+	@Test 
+	def void testCastExpression() {
+		assertType('integer(0.0)', 'builtin integer')
+		assertType('bag of integer(null)', 'bag of builtin integer')
+	}
+	
 	protected def assertType(CharSequence expression, String expected) {
 		expression.assertType('', expected)
 	}

@@ -17,7 +17,6 @@ import org.xtuml.bp.xtext.masl.masl.behavior.FindExpression
 import org.xtuml.bp.xtext.masl.masl.behavior.ForStatement
 import org.xtuml.bp.xtext.masl.masl.behavior.GenerateStatement
 import org.xtuml.bp.xtext.masl.masl.behavior.NavigateExpression
-import org.xtuml.bp.xtext.masl.masl.behavior.OperationCall
 import org.xtuml.bp.xtext.masl.masl.behavior.SimpleFeatureCall
 import org.xtuml.bp.xtext.masl.masl.behavior.SortOrderFeature
 import org.xtuml.bp.xtext.masl.masl.behavior.TerminatorOperationCall
@@ -198,7 +197,7 @@ class MASLScopeProvider extends AbstractMASLScopeProvider {
 	private def IScope getTypeFeatureScope(MaslType type) {
 		switch type {
 			InstanceType:
-				return type.instance.createObjectScope[attributes]
+				return type.instance.createObjectScope[attributes + functions + services]
 			NamedType: {
 				val innerType = type.type
 				if (innerType instanceof StructureType)
@@ -227,7 +226,7 @@ class MASLScopeProvider extends AbstractMASLScopeProvider {
 								null							
 						}
 					if (instance != null)
-						return instance.createObjectScope([attributes], parent.getLocalSimpleFeatureScope(parentScope, false))
+						return instance.createObjectScope([attributes + functions + services], parent.getLocalSimpleFeatureScope(parentScope, false))
 				}
 			}
 			CodeBlock:
@@ -253,44 +252,7 @@ class MASLScopeProvider extends AbstractMASLScopeProvider {
 	}
 	
 	private def getSimpleFeatureScopeForObjectAction(List<Parameter> parameters, ObjectDeclaration context, IScope parentScope) {
-		scopeFor(parameters, context.createObjectScope([attributes], parentScope))
-	}
-	
-	private def dispatch IScope getFeatureScope(OperationCall call) {
-		if(call.receiver == null) {
-			return call.getLocalOperationScope(delegate.getScope(call, featureCall_Feature))
-		} else {
-			val type = call.receiver.maslType
-			switch type {
-				InstanceType:
-					return type.instance.createObjectScope[services + functions]
-			}
-		}
-		return IScope.NULLSCOPE
-	}
-	
-	private def IScope getLocalOperationScope(EObject expr, IScope parentScope) {
-		if(expr == null)
-			return IScope.NULLSCOPE
-		val parent = expr.eContainer
-		switch expr {
-			DomainFunctionDefinition:
-				return scopeFor(expr.domain.services + expr.domain.functions, parentScope)
-			DomainServiceDefinition:
-				return scopeFor(expr.domain.services + expr.domain.functions, parentScope)
-			ObjectFunctionDefinition:
-				return expr.object.createObjectScope([functions + services], parentScope)
-			ObjectServiceDefinition:
-				return expr.object.createObjectScope([functions + services], parentScope)
-			StateDefinition:
-				return expr.object.createObjectScope([functions + services], parentScope)
-			TerminatorFunctionDefinition:
-				return scopeFor(expr.terminator.functions + expr.terminator.services, parentScope)
-			TerminatorServiceDefinition:
-				return scopeFor(expr.terminator.functions + expr.terminator.services, parentScope)
-			default: 
-				return parent.getLocalOperationScope(parentScope)
-		}
+		scopeFor(parameters, context.createObjectScope([attributes  + functions + services], parentScope))
 	}
 	
 	private def dispatch IScope getFeatureScope(EObject call) {

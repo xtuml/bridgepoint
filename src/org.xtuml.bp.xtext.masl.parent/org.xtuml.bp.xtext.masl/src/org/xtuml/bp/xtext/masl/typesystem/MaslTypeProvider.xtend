@@ -175,7 +175,10 @@ class MaslTypeProvider {
 			CreateExpression:
 				return new InstanceType(object)		
 			OperationCall:
-				return feature.maslTypeOfFeature
+				if(receiver instanceof AbstractFeature)
+					return (receiver as AbstractFeature).maslTypeOfFeature
+				else
+					receiver.maslTypeOfExpression
 			SimpleFeatureCall:
 				return feature.maslTypeOfFeature
 			IndexedExpression: {

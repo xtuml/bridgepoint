@@ -348,7 +348,8 @@ class NavigateExpression extends Expression {
 	contains SortOrder reverseOrder
 }
 
-class OperationCall extends Expression , FeatureCall {
+class OperationCall extends Expression {
+	contains Expression receiver
 	contains Expression[] arguments
 }
 
