@@ -1,8 +1,13 @@
-/////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////
 // primitives and characteristics built-in into the MASL language
-//
+///////////////////////////////////////////////////////////////////////
+
 builtin is
-	// built-in primitives
+
+	///////////////////////////////////////////////////////////////////
+	// built-in primitive types
+	///////////////////////////////////////////////////////////////////
+	
 	builtin character;
 	builtin string;
 	builtin boolean;
@@ -15,12 +20,29 @@ builtin is
 	builtin timestamp;
 	builtin timer;
 	
-	// needed by the typesystem
-	anonymous builtin any_type;  // the type of null
+	
+	
+	///////////////////////////////////////////////////////////////////
+	// The follwoing types are needed by the typesystem. You cannot
+	// define anything to be of these types.
+	///////////////////////////////////////////////////////////////////
+	
+	anonymous builtin any_type;  // the type of 'null', AKA 'instance'
 	anonymous builtin no_type; 
 	anonymous builtin stream_manipulator_type;
 	
-	// built-in characteristics (currently not bound to any type)
+	
+	
+	///////////////////////////////////////////////////////////////////
+	// built-in characteristics
+	// syntax is
+	// <receiver> ' <name> ( <parameters> ) returns <returnType>
+	//
+	// For instance/value based characteristics, the receiver is in 
+	// parentheses for type based characteristics not.
+	// There is limited support for type parameters in angular brackets.
+	///////////////////////////////////////////////////////////////////
+	 
 	(character)   'image() return string;
 	(boolean)     'image() return string;
 	(byte)        'image() return string;
