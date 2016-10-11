@@ -63,7 +63,7 @@ public class ExplorerCutAction extends CutAction {
 		boolean cuttable = ExplorerCopyAction.isSelectionCopiable(viewer,
 				getElementsToBeCopied(false));
 		if(cuttable) {
-			cuttable = selectionContainsOnlyPEs();
+			cuttable = selectionIsCuttable();
 		}
 		return cuttable;
 	}

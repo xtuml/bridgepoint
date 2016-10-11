@@ -17,6 +17,7 @@ package org.xtuml.bp.core.ui;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.jface.action.Action;
@@ -24,6 +25,8 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.PlatformUI;
 import org.xtuml.bp.core.CorePlugin;
+import org.xtuml.bp.core.DataType_c;
+import org.xtuml.bp.core.Package_c;
 import org.xtuml.bp.core.PackageableElement_c;
 import org.xtuml.bp.core.common.NonRootModelElement;
 
@@ -80,13 +83,41 @@ public abstract class CutCopyPasteAction extends Action {
 		CorePlugin.getSystemClipboard().clearContents();
 	}
 		
-	public static boolean selectionContainsOnlyPEs() {
+	public static boolean selectionIsCuttable() {
 		NonRootModelElement[] selectedNRMEs = Selection.getInstance().getSelectedNonRootModelElements();;
+		boolean cuttable = true;
 		for(int i = 0; i < selectedNRMEs.length; i++) {
 			PackageableElement_c pe_pe = selectedNRMEs[i].getPE();
 			if (null == pe_pe) {
-				return false;
+				cuttable = false;
+				break;
 			} 
+		}
+		// only ask the delete action if the selection contains only
+		// NonRootModelElement represented graphics
+		if (selectionContainsOnlyCoreElements()) {
+			cuttable = DeleteAction.canDeleteAction();
+		}
+		
+		// Only allow cut on Packages and datatypes for now
+		for (int i = 0; cuttable && i < selectedNRMEs.length; i++) {
+			cuttable = false;
+			NonRootModelElement rto = selectedNRMEs[i].getRTOElementForResolution();
+			if (selectedNRMEs[i] instanceof Package_c || rto instanceof DataType_c) {
+				cuttable = true;
+			} 
+		}
+		
+		return cuttable;
+	}
+	
+	public static boolean selectionContainsOnlyCoreElements() {
+		IStructuredSelection selection = (IStructuredSelection) Selection.getInstance().getStructuredSelection();
+		for(Iterator<?> iterator = selection.iterator(); iterator.hasNext();) {
+			Object selected = iterator.next();
+			if(!(selected instanceof NonRootModelElement)) {
+				return false;
+			}
 		}
 		return true;
 	}
