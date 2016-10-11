@@ -33,6 +33,7 @@ import org.xtuml.bp.core.common.NonRootModelElement;
 import org.xtuml.bp.core.common.Transaction;
 import org.xtuml.bp.core.common.TransactionException;
 import org.xtuml.bp.core.common.TransactionManager;
+import org.xtuml.bp.core.ui.PasteAction;
 
 /**
  * This class is the front-end for graphics reconciliation. It is abstract to allow 
@@ -141,16 +142,24 @@ public class GraphicsReconcilerLauncher {
 	}
 
 	private static boolean elementsMustBeReconciled(Transaction transaction) {
-		IModelDelta[] deltas = transaction.getDeltas(Ooaofooa.getDefaultInstance());
-		if (deltas != null) {
-			for (int i = 0; i < deltas.length; i++) {
-				if (deltas[i].getKind() == Modeleventnotification_c.DELTA_NEW
-						|| deltas[i].getKind() == Modeleventnotification_c.DELTA_DELETE
-						|| deltas[i].getKind() == Modeleventnotification_c.DELTA_ELEMENT_RELATED
-						|| deltas[i].getKind() == Modeleventnotification_c.DELTA_ELEMENT_UNRELATED 
-						|| deltas[i].getKind() == Modeleventnotification_c.DELTA_MODEL_ELEMENT_MOVE) 
-				{
-					return true;
+		// We should not need to run reconciliation on a Move 
+		// Note that when move was removed the question came up about disabling on copy/paste.
+		// It is worth noting that in the case where elements are copied from ME, all graphics ARE
+		// also copied, so it is not the reconciler that "recreates" graphics during copy/paste it
+		// is the copy that is smart enough to get any graphics associated with the ME selection. 
+		// However, on paste in that situation the container symbol for the element being pasted IS
+		// created by graphics reconciliation. Therefore, for now only move is filtered.		
+		if (!PasteAction.TransactionNameForMove.equals(transaction.getDisplayName())) {
+			IModelDelta[] deltas = transaction.getDeltas(Ooaofooa.getDefaultInstance());
+			if (deltas != null) {
+				for (int i = 0; i < deltas.length; i++) {
+					if (deltas[i].getKind() == Modeleventnotification_c.DELTA_NEW
+							|| deltas[i].getKind() == Modeleventnotification_c.DELTA_DELETE
+							|| deltas[i].getKind() == Modeleventnotification_c.DELTA_ELEMENT_RELATED
+							|| deltas[i].getKind() == Modeleventnotification_c.DELTA_ELEMENT_UNRELATED) 
+					{
+						return true;
+					}
 				}
 			}
 		}

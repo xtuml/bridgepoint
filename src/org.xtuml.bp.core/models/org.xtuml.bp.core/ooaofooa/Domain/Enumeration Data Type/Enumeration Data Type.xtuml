@@ -524,6 +524,21 @@ return dt.Descrip;',
 	1,
 	'',
 	"8c05285e-8df2-434e-b3f4-00287cca24f2");
+INSERT INTO O_TFR
+	VALUES ("61cb1f84-3dfa-446d-8b99-f89652e1ba33",
+	"942a736a-d379-4a82-9b01-d8e56ae947be",
+	'downgradeCheck',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'// The Data Type superclass can check all the RGOs
+select one dt related by self->S_DT[R17];
+dt.downgradeCheck();
+
+// Enums don''t refer to any other elements, so no RTO checking needed',
+	1,
+	'',
+	"b3aa28fb-5069-434b-8a2e-e6f60edeede7");
 INSERT INTO O_REF
 	VALUES ("942a736a-d379-4a82-9b01-d8e56ae947be",
 	"ead52fac-9782-434b-a35c-c07452c3b26d",

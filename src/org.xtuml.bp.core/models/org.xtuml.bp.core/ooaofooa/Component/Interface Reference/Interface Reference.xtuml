@@ -1261,6 +1261,29 @@ return false;',
 	1,
 	'',
 	"9d5527b2-69e7-42a7-8535-93bf530bfe53");
+INSERT INTO O_TFR
+	VALUES ("c7281ab0-d7dd-40ff-b679-5a74f4713c42",
+	"d45618a1-5ecf-4b4d-95a8-ab89b70dec11",
+	'downgradeCheck',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'isAccessible = true;
+
+// We only need to run this check if this interface reference is formalized
+if ( self.isFormal() )
+  isAccessible = self.canReferToInterface();
+
+  if ( not isAccessible )
+    select one interface related by self->C_I[R4012];
+    self.unformalize(unformalizeOther: true);
+    Util::reportElementDowngraded(rto:self.convertToInstance(), rgoDowngraded:interface.convertToInstance(), relationship:"R4012");
+  end if;
+end if;
+',
+	1,
+	'',
+	"358c47b4-0a46-4b22-8b5e-b2fb4f7ed401");
 INSERT INTO O_REF
 	VALUES ("d45618a1-5ecf-4b4d-95a8-ab89b70dec11",
 	"2205f09b-595f-431e-98d5-73d007d124b6",
