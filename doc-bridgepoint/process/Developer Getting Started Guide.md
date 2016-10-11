@@ -9,7 +9,9 @@ Preparation
 
 3) This document uses ```~/git``` as the root folder for git repostiories, and it uses ```~/workspace``` as the development workspace. You may substitute any folder you desire, but you must be consistent.
 
-4) <a id="help"></a>If you have any problems or questions, check the [FAQ](https://github.com/xtuml/bridgepoint/blob/master/doc-bridgepoint/process/FAQ.md#bpdevelopers) or post to the [xtUML.org Forums] (https://xtuml.org/community/forum/xtuml-forum/) for help.
+4) Optionally, a pre-configured development virtual machine (VirtualBox) is available for download. See intructions to download and setup [here](developer-vm-getting-started.md)
+
+5) <a id="help"></a>If you have any problems or questions, check the [FAQ](https://github.com/xtuml/bridgepoint/blob/master/doc-bridgepoint/process/FAQ.md#bpdevelopers) or post to the [xtUML.org Forums] (https://xtuml.org/community/forum/xtuml-forum/) for help.
 
 
 Setup Instructions
