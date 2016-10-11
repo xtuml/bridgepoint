@@ -16,7 +16,7 @@ import org.xtuml.bp.xtext.masl.typesystem.MaslTypeProvider
 import org.xtuml.bp.xtext.masl.typesystem.RangeType
 
 import static org.xtuml.bp.xtext.masl.typesystem.BuiltinType.*
-import static org.xtuml.bp.xtext.masl.validation.IssueCodes.*
+import static org.xtuml.bp.xtext.masl.validation.MaslIssueCodesProvider.*
 
 class MASLTypeValidator extends AbstractMASLValidator {
 	

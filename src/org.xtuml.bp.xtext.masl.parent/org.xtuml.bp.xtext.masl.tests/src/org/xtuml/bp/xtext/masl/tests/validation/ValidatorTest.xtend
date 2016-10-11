@@ -14,7 +14,7 @@ import org.xtuml.bp.xtext.masl.masl.structure.MaslModel
 import org.xtuml.bp.xtext.masl.masl.structure.StructurePackage
 import org.xtuml.bp.xtext.masl.tests.MASLInjectorProvider
 
-import static org.xtuml.bp.xtext.masl.validation.IssueCodes.*
+import static org.xtuml.bp.xtext.masl.validation.MaslIssueCodesProvider.*
 import org.eclipse.xtext.resource.XtextResourceSet
 import com.google.inject.Provider
 import org.eclipse.emf.common.util.URI

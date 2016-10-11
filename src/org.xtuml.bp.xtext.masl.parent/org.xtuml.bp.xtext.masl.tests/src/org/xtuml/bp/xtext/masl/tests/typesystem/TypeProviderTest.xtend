@@ -168,6 +168,4 @@ class TypeProviderTest extends AbstractMaslModelTest {
 		''')
 		assertEquals(expected, getMaslType(expr)?.toString)
 	}
-	
-	
 }

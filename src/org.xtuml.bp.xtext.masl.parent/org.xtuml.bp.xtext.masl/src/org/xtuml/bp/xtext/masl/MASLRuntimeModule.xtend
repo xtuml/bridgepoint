@@ -22,6 +22,8 @@ import org.xtuml.bp.xtext.masl.scoping.MASLQualifiedNameProvider
 import org.xtuml.bp.xtext.masl.scoping.MASLResourceDescriptionStrategy
 import org.eclipse.xtext.documentation.IEObjectDocumentationProvider
 import org.xtuml.bp.xtext.masl.doc.MaslEObjectDocumentationProvider
+import org.eclipse.xtext.validation.ConfigurableIssueCodesProvider
+import org.xtuml.bp.xtext.masl.validation.MaslIssueCodesProvider
 
 /**
  * Use this class to register components to be used at runtime / without the Equinox extension registry.
@@ -76,5 +78,9 @@ class MASLRuntimeModule extends AbstractMASLRuntimeModule {
 	
 	def Class<? extends IEObjectDocumentationProvider> bindIEObjectDocumentationProvider() {
 		MaslEObjectDocumentationProvider
+	}
+	
+	def Class<? extends ConfigurableIssueCodesProvider> bindConfigurableIssueCodesProvider() {
+		MaslIssueCodesProvider
 	}
 }

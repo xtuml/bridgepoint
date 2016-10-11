@@ -50,8 +50,10 @@ import org.xtuml.bp.xtext.masl.masl.structure.TerminatorFunctionDefinition
 import org.xtuml.bp.xtext.masl.masl.structure.TerminatorServiceDeclaration
 import org.xtuml.bp.xtext.masl.masl.structure.TerminatorServiceDefinition
 import org.xtuml.bp.xtext.masl.masl.structure.TransitionRow
+import org.xtuml.bp.xtext.masl.masl.types.AbstractTypeReference
 import org.xtuml.bp.xtext.masl.masl.types.EnumerationTypeDefinition
 import org.xtuml.bp.xtext.masl.masl.types.StructureTypeDefinition
+import org.xtuml.bp.xtext.masl.masl.types.TypeDeclaration
 import org.xtuml.bp.xtext.masl.masl.types.TypesPackage
 import org.xtuml.bp.xtext.masl.scoping.ProjectScopeIndexProvider
 import org.xtuml.bp.xtext.masl.typesystem.BuiltinType
@@ -61,9 +63,7 @@ import org.xtuml.bp.xtext.masl.typesystem.MaslTypeProvider
 import org.xtuml.bp.xtext.masl.typesystem.StructureType
 
 import static org.xtuml.bp.xtext.masl.typesystem.BuiltinType.*
-import static org.xtuml.bp.xtext.masl.validation.IssueCodes.*
-import org.xtuml.bp.xtext.masl.masl.types.TypeDeclaration
-import org.xtuml.bp.xtext.masl.masl.types.AbstractTypeReference
+import static org.xtuml.bp.xtext.masl.validation.MaslIssueCodesProvider.*
 
 /**
  * This class contains custom validation rules. 

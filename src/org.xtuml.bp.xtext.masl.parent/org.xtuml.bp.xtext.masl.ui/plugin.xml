@@ -97,6 +97,18 @@
 			name="Templates">
 			<keywordReference id="org.xtuml.bp.xtext.masl.ui.keyword_MASL"/>
 		</page>
+		<page
+              category="org.xtuml.bp.xtext.masl.MASL"
+              class="org.xtuml.bp.xtext.masl.ui.MASLExecutableExtensionFactory:org.eclipse.xtext.ui.validation.ValidatorPreferencePage"
+              id="org.xtuml.bp.xtext.masl.MASL.validator.preferencePage"
+              name="Errors/Warnings">
+           <keywordReference
+                 id="org.xtuml.bp.xtext.masl.MASL.keyword_MASL">
+           </keywordReference>
+           <keywordReference
+                 id="org.eclipse.jdt.ui.severities">
+           </keywordReference>
+        </page>
 	</extension>
 	<extension
 			point="org.eclipse.ui.propertyPages">
