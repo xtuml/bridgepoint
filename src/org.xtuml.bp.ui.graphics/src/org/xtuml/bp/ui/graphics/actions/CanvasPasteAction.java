@@ -165,14 +165,14 @@ public class CanvasPasteAction extends PasteAction {
 			}
 			// move the elements so they do not overlap any existing elements
 			moveGraphicalElementsToPreventOverlapping(pastedGraphicalElements, destGD_MD);
-			if (destGD_MD.Hascontainersymbol()) {
-				Shape_c container = Shape_c.getOneGD_SHPOnR2(GraphicalElement_c
-						.getOneGD_GEOnR1(destGD_MD));
-				ContainingShape_c cs = ContainingShape_c
-						.getOneGD_CTROnR28(container);
-				if (cs != null) {
-					cs.Autoresize();
-				}
+		}
+		if (destGD_MD.Hascontainersymbol()) {
+			Shape_c container = Shape_c.getOneGD_SHPOnR2(GraphicalElement_c
+					.getOneGD_GEOnR1(destGD_MD));
+			ContainingShape_c cs = ContainingShape_c
+					.getOneGD_CTROnR28(container);
+			if (cs != null) {
+				cs.Autoresize();
 			}
 		}
 	}
@@ -189,29 +189,41 @@ public class CanvasPasteAction extends PasteAction {
 		Ooaofgraphics ooaofg = Ooaofgraphics
 				.getInstance(PasteAction.getContainerForMove(ooaElementMoved).getModelRoot().getId());
 		GraphicalElement_c graphicalElementMoved = CanvasPlugin.getGraphicalElement(ooaofg, ooaElementMoved);
-		
-		if (graphicalElementMoved != null) {
+		if (graphicalElementMoved != null) {						
+			
 			NonRootModelElement[] rootsToMove = null;
-//			Model_c graphicalRoot = Model_c.getOneGD_MDOnR1(graphicalElementMoved);
-//			if (graphicalRoot != null) {
-//				rootsToMove = new NonRootModelElement[2];
-//				rootsToMove[0] = graphicalElementMoved;
-//				rootsToMove[1] = graphicalRoot;
-//			} else {
+			Model_c containerRoot = getModel(ooaElementMoved);
+			if (containerRoot != null) {
+				// TODO FIXME: This is test code that helps check the instanceLists after the move
+				// The ComponentResourceListener is running after this routine returns.
+				// The results is that a duplicate GraphicalElement_c instance is put in the 
+				// instance list. This shows up as an orphaned element after a "chained move".
+				// Chained move move cut a nested package, paste it somewhere, then cut the
+				// pasted package and paste it somewhere else. The debug code below helps you see
+				// that the 2nd cut contains 2 GD_GEs instead of 1 for the selected element..
+				//InstanceList gdgeGD_MD2 = graphicalElementMoved.getModelRoot().getInstanceList(Model_c.class);
+				//InstanceList gdgeGD_GE2 = graphicalElementMoved.getModelRoot().getInstanceList(GraphicalElement_c.class);
+				///
+				
+				rootsToMove = new NonRootModelElement[2];
+				rootsToMove[0] = containerRoot;
+				rootsToMove[1] = graphicalElementMoved;
+			} else {
 				rootsToMove = new NonRootModelElement[1];				
 				rootsToMove[0] = graphicalElementMoved;
-//			}
+			}
 			updateGraphicalElementRoots(rootsToMove, destGD_MD.getModelRoot());
-			
-
-			Model_c oldMD = Model_c.getOneGD_MDOnR1(graphicalElementMoved);
-			graphicalElementMoved.unrelateAcrossR1From(oldMD);
+		
+			Model_c gdgeRoot = Model_c.getOneGD_MDOnR1(graphicalElementMoved);			
+			graphicalElementMoved.unrelateAcrossR1From(gdgeRoot);
 			graphicalElementMoved.relateAcrossR1To(destGD_MD);
+
 			updateContainement(destGD_MD, graphicalElementMoved);
-			
+
 			GraphicalElement_c graphicalElementList[] = new GraphicalElement_c[1];
 			graphicalElementList[0] = graphicalElementMoved;
-			moveGraphicalElementsToPreventOverlapping(graphicalElementList, destGD_MD);
+			
+			moveGraphicalElementsToPreventOverlapping(graphicalElementList, destGD_MD);			
 		}
 	}
 	
