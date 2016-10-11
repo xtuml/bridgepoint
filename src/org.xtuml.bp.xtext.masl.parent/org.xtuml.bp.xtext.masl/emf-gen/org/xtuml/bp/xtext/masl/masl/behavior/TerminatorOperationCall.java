@@ -17,7 +17,7 @@ import org.xtuml.bp.xtext.masl.masl.structure.AbstractFeature;
  * </p>
  * <ul>
  *   <li>{@link org.xtuml.bp.xtext.masl.masl.behavior.TerminatorOperationCall#getReceiver <em>Receiver</em>}</li>
- *   <li>{@link org.xtuml.bp.xtext.masl.masl.behavior.TerminatorOperationCall#getTerminalOperation <em>Terminal Operation</em>}</li>
+ *   <li>{@link org.xtuml.bp.xtext.masl.masl.behavior.TerminatorOperationCall#getTerminatorOperation <em>Terminator Operation</em>}</li>
  *   <li>{@link org.xtuml.bp.xtext.masl.masl.behavior.TerminatorOperationCall#getArguments <em>Arguments</em>}</li>
  * </ul>
  *
@@ -53,30 +53,30 @@ public interface TerminatorOperationCall extends Expression {
 	void setReceiver(Expression value);
 
 	/**
-	 * Returns the value of the '<em><b>Terminal Operation</b></em>' reference.
+	 * Returns the value of the '<em><b>Terminator Operation</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Terminal Operation</em>' reference isn't clear,
+	 * If the meaning of the '<em>Terminator Operation</em>' reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Terminal Operation</em>' reference.
-	 * @see #setTerminalOperation(AbstractFeature)
-	 * @see org.xtuml.bp.xtext.masl.masl.behavior.BehaviorPackage#getTerminatorOperationCall_TerminalOperation()
+	 * @return the value of the '<em>Terminator Operation</em>' reference.
+	 * @see #setTerminatorOperation(AbstractFeature)
+	 * @see org.xtuml.bp.xtext.masl.masl.behavior.BehaviorPackage#getTerminatorOperationCall_TerminatorOperation()
 	 * @model
 	 * @generated
 	 */
-	AbstractFeature getTerminalOperation();
+	AbstractFeature getTerminatorOperation();
 
 	/**
-	 * Sets the value of the '{@link org.xtuml.bp.xtext.masl.masl.behavior.TerminatorOperationCall#getTerminalOperation <em>Terminal Operation</em>}' reference.
+	 * Sets the value of the '{@link org.xtuml.bp.xtext.masl.masl.behavior.TerminatorOperationCall#getTerminatorOperation <em>Terminator Operation</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Terminal Operation</em>' reference.
-	 * @see #getTerminalOperation()
+	 * @param value the new value of the '<em>Terminator Operation</em>' reference.
+	 * @see #getTerminatorOperation()
 	 * @generated
 	 */
-	void setTerminalOperation(AbstractFeature value);
+	void setTerminatorOperation(AbstractFeature value);
 
 	/**
 	 * Returns the value of the '<em><b>Arguments</b></em>' containment reference list.

@@ -101,7 +101,7 @@ class NamedTypeReference extends AbstractTypeReference {
 }
 
 class ConstrainedArrayTypeReference extends AbstractTypeReference {
-	refers TypeDeclaration elementType
+	refers TypeDeclaration unconstrained
 	contains Expression constraint
 }
 

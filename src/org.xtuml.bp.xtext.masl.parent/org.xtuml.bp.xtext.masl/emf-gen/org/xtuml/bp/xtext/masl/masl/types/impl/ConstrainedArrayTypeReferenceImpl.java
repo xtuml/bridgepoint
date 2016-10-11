@@ -25,7 +25,7 @@ import org.xtuml.bp.xtext.masl.masl.types.TypesPackage;
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link org.xtuml.bp.xtext.masl.masl.types.impl.ConstrainedArrayTypeReferenceImpl#getElementType <em>Element Type</em>}</li>
+ *   <li>{@link org.xtuml.bp.xtext.masl.masl.types.impl.ConstrainedArrayTypeReferenceImpl#getUnconstrained <em>Unconstrained</em>}</li>
  *   <li>{@link org.xtuml.bp.xtext.masl.masl.types.impl.ConstrainedArrayTypeReferenceImpl#getConstraint <em>Constraint</em>}</li>
  * </ul>
  *
@@ -33,14 +33,14 @@ import org.xtuml.bp.xtext.masl.masl.types.TypesPackage;
  */
 public class ConstrainedArrayTypeReferenceImpl extends AbstractTypeReferenceImpl implements ConstrainedArrayTypeReference {
 	/**
-	 * The cached value of the '{@link #getElementType() <em>Element Type</em>}' reference.
+	 * The cached value of the '{@link #getUnconstrained() <em>Unconstrained</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getElementType()
+	 * @see #getUnconstrained()
 	 * @generated
 	 * @ordered
 	 */
-	protected TypeDeclaration elementType;
+	protected TypeDeclaration unconstrained;
 
 	/**
 	 * The cached value of the '{@link #getConstraint() <em>Constraint</em>}' containment reference.
@@ -76,16 +76,16 @@ public class ConstrainedArrayTypeReferenceImpl extends AbstractTypeReferenceImpl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public TypeDeclaration getElementType() {
-		if (elementType != null && elementType.eIsProxy()) {
-			InternalEObject oldElementType = (InternalEObject)elementType;
-			elementType = (TypeDeclaration)eResolveProxy(oldElementType);
-			if (elementType != oldElementType) {
+	public TypeDeclaration getUnconstrained() {
+		if (unconstrained != null && unconstrained.eIsProxy()) {
+			InternalEObject oldUnconstrained = (InternalEObject)unconstrained;
+			unconstrained = (TypeDeclaration)eResolveProxy(oldUnconstrained);
+			if (unconstrained != oldUnconstrained) {
 				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, TypesPackage.CONSTRAINED_ARRAY_TYPE_REFERENCE__ELEMENT_TYPE, oldElementType, elementType));
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, TypesPackage.CONSTRAINED_ARRAY_TYPE_REFERENCE__UNCONSTRAINED, oldUnconstrained, unconstrained));
 			}
 		}
-		return elementType;
+		return unconstrained;
 	}
 
 	/**
@@ -93,8 +93,8 @@ public class ConstrainedArrayTypeReferenceImpl extends AbstractTypeReferenceImpl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public TypeDeclaration basicGetElementType() {
-		return elementType;
+	public TypeDeclaration basicGetUnconstrained() {
+		return unconstrained;
 	}
 
 	/**
@@ -102,11 +102,11 @@ public class ConstrainedArrayTypeReferenceImpl extends AbstractTypeReferenceImpl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setElementType(TypeDeclaration newElementType) {
-		TypeDeclaration oldElementType = elementType;
-		elementType = newElementType;
+	public void setUnconstrained(TypeDeclaration newUnconstrained) {
+		TypeDeclaration oldUnconstrained = unconstrained;
+		unconstrained = newUnconstrained;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, TypesPackage.CONSTRAINED_ARRAY_TYPE_REFERENCE__ELEMENT_TYPE, oldElementType, elementType));
+			eNotify(new ENotificationImpl(this, Notification.SET, TypesPackage.CONSTRAINED_ARRAY_TYPE_REFERENCE__UNCONSTRAINED, oldUnconstrained, unconstrained));
 	}
 
 	/**
@@ -174,9 +174,9 @@ public class ConstrainedArrayTypeReferenceImpl extends AbstractTypeReferenceImpl
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case TypesPackage.CONSTRAINED_ARRAY_TYPE_REFERENCE__ELEMENT_TYPE:
-				if (resolve) return getElementType();
-				return basicGetElementType();
+			case TypesPackage.CONSTRAINED_ARRAY_TYPE_REFERENCE__UNCONSTRAINED:
+				if (resolve) return getUnconstrained();
+				return basicGetUnconstrained();
 			case TypesPackage.CONSTRAINED_ARRAY_TYPE_REFERENCE__CONSTRAINT:
 				return getConstraint();
 		}
@@ -191,8 +191,8 @@ public class ConstrainedArrayTypeReferenceImpl extends AbstractTypeReferenceImpl
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case TypesPackage.CONSTRAINED_ARRAY_TYPE_REFERENCE__ELEMENT_TYPE:
-				setElementType((TypeDeclaration)newValue);
+			case TypesPackage.CONSTRAINED_ARRAY_TYPE_REFERENCE__UNCONSTRAINED:
+				setUnconstrained((TypeDeclaration)newValue);
 				return;
 			case TypesPackage.CONSTRAINED_ARRAY_TYPE_REFERENCE__CONSTRAINT:
 				setConstraint((Expression)newValue);
@@ -209,8 +209,8 @@ public class ConstrainedArrayTypeReferenceImpl extends AbstractTypeReferenceImpl
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case TypesPackage.CONSTRAINED_ARRAY_TYPE_REFERENCE__ELEMENT_TYPE:
-				setElementType((TypeDeclaration)null);
+			case TypesPackage.CONSTRAINED_ARRAY_TYPE_REFERENCE__UNCONSTRAINED:
+				setUnconstrained((TypeDeclaration)null);
 				return;
 			case TypesPackage.CONSTRAINED_ARRAY_TYPE_REFERENCE__CONSTRAINT:
 				setConstraint((Expression)null);
@@ -227,8 +227,8 @@ public class ConstrainedArrayTypeReferenceImpl extends AbstractTypeReferenceImpl
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case TypesPackage.CONSTRAINED_ARRAY_TYPE_REFERENCE__ELEMENT_TYPE:
-				return elementType != null;
+			case TypesPackage.CONSTRAINED_ARRAY_TYPE_REFERENCE__UNCONSTRAINED:
+				return unconstrained != null;
 			case TypesPackage.CONSTRAINED_ARRAY_TYPE_REFERENCE__CONSTRAINT:
 				return constraint != null;
 		}

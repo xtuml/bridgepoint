@@ -3439,13 +3439,13 @@ public interface BehaviorPackage extends EPackage {
 	int TERMINATOR_OPERATION_CALL__RECEIVER = EXPRESSION_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Terminal Operation</b></em>' reference.
+	 * The feature id for the '<em><b>Terminator Operation</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int TERMINATOR_OPERATION_CALL__TERMINAL_OPERATION = EXPRESSION_FEATURE_COUNT + 1;
+	int TERMINATOR_OPERATION_CALL__TERMINATOR_OPERATION = EXPRESSION_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Arguments</b></em>' containment reference list.
@@ -5575,15 +5575,15 @@ public interface BehaviorPackage extends EPackage {
 	EReference getTerminatorOperationCall_Receiver();
 
 	/**
-	 * Returns the meta object for the reference '{@link org.xtuml.bp.xtext.masl.masl.behavior.TerminatorOperationCall#getTerminalOperation <em>Terminal Operation</em>}'.
+	 * Returns the meta object for the reference '{@link org.xtuml.bp.xtext.masl.masl.behavior.TerminatorOperationCall#getTerminatorOperation <em>Terminator Operation</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Terminal Operation</em>'.
-	 * @see org.xtuml.bp.xtext.masl.masl.behavior.TerminatorOperationCall#getTerminalOperation()
+	 * @return the meta object for the reference '<em>Terminator Operation</em>'.
+	 * @see org.xtuml.bp.xtext.masl.masl.behavior.TerminatorOperationCall#getTerminatorOperation()
 	 * @see #getTerminatorOperationCall()
 	 * @generated
 	 */
-	EReference getTerminatorOperationCall_TerminalOperation();
+	EReference getTerminatorOperationCall_TerminatorOperation();
 
 	/**
 	 * Returns the meta object for the containment reference list '{@link org.xtuml.bp.xtext.masl.masl.behavior.TerminatorOperationCall#getArguments <em>Arguments</em>}'.
@@ -7308,12 +7308,12 @@ public interface BehaviorPackage extends EPackage {
 		EReference TERMINATOR_OPERATION_CALL__RECEIVER = eINSTANCE.getTerminatorOperationCall_Receiver();
 
 		/**
-		 * The meta object literal for the '<em><b>Terminal Operation</b></em>' reference feature.
+		 * The meta object literal for the '<em><b>Terminator Operation</b></em>' reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference TERMINATOR_OPERATION_CALL__TERMINAL_OPERATION = eINSTANCE.getTerminatorOperationCall_TerminalOperation();
+		EReference TERMINATOR_OPERATION_CALL__TERMINATOR_OPERATION = eINSTANCE.getTerminatorOperationCall_TerminatorOperation();
 
 		/**
 		 * The meta object literal for the '<em><b>Arguments</b></em>' containment reference list feature.

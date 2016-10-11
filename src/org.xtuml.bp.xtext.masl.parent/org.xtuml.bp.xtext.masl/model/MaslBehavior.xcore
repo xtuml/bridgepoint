@@ -355,7 +355,7 @@ class OperationCall extends Expression {
 
 class TerminatorOperationCall extends Expression {
 	contains Expression receiver
-	refers AbstractFeature terminalOperation
+	refers AbstractFeature terminatorOperation
 	contains Expression[] arguments
 }
 

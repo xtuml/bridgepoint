@@ -2283,7 +2283,7 @@ public class BehaviorPackageImpl extends EPackageImpl implements BehaviorPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getTerminatorOperationCall_TerminalOperation() {
+	public EReference getTerminatorOperationCall_TerminatorOperation() {
 		return (EReference)terminatorOperationCallEClass.getEStructuralFeatures().get(1);
 	}
 
@@ -2675,7 +2675,7 @@ public class BehaviorPackageImpl extends EPackageImpl implements BehaviorPackage
 
 		terminatorOperationCallEClass = createEClass(TERMINATOR_OPERATION_CALL);
 		createEReference(terminatorOperationCallEClass, TERMINATOR_OPERATION_CALL__RECEIVER);
-		createEReference(terminatorOperationCallEClass, TERMINATOR_OPERATION_CALL__TERMINAL_OPERATION);
+		createEReference(terminatorOperationCallEClass, TERMINATOR_OPERATION_CALL__TERMINATOR_OPERATION);
 		createEReference(terminatorOperationCallEClass, TERMINATOR_OPERATION_CALL__ARGUMENTS);
 
 		indexedExpressionEClass = createEClass(INDEXED_EXPRESSION);
@@ -3036,7 +3036,7 @@ public class BehaviorPackageImpl extends EPackageImpl implements BehaviorPackage
 
 		initEClass(terminatorOperationCallEClass, TerminatorOperationCall.class, "TerminatorOperationCall", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getTerminatorOperationCall_Receiver(), this.getExpression(), null, "receiver", null, 0, 1, TerminatorOperationCall.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getTerminatorOperationCall_TerminalOperation(), theStructurePackage.getAbstractFeature(), null, "terminalOperation", null, 0, 1, TerminatorOperationCall.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getTerminatorOperationCall_TerminatorOperation(), theStructurePackage.getAbstractFeature(), null, "terminatorOperation", null, 0, 1, TerminatorOperationCall.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getTerminatorOperationCall_Arguments(), this.getExpression(), null, "arguments", null, 0, -1, TerminatorOperationCall.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(indexedExpressionEClass, IndexedExpression.class, "IndexedExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);

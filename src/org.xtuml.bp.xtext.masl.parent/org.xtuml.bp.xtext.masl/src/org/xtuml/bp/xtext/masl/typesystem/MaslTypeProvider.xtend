@@ -189,7 +189,7 @@ class MaslTypeProvider {
 					return maslType.componentType
 			}
 			TerminatorOperationCall:
-				return terminalOperation.maslTypeOfFeature
+				return terminatorOperation.maslTypeOfFeature
 			CharacteristicCall:
 				return maslTypeOfCharacteristicCall
 			ThisLiteral:
@@ -241,11 +241,13 @@ class MaslTypeProvider {
 					elementType?.maslTypeOfTypeReference ?: ANONYMOUS_STRING, anonymous)
 			RangeTypeReference:
 				return new RangeType(elementType.maslTypeOfTypeReference, true)
-			ConstrainedArrayTypeReference:
-				return new ArrayType(elementType.getMaslTypeOfTypeDeclaration(false))
-				// TODO
-//			DeprecatedTypeReference:
-//				return new InstanceType(null, false)
+			ConstrainedArrayTypeReference: {
+				val unconstrainedMaslType = unconstrained.getMaslTypeOfTypeDeclaration(false)
+				if(unconstrainedMaslType instanceof NamedType)
+					return unconstrainedMaslType.type
+				else				
+					return unconstrainedMaslType
+			}
 			InstanceTypeReference:
 				return new InstanceType(instance, anonymous)
 			NamedTypeReference: {
@@ -287,7 +289,7 @@ class MaslTypeProvider {
 				return new StructureType(definition, structureComponents, false)
 			}
 			UnconstrainedArrayDefinition:
-				return definition.elementType.maslTypeOfTypeReference
+				return new ArrayType(definition.elementType.maslTypeOfTypeReference, false)
 			default:
 				throw new UnsupportedOperationException('Missing type for type definition ' + definition?.eClass?.name)
 		}

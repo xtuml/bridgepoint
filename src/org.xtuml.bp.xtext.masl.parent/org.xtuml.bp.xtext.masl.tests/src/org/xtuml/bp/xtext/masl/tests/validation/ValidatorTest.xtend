@@ -1,24 +1,25 @@
 package org.xtuml.bp.xtext.masl.tests.validation
 
 import com.google.inject.Inject
+import com.google.inject.Provider
+import org.eclipse.emf.common.util.URI
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.emf.ecore.util.EcoreUtil
 import org.eclipse.xtext.junit4.InjectWith
 import org.eclipse.xtext.junit4.XtextRunner
 import org.eclipse.xtext.junit4.util.ParseHelper
 import org.eclipse.xtext.junit4.validation.ValidationTestHelper
+import org.eclipse.xtext.resource.XtextResourceSet
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.xtuml.bp.xtext.masl.masl.behavior.BehaviorPackage
 import org.xtuml.bp.xtext.masl.masl.structure.DomainDefinition
 import org.xtuml.bp.xtext.masl.masl.structure.MaslModel
 import org.xtuml.bp.xtext.masl.masl.structure.StructurePackage
+import org.xtuml.bp.xtext.masl.masl.types.TypesPackage
 import org.xtuml.bp.xtext.masl.tests.MASLInjectorProvider
 
 import static org.xtuml.bp.xtext.masl.validation.MaslIssueCodesProvider.*
-import org.eclipse.xtext.resource.XtextResourceSet
-import com.google.inject.Provider
-import org.eclipse.emf.common.util.URI
-import org.xtuml.bp.xtext.masl.masl.behavior.BehaviorPackage
 
 @RunWith(XtextRunner)
 @InjectWith(MASLInjectorProvider)
@@ -28,6 +29,7 @@ class ValidatorTest {
 	@Inject extension ValidationTestHelper
 	@Inject extension StructurePackage
 	@Inject extension BehaviorPackage
+	@Inject extension TypesPackage
 	@Inject Provider<XtextResourceSet> resourceSetProvider
 
 	@Test
@@ -55,6 +57,21 @@ class ValidatorTest {
 		'1()'.model.assertError(operationCall, INVALID_OPERATION_CALL)
 	}
 	
+	@Test 
+	def void testConstrainedTypeReference() {
+		val model = load('''
+			domain dom is
+				type array2 is array ( integer range<> ) of string;
+				type array3 is array2 ( 1..10 );
+				type array4 is array3 ( 1..10 );
+			end;
+		''')
+		val types = ((model.elements.head) as DomainDefinition).types
+		assertNoError(types.get(0), WRONG_TYPE)
+		assertNoError(types.get(1), WRONG_TYPE)
+		assertError(types.get(2), constrainedArrayTypeReference, WRONG_TYPE)
+	}
+
 	private def assertNoError(EObject element, String type) {
 		!element.validate.exists[
 			uriToProblem == EcoreUtil.getURI(element) && code == type

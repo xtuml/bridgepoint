@@ -33,7 +33,7 @@ import org.xtuml.bp.xtext.masl.masl.structure.AbstractFeature;
  * </p>
  * <ul>
  *   <li>{@link org.xtuml.bp.xtext.masl.masl.behavior.impl.TerminatorOperationCallImpl#getReceiver <em>Receiver</em>}</li>
- *   <li>{@link org.xtuml.bp.xtext.masl.masl.behavior.impl.TerminatorOperationCallImpl#getTerminalOperation <em>Terminal Operation</em>}</li>
+ *   <li>{@link org.xtuml.bp.xtext.masl.masl.behavior.impl.TerminatorOperationCallImpl#getTerminatorOperation <em>Terminator Operation</em>}</li>
  *   <li>{@link org.xtuml.bp.xtext.masl.masl.behavior.impl.TerminatorOperationCallImpl#getArguments <em>Arguments</em>}</li>
  * </ul>
  *
@@ -51,14 +51,14 @@ public class TerminatorOperationCallImpl extends ExpressionImpl implements Termi
 	protected Expression receiver;
 
 	/**
-	 * The cached value of the '{@link #getTerminalOperation() <em>Terminal Operation</em>}' reference.
+	 * The cached value of the '{@link #getTerminatorOperation() <em>Terminator Operation</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getTerminalOperation()
+	 * @see #getTerminatorOperation()
 	 * @generated
 	 * @ordered
 	 */
-	protected AbstractFeature terminalOperation;
+	protected AbstractFeature terminatorOperation;
 
 	/**
 	 * The cached value of the '{@link #getArguments() <em>Arguments</em>}' containment reference list.
@@ -137,16 +137,16 @@ public class TerminatorOperationCallImpl extends ExpressionImpl implements Termi
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public AbstractFeature getTerminalOperation() {
-		if (terminalOperation != null && terminalOperation.eIsProxy()) {
-			InternalEObject oldTerminalOperation = (InternalEObject)terminalOperation;
-			terminalOperation = (AbstractFeature)eResolveProxy(oldTerminalOperation);
-			if (terminalOperation != oldTerminalOperation) {
+	public AbstractFeature getTerminatorOperation() {
+		if (terminatorOperation != null && terminatorOperation.eIsProxy()) {
+			InternalEObject oldTerminatorOperation = (InternalEObject)terminatorOperation;
+			terminatorOperation = (AbstractFeature)eResolveProxy(oldTerminatorOperation);
+			if (terminatorOperation != oldTerminatorOperation) {
 				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, BehaviorPackage.TERMINATOR_OPERATION_CALL__TERMINAL_OPERATION, oldTerminalOperation, terminalOperation));
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, BehaviorPackage.TERMINATOR_OPERATION_CALL__TERMINATOR_OPERATION, oldTerminatorOperation, terminatorOperation));
 			}
 		}
-		return terminalOperation;
+		return terminatorOperation;
 	}
 
 	/**
@@ -154,8 +154,8 @@ public class TerminatorOperationCallImpl extends ExpressionImpl implements Termi
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public AbstractFeature basicGetTerminalOperation() {
-		return terminalOperation;
+	public AbstractFeature basicGetTerminatorOperation() {
+		return terminatorOperation;
 	}
 
 	/**
@@ -163,11 +163,11 @@ public class TerminatorOperationCallImpl extends ExpressionImpl implements Termi
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setTerminalOperation(AbstractFeature newTerminalOperation) {
-		AbstractFeature oldTerminalOperation = terminalOperation;
-		terminalOperation = newTerminalOperation;
+	public void setTerminatorOperation(AbstractFeature newTerminatorOperation) {
+		AbstractFeature oldTerminatorOperation = terminatorOperation;
+		terminatorOperation = newTerminatorOperation;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, BehaviorPackage.TERMINATOR_OPERATION_CALL__TERMINAL_OPERATION, oldTerminalOperation, terminalOperation));
+			eNotify(new ENotificationImpl(this, Notification.SET, BehaviorPackage.TERMINATOR_OPERATION_CALL__TERMINATOR_OPERATION, oldTerminatorOperation, terminatorOperation));
 	}
 
 	/**
@@ -208,9 +208,9 @@ public class TerminatorOperationCallImpl extends ExpressionImpl implements Termi
 		switch (featureID) {
 			case BehaviorPackage.TERMINATOR_OPERATION_CALL__RECEIVER:
 				return getReceiver();
-			case BehaviorPackage.TERMINATOR_OPERATION_CALL__TERMINAL_OPERATION:
-				if (resolve) return getTerminalOperation();
-				return basicGetTerminalOperation();
+			case BehaviorPackage.TERMINATOR_OPERATION_CALL__TERMINATOR_OPERATION:
+				if (resolve) return getTerminatorOperation();
+				return basicGetTerminatorOperation();
 			case BehaviorPackage.TERMINATOR_OPERATION_CALL__ARGUMENTS:
 				return getArguments();
 		}
@@ -229,8 +229,8 @@ public class TerminatorOperationCallImpl extends ExpressionImpl implements Termi
 			case BehaviorPackage.TERMINATOR_OPERATION_CALL__RECEIVER:
 				setReceiver((Expression)newValue);
 				return;
-			case BehaviorPackage.TERMINATOR_OPERATION_CALL__TERMINAL_OPERATION:
-				setTerminalOperation((AbstractFeature)newValue);
+			case BehaviorPackage.TERMINATOR_OPERATION_CALL__TERMINATOR_OPERATION:
+				setTerminatorOperation((AbstractFeature)newValue);
 				return;
 			case BehaviorPackage.TERMINATOR_OPERATION_CALL__ARGUMENTS:
 				getArguments().clear();
@@ -251,8 +251,8 @@ public class TerminatorOperationCallImpl extends ExpressionImpl implements Termi
 			case BehaviorPackage.TERMINATOR_OPERATION_CALL__RECEIVER:
 				setReceiver((Expression)null);
 				return;
-			case BehaviorPackage.TERMINATOR_OPERATION_CALL__TERMINAL_OPERATION:
-				setTerminalOperation((AbstractFeature)null);
+			case BehaviorPackage.TERMINATOR_OPERATION_CALL__TERMINATOR_OPERATION:
+				setTerminatorOperation((AbstractFeature)null);
 				return;
 			case BehaviorPackage.TERMINATOR_OPERATION_CALL__ARGUMENTS:
 				getArguments().clear();
@@ -271,8 +271,8 @@ public class TerminatorOperationCallImpl extends ExpressionImpl implements Termi
 		switch (featureID) {
 			case BehaviorPackage.TERMINATOR_OPERATION_CALL__RECEIVER:
 				return receiver != null;
-			case BehaviorPackage.TERMINATOR_OPERATION_CALL__TERMINAL_OPERATION:
-				return terminalOperation != null;
+			case BehaviorPackage.TERMINATOR_OPERATION_CALL__TERMINATOR_OPERATION:
+				return terminatorOperation != null;
 			case BehaviorPackage.TERMINATOR_OPERATION_CALL__ARGUMENTS:
 				return arguments != null && !arguments.isEmpty();
 		}

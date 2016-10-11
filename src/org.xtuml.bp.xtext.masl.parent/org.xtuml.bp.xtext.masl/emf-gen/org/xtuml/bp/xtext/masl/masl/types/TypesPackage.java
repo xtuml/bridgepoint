@@ -927,13 +927,13 @@ public interface TypesPackage extends EPackage {
 	int CONSTRAINED_ARRAY_TYPE_REFERENCE = 19;
 
 	/**
-	 * The feature id for the '<em><b>Element Type</b></em>' reference.
+	 * The feature id for the '<em><b>Unconstrained</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CONSTRAINED_ARRAY_TYPE_REFERENCE__ELEMENT_TYPE = ABSTRACT_TYPE_REFERENCE_FEATURE_COUNT + 0;
+	int CONSTRAINED_ARRAY_TYPE_REFERENCE__UNCONSTRAINED = ABSTRACT_TYPE_REFERENCE_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Constraint</b></em>' containment reference.
@@ -1785,15 +1785,15 @@ public interface TypesPackage extends EPackage {
 	EClass getConstrainedArrayTypeReference();
 
 	/**
-	 * Returns the meta object for the reference '{@link org.xtuml.bp.xtext.masl.masl.types.ConstrainedArrayTypeReference#getElementType <em>Element Type</em>}'.
+	 * Returns the meta object for the reference '{@link org.xtuml.bp.xtext.masl.masl.types.ConstrainedArrayTypeReference#getUnconstrained <em>Unconstrained</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Element Type</em>'.
-	 * @see org.xtuml.bp.xtext.masl.masl.types.ConstrainedArrayTypeReference#getElementType()
+	 * @return the meta object for the reference '<em>Unconstrained</em>'.
+	 * @see org.xtuml.bp.xtext.masl.masl.types.ConstrainedArrayTypeReference#getUnconstrained()
 	 * @see #getConstrainedArrayTypeReference()
 	 * @generated
 	 */
-	EReference getConstrainedArrayTypeReference_ElementType();
+	EReference getConstrainedArrayTypeReference_Unconstrained();
 
 	/**
 	 * Returns the meta object for the containment reference '{@link org.xtuml.bp.xtext.masl.masl.types.ConstrainedArrayTypeReference#getConstraint <em>Constraint</em>}'.
@@ -2337,12 +2337,12 @@ public interface TypesPackage extends EPackage {
 		EClass CONSTRAINED_ARRAY_TYPE_REFERENCE = eINSTANCE.getConstrainedArrayTypeReference();
 
 		/**
-		 * The meta object literal for the '<em><b>Element Type</b></em>' reference feature.
+		 * The meta object literal for the '<em><b>Unconstrained</b></em>' reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference CONSTRAINED_ARRAY_TYPE_REFERENCE__ELEMENT_TYPE = eINSTANCE.getConstrainedArrayTypeReference_ElementType();
+		EReference CONSTRAINED_ARRAY_TYPE_REFERENCE__UNCONSTRAINED = eINSTANCE.getConstrainedArrayTypeReference_Unconstrained();
 
 		/**
 		 * The meta object literal for the '<em><b>Constraint</b></em>' containment reference feature.

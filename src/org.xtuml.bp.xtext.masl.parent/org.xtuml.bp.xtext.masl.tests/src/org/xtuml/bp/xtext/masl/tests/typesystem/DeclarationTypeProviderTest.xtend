@@ -325,6 +325,39 @@ class DeclarationTypeProviderTest extends AbstractMaslModelTest {
 			end;
 		''', 'bag of anonymous builtin string')
 	}
+	
+	@Test
+	def void testUnconstrainedArrayType() {
+		doAssertType('''
+			domain dom is
+				service svc();
+				type array2 is array ( integer range<> ) of string;
+				type array3 is array2 ( 1..10 ); 
+			end;
+		''','''
+			service dom::svc() is
+				a: array3;
+			begin
+				^a;
+			end;
+		''', 'type array3 is array of builtin string')
+	}
+
+	@Test
+	def void testUnconstrainedArrayType2() {
+		doAssertType('''
+			domain dom is
+				service svc();
+				type array2 is array ( integer range<> ) of string;
+			end;
+		''','''
+			service dom::svc() is
+				b: array2 (1..20);
+			begin
+				^b;
+			end;
+		''', 'array of builtin string')
+	}
 
 	protected def assertType(CharSequence domainDeclaration, CharSequence expression, String expected) {
 		doAssertType('''

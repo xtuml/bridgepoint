@@ -97,7 +97,7 @@ class MASLScopeProvider extends AbstractMASLScopeProvider {
 				if(context instanceof TransitionOption) 
 					return createObjectScope(context.getContainerOfType(ObjectDefinition), [states])		
 			}
-			case terminatorOperationCall_TerminalOperation: {
+			case terminatorOperationCall_TerminatorOperation: {
 				if(context instanceof TerminatorOperationCall) {
 					val receiver = context?.receiver
 					if(receiver instanceof SimpleFeatureCall) {

@@ -14,7 +14,7 @@ import org.xtuml.bp.xtext.masl.masl.behavior.Expression;
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link org.xtuml.bp.xtext.masl.masl.types.ConstrainedArrayTypeReference#getElementType <em>Element Type</em>}</li>
+ *   <li>{@link org.xtuml.bp.xtext.masl.masl.types.ConstrainedArrayTypeReference#getUnconstrained <em>Unconstrained</em>}</li>
  *   <li>{@link org.xtuml.bp.xtext.masl.masl.types.ConstrainedArrayTypeReference#getConstraint <em>Constraint</em>}</li>
  * </ul>
  *
@@ -24,30 +24,30 @@ import org.xtuml.bp.xtext.masl.masl.behavior.Expression;
  */
 public interface ConstrainedArrayTypeReference extends AbstractTypeReference {
 	/**
-	 * Returns the value of the '<em><b>Element Type</b></em>' reference.
+	 * Returns the value of the '<em><b>Unconstrained</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Element Type</em>' reference isn't clear,
+	 * If the meaning of the '<em>Unconstrained</em>' reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Element Type</em>' reference.
-	 * @see #setElementType(TypeDeclaration)
-	 * @see org.xtuml.bp.xtext.masl.masl.types.TypesPackage#getConstrainedArrayTypeReference_ElementType()
+	 * @return the value of the '<em>Unconstrained</em>' reference.
+	 * @see #setUnconstrained(TypeDeclaration)
+	 * @see org.xtuml.bp.xtext.masl.masl.types.TypesPackage#getConstrainedArrayTypeReference_Unconstrained()
 	 * @model
 	 * @generated
 	 */
-	TypeDeclaration getElementType();
+	TypeDeclaration getUnconstrained();
 
 	/**
-	 * Sets the value of the '{@link org.xtuml.bp.xtext.masl.masl.types.ConstrainedArrayTypeReference#getElementType <em>Element Type</em>}' reference.
+	 * Sets the value of the '{@link org.xtuml.bp.xtext.masl.masl.types.ConstrainedArrayTypeReference#getUnconstrained <em>Unconstrained</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Element Type</em>' reference.
-	 * @see #getElementType()
+	 * @param value the new value of the '<em>Unconstrained</em>' reference.
+	 * @see #getUnconstrained()
 	 * @generated
 	 */
-	void setElementType(TypeDeclaration value);
+	void setUnconstrained(TypeDeclaration value);
 
 	/**
 	 * Returns the value of the '<em><b>Constraint</b></em>' containment reference.

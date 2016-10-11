@@ -707,7 +707,7 @@ public class TypesPackageImpl extends EPackageImpl implements TypesPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getConstrainedArrayTypeReference_ElementType() {
+	public EReference getConstrainedArrayTypeReference_Unconstrained() {
 		return (EReference)constrainedArrayTypeReferenceEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -910,7 +910,7 @@ public class TypesPackageImpl extends EPackageImpl implements TypesPackage {
 		createEReference(namedTypeReferenceEClass, NAMED_TYPE_REFERENCE__TYPE);
 
 		constrainedArrayTypeReferenceEClass = createEClass(CONSTRAINED_ARRAY_TYPE_REFERENCE);
-		createEReference(constrainedArrayTypeReferenceEClass, CONSTRAINED_ARRAY_TYPE_REFERENCE__ELEMENT_TYPE);
+		createEReference(constrainedArrayTypeReferenceEClass, CONSTRAINED_ARRAY_TYPE_REFERENCE__UNCONSTRAINED);
 		createEReference(constrainedArrayTypeReferenceEClass, CONSTRAINED_ARRAY_TYPE_REFERENCE__CONSTRAINT);
 
 		abstractCollectionTypeReferenceEClass = createEClass(ABSTRACT_COLLECTION_TYPE_REFERENCE);
@@ -1058,7 +1058,7 @@ public class TypesPackageImpl extends EPackageImpl implements TypesPackage {
 		initEReference(getNamedTypeReference_Type(), this.getTypeDeclaration(), null, "type", null, 0, 1, NamedTypeReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(constrainedArrayTypeReferenceEClass, ConstrainedArrayTypeReference.class, "ConstrainedArrayTypeReference", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getConstrainedArrayTypeReference_ElementType(), this.getTypeDeclaration(), null, "elementType", null, 0, 1, ConstrainedArrayTypeReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getConstrainedArrayTypeReference_Unconstrained(), this.getTypeDeclaration(), null, "unconstrained", null, 0, 1, ConstrainedArrayTypeReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getConstrainedArrayTypeReference_Constraint(), theBehaviorPackage.getExpression(), null, "constraint", null, 0, 1, ConstrainedArrayTypeReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(abstractCollectionTypeReferenceEClass, AbstractCollectionTypeReference.class, "AbstractCollectionTypeReference", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);

@@ -180,18 +180,17 @@ UnconstrainedArrayDefinition:
 AbstractTypeReference:
 	NamedTypeReference
 	| InstanceTypeReference
-	| AbstractCollectionTypeReference
-	| DeprecatedTypeReference;
+	| AbstractCollectionTypeReference;
+//	| DeprecatedTypeReference;
 
 AbstractTypeReferenceWithCA returns AbstractTypeReference:
 	AbstractTypeReference
 	| ConstrainedArrayTypeReference;
 
-
-DeprecatedTypeReference:
-	typeName=('instance'
-	| 'event'
-	| 'service');
+//DeprecatedTypeReference:
+//	typeName=('instance'
+//	| 'event'
+//	| 'service');
 
 InstanceTypeReference:
 	anonymous?='anonymous'? 'instance' 'of' instance=[ObjectDeclaration|ScopedName];
@@ -200,7 +199,7 @@ NamedTypeReference:
 	anonymous?='anonymous'? type=[TypeDeclaration|ScopedName];
 
 ConstrainedArrayTypeReference:
-	elementType=[TypeDeclaration|ScopedName] '(' constraint=Expression ')';
+	unconstrained=[TypeDeclaration|ScopedName] '(' constraint=Expression ')';
 
 AbstractCollectionTypeReference:
 	SequenceTypeReference
@@ -596,7 +595,7 @@ CodeBlock:
 
 VariableDeclaration:
 	name=ID ':'
-	readOnly='readonly'? type=AbstractTypeReference
+	readOnly='readonly'? type=AbstractTypeReferenceWithCA
 	(':=' expression=Expression)?
 	';' PragmaList;
 
@@ -755,7 +754,7 @@ PostfixExpression returns Expression:
 	PrimaryExpression
 	( {OperationCall.receiver=current} =>'(' (arguments+=Expression (',' arguments+=Expression)*)? ')' 
 	| {SimpleFeatureCall.receiver=current} '.' feature=[AbstractFeature] 
-	| {TerminatorOperationCall.receiver=current} '~>' terminalOperation=[AbstractFeature] '(' (arguments+=Expression (',' arguments+=Expression)*)? ')'
+	| {TerminatorOperationCall.receiver=current} '~>' terminatorOperation=[AbstractFeature] '(' (arguments+=Expression (',' arguments+=Expression)*)? ')'
 	| {IndexedExpression.receiver=current} '[' brackets=Expression ']'
 	| {CharacteristicCall.receiver=current} '\'' characteristic=[Characteristic|CharacteristicID] (=> '('
 		(arguments+=Expression (',' arguments+=Expression)*)?

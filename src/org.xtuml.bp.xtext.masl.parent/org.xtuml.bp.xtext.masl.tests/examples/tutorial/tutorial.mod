@@ -50,7 +50,7 @@ domain tutorial is
 		color_field: colour;
 	end;
 	
-	type octal_type is integer (0..7);
+	type octal_type is array (0..7) of integer;
 	type positive is integer;
 	type Time_Unit is enum (DAY, HOUR, SECOND, MILLISECOND);
 	type colour is enum(blue, red, green);

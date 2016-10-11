@@ -131,7 +131,7 @@ class PrimitiveTypesTest extends AbstractMaslModelTest {
 		assertPrimitiveType('''
 			domain dom is
 				service svc();
-				type c is integer (1..1);
+				type c is array (1..1) of integer;
 			end;
 		''', '''
 			service dom::scv(c0: in c) is

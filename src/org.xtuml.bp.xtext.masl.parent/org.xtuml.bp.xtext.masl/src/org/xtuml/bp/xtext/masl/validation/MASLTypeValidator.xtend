@@ -17,6 +17,9 @@ import org.xtuml.bp.xtext.masl.typesystem.RangeType
 
 import static org.xtuml.bp.xtext.masl.typesystem.BuiltinType.*
 import static org.xtuml.bp.xtext.masl.validation.MaslIssueCodesProvider.*
+import org.xtuml.bp.xtext.masl.masl.types.ConstrainedArrayTypeReference
+import org.xtuml.bp.xtext.masl.masl.types.UnconstrainedArrayDefinition
+import org.xtuml.bp.xtext.masl.masl.types.TypesPackage
 
 class MASLTypeValidator extends AbstractMASLValidator {
 	
@@ -27,6 +30,7 @@ class MASLTypeValidator extends AbstractMASLValidator {
 	@Inject extension MaslExpectedTypeProvider
 	@Inject extension MaslTypeConformanceComputer
 	@Inject extension BehaviorPackage
+	@Inject extension TypesPackage
 	
 	@Check
 	def checkTypeExpectations(EObject it) {
@@ -51,13 +55,21 @@ class MASLTypeValidator extends AbstractMASLValidator {
 	private def checkTypeExpectation(EObject element, MaslType expectedType, EObject owner, EReference reference, int index) {
 		val realType = element.maslType
 		if(!realType.isAssignableTo(expectedType)) {
-			error('''Expected «expectedType» but was «realType».''', owner, reference, index, WRONG_TYPE)
+			addIssue('''Expected «expectedType» but was «realType».''', owner, reference, index, WRONG_TYPE)
 		}
 	}
 	
-	@Check def checkIndexType(IndexedExpression it) {
+	@Check 
+	def checkIndexType(IndexedExpression it) {
 		val indexType = brackets.maslType
 		if(indexType != INTEGER && !(indexType.primitiveType instanceof RangeType)) 
-			error('''Index type should be integer or range but is «indexType».''', it, indexedExpression_Brackets, WRONG_TYPE)
+			addIssue('''Index type should be integer or range but is «indexType».''', it, indexedExpression_Brackets, WRONG_TYPE)
+	}
+	
+	@Check
+	def checkConstrainedArrayTypeReference(ConstrainedArrayTypeReference it) {
+		if(!(unconstrained?.definition instanceof UnconstrainedArrayDefinition)) {
+			error("The constrained type '" + unconstrained.name  + "' must be an unconstrained array type", it, constrainedArrayTypeReference_Unconstrained, WRONG_TYPE)
+		} 
 	}
 }
