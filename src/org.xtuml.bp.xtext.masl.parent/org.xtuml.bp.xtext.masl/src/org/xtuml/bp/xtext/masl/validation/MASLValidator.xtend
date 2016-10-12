@@ -6,323 +6,33 @@ package org.xtuml.bp.xtext.masl.validation
 import com.google.inject.Inject
 import java.util.HashSet
 import java.util.Set
-import java.util.regex.Pattern
-import org.eclipse.xtext.naming.IQualifiedNameProvider
 import org.eclipse.xtext.validation.Check
 import org.eclipse.xtext.validation.ComposedChecks
-import org.xtuml.bp.xtext.masl.MASLExtensions
-import org.xtuml.bp.xtext.masl.masl.behavior.BehaviorPackage
-import org.xtuml.bp.xtext.masl.masl.behavior.IndexedExpression
-import org.xtuml.bp.xtext.masl.masl.behavior.OperationCall
-import org.xtuml.bp.xtext.masl.masl.behavior.SimpleFeatureCall
-import org.xtuml.bp.xtext.masl.masl.behavior.TerminatorOperationCall
-import org.xtuml.bp.xtext.masl.masl.structure.AssocRelationshipDefinition
+import org.xtuml.bp.xtext.masl.masl.behavior.CodeBlock
+import org.xtuml.bp.xtext.masl.masl.behavior.ReturnStatement
+import org.xtuml.bp.xtext.masl.masl.behavior.ThisLiteral
+import org.xtuml.bp.xtext.masl.masl.structure.AbstractTopLevelElement
 import org.xtuml.bp.xtext.masl.masl.structure.DomainDefinition
-import org.xtuml.bp.xtext.masl.masl.structure.DomainFunctionDeclaration
-import org.xtuml.bp.xtext.masl.masl.structure.DomainFunctionDefinition
-import org.xtuml.bp.xtext.masl.masl.structure.DomainServiceDeclaration
-import org.xtuml.bp.xtext.masl.masl.structure.DomainServiceDefinition
-import org.xtuml.bp.xtext.masl.masl.structure.IdentifierDefinition
-import org.xtuml.bp.xtext.masl.masl.structure.MaslModel
 import org.xtuml.bp.xtext.masl.masl.structure.ObjectDeclaration
-import org.xtuml.bp.xtext.masl.masl.structure.ObjectDefinition
-import org.xtuml.bp.xtext.masl.masl.structure.ObjectFunctionDeclaration
 import org.xtuml.bp.xtext.masl.masl.structure.ObjectFunctionDefinition
-import org.xtuml.bp.xtext.masl.masl.structure.ObjectServiceDeclaration
 import org.xtuml.bp.xtext.masl.masl.structure.ObjectServiceDefinition
-import org.xtuml.bp.xtext.masl.masl.structure.ProjectDefinition
-import org.xtuml.bp.xtext.masl.masl.structure.RegularRelationshipDefinition
-import org.xtuml.bp.xtext.masl.masl.structure.RelationshipDefinition
-import org.xtuml.bp.xtext.masl.masl.structure.RelationshipEnd
-import org.xtuml.bp.xtext.masl.masl.structure.RelationshipNavigation
-import org.xtuml.bp.xtext.masl.masl.structure.StateDeclaration
 import org.xtuml.bp.xtext.masl.masl.structure.StateDefinition
 import org.xtuml.bp.xtext.masl.masl.structure.StructurePackage
 import org.xtuml.bp.xtext.masl.masl.structure.SubtypeRelationshipDefinition
-import org.xtuml.bp.xtext.masl.masl.structure.TerminatorDefinition
-import org.xtuml.bp.xtext.masl.masl.structure.TerminatorFunctionDeclaration
-import org.xtuml.bp.xtext.masl.masl.structure.TerminatorFunctionDefinition
-import org.xtuml.bp.xtext.masl.masl.structure.TerminatorServiceDeclaration
-import org.xtuml.bp.xtext.masl.masl.structure.TerminatorServiceDefinition
-import org.xtuml.bp.xtext.masl.masl.structure.TransitionRow
-import org.xtuml.bp.xtext.masl.masl.types.AbstractTypeReference
-import org.xtuml.bp.xtext.masl.masl.types.EnumerationTypeDefinition
-import org.xtuml.bp.xtext.masl.masl.types.StructureTypeDefinition
-import org.xtuml.bp.xtext.masl.masl.types.TypeDeclaration
-import org.xtuml.bp.xtext.masl.scoping.ProjectScopeIndexProvider
-import org.xtuml.bp.xtext.masl.typesystem.BuiltinType
-import org.xtuml.bp.xtext.masl.typesystem.CollectionType
-import org.xtuml.bp.xtext.masl.typesystem.InstanceType
-import org.xtuml.bp.xtext.masl.typesystem.MaslTypeProvider
-import org.xtuml.bp.xtext.masl.typesystem.StructureType
 
-import static org.xtuml.bp.xtext.masl.typesystem.BuiltinType.*
 import static org.xtuml.bp.xtext.masl.validation.MaslIssueCodesProvider.*
-import org.xtuml.bp.xtext.masl.masl.behavior.ThisLiteral
+
 import static extension org.eclipse.xtext.EcoreUtil2.*
-import org.xtuml.bp.xtext.masl.masl.structure.AbstractTopLevelElement
 
 /**
  * This class contains custom validation rules. 
  * 
  * See https://www.eclipse.org/Xtext/documentation/303_runtime_concepts.html#validation
  */
-@ComposedChecks(validators=#[MASLTypeValidator, NameValidator])
+@ComposedChecks(validators=#[TypeValidator, NameValidator, StructureValidator])
 class MASLValidator extends AbstractMASLValidator {
 
 	@Inject extension StructurePackage structurePackage
-	@Inject extension BehaviorPackage
-	@Inject extension MASLExtensions
-	@Inject extension IQualifiedNameProvider
-	@Inject extension MaslTypeProvider
-	@Inject extension ProjectScopeIndexProvider
-
-	@Check
-	def void structureComponentDefs(StructureTypeDefinition it) {
-		if (components.empty)
-			addIssue('A structure must specify at least one component', it, null, ILLEGAL_EMPTY_LIST)
-	}
-
-	@Check
-	def void enumerators(EnumerationTypeDefinition it) {
-		if (enumerators.empty)
-			addIssue('An enumeration must specify at least one enumerator', it, null, ILLEGAL_EMPTY_LIST)
-	}
-
-	@Check
-	def void attributeReferentials(IdentifierDefinition it) {
-		if (attributes.empty)
-			addIssue('An attribute referential must specify at least one referential', it, null, ILLEGAL_EMPTY_LIST)
-	}
-
-	@Check
-	def void identifierAttributes(IdentifierDefinition it) {
-		if (attributes.empty)
-			addIssue('An identifier must specify at least one attribute', it, null, ILLEGAL_EMPTY_LIST)
-	}
-
-	@Check
-	def void transitionOptions(TransitionRow it) {
-		if (options.empty)
-			addIssue('A transition row must specify at least one option', it, null, ILLEGAL_EMPTY_LIST)
-	}
-
-	@Check
-	def void subtypes(SubtypeRelationshipDefinition it) {
-		if (subtypes.empty)
-			addIssue('A subtype relationship must specify at least one subtype', it, null, ILLEGAL_EMPTY_LIST)
-	}
-	
-	@Check 
-	def void domainDefinitionInProject(ProjectDefinition project) {
-		project.domains.forEach [
-			 (objects + services + functions + relationships + objectDefs + typeForwards + types + exceptions)
-			 .forEach[
-			 	addIssue('Only terminator definitions are allowed in a project', it, structurePackage.abstractNamed_Name, WRONG_STRUCTURE)
-			 ]
-		]
-	}
-
-	@Check
-	def void relationshipEndsAreOpposites(RegularRelationshipDefinition it) {
-		if (forwards.from != backwards.to) {
-			addIssue('Relationship objects do not correlate', forwards, relationshipEnd_From, INCONSISTENT_RELATIONSHIP_ENDS)
-			addIssue('Relationship objects do not correlate', backwards, relationshipEnd_To, INCONSISTENT_RELATIONSHIP_ENDS)
-		}
-		if (forwards.to != backwards.from) {
-			addIssue('Relationship objects do not correlate', forwards, relationshipEnd_To, INCONSISTENT_RELATIONSHIP_ENDS)
-			addIssue('Relationship objects do not correlate', backwards, relationshipEnd_From, INCONSISTENT_RELATIONSHIP_ENDS)
-		}
-	}
-
-	@Check
-	def void relationshipEndsAreOpposites(AssocRelationshipDefinition it) {
-		if (forwards.from != backwards.to) {
-			addIssue('Relationship objects do not correlate', forwards, relationshipEnd_From, INCONSISTENT_RELATIONSHIP_ENDS)
-			addIssue('Relationship objects do not correlate', backwards, relationshipEnd_To, INCONSISTENT_RELATIONSHIP_ENDS)
-		}
-		if (forwards.to != backwards.from) {
-			addIssue('Relationship objects do not correlate', forwards, relationshipEnd_To, INCONSISTENT_RELATIONSHIP_ENDS)
-			addIssue('Relationship objects do not correlate', backwards, relationshipEnd_From, INCONSISTENT_RELATIONSHIP_ENDS)
-		}
-	}
-
-	@Check
-	def void relationshipNavigation(RelationshipNavigation it) {
-		if (objectOrRole != null && object != null) {
-			if (objectOrRole instanceof RelationshipEnd) {
-				if ((objectOrRole as RelationshipEnd).to != object) {
-					addIssue('Role refers to another object', it, structurePackage.relationshipNavigation_ObjectOrRole, INCONSISTENT_RELATIONSHIP_NAVIGATION)
-				}
-			} else {
-				addIssue('Role refers to an object', it, structurePackage.relationshipNavigation_ObjectOrRole, INCONSISTENT_RELATIONSHIP_NAVIGATION)
-			}
-		}
-	}
-
-	@Check
-	def simpleFeatureCall(SimpleFeatureCall it) {
-		if(receiver != null && !receiver.eIsProxy) {
-			val primitiveType = receiver.maslType.primitiveType
-			switch primitiveType {
-				InstanceType, StructureType: {
-					// noop
-				} 
-				default:	
-					addIssue('Cannot call a feature on ' + receiver?.eClass?.name + ' ' + receiver.fullyQualifiedName?.lastSegment, it, featureCall_Receiver, INVALID_FEATURE_CALL)
-			}
-		} 
-		if(feature != null && !feature.eIsProxy && feature.isOperation && !(eContainer instanceof OperationCall)) 
-			addIssue('Operation ' + feature.fullyQualifiedName?.lastSegment + ' must be called with parentheses', it, featureCall_Feature, INVALID_FEATURE_CALL)
-	}
-
-	@Check
-	def operationCall(OperationCall it) {
-		val receiver = it.receiver
-		if(receiver != null && !receiver.eIsProxy) {
-			switch receiver {
-				SimpleFeatureCall: {
-					if(receiver.feature.isOperation || receiver.feature instanceof TypeDeclaration)
-						return;
-				}
-				AbstractTypeReference: return
-			}
-			addIssue('Cannot call ' + receiver.eClass.name + ' with parentheses', it, operationCall_Receiver, INVALID_OPERATION_CALL)
-		}
-	}
-	
-	@Check
-	def terminatorOperationCall(TerminatorOperationCall it) {
-		switch receiver {
-			TerminatorDefinition, 
-			SimpleFeatureCall: {
-				// noop
-			}
-			default:
-				addIssue('Cannot call terminator operation on ' + receiver.eClass.name, receiver, null)
-		}
-	}
-	
-	@Check
-	def indexedExpression(IndexedExpression it) {
-		if (receiver != null && !receiver.eIsProxy) {
-			val primitiveType = receiver.maslType.primitiveType
-			switch primitiveType {
-				CollectionType,
-				BuiltinType case STRING: {
-					// noop
-				}
-				default:
-					addIssue('Cannot use ' + receiver.eClass.name + ' as indexed element', receiver, null)
-			}
-		}
-	}
-	
-	@Check
-	def declarationPresent(ObjectDefinition it) {
-		if(getDeclarations(objectDeclaration, index).empty)
-			addIssue('Object is has not been declared', it, structurePackage.abstractNamed_Name, MISSING_DECLARATION)
-	}	
-	
-	@Check
-	def declarationPresent(ObjectFunctionDefinition it) {
-		if(getDeclarations(objectFunctionDeclaration, index).empty)
-			addIssue('Object function has not been declared', it, structurePackage.abstractNamed_Name, MISSING_DECLARATION)
-	}	
-	
-	@Check
-	def declarationPresent(ObjectServiceDefinition it) {
-		if(getDeclarations(objectServiceDeclaration, index).empty)
-			addIssue('Object service has not been declared', it, structurePackage.abstractNamed_Name, MISSING_DECLARATION)
-	}
-	
-	@Check
-	def declarationPresent(StateDefinition it) {
-		if(getDeclarations(stateDeclaration, index).empty)
-			addIssue('State has not been declared', it, structurePackage.abstractNamed_Name, MISSING_DECLARATION)
-	}
-	
-	@Check
-	def declarationPresent(DomainFunctionDefinition it) {
-		if(getDeclarations(domainFunctionDeclaration, index).empty)
-			addIssue('Domain function has not been declared', it, structurePackage.abstractNamed_Name, MISSING_DECLARATION)
-	}	
-	
-	@Check
-	def declarationPresent(DomainServiceDefinition it) {
-		if(getDeclarations(domainServiceDeclaration, index).empty)
-			addIssue('Domain service has not been declared', it, structurePackage.abstractNamed_Name, MISSING_DECLARATION)
-	}
-	
-	@Check
-	def declarationPresent(TerminatorFunctionDefinition it) {
-		if(getDeclarations(terminatorFunctionDeclaration, index).empty)
-			addIssue('Terminator function has not been declared', it, structurePackage.abstractNamed_Name, MISSING_DECLARATION)
-	}	
-	
-	@Check
-	def declarationPresent(TerminatorServiceDefinition it) {
-		if(getDeclarations(terminatorServiceDeclaration, index).empty)
-			addIssue('Terminator service has not been declared', it, structurePackage.abstractNamed_Name, MISSING_DECLARATION)
-	}
-	
-	@Check
-	def definitionPresent(ObjectDeclaration it) {
-		if(getDefinitions(objectDefinition, index).empty)
-			addIssue('Object has not been defined', it, structurePackage.abstractNamed_Name, MISSING_DEFINITION)
-	}	
-	
-	@Check
-	def definitionPresent(ObjectFunctionDeclaration it) {
-		if(getDefinitions(objectFunctionDefinition, index).empty)
-			addIssue('Object function has not been defined', it, structurePackage.abstractNamed_Name, MISSING_DEFINITION)
-	}	
-	
-	@Check
-	def definitionPresent(ObjectServiceDeclaration it) {
-		if(getDefinitions(objectServiceDefinition, index).empty)
-			addIssue('Object service has not been defined', it, structurePackage.abstractNamed_Name, MISSING_DEFINITION)
-	}	
-	
-	@Check
-	def definitionPresent(StateDeclaration it) {
-		if(getDefinitions(stateDefinition, index).empty)
-			addIssue('State has not been defined', it, structurePackage.abstractNamed_Name, MISSING_DEFINITION)
-	}	
-	
-	@Check
-	def definitionPresent(DomainFunctionDeclaration it) {
-		if(getDefinitions(domainFunctionDefinition, index).empty)
-			addIssue('Domain function has not been defined', it, structurePackage.abstractNamed_Name, MISSING_DEFINITION)
-	}	
-	
-	@Check
-	def definitionPresent(DomainServiceDeclaration it) {
-		if(getDefinitions(domainServiceDefinition, index).empty)
-			addIssue('Domain service has not been defined', it, structurePackage.abstractNamed_Name, MISSING_DEFINITION)
-	}	
-	
-	@Check
-	def definitionPresent(TerminatorFunctionDeclaration it) {
-		if(getDefinitions(terminatorFunctionDefinition, index).empty)
-			addIssue('Terminator function has not been defined', it, structurePackage.abstractNamed_Name, MISSING_DEFINITION)
-	}	
-	
-	@Check
-	def definitionPresent(TerminatorServiceDeclaration it) {
-		if(getDefinitions(terminatorServiceDefinition, index).empty)
-			addIssue('Terminator service has not been defined', it, structurePackage.abstractNamed_Name, MISSING_DEFINITION)
-	}	
-	
-	static val INT_PATTERN = Pattern.compile('[0-9]+')
-	
-	@Check
-	def relationName(RelationshipDefinition it) {
-		if(!name.startsWith('R'))
-			addIssue("Relationship name should start with an 'R'", it, structurePackage.abstractNamed_Name, NAMING_CONVENTION)
-		if(!INT_PATTERN.matcher(name.substring(1)).matches)
-			addIssue("Relationship name should end with an integer number", it, structurePackage.abstractNamed_Name, NAMING_CONVENTION)
-	} 
 	
 	@Check
 	def inheritanceCycle(ObjectDeclaration it) {
@@ -344,26 +54,6 @@ class MASLValidator extends AbstractMASLValidator {
 	}
 	
 	@Check 
-	def checkFileExtension(MaslModel model) {
-		val fileExtension = model.eResource.URI.fileExtension
-		model.elements.forEach [
-			val expectedFileExtensions = switch it {
-				ProjectDefinition: #['prj', 'masl']
-				DomainDefinition: #['mod', 'int', 'masl']
-				ObjectServiceDefinition: #['svc', 'masl']
-				DomainServiceDefinition: #['ext', 'scn', 'svc', 'masl']
-				ObjectFunctionDefinition, DomainFunctionDefinition: #['fn', 'masl']
-				TerminatorServiceDefinition, TerminatorFunctionDefinition: #['tr', 'masl']
-				StateDefinition: #['al','masl']
-			}
-			if(!expectedFileExtensions.contains(fileExtension)) {
-				addIssue('''«eClass.name» elements should be defined in a file with extension «
-				expectedFileExtensions.map['\'.'+ it + '\''].join(' or ')».''', it, structurePackage.abstractNamed_Name, WRONG_STRUCTURE)
-			}
-		]
-	}
-	
-	@Check 
 	def checkThis(ThisLiteral it) {
 		val topLevelElement = getContainerOfType(AbstractTopLevelElement)
 		switch topLevelElement {
@@ -378,6 +68,19 @@ class MASLValidator extends AbstractMASLValidator {
 			}
 			default: 
 				addIssue("'this' is only allowed in " + topLevelElement.eClass.name, it, null, INVALID_THIS)				
+		}
+	}
+	
+	@Check
+	def checkReturnIsLastStatement(ReturnStatement it) {
+		val parent = eContainer 
+		if(parent instanceof CodeBlock) {
+			val siblings = parent.statements
+			val index = siblings.indexOf(it)
+			if(index < siblings.size()-1) {
+				addIssue('Unreachable code', parent.statements.get(index + 1), null, UNREACHABLE_CODE) 
+			}
+			
 		}
 	}
 }

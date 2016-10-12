@@ -135,6 +135,35 @@ class ValidatorTest {
 		''').assertError(thisLiteral, INVALID_THIS)
 	}
 
+	@Test
+	def void testReturnTypeValidation() {
+		load('''
+			domain dom is 
+				function foo() return integer;
+			end;
+			
+			function dom::foo() return integer is
+			begin
+				return "";
+			end;
+		''').elements.last.assertError(returnStatement, WRONG_TYPE)
+	}
+
+	@Test
+	def void testUnreachableCode() {
+		load('''
+			domain dom is 
+				function foo() return integer;
+			end;
+			
+			function dom::foo() return integer is
+			begin
+				return 1;
+				delay 1;
+			end;
+		''').elements.last.assertError(delayStatement, UNREACHABLE_CODE)
+	}
+
 	private def assertNoError(EObject element, String type) {
 		!element.validate.exists[
 			uriToProblem == EcoreUtil.getURI(element) && code == type

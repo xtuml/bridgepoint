@@ -2,11 +2,12 @@ package org.xtuml.bp.xtext.masl.validation
 
 import com.google.common.collect.HashMultimap
 import com.google.inject.Inject
+import java.util.regex.Pattern
 import org.eclipse.emf.ecore.EClass
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.xtext.naming.IQualifiedNameProvider
-import org.eclipse.xtext.validation.AbstractDeclarativeValidator
 import org.eclipse.xtext.validation.Check
+import org.eclipse.xtext.validation.EValidatorRegistrar
 import org.xtuml.bp.xtext.masl.masl.behavior.CodeBlock
 import org.xtuml.bp.xtext.masl.masl.structure.DomainDefinition
 import org.xtuml.bp.xtext.masl.masl.structure.DomainFunctionDefinition
@@ -18,6 +19,7 @@ import org.xtuml.bp.xtext.masl.masl.structure.ObjectServiceDefinition
 import org.xtuml.bp.xtext.masl.masl.structure.Parameterized
 import org.xtuml.bp.xtext.masl.masl.structure.ProjectDefinition
 import org.xtuml.bp.xtext.masl.masl.structure.RegularRelationshipDefinition
+import org.xtuml.bp.xtext.masl.masl.structure.RelationshipDefinition
 import org.xtuml.bp.xtext.masl.masl.structure.StateDefinition
 import org.xtuml.bp.xtext.masl.masl.structure.StructurePackage
 import org.xtuml.bp.xtext.masl.masl.structure.TerminatorDefinition
@@ -25,7 +27,6 @@ import org.xtuml.bp.xtext.masl.masl.types.TypesPackage
 import org.xtuml.bp.xtext.masl.scoping.ProjectScopeIndexProvider
 
 import static org.xtuml.bp.xtext.masl.validation.MaslIssueCodesProvider.*
-import org.eclipse.xtext.validation.EValidatorRegistrar
 
 class NameValidator extends AbstractMASLValidator {
 	
@@ -37,6 +38,15 @@ class NameValidator extends AbstractMASLValidator {
 	@Inject extension IQualifiedNameProvider
 	@Inject extension ProjectScopeIndexProvider
 	
+	static val INT_PATTERN = Pattern.compile('[0-9]+')
+	
+	@Check
+	def relationName(RelationshipDefinition it) {
+		if(!name.startsWith('R'))
+			addIssue("Relationship name should start with an 'R'", it, structurePackage.abstractNamed_Name, NAMING_CONVENTION)
+		if(!INT_PATTERN.matcher(name.substring(1)).matches)
+			addIssue("Relationship name should end with an integer number", it, structurePackage.abstractNamed_Name, NAMING_CONVENTION)
+	} 
 	
 	@Check
 	def modelNamesAreUnique(MaslModel it) {
