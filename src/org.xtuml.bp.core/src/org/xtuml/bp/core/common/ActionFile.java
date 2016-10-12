@@ -22,7 +22,7 @@ import org.xtuml.bp.core.Ooaofooa;
 
 public class ActionFile {
 	
-	private static final String[] DIALECTS = { "oal" }; //, "masl" };
+	private static final String[] DIALECTS = { "masl" }; //, "oal" };
 	
 	private HashMap<String,IFile> fileMap;
 	
