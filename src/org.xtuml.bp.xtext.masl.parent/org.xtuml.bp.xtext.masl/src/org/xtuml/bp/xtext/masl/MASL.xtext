@@ -762,7 +762,7 @@ PostfixExpression returns Expression:
 	)*;
 
 CharacteristicID:
-		ID | 'range';
+		ID | 'range' |'delta';
 
 PostfixNoOperationCallExpression returns Expression:
 	PrimaryNoOperationCallExpression

@@ -184,6 +184,13 @@ builtin is
 	(duration)'microseconds() return integer;
 	(duration)'nanoseconds() return integer;
 
+	(timer)'expired()      return boolean;
+	(timer)'expired_at()   return timestamp;
+	(timer)'scheduled()    return boolean;
+	(timer)'scheduled_at() return timestamp;
+	(timer)'missed()       return integer;
+	(timer)'delta()        return duration;
+	
 	<T> (array (null) of T)'elements()   return range of T;
 	<T> (array (null) of T)'length()     return integer;
 	<T> (array (null) of T)'first()      return integer;
