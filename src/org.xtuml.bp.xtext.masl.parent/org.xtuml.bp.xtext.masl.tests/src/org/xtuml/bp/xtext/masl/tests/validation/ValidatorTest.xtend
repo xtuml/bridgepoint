@@ -4,12 +4,14 @@ import com.google.inject.Inject
 import com.google.inject.Provider
 import org.eclipse.emf.common.util.URI
 import org.eclipse.emf.ecore.EObject
+import org.eclipse.emf.ecore.resource.ResourceSet
 import org.eclipse.emf.ecore.util.EcoreUtil
 import org.eclipse.xtext.junit4.InjectWith
 import org.eclipse.xtext.junit4.XtextRunner
 import org.eclipse.xtext.junit4.util.ParseHelper
 import org.eclipse.xtext.junit4.validation.ValidationTestHelper
 import org.eclipse.xtext.resource.XtextResourceSet
+import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.xtuml.bp.xtext.masl.masl.behavior.BehaviorPackage
@@ -32,6 +34,14 @@ class ValidatorTest {
 	@Inject extension TypesPackage
 	@Inject Provider<XtextResourceSet> resourceSetProvider
 
+	ResourceSet rs
+	int modelCount
+	
+	@Before
+	def void setUp() {
+		rs = resourceSetProvider.get
+	}
+	
 	@Test
 	def void testInheritanceCycle() {
 		val objects = (load('''
@@ -72,6 +82,59 @@ class ValidatorTest {
 		assertError(types.get(2), constrainedArrayTypeReference, WRONG_TYPE)
 	}
 
+	@Test 
+	def void testInvalidThis() {
+		load('''
+			domain dom is
+				object Foo;
+				object Foo is 
+					instance function iFunc() return instance of Foo;
+					instance service iSvc();
+					function func() return instance of Foo;
+					service svc();
+				end;
+				function dFunc() return boolean
+				service dSvc();
+			end;
+		''')
+		load('''
+			instance function dom::Foo.iFunc() return instance of Foo is
+			begin
+				return this;
+			end; 
+		''').assertNoError(INVALID_THIS)
+		load('''
+			instance service dom::Foo.iSvc() is
+			begin
+				this;
+			end; 
+		''').assertNoError(INVALID_THIS)
+		load('''
+			function dom::Foo.func() return instance of Foo is
+			begin
+				return this;
+			end;
+		''').assertError(thisLiteral, INVALID_THIS)
+		load('''
+			service dom::Foo.svc() is
+			begin
+				this;
+			end;
+		''').assertError(thisLiteral, INVALID_THIS)
+		load('''
+			function dom::dFunc() return boolean is
+			begin
+				return this;
+			end;
+		''').assertError(thisLiteral, INVALID_THIS)
+		load('''
+			service dom::dServ() is
+			begin
+				this;
+			end;
+		''').assertError(thisLiteral, INVALID_THIS)
+	}
+
 	private def assertNoError(EObject element, String type) {
 		!element.validate.exists[
 			uriToProblem == EcoreUtil.getURI(element) && code == type
@@ -93,12 +156,11 @@ class ValidatorTest {
 
 	private def MaslModel load(CharSequence... models) {
 		val pairs = newArrayList 
-		models.forEach[model, i | pairs += 'dummy' + i + '.masl' -> model]
+		models.forEach[model | pairs += 'dummy' + modelCount++ + '.masl' -> model]
 		load(pairs)
 	}		
 	
 	private def MaslModel load(Pair<String, CharSequence>... fileName2content) {
-		val rs = resourceSetProvider.get
 		var MaslModel model
 		for(pair: fileName2content) {
 			model = pair.value.parse(URI.createURI(pair.key), rs)

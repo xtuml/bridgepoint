@@ -26,6 +26,7 @@ class MaslIssueCodesProvider extends ConfigurableIssueCodesProvider {
 	public static val INVALID_FEATURE_CALL = PREFIX + 'invalidFeatureCall'
 	public static val WRONG_STRUCTURE = PREFIX + 'wrongStructure'
 	public static val NAMING_CONVENTION = PREFIX + 'wrongStructure'
+	public static val INVALID_THIS = PREFIX + 'invalidThis'
 	
 	Map<String, PreferenceKey> issueCodes
 	
@@ -52,6 +53,7 @@ class MaslIssueCodesProvider extends ConfigurableIssueCodesProvider {
 		add(INVALID_FEATURE_CALL, SEVERITY_ERROR)
 		add(WRONG_STRUCTURE, SEVERITY_WARNING)
 		add(NAMING_CONVENTION, SEVERITY_WARNING)
+		add(INVALID_THIS, SEVERITY_ERROR)
 	}
 	
 	private def add(IAcceptor<PreferenceKey> it, String issueCode, String defaultSeverity) {

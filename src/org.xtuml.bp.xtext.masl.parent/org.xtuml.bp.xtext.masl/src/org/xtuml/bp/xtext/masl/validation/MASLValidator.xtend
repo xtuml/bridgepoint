@@ -58,6 +58,9 @@ import org.xtuml.bp.xtext.masl.typesystem.StructureType
 
 import static org.xtuml.bp.xtext.masl.typesystem.BuiltinType.*
 import static org.xtuml.bp.xtext.masl.validation.MaslIssueCodesProvider.*
+import org.xtuml.bp.xtext.masl.masl.behavior.ThisLiteral
+import static extension org.eclipse.xtext.EcoreUtil2.*
+import org.xtuml.bp.xtext.masl.masl.structure.AbstractTopLevelElement
 
 /**
  * This class contains custom validation rules. 
@@ -358,6 +361,24 @@ class MASLValidator extends AbstractMASLValidator {
 				expectedFileExtensions.map['\'.'+ it + '\''].join(' or ')».''', it, structurePackage.abstractNamed_Name, WRONG_STRUCTURE)
 			}
 		]
+	}
+	
+	@Check 
+	def checkThis(ThisLiteral it) {
+		val topLevelElement = getContainerOfType(AbstractTopLevelElement)
+		switch topLevelElement {
+			ObjectFunctionDefinition: 
+				if(!topLevelElement.isInstance)
+					addIssue("'this' is only allowed in instance functions", it, null, INVALID_THIS)	
+			ObjectServiceDefinition: 
+				if(!topLevelElement.isInstance)
+					addIssue("'this' is only allowed in instance services", it, null, INVALID_THIS)	
+			StateDefinition: { 
+				// noop
+			}
+			default: 
+				addIssue("'this' is only allowed in " + topLevelElement.eClass.name, it, null, INVALID_THIS)				
+		}
 	}
 }
 

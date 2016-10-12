@@ -27,7 +27,6 @@ class MaslValidationConfigurationBlock extends AbstractValidatorConfigurationBlo
 		createSection('Syntax', composite, nColumns).fillSyntaxPage(defaultIndent)
 		createSection('Structure', composite, nColumns).fillStructurePage(defaultIndent)
 		createSection('Types', composite, nColumns).fillTypesPage(defaultIndent)
-		
 	}
 
 	def protected fillSyntaxPage(Composite composite, int defaultIndent) {
@@ -42,6 +41,7 @@ class MaslValidationConfigurationBlock extends AbstractValidatorConfigurationBlo
 		addComboBox(MISSING_DEFINITION, 'Missing definitions', composite, defaultIndent) 
 		addComboBox(MISSING_DECLARATION, 'Missing declarations', composite, defaultIndent) 
 		addComboBox(WRONG_STRUCTURE, 'Wrong file contents', composite, defaultIndent) 
+		addComboBox(INVALID_THIS, "Invalid use of 'this' literal", composite, defaultIndent) 
 	}
 	
 	def protected fillTypesPage(Composite composite, int defaultIndent) {
