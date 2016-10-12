@@ -432,9 +432,12 @@ class MaslTypeProvider {
 	
 	private def MaslType getMaslTypeOfAdditive(AdditiveExp it) {
 		val lType = lhs.maslType
+		val rType = rhs.maslType
 		switch operator {
-			case '+', case '-':
-				return getCommonNumericType(lType, rhs.maslType)
+			case '+':
+				return getMaslTypeOfPlus(lType, rType)
+			case '-':
+				return getMaslTypeOfMinus(lType, rType)
 			case '&':
 				if(lType == STRING || lType instanceof CollectionType) 
 					return lType
@@ -450,11 +453,60 @@ class MaslTypeProvider {
 		}
 	}
 	
+	private def MaslType getMaslTypeOfPlus(MaslType lType, MaslType rType) {
+		switch lType.primitiveType {
+			case REAL,
+			case LONG_INTEGER:
+				return getCommonNumericType(lType, rType)
+			case TIMESTAMP:
+				if(rType.primitiveType == DURATION)
+					return lType
+			case DURATION:
+				if(lType.anonymous && lType == DURATION) {
+					if (rType.primitiveType == DURATION)
+						return rType
+					else if(rType == DURATION && rType.anonymous)
+						return ANONYMOUS_DURATION
+				} else if(rType == lType || (rType == DURATION && rType.anonymous)) {
+					return lType
+				} else if(rType.primitiveType == TIMESTAMP) {
+					return rType
+				}
+		}
+		return MISSING_TYPE
+	}
+	
+	private def MaslType getMaslTypeOfMinus(MaslType lType, MaslType rType) {
+		switch lType.primitiveType {
+			case REAL,
+			case LONG_INTEGER:
+				return getCommonNumericType(lType, rType)
+			case TIMESTAMP:
+				if(rType == lType) 
+					return ANONYMOUS_DURATION
+				else if(rType.primitiveType == DURATION)
+					return rType
+			case DURATION:
+				if(lType.anonymous && lType == DURATION) {
+					if (rType.primitiveType == DURATION)
+						return rType
+					else if(rType == DURATION && rType.anonymous)
+						return ANONYMOUS_DURATION
+				} else if(rType == lType || (rType == DURATION && rType.anonymous)) {
+					return lType
+				}
+		}
+		return MISSING_TYPE
+	}
+	
 	private def MaslType getMaslTypeOfMult(MultExp it) {
 		val lType = lhs.maslType
+		val rType = rhs.maslType
 		switch operator {
-			case '*', case '/':
-				return getCommonNumericType(lType, rhs.maslType)
+			case '*':
+				return getMaslTypeOfTimes(lType, rType)
+			 case '/':
+				return getMaslTypeOfDivide(lType, rType)
 			case 'mod', case 'rem':
 				return ANONYMOUS_INTEGER
 			case '**':
@@ -469,12 +521,56 @@ class MaslTypeProvider {
 		}
 	}
 	
-	private def MaslType getCommonNumericType(EObject it, MaslType a, MaslType b) {
-		if(a == INTEGER && b == INTEGER)
-			// TODO what type is byte + integer, byte + byte, integer + long_integer, long_integer + byte, etc
-			ANONYMOUS_INTEGER
-		else 
-			ANONYMOUS_REAL
+	private def MaslType getMaslTypeOfTimes(MaslType lType, MaslType rType) {
+		switch lType.primitiveType {
+			case REAL,
+			case LONG_INTEGER:
+				if(rType.primitiveType == DURATION)
+					return rType
+				else
+					return getCommonNumericType(lType, rType)
+			case DURATION:
+				switch rType {
+					case BYTE,
+					case INTEGER,
+					case LONG_INTEGER,
+					case REAL:
+						return lType
+				}
+		}
+		return MISSING_TYPE
 	}
 	
+	private def MaslType getMaslTypeOfDivide(MaslType lType, MaslType rType) {
+		switch lType.primitiveType {
+			case REAL,
+			case LONG_INTEGER:
+				return getCommonNumericType(lType, rType)
+			case DURATION:
+				switch rType {
+					case BYTE,
+					case INTEGER,
+					case LONG_INTEGER,
+					case REAL:
+						return lType
+				}
+		}
+		return MISSING_TYPE
+	}
+	
+	
+	private def MaslType getCommonNumericType(MaslType a, MaslType b) {
+		switch a.primitiveType {
+			case LONG_INTEGER:
+				if (a == b)
+					return a 
+				else if (b.primitiveType == REAL) 
+					return ANONYMOUS_REAL
+			case REAL: {
+				if (a == b || b.primitiveType == LONG_INTEGER) 
+					return ANONYMOUS_REAL
+			}
+		}
+		return MISSING_TYPE
+	}
 }

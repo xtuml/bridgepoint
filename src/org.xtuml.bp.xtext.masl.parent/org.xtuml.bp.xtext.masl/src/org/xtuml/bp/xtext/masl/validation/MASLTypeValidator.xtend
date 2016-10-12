@@ -48,7 +48,7 @@ class MASLTypeValidator extends AbstractMASLValidator {
 			}
 		]
 		if(it instanceof Expression && maslType == MISSING_TYPE) {
-			warning('Missing type', null)
+			error("Cannot determine type of " + eClass.name, null)
 		}
 	} 
 	
@@ -69,7 +69,7 @@ class MASLTypeValidator extends AbstractMASLValidator {
 	@Check
 	def checkConstrainedArrayTypeReference(ConstrainedArrayTypeReference it) {
 		if(!(unconstrained?.definition instanceof UnconstrainedArrayDefinition)) {
-			error("The constrained type '" + unconstrained.name  + "' must be an unconstrained array type", it, constrainedArrayTypeReference_Unconstrained, WRONG_TYPE)
+			addIssue("The constrained type '" + unconstrained.name  + "' must be an unconstrained array type", it, constrainedArrayTypeReference_Unconstrained, WRONG_TYPE)
 		} 
 	}
 }

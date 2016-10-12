@@ -77,37 +77,37 @@ class MASLValidator extends AbstractMASLValidator {
 	@Check
 	def void structureComponentDefs(StructureTypeDefinition it) {
 		if (components.empty)
-			error('A structure must specify at least one component', it, null, ILLEGAL_EMPTY_LIST)
+			addIssue('A structure must specify at least one component', it, null, ILLEGAL_EMPTY_LIST)
 	}
 
 	@Check
 	def void enumerators(EnumerationTypeDefinition it) {
 		if (enumerators.empty)
-			error('An enumeration must specify at least one enumerator', it, null, ILLEGAL_EMPTY_LIST)
+			addIssue('An enumeration must specify at least one enumerator', it, null, ILLEGAL_EMPTY_LIST)
 	}
 
 	@Check
 	def void attributeReferentials(IdentifierDefinition it) {
 		if (attributes.empty)
-			error('An attribute referential must specify at least one referential', it, null, ILLEGAL_EMPTY_LIST)
+			addIssue('An attribute referential must specify at least one referential', it, null, ILLEGAL_EMPTY_LIST)
 	}
 
 	@Check
 	def void identifierAttributes(IdentifierDefinition it) {
 		if (attributes.empty)
-			error('An identifier must specify at least one attribute', it, null, ILLEGAL_EMPTY_LIST)
+			addIssue('An identifier must specify at least one attribute', it, null, ILLEGAL_EMPTY_LIST)
 	}
 
 	@Check
 	def void transitionOptions(TransitionRow it) {
 		if (options.empty)
-			error('A transition row must specify at least one option', it, null, ILLEGAL_EMPTY_LIST)
+			addIssue('A transition row must specify at least one option', it, null, ILLEGAL_EMPTY_LIST)
 	}
 
 	@Check
 	def void subtypes(SubtypeRelationshipDefinition it) {
 		if (subtypes.empty)
-			error('A subtype relationship must specify at least one subtype', it, null, ILLEGAL_EMPTY_LIST)
+			addIssue('A subtype relationship must specify at least one subtype', it, null, ILLEGAL_EMPTY_LIST)
 	}
 	
 	@Check 
@@ -115,7 +115,7 @@ class MASLValidator extends AbstractMASLValidator {
 		project.domains.forEach [
 			 (objects + services + functions + relationships + objectDefs + typeForwards + types + exceptions)
 			 .forEach[
-			 	error('Only terminator definitions are allowed in a project', it, structurePackage.abstractNamed_Name)
+			 	addIssue('Only terminator definitions are allowed in a project', it, structurePackage.abstractNamed_Name, WRONG_STRUCTURE)
 			 ]
 		]
 	}
@@ -123,24 +123,24 @@ class MASLValidator extends AbstractMASLValidator {
 	@Check
 	def void relationshipEndsAreOpposites(RegularRelationshipDefinition it) {
 		if (forwards.from != backwards.to) {
-			error('Relationship objects do not correlate', forwards, relationshipEnd_From, INCONSISTENT_RELATIONSHIP_ENDS)
-			error('Relationship objects do not correlate', backwards, relationshipEnd_To, INCONSISTENT_RELATIONSHIP_ENDS)
+			addIssue('Relationship objects do not correlate', forwards, relationshipEnd_From, INCONSISTENT_RELATIONSHIP_ENDS)
+			addIssue('Relationship objects do not correlate', backwards, relationshipEnd_To, INCONSISTENT_RELATIONSHIP_ENDS)
 		}
 		if (forwards.to != backwards.from) {
-			error('Relationship objects do not correlate', forwards, relationshipEnd_To, INCONSISTENT_RELATIONSHIP_ENDS)
-			error('Relationship objects do not correlate', backwards, relationshipEnd_From, INCONSISTENT_RELATIONSHIP_ENDS)
+			addIssue('Relationship objects do not correlate', forwards, relationshipEnd_To, INCONSISTENT_RELATIONSHIP_ENDS)
+			addIssue('Relationship objects do not correlate', backwards, relationshipEnd_From, INCONSISTENT_RELATIONSHIP_ENDS)
 		}
 	}
 
 	@Check
 	def void relationshipEndsAreOpposites(AssocRelationshipDefinition it) {
 		if (forwards.from != backwards.to) {
-			error('Relationship objects do not correlate', forwards, relationshipEnd_From, INCONSISTENT_RELATIONSHIP_ENDS)
-			error('Relationship objects do not correlate', backwards, relationshipEnd_To, INCONSISTENT_RELATIONSHIP_ENDS)
+			addIssue('Relationship objects do not correlate', forwards, relationshipEnd_From, INCONSISTENT_RELATIONSHIP_ENDS)
+			addIssue('Relationship objects do not correlate', backwards, relationshipEnd_To, INCONSISTENT_RELATIONSHIP_ENDS)
 		}
 		if (forwards.to != backwards.from) {
-			error('Relationship objects do not correlate', forwards, relationshipEnd_To, INCONSISTENT_RELATIONSHIP_ENDS)
-			error('Relationship objects do not correlate', backwards, relationshipEnd_From, INCONSISTENT_RELATIONSHIP_ENDS)
+			addIssue('Relationship objects do not correlate', forwards, relationshipEnd_To, INCONSISTENT_RELATIONSHIP_ENDS)
+			addIssue('Relationship objects do not correlate', backwards, relationshipEnd_From, INCONSISTENT_RELATIONSHIP_ENDS)
 		}
 	}
 
@@ -149,10 +149,10 @@ class MASLValidator extends AbstractMASLValidator {
 		if (objectOrRole != null && object != null) {
 			if (objectOrRole instanceof RelationshipEnd) {
 				if ((objectOrRole as RelationshipEnd).to != object) {
-					error('Role refers to another object', it, structurePackage.relationshipNavigation_ObjectOrRole, INCONSISTENT_RELATIONSHIP_NAVIGATION)
+					addIssue('Role refers to another object', it, structurePackage.relationshipNavigation_ObjectOrRole, INCONSISTENT_RELATIONSHIP_NAVIGATION)
 				}
 			} else {
-				error('Role refers to an object', it, structurePackage.relationshipNavigation_ObjectOrRole, INCONSISTENT_RELATIONSHIP_NAVIGATION)
+				addIssue('Role refers to an object', it, structurePackage.relationshipNavigation_ObjectOrRole, INCONSISTENT_RELATIONSHIP_NAVIGATION)
 			}
 		}
 	}
@@ -166,11 +166,11 @@ class MASLValidator extends AbstractMASLValidator {
 					// noop
 				} 
 				default:	
-					error('Cannot call a feature on ' + receiver?.eClass?.name + ' ' + receiver.fullyQualifiedName?.lastSegment, it, featureCall_Receiver, INVALID_FEATURE_CALL)
+					addIssue('Cannot call a feature on ' + receiver?.eClass?.name + ' ' + receiver.fullyQualifiedName?.lastSegment, it, featureCall_Receiver, INVALID_FEATURE_CALL)
 			}
 		} 
 		if(feature != null && !feature.eIsProxy && feature.isOperation && !(eContainer instanceof OperationCall)) 
-			error('Operation ' + feature.fullyQualifiedName?.lastSegment + ' must be called with parentheses', it, featureCall_Feature, INVALID_FEATURE_CALL)
+			addIssue('Operation ' + feature.fullyQualifiedName?.lastSegment + ' must be called with parentheses', it, featureCall_Feature, INVALID_FEATURE_CALL)
 	}
 
 	@Check
@@ -184,7 +184,7 @@ class MASLValidator extends AbstractMASLValidator {
 				}
 				AbstractTypeReference: return
 			}
-			error('Cannot call ' + receiver.eClass.name + ' with parentheses', it, operationCall_Receiver, INVALID_OPERATION_CALL)
+			addIssue('Cannot call ' + receiver.eClass.name + ' with parentheses', it, operationCall_Receiver, INVALID_OPERATION_CALL)
 		}
 	}
 	
@@ -196,7 +196,7 @@ class MASLValidator extends AbstractMASLValidator {
 				// noop
 			}
 			default:
-				error('Cannot call terminator operation on ' + receiver.eClass.name, receiver, null)
+				addIssue('Cannot call terminator operation on ' + receiver.eClass.name, receiver, null)
 		}
 	}
 	
@@ -210,7 +210,7 @@ class MASLValidator extends AbstractMASLValidator {
 					// noop
 				}
 				default:
-					error('Cannot use ' + receiver.eClass.name + ' as indexed element', receiver, null)
+					addIssue('Cannot use ' + receiver.eClass.name + ' as indexed element', receiver, null)
 			}
 		}
 	}
@@ -218,97 +218,97 @@ class MASLValidator extends AbstractMASLValidator {
 	@Check
 	def declarationPresent(ObjectDefinition it) {
 		if(getDeclarations(objectDeclaration, index).empty)
-			warning('Object is has not been declared', it, structurePackage.abstractNamed_Name, MISSING_DECLARATION)
+			addIssue('Object is has not been declared', it, structurePackage.abstractNamed_Name, MISSING_DECLARATION)
 	}	
 	
 	@Check
 	def declarationPresent(ObjectFunctionDefinition it) {
 		if(getDeclarations(objectFunctionDeclaration, index).empty)
-			warning('Object function has not been declared', it, structurePackage.abstractNamed_Name, MISSING_DECLARATION)
+			addIssue('Object function has not been declared', it, structurePackage.abstractNamed_Name, MISSING_DECLARATION)
 	}	
 	
 	@Check
 	def declarationPresent(ObjectServiceDefinition it) {
 		if(getDeclarations(objectServiceDeclaration, index).empty)
-			warning('Object service has not been declared', it, structurePackage.abstractNamed_Name, MISSING_DECLARATION)
+			addIssue('Object service has not been declared', it, structurePackage.abstractNamed_Name, MISSING_DECLARATION)
 	}
 	
 	@Check
 	def declarationPresent(StateDefinition it) {
 		if(getDeclarations(stateDeclaration, index).empty)
-			warning('State has not been declared', it, structurePackage.abstractNamed_Name, MISSING_DECLARATION)
+			addIssue('State has not been declared', it, structurePackage.abstractNamed_Name, MISSING_DECLARATION)
 	}
 	
 	@Check
 	def declarationPresent(DomainFunctionDefinition it) {
 		if(getDeclarations(domainFunctionDeclaration, index).empty)
-			warning('Domain function has not been declared', it, structurePackage.abstractNamed_Name, MISSING_DECLARATION)
+			addIssue('Domain function has not been declared', it, structurePackage.abstractNamed_Name, MISSING_DECLARATION)
 	}	
 	
 	@Check
 	def declarationPresent(DomainServiceDefinition it) {
 		if(getDeclarations(domainServiceDeclaration, index).empty)
-			warning('Domain service has not been declared', it, structurePackage.abstractNamed_Name, MISSING_DECLARATION)
+			addIssue('Domain service has not been declared', it, structurePackage.abstractNamed_Name, MISSING_DECLARATION)
 	}
 	
 	@Check
 	def declarationPresent(TerminatorFunctionDefinition it) {
 		if(getDeclarations(terminatorFunctionDeclaration, index).empty)
-			warning('Terminator function has not been declared', it, structurePackage.abstractNamed_Name, MISSING_DECLARATION)
+			addIssue('Terminator function has not been declared', it, structurePackage.abstractNamed_Name, MISSING_DECLARATION)
 	}	
 	
 	@Check
 	def declarationPresent(TerminatorServiceDefinition it) {
 		if(getDeclarations(terminatorServiceDeclaration, index).empty)
-			warning('Terminator service has not been declared', it, structurePackage.abstractNamed_Name, MISSING_DECLARATION)
+			addIssue('Terminator service has not been declared', it, structurePackage.abstractNamed_Name, MISSING_DECLARATION)
 	}
 	
 	@Check
 	def definitionPresent(ObjectDeclaration it) {
 		if(getDefinitions(objectDefinition, index).empty)
-			warning('Object has not been defined', it, structurePackage.abstractNamed_Name, MISSING_DEFINITION)
+			addIssue('Object has not been defined', it, structurePackage.abstractNamed_Name, MISSING_DEFINITION)
 	}	
 	
 	@Check
 	def definitionPresent(ObjectFunctionDeclaration it) {
 		if(getDefinitions(objectFunctionDefinition, index).empty)
-			warning('Object function has not been defined', it, structurePackage.abstractNamed_Name, MISSING_DEFINITION)
+			addIssue('Object function has not been defined', it, structurePackage.abstractNamed_Name, MISSING_DEFINITION)
 	}	
 	
 	@Check
 	def definitionPresent(ObjectServiceDeclaration it) {
 		if(getDefinitions(objectServiceDefinition, index).empty)
-			warning('Object service has not been defined', it, structurePackage.abstractNamed_Name, MISSING_DEFINITION)
+			addIssue('Object service has not been defined', it, structurePackage.abstractNamed_Name, MISSING_DEFINITION)
 	}	
 	
 	@Check
 	def definitionPresent(StateDeclaration it) {
 		if(getDefinitions(stateDefinition, index).empty)
-			warning('State has not been defined', it, structurePackage.abstractNamed_Name, MISSING_DEFINITION)
+			addIssue('State has not been defined', it, structurePackage.abstractNamed_Name, MISSING_DEFINITION)
 	}	
 	
 	@Check
 	def definitionPresent(DomainFunctionDeclaration it) {
 		if(getDefinitions(domainFunctionDefinition, index).empty)
-			warning('Domain function has not been defined', it, structurePackage.abstractNamed_Name, MISSING_DEFINITION)
+			addIssue('Domain function has not been defined', it, structurePackage.abstractNamed_Name, MISSING_DEFINITION)
 	}	
 	
 	@Check
 	def definitionPresent(DomainServiceDeclaration it) {
 		if(getDefinitions(domainServiceDefinition, index).empty)
-			warning('Domain service has not been defined', it, structurePackage.abstractNamed_Name, MISSING_DEFINITION)
+			addIssue('Domain service has not been defined', it, structurePackage.abstractNamed_Name, MISSING_DEFINITION)
 	}	
 	
 	@Check
 	def definitionPresent(TerminatorFunctionDeclaration it) {
 		if(getDefinitions(terminatorFunctionDefinition, index).empty)
-			warning('Terminator function has not been defined', it, structurePackage.abstractNamed_Name, MISSING_DEFINITION)
+			addIssue('Terminator function has not been defined', it, structurePackage.abstractNamed_Name, MISSING_DEFINITION)
 	}	
 	
 	@Check
 	def definitionPresent(TerminatorServiceDeclaration it) {
 		if(getDefinitions(terminatorServiceDefinition, index).empty)
-			warning('Terminator service has not been defined', it, structurePackage.abstractNamed_Name, MISSING_DEFINITION)
+			addIssue('Terminator service has not been defined', it, structurePackage.abstractNamed_Name, MISSING_DEFINITION)
 	}	
 	
 	static val INT_PATTERN = Pattern.compile('[0-9]+')
@@ -316,15 +316,15 @@ class MASLValidator extends AbstractMASLValidator {
 	@Check
 	def relationName(RelationshipDefinition it) {
 		if(!name.startsWith('R'))
-			warning("Relationship name should start with an 'R'", it, structurePackage.abstractNamed_Name)
+			addIssue("Relationship name should start with an 'R'", it, structurePackage.abstractNamed_Name, NAMING_CONVENTION)
 		if(!INT_PATTERN.matcher(name.substring(1)).matches)
-			warning("Relationship name should end with an integer number", it, structurePackage.abstractNamed_Name)
+			addIssue("Relationship name should end with an integer number", it, structurePackage.abstractNamed_Name, NAMING_CONVENTION)
 	} 
 	
 	@Check
 	def inheritanceCycle(ObjectDeclaration it) {
 		if(findInheritanceCycle(newHashSet)) {
-			error('Object has a cycle in its supertype hierarchy', it, structurePackage.abstractNamed_Name, CYCLIC_INHERITANCE)
+			addIssue('Object has a cycle in its supertype hierarchy', it, structurePackage.abstractNamed_Name, CYCLIC_INHERITANCE)
 		}
 	}
 	
@@ -354,8 +354,8 @@ class MASLValidator extends AbstractMASLValidator {
 				StateDefinition: #['al','masl']
 			}
 			if(!expectedFileExtensions.contains(fileExtension)) {
-				error('''«eClass.name» elements should be defined in a file with extension «
-				expectedFileExtensions.map['\'.'+ it + '\''].join(' or ')».''', it, structurePackage.abstractNamed_Name)
+				addIssue('''«eClass.name» elements should be defined in a file with extension «
+				expectedFileExtensions.map['\'.'+ it + '\''].join(' or ')».''', it, structurePackage.abstractNamed_Name, WRONG_STRUCTURE)
 			}
 		]
 	}

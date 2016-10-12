@@ -359,6 +359,50 @@ class DeclarationTypeProviderTest extends AbstractMaslModelTest {
 		''', 'array of builtin string')
 	}
 
+	@Test
+	def void testTimestampOperators() {
+		doAssertType('''
+			domain dom is
+				service svc();
+				type myTimestamp is timestamp;
+			end;
+		''','''
+			service dom::svc() is
+				t: myTimestamp;
+				d: duration;
+			begin
+				^(t+d);
+				^(d+t);
+				^(t-d);
+			end;
+		''', 'type myTimestamp is builtin timestamp')
+	}
+
+	@Test
+	def void testDurationOperators() {
+		doAssertType('''
+			domain dom is
+				service svc();
+				type myDuration is duration;
+			end;
+		''','''
+			service dom::svc() is
+				myD: myDuration;
+				d: duration;
+			begin
+				^(myD+@P1D@);
+				^(myD+myD);
+				^(@P1D@+myD);				
+				^(myD-@P1D@);
+				^(myD-myD);
+				^(@P1D@-myD);
+				^(myD*2);
+				^(2*myD);
+				^(myD/2);
+			end;
+		''', 'type myDuration is builtin duration')
+	}
+
 	protected def assertType(CharSequence domainDeclaration, CharSequence expression, String expected) {
 		doAssertType('''
 			domain dom is

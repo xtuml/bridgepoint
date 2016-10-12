@@ -35,11 +35,13 @@ class MaslValidationConfigurationBlock extends AbstractValidatorConfigurationBlo
 		addComboBox(INCONSISTENT_RELATIONSHIP_ENDS, 'Inconsistent relationship ends', composite, defaultIndent) 
 		addComboBox(INCONSISTENT_RELATIONSHIP_NAVIGATION, 'Inconsistent relationship navigation', composite, defaultIndent) 
 		addComboBox(DUPLICATE_NAME, 'Duplicate names', composite, defaultIndent) 
+		addComboBox(NAMING_CONVENTION, 'Bad names', composite, defaultIndent) 
 	}
 
 	def protected fillStructurePage(Composite composite, int defaultIndent) {
 		addComboBox(MISSING_DEFINITION, 'Missing definitions', composite, defaultIndent) 
 		addComboBox(MISSING_DECLARATION, 'Missing declarations', composite, defaultIndent) 
+		addComboBox(WRONG_STRUCTURE, 'Wrong file contents', composite, defaultIndent) 
 	}
 	
 	def protected fillTypesPage(Composite composite, int defaultIndent) {

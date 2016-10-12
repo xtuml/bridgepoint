@@ -24,6 +24,8 @@ class MaslIssueCodesProvider extends ConfigurableIssueCodesProvider {
 	public static val WRONG_TYPE = PREFIX + 'wrongType'
 	public static val INVALID_OPERATION_CALL = PREFIX + 'invalidOperationCall'
 	public static val INVALID_FEATURE_CALL = PREFIX + 'invalidFeatureCall'
+	public static val WRONG_STRUCTURE = PREFIX + 'wrongStructure'
+	public static val NAMING_CONVENTION = PREFIX + 'wrongStructure'
 	
 	Map<String, PreferenceKey> issueCodes
 	
@@ -43,11 +45,13 @@ class MaslIssueCodesProvider extends ConfigurableIssueCodesProvider {
 		add(INCONSISTENT_RELATIONSHIP_NAVIGATION, SEVERITY_ERROR) 
 		add(DUPLICATE_NAME, SEVERITY_ERROR) 
 		add(CYCLIC_INHERITANCE, SEVERITY_ERROR)
-		add(MISSING_DEFINITION, SEVERITY_ERROR) 
-		add(MISSING_DECLARATION, SEVERITY_ERROR) 
+		add(MISSING_DEFINITION, SEVERITY_WARNING) 
+		add(MISSING_DECLARATION, SEVERITY_WARNING) 
 		add(WRONG_TYPE, SEVERITY_ERROR)
 		add(INVALID_OPERATION_CALL, SEVERITY_ERROR)
 		add(INVALID_FEATURE_CALL, SEVERITY_ERROR)
+		add(WRONG_STRUCTURE, SEVERITY_WARNING)
+		add(NAMING_CONVENTION, SEVERITY_WARNING)
 	}
 	
 	private def add(IAcceptor<PreferenceKey> it, String issueCode, String defaultSeverity) {
