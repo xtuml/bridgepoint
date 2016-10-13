@@ -98,7 +98,8 @@ Identifier : ( Letter | '_' ) ( Letter | Digit | '_' )*;
 6.1 Add New Preference   
 6.1.1  Add a new preference "Enforce MASL identifiers for model elements"   
 6.1.1.1  Add explanatory hover text 
-```This preference restricts element names to conform to the MASL standard 
+```
+This preference restricts element names to conform to the MASL standard 
 following the BNF rule: ( Letter | '_' )( Letter | Digit | '_' )*;
 
 Identifiers may only contain letters, numbers, and underscores.  Spaces and
