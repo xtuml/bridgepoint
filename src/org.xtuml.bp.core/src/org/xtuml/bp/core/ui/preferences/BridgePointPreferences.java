@@ -136,7 +136,7 @@ public class BridgePointPreferences
     requireMaslStyleIdentifiers = new Button(composite, SWT.CHECK | SWT.LEFT);
     requireMaslStyleIdentifiers.setText("Enforce MASL-style identifiers for model elements");
     requireMaslStyleIdentifiers.setLayoutData(new GridData());
-    requireMaslStyleIdentifiers.setToolTipText("This preference restricts element names to conform to the MASL standard following the BNF rule: ( Letter | '_' )( Letter | Digit | '_' )*;\n\nIdentifiers may only contain letters, numbers, and underscores.  Spaces and hyphens are not allowed.");
+    requireMaslStyleIdentifiers.setToolTipText("This preference restricts element names to conform to the MASL standard following the BNF rule:\n  ( Letter | '_' )( Letter | Digit | '_' )*;\n\nIdentifiers may only contain letters, numbers, and underscores.  Spaces, hyphens, and other characters are not allowed.");
 
     createGraphicsDuringImport = new Button(composite, SWT.CHECK | SWT.LEFT);
     createGraphicsDuringImport.setText("Create graphics during import");
