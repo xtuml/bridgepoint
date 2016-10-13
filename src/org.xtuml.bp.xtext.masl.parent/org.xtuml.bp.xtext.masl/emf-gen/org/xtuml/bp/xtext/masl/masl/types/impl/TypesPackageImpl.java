@@ -329,8 +329,17 @@ public class TypesPackageImpl extends EPackageImpl implements TypesPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getTypeDeclaration_Subtype() {
+		return (EAttribute)typeDeclarationEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EReference getTypeDeclaration_Definition() {
-		return (EReference)typeDeclarationEClass.getEStructuralFeatures().get(1);
+		return (EReference)typeDeclarationEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -349,6 +358,15 @@ public class TypesPackageImpl extends EPackageImpl implements TypesPackage {
 	 */
 	public EAttribute getTypeForwardDeclaration_Visibility() {
 		return (EAttribute)typeForwardDeclarationEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getTypeForwardDeclaration_Subtype() {
+		return (EAttribute)typeForwardDeclarationEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -849,10 +867,12 @@ public class TypesPackageImpl extends EPackageImpl implements TypesPackage {
 		// Create classes and their features
 		typeDeclarationEClass = createEClass(TYPE_DECLARATION);
 		createEAttribute(typeDeclarationEClass, TYPE_DECLARATION__VISIBILITY);
+		createEAttribute(typeDeclarationEClass, TYPE_DECLARATION__SUBTYPE);
 		createEReference(typeDeclarationEClass, TYPE_DECLARATION__DEFINITION);
 
 		typeForwardDeclarationEClass = createEClass(TYPE_FORWARD_DECLARATION);
 		createEAttribute(typeForwardDeclarationEClass, TYPE_FORWARD_DECLARATION__VISIBILITY);
+		createEAttribute(typeForwardDeclarationEClass, TYPE_FORWARD_DECLARATION__SUBTYPE);
 
 		builtinTypeDeclarationEClass = createEClass(BUILTIN_TYPE_DECLARATION);
 		createEAttribute(builtinTypeDeclarationEClass, BUILTIN_TYPE_DECLARATION__ANONYMOUS);
@@ -997,10 +1017,12 @@ public class TypesPackageImpl extends EPackageImpl implements TypesPackage {
 		// Initialize classes, features, and operations; add parameters
 		initEClass(typeDeclarationEClass, TypeDeclaration.class, "TypeDeclaration", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getTypeDeclaration_Visibility(), theStructurePackage.getVisibility(), "visibility", null, 0, 1, TypeDeclaration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getTypeDeclaration_Subtype(), theEcorePackage.getEBoolean(), "subtype", null, 0, 1, TypeDeclaration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getTypeDeclaration_Definition(), this.getAbstractTypeDefinition(), null, "definition", null, 0, 1, TypeDeclaration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(typeForwardDeclarationEClass, TypeForwardDeclaration.class, "TypeForwardDeclaration", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getTypeForwardDeclaration_Visibility(), theStructurePackage.getVisibility(), "visibility", null, 0, 1, TypeForwardDeclaration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getTypeForwardDeclaration_Subtype(), theEcorePackage.getEBoolean(), "subtype", null, 0, 1, TypeForwardDeclaration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(builtinTypeDeclarationEClass, BuiltinTypeDeclaration.class, "BuiltinTypeDeclaration", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getBuiltinTypeDeclaration_Anonymous(), theEcorePackage.getEBoolean(), "anonymous", null, 0, 1, BuiltinTypeDeclaration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

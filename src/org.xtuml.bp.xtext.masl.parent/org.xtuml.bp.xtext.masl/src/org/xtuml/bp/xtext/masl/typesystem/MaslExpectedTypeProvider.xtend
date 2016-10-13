@@ -9,15 +9,14 @@ import org.xtuml.bp.xtext.masl.masl.behavior.CaseAlternative
 import org.xtuml.bp.xtext.masl.masl.behavior.CaseStatement
 import org.xtuml.bp.xtext.masl.masl.behavior.CreateArgument
 import org.xtuml.bp.xtext.masl.masl.behavior.VariableDeclaration
-import static extension org.eclipse.xtext.EcoreUtil2.*
-import static org.xtuml.bp.xtext.masl.typesystem.BuiltinType.*
 import org.xtuml.bp.xtext.masl.masl.structure.AbstractTopLevelElement
-import org.xtuml.bp.xtext.masl.masl.structure.ObjectFunctionDefinition
 import org.xtuml.bp.xtext.masl.masl.structure.DomainFunctionDefinition
+import org.xtuml.bp.xtext.masl.masl.structure.ObjectFunctionDefinition
 import org.xtuml.bp.xtext.masl.masl.structure.TerminatorFunctionDefinition
-import org.xtuml.bp.xtext.masl.masl.structure.ObjectServiceDefinition
-import org.xtuml.bp.xtext.masl.masl.structure.DomainServiceDefinition
-import org.xtuml.bp.xtext.masl.masl.structure.TerminatorServiceDefinition
+
+import static org.xtuml.bp.xtext.masl.typesystem.BuiltinType.*
+
+import static extension org.eclipse.xtext.EcoreUtil2.*
 
 class MaslExpectedTypeProvider {
 

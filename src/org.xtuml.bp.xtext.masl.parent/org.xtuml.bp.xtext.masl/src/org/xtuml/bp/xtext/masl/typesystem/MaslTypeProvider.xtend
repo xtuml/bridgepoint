@@ -1,7 +1,10 @@
 package org.xtuml.bp.xtext.masl.typesystem
 
 import com.google.inject.Inject
+import javax.naming.OperationNotSupportedException
+import org.apache.log4j.Logger
 import org.eclipse.emf.ecore.EObject
+import org.eclipse.xtend.lib.annotations.Data
 import org.xtuml.bp.xtext.masl.MASLExtensions
 import org.xtuml.bp.xtext.masl.masl.behavior.AdditiveExp
 import org.xtuml.bp.xtext.masl.masl.behavior.AssignStatement
@@ -60,6 +63,7 @@ import org.xtuml.bp.xtext.masl.masl.structure.AssocRelationshipDefinition
 import org.xtuml.bp.xtext.masl.masl.structure.AttributeDefinition
 import org.xtuml.bp.xtext.masl.masl.structure.DomainFunctionDeclaration
 import org.xtuml.bp.xtext.masl.masl.structure.DomainServiceDeclaration
+import org.xtuml.bp.xtext.masl.masl.structure.Multiplicity
 import org.xtuml.bp.xtext.masl.masl.structure.ObjectDeclaration
 import org.xtuml.bp.xtext.masl.masl.structure.ObjectFunctionDeclaration
 import org.xtuml.bp.xtext.masl.masl.structure.ObjectServiceDeclaration
@@ -94,7 +98,6 @@ import org.xtuml.bp.xtext.masl.masl.types.TypeDeclaration
 import org.xtuml.bp.xtext.masl.masl.types.UnconstrainedArrayDefinition
 
 import static org.xtuml.bp.xtext.masl.typesystem.BuiltinType.*
-import org.apache.log4j.Logger
 
 class MaslTypeProvider {
 
@@ -149,7 +152,7 @@ class MaslTypeProvider {
 	private def MaslType getMaslTypeOfExpression(Expression it) {
 		switch it {
 			AbstractTypeReference:
-				return maslTypeOfTypeReference
+				return new TypeOfType(maslTypeOfTypeReference)
 			NavigateExpression:
 				return maslTypeOfNavigateExpression
 			FindExpression:
@@ -174,11 +177,14 @@ class MaslTypeProvider {
 				return maslTypeOfLinkExpression
 			CreateExpression:
 				return new InstanceType(object)		
-			OperationCall:
-				if(receiver instanceof AbstractFeature)
-					return (receiver as AbstractFeature).maslTypeOfFeature
+			OperationCall: {
+				val receiverType = receiver.maslTypeOfExpression
+				if(receiverType instanceof TypeOfType) 
+					// cast expression
+					return receiverType.type
 				else
-					receiver.maslTypeOfExpression
+					return receiverType			
+			}
 			SimpleFeatureCall:
 				return feature.maslTypeOfFeature
 			IndexedExpression: {
@@ -225,7 +231,7 @@ class MaslTypeProvider {
 		}
 	}
 	
-	private def MaslType getMaslTypeOfTypeReference(AbstractTypeReference it) {
+	def MaslType getMaslTypeOfTypeReference(AbstractTypeReference it) {
 		switch it {
 			ArrayTypeReference:
 				return new ArrayType(elementType.maslTypeOfTypeReference, anonymous)
@@ -265,7 +271,7 @@ class MaslTypeProvider {
 			BuiltinTypeDeclaration:
 				return new BuiltinType(declaration.name, anonymous)
 			TypeParameter:
-				return new TypeParameterType(declaration.name, anonymous)
+				return new TypeParameterType(declaration.name, declaration.enum, anonymous)
 			default: {
 				val definitionType = declaration.definition.maslTypeOfTypeDefinition
 				if(definitionType instanceof EnumType) 
@@ -314,7 +320,7 @@ class MaslTypeProvider {
 			StructureComponentDefinition:
 				return feature.type.maslTypeOfTypeReference
 			TypeDeclaration:
-				return feature.getMaslTypeOfTypeDeclaration(false)
+				return new TypeOfType(feature.getMaslTypeOfTypeDeclaration(false))
 			ObjectFunctionDeclaration:
 				return feature.returnType.maslTypeOfTypeReference
 			DomainFunctionDeclaration:
@@ -352,43 +358,83 @@ class MaslTypeProvider {
 		if(navigate.navigation != null) 
 			navigate.navigation.maslTypeOfRelationshipNavigation
 		else if (navigate.relationship != null)
-			navigate.relationship.maslTypeOfRelationshipNavigation
+			// with 
+			navigate.relationship.maslTypeOfRelationshipNavigation.componentType
 		else
 			navigate.lhs.maslTypeOfExpression
 	}
 	
 	private def MaslType getMaslTypeOfRelationshipNavigation(RelationshipNavigation navigation) {
-		if(navigation.object != null)
-			return new InstanceType(navigation.object, true)
-		val objectOrRole = navigation.objectOrRole 
-		if(objectOrRole instanceof ObjectDeclaration)
-			return new InstanceType(objectOrRole, true)
-		if(objectOrRole instanceof RelationshipEnd)
-			return new InstanceType(objectOrRole.to, true)
 		val relationship = navigation.relationship
+		if(relationship instanceof SubtypeRelationshipDefinition) {
+			return new InstanceType(navigation.object, true)
+		}
 		val parent = navigation.eContainer
 		val from = switch parent {
 			NavigateExpression: parent.lhs
 			LinkExpression:  parent.lhs
 		}
-		val fromType = from.maslType
-		switch relationship {
-			RegularRelationshipDefinition: 
-				return relationship.forwards.getMaslTypeOfOtherEnd(fromType)
-			AssocRelationshipDefinition: 
-				return relationship.forwards.getMaslTypeOfOtherEnd(fromType)
-			SubtypeRelationshipDefinition:
-				return new InstanceType(relationship.supertype, true)
+		val receiverType = from.maslType.stripName
+		val relatedObject = getRelatedObject(navigation, receiverType.componentType)
+		val componentType = relatedObject.declaration.maslType
+		switch relatedObject.multiplicity {
+			case ONE:
+				if(!relatedObject.isAssociationClass && receiverType instanceof CollectionType)
+					return new BagType(componentType, true)
+				else
+					return new InstanceType(relatedObject.declaration, true)
+			case MANY:
+				if(receiverType instanceof CollectionType)
+					return new BagType(componentType, true)
+				else
+					return new SetType(componentType, true)
 		}
-		throw new UnsupportedOperationException("Cannot determine type of relationship navigation")
 	}
 	
-	private def getMaslTypeOfOtherEnd(RelationshipEnd relationEnd, MaslType fromType) {
-		val relationFromType = relationEnd.from.maslTypeOfFeature
-		if(fromType == relationFromType)
-			new InstanceType(relationEnd.to, true)
-		else
-			new InstanceType(relationEnd.from, true)	
+	@Data
+	private static class RelatedObject {
+		val ObjectDeclaration declaration
+		val Multiplicity multiplicity
+		val boolean associationClass
+	} 
+
+	private def toRelatedObject(RelationshipEnd end, boolean isAssociationObject) {
+		new RelatedObject(end.to, if(isAssociationObject) Multiplicity.ONE else end.multiplicity, isAssociationObject)
+	}
+	
+	private def RelatedObject getRelatedObject(RelationshipNavigation navigation, MaslType receiverType) {
+		val relationship = navigation.relationship
+		val isAssociationObject = relationship instanceof AssocRelationshipDefinition
+				&& (relationship as AssocRelationshipDefinition).object.maslType == receiverType 
+		val ends = switch relationship {
+			RegularRelationshipDefinition:
+				#[relationship.forwards, relationship.backwards]
+			AssocRelationshipDefinition:
+				#[relationship.forwards, relationship.backwards]
+			default: 
+				throw new OperationNotSupportedException('Cannot determine relationship ends of ' + relationship?.eClass?.name)
+		}
+		if(navigation.object != null) 
+			return ends.findFirst[to == navigation.object].toRelatedObject(isAssociationObject)
+		val objectOrRole = navigation.objectOrRole 
+		if(objectOrRole instanceof RelationshipEnd)
+			return objectOrRole.toRelatedObject(isAssociationObject)
+		if(objectOrRole instanceof ObjectDeclaration) {
+			if(relationship instanceof AssocRelationshipDefinition) {
+				if(relationship.object == objectOrRole) {
+					val relationEnd = ends.findFirst[from.maslType == receiverType]		
+					return new RelatedObject(objectOrRole, relationEnd.multiplicity, true)
+				}
+			}
+			return ends.findFirst[to == objectOrRole].toRelatedObject(isAssociationObject)
+		}
+		switch relationship {
+			RegularRelationshipDefinition: 
+				return ends.findFirst[from.maslType == receiverType].toRelatedObject(isAssociationObject)
+			AssocRelationshipDefinition: 
+				return ends.findFirst[from.maslType == receiverType].toRelatedObject(isAssociationObject)
+		}
+		throw new OperationNotSupportedException('Cannot determine relationship ends of ' + relationship?.eClass?.name)
 	}
 	
 	private def MaslType getMaslTypeOfCharacteristicCall(CharacteristicCall call) {
@@ -399,15 +445,27 @@ class MaslTypeProvider {
 			case 0:
 				return returnType
 			case 1: {
-				val replace = new TypeParameterType(typeParams.head.name, true)
-				val replacement = call.receiver.maslType.componentType
+				val replace = new TypeParameterType(typeParams.head.name, typeParams.head.enum, true)
+				val receiverType = call.receiver.maslType.stripName
+				val replacement = switch receiverType {
+					TypeOfType:
+						receiverType.type
+					CollectionType:
+						receiverType.componentType
+					default:
+						receiverType
+				}
 				val returnValue = returnType.resolve(replace, replacement)
 				return returnValue			
 			}
 			case 2: {
-				var replacement = call.receiver.maslType
-				if(replacement instanceof NamedType)
-					replacement = replacement.type
+				val receiverType = call.receiver.maslType.stripName
+				val replacement = switch receiverType {
+					TypeOfType:
+						receiverType.type
+					default:
+						receiverType
+				}
 				if(replacement instanceof DictionaryType) {
 					val returnValue = returnType
 						.resolve(new TypeParameterType(typeParams.head.name, true), replacement.keyType)

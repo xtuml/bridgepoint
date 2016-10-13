@@ -119,11 +119,11 @@ ExceptionDeclaration:
 // Type Definition
 //---------------------------------------------------------
 TypeForwardDeclaration:
-	visibility=Visibility? 'type' name=ID 
+	visibility=Visibility? ('type' | subtype?='subtype') name=ID 
 	';' PragmaList;
 
 TypeDeclaration:
-	visibility=Visibility? 'type' name=ID 'is'
+	visibility=Visibility? ('type' | subtype?='subtype') name=ID 'is'
 	definition=AbstractTypeDefinition 
 	';' PragmaList;
 

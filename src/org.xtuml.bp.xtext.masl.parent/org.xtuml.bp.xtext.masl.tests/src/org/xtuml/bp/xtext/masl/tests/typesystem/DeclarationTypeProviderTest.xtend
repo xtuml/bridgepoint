@@ -111,7 +111,7 @@ class DeclarationTypeProviderTest extends AbstractMaslModelTest {
 	@Test
 	def void testStructureCall() {
 		assertType('type Foo is structure a: integer; end;', 'Foo', '''
-			type Foo is structure
+			typeof type Foo is structure
 				a : builtin integer;
 			end
 		''')
@@ -144,7 +144,7 @@ class DeclarationTypeProviderTest extends AbstractMaslModelTest {
 
 	@Test
 	def void testTypeCall() {
-		assertType('type Foo is integer;', 'Foo', 'type Foo is builtin integer')
+		assertType('type Foo is integer;', 'Foo', 'typeof type Foo is builtin integer')
 	}
 
 	@Test
@@ -257,7 +257,7 @@ class DeclarationTypeProviderTest extends AbstractMaslModelTest {
 			service dom::svc() is
 				f: Foo;
 			begin
-				^(Foo'keys);
+				^(f'keys);
 			end;
 		''', 'set of builtin integer')
 	}
@@ -273,7 +273,7 @@ class DeclarationTypeProviderTest extends AbstractMaslModelTest {
 			service dom::svc() is
 				f: Foo;
 			begin
-				^(Foo'values);
+				^(f'values);
 			end;
 		''', 'bag of builtin string')
 	}
@@ -289,7 +289,7 @@ class DeclarationTypeProviderTest extends AbstractMaslModelTest {
 			service dom::svc() is
 				f: Foo;
 			begin
-				^(Foo'contains(1));
+				^(f'contains(1));
 			end;
 		''', 'builtin boolean')
 	}
@@ -305,7 +305,7 @@ class DeclarationTypeProviderTest extends AbstractMaslModelTest {
 			service dom::svc() is
 				f: Foo;
 			begin
-				^(Foo'keys);
+				^(f'keys);
 			end;
 		''', 'set of anonymous builtin string')
 	}
@@ -321,7 +321,7 @@ class DeclarationTypeProviderTest extends AbstractMaslModelTest {
 			service dom::svc() is
 				f: Foo;
 			begin
-				^(Foo'values);
+				^(f'values);
 			end;
 		''', 'bag of anonymous builtin string')
 	}
@@ -401,6 +401,194 @@ class DeclarationTypeProviderTest extends AbstractMaslModelTest {
 				^(myD/2);
 			end;
 		''', 'type myDuration is builtin duration')
+	}
+
+	@Test
+	def void testOverloadedMethod() {
+		doAssertType('''
+			domain dom is 
+				function foo(i:in string) return string;
+				function foo(i:in integer) return integer;
+				service svc();
+			end;
+		''', '''
+			service dom::svc() is
+			begin
+				^(foo(1));
+			end;
+		''', 'builtin integer')	
+	}
+
+	@Test
+	def void testEnumCharacteristics() {
+		doAssertType('''
+			domain dom is
+				type e is enum (FOO, BAR);
+				service svc();
+			end;
+		''', '''
+			service dom::svc() is
+			begin
+				^(e'value(""));
+			end;
+		''', 'enum e')	
+	}
+
+	@Test 
+	def void testRelationshipNavigation() {
+		doAssertType('''
+			domain doms is 
+				object Foo;
+				object Foo is end;
+				object Bar;
+				object Bar is end;
+				relationship R1 is
+					Foo conditionally bar one Bar,
+					Bar conditionally foo one Foo;
+			end;
+		''', '''
+			service doms::svc() is
+				foo: instance of Foo;
+				bar: instance of Bar;
+			begin
+				^(foo->R1);
+				^(foo->R1.bar);
+				^(foo->R1.bar->R1.foo->R1);
+			end;
+		''', 'anonymous instance of Bar') 
+	}
+
+	@Test 
+	def void testRelationshipNavigation1() {
+		doAssertType('''
+			domain doms is 
+				object Foo;
+				object Foo is end;
+				object Bar;
+				object Bar is end;
+				relationship R1 is
+					Foo conditionally bar many Bar,
+					Bar conditionally foo one Foo;
+				relationship R2 is
+					Foo conditionally bar one Bar,
+					Bar conditionally foo one Foo;
+				end;
+		''', '''
+			service doms::svc() is
+				foos: set of instance of Foo;
+			begin
+				^(foos->R1);
+				^(foos->R2);
+			end;
+		''', 'anonymous bag of instance of Bar') 
+	}
+	
+	@Test 
+	def void testAssociativeRelationshipNavigation() {
+		doAssertType('''
+			domain doms is
+				object Foo;
+				object Foo is
+				end;
+				object Bar;
+				object Bar is
+				end;
+				object Baz;
+				object Baz is
+				end;
+				relationship R1 is
+					Foo conditionally bar one Bar,
+					Bar conditionally foo one Foo
+					using Baz;
+			end;
+		''', '''
+			service doms::svc() is
+				baz: instance of Baz; 
+			begin
+				^(baz->R1.foo);
+			end;
+		''', "anonymous instance of Foo")
+	}
+
+	@Test 
+	def void testAssociativeRelationshipNavigation1() {
+		doAssertType('''
+			domain doms is
+				object Foo;
+				object Foo is
+				end;
+				object Bar;
+				object Bar is
+				end;
+				object Baz;
+				object Baz is
+				end;
+				relationship R1 is
+					Foo conditionally bar one Bar,
+					Bar conditionally foo many Foo
+					using Baz;
+			end;
+		''', '''	
+			service doms::svc() is
+				foo: set of instance of Foo;
+			begin
+				^(foo->R1.Baz);
+			end;
+		''', 'anonymous instance of Baz')
+	}
+
+	@Test 
+	def void testAssociativeRelationshipNavigation2() {
+		doAssertType('''
+			domain doms is
+				object Foo;
+				object Foo is
+				end;
+				object Bar;
+				object Bar is
+				end;
+				object Baz;
+				object Baz is
+				end;
+				relationship R1 is
+					Foo conditionally bar many Bar,
+					Bar conditionally foo one Foo
+					using Baz;
+			end;
+		''', '''	
+			service doms::svc() is
+				foo: set of instance of Foo;
+			begin
+				^(foo->R1.Baz);
+			end;
+		''', 'anonymous bag of instance of Baz')
+	}
+
+	@Test 
+	def void testAssociativeRelationshipNavigation3() {
+		doAssertType('''
+			domain doms is
+				object Foo;
+				object Foo is
+				end;
+				object Bar;
+				object Bar is
+				end;
+				object Baz;
+				object Baz is
+				end;
+				relationship R1 is
+					Foo conditionally bar one Bar,
+					Bar conditionally foo many Foo
+					using Baz;
+			end;
+		''', '''
+			service doms::svc() is
+				baz: set of instance of Baz;
+			begin
+				^(baz->R1.foo);
+			end;
+		''', 'anonymous instance of Foo')
 	}
 
 	protected def assertType(CharSequence domainDeclaration, CharSequence expression, String expected) {

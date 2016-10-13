@@ -24,6 +24,7 @@ import org.eclipse.xtext.documentation.IEObjectDocumentationProvider
 import org.xtuml.bp.xtext.masl.doc.MaslEObjectDocumentationProvider
 import org.eclipse.xtext.validation.ConfigurableIssueCodesProvider
 import org.xtuml.bp.xtext.masl.validation.MaslIssueCodesProvider
+import org.xtuml.bp.xtext.masl.linking.MaslLinkingService
 
 /**
  * Use this class to register components to be used at runtime / without the Equinox extension registry.
@@ -40,6 +41,10 @@ class MASLRuntimeModule extends AbstractMASLRuntimeModule {
 	
 	override configureIScopeProviderDelegate(Binder binder) {
 		binder.bind(IScopeProvider).annotatedWith(Names.named(AbstractDeclarativeScopeProvider.NAMED_DELEGATE)).to(MASLImportScopeProvider);
+	}
+
+	override bindILinkingService() {
+		MaslLinkingService
 	}
 
 	def configureIAllContainersState$Provider(Binder binder) {

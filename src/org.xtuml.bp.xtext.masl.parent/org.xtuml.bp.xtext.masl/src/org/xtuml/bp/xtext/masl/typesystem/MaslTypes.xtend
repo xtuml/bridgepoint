@@ -20,6 +20,8 @@ interface MaslType {
 	def boolean isAnonymous()
 	
 	def MaslType getComponentType()
+	
+	def MaslType stripName()
 }
 
 @FinalFieldsConstructor
@@ -38,6 +40,10 @@ abstract class AbstractMaslType implements MaslType {
 	
 	protected def prefix() {
 		(if (anonymous) 'anonymous ' else '') 
+	}
+	
+	override stripName() {
+		this
 	}
 }
 
@@ -119,6 +125,11 @@ class NamedType extends AbstractMaslType {
 	override String toString() {
 		prefix + 'type ' + name + ' is ' + type
 	}
+	
+	override stripName() {
+		type
+	}
+	
 }
 
 @Data
@@ -148,10 +159,12 @@ class RangeType extends AbstractMaslType {
 @FinalFieldsConstructor
 class TypeParameterType extends AbstractMaslType {
 	val String name
+	val boolean enumeration
 
-	new(String name, boolean anonymous) {
+	new(String name, boolean enumeration, boolean anonymous) {
 		super(anonymous)
 		this.name = name
+		this.enumeration = enumeration
 	}
 
 	override getPrimitiveType() {
@@ -162,19 +175,15 @@ class TypeParameterType extends AbstractMaslType {
 @Data
 @FinalFieldsConstructor
 abstract class CollectionType extends AbstractMaslType {
-	val MaslType elementType
+	val MaslType componentType
 
 	new(MaslType type, boolean anonymous) {
 		super(anonymous)
-		this.elementType = type
-	}
-
-	override getComponentType() {
-		elementType
+		this.componentType = type
 	}
 
 	override getPrimitiveType() {
-		new SequenceType(elementType.primitiveType)
+		new SequenceType(componentType.primitiveType)
 	}
 }
 
@@ -188,7 +197,7 @@ class SetType extends CollectionType {
 	}
 
 	override String toString() {
-		prefix + 'set of ' + elementType
+		prefix + 'set of ' + componentType
 	}
 }
 
@@ -202,7 +211,7 @@ class BagType extends CollectionType {
 	}
 
 	override String toString() {
-		prefix + 'bag of ' + elementType
+		prefix + 'bag of ' + componentType
 	}
 }
 
@@ -216,7 +225,7 @@ class SequenceType extends CollectionType {
 	}
 
 	override String toString() {
-		prefix + 'sequence of ' + elementType
+		prefix + 'sequence of ' + componentType
 	}
 }
 
@@ -230,7 +239,21 @@ class ArrayType extends CollectionType {
 	}
 
 	override String toString() {
-		prefix + 'array of ' + elementType
+		prefix + 'array of ' + componentType
+	}
+}
+
+@Data
+@FinalFieldsConstructor
+class TypeOfType extends AbstractMaslType {
+	MaslType type
+	
+	override getPrimitiveType() {
+		this
+	}
+	
+	override String toString() {
+		prefix + 'typeof ' + type
 	}
 }
 

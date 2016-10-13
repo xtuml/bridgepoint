@@ -1580,6 +1580,15 @@ public interface StructurePackage extends EPackage {
 	int TYPE_PARAMETER__VISIBILITY = TypesPackage.TYPE_DECLARATION__VISIBILITY;
 
 	/**
+	 * The feature id for the '<em><b>Subtype</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TYPE_PARAMETER__SUBTYPE = TypesPackage.TYPE_DECLARATION__SUBTYPE;
+
+	/**
 	 * The feature id for the '<em><b>Definition</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

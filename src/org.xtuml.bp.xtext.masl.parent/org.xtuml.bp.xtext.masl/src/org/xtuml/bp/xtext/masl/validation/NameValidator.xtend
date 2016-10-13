@@ -27,13 +27,17 @@ import org.xtuml.bp.xtext.masl.masl.types.TypesPackage
 import org.xtuml.bp.xtext.masl.scoping.ProjectScopeIndexProvider
 
 import static org.xtuml.bp.xtext.masl.validation.MaslIssueCodesProvider.*
+import org.xtuml.bp.xtext.masl.MASLExtensions
+import org.xtuml.bp.xtext.masl.typesystem.MaslTypeProvider
 
 class NameValidator extends AbstractMASLValidator {
 	
 	override register(EValidatorRegistrar registrar) {
 	}
 	
+	@Inject extension MASLExtensions
 	@Inject extension TypesPackage
+	@Inject extension MaslTypeProvider
 	@Inject extension StructurePackage structurePackage
 	@Inject extension IQualifiedNameProvider
 	@Inject extension ProjectScopeIndexProvider
@@ -108,7 +112,7 @@ class NameValidator extends AbstractMASLValidator {
 	private def checkNamesAreLocallyUnique(Iterable<? extends EObject> elements) {
 		val name2element = HashMultimap.create
 		for(element: elements) {
-			val name = element.eGet(structurePackage.abstractNamed_Name)
+			val name = element.eGet(structurePackage.abstractNamed_Name) + element.parametersAsString
 			name2element.put(name, element)
 			val duplicates = name2element.get(name)
 			switch duplicates.size {
@@ -138,17 +142,35 @@ class NameValidator extends AbstractMASLValidator {
 				].flatten.filter[
 					((fileExtension == 'int' || fileExtension == 'prj') && uri == EObjectURI.trimFragment)
 					|| (fileExtension != 'int' && fileExtension != 'prj' && EObjectURI.fileExtension != 'int' && EObjectURI.fileExtension != 'prj')
-				].iterator
-				if(siblings.hasNext) {
-					siblings.next
-					if(siblings.hasNext) {
-						error('''Duplicate «eClasses.map[name].join('/')» named '«elementName.toString('::')»'«»''', 
-							element, structurePackage.abstractNamed_Name, DUPLICATE_NAME)
+				]
+				if(element.isOperation) {
+					val signature = element.parametersAsString
+					for(sibling: siblings) {
+						val resolved = element.eResource.resourceSet.getEObject(sibling.EObjectURI, true)
+						if(resolved != null && resolved != element) {
+							if(resolved.parametersAsString == signature)
+								error('''Duplicate «eClasses.map[name].join('/')» named '«elementName.toString('::')»'«»''', 
+								element, structurePackage.abstractNamed_Name, DUPLICATE_NAME)
+						}
+					}
+				} else {
+					val siblingIterator = siblings.iterator
+					if(siblingIterator.hasNext) {
+						siblingIterator.next
+						if(siblingIterator.hasNext) {
+							error('''Duplicate «eClasses.map[name].join('/')» named '«elementName.toString('::')»'«»''', 
+								element, structurePackage.abstractNamed_Name, DUPLICATE_NAME)
+						}
 					}
 				}
 			}
 		}		
 	}
 	
-	
+	private def getParametersAsString(EObject operation) {
+		if(operation.isOperation && operation instanceof Parameterized)
+			'(' + (operation as Parameterized).parameters.map[maslType.toString].join(',') + ')'
+		else 
+			''
+	}
 }

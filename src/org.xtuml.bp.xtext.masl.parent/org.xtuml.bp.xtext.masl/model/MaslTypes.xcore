@@ -21,11 +21,13 @@ import org.xtuml.bp.xtext.masl.masl.structure.Visibility
 
 class TypeDeclaration extends Pragmatized , AbstractFeature {
 	Visibility visibility
+	boolean subtype
 	contains AbstractTypeDefinition definition
 }
 
 class TypeForwardDeclaration extends AbstractNamed , Pragmatized {
 	Visibility visibility
+	boolean subtype
 }
 
 class BuiltinTypeDeclaration extends TypeDeclaration {

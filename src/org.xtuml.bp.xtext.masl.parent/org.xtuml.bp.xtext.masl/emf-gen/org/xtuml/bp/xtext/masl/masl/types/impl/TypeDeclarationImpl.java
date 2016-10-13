@@ -32,6 +32,7 @@ import org.xtuml.bp.xtext.masl.masl.types.TypesPackage;
  * <ul>
  *   <li>{@link org.xtuml.bp.xtext.masl.masl.types.impl.TypeDeclarationImpl#getName <em>Name</em>}</li>
  *   <li>{@link org.xtuml.bp.xtext.masl.masl.types.impl.TypeDeclarationImpl#getVisibility <em>Visibility</em>}</li>
+ *   <li>{@link org.xtuml.bp.xtext.masl.masl.types.impl.TypeDeclarationImpl#isSubtype <em>Subtype</em>}</li>
  *   <li>{@link org.xtuml.bp.xtext.masl.masl.types.impl.TypeDeclarationImpl#getDefinition <em>Definition</em>}</li>
  * </ul>
  *
@@ -77,6 +78,26 @@ public class TypeDeclarationImpl extends PragmatizedImpl implements TypeDeclarat
 	 * @ordered
 	 */
 	protected Visibility visibility = VISIBILITY_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #isSubtype() <em>Subtype</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isSubtype()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean SUBTYPE_EDEFAULT = false;
+
+	/**
+	 * The cached value of the '{@link #isSubtype() <em>Subtype</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isSubtype()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean subtype = SUBTYPE_EDEFAULT;
 
 	/**
 	 * The cached value of the '{@link #getDefinition() <em>Definition</em>}' containment reference.
@@ -154,6 +175,27 @@ public class TypeDeclarationImpl extends PragmatizedImpl implements TypeDeclarat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public boolean isSubtype() {
+		return subtype;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setSubtype(boolean newSubtype) {
+		boolean oldSubtype = subtype;
+		subtype = newSubtype;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, TypesPackage.TYPE_DECLARATION__SUBTYPE, oldSubtype, subtype));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public AbstractTypeDefinition getDefinition() {
 		return definition;
 	}
@@ -218,6 +260,8 @@ public class TypeDeclarationImpl extends PragmatizedImpl implements TypeDeclarat
 				return getName();
 			case TypesPackage.TYPE_DECLARATION__VISIBILITY:
 				return getVisibility();
+			case TypesPackage.TYPE_DECLARATION__SUBTYPE:
+				return isSubtype();
 			case TypesPackage.TYPE_DECLARATION__DEFINITION:
 				return getDefinition();
 		}
@@ -237,6 +281,9 @@ public class TypeDeclarationImpl extends PragmatizedImpl implements TypeDeclarat
 				return;
 			case TypesPackage.TYPE_DECLARATION__VISIBILITY:
 				setVisibility((Visibility)newValue);
+				return;
+			case TypesPackage.TYPE_DECLARATION__SUBTYPE:
+				setSubtype((Boolean)newValue);
 				return;
 			case TypesPackage.TYPE_DECLARATION__DEFINITION:
 				setDefinition((AbstractTypeDefinition)newValue);
@@ -259,6 +306,9 @@ public class TypeDeclarationImpl extends PragmatizedImpl implements TypeDeclarat
 			case TypesPackage.TYPE_DECLARATION__VISIBILITY:
 				setVisibility(VISIBILITY_EDEFAULT);
 				return;
+			case TypesPackage.TYPE_DECLARATION__SUBTYPE:
+				setSubtype(SUBTYPE_EDEFAULT);
+				return;
 			case TypesPackage.TYPE_DECLARATION__DEFINITION:
 				setDefinition((AbstractTypeDefinition)null);
 				return;
@@ -278,6 +328,8 @@ public class TypeDeclarationImpl extends PragmatizedImpl implements TypeDeclarat
 				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
 			case TypesPackage.TYPE_DECLARATION__VISIBILITY:
 				return visibility != VISIBILITY_EDEFAULT;
+			case TypesPackage.TYPE_DECLARATION__SUBTYPE:
+				return subtype != SUBTYPE_EDEFAULT;
 			case TypesPackage.TYPE_DECLARATION__DEFINITION:
 				return definition != null;
 		}
@@ -340,6 +392,8 @@ public class TypeDeclarationImpl extends PragmatizedImpl implements TypeDeclarat
 		result.append(name);
 		result.append(", visibility: ");
 		result.append(visibility);
+		result.append(", subtype: ");
+		result.append(subtype);
 		result.append(')');
 		return result.toString();
 	}

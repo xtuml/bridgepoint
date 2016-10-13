@@ -98,13 +98,22 @@ public interface TypesPackage extends EPackage {
 	int TYPE_DECLARATION__VISIBILITY = StructurePackage.PRAGMATIZED_FEATURE_COUNT + 1;
 
 	/**
+	 * The feature id for the '<em><b>Subtype</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TYPE_DECLARATION__SUBTYPE = StructurePackage.PRAGMATIZED_FEATURE_COUNT + 2;
+
+	/**
 	 * The feature id for the '<em><b>Definition</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int TYPE_DECLARATION__DEFINITION = StructurePackage.PRAGMATIZED_FEATURE_COUNT + 2;
+	int TYPE_DECLARATION__DEFINITION = StructurePackage.PRAGMATIZED_FEATURE_COUNT + 3;
 
 	/**
 	 * The number of structural features of the '<em>Type Declaration</em>' class.
@@ -113,7 +122,7 @@ public interface TypesPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TYPE_DECLARATION_FEATURE_COUNT = StructurePackage.PRAGMATIZED_FEATURE_COUNT + 3;
+	int TYPE_DECLARATION_FEATURE_COUNT = StructurePackage.PRAGMATIZED_FEATURE_COUNT + 4;
 
 	/**
 	 * The number of operations of the '<em>Type Declaration</em>' class.
@@ -162,13 +171,22 @@ public interface TypesPackage extends EPackage {
 	int TYPE_FORWARD_DECLARATION__VISIBILITY = StructurePackage.ABSTRACT_NAMED_FEATURE_COUNT + 1;
 
 	/**
+	 * The feature id for the '<em><b>Subtype</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TYPE_FORWARD_DECLARATION__SUBTYPE = StructurePackage.ABSTRACT_NAMED_FEATURE_COUNT + 2;
+
+	/**
 	 * The number of structural features of the '<em>Type Forward Declaration</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int TYPE_FORWARD_DECLARATION_FEATURE_COUNT = StructurePackage.ABSTRACT_NAMED_FEATURE_COUNT + 2;
+	int TYPE_FORWARD_DECLARATION_FEATURE_COUNT = StructurePackage.ABSTRACT_NAMED_FEATURE_COUNT + 3;
 
 	/**
 	 * The number of operations of the '<em>Type Forward Declaration</em>' class.
@@ -215,6 +233,15 @@ public interface TypesPackage extends EPackage {
 	 * @ordered
 	 */
 	int BUILTIN_TYPE_DECLARATION__VISIBILITY = TYPE_DECLARATION__VISIBILITY;
+
+	/**
+	 * The feature id for the '<em><b>Subtype</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BUILTIN_TYPE_DECLARATION__SUBTYPE = TYPE_DECLARATION__SUBTYPE;
 
 	/**
 	 * The feature id for the '<em><b>Definition</b></em>' containment reference.
@@ -1342,6 +1369,17 @@ public interface TypesPackage extends EPackage {
 	EAttribute getTypeDeclaration_Visibility();
 
 	/**
+	 * Returns the meta object for the attribute '{@link org.xtuml.bp.xtext.masl.masl.types.TypeDeclaration#isSubtype <em>Subtype</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Subtype</em>'.
+	 * @see org.xtuml.bp.xtext.masl.masl.types.TypeDeclaration#isSubtype()
+	 * @see #getTypeDeclaration()
+	 * @generated
+	 */
+	EAttribute getTypeDeclaration_Subtype();
+
+	/**
 	 * Returns the meta object for the containment reference '{@link org.xtuml.bp.xtext.masl.masl.types.TypeDeclaration#getDefinition <em>Definition</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1372,6 +1410,17 @@ public interface TypesPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getTypeForwardDeclaration_Visibility();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.xtuml.bp.xtext.masl.masl.types.TypeForwardDeclaration#isSubtype <em>Subtype</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Subtype</em>'.
+	 * @see org.xtuml.bp.xtext.masl.masl.types.TypeForwardDeclaration#isSubtype()
+	 * @see #getTypeForwardDeclaration()
+	 * @generated
+	 */
+	EAttribute getTypeForwardDeclaration_Subtype();
 
 	/**
 	 * Returns the meta object for class '{@link org.xtuml.bp.xtext.masl.masl.types.BuiltinTypeDeclaration <em>Builtin Type Declaration</em>}'.
@@ -1963,6 +2012,14 @@ public interface TypesPackage extends EPackage {
 		EAttribute TYPE_DECLARATION__VISIBILITY = eINSTANCE.getTypeDeclaration_Visibility();
 
 		/**
+		 * The meta object literal for the '<em><b>Subtype</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute TYPE_DECLARATION__SUBTYPE = eINSTANCE.getTypeDeclaration_Subtype();
+
+		/**
 		 * The meta object literal for the '<em><b>Definition</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -1987,6 +2044,14 @@ public interface TypesPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute TYPE_FORWARD_DECLARATION__VISIBILITY = eINSTANCE.getTypeForwardDeclaration_Visibility();
+
+		/**
+		 * The meta object literal for the '<em><b>Subtype</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute TYPE_FORWARD_DECLARATION__SUBTYPE = eINSTANCE.getTypeForwardDeclaration_Subtype();
 
 		/**
 		 * The meta object literal for the '{@link org.xtuml.bp.xtext.masl.masl.types.impl.BuiltinTypeDeclarationImpl <em>Builtin Type Declaration</em>}' class.

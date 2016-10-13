@@ -12,7 +12,7 @@ class MaslTypeConformanceComputer {
 	@Inject extension MASLExtensions
 	@Inject extension ProjectScopeIndexProvider
 
-	def isAssignableTo(MaslType source, MaslType target) {
+	def boolean isAssignableTo(MaslType source, MaslType target) {
 		// covers 1) 
 		// A named type is assignable to the same named type
 		if (source == target)
@@ -42,13 +42,11 @@ class MaslTypeConformanceComputer {
 
 			// covers 4) 
 			// An anonymous integer type is assignable to any type with a primitive type of real
-			if (sourcePrimitive == LONG_INTEGER) {
-				return target == REAL || target == BYTE
-			}
+			if (sourcePrimitive == LONG_INTEGER && (target == REAL || target == BYTE))
+				return true
 
-			if (source == ANY_TYPE) {
+			if (source == ANY_TYPE) 
 				return target instanceof InstanceType
-			}
 
 			// covers 5) 
 			// An anonymous structure is assignable to a type with a primitive type of a structure
@@ -56,7 +54,7 @@ class MaslTypeConformanceComputer {
 			// assigned is not a structure, it should be promoted to an anonymous structure with a single 
 			// component of the original expression before trying this test.
 			if (targetPrimitive instanceof StructureType) {
-				if(sourcePrimitive == targetPrimitive || sourcePrimitive.wrapInStructure == targetPrimitive)
+				if(sourcePrimitive == targetPrimitive || sourcePrimitive.wrapInStructure.isAssignableTo(targetPrimitive))
 					return true
 			}
 				
@@ -66,7 +64,8 @@ class MaslTypeConformanceComputer {
 			// type of the expression to be assigned is not a sequence, it should be promoted to an 
 			// anonymous sequence with a single element of the original expression before trying this test.
 			if (targetPrimitive instanceof CollectionType) {
-				if(sourcePrimitive == targetPrimitive || sourcePrimitive.wrapInSequence == targetPrimitive)
+				if(sourcePrimitive == targetPrimitive 
+					|| sourcePrimitive.wrapInSequence.isAssignableTo(targetPrimitive))
 					return true
 			}
 		}

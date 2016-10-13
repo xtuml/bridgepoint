@@ -17,6 +17,7 @@ import org.xtuml.bp.xtext.masl.masl.structure.Visibility;
  * </p>
  * <ul>
  *   <li>{@link org.xtuml.bp.xtext.masl.masl.types.TypeDeclaration#getVisibility <em>Visibility</em>}</li>
+ *   <li>{@link org.xtuml.bp.xtext.masl.masl.types.TypeDeclaration#isSubtype <em>Subtype</em>}</li>
  *   <li>{@link org.xtuml.bp.xtext.masl.masl.types.TypeDeclaration#getDefinition <em>Definition</em>}</li>
  * </ul>
  *
@@ -53,6 +54,32 @@ public interface TypeDeclaration extends Pragmatized, AbstractFeature {
 	 * @generated
 	 */
 	void setVisibility(Visibility value);
+
+	/**
+	 * Returns the value of the '<em><b>Subtype</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Subtype</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Subtype</em>' attribute.
+	 * @see #setSubtype(boolean)
+	 * @see org.xtuml.bp.xtext.masl.masl.types.TypesPackage#getTypeDeclaration_Subtype()
+	 * @model unique="false"
+	 * @generated
+	 */
+	boolean isSubtype();
+
+	/**
+	 * Sets the value of the '{@link org.xtuml.bp.xtext.masl.masl.types.TypeDeclaration#isSubtype <em>Subtype</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Subtype</em>' attribute.
+	 * @see #isSubtype()
+	 * @generated
+	 */
+	void setSubtype(boolean value);
 
 	/**
 	 * Returns the value of the '<em><b>Definition</b></em>' containment reference.

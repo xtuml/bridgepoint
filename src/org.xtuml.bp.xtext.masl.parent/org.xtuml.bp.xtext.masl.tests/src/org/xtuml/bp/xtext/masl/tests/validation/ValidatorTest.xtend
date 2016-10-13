@@ -22,6 +22,7 @@ import org.xtuml.bp.xtext.masl.masl.types.TypesPackage
 import org.xtuml.bp.xtext.masl.tests.MASLInjectorProvider
 
 import static org.xtuml.bp.xtext.masl.validation.MaslIssueCodesProvider.*
+import org.eclipse.xtext.diagnostics.Diagnostic
 
 @RunWith(XtextRunner)
 @InjectWith(MASLInjectorProvider)
@@ -162,6 +163,22 @@ class ValidatorTest {
 				delay 1;
 			end;
 		''').elements.last.assertError(delayStatement, UNREACHABLE_CODE)
+	}
+
+	@Test 
+	def void testOverloadedMethod() { 
+		load('''
+			domain dom is 
+				service foo(i:in bag of integer);
+				service foo(i:in sequence of integer);
+				service svc();
+			end;
+			
+			service dom::svc() is
+			begin
+				foo(1);    
+			end;
+		''').elements.last.assertError(simpleFeatureCall, Diagnostic.LINKING_DIAGNOSTIC)
 	}
 
 	private def assertNoError(EObject element, String type) {

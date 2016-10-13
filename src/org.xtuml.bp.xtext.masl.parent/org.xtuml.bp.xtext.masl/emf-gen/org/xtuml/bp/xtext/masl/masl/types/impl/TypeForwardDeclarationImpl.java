@@ -38,6 +38,7 @@ import org.xtuml.bp.xtext.masl.masl.types.TypesPackage;
  * <ul>
  *   <li>{@link org.xtuml.bp.xtext.masl.masl.types.impl.TypeForwardDeclarationImpl#getPragmas <em>Pragmas</em>}</li>
  *   <li>{@link org.xtuml.bp.xtext.masl.masl.types.impl.TypeForwardDeclarationImpl#getVisibility <em>Visibility</em>}</li>
+ *   <li>{@link org.xtuml.bp.xtext.masl.masl.types.impl.TypeForwardDeclarationImpl#isSubtype <em>Subtype</em>}</li>
  * </ul>
  *
  * @generated
@@ -72,6 +73,26 @@ public class TypeForwardDeclarationImpl extends AbstractNamedImpl implements Typ
 	 * @ordered
 	 */
 	protected Visibility visibility = VISIBILITY_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #isSubtype() <em>Subtype</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isSubtype()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean SUBTYPE_EDEFAULT = false;
+
+	/**
+	 * The cached value of the '{@link #isSubtype() <em>Subtype</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isSubtype()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean subtype = SUBTYPE_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -130,6 +151,27 @@ public class TypeForwardDeclarationImpl extends AbstractNamedImpl implements Typ
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public boolean isSubtype() {
+		return subtype;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setSubtype(boolean newSubtype) {
+		boolean oldSubtype = subtype;
+		subtype = newSubtype;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, TypesPackage.TYPE_FORWARD_DECLARATION__SUBTYPE, oldSubtype, subtype));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -151,6 +193,8 @@ public class TypeForwardDeclarationImpl extends AbstractNamedImpl implements Typ
 				return getPragmas();
 			case TypesPackage.TYPE_FORWARD_DECLARATION__VISIBILITY:
 				return getVisibility();
+			case TypesPackage.TYPE_FORWARD_DECLARATION__SUBTYPE:
+				return isSubtype();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -171,6 +215,9 @@ public class TypeForwardDeclarationImpl extends AbstractNamedImpl implements Typ
 			case TypesPackage.TYPE_FORWARD_DECLARATION__VISIBILITY:
 				setVisibility((Visibility)newValue);
 				return;
+			case TypesPackage.TYPE_FORWARD_DECLARATION__SUBTYPE:
+				setSubtype((Boolean)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -189,6 +236,9 @@ public class TypeForwardDeclarationImpl extends AbstractNamedImpl implements Typ
 			case TypesPackage.TYPE_FORWARD_DECLARATION__VISIBILITY:
 				setVisibility(VISIBILITY_EDEFAULT);
 				return;
+			case TypesPackage.TYPE_FORWARD_DECLARATION__SUBTYPE:
+				setSubtype(SUBTYPE_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -205,6 +255,8 @@ public class TypeForwardDeclarationImpl extends AbstractNamedImpl implements Typ
 				return pragmas != null && !pragmas.isEmpty();
 			case TypesPackage.TYPE_FORWARD_DECLARATION__VISIBILITY:
 				return visibility != VISIBILITY_EDEFAULT;
+			case TypesPackage.TYPE_FORWARD_DECLARATION__SUBTYPE:
+				return subtype != SUBTYPE_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -253,6 +305,8 @@ public class TypeForwardDeclarationImpl extends AbstractNamedImpl implements Typ
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (visibility: ");
 		result.append(visibility);
+		result.append(", subtype: ");
+		result.append(subtype);
 		result.append(')');
 		return result.toString();
 	}

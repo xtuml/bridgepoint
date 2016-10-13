@@ -9,8 +9,10 @@ import org.eclipse.emf.ecore.EObject
 import org.eclipse.emf.ecore.EReference
 import org.eclipse.xtext.scoping.IScope
 import org.xtuml.bp.xtext.masl.MASLExtensions
+import org.xtuml.bp.xtext.masl.lib.MASLLibraryProvider
 import org.xtuml.bp.xtext.masl.masl.behavior.AttributeReferential
 import org.xtuml.bp.xtext.masl.masl.behavior.BehaviorPackage
+import org.xtuml.bp.xtext.masl.masl.behavior.CharacteristicCall
 import org.xtuml.bp.xtext.masl.masl.behavior.CodeBlock
 import org.xtuml.bp.xtext.masl.masl.behavior.CreateExpression
 import org.xtuml.bp.xtext.masl.masl.behavior.FindExpression
@@ -21,6 +23,7 @@ import org.xtuml.bp.xtext.masl.masl.behavior.SimpleFeatureCall
 import org.xtuml.bp.xtext.masl.masl.behavior.SortOrderFeature
 import org.xtuml.bp.xtext.masl.masl.behavior.TerminatorOperationCall
 import org.xtuml.bp.xtext.masl.masl.structure.AssocRelationshipDefinition
+import org.xtuml.bp.xtext.masl.masl.structure.Characteristic
 import org.xtuml.bp.xtext.masl.masl.structure.DomainFunctionDefinition
 import org.xtuml.bp.xtext.masl.masl.structure.DomainServiceDefinition
 import org.xtuml.bp.xtext.masl.masl.structure.ObjectDeclaration
@@ -44,10 +47,12 @@ import org.xtuml.bp.xtext.masl.typesystem.MaslType
 import org.xtuml.bp.xtext.masl.typesystem.MaslTypeProvider
 import org.xtuml.bp.xtext.masl.typesystem.NamedType
 import org.xtuml.bp.xtext.masl.typesystem.StructureType
+import org.xtuml.bp.xtext.masl.typesystem.TypeParameterResolver
 
 import static org.eclipse.xtext.scoping.Scopes.*
 
 import static extension org.eclipse.xtext.EcoreUtil2.*
+import org.xtuml.bp.xtext.masl.typesystem.TypeOfType
 
 /**
  * This class contains custom scoping description.
@@ -62,6 +67,7 @@ class MASLScopeProvider extends AbstractMASLScopeProvider {
 	@Inject extension MASLExtensions
 	@Inject extension MaslTypeProvider
 	@Inject extension ProjectScopeIndexProvider
+	@Inject extension TypeParameterResolver
 
 	override getScope(EObject context, EReference reference) {
 		switch reference {
@@ -107,6 +113,10 @@ class MASLScopeProvider extends AbstractMASLScopeProvider {
 						}						
 					}
 				} 
+			}
+			case characteristicCall_Characteristic: {
+				if(context instanceof CharacteristicCall) 
+					return createCharacteristicScope(context)
 			}
 			case structurePackage.relationshipNavigation_ObjectOrRole: {
 				if(context instanceof RelationshipNavigation) {
@@ -207,7 +217,7 @@ class MASLScopeProvider extends AbstractMASLScopeProvider {
 				return IScope.NULLSCOPE
 		}
 	}
-	
+
 	private def IScope getLocalSimpleFeatureScope(EObject expr, IScope parentScope, boolean isFindExpression_Expression) {
 		if(expr == null)
 			return IScope.NULLSCOPE
@@ -220,8 +230,8 @@ class MASLScopeProvider extends AbstractMASLScopeProvider {
 						switch maslType {
 							InstanceType: 
 								 maslType.instance
-							CollectionType case maslType.elementType instanceof InstanceType:
-								(maslType.elementType as InstanceType).instance
+							CollectionType case maslType.componentType instanceof InstanceType:
+								(maslType.componentType as InstanceType).instance
 							default:
 								null							
 						}
@@ -257,5 +267,23 @@ class MASLScopeProvider extends AbstractMASLScopeProvider {
 	
 	private def dispatch IScope getFeatureScope(EObject call) {
 		IScope.NULLSCOPE
+	}
+	
+	private def createCharacteristicScope(CharacteristicCall call) {
+		val callReceiverType = call.receiver?.maslType
+		if(callReceiverType != null) {
+			val libResource = call.eResource.resourceSet.getResource(MASLLibraryProvider.MODEL_URI, true)
+			val characteristics = libResource.contents.head.getAllContentsOfType(Characteristic)
+			val characteristicsForReceiver = characteristics.filter [ c |
+				val charReceiverType = if(c.isForValue)
+						c.receiverType.maslTypeOfTypeReference
+					else
+						new TypeOfType(c.receiverType.maslTypeOfTypeReference) 
+				return callReceiverType.matchesParameterized(charReceiverType)
+			]
+			return scopeFor(characteristicsForReceiver)
+		} else {
+			return IScope.NULLSCOPE
+		}
 	}
 }
