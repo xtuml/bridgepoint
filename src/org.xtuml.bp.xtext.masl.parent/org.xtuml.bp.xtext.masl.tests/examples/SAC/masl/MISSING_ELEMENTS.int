@@ -9,9 +9,9 @@ domain INI is
 		name: string;
 		value: string;
 	end;
-	service get_data(); 
+	service get_data(p0: in string, p1: in sequence of data_item_type); 
 	service reload_ini_files();
-	service get_indexed_data();
+	service get_indexed_data(p0: in string, p1: in integer, p2: in string, p3: in string, p4: in sequence of data_item_type);
 end domain;
 
 domain SAC is 
@@ -51,12 +51,18 @@ domain SAC is
 end domain;
 
 domain SOA is
-	service subscribe(); 
+	service subscribe(p: in string); 
+	service subscribe(p: in string, p1: in sequence of string); 
 end domain;
 
 domain Test is
-	service check_equal();
-	service check_size();
+	service check_equal(p0: in string, p1: in integer, p2: in integer, p3: in integer);
+	service check_size(po: in string, p1: in integer, p2: in sequence of instance of SAC::_TEST_Operator_report_user, p3: in integer);
+	service check_size(po: in string, p1: in integer, p2: in sequence of instance of SAC::_TEST_Operator_report_user_operation, p3: in integer);
+	service check_size(po: in string, p1: in integer, p2: in sequence of instance of SAC::_TEST_Operator_report_user_session, p3: in integer);
+	service check_size(po: in string, p1: in integer, p2: in sequence of instance of SAC::_TEST_Operator_user_session_deleted, p3: in integer);
+	service check_size(po: in string, p1: in integer, p2: in sequence of instance of SAC::_TEST_Operator_user_operation_removed, p3: in integer);
+	service check_size(po: in string, p1: in integer, p2: in sequence of instance of SAC::_TEST_Operator_user_removed, p3: in integer);
 	service service_event_queue();
 	service print_results();
 end domain;

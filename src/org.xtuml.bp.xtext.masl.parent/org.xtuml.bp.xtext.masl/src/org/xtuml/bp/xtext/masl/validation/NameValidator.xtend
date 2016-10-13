@@ -8,6 +8,7 @@ import org.eclipse.emf.ecore.EObject
 import org.eclipse.xtext.naming.IQualifiedNameProvider
 import org.eclipse.xtext.validation.Check
 import org.eclipse.xtext.validation.EValidatorRegistrar
+import org.xtuml.bp.xtext.masl.MASLExtensions
 import org.xtuml.bp.xtext.masl.masl.behavior.CodeBlock
 import org.xtuml.bp.xtext.masl.masl.structure.DomainDefinition
 import org.xtuml.bp.xtext.masl.masl.structure.DomainFunctionDefinition
@@ -27,8 +28,6 @@ import org.xtuml.bp.xtext.masl.masl.types.TypesPackage
 import org.xtuml.bp.xtext.masl.scoping.ProjectScopeIndexProvider
 
 import static org.xtuml.bp.xtext.masl.validation.MaslIssueCodesProvider.*
-import org.xtuml.bp.xtext.masl.MASLExtensions
-import org.xtuml.bp.xtext.masl.typesystem.MaslTypeProvider
 
 class NameValidator extends AbstractMASLValidator {
 	
@@ -37,7 +36,7 @@ class NameValidator extends AbstractMASLValidator {
 	
 	@Inject extension MASLExtensions
 	@Inject extension TypesPackage
-	@Inject extension MaslTypeProvider
+	@Inject extension SignatureProvider
 	@Inject extension StructurePackage structurePackage
 	@Inject extension IQualifiedNameProvider
 	@Inject extension ProjectScopeIndexProvider
@@ -167,10 +166,4 @@ class NameValidator extends AbstractMASLValidator {
 		}		
 	}
 	
-	private def getParametersAsString(EObject operation) {
-		if(operation.isOperation && operation instanceof Parameterized)
-			'(' + (operation as Parameterized).parameters.map[maslType.toString].join(',') + ')'
-		else 
-			''
-	}
 }

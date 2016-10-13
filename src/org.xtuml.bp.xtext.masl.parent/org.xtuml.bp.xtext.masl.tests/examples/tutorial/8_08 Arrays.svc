@@ -50,7 +50,7 @@ begin
   for i in my_int_array_1'elements loop
     x:=x+i;
   end loop;
-  //if (x /= 5) then
+  //if (x /= 5) then 
   //  raise Standard::constraint_error;
   //end if;
 

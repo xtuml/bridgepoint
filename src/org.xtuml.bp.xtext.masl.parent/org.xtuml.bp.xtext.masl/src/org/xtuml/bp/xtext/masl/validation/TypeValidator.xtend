@@ -4,6 +4,7 @@ import java.util.List
 import javax.inject.Inject
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.emf.ecore.EReference
+import org.eclipse.xtext.naming.IQualifiedNameProvider
 import org.eclipse.xtext.validation.Check
 import org.eclipse.xtext.validation.EValidatorRegistrar
 import org.xtuml.bp.xtext.masl.MASLExtensions
@@ -13,6 +14,7 @@ import org.xtuml.bp.xtext.masl.masl.behavior.IndexedExpression
 import org.xtuml.bp.xtext.masl.masl.behavior.OperationCall
 import org.xtuml.bp.xtext.masl.masl.behavior.SimpleFeatureCall
 import org.xtuml.bp.xtext.masl.masl.behavior.TerminatorOperationCall
+import org.xtuml.bp.xtext.masl.masl.structure.Parameterized
 import org.xtuml.bp.xtext.masl.masl.structure.TerminatorDefinition
 import org.xtuml.bp.xtext.masl.masl.types.AbstractTypeReference
 import org.xtuml.bp.xtext.masl.masl.types.ConstrainedArrayTypeReference
@@ -31,7 +33,6 @@ import org.xtuml.bp.xtext.masl.typesystem.StructureType
 
 import static org.xtuml.bp.xtext.masl.typesystem.BuiltinType.*
 import static org.xtuml.bp.xtext.masl.validation.MaslIssueCodesProvider.*
-import org.eclipse.xtext.naming.IQualifiedNameProvider
 
 class TypeValidator extends AbstractMASLValidator {
 	
@@ -42,6 +43,7 @@ class TypeValidator extends AbstractMASLValidator {
 	@Inject extension MASLExtensions
 	@Inject extension MaslExpectedTypeProvider
 	@Inject extension MaslTypeConformanceComputer
+	@Inject extension SignatureProvider
 	@Inject extension BehaviorPackage
 	@Inject extension TypesPackage
 	@Inject extension IQualifiedNameProvider
@@ -59,7 +61,7 @@ class TypeValidator extends AbstractMASLValidator {
 			}
 		} 
 		if(feature != null && !feature.eIsProxy && feature.isOperation && !(eContainer instanceof OperationCall)) 
-			addIssue('Operation ' + feature.fullyQualifiedName?.lastSegment + ' must be called with parentheses', it, featureCall_Feature, INVALID_FEATURE_CALL)
+			addIssue('Action ' + feature.fullyQualifiedName?.lastSegment + ' must be called with parentheses', it, featureCall_Feature, INVALID_FEATURE_CALL)
 	}
 
 	@Check
@@ -68,8 +70,20 @@ class TypeValidator extends AbstractMASLValidator {
 		if(receiver != null && !receiver.eIsProxy) {
 			switch receiver {
 				SimpleFeatureCall: {
-					if(receiver.feature.isOperation || receiver.feature instanceof TypeDeclaration)
-						return;
+					if(receiver.feature.isOperation) {
+						val parameterized = receiver.feature as Parameterized
+						val expectedNumParameters = (parameterized).parameters.size
+						if(expectedNumParameters != arguments.size) 
+							addIssue('''The action «
+								parameterized.fullyQualifiedName»«parameterized.parametersAsString
+								» cannot be called with arguments («
+									arguments.map[maslType.toString].join(', ')
+								»)''', it, operationCall_Receiver, WRONG_NUMBER_OF_ARGUMENTS)
+					} else if(receiver.feature instanceof TypeDeclaration) {
+						if(arguments.size != 1) 
+							addIssue('Type cast must have exactly one argument', it, operationCall_Receiver, WRONG_NUMBER_OF_ARGUMENTS)
+					}
+					return
 				}
 				AbstractTypeReference: return
 			}
@@ -108,13 +122,16 @@ class TypeValidator extends AbstractMASLValidator {
 	def checkTypeExpectations(EObject it) {
 		eClass.EAllReferences.forEach [ ref |
 			if(eIsSet(ref)) {
-				val expectedType = it.getExpectedType(ref)
-				if(expectedType != ANY_TYPE) {
-					if(ref.many)
-						(eGet(ref) as List<? extends EObject>).forEach[ value, index |
+				if(ref.many) {
+					(eGet(ref) as List<? extends EObject>).forEach[ value, index |
+						val expectedType = it.getExpectedType(ref, index)
+						if(expectedType != ANY_TYPE) 
 							value.checkTypeExpectation(expectedType, it, ref, index)							
-						]
-					else
+					]
+					
+				} else {
+					val expectedType = it.getExpectedType(ref, -1)
+					if(expectedType != ANY_TYPE) 
 						(eGet(ref) as EObject).checkTypeExpectation(expectedType, it, ref, INSIGNIFICANT_INDEX)	
 				}
 			}

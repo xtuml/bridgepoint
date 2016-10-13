@@ -221,9 +221,10 @@ class MaslTypeProvider {
 				return STREAM_MANIPULATOR
 			ConsoleLiteral:
 				return ANONYMOUS_DEVICE
-			LineNoLiteral,
+			LineNoLiteral:
+				return ANONYMOUS_INTEGER
 			FileNameLiteral:
-				return NO_TYPE
+				return ANONYMOUS_STRING
 			StructureAggregateExpression:
 				return new StructureType(null, elements.map[new StructureComponent(null, maslTypeOfExpression)],true)
 			default:

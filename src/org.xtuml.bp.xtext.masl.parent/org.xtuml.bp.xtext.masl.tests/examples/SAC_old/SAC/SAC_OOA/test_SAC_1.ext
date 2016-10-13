@@ -145,7 +145,10 @@ begin
    
    // start the heartbeat for workstation 1 and check that the session 
    // is no longer timed out and the user becomes logged on
-   SAC::session_active(0, 1);
+   // CHANGED JK : added string parameter
+   // SAC::session_active(0, 1);
+   SAC::session_active(0, 1, "");
+   
    Test::service_event_queue();
    if Test::check_size ( #FILE#, #LINE#, find _TEST_Operator_report_user_session(), 1 ) then
       Test::check_equal ( #FILE#, #LINE#, ((find _TEST_Operator_report_user_session(user_id = 1 and 
@@ -186,7 +189,10 @@ begin
    delete find _TEST_Operator_user_operation_removed();
    
    // log off workstation 4 user 2
-   SAC::user_logoff(3, 2);
+   // CHANGED JK : added string parameter
+   // SAC::user_logoff(3, 2);
+   SAC::user_logoff(3, 2, "");
+   
    Test::service_event_queue();
    if Test::check_size ( #FILE#, #LINE#, find _TEST_Operator_user_session_deleted(), 1 ) then
       Test::check_equal ( #FILE#, #LINE#, ((find _TEST_Operator_user_session_deleted(session_id = 3))'length), 1 );
@@ -206,7 +212,9 @@ begin
    delete find _TEST_Operator_user_removed();
    
    // log off workstation 3 user 3
-   SAC::user_logoff(4, 3);
+   // CHANGED JK : added string parameter
+   // SAC::user_logoff(4, 3);
+   SAC::user_logoff(4, 3, "");
    Test::service_event_queue();
    if Test::check_size ( #FILE#, #LINE#, find _TEST_Operator_user_session_deleted(), 1 ) then
       Test::check_equal ( #FILE#, #LINE#, ((find _TEST_Operator_user_session_deleted(session_id = 4))'length), 1 );
@@ -224,7 +232,10 @@ begin
    delete find _TEST_Operator_user_removed();
    
    // log off workstation 1 user 1 check that the user becomes suspect
-   SAC::user_logoff(0, 1);
+   // CHANGED JK : added string parameter
+   // SAC::user_logoff(0, 1);
+   SAC::user_logoff(0, 1, "");
+   
    Test::service_event_queue();
    if Test::check_size ( #FILE#, #LINE#, find _TEST_Operator_user_session_deleted(), 1 ) then
       Test::check_equal ( #FILE#, #LINE#, ((find _TEST_Operator_user_session_deleted(session_id = 0))'length), 1 );
@@ -237,7 +248,9 @@ begin
    
    // start the heartbeat for workstation 2 and check that the session 
    // is no longer timed out and the user becomes logged on
-   SAC::session_active(1, 1);
+   // CHANGED JK : added string parameter
+   // SAC::session_active(1, 1);
+   SAC::session_active(1, 1, "");
    Test::service_event_queue();
    if Test::check_size ( #FILE#, #LINE#, find _TEST_Operator_report_user_session(), 1 ) then
       Test::check_equal ( #FILE#, #LINE#, ((find _TEST_Operator_report_user_session(user_id = 1 and 
@@ -251,7 +264,10 @@ begin
    delete find _TEST_Operator_report_user_session();
    
    // log off workstation 2 user 1 
-   SAC::user_logoff(1, 1);
+   // CHANGED JK : added string parameter
+   // SAC::user_logoff(1, 1);
+   SAC::user_logoff(1, 1, "");
+   
    Test::service_event_queue();
    if Test::check_size ( #FILE#, #LINE#, find _TEST_Operator_user_session_deleted(), 1 ) then
       Test::check_equal ( #FILE#, #LINE#, ((find _TEST_Operator_user_session_deleted(session_id = 1))'length), 1 );

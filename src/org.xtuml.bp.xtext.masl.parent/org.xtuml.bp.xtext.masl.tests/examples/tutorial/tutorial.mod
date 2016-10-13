@@ -73,7 +73,7 @@ domain tutorial is
 		Wheel conditionally foo one Wing,
 		Wing conditionally bar many Wheel;
 		
-	service Array_passing(a: in array(1..1) of integer, b: in array(1..1) of integer);
+	service Array_passing(a: in my_int_array_type, b: in my_int_array_type);
 end;
 
 domain Standard is
