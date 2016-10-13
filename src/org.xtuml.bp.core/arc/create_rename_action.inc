@@ -538,10 +538,13 @@ ${nav_string.body}\
     public static String isNameValid(String name, ModelElement element)
     {
 
-    	if (CorePlugin.getDefault().getPreferenceStore().getValue(BridgePointPreferencesStore.REQUIRE_MASL_STYLE_IDENTIFIERS))
+    	if (CorePlugin.getDefault().getPreferenceStore().getBoolean(BridgePointPreferencesStore.REQUIRE_MASL_STYLE_IDENTIFIERS))
     	{
     		// Make sure the name conforms to MASL identifier rule:
     		//   ( Letter | '_' )( Letter | Digit | '_' )*
+			if ( name.isEmpty() ) {
+				return CorePlugin.INVALID_MASL_NAME;
+			}
     		int i = 0;
     		if ( !(Character.isLetter(name.charAt(i)) || name.charAt(i) == '_') ) {
     		  return CorePlugin.INVALID_MASL_NAME;
