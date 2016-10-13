@@ -134,7 +134,7 @@ public class BridgePointPreferences
     useDefaultNamesForNewModelElements.setToolTipText("Shows the rename dialog automatically during new model element creation when not enabled.");
 
     requireMaslStyleIdentifiers = new Button(composite, SWT.CHECK | SWT.LEFT);
-    requireMaslStyleIdentifiers.setText("Enforce MASL-style identifiers for model elements");
+    requireMaslStyleIdentifiers.setText("Require MASL-style identifiers for model elements");
     requireMaslStyleIdentifiers.setLayoutData(new GridData());
     requireMaslStyleIdentifiers.setToolTipText("This preference restricts element names to conform to the MASL standard following the BNF rule:\n  ( Letter | '_' )( Letter | Digit | '_' )*;\n\nIdentifiers may only contain letters, numbers, and underscores.  Spaces, hyphens, and other characters are not allowed.");
 
