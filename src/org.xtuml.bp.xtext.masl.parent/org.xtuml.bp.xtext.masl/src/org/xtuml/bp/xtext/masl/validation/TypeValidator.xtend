@@ -124,15 +124,13 @@ class TypeValidator extends AbstractMASLValidator {
 			if(eIsSet(ref)) {
 				if(ref.many) {
 					(eGet(ref) as List<? extends EObject>).forEach[ value, index |
-						val expectedType = it.getExpectedType(ref, index)
-						if(expectedType != ANY_TYPE) 
-							value.checkTypeExpectation(expectedType, it, ref, index)							
+						val expectedTypes = it.getExpectedTypes(ref, index)
+						value.checkTypeExpectation(expectedTypes, it, ref, index)							
 					]
 					
 				} else {
-					val expectedType = it.getExpectedType(ref, -1)
-					if(expectedType != ANY_TYPE) 
-						(eGet(ref) as EObject).checkTypeExpectation(expectedType, it, ref, INSIGNIFICANT_INDEX)	
+					val expectedTypes = it.getExpectedTypes(ref, -1)
+					(eGet(ref) as EObject).checkTypeExpectation(expectedTypes, it, ref, INSIGNIFICANT_INDEX)	
 				}
 			}
 		]
@@ -141,10 +139,11 @@ class TypeValidator extends AbstractMASLValidator {
 		}
 	} 
 	
-	private def checkTypeExpectation(EObject element, MaslType expectedType, EObject owner, EReference reference, int index) {
-		val realType = element.maslType
-		if(!realType.isAssignableTo(expectedType)) {
-			addIssue('''Expected «expectedType» but was «realType».''', owner, reference, index, WRONG_TYPE)
+	private def checkTypeExpectation(EObject element, List<MaslType> expectedTypes, EObject owner, EReference reference, int index) {
+		if(!expectedTypes.empty) {
+			val realType = element.maslType
+			if(!expectedTypes.exists[realType.isAssignableTo(it)]) 
+				addIssue('''Expected «expectedTypes.map[toString].join(' or ')» but was «realType».''', owner, reference, index, WRONG_TYPE)
 		}
 	}
 	

@@ -25,8 +25,8 @@ class TypeProviderTest extends AbstractMaslModelTest {
 		'flush'.assertType('anonymous builtin stream_manipulator_type')
 		'console'.assertType('anonymous builtin device')
 		'endl'.assertType('anonymous builtin stream_manipulator_type')
-		'#LINE#'.assertType('anonymous builtin no_type') 
-		'#FILE#'.assertType('anonymous builtin no_type') 
+		'#LINE#'.assertType('anonymous builtin integer') 
+		'#FILE#'.assertType('anonymous builtin string') 
 	}
 	
 	@Test 

@@ -28,26 +28,26 @@ class MaslExpectedTypeProvider {
 	@Inject extension BehaviorPackage
 	@Inject extension MaslTypeProvider
 
-	def MaslType getExpectedType(EObject context, EReference reference, int index) {
+	def List<MaslType> getExpectedTypes(EObject context, EReference reference, int index) {
 		if (reference == assignStatement_Rhs && context instanceof AssignStatement)
-			return (context as AssignStatement).lhs.maslType
+			return #[(context as AssignStatement).lhs.maslType]
 		if (reference == createArgument_Value && context instanceof CreateArgument)
-			return (context as CreateArgument).attribute.maslType
+			return #[(context as CreateArgument).attribute.maslType]
 		if (reference == caseAlternative_Choices && context instanceof CaseAlternative)
-			return ((context as CaseAlternative).eContainer as CaseStatement).value.maslType
+			return #[((context as CaseAlternative).eContainer as CaseStatement).value.maslType]
 		if (reference == variableDeclaration_Expression && context instanceof VariableDeclaration)
-			return (context as VariableDeclaration).type.maslType
+			return #[(context as VariableDeclaration).type.maslType]
 		if (reference == returnStatement_Value) {
 			val topLevelElement = context.getContainerOfType(AbstractTopLevelElement)
 			switch topLevelElement {
 				ObjectFunctionDefinition:
-					return topLevelElement.returnType.maslType
+					return #[topLevelElement.returnType.maslType]
 				DomainFunctionDefinition:
-					return topLevelElement.returnType.maslType
+					return #[topLevelElement.returnType.maslType]
 				TerminatorFunctionDefinition:
-					return topLevelElement.returnType.maslType
+					return #[topLevelElement.returnType.maslType]
 				default:
-					return NO_TYPE
+					return #[NO_TYPE]
 			}
 		}
 		if(reference == operationCall_Arguments && context instanceof OperationCall && index != -1) {
@@ -57,28 +57,28 @@ class MaslExpectedTypeProvider {
 		}
 		if(reference == terminatorOperationCall_Arguments && context instanceof TerminatorOperationCall && index != -1) 
 			return (context as TerminatorOperationCall).terminatorOperation.getParameterType(index)
-		return ANY_TYPE
+		return #[]
 	}
 
-	private def getParameterType(EObject parameterized, int index) {
+	private def List<MaslType> getParameterType(EObject parameterized, int index) {
 		if(parameterized instanceof Parameterized) {
 			val parameters = parameterized.parameters
 			if(parameters.size > index) {
 				val parameter = (parameters).get(index)
-				return parameter.maslType
+				return #[parameter.maslType]
 			}
 		} else {
-			return ANY_TYPE
+			return #[]
 		}
 	} 
 	
-	def MaslType getExpectedType(EObject element) {
+	def List<MaslType> getExpectedType(EObject element) {
 		val container = element.eContainer
 		val reference = element.eContainmentFeature
 		if(reference.isMany) 
-			container.getExpectedType(reference, (container.eGet(reference) as List<?>).indexOf(element))
+			container.getExpectedTypes(reference, (container.eGet(reference) as List<?>).indexOf(element))
 		else
-			container.getExpectedType(reference, -1)
+			container.getExpectedTypes(reference, -1)
 	}
 	
 }
