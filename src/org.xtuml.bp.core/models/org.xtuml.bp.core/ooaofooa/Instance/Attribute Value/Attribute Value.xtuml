@@ -222,13 +222,18 @@ else
   // This is a referential attribute, we will need to find the value of the 
   // attribute value that it refers to.
   select one inst related by self->I_INS[R2909];
+  // There may be many Attribute Reference in Class (O_REF) associated with
+  // this referential attribute. We are going to look for the one associated
+  // with the Instance just found above.
   select many oref_set related by ref_attr->O_REF[R108];
   for each oref in oref_set
     select one rta related by oref->O_RTIDA[R111]->O_OIDA[R110]->O_ATTR[R105];
     if (not_empty rta)
+      // See if this instance participates via a unformalized participant.
       select any simp_link related by inst->I_LIP[R2958]->I_LNK[R2901] where
                                                  selected.Rel_ID == oref.Rel_ID;
       if (empty simp_link)
+        // If it was not an unformalized participant, see if it is formalized.
         select any simp_link related by inst->I_LIP[R2958]->I_LNK[R2902] where
                                                  selected.Rel_ID == oref.Rel_ID;
       end if;
@@ -246,7 +251,13 @@ else
                                                 selected.Attr_ID == rta.Attr_ID;
         end if;  
         if (not_empty attr_val)
-          return attr_val.getRuntimeValue();  //recursive call
+          if (self.Attr_ID == attr_val.Attr_ID)
+            // If we just found ourself, skip over the recursive call to avoid
+            // an infinite loop.
+            continue;
+          else
+            return attr_val.getRuntimeValue();  //recursive call
+          end if;
         end if;
         break;      
       elif (not_empty assoc_link)
@@ -274,7 +285,13 @@ else
                                                 selected.Attr_ID == rta.Attr_ID;
         end if;                
         if (not_empty attr_val)
-          return attr_val.getRuntimeValue();  //recursive call
+          if (self.Attr_ID == attr_val.Attr_ID)
+            // If we just found ourself, skip over the recursive call to avoid
+            // an infinite loop.
+            continue;
+          else
+            return attr_val.getRuntimeValue();  //recursive call
+          end if;
         end if;
         break;          
       end if;   

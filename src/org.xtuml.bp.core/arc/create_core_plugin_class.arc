@@ -142,7 +142,8 @@ public class CorePlugin extends AbstractUIPlugin {
 	private static final int FILE_FORMAT_ERROR = 1;
 	public static final String MODEL_LOAD_ERROR = "Problem loading model";
 	public static final String DUPLICATE_NAME_ERROR = "Name already exists.";
-	public static final String INVALID_NAME_SPACES = "Spaces are not allowed in the name of an element of this type."; 
+	public static final String INVALID_NAME_SPACES = "Spaces are not allowed in the name of an element of this type.";
+	public static final String INVALID_MASL_NAME = "Value must only contain letters, numbers, and underscores."; 
 	public static final String DANGLING_REFERENCE_DECORATOR_ID = "org.xtuml.bp.ui.explorer.decorators.danglingreferencedecorator"; //$$NON-NLS-1$$
 	public static final Object UPGRADE_FAMILY = "UPGRADE_FAMILY"; //$$NON-NLS-1$$
     public static PrintStream out = System.out;
