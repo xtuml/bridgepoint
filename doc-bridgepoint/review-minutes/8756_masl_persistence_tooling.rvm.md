@@ -13,9 +13,9 @@ Present: Bob, Keith, Levi, Cort
 
 <pre>
 -- Num Type  Who  Section  Comment
-_- 01  min   CS   5        formatting issues.  Some numbered items do not start on new line
-_- 02  min   BM   5.2.1    add link to design note for description of "labeled action body"
-_- 03  min   BM   7        Create a new manual test in QA manual tests for this work
+x- 01  min   CS   5        formatting issues.  Some numbered items do not start on new line
+x- 02  min   BM   5.2.1    add link to design note for description of "labeled action body"
+x- 03  min   BM   7        Create a new manual test in QA manual tests for this work
 </pre>
    
    
@@ -28,19 +28,19 @@ Present: Bob, Keith, Levi, Cort
 <pre>
 
 -- Num Type  Who  Section  Comment
-_- 01  min   CS   3        "the tic part" > "the tic is part"
-_- 02  min   CS   3        note that tics are part of OAL too
-_- 03  min   KB   5        We need to make sure that xtumlmc_build's handling of tics is not adversely
+x- 01  min   CS   3        "the tic part" > "the tic is part"
+x- 02  min   CS   3        note that tics are part of OAL too
+x- 03  min   KB   5        We need to make sure that xtumlmc_build's handling of tics is not adversely
   affected by the new tic conversions.  Test with MASL input data that has a tic as the
   last character.  Test doing x2m on an xtuml model that has a tic as the last character
   in a description field used by MASL.  These tests should be captured in manual tests.
-_- 04  min   BM   4        Make sure all the requirements are covered by the manual tests
-_- 05  min   KB   general  Our discussion led to the decision to turn off the Dialect attribute that
+x- 04  min   BM   4        Make sure all the requirements are covered by the manual tests
+x- 05  min   KB   general  Our discussion led to the decision to turn off the Dialect attribute that
   was added to the schema.  We don't want to commit to this change yet.
-_- 06  min   KB   6        There are two 6.2.2.3 elements
-_- 07  min   KB   6.2.5.4  formatting
-_- 08  min   BM   2        check all the links in the document references, some appear to be wrong
-_- 09  min   CS   general  we want to persist the file names as .masl.  We need to raise an
+x- 06  min   KB   6        There are two 6.2.2.3 elements
+x- 07  min   KB   6.2.5.4  formatting
+x- 08  min   BM   2        check all the links in the document references, some appear to be wrong
+x- 09  min   CS   general  we want to persist the file names as .masl.  We need to raise an
   issue (blocker to Saab 2016) to stop persisting errors to .oal since we will
   soon be persisting OAL as .oal.  We shall have to document and fix any of our 
   .gitignore files that ignore .oal and we shall have to update the release notes

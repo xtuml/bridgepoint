@@ -28,14 +28,14 @@ See [[2.2]](#2.2) section 4
 ----------------
 
 5.1 Action file core architecture  
-5.1.1 Create new class `ActionFile` to maintain individual action dialect files
+5.1.1 Create new class `ActionFile` to maintain individual action dialect files  
 5.1.2 Add an `ActionFile` instance as a member of the
 `PersistableModelComponent` class  
 5.1.3 Update `PersistableModelComponent` and `PersistenceManager` classes to
 maintian the `ActionFile` instance  
 5.1.4 Modify `ComponentResourceListener` to listen for addition, deletion,
-move/rename of action files and reload the PMC accordingly.
-5.1.5 File list associated with this change category
+move/rename of action files and reload the PMC accordingly.  
+5.1.5 File list associated with this change category  
 ```
  src/org.xtuml.bp.core/src/org/xtuml/bp/core/common/ActionFile.java                                            | 148 +++++++++++++++++++++++
  src/org.xtuml.bp.core/src/org/xtuml/bp/core/common/PersistableModelComponent.java                             |  26 +++-
@@ -44,7 +44,8 @@ move/rename of action files and reload the PMC accordingly.
 ```
 
 5.2 Import changes  
-5.2.1 Add grammar to parse labeled action bodies  
+5.2.1 Add grammar to parse labeled action bodies (see [[2.2]](#2.2) section
+6.3)  
 5.2.2 Update `ant` script to generate this grammar and update `.gitignore` to
 ignore files generated from the grammar  
 5.2.3 Add a parameter to the routines used to create importers for the action
@@ -53,7 +54,7 @@ file. Updated in all appropriate places.
 action file parser  
 5.2.5 Update the template for the import classes with the routine to search for
 an activity instance and insert action language  
-5.2.6 File list associated with this change category
+5.2.6 File list associated with this change category  
 ```
  src/org.xtuml.bp.core/src/org/xtuml/bp/core/ui/AbstractModelImportFactory.java                                |   2 +
  src/org.xtuml.bp.io.core/arc/gen_import_java.inc                                                              |  68 ++++++++++-
@@ -72,7 +73,7 @@ file. Updated in all appropriate places.
 OOA of OOA  
 5.3.4 Update the export templates with routines to write out action bodies into
 separate files where instances of "Action Body" exist  
-5.3.5 File list associated with this change category
+5.3.5 File list associated with this change category  
 ```
  src/org.xtuml.bp.core/src/org/xtuml/bp/core/ui/AbstractModelExportFactory.java                                |   9 +-
  src/org.xtuml.bp.io.core/arc/class2table.arc                                                                  |  23 +++-
@@ -90,7 +91,7 @@ separate files where instances of "Action Body" exist
 class  
 5.4.3 Remove preference page from the ui.text plugin  
 5.4.4 Update reference to the preference in `ExplorerView`  
-5.4.5 File list associated with this change category
+5.4.5 File list associated with this change category  
 ```
  src/org.xtuml.bp.core/src/org/xtuml/bp/core/common/BridgePointPreferencesModel.java                           |   6 +-
  src/org.xtuml.bp.core/src/org/xtuml/bp/core/common/BridgePointPreferencesStore.java                           |  13 +-
