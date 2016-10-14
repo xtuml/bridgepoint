@@ -69,6 +69,9 @@ class MaslTypeConformanceComputer {
 					return true
 			}
 		}
+		if(sourcePrimitive instanceof CollectionType && targetPrimitive instanceof CollectionType)
+			return sourcePrimitive.componentType.isAssignableTo(targetPrimitive.componentType)
+				|| targetPrimitive.componentType.isAssignableTo(sourcePrimitive.componentType)
 		return false
 	}
 	

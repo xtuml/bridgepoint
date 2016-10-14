@@ -17,8 +17,7 @@ import org.xtuml.bp.xtext.masl.masl.structure.RelationshipNavigation;
  *   <li>{@link org.xtuml.bp.xtext.masl.masl.behavior.NavigateExpression#getLhs <em>Lhs</em>}</li>
  *   <li>{@link org.xtuml.bp.xtext.masl.masl.behavior.NavigateExpression#getNavigation <em>Navigation</em>}</li>
  *   <li>{@link org.xtuml.bp.xtext.masl.masl.behavior.NavigateExpression#getWhere <em>Where</em>}</li>
- *   <li>{@link org.xtuml.bp.xtext.masl.masl.behavior.NavigateExpression#getRhs <em>Rhs</em>}</li>
- *   <li>{@link org.xtuml.bp.xtext.masl.masl.behavior.NavigateExpression#getRelationship <em>Relationship</em>}</li>
+ *   <li>{@link org.xtuml.bp.xtext.masl.masl.behavior.NavigateExpression#getWith <em>With</em>}</li>
  *   <li>{@link org.xtuml.bp.xtext.masl.masl.behavior.NavigateExpression#getOrder <em>Order</em>}</li>
  *   <li>{@link org.xtuml.bp.xtext.masl.masl.behavior.NavigateExpression#getReverseOrder <em>Reverse Order</em>}</li>
  * </ul>
@@ -107,56 +106,30 @@ public interface NavigateExpression extends Expression {
 	void setWhere(Expression value);
 
 	/**
-	 * Returns the value of the '<em><b>Rhs</b></em>' containment reference.
+	 * Returns the value of the '<em><b>With</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Rhs</em>' containment reference isn't clear,
+	 * If the meaning of the '<em>With</em>' containment reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Rhs</em>' containment reference.
-	 * @see #setRhs(Expression)
-	 * @see org.xtuml.bp.xtext.masl.masl.behavior.BehaviorPackage#getNavigateExpression_Rhs()
+	 * @return the value of the '<em>With</em>' containment reference.
+	 * @see #setWith(Expression)
+	 * @see org.xtuml.bp.xtext.masl.masl.behavior.BehaviorPackage#getNavigateExpression_With()
 	 * @model containment="true"
 	 * @generated
 	 */
-	Expression getRhs();
+	Expression getWith();
 
 	/**
-	 * Sets the value of the '{@link org.xtuml.bp.xtext.masl.masl.behavior.NavigateExpression#getRhs <em>Rhs</em>}' containment reference.
+	 * Sets the value of the '{@link org.xtuml.bp.xtext.masl.masl.behavior.NavigateExpression#getWith <em>With</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Rhs</em>' containment reference.
-	 * @see #getRhs()
+	 * @param value the new value of the '<em>With</em>' containment reference.
+	 * @see #getWith()
 	 * @generated
 	 */
-	void setRhs(Expression value);
-
-	/**
-	 * Returns the value of the '<em><b>Relationship</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Relationship</em>' containment reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Relationship</em>' containment reference.
-	 * @see #setRelationship(RelationshipNavigation)
-	 * @see org.xtuml.bp.xtext.masl.masl.behavior.BehaviorPackage#getNavigateExpression_Relationship()
-	 * @model containment="true"
-	 * @generated
-	 */
-	RelationshipNavigation getRelationship();
-
-	/**
-	 * Sets the value of the '{@link org.xtuml.bp.xtext.masl.masl.behavior.NavigateExpression#getRelationship <em>Relationship</em>}' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Relationship</em>' containment reference.
-	 * @see #getRelationship()
-	 * @generated
-	 */
-	void setRelationship(RelationshipNavigation value);
+	void setWith(Expression value);
 
 	/**
 	 * Returns the value of the '<em><b>Order</b></em>' containment reference.

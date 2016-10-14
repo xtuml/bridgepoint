@@ -1,7 +1,6 @@
 package org.xtuml.bp.xtext.masl.typesystem
 
 import com.google.inject.Inject
-import javax.naming.OperationNotSupportedException
 import org.apache.log4j.Logger
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.xtend.lib.annotations.Data
@@ -356,13 +355,14 @@ class MaslTypeProvider {
 	}
 	
 	private def MaslType getMaslTypeOfNavigateExpression(NavigateExpression navigate) {
-		if(navigate.navigation != null) 
-			navigate.navigation.maslTypeOfRelationshipNavigation
-		else if (navigate.relationship != null)
-			// with 
-			navigate.relationship.maslTypeOfRelationshipNavigation.componentType
-		else
+		if(navigate.navigation != null) {
+			if(navigate.with != null)
+				navigate.navigation.maslTypeOfRelationshipNavigation.componentType
+			else
+				navigate.navigation.maslTypeOfRelationshipNavigation
+		} else {
 			navigate.lhs.maslTypeOfExpression
+		}
 	}
 	
 	private def MaslType getMaslTypeOfRelationshipNavigation(RelationshipNavigation navigation) {
@@ -413,7 +413,7 @@ class MaslTypeProvider {
 			AssocRelationshipDefinition:
 				#[relationship.forwards, relationship.backwards]
 			default: 
-				throw new OperationNotSupportedException('Cannot determine relationship ends of ' + relationship?.eClass?.name)
+				throw new UnsupportedOperationException('Cannot determine relationship ends of ' + relationship?.eClass?.name)
 		}
 		if(navigation.object != null) 
 			return ends.findFirst[to == navigation.object].toRelatedObject(isAssociationObject)
@@ -430,12 +430,11 @@ class MaslTypeProvider {
 			return ends.findFirst[to == objectOrRole].toRelatedObject(isAssociationObject)
 		}
 		switch relationship {
-			RegularRelationshipDefinition: 
-				return ends.findFirst[from.maslType == receiverType].toRelatedObject(isAssociationObject)
+			RegularRelationshipDefinition, 
 			AssocRelationshipDefinition: 
 				return ends.findFirst[from.maslType == receiverType].toRelatedObject(isAssociationObject)
 		}
-		throw new OperationNotSupportedException('Cannot determine relationship ends of ' + relationship?.eClass?.name)
+		throw new UnsupportedOperationException('Cannot determine relationship ends of ' + relationship?.eClass?.name)
 	}
 	
 	private def MaslType getMaslTypeOfCharacteristicCall(CharacteristicCall call) {

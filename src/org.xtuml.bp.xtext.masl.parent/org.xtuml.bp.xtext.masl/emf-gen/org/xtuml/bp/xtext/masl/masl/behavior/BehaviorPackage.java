@@ -3302,22 +3302,13 @@ public interface BehaviorPackage extends EPackage {
 	int NAVIGATE_EXPRESSION__WHERE = EXPRESSION_FEATURE_COUNT + 2;
 
 	/**
-	 * The feature id for the '<em><b>Rhs</b></em>' containment reference.
+	 * The feature id for the '<em><b>With</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int NAVIGATE_EXPRESSION__RHS = EXPRESSION_FEATURE_COUNT + 3;
-
-	/**
-	 * The feature id for the '<em><b>Relationship</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int NAVIGATE_EXPRESSION__RELATIONSHIP = EXPRESSION_FEATURE_COUNT + 4;
+	int NAVIGATE_EXPRESSION__WITH = EXPRESSION_FEATURE_COUNT + 3;
 
 	/**
 	 * The feature id for the '<em><b>Order</b></em>' containment reference.
@@ -3326,7 +3317,7 @@ public interface BehaviorPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int NAVIGATE_EXPRESSION__ORDER = EXPRESSION_FEATURE_COUNT + 5;
+	int NAVIGATE_EXPRESSION__ORDER = EXPRESSION_FEATURE_COUNT + 4;
 
 	/**
 	 * The feature id for the '<em><b>Reverse Order</b></em>' containment reference.
@@ -3335,7 +3326,7 @@ public interface BehaviorPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int NAVIGATE_EXPRESSION__REVERSE_ORDER = EXPRESSION_FEATURE_COUNT + 6;
+	int NAVIGATE_EXPRESSION__REVERSE_ORDER = EXPRESSION_FEATURE_COUNT + 5;
 
 	/**
 	 * The number of structural features of the '<em>Navigate Expression</em>' class.
@@ -3344,7 +3335,7 @@ public interface BehaviorPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int NAVIGATE_EXPRESSION_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 7;
+	int NAVIGATE_EXPRESSION_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 6;
 
 	/**
 	 * The number of operations of the '<em>Navigate Expression</em>' class.
@@ -5478,26 +5469,15 @@ public interface BehaviorPackage extends EPackage {
 	EReference getNavigateExpression_Where();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link org.xtuml.bp.xtext.masl.masl.behavior.NavigateExpression#getRhs <em>Rhs</em>}'.
+	 * Returns the meta object for the containment reference '{@link org.xtuml.bp.xtext.masl.masl.behavior.NavigateExpression#getWith <em>With</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Rhs</em>'.
-	 * @see org.xtuml.bp.xtext.masl.masl.behavior.NavigateExpression#getRhs()
+	 * @return the meta object for the containment reference '<em>With</em>'.
+	 * @see org.xtuml.bp.xtext.masl.masl.behavior.NavigateExpression#getWith()
 	 * @see #getNavigateExpression()
 	 * @generated
 	 */
-	EReference getNavigateExpression_Rhs();
-
-	/**
-	 * Returns the meta object for the containment reference '{@link org.xtuml.bp.xtext.masl.masl.behavior.NavigateExpression#getRelationship <em>Relationship</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Relationship</em>'.
-	 * @see org.xtuml.bp.xtext.masl.masl.behavior.NavigateExpression#getRelationship()
-	 * @see #getNavigateExpression()
-	 * @generated
-	 */
-	EReference getNavigateExpression_Relationship();
+	EReference getNavigateExpression_With();
 
 	/**
 	 * Returns the meta object for the containment reference '{@link org.xtuml.bp.xtext.masl.masl.behavior.NavigateExpression#getOrder <em>Order</em>}'.
@@ -7232,20 +7212,12 @@ public interface BehaviorPackage extends EPackage {
 		EReference NAVIGATE_EXPRESSION__WHERE = eINSTANCE.getNavigateExpression_Where();
 
 		/**
-		 * The meta object literal for the '<em><b>Rhs</b></em>' containment reference feature.
+		 * The meta object literal for the '<em><b>With</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference NAVIGATE_EXPRESSION__RHS = eINSTANCE.getNavigateExpression_Rhs();
-
-		/**
-		 * The meta object literal for the '<em><b>Relationship</b></em>' containment reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference NAVIGATE_EXPRESSION__RELATIONSHIP = eINSTANCE.getNavigateExpression_Relationship();
+		EReference NAVIGATE_EXPRESSION__WITH = eINSTANCE.getNavigateExpression_With();
 
 		/**
 		 * The meta object literal for the '<em><b>Order</b></em>' containment reference feature.

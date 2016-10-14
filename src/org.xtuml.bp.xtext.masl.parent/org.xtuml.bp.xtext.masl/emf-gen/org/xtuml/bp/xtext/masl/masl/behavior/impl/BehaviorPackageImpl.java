@@ -2202,7 +2202,7 @@ public class BehaviorPackageImpl extends EPackageImpl implements BehaviorPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getNavigateExpression_Rhs() {
+	public EReference getNavigateExpression_With() {
 		return (EReference)navigateExpressionEClass.getEStructuralFeatures().get(3);
 	}
 
@@ -2211,7 +2211,7 @@ public class BehaviorPackageImpl extends EPackageImpl implements BehaviorPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getNavigateExpression_Relationship() {
+	public EReference getNavigateExpression_Order() {
 		return (EReference)navigateExpressionEClass.getEStructuralFeatures().get(4);
 	}
 
@@ -2220,17 +2220,8 @@ public class BehaviorPackageImpl extends EPackageImpl implements BehaviorPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getNavigateExpression_Order() {
-		return (EReference)navigateExpressionEClass.getEStructuralFeatures().get(5);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EReference getNavigateExpression_ReverseOrder() {
-		return (EReference)navigateExpressionEClass.getEStructuralFeatures().get(6);
+		return (EReference)navigateExpressionEClass.getEStructuralFeatures().get(5);
 	}
 
 	/**
@@ -2664,8 +2655,7 @@ public class BehaviorPackageImpl extends EPackageImpl implements BehaviorPackage
 		createEReference(navigateExpressionEClass, NAVIGATE_EXPRESSION__LHS);
 		createEReference(navigateExpressionEClass, NAVIGATE_EXPRESSION__NAVIGATION);
 		createEReference(navigateExpressionEClass, NAVIGATE_EXPRESSION__WHERE);
-		createEReference(navigateExpressionEClass, NAVIGATE_EXPRESSION__RHS);
-		createEReference(navigateExpressionEClass, NAVIGATE_EXPRESSION__RELATIONSHIP);
+		createEReference(navigateExpressionEClass, NAVIGATE_EXPRESSION__WITH);
 		createEReference(navigateExpressionEClass, NAVIGATE_EXPRESSION__ORDER);
 		createEReference(navigateExpressionEClass, NAVIGATE_EXPRESSION__REVERSE_ORDER);
 
@@ -3025,8 +3015,7 @@ public class BehaviorPackageImpl extends EPackageImpl implements BehaviorPackage
 		initEReference(getNavigateExpression_Lhs(), this.getExpression(), null, "lhs", null, 0, 1, NavigateExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getNavigateExpression_Navigation(), theStructurePackage.getRelationshipNavigation(), null, "navigation", null, 0, 1, NavigateExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getNavigateExpression_Where(), this.getExpression(), null, "where", null, 0, 1, NavigateExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getNavigateExpression_Rhs(), this.getExpression(), null, "rhs", null, 0, 1, NavigateExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getNavigateExpression_Relationship(), theStructurePackage.getRelationshipNavigation(), null, "relationship", null, 0, 1, NavigateExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getNavigateExpression_With(), this.getExpression(), null, "with", null, 0, 1, NavigateExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getNavigateExpression_Order(), this.getSortOrder(), null, "order", null, 0, 1, NavigateExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getNavigateExpression_ReverseOrder(), this.getSortOrder(), null, "reverseOrder", null, 0, 1, NavigateExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 

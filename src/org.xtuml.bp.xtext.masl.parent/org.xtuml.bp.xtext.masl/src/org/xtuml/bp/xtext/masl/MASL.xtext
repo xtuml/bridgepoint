@@ -708,7 +708,7 @@ LinkExpression returns Expression:
 NavigateExpression returns Expression:
 	ExtendedExpression
 	({NavigateExpression.lhs=current} ('->' navigation=RelationshipNavigation ('(' where=FindCondition ')')?
-	| 'with' rhs=ExtendedExpression '->' relationship=RelationshipNavigation
+	| 'with' ^with=ExtendedExpression '->' navigation=RelationshipNavigation
 	| 'ordered_by' order=SortOrder
 	| 'reverse_ordered_by' reverseOrder=SortOrder))*;
 

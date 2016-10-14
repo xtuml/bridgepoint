@@ -11,10 +11,12 @@ import org.xtuml.bp.xtext.masl.MASLExtensions
 import org.xtuml.bp.xtext.masl.masl.behavior.BehaviorPackage
 import org.xtuml.bp.xtext.masl.masl.behavior.Expression
 import org.xtuml.bp.xtext.masl.masl.behavior.IndexedExpression
+import org.xtuml.bp.xtext.masl.masl.behavior.NavigateExpression
 import org.xtuml.bp.xtext.masl.masl.behavior.OperationCall
 import org.xtuml.bp.xtext.masl.masl.behavior.SimpleFeatureCall
 import org.xtuml.bp.xtext.masl.masl.behavior.TerminatorOperationCall
 import org.xtuml.bp.xtext.masl.masl.structure.Parameterized
+import org.xtuml.bp.xtext.masl.masl.structure.StructurePackage
 import org.xtuml.bp.xtext.masl.masl.structure.TerminatorDefinition
 import org.xtuml.bp.xtext.masl.masl.types.AbstractTypeReference
 import org.xtuml.bp.xtext.masl.masl.types.ConstrainedArrayTypeReference
@@ -28,11 +30,11 @@ import org.xtuml.bp.xtext.masl.typesystem.MaslExpectedTypeProvider
 import org.xtuml.bp.xtext.masl.typesystem.MaslType
 import org.xtuml.bp.xtext.masl.typesystem.MaslTypeConformanceComputer
 import org.xtuml.bp.xtext.masl.typesystem.MaslTypeProvider
-import org.xtuml.bp.xtext.masl.typesystem.RangeType
 import org.xtuml.bp.xtext.masl.typesystem.StructureType
 
 import static org.xtuml.bp.xtext.masl.typesystem.BuiltinType.*
 import static org.xtuml.bp.xtext.masl.validation.MaslIssueCodesProvider.*
+import org.xtuml.bp.xtext.masl.masl.structure.AssocRelationshipDefinition
 
 class TypeValidator extends AbstractMASLValidator {
 	
@@ -44,7 +46,8 @@ class TypeValidator extends AbstractMASLValidator {
 	@Inject extension MaslExpectedTypeProvider
 	@Inject extension MaslTypeConformanceComputer
 	@Inject extension SignatureProvider
-	@Inject extension BehaviorPackage
+	@Inject extension StructurePackage structurePackage
+	@Inject extension BehaviorPackage 
 	@Inject extension TypesPackage
 	@Inject extension IQualifiedNameProvider
 	
@@ -139,7 +142,7 @@ class TypeValidator extends AbstractMASLValidator {
 		}
 	} 
 	
-	private def checkTypeExpectation(EObject element, List<MaslType> expectedTypes, EObject owner, EReference reference, int index) {
+	private def checkTypeExpectation(EObject element, Iterable<MaslType> expectedTypes, EObject owner, EReference reference, int index) {
 		if(!expectedTypes.empty) {
 			val realType = element.maslType
 			if(!expectedTypes.exists[realType.isAssignableTo(it)]) 
@@ -147,17 +150,23 @@ class TypeValidator extends AbstractMASLValidator {
 		}
 	}
 	
-	@Check 
-	def checkIndexType(IndexedExpression it) {
-		val indexType = brackets.maslType
-		if(indexType != INTEGER && !(indexType.primitiveType instanceof RangeType)) 
-			addIssue('''Index type should be integer or range but is «indexType».''', it, indexedExpression_Brackets, WRONG_TYPE)
-	}
-	
 	@Check
 	def checkConstrainedArrayTypeReference(ConstrainedArrayTypeReference it) {
 		if(!(unconstrained?.definition instanceof UnconstrainedArrayDefinition)) {
 			addIssue("The constrained type '" + unconstrained.name  + "' must be an unconstrained array type", it, constrainedArrayTypeReference_Unconstrained, WRONG_TYPE)
 		} 
+	}
+	
+	@Check
+	def checkNavigateExpression(NavigateExpression expr) {
+		if(expr.with != null) {
+			val relationship = expr.navigation.relationship
+			if(!(relationship instanceof AssocRelationshipDefinition))
+				addIssue("Navigation expression with 'with' can only use an association relationship", expr.navigation, structurePackage.relationshipNavigation_Relationship, INCONSISTENT_RELATIONSHIP_NAVIGATION)
+			if(expr.navigation.object != null) 
+				addIssue("Navigation expression with 'with' can only use an association class", expr.navigation, structurePackage.relationshipNavigation_Object, INCONSISTENT_RELATIONSHIP_NAVIGATION)
+			if(expr.navigation.objectOrRole != (relationship as AssocRelationshipDefinition).object)
+				addIssue("Navigation expression with 'with' can only use an association class", expr.navigation, structurePackage.relationshipNavigation_ObjectOrRole, INCONSISTENT_RELATIONSHIP_NAVIGATION)
+		}
 	}
 }

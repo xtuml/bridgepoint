@@ -452,7 +452,9 @@ class DeclarationTypeProviderTest extends AbstractMaslModelTest {
 				bar: instance of Bar;
 			begin
 				^(foo->R1);
+				^(foo->R1.Bar);
 				^(foo->R1.bar);
+				^(foo->R1.bar.Bar);
 				^(foo->R1.bar->R1.foo->R1);
 			end;
 		''', 'anonymous instance of Bar') 

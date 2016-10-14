@@ -342,8 +342,7 @@ class NavigateExpression extends Expression {
 	contains Expression lhs
 	contains RelationshipNavigation navigation
 	contains Expression where
-	contains Expression rhs
-	contains RelationshipNavigation relationship
+	contains Expression with
 	contains SortOrder order
 	contains SortOrder reverseOrder
 }

@@ -29,8 +29,7 @@ import org.xtuml.bp.xtext.masl.masl.structure.RelationshipNavigation;
  *   <li>{@link org.xtuml.bp.xtext.masl.masl.behavior.impl.NavigateExpressionImpl#getLhs <em>Lhs</em>}</li>
  *   <li>{@link org.xtuml.bp.xtext.masl.masl.behavior.impl.NavigateExpressionImpl#getNavigation <em>Navigation</em>}</li>
  *   <li>{@link org.xtuml.bp.xtext.masl.masl.behavior.impl.NavigateExpressionImpl#getWhere <em>Where</em>}</li>
- *   <li>{@link org.xtuml.bp.xtext.masl.masl.behavior.impl.NavigateExpressionImpl#getRhs <em>Rhs</em>}</li>
- *   <li>{@link org.xtuml.bp.xtext.masl.masl.behavior.impl.NavigateExpressionImpl#getRelationship <em>Relationship</em>}</li>
+ *   <li>{@link org.xtuml.bp.xtext.masl.masl.behavior.impl.NavigateExpressionImpl#getWith <em>With</em>}</li>
  *   <li>{@link org.xtuml.bp.xtext.masl.masl.behavior.impl.NavigateExpressionImpl#getOrder <em>Order</em>}</li>
  *   <li>{@link org.xtuml.bp.xtext.masl.masl.behavior.impl.NavigateExpressionImpl#getReverseOrder <em>Reverse Order</em>}</li>
  * </ul>
@@ -69,24 +68,14 @@ public class NavigateExpressionImpl extends ExpressionImpl implements NavigateEx
 	protected Expression where;
 
 	/**
-	 * The cached value of the '{@link #getRhs() <em>Rhs</em>}' containment reference.
+	 * The cached value of the '{@link #getWith() <em>With</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getRhs()
+	 * @see #getWith()
 	 * @generated
 	 * @ordered
 	 */
-	protected Expression rhs;
-
-	/**
-	 * The cached value of the '{@link #getRelationship() <em>Relationship</em>}' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getRelationship()
-	 * @generated
-	 * @ordered
-	 */
-	protected RelationshipNavigation relationship;
+	protected Expression with;
 
 	/**
 	 * The cached value of the '{@link #getOrder() <em>Order</em>}' containment reference.
@@ -261,8 +250,8 @@ public class NavigateExpressionImpl extends ExpressionImpl implements NavigateEx
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Expression getRhs() {
-		return rhs;
+	public Expression getWith() {
+		return with;
 	}
 
 	/**
@@ -270,11 +259,11 @@ public class NavigateExpressionImpl extends ExpressionImpl implements NavigateEx
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetRhs(Expression newRhs, NotificationChain msgs) {
-		Expression oldRhs = rhs;
-		rhs = newRhs;
+	public NotificationChain basicSetWith(Expression newWith, NotificationChain msgs) {
+		Expression oldWith = with;
+		with = newWith;
 		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, BehaviorPackage.NAVIGATE_EXPRESSION__RHS, oldRhs, newRhs);
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, BehaviorPackage.NAVIGATE_EXPRESSION__WITH, oldWith, newWith);
 			if (msgs == null) msgs = notification; else msgs.add(notification);
 		}
 		return msgs;
@@ -285,61 +274,18 @@ public class NavigateExpressionImpl extends ExpressionImpl implements NavigateEx
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setRhs(Expression newRhs) {
-		if (newRhs != rhs) {
+	public void setWith(Expression newWith) {
+		if (newWith != with) {
 			NotificationChain msgs = null;
-			if (rhs != null)
-				msgs = ((InternalEObject)rhs).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - BehaviorPackage.NAVIGATE_EXPRESSION__RHS, null, msgs);
-			if (newRhs != null)
-				msgs = ((InternalEObject)newRhs).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - BehaviorPackage.NAVIGATE_EXPRESSION__RHS, null, msgs);
-			msgs = basicSetRhs(newRhs, msgs);
+			if (with != null)
+				msgs = ((InternalEObject)with).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - BehaviorPackage.NAVIGATE_EXPRESSION__WITH, null, msgs);
+			if (newWith != null)
+				msgs = ((InternalEObject)newWith).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - BehaviorPackage.NAVIGATE_EXPRESSION__WITH, null, msgs);
+			msgs = basicSetWith(newWith, msgs);
 			if (msgs != null) msgs.dispatch();
 		}
 		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, BehaviorPackage.NAVIGATE_EXPRESSION__RHS, newRhs, newRhs));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public RelationshipNavigation getRelationship() {
-		return relationship;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public NotificationChain basicSetRelationship(RelationshipNavigation newRelationship, NotificationChain msgs) {
-		RelationshipNavigation oldRelationship = relationship;
-		relationship = newRelationship;
-		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, BehaviorPackage.NAVIGATE_EXPRESSION__RELATIONSHIP, oldRelationship, newRelationship);
-			if (msgs == null) msgs = notification; else msgs.add(notification);
-		}
-		return msgs;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setRelationship(RelationshipNavigation newRelationship) {
-		if (newRelationship != relationship) {
-			NotificationChain msgs = null;
-			if (relationship != null)
-				msgs = ((InternalEObject)relationship).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - BehaviorPackage.NAVIGATE_EXPRESSION__RELATIONSHIP, null, msgs);
-			if (newRelationship != null)
-				msgs = ((InternalEObject)newRelationship).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - BehaviorPackage.NAVIGATE_EXPRESSION__RELATIONSHIP, null, msgs);
-			msgs = basicSetRelationship(newRelationship, msgs);
-			if (msgs != null) msgs.dispatch();
-		}
-		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, BehaviorPackage.NAVIGATE_EXPRESSION__RELATIONSHIP, newRelationship, newRelationship));
+			eNotify(new ENotificationImpl(this, Notification.SET, BehaviorPackage.NAVIGATE_EXPRESSION__WITH, newWith, newWith));
 	}
 
 	/**
@@ -442,10 +388,8 @@ public class NavigateExpressionImpl extends ExpressionImpl implements NavigateEx
 				return basicSetNavigation(null, msgs);
 			case BehaviorPackage.NAVIGATE_EXPRESSION__WHERE:
 				return basicSetWhere(null, msgs);
-			case BehaviorPackage.NAVIGATE_EXPRESSION__RHS:
-				return basicSetRhs(null, msgs);
-			case BehaviorPackage.NAVIGATE_EXPRESSION__RELATIONSHIP:
-				return basicSetRelationship(null, msgs);
+			case BehaviorPackage.NAVIGATE_EXPRESSION__WITH:
+				return basicSetWith(null, msgs);
 			case BehaviorPackage.NAVIGATE_EXPRESSION__ORDER:
 				return basicSetOrder(null, msgs);
 			case BehaviorPackage.NAVIGATE_EXPRESSION__REVERSE_ORDER:
@@ -468,10 +412,8 @@ public class NavigateExpressionImpl extends ExpressionImpl implements NavigateEx
 				return getNavigation();
 			case BehaviorPackage.NAVIGATE_EXPRESSION__WHERE:
 				return getWhere();
-			case BehaviorPackage.NAVIGATE_EXPRESSION__RHS:
-				return getRhs();
-			case BehaviorPackage.NAVIGATE_EXPRESSION__RELATIONSHIP:
-				return getRelationship();
+			case BehaviorPackage.NAVIGATE_EXPRESSION__WITH:
+				return getWith();
 			case BehaviorPackage.NAVIGATE_EXPRESSION__ORDER:
 				return getOrder();
 			case BehaviorPackage.NAVIGATE_EXPRESSION__REVERSE_ORDER:
@@ -497,11 +439,8 @@ public class NavigateExpressionImpl extends ExpressionImpl implements NavigateEx
 			case BehaviorPackage.NAVIGATE_EXPRESSION__WHERE:
 				setWhere((Expression)newValue);
 				return;
-			case BehaviorPackage.NAVIGATE_EXPRESSION__RHS:
-				setRhs((Expression)newValue);
-				return;
-			case BehaviorPackage.NAVIGATE_EXPRESSION__RELATIONSHIP:
-				setRelationship((RelationshipNavigation)newValue);
+			case BehaviorPackage.NAVIGATE_EXPRESSION__WITH:
+				setWith((Expression)newValue);
 				return;
 			case BehaviorPackage.NAVIGATE_EXPRESSION__ORDER:
 				setOrder((SortOrder)newValue);
@@ -530,11 +469,8 @@ public class NavigateExpressionImpl extends ExpressionImpl implements NavigateEx
 			case BehaviorPackage.NAVIGATE_EXPRESSION__WHERE:
 				setWhere((Expression)null);
 				return;
-			case BehaviorPackage.NAVIGATE_EXPRESSION__RHS:
-				setRhs((Expression)null);
-				return;
-			case BehaviorPackage.NAVIGATE_EXPRESSION__RELATIONSHIP:
-				setRelationship((RelationshipNavigation)null);
+			case BehaviorPackage.NAVIGATE_EXPRESSION__WITH:
+				setWith((Expression)null);
 				return;
 			case BehaviorPackage.NAVIGATE_EXPRESSION__ORDER:
 				setOrder((SortOrder)null);
@@ -560,10 +496,8 @@ public class NavigateExpressionImpl extends ExpressionImpl implements NavigateEx
 				return navigation != null;
 			case BehaviorPackage.NAVIGATE_EXPRESSION__WHERE:
 				return where != null;
-			case BehaviorPackage.NAVIGATE_EXPRESSION__RHS:
-				return rhs != null;
-			case BehaviorPackage.NAVIGATE_EXPRESSION__RELATIONSHIP:
-				return relationship != null;
+			case BehaviorPackage.NAVIGATE_EXPRESSION__WITH:
+				return with != null;
 			case BehaviorPackage.NAVIGATE_EXPRESSION__ORDER:
 				return order != null;
 			case BehaviorPackage.NAVIGATE_EXPRESSION__REVERSE_ORDER:
