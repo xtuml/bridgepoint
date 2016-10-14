@@ -24,6 +24,8 @@
     * [Common BridgePoint Unit Test Problems](#unittesting)
     * [How do I turn on Tracing/Debugging statements in BridgePoint](#tracing)
     * [Command Line Build Instructions](#clibuild)
+    * [What is a PMC (Persistable Model Component)?](#pmc)
+    * [How does the model of persistence work?](#persistence)
   * [Verifier](#verifier)
     * [What does "Nothing to verify." mean?](#nothingtoverify) 
   * [Model Translation / Model Compilers](#mcs)
@@ -217,6 +219,42 @@ BridgePoint Developer Issues <a id="bpdevelopers"></a>
   ```   
   
   This will clone the repositories into `~/build/git` if they do not exist locally, switch to the correct branch to build (here "testing") and run the build and packaging.   After the build is done, you can inspect the build workspace that was used.  Simply launch BridgePoint and choose the workspace (e.g. `/home/kbrown/build/work/testing`)   
+
+* **What is a PMC (Persistable Model Component)?** <a id="pmc"></a>
+  - The persistence mechanism of BridgePoint hinges on two classes called
+  PersistableModelComponent (PMC) and PersistenceManager. Simply explained, PMC is
+  an abstraction of "File". Every model element has a PMC. The PMC defines where
+  on disk the model element is stored. A model element either has its own PMC (in
+  the case of a component, package, class, etc.), or it finds its PMC by recursing
+  upwards until it finds a "root model element" ancestor (_"root" is overused in
+  BridgePoint terminology -- in this case root is referenced with respect only to
+  persistence_). When a model is loaded, the PersistenceManager (singleton)
+  recursively searches the `models/` directory, and each `.xtuml` file is assigned
+  a PMC instance by the PersistenceManager. This collection of instances is then
+  passed to the importer which parses the SQL, creates OOA instances, and then
+  relates them. When a model element change is detected, the PMC of that model
+  element is identified, and the exporter performs a persist for only that
+  specific PMC (file).
+
+* **How does the model of persistence work?** <a id="persistence"></a>
+  - ![fileio.png](fileio.png)
+
+  - The _Export Ordering_ class is the king of this model. An archetype scans the
+  OOA of OOA and produces instances of _SQL Table_, _Column_, and _Export Item_,
+  these instances are then linked with PEI data instances of _Export Ordering_ by
+  name. The export ordering PEI data allows the developer to define how
+  BridgePoint will recursively call export routines that utilize the _SQL Table_
+  and _Column_ instances to dump SQL insert statements. Each _Export Ordering_ has
+  a first child and next sibling. When finished exporting, the first child export
+  routine is invoked. When all the children are finished exporting, the next
+  sibling is invoked.
+
+  - Two files are used to store the PEI data for _Export Ordeing_ instances:
+  `file_io.pei.sql` and `stream.pei.sql`, both located in
+  `bridgepoint/src/org.xtuml.bp.io.core/sql/`. The two different files are used
+  for two different types of export.  The instances in the file use string
+  identifiers to create a tree to export instances as described in the above
+  paragraph.
 
 Verifer <a id="verifier"></a>
 ------------

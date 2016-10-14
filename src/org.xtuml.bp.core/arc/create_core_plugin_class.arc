@@ -111,6 +111,8 @@ import org.xtuml.bp.core.common.IntegrityCheckScheduler;
 import org.xtuml.bp.core.common.ModelRoot;
 import org.xtuml.bp.core.common.NonRootModelElement;
 import org.xtuml.bp.core.common.PersistenceChangeTracker;
+import org.xtuml.bp.core.common.PersistableModelComponent;
+import org.xtuml.bp.core.common.ActionFile;
 import org.xtuml.bp.core.ui.AbstractModelExportFactory;
 import org.xtuml.bp.core.ui.AbstractModelImportFactory;
 import org.xtuml.bp.core.ui.AbstractStreamExportFactory;
@@ -228,7 +230,7 @@ public class CorePlugin extends AbstractUIPlugin {
 		}
 		AbstractModelImportFactory mif = CorePlugin.getModelImportFactory();
 		try {
-		  IModelImport importer = mif.create(fileName,
+		  IModelImport importer = mif.create(fileName, null,
                         Ooaofooa.getDefaultInstance(), null, false, true, true);
 		  importer.run(new NullProgressMonitor());
 		  loadedGlobals = importer.getLoadedInstances();
@@ -292,8 +294,10 @@ public class CorePlugin extends AbstractUIPlugin {
 		IProgressMonitor monitor,
 		boolean parseAll, boolean isTemplate) {
 		try {
+			String actionFilePath = ActionFile.getPathFromComponent(model.getAbsolutePath(), ActionFile.getDefaultDialect()).toFile().getAbsolutePath();
 			IModelImport im = importFactory.create(
 				model.getAbsolutePath(),
+                                actionFilePath,
 				Ooaofooa.getInstance(rootId, false),
 				system,
 				parseAll,
