@@ -344,7 +344,7 @@ public class ImportHelper
     public void resolveMASLproject( NonRootModelElement[] elements ) {
         if ( elements == null ) return;
 
-        // first pass, assign componenent references and swap interfaces
+        // first pass, assign componenent references and swap interfaces, formalize interfaces
         for ( NonRootModelElement el : elements ) {
             // process the unassigned component references
             if ( el instanceof ComponentReference_c ) {
@@ -466,6 +466,84 @@ public class ImportHelper
                 }
 		Ooaofooa.endSaveOperation();
 		TransactionUtil.endTransactions(transactionGroup);
+            }
+            else if ( el instanceof Requirement_c ) {
+		TransactionUtil.TransactionGroup transactionGroup = TransactionUtil.startTransactionsOnSelectedModelRoots("Formalize Required Interface");
+		Ooaofooa.beginSaveOperation();
+
+                // process the unformalized required interfaces
+                Requirement_c c_r = (Requirement_c)el;
+
+                // check if requirement needs formalizing
+                boolean formalize = false;
+            	String descrip = c_r.getDescrip();
+                if ( !descrip.isEmpty() ) {
+                    Matcher m = Pattern.compile( "formalize" ).matcher( descrip );
+                    if ( m.find() ) {
+                        formalize = true;
+                    }
+                }
+
+                if ( formalize ) {
+
+                    // get the name of the interface we're looking for from the InformalName field
+                    String c_r_name = c_r.getInformalname();
+
+                    // ensure that all Interfaces are loaded
+                    PersistenceManager.ensureAllInstancesLoaded(c_r.getModelRoot(), Interface_c.class);
+                    // get reachable interfaces
+                    Interface_c[] interfaces = GenericPackageFormalizeOnC_RAction.getElements( c_r );
+
+                    // match the Interface
+                    for ( Interface_c c_i : interfaces ) {
+                        if ( c_i.getName().equals( c_r_name ) ) {
+                            // formalize the requirement
+                            c_r.Formalize(c_i.getId(), true);
+                            break;
+                        }
+                    }
+
+                }
+
+		Ooaofooa.endSaveOperation();
+		TransactionUtil.endTransactions(transactionGroup);
+            }
+            else if ( el instanceof Provision_c ) {
+		TransactionUtil.TransactionGroup transactionGroup = TransactionUtil.startTransactionsOnSelectedModelRoots("Formalize Provided Interface");
+		Ooaofooa.beginSaveOperation();
+
+                // process the unformalized provided interfaces
+                Provision_c c_p =  (Provision_c)el;
+
+                // check if requirement needs formalizing
+                boolean formalize = false;
+            	String descrip = c_p.getDescrip();
+                if ( !descrip.isEmpty() ) {
+                    Matcher m = Pattern.compile( "formalize" ).matcher( descrip );
+                    if ( m.find() ) {
+                        formalize = true;
+                    }
+                }
+
+                if ( formalize ) {
+
+                    // get the name of the interface we're looking for from the InformalName field
+                    String c_p_name = c_p.getInformalname();
+
+                    // ensure that all Interfaces are loaded
+                    PersistenceManager.ensureAllInstancesLoaded(c_p.getModelRoot(), Interface_c.class);
+                    // get reachable interfaces
+                    Interface_c[] interfaces = GenericPackageFormalizeOnC_PAction.getElements( c_p );
+
+                    // match the Interface
+                    for ( Interface_c c_i : interfaces ) {
+                        if ( c_i.getName().equals( c_p_name ) ) {
+                            // formalize the requirement
+                            c_p.Formalize(c_i.getId(), true);
+                            break;
+                        }
+                    }
+                }
             }
         }
     }
