@@ -279,7 +279,7 @@ public abstract class CanvasTest extends BaseTest {
   protected void doLoadSql(String inFile) throws FileNotFoundException{
 	String x = m_workspace_path + Ooaofooa.MODELS_DIRNAME + "/" + inFile + "." + Ooaofooa.MODELS_EXT; //$NON-NLS-1$ //$NON-NLS-2$
     System.out.println("Loading :" + x); //$NON-NLS-1$
-    ImportModel importer = new ImportModel(x, modelRoot, getSystemModel(), true, true, false);
+    ImportModel importer = new ImportModel(x, x, modelRoot, getSystemModel(), true, true, false);
     int i = importer.countAndValidateInsertStatements();
     assertTrue ( i > 0 );
     importer.run(new NullProgressMonitor());

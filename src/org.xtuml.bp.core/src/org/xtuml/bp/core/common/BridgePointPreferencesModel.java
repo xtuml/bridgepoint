@@ -47,7 +47,7 @@ public class BridgePointPreferencesModel implements IPreferenceModel {
     public String exportOAL;
     public String exportGraphics;
     public String messageDirection;  
-    public String defaultActivityEditor;  
+    public String defaultActionLanguageDialect;  
     public boolean showTransitionActions;
 	public boolean showEventParameters;
     public boolean enableFLAs;
@@ -105,7 +105,7 @@ public class BridgePointPreferencesModel implements IPreferenceModel {
         createGraphicsDuringImport = syncTo.createGraphicsDuringImport;
         exportGraphics = syncTo.exportGraphics;
         messageDirection = syncTo.messageDirection; 
-        defaultActivityEditor = syncTo.defaultActivityEditor; 
+        defaultActionLanguageDialect = syncTo.defaultActionLanguageDialect; 
         showTransitionActions = syncTo.showTransitionActions;
         showEventParameters = syncTo.showEventParameters;
         enableFLAs = syncTo.enableFLAs;
@@ -152,7 +152,7 @@ public class BridgePointPreferencesModel implements IPreferenceModel {
         prefs.exportOAL = exportOAL;
         prefs.exportGraphics = exportGraphics;
         prefs.messageDirection = messageDirection;
-        prefs.defaultActivityEditor = defaultActivityEditor;
+        prefs.defaultActionLanguageDialect = defaultActionLanguageDialect;
         prefs.showTransitionActions = showTransitionActions;
         prefs.showEventParameters = showEventParameters;
         prefs.enableFLAs = enableFLAs;
