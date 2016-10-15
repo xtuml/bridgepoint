@@ -75,6 +75,6 @@ options {
 }
 TOK_LBRACK : "{{";
 TOK_RBRACK : "}}";
-TOK_COLCOL : "::";
+TOK_COLCOL : "%%";
 TOK_DASH   : "--";
 TOK_CHAR   : .;
