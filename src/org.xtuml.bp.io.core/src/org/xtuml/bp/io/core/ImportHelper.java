@@ -544,6 +544,9 @@ public class ImportHelper
                         }
                     }
                 }
+		    
+		Ooaofooa.endSaveOperation();
+		TransactionUtil.endTransactions(transactionGroup);
             }
         }
     }
