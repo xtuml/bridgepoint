@@ -46,7 +46,7 @@ class PrimitiveTypesTest extends AbstractMaslModelTest {
 					^b1;
 					1;
 				end;
-			''', 'builtin long_integer')		
+			''', 'long_integer')		
 	}
 	
 	@Test
@@ -66,7 +66,7 @@ class PrimitiveTypesTest extends AbstractMaslModelTest {
 				^b1;
 				1;
 			end;
-		''', 'sequence of builtin character')		
+		''', 'sequence of character')		
 	}
 	
 	@Test
@@ -87,7 +87,7 @@ class PrimitiveTypesTest extends AbstractMaslModelTest {
 					^b0;
 					^b1;
 				end;
-			''', 'builtin ' + typeName)		
+			''', '' + typeName)		
 	}
 	
 	@Test
@@ -123,7 +123,7 @@ class PrimitiveTypesTest extends AbstractMaslModelTest {
 					^c0;
 					^c1;
 				end;
-			''', 'sequence of builtin long_integer')		
+			''', 'sequence of long_integer')		
 	}
 
 	@Test
@@ -140,7 +140,7 @@ class PrimitiveTypesTest extends AbstractMaslModelTest {
 				^c0;
 				^c1;
 			end;
-		''', 'sequence of builtin long_integer')		
+		''', 'sequence of long_integer')		
 	}
 
 	@Test
@@ -179,9 +179,9 @@ class PrimitiveTypesTest extends AbstractMaslModelTest {
 			end;
 		''', '''
 			structure
-				builtin long_integer;
-				builtin long_integer;
-				builtin long_integer;
+				long_integer;
+				long_integer;
+				long_integer;
 			end
 		''')		
 	}

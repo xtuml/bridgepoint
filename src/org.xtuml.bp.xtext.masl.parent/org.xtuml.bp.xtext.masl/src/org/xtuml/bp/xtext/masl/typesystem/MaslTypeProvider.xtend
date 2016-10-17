@@ -97,6 +97,9 @@ import org.xtuml.bp.xtext.masl.masl.types.TypeDeclaration
 import org.xtuml.bp.xtext.masl.masl.types.UnconstrainedArrayDefinition
 
 import static org.xtuml.bp.xtext.masl.typesystem.BuiltinType.*
+import org.xtuml.bp.xtext.masl.masl.structure.StateDeclaration
+import org.xtuml.bp.xtext.masl.masl.structure.StateDefinition
+import org.xtuml.bp.xtext.masl.masl.structure.EventDefinition
 
 class MaslTypeProvider {
 
@@ -137,7 +140,10 @@ class MaslTypeProvider {
 				IfStatement,
 				CaseStatement,
 				ForStatement,
-				WhileStatement:
+				WhileStatement,
+				StateDeclaration,
+				StateDefinition,
+				EventDefinition:
 					return NO_TYPE
 				default:
 					throw new UnsupportedOperationException('Missing type for ' + eClass?.name)

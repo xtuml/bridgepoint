@@ -31,6 +31,7 @@ import org.xtuml.bp.xtext.masl.masl.structure.TerminatorFunctionDeclaration
 import org.xtuml.bp.xtext.masl.masl.structure.TerminatorFunctionDefinition
 import org.xtuml.bp.xtext.masl.masl.structure.TerminatorServiceDeclaration
 import org.xtuml.bp.xtext.masl.masl.structure.TerminatorServiceDefinition
+import org.xtuml.bp.xtext.masl.masl.structure.AttributeDefinition
 
 /**
  * Utility methods for MASL model elements.
@@ -252,6 +253,13 @@ class MASLExtensions {
 			current = current.eContainer
 		}
 		return null
+	}
+	
+	def boolean isIdentifier(AttributeDefinition attr) {
+		val isIdentifier = (attr.eContainer as ObjectDefinition)
+			.identifiers
+			.exists[attributes.contains(attr)]
+		isIdentifier
 	}
 	
 }

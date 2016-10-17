@@ -13,139 +13,139 @@ class TypeProviderTest extends AbstractMaslModelTest {
 	
 	@Test
 	def void testLiterals() {
-		'1'.assertType('anonymous builtin integer')
-		'1.1'.assertType('anonymous builtin real')
-		"'c'".assertType('anonymous builtin character')
-		'"foo"'.assertType('anonymous builtin string')
-		'@Pxxx@'.assertType('anonymous builtin duration')
-		'@xxx@'.assertType('anonymous builtin timestamp')
-		'true'.assertType('anonymous builtin boolean')
-		'false'.assertType('anonymous builtin boolean')
-		'null'.assertType('anonymous builtin any_type')
-		'flush'.assertType('anonymous builtin stream_manipulator_type')
-		'console'.assertType('anonymous builtin device')
-		'endl'.assertType('anonymous builtin stream_manipulator_type')
-		'#LINE#'.assertType('anonymous builtin integer') 
-		'#FILE#'.assertType('anonymous builtin string') 
+		'1'.assertType('anonymous integer')
+		'1.1'.assertType('anonymous real')
+		"'c'".assertType('anonymous character')
+		'"foo"'.assertType('anonymous string')
+		'@Pxxx@'.assertType('anonymous duration')
+		'@xxx@'.assertType('anonymous timestamp')
+		'true'.assertType('anonymous boolean')
+		'false'.assertType('anonymous boolean')
+		'null'.assertType('anonymous any_type')
+		'flush'.assertType('anonymous stream_manipulator_type')
+		'console'.assertType('anonymous device')
+		'endl'.assertType('anonymous stream_manipulator_type')
+		'#LINE#'.assertType('anonymous integer') 
+		'#FILE#'.assertType('anonymous string') 
 	}
 	
 	@Test 
 	def void testStreams() {
-		'console << endl'.assertType('anonymous builtin device')
-		'console <<< ""'.assertType('anonymous builtin device')
-		'console << endl << flush'.assertType('anonymous builtin device')
-		'console >> "foo"'.assertType('anonymous builtin device')
-		'console >> "foo" >> "bar"'.assertType('anonymous builtin device')
-		'console >>> "foo"'.assertType('anonymous builtin device')
+		'console << endl'.assertType('anonymous device')
+		'console <<< ""'.assertType('anonymous device')
+		'console << endl << flush'.assertType('anonymous device')
+		'console >> "foo"'.assertType('anonymous device')
+		'console >> "foo" >> "bar"'.assertType('anonymous device')
+		'console >>> "foo"'.assertType('anonymous device')
 	}
 	
 	@Test
 	def void testRange() {
-		'1..2'.assertType('anonymous range of anonymous builtin integer')
+		'1..2'.assertType('anonymous range of anonymous integer')
 	}
 	
 	@Test 
 	def void testLogicalOperators() {
-		'true or false'.assertType('anonymous builtin boolean')
-		'true xor false'.assertType('anonymous builtin boolean')
-		'true and false'.assertType('anonymous builtin boolean')
+		'true or false'.assertType('anonymous boolean')
+		'true xor false'.assertType('anonymous boolean')
+		'true and false'.assertType('anonymous boolean')
 	}
 
 	@Test 
 	def void testEqualityOperators() {
-		'1 = 1'.assertType('anonymous builtin boolean')
-		'1 /= 1'.assertType('anonymous builtin boolean')
+		'1 = 1'.assertType('anonymous boolean')
+		'1 /= 1'.assertType('anonymous boolean')
 	}
 	
 	@Test 
 	def void testRelationalOperators() {
-		'1 < 1'.assertType('anonymous builtin boolean')
-		'1 <= 1'.assertType('anonymous builtin boolean')
-		'1 > 1'.assertType('anonymous builtin boolean')
-		'1 >= 1'.assertType('anonymous builtin boolean')
+		'1 < 1'.assertType('anonymous boolean')
+		'1 <= 1'.assertType('anonymous boolean')
+		'1 > 1'.assertType('anonymous boolean')
+		'1 >= 1'.assertType('anonymous boolean')
 	}
 
 	@Test 
 	def void testAdditiveOperators() {
-		'1 + 1'.assertType('anonymous builtin integer')
-		'1.0 + 1'.assertType('anonymous builtin real')
-		'1 + 1.0'.assertType('anonymous builtin real')
-		'1.0 + 1.0'.assertType('anonymous builtin real')
-		'1 - 1'.assertType('anonymous builtin integer')
-		'1.0 - 1'.assertType('anonymous builtin real')
-		'1 - 1.0'.assertType('anonymous builtin real')
-		'1.0 - 1.0'.assertType('anonymous builtin real')
-		'"a" & "b"'.assertType('anonymous builtin string')
+		'1 + 1'.assertType('anonymous integer')
+		'1.0 + 1'.assertType('anonymous real')
+		'1 + 1.0'.assertType('anonymous real')
+		'1.0 + 1.0'.assertType('anonymous real')
+		'1 - 1'.assertType('anonymous integer')
+		'1.0 - 1'.assertType('anonymous real')
+		'1 - 1.0'.assertType('anonymous real')
+		'1.0 - 1.0'.assertType('anonymous real')
+		'"a" & "b"'.assertType('anonymous string')
 	}
 
 	@Test 
 	def void testAdditiveCollectionOperators() {
-		'b & b'.assertType('b: bag of integer', 'bag of builtin integer')
-		's & s'.assertType('s: sequence of integer', 'sequence of builtin integer')
-		's & s'.assertType('s: set of integer', 'set of builtin integer')
-		'b union b'.assertType('b: bag of integer', 'bag of builtin integer')
-		's union s'.assertType('s: sequence of integer', 'sequence of builtin integer')
-		's union s'.assertType('s: set of integer', 'set of builtin integer')
-		'b not_in b'.assertType('b: bag of integer', 'bag of builtin integer')
-		's not_in s'.assertType('s: sequence of integer', 'sequence of builtin integer')
-		's not_in s'.assertType('s: set of integer', 'set of builtin integer')
+		'b & b'.assertType('b: bag of integer', 'bag of integer')
+		's & s'.assertType('s: sequence of integer', 'sequence of integer')
+		's & s'.assertType('s: set of integer', 'set of integer')
+		'b union b'.assertType('b: bag of integer', 'bag of integer')
+		's union s'.assertType('s: sequence of integer', 'sequence of integer')
+		's union s'.assertType('s: set of integer', 'set of integer')
+		'b not_in b'.assertType('b: bag of integer', 'bag of integer')
+		's not_in s'.assertType('s: sequence of integer', 'sequence of integer')
+		's not_in s'.assertType('s: set of integer', 'set of integer')
 	}
 	
 	@Test 
 	def void testMultiplicativeOperators() {
-		'1 * 1'.assertType('anonymous builtin integer')
-		'1.0 * 1'.assertType('anonymous builtin real')
-		'1 * 1.0'.assertType('anonymous builtin real')
-		'1.0 * 1.0'.assertType('anonymous builtin real')
-		'1 / 1'.assertType('anonymous builtin integer')
-		'1.0 / 1'.assertType('anonymous builtin real')
-		'1 / 1.0'.assertType('anonymous builtin real')
-		'1.0 / 1.0'.assertType('anonymous builtin real')
-		'1 rem 1'.assertType('anonymous builtin integer')
-		'1 mod 1'.assertType('anonymous builtin integer')
-		'1 ** 1'.assertType('anonymous builtin real')
+		'1 * 1'.assertType('anonymous integer')
+		'1.0 * 1'.assertType('anonymous real')
+		'1 * 1.0'.assertType('anonymous real')
+		'1.0 * 1.0'.assertType('anonymous real')
+		'1 / 1'.assertType('anonymous integer')
+		'1.0 / 1'.assertType('anonymous real')
+		'1 / 1.0'.assertType('anonymous real')
+		'1.0 / 1.0'.assertType('anonymous real')
+		'1 rem 1'.assertType('anonymous integer')
+		'1 mod 1'.assertType('anonymous integer')
+		'1 ** 1'.assertType('anonymous real')
 	}
 	
 	@Test 
 	def void testMultiplicativeCollectionOperators() {
-		'b intersection b'.assertType('b: bag of integer', 'bag of builtin integer')
-		's intersection s'.assertType('s: sequence of integer', 'sequence of builtin integer')
-		's intersection s'.assertType('s: set of integer', 'set of builtin integer')
-		'b disunion b'.assertType('b: bag of integer', 'bag of builtin integer')
-		's disunion s'.assertType('s: sequence of integer', 'sequence of builtin integer')
-		's disunion s'.assertType('s: set of integer', 'set of builtin integer')
+		'b intersection b'.assertType('b: bag of integer', 'bag of integer')
+		's intersection s'.assertType('s: sequence of integer', 'sequence of integer')
+		's intersection s'.assertType('s: set of integer', 'set of integer')
+		'b disunion b'.assertType('b: bag of integer', 'bag of integer')
+		's disunion s'.assertType('s: sequence of integer', 'sequence of integer')
+		's disunion s'.assertType('s: set of integer', 'set of integer')
 	}
 	
 	@Test 
 	def void testUnaryOperators() {
-		'-1'.assertType('anonymous builtin integer')
-		'-1.0'.assertType('anonymous builtin real')
-		'+1'.assertType('anonymous builtin integer')
-		'+1.0'.assertType('anonymous builtin real')
-		'abs 1'.assertType('anonymous builtin integer')
-		'abs 1.0'.assertType('anonymous builtin real')
-		'not true'.assertType('anonymous builtin boolean')
+		'-1'.assertType('anonymous integer')
+		'-1.0'.assertType('anonymous real')
+		'+1'.assertType('anonymous integer')
+		'+1.0'.assertType('anonymous real')
+		'abs 1'.assertType('anonymous integer')
+		'abs 1.0'.assertType('anonymous real')
+		'not true'.assertType('anonymous boolean')
 	}
 	
 	@Test 
 	def void testVariable() {
-		assertType('bar', 'bar: integer', 'builtin integer')
+		assertType('bar', 'bar: integer', 'integer')
 	}
 	
 	@Test 
 	def void testLoopVariable() {
-		assertType("for baz in bar'elements loop ^baz; end", 'bar: bag of integer', 'builtin integer')
+		assertType("for baz in bar'elements loop ^baz; end", 'bar: bag of integer', 'integer')
 	}
 	
 	@Test 
 	def void testParameter() {
-		assertType('param', 'builtin integer')
+		assertType('param', 'integer')
 	}
 	
 	@Test 
 	def void testCastExpression() {
-		assertType('integer(0.0)', 'builtin integer')
-		assertType('bag of integer(null)', 'bag of builtin integer')
+		assertType('integer(0.0)', 'integer')
+		assertType('bag of integer(null)', 'bag of integer')
 	}
 	
 	protected def assertType(CharSequence expression, String expected) {
