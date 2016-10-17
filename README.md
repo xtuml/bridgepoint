@@ -15,7 +15,6 @@ What to Expect
 Please open issues (at https://support.onefact.net) to identify problems you discover.  
 Please open issues to request new functionality.  
 The BridgePoint development team attempts to acknowledge issues within 2-3 days.  
-Issues are addressed on a priority basis.  
 Issues are addressed by volunteers working in their spare time.  
 Providing clear reproduction steps with an attached example model increases the likelihood that an issue will be explored more deeply.  
 Big issues are addressed by engineers paid to fix the problems by the people raising the issues.  
