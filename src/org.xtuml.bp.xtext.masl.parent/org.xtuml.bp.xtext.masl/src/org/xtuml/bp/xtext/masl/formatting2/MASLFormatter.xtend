@@ -25,9 +25,9 @@ class MASLFormatter extends AbstractFormatter2 {
 			interior(key, value)[indent; lowPriority]
 		]
 		maslModel.allRegionsFor.keywordPairs("begin", "end").forEach [
-			key.prepend[oneSpace; lowPriority].append[newLine; lowPriority]
+			key.prepend[newLine; lowPriority].append[newLine; lowPriority]
 			value.prepend[newLine; lowPriority]
-			interior(key, value)[indent; lowPriority]
+			interior(key, value)[indent]
 		]
 		maslModel.allRegionsFor.keyword(';').append[newLine; lowPriority]
 		maslModel.allRegionsFor.keyword('is').append[newLine; lowPriority]

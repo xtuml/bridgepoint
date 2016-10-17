@@ -38,6 +38,10 @@ import org.xtuml.bp.xtext.masl.typesystem.StructureType
 import static org.xtuml.bp.xtext.masl.linking.SignatureRanker.*
 import static org.xtuml.bp.xtext.masl.typesystem.BuiltinType.*
 import static org.xtuml.bp.xtext.masl.validation.MaslIssueCodesProvider.*
+import org.xtuml.bp.xtext.masl.masl.structure.ObjectFunctionDefinition
+import org.xtuml.bp.xtext.masl.masl.structure.ObjectServiceDefinition
+import org.xtuml.bp.xtext.masl.masl.structure.ObjectFunctionDeclaration
+import org.xtuml.bp.xtext.masl.masl.structure.ObjectServiceDeclaration
 
 class TypeValidator extends AbstractMASLValidator {
 	
@@ -206,7 +210,15 @@ class TypeValidator extends AbstractMASLValidator {
 							addIssue("Parameter mode '" + defParamMode.toString.toLowerCase 
 								+ "' does not match declared mode '" + declParamMode.toString.toLowerCase + "'",
 								defParams.get(i), parameter_Mode, DECLARATION_MISSMATCH)
-					}					
+					}
+					switch definition {
+						ObjectFunctionDefinition:
+							if(definition.instance.xor((bestDeclaration.key as ObjectFunctionDeclaration).instance))
+								addIssue("Definition scope does not match declaration scope ('instance')", definition, structurePackage.abstractNamed_Name, DECLARATION_MISSMATCH)
+						ObjectServiceDefinition:
+							if(definition.instance.xor((bestDeclaration.key as ObjectServiceDeclaration).instance))
+								addIssue("Definition scope does not match declaration scope ('instance')", definition, structurePackage.abstractNamed_Name, DECLARATION_MISSMATCH)
+					}				
 				}
 			} 
 		}

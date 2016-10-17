@@ -3,7 +3,17 @@
  */
 package org.xtuml.bp.xtext.masl.ui.quickfix
 
+import com.google.inject.Inject
+import org.eclipse.emf.common.util.URI
+import org.eclipse.xtend.lib.annotations.Data
+import org.eclipse.xtext.formatting.ILineSeparatorInformation
 import org.eclipse.xtext.ui.editor.quickfix.DefaultQuickfixProvider
+import org.eclipse.xtext.ui.editor.quickfix.Fix
+import org.eclipse.xtext.ui.editor.quickfix.IssueResolutionAcceptor
+import org.eclipse.xtext.validation.Issue
+import org.xtuml.bp.xtext.masl.layout.URI2DeclarationMapper
+import org.xtuml.bp.xtext.masl.validation.MaslIssueCodesProvider
+import org.xtuml.bp.xtext.masl.validation.SignatureProvider
 
 /**
  * Custom quickfixes.
@@ -12,13 +22,43 @@ import org.eclipse.xtext.ui.editor.quickfix.DefaultQuickfixProvider
  */
 class MASLQuickfixProvider extends DefaultQuickfixProvider {
 
-//	@Fix(MASLValidator.INVALID_NAME)
-//	def capitalizeName(Issue issue, IssueResolutionAcceptor acceptor) {
-//		acceptor.accept(issue, 'Capitalize name', 'Capitalize the name.', 'upcase.png') [
-//			context |
-//			val xtextDocument = context.xtextDocument
-//			val firstLetter = xtextDocument.get(issue.offset, 1)
-//			xtextDocument.replace(issue.offset, 1, firstLetter.toUpperCase)
-//		]
-//	}
+	@Inject extension URI2DeclarationMapper
+	@Inject extension SignatureProvider
+	@Inject extension ILineSeparatorInformation 
+
+	@Fix(MaslIssueCodesProvider.MISSING_IMPLEMENTATION)
+	def addImplementation(Issue issue, IssueResolutionAcceptor acceptor) {
+		acceptor.accept(issue, 'Add missing implementations', 'Adds missing implementations', null) [ context |
+			val implementationData = context.xtextDocument.readOnly [
+				val declarationURIs = 
+					if(issue.data.empty) 
+						#[issue.uriToProblem]
+					else 
+						issue.data.map[URI.createURI(it)]
+				val declaration = resourceSet.getEObject(declarationURIs.head, true)
+				val implementationURI = declaration.implementationURI
+				if(implementationURI == null)
+					return null
+				if(!resourceSet.URIConverter.exists(implementationURI, null)) {
+					val outputStream = resourceSet.URIConverter.createOutputStream(implementationURI)
+					outputStream.close()
+				}
+				val resourceSet = declaration.eResource.resourceSet
+				val signature = declarationURIs
+					.map[resourceSet.getEObject(it, true).implementationSignature]
+					.join(lineSeparator + lineSeparator)
+				new ImplementationData(implementationURI, signature)
+			]
+			if(implementationData != null) {
+				val document = context.getXtextDocument(implementationData.uri)
+				document.replace(document.length, 0, implementationData.signature)
+			}
+		]
+	}
+	
+	@Data
+	private static class ImplementationData {
+		URI uri
+		String signature
+	}
 }

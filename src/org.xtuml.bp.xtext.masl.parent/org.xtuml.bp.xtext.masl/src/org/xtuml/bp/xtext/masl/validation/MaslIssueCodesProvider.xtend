@@ -12,7 +12,7 @@ import static org.eclipse.xtext.validation.SeverityConverter.*
 @Singleton
 class MaslIssueCodesProvider extends ConfigurableIssueCodesProvider {
 	
-	static val PREFIX = MaslIssueCodesProvider.name + '.'
+	public static val PREFIX = MaslIssueCodesProvider.name + '.'
 	
 	public static val ILLEGAL_EMPTY_LIST = PREFIX + 'illegalEmptyList'
 	public static val INCONSISTENT_RELATIONSHIP_ENDS = PREFIX + 'inconsistentRelationshipEnds' 
@@ -20,6 +20,7 @@ class MaslIssueCodesProvider extends ConfigurableIssueCodesProvider {
 	public static val DUPLICATE_NAME = PREFIX + 'duplicateName' 
 	public static val CYCLIC_INHERITANCE = PREFIX + 'cyclicInheritance'
 	public static val MISSING_DEFINITION = PREFIX + 'missingDefinition' 
+	public static val MISSING_IMPLEMENTATION = 'missingImplementation' 
 	public static val MISSING_DECLARATION = PREFIX + 'missingDeclaration' 
 	public static val DECLARATION_MISSMATCH = PREFIX + 'declarationMissmatch' 
 	public static val WRONG_TYPE = PREFIX + 'wrongType'
@@ -51,6 +52,7 @@ class MaslIssueCodesProvider extends ConfigurableIssueCodesProvider {
 		add(CYCLIC_INHERITANCE, SEVERITY_ERROR)
 		add(MISSING_DEFINITION, SEVERITY_WARNING) 
 		add(MISSING_DECLARATION, SEVERITY_WARNING) 
+		add(MISSING_IMPLEMENTATION, SEVERITY_WARNING) 
 		add(DECLARATION_MISSMATCH, SEVERITY_ERROR) 
 		add(WRONG_TYPE, SEVERITY_ERROR)
 		add(INVALID_OPERATION_CALL, SEVERITY_ERROR)

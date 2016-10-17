@@ -4,6 +4,7 @@ import com.google.inject.Inject
 import org.eclipse.xtext.validation.Check
 import org.eclipse.xtext.validation.EValidatorRegistrar
 import org.xtuml.bp.xtext.masl.MASLExtensions
+import org.xtuml.bp.xtext.masl.layout.URI2DeclarationMapper
 import org.xtuml.bp.xtext.masl.masl.structure.AssocRelationshipDefinition
 import org.xtuml.bp.xtext.masl.masl.structure.DomainDefinition
 import org.xtuml.bp.xtext.masl.masl.structure.DomainFunctionDeclaration
@@ -18,6 +19,7 @@ import org.xtuml.bp.xtext.masl.masl.structure.ObjectFunctionDeclaration
 import org.xtuml.bp.xtext.masl.masl.structure.ObjectFunctionDefinition
 import org.xtuml.bp.xtext.masl.masl.structure.ObjectServiceDeclaration
 import org.xtuml.bp.xtext.masl.masl.structure.ObjectServiceDefinition
+import org.xtuml.bp.xtext.masl.masl.structure.Parameterized
 import org.xtuml.bp.xtext.masl.masl.structure.ProjectDefinition
 import org.xtuml.bp.xtext.masl.masl.structure.RegularRelationshipDefinition
 import org.xtuml.bp.xtext.masl.masl.structure.RelationshipEnd
@@ -26,6 +28,7 @@ import org.xtuml.bp.xtext.masl.masl.structure.StateDeclaration
 import org.xtuml.bp.xtext.masl.masl.structure.StateDefinition
 import org.xtuml.bp.xtext.masl.masl.structure.StructurePackage
 import org.xtuml.bp.xtext.masl.masl.structure.SubtypeRelationshipDefinition
+import org.xtuml.bp.xtext.masl.masl.structure.TerminatorDefinition
 import org.xtuml.bp.xtext.masl.masl.structure.TerminatorFunctionDeclaration
 import org.xtuml.bp.xtext.masl.masl.structure.TerminatorFunctionDefinition
 import org.xtuml.bp.xtext.masl.masl.structure.TerminatorServiceDeclaration
@@ -37,11 +40,14 @@ import org.xtuml.bp.xtext.masl.scoping.ProjectScopeIndexProvider
 
 import static org.xtuml.bp.xtext.masl.validation.MaslIssueCodesProvider.*
 
+import static extension org.eclipse.emf.ecore.util.EcoreUtil.*
+
 class StructureValidator extends AbstractMASLValidator {
 
 	@Inject extension ProjectScopeIndexProvider
 	@Inject extension MASLExtensions
 	@Inject extension StructurePackage structurePackage
+	@Inject extension URI2DeclarationMapper
 
 	override register(EValidatorRegistrar registrar) {
 	}
@@ -219,53 +225,87 @@ class StructureValidator extends AbstractMASLValidator {
 	@Check
 	def definitionPresent(ObjectDeclaration it) {
 		if (getDefinitions(objectDefinition, index).empty)
-			addIssue('Object has not been defined', it, structurePackage.abstractNamed_Name, MISSING_DEFINITION)
+			addIssue('Object has not been defined', it, structurePackage.abstractNamed_Name, MISSING_IMPLEMENTATION)
 	}
 
 	@Check
 	def definitionPresent(ObjectFunctionDeclaration it) {
 		if (getDefinitions(objectFunctionDefinition, index).empty)
-			addIssue('Object function has not been defined', it, structurePackage.abstractNamed_Name,
-				MISSING_DEFINITION)
+			addIssue('Object function has not been implemented', it, structurePackage.abstractNamed_Name,
+				MISSING_IMPLEMENTATION)
 	}
 
 	@Check
 	def definitionPresent(ObjectServiceDeclaration it) {
 		if (getDefinitions(objectServiceDefinition, index).empty)
-			addIssue('Object service has not been defined', it, structurePackage.abstractNamed_Name, MISSING_DEFINITION)
+			addIssue('Object service has not been implemented', it, structurePackage.abstractNamed_Name, MISSING_IMPLEMENTATION)
 	}
 
 	@Check
 	def definitionPresent(StateDeclaration it) {
 		if (getDefinitions(stateDefinition, index).empty)
-			addIssue('State has not been defined', it, structurePackage.abstractNamed_Name, MISSING_DEFINITION)
+			addIssue('State has not been implemented', it, structurePackage.abstractNamed_Name, MISSING_IMPLEMENTATION)
 	}
 
 	@Check
 	def definitionPresent(DomainFunctionDeclaration it) {
 		if (getDefinitions(domainFunctionDefinition, index).empty)
-			addIssue('Domain function has not been defined', it, structurePackage.abstractNamed_Name,
-				MISSING_DEFINITION)
+			addIssue('Domain function has not been implemented', it, structurePackage.abstractNamed_Name,
+				MISSING_IMPLEMENTATION)
 	}
 
 	@Check
 	def definitionPresent(DomainServiceDeclaration it) {
 		if (getDefinitions(domainServiceDefinition, index).empty)
-			addIssue('Domain service has not been defined', it, structurePackage.abstractNamed_Name, MISSING_DEFINITION)
+			addIssue('Domain service has not been implemented', it, structurePackage.abstractNamed_Name, MISSING_IMPLEMENTATION)
 	}
 
 	@Check
 	def definitionPresent(TerminatorFunctionDeclaration it) {
 		if (getDefinitions(terminatorFunctionDefinition, index).empty)
-			addIssue('Terminator function has not been defined', it, structurePackage.abstractNamed_Name,
-				MISSING_DEFINITION)
+			addIssue('Terminator function has not been implemented', it, structurePackage.abstractNamed_Name,
+				MISSING_IMPLEMENTATION)
 	}
 
 	@Check
 	def definitionPresent(TerminatorServiceDeclaration it) {
 		if (getDefinitions(terminatorServiceDefinition, index).empty)
-			addIssue('Terminator service has not been defined', it, structurePackage.abstractNamed_Name,
+			addIssue('Terminator service has not been implemented', it, structurePackage.abstractNamed_Name,
 				MISSING_DEFINITION)
 	}
 
+	@Check
+	def checkDefinitionsPresent(MaslModel model) {
+		val declarationsToImplement = model.declarationsToImplement
+		val implementedDeclarations = model.elements.map[getDeclarations(declarationClass, index)].flatten.filter(Parameterized)
+		implementedDeclarations.forEach [
+			declarationsToImplement -= it
+		]
+		if(!declarationsToImplement.isEmpty) {
+			addIssue('Missing implementation', model, null, MISSING_IMPLEMENTATION, declarationsToImplement.map[URI.toString])
+		}		
+	}
+	
+	private def getDeclarationsToImplement(MaslModel model) {
+		val definition = getContainerDefinition(model)
+		val result = <Parameterized>newHashSet
+		switch definition {
+			ObjectDefinition:
+				if(model.isStateImplementation)
+					result += definition.states
+				else {
+					result += definition.functions
+					result += definition.services
+				}
+			DomainDefinition: {
+				result += definition.functions
+				result += definition.services
+			} 
+			TerminatorDefinition: {
+				result += definition.functions
+				result += definition.services
+			}
+		}
+		return result
+	}
 }
