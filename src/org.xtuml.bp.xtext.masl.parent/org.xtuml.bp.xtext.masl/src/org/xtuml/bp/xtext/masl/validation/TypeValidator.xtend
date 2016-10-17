@@ -8,6 +8,7 @@ import org.eclipse.xtext.naming.IQualifiedNameProvider
 import org.eclipse.xtext.validation.Check
 import org.eclipse.xtext.validation.EValidatorRegistrar
 import org.xtuml.bp.xtext.masl.MASLExtensions
+import org.xtuml.bp.xtext.masl.linking.SignatureRanker
 import org.xtuml.bp.xtext.masl.masl.behavior.BehaviorPackage
 import org.xtuml.bp.xtext.masl.masl.behavior.Expression
 import org.xtuml.bp.xtext.masl.masl.behavior.IndexedExpression
@@ -15,6 +16,7 @@ import org.xtuml.bp.xtext.masl.masl.behavior.NavigateExpression
 import org.xtuml.bp.xtext.masl.masl.behavior.OperationCall
 import org.xtuml.bp.xtext.masl.masl.behavior.SimpleFeatureCall
 import org.xtuml.bp.xtext.masl.masl.behavior.TerminatorOperationCall
+import org.xtuml.bp.xtext.masl.masl.structure.AssocRelationshipDefinition
 import org.xtuml.bp.xtext.masl.masl.structure.Parameterized
 import org.xtuml.bp.xtext.masl.masl.structure.StructurePackage
 import org.xtuml.bp.xtext.masl.masl.structure.TerminatorDefinition
@@ -23,6 +25,7 @@ import org.xtuml.bp.xtext.masl.masl.types.ConstrainedArrayTypeReference
 import org.xtuml.bp.xtext.masl.masl.types.TypeDeclaration
 import org.xtuml.bp.xtext.masl.masl.types.TypesPackage
 import org.xtuml.bp.xtext.masl.masl.types.UnconstrainedArrayDefinition
+import org.xtuml.bp.xtext.masl.scoping.ProjectScopeIndexProvider
 import org.xtuml.bp.xtext.masl.typesystem.BuiltinType
 import org.xtuml.bp.xtext.masl.typesystem.CollectionType
 import org.xtuml.bp.xtext.masl.typesystem.InstanceType
@@ -32,9 +35,9 @@ import org.xtuml.bp.xtext.masl.typesystem.MaslTypeConformanceComputer
 import org.xtuml.bp.xtext.masl.typesystem.MaslTypeProvider
 import org.xtuml.bp.xtext.masl.typesystem.StructureType
 
+import static org.xtuml.bp.xtext.masl.linking.SignatureRanker.*
 import static org.xtuml.bp.xtext.masl.typesystem.BuiltinType.*
 import static org.xtuml.bp.xtext.masl.validation.MaslIssueCodesProvider.*
-import org.xtuml.bp.xtext.masl.masl.structure.AssocRelationshipDefinition
 
 class TypeValidator extends AbstractMASLValidator {
 	
@@ -50,6 +53,8 @@ class TypeValidator extends AbstractMASLValidator {
 	@Inject extension BehaviorPackage 
 	@Inject extension TypesPackage
 	@Inject extension IQualifiedNameProvider
+	@Inject extension ProjectScopeIndexProvider
+	@Inject extension SignatureRanker
 	
 	@Check
 	def simpleFeatureCall(SimpleFeatureCall it) {
@@ -167,6 +172,43 @@ class TypeValidator extends AbstractMASLValidator {
 				addIssue("Navigation expression with 'with' can only use an association class", expr.navigation, structurePackage.relationshipNavigation_Object, INCONSISTENT_RELATIONSHIP_NAVIGATION)
 			if(expr.navigation.objectOrRole != (relationship as AssocRelationshipDefinition).object)
 				addIssue("Navigation expression with 'with' can only use an association class", expr.navigation, structurePackage.relationshipNavigation_ObjectOrRole, INCONSISTENT_RELATIONSHIP_NAVIGATION)
+		}
+	}
+	
+	@Check 
+	def checkDefinitionMatchesDeclaration(Parameterized definition) {
+		val declarationClass = definition.declarationClass
+		if(declarationClass != null) {
+			val defTypes = definition.parameters.map[maslType]
+			val allDeclarations = definition
+							.getDeclarations(declarationClass, definition.index)
+							.filter(Parameterized)
+							.map[it -> getRank(defTypes)]
+			if(allDeclarations.empty) 
+				return
+			val bestDeclaration = allDeclarations.maxBy[value]
+			if(bestDeclaration.value != PERFECT_MATCH)
+				addIssue("Parameter types " + definition.parametersAsString + " do not match declared parameters " + bestDeclaration.key.parametersAsString,
+					definition, structurePackage.abstractNamed_Name, DECLARATION_MISSMATCH)
+			else {
+				val defType = definition.maslType
+				val declType = bestDeclaration.key.maslType
+				if(defType != declType) {
+					addIssue("Return type " + defType + " does not match declared return type " + declType,
+						definition, structurePackage.abstractNamed_Name, DECLARATION_MISSMATCH)
+				} else {
+					val defParams = definition.parameters
+					val declParams = bestDeclaration.key.parameters
+					for(var i=0; i<definition.parameters.size; i++) {
+						val defParamMode = defParams.get(i).mode
+						val declParamMode = declParams.get(i).mode
+						if(defParamMode != declParamMode) 
+							addIssue("Parameter mode '" + defParamMode.toString.toLowerCase 
+								+ "' does not match declared mode '" + declParamMode.toString.toLowerCase + "'",
+								defParams.get(i), parameter_Mode, DECLARATION_MISSMATCH)
+					}					
+				}
+			} 
 		}
 	}
 }

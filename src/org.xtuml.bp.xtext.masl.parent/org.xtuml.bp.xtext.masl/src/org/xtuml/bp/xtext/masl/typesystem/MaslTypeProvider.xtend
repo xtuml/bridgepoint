@@ -100,6 +100,12 @@ import static org.xtuml.bp.xtext.masl.typesystem.BuiltinType.*
 import org.xtuml.bp.xtext.masl.masl.structure.StateDeclaration
 import org.xtuml.bp.xtext.masl.masl.structure.StateDefinition
 import org.xtuml.bp.xtext.masl.masl.structure.EventDefinition
+import org.xtuml.bp.xtext.masl.masl.structure.DomainServiceDefinition
+import org.xtuml.bp.xtext.masl.masl.structure.DomainFunctionDefinition
+import org.xtuml.bp.xtext.masl.masl.structure.TerminatorServiceDefinition
+import org.xtuml.bp.xtext.masl.masl.structure.ObjectServiceDefinition
+import org.xtuml.bp.xtext.masl.masl.structure.ObjectFunctionDefinition
+import org.xtuml.bp.xtext.masl.masl.structure.TerminatorFunctionDefinition
 
 class MaslTypeProvider {
 
@@ -141,10 +147,19 @@ class MaslTypeProvider {
 				CaseStatement,
 				ForStatement,
 				WhileStatement,
+				DomainServiceDefinition,
+				ObjectServiceDefinition,
+				TerminatorServiceDefinition,
 				StateDeclaration,
 				StateDefinition,
 				EventDefinition:
 					return NO_TYPE
+				DomainFunctionDefinition:
+					return returnType.maslTypeOfTypeReference
+				ObjectFunctionDefinition:
+					return returnType.maslTypeOfTypeReference
+				TerminatorFunctionDefinition:
+					return returnType.maslTypeOfTypeReference
 				default:
 					throw new UnsupportedOperationException('Missing type for ' + eClass?.name)
 			}

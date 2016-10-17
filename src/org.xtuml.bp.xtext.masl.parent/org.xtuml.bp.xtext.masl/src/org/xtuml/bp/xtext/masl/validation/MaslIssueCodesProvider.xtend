@@ -21,6 +21,7 @@ class MaslIssueCodesProvider extends ConfigurableIssueCodesProvider {
 	public static val CYCLIC_INHERITANCE = PREFIX + 'cyclicInheritance'
 	public static val MISSING_DEFINITION = PREFIX + 'missingDefinition' 
 	public static val MISSING_DECLARATION = PREFIX + 'missingDeclaration' 
+	public static val DECLARATION_MISSMATCH = PREFIX + 'declarationMissmatch' 
 	public static val WRONG_TYPE = PREFIX + 'wrongType'
 	public static val INVALID_OPERATION_CALL = PREFIX + 'invalidOperationCall'
 	public static val INVALID_FEATURE_CALL = PREFIX + 'invalidFeatureCall'
@@ -50,6 +51,7 @@ class MaslIssueCodesProvider extends ConfigurableIssueCodesProvider {
 		add(CYCLIC_INHERITANCE, SEVERITY_ERROR)
 		add(MISSING_DEFINITION, SEVERITY_WARNING) 
 		add(MISSING_DECLARATION, SEVERITY_WARNING) 
+		add(DECLARATION_MISSMATCH, SEVERITY_ERROR) 
 		add(WRONG_TYPE, SEVERITY_ERROR)
 		add(INVALID_OPERATION_CALL, SEVERITY_ERROR)
 		add(INVALID_FEATURE_CALL, SEVERITY_ERROR)
