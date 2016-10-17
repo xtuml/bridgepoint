@@ -105,4 +105,7 @@ if [ $RETVAL -ne 0 ]; then
   exit 1
 fi
 
+# Build the MASL plugins using maven.
+cd "${git_bp}/src/org.xtuml.bp.xtext.masl.parent"
+mvn clean install
 
