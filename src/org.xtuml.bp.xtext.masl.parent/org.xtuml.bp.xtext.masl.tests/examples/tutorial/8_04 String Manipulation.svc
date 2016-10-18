@@ -1,0 +1,135 @@
+service tutorial::string_manipulation() is 
+  text   : string  := "";
+  text2  : string  := "";
+  passed : boolean := false;
+begin
+  text := "hello";
+  for c in text'elements loop
+    text2 := text2 & c;
+  end loop;
+  if (text2 /= "hello") then
+    raise Standard::constraint_error;
+  end if;
+
+  text := "hello";
+  for c in reverse text'elements loop
+    text2 := text2 & c;
+  end loop;
+  if (text2 /= "helloolleh") then
+    raise Standard::constraint_error;
+  end if;
+
+  text  := "hello";
+  text2 := "";
+  for i in text'range loop
+    text2 := text2 & text[i];
+  end loop;
+  if (text2 /= "hello") then
+    raise Standard::constraint_error;
+  end if;
+
+  text := "hello";
+  for i in reverse text'range loop
+    text2 := text2 & text[i];
+  end loop;
+  if (text2 /= "helloolleh") then
+    raise Standard::constraint_error;
+  end if;
+
+  text := "hello";
+  if (text /= "hello") then
+    raise Standard::constraint_error;
+  end if;
+
+  text := "hello";
+  text := text[text'first];
+  if (text /= "h") then
+    raise Standard::constraint_error;
+  end if;
+
+  text := "hello";
+  text := text[text'last];
+  if (text /= "o") then
+    raise Standard::constraint_error;
+  end if;
+
+  text[text'first] := 'h';
+  if (text /= "h") then
+    raise Standard::constraint_error;
+  end if;
+
+  text := text & "ello";
+  if (text /= "hello") then
+    raise Standard::constraint_error;
+  end if;
+
+  text := "hello";
+  if (text < "goodbye") then
+    raise Standard::constraint_error;
+  end if;
+  if ("goodbye" > text) then
+    raise Standard::constraint_error;
+  end if;
+
+  text := "hello";
+  text := text[0..2];
+  if (text /= "hel") then
+    raise Standard::constraint_error;
+  end if;
+
+  //should all raise exceptions 
+  begin
+    passed := false;
+    text := text[text'first-1];
+  exception
+    when Standard::constraint_error =>
+      passed := true;
+  end;
+  if (passed = false) then
+    raise Standard::constraint_error;
+  end if;
+
+  begin
+    passed := false;
+    text := text[text'length];
+  exception
+    when Standard::constraint_error =>
+      passed := true;
+  end;
+  if (passed = false) then
+    raise Standard::constraint_error;
+  end if;
+
+ begin
+    passed := false;
+    text[text'length]  := 'h';
+  exception
+    when Standard::constraint_error =>
+      passed := true;
+  end;
+  if (passed = false) then
+    raise Standard::constraint_error;
+  end if;
+
+ begin
+    passed := false;
+    text[text'first-1] := 'h';
+  exception
+    when Standard::constraint_error =>
+      passed := true;
+  end;
+  if (passed = false) then
+    raise Standard::constraint_error;
+  end if;
+
+ begin
+    passed := false;
+    text := text[100..2];
+  exception
+    when Standard::constraint_error =>
+      passed := true;
+  end;
+  if (passed = false) then
+    raise Standard::constraint_error;
+  end if;
+end service;

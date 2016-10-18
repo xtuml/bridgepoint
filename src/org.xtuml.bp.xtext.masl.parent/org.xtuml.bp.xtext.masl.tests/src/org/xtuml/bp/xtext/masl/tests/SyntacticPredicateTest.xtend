@@ -6,13 +6,13 @@ import org.eclipse.xtext.junit4.XtextRunner
 import org.eclipse.xtext.junit4.util.ParseHelper
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.xtuml.bp.xtext.masl.masl.CharacteristicCall
-import org.xtuml.bp.xtext.masl.masl.DomainServiceDefinition
-import org.xtuml.bp.xtext.masl.masl.Expression
-import org.xtuml.bp.xtext.masl.masl.FindExpression
-import org.xtuml.bp.xtext.masl.masl.MaslModel
-import org.xtuml.bp.xtext.masl.masl.OperationCall
-import org.xtuml.bp.xtext.masl.masl.SimpleFeatureCall
+import org.xtuml.bp.xtext.masl.masl.behavior.CharacteristicCall
+import org.xtuml.bp.xtext.masl.masl.behavior.Expression
+import org.xtuml.bp.xtext.masl.masl.behavior.FindExpression
+import org.xtuml.bp.xtext.masl.masl.behavior.OperationCall
+import org.xtuml.bp.xtext.masl.masl.behavior.SimpleFeatureCall
+import org.xtuml.bp.xtext.masl.masl.structure.DomainServiceDefinition
+import org.xtuml.bp.xtext.masl.masl.structure.MaslModel
 
 import static org.junit.Assert.*
 

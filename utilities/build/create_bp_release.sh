@@ -112,6 +112,13 @@ function zip_distribution {
     cp -Rd plugins ${site_result_dir}/eclipse
 
     jar_specific_plugins
+ 
+    # Copy the MASL jars to the plugins dir.
+    cd ${git_bp}/src/org.xtuml.bp.xtext.masl.parent/
+    cp -f org.xtuml.bp.xtext.generator/target/org.xtuml.bp.xtext.generator-1.0.0-SNAPSHOT.jar ${site_result_dir}/eclipse/plugins
+    cp -f org.xtuml.bp.xtext.masl/target/org.xtuml.bp.xtext.masl-1.0.0-SNAPSHOT.jar ${site_result_dir}/eclipse/plugins
+    cp -f org.xtuml.bp.xtext.masl.ide/target/org.xtuml.bp.xtext.masl.ide-1.0.0-SNAPSHOT.jar  ${site_result_dir}/eclipse/plugins
+    cp -f org.xtuml.bp.xtext.masl.ui/target/org.xtuml.bp.xtext.masl.ui-1.0.0-SNAPSHOT.jar ${site_result_dir}/eclipse/plugins
 
     cd ${site_result_dir}/..
     zip -r BridgePoint_extension_${branch}.zip BridgePoint_${branch} > ${pkg_log_dir}/BridgePoint_extension_${branch}_zip.log 2>&1

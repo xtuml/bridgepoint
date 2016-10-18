@@ -3,7 +3,11 @@
  */
 package org.xtuml.bp.xtext.masl.ui.labeling
 
+import com.google.inject.Inject
+import org.eclipse.xtext.resource.IEObjectDescription
 import org.eclipse.xtext.ui.label.DefaultDescriptionLabelProvider
+import org.xtuml.bp.xtext.masl.masl.structure.StructurePackage
+import org.xtuml.bp.xtext.masl.masl.types.TypesPackage
 
 /**
  * Provides labels for IEObjectDescriptions and IResourceDescriptions.
@@ -12,13 +16,51 @@ import org.eclipse.xtext.ui.label.DefaultDescriptionLabelProvider
  */
 class MASLDescriptionLabelProvider extends DefaultDescriptionLabelProvider {
 
-	// Labels and icons can be computed like this:
+	@Inject extension StructurePackage
+	@Inject extension TypesPackage
 	
-//	override text(IEObjectDescription ele) {
-//		ele.name.toString
-//	}
-//	 
-//	override image(IEObjectDescription ele) {
-//		ele.EClass.name + '.gif'
-//	}
+	override image(IEObjectDescription ele) {
+		switch ele.EClass {
+			case domainDefinition:
+				return 'model/Component.gif'
+			case objectDeclaration,
+			case objectDefinition:
+				return 'model/Class.gif'
+			case domainServiceDeclaration,
+			case domainServiceDefinition,
+			case objectServiceDeclaration,
+			case objectServiceDefinition,
+			case domainFunctionDeclaration,
+			case domainFunctionDefinition,
+			case objectFunctionDeclaration,
+			case objectFunctionDefinition:
+				return 'model/Function.gif'
+			case relationshipDefinition:
+				return 'model/Associative.gif'
+			case relationshipEnd:
+				return 'model/AssociativeOneEnd.gif'
+			case attributeDefinition:
+				return 'model/Attribute.gif'
+			case terminatorDefinition:
+				return 'model/Port.gif'
+			case terminatorServiceDeclaration,
+			case terminatorServiceDefinition,
+			case terminatorFunctionDefinition,
+			case terminatorFunctionDeclaration:
+				return 'model/Bridge.gif'
+			case typeDeclaration:
+				return 'model/Datatype.gif'
+			case enumerator:
+				'model/Enumerator.gif'
+			case structureComponentDefinition:
+				'model/StructuredDataTypeMember.gif'
+			case stateDefinition,
+			case stateDeclaration:
+				'model/State.gif'
+			case eventDefinition:
+				'model/Event.gif'
+			case exceptionDeclaration:
+				'model/Exception.gif'
+		}
+	}
 }

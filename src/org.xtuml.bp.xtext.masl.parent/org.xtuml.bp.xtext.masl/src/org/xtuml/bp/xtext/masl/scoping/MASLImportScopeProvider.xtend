@@ -8,7 +8,7 @@ import org.eclipse.xtext.scoping.impl.ImportedNamespaceAwareLocalScopeProvider
 import org.xtuml.bp.xtext.masl.MASLExtensions
 
 /** 
- * Elements form the same domain and elements from the built-im library should always be visible.
+ * Elements form the same domain and elements from the built-in library should always be visible.
  */
 class MASLImportScopeProvider extends ImportedNamespaceAwareLocalScopeProvider {
 	
@@ -17,7 +17,7 @@ class MASLImportScopeProvider extends ImportedNamespaceAwareLocalScopeProvider {
 	override protected internalGetImportedNamespaceResolvers(EObject context, boolean ignoreCase) {
 		val resolvers = super.internalGetImportedNamespaceResolvers(context, ignoreCase)
 		
-		// add elements form same domain
+		// add elements from same domain
 		val domainName=context.domainName
 		if(domainName != null)
 			resolvers += new ImportNormalizer(QualifiedName.create(domainName), true, false)

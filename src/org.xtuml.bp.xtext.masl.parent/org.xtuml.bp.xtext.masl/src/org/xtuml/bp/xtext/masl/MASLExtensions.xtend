@@ -8,41 +8,30 @@ import org.eclipse.emf.ecore.EReference
 import org.eclipse.emf.ecore.util.EcoreUtil
 import org.eclipse.xtext.naming.IQualifiedNameProvider
 import org.eclipse.xtext.nodemodel.util.NodeModelUtils
-import org.eclipse.xtext.resource.IResourceDescriptions
-import org.xtuml.bp.xtext.masl.masl.AttributeDefinition
-import org.xtuml.bp.xtext.masl.masl.DomainDefinition
-import org.xtuml.bp.xtext.masl.masl.DomainFunctionDeclaration
-import org.xtuml.bp.xtext.masl.masl.DomainFunctionDefinition
-import org.xtuml.bp.xtext.masl.masl.DomainServiceDeclaration
-import org.xtuml.bp.xtext.masl.masl.DomainServiceDefinition
-import org.xtuml.bp.xtext.masl.masl.Expression
-import org.xtuml.bp.xtext.masl.masl.FeatureCall
-import org.xtuml.bp.xtext.masl.masl.FindExpression
-import org.xtuml.bp.xtext.masl.masl.LoopVariable
-import org.xtuml.bp.xtext.masl.masl.MaslPackage
-import org.xtuml.bp.xtext.masl.masl.NavigateExpression
-import org.xtuml.bp.xtext.masl.masl.ObjectDeclaration
-import org.xtuml.bp.xtext.masl.masl.ObjectDefinition
-import org.xtuml.bp.xtext.masl.masl.ObjectFunctionDeclaration
-import org.xtuml.bp.xtext.masl.masl.ObjectFunctionDefinition
-import org.xtuml.bp.xtext.masl.masl.ObjectServiceDeclaration
-import org.xtuml.bp.xtext.masl.masl.ObjectServiceDefinition
-import org.xtuml.bp.xtext.masl.masl.OperationCall
-import org.xtuml.bp.xtext.masl.masl.Parameter
-import org.xtuml.bp.xtext.masl.masl.RelationshipEnd
-import org.xtuml.bp.xtext.masl.masl.RelationshipNavigation
-import org.xtuml.bp.xtext.masl.masl.SimpleFeatureCall
-import org.xtuml.bp.xtext.masl.masl.StateDefinition
-import org.xtuml.bp.xtext.masl.masl.SubtypeRelationshipDefinition
-import org.xtuml.bp.xtext.masl.masl.TerminatorFunctionDeclaration
-import org.xtuml.bp.xtext.masl.masl.TerminatorFunctionDefinition
-import org.xtuml.bp.xtext.masl.masl.TerminatorServiceDeclaration
-import org.xtuml.bp.xtext.masl.masl.TerminatorServiceDefinition
-import org.xtuml.bp.xtext.masl.masl.ThisLiteral
-import org.xtuml.bp.xtext.masl.masl.TypeDeclaration
-import org.xtuml.bp.xtext.masl.masl.VariableDeclaration
-import org.xtuml.bp.xtext.masl.maslBase.AbstractNamed
-import org.xtuml.bp.xtext.masl.maslBase.MaslBasePackage
+import org.eclipse.xtext.resource.ISelectable
+import org.xtuml.bp.xtext.masl.masl.behavior.Expression
+import org.xtuml.bp.xtext.masl.masl.structure.AbstractNamed
+import org.xtuml.bp.xtext.masl.masl.structure.AttributeDefinition
+import org.xtuml.bp.xtext.masl.masl.structure.DomainDefinition
+import org.xtuml.bp.xtext.masl.masl.structure.DomainFunctionDeclaration
+import org.xtuml.bp.xtext.masl.masl.structure.DomainFunctionDefinition
+import org.xtuml.bp.xtext.masl.masl.structure.DomainServiceDeclaration
+import org.xtuml.bp.xtext.masl.masl.structure.DomainServiceDefinition
+import org.xtuml.bp.xtext.masl.masl.structure.ObjectDeclaration
+import org.xtuml.bp.xtext.masl.masl.structure.ObjectDefinition
+import org.xtuml.bp.xtext.masl.masl.structure.ObjectFunctionDeclaration
+import org.xtuml.bp.xtext.masl.masl.structure.ObjectFunctionDefinition
+import org.xtuml.bp.xtext.masl.masl.structure.ObjectServiceDeclaration
+import org.xtuml.bp.xtext.masl.masl.structure.ObjectServiceDefinition
+import org.xtuml.bp.xtext.masl.masl.structure.RelationshipEnd
+import org.xtuml.bp.xtext.masl.masl.structure.RelationshipNavigation
+import org.xtuml.bp.xtext.masl.masl.structure.StateDefinition
+import org.xtuml.bp.xtext.masl.masl.structure.StructurePackage
+import org.xtuml.bp.xtext.masl.masl.structure.SubtypeRelationshipDefinition
+import org.xtuml.bp.xtext.masl.masl.structure.TerminatorFunctionDeclaration
+import org.xtuml.bp.xtext.masl.masl.structure.TerminatorFunctionDefinition
+import org.xtuml.bp.xtext.masl.masl.structure.TerminatorServiceDeclaration
+import org.xtuml.bp.xtext.masl.masl.structure.TerminatorServiceDefinition
 
 /**
  * Utility methods for MASL model elements.
@@ -50,8 +39,7 @@ import org.xtuml.bp.xtext.masl.maslBase.MaslBasePackage
 class MASLExtensions {
 
 	@Inject extension IQualifiedNameProvider
-	@Inject extension MaslPackage maslPackage
-	@Inject extension MaslBasePackage
+	@Inject extension StructurePackage maslPackage
 
 	/**
 	 * @return the name of the domain the argument is contained in without resolving cross-references. 
@@ -123,13 +111,13 @@ class MASLExtensions {
 	/**
 	 * @return all supertypes including the object itself.
 	 */
-	def Iterable<ObjectDefinition> getAllSupertypes(ObjectDefinition object, IResourceDescriptions index) {
+	def Iterable<ObjectDefinition> getAllSupertypes(ObjectDefinition object, ISelectable  index) {
 		val result = newHashSet
 		internalGetAllSupertypes(object, index, result)
 		result
 	}
 
-	private def void internalGetAllSupertypes(ObjectDefinition object, IResourceDescriptions index,
+	private def void internalGetAllSupertypes(ObjectDefinition object, ISelectable index,
 		Set<ObjectDefinition> result) {
 		if (object == null || !result.add(object))
 			return // definition already captured
@@ -144,7 +132,7 @@ class MASLExtensions {
 	/**
 	 * @return the object definition associated with an object declaration, by means of index lookup. 
 	 */
-	def ObjectDefinition getObjectDefinition(ObjectDeclaration it, IResourceDescriptions index) {
+	def ObjectDefinition getObjectDefinition(ObjectDeclaration it, ISelectable index) {
 		val defs = getDefinitions(objectDefinition, index) 
 		if(defs.size != 1)
 			return null
@@ -178,7 +166,7 @@ class MASLExtensions {
 		return null
 	}
 	
-	def Iterable<EObject> getDefinitions(EObject declaration, EClass definitionClass, IResourceDescriptions index) {
+	def Iterable<EObject> getDefinitions(EObject declaration, EClass definitionClass, ISelectable index) {
 		if (declaration != null && definitionClass != null) {
 			val entries = index.getExportedObjects(definitionClass, declaration.fullyQualifiedName, false)
 			return entries.map[EcoreUtil.resolve(EObjectOrProxy, declaration)]
@@ -186,7 +174,7 @@ class MASLExtensions {
 		return null
 	}
 
-	def Iterable<EObject> getDeclarations(EObject definition, EClass declarationClass, IResourceDescriptions index) {
+	def Iterable<EObject> getDeclarations(EObject definition, EClass declarationClass, ISelectable index) {
 		if (definition != null && declarationClass != null) {
 			val entries = index.getExportedObjects(declarationClass, definition.fullyQualifiedName, false)
 			return entries.map[EcoreUtil.resolve(EObjectOrProxy, definition)] 
@@ -215,27 +203,6 @@ class MASLExtensions {
 		return null
 	}
 
-	/**
-	 * Poor man's type system...
-	 */
-	def boolean isInstanceValued(Expression it) {
-		switch it {
-			VariableDeclaration,
-			ObjectDeclaration,
-			LoopVariable,
-			Parameter,
-			AttributeDefinition,
-			ThisLiteral,
-			SimpleFeatureCall,
-			FeatureCall,
-			NavigateExpression,
-			FindExpression:
-				true
-			default:
-				false
-		}
-	}
-	
 	def boolean isOperation(EObject it) {
 		switch it {
 			DomainFunctionDeclaration,
@@ -249,8 +216,49 @@ class MASLExtensions {
 				false		
 		}
 	}
+		
+	def ObjectDeclaration getContainerObject(Expression expr) {
+		var parent = expr.eContainer
+		while (parent != null) {
+			switch parent {
+				ObjectServiceDefinition:
+					return parent.object
+				ObjectFunctionDefinition:
+					return parent.object
+				StateDefinition:
+					return parent.object
+			}
+			parent = parent.eContainer
+		}
+		return null
+	}
 	
-	def boolean isCastExpression(OperationCall it) {
-		receiver == null && feature instanceof TypeDeclaration
+	def DomainDefinition getDomain(EObject expr) {
+		var current = expr
+		while (current != null) {
+			switch current {
+				DomainDefinition:
+					return current
+				ObjectServiceDefinition:
+					return current.domain
+				ObjectFunctionDefinition:
+					return current.domain
+				TerminatorServiceDefinition:
+					return current.domain
+				TerminatorFunctionDefinition:
+					return current.domain
+				StateDefinition:
+					return current.domain
+			}
+			current = current.eContainer
+		}
+		return null
+	}
+	
+	def boolean isIdentifier(AttributeDefinition attr) {
+		val isIdentifier = (attr.eContainer as ObjectDefinition)
+			.identifiers
+			.exists[attributes.contains(attr)]
+		isIdentifier
 	}
 }

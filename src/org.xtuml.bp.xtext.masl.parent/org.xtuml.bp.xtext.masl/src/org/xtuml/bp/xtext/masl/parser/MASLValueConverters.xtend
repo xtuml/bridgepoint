@@ -4,7 +4,7 @@ import com.google.inject.Inject
 import org.eclipse.xtext.common.services.DefaultTerminalConverters
 import org.eclipse.xtext.conversion.IValueConverter
 import org.eclipse.xtext.conversion.ValueConverter
-import org.xtuml.bp.xtext.masl.maslBase.StateType
+import org.xtuml.bp.xtext.masl.masl.structure.StateType
 
 /**
  * @see StateTypeValueConverter
