@@ -39,6 +39,7 @@ public abstract class AbstractModelImportFactory {
 
 	public abstract IModelImport create(
 		String fileName,
+		String actionFileName,
 		Ooaofooa aModelRoot,
 		SystemModel_c system,
 		boolean parseAll,
@@ -56,6 +57,7 @@ public abstract class AbstractModelImportFactory {
 	
 	public abstract IModelImport create(
 			IFile file,
+			IFile actionFile,
 			Ooaofooa aModelRoot,
 			PersistableModelComponent component,
 			boolean parseAll,

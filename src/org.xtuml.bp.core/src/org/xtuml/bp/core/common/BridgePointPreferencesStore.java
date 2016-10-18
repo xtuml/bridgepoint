@@ -46,7 +46,7 @@ public class BridgePointPreferencesStore implements IPreferenceModelStore {
     public static final String EXPORT_OAL = PREFIX + "export_oal"; //$NON-NLS-1$
     public static final String EXPORT_GRAPHICS = PREFIX + "export_graphics"; //$NON-NLS-1$
     public static final String MESSAGE_DIRECTION = PREFIX + "message_direction";
-    public static final String DEFAULT_ACTIVITY_EDITOR = PREFIX + "default_activity_editor";
+    public static final String DEFAULT_ACTION_LANGUAGE_DIALECT = PREFIX + "default_action_language_dialect";
     public static final String SHOW_TRANSITION_ACTIONS = PREFIX + "show_transition_actions"; //$NON-NLS-1$
     public static final String SHOW_EVENT_PARAMETERS = PREFIX + "show_event_parameters"; //$NON-NLS-1$
     public static final String ENABLE_FIXED_LENGTH_ARRAYS = PREFIX + "enable_fixed_length_arrays"; //$NON-NLS-1$
@@ -67,6 +67,7 @@ public class BridgePointPreferencesStore implements IPreferenceModelStore {
     public static final String SHOW_SYNC_DELETION_DIALOG = PREFIX + "show_reference_delete_warning"; //$NON-NLS-1$
     public static final String SHOW_SYNC_REPORT = PREFIX + "show_reference_sync_report"; //$NON-NLS-1$
     public static final String USE_DEFAULT_NAME_FOR_CREATION = PREFIX + "use_default_name_for_new_element_creation"; //$NON-NLS-1$
+    public static final String REQUIRE_MASL_STYLE_IDENTIFIERS = PREFIX + "require_masl_style_identifiers"; //$NON-NLS-1$
     public static final String CREATE_GRAPHICS_DURING_IMPORT = PREFIX + "create_graphics_during_import"; //$NON-NLS-1$
     public static final String ENABLE_MODEL_INTEGRITY_CHECK = PREFIX + "enable_model_integrity_check"; //$NON-NLS-1$
 	public final static String EnableModelIntegrityToolTip = "When enabled, model integrity checks run during most BridgePoint model opertions and validate the integrity of the model for the opertion performed. This can be useful to assure there is no model corruption, but there is performance overhead when enabled.";
@@ -77,7 +78,8 @@ public class BridgePointPreferencesStore implements IPreferenceModelStore {
 
 	public static final String TO_PROVIDER = "to provider"; //$NON-NLS-1$
 	
-	public static final String OAL_EDITOR = "OAL"; //$NON-NLS-1$
+	public static final String OAL_DIALECT = "OAL"; //$NON-NLS-1$
+	public static final String MASL_DIALECT = "MASL"; //$NON-NLS-1$
 		
     public Class getModelClass() {
         return BridgePointPreferencesModel.class;
@@ -105,7 +107,7 @@ public class BridgePointPreferencesStore implements IPreferenceModelStore {
         store.setValue(EXPORT_OAL, prefs.exportOAL);
         store.setValue(EXPORT_GRAPHICS, prefs.exportGraphics);
         store.setValue(MESSAGE_DIRECTION, prefs.messageDirection); 
-        store.setValue(DEFAULT_ACTIVITY_EDITOR, prefs.defaultActivityEditor); 
+        store.setValue(DEFAULT_ACTION_LANGUAGE_DIALECT, prefs.defaultActionLanguageDialect); 
         store.setValue(SHOW_TRANSITION_ACTIONS, prefs.showTransitionActions);
         store.setValue(SHOW_EVENT_PARAMETERS, prefs.showEventParameters);
         store.setValue(ENABLE_FIXED_LENGTH_ARRAYS, prefs.enableFLAs);
@@ -132,6 +134,7 @@ public class BridgePointPreferencesStore implements IPreferenceModelStore {
         store.setValue(SHOW_SYNC_REPORT, prefs.showReferenceSyncReport);
         store.setValue(USE_DEFAULT_NAME_FOR_CREATION, prefs.useDefaultNamesForNewModelElements);        
         store.setValue(CREATE_GRAPHICS_DURING_IMPORT, prefs.createGraphicsDuringImport);
+        store.setValue(REQUIRE_MASL_STYLE_IDENTIFIERS, prefs.requireMaslStyleIdentifiers);
     }
 
     public IPreferenceModel loadModel(IPreferenceStore store, BasePlugin plugin, IPreferenceModel model) {
@@ -179,8 +182,8 @@ public class BridgePointPreferencesStore implements IPreferenceModelStore {
             store.getString(BridgePointPreferencesStore.EXPORT_GRAPHICS);
         prefs.messageDirection =
             store.getString(BridgePointPreferencesStore.MESSAGE_DIRECTION);
-        prefs.defaultActivityEditor =
-            store.getString(BridgePointPreferencesStore.DEFAULT_ACTIVITY_EDITOR);
+        prefs.defaultActionLanguageDialect =
+            store.getString(BridgePointPreferencesStore.DEFAULT_ACTION_LANGUAGE_DIALECT);
         prefs.showTransitionActions =
             store.getBoolean(BridgePointPreferencesStore.SHOW_TRANSITION_ACTIONS);
         prefs.showEventParameters =
@@ -225,6 +228,8 @@ public class BridgePointPreferencesStore implements IPreferenceModelStore {
             store.getBoolean(BridgePointPreferencesStore.USE_DEFAULT_NAME_FOR_CREATION);
         prefs.createGraphicsDuringImport =
             store.getBoolean(BridgePointPreferencesStore.CREATE_GRAPHICS_DURING_IMPORT);
+        prefs.requireMaslStyleIdentifiers =
+        	store.getBoolean(BridgePointPreferencesStore.REQUIRE_MASL_STYLE_IDENTIFIERS);
                 
         return prefs;
     }
@@ -261,7 +266,7 @@ public class BridgePointPreferencesStore implements IPreferenceModelStore {
         prefs.exportOAL = MessageDialogWithToggle.NEVER;
         prefs.exportGraphics = MessageDialogWithToggle.ALWAYS;
         prefs.messageDirection = TO_PROVIDER;
-        prefs.defaultActivityEditor = OAL_EDITOR;
+        prefs.defaultActionLanguageDialect = OAL_DIALECT;
         
         prefs.enableVerifierAudit = false;
         prefs.enableSelectAudit = 1;
@@ -280,5 +285,6 @@ public class BridgePointPreferencesStore implements IPreferenceModelStore {
         prefs.showReferenceSyncReport = true;
         prefs.useDefaultNamesForNewModelElements = false;
         prefs.createGraphicsDuringImport = false;
+        prefs.requireMaslStyleIdentifiers = false;
     }
 }

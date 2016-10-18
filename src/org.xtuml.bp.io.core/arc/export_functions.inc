@@ -34,6 +34,8 @@
 .function gen_write_attr_function
   .param inst_ref table
   .param string callingProject
+  .param boolean multilevel
+  .param boolean stream
   .if (callingProject == "BP")
     .if (table.Key_Lett == "GD_MD")
   Diagram_c diagram = Diagram_c.getOneDIM_DIAOnR18(inst);
@@ -74,7 +76,11 @@
     .invoke a = get_attribute_accessor( col )
     .if ( col.type == "string" )
   m_fh.print( "'"); //$$NON-NLS-1$$
+      .if ( (((multilevel) AND (not stream)) AND (col.Name == "Action_Semantics_internal")) )
+        .// exclude action semantics
+      .else
   m_fh.print( inst.${a.body}().replaceAll( "'", "''" ) ); //$$NON-NLS-1$$ //$$NON-NLS-2$$
+      .end if
   m_fh.print( "'"); //$$NON-NLS-1$$
     .elif ( col.type == "boolean" )
       .if((table.Key_Lett == "S_SYS") and (col.Name == "useGlobals"))
@@ -273,7 +279,7 @@
   .// T
   .//
   .invoke r = get_class_name( table )
-  .invoke attrs = gen_write_attr_function(table, callingProject)
+  .invoke attrs = gen_write_attr_function(table, callingProject, multilevel, stream)
 void write_${r.body}_sql(${r.body} inst)
 throws IOException
 {
@@ -532,6 +538,7 @@ ${attrs.body}\
 .//
 .function gen_export_methods
   .param boolean multilevel
+  .param boolean stream
   .param String domain_class_name
   .param String tool
   .param boolean checkParentForComponentContainment
@@ -985,6 +992,14 @@ ${gpe.body}\
         .end for
     }
       .end if
+
+      .if ( ((multilevel) AND (not stream)) )
+        .select one action_body related by eo->EI[R3]->AB[R12]
+        .if ( not_empty action_body )
+        write_${parent_name}_actions(inst${extra_args});
+        .end if
+      .end if
+
 }
     .end if
   .end for
@@ -1021,6 +1036,42 @@ ${gpe.body}\
       .invoke sql = gen_write_sql_function( table, callingProject, multilevel, stream )
 ${sql.body}\
     .end for
+.end function
+
+.//
+.//  This function generates methods
+.//  which will place the action semantics
+.//  into a file
+.//
+.function gen_action_write_statements
+  .select many ab_set from instances of AB
+  .for each action_body in ab_set
+    .invoke r = get_class_name( action_body )
+void write_${r.body}_actions(${r.body} inst)
+throws IOException
+{
+if(inst != null && !inst.isProxy()){
+  m_afh.print( "{{" ); //$$NON-NLS-1$$
+  m_afh.print( inst.getName() ); //$$NON-NLS-1$$
+  m_afh.print( "%%" ); //$$NON-NLS-1$$
+  m_afh.print( "${action_body.Key_Lett}" ); //$$NON-NLS-1$$
+  m_afh.print( "%%" ); //$$NON-NLS-1$$
+  m_afh.print( inst.get$cr{action_body.ID_attr}() ); //$$NON-NLS-1$$
+    .if ( "" != action_body.ID_attr2 )
+  m_afh.print( "--" ); //$$NON-NLS-1$$
+  m_afh.print( inst.get$cr{action_body.ID_attr2}() ); //$$NON-NLS-1$$
+    .end if
+  m_afh.print( "}}\n" ); //$$NON-NLS-1$$
+  String action_semantics = inst.getAction_semantics_internal(); //$$NON-NLS-1$$
+  if ( !action_semantics.trim().isEmpty() ) {
+    m_afh.print( inst.getAction_semantics_internal() ); //$$NON-NLS-1$$
+    m_afh.print( "\n" ); //$$NON-NLS-1$$
+    m_updateActions = true;
+  }
+  m_afh.print( "\n" ); //$$NON-NLS-1$$
+}
+}
+  .end for
 .end function
 
 .//

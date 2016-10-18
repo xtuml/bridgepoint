@@ -185,7 +185,7 @@ public class ${class_name} extends CoreExport {
     writtenInstances.clear();
   }
 
-.invoke result = gen_export_methods(true, "", tool, true)
+.invoke result = gen_export_methods(true, true, "", tool, true)
 ${result.body}
 .invoke result = gen_sql_write_statements("NBP", true, true)
 ${result.body}
