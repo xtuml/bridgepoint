@@ -16,6 +16,8 @@ end domain;
 
 domain SAC is 
 	object _TEST_Operator_report_group; 
+	object _TEST_Operator_report_group is
+	end; 
 	object _TEST_Operator_report_group_operation;
 	object _TEST_Operator_report_group_operation is 
 	end;	

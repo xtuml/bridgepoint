@@ -45,7 +45,7 @@ class DeclarationTypeProviderTest extends AbstractMaslModelTest {
 			begin
 				^(f[1]);
 			end;
-		''', 'builtin integer')
+		''', 'integer')
 	}
 
 	@Test
@@ -80,7 +80,7 @@ class DeclarationTypeProviderTest extends AbstractMaslModelTest {
 			begin
 				^(s[1]);
 			end;
-		''', 'anonymous builtin character')
+		''', 'anonymous character')
 	}
 
 	@Test
@@ -112,7 +112,7 @@ class DeclarationTypeProviderTest extends AbstractMaslModelTest {
 	def void testStructureCall() {
 		assertType('type Foo is structure a: integer; end;', 'Foo', '''
 			typeof type Foo is structure
-				a : builtin integer;
+				a : integer;
 			end
 		''')
 	}
@@ -139,12 +139,12 @@ class DeclarationTypeProviderTest extends AbstractMaslModelTest {
 			object Foo is 
 				bar: byte; 
 			end;
-		'''.assertType('Foo::bar', 'builtin byte')
+		'''.assertType('Foo::bar', 'byte')
 	}
 
 	@Test
 	def void testTypeCall() {
-		assertType('type Foo is integer;', 'Foo', 'typeof type Foo is builtin integer')
+		assertType('type Foo is integer;', 'Foo', 'typeof type Foo is integer')
 	}
 
 	@Test
@@ -163,7 +163,7 @@ class DeclarationTypeProviderTest extends AbstractMaslModelTest {
 			begin
 				^(f.foo());
 			end;
-		''', 'builtin integer')
+		''', 'integer')
 	}
 
 	@Test
@@ -173,7 +173,7 @@ class DeclarationTypeProviderTest extends AbstractMaslModelTest {
 			object Foo is
 				function foo() return integer;
 			end;
-		'''.assertType('Foo::foo()', 'builtin integer')
+		'''.assertType('Foo::foo()', 'integer')
 	}
 
 	@Test
@@ -183,21 +183,21 @@ class DeclarationTypeProviderTest extends AbstractMaslModelTest {
 			object Foo is
 				service foo();
 			end;
-		'''.assertType('Foo::foo()', 'anonymous builtin no_type')
+		'''.assertType('Foo::foo()', 'anonymous no_type')
 	}
 
 	@Test
 	def void testDomainFunctionCall() {
 		'''
 			function foo() return string;
-		'''.assertType('foo()', 'builtin string')
+		'''.assertType('foo()', 'string')
 	}
 
 	@Test
 	def void testDomainServiceCall() {
 		'''
 			service foo();
-		'''.assertType('foo()', 'anonymous builtin no_type')
+		'''.assertType('foo()', 'anonymous no_type')
 	}
 
 	@Test
@@ -206,7 +206,7 @@ class DeclarationTypeProviderTest extends AbstractMaslModelTest {
 			terminator Arnold is 
 				function foo() return string;
 			end;
-		'''.assertType('Arnold~>foo()', 'builtin string')
+		'''.assertType('Arnold~>foo()', 'string')
 	}
 
 	@Test
@@ -215,7 +215,7 @@ class DeclarationTypeProviderTest extends AbstractMaslModelTest {
 			terminator Arnold is 
 				service foo();
 			end;
-		'''.assertType('Arnold~>foo()', 'anonymous builtin no_type')
+		'''.assertType('Arnold~>foo()', 'anonymous no_type')
 	}
 
 	@Test
@@ -243,7 +243,7 @@ class DeclarationTypeProviderTest extends AbstractMaslModelTest {
 			^(Foo'last);
 			^(Foo'size());
 			^(Foo'pos(BAR))
-		''', 'builtin integer')
+		''', 'integer')
 	}
 
 	@Test
@@ -259,7 +259,7 @@ class DeclarationTypeProviderTest extends AbstractMaslModelTest {
 			begin
 				^(f'keys);
 			end;
-		''', 'set of builtin integer')
+		''', 'set of integer')
 	}
 
 	@Test
@@ -275,7 +275,7 @@ class DeclarationTypeProviderTest extends AbstractMaslModelTest {
 			begin
 				^(f'values);
 			end;
-		''', 'bag of builtin string')
+		''', 'bag of string')
 	}
 
 	@Test
@@ -291,7 +291,7 @@ class DeclarationTypeProviderTest extends AbstractMaslModelTest {
 			begin
 				^(f'contains(1));
 			end;
-		''', 'builtin boolean')
+		''', 'boolean')
 	}
 
 	@Test
@@ -307,7 +307,7 @@ class DeclarationTypeProviderTest extends AbstractMaslModelTest {
 			begin
 				^(f'keys);
 			end;
-		''', 'set of anonymous builtin string')
+		''', 'set of anonymous string')
 	}
 
 	@Test
@@ -323,7 +323,7 @@ class DeclarationTypeProviderTest extends AbstractMaslModelTest {
 			begin
 				^(f'values);
 			end;
-		''', 'bag of anonymous builtin string')
+		''', 'bag of anonymous string')
 	}
 	
 	@Test
@@ -340,7 +340,7 @@ class DeclarationTypeProviderTest extends AbstractMaslModelTest {
 			begin
 				^a;
 			end;
-		''', 'type array3 is array of builtin string')
+		''', 'type array3 is array of string')
 	}
 
 	@Test
@@ -356,7 +356,7 @@ class DeclarationTypeProviderTest extends AbstractMaslModelTest {
 			begin
 				^b;
 			end;
-		''', 'array of builtin string')
+		''', 'array of string')
 	}
 
 	@Test
@@ -375,7 +375,7 @@ class DeclarationTypeProviderTest extends AbstractMaslModelTest {
 				^(d+t);
 				^(t-d);
 			end;
-		''', 'type myTimestamp is builtin timestamp')
+		''', 'type myTimestamp is timestamp')
 	}
 
 	@Test
@@ -400,7 +400,7 @@ class DeclarationTypeProviderTest extends AbstractMaslModelTest {
 				^(2*myD);
 				^(myD/2);
 			end;
-		''', 'type myDuration is builtin duration')
+		''', 'type myDuration is duration')
 	}
 
 	@Test
@@ -416,7 +416,7 @@ class DeclarationTypeProviderTest extends AbstractMaslModelTest {
 			begin
 				^(foo(1));
 			end;
-		''', 'builtin integer')	
+		''', 'integer')	
 	}
 
 	@Test

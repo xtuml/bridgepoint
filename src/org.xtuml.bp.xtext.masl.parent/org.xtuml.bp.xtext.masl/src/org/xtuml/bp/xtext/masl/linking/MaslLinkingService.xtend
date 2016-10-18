@@ -17,18 +17,17 @@ import org.xtuml.bp.xtext.masl.masl.structure.AbstractFeature
 import org.xtuml.bp.xtext.masl.masl.structure.Parameterized
 import org.xtuml.bp.xtext.masl.masl.types.TypeDeclaration
 import org.xtuml.bp.xtext.masl.typesystem.MaslType
-import org.xtuml.bp.xtext.masl.typesystem.MaslTypeConformanceComputer
 import org.xtuml.bp.xtext.masl.typesystem.MaslTypeProvider
 
-import static java.lang.Math.*
+import static org.xtuml.bp.xtext.masl.linking.SignatureRanker.*
 
 class MaslLinkingService extends DefaultLinkingService {
 
 	@Inject extension BehaviorPackage
 	@Inject extension IQualifiedNameConverter
 	@Inject extension MaslTypeProvider
-	@Inject extension MaslTypeConformanceComputer
-
+	@Inject extension SignatureRanker
+	
 	override getLinkedObjects(EObject context, EReference ref, INode node) throws IllegalNodeException {
 		if (ref == featureCall_Feature && context instanceof SimpleFeatureCall) {
 			val container = context.eContainer
@@ -69,12 +68,6 @@ class MaslLinkingService extends DefaultLinkingService {
 		return emptyList()
 	}
 	
-	static val PERFECT_MATCH                  = Integer.MAX_VALUE
-	static val ACCEPTABLE_MATCH               = Integer.MAX_VALUE / 2
-	static val JUST_NUMBER_OF_ARGUMENTS_MATCH = 0
-	static val JUST_TYPE_MATCH                = Integer.MIN_VALUE / 2
-	static val JUST_NAME_MATCH                = Integer.MIN_VALUE + 1
-	static val NO_MATCH 			          = Integer.MIN_VALUE 
 	
 	private def int getMatchRank(AbstractFeature feature, List<MaslType> argumentTypes) {
 		switch feature {
@@ -83,29 +76,8 @@ class MaslLinkingService extends DefaultLinkingService {
 					return PERFECT_MATCH
 				else 
 					return JUST_NAME_MATCH
-			Parameterized:{
-				val parameters = feature.parameters
-				var numSameType = 0
-				var numAssignableType = 0
-				for(var i=0; i<min(parameters.size, argumentTypes.size); i++) {
-					val paramType = parameters.get(i).maslType
-					val argumentType = argumentTypes.get(i)
-					if(argumentType == paramType)
-						numSameType++
-					else if(argumentType.isAssignableTo(paramType)) 
-						numAssignableType++
-				}
-				if(numSameType == argumentTypes.size)
-					return PERFECT_MATCH
-				if(argumentTypes.size == parameters.size) {
-					if(numSameType + numAssignableType == argumentTypes.size) 
-						return ACCEPTABLE_MATCH + numSameType
-					else 
-						return JUST_NUMBER_OF_ARGUMENTS_MATCH + numSameType * 1000 + numAssignableType
-				} else {
-					return JUST_TYPE_MATCH + numSameType * 1000 + numAssignableType
-				}
-			}
+			Parameterized:
+				return feature.getRank(argumentTypes)
 			default:
 				return JUST_NAME_MATCH
 		}

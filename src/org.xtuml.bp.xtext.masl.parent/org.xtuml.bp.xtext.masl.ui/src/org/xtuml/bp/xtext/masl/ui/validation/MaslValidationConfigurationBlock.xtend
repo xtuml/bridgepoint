@@ -40,12 +40,14 @@ class MaslValidationConfigurationBlock extends AbstractValidatorConfigurationBlo
 	def protected fillStructurePage(Composite composite, int defaultIndent) {
 		addComboBox(MISSING_DEFINITION, 'Missing definitions', composite, defaultIndent) 
 		addComboBox(MISSING_DECLARATION, 'Missing declarations', composite, defaultIndent) 
+		addComboBox(MISSING_IMPLEMENTATION, 'Missing implementation', composite, defaultIndent) 
 		addComboBox(WRONG_STRUCTURE, 'Wrong file contents', composite, defaultIndent) 
 		addComboBox(INVALID_THIS, "Invalid use of 'this' literal", composite, defaultIndent) 
 		addComboBox(UNREACHABLE_CODE, "Unreachable code", composite, defaultIndent) 
 	}
 	
 	def protected fillTypesPage(Composite composite, int defaultIndent) {
+		addComboBox(DECLARATION_MISSMATCH, 'Declaration type mismatch', composite, defaultIndent)
 		addComboBox(CYCLIC_INHERITANCE, 'Cyclic inheritance', composite, defaultIndent)
 		addComboBox(WRONG_TYPE, 'Incompatible types', composite, defaultIndent)
 		addComboBox(INVALID_FEATURE_CALL, 'Invalid feature calls', composite, defaultIndent)

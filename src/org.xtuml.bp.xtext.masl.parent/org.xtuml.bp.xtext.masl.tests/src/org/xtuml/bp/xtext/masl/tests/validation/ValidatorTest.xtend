@@ -22,7 +22,6 @@ import org.xtuml.bp.xtext.masl.masl.types.TypesPackage
 import org.xtuml.bp.xtext.masl.tests.MASLInjectorProvider
 
 import static org.xtuml.bp.xtext.masl.validation.MaslIssueCodesProvider.*
-import org.eclipse.xtext.diagnostics.Diagnostic
 
 @RunWith(XtextRunner)
 @InjectWith(MASLInjectorProvider)
@@ -166,19 +165,116 @@ class ValidatorTest {
 	}
 
 	@Test 
-	def void testOverloadedMethod() { 
+	def void testParameterValidation() { 
 		load('''
 			domain dom is 
-				service foo(i:in bag of integer);
-				service foo(i:in sequence of integer);
-				service svc();
+				function func() return integer;
 			end;
 			
-			service dom::svc() is
+			function dom::func() return integer 
+			is
 			begin
-				foo(1);    
 			end;
-		''').elements.last.assertError(simpleFeatureCall, Diagnostic.LINKING_DIAGNOSTIC)
+		''').elements.last.assertNoError(DECLARATION_MISSMATCH)
+	}
+
+	@Test 
+	def void testParameterValidation1() { 
+		load('''
+			domain dom is 
+				function func(p: in integer) return integer;
+			end;
+			
+			function dom::func() return integer 
+			is
+			begin
+			end;
+		''').elements.last.assertError(domainFunctionDefinition, DECLARATION_MISSMATCH)
+	}
+
+	@Test 
+	def void testParameterValidation2() { 
+		load('''
+			domain dom is 
+				function func() return integer;
+			end;
+			
+			function dom::func(p: in integer) return integer 
+			is
+			begin
+			end;
+		''').elements.last.assertError(domainFunctionDefinition, DECLARATION_MISSMATCH)
+	}
+
+	@Test 
+	def void testParameterValidation3() { 
+		load('''
+			domain dom is 
+				function func(p: in string) return integer;
+			end;
+			
+			function dom::func(p: in integer) return integer 
+			is
+			begin
+			end;
+		''').elements.last.assertError(domainFunctionDefinition, DECLARATION_MISSMATCH)
+	}
+
+	@Test 
+	def void testParameterValidation4() { 
+		load('''
+			domain dom is 
+				function func(p: in integer, p: in string) return integer;
+			end;
+			
+			function dom::func(p: in integer) return integer 
+			is
+			begin
+			end;
+		''').elements.last.assertError(domainFunctionDefinition, DECLARATION_MISSMATCH)
+	}
+
+	@Test 
+	def void testParameterValidation5() { 
+		load('''
+			domain dom is 
+				function func(p: in integer) return integer;
+			end;
+			
+			function dom::func(p: in integer) return string
+			is
+			begin
+			end;
+		''').elements.last.assertError(domainFunctionDefinition, DECLARATION_MISSMATCH)
+	}
+
+	@Test 
+	def void testParameterValidation6() { 
+		load('''
+			domain dom is 
+				function func(p: in integer) return integer;
+			end;
+			
+			function dom::func(p: out integer) return integer
+			is
+			begin
+			end;
+		''').elements.last.assertError(parameter, DECLARATION_MISSMATCH)
+	}
+
+	@Test 
+	def void testParameterValidation7() { 
+		load('''
+			domain dom is 
+				function func(p: in integer) return integer;
+				function func(p: in real) return integer;
+			end;
+			
+			function dom::func(p: in real) return integer
+			is
+			begin
+			end;
+		''').elements.last.assertNoError(DECLARATION_MISSMATCH)
 	}
 
 	private def assertNoError(EObject element, String type) {

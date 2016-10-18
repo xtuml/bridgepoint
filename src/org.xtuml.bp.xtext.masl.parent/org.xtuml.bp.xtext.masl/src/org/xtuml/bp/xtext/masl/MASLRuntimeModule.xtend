@@ -25,6 +25,8 @@ import org.xtuml.bp.xtext.masl.doc.MaslEObjectDocumentationProvider
 import org.eclipse.xtext.validation.ConfigurableIssueCodesProvider
 import org.xtuml.bp.xtext.masl.validation.MaslIssueCodesProvider
 import org.xtuml.bp.xtext.masl.linking.MaslLinkingService
+import org.eclipse.xtext.resource.impl.DefaultResourceDescriptionManager
+import org.xtuml.bp.xtext.masl.scoping.MaslResourceDescriptionManager
 
 /**
  * Use this class to register components to be used at runtime / without the Equinox extension registry.
@@ -71,6 +73,10 @@ class MASLRuntimeModule extends AbstractMASLRuntimeModule {
 	
 	def configureTypesPackage(Binder binder) {
 		binder.bind(TypesPackage).toInstance(TypesPackage.eINSTANCE)
+	}
+	
+	def Class<? extends DefaultResourceDescriptionManager> bindDefaultResourceDescriptionManager() {
+		MaslResourceDescriptionManager
 	}
 	
 	def Class<? extends IDefaultResourceDescriptionStrategy> bindIDefaultResourceDescriptionStrategy() {

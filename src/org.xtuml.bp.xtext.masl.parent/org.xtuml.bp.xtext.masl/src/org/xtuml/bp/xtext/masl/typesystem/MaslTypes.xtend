@@ -98,7 +98,7 @@ class BuiltinType extends AbstractMaslType {
 	}
 
 	override String toString() {
-		prefix + 'builtin ' + name
+		prefix + name
 	}
 }
 

@@ -11,6 +11,7 @@ import org.eclipse.xtext.nodemodel.util.NodeModelUtils
 import org.eclipse.xtext.resource.ISelectable
 import org.xtuml.bp.xtext.masl.masl.behavior.Expression
 import org.xtuml.bp.xtext.masl.masl.structure.AbstractNamed
+import org.xtuml.bp.xtext.masl.masl.structure.AttributeDefinition
 import org.xtuml.bp.xtext.masl.masl.structure.DomainDefinition
 import org.xtuml.bp.xtext.masl.masl.structure.DomainFunctionDeclaration
 import org.xtuml.bp.xtext.masl.masl.structure.DomainFunctionDefinition
@@ -254,4 +255,10 @@ class MASLExtensions {
 		return null
 	}
 	
+	def boolean isIdentifier(AttributeDefinition attr) {
+		val isIdentifier = (attr.eContainer as ObjectDefinition)
+			.identifiers
+			.exists[attributes.contains(attr)]
+		isIdentifier
+	}
 }
