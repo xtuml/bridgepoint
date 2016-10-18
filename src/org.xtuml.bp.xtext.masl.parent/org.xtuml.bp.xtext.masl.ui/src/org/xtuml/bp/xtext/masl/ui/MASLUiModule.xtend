@@ -15,6 +15,7 @@ import org.xtuml.bp.xtext.masl.lib.MASLDelegatingAllContainerState
 import org.xtuml.bp.xtext.masl.ui.hyperlink.MASLHyperlinkHelper
 import org.xtuml.bp.xtext.masl.ui.validation.MaslValidationConfigurationBlock
 import static org.eclipse.xtext.ui.editor.contentassist.XtextContentAssistProcessor.*
+import org.xtuml.bp.xtext.masl.ui.edit.MaslAutoEditStrategyProvider
 
 /**
  * Use this class to register components to be used within the Eclipse IDE.
@@ -47,4 +48,9 @@ class MASLUiModule extends AbstractMASLUiModule {
 	def configureContentAssistAutoActivation(Binder binder) {
 		binder.bind(String).annotatedWith(Names.named(COMPLETION_AUTO_ACTIVATION_CHARS)).toInstance('.')
 	}
+	
+	override bindAbstractEditStrategyProvider() {
+		MaslAutoEditStrategyProvider
+	}
+	
 }
