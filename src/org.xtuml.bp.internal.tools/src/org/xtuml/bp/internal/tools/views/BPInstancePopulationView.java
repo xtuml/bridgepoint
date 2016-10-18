@@ -46,6 +46,8 @@ import org.xtuml.bp.core.util.CoreUtil;
 import org.xtuml.bp.core.util.UIUtil;
 import org.xtuml.bp.debug.ui.model.BPDebugTarget;
 import org.xtuml.bp.debug.ui.model.BPThread;
+import org.xtuml.bp.ui.canvas.Ooaofgraphics;
+import org.xtuml.bp.ui.canvas.OoaofgraphicsBase;
 
 /**
  * This sample class demonstrates how to plug-in a new workbench view. The view
@@ -71,7 +73,8 @@ public class BPInstancePopulationView extends ViewPart {
 	private final int MAX_NUMBER_OF_LISTS = 25;
 
 	class BPProjectTree {
-		public static final String ModelElements = "Model Elements";
+		public static final String OoaofooaModelElements = "Ooaofooa Model Elements";
+		public static final String OoaofoogModelElements = "Graphical Model Elements";
 		public static final String ParserInstances = "Parser Instances";
 		public static final String RuntimeInstances = "Runtime Instances";
 		private String treeType;  // One of the types defined above
@@ -202,8 +205,14 @@ public class BPInstancePopulationView extends ViewPart {
 		 */
 		public Object[] getElements(Object parent) {
 			IWorkspace ws = ResourcesPlugin.getWorkspace();
-			IProject[] projects = ws.getRoot().getProjects();
-			return projects;
+			IProject[] allProjects = ws.getRoot().getProjects();
+		    ArrayList<IProject> openProjects = new ArrayList<IProject>();
+			for (int i = 0; i < allProjects.length; i++) {
+				if (allProjects[i].isOpen()) {
+					openProjects.add(allProjects[i]);
+				}				
+			}
+			return openProjects.toArray(new IProject[openProjects.size()]);
 		}
 
 		public Object getParent(Object child) {
@@ -233,17 +242,25 @@ public class BPInstancePopulationView extends ViewPart {
 			List<Object> result = new ArrayList<Object>();
 			if (parent instanceof IProject) {
 				IProject proj = (IProject)parent;
-				result.add(new BPProjectTree(proj, BPProjectTree.ModelElements));
+				result.add(new BPProjectTree(proj, BPProjectTree.OoaofooaModelElements));
+				result.add(new BPProjectTree(proj, BPProjectTree.OoaofoogModelElements));
 				result.add(new BPProjectTree(proj, BPProjectTree.ParserInstances));
 				result.add(new BPProjectTree(proj, BPProjectTree.RuntimeInstances));
 			} else if (parent instanceof BPProjectTree) {
 				BPProjectTree projectTree = (BPProjectTree) parent;
-				if (projectTree.getTreeType() == projectTree.ModelElements) {
+				if (projectTree.getTreeType() == projectTree.OoaofooaModelElements) {
 					IProject proj = projectTree.parent;
 					Ooaofooa[] ooas = EclipseOoaofooa
 							.getInstancesUnderSystem(proj.getName());
 	
 					for (Ooaofooa ooa : ooas) {
+						result.add(new BPModelRootTree(ooa, projectTree));
+					}
+				} else if (projectTree.getTreeType() == projectTree.OoaofoogModelElements) {
+					IProject proj = projectTree.parent;
+					Ooaofgraphics[] ooas = OoaofgraphicsBase.getInstances();
+
+					for (Ooaofgraphics ooa : ooas) {
 						result.add(new BPModelRootTree(ooa, projectTree));
 					}
 				} else if (projectTree.getTreeType() == projectTree.ParserInstances) {
