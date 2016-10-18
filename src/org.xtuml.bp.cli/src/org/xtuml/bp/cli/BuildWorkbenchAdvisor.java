@@ -1,12 +1,16 @@
 package org.xtuml.bp.cli;
 
 import java.io.IOException;
+import java.util.Map;
 
 import org.eclipse.cdt.managedbuilder.core.IConfiguration;
 import org.eclipse.cdt.managedbuilder.core.IManagedBuildInfo;
 import org.eclipse.cdt.managedbuilder.core.ManagedBuildManager;
 import org.eclipse.cdt.ui.CUIPlugin;
+import org.eclipse.core.resources.IBuildConfiguration;
+import org.eclipse.core.resources.ICommand;
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IProjectDescription;
 import org.eclipse.core.resources.IncrementalProjectBuilder;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
@@ -17,7 +21,6 @@ import org.eclipse.core.runtime.jobs.IJobManager;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.jface.text.IDocument;
 import org.eclipse.ui.PlatformUI;
-
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.SystemModel_c;
@@ -284,18 +287,38 @@ public class BuildWorkbenchAdvisor extends BPCLIWorkbenchAdvisor {
  					"Failed to get build SystemModel for the specified project: "
  							+ project.getName());         
         }
+         IProjectDescription description = project.getDescription();
+         ICommand[] commands = description.getBuildSpec();
+         ICommand exportBuilderCommand = null;
+         for (ICommand iCommand : commands) {
+			if (iCommand.getBuilderName().equals(org.xtuml.bp.mc.java.source.MCNature.EXPORT_BUILDER_ID)){
+				exportBuilderCommand= iCommand;
+				break;
+			}
+		}
+        
+        // for mc-java based project, MC Java export builder will be used, Otherwise, we are using the bp.mc.c.source plugin to instantiate the ExportBuilder
+		if (exportBuilderCommand != null) {
 
-         ExportBuilder eb = new ExportBuilder();   // Note that we are using the bp.mc.c binary plugin to instantiate this EXportBuilder
-											         // We are only using the "Export Builder" license atomic, so it does not matter 
-													   // which Model Compiler is used, and the binary MC is always supplied with any
-											         // system licensed for a model compiler.  Note that DocGen takes this same approach
-											         // to acquire an ExportBuilder instance.
+			Map<String, String> arguments = exportBuilderCommand.getArguments();
+			org.xtuml.bp.mc.java.source.ExportBuilder jeb = new org.xtuml.bp.mc.java.source.ExportBuilder();
+			jeb.setArgs(arguments);
 
-         
-         IPath destPath = eb.getCodeGenFolderPath(project);
-         if (!destPath.toFile().exists()) {
-        	 destPath.toFile().mkdir();
-         }
-         eb.exportSystem(sys, destPath.toOSString(), new NullProgressMonitor());
+			IPath destPath = jeb.getCodeGenFolderPath(project);
+			if (!destPath.toFile().exists()) {
+				destPath.toFile().mkdir();
+			}
+			jeb.exportSystem(sys, destPath.toOSString(), new NullProgressMonitor());
+
+		}else{
+			
+			ExportBuilder eb = new ExportBuilder();
+
+			IPath destPath = eb.getCodeGenFolderPath(project);
+			if (!destPath.toFile().exists()) {
+				destPath.toFile().mkdir();
+			}
+			eb.exportSystem(sys, destPath.toOSString(), new NullProgressMonitor());
+		}
 	}
 }
