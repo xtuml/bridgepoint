@@ -278,6 +278,13 @@ public class BPInstancePopulationView extends ViewPart {
 				BPProjectTree projectTree = (BPProjectTree) parent;
 				if (projectTree.getTreeType() == BPTreeType.OoaofooaModelElements) { // Ooa of ooa
 					IProject proj = projectTree.parent;
+					Ooaofooa[] ooas = EclipseOoaofooa
+							.getInstancesUnderSystem(proj.getName());
+					for (Ooaofooa ooa : ooas) {
+						result.add(new BPModelRootTree(ooa, projectTree));
+					}
+				} else if (projectTree.getTreeType() == BPTreeType.OoaofoogModelElements) { // Ooa of graphics
+					IProject proj = projectTree.parent;
 					// An Ooaofooa represents a model root
 					Ooaofooa[] ooas = EclipseOoaofooa
 							.getInstancesUnderSystem(proj.getName());
@@ -285,13 +292,6 @@ public class BPInstancePopulationView extends ViewPart {
 					for (Ooaofooa ooa : ooas) {
 						Ooaofgraphics oog = Ooaofgraphics.getInstance(ooa.getId());
 						result.add(new BPModelRootTree(oog, projectTree));
-					}
-				} else if (projectTree.getTreeType() == BPTreeType.OoaofoogModelElements) { // Ooa of graphics
-					IProject proj = projectTree.parent;
-					Ooaofooa[] ooas = EclipseOoaofooa
-							.getInstancesUnderSystem(proj.getName());
-					for (Ooaofooa ooa : ooas) {
-						result.add(new BPModelRootTree(ooa, projectTree));
 					}
 				} else if (projectTree.getTreeType() == BPTreeType.ParserInstances) {
 					IProject proj = projectTree.parent;
