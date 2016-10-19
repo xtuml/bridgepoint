@@ -276,19 +276,21 @@ public class BPInstancePopulationView extends ViewPart {
 				result.add(new BPProjectTree(proj, BPTreeType.RuntimeInstances));
 			} else if (parent instanceof BPProjectTree) {
 				BPProjectTree projectTree = (BPProjectTree) parent;
-				if (projectTree.getTreeType() == BPTreeType.OoaofooaModelElements) {
+				if (projectTree.getTreeType() == BPTreeType.OoaofooaModelElements) { // Ooa of ooa
 					IProject proj = projectTree.parent;
+					// An Ooaofooa represents a model root
 					Ooaofooa[] ooas = EclipseOoaofooa
 							.getInstancesUnderSystem(proj.getName());
 	
 					for (Ooaofooa ooa : ooas) {
-						result.add(new BPModelRootTree(ooa, projectTree));
+						Ooaofgraphics oog = Ooaofgraphics.getInstance(ooa.getId());
+						result.add(new BPModelRootTree(oog, projectTree));
 					}
-				} else if (projectTree.getTreeType() == BPTreeType.OoaofoogModelElements) {
+				} else if (projectTree.getTreeType() == BPTreeType.OoaofoogModelElements) { // Ooa of graphics
 					IProject proj = projectTree.parent;
-					Ooaofgraphics[] ooas = OoaofgraphicsBase.getInstances();
-
-					for (Ooaofgraphics ooa : ooas) {
+					Ooaofooa[] ooas = EclipseOoaofooa
+							.getInstancesUnderSystem(proj.getName());
+					for (Ooaofooa ooa : ooas) {
 						result.add(new BPModelRootTree(ooa, projectTree));
 					}
 				} else if (projectTree.getTreeType() == BPTreeType.ParserInstances) {
@@ -323,9 +325,31 @@ public class BPInstancePopulationView extends ViewPart {
 						}
 					}
 				}
-				
-				// Add an enrty for the summary to this level
-				result.add(new BPSummaryTree(projectTree));
+
+//
+// See Redmine issue 8810 (https://support.onefact.net/issues/8810)
+// Summary data is causing instance reporting AND NOT JUST SUMMARY REPORTING
+// to return incorrect data after a refresh. Given a simple model (foo):
+//
+//	foo
+//		P1
+//			P1_1
+//		P2
+//				
+// The Instance Viewer should show that model root P1 contains 2 PE_PE instances 
+// and 2 EP_PKG instances, and root P2 contains 1 PE_PE instance and 1 EP_PKG
+// instance. Additionally, the summary for foo should show 3 EP_PKG instances 
+// and 3 PE_PE instances.
+// When the model is first loaded the above IS what is shown. However, each time
+// refresh is performed the first model root in the display remains correct, but
+// all roots "under it" show incorrect values. What seems to be happening is that
+// The values show are a summation of all the roots that appeared before the refresh.
+// Because of this bug I have turned off summary data. 				
+//				
+// When we are ready to spend time fixing this bug, the line below can be uncommented,
+// and the summary data will be enabled again: 								
+//				// Add an entry for the summary to this level
+//				result.add(new BPSummaryTree(projectTree));
 			} else if (parent instanceof BPModelRootTree) {
 				// Add all the instances from this model root to the tree.
 				ModelRoot thisParent = ((BPModelRootTree) parent).modelRoot;
