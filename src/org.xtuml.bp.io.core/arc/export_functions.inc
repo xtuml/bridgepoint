@@ -1051,24 +1051,124 @@ void write_${r.body}_actions(${r.body} inst)
 throws IOException
 {
 if(inst != null && !inst.isProxy()){
-  m_afh.print( "{{" ); //$$NON-NLS-1$$
-  m_afh.print( inst.getName() ); //$$NON-NLS-1$$
-  m_afh.print( "%%" ); //$$NON-NLS-1$$
-  m_afh.print( "${action_body.Key_Lett}" ); //$$NON-NLS-1$$
-  m_afh.print( "%%" ); //$$NON-NLS-1$$
-  m_afh.print( inst.get$cr{action_body.ID_attr}() ); //$$NON-NLS-1$$
-    .if ( "" != action_body.ID_attr2 )
-  m_afh.print( "--" ); //$$NON-NLS-1$$
-  m_afh.print( inst.get$cr{action_body.ID_attr2}() ); //$$NON-NLS-1$$
+  String smasl = "";
+    .if ( "S_SYNC" == action_body.Key_Lett )
+  smasl = Ooaofooa.S_sync2routine( inst.getModelRoot(), inst.getSync_id() );
+    .elif ( "O_TFR" == action_body.Key_Lett )
+  smasl = Ooaofooa.O_tfr2objectop( inst.getModelRoot(), inst.getTfr_id() );
+    .elif ( "SM_ACT" == action_body.Key_Lett )
+  smasl = Ooaofooa.Sm_act2state( inst.getModelRoot(), inst.getAct_id() );
+    .elif ( "SPR_PO" == action_body.Key_Lett )
+  smasl = Ooaofooa.Spr_po2routine( inst.getModelRoot(), inst.getId() );
+    .elif ( "SPR_RO" == action_body.Key_Lett )
+  smasl = Ooaofooa.Spr_ro2routine( inst.getModelRoot(), inst.getId() );
     .end if
-  m_afh.print( "}}\n" ); //$$NON-NLS-1$$
-  String action_semantics = inst.getAction_semantics_internal(); //$$NON-NLS-1$$
-  if ( !action_semantics.trim().isEmpty() ) {
-    m_afh.print( inst.getAction_semantics_internal() ); //$$NON-NLS-1$$
-    m_afh.print( "\n" ); //$$NON-NLS-1$$
+  if ( smasl.equals("") ) {
+    m_afh.print( "// Activity unsupported\n" ); //$$NON-NLS-1$$
     m_updateActions = true;
   }
-  m_afh.print( "\n" ); //$$NON-NLS-1$$
+  else {
+      SmaslScanner sc = new SmaslScanner( smasl );
+      String[] values;
+
+      String preface = "";
+      String activity_type = "";
+      String sig_begin = "";
+      String parameter_list = "";
+      String sig_end = "";
+      String codeblock = "";
+      String end = "";
+
+      String ret_type = "";
+      String parameter_name = "";
+      String separator = " ";
+
+      // parse serial MASL
+      while ( sc.hasNext() ) {
+          values = sc.next();
+          if ( values[0].equals("routine") ) {
+              if ( !values[4].equals("") ) {
+                  preface = values[3] + " ";
+                  activity_type = "service";
+                  sig_begin = " " + values[1] + "::";
+                  if ( !values[2].equals("") ) {
+                      sig_begin += values[2] + "~>";
+                  }
+                  sig_begin += values[4] + " (";
+              }
+          }
+          else if ( values[0].equals("operation")) {
+              if ( !values[4].equals("") ) {
+                  preface = values[3] + " ";
+                  if ( !values[5].equals("") ) {
+                      preface += values[5] + " ";
+                  }
+                  activity_type = "service";
+                  sig_begin = " " + values[1] + "::" + values[2] + "." + values[4] + " (";
+              }
+          }
+          else if ( values[0].equals("state") ) {
+              if ( !values[3].equals("") ) {
+                  preface = values[4];
+                  if ( !preface.equals("") ) {
+                      preface += " ";
+                  }
+                  activity_type = "state";
+                  sig_begin = " " + values[1] + "::" + values[2] + "." + values[3] + " (";
+              }
+          }
+          else if ( values[0].equals("parameter") ) {
+              if ( !values[1].equals("") ) {
+                  parameter_name = values[1] + " : " + values[2];
+              }
+          }
+          else if ( values[0].equals("typeref") ) {
+              if ( !values[1].equals("") ) {
+                  if ( parameter_name.equals("") ) { // return type
+                      if ( activity_type.equals("service") ) activity_type = "function";
+                      ret_type = values[1] + " ";
+                  }
+                  else { // parameter type
+                      parameter_name += " " + values[1];
+                      parameter_list += separator + parameter_name;
+                      separator = ",\n";
+                      parameter_name = "";
+                  }
+              }
+          }
+          else if ( values[0].equals("codeblock") ) {
+              if ( !values[1].equals("") ) {
+                  codeblock = Url_c.Decode( values[1] );
+              }
+          }
+          else {
+            m_afh.print( "// Activity '" + values[0] + "'unsupported\n" ); //$$NON-NLS-1$$
+            m_updateActions = true;
+            return;
+          }
+      }
+
+      // fix end of signature format
+      if ( parameter_list.equals("") ) {
+          sig_end = ") " + ret_type + "is\n";
+      }
+      else {
+          sig_end = " ) " + ret_type + "is\n";
+      }
+      end = " " + activity_type + ";\n\n";
+
+      // fix parameter list
+      int buf_len = (preface + activity_type + sig_begin).length();
+      String buf = "\n ";
+      for (int i = 0; i < buf_len; i++) {
+          buf += " ";
+      }
+      parameter_list = parameter_list.replaceAll("\n", buf);
+
+      // output activity
+      m_afh.print( preface + activity_type + sig_begin + parameter_list + sig_end + codeblock + end ); //$$NON-NLS-1$$
+      m_updateActions = true;
+  }
 }
 }
   .end for
