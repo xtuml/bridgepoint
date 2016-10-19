@@ -2301,8 +2301,9 @@ IProgressMonitor pm\
 ${dom_cons.body}
   //
   // Domain level functions
-  .// This should really recursively descend to find functions. At the moment it relies on functions being in the top tier of packages.
-  .select many functions related by root_pkg->PE_PE[R8000]->EP_PKG[R8001]->PE_PE[R8000]->S_SYNC[R8001] where (("$U_{selected.Descrip:ContextMenuFunction}" != "TRUE") and ("$U_{selected.Descrip:ParserValidateFunction}" != "TRUE"))
+  .select many pkgs related by root_pkg->PE_PE[R8000]->EP_PKG[R8001]
+  .select many functions related by pkgs->PE_PE[R8000]->S_SYNC[R8001] where (("$U_{selected.Descrip:ContextMenuFunction}" != "TRUE") and ("$U_{selected.Descrip:ParserValidateFunction}" != "TRUE"))
+  .while ( not_empty functions )
   .for each function in functions
     .select one ret_type related by function->S_DT[R25]
     .invoke type = do_type(ret_type)
@@ -2339,6 +2340,9 @@ ${blck.body}
    }  // End ${function.Name}
 
   .end for
+  .select many pkgs related by pkgs->PE_PE[R8000]->EP_PKG[R8001]
+  .select many functions related by pkgs->PE_PE[R8000]->S_SYNC[R8001] where (("$U_{selected.Descrip:ContextMenuFunction}" != "TRUE") and ("$U_{selected.Descrip:ParserValidateFunction}" != "TRUE"))
+  .end while
   // End Domain functions
 
     /**
