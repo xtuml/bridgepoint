@@ -72,23 +72,51 @@ public class BPInstancePopulationView extends ViewPart {
 	// The number of instance lists to show in each root
 	private final int MAX_NUMBER_OF_LISTS = 25;
 
+
+	/**
+	 * This represents the BridgePoint type summaries that
+	 * get shown under each model root.
+	 *
+	 */
+	public enum BPTreeType {
+		OoaofooaModelElements("Ooaofooa Model Elements"),
+		OoaofoogModelElements("Graphical Model Elements"),
+		ParserInstances("Parser Instances"),
+		RuntimeInstances("Runtime Instances");
+
+		private String treeType;
+
+		private BPTreeType(String type) {
+			treeType = type;
+		}
+
+		public boolean equalsName(String otherName) {
+			return (otherName == null) ? false : treeType.equals(otherName);
+		}
+
+		public String toString() {
+			return this.treeType;
+		}
+	};
+	
+	/**
+	 * 
+	 * This class represents one of the summary items under the tree. 
+	 * 
+	 */
 	class BPProjectTree {
-		public static final String OoaofooaModelElements = "Ooaofooa Model Elements";
-		public static final String OoaofoogModelElements = "Graphical Model Elements";
-		public static final String ParserInstances = "Parser Instances";
-		public static final String RuntimeInstances = "Runtime Instances";
-		private String treeType;  // One of the types defined above
+		private BPTreeType treeType;  // One of the types defined above
 		
 		IProject parent = null;
 		private List<InstanceList > summaryList = new ArrayList<InstanceList >();
 
 		
-		BPProjectTree(IProject proj, String type) {
+		BPProjectTree(IProject proj, BPTreeType type) {
 			treeType = type;
 			parent = proj;
 		}
 		
-		final String getTreeType() {
+		final BPTreeType getTreeType() {
 			return treeType;
 		}
 		
@@ -242,13 +270,13 @@ public class BPInstancePopulationView extends ViewPart {
 			List<Object> result = new ArrayList<Object>();
 			if (parent instanceof IProject) {
 				IProject proj = (IProject)parent;
-				result.add(new BPProjectTree(proj, BPProjectTree.OoaofooaModelElements));
-				result.add(new BPProjectTree(proj, BPProjectTree.OoaofoogModelElements));
-				result.add(new BPProjectTree(proj, BPProjectTree.ParserInstances));
-				result.add(new BPProjectTree(proj, BPProjectTree.RuntimeInstances));
+				result.add(new BPProjectTree(proj, BPTreeType.OoaofooaModelElements));
+				result.add(new BPProjectTree(proj, BPTreeType.OoaofoogModelElements));
+				result.add(new BPProjectTree(proj, BPTreeType.ParserInstances));
+				result.add(new BPProjectTree(proj, BPTreeType.RuntimeInstances));
 			} else if (parent instanceof BPProjectTree) {
 				BPProjectTree projectTree = (BPProjectTree) parent;
-				if (projectTree.getTreeType() == projectTree.OoaofooaModelElements) {
+				if (projectTree.getTreeType() == BPTreeType.OoaofooaModelElements) {
 					IProject proj = projectTree.parent;
 					Ooaofooa[] ooas = EclipseOoaofooa
 							.getInstancesUnderSystem(proj.getName());
@@ -256,14 +284,14 @@ public class BPInstancePopulationView extends ViewPart {
 					for (Ooaofooa ooa : ooas) {
 						result.add(new BPModelRootTree(ooa, projectTree));
 					}
-				} else if (projectTree.getTreeType() == projectTree.OoaofoogModelElements) {
+				} else if (projectTree.getTreeType() == BPTreeType.OoaofoogModelElements) {
 					IProject proj = projectTree.parent;
 					Ooaofgraphics[] ooas = OoaofgraphicsBase.getInstances();
 
 					for (Ooaofgraphics ooa : ooas) {
 						result.add(new BPModelRootTree(ooa, projectTree));
 					}
-				} else if (projectTree.getTreeType() == projectTree.ParserInstances) {
+				} else if (projectTree.getTreeType() == BPTreeType.ParserInstances) {
 					IProject proj = projectTree.parent;
 					Ooaofooa[] ooas = EclipseOoaofooa
 							.getInstancesUnderSystem(proj.getName());
@@ -272,7 +300,7 @@ public class BPInstancePopulationView extends ViewPart {
 					for (Ooaofooa ooa : ooas) {
 						result.add(new BPModelRootTree(ooa, projectTree));
 					}
-				} else if (projectTree.getTreeType() == projectTree.RuntimeInstances) {					
+				} else if (projectTree.getTreeType() == BPTreeType.RuntimeInstances) {					
 					IDebugTarget[] targets = DebugPlugin.getDefault()
 							.getLaunchManager().getDebugTargets();
 					for (int i = 0; i < targets.length; i++) {
@@ -382,7 +410,7 @@ public class BPInstancePopulationView extends ViewPart {
 		    	return ((IProject) obj).getName();
 			} else if (obj instanceof BPProjectTree) {
 				BPProjectTree projTree = (BPProjectTree)obj;
-				return projTree.getTreeType();
+				return projTree.getTreeType().toString();
 			} else if (obj instanceof BPModelRootTree) {
 				return ((BPModelRootTree) obj).modelRoot.getId();
 		    } else if (obj instanceof BPInstanceListTree) {
