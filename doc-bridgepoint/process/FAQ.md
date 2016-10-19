@@ -24,6 +24,10 @@
     * [Common BridgePoint Unit Test Problems](#unittesting)
     * [How do I turn on Tracing/Debugging statements in BridgePoint](#tracing)
     * [Command Line Build Instructions](#clibuild)
+    * [What is a PMC (Persistable Model Component)?](#pmc)
+    * [How does the model of persistence work?](#persistence)
+    * [BridgePoint Architecture: What is a NonRootModelElement, ModelRoot and InstanceList?](#bridgepoint_architecture)
+    * [How can I examine the BridgePoint Instance Population? (Instance Population Monitor)](#instanceviewer)
   * [Verifier](#verifier)
     * [What does "Nothing to verify." mean?](#nothingtoverify) 
   * [Model Translation / Model Compilers](#mcs)
@@ -218,6 +222,91 @@ BridgePoint Developer Issues <a id="bpdevelopers"></a>
   
   This will clone the repositories into `~/build/git` if they do not exist locally, switch to the correct branch to build (here "testing") and run the build and packaging.   After the build is done, you can inspect the build workspace that was used.  Simply launch BridgePoint and choose the workspace (e.g. `/home/kbrown/build/work/testing`)   
 
+* **What is a PMC (Persistable Model Component)?** <a id="pmc"></a>
+  - The persistence mechanism of BridgePoint hinges on two classes called
+  PersistableModelComponent (PMC) and PersistenceManager. Simply explained, PMC is
+  an abstraction of "File". Every model element has a PMC. The PMC defines where
+  on disk the model element is stored. A model element either has its own PMC (in
+  the case of a component, package, class, etc.), or it finds its PMC by recursing
+  upwards until it finds a "root model element" ancestor (_"root" is overused in
+  BridgePoint terminology -- in this case root is referenced with respect only to
+  persistence_). When a model is loaded, the PersistenceManager (singleton)
+  recursively searches the `models/` directory, and each `.xtuml` file is assigned
+  a PMC instance by the PersistenceManager. This collection of instances is then
+  passed to the importer which parses the SQL, creates OOA instances, and then
+  relates them. When a model element change is detected, the PMC of that model
+  element is identified, and the exporter performs a persist for only that
+  specific PMC (file).
+
+* **How does the model of persistence work?** <a id="persistence"></a>
+  - ![fileio.png](fileio.png)
+
+  - The _Export Ordering_ class is the king of this model. An archetype scans the
+  OOA of OOA and produces instances of _SQL Table_, _Column_, and _Export Item_,
+  these instances are then linked with PEI data instances of _Export Ordering_ by
+  name. The export ordering PEI data allows the developer to define how
+  BridgePoint will recursively call export routines that utilize the _SQL Table_
+  and _Column_ instances to dump SQL insert statements. Each _Export Ordering_ has
+  a first child and next sibling. When finished exporting, the first child export
+  routine is invoked. When all the children are finished exporting, the next
+  sibling is invoked.
+
+  - Two files are used to store the PEI data for _Export Ordeing_ instances:
+  `file_io.pei.sql` and `stream.pei.sql`, both located in
+  `bridgepoint/src/org.xtuml.bp.io.core/sql/`. The two different files are used
+  for two different types of export.  The instances in the file use string
+  identifiers to create a tree to export instances as described in the above
+  paragraph.
+
+* **BridgePoint Architecture: What is a NonRootModelElement, ModelRoot and InstanceList?** <a id="bridgepoint_architecture"</a>
+  - NonRootModelElement is a realized class in BridgePoint. A 
+  NonRootModelElement instance is used to represent modeled 
+  BridgePoint instances. These modeled instances include both 
+  ooaofooa instances AND ooaofgraphic instances.
+  - ModelRoot is a realized class in BridgePoint. A ModelRoot instance 
+  holds BridgePoint NonRootModelElement instances. The 
+  current key BridgePoint classes that inherit from class ModelRoot are: 
+  Ooaofooa, Ooaofooagraphics. It therefore may be said: "Ooaofooa and 
+  Ooaofgraphics are model roots." 
+  -- When BridgePoint loads a project there is a ModelRoot instance created for 
+  the SystemModel instance. Additionally, there is a ModelRoot instance created 
+  for each system-level package in BridgePoint.  
+  - InstanceList is a realized class in BridgePoint. Class InstanceList 
+  inherits from ArrayList<NonRootModelElement>.  Class InstanceList 
+  contains a HashMap<BPElementID, NonRootModelElement> which is a map of
+  an instance ID to that actual instance. 
+  
+  Using the descriptions above, a high-level description of the BridgePoint
+  in-memory architecture is as follows: When BridgePoint loads a workspace
+  it looks for eclipse projects that are xtUML projects. For each xtUML project
+  in a workspace BridgePoint reads the xtUML files from disk. The files are stored
+  in a hierarchy where the "project file" is at the top. In this description, 
+  the project file is the file that contains the SystemModel_c instance. The tool
+  creates a ModelRoot instance for the SystemModel_c. The ModelRoot id of this 
+  instance is the project name. It creates NonRootModelElement instances for 
+  every instance in that "project file" and it inserts those instances into this 
+  ModelRoot instance. The tools recursively loads the rest of the model. Model 
+  Elements contained directly under the system are put in the system-level model 
+  root. Model Elements under system-level packages are put in the ModelRoot instances
+  associated with the system level package it is under. The ModelRoot id for each of these
+  instances is the path to instance. Note that ModelRoot instances are created at the 
+  project-level, and at the system-level package level, and that is all.
+  
+  
+* **How can I examine the BridgePoint Instance Population? (Instance Population Monitor)** <a id="instanceviewer"</a>
+  - BridgePoint contains tool that is useful to developers who may have a need to examine 
+  loaded instance populations. This tool is also useful to help understand the [BridgePoint
+  architecture](#bridgepoint_architecture) with regard to model roots and instance lists.  
+  - One example where this tool may be used in is finding leaks of Instances. 
+  - This viewer shows a summary of a model's instance population broken-down as follows:
+  
+<Project>
+    <Model Root>
+        Ooaofooa NonRootModelElements
+        OOaofgraphics NonRootModelElements
+        Parser NonRootModelElements
+        Runtime NonRootModelElements
+        
 Verifer <a id="verifier"></a>
 ------------
 
