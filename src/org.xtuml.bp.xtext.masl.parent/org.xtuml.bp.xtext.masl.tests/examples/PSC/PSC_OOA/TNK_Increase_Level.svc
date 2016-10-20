@@ -1,10 +1,7 @@
 //
-// Filename: TNK_Increase_Level.svc
+// UK Crown Copyright (c) 2016. All rights reserved.
 //
-// Description: 
-//
-// UK Crown Copyright (c) 2007,2009. All rights reserved.
-//
+
 public instance service PSC::TANK.Increase_Level (Delivered_Volume : in  real) is
   new_level : real; 
 

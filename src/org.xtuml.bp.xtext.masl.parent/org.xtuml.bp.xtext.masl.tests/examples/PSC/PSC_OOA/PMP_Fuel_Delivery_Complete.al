@@ -1,10 +1,7 @@
 //
-// Filename: PMP_Fuel_Delivery_Complete.al
+// UK Crown Copyright (c) 2016. All rights reserved.
 //
-// Description: 
-//
-// UK Crown Copyright (c) 2007,2009. All rights reserved.
-//
+
 state PSC::PUMP.Fuel_Delivery_Complete () is
   current_delivery : instance of DELIVERY; 
 

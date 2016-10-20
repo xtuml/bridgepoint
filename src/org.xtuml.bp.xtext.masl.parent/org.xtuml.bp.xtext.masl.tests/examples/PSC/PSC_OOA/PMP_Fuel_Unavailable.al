@@ -1,10 +1,7 @@
 //
-// Filename: PMP_Fuel_Unavailable.al
+// UK Crown Copyright (c) 2016. All rights reserved.
 //
-// Description: 
-//
-// UK Crown Copyright (c) 2007,2009. All rights reserved.
-//
+
 state PSC::PUMP.Fuel_Unavailable () is
  begin
   //# Inform customer that the pump is unavailable.

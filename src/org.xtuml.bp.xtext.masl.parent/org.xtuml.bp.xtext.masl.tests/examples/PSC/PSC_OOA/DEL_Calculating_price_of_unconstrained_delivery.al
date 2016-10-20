@@ -1,10 +1,7 @@
 //
-// Filename: DEL_Calculating_price_of_unconstrained_delivery.al
+// UK Crown Copyright (c) 2016. All rights reserved.
 //
-// Description: 
-//
-// UK Crown Copyright (c) 2007. All rights reserved.
-//
+
 state PSC::DELIVERY.Calculating_price_of_unconstrained_delivery () is
   new_volume : real; 
   grade : instance of FUEL_GRADE; 

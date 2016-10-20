@@ -1,12 +1,23 @@
 //
-// Filename: PETROL_PROC.prj
+// UK Crown Copyright (c) 2016. All rights reserved.
 //
-// Description: Petrol Station
-//
-//
-// UK Crown Copyright (c) 2008. All rights reserved.
-//
+
 project PETROL_PROC is
   domain PSC is
+    terminator ATTENDANT is
+      public service Request_Pump_Enable ();
+
+    end terminator;
+    pragma key_letter ("AT");
+
+
+
+
+
+
+
+
+
   end domain;
+
 end project;

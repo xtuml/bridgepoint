@@ -1,10 +1,8 @@
 //
-// Filename: CUSTOMER_Pays_For_Fuel_For_Pump_2_7.ext
+// UK Crown Copyright (c) 2016. All rights reserved.
 //
-// Description: CUSTOMER Pays For Fuel For Pump 2
-//
-// UK Crown Copyright (c) 2007. All rights reserved.
-//
+
+//! CUSTOMER Pays For Fuel For Pump 2
 private service PSC::CUSTOMER_Pays_For_Fuel_For_Pump_2_7 () is
   pump_instance : instance of PUMP; 
   current_pending_transaction : instance of PENDING_TRANSACTION; 

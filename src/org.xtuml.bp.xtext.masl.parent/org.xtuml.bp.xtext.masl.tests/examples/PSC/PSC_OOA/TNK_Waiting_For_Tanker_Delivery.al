@@ -1,10 +1,7 @@
 //
-// Filename: TNK_Waiting_For_Tanker_Delivery.al
+// UK Crown Copyright (c) 2016. All rights reserved.
 //
-// Description: 
-//
-// UK Crown Copyright (c) 2007. All rights reserved.
-//
+
 state PSC::TANK.Waiting_For_Tanker_Delivery () is
 
 begin
