@@ -4,3 +4,9 @@ SqlTokenTypes.java
 SqlTokenTypes.txt
 /SqlLexer.smap
 /SqlParser.smap
+/ActionLexer.smap
+/ActionParser.smap
+/ActionTokenTypes.java
+/ActionTokenTypes.txt
+ActionLexer.java
+ActionParser.java

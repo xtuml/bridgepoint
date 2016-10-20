@@ -287,6 +287,46 @@ INSERT INTO O_TPARM
 	'',
 	"00000000-0000-0000-0000-000000000000",
 	'');
+INSERT INTO O_TFR
+	VALUES ("10bfeda6-e0e4-4df6-963a-0ef15360020e",
+	"30125d4c-7b45-4f34-b9a1-802a670a7614",
+	'getSignature',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	1,
+	'/**
+ *  Return a string representation of this operations signature
+ *  with the specified flavor
+ *  0 = named parameters
+ *  1 = positional parameters
+ *  named signature = return_type operation(param1:type, param2:type, param3:type)
+ *  parameters for the named flavor are sorted alphanumerically
+ *  positional signature = return_type operation(param1_type, param2_type, param3_type)
+ */
+ 
+ select one io related by self->C_IO[R4004];
+ if ( not_empty io )
+   return io.getSignature(flavor:param.flavor);
+ else
+   select one as related by self->C_AS[R4004];
+   if ( not_empty as )
+     return as.getSignature(flavor:param.flavor);
+   end if;
+end if;
+
+return "";',
+	1,
+	'',
+	"263b60cc-7cc1-4348-b2bf-a2595fa96faf");
+INSERT INTO O_TPARM
+	VALUES ("2f263b6f-6407-485a-9588-645a01a89c7e",
+	"10bfeda6-e0e4-4df6-963a-0ef15360020e",
+	'flavor',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
 INSERT INTO O_NBATTR
 	VALUES ("98e35966-ecb5-4116-a587-a4f47306b28f",
 	"30125d4c-7b45-4f34-b9a1-802a670a7614");
