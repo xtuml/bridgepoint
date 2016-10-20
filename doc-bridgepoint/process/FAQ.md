@@ -338,7 +338,7 @@ BridgePoint Architecture <a id="bparchitecture"></a>
   share the same InstanceLists. They are different models (separate problem domains)
   and they maintain their own InstanceLists in their model roots.
   
-* **How can I examine the BridgePoint in-memory Instance Population? (Instance Population Monitor)** <a id="instanceviewer"</a>
+* **How can I examine the BridgePoint in-memory Instance Population? (Instance Population Monitor)** <a id="instanceviewer"></a>
   - BridgePoint contains tool that is useful to developers who may have a need to examine 
   loaded instance populations. The tool is implemented as a view. To open it:
   Window > Show View > BridgePoint > Instance Population Monitor
