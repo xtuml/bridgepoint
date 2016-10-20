@@ -179,8 +179,14 @@ public class CanvasPasteAction extends PasteAction {
 
 	/**
 	 * If there is a graphical element we need to update its
-	 * containment by unassociating it from it's source canvas
+	 * containment by un-associating it from it's source canvas
 	 * and associating it with the destination
+	 * 
+	 * Each system-level container is a graphical model root as is the 
+	 * SystemModel_c instance. Graphical model roots are defined as 
+	 * Ooaofooa instances and their ID is set to the path of the file
+	 * the graphical model root is persisted in. The exception to this is
+	 * the SystemModel_c root whose id is set to "__default_root".
 	 * 
 	 * @param ooaElementMoved
 	 * @param destGD_MD
@@ -189,35 +195,33 @@ public class CanvasPasteAction extends PasteAction {
 		Ooaofgraphics ooaofg = Ooaofgraphics
 				.getInstance(PasteAction.getContainerForMove(ooaElementMoved).getModelRoot().getId());
 		GraphicalElement_c graphicalElementMoved = CanvasPlugin.getGraphicalElement(ooaofg, ooaElementMoved);
-		if (graphicalElementMoved != null) {						
-			
-			NonRootModelElement[] rootsToMove = null;
-			Model_c containerRoot = getModel(ooaElementMoved);
-			if (containerRoot != null) {
-				// TODO FIXME: This is test code that helps check the instanceLists after the move
-				// The ComponentResourceListener is running after this routine returns.
-				// The results is that a duplicate GraphicalElement_c instance is put in the 
-				// instance list. This shows up as an orphaned element after a "chained move".
-				// Chained move move cut a nested package, paste it somewhere, then cut the
-				// pasted package and paste it somewhere else. The debug code below helps you see
-				// that the 2nd cut contains 2 GD_GEs instead of 1 for the selected element..
-				//InstanceList gdgeGD_MD2 = graphicalElementMoved.getModelRoot().getInstanceList(Model_c.class);
-				//InstanceList gdgeGD_GE2 = graphicalElementMoved.getModelRoot().getInstanceList(GraphicalElement_c.class);
-				///
-				
-				rootsToMove = new NonRootModelElement[2];
-				rootsToMove[0] = containerRoot;
-				rootsToMove[1] = graphicalElementMoved;
-			} else {
-				rootsToMove = new NonRootModelElement[1];				
-				rootsToMove[0] = graphicalElementMoved;
-			}
-			updateGraphicalElementRoots(rootsToMove, destGD_MD.getModelRoot());
-		
-			Model_c gdgeRoot = Model_c.getOneGD_MDOnR1(graphicalElementMoved);			
-			graphicalElementMoved.unrelateAcrossR1From(gdgeRoot);
-			graphicalElementMoved.relateAcrossR1To(destGD_MD);
+		if (graphicalElementMoved != null) {
 
+			// This finds the GD_MD instance that has the same "represents" as the given
+			// GD_GE. This is null unless the ooaElementMoved represents a container.
+			Model_c gd_mdOftheElementMoved = getModel(ooaElementMoved);
+	
+			// Every GraphicalElement is part of a diagram, so this will never be null.
+			Model_c gd_mdThisElementIsPartOf = Model_c.getOneGD_MDOnR1(graphicalElementMoved);			
+			
+			// If we are moving to a different graphical model root then we need to actually switch the root. 
+			// In this case we update self and children because the root moves for all of them
+			if (gd_mdThisElementIsPartOf.getModelRoot() != destGD_MD.getModelRoot()) {
+				graphicalElementMoved.updateRootForSelfAndChildren(gd_mdThisElementIsPartOf.getModelRoot(),
+						destGD_MD.getModelRoot());
+			}
+
+			// This represents_path in the GD_MD and GD_GE instances is a derived attribute
+			// calculated from the represents attribute (the represents attribute is an instance of type
+			// Object that is set to the actual ooaofooa instance that the graphical elements is representing.
+			// During a move, the represents attribute is not ever changed, but we need to path to be 
+			// recalculated and have the cached path value updated.
+			// 
+			
+			
+			graphicalElementMoved.unrelateAcrossR1From(gd_mdThisElementIsPartOf);
+			graphicalElementMoved.relateAcrossR1To(destGD_MD);
+			
 			updateContainement(destGD_MD, graphicalElementMoved);
 
 			GraphicalElement_c graphicalElementList[] = new GraphicalElement_c[1];

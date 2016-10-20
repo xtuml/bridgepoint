@@ -145,14 +145,14 @@ public class ComponentTransactionListener implements ITransactionListener {
 						// When multiple elements are being moved we will re-persist elements
 						persisted.clear();
 						
-						NonRootModelElement elementMoved = (NonRootModelElement) delta.getModelElement();
+						NonRootModelElement sourceElement = (NonRootModelElement) delta.getModelElement();
+						NonRootModelElement destinationElement = ((ModelElementMovedModelDelta)delta).getDestination();
 	
-						PersistableModelComponent sourcePMC = PasteAction.getContainerForMove(elementMoved).getPersistableComponent();
-						PersistableModelComponent destinationPMC = ((ModelElementMovedModelDelta)delta).getDestination().getPersistableComponent(true);
+						PersistableModelComponent sourcePMC = PasteAction.getContainerForMove(sourceElement).getPersistableComponent();
 						boolean errorDuringFileMove = false;
-						
+
 						try {
-							boolean folderWasMoved = ComponentTransactionListener.movePMC(elementMoved, destinationPMC);
+							ComponentTransactionListener.moveElement(sourceElement, destinationElement);
 						} catch (CoreException e) {
 							// This is a re-thrown exception, the problem was already logged in movePMC. Not need to log it again.
 							errorDuringFileMove = true;
@@ -166,7 +166,8 @@ public class ComponentTransactionListener implements ITransactionListener {
 						if (!errorDuringFileMove) {
 							
 							// persist the moved element and all its RGOs
-							persistRenamedME(elementMoved, destinationPMC, false);
+							PersistableModelComponent destinationPMC = destinationElement.getPersistableComponent(true);
+							persistRenamedME(sourceElement, destinationPMC, false);
 							
 							// In case it was not yet persisted above in persistRenamedME, do it now
 							persist(sourcePMC);
@@ -430,20 +431,12 @@ public class ComponentTransactionListener implements ITransactionListener {
 	 * @param elementMoved This is the NonRootModelElement being moved
 	 * @param destination This is the destination selected by the user
 	 */
-	private static boolean movePMC(NonRootModelElement elementMoved, PersistableModelComponent destinationPMC) throws CoreException {
+	private static void moveElement(NonRootModelElement sourceElement, NonRootModelElement destinationElement) throws CoreException {
 		final IWorkspaceRoot wsRoot = ResourcesPlugin.getWorkspace().getRoot();
-		boolean folderWasMoved = false;
 		IPersistenceHierarchyMetaData metadata = PersistenceManager.getHierarchyMetaData();
-		IFile newFile = destinationPMC.getFile();
-		PersistableModelComponent containerOfTheElementMoved = PasteAction.getContainerForMove(elementMoved).getPersistableComponent();
-		PersistableModelComponent startingPMCOfTheElementMoved = elementMoved.getPersistableComponent();
-		// This is folder that the xtuml file is in
-		IPath sourcePathOfTheElementMoved = startingPMCOfTheElementMoved.getContainingDirectoryPath();
-		IFolder sourceFolderOfTheElementMoved = wsRoot.getFolder(sourcePathOfTheElementMoved);
-		// Now get the destination folder
-		IPath destinationPath = destinationPMC.getContainingDirectoryPath().append(elementMoved.getName());
+		PersistableModelComponent destinationPMC = destinationElement.getPersistableComponent(true);
+		NonRootModelElement rtoForResolution = sourceElement.getRTOElementForResolution();
 		
-
 		// start: move the element to the new ModelRoot in memory
 		// 		To implement undo, this in-memory section will be moved
 		//		from here into PasteAction, and any NRME modified here will
@@ -452,55 +445,41 @@ public class ComponentTransactionListener implements ITransactionListener {
 		//		ModelElementChanged transaction. In fact we can use a Transaction
 		//		group for move and use ModelElementChanged to store these before and
 		//		after NRMEs.
-		NonRootModelElement rto = elementMoved.getRTOElementForResolution();
-		ModelRoot destinationModelRoot = destinationPMC.getRootModelElement().getModelRoot();
-		if (metadata.isComponentRoot(elementMoved)) {			
-			// Update the moved element's ModelRoot to be the destination's model root
-			elementMoved.updateModelRoot(destinationModelRoot);			
-		} else {			
-			if (rto instanceof DataType_c) {
-				elementMoved.move_unchecked(destinationModelRoot);
-				rto.updateModelRoot(destinationModelRoot);
-			} else {
-				rto.updateModelRoot(destinationModelRoot);				
-			}
-		}
-		PackageableElement_c pe = elementMoved.getPE();
-		pe.updateModelRoot(destinationModelRoot); 
+		if (sourceElement.getModelRoot() != destinationElement.getModelRoot()) {
+			sourceElement.updateRootForSelfAndChildren(sourceElement.getModelRoot(), destinationElement.getModelRoot());			
+		}		
 		// end: move the element to the new ModelRoot in memory
 
-		// Move the folder on disk, if needed
-		if (metadata.isComponentRoot(elementMoved)) {
+		// Move the folder on disk if the sourceElement is associated 
+		// with a folder/file on disk.
+		if (metadata.isComponentRoot(sourceElement)) {
+			IFile newFile = destinationPMC.getFile();
+			IPath sourceElementFolderPath = sourceElement.getPersistableComponent().getContainingDirectoryPath();
+			IFolder sourceElementFolder = wsRoot.getFolder(sourceElementFolderPath);
+			IPath destinationPath = destinationPMC.getContainingDirectoryPath().append(sourceElement.getName());			
 
-			// move the folder from the original location to the destination folder
-			// allow the move to keep the local history
+			// move the folder from the original location to the destination folder.
 			try {
-				sourceFolderOfTheElementMoved.move(destinationPath, true, true, null);
+				// Allow the move to keep the local history
+				sourceElementFolder.move(destinationPath, true, true, null);
 				// Update the underlying resource and its children (if any)
-				String elementName = elementMoved.getName();
+				String elementName = sourceElement.getName();
 				newFile = wsRoot.getFile(destinationPath.append(elementName + "." + Ooaofooa.MODELS_EXT));
-				folderWasMoved = true;
 			} catch (CoreException e) {
-				CorePlugin.logError("Could not move the folder from  " + sourceFolderOfTheElementMoved.toString() + " to "
-						+ destinationPath.toString() + "   Element being moved: " + elementMoved.getName(), e);
+				CorePlugin.logError("Could not move the folder from  " + sourceElementFolder.toString() + " to "
+						+ destinationPath.toString() + "   Element being moved: " + sourceElement.getName(), e);
 				throw e;
 			}				
 			
 			// Update the moved PMCs file resource to point at its new file
-			elementMoved.getPersistableComponent().updateResource(newFile);
-			if (rto instanceof DataType_c) {
-				rto.getPersistableComponent().updateResource(newFile);			
-			}
+			sourceElement.getPersistableComponent().updateResource(newFile);
 		} else {
 			// Update the PMC in the moved element to point at it new home
-			elementMoved.setComponent(destinationPMC);			
-			if (rto instanceof DataType_c) {
-				rto.setComponent(destinationPMC);			
+			sourceElement.setComponent(destinationPMC);			
+			if (rtoForResolution instanceof DataType_c) {
+				rtoForResolution.setComponent(destinationPMC);			
 			}
-		}
-		
-
-		return folderWasMoved;
+		}		
 	}
 
 	public static void setDontMakeResourceChanges(boolean newValue) {
