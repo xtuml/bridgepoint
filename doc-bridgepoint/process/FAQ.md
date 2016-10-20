@@ -237,12 +237,12 @@ BridgePoint Architecture <a id="bparchitecture"</a>
   NonRootModelElement instance is used to represent modeled 
   BridgePoint instances. These modeled instances include both 
   ooaofooa instances AND ooaofgraphic instances.
-  - NonRootModelElement contains a (Persistable ModelComponent)[#pmc] 
-  class attribute. This PMC references the actual that this NRME
+  - NonRootModelElement contains a [PersistableModelComponent](#pmc) 
+  class attribute. This PMC references the file that this NRME
   is stored in.
-    - In is worth noting that the PMC attribute in a loaded NRME is
+    - In is worth noting that in a loaded nrme the PMC attribute is
     never null. It will always point to the file the NRME is persisted 
-    in. However, note that the preior sentence wrote "in a loaded NRME".
+    in. However, note that the prior sentence wrote "in a loaded NRME".
     When proxies are in use the way the tool knows a NRME is a proxy is 
     that the PMC attribute is null. In this case, the NRME attribute named
     "m_contentpath" will NOT be null, and it will refer to the path that was
