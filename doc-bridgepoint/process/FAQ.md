@@ -345,16 +345,13 @@ BridgePoint Architecture <a id="bparchitecture"></a>
   - An example where this tool may be used in is finding Instance leaks. 
   - This tool is also useful to help understand the [BridgePoint architecture](#bparchitecture) 
   with regard to model roots and instance lists.
-  ```
-The viewer shows a summary of a BridgePoint model's instance population broken-down as follows:
-
-Project Name
-    Model Root ID
-        Ooaofooa NonRootModelElements
-        OOaofgraphics NonRootModelElements
-        Parser NonRootModelElements
-        Runtime NonRootModelElements
-  ```
+  - The viewer shows a summary of a BridgePoint model's instance population broken-down as follows:
+    - Project Name
+      - Model Root ID
+        - Ooaofooa NonRootModelElements
+        - OOaofgraphics NonRootModelElements
+        - Parser NonRootModelElements
+        - Runtime NonRootModelElements
   - ![bpinstanceviewer.png](bpinstanceviewer.png) 
   
 Verifer <a id="verifier"></a>
