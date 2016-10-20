@@ -226,13 +226,13 @@ BridgePoint Developer Issues <a id="bpdevelopers"></a>
   
   This will clone the repositories into `~/build/git` if they do not exist locally, switch to the correct branch to build (here "testing") and run the build and packaging.   After the build is done, you can inspect the build workspace that was used.  Simply launch BridgePoint and choose the workspace (e.g. `/home/kbrown/build/work/testing`)   
 
-BridgePoint Architecture <a id="bparchitecture"</a>
+BridgePoint Architecture <a id="bparchitecture"></a>
 ------------
 * **The following diagram is a simplified java class diagram that shows the 
   realized classes described in this section.**
   - ![BridgePointArchitecture.png](BridgePointArchitecture.png)
   
-* **What is a NonRootModelElement?** <a id="nrme" </a>
+* **What is a NonRootModelElement?** <a id="nrme" ></a>
   - NonRootModelElement is a realized class in BridgePoint. A 
   NonRootModelElement instance is used to represent modeled 
   BridgePoint instances. These modeled instances include both 
@@ -250,7 +250,7 @@ BridgePoint Architecture <a id="bparchitecture"</a>
     was loaded. As soon as the actual model element is loaded, the m_contentpath
     attribute is changed to null and the PMC attribute is assigned.
   
-* **What is a ModelRoot?** <a id="modelroot"</a>
+* **What is a ModelRoot?** <a id="modelroot"></a>
   - ModelRoot is a realized class in BridgePoint. A ModelRoot instance 
   holds BridgePoint [NonRootModelElement](#nrme) instances. The 
   current key BridgePoint classes that inherit from class ModelRoot are: 
@@ -260,7 +260,7 @@ BridgePoint Architecture <a id="bparchitecture"</a>
   the SystemModel instance. Additionally, there is a ModelRoot instance created 
   for each system-level package in BridgePoint.  
   
-* **What is a InstanceList?** <a id="instancelist" </a>
+* **What is a InstanceList?** <a id="instancelist"></a>
   - InstanceList is a realized class in BridgePoint. Class InstanceList 
   inherits from ArrayList<NonRootModelElement>.  Class InstanceList 
   contains a HashMap<BPElementID, NonRootModelElement> which is a map of
