@@ -335,8 +335,8 @@ BridgePoint Architecture <a id="bparchitecture"></a>
   
   This same architecture is shared by the Ooaofooa NonRootModelElements and the
   Ooaofgraphics NonRootModelElements. However, the Ooaofooa and Ooaofgraphics DO NOT
-  share the same InstanceLists. They are seperare model (seperate problem domains)
-  and they each maintain their own InstanceLists.
+  share the same InstanceLists. They are different models (separate problem domains)
+  and they maintain their own InstanceLists in their model roots.
   
 * **How can I examine the BridgePoint in-memory Instance Population? (Instance Population Monitor)** <a id="instanceviewer"</a>
   - BridgePoint contains tool that is useful to developers who may have a need to examine 
