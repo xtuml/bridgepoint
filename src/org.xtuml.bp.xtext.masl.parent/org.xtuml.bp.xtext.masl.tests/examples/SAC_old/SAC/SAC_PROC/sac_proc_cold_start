@@ -1,0 +1,5 @@
+$TESTSCHEDULE
+   RUN SCENARIO INI 1 "load ini file spec"
+   RUN SCENARIO SAC 1 "populate domain"
+$ENDTESTSCHEDULE
+

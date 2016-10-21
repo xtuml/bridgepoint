@@ -1,0 +1,15 @@
+//
+// Filename: OP_report_user_operation.tr
+//
+// Description: Allows the domain to report the operations that are valid
+//              for this user session.
+//
+// UK Crown Copyright (c) 2010,2014. All rights reserved.
+//
+private service SAC::Operator~>report_user_operation (user_id        : in  integer,
+                                                      operation_name : in  string,
+                                                      login_name     : in  string,
+                                                      session_id     : in  integer) is
+begin
+  null;
+end;

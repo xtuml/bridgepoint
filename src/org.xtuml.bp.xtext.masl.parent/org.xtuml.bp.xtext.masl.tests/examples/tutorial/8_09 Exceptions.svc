@@ -1,0 +1,15 @@
+service tutorial::exceptions() is 
+  handled : boolean;
+begin
+  handled := false;
+  begin
+    raise my_exception;
+  exception
+    when my_exception =>
+      handled := true;
+  end;
+  if (not handled) then
+    raise Standard::constraint_error;
+  end if;
+end;
+

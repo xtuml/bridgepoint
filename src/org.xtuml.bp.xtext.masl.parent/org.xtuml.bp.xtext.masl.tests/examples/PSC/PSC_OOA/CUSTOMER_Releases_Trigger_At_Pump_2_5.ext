@@ -1,0 +1,14 @@
+//
+// UK Crown Copyright (c) 2016. All rights reserved.
+//
+
+//! CUSTOMER Releases Trigger At Pump 2
+private service PSC::CUSTOMER_Releases_Trigger_At_Pump_2_5 () is
+  pump_instance : instance of PUMP; 
+
+begin
+  //# Customer releases Gun trigger on pump 2
+  
+  pump_instance := find_one PUMP (Pump_Number = 2);
+  generate PUMP.Trigger_Released() to pump_instance;
+end service;

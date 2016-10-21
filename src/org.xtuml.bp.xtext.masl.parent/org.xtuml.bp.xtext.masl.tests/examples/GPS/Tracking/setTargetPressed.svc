@@ -1,0 +1,4 @@
+public service Tracking::setTargetPressed () is
+begin
+  null;
+end service;

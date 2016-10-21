@@ -1,0 +1,14 @@
+//
+// Filename: OP_user_group_removed.tr
+//
+// Description: 
+//
+// UK Crown Copyright (c) 2011,2014. All rights reserved.
+//
+private service SAC::Operator~>user_group_removed (uid        : in  integer,
+                                                   group_name : in  string,
+                                                   login_name : in  string,
+                                                   session_id : in  integer) is
+begin
+  null;
+end;
