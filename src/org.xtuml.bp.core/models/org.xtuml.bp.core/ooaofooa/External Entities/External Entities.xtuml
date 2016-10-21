@@ -2303,17 +2303,17 @@ Translate:native',
         if (foundElement != null) {
             ModelInspector inspector = new ModelInspector(); // <--- WRONG TYPE OF VIEWER
             Object parent = inspector.getParent(foundElement);
-            if ((parent instanceof InterfaceSignal_c) or (parent instanceof InterfaceOperation_c)) {
+            if ((parent instanceof InterfaceSignal_c) || (parent instanceof InterfaceOperation_c)) {
                 return false;
             }
         }
         return true;
 // THIS IS WHAT IT SHOULD DO:
-//      Object foundElement = Selection.getInstance().getStructuredSelection().iterator().next();       
+//      Object foundElement = Selection.getInstance().getStructuredSelection().iterator().next();
 //      if (foundElement != null) {
 //          ExplorerTreeViewer viewer = (ExplorerTreeViewer) ExplorerView.getExplorerTreeViewer();
 //          Object parent = viewer.findTreeItem(foundElement).getParent();
-//          if ((parent == InterfaceSignal_c) or (parent == InterfaceOperation_c)) {
+//          if ((parent == InterfaceSignal_c) || (parent == InterfaceOperation_c)) {
 //              return false;
 //          }
 //      }
