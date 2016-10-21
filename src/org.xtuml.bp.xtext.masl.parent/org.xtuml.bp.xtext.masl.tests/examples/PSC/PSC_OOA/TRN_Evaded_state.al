@@ -1,10 +1,7 @@
 //
-// Filename: TRN_Evaded_state.al
+// UK Crown Copyright (c) 2016. All rights reserved.
 //
-// Description: 
-//
-// UK Crown Copyright (c) 2007,2009. All rights reserved.
-//
+
 state PSC::TRANSACTION.Evaded_state (Customer_Details : in  string) is
   pending_transaction_instance : instance of PENDING_TRANSACTION; 
   pump_instance : instance of PUMP; 

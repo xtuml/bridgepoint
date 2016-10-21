@@ -1,10 +1,7 @@
 //
-// Filename: TNK_Reset_waiting_pumps.al
+// UK Crown Copyright (c) 2016. All rights reserved.
 //
-// Description: 
-//
-// UK Crown Copyright (c) 2007. All rights reserved.
-//
+
 state PSC::TANK.Reset_waiting_pumps () is
 
 begin

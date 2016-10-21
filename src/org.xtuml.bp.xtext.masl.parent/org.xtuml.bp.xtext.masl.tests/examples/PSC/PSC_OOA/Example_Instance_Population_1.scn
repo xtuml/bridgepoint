@@ -1,10 +1,8 @@
 //
-// Filename: Example_Instance_Population_1.scn
+// UK Crown Copyright (c) 2016. All rights reserved.
 //
-// Description: Example Instance Population
-//
-// UK Crown Copyright (c) 2007. All rights reserved.
-//
+
+//! Example Instance Population
 private service PSC::Example_Instance_Population_1 () is
   four_star_fuel_grade : instance of FUEL_GRADE; 
   unleaded_fuel_grade : instance of FUEL_GRADE; 
@@ -15,7 +13,6 @@ private service PSC::Example_Instance_Population_1 () is
   pump_3 : instance of PUMP; 
   pump : instance of PUMP; 
   tank : instance of TANK;
-  test : instance of TEST;
 begin
   //# Populate Petrol Station Control domain with the initial
   //# configuration. This station supplies two grades of fuel 
@@ -28,11 +25,6 @@ begin
   //# First instantiate 2 tanks which supply different fuel 
   //# grades.
   
-  
-  test := create TEST();
-
-  test := create TEST();
-
   four_star_fuel_grade := create FUEL_GRADE (
 	Grade_Name => "Four Star", 
 	Unit_Price => 62.9);
@@ -82,7 +74,7 @@ begin
   link pump_3 R1 tank_1002;
 
 
-  for t in 1..10 loop
+  for t in 1..100 loop
     tank := create TANK (
       Tank_Number => t,
       Tank_Empty_Flag => false,
@@ -92,7 +84,7 @@ begin
       Current_State => Reset_waiting_pumps);
 
 
-    for p in  1..10 loop
+    for p in  1..1000 loop
       pump := create PUMP ( Pump_Number => t*1000+p, Current_State => Waiting_For_Customer );
 
       link pump R1 tank;

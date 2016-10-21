@@ -1,11 +1,8 @@
 //
-// Filename: CU_Pump_Unavailable.tr
+// UK Crown Copyright (c) 2016. All rights reserved.
 //
-// Description: 
-//
-// UK Crown Copyright (c) 2007,2009. All rights reserved.
-//
-private service PSC::CUSTOMER~>Pump_Unavailable () is
+
+public service PSC::CUSTOMER~>Pump_Unavailable () is
 
 begin
 begin

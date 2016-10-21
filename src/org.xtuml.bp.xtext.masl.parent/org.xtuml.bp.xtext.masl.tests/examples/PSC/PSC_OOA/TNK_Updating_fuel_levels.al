@@ -1,10 +1,7 @@
 //
-// Filename: TNK_Updating_fuel_levels.al
+// UK Crown Copyright (c) 2016. All rights reserved.
 //
-// Description: 
-//
-// UK Crown Copyright (c) 2007,2009. All rights reserved.
-//
+
 state PSC::TANK.Updating_fuel_levels (Delivered_Volume : in  real) is
 
 begin

@@ -3,7 +3,6 @@
 //
 
 public service PSC::ATTENDANT~>Request_Pump_Enable () is
-
 begin
-  null;
+  console << "Mr Attendant, enable the pump please!" << endl;
 end service;

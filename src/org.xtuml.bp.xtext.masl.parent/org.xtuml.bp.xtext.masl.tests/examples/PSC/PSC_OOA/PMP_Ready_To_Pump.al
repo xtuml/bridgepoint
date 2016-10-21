@@ -1,10 +1,7 @@
 //
-// Filename: PMP_Ready_To_Pump.al
+// UK Crown Copyright (c) 2016. All rights reserved.
 //
-// Description: 
-//
-// UK Crown Copyright (c) 2007,2009. All rights reserved.
-//
+
 state PSC::PUMP.Ready_To_Pump () is
 
 begin
