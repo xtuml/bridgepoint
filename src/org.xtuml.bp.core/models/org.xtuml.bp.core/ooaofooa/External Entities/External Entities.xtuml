@@ -2286,6 +2286,42 @@ INSERT INTO S_BPARM
 	'',
 	"d4edd0a0-eb44-4195-9698-81dd3b2d47a8",
 	'');
+INSERT INTO S_BRG
+	VALUES ("cc133c4a-1bd5-4bf9-b44c-a3352007d628",
+	"b69262ac-62eb-4030-b329-b967033f0ee0",
+	'isProvidedParameter',
+	'This bridge is used to check the current selection to see if it is associated   
+with a provided interface.
+
+Import:org.xtuml.bp.core.ui.Selection; import java.util.Iterator
+Translate:native',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000001",
+	'// THIS WAS USED FOR INITIAL TESTING
+        Iterator iterator = Selection.getInstance().getStructuredSelection().iterator();
+        Object foundElement = iterator.next();
+        if (foundElement != null) {
+            ModelInspector inspector = new ModelInspector(); // <--- WRONG TYPE OF VIEWER
+            Object parent = inspector.getParent(foundElement);
+            if ((parent instanceof InterfaceSignal_c) or (parent instanceof InterfaceOperation_c)) {
+                return false;
+            }
+        }
+        return true;
+// THIS IS WHAT IT SHOULD DO:
+//      Object foundElement = Selection.getInstance().getStructuredSelection().iterator().next();       
+//      if (foundElement != null) {
+//          ExplorerTreeViewer viewer = (ExplorerTreeViewer) ExplorerView.getExplorerTreeViewer();
+//          Object parent = viewer.findTreeItem(foundElement).getParent();
+//          if ((parent == InterfaceSignal_c) or (parent == InterfaceOperation_c)) {
+//              return false;
+//          }
+//      }
+//      return true;
+
+        ',
+	0,
+	'');
 INSERT INTO PE_PE
 	VALUES ("b69262ac-62eb-4030-b329-b967033f0ee0",
 	1,
