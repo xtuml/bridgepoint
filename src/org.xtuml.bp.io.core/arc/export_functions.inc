@@ -1054,20 +1054,24 @@ if(inst != null && !inst.isProxy()){
   String smasl = "";
     .if ( "S_SYNC" == action_body.Key_Lett )
   smasl = Ooaofooa.S_sync2routine( inst.getModelRoot(), inst.getSync_id() );
+    .elif ( "S_BRG" == action_body.Key_Lett )
+  smasl = Ooaofooa.S_brg2routine( inst.getModelRoot(), inst.getBrg_id() );
     .elif ( "O_TFR" == action_body.Key_Lett )
   smasl = Ooaofooa.O_tfr2objectop( inst.getModelRoot(), inst.getTfr_id() );
+    .elif ( "O_DBATTR" == action_body.Key_Lett )
+  smasl = Ooaofooa.O_dbattr2attribute( inst.getModelRoot(), inst.getAttr_id() );
     .elif ( "SM_ACT" == action_body.Key_Lett )
-  smasl = Ooaofooa.Sm_act2state( inst.getModelRoot(), inst.getAct_id() );
+  smasl = Ooaofooa.Sm_act2stateortxn( inst.getModelRoot(), inst.getAct_id() );
     .elif ( "SPR_PO" == action_body.Key_Lett )
   smasl = Ooaofooa.Spr_po2routine( inst.getModelRoot(), inst.getId() );
+    .elif ( "SPR_PS" == action_body.Key_Lett )
+  smasl = Ooaofooa.Spr_ps2routine( inst.getModelRoot(), inst.getId() );
     .elif ( "SPR_RO" == action_body.Key_Lett )
   smasl = Ooaofooa.Spr_ro2routine( inst.getModelRoot(), inst.getId() );
+    .elif ( "SPR_RS" == action_body.Key_Lett )
+  smasl = Ooaofooa.Spr_rs2routine( inst.getModelRoot(), inst.getId() );
     .end if
-  if ( smasl.equals("") ) {
-    m_afh.print( "// Activity unsupported\n" ); //$$NON-NLS-1$$
-    m_updateActions = true;
-  }
-  else {
+  if ( !smasl.equals("") ) {
       SmaslScanner sc = new SmaslScanner( smasl );
       String[] values;
 
@@ -1094,7 +1098,8 @@ if(inst != null && !inst.isProxy()){
                   if ( !values[2].equals("") ) {
                       sig_begin += values[2] + "~>";
                   }
-                  sig_begin += values[4] + " (";
+                  sig_begin += values[4] + " ";
+                  parameter_list = "(";
               }
           }
           else if ( values[0].equals("operation")) {
@@ -1104,7 +1109,8 @@ if(inst != null && !inst.isProxy()){
                       preface += values[5] + " ";
                   }
                   activity_type = "service";
-                  sig_begin = " " + values[1] + "::" + values[2] + "." + values[4] + " (";
+                  sig_begin = " " + values[1] + "::" + values[2] + "." + values[4] + " ";
+                  parameter_list = "(";
               }
           }
           else if ( values[0].equals("state") ) {
@@ -1114,7 +1120,22 @@ if(inst != null && !inst.isProxy()){
                       preface += " ";
                   }
                   activity_type = "state";
-                  sig_begin = " " + values[1] + "::" + values[2] + "." + values[3] + " (";
+                  sig_begin = " " + values[1] + "::" + values[2] + "." + values[3] + " ";
+                  parameter_list = "(";
+              }
+          }
+          else if ( values[0].equals("attribute") ) {
+              if ( !values[1].equals("") ) {
+                  activity_type = "attribute";
+                  sig_begin = " " + values[4] + "::" + values[5] + "." + values[1] + " ";
+              }
+          }
+          else if ( values[0].equals("transition") ) {
+              //transition SAC::Session in Created receives user_logged_on () is
+              if ( !values[1].equals("") ) {
+                  activity_type = "transition";
+                  sig_begin = " " + values[2] + "::" + values[3] + " in " + values[1] + " receives " + values[4] + " ";
+                  parameter_list = "(";
               }
           }
           else if ( values[0].equals("parameter") ) {
@@ -1125,8 +1146,7 @@ if(inst != null && !inst.isProxy()){
           else if ( values[0].equals("typeref") ) {
               if ( !values[1].equals("") ) {
                   if ( parameter_name.equals("") ) { // return type
-                      if ( activity_type.equals("service") ) activity_type = "function";
-                      ret_type = values[1] + " ";
+                      ret_type = "return " + values[1] + " ";
                   }
                   else { // parameter type
                       parameter_name += " " + values[1];
@@ -1138,7 +1158,13 @@ if(inst != null && !inst.isProxy()){
           }
           else if ( values[0].equals("codeblock") ) {
               if ( !values[1].equals("") ) {
-                  codeblock = Url_c.Decode( values[1] );
+                  codeblock = Url_c.Decode( values[1] ).trim();
+                  if ( codeblock.endsWith("end") ) {
+                      codeblock += " ";
+                  }
+                  else {
+                      codeblock += "\n";
+                  }
               }
           }
           else {
@@ -1150,12 +1176,15 @@ if(inst != null && !inst.isProxy()){
 
       // fix end of signature format
       if ( parameter_list.equals("") ) {
+          sig_end = ret_type + "is\n";
+      }
+      else if ( parameter_list.equals("(") ) {
           sig_end = ") " + ret_type + "is\n";
       }
       else {
           sig_end = " ) " + ret_type + "is\n";
       }
-      end = " " + activity_type + ";\n\n";
+      end = activity_type + ";\n\n";
 
       // fix parameter list
       int buf_len = (preface + activity_type + sig_begin).length();
