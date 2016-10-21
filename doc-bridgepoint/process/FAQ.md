@@ -230,14 +230,14 @@ BridgePoint Developer Issues <a id="bpdevelopers"></a>
 * **How do BridgePoint Context Menu Entries (CMEs) work?** <a id="bp_cme"></a>
   - There is a package in org.xtuml.bp.core project named context_menu. Under this package is the class diagram that defines  BridgePoint CME behavior. 
     - The preexisting instance data that populates this model is found in [bp.core/sql/context_menu.pei.sql](https://github.com/xtuml/bridgepoint/blob/master/src/org.xtuml.bp.core/sql/context_menu.pei.sql).
+  - The OAL that defines the behavior of the CME is found in the ooaofooa model under ooaofooa::Functions::Context Menu Entry Functions
+    - Under this package are operations that use the naming convention: "Class Keyletter"_"CME Operation"
+    - In these operations are the behaviors each CME action takes on the specified class 
   - Classes in bridgepoint that use CME have a operation named actionFilter. For example, class Model Class (O_OBJ) has this.
   - The actionFilter operation has OAL that acts as a filter to determine when to enable/disable the CME
-  - The OAL that defines the behavior of the CME is found in the ooaofooa model under ooaofooa::Functions::Context Menu Entry Functions
-    - Under this package are operation that use the naming convention: "Class Keyletter"_"CME Operation"
-    - In these operations are the behaviors each CME action takes on the specified class 
-BridgePoint Architecture <a id="bparchitecture"></a>
   - There are exceptions to the above description. However, in general that is how it works.
 
+BridgePoint Architecture <a id="bparchitecture"></a>
 ------------
 * **The following diagram is a simplified java class diagram that shows the 
   realized classes described in this section.**
