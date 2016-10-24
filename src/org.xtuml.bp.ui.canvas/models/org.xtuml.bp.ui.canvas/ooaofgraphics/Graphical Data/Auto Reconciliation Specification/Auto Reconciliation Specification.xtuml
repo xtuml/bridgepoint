@@ -548,10 +548,7 @@ while (j < connectorCount)
       // right now are transitions.
       side1GD_GDElementId = graphicalElement.elementId;
       swappedSides = false;
-      if ( CL::isDestination(shapeInstance:graphicalElement.represents, connectorInstance:connectorInstance) 
-           and
-           not CL::isReflexive(nrme:connectorInstance)
-          ) 
+      if ( CL::isDestination(shapeInstance:graphicalElement.represents, connectorInstance:connectorInstance) ) 
           temp = side2_GD_GE;
           side2_GD_GE = graphicalElement;
           graphicalElement = temp;
