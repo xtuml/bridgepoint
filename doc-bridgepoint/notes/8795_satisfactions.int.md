@@ -71,9 +71,9 @@ big problem then if either of the projects is deleted from the workspace.
       create object instance pe of PE_PE;
       relate satisfaction to pe across R8001;
 -     if(not_empty importedRef)
+-       select one importedComp related by importedRef->CL_POR[R4708]->CL_IC[R4707];
 +     if(not_empty importedProvisionRef)
--        select one importedComp related by importedRef->CL_POR[R4708]->CL_IC[R4707];
-+        select one importedComp related by importedProvisionRef->CL_POR[R4708]->CL_IC[R4707];
++       select one importedComp related by importedProvisionRef->CL_POR[R4708]->CL_IC[R4707];
         select one epPkg related by importedComp->PE_PE[R8001]->EP_PKG[R8000];
         select one comp related by importedComp->PE_PE[R8001]->C_C[R8003];
         if not_empty epPkg
