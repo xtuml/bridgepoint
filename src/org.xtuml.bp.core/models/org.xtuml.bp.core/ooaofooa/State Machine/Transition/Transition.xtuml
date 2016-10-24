@@ -312,9 +312,9 @@ INSERT INTO O_TFR
 elif param.name == "signal"
   if (param.value == "exists generic pkg") 
     select one cls related by self->SM_SM[R505]->SM_ASM[R517]->O_OBJ[R519];
-    //if (empty cls)
-    //  select one cls related by self->SM_SM[R505]->SM_ISM[R517]->O_OBJ[R518];
-    //end if;
+    if (empty cls)
+      return false;
+    end if;
     select one packageableElem related by cls->PE_PE[R8001];
     select one package related by packageableElem->EP_PKG[R8000];
     // Currently component will always be null, but this may change
