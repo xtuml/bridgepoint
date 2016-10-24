@@ -1728,6 +1728,34 @@ INSERT INTO S_BPARM
 	'',
 	"00000000-0000-0000-0000-000000000000",
 	'');
+INSERT INTO S_BRG
+	VALUES ("2a4514aa-e52c-4289-9d37-336e4d61048d",
+	"f168c92b-6d64-4ecb-a677-5a1d7cce8352",
+	'isDestination',
+	'',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000001",
+	'',
+	0,
+	'');
+INSERT INTO S_BPARM
+	VALUES ("82ad7294-415d-413f-aaf2-34d37b71b109",
+	"2a4514aa-e52c-4289-9d37-336e4d61048d",
+	'shapeInstance',
+	"68dedb08-fd5a-420e-9ec7-e7985ad0c856",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_BPARM
+	VALUES ("8d2e6457-8bd7-4f08-9c51-0bc07b5327d9",
+	"2a4514aa-e52c-4289-9d37-336e4d61048d",
+	'connectorInstance',
+	"68dedb08-fd5a-420e-9ec7-e7985ad0c856",
+	0,
+	'',
+	"82ad7294-415d-413f-aaf2-34d37b71b109",
+	'');
 INSERT INTO PE_PE
 	VALUES ("f168c92b-6d64-4ecb-a677-5a1d7cce8352",
 	1,
