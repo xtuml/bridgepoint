@@ -1,0 +1,97 @@
+service tutorial::arrays() is
+  my_b_array        : array(1..2) of byte;
+  my_int_array_1    : array(1..5) of integer;
+  my_int_array_2    : my_int_array_type;
+  my_int_array_3    : my_int_array_type;
+  my_struct_array   : array(1..2)  of nested_structure_type;
+  my_time_array     : array(2..3)  of Calendar::time_type;
+  my_sub_type_array : array(3..30) of my_int_sub_type_type;
+  my_array_array    : array(1..5)  of my_int_array_type;
+  x                 : integer:=0;
+  s                 : nested_structure_type;
+begin
+  for i in 1..10 loop
+    my_int_array_2[i] := 9;
+    my_int_array_3[i] := 10;
+  end loop;
+  if (my_int_array_2[5] /= 9) then 
+    raise Standard::constraint_error;
+  end if;
+
+  //general access
+  my_int_array_1[1] := 55;
+  if (my_int_array_1[1] /= 55) then
+    raise Standard::constraint_error;
+  end if;
+
+  my_int_array_1[my_int_array_1'first] := 55;
+  if (my_int_array_1[1] /= 55) then
+    raise Standard::constraint_error;
+  end if;
+
+  my_int_array_1[my_int_array_1'last] := 55;
+  if (my_int_array_1[5] /= 55) then
+    raise Standard::constraint_error;
+  end if;
+
+  //parser error
+  //my_int_array_1[my_int_array_type'last] := 55;
+
+  //copy
+  my_int_array_2 := my_int_array_3;
+  my_int_array_3[4] := 0;
+  
+  //slices, parser error
+  for i in 1..5 loop
+    my_int_array_1[i] := i;
+  end loop;
+  //my_int_array_1 := my_int_array_2[1..5];
+  x := 0;
+  for i in my_int_array_1'elements loop
+    x:=x+i;
+  end loop;
+  //if (x /= 5) then 
+  //  raise Standard::constraint_error;
+  //end if;
+
+  //arrays as parameters
+  Array_passing(my_int_array_2,my_int_array_3);
+
+  //array of strucures
+  my_struct_array[2].id := 9;
+  s := my_struct_array[2];
+  if (s.id /= 9) then
+    raise Standard::constraint_error;
+  end if;
+
+  //array of arrays
+  my_array_array[1][1] := 55;
+  my_int_array_2 :=  my_array_array[1];
+  if (my_int_array_2[1] /= 55) then
+    raise Standard::constraint_error;
+  end if;
+
+  //expected exceptions
+  x := 0;
+  begin
+    my_b_array[10] := 0;
+  exception
+    when Standard::constraint_error =>
+      x := x + 1;
+  end;
+  begin
+    my_array_array[0][1] := 0;
+  exception
+    when Standard::constraint_error =>
+      x := x + 1;
+  end;
+  begin
+    my_array_array[1][0] := 0;
+  exception
+    when Standard::constraint_error =>
+      x := x + 1;
+  end;
+  if (x /= 3) then
+    raise Standard::constraint_error;
+  end if;
+end;

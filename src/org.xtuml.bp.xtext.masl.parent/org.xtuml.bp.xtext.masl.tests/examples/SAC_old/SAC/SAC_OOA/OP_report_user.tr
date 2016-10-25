@@ -1,0 +1,15 @@
+//
+// Filename: OP_report_user.tr
+//
+// Description: Allows the domain to report the details of a user to the
+//              operator
+//
+// UK Crown Copyright (c) 2010. All rights reserved.
+//
+private service SAC::Operator~>report_user (user_id    : in  integer,
+                                            login_name : in  string,
+                                            user_name  : in  string,
+                                            logged_on  : in  logged_on_type) is
+begin
+  null;
+end;

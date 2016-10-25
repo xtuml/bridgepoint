@@ -1,0 +1,4 @@
+public instance service Tracking::Goal.evaluateCompletion () is
+begin
+  null;
+end service;

@@ -1,0 +1,6 @@
+$TESTSCEDULE
+   RUN SCENARIO INI 1  "populate"
+   RUN SCENARIO SAC 1  "populate"
+   RUN EXTERNAL SAC 1  "test"
+$ENDTESTSCHEDULE
+

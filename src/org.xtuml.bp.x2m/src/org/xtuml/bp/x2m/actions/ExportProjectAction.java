@@ -1,12 +1,3 @@
-//====================================================================
-//
-// File:      $RCSfile: makeDocumentationAction.java,v $
-// Version:   $Revision: 1.7 $
-// Modified:  $Date: 2013/01/10 23:43:38 $
-//
-// (c) Copyright 2004-2014 by Mentor Graphics Corp.  All rights reserved.
-//
-//====================================================================
 package org.xtuml.bp.x2m.actions;
 
 import org.eclipse.jface.action.IAction;

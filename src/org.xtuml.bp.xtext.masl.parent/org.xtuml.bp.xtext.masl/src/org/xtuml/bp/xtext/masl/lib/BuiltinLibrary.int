@@ -1,0 +1,215 @@
+///////////////////////////////////////////////////////////////////////
+// primitives and characteristics built-in into the MASL language
+///////////////////////////////////////////////////////////////////////
+
+builtin is
+
+	///////////////////////////////////////////////////////////////////
+	// built-in primitive types
+	///////////////////////////////////////////////////////////////////
+	
+	builtin character;
+	builtin string;
+	builtin boolean;
+	builtin byte;
+	builtin integer;
+	builtin long_integer;
+	builtin real;
+	builtin device;
+	builtin duration;
+	builtin timestamp;
+	builtin timer;
+	
+	
+	
+	///////////////////////////////////////////////////////////////////
+	// The follwoing types are needed by the typesystem. You cannot
+	// define anything to be of these types.
+	///////////////////////////////////////////////////////////////////
+	
+	anonymous builtin any_type;  // the type of 'null', AKA 'instance'
+	anonymous builtin no_type; 
+	anonymous builtin stream_manipulator_type;
+	
+	
+	
+	///////////////////////////////////////////////////////////////////
+	// built-in characteristics
+	// syntax is
+	// <receiver> ' <name> ( <parameters> ) returns <returnType>
+	//
+	// For instance/value based characteristics, the receiver is in 
+	// parentheses for type based characteristics not.
+	// There is limited support for type parameters in angular brackets.
+	///////////////////////////////////////////////////////////////////
+	 
+	<T> (T)       'image() return string;
+	<T> T'parse(s: in string) return T;
+
+	integer'first return integer;
+	integer'last  return integer;
+	integer'range return integer;
+
+	<enum E> E'first()             return integer;
+	<enum E> E'last()              return integer;
+	<enum E> E'size()              return integer;
+	<enum E> E'pos(p: in E)        return integer;
+	<enum E> E'value(p: in string) return E;
+	<enum E> E'range()             return range of integer;
+	<enum E> (E)'pred() return E;
+	<enum E> (E)'succ() return E;
+	
+	(string)'upper()                       return string;
+	(string)'lower()                       return string;
+	(string)'firstcharpos(c: in character) return integer;
+	(string)'first()                       return integer;
+	(string)'last()                        return integer;
+	(string)'length()                      return integer;
+	(string)'range()                       return range of integer;
+	(string)'elements()                    return range of character;
+
+	<T> (array (null) of T)'elements()   return range of T;
+	<T> (array (null) of T)'length()     return integer;
+	<T> (array (null) of T)'first()      return integer;
+	<T> (array (null) of T)'last()       return integer;
+	<T> (array (null) of T)'range()      return range of integer;
+	<T> (array (null) of T)'get_unique() return sequence of T;
+
+	<T> (sequence of T)'elements()   return range of T;
+	<T> (sequence of T)'length()     return integer;
+	<T> (sequence of T)'first()      return integer;
+	<T> (sequence of T)'last()       return integer;
+	<T> (sequence of T)'range()      return range of integer;
+	<T> (sequence of T)'get_unique() return sequence of T;
+
+	<T> (bag of T)'elements()   return range of T;
+	<T> (bag of T)'length()     return integer;
+	<T> (bag of T)'get_unique() return sequence of T;
+	
+	<T> (set of T)'elements() return range of T;
+	<T> (set of T)'length()   return integer;
+
+	<K,V> (dictionary K of V)'contains(key: in K) return boolean;
+	<K,V> (dictionary K of V)'keys() return set of K;
+	<K,V> (dictionary K of V)'values() return bag of V;
+	
+	timestamp'now() return timestamp;
+	(timestamp)'date() return timestamp;
+	(timestamp)'time() return duration;
+	(timestamp)'split_y() return sequence of integer;
+	(timestamp)'split_ym() return sequence of integer;
+	(timestamp)'split_ymd() return sequence of integer;
+	(timestamp)'split_yd() return sequence of integer;
+	(timestamp)'split_yw() return sequence of integer;
+	(timestamp)'split_ywd() return sequence of integer;
+	(timestamp)'split_th() return sequence of integer;
+	(timestamp)'split_thm() return sequence of integer;
+	(timestamp)'split_ths() return sequence of integer;
+	(timestamp)'split_fm() return sequence of integer;
+	(timestamp)'split_fmu() return sequence of integer;
+	(timestamp)'split_fmun() return sequence of integer;
+	(timestamp)'split_fmn() return sequence of integer;
+	(timestamp)'split_fu() return sequence of integer;
+	(timestamp)'split_fun() return sequence of integer;
+	(timestamp)'split_fn() return sequence of integer;
+	timestamp'combine_y  (year: in integer) return timestamp;
+	timestamp'combine_ym (year: in integer, month_of_year: in integer) return timestamp;
+	timestamp'combine_ymd(year: in integer, month_of_year: in integer, day_of_month: in integer) return timestamp;
+	timestamp'combine_yd (year: in integer, day_of_year: in integer) return timestamp;
+	timestamp'combine_yw (year: in integer, week_of_year: in integer) return timestamp;
+	timestamp'combine_ywd(year: in integer, week_of_year: in integer, day_of_week: in integer) return timestamp;
+	timestamp'combine_th (hour_of_day: in integer) return timestamp;
+	timestamp'combine_thm(hour_of_day: in integer, minute_of_hour: in integer) return timestamp;
+	timestamp'combine_ths(hour_of_day: in integer, minute_of_hour: in integer, second_of_minute: in integer) return timestamp;
+	timestamp'combine_fm  (millisecond_of_second: in integer) return timestamp;
+	timestamp'combine_fmu (millisecond_of_second: in integer, microsecond_of_millisecond: in integer) return timestamp;
+	timestamp'combine_fmun(millisecond_of_second: in integer, microsecond_of_millisecond: in integer, nanosecond_of_microsecond: in integer) return timestamp;
+	timestamp'combine_fmn (millisecond_of_second: in integer, naonsecond_of_millisecond: in integer) return timestamp;
+	timestamp'combine_fu (microsecond_of_second: in integer) return timestamp;
+	timestamp'combine_fun(microsecond_of_second: in integer, nanosecond_of_microsecond: in integer) return timestamp;
+	timestamp'combine_fn (nanosecond_of_second: in integer) return timestamp;
+	(timestamp)'add_years(years: in integer) return timestamp;
+	(timestamp)'add_months(months: in integer) return timestamp;
+	(timestamp)'year() return integer;
+	(timestamp)'month_of_year() return integer;
+	(timestamp)'day_of_month() return integer;
+	(timestamp)'day_of_year() return integer;
+	(timestamp)'week_year() return integer;
+	(timestamp)'week_of_year() return integer;
+	(timestamp)'day_of_week() return integer;
+	(timestamp)'hour_of_day() return integer;
+	(timestamp)'minute_of_hour() return integer;
+	(timestamp)'second_of_minute() return integer;
+	(timestamp)'millisecond_of_second() return integer;
+	(timestamp)'microsecond_of_second() return integer;
+	(timestamp)'nanosecond_of_second() return integer;
+	(timestamp)'microsecond_of_millisecond() return integer;
+	(timestamp)'nanosecond_of_millisecond() return integer;
+	(timestamp)'nanosecond_of_microsecond() return integer;
+
+	(duration)'split_y() return sequence of integer;
+	(duration)'split_ym() return sequence of integer;
+	(duration)'split_ymd() return sequence of integer;
+	(duration)'split_yd() return sequence of integer;
+	(duration)'split_yw() return sequence of integer;
+	(duration)'split_ywd() return sequence of integer;
+	(duration)'split_th() return sequence of integer;
+	(duration)'split_thm() return sequence of integer;
+	(duration)'split_ths() return sequence of integer;
+	(duration)'split_fm() return sequence of integer;
+	(duration)'split_fmu() return sequence of integer;
+	(duration)'split_fmun() return sequence of integer;
+	(duration)'split_fmn() return sequence of integer;
+	(duration)'split_fu() return sequence of integer;
+	(duration)'split_fun() return sequence of integer;
+	(duration)'split_fn() return sequence of integer;
+	duration'combine_y  (year: in integer) return timestamp;
+	duration'combine_ym (year: in integer, month_of_year: in integer) return timestamp;
+	duration'combine_ymd(year: in integer, month_of_year: in integer, day_of_month: in integer) return timestamp;
+	duration'combine_yd (year: in integer, day_of_year: in integer) return timestamp;
+	duration'combine_yw (year: in integer, week_of_year: in integer) return timestamp;
+	duration'combine_ywd(year: in integer, week_of_year: in integer, day_of_week: in integer) return timestamp;
+	duration'combine_th (hour_of_day: in integer) return timestamp;
+	duration'combine_thm(hour_of_day: in integer, minute_of_hour: in integer) return timestamp;
+	duration'combine_ths(hour_of_day: in integer, minute_of_hour: in integer, second_of_minute: in integer) return timestamp;
+	duration'combine_fm  (millisecond_of_second: in integer) return timestamp;
+	duration'combine_fmu (millisecond_of_second: in integer, microsecond_of_millisecond: in integer) return timestamp;
+	duration'combine_fmun(millisecond_of_second: in integer, microsecond_of_millisecond: in integer, nanosecond_of_microsecond: in integer) return timestamp;
+	duration'combine_fmn (millisecond_of_second: in integer, naonsecond_of_millisecond: in integer) return timestamp;
+	duration'combine_fu (microsecond_of_second: in integer) return timestamp;
+	duration'combine_fun(microsecond_of_second: in integer, nanosecond_of_microsecond: in integer) return timestamp;
+	duration'combine_fn (nanosecond_of_second: in integer) return timestamp;
+	(duration)'day_of_week() return integer;
+	(duration)'hour_of_day() return integer;
+	(duration)'minute_of_hour() return integer;
+	(duration)'second_of_minute() return integer;
+	(duration)'millisecond_of_second() return integer;
+	(duration)'microsecond_of_second() return integer;
+	(duration)'nanosecond_of_second() return integer;
+	(duration)'microsecond_of_millisecond() return integer;
+	(duration)'nanosecond_of_millisecond() return integer;
+	(duration)'nanosecond_of_microsecond() return integer;
+	duration'days(days: in integer) return duration;
+	duration'hours(hours: in integer) return duration;
+	duration'minutes(minutes: in integer) return duration;
+	duration'seconds(seconds: in integer) return duration;
+	duration'milliseconds(milliseconds: in integer) return duration;
+	duration'microseconds(microseconds: in integer) return duration;
+	duration'nanoseconds(nanoseconds: in integer) return duration;
+	(duration)'weeks() return integer;
+	(duration)'days() return integer;
+	(duration)'hours() return integer;
+	(duration)'minutes() return integer;
+	(duration)'seconds() return integer;
+	(duration)'milliseconds() return integer;
+	(duration)'microseconds() return integer;
+	(duration)'nanoseconds() return integer;
+
+	(timer)'expired()      return boolean;
+	(timer)'expired_at()   return timestamp;
+	(timer)'scheduled()    return boolean;
+	(timer)'scheduled_at() return timestamp;
+	(timer)'missed()       return integer;
+	(timer)'delta()        return duration;
+end builtin;
+	

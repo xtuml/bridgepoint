@@ -1,0 +1,4 @@
+public instance service Tracking::WorkoutTimer.deactivate () is
+begin
+  null;
+end service;
