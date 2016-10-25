@@ -2169,11 +2169,17 @@ public static void Settoolbarstate(boolean readonly) {
 			if (Connectorinstance instanceof Transition_c) {
 				StateMachineState_c state  = (StateMachineState_c)Shapeinstance;
 				Transition_c transition = (Transition_c)Connectorinstance;
-				StateMachineState_c actualDestinationState = StateMachineState_c.getOneSM_STATEOnR506(transition);
-				if (state != null && actualDestinationState != null ) {
-					if (state.getSmstt_id() == actualDestinationState.getSmstt_id()) {
-						isDestination = true;
-					}				
+				// If this is a creation transition, it is NOT a destination.
+				// The arrow on a creation transition may point to a shape, however,
+				// it is drawn starting from the shape and ending on whitespace.
+				CreationTransition_c crtx = CreationTransition_c.getOneSM_CRTXNOnR507(transition);
+				if (crtx == null) {
+					StateMachineState_c actualDestinationState = StateMachineState_c.getOneSM_STATEOnR506(transition);
+					if (state != null && actualDestinationState != null ) {
+						if (state.getSmstt_id() == actualDestinationState.getSmstt_id()) {
+							isDestination = true;
+						}				
+					}
 				}
 			}
 		}
