@@ -208,7 +208,7 @@ public class Generator extends Task {
                                     monitor.subTask("Gathering model information");
                                     ExportBuilder eb = new ExportBuilder();
                                     new File(codeGenPath).mkdirs();
-                                    eb.exportSystem(sys, codeGenPath, new NullProgressMonitor());
+                                    eb.exportSystem(sys, codeGenPath, new NullProgressMonitor(), false, "", false);
                                     monitor.worked(1);
                                     break;
                                 case 4:
