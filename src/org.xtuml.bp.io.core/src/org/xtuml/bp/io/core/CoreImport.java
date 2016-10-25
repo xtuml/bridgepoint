@@ -42,6 +42,7 @@ import org.xtuml.bp.ui.canvas.Ooaofgraphics;
 
 import antlr.RecognitionException;
 import antlr.TokenStreamException;
+import antlr.TokenStreamSelector;
 
 public abstract class CoreImport implements IModelImport {
     public boolean m_success;
@@ -170,7 +171,7 @@ public abstract class CoreImport implements IModelImport {
 
     public abstract int postprocessStatements();
 
-    public abstract void processAction( String name, String key_lett, String id1, String id2, String body, IProgressMonitor pm );
+    public abstract void processAction( String smasl );
 
     protected Ooaofooa getModelRoot() {
         return m_modelRoot;
@@ -348,12 +349,21 @@ public abstract class CoreImport implements IModelImport {
         try {
             Reader reader = getActionInputReader();
 
-            ActionLexer lexer = new ActionLexer(reader);
+            SignatureLexer sig_lexer = new SignatureLexer(reader);
+            BodyLexer body_lexer = new BodyLexer(sig_lexer.getInputState());
+            CommentLexer comment_lexer = new CommentLexer(sig_lexer.getInputState());
+
+            TokenStreamSelector selector = new TokenStreamSelector();
+            selector.addInputStream(sig_lexer, "main");
+            selector.addInputStream(body_lexer, "bodylexer");
+            selector.addInputStream(comment_lexer, "commentlexer");
+            selector.select("main");
 
             pm.beginTask("Reading activity data...", IProgressMonitor.UNKNOWN );
-            ActionParser parser = new ActionParser(lexer, this);
+            ActionParser parser = new ActionParser(selector, this);
             // Parse the input expression
-            parser.actions(pm);
+            parser.activityDefinitions();
+            //parser.actions(pm);
             if (!parser.m_output.isEmpty())
             {
                 m_errorMessage = parser.m_output;

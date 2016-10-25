@@ -704,56 +704,8 @@ public class ${class_name} extends CoreImport
         .end if
     }
 
-    public void processAction( String name, String key_lett, String id1, String id2, String body, IProgressMonitor pm ) {
-	.if (class_name == "ImportModelComponent")
-        ModelRoot modelRoot = getRootModelElement().getModelRoot();
-          .assign test = "if"
-          .select many ab_set from instances of AB
-          .for each action_body in ab_set
-            .select any o_obj from instances of O_OBJ where ( selected.Key_Lett == action_body.Key_Lett )
-            .assign obj_name = "$cr{o_obj.Name}_c"
-        ${test} ( key_lett.equals("${action_body.Key_Lett}") ) {
-            class ${obj_name}_test implements ClassQueryInterface_c {
-                ${obj_name}_test( java.util.UUID p_id1\
-            .if ( "" != action_body.ID_attr2 )
-, java.util.UUID p_id2\
-            .end if
- ) {
-                    m_id1 = p_id1;
-            .if ( "" != action_body.ID_attr2 )
-                    m_id2 = p_id2;
-            .end if
-                }
-                private java.util.UUID m_id1;
-            .if ( "" != action_body.ID_attr2 )
-                private java.util.UUID m_id2;
-            .end if
-                public boolean evaluate(Object candidate) {
-                    ${obj_name} selected = (${obj_name})candidate;
-                    return (selected.get$cr{action_body.ID_attr}().equals(m_id1)\
-            .if ( "" != action_body.ID_attr2 )
- && selected.get$cr{action_body.ID_attr2}().equals(m_id2)\
-            .end if
-);
-                }
-            }
-            ${obj_name} v_inst = ${obj_name}.$cr{o_obj.Name}Instance(modelRoot, new ${obj_name}_test( IdAssigner.createUUIDFromString(id1)\
-            .if ( "" != action_body.ID_attr2 )
-, IdAssigner.createUUIDFromString(id2)\
-            .end if
-));
-            if ( null != v_inst ) {
-                v_inst.setAction_semantics_internal( body );
-            }
-        }
-            .assign test = "else if"
-          .end for
-        else {
-            System.out.println( "Unrecognized key letters for activity" );
-        }
-        .else
-        // not implemented
-        .end if
+    public void processAction( String smasl ) {
+        System.out.println( smasl );
     }
 
     .if((multilevel) and (setComponent))
