@@ -27,7 +27,7 @@ document describes the fixes for these problems.
 
 4. Requirements
 ---------------
-4.1 Issue [[8449]](#8449) shall be resolved. 
+4.1 Issue [[8449]](#8449) shall be resolved.  
 4.2 Issue [[8483]](#8483) shall be resolved.  
 
 5. Work Required
@@ -93,8 +93,8 @@ Branch: 8483_creation_transition
 <pre>
 
 > doc-bridgepoint/notes/
-    8449_8443_reconciliation_arrow_direction_and_creation_transition/
-    8449_8443_reconciliation_arrow_direction_and_creation_transition.int.md
+    8449_8483_reconciliation_arrow_direction_and_creation_transition/
+    8449_8483_reconciliation_arrow_direction_and_creation_transition.int.md
 
 org.xtuml.bp.core/models/org.xtuml.bp.core/ooaofooa/State Machine/
     State Machine State/State Machine State.xtuml
