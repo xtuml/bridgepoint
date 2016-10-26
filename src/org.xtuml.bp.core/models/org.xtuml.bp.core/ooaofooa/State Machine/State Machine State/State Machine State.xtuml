@@ -709,8 +709,13 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000002",
 	1,
-	'select many transitions related by self->SM_TXN[R506];
-return cardinality transitions; ',
+	'// Destinations EXCLUDING creation transitions
+count = 0;
+select many netxns related by self->SM_TXN[R506]->SM_NETXN[R507];
+count = cardinality netxns;
+select many nstxns related by self->SM_TXN[R506]->SM_NSTXN[R507];
+count = count + (cardinality nstxns);
+return count; ',
 	1,
 	'',
 	"eb01618a-4f49-43d3-aa61-c89c8d8f408e");
@@ -721,14 +726,23 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
-	'id = GD::NULL_UNIQUE_ID();
-select many transitions related by self->SM_TXN[R506];
+	'// Destinations EXCLUDING creation transitions
 // We''re preincrementing the index
 count = -1;
-for each transition in transitions
+id = GD::NULL_UNIQUE_ID();
+select many netxns related by self->SM_TXN[R506]->SM_NETXN[R507];
+for each netxn in netxns
   count = count + 1;
   if (count == param.index)
-    id = transition.Trans_ID;
+    id = netxn.Trans_ID;
+    break;
+  end if;
+end for; 
+select many nstxns related by self->SM_TXN[R506]->SM_NSTXN[R507];
+for each nstxn in nstxns
+  count = count + 1;
+  if (count == param.index)
+    id = nstxn.Trans_ID;
     break;
   end if;
 end for; 
@@ -799,6 +813,49 @@ return id;
 INSERT INTO O_TPARM
 	VALUES ("745b88f0-5196-4626-9578-0bb799cae5ea",
 	"07a6dc75-57c1-4bb6-99d7-9eae83b5fba2",
+	'index',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("1f0b27d4-a172-48d0-8a41-a9dc175c6128",
+	"aee0c0bf-2bc2-41e5-b9ad-01341d2944be",
+	'getCreationTransitionCount',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	1,
+	'select many netxns related by self->SM_TXN[R506]->SM_CRTXN[R507];
+return cardinality netxns;',
+	1,
+	'',
+	"07a6dc75-57c1-4bb6-99d7-9eae83b5fba2");
+INSERT INTO O_TFR
+	VALUES ("a3030cdd-3eef-4b09-8ac7-8fab4558ab52",
+	"aee0c0bf-2bc2-41e5-b9ad-01341d2944be",
+	'getCreationTransitionId',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	1,
+	'// We''re preincrementing the index
+count = -1;
+id = GD::NULL_UNIQUE_ID();
+select many crtxns related by self->SM_TXN[R506]->SM_CRTXN[R507];
+for each crtxn in crtxns
+  count = count + 1;
+  if (count == param.index)
+    id = crtxn.Trans_ID;
+    break;
+  end if;
+end for; 
+return id;',
+	1,
+	'',
+	"1f0b27d4-a172-48d0-8a41-a9dc175c6128");
+INSERT INTO O_TPARM
+	VALUES ("f1087bcc-13bd-40fe-b151-e9b9743d20c8",
+	"a3030cdd-3eef-4b09-8ac7-8fab4558ab52",
 	'index',
 	"ba5eda7a-def5-0000-0000-000000000002",
 	0,
