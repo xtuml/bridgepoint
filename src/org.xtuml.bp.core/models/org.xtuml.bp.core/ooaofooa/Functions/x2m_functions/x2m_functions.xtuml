@@ -49,19 +49,30 @@ if ( not_empty s_sync )
   visibility = "";
   s_sync_name = "";
 
-  select one c_c related by s_sync->PE_PE[R8001]->EP_PKG[R8000]->PE_PE[R8001]->C_C[R8003];
+  // find parent component if it exists
+  select any c_c from instances of C_C where false;
+  select one pe_pe related by s_sync->PE_PE[R8001];
+  while ( not_empty pe_pe )
+    select one c_c related by pe_pe->C_C[R8003];
+    if ( not_empty c_c )
+      c_c_name = c_c.Name; 
+    end if;
+    select one pe_pe related by pe_pe->EP_PKG[R8000]->PE_PE[R8001];
+  end while;
+
+  visibility = "public";
   if ( not_empty c_c )
-	c_c_name = c_c.Name;
+	select many c_eps related by c_c->C_PO[R4010]->C_IR[R4016]->C_P[R4009]->C_IR[R4009]->C_I[R4012]->C_EP[R4003];
+	visibility = "private";
+	// Find a provided port message with this same name.  If found, mark public.
+	for each c_ep in c_eps
+	  if ( c_ep.Name == s_sync.Name )
+		visibility = "public";
+		break;
+	  end if;
+	end for;
   end if;
-  select many c_eps related by c_c->C_PO[R4010]->C_IR[R4016]->C_P[R4009]->C_IR[R4009]->C_I[R4012]->C_EP[R4003];
-  visibility = "private";
-  // Find a provided port message with this same name.  If found, mark public.
-  for each c_ep in c_eps
-	if ( c_ep.Name == s_sync.Name )
-	  visibility = "public";
-	  break;
-	end if;
-  end for;
+
   s_sync_name = s_sync.Name;
 	
   // Get the first parameter.
@@ -152,10 +163,17 @@ if ( not_empty o_tfr )
   instance_based = "";
   
   select one o_obj related by o_tfr->O_OBJ[R115];
-  select one c_c related by o_obj->PE_PE[R8001]->EP_PKG[R8000]->PE_PE[R8001]->C_C[R8003];
-  if ( not_empty c_c )
-    c_c_name = c_c.Name; 
-  end if;
+
+  // find parent component if it exists
+  select one pe_pe related by o_obj->PE_PE[R8001];
+  while ( not_empty pe_pe )
+    select one c_c related by pe_pe->C_C[R8003];
+    if ( not_empty c_c )
+      c_c_name = c_c.Name; 
+    end if;
+    select one pe_pe related by pe_pe->EP_PKG[R8000]->PE_PE[R8001];
+  end while;
+
   if ( Scope::Instance == o_tfr.Instance_Based )
     instance_based = "instance";
   end if;
@@ -254,10 +272,16 @@ if ( not_empty sm_state and not_empty sm_act )
   end if;
 
   c_c_name = "";
-  select one c_c related by o_obj->PE_PE[R8001]->EP_PKG[R8000]->PE_PE[R8001]->C_C[R8003];
-  if ( not_empty c_c )
-    c_c_name = c_c.Name;
-  end if;
+
+  // find parent component if it exists
+  select one pe_pe related by o_obj->PE_PE[R8001];
+  while ( not_empty pe_pe )
+    select one c_c related by pe_pe->C_C[R8003];
+    if ( not_empty c_c )
+      c_c_name = c_c.Name; 
+    end if;
+    select one pe_pe related by pe_pe->EP_PKG[R8000]->PE_PE[R8001];
+  end while;
 
   lowest = 7777;
   if ( "assigner" == type )
@@ -542,10 +566,16 @@ if ( not_empty o_dbattr )
   
   select one o_attr related by o_dbattr->O_BATTR[R107]->O_ATTR[R106];
   select one o_obj related by o_attr->O_OBJ[R102];
-  select one c_c related by o_obj->PE_PE[R8001]->EP_PKG[R8000]->PE_PE[R8001]->C_C[R8003];
-  if ( not_empty c_c )
-    c_c_name = c_c.Name; 
-  end if;
+
+  // find parent component if it exists
+  select one pe_pe related by o_obj->PE_PE[R8001];
+  while ( not_empty pe_pe )
+    select one c_c related by pe_pe->C_C[R8003];
+    if ( not_empty c_c )
+      c_c_name = c_c.Name; 
+    end if;
+    select one pe_pe related by pe_pe->EP_PKG[R8000]->PE_PE[R8001];
+  end while;
   
   smasl = smasl + "attribute," + o_attr.Name + ",,," + c_c_name + "," + o_obj.Name + ",,,\n";
   
@@ -603,10 +633,16 @@ if ( not_empty s_brg )
   s_sync_name = "";
 
   select one s_ee related by s_brg->S_EE[R19];
-  select one c_c related by s_ee->PE_PE[R8001]->EP_PKG[R8000]->PE_PE[R8001]->C_C[R8003];
-  if ( not_empty c_c )
-	c_c_name = c_c.Name;
-  end if;
+
+  // find parent component if it exists
+  select one pe_pe related by s_ee->PE_PE[R8001];
+  while ( not_empty pe_pe )
+    select one c_c related by pe_pe->C_C[R8003];
+    if ( not_empty c_c )
+      c_c_name = c_c.Name; 
+    end if;
+    select one pe_pe related by pe_pe->EP_PKG[R8000]->PE_PE[R8001];
+  end while;
 
   // populate
   smasl = smasl + "routine," + c_c_name + "," + s_ee.Name + ",private," + s_brg.Name + ",,,,\n";
@@ -763,10 +799,16 @@ if ( not_empty sm_txn and not_empty sm_act )
   end if;
 
   c_c_name = "";
-  select one c_c related by o_obj->PE_PE[R8001]->EP_PKG[R8000]->PE_PE[R8001]->C_C[R8003];
-  if ( not_empty c_c )
-    c_c_name = c_c.Name;
-  end if;
+
+  // find parent component if it exists
+  select one pe_pe related by o_obj->PE_PE[R8001];
+  while ( not_empty pe_pe )
+    select one c_c related by pe_pe->C_C[R8003];
+    if ( not_empty c_c )
+      c_c_name = c_c.Name; 
+    end if;
+    select one pe_pe related by pe_pe->EP_PKG[R8000]->PE_PE[R8001];
+  end while;
   
   state_name = "";
   event_name = "";
