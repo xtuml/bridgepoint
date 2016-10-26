@@ -522,6 +522,10 @@
             <dependsOn
                   class="org.xtuml.bp.core.Action_c">
             </dependsOn>
+            <autoReconcile
+               targetSymbol="Creation Transition"
+                Bridge_NumElements="Getcreationtransitioncount"
+                Bridge_GetElementID="Getcreationtransitionid"/>
 			<autoReconcile
 			   targetSymbol="Transition"
 			    Bridge_NumElements="Gettransitionsourcecount"
