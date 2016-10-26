@@ -212,15 +212,11 @@ INSERT INTO O_TFR
 	1,
 	'if (param.name == "event" )
   
-  if (param.value == "exists spec pkg" ) or (param.value == "exists generic pkg" )
+  if (param.value == "exists generic pkg" )
   
     select one cls related by self->SM_SM[R505]->SM_ASM[R517]->O_OBJ[R519];
     if (empty cls)
       select one cls related by self->SM_SM[R505]->SM_ISM[R517]->O_OBJ[R518];
-    end if;
-
-    if (param.value == "exists spec pkg")
-      return false;
     end if;
       
     // might want to enforce data set consistency here
@@ -314,10 +310,10 @@ INSERT INTO O_TFR
     return not_empty levt;
   end if;
 elif param.name == "signal"
-  if (param.value == "exists spec pkg") or (param.value == "exists generic pkg") 
+  if (param.value == "exists generic pkg") 
     select one cls related by self->SM_SM[R505]->SM_ASM[R517]->O_OBJ[R519];
     if (empty cls)
-      select one cls related by self->SM_SM[R505]->SM_ISM[R517]->O_OBJ[R518];
+      return false;
     end if;
     select one packageableElem related by cls->PE_PE[R8001];
     select one package related by packageableElem->EP_PKG[R8000];
@@ -327,13 +323,9 @@ elif param.name == "signal"
       compId = package.getContainingComponentId();
       select any component from instances of C_C where (selected.Id == compId);
     end if;
-    isInGenericPackage = not_empty package or not_empty component;
     // if there is no containing component, then this action should be
     // filtered
     if(empty component)
-      return false;
-    end if;
-    if ((param.value == "exists spec pkg"))
       return false;
     end if;
       
