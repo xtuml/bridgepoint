@@ -2293,32 +2293,50 @@ INSERT INTO S_BRG
 	'This bridge is used to check the current selection to see if it is associated   
 with a provided interface.
 
-Import:org.xtuml.bp.core.ui.Selection; import java.util.Iterator
+Import:java.lang.reflect.Method; import org.eclipse.core.runtime.Platform; import org.eclipse.swt.widgets.Tree; import org.eclipse.swt.widgets.TreeItem; import org.osgi.framework.Bundle;
 Translate:native',
 	0,
 	"ba5eda7a-def5-0000-0000-000000000001",
-	'// THIS WAS USED FOR INITIAL TESTING
-        Iterator iterator = Selection.getInstance().getStructuredSelection().iterator();
-        Object foundElement = iterator.next();
-        if (foundElement != null) {
-            ModelInspector inspector = new ModelInspector(); // <--- WRONG TYPE OF VIEWER
-            Object parent = inspector.getParent(foundElement);
-            if ((parent instanceof InterfaceSignal_c) || (parent instanceof InterfaceOperation_c)) {
-                return false;
-            }
+	'        Object viewer = null;
+        Class<?> explorerViewClass = null;
+        Class<?> explorerTreeViewerClass = null;
+
+        try {
+            Bundle ui_explorer = Platform.getBundle("org.xtuml.bp.ui.explorer");//$NON-NLS-1$
+            explorerViewClass = ui_explorer.loadClass("org.xtuml.bp.ui.explorer.ExplorerView"); //$NON-NLS-1$
+            explorerTreeViewerClass = ui_explorer.loadClass("org.xtuml.bp.ui.explorer.ExplorerTreeViewer"); //$NON-NLS-1$
+        } catch (Exception cnf) {
+            CorePlugin.logError("Problem accessing GraphicsUtil class ", cnf); //$NON-NLS-1$
+            return false;
+        }
+
+        Class<?>[] type;
+        try {
+            type = new Class<?>[]{};
+
+            Method getExplorerTreeViewer = explorerViewClass.getMethod("getExplorerTreeViewer", type); //$NON-NLS-1$
+            Object[] args = new Object[]{};
+            viewer = getExplorerTreeViewer.invoke(explorerViewClass, args);
+        } catch (Exception e) {
+            CorePlugin.logError("Error invoking getExplorerTreeViewer in GraphicsUtil  ", e); //$NON-NLS-1$
+        }
+
+        Tree foundTree = null;
+        try {
+            type = new Class<?>[]{};
+            Method getTree = explorerTreeViewerClass.getMethod("getTree", type); //$NON-NLS-1$
+            Object[] args = new Object[]{};
+            foundTree = (Tree) getTree.invoke(viewer, args);
+        } catch (Exception e) {
+            CorePlugin.logError("Error invoking findTreeItem in GraphicsUtil  ", e); //$NON-NLS-1$
+        }
+
+        TreeItem[] foundItems = foundTree.getSelection();
+        Object parent = foundItems[0].getParentItem().getData();
+        if ((parent instanceof InterfaceSignal_c) || (parent instanceof InterfaceOperation_c)) {
+            return false;
         }
         return true;
-// THIS IS WHAT IT SHOULD DO:
-//      Object foundElement = Selection.getInstance().getStructuredSelection().iterator().next();
-//      if (foundElement != null) {
-//          ExplorerTreeViewer viewer = (ExplorerTreeViewer) ExplorerView.getExplorerTreeViewer();
-//          Object parent = viewer.findTreeItem(foundElement).getParent();
-//          if ((parent == InterfaceSignal_c) || (parent == InterfaceOperation_c)) {
-//              return false;
-//          }
-//      }
-//      return true;
-
         ',
 	0,
 	'');
