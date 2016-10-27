@@ -994,6 +994,24 @@ INSERT INTO O_ATTR
 	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
+INSERT INTO O_NBATTR
+	VALUES ("909f2ac5-bb5f-409d-8879-a3a91b0a8705",
+	"47a1eb94-2620-4ecd-85d3-29f76391509f");
+INSERT INTO O_BATTR
+	VALUES ("909f2ac5-bb5f-409d-8879-a3a91b0a8705",
+	"47a1eb94-2620-4ecd-85d3-29f76391509f");
+INSERT INTO O_ATTR
+	VALUES ("909f2ac5-bb5f-409d-8879-a3a91b0a8705",
+	"47a1eb94-2620-4ecd-85d3-29f76391509f",
+	"dc4db86d-34fa-4f02-9cda-151909201eb4",
+	'Dialect',
+	'Full Name: Action Dialect',
+	'',
+	'Dialect',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000004",
+	'',
+	'');
 INSERT INTO O_ID
 	VALUES (0,
 	"47a1eb94-2620-4ecd-85d3-29f76391509f");
