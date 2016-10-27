@@ -391,6 +391,7 @@ import org.xtuml.bp.io.core.CoreImport;
 import org.xtuml.bp.io.core.ImportHelper;
 .end if
 import org.xtuml.bp.io.core.ImportInteger;
+import org.xtuml.bp.io.core.SmaslScanner;
 import org.xtuml.bp.ui.canvas.*;
 import org.xtuml.bp.ui.text.activity.AllActivityModifier;
 
@@ -705,7 +706,118 @@ public class ${class_name} extends CoreImport
     }
 
     public void processAction( String smasl ) {
-        System.out.println( smasl );
+	.if (class_name == "ImportModelComponent")
+        NonRootModelElement pmc_root_element = getRootModelElement();
+        ModelRoot modelRoot = pmc_root_element.getModelRoot();
+
+        // create SMASL reader
+        SmaslScanner sc = new SmaslScanner( smasl );
+        String[] values;
+
+        String ret_type = "void";
+        String name = "";
+        String parameter_list = "";
+
+        boolean in_parameter = false;
+        String separator = "(";
+
+        String activity_type = "";
+        String body = "";
+        String signature = "";
+
+        // parse serial MASL
+        while ( sc.hasNext() ) {
+            values = sc.next();
+            if ( values[0].equals("routine") ) {
+                if ( !values[4].equals("") ) {
+                    name = values[4];
+                    activity_type = "routine";
+                }
+            }
+            else if ( values[0].equals("operation")) {
+                if ( !values[4].equals("") ) {
+                    name = values[4];
+                    activity_type = "operation";
+                }
+            }
+            else if ( values[0].equals("state") ) {
+                if ( !values[3].equals("") ) {
+                    name = values[3];
+                    activity_type = "state";
+                }
+            }
+            else if ( values[0].equals("attribute") ) {
+            }
+            else if ( values[0].equals("transition") ) {
+            }
+            else if ( values[0].equals("parameter") ) {
+                if ( !values[1].equals("") ) {
+                    in_parameter = true;
+                }
+            }
+            else if ( values[0].equals("typeref") ) {
+                if ( !values[1].equals("") ) {
+                    if ( !in_parameter ) { // return type
+                        ret_type = values[1];
+                    }
+                    else { // parameter type
+                        parameter_list += separator + values[1];
+                        separator = ", ";
+                        in_parameter = false;
+                    }
+                }
+            }
+            else if ( values[0].equals("codeblock") ) {
+                if ( !values[1].equals("") ) {
+                    body = Url_c.Decode( values[1] ).trim();
+                }
+            }
+            else {
+              System.out.println( "// SMASL element '" + values[0] + "'unsupported" ); //$$NON-NLS-1$$
+              return;
+            }
+        }
+
+        // fix parameter list format
+        if ( !parameter_list.equals("") ) {
+            parameter_list += ")";
+        }
+
+        // compile the signature
+        signature = ret_type + " " + name + parameter_list;
+
+        // call import function
+        if ( pmc_root_element instanceof SystemModel_c ) {
+            SystemModel_c inst = (SystemModel_c)pmc_root_element;
+            Ooaofooa.S_syssetactions( modelRoot, activity_type, body, inst.getSys_id(), signature );
+        }
+        else if ( pmc_root_element instanceof Package_c ) {
+            Package_c inst = (Package_c)pmc_root_element;
+            Ooaofooa.Ep_pkgsetactions( modelRoot, activity_type, body, inst.getPackage_id(), signature );
+        }
+        else if ( pmc_root_element instanceof ModelClass_c ) {
+            ModelClass_c inst = (ModelClass_c)pmc_root_element;
+            Ooaofooa.O_objsetactions( modelRoot, activity_type, body, inst.getObj_id(), signature );
+        }
+        else if ( pmc_root_element instanceof Component_c ) {
+            Component_c inst = (Component_c)pmc_root_element;
+            Ooaofooa.C_csetactions( modelRoot, activity_type, body, inst.getId(), signature );
+        }
+        else if ( pmc_root_element instanceof InstanceStateMachine_c ) {
+            InstanceStateMachine_c inst = (InstanceStateMachine_c)pmc_root_element;
+            Ooaofooa.Sm_ismsetactions( modelRoot, activity_type, body, signature, inst.getSm_id() );
+        }
+        else if ( pmc_root_element instanceof ClassStateMachine_c ) {
+            ClassStateMachine_c inst = (ClassStateMachine_c)pmc_root_element;
+            Ooaofooa.Sm_asmsetactions( modelRoot, activity_type, body, signature, inst.getSm_id() );
+        }
+        else {
+            System.out.println( "Root element type not supported" );
+        }
+
+        .else
+        // not implemented
+        .end if
     }
 
     .if((multilevel) and (setComponent))

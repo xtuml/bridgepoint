@@ -1131,7 +1131,6 @@ if(inst != null && !inst.isProxy()){
               }
           }
           else if ( values[0].equals("transition") ) {
-              //transition SAC::Session in Created receives user_logged_on () is
               if ( !values[1].equals("") ) {
                   activity_type = "transition";
                   sig_begin = " " + values[2] + "::" + values[3] + " in " + values[1] + " receives " + values[4] + " ";
