@@ -2,8 +2,6 @@
 //
 // File: org.xtuml.bp.ui.text.masl/MASLEditorInputFactory.java
 //
-// (c) Copyright 2005-2014 by Mentor Graphics Corp.  All rights reserved.
-//
 //======================================================================
 //
 // This class serves as factory for editor input.
@@ -256,6 +254,9 @@ public class MASLEditorInputFactory extends FileEditorInputFactory{
     private IFile getFileForModelElement( NonRootModelElement modelElement ) throws CoreException {
         IFile file;
 
+        PersistableModelComponent pmc = modelElement.getPersistableComponent();
+        file = pmc.getActionFile();
+/* TODO - SKB remove
         // get name
         String name = getFileNameForModelElement( modelElement );
 
@@ -263,7 +264,7 @@ public class MASLEditorInputFactory extends FileEditorInputFactory{
         IWorkspaceRoot workspace = ResourcesPlugin.getWorkspace().getRoot();
         IProject project = workspace.getProject( path.segment(0) );
         IFolder folder = project.getFolder( path.removeFirstSegments(1).removeLastSegments(1).toOSString() );
-        file = folder.getFile( name + ".masl" );
+        file = folder.getFile( name + ".masl" );*/
         if ( !file.exists() ) {
             byte[] bytes = "".getBytes();
             InputStream source = new ByteArrayInputStream(bytes);
@@ -273,6 +274,7 @@ public class MASLEditorInputFactory extends FileEditorInputFactory{
         return file;
     }
 
+    /* TODO - SKB remove
     public static String getFileNameForModelElement( NonRootModelElement modelElement ) {
         // get name
         StringBuilder name = new StringBuilder("");
@@ -315,7 +317,7 @@ public class MASLEditorInputFactory extends FileEditorInputFactory{
 
         return name.toString();
     }
-
+    
     private static NonRootModelElement getParent( NonRootModelElement element ) {
         if ( element == null ) return null;
         ModelInspector inspector = new ModelInspector();
@@ -360,5 +362,5 @@ public class MASLEditorInputFactory extends FileEditorInputFactory{
         else return "";
 
     }
-
+*/
 }
