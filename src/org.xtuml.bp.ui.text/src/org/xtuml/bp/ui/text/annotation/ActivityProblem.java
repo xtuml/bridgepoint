@@ -66,6 +66,11 @@ public class ActivityProblem {
 		return fSeverity == IMarker.SEVERITY_WARNING;
 	}
 	
+	/**
+	 * This routine is responsible for creating the 
+	 * problem marker attribute in the specified IFile
+	 * resource.
+	 */
 	public void createMarker() {
 		Map attributes = new HashMap(11);
 		MarkerUtilities.setMessage(attributes, fMessage);
