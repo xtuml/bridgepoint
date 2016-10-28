@@ -475,8 +475,8 @@ public class ${class_name} extends CoreImport
             .assign parentC = "SystemModel_c"
       .end if
     .if(multilevel and setComponent)
-    public ${class_name}(IFile file, IFile actionFile, ${var.main_class_name} aModelRoot, PersistableModelComponent component, boolean parseAll, boolean clearDatabase, boolean parseGraphics, boolean isTemplate) throws IOException {
-        super(aModelRoot, (file != null ? file.getLocation().toOSString() : ""), (actionFile != null ? actionFile.getLocation().toOSString() : ""), clearDatabase, isTemplate);
+    public ${class_name}(IFile file, String dialect, ${var.main_class_name} aModelRoot, PersistableModelComponent component, boolean parseAll, boolean clearDatabase, boolean parseGraphics, boolean isTemplate) throws IOException {
+        super(aModelRoot, (file != null ? file.getLocation().toOSString() : ""), dialect, (component != null ? component.getActionFiles() : null), clearDatabase, isTemplate);
         m_component = component;
         m_parseAll = parseAll;
         m_parseGraphics = parseGraphics;
@@ -519,15 +519,15 @@ public class ${class_name} extends CoreImport
             .end if
         .end if
         .if(not multilevel)
-    public ${class_name}(String fileName, String actionFileName, ${var.main_class_name} aModelRoot, ${parentC} parent, boolean parseAll, boolean clearDatabase, boolean isTemplate) throws FileNotFoundException {
-        super(aModelRoot, fileName, actionFileName, clearDatabase, isTemplate);
+    public ${class_name}(String fileName, String dialect, ${var.main_class_name} aModelRoot, ${parentC} parent, boolean parseAll, boolean clearDatabase, boolean isTemplate) throws FileNotFoundException {
+        super(aModelRoot, fileName, dialect, null, clearDatabase, isTemplate);
         m_inFile = fileName;
         m_parseAll = parseAll;
         m_parent = parent;
     }
 
-    public ${class_name}(IPath filePath, IPath actionFilePath) throws FileNotFoundException {
-        super(filePath, actionFilePath);
+    public ${class_name}(IPath filePath, String dialect) throws FileNotFoundException {
+        super(filePath, dialect, null);
     }
        .end if
     .end if
@@ -706,7 +706,7 @@ public class ${class_name} extends CoreImport
         .end if
     }
 
-    public void processAction( String smasl ) {
+    public void processAction( String smasl, String dialect ) {
 	.if (class_name == "ImportModelComponent")
         IPreferenceStore store = CorePlugin.getDefault().getPreferenceStore();
         String persistActivities = store.getString(BridgePointPreferencesStore.ACTIVITY_PERSISTENCE);
@@ -795,27 +795,27 @@ public class ${class_name} extends CoreImport
             // call import function
             if ( pmc_root_element instanceof SystemModel_c ) {
                 SystemModel_c inst = (SystemModel_c)pmc_root_element;
-                Ooaofooa.S_syssetactions( modelRoot, activity_type, body, "masl", inst.getSys_id(), signature );
+                Ooaofooa.S_syssetactions( modelRoot, activity_type, body, dialect, inst.getSys_id(), signature );
             }
             else if ( pmc_root_element instanceof Package_c ) {
                 Package_c inst = (Package_c)pmc_root_element;
-                Ooaofooa.Ep_pkgsetactions( modelRoot, activity_type, body, "masl", inst.getPackage_id(), signature );
+                Ooaofooa.Ep_pkgsetactions( modelRoot, activity_type, body, dialect, inst.getPackage_id(), signature );
             }
             else if ( pmc_root_element instanceof ModelClass_c ) {
                 ModelClass_c inst = (ModelClass_c)pmc_root_element;
-                Ooaofooa.O_objsetactions( modelRoot, activity_type, body, "masl", inst.getObj_id(), signature );
+                Ooaofooa.O_objsetactions( modelRoot, activity_type, body, dialect, inst.getObj_id(), signature );
             }
             else if ( pmc_root_element instanceof Component_c ) {
                 Component_c inst = (Component_c)pmc_root_element;
-                Ooaofooa.C_csetactions( modelRoot, activity_type, body, inst.getId(), "masl", port_name, signature );
+                Ooaofooa.C_csetactions( modelRoot, activity_type, body, inst.getId(), dialect, port_name, signature );
             }
             else if ( pmc_root_element instanceof InstanceStateMachine_c ) {
                 InstanceStateMachine_c inst = (InstanceStateMachine_c)pmc_root_element;
-                Ooaofooa.Sm_ismsetactions( modelRoot, activity_type, body, "masl", signature, inst.getSm_id() );
+                Ooaofooa.Sm_ismsetactions( modelRoot, activity_type, body, dialect, signature, inst.getSm_id() );
             }
             else if ( pmc_root_element instanceof ClassStateMachine_c ) {
                 ClassStateMachine_c inst = (ClassStateMachine_c)pmc_root_element;
-                Ooaofooa.Sm_asmsetactions( modelRoot, activity_type, body, "masl", signature, inst.getSm_id() );
+                Ooaofooa.Sm_asmsetactions( modelRoot, activity_type, body, dialect, signature, inst.getSm_id() );
             }
             else {
                 System.out.println( "Root element type not supported" );

@@ -16,13 +16,15 @@ options {
 }
 {
     private String smasl = "";
+    private String m_dialect = "";
     private TokenStreamSelector selector;
     private CoreImport m_ci;
 
-    public ActionParser(TokenStreamSelector s, CoreImport ci) {
+    public ActionParser(TokenStreamSelector s, CoreImport ci, String dialect) {
         this((TokenStream)s);
         selector = s;
         m_ci = ci;
+        m_dialect = dialect;
 
     }
 
@@ -48,7 +50,7 @@ options {
     }
 
     private void sendSmasl() {
-        m_ci.processAction( smasl );
+        m_ci.processAction( smasl, m_dialect );
         smasl = "";
     }
 
