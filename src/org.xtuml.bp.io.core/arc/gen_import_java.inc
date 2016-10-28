@@ -265,7 +265,7 @@
 	    .if(col.Name == "useGlobals")
 		  parms.elementAt(${attr_col_num}) != null && ((String)parms.elementAt(${attr_col_num})).equals( "true" ) ? true : false\
 		  .assign special_case = true
-	  .end if
+	    .end if
       .elif (table.Key_lett == "C_C")
         .if(col.Name == "isRealized")
           parms.elementAt(${attr_col_num}) != null && ((String)parms.elementAt(${attr_col_num})).equals( "true" ) ? true : false\
@@ -292,6 +292,34 @@
           .assign special_case = true
         .end if
 	  .end if
+	  .// Dialect attribute introduced
+	  .assign dialectAdded = false;
+	  .if(col.Name == "Dialect")
+	    .if(table.Key_lett == "O_DBATTR")
+	      .assign dialectAdded = true;
+	    .elif(table.Key_lett == "O_TFR")
+          .assign dialectAdded = true;
+	    .elif(table.Key_lett == "SM_ACT")
+          .assign dialectAdded = true;
+	    .elif(table.Key_lett == "SPR_PO")
+		  .assign dialectAdded = true;
+        .elif(table.Key_lett == "SPR_PS")
+		  .assign dialectAdded = true;
+	    .elif(table.Key_lett == "SPR_RO")
+		  .assign dialectAdded = true;
+	    .elif(table.Key_lett == "SPR_RS")
+		  .assign dialectAdded = true;
+	    .elif(table.Key_lett == "S_BRG")
+		  .assign dialectAdded = true;
+	    .elif(table.Key_lett == "S_SYNC")
+		  .assign dialectAdded = true;
+		.end if
+		.if (dialectAdded)
+			parms.size() < ${attr_col_num} ? removeTics((String)parms.elementAt(${attr_col_num})) : ""\
+		  .assign special_case = true
+		.end if
+	  .end if
+	  .// end of Dialect attribute introduced change
       .if (special_case == false)
         .if ( col.type == "boolean" )
            ((String)parms.elementAt(${attr_col_num})).equals( "false" ) ? false : true\
