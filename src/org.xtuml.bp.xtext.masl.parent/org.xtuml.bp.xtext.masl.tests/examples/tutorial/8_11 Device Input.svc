@@ -1,0 +1,123 @@
+service tutorial::device_input() is
+ s : string;
+  i : integer;
+  r : real;
+  b1 : boolean;
+  b2 : boolean;
+  e1 : Calendar::month_type;
+  e2 : Calendar::month_type;
+  test : device;
+  res : string;
+  p1 : positive;
+  p2 : positive;
+ passed : boolean;
+begin
+
+  // Test single element reads
+  Device_IO::create_file("input.tst", true);
+  Device_IO::open("input.tst", Device_IO::OUT, test );
+  test <<  "Hello 123   45.67   true false \n MARCH 2 -2 aaa";
+  Device_IO::close(test);
+
+  Device_IO::open("input.tst", Device_IO::IN, test );
+
+  test >> s;
+  if s /= "Hello" then 
+    raise Standard::constraint_error;
+  end if;
+
+  test >> i;
+  if i /= 123 then
+    raise Standard::constraint_error;
+  end if;
+
+  test >> r;
+  if r < 45.66669 or r > 45.67001 then
+    raise Standard::constraint_error;
+  end if;
+
+  test >> b1;
+  if not b1 then
+    raise Standard::constraint_error;
+  end if;
+
+  test >> b2;
+  if b2 then
+    raise Standard::constraint_error;
+  end if;
+
+  test >> e1;
+  if e1 /= Calendar::MARCH then
+    raise Standard::constraint_error;
+  end if;
+
+  test >> p1;
+  if p1 /= 2 then
+    raise Standard::constraint_error;
+  end if;
+
+  begin
+    passed := false;
+    test >> p2;
+  exception
+    when Standard::constraint_error =>
+      passed := true;
+  end;
+  if passed = false then
+    raise Standard::constraint_error;
+  end if;
+ 
+  begin
+    passed := false;
+    test >> e2;
+  exception
+    when Standard::constraint_error =>
+      passed := true;
+  end;
+  if passed = false then
+    raise Standard::constraint_error;
+  end if;
+
+  if Device_IO::eof(test) = false then
+    raise Standard::constraint_error;
+  end if;
+
+  Device_IO::close(test);
+
+  // Test concatenated reads
+  Device_IO::open("input.tst", Device_IO::IN, test );
+  test >> s >> i >> r >> b1 >> b2 >> e1 >> p1;
+
+  if s /= "Hello" then 
+    raise Standard::constraint_error;
+  end if;
+
+  if i /= 123 then
+    raise Standard::constraint_error;
+  end if;
+
+  if r < 45.66669 or r > 45.67001 then
+    raise Standard::constraint_error;
+  end if;
+
+  if not b1 then
+    raise Standard::constraint_error;
+  end if;
+
+  if b2 then
+    raise Standard::constraint_error;
+  end if;
+
+  if e1 /= Calendar::MARCH then
+    raise Standard::constraint_error;
+  end if;
+
+  if p1 /= 2 then
+    raise Standard::constraint_error;
+  end if;
+  Device_IO::close(test);
+  Device_IO::delete_file("input.tst");
+
+  console << "TEST PASSED" << endl;
+
+end;

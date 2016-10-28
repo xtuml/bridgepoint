@@ -1,0 +1,4 @@
+public service HeartRateMonitor::unregisterListener () is
+begin
+  null;
+end service;

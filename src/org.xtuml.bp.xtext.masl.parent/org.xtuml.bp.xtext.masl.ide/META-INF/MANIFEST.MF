@@ -1,0 +1,17 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: MASL Xtext generic IDE support
+Bundle-Vendor: OneFact
+Bundle-Version: 1.0.0.qualifier
+Bundle-SymbolicName: org.xtuml.bp.xtext.masl.ide; singleton:=true
+Bundle-ActivationPolicy: lazy
+Require-Bundle: org.xtuml.bp.xtext.masl,
+ org.eclipse.xtext.ide,
+ org.eclipse.xtext.xbase.ide
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Export-Package: org.xtuml.bp.xtext.masl.ide.contentassist.antlr,
+ org.xtuml.bp.xtext.masl.ide.contentassist.antlr.internal,
+ org.xtuml.bp.xtext.masl.ide.contentassist.antlr.lexer,
+ org.xtuml.bp.xtext.masl.ide.contentassist.antlr.lexer.jflex,
+ org.xtuml.bp.xtext.masl.ide.highlighting
+

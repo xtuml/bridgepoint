@@ -1,0 +1,4 @@
+public instance service Tracking::Achievement.close () is
+begin
+  null;
+end service;

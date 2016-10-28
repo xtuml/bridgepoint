@@ -1,0 +1,65 @@
+project GPSWatch is
+
+  domain HeartRateMonitor is
+
+    terminator Unspecified is
+      private service heartRateChanged ( heartRate : in integer );
+    end terminator;
+    pragma key_letter ("U");
+
+  end domain;
+
+  domain Location is
+  end domain;
+
+  domain Tracking is
+
+    terminator Location is
+      private function getDistance ( toLong : in real,
+                                     toLat : in real,
+                                     fromLong : in real,
+                                     fromLat : in real ) return real;
+      private service getLocation ( longitude : in real,
+                                    latitude : in real );
+      private service registerListener ();
+      private service unregisterListener ();
+    end terminator;
+    pragma key_letter ("LOC");
+
+    terminator UI is
+      private service setData ( unit : in UI::Unit,
+                                value : in real );
+      private service setIndicator ( indicator : in UI::Indicator );
+      private service setTime ( time : in integer );
+      private service startTest ();
+    end terminator;
+    pragma key_letter ("UI");
+    
+    terminator HeartRateMonitor is
+      private service registerListener ();
+      private service unregisterListener ();
+    end terminator;
+    pragma key_letter ("HR");
+
+  end domain;
+
+  domain UI is
+
+    terminator Tracking is
+      private service setTargetPressed ();
+      private service startStopPressed ();
+      private service lapResetPressed ();
+      private service lightPressed ();
+      private service modePressed ();
+      private service newGoalSpec ( spanType : in Tracking::GoalSpan,
+                                   criteriaType : in Tracking::GoalCriteria,
+                                   span : in real,
+                                   maximum : in real,
+                                   minimum : in real,
+                                   sequenceNumber : in integer );
+    end terminator;
+    pragma key_letter ("T");
+
+  end domain;
+
+end project;

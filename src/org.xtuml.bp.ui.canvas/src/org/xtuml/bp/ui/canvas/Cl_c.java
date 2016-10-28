@@ -2151,5 +2151,40 @@ public static void Settoolbarstate(boolean readonly) {
 
 		return result;
 	}
+	
+	/**
+	 * This routine was written for the case where the connector is 
+	 * directional. The only situation we have as of this time for directional 
+	 * connectors is transitions. This routine returns false by default and only returns 
+	 * true in the specific case where we are dealing with a transition and the connector
+	 * is the destination side of the transition.
+	 * 
+	 * @param shapeInstance
+	 * @param connectorInstance
+	 * @return
+	 */
+	public static Boolean Isdestination(final Object Connectorinstance, final Object Shapeinstance) {
+		Boolean isDestination = false;
+		if (Shapeinstance instanceof StateMachineState_c) {
+			if (Connectorinstance instanceof Transition_c) {
+				StateMachineState_c state  = (StateMachineState_c)Shapeinstance;
+				Transition_c transition = (Transition_c)Connectorinstance;
+				// If this is a creation transition, it is NOT a destination.
+				// The arrow on a creation transition may point to a shape, however,
+				// it is drawn starting from the shape and ending on whitespace.
+				CreationTransition_c crtx = CreationTransition_c.getOneSM_CRTXNOnR507(transition);
+				if (crtx == null) {
+					StateMachineState_c actualDestinationState = StateMachineState_c.getOneSM_STATEOnR506(transition);
+					if (state != null && actualDestinationState != null ) {
+						if (state.getSmstt_id() == actualDestinationState.getSmstt_id()) {
+							isDestination = true;
+						}				
+					}
+				}
+			}
+		}
+		
+		return isDestination;
+	}
         
 }// End Cl_c

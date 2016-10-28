@@ -1,0 +1,25 @@
+//
+// Filename: delete_group.svc
+//
+// Description: Allows a group to be deleted from the domain.
+//
+// UK Crown Copyright (c) 2010. All rights reserved.
+//
+public service SAC::delete_group (group_name : in  string) is
+the_group : instance of Group;
+the_operations : sequence of instance of Operation;
+the_group_operation : instance of Group_Operation;
+begin
+   
+   the_group := find_one Group(group_name = group_name);
+   if the_group /= null then
+      the_operations := the_group -> R1.Operation;
+      for an_operation in the_operations'elements loop
+         the_group_operation := the_group with an_operation -> R1.Group_Operation;
+         Operator~>group_operation_removed(group_name, an_operation.operation_name);
+         unlink the_group R1 an_operation using the_group_operation;
+         delete the_group_operation;
+      end loop;
+   end if;
+   
+end service;

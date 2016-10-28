@@ -1,0 +1,4 @@
+public service Tracking::lapResetPressed () is
+begin
+  null;
+end service;

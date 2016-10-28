@@ -820,7 +820,6 @@ public class ${class_name} extends CoreImport
             else {
                 System.out.println( "Root element type not supported" );
             }
-
         }
         .else
         // not implemented
