@@ -1,0 +1,4 @@
+private service Tracking::UI~>setTime (        time : in integer) is
+begin
+  null;
+end service;

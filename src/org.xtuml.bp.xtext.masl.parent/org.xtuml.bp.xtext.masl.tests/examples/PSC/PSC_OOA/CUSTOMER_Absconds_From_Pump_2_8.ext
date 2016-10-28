@@ -1,0 +1,22 @@
+//
+// UK Crown Copyright (c) 2016. All rights reserved.
+//
+
+//! CUSTOMER Absconds From Pump 2
+private service PSC::CUSTOMER_Absconds_From_Pump_2_8 () is
+  pump_instance : instance of PUMP; 
+  current_pending_transaction : instance of PENDING_TRANSACTION; 
+  current_transaction : instance of TRANSACTION; 
+
+begin
+  //# Customer absconds from Pump 2 without paying
+  
+  pump_instance := find_one PUMP (Pump_Number = 2);
+  
+  current_pending_transaction := pump_instance->R9;
+  
+  if current_pending_transaction /= null then
+  	current_transaction := current_pending_transaction->R4;
+  	generate TRANSACTION.Customer_Absconds("Details") to current_transaction;
+  end if;
+end service;

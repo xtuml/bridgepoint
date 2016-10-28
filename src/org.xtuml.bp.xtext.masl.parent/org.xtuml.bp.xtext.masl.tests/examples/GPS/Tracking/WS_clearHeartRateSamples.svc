@@ -1,0 +1,4 @@
+public instance service Tracking::WorkoutSession.clearHeartRateSamples () is
+begin
+  null;
+end service;

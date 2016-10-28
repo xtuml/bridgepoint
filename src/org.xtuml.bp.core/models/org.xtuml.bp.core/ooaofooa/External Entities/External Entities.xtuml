@@ -2286,6 +2286,60 @@ INSERT INTO S_BPARM
 	'',
 	"d4edd0a0-eb44-4195-9698-81dd3b2d47a8",
 	'');
+INSERT INTO S_BRG
+	VALUES ("cc133c4a-1bd5-4bf9-b44c-a3352007d628",
+	"b69262ac-62eb-4030-b329-b967033f0ee0",
+	'isProvidedParameter',
+	'This bridge is used to check the current selection to see if it is associated   
+with a provided interface.
+
+Import:java.lang.reflect.Method; import org.eclipse.core.runtime.Platform; import org.eclipse.swt.widgets.Tree; import org.eclipse.swt.widgets.TreeItem; import org.osgi.framework.Bundle;
+Translate:native',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000001",
+	'        Object viewer = null;
+        Class<?> explorerViewClass = null;
+        Class<?> explorerTreeViewerClass = null;
+
+        try {
+            Bundle ui_explorer = Platform.getBundle("org.xtuml.bp.ui.explorer");//$NON-NLS-1$
+            explorerViewClass = ui_explorer.loadClass("org.xtuml.bp.ui.explorer.ExplorerView"); //$NON-NLS-1$
+            explorerTreeViewerClass = ui_explorer.loadClass("org.xtuml.bp.ui.explorer.ExplorerTreeViewer"); //$NON-NLS-1$
+        } catch (Exception cnf) {
+            CorePlugin.logError("Problem accessing GraphicsUtil class ", cnf); //$NON-NLS-1$
+            return false;
+        }
+
+        Class<?>[] type;
+        try {
+            type = new Class<?>[]{};
+
+            Method getExplorerTreeViewer = explorerViewClass.getMethod("getExplorerTreeViewer", type); //$NON-NLS-1$
+            Object[] args = new Object[]{};
+            viewer = getExplorerTreeViewer.invoke(explorerViewClass, args);
+        } catch (Exception e) {
+            CorePlugin.logError("Error invoking getExplorerTreeViewer in GraphicsUtil  ", e); //$NON-NLS-1$
+        }
+
+        Tree foundTree = null;
+        try {
+            type = new Class<?>[]{};
+            Method getTree = explorerTreeViewerClass.getMethod("getTree", type); //$NON-NLS-1$
+            Object[] args = new Object[]{};
+            foundTree = (Tree) getTree.invoke(viewer, args);
+        } catch (Exception e) {
+            CorePlugin.logError("Error invoking findTreeItem in GraphicsUtil  ", e); //$NON-NLS-1$
+        }
+
+        TreeItem[] foundItems = foundTree.getSelection();
+        Object parent = foundItems[0].getParentItem().getData();
+        if ((parent instanceof InterfaceSignal_c) || (parent instanceof InterfaceOperation_c)) {
+            return false;
+        }
+        return true;
+        ',
+	0,
+	'');
 INSERT INTO PE_PE
 	VALUES ("b69262ac-62eb-4030-b329-b967033f0ee0",
 	1,

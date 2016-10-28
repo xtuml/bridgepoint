@@ -1,0 +1,4 @@
+private service Tracking::UI~>setIndicator (        indicator : in UI::Indicator) is
+begin
+  null;
+end service;

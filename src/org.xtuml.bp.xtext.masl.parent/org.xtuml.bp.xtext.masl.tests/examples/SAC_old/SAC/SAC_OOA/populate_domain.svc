@@ -1,0 +1,113 @@
+//
+// Filename: populate_domain.svc
+//
+// Description: This shall load the groups and the operations assigned to
+//              the groups
+//
+// UK Crown Copyright (c) 2010-2011,2014. All rights reserved.
+//
+public service SAC::populate_domain (reload_config_files : in  boolean) is
+the_groups : sequence of group_type;
+current_groups : sequence of instance of Group;
+the_group : instance of Group;
+required_groups : sequence of instance of Group;
+current_group_operations : sequence of instance of Group_Operation;
+the_operation : instance of Operation;
+the_group_operation : instance of Group_Operation;
+required_group_operations : sequence of instance of Group_Operation;
+unwanted_group_operations : sequence of instance of Group_Operation;
+the_unwanted_op : instance of Operation;
+unwanted_groups : sequence of instance of Group;   
+the_group_sessions : sequence of instance of Group_For_Session;
+session_heartbeat_time : duration;
+session_heartbeat_failure_threshold : integer;
+the_session_spec : instance of Session_Specification;
+the_user : instance of User;
+the_user_groups : sequence of instance of Group;
+
+begin
+   
+   if reload_config_files = true then
+      System_Configuration~>reload_config_files();
+   end if;
+   
+   // get the session spec data
+   System_Configuration~>get_session_specification(session_heartbeat_time, session_heartbeat_failure_threshold);
+   the_session_spec := find_one Session_Specification();
+   if the_session_spec = null then
+      the_session_spec := create unique Session_Specification(session_heartbeat_time => session_heartbeat_time,
+                                             session_heartbeat_failure_threshold => session_heartbeat_failure_threshold);
+   else
+      the_session_spec.session_heartbeat_time := session_heartbeat_time;
+      the_session_spec.session_heartbeat_failure_threshold := session_heartbeat_failure_threshold;
+   end if;
+   
+   // determine the set of current groups so that they 
+   // can be deleted if they are no longer valid
+   current_groups := find_all Group();
+   
+   // read in the configuration data
+   System_Configuration~>get_groups(the_groups);
+   for a_group in the_groups'elements loop
+      
+      // locate the group and if it does not exist create it
+      the_group := find_one Group(group_name = a_group.group_name);
+      if the_group = null then
+         the_group := create unique Group(group_name => a_group.group_name);
+         Operator~>report_group(a_group.group_name);
+      end if;
+      required_groups := required_groups & the_group;
+      
+      // add in the operations for the group
+      current_group_operations := the_group -> R1.Group_Operation;
+      for a_group_operation in a_group.operation_names'elements loop
+         the_operation := find_one Operation(operation_name = a_group_operation);
+         if the_operation = null then
+            the_operation := create unique Operation(operation_name => a_group_operation);
+         end if;
+         the_group_operation := the_group with the_operation -> R1.Group_Operation;
+         if the_group_operation = null then
+            the_group_operation := create Group_Operation(operation_id => the_operation.operation_id,
+                                                            group_id => the_group.group_id);
+            link the_group R1 the_operation using the_group_operation;
+            Operator~>report_group_operation(a_group.group_name, a_group_operation);
+         end if;
+         required_group_operations := required_group_operations & the_group_operation;
+      end loop;
+      
+      // remove any unwanted group operations
+      unwanted_group_operations := current_group_operations not_in required_group_operations;
+      for an_unwanted_group_op in unwanted_group_operations'elements loop
+         the_unwanted_op := an_unwanted_group_op -> R1.Operation;
+         Operator~>group_operation_removed((an_unwanted_group_op -> R1.Group).group_name, 
+                                           the_unwanted_op.operation_name);
+         unlink (an_unwanted_group_op -> R1.Group) R1 the_unwanted_op using an_unwanted_group_op;
+         delete an_unwanted_group_op;
+         
+         // if the op is not in use then remove it
+         if (the_unwanted_op -> R1.Group)'length = 0 and (the_unwanted_op -> R5.Session)'length = 0 then
+            delete the_unwanted_op;
+         end if;
+      end loop;
+      
+   end loop;
+   
+   // remove any unwanted groups
+   unwanted_groups := current_groups not_in required_groups;   
+   for an_unwanted_group in unwanted_groups'elements loop
+      Operator~>group_deleted(an_unwanted_group.group_name);
+      the_group_sessions := the_group -> R2.Group_For_Session;
+      for a_group_session in the_group_sessions'elements loop
+         the_user := a_group_session -> R2.Session -> R3.User;
+         unlink the_group R2 (a_group_session -> R2.Session) using a_group_session;
+         delete a_group_session;
+         the_user_groups := the_user -> R3.Session -> R2.Group;
+         if (find the_user_groups(group_name = an_unwanted_group.group_name))'length = 0 then
+            Operator~>user_group_removed(the_user.user_id, an_unwanted_group.group_name, the_user.login_name, a_group_session.session_id);
+         end if;
+      end loop;
+   end loop;
+   
+end service;
+
+

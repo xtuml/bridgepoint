@@ -1,0 +1,250 @@
+.//============================================================================
+.// File:  class.mark
+.//
+.// Description:
+.// This marking file is used to indicate xtUML class specialization(s)
+.// to the model compiler's translation engine.
+.//
+.// Notice:
+.//============================================================================
+.// Notes:
+.// (1) Marking is specified via archetype function invocation(s) in this file.
+.//     A function invocation statement MUST be specified on a single line.
+.//     All indicated function input parameters must be supplied.
+.// (2) All quoted string parameters are case sensitive.
+.// (3) Comments in this file start with ".//".
+.// (4) Do not leave any blank lines in this file.
+.//============================================================================
+.//
+.//
+.//============================================================================
+.// Map xtUML Artifacts to Tasks/Threads
+.//
+.// Call MarkClassToTask to assign a class, subsystem or domain to
+.// a particular task.
+.//
+.// MarkClassToTask( "component", "ss_name", "class_key_letters", task_number )
+.//
+.// Where the input parameters are:
+.//   component = name of component (domain) being marked
+.//   ss_name = name of subsystem
+.//   class_key_letters = key letters of the class.
+.//   task_number = the number of the task to which the above is assigned
+.//
+.// NOTES:
+.// (1) To map a specific class, use "" for "ss_name"
+.//     and provide the class key letters in "class_key_letters".
+.// (2) To map all classes in the subsystem to the given task, provide
+.//     the subsystem name for "ss_name" and "*" for the "class_key_letters".
+.// (3) To mark all classes in the domain as mapped to a task, use "*"
+.//     for "ss_name" and "class_key_letters".
+.//
+.// Examples:
+.//   .invoke MarkClassToTask( "", "", "MP", 1 )
+.//   .invoke MarkClassToTask( "GPS", "TRACKING", "*", 3 )
+.//   .invoke MarkClassToTask( "*", "*", "*", 0 )
+.//============================================================================
+.//
+.//
+.//============================================================================
+.// MarkSystemObjectDefaultExtentSize( value )
+.//
+.// Where the input parameter(s) are:
+.//   value = Default extent size for non-marked class extents.
+.//
+.// Example:
+.//   .invoke MarkSystemObjectDefaultExtentSize( 4 )
+.//============================================================================
+.//
+.//
+.//============================================================================
+.// MarkObjectExtentSize( "component", "key_letters", value )
+.//
+.// Where the input parameter(s) are:
+.//   component = name of component (domain) being marked
+.//   key_letters = key letters of the initialization class.
+.//   value = maximum extent size for the class.
+.//
+.// Example:
+.//   .invoke MarkObjectExtentSize( "myDomain", "MY_OBJ", 20 )
+.//============================================================================
+.//
+.//
+.//============================================================================
+.// Disable Object Operation Semantics Translation
+.//
+.// To indicate that action semantics associated with an object's operations
+.// (SM transformers) should NOT be translated into ANSI C source code,
+.// use the following mark:
+.//
+.// MarkClassOperationTranslationOff( "component", "object_key_letters", "op_name" )
+.//
+.// Where the input parameters are:
+.//   component = name of component (domain) being marked
+.//   object_key_letters  = Key letters of the object.
+.//   op_name             = Name of the UML operation.
+.//
+.// NOTES:
+.// (1) To disable semantics for all operations of an object, use "*"
+.//     for "op_name".
+.// (2) To disable semantics for all operations of all objects in a
+.//     domain, use "*", "*".
+.//
+.// Examples:
+.//   .invoke MarkClassOperationTranslationOff( "Oven", "T", "Cooking_Initializing" )
+.//   .invoke MarkClassOperationTranslationOff( "COMP1", "U_DATA", "*" )
+.//   .invoke MarkClassOperationTranslationOff( "*", "*", "*" )
+.//============================================================================
+.//
+.//
+.//============================================================================
+.// Mark Class as Having Preexisting Instances Defined in Data
+.//
+.// To indicate that the given class (or group of classes) has 
+.// preexisting instances defined in data, use the following mark:
+.//
+.// MarkPEIsDefinedInData( "component", "ss_name", "class_key_letters" )
+.//
+.// Where the input parameters are:
+.//   component = name of component (domain) being marked
+.//   ss_name = name of subsystem
+.//   class_key_letters = key letters of the class.
+.//
+.// NOTES:
+.// (1) To enable PEIs for a specific class, use "" for "ss_name"
+.//     and provide the class key letters in "class_key_letters".
+.// (2) To enable PEIs for all classes in the subsystem, provide
+.//     the subsystem name for "ss_name" and "*" for
+.//     the "class_key_letters".
+.// (3) To enable PEIs for all classes in the domain, use "*"
+.//     for "ss_name" and "*" for "class_key_letters".
+.// (4) There is no harm in marking a class as having preexisting
+.//     instances in data even if it does not.  It will make it eligible
+.//     for preexisting instances.
+.//
+.// Examples:
+.//   .invoke MarkPEIsDefinedInData( "", "", "DOG" )
+.//   .invoke MarkPEIsDefinedInData( "Lab", "EXP", "*" )
+.//   .invoke MarkPEIsDefinedInData( "*", "*", "*" )
+.//============================================================================
+.//
+.//
+.//============================================================================
+.// Mark Class as Having a Static Instance Population
+.//
+.// To indicate that the given class (or group of classes) has
+.// a static (number of instances remains constant), use following mark:
+.//
+.// MarkStaticInstancePopulation( "component", "ss_name", "class_key_letters" )
+.//
+.// Where the input parameters are:
+.//   component = name of component (domain) being marked
+.//   ss_name = name of subsystem
+.//   class_key_letters = key letters of the class.
+.//
+.// NOTES:
+.// (1) To enable a SIP for a specific class, use "" for "ss_name"
+.//     and provide the class key letters in "class_key_letters".
+.// (2) To enable SIPs for all classes in the subsystem, provide
+.//     the subsystem name for "ss_name" and "*" for the
+.//     "class_key_letters".
+.// (3) To enable SIPs for all classes in the domain, use "*"
+.//     for "ss_name" and "class_key_letters".
+.//
+.// Examples:
+.//   .invoke MarkStaticInstancePopulation( "", "", "IMG" )
+.//   .invoke MarkStaticInstancePopulation( "Imaging", "OCR", "*" )
+.//   .invoke MarkStaticInstancePopulation( "*", "*", "*" )
+.//============================================================================
+.//
+.//
+.//============================================================================
+.// Mark Class as Being Read-Only
+.//
+.// To indicate that the given class (or group of classes) is made
+.// up of instances that are not writable, use the following mark:
+.//
+.// MarkReadOnly( "component", "ss_name", "class_key_letters" )
+.//
+.// Where the input parameters are:
+.//   component = name of component (domain) being marked
+.//   ss_name = name of subsystem
+.//   class_key_letters = key letters of the class.
+.//
+.// NOTES:
+.// (1) To mark as read-only a specific class, use "" for "ss_name"
+.//     and provide the class key letters in "class_key_letters".
+.// (2) To mark all classes in the subsystem as read-only, provide
+.//     the subsystem name for "ss_name" and "*" for
+.//     the "class_key_letters".
+.// (3) To mark all classes in the domain as read-only, use "*"
+.//     for "ss_name" and "class_key_letters".
+.//
+.// Examples:
+.//   .invoke MarkReadOnly( "", "", "SLOT" )
+.//   .invoke MarkReadOnly( "ODMS", "CAB", "*" )
+.//   .invoke MarkReadOnly( "*", "*", "*" )
+.//============================================================================
+.//
+.//
+.//============================================================================
+.// Mark Class as Persistent
+.//
+.// Call MarkPersistentClass to cause a class to use non-volatile
+.// storage to persist data across power boundaries.
+.//
+.// MarkPersistentClass( "component", "ss_name", "class_key_letters" )
+.//
+.// Where the input parameters are:
+.//   component = name of component (domain) being marked
+.//   ss_name = name of subsystem
+.//   class_key_letters = key letters of the class.
+.//
+.// NOTES:
+.// (1) To mark as persistent a specific class, use "" for "ss_name"
+.//     and provide the class key letters in "class_key_letters".
+.// (2) To mark all classes in the subsystem as persistent, provide
+.//     the subsystem name for "ss_name" and "*" for
+.//     the "class_key_letters".
+.// (3) To mark all classes in the domain as persistent, use "*"
+.//     for "ss_name" and "class_key_letters".
+.//
+.// Examples:
+.//   .invoke MarkPersistentClass( "", "", "MP" )
+.//   .invoke MarkPersistentClass( "GPS", "TRACKING", "*" )
+.//   .invoke MarkPersistentClass( "*", "*", "*" )
+.//============================================================================
+.//
+.//
+.//============================================================================
+.// Mark Class as Not Persistent (Unmark Persistence)
+.//
+.// Call MarkNonPersistentClass to unmark a class previously marked as
+.// persistent.  This interface undoes what the above MarkPersistentClass
+.// does.  This allows a user to conveniently mark all classes persistent
+.// and then unmark a few (rather than explicitly mark as persistent a
+.// large number of classes).
+.//
+.// MarkNonPersistentClass( "component", "ss_name", "class_key_letters" )
+.//
+.// Where the input parameters are:
+.//   component = name of component (domain) being marked
+.//   ss_name = name of subsystem
+.//   class_key_letters = key letters of the class.
+.//
+.// NOTES:
+.// (1) To mark as not persistent a specific class, use "" for "ss_name"
+.//     and provide the class key letters in "class_key_letters".
+.// (2) To mark all classes in the subsystem as not persistent, provide
+.//     the subsystem name for "ss_name" and "*" for
+.//     the "class_key_letters".
+.//
+.// Examples:
+.//   .invoke MarkPersistentClass( "", "", "MP" )
+.//   .invoke MarkPersistentClass( "GPS", "TRACKING", "*" )
+.//============================================================================
+.//
+.//
+.//============================================================================
+.// Do not add anything at the end of this file!
+.//============================================================================

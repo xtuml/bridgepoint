@@ -1,0 +1,13 @@
+//
+// Filename: SAC_OP_group_deleted.tr
+//
+// Description: 
+//
+// UK Crown Copyright (c) 2010. All rights reserved.
+//
+private service SAC::Operator~>group_deleted (group_name : in  string) is
+begin
+   
+   I_DC::info_delete_Group(group_name);
+   
+end service;

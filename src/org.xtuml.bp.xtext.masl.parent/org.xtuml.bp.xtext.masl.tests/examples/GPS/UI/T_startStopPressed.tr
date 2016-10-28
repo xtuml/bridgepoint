@@ -1,0 +1,4 @@
+private service UI::Tracking~>startStopPressed () is
+begin
+  null;
+end service;

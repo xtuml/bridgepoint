@@ -66,7 +66,6 @@ See the [Analysis Note](#2.4).
 6.1 See the [Design Note](#2.1).  
 
 
-
 7. Test Cases  
 ------------------  
 Every test case should be followed by an "Undo". The undo operation should 

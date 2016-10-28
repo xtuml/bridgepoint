@@ -1,0 +1,59 @@
+.//============================================================================
+.// File:  bridge.mark
+.//
+.// Description:
+.// This marking file is used to specify inter-domain bridge wiring to the
+.// model compiler.
+.//
+.// Notice:
+.//============================================================================
+.//
+.//============================================================================
+.// Notes:
+.// (1) Marking is specified via archetype function invocation(s) in this file.
+.//     A function invocation statement MUST be specified on a single line.
+.//     All indicated function input parameters must be supplied.
+.// (2) All quoted string parameters are case sensitive.
+.// (3) Comments in this file start with ".//".
+.// (4) Do not leave any blank lines in this file.
+.//============================================================================
+.//
+.//
+.//============================================================================
+.// Mark Synchronous Service as Safe for Interrupt Execution:
+.//
+.// To indicate to the model compiler that a synchronous service
+.// may be invoked in a manner safe for invocation from an interrupt
+.// handler or other asynchronous activation (one for each synchronous
+.// service):
+.//
+.// TagSyncServiceSafeForInterrupts( "domain", "sync_service" )
+.//
+.// Where the input parameters are:
+.//   domain = (registered) xtUML domain name
+.//   sync_service = name of synchronous service
+.//
+.// Example:
+.//  .invoke TagSyncServiceSafeForInterrupts( "ILB", "PumpReady" )
+.//
+.//============================================================================
+.//
+.//
+.//============================================================================
+.// Wire Bridge Between xtUML Domains using Synchronous Services:
+.// WireSynchServiceOoaBridge( "initiating_dom", "ee_key_letters", "recipient_dom" )
+.// This mark is no longer supported.  Please use components and interfaces.
+.//============================================================================
+.//
+.//
+.//============================================================================
+.// Wire Bridge Between xtUML domain and Realized Domain:
+.// WireRealizedExternalEntity( "ooa_domain_name", "ee_key_letters",
+.//                "realized_domain_name", "method_prefix", "include_file" )
+.// This mark is no longer supported.  Please use components and interfaces.
+.//============================================================================
+.//
+.//
+.//============================================================================
+.// Do not add anything at the end of this file!
+.//============================================================================

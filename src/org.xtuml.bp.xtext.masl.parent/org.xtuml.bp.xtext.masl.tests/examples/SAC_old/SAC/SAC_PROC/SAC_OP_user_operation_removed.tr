@@ -1,0 +1,16 @@
+//
+// Filename: SAC_OP_user_operation_removed.tr
+//
+// Description: 
+//
+// UK Crown Copyright (c) 2010,2014. All rights reserved.
+//
+private service SAC::Operator~>user_operation_removed (user_id        : in  integer,
+                                                       operation_name : in  string,
+                                                       login_name     : in  string,
+                                                       session_id     : in  integer) is
+begin
+   
+   I_DC::info_delete_User_Operation(operation_name, login_name, session_id);
+   
+end service;
