@@ -16,7 +16,6 @@ public class MASLPartListener implements IPartListener2
         IWorkbenchPart part = partRef.getPart(false);
         if ( part instanceof TextEditor ) {
             TextEditor editor = (TextEditor)part;
-            //IDocument doc = (IDocument)editor.getAdapter(IDocument.class);
             IDocument doc = editor.getDocumentProvider().getDocument(editor.getEditorInput());
             // delete the file if empty
             if ( doc != null && doc.get().isEmpty() ) {
@@ -34,43 +33,43 @@ public class MASLPartListener implements IPartListener2
 
     @Override
     public void partActivated(IWorkbenchPartReference partRef) {
-            // TODO Auto-generated method stub
+            // Auto-generated method stub
             
     }
 
     @Override
     public void partBroughtToTop(IWorkbenchPartReference partRef) {
-            // TODO Auto-generated method stub
+            // Auto-generated method stub
             
     }
 
     @Override
     public void partDeactivated(IWorkbenchPartReference partRef) {
-            // TODO Auto-generated method stub
+            // Auto-generated method stub
             
     }
 
     @Override
     public void partOpened(IWorkbenchPartReference partRef) {
-            // TODO Auto-generated method stub
+            // Auto-generated method stub
             
     }
 
     @Override
     public void partHidden(IWorkbenchPartReference partRef) {
-            // TODO Auto-generated method stub
+            // Auto-generated method stub
             
     }
 
     @Override
     public void partVisible(IWorkbenchPartReference partRef) {
-            // TODO Auto-generated method stub
+            // Auto-generated method stub
             
     }
 
     @Override
     public void partInputChanged(IWorkbenchPartReference partRef) {
-            // TODO Auto-generated method stub
+            // Auto-generated method stub
             
     }
 
