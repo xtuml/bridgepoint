@@ -343,7 +343,7 @@ public class PlaceHolderEntry {
 			if(!originalFile.exists()){
 								
 				getModelElementID().saveTo(originalFile);
-				originalFile.setDerived(true);
+				originalFile.setDerived(true, null);
 				originalFile.getResourceAttributes().setReadOnly(true);
 			}
 		}
