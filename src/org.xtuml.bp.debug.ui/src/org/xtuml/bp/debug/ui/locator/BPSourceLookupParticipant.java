@@ -8,6 +8,7 @@ import org.xtuml.bp.core.common.NonRootModelElement;
 import org.xtuml.bp.debug.ui.model.BPStackFrame;
 import org.xtuml.bp.ui.text.ModelAdapter;
 import org.xtuml.bp.ui.text.ModelElementID;
+import org.xtuml.bp.ui.text.activity.ActivityEditorInputFactory;
 import org.xtuml.bp.ui.text.placeholder.PlaceHolderManager;
 
 public class BPSourceLookupParticipant extends AbstractSourceLookupParticipant {
@@ -37,7 +38,7 @@ public class BPSourceLookupParticipant extends AbstractSourceLookupParticipant {
             if (activity != null) {
               ModelElementID modelElementID = ModelAdapter.getModelElementAdapter(activity).createModelElementID(activity);
               if (modelElementID != null) {
-                IFile result = plhMgr.getPlaceholderFile(modelElementID, "oal", this);
+                IFile result = plhMgr.getPlaceholderFile(modelElementID, ActivityEditorInputFactory.PLACEHOLDER_EXTENSION, this);
 			    result.createMarker("org.xtuml.bp.ui.text.stepmarker");
 			    return result.getName();
               }

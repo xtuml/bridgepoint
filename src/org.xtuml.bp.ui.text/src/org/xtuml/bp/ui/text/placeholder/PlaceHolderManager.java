@@ -137,7 +137,7 @@ public class PlaceHolderManager {
 	 * exits.
 	 * 
 	 * @param modelElementID Must not be null, used as the key for the PlaceHolderMap
-	 * @param extension Currently can only be "oal" or "dsc"
+	 * @param extension Currently can only be "oal_err" or "dsc"
 	 * @param requester Must not be null
 	 * @return An already exsiting IFile or a newly created instance
 	 * 	 * @throws IllegalArgumentException if the extension is not knows
@@ -175,7 +175,7 @@ public class PlaceHolderManager {
 	 * more instances left. 
 	 * 
 	 * @param modelElementID Must not be null, used as the key for the PlaceHolderMap 
-	 * @param extension Currently can only be "oal" or "dsc"
+	 * @param extension Currently can only be "oal_err" or "dsc"
 	 * @param requester Must not be null
 	 * @throws IllegalArgumentException if the extension is not knows
 	 */
