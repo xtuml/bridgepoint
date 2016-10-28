@@ -1,0 +1,4 @@
+private service HeartRateMonitor::Unspecified~>heartRateChanged (        heartRate : in integer) is
+begin
+  null;
+end service;

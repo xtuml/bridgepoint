@@ -1,0 +1,14 @@
+//
+// UK Crown Copyright (c) 2016. All rights reserved.
+//
+
+//! CUSTOMER Presses Trigger At Pump 2
+private service PSC::CUSTOMER_Presses_Trigger_At_Pump_2_3 () is
+  pump_instance : instance of PUMP; 
+
+begin
+  //# Customer presses Gun trigger on pump 2
+  
+  pump_instance := find_one PUMP (Pump_Number = 2);
+  generate PUMP.Trigger_Depressed() to pump_instance;
+end service;

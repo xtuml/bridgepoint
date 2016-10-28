@@ -1,0 +1,18 @@
+//
+// UK Crown Copyright (c) 2016. All rights reserved.
+//
+
+public instance service PSC::TANK.Inform_Connected_Pumps_Fuel_Available () is
+  connected_pumps : sequence of instance of PUMP; 
+
+begin
+  //# The fuel level in this tank has return to 
+  //# an operational level. Inform all connected
+  //# pumps that the fuel level is ok
+  
+  connected_pumps := this->R1;
+  
+  for pump_instance in connected_pumps'elements loop
+  	generate PUMP.Fuel_Available() to pump_instance;
+  end loop;
+end service;

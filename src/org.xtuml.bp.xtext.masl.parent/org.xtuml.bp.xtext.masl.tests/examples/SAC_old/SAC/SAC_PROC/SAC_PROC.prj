@@ -1,0 +1,83 @@
+//
+// Filename: SAC_PROC.prj
+//
+// Description: SAC_PROC
+//
+//
+// UK Crown Copyright (c) 2010-2012,2014. All rights reserved.
+//
+project SAC_PROC is
+  domain SAC is
+    terminator Operator is
+      private service login_valid (session_id           : in  integer,
+                                   user_id              : in  integer,
+                                   is_valid             : in  boolean,
+                                   failure_reason       : in  string,
+                                   workstation_hostname : in  string,
+                                   login_name           : in  string);
+
+      private service report_user (user_id    : in  integer,
+                                   login_name : in  string,
+                                   user_name  : in  string,
+                                   logged_on  : in  logged_on_type);
+
+      private service user_removed (user_id    : in  integer,
+                                    login_name : in  string);
+
+      private service report_user_session (session_id           : in  integer,
+                                           user_id              : in  integer,
+                                           login_time           : in  timestamp,
+                                           session_timed_out    : in  boolean,
+                                           workstation_hostname : in  string,
+                                           login_name           : in  string);
+
+      private service user_session_deleted (session_id : in  integer);
+
+      private service report_group (group_name : in  string);
+
+      private service group_deleted (group_name : in  string);
+
+      private service report_group_operation (group_name     : in  string,
+                                              operation_name : in  string);
+
+      private service group_operation_removed (group_name     : in  string,
+                                               operation_name : in  string);
+
+      private service report_user_operation (user_id        : in  integer,
+                                             operation_name : in  string,
+                                             login_name     : in  string,
+                                             session_id     : in  integer);
+
+      private service user_operation_removed (user_id        : in  integer,
+                                              operation_name : in  string,
+                                              login_name     : in  string,
+                                              session_id     : in  integer);
+
+      private service report_user_group (uid        : in  integer,
+                                         group_name : in  string,
+                                         login_name : in  string,
+                                         session_id : in  integer);
+
+      private service user_group_removed (uid        : in  integer,
+                                          group_name : in  string,
+                                          login_name : in  string,
+                                          session_id : in  integer);
+
+      private service raise_notification (condition_description : in  string,
+                                          condition_name        : in  string);
+
+    end terminator;
+    pragma key_letter ("OP");
+
+
+
+  end domain;
+
+  domain INI is
+
+  end domain;
+
+  domain SOA is
+  end domain;
+
+end project;

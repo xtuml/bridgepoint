@@ -542,15 +542,33 @@ while (j < connectorCount)
     end if;
 
     if (not connectorAlreadyCreated)
+    
+      // If side 1 is the destination then swap the source and destination before creating the connector
+      // This is here for directional connectors. The only case of a directional connector supported
+      // right now are transitions.
+      side1GD_GDElementId = graphicalElement.elementId;
+      swappedSides = false;
+      if ( CL::isDestination(shapeInstance:graphicalElement.represents, connectorInstance:connectorInstance) ) 
+          temp = side2_GD_GE;
+          side2_GD_GE = graphicalElement;
+          graphicalElement = temp;
+          if (empty graphicalElement) 
+            side1GD_GDElementId = OS::NULL_UNIQUE_ID();
+          else
+            side1GD_GDElementId = graphicalElement.elementId;
+          end if;
+          swappedSides = true;
+     end if;
+      
       side2_OOAID=OS::NULL_UNIQUE_ID();
-      side2_elementID=OS::NULL_UNIQUE_ID();;
+      side2_elementID=OS::NULL_UNIQUE_ID();
       if (not empty side2_GD_GE)
         side2_elementID=side2_GD_GE.elementId;
         side2_OOAID=CL::getOOAId(from:side2_GD_GE.represents);
       end if;
       
       reprocess = model.newConnector(elementIdOfExistingGD_CON:connectorOOAId,
-                       startingGD_GEId:graphicalElement.elementId, arsId:self.Id,
+                       startingGD_GEId:side1GD_GDElementId, arsId:self.Id,
                                                   ooaIdOfElementToConnectTo:side2_OOAID,
                                                   existingGraphicsArePresent:false,
                                                   endingGD_GEId:side2_elementID); 
@@ -567,6 +585,18 @@ while (j < connectorCount)
         CL::logError(message:"Failed to find the ooaofooa instance during graphics reconciliation.  ooaofooa id: " + OS::uniqueIdToString(id:newConnector.OOA_ID) + "  ooaofooa type: " + OS::ooaTypeToString(id:newConnector.OOA_Type));
       end if;
       unrelate sourceSpec from newConnector across R16;
+      
+      // If we swapped sides to create this element, swap back now
+      if (swappedSides)      
+          temp = side2_GD_GE;
+          side2_GD_GE = graphicalElement;
+          graphicalElement = temp;
+          if (empty graphicalElement) 
+            side1GD_GDElementId = OS::NULL_UNIQUE_ID();
+          else
+            side1GD_GDElementId = graphicalElement.elementId;
+          end if;
+      end if;
     end if;
   end if;
   j = j + 1;

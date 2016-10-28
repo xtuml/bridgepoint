@@ -1,0 +1,4 @@
+public service UI::startTest () is
+begin
+  null;
+end service;

@@ -1,0 +1,399 @@
+service tutorial::find_statements() is
+  pilot     : instance of Pilot;
+  pilots    : sequence of instance of Pilot;
+  xpilots   : sequence of instance of Pilot;
+  total_age : integer := 0;
+  temp      : integer := 0;
+  today     : Calendar::date_type;
+begin
+  //find one on no population
+  pilot := find_one Pilot(age=5);
+  if (pilot/=null) then
+    raise Standard::constraint_error;
+  end if;
+
+  //find one on single population
+  pilot := create Pilot(age=>10,qualified=>today);
+  pilot := find_one Pilot(age=5 and qualified.year=today.year);
+  if (pilot/=null) then
+    raise Standard::constraint_error;
+  end if;
+  pilot := find_one Pilot(age=10);
+  if (pilot=null or pilot.age /=10) then
+    raise Standard::constraint_error;
+  end if;
+
+  //find one on small population
+  pilot := create Pilot(age=>20);
+  pilot := create Pilot(age=>30);
+  pilot := find_one Pilot(age=5);
+  if (pilot/=null) then
+    raise Standard::constraint_error;
+  end if;
+  pilot := find_one Pilot(age=10);
+  if (pilot=null or pilot.age /= 10) then
+    raise Standard::constraint_error;
+  end if;
+  pilot := find_one Pilot(age=20);
+  if (pilot=null or pilot.age /= 20) then
+    raise Standard::constraint_error;
+  end if;
+  pilot := find_one Pilot(age=30);
+  if (pilot=null or pilot.age /= 30) then
+    raise Standard::constraint_error;
+  end if;
+
+  //find one on large population
+  for age in 1..100 loop
+    pilot := create Pilot(age=>age);
+  end loop;
+  pilot := find_one Pilot(age=1);
+  if (pilot=null or pilot.age /= 1) then
+    raise Standard::constraint_error;
+  end if;
+  pilot := find_one Pilot(age=100);
+  if (pilot=null or pilot.age /= 100) then
+    raise Standard::constraint_error;
+  end if;
+
+  //cleanup
+  pilot := find_one Pilot();
+  while (pilot /= null) loop
+    delete pilot;
+    pilot := find_one Pilot();
+  end loop;
+  pilot := find_one Pilot();
+  if (pilot/=null) then
+    raise Standard::constraint_error;
+  end if;
+
+  //find all on no population
+  pilots := find_all Pilot();
+  if (pilots'length /= 0) then
+    raise Standard::constraint_error;
+  end if;
+
+  //find all on single population
+  pilot := create Pilot(age=>10);
+  pilots := find_all Pilot();
+  if (pilots'length /= 1 or pilots[pilots'first].age /= 10) then
+    raise Standard::constraint_error;
+  end if;
+
+  //find all on small population
+  pilot := create Pilot(age=>20);
+  pilot := create Pilot(age=>30);
+  pilots := find_all Pilot();
+  if (pilots'length /= 3 or pilots[pilots'first+0].age /= 10
+                       or pilots[pilots'first+1].age /= 20
+                       or pilots[pilots'first+2].age /= 30) then
+    raise Standard::constraint_error;
+  end if;
+
+  //find all on large population
+  delete pilots;
+  total_age := 0;
+  for age in 1..100 loop
+    pilot := create Pilot(age=>age);
+    total_age := total_age+age;
+  end loop;
+  pilots := find_all Pilot();
+  temp := 0;
+  for pilot in pilots'elements loop
+    temp := temp + pilot.age;
+  end loop;
+  if (total_age /= temp) then
+    raise Standard::constraint_error;
+  end if;
+
+  //cleanup
+  pilots := find_all Pilot();
+  delete pilots;
+
+  //find on no population
+  pilots := find Pilot(age=4);
+  if (pilots'length /= 0) then
+    raise Standard::constraint_error;
+  end if;
+
+  //find on single population
+  pilot := create Pilot(age=>10);
+  pilots := find Pilot(age=10);
+  if (pilots'length /= 1 or pilots[pilots'first].age /= 10) then
+    raise Standard::constraint_error;
+  end if;
+  pilots := find Pilot(age=100);
+  if (pilots'length /= 0) then
+    raise Standard::constraint_error;
+  end if;
+
+  //find on small population
+  pilot := create Pilot(age=>20);
+  pilot := create Pilot(age=>30);
+  pilots := find Pilot(age>10);
+  if (pilots'length /= 2 or pilots[pilots'first+0].age /= 20
+                       or pilots[pilots'first+1].age /= 30) then
+    raise Standard::constraint_error;
+  end if;
+  pilots := find Pilot(age<=10);
+  if (pilots'length /= 1 or pilots[pilots'first+0].age /= 10) then
+    raise Standard::constraint_error;
+  end if;
+  pilots := find Pilot(age<1);
+  if (pilots'length /= 0) then
+    raise Standard::constraint_error;
+  end if;
+
+  //find on large population
+  delete pilots;
+  for age in 1..100 loop
+    pilot := create Pilot(age=>age);
+  end loop;
+  pilots := find Pilot(age>50);
+  if (pilots'length /= 50) then
+    raise Standard::constraint_error;
+  end if;
+
+  //cleanup
+  pilots := find_all Pilot();
+  delete pilots;
+
+  //*************************************************************************
+  //find only no population
+  pilot := find_only Pilot(age=4);
+  if (pilot /= null) then
+    raise Standard::constraint_error;
+  end if;
+
+  //find on single population
+  pilot := create Pilot(age=>10);
+  pilot := find_only Pilot(age=10);
+  if (pilot.age /= 10) then
+    raise Standard::constraint_error;
+  end if;
+  pilot := find_only Pilot(age=100);
+  if (pilot /= null) then
+    raise Standard::constraint_error;
+  end if;
+
+  //find on small population
+  pilot := create Pilot(age=>20);
+  pilot := create Pilot(age=>30);
+  pilot := find_only Pilot(age=20);
+  if (pilot.age /= 20) then
+    raise Standard::constraint_error;
+  end if;
+  begin
+    pilot := find_only Pilot(age>=10);
+  exception
+    when Standard::constraint_error =>
+      pilot := find_only Pilot(age=30);
+  end;
+  if (pilot.age /= 30) then
+    raise Standard::constraint_error;
+  end if;
+
+  //cleanup
+  pilots := find_all Pilot();
+  delete pilots;
+
+  //find over empty collections
+  if (xpilots'length /= 0) then
+    raise Standard::constraint_error;
+  end if;
+  pilots := find_all xpilots();
+  if (pilots'length /= 0) then
+    raise Standard::constraint_error;
+  end if;
+
+  //find on single element collection
+  pilot   := create Pilot(age=>10);
+  xpilots := find_all Pilot();
+  pilots  := find xpilots(age=10);
+  if (pilots'length /= 1 or pilots[pilots'first].age /= 10) then
+    raise Standard::constraint_error;
+  end if;
+  pilots := find xpilots(age=100);
+  if (pilots'length /= 0) then
+    raise Standard::constraint_error;
+  end if;
+
+  //find over small collections
+  pilot := create Pilot(age=>20);
+  pilot := create Pilot(age=>30);
+  xpilots := find_all Pilot();
+  pilots := find xpilots(age>10);
+  if (pilots'length /= 2 or pilots[pilots'first+0].age /= 20
+                       or pilots[pilots'first+1].age /= 30) then
+    raise Standard::constraint_error;
+  end if;
+  pilots := find xpilots(age<=10);
+  if (pilots'length /= 1 or pilots[pilots'first+0].age /= 10) then
+    raise Standard::constraint_error;
+  end if;
+  pilots := find xpilots(age<1);
+  if (pilots'length /= 0) then
+    raise Standard::constraint_error;
+  end if;
+
+  //find over large collections
+  pilots := find_all Pilot();
+  delete pilots;
+  for age in 1..100 loop
+    pilot := create Pilot(age=>age);
+  end loop;
+  xpilots := find_all Pilot();
+  pilots := find xpilots(age>50);
+  if (pilots'length /= 50) then
+    raise Standard::constraint_error;
+  end if;
+
+  //cleanup
+  pilots := find_all Pilot();
+  delete pilots;
+
+  //various find conditions
+  pilot := create Pilot(age=>10);
+  pilot := create Pilot(age=>20);
+
+  pilots := find Pilot(age/=10);
+  if (pilots'length /= 1 or pilots[pilots'first].age /= 20) then
+    raise Standard::constraint_error;
+  end if;
+  pilots := find Pilot(age=10);
+  if (pilots'length /= 1 or pilots[pilots'first].age /= 10) then
+    raise Standard::constraint_error;
+  end if;
+  pilots := find Pilot(age<10);
+  if (pilots'length /= 0) then
+    raise Standard::constraint_error;
+  end if;
+  pilots := find Pilot(age>20);
+  if (pilots'length /= 0) then
+    raise Standard::constraint_error;
+  end if;
+  pilots := find Pilot(age<=20);
+  if (pilots'length /= 2) then
+    raise Standard::constraint_error;
+  end if;
+  pilots := find Pilot(age>=20);
+  if (pilots'length /= 1 or pilots[pilots'first].age /= 20) then
+    raise Standard::constraint_error;
+  end if;
+  pilots := find Pilot(not (age=10));
+  if (pilots'length /= 1 or pilots[pilots'first].age /= 20) then
+    raise Standard::constraint_error;
+  end if;
+  pilots := find Pilot(age=10 or age=20);
+  if (pilots'length /= 2) then
+    raise Standard::constraint_error;
+  end if;
+  pilots := find Pilot(age=10 or age=20 or age>1);
+  if (pilots'length /= 2) then
+    raise Standard::constraint_error;
+  end if;
+  pilots := find Pilot(age=10 and age=20);
+  if (pilots'length /= 0) then
+    raise Standard::constraint_error;
+  end if;
+  pilots := find Pilot(age=10 xor age/=10);
+  if (pilots'length /= 2) then
+    raise Standard::constraint_error;
+  end if;
+  pilots := find Pilot(age=10 xor age=10 and age>1);
+  if (pilots'length /= 0) then
+    raise Standard::constraint_error;
+  end if;
+
+  //cleanup
+  pilots := find_all Pilot();
+  delete pilots;
+
+  //various ordered_by conditions on finds
+  pilot := create Pilot(age=>7);
+  pilot := create Pilot(age=>3);
+  pilot := create Pilot(age=>8);
+  pilot := create Pilot(age=>1);
+  pilot := create Pilot(age=>6);
+  pilot := create Pilot(age=>2);
+  pilot := create Pilot(age=>5);
+  pilot := create Pilot(age=>4);
+  pilot := create Pilot(age=>10);
+  pilot := create Pilot(age=>9);
+
+  xpilots := find_all Pilot() ordered_by(age);
+  temp := 1;
+  for pilot in xpilots'elements loop
+    if (pilot.age /= temp) then
+      raise Standard::constraint_error;
+    end if;
+    temp := temp+1;
+  end loop;
+
+  xpilots := find_all Pilot() reverse_ordered_by(age);
+  temp := 1;
+  for pilot in xpilots'elements loop
+    if (pilot.age = temp) then
+      raise Standard::constraint_error;
+    end if;
+    temp := temp+1;
+  end loop;
+
+  pilots := find_all Pilot();
+  xpilots := pilots ordered_by(age);
+  temp := 1;
+  for pilot in xpilots'elements loop
+    if (pilot.age /= temp) then
+      raise Standard::constraint_error;
+    end if;
+    temp := temp+1;
+  end loop;
+
+  pilots := find_all Pilot();
+  xpilots := pilots reverse_ordered_by(age);
+  temp := 1;
+  for pilot in xpilots'elements loop
+    if (pilot.age = temp) then
+      raise Standard::constraint_error;
+    end if;
+    temp := temp+1;
+  end loop;
+
+  //cleanup
+  pilots := find_all Pilot();
+  delete pilots;
+
+
+  //*************************************************************************
+  //various multiple ordered_by conditions on finds
+  pilot := create Pilot(age=>3, NI=>455, name=>"fred",     qualified=>today);
+  pilot := create Pilot(age=>3, NI=>222, name=>"fred",     qualified=>today);
+  pilot := create Pilot(age=>8, NI=>455, name=>"sid",      qualified=>today);
+  pilot := create Pilot(age=>8, NI=>455, name=>"bill",     qualified=>today);
+  pilot := create Pilot(age=>6, NI=>455, name=>"harvey",   qualified=>today);
+  pilot := create Pilot(age=>2, NI=>455, name=>"bob",      qualified=>today);
+  pilot := create Pilot(age=>5, NI=>455, name=>"bernard",  qualified=>today);
+  pilot := create Pilot(age=>4, NI=>455, name=>"baldrick", qualified=>today);
+  pilot := create Pilot(age=>4, NI=>455, name=>"bonsai",   qualified=>today);
+  pilot := create Pilot(age=>9, NI=>455, name=>"biggles",  qualified=>today);
+
+  xpilots := find_all Pilot() ordered_by(age,name,NI);
+
+  for x in 0..8 loop
+    if (xpilots[x].age > xpilots[x+1].age) then
+      raise Standard::constraint_error;
+    end if;
+  end loop;
+  if (xpilots[1].NI /= 222) then
+    raise Standard::constraint_error;
+  end if;
+  if (xpilots[8].name /= "sid") then
+    raise Standard::constraint_error;
+  end if; 
+
+  //xpilots := find_all Pilot() ordered_by(age,name,NI,qualified);
+
+  xpilots := find_all Pilot() ordered_by(age,name,NI,qualified.year);
+
+  xpilots := xpilots reverse_ordered_by(age,name,NI,qualified.year);
+end;

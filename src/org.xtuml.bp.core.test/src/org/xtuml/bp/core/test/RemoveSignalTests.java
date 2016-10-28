@@ -103,118 +103,117 @@ public class RemoveSignalTests extends BaseTest {
 
 	@Test
 	public void testRemoveSignal() {
-// See 	Redmine issue 8579	
-//		/*
-//		 * _- Find class TC's class based state machine _- Locate a transition
-//		 * between the states and right click on it _R The Assign Signal...
-//		 * entry exists _- Assign the signal to the transition _- Right click on
-//		 * the transition _R The Assign Signal... entry does not exist _R The
-//		 * Remove Signal entry does exist _R In the model explorer view the
-//		 * "aSignal" event is present under the CSM _- Select Remove Signal _R
-//		 * The Assign Signal... entry does exist _R The Remove Signal entry does
-//		 * not exist _R In the model explorer view the "aSignal" event is NOT
-//		 * present under the CSM
-//		 */
-//		StateMachineState_c state = StateMachineState_c
-//				.StateMachineStateInstance(modelRoot,
-//						new ClassQueryInterface_c() {
-//
-//							public boolean evaluate(Object candidate) {
-//								return ((StateMachineState_c) candidate)
-//										.getName().equals("B");
-//							}
-//
-//						});
-//		assertNotNull(state);
-//
-//		Transition_c[] txns = Transition_c.getManySM_TXNsOnR506(state);
-//		assertTrue(txns.length == 2);
-//
-//		Transition_c obj = txns[0];
-//
-//		IFile file = obj.getFile();
-//		TestUtil.changeFileReadonlyStatus(m_readonly, file);
-//
-//		UITestingUtilities.clearGraphicalSelection();
-//		editor = UITestingUtilities.addElementToGraphicalSelection(obj);
-//
-//		Port_c port = Port_c.PortInstance(modelRoot,
-//				new ClassQueryInterface_c() {
-//
-//					public boolean evaluate(Object candidate) {
-//						return ((Port_c) candidate).getName().equals("Port_TC");
-//					}
-//
-//				});
-//		assertNotNull(port);
-//
-//		InterfaceReference_c reference = InterfaceReference_c
-//				.getOneC_IROnR4016(port);
-//
-//		InterfaceSignal_c isig = InterfaceSignal_c.getOneC_ASOnR4004(
-//				ExecutableProperty_c.getOneC_EPOnR4003(Interface_c
-//						.getOneC_IOnR4012(InterfaceReference_c
-//								.getOneC_IROnR4016(port))),
-//				new ClassQueryInterface_c() {
-//
-//					public boolean evaluate(Object candidate) {
-//						return ((InterfaceSignal_c) candidate).getName()
-//								.equals("aSignal");
-//					}
-//
-//				});
-//		assertNotNull(isig);
-//		obj.Addsignal(reference.getId(), isig.getId());
-//
-//		editor = UITestingUtilities.addElementToGraphicalSelection(obj);
-//
-//		// get the menu from the SWT Canvas
-//		Menu menu = editor.getCanvas().getMenu();
-//
-//		// check the status of the action (assure the signal is assigned)
-//		assertFalse(UITestingUtilities.checkItemStatusInContextMenu(menu,
-//				"Assign Signal", "", m_readonly));
-//		assertTrue(UITestingUtilities.checkItemStatusInContextMenu(menu,
-//				"Remove Signal", "", m_readonly));
-//
-//		// Make sure the signal is present in ME
-//		IPath stateFilePath = state.getPersistableComponent().getFile()
-//				.getFullPath();
-//		TreeItem stateTreeItem = ExplorerUtil
-//				.selectMEInModelExplorer(stateFilePath);
-//		TreeItem[] stateChildren = ExplorerUtil.getChildren(stateTreeItem);
-//		TreeItem sigTreeItem = ExplorerUtil.findItem("aSignal", stateChildren);
-//		assertTrue("The signal is present in Model Explorer",
-//				sigTreeItem != null);
-//
-//		// Remove the signal
-//		obj.Removesignal();
-//
-//		while (Display.getCurrent().readAndDispatch())
-//			;
-//
-//		editor = UITestingUtilities.addElementToGraphicalSelection(obj);
-//
-//		while (Display.getCurrent().readAndDispatch())
-//			;
-//
-//		// check the status of the action (assure the signal not assigned)
-//		assertTrue(UITestingUtilities.checkItemStatusInContextMenu(menu,
-//				"Assign Signal", "", m_readonly));
-//		assertFalse(UITestingUtilities.checkItemStatusInContextMenu(menu,
-//				"Remove Signal", "", m_readonly));
-//
-//		UITestingUtilities.clearGraphicalSelection();
-//
-//		// Make sure the signal is not present in ME
-//		stateTreeItem = ExplorerUtil.selectMEInModelExplorer(stateFilePath);
-//		stateChildren = ExplorerUtil.getChildren(stateTreeItem);
-//		sigTreeItem = ExplorerUtil.findItem("aSignal", stateChildren);
-//		assertTrue("The signal is not present in Model Explorer",
-//				sigTreeItem == null);
-//		stateTreeItem.setExpanded(false);
-//		while (Display.getCurrent().readAndDispatch())
-//			;
+		/*
+		 * _- Find class TC's class based state machine _- Locate a transition
+		 * between the states and right click on it _R The Assign Signal...
+		 * entry exists _- Assign the signal to the transition _- Right click on
+		 * the transition _R The Assign Signal... entry does not exist _R The
+		 * Remove Signal entry does exist _R In the model explorer view the
+		 * "aSignal" event is present under the CSM _- Select Remove Signal _R
+		 * The Assign Signal... entry does exist _R The Remove Signal entry does
+		 * not exist _R In the model explorer view the "aSignal" event is NOT
+		 * present under the CSM
+		 */
+		StateMachineState_c state = StateMachineState_c
+				.StateMachineStateInstance(modelRoot,
+						new ClassQueryInterface_c() {
+
+							public boolean evaluate(Object candidate) {
+								return ((StateMachineState_c) candidate)
+										.getName().equals("B");
+							}
+
+						});
+		assertNotNull(state);
+
+		Transition_c[] txns = Transition_c.getManySM_TXNsOnR506(state);
+		assertTrue(txns.length == 2);
+
+		Transition_c obj = txns[0];
+
+		IFile file = obj.getFile();
+		TestUtil.changeFileReadonlyStatus(m_readonly, file);
+
+		UITestingUtilities.clearGraphicalSelection();
+		editor = UITestingUtilities.addElementToGraphicalSelection(obj);
+
+		Port_c port = Port_c.PortInstance(modelRoot,
+				new ClassQueryInterface_c() {
+
+					public boolean evaluate(Object candidate) {
+						return ((Port_c) candidate).getName().equals("Port_TC");
+					}
+
+				});
+		assertNotNull(port);
+
+		InterfaceReference_c reference = InterfaceReference_c
+				.getOneC_IROnR4016(port);
+
+		InterfaceSignal_c isig = InterfaceSignal_c.getOneC_ASOnR4004(
+				ExecutableProperty_c.getOneC_EPOnR4003(Interface_c
+						.getOneC_IOnR4012(InterfaceReference_c
+								.getOneC_IROnR4016(port))),
+				new ClassQueryInterface_c() {
+
+					public boolean evaluate(Object candidate) {
+						return ((InterfaceSignal_c) candidate).getName()
+								.equals("aSignal");
+					}
+
+				});
+		assertNotNull(isig);
+		obj.Addsignal(reference.getId(), isig.getId());
+
+		editor = UITestingUtilities.addElementToGraphicalSelection(obj);
+
+		// get the menu from the SWT Canvas
+		Menu menu = editor.getCanvas().getMenu();
+
+		// check the status of the action (assure the signal is assigned)
+		assertFalse(UITestingUtilities.checkItemStatusInContextMenu(menu,
+				"Assign Signal", "", m_readonly));
+		assertTrue(UITestingUtilities.checkItemStatusInContextMenu(menu,
+				"Remove Signal", "", m_readonly));
+
+		// Make sure the signal is present in ME
+		IPath stateFilePath = state.getPersistableComponent().getFile()
+				.getFullPath();
+		TreeItem stateTreeItem = ExplorerUtil
+				.selectMEInModelExplorer(stateFilePath);
+		TreeItem[] stateChildren = ExplorerUtil.getChildren(stateTreeItem);
+		TreeItem sigTreeItem = ExplorerUtil.findItem("aSignal", stateChildren);
+		assertTrue("The signal is present in Model Explorer",
+				sigTreeItem != null);
+
+		// Remove the signal
+		obj.Removesignal();
+
+		while (Display.getCurrent().readAndDispatch())
+			;
+
+		editor = UITestingUtilities.addElementToGraphicalSelection(obj);
+
+		while (Display.getCurrent().readAndDispatch())
+			;
+
+		// check the status of the action (assure the signal not assigned)
+		assertTrue(UITestingUtilities.checkItemStatusInContextMenu(menu,
+				"Assign Signal", "", m_readonly));
+		assertFalse(UITestingUtilities.checkItemStatusInContextMenu(menu,
+				"Remove Signal", "", m_readonly));
+
+		UITestingUtilities.clearGraphicalSelection();
+
+		// Make sure the signal is not present in ME
+		stateTreeItem = ExplorerUtil.selectMEInModelExplorer(stateFilePath);
+		stateChildren = ExplorerUtil.getChildren(stateTreeItem);
+		sigTreeItem = ExplorerUtil.findItem("aSignal", stateChildren);
+		assertTrue("The signal is not present in Model Explorer",
+				sigTreeItem == null);
+		stateTreeItem.setExpanded(false);
+		while (Display.getCurrent().readAndDispatch())
+			;
 	}
 
 	@Test

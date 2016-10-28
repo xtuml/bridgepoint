@@ -1,0 +1,17 @@
+//
+// Filename: OP_report_user_session.tr
+//
+// Description: Allows the domain to report the details of a session that
+//              has been started by a user.
+//
+// UK Crown Copyright (c) 2010,2014. All rights reserved.
+//
+private service SAC::Operator~>report_user_session (session_id           : in  integer,
+                                                    user_id              : in  integer,
+                                                    login_time           : in  timestamp,
+                                                    session_timed_out    : in  boolean,
+                                                    workstation_hostname : in  string,
+                                                    login_name           : in  string) is
+begin
+  null;
+end;

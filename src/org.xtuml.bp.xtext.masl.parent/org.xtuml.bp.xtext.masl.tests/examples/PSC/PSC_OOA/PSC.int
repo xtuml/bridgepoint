@@ -1,0 +1,115 @@
+//
+// UK Crown Copyright (c) 2016. All rights reserved.
+//
+
+//! The Petrol Station Control domain manages the dispensing of
+//! petrol, customer payments and tank levels.
+//! 
+//! Before a customer can use the self-service pumps, the pump
+//! must be enabled by the attendant.  When a pump is enabled,
+//! the pump motor is started, if it is not already on, with the
+//! pump clutch free.  When the trigger in the gun is depressed,
+//! closing a micro switch, the clutch is engaged and petrol
+//! pumped.  When it is released, the clutch is freed.  There is
+//! also a micro switch on the holster in which the gun is kept
+//! which prevents petrol being pumped until the gun is taken
+//! out.  Once the gun is replaced in the holster, the delivery
+//! is deemed to be completed and the pump disabled.  Further
+//! depressions of the trigger in the gun cannot dispense more
+//! petrol.  After a short standby period, the pump motor will
+//! be turned off unless the pump is re-enabled.
+//! 
+//! A metering device in the petrol line sends a pulse to the
+//! system for each 1/100 litre dispensed.  The cost of the fuel
+//! is calculated using the amount delivered and unit cost which
+//! is displayed on the pump.
+//! 
+//! There are two kinds of pump.  The normal kind allows the
+//! user to dispense petrol ad lib.  The sophisticated pumps,
+//! imported from New Zealand, allow the customer to preset an
+//! amount and a volume of petrol.  Petrol will then be pumped
+//! up to a maximum of the required quantity.
+//! 
+//! Transactions are stored until the customer pays.  Payment
+//! may be either in cash, by credit card or account.  A
+//! customer may request a receipt (showing price, time, date
+//! etc.) and will get a token for every 5 pounds.  Customers
+//! sometimes abscond without paying and the operator must
+//! annotate the transaction with any available information, the
+//! vehicle's registration number for example.  At the end of
+//! the day, transactions are archived and may be used for ad
+//! hoc enquiries on sales.
+//! 
+//! At present, two grades of petrol are dispensed from five
+//! pumps on the forecourt.  Each pump takes its supply from one
+//! of two tanks, one tank for each grade.  The tank level must
+//! not drop below 4% of the tank's capacity.  If this happens,
+//! the pumps serviced by that tank cannot be enabled to
+//! dispense petrol.
+domain PSC is
+  //! Represents garage attendant interface
+  terminator ATTENDANT is
+    public service Request_Pump_Enable ();
+
+    public service Transaction_Pending ();
+
+    public service Delivery_Cancelled ();
+
+  end terminator;
+  pragma key_letter ("AT");
+
+
+  //! Represents interface with the pump's motor
+  terminator MOTOR is
+    public service Start_Motor ();
+
+    public service Stop_Motor ();
+
+  end terminator;
+  pragma key_letter ("MO");
+
+
+  //! Represents interface with customer
+  terminator CUSTOMER is
+    public service Pump_Unavailable ();
+
+  end terminator;
+  pragma key_letter ("CU");
+
+
+  //! Represents meter associated with a pump
+  terminator METER is
+  end terminator;
+  pragma key_letter ("ME");
+
+
+  //! Represents interface with pump's clutch
+  terminator CLUTCH is
+    public service Engage_Clutch ();
+
+    public service Disengage_Clutch ();
+
+  end terminator;
+  pragma key_letter ("CL");
+
+
+  //! Represents interface with tanker operator
+  terminator TANKER_OPERATOR is
+  end terminator;
+  pragma key_letter ("TO");
+
+
+  //! Represents interface with pump's gun.
+  terminator GUN is
+  end terminator;
+  pragma key_letter ("GU");
+
+
+  //! Represents interface with pump's holster.
+  terminator HOLSTER is
+  end terminator;
+  pragma key_letter ("HO");
+
+
+end domain;
+pragma number (28);

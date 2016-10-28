@@ -1,0 +1,4 @@
+private service UI::init () is
+begin
+  null;
+end service;

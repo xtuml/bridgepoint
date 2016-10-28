@@ -40,6 +40,7 @@ public abstract class AbstractModelExportFactory {
 	public abstract IRunnableWithProgress create(
 		Ooaofooa modelRoot,
 		String outfileName,
+                String outActionFileName,
 		boolean export_graphics) throws FileNotFoundException;
 
 	public abstract IRunnableWithProgress create(
@@ -47,13 +48,13 @@ public abstract class AbstractModelExportFactory {
 			SystemModel_c sys,
 			boolean exportGraphics) throws FileNotFoundException;
 	
-	public abstract IRunnableWithProgress create(NonRootModelElement element, String outfileName,
+	public abstract IRunnableWithProgress create(NonRootModelElement element, String outfileName, String outActionFileName,
 			boolean exportGraphics) throws FileNotFoundException;
 	
-	public abstract IRunnableWithProgress create(String outfileName,
+	public abstract IRunnableWithProgress create(String outfileName, String outActionFileName,
 			NonRootModelElement me) throws FileNotFoundException;
 
-	public abstract IRunnableWithProgress create(Ooaofooa modelRoot, ByteArrayOutputStream baos,
+	public abstract IRunnableWithProgress create(Ooaofooa modelRoot, ByteArrayOutputStream baos, ByteArrayOutputStream actionbaos,
 			NonRootModelElement me) throws FileNotFoundException;
 
 static public AbstractModelExportFactory getInstance()

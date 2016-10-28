@@ -1,0 +1,4 @@
+public instance service Tracking::WorkoutTimer.activate () is
+begin
+  null;
+end service;
