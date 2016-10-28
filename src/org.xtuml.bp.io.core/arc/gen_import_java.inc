@@ -724,6 +724,7 @@ public class ${class_name} extends CoreImport
         String activity_type = "";
         String body = "";
         String signature = "";
+        String port_name = "";
 
         // parse serial MASL
         while ( sc.hasNext() ) {
@@ -731,6 +732,7 @@ public class ${class_name} extends CoreImport
             if ( values[0].equals("routine") ) {
                 if ( !values[4].equals("") ) {
                     name = values[4];
+                    port_name = values[2];
                     activity_type = "routine";
                 }
             }
@@ -789,27 +791,27 @@ public class ${class_name} extends CoreImport
         // call import function
         if ( pmc_root_element instanceof SystemModel_c ) {
             SystemModel_c inst = (SystemModel_c)pmc_root_element;
-            Ooaofooa.S_syssetactions( modelRoot, activity_type, body, inst.getSys_id(), signature );
+            Ooaofooa.S_syssetactions( modelRoot, activity_type, body, "masl", inst.getSys_id(), signature );
         }
         else if ( pmc_root_element instanceof Package_c ) {
             Package_c inst = (Package_c)pmc_root_element;
-            Ooaofooa.Ep_pkgsetactions( modelRoot, activity_type, body, inst.getPackage_id(), signature );
+            Ooaofooa.Ep_pkgsetactions( modelRoot, activity_type, body, "masl", inst.getPackage_id(), signature );
         }
         else if ( pmc_root_element instanceof ModelClass_c ) {
             ModelClass_c inst = (ModelClass_c)pmc_root_element;
-            Ooaofooa.O_objsetactions( modelRoot, activity_type, body, inst.getObj_id(), signature );
+            Ooaofooa.O_objsetactions( modelRoot, activity_type, body, "masl", inst.getObj_id(), signature );
         }
         else if ( pmc_root_element instanceof Component_c ) {
             Component_c inst = (Component_c)pmc_root_element;
-            Ooaofooa.C_csetactions( modelRoot, activity_type, body, inst.getId(), signature );
+            Ooaofooa.C_csetactions( modelRoot, activity_type, body, inst.getId(), "masl", port_name, signature );
         }
         else if ( pmc_root_element instanceof InstanceStateMachine_c ) {
             InstanceStateMachine_c inst = (InstanceStateMachine_c)pmc_root_element;
-            Ooaofooa.Sm_ismsetactions( modelRoot, activity_type, body, signature, inst.getSm_id() );
+            Ooaofooa.Sm_ismsetactions( modelRoot, activity_type, body, "masl", signature, inst.getSm_id() );
         }
         else if ( pmc_root_element instanceof ClassStateMachine_c ) {
             ClassStateMachine_c inst = (ClassStateMachine_c)pmc_root_element;
-            Ooaofooa.Sm_asmsetactions( modelRoot, activity_type, body, signature, inst.getSm_id() );
+            Ooaofooa.Sm_asmsetactions( modelRoot, activity_type, body, "masl", signature, inst.getSm_id() );
         }
         else {
             System.out.println( "Root element type not supported" );
