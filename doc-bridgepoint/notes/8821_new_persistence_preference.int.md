@@ -4,115 +4,95 @@ This work is licensed under the Creative Commons CC0 License
 
 ---
 
-# Title goes here
+# Add preference to activate/deactivate persistence of actions as files
 ### xtUML Project Implementation Note
-
-Note: Each section has a description that states the purpose of that section.
-Delete these section descriptions before checking in your note.  Delete this
-note as well. __If you are using markdown formatting, don't forget to put 2 
-spaces at the end of lines where you want a hard break.__
 
 1. Abstract
 -----------
-In this section, give a summary of the design that this note aims to
-describe.
+Issue #8417 [[2.2]](#2.2) recently introduced a mechanism to store action bodies separately in files apart from the SQL model data. This issue is raised to introduce a preference by which a user can choose to activate this new feature or not. Since #8417 is such a huge paradigm shift, this will be useful in incremental migration and time-testing of the new persistence mechanism.
 
 2. Document References
-----------------------
-In this section, list all the documents that the reader may need to refer to.
-Give the full path to reference a file.  
-<a id="2.1"></a>2.1 [BridgePoint DEI #xxx1](https://support.onefact.net/issues/xxx1) TODO: Add description here.  
-<a id="2.2"></a>2.2 [BridgePoint DEI #xxx2](https://support.onefact.net/issues/xxx2) TODO: Add description here.  
-<a id="2.3"></a>2.3 [BridgePoint DEI #xxx3](https://support.onefact.net/issues/xxx3) TODO: Add description here.  
+---------------------- 
+<a id="2.1"></a>2.1 [#8821 Add preference to activate/deactivate persistence of actions as files](https://support.onefact.net/issues/8821)  
+<a id="2.2"></a>2.2 [#8417 Storing activities as dialect files](https://support.onefact.net/issues/8417)  
 
 3. Background
 -------------
-In this section, outline the important points relating to this issue/bug that
-the reader would need to know in order to understand the rest of this
-document. Here is an example reference to the Document References section [[2.1]](#2.1)
+None
 
 4. Requirements
 ---------------
-This section is only required if there is no preceding design note. 
-If present it describes the requirements that need to be satisfied.  If there 
-is an SRS, this section may refer to it.  Each requirement should be as short 
-and simple as possible and must be clearly defined. Here is an example reference to the Document References section [[2.1]](#2.1)
-
-4.1 Item 1  
-4.1.1 Example sub-item
-* Example List Element
-  * Example Sub list item
-
-4.2 Item 2  
-4.2.1 Example sub-item
-* Example List Element
+4.1 A preference shall be added to toggle between storing activities with the SQL data and in files  
+4.1.1 When enabled, activites shall be stored separately in their own files  
+4.1.2 When disabled, activities shall be stored in the `Action_Semantics` field in the SQL data  
+4.2 The default of the preference shall be disabled (that is actions shall be stored the "old way")  
 
 5. Work Required
 ----------------
-Elaborate on each point of the Work Required section of the design note and
-describe how you implemented each step.  
-If there is no design note, this section, breaks out the consequential work 
-(as a numbered list) needed to meet the requirements specified in the 
-Requirements section. Here is an example reference to the Document References section [[2.1]](#2.1)
+5.1 `BridgePointPreferencesModel.java` and `BridgePointPreferencesStore.java`
 
-5.1 Item 1  
-5.1.1 Example sub-item
-* Example List Element
+Added field to the preferences model for the new activity persistence preference. Added
+code and constants to read and set the value in preferences store. Set the default value
+such that the new persistence is disabled by default.
 
-5.2 Item 2  
-5.2.1 Example sub-item
-* Example List Element
+5.2 `ActionLanguagePreferences.java`
+
+Added UI elements used to set the preference to the "Action Language" preference page.
+
+5.3 `export_functions.inc`
+
+Added a check of the new preference in two places. The first place is in the `write_*_actions`
+routines that are used to write out actions to separate files. This gets skipped unless the persist
+as separate files preference is enabled.
+
+The second place is where `Action_Semantics_internal` fields are written as SQL. In the new
+persistence scheme, the `Action_Semantics_internal` field is output as empty string (and the
+action bodies are printed into separate files). If the new persistence feature is _disabled_,
+the activites are still written into the `Action_Semantics_internal` field in the SQL.
+
+5.4 `gen_import_java.inc`
+
+A check of the preference is wrapped around the routine that sets the actions semantics from
+separate files.
 
 6. Implementation Comments
 --------------------------
-If the design cannot be implemented as written or if it needs some modification,
-enumerate the changes to the design in this section.  If there was no preceding
-design note, then this section documents any deviations from the implementation
-as presented at the pre-implementation engineering review. Here is an example reference to the Document References section [[2.1]](#2.1)
-
-6.1 Item 1  
-```java
-    // java code example
-    public void clearDatabase(IProgressMonitor pm) 
-    {
-        // clear the corresponding graphics-root's database
-        OoaofgraphicsUtil.clearGraphicsDatabase(rootId, pm);
-
-        Ooaofooa.getDefaultInstance().fireModelElementUnloaded(this);
-    }
-```
-6.1.1 Example sub-item
-* Example List Element
-
-6.2 Item 2  
-6.2.1 Example sub-item
-* Example List Element
+None
 
 7. Unit Test
 ------------
-Outline all the unit tests that need to pass and describe the method that you
-will use to design and perform the tests. Here is an example reference to the Document References section [[2.1]](#2.1)
+7.1 Open a test model with action language  
+7.2 Disable persisting actions to separate files in preferences `xtUML` > `Action Language`  
+7.3 Load and perisst (right click, `BridgePoint Utilities` > `Load and Persist`)  
+7.4 Verify on disk that no `.masl` or `.oal` action files were created  
+7.5 In the Java perspective, close and reopen the project  
+7.6 Verify that the action language was loaded properly
 
-7.1 Item 1  
-7.1.1 Example sub-item
-* Example List Element
-
-7.2 Item 2  
-7.2.1 Example sub-item
-* Example List Element
+7.7 Enable persisting actions to separate files in preferences `xtUML` > `Action Language`  
+7.8 Load and perisst (right click, `BridgePoint Utilities` > `Load and Persist`)  
+7.9 Verify on disk that action files were created  
+7.10 Verify that no action language exists in any `.xtuml` file  
+7.11 In the Java perspective, close and reopen the project  
+7.12 Verify that the action language was loaded properly
 
 8. User Documentation
 ---------------------
-Describe the end user documentation that was added for this change. 
+None
 
 9. Code Changes
 ---------------
-Fork/Repository: < enter your fork and repo name name >
-Branch: < enter your branch name here >
+Fork/Repository: leviathan747/bridgepoint
+Branch: 8821_new_persistence_pref
 
 <pre>
 
-< Put the file list here >
+ doc-bridgepoint/notes/8821_new_persistence_preference.int.md
+ src/org.xtuml.bp.core/src/org/xtuml/bp/core/common/BridgePointPreferencesModel.java
+ src/org.xtuml.bp.core/src/org/xtuml/bp/core/common/BridgePointPreferencesStore.java
+ src/org.xtuml.bp.core/src/org/xtuml/bp/core/ui/preferences/ActionLanguagePreferences.java
+ src/org.xtuml.bp.io.core/arc/export_functions.inc
+ src/org.xtuml.bp.io.core/arc/gen_export_java.inc
+ src/org.xtuml.bp.io.core/arc/gen_import_java.inc
 
 </pre>
 
