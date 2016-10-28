@@ -83,6 +83,7 @@ import org.xtuml.bp.ui.canvas.CanvasTransactionListener;
 import org.xtuml.bp.ui.canvas.Ooaofgraphics;
 import org.xtuml.bp.ui.canvas.test.CanvasTest;
 import org.xtuml.bp.ui.graphics.editor.GraphicalEditor;
+import org.xtuml.bp.ui.text.activity.ActivityEditorInputFactory;
 
 @RunWith(OrderedRunner.class)
 public class CopyPasteSourceDestinationTests extends CanvasTest {
@@ -787,7 +788,7 @@ public class CopyPasteSourceDestinationTests extends CanvasTest {
 			}
 			// skip OAL files
 			if(resources[i] instanceof IFile) {
-				if(resources[i].getFileExtension().equals("oal")) {
+				if(resources[i].getFileExtension().equals(ActivityEditorInputFactory.PLACEHOLDER_EXTENSION)) {
 					continue;
 				}
 			}
