@@ -78,6 +78,11 @@
   m_fh.print( "'"); //$$NON-NLS-1$$
       .if ( (((multilevel) AND (not stream)) AND (col.Name == "Action_Semantics_internal")) )
         .// exclude action semantics
+  IPreferenceStore store = org.xtuml.bp.core.CorePlugin.getDefault().getPreferenceStore();
+  String persistActivities = store.getString(BridgePointPreferencesStore.ACTIVITY_PERSISTENCE);
+  if ( persistActivities.equals(BridgePointPreferencesStore.NO_PERSIST_ACTIVITY_FILES) ) {
+      m_fh.print( inst.${a.body}().replaceAll( "'", "''" ) ); //$$NON-NLS-1$$ //$$NON-NLS-2$$
+  }
       .else
   m_fh.print( inst.${a.body}().replaceAll( "'", "''" ) ); //$$NON-NLS-1$$ //$$NON-NLS-2$$
       .end if
@@ -1050,6 +1055,10 @@ ${sql.body}\
 void write_${r.body}_actions(${r.body} inst)
 throws IOException
 {
+IPreferenceStore store = org.xtuml.bp.core.CorePlugin.getDefault().getPreferenceStore();
+String persistActivities = store.getString(BridgePointPreferencesStore.ACTIVITY_PERSISTENCE);
+if ( persistActivities.equals(BridgePointPreferencesStore.PERSIST_ACTIVITY_FILES) ) {
+
 if(inst != null && !inst.isProxy()){
   String smasl = "";
     .if ( "S_SYNC" == action_body.Key_Lett )
@@ -1197,6 +1206,7 @@ if(inst != null && !inst.isProxy()){
       m_afh.print( preface + activity_type + sig_begin + parameter_list + sig_end + codeblock + end ); //$$NON-NLS-1$$
       m_updateActions = true;
   }
+}
 }
 }
   .end for
