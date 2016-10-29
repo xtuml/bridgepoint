@@ -51,7 +51,7 @@ if ( not_empty sm_asm )
       if ( sm_state.getSignature(flavor:1) == signature )
         select one sm_act related by sm_state->SM_MOAH[R511]->SM_AH[R513]->SM_ACT[R514];
         sm_act.Action_Semantics_internal = body;
-        // sm_act.Dialect = dialect;
+        sm_act.Dialect = dialect;
         return;
       end if;
     end for;
@@ -131,7 +131,7 @@ if ( not_empty o_obj )
     for each o_tfr in o_tfrs
       if ( o_tfr.getSignature(flavor:1) == signature )
         o_tfr.Action_Semantics_internal = body;
-        // o_tfr.Dialect = dialect;
+        o_tfr.Dialect = dialect;
         return;
       end if;
     end for;
@@ -212,7 +212,7 @@ if ( not_empty s_sys )
     for each s_sync in s_syncs
       if ( s_sync.getSignature(flavor:1) == signature )
         s_sync.Action_Semantics_internal = body;
-        // s_sync.Dialect = dialect;
+        s_sync.Dialect = dialect;
         return;
       end if;
     end for;
@@ -291,7 +291,7 @@ if ( not_empty ep_pkg )
     for each s_sync in s_syncs
       if ( s_sync.getSignature(flavor:1) == signature )
         s_sync.Action_Semantics_internal = body;
-        // s_sync.Dialect = dialect;
+        s_sync.Dialect = dialect;
         return;
       end if;
     end for;
@@ -370,7 +370,7 @@ if ( not_empty sm_ism )
       if ( sm_state.getSignature(flavor:1) == signature )
         select one sm_act related by sm_state->SM_MOAH[R511]->SM_AH[R513]->SM_ACT[R514];
         sm_act.Action_Semantics_internal = body;
-        // sm_act.Dialect = dialect;
+        sm_act.Dialect = dialect;
         return;
       end if;
     end for;
@@ -452,7 +452,7 @@ if ( not_empty c_c )
     for each s_sync in s_syncs
       if ( s_sync.getSignature(flavor:1) == signature )
         s_sync.Action_Semantics_internal = body;
-        // s_sync.Dialect = dialect;
+        s_sync.Dialect = dialect;
         return;
       end if;
     end for;
@@ -469,13 +469,13 @@ if ( not_empty c_c )
           select one spr_ro related by spr_rep->SPR_RO[R4502];
           if ( not_empty spr_ro )
 			spr_ro.Action_Semantics_internal = body;
-			// spr_ro.Dialect = dialect;
+			spr_ro.Dialect = dialect;
 			return;
           else
             select one spr_rs related by spr_rep->SPR_RS[R4502];
             if ( not_empty spr_rs )
 			  spr_rs.Action_Semantics_internal = body;
-			  // spr_rs.Dialect = dialect;
+			  spr_rs.Dialect = dialect;
 			  return;
             end if;
           end if;
@@ -486,13 +486,13 @@ if ( not_empty c_c )
 			select one spr_po related by spr_pep->SPR_PO[R4503];
 			if ( not_empty spr_po )
 			  spr_po.Action_Semantics_internal = body;
-			  // spr_po.Dialect = dialect;
+			  spr_po.Dialect = dialect;
 			  return;
 			else
 			  select one spr_ps related by spr_pep->SPR_PS[R4503];
 			  if ( not_empty spr_ps )
 				spr_ps.Action_Semantics_internal = body;
-				// spr_ps.Dialect = dialect;
+				spr_ps.Dialect = dialect;
 			    return;
 			  end if;
 			end if;
