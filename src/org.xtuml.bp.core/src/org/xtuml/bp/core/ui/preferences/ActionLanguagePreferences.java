@@ -50,6 +50,9 @@ import org.xtuml.bp.ui.preference.IPreferenceModel;
 public class ActionLanguagePreferences
   extends PreferencePage
   implements IWorkbenchPreferencePage {
+    private Group activityPersistenceGroup;
+    private Button activityPersistenceYesRadio;
+    private Button activityPersistenceNoRadio;
     private Group defaultDialectGroup;
     private Button defaultDialectOALRadio;
     private Button defaultDialectMASLRadio;
@@ -88,11 +91,28 @@ public class ActionLanguagePreferences
     
     composite.setLayout(gl);
 
+    // Create the "activity persistence" group box and set its layout
+    activityPersistenceGroup = new Group(composite, SWT.SHADOW_ETCHED_IN);
+    activityPersistenceGroup.setLayout(gl);
+
+    GridData data = new GridData(GridData.FILL_HORIZONTAL);
+    data.grabExcessHorizontalSpace = true;
+    activityPersistenceGroup.setLayoutData(data);
+
+    // The "activity persistence" group box data
+    activityPersistenceGroup.setText("Persist activities in separate files");
+
+    activityPersistenceYesRadio = new Button(activityPersistenceGroup, SWT.RADIO | SWT.LEFT);
+    activityPersistenceYesRadio.setText("Yes");
+
+    activityPersistenceNoRadio = new Button(activityPersistenceGroup, SWT.RADIO | SWT.LEFT);
+    activityPersistenceNoRadio.setText("No");
+
     // Create the "default dialect" group box and set its layout
     defaultDialectGroup = new Group(composite, SWT.SHADOW_ETCHED_IN);
     defaultDialectGroup.setLayout(gl);
 
-    GridData data = new GridData(GridData.FILL_HORIZONTAL);
+    data = new GridData(GridData.FILL_HORIZONTAL);
     data.grabExcessHorizontalSpace = true;
     defaultDialectGroup.setLayoutData(data);
 
@@ -242,6 +262,15 @@ public class ActionLanguagePreferences
       model.getStore().loadModel(getPreferenceStore(), null, model);
       
       BridgePointPreferencesModel bpPrefs = (BridgePointPreferencesModel) model;
+      if (activityPersistenceYesRadio.getSelection()) {
+          bpPrefs.activityPersistenceAsFiles = BridgePointPreferencesStore.PERSIST_ACTIVITY_FILES;
+      }
+      else if ( activityPersistenceNoRadio.getSelection()) {
+          bpPrefs.activityPersistenceAsFiles = BridgePointPreferencesStore.NO_PERSIST_ACTIVITY_FILES;
+      }
+      else {
+          bpPrefs.activityPersistenceAsFiles = BridgePointPreferencesStore.NO_PERSIST_ACTIVITY_FILES;
+      }
       if (defaultDialectOALRadio.getSelection()) {
           bpPrefs.defaultActionLanguageDialect = BridgePointPreferencesStore.OAL_DIALECT;
       }
@@ -323,6 +352,19 @@ public class ActionLanguagePreferences
       // or defaults) before this function is called.  Calling model.loadModel(...)
       // here would overwrite the population of the default model data in
       // performDefaults().
+
+      if (bpPrefs.activityPersistenceAsFiles.equals(BridgePointPreferencesStore.PERSIST_ACTIVITY_FILES)) {
+          activityPersistenceYesRadio.setSelection(true);
+          activityPersistenceNoRadio.setSelection(false);
+      }
+      else if (bpPrefs.activityPersistenceAsFiles.equals(BridgePointPreferencesStore.NO_PERSIST_ACTIVITY_FILES)) {
+          activityPersistenceYesRadio.setSelection(false);
+          activityPersistenceNoRadio.setSelection(true);
+      }
+      else {
+          activityPersistenceYesRadio.setSelection(false);
+          activityPersistenceNoRadio.setSelection(true);
+      }
 
       if (bpPrefs.defaultActionLanguageDialect.equals(BridgePointPreferencesStore.OAL_DIALECT)) {
           defaultDialectOALRadio.setSelection(true);
