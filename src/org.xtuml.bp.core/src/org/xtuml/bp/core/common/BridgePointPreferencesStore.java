@@ -46,6 +46,7 @@ public class BridgePointPreferencesStore implements IPreferenceModelStore {
     public static final String EXPORT_OAL = PREFIX + "export_oal"; //$NON-NLS-1$
     public static final String EXPORT_GRAPHICS = PREFIX + "export_graphics"; //$NON-NLS-1$
     public static final String MESSAGE_DIRECTION = PREFIX + "message_direction";
+    public static final String ACTIVITY_PERSISTENCE = PREFIX + "activity_persistence";
     public static final String DEFAULT_ACTION_LANGUAGE_DIALECT = PREFIX + "default_action_language_dialect";
     public static final String SHOW_TRANSITION_ACTIONS = PREFIX + "show_transition_actions"; //$NON-NLS-1$
     public static final String SHOW_EVENT_PARAMETERS = PREFIX + "show_event_parameters"; //$NON-NLS-1$
@@ -80,6 +81,9 @@ public class BridgePointPreferencesStore implements IPreferenceModelStore {
 	
 	public static final String OAL_DIALECT = "OAL"; //$NON-NLS-1$
 	public static final String MASL_DIALECT = "MASL"; //$NON-NLS-1$
+
+	public static final String PERSIST_ACTIVITY_FILES = "persist_activity_files";
+	public static final String NO_PERSIST_ACTIVITY_FILES = "no_persist_activity_files";
 		
     public Class getModelClass() {
         return BridgePointPreferencesModel.class;
@@ -107,6 +111,7 @@ public class BridgePointPreferencesStore implements IPreferenceModelStore {
         store.setValue(EXPORT_OAL, prefs.exportOAL);
         store.setValue(EXPORT_GRAPHICS, prefs.exportGraphics);
         store.setValue(MESSAGE_DIRECTION, prefs.messageDirection); 
+        store.setValue(ACTIVITY_PERSISTENCE, prefs.activityPersistenceAsFiles);
         store.setValue(DEFAULT_ACTION_LANGUAGE_DIALECT, prefs.defaultActionLanguageDialect); 
         store.setValue(SHOW_TRANSITION_ACTIONS, prefs.showTransitionActions);
         store.setValue(SHOW_EVENT_PARAMETERS, prefs.showEventParameters);
@@ -182,6 +187,8 @@ public class BridgePointPreferencesStore implements IPreferenceModelStore {
             store.getString(BridgePointPreferencesStore.EXPORT_GRAPHICS);
         prefs.messageDirection =
             store.getString(BridgePointPreferencesStore.MESSAGE_DIRECTION);
+        prefs.activityPersistenceAsFiles =
+            store.getString(BridgePointPreferencesStore.ACTIVITY_PERSISTENCE);
         prefs.defaultActionLanguageDialect =
             store.getString(BridgePointPreferencesStore.DEFAULT_ACTION_LANGUAGE_DIALECT);
         prefs.showTransitionActions =
@@ -266,6 +273,7 @@ public class BridgePointPreferencesStore implements IPreferenceModelStore {
         prefs.exportOAL = MessageDialogWithToggle.NEVER;
         prefs.exportGraphics = MessageDialogWithToggle.ALWAYS;
         prefs.messageDirection = TO_PROVIDER;
+        prefs.activityPersistenceAsFiles = NO_PERSIST_ACTIVITY_FILES;
         prefs.defaultActionLanguageDialect = OAL_DIALECT;
         
         prefs.enableVerifierAudit = false;
