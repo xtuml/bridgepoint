@@ -901,7 +901,7 @@ if ( not_empty sm_evt )
     first_param = parameter;
     while ( not_empty parameter )
       first_param = parameter;
-      select one parameter related by parameter->SM_EVTDI[R533.''''succeeds''''];
+      select one parameter related by parameter->SM_EVTDI[R533.''succeeds''];
     end while;
 
     if( not_empty first_param )
@@ -913,7 +913,7 @@ if ( not_empty sm_evt )
       select one type related by parameter->S_DT[R524];
       signature = signature + separator + type.Name;
       separator = ", ";
-      select one parameter related by parameter->SM_EVTDI[R533.''''precedes''''];
+      select one parameter related by parameter->SM_EVTDI[R533.''precedes''];
     end while;
     if( not_empty first_param )
       signature = signature + ")";

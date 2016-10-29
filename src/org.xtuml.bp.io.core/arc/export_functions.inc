@@ -1209,7 +1209,6 @@ if(inst != null && !inst.isProxy()){
 }
 }
 }
-}
   .end for
 .end function
 
