@@ -315,7 +315,7 @@
 		  .assign dialectAdded = true;
 		.end if
 		.if (dialectAdded)
-			parms.size() < ${attr_col_num} ? removeTics((String)parms.elementAt(${attr_col_num})) : ""\
+			rawParms.size() <= ${attr_col_num} ? "" : removeTics((String)parms.elementAt(${attr_col_num}))\
 		  .assign special_case = true
 		.end if
 	  .end if
