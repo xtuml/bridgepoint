@@ -94,9 +94,6 @@ public class ActionLanguagePreferences
 
     GridData data = new GridData(GridData.FILL_HORIZONTAL);
     data.grabExcessHorizontalSpace = true;
-    
-    data = new GridData(GridData.FILL_HORIZONTAL);
-    data.grabExcessHorizontalSpace = true;
     defaultDialectGroup.setLayoutData(data);
 
     // The "default" group box data
