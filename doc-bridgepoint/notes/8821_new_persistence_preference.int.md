@@ -26,6 +26,7 @@ None
 4.1.1 When enabled, activites shall be stored separately in their own files  
 4.1.2 When disabled, activities shall be stored in the `Action_Semantics` field in the SQL data  
 4.2 The default of the preference shall be disabled (that is actions shall be stored the "old way")  
+4.3 The preference shall not present in the BridgePoint UI, but be configurable  
 
 5. Work Required
 ----------------
@@ -35,11 +36,7 @@ Added field to the preferences model for the new activity persistence preference
 code and constants to read and set the value in preferences store. Set the default value
 such that the new persistence is disabled by default.
 
-5.2 `ActionLanguagePreferences.java`
-
-Added UI elements used to set the preference to the "Action Language" preference page.
-
-5.3 `export_functions.inc`
+5.2 `export_functions.inc`
 
 Added a check of the new preference in two places. The first place is in the `write_*_actions`
 routines that are used to write out actions to separate files. This gets skipped unless the persist
@@ -50,10 +47,14 @@ persistence scheme, the `Action_Semantics_internal` field is output as empty str
 action bodies are printed into separate files). If the new persistence feature is _disabled_,
 the activites are still written into the `Action_Semantics_internal` field in the SQL.
 
-5.4 `gen_import_java.inc`
+5.3 `gen_import_java.inc`
 
 A check of the preference is wrapped around the routine that sets the actions semantics from
 separate files.
+
+5.4 `plugin_customization.ini`
+
+Add the default value to be "no_persist_activity_files"
 
 6. Implementation Comments
 --------------------------
@@ -61,19 +62,31 @@ None
 
 7. Unit Test
 ------------
-7.1 Open a test model with action language  
-7.2 Disable persisting actions to separate files in preferences `xtUML` > `Action Language`  
-7.3 Load and perisst (right click, `BridgePoint Utilities` > `Load and Persist`)  
-7.4 Verify on disk that no `.masl` or `.oal` action files were created  
-7.5 In the Java perspective, close and reopen the project  
-7.6 Verify that the action language was loaded properly
+7.1 Test old persistence  
+7.1.1 Open a test model with action language (GPS Watch or Microwave Oven will work)  
+7.1.2 Load and persist (right click, `BridgePoint Utilities` > `Load and Persist`)  
+7.1.3 Verify on disk that no `.masl` or `.oal` action files were created  
+7.1.4 In the Java perspective, close and reopen the project  
+7.1.5 Verify that the action language was loaded properly
 
-7.7 Enable persisting actions to separate files in preferences `xtUML` > `Action Language`  
-7.8 Load and perisst (right click, `BridgePoint Utilities` > `Load and Persist`)  
-7.9 Verify on disk that action files were created  
-7.10 Verify that no action language exists in any `.xtuml` file  
-7.11 In the Java perspective, close and reopen the project  
-7.12 Verify that the action language was loaded properly
+7.2 Test new persistence  
+7.2.1 Close BridgePoint. Enable persistence in separate files by editing
+`org.xtuml.bp.pkg/plugin_customization.ini` such that the line
+`org.xtuml.bp.core/bridgepoint_prefs_activity_persistence=no_persist_activity_files`
+becomes
+`org.xtuml.bp.core/bridgepoint_prefs_activity_persistence=persist_activity_files`  
+7.2.2 Restart BridgePoint.  
+7.2.3 Load and persist (right click, `BridgePoint Utilities` > `Load and Persist`)  
+7.2.4 Verify on disk that action files were created  
+7.2.5 Verify that no action language exists in any `.xtuml` file  
+7.2.6 In the Java perspective, close and reopen the project  
+7.2.7 Verify that the action language was loaded properly
+
+_Testing tip: When manually testing features that must affect persisted files
+on disk in very particulary ways, it is often times good to initialize a git
+repository with the test models. In this way, it is very easy to see when
+`.masl` files are created and when the action language is removed from the
+`.xtuml` files._
 
 8. User Documentation
 ---------------------
@@ -86,13 +99,14 @@ Branch: 8821_new_persistence_pref
 
 <pre>
 
- doc-bridgepoint/notes/8821_new_persistence_preference.int.md
- src/org.xtuml.bp.core/src/org/xtuml/bp/core/common/BridgePointPreferencesModel.java
- src/org.xtuml.bp.core/src/org/xtuml/bp/core/common/BridgePointPreferencesStore.java
- src/org.xtuml.bp.core/src/org/xtuml/bp/core/ui/preferences/ActionLanguagePreferences.java
- src/org.xtuml.bp.io.core/arc/export_functions.inc
- src/org.xtuml.bp.io.core/arc/gen_export_java.inc
- src/org.xtuml.bp.io.core/arc/gen_import_java.inc
+ doc-bridgepoint/notes/8821_new_persistence_preference.int.md                        | 116 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ src/org.xtuml.bp.core/src/org/xtuml/bp/core/common/BridgePointPreferencesModel.java |   3 +++
+ src/org.xtuml.bp.core/src/org/xtuml/bp/core/common/BridgePointPreferencesStore.java |   8 ++++++++
+ src/org.xtuml.bp.io.core/arc/export_functions.inc                                   |  10 ++++++++++
+ src/org.xtuml.bp.io.core/arc/gen_export_java.inc                                    |   1 +
+ src/org.xtuml.bp.io.core/arc/gen_import_java.inc                                    |  85 +++++++++++++++++++++++++++++++++++++++++++++----------------------------------------
+ src/org.xtuml.bp.pkg/plugin_customization.ini                                       |   1 +
+ 7 files changed, 184 insertions(+), 40 deletions(-)
 
 </pre>
 
