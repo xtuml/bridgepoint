@@ -1,0 +1,4 @@
+public  service UI::TestCase.execute () is
+begin
+  null;
+end service;

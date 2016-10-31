@@ -27,6 +27,7 @@ import org.xtuml.bp.core.Component_c;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.Delegation_c;
 import org.xtuml.bp.core.ExecutableProperty_c;
+import org.xtuml.bp.core.InstanceStateMachine_c;
 import org.xtuml.bp.core.InterfaceReference_c;
 import org.xtuml.bp.core.InterfaceSignal_c;
 import org.xtuml.bp.core.Interface_c;
@@ -153,15 +154,54 @@ public class ComponentContextMenuTests2 extends BaseTest {
 		}
 		wd.close();
 	}
+
+	@Test
+	public void testContextMenuAssignSignalOnSM_TXN() {
+		ModelClass_c csm_cut = ModelClass_c.ModelClassInstance(modelRoot, new ClassQueryInterface_c() {
+			public boolean evaluate(Object candidate) {
+				return ((ModelClass_c) candidate).getName().equals("Class_With_CSM");
+			}
+
+		});
+
+		ModelClass_c ism_cut = ModelClass_c.ModelClassInstance(modelRoot, new ClassQueryInterface_c() {
+			public boolean evaluate(Object candidate) {
+				return ((ModelClass_c) candidate).getName().equals("Class_With_ISM");
+			}
+
+		});
+
+		assertNotNull(csm_cut);
+		assertNotNull(ism_cut);
+		Transition_c csm_trans_obj = Transition_c
+				.getOneSM_TXNOnR505(StateMachine_c.getManySM_SMsOnR517(ClassStateMachine_c.getManySM_ASMsOnR519(csm_cut)));
+		Transition_c ism_trans_obj = Transition_c
+				.getOneSM_TXNOnR505(StateMachine_c.getManySM_SMsOnR517(InstanceStateMachine_c.getManySM_ISMsOnR518(ism_cut)));
+
+		//check available
+		checkContextMenuAssignSignalActionOnSM_TXN(csm_trans_obj, true);
+		checkContextMenuAssignSignalActionOnSM_TXN(ism_trans_obj, false);
+	}
+
+	private void checkContextMenuAssignSignalActionOnSM_TXN(Transition_c obj, boolean expected) {
+		assertNotNull(obj);
+
+		editor = UITestingUtilities.addElementToGraphicalSelection(obj);
+
+		// get the menu from the SWT Canvas
+		Menu menu = editor.getCanvas().getMenu();
+
+		// check the status of the action
+		assertEquals(expected, UITestingUtilities.checkItemStatusInContextMenu(menu, "Assign Signal", "", m_readonly));
+	}
+
 	@Test
 	public void testContextMenuAssignSignalActionOnSM_TXNCantUseSameTwice() {
-// See 	Redmine issue 8579	
-//		performContextMenuAssignSignalActionOnSM_TXNCantUseSameTwice("owner_state", "Port_CMT");
+		performContextMenuAssignSignalActionOnSM_TXNCantUseSameTwice("owner_state", "Port_CMT");
 	}
 	@Test
 	public void testContextMenuAssignSignalActionOnSM_TXNCantUseSameTwiceInnerComponent() {
-		// See 	Redmine issue 8579	
-		//		performContextMenuAssignSignalActionOnSM_TXNCantUseSameTwice("Destination Test State", "IC_Port_CMT");
+		performContextMenuAssignSignalActionOnSM_TXNCantUseSameTwice("Destination Test State", "IC_Port_CMT");
 	}
 	private void performContextMenuAssignSignalActionOnSM_TXNCantUseSameTwice(final String stateName,
 			final String portName) {

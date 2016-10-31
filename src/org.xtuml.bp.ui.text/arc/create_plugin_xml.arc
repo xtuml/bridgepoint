@@ -108,12 +108,6 @@ This file is the plugin manifest for the BridgePoint core plugin.
            class="org.xtuml.bp.ui.text.editor.oal.preference.OALEditorPreferencesPage"
             name="Activity Editor">
        </page>
-       <page
-           category="org.xtuml.bp.core.root"
-           id="org.xtuml.bp.ui.text.editor.preference.DefaultActivityEditorPreferencesPage"
-           class="org.xtuml.bp.ui.text.editor.preference.DefaultActivityEditorPreferencesPage"
-            name="Default Activity Editor">
-       </page>
    </extension>
 
    <extension

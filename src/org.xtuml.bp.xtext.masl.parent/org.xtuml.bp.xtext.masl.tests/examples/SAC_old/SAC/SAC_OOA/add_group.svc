@@ -1,0 +1,21 @@
+//
+// Filename: add_group.svc
+//
+// Description: Allows a group to be added to the domain. Groups are
+//              collections of operations that can be performed on the
+//              system.
+//
+// UK Crown Copyright (c) 2010. All rights reserved.
+//
+public service SAC::add_group (group_name : in  string) is
+the_group : instance of Group;
+
+begin
+   
+   the_group := find_one Group(group_name = group_name);
+   if the_group = null then
+      the_group := create unique Group(group_name => group_name);
+      Operator~>report_group(group_name);
+   end if;
+   
+end service;

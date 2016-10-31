@@ -1,0 +1,95 @@
+//
+// UK Crown Copyright (c) 2016. All rights reserved.
+//
+
+//! Example Instance Population
+private service PSC::Example_Instance_Population_1 () is
+  four_star_fuel_grade : instance of FUEL_GRADE; 
+  unleaded_fuel_grade : instance of FUEL_GRADE; 
+  tank_1001 : instance of TANK; 
+  tank_1002 : instance of TANK; 
+  pump_1 : instance of PUMP; 
+  pump_2 : instance of PUMP; 
+  pump_3 : instance of PUMP; 
+  pump : instance of PUMP; 
+  tank : instance of TANK;
+begin
+  //# Populate Petrol Station Control domain with the initial
+  //# configuration. This station supplies two grades of fuel 
+  //# "Four Star" & "Unleaded". This station has two petrol 
+  //# storage tanks one containing "Four Star" the other 
+  //# "Unleaded". This station has three petrol pumps  
+  //# pump 1 is supplied with "Four Star",  pumps 2 & 3 are 
+  //# supplied with "Unleaded"
+  
+  //# First instantiate 2 tanks which supply different fuel 
+  //# grades.
+  
+  four_star_fuel_grade := create FUEL_GRADE (
+	Grade_Name => "Four Star", 
+	Unit_Price => 62.9);
+  
+  unleaded_fuel_grade := create FUEL_GRADE (
+	Grade_Name => "Unleaded", 
+	Unit_Price => 59.5);
+  
+  tank_1001 := create TANK (
+	Tank_Number => 1001, 
+	Tank_Empty_Flag => true, 
+	Tank_Level => 0.0, 
+	Tank_Capacity => 100000.0, 
+	Empty_Threshold => 4.0, 
+	Current_State => Waiting_For_Tanker_Delivery);
+  
+  tank_1002 := create TANK (
+	Tank_Number => 1002, 
+	Tank_Empty_Flag => false, 
+	Tank_Level => 10000.0, 
+	Tank_Capacity => 200000.0, 
+	Empty_Threshold => 4.0, 
+	Current_State => Reset_waiting_pumps);
+  
+  link four_star_fuel_grade R2 tank_1001;
+  link unleaded_fuel_grade R2 tank_1002;
+  
+  //# Create Pump 1 that supplies Four Star
+  
+  pump_1 := create PUMP (
+	Pump_Number => 1, 
+	Current_State => Waiting_For_Customer);
+  
+  link pump_1 R1 tank_1001;
+  
+  //# Create Pumps 2 & 3 that supply Unleaded
+  
+  pump_2 := create PUMP (
+	Pump_Number => 2, 
+	Current_State => Waiting_For_Customer);
+  
+  pump_3 := create PUMP (
+	Pump_Number => 3, 
+	Current_State => Waiting_For_Customer);
+  
+  link pump_2 R1 tank_1002;
+  link pump_3 R1 tank_1002;
+
+
+  for t in 1..100 loop
+    tank := create TANK (
+      Tank_Number => t,
+      Tank_Empty_Flag => false,
+      Tank_Level => real(t)*10.0,
+      Tank_Capacity => real(t)*10.0+50.0,
+      Empty_Threshold => real(t)/10.0,
+      Current_State => Reset_waiting_pumps);
+
+
+    for p in  1..1000 loop
+      pump := create PUMP ( Pump_Number => t*1000+p, Current_State => Waiting_For_Customer );
+
+      link pump R1 tank;
+
+    end loop;
+  end loop;
+
+end service;

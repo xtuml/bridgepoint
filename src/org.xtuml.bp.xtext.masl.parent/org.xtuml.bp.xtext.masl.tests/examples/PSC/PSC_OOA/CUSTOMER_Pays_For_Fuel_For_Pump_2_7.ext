@@ -1,0 +1,22 @@
+//
+// UK Crown Copyright (c) 2016. All rights reserved.
+//
+
+//! CUSTOMER Pays For Fuel For Pump 2
+private service PSC::CUSTOMER_Pays_For_Fuel_For_Pump_2_7 () is
+  pump_instance : instance of PUMP; 
+  current_pending_transaction : instance of PENDING_TRANSACTION; 
+  current_transaction : instance of TRANSACTION; 
+
+begin
+  //# Customer pays for fuel for Pump 2
+  
+  pump_instance := find_one PUMP (Pump_Number = 2);
+  
+  current_pending_transaction := pump_instance->R9;
+  
+  if current_pending_transaction /= null then
+  	current_transaction := current_pending_transaction->R4;
+  	generate TRANSACTION.Payment_Received() to current_transaction;
+  end if;
+end service;

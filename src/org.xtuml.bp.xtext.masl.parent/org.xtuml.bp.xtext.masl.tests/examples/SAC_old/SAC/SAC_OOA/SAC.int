@@ -1,0 +1,61 @@
+//
+// Filename: SAC.int
+//
+// Description: System Access Control
+//
+//
+// UK Crown Copyright (c) 2010-2012,2014. All rights reserved.
+//
+domain SAC is
+  // Allows a user to log into the system. The groups that the
+  // user belongs to are specifed and the domain checks that they
+  // are valid. If they are valid a session is created and the
+  // user is provided with a session id.  If there are invalid
+  // the user is informed of the failure to logon.
+  public service user_logon (user_id              : in  integer,
+                             login_name           : in  string,
+                             user_name            : in  string,
+                             workstation_hostname : in  string,
+                             groups               : in  sequence of string); pragma soa_remote ("");
+
+  // Allows the user to inform the domainthat they have logged
+  // off. The domain shall delet the session and if teh user is
+  // involved in no other session then it shall delete the user.
+  public service user_logoff (session_id : in  integer,
+                              user_id    : in  integer,
+                              login_name : in  string); pragma soa_remote ("");
+
+  // Allows a group to be added to the domain. Groups are
+  // collections of operations that can be performed on the
+  // system.
+  public service add_group (group_name : in  string); pragma soa_remote ("");
+
+  // Allows an operation to be associated with a group. If the
+  // operation does not exist then it is created.
+  public service add_operation_to_group (group_name : in  string,
+                                         operations : in  sequence of string); pragma soa_remote ("");
+
+  // Allows the user to indicate that the session is still
+  // ongoing.
+  public service session_active (session_id : in  integer,
+                                 user_id    : in  integer,
+                                 login_name : in  string); pragma soa_remote ("");
+
+  // Allows a group to be deleted from the domain.
+  public service delete_group (group_name : in  string); pragma soa_remote ("");
+
+  // Allows the domain to remove an operation from the specified
+  // group
+  public service delete_group_operation (group_name : in  string,
+                                         operations : in  sequence of string); pragma soa_remote ("");
+
+  // This shall load the groups and the operations assigned to
+  // the groups
+  public service populate_domain (reload_config_files : in  boolean); pragma soa_remote ("");
+
+  // This allows the domain to repopulate the user with all the
+  // information it is currently storing
+  public service resend_infos (); pragma soa_remote ("transient");
+
+end domain;
+pragma number (59);

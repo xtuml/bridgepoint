@@ -1,0 +1,13 @@
+//
+// Filename: resend_infos_3.scn
+//
+// Description: resend infos
+//
+// UK Crown Copyright (c) 2010. All rights reserved.
+//
+private service SAC::resend_infos_3 () is
+begin
+   
+   SAC::resend_infos();
+   
+end service;

@@ -1,0 +1,18 @@
+//
+// Filename: SAC_OP_login_valid.tr
+//
+// Description: 
+//
+// UK Crown Copyright (c) 2010,2014. All rights reserved.
+//
+private service SAC::Operator~>login_valid (session_id           : in  integer,
+                                            user_id              : in  integer,
+                                            is_valid             : in  boolean,
+                                            failure_reason       : in  string,
+                                            workstation_hostname : in  string,
+                                            login_name           : in  string) is
+begin
+   
+   I_ODGUI::login_valid(user_id, session_id, is_valid, failure_reason, workstation_hostname, login_name);
+   
+end service;

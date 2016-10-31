@@ -1,0 +1,4 @@
+private service SAC::Operator~>report_user (        user_id : in integer,        login_name : in string,        user_name : in string,        logged_on : in logged_on_type) is 
+begin
+  null;
+end service;

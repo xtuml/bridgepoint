@@ -47,6 +47,7 @@ public class BridgePointPreferences
     private Button showReferenceDeletionWarning;
     private Button showReferenceSynchronizationReport;
     private Button useDefaultNamesForNewModelElements;
+    private Button requireMaslStyleIdentifiers;
     private Button createGraphicsDuringImport;
     private Button enableModelIntegrityCheck;
     
@@ -132,6 +133,11 @@ public class BridgePointPreferences
     useDefaultNamesForNewModelElements.setLayoutData(new GridData());
     useDefaultNamesForNewModelElements.setToolTipText("Shows the rename dialog automatically during new model element creation when not enabled.");
 
+    requireMaslStyleIdentifiers = new Button(composite, SWT.CHECK | SWT.LEFT);
+    requireMaslStyleIdentifiers.setText("Require MASL-style identifiers for model elements");
+    requireMaslStyleIdentifiers.setLayoutData(new GridData());
+    requireMaslStyleIdentifiers.setToolTipText("This preference restricts element names to conform to the MASL standard following the BNF rule:\n  ( Letter | '_' )( Letter | Digit | '_' )*;\n\nIdentifiers may only contain letters, numbers, and underscores.  Spaces, hyphens, and other characters are not allowed.");
+
     createGraphicsDuringImport = new Button(composite, SWT.CHECK | SWT.LEFT);
     createGraphicsDuringImport.setText("Create graphics during import");
     createGraphicsDuringImport.setLayoutData(new GridData());
@@ -186,6 +192,7 @@ public class BridgePointPreferences
         bpPrefs.showReferenceRemovalDialog = showReferenceDeletionWarning.getSelection();
         bpPrefs.showReferenceSyncReport = showReferenceSynchronizationReport.getSelection();
         bpPrefs.useDefaultNamesForNewModelElements = useDefaultNamesForNewModelElements.getSelection();
+        bpPrefs.requireMaslStyleIdentifiers = requireMaslStyleIdentifiers.getSelection();
         bpPrefs.createGraphicsDuringImport = createGraphicsDuringImport.getSelection();
         bpPrefs.enableModelIntegrityCheck = enableModelIntegrityCheck.getSelection();
         model.getStore().saveModel(getPreferenceStore(), model);
@@ -228,6 +235,7 @@ public class BridgePointPreferences
         showReferenceDeletionWarning.setSelection(bpPrefs.showReferenceRemovalDialog);
         showReferenceSynchronizationReport.setSelection(bpPrefs.showReferenceSyncReport);
         useDefaultNamesForNewModelElements.setSelection(bpPrefs.useDefaultNamesForNewModelElements);          
+        requireMaslStyleIdentifiers.setSelection(bpPrefs.requireMaslStyleIdentifiers);
         createGraphicsDuringImport.setSelection(bpPrefs.createGraphicsDuringImport);          
         enableModelIntegrityCheck.setSelection(bpPrefs.enableModelIntegrityCheck);          
     }

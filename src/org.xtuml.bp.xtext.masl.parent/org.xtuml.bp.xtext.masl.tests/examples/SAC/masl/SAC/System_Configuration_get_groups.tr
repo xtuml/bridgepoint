@@ -1,0 +1,33 @@
+private service SAC::System_Configuration~>get_groups (        groups : out sequence of group_type) is 
+the_data : sequence of INI::data_item_type;
+the_indexed_data : sequence of INI::data_item_type;
+empty_indexed_data : sequence of INI::data_item_type;
+the_group_name : string;
+operation_name : string;
+operation_names : sequence of string;
+empty_operation_names : sequence of string;
+
+begin
+   
+   INI::get_data("group", the_data);
+   for data in the_data'elements loop
+      for a_name_value in data.name_value'elements loop
+         if a_name_value.name = "group name" then
+            the_group_name := a_name_value.value;
+         end if;
+      end loop;
+      INI::get_indexed_data("group operation", data.index, data.index_dtr_name, data.index_config_file, the_indexed_data);
+      for an_indexed_data in the_indexed_data'elements loop
+         for a_name_value in an_indexed_data.name_value'elements loop
+            if a_name_value.name = "operation name" then
+               operation_name := a_name_value.value;
+            end if;
+            operation_names := operation_names & operation_name;
+         end loop;
+      end loop;
+      groups := groups & (the_group_name, operation_names);
+      operation_names := empty_operation_names;
+      the_indexed_data := empty_indexed_data;
+   end loop;   
+   
+end service;

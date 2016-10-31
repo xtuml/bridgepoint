@@ -298,6 +298,20 @@ INSERT INTO O_TFR
 	1,
 	'',
 	"bdb8a64d-4180-45ff-ba98-cba5028c931f");
+INSERT INTO O_TFR
+	VALUES ("4690d46f-fc87-41bc-9c30-6d92d446ce95",
+	"5abf1386-4a94-4a45-a9e4-cd8f42a1a63a",
+	'get_name',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	1,
+	'select one symb_cnst related by self->CNST_LFSC[R1503]->CNST_SYC[R1502];
+
+return symb_cnst.Name;
+',
+	1,
+	'',
+	"3b350c62-1e8a-4bef-ae84-2305508021d0");
 INSERT INTO O_NBATTR
 	VALUES ("6e5a5eff-cd31-48e6-897d-853878d5065f",
 	"5abf1386-4a94-4a45-a9e4-cd8f42a1a63a");

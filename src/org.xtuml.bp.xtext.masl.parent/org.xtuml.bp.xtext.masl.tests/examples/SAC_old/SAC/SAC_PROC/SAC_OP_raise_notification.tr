@@ -1,0 +1,14 @@
+//
+// Filename: SAC_OP_raise_notification.tr
+//
+// Description: 
+//
+// UK Crown Copyright (c) 2012. All rights reserved.
+//
+private service SAC::Operator~>raise_notification (condition_description : in  string,
+                                                   condition_name        : in  string) is
+begin
+   
+   NTF::Condition_Notification(condition_description, condition_name);
+   
+end service;

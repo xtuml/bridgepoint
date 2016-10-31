@@ -1,0 +1,6 @@
+private service SAC::System_Configuration~>reload_config_files () is 
+begin
+   
+   INI::reload_ini_files();
+   
+end service;
