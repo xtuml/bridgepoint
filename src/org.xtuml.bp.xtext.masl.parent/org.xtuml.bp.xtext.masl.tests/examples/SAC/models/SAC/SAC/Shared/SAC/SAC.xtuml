@@ -1,343 +1,343 @@
 -- BP 7.1.6 content: Interface syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO C_I
-	VALUES ("2695ea25-6146-4551-b01c-c8057eb7fe4e",
+	VALUES ("3e33176c-4850-4d13-8b4b-9d6fae1e6b58",
 	"00000000-0000-0000-0000-000000000000",
 	'SAC',
 	'');
 INSERT INTO C_EP
-	VALUES ("c6ee5050-904f-46d3-b97d-2b917375592a",
-	"2695ea25-6146-4551-b01c-c8057eb7fe4e",
+	VALUES ("fad7bbd2-1f60-4620-8479-b8d5bf7eb09e",
+	"3e33176c-4850-4d13-8b4b-9d6fae1e6b58",
 	0,
 	'user_logon',
 	'');
 INSERT INTO C_IO
-	VALUES ("c6ee5050-904f-46d3-b97d-2b917375592a",
-	"74e232d3-5507-442f-b077-64cfb47b0db1",
+	VALUES ("fad7bbd2-1f60-4620-8479-b8d5bf7eb09e",
+	"c0bd7d90-9205-44d9-a5ff-b3ea8549a729",
 	'user_logon',
 	'',
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000");
 INSERT INTO S_DT_PROXY
-	VALUES ("74e232d3-5507-442f-b077-64cfb47b0db1",
+	VALUES ("c0bd7d90-9205-44d9-a5ff-b3ea8549a729",
 	"00000000-0000-0000-0000-000000000000",
 	'void',
 	'',
 	'',
 	'../../../types/types.xtuml');
 INSERT INTO C_PP
-	VALUES ("1190b5be-9d33-43ea-a07d-e2b070de10a3",
-	"c6ee5050-904f-46d3-b97d-2b917375592a",
-	"7ac1b5a2-d8ad-4a1a-9c45-0de62a9d0fe2",
+	VALUES ("d4b38ab7-46cf-4681-9b17-6fd0b6014744",
+	"fad7bbd2-1f60-4620-8479-b8d5bf7eb09e",
+	"3c55df8c-d911-4252-be6d-e947d6bc0fd6",
 	'user_id',
 	'',
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000");
 INSERT INTO S_DT_PROXY
-	VALUES ("7ac1b5a2-d8ad-4a1a-9c45-0de62a9d0fe2",
+	VALUES ("3c55df8c-d911-4252-be6d-e947d6bc0fd6",
 	"00000000-0000-0000-0000-000000000000",
 	'integer',
 	'',
 	'',
 	'../../../types/types.xtuml');
 INSERT INTO C_PP
-	VALUES ("b7fe6832-d7a6-4f45-9997-68b855301175",
-	"c6ee5050-904f-46d3-b97d-2b917375592a",
-	"d489cd90-31b7-4737-8c15-2d09a06a18b1",
+	VALUES ("a0b2838d-2828-488d-9686-3db95a49fd44",
+	"fad7bbd2-1f60-4620-8479-b8d5bf7eb09e",
+	"61475a14-7431-4460-8c53-4608786b81e6",
 	'login_name',
 	'',
 	0,
 	'',
-	"1190b5be-9d33-43ea-a07d-e2b070de10a3");
+	"d4b38ab7-46cf-4681-9b17-6fd0b6014744");
 INSERT INTO S_DT_PROXY
-	VALUES ("d489cd90-31b7-4737-8c15-2d09a06a18b1",
+	VALUES ("61475a14-7431-4460-8c53-4608786b81e6",
 	"00000000-0000-0000-0000-000000000000",
 	'string',
 	'',
 	'',
 	'../../../types/types.xtuml');
 INSERT INTO C_PP
-	VALUES ("c518947d-1fe2-4876-9ac2-b0aabfe9433e",
-	"c6ee5050-904f-46d3-b97d-2b917375592a",
-	"d489cd90-31b7-4737-8c15-2d09a06a18b1",
+	VALUES ("5c79029e-83b0-458f-adc5-b2c230647f28",
+	"fad7bbd2-1f60-4620-8479-b8d5bf7eb09e",
+	"61475a14-7431-4460-8c53-4608786b81e6",
 	'user_name',
 	'',
 	0,
 	'',
-	"b7fe6832-d7a6-4f45-9997-68b855301175");
+	"a0b2838d-2828-488d-9686-3db95a49fd44");
 INSERT INTO C_PP
-	VALUES ("26690270-c0da-4562-ad34-e11d1d57968b",
-	"c6ee5050-904f-46d3-b97d-2b917375592a",
-	"d489cd90-31b7-4737-8c15-2d09a06a18b1",
+	VALUES ("4f98431c-8b67-4ac0-a28e-cab077efe708",
+	"fad7bbd2-1f60-4620-8479-b8d5bf7eb09e",
+	"61475a14-7431-4460-8c53-4608786b81e6",
 	'workstation_hostname',
 	'',
 	0,
 	'',
-	"c518947d-1fe2-4876-9ac2-b0aabfe9433e");
+	"5c79029e-83b0-458f-adc5-b2c230647f28");
 INSERT INTO C_PP
-	VALUES ("9a05c562-971a-4c18-b0ac-b1cf2b05393f",
-	"c6ee5050-904f-46d3-b97d-2b917375592a",
-	"8a1f6b53-637b-4797-bfe8-a855ecf46948",
+	VALUES ("9c226cc7-1eb9-4ee6-9c1b-c3e1caae948d",
+	"fad7bbd2-1f60-4620-8479-b8d5bf7eb09e",
+	"cb77835f-4604-4bbb-95da-6c89f781a665",
 	'groups',
 	'',
 	0,
 	'',
-	"26690270-c0da-4562-ad34-e11d1d57968b");
+	"4f98431c-8b67-4ac0-a28e-cab077efe708");
 INSERT INTO S_DT_PROXY
-	VALUES ("8a1f6b53-637b-4797-bfe8-a855ecf46948",
+	VALUES ("cb77835f-4604-4bbb-95da-6c89f781a665",
 	"00000000-0000-0000-0000-000000000000",
 	'sequence of string',
 	'',
 	'',
 	'../Shared.xtuml');
 INSERT INTO C_EP
-	VALUES ("5c155d1f-4849-4346-bff4-876bec11df74",
-	"2695ea25-6146-4551-b01c-c8057eb7fe4e",
+	VALUES ("206e2f27-a1cc-4f3c-8d45-23f3c321d8fc",
+	"3e33176c-4850-4d13-8b4b-9d6fae1e6b58",
 	0,
 	'user_logoff',
 	'');
 INSERT INTO C_IO
-	VALUES ("5c155d1f-4849-4346-bff4-876bec11df74",
-	"74e232d3-5507-442f-b077-64cfb47b0db1",
+	VALUES ("206e2f27-a1cc-4f3c-8d45-23f3c321d8fc",
+	"c0bd7d90-9205-44d9-a5ff-b3ea8549a729",
 	'user_logoff',
 	'',
 	0,
 	'',
-	"c6ee5050-904f-46d3-b97d-2b917375592a");
+	"fad7bbd2-1f60-4620-8479-b8d5bf7eb09e");
 INSERT INTO C_PP
-	VALUES ("886b41fe-db1a-42d8-a825-d02b77cd6e28",
-	"5c155d1f-4849-4346-bff4-876bec11df74",
-	"7ac1b5a2-d8ad-4a1a-9c45-0de62a9d0fe2",
+	VALUES ("cc5b8037-bb65-42b2-accb-faf7942edf61",
+	"206e2f27-a1cc-4f3c-8d45-23f3c321d8fc",
+	"3c55df8c-d911-4252-be6d-e947d6bc0fd6",
 	'session_id',
 	'',
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000");
 INSERT INTO C_PP
-	VALUES ("644a7fa6-e850-4876-828e-bacce66ba52e",
-	"5c155d1f-4849-4346-bff4-876bec11df74",
-	"7ac1b5a2-d8ad-4a1a-9c45-0de62a9d0fe2",
+	VALUES ("5ac19acd-0a64-4562-9ef2-3c6f531f8c80",
+	"206e2f27-a1cc-4f3c-8d45-23f3c321d8fc",
+	"3c55df8c-d911-4252-be6d-e947d6bc0fd6",
 	'user_id',
 	'',
 	0,
 	'',
-	"886b41fe-db1a-42d8-a825-d02b77cd6e28");
+	"cc5b8037-bb65-42b2-accb-faf7942edf61");
 INSERT INTO C_PP
-	VALUES ("39c1b856-26db-4464-920d-2d85df89d3cb",
-	"5c155d1f-4849-4346-bff4-876bec11df74",
-	"d489cd90-31b7-4737-8c15-2d09a06a18b1",
+	VALUES ("96428552-499d-41b1-bfdc-0d8e62807f60",
+	"206e2f27-a1cc-4f3c-8d45-23f3c321d8fc",
+	"61475a14-7431-4460-8c53-4608786b81e6",
 	'login_name',
 	'',
 	0,
 	'',
-	"644a7fa6-e850-4876-828e-bacce66ba52e");
+	"5ac19acd-0a64-4562-9ef2-3c6f531f8c80");
 INSERT INTO C_EP
-	VALUES ("0aae3d15-8695-4295-b39c-c0b3c3bdfce3",
-	"2695ea25-6146-4551-b01c-c8057eb7fe4e",
+	VALUES ("7e90fbae-580b-4893-bc43-42d123d68fee",
+	"3e33176c-4850-4d13-8b4b-9d6fae1e6b58",
 	0,
 	'add_group',
 	'');
 INSERT INTO C_IO
-	VALUES ("0aae3d15-8695-4295-b39c-c0b3c3bdfce3",
-	"74e232d3-5507-442f-b077-64cfb47b0db1",
+	VALUES ("7e90fbae-580b-4893-bc43-42d123d68fee",
+	"c0bd7d90-9205-44d9-a5ff-b3ea8549a729",
 	'add_group',
 	'',
 	0,
 	'',
-	"5c155d1f-4849-4346-bff4-876bec11df74");
+	"206e2f27-a1cc-4f3c-8d45-23f3c321d8fc");
 INSERT INTO C_PP
-	VALUES ("4cbeac1a-30cc-41ed-9ad4-cbcff3413086",
-	"0aae3d15-8695-4295-b39c-c0b3c3bdfce3",
-	"d489cd90-31b7-4737-8c15-2d09a06a18b1",
+	VALUES ("f1d523c7-3a83-44a2-9d6b-e01493fac923",
+	"7e90fbae-580b-4893-bc43-42d123d68fee",
+	"61475a14-7431-4460-8c53-4608786b81e6",
 	'group_name',
 	'',
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000");
 INSERT INTO C_EP
-	VALUES ("e4607a2a-5c2a-4785-bf4e-3ab7a5efd54f",
-	"2695ea25-6146-4551-b01c-c8057eb7fe4e",
+	VALUES ("9649a543-50dc-4491-8d2f-7b4491f27b8f",
+	"3e33176c-4850-4d13-8b4b-9d6fae1e6b58",
 	0,
 	'add_operation_to_group',
 	'');
 INSERT INTO C_IO
-	VALUES ("e4607a2a-5c2a-4785-bf4e-3ab7a5efd54f",
-	"74e232d3-5507-442f-b077-64cfb47b0db1",
+	VALUES ("9649a543-50dc-4491-8d2f-7b4491f27b8f",
+	"c0bd7d90-9205-44d9-a5ff-b3ea8549a729",
 	'add_operation_to_group',
 	'',
 	0,
 	'',
-	"0aae3d15-8695-4295-b39c-c0b3c3bdfce3");
+	"7e90fbae-580b-4893-bc43-42d123d68fee");
 INSERT INTO C_PP
-	VALUES ("54663af3-78cb-484e-8482-419cb59bfd30",
-	"e4607a2a-5c2a-4785-bf4e-3ab7a5efd54f",
-	"d489cd90-31b7-4737-8c15-2d09a06a18b1",
+	VALUES ("9d4792cc-d57b-40c7-95c4-215487dd3fbb",
+	"9649a543-50dc-4491-8d2f-7b4491f27b8f",
+	"61475a14-7431-4460-8c53-4608786b81e6",
 	'group_name',
 	'',
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000");
 INSERT INTO C_PP
-	VALUES ("4d504cc8-99fa-48c0-8a15-759dcb860724",
-	"e4607a2a-5c2a-4785-bf4e-3ab7a5efd54f",
-	"8a1f6b53-637b-4797-bfe8-a855ecf46948",
+	VALUES ("c4003989-b722-4787-807b-23177eb1214a",
+	"9649a543-50dc-4491-8d2f-7b4491f27b8f",
+	"cb77835f-4604-4bbb-95da-6c89f781a665",
 	'operations',
 	'',
 	0,
 	'',
-	"54663af3-78cb-484e-8482-419cb59bfd30");
+	"9d4792cc-d57b-40c7-95c4-215487dd3fbb");
 INSERT INTO C_EP
-	VALUES ("614a6d53-471f-4779-90b6-01573d139c07",
-	"2695ea25-6146-4551-b01c-c8057eb7fe4e",
+	VALUES ("664145a5-1ec6-4952-b131-8d456d5b2b76",
+	"3e33176c-4850-4d13-8b4b-9d6fae1e6b58",
 	0,
 	'session_active',
 	'');
 INSERT INTO C_IO
-	VALUES ("614a6d53-471f-4779-90b6-01573d139c07",
-	"74e232d3-5507-442f-b077-64cfb47b0db1",
+	VALUES ("664145a5-1ec6-4952-b131-8d456d5b2b76",
+	"c0bd7d90-9205-44d9-a5ff-b3ea8549a729",
 	'session_active',
 	'',
 	0,
 	'',
-	"e4607a2a-5c2a-4785-bf4e-3ab7a5efd54f");
+	"9649a543-50dc-4491-8d2f-7b4491f27b8f");
 INSERT INTO C_PP
-	VALUES ("3842ce13-2d58-4476-9b36-008c91b28e45",
-	"614a6d53-471f-4779-90b6-01573d139c07",
-	"7ac1b5a2-d8ad-4a1a-9c45-0de62a9d0fe2",
+	VALUES ("2a415389-2d5d-4fc7-960e-421dce917f5d",
+	"664145a5-1ec6-4952-b131-8d456d5b2b76",
+	"3c55df8c-d911-4252-be6d-e947d6bc0fd6",
 	'session_id',
 	'',
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000");
 INSERT INTO C_PP
-	VALUES ("44f5dc7e-1109-45bf-b395-41cd36d48e04",
-	"614a6d53-471f-4779-90b6-01573d139c07",
-	"7ac1b5a2-d8ad-4a1a-9c45-0de62a9d0fe2",
+	VALUES ("6fca2d7b-7135-409e-906f-f87519ccd06f",
+	"664145a5-1ec6-4952-b131-8d456d5b2b76",
+	"3c55df8c-d911-4252-be6d-e947d6bc0fd6",
 	'user_id',
 	'',
 	0,
 	'',
-	"3842ce13-2d58-4476-9b36-008c91b28e45");
+	"2a415389-2d5d-4fc7-960e-421dce917f5d");
 INSERT INTO C_PP
-	VALUES ("cbcea234-d461-4a88-a81a-7cc9569c2405",
-	"614a6d53-471f-4779-90b6-01573d139c07",
-	"d489cd90-31b7-4737-8c15-2d09a06a18b1",
+	VALUES ("89b67f35-e415-4148-bf21-9091688eae07",
+	"664145a5-1ec6-4952-b131-8d456d5b2b76",
+	"61475a14-7431-4460-8c53-4608786b81e6",
 	'login_name',
 	'',
 	0,
 	'',
-	"44f5dc7e-1109-45bf-b395-41cd36d48e04");
+	"6fca2d7b-7135-409e-906f-f87519ccd06f");
 INSERT INTO C_EP
-	VALUES ("5ee805dc-87ed-4c28-96d8-c408af0f24fd",
-	"2695ea25-6146-4551-b01c-c8057eb7fe4e",
+	VALUES ("8c48ac26-515c-4a90-b390-87f823c87864",
+	"3e33176c-4850-4d13-8b4b-9d6fae1e6b58",
 	0,
 	'delete_group',
 	'');
 INSERT INTO C_IO
-	VALUES ("5ee805dc-87ed-4c28-96d8-c408af0f24fd",
-	"74e232d3-5507-442f-b077-64cfb47b0db1",
+	VALUES ("8c48ac26-515c-4a90-b390-87f823c87864",
+	"c0bd7d90-9205-44d9-a5ff-b3ea8549a729",
 	'delete_group',
 	'',
 	0,
 	'',
-	"614a6d53-471f-4779-90b6-01573d139c07");
+	"664145a5-1ec6-4952-b131-8d456d5b2b76");
 INSERT INTO C_PP
-	VALUES ("653b9b17-ff21-4f81-bf03-0267341fc56a",
-	"5ee805dc-87ed-4c28-96d8-c408af0f24fd",
-	"d489cd90-31b7-4737-8c15-2d09a06a18b1",
+	VALUES ("4bdfcb1a-99b6-43ef-b80f-44929888bb20",
+	"8c48ac26-515c-4a90-b390-87f823c87864",
+	"61475a14-7431-4460-8c53-4608786b81e6",
 	'group_name',
 	'',
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000");
 INSERT INTO C_EP
-	VALUES ("119d15a0-7ba3-4c22-8c6f-cdcd86a739fb",
-	"2695ea25-6146-4551-b01c-c8057eb7fe4e",
+	VALUES ("c71d1668-a045-49e7-8083-dad813eb1695",
+	"3e33176c-4850-4d13-8b4b-9d6fae1e6b58",
 	0,
 	'delete_group_operation',
 	'');
 INSERT INTO C_IO
-	VALUES ("119d15a0-7ba3-4c22-8c6f-cdcd86a739fb",
-	"74e232d3-5507-442f-b077-64cfb47b0db1",
+	VALUES ("c71d1668-a045-49e7-8083-dad813eb1695",
+	"c0bd7d90-9205-44d9-a5ff-b3ea8549a729",
 	'delete_group_operation',
 	'',
 	0,
 	'',
-	"5ee805dc-87ed-4c28-96d8-c408af0f24fd");
+	"8c48ac26-515c-4a90-b390-87f823c87864");
 INSERT INTO C_PP
-	VALUES ("b7c2f98d-a3c0-4624-90e3-78165bf739d2",
-	"119d15a0-7ba3-4c22-8c6f-cdcd86a739fb",
-	"d489cd90-31b7-4737-8c15-2d09a06a18b1",
+	VALUES ("716ef70c-c43f-4ef1-b5ee-70f9389c9758",
+	"c71d1668-a045-49e7-8083-dad813eb1695",
+	"61475a14-7431-4460-8c53-4608786b81e6",
 	'group_name',
 	'',
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000");
 INSERT INTO C_PP
-	VALUES ("9199ad0b-64a3-4bc4-b075-7e65832b51ec",
-	"119d15a0-7ba3-4c22-8c6f-cdcd86a739fb",
-	"8a1f6b53-637b-4797-bfe8-a855ecf46948",
+	VALUES ("63e7c979-9caf-495c-b21b-49a753d1165a",
+	"c71d1668-a045-49e7-8083-dad813eb1695",
+	"cb77835f-4604-4bbb-95da-6c89f781a665",
 	'operations',
 	'',
 	0,
 	'',
-	"b7c2f98d-a3c0-4624-90e3-78165bf739d2");
+	"716ef70c-c43f-4ef1-b5ee-70f9389c9758");
 INSERT INTO C_EP
-	VALUES ("49cc7a45-4ef2-42de-9596-5badf5bfdf17",
-	"2695ea25-6146-4551-b01c-c8057eb7fe4e",
+	VALUES ("0e4e469e-41ae-499c-aea1-ba98207e6c59",
+	"3e33176c-4850-4d13-8b4b-9d6fae1e6b58",
 	0,
 	'populate_domain',
 	'');
 INSERT INTO C_IO
-	VALUES ("49cc7a45-4ef2-42de-9596-5badf5bfdf17",
-	"74e232d3-5507-442f-b077-64cfb47b0db1",
+	VALUES ("0e4e469e-41ae-499c-aea1-ba98207e6c59",
+	"c0bd7d90-9205-44d9-a5ff-b3ea8549a729",
 	'populate_domain',
 	'',
 	0,
 	'',
-	"119d15a0-7ba3-4c22-8c6f-cdcd86a739fb");
+	"c71d1668-a045-49e7-8083-dad813eb1695");
 INSERT INTO C_PP
-	VALUES ("2b2f1642-d777-421a-b179-ac5559da58c9",
-	"49cc7a45-4ef2-42de-9596-5badf5bfdf17",
-	"06010470-618e-4477-a3b3-7b16263c24da",
+	VALUES ("0c49563c-3ff3-4d86-9163-48a99477f042",
+	"0e4e469e-41ae-499c-aea1-ba98207e6c59",
+	"18ed7f59-b6b3-48e9-ba6f-e603f1af8cf4",
 	'reload_config_files',
 	'',
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000");
 INSERT INTO S_DT_PROXY
-	VALUES ("06010470-618e-4477-a3b3-7b16263c24da",
+	VALUES ("18ed7f59-b6b3-48e9-ba6f-e603f1af8cf4",
 	"00000000-0000-0000-0000-000000000000",
 	'boolean',
 	'',
 	'',
 	'../../../types/types.xtuml');
 INSERT INTO C_EP
-	VALUES ("06434ff4-43ea-408c-a2d9-1a49d0bec77a",
-	"2695ea25-6146-4551-b01c-c8057eb7fe4e",
+	VALUES ("4cd3a918-ed7b-462a-aa08-6d93c7404c0f",
+	"3e33176c-4850-4d13-8b4b-9d6fae1e6b58",
 	0,
 	'resend_infos',
 	'');
 INSERT INTO C_IO
-	VALUES ("06434ff4-43ea-408c-a2d9-1a49d0bec77a",
-	"74e232d3-5507-442f-b077-64cfb47b0db1",
+	VALUES ("4cd3a918-ed7b-462a-aa08-6d93c7404c0f",
+	"c0bd7d90-9205-44d9-a5ff-b3ea8549a729",
 	'resend_infos',
 	'',
 	0,
 	'',
-	"49cc7a45-4ef2-42de-9596-5badf5bfdf17");
+	"0e4e469e-41ae-499c-aea1-ba98207e6c59");
 INSERT INTO PE_PE
-	VALUES ("2695ea25-6146-4551-b01c-c8057eb7fe4e",
+	VALUES ("3e33176c-4850-4d13-8b4b-9d6fae1e6b58",
 	1,
-	"a5abec12-e7ba-4425-b0ba-005dc59712f6",
+	"f8f68909-67c2-4ae2-b764-13963f7c576a",
 	"00000000-0000-0000-0000-000000000000",
 	6);
 INSERT INTO EP_PKG_PROXY
-	VALUES ("a5abec12-e7ba-4425-b0ba-005dc59712f6",
+	VALUES ("f8f68909-67c2-4ae2-b764-13963f7c576a",
 	"00000000-0000-0000-0000-000000000000",
-	"e934f6a5-a420-4f3a-88a6-2b558bf3f75c",
+	"ae413277-027c-471b-a0ca-1f4d4363bbcf",
 	'Shared',
 	'',
 	0,

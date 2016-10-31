@@ -1,0 +1,30 @@
+domain SAC is
+    public service user_logon (
+        user_id : in integer,        login_name : in string,        user_name : in string,        workstation_hostname : in string,        groups : in sequence of string    );
+pragma soa_remote ( "" ); 
+    public service user_logoff (
+        session_id : in integer,        user_id : in integer,        login_name : in string    );
+pragma soa_remote ( "" ); 
+    public service add_group (
+        group_name : in string    );
+pragma soa_remote ( "" ); 
+    public service add_operation_to_group (
+        group_name : in string,        operations : in sequence of string    );
+pragma soa_remote ( "" ); 
+    public service session_active (
+        session_id : in integer,        user_id : in integer,        login_name : in string    );
+pragma soa_remote ( "" ); 
+    public service delete_group (
+        group_name : in string    );
+pragma soa_remote ( "" ); 
+    public service delete_group_operation (
+        group_name : in string,        operations : in sequence of string    );
+pragma soa_remote ( "" ); 
+    public service populate_domain (
+        reload_config_files : in boolean    );
+pragma soa_remote ( "" ); 
+    public service resend_infos (
+    );
+pragma soa_remote ( "transient" ); 
+end domain;
+pragma number ( 59 ); 
