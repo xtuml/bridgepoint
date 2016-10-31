@@ -1,0 +1,4 @@
+private service SAC::Operator~>group_deleted (        group_name : in string) is 
+begin
+  null;
+end service;

@@ -1,0 +1,50 @@
+public service SAC::resend_infos () is 
+all_groups : sequence of instance of Group;
+the_operations : sequence of instance of Operation;
+all_users : sequence of instance of User;
+the_sessions : sequence of instance of Session;
+the_groups : sequence of instance of Group;
+
+begin
+   
+   // report all groups
+   all_groups := find_all Group();
+   for a_group in all_groups'elements loop
+      Operator~>report_group(a_group.group_name);
+      // report all group operations
+      the_operations := a_group -> R1.Operation;
+      for an_operation in the_operations'elements loop
+         Operator~>report_group_operation(a_group.group_name, an_operation.operation_name);
+      end loop;
+   end loop;   
+   
+   // report all users
+   all_users := find_all User();
+   for a_user in all_users'elements loop
+      Operator~>report_user(a_user.user_id, a_user.login_name, a_user.user_name, a_user.is_logged_on);
+      
+      // report all sessions
+      the_sessions := a_user -> R3.Session;
+      for a_session in the_sessions'elements loop
+         
+         Operator~>report_user_session(a_session.session_id, a_user.user_id, a_session.logon_time,
+                                       a_session.has_timed_out, (a_session -> R3.Workstation).workstation_hostname, 
+                                       a_user.login_name);
+         
+         // report all user groups
+         the_groups := a_session -> R2.Group;
+         for a_group in the_groups'elements loop
+            Operator~>report_user_operation(a_user.user_id, a_group.group_name, a_user.login_name, a_session.session_id);
+         end loop;
+      
+         // report all user operations
+         the_operations := a_session -> R2.Group -> R1.Operation;
+         for an_operation in the_operations'elements loop
+            Operator~>report_user_operation(a_user.user_id, an_operation.operation_name, a_user.login_name, a_session.session_id);
+         end loop;
+         
+      end loop;
+   
+   end loop;
+   
+end service;

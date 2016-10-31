@@ -1,0 +1,87 @@
+public service SAC::user_logon (        user_id : in integer,        login_name : in string,        user_name : in string,        workstation_hostname : in string,        groups : in sequence of string) is 
+login_allowed : boolean := false;
+the_user : instance of User;
+the_workstation : instance of Workstation;
+the_session : instance of Session;
+the_group : instance of Group;
+the_group_for_session : instance of Group_For_Session;
+session_operations : sequence of instance of Operation;
+the_session_operation : instance of Session_Operation;
+message : string;
+
+begin
+   
+   // validate that at least one of the specified 
+   // groups is allowed on the system before proceeding
+   for a_group in groups'elements loop
+      if (find_one Group(group_name = a_group)) /= null then
+         login_allowed := true;
+         exit;
+      end if;
+   end loop;
+   
+   if login_allowed = true then
+      // locate the workstation and if it does not exist create it
+      the_workstation := find_one Workstation(workstation_hostname = workstation_hostname);
+      if the_workstation = null then
+         the_workstation := create unique Workstation(workstation_hostname => workstation_hostname);
+      end if;
+      the_session := the_workstation -> R3.Session;
+      if the_session /= null then
+         // log an error as this was unexpected due to the workstation still having a session
+         console << "Forced logout on workstation. Workstation = " << the_workstation.workstation_hostname
+                 << " User = " << (the_session -> R3.User).user_name << endl << flush;
+         // end the current session on this workstation
+         the_session.delete_session();
+      end if;
+      
+      // locate the user and if the user does not exist create it
+      the_user := find_one User(user_id = user_id and login_name = login_name);
+      if the_user = null then
+         the_user := create User(user_id => user_id, 
+                                   login_name => login_name, 
+                                   user_name => user_name,
+                                   is_logged_on => logged_on);
+      end if;
+      Operator~>report_user(the_user.user_id, the_user.login_name, the_user.user_name, the_user.is_logged_on);
+      // create the session
+      the_session := create unique Session(logon_time => timestamp'now, session_heartbeat_failure => 0,
+                                               has_timed_out => false, workstation_id => the_workstation.workstation_id,
+                                               Current_State => Created);
+      link the_user R3 the_workstation using the_session;
+      Operator~>report_user_session(the_session.session_id, the_session.user_id, the_session.logon_time,
+                                     the_session.has_timed_out, (the_session -> R3.Workstation).workstation_hostname,
+                                     the_session.login_name);
+      
+      // set up the groups for the session and 
+      // report the operations that are available to the user
+      for a_group in groups'elements loop
+         the_group := find_one Group(group_name = a_group);
+         if the_group /= null then
+            the_group_for_session := create Group_For_Session(group_id => the_group.group_id, 
+                                                                session_id => the_session.session_id);
+            link the_group R2 the_session using the_group_for_session;
+            Operator~>report_user_group(the_user.user_id, a_group, the_user.login_name, the_session.session_id);      
+         end if;
+      end loop;
+      session_operations := the_session -> R2.Group -> R1.Operation;
+      for a_session_operation in session_operations'elements loop
+         the_session_operation := the_session with a_session_operation -> R5.Session_Operation;
+         if the_session_operation = null then
+            the_session_operation := create Session_Operation(session_id => the_session.session_id, 
+                                                                operation_id => a_session_operation.operation_id);
+            link the_session R5 a_session_operation using the_session_operation;
+            Operator~>report_user_operation(the_user.user_id, a_session_operation.operation_name, the_user.login_name, the_session.session_id);
+         end if;
+      end loop;
+      
+      generate Session.user_logged_on() to the_session;      
+      Operator~>login_valid(the_session.session_id, user_id, true, "", workstation_hostname, login_name);
+   else
+      message := "Login failure due to invalid group specified, user = " & user_name & 
+                  " workstation = " & workstation_hostname & ".";
+      Operator~>raise_notification(message, "Info");
+      Operator~>login_valid(-1, user_id, false, "Invalid group specified", workstation_hostname, login_name);
+   end if;
+   
+end service;
