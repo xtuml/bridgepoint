@@ -197,35 +197,30 @@ public class CanvasPasteAction extends PasteAction {
 		GraphicalElement_c graphicalElementMoved = CanvasPlugin.getGraphicalElement(ooaofg, ooaElementMoved);
 		if (graphicalElementMoved != null) {
 
+			// Every GraphicalElement is part of a diagram, so this will never be null.
+			Model_c gd_mdThisElementIsPartOf = Model_c.getOneGD_MDOnR1(graphicalElementMoved);			
+			
 			// This finds the GD_MD instance that has the same "represents" as the given
 			// GD_GE. This is null unless the ooaElementMoved represents a container.
 			Model_c gd_mdOftheElementMoved = getModel(ooaElementMoved);
 	
-			// Every GraphicalElement is part of a diagram, so this will never be null.
-			Model_c gd_mdThisElementIsPartOf = Model_c.getOneGD_MDOnR1(graphicalElementMoved);			
-			
 			// If we are moving to a different graphical model root then we need to actually switch the root. 
 			// In this case we update self and children because the root moves for all of them
-			if (gd_mdThisElementIsPartOf.getModelRoot() != destGD_MD.getModelRoot()) {
-				graphicalElementMoved.updateRootForSelfAndChildren(gd_mdThisElementIsPartOf.getModelRoot(),
-						destGD_MD.getModelRoot());
+			if (gd_mdOftheElementMoved != null) {
+				Diagram_c diag = Diagram_c.getOneDIM_DIAOnR18(gd_mdOftheElementMoved);
+				diag.setComponent(destGD_MD.getPersistableComponent());
+				gd_mdOftheElementMoved.setComponent(destGD_MD.getPersistableComponent());
+				diag.updateRootForSelfAndChildren(gd_mdOftheElementMoved.getModelRoot(), destGD_MD.getModelRoot());
 			}
-
-			// This represents_path in the GD_MD and GD_GE instances is a derived attribute
-			// calculated from the represents attribute (the represents attribute is an instance of type
-			// Object that is set to the actual ooaofooa instance that the graphical elements is representing.
-			// During a move, the represents attribute is not ever changed, but we need to path to be 
-			// recalculated and have the cached path value updated.
-			// 
 			
+			graphicalElementMoved.setComponent(destGD_MD.getPersistableComponent());
 			
 			graphicalElementMoved.unrelateAcrossR1From(gd_mdThisElementIsPartOf);
 			graphicalElementMoved.relateAcrossR1To(destGD_MD);
 			
 			updateContainement(destGD_MD, graphicalElementMoved);
 
-			GraphicalElement_c graphicalElementList[] = new GraphicalElement_c[1];
-			graphicalElementList[0] = graphicalElementMoved;
+			GraphicalElement_c[] graphicalElementList = {graphicalElementMoved};
 			
 			moveGraphicalElementsToPreventOverlapping(graphicalElementList, destGD_MD);			
 		}
