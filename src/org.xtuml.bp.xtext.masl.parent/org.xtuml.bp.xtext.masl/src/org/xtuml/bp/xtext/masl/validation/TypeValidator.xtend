@@ -84,12 +84,12 @@ class TypeValidator extends AbstractMASLValidator {
 	}
 
 	@Check
-	def operationCall(ActionCall it) {
+	def actionCall(ActionCall it) {
 		val receiver = it.receiver
 		if(receiver != null && !receiver.eIsProxy) {
 			switch receiver {
 				SimpleFeatureCall: {
-					if(receiver.feature.isOperation) {
+					if(receiver.feature.isAction) {
 						val parameterized = receiver.feature as Parameterized
 						val expectedNumParameters = (parameterized).parameters.size
 						if(expectedNumParameters != arguments.size) 
@@ -106,19 +106,19 @@ class TypeValidator extends AbstractMASLValidator {
 				}
 				AbstractTypeReference: return
 			}
-			addIssue('Cannot call ' + receiver.eClass.name + ' with parentheses', it, actionCall_Receiver, INVALID_OPERATION_CALL)
+			addIssue('Cannot call ' + receiver.eClass.name + ' with parentheses', it, actionCall_Receiver, INVALID_ACTION_CALL)
 		}
 	}
 	
 	@Check
-	def terminatorOperationCall(TerminatorActionCall it) {
+	def terminatorActionCall(TerminatorActionCall it) {
 		switch receiver {
 			TerminatorDefinition, 
 			SimpleFeatureCall: {
 				// noop
 			}
 			default:
-				addIssue('Cannot call terminator operation on ' + receiver.eClass.name, receiver, null)
+				addIssue('Cannot call terminator action on ' + receiver.eClass.name, receiver, null)
 		}
 		if(terminatorAction != null && !terminatorAction.eIsProxy && !isVisible) {
 			addIssue(terminatorAction?.eClass?.name + ' ' + terminatorAction.name + ' is not visible in this context.', it, terminatorActionCall_TerminatorAction, INVISIBLE_FEATURE)

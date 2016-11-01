@@ -53,9 +53,9 @@ class MaslExpectedTypeProvider {
 			}
 		}
 		if(reference == actionCall_Arguments && context instanceof ActionCall && index != -1) {
-			val operation = (context as ActionCall).receiver
-			if(operation instanceof SimpleFeatureCall)
-				return operation.feature.getParameterType(index)
+			val action = (context as ActionCall).receiver
+			if(action instanceof SimpleFeatureCall)
+				return action.feature.getParameterType(index)
 		}
 		if(reference == indexedExpression_Brackets && context instanceof IndexedExpression) {
 			return #[INTEGER, new RangeType(INTEGER)]

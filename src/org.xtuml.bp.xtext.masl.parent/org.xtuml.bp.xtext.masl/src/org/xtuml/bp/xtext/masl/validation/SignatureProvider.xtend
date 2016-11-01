@@ -22,9 +22,9 @@ class SignatureProvider {
 	@Inject extension MASLExtensions
 	@Inject extension ISerializer serializer
 
-	def getParametersAsString(EObject operation) {
-		if (operation instanceof Parameterized)
-			'(' + (operation as Parameterized).parameters.map[maslType.toString].join(',') + ')'
+	def getParametersAsString(EObject possiblyParameterized) {
+		if (possiblyParameterized instanceof Parameterized)
+			'(' + (possiblyParameterized as Parameterized).parameters.map[maslType.toString].join(',') + ')'
 		else
 			''
 	}

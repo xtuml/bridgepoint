@@ -43,13 +43,13 @@ class SyntacticPredicateTest {
 	} 
 
 	@Test
-	def void testOperationCall() {
+	def void testActionCall() {
 		val expression = 'foo();'.parseExpression
 		assertTrue(expression.eClass.name, expression instanceof ActionCall)
 	} 
 
 	@Test
-	def void testOperationCall2() {
+	def void testActionCall2() {
 		val expression = 'this.foo();'.parseExpression
 		assertTrue(expression.eClass.name, expression instanceof ActionCall)
 	} 

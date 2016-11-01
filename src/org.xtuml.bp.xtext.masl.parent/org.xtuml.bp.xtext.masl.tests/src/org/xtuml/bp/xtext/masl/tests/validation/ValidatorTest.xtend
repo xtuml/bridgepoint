@@ -63,8 +63,8 @@ class ValidatorTest {
 	}
 	
 	@Test
-	def void testInvalidOperationCall() {
-		'1()'.model.assertError(actionCall, INVALID_OPERATION_CALL)
+	def void testInvalidActionCall() {
+		'1()'.model.assertError(actionCall, INVALID_ACTION_CALL)
 	}
 	
 	@Test 

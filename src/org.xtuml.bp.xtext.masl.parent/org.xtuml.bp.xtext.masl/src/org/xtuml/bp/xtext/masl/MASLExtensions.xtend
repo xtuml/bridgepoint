@@ -190,7 +190,7 @@ class MASLExtensions {
 		return null
 	}
 
-	def boolean isOperation(EObject it) {
+	def boolean isAction(EObject it) {
 		switch it {
 			DomainFunctionDeclaration,
 			DomainServiceDeclaration,

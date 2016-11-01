@@ -59,7 +59,7 @@ class MaslLinkingService extends DefaultLinkingService {
 			}
 			if(currentBestMatch != null) {
 				if(currentBestRank != PERFECT_MATCH && acceptableMatches.size > 1) {
-					val diagnostic = new XtextLinkingDiagnostic(node, 'Ambiguous operation call.', Diagnostic.LINKING_DIAGNOSTIC)
+					val diagnostic = new XtextLinkingDiagnostic(node, 'Ambiguous action call.', Diagnostic.LINKING_DIAGNOSTIC)
 					actionCall.eResource.errors.add(diagnostic)	
 				}
 				return #[currentBestMatch]
