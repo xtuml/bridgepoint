@@ -28,17 +28,23 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.UUID;
 
+import org.eclipse.core.resources.IWorkspaceRunnable;
+import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.GraphicalViewer;
 import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
 import org.eclipse.gef.requests.ChangeBoundsRequest;
+import org.eclipse.jface.action.Action;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.dnd.Clipboard;
 import org.eclipse.swt.dnd.TextTransfer;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.ui.PartInitException;
+import org.eclipse.ui.PlatformUI;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.DataType_c;
 import org.xtuml.bp.core.Ooaofooa;
@@ -192,9 +198,23 @@ public class CanvasPasteAction extends PasteAction {
 	 * @param destGD_MD
 	 */
 	private static void moveGraphicalElement(NonRootModelElement ooaElementMoved, Model_c destGD_MD) {
+		NonRootModelElement sourceElementContainer = PasteAction.getContainerForMove(ooaElementMoved);
 		Ooaofgraphics ooaofg = Ooaofgraphics
-				.getInstance(PasteAction.getContainerForMove(ooaElementMoved).getModelRoot().getId());
+				.getInstance(sourceElementContainer.getModelRoot().getId());
 		GraphicalElement_c graphicalElementMoved = CanvasPlugin.getGraphicalElement(ooaofg, ooaElementMoved);
+		
+		// This is a little weird but we have to have the graphical elements loaded in order
+		// to move them. If the element is not loaded then we load the editor that is the container
+		// for the source element. 
+		if (graphicalElementMoved == null) {
+			CanvasPasteAction.openCanvasEditor(sourceElementContainer);			
+			
+			sourceElementContainer = PasteAction.getContainerForMove(ooaElementMoved);
+			ooaofg = Ooaofgraphics
+					.getInstance(sourceElementContainer.getModelRoot().getId());
+			graphicalElementMoved = CanvasPlugin.getGraphicalElement(ooaofg, ooaElementMoved);
+		}
+		
 		if (graphicalElementMoved != null) {
 
 			// Every GraphicalElement is part of a diagram, so this will never be null.
@@ -223,6 +243,24 @@ public class CanvasPasteAction extends PasteAction {
 			GraphicalElement_c[] graphicalElementList = {graphicalElementMoved};
 			
 			moveGraphicalElementsToPreventOverlapping(graphicalElementList, destGD_MD);			
+		}
+	}
+	
+	static private void openCanvasEditor(final Object uut) {
+		try {
+			IStructuredSelection ss = new StructuredSelection(uut);
+			Selection selection = Selection.getInstance();
+			selection.addToSelection(ss);
+			OpenGraphicsEditor sca = new OpenGraphicsEditor();
+			selection.setSelection(ss);
+			Action a = new Action() {
+			};
+			sca.run(a);
+			while(PlatformUI.getWorkbench().getDisplay().readAndDispatch())
+				;
+			PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell().update();
+		} catch (Exception x) {
+			CorePlugin.logError("Unable to open canvas editor.", x);
 		}
 	}
 	
