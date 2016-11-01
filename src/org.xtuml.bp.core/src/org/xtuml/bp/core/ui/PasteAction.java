@@ -103,6 +103,9 @@ public abstract class PasteAction extends CutCopyPasteAction  {
 				}
 			}
 				
+			// Move the graphics to their graphical model root
+			processGraphics(destination); 
+						
 			// Iterate over each element that was selected. Note that
 			// this is the actual selection. This is NOT using the "importer"
 			// to suck in all dependent elements
@@ -147,9 +150,6 @@ public abstract class PasteAction extends CutCopyPasteAction  {
 				}
 			}
 				
-			// Move the graphics to their graphical model root
-			processGraphics(destination); 
-						
 			// connect the selected elements to their destination
 			for (NonRootModelElement sourceElement : ELEMENT_MOVE_SOURCE_SELECTION) {
 				try {
