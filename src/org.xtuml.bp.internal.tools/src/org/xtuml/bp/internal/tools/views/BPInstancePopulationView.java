@@ -80,7 +80,9 @@ public class BPInstancePopulationView extends ViewPart {
 	 */
 	public enum BPTreeType {
 		OoaofooaModelElements("Ooaofooa Model Elements"),
+		OoaDefaultRootModelElements("Ooaofooa workspace __default_root"),		
 		OoaofoogModelElements("Graphical Model Elements"),
+		OogDefaultRootModelElements("Graphical workspace __default_root"),		
 		ParserInstances("Parser Instances"),
 		RuntimeInstances("Runtime Instances");
 
@@ -271,28 +273,40 @@ public class BPInstancePopulationView extends ViewPart {
 			if (parent instanceof IProject) {
 				IProject proj = (IProject)parent;
 				result.add(new BPProjectTree(proj, BPTreeType.OoaofooaModelElements));
+				result.add(new BPProjectTree(proj, BPTreeType.OoaDefaultRootModelElements));				
 				result.add(new BPProjectTree(proj, BPTreeType.OoaofoogModelElements));
+				result.add(new BPProjectTree(proj, BPTreeType.OogDefaultRootModelElements));
 				result.add(new BPProjectTree(proj, BPTreeType.ParserInstances));
 				result.add(new BPProjectTree(proj, BPTreeType.RuntimeInstances));
+				
 			} else if (parent instanceof BPProjectTree) {
 				BPProjectTree projectTree = (BPProjectTree) parent;
 				if (projectTree.getTreeType() == BPTreeType.OoaofooaModelElements) { // Ooa of ooa
 					IProject proj = projectTree.parent;
 					Ooaofooa[] ooas = EclipseOoaofooa
 							.getInstancesUnderSystem(proj.getName());
+					
 					for (Ooaofooa ooa : ooas) {
 						result.add(new BPModelRootTree(ooa, projectTree));
 					}
+				} else if (projectTree.getTreeType() == BPTreeType.OoaDefaultRootModelElements) { // Ooa of ooa __default_root (note while this is shown on each project, it is actually per workspace)
+					Ooaofooa root = Ooaofooa.getInstance(ModelRoot.DEFAULT_WORKING_MODELSPACE);
+					result.add(new BPModelRootTree(root, projectTree));
 				} else if (projectTree.getTreeType() == BPTreeType.OoaofoogModelElements) { // Ooa of graphics
 					IProject proj = projectTree.parent;
 					// An Ooaofooa represents a model root
 					Ooaofooa[] ooas = EclipseOoaofooa
 							.getInstancesUnderSystem(proj.getName());
-	
+
+					Ooaofgraphics root = Ooaofgraphics.getInstance(ModelRoot.DEFAULT_WORKING_MODELSPACE);
+					result.add(new BPModelRootTree(root, projectTree));
 					for (Ooaofooa ooa : ooas) {
 						Ooaofgraphics oog = Ooaofgraphics.getInstance(ooa.getId());
 						result.add(new BPModelRootTree(oog, projectTree));
 					}
+				} else if (projectTree.getTreeType() == BPTreeType.OogDefaultRootModelElements) { // Ooa of graphics __default_root // Ooa of ooa __default_root (note while this is shown on each project, it is actually per workspace)
+					Ooaofgraphics root = Ooaofgraphics.getInstance(ModelRoot.DEFAULT_WORKING_MODELSPACE);
+					result.add(new BPModelRootTree(root, projectTree));
 				} else if (projectTree.getTreeType() == BPTreeType.ParserInstances) {
 					IProject proj = projectTree.parent;
 					Ooaofooa[] ooas = EclipseOoaofooa
