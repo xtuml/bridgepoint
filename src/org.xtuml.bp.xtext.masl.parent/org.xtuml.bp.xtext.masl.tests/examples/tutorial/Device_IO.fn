@@ -1,0 +1,5 @@
+function Device_IO::create_file(name: in string, overwrite: in boolean) return device is begin end;
+function Device_IO::delete_file(name: in string) return device is begin end;
+function Device_IO::open(name: in string, access: in AccessType, dev: in device) return device is begin end;
+function Device_IO::close(dev: in device) return device is begin end;
+function Device_IO::eof(dev: in device) return boolean is begin end;

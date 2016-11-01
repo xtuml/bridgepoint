@@ -17,7 +17,9 @@ end domain;
 domain SAC is 
 	service user_logoff(session_id: in integer, user_id: in integer);
 	service session_activate(session_id: in integer, user_id: in integer);
-	object _TEST_Operator_report_group; 
+	object _TEST_Operator_report_group;
+	object _TEST_Operator_report_group is 
+	end;
 	object _TEST_Operator_report_group_operation;
 	object _TEST_Operator_report_group_operation is 
 	end;	
