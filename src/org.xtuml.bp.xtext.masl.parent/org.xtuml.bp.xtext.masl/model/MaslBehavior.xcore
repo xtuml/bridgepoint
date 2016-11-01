@@ -347,14 +347,14 @@ class NavigateExpression extends Expression {
 	contains SortOrder reverseOrder
 }
 
-class OperationCall extends Expression {
+class ActionCall extends Expression {
 	contains Expression receiver
 	contains Expression[] arguments
 }
 
-class TerminatorOperationCall extends Expression {
+class TerminatorActionCall extends Expression {
 	contains Expression receiver
-	refers AbstractFeature terminatorOperation
+	refers AbstractFeature terminatorAction
 	contains Expression[] arguments
 }
 

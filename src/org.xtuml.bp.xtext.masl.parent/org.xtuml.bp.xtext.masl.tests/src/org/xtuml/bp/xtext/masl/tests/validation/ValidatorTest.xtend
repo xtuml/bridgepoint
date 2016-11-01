@@ -64,7 +64,7 @@ class ValidatorTest {
 	
 	@Test
 	def void testInvalidOperationCall() {
-		'1()'.model.assertError(operationCall, INVALID_OPERATION_CALL)
+		'1()'.model.assertError(actionCall, INVALID_OPERATION_CALL)
 	}
 	
 	@Test 
@@ -402,6 +402,9 @@ class ValidatorTest {
 					public function func0() return integer;
 					public service serv0();
 				end;
+			end;
+			
+			domain dom0 is
 				service caller();
 				service caller0();
 				service caller1();
@@ -417,22 +420,22 @@ class ValidatorTest {
 			end
 		''').assertNoErrors(INVISIBLE_FEATURE)
 		load('''
-			service dom::caller() is
+			service dom0::caller() is
 			begin
-				Foo~>func();
+				dom::Foo~>func();
 			end
-		''').assertError(terminatorOperationCall, INVISIBLE_FEATURE)
+		''').assertError(terminatorActionCall, INVISIBLE_FEATURE)
 		load('''
-			service dom::caller0() is
+			service dom0::caller0() is
 			begin
-				Foo~>serv();
+				dom::Foo~>serv();
 			end
-		''').assertError(terminatorOperationCall, INVISIBLE_FEATURE)
+		''').assertError(terminatorActionCall, INVISIBLE_FEATURE)
 		load('''
-			service dom::caller1() is
+			service dom0::caller1() is
 			begin
-				Foo~>serv0();
-				Foo~>func0();
+				dom::Foo~>serv0();
+				dom::Foo~>func0();
 			end
 		''').assertNoErrors(INVISIBLE_FEATURE)
 	}

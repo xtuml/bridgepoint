@@ -590,22 +590,22 @@ public interface BehaviorFactory extends EFactory {
 	NavigateExpression createNavigateExpression();
 
 	/**
-	 * Returns a new object of class '<em>Operation Call</em>'.
+	 * Returns a new object of class '<em>Action Call</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Operation Call</em>'.
+	 * @return a new object of class '<em>Action Call</em>'.
 	 * @generated
 	 */
-	OperationCall createOperationCall();
+	ActionCall createActionCall();
 
 	/**
-	 * Returns a new object of class '<em>Terminator Operation Call</em>'.
+	 * Returns a new object of class '<em>Terminator Action Call</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Terminator Operation Call</em>'.
+	 * @return a new object of class '<em>Terminator Action Call</em>'.
 	 * @generated
 	 */
-	TerminatorOperationCall createTerminatorOperationCall();
+	TerminatorActionCall createTerminatorActionCall();
 
 	/**
 	 * Returns a new object of class '<em>Indexed Expression</em>'.

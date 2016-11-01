@@ -13,6 +13,7 @@ import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.impl.EPackageImpl;
 
 import org.xtuml.bp.xtext.masl.masl.behavior.AbstractStatement;
+import org.xtuml.bp.xtext.masl.masl.behavior.ActionCall;
 import org.xtuml.bp.xtext.masl.masl.behavior.AdditiveExp;
 import org.xtuml.bp.xtext.masl.masl.behavior.AssignStatement;
 import org.xtuml.bp.xtext.masl.masl.behavior.AttributeReferential;
@@ -64,7 +65,6 @@ import org.xtuml.bp.xtext.masl.masl.behavior.LoopVariable;
 import org.xtuml.bp.xtext.masl.masl.behavior.MultExp;
 import org.xtuml.bp.xtext.masl.masl.behavior.NavigateExpression;
 import org.xtuml.bp.xtext.masl.masl.behavior.NullLiteral;
-import org.xtuml.bp.xtext.masl.masl.behavior.OperationCall;
 import org.xtuml.bp.xtext.masl.masl.behavior.RaiseStatement;
 import org.xtuml.bp.xtext.masl.masl.behavior.RangeExpression;
 import org.xtuml.bp.xtext.masl.masl.behavior.RealLiteral;
@@ -79,7 +79,7 @@ import org.xtuml.bp.xtext.masl.masl.behavior.SortOrderFeature;
 import org.xtuml.bp.xtext.masl.masl.behavior.StreamExpression;
 import org.xtuml.bp.xtext.masl.masl.behavior.StringLiteral;
 import org.xtuml.bp.xtext.masl.masl.behavior.StructureAggregateExpression;
-import org.xtuml.bp.xtext.masl.masl.behavior.TerminatorOperationCall;
+import org.xtuml.bp.xtext.masl.masl.behavior.TerminatorActionCall;
 import org.xtuml.bp.xtext.masl.masl.behavior.ThisLiteral;
 import org.xtuml.bp.xtext.masl.masl.behavior.TimestampLiteral;
 import org.xtuml.bp.xtext.masl.masl.behavior.UnaryExp;
@@ -547,14 +547,14 @@ public class BehaviorPackageImpl extends EPackageImpl implements BehaviorPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass operationCallEClass = null;
+	private EClass actionCallEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass terminatorOperationCallEClass = null;
+	private EClass terminatorActionCallEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -2229,8 +2229,8 @@ public class BehaviorPackageImpl extends EPackageImpl implements BehaviorPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getOperationCall() {
-		return operationCallEClass;
+	public EClass getActionCall() {
+		return actionCallEClass;
 	}
 
 	/**
@@ -2238,8 +2238,8 @@ public class BehaviorPackageImpl extends EPackageImpl implements BehaviorPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getOperationCall_Receiver() {
-		return (EReference)operationCallEClass.getEStructuralFeatures().get(0);
+	public EReference getActionCall_Receiver() {
+		return (EReference)actionCallEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -2247,8 +2247,8 @@ public class BehaviorPackageImpl extends EPackageImpl implements BehaviorPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getOperationCall_Arguments() {
-		return (EReference)operationCallEClass.getEStructuralFeatures().get(1);
+	public EReference getActionCall_Arguments() {
+		return (EReference)actionCallEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -2256,8 +2256,8 @@ public class BehaviorPackageImpl extends EPackageImpl implements BehaviorPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getTerminatorOperationCall() {
-		return terminatorOperationCallEClass;
+	public EClass getTerminatorActionCall() {
+		return terminatorActionCallEClass;
 	}
 
 	/**
@@ -2265,8 +2265,8 @@ public class BehaviorPackageImpl extends EPackageImpl implements BehaviorPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getTerminatorOperationCall_Receiver() {
-		return (EReference)terminatorOperationCallEClass.getEStructuralFeatures().get(0);
+	public EReference getTerminatorActionCall_Receiver() {
+		return (EReference)terminatorActionCallEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -2274,8 +2274,8 @@ public class BehaviorPackageImpl extends EPackageImpl implements BehaviorPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getTerminatorOperationCall_TerminatorOperation() {
-		return (EReference)terminatorOperationCallEClass.getEStructuralFeatures().get(1);
+	public EReference getTerminatorActionCall_TerminatorAction() {
+		return (EReference)terminatorActionCallEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -2283,8 +2283,8 @@ public class BehaviorPackageImpl extends EPackageImpl implements BehaviorPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getTerminatorOperationCall_Arguments() {
-		return (EReference)terminatorOperationCallEClass.getEStructuralFeatures().get(2);
+	public EReference getTerminatorActionCall_Arguments() {
+		return (EReference)terminatorActionCallEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -2659,14 +2659,14 @@ public class BehaviorPackageImpl extends EPackageImpl implements BehaviorPackage
 		createEReference(navigateExpressionEClass, NAVIGATE_EXPRESSION__ORDER);
 		createEReference(navigateExpressionEClass, NAVIGATE_EXPRESSION__REVERSE_ORDER);
 
-		operationCallEClass = createEClass(OPERATION_CALL);
-		createEReference(operationCallEClass, OPERATION_CALL__RECEIVER);
-		createEReference(operationCallEClass, OPERATION_CALL__ARGUMENTS);
+		actionCallEClass = createEClass(ACTION_CALL);
+		createEReference(actionCallEClass, ACTION_CALL__RECEIVER);
+		createEReference(actionCallEClass, ACTION_CALL__ARGUMENTS);
 
-		terminatorOperationCallEClass = createEClass(TERMINATOR_OPERATION_CALL);
-		createEReference(terminatorOperationCallEClass, TERMINATOR_OPERATION_CALL__RECEIVER);
-		createEReference(terminatorOperationCallEClass, TERMINATOR_OPERATION_CALL__TERMINATOR_OPERATION);
-		createEReference(terminatorOperationCallEClass, TERMINATOR_OPERATION_CALL__ARGUMENTS);
+		terminatorActionCallEClass = createEClass(TERMINATOR_ACTION_CALL);
+		createEReference(terminatorActionCallEClass, TERMINATOR_ACTION_CALL__RECEIVER);
+		createEReference(terminatorActionCallEClass, TERMINATOR_ACTION_CALL__TERMINATOR_ACTION);
+		createEReference(terminatorActionCallEClass, TERMINATOR_ACTION_CALL__ARGUMENTS);
 
 		indexedExpressionEClass = createEClass(INDEXED_EXPRESSION);
 		createEReference(indexedExpressionEClass, INDEXED_EXPRESSION__RECEIVER);
@@ -2776,8 +2776,8 @@ public class BehaviorPackageImpl extends EPackageImpl implements BehaviorPackage
 		unaryExpEClass.getESuperTypes().add(this.getExpression());
 		linkExpressionEClass.getESuperTypes().add(this.getExpression());
 		navigateExpressionEClass.getESuperTypes().add(this.getExpression());
-		operationCallEClass.getESuperTypes().add(this.getExpression());
-		terminatorOperationCallEClass.getESuperTypes().add(this.getExpression());
+		actionCallEClass.getESuperTypes().add(this.getExpression());
+		terminatorActionCallEClass.getESuperTypes().add(this.getExpression());
 		indexedExpressionEClass.getESuperTypes().add(this.getExpression());
 		characteristicCallEClass.getESuperTypes().add(this.getExpression());
 		structureAggregateExpressionEClass.getESuperTypes().add(this.getExpression());
@@ -3019,14 +3019,14 @@ public class BehaviorPackageImpl extends EPackageImpl implements BehaviorPackage
 		initEReference(getNavigateExpression_Order(), this.getSortOrder(), null, "order", null, 0, 1, NavigateExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getNavigateExpression_ReverseOrder(), this.getSortOrder(), null, "reverseOrder", null, 0, 1, NavigateExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		initEClass(operationCallEClass, OperationCall.class, "OperationCall", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getOperationCall_Receiver(), this.getExpression(), null, "receiver", null, 0, 1, OperationCall.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getOperationCall_Arguments(), this.getExpression(), null, "arguments", null, 0, -1, OperationCall.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEClass(actionCallEClass, ActionCall.class, "ActionCall", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getActionCall_Receiver(), this.getExpression(), null, "receiver", null, 0, 1, ActionCall.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getActionCall_Arguments(), this.getExpression(), null, "arguments", null, 0, -1, ActionCall.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		initEClass(terminatorOperationCallEClass, TerminatorOperationCall.class, "TerminatorOperationCall", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getTerminatorOperationCall_Receiver(), this.getExpression(), null, "receiver", null, 0, 1, TerminatorOperationCall.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getTerminatorOperationCall_TerminatorOperation(), theStructurePackage.getAbstractFeature(), null, "terminatorOperation", null, 0, 1, TerminatorOperationCall.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getTerminatorOperationCall_Arguments(), this.getExpression(), null, "arguments", null, 0, -1, TerminatorOperationCall.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEClass(terminatorActionCallEClass, TerminatorActionCall.class, "TerminatorActionCall", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getTerminatorActionCall_Receiver(), this.getExpression(), null, "receiver", null, 0, 1, TerminatorActionCall.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getTerminatorActionCall_TerminatorAction(), theStructurePackage.getAbstractFeature(), null, "terminatorAction", null, 0, 1, TerminatorActionCall.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getTerminatorActionCall_Arguments(), this.getExpression(), null, "arguments", null, 0, -1, TerminatorActionCall.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(indexedExpressionEClass, IndexedExpression.class, "IndexedExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getIndexedExpression_Receiver(), this.getExpression(), null, "receiver", null, 0, 1, IndexedExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

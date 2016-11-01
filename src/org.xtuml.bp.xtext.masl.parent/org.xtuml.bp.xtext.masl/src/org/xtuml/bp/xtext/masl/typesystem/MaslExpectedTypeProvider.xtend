@@ -5,6 +5,7 @@ import java.util.List
 import java.util.Set
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.emf.ecore.EReference
+import org.xtuml.bp.xtext.masl.masl.behavior.ActionCall
 import org.xtuml.bp.xtext.masl.masl.behavior.AssignStatement
 import org.xtuml.bp.xtext.masl.masl.behavior.BehaviorPackage
 import org.xtuml.bp.xtext.masl.masl.behavior.CaseAlternative
@@ -12,9 +13,8 @@ import org.xtuml.bp.xtext.masl.masl.behavior.CaseStatement
 import org.xtuml.bp.xtext.masl.masl.behavior.CreateArgument
 import org.xtuml.bp.xtext.masl.masl.behavior.IndexedExpression
 import org.xtuml.bp.xtext.masl.masl.behavior.NavigateExpression
-import org.xtuml.bp.xtext.masl.masl.behavior.OperationCall
 import org.xtuml.bp.xtext.masl.masl.behavior.SimpleFeatureCall
-import org.xtuml.bp.xtext.masl.masl.behavior.TerminatorOperationCall
+import org.xtuml.bp.xtext.masl.masl.behavior.TerminatorActionCall
 import org.xtuml.bp.xtext.masl.masl.behavior.VariableDeclaration
 import org.xtuml.bp.xtext.masl.masl.structure.AbstractFunction
 import org.xtuml.bp.xtext.masl.masl.structure.AbstractTopLevelElement
@@ -52,16 +52,16 @@ class MaslExpectedTypeProvider {
 					return #[NO_TYPE]
 			}
 		}
-		if(reference == operationCall_Arguments && context instanceof OperationCall && index != -1) {
-			val operation = (context as OperationCall).receiver
+		if(reference == actionCall_Arguments && context instanceof ActionCall && index != -1) {
+			val operation = (context as ActionCall).receiver
 			if(operation instanceof SimpleFeatureCall)
 				return operation.feature.getParameterType(index)
 		}
 		if(reference == indexedExpression_Brackets && context instanceof IndexedExpression) {
 			return #[INTEGER, new RangeType(INTEGER)]
 		}
-		if(reference == terminatorOperationCall_Arguments && context instanceof TerminatorOperationCall && index != -1) 
-			return (context as TerminatorOperationCall).terminatorOperation.getParameterType(index)
+		if(reference == terminatorActionCall_Arguments && context instanceof TerminatorActionCall && index != -1) 
+			return (context as TerminatorActionCall).terminatorAction.getParameterType(index)
 		if(reference == navigateExpression_Lhs && context instanceof NavigateExpression) 
 			return getRelationshipNavigationLhsExpectation(context as NavigateExpression)
 		if(reference == navigateExpression_With && context instanceof NavigateExpression) 

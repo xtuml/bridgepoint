@@ -5,6 +5,7 @@ import org.apache.log4j.Logger
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.xtend.lib.annotations.Data
 import org.xtuml.bp.xtext.masl.MASLExtensions
+import org.xtuml.bp.xtext.masl.masl.behavior.ActionCall
 import org.xtuml.bp.xtext.masl.masl.behavior.AdditiveExp
 import org.xtuml.bp.xtext.masl.masl.behavior.AssignStatement
 import org.xtuml.bp.xtext.masl.masl.behavior.BooleanLiteral
@@ -40,7 +41,6 @@ import org.xtuml.bp.xtext.masl.masl.behavior.LoopVariable
 import org.xtuml.bp.xtext.masl.masl.behavior.MultExp
 import org.xtuml.bp.xtext.masl.masl.behavior.NavigateExpression
 import org.xtuml.bp.xtext.masl.masl.behavior.NullLiteral
-import org.xtuml.bp.xtext.masl.masl.behavior.OperationCall
 import org.xtuml.bp.xtext.masl.masl.behavior.RaiseStatement
 import org.xtuml.bp.xtext.masl.masl.behavior.RangeExpression
 import org.xtuml.bp.xtext.masl.masl.behavior.RealLiteral
@@ -51,7 +51,6 @@ import org.xtuml.bp.xtext.masl.masl.behavior.SimpleFeatureCall
 import org.xtuml.bp.xtext.masl.masl.behavior.StreamExpression
 import org.xtuml.bp.xtext.masl.masl.behavior.StringLiteral
 import org.xtuml.bp.xtext.masl.masl.behavior.StructureAggregateExpression
-import org.xtuml.bp.xtext.masl.masl.behavior.TerminatorOperationCall
 import org.xtuml.bp.xtext.masl.masl.behavior.ThisLiteral
 import org.xtuml.bp.xtext.masl.masl.behavior.TimestampLiteral
 import org.xtuml.bp.xtext.masl.masl.behavior.UnaryExp
@@ -98,6 +97,7 @@ import org.xtuml.bp.xtext.masl.masl.types.TypeDeclaration
 import org.xtuml.bp.xtext.masl.masl.types.UnconstrainedArrayDefinition
 
 import static org.xtuml.bp.xtext.masl.typesystem.BuiltinType.*
+import org.xtuml.bp.xtext.masl.masl.behavior.TerminatorActionCall
 
 class MaslTypeProvider {
 
@@ -182,7 +182,7 @@ class MaslTypeProvider {
 				return maslTypeOfLinkExpression
 			CreateExpression:
 				return new InstanceType(object)		
-			OperationCall: {
+			ActionCall: {
 				val receiverType = receiver.maslTypeOfExpression
 				if(receiverType instanceof TypeOfType) 
 					// cast expression
@@ -199,8 +199,8 @@ class MaslTypeProvider {
 				else
 					return maslType.componentType
 			}
-			TerminatorOperationCall:
-				return terminatorOperation.maslTypeOfFeature
+			TerminatorActionCall:
+				return terminatorAction.maslTypeOfFeature
 			CharacteristicCall:
 				return maslTypeOfCharacteristicCall
 			ThisLiteral:

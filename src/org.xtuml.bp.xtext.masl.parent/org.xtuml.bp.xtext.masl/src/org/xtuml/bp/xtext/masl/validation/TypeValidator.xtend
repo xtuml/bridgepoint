@@ -9,17 +9,23 @@ import org.eclipse.xtext.validation.Check
 import org.eclipse.xtext.validation.EValidatorRegistrar
 import org.xtuml.bp.xtext.masl.MASLExtensions
 import org.xtuml.bp.xtext.masl.linking.SignatureRanker
+import org.xtuml.bp.xtext.masl.masl.behavior.ActionCall
 import org.xtuml.bp.xtext.masl.masl.behavior.BehaviorPackage
 import org.xtuml.bp.xtext.masl.masl.behavior.Expression
 import org.xtuml.bp.xtext.masl.masl.behavior.IndexedExpression
 import org.xtuml.bp.xtext.masl.masl.behavior.NavigateExpression
-import org.xtuml.bp.xtext.masl.masl.behavior.OperationCall
 import org.xtuml.bp.xtext.masl.masl.behavior.SimpleFeatureCall
-import org.xtuml.bp.xtext.masl.masl.behavior.TerminatorOperationCall
+import org.xtuml.bp.xtext.masl.masl.behavior.TerminatorActionCall
+import org.xtuml.bp.xtext.masl.masl.structure.AbstractActionDeclaration
 import org.xtuml.bp.xtext.masl.masl.structure.AssocRelationshipDefinition
+import org.xtuml.bp.xtext.masl.masl.structure.ObjectFunctionDeclaration
+import org.xtuml.bp.xtext.masl.masl.structure.ObjectFunctionDefinition
+import org.xtuml.bp.xtext.masl.masl.structure.ObjectServiceDeclaration
+import org.xtuml.bp.xtext.masl.masl.structure.ObjectServiceDefinition
 import org.xtuml.bp.xtext.masl.masl.structure.Parameterized
 import org.xtuml.bp.xtext.masl.masl.structure.StructurePackage
 import org.xtuml.bp.xtext.masl.masl.structure.TerminatorDefinition
+import org.xtuml.bp.xtext.masl.masl.structure.Visualized
 import org.xtuml.bp.xtext.masl.masl.types.AbstractTypeReference
 import org.xtuml.bp.xtext.masl.masl.types.ConstrainedArrayTypeReference
 import org.xtuml.bp.xtext.masl.masl.types.TypeDeclaration
@@ -38,12 +44,6 @@ import org.xtuml.bp.xtext.masl.typesystem.StructureType
 import static org.xtuml.bp.xtext.masl.linking.SignatureRanker.*
 import static org.xtuml.bp.xtext.masl.typesystem.BuiltinType.*
 import static org.xtuml.bp.xtext.masl.validation.MaslIssueCodesProvider.*
-import org.xtuml.bp.xtext.masl.masl.structure.ObjectFunctionDefinition
-import org.xtuml.bp.xtext.masl.masl.structure.ObjectServiceDefinition
-import org.xtuml.bp.xtext.masl.masl.structure.ObjectFunctionDeclaration
-import org.xtuml.bp.xtext.masl.masl.structure.ObjectServiceDeclaration
-import org.xtuml.bp.xtext.masl.masl.structure.AbstractActionDeclaration
-import org.xtuml.bp.xtext.masl.masl.structure.Visualized
 
 class TypeValidator extends AbstractMASLValidator {
 	
@@ -76,7 +76,7 @@ class TypeValidator extends AbstractMASLValidator {
 			}
 		} 
 		if(feature != null && !feature.eIsProxy ) {
-			if(feature instanceof AbstractActionDeclaration && !(eContainer instanceof OperationCall)) 
+			if(feature instanceof AbstractActionDeclaration && !(eContainer instanceof ActionCall)) 
 				addIssue('Action ' + feature.fullyQualifiedName?.lastSegment + ' must be called with parentheses', it, featureCall_Feature, INVALID_FEATURE_CALL)
 			if(!isVisible)
 				addIssue(feature?.eClass?.name + ' ' + feature.name + ' is not visible in this context.', it, featureCall_Feature, INVISIBLE_FEATURE) 
@@ -84,7 +84,7 @@ class TypeValidator extends AbstractMASLValidator {
 	}
 
 	@Check
-	def operationCall(OperationCall it) {
+	def operationCall(ActionCall it) {
 		val receiver = it.receiver
 		if(receiver != null && !receiver.eIsProxy) {
 			switch receiver {
@@ -97,21 +97,21 @@ class TypeValidator extends AbstractMASLValidator {
 								parameterized.fullyQualifiedName»«parameterized.parametersAsString
 								» cannot be called with arguments («
 									arguments.map[maslType.toString].join(', ')
-								»)''', it, operationCall_Receiver, WRONG_NUMBER_OF_ARGUMENTS)
+								»)''', it, actionCall_Receiver, WRONG_NUMBER_OF_ARGUMENTS)
 					} else if(receiver.feature instanceof TypeDeclaration) {
 						if(arguments.size != 1) 
-							addIssue('Type cast must have exactly one argument', it, operationCall_Receiver, WRONG_NUMBER_OF_ARGUMENTS)
+							addIssue('Type cast must have exactly one argument', it, actionCall_Receiver, WRONG_NUMBER_OF_ARGUMENTS)
 					}
 					return
 				}
 				AbstractTypeReference: return
 			}
-			addIssue('Cannot call ' + receiver.eClass.name + ' with parentheses', it, operationCall_Receiver, INVALID_OPERATION_CALL)
+			addIssue('Cannot call ' + receiver.eClass.name + ' with parentheses', it, actionCall_Receiver, INVALID_OPERATION_CALL)
 		}
 	}
 	
 	@Check
-	def terminatorOperationCall(TerminatorOperationCall it) {
+	def terminatorOperationCall(TerminatorActionCall it) {
 		switch receiver {
 			TerminatorDefinition, 
 			SimpleFeatureCall: {
@@ -120,8 +120,8 @@ class TypeValidator extends AbstractMASLValidator {
 			default:
 				addIssue('Cannot call terminator operation on ' + receiver.eClass.name, receiver, null)
 		}
-		if(!isVisible) {
-			addIssue(terminatorOperation?.eClass?.name + ' ' + terminatorOperation.name + ' is not visible in this context.', it, terminatorOperationCall_TerminatorOperation, INVISIBLE_FEATURE)
+		if(terminatorAction != null && !terminatorAction.eIsProxy && !isVisible) {
+			addIssue(terminatorAction?.eClass?.name + ' ' + terminatorAction.name + ' is not visible in this context.', it, terminatorActionCall_TerminatorAction, INVISIBLE_FEATURE)
 		}
 	}
 	

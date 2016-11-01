@@ -326,12 +326,12 @@ public class BehaviorAdapterFactory extends AdapterFactoryImpl {
 				return createNavigateExpressionAdapter();
 			}
 			@Override
-			public Adapter caseOperationCall(OperationCall object) {
-				return createOperationCallAdapter();
+			public Adapter caseActionCall(ActionCall object) {
+				return createActionCallAdapter();
 			}
 			@Override
-			public Adapter caseTerminatorOperationCall(TerminatorOperationCall object) {
-				return createTerminatorOperationCallAdapter();
+			public Adapter caseTerminatorActionCall(TerminatorActionCall object) {
+				return createTerminatorActionCallAdapter();
 			}
 			@Override
 			public Adapter caseIndexedExpression(IndexedExpression object) {
@@ -1264,30 +1264,30 @@ public class BehaviorAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.xtuml.bp.xtext.masl.masl.behavior.OperationCall <em>Operation Call</em>}'.
+	 * Creates a new adapter for an object of class '{@link org.xtuml.bp.xtext.masl.masl.behavior.ActionCall <em>Action Call</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see org.xtuml.bp.xtext.masl.masl.behavior.OperationCall
+	 * @see org.xtuml.bp.xtext.masl.masl.behavior.ActionCall
 	 * @generated
 	 */
-	public Adapter createOperationCallAdapter() {
+	public Adapter createActionCallAdapter() {
 		return null;
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.xtuml.bp.xtext.masl.masl.behavior.TerminatorOperationCall <em>Terminator Operation Call</em>}'.
+	 * Creates a new adapter for an object of class '{@link org.xtuml.bp.xtext.masl.masl.behavior.TerminatorActionCall <em>Terminator Action Call</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see org.xtuml.bp.xtext.masl.masl.behavior.TerminatorOperationCall
+	 * @see org.xtuml.bp.xtext.masl.masl.behavior.TerminatorActionCall
 	 * @generated
 	 */
-	public Adapter createTerminatorOperationCallAdapter() {
+	public Adapter createTerminatorActionCallAdapter() {
 		return null;
 	}
 

@@ -21,7 +21,7 @@ import org.xtuml.bp.xtext.masl.masl.behavior.GenerateStatement
 import org.xtuml.bp.xtext.masl.masl.behavior.NavigateExpression
 import org.xtuml.bp.xtext.masl.masl.behavior.SimpleFeatureCall
 import org.xtuml.bp.xtext.masl.masl.behavior.SortOrderFeature
-import org.xtuml.bp.xtext.masl.masl.behavior.TerminatorOperationCall
+import org.xtuml.bp.xtext.masl.masl.behavior.TerminatorActionCall
 import org.xtuml.bp.xtext.masl.masl.structure.AbstractActionDefinition
 import org.xtuml.bp.xtext.masl.masl.structure.AssocRelationshipDefinition
 import org.xtuml.bp.xtext.masl.masl.structure.Characteristic
@@ -100,8 +100,8 @@ class MASLScopeProvider extends AbstractMASLScopeProvider {
 				if(context instanceof TransitionOption) 
 					return createObjectScope(context.getContainerOfType(ObjectDefinition), [states])		
 			}
-			case terminatorOperationCall_TerminatorOperation: {
-				if(context instanceof TerminatorOperationCall) {
+			case terminatorActionCall_TerminatorAction: {
+				if(context instanceof TerminatorActionCall) {
 					val receiver = context?.receiver
 					if(receiver instanceof SimpleFeatureCall) {
 						val feature = receiver.feature

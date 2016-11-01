@@ -752,9 +752,9 @@ enum FindType:
 
 PostfixExpression returns Expression:
 	PrimaryExpression
-	( {OperationCall.receiver=current} =>'(' (arguments+=Expression (',' arguments+=Expression)*)? ')' 
+	( {ActionCall.receiver=current} =>'(' (arguments+=Expression (',' arguments+=Expression)*)? ')' 
 	| {SimpleFeatureCall.receiver=current} '.' feature=[AbstractFeature] 
-	| {TerminatorOperationCall.receiver=current} '~>' terminatorOperation=[AbstractFeature] '(' (arguments+=Expression (',' arguments+=Expression)*)? ')'
+	| {TerminatorActionCall.receiver=current} '~>' terminatorAction=[AbstractFeature] '(' (arguments+=Expression (',' arguments+=Expression)*)? ')'
 	| {IndexedExpression.receiver=current} '[' brackets=Expression ']'
 	| {CharacteristicCall.receiver=current} '\'' characteristic=[Characteristic|CharacteristicID] (=> '('
 		(arguments+=Expression (',' arguments+=Expression)*)?

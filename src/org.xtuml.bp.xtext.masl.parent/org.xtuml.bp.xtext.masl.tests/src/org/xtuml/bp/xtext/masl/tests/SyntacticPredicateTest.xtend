@@ -6,10 +6,10 @@ import org.eclipse.xtext.junit4.XtextRunner
 import org.eclipse.xtext.junit4.util.ParseHelper
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.xtuml.bp.xtext.masl.masl.behavior.ActionCall
 import org.xtuml.bp.xtext.masl.masl.behavior.CharacteristicCall
 import org.xtuml.bp.xtext.masl.masl.behavior.Expression
 import org.xtuml.bp.xtext.masl.masl.behavior.FindExpression
-import org.xtuml.bp.xtext.masl.masl.behavior.OperationCall
 import org.xtuml.bp.xtext.masl.masl.behavior.SimpleFeatureCall
 import org.xtuml.bp.xtext.masl.masl.structure.DomainServiceDefinition
 import org.xtuml.bp.xtext.masl.masl.structure.MaslModel
@@ -45,13 +45,13 @@ class SyntacticPredicateTest {
 	@Test
 	def void testOperationCall() {
 		val expression = 'foo();'.parseExpression
-		assertTrue(expression.eClass.name, expression instanceof OperationCall)
+		assertTrue(expression.eClass.name, expression instanceof ActionCall)
 	} 
 
 	@Test
 	def void testOperationCall2() {
 		val expression = 'this.foo();'.parseExpression
-		assertTrue(expression.eClass.name, expression instanceof OperationCall)
+		assertTrue(expression.eClass.name, expression instanceof ActionCall)
 	} 
 	
 	@Test

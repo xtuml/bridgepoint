@@ -622,23 +622,23 @@ public class BehaviorSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case BehaviorPackage.OPERATION_CALL: {
-				OperationCall operationCall = (OperationCall)theEObject;
-				T result = caseOperationCall(operationCall);
-				if (result == null) result = caseExpression(operationCall);
-				if (result == null) result = caseAbstractStatement(operationCall);
-				if (result == null) result = caseConstExpression(operationCall);
-				if (result == null) result = casePragmatized(operationCall);
+			case BehaviorPackage.ACTION_CALL: {
+				ActionCall actionCall = (ActionCall)theEObject;
+				T result = caseActionCall(actionCall);
+				if (result == null) result = caseExpression(actionCall);
+				if (result == null) result = caseAbstractStatement(actionCall);
+				if (result == null) result = caseConstExpression(actionCall);
+				if (result == null) result = casePragmatized(actionCall);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case BehaviorPackage.TERMINATOR_OPERATION_CALL: {
-				TerminatorOperationCall terminatorOperationCall = (TerminatorOperationCall)theEObject;
-				T result = caseTerminatorOperationCall(terminatorOperationCall);
-				if (result == null) result = caseExpression(terminatorOperationCall);
-				if (result == null) result = caseAbstractStatement(terminatorOperationCall);
-				if (result == null) result = caseConstExpression(terminatorOperationCall);
-				if (result == null) result = casePragmatized(terminatorOperationCall);
+			case BehaviorPackage.TERMINATOR_ACTION_CALL: {
+				TerminatorActionCall terminatorActionCall = (TerminatorActionCall)theEObject;
+				T result = caseTerminatorActionCall(terminatorActionCall);
+				if (result == null) result = caseExpression(terminatorActionCall);
+				if (result == null) result = caseAbstractStatement(terminatorActionCall);
+				if (result == null) result = caseConstExpression(terminatorActionCall);
+				if (result == null) result = casePragmatized(terminatorActionCall);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -1622,32 +1622,32 @@ public class BehaviorSwitch<T> extends Switch<T> {
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Operation Call</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Action Call</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Operation Call</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Action Call</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseOperationCall(OperationCall object) {
+	public T caseActionCall(ActionCall object) {
 		return null;
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Terminator Operation Call</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Terminator Action Call</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Terminator Operation Call</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Terminator Action Call</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseTerminatorOperationCall(TerminatorOperationCall object) {
+	public T caseTerminatorActionCall(TerminatorActionCall object) {
 		return null;
 	}
 
