@@ -657,6 +657,28 @@ end if;
 	1,
 	'',
 	"6fa2b067-98ae-436a-842d-82db6ebdfb9d");
+INSERT INTO O_TFR
+	VALUES ("e36bf7d8-121c-45e3-9709-13e18210c0fc",
+	"dcbde5c3-c845-4c4a-99bf-003c6b74e026",
+	'canDelete',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000001",
+	1,
+	'return not Util::isProvidedParameter();',
+	1,
+	'',
+	"18182e66-04ca-4cb5-83b8-41842888357c");
+INSERT INTO O_TFR
+	VALUES ("fed134ed-387a-488c-b014-04dee6ce9988",
+	"dcbde5c3-c845-4c4a-99bf-003c6b74e026",
+	'canRename',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000001",
+	1,
+	'return not Util::isProvidedParameter();',
+	1,
+	'',
+	"e36bf7d8-121c-45e3-9709-13e18210c0fc");
 INSERT INTO O_NBATTR
 	VALUES ("1b92be00-6fc2-4d3f-8cf6-f370882d6255",
 	"dcbde5c3-c845-4c4a-99bf-003c6b74e026");
