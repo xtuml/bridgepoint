@@ -22,10 +22,9 @@ import org.xtuml.bp.xtext.masl.masl.behavior.NavigateExpression
 import org.xtuml.bp.xtext.masl.masl.behavior.SimpleFeatureCall
 import org.xtuml.bp.xtext.masl.masl.behavior.SortOrderFeature
 import org.xtuml.bp.xtext.masl.masl.behavior.TerminatorOperationCall
+import org.xtuml.bp.xtext.masl.masl.structure.AbstractActionDefinition
 import org.xtuml.bp.xtext.masl.masl.structure.AssocRelationshipDefinition
 import org.xtuml.bp.xtext.masl.masl.structure.Characteristic
-import org.xtuml.bp.xtext.masl.masl.structure.DomainFunctionDefinition
-import org.xtuml.bp.xtext.masl.masl.structure.DomainServiceDefinition
 import org.xtuml.bp.xtext.masl.masl.structure.ObjectDeclaration
 import org.xtuml.bp.xtext.masl.masl.structure.ObjectDefinition
 import org.xtuml.bp.xtext.masl.masl.structure.ObjectFunctionDefinition
@@ -37,8 +36,6 @@ import org.xtuml.bp.xtext.masl.masl.structure.StateDefinition
 import org.xtuml.bp.xtext.masl.masl.structure.StructurePackage
 import org.xtuml.bp.xtext.masl.masl.structure.SubtypeRelationshipDefinition
 import org.xtuml.bp.xtext.masl.masl.structure.TerminatorDefinition
-import org.xtuml.bp.xtext.masl.masl.structure.TerminatorFunctionDefinition
-import org.xtuml.bp.xtext.masl.masl.structure.TerminatorServiceDefinition
 import org.xtuml.bp.xtext.masl.masl.structure.TransitionOption
 import org.xtuml.bp.xtext.masl.masl.structure.TransitionRow
 import org.xtuml.bp.xtext.masl.typesystem.CollectionType
@@ -47,12 +44,12 @@ import org.xtuml.bp.xtext.masl.typesystem.MaslType
 import org.xtuml.bp.xtext.masl.typesystem.MaslTypeProvider
 import org.xtuml.bp.xtext.masl.typesystem.NamedType
 import org.xtuml.bp.xtext.masl.typesystem.StructureType
+import org.xtuml.bp.xtext.masl.typesystem.TypeOfType
 import org.xtuml.bp.xtext.masl.typesystem.TypeParameterResolver
 
 import static org.eclipse.xtext.scoping.Scopes.*
 
 import static extension org.eclipse.xtext.EcoreUtil2.*
-import org.xtuml.bp.xtext.masl.typesystem.TypeOfType
 
 /**
  * This class contains custom scoping description.
@@ -243,20 +240,14 @@ class MASLScopeProvider extends AbstractMASLScopeProvider {
 				return scopeFor(expr.variables, parent.getLocalSimpleFeatureScope(parentScope, false))
 			ForStatement:
 				return scopeFor(#[expr.variable], parent.getLocalSimpleFeatureScope(parentScope, false))
-			DomainFunctionDefinition:
-				return scopeFor(expr.parameters, parentScope)
-			DomainServiceDefinition:
-				return scopeFor(expr.parameters, parentScope)
 			ObjectFunctionDefinition:
 				return getSimpleFeatureScopeForObjectAction(expr.parameters, expr.object, parentScope)
 			ObjectServiceDefinition:
 				return getSimpleFeatureScopeForObjectAction(expr.parameters, expr.object, parentScope)
 			StateDefinition:
 				return getSimpleFeatureScopeForObjectAction(expr.parameters, expr.object, parentScope)
-			TerminatorFunctionDefinition:
-				return scopeFor(expr.parameters, parentScope) 
-			TerminatorServiceDefinition:
-				return scopeFor(expr.parameters, parentScope) 
+			AbstractActionDefinition:
+				return scopeFor(expr.parameters, parentScope)
 		}
 		return parent.getLocalSimpleFeatureScope(parentScope, expr.eContainmentFeature == findExpression_Expression)
 	}

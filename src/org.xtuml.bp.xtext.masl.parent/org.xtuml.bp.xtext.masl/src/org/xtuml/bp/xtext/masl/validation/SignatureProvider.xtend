@@ -14,6 +14,7 @@ import org.xtuml.bp.xtext.masl.masl.structure.StateDeclaration
 import org.xtuml.bp.xtext.masl.masl.structure.TerminatorFunctionDeclaration
 import org.xtuml.bp.xtext.masl.masl.structure.TerminatorServiceDeclaration
 import org.xtuml.bp.xtext.masl.typesystem.MaslTypeProvider
+import org.xtuml.bp.xtext.masl.masl.structure.TerminatorDefinition
 
 class SignatureProvider {
 	
@@ -63,7 +64,7 @@ class SignatureProvider {
 				end
 			'''
 			TerminatorFunctionDeclaration: '''
-				«visibility + ' '?:''»function «domainName»::«objectName»~>«name»(«
+				«visibility + ' '?:''»function «domainName»::«terminatorName»~>«name»(«
 					FOR p: parameters SEPARATOR ','»«
 						p.name»: «p.mode» «p.type.serialize»«
 					ENDFOR») return «returnType.serialize» is
@@ -71,7 +72,7 @@ class SignatureProvider {
 				end
 			'''
 			TerminatorServiceDeclaration: '''
-				«visibility + ' '?:''»service «domainName»::«objectName»~>«name»(«
+				«visibility + ' '?:''»service «domainName»::«terminatorName»~>«name»(«
 					FOR p: parameters SEPARATOR ','»«
 						p.name»: «p.mode» «p.type.serialize»«
 					ENDFOR») is
@@ -91,5 +92,9 @@ class SignatureProvider {
 	
 	private def getObjectName(EObject it) {
 		(eContainer as ObjectDefinition).name
+	}
+	
+	private def getTerminatorName(EObject it) {
+		(eContainer as TerminatorDefinition).name
 	}
 }

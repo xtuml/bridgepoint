@@ -16,16 +16,14 @@ import org.xtuml.bp.xtext.masl.masl.behavior.OperationCall
 import org.xtuml.bp.xtext.masl.masl.behavior.SimpleFeatureCall
 import org.xtuml.bp.xtext.masl.masl.behavior.TerminatorOperationCall
 import org.xtuml.bp.xtext.masl.masl.behavior.VariableDeclaration
+import org.xtuml.bp.xtext.masl.masl.structure.AbstractFunction
 import org.xtuml.bp.xtext.masl.masl.structure.AbstractTopLevelElement
 import org.xtuml.bp.xtext.masl.masl.structure.AssocRelationshipDefinition
-import org.xtuml.bp.xtext.masl.masl.structure.DomainFunctionDefinition
 import org.xtuml.bp.xtext.masl.masl.structure.ObjectDeclaration
-import org.xtuml.bp.xtext.masl.masl.structure.ObjectFunctionDefinition
 import org.xtuml.bp.xtext.masl.masl.structure.Parameterized
 import org.xtuml.bp.xtext.masl.masl.structure.RegularRelationshipDefinition
 import org.xtuml.bp.xtext.masl.masl.structure.RelationshipEnd
 import org.xtuml.bp.xtext.masl.masl.structure.SubtypeRelationshipDefinition
-import org.xtuml.bp.xtext.masl.masl.structure.TerminatorFunctionDefinition
 
 import static org.xtuml.bp.xtext.masl.typesystem.BuiltinType.*
 
@@ -48,11 +46,7 @@ class MaslExpectedTypeProvider {
 		if (reference == returnStatement_Value) {
 			val topLevelElement = context.getContainerOfType(AbstractTopLevelElement)
 			switch topLevelElement {
-				ObjectFunctionDefinition:
-					return #[topLevelElement.returnType.maslType]
-				DomainFunctionDefinition:
-					return #[topLevelElement.returnType.maslType]
-				TerminatorFunctionDefinition:
+				AbstractFunction:
 					return #[topLevelElement.returnType.maslType]
 				default:
 					return #[NO_TYPE]

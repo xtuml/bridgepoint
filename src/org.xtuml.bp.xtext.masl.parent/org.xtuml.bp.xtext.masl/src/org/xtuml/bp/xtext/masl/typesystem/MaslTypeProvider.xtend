@@ -57,23 +57,24 @@ import org.xtuml.bp.xtext.masl.masl.behavior.TimestampLiteral
 import org.xtuml.bp.xtext.masl.masl.behavior.UnaryExp
 import org.xtuml.bp.xtext.masl.masl.behavior.VariableDeclaration
 import org.xtuml.bp.xtext.masl.masl.behavior.WhileStatement
+import org.xtuml.bp.xtext.masl.masl.structure.AbstractActionDefinition
 import org.xtuml.bp.xtext.masl.masl.structure.AbstractFeature
+import org.xtuml.bp.xtext.masl.masl.structure.AbstractFunction
 import org.xtuml.bp.xtext.masl.masl.structure.AssocRelationshipDefinition
 import org.xtuml.bp.xtext.masl.masl.structure.AttributeDefinition
-import org.xtuml.bp.xtext.masl.masl.structure.DomainFunctionDeclaration
 import org.xtuml.bp.xtext.masl.masl.structure.DomainServiceDeclaration
+import org.xtuml.bp.xtext.masl.masl.structure.EventDefinition
 import org.xtuml.bp.xtext.masl.masl.structure.Multiplicity
 import org.xtuml.bp.xtext.masl.masl.structure.ObjectDeclaration
-import org.xtuml.bp.xtext.masl.masl.structure.ObjectFunctionDeclaration
 import org.xtuml.bp.xtext.masl.masl.structure.ObjectServiceDeclaration
 import org.xtuml.bp.xtext.masl.masl.structure.Parameter
 import org.xtuml.bp.xtext.masl.masl.structure.RangeTypeReference
 import org.xtuml.bp.xtext.masl.masl.structure.RegularRelationshipDefinition
 import org.xtuml.bp.xtext.masl.masl.structure.RelationshipEnd
 import org.xtuml.bp.xtext.masl.masl.structure.RelationshipNavigation
+import org.xtuml.bp.xtext.masl.masl.structure.StateDeclaration
 import org.xtuml.bp.xtext.masl.masl.structure.SubtypeRelationshipDefinition
 import org.xtuml.bp.xtext.masl.masl.structure.TerminatorDefinition
-import org.xtuml.bp.xtext.masl.masl.structure.TerminatorFunctionDeclaration
 import org.xtuml.bp.xtext.masl.masl.structure.TerminatorServiceDeclaration
 import org.xtuml.bp.xtext.masl.masl.structure.TypeParameter
 import org.xtuml.bp.xtext.masl.masl.types.AbstractTypeDefinition
@@ -97,15 +98,6 @@ import org.xtuml.bp.xtext.masl.masl.types.TypeDeclaration
 import org.xtuml.bp.xtext.masl.masl.types.UnconstrainedArrayDefinition
 
 import static org.xtuml.bp.xtext.masl.typesystem.BuiltinType.*
-import org.xtuml.bp.xtext.masl.masl.structure.StateDeclaration
-import org.xtuml.bp.xtext.masl.masl.structure.StateDefinition
-import org.xtuml.bp.xtext.masl.masl.structure.EventDefinition
-import org.xtuml.bp.xtext.masl.masl.structure.DomainServiceDefinition
-import org.xtuml.bp.xtext.masl.masl.structure.DomainFunctionDefinition
-import org.xtuml.bp.xtext.masl.masl.structure.TerminatorServiceDefinition
-import org.xtuml.bp.xtext.masl.masl.structure.ObjectServiceDefinition
-import org.xtuml.bp.xtext.masl.masl.structure.ObjectFunctionDefinition
-import org.xtuml.bp.xtext.masl.masl.structure.TerminatorFunctionDefinition
 
 class MaslTypeProvider {
 
@@ -133,6 +125,8 @@ class MaslTypeProvider {
 					return maslTypeOfTypeDefinition
 				AbstractFeature:
 					return maslTypeOfFeature
+				AbstractFunction:
+					return returnType.maslTypeOfTypeReference
 				CodeBlockStatement,
 				ExitStatement,
 				ReturnStatement,
@@ -147,19 +141,10 @@ class MaslTypeProvider {
 				CaseStatement,
 				ForStatement,
 				WhileStatement,
-				DomainServiceDefinition,
-				ObjectServiceDefinition,
-				TerminatorServiceDefinition,
+				AbstractActionDefinition,
 				StateDeclaration,
-				StateDefinition,
 				EventDefinition:
 					return NO_TYPE
-				DomainFunctionDefinition:
-					return returnType.maslTypeOfTypeReference
-				ObjectFunctionDefinition:
-					return returnType.maslTypeOfTypeReference
-				TerminatorFunctionDefinition:
-					return returnType.maslTypeOfTypeReference
 				default:
 					throw new UnsupportedOperationException('Missing type for ' + eClass?.name)
 			}
@@ -323,6 +308,8 @@ class MaslTypeProvider {
 	}
 	
 	private def MaslType getMaslTypeOfFeature(AbstractFeature feature) {
+		if(feature == null ||feature.eIsProxy)
+			return MISSING_TYPE
 		switch feature {
 			Enumerator:
 				return new EnumType(feature.eContainer as EnumerationTypeDefinition)
@@ -342,11 +329,7 @@ class MaslTypeProvider {
 				return feature.type.maslTypeOfTypeReference
 			TypeDeclaration:
 				return new TypeOfType(feature.getMaslTypeOfTypeDeclaration(false))
-			ObjectFunctionDeclaration:
-				return feature.returnType.maslTypeOfTypeReference
-			DomainFunctionDeclaration:
-				return feature.returnType.maslTypeOfTypeReference
-			TerminatorFunctionDeclaration:
+			AbstractFunction:
 				return feature.returnType.maslTypeOfTypeReference
 			ObjectServiceDeclaration,
 			DomainServiceDeclaration,
@@ -506,7 +489,7 @@ class MaslTypeProvider {
 		if(containerObject != null)
 			return new InstanceType(object)
 		else 
-			throw new UnsupportedOperationException('Cannot determine type of \'this\'.')
+			return MISSING_TYPE
 	}
 	
 	private def MaslType getMaslTypeOfAdditive(AdditiveExp it) {

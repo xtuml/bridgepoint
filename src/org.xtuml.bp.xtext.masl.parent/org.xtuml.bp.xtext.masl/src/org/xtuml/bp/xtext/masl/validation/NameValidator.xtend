@@ -8,8 +8,8 @@ import org.eclipse.emf.ecore.EObject
 import org.eclipse.xtext.naming.IQualifiedNameProvider
 import org.eclipse.xtext.validation.Check
 import org.eclipse.xtext.validation.EValidatorRegistrar
-import org.xtuml.bp.xtext.masl.MASLExtensions
 import org.xtuml.bp.xtext.masl.masl.behavior.CodeBlock
+import org.xtuml.bp.xtext.masl.masl.structure.AbstractActionDeclaration
 import org.xtuml.bp.xtext.masl.masl.structure.DomainDefinition
 import org.xtuml.bp.xtext.masl.masl.structure.DomainFunctionDefinition
 import org.xtuml.bp.xtext.masl.masl.structure.DomainServiceDefinition
@@ -34,7 +34,6 @@ class NameValidator extends AbstractMASLValidator {
 	override register(EValidatorRegistrar registrar) {
 	}
 	
-	@Inject extension MASLExtensions
 	@Inject extension TypesPackage
 	@Inject extension SignatureProvider
 	@Inject extension StructurePackage structurePackage
@@ -142,7 +141,7 @@ class NameValidator extends AbstractMASLValidator {
 					((fileExtension == 'int' || fileExtension == 'prj') && uri == EObjectURI.trimFragment)
 					|| (fileExtension != 'int' && fileExtension != 'prj' && EObjectURI.fileExtension != 'int' && EObjectURI.fileExtension != 'prj')
 				]
-				if(element.isOperation) {
+				if(element instanceof AbstractActionDeclaration) {
 					val signature = element.parametersAsString
 					for(sibling: siblings) {
 						val resolved = element.eResource.resourceSet.getEObject(sibling.EObjectURI, true)

@@ -26,6 +26,7 @@ class MaslIssueCodesProvider extends ConfigurableIssueCodesProvider {
 	public static val WRONG_TYPE = PREFIX + 'wrongType'
 	public static val INVALID_OPERATION_CALL = PREFIX + 'invalidOperationCall'
 	public static val INVALID_FEATURE_CALL = PREFIX + 'invalidFeatureCall'
+	public static val INVISIBLE_FEATURE = PREFIX + 'invisibleFeatureCall'
 	public static val WRONG_STRUCTURE = PREFIX + 'wrongStructure'
 	public static val NAMING_CONVENTION = PREFIX + 'wrongStructure'
 	public static val INVALID_THIS = PREFIX + 'invalidThis'
@@ -57,6 +58,7 @@ class MaslIssueCodesProvider extends ConfigurableIssueCodesProvider {
 		add(WRONG_TYPE, SEVERITY_ERROR)
 		add(INVALID_OPERATION_CALL, SEVERITY_ERROR)
 		add(INVALID_FEATURE_CALL, SEVERITY_ERROR)
+		add(INVISIBLE_FEATURE, SEVERITY_ERROR)
 		add(WRONG_STRUCTURE, SEVERITY_WARNING)
 		add(NAMING_CONVENTION, SEVERITY_WARNING)
 		add(INVALID_THIS, SEVERITY_ERROR)

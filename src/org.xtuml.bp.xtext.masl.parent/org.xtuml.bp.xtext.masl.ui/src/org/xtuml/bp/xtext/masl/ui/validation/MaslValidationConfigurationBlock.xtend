@@ -51,6 +51,7 @@ class MaslValidationConfigurationBlock extends AbstractValidatorConfigurationBlo
 		addComboBox(CYCLIC_INHERITANCE, 'Cyclic inheritance', composite, defaultIndent)
 		addComboBox(WRONG_TYPE, 'Incompatible types', composite, defaultIndent)
 		addComboBox(INVALID_FEATURE_CALL, 'Invalid feature calls', composite, defaultIndent)
+		addComboBox(INVISIBLE_FEATURE, 'Visibility problems', composite, defaultIndent)
 		addComboBox(INVALID_OPERATION_CALL, 'Invalid operation calls', composite, defaultIndent)
 	}
 

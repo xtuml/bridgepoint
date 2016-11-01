@@ -42,6 +42,8 @@ import org.xtuml.bp.xtext.masl.masl.structure.ObjectFunctionDefinition
 import org.xtuml.bp.xtext.masl.masl.structure.ObjectServiceDefinition
 import org.xtuml.bp.xtext.masl.masl.structure.ObjectFunctionDeclaration
 import org.xtuml.bp.xtext.masl.masl.structure.ObjectServiceDeclaration
+import org.xtuml.bp.xtext.masl.masl.structure.AbstractActionDeclaration
+import org.xtuml.bp.xtext.masl.masl.structure.Visualized
 
 class TypeValidator extends AbstractMASLValidator {
 	
@@ -59,6 +61,7 @@ class TypeValidator extends AbstractMASLValidator {
 	@Inject extension IQualifiedNameProvider
 	@Inject extension ProjectScopeIndexProvider
 	@Inject extension SignatureRanker
+	@Inject extension VisibilityProvider
 	
 	@Check
 	def simpleFeatureCall(SimpleFeatureCall it) {
@@ -72,8 +75,12 @@ class TypeValidator extends AbstractMASLValidator {
 					addIssue('Cannot call a feature on ' + receiver?.eClass?.name + ' ' + receiver.fullyQualifiedName?.lastSegment, it, featureCall_Receiver, INVALID_FEATURE_CALL)
 			}
 		} 
-		if(feature != null && !feature.eIsProxy && feature.isOperation && !(eContainer instanceof OperationCall)) 
-			addIssue('Action ' + feature.fullyQualifiedName?.lastSegment + ' must be called with parentheses', it, featureCall_Feature, INVALID_FEATURE_CALL)
+		if(feature != null && !feature.eIsProxy ) {
+			if(feature instanceof AbstractActionDeclaration && !(eContainer instanceof OperationCall)) 
+				addIssue('Action ' + feature.fullyQualifiedName?.lastSegment + ' must be called with parentheses', it, featureCall_Feature, INVALID_FEATURE_CALL)
+			if(!isVisible)
+				addIssue(feature?.eClass?.name + ' ' + feature.name + ' is not visible in this context.', it, featureCall_Feature, INVISIBLE_FEATURE) 
+		}
 	}
 
 	@Check
@@ -112,6 +119,9 @@ class TypeValidator extends AbstractMASLValidator {
 			}
 			default:
 				addIssue('Cannot call terminator operation on ' + receiver.eClass.name, receiver, null)
+		}
+		if(!isVisible) {
+			addIssue(terminatorOperation?.eClass?.name + ' ' + terminatorOperation.name + ' is not visible in this context.', it, terminatorOperationCall_TerminatorOperation, INVISIBLE_FEATURE)
 		}
 	}
 	
@@ -190,19 +200,20 @@ class TypeValidator extends AbstractMASLValidator {
 							.map[it -> getRank(defTypes)]
 			if(allDeclarations.empty) 
 				return
-			val bestDeclaration = allDeclarations.maxBy[value]
-			if(bestDeclaration.value != PERFECT_MATCH)
-				addIssue("Parameter types " + definition.parametersAsString + " do not match declared parameters " + bestDeclaration.key.parametersAsString,
+			val bestMatch = allDeclarations.maxBy[value]
+			val bestDeclaration = bestMatch.key
+			if(bestMatch.value != PERFECT_MATCH)
+				addIssue("Parameter types " + definition.parametersAsString + " do not match declared parameters " + bestDeclaration.parametersAsString,
 					definition, structurePackage.abstractNamed_Name, DECLARATION_MISSMATCH)
 			else {
 				val defType = definition.maslType
-				val declType = bestDeclaration.key.maslType
+				val declType = bestDeclaration.maslType
 				if(defType != declType) {
 					addIssue("Return type " + defType + " does not match declared return type " + declType,
 						definition, structurePackage.abstractNamed_Name, DECLARATION_MISSMATCH)
 				} else {
 					val defParams = definition.parameters
-					val declParams = bestDeclaration.key.parameters
+					val declParams = bestDeclaration.parameters
 					for(var i=0; i<definition.parameters.size; i++) {
 						val defParamMode = defParams.get(i).mode
 						val declParamMode = declParams.get(i).mode
@@ -213,12 +224,17 @@ class TypeValidator extends AbstractMASLValidator {
 					}
 					switch definition {
 						ObjectFunctionDefinition:
-							if(definition.instance.xor((bestDeclaration.key as ObjectFunctionDeclaration).instance))
+							if(definition.instance.xor((bestDeclaration as ObjectFunctionDeclaration).instance))
 								addIssue("Definition scope does not match declaration scope ('instance')", definition, structurePackage.abstractNamed_Name, DECLARATION_MISSMATCH)
 						ObjectServiceDefinition:
-							if(definition.instance.xor((bestDeclaration.key as ObjectServiceDeclaration).instance))
+							if(definition.instance.xor((bestDeclaration as ObjectServiceDeclaration).instance))
 								addIssue("Definition scope does not match declaration scope ('instance')", definition, structurePackage.abstractNamed_Name, DECLARATION_MISSMATCH)
-					}				
+					}
+					if(definition instanceof Visualized) {
+						if(definition.visibility != (bestDeclaration as Visualized).visibility) {
+							addIssue("Visibility does not match declaration.", definition, visualized_Visibility, DECLARATION_MISSMATCH)
+						}
+					}			
 				}
 			} 
 		}

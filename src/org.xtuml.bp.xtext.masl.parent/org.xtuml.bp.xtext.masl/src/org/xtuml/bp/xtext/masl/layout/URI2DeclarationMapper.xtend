@@ -63,12 +63,12 @@ class URI2DeclarationMapper {
 	
 	def URI getImplementationURI(EObject declaration) {
 		val declarationResourceURI = declaration.eResource.URI
-		if(declarationResourceURI.fileExtension != 'masl'  
-			|| declarationResourceURI.segment(declarationResourceURI.segmentCount - 2) != 'masl')
+		if(declarationResourceURI.fileExtension != 'mod'  
+			|| declarationResourceURI.segment(declarationResourceURI.segmentCount - 3) != 'masl')
 			return null
 		val domainBaseURI = declarationResourceURI
-			.trimSegments(2)
-			.appendSegment('model')
+			.trimSegments(3)
+			.appendSegment('models')
 			.appendSegment(declaration.domainName)
 			.appendSegment(declaration.domainName)
 		switch declaration {
