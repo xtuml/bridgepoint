@@ -28,6 +28,7 @@ import org.xtuml.bp.xtext.masl.masl.types.TypesPackage
 import org.xtuml.bp.xtext.masl.scoping.ProjectScopeIndexProvider
 
 import static org.xtuml.bp.xtext.masl.validation.MaslIssueCodesProvider.*
+import org.xtuml.bp.xtext.masl.masl.structure.AbstractActionDefinition
 
 class NameValidator extends AbstractMASLValidator {
 	
@@ -141,7 +142,7 @@ class NameValidator extends AbstractMASLValidator {
 					((fileExtension == 'int' || fileExtension == 'prj') && uri == EObjectURI.trimFragment)
 					|| (fileExtension != 'int' && fileExtension != 'prj' && EObjectURI.fileExtension != 'int' && EObjectURI.fileExtension != 'prj')
 				]
-				if(element instanceof AbstractActionDeclaration) {
+				if(element instanceof AbstractActionDeclaration || element instanceof AbstractActionDefinition) {
 					val signature = element.parametersAsString
 					for(sibling: siblings) {
 						val resolved = element.eResource.resourceSet.getEObject(sibling.EObjectURI, true)

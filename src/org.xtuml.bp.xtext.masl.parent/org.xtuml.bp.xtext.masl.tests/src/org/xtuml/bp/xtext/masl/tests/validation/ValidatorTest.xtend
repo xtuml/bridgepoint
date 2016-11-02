@@ -393,6 +393,60 @@ class ValidatorTest {
 	}
 
 	@Test
+	def void testActionOverloading() {
+		load('''
+			domain dom is
+				function f(x: in integer) return integer;
+				function f(x: in string) return integer;
+			end;
+		''').assertNoErrors(DUPLICATE_NAME)
+	}
+	
+	@Test
+	def void testActionOverloading1() {
+		load('''
+			domain dom is
+				function f(x: in integer) return integer;
+				function f(y: in integer) return integer;
+			end;
+		''').assertError(domainFunctionDeclaration, DUPLICATE_NAME)
+	}
+	
+	@Test
+	def void testActionOverloading2() {
+		load('''
+			domain dom is
+				function f(x: in integer) return integer;
+				function f(x: in string) return string;
+			end;
+		''').assertNoErrors(DUPLICATE_NAME)
+	}
+	
+	@Test
+	def void testActionOverloading3() {
+		load('''
+			function dom::f(x: in integer) return integer is begin end;
+			function dom::f(x: in string) return integer is begin end;
+		''').assertNoErrors(DUPLICATE_NAME)
+	}
+	
+	@Test
+	def void testActionOverloading4() {
+		load('''
+			function dom::f(x: in integer) return integer is begin end;
+			function dom::f(y: in integer) return integer is begin end;
+		''').assertError(domainFunctionDefinition, DUPLICATE_NAME)
+	}
+	
+	@Test
+	def void testActionOverloading5() {
+		load('''
+			function dom::f(x: in integer) return integer is begin end;
+			function dom::f(x: in string) return string is begin end;
+		''').assertNoErrors(DUPLICATE_NAME)
+	}
+	
+	@Test
 	def void testTerminatorActionVisibilities() {
 		load('''
 			domain dom is

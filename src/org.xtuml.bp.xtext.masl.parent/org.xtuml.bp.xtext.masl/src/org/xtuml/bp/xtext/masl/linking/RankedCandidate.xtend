@@ -11,23 +11,20 @@ import org.xtuml.bp.xtext.masl.typesystem.MaslTypeConformanceComputer
 import org.xtuml.bp.xtext.masl.typesystem.MaslTypeProvider
 
 import static java.lang.Math.*
+import org.eclipse.emf.ecore.EObject
 
 @Data
-class RankedCandidate {
+class RankedCandidate implements Comparable<RankedCandidate> {
 	static val EXACT_MATCH = Integer.MAX_VALUE - 1
 	static val ACCEPTABLE_MATCH = Integer.MAX_VALUE / 2
 	static val JUST_NUMBER_OF_ARGUMENTS_MATCH = 0
 	static val JUST_TYPE_MATCH = Integer.MIN_VALUE / 2
 	static val JUST_NAME_MATCH = Integer.MIN_VALUE + 1
 
-	AbstractFeature candidate
+	EObject candidate
 	int score
 
-	private new(Parameterized candidate, int score) { 
-		this(candidate as AbstractFeature, score)
-	}
-	
-	private new(AbstractFeature candidate, int score) {
+	private new(EObject candidate, int score) {
 		this.candidate = candidate
 		if(candidate.eResource.URI.fileExtension != 'int')
 			this.score = score + 1
@@ -43,8 +40,15 @@ class RankedCandidate {
 		score >= ACCEPTABLE_MATCH
 	}
 	
-	def >(RankedCandidate other) {
-		other == null || score > other.score
+	override compareTo(RankedCandidate other) {
+		if(other == null)
+			1
+		else if (score < other.score) // compare to avoid integer overflow
+			-1
+		else if (score == other.score) 
+			0
+		else 
+			1
 	}
 	
 	static class Factory {
@@ -65,7 +69,7 @@ class RankedCandidate {
 			}
 		}
 		
-		private def RankedCandidate rankParameterized(Parameterized elementToRank, List<MaslType> givenTypes) {
+		def RankedCandidate rankParameterized(Parameterized elementToRank, List<MaslType> givenTypes) {
 			val parameters = elementToRank.parameters
 			var numSameType = 0
 			var numAssignableType = 0
