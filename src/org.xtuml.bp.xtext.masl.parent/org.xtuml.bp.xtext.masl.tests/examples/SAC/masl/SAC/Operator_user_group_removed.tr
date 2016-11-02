@@ -1,0 +1,4 @@
+private service SAC::Operator~>user_group_removed (        uid : in integer,        group_name : in string,        login_name : in string,        session_id : in integer) is 
+begin
+  null;
+end service;

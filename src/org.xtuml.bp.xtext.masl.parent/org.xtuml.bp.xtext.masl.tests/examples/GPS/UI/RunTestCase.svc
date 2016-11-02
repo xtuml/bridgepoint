@@ -1,0 +1,4 @@
+private service UI::RunTestCase () is
+begin
+  null;
+end service;

@@ -1,0 +1,4 @@
+private function Tracking::Location~>getDistance (        toLong : in real,        toLat : in real,        fromLong : in real,        fromLat : in real) return real is
+begin
+  null;
+end function;

@@ -70,6 +70,7 @@ public class BridgePointCDTProjectWizard extends DelegatingWizard {
         WizardDialog dialog = new WizardDialog(parent, wizard);
         dialog.create();
         wizard.performFinish();
+        dialog.close();
         boolean success = true;
         try {
           setSourceFolder(project);

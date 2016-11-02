@@ -60,7 +60,11 @@ public abstract class CoreImport implements IModelImport {
 
     File m_inFile;
 
+    File m_actionFile;
+
     private StringBuffer inputBuffer = null;
+
+    private StringBuffer actionInputBuffer = null;
 
     public FileHeader m_header = null;
 
@@ -84,25 +88,37 @@ public abstract class CoreImport implements IModelImport {
         read(inStream);
     }
 
-    public CoreImport(Ooaofooa modelRoot, String inFile, boolean clearDatabase, boolean templateFile)
+    public CoreImport(Ooaofooa modelRoot, String inFile, String actionFile, boolean clearDatabase, boolean templateFile)
             throws FileNotFoundException {
         m_success = false;
         m_errorMessage = ""; //$NON-NLS-1$
         m_modelRoot = modelRoot;
         m_fileName = inFile;
         m_inFile = new File(inFile);
+        if ( null != actionFile && "" != actionFile ) {
+        	m_actionFile = new File(actionFile);
+        }
+        else {
+        	m_actionFile = null;
+        }
         m_clear_database = clearDatabase;
         m_templateFile = templateFile;
         if (!m_inFile.exists() || !m_inFile.isFile())
             throw new FileNotFoundException(inFile + " not found");
     }
 
-    public CoreImport(IPath inFile) throws FileNotFoundException {
+    public CoreImport(IPath inFile, IPath actionFile) throws FileNotFoundException {
         m_success = false;
         m_errorMessage = ""; //$NON-NLS-1$
         m_modelRoot = null;
         m_fileName = inFile.toString();
         m_inFile = inFile.toFile();
+        if ( null != actionFile ) {
+        	m_actionFile = actionFile.toFile();
+        }
+        else {
+        	m_actionFile = null;
+        }
 
         if (!m_inFile.exists() || !m_inFile.isFile())
             throw new FileNotFoundException(inFile + " not found");
@@ -154,6 +170,8 @@ public abstract class CoreImport implements IModelImport {
 
     public abstract int postprocessStatements();
 
+    public abstract void processAction( String name, String key_lett, String id1, String id2, String body, IProgressMonitor pm );
+
     protected Ooaofooa getModelRoot() {
         return m_modelRoot;
     }
@@ -194,11 +212,58 @@ public abstract class CoreImport implements IModelImport {
         }
     }
 
+    protected void readActions(File file) throws IOException {
+    	InputStreamReader reader = null;
+        try {
+			reader = new InputStreamReader(new FileInputStream(file),
+					ResourcesPlugin.getEncoding());
+            readActions(reader);
+        } finally {
+            if (reader != null) {
+                try {
+                    reader.close();
+                } catch (IOException e) {
+                }
+            }
+        }
+    }
+
+    protected void readActions(InputStream inStream) throws IOException {
+    	InputStreamReader reader = new InputStreamReader(inStream);
+        readActions(reader);
+    }
+
+    protected void readActions(Reader reader) throws IOException {
+        actionInputBuffer = new StringBuffer();
+        BufferedReader bufferedReader = new BufferedReader(reader);
+        final int bufferLength = 8192;
+        char[] charBuffer = new char[bufferLength];
+        int readLength;
+        while ((readLength = bufferedReader.read(charBuffer, 0, bufferLength)) > 0) {
+            actionInputBuffer.append(charBuffer, 0, readLength);
+        }
+    }
+
+
+
     public Reader getInputReader() throws IOException {
         if (inputBuffer == null)
             read(m_inFile);
 
         return new StringReader(inputBuffer.toString());
+    }
+
+    public Reader getActionInputReader() throws IOException {
+        if (actionInputBuffer == null) {
+        	if ( null == m_actionFile ) {
+        		return new StringReader("");
+        	}
+        	else {
+        		readActions(m_actionFile);
+        	}
+        }
+
+        return new StringReader(actionInputBuffer.toString());
     }
 
     public int countAndValidateInsertStatements() {
@@ -255,6 +320,40 @@ public abstract class CoreImport implements IModelImport {
             SqlParser parser = new SqlParser(lexer, m_modelRoot, this);
             // Parse the input expression
             parser.sql_file(pm);
+            if (!parser.m_output.isEmpty())
+            {
+                m_errorMessage = parser.m_output;
+                pm.done();
+                return false;
+            } else {
+                pm.done();
+                return true;
+            }
+        } catch (IOException e) {
+            m_errorMessage = "IO exception: " + e; //$NON-NLS-1$
+        } catch (TokenStreamException e) {
+            m_errorMessage = "Stream exception: " + e; //$NON-NLS-1$
+        } catch (RecognitionException e) {
+            m_errorMessage = "Recog exception: " + e; //$NON-NLS-1$
+        }
+        return false;
+    }
+    
+    protected boolean doLoadActions(IProgressMonitor pm) {
+        if ( m_actionFile == null || !m_actionFile.exists() ) {
+            pm.done();
+            return true;
+        }
+        // here's where the code is actually read
+        try {
+            Reader reader = getActionInputReader();
+
+            ActionLexer lexer = new ActionLexer(reader);
+
+            pm.beginTask("Reading activity data...", IProgressMonitor.UNKNOWN );
+            ActionParser parser = new ActionParser(lexer, this);
+            // Parse the input expression
+            parser.actions(pm);
             if (!parser.m_output.isEmpty())
             {
                 m_errorMessage = parser.m_output;

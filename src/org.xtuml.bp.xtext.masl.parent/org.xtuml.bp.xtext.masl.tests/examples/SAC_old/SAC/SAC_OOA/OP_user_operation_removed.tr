@@ -1,0 +1,15 @@
+//
+// Filename: OP_user_operation_removed.tr
+//
+// Description: Allows the domain to report that the operations for the user
+//              session have been deleted
+//
+// UK Crown Copyright (c) 2010,2014. All rights reserved.
+//
+private service SAC::Operator~>user_operation_removed (user_id        : in  integer,
+                                                       operation_name : in  string,
+                                                       login_name     : in  string,
+                                                       session_id     : in  integer) is
+begin
+  null;
+end;

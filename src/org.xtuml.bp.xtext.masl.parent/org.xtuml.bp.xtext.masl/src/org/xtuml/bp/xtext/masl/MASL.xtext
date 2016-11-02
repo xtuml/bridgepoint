@@ -1,0 +1,875 @@
+
+grammar org.xtuml.bp.xtext.masl.MASL hidden(WS, SL_COMMENT)
+
+import "http://www.xtuml.org/bp/xtext/masl/MASLStructure"
+import "http://www.xtuml.org/bp/xtext/masl/MASLTypes"
+import "http://www.xtuml.org/bp/xtext/masl/MASLBehavior"
+import "http://www.eclipse.org/emf/2002/Ecore" as ecore
+
+MaslModel:
+	BuiltinLibraryDefinition 
+	| {MaslModel} elements+=AbstractTopLevelElement*;
+
+AbstractTopLevelElement:
+	ProjectDefinition
+	| DomainDefinition
+	| DomainFunctionDefinition
+	| DomainServiceDefinition
+	| ObjectFunctionDefinition
+	| ObjectServiceDefinition
+	| StateDefinition
+	| TerminatorFunctionDefinition
+	| TerminatorServiceDefinition;
+
+//---------------------------------------------------------
+// Common rules and fragments
+//---------------------------------------------------------
+
+ScopedName:
+	(ID '::')? ID;
+
+fragment PragmaList returns Pragmatized:
+	(pragmas+=Pragma ';')*;
+
+Pragma:
+	'pragma' name=ID
+	'('
+	(values+=PragmaValue (',' values+=PragmaValue)*)?
+	')';
+
+PragmaValue:
+	name=ID | value=Literal;
+
+fragment ParameterList returns Parameterized:
+	'(' (parameters+=Parameter (',' parameters+=Parameter)*)? ')';
+
+Parameter:
+	name=ID ':' mode=ParameterMode type=AbstractTypeReference;
+
+enum Visibility:
+	public | private;
+
+//---------------------------------------------------------
+// Project Definition
+//---------------------------------------------------------
+ProjectDefinition:
+	'project' name=ID 'is'
+	domains+=DomainDefinition*
+	'end' 'project'? 
+	';'? PragmaList;
+
+//---------------------------------------------------------
+// Domain Definition
+//---------------------------------------------------------
+DomainDefinition:
+	'domain' name=ID 'is'
+	(
+		objects+=ObjectDeclaration
+		| services+=DomainServiceDeclaration
+		| functions+=DomainFunctionDeclaration
+		| terminators+=TerminatorDefinition
+		| relationships+=RelationshipDefinition
+		| objectDefs+=ObjectDefinition
+		| typeForwards+=TypeForwardDeclaration
+		| types+=TypeDeclaration
+		| exceptions+=ExceptionDeclaration
+	)*
+	'end' 'domain'? 
+	';'? PragmaList;
+
+//---------------------------------------------------------
+// Library Definition 
+//---------------------------------------------------------
+BuiltinLibraryDefinition:
+	{BuiltinLibraryDefinition}
+	'builtin' 'is' 
+	(types+=BuiltinTypeDeclaration
+	| characteristics+=Characteristic)*	
+	'end' 'builtin'? ';';
+
+BuiltinTypeDeclaration returns TypeDeclaration:
+	TypeDeclaration 
+	| {BuiltinTypeDeclaration} anonymous?='anonymous'? 'builtin' name=ID ';';
+
+Characteristic:
+	 ('<' typeParams+=TypeParameter (',' typeParams+=TypeParameter)* '>')?
+	 ((forValue?='(' receiverType=AbstractTypeReference ')') | (receiverType=AbstractTypeReference))
+	 '\'' name=CharacteristicID
+	 ParameterList? 
+	 ('return' returnType=AbstractTypeReferenceWithRange)? ';';
+
+TypeParameter:
+	 ^enum?='enum'? name=ID;
+
+AbstractTypeReferenceWithRange returns AbstractTypeReference:
+	AbstractTypeReference
+	| RangeTypeReference;
+	
+RangeTypeReference:
+	'range' 'of' elementType=AbstractTypeReference;
+
+//---------------------------------------------------------
+// Exception Declaration
+//---------------------------------------------------------
+ExceptionDeclaration:
+	visibility=Visibility? 'exception' name=ID
+	';' PragmaList;
+
+//---------------------------------------------------------
+// Type Definition
+//---------------------------------------------------------
+TypeForwardDeclaration:
+	visibility=Visibility? ('type' | subtype?='subtype') name=ID 
+	';' PragmaList;
+
+TypeDeclaration:
+	visibility=Visibility? ('type' | subtype?='subtype') name=ID 'is'
+	definition=AbstractTypeDefinition 
+	';' PragmaList;
+
+AbstractTypeDefinition:
+	StructureTypeDefinition
+	| EnumerationTypeDefinition
+	| ConstrainedTypeDefinition
+	| AbstractTypeReferenceWithCA
+	| UnconstrainedArrayDefinition;
+
+ConstrainedTypeDefinition:
+	type=NamedTypeReference constraint=AbstractTypeConstraint;
+
+AbstractTypeConstraint:
+	RangeConstraint
+	| DeltaConstraint
+	| DigitsConstraint;
+
+RangeConstraint:
+	'range' range=Expression;
+
+DeltaConstraint:
+	'delta' delta=ConstExpression constraint=RangeConstraint;
+
+DigitsConstraint:
+	'digits' digits=ConstExpression constraint=RangeConstraint;
+
+StructureTypeDefinition:
+	{StructureTypeDefinition}
+	'structure'
+	components+=StructureComponentDefinition*
+	'end' 'structure'?;
+
+StructureComponentDefinition:
+	name=ID ':' type=AbstractTypeReference
+	(':=' defaultValue=ConstExpression)?
+	';' PragmaList;
+
+EnumerationTypeDefinition:
+	{EnumerationTypeDefinition}
+	'enum' 
+	'(' (enumerators+=Enumerator (',' enumerators+=Enumerator)*)? ')';
+
+Enumerator:
+	name=ID (('=' | ':=') expression=ConstExpression)?;
+
+UnconstrainedArrayDefinition:
+	'array' '(' indexType=NamedTypeReference 'range' '<>' ')'
+	'of' elementType=AbstractTypeReference;
+
+//---------------------------------------------------------
+// Type Reference
+//---------------------------------------------------------
+AbstractTypeReference:
+	NamedTypeReference
+	| InstanceTypeReference
+	| AbstractCollectionTypeReference;
+//	| DeprecatedTypeReference;
+
+AbstractTypeReferenceWithCA returns AbstractTypeReference:
+	AbstractTypeReference
+	| ConstrainedArrayTypeReference;
+
+//DeprecatedTypeReference:
+//	typeName=('instance'
+//	| 'event'
+//	| 'service');
+
+InstanceTypeReference:
+	anonymous?='anonymous'? 'instance' 'of' instance=[ObjectDeclaration|ScopedName];
+
+NamedTypeReference:
+	anonymous?='anonymous'? type=[TypeDeclaration|ScopedName];
+
+ConstrainedArrayTypeReference:
+	unconstrained=[TypeDeclaration|ScopedName] '(' constraint=Expression ')';
+
+AbstractCollectionTypeReference:
+	SequenceTypeReference
+	| ArrayTypeReference
+	| SetTypeReference
+	| BagTypeReference
+	| DictionaryTypeReference;
+
+SequenceTypeReference:
+	anonymous?='anonymous'?
+	'sequence' ('(' expression=Expression ')')? 'of' elementType=AbstractTypeReference;
+
+ArrayTypeReference:
+	anonymous?='anonymous'?
+	'array' '(' expression=Expression ')' 'of' elementType=AbstractTypeReference;
+
+SetTypeReference:
+	anonymous?='anonymous'?
+	'set' 'of' elementType=AbstractTypeReference;
+
+BagTypeReference:
+	anonymous?='anonymous'?
+	'bag' 'of' elementType=AbstractTypeReference;
+
+DictionaryTypeReference:
+	{DictionaryTypeReference}
+	anonymous?='anonymous'?
+	'dictionary' (keyType=AbstractDictKeyTypeRef? 'of' elementType=AbstractTypeReference)?;
+
+AbstractDictKeyTypeRef returns AbstractTypeReference:
+	NamedTypeReference | InstanceTypeReference;
+
+//---------------------------------------------------------
+// Terminator Definition
+//---------------------------------------------------------
+TerminatorDefinition:
+	'terminator' name=ID 'is' 
+	(services+=TerminatorServiceDeclaration
+	| functions+=TerminatorFunctionDeclaration)*
+	'end' 'terminator'? 
+	';' PragmaList;
+
+TerminatorServiceDeclaration:
+	visibility=Visibility? 'service' name=ID
+	ParameterList
+	';' PragmaList;
+
+TerminatorFunctionDeclaration:
+	visibility=Visibility? 'function' name=ID
+	ParameterList
+	'return' returnType=AbstractTypeReference
+	';' PragmaList;
+	
+//---------------------------------------------------------
+// Object Definition
+//---------------------------------------------------------
+ObjectDeclaration:
+	'object' name=ID 
+	';' PragmaList;
+
+ObjectDefinition:
+	'object' name=ID 'is' 
+	(attributes+=AttributeDefinition
+	| identifiers+=IdentifierDefinition
+	| services+=ObjectServiceDeclaration
+	| functions+=ObjectFunctionDeclaration
+	| events+=EventDefinition
+	| states+=StateDeclaration
+	| transitions+=TransitionTable)*
+	'end' 'object'? 
+	';' PragmaList;
+
+AttributeDefinition:
+	name=ID ':'
+	preferred?='preferred'? unique?='unique'?
+	('referential' 
+	 '(' (referentials+=AttributeReferential (',' referentials+=AttributeReferential)*)? ')'
+	)?
+	type=AbstractTypeReference
+	(':=' defaultValue=ConstExpression)?
+	';' PragmaList;
+
+AttributeReferential returns RelationshipNavigation:
+	{AttributeReferential}
+	relationship=[RelationshipDefinition|ScopedName]
+	('.' objectOrRole=[ObjectOrRole] 
+		('.' object=[ObjectDeclaration])?
+	)?
+	'.' attribute=[AttributeDefinition];
+
+ObjectServiceDeclaration:
+	visibility=Visibility?
+	instance?='instance'? 
+	('deferred' relationship=[RelationshipDefinition])?
+	'service' name=ID
+	ParameterList
+	';' PragmaList;
+
+ObjectFunctionDeclaration:
+	visibility=Visibility?
+	instance?='instance'? 
+	('deferred' relationship=[RelationshipDefinition])?
+	'function' name=ID
+	ParameterList
+	'return' returnType=AbstractTypeReference
+	';' PragmaList;
+
+IdentifierDefinition:
+	'identifier' 'is'
+	'(' (attributes+=[AttributeDefinition] (',' attributes+=[AttributeDefinition])*)? ')' 
+	';' PragmaList;
+
+EventDefinition:
+	type=EventType? 'event' name=ID
+	ParameterList
+	';' PragmaList;
+
+enum EventType:
+	assigner
+	| creation;
+
+StateDeclaration:
+	type=StateTypeSyntax? 'state' name=ID
+	ParameterList
+	';' PragmaList;
+
+StateTypeSyntax returns StateType:
+	'assigner' 'start'? | 'creation' | 'terminal';
+
+TransitionTable:
+	type=TransTableType? 'transition' 'is'
+	rows+=TransitionRow+
+	'end' 'transition'? 
+	';' PragmaList;
+
+enum TransTableType:
+	assigner;
+
+TransitionRow:
+	(start=[StateDeclaration] | nonExistant?=('Non_Existent' | 'Non_Existant' | 'non_existent' | 'non_existant'))
+	'(' (options+=TransitionOption (',' options+=TransitionOption)*)? ')' 
+	';' PragmaList;
+
+TransitionOption:
+	event=[EventDefinition|ScopedName] '=>'
+	(endState=[StateDeclaration] | ignore?='Ignore' | cannotHappen?=('Cannot_Happen' | 'cannot_happen'));
+
+//---------------------------------------------------------
+// Service Declaration
+//---------------------------------------------------------
+DomainServiceDeclaration:
+	visibility=Visibility? 'service' name=ID
+	ParameterList
+	';' PragmaList;
+
+DomainFunctionDeclaration:
+	visibility=Visibility?
+	'function' name=ID
+	ParameterList
+	'return' returnType=AbstractTypeReference
+	';' PragmaList;
+
+enum ParameterMode:
+	in
+	| out;
+
+//---------------------------------------------------------
+// Relationship Definition
+//---------------------------------------------------------
+RelationshipDefinition:
+	'relationship'
+	(RegularRelationshipDefinition
+	| AssocRelationshipDefinition
+	| SubtypeRelationshipDefinition) 
+	';' PragmaList;
+
+RegularRelationshipDefinition:
+	name=ID 'is'
+	forwards=RelationshipEnd ','
+	backwards=RelationshipEnd;
+
+AssocRelationshipDefinition:
+	name=ID 'is'
+	forwards=RelationshipEnd ','
+	backwards=RelationshipEnd
+	'using' one?='one'? object=[ObjectDeclaration];
+
+RelationshipEnd:
+	from=[ObjectDeclaration]
+	conditionality=Conditionality name=ID
+	multiplicity=Multiplicity 
+	to=[ObjectDeclaration];
+
+SubtypeRelationshipDefinition:
+	name=ID 'is'
+	supertype=[ObjectDeclaration] 'is_a'
+	'(' (subtypes+=[ObjectDeclaration] (',' subtypes+=[ObjectDeclaration])*)?')';
+
+enum Conditionality:
+	unconditionally
+	| conditionally;
+
+enum Multiplicity:
+	one
+	| many;
+
+RelationshipNavigation:
+	relationship=[RelationshipDefinition|ScopedName]
+	('.' objectOrRole=[ObjectOrRole] ('.' object=[ObjectDeclaration])?)?;
+
+//---------------------------------------------------------
+// Dynamic Behaviour
+//---------------------------------------------------------
+DomainServiceDefinition:
+	visibility=Visibility? 'service'
+	domain=[DomainDefinition] '::' name=ID
+	ParameterList
+	'is' body=CodeBlock
+	'service'? 
+	';'? PragmaList;
+
+DomainFunctionDefinition:
+	visibility=Visibility? 'function'
+	domain=[DomainDefinition] '::' name=ID
+	ParameterList
+	'return' returnType=AbstractTypeReference
+	'is' body=CodeBlock
+	'function'? 
+	';'? PragmaList;
+
+ObjectServiceDefinition:
+	visibility=Visibility? instance?='instance'? 'service'
+	domain=[DomainDefinition] '::' object=[ObjectDeclaration] '.' name=ID
+	ParameterList
+	'is' body=CodeBlock
+	'service'? 
+	';'? PragmaList;
+
+// TODO: this looks strangely assymetric to ObjectServiceDefinition
+ObjectFunctionDefinition:
+	visibility=Visibility? instance?='instance'? ('deferred' relationship=[RelationshipDefinition])? 'function'
+	domain=[DomainDefinition] '::' object=[ObjectDeclaration] '.' name=ID
+	ParameterList
+	'return' returnType=AbstractTypeReference
+	'is' body=CodeBlock
+	'function'? 
+	';'? PragmaList;
+
+TerminatorServiceDefinition:
+	visibility=Visibility? 'service'
+	domain=[DomainDefinition] '::' terminator=[TerminatorDefinition] '~>' name=ID
+	ParameterList
+	'is' body=CodeBlock
+	'service'? 
+	';'? PragmaList;
+
+TerminatorFunctionDefinition:
+	visibility=Visibility? 'function'
+	domain=[DomainDefinition] '::' terminator=[TerminatorDefinition] '~>' name=ID
+	ParameterList
+	'return' returnType=AbstractTypeReference
+	'is' body=CodeBlock
+	'function'? 
+	';'? PragmaList;
+
+StateDefinition:
+	type=StateTypeSyntax? 'state'
+	domain=[DomainDefinition] '::' object=[ObjectDeclaration] '.' name=ID
+	ParameterList
+	'is' body=CodeBlock
+	'state'? 
+	';'? PragmaList;
+
+//---------------------------------------------------------
+// Statements
+//---------------------------------------------------------
+AbstractStatement:
+	(CodeBlockStatement
+	| AssignStatement
+	| ExitStatement
+	| ReturnStatement
+	| DelayStatement
+	| RaiseStatement
+	| DeleteStatement
+	| EraseStatement
+	| ScheduleStatement
+	| CancelTimerStatement
+	| GenerateStatement
+	| IfStatement
+	| CaseStatement
+	| ForStatement
+	| WhileStatement)
+	';' PragmaList;
+
+AssignStatement returns Expression:
+	Expression ({AssignStatement.lhs=current} ':=' rhs=Expression)?;
+
+ExitStatement:
+	{ExitStatement} 'exit' ('when' condition=Expression)?;
+
+ReturnStatement:
+	'return' value=Expression;
+
+DelayStatement:
+	'delay' value=Expression;
+
+RaiseStatement:
+	'raise' exception=[ExceptionDeclaration|ScopedName]
+	('(' argument=Expression? ')')?;
+
+DeleteStatement:
+	'delete' value=Expression;
+
+EraseStatement:
+	'erase' value=Expression;
+
+enum LinkType:
+	link
+	| unlink;
+
+ScheduleStatement:
+	'schedule' timerId=Expression
+	generateStatement=GenerateStatement
+	type=ScheduleType time=Expression ('delta' period=Expression)?;
+
+CancelTimerStatement:
+	'cancel' timerId=Expression;
+
+enum ScheduleType:
+	at
+	| delay;
+
+GenerateStatement:
+	'generate' object=[ObjectDeclaration|ScopedName] '.' event=[EventDefinition]
+	'(' (arguments+=Expression (',' arguments+=Expression)*)? ')' ('to' to=Expression)?;
+
+IfStatement:
+	'if' condition=Expression 'then'
+	statements+=AbstractStatement*
+	elseIfs+=ElsifBlock*
+	else=ElseBlock?
+	'end' 'if'?;
+
+ElsifBlock:
+	'elsif' condition=Expression 'then'
+	statements+=AbstractStatement*;
+
+ElseBlock:
+	{ElseBlock} 'else' statements+=AbstractStatement*;
+
+WhileStatement:
+	'while' condition=Expression
+	'loop'
+	statements+=AbstractStatement*
+	'end' 'loop'?;
+
+CaseStatement:
+	'case' value=Expression 'is'
+	alternatives+=CaseAlternative*
+	default=CaseOthers?
+	'end' 'case'?;
+
+CaseAlternative:
+	'when' choices+=Expression ('|' choices+=Expression)* '=>' statements+=AbstractStatement*;
+
+CaseOthers:
+	{CaseOthers} 'when' 'others' '=>' statements+=AbstractStatement*;
+
+ForStatement:
+	'for' variable=LoopVariable 'in' reverse?='reverse'? expression=Expression
+	'loop'
+	statements+=AbstractStatement*
+	'end' 'loop'?;
+
+LoopVariable:
+	name=ID;
+
+//---------------------------------------------------------
+// Code Blocks
+//---------------------------------------------------------
+CodeBlockStatement:
+	'declare'? CodeBlock;
+
+CodeBlock:
+	{CodeBlock}
+	variables+=VariableDeclaration*
+	'begin'
+	statements+=AbstractStatement*
+	('exception'
+	exceptionHandler+=ExceptionHandler*
+	defaultHandler=DefaultExceptionHandler?)?
+	'end';
+
+VariableDeclaration:
+	name=ID ':'
+	readOnly='readonly'? type=AbstractTypeReferenceWithCA
+	(':=' expression=Expression)?
+	';' PragmaList;
+
+ExceptionHandler:
+	'when' exception=[ExceptionDeclaration|ScopedName] '=>' statements+=AbstractStatement*;
+
+DefaultExceptionHandler:
+	{DefaultExceptionHandler} 'when' 'others' '=>' statements+=AbstractStatement*;
+
+//---------------------------------------------------------
+// Find Condition Definition
+//---------------------------------------------------------
+FindCondition returns Expression:
+	FindLogicalOr;
+
+FindLogicalOr returns Expression:
+	FindLogicalXor ({LogicalOr.lhs=current} 'or' rhs=FindLogicalXor)*;
+
+FindLogicalXor returns Expression:
+	FindLogicalAnd ({LogicalXor.lhs=current} 'xor' rhs=FindLogicalAnd)*;
+
+FindLogicalAnd returns Expression:
+	FindPrimary ({LogicalAnd.lhs=current} 'and' rhs=FindPrimary)*;
+
+FindPrimary returns Expression:
+	FindEquality
+	| FindUnary;
+
+FindUnary returns Expression:
+	'not' FindUnary
+	| '(' FindCondition ')';
+
+FindEquality returns Expression:
+	FindRelationExp 
+	({Equality.lhs=current} operator=('=' | '/=') rhs=AdditiveExp)?;
+
+FindRelationExp returns Expression:
+	FindName 
+	({RelationalExp.lhs=current} operator=('<' | '>' | '<=' | '>=') rhs=AdditiveExp)?;
+
+FindName returns Expression:
+	FindReceiverAttribute
+	( {SimpleFeatureCall.receiver = current} '.' feature=[AbstractFeature]
+	| {IndexedExpression.receiver = current} '[' brackets=Expression ']')*;
+
+FindReceiverAttribute returns SimpleFeatureCall:
+	feature=[AttributeDefinition];
+
+//---------------------------------------------------------
+// Expression Definition
+//---------------------------------------------------------
+ConstExpression:
+	Expression;
+
+Expression returns Expression:
+	StreamExpression;
+
+StreamExpression returns Expression:
+	RangeExpression ({StreamExpression.lhs=current} operator=StreamOperator rhs=RangeExpression)*;
+
+StreamOperator:
+	'<<'
+	| '>>'
+	| '<<<'
+	| '>>>';
+
+RangeExpression returns Expression:
+	LogicalOr ({RangeExpression.from=current} operator='..' to=LogicalOr)?;
+
+LogicalOr returns Expression:
+	LogicalXor ({LogicalOr.lhs=current} operator='or' rhs=LogicalXor)*;
+
+LogicalXor returns Expression:
+	LogicalAnd ({LogicalXor.lhs=current} operator='xor' rhs=LogicalAnd)*;
+
+LogicalAnd returns Expression:
+	Equality ({LogicalAnd.lhs=current} operator='and' rhs=Equality)*;
+
+Equality returns Expression:
+	RelationalExp ({Equality.lhs=current} operator=('=' | '/=') rhs=RelationalExp)*;
+
+RelationalExp returns Expression:
+	AdditiveExp ({RelationalExp.lhs=current} operator=('<' | '>' | '<=' | '>=') rhs=AdditiveExp)*;
+
+AdditiveExp returns Expression:
+	MultExp ({AdditiveExp.lhs=current} operator=('+' | '-' | '&' | 'union' | 'not_in') rhs=MultExp)*;
+
+MultExp returns Expression:
+	UnaryExp ({MultExp.lhs=current} operator=('*' | '/' | 'mod' | '**' | 'rem' | 'intersection' | 'disunion')
+	rhs=UnaryExp)*;
+
+UnaryExp returns Expression:
+	{UnaryExp}
+	operator=UnaryOperator operand=UnaryExp
+	| LinkExpression;
+
+UnaryOperator:
+	'-'
+	| '+'
+	| 'not'
+	| 'abs';
+
+LinkExpression returns Expression:
+	NavigateExpression
+	| {LinkExpression} type=LinkType
+	lhs=NavigateExpression
+	navigation=RelationshipNavigation
+	(=> rhs=NavigateExpression ('using' assoc=NavigateExpression)?)?;
+
+NavigateExpression returns Expression:
+	ExtendedExpression
+	({NavigateExpression.lhs=current} ('->' navigation=RelationshipNavigation ('(' where=FindCondition ')')?
+	| 'with' ^with=ExtendedExpression '->' navigation=RelationshipNavigation
+	| 'ordered_by' order=SortOrder
+	| 'reverse_ordered_by' reverseOrder=SortOrder))*;
+
+ExtendedExpression returns Expression:
+	PostfixExpression
+	| CreateExpression
+	| FindExpression;
+
+SortOrder:
+	{SortOrder} '('
+	(components+=SortOrderComponent
+	(',' components+=SortOrderComponent)*)?
+	')';
+
+SortOrderComponent:
+	reverse?='reverse'? feature=SortOrderFeature;
+
+SortOrderFeature returns SimpleFeatureCall:
+	{SortOrderFeature} feature=[AbstractFeature] 
+	({SimpleFeatureCall.receiver=current} '.' feature=[AbstractFeature])*;
+	
+CreateExpression:
+	'create' unique?='unique'? object=[ObjectDeclaration] '('
+	(arguments+=CreateArgument (',' arguments+=CreateArgument)*)?
+	')';
+
+CreateArgument:
+	attribute=[AttributeDefinition] '=>' value=Expression
+	| 'Current_State' '=>' currentState=[StateDeclaration];
+
+FindExpression:
+	type=FindType expression=PostfixNoOperationCallExpression
+	'(' where=FindCondition? ')';
+
+/* SuppressWarnings[all] */
+enum FindType:
+	find
+	| find='find_all'
+	| find_one
+	| find_only;
+
+PostfixExpression returns Expression:
+	PrimaryExpression
+	( {OperationCall.receiver=current} =>'(' (arguments+=Expression (',' arguments+=Expression)*)? ')' 
+	| {SimpleFeatureCall.receiver=current} '.' feature=[AbstractFeature] 
+	| {TerminatorOperationCall.receiver=current} '~>' terminatorOperation=[AbstractFeature] '(' (arguments+=Expression (',' arguments+=Expression)*)? ')'
+	| {IndexedExpression.receiver=current} '[' brackets=Expression ']'
+	| {CharacteristicCall.receiver=current} '\'' characteristic=[Characteristic|CharacteristicID] (=> '('
+		(arguments+=Expression (',' arguments+=Expression)*)?
+	  ')')?
+	)*;
+
+CharacteristicID:
+		ID | 'range' |'delta';
+
+PostfixNoOperationCallExpression returns Expression:
+	PrimaryNoOperationCallExpression
+	( {SimpleFeatureCall.receiver=current} '.' feature=[AbstractFeature]
+	| {IndexedExpression.receiver=current} '[' brackets=Expression ']'
+	| {CharacteristicCall.receiver=current} '\'' characteristic=[Characteristic])*;
+
+PrimaryNoOperationCallExpression returns Expression:
+	Literal
+	| ParenthesisedExpression
+	| SimpleFeatureCall
+	| TypeNameExpression;
+
+PrimaryExpression returns Expression:
+	Literal
+	| ParenthesisedExpression
+	| SimpleFeatureCall
+	| TypeNameExpression;
+
+TypeNameExpression returns Expression:
+	InstanceTypeReference
+	| AbstractCollectionTypeReference;
+
+SimpleFeatureCall:
+	feature=[AbstractFeature|ScopedName];
+
+ParenthesisedExpression returns Expression:
+	'(' Expression
+		({StructureAggregateExpression.elements+=current} (',' elements+=Expression)+)?
+	')';
+
+
+//---------------------------------------------------------
+// Literals
+//---------------------------------------------------------
+Literal returns Expression:
+	IntegerLiteral
+	| RealLiteral
+	| CharacterLiteral
+	| StringLiteral
+	| DurationLiteral
+	| TimestampLiteral
+	| BooleanLiteral
+	| NullLiteral
+	| FlushLiteral
+	| ThisLiteral
+	| ConsoleLiteral
+	| EndlLiteral
+	| LineNoLiteral
+	| FileNameLiteral;
+
+RealLiteral:
+	value=REAL;
+
+IntegerLiteral:
+	value=INT;
+
+StringLiteral:
+	value=STRING;
+
+CharacterLiteral:
+	value=CHAR;
+
+DurationLiteral:
+	value=DURATION;
+
+TimestampLiteral:
+	value=TIMESTAMP;
+
+BooleanLiteral:
+	value?='true' | {BooleanLiteral} 'false';
+
+NullLiteral:
+	{NullLiteral} 'null';
+
+FlushLiteral:
+	{FlushLiteral} 'flush';
+
+ThisLiteral:
+	{ThisLiteral} 'this';
+
+ConsoleLiteral:
+	{ConsoleLiteral} 'console';
+
+EndlLiteral:
+	{EndlLiteral} 'endl';
+
+LineNoLiteral:
+	{LineNoLiteral} '#LINE#';
+
+FileNameLiteral:
+	{FileNameLiteral} '#FILE#';
+
+
+//---------------------------------------------------------
+// Dummy terminal rules. 
+// Antlr's lexer is not capable of lexing MASLs literals. 
+// The real rules are defined in MASL.flex.
+//---------------------------------------------------------
+
+terminal ID: 			('a'..'z'|'A'..'Z'|'_') ('a'..'z'|'A'..'Z'|'_'|'0'..'9')*;
+terminal REAL returns ecore::EDouble: INT '.' INT;
+terminal INT returns ecore::EInt: ('0'..'9')+;
+terminal STRING: 		'"' ('\\' . | !('\\' | '"'))* '"';
+terminal CHAR:			'\'' . '\'';
+terminal DURATION:		'@P' -> '@';
+terminal TIMESTAMP:		'@' -> '@';
+terminal SL_COMMENT: 	'//' !('\n'|'\r')* ('\r'? '\n')?;
+terminal WS: 			(' '|'\t'|'\r'|'\n')+;
+terminal ANY_OTHER: 	.;

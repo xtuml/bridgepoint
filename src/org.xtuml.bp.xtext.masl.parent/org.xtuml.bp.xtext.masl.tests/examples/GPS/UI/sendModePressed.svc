@@ -1,0 +1,4 @@
+private service UI::sendModePressed () is
+begin
+  null;
+end service;

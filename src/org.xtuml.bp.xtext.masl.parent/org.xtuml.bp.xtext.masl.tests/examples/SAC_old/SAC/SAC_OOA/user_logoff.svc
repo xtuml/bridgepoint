@@ -1,0 +1,33 @@
+//
+// Filename: user_logoff.svc
+//
+// Description: Allows the user to inform the domainthat they have logged
+//              off. The domain shall delet the session and if teh user is
+//              involved in no other session then it shall delete the user.
+//
+// UK Crown Copyright (c) 2010,2014. All rights reserved.
+//
+public service SAC::user_logoff (session_id : in  integer,
+                                 user_id    : in  integer,
+                                 login_name : in  string) is
+the_session : instance of Session;
+the_workstation : instance of Workstation;
+
+begin
+   
+   // locate the session for the user
+   the_session := find_one Session(session_id = session_id and user_id = user_id and login_name = login_name);
+   if the_session /= null then
+      the_workstation := the_session -> R3.Workstation;
+      the_session.delete_session();
+      // remove the workstation if it is no longer in use
+      if (the_workstation -> R3.Session) = null then
+         delete the_workstation;
+      end if;
+   else
+      // log an error as this is an invalid logoff request
+      console << "SAC::user_logoff - Invalid logoff received, session_id = " << session_id'image  << 
+                 ", uid = " << user_id'image << ", sid = " << login_name << endl << flush;
+   end if;
+   
+end service;

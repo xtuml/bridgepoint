@@ -57,6 +57,11 @@ get_user_supplied_binaries ()
         missing_files+="./docgen.exe"
     fi
     
+    cd $pt_antlr_lib_dir
+    if [ ! -e ./${antlr_lib} ]; then
+        missing_files+="pt_antlr/${antlr_lib}"
+    fi
+    
     if [ "$missing_files" != "" ]; then
        echo -e "Error!: Missing files: $missing_files"
        return 1
@@ -198,6 +203,18 @@ configure_java_src()
     chmod -R g+w .
 }
 
+configure_bp_als()
+{
+    echo ""
+    echo "Configuring bp.als for build."
+
+    cd ${bp_als}/lib
+    rm -f ${antlr_lib}
+    cp -f ${pt_antlr_lib_dir}/${antlr_lib} ./${antlr_lib}
+
+    chmod -R g+w .
+}
+
 
 #-------------------------------------------------------------------------------
 # Main
@@ -210,6 +227,9 @@ bp_src_dir=${git_repo_root}/bridgepoint/src
 
 # Define Locations for Components
 user_supplied_files=${git_repo_root}/packaging/build/extra_files
+pt_antlr_lib_dir=${git_repo_root}/pt_antlr/pt_antlr
+antlr_lib=antlr.jar
+bp_als=${bp_src_dir}/org.xtuml.bp.als
 bp_pkg=${bp_src_dir}/org.xtuml.bp.pkg
 mcc_src=${bp_src_dir}/org.xtuml.bp.mc.c.source
 mcsystemc_src=${bp_src_dir}/org.xtuml.bp.mc.systemc.source
@@ -223,6 +243,7 @@ if [ "$?" = "0" ];  then
   configure_mcsystemc_src
   configure_mccpp_src
   configure_java_src
+  configure_bp_als
 fi
 
 echo -e "Exiting configure_external_dependencies.sh"

@@ -1,0 +1,25 @@
+//
+// Filename: soa_subscribe_2.scn
+//
+// Description: soa subscribe
+//
+// UK Crown Copyright (c) 2010. All rights reserved.
+//
+private service SAC::soa_subscribe_2 () is
+soa_messages : sequence of string;
+empty_soa_messages : sequence of string;
+
+begin
+
+  SOA::subscribe("SAC_user_logon");
+  SOA::subscribe("SAC_user_logoff");
+  SOA::subscribe("SAC_add_group");
+  SOA::subscribe("SAC_add_operation_to_group");
+  SOA::subscribe("SAC_session_active");
+  SOA::subscribe("SAC_delete_group");
+  SOA::subscribe("SAC_delete_group_operation");
+  SOA::subscribe("SAC_populate_domain");
+  soa_messages := empty_soa_messages & "I_DCP_resend_infos";
+  SOA::subscribe("SAC_resend_infos", soa_messages);
+
+end service;

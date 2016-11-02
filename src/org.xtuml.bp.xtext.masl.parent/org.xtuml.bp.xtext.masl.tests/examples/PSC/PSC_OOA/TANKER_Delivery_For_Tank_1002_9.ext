@@ -1,0 +1,14 @@
+//
+// UK Crown Copyright (c) 2016. All rights reserved.
+//
+
+//! TANKER Delivery For Tank 1002
+private service PSC::TANKER_Delivery_For_Tank_1002_9 () is
+  tank_instance : instance of TANK; 
+
+begin
+  //# Tanker driver fills tank 1002 with 10000 
+  
+  tank_instance := find_one TANK (Tank_Number = 1002);
+  generate TANK.Tanker_Delivery(10000.00) to tank_instance;
+end service;

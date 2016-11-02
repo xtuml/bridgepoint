@@ -1,0 +1,14 @@
+//
+// Filename: SAC_OP_group_operation_removed.tr
+//
+// Description: 
+//
+// UK Crown Copyright (c) 2010. All rights reserved.
+//
+private service SAC::Operator~>group_operation_removed (group_name     : in  string,
+                                                        operation_name : in  string) is
+begin
+   
+   I_DC::info_delete_Group_Operation(group_name, operation_name);
+   
+end service;

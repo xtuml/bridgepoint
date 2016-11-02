@@ -47,7 +47,8 @@ public class BridgePointPreferencesModel implements IPreferenceModel {
     public String exportOAL;
     public String exportGraphics;
     public String messageDirection;  
-    public String defaultActivityEditor;  
+    public String activityPersistenceAsFiles;  
+    public String defaultActionLanguageDialect;  
     public boolean showTransitionActions;
 	public boolean showEventParameters;
     public boolean enableFLAs;
@@ -70,6 +71,7 @@ public class BridgePointPreferencesModel implements IPreferenceModel {
 	public boolean showReferenceSyncReport;
 	public boolean useDefaultNamesForNewModelElements;
     public boolean createGraphicsDuringImport;
+    public boolean requireMaslStyleIdentifiers;
 	
     
 	public Class getStoreClass() {
@@ -104,7 +106,8 @@ public class BridgePointPreferencesModel implements IPreferenceModel {
         createGraphicsDuringImport = syncTo.createGraphicsDuringImport;
         exportGraphics = syncTo.exportGraphics;
         messageDirection = syncTo.messageDirection; 
-        defaultActivityEditor = syncTo.defaultActivityEditor; 
+        activityPersistenceAsFiles = syncTo.activityPersistenceAsFiles;
+        defaultActionLanguageDialect = syncTo.defaultActionLanguageDialect; 
         showTransitionActions = syncTo.showTransitionActions;
         showEventParameters = syncTo.showEventParameters;
         enableFLAs = syncTo.enableFLAs;
@@ -129,6 +132,7 @@ public class BridgePointPreferencesModel implements IPreferenceModel {
         showReferenceSyncReport = syncTo.showReferenceSyncReport;
         useDefaultNamesForNewModelElements = syncTo.useDefaultNamesForNewModelElements;
         createGraphicsDuringImport = syncTo.createGraphicsDuringImport;
+        requireMaslStyleIdentifiers = syncTo.requireMaslStyleIdentifiers;;
 	}
 
     public Object deepClone() {
@@ -150,7 +154,8 @@ public class BridgePointPreferencesModel implements IPreferenceModel {
         prefs.exportOAL = exportOAL;
         prefs.exportGraphics = exportGraphics;
         prefs.messageDirection = messageDirection;
-        prefs.defaultActivityEditor = defaultActivityEditor;
+        prefs.activityPersistenceAsFiles = activityPersistenceAsFiles;
+        prefs.defaultActionLanguageDialect = defaultActionLanguageDialect;
         prefs.showTransitionActions = showTransitionActions;
         prefs.showEventParameters = showEventParameters;
         prefs.enableFLAs = enableFLAs;
@@ -175,6 +180,7 @@ public class BridgePointPreferencesModel implements IPreferenceModel {
         prefs.showReferenceSyncReport = showReferenceSyncReport;
         prefs.useDefaultNamesForNewModelElements = useDefaultNamesForNewModelElements;
         prefs.createGraphicsDuringImport = createGraphicsDuringImport;
+        prefs.requireMaslStyleIdentifiers = requireMaslStyleIdentifiers;
 
         return prefs;
     }
