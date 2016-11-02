@@ -8,7 +8,7 @@ import org.eclipse.xtext.naming.IQualifiedNameProvider
 import org.eclipse.xtext.validation.Check
 import org.eclipse.xtext.validation.EValidatorRegistrar
 import org.xtuml.bp.xtext.masl.MASLExtensions
-import org.xtuml.bp.xtext.masl.linking.SignatureRanker
+import org.xtuml.bp.xtext.masl.linking.RankedCandidate
 import org.xtuml.bp.xtext.masl.masl.behavior.ActionCall
 import org.xtuml.bp.xtext.masl.masl.behavior.BehaviorPackage
 import org.xtuml.bp.xtext.masl.masl.behavior.Expression
@@ -41,9 +41,9 @@ import org.xtuml.bp.xtext.masl.typesystem.MaslTypeConformanceComputer
 import org.xtuml.bp.xtext.masl.typesystem.MaslTypeProvider
 import org.xtuml.bp.xtext.masl.typesystem.StructureType
 
-import static org.xtuml.bp.xtext.masl.linking.SignatureRanker.*
 import static org.xtuml.bp.xtext.masl.typesystem.BuiltinType.*
 import static org.xtuml.bp.xtext.masl.validation.MaslIssueCodesProvider.*
+import org.xtuml.bp.xtext.masl.masl.structure.AbstractFeature
 
 class TypeValidator extends AbstractMASLValidator {
 	
@@ -60,7 +60,7 @@ class TypeValidator extends AbstractMASLValidator {
 	@Inject extension TypesPackage
 	@Inject extension IQualifiedNameProvider
 	@Inject extension ProjectScopeIndexProvider
-	@Inject extension SignatureRanker
+	@Inject extension RankedCandidate.Factory
 	@Inject extension VisibilityProvider
 	
 	@Check
@@ -197,12 +197,13 @@ class TypeValidator extends AbstractMASLValidator {
 			val allDeclarations = definition
 							.getDeclarations(declarationClass, definition.index)
 							.filter(Parameterized)
-							.map[it -> getRank(defTypes)]
+							.filter(AbstractFeature)
+							.map[rank(defTypes)]
 			if(allDeclarations.empty) 
 				return
-			val bestMatch = allDeclarations.maxBy[value]
-			val bestDeclaration = bestMatch.key
-			if(bestMatch.value != PERFECT_MATCH)
+			val bestMatch = allDeclarations.maxBy[score]
+			val bestDeclaration = bestMatch.candidate as Parameterized
+			if(!bestMatch.exact)
 				addIssue("Parameter types " + definition.parametersAsString + " do not match declared parameters " + bestDeclaration.parametersAsString,
 					definition, structurePackage.abstractNamed_Name, DECLARATION_MISSMATCH)
 			else {

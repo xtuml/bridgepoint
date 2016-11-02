@@ -10,23 +10,18 @@ import org.eclipse.xtext.linking.impl.IllegalNodeException
 import org.eclipse.xtext.linking.impl.XtextLinkingDiagnostic
 import org.eclipse.xtext.naming.IQualifiedNameConverter
 import org.eclipse.xtext.nodemodel.INode
+import org.xtuml.bp.xtext.masl.masl.behavior.ActionCall
 import org.xtuml.bp.xtext.masl.masl.behavior.BehaviorPackage
 import org.xtuml.bp.xtext.masl.masl.behavior.SimpleFeatureCall
 import org.xtuml.bp.xtext.masl.masl.structure.AbstractFeature
-import org.xtuml.bp.xtext.masl.masl.structure.Parameterized
-import org.xtuml.bp.xtext.masl.masl.types.TypeDeclaration
-import org.xtuml.bp.xtext.masl.typesystem.MaslType
 import org.xtuml.bp.xtext.masl.typesystem.MaslTypeProvider
-
-import static org.xtuml.bp.xtext.masl.linking.SignatureRanker.*
-import org.xtuml.bp.xtext.masl.masl.behavior.ActionCall
 
 class MaslLinkingService extends DefaultLinkingService {
 
 	@Inject extension BehaviorPackage
 	@Inject extension IQualifiedNameConverter
 	@Inject extension MaslTypeProvider
-	@Inject extension SignatureRanker
+	@Inject extension RankedCandidate.Factory
 	
 	override getLinkedObjects(EObject context, EReference ref, INode node) throws IllegalNodeException {
 		if (ref == featureCall_Feature && context instanceof SimpleFeatureCall) {
@@ -45,41 +40,24 @@ class MaslLinkingService extends DefaultLinkingService {
 			var eObjectDescriptions = scope.getElements(qualifiedLinkName)
 			val argumentTypes = actionCall.arguments.map[maslType]
 			val candidates = eObjectDescriptions.map[actionCall.eResource.resourceSet.getEObject(EObjectURI, true)]
-			var AbstractFeature currentBestMatch = null
-			val acceptableMatches = newArrayList
-			var currentBestRank = NO_MATCH
+			var RankedCandidate currentBestMatch = null
+			var int numAcceptableMatches 
 			for(candidate: candidates.filter(AbstractFeature)) {
-				val rank = candidate.getMatchRank(argumentTypes)
-				if(rank >= ACCEPTABLE_MATCH) 
-					acceptableMatches += candidate
-				if(rank > currentBestRank) {
-					currentBestRank = rank					
-					currentBestMatch = candidate
+				val ranked = candidate.rank(argumentTypes)
+				if(ranked.isAcceptable) 
+					numAcceptableMatches ++
+				if(ranked > currentBestMatch) {
+					currentBestMatch = ranked				
 				}
 			}
 			if(currentBestMatch != null) {
-				if(currentBestRank != PERFECT_MATCH && acceptableMatches.size > 1) {
+				if(!currentBestMatch.exact && numAcceptableMatches > 1) {
 					val diagnostic = new XtextLinkingDiagnostic(node, 'Ambiguous action call.', Diagnostic.LINKING_DIAGNOSTIC)
 					actionCall.eResource.errors.add(diagnostic)	
 				}
-				return #[currentBestMatch]
+				return #[currentBestMatch.candidate]
 			}
 		}
 		return emptyList()
-	}
-	
-	
-	private def int getMatchRank(AbstractFeature feature, List<MaslType> argumentTypes) {
-		switch feature {
-			TypeDeclaration:
-				if(argumentTypes.size === 1)
-					return PERFECT_MATCH
-				else 
-					return JUST_NAME_MATCH
-			Parameterized:
-				return feature.getRank(argumentTypes)
-			default:
-				return JUST_NAME_MATCH
-		}
 	}
 }
