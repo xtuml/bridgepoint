@@ -9,7 +9,7 @@ This work is licensed under the Creative Commons CC0 License
 
 1. Abstract
 -----------
-This note describes the work performed to implement the Model Element Move
+This note describes the work performed to implement the Model Element Move (MEM)
 feature.
 
 2. Document References
@@ -17,14 +17,12 @@ feature.
 <a id="2.1"></a>2.1 [BridgePoint DEI #8321](https://support.onefact.net/redmine/issues/8321) 
 This is a link to this issue in the issue tracking system.  
 
-<a id="2.2"></a>2.2 [Model Element Move design note](8321_Model_Element_Move/8321_Model_Element_Move.dnt.md) 
+<a id="2.2"></a>2.2 [MEM design note](8321_Model_Element_Move/8321_Model_Element_Move.dnt.md) 
 
-<a id="2.3"></a>2.3 [UnitTestGenerator.pl](https://github.com/xtuml/bridgepoint/blob/master/src/org.xtuml.bp.test/UnitTestGenerator.pl)  
-This is a link to the BridgePoint utility that is used to generate test suites 
-from a defined test matrix.  
+<a id="2.3"></a>2.3 [MEM Manual Test Procedure](https://support.onefact.net/redmine/issues/8837) 
 
-<a id="2.4"></a>2.4 [Test Model Creation -  #8458](https://support.onefact.net/issues/8458)  
-Test model(s) for this issue.  
+<a id="2.4"></a>2.4 [MEM Test Result Spreadsheet](https://docs.google.com/spreadsheets/d/1eJmEWtx3EDawwCslxL2MfvaqoJm8JawFnoCTLPuX9SM/edit#gid=1793892663) 
+This is a spreadsheet used as an aide to track results during the long manual MEM test procedure. 
 
 3. Background
 -------------
@@ -36,49 +34,134 @@ See [Design note for Model Element Move](8321_Model_Element_Move.dnt.md)
 
 5. Work Required
 ----------------
+See [Design note for Model Element Move](8321_Model_Element_Move.dnt.md)
 
 
 6. Implementation Comments
 --------------------------
-
+None
 
 7. Unit Test
 ------------
-The test model is found with the [Test Model Creation Issue](#2.4).  
-
-7.1 Use the [[test generation utility]](#2.2) to generate tests for all source and target permutations. Note that documentation for this utility is found in the header of this perl script.  The goal of these generated tests is to assure all requirements are satisfied for each generated test. This assure that requirements are satisfied for each test permutation.  
-
-7.1.1 Create a test matrix that defines all possible "degrees of freedom" for source and target selection.   
-
-7.1.2 Add this matrix to bp.core.test plugin as a new test suite.  
-
-7.1.3 Modify bp.core.test/generate.xml to generate the test suite from the test matrix using the test generation utility.  
-
-7.1.4 Implement the pieces of the suite that the test generation utilitie's results require additional work for.  
-
-7.1.4.1 Each generated tests shall assure that element IDs are not modified during move.  
-
-7.1.4.2 Each generated tests shall assure that move is performed as an atomic operation.  
-
-7.1.4.2.1 After the move a single "undo" restore the model to the state it was in prior to the move operation  
-
-7.1.4.2.2 If the move operation is canceled no changes shall be made.  
-
-7.1.4.3 Each generated test shall assure that its result modifies the minimum number of files necessary.  
-
-7.1.5 Run the suite and assure it passes  
+7.1 Run the manual test suite for this issue [2.3](#2.3).  
+This manual test reference the fact that there is a spreadsheet, [2.4](#2.4),
+that can be used to help track results of the tests in this suite.  
 
 8. User Documentation
 ---------------------
-TODO: Describe the end user documentation that was added for this change. 
+No change was made to user documentation.  
 
 9. Code Changes
 ---------------
-Branch name: 8321_Model_Element_Move
+Branch name: [rmulvey/8321_Model_Element_Move](https://github.com/rmulvey/bridgepoint/tree/8321_Model_Element_Move)
 
 <pre>
 
-< Put the file list here >
+> doc-bridgepoint/notes/8321_Model_Element_Move/8321_Model_Element_Move.dnt.md
+> doc-bridgepoint/notes/8321_Model_Element_Move/8321_Model Element_Move.int.md
+> doc-bridgepoint/notes/8321_Model_Element_Move/BridgePointArchitecture.jpg
+> doc-bridgepoint/notes/8321_Model_Element_Move/BridgePointArchitecture.png
+> doc-bridgepoint/notes/8321_Model_Element_Move/BridgePointArchitecture.svg
+> doc-bridgepoint/notes/8321_Model_Element_Move/BridgePointArchitecture.ucls
+> doc-bridgepoint/review-minutes/8321_Model_Element_Move.dnt.rvm2.md
+> doc-bridgepoint/review-minutes/8321_Model_Element_Move.int.rvm.md
+
+org.xtuml.bp.core/models/org.xtuml.bp.core/ooaofooa/Association/Association/
+    Association.xtuml
+org.xtuml.bp.core/models/org.xtuml.bp.core/ooaofooa/Component/Component/
+    Component.xtuml
+org.xtuml.bp.core/models/org.xtuml.bp.core/ooaofooa/Component/
+    Component Library/Component Reference/Component Reference.xtuml
+org.xtuml.bp.core/models/org.xtuml.bp.core/ooaofooa/Component/
+    Component Library/Imported Reference/Imported Reference.xtuml
+org.xtuml.bp.core/models/org.xtuml.bp.core/ooaofooa/Component/Delegation/
+    Delegation.xtuml
+org.xtuml.bp.core/models/org.xtuml.bp.core/ooaofooa/Component/Interface/
+    Interface.xtuml
+org.xtuml.bp.core/models/org.xtuml.bp.core/ooaofooa/Component/
+    Interface Operation/Interface Operation.xtuml
+org.xtuml.bp.core/models/org.xtuml.bp.core/ooaofooa/Component/
+    Interface Reference/Interface Reference.xtuml
+org.xtuml.bp.core/models/org.xtuml.bp.core/ooaofooa/Component/
+    Property Parameter/Property Parameter.xtuml
+org.xtuml.bp.core/models/org.xtuml.bp.core/ooaofooa/Component/Satisfaction/
+    Satisfaction.xtuml
+org.xtuml.bp.core/models/org.xtuml.bp.core/ooaofooa/Constants/
+    Constant Specification/Constant Specification.xtuml
+org.xtuml.bp.core/models/org.xtuml.bp.core/ooaofooa/Constants/
+    Symbolic Constant/Symbolic Constant.xtuml
+org.xtuml.bp.core/models/org.xtuml.bp.core/ooaofooa/Domain/Bridge/Bridge.xtuml
+org.xtuml.bp.core/models/org.xtuml.bp.core/ooaofooa/Domain/Bridge Parameter/
+    Bridge Parameter.xtuml
+org.xtuml.bp.core/models/org.xtuml.bp.core/ooaofooa/Domain/Data Type/
+    Data Type.xtuml
+org.xtuml.bp.core/models/org.xtuml.bp.core/ooaofooa/Domain/
+    Enumeration Data Type/Enumeration Data Type.xtuml
+org.xtuml.bp.core/models/org.xtuml.bp.core/ooaofooa/Domain/Exception/
+    Exception.xtuml
+org.xtuml.bp.core/models/org.xtuml.bp.core/ooaofooa/Domain/External Entity/
+    External Entity.xtuml
+org.xtuml.bp.core/models/org.xtuml.bp.core/ooaofooa/Domain/
+    External Entity Data Item/External Entity Data Item.xtuml
+org.xtuml.bp.core/models/org.xtuml.bp.core/ooaofooa/Domain/
+    External Entity Event Data Item/External Entity Event Data Item.xtuml
+org.xtuml.bp.core/models/org.xtuml.bp.core/ooaofooa/Domain/Function/
+    Function.xtuml
+org.xtuml.bp.core/models/org.xtuml.bp.core/ooaofooa/Domain/Function Parameter/
+    Function Parameter.xtuml
+org.xtuml.bp.core/models/org.xtuml.bp.core/ooaofooa/Domain/
+    Structured Data Type/Structured Data Type.xtuml
+org.xtuml.bp.core/models/org.xtuml.bp.core/ooaofooa/Domain/Structure Member/
+    Structure Member.xtuml
+org.xtuml.bp.core/models/org.xtuml.bp.core/ooaofooa/Domain/User Data Type/
+    User Data Type.xtuml
+org.xtuml.bp.core/models/org.xtuml.bp.core/ooaofooa/Element Packaging/Package/
+    Package.xtuml
+org.xtuml.bp.core/models/org.xtuml.bp.core/ooaofooa/Packageable Element/
+    Packageable Element/Packageable Element.xtuml
+org.xtuml.bp.core/models/org.xtuml.bp.core/ooaofooa/State Machine/
+    State Machine Event Data Item/State Machine Event Data Item.xtuml
+org.xtuml.bp.core/models/org.xtuml.bp.core/ooaofooa/Subsystem/Attribute/
+    Attribute.xtuml
+org.xtuml.bp.core/models/org.xtuml.bp.core/ooaofooa/Subsystem/Imported Class/
+    Imported Class.xtuml
+org.xtuml.bp.core/models/org.xtuml.bp.core/ooaofooa/Subsystem/Model Class/
+    Model Class.xtuml
+org.xtuml.bp.core/models/org.xtuml.bp.core/ooaofooa/Subsystem/Operation/
+    Operation.xtuml
+org.xtuml.bp.core/models/org.xtuml.bp.core/ooaofooa/Subsystem/
+    Operation Parameter/Operation Parameter.xtuml
+org.xtuml.bp.core/src/org/xtuml/bp/core/common/ComponentTransactionListener.java
+org.xtuml.bp.core/src/org/xtuml/bp/core/common/ModelElementMovedModelDelta.java
+org.xtuml.bp.core/src/org/xtuml/bp/core/common/ModelStreamProcessor.java
+org.xtuml.bp.core/src/org/xtuml/bp/core/common/NonRootModelElement.java
+org.xtuml.bp.core/src/org/xtuml/bp/core/common/PersistableModelComponent.java
+org.xtuml.bp.core/src/org/xtuml/bp/core/common/TransactionManager.java
+org.xtuml.bp.core/src/org/xtuml/bp/core/ui/CopyCutAction.java
+org.xtuml.bp.core/src/org/xtuml/bp/core/ui/CutCopyPasteAction.java
+org.xtuml.bp.core/src/org/xtuml/bp/core/ui/PasteAction.java
+
+org.xtuml.bp.core.test/src/org/xtuml/bp/core/test/rtomove/RTOMoveTests.java
+
+org.xtuml.bp.internal.tools/META-INF/MANIFEST.MF
+org.xtuml.bp.internal.tools/src/org/xtuml/bp/internal/tools/views/
+    BPInstancePopulationView.java
+org.xtuml.bp.internal.tools/.classpath
+
+org.xtuml.bp.model.compare/src/org/xtuml/bp/model/compare/
+    CompareTransactionManager.java
+
+org.xtuml.bp.ui.canvas/src/org/xtuml/bp/ui/canvas/
+    GraphicsReconcilerLauncher.java
+
+org.xtuml.bp.ui.explorer/src/org/xtuml/bp/ui/explorer/ui/actions/
+    ExplorerCutAction.java
+
+org.xtuml.bp.ui.graphics/src/org/xtuml/bp/ui/graphics/actions/
+    CanvasCutAction.java
+org.xtuml.bp.ui.graphics/src/org/xtuml/bp/ui/graphics/actions/
+    CanvasPasteAction.java
+
 
 </pre>
 
