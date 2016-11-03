@@ -24,7 +24,14 @@ This is a link to this issue in the issue tracking system.
 <a id="2.4"></a>2.4 [MEM Test Result Spreadsheet](https://docs.google.com/spreadsheets/d/1eJmEWtx3EDawwCslxL2MfvaqoJm8JawFnoCTLPuX9SM/edit#gid=1793892663) 
 This is a spreadsheet used as an aide to track results during the long manual MEM test procedure. 
 
-<a id="2.4"></a>2.4 [MEM Visibility Downgrade Research](8321_Model_Element_Move/8321_VisibilityDowngradeResearch.md)  
+<a id="2.5"></a>2.5 [MEM Visibility Downgrade Research](8321_Model_Element_Move/8321_VisibilityDowngradeResearch.md)  
+
+<a id="2.6"></a>2.6 [Undo is not available for a move (cut/paste) operation](https://support.onefact.net/issues/8755)  
+
+<a id="2.7"></a>2.7 [The initial Cut implemented (Model Element Move) currently allows a limited element selection
+](https://support.onefact.net/issues/8798)  
+
+<a id="2.8"></a>2.8 [MEM SOW](https://drive.google.com/drive/u/0/folders/0B834tggB4vylMENIOWxhY29nNGs)  
 
 
 3. Background
@@ -45,7 +52,11 @@ See [Design note for Model Element Move](8321_Model_Element_Move.dnt.md)
 6.1 During implementation the section 6 of the design note that describes the MEM flow of control was updated. The update was
 made to account for the fact that move of graphical instances is done first, before any other modifications. The reason for this change was that is was discovered during implementation that having disconnected the source element resulted in the graphical move not being able to locate the graphical element associated with the NonRootModelElement being moved.
 
-6.2 The design note's section that described Model Element downgrade left a TODO that referenced an external document. This external document captured some addtional detail about the downgrade research and its implementation. This document has been captured here [2.4](#2.4).  
+6.2 The design note section that described Model Element downgrade left a TODO that referenced an external document. This external document captured some additional detail about the downgrade research and its implementation. This document has been captured here [2.4](#2.4).  
+
+6.3 MEM requires UNDO functionality to be present. In this initial implementation UNDO is not implemented. A follow-on issue has been raised for this task [2.6](#2.6).  
+
+6.4 This initial version of MEM limits the elements that may be moved to packages and datatypes.  A follow-on issue has been raised [2.7](#2.7) to add the ability to move other models elements as specified in this issues Statement of Work [2.8](#2.8).
 
 7. Unit Test
 ------------
