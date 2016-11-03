@@ -188,12 +188,6 @@ public class CanvasPasteAction extends PasteAction {
 	 * containment by un-associating it from it's source canvas
 	 * and associating it with the destination
 	 * 
-	 * Each system-level container is a graphical model root as is the 
-	 * SystemModel_c instance. Graphical model roots are defined as 
-	 * Ooaofooa instances and their ID is set to the path of the file
-	 * the graphical model root is persisted in. The exception to this is
-	 * the SystemModel_c root whose id is set to "__default_root".
-	 * 
 	 * @param ooaElementMoved
 	 * @param destGD_MD
 	 */
@@ -203,8 +197,8 @@ public class CanvasPasteAction extends PasteAction {
 				.getInstance(sourceElementContainer.getModelRoot().getId());
 		GraphicalElement_c graphicalElementMoved = CanvasPlugin.getGraphicalElement(ooaofg, ooaElementMoved);
 		
-		// This is a little weird but we have to have the graphical elements loaded in order
-		// to move them. If the element is not loaded then we load the editor that is the container
+		// We have to have the graphical elements loaded in order to move them. 
+		// If the element is not loaded then we load the editor that is the container
 		// for the source element. 
 		if (graphicalElementMoved == null) {
 			CanvasPasteAction.openCanvasEditor(sourceElementContainer);			
@@ -223,7 +217,7 @@ public class CanvasPasteAction extends PasteAction {
 	
 			// If we are moving to a different graphical model root then we need to actually switch the root. 
 			// In this case we update self and children because the root moves for all of them
-			if (gd_mdOftheElementMoved != null) {
+			if (gd_mdOftheElementMoved!= null && gd_mdOftheElementMoved != destGD_MD) {
 				Diagram_c diag = Diagram_c.getOneDIM_DIAOnR18(gd_mdOftheElementMoved);
 				diag.setComponent(destGD_MD.getPersistableComponent());
 				gd_mdOftheElementMoved.setComponent(destGD_MD.getPersistableComponent());
