@@ -104,7 +104,16 @@ No change was made to user documentation.
 
 9. Code Changes
 ---------------
-Branch name: [rmulvey/8321_Model_Element_Move](https://github.com/rmulvey/bridgepoint/tree/8321_Model_Element_Move)
+Branch name: [models/rmulvey/8321_Model_Element_Move](https://github.com/rmulvey/bridgepoint/tree/8321_model_element_move)
+<pre>
+
+Two models were added: ModelElementMove2, and movetest.
+
+Both of these models are used as part of the manual test procedure [2.3].
+
+</pre>
+
+Branch name: [bridgepoint/rmulvey/8321_Model_Element_Move](https://github.com/rmulvey/bridgepoint/tree/8321_Model_Element_Move)
 
 <pre>
 
