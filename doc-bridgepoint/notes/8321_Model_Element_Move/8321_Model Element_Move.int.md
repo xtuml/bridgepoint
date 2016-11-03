@@ -35,6 +35,7 @@ This is a followup issue that must be completed before MEM is finalized.
 
 <a id="2.8"></a>2.8 [MEM SOW](https://drive.google.com/drive/u/0/folders/0B834tggB4vylMENIOWxhY29nNGs)  
 
+<a id="2.9"></a>2.9 [Enable Summary data in the BridgePoint Instance Population Viewer](https://support.onefact.net/issues/8810)  
 
 3. Background
 -------------
@@ -51,14 +52,45 @@ See [Design note for Model Element Move](8321_Model_Element_Move.dnt.md)
 
 6. Implementation Comments
 --------------------------
-6.1 During implementation the section 6 of the design note that describes the MEM flow of control was updated. The update was
-made to account for the fact that move of graphical instances is done first, before any other modifications. The reason for this change was that is was discovered during implementation that having disconnected the source element resulted in the graphical move not being able to locate the graphical element associated with the NonRootModelElement being moved.
+6.0 In the design note section 6.4.1.1 that describes the changes made to CanvasPasteAction.java::handleNonDiagramElementAsDestination() to move graphics a change was made.  
+If the element moved if being moved from one PMC (file) to another then the code updates the PMC and
+model root of the soruce element.
+```
+Before Change:
+  Find the GraphicalElement (GD_GE) associated with selected_element
+  Find the Model (GD_MD) associated with the GraphicalElement
+  unrelate the GraphicalElement from the Model across R1  
+  relate the GraphicalElement to the destination's Model across R1
+  update the selected_element's associated container symbol on R307 if containment has changed
+```
+```
+After Change:
+  Find the GraphicalElement (GD_GE) associated with selected_element
+  If the GraphicalElement was not found load the graphical model for the source element and search again
+  Find the canvas (GD_MD) that the GD_GE is part of by navigating GD_GE->GD_MD[R1]
+  Find the canvas (GD_MD) that has the same "represents" as the GD_GE (if there is one)
+  if the GD_GE DOES have a canvas then update its GD_MD PMC to be the destination
+  update the PMC of the GD_GE
+  unrelate the GraphicalElement from the Model across R1  
+  relate the GraphicalElement to the destination's Model across R1
+  update the selected_element's associated container symbol on R307 if containment has changed  
+```
 
-6.2 The design note section that described Model Element downgrade left a TODO that referenced an external document. This external document captured some additional detail about the downgrade research and its implementation. This document has been captured here [2.4](#2.4).  
+6.1 During implementation, section 6 of the design note that describes the MEM flow of control was updated. The update was
+made to account for the fact that move of graphical instances is done before any other modifications. This was simply an error in the flow that was fixed.
+
+6.2 In design note section 6.5 a TODO was left that referenced an external document. This external document captured some additional detail about model element downgrade research and its implementation. The document referred to has been captured here [2.4](#2.4), and that TODO was removed.  
 
 6.3 MEM requires UNDO functionality to be present. In this initial implementation UNDO is not implemented. A follow-on issue has been raised for this task [2.6](#2.6).  
 
 6.4 This initial version of MEM limits the elements that may be moved to packages and datatypes.  A follow-on issue has been raised [2.7](#2.7) to add the ability to move other models elements as specified in this issues Statement of Work [2.8](#2.8).
+
+6.5 Instance Population Viewer
+BridgePoint has an internal utility that allows instance population counts to be viewed by model root. During debugging of issues found during testing this utliity was used. In order to use the utility some changes were made.  
+6.5.1 The ooaofgraphics instance population was added  
+6.5.2 The "__default_root" population was added  
+6.5.3 A bug that caused statistics to be incorrect for some models roots was fixed by turning off summary data in this utility. A sererate issue was raised about this problem [2.9](#2.9).  
+
 
 7. Unit Test
 ------------
