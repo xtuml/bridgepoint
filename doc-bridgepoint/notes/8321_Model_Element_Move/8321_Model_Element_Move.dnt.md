@@ -314,10 +314,14 @@ Here is the pseudo code:
 
 ```
   Find the GraphicalElement (GD_GE) associated with selected_element
-  Find the Model (GD_MD) associated with the GraphicalElement
+  If the GraphicalElement was not found load the graphical model for the source element and search again
+  Find the canvas (GD_MD) that the GD_GE is part of by navigating GD_GE->GD_MD[R1]
+  Find the canvas (GD_MD) that has the same "represents" as the GD_GE (if there is one)
+  if the GD_GE DOES have a canvas then update its GD_MD PMC to be the destination
+  update the PMC of the GD_GE
   unrelate the GraphicalElement from the Model across R1  
   relate the GraphicalElement to the destination's Model across R1
-  update the selected_element's associated container symbol on R307 if containment has changed
+  update the selected_element's associated container symbol on R307 if containment has changed  
 ```  
 
 6.5 Downgrade model elements that lose visibility to their referred-to types during move  
