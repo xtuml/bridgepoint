@@ -803,6 +803,34 @@ INSERT INTO S_DT_PROXY
 	'',
 	'',
 	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("041af5ee-823a-4764-bccf-d6d3d28a8672",
+	"f021c5c6-f37d-4215-afe4-a3e777964197",
+	'downgradeCheck',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'// check types (return and param) on each op & signal
+select many c_eps related by self->C_EP[R4003];
+for each c_ep in c_eps
+  select many c_pps related by c_ep->C_PP[R4006];
+  for each c_pp in c_pps
+    c_pp.downgradeCheck();
+  end for;
+  select one c_io related by c_ep->C_IO[R4004];
+  if ( not_empty c_io )
+    c_io.downgradeCheck();
+  end if;
+end for;
+  
+//check interface references references that refer to self
+select many c_irs related by self->C_IR[R4012];
+for each c_ir in c_irs
+  c_ir.downgradeCheck();
+end for;',
+	1,
+	'',
+	"9d36ddbe-8916-41bc-8164-04af9f5ba9fc");
 INSERT INTO O_NBATTR
 	VALUES ("7f16eece-6595-4e3d-be9a-4f17d2b638a3",
 	"f021c5c6-f37d-4215-afe4-a3e777964197");
