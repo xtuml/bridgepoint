@@ -25,8 +25,10 @@ This is a link to this issue in the issue tracking system.
 This is a spreadsheet used as an aide to track results during the long manual MEM test procedure. 
 
 <a id="2.5"></a>2.5 [MEM Visibility Downgrade Research](8321_VisibilityDowngradeResearch.md)  
+This is a followup issue that must be completed before MEM is finalized.  
 
 <a id="2.6"></a>2.6 [Undo is not available for a move (cut/paste) operation](https://support.onefact.net/issues/8755)  
+This is a followup issue that must be completed before MEM is finalized.  
 
 <a id="2.7"></a>2.7 [The initial Cut implemented (Model Element Move) currently allows a limited element selection
 ](https://support.onefact.net/issues/8798)  
