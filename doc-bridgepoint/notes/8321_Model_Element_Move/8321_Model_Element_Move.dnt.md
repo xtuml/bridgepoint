@@ -177,15 +177,17 @@ copy/paste behavior shall not be changed during this change.</b>
   
   Start a Move Transaction
   
-  for each selected_element in ELEMENTS_TO_MOVE
-    unhook the selected_element from container it is attached to (R8000/R8003)
-  end for
-    
+  Collect the RGOs that will be affected by this Move 
+  
   for each selected_element in ELEMENTS_TO_MOVE 
       disconnect the graphical element associated selected_element from its canvas
       connect selected_element to the canvas associated with the destination
   end for 
    
+  for each selected_element in ELEMENTS_TO_MOVE
+    unhook the selected_element from container it is attached to (R8000/R8003)
+  end for
+    
   for each selected_element in ELEMENTS_TO_MOVE
     update selected_element''s  model root and set it to the destination model root
   end for
@@ -204,7 +206,7 @@ copy/paste behavior shall not be changed during this change.</b>
 
   show the user the elements that were downgraded
   if (user DOES want to continue)
-    Complete the Move Transaction (this is where any affected files or folders get moved on disk)
+    Complete the Move Transaction (this is where any affected files or folders get moved on disk and changes are persisted)
   else 
     Abort the Move transaction
   end if
@@ -347,11 +349,6 @@ for each selectedElement
 
 end for
 ```
-
-<b>TODO: This section is not finished.</b>
-There is still some final work ongoing on this piece of the work. The analysis and design for this is
-captured in a seperate document right now. When complete, it will be moved here, but for now here is the link:
-https://docs.google.com/document/d/1y65rak0hc1gwUGiDslN1MjxDSPF5gk5u-i7YAEbNaZ8/edit  
 
 6.6 UI Changes
 
