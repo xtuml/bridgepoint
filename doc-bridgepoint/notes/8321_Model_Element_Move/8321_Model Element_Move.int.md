@@ -24,6 +24,9 @@ This is a link to this issue in the issue tracking system.
 <a id="2.4"></a>2.4 [MEM Test Result Spreadsheet](https://docs.google.com/spreadsheets/d/1eJmEWtx3EDawwCslxL2MfvaqoJm8JawFnoCTLPuX9SM/edit#gid=1793892663) 
 This is a spreadsheet used as an aide to track results during the long manual MEM test procedure. 
 
+<a id="2.4"></a>2.4 [MEM Visibility Downgrade Research](8321_Model_Element_Move/8321_VisibilityDowngradeResearch.md)  
+
+
 3. Background
 -------------
 See [Design note for Model Element Move](8321_Model_Element_Move.dnt.md)
@@ -39,12 +42,15 @@ See [Design note for Model Element Move](8321_Model_Element_Move.dnt.md)
 
 6. Implementation Comments
 --------------------------
-None
+6.1 During implementation the section 6 of the design note that describes the MEM flow of control was updated. The update was
+made to account for the fact that move of graphical instances is done first, before any other modifications. The reason for this change was that is was discovered during implementation that having disconnected the source element resulted in the graphical move not being able to locate the graphical element associated with the NonRootModelElement being moved.
+
+6.2 The design note's section that described Model Element downgrade left a TODO that referenced an external document. This external document captured some addtional detail about the downgrade research and its implementation. This document has been captured here [2.4](#2.4).  
 
 7. Unit Test
 ------------
 7.1 Run the manual test suite for this issue [2.3](#2.3).  
-This manual test reference the fact that there is a spreadsheet, [2.4](#2.4),
+Note that this manual test references the fact that there is a spreadsheet, [2.4](#2.4),
 that can be used to help track results of the tests in this suite.  
 
 8. User Documentation
