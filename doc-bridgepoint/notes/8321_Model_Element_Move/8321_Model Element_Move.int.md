@@ -14,12 +14,12 @@ feature.
 
 2. Document References
 ----------------------
-<a id="2.1"></a>2.1 [BridgePoint DEI #8321](https://support.onefact.net/redmine/issues/8321) 
+<a id="2.1"></a>2.1 [BridgePoint DEI #8321](https://support.onefact.net/issues/8321) 
 This is a link to this issue in the issue tracking system.  
 
 <a id="2.2"></a>2.2 [MEM design note](8321_Model_Element_Move.dnt.md) 
 
-<a id="2.3"></a>2.3 [MEM Manual Test Procedure](https://support.onefact.net/redmine/issues/8837) 
+<a id="2.3"></a>2.3 [MEM Manual Test Procedure](https://support.onefact.net/issues/8837) 
 
 <a id="2.4"></a>2.4 [MEM Test Result Spreadsheet](https://docs.google.com/spreadsheets/d/1eJmEWtx3EDawwCslxL2MfvaqoJm8JawFnoCTLPuX9SM/edit#gid=1793892663) 
 This is a spreadsheet used as an aide to track results during the long manual MEM test procedure. 
