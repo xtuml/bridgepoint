@@ -254,9 +254,11 @@ public class ${class_name} {
 
     .assign rgoCntr = 0;
     .select any model_class from instances of O_OBJ where (selected.Name == eo.Name)
+    .print "TODO SKB - processing class ${model_class.Name} "
     .select many rto_set related by model_class->R_OIR[R201]->R_RTO[R203]
     .for each rto in rto_set
         .select one relation related by rto->R_OIR[R203]->R_REL[R201]
+        .print "TODO - processing relation ${relation.Numb} "
 
           .select many rgo_set related by relation->R_OIR[R201]->R_RGO[R203]
           .for each rgo in rgo_set
@@ -339,16 +341,25 @@ public class ${class_name} {
 			NonRootModelElement  inst=null;
     .for each rto in rto_set
         .select one relation related by rto->R_OIR[R203]->R_REL[R201]
+        .print "TODO - processing relation ${relation.Numb}"
           .select many rgo_set related by relation->R_OIR[R201]->R_RGO[R203]
           .for each rgo in rgo_set
               .select one related_class related by rgo->R_OIR[R203]->O_OBJ[R201]
               .invoke result = is_member_of_component(related_class, component_elements)
               .assign member_of_same_component = result.is_member
               .assign phrase = ""
-              .select any form related by rgo->R_FORM[R205]
               .invoke result = is_reflexive(relation)
               .if (result.result)
-                    .assign phrase = "$cr{form.Txt_phrs}"
+                .select any form related by rgo->R_FORM[R205]
+                .if (not_empty form)
+                  .assign phrase = "$cr{form.Txt_phrs}"
+                .else
+                  .select any aoth related by rgo->R_ASSR[R205]->R_ASSOC[R211]->R_AOTH[R210]
+                  .if (empty aoth)
+                  .print "TODO ERROR - aoth is null"
+                  .end if
+                  .assign phrase = "$cr{aoth.Txt_phrs}"
+                .end if
               .end if
               .invoke related_class_name = get_class_name(related_class)
               .invoke nav = get_nav_func_name(related_class, relation, "one")
