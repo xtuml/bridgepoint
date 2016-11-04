@@ -80,9 +80,9 @@ After Change:
 ```
 
 6.0.2 The design note's section 6.4 read as follows:  
-'''
+```
 The exception is in the situation where component references are unassigned, in this case we must run graphics reconciliation to remove the provision and requirements when the element is unassigned. However, note that since unassign is being performed in this situation, no code change outside of the unassign is required.
-'''
+```
 That statement is not true. The move implementation does NOT use graphics reconciliation. If fact, graphics reconciliation is
 explicitly disabled for the Move transaction. The Component Reference case does NOT need graphics reconciliation. The reason it does not is that the model eleent downgrade explicitly unformalizes the component reference in the case where it loses
 visiibility and needs to be unformalized. This act of unformalzing causes the graphics for that component reference to be updated.  
