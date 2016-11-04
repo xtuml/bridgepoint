@@ -191,8 +191,10 @@ public class ${class_name} {
     .select many rto_set related by model_class->R_OIR[R201]->R_RTO[R203]
     .for each rto in rto_set
         .select one relation related by rto->R_OIR[R203]->R_REL[R201]
+.print "TODO - processing relation ${relation.Numb}"
           .select many rgo_set related by relation->R_OIR[R201]->R_RGO[R203]
           .for each rgo in rgo_set
+.print "TODO - iterating over RGO"
               .select one related_class related by rgo->R_OIR[R203]->O_OBJ[R201]
               .invoke result = is_member_of_component(related_class, component_elements)
               .assign member_of_same_component = result.is_member
