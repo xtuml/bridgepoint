@@ -46,6 +46,8 @@ import org.xtuml.bp.core.util.CoreUtil;
 import org.xtuml.bp.core.util.UIUtil;
 import org.xtuml.bp.debug.ui.model.BPDebugTarget;
 import org.xtuml.bp.debug.ui.model.BPThread;
+import org.xtuml.bp.ui.canvas.Ooaofgraphics;
+import org.xtuml.bp.ui.canvas.OoaofgraphicsBase;
 
 /**
  * This sample class demonstrates how to plug-in a new workbench view. The view
@@ -70,22 +72,53 @@ public class BPInstancePopulationView extends ViewPart {
 	// The number of instance lists to show in each root
 	private final int MAX_NUMBER_OF_LISTS = 25;
 
+
+	/**
+	 * This represents the BridgePoint type summaries that
+	 * get shown under each model root.
+	 *
+	 */
+	public enum BPTreeType {
+		OoaofooaModelElements("Ooaofooa Model Elements"),
+		OoaDefaultRootModelElements("Ooaofooa workspace __default_root"),		
+		OoaofoogModelElements("Graphical Model Elements"),
+		OogDefaultRootModelElements("Graphical workspace __default_root"),		
+		ParserInstances("Parser Instances"),
+		RuntimeInstances("Runtime Instances");
+
+		private String treeType;
+
+		private BPTreeType(String type) {
+			treeType = type;
+		}
+
+		public boolean equalsName(String otherName) {
+			return (otherName == null) ? false : treeType.equals(otherName);
+		}
+
+		public String toString() {
+			return this.treeType;
+		}
+	};
+	
+	/**
+	 * 
+	 * This class represents one of the summary items under the tree. 
+	 * 
+	 */
 	class BPProjectTree {
-		public static final String ModelElements = "Model Elements";
-		public static final String ParserInstances = "Parser Instances";
-		public static final String RuntimeInstances = "Runtime Instances";
-		private String treeType;  // One of the types defined above
+		private BPTreeType treeType;  // One of the types defined above
 		
 		IProject parent = null;
 		private List<InstanceList > summaryList = new ArrayList<InstanceList >();
 
 		
-		BPProjectTree(IProject proj, String type) {
+		BPProjectTree(IProject proj, BPTreeType type) {
 			treeType = type;
 			parent = proj;
 		}
 		
-		final String getTreeType() {
+		final BPTreeType getTreeType() {
 			return treeType;
 		}
 		
@@ -202,8 +235,14 @@ public class BPInstancePopulationView extends ViewPart {
 		 */
 		public Object[] getElements(Object parent) {
 			IWorkspace ws = ResourcesPlugin.getWorkspace();
-			IProject[] projects = ws.getRoot().getProjects();
-			return projects;
+			IProject[] allProjects = ws.getRoot().getProjects();
+		    ArrayList<IProject> openProjects = new ArrayList<IProject>();
+			for (int i = 0; i < allProjects.length; i++) {
+				if (allProjects[i].isOpen()) {
+					openProjects.add(allProjects[i]);
+				}				
+			}
+			return openProjects.toArray(new IProject[openProjects.size()]);
 		}
 
 		public Object getParent(Object child) {
@@ -233,20 +272,42 @@ public class BPInstancePopulationView extends ViewPart {
 			List<Object> result = new ArrayList<Object>();
 			if (parent instanceof IProject) {
 				IProject proj = (IProject)parent;
-				result.add(new BPProjectTree(proj, BPProjectTree.ModelElements));
-				result.add(new BPProjectTree(proj, BPProjectTree.ParserInstances));
-				result.add(new BPProjectTree(proj, BPProjectTree.RuntimeInstances));
+				result.add(new BPProjectTree(proj, BPTreeType.OoaofooaModelElements));
+				result.add(new BPProjectTree(proj, BPTreeType.OoaDefaultRootModelElements));				
+				result.add(new BPProjectTree(proj, BPTreeType.OoaofoogModelElements));
+				result.add(new BPProjectTree(proj, BPTreeType.OogDefaultRootModelElements));
+				result.add(new BPProjectTree(proj, BPTreeType.ParserInstances));
+				result.add(new BPProjectTree(proj, BPTreeType.RuntimeInstances));
+				
 			} else if (parent instanceof BPProjectTree) {
 				BPProjectTree projectTree = (BPProjectTree) parent;
-				if (projectTree.getTreeType() == projectTree.ModelElements) {
+				if (projectTree.getTreeType() == BPTreeType.OoaofooaModelElements) { // Ooa of ooa
 					IProject proj = projectTree.parent;
 					Ooaofooa[] ooas = EclipseOoaofooa
 							.getInstancesUnderSystem(proj.getName());
-	
+					
 					for (Ooaofooa ooa : ooas) {
 						result.add(new BPModelRootTree(ooa, projectTree));
 					}
-				} else if (projectTree.getTreeType() == projectTree.ParserInstances) {
+				} else if (projectTree.getTreeType() == BPTreeType.OoaDefaultRootModelElements) { // Ooa of ooa __default_root (note while this is shown on each project, it is actually per workspace)
+					Ooaofooa root = Ooaofooa.getInstance(ModelRoot.DEFAULT_WORKING_MODELSPACE);
+					result.add(new BPModelRootTree(root, projectTree));
+				} else if (projectTree.getTreeType() == BPTreeType.OoaofoogModelElements) { // Ooa of graphics
+					IProject proj = projectTree.parent;
+					// An Ooaofooa represents a model root
+					Ooaofooa[] ooas = EclipseOoaofooa
+							.getInstancesUnderSystem(proj.getName());
+
+					Ooaofgraphics root = Ooaofgraphics.getInstance(ModelRoot.DEFAULT_WORKING_MODELSPACE);
+					result.add(new BPModelRootTree(root, projectTree));
+					for (Ooaofooa ooa : ooas) {
+						Ooaofgraphics oog = Ooaofgraphics.getInstance(ooa.getId());
+						result.add(new BPModelRootTree(oog, projectTree));
+					}
+				} else if (projectTree.getTreeType() == BPTreeType.OogDefaultRootModelElements) { // Ooa of graphics __default_root // Ooa of ooa __default_root (note while this is shown on each project, it is actually per workspace)
+					Ooaofgraphics root = Ooaofgraphics.getInstance(ModelRoot.DEFAULT_WORKING_MODELSPACE);
+					result.add(new BPModelRootTree(root, projectTree));
+				} else if (projectTree.getTreeType() == BPTreeType.ParserInstances) {
 					IProject proj = projectTree.parent;
 					Ooaofooa[] ooas = EclipseOoaofooa
 							.getInstancesUnderSystem(proj.getName());
@@ -255,7 +316,7 @@ public class BPInstancePopulationView extends ViewPart {
 					for (Ooaofooa ooa : ooas) {
 						result.add(new BPModelRootTree(ooa, projectTree));
 					}
-				} else if (projectTree.getTreeType() == projectTree.RuntimeInstances) {					
+				} else if (projectTree.getTreeType() == BPTreeType.RuntimeInstances) {					
 					IDebugTarget[] targets = DebugPlugin.getDefault()
 							.getLaunchManager().getDebugTargets();
 					for (int i = 0; i < targets.length; i++) {
@@ -278,9 +339,31 @@ public class BPInstancePopulationView extends ViewPart {
 						}
 					}
 				}
-				
-				// Add an enrty for the summary to this level
-				result.add(new BPSummaryTree(projectTree));
+
+//
+// See Redmine issue 8810 (https://support.onefact.net/issues/8810)
+// Summary data is causing instance reporting AND NOT JUST SUMMARY REPORTING
+// to return incorrect data after a refresh. Given a simple model (foo):
+//
+//	foo
+//		P1
+//			P1_1
+//		P2
+//				
+// The Instance Viewer should show that model root P1 contains 2 PE_PE instances 
+// and 2 EP_PKG instances, and root P2 contains 1 PE_PE instance and 1 EP_PKG
+// instance. Additionally, the summary for foo should show 3 EP_PKG instances 
+// and 3 PE_PE instances.
+// When the model is first loaded the above IS what is shown. However, each time
+// refresh is performed the first model root in the display remains correct, but
+// all roots "under it" show incorrect values. What seems to be happening is that
+// The values show are a summation of all the roots that appeared before the refresh.
+// Because of this bug I have turned off summary data. 				
+//				
+// When we are ready to spend time fixing this bug, the line below can be uncommented,
+// and the summary data will be enabled again: 								
+//				// Add an entry for the summary to this level
+//				result.add(new BPSummaryTree(projectTree));
 			} else if (parent instanceof BPModelRootTree) {
 				// Add all the instances from this model root to the tree.
 				ModelRoot thisParent = ((BPModelRootTree) parent).modelRoot;
@@ -365,7 +448,7 @@ public class BPInstancePopulationView extends ViewPart {
 		    	return ((IProject) obj).getName();
 			} else if (obj instanceof BPProjectTree) {
 				BPProjectTree projTree = (BPProjectTree)obj;
-				return projTree.getTreeType();
+				return projTree.getTreeType().toString();
 			} else if (obj instanceof BPModelRootTree) {
 				return ((BPModelRootTree) obj).modelRoot.getId();
 		    } else if (obj instanceof BPInstanceListTree) {

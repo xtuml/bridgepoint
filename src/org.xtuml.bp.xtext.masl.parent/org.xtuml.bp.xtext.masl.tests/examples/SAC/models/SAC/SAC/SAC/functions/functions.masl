@@ -1,8 +1,8 @@
-public service SAC::user_logon (user_id              : in  integer,
-                                login_name           : in  string,
-                                user_name            : in  string,
-                                workstation_hostname : in  string,
-                                groups               : in  sequence of string) is
+public service SAC::user_logon ( user_id : in integer,
+                                login_name : in string,
+                                user_name : in string,
+                                workstation_hostname : in string,
+                                groups : in sequence of string ) is
 login_allowed : boolean := false;
 the_user : instance of User;
 the_workstation : instance of Workstation;
@@ -88,11 +88,11 @@ begin
       Operator~>login_valid(-1, user_id, false, "Invalid group specified", workstation_hostname, login_name);
    end if;
    
-end
+end service;
 
-public service SAC::user_logoff (session_id : in  integer,
-                                 user_id    : in  integer,
-                                 login_name : in  string) is
+public service SAC::user_logoff ( session_id : in integer,
+                                 user_id : in integer,
+                                 login_name : in string ) is
 the_session : instance of Session;
 the_workstation : instance of Workstation;
 
@@ -113,9 +113,9 @@ begin
                  ", uid = " << user_id'image << ", sid = " << login_name << endl << flush;
    end if;
    
-end
+end service;
 
-public service SAC::add_group (group_name : in  string) is
+public service SAC::add_group ( group_name : in string ) is
 the_group : instance of Group;
 
 begin
@@ -126,10 +126,10 @@ begin
       Operator~>report_group(group_name);
    end if;
    
-end
+end service;
 
-public service SAC::add_operation_to_group (group_name : in  string,
-                                            operations : in  sequence of string) is
+public service SAC::add_operation_to_group ( group_name : in string,
+                                            operations : in sequence of string ) is
 the_group : instance of Group;
 the_operation : instance of Operation;
 group_operation : instance of Group_Operation;
@@ -156,11 +156,11 @@ begin
       end if;
    end loop;
    
-end
+end service;
 
-public service SAC::session_active (session_id : in  integer,
-                                    user_id    : in  integer,
-                                    login_name : in  string) is
+public service SAC::session_active ( session_id : in integer,
+                                    user_id : in integer,
+                                    login_name : in string ) is
 the_session : instance of Session;
 
 begin
@@ -175,9 +175,9 @@ begin
                  ", uid = " << user_id'image << ", sid = " << login_name << endl << flush;
    end if;
    
-end
+end service;
 
-public service SAC::delete_group (group_name : in  string) is
+public service SAC::delete_group ( group_name : in string ) is
 the_group : instance of Group;
 the_operations : sequence of instance of Operation;
 the_group_operation : instance of Group_Operation;
@@ -194,10 +194,10 @@ begin
       end loop;
    end if;
    
-end
+end service;
 
-public service SAC::delete_group_operation (group_name : in  string,
-                                            operations : in  sequence of string) is
+public service SAC::delete_group_operation ( group_name : in string,
+                                            operations : in sequence of string ) is
 the_group : instance of Group;
 the_operations : sequence of instance of Operation;
 the_operation : instance of Operation;
@@ -221,9 +221,9 @@ begin
       end loop;
    end if;
    
-end
+end service;
 
-public service SAC::populate_domain (reload_config_files : in  boolean) is
+public service SAC::populate_domain ( reload_config_files : in boolean ) is
 the_groups : sequence of group_type;
 current_groups : sequence of instance of Group;
 the_group : instance of Group;
@@ -325,7 +325,7 @@ begin
       end loop;
    end loop;
    
-end
+end service;
 
 public service SAC::resend_infos () is
 all_groups : sequence of instance of Group;
@@ -376,14 +376,14 @@ begin
    
    end loop;
    
-end
+end service;
 
 private service SAC::populate_domain_1 () is
 begin
    
    SAC::populate_domain(false);
    
-end
+end service;
 
 private service SAC::soa_subscribe_2 () is
 soa_messages : sequence of string;
@@ -402,14 +402,14 @@ begin
   soa_messages := empty_soa_messages & "I_DCP_resend_infos";
   SOA::subscribe("SAC_resend_infos", soa_messages);
 
-end
+end service;
 
 private service SAC::resend_infos_3 () is
 begin
    
    SAC::resend_infos();
    
-end
+end service;
 
 private service SAC::test_SAC_1 () is
 the_groups : sequence of string;
@@ -551,8 +551,6 @@ begin
    
    // start the heartbeat for workstation 1 and check that the session 
    // is no longer timed out and the user becomes logged on
-   // CHANGED JK : added string parameter
-   // SAC::session_active(1, 1);
    SAC::session_active(0, 1, "");
    Test::service_event_queue();
    if Test::check_size ( "test_SAC_1.ext", 150, find _TEST_Operator_report_user_session(), 1 ) then
@@ -594,8 +592,6 @@ begin
    delete find _TEST_Operator_user_operation_removed();
    
    // log off workstation 4 user 2
-   // CHANGED JK : added string parameter
-   // SAC::user_logoff(3, 2)
    SAC::user_logoff(3, 2, "");
    Test::service_event_queue();
    if Test::check_size ( "test_SAC_1.ext", 191, find _TEST_Operator_user_session_deleted(), 1 ) then
@@ -616,10 +612,7 @@ begin
    delete find _TEST_Operator_user_removed();
    
    // log off workstation 3 user 3
-   // CHANGED JK : added string parameter
-   // SAC::user_logoff(4, 3);
    SAC::user_logoff(4, 3, "");
-   
    Test::service_event_queue();
    if Test::check_size ( "test_SAC_1.ext", 211, find _TEST_Operator_user_session_deleted(), 1 ) then
       Test::check_equal ( "test_SAC_1.ext", 212, ((find _TEST_Operator_user_session_deleted(session_id = 4))'length), 1 );
@@ -637,9 +630,7 @@ begin
    delete find _TEST_Operator_user_removed();
    
    // log off workstation 1 user 1 check that the user becomes suspect
-   // CHANGED JK : added string parameter
-   // SAC::user_logoff(0, 1);
-   SAC::user_logoff(0, 1,"");
+   SAC::user_logoff(0, 1, "");
    Test::service_event_queue();
    if Test::check_size ( "test_SAC_1.ext", 229, find _TEST_Operator_user_session_deleted(), 1 ) then
       Test::check_equal ( "test_SAC_1.ext", 230, ((find _TEST_Operator_user_session_deleted(session_id = 0))'length), 1 );
@@ -652,8 +643,6 @@ begin
    
    // start the heartbeat for workstation 2 and check that the session 
    // is no longer timed out and the user becomes logged on
-   // CHANGED JK : added string parameter
-   // SAC::session_active(1, 1, "");
    SAC::session_active(1, 1, "");
    Test::service_event_queue();
    if Test::check_size ( "test_SAC_1.ext", 242, find _TEST_Operator_report_user_session(), 1 ) then
@@ -668,8 +657,6 @@ begin
    delete find _TEST_Operator_report_user_session();
    
    // log off workstation 2 user 1 
-   // CHANGED JK : added string parameter
-   // SAC::user_logoff(1, 1);
    SAC::user_logoff(1, 1, "");
    Test::service_event_queue();
    if Test::check_size ( "test_SAC_1.ext", 256, find _TEST_Operator_user_session_deleted(), 1 ) then
@@ -691,5 +678,5 @@ begin
    Test::print_results();
    Process::requestShutdown();
    
-end
+end service;
 

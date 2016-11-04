@@ -25,6 +25,7 @@ package org.xtuml.bp.core.common;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 
@@ -74,8 +75,8 @@ public class TransactionManager {
 
 	int maxStackSize = 87;
 
-	ArrayList<Transaction> undoStack = new ArrayList<Transaction>();
-	ArrayList<Transaction> redoStack = new ArrayList<Transaction>();
+	private ArrayList<Transaction> undoStack = new ArrayList<Transaction>();
+	private ArrayList<Transaction> redoStack = new ArrayList<Transaction>();
 
 	private static ArrayList<IFile> affectedComponents = new ArrayList<IFile>();
 
@@ -110,8 +111,8 @@ public class TransactionManager {
 				new ModelFileChangeListener());
 	}
 
-	public ArrayList<Transaction> getUndoStack() {
-		return undoStack;
+	public boolean undoStackIsEmpty() {
+		return undoStack.isEmpty();
 	}
 	
 	public Transaction getActiveTransaction() {
@@ -191,6 +192,12 @@ public class TransactionManager {
 					+ "' is already in progress");
 		}
 
+		// If a Move is in progress we require that the next transaction be the paste. If the user
+		// does anything else before that, we cancel the move operation.
+		if (PasteAction.moveIsInProgress() && !displayName.equals(PasteAction.TransactionNameForMove)) {
+			PasteAction.stopMove();
+		}
+		
 		if (consistencyListener == null) {
 			consistencyListener = new ConsistencyTransactionListener();
 			addTransactionListener(consistencyListener);
@@ -268,12 +275,19 @@ public class TransactionManager {
 
 	private void addTransactionToStack(ArrayList<Transaction> stack,
 			Transaction transaction) {
-		if (stack.size() == maxStackSize) {
-			// if this stack is at its limit
-			// remove the bottom transaction
-			stack.remove(0);
+		// Move will not be undoable until https://support.onefact.net/issues/8755 has been resolved.
+		// Until then we prevent undo on Model Element Moves
+		if (PasteAction.TransactionNameForMove.equals(transaction.getDisplayName())) {
+			clearStacks();
+			setUndoRedoActionsState();
+		} else {
+			if (stack.size() == maxStackSize) {
+				// if this stack is at its limit
+				// remove the bottom transaction
+				stack.remove(0);
+			}
+			stack.add(transaction);
 		}
-		stack.add(transaction);
 	}
 
 	/**
@@ -340,9 +354,11 @@ public class TransactionManager {
 			boolean result = UIUtil.openScrollableTextDialog(PlatformUI
 					.getWorkbench().getDisplay().getActiveShell(), true,
 					"Confirm Changes", message, 
-					"The following elements on the right side of each sentence will have\n" +
-					"their type reset to the default type as a result of this operation.\n" +
-					"Would you like to proceed ?",
+					"The requested change will cause elements to be reset to their default values. " +
+					"This is due to a loss of visibility inside the destination.\nConsider allowing " +
+					"inter-project references for this project and relaxing package visibility settings " +
+					"before proceeding with this change.\n\n" +
+					"Do you want to continue?",
 					null,
 					BridgePointPreferencesStore.SHOW_SYNC_DELETION_DIALOG, true, true);			
 			if(!result) {
@@ -411,6 +427,7 @@ public class TransactionManager {
 							affectedComponents.remove(component.getFile());
 						}
 					}
+					// If we change the name of a ModelRoot then we update all RGOs in order to assure all proxies are updated
 					if (delta instanceof AttributeChangeModelDelta) {
 						AttributeChangeModelDelta modelDelta = (AttributeChangeModelDelta) delta;
 						if (modelDelta.isPersistenceRelatedChange()) {
@@ -420,39 +437,18 @@ public class TransactionManager {
 									// rgos, and children components if this
 									// element
 									// is a component root
-									if (PersistenceManager
-											.getHierarchyMetaData()
-											.isComponentRoot(modelElement)) {
-								List<PersistableModelComponent> children = gatherChildrenComponents(component);
-								for (PersistableModelComponent child : children) {
-											if (!affectedComponents
-													.contains(child.getFile())) {
-										affectedComponents.add(child
-												.getFile());
-									}
-
-								}
-									}
-
-								// now look for rgos
-								List<?> selfExternalRGOs = PersistenceManager
-								.getHierarchyMetaData()
-								.findExternalRGOsToContainingComponent(
-										component
-										.getRootModelElement(),
-										true);
-								for (Object rgo : selfExternalRGOs) {
-									PersistableModelComponent target = ((NonRootModelElement) rgo)
-									.getPersistableComponent();
-									if (target != null
-											&& !affectedComponents
-											.contains(target
-													.getFile())) {
-										affectedComponents.add(target
-												.getFile());
-									}
-								}
+									addRGOsToAffectedComponentsList(modelElement);
 							}
+						}
+					}
+					
+					if (delta instanceof ModelElementMovedModelDelta) {
+						// assure all rgos are persisted
+						HashSet<PersistableModelComponent> rgosAffectedByMove = ((ModelElementMovedModelDelta) delta)
+								.getRGOsAffectedByMove();
+						for (Iterator<PersistableModelComponent> iter = rgosAffectedByMove.iterator(); iter.hasNext();) {
+							PersistableModelComponent rgo = (PersistableModelComponent) iter.next();
+							addRGOsToAffectedComponentsList(rgo.getRootModelElement());						
 						}
 					}
 				}
@@ -490,7 +486,31 @@ public class TransactionManager {
 		}
 	}
 
-	private List<PersistableModelComponent> gatherChildrenComponents(PersistableModelComponent component) {
+	private void addRGOsToAffectedComponentsList(NonRootModelElement elementChanged) {
+		PersistableModelComponent pmcChanged = elementChanged.getPersistableComponent(true);
+		if (PersistenceManager.getHierarchyMetaData().isComponentRoot(elementChanged)) {
+			List<PersistableModelComponent> children = gatherChildrenComponents(pmcChanged);
+			for (PersistableModelComponent child : children) {
+				if (!affectedComponents.contains(child.getFile())) {
+					affectedComponents.add(child.getFile());
+				}
+
+			}
+		}
+
+		// now look for rgos
+		List<?> selfExternalRGOs = PersistenceManager.getHierarchyMetaData()
+				.findExternalRGOsToContainingComponent(pmcChanged.getRootModelElement(), true);
+		for (Object rgo : selfExternalRGOs) {
+			PersistableModelComponent target = ((NonRootModelElement) rgo).getPersistableComponent();
+			if (target != null && !affectedComponents.contains(target.getFile())) {
+				affectedComponents.add(target.getFile());
+			}
+		}
+		
+	}
+	
+	public static List<PersistableModelComponent> gatherChildrenComponents(PersistableModelComponent component) {
 		List<PersistableModelComponent> collection = new ArrayList<PersistableModelComponent>();
 		Collection<?> children = component.getChildren();
 		// now persist any other proxy data that is out there
@@ -966,31 +986,19 @@ public class TransactionManager {
 		return persisting;
 	}
 
-	public static void reportElementDowngraded(Object p_rgodowngraded, Object p_rto, String p_relationship,
-			boolean failedToReconnectRGO) {
+	public static void reportElementDowngraded(Object p_rgodowngraded, Object p_rto, String p_relationship) {
 		if (p_rgodowngraded != null) {	
-			if (CutCopyPasteAction.moveIsInProgress() && !failedToReconnectRGO) {
-				// If move is in progress then we are going to attempt to stitch-up
-				// the RGO during paste. If successful we do not need to tell the user
-				// it was downgraded, but it we fail we do need to report it.
-				PasteAction.addDownGradedElement((NonRootModelElement)p_rto, (NonRootModelElement)p_rgodowngraded, p_relationship);
-			} else {
-				String qualifedName = "";
-				if (p_rgodowngraded != null) {
-					qualifedName = ((NonRootModelElement)p_rgodowngraded).getPath();
-				}
-				if (!qualifedName.isEmpty() && !affectedModelElementsNames.contains(qualifedName)) {
-					String message = ((NonRootModelElement)p_rto).getPath() + "  is referred to by  " + qualifedName;
-					affectedModelElementsNames.add(message); 
-				}
+			String qualifedName = "";
+			if (p_rgodowngraded != null) {
+				qualifedName = ((NonRootModelElement)p_rgodowngraded).getPath();
 			}
-		}		
+			if (!qualifedName.isEmpty() && !affectedModelElementsNames.contains(qualifedName)) {
+				String message = ((NonRootModelElement)p_rto).getPath() + "  is associated with  " + qualifedName;
+				affectedModelElementsNames.add(message); 
+			}
+		}
 	}
 	
-	public static void reportElementDowngraded(Object p_rgodowngraded, Object p_rto, String p_relationship) {		
-		reportElementDowngraded(p_rgodowngraded, p_rto, p_relationship, false);
-	}
-
 	/**
 	 * Clears this manager's undo and redo stacks.
 	 */
