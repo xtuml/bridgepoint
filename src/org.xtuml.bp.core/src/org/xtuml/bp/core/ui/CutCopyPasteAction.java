@@ -99,7 +99,9 @@ public abstract class CutCopyPasteAction extends Action {
 			cuttable = DeleteAction.canDeleteAction();
 		}
 		
-		// Only allow cut on Packages and datatypes for now
+		// TODO: This restriction will be lifted with #8798  
+		//  Only allow cut on Packages and datatypes for now
+		//  
 		for (int i = 0; cuttable && i < selectedNRMEs.length; i++) {
 			cuttable = false;
 			NonRootModelElement rto = selectedNRMEs[i].getRTOElementForResolution();

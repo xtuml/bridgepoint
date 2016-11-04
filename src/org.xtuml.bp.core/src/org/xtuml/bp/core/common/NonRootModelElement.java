@@ -45,6 +45,7 @@ import org.xtuml.bp.core.ElementVisibility_c;
 import org.xtuml.bp.core.Elementtypeconstants_c;
 import org.xtuml.bp.core.EnumerationDataType_c;
 import org.xtuml.bp.core.Gd_c;
+import org.xtuml.bp.core.InstanceReferenceDataType_c;
 import org.xtuml.bp.core.InstanceStateMachine_c;
 import org.xtuml.bp.core.IntegrityManager_c;
 import org.xtuml.bp.core.Ooaofooa;
@@ -1063,6 +1064,10 @@ public abstract class NonRootModelElement extends ModelElement implements IAdapt
 		} else if (this instanceof EnumerationDataType_c) {
 			DataType_c dt = DataType_c
 					.getOneS_DTOnR17((EnumerationDataType_c) this);
+			return dt;
+		} else if (this instanceof InstanceReferenceDataType_c) {
+			DataType_c dt = DataType_c
+					.getOneS_DTOnR17((InstanceReferenceDataType_c) this);
 			return dt;
 		} else {
 			return this;
