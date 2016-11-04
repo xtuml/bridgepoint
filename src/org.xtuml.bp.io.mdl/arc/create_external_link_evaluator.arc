@@ -188,7 +188,6 @@ public class ${class_name} {
     .select many rto_set related by model_class->R_OIR[R201]->R_RTO[R203]
     .for each rto in rto_set
         .select one relation related by rto->R_OIR[R203]->R_REL[R201]
-.print "TODO - processing relation ${relation.Numb}"
           .select many rgo_set related by relation->R_OIR[R201]->R_RGO[R203]
           .for each rgo in rgo_set
               .select one related_class related by rgo->R_OIR[R203]->O_OBJ[R201]
@@ -231,12 +230,13 @@ public class ${class_name} {
               .if (card == 0)
                 .invoke nav = get_nav_func_name(related_class, relation, "one")
                 .assign varName = "inst$Cr{related_class.Name}${rgoCntr}"
+                .assign listvar = "R${relation.Numb}List"
             ${related_class_name.body} ${varName} = ${related_class_name.body}.${nav.body}${phrase}((${eo_class_name.body})element, true);
                 .assign condition = "${varName} != null"
             if(${condition}){
-            	List<NonRootModelElement> R${relation.Numb}List = new ArrayList<NonRootModelElement>();
-            	R${relation.Numb}List.add(${varName});
-                map.put("R${relation.Numb}", R${relation.Numb}List);
+            	List<NonRootModelElement> ${listvar} = new ArrayList<NonRootModelElement>();
+            	${listvar}.add(${varName});
+                map.put("R${relation.Numb}", ${listvar});
             }
                 .assign rgoCntr = rgoCntr + 1
               .else
@@ -283,8 +283,13 @@ public class ${class_name} {
 	                .assign card = 1
 	                .assign relation_type = "class_as_link"
                     .if (is_reflexive.result)
-	                  .select any aoth related by assr->R_ASSOC[R211]->R_AOTH[R210]
-                      .assign phrase = "$cr{aoth.Txt_phrs}"
+                      .select any aone related by rto->R_AONE[R204]
+                      .if (empty aone)
+                        .select any aoth related by rto->R_AOTH[R204]
+                        .assign phrase = "$cr{aoth.Txt_phrs}"
+                      .else
+                        .assign phrase = "$cr{aone.Txt_phrs}"
+                      .end if
                     .end if
 	              .else
 		            .select any sub related by rgo->R_SUB[R205]
@@ -358,9 +363,13 @@ public class ${class_name} {
                 .if (not_empty form)
                   .assign phrase = "$cr{form.Txt_phrs}"
                 .else
-                  .select any aoth related by rgo->R_ASSR[R205]->R_ASSOC[R211]->R_AOTH[R210]
-                  .assign phrase = "$cr{aoth.Txt_phrs}"
-                  .// TODO - need to handle R_AONE here too????
+                  .select any aone related by rto->R_AONE[R204]
+                  .if (empty aone)
+                    .select any aoth related by rto->R_AOTH[R204]
+                    .assign phrase = "$cr{aoth.Txt_phrs}"
+                  .else
+                    .assign phrase = "$cr{aone.Txt_phrs}"
+                  .end if
                 .end if
               .end if
               .invoke related_class_name = get_class_name(related_class)
