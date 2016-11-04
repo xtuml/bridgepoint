@@ -1,10 +1,6 @@
 .//====================================================================
 .//
-.// File:      $RCSfile: create_external_link_evaluator.arc,v $
-.// Version:   $Revision: 1.13 $
-.// Modified:  $Date: 2013/01/10 23:34:57 $
-.//
-.// (c) Copyright 2005-2014 by Mentor Graphics Corp.  All rights reserved.
+.// File:      create_external_link_evaluator.arc
 .//
 .//====================================================================
 .invoke arc_env = GET_ENV_VAR( "PTC_MC_ARC_DIR" )
@@ -203,10 +199,10 @@ public class ${class_name} {
               .assign card = -1
               .assign relation_type = "other"
               .assign phrase = ""
+              .invoke result = is_reflexive(relation)
               .select any form related by rgo->R_FORM[R205]
               .if(not_empty form)
                   .assign card = form.Mult
-                  .invoke result = is_reflexive(relation)
                   .if (result.result)
                     .assign phrase = "$cr{form.Txt_phrs}"
                   .end if
@@ -216,6 +212,10 @@ public class ${class_name} {
 	              .if(not_empty assr)
 	                .assign card = 1
 	                .assign relation_type = "class_as_link"
+	                .if (result.result)
+                      .select any aoth related by assr->R_ASSOC[R211]->R_AOTH[R210]
+                      .assign phrase = "$cr{aoth.Txt_phrs}"
+                    .end if
 	              .else
 		            .select any sub related by rgo->R_SUB[R205]
 		            .if(not_empty sub)
@@ -228,7 +228,7 @@ public class ${class_name} {
               .if (card == 0)
                 .invoke nav = get_nav_func_name(related_class, relation, "one")
                 .assign varName = "inst$Cr{related_class.Name}${rgoCntr}"
-            ${related_class_name.body} ${varName} = ${related_class_name.body}.${nav.body}$cr{phrase}((${eo_class_name.body})element, true);
+            ${related_class_name.body} ${varName} = ${related_class_name.body}.${nav.body}${phrase}((${eo_class_name.body})element, true);
                 .assign condition = "${varName} != null"
             if(${condition}){
             	List<NonRootModelElement> R${relation.Numb}List = new ArrayList<NonRootModelElement>();
@@ -254,12 +254,9 @@ public class ${class_name} {
 
     .assign rgoCntr = 0;
     .select any model_class from instances of O_OBJ where (selected.Name == eo.Name)
-    .print "TODO SKB - processing class ${model_class.Name} "
     .select many rto_set related by model_class->R_OIR[R201]->R_RTO[R203]
     .for each rto in rto_set
         .select one relation related by rto->R_OIR[R203]->R_REL[R201]
-        .print "TODO - processing relation ${relation.Numb} "
-
           .select many rgo_set related by relation->R_OIR[R201]->R_RGO[R203]
           .for each rgo in rgo_set
               .select one related_class related by rgo->R_OIR[R203]->O_OBJ[R201]
@@ -268,10 +265,10 @@ public class ${class_name} {
               .assign card = -1
               .assign relation_type = "other"
               .assign phrase = ""
+              .invoke result = is_reflexive(relation)
               .select any form related by rgo->R_FORM[R205]
               .if(not_empty form)
                   .assign card = form.Mult
-                  .invoke result = is_reflexive(relation)
                   .if (result.result)
                     .assign phrase = "$cr{form.Txt_phrs}"
                   .end if
@@ -281,6 +278,10 @@ public class ${class_name} {
 	              .if(not_empty assr)
 	                .assign card = 1
 	                .assign relation_type = "class_as_link"
+                    .if (result.result)
+	                  .select any aoth related by assr->R_ASSOC[R211]->R_AOTH[R210]
+                      .assign phrase = "$cr{aoth.Txt_phrs}"
+                    .end if
 	              .else
 		            .select any sub related by rgo->R_SUB[R205]
 		            .if(not_empty sub)
@@ -293,7 +294,7 @@ public class ${class_name} {
               .if (card == 0)
                 .invoke nav = get_nav_func_name(related_class, relation, "one")
                 .assign varName = "inst$Cr{related_class.Name}${rgoCntr}"
-            ${related_class_name.body} ${varName} = ${related_class_name.body}.${nav.body}$cr{phrase}((${eo_class_name.body})modelElement, loadComponent);
+            ${related_class_name.body} ${varName} = ${related_class_name.body}.${nav.body}${phrase}((${eo_class_name.body})modelElement, loadComponent);
                 .assign condition = "${varName} != null"
               .if(member_of_same_component)
                 .assign condition = "${condition} && (!checkSameComponent || !isComponentSame(modelElement, ${varName}))"
@@ -341,7 +342,6 @@ public class ${class_name} {
 			NonRootModelElement  inst=null;
     .for each rto in rto_set
         .select one relation related by rto->R_OIR[R203]->R_REL[R201]
-        .print "TODO - processing relation ${relation.Numb}"
           .select many rgo_set related by relation->R_OIR[R201]->R_RGO[R203]
           .for each rgo in rgo_set
               .select one related_class related by rgo->R_OIR[R203]->O_OBJ[R201]
@@ -355,15 +355,13 @@ public class ${class_name} {
                   .assign phrase = "$cr{form.Txt_phrs}"
                 .else
                   .select any aoth related by rgo->R_ASSR[R205]->R_ASSOC[R211]->R_AOTH[R210]
-                  .if (empty aoth)
-                  .print "TODO ERROR - aoth is null"
-                  .end if
                   .assign phrase = "$cr{aoth.Txt_phrs}"
+                  .// TODO - need to handle R_AONE here too????
                 .end if
               .end if
               .invoke related_class_name = get_class_name(related_class)
               .invoke nav = get_nav_func_name(related_class, relation, "one")
-				inst = ${related_class_name.body}.${nav.body}$cr{phrase}((${eo_class_name.body})modelElement, loadComponent);
+				inst = ${related_class_name.body}.${nav.body}${phrase}((${eo_class_name.body})modelElement, loadComponent);
               .assign condition = "inst != null"
               .if(member_of_same_component)
               .assign condition = "${condition} && !isComponentSame(modelElement, inst)"
