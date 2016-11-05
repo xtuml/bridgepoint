@@ -2200,6 +2200,49 @@ INSERT INTO O_TPARM
 	'',
 	"00000000-0000-0000-0000-000000000000",
 	'');
+INSERT INTO O_TFR
+	VALUES ("f3fe145f-45a8-4b16-a710-e24001ba26d9",
+	"b7630071-9e2a-4183-9986-779dca14c275",
+	'downgradeCheck',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'// attributes
+select many o_attrs related by self->O_ATTR[R102];
+for each o_attr in o_attrs
+  o_attr.downgradeCheck();
+end for;
+
+// operations
+select many o_tfrs related by self->O_TFR[R115];
+for each o_tfr in o_tfrs
+  o_tfr.downgradeCheck();
+end for;
+
+// Loop over ISM and ASM event data items
+select many sm_evtdis related by self->SM_ISM[R518]->SM_SM[R517]->SM_EVTDI[R516];
+for each sm_evtdi in sm_evtdis
+  sm_evtdi.downgradeCheck();
+end for;
+select many sm_evtdis related by self->SM_ASM[R519]->SM_SM[R517]->SM_EVTDI[R516];
+for each sm_evtdi in sm_evtdis
+  sm_evtdi.downgradeCheck();
+end for;
+
+// Loop over imported classes that refer to self, check for downgrade
+select many o_iobjs related by self->O_IOBJ[R101];
+for each o_iobj in o_iobjs
+  o_iobj.downgradeCheck();
+end for;
+
+// TODO: need to handle IRDTs to this class. The instance data for the IRDTs are 
+//   stored inside the parent/container of this class, not inside class file.
+//   The issue is that IRDTs are "invisible", there''s no facility for the user
+//   to capture the elements in order to move them.
+',
+	1,
+	'',
+	"d14a6f60-5a6b-47d0-80ba-518b2780b970");
 INSERT INTO O_NBATTR
 	VALUES ("abd8f188-4260-4e03-9844-41b21ef751b3",
 	"b7630071-9e2a-4183-9986-779dca14c275");

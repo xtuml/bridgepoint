@@ -23,6 +23,7 @@
 package org.xtuml.bp.core.ui;
 
 import java.io.ByteArrayOutputStream;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -66,13 +67,13 @@ public abstract class CopyCutAction extends CutCopyPasteAction {
 		try {
 			List<NonRootModelElement> elementList = null;
 			if (getActionType() == CUT_TYPE) {
-				MOVE_IS_IN_PROGRESS = true;
+				startMove();
 				// In move we do not include graphical elements in the list.
 				// We don't need them, we go get them.
 				elementList = Arrays.asList(getElementsToBeCopied(false));
-				ELEMENT_MOVE_SOURCE_SELECTION = elementList;
+				ELEMENT_MOVE_SOURCE_SELECTION = new ArrayList<NonRootModelElement>(elementList);
 			} else {
-				MOVE_IS_IN_PROGRESS = false;
+				stopMove();
 				elementList = Arrays.asList(getElementsToBeCopied(true));
 			}
 			

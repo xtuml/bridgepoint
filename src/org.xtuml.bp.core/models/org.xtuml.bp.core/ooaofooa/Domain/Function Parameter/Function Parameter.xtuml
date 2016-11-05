@@ -72,19 +72,8 @@ INSERT INTO O_TFR
 	1,
 	'select one function related by self->S_SYNC[R24];
 function.addParameterToOrder(id:self.SParm_ID);
-isInGenericPkg = false;
-select one pkg related by self->S_SYNC[R24]->PE_PE[R8001]->EP_PKG[R8000];
 
-    select one system related by pkg->S_SYS[R1405];
-    def_dt_id = GD::NULL_UNIQUE_ID();
-    if not_empty system
-      def_dt_id = system.getCoreTypeId(name:"integer");
-    end if;
-    select any pe from instances of PE_PE where selected.Element_ID == def_dt_id;
-    select one def_dt related by pe->S_DT[R8001]; 
-    if(not_empty def_dt)
-      relate self to def_dt across R26;
-    end if;
+self.setToDefaultDataType();
 
 name = ::getUniqueInitialName( 
 	instance: self.convertToInstance(), 
@@ -578,6 +567,54 @@ end for;',
 	1,
 	'',
 	"862f18ab-48e8-4e02-8eab-327004d72cdb");
+INSERT INTO O_TFR
+	VALUES ("1c5ba3cd-114f-4643-9a20-57cd53018f23",
+	"f9359d0e-84e9-4ba4-b84c-ee6efc50e841",
+	'setToDefaultDataType',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'elementType = Util::getSimpleClassName(element:self.convertToInstance());
+defaultTypeName = S_DT::getDefaultDataTypeName(elementType:elementType);
+
+select one system related by self->S_SYNC[R24]->PE_PE[R8001]->EP_PKG[R8000]->S_SYS[R1405];
+if not_empty system
+  // Unhook from the current data type (if any)
+  select one currentDt related by self->S_DT[R26];
+  if ( not_empty currentDt )
+    unrelate self from currentDt across R26;
+  end if;
+  // Now connect to the default type
+  dt_id = system.getCoreTypeId(name:defaultTypeName);
+  select any pe from instances of PE_PE where selected.Element_ID == dt_id;
+  select one defaultDt related by pe->S_DT[R8001]; 
+  relate self to defaultDt across R26;
+else
+  // this is an error, if the system is not
+  // found we cannot find the core type
+  USER::logError(msg:"Unable to locate system root for data type: " + defaultTypeName,path:"");
+end if;
+',
+	1,
+	'',
+	"1caf58bf-4246-4b31-bb44-3842211f2dda");
+INSERT INTO O_TFR
+	VALUES ("9b32e181-a390-4112-b303-da80600b5d9f",
+	"f9359d0e-84e9-4ba4-b84c-ee6efc50e841",
+	'downgradeCheck',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'isVisible = self.canReferToDataType();
+if ( not isVisible )
+  select one s_dt related by self->S_DT[R26];
+  Util::reportElementDowngraded(rto:s_dt.convertToInstance(), rgoDowngraded:self.convertToInstance(), relationship:"R26");
+  self.setToDefaultDataType();
+end if;
+',
+	1,
+	'',
+	"1c5ba3cd-114f-4643-9a20-57cd53018f23");
 INSERT INTO O_NBATTR
 	VALUES ("949e7dff-9969-4d65-807a-6b4b5df833af",
 	"f9359d0e-84e9-4ba4-b84c-ee6efc50e841");

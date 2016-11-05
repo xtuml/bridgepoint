@@ -206,6 +206,17 @@ INSERT INTO S_DT_PROXY
 	'',
 	'',
 	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("672da21d-8a1a-4a0a-a681-b0701450728a",
+	"f7cd37b4-309c-4a8d-b621-602317676050",
+	'downgradeCheck',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'',
+	3,
+	'',
+	"4aca5bc4-6cb0-4877-b3ad-bc943714f970");
 INSERT INTO O_REF
 	VALUES ("f7cd37b4-309c-4a8d-b621-602317676050",
 	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
