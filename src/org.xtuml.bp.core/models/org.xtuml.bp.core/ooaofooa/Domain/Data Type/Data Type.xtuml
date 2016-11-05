@@ -458,6 +458,10 @@ elif(param.elementType == "UserDataType")
   return "integer";
 elif(param.elementType == "SymbolicConstant")
   return "integer";
+elif(param.elementType == "ExternalEntityDataItem")
+  return "integer";
+elif(param.elementType == "ExternalEntityEventDataItem")
+  return "integer";
 end if;
 return "";',
 	1,
@@ -496,7 +500,7 @@ select one component related by self->PE_PE[R8001]->C_C[R8003];
     else
       path = package.getQualifiedName();
     end if;
-  else
+  elif not_empty component
     if(path != "")
       path = component.getQualifiedName() + "::" + path;
     else
@@ -525,6 +529,104 @@ INSERT INTO O_TPARM
 	'',
 	"79908e4c-773d-436b-b634-fc00358e63b8",
 	'');
+INSERT INTO O_TFR
+	VALUES ("57932e59-c7e1-4095-97ff-031fd470e233",
+	"ead52fac-9782-434b-a35c-c07452c3b26d",
+	'downgradeCheck',
+	'This operation checks to see if downgrades need to be performed, either on elements
+that refer to this datatype, or other types this one itself refers to.',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'// Domain Subsystem
+select many brgs related by self->S_BRG[R20];
+for each brg in brgs
+  brg.downgradeCheck(); 
+end for;
+select many bparms related by self->S_BPARM[R22];
+for each bparm in bparms
+  bparm.downgradeCheck();
+end for;
+select many eedis related by self->S_EEDI[R15];
+for each eedi in eedis
+  eedi.downgradeCheck();
+end for;
+select many eeedis related by self->S_EEEDI[R16];
+for each eeedi in eeedis
+  eeedi.downgradeCheck(); 
+end for;
+select many sparms related by self->S_SPARM[R26];
+for each sparm in sparms
+  sparm.downgradeCheck();
+end for;
+select many fns related by self->S_SYNC[R25];
+for each fn in fns
+  fn.downgradeCheck();
+end for;
+select many evtdis related by self->SM_EVTDI[R524];
+for each evtdi in evtdis
+  evtdi.downgradeCheck();
+end for;
+select many opers related by self->O_TFR[R116];
+for each oper in opers
+  oper.downgradeCheck();
+end for;
+select many oparms related by self->O_TPARM[R118];
+for each oparm in oparms
+  oparm.downgradeCheck();
+end for;
+select many attrs related by self->O_ATTR[R114];
+for each attr in attrs
+  attr.downgradeCheck();
+end for;
+select many members related by self->S_MBR[R45];
+for each member in members
+  member.downgradeCheck();
+end for;
+select many sycs related by self->CNST_SYC[R1500];
+for each syc in sycs
+  syc.downgradeCheck();
+end for;
+//
+// Value Subsystem
+/* NOTE: do we really need to update value instances on downgrade (or dispose)?
+     The model change listener does not apply the model change until a running 
+     verifier stops.  If verifier has stopped, do we really care if there is a
+     value instance that is hooked to a datatype that is no longer visible or 
+     no longer exists?  Those value instances will be thrown away during reparse
+     before verifier runs again or pre-builder runs.  If we do want to add downgrade
+     checking, we should implement downgradeCheck() operations on V_* instances
+     and call them here.
+select many vals related by self->V_VAL[R820];
+for each val in vals
+  unrelate self from val across R820;
+  relate val to intdt across R820;
+end for;
+select many tvars related by self->V_TRN[R821];
+for each tvar in tvars
+  unrelate self from tvar across R821;
+  relate tvar to intdt across R821;
+end for;
+select many vvars related by self->V_VAR[R848];
+for each vvar in vvars
+  unrelate self from vvar across R848;
+  relate vvar to intdt across R848;
+end for;*/
+
+// Component Subsystem
+select many ios related by self->C_IO[R4008];
+for each io in ios
+  io.downgradeCheck();
+end for;
+select many pps related by self->C_PP[R4007];
+for each pp in pps
+  pp.downgradeCheck();
+end for;
+
+// RTOs checking is done by the individual subtype downgradeCheck() operations
+',
+	1,
+	'',
+	"2bf571a5-4f94-404e-899f-1b2ed2dafc5a");
 INSERT INTO O_NBATTR
 	VALUES ("cbfb448a-f0dc-4961-8e66-276b89eed6d4",
 	"ead52fac-9782-434b-a35c-c07452c3b26d");

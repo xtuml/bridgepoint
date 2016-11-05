@@ -560,7 +560,7 @@ public class PersistableModelComponent implements Comparable {
         }
     }
     
-    boolean persisting = false;
+    private boolean persisting = false;
 
     public boolean isPersisting(){
       return persisting;
@@ -790,8 +790,16 @@ public class PersistableModelComponent implements Comparable {
                 if (myParentRootME != null){// in case of component is being created and not yet relate with others.
                     PersistableModelComponent myParentPMC = myParentRootME.getPersistableComponent();
                     if (myParentPMC != getParent()){
+                    	String parentName = "null";
+                    	if (myParentPMC != null) {
+                    		parentName = myParentPMC.getName();
+                    	}
+                    	String childName = "null";
+                    	if (getParent() != null) {
+                    		childName = getParent().getName();
+                    	}
                         throw new WorkbenchException(
-                                "Component's Parent child ID Mismatch:" 
+                                "Component's Parent (" + parentName + ") and child (" + childName + ") ID Mismatch. Full path: " 
                                 + getFullPath());
                     }
                 }
@@ -812,7 +820,7 @@ public class PersistableModelComponent implements Comparable {
             }
             else if(fileNameWithoutExtension != null && ! fileNameWithoutExtension.equals(CoreUtil.getName(rootME))){
                 throw new WorkbenchException(
-                        "Component's file name and root model element name does not match:"
+                        "Component's file name (" + fileNameWithoutExtension + ") and root model element name (" + CoreUtil.getName(rootME) + ")does not match. Full path: "
                         + getFullPath());
             }
         }

@@ -459,6 +459,34 @@ INSERT INTO O_TPARM
 	'',
 	"00000000-0000-0000-0000-000000000000",
 	'');
+INSERT INTO O_TFR
+	VALUES ("b04655fc-86af-476d-ae98-a620d244abd9",
+	"a361b553-b2e3-46ea-a8f4-8b8633921011",
+	'downgradeCheck',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'// Check Bridges
+select many s_brgs related by self->S_BRG[R19];
+for each s_brg in s_brgs
+  s_brg.downgradeCheck();
+end for;
+
+// Check External Entity Data Items
+select many s_eedis related by self->S_EEDI[R11];
+for each s_eedi in s_eedis
+  s_eedi.downgradeCheck();
+end for;
+
+// Check External Entity Event Data Item
+select many s_eeedis related by self->S_EEEDI[R12];
+for each s_eeedi in s_eeedis
+  s_eeedi.downgradeCheck();
+end for;
+',
+	1,
+	'',
+	"5b99f4e3-05b2-4f5c-9671-aeff98f8aba3");
 INSERT INTO O_NBATTR
 	VALUES ("d597da19-93f3-476f-9e24-db650e00c933",
 	"a361b553-b2e3-46ea-a8f4-8b8633921011");

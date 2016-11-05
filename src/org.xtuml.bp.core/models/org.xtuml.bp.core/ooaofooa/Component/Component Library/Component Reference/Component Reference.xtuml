@@ -1545,6 +1545,29 @@ return isAccessible and self.canAssignToComp(Id:comp.Id,
 	1,
 	'',
 	"90e0b7b7-e0b0-4751-b105-5d47bde9e851");
+INSERT INTO O_TFR
+	VALUES ("250aa665-07b5-49a9-9b60-1244538f9b76",
+	"14d6c781-a341-481a-b67d-09ec4e8b9ed3",
+	'downgradeCheck',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'isAccessible = true; 
+
+// We only need to run this check if this component reference is assigned
+if ( self.isAssigned() )
+  isAccessible = self.canReferToComponent();
+
+  if ( not isAccessible )
+    select one comp related by self->C_C[R4201];
+    self.unAssign();
+    Util::reportElementDowngraded(rto:self.convertToInstance(), rgoDowngraded:comp.convertToInstance(), relationship:"R4201");
+  end if;
+end if;
+',
+	1,
+	'',
+	"6bd64ba7-35f2-45ef-9c2e-6692db8eece8");
 INSERT INTO O_NBATTR
 	VALUES ("b819ae30-4d2e-458a-9ff4-77c81e4cbccf",
 	"14d6c781-a341-481a-b67d-09ec4e8b9ed3");
