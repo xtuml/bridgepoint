@@ -7,22 +7,22 @@ import org.eclipse.emf.common.util.EList;
 
 /**
  * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Operation Call</b></em>'.
+ * A representation of the model object '<em><b>Action Call</b></em>'.
  * <!-- end-user-doc -->
  *
  * <p>
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link org.xtuml.bp.xtext.masl.masl.behavior.OperationCall#getReceiver <em>Receiver</em>}</li>
- *   <li>{@link org.xtuml.bp.xtext.masl.masl.behavior.OperationCall#getArguments <em>Arguments</em>}</li>
+ *   <li>{@link org.xtuml.bp.xtext.masl.masl.behavior.ActionCall#getReceiver <em>Receiver</em>}</li>
+ *   <li>{@link org.xtuml.bp.xtext.masl.masl.behavior.ActionCall#getArguments <em>Arguments</em>}</li>
  * </ul>
  *
- * @see org.xtuml.bp.xtext.masl.masl.behavior.BehaviorPackage#getOperationCall()
+ * @see org.xtuml.bp.xtext.masl.masl.behavior.BehaviorPackage#getActionCall()
  * @model
  * @generated
  */
-public interface OperationCall extends Expression {
+public interface ActionCall extends Expression {
 	/**
 	 * Returns the value of the '<em><b>Receiver</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
@@ -33,14 +33,14 @@ public interface OperationCall extends Expression {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Receiver</em>' containment reference.
 	 * @see #setReceiver(Expression)
-	 * @see org.xtuml.bp.xtext.masl.masl.behavior.BehaviorPackage#getOperationCall_Receiver()
+	 * @see org.xtuml.bp.xtext.masl.masl.behavior.BehaviorPackage#getActionCall_Receiver()
 	 * @model containment="true"
 	 * @generated
 	 */
 	Expression getReceiver();
 
 	/**
-	 * Sets the value of the '{@link org.xtuml.bp.xtext.masl.masl.behavior.OperationCall#getReceiver <em>Receiver</em>}' containment reference.
+	 * Sets the value of the '{@link org.xtuml.bp.xtext.masl.masl.behavior.ActionCall#getReceiver <em>Receiver</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Receiver</em>' containment reference.
@@ -59,10 +59,10 @@ public interface OperationCall extends Expression {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Arguments</em>' containment reference list.
-	 * @see org.xtuml.bp.xtext.masl.masl.behavior.BehaviorPackage#getOperationCall_Arguments()
+	 * @see org.xtuml.bp.xtext.masl.masl.behavior.BehaviorPackage#getActionCall_Arguments()
 	 * @model containment="true"
 	 * @generated
 	 */
 	EList<Expression> getArguments();
 
-} // OperationCall
+} // ActionCall

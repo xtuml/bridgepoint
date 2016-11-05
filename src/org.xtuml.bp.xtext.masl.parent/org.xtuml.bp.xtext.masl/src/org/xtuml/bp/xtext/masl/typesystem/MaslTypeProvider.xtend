@@ -5,6 +5,7 @@ import org.apache.log4j.Logger
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.xtend.lib.annotations.Data
 import org.xtuml.bp.xtext.masl.MASLExtensions
+import org.xtuml.bp.xtext.masl.masl.behavior.ActionCall
 import org.xtuml.bp.xtext.masl.masl.behavior.AdditiveExp
 import org.xtuml.bp.xtext.masl.masl.behavior.AssignStatement
 import org.xtuml.bp.xtext.masl.masl.behavior.BooleanLiteral
@@ -40,7 +41,6 @@ import org.xtuml.bp.xtext.masl.masl.behavior.LoopVariable
 import org.xtuml.bp.xtext.masl.masl.behavior.MultExp
 import org.xtuml.bp.xtext.masl.masl.behavior.NavigateExpression
 import org.xtuml.bp.xtext.masl.masl.behavior.NullLiteral
-import org.xtuml.bp.xtext.masl.masl.behavior.OperationCall
 import org.xtuml.bp.xtext.masl.masl.behavior.RaiseStatement
 import org.xtuml.bp.xtext.masl.masl.behavior.RangeExpression
 import org.xtuml.bp.xtext.masl.masl.behavior.RealLiteral
@@ -51,29 +51,29 @@ import org.xtuml.bp.xtext.masl.masl.behavior.SimpleFeatureCall
 import org.xtuml.bp.xtext.masl.masl.behavior.StreamExpression
 import org.xtuml.bp.xtext.masl.masl.behavior.StringLiteral
 import org.xtuml.bp.xtext.masl.masl.behavior.StructureAggregateExpression
-import org.xtuml.bp.xtext.masl.masl.behavior.TerminatorOperationCall
 import org.xtuml.bp.xtext.masl.masl.behavior.ThisLiteral
 import org.xtuml.bp.xtext.masl.masl.behavior.TimestampLiteral
 import org.xtuml.bp.xtext.masl.masl.behavior.UnaryExp
 import org.xtuml.bp.xtext.masl.masl.behavior.VariableDeclaration
 import org.xtuml.bp.xtext.masl.masl.behavior.WhileStatement
+import org.xtuml.bp.xtext.masl.masl.structure.AbstractActionDefinition
 import org.xtuml.bp.xtext.masl.masl.structure.AbstractFeature
+import org.xtuml.bp.xtext.masl.masl.structure.AbstractFunction
 import org.xtuml.bp.xtext.masl.masl.structure.AssocRelationshipDefinition
 import org.xtuml.bp.xtext.masl.masl.structure.AttributeDefinition
-import org.xtuml.bp.xtext.masl.masl.structure.DomainFunctionDeclaration
 import org.xtuml.bp.xtext.masl.masl.structure.DomainServiceDeclaration
+import org.xtuml.bp.xtext.masl.masl.structure.EventDefinition
 import org.xtuml.bp.xtext.masl.masl.structure.Multiplicity
 import org.xtuml.bp.xtext.masl.masl.structure.ObjectDeclaration
-import org.xtuml.bp.xtext.masl.masl.structure.ObjectFunctionDeclaration
 import org.xtuml.bp.xtext.masl.masl.structure.ObjectServiceDeclaration
 import org.xtuml.bp.xtext.masl.masl.structure.Parameter
 import org.xtuml.bp.xtext.masl.masl.structure.RangeTypeReference
 import org.xtuml.bp.xtext.masl.masl.structure.RegularRelationshipDefinition
 import org.xtuml.bp.xtext.masl.masl.structure.RelationshipEnd
 import org.xtuml.bp.xtext.masl.masl.structure.RelationshipNavigation
+import org.xtuml.bp.xtext.masl.masl.structure.StateDeclaration
 import org.xtuml.bp.xtext.masl.masl.structure.SubtypeRelationshipDefinition
 import org.xtuml.bp.xtext.masl.masl.structure.TerminatorDefinition
-import org.xtuml.bp.xtext.masl.masl.structure.TerminatorFunctionDeclaration
 import org.xtuml.bp.xtext.masl.masl.structure.TerminatorServiceDeclaration
 import org.xtuml.bp.xtext.masl.masl.structure.TypeParameter
 import org.xtuml.bp.xtext.masl.masl.types.AbstractTypeDefinition
@@ -97,15 +97,7 @@ import org.xtuml.bp.xtext.masl.masl.types.TypeDeclaration
 import org.xtuml.bp.xtext.masl.masl.types.UnconstrainedArrayDefinition
 
 import static org.xtuml.bp.xtext.masl.typesystem.BuiltinType.*
-import org.xtuml.bp.xtext.masl.masl.structure.StateDeclaration
-import org.xtuml.bp.xtext.masl.masl.structure.StateDefinition
-import org.xtuml.bp.xtext.masl.masl.structure.EventDefinition
-import org.xtuml.bp.xtext.masl.masl.structure.DomainServiceDefinition
-import org.xtuml.bp.xtext.masl.masl.structure.DomainFunctionDefinition
-import org.xtuml.bp.xtext.masl.masl.structure.TerminatorServiceDefinition
-import org.xtuml.bp.xtext.masl.masl.structure.ObjectServiceDefinition
-import org.xtuml.bp.xtext.masl.masl.structure.ObjectFunctionDefinition
-import org.xtuml.bp.xtext.masl.masl.structure.TerminatorFunctionDefinition
+import org.xtuml.bp.xtext.masl.masl.behavior.TerminatorActionCall
 
 class MaslTypeProvider {
 
@@ -133,6 +125,8 @@ class MaslTypeProvider {
 					return maslTypeOfTypeDefinition
 				AbstractFeature:
 					return maslTypeOfFeature
+				AbstractFunction:
+					return returnType.maslTypeOfTypeReference
 				CodeBlockStatement,
 				ExitStatement,
 				ReturnStatement,
@@ -147,19 +141,10 @@ class MaslTypeProvider {
 				CaseStatement,
 				ForStatement,
 				WhileStatement,
-				DomainServiceDefinition,
-				ObjectServiceDefinition,
-				TerminatorServiceDefinition,
+				AbstractActionDefinition,
 				StateDeclaration,
-				StateDefinition,
 				EventDefinition:
 					return NO_TYPE
-				DomainFunctionDefinition:
-					return returnType.maslTypeOfTypeReference
-				ObjectFunctionDefinition:
-					return returnType.maslTypeOfTypeReference
-				TerminatorFunctionDefinition:
-					return returnType.maslTypeOfTypeReference
 				default:
 					throw new UnsupportedOperationException('Missing type for ' + eClass?.name)
 			}
@@ -197,7 +182,7 @@ class MaslTypeProvider {
 				return maslTypeOfLinkExpression
 			CreateExpression:
 				return new InstanceType(object)		
-			OperationCall: {
+			ActionCall: {
 				val receiverType = receiver.maslTypeOfExpression
 				if(receiverType instanceof TypeOfType) 
 					// cast expression
@@ -214,8 +199,8 @@ class MaslTypeProvider {
 				else
 					return maslType.componentType
 			}
-			TerminatorOperationCall:
-				return terminatorOperation.maslTypeOfFeature
+			TerminatorActionCall:
+				return terminatorAction.maslTypeOfFeature
 			CharacteristicCall:
 				return maslTypeOfCharacteristicCall
 			ThisLiteral:
@@ -323,6 +308,8 @@ class MaslTypeProvider {
 	}
 	
 	private def MaslType getMaslTypeOfFeature(AbstractFeature feature) {
+		if(feature == null ||feature.eIsProxy)
+			return MISSING_TYPE
 		switch feature {
 			Enumerator:
 				return new EnumType(feature.eContainer as EnumerationTypeDefinition)
@@ -342,11 +329,7 @@ class MaslTypeProvider {
 				return feature.type.maslTypeOfTypeReference
 			TypeDeclaration:
 				return new TypeOfType(feature.getMaslTypeOfTypeDeclaration(false))
-			ObjectFunctionDeclaration:
-				return feature.returnType.maslTypeOfTypeReference
-			DomainFunctionDeclaration:
-				return feature.returnType.maslTypeOfTypeReference
-			TerminatorFunctionDeclaration:
+			AbstractFunction:
 				return feature.returnType.maslTypeOfTypeReference
 			ObjectServiceDeclaration,
 			DomainServiceDeclaration,
@@ -506,7 +489,7 @@ class MaslTypeProvider {
 		if(containerObject != null)
 			return new InstanceType(object)
 		else 
-			throw new UnsupportedOperationException('Cannot determine type of \'this\'.')
+			return MISSING_TYPE
 	}
 	
 	private def MaslType getMaslTypeOfAdditive(AdditiveExp it) {

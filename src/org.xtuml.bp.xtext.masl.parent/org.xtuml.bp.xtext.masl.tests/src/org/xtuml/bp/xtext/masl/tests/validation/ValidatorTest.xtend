@@ -63,8 +63,8 @@ class ValidatorTest {
 	}
 	
 	@Test
-	def void testInvalidOperationCall() {
-		'1()'.model.assertError(operationCall, INVALID_OPERATION_CALL)
+	def void testInvalidActionCall() {
+		'1()'.model.assertError(actionCall, INVALID_ACTION_CALL)
 	}
 	
 	@Test 
@@ -162,6 +162,28 @@ class ValidatorTest {
 				delay 1;
 			end;
 		''').elements.last.assertError(delayStatement, UNREACHABLE_CODE)
+	}
+
+	@Test 
+	def void testVisibilityValidation() { 
+		load('''
+			domain dom is 
+				public function func() return integer;
+				private service serv();
+			end;
+		''').assertNoErrors()
+		load('''	
+			private function dom::func() return integer 
+			is
+			begin
+			end;
+		''').assertError(domainFunctionDefinition, DECLARATION_MISSMATCH)
+		load('''	
+			private service dom::serv() 
+			is
+			begin
+			end;
+		''').assertNoErrors(DECLARATION_MISSMATCH)
 	}
 
 	@Test 
@@ -275,6 +297,147 @@ class ValidatorTest {
 			begin
 			end;
 		''').elements.last.assertNoError(DECLARATION_MISSMATCH)
+	}
+
+	@Test
+	def void testDomainActionVisibilities() {
+		load('''
+			domain dom0 is 
+				private function func() return integer;
+				private service serv();
+				public function func0() return integer;
+				public service serv0();
+			end;
+			
+			domain dom1 is 
+				function func() return integer;
+				service serv();
+				service serv1();
+			end;
+		''').assertNoErrors
+		load('''
+			function dom1::func() return integer is
+			begin
+				return dom0::func();
+			end
+		''').assertError(simpleFeatureCall, INVISIBLE_FEATURE)
+		load('''
+			service dom1::serv() is
+			begin 
+				dom0::serv();
+			end
+		''').assertError(simpleFeatureCall, INVISIBLE_FEATURE)
+		load('''
+			service dom1::serv1() is
+			begin 
+				dom0::serv0();
+				dom0::func0();
+			end
+		''').assertNoErrors(INVISIBLE_FEATURE)
+	}
+
+	@Test
+	def void testObjectActionVisibilities() {
+		load('''
+			domain dom is
+				object Foo;
+				object Foo is
+					private function func() return integer;
+					private service serv();
+					public function func0() return integer;
+					public service serv0();
+					state s();
+				end;
+				service caller(f: in instance of Foo);
+				service caller0(f: in instance of Foo);
+				service caller1(f: in instance of Foo);
+			end;
+		''').assertNoErrors
+		load('''
+			service dom::Foo.serv() is
+			begin
+				func();
+				serv();
+				func0();
+				serv0();
+			end
+		''').assertNoErrors(INVISIBLE_FEATURE)
+		load('''
+			state dom::Foo.s() is
+			begin
+				func();
+				serv();
+				func0();
+				serv0();
+			end
+		''').assertNoErrors(INVISIBLE_FEATURE)
+		load('''
+			service dom::caller(f: in instance of Foo) is
+			begin
+				f.func();
+			end
+		''').assertError(simpleFeatureCall, INVISIBLE_FEATURE)
+		load('''
+			service dom::caller0(f: in instance of Foo) is
+			begin
+				f.serv();
+			end
+		''').assertError(simpleFeatureCall, INVISIBLE_FEATURE)
+		load('''
+			service dom::caller1(f: in instance of Foo) is
+			begin
+				f.serv0();
+				f.func0();
+			end
+		''').assertNoErrors(INVISIBLE_FEATURE)
+	}
+
+	@Test
+	def void testTerminatorActionVisibilities() {
+		load('''
+			domain dom is
+				terminator Foo is
+					private function func() return integer;
+					private service serv();
+					public function func0() return integer;
+					public service serv0();
+				end;
+			end;
+			
+			domain dom0 is
+				service caller();
+				service caller0();
+				service caller1();
+			end;
+		''').assertNoErrors
+		load('''
+			service dom::Foo~>serv() is
+			begin
+				Foo~>func();
+				Foo~>serv();
+				Foo~>func0();
+				Foo~>serv0();
+			end
+		''').assertNoErrors(INVISIBLE_FEATURE)
+		load('''
+			service dom0::caller() is
+			begin
+				dom::Foo~>func();
+			end
+		''').assertError(terminatorActionCall, INVISIBLE_FEATURE)
+		load('''
+			service dom0::caller0() is
+			begin
+				dom::Foo~>serv();
+			end
+		''').assertError(terminatorActionCall, INVISIBLE_FEATURE)
+		load('''
+			service dom0::caller1() is
+			begin
+				dom::Foo~>serv0();
+				dom::Foo~>func0();
+			end
+		''').assertNoErrors(INVISIBLE_FEATURE)
 	}
 
 	private def assertNoError(EObject element, String type) {

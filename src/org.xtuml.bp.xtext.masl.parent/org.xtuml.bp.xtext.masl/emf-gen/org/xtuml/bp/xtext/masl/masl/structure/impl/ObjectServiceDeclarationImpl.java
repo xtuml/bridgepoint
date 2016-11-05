@@ -3,17 +3,31 @@
  */
 package org.xtuml.bp.xtext.masl.masl.structure.impl;
 
+import java.util.Collection;
+
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.NotificationChain;
+
+import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.InternalEList;
+
+import org.xtuml.bp.xtext.masl.masl.structure.AbstractActionDeclaration;
 import org.xtuml.bp.xtext.masl.masl.structure.ObjectServiceDeclaration;
+import org.xtuml.bp.xtext.masl.masl.structure.Parameter;
+import org.xtuml.bp.xtext.masl.masl.structure.Parameterized;
+import org.xtuml.bp.xtext.masl.masl.structure.Pragma;
+import org.xtuml.bp.xtext.masl.masl.structure.Pragmatized;
 import org.xtuml.bp.xtext.masl.masl.structure.RelationshipDefinition;
 import org.xtuml.bp.xtext.masl.masl.structure.StructurePackage;
 import org.xtuml.bp.xtext.masl.masl.structure.Visibility;
+import org.xtuml.bp.xtext.masl.masl.structure.Visualized;
 
 /**
  * <!-- begin-user-doc -->
@@ -23,6 +37,8 @@ import org.xtuml.bp.xtext.masl.masl.structure.Visibility;
  * The following features are implemented:
  * </p>
  * <ul>
+ *   <li>{@link org.xtuml.bp.xtext.masl.masl.structure.impl.ObjectServiceDeclarationImpl#getPragmas <em>Pragmas</em>}</li>
+ *   <li>{@link org.xtuml.bp.xtext.masl.masl.structure.impl.ObjectServiceDeclarationImpl#getParameters <em>Parameters</em>}</li>
  *   <li>{@link org.xtuml.bp.xtext.masl.masl.structure.impl.ObjectServiceDeclarationImpl#getVisibility <em>Visibility</em>}</li>
  *   <li>{@link org.xtuml.bp.xtext.masl.masl.structure.impl.ObjectServiceDeclarationImpl#isInstance <em>Instance</em>}</li>
  *   <li>{@link org.xtuml.bp.xtext.masl.masl.structure.impl.ObjectServiceDeclarationImpl#getRelationship <em>Relationship</em>}</li>
@@ -30,7 +46,27 @@ import org.xtuml.bp.xtext.masl.masl.structure.Visibility;
  *
  * @generated
  */
-public class ObjectServiceDeclarationImpl extends ParameterizedImpl implements ObjectServiceDeclaration {
+public class ObjectServiceDeclarationImpl extends AbstractFeatureImpl implements ObjectServiceDeclaration {
+	/**
+	 * The cached value of the '{@link #getPragmas() <em>Pragmas</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getPragmas()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<Pragma> pragmas;
+
+	/**
+	 * The cached value of the '{@link #getParameters() <em>Parameters</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getParameters()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<Parameter> parameters;
+
 	/**
 	 * The default value of the '{@link #getVisibility() <em>Visibility</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -98,6 +134,30 @@ public class ObjectServiceDeclarationImpl extends ParameterizedImpl implements O
 	@Override
 	protected EClass eStaticClass() {
 		return StructurePackage.Literals.OBJECT_SERVICE_DECLARATION;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EList<Pragma> getPragmas() {
+		if (pragmas == null) {
+			pragmas = new EObjectContainmentEList<Pragma>(Pragma.class, this, StructurePackage.OBJECT_SERVICE_DECLARATION__PRAGMAS);
+		}
+		return pragmas;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EList<Parameter> getParameters() {
+		if (parameters == null) {
+			parameters = new EObjectContainmentEList<Parameter>(Parameter.class, this, StructurePackage.OBJECT_SERVICE_DECLARATION__PARAMETERS);
+		}
+		return parameters;
 	}
 
 	/**
@@ -186,8 +246,28 @@ public class ObjectServiceDeclarationImpl extends ParameterizedImpl implements O
 	 * @generated
 	 */
 	@Override
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case StructurePackage.OBJECT_SERVICE_DECLARATION__PRAGMAS:
+				return ((InternalEList<?>)getPragmas()).basicRemove(otherEnd, msgs);
+			case StructurePackage.OBJECT_SERVICE_DECLARATION__PARAMETERS:
+				return ((InternalEList<?>)getParameters()).basicRemove(otherEnd, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
+			case StructurePackage.OBJECT_SERVICE_DECLARATION__PRAGMAS:
+				return getPragmas();
+			case StructurePackage.OBJECT_SERVICE_DECLARATION__PARAMETERS:
+				return getParameters();
 			case StructurePackage.OBJECT_SERVICE_DECLARATION__VISIBILITY:
 				return getVisibility();
 			case StructurePackage.OBJECT_SERVICE_DECLARATION__INSTANCE:
@@ -204,9 +284,18 @@ public class ObjectServiceDeclarationImpl extends ParameterizedImpl implements O
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
+			case StructurePackage.OBJECT_SERVICE_DECLARATION__PRAGMAS:
+				getPragmas().clear();
+				getPragmas().addAll((Collection<? extends Pragma>)newValue);
+				return;
+			case StructurePackage.OBJECT_SERVICE_DECLARATION__PARAMETERS:
+				getParameters().clear();
+				getParameters().addAll((Collection<? extends Parameter>)newValue);
+				return;
 			case StructurePackage.OBJECT_SERVICE_DECLARATION__VISIBILITY:
 				setVisibility((Visibility)newValue);
 				return;
@@ -228,6 +317,12 @@ public class ObjectServiceDeclarationImpl extends ParameterizedImpl implements O
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
+			case StructurePackage.OBJECT_SERVICE_DECLARATION__PRAGMAS:
+				getPragmas().clear();
+				return;
+			case StructurePackage.OBJECT_SERVICE_DECLARATION__PARAMETERS:
+				getParameters().clear();
+				return;
 			case StructurePackage.OBJECT_SERVICE_DECLARATION__VISIBILITY:
 				setVisibility(VISIBILITY_EDEFAULT);
 				return;
@@ -249,6 +344,10 @@ public class ObjectServiceDeclarationImpl extends ParameterizedImpl implements O
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
+			case StructurePackage.OBJECT_SERVICE_DECLARATION__PRAGMAS:
+				return pragmas != null && !pragmas.isEmpty();
+			case StructurePackage.OBJECT_SERVICE_DECLARATION__PARAMETERS:
+				return parameters != null && !parameters.isEmpty();
 			case StructurePackage.OBJECT_SERVICE_DECLARATION__VISIBILITY:
 				return visibility != VISIBILITY_EDEFAULT;
 			case StructurePackage.OBJECT_SERVICE_DECLARATION__INSTANCE:
@@ -257,6 +356,72 @@ public class ObjectServiceDeclarationImpl extends ParameterizedImpl implements O
 				return relationship != null;
 		}
 		return super.eIsSet(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public int eBaseStructuralFeatureID(int derivedFeatureID, Class<?> baseClass) {
+		if (baseClass == Pragmatized.class) {
+			switch (derivedFeatureID) {
+				case StructurePackage.OBJECT_SERVICE_DECLARATION__PRAGMAS: return StructurePackage.PRAGMATIZED__PRAGMAS;
+				default: return -1;
+			}
+		}
+		if (baseClass == Parameterized.class) {
+			switch (derivedFeatureID) {
+				case StructurePackage.OBJECT_SERVICE_DECLARATION__PARAMETERS: return StructurePackage.PARAMETERIZED__PARAMETERS;
+				default: return -1;
+			}
+		}
+		if (baseClass == Visualized.class) {
+			switch (derivedFeatureID) {
+				case StructurePackage.OBJECT_SERVICE_DECLARATION__VISIBILITY: return StructurePackage.VISUALIZED__VISIBILITY;
+				default: return -1;
+			}
+		}
+		if (baseClass == AbstractActionDeclaration.class) {
+			switch (derivedFeatureID) {
+				default: return -1;
+			}
+		}
+		return super.eBaseStructuralFeatureID(derivedFeatureID, baseClass);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public int eDerivedStructuralFeatureID(int baseFeatureID, Class<?> baseClass) {
+		if (baseClass == Pragmatized.class) {
+			switch (baseFeatureID) {
+				case StructurePackage.PRAGMATIZED__PRAGMAS: return StructurePackage.OBJECT_SERVICE_DECLARATION__PRAGMAS;
+				default: return -1;
+			}
+		}
+		if (baseClass == Parameterized.class) {
+			switch (baseFeatureID) {
+				case StructurePackage.PARAMETERIZED__PARAMETERS: return StructurePackage.OBJECT_SERVICE_DECLARATION__PARAMETERS;
+				default: return -1;
+			}
+		}
+		if (baseClass == Visualized.class) {
+			switch (baseFeatureID) {
+				case StructurePackage.VISUALIZED__VISIBILITY: return StructurePackage.OBJECT_SERVICE_DECLARATION__VISIBILITY;
+				default: return -1;
+			}
+		}
+		if (baseClass == AbstractActionDeclaration.class) {
+			switch (baseFeatureID) {
+				default: return -1;
+			}
+		}
+		return super.eDerivedStructuralFeatureID(baseFeatureID, baseClass);
 	}
 
 	/**

@@ -3347,14 +3347,14 @@ public interface BehaviorPackage extends EPackage {
 	int NAVIGATE_EXPRESSION_OPERATION_COUNT = EXPRESSION_OPERATION_COUNT + 0;
 
 	/**
-	 * The meta object id for the '{@link org.xtuml.bp.xtext.masl.masl.behavior.impl.OperationCallImpl <em>Operation Call</em>}' class.
+	 * The meta object id for the '{@link org.xtuml.bp.xtext.masl.masl.behavior.impl.ActionCallImpl <em>Action Call</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see org.xtuml.bp.xtext.masl.masl.behavior.impl.OperationCallImpl
-	 * @see org.xtuml.bp.xtext.masl.masl.behavior.impl.BehaviorPackageImpl#getOperationCall()
+	 * @see org.xtuml.bp.xtext.masl.masl.behavior.impl.ActionCallImpl
+	 * @see org.xtuml.bp.xtext.masl.masl.behavior.impl.BehaviorPackageImpl#getActionCall()
 	 * @generated
 	 */
-	int OPERATION_CALL = 63;
+	int ACTION_CALL = 63;
 
 	/**
 	 * The feature id for the '<em><b>Pragmas</b></em>' containment reference list.
@@ -3363,7 +3363,7 @@ public interface BehaviorPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int OPERATION_CALL__PRAGMAS = EXPRESSION__PRAGMAS;
+	int ACTION_CALL__PRAGMAS = EXPRESSION__PRAGMAS;
 
 	/**
 	 * The feature id for the '<em><b>Receiver</b></em>' containment reference.
@@ -3372,7 +3372,7 @@ public interface BehaviorPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int OPERATION_CALL__RECEIVER = EXPRESSION_FEATURE_COUNT + 0;
+	int ACTION_CALL__RECEIVER = EXPRESSION_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Arguments</b></em>' containment reference list.
@@ -3381,35 +3381,35 @@ public interface BehaviorPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int OPERATION_CALL__ARGUMENTS = EXPRESSION_FEATURE_COUNT + 1;
+	int ACTION_CALL__ARGUMENTS = EXPRESSION_FEATURE_COUNT + 1;
 
 	/**
-	 * The number of structural features of the '<em>Operation Call</em>' class.
+	 * The number of structural features of the '<em>Action Call</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int OPERATION_CALL_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 2;
+	int ACTION_CALL_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 2;
 
 	/**
-	 * The number of operations of the '<em>Operation Call</em>' class.
+	 * The number of operations of the '<em>Action Call</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int OPERATION_CALL_OPERATION_COUNT = EXPRESSION_OPERATION_COUNT + 0;
+	int ACTION_CALL_OPERATION_COUNT = EXPRESSION_OPERATION_COUNT + 0;
 
 	/**
-	 * The meta object id for the '{@link org.xtuml.bp.xtext.masl.masl.behavior.impl.TerminatorOperationCallImpl <em>Terminator Operation Call</em>}' class.
+	 * The meta object id for the '{@link org.xtuml.bp.xtext.masl.masl.behavior.impl.TerminatorActionCallImpl <em>Terminator Action Call</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see org.xtuml.bp.xtext.masl.masl.behavior.impl.TerminatorOperationCallImpl
-	 * @see org.xtuml.bp.xtext.masl.masl.behavior.impl.BehaviorPackageImpl#getTerminatorOperationCall()
+	 * @see org.xtuml.bp.xtext.masl.masl.behavior.impl.TerminatorActionCallImpl
+	 * @see org.xtuml.bp.xtext.masl.masl.behavior.impl.BehaviorPackageImpl#getTerminatorActionCall()
 	 * @generated
 	 */
-	int TERMINATOR_OPERATION_CALL = 64;
+	int TERMINATOR_ACTION_CALL = 64;
 
 	/**
 	 * The feature id for the '<em><b>Pragmas</b></em>' containment reference list.
@@ -3418,7 +3418,7 @@ public interface BehaviorPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TERMINATOR_OPERATION_CALL__PRAGMAS = EXPRESSION__PRAGMAS;
+	int TERMINATOR_ACTION_CALL__PRAGMAS = EXPRESSION__PRAGMAS;
 
 	/**
 	 * The feature id for the '<em><b>Receiver</b></em>' containment reference.
@@ -3427,16 +3427,16 @@ public interface BehaviorPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TERMINATOR_OPERATION_CALL__RECEIVER = EXPRESSION_FEATURE_COUNT + 0;
+	int TERMINATOR_ACTION_CALL__RECEIVER = EXPRESSION_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Terminator Operation</b></em>' reference.
+	 * The feature id for the '<em><b>Terminator Action</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int TERMINATOR_OPERATION_CALL__TERMINATOR_OPERATION = EXPRESSION_FEATURE_COUNT + 1;
+	int TERMINATOR_ACTION_CALL__TERMINATOR_ACTION = EXPRESSION_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Arguments</b></em>' containment reference list.
@@ -3445,25 +3445,25 @@ public interface BehaviorPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TERMINATOR_OPERATION_CALL__ARGUMENTS = EXPRESSION_FEATURE_COUNT + 2;
+	int TERMINATOR_ACTION_CALL__ARGUMENTS = EXPRESSION_FEATURE_COUNT + 2;
 
 	/**
-	 * The number of structural features of the '<em>Terminator Operation Call</em>' class.
+	 * The number of structural features of the '<em>Terminator Action Call</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int TERMINATOR_OPERATION_CALL_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 3;
+	int TERMINATOR_ACTION_CALL_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 3;
 
 	/**
-	 * The number of operations of the '<em>Terminator Operation Call</em>' class.
+	 * The number of operations of the '<em>Terminator Action Call</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int TERMINATOR_OPERATION_CALL_OPERATION_COUNT = EXPRESSION_OPERATION_COUNT + 0;
+	int TERMINATOR_ACTION_CALL_OPERATION_COUNT = EXPRESSION_OPERATION_COUNT + 0;
 
 	/**
 	 * The meta object id for the '{@link org.xtuml.bp.xtext.masl.masl.behavior.impl.IndexedExpressionImpl <em>Indexed Expression</em>}' class.
@@ -5502,79 +5502,79 @@ public interface BehaviorPackage extends EPackage {
 	EReference getNavigateExpression_ReverseOrder();
 
 	/**
-	 * Returns the meta object for class '{@link org.xtuml.bp.xtext.masl.masl.behavior.OperationCall <em>Operation Call</em>}'.
+	 * Returns the meta object for class '{@link org.xtuml.bp.xtext.masl.masl.behavior.ActionCall <em>Action Call</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Operation Call</em>'.
-	 * @see org.xtuml.bp.xtext.masl.masl.behavior.OperationCall
+	 * @return the meta object for class '<em>Action Call</em>'.
+	 * @see org.xtuml.bp.xtext.masl.masl.behavior.ActionCall
 	 * @generated
 	 */
-	EClass getOperationCall();
+	EClass getActionCall();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link org.xtuml.bp.xtext.masl.masl.behavior.OperationCall#getReceiver <em>Receiver</em>}'.
+	 * Returns the meta object for the containment reference '{@link org.xtuml.bp.xtext.masl.masl.behavior.ActionCall#getReceiver <em>Receiver</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the containment reference '<em>Receiver</em>'.
-	 * @see org.xtuml.bp.xtext.masl.masl.behavior.OperationCall#getReceiver()
-	 * @see #getOperationCall()
+	 * @see org.xtuml.bp.xtext.masl.masl.behavior.ActionCall#getReceiver()
+	 * @see #getActionCall()
 	 * @generated
 	 */
-	EReference getOperationCall_Receiver();
+	EReference getActionCall_Receiver();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.xtuml.bp.xtext.masl.masl.behavior.OperationCall#getArguments <em>Arguments</em>}'.
+	 * Returns the meta object for the containment reference list '{@link org.xtuml.bp.xtext.masl.masl.behavior.ActionCall#getArguments <em>Arguments</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the containment reference list '<em>Arguments</em>'.
-	 * @see org.xtuml.bp.xtext.masl.masl.behavior.OperationCall#getArguments()
-	 * @see #getOperationCall()
+	 * @see org.xtuml.bp.xtext.masl.masl.behavior.ActionCall#getArguments()
+	 * @see #getActionCall()
 	 * @generated
 	 */
-	EReference getOperationCall_Arguments();
+	EReference getActionCall_Arguments();
 
 	/**
-	 * Returns the meta object for class '{@link org.xtuml.bp.xtext.masl.masl.behavior.TerminatorOperationCall <em>Terminator Operation Call</em>}'.
+	 * Returns the meta object for class '{@link org.xtuml.bp.xtext.masl.masl.behavior.TerminatorActionCall <em>Terminator Action Call</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Terminator Operation Call</em>'.
-	 * @see org.xtuml.bp.xtext.masl.masl.behavior.TerminatorOperationCall
+	 * @return the meta object for class '<em>Terminator Action Call</em>'.
+	 * @see org.xtuml.bp.xtext.masl.masl.behavior.TerminatorActionCall
 	 * @generated
 	 */
-	EClass getTerminatorOperationCall();
+	EClass getTerminatorActionCall();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link org.xtuml.bp.xtext.masl.masl.behavior.TerminatorOperationCall#getReceiver <em>Receiver</em>}'.
+	 * Returns the meta object for the containment reference '{@link org.xtuml.bp.xtext.masl.masl.behavior.TerminatorActionCall#getReceiver <em>Receiver</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the containment reference '<em>Receiver</em>'.
-	 * @see org.xtuml.bp.xtext.masl.masl.behavior.TerminatorOperationCall#getReceiver()
-	 * @see #getTerminatorOperationCall()
+	 * @see org.xtuml.bp.xtext.masl.masl.behavior.TerminatorActionCall#getReceiver()
+	 * @see #getTerminatorActionCall()
 	 * @generated
 	 */
-	EReference getTerminatorOperationCall_Receiver();
+	EReference getTerminatorActionCall_Receiver();
 
 	/**
-	 * Returns the meta object for the reference '{@link org.xtuml.bp.xtext.masl.masl.behavior.TerminatorOperationCall#getTerminatorOperation <em>Terminator Operation</em>}'.
+	 * Returns the meta object for the reference '{@link org.xtuml.bp.xtext.masl.masl.behavior.TerminatorActionCall#getTerminatorAction <em>Terminator Action</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Terminator Operation</em>'.
-	 * @see org.xtuml.bp.xtext.masl.masl.behavior.TerminatorOperationCall#getTerminatorOperation()
-	 * @see #getTerminatorOperationCall()
+	 * @return the meta object for the reference '<em>Terminator Action</em>'.
+	 * @see org.xtuml.bp.xtext.masl.masl.behavior.TerminatorActionCall#getTerminatorAction()
+	 * @see #getTerminatorActionCall()
 	 * @generated
 	 */
-	EReference getTerminatorOperationCall_TerminatorOperation();
+	EReference getTerminatorActionCall_TerminatorAction();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.xtuml.bp.xtext.masl.masl.behavior.TerminatorOperationCall#getArguments <em>Arguments</em>}'.
+	 * Returns the meta object for the containment reference list '{@link org.xtuml.bp.xtext.masl.masl.behavior.TerminatorActionCall#getArguments <em>Arguments</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the containment reference list '<em>Arguments</em>'.
-	 * @see org.xtuml.bp.xtext.masl.masl.behavior.TerminatorOperationCall#getArguments()
-	 * @see #getTerminatorOperationCall()
+	 * @see org.xtuml.bp.xtext.masl.masl.behavior.TerminatorActionCall#getArguments()
+	 * @see #getTerminatorActionCall()
 	 * @generated
 	 */
-	EReference getTerminatorOperationCall_Arguments();
+	EReference getTerminatorActionCall_Arguments();
 
 	/**
 	 * Returns the meta object for class '{@link org.xtuml.bp.xtext.masl.masl.behavior.IndexedExpression <em>Indexed Expression</em>}'.
@@ -7236,14 +7236,14 @@ public interface BehaviorPackage extends EPackage {
 		EReference NAVIGATE_EXPRESSION__REVERSE_ORDER = eINSTANCE.getNavigateExpression_ReverseOrder();
 
 		/**
-		 * The meta object literal for the '{@link org.xtuml.bp.xtext.masl.masl.behavior.impl.OperationCallImpl <em>Operation Call</em>}' class.
+		 * The meta object literal for the '{@link org.xtuml.bp.xtext.masl.masl.behavior.impl.ActionCallImpl <em>Action Call</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see org.xtuml.bp.xtext.masl.masl.behavior.impl.OperationCallImpl
-		 * @see org.xtuml.bp.xtext.masl.masl.behavior.impl.BehaviorPackageImpl#getOperationCall()
+		 * @see org.xtuml.bp.xtext.masl.masl.behavior.impl.ActionCallImpl
+		 * @see org.xtuml.bp.xtext.masl.masl.behavior.impl.BehaviorPackageImpl#getActionCall()
 		 * @generated
 		 */
-		EClass OPERATION_CALL = eINSTANCE.getOperationCall();
+		EClass ACTION_CALL = eINSTANCE.getActionCall();
 
 		/**
 		 * The meta object literal for the '<em><b>Receiver</b></em>' containment reference feature.
@@ -7251,7 +7251,7 @@ public interface BehaviorPackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference OPERATION_CALL__RECEIVER = eINSTANCE.getOperationCall_Receiver();
+		EReference ACTION_CALL__RECEIVER = eINSTANCE.getActionCall_Receiver();
 
 		/**
 		 * The meta object literal for the '<em><b>Arguments</b></em>' containment reference list feature.
@@ -7259,17 +7259,17 @@ public interface BehaviorPackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference OPERATION_CALL__ARGUMENTS = eINSTANCE.getOperationCall_Arguments();
+		EReference ACTION_CALL__ARGUMENTS = eINSTANCE.getActionCall_Arguments();
 
 		/**
-		 * The meta object literal for the '{@link org.xtuml.bp.xtext.masl.masl.behavior.impl.TerminatorOperationCallImpl <em>Terminator Operation Call</em>}' class.
+		 * The meta object literal for the '{@link org.xtuml.bp.xtext.masl.masl.behavior.impl.TerminatorActionCallImpl <em>Terminator Action Call</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see org.xtuml.bp.xtext.masl.masl.behavior.impl.TerminatorOperationCallImpl
-		 * @see org.xtuml.bp.xtext.masl.masl.behavior.impl.BehaviorPackageImpl#getTerminatorOperationCall()
+		 * @see org.xtuml.bp.xtext.masl.masl.behavior.impl.TerminatorActionCallImpl
+		 * @see org.xtuml.bp.xtext.masl.masl.behavior.impl.BehaviorPackageImpl#getTerminatorActionCall()
 		 * @generated
 		 */
-		EClass TERMINATOR_OPERATION_CALL = eINSTANCE.getTerminatorOperationCall();
+		EClass TERMINATOR_ACTION_CALL = eINSTANCE.getTerminatorActionCall();
 
 		/**
 		 * The meta object literal for the '<em><b>Receiver</b></em>' containment reference feature.
@@ -7277,15 +7277,15 @@ public interface BehaviorPackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference TERMINATOR_OPERATION_CALL__RECEIVER = eINSTANCE.getTerminatorOperationCall_Receiver();
+		EReference TERMINATOR_ACTION_CALL__RECEIVER = eINSTANCE.getTerminatorActionCall_Receiver();
 
 		/**
-		 * The meta object literal for the '<em><b>Terminator Operation</b></em>' reference feature.
+		 * The meta object literal for the '<em><b>Terminator Action</b></em>' reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference TERMINATOR_OPERATION_CALL__TERMINATOR_OPERATION = eINSTANCE.getTerminatorOperationCall_TerminatorOperation();
+		EReference TERMINATOR_ACTION_CALL__TERMINATOR_ACTION = eINSTANCE.getTerminatorActionCall_TerminatorAction();
 
 		/**
 		 * The meta object literal for the '<em><b>Arguments</b></em>' containment reference list feature.
@@ -7293,7 +7293,7 @@ public interface BehaviorPackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference TERMINATOR_OPERATION_CALL__ARGUMENTS = eINSTANCE.getTerminatorOperationCall_Arguments();
+		EReference TERMINATOR_ACTION_CALL__ARGUMENTS = eINSTANCE.getTerminatorActionCall_Arguments();
 
 		/**
 		 * The meta object literal for the '{@link org.xtuml.bp.xtext.masl.masl.behavior.impl.IndexedExpressionImpl <em>Indexed Expression</em>}' class.

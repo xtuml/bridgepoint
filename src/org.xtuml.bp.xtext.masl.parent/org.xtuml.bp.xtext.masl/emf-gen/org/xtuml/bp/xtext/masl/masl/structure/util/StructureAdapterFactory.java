@@ -93,6 +93,22 @@ public class StructureAdapterFactory extends AdapterFactoryImpl {
 				return createParameterizedAdapter();
 			}
 			@Override
+			public Adapter caseVisualized(Visualized object) {
+				return createVisualizedAdapter();
+			}
+			@Override
+			public Adapter caseAbstractActionDeclaration(AbstractActionDeclaration object) {
+				return createAbstractActionDeclarationAdapter();
+			}
+			@Override
+			public Adapter caseAbstractActionDefinition(AbstractActionDefinition object) {
+				return createAbstractActionDefinitionAdapter();
+			}
+			@Override
+			public Adapter caseAbstractFunction(AbstractFunction object) {
+				return createAbstractFunctionAdapter();
+			}
+			@Override
 			public Adapter casePragmatized(Pragmatized object) {
 				return createPragmatizedAdapter();
 			}
@@ -355,6 +371,62 @@ public class StructureAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createParameterizedAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.xtuml.bp.xtext.masl.masl.structure.Visualized <em>Visualized</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.xtuml.bp.xtext.masl.masl.structure.Visualized
+	 * @generated
+	 */
+	public Adapter createVisualizedAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.xtuml.bp.xtext.masl.masl.structure.AbstractActionDeclaration <em>Abstract Action Declaration</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.xtuml.bp.xtext.masl.masl.structure.AbstractActionDeclaration
+	 * @generated
+	 */
+	public Adapter createAbstractActionDeclarationAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.xtuml.bp.xtext.masl.masl.structure.AbstractActionDefinition <em>Abstract Action Definition</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.xtuml.bp.xtext.masl.masl.structure.AbstractActionDefinition
+	 * @generated
+	 */
+	public Adapter createAbstractActionDefinitionAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.xtuml.bp.xtext.masl.masl.structure.AbstractFunction <em>Abstract Function</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.xtuml.bp.xtext.masl.masl.structure.AbstractFunction
+	 * @generated
+	 */
+	public Adapter createAbstractFunctionAdapter() {
 		return null;
 	}
 

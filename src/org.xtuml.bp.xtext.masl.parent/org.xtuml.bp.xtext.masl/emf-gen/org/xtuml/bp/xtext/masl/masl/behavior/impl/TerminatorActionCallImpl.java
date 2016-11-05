@@ -20,26 +20,26 @@ import org.eclipse.emf.ecore.util.InternalEList;
 
 import org.xtuml.bp.xtext.masl.masl.behavior.BehaviorPackage;
 import org.xtuml.bp.xtext.masl.masl.behavior.Expression;
-import org.xtuml.bp.xtext.masl.masl.behavior.TerminatorOperationCall;
+import org.xtuml.bp.xtext.masl.masl.behavior.TerminatorActionCall;
 
 import org.xtuml.bp.xtext.masl.masl.structure.AbstractFeature;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Terminator Operation Call</b></em>'.
+ * An implementation of the model object '<em><b>Terminator Action Call</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link org.xtuml.bp.xtext.masl.masl.behavior.impl.TerminatorOperationCallImpl#getReceiver <em>Receiver</em>}</li>
- *   <li>{@link org.xtuml.bp.xtext.masl.masl.behavior.impl.TerminatorOperationCallImpl#getTerminatorOperation <em>Terminator Operation</em>}</li>
- *   <li>{@link org.xtuml.bp.xtext.masl.masl.behavior.impl.TerminatorOperationCallImpl#getArguments <em>Arguments</em>}</li>
+ *   <li>{@link org.xtuml.bp.xtext.masl.masl.behavior.impl.TerminatorActionCallImpl#getReceiver <em>Receiver</em>}</li>
+ *   <li>{@link org.xtuml.bp.xtext.masl.masl.behavior.impl.TerminatorActionCallImpl#getTerminatorAction <em>Terminator Action</em>}</li>
+ *   <li>{@link org.xtuml.bp.xtext.masl.masl.behavior.impl.TerminatorActionCallImpl#getArguments <em>Arguments</em>}</li>
  * </ul>
  *
  * @generated
  */
-public class TerminatorOperationCallImpl extends ExpressionImpl implements TerminatorOperationCall {
+public class TerminatorActionCallImpl extends ExpressionImpl implements TerminatorActionCall {
 	/**
 	 * The cached value of the '{@link #getReceiver() <em>Receiver</em>}' containment reference.
 	 * <!-- begin-user-doc -->
@@ -51,14 +51,14 @@ public class TerminatorOperationCallImpl extends ExpressionImpl implements Termi
 	protected Expression receiver;
 
 	/**
-	 * The cached value of the '{@link #getTerminatorOperation() <em>Terminator Operation</em>}' reference.
+	 * The cached value of the '{@link #getTerminatorAction() <em>Terminator Action</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getTerminatorOperation()
+	 * @see #getTerminatorAction()
 	 * @generated
 	 * @ordered
 	 */
-	protected AbstractFeature terminatorOperation;
+	protected AbstractFeature terminatorAction;
 
 	/**
 	 * The cached value of the '{@link #getArguments() <em>Arguments</em>}' containment reference list.
@@ -75,7 +75,7 @@ public class TerminatorOperationCallImpl extends ExpressionImpl implements Termi
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected TerminatorOperationCallImpl() {
+	protected TerminatorActionCallImpl() {
 		super();
 	}
 
@@ -86,7 +86,7 @@ public class TerminatorOperationCallImpl extends ExpressionImpl implements Termi
 	 */
 	@Override
 	protected EClass eStaticClass() {
-		return BehaviorPackage.Literals.TERMINATOR_OPERATION_CALL;
+		return BehaviorPackage.Literals.TERMINATOR_ACTION_CALL;
 	}
 
 	/**
@@ -107,7 +107,7 @@ public class TerminatorOperationCallImpl extends ExpressionImpl implements Termi
 		Expression oldReceiver = receiver;
 		receiver = newReceiver;
 		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, BehaviorPackage.TERMINATOR_OPERATION_CALL__RECEIVER, oldReceiver, newReceiver);
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, BehaviorPackage.TERMINATOR_ACTION_CALL__RECEIVER, oldReceiver, newReceiver);
 			if (msgs == null) msgs = notification; else msgs.add(notification);
 		}
 		return msgs;
@@ -122,14 +122,14 @@ public class TerminatorOperationCallImpl extends ExpressionImpl implements Termi
 		if (newReceiver != receiver) {
 			NotificationChain msgs = null;
 			if (receiver != null)
-				msgs = ((InternalEObject)receiver).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - BehaviorPackage.TERMINATOR_OPERATION_CALL__RECEIVER, null, msgs);
+				msgs = ((InternalEObject)receiver).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - BehaviorPackage.TERMINATOR_ACTION_CALL__RECEIVER, null, msgs);
 			if (newReceiver != null)
-				msgs = ((InternalEObject)newReceiver).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - BehaviorPackage.TERMINATOR_OPERATION_CALL__RECEIVER, null, msgs);
+				msgs = ((InternalEObject)newReceiver).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - BehaviorPackage.TERMINATOR_ACTION_CALL__RECEIVER, null, msgs);
 			msgs = basicSetReceiver(newReceiver, msgs);
 			if (msgs != null) msgs.dispatch();
 		}
 		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, BehaviorPackage.TERMINATOR_OPERATION_CALL__RECEIVER, newReceiver, newReceiver));
+			eNotify(new ENotificationImpl(this, Notification.SET, BehaviorPackage.TERMINATOR_ACTION_CALL__RECEIVER, newReceiver, newReceiver));
 	}
 
 	/**
@@ -137,16 +137,16 @@ public class TerminatorOperationCallImpl extends ExpressionImpl implements Termi
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public AbstractFeature getTerminatorOperation() {
-		if (terminatorOperation != null && terminatorOperation.eIsProxy()) {
-			InternalEObject oldTerminatorOperation = (InternalEObject)terminatorOperation;
-			terminatorOperation = (AbstractFeature)eResolveProxy(oldTerminatorOperation);
-			if (terminatorOperation != oldTerminatorOperation) {
+	public AbstractFeature getTerminatorAction() {
+		if (terminatorAction != null && terminatorAction.eIsProxy()) {
+			InternalEObject oldTerminatorAction = (InternalEObject)terminatorAction;
+			terminatorAction = (AbstractFeature)eResolveProxy(oldTerminatorAction);
+			if (terminatorAction != oldTerminatorAction) {
 				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, BehaviorPackage.TERMINATOR_OPERATION_CALL__TERMINATOR_OPERATION, oldTerminatorOperation, terminatorOperation));
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, BehaviorPackage.TERMINATOR_ACTION_CALL__TERMINATOR_ACTION, oldTerminatorAction, terminatorAction));
 			}
 		}
-		return terminatorOperation;
+		return terminatorAction;
 	}
 
 	/**
@@ -154,8 +154,8 @@ public class TerminatorOperationCallImpl extends ExpressionImpl implements Termi
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public AbstractFeature basicGetTerminatorOperation() {
-		return terminatorOperation;
+	public AbstractFeature basicGetTerminatorAction() {
+		return terminatorAction;
 	}
 
 	/**
@@ -163,11 +163,11 @@ public class TerminatorOperationCallImpl extends ExpressionImpl implements Termi
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setTerminatorOperation(AbstractFeature newTerminatorOperation) {
-		AbstractFeature oldTerminatorOperation = terminatorOperation;
-		terminatorOperation = newTerminatorOperation;
+	public void setTerminatorAction(AbstractFeature newTerminatorAction) {
+		AbstractFeature oldTerminatorAction = terminatorAction;
+		terminatorAction = newTerminatorAction;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, BehaviorPackage.TERMINATOR_OPERATION_CALL__TERMINATOR_OPERATION, oldTerminatorOperation, terminatorOperation));
+			eNotify(new ENotificationImpl(this, Notification.SET, BehaviorPackage.TERMINATOR_ACTION_CALL__TERMINATOR_ACTION, oldTerminatorAction, terminatorAction));
 	}
 
 	/**
@@ -177,7 +177,7 @@ public class TerminatorOperationCallImpl extends ExpressionImpl implements Termi
 	 */
 	public EList<Expression> getArguments() {
 		if (arguments == null) {
-			arguments = new EObjectContainmentEList<Expression>(Expression.class, this, BehaviorPackage.TERMINATOR_OPERATION_CALL__ARGUMENTS);
+			arguments = new EObjectContainmentEList<Expression>(Expression.class, this, BehaviorPackage.TERMINATOR_ACTION_CALL__ARGUMENTS);
 		}
 		return arguments;
 	}
@@ -190,9 +190,9 @@ public class TerminatorOperationCallImpl extends ExpressionImpl implements Termi
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case BehaviorPackage.TERMINATOR_OPERATION_CALL__RECEIVER:
+			case BehaviorPackage.TERMINATOR_ACTION_CALL__RECEIVER:
 				return basicSetReceiver(null, msgs);
-			case BehaviorPackage.TERMINATOR_OPERATION_CALL__ARGUMENTS:
+			case BehaviorPackage.TERMINATOR_ACTION_CALL__ARGUMENTS:
 				return ((InternalEList<?>)getArguments()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
@@ -206,12 +206,12 @@ public class TerminatorOperationCallImpl extends ExpressionImpl implements Termi
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case BehaviorPackage.TERMINATOR_OPERATION_CALL__RECEIVER:
+			case BehaviorPackage.TERMINATOR_ACTION_CALL__RECEIVER:
 				return getReceiver();
-			case BehaviorPackage.TERMINATOR_OPERATION_CALL__TERMINATOR_OPERATION:
-				if (resolve) return getTerminatorOperation();
-				return basicGetTerminatorOperation();
-			case BehaviorPackage.TERMINATOR_OPERATION_CALL__ARGUMENTS:
+			case BehaviorPackage.TERMINATOR_ACTION_CALL__TERMINATOR_ACTION:
+				if (resolve) return getTerminatorAction();
+				return basicGetTerminatorAction();
+			case BehaviorPackage.TERMINATOR_ACTION_CALL__ARGUMENTS:
 				return getArguments();
 		}
 		return super.eGet(featureID, resolve, coreType);
@@ -226,13 +226,13 @@ public class TerminatorOperationCallImpl extends ExpressionImpl implements Termi
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case BehaviorPackage.TERMINATOR_OPERATION_CALL__RECEIVER:
+			case BehaviorPackage.TERMINATOR_ACTION_CALL__RECEIVER:
 				setReceiver((Expression)newValue);
 				return;
-			case BehaviorPackage.TERMINATOR_OPERATION_CALL__TERMINATOR_OPERATION:
-				setTerminatorOperation((AbstractFeature)newValue);
+			case BehaviorPackage.TERMINATOR_ACTION_CALL__TERMINATOR_ACTION:
+				setTerminatorAction((AbstractFeature)newValue);
 				return;
-			case BehaviorPackage.TERMINATOR_OPERATION_CALL__ARGUMENTS:
+			case BehaviorPackage.TERMINATOR_ACTION_CALL__ARGUMENTS:
 				getArguments().clear();
 				getArguments().addAll((Collection<? extends Expression>)newValue);
 				return;
@@ -248,13 +248,13 @@ public class TerminatorOperationCallImpl extends ExpressionImpl implements Termi
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case BehaviorPackage.TERMINATOR_OPERATION_CALL__RECEIVER:
+			case BehaviorPackage.TERMINATOR_ACTION_CALL__RECEIVER:
 				setReceiver((Expression)null);
 				return;
-			case BehaviorPackage.TERMINATOR_OPERATION_CALL__TERMINATOR_OPERATION:
-				setTerminatorOperation((AbstractFeature)null);
+			case BehaviorPackage.TERMINATOR_ACTION_CALL__TERMINATOR_ACTION:
+				setTerminatorAction((AbstractFeature)null);
 				return;
-			case BehaviorPackage.TERMINATOR_OPERATION_CALL__ARGUMENTS:
+			case BehaviorPackage.TERMINATOR_ACTION_CALL__ARGUMENTS:
 				getArguments().clear();
 				return;
 		}
@@ -269,14 +269,14 @@ public class TerminatorOperationCallImpl extends ExpressionImpl implements Termi
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case BehaviorPackage.TERMINATOR_OPERATION_CALL__RECEIVER:
+			case BehaviorPackage.TERMINATOR_ACTION_CALL__RECEIVER:
 				return receiver != null;
-			case BehaviorPackage.TERMINATOR_OPERATION_CALL__TERMINATOR_OPERATION:
-				return terminatorOperation != null;
-			case BehaviorPackage.TERMINATOR_OPERATION_CALL__ARGUMENTS:
+			case BehaviorPackage.TERMINATOR_ACTION_CALL__TERMINATOR_ACTION:
+				return terminatorAction != null;
+			case BehaviorPackage.TERMINATOR_ACTION_CALL__ARGUMENTS:
 				return arguments != null && !arguments.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}
 
-} //TerminatorOperationCallImpl
+} //TerminatorActionCallImpl
