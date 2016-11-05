@@ -31,8 +31,7 @@ See [2.2](#2.2).
 6. Implementation Comments
 --------------------------
 6.1 After adding the new class and relationship to the ```Element Packaging``` 
-  package in the metamodel, there was a build error inside the archetype
-  ```org.xtuml.bp.io.mdl/arc/create_external_link_evaluator.arc```.  
+  package in the metamodel, there was a build error inside the archetype  ```org.xtuml.bp.io.mdl/arc/create_external_link_evaluator.arc```.  
 6.1.1  It was determined that this is the first place where we have modeled a 
   reflexive+linked associative relationship in the metamodel that has an effect
   on the BridgePoint UI.  In the ```Engine``` package we have this type of 
