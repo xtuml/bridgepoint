@@ -20,7 +20,7 @@ package org.xtuml.bp.xtext.masl.masl.structure;
  * @model
  * @generated
  */
-public interface StateDeclaration extends Parameterized {
+public interface StateDeclaration extends AbstractActionDeclaration {
 	/**
 	 * Returns the value of the '<em><b>Type</b></em>' attribute.
 	 * The literals are from the enumeration {@link org.xtuml.bp.xtext.masl.masl.structure.StateType}.

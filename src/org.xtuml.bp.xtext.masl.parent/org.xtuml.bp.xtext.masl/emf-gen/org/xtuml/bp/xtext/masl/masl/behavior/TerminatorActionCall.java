@@ -9,23 +9,23 @@ import org.xtuml.bp.xtext.masl.masl.structure.AbstractFeature;
 
 /**
  * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Terminator Operation Call</b></em>'.
+ * A representation of the model object '<em><b>Terminator Action Call</b></em>'.
  * <!-- end-user-doc -->
  *
  * <p>
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link org.xtuml.bp.xtext.masl.masl.behavior.TerminatorOperationCall#getReceiver <em>Receiver</em>}</li>
- *   <li>{@link org.xtuml.bp.xtext.masl.masl.behavior.TerminatorOperationCall#getTerminatorOperation <em>Terminator Operation</em>}</li>
- *   <li>{@link org.xtuml.bp.xtext.masl.masl.behavior.TerminatorOperationCall#getArguments <em>Arguments</em>}</li>
+ *   <li>{@link org.xtuml.bp.xtext.masl.masl.behavior.TerminatorActionCall#getReceiver <em>Receiver</em>}</li>
+ *   <li>{@link org.xtuml.bp.xtext.masl.masl.behavior.TerminatorActionCall#getTerminatorAction <em>Terminator Action</em>}</li>
+ *   <li>{@link org.xtuml.bp.xtext.masl.masl.behavior.TerminatorActionCall#getArguments <em>Arguments</em>}</li>
  * </ul>
  *
- * @see org.xtuml.bp.xtext.masl.masl.behavior.BehaviorPackage#getTerminatorOperationCall()
+ * @see org.xtuml.bp.xtext.masl.masl.behavior.BehaviorPackage#getTerminatorActionCall()
  * @model
  * @generated
  */
-public interface TerminatorOperationCall extends Expression {
+public interface TerminatorActionCall extends Expression {
 	/**
 	 * Returns the value of the '<em><b>Receiver</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
@@ -36,14 +36,14 @@ public interface TerminatorOperationCall extends Expression {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Receiver</em>' containment reference.
 	 * @see #setReceiver(Expression)
-	 * @see org.xtuml.bp.xtext.masl.masl.behavior.BehaviorPackage#getTerminatorOperationCall_Receiver()
+	 * @see org.xtuml.bp.xtext.masl.masl.behavior.BehaviorPackage#getTerminatorActionCall_Receiver()
 	 * @model containment="true"
 	 * @generated
 	 */
 	Expression getReceiver();
 
 	/**
-	 * Sets the value of the '{@link org.xtuml.bp.xtext.masl.masl.behavior.TerminatorOperationCall#getReceiver <em>Receiver</em>}' containment reference.
+	 * Sets the value of the '{@link org.xtuml.bp.xtext.masl.masl.behavior.TerminatorActionCall#getReceiver <em>Receiver</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Receiver</em>' containment reference.
@@ -53,30 +53,30 @@ public interface TerminatorOperationCall extends Expression {
 	void setReceiver(Expression value);
 
 	/**
-	 * Returns the value of the '<em><b>Terminator Operation</b></em>' reference.
+	 * Returns the value of the '<em><b>Terminator Action</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Terminator Operation</em>' reference isn't clear,
+	 * If the meaning of the '<em>Terminator Action</em>' reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Terminator Operation</em>' reference.
-	 * @see #setTerminatorOperation(AbstractFeature)
-	 * @see org.xtuml.bp.xtext.masl.masl.behavior.BehaviorPackage#getTerminatorOperationCall_TerminatorOperation()
+	 * @return the value of the '<em>Terminator Action</em>' reference.
+	 * @see #setTerminatorAction(AbstractFeature)
+	 * @see org.xtuml.bp.xtext.masl.masl.behavior.BehaviorPackage#getTerminatorActionCall_TerminatorAction()
 	 * @model
 	 * @generated
 	 */
-	AbstractFeature getTerminatorOperation();
+	AbstractFeature getTerminatorAction();
 
 	/**
-	 * Sets the value of the '{@link org.xtuml.bp.xtext.masl.masl.behavior.TerminatorOperationCall#getTerminatorOperation <em>Terminator Operation</em>}' reference.
+	 * Sets the value of the '{@link org.xtuml.bp.xtext.masl.masl.behavior.TerminatorActionCall#getTerminatorAction <em>Terminator Action</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Terminator Operation</em>' reference.
-	 * @see #getTerminatorOperation()
+	 * @param value the new value of the '<em>Terminator Action</em>' reference.
+	 * @see #getTerminatorAction()
 	 * @generated
 	 */
-	void setTerminatorOperation(AbstractFeature value);
+	void setTerminatorAction(AbstractFeature value);
 
 	/**
 	 * Returns the value of the '<em><b>Arguments</b></em>' containment reference list.
@@ -88,10 +88,10 @@ public interface TerminatorOperationCall extends Expression {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Arguments</em>' containment reference list.
-	 * @see org.xtuml.bp.xtext.masl.masl.behavior.BehaviorPackage#getTerminatorOperationCall_Arguments()
+	 * @see org.xtuml.bp.xtext.masl.masl.behavior.BehaviorPackage#getTerminatorActionCall_Arguments()
 	 * @model containment="true"
 	 * @generated
 	 */
 	EList<Expression> getArguments();
 
-} // TerminatorOperationCall
+} // TerminatorActionCall

@@ -740,7 +740,7 @@ CreateArgument:
 	| 'Current_State' '=>' currentState=[StateDeclaration];
 
 FindExpression:
-	type=FindType expression=PostfixNoOperationCallExpression
+	type=FindType expression=PostfixNoActionCallExpression
 	'(' where=FindCondition? ')';
 
 /* SuppressWarnings[all] */
@@ -752,9 +752,9 @@ enum FindType:
 
 PostfixExpression returns Expression:
 	PrimaryExpression
-	( {OperationCall.receiver=current} =>'(' (arguments+=Expression (',' arguments+=Expression)*)? ')' 
+	( {ActionCall.receiver=current} =>'(' (arguments+=Expression (',' arguments+=Expression)*)? ')' 
 	| {SimpleFeatureCall.receiver=current} '.' feature=[AbstractFeature] 
-	| {TerminatorOperationCall.receiver=current} '~>' terminatorOperation=[AbstractFeature] '(' (arguments+=Expression (',' arguments+=Expression)*)? ')'
+	| {TerminatorActionCall.receiver=current} '~>' terminatorAction=[AbstractFeature] '(' (arguments+=Expression (',' arguments+=Expression)*)? ')'
 	| {IndexedExpression.receiver=current} '[' brackets=Expression ']'
 	| {CharacteristicCall.receiver=current} '\'' characteristic=[Characteristic|CharacteristicID] (=> '('
 		(arguments+=Expression (',' arguments+=Expression)*)?
@@ -764,13 +764,13 @@ PostfixExpression returns Expression:
 CharacteristicID:
 		ID | 'range' |'delta';
 
-PostfixNoOperationCallExpression returns Expression:
-	PrimaryNoOperationCallExpression
+PostfixNoActionCallExpression returns Expression:
+	PrimaryNoActionCallExpression
 	( {SimpleFeatureCall.receiver=current} '.' feature=[AbstractFeature]
 	| {IndexedExpression.receiver=current} '[' brackets=Expression ']'
 	| {CharacteristicCall.receiver=current} '\'' characteristic=[Characteristic])*;
 
-PrimaryNoOperationCallExpression returns Expression:
+PrimaryNoActionCallExpression returns Expression:
 	Literal
 	| ParenthesisedExpression
 	| SimpleFeatureCall

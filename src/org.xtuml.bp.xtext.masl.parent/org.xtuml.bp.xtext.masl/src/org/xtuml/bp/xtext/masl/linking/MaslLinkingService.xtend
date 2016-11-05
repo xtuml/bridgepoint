@@ -11,7 +11,6 @@ import org.eclipse.xtext.linking.impl.XtextLinkingDiagnostic
 import org.eclipse.xtext.naming.IQualifiedNameConverter
 import org.eclipse.xtext.nodemodel.INode
 import org.xtuml.bp.xtext.masl.masl.behavior.BehaviorPackage
-import org.xtuml.bp.xtext.masl.masl.behavior.OperationCall
 import org.xtuml.bp.xtext.masl.masl.behavior.SimpleFeatureCall
 import org.xtuml.bp.xtext.masl.masl.structure.AbstractFeature
 import org.xtuml.bp.xtext.masl.masl.structure.Parameterized
@@ -20,6 +19,7 @@ import org.xtuml.bp.xtext.masl.typesystem.MaslType
 import org.xtuml.bp.xtext.masl.typesystem.MaslTypeProvider
 
 import static org.xtuml.bp.xtext.masl.linking.SignatureRanker.*
+import org.xtuml.bp.xtext.masl.masl.behavior.ActionCall
 
 class MaslLinkingService extends DefaultLinkingService {
 
@@ -31,20 +31,20 @@ class MaslLinkingService extends DefaultLinkingService {
 	override getLinkedObjects(EObject context, EReference ref, INode node) throws IllegalNodeException {
 		if (ref == featureCall_Feature && context instanceof SimpleFeatureCall) {
 			val container = context.eContainer
-			if(container instanceof OperationCall)
-				return getLinkedOperation(container, context as SimpleFeatureCall, ref, node)
+			if(container instanceof ActionCall)
+				return getLinkedAction(container, context as SimpleFeatureCall, ref, node)
 		}
 		return super.getLinkedObjects(context, ref, node)
 	}
 
-	private def List<EObject> getLinkedOperation(OperationCall operationCall, SimpleFeatureCall featureCall, EReference reference, INode node) {
+	private def List<EObject> getLinkedAction(ActionCall actionCall, SimpleFeatureCall featureCall, EReference reference, INode node) {
 		val crossRefString = node.crossRefNodeAsString
 		if (crossRefString !== null && !crossRefString.equals("")) {
 			val scope = getScope(featureCall, reference)
 			var qualifiedLinkName = crossRefString.toQualifiedName
 			var eObjectDescriptions = scope.getElements(qualifiedLinkName)
-			val argumentTypes = operationCall.arguments.map[maslType]
-			val candidates = eObjectDescriptions.map[operationCall.eResource.resourceSet.getEObject(EObjectURI, true)]
+			val argumentTypes = actionCall.arguments.map[maslType]
+			val candidates = eObjectDescriptions.map[actionCall.eResource.resourceSet.getEObject(EObjectURI, true)]
 			var AbstractFeature currentBestMatch = null
 			val acceptableMatches = newArrayList
 			var currentBestRank = NO_MATCH
@@ -59,8 +59,8 @@ class MaslLinkingService extends DefaultLinkingService {
 			}
 			if(currentBestMatch != null) {
 				if(currentBestRank != PERFECT_MATCH && acceptableMatches.size > 1) {
-					val diagnostic = new XtextLinkingDiagnostic(node, 'Ambiguous operation call.', Diagnostic.LINKING_DIAGNOSTIC)
-					operationCall.eResource.errors.add(diagnostic)	
+					val diagnostic = new XtextLinkingDiagnostic(node, 'Ambiguous action call.', Diagnostic.LINKING_DIAGNOSTIC)
+					actionCall.eResource.errors.add(diagnostic)	
 				}
 				return #[currentBestMatch]
 			}
