@@ -261,6 +261,7 @@ public class ${class_name} {
     .select many rto_set related by model_class->R_OIR[R201]->R_RTO[R203]
     .for each rto in rto_set
         .select one relation related by rto->R_OIR[R203]->R_REL[R201]
+
           .select many rgo_set related by relation->R_OIR[R201]->R_RGO[R203]
           .for each rgo in rgo_set
               .select one related_class related by rgo->R_OIR[R203]->O_OBJ[R201]
