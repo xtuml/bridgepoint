@@ -51,7 +51,8 @@ class MaslValidationConfigurationBlock extends AbstractValidatorConfigurationBlo
 		addComboBox(CYCLIC_INHERITANCE, 'Cyclic inheritance', composite, defaultIndent)
 		addComboBox(WRONG_TYPE, 'Incompatible types', composite, defaultIndent)
 		addComboBox(INVALID_FEATURE_CALL, 'Invalid feature calls', composite, defaultIndent)
-		addComboBox(INVALID_OPERATION_CALL, 'Invalid operation calls', composite, defaultIndent)
+		addComboBox(INVISIBLE_FEATURE, 'Visibility problems', composite, defaultIndent)
+		addComboBox(INVALID_ACTION_CALL, 'Invalid action calls', composite, defaultIndent)
 	}
 
 	protected def Combo addComboBox(String prefKey, String label, Composite parent, int indent) {

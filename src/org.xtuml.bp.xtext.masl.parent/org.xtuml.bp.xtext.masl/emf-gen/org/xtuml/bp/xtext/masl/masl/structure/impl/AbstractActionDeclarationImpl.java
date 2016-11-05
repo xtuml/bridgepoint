@@ -3,53 +3,31 @@
  */
 package org.xtuml.bp.xtext.masl.masl.structure.impl;
 
-import java.util.Collection;
-
 import org.eclipse.emf.common.notify.Notification;
-import org.eclipse.emf.common.notify.NotificationChain;
-
-import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
-import org.eclipse.emf.ecore.util.EObjectContainmentEList;
-import org.eclipse.emf.ecore.util.InternalEList;
-
-import org.xtuml.bp.xtext.masl.masl.structure.ExceptionDeclaration;
-import org.xtuml.bp.xtext.masl.masl.structure.Pragma;
-import org.xtuml.bp.xtext.masl.masl.structure.Pragmatized;
+import org.xtuml.bp.xtext.masl.masl.structure.AbstractActionDeclaration;
 import org.xtuml.bp.xtext.masl.masl.structure.StructurePackage;
 import org.xtuml.bp.xtext.masl.masl.structure.Visibility;
 import org.xtuml.bp.xtext.masl.masl.structure.Visualized;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Exception Declaration</b></em>'.
+ * An implementation of the model object '<em><b>Abstract Action Declaration</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link org.xtuml.bp.xtext.masl.masl.structure.impl.ExceptionDeclarationImpl#getPragmas <em>Pragmas</em>}</li>
- *   <li>{@link org.xtuml.bp.xtext.masl.masl.structure.impl.ExceptionDeclarationImpl#getVisibility <em>Visibility</em>}</li>
+ *   <li>{@link org.xtuml.bp.xtext.masl.masl.structure.impl.AbstractActionDeclarationImpl#getVisibility <em>Visibility</em>}</li>
  * </ul>
  *
  * @generated
  */
-public class ExceptionDeclarationImpl extends AbstractNamedImpl implements ExceptionDeclaration {
-	/**
-	 * The cached value of the '{@link #getPragmas() <em>Pragmas</em>}' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getPragmas()
-	 * @generated
-	 * @ordered
-	 */
-	protected EList<Pragma> pragmas;
-
+public abstract class AbstractActionDeclarationImpl extends ParameterizedImpl implements AbstractActionDeclaration {
 	/**
 	 * The default value of the '{@link #getVisibility() <em>Visibility</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -75,7 +53,7 @@ public class ExceptionDeclarationImpl extends AbstractNamedImpl implements Excep
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected ExceptionDeclarationImpl() {
+	protected AbstractActionDeclarationImpl() {
 		super();
 	}
 
@@ -86,19 +64,7 @@ public class ExceptionDeclarationImpl extends AbstractNamedImpl implements Excep
 	 */
 	@Override
 	protected EClass eStaticClass() {
-		return StructurePackage.Literals.EXCEPTION_DECLARATION;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EList<Pragma> getPragmas() {
-		if (pragmas == null) {
-			pragmas = new EObjectContainmentEList<Pragma>(Pragma.class, this, StructurePackage.EXCEPTION_DECLARATION__PRAGMAS);
-		}
-		return pragmas;
+		return StructurePackage.Literals.ABSTRACT_ACTION_DECLARATION;
 	}
 
 	/**
@@ -119,21 +85,7 @@ public class ExceptionDeclarationImpl extends AbstractNamedImpl implements Excep
 		Visibility oldVisibility = visibility;
 		visibility = newVisibility == null ? VISIBILITY_EDEFAULT : newVisibility;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, StructurePackage.EXCEPTION_DECLARATION__VISIBILITY, oldVisibility, visibility));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
-		switch (featureID) {
-			case StructurePackage.EXCEPTION_DECLARATION__PRAGMAS:
-				return ((InternalEList<?>)getPragmas()).basicRemove(otherEnd, msgs);
-		}
-		return super.eInverseRemove(otherEnd, featureID, msgs);
+			eNotify(new ENotificationImpl(this, Notification.SET, StructurePackage.ABSTRACT_ACTION_DECLARATION__VISIBILITY, oldVisibility, visibility));
 	}
 
 	/**
@@ -144,9 +96,7 @@ public class ExceptionDeclarationImpl extends AbstractNamedImpl implements Excep
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case StructurePackage.EXCEPTION_DECLARATION__PRAGMAS:
-				return getPragmas();
-			case StructurePackage.EXCEPTION_DECLARATION__VISIBILITY:
+			case StructurePackage.ABSTRACT_ACTION_DECLARATION__VISIBILITY:
 				return getVisibility();
 		}
 		return super.eGet(featureID, resolve, coreType);
@@ -157,15 +107,10 @@ public class ExceptionDeclarationImpl extends AbstractNamedImpl implements Excep
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case StructurePackage.EXCEPTION_DECLARATION__PRAGMAS:
-				getPragmas().clear();
-				getPragmas().addAll((Collection<? extends Pragma>)newValue);
-				return;
-			case StructurePackage.EXCEPTION_DECLARATION__VISIBILITY:
+			case StructurePackage.ABSTRACT_ACTION_DECLARATION__VISIBILITY:
 				setVisibility((Visibility)newValue);
 				return;
 		}
@@ -180,10 +125,7 @@ public class ExceptionDeclarationImpl extends AbstractNamedImpl implements Excep
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case StructurePackage.EXCEPTION_DECLARATION__PRAGMAS:
-				getPragmas().clear();
-				return;
-			case StructurePackage.EXCEPTION_DECLARATION__VISIBILITY:
+			case StructurePackage.ABSTRACT_ACTION_DECLARATION__VISIBILITY:
 				setVisibility(VISIBILITY_EDEFAULT);
 				return;
 		}
@@ -198,9 +140,7 @@ public class ExceptionDeclarationImpl extends AbstractNamedImpl implements Excep
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case StructurePackage.EXCEPTION_DECLARATION__PRAGMAS:
-				return pragmas != null && !pragmas.isEmpty();
-			case StructurePackage.EXCEPTION_DECLARATION__VISIBILITY:
+			case StructurePackage.ABSTRACT_ACTION_DECLARATION__VISIBILITY:
 				return visibility != VISIBILITY_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
@@ -213,15 +153,9 @@ public class ExceptionDeclarationImpl extends AbstractNamedImpl implements Excep
 	 */
 	@Override
 	public int eBaseStructuralFeatureID(int derivedFeatureID, Class<?> baseClass) {
-		if (baseClass == Pragmatized.class) {
-			switch (derivedFeatureID) {
-				case StructurePackage.EXCEPTION_DECLARATION__PRAGMAS: return StructurePackage.PRAGMATIZED__PRAGMAS;
-				default: return -1;
-			}
-		}
 		if (baseClass == Visualized.class) {
 			switch (derivedFeatureID) {
-				case StructurePackage.EXCEPTION_DECLARATION__VISIBILITY: return StructurePackage.VISUALIZED__VISIBILITY;
+				case StructurePackage.ABSTRACT_ACTION_DECLARATION__VISIBILITY: return StructurePackage.VISUALIZED__VISIBILITY;
 				default: return -1;
 			}
 		}
@@ -235,15 +169,9 @@ public class ExceptionDeclarationImpl extends AbstractNamedImpl implements Excep
 	 */
 	@Override
 	public int eDerivedStructuralFeatureID(int baseFeatureID, Class<?> baseClass) {
-		if (baseClass == Pragmatized.class) {
-			switch (baseFeatureID) {
-				case StructurePackage.PRAGMATIZED__PRAGMAS: return StructurePackage.EXCEPTION_DECLARATION__PRAGMAS;
-				default: return -1;
-			}
-		}
 		if (baseClass == Visualized.class) {
 			switch (baseFeatureID) {
-				case StructurePackage.VISUALIZED__VISIBILITY: return StructurePackage.EXCEPTION_DECLARATION__VISIBILITY;
+				case StructurePackage.VISUALIZED__VISIBILITY: return StructurePackage.ABSTRACT_ACTION_DECLARATION__VISIBILITY;
 				default: return -1;
 			}
 		}
@@ -266,4 +194,4 @@ public class ExceptionDeclarationImpl extends AbstractNamedImpl implements Excep
 		return result.toString();
 	}
 
-} //ExceptionDeclarationImpl
+} //AbstractActionDeclarationImpl

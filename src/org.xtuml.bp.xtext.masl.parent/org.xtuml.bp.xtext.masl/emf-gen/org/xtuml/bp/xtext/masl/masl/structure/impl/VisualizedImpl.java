@@ -8,51 +8,52 @@ import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EClass;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
-import org.xtuml.bp.xtext.masl.masl.structure.StateDeclaration;
-import org.xtuml.bp.xtext.masl.masl.structure.StateType;
 import org.xtuml.bp.xtext.masl.masl.structure.StructurePackage;
+import org.xtuml.bp.xtext.masl.masl.structure.Visibility;
+import org.xtuml.bp.xtext.masl.masl.structure.Visualized;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>State Declaration</b></em>'.
+ * An implementation of the model object '<em><b>Visualized</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link org.xtuml.bp.xtext.masl.masl.structure.impl.StateDeclarationImpl#getType <em>Type</em>}</li>
+ *   <li>{@link org.xtuml.bp.xtext.masl.masl.structure.impl.VisualizedImpl#getVisibility <em>Visibility</em>}</li>
  * </ul>
  *
  * @generated
  */
-public class StateDeclarationImpl extends AbstractActionDeclarationImpl implements StateDeclaration {
+public abstract class VisualizedImpl extends MinimalEObjectImpl.Container implements Visualized {
 	/**
-	 * The default value of the '{@link #getType() <em>Type</em>}' attribute.
+	 * The default value of the '{@link #getVisibility() <em>Visibility</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getType()
+	 * @see #getVisibility()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final StateType TYPE_EDEFAULT = StateType.ASSIGNER;
+	protected static final Visibility VISIBILITY_EDEFAULT = Visibility.PUBLIC;
 
 	/**
-	 * The cached value of the '{@link #getType() <em>Type</em>}' attribute.
+	 * The cached value of the '{@link #getVisibility() <em>Visibility</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getType()
+	 * @see #getVisibility()
 	 * @generated
 	 * @ordered
 	 */
-	protected StateType type = TYPE_EDEFAULT;
+	protected Visibility visibility = VISIBILITY_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected StateDeclarationImpl() {
+	protected VisualizedImpl() {
 		super();
 	}
 
@@ -63,7 +64,7 @@ public class StateDeclarationImpl extends AbstractActionDeclarationImpl implemen
 	 */
 	@Override
 	protected EClass eStaticClass() {
-		return StructurePackage.Literals.STATE_DECLARATION;
+		return StructurePackage.Literals.VISUALIZED;
 	}
 
 	/**
@@ -71,8 +72,8 @@ public class StateDeclarationImpl extends AbstractActionDeclarationImpl implemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public StateType getType() {
-		return type;
+	public Visibility getVisibility() {
+		return visibility;
 	}
 
 	/**
@@ -80,11 +81,11 @@ public class StateDeclarationImpl extends AbstractActionDeclarationImpl implemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setType(StateType newType) {
-		StateType oldType = type;
-		type = newType == null ? TYPE_EDEFAULT : newType;
+	public void setVisibility(Visibility newVisibility) {
+		Visibility oldVisibility = visibility;
+		visibility = newVisibility == null ? VISIBILITY_EDEFAULT : newVisibility;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, StructurePackage.STATE_DECLARATION__TYPE, oldType, type));
+			eNotify(new ENotificationImpl(this, Notification.SET, StructurePackage.VISUALIZED__VISIBILITY, oldVisibility, visibility));
 	}
 
 	/**
@@ -95,8 +96,8 @@ public class StateDeclarationImpl extends AbstractActionDeclarationImpl implemen
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case StructurePackage.STATE_DECLARATION__TYPE:
-				return getType();
+			case StructurePackage.VISUALIZED__VISIBILITY:
+				return getVisibility();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -109,8 +110,8 @@ public class StateDeclarationImpl extends AbstractActionDeclarationImpl implemen
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case StructurePackage.STATE_DECLARATION__TYPE:
-				setType((StateType)newValue);
+			case StructurePackage.VISUALIZED__VISIBILITY:
+				setVisibility((Visibility)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -124,8 +125,8 @@ public class StateDeclarationImpl extends AbstractActionDeclarationImpl implemen
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case StructurePackage.STATE_DECLARATION__TYPE:
-				setType(TYPE_EDEFAULT);
+			case StructurePackage.VISUALIZED__VISIBILITY:
+				setVisibility(VISIBILITY_EDEFAULT);
 				return;
 		}
 		super.eUnset(featureID);
@@ -139,8 +140,8 @@ public class StateDeclarationImpl extends AbstractActionDeclarationImpl implemen
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case StructurePackage.STATE_DECLARATION__TYPE:
-				return type != TYPE_EDEFAULT;
+			case StructurePackage.VISUALIZED__VISIBILITY:
+				return visibility != VISIBILITY_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -155,10 +156,10 @@ public class StateDeclarationImpl extends AbstractActionDeclarationImpl implemen
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (type: ");
-		result.append(type);
+		result.append(" (visibility: ");
+		result.append(visibility);
 		result.append(')');
 		return result.toString();
 	}
 
-} //StateDeclarationImpl
+} //VisualizedImpl
