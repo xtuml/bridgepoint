@@ -251,16 +251,14 @@ related across R3 in Source package is moved to Destination package.
   * 13.   P2 is not available at top level, P2 is under P3   
   
 
-7.15 Move class into component (create a model from scratch)
-
-
-  * 1.       Create a xtUML project
-  * 2.       Create a package named P1 at top level
-  * 3.       Create a class named CL1 in P1
-  * 4.       Create a component named COMP1 in P1
-  * 5.       Create a package named COMP1-P1 in COMP1
-  * 6.       Cut CL1
-  * 7.       Paste into COMP1-P1  
+7.15 Move class into component (create a model from scratch)  
+  * 1.    Create a xtUML project
+  * 2.    Create a package named P1 at top level
+  * 3.    Create a class named CL1 in P1
+  * 4.    Create a component named COMP1 in P1
+  * 5.    Create a package named COMP1-P1 in COMP1
+  * 6.    Cut CL1
+  * 7.    Paste into COMP1-P1  
 
 7.16  Move class in association into component (create a model from scratch)
   * 1.    Create a xtUML project
@@ -274,13 +272,12 @@ related across R3 in Source package is moved to Destination package.
   * 9.    Add Id as identifier
   * 10.   Create an association R1 between CL1 and CL2
   * 11.   Formalize association R1 using Id
-  * 12.   Cut CL2, should that be ok?
+  * 12.   Cut CL2
   * 13.   Paste in COMP1-P1
-  * 14.   Graphic in COMP1-P1 is incorrect and probably the consistency of the model, Error!
-  * 15.    
-  * 16.   Alternate the Cut of CL2 with a Cut of CL1 should that be ok?
-  * 17.   Paste in COMP1-P1
-  * 18.   Graphic in COMP1-P1 is incorrect and probably the consistency of the model, Error!      
+  * 14.   Warning is displayed stating that CL1 and R1 must be included in the move. Move isn't permitted.  
+  * 15.   Cut CL1
+  * 16.   Paste in COMP1-P1
+  * 17.   Warning is displayed stating that CL2 and R1 must be included in the move. Move isn't permitted.      
 
 7.17  Data Type at top level within project (Uses test model [2.7](#2.7))
   * 1.   Cut My_DT from P1
@@ -307,9 +304,7 @@ related across R3 in Source package is moved to Destination package.
   * 2. Cut and paste a top-level package into another top-level pacakge from Model Explorer with no Canvas open.
   * 3. Open the System-level package
   * 4. The graphic on the system-level diagram is has been removed
-  *       --- ERROR! Currently it is an empty white box.
-  * 5. The Graphic on the target is fine when the target package is opened
-  *       --- ERROR! Currently, the graphic is not present as it should be
+  * 5. The Graphic on the target is fine when the target package is opened  
    
 7.21 Move UDT causing downgrade in source and destination (Uses test model [2.6](#2.6))
   * 1. Expand movetest/p1/impl
