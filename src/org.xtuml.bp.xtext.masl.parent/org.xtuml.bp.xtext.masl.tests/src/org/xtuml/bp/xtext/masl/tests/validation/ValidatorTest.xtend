@@ -451,17 +451,14 @@ class ValidatorTest {
 		load('''
 			domain dom is
 				terminator Foo is
-					private function func() return integer;
-					private service serv();
-					public function func0() return integer;
-					public service serv0();
+					function func() return integer;
+					service serv();
 				end;
 			end;
 			
 			domain dom0 is
 				service caller();
 				service caller0();
-				service caller1();
 			end;
 		''').assertNoErrors
 		load('''
@@ -469,8 +466,6 @@ class ValidatorTest {
 			begin
 				Foo~>func();
 				Foo~>serv();
-				Foo~>func0();
-				Foo~>serv0();
 			end
 		''').assertNoErrors(INVISIBLE_FEATURE)
 		load('''
@@ -485,13 +480,6 @@ class ValidatorTest {
 				dom::Foo~>serv();
 			end
 		''').assertError(terminatorActionCall, INVISIBLE_FEATURE)
-		load('''
-			service dom0::caller1() is
-			begin
-				dom::Foo~>serv0();
-				dom::Foo~>func0();
-			end
-		''').assertNoErrors(INVISIBLE_FEATURE)
 	}
 	
 	@Test 

@@ -8,8 +8,8 @@ import java.util.HashSet
 import java.util.Set
 import org.eclipse.xtext.validation.Check
 import org.eclipse.xtext.validation.ComposedChecks
-import org.xtuml.bp.xtext.masl.masl.behavior.CodeBlock
 import org.xtuml.bp.xtext.masl.masl.behavior.ReturnStatement
+import org.xtuml.bp.xtext.masl.masl.behavior.StatementList
 import org.xtuml.bp.xtext.masl.masl.behavior.ThisLiteral
 import org.xtuml.bp.xtext.masl.masl.structure.AbstractTopLevelElement
 import org.xtuml.bp.xtext.masl.masl.structure.DomainDefinition
@@ -23,7 +23,6 @@ import org.xtuml.bp.xtext.masl.masl.structure.SubtypeRelationshipDefinition
 import static org.xtuml.bp.xtext.masl.validation.MaslIssueCodesProvider.*
 
 import static extension org.eclipse.xtext.EcoreUtil2.*
-import org.xtuml.bp.xtext.masl.masl.behavior.StatementList
 
 /**
  * This class contains custom validation rules. 
