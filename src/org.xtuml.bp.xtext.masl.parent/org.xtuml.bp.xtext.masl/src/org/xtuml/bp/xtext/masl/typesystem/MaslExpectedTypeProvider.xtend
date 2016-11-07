@@ -66,7 +66,11 @@ class MaslExpectedTypeProvider {
 			return getRelationshipNavigationLhsExpectation(context as NavigateExpression)
 		if(reference == navigateExpression_With && context instanceof NavigateExpression) 
 			return getRelationshipNavigationWithExpectation(context as NavigateExpression)
-
+		if(reference == exitStatement_Condition 
+			|| reference == ifStatement_Condition
+			|| reference == elsifBlock_Condition
+			|| reference == whileStatement_Condition)
+			return #[BOOLEAN]
 		return #[]
 	}
 
