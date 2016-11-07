@@ -230,43 +230,7 @@ INSERT INTO O_TFR
 	'The dispose operation for an Imported Class.',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
-	'// Subsystem Subsystem
-select one realObj related by self->O_OBJ[R101];
-if (not_empty realObj)
-  unrelate self from realObj across R101;
-end if;  
-// Association Subsystem
-select many oirs related by self->R_OIR[R202];
-for each oir in oirs
-  select one assoc related by oir->R_REL[R201];
-  if not_empty assoc
-    if realObj.isEssentialToAssoc(id: assoc.Rel_ID)
-      assoc.dispose();
-    else
-      oir.dispose();
-    end if;
-  else
-    oir.dispose();
-  end if;
-end for;
-//
-// Communication and Access Subsystem
-select many oaps related by self->CA_ACC[R425];
-for each oap in oaps
-  oap.dispose();
-end for;
-select many daps related by self->CA_SMOA[R420]->CA_ACC[R415];
-for each dap in daps
-  dap.dispose();
-end for;
-select many dcps related by self->CA_SMSMC[R414]->CA_COMM[R401];
-for each dcp in dcps
-  dcp.dispose();
-end for;
-select many ocps related by self->CA_SMSMC[R424]->CA_COMM[R401];
-for each ocp in ocps
-  ocp.dispose();
-end for;
+	'self.unAssign();
 select one pe related by self->PE_PE[R8001];
 if (not_empty pe)
   unrelate self from pe across R8001;
@@ -843,6 +807,112 @@ INSERT INTO O_TPARM
 	'',
 	"00000000-0000-0000-0000-000000000000",
 	'');
+INSERT INTO O_TFR
+	VALUES ("eda2bf77-e976-427f-9905-d631a8fa8690",
+	"fcc05ac4-6434-449e-9045-c76c52ee8c78",
+	'downgradeCheck',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'// Check if the assigned class is visible, unassign if not where unassign means
+// to unhook from the backing model class, delete associations, etc
+isAccessible = true; 
+
+// We only need to run this check if this component reference is assigned
+if ( self.isAssigned() )
+  isAccessible = self.canReferToClass();
+
+  if ( not isAccessible )
+    select one o_obj related by self->O_OBJ[R101];
+    self.unAssign();
+    Util::reportElementDowngraded(rto:self.convertToInstance(), rgoDowngraded:o_obj.convertToInstance(), relationship:"R101");
+  end if;
+end if;
+',
+	1,
+	'',
+	"046e18dc-4636-496b-8ee5-910fc6ae82b4");
+INSERT INTO O_TFR
+	VALUES ("8153f382-c914-47c5-8f37-71c307bca903",
+	"fcc05ac4-6434-449e-9045-c76c52ee8c78",
+	'canReferToClass',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000001",
+	1,
+	'select one o_obj related by self->O_OBJ[R101];
+select one pe related by self->PE_PE[R8001];
+isAccessible = true;
+if(not_empty pe)
+  // need to verify that the component in question
+  // is accessible
+  isAccessible = pe.isElementVisibleToSelf(type:
+                            ElementTypeConstants::CLASS, elementId:o_obj.Obj_ID);
+end if;
+return isAccessible and self.canAssignToClass(Id:o_obj.Obj_ID);',
+	1,
+	'',
+	"8116a10e-3e77-4ef4-9e77-32ee055678d9");
+INSERT INTO O_TFR
+	VALUES ("398d015a-3d16-49a7-a385-0589b3c4a99e",
+	"fcc05ac4-6434-449e-9045-c76c52ee8c78",
+	'isAssigned',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000001",
+	1,
+	'select one o_obj related by self->O_OBJ[R101];
+return not_empty o_obj;
+',
+	1,
+	'',
+	"8153f382-c914-47c5-8f37-71c307bca903");
+INSERT INTO O_TFR
+	VALUES ("046e18dc-4636-496b-8ee5-910fc6ae82b4",
+	"fcc05ac4-6434-449e-9045-c76c52ee8c78",
+	'unAssign',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'// Subsystem Subsystem
+select one o_obj related by self->O_OBJ[R101];
+if (not_empty o_obj)
+  unrelate self from o_obj across R101;
+end if;  
+// Association Subsystem
+select many oirs related by self->R_OIR[R202];
+for each oir in oirs
+  select one assoc related by oir->R_REL[R201];
+  if not_empty assoc
+    if o_obj.isEssentialToAssoc(id: assoc.Rel_ID)
+      assoc.dispose();
+    else
+      oir.dispose();
+    end if;
+  else
+    oir.dispose();
+  end if;
+end for;
+//
+// Communication and Access Subsystem
+select many oaps related by self->CA_ACC[R425];
+for each oap in oaps
+  oap.dispose();
+end for;
+select many daps related by self->CA_SMOA[R420]->CA_ACC[R415];
+for each dap in daps
+  dap.dispose();
+end for;
+select many dcps related by self->CA_SMSMC[R414]->CA_COMM[R401];
+for each dcp in dcps
+  dcp.dispose();
+end for;
+select many ocps related by self->CA_SMSMC[R424]->CA_COMM[R401];
+for each ocp in ocps
+  ocp.dispose();
+end for;
+',
+	1,
+	'',
+	"398d015a-3d16-49a7-a385-0589b3c4a99e");
 INSERT INTO O_NBATTR
 	VALUES ("a94ea28b-2350-4269-9287-788cea2336c6",
 	"fcc05ac4-6434-449e-9045-c76c52ee8c78");

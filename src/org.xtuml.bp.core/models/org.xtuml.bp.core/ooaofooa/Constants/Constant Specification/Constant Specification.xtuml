@@ -437,6 +437,21 @@ end if;         ',
 	1,
 	'',
 	"5bceb759-69ac-410b-a8f3-de66a0d003e0");
+INSERT INTO O_TFR
+	VALUES ("9b0ba407-564c-485e-be68-dd0241c8c6d5",
+	"12e6f27b-b831-4008-9d22-f432b1a57ffe",
+	'downgradeCheck',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'select many cnst_sycs related by self->CNST_SYC[R1504];
+for each cnst_syc in cnst_sycs
+  cnst_syc.downgradeCheck();
+end for;
+',
+	1,
+	'',
+	"3590b53e-2e3e-44dd-8238-146d3ce81172");
 INSERT INTO O_NBATTR
 	VALUES ("9b9dcb51-0026-4fa9-8e50-a0a14f039a43",
 	"12e6f27b-b831-4008-9d22-f432b1a57ffe");

@@ -928,6 +928,142 @@ INSERT INTO O_TPARM
 	'',
 	"0dec1fb0-c8b9-404d-9db3-f40d6b038b31",
 	'');
+INSERT INTO O_TFR
+	VALUES ("e680b8a3-b89e-4acc-b2c9-89aa2112a148",
+	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
+	'downgradeCheck',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'// Iterate over each subtype and call it''s downgradeCheck().  We currently only 
+// process subtypes that are not part of analysis diagrams.
+
+// Package 
+select one ep_pkg related by self->EP_PKG[R8001];
+if ( not_empty ep_pkg )
+  ep_pkg.downgradeCheck();
+  return;
+end if;
+
+// Constant Specification
+select one cnst_csp related by self->CNST_CSP[R8001];
+if ( not_empty cnst_csp )
+  cnst_csp.downgradeCheck();
+  return;
+end if;
+
+// Interface
+select one c_i related by self->C_I[R8001];
+if ( not_empty c_i )
+  c_i.downgradeCheck();
+  return;
+end if;
+
+// Activity Partition (skipped)
+
+// Model Class
+select one o_obj related by self->O_OBJ[R8001];
+if ( not_empty o_obj )
+  o_obj.downgradeCheck();
+  return;
+end if;
+
+// Activity Edge (skipped) 
+
+// Data Type
+select one s_dt related by self->S_DT[R8001];
+if ( not_empty s_dt )
+  // When checking a datatype, we want to initiate the check on the subtype and let it
+  // do the supertype check as part of its processing.
+  select one s_udt related by s_dt->S_UDT[R17];
+  if ( not_empty s_udt )
+    s_udt.downgradeCheck();
+  end if;
+  select one s_sdt related by s_dt->S_SDT[R17];
+  if ( not_empty s_sdt )
+    s_sdt.downgradeCheck();
+  end if;
+  select one s_edt related by s_dt->S_EDT[R17];
+  if ( not_empty s_edt )
+    s_edt.downgradeCheck();
+  end if;
+  return;
+end if;
+
+// Exception
+select one s_exp related by self->S_EXP[R8001];
+if ( not_empty s_exp )
+  s_exp.downgradeCheck();
+  return;
+end if;
+
+// Interaction Participant (skipped)
+
+// Use Case Association (skipped)
+
+// Message (skipped)
+
+// Activity Node (skipped)
+
+// Imported Class
+select one o_iobj related by self->O_IOBJ[R8001];
+if ( not_empty o_iobj )
+  o_iobj.downgradeCheck();
+  return;
+end if;
+
+// Component
+select one c_c related by self->C_C[R8001];
+if ( not_empty c_c )
+  c_c.downgradeCheck();
+  return;
+end if;
+
+// Association
+select one r_rel related by self->R_REL[R8001];
+if ( not_empty r_rel )
+  r_rel.downgradeCheck();
+  return;
+end if;
+
+// Function
+select one s_sync related by self->S_SYNC[R8001];
+if ( not_empty s_sync )
+  s_sync.downgradeCheck();
+  return;
+end if;
+
+// Component Reference
+select one cl_ic related by self->CL_IC[R8001];
+if ( not_empty cl_ic )
+  cl_ic.downgradeCheck();
+  return;
+end if;
+
+// Satisfaction
+select one c_sf related by self->C_SF[R8001];
+if ( not_empty c_sf )
+  c_sf.downgradeCheck();
+  return;
+end if;
+
+// External Entity
+select one s_ee related by self->S_EE[R8001];
+if ( not_empty s_ee )
+  s_ee.downgradeCheck();
+  return;
+end if;
+
+// Delegation
+select one c_dg related by self->C_DG[R8001];
+if ( not_empty c_dg )
+  c_dg.downgradeCheck();
+  return;
+end if;
+',
+	1,
+	'',
+	"39234bd4-7c4b-4acb-ba0a-3941999ac9d1");
 INSERT INTO O_NBATTR
 	VALUES ("5776264f-c7e9-4abe-839f-24d0750e007c",
 	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6");
