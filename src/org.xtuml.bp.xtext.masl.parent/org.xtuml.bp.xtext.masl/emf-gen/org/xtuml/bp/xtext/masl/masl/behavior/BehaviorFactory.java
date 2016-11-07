@@ -23,6 +23,15 @@ public interface BehaviorFactory extends EFactory {
 	BehaviorFactory eINSTANCE = org.xtuml.bp.xtext.masl.masl.behavior.impl.BehaviorFactoryImpl.init();
 
 	/**
+	 * Returns a new object of class '<em>Statement List</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Statement List</em>'.
+	 * @generated
+	 */
+	StatementList createStatementList();
+
+	/**
 	 * Returns a new object of class '<em>Code Block</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

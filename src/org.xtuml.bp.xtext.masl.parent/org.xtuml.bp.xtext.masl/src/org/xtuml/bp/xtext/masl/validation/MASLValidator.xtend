@@ -23,6 +23,7 @@ import org.xtuml.bp.xtext.masl.masl.structure.SubtypeRelationshipDefinition
 import static org.xtuml.bp.xtext.masl.validation.MaslIssueCodesProvider.*
 
 import static extension org.eclipse.xtext.EcoreUtil2.*
+import org.xtuml.bp.xtext.masl.masl.behavior.StatementList
 
 /**
  * This class contains custom validation rules. 
@@ -74,7 +75,7 @@ class MASLValidator extends AbstractMASLValidator {
 	@Check
 	def checkReturnIsLastStatement(ReturnStatement it) {
 		val parent = eContainer 
-		if(parent instanceof CodeBlock) {
+		if(parent instanceof StatementList) {
 			val siblings = parent.statements
 			val index = siblings.indexOf(it)
 			if(index < siblings.size()-1) {

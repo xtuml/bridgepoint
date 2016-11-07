@@ -72,10 +72,17 @@ public class BehaviorSwitch<T> extends Switch<T> {
 	@Override
 	protected T doSwitch(int classifierID, EObject theEObject) {
 		switch (classifierID) {
+			case BehaviorPackage.STATEMENT_LIST: {
+				StatementList statementList = (StatementList)theEObject;
+				T result = caseStatementList(statementList);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			case BehaviorPackage.CODE_BLOCK: {
 				CodeBlock codeBlock = (CodeBlock)theEObject;
 				T result = caseCodeBlock(codeBlock);
 				if (result == null) result = caseCodeBlockStatement(codeBlock);
+				if (result == null) result = caseStatementList(codeBlock);
 				if (result == null) result = caseAbstractStatement(codeBlock);
 				if (result == null) result = casePragmatized(codeBlock);
 				if (result == null) result = defaultCase(theEObject);
@@ -93,12 +100,14 @@ public class BehaviorSwitch<T> extends Switch<T> {
 			case BehaviorPackage.EXCEPTION_HANDLER: {
 				ExceptionHandler exceptionHandler = (ExceptionHandler)theEObject;
 				T result = caseExceptionHandler(exceptionHandler);
+				if (result == null) result = caseStatementList(exceptionHandler);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case BehaviorPackage.DEFAULT_EXCEPTION_HANDLER: {
 				DefaultExceptionHandler defaultExceptionHandler = (DefaultExceptionHandler)theEObject;
 				T result = caseDefaultExceptionHandler(defaultExceptionHandler);
+				if (result == null) result = caseStatementList(defaultExceptionHandler);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -194,6 +203,7 @@ public class BehaviorSwitch<T> extends Switch<T> {
 				IfStatement ifStatement = (IfStatement)theEObject;
 				T result = caseIfStatement(ifStatement);
 				if (result == null) result = caseAbstractStatement(ifStatement);
+				if (result == null) result = caseStatementList(ifStatement);
 				if (result == null) result = casePragmatized(ifStatement);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
@@ -201,12 +211,14 @@ public class BehaviorSwitch<T> extends Switch<T> {
 			case BehaviorPackage.ELSIF_BLOCK: {
 				ElsifBlock elsifBlock = (ElsifBlock)theEObject;
 				T result = caseElsifBlock(elsifBlock);
+				if (result == null) result = caseStatementList(elsifBlock);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case BehaviorPackage.ELSE_BLOCK: {
 				ElseBlock elseBlock = (ElseBlock)theEObject;
 				T result = caseElseBlock(elseBlock);
+				if (result == null) result = caseStatementList(elseBlock);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -214,6 +226,7 @@ public class BehaviorSwitch<T> extends Switch<T> {
 				WhileStatement whileStatement = (WhileStatement)theEObject;
 				T result = caseWhileStatement(whileStatement);
 				if (result == null) result = caseAbstractStatement(whileStatement);
+				if (result == null) result = caseStatementList(whileStatement);
 				if (result == null) result = casePragmatized(whileStatement);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
@@ -229,12 +242,14 @@ public class BehaviorSwitch<T> extends Switch<T> {
 			case BehaviorPackage.CASE_ALTERNATIVE: {
 				CaseAlternative caseAlternative = (CaseAlternative)theEObject;
 				T result = caseCaseAlternative(caseAlternative);
+				if (result == null) result = caseStatementList(caseAlternative);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case BehaviorPackage.CASE_OTHERS: {
 				CaseOthers caseOthers = (CaseOthers)theEObject;
 				T result = caseCaseOthers(caseOthers);
+				if (result == null) result = caseStatementList(caseOthers);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -242,6 +257,7 @@ public class BehaviorSwitch<T> extends Switch<T> {
 				ForStatement forStatement = (ForStatement)theEObject;
 				T result = caseForStatement(forStatement);
 				if (result == null) result = caseAbstractStatement(forStatement);
+				if (result == null) result = caseStatementList(forStatement);
 				if (result == null) result = casePragmatized(forStatement);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
@@ -674,6 +690,21 @@ public class BehaviorSwitch<T> extends Switch<T> {
 			}
 			default: return defaultCase(theEObject);
 		}
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Statement List</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Statement List</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseStatementList(StatementList object) {
+		return null;
 	}
 
 	/**

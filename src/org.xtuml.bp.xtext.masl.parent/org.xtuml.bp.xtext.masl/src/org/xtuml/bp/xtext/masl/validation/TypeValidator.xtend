@@ -13,10 +13,13 @@ import org.xtuml.bp.xtext.masl.masl.behavior.ActionCall
 import org.xtuml.bp.xtext.masl.masl.behavior.BehaviorPackage
 import org.xtuml.bp.xtext.masl.masl.behavior.Expression
 import org.xtuml.bp.xtext.masl.masl.behavior.IndexedExpression
+import org.xtuml.bp.xtext.masl.masl.behavior.LinkExpression
 import org.xtuml.bp.xtext.masl.masl.behavior.NavigateExpression
 import org.xtuml.bp.xtext.masl.masl.behavior.SimpleFeatureCall
+import org.xtuml.bp.xtext.masl.masl.behavior.StatementList
 import org.xtuml.bp.xtext.masl.masl.behavior.TerminatorActionCall
 import org.xtuml.bp.xtext.masl.masl.structure.AbstractActionDeclaration
+import org.xtuml.bp.xtext.masl.masl.structure.AbstractFeature
 import org.xtuml.bp.xtext.masl.masl.structure.AssocRelationshipDefinition
 import org.xtuml.bp.xtext.masl.masl.structure.ObjectFunctionDeclaration
 import org.xtuml.bp.xtext.masl.masl.structure.ObjectFunctionDefinition
@@ -43,7 +46,6 @@ import org.xtuml.bp.xtext.masl.typesystem.StructureType
 
 import static org.xtuml.bp.xtext.masl.typesystem.BuiltinType.*
 import static org.xtuml.bp.xtext.masl.validation.MaslIssueCodesProvider.*
-import org.xtuml.bp.xtext.masl.masl.structure.AbstractFeature
 
 class TypeValidator extends AbstractMASLValidator {
 	
@@ -239,5 +241,14 @@ class TypeValidator extends AbstractMASLValidator {
 				}
 			} 
 		}
+	}
+	
+	@Check
+	def void checkLinkExpressionHasAssociativeRelationship(LinkExpression it) {
+		// link statement can have any type of relationship 
+		if(eContainer instanceof StatementList || navigation?.relationship instanceof AssocRelationshipDefinition)
+			return 
+		else
+			addIssue("Relationship '" + navigation?.relationship?.name + "' in link expression must be associative.", navigation, structurePackage.relationshipNavigation_Relationship, INVALID_LINK_EXPRESSION)
 	}
 }

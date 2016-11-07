@@ -12,43 +12,45 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
+import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
+
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
+import org.xtuml.bp.xtext.masl.masl.behavior.AbstractStatement;
 import org.xtuml.bp.xtext.masl.masl.behavior.BehaviorPackage;
-import org.xtuml.bp.xtext.masl.masl.behavior.CaseAlternative;
-import org.xtuml.bp.xtext.masl.masl.behavior.Expression;
+import org.xtuml.bp.xtext.masl.masl.behavior.StatementList;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Case Alternative</b></em>'.
+ * An implementation of the model object '<em><b>Statement List</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link org.xtuml.bp.xtext.masl.masl.behavior.impl.CaseAlternativeImpl#getChoices <em>Choices</em>}</li>
+ *   <li>{@link org.xtuml.bp.xtext.masl.masl.behavior.impl.StatementListImpl#getStatements <em>Statements</em>}</li>
  * </ul>
  *
  * @generated
  */
-public class CaseAlternativeImpl extends StatementListImpl implements CaseAlternative {
+public class StatementListImpl extends MinimalEObjectImpl.Container implements StatementList {
 	/**
-	 * The cached value of the '{@link #getChoices() <em>Choices</em>}' containment reference list.
+	 * The cached value of the '{@link #getStatements() <em>Statements</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getChoices()
+	 * @see #getStatements()
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<Expression> choices;
+	protected EList<AbstractStatement> statements;
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected CaseAlternativeImpl() {
+	protected StatementListImpl() {
 		super();
 	}
 
@@ -59,7 +61,7 @@ public class CaseAlternativeImpl extends StatementListImpl implements CaseAltern
 	 */
 	@Override
 	protected EClass eStaticClass() {
-		return BehaviorPackage.Literals.CASE_ALTERNATIVE;
+		return BehaviorPackage.Literals.STATEMENT_LIST;
 	}
 
 	/**
@@ -67,11 +69,11 @@ public class CaseAlternativeImpl extends StatementListImpl implements CaseAltern
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<Expression> getChoices() {
-		if (choices == null) {
-			choices = new EObjectContainmentEList<Expression>(Expression.class, this, BehaviorPackage.CASE_ALTERNATIVE__CHOICES);
+	public EList<AbstractStatement> getStatements() {
+		if (statements == null) {
+			statements = new EObjectContainmentEList<AbstractStatement>(AbstractStatement.class, this, BehaviorPackage.STATEMENT_LIST__STATEMENTS);
 		}
-		return choices;
+		return statements;
 	}
 
 	/**
@@ -82,8 +84,8 @@ public class CaseAlternativeImpl extends StatementListImpl implements CaseAltern
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case BehaviorPackage.CASE_ALTERNATIVE__CHOICES:
-				return ((InternalEList<?>)getChoices()).basicRemove(otherEnd, msgs);
+			case BehaviorPackage.STATEMENT_LIST__STATEMENTS:
+				return ((InternalEList<?>)getStatements()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -96,8 +98,8 @@ public class CaseAlternativeImpl extends StatementListImpl implements CaseAltern
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case BehaviorPackage.CASE_ALTERNATIVE__CHOICES:
-				return getChoices();
+			case BehaviorPackage.STATEMENT_LIST__STATEMENTS:
+				return getStatements();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -111,9 +113,9 @@ public class CaseAlternativeImpl extends StatementListImpl implements CaseAltern
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case BehaviorPackage.CASE_ALTERNATIVE__CHOICES:
-				getChoices().clear();
-				getChoices().addAll((Collection<? extends Expression>)newValue);
+			case BehaviorPackage.STATEMENT_LIST__STATEMENTS:
+				getStatements().clear();
+				getStatements().addAll((Collection<? extends AbstractStatement>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -127,8 +129,8 @@ public class CaseAlternativeImpl extends StatementListImpl implements CaseAltern
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case BehaviorPackage.CASE_ALTERNATIVE__CHOICES:
-				getChoices().clear();
+			case BehaviorPackage.STATEMENT_LIST__STATEMENTS:
+				getStatements().clear();
 				return;
 		}
 		super.eUnset(featureID);
@@ -142,10 +144,10 @@ public class CaseAlternativeImpl extends StatementListImpl implements CaseAltern
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case BehaviorPackage.CASE_ALTERNATIVE__CHOICES:
-				return choices != null && !choices.isEmpty();
+			case BehaviorPackage.STATEMENT_LIST__STATEMENTS:
+				return statements != null && !statements.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}
 
-} //CaseAlternativeImpl
+} //StatementListImpl

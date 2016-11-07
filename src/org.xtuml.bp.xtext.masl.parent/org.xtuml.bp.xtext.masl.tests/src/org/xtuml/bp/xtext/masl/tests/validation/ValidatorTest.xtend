@@ -493,6 +493,49 @@ class ValidatorTest {
 			end
 		''').assertNoErrors(INVISIBLE_FEATURE)
 	}
+	
+	@Test 
+	def void testLinkExpression() {
+		load('''
+			domain dom is
+				object Foo;
+				object Foo is end;
+				relationship R1 is 
+					Foo conditionally there one Foo,
+					Foo conditionally back one Foo
+					using Foo;
+				service serv(foo: in instance of Foo);				
+			end;
+		''').assertNoErrors()
+		load('''	
+			service dom::serv(foo: in instance of Foo) is
+				foo2: instance of Foo;
+			begin
+				foo2 = link foo R1 foo;
+			end
+		''').assertNoErrors(INVALID_LINK_EXPRESSION)
+	}
+
+	@Test 
+	def void testLinkExpression1() {
+		load('''
+			domain dom is
+				object Foo;
+				object Foo is end;
+				relationship R1 is 
+					Foo conditionally there one Foo,
+					Foo conditionally back one Foo;
+				service serv(foo: in instance of Foo);				
+			end;
+		''').assertNoErrors()
+		load('''	
+			service dom::serv(foo: in instance of Foo) is
+				foo2: instance of Foo;
+			begin
+				foo2 = link foo R1 foo;
+			end
+		''').assertError(relationshipNavigation, INVALID_LINK_EXPRESSION)
+	}
 
 	private def assertNoError(EObject element, String type) {
 		!element.validate.exists[

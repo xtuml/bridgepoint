@@ -24,6 +24,7 @@ import org.xtuml.bp.xtext.masl.masl.behavior.ElseBlock;
 import org.xtuml.bp.xtext.masl.masl.behavior.ElsifBlock;
 import org.xtuml.bp.xtext.masl.masl.behavior.Expression;
 import org.xtuml.bp.xtext.masl.masl.behavior.IfStatement;
+import org.xtuml.bp.xtext.masl.masl.behavior.StatementList;
 
 /**
  * <!-- begin-user-doc -->
@@ -33,8 +34,8 @@ import org.xtuml.bp.xtext.masl.masl.behavior.IfStatement;
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link org.xtuml.bp.xtext.masl.masl.behavior.impl.IfStatementImpl#getCondition <em>Condition</em>}</li>
  *   <li>{@link org.xtuml.bp.xtext.masl.masl.behavior.impl.IfStatementImpl#getStatements <em>Statements</em>}</li>
+ *   <li>{@link org.xtuml.bp.xtext.masl.masl.behavior.impl.IfStatementImpl#getCondition <em>Condition</em>}</li>
  *   <li>{@link org.xtuml.bp.xtext.masl.masl.behavior.impl.IfStatementImpl#getElseIfs <em>Else Ifs</em>}</li>
  *   <li>{@link org.xtuml.bp.xtext.masl.masl.behavior.impl.IfStatementImpl#getElse <em>Else</em>}</li>
  * </ul>
@@ -42,16 +43,6 @@ import org.xtuml.bp.xtext.masl.masl.behavior.IfStatement;
  * @generated
  */
 public class IfStatementImpl extends AbstractStatementImpl implements IfStatement {
-	/**
-	 * The cached value of the '{@link #getCondition() <em>Condition</em>}' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getCondition()
-	 * @generated
-	 * @ordered
-	 */
-	protected Expression condition;
-
 	/**
 	 * The cached value of the '{@link #getStatements() <em>Statements</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
@@ -61,6 +52,16 @@ public class IfStatementImpl extends AbstractStatementImpl implements IfStatemen
 	 * @ordered
 	 */
 	protected EList<AbstractStatement> statements;
+
+	/**
+	 * The cached value of the '{@link #getCondition() <em>Condition</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getCondition()
+	 * @generated
+	 * @ordered
+	 */
+	protected Expression condition;
 
 	/**
 	 * The cached value of the '{@link #getElseIfs() <em>Else Ifs</em>}' containment reference list.
@@ -106,6 +107,18 @@ public class IfStatementImpl extends AbstractStatementImpl implements IfStatemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EList<AbstractStatement> getStatements() {
+		if (statements == null) {
+			statements = new EObjectContainmentEList<AbstractStatement>(AbstractStatement.class, this, BehaviorPackage.IF_STATEMENT__STATEMENTS);
+		}
+		return statements;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public Expression getCondition() {
 		return condition;
 	}
@@ -142,18 +155,6 @@ public class IfStatementImpl extends AbstractStatementImpl implements IfStatemen
 		}
 		else if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, BehaviorPackage.IF_STATEMENT__CONDITION, newCondition, newCondition));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EList<AbstractStatement> getStatements() {
-		if (statements == null) {
-			statements = new EObjectContainmentEList<AbstractStatement>(AbstractStatement.class, this, BehaviorPackage.IF_STATEMENT__STATEMENTS);
-		}
-		return statements;
 	}
 
 	/**
@@ -219,10 +220,10 @@ public class IfStatementImpl extends AbstractStatementImpl implements IfStatemen
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case BehaviorPackage.IF_STATEMENT__CONDITION:
-				return basicSetCondition(null, msgs);
 			case BehaviorPackage.IF_STATEMENT__STATEMENTS:
 				return ((InternalEList<?>)getStatements()).basicRemove(otherEnd, msgs);
+			case BehaviorPackage.IF_STATEMENT__CONDITION:
+				return basicSetCondition(null, msgs);
 			case BehaviorPackage.IF_STATEMENT__ELSE_IFS:
 				return ((InternalEList<?>)getElseIfs()).basicRemove(otherEnd, msgs);
 			case BehaviorPackage.IF_STATEMENT__ELSE:
@@ -239,10 +240,10 @@ public class IfStatementImpl extends AbstractStatementImpl implements IfStatemen
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case BehaviorPackage.IF_STATEMENT__CONDITION:
-				return getCondition();
 			case BehaviorPackage.IF_STATEMENT__STATEMENTS:
 				return getStatements();
+			case BehaviorPackage.IF_STATEMENT__CONDITION:
+				return getCondition();
 			case BehaviorPackage.IF_STATEMENT__ELSE_IFS:
 				return getElseIfs();
 			case BehaviorPackage.IF_STATEMENT__ELSE:
@@ -260,12 +261,12 @@ public class IfStatementImpl extends AbstractStatementImpl implements IfStatemen
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case BehaviorPackage.IF_STATEMENT__CONDITION:
-				setCondition((Expression)newValue);
-				return;
 			case BehaviorPackage.IF_STATEMENT__STATEMENTS:
 				getStatements().clear();
 				getStatements().addAll((Collection<? extends AbstractStatement>)newValue);
+				return;
+			case BehaviorPackage.IF_STATEMENT__CONDITION:
+				setCondition((Expression)newValue);
 				return;
 			case BehaviorPackage.IF_STATEMENT__ELSE_IFS:
 				getElseIfs().clear();
@@ -286,11 +287,11 @@ public class IfStatementImpl extends AbstractStatementImpl implements IfStatemen
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case BehaviorPackage.IF_STATEMENT__CONDITION:
-				setCondition((Expression)null);
-				return;
 			case BehaviorPackage.IF_STATEMENT__STATEMENTS:
 				getStatements().clear();
+				return;
+			case BehaviorPackage.IF_STATEMENT__CONDITION:
+				setCondition((Expression)null);
 				return;
 			case BehaviorPackage.IF_STATEMENT__ELSE_IFS:
 				getElseIfs().clear();
@@ -310,16 +311,48 @@ public class IfStatementImpl extends AbstractStatementImpl implements IfStatemen
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case BehaviorPackage.IF_STATEMENT__CONDITION:
-				return condition != null;
 			case BehaviorPackage.IF_STATEMENT__STATEMENTS:
 				return statements != null && !statements.isEmpty();
+			case BehaviorPackage.IF_STATEMENT__CONDITION:
+				return condition != null;
 			case BehaviorPackage.IF_STATEMENT__ELSE_IFS:
 				return elseIfs != null && !elseIfs.isEmpty();
 			case BehaviorPackage.IF_STATEMENT__ELSE:
 				return else_ != null;
 		}
 		return super.eIsSet(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public int eBaseStructuralFeatureID(int derivedFeatureID, Class<?> baseClass) {
+		if (baseClass == StatementList.class) {
+			switch (derivedFeatureID) {
+				case BehaviorPackage.IF_STATEMENT__STATEMENTS: return BehaviorPackage.STATEMENT_LIST__STATEMENTS;
+				default: return -1;
+			}
+		}
+		return super.eBaseStructuralFeatureID(derivedFeatureID, baseClass);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public int eDerivedStructuralFeatureID(int baseFeatureID, Class<?> baseClass) {
+		if (baseClass == StatementList.class) {
+			switch (baseFeatureID) {
+				case BehaviorPackage.STATEMENT_LIST__STATEMENTS: return BehaviorPackage.IF_STATEMENT__STATEMENTS;
+				default: return -1;
+			}
+		}
+		return super.eDerivedStructuralFeatureID(baseFeatureID, baseClass);
 	}
 
 } //IfStatementImpl

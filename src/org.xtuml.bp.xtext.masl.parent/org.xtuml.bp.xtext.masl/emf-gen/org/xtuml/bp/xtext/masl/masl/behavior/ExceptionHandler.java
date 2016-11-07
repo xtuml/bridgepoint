@@ -3,10 +3,6 @@
  */
 package org.xtuml.bp.xtext.masl.masl.behavior;
 
-import org.eclipse.emf.common.util.EList;
-
-import org.eclipse.emf.ecore.EObject;
-
 import org.xtuml.bp.xtext.masl.masl.structure.ExceptionDeclaration;
 
 /**
@@ -19,14 +15,13 @@ import org.xtuml.bp.xtext.masl.masl.structure.ExceptionDeclaration;
  * </p>
  * <ul>
  *   <li>{@link org.xtuml.bp.xtext.masl.masl.behavior.ExceptionHandler#getException <em>Exception</em>}</li>
- *   <li>{@link org.xtuml.bp.xtext.masl.masl.behavior.ExceptionHandler#getStatements <em>Statements</em>}</li>
  * </ul>
  *
  * @see org.xtuml.bp.xtext.masl.masl.behavior.BehaviorPackage#getExceptionHandler()
  * @model
  * @generated
  */
-public interface ExceptionHandler extends EObject {
+public interface ExceptionHandler extends StatementList {
 	/**
 	 * Returns the value of the '<em><b>Exception</b></em>' reference.
 	 * <!-- begin-user-doc -->
@@ -52,21 +47,5 @@ public interface ExceptionHandler extends EObject {
 	 * @generated
 	 */
 	void setException(ExceptionDeclaration value);
-
-	/**
-	 * Returns the value of the '<em><b>Statements</b></em>' containment reference list.
-	 * The list contents are of type {@link org.xtuml.bp.xtext.masl.masl.behavior.AbstractStatement}.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Statements</em>' containment reference list isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Statements</em>' containment reference list.
-	 * @see org.xtuml.bp.xtext.masl.masl.behavior.BehaviorPackage#getExceptionHandler_Statements()
-	 * @model containment="true"
-	 * @generated
-	 */
-	EList<AbstractStatement> getStatements();
 
 } // ExceptionHandler
