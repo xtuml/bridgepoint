@@ -46,6 +46,8 @@ import org.xtuml.bp.xtext.masl.typesystem.StructureType
 
 import static org.xtuml.bp.xtext.masl.typesystem.BuiltinType.*
 import static org.xtuml.bp.xtext.masl.validation.MaslIssueCodesProvider.*
+import org.xtuml.bp.xtext.masl.masl.behavior.RaiseStatement
+import org.xtuml.bp.xtext.masl.masl.behavior.GenerateStatement
 
 class TypeValidator extends AbstractMASLValidator {
 	
@@ -125,6 +127,18 @@ class TypeValidator extends AbstractMASLValidator {
 		if(terminatorAction != null && !terminatorAction.eIsProxy && !isVisible) {
 			addIssue(terminatorAction?.eClass?.name + ' ' + terminatorAction.name + ' is not visible in this context.', it, terminatorActionCall_TerminatorAction, INVISIBLE_FEATURE)
 		}
+	}
+	
+	@Check 
+	def checkGenerateStatement(GenerateStatement it) {
+		val argTypes = arguments.map[maslType]
+		val ranked = rankParameterized(event, argTypes)
+		if(!ranked.acceptable) 
+			addIssue('''The event «
+				event.fullyQualifiedName»«event.parametersAsString
+				» cannot be generated with arguments («
+					arguments.map[maslType.toString].join(', ')
+				»)''', it, generateStatement_Event, WRONG_TYPE)
 	}
 	
 	@Check
