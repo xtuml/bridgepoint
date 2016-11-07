@@ -28,6 +28,8 @@ import org.xtuml.bp.xtext.masl.masl.structure.SubtypeRelationshipDefinition
 import static org.xtuml.bp.xtext.masl.typesystem.BuiltinType.*
 
 import static extension org.eclipse.xtext.EcoreUtil2.*
+import org.xtuml.bp.xtext.masl.masl.behavior.CancelTimerStatement
+import org.xtuml.bp.xtext.masl.masl.behavior.ScheduleStatement
 
 class MaslExpectedTypeProvider {
 
@@ -71,6 +73,14 @@ class MaslExpectedTypeProvider {
 			|| reference == elsifBlock_Condition
 			|| reference == whileStatement_Condition)
 			return #[BOOLEAN]
+		if(reference == delayStatement_Value)
+			return #[DURATION]
+		if(reference == scheduleStatement_TimerId 
+			||reference == cancelTimerStatement_TimerId)
+			return #[TIMER]
+		if(reference == scheduleStatement_Time) 
+			return #[DURATION]
+		
 		return #[]
 	}
 

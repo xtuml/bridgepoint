@@ -204,7 +204,7 @@ class MASLExtensions {
 		}
 	}
 		
-	def ObjectDeclaration getContainerObject(Expression expr) {
+	def ObjectDeclaration getContainerObject(EObject expr) {
 		var parent = expr.eContainer
 		while (parent != null) {
 			switch parent {

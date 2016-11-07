@@ -533,7 +533,7 @@ enum ScheduleType:
 	| delay;
 
 GenerateStatement:
-	'generate' object=[ObjectDeclaration|ScopedName] '.' event=[EventDefinition]
+	'generate' (object=[ObjectDeclaration|ScopedName] '.')? event=[EventDefinition]
 	'(' (arguments+=Expression (',' arguments+=Expression)*)? ')' ('to' to=Expression)?;
 
 IfStatement:
