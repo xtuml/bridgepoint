@@ -23,7 +23,7 @@ INSERT INTO CME VALUES ('Rename', '',                         'S_SYS',    '',   
 INSERT INTO CME VALUES ('New','Package',                      'S_SYS', 'EP_PKG',           false, '', '', false, '', false, false, '' ,'->EP_PKG[R1401]');
 INSERT INTO CME VALUES ('Delete', '',                         'CL_IC', '',                 true );
 INSERT INTO CME VALUES ('',       'Unassign',                 'CL_IC', '',                 false, '', '*');
-INSERT INTO CME VALUES ('',       'Unassign',                 'EP_PKG', '',             false, '', '*');
+INSERT INTO CME VALUES ('',       'Unassign',                 'EP_PKG', '',                false, '', '*');
 INSERT INTO CME VALUES ('Delete', '',                         'C_C',   '',                 true );
 INSERT INTO CME VALUES ('Rename', '',                         'C_C',   '',                 true );
 INSERT INTO CME VALUES ('New',    'Package',                  'C_C',   'EP_PKG',           false , '', '', false, '', false, false, '' ,'->PE_PE[R8003]->EP_PKG[R8001]');
@@ -265,7 +265,7 @@ INSERT INTO CME VALUES ('Set',       'Type',             'S_UDT',   'S_DT',     
 INSERT INTO CME VALUES ('Set',       'Type',             'CNST_LSC','S_DT',                  false, '', '*', false, '', true );
 INSERT INTO CME VALUES ('Generic Package', 'Assign Class', 'O_IOBJ', 'O_OBJ',                 false, 'Select class this imported class represents', '1', false, '', true, false, 'class' );
 INSERT INTO CME VALUES ('Generic Package', 'Assign Component', 'CL_IC', 'C_C',                false, 'Choose the component to reference', '*', false, '', true, false, 'component'); 
-INSERT INTO CME VALUES ('Generic Package', 'Assign As Package Reference', 'EP_PKG', 'EP_PKG',false, 'Choose the package to reference', '1', false, '', true, false, 'package' );
+INSERT INTO CME VALUES ('',                'Assign As Package Reference', 'EP_PKG', 'EP_PKG',false, 'Choose the package to reference', '1', false, '', true, false, 'package' );
 INSERT INTO CME VALUES ('',          'Make Public',      'O_OBJ',   '',                      false, '' );
 INSERT INTO CME VALUES ('',          'Make Protected',   'O_OBJ',   '',                      false, '' );
 INSERT INTO CME VALUES ('',          'Make Private',     'O_OBJ',   '',                      false, '' );
@@ -397,7 +397,7 @@ INSERT INTO MEF VALUES ('Generic Package',        'Formalize',  'C_DG',    'can'
 INSERT INTO MEF VALUES ('',    'Unformalize',  'C_DG',    'can', 'unformalize' );
 INSERT INTO MEF VALUES ('Generic Package',        'Assign Component',  'CL_IC',    'can', 'assign generic pkg' );
 INSERT INTO MEF VALUES ('',    'Unassign',  'CL_IC',    'can', 'unassign' );
-INSERT INTO MEF VALUES ('Generic Package',        'Assign As Package Reference',  'EP_PKG',    'can', 'assign generic pkg' );
+INSERT INTO MEF VALUES ('',    'Assign As Package Reference',  'EP_PKG',    'can', 'assign' );
 INSERT INTO MEF VALUES ('',    'Unassign',  'EP_PKG',    'can', 'unassign' ); 
 INSERT INTO MEF VALUES ('',       'Move Up',       'S_MBR',    'can', 'move up' );
 INSERT INTO MEF VALUES ('',       'Move Down',     'S_MBR',    'can', 'move down' );

@@ -330,7 +330,7 @@ if(param.name == "can")
     if not_empty pe 
       return pe.Visibility != Visibility::Private;
     end if;
-  elif param.value == "assign generic pkg"
+  elif param.value == "assign"
     select any pe_pe related by self->PE_PE[R8000];
     if (empty pe_pe)
       return true;
@@ -6382,6 +6382,90 @@ end for;',
 	1,
 	'',
 	"71f25991-161d-4092-b684-a166114dab97");
+INSERT INTO O_TFR
+	VALUES ("1e6a84be-d2ea-4a2f-aab2-9b2385f7a6b0",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'isAssigned',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000001",
+	1,
+	'rval = false;
+
+select one ep_pkgref related by self->EP_PKGREF[R1402.''refers to''];
+if (not_empty ep_pkgref)
+  rval = true;
+end if;
+
+return rval;',
+	1,
+	'',
+	"12903e07-fb7b-44f1-a698-f648059f3ee1");
+INSERT INTO O_TFR
+	VALUES ("91ec38ef-2d51-4055-a2ec-99af3640e214",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'unAssign',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'select one ep_pkgref related by self->EP_PKGREF[R1402.''refers to''];
+if (not_empty ep_pkgref)
+  select one ep_pkg related by self->EP_PKGREF[R1402.''refers to'']->EP_PKG[R1402.''refers to''];
+  unrelate self from ep_pkg across R1402.''refers to'' using ep_pkgref;
+  delete object instance ep_pkgref;
+end if;
+',
+	1,
+	'',
+	"1e6a84be-d2ea-4a2f-aab2-9b2385f7a6b0");
+INSERT INTO O_TFR
+	VALUES ("c3f0e2bc-b2dd-4ffb-bbc1-686fc6fb6acf",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'assignAsPackageReference',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'select any targetPkg from instances of EP_PKG where selected.Package_ID == param.Id;
+create object instance ep_pkgref of EP_PKGREF;
+
+// If the package reference is already assigned, unassign before proceeding
+if ( self.isAssigned() )
+  self.unAssign();
+end if;
+
+relate self to targetPkg across R1402.''refers to'' using ep_pkgref;
+',
+	1,
+	'',
+	"91ec38ef-2d51-4055-a2ec-99af3640e214");
+INSERT INTO O_TPARM
+	VALUES ("609843af-c529-4be2-9dcf-24652ebc2d59",
+	"c3f0e2bc-b2dd-4ffb-bbc1-686fc6fb6acf",
+	'Id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("cacea0fc-4740-4230-8242-d728c337d0ff",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'canAssignToPackage',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000001",
+	1,
+	'return true;',
+	1,
+	'',
+	"c3f0e2bc-b2dd-4ffb-bbc1-686fc6fb6acf");
+INSERT INTO O_TPARM
+	VALUES ("1bee2e36-253b-43b2-ba47-fae7aa160817",
+	"cacea0fc-4740-4230-8242-d728c337d0ff",
+	'Id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'The ID of the package to check as a target when making this package a package reference.');
 INSERT INTO O_NBATTR
 	VALUES ("bceab74d-6f82-4823-b3be-7791bab58106",
 	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e");

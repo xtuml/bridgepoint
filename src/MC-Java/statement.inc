@@ -474,7 +474,7 @@ else {
   .if ( is_refl.result )
     .select one aone related by rel->R_ASSOC[R206]->R_AONE[R209]
     .select one aoth related by rel->R_ASSOC[R206]->R_AOTH[R210]
-    .select one one_obj related by rel_using_stmt->V_VAR[R617]->V_INT[R814]->O_OBJ[R815]
+    .select one one_obj related by rel_using_stmt->V_VAR[R617]->V_INT[R814]->O_OBJ[R818]
     .if ( one_obj.Obj_ID == aone.Obj_ID )
       .if ( aone.Txt_Phrs == rel_using_stmt.relationship_phrase )
         .assign one_rel_phrase = "$cr{aone.Txt_Phrs}"
