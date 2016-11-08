@@ -391,8 +391,7 @@ if(param.name == "can")
     end if;
     return false;*/
   elif(param.value == "unassign")
-    // TODO return self.isAssigned();
-    return false;
+    return self.isAssigned();
   end if;
 elif (param.name == "has")
   if (param.value == "realized components")
@@ -6424,13 +6423,14 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
-	'select any targetPkg from instances of EP_PKG where selected.Package_ID == param.Id;
-create object instance ep_pkgref of EP_PKGREF;
-
-// If the package reference is already assigned, unassign before proceeding
+	'// If the package reference is already assigned, unassign before proceeding
 if ( self.isAssigned() )
   self.unAssign();
 end if;
+
+select any targetPkg from instances of EP_PKG where selected.Package_ID == param.Id;
+
+create object instance ep_pkgref of EP_PKGREF;
 
 relate self to targetPkg across R1402.''refers to'' using ep_pkgref;
 ',

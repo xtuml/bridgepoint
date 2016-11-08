@@ -501,7 +501,7 @@ if (v_${use_var.Name} != null) {
   v_${use_var.Name}.\
   .end if
   .select one rel related by rel_using_stmt->R_REL[R654]
-relateAcrossR${rel.Numb}To${one_rel_phrase}( \
+relateAcrossR${rel.Numb}To${oth_rel_phrase}( \
   .if ("$l{one_var.Name}" != "self")
 v_${one_var.Name} \
   .else
@@ -511,7 +511,7 @@ this \
   .if ("$l{use_var.Name}" != "self")
   v_${use_var.Name}.\
   .end if  
-relateAcrossR${rel.Numb}To${oth_rel_phrase}( \
+relateAcrossR${rel.Numb}To${one_rel_phrase}( \
   .if ("$l{oth_var.Name}" != "self")
 v_${oth_var.Name} \
   .else
