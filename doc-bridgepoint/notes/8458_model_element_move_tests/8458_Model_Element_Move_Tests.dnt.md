@@ -27,11 +27,12 @@ Analysis referenced in design note.
 
 <a id="2.5"></a>2.5 [Model Element Move User Test Cases #8726](https://support.onefact.net/issues/8726)    
 
-<a id="2.6"></a>2.6 [Keith's Model Element Move Test Model](https://github.com/keithbrown/sandbox/tree/master/models/movetest)  
+<a id="
+"></a>2.6 [Model Element Move Test Model For Downgrade Testing](https://github.com/xtuml/models/tree/master/test/movetest)  
 
-<a id="2.7"></a>2.7 [Bob's Model Element Move Test Model](https://github.com/rmulvey/sandbox/tree/master/7_17_Data_Type_at_top_level)   
+<a id="2.7"></a>2.7 [Model Element Move Test Model For Misc Test Cases](https://github.com/xtuml/models/tree/master/test/ModelElementMoveTests2)   
 
-<a id="2.8"></a>2.8 [Lee's Model Element Move Test Model](https://github.com/xtuml/models/tree/master/test/ModelElementMoveTests)  
+<a id="2.8"></a>2.8 [Main Model Element Move Test Model](https://github.com/xtuml/models/tree/master/test/ModelElementMoveTests)  
 
 3. Background   
 -------------     
@@ -234,7 +235,7 @@ related across R3 in Source package is moved to Destination package.
   * 1. Move a RTO that will cause one or more RGOs to be marked dirty
   * 2. Result is the user should see a dialog warning them that shows them the files that will be checked out. The user should have the chance to cancel at this point.
 
-7.14 Moving a Package
+7.14 Moving a Package (create a model from scratch)
   * 1.    Create a xtUML project
   * 2.    Create a package named P1 at top level
   * 3.    Create a package named P1-1 in P1
@@ -250,7 +251,7 @@ related across R3 in Source package is moved to Destination package.
   * 13.   P2 is not available at top level, P2 is under P3   
   
 
-7.15 Move class into component
+7.15 Move class into component (create a model from scratch)
 
 
   * 1.       Create a xtUML project
@@ -261,7 +262,7 @@ related across R3 in Source package is moved to Destination package.
   * 6.       Cut CL1
   * 7.       Paste into COMP1-P1  
 
-7.16  Move class in association into component
+7.16  Move class in association into component (create a model from scratch)
   * 1.    Create a xtUML project
   * 2.    Create a package named P1 at top level
   * 3.    Create a component named COMP1 in P1

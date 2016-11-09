@@ -37,6 +37,8 @@ This is a followup issue that must be completed before MEM is finalized.
 
 <a id="2.9"></a>2.9 [Enable Summary data in the BridgePoint Instance Population Viewer](https://support.onefact.net/issues/8810)  
 
+<a id="2.10"></a>2.10 [Downgrade of component reference leaves an orphaned connector](https://support.onefact.net/issues/8840)  
+
 3. Background
 -------------
 See [Design note for Model Element Move](8321_Model_Element_Move.dnt.md)
@@ -52,7 +54,8 @@ See [Design note for Model Element Move](8321_Model_Element_Move.dnt.md)
 
 6. Implementation Comments
 --------------------------
-6.0 In the design note section 6.4.1.1 that describes the changes made to CanvasPasteAction.java::handleNonDiagramElementAsDestination() to move graphics a change was made.  
+6.0 Graphical Element Move  
+6.0.1 In the design note section 6.4.1.1 that describes the changes made to CanvasPasteAction.java::handleNonDiagramElementAsDestination() to move graphics a change was made.  
 If the element moved if being moved from one PMC (file) to another then the code updates the PMC and
 model root of the soruce element.
 ```
@@ -75,6 +78,17 @@ After Change:
   relate the GraphicalElement to the destination's Model across R1
   update the selected_element's associated container symbol on R307 if containment has changed  
 ```
+
+6.0.2 The design note's section 6.4 read as follows:  
+```
+The exception is in the situation where component references are unassigned, in this case we must run graphics reconciliation to remove the provision and requirements when the element is unassigned. However, note that since unassign is being performed in this situation, no code change outside of the unassign is required.
+```
+That statement is not true. The move implementation does NOT use graphics reconciliation. If fact, graphics reconciliation is
+explicitly disabled for the Move transaction. The Component Reference case does NOT need graphics reconciliation. The reason it does not is that the model eleent downgrade explicitly unformalizes the component reference in the case where it loses
+visiibility and needs to be unformalized. This act of unformalzing causes the graphics for that component reference to be updated.  
+
+6.0.2.1 There is a known bug in the model downgrade case of a component reference. The problem manifests itself by showing un
+un-formalized component reference with a stick and no end after the downgrade [2.10](#2.10).
 
 6.1 During implementation, section 6 of the design note that describes the MEM flow of control was updated. The update was
 made to account for the fact that move of graphical instances is done before any other modifications. This was simply an error in the flow that was fixed.
