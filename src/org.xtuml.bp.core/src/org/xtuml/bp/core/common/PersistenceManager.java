@@ -514,6 +514,10 @@ public class PersistenceManager {
 		if (handler.requirements != null && !handler.requirements.isEmpty()) {
 			handler.performUpgrade();
 		}
+		// Fully load all models
+		for (int i = 0; i < roots.length; ++i) {
+			roots[i].loadComponentAndChildren(new NullProgressMonitor());
+		}
         initializing = false;
         
     }
@@ -1001,7 +1005,7 @@ public class PersistenceManager {
 		IModelImport importer;
 		try {
 			importer = CorePlugin.getModelImportFactory().create(
-					pmc.getFile(), Ooaofooa.getDefaultInstance(),
+					pmc.getFile(), pmc.getActionFile(), Ooaofooa.getDefaultInstance(),
 					pmc, false, false, false, false);
 			return importer.getHeader();
 		} catch (IOException e) {

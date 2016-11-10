@@ -1,0 +1,9 @@
+//
+// UK Crown Copyright (c) 2016. All rights reserved.
+//
+
+public service PSC::ATTENDANT~>Request_Pump_Enable () is
+
+begin
+  null;
+end service;

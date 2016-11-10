@@ -1,0 +1,13 @@
+//
+// Filename: SAC_OP_report_group.tr
+//
+// Description: 
+//
+// UK Crown Copyright (c) 2010. All rights reserved.
+//
+private service SAC::Operator~>report_group (group_name : in  string) is
+begin
+   
+   I_DC::info_Group(group_name);
+   
+end service;

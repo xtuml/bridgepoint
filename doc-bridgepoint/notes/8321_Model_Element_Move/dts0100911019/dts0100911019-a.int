@@ -1,0 +1,162 @@
+========================================================================
+
+File:      $RCSfile: dts0100911019-a.int,v $
+Version:   $Revision: 1991 $
+Modified:  $Date: 2012-11-02 14:29:43 -0700 (Fri, 02 Nov 2012) $
+
+(c) Copyright 2007-2012 by Mentor Graphics Corp. All rights reserved.
+
+========================================================================
+This document contains information proprietary and confidential to
+Mentor Graphics Corp., and is not for external distribution.
+========================================================================
+
+BridgePoint Project Implementation Note
+Initial element naming succeeds but ClearCase plugin still detects default name
+
+1. Abstract
+-----------
+A customer that is using ClearCase as their RCS reported that when the name 
+provided for an element is invalid the element is created anyway and given the
+default name.   In this specific case the reason the given name was invalid 
+was that the element was already in use.  The customer believes no element
+should be created in this situation.
+
+
+2. History
+----------
+
+
+3. Document References
+----------------------
+[1] ClearQuest DEI dts0100911019
+[2] ClearQuest DEI dts0100750573
+    Prompt user for model element name upon creation
+
+4. Background
+-------------
+ 
+
+5. Requirements
+---------------
+ 
+6. Work Required
+----------------
+ 
+
+7. Implementation Comments
+--------------------------
+ 
+
+8. Unit Test
+------------
+ 8.1 Run All JUnit tests
+ 
+ 
+8.2 Assure no modification occur to a model before the successful rename 
+     action.
+_- Start with a model checked-out from a RCS that is using pessimistic 
+   locking
+   svn://tucson.wv.mentorg.com/arch1/products/tiger/doc_repository/trunk/Models/
+         Test/SVNPessimisticLocking
+_- Create an element from the palette
+_R Rename dialog appears
+_R No check out dialog appears
+_R On the file system, no new element is created
+_- Enter a name that is invalid (already in use)
+_R No check out dialog appears
+_R On the file system, no new element is created
+_- enter a valid name and select OK
+_R the new element is created
+        
+8.3 Assure that if a rename operation is canceled the model is not modified. 
+_- Start with a model checked-out from a RCS that is using pessimistic 
+   locking
+   svn://tucson.wv.mentorg.com/arch1/products/tiger/doc_repository/trunk/Models
+    /Test/SVNPessimisticLocking
+_- Create an element from the palette
+_R Rename dialog appears
+_R No check out dialog appears
+_R On the file system, no new element is created
+_- Select cancel
+_R The model is not marked dirty
+_R On the file system, no new element is created
+
+
+8.4 Manually test each element created individually is following 
+   the correct behavior:
+8.4.1 Test Steps:
+_-  Window>preferences> BridgePoint>  uncheck the option 
+    "Use Default Names For New Model Elements">OK
+_- Create xtuml project "project"
+_- Create a systemLevel package "Package"
+_- select element from pallet
+_- draw the element on canvas 
+_- the rename dialog show 
+R-The rename dialog has the default name of the element 
+  i.e. "unnamed element"
+_- dismiss the dialog with cancel
+R- check the file system and make sure no files were created 
+R- check the canvas make sure no elements are present there 
+R- check the tree view and make sure no elements are created 
+_- draw the same element again using pallet 
+_- the rename dialog shows 
+R- The rename dialog has the same default name with 
+   no indexes next to it 
+   i.e. "unnamed element"    
+_- Enter a new name "NewName"
+_- dismiss the dialog with "OK"
+R- check the file system and make sure no files were created
+   with the name "unnamed element" 
+R- check the canvas make sure the element with the name 
+   "NewName" is present 
+R- check the tree view and make sure an element with the
+    name "NewName" is present
+_- select from the pallet the same element 
+_- draw the element on the canvas 
+_- the rename dialog shows 
+_- enter the same name of the existing element "New Name"
+_- dismiss the dialog with ok 
+R- Error message indicating name duplication is there 
+R- check the file system and make sure no new files were added 
+R- check the canvas make sure no new elements are added 
+R- check the tree view and make sure no new elements are added
+     
+     
+   
+
+9. Code Changes
+---------------
+Branch name: Review-dts0100911019-b
+
+com.mentor.nucleus.bp.core/src/com.mentor.nucleus.bp.core.common/
+    PersistenceManager.java
+com.mentor.nucleus.bp.core/arc/create_global_action.inc
+com.mentor.nucleus.bp.core/arc/create_object_action.inc
+com.mentor.nucleus.bp.core/arc/create_rename_action.inc
+com.mentor.nucleus.bp.core/arc/function_body.inc
+
+com.mentor.nucleus.bp.core.test/src/(default package)/CoreTestSuiteGenerics.java
+com.mentor.nucleus.bp.core.test/arc/create_action_test.arc
+
+com.mentor.nucleus.bp.ui.canvas.test/src/com.mentor.nucleus.bp.ui.canvas.test/
+    GraphicalToolCreationTests.java
+
+com.mentor.nucleus.bp.ui.graphics/src/
+    com.mentor.nucleus.bp.ui.graphics.commands/IExecutionValidationCommand.java
+com.mentor.nucleus.bp.ui.graphics/src/
+    com.mentor.nucleus.bp.ui.graphics.commands/ShapeCreationCommand.java
+com.mentor.nucleus.bp.ui.graphics/src/com.mentor.nucleus.bp.ui.graphics.editor/
+    GraphicalCommandStack.java
+
+
+
+
+
+End
+---
+
+$Log: dts0100911019-a.int,v $
+Revision 1.1  2012/10/14 21:49:14  hkhaled
+job:dts0100911019
+commit int

@@ -359,7 +359,7 @@ super.toString\
                 m_propertyDescriptors[${attr_num_attr}] = new TextPropertyDescriptor("${name}", "${fullname}");
             .end if
           .end if
-          .if ((attr.Name == "Name") or (attr.Name == "Root_Nam"))
+          .if (((attr.Name == "Name") or (attr.Name == "Root_Nam")) or (attr.Name == "Txt_Phrs"))
                 m_propertyDescriptors[${attr_num_attr}].setValidator(new ModelElementNameValidator(m_inst));
           .end if
         .end if
@@ -479,8 +479,8 @@ super.toString\
           .assign else_stmt = "else "
         .end if
         }
-      .end if   // empty dbattr
-    .end if  // asa.result
+      .end if   .// empty dbattr
+    .end if  .// asa.result
   .end for
 .end function
 .//

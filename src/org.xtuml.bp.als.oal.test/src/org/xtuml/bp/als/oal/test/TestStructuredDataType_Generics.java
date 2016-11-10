@@ -24,20 +24,25 @@ package org.xtuml.bp.als.oal.test;
 
 import java.util.UUID;
 
-import junit.framework.TestCase;
-import antlr.RecognitionException;
-import antlr.TokenStreamException;
-
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.Block_c;
 import org.xtuml.bp.core.InstanceHandle_c;
 import org.xtuml.bp.core.InstanceSet_c;
 import org.xtuml.bp.core.LiteralEnumerator_c;
 import org.xtuml.bp.core.Statement_c;
-import org.xtuml.bp.core.TransientVar_c;
 import org.xtuml.bp.core.Value_c;
 import org.xtuml.bp.core.Variable_c;
 import org.xtuml.bp.test.common.BaseTest;
+import org.xtuml.bp.test.common.OrderedRunner;
 
+import antlr.RecognitionException;
+import antlr.TokenStreamException;
+import junit.framework.TestCase;
+
+@RunWith(OrderedRunner.class)
 public class TestStructuredDataType_Generics extends TestCase {
 
     // This test class just tests the *negative* cases where we expect to find
@@ -46,11 +51,13 @@ public class TestStructuredDataType_Generics extends TestCase {
     // uses of SDTs in BP.  It is ran as part of the "Parse All" unit tests
     // defined in ParseAllInDomain.java.
 
-    protected void setUp() throws Exception {
+    @Before
+	public void setUp() throws Exception {
         super.setUp();
     }
 
-    protected void tearDown() throws Exception {
+    @After
+	public void tearDown() throws Exception {
         try {
             super.tearDown();
             OalParserTest_Generics.tearDownActionData();
@@ -62,7 +69,8 @@ public class TestStructuredDataType_Generics extends TestCase {
     }
 
     // Test some invalid assignments using SDTs
-    public void testAssignTypeMismatchBool2SDT() throws RecognitionException,
+    @Test
+	public void testAssignTypeMismatchBool2SDT() throws RecognitionException,
             TokenStreamException {
         UUID personId = BaseTest.getTypeID_Generic(OalParserTest_Generics.modelRoot, "Person");//$NON-NLS-1$
         UUID boolId = BaseTest.getTypeID_Generic(OalParserTest_Generics.modelRoot, "boolean");//$NON-NLS-1$
@@ -71,7 +79,8 @@ public class TestStructuredDataType_Generics extends TestCase {
                 "select any t from instances of D_TST;\nx = t.sdt_identity;\ny = true;\nx = y;\n ",
                 personId, boolId, 2, 1, 0); //$NON-NLS-1$
     }
-    public void testAssignTypeMismatchEnum2SDT() throws RecognitionException,
+    @Test
+	public void testAssignTypeMismatchEnum2SDT() throws RecognitionException,
             TokenStreamException {
         UUID personId = BaseTest.getTypeID_Generic(OalParserTest_Generics.modelRoot, "Person");//$NON-NLS-1$
         UUID fruitId = BaseTest.getTypeID_Generic(OalParserTest_Generics.modelRoot, "fruit");//$NON-NLS-1$
@@ -80,7 +89,8 @@ public class TestStructuredDataType_Generics extends TestCase {
                 "select any t from instances of D_TST;\nx = t.sdt_identity;\ny = fruit::apple;\nx = y;\n ",
                 personId, fruitId, 2, 1, 0); //$NON-NLS-1$
     }
-    public void testAssignTypeMismatchInt2SDT() throws RecognitionException,
+    @Test
+	public void testAssignTypeMismatchInt2SDT() throws RecognitionException,
             TokenStreamException {
         UUID personId = BaseTest.getTypeID_Generic(OalParserTest_Generics.modelRoot, "Person");//$NON-NLS-1$
         UUID intId = BaseTest.getTypeID_Generic(OalParserTest_Generics.modelRoot, "integer");//$NON-NLS-1$
@@ -89,7 +99,8 @@ public class TestStructuredDataType_Generics extends TestCase {
                 "select any t from instances of D_TST;\nx = t.sdt_identity;\ny = 12;\nx = y;\n ",
                 personId, intId, 2, 1, 0); //$NON-NLS-1$
     }
-    public void testAssignTypeMismatchReal2SDT() throws RecognitionException,
+    @Test
+	public void testAssignTypeMismatchReal2SDT() throws RecognitionException,
             TokenStreamException {
         UUID personId = BaseTest.getTypeID_Generic(OalParserTest_Generics.modelRoot, "Person");//$NON-NLS-1$
         UUID realId = BaseTest.getTypeID_Generic(OalParserTest_Generics.modelRoot, "real");//$NON-NLS-1$
@@ -98,7 +109,8 @@ public class TestStructuredDataType_Generics extends TestCase {
                 "select any t from instances of D_TST;\nx = t.sdt_identity;\ny = 2.2;\nx = y;\n ",
                 personId, realId, 2, 1, 0); //$NON-NLS-1$
     }
-    public void testAssignTypeMismatchString2SDT() throws RecognitionException,
+    @Test
+	public void testAssignTypeMismatchString2SDT() throws RecognitionException,
             TokenStreamException {
         UUID personId = BaseTest.getTypeID_Generic(OalParserTest_Generics.modelRoot, "Person");//$NON-NLS-1$
         UUID stringId = BaseTest.getTypeID_Generic(OalParserTest_Generics.modelRoot, "string");//$NON-NLS-1$
@@ -107,7 +119,8 @@ public class TestStructuredDataType_Generics extends TestCase {
                 "select any t from instances of D_TST;\nx = t.sdt_identity;\ny = \"test\";\nx = y;\n ",
                 personId, stringId, 2, 1, 0); //$NON-NLS-1$
     }
-    public void testAssignTypeMismatchString2UDT() throws RecognitionException,
+    @Test
+	public void testAssignTypeMismatchString2UDT() throws RecognitionException,
             TokenStreamException {
         UUID personId = BaseTest.getTypeID_Generic(OalParserTest_Generics.modelRoot, "Person");//$NON-NLS-1$
         UUID udt_booleanId = BaseTest.getTypeID_Generic(OalParserTest_Generics.modelRoot, "udt_boolean");//$NON-NLS-1$
@@ -116,7 +129,8 @@ public class TestStructuredDataType_Generics extends TestCase {
                 "select any t from instances of D_TST;\nx = t.sdt_identity;\ny = t.u_bool;\nx = y;\n ",
                 personId, udt_booleanId, 2, 1, 0); //$NON-NLS-1$
     }
-    public void testAssignTypeMismatchSDT2Bool() throws RecognitionException,
+    @Test
+	public void testAssignTypeMismatchSDT2Bool() throws RecognitionException,
             TokenStreamException {
         UUID boolId = BaseTest.getTypeID_Generic(OalParserTest_Generics.modelRoot, "boolean");//$NON-NLS-1$
         UUID animalId = BaseTest.getTypeID_Generic(OalParserTest_Generics.modelRoot, "Animal");//$NON-NLS-1$
@@ -125,7 +139,8 @@ public class TestStructuredDataType_Generics extends TestCase {
                 "select any t from instances of D_TST;\nx = false;\ny = t.sdt_pet1;\nx = y;\n ",
                 boolId, animalId, 2, 1, 0); //$NON-NLS-1$
     }
-    public void testAssignTypeMismatchSDT2Enum() throws RecognitionException,
+    @Test
+	public void testAssignTypeMismatchSDT2Enum() throws RecognitionException,
             TokenStreamException {
         UUID fruitId = BaseTest.getTypeID_Generic(OalParserTest_Generics.modelRoot, "fruit");//$NON-NLS-1$
         UUID animalId = BaseTest.getTypeID_Generic(OalParserTest_Generics.modelRoot, "Animal");//$NON-NLS-1$
@@ -134,7 +149,8 @@ public class TestStructuredDataType_Generics extends TestCase {
                 "select any t from instances of D_TST;\nx = fruit::orange;\ny = t.sdt_pet1;\nx = y;\n ",
                 fruitId, animalId, 2, 1, 0); //$NON-NLS-1$
     }
-    public void testAssignTypeMismatchSDT2Int() throws RecognitionException,
+    @Test
+	public void testAssignTypeMismatchSDT2Int() throws RecognitionException,
             TokenStreamException {
         UUID intId = BaseTest.getTypeID_Generic(OalParserTest_Generics.modelRoot, "integer");//$NON-NLS-1$
         UUID animalId = BaseTest.getTypeID_Generic(OalParserTest_Generics.modelRoot, "Animal");//$NON-NLS-1$
@@ -143,7 +159,8 @@ public class TestStructuredDataType_Generics extends TestCase {
                 "select any t from instances of D_TST;\nx = 1;\ny = t.sdt_pet1;\nx = y;\n ",
                 intId, animalId, 2, 1, 0); //$NON-NLS-1$
     }
-    public void testAssignTypeMismatchSDT2Real() throws RecognitionException,
+    @Test
+	public void testAssignTypeMismatchSDT2Real() throws RecognitionException,
             TokenStreamException {
         UUID realId = BaseTest.getTypeID_Generic(OalParserTest_Generics.modelRoot, "real");//$NON-NLS-1$
         UUID animalId = BaseTest.getTypeID_Generic(OalParserTest_Generics.modelRoot, "Animal");//$NON-NLS-1$
@@ -152,7 +169,8 @@ public class TestStructuredDataType_Generics extends TestCase {
                 "select any t from instances of D_TST;\nx = 12.2;\ny = t.sdt_pet1;\nx = y;\n ",
                 realId, animalId, 2, 1, 0); //$NON-NLS-1$
     }
-    public void testAssignTypeMismatchSDT2String() throws RecognitionException,
+    @Test
+	public void testAssignTypeMismatchSDT2String() throws RecognitionException,
             TokenStreamException {
         UUID stringId = BaseTest.getTypeID_Generic(OalParserTest_Generics.modelRoot, "string");//$NON-NLS-1$
         UUID animalId = BaseTest.getTypeID_Generic(OalParserTest_Generics.modelRoot, "Animal");//$NON-NLS-1$
@@ -161,7 +179,8 @@ public class TestStructuredDataType_Generics extends TestCase {
                 "select any t from instances of D_TST;\nx = \"foo\";\ny = t.sdt_pet1;\nx = y;\n ",
                 stringId, animalId, 2, 1, 0); //$NON-NLS-1$
     }
-    public void testAssignTypeMismatchSDT2UDT() throws RecognitionException,
+    @Test
+	public void testAssignTypeMismatchSDT2UDT() throws RecognitionException,
             TokenStreamException {
         UUID udt_booleanId = BaseTest.getTypeID_Generic(OalParserTest_Generics.modelRoot, "udt_boolean");//$NON-NLS-1$
         UUID animalId = BaseTest.getTypeID_Generic(OalParserTest_Generics.modelRoot, "Animal");//$NON-NLS-1$
@@ -170,7 +189,8 @@ public class TestStructuredDataType_Generics extends TestCase {
                 "select any t from instances of D_TST;\nx = t.u_bool;\ny = t.sdt_pet1;\nx = y;\n ",
                 udt_booleanId, animalId, 2, 1, 0); //$NON-NLS-1$
     }
-    public void testAssignTypeMismatchSDT_A2SDT_B() throws RecognitionException,
+    @Test
+	public void testAssignTypeMismatchSDT_A2SDT_B() throws RecognitionException,
             TokenStreamException {
         UUID personId = BaseTest.getTypeID_Generic(OalParserTest_Generics.modelRoot, "Person");//$NON-NLS-1$
         UUID animalId = BaseTest.getTypeID_Generic(OalParserTest_Generics.modelRoot, "Animal");//$NON-NLS-1$
@@ -181,6 +201,7 @@ public class TestStructuredDataType_Generics extends TestCase {
     }
 
     // Test invalid assignment of an SDT member
+	@Test
 	public void testAssignBool2SDTstring() throws RecognitionException, TokenStreamException {
         String act = "select any t from instances of D_TST;\nt.sdt_identity.name = false;"; //$NON-NLS-1$
 		String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
@@ -193,7 +214,8 @@ public class TestStructuredDataType_Generics extends TestCase {
 		assertEquals( 1, vars.length );
 		OalParserTest_Generics.clearActionData(OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
 	}
-    public void testAssignEnum2SDTstring() throws RecognitionException, TokenStreamException {
+    @Test
+	public void testAssignEnum2SDTstring() throws RecognitionException, TokenStreamException {
         String act = "select any t from instances of D_TST;\nt.sdt_identity.name = fruit::apple;"; //$NON-NLS-1$
         String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
         String lines[] = x.split("\n");//$NON-NLS-1$
@@ -205,7 +227,8 @@ public class TestStructuredDataType_Generics extends TestCase {
         assertEquals( 1, vars.length );
         OalParserTest_Generics.clearActionData(OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
     }
-    public void testAssignInt2SDTstring() throws RecognitionException, TokenStreamException {
+    @Test
+	public void testAssignInt2SDTstring() throws RecognitionException, TokenStreamException {
         String act = "select any t from instances of D_TST;\nt.sdt_identity.name = 1;"; //$NON-NLS-1$
         String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
         String lines[] = x.split("\n");//$NON-NLS-1$
@@ -217,7 +240,8 @@ public class TestStructuredDataType_Generics extends TestCase {
         assertEquals( 1, vars.length );
         OalParserTest_Generics.clearActionData(OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
     }
-    public void testAssignReal2SDTstring() throws RecognitionException, TokenStreamException {
+    @Test
+	public void testAssignReal2SDTstring() throws RecognitionException, TokenStreamException {
         String act = "select any t from instances of D_TST;\nt.sdt_identity.name = 2.0;"; //$NON-NLS-1$
         String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
         String lines[] = x.split("\n");//$NON-NLS-1$
@@ -229,7 +253,8 @@ public class TestStructuredDataType_Generics extends TestCase {
         assertEquals( 1, vars.length );
         OalParserTest_Generics.clearActionData(OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
     }
-    public void testAssignUDT2SDTstring() throws RecognitionException, TokenStreamException {
+    @Test
+	public void testAssignUDT2SDTstring() throws RecognitionException, TokenStreamException {
         String act = "select any t from instances of D_TST;\nt.sdt_identity.name = t.u_bool;"; //$NON-NLS-1$
         String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
         String lines[] = x.split("\n");//$NON-NLS-1$
@@ -243,7 +268,8 @@ public class TestStructuredDataType_Generics extends TestCase {
     }
 
     // Test comparison operations on SDTs
-    public void testRelExprSDTNeOtherSDT() throws RecognitionException,
+    @Test
+	public void testRelExprSDTNeOtherSDT() throws RecognitionException,
             TokenStreamException {
         String x = OalParserTest_Generics.parseAction(
                         "select any t from instances of D_TST;\nx = t.sdt_identity != t.sdt_pet1;", OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM); //$NON-NLS-1$
@@ -262,7 +288,8 @@ public class TestStructuredDataType_Generics extends TestCase {
                 .LiteralEnumeratorInstances(OalParserTest_Generics.modelRoot);
         assertEquals(0, len.length);
     }
-    public void testRelExprSDTEqOtherSDT() throws RecognitionException,
+    @Test
+	public void testRelExprSDTEqOtherSDT() throws RecognitionException,
             TokenStreamException {
         String x = OalParserTest_Generics.parseAction(
                         "select any t from instances of D_TST;\nx = t.sdt_identity == t.sdt_pet1;",
@@ -282,7 +309,8 @@ public class TestStructuredDataType_Generics extends TestCase {
                 .LiteralEnumeratorInstances(OalParserTest_Generics.modelRoot);
         assertEquals(0, len.length);
     }
-    public void testRelExprSDTNeBool() throws RecognitionException,
+    @Test
+	public void testRelExprSDTNeBool() throws RecognitionException,
             TokenStreamException {
         String x = OalParserTest_Generics.parseAction(
                         "select any t from instances of D_TST;\nx = t.sdt_identity != false;", OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM); //$NON-NLS-1$
@@ -301,7 +329,8 @@ public class TestStructuredDataType_Generics extends TestCase {
                 .LiteralEnumeratorInstances(OalParserTest_Generics.modelRoot);
         assertEquals(0, len.length);
     }
-    public void testRelExprSDTNeEnum() throws RecognitionException,
+    @Test
+	public void testRelExprSDTNeEnum() throws RecognitionException,
             TokenStreamException {
         String x = OalParserTest_Generics
                 .parseAction(
@@ -321,7 +350,8 @@ public class TestStructuredDataType_Generics extends TestCase {
                 .LiteralEnumeratorInstances(OalParserTest_Generics.modelRoot);
         assertEquals(0, len.length);
     }
-    public void testRelExprSDTNeInt() throws RecognitionException,
+    @Test
+	public void testRelExprSDTNeInt() throws RecognitionException,
             TokenStreamException {
         String x = OalParserTest_Generics
                 .parseAction(
@@ -341,7 +371,8 @@ public class TestStructuredDataType_Generics extends TestCase {
                 .LiteralEnumeratorInstances(OalParserTest_Generics.modelRoot);
         assertEquals(0, len.length);
     }
-    public void testRelExprSDTNeReal() throws RecognitionException,
+    @Test
+	public void testRelExprSDTNeReal() throws RecognitionException,
             TokenStreamException {
         String x = OalParserTest_Generics
                 .parseAction(
@@ -361,7 +392,8 @@ public class TestStructuredDataType_Generics extends TestCase {
                 .LiteralEnumeratorInstances(OalParserTest_Generics.modelRoot);
         assertEquals(0, len.length);
     }
-    public void testRelExprSDTNeString() throws RecognitionException,
+    @Test
+	public void testRelExprSDTNeString() throws RecognitionException,
             TokenStreamException {
         String x = OalParserTest_Generics
                 .parseAction(
@@ -381,7 +413,8 @@ public class TestStructuredDataType_Generics extends TestCase {
                 .LiteralEnumeratorInstances(OalParserTest_Generics.modelRoot);
         assertEquals(0, len.length);
     }
-    public void testRelExprSDTNeUDT() throws RecognitionException,
+    @Test
+	public void testRelExprSDTNeUDT() throws RecognitionException,
             TokenStreamException {
         String x = OalParserTest_Generics
                 .parseAction(
@@ -401,7 +434,8 @@ public class TestStructuredDataType_Generics extends TestCase {
                 .LiteralEnumeratorInstances(OalParserTest_Generics.modelRoot);
         assertEquals(0, len.length);
     }
-    public void testRelExprSDTEqBool() throws RecognitionException,
+    @Test
+	public void testRelExprSDTEqBool() throws RecognitionException,
             TokenStreamException {
         String x = OalParserTest_Generics
                 .parseAction(
@@ -423,7 +457,8 @@ public class TestStructuredDataType_Generics extends TestCase {
                 .LiteralEnumeratorInstances(OalParserTest_Generics.modelRoot);
         assertEquals(0, len.length);
     }
-    public void testRelExprSDTEqEnum() throws RecognitionException,
+    @Test
+	public void testRelExprSDTEqEnum() throws RecognitionException,
             TokenStreamException {
         String x = OalParserTest_Generics
                 .parseAction(
@@ -445,7 +480,8 @@ public class TestStructuredDataType_Generics extends TestCase {
                 .LiteralEnumeratorInstances(OalParserTest_Generics.modelRoot);
         assertEquals(0, len.length);
     }
-    public void testRelExprSDTEqInt() throws RecognitionException,
+    @Test
+	public void testRelExprSDTEqInt() throws RecognitionException,
             TokenStreamException {
         String x = OalParserTest_Generics.parseAction(
                         "select any t from instances of D_TST;\nx = t.sdt_identity == 42;",
@@ -466,7 +502,8 @@ public class TestStructuredDataType_Generics extends TestCase {
                 .LiteralEnumeratorInstances(OalParserTest_Generics.modelRoot);
         assertEquals(0, len.length);
     }
-    public void testRelExprSDTEqReal() throws RecognitionException,
+    @Test
+	public void testRelExprSDTEqReal() throws RecognitionException,
             TokenStreamException {
         String x = OalParserTest_Generics
                 .parseAction(
@@ -488,7 +525,8 @@ public class TestStructuredDataType_Generics extends TestCase {
                 .LiteralEnumeratorInstances(OalParserTest_Generics.modelRoot);
         assertEquals(0, len.length);
     }
-    public void testRelExprSDTEqString() throws RecognitionException,
+    @Test
+	public void testRelExprSDTEqString() throws RecognitionException,
             TokenStreamException {
         String x = OalParserTest_Generics
                 .parseAction(
@@ -510,7 +548,8 @@ public class TestStructuredDataType_Generics extends TestCase {
                 .LiteralEnumeratorInstances(OalParserTest_Generics.modelRoot);
         assertEquals(0, len.length);
     }
-    public void testRelExprSDTEqUDT() throws RecognitionException,
+    @Test
+	public void testRelExprSDTEqUDT() throws RecognitionException,
             TokenStreamException {
         String x = OalParserTest_Generics
                 .parseAction(

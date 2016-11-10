@@ -34,6 +34,8 @@
 .function gen_write_attr_function
   .param inst_ref table
   .param string callingProject
+  .param boolean multilevel
+  .param boolean stream
   .if (callingProject == "BP")
     .if (table.Key_Lett == "GD_MD")
   Diagram_c diagram = Diagram_c.getOneDIM_DIAOnR18(inst);
@@ -74,7 +76,16 @@
     .invoke a = get_attribute_accessor( col )
     .if ( col.type == "string" )
   m_fh.print( "'"); //$$NON-NLS-1$$
+      .if ( (((multilevel) AND (not stream)) AND (col.Name == "Action_Semantics_internal")) )
+        .// exclude action semantics
+  IPreferenceStore store = org.xtuml.bp.core.CorePlugin.getDefault().getPreferenceStore();
+  String persistActivities = store.getString(BridgePointPreferencesStore.ACTIVITY_PERSISTENCE);
+  if ( persistActivities.equals(BridgePointPreferencesStore.NO_PERSIST_ACTIVITY_FILES) ) {
+      m_fh.print( inst.${a.body}().replaceAll( "'", "''" ) ); //$$NON-NLS-1$$ //$$NON-NLS-2$$
+  }
+      .else
   m_fh.print( inst.${a.body}().replaceAll( "'", "''" ) ); //$$NON-NLS-1$$ //$$NON-NLS-2$$
+      .end if
   m_fh.print( "'"); //$$NON-NLS-1$$
     .elif ( col.type == "boolean" )
       .if((table.Key_Lett == "S_SYS") and (col.Name == "useGlobals"))
@@ -273,7 +284,7 @@
   .// T
   .//
   .invoke r = get_class_name( table )
-  .invoke attrs = gen_write_attr_function(table, callingProject)
+  .invoke attrs = gen_write_attr_function(table, callingProject, multilevel, stream)
 void write_${r.body}_sql(${r.body} inst)
 throws IOException
 {
@@ -532,6 +543,7 @@ ${attrs.body}\
 .//
 .function gen_export_methods
   .param boolean multilevel
+  .param boolean stream
   .param String domain_class_name
   .param String tool
   .param boolean checkParentForComponentContainment
@@ -562,8 +574,8 @@ ${attrs.body}\
       .end if
       .assign addExportRGOProxyCall = false
       .if(not_empty parent_table)
-        .select any class from instances of O_OBJ where (selected.Key_Lett == parent_table.Key_Lett)
-        .select one root_pkg related by class->PE_PE[R8001]->EP_PKG[R8000]->PE_PE[R8001]->EP_PKG[R8000]
+        .select any clazz from instances of O_OBJ where (selected.Key_Lett == parent_table.Key_Lett)
+        .select one root_pkg related by clazz->PE_PE[R8001]->EP_PKG[R8000]->PE_PE[R8001]->EP_PKG[R8000]
         .// no need to export RGO proxies for ooaofgraphics
         .// currently only data types are supported
 		.invoke rgoResolution = rgo_resolution_supported(parent_table.Key_Lett)
@@ -574,7 +586,7 @@ ${attrs.body}\
           .assign addExportRGOProxyCall = true
   public void export_${parent_name}_RGO_Proxies(${parent_name} inst) {
     if (!m_fileExportInProgress) {
-          .select many rtos related by class->R_OIR[R201]->R_RTO[R203]
+          .select many rtos related by clazz->R_OIR[R201]->R_RTO[R203]
           .for each rto in rtos
             .assign proxy_index = proxy_index + 1
             .select one rel related by rto->R_OIR[R203]->R_REL[R201]
@@ -832,8 +844,8 @@ throws IOException
       .if ( multilevel and (not_empty parent_table) )
         .// export the cross component proxy instances
         .assign proxy_index = 0
-        .select any class from instances of O_OBJ where (selected.Key_Lett == parent_table.Key_Lett)
-        .select many rgo_set related by class->R_OIR[R201]->R_RGO[R203]
+        .select any clazz from instances of O_OBJ where (selected.Key_Lett == parent_table.Key_Lett)
+        .select many rgo_set related by clazz->R_OIR[R201]->R_RGO[R203]
         .for each rgo in rgo_set
           .assign proxy_index = proxy_index + 1
           .select one rel related by rgo->R_OIR[R203]->R_REL[R201]
@@ -875,7 +887,7 @@ ${gpe.body}\
 // only export the supertypes if this element was selected for export
 // without its parents
 if(m_inst == inst && exportSupertypes) {
-				  .invoke gsws = gen_supertype_write_statements(rel, class, "")
+				  .invoke gsws = gen_supertype_write_statements(rel, clazz, "")
 ${gsws.body}
 }
 				.else
@@ -985,6 +997,14 @@ ${gpe.body}\
         .end for
     }
       .end if
+
+      .if ( ((multilevel) AND (not stream)) )
+        .select one action_body related by eo->EI[R3]->AB[R12]
+        .if ( not_empty action_body )
+        write_${parent_name}_actions(inst${extra_args});
+        .end if
+      .end if
+
 }
     .end if
   .end for
@@ -1021,6 +1041,47 @@ ${gpe.body}\
       .invoke sql = gen_write_sql_function( table, callingProject, multilevel, stream )
 ${sql.body}\
     .end for
+.end function
+
+.//
+.//  This function generates methods
+.//  which will place the action semantics
+.//  into a file
+.//
+.function gen_action_write_statements
+  .select many ab_set from instances of AB
+  .for each action_body in ab_set
+    .invoke r = get_class_name( action_body )
+void write_${r.body}_actions(${r.body} inst)
+throws IOException
+{
+IPreferenceStore store = org.xtuml.bp.core.CorePlugin.getDefault().getPreferenceStore();
+String persistActivities = store.getString(BridgePointPreferencesStore.ACTIVITY_PERSISTENCE);
+if ( persistActivities.equals(BridgePointPreferencesStore.PERSIST_ACTIVITY_FILES) ) {
+
+if(inst != null && !inst.isProxy()){
+  m_afh.print( "{{" ); //$$NON-NLS-1$$
+  m_afh.print( inst.getName() ); //$$NON-NLS-1$$
+  m_afh.print( "%%" ); //$$NON-NLS-1$$
+  m_afh.print( "${action_body.Key_Lett}" ); //$$NON-NLS-1$$
+  m_afh.print( "%%" ); //$$NON-NLS-1$$
+  m_afh.print( inst.get$cr{action_body.ID_attr}() ); //$$NON-NLS-1$$
+    .if ( "" != action_body.ID_attr2 )
+  m_afh.print( "--" ); //$$NON-NLS-1$$
+  m_afh.print( inst.get$cr{action_body.ID_attr2}() ); //$$NON-NLS-1$$
+    .end if
+  m_afh.print( "}}\n" ); //$$NON-NLS-1$$
+  String action_semantics = inst.getAction_semantics_internal(); //$$NON-NLS-1$$
+  if ( !action_semantics.trim().isEmpty() ) {
+    m_afh.print( inst.getAction_semantics_internal() ); //$$NON-NLS-1$$
+    m_afh.print( "\n" ); //$$NON-NLS-1$$
+    m_updateActions = true;
+  }
+  m_afh.print( "\n" ); //$$NON-NLS-1$$
+}
+}
+}
+  .end for
 .end function
 
 .//

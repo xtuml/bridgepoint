@@ -24,8 +24,6 @@ package org.xtuml.bp.welcome.test;
 import java.io.File;
 import java.util.Properties;
 
-import junit.framework.TestCase;
-
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
@@ -44,7 +42,8 @@ import org.eclipse.ui.IViewSite;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
-
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.Attribute_c;
 import org.xtuml.bp.core.ExternalEntity_c;
 import org.xtuml.bp.core.ModelClass_c;
@@ -54,12 +53,15 @@ import org.xtuml.bp.core.XtUMLNature;
 import org.xtuml.bp.core.common.ClassQueryInterface_c;
 import org.xtuml.bp.core.common.PersistableModelComponent;
 import org.xtuml.bp.core.common.PersistenceManager;
-import org.xtuml.bp.utilities.ui.TreeUtilities;
 import org.xtuml.bp.test.TestUtil;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.test.common.TestingUtilities;
 import org.xtuml.bp.ui.explorer.ExplorerView;
+import org.xtuml.bp.utilities.ui.TreeUtilities;
 import org.xtuml.bp.welcome.gettingstarted.SampleProjectGettingStartedAction;
 
+import junit.framework.TestCase;
+@RunWith(OrderedRunner.class)
 public class WelcomePageTestGPS extends TestCase {
 
 	private static IProject project;
@@ -92,16 +94,6 @@ public class WelcomePageTestGPS extends TestCase {
 
 	public WelcomePageTestGPS() {
 		super();
-	}
-
-	// enforce ordering of tests in this class
-	public void testWelcomePageGPSProject() throws CoreException, Exception {
-		dotestProjectCreation();
-		dotestNoProjectOverwrite();
-		dotestProjectOverwrite();
-		dotestImportLoadPersistAndBuild();
-		dotestSmartPreBuild();
-		dotestExternalEntityDefaults();
 	}
 
 	public void runGPSGettingStartedAction() {
@@ -160,7 +152,11 @@ public class WelcomePageTestGPS extends TestCase {
 		s.forceFocus();
 	}
 	
-	public void dotestProjectCreation() {
+	@Test
+	public void testProjectCreation() {
+		runGPSGettingStartedAction();
+		
+		TestUtil.selectButtonInDialog(3000, "Yes");
 		runGPSGettingStartedAction();
 
 		// Give the import time to work
@@ -170,8 +166,8 @@ public class WelcomePageTestGPS extends TestCase {
 
 		raiseWorkbench();
 	}
-	
-	public void dotestNoProjectOverwrite() {
+	@Test
+	public void testNoProjectOverwrite() {
 	    IFile dummyFile = project.getFile("dummyFile");
 	    IFile readme = project.getFile("README");
 		try {
@@ -190,8 +186,8 @@ public class WelcomePageTestGPS extends TestCase {
 				dummyFile.exists());
 	}
 
-
-	public void dotestProjectOverwrite() throws Exception {
+	@Test
+	public void testProjectOverwrite() throws Exception {
 	    IFile dummyFile = project.getFile("dummyFile");
 	    
 	    // Make sure the marker file is there.
@@ -209,8 +205,8 @@ public class WelcomePageTestGPS extends TestCase {
 		
 		verifyProjectCreated();
 	}
-	
-	public void dotestImportLoadPersistAndBuild()  throws Exception {
+	@Test
+	public void testImportLoadPersistAndBuild()  throws Exception {
 		int numImports = 3;
 		for (int i = 0; i < numImports; i++) {
 			System.out.println("Import number: " + String.valueOf(i+1));
@@ -239,8 +235,8 @@ public class WelcomePageTestGPS extends TestCase {
 		}
 		
 	}
-
-    public void dotestSmartPreBuild() throws Exception {
+	@Test
+    public void testSmartPreBuild() throws Exception {
         // This test builds the project several times, testing that the exported
         // <project>.sql file from pre-builder is updated when needed and left
         // unmodified by the build (re-export skipped) when an update is not needed.
@@ -340,18 +336,7 @@ public class WelcomePageTestGPS extends TestCase {
 		if (orphaned.length > 0) {
 			String elements = TreeUtilities.getTextResultForOrphanedElementList(orphaned);
 	        assertTrue("Orphaned elements are present: " + elements, false);			
-		}
-        
-        // TODO: Check the Eclipse build console view
-        
-        // TODO: Check the console view
-
-//		IViewReference[] refs = PlatformUI.getWorkbench()
-//				.getActiveWorkbenchWindow().getActivePage().getViewReferences();
-//		for (int i = 0; i < refs.length; i++) {
-//			System.out.println( refs[i].getId() );
-//		}
-		
+		}		
 	}
 	
 	private void buildProject(final IProject project) throws Exception {
@@ -397,8 +382,8 @@ public class WelcomePageTestGPS extends TestCase {
 		assertTrue("Unable to select view: " + viewName, g_view != null);
 		return g_view;
 	}
-
-	public void dotestExternalEntityDefaults() {
+	@Test
+	public void testExternalEntityDefaults() {
 		TestUtil.selectButtonInDialog(1000, "Yes");
 		runGPSGettingStartedAction();
 

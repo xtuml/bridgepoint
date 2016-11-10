@@ -22,23 +22,29 @@
 
 package org.xtuml.bp.core.test;
 
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.CreationTransition_c;
 import org.xtuml.bp.core.StateMachine_c;
 import org.xtuml.bp.core.Transition_c;
 import org.xtuml.bp.core.test.util.EventSelectionUtil;
 import org.xtuml.bp.core.util.OoaofooaUtil;
 import org.xtuml.bp.test.common.BaseTest;
+import org.xtuml.bp.test.common.OrderedRunner;
 
 /**
  * Tests that an event may be assigned to a creation transition after
  * another event with a different data item set has been removed.
  */
+@RunWith(OrderedRunner.class)
 public class CreationTransitionEventReassignmentTestGenerics extends BaseTest {
-	public CreationTransitionEventReassignmentTestGenerics(String arg0) {
-		super(null, arg0);
+	public CreationTransitionEventReassignmentTestGenerics(){
+		super(null, null);
 	}
 
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		// TODO Auto-generated method stub
 		super.setUp();
 		loadProject("CreationTransitionEventReassignmentTest");
@@ -46,6 +52,7 @@ public class CreationTransitionEventReassignmentTestGenerics extends BaseTest {
 	/**
 	 * See parent class description.
 	 */
+	@Test
 	public void testCreationTransitionEventReassignment() {
 		// in the following, T is the creation transition in A
 

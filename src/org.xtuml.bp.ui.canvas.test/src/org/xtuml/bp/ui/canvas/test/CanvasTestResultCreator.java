@@ -1,5 +1,9 @@
 package org.xtuml.bp.ui.canvas.test;
 
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.xtuml.bp.test.common.OrderedRunner;
+
 import junit.framework.TestCase;
 
 /**
@@ -9,8 +13,10 @@ import junit.framework.TestCase;
  * before integrating it into the CanvasTest class.
  * 
  */
+@RunWith(OrderedRunner.class)
 public class CanvasTestResultCreator extends TestCase {
 
+	@Test
 	public void testCreateTestResults() throws Exception{
 		
     try {
@@ -19,7 +25,7 @@ public class CanvasTestResultCreator extends TestCase {
 //      mst.setUp();
 //      mst.setGenerateResults();
       
-      ODMSTest odmst = new ODMSTest("ODMS Test Result Creator");
+      ODMSTest odmst = new ODMSTest();
       odmst.setUp();
       odmst.setGenerateResults();
       

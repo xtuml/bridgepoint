@@ -1,0 +1,205 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>3.4. Assigning Collections to other Collections</title>
+<link rel="stylesheet" type="text/css" href="docbook.css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
+<meta name="keywords" content="MASL, Action Language, Action Semantics, UML, Unified Modelling Language, Shlaer Mellor">
+<link rel="home" href="index.html" title="MASL Tutorial">
+<link rel="up" href="CompositeTypes.html" title="Chapter 3. Composite Types">
+<link rel="prev" href="CompositeTypesCollectionTypes.html" title="3.3. Collection Types">
+<link rel="next" href="CompositeTypesSummary.html" title="3.5. Summary">
+<link rel="preface" href="preface.html" title="Preface">
+<link rel="chapter" href="Types.html" title="Chapter 1. Types">
+<link rel="chapter" href="ExecutionControl.html" title="Chapter 2. Execution Control">
+<link rel="chapter" href="CompositeTypes.html" title="Chapter 3. Composite Types">
+<link rel="chapter" href="Exceptions.html" title="Chapter 4. Exceptions">
+<link rel="chapter" href="ObjectsandRelationships.html" title="Chapter 5. Objects and Relationships">
+<link rel="chapter" href="Actions.html" title="Chapter 6. Actions">
+<link rel="chapter" href="DeviceIO.html" title="Chapter 7. Device Input/Output">
+<link rel="chapter" href="MASLExamples.html" title="Chapter 8. MASL Examples">
+<link rel="index" href="ix01.html" title="Index">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div align="center">UNCLASSIFIED</div>
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center">3.4. Assigning Collections to other Collections</th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="CompositeTypesCollectionTypes.html">Prev</a> </td>
+<th width="60%" align="center">Chapter 3. Composite Types</th>
+<td width="20%" align="right"> <a accesskey="n" href="CompositeTypesSummary.html">Next</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h2 class="title">
+<a name="CompositeTypesAssigningCollectionstootherCollections"></a>3.4. Assigning Collections to other Collections</h2></div></div></div>
+<p>Values of a collection type can be converted to a different
+    collection type with the same element type by using an explicit type
+    conversion. This type conversion may raise an exception if the original
+    value cannot be converted into a value of the new type.</p>
+<p>For example, if we declare:</p>
+<div class="informalexample"><pre class="programlisting">  s : set of T;
+  b : bag of T;
+  q : sequence of T;
+  a : array (1 .. 10) of T;</pre></div>
+<p>Then the following is perfectly legal from the
+    syntactic point of view.</p>
+<div class="informaltable"><table class="informaltable" border="1">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><pre class="programlisting">s := set of T(b);</pre></td>
+<td>Raises an exception if there are duplicate elements in the
+            <span class="type">bag</span>.</td>
+</tr>
+<tr>
+<td><pre class="programlisting">s := set of T(q);</pre></td>
+<td>Raises an exception if there are duplicate elements in the
+            <span class="type">sequence</span>.</td>
+</tr>
+<tr>
+<td><pre class="programlisting">s := set of T(a);</pre></td>
+<td>Raises an exception if there are duplicate elements in the
+            <span class="type">array</span>.</td>
+</tr>
+<tr>
+<td><pre class="programlisting">b := bag of T(s);</pre></td>
+<td>Never raises an exception.</td>
+</tr>
+<tr>
+<td><pre class="programlisting">b := bag of T(q);</pre></td>
+<td>Never raises an exception.</td>
+</tr>
+<tr>
+<td><pre class="programlisting">b := bag of T(a);</pre></td>
+<td>Never raises an exception.</td>
+</tr>
+<tr>
+<td><pre class="programlisting">q := sequence of T(s);</pre></td>
+<td>Never raises an exception. The order of the elements in the
+            <span class="type">sequence</span> will be arbitrary.</td>
+</tr>
+<tr>
+<td><pre class="programlisting">q := sequence of T(b);</pre></td>
+<td>Never raises an exception. The order of the elements in the
+            <span class="type">sequence</span> will be arbitrary.</td>
+</tr>
+<tr>
+<td><pre class="programlisting">q := sequence of T(a);</pre></td>
+<td>Never raises an exception. The order of the elements in the
+            <span class="type">sequence</span> will be the same as the
+            <span class="type">array</span>.</td>
+</tr>
+<tr>
+<td><pre class="programlisting">a := array (1 .. 10) of T(s);</pre></td>
+<td>Raises an exception if the number of elements in the
+            <span class="type">set</span> is not the same as the size of the
+            <span class="type">array</span>. The order of the elements in the
+            <span class="type">sequence</span> will be arbitrary.</td>
+</tr>
+<tr>
+<td><pre class="programlisting">a := array (1 .. 10) of T(b);</pre></td>
+<td>Raises an exception if the number of elements in the
+            <span class="type">bag</span> is not the same as the size of the
+            <span class="type">array</span>. The order of the elements in the
+            <span class="type">sequence</span> will be arbitrary.</td>
+</tr>
+<tr>
+<td><pre class="programlisting">a := array (1 .. 10) of T(q);</pre></td>
+<td>Raises an exception if the number of elements in the
+            <span class="type">sequence</span> is not the same as the size of the
+            <span class="type">array</span>. The order of the elements in the
+            <span class="type">array</span> will be the same as the
+            <span class="type">sequence</span>.</td>
+</tr>
+</tbody>
+</table></div>
+<p>As you can see converting <span class="type">bag</span>s, <span class="type">sequence</span>s
+    and <span class="type">array</span>s to sets will raise an exception if there are
+    duplicate elements in the collection. It is often the case that we want to
+    take a collection and remove all the duplicates without raising an
+    exception. To do this the characteristic <code class="literal">get_unique</code> is
+    provided for <span class="type">bag</span>s, <span class="type">sequence</span>s and
+    <span class="type">array</span>s.</p>
+<div class="informalexample"><pre class="programlisting">  s := b'get_unique;
+  s := q'get_unique;
+  s := a'get_unique;</pre></div>
+<p>Now consider a subtype <span class="type">S</span> of type <span class="type">T</span>. A
+    collection of <span class="type">S</span> is a subtype of a collection of
+    <span class="type">T</span>.</p>
+<p>For example, if we declare:</p>
+<div class="informalexample"><pre class="programlisting">  sb : bag of S;
+  ss : set of S;
+  sq : sequence of S;
+  sa : array (1 .. 10) of S;</pre></div>
+<p>he following is perfectly legal from the syntactic
+    point of view.</p>
+<div class="informalexample"><pre class="programlisting">  sb := b;
+  ss := s;
+  sq := q;
+  sa := a;</pre></div>
+<p>Of course, on execution, the elements of a collection
+    of type <span class="type">T</span> may not satisfy the constraints of subtype
+    <span class="type">S</span>, in which case an exception is raised. Assignment if the
+    other direction:</p>
+<div class="informalexample"><pre class="programlisting">  b := sb;
+  s := ss;
+  q := sq;
+  a := sa;</pre></div>
+<p>will, of course, always work. Finally, conversion
+    between <span class="type">array</span>s is legal but only if the following conditions
+    are all met:</p>
+<div class="itemizedlist"><ul class="itemizedlist">
+<li class="listitem"><p>The types of the <span class="type">array</span> are the same or one type is
+        a subtype of another.</p></li>
+<li class="listitem"><p>The <span class="type">array</span> size is not only the same but the indices
+        are in the same range.</p></li>
+</ul></div>
+<p>Hence, if we declare:</p>
+<div class="informalexample"><pre class="programlisting">  subtype X is T;
+  aa : array (1 .. 10) of T;
+  ab : array (1 .. 10) of T;
+  ac : array (5 .. 10) of T;
+  ad : array (1 .. 10) of X;
+  ae : array (10 .. 20) of T;
+  af : array (1 .. 10) of Y;</pre></div>
+<p>Then the following are legal:</p>
+<div class="informalexample"><pre class="programlisting">  aa := ab;
+  ac := aa[5..10];
+  aa := ad;</pre></div>
+<p>and the following are illegal:</p>
+<div class="informalexample"><pre class="programlisting">  aa := ac;                // illegal : different array size
+  aa := af;                // illegal : different types
+  aa := ae;                // illegal : different indices
+  ab := ae[10 .. 20];      // illegal : different size and different indices</pre></div>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="CompositeTypesCollectionTypes.html">Prev</a> </td>
+<td width="20%" align="center"><a accesskey="u" href="CompositeTypes.html">Up</a></td>
+<td width="40%" align="right"> <a accesskey="n" href="CompositeTypesSummary.html">Next</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left" valign="top">3.3. Collection Types </td>
+<td width="20%" align="center">
+<a accesskey="h" href="index.html">Home</a> | <a accesskey="t" href="bk01-toc.html">ToC</a>
+</td>
+<td width="40%" align="right" valign="top"> 3.5. Summary</td>
+</tr>
+</table>
+</div>
+<div align="center">UNCLASSIFIED</div>
+</body>
+</html>

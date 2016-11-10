@@ -1,0 +1,4550 @@
+<!-- 
+  UK Crown Copyright (c) 2016. All Rights Reserved
+-->
+<!-- Converted by db4-upgrade version 1.0 -->
+<chapter xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="Types"><info><title>Types</title></info>
+
+<para>
+<abbrev>MASL</abbrev> is a strongly typed language, which means that every
+variable, attribute, parameter and expression has a type
+<indexterm significance="preferred">
+    <primary>type</primary>
+</indexterm>
+that is known at
+compile-time. Types limit the values that a variable, attributed and parameter
+can hold, or that an expression can produce, limiting the operations supported
+on those values and determine the meaning of the operations.
+</para>
+<para>
+A type is characterized by a set of values and a set of operations, which
+implements the fundamental aspects of its semantics. An entity of a given type
+is a run-time entity that contains a value of the type.
+</para>
+<section xml:id="TypesTypeSpecification"><info><title>Type Specifications</title></info>
+
+<para>
+The type of an entity is given by a type specification.
+<indexterm significance="preferred">
+    <primary>type</primary>
+    <secondary>specification</secondary>
+</indexterm>
+</para>
+<para>
+A type specification is given in terms of a built-in type,
+a <link linkend="ebnf.collectiontype"><emphasis>collection type</emphasis></link>,
+<indexterm>
+    <primary>type</primary>
+    <secondary>collection</secondary>
+</indexterm>
+an <link linkend="TypesInstanceTypes"><type>instance</type></link> type
+<indexterm>
+    <primary>type</primary>
+    <secondary><type>instance</type></secondary>
+</indexterm>
+or a user <link linkend="TypesUserDefinedTypes"><emphasis>defined type</emphasis></link>.
+<indexterm>
+    <primary>type</primary>
+    <secondary>defined</secondary>
+</indexterm>
+</para>
+<indexterm zone="ebnf.type">
+    <primary>built-in type</primary>
+</indexterm>
+<indexterm zone="ebnf.type">
+    <primary>collection type</primary>
+</indexterm>
+<indexterm zone="ebnf.type">
+    <primary>instance type</primary>
+</indexterm>
+<indexterm zone="ebnf.type">
+    <primary>user defined type</primary>
+</indexterm>
+<productionset>
+<production xml:id="ebnf.type">
+    <lhs>type</lhs>
+    <rhs>
+        <nonterminal def="#ebnf.builtintype">built-in type</nonterminal> |
+        <nonterminal def="#ebnf.collectiontype">collection type</nonterminal> |
+        <nonterminal def="#ebnf.instancetype">instance type</nonterminal> |
+        <nonterminal def="#ebnf.userdefinedtype">user defined type</nonterminal>
+    </rhs>
+</production>
+</productionset>
+</section>
+<section xml:id="TypesBuiltinTypes"><info><title>Built-in Types</title></info>
+
+<para>
+A built-in type is pre-defined by the language and named by its reserved word.
+</para>
+<indexterm zone="ebnf.builtintype">
+    <primary>built-in type</primary>
+</indexterm>
+<indexterm zone="ebnf.builtintype">
+    <primary><type>character</type></primary>
+</indexterm>
+<indexterm zone="ebnf.builtintype">
+    <primary><type>wcharacter</type></primary>
+</indexterm>
+<indexterm zone="ebnf.builtintype">
+    <primary><type>boolean</type></primary>
+</indexterm>
+<indexterm zone="ebnf.builtintype">
+    <primary><type>byte</type></primary>
+</indexterm>
+<indexterm zone="ebnf.builtintype">
+    <primary><type>string</type></primary>
+</indexterm>
+<indexterm zone="ebnf.builtintype">
+    <primary><type>wstring</type></primary>
+</indexterm>
+<indexterm zone="ebnf.builtintype">
+    <primary><type>device</type></primary>
+</indexterm>
+<productionset>
+<production xml:id="ebnf.builtintype">
+    <lhs>built-in type</lhs>
+    <rhs>
+        'character' |
+        'wcharacter' |
+        'boolean' |
+        'byte' |
+        'string' |
+        'wstring' |
+        'device' |
+        'enum' |
+        'event' |
+        'instance'
+    </rhs>
+</production>
+</productionset>
+<para>
+Notice that there are no built-in
+<link linkend="TypesNumericTypes">numeric types</link>.
+<indexterm>
+    <primary>numeric</primary>
+</indexterm>
+<indexterm>
+    <primary>type</primary>
+    <secondary>numeric</secondary>
+</indexterm>
+Numeric types are discussed in
+<xref linkend="TypesNumericTypes"/>.
+</para>
+<section xml:id="TypesCharacterType"><info><title>Character Type</title></info>
+
+<para>
+The <type>character</type>
+<indexterm significance="preferred">
+    <primary><type>character</type></primary>
+</indexterm>
+<indexterm significance="preferred">
+    <primary>type</primary>
+    <secondary><type>character</type></secondary>
+</indexterm>
+type is an 8-bit quantity which encodes a single-byte character from any
+byte-oriented code set.
+</para>
+<para>
+The features of the <literal>character</literal>
+<indexterm significance="preferred">
+    <primary><type>character</type></primary>
+</indexterm>
+<indexterm significance="preferred">
+    <primary>type</primary>
+    <secondary><type>character</type></secondary>
+</indexterm>
+type are the same as the features of the
+<link linkend="TypesWideCharacterType"><type>wcharacter</type></link>
+<indexterm>
+    <primary><type>wcharacter</type></primary>
+</indexterm>
+<indexterm>
+    <primary>type</primary>
+    <secondary><type>wcharacter</type></secondary>
+</indexterm>
+type (see <xref linkend="TypesWideCharacterType"/>).
+</para>
+</section>
+<section xml:id="TypesWideCharacterType"><info><title>Wide Character Type</title></info>
+
+<para>
+The <literal>wcharacter</literal>
+<indexterm significance="preferred">
+    <primary><type>wcharacter</type></primary>
+</indexterm>
+<indexterm significance="preferred">
+    <primary>type</primary>
+    <secondary><type>wcharacter</type></secondary>
+</indexterm>
+type encodes wide characters from any character set.
+</para>
+<para>
+The features of the <literal>wcharacter</literal> type
+<indexterm>
+    <primary><type>wcharacter</type></primary>
+</indexterm>
+<indexterm>
+    <primary>type</primary>
+    <secondary><type>wcharacter</type></secondary>
+</indexterm>
+are given in 
+<xref linkend="WideCharacterTypeFeatures"/>,
+where <varname>c</varname> and <varname>c2</varname> represent entities of
+type on which the feature is applied.
+<table xml:id="WideCharacterTypeFeatures" frame="all"><info><title>Wide Character Type Features</title></info>
+
+<tgroup cols="2" align="left" colsep="1" rowsep="1">
+<colspec colname="Feature" colwidth="1*"/>
+<colspec colname="Description" colwidth="2*"/>
+<thead>
+<row>
+    <entry>Feature</entry>
+    <entry>Description</entry>
+</row>
+</thead>
+<tbody>
+<row>
+    <entry>
+        <literal>=</literal>
+        <indexterm>
+            <primary><literal>=</literal></primary>
+        </indexterm>
+    </entry>
+    <entry>
+    Returns <literal>true</literal>
+    <indexterm>
+        <primary><literal>true</literal></primary>
+    </indexterm>
+    if <varname>c</varname> is equal to
+    <varname>c2</varname>.
+    </entry>
+</row>
+<row>
+    <entry>
+        <literal>/=</literal>
+        <indexterm>
+            <primary><literal>/=</literal></primary>
+        </indexterm>
+    </entry>
+    <entry>
+    Returns <literal>true</literal>
+    <indexterm>
+        <primary><literal>true</literal></primary>
+    </indexterm>
+    if <varname>c</varname> is not equal to
+    <varname>c2</varname>.
+    </entry>
+</row>
+<row>
+    <entry>
+        <literal>&lt;</literal>
+        <indexterm>
+            <primary><literal>&lt;</literal></primary>
+        </indexterm>
+    </entry>
+    <entry>
+    Returns <literal>true</literal>
+    <indexterm>
+        <primary><literal>true</literal></primary>
+    </indexterm>
+    if <varname>c</varname> is less than
+    <varname>c2</varname>.
+    </entry>
+</row>
+<row>
+    <entry>
+        <literal>&gt;</literal>
+        <indexterm>
+            <primary><literal>&gt;</literal></primary>
+        </indexterm>
+    </entry>
+    <entry>
+    Returns <literal>true</literal>
+    <indexterm>
+        <primary><literal>true</literal></primary>
+    </indexterm>
+    if <varname>c</varname> is greater than
+    <varname>c2</varname>.
+    </entry>
+</row>
+<row>
+    <entry>
+        <literal>&lt;=</literal>
+        <indexterm>
+            <primary><literal>&lt;=</literal></primary>
+        </indexterm>
+    </entry>
+    <entry>
+    Returns <literal>true</literal>
+    <indexterm>
+        <primary><literal>true</literal></primary>
+    </indexterm>
+    if <varname>c</varname> is less than or
+    equal to <varname>c2</varname>.
+    </entry>
+</row>
+<row>
+    <entry>
+        <literal>&gt;=</literal>
+        <indexterm>
+            <primary><literal>&gt;=</literal></primary>
+        </indexterm>
+    </entry>
+    <entry>
+    Returns <literal>true</literal>
+    <indexterm>
+        <primary><literal>true</literal></primary>
+    </indexterm>
+    if <varname>c</varname> is greater than or
+    equal to <varname>c2</varname>.
+    </entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+</para>
+</section>
+<section xml:id="TypesBooleanType"><info><title>Boolean Type</title></info>
+
+<para>
+The <literal>boolean</literal>
+<indexterm significance="preferred">
+    <primary><type>boolean</type></primary>
+</indexterm>
+<indexterm significance="preferred">
+    <primary>type</primary>
+    <secondary><type>boolean</type></secondary>
+</indexterm>
+type is used to denote a data item that can only
+take one of the values <literal>true</literal>
+<indexterm>
+    <primary><literal>true</literal></primary>
+</indexterm>
+or <literal>false</literal>.
+<indexterm>
+    <primary><literal>false</literal></primary>
+</indexterm>
+</para>
+<para>
+The features of the <literal>boolean</literal>
+<indexterm>
+    <primary><type>boolean</type></primary>
+</indexterm>
+<indexterm>
+    <primary>type</primary>
+    <secondary><type>boolean</type></secondary>
+</indexterm>
+type are given in
+<xref linkend="BooleanTypeFeatures"/>,
+where <varname>b</varname> and <varname>b2</varname> represent entities of
+the type on which the feature is applied.
+<table xml:id="BooleanTypeFeatures" frame="all"><info><title>Boolean Type Features</title></info>
+
+<tgroup cols="2" align="left" colsep="1" rowsep="1">
+<colspec colname="Feature" colwidth="1*"/>
+<colspec colname="Description" colwidth="2*"/>
+<thead>
+<row>
+    <entry>Feature</entry>
+    <entry>Description</entry>
+</row>
+</thead>
+<tbody>
+<row>
+    <entry>
+        <literal>=</literal>
+        <indexterm>
+            <primary><literal>=</literal></primary>
+        </indexterm>
+    </entry>
+    <entry>
+    Returns <literal>true</literal>
+    <indexterm>
+        <primary><literal>true</literal></primary>
+    </indexterm>
+    if <varname>b</varname> is equal to <varname>b2</varname>.
+    </entry>
+</row>
+<row>
+    <entry>
+        <literal>/=</literal>
+        <indexterm>
+            <primary><literal>/=</literal></primary>
+        </indexterm>
+    </entry>
+    <entry>
+    Returns <literal>true</literal>
+    <indexterm>
+        <primary><literal>true</literal></primary>
+    </indexterm>
+    if <varname>b</varname> is not equal to <varname>b2</varname>.
+    </entry>
+</row>
+<row>
+    <entry>
+        <literal>and</literal>
+        <indexterm>
+            <primary><literal>and</literal></primary>
+        </indexterm>
+    </entry>
+    <entry>
+    Returns <literal>true</literal> if both <varname>b</varname> and
+    <varname>b2</varname> are <literal>true</literal>.
+    </entry>
+</row>
+<row>
+    <entry>
+        <literal>xor</literal>
+        <indexterm>
+            <primary><literal>xor</literal></primary>
+        </indexterm>
+    </entry>
+    <entry>
+    Returns <literal>true</literal>
+    <indexterm>
+        <primary><literal>true</literal></primary>
+    </indexterm>
+    if either <varname>b</varname> or
+    <varname>b2</varname> is <literal>true</literal>, but not both.
+    </entry>
+</row>
+<row>
+    <entry>
+        <literal>or</literal>
+        <indexterm>
+            <primary><literal>or</literal></primary>
+        </indexterm>
+    </entry>
+    <entry>
+    Returns <literal>true</literal> if either <varname>b</varname> or
+    <varname>b2</varname> is
+    <literal>true</literal>.
+    <indexterm>
+        <primary><literal>true</literal></primary>
+    </indexterm>
+    </entry>
+</row>
+<row>
+    <entry>
+        <literal>not</literal>
+        <indexterm>
+            <primary><literal>not</literal></primary>
+        </indexterm>
+    </entry>
+    <entry>
+    Returns <literal>true</literal>
+    <indexterm>
+        <primary><literal>true</literal></primary>
+    </indexterm>
+    if either <varname>b</varname> is
+    <literal>false</literal>.
+    <indexterm>
+        <primary><literal>false</literal></primary>
+    </indexterm>
+    </entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+</para>
+</section>
+<section xml:id="TypesByteType"><info><title>Byte Type</title></info>
+
+<para>
+The <type>byte</type> type
+<indexterm significance="preferred">
+    <primary><type>byte</type></primary>
+</indexterm>
+<indexterm significance="preferred">
+    <primary>type</primary>
+    <secondary><type>byte</type></secondary>
+</indexterm>
+is an 8-bit quantity that is guaranteed not to
+undergo any conversion when transmitted by the communication system.
+</para>
+<para>
+The features of the <type>byte</type>
+<indexterm>
+    <primary><type>byte</type></primary>
+</indexterm>
+<indexterm>
+    <primary>type</primary>
+    <secondary><type>byte</type></secondary>
+</indexterm>
+type are the same as the features of
+any <link linkend="TypesNumericTypes">numeric type</link>
+<indexterm>
+    <primary><type>numeric</type></primary>
+</indexterm>
+<indexterm>
+    <primary>type</primary>
+    <secondary><type>numeric</type></secondary>
+</indexterm>
+(see <xref linkend="TypesNumericTypes"/>).
+</para>
+</section>
+<section xml:id="TypesStringType"><info><title>String Type</title></info>
+
+<para>
+The <type>string</type> type
+<indexterm significance="preferred">
+    <primary><type>string</type></primary>
+</indexterm>
+<indexterm significance="preferred">
+    <primary>type</primary>
+    <secondary><type>string</type></secondary>
+</indexterm>
+is similar to a
+<link linkend="TypesSequenceTypes"><type>sequence of character</type></link>.
+<indexterm>
+    <primary><type>sequence</type></primary>
+</indexterm>
+<indexterm>
+    <primary>type</primary>
+    <secondary><type>sequence</type></secondary>
+    <tertiary><type>character</type></tertiary>
+</indexterm>
+Strings are singled out as a
+separate type because they have certain special properties that make them
+distinct.
+</para>
+<para>
+The features of the <type>string</type>
+<indexterm>
+    <primary><type>string</type></primary>
+</indexterm>
+<indexterm>
+    <primary>type</primary>
+    <secondary><type>string</type></secondary>
+</indexterm>
+type are the same as the features
+of the
+<link linkend="TypesWideCharacterType"><literal>wstring</literal></link>
+<indexterm>
+    <primary><type>wstring</type></primary>
+</indexterm>
+<indexterm>
+    <primary>type</primary>
+    <secondary><type>wstring</type></secondary>
+</indexterm>
+type (see <xref linkend="TypesWideStringType"/>).
+</para>
+</section>
+<section xml:id="TypesWideStringType"><info><title>Wide String Type</title></info>
+
+<para>
+The <type>wstring</type>
+<indexterm significance="preferred">
+    <primary><type>wstring</type></primary>
+</indexterm>
+<indexterm significance="preferred">
+    <primary>type</primary>
+    <secondary><type>wstring</type></secondary>
+</indexterm>
+type encodes wide characters from any character set.
+</para>
+<para>
+The features of the <type>wcharacter</type>
+<indexterm significance="preferred">
+    <primary><type>wstring</type></primary>
+</indexterm>
+<indexterm significance="preferred">
+    <primary>type</primary>
+    <secondary><type>wstring</type></secondary>
+</indexterm>
+type is similar to a
+<link linkend="TypesSequenceTypes"><type>sequence of wcharacter</type></link>.
+Wide strings are singled out
+as a separate type because they have certain special properties that make
+them distinct from a
+<link linkend="TypesSequenceTypes"><type>sequence of wcharacter</type></link>
+<indexterm>
+    <primary><type>sequence</type></primary>
+</indexterm>
+<indexterm>
+    <primary>type</primary>
+    <secondary><type>sequence</type></secondary>
+    <tertiary><type>wcharacter</type></tertiary>
+</indexterm>
+</para>
+<para>
+The features of the <type>wstring</type>
+<indexterm>
+    <primary><type>sequence</type></primary>
+</indexterm>
+<indexterm>
+    <primary>type</primary>
+    <secondary><type>sequence</type></secondary>
+    <tertiary><type>wcharacter</type></tertiary>
+</indexterm>
+are given in 
+<xref linkend="WideStringTypeFeatures"/>,
+where <varname>s</varname> and <varname>s2</varname> represent entities of
+the type on which the feature is applied.
+<table xml:id="WideStringTypeFeatures" frame="all"><info><title>Wide String Type Features</title></info>
+
+<tgroup cols="2" align="left" colsep="1" rowsep="1">
+<colspec colname="Feature" colwidth="1*"/>
+<colspec colname="Description" colwidth="2*"/>
+<thead>
+<row>
+    <entry>Feature</entry>
+    <entry>Description</entry>
+</row>
+</thead>
+<tbody>
+<row>
+    <entry>
+        <literal>=</literal>
+        <indexterm>
+            <primary><literal>=</literal></primary>
+        </indexterm>
+    </entry>
+    <entry>
+    Returns <literal>true</literal> if <varname>s</varname> is equal to
+    <varname>s2</varname>.
+    </entry>
+</row>
+<row>
+    <entry>
+        <literal>/=</literal>
+        <indexterm>
+            <primary><literal>/=</literal></primary>
+        </indexterm>
+    </entry>
+    <entry>
+    Returns <literal>true</literal> if <varname>s</varname> is not equal to
+    <varname>s2</varname>.
+    </entry>
+</row>
+<row>
+    <entry>
+        <literal>&lt;</literal>
+        <indexterm>
+            <primary><literal>&lt;</literal></primary>
+        </indexterm>
+    </entry>
+    <entry>
+    Returns <literal>true</literal> if <varname>s</varname> is less than
+    <varname>s2</varname>.
+    </entry>
+</row>
+<row>
+    <entry>
+        <literal>&gt;</literal>
+        <indexterm>
+            <primary><literal>&gt;</literal></primary>
+        </indexterm>
+    </entry>
+    <entry>
+    Returns <literal>true</literal> if <varname>s</varname> is greater than
+    <varname>s2</varname>.
+    </entry>
+</row>
+<row>
+    <entry>
+        <literal>&lt;=</literal>
+        <indexterm>
+            <primary><literal>&lt;=</literal></primary>
+        </indexterm>
+    </entry>
+    <entry>
+    Returns <literal>true</literal> if <varname>s</varname> is less than or
+    equal to <varname>s2</varname>.
+    </entry>
+</row>
+<row>
+    <entry>
+        <literal>&gt;=</literal>
+        <indexterm>
+            <primary><literal>&gt;=</literal></primary>
+        </indexterm>
+    </entry>
+    <entry>
+    Returns <literal>true</literal> if <varname>s</varname> is greater than or
+    equal to <varname>s2</varname>.
+    </entry>
+</row>
+<row>
+    <entry>
+        <anchor xml:id="WideStringConcatenation"/>
+        <literal>&amp;</literal>
+        <indexterm>
+            <primary><literal>&amp;</literal></primary>
+        </indexterm>
+        <indexterm>
+            <primary>string concatenation</primary>
+        </indexterm>
+    </entry>
+    <entry>
+    Returns the concatenation of <varname>s2</varname> to end of
+    <varname>s</varname>.
+    </entry>
+</row>
+<row>
+    <entry>
+        <literal>[]</literal>
+        <indexterm>
+            <primary><literal>[]</literal></primary>
+        </indexterm>
+    </entry>
+    <entry>
+    Returns either the element of <varname>s</varname> at a specific index or
+    the slice of <varname>s</varname> given by a range in indices.
+    </entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+</para>
+</section>
+<section xml:id="TypesDeviceType"><info><title>Device Type</title></info>
+
+<para>
+The <type>device</type> type
+<indexterm significance="preferred">
+    <primary><type>device</type></primary>
+</indexterm>
+<indexterm significance="preferred">
+    <primary>type</primary>
+    <secondary><type>device</type></secondary>
+</indexterm>
+denotes a user defined input/output device stream. The features
+of the type are fully described in
+<xref linkend="StatementsOutputStream"/>,
+<xref linkend="StatementsInputStream"/> and
+<xref linkend="StatementsInputLineStream"/>.
+</para>
+</section>
+<section xml:id="TypesAnonymousEnumType"><info><title>Anonymous Enum Type</title></info>
+
+<para>
+The <type>enum</type> type
+<indexterm significance="preferred">
+    <primary><type>enum</type></primary>
+</indexterm>
+<indexterm significance="preferred">
+    <primary>type</primary>
+    <secondary><type>enum</type></secondary>
+</indexterm>
+is the basis of all enumeration types. Used to pass anonymous enumeration
+values in the <package>Text_IO</package> domain.
+</para>
+<caution>
+<para>
+The anonymous <type>enum</type> type is a deprecated language feature and will
+be removed in a future version of MASL.
+<indexterm significance="preferred">
+    <primary>deprecated language feature</primary>
+</indexterm>
+</para>
+</caution>
+</section>
+<section xml:id="TypesAnonymousEventType"><info><title>Anonymous Event Type</title></info>
+
+<para>
+The anonymous <type>event</type> type
+<indexterm significance="preferred">
+    <primary><type>event</type></primary>
+</indexterm>
+<indexterm significance="preferred">
+    <primary>type</primary>
+    <secondary><type>enum</type></secondary>
+</indexterm>
+is the type of all events. It is used to pass events in the
+<package>SM_TIMER</package>
+<indexterm>
+    <primary><package>SM_TIMER</package></primary>
+</indexterm>
+domain.
+</para>
+<caution>
+<para>
+The anonymous <type>event</type> type is a deprecated language feature and will
+be removed in a future version of MASL.
+<indexterm significance="preferred">
+    <primary>deprecated language feature</primary>
+</indexterm>
+</para>
+</caution>
+</section>
+<section xml:id="TypesAnonymousInstanceType"><info><title>Anonymous Instance Type</title></info>
+
+<para>
+The anonymous <type>instance</type> type
+<indexterm significance="preferred">
+    <primary><type>instance</type></primary>
+</indexterm>
+<indexterm significance="preferred">
+    <primary>type</primary>
+    <secondary><type>instance</type></secondary>
+</indexterm>
+is the type of all <link linkend="TypesInstanceTypes">instance type</link>s.
+<indexterm>
+    <primary><type>instance</type></primary>
+</indexterm>
+Used to pass anonymous instances in the <package>SM_TIMER</package>
+<indexterm>
+    <primary><package>SM_TIMER</package></primary>
+</indexterm>
+domain.
+</para>
+<caution>
+<para>
+The anonymous <type>instance</type> type is a deprecated language feature and will be removed
+in a future version of MASL.
+<indexterm significance="preferred">
+    <primary>deprecated language feature</primary>
+</indexterm>
+</para>
+</caution>
+</section>
+</section>
+<section xml:id="TypesCollectionTypes"><info><title>Collection Types</title></info>
+
+<para>
+A <link linkend="ebnf.collectiontype"><emphasis>collection type</emphasis></link>
+<indexterm significance="preferred">
+    <primary>collection</primary>
+</indexterm>
+<indexterm significance="preferred">
+    <primary>type</primary>
+    <secondary>collection</secondary>
+</indexterm>
+is a type whose values consist of zero or
+more elements all of which have the same type. Four forms of collection types
+are provided;
+<link linkend="TypesSetTypes">sets</link>,
+<indexterm>
+    <primary><type>set</type></primary>
+</indexterm>
+<indexterm>
+    <primary>type</primary>
+    <secondary><type>set</type></secondary>
+</indexterm>
+<link linkend="TypesBagTypes">bags</link>,
+<indexterm>
+    <primary><type>bag</type></primary>
+</indexterm>
+<indexterm>
+    <primary>type</primary>
+    <secondary><type>bag</type></secondary>
+</indexterm>
+<link linkend="TypesSequenceTypes">sequences</link> and
+<indexterm>
+    <primary><type>sequence</type></primary>
+</indexterm>
+<indexterm>
+    <primary>type</primary>
+    <secondary><type>sequence</type></secondary>
+</indexterm>
+<link linkend="TypesArrayTypes">arrays</link>.
+<indexterm>
+    <primary><type>array</type></primary>
+</indexterm>
+<indexterm>
+    <primary>type</primary>
+    <secondary><type>array</type></secondary>
+</indexterm>
+</para>
+<indexterm zone="ebnf.collectiontype">
+    <primary>collection type</primary>
+</indexterm>
+<indexterm zone="ebnf.collectiontype">
+    <primary>set type</primary>
+</indexterm>
+<indexterm zone="ebnf.collectiontype">
+    <primary>bag type</primary>
+</indexterm>
+<indexterm zone="ebnf.collectiontype">
+    <primary>sequence type</primary>
+</indexterm>
+<indexterm zone="ebnf.collectiontype">
+    <primary>array type</primary>
+</indexterm>
+<productionset>
+<production xml:id="ebnf.collectiontype">
+    <lhs>collection type</lhs>
+    <rhs>    
+        <nonterminal def="#ebnf.settype">set type</nonterminal> |
+        <nonterminal def="#ebnf.bagtype">bag type</nonterminal> |
+        <nonterminal def="#ebnf.sequencetype">sequence type</nonterminal> |
+        <nonterminal def="#ebnf.arraytype">array type</nonterminal>
+    </rhs>
+</production>
+</productionset>
+<para>
+A <link linkend="TypesSetTypes"><type>set</type></link>
+<indexterm>
+    <primary><type>set</type></primary>
+</indexterm>
+<indexterm>
+    <primary>type</primary>
+    <secondary><type>set</type></secondary>
+</indexterm>
+is a mathematical set. It does not contain duplicate
+elements. A <link linkend="TypesBagTypes"><type>bag</type></link>
+<indexterm>
+    <primary><type>bag</type></primary>
+</indexterm>
+<indexterm>
+    <primary>type</primary>
+    <secondary><type>bag</type></secondary>
+</indexterm>
+is a like a
+<link linkend="TypesSetTypes"><type>set</type></link>,
+<indexterm>
+    <primary><type>set</type></primary>
+</indexterm>
+<indexterm>
+    <primary>type</primary>
+    <secondary><type>set</type></secondary>
+</indexterm>
+which may contain duplicates. A
+<link linkend="TypesSequenceTypes"><type>sequence</type></link>
+<indexterm>
+    <primary><type>sequence</type></primary>
+</indexterm>
+<indexterm>
+    <primary>type</primary>
+    <secondary><type>sequence</type></secondary>
+</indexterm>
+is like a
+<link linkend="TypesBagTypes"><type>bag</type></link>
+<indexterm>
+    <primary><type>bag</type></primary>
+</indexterm>
+<indexterm>
+    <primary>type</primary>
+    <secondary><type>bag</type></secondary>
+</indexterm>
+in which elements are ordered. Both
+<link linkend="TypesBagTypes"><type>bag</type></link>s
+<indexterm>
+    <primary><type>bag</type></primary>
+</indexterm>
+<indexterm>
+    <primary>type</primary>
+    <secondary><type>bag</type></secondary>
+</indexterm>
+and <link linkend="TypesSetTypes"><type>set</type></link>s
+<indexterm>
+    <primary><type>set</type></primary>
+</indexterm>
+<indexterm>
+    <primary>type</primary>
+    <secondary><type>set</type></secondary>
+</indexterm>
+have no order defined on them. An <literal>array</literal>
+<indexterm>
+    <primary><type>array</type></primary>
+</indexterm>
+<indexterm>
+    <primary>type</primary>
+    <secondary><type>array</type></secondary>
+</indexterm>
+is like a
+<link linkend="TypesSequenceTypes"><type>sequence</type></link>
+<indexterm>
+    <primary><type>sequence</type></primary>
+</indexterm>
+<indexterm>
+    <primary>type</primary>
+    <secondary><type>sequence</type></secondary>
+</indexterm>
+except that the number of elements in the
+<link linkend="TypesArrayTypes"><type>array</type></link>
+<indexterm>
+    <primary><type>array</type></primary>
+</indexterm>
+<indexterm>
+    <primary>type</primary>
+    <secondary><type>array</type></secondary>
+</indexterm>
+is fixed at compile-time.
+</para>
+<para>
+The features of the each of the 
+<link linkend="ebnf.collectiontype"><emphasis>collection type</emphasis></link> 
+<indexterm>
+    <primary>collection</primary>
+</indexterm>
+<indexterm>
+    <primary>type</primary>
+    <secondary>collection</secondary>
+</indexterm>
+is given in <xref linkend="CollectionTypesFeatures"/>.
+<table xml:id="CollectionTypesFeatures" frame="all"><info><title>Collection Type Features</title></info>
+
+<tgroup cols="4" align="left" colsep="1" rowsep="1">
+<colspec colname="Collection Type"/>
+<colspec colname="Maintains Insertion Order"/>
+<colspec colname="Allows Duplicates"/>
+<colspec colname="Fixed Length"/>
+<thead>
+<row>
+    <entry>Collection Type</entry>
+    <entry>Maintains Insertion Order</entry>
+    <entry>Allows Duplicates</entry>
+    <entry>Fixed Length</entry>
+</row>
+</thead>
+<tbody>
+<row>
+    <entry>
+        <type>set</type>
+        <indexterm>
+            <primary><type>array</type></primary>
+        </indexterm>
+        <indexterm>
+            <primary>type</primary>
+            <secondary><type>array</type></secondary>
+        </indexterm>
+    </entry>
+    <entry>No</entry>
+    <entry>No</entry>
+    <entry>No</entry>
+</row>
+<row>
+    <entry>
+        <type>bag</type>
+        <indexterm>
+            <primary><type>bag</type></primary>
+        </indexterm>
+        <indexterm>
+            <primary>type</primary>
+            <secondary><type>bag</type></secondary>
+        </indexterm>
+    </entry>
+    <entry>No</entry>
+    <entry>Yes</entry>
+    <entry>No</entry>
+</row>
+<row>
+    <entry>
+        <type>sequence</type>
+        <indexterm>
+            <primary><type>sequence</type></primary>
+        </indexterm>
+        <indexterm>
+            <primary>type</primary>
+            <secondary><type>sequence</type></secondary>
+        </indexterm>
+    </entry>
+    <entry>Yes</entry>
+    <entry>Yes</entry>
+    <entry>No</entry>
+</row>
+<row>
+    <entry>
+        <type>array</type>
+        <indexterm>
+            <primary><type>array</type></primary>
+        </indexterm>
+        <indexterm>
+            <primary>type</primary>
+            <secondary><type>array</type></secondary>
+        </indexterm>
+    </entry>
+    <entry>Yes</entry>
+    <entry>Yes</entry>
+    <entry>Yes</entry>
+</row></tbody>
+</tgroup>
+</table>
+</para>
+<section xml:id="TypesSetTypes"><info><title>Set Types</title></info>
+
+<para>
+A <link linkend="ebnf.settype"><type>set</type></link> type is a
+<indexterm significance="preferred">
+    <primary><type>set</type></primary>
+</indexterm>
+<indexterm significance="preferred">
+    <primary>type</primary>
+    <secondary><type>set</type></secondary>
+</indexterm>
+<link linkend="ebnf.collectiontype"><emphasis>collection type</emphasis></link>
+<indexterm significance="preferred">
+    <primary>collection</primary>
+</indexterm>
+<indexterm significance="preferred">
+    <primary>type</primary>
+    <secondary>collection</secondary>
+</indexterm>
+whose values do not contain duplicate elements and which have no order defined
+on them.
+</para>
+<indexterm zone="ebnf.settype">
+    <primary>set type</primary>
+</indexterm>
+<indexterm zone="ebnf.settype">
+    <primary><literal>set of</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.settype">
+    <primary>type</primary>
+</indexterm>
+<productionset>
+<production xml:id="ebnf.settype">
+    <lhs>set type</lhs>
+    <rhs>
+        'set of',
+        <nonterminal def="#ebnf.type">type</nonterminal>        
+    </rhs>
+</production>
+</productionset>
+<para>
+The features of a
+<link linkend="ebnf.settype"><type>set</type></link>
+<indexterm significance="preferred">
+    <primary><type>set</type></primary>
+</indexterm>
+<indexterm significance="preferred">
+    <primary>type</primary>
+    <secondary><type>set</type></secondary>
+</indexterm>
+type are given in 
+<xref linkend="SetTypeFeatures"/>, where 
+<varname>s</varname> and <varname>s2</varname> represent entities of the
+type on which the feature is applied.
+</para>
+<para>
+The features <literal>ordered_by</literal>
+<indexterm>
+    <primary><literal>ordered_by</literal></primary>
+</indexterm>
+and <literal>reverse_ordered_by</literal>
+<indexterm>
+    <primary><literal>reverse_ordered_by</literal></primary>
+</indexterm>
+are only defined for <link linkend="ebnf.settype"><type>set</type></link>
+<indexterm>
+    <primary><type>set</type></primary>
+</indexterm>
+<indexterm>
+    <primary>type</primary>
+    <secondary><type>set</type></secondary>
+</indexterm>
+types whose element type is an
+<link linkend="TypesInstanceTypes"><type>instance</type></link> type.
+<indexterm>
+    <primary><type>instance</type></primary>
+</indexterm>
+<indexterm>
+    <primary>type</primary>
+    <secondary><type>instance</type></secondary>
+</indexterm>
+</para>
+<para>
+The feature <literal>-&gt;</literal>
+<indexterm>
+    <primary><literal>-&gt;</literal></primary>
+</indexterm>
+is only defined for set types whose element
+type is an
+<link linkend="TypesInstanceTypes"><type>instance</type></link> type.
+<table xml:id="SetTypeFeatures" frame="all"><info><title>Set Type Features</title></info>
+
+<tgroup cols="2" align="left" colsep="1" rowsep="1">
+<colspec colname="Feature" colwidth="1*"/>
+<colspec colname="Description" colwidth="2*"/>
+<thead>
+<row>
+    <entry>Feature</entry>
+    <entry>Description</entry>
+</row>
+</thead>
+<tbody>
+<row>
+    <entry>
+        <literal>union</literal>
+        <indexterm>
+            <primary><literal>union</literal></primary>
+        </indexterm>
+    </entry>
+    <entry>
+    Returns the union of <varname>s</varname> and <varname>s2</varname>.
+    The result set contains all the elements in either set.
+    </entry>
+</row>
+<row>
+    <entry>
+        <literal>intersection</literal>
+        <indexterm>
+            <primary><literal>intersection</literal></primary>
+        </indexterm>
+    </entry>
+    <entry>
+    Returns the intersection of <varname>s</varname> and <varname>s2</varname>.
+    The result set contains all the elements common to both sets.
+    </entry>
+</row>
+<row>
+    <entry>
+        <literal>not_in</literal>
+        <indexterm>
+            <primary><literal>not_in</literal></primary>
+        </indexterm>
+    </entry>
+    <entry>
+    Returns the <link linkend="ebnf.settype"><type>set</type></link>
+    <indexterm>
+        <primary><type>set</type></primary>
+    </indexterm>
+    <indexterm>
+        <primary>type</primary>
+        <secondary><type>set</type></secondary>
+    </indexterm>
+    containing all the elements in <varname>s</varname>
+    that are not in <varname>s2</varname>.
+    </entry>
+</row>
+<row>
+    <entry>
+        <literal>disunion</literal>
+        <indexterm>
+            <primary><literal>disunion</literal></primary>
+        </indexterm>
+    </entry>
+    <entry>
+    Returns the <link linkend="ebnf.settype"><type>set</type></link>
+    <indexterm>
+        <primary><type>set</type></primary>
+    </indexterm>
+    <indexterm>
+        <primary>type</primary>
+        <secondary><type>set</type></secondary>
+    </indexterm>
+    containing all the elements in either <varname>s</varname>
+    or <varname>s2</varname>, but not in both.
+    </entry>
+</row>
+<row>
+    <entry>
+        <literal>&amp;</literal>
+        <indexterm>
+            <primary><literal>&amp;</literal></primary>
+        </indexterm>
+    </entry>
+    <entry>
+    Returns the set containing all the elements in <varname>s</varname>
+    and <varname>s2</varname>.
+    </entry>
+</row>
+<row>
+    <entry>
+        <literal>ordered_by</literal>
+        <indexterm>
+            <primary><literal>ordered_by</literal></primary>
+        </indexterm>
+    </entry>
+    <entry>
+    Returns a <link linkend="TypesSequenceTypes"><type>sequence</type></link>
+    <indexterm>
+        <primary><type>sequence</type></primary>
+    </indexterm>
+    <indexterm>
+        <primary>type</primary>
+        <secondary><type>sequence</type></secondary>
+    </indexterm>
+    that contains all the elements of <varname>s</varname>
+    in specified ascending order.
+    </entry>
+</row>
+<row>
+    <entry>
+        <literal>reverse_ordered_by</literal>
+        <indexterm>
+            <primary><literal>reverse_ordered_by</literal></primary>
+        </indexterm>
+    </entry>
+    <entry>
+    Returns a <link linkend="TypesSequenceTypes"><type>sequence</type></link>
+    <indexterm>
+        <primary><type>sequence</type></primary>
+    </indexterm>
+    <indexterm>
+        <primary>type</primary>
+        <secondary><type>sequence</type></secondary>
+    </indexterm>
+    that contains all the elements of <varname>s</varname>
+    in specified descending order.
+    </entry>
+</row>
+<row>
+    <entry>
+        <literal>find</literal>
+        <indexterm>
+            <primary><literal>find</literal></primary>
+        </indexterm>
+    </entry>
+    <entry>
+    Returns a <link linkend="ebnf.settype"><type>set</type></link>
+    <indexterm>
+        <primary><type>set</type></primary>
+    </indexterm>
+    <indexterm>
+        <primary>type</primary>
+        <secondary><type>set</type></secondary>
+    </indexterm>
+    containing all the elements of <varname>s</varname>
+    that satisfies the specified condition.
+    </entry>
+</row>
+<row>
+    <entry>
+        <literal>find_all</literal>
+        <indexterm>
+            <primary><literal>find_all</literal></primary>
+        </indexterm>
+    </entry>
+    <entry>
+    Returns a <link linkend="ebnf.settype"><type>set</type></link>
+    <indexterm>
+        <primary><type>set</type></primary>
+    </indexterm>
+    <indexterm>
+        <primary>type</primary>
+        <secondary><type>set</type></secondary>
+    </indexterm>
+    containing all the elements of <varname>s</varname>.
+    </entry>
+</row>
+<row>
+    <entry>
+        <literal>find_one</literal>
+        <indexterm>
+            <primary><literal>find_one</literal></primary>
+        </indexterm>
+    </entry>
+    <entry>
+    Returns an arbitrary element of <varname>s</varname>
+    that satisfies the specified condition.
+    </entry>
+</row>
+<row>
+    <entry>
+        <literal>find_only</literal>
+        <indexterm>
+            <primary><literal>find_only</literal></primary>
+        </indexterm>
+    </entry>
+    <entry>
+    Returns the only element of <varname>s</varname>
+    that satisfies the specified condition.
+    </entry>
+</row>
+<row>
+    <entry>
+        <literal>-&gt;</literal>
+        <indexterm>
+            <primary><literal>-&gt;</literal></primary>
+        </indexterm>
+    </entry>
+    <entry>
+    Returns the <link linkend="TypesBagTypes"><type>bag</type></link>
+    <indexterm>
+        <primary><type>bag</type></primary>
+    </indexterm>
+    <indexterm>
+        <primary>type</primary>
+        <secondary><type>bag</type></secondary>
+    </indexterm>
+    of elements that are related to the elements of
+    <varname>s</varname> using the specified relationship.
+    </entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+</para>
+</section>
+<section xml:id="TypesBagTypes"><info><title>Bag Types</title></info>
+
+<para>
+A <link linkend="ebnf.bagtype"><type>bag</type></link>
+<indexterm significance="preferred">
+    <primary><type>bag</type></primary>
+</indexterm>
+<indexterm significance="preferred">
+    <primary>type</primary>
+    <secondary><type>bag</type></secondary>
+</indexterm>
+type is a
+<link linkend="ebnf.collectiontype"><emphasis>collection type</emphasis></link>
+<indexterm>
+    <primary>collection</primary>
+</indexterm>
+<indexterm>
+    <primary>type</primary>
+    <secondary>collection</secondary>
+</indexterm>
+whose values can contain duplicate elements which have no order defined on them.
+</para>
+<indexterm zone="ebnf.bagtype">
+    <primary>bag type</primary>
+</indexterm>
+<indexterm zone="ebnf.bagtype">
+    <primary><literal>bag of</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.bagtype">
+    <primary>type</primary>
+</indexterm>
+<productionset>
+<production xml:id="ebnf.bagtype">
+    <lhs>bag type</lhs>
+    <rhs>
+        'bag of',
+        <nonterminal def="#ebnf.type">type</nonterminal>        
+    </rhs>
+</production>
+</productionset>
+<para>
+The features of a <link linkend="ebnf.bagtype"><type>bag</type></link> type
+<indexterm>
+    <primary><type>bag</type></primary>
+</indexterm>
+<indexterm>
+    <primary>type</primary>
+    <secondary><type>bag</type></secondary>
+</indexterm>
+are give in
+<xref linkend="BagTypeFeatures"/>, where <varname>b</varname> and
+<varname>b2</varname> represent entities of the type on which the feature is
+applied.
+</para>
+<para>
+The features <literal>ordered_by</literal>
+<indexterm>
+    <primary><literal>ordered_by</literal></primary>
+</indexterm>
+and <literal>reverse_ordered_by</literal>
+<indexterm>
+    <primary><literal>reverse_ordered_by</literal></primary>
+</indexterm>
+are only defined for
+<link linkend="ebnf.bagtype"><type>bag</type></link>
+<indexterm>
+    <primary><type>bag</type></primary>
+</indexterm>
+<indexterm>
+    <primary>type</primary>
+    <secondary><type>bag</type></secondary>
+</indexterm>
+types whose element type is either a
+<type>structure</type>
+<indexterm>
+    <primary><type>structure</type></primary>
+</indexterm>
+<indexterm>
+    <primary>type</primary>
+    <secondary><type>structure</type></secondary>
+</indexterm>
+or an
+<link linkend="TypesInstanceTypes"><type>instance</type></link> type.
+<indexterm>
+    <primary><type>instance</type></primary>
+</indexterm>
+<indexterm>
+    <primary>type</primary>
+    <secondary><type>instance</type></secondary>
+</indexterm>
+<table xml:id="BagTypeFeatures" frame="all"><info><title>Bag Type Features</title></info>
+
+<tgroup cols="2" align="left" colsep="1" rowsep="1">
+<colspec colname="Feature" colwidth="1*"/>
+<colspec colname="Description" colwidth="2*"/>
+<thead>
+<row>
+    <entry>Feature</entry>
+    <entry>Description</entry>
+</row>
+</thead>
+<tbody>
+<row>
+    <entry>
+        <link linkend="ExpressionsAdditiveOperators"><literal>union</literal></link>
+        <indexterm>
+            <primary><literal>union</literal></primary>
+        </indexterm>
+    </entry>
+    <entry>
+    Returns the union of <varname>b</varname> and <varname>b2</varname>.
+    The result set contains all the elements in either
+    <link linkend="TypesBagTypes"><type>bag</type></link>.
+    </entry>
+</row>
+<row>
+    <entry>
+        <link linkend="ExpressionsSetIntersectionandDisunionOperators"><literal>intersection</literal></link>
+        <indexterm>
+            <primary><literal>intersection</literal></primary>
+        </indexterm>
+    </entry>
+    <entry>
+    <para>
+    Returns the intersection of <varname>b</varname> and
+    <varname>b2</varname>. The result set contains all the elements that are
+    in both <link linkend="TypesBagTypes"><type>bag</type></link>s.
+    <indexterm>
+        <primary><type>bag</type></primary>
+    </indexterm>
+    <indexterm>
+        <primary>type</primary>
+        <secondary><type>bag</type></secondary>
+    </indexterm>
+    </para>
+    </entry>
+</row>
+<row>
+    <entry>
+        <link linkend="ExpressionsAdditiveOperators"><literal>not_in</literal></link>
+        <indexterm>
+            <primary><literal>not_in</literal></primary>
+        </indexterm>
+    </entry>
+    <entry>
+    Returns the <link linkend="TypesBagTypes"><type>bag</type></link>
+    <indexterm>
+        <primary><type>bag</type></primary>
+    </indexterm>
+    <indexterm>
+        <primary>type</primary>
+        <secondary><type>bag</type></secondary>
+    </indexterm>
+    containing all the elements in <varname>b</varname> not in
+    <varname>b2</varname>.
+    </entry>
+</row>
+<row>
+    <entry>
+        <link linkend="ExpressionsSetIntersectionandDisunionOperators"><literal>disunion</literal></link>
+        <indexterm>
+            <primary><literal>disunion</literal></primary>
+        </indexterm>
+    </entry>
+    <entry>
+    Returns the
+    <link linkend="TypesBagTypes"><type>bag</type></link>
+    <indexterm>
+        <primary><type>bag</type></primary>
+    </indexterm>
+    <indexterm>
+        <primary>type</primary>
+        <secondary><type>bag</type></secondary>
+    </indexterm>
+    containing all the elements in either <varname>b</varname>
+    or <varname>b2</varname>, but not in both.
+    </entry>
+</row>
+<row>
+    <entry>
+        <literal>&amp;</literal>
+        <indexterm>
+            <primary><literal>&amp;</literal></primary>
+        </indexterm>
+    </entry>
+    <entry>
+    Returns the <link linkend="ebnf.bagtype"><type>bag</type></link>
+    <indexterm>
+        <primary><type>bag</type></primary>
+    </indexterm>
+    <indexterm>
+        <primary>type</primary>
+        <secondary><type>bag</type></secondary>
+    </indexterm>
+    containing all the elements in
+    <varname>b</varname> and <varname>b2</varname>.
+    </entry>
+</row>
+<row>
+    <entry>
+        <literal>ordered_by</literal>
+        <indexterm>
+            <primary><literal>ordered_by</literal></primary>
+        </indexterm>
+    </entry>
+    <entry>
+    Returns a <link linkend="TypesSequenceTypes"><type>sequence</type></link>
+    <indexterm>
+        <primary><type>sequence</type></primary>
+    </indexterm>
+    <indexterm>
+        <primary>type</primary>
+        <secondary><type>sequence</type></secondary>
+    </indexterm>
+    that contains all the elements of
+    <varname>b</varname> in specified ascending order.
+    </entry>
+</row>
+<row>
+    <entry>
+        <literal>reverse_ordered_by</literal>
+        <indexterm>
+            <primary><literal>reverse_ordered_by</literal></primary>
+        </indexterm>
+    </entry>
+    <entry>
+    Returns a <link linkend="TypesSequenceTypes"><type>sequence</type></link>
+    <indexterm>
+        <primary><type>sequence</type></primary>
+    </indexterm>
+    <indexterm>
+        <primary>type</primary>
+        <secondary><type>sequence</type></secondary>
+    </indexterm>
+    that contains all the elements of
+    <varname>b</varname> in specified descending order.
+    </entry>
+</row>
+<row>
+    <entry>
+        <literal>find</literal>
+        <indexterm>
+            <primary><literal>find</literal></primary>
+        </indexterm>
+    </entry>
+    <entry>
+    Returns a <link linkend="TypesBagTypes"><type>bag</type></link>
+    <indexterm>
+        <primary><type>bag</type></primary>
+    </indexterm>
+    <indexterm>
+        <primary>type</primary>
+        <secondary><type>bag</type></secondary>
+    </indexterm>
+    that contains all the elements of
+    <varname>b</varname> that satisfy the specified condition.
+    </entry>
+</row>
+<row>
+    <entry>
+        <literal>find_all</literal>
+        <indexterm>
+            <primary><literal>find_all</literal></primary>
+        </indexterm>
+    </entry>
+    <entry>
+    Returns a <link linkend="TypesBagTypes"><type>bag</type></link>
+    <indexterm>
+        <primary><type>bag</type></primary>
+    </indexterm>
+    <indexterm>
+        <primary>type</primary>
+        <secondary><type>bag</type></secondary>
+    </indexterm>
+    that contains all the elements of
+    <varname>b</varname>.
+    </entry>
+</row>
+<row>
+    <entry>
+        <literal>find_one</literal>
+        <indexterm>
+            <primary><literal>find_one</literal></primary>
+        </indexterm>
+    </entry>
+    <entry>
+    Returns an arbitrary element of <varname>b</varname> that satisfies the
+    specified condition.
+    </entry>
+</row>
+<row>
+    <entry>
+        <literal>find_only</literal>
+        <indexterm>
+            <primary><literal>find_only</literal></primary>
+        </indexterm>
+    </entry>
+    <entry>
+    Returns the only element of <varname>b</varname> that satisfies the
+    specified condition.
+    </entry>
+</row>
+<row>
+    <entry>
+        <literal>-&gt;</literal>
+        <indexterm>
+            <primary><literal>-&gt;</literal></primary>
+        </indexterm>
+    </entry>
+    <entry>
+    Returns the <link linkend="TypesBagTypes"><type>bag</type></link>
+    <indexterm>
+        <primary><type>bag</type></primary>
+    </indexterm>
+    <indexterm>
+        <primary>type</primary>
+        <secondary><type>bag</type></secondary>
+    </indexterm>
+    of elements that are related to the elements of
+    <varname>b</varname> using the specified relationship.
+    </entry>
+</row>
+<row>
+    <entry>
+        <literal>get_unique</literal>
+        <indexterm>
+            <primary><literal>get_unique</literal></primary>
+        </indexterm>
+    </entry>
+    <entry>
+    Returns a <link linkend="TypesSetTypes"><type>set</type></link>
+    <indexterm>
+        <primary><type>set</type></primary>
+    </indexterm>
+    <indexterm>
+        <primary>type</primary>
+        <secondary><type>set</type></secondary>
+    </indexterm>
+    containing all the elements of
+    <varname>b</varname>.
+    </entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+</para>
+<para>
+The features <literal>find</literal>,
+<indexterm>
+    <primary><literal>find</literal></primary>
+</indexterm>
+<literal>find_all</literal>,
+<indexterm>
+    <primary><literal>find_all</literal></primary>
+</indexterm>
+<literal>find_one</literal>
+<indexterm>
+    <primary><literal>find_one</literal></primary>
+</indexterm>
+and <literal>find_only</literal>
+<indexterm>
+    <primary><literal>find_only</literal></primary>
+</indexterm>
+are only defined for
+<link linkend="ebnf.bagtype"><type>bag</type></link>
+<indexterm>
+    <primary><type>bag</type></primary>
+</indexterm>
+<indexterm>
+    <primary>type</primary>
+    <secondary><type>bag</type></secondary>
+</indexterm>
+types whose element type is an
+<link linkend="TypesInstanceTypes"><type>instance</type></link> type.
+<indexterm>
+    <primary><type>instance</type></primary>
+</indexterm>
+<indexterm>
+    <primary>type</primary>
+    <secondary><type>instance</type></secondary>
+</indexterm>
+</para>
+<para>
+The feature <literal>-&gt;</literal>
+<indexterm>
+    <primary><literal>-&gt;</literal></primary>
+</indexterm>
+is only defined for
+<link linkend="ebnf.bagtype"><type>bag</type></link>
+<indexterm>
+    <primary><type>bag</type></primary>
+</indexterm>
+<indexterm>
+    <primary>type</primary>
+    <secondary><type>bag</type></secondary>
+</indexterm>
+types whose element type is an
+<link linkend="TypesInstanceTypes"><type>instance</type></link> type.
+<indexterm>
+    <primary><type>instance</type></primary>
+</indexterm>
+<indexterm>
+    <primary>type</primary>
+    <secondary><type>instance</type></secondary>
+</indexterm>
+</para>
+</section>
+<section xml:id="TypesSequenceTypes"><info><title>Sequence Types</title></info>
+
+<para>
+A <type>sequence</type> type
+<indexterm significance="preferred">
+    <primary><type>sequence</type></primary>
+</indexterm>
+<indexterm significance="preferred">
+    <primary>type</primary>
+    <secondary><type>sequence</type></secondary>
+</indexterm>
+is a
+<link linkend="ebnf.collectiontype"><emphasis>collection type</emphasis></link>
+<indexterm>
+    <primary><type>collection</type></primary>
+</indexterm>
+<indexterm>
+    <primary>type</primary>
+    <secondary><type>collection</type></secondary>
+</indexterm>
+whose value can contain duplicate elements which have order.
+</para>
+<indexterm zone="ebnf.sequencetype">
+    <primary>sequence type</primary>
+</indexterm>
+<indexterm zone="ebnf.sequencetype">
+    <primary><literal>sequence</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.sequencetype">
+    <primary>expression</primary>
+</indexterm>
+<indexterm zone="ebnf.sequencetype">
+    <primary><literal>of</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.sequencetype">
+    <primary>type</primary>
+</indexterm>
+<productionset>
+<production xml:id="ebnf.sequencetype">
+    <lhs>sequence type</lhs>
+    <rhs>
+        'sequence', ['(',
+        <nonterminal def="#ebnf.expression">expression</nonterminal>,
+        ')'], 'of',
+        <nonterminal def="#ebnf.type">type</nonterminal>
+    </rhs>
+</production>
+</productionset>
+<para>
+Sequences are indexed by values of the pre-defined type
+<type>positive</type>
+<indexterm significance="preferred">
+    <primary><type>positive</type></primary>
+</indexterm>
+<indexterm significance="preferred">
+    <primary>type</primary>
+    <secondary><type>positive</type></secondary>
+</indexterm>
+which is declared in the <package>standard</package>
+<indexterm>
+    <primary><package>standard</package></primary>
+</indexterm>
+domain.
+</para>
+<para>
+The features of a
+<link linkend="ebnf.sequencetype"><type>sequence</type></link> type
+<indexterm>
+    <primary><type>sequence</type></primary>
+</indexterm>
+<indexterm>
+    <primary>type</primary>
+    <secondary><type>sequence</type></secondary>
+</indexterm>
+are given in <xref linkend="SequenceTypeFeatures"/>,
+where <varname>s</varname> and
+<varname>s2</varname> represent entities of the type on which the feature is
+applied.
+</para>
+<para>
+The features <literal>ordered_by</literal>
+<indexterm>
+    <primary><literal>ordered_by</literal></primary>
+</indexterm>
+and
+<literal>reserve_ordered_by</literal>
+<indexterm>
+    <primary><literal>reserve_ordered_by</literal></primary>
+</indexterm>
+are only defined for
+<link linkend="ebnf.sequencetype"><type>sequence</type></link>
+<indexterm>
+    <primary><type>sequence</type></primary>
+</indexterm>
+<indexterm>
+    <primary>type</primary>
+    <secondary><type>sequence</type></secondary>
+</indexterm>
+types whose element type is either a <type>structure</type>
+<indexterm>
+    <primary><type>structure</type></primary>
+</indexterm>
+<indexterm>
+    <primary>type</primary>
+    <secondary><type>structure</type></secondary>
+</indexterm>
+or an
+<link linkend="TypesInstanceTypes"><type>instance</type></link> type.
+<indexterm>
+    <primary><type>instance</type></primary>
+</indexterm>
+<indexterm>
+    <primary>type</primary>
+    <secondary><type>instance</type></secondary>
+</indexterm>
+</para>
+<para>
+The features
+<literal>find</literal>,
+<indexterm>
+    <primary><literal>find</literal></primary>
+</indexterm>
+<literal>find_all</literal>,
+<indexterm>
+    <primary><literal>find_all</literal></primary>
+</indexterm>
+<literal>find_one</literal>
+<indexterm>
+    <primary><literal>find_one</literal></primary>
+</indexterm>
+and <literal>find_only</literal>
+<indexterm>
+    <primary><literal>find_only</literal></primary>
+</indexterm>
+are only defined for
+<link linkend="ebnf.sequencetype"><type>sequence</type></link>
+<indexterm>
+    <primary><type>sequence</type></primary>
+</indexterm>
+<indexterm>
+    <primary>type</primary>
+    <secondary><type>sequence</type></secondary>
+</indexterm>
+types whose element is an
+<link linkend="TypesInstanceTypes"><type>instance</type></link> type.
+<indexterm>
+    <primary><type>instance</type></primary>
+</indexterm>
+<indexterm>
+    <primary>type</primary>
+    <secondary><type>instance</type></secondary>
+</indexterm>
+</para>
+<para>
+The feature <literal>-&gt;</literal>
+<indexterm>
+    <primary><literal>-&gt;</literal></primary>
+</indexterm>
+is only defined for
+<link linkend="ebnf.sequencetype"><type>sequence</type></link> types
+<indexterm>
+    <primary><type>sequence</type></primary>
+</indexterm>
+<indexterm>
+    <primary>type</primary>
+    <secondary><type>sequence</type></secondary>
+</indexterm>
+whose element is an
+<link linkend="TypesInstanceTypes"><type>instance</type></link> type.
+<indexterm>
+    <primary><type>instance</type></primary>
+</indexterm>
+<indexterm>
+    <primary>type</primary>
+    <secondary><type>instance</type></secondary>
+</indexterm>
+</para>
+<para>
+The optional expression defines the upper bound of the
+<link linkend="ebnf.sequencetype"><type>sequence</type></link>
+<indexterm>
+    <primary><type>sequence</type></primary>
+</indexterm>
+<indexterm>
+    <primary>type</primary>
+    <secondary><type>sequence</type></secondary>
+</indexterm>
+and must equate to a <type>positive</type>
+<indexterm>
+    <primary><type>positive</type></primary>
+</indexterm>
+<indexterm>
+    <primary>type</primary>
+    <secondary><type>positive</type></secondary>
+</indexterm>
+qualified type.
+<table xml:id="SequenceTypeFeatures" frame="all"><info><title>Sequence Type Features</title></info>
+
+<tgroup cols="2" align="left" colsep="1" rowsep="1">
+<colspec colname="Feature" colwidth="1*"/>
+<colspec colname="Description" colwidth="2*"/>
+<thead>
+<row>
+    <entry>Feature</entry>
+    <entry>Description</entry>
+</row>
+</thead>
+<tbody>
+<row>
+    <entry>
+        <literal>&amp;</literal>
+        <indexterm>
+            <primary><literal>&amp;</literal></primary>
+        </indexterm>
+    </entry>
+    <entry>
+    Returns the <link linkend="TypesSetTypes"><type>set</type></link>
+    <indexterm>
+        <primary><type>set</type></primary>
+    </indexterm>
+    <indexterm>
+        <primary>type</primary>
+        <secondary><type>sequence</type></secondary>
+    </indexterm>
+    containing all the elements in
+    <varname>q</varname> and <varname>q2</varname>.
+    </entry>
+</row>
+<row>
+    <entry>
+        <literal>[]</literal>
+        <indexterm>
+            <primary><literal>[]</literal></primary>
+        </indexterm>
+    </entry>
+    <entry>
+    Returns the either the element of <varname>q</varname> at a
+    specific index or the slice of <varname>q</varname> given by
+    a range of indices.
+    </entry>
+</row>
+<row>
+    <entry>
+        <literal>ordered_by</literal>
+        <indexterm>
+            <primary><literal>ordered_by</literal></primary>
+        </indexterm>
+    </entry>
+    <entry>
+    Returns a <link linkend="ebnf.sequencetype"><type>sequence</type></link>
+    that contains all the elements of
+    <varname>s</varname> in specified ascending order.
+    </entry>
+</row>
+<row>
+    <entry><literal>reverse_ordered_by</literal></entry>
+    <entry>
+    Returns a <link linkend="ebnf.sequencetype"><type>sequence</type></link>
+    <indexterm>
+        <primary><type>sequence</type></primary>
+    </indexterm>
+    <indexterm>
+        <primary>type</primary>
+        <secondary><type>sequence</type></secondary>
+    </indexterm>
+    that contains all the elements of
+    <varname>s</varname> in specified descending order.
+    </entry>
+</row>
+<row>
+    <entry>
+        <literal>find</literal>
+        <indexterm>
+            <primary><literal>find</literal></primary>
+        </indexterm>
+    </entry>
+    <entry>
+    Returns a <link linkend="TypesBagTypes"><type>bag</type></link>
+    <indexterm>
+        <primary><type>bag</type></primary>
+    </indexterm>
+    <indexterm>
+        <primary>type</primary>
+        <secondary><type>bag</type></secondary>
+    </indexterm>
+    that contains all the elements of
+    <varname>q</varname> that satisfy the specified condition.
+    </entry>
+</row>
+<row>
+    <entry>
+        <literal>find_all</literal>
+        <indexterm>
+            <primary><literal>find_all</literal></primary>
+        </indexterm>
+    </entry>
+    <entry>
+    Returns a <link linkend="TypesBagTypes"><type>bag</type></link>
+    <indexterm>
+        <primary><type>bag</type></primary>
+    </indexterm>
+    <indexterm>
+        <primary>type</primary>
+        <secondary><type>set</type></secondary>
+    </indexterm>
+    that contains all the elements of
+    <varname>q</varname>.
+    </entry>
+</row>
+<row>
+    <entry>
+        <literal>find_one</literal>
+        <indexterm>
+            <primary><literal>find_one</literal></primary>
+        </indexterm>
+    </entry>
+    <entry>
+    Returns an arbitrary element of <varname>q</varname> that satisfies the
+    specified condition.
+    </entry>
+</row>
+<row>
+    <entry><literal>find_only</literal></entry>
+    <entry>
+    Returns the only element of <varname>q</varname> that satisfies the
+    specified condition.
+    </entry>
+</row>
+<row>
+    <entry>
+        <literal>-&gt;</literal>
+        <indexterm>
+            <primary><literal>-&gt;</literal></primary>
+        </indexterm>
+    </entry>
+    <entry>
+    Returns the <link linkend="TypesBagTypes"><type>bag</type></link>
+    <indexterm>
+        <primary><type>bag</type></primary>
+    </indexterm>
+    <indexterm>
+        <primary>type</primary>
+        <secondary><type>bag</type></secondary>
+    </indexterm>
+    of elements that are related to the elements of
+    <varname>q</varname> using the specified relationship.
+    </entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+</para>
+</section>
+<section xml:id="TypesArrayTypes"><info><title>Array Types</title></info>
+
+<para>
+An <link linkend="ebnf.arraytype"><type>array</type></link> type
+<indexterm significance="preferred">
+    <primary><type>array</type></primary>
+</indexterm>
+<indexterm significance="preferred">
+    <primary>type</primary>
+    <secondary><type>array</type></secondary>
+</indexterm>
+is a
+<link linkend="ebnf.collectiontype"><emphasis>collection type</emphasis></link>
+<indexterm>
+    <primary>collection</primary>
+</indexterm>
+<indexterm>
+    <primary>type</primary>
+    <secondary>collection</secondary>
+</indexterm>
+whose values can contain duplicate elements which have no order and has a fixed
+number of elements.
+</para>
+<indexterm zone="ebnf.arraytype">
+    <primary>array type</primary>
+</indexterm>
+<indexterm zone="ebnf.arraytype">
+    <primary><literal>array</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.arraytype">
+    <primary>range</primary>
+</indexterm>
+<indexterm zone="ebnf.arraytype">
+    <primary><literal>of</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.arraytype">
+    <primary>type</primary>
+</indexterm>
+<productionset>
+<production xml:id="ebnf.arraytype">
+    <lhs>array type</lhs>
+    <rhs>
+        'array', '(',
+        <nonterminal def="#ebnf.range">range</nonterminal>,
+        ')', 'of',
+        <nonterminal def="#ebnf.type">type</nonterminal>
+    </rhs>
+</production>
+</productionset>
+<para>
+Arrays are indexed by values given by the type of its range. This range must
+resolve to some specific integer or
+<link linkend="TypesEnumerationTypes"><type>enumeration</type></link> type.
+<indexterm>
+    <primary><type>enumeration</type></primary>
+</indexterm>
+<indexterm>
+    <primary>type</primary>
+    <secondary><type>enumeration</type></secondary>
+</indexterm>
+If the type of the range resolves to
+<link linkend="TypesNumericTypes">numeric type</link>,
+<indexterm>
+    <primary><type>numeric</type></primary>
+</indexterm>
+<indexterm>
+    <primary>type</primary>
+    <secondary><type>numeric</type></secondary>
+</indexterm>
+then the range is defined to be of the pre-defined
+type <type>integer</type>
+<indexterm>
+    <primary><type>integer</type></primary>
+</indexterm>
+<indexterm>
+    <primary>type</primary>
+    <secondary><type>integer</type></secondary>
+</indexterm>
+with bounds given by a conversion to
+<type>integer</type>
+<indexterm>
+    <primary><type>integer</type></primary>
+</indexterm>
+<indexterm>
+    <primary>type</primary>
+    <secondary><type>integer</type></secondary>
+</indexterm>
+of the bounds of the range.
+</para>
+<para>
+The features of an <link linkend="ebnf.arraytype"><type>array</type></link>
+<indexterm>
+    <primary><type>array</type></primary>
+</indexterm>
+<indexterm>
+    <primary>type</primary>
+    <secondary><type>array</type></secondary>
+</indexterm>
+type are given in
+<xref linkend="ArrayTypeFeatures"/>, where <varname>a</varname> represents
+the <link linkend="TypesInstanceTypes"><type>instance</type></link>
+<indexterm>
+    <primary><type>instance</type></primary>
+</indexterm>
+<indexterm>
+    <primary>type</primary>
+    <secondary><type>instance</type></secondary>
+</indexterm>
+on which the feature type is applied.
+</para>
+<para>
+The features <literal>ordered_by</literal>
+<indexterm>
+    <primary><literal>ordered_by</literal></primary>
+</indexterm>
+and <literal>reserve_ordered_by</literal>
+<indexterm>
+    <primary><literal>reserve_ordered_by</literal></primary>
+</indexterm>
+are only defined for
+<type>array</type> types
+<indexterm>
+    <primary><type>array</type></primary>
+</indexterm>
+<indexterm>
+    <primary>type</primary>
+    <secondary><type>array</type></secondary>
+</indexterm>
+whose element type is either a structure or an
+<link linkend="TypesInstanceTypes"><type>instance</type></link> type.
+<indexterm>
+    <primary><type>instance</type></primary>
+</indexterm>
+<indexterm>
+    <primary>type</primary>
+    <secondary><type>instance</type></secondary>
+</indexterm>
+</para>
+<para>
+The features
+<literal>find</literal>,
+<indexterm>
+    <primary><literal>find</literal></primary>
+</indexterm>
+<literal>find_all</literal>,
+<indexterm>
+    <primary><literal>find_all</literal></primary>
+</indexterm>
+<literal>find_one</literal>
+<indexterm>
+    <primary><literal>find_one</literal></primary>
+</indexterm>
+and <literal>find_only</literal>
+<indexterm>
+    <primary><literal>find_only</literal></primary>
+</indexterm>
+are only defined for
+<type>array</type> types
+<indexterm>
+    <primary><type>array</type></primary>
+</indexterm>
+<indexterm>
+    <primary>type</primary>
+    <secondary><type>array</type></secondary>
+</indexterm>
+whose element is an
+<link linkend="TypesInstanceTypes"><type>instance</type></link> type.
+<indexterm>
+    <primary><type>instance</type></primary>
+</indexterm>
+<indexterm>
+    <primary>type</primary>
+    <secondary><type>instance</type></secondary>
+</indexterm>
+</para>
+<para>
+The feature <literal>-&gt;</literal>
+<indexterm>
+    <primary><literal>-&gt;</literal></primary>
+</indexterm>
+is only defined for
+<type>array</type> types
+<indexterm>
+    <primary><type>array</type></primary>
+</indexterm>
+<indexterm>
+    <primary>type</primary>
+    <secondary><type>array</type></secondary>
+</indexterm>
+whose element is an
+<link linkend="TypesInstanceTypes"><type>instance</type></link> type.
+<indexterm>
+    <primary><type>instance</type></primary>
+</indexterm>
+<indexterm>
+    <primary>type</primary>
+    <secondary><type>instance</type></secondary>
+</indexterm>
+<table xml:id="ArrayTypeFeatures" frame="all"><info><title>Array Type Features</title></info>
+
+<tgroup cols="2" align="left" colsep="1" rowsep="1">
+<colspec colname="Feature" colwidth="1*"/>
+<colspec colname="Description" colwidth="2*"/>
+<thead>
+<row>
+    <entry>Feature</entry>
+    <entry>Description</entry>
+</row>
+</thead>
+<tbody>
+<row>
+    <entry>
+        <literal>[]</literal>
+        <indexterm>
+            <primary><literal>[]</literal></primary>
+        </indexterm>
+    </entry>
+    <entry>
+    Returns the either the element of <varname>a</varname> at a
+    specific index or the slice of <varname>a</varname> given by
+    a range of indices.
+    </entry>
+</row>
+<row>
+    <entry>
+        <literal>ordered_by</literal>
+        <indexterm>
+            <primary><literal>ordered_by</literal></primary>
+        </indexterm>
+    </entry>
+    <entry>
+    Returns a <link linkend="TypesSequenceTypes"><type>sequence</type></link>
+    <indexterm>
+        <primary><type>sequence</type></primary>
+    </indexterm>
+    <indexterm>
+        <primary>type</primary>
+        <secondary><type>sequence</type></secondary>
+    </indexterm>
+    that contains all the elements of
+    <varname>a</varname> in specified ascending order.
+    </entry>
+</row>
+<row>
+    <entry>
+        <literal>reverse_ordered_by</literal>
+        <indexterm>
+            <primary><literal>reverse_ordered_by</literal></primary>
+        </indexterm>
+    </entry>
+    <entry>
+    Returns a <link linkend="TypesSequenceTypes"><type>sequence</type></link>
+    <indexterm>
+        <primary><type>sequence</type></primary>
+    </indexterm>
+    <indexterm>
+        <primary>type</primary>
+        <secondary><type>sequence</type></secondary>
+    </indexterm>
+    that contains all the elements of
+    <varname>a</varname> in specified descending order.
+    </entry>
+</row>
+<row>
+    <entry>
+        <literal>find</literal>
+        <indexterm>
+            <primary><literal>find</literal></primary>
+        </indexterm>
+    </entry>
+    <entry>
+    Returns a <link linkend="TypesSetTypes"><type>set</type></link>
+    <indexterm>
+        <primary><type>set</type></primary>
+    </indexterm>
+    <indexterm>
+        <primary>type</primary>
+        <secondary><type>set</type></secondary>
+    </indexterm>
+    that contains all the elements of
+    <varname>a</varname> that satisfy the specified condition.
+    </entry>
+</row>
+<row>
+    <entry>
+        <literal>find_all</literal>
+        <indexterm>
+            <primary><literal>find_all</literal></primary>
+        </indexterm>
+    </entry>
+    <entry>
+    Returns a <link linkend="TypesSetTypes"><type>set</type></link>
+    <indexterm>
+        <primary><type>set</type></primary>
+    </indexterm>
+    <indexterm>
+        <primary>type</primary>
+        <secondary><type>set</type></secondary>
+    </indexterm>
+    that contains all the elements of
+    <varname>a</varname>.
+    </entry>
+</row>
+<row>
+    <entry>
+        <literal>find_one</literal>
+        <indexterm>
+            <primary><literal>find_one</literal></primary>
+        </indexterm>
+    </entry>
+    <entry>
+    Returns an arbitrary element of <varname>a</varname> that satisfies the
+    specified condition.
+    </entry>
+</row>
+<row>
+    <entry>
+        <literal>find_only</literal>
+        <indexterm>
+            <primary><literal>find_only</literal></primary>
+        </indexterm>
+    </entry>
+    <entry>
+    Returns the only element of <varname>a</varname> that satisfies the
+    specified condition.
+    </entry>
+</row>
+<row>
+    <entry>
+        <literal>-&gt;</literal>
+        <indexterm>
+            <primary><literal>-&gt;</literal></primary>
+        </indexterm>
+    </entry>
+    <entry>
+    Returns the <link linkend="ebnf.sequencetype"><type>sequence</type></link>
+    <indexterm>
+        <primary><type>sequence</type></primary>
+    </indexterm>
+    <indexterm>
+        <primary>type</primary>
+        <secondary><type>sequence</type></secondary>
+    </indexterm>
+    of elements that are related to the elements of
+    <varname>a</varname> using the specified relationship.
+    </entry>
+</row>
+<row>
+    <entry>
+        <literal>get_unique</literal>
+        <indexterm>
+            <primary><literal>get_unique</literal></primary>
+        </indexterm>
+    </entry>
+    <entry>
+    Returns a <link linkend="TypesSetTypes"><type>set</type></link>
+    <indexterm>
+        <primary><type>set</type></primary>
+    </indexterm>
+    <indexterm>
+        <primary>type</primary>
+        <secondary><type>set</type></secondary>
+    </indexterm>
+    containing all the elements of the array.
+    </entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+</para>
+</section>
+</section>
+<section xml:id="TypesInstanceTypes"><info><title>Instance Types</title></info>
+
+<para>
+An <link linkend="ebnf.instancetype"><type>instance</type> type</link>
+<indexterm significance="preferred">
+    <primary><type>instance</type></primary>
+</indexterm>
+<indexterm significance="preferred">
+    <primary>type</primary>
+    <secondary><type>instance</type></secondary>
+</indexterm>
+is a type that refers to an instance of a given object.
+</para>
+<indexterm zone="ebnf.instancetype">
+    <primary>instance type</primary>
+</indexterm>
+<indexterm zone="ebnf.instancetype">
+    <primary><literal>instance</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.instancetype">
+    <primary><literal>of</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.instancetype">
+    <primary>scoped name</primary>
+</indexterm>
+<productionset>
+<production xml:id="ebnf.instancetype">
+    <lhs>instance type</lhs>
+    <rhs>
+        'instance', 'of',
+        <nonterminal def="#ebnf.scopedname">scoped name</nonterminal>
+    </rhs>
+</production>
+</productionset>
+<para>
+A compile-time error occurs if the scoped name does not name an object that is
+visible to the enclosing domain.
+</para>
+<para>
+The features of an
+<link linkend="ebnf.instancetype"><type>instance</type> type</link>
+<indexterm>
+    <primary><type>instance</type></primary>
+</indexterm>
+<indexterm>
+    <primary>type</primary>
+    <secondary><type>instance</type></secondary>
+</indexterm>
+are given in
+<xref linkend="InstanceTypeFeatures"/>, where <varname>i</varname> and
+<varname>i2</varname> represent instances on which the feature is applied
+and <varname>O</varname> represents the object.
+<table xml:id="InstanceTypeFeatures" frame="all"><info><title>Instance Type Features</title></info>
+
+<tgroup cols="2" align="left" colsep="1" rowsep="1">
+<colspec colname="Feature" colwidth="1*"/>
+<colspec colname="Description" colwidth="2*"/>
+<thead>
+<row>
+    <entry>Feature</entry>
+    <entry>Description</entry>
+</row>
+</thead>
+<tbody>
+<row>
+    <entry>
+        <literal>=</literal>
+        <indexterm>
+            <primary><literal>=</literal></primary>
+        </indexterm>
+    </entry>
+    <entry>
+    Returns <literal>true</literal>
+    <indexterm>
+        <primary><literal>true</literal></primary>
+    </indexterm>
+    if <varname>i</varname> is equal to
+    <varname>i2</varname>.
+    </entry>
+</row>
+<row>
+    <entry>
+        <literal>/=</literal>
+        <indexterm>
+            <primary><literal>/=</literal></primary>
+        </indexterm>
+    </entry>
+    <entry>
+    Returns <literal>true</literal>
+    <indexterm>
+        <primary><literal>true</literal></primary>
+    </indexterm>
+    if <varname>i</varname> is not equal to
+    <varname>i2</varname>.
+    </entry>
+</row>
+<row>
+    <entry>
+        <literal>-&gt;</literal>
+        <indexterm>
+            <primary><literal>-&gt;</literal></primary>
+        </indexterm>
+    </entry>
+    <entry>
+    Returns either the
+    <link linkend="ebnf.instancetype"><type>instance</type></link>
+    <indexterm>
+        <primary><type>instance</type></primary>
+    </indexterm>
+    <indexterm>
+        <primary>type</primary>
+        <secondary><type>instance</type></secondary>
+    </indexterm>
+    or <link linkend="ebnf.bagtype"><type>bag of instance</type>s</link>
+    <indexterm>
+        <primary><type>bag</type></primary>
+    </indexterm>
+    <indexterm>
+        <primary>type</primary>
+        <secondary><type>bag</type></secondary>
+    </indexterm>
+    that are related to
+    <varname>i</varname> using the specified relationship.
+    </entry>
+</row>
+<row>
+    <entry>
+        <literal>with_-&gt;</literal>
+        <indexterm>
+            <primary><literal>with_-&gt;</literal></primary>
+        </indexterm>
+    </entry>
+    <entry>
+    Returns either the associative instance
+    <indexterm>
+        <primary>instance</primary>
+        <secondary>associative</secondary>
+    </indexterm>
+    that models a specific
+    relationship between <varname>i</varname> and <varname>i2</varname>.
+    </entry>
+</row>
+<row>
+    <entry>
+        <literal>find</literal>
+        <indexterm>
+            <primary><literal>find</literal></primary>
+        </indexterm>
+    </entry>
+    <entry>
+    Returns the <type>set</type> that contains all the instances of
+    <varname>O</varname> that satisfy a condition.
+    </entry>
+</row>
+<row>
+    <entry><literal>find_all</literal></entry>
+    <entry>
+    Returns a <link linkend="ebnf.settype"><type>set</type></link>
+    <indexterm>
+        <primary><type>set</type></primary>
+    </indexterm>
+    <indexterm>
+        <primary>type</primary>
+        <secondary><type>set</type></secondary>
+    </indexterm>
+    containing all the instances of
+    <varname>O</varname>.
+    </entry>
+</row>
+<row>
+    <entry>
+        <literal>find_one</literal>
+        <indexterm>
+            <primary><literal>find_one</literal></primary>
+        </indexterm>
+    </entry>
+    <entry>
+    Returns an arbitrary instance of <varname>O</varname> that satisfies the
+    specified condition.
+    </entry>
+</row>
+<row>
+    <entry>
+        <literal>find_only</literal>
+        <indexterm>
+            <primary><literal>find_only</literal></primary>
+        </indexterm>
+    </entry>
+    <entry>
+    Returns the only instance of <varname>O</varname> that satisfies the
+    specified condition.
+    </entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+</para>
+</section>
+<section xml:id="TypesUserDefinedTypes"><info><title>User Defined Types</title></info>
+
+<para>
+A <emphasis>user defined type</emphasis>
+<indexterm significance="preferred">
+    <primary>type</primary>
+    <secondary>user defined</secondary>
+</indexterm>
+is a reference to a type that has
+already been declared. Types defined in the current domain can be named using
+just their type name. Types from other domains can be accessed by using a
+scoped name. Only public types from other domains are accessible.
+Use of this qualified form, where the type is in the enclosing domain, is
+allowed.
+</para>
+<indexterm zone="ebnf.userdefinedtype">
+    <primary>user defined type</primary>
+</indexterm>
+<indexterm zone="ebnf.userdefinedtype">
+    <primary>scoped name</primary>
+</indexterm>
+<productionset>
+<production xml:id="ebnf.userdefinedtype">
+    <lhs>user defined type</lhs>
+    <rhs>
+        <nonterminal def="#ebnf.scopedname">scoped name</nonterminal>
+    </rhs>
+</production>
+</productionset>
+<para>
+A compile-time error occurs if the scoped name does not name a type that is
+visible to the enclosing domain.
+</para>
+</section>
+<section xml:id="TypesTypeDeclarations"><info><title>Type Declarations</title></info>
+
+<para>
+A <emphasis>type declaration</emphasis>
+<indexterm significance="preferred">
+    <primary>type</primary>
+    <secondary>declaration</secondary>
+</indexterm>
+provides the analyst with a way to
+construct new user defined types. There are two forms of
+<emphasis>type declaration</emphasis>,
+<indexterm>
+    <primary>type</primary>
+    <secondary>declaration</secondary>
+</indexterm>
+full type declarations and subtype declarations.
+<indexterm>
+    <primary>type</primary>
+    <secondary>declaration</secondary>
+    <tertiary>subtype</tertiary>
+</indexterm>
+</para>
+<indexterm zone="ebnf.typedeclaration">
+    <primary>type declaration</primary>
+</indexterm>
+<indexterm zone="ebnf.typedeclaration">
+    <primary>type modifier</primary>
+</indexterm>
+<indexterm zone="ebnf.typedeclaration">
+    <primary><literal>type</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.typedeclaration">
+    <primary>type name</primary>
+</indexterm>
+<indexterm zone="ebnf.typedeclaration">
+    <primary><literal>is</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.typedeclaration">
+    <primary>type definition</primary>
+</indexterm>
+<indexterm zone="ebnf.typedeclaration">
+    <primary>subtype definition</primary>
+</indexterm>
+<indexterm zone="ebnf.typename">
+    <primary>type name</primary>
+</indexterm>
+<indexterm zone="ebnf.typename">
+    <primary>identifier</primary>
+</indexterm>
+<productionset>
+<production xml:id="ebnf.typedeclaration">
+    <lhs>type declaration</lhs>
+    <rhs>
+        <nonterminal def="#ebnf.typemodifier">type modifier</nonterminal>,
+        'type',
+        <nonterminal def="#ebnf.typename">type name</nonterminal>,
+        'is'
+        <nonterminal def="#ebnf.typedefinition">type definition</nonterminal>,
+        ';' |
+        <nonterminal def="#ebnf.typemodifier">type modifier</nonterminal>,
+        'subtype',
+        <nonterminal def="#ebnf.typename">type name</nonterminal>,
+        'is'
+        <nonterminal def="#ebnf.subtypedefinition">subtype definition</nonterminal>
+    </rhs>
+</production>
+<production xml:id="ebnf.typename">
+    <lhs>type name</lhs>
+    <rhs>
+        <nonterminal def="#ebnf.identifier">identifier</nonterminal>
+    </rhs>
+</production>
+</productionset>
+<para>
+A compile-time error occurs if the type name naming a type is already declared
+as a type in the enclosing domain.
+</para>
+<section xml:id="TypesTypeModifiers"><info><title>Type Modifiers</title></info>
+
+<indexterm significance="preferred">
+    <primary>type</primary>
+    <secondary>modifier</secondary>
+</indexterm>
+<indexterm zone="ebnf.typemodifier">
+    <primary>type modifier</primary>
+</indexterm>
+<indexterm zone="ebnf.bagtype">
+    <primary><literal>public</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.bagtype">
+    <primary><literal>private</literal></primary>
+</indexterm>
+<productionset>
+<production xml:id="ebnf.typemodifier">
+    <lhs>type modifier</lhs>
+    <rhs>
+        [ ( 'public' | 'private' ) ]
+    </rhs>
+</production>
+</productionset>
+<section xml:id="PublicTypes"><info><title>Public Types</title></info>
+
+<para>
+If a type is declared public,
+<indexterm significance="preferred">
+    <primary>type</primary>
+    <secondary>public</secondary>
+</indexterm>
+then it may be accessed by any code that can
+access the domain in which it is declared.
+</para>
+<para>
+A compile-time error occurs if a public type or subtype is declared in terms of
+some private type.
+<indexterm>
+    <primary>type</primary>
+    <secondary>private</secondary>
+</indexterm>
+</para>
+</section>
+<section xml:id="PrivateTypes"><info><title>Private Types</title></info>
+
+<para>
+If a type is declared private,
+<indexterm significance="preferred">
+    <primary>type</primary>
+    <secondary>private</secondary>
+</indexterm>
+then access is permitted only when it occurs from
+within the domain in which it is declared.
+</para>
+</section>
+</section>
+</section>
+<section xml:id="TypesFullDeclarations"><info><title>Full Type Declarations</title></info>
+
+<para>
+A <emphasis>full type</emphasis>
+<indexterm significance="preferred">
+    <primary>type</primary>
+    <secondary>full</secondary>
+</indexterm>
+declaration introduces a new type quite
+distinct from any other type. The set of values belonging to two
+distinct types are themselves distinct, although in some cases the actual
+lexical form of the values may be identical; which one is meant at any
+point is determined by the context.
+Values of one type cannot be assigned to a variable of another type.
+</para>
+<para>
+A type definition gives the definition of a new type.
+</para>
+<indexterm zone="ebnf.typedefinition">
+    <primary>type definition</primary>
+</indexterm>
+<indexterm zone="ebnf.typedefinition">
+    <primary>type</primary>
+</indexterm>
+<indexterm zone="ebnf.typedefinition">
+    <primary>constraint</primary>
+</indexterm>
+<indexterm zone="ebnf.typedefinition">
+    <primary>numeric type definition</primary>
+</indexterm>
+<indexterm zone="ebnf.typedefinition">
+    <primary>structure type definition</primary>
+</indexterm>
+<indexterm zone="ebnf.typedefinition">
+    <primary>enumeration type definition</primary>
+</indexterm>
+<indexterm zone="ebnf.typedefinition">
+    <primary>unconstrained array type definition</primary>
+</indexterm>
+<productionset>
+<production xml:id="ebnf.typedefinition">
+    <lhs>type definition</lhs>
+    <rhs>
+        <nonterminal def="#ebnf.type">type</nonterminal>,
+        [<nonterminal def="#ebnf.constraint">constraint</nonterminal>] |
+        <nonterminal def="#ebnf.numerictypedefinition">numeric type definition</nonterminal> |
+        <nonterminal def="#ebnf.structuretypedefinition">structure type definition</nonterminal> |
+        <nonterminal def="#ebnf.enumerationtypedefinition">enumeration type definition</nonterminal> |
+        <nonterminal def="#ebnf.unconstrainedarraytypedefinition">unconstrained array type definition</nonterminal>
+    </rhs>
+</production>
+</productionset>
+<para>
+A type definition can be given by either an existing type, a
+<link linkend="TypesNumericTypes">numeric type</link>
+<indexterm>
+    <primary><type>numeric</type></primary>
+</indexterm>
+<indexterm>
+    <primary>type</primary>
+    <secondary><type>numeric</type></secondary>
+</indexterm>
+definition, a structure type definition,
+<link linkend="TypesEnumerationTypes">enumeration type</link>
+<indexterm>
+    <primary><type>enumeration</type></primary>
+</indexterm>
+<indexterm>
+    <primary>type</primary>
+    <secondary><type>enumeration</type></secondary>
+</indexterm>
+definition or an
+<link linkend="ebnf.unconstrainedarraytypedefinition">unconstrained array type</link>
+<indexterm>
+    <primary><type>array</type></primary>
+    <secondary>unconstrained</secondary>
+</indexterm>
+<indexterm>
+    <primary>type</primary>
+    <secondary><type>array</type></secondary>
+    <tertiary>unconstrained</tertiary>
+</indexterm>
+definition.
+A compile-time error occurs if a type is declared in terms of some
+<link linkend="TypesInstanceTypes"><type>instance</type></link> types.
+<indexterm>
+    <primary><type>instance</type></primary>
+</indexterm>
+<indexterm>
+    <primary>type</primary>
+    <secondary><type>instance</type></secondary>
+</indexterm>
+</para>
+<para>
+A compile-time error also occurs if the optional constraint
+<indexterm>
+    <primary>constraint</primary>
+</indexterm>
+defines a
+range of values that is not a subset of the range of values of the original type.
+Specifically:
+<itemizedlist mark="bullet">
+<listitem>
+<para>
+The range of values given by a
+<link linkend="ebnf.rangeconstraint">range constraint</link>
+<indexterm>
+    <primary>constraint</primary>
+    <secondary>range</secondary>
+</indexterm>
+must all be values of the original type.
+</para>
+</listitem>
+<listitem>
+<para>
+A <link linkend="ebnf.digitsconstraint">digits constraint</link>
+<indexterm>
+    <primary>constraint</primary>
+    <secondary>digits</secondary>
+</indexterm>
+can only be given if the original type has a
+<link linkend="ebnf.digitsconstraint">digits constraint</link>.
+<indexterm>
+    <primary>constraint</primary>
+    <secondary>digits</secondary>
+</indexterm>
+In addition the value of the
+<link linkend="ebnf.digitsconstraint">digits constraint</link> must be less
+than or equal to the original
+<link linkend="ebnf.digitsconstraint">digits constraint</link>.
+</para>
+</listitem>
+<listitem>
+<para>
+A <link linkend="ebnf.deltaconstraint">delta constraint</link>
+<indexterm>
+    <primary>constraint</primary>
+    <secondary>delta</secondary>
+</indexterm>
+can only be given if the original type has a
+<link linkend="ebnf.deltaconstraint">delta constraint</link>.
+<indexterm>
+    <primary>constraint</primary>
+    <secondary>delta</secondary>
+</indexterm>
+</para>
+</listitem>
+<listitem>
+<para>
+The value of the <link linkend="ebnf.deltaconstraint">delta constraint</link>
+<indexterm>
+    <primary>constraint</primary>
+    <secondary>delta</secondary>
+</indexterm>
+must be less than or equal to the original
+<link linkend="ebnf.deltaconstraint">delta constraint</link>.
+<indexterm>
+    <primary>constraint</primary>
+    <secondary>delta</secondary>
+</indexterm>
+</para>
+</listitem>
+</itemizedlist>
+</para>
+<para>
+In practice, the optional constraint can only be given for types of
+<link linkend="TypesNumericTypes">numeric type</link>,
+<indexterm>
+    <primary><type>numeric</type></primary>
+</indexterm>
+<indexterm>
+    <primary>type</primary>
+    <secondary><type>numeric</type></secondary>
+</indexterm>
+<link linkend="TypesEnumerationTypes"><type>enumeration</type></link>
+<indexterm>
+    <primary><type>enumeration</type></primary>
+</indexterm>
+<indexterm>
+    <primary>type</primary>
+    <secondary><type>enumeration</type></secondary>
+</indexterm>
+ and <link linkend="ebnf.unconstrainedarraytypedefinition">unconstrained array types</link>.
+</para>
+<para>
+Note that entities of the new type and the existing type cannot be mixed. Hence
+if one variable is declared as having its type <emphasis>this_new_type</emphasis>,
+where <emphasis>this_new_type</emphasis> is derived from
+<type>character</type>
+<indexterm>
+    <primary><type>character</type></primary>
+</indexterm>
+<indexterm>
+    <primary>type</primary>
+    <secondary><type>character</type></secondary>
+</indexterm>
+and another is declared as having the type
+<type>character</type>,
+<indexterm>
+    <primary><type>character</type></primary>
+</indexterm>
+<indexterm>
+    <primary>type</primary>
+    <secondary><type>character</type></secondary>
+</indexterm>
+the value of the first cannot be assigned to the
+value of the second and vice-versa. The features of the new type are that of the
+existing type.
+</para>
+<para>
+For <link linkend="ebnf.unconstrainedarraytypedefinition">unconstrained array type</link>
+<indexterm>
+    <primary><type>array</type></primary>
+    <secondary>unconstrained</secondary>
+</indexterm>
+<indexterm>
+    <primary>type</primary>
+    <secondary><type>array</type></secondary>
+    <tertiary>unconstrained</tertiary>
+</indexterm>
+definitions, the bounds of the constraint must
+satisfy the bounds of the unconstrained type.
+</para>
+<section xml:id="TypesNumericTypes"><info><title>Numeric Types</title></info>
+
+<para>
+The <link linkend="TypesNumericTypes">numeric type</link>
+<indexterm significance="preferred">
+    <primary><type>numeric</type></primary>
+</indexterm>
+<indexterm significance="preferred">
+    <primary>type</primary>
+    <secondary><type>numeric</type></secondary>
+</indexterm>
+definition defines a <link linkend="TypesNumericTypes">numeric type</link>
+<indexterm>
+    <primary><type>numeric</type></primary>
+</indexterm>
+<indexterm>
+    <primary>type</primary>
+    <secondary><type>numeric</type></secondary>
+</indexterm>
+that supports data elements that can be used in arithmetic computation. A
+<link linkend="TypesNumericTypes">numeric type</link>
+<indexterm>
+    <primary><type>numeric</type></primary>
+</indexterm>
+<indexterm>
+    <primary>type</primary>
+    <secondary><type>numeric</type></secondary>
+</indexterm>
+can be used to specify either integer
+<indexterm>
+    <primary>integer</primary>
+</indexterm>
+or floating-point values.
+<indexterm>
+    <primary>floating-point</primary>
+</indexterm>
+</para>
+<indexterm zone="ebnf.numerictypedefinition">
+    <primary>numeric type definition</primary>
+</indexterm>
+<indexterm zone="ebnf.numerictypedefinition">
+    <primary><literal>numeric</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.numerictypedefinition">
+    <primary>constraint</primary>
+</indexterm>
+<indexterm zone="ebnf.constraint">
+    <primary>constraint</primary>
+</indexterm>
+<indexterm zone="ebnf.constraint">
+    <primary>range constraint</primary>
+</indexterm>
+<indexterm zone="ebnf.constraint">
+    <primary>digits constraint</primary>
+</indexterm>
+<indexterm zone="ebnf.constraint">
+    <primary>delta constraint</primary>
+</indexterm>
+<indexterm zone="ebnf.rangeconstraint">
+    <primary>range constraint</primary>
+</indexterm>
+<indexterm zone="ebnf.rangeconstraint">
+    <primary><literal>range</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.rangeconstraint">
+    <primary>range</primary>
+</indexterm>
+<indexterm zone="ebnf.range">
+    <primary>range</primary>
+</indexterm>
+<indexterm zone="ebnf.range">
+    <primary>expression</primary>
+</indexterm>
+<indexterm zone="ebnf.range">
+    <primary><literal>..</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.range">
+    <primary>name</primary>
+</indexterm>
+<indexterm zone="ebnf.range">
+    <primary><literal>range</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.range">
+    <primary><literal>elements</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.range">
+    <primary>type</primary>
+</indexterm>
+<indexterm zone="ebnf.digitsconstraint">
+    <primary>digits constraint</primary>
+</indexterm>
+<indexterm zone="ebnf.digitsconstraint">
+    <primary><literal>digits</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.digitsconstraint">
+    <primary>constant expression</primary>
+</indexterm>
+<indexterm zone="ebnf.digitsconstraint">
+    <primary>range constraint</primary>
+</indexterm>
+<indexterm zone="ebnf.deltaconstraint">
+    <primary>delta constraint</primary>
+</indexterm>
+<indexterm zone="ebnf.digitsconstraint">
+    <primary><literal>delta</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.digitsconstraint">
+    <primary>constant expression</primary>
+</indexterm>
+<indexterm zone="ebnf.digitsconstraint">
+    <primary>range constraint</primary>
+</indexterm>
+<productionset>
+<production xml:id="ebnf.numerictypedefinition">
+    <lhs>numeric type definition</lhs>
+    <rhs>
+        'numeric',
+        <nonterminal def="#ebnf.constraint">constraint</nonterminal>
+    </rhs>
+</production>
+<production xml:id="ebnf.constraint">
+    <lhs>constraint</lhs>
+    <rhs>
+        <nonterminal def="#ebnf.rangeconstraint">range constraint</nonterminal> |
+        <nonterminal def="#ebnf.digitsconstraint">digits constraint</nonterminal> |
+        <nonterminal def="#ebnf.deltaconstraint">delta constraint</nonterminal>
+    </rhs>
+</production>
+<production xml:id="ebnf.rangeconstraint">
+    <lhs>range constraint</lhs>
+    <rhs>
+        'range',
+        <nonterminal def="#ebnf.range">range</nonterminal>
+    </rhs>
+</production>
+<production xml:id="ebnf.range">
+    <lhs>range</lhs>
+    <rhs>
+        <nonterminal def="#ebnf.expression">expression</nonterminal>,
+        '..',
+        <nonterminal def="#ebnf.expression">expression</nonterminal> |
+        <nonterminal def="#ebnf.name">name</nonterminal>,
+        ''', 'range', [('(', ')')] |
+        <nonterminal def="#ebnf.name">name</nonterminal>,
+        ''', 'elements', [('(', ')')] |
+        <nonterminal def="#ebnf.type">type</nonterminal>,
+        ''', 'elements', [('(', ')')] |
+    </rhs>
+</production>
+<production xml:id="ebnf.digitsconstraint">
+    <lhs>digits constraint</lhs>
+    <rhs>
+        'digits',
+        <nonterminal def="#ebnf.constantexpression">constant expression</nonterminal>,
+        <nonterminal def="#ebnf.rangeconstraint">range constraint</nonterminal>
+    </rhs>
+</production>
+<production xml:id="ebnf.deltaconstraint">
+    <lhs>delta constraint</lhs>
+    <rhs>
+        'delta',
+        <nonterminal def="#ebnf.constantexpression">constant expression</nonterminal>,
+        <nonterminal def="#ebnf.rangeconstraint">range constraint</nonterminal>
+    </rhs>
+</production>
+</productionset>
+<para>
+The range of value that <link linkend="TypesNumericTypes">numeric type</link>
+<indexterm>
+    <primary><type>numeric</type></primary>
+</indexterm>
+<indexterm>
+    <primary>type</primary>
+    <secondary><type>numeric</type></secondary>
+</indexterm>
+can take is specified with a
+<link linkend="ebnf.rangeconstraint">range constraint</link>.
+<indexterm>
+    <primary>constraint</primary>
+    <secondary>range</secondary>
+</indexterm>
+A compile-time
+error occurs if:
+<itemizedlist mark="bullet">
+<listitem>
+<para>
+For the definition of integer types,
+<indexterm>
+    <primary>integer</primary>
+</indexterm>
+the range does not specify a range of integer values.
+</para>
+</listitem>
+<listitem>
+<para>
+For the definition of floating-point types,
+<indexterm>
+    <primary>floating-point</primary>
+</indexterm>
+the range does not specify a range of floating-point values.
+</para>
+</listitem>
+<listitem>
+<para>
+The type of the constant expression in a
+<link linkend="ebnf.digitsconstraint">digits constraint</link> is not an integer type.
+<indexterm>
+    <primary>integer</primary>
+</indexterm>
+In addition its value must be greater than 0.
+</para>
+</listitem>
+<listitem>
+<para>
+The type of the constant expression in a
+<link linkend="ebnf.deltaconstraint">delta constraint</link> is not a floating-point
+<indexterm>
+    <primary>floating-point</primary>
+</indexterm>
+type. In addition its value must be greater then 0.
+</para>
+</listitem>
+</itemizedlist>
+</para>
+<para>
+The features of a <link linkend="TypesNumericTypes">numeric type</link>
+<indexterm>
+    <primary><type>numeric</type></primary>
+</indexterm>
+<indexterm>
+    <primary>type</primary>
+    <secondary><type>numeric</type></secondary>
+</indexterm>
+are given in
+<xref linkend="NumericTypeFeatures"/>, where <varname>n</varname>
+and <varname>n2</varname> represent entities of the type on which
+the feature is applied.
+<table xml:id="NumericTypeFeatures" frame="all"><info><title>Numeric Type Features</title></info>
+
+<tgroup cols="2" align="left" colsep="1" rowsep="1">
+<colspec colname="Feature" colwidth="1*"/>
+<colspec colname="Description" colwidth="2*"/>
+<thead>
+<row>
+    <entry>Feature</entry>
+    <entry>Description</entry>
+</row>
+</thead>
+<tbody>
+<row>
+    <entry>
+        <literal>=</literal>
+        <indexterm>
+            <primary><literal>=</literal></primary>
+        </indexterm>
+    </entry>
+    <entry>
+    Returns true if <varname>n</varname> is equal to
+    <varname>n2</varname>.
+    </entry>
+</row>
+<row>
+    <entry>
+        <literal>/=</literal>
+        <indexterm>
+            <primary><literal>/=</literal></primary>
+        </indexterm>
+    </entry>
+    <entry>
+    Returns true if <varname>n</varname> is not equal to
+    <varname>n2</varname>.
+    </entry>
+</row>
+<row>
+    <entry>
+        <literal>&lt;</literal>
+        <indexterm>
+            <primary><literal>&lt;</literal></primary>
+        </indexterm>
+    </entry>
+    <entry>
+    Returns true if <varname>n</varname> is less than
+    <varname>n2</varname>.
+    </entry>
+</row>
+<row>
+    <entry>
+        <literal>&gt;</literal>
+        <indexterm>
+            <primary><literal>&gt;</literal></primary>
+        </indexterm>
+    </entry>
+    <entry>
+    Returns true if <varname>n</varname> is greater than
+    <varname>n2</varname>.
+    </entry>
+</row>
+<row>
+    <entry>
+        <literal>&lt;=</literal>
+        <indexterm>
+            <primary><literal>&lt;=</literal></primary>
+        </indexterm>
+    </entry>
+    <entry>
+    Returns true if <varname>n</varname> is less than
+    or equal to <varname>n2</varname>.
+    </entry>
+</row>
+<row>
+    <entry>
+        <literal>&gt;=</literal>
+        <indexterm>
+            <primary><literal>&gt;=</literal></primary>
+        </indexterm>
+    </entry>
+    <entry>
+    Returns true if <varname>n</varname> is greater than
+    or equal to <varname>n2</varname>.
+    </entry>
+</row>
+<row>
+    <entry>
+        <literal>+</literal>
+        <indexterm>
+            <primary><literal>+</literal></primary>
+        </indexterm>
+    </entry>
+    <entry>
+    Returns the sum of <varname>n</varname> and
+    <varname>n2</varname>.
+    </entry>
+</row>
+<row>
+    <entry>
+        <literal>-</literal>
+        <indexterm>
+            <primary><literal>-</literal></primary>
+        </indexterm>
+    </entry>
+    <entry>
+    Returns the value of subtracting <varname>n2</varname> from
+    <varname>n</varname>.
+    </entry>
+</row>
+<row>
+    <entry>
+        <literal>*</literal>
+        <indexterm>
+            <primary><literal>*</literal></primary>
+        </indexterm>
+    </entry>
+    <entry>
+    Returns the value of multiplying <varname>n</varname> and
+    <varname>n2</varname>.
+    </entry>
+</row>
+<row>
+    <entry>
+        <literal>/</literal>
+        <indexterm>
+            <primary><literal>/</literal></primary>
+        </indexterm>
+    </entry>
+    <entry>
+    Returns the value of dividing <varname>n</varname> from
+    <varname>n2</varname>.
+    </entry>
+</row>
+<row>
+    <entry>
+        <literal>mod</literal>
+        <indexterm>
+            <primary><literal>mod</literal></primary>
+        </indexterm>
+    </entry>
+    <entry>
+    Returns the modulus <varname>n</varname> and
+    <varname>n2</varname>.
+    </entry>
+</row>
+<row>
+    <entry>
+        <literal>rem</literal>
+        <indexterm>
+            <primary><literal>rem</literal></primary>
+        </indexterm>
+    </entry>
+    <entry>
+    Returns the remainder <varname>n</varname> and
+    <varname>n2</varname>.
+    </entry>
+</row>
+<row>
+    <entry>
+        <literal>**</literal>
+        <indexterm>
+            <primary><literal>**</literal></primary>
+        </indexterm>
+    </entry>
+    <entry>
+    Returns the value of raising <varname>n</varname> to
+    the power of <varname>n2</varname>.
+    </entry>
+</row>
+<row>
+    <entry>
+        <literal>..</literal>
+        <indexterm>
+            <primary><literal>..</literal></primary>
+        </indexterm>
+    </entry>
+    <entry>
+    Returns the <link linkend="ebnf.sequencetype"><type>sequence</type></link>
+    <indexterm>
+        <primary><type>sequence</type></primary>
+    </indexterm>
+    <indexterm>
+        <primary>type</primary>
+        <secondary><type>sequence</type></secondary>
+    </indexterm>
+    containing all the values starting with
+    <varname>n</varname> up to <varname>n2</varname>, inclusive,
+    in specified ascending order.
+    </entry>
+</row>
+<row>
+    <entry>
+        <literal>+</literal>
+        <indexterm>
+            <primary><literal>+</literal></primary>
+        </indexterm>
+    </entry>
+    <entry>
+    Returns the positive value of <varname>n</varname>.
+    </entry>
+</row>
+<row>
+    <entry>
+        <literal>-</literal>
+        <indexterm>
+            <primary><literal>-</literal></primary>
+        </indexterm>
+    </entry>
+    <entry>
+    Returns the arithmetic negation of <varname>n</varname>.
+    </entry>
+</row>
+<row>
+    <entry>
+        <literal>abs</literal>
+        <indexterm>
+            <primary><literal>abs</literal></primary>
+        </indexterm>
+    </entry>
+    <entry>
+    Returns the absolute value of <varname>n</varname>.
+    </entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+</para>
+<para>
+The features <literal>mod</literal>,
+<indexterm>
+    <primary><literal>mod</literal></primary>
+</indexterm>
+<literal>rem</literal>
+<indexterm>
+    <primary><literal>rem</literal></primary>
+</indexterm>
+and <literal>..</literal>
+<indexterm>
+    <primary><literal>..</literal></primary>
+</indexterm>
+are only defined for
+<link linkend="TypesNumericTypes">numeric types</link>
+<indexterm>
+    <primary><type>numeric</type></primary>
+</indexterm>
+<indexterm>
+    <primary>type</primary>
+    <secondary><type>numeric</type></secondary>
+</indexterm>
+that are integer types.
+<indexterm>
+    <primary><type>integer</type></primary>
+</indexterm>
+<indexterm>
+    <primary>type</primary>
+    <secondary><type>integer</type></secondary>
+</indexterm>
+</para>
+</section>
+<section xml:id="TypesStructureTypes"><info><title>Structure Types</title></info>
+
+<para>
+A <type>structure</type>
+<indexterm significance="preferred">
+    <primary><type>structure</type></primary>
+</indexterm>
+<indexterm significance="preferred">
+    <primary>type</primary>
+    <secondary><type>structure</type></secondary>
+</indexterm>
+is a composite entity consisting of named components which may be of different
+types.
+</para>
+<indexterm zone="ebnf.structuretypedefinition">
+    <primary>structure type definition</primary>
+</indexterm>
+<indexterm zone="ebnf.structuretypedefinition">
+    <primary><literal>structure</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.structuretypedefinition">
+    <primary>component</primary>
+</indexterm>
+<indexterm zone="ebnf.component">
+    <primary>component</primary>
+</indexterm>
+<indexterm zone="ebnf.component">
+    <primary>component name</primary>
+</indexterm>
+<indexterm zone="ebnf.component">
+    <primary>type</primary>
+</indexterm>
+<indexterm zone="ebnf.component">
+    <primary>constant expression</primary>
+</indexterm>
+<indexterm zone="ebnf.componentname">
+    <primary>component name</primary>
+</indexterm>
+<indexterm zone="ebnf.componentname">
+    <primary>identifier</primary>
+</indexterm>
+<productionset>
+<production xml:id="ebnf.structuretypedefinition">
+    <lhs>structure type definition</lhs>
+    <rhs>
+        'structure',
+        <nonterminal def="#ebnf.component">component</nonterminal>,
+        {<nonterminal def="#ebnf.component">component</nonterminal>}
+    </rhs>
+</production>
+<production xml:id="ebnf.component">
+    <lhs>component</lhs>
+    <rhs>
+        <nonterminal def="#ebnf.componentname">component name</nonterminal>,
+        ':'
+        <nonterminal def="#ebnf.type">type</nonterminal>,
+        [(':=',
+        <nonterminal def="#ebnf.constantexpression">constant expression</nonterminal>],
+        ';'
+    </rhs>
+</production>
+<production xml:id="ebnf.componentname">
+    <lhs>component name</lhs>
+    <rhs>
+        <nonterminal def="#ebnf.identifier">identifier</nonterminal>
+    </rhs>
+</production>
+</productionset>
+<para>
+The <link linkend="ebnf.componentname"><emphasis>component name</emphasis></link>
+<indexterm>
+    <primary>component</primary>
+    <secondary>name</secondary>
+</indexterm>
+in a component declaration may be used to refer to the component.
+</para>
+<para>
+A compile-time error occurs if:
+<itemizedlist mark="bullet">
+<listitem>
+<para>
+A structure declaration
+<indexterm>
+    <primary>structure</primary>
+    <secondary>declaration</secondary>
+</indexterm>
+contains two components with the same name.
+</para>
+</listitem>
+<listitem>
+<para>
+A public structure type
+<indexterm>
+    <primary><type>structure</type></primary>
+</indexterm>
+<indexterm>
+    <primary>type</primary>
+    <secondary><type>structure</type></secondary>
+</indexterm>
+has a component whose type is private.
+</para>
+</listitem>
+<listitem>
+<para>
+The type of any optional constant expression
+<indexterm>
+    <primary>expression</primary>
+    <secondary>constant</secondary>
+</indexterm>
+in the declaration of a component is not assignable to the type of the
+component.
+</para>
+</listitem>
+</itemizedlist>
+</para>
+<para>
+If a component contains a constant expression,
+<indexterm>
+    <primary>expression</primary>
+    <secondary>constant</secondary>
+</indexterm>
+then it has the semantics of an
+assignment to the declared component
+<indexterm>
+    <primary>component</primary>
+    <secondary>declared</secondary>
+</indexterm>
+and the expression is evaluated and the 
+assignment performed each time an
+<link linkend="TypesInstanceTypes"><type>instance</type></link>
+of the structure type is created.
+</para>
+</section>
+<section xml:id="TypesEnumerationTypes"><info><title>Enumeration Types</title></info>
+
+<para>
+An <link linkend="TypesEnumerationTypes"><type>enumeration</type></link> type
+<indexterm>
+    <primary><type>enumeration</type></primary>
+</indexterm>
+<indexterm>
+    <primary>type</primary>
+    <secondary><type>enumeration</type></secondary>
+</indexterm>
+definition defines a new distinct type together with the values of the type.
+</para>
+<indexterm zone="ebnf.enumerationtypedefinition">
+    <primary>enumeration type definition</primary>
+</indexterm>
+<indexterm zone="ebnf.enumerationtypedefinition">
+    <primary><literal>enum</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.enumerationtypedefinition">
+    <primary>enumerator</primary>
+</indexterm>
+<indexterm zone="ebnf.enumerator">
+    <primary>enumerator</primary>
+</indexterm>
+<indexterm zone="ebnf.enumerator">
+    <primary>enumerator name</primary>
+</indexterm>
+<indexterm zone="ebnf.enumerator">
+    <primary>constant expression</primary>
+</indexterm>
+<indexterm zone="ebnf.enumeratorname">
+    <primary>enumerator name</primary>
+</indexterm>
+<indexterm zone="ebnf.enumeratorname">
+    <primary>identifier</primary>
+</indexterm>
+<indexterm zone="ebnf.enumeratorliteral">
+    <primary>enumerator literal</primary>
+</indexterm>
+<indexterm zone="ebnf.enumeratorliteral">
+    <primary>enumerator name</primary>
+</indexterm>
+<indexterm zone="ebnf.enumeratorliteral">
+    <primary>constant expression</primary>
+</indexterm>
+<indexterm zone="ebnf.enumeratorname">
+    <primary>enumerator name</primary>
+</indexterm>
+<indexterm zone="ebnf.enumeratorname">
+    <primary>identifier</primary>
+</indexterm>
+<indexterm zone="ebnf.enumeratorliteral">
+    <primary>enumerator literal</primary>
+</indexterm>
+<indexterm zone="ebnf.enumeratorliteral">
+    <primary>type name</primary>
+</indexterm>
+<indexterm zone="ebnf.enumeratorliteral">
+    <primary>domain name</primary>
+</indexterm>
+<productionset>
+<production xml:id="ebnf.enumerationtypedefinition">
+    <lhs>enumeration type definition</lhs>
+    <rhs>
+        'enum', '(',
+        <nonterminal def="#ebnf.enumerator">enumerator</nonterminal>,
+        [(',',
+        <nonterminal def="#ebnf.enumerator">enumerator</nonterminal>)],
+        ')'
+    </rhs>
+</production>
+<production xml:id="ebnf.enumerator">
+    <lhs>enumerator</lhs>
+    <rhs>
+        <nonterminal def="#ebnf.enumeratorname">enumerator name</nonterminal>,
+        [ '=',
+        <nonterminal def="#ebnf.constantexpression">constant expression</nonterminal> ]
+    </rhs>
+</production>
+<production xml:id="ebnf.enumeratorname">
+    <lhs>enumerator name</lhs>
+    <rhs>
+        <nonterminal def="#ebnf.identifier">identifier</nonterminal>
+    </rhs>
+</production>
+<production xml:id="ebnf.enumeratorliteral">
+    <lhs>enumerator literal</lhs>
+    <rhs>
+        <nonterminal def="#ebnf.enumeratorname">enumerator name</nonterminal> |
+        <nonterminal def="#ebnf.typename">type name</nonterminal>,
+        '.',
+        <nonterminal def="#ebnf.enumeratorname">enumerator name</nonterminal> |
+        <nonterminal def="#ebnf.domainname">domain name</nonterminal>,
+        '::',
+        <nonterminal def="#ebnf.enumeratorname">enumerator name</nonterminal> |
+        <nonterminal def="#ebnf.domainname">domain name</nonterminal>,
+        '::',
+        <nonterminal def="#ebnf.typename">type name</nonterminal>,
+        '.',
+        <nonterminal def="#ebnf.enumeratorname">enumerator name</nonterminal>
+    </rhs>
+</production>
+</productionset>
+<para>
+A compile-time error occurs if:
+<itemizedlist mark="bullet">
+<listitem>
+<para>
+The type of the constraint expression
+<indexterm>
+    <primary>expression</primary>
+    <secondary>constraint</secondary>
+</indexterm>
+does not specify an integer value.
+<indexterm>
+    <primary>integer</primary>
+</indexterm>
+</para>
+</listitem>
+<listitem>
+<para>
+An <link linkend="TypesEnumerationTypes"><type>enumeration</type></link> type
+<indexterm>
+    <primary><type>enumeration</type></primary>
+</indexterm>
+<indexterm>
+    <primary>type</primary>
+    <secondary><type>enumeration</type></secondary>
+</indexterm>
+declaration contains two enumerators with the same name.
+</para>
+</listitem>
+<listitem>
+<para>
+The optional numeric values given to enumerators in an
+<link linkend="TypesEnumerationTypes"><type>enumeration</type></link> type
+<indexterm>
+    <primary><type>enumeration</type></primary>
+</indexterm>
+<indexterm>
+    <primary>type</primary>
+    <secondary><type>enumeration</type></secondary>
+</indexterm>
+declaration are not in specified ascending order. Note this also means that two
+enumerators cannot have the same numeric value.
+</para>
+</listitem>
+</itemizedlist>
+</para>
+<para>
+If the same enumerator name is specified for more than one
+<link linkend="TypesEnumerationTypes"><type>enumeration</type></link> type
+<indexterm>
+    <primary><type>enumeration</type></primary>
+</indexterm>
+<indexterm>
+    <primary>type</primary>
+    <secondary><type>enumeration</type></secondary>
+</indexterm>
+definition in the same domain, the corresponding enumeration literals are said
+to be over-loaded. At any place where an over-loaded enumeration literal occurs,
+the type of the enumeration literal has to be determined from the context
+(see <xref linkend="ExpressionsLiterals"/>).
+</para>
+<para>
+The features of an
+<link linkend="TypesEnumerationTypes"><type>enumeration</type></link>
+<indexterm>
+    <primary><type>enumeration</type></primary>
+</indexterm>
+<indexterm>
+    <primary>type</primary>
+    <secondary><type>enumeration</type></secondary>
+</indexterm>
+type are given in
+<xref linkend="EnumerationTypeFeatures"/>, where <varname>e</varname>
+and <varname>e2</varname> represent entities of the type on which the
+feature is applied.
+<table xml:id="EnumerationTypeFeatures" frame="all"><info><title>Enumeration Type Features</title></info>
+
+<tgroup cols="2" align="left" colsep="1" rowsep="1">
+<colspec colname="Feature" colwidth="1*"/>
+<colspec colname="Description" colwidth="2*"/>
+<thead>
+<row>
+    <entry>Feature</entry>
+    <entry>Description</entry>
+</row>
+</thead>
+<tbody>
+<row>
+    <entry><literal>=</literal></entry>
+    <entry>
+    Returns true if <varname>e</varname> is equal to
+    <varname>e2</varname>.
+    </entry>
+</row>
+<row>
+    <entry>
+        <literal>=</literal>
+        <indexterm>
+            <primary><literal>=</literal></primary>
+        </indexterm>
+    </entry>
+    <entry>
+    Returns true if <varname>e</varname> is not equal to
+    <varname>e2</varname>.
+    </entry>
+</row>
+<row>
+    <entry>
+        <literal>&lt;</literal>
+        <indexterm>
+            <primary><literal>&lt;</literal></primary>
+        </indexterm>
+    </entry>
+    <entry>
+    Returns true if <varname>e</varname> is less than
+    <varname>e2</varname>.
+    </entry>
+</row>
+<row>
+    <entry>
+        <literal>&gt;</literal>
+        <indexterm>
+            <primary><literal>&gt;</literal></primary>
+        </indexterm>
+    </entry>
+    <entry>
+    Returns true if <varname>e</varname> is greater than
+    <varname>e2</varname>.
+    </entry>
+</row>
+<row>
+    <entry>
+        <literal>&lt;=</literal>
+        <indexterm>
+            <primary><literal>&lt;=</literal></primary>
+        </indexterm>
+    </entry>
+    <entry>
+    Returns true if <varname>e</varname> is less than
+    or equal to <varname>e2</varname>.
+    </entry>
+</row>
+<row>
+    <entry>
+        <literal>&gt;=</literal>
+        <indexterm>
+            <primary><literal>&gt;=</literal></primary>
+        </indexterm>
+    </entry>
+    <entry>
+    Returns true if <varname>e</varname> is greater than
+    or equal to <varname>e2</varname>.
+    </entry>
+</row>
+<row>
+    <entry>
+        <literal>..</literal>
+        <indexterm>
+            <primary><literal>..</literal></primary>
+        </indexterm>
+    </entry>
+    <entry>
+    Returns the <link linkend="TypesSequenceTypes">sequence</link>
+    <indexterm>
+        <primary><type>sequence</type></primary>
+    </indexterm>
+    <indexterm>
+        <primary>type</primary>
+        <secondary><type>sequence</type></secondary>
+    </indexterm>
+    containing all the values starting with
+    <varname>e</varname> up to <varname>e2</varname>, inclusive,
+    in specified ascending order.
+    </entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+</para>
+</section>
+<section xml:id="TypesUnconstrainedArrayTypes"><info><title>Unconstrained Array Types</title></info>
+
+<para>
+An <link linkend="ebnf.unconstrainedarraytypedefinition"><emphasis>unconstrained array type</emphasis></link>
+<indexterm significance="preferred">
+    <primary><type>array</type></primary>
+    <secondary>unconstrained</secondary>
+</indexterm>
+<indexterm significance="preferred">
+    <primary>type</primary>
+    <secondary><type>array</type></secondary>
+    <tertiary>unconstrained</tertiary>
+</indexterm>
+declaration follows the same rules as defined in
+<xref linkend="TypesArrayTypes"/>,
+<indexterm>
+    <primary><type>array</type></primary>
+</indexterm>
+<indexterm>
+    <primary>type</primary>
+    <secondary><type>array</type></secondary>
+</indexterm>
+except that the bounds of the range are unconstrained.
+</para>
+<indexterm zone="ebnf.unconstrainedarraytypedefinition">
+    <primary>unconstrained array type definition</primary>
+</indexterm>    
+<indexterm zone="ebnf.unconstrainedarraytypedefinition">
+    <primary><literal>array</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.unconstrainedarraytypedefinition">
+    <primary>type</primary>
+</indexterm>    
+<indexterm zone="ebnf.unconstrainedarraytypedefinition">
+    <primary><literal>range</literal></primary>
+</indexterm>    
+<indexterm zone="ebnf.unconstrainedarraytypedefinition">
+    <primary><literal>&lt;&gt;</literal></primary>
+</indexterm>    
+<indexterm zone="ebnf.unconstrainedarraytypedefinition">
+    <primary><literal>of</literal></primary>
+</indexterm>    
+<productionset>
+<production xml:id="ebnf.unconstrainedarraytypedefinition">
+    <lhs>unconstrained array type definition</lhs>
+    <rhs>
+        'array', '(',
+        <nonterminal def="#ebnf.type">type</nonterminal>,
+        'range', '&lt;&gt;', ')', 'of',
+        <nonterminal def="#ebnf.type">type</nonterminal>,
+        ';'
+    </rhs>
+</production>
+</productionset>
+<para>
+The bounds of the array object are determined by:
+<itemizedlist mark="bullet">
+<listitem>
+<para>
+A type
+<indexterm>
+    <primary>type</primary>
+    <secondary>declaration</secondary>
+</indexterm>
+or subtype
+<indexterm>
+    <primary>subtype</primary>
+    <secondary>declaration</secondary>
+</indexterm>
+declaration which constrain the bounds at the point of declaration.
+</para>
+</listitem>
+<listitem>
+<para>
+A formal parameter,
+<indexterm>
+    <primary>parameter</primary>
+    <secondary>formal</secondary>
+</indexterm>
+whereby the constraints of the array
+<indexterm>
+    <primary><type>array</type></primary>
+</indexterm>
+<indexterm>
+    <primary>type</primary>
+    <secondary><type>array</type></secondary>
+</indexterm>
+are obtained from the corresponding actual parameter.
+</para>
+</listitem>
+</itemizedlist>
+</para>
+<para>
+A compile-time error will be raised when:
+<itemizedlist mark="bullet">
+<listitem>
+<para>
+An attempt is made to declare a variable of an
+<link linkend="ebnf.unconstrainedarraytypedefinition"><emphasis>unconstrained array type</emphasis></link>.
+<indexterm>
+    <primary><type>array</type></primary>
+    <secondary>unconstrained</secondary>
+</indexterm>
+<indexterm>
+    <primary>type</primary>
+    <secondary><type>array</type></secondary>
+    <tertiary>unconstrained</tertiary>
+</indexterm>
+</para>
+</listitem>
+<listitem>
+<para>
+An attempt is made to declare a parameter of an
+<link linkend="ebnf.unconstrainedarraytypedefinition"><emphasis>unconstrained array type</emphasis></link>
+<indexterm>
+    <primary><type>array</type></primary>
+    <secondary>unconstrained</secondary>
+</indexterm>
+<indexterm>
+    <primary>type</primary>
+    <secondary><type>array</type></secondary>
+    <tertiary>unconstrained</tertiary>
+</indexterm>
+and who's mode is <literal>out</literal>.
+<indexterm>
+    <primary><literal>out</literal></primary>
+</indexterm>
+</para>
+</listitem>
+</itemizedlist>
+</para>
+</section>
+</section>
+<section xml:id="TypesSubtypeDeclarations"><info><title>Subtype Declarations</title></info>
+
+<para>
+A <literal>subtype</literal>
+<indexterm significance="preferred">
+    <primary>subtype</primary>
+    <secondary>declaration</secondary>
+</indexterm>
+declaration introduces a type that is
+characterized by a set of values, which are a subset of the values of
+another type.
+</para>
+<para>
+A <literal>subtype</literal>
+<indexterm significance="preferred">
+    <primary>subtype</primary>
+    <secondary>declaration</secondary>
+</indexterm>
+declaration does not introduce a new
+distinct type. Hence, assigning the value of a variable declared to have
+this subtype to a variable having the original type is valid. However, the
+reverse can be invalid, causing a run-time exception to be raised, since
+the value of the original type may be outside the range of the subtype.
+</para>
+<para>
+A subtype definition gives the definition of a new subtype.
+</para>
+<indexterm zone="ebnf.subtypedefinition">
+    <primary>subtype declaration</primary>
+</indexterm>
+<indexterm zone="ebnf.subtypedefinition">
+    <primary>user defined type</primary>
+</indexterm>
+<indexterm zone="ebnf.subtypedefinition">
+    <primary>range</primary>
+</indexterm>
+<indexterm zone="ebnf.subtypedefinition">
+    <primary>type</primary>
+</indexterm>
+<indexterm zone="ebnf.subtypedefinition">
+    <primary>constraint</primary>
+</indexterm>
+<productionset>
+<production xml:id="ebnf.subtypedefinition">
+    <lhs>
+        subtype definition
+    </lhs>
+    <rhs>
+        <nonterminal def="#ebnf.userdefinedtype">user defined type</nonterminal>,
+        '(',
+        <nonterminal def="#ebnf.range">range</nonterminal>,
+        ')', ';' |
+        <nonterminal def="#ebnf.type">type</nonterminal>,
+        [<nonterminal def="#ebnf.constraint">constraint</nonterminal>],
+        ';'
+    </rhs>
+</production>
+</productionset>
+<para>
+A compile-time error occurs if:
+<itemizedlist mark="bullet">
+<listitem>
+<para>
+A subtype is declared in terms of some
+<link linkend="TypesInstanceTypes"><type>instance</type></link> type.
+<indexterm>
+    <primary><type>instance</type></primary>
+</indexterm>
+<indexterm>
+    <primary>type</primary>
+    <secondary><type>instance</type></secondary>
+</indexterm>
+</para>
+</listitem>
+<listitem>
+<para>
+The optional constraint defines a range of values that is not a subset of the
+range of values of the original type.
+</para>
+</listitem>
+<listitem>
+<para>
+The range is not defined for a user defined type which is an
+<link linkend="ebnf.unconstrainedarraytypedefinition"><emphasis>unconstrained array type</emphasis></link>
+<indexterm>
+    <primary><type>array</type></primary>
+    <secondary>unconstrained</secondary>
+</indexterm>
+<indexterm>
+    <primary>type</primary>
+    <secondary><type>array</type></secondary>
+    <tertiary>unconstrained</tertiary>
+</indexterm>
+type.
+</para>
+</listitem>
+</itemizedlist>
+</para>
+<para>
+Specifically,
+<itemizedlist mark="bullet">
+<listitem>
+<para>
+The range of values given by a
+<link linkend="ebnf.rangeconstraint">range constraint</link>
+<indexterm>
+    <primary>constraint</primary>
+    <secondary>range</secondary>
+</indexterm>
+must all be values of the original type.
+</para>
+</listitem>
+<listitem>
+<para>
+A digit constraint can only be given if the original type has a
+<link linkend="ebnf.digitsconstraint">digits constraint</link>.
+<indexterm>
+    <primary>constraint</primary>
+    <secondary>digits</secondary>
+</indexterm>
+In addition the value of the
+<link linkend="ebnf.digitsconstraint">digits constraint</link>
+<indexterm>
+    <primary>constraint</primary>
+    <secondary>digits</secondary>
+</indexterm>
+must be less than or equal to the original
+<link linkend="ebnf.digitsconstraint">digits constraint</link>.
+<indexterm>
+    <primary>constraint</primary>
+    <secondary>digits</secondary>
+</indexterm>
+</para>
+</listitem>
+<listitem>
+<para>
+A <link linkend="ebnf.deltaconstraint">delta constraint</link>
+<indexterm>
+    <primary>constraint</primary>
+    <secondary>delta</secondary>
+</indexterm>
+can only be given if the original type has a
+<link linkend="ebnf.deltaconstraint">delta constraint</link>.
+<indexterm>
+    <primary>constraint</primary>
+    <secondary>delta</secondary>
+</indexterm>
+In addition the value of the delta constraint must be less than or equal to the
+original <link linkend="ebnf.deltaconstraint">delta constraint</link>.
+<indexterm>
+    <primary>constraint</primary>
+    <secondary>delta</secondary>
+</indexterm>
+</para>
+<para>
+In practice the optional constraint can only be given for subtypes of
+<link linkend="TypesNumericTypes">numeric type</link>
+<indexterm>
+    <primary><type>numeric</type></primary>
+</indexterm>
+<indexterm>
+    <primary>type</primary>
+    <secondary><type>numeric</type></secondary>
+</indexterm>
+and
+<link linkend="TypesEnumerationTypes"><type>enumeration</type></link> types.
+<indexterm>
+    <primary><type>enumeration</type></primary>
+</indexterm>
+<indexterm>
+    <primary>type</primary>
+    <secondary><type>enumeration</type></secondary>
+</indexterm>
+</para>
+</listitem>
+</itemizedlist>
+</para>
+</section>
+<section xml:id="TypesVariableDeclarations"><info><title>Variable Declarations</title></info>
+
+<para>
+A <link linkend="ebnf.variabledeclaration"><emphasis>variable declaration</emphasis></link>
+<indexterm>
+    <primary>variable</primary>
+    <secondary>declaration</secondary>
+</indexterm>
+declares a local variable.
+</para>
+<indexterm zone="ebnf.variabledeclaration">
+    <primary>variable declaration</primary>
+</indexterm>
+<indexterm zone="ebnf.variabledeclaration">
+    <primary>variable name</primary>
+</indexterm>
+<indexterm zone="ebnf.variabledeclaration">
+    <primary>modifier</primary>
+</indexterm>
+<indexterm zone="ebnf.variabledeclaration">
+    <primary>type</primary>
+</indexterm>
+<indexterm zone="ebnf.variabledeclaration">
+    <primary>range</primary>
+</indexterm>
+<indexterm zone="ebnf.variabledeclaration">
+    <primary>extended expression</primary>
+</indexterm>
+<indexterm zone="ebnf.variablename">
+    <primary>variable name</primary>
+</indexterm>
+<indexterm zone="ebnf.variablename">
+    <primary>identifier</primary>
+</indexterm>
+<productionset>
+<production xml:id="ebnf.variabledeclaration">
+    <lhs>
+        variable declaration
+    </lhs>
+    <rhs>
+        <nonterminal def="#ebnf.variablename">variable name</nonterminal>,
+        ':',
+        [<nonterminal def="#ebnf.modifier">modifier</nonterminal>],
+        <nonterminal def="#ebnf.type">type</nonterminal>,
+        [('(',
+        <nonterminal def="#ebnf.range">range</nonterminal>,
+        ')')], [(':=',
+        [<nonterminal def="#ebnf.extendedexpression">extended expression</nonterminal>],
+        ';'
+    </rhs>
+</production>
+<production xml:id="ebnf.variablename">
+    <lhs>
+        variable name
+    </lhs>
+    <rhs>
+        <nonterminal def="#ebnf.identifier">identifier</nonterminal>
+    </rhs>
+</production>
+</productionset>
+<para>
+Each <link linkend="ebnf.variabledeclaration"><emphasis>variable declaration</emphasis></link>
+<indexterm>
+    <primary>variable</primary>
+    <secondary>declaration</secondary>
+</indexterm>
+declares one local variable, whose name is given by the
+<link linkend="ebnf.variablename"><emphasis>variable name</emphasis></link>.
+<indexterm>
+    <primary>variable</primary>
+    <secondary>name</secondary>
+</indexterm>
+</para>
+<para>
+The type of the variable is denoted by the type. There are no restrictions on
+the type of a variable.
+<indexterm>
+    <primary>variable</primary>
+    <secondary>type</secondary>
+</indexterm>
+</para>
+<para>
+A compile-time error occurs if:
+<itemizedlist mark="bullet">
+<listitem>
+<para>
+The type of the optional extended expression
+<indexterm>
+    <primary>expression</primary>
+    <secondary>extended</secondary>
+</indexterm>
+is not assignable to the type of the variable.
+<indexterm>
+    <primary>variable</primary>
+    <secondary>type</secondary>
+</indexterm>
+</para>
+</listitem>
+<listitem>
+<para>
+A <literal>readonly</literal> variable
+<indexterm>
+    <primary><literal>readonly</literal></primary>
+</indexterm>
+<indexterm>
+    <primary>variable</primary>
+    <secondary><literal>readonly</literal></secondary>
+</indexterm>
+does not have an initial value given by the optional extended expression.
+<indexterm>
+    <primary>expression</primary>
+    <secondary>extended</secondary>
+</indexterm>
+</para>
+</listitem>
+<listitem>
+<para>
+The type of the variable is an
+<link linkend="ebnf.unconstrainedarraytypedefinition">unconstrained array type</link>
+<indexterm>
+    <primary><type>array</type></primary>
+    <secondary>unconstrained</secondary>
+</indexterm>
+<indexterm>
+    <primary>type</primary>
+    <secondary><type>array</type></secondary>
+    <tertiary>unconstrained</tertiary>
+</indexterm>
+which does not impose the optional
+<link linkend="ebnf.rangeconstraint">range constraint</link>.
+<indexterm>
+    <primary>constraint</primary>
+    <secondary>range</secondary>
+</indexterm>
+</para>
+</listitem>
+<listitem>
+<para>
+The optional <link linkend="ebnf.rangeconstraint">range constraint</link>
+<indexterm>
+    <primary>constraint</primary>
+    <secondary>range</secondary>
+</indexterm>
+is imposed on a type which is not an
+<link linkend="ebnf.unconstrainedarraytypedefinition">unconstrained array type</link>.
+<indexterm>
+    <primary><type>array</type></primary>
+    <secondary>unconstrained</secondary>
+</indexterm>
+<indexterm>
+    <primary>type</primary>
+    <secondary><type>array</type></secondary>
+    <tertiary>unconstrained</tertiary>
+</indexterm>
+</para>
+</listitem>
+</itemizedlist>
+</para>
+<section xml:id="TypesModifiers"><info><title>Modifiers</title></info>
+
+<indexterm significance="preferred">
+    <primary>type</primary>
+    <secondary>modifier</secondary>
+</indexterm>
+<indexterm zone="ebnf.modifier">
+    <primary>modifier</primary>
+</indexterm>
+<indexterm zone="ebnf.modifier">
+    <primary><literal>readonly</literal></primary>
+</indexterm>
+<productionset>
+<production xml:id="ebnf.modifier">
+    <lhs>
+        modifier
+    </lhs>
+    <rhs>
+        'readonly'
+    </rhs>
+</production>
+</productionset>
+<para>
+Any attempt to assign to a <literal>readonly</literal> variable
+<indexterm>
+    <primary><literal>readonly</literal></primary>
+</indexterm>
+<indexterm>
+    <primary>variable</primary>
+    <secondary><literal>readonly</literal></secondary>
+</indexterm>
+results in a compile-time error. Therefore, once a <literal>readonly</literal>
+variable
+<indexterm>
+    <primary><literal>readonly</literal></primary>
+</indexterm>
+<indexterm>
+    <primary>variable</primary>
+    <secondary><literal>readonly</literal></secondary>
+</indexterm>
+has been initialized, it always contains the same value.
+</para>
+</section>
+<section xml:id="TypesScopeofDeclarations"><info><title>Scope of Variable Declarations</title></info>
+
+<para>
+The scope of a variable declaration
+<indexterm>
+    <primary>variable</primary>
+    <secondary>declaration</secondary>
+</indexterm>
+is the rest of the block in which the declaration appears.
+</para>
+</section>
+<section xml:id="TypesHidingifNamesbyLocalVariables"><info><title>Hiding of Names by Local Variables</title></info>
+
+<para>
+<indexterm significance="preferred">
+    <primary>variable</primary>
+    <secondary>local</secondary>
+    <tertiary>hiding</tertiary>
+</indexterm>
+If a name declared as a local variable is already declared as another variable
+in an outer scope, then that outer declaration is hidden throughout the scope of
+the local variable. The outer variable can almost always still be accessed using
+an appropriately qualified name.
+</para>
+</section>
+<section xml:id="TypesExecutionofLocalVariableDeclarations"><info><title>Execution of Local Variable Declarations</title></info>
+
+<para>
+<indexterm significance="preferred">
+    <primary>variable</primary>
+    <secondary>local</secondary>
+    <tertiary>declaration</tertiary>
+</indexterm>
+A local variable declaration is, in some aspects, an executable statement.
+<indexterm>
+    <primary>statement</primary>
+    <secondary>executable</secondary>
+</indexterm>
+If a variable declaration has an initialization expression, the expression is
+evaluated and its value is assigned to the variable.
+</para>
+</section>
+</section>
+</chapter>

@@ -1,0 +1,207 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>1.5. Simple Numeric Types</title>
+<link rel="stylesheet" type="text/css" href="docbook.css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
+<meta name="keywords" content="MASL, Action Language, Action Semantics, UML, Unified Modelling Language, Shlaer Mellor">
+<link rel="home" href="index.html" title="MASL Tutorial">
+<link rel="up" href="Types.html" title="Chapter 1. Types">
+<link rel="prev" href="TypesSubtypes.html" title="1.4. Subtypes">
+<link rel="next" href="TypesEnumerationTypes.html" title="1.6. Enumeration Types">
+<link rel="preface" href="preface.html" title="Preface">
+<link rel="chapter" href="Types.html" title="Chapter 1. Types">
+<link rel="chapter" href="ExecutionControl.html" title="Chapter 2. Execution Control">
+<link rel="chapter" href="CompositeTypes.html" title="Chapter 3. Composite Types">
+<link rel="chapter" href="Exceptions.html" title="Chapter 4. Exceptions">
+<link rel="chapter" href="ObjectsandRelationships.html" title="Chapter 5. Objects and Relationships">
+<link rel="chapter" href="Actions.html" title="Chapter 6. Actions">
+<link rel="chapter" href="DeviceIO.html" title="Chapter 7. Device Input/Output">
+<link rel="chapter" href="MASLExamples.html" title="Chapter 8. MASL Examples">
+<link rel="index" href="ix01.html" title="Index">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div align="center">UNCLASSIFIED</div>
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center">1.5. Simple Numeric Types</th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="TypesSubtypes.html">Prev</a> </td>
+<th width="60%" align="center">Chapter 1. Types</th>
+<td width="20%" align="right"> <a accesskey="n" href="TypesEnumerationTypes.html">Next</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h2 class="title">
+<a name="TypesSimpleNumericTypes"></a>1.5. Simple Numeric Types</h2></div></div></div>
+<p>The types <span class="type">integer</span> and <span class="type">real</span> are not
+    built-in MASL types. They both have been declared somewhere in terms of
+    the built-in <span class="type">numeric</span> type. For the moment, however, we will
+    suppose that they are both built-in.</p>
+<p>As we have seen, a constraint may be imposed on type integer by
+    using the reserved word <code class="literal">range</code>. This is then followed by
+    two expressions separated by two dots, which, of course, must produce
+    values of <span class="type">integer</span> type.</p>
+<p>We turn now to a brief consideration of the floating-point types. It
+    is possible to apply constraints to the type <span class="type">real</span> in order to
+    reduce the range and precision. A discussion of this is deferred until
+    later. The predefined operations that can be performed on
+    <span class="type">numeric</span> types are much as one would expect. They are
+    summarised in the table below.</p>
+<div class="table">
+<a name="TypesFloatingPointOperators"></a><div class="table-title">Table 1.1. Floating-Point Operators</div>
+<div class="table-contents"><table class="table" border="1">
+<colgroup>
+<col class="operator">
+<col class="description">
+</colgroup>
+<thead><tr>
+<th>Operator</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>
+<code class="literal">+</code> <code class="literal">-</code>
+</td>
+<td>These are either unary operators (that is, taking a single
+            operand) or binary operators taking two operands. In the case of a
+            unary operator, the operand can be of any numeric type; the result
+            will be of the same type. Unary
+            <code class="literal"><code class="literal">+</code></code> effectively does nothing.
+            Unary <code class="literal"><code class="literal">-</code></code> changes the sign. In
+            the case of a binary operator, both operands must have the same
+            <span class="type">numeric</span> base type; the result will be of that type.
+            Normal addition or subtraction is performed.</td>
+</tr>
+<tr>
+<td><code class="literal">*</code></td>
+<td>Multiplication; both operands must be of some
+            <span class="type">numeric</span> type. If both operands have the same
+            <span class="type">numeric</span> base type, then the result will be of that
+            type, otherwise the result will be the basis type of the
+            operands.</td>
+</tr>
+<tr>
+<td><code class="literal">/</code></td>
+<td>Division; both operands must be of some
+            <span class="type">numeric</span> type. If both operands have the same
+            <span class="type">numeric</span> base type, then the result will be of that
+            type, otherwise the result will be the basis type of the
+            operands.</td>
+</tr>
+<tr>
+<td><code class="literal">rem</code></td>
+<td>Remainder; both operands must have the same
+            <span class="type">integer</span> base type and the result is of that type. It
+            is the remainder on division.</td>
+</tr>
+<tr>
+<td><code class="literal">mod</code></td>
+<td>Modulo; both operands must have the same
+            <span class="type">integer</span> base type and the result is of that type.
+            This is the mathematical modulo operation.</td>
+</tr>
+<tr>
+<td><code class="literal">abs</code></td>
+<td>Absolute value; this is a unary operator and the single
+            operand may be of any <span class="type">numeric</span> type. The result is of
+            the same type and is the absolute value. That is, if the operand
+            is positive, the result is the same but if it is negative, the
+            result is the corresponding positive value.</td>
+</tr>
+<tr>
+<td><code class="literal">**</code></td>
+<td>Exponentiation; this raises the first operand to the power
+            of the second. Both operands must have the same
+            <span class="type">numeric</span> base type; the result will be of that
+            type.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<br class="table-break"><p>In addition, we can perform the operations <code class="literal">=</code>,
+    <code class="literal">/=</code>, <code class="literal">&lt;</code>, <code class="literal">&lt;=</code>,
+    <code class="literal">&gt;</code> and <code class="literal">&gt;=</code> in order to return a
+    <span class="type">Boolean</span> result <code class="literal">true</code> or
+    <code class="literal">false</code>. Again, both operands must have the same base
+    type.</p>
+<div class="note">
+<h3 class="title">Note</h3>
+<p>The form of the not equals operator is
+      <code class="literal">/=</code>.</p>
+</div>
+<p>Numeric types follow the general rules of types and subtypes. It is
+    not possible to add an <span class="type">integer</span> value to a <span class="type">real</span>
+    value; both must have the same base type. A change of type from
+    <span class="type">integer</span> to <span class="type">real</span> or visa versa can be done by
+    using the desired type name (or indeed subtype name) followed by the
+    expression to be converted in brackets. So given:</p>
+<div class="informalexample"><pre class="programlisting">  i : integer := 8;
+  j : integer;
+  r : real := 5.4;
+  s : real;</pre></div>
+<p>we cannot write:</p>
+<pre class="programlisting">  s := i + r;        // illegal</pre>
+<p>but
+    we must write:</p>
+<div class="informalexample"><pre class="programlisting">  s := real(i) + r;</pre></div>
+<p>which uses real addition to give <code class="varname">s</code>
+    the value <code class="literal">13.4</code> ,or:</p>
+<div class="informalexample"><pre class="programlisting">  j := i + integer(r);</pre></div>
+<p>which uses integer addition to give
+    <code class="varname">j</code> the value <code class="literal">13</code>.</p>
+<p>Conversion from real to integer always rounds rather than truncates,
+    therefore 3.2 becomes 3 and 1,8 becomes 2. A value midway between two
+    integers, such as 9.5, may be rounded up or down according to the
+    implementation.</p>
+<p>We conclude this section with a brief discussion on combining
+    operators in an expression. As is usual the operators have different
+    precedence levels and the natural precedence can be overruled by the use
+    of brackets. Operators of the same precedence are applied in order from
+    left to right. A sub expression in brackets obviously has to be evaluated
+    before it can be used. The precedence levels of the operators we have met
+    so far are shown below in increasing order of precedence:</p>
+<div class="informaltable"><table class="informaltable" border="0">
+<colgroup><col></colgroup>
+<tbody>
+<tr><td align="center"><p><code class="literal">=</code>
+            <code class="literal">/=</code></p></td></tr>
+<tr><td align="center"><p><code class="literal">&lt;&lt;=</code>
+            <code class="literal">&gt;&gt;=</code></p></td></tr>
+<tr><td align="center"><p><code class="literal">+</code> <code class="literal">-</code>
+            (binary)</p></td></tr>
+<tr><td align="center"><p><code class="literal">*</code> <code class="literal">/</code>
+            <code class="literal">mod</code> <code class="literal">rem</code>
+            <code class="literal">**</code></p></td></tr>
+<tr><td align="center"><p><code class="literal">+</code> <code class="literal">-</code>
+            <code class="literal">abs</code> (unary)</p></td></tr>
+</tbody>
+</table></div>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="TypesSubtypes.html">Prev</a> </td>
+<td width="20%" align="center"><a accesskey="u" href="Types.html">Up</a></td>
+<td width="40%" align="right"> <a accesskey="n" href="TypesEnumerationTypes.html">Next</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left" valign="top">1.4. Subtypes </td>
+<td width="20%" align="center">
+<a accesskey="h" href="index.html">Home</a> | <a accesskey="t" href="bk01-toc.html">ToC</a>
+</td>
+<td width="40%" align="right" valign="top"> 1.6. Enumeration Types</td>
+</tr>
+</table>
+</div>
+<div align="center">UNCLASSIFIED</div>
+</body>
+</html>

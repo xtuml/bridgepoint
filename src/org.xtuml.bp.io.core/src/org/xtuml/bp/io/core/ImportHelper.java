@@ -22,19 +22,35 @@
 
 package org.xtuml.bp.io.core;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.regex.Pattern;
+import java.util.regex.Matcher;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import java.util.Vector;
 
+import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IFolder;
+import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IResource;
+import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.IWorkspaceRunnable;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
+import org.eclipse.jface.preference.IPreferenceStore;
 import org.xtuml.bp.core.ActionHome_c;
 import org.xtuml.bp.core.Action_c;
 import org.xtuml.bp.core.ActorParticipant_c;
@@ -49,6 +65,7 @@ import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.DataType_c;
 import org.xtuml.bp.core.Dimensions_c;
 import org.xtuml.bp.core.EclipseOoaofooa;
+import org.xtuml.bp.core.ElementVisibility_c;
 import org.xtuml.bp.core.Elementtypeconstants_c;
 import org.xtuml.bp.core.End_c;
 import org.xtuml.bp.core.EnumerationDataType_c;
@@ -72,6 +89,7 @@ import org.xtuml.bp.core.Lifespan_c;
 import org.xtuml.bp.core.Message_c;
 import org.xtuml.bp.core.ModelClass_c;
 import org.xtuml.bp.core.Modeleventnotification_c;
+import org.xtuml.bp.core.MooreActionHome_c;
 import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.OperationParameter_c;
 import org.xtuml.bp.core.Operation_c;
@@ -81,12 +99,20 @@ import org.xtuml.bp.core.Parsestatus_c;
 import org.xtuml.bp.core.PortReference_c;
 import org.xtuml.bp.core.Port_c;
 import org.xtuml.bp.core.PropertyParameter_c;
+import org.xtuml.bp.core.ProvidedExecutableProperty_c;
+import org.xtuml.bp.core.ProvidedOperation_c;
+import org.xtuml.bp.core.ProvidedSignal_c;
 import org.xtuml.bp.core.Provision_c;
+import org.xtuml.bp.core.RequiredExecutableProperty_c;
+import org.xtuml.bp.core.RequiredOperation_c;
+import org.xtuml.bp.core.RequiredSignal_c;
 import org.xtuml.bp.core.Requirement_c;
 import org.xtuml.bp.core.SatisfactionInComponent_c;
 import org.xtuml.bp.core.Satisfaction_c;
+import org.xtuml.bp.core.SearchResultSet_c;
 import org.xtuml.bp.core.StateMachineEventDataItem_c;
 import org.xtuml.bp.core.StateMachineEvent_c;
+import org.xtuml.bp.core.StateMachineState_c;
 import org.xtuml.bp.core.StateMachine_c;
 import org.xtuml.bp.core.StructureMember_c;
 import org.xtuml.bp.core.SupplementalDataItems_c;
@@ -100,6 +126,7 @@ import org.xtuml.bp.core.UseCaseAssociation_c;
 import org.xtuml.bp.core.UserDataType_c;
 import org.xtuml.bp.core.Visibility_c;
 import org.xtuml.bp.core.common.BaseModelDelta;
+import org.xtuml.bp.core.common.BridgePointPreferencesStore;
 import org.xtuml.bp.core.common.ClassQueryInterface_c;
 import org.xtuml.bp.core.common.ComponentResourceListener;
 import org.xtuml.bp.core.common.IdAssigner;
@@ -108,6 +135,12 @@ import org.xtuml.bp.core.common.ModelRoot;
 import org.xtuml.bp.core.common.NonRootModelElement;
 import org.xtuml.bp.core.common.PersistableModelComponent;
 import org.xtuml.bp.core.common.PersistenceManager;
+import org.xtuml.bp.core.inspector.IModelClassInspector;
+import org.xtuml.bp.core.inspector.ModelInspector;
+import org.xtuml.bp.core.ui.actions.GenericPackageAssignComponentOnCL_ICAction;
+import org.xtuml.bp.core.ui.actions.GenericPackageFormalizeOnC_PAction;
+import org.xtuml.bp.core.ui.actions.GenericPackageFormalizeOnC_RAction;
+import org.xtuml.bp.core.util.TransactionUtil;
 import org.xtuml.bp.ui.canvas.AnchorOnSegment_c;
 import org.xtuml.bp.ui.canvas.CanvasTransactionListener;
 import org.xtuml.bp.ui.canvas.Cl_c;
@@ -122,6 +155,7 @@ import org.xtuml.bp.ui.canvas.Graphconnector_c;
 import org.xtuml.bp.ui.canvas.Graphedge_c;
 import org.xtuml.bp.ui.canvas.Graphelement_c;
 import org.xtuml.bp.ui.canvas.GraphicalElement_c;
+import org.xtuml.bp.ui.canvas.GraphicsReconcilerLauncher;
 import org.xtuml.bp.ui.canvas.Graphnode_c;
 import org.xtuml.bp.ui.canvas.LineSegment_c;
 import org.xtuml.bp.ui.canvas.ModelSpecification_c;
@@ -300,6 +334,221 @@ public class ImportHelper
     protected Ooaofgraphics getGraphicsModelRoot()
     {
         return importer.getGraphicsModelRoot();
+    }
+
+    /**
+     * Resolve the MASL project
+     *   - Assign unassigned component references
+     *   - Unhook temporary interface definitions and re-attach to existing interfaces in domains
+     */
+    public void resolveMASLproject( NonRootModelElement[] elements ) {
+        if ( elements == null ) return;
+
+        // first pass, assign componenent references and swap interfaces, formalize interfaces
+        for ( NonRootModelElement el : elements ) {
+            // process the unassigned component references
+            if ( el instanceof ComponentReference_c ) {
+		TransactionUtil.TransactionGroup transactionGroup = TransactionUtil.startTransactionsOnSelectedModelRoots("Resolve Component Reference");
+		Ooaofooa.beginSaveOperation();
+
+                ComponentReference_c cl_ic = (ComponentReference_c)el;
+
+                // check if containing package is a MASL project package
+                boolean masl_project = false;
+                Package_c pkg = Package_c.getOneEP_PKGOnR8000( PackageableElement_c.getOnePE_PEOnR8001( cl_ic ) );
+                if ( null != pkg ) {
+            	    String pkg_descrip = pkg.getDescrip();
+                    if ( !pkg_descrip.isEmpty() ) {
+                        Matcher m = Pattern.compile( "masl_project" ).matcher( pkg_descrip );
+                        if ( m.find() ) {
+                            masl_project = true;
+                        }
+                    }
+                }
+
+                if ( masl_project ) {
+
+                    // get the name of the component we're looking for from the Descrip field
+                    String description = cl_ic.getDescrip();
+
+                    // parse name
+                    String cl_ic_name = "";
+                    if ( !description.isEmpty() ) {
+                        Matcher m = Pattern.compile( "name:.*" ).matcher( description );
+                        if ( m.find() ) {
+                            cl_ic_name = m.group().substring(5);
+                            cl_ic.setDescrip( m.replaceAll("") );
+                        }
+                    }
+
+                    // ensure that all Components are loaded
+                    PersistenceManager.ensureAllInstancesLoaded(cl_ic.getModelRoot(), Component_c.class);
+                    // get reachable components
+                    Component_c[] components = GenericPackageAssignComponentOnCL_ICAction.getElements( cl_ic );
+
+                    // match the ComponentReference with the Component
+                    for ( Component_c c_c : components ) {
+                        if ( c_c.getName().equals( cl_ic_name ) ) {
+                            // assign the component reference to the component
+                            cl_ic.Assigntocomp( c_c.getId() );
+                            break;
+                        }
+                    }
+                }
+
+		Ooaofooa.endSaveOperation();
+		TransactionUtil.endTransactions(transactionGroup);
+
+            }
+            // process temporary interfaces
+            else if ( el instanceof Interface_c ) {
+                TransactionUtil.TransactionGroup transactionGroup = TransactionUtil.startTransactionsOnSelectedModelRoots("Resolve Temporary Interface");
+		Ooaofooa.beginSaveOperation();
+
+                Interface_c c_i = (Interface_c)el;
+
+                // check if this is a temporary interface
+            	String description = c_i.getDescrip();
+                boolean temporary = true;
+                if ( !description.isEmpty() ) {
+                    Matcher m = Pattern.compile( "temporary" ).matcher( description );
+                    if ( !m.find() ) {
+                        temporary = false;
+                    }
+                }
+
+                if ( temporary ) {
+
+                    // ensure that all Interfaces are loaded
+                    PersistenceManager.ensureAllInstancesLoaded(c_i.getModelRoot(), Interface_c.class);
+
+                    // get reachable Interfaces
+                    Package_c pkg = Package_c.getOneEP_PKGOnR8000( PackageableElement_c.getOnePE_PEOnR8001( c_i ) );
+		    List<Interface_c> elementList = new ArrayList<Interface_c>();
+                    PackageableElement_c[] pes = null;
+		    if (pkg != null) {
+			pkg.Clearscope();
+			pkg.Collectvisibleelementsforname(true, Gd_c.Null_unique_id(), false, "", pkg.getPackage_id(), Elementtypeconstants_c.INTERFACE);
+			class PETest implements ClassQueryInterface_c {
+			    public boolean evaluate(Object candidate) {
+			        SearchResultSet_c selected = (SearchResultSet_c) candidate;
+				return (selected.getName().equals("") && selected.getType() == Elementtypeconstants_c.INTERFACE);
+			    }
+			}
+			SearchResultSet_c results = SearchResultSet_c.getOnePE_SRSOnR8005(pkg, new PETest());
+			pes = PackageableElement_c.getManyPE_PEsOnR8002(ElementVisibility_c.getManyPE_VISsOnR8006(results));
+			for (int i = 0; pes != null && i < pes.length; i++) {
+			    Interface_c elem = Interface_c.getOneC_IOnR8001(pes[i]);
+			    elementList.add(elem);
+
+			}
+                    }
+                    Interface_c[] interfaces = elementList.toArray(new Interface_c[elementList.size()]);
+
+                    // check for matching interfaces
+                    for ( int i = 0; i < interfaces.length; i++ ) {
+                        // if name matches, but not the same interface
+                        if ( !interfaces[i].getId().equals(c_i.getId()) && interfaces[i].getName().equals(c_i.getName()) ) {
+                            // select my interface reference
+                            InterfaceReference_c c_ir = InterfaceReference_c.getOneC_IROnR4012( c_i );
+                            if ( null != c_ir ) {
+                                // replace the temporary interface
+                                Ooaofooa.Replaceformalinterface( c_ir.getModelRoot(), c_ir.getId(), interfaces[i].getId() );
+
+                                // dispose self
+                                c_i.Dispose();
+
+                                // break from loop
+                                break;
+                            }
+                        }
+                    }
+                }
+		Ooaofooa.endSaveOperation();
+		TransactionUtil.endTransactions(transactionGroup);
+            }
+            else if ( el instanceof Requirement_c ) {
+		TransactionUtil.TransactionGroup transactionGroup = TransactionUtil.startTransactionsOnSelectedModelRoots("Formalize Required Interface");
+		Ooaofooa.beginSaveOperation();
+
+                // process the unformalized required interfaces
+                Requirement_c c_r = (Requirement_c)el;
+
+                // check if requirement needs formalizing
+                boolean formalize = false;
+            	String descrip = c_r.getDescrip();
+                if ( !descrip.isEmpty() ) {
+                    Matcher m = Pattern.compile( "formalize" ).matcher( descrip );
+                    if ( m.find() ) {
+                        formalize = true;
+                    }
+                }
+
+                if ( formalize ) {
+
+                    // get the name of the interface we're looking for from the InformalName field
+                    String c_r_name = c_r.getInformalname();
+
+                    // ensure that all Interfaces are loaded
+                    PersistenceManager.ensureAllInstancesLoaded(c_r.getModelRoot(), Interface_c.class);
+                    // get reachable interfaces
+                    Interface_c[] interfaces = GenericPackageFormalizeOnC_RAction.getElements( c_r );
+
+                    // match the Interface
+                    for ( Interface_c c_i : interfaces ) {
+                        if ( c_i.getName().equals( c_r_name ) ) {
+                            // formalize the requirement
+                            c_r.Formalize(c_i.getId(), true);
+                            break;
+                        }
+                    }
+
+                }
+
+		Ooaofooa.endSaveOperation();
+		TransactionUtil.endTransactions(transactionGroup);
+            }
+            else if ( el instanceof Provision_c ) {
+		TransactionUtil.TransactionGroup transactionGroup = TransactionUtil.startTransactionsOnSelectedModelRoots("Formalize Provided Interface");
+		Ooaofooa.beginSaveOperation();
+
+                // process the unformalized provided interfaces
+                Provision_c c_p =  (Provision_c)el;
+
+                // check if requirement needs formalizing
+                boolean formalize = false;
+            	String descrip = c_p.getDescrip();
+                if ( !descrip.isEmpty() ) {
+                    Matcher m = Pattern.compile( "formalize" ).matcher( descrip );
+                    if ( m.find() ) {
+                        formalize = true;
+                    }
+                }
+
+                if ( formalize ) {
+
+                    // get the name of the interface we're looking for from the InformalName field
+                    String c_p_name = c_p.getInformalname();
+
+                    // ensure that all Interfaces are loaded
+                    PersistenceManager.ensureAllInstancesLoaded(c_p.getModelRoot(), Interface_c.class);
+                    // get reachable interfaces
+                    Interface_c[] interfaces = GenericPackageFormalizeOnC_PAction.getElements( c_p );
+
+                    // match the Interface
+                    for ( Interface_c c_i : interfaces ) {
+                        if ( c_i.getName().equals( c_p_name ) ) {
+                            // formalize the requirement
+                            c_p.Formalize(c_i.getId(), true);
+                            break;
+                        }
+                    }
+                }
+		    
+		Ooaofooa.endSaveOperation();
+		TransactionUtil.endTransactions(transactionGroup);
+            }
+        }
     }
 
     /**
@@ -941,129 +1190,6 @@ public class ImportHelper
             }
         }
     }
-    /**
-     * Relates all external entity packages across the
-     * associations found in the package linking subsystem
-     */
-    public void formalizeExternalEntityPackageLinkingAssociations(Ooaofooa modelRoot)
-    {
-    	//TODO: BOB remove this
-    }
-    /**
-     * Relates all function packages across the
-     * associations found in the package linking subsystem
-     */
-    public void formalizeFunctionPackageLinkingAssociations(Ooaofooa modelRoot)
-    {
-    	//TODO: BOB remove this
-    }
-    /**
-     * This function is used to migrate 1.4.2-based components to 1.5.x.
-     */
-    public void migrateComponents(final Ooaofooa modelRoot)
-    {
-        
-        // ensure that all component diagrams have been
-        // loaded
-        if (modelRoot.getRoot() == null) {
-            SystemModel_c system = SystemModel_c.SystemModelInstance(Ooaofooa
-                    .getDefaultInstance(), new ClassQueryInterface_c() {
-
-                public boolean evaluate(Object candidate) {
-                    return ((SystemModel_c) candidate).getName().equals(
-                            EclipseOoaofooa
-                                    .getProjectNameFromModelRootId(modelRoot
-                                            .getId()));
-                }
-
-            });
-            modelRoot.setRoot(system);
-        }
-
-        // also need to assure all components are loaded
-        // this will guarantee that imported components
-        // are also setup correctly
-        PersistenceManager.ensureAllChildInstancesLoaded(modelRoot.getRoot().getPersistableComponent(),
-                modelRoot,
-                Component_c.class, true);
-        
-        // upgrade satisfactions to have new unique identifier
-        addIdentifierForPre715Satisfactions(modelRoot);
-        
-        boolean found = false;
-
-        Iterator c_iter = old_components.iterator();
-        UUID pkg_id = Gd_c.Null_unique_id();
-
-        while ( c_iter.hasNext() ) {
-            C_C old_comp = (C_C) c_iter.next();
-
-            // Use old_comp.Diagram_Id to find the new component's
-            // Package_Id.  The path has changed from
-            // C_C->CD_CID->CD_CDE->CD_CD to C_C->CP_CP.
-            Iterator cid_iter = component_in_diagrams.iterator();
-            CD_CID cid = null;
-            while ( cid_iter.hasNext() && !found ) {
-                cid = (CD_CID) cid_iter.next();
-
-                CD_CDE[] cdes = component_diagram_elements.toArray(new CD_CDE[component_diagram_elements.size()]);
-                for(int i = 0; i < cdes.length; i++) {
-                    CD_CDE cde = cdes[i];
-
-                    if ( cid.Element_Id.equals(cde.Element_Id ) && cid.Id.equals(old_comp.Diagram_Id)) {
-                        found = true;
-                        pkg_id = cde.Id;
-                        component_diagram_elements.removeElement(cde);
-                        break;
-                    }
-                }
-            }
-            found = false;
-            component_in_diagrams.removeElement(cid);
-            removedCIDList.add(cid);
-            
-            Component_c component = old_comp.Inst;
-            // we need to remove the temporary component created
-            // to satisfy the importer and replace it with
-            // the new one which has all the correct values.
-            component.delete_unchecked();
-            component = new Component_c(modelRoot, pkg_id,
-                    Gd_c.Null_unique_id(), Gd_c.Null_unique_id(), old_comp.Name, old_comp.Descrip, 0,
-                    Gd_c.Null_unique_id(), false, "");
-            component.batchRelate(modelRoot, false, true);
-            final PersistableModelComponent persistableComponent = component.getPersistableComponent();
-            persistableComponent.setRootModelElement(component);
-            migrateInterfaceChanges(modelRoot, component, cid);
-            migrateImportedComponents(modelRoot, component);
-
-            // trigger the code to create a nested
-            // package as well as the required outer
-            // interfaces
-            ModelSpecification_c modelSpec = ModelSpecification_c
-                    .ModelSpecificationInstance(Ooaofgraphics
-                            .getDefaultInstance(), new ClassQueryInterface_c() {
-
-                        public boolean evaluate(Object candidate) {
-                            return ((ModelSpecification_c)candidate).getModel_type() == Modeltype_c.ComponentDiagram;
-                        }
-
-                    });
-            modelSpec.Elementcreated(component);
-            CanvasTransactionListener.startReconciler(null, true, false);
-            try {
-                ResourcesPlugin.getWorkspace().run(new IWorkspaceRunnable() {
-                    
-                    public void run(IProgressMonitor monitor) throws CoreException {
-                        ComponentResourceListener.setIgnoreResourceChanges(true);
-                        persistableComponent.persist();
-                    }
-                
-                }, new NullProgressMonitor());
-            } catch (CoreException e) {
-                CorePlugin.logError("Unable to persist upgrade component.", e);
-            }
-        }
-    }
     static List<Interface_c> interfaceInstances = new ArrayList<Interface_c>();
     
     public static void addInterfaceToInstances(NonRootModelElement iface) {
@@ -1463,156 +1589,6 @@ public class ImportHelper
     }
 
     /**
-     * This function is used to migrate 1.4.2-based used components
-     * (CD_IC) to 1.5.x imported components (CL_IC).
-     */
-    public void migrateImportedComponents(final Ooaofooa modelRoot, Component_c component) {
-        // ensure that all interfaces have been
-        // loaded
-        if (modelRoot.getRoot() == null) {
-            SystemModel_c system = SystemModel_c.SystemModelInstance(Ooaofooa
-                    .getDefaultInstance(), new ClassQueryInterface_c() {
-
-                public boolean evaluate(Object candidate) {
-                    return ((SystemModel_c) candidate).getName().equals(
-                            EclipseOoaofooa
-                                    .getProjectNameFromModelRootId(modelRoot
-                                            .getId()));
-                }
-
-            });
-            modelRoot.setRoot(system);
-        }
-
-        CD_IC[] comps = used_components.toArray(new CD_IC[used_components.size()]);
-        for(int l = 0; l < comps.length; l++) {
-            CD_IC cdic = comps[l];
-            CD_CID cid = null;
-            if(cdic.Component_Id.equals(component.getId())) {
-                CD_CID[] cids = component_in_diagrams.toArray(new CD_CID[component_in_diagrams.size()]);
-                for(int i = 0; i < cids.length; i++) {
-                    if(cids[i].Id.equals(cdic.Diagram_Id)) {
-                        cid = cids[i];
-                        CD_IID[] iids = interface_in_diagrams.toArray(new CD_IID[interface_in_diagrams.size()]);
-                        for(int j = 0; j < iids.length; j++) {
-                            if(iids[j].Component_Id.equals(cids[i].Id)) {
-                                final C_P[] cps = old_provisions.toArray(new C_P[old_provisions.size()]);
-                                for(int k = 0; k < cps.length; k++) {
-                                    if(cps[k].Diagram_Id.equals(iids[j].Id)) {
-                                        final int finalK = k;
-                                        // we ignore these, and find the graphical
-                                        // element and remove them
-                                        GraphicalElement_c element = GraphicalElement_c
-                                                .GraphicalElementInstance(
-                                                        Ooaofgraphics
-                                                                .getInstance(cdic.ModelRoot
-                                                                        .getId()),
-                                                        new ClassQueryInterface_c() {
-    
-                                                            public boolean evaluate(
-                                                                    Object candidate) {
-                                                                return ((GraphicalElement_c) candidate)
-                                                                        .getOoa_id()
-                                                                        .equals(
-                                                                                cps[finalK].Provision_Id);
-                                                            }
-    
-                                                        });
-                                        element.Dispose();
-                                        old_provisions.removeElement(cps[k]);
-                                        removedCPList.add(cps[k]);
-                                        interface_in_diagrams.removeElement(iids[j]);
-                                        removedIIDList.add(iids[j]);
-                                    }
-                                }
-                                final C_R[] crs = old_requirements.toArray(new C_R[old_requirements.size()]);
-                                for(int k = 0; k < crs.length; k++) {
-                                    final int finalK = k;
-                                    if(crs[k].Diagram_Id.equals(iids[j].Id)) {
-                                        GraphicalElement_c element = GraphicalElement_c
-                                        .GraphicalElementInstance(
-                                                Ooaofgraphics
-                                                        .getInstance(cdic.ModelRoot
-                                                                .getId()),
-                                                new ClassQueryInterface_c() {
-    
-                                                    public boolean evaluate(
-                                                            Object candidate) {
-                                                        return ((GraphicalElement_c) candidate)
-                                                                .getOoa_id()
-                                                                .equals(
-                                                                        crs[finalK].Requirement_Id);
-                                                    }
-    
-                                                });
-                                        element.Dispose();
-                                        old_requirements.removeElement(crs[k]);
-                                        removedCRList.add(crs[k]);
-                                        interface_in_diagrams.removeElement(iids[j]);
-                                        removedIIDList.add(iids[j]);
-                                    }
-                                }
-                                component_in_diagrams.removeElement(cids[i]);
-                                removedCIDList.add(cid);
-                            }
-                        }
-                    }
-                }
-    
-                CD_CDE cde = null;
-                
-                CD_CDE[] cdes = component_diagram_elements.toArray(new CD_CDE[component_diagram_elements.size()]);
-                for(int i = 0; i < cdes.length; i++) {
-                    if(cdes[i].Element_Id.equals(cid.Element_Id)) {
-                        cde = cdes[i];
-                        break;
-                    }
-                }
-                
-                final ComponentReference_c clic = new ComponentReference_c(cdic.ModelRoot,
-                        cdic.Id, Gd_c.Null_unique_id(), 
-                        cde.Id, Gd_c.Null_unique_id(), cdic.Mult, cdic.ClassifierName,
-                        "", cdic.Descrip); 
-                clic.batchRelate(cdic.ModelRoot, false, true);
-                if(clic.Canassigntocomp(component.getId(), true))
-                    clic.Assigntocomp(component.getId());
-                GraphicalElement_c[] graphElements = GraphicalElement_c
-                        .GraphicalElementInstances(Ooaofgraphics
-                                .getInstance(cdic.ModelRoot.getId())); 
-                for(int i = 0; i < graphElements.length; i++) {
-                    if(graphElements[i].getOoa_id().equals(cdic.Id)) {
-                        graphElements[i].setRepresents(clic);
-                    }
-                }
-                graphElements = GraphicalElement_c
-                        .GraphicalElementInstances(Ooaofgraphics
-                                .getInstance(component.getModelRoot().getId())); 
-                for(int i = 0; i < graphElements.length; i++) {
-                    if(graphElements[i].getOoa_id().equals(component.getId())) {
-                        graphElements[i].setRepresents(component);
-                    }
-                }
-                CanvasTransactionListener.startReconciler(null, true, false);
-                used_components.removeElement(cdic);
-                removedUsedComponents.add(cdic);
-                try {
-                    ResourcesPlugin.getWorkspace().run(new IWorkspaceRunnable() {
-                        
-                        public void run(IProgressMonitor monitor) throws CoreException {
-                            ComponentResourceListener.setIgnoreResourceChanges(true);
-                            clic.getPersistableComponent().persist();
-                        }
-                    
-                    }, new NullProgressMonitor());
-                } catch (CoreException e) {
-                    CorePlugin.logError("Unable to persist upgrade component.", e);
-                }            
-            }
-        }
-
-    }
-
-    /**
      * Migrate the date (genType 1), timestamp (genType 2), and inst_ref<Timer> (genType 3)
      * system level datatypes if their core types are not correct.
      * 
@@ -1867,7 +1843,6 @@ public class ImportHelper
             SICP sicp = getOldSatisfactionInComponentPackage(modelRoot,
                     ipinss[i].fProvision_ID, ipinss[i].fRequirement_ID);
             if (sicp != null) {
-                setupSatisfactionInComponentPackage(modelRoot, sicp);
                 ImportedProvisionInSatisfaction_c importProSat = new ImportedProvisionInSatisfaction_c(
                         modelRoot, sicp.fSat.fInst.getId(), ipinss[i].fImportedProvision_ID);
                 importProSat.batchRelate(modelRoot, false, false);
@@ -1892,7 +1867,6 @@ public class ImportHelper
         for(int i = 0; i < irs.length; i++) {
             SICP sicp = getOldSatisfactionInComponentPackage(modelRoot, irs[i].fProvision_ID, irs[i].fRequirement_ID);
             if(sicp != null) {
-                setupSatisfactionInComponentPackage(modelRoot, sicp);
                 ImportedRequirement_c importReqInst = new ImportedRequirement_c(
                             modelRoot, irs[i].fImportedReference_ID, sicp.fSat.fInst
                                     .getId(), irs[i].fName, irs[i].fDescrip);
@@ -1922,7 +1896,6 @@ public class ImportHelper
                     sicps[i].fProvision_ID,
                     sicps[i].fRequirement_ID);
             if(sicp != null) {
-                setupSatisfactionInComponentPackage(modelRoot, sicp);
                 localSatisfactionInstances.remove(sicp.fSat);
             } 
         }
@@ -1960,10 +1933,6 @@ public class ImportHelper
                 old_imported_requirements.remove(irs[j]);
             }
         }       
-    }
-
-    private void setupSatisfactionInComponentPackage(ModelRoot modelRoot, SICP sicp) {
-    	// TODO: Bob Remove this
     }
 
     private C_SF createSatisfaction(ModelRoot modelRoot, UUID requirement_id, UUID provision_id) {
@@ -2085,15 +2054,7 @@ public class ImportHelper
     	}
     	return createdElements;
     }
-    
-    /**
-     * This method will find data types and associate them
-     * with the correct domain, if at the domain level
-     */
-    public void associateDTsWithDomain(Ooaofooa modelRoot) {
-    	// TODO: BOB REmove this
-    }
-    
+
     public void upgradeEventData(Ooaofooa modelRoot,
                                                 NonRootModelElement modelElem) {
         StateMachine_c [] sms = StateMachine_c.

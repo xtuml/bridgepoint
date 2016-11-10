@@ -31,9 +31,10 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.swt.widgets.Display;
-
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.CorePlugin; //import org.xtuml.bp.core.Domain_c;
-
 import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.Package_c;
 import org.xtuml.bp.core.SystemModel_c;
@@ -41,6 +42,7 @@ import org.xtuml.bp.core.common.PersistableModelComponent;
 import org.xtuml.bp.core.common.Transaction;
 import org.xtuml.bp.core.common.TransactionManager;
 import org.xtuml.bp.test.common.CanvasTestUtils;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.ui.graphics.editor.GraphicalEditor;
 
 /**
@@ -49,6 +51,7 @@ import org.xtuml.bp.ui.graphics.editor.GraphicalEditor;
  * (such as a model-file or project), checking to see whether
  * the associated resource or model-element is renamed to match. 
  */
+@RunWith(OrderedRunner.class)
 public class RenameInvolvingResourceTestGenerics extends CoreTest {
 
 	/**
@@ -63,12 +66,13 @@ public class RenameInvolvingResourceTestGenerics extends CoreTest {
 	 * that the corresponding model-file's name has been changed to match.
 	 */
 
-	public RenameInvolvingResourceTestGenerics(String name) {
-		super(null, name);
+	public RenameInvolvingResourceTestGenerics(){
+		super(null, null);
 	}
 	static boolean initialized = false;
 
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		super.setUp();
 
 		if (!initialized) {
@@ -78,13 +82,15 @@ public class RenameInvolvingResourceTestGenerics extends CoreTest {
 
 	}
 	
-	public void testRenameInvokving() throws Exception{
-		doTestDomainRenameCausesModelFileNameChange();
-		doTestSystemRenameCausesProjectNameChange();
-		doTestProjectRenameCausesSystemNameChange();
-	}
+//	@Test
+//	public void testRenameInvokving() throws Exception{
+//		doTestDomainRenameCausesModelFileNameChange();
+//		doTestSystemRenameCausesProjectNameChange();
+//		doTestProjectRenameCausesSystemNameChange();
+//	}
 
-	public void doTestDomainRenameCausesModelFileNameChange() throws Exception {
+	@Test
+	public void testDomainRenameCausesModelFileNameChange() throws Exception {
 		// setup the test project and model
 		// Ooaofooa.setPersistEnabled(true);
 		//	Ooaofooa.setConsistencyEnabled(true);
@@ -160,7 +166,8 @@ public class RenameInvolvingResourceTestGenerics extends CoreTest {
 	 * 
 	 * Relies on the final state of the previous test.
 	 */
-	public void doTestSystemRenameCausesProjectNameChange() throws Exception {
+	@Test
+	public void testSystemRenameCausesProjectNameChange() throws Exception {
 		// rename the system in the model explorer
 		Package_c domain = Package_c.PackageInstance(modelRoot,
 				new Package_by_name_c("odmsy"));
@@ -214,7 +221,8 @@ public class RenameInvolvingResourceTestGenerics extends CoreTest {
 	 * 
 	 * Relies on the final state of the previous test.
 	 */
-	public void doTestProjectRenameCausesSystemNameChange() throws Exception {
+	@Test
+	public void testProjectRenameCausesSystemNameChange() throws Exception {
 		Ooaofooa.setPersistEnabled(true);
 
 		// rename the system's project on disk

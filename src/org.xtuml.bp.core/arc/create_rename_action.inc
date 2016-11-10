@@ -1,9 +1,5 @@
 .//=====================================================================
 .// 
-.// File:      $RCSfile: create_rename_action.inc,v $
-.// Version:   $Revision: 1.45 $
-.// Modified:  $Date: 2013/06/12 13:08:20 $
-.//
 .// (c) Copyright 2005-2014 by Mentor Graphics Corp. All rights reserved.
 .//
 .//=====================================================================
@@ -541,6 +537,24 @@ ${nav_string.body}\
      */
     public static String isNameValid(String name, ModelElement element)
     {
+
+    	if (CorePlugin.getDefault().getPreferenceStore().getBoolean(BridgePointPreferencesStore.REQUIRE_MASL_STYLE_IDENTIFIERS))
+    	{
+    		// Make sure the name conforms to MASL identifier rule:
+    		//   ( Letter | '_' )( Letter | Digit | '_' )*
+			if ( name.isEmpty() ) {
+				return CorePlugin.INVALID_MASL_NAME;
+			}
+    		int i = 0;
+    		if ( !(Character.isLetter(name.charAt(i)) || name.charAt(i) == '_') ) {
+    		  return CorePlugin.INVALID_MASL_NAME;
+    		}
+    		for (i = 1; i < name.length(); i++) {
+        		if ( !(Character.isLetterOrDigit(name.charAt(i)) || name.charAt(i) == '_') ) {
+        		  return CorePlugin.INVALID_MASL_NAME;
+        		}
+    		}
+    	} else {
         // if the given element is of a type whose instances may not have
         // spaces in their names, and there is a space in the given name
         if ((element instanceof Attribute_c
@@ -564,11 +578,22 @@ ${nav_string.body}\
             // the name is not valid
             return CorePlugin.INVALID_NAME_SPACES;
         }
-
+    	}
 
 		final ModelRoot modelRoot = ((NonRootModelElement) element).getModelRoot();
 
-		if (!(Ooaofooa.Getuniqueinitialname(modelRoot, name, element).equals(name))) {
+                .select many sig_op_set from instances of O_TFR where (selected.name == "getSignature")
+                .select many sig_obj_set related by sig_op_set->O_OBJ[R115]
+                // TODO - LPS
+                // This code ignores model elements that can have a signature (have the 'getSignature' operation).
+                // In the future we should check that the signatures are unique instead of the names. For now we are
+                // simply ignoring the name check for these elements.
+		if ( 
+                .for each sig_obj in sig_obj_set
+                  .invoke cn = get_class_name(sig_obj)
+                   !(element instanceof ${cn.body}) &&
+                .end for
+                    !(Ooaofooa.Getuniqueinitialname(modelRoot, name, element).equals(name))) {
 			return CorePlugin.DUPLICATE_NAME_ERROR;
 		}
 		

@@ -1,0 +1,1378 @@
+<!-- 
+  UK Crown Copyright (c) 2016. All Rights Reserved
+-->
+<!-- Converted by db4-upgrade version 1.0 -->
+<chapter xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="LexicalStructure"><info><title>Lexical Structure</title></info>
+
+<para>
+This chapter defines the lexical structure of the language.
+</para>
+<para>
+Programs are written using only character set defined in ISO/IEC 646:1991
+<xref linkend="CCS92"/> and the C0 set of ISO/IEC 6429:1992
+<xref linkend="ASCII91"/> this combined character set is more commonly
+referenced to as
+<abbrev>ASCII</abbrev>.
+<indexterm significance="preferred">
+    <primary><abbrev>ASCII</abbrev></primary>
+</indexterm>
+</para>
+<para>
+Line terminators
+<indexterm>
+    <primary>line terminator</primary>
+</indexterm>
+are defined to support the different conventions of existing
+host systems while maintaining consistent line numbers.
+</para>
+<para>
+The character are reduced to a sequence of input elements, which are white space,
+comments and tokens. The tokens
+<indexterm>
+    <primary>token</primary>
+</indexterm>
+are the identifiers,
+<indexterm>
+    <primary>identifier</primary>
+</indexterm>
+reserved words,
+<indexterm>
+    <primary>reserved word</primary>
+</indexterm>
+literals,
+<indexterm>
+    <primary>literal</primary>
+</indexterm>
+separators
+<indexterm>
+    <primary>separator</primary>
+</indexterm>
+and operators
+<indexterm>
+    <primary>operator</primary>
+</indexterm>
+of the syntactic grammar.
+</para>
+
+<section xml:id="LexicalStructureLineTerminators"><info><title>Line Terminators</title></info>
+
+<para>
+The definition of lines determines the line numbers produced by a compiler or
+other component. It also specifies the termination of a single line comment.
+<indexterm significance="preferred">
+    <primary>line terminator</primary>
+</indexterm>
+</para>
+<indexterm zone="ebnf.lineterminator">
+    <primary>line terminator</primary>
+</indexterm>
+<indexterm zone="ebnf.lineterminator">
+    <primary>line feed</primary>
+</indexterm>
+<indexterm zone="ebnf.lineterminator">
+    <primary>carriage return</primary>
+</indexterm>
+<productionset>
+<production xml:id="ebnf.lineterminator">
+    <lhs>line terminator</lhs>
+    <rhs>
+       ? ISO 6429 Line Feed ? | 
+       ? ISO 6429 Carriage Return ? |
+       ? ISO 6429 Carriage Return ?,
+       ? ISO 6429 Line Feed ?
+    </rhs>
+</production>
+</productionset>
+<para>
+Lines are terminated by the
+<abbrev>ASCII</abbrev>
+<indexterm>
+    <primary><abbrev>ASCII</abbrev></primary>
+</indexterm>
+characters 'Carriage Return',
+<indexterm>
+    <primary>carriage return</primary>
+</indexterm>
+'Line Feed'
+<indexterm>
+    <primary>line feed</primary>
+</indexterm>
+or
+'Carriage Return' 'Line Feed'.
+<indexterm>
+    <primary>carriage return</primary>
+</indexterm>
+<indexterm>
+    <primary>line feed</primary>
+</indexterm>
+</para>
+</section>
+<section xml:id="LexicalStructureWhiteSpace"><info><title>White Space</title></info>
+
+<para>
+White space is defined as the <abbrev>ASCII</abbrev>
+<indexterm>
+    <primary><abbrev>ASCII</abbrev></primary>
+</indexterm>
+space,
+<indexterm>
+    <primary>space</primary>
+</indexterm>
+horizontal tab
+<indexterm>
+    <primary>horizontal tab</primary>
+</indexterm>
+and form feed,
+<indexterm>
+    <primary>form feed</primary>
+</indexterm>
+as well
+as the line terminators.
+<indexterm>
+    <primary>line terminator</primary>
+</indexterm>
+</para>
+<indexterm zone="ebnf.whitespace">
+    <primary>white space</primary>
+</indexterm>
+<indexterm zone="ebnf.whitespace">
+    <primary>horizontal tab</primary>
+</indexterm>
+<indexterm zone="ebnf.whitespace">
+    <primary>form feed</primary>
+</indexterm>
+<indexterm zone="ebnf.whitespace">
+    <primary>line terminator</primary>
+</indexterm>
+<productionset>
+<production xml:id="ebnf.whitespace">
+    <lhs>white space</lhs>
+    <rhs>
+        ' ? ISO 646 Space character ?' | ? ISO 6429 Horizontal Tabulation ? |
+        ? ISO 6429 Form Feed ? |
+        <nonterminal def="#ebnf.lineterminator">line terminator</nonterminal>
+    </rhs>
+</production>
+</productionset>
+</section>
+<section xml:id="LexicalStructuresComments"><info><title>Comments</title></info>
+
+<para>
+The language defines only one kind of comment; a single line comment.
+<indexterm significance="preferred">
+    <primary>comment</primary>
+</indexterm>
+All the text
+from the <abbrev>ASCII</abbrev>
+<indexterm>
+    <primary><abbrev>ASCII</abbrev></primary>
+</indexterm>
+characters <literal>//</literal>
+<indexterm significance="preferred">
+    <primary><literal>//</literal></primary>
+</indexterm>
+to the end of the line are ignored.
+</para>
+<indexterm zone="ebnf.singlelinecomment">
+    <primary>single line comment</primary>
+</indexterm>
+<indexterm zone="ebnf.singlelinecomment">
+    <primary>comment character</primary>
+</indexterm>
+<indexterm zone="ebnf.singlelinecomment">
+    <primary>line terminator</primary>
+</indexterm>
+<indexterm zone="ebnf.letter">
+    <primary>letter</primary>
+</indexterm>
+<indexterm zone="ebnf.digit">
+    <primary>digit</primary>
+</indexterm>
+<indexterm zone="ebnf.othercharacter">
+    <primary>other character</primary>
+</indexterm>
+<indexterm zone="ebnf.commentcharacter">
+    <primary>comment character</primary>
+</indexterm>
+<indexterm zone="ebnf.commentcharacter">
+    <primary>letter</primary>
+</indexterm>
+<indexterm zone="ebnf.commentcharacter">
+    <primary>other character</primary>
+</indexterm>
+<indexterm zone="ebnf.commentcharacter">
+    <primary>white space</primary>
+</indexterm>
+<productionset>
+<production xml:id="ebnf.singlelinecomment">
+    <lhs>single line comment</lhs>
+    <rhs>
+        '//',
+        {<nonterminal def="#ebnf.commentcharacter">comment character</nonterminal>}, 
+        <nonterminal def="#ebnf.lineterminator">line terminator</nonterminal>
+    </rhs>
+</production>
+<production xml:id="ebnf.letter">
+    <lhs>letter</lhs>
+    <rhs>
+         'a' | 'b' | 'c' | 'd' | 'e' | 'f' | 'g' | 'h' | 'i' | 'j' | 'k' | 'l' |
+         'm' | 'n' | 'o' | 'p' | 'q' | 'r' | 's' | 't' | 'u' | 'v' | 'w' | 'x' |
+         'y' | 'z' |
+         'A' | 'B' | 'C' | 'D' | 'E' | 'F' | 'G' | 'H' | 'I' | 'J' | 'K' | 'L' |
+         'M' | 'N' | 'O' | 'P' | 'Q' | 'R' | 'S' | 'T' | 'U' | 'V' | 'W' | 'X' |
+         'Y' | 'Z'
+    </rhs>
+</production>
+<production xml:id="ebnf.digit">
+    <lhs>digit</lhs>
+    <rhs>
+        '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9'
+    </rhs>
+</production>
+<production xml:id="ebnf.othercharacter">
+    <lhs>other character</lhs>
+    <rhs>
+         '!' | '"' | '#' | '$' | '%' | '&amp;' | ''' | '(' | ')' | '*' | '+' | ',' |
+         '-' | '.' | '/' | ':' | ';' | '&lt;' | '=' | '&gt;' | '?' | '@' | '[' | '\' |
+         ']' | '^' | '_' | '`' | '{' | '|' | '}' | '~'
+    </rhs>
+</production>
+<production xml:id="ebnf.commentcharacter">
+    <lhs>comment character</lhs>
+    <rhs>
+        <nonterminal def="#ebnf.letter">letter</nonterminal> |
+        <nonterminal def="#ebnf.digit">digit</nonterminal> |
+        <nonterminal def="#ebnf.othercharacter">other character</nonterminal> |
+        <nonterminal def="#ebnf.whitespace">white space</nonterminal>
+    </rhs>
+</production>
+</productionset>
+<para>
+The lexical grammar implies that comments do not occur within character literals
+<indexterm>
+    <primary>literal</primary>
+    <secondary>character</secondary>
+</indexterm>
+or string literals.
+<indexterm>
+    <primary>literal</primary>
+    <secondary>string</secondary>
+</indexterm>
+</para>
+</section>
+<section xml:id="LexicalStructureIdentifiers"><info><title>Identifiers</title></info>
+
+<para>
+An identifier
+<indexterm significance="preferred">
+    <primary>identifier</primary>
+</indexterm>
+is an unlimited-length sequence of letters, digits and
+underscores, the first of which must be a letter. An identifier cannot have
+the same spelling as a reserved word.
+</para>
+<para>
+In addition, an identifier cannot look like a relationship number.
+</para>
+<indexterm zone="ebnf.identifier">
+    <primary>identifier</primary>
+</indexterm>
+<indexterm zone="ebnf.identifier">
+    <primary>letter</primary>
+</indexterm>
+<indexterm zone="ebnf.identifier">
+    <primary>digit</primary>
+</indexterm>
+<indexterm zone="ebnf.identifier">
+    <primary>underscore</primary>
+</indexterm>
+<productionset>
+<production xml:id="ebnf.identifier">
+    <lhs>identifier</lhs>
+    <rhs>
+        <nonterminal def="#ebnf.letter">letter</nonterminal>
+        {(<nonterminal def="#ebnf.letter">letter</nonterminal> |
+        <nonterminal def="#ebnf.digit">digit</nonterminal> |
+        <nonterminal def="#ebnf.underscore">underscore</nonterminal>)}
+    </rhs>
+</production>
+<productionrecap linkend="ebnf.letter"/>
+<productionrecap linkend="ebnf.digit"/>
+<production xml:id="ebnf.underscore">
+    <lhs>underscore</lhs>
+    <rhs>
+        '_'
+    </rhs>
+</production>
+</productionset>
+<para>
+The letters include upper-case and lower-case <abbrev>ASCII</abbrev>
+<indexterm>
+    <primary><abbrev>ASCII</abbrev></primary>
+</indexterm>
+letters.
+</para>
+<para>
+The digits include the <abbrev>ASCII</abbrev>
+<indexterm>
+    <primary><abbrev>ASCII</abbrev></primary>
+</indexterm>
+digits 0 to 9. Two identifiers are the same only if
+they are identical, that is, have the same character for each letter or digit.
+Identifiers are case sensitive, that is, upper-case and lower-case letters are
+not treated as the same letter.
+</para>
+<section xml:id="LexicalStructureRelationshipNumbers"><info><title>Relationship Numbers</title></info>
+
+<indexterm significance="preferred">
+    <primary>relationship</primary>
+    <secondary>number</secondary>
+</indexterm>
+<indexterm zone="ebnf.relationshipnumber">
+    <primary>relationship number</primary>
+</indexterm>
+<indexterm zone="ebnf.relationshipnumber">
+    <primary><literal>R</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.relationshipnumber">
+    <primary>non zero digit</primary>
+</indexterm>
+<indexterm zone="ebnf.relationshipnumber">
+    <primary>digit</primary>
+</indexterm>
+<indexterm zone="ebnf.nonzerodigit">
+    <primary>non zero digit</primary>
+</indexterm>
+<indexterm zone="ebnf.nonzerodigit">
+    <primary>digit</primary>
+</indexterm>
+<productionset>
+<production xml:id="ebnf.relationshipnumber">
+    <lhs>relationship number</lhs>
+    <rhs>
+        'R', <nonterminal def="#ebnf.nonzerodigit">non zero digit</nonterminal>,
+        {<nonterminal def="#ebnf.digit">digit</nonterminal>}
+    </rhs>
+</production>
+<production xml:id="ebnf.nonzerodigit">
+    <lhs>non zero digit</lhs>
+    <rhs>
+        <nonterminal def="#ebnf.digit">digit</nonterminal> - '0'
+    </rhs>
+</production>
+</productionset>
+</section>
+</section>
+<section xml:id="LexicalStructureReservedWords"><info><title>Reserved Words</title></info>
+
+<indexterm significance="preferred">
+    <primary>reserved word</primary>
+</indexterm>
+<para>
+The following <abbrev>ASCII</abbrev>
+<indexterm>
+    <primary><abbrev>ASCII</abbrev></primary>
+</indexterm>
+character sequences are reserved for use as reserved words
+and cannot be used as identifiers.
+</para>
+<indexterm zone="ebnf.reservedwords">
+    <primary><literal>abs</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.reservedwords">
+    <primary><literal>and</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.reservedwords">
+    <primary><literal>any</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.reservedwords">
+    <primary><literal>array</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.reservedwords">
+    <primary><literal>assigner</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.reservedwords">
+    <primary><literal>associate</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.reservedwords">
+    <primary><literal>bag</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.reservedwords">
+    <primary><literal>begin</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.reservedwords">
+    <primary><literal>boolean</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.reservedwords">
+    <primary><literal>byte</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.reservedwords">
+    <primary><literal>Cannot_Happen</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.reservedwords">
+    <primary><literal>case</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.reservedwords">
+    <primary><literal>character</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.reservedwords">
+    <primary><literal>conditionally</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.reservedwords">
+    <primary><literal>console</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.reservedwords">
+    <primary><literal>create</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.reservedwords">
+    <primary><literal>creation</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.reservedwords">
+    <primary><literal>Current_State</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.reservedwords">
+    <primary><literal>declare</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.reservedwords">
+    <primary><literal>deferred</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.reservedwords">
+    <primary><literal>delay</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.reservedwords">
+    <primary><literal>delete</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.reservedwords">
+    <primary><literal>deferred</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.reservedwords">
+    <primary><literal>delay</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.reservedwords">
+    <primary><literal>delete</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.reservedwords">
+    <primary><literal>delta</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.reservedwords">
+    <primary><literal>device</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.reservedwords">
+    <primary><literal>digits</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.reservedwords">
+    <primary><literal>disunion</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.reservedwords">
+    <primary><literal>domain</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.reservedwords">
+    <primary><literal>elements</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.reservedwords">
+    <primary><literal>else</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.reservedwords">
+    <primary><literal>elsif</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.reservedwords">
+    <primary><literal>end</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.reservedwords">
+    <primary><literal>enum</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.reservedwords">
+    <primary><literal>event</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.reservedwords">
+    <primary><literal>exception</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.reservedwords">
+    <primary><literal>exit</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.reservedwords">
+    <primary><literal>false</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.reservedwords">
+    <primary><literal>find_all</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.reservedwords">
+    <primary><literal>find_one</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.reservedwords">
+    <primary><literal>find_only</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.reservedwords">
+    <primary><literal>find</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.reservedwords">
+    <primary><literal>for</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.reservedwords">
+    <primary><literal>from</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.reservedwords">
+    <primary><literal>functions</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.reservedwords">
+    <primary><literal>generate</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.reservedwords">
+    <primary><literal>identifier</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.reservedwords">
+    <primary><literal>if</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.reservedwords">
+    <primary><literal>Ignore</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.reservedwords">
+    <primary><literal>in</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.reservedwords">
+    <primary><literal>instance</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.reservedwords">
+    <primary><literal>intersection</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.reservedwords">
+    <primary><literal>is</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.reservedwords">
+    <primary><literal>is_a</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.reservedwords">
+    <primary><literal>link</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.reservedwords">
+    <primary><literal>loop</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.reservedwords">
+    <primary><literal>many</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.reservedwords">
+    <primary><literal>mod</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.reservedwords">
+    <primary><literal>native</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.reservedwords">
+    <primary><literal>Non_Existent</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.reservedwords">
+    <primary><literal>not</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.reservedwords">
+    <primary><literal>not_in</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.reservedwords">
+    <primary><literal>null</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.reservedwords">
+    <primary><literal>numeric</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.reservedwords">
+    <primary><literal>object</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.reservedwords">
+    <primary><literal>of</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.reservedwords">
+    <primary><literal>one</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.reservedwords">
+    <primary><literal>ordered_by</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.reservedwords">
+    <primary><literal>or</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.reservedwords">
+    <primary><literal>others</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.reservedwords">
+    <primary><literal>out</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.reservedwords">
+    <primary><literal>pragma</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.reservedwords">
+    <primary><literal>preferred</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.reservedwords">
+    <primary><literal>private</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.reservedwords">
+    <primary><literal>project</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.reservedwords">
+    <primary><literal>public</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.reservedwords">
+    <primary><literal>raises</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.reservedwords">
+    <primary><literal>raise</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.reservedwords">
+    <primary><literal>range</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.reservedwords">
+    <primary><literal>readonly</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.reservedwords">
+    <primary><literal>referential</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.reservedwords">
+    <primary><literal>relationship</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.reservedwords">
+    <primary><literal>rem</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.reservedwords">
+    <primary><literal>return</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.reservedwords">
+    <primary><literal>reverse_ordered_by</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.reservedwords">
+    <primary><literal>reverse</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.reservedwords">
+    <primary><literal>sequence</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.reservedwords">
+    <primary><literal>service</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.reservedwords">
+    <primary><literal>set</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.reservedwords">
+    <primary><literal>start</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.reservedwords">
+    <primary><literal>state</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.reservedwords">
+    <primary><literal>string</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.reservedwords">
+    <primary><literal>structure</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.reservedwords">
+    <primary><literal>subtype</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.reservedwords">
+    <primary><literal>terminal</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.reservedwords">
+    <primary><literal>then</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.reservedwords">
+    <primary><literal>this</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.reservedwords">
+    <primary><literal>to</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.reservedwords">
+    <primary><literal>transition</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.reservedwords">
+    <primary><literal>true</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.reservedwords">
+    <primary><literal>type</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.reservedwords">
+    <primary><literal>unassociate</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.reservedwords">
+    <primary><literal>unconditionally</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.reservedwords">
+    <primary><literal>union</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.reservedwords">
+    <primary><literal>unique</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.reservedwords">
+    <primary><literal>unlink</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.reservedwords">
+    <primary><literal>using</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.reservedwords">
+    <primary><literal>wcharacter</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.reservedwords">
+    <primary><literal>when</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.reservedwords">
+    <primary><literal>while</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.reservedwords">
+    <primary><literal>with</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.reservedwords">
+    <primary><literal>wstring</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.reservedwords">
+    <primary><literal>xor</literal></primary>
+</indexterm>
+<productionset>
+<production xml:id="ebnf.reservedwords">
+    <lhs>reserved words</lhs>
+    <rhs>
+        'abs' |
+        'and' |
+        'any' |
+        'array' |
+        'assigner' |
+        'associate' |
+        'bag' |
+        'begin' |
+        'boolean' |
+        'byte' |
+        'Cannot_Happen' |
+        'case' |
+        'character' |
+        'conditionally' |
+        'console' |
+        'create' |
+        'creation' |
+        'Current_State' |
+        'declare' |
+        'deferred' |
+        'delay' |
+        'delete' |
+        'delta' |
+        'device' |
+        'digits' |
+        'disunion' |
+        'domain' |
+        'elements' |
+        'else' |
+        'elsif' |
+        'end' |
+        'enum' |
+        'event' |
+        'exception' |
+        'exit' |
+        'false' |
+        'find_all' |
+        'find_one' |
+        'find_only' |
+        'find' |
+        'for' |
+        'from' |
+        'functions' |
+        'generate' |
+        'identifier' |
+        'if' |
+        'Ignore' |
+        'in' |
+        'instance' |
+        'intersection' |
+        'is' |
+        'is_a' |
+        'link' |
+        'loop' |
+        'many' |
+        'mod' |
+        'native' |
+        'Non_Existent' |
+        'not' |
+        'not_in' |
+        'null' |
+        'numeric' |
+        'object' |
+        'of' |
+        'one' |
+        'ordered_by' |
+        'or' |
+        'others' |
+        'out' |
+        'pragma' |
+        'preferred' |
+        'private' |
+        'project' |
+        'public' |
+        'raises' |
+        'raise' |
+        'range' |
+        'readonly' |
+        'referential' |
+        'relationship' |
+        'rem' |
+        'return' |
+        'reverse_ordered_by' |
+        'reverse' |
+        'sequence' |
+        'service' |
+        'set' |
+        'start' |
+        'state' |
+        'string' |
+        'structure' |
+        'subtype' |
+        'terminal' |
+        'then' |
+        'this' |
+        'to' |
+        'transition' |
+        'true' |
+        'type' |
+        'unassociate' |
+        'unconditionally' |
+        'union' |
+        'unique' |
+        'unlink' |
+        'using' |
+        'wcharacter' |
+        'when' |
+        'while' |
+        'with' |
+        'wstring' |
+        'xor'
+    </rhs>
+</production>
+</productionset>
+<para>
+Reserved words obey the rules for identifiers, in particular they are case
+sensitive.
+</para>
+</section>
+<section xml:id="LexicalStructureLiterals"><info><title>Literals</title></info>
+
+<para>
+A literal represents a value literally, that is, by means of a notation suited
+to its kind.
+</para>
+<productionset>
+<production xml:id="ebnf.literal">
+    <lhs>literal</lhs>
+    <rhs>
+        <nonterminal def="#ebnf.numericliteral">numeric literal</nonterminal> |
+        <nonterminal def="#ebnf.characterliteral">character literal</nonterminal> |
+        <nonterminal def="#ebnf.stringliteral">string literal</nonterminal> |
+        <nonterminal def="#ebnf.booleanliteral">boolean literal</nonterminal> |
+        <nonterminal def="#ebnf.enumeratorliteral">enumerator literal</nonterminal> |
+        <nonterminal def="#ebnf.nullliteral">null literal</nonterminal> |
+        <nonterminal def="#ebnf.deviceliteral">device literal</nonterminal> |
+        <nonterminal def="#ebnf.streamliteral">stream literal</nonterminal>
+    </rhs>
+</production>
+</productionset>
+<section xml:id="LexicalStructureNumericLiterals"><info><title>Numeric Literals</title></info>
+
+<para>
+There are two kinds of numeric literals, decimal literals and based literals.
+</para>
+<productionset>
+<production xml:id="ebnf.numericliteral">
+    <lhs>numeric literal</lhs>
+    <rhs>
+        <nonterminal def="#ebnf.decimalliteral">decimal literal</nonterminal> |
+        <nonterminal def="#ebnf.basedliteral">based literal</nonterminal>
+    </rhs>
+</production>
+</productionset>
+<para>
+The type of a numeric literal is
+<link linkend="TypesNumericTypes"><type>numeric</type></link>.
+</para>
+<section xml:id="LexicalStructureDecimalLiterals"><info><title>Decimal Literals</title></info>
+
+<para>
+A <link linkend="TypesNumericTypes"><emphasis>decimal literal</emphasis></link>
+is a
+<link linkend="ebnf.numericliteral"><emphasis>numeric literal</emphasis></link>
+in the conventional decimal notation (that is, the base is ten).
+</para>
+<productionset>
+<production xml:id="ebnf.decimalliteral">
+    <lhs>decimal literal</lhs>
+    <rhs>
+        <nonterminal def="#ebnf.numeral">numeral</nonterminal>,
+        ('' | '.',
+        <nonterminal def="#ebnf.numeral">numeral</nonterminal> |
+        <nonterminal def="#ebnf.exponent">exponent</nonterminal>)
+    </rhs>
+</production>
+<production xml:id="ebnf.numeral">
+    <lhs>numeral</lhs>
+    <rhs>
+        <nonterminal def="#ebnf.digit">digit</nonterminal>,
+        {<nonterminal def="#ebnf.digit">digit</nonterminal>}
+    </rhs>
+</production>
+<production xml:id="ebnf.exponent">
+    <lhs>exponent</lhs>
+    <rhs>
+        ('e'|'E'), [('+'|'-')],
+        <nonterminal def="#ebnf.numeral">numeral</nonterminal>
+    </rhs>
+</production>
+</productionset>
+<para>
+A <link linkend="ebnf.decimalliteral"><emphasis>decimal literal</emphasis></link>
+has the following parts: a whole number
+part, an optional fractional part and on optional exponent. The fractional part,
+if present, is indicated by a decimal point (represented by an
+<abbrev>ASCII</abbrev>
+<indexterm>
+    <primary><abbrev>ASCII</abbrev></primary>
+</indexterm>
+period
+character). The exponent, if present, is indicated by the
+<abbrev>ASCII</abbrev>
+<indexterm>
+    <primary><abbrev>ASCII</abbrev></primary>
+</indexterm>
+letter
+<literal>e</literal> or <literal>E</literal> followed by an optionally signed
+integer.
+</para>
+<para>
+An exponent indicates the power of ten by which the value of the
+<link linkend="ebnf.decimalliteral"><emphasis>decimal literal</emphasis></link>
+without the exponent is to be multiplied to obtain the value of the
+<link linkend="ebnf.decimalliteral"><emphasis>decimal literal</emphasis></link>
+with the exponent.
+</para>
+</section>
+<section xml:id="LexicalStructureBasedLiterals"><info><title>Based Literals</title></info>
+
+<para>
+A <link linkend="ebnf.basedliteral"><emphasis>based literal</emphasis></link>
+is a
+<link linkend="ebnf.numericliteral"><emphasis>numeric literal</emphasis></link>
+in a form that specifies the base explicitly.
+</para>
+<productionset>
+<production xml:id="ebnf.basedliteral">
+    <lhs>based literal</lhs>
+    <rhs>
+        <nonterminal def="#ebnf.base">base</nonterminal>, '#',
+        <nonterminal def="#ebnf.basednumeral">based numeral</nonterminal>,
+    </rhs>
+</production>
+<production xml:id="ebnf.base">
+    <lhs>base</lhs>
+    <rhs>
+        <nonterminal def="#ebnf.numeral">numeral</nonterminal>
+    </rhs>
+</production>
+<production xml:id="ebnf.basednumeral">
+    <lhs>based numeral</lhs>
+    <rhs>
+        <nonterminal def="#ebnf.extendeddigit">extended digit</nonterminal>,
+        {<nonterminal def="#ebnf.extendeddigit">extended digit</nonterminal>}
+    </rhs>
+</production>
+<production xml:id="ebnf.extendeddigit">
+    <lhs>extended digit</lhs>
+    <rhs>
+        <nonterminal def="#ebnf.digit">digit</nonterminal> |
+        <nonterminal def="#ebnf.letter">letter</nonterminal>
+    </rhs>
+</production>
+</productionset>
+<para>
+The base (the numeric value of the decimal numeral preceding the
+<literal>#</literal>) shall be at least two and at most thirty six. The
+<link linkend="ebnf.extendeddigit"><emphasis>extended digits</emphasis></link>
+<literal>A</literal> through
+<literal>Z</literal> represent the digits ten through thirty five, respectively.
+The value of each extended digit of a
+<link linkend="ebnf.basedliteral"><emphasis>based literal</emphasis></link>
+shall be less then the base.
+</para>
+<para>
+The extended digits <literal>A</literal> through <literal>Z</literal> can be
+written either in lower-case or upper-case, with the same meaning.
+</para>
+</section>
+</section>
+<section xml:id="LexicalStructureCharacterLiterals"><info><title>Character Literals</title></info>
+
+<para>
+A <link linkend="ebnf.characterliteral"><emphasis>character literal</emphasis></link>
+is expressed as a character or an escape sequence, enclosed in single quotes.
+</para>
+<productionset>
+<production xml:id="ebnf.characterliteral">
+    <lhs>character literal</lhs>
+    <rhs>
+        ''',
+        <nonterminal def="#ebnf.singlecharacter">single character</nonterminal>,
+        ''' |
+        ''',
+        <nonterminal def="#ebnf.escapesequence">escape sequence</nonterminal>,
+        '''
+    </rhs>
+</production>
+<production xml:id="ebnf.singlecharacter">
+    <lhs>single character</lhs>
+    <rhs>
+        [(<nonterminal def="#ebnf.letter">letter</nonterminal> |
+        ((<nonterminal def="#ebnf.othercharacter">other character</nonterminal>
+        - ''') - '\')]
+    </rhs>
+</production>
+</productionset>
+<para>
+The type of a <link linkend="ebnf.characterliteral"><emphasis>character literal</emphasis></link>
+is
+<link linkend="TypesWideCharacterType"><type>wcharacter</type></link>.
+</para>
+</section>
+<section xml:id="LexicalStructureStringLiterals"><info><title>String Literals</title></info>
+
+<para>
+A <link linkend="ebnf.stringliteral"><emphasis>string literal</emphasis></link>
+consists of zero of more characters enclosed in double quotes.
+Each character may be represented by an escape sequence.
+</para>
+<productionset>
+<production xml:id="ebnf.stringliteral">
+    <lhs>string literal</lhs>
+    <rhs>
+        '"',
+        {<nonterminal def="#ebnf.stringcharacter">string character</nonterminal>},
+        '"'
+    </rhs>
+</production>
+<production xml:id="ebnf.stringcharacter">
+    <lhs>string character</lhs>
+    <rhs>
+        [(<nonterminal def="#ebnf.letter">letter</nonterminal> |
+        <nonterminal def="#ebnf.escapesequence">escape sequence</nonterminal>,
+        ((<nonterminal def="#ebnf.othercharacter">other character</nonterminal>
+        - '"') - '\')]
+    </rhs>
+</production>
+</productionset>
+<para>
+The type of a
+<link linkend="ebnf.stringliteral"><emphasis>string literal</emphasis></link>
+is
+<link linkend="TypesWideStringType"><type>wstring</type></link>.
+</para>
+</section>
+<section xml:id="LexicalStructureExcapeSequencesforCharacterandStringLiterals"><info><title>Escape Sequences for Character and String Literals</title></info>
+
+<para>
+The character and string escape sequences allow for the representation of some
+non-graphic characters as well as the single quote, double quote and backslash
+characters in
+<link linkend="ebnf.characterliteral"><emphasis>character literals</emphasis></link>
+and
+<link linkend="ebnf.stringliteral"><emphasis>string literals</emphasis></link>.
+</para>
+<productionset>
+<production xml:id="ebnf.escapesequence">
+    <lhs>escape sequence</lhs>
+    <rhs>
+        '\n' | '\r' | '\t' | '\b' | '\f' | '\"' | '\'' | '\\' |
+        <nonterminal def="#ebnf.octalescape">octal escape</nonterminal> |
+        <nonterminal def="#ebnf.unicodeescape">unicode escape</nonterminal>
+    </rhs>
+</production>
+<production xml:id="ebnf.octalescape">
+    <lhs>octal escape</lhs>
+    <rhs>
+        '\',
+        <nonterminal def="ebnf.octalleaddigit">octal lead digit</nonterminal>,
+        2 * {<nonterminal def="ebnf.octaldigit">octal digit</nonterminal>}
+    </rhs>
+</production>
+<production xml:id="ebnf.octalleaddigit">
+    <lhs>octal lead digit</lhs>
+    <rhs>
+        '0' | '1' | '2' | '3'
+    </rhs>
+</production>
+<production xml:id="ebnf.octaldigit">
+    <lhs>octal digit</lhs>
+    <rhs>
+        '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7'
+    </rhs>
+</production>
+<production xml:id="ebnf.unicodeescape">
+    <lhs>unicode escape</lhs>
+    <rhs>
+        '\u', <nonterminal def="#ebnf.extendeddigit">extended digit</nonterminal>,
+        <nonterminal def="#ebnf.extendeddigit">extended digit</nonterminal>,
+        <nonterminal def="#ebnf.extendeddigit">extended digit</nonterminal>,
+        <nonterminal def="#ebnf.extendeddigit">extended digit</nonterminal>
+    </rhs>
+</production>
+</productionset>
+<para>
+All of the digits in an octal escape must be s digit <literal>0</literal>
+through <literal>7</literal>. The first digital in an octal escape with three
+digits must be digit <literal>0</literal> through <literal>3</literal>.
+</para>
+</section>
+<section xml:id="LexicalStructureBooleanLiteral"><info><title>Boolean Literals</title></info>
+
+<para>
+The <link linkend="TypesBooleanType"><type>boolean</type></link> type has two
+values represented by the reserved words
+<link linkend="ebnf.booleanliteral"><literal>true</literal></link> and
+<link linkend="ebnf.booleanliteral"><literal>false</literal></link>.
+</para>
+<productionset>
+<production xml:id="ebnf.booleanliteral">
+    <lhs>boolean literal</lhs>
+    <rhs>
+        'false' | 'true'
+    </rhs>
+</production>
+</productionset>
+<para>
+The type of a
+<link linkend="ebnf.booleanliteral"><emphasis>boolean literal</emphasis></link>
+is <link linkend="TypesBooleanType"><type>boolean</type></link>.
+</para>
+</section>
+<section xml:id="LexicalStructureEnumeratorLiteral"><info><title>Enumerator Literals</title></info>
+
+<para>
+<link linkend="ebnf.enumeratorliteral"><emphasis>Enumerator literals</emphasis></link>
+are described in <xref linkend="TypesEnumerationTypes"/>.
+</para>
+</section>
+<section xml:id="LexicalStructureTheNullLiteral"><info><title>The Null Literal</title></info>
+
+<productionset>
+<production xml:id="ebnf.nullliteral">
+    <lhs>null literal</lhs>
+    <rhs>
+        'null'
+    </rhs>
+</production>
+</productionset>
+<para>
+The type of <link linkend="ebnf.nullliteral"><emphasis>null literal</emphasis></link>,
+represented by the reserved word
+<literal>null</literal>, is the untyped
+<link linkend="TypesInstanceTypes">instance type</link>.
+</para>
+</section>
+<section xml:id="LexicalStructureDeviceLiterals"><info><title>Device Literal</title></info>
+
+<para>
+A <link linkend="ebnf.deviceliteral"><emphasis>device literal</emphasis></link>
+denotes some standard I/O device stream. The only device that
+is currently supported is <literal>console</literal> which equates to the
+standard input and output.
+</para>
+<productionset>
+<production xml:id="ebnf.deviceliteral">
+    <lhs>device literal</lhs>
+    <rhs>
+        'console'
+    </rhs>
+</production>
+</productionset>
+</section>
+<section xml:id="LexicalStructureStreamLiterals"><info><title>Stream Literals</title></info>
+
+<para>
+The <link linkend="ebnf.streamliteral"><emphasis>stream literals</emphasis></link>
+control the output to devices; either user defined devices or the standard
+console device.
+</para>
+<productionset>
+<production xml:id="ebnf.streamliteral">
+    <lhs>stream literal</lhs>
+    <rhs>
+        'endl' | 'flush'
+    </rhs>
+</production>
+</productionset>
+<para>
+The <literal>endl</literal> appends a newline to the buffered data stream
+and then flushes the output to the device. The <literal>flush</literal>
+flushes the buffered stream to the device.
+</para>
+</section>
+</section>
+<section xml:id="LexicalStructureSeparators"><info><title>Separators</title></info>
+
+<para>
+The following tokens are the separators (punctuators).
+</para>
+<productionset>
+<production xml:id="ebnf.separator">
+    <lhs>separator</lhs>
+    <rhs>
+        ''' | '(' | ')' | '|' | ',' | '.' |'..' | ':' | '::' | ':=' | ';' |
+        '=&gt;' | '[' | ']'
+    </rhs>
+</production>
+</productionset>
+</section>
+<section xml:id="LexicalStructureOperators"><info><title>Operators</title></info>
+
+<para>
+The following tokens are the operators.
+</para>
+<indexterm zone="ebnf.operator">
+    <primary><literal>*</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.operator">
+    <primary><literal>**</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.operator">
+    <primary><literal>+</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.operator">
+    <primary><literal>-</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.operator">
+    <primary><literal>&amp;</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.operator">
+    <primary><literal>-&gt;</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.operator">
+    <primary><literal>/</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.operator">
+    <primary><literal>/=</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.operator">
+    <primary><literal>&lt;</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.operator">
+    <primary><literal>&lt;=</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.operator">
+    <primary><literal>=</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.operator">
+    <primary><literal>&gt;</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.operator">
+    <primary><literal>&gt;=</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.operator">
+    <primary><literal>&gt;&gt;</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.operator">
+    <primary><literal>&lt;&lt;</literal></primary>
+</indexterm>
+<productionset>
+<production xml:id="ebnf.operator">
+    <lhs>operator</lhs>
+    <rhs>
+        '*' | '**' | '+' | '-' | '&amp;' | '-&gt;' | '/' | '/=' | '&lt;' |
+        '&lt;=' | '=' | '&gt;' | '&gt;=' | '&gt;&gt;' | '&lt;&lt;'
+    </rhs>
+</production>
+</productionset>
+</section>
+<section xml:id="LexicalStructurePragmas"><info><title>Pragmas</title></info>
+
+<para>
+A pragma
+<indexterm significance="preferred">
+    <primary>pragma</primary>
+</indexterm>
+is a compiler directive. There are language defined pragmas that give
+instructions for optimization, listing control etc. Pragmas are only allowed
+after a semicolon delimiter.
+</para>
+<para>
+The name of a <link linkend="ebnf.pragma"><emphasis>pragma</emphasis></link>
+<indexterm>
+    <primary>pragma</primary>
+</indexterm>
+is the identifier following the reserved word
+<literal>pragma</literal>.
+<indexterm>
+    <primary><literal>pragma</literal></primary>
+</indexterm>
+The following sequence of identifiers and literals are the pragma values.
+</para>
+<indexterm zone="ebnf.pragmalist">
+    <primary>pragma list</primary>
+</indexterm>
+<indexterm zone="ebnf.pragmalist">
+    <primary>pragma</primary>
+</indexterm>
+<indexterm zone="ebnf.pragma">
+    <primary>pragma</primary>
+</indexterm>
+<indexterm zone="ebnf.pragma">
+    <primary><literal>pragma</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.pragma">
+    <primary>pragma name</primary>
+</indexterm>
+<indexterm zone="ebnf.pragma">
+    <primary>pragma value list</primary>
+</indexterm>
+<indexterm zone="ebnf.pragmaname">
+    <primary>pragma name</primary>
+</indexterm>
+<indexterm zone="ebnf.pragmaname">
+    <primary>identifier</primary>
+</indexterm>
+<indexterm zone="ebnf.pragmavaluelist">
+    <primary>pragma value list</primary>
+</indexterm>
+<indexterm zone="ebnf.pragmavaluelist">
+    <primary>pragma value</primary>
+</indexterm>
+<indexterm zone="ebnf.pragmavalue">
+    <primary>identifier</primary>
+</indexterm>
+<indexterm zone="ebnf.pragmavalue">
+    <primary>literal</primary>
+</indexterm>
+<productionset>
+<production xml:id="ebnf.pragmalist">
+    <lhs>pragma list</lhs>
+    <rhs>
+        {<nonterminal def="#ebnf.pragma">pragma</nonterminal>, ';'}
+    </rhs>
+</production>
+<production xml:id="ebnf.pragma">
+    <lhs>pragma</lhs>
+    <rhs>
+        'pragma',
+        <nonterminal def="#ebnf.pragmaname">pragma name</nonterminal>,
+        '(',
+        <nonterminal def="#ebnf.pragmavaluelist">pragma value list</nonterminal>,
+        ')'
+    </rhs>
+</production>
+<production xml:id="ebnf.pragmaname">
+    <lhs>pragma name</lhs>
+    <rhs>
+        <nonterminal def="#ebnf.identifier">identifier</nonterminal>
+    </rhs>
+</production>
+<production xml:id="ebnf.pragmavaluelist">
+    <lhs>pragma value list</lhs>
+    <rhs>
+        <nonterminal def="#ebnf.pragmavalue">pragma value</nonterminal>,
+        {(',',
+        <nonterminal def="#ebnf.pragmavalue">pragma value</nonterminal>
+        )}
+    </rhs>
+</production>
+<production xml:id="ebnf.pragmavalue">
+    <lhs>pragma value</lhs>
+    <rhs>
+        <nonterminal def="#ebnf.identifier">identifier</nonterminal> |
+        <nonterminal def="#ebnf.literal">literal</nonterminal>
+    </rhs>
+</production>
+</productionset>
+</section>
+
+</chapter>

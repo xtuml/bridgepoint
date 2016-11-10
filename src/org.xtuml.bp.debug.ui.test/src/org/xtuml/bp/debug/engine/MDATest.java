@@ -2,15 +2,16 @@ package org.xtuml.bp.debug.engine;
 
 import java.io.File;
 
-import junit.framework.Assert;
-
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.debug.internal.ui.DebugUIPlugin;
 import org.eclipse.debug.ui.IDebugUIConstants;
 import org.eclipse.ui.PlatformUI;
-
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.ComponentInstance_c;
 import org.xtuml.bp.core.Component_c;
 import org.xtuml.bp.core.CorePlugin;
@@ -26,7 +27,10 @@ import org.xtuml.bp.debug.ui.launch.BPDebugUtils;
 import org.xtuml.bp.debug.ui.test.DebugUITestUtilities;
 import org.xtuml.bp.test.TestUtil;
 import org.xtuml.bp.test.common.BaseTest;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.test.common.TestingUtilities;
+
+import junit.framework.Assert;
 
 //========================================================================
 //
@@ -50,6 +54,7 @@ import org.xtuml.bp.test.common.TestingUtilities;
 // the License.
 //========================================================================
 
+@RunWith(OrderedRunner.class)
 public class MDATest extends BaseTest {
 
 	
@@ -57,12 +62,13 @@ public class MDATest extends BaseTest {
 
 	private boolean initialized = false;
 
-	public MDATest(String testName) throws Exception {
-		super(null, testName);
+	public MDATest() throws Exception {
+		super(null, null);
 	}
 
 	@Override
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		super.setUp();
 
 		if (!initialized) {
@@ -104,6 +110,7 @@ public class MDATest extends BaseTest {
 		}
 	}
 
+	@After
 	public void tearDown() throws Exception {
 		// terminate all launches
 		DebugUITestUtilities.terminateAllProcesses(m_sys);
@@ -118,6 +125,7 @@ public class MDATest extends BaseTest {
 		TestingUtilities.processDisplayEvents();
 	}
 
+	@Test
 	public void testRunModel() throws InterruptedException {
 		class MDADomQuery implements ClassQueryInterface_c {
 

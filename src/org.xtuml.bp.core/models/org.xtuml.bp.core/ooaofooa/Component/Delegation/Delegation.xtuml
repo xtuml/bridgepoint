@@ -386,6 +386,33 @@ INSERT INTO O_TPARM
 	'',
 	"00000000-0000-0000-0000-000000000000",
 	'');
+INSERT INTO O_TFR
+	VALUES ("53b8bc46-d3de-42e4-8347-c2862ca4f091",
+	"2c33c814-df21-4342-8961-a520080e79c1",
+	'getConnectedId',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	1,
+	'select any delegationInstance related by self->C_RID[R4013] where (selected.Delegation_Id == self.get_ooa_id());
+if (not empty delegationInstance)
+  return delegationInstance.Reference_Id;
+else 
+  return GD::NULL_UNIQUE_ID();
+end if;',
+	1,
+	'',
+	"259c7566-0de8-41ba-8c53-d00ffdfec88f");
+INSERT INTO O_TFR
+	VALUES ("4e73ddd9-16fd-4182-a5c6-16a577c0a35f",
+	"2c33c814-df21-4342-8961-a520080e79c1",
+	'downgradeCheck',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'',
+	3,
+	'',
+	"53b8bc46-d3de-42e4-8347-c2862ca4f091");
 INSERT INTO O_REF
 	VALUES ("2c33c814-df21-4342-8961-a520080e79c1",
 	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",

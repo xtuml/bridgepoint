@@ -41,9 +41,11 @@ import org.eclipse.ui.part.FileEditorInput;
 
 import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.common.ClassQueryInterface_c;
+import org.xtuml.bp.core.common.ILogger;
 import org.xtuml.bp.core.common.NonRootModelElement;
 import org.xtuml.bp.core.common.PersistableModelComponent;
 import org.xtuml.bp.ui.canvas.CanvasModelListener;
+import org.xtuml.bp.ui.canvas.CanvasPlugin;
 import org.xtuml.bp.ui.canvas.Cl_c;
 import org.xtuml.bp.ui.canvas.ModelSpecification_c;
 import org.xtuml.bp.ui.canvas.Model_c;
@@ -79,8 +81,18 @@ public class GraphicalEditorInput extends FileEditorInput
 	          }
 	        });
 	        if (canvas != null) {
-               CanvasModelListener.setGraphicalRepresents(canvas);
+	        	CanvasPlugin.setGraphicalRepresents(canvas);
 	          return new GraphicalEditorInput(canvas, c_input, modelSpecs[i].getBackground());
+	        } else {
+	        	String msg = "GraphicalEditorInput.java::createInstance(). " +
+	        				"\n\telementType: " + c_input.getClass().toString();
+	        	if (c_input instanceof NonRootModelElement) {
+		        	NonRootModelElement nrme = null;
+	        		nrme = (NonRootModelElement)c_input;
+	        		msg +=  " elementName: " + nrme.getName();
+	        		msg +=  " elementPath: " + nrme.getPath();
+	        	}
+	        	CanvasPlugin.logTraceMsg(ILogger.OPERATION, "", msg);
 	        }
         }
       }

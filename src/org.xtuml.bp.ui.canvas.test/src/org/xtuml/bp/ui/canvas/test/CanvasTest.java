@@ -34,8 +34,6 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.util.UUID;
 
-import junit.framework.AssertionFailedError;
-
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.draw2d.FigureCanvas;
 import org.eclipse.draw2d.SWTGraphics;
@@ -50,7 +48,7 @@ import org.eclipse.swt.graphics.ImageLoader;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.PlatformUI;
-
+import org.junit.Before;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.DataType_c;
 import org.xtuml.bp.core.Ooaofooa;
@@ -71,6 +69,8 @@ import org.xtuml.bp.ui.canvas.Ooaofgraphics;
 import org.xtuml.bp.ui.graphics.editor.GraphicalEditor;
 import org.xtuml.bp.utilities.ui.CanvasUtilities;
 
+import junit.framework.AssertionFailedError;
+
 public abstract class CanvasTest extends BaseTest {
   private String modelName = "";
   private IPreferenceStore store=JFacePreferences.getPreferenceStore();
@@ -82,7 +82,7 @@ public abstract class CanvasTest extends BaseTest {
   }
   
   public CanvasTest(final String projectName, String arg0)  {
-    super(projectName, arg0);
+    super(projectName, null);
     store.setValue("org.xtuml.bp.canvas.font","1|Tahoma|12|0|WINDOWS|1|-11|0|0|0|400|0|0|0|1|0|0|0|0|Tahoma;");
   }
   
@@ -98,13 +98,14 @@ public abstract class CanvasTest extends BaseTest {
   }
   protected String resultNamePostFix="";
   
-  protected void setUp() throws Exception {
+  @Before
+  public void setUp() throws Exception {
 	  super.setUp();
 	  CorePlugin.getDefault().getPluginPreferences().setValue(
 	  	      BridgePointPreferencesStore.SHOW_EVENT_PARAMETERS, true);
   }
   
-  protected void doTestDiagram(GraphicalEditor editor, final int model_type, boolean zoomGroup, boolean zoomSelected, boolean isHardCopy) throws Exception {
+	public void doTestDiagram(GraphicalEditor editor, final int model_type, boolean zoomGroup, boolean zoomSelected, boolean isHardCopy) throws Exception {
   		// create the unit under test (uut)
 		assertNotNull("Diagram not found", editor.getModel()); //$NON-NLS-1$
         
@@ -165,7 +166,7 @@ public abstract class CanvasTest extends BaseTest {
 			throw e;
 		}
   }
-  protected void doTestDiagramGenerics(GraphicalEditor editor, final int model_type, boolean zoomGroup, boolean zoomSelected, boolean isHardCopy) throws Exception {
+	public void doTestDiagramGenerics(GraphicalEditor editor, final int model_type, boolean zoomGroup, boolean zoomSelected, boolean isHardCopy) throws Exception {
 		// create the unit under test (uut)
 		assertNotNull("Diagram not found", editor.getModel()); //$NON-NLS-1$
       
@@ -278,7 +279,7 @@ public abstract class CanvasTest extends BaseTest {
   protected void doLoadSql(String inFile) throws FileNotFoundException{
 	String x = m_workspace_path + Ooaofooa.MODELS_DIRNAME + "/" + inFile + "." + Ooaofooa.MODELS_EXT; //$NON-NLS-1$ //$NON-NLS-2$
     System.out.println("Loading :" + x); //$NON-NLS-1$
-    ImportModel importer = new ImportModel(x, modelRoot, getSystemModel(), true, true, false);
+    ImportModel importer = new ImportModel(x, x, modelRoot, getSystemModel(), true, true, false);
     int i = importer.countAndValidateInsertStatements();
     assertTrue ( i > 0 );
     importer.run(new NullProgressMonitor());
@@ -360,7 +361,7 @@ public abstract class CanvasTest extends BaseTest {
 	  store.setValue("org.eclipse.jface.dialogfont", "1|Tahoma|8|0|WINDOWS|1|-11|0|0|0|400|0|0|0|1|0|0|0|0|Tahoma");
 	  store.setValue("org.eclipse.ui.workbench.TAB_TEXT_FONT", "1|Tahoma|8|0|WINDOWS|1|-11|0|0|0|400|0|0|0|1|0|0|0|0|Tahoma");
 	  store.setValue("org.eclipse.ui.workbench.VIEW_MESSAGE_TEXT_FONT", "1|Tahoma|8|0|WINDOWS|1|-11|0|0|0|400|0|0|0|1|0|0|0|0|Tahoma");
-	  CanvasModelListener.setGraphicalRepresents(editor.getModel());
+	  CanvasPlugin.setGraphicalRepresents(editor.getModel());
 	  Image img = new Image(Display.getDefault(), size);
 	  final TestGC tester = new TestGC(new SWTGraphics(new GC(img)));
 	  tester.setFont(displayFont);
@@ -497,7 +498,7 @@ public abstract class CanvasTest extends BaseTest {
         String name = getResultName() + "-" + model_type;
         if(!resultNamePostFix.equals(""))
             name = name + "-" + resultNamePostFix;
-        if(getResultFileName() != "") {
+        if(!getResultFileName().isEmpty()) {
         	name = getResultFileName();
         }
         return name;
@@ -508,7 +509,6 @@ public abstract class CanvasTest extends BaseTest {
      */
     public void validateOrGenerateResults(GraphicalEditor editor, boolean generate)
     {
-    	//generate = true;
     	BaseTest.dispatchEvents(0);
         validateOrGenerateResults(editor, generate, false);
     }
@@ -573,7 +573,6 @@ public abstract class CanvasTest extends BaseTest {
     public void validateOrGenerateResultsGenerics(GraphicalEditor editor, boolean generate,
             boolean preserveDiagramValues)
         {
-    		generate = true;
     		// remember the diagram zoom and viewport location values, 
     		// as they will be changed during the calls below
     		Diagram_c diagram = Diagram_c.getOneDIM_DIAOnR18(editor.getModel());

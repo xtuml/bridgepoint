@@ -22,14 +22,8 @@
 //=====================================================================
 
 
-import junit.framework.Test;
-import junit.framework.TestSuite;
-
-import org.eclipse.core.runtime.CoreException;
-
-import org.xtuml.bp.core.CorePlugin;
-import org.xtuml.bp.core.common.BridgePointPreferencesStore;
-import org.xtuml.bp.core.util.WorkspaceUtil;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
 import org.xtuml.bp.debug.engine.CreateAndGenerateEventTest;
 import org.xtuml.bp.debug.engine.ExternalEntityTest;
 import org.xtuml.bp.debug.engine.MDATest;
@@ -40,6 +34,7 @@ import org.xtuml.bp.debug.engine.VerifierAuditTest;
 import org.xtuml.bp.debug.engine.VerifierCreationTransitionDebugTest;
 import org.xtuml.bp.debug.engine.VerifierTransitionActionTests;
 import org.xtuml.bp.debug.test.DateLoggingTests;
+import org.xtuml.bp.debug.test.GlobalTestSetupClass;
 import org.xtuml.bp.debug.test.RealizedClassTest;
 import org.xtuml.bp.debug.test.RealizedComponentTest;
 import org.xtuml.bp.debug.test.VIECParameterTest;
@@ -58,58 +53,43 @@ import org.xtuml.bp.debug.ui.test.realizedClasses.VerifierStaticVariablesInReali
 import org.xtuml.bp.debug.ui.test.runtimemsg.TestVerifierRunTimeErrorMsgs_0;
 import org.xtuml.bp.debug.ui.test.runtimemsg.TestVerifierRunTimeErrorMsgs_1;
 
+import junit.framework.TestSuite;
+
 /**
 * Test all areas of the core
 */
+@RunWith(Suite.class)
+@Suite.SuiteClasses({
+	GlobalTestSetupClass.class,
+	VerifierTestSuiteI.class,
+	VerifierSessionExplorerTests.class,
+	VerifierStaticVariablesInRealizedClassesTest.class,
+	VerifierLaunchTestSuite.class,
+	VerifierExecuteFragmentTest.class,		
+	VerifierExecuteActionTests.class,
+	// These are disabled until 8608 is resolved 
+	// RealizedComponentTest.class,
+	// VIECTest.class,
+	// VIECParameterTest.class,
+	SignalParameterPassingTest.class,
+	VerifierInterfaceExecutionTests.class,
+	VerifierTransitionActionTests.class,
+	ExternalEntityTest.class,
+	CreateAndGenerateEventTest.class,
+	TimerTest.class,
+	VerifierCreationTransitionDebugTest.class,
+	VerifierAuditTest.class,
+	BreakpointTest.class,
+	MDATest.class,
+	SendMessageOverDelegationTest.class,
+	TestVerifierRunTimeErrorMsgs_0.class,
+	TestVerifierRunTimeErrorMsgs_1.class,
+	RealizedClassTest.class,
+	VerifierBindingAuditTest.class,
+	VerifierRealizedUDTTest.class,
+	VerifierUDTAsUDTInitializationTests.class,
+	DateLoggingTests.class,
+})
 public class VerifierTestSuite extends TestSuite {
-
-	/**
-	 * Returns the suite.  This is required to
-	 * use the JUnit Launcher.
-	 * @throws CoreException
-	 */
-	public static Test suite() throws CoreException {
-		return new VerifierTestSuite();
-	}
-	
-	/**
-	 * Construct the test suite.
-	 */
-	public VerifierTestSuite() throws CoreException {
-
-		// turn off autobuild to stop MC-3020 builders from running
-		WorkspaceUtil.setAutobuilding(false);   // throws CoreException
-		CorePlugin.getDefault().getPreferenceStore().
-        setValue(BridgePointPreferencesStore.
-  		              USE_DEFAULT_NAME_FOR_CREATION, true);
-
-		addTest(new TestSuite(VerifierTestSuiteI.class));
-		addTest(new TestSuite(VerifierSessionExplorerTests.class));
-		addTest(new TestSuite(VerifierStaticVariablesInRealizedClassesTest.class));
-		addTest(VerifierLaunchTestSuite.suite());
-		addTest(new TestSuite(VerifierExecuteFragmentTest.class));		
-		addTest(new TestSuite(VerifierExecuteActionTests.class));
-		addTest(new TestSuite(RealizedComponentTest.class));
-		addTest(new TestSuite(VIECTest.class));
-		addTest(new TestSuite(VIECParameterTest.class));
-		addTest(new TestSuite(SignalParameterPassingTest.class));
-        addTest(new TestSuite(VerifierInterfaceExecutionTests.class));
-		addTest(new TestSuite(VerifierTransitionActionTests.class));
-		addTest(new TestSuite(ExternalEntityTest.class));
-		addTest(new TestSuite(CreateAndGenerateEventTest.class));
-		addTest(new TestSuite(TimerTest.class));
-		addTest(new TestSuite(VerifierCreationTransitionDebugTest.class));
-		addTest(new TestSuite(VerifierAuditTest.class));
-		addTest(new TestSuite(BreakpointTest.class));
-		addTest(new TestSuite(MDATest.class));
-		addTest(new TestSuite(SendMessageOverDelegationTest.class));
-		addTest(new TestSuite(TestVerifierRunTimeErrorMsgs_0.class));
-		addTest(new TestSuite(TestVerifierRunTimeErrorMsgs_1.class));
-		addTest(new TestSuite(RealizedClassTest.class));
-		addTest(new TestSuite(VerifierBindingAuditTest.class));
-		addTest(new TestSuite(VerifierRealizedUDTTest.class));
-		addTest(new TestSuite(VerifierUDTAsUDTInitializationTests.class));
-		addTest(new TestSuite(DateLoggingTests.class));
-	}
 
 }

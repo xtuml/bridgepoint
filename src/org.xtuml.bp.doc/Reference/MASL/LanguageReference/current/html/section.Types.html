@@ -1,0 +1,116 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Chapter 2. Type System</title>
+<link rel="stylesheet" type="text/css" href="docbook.css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
+<meta name="keywords" content="MASL, Action Language, Action Semantics, UML, Unified Modelling Language, Shlaer Mellor">
+<link rel="home" href="index.html" title="MASL Reference Manual">
+<link rel="up" href="index.html" title="MASL Reference Manual">
+<link rel="prev" href="section.Tokenization.html" title="1.2. Tokenization">
+<link rel="next" href="section.Types.TypeConversion.html" title="2.1. Type Conversion">
+<link rel="chapter" href="section.LexicalStructure.html" title="Chapter 1. Lexical Structure">
+<link rel="chapter" href="section.Types.html" title="Chapter 2. Type System">
+<link rel="chapter" href="section.Domains.html" title="Chapter 3. Domains">
+<link rel="chapter" href="section.Services.html" title="Chapter 4. Services, Functions and State Actions">
+<link rel="chapter" href="section.Relationships.html" title="Chapter 5. Relationships">
+<link rel="chapter" href="section.Exceptions.html" title="Chapter 6. Exceptions">
+<link rel="chapter" href="section.Terminators.html" title="Chapter 7. Terminators">
+<link rel="chapter" href="section.Objects.html" title="Chapter 8. Objects">
+<link rel="chapter" href="section.Statements.html" title="Chapter 9. Statements">
+<link rel="chapter" href="section.Expressions.html" title="Chapter 10. Expressions">
+<link rel="chapter" href="section.Projects.html" title="Chapter 11. Projects">
+<link rel="chapter" href="section.Pragmas.html" title="Chapter 12. Pragmas">
+<link rel="appendix" href="AlphabeticalSyntaxReference.html" title="Appendix A. Alphabetical Syntax Reference">
+<link rel="index" href="ix01.html" title="Index">
+<link rel="section" href="section.Types.TypeConversion.html" title="2.1. Type Conversion">
+<link rel="section" href="section.Types.Declaration.html" title="2.2. Type Declaration">
+<link rel="section" href="section.Types.Reference.html" title="2.3. Type References">
+<link rel="section" href="section.Types.Definition.html" title="2.4. Type Definition">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div align="center">OFFICIAL</div>
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center">Chapter 2. Type System</th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="section.Tokenization.html">Prev</a> </td>
+<th width="60%" align="center"> </th>
+<td width="20%" align="right"> <a accesskey="n" href="section.Types.TypeConversion.html">Next</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="chapter">
+<div class="titlepage"><div><div><h1 class="title">
+<a name="section.Types"></a>Chapter 2. Type System</h1></div></div></div>
+<div class="toc">
+<div class="toc-title">Table of Contents</div>
+<dl class="toc">
+<dt><span class="section"><a href="section.Types.TypeConversion.html">2.1. Type Conversion</a></span></dt>
+<dd><dl>
+<dt><span class="section"><a href="section.Types.TypeConversion.html#Section.Types.PrimitiveType">2.1.1. Primitive Type</a></span></dt>
+<dt><span class="section"><a href="section.Types.TypeConversion.html#section.Types.Anonymous">2.1.2. Anonymous Types</a></span></dt>
+<dt><span class="section"><a href="section.Types.TypeConversion.html#section.Types.Assignable">2.1.3. Assignable</a></span></dt>
+<dt><span class="section"><a href="section.Types.TypeConversion.html#section.Types.Convertible">2.1.4. Convertible</a></span></dt>
+</dl></dd>
+<dt><span class="section"><a href="section.Types.Declaration.html">2.2. Type Declaration</a></span></dt>
+<dt><span class="section"><a href="section.Types.Reference.html">2.3. Type References</a></span></dt>
+<dt><span class="section"><a href="section.Types.Definition.html">2.4. Type Definition</a></span></dt>
+<dd><dl>
+<dt><span class="section"><a href="section.Types.Definition.html#section.Types.Builtin">2.4.1. Builtin Types</a></span></dt>
+<dd><dl>
+<dt><span class="section"><a href="section.Types.Definition.html#section.Types.Boolean">2.4.1.1. Boolean Type</a></span></dt>
+<dt><span class="section"><a href="section.Types.Definition.html#section.Types.Integer">2.4.1.2. Integer Types</a></span></dt>
+<dt><span class="section"><a href="section.Types.Definition.html#section.Types.Real">2.4.1.3. Real Type</a></span></dt>
+<dt><span class="section"><a href="section.Types.Definition.html#section.Types.Timestamp">2.4.1.4. Timestamp Type</a></span></dt>
+<dt><span class="section"><a href="section.Types.Definition.html#section.Types.Duration">2.4.1.5. Duration Type</a></span></dt>
+<dt><span class="section"><a href="section.Types.Definition.html#section.Types.String">2.4.1.6. String Type</a></span></dt>
+<dt><span class="section"><a href="section.Types.Definition.html#section.Types.Character">2.4.1.7. Character Type</a></span></dt>
+<dt><span class="section"><a href="section.Types.Definition.html#section.Types.Timer">2.4.1.8. Timer Type</a></span></dt>
+<dt><span class="section"><a href="section.Types.Definition.html#section.Types.Device">2.4.1.9. Device Type</a></span></dt>
+</dl></dd>
+<dt><span class="section"><a href="section.Types.Definition.html#section.Types.UserDefined">2.4.2. User Defined Types</a></span></dt>
+<dt><span class="section"><a href="section.Types.Definition.html#section.Types.Enumeration">2.4.3. Enumeration Types</a></span></dt>
+<dt><span class="section"><a href="section.Types.Definition.html#section.Types.Structure">2.4.4. Structure Types</a></span></dt>
+<dt><span class="section"><a href="section.Types.Definition.html#section.Types.Instance">2.4.5. Instance Types</a></span></dt>
+<dt><span class="section"><a href="section.Types.Definition.html#section.Types.Collection">2.4.6. Collection Types</a></span></dt>
+<dt><span class="section"><a href="section.Types.Definition.html#section.Types.Constrained">2.4.7. Constrained Types</a></span></dt>
+</dl></dd>
+</dl>
+</div>
+<p>MASL is a strongly typed language, which means that every
+    variable, attribute, parameter and expression has a type that is
+    known at compile-time. Types limit the values that a variable,
+    attributed and parameter can hold, or that an expression can
+    produce, limiting the operations supported on those values and
+    determine the meaning of the operations. A type is characterized by
+    a set of values and a set of operations, which implements the
+    fundamental aspects of its semantics. An entity of a given type is a
+    run-time entity that contains a value of the type.
+  </p>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="section.Tokenization.html">Prev</a> </td>
+<td width="20%" align="center"> </td>
+<td width="40%" align="right"> <a accesskey="n" href="section.Types.TypeConversion.html">Next</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left" valign="top">1.2. Tokenization </td>
+<td width="20%" align="center">
+<a accesskey="h" href="index.html">Home</a> | <a accesskey="t" href="bk01-toc.html">ToC</a>
+</td>
+<td width="40%" align="right" valign="top"> 2.1. Type Conversion</td>
+</tr>
+</table>
+</div>
+<div align="center">OFFICIAL</div>
+</body>
+</html>

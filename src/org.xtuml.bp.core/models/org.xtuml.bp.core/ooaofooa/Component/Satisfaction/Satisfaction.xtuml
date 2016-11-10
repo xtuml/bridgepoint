@@ -127,6 +127,17 @@ INSERT INTO O_TFR
 	1,
 	'',
 	"af540aaa-52aa-4d95-9d19-1deb93808adb");
+INSERT INTO O_TFR
+	VALUES ("4666356f-48d3-482b-9bbb-0433120753c2",
+	"31d55c78-4c8e-4706-afeb-da88c819c621",
+	'downgradeCheck',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'',
+	3,
+	'',
+	"d5c52dc2-bfc0-45a9-bbad-ac43019afa0d");
 INSERT INTO O_NBATTR
 	VALUES ("4285213c-8da5-4c38-94fe-a6688d3a364f",
 	"31d55c78-4c8e-4706-afeb-da88c819c621");

@@ -1,0 +1,372 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>3.2. Collections</title>
+<link rel="stylesheet" type="text/css" href="docbook.css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
+<meta name="keywords" content="MASL, Action Language, Action Semantics, UML, Unified Modelling Language, Shlaer Mellor">
+<link rel="home" href="index.html" title="MASL Tutorial">
+<link rel="up" href="CompositeTypes.html" title="Chapter 3. Composite Types">
+<link rel="prev" href="CompositeTypesStructures.html" title="3.1. Structures">
+<link rel="next" href="CompositeTypesCollectionTypes.html" title="3.3. Collection Types">
+<link rel="preface" href="preface.html" title="Preface">
+<link rel="chapter" href="Types.html" title="Chapter 1. Types">
+<link rel="chapter" href="ExecutionControl.html" title="Chapter 2. Execution Control">
+<link rel="chapter" href="CompositeTypes.html" title="Chapter 3. Composite Types">
+<link rel="chapter" href="Exceptions.html" title="Chapter 4. Exceptions">
+<link rel="chapter" href="ObjectsandRelationships.html" title="Chapter 5. Objects and Relationships">
+<link rel="chapter" href="Actions.html" title="Chapter 6. Actions">
+<link rel="chapter" href="DeviceIO.html" title="Chapter 7. Device Input/Output">
+<link rel="chapter" href="MASLExamples.html" title="Chapter 8. MASL Examples">
+<link rel="index" href="ix01.html" title="Index">
+<link rel="subsection" href="CompositeTypesCollections.html#CompositeTypesSets" title="3.2.1. Sets">
+<link rel="subsection" href="CompositeTypesCollections.html#CompositeTypesBags" title="3.2.2. Bags">
+<link rel="subsection" href="CompositeTypesCollections.html#CompositeTypesSequences" title="3.2.3. Sequences">
+<link rel="subsection" href="CompositeTypesCollections.html#CompositeTypesArrays" title="3.2.4. Arrays">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div align="center">UNCLASSIFIED</div>
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center">3.2. Collections</th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="CompositeTypesStructures.html">Prev</a> </td>
+<th width="60%" align="center">Chapter 3. Composite Types</th>
+<td width="20%" align="right"> <a accesskey="n" href="CompositeTypesCollectionTypes.html">Next</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h2 class="title">
+<a name="CompositeTypesCollections"></a>3.2. Collections</h2></div></div></div>
+<div class="toc"><dl class="toc">
+<dt><span class="section"><a href="CompositeTypesCollections.html#CompositeTypesSets">3.2.1. Sets</a></span></dt>
+<dt><span class="section"><a href="CompositeTypesCollections.html#CompositeTypesBags">3.2.2. Bags</a></span></dt>
+<dt><span class="section"><a href="CompositeTypesCollections.html#CompositeTypesSequences">3.2.3. Sequences</a></span></dt>
+<dt><span class="section"><a href="CompositeTypesCollections.html#CompositeTypesArrays">3.2.4. Arrays</a></span></dt>
+</dl></div>
+<p>A collection is a composite entity consisting of a number of
+    elements all of the same type. <abbr class="abbrev">MASL</abbr> has four types of
+    collections; <span class="type">set</span>s, <span class="type">bag</span>s, <span class="type">sequence</span>s
+    and <span class="type">array</span>s, each of which have different behaviours.</p>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="CompositeTypesSets"></a>3.2.1. Sets</h3></div></div></div>
+<p>A <span class="type">set</span> consists of a number of elements. The elements of
+    a <span class="type">set</span> are unordered. Sets are used to group elements together
+    when there is no need for any particular order for the elements. Beside
+    lacking order, <span class="type">set</span>s do not allow multiple occurrences of the
+    same element. This means that inserting a value that is already an element
+    of a set leaves the set unchanged.</p>
+<p>A <span class="type">bag</span> is a collection that keeps track of what it's
+    elements are and also the number of occurrences of each element. In other
+    words, <span class="type">bag</span>s allow duplicate elements. Like
+    <span class="type">set</span>s,<span class="type">bag</span>s are unordered.</p>
+<p>A <span class="type">sequence</span> is a collection that associates a position
+    with each element based on insertion order. <span class="type">sequence</span>s allow
+    duplicates.</p>
+<p>An <span class="type">array</span> is like a <span class="type">sequence</span> except that
+    the number of elements in the <span class="type">array</span> is fixed at compile
+    time.</p>
+<p><a class="xref" href="CompositeTypesCollections.html#CompositeTypeDecisionTreeforCollectionTypes" title="Figure 3.1. Decision Tree for Collection Types">Figure 3.1, “Decision Tree for Collection Types”</a> gives
+    a simple decision tree to help choose the collection type to suit a
+    particular behaviour requirement.</p>
+<div class="figure">
+<a name="CompositeTypeDecisionTreeforCollectionTypes"></a><div class="figure-title">Figure 3.1. Decision Tree for Collection Types</div>
+<div class="figure-contents"><div class="mediaobject" align="center"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;"><tr><td align="center" valign="middle"><img src="images/decisiontreeforcollectiontypes.svg" align="middle"></td></tr></table></div></div>
+</div>
+<p><br class="figure-break"></p>
+<p>After the first assignment, <code class="varname">s</code> will contain the
+    single element <code class="literal">15</code>. After the second assignment,
+    <span class="type">s</span> will contain the three elements <code class="literal">15</code>,
+    <code class="literal">31</code> and <code class="literal">57</code>. After the third
+    assignment, <code class="varname">s</code> will still contain the three elements
+    <code class="literal">15</code>, <code class="literal">31</code> and <code class="literal">57</code>.
+    Notice that duplicates are removed and order is not preserved.</p>
+<p> If we now declare:</p>
+<div class="informalexample"><pre class="programlisting">  r : set of integer;
+  t : set of integer;</pre></div>
+<p>then:</p>
+<div class="informalexample"><pre class="programlisting">  t := t &amp; 31 &amp; 44  &amp; 15;
+  r := s &amp; t;</pre></div>
+<p>will result in r containing the elements
+    <code class="literal">15</code>, <code class="literal">31</code>, <code class="literal">44</code> and
+    <code class="literal">57</code>. Sets have various characteristics. length gives the
+    number of elements in a set. So using our current example:</p>
+<div class="informalexample"><div class="literallayout"><p>  r’length = 4<br>
+  s’length = 3<br>
+  t’length = 3</p></div></div>
+<p>In order to loop over all the elements of a set we can use a for
+    statement together with the characteristic elements. For
+    example:</p>
+<div class="informalexample"><pre class="programlisting">  for i in r’elements loop
+    // …
+  end loop;</pre></div>
+<p>This declares <code class="varname">i</code> to be of type integer and
+    executes the loop with the values of the elements of <code class="varname">r</code>
+    in turn. Since the elements in a set are unordered, the order in which the
+    elements are taken is arbitrary. In our example, <code class="varname">i</code>
+    might take the values <code class="literal">44</code>, <code class="literal">31</code>,
+    <code class="literal">15</code> and <code class="literal">57</code> in turn.</p>
+<p>Set types have four other operators; <code class="literal">union</code>,
+    <code class="literal">intersection</code>, <code class="literal">not_in</code> and
+    <code class="literal">disunion</code>. These are all binary operators which take
+    operands of the same set base type and whose result is of that type. They
+    correspond to the notions of set union, set intersection, set subtraction
+    and set disunion respectively. Union and not_in have the same precedence
+    as binary plus, intersection and disunion have the same precedence as
+    multiplication.</p>
+<div class="note">
+<h3 class="title">Note</h3>
+<p>For set types, <code class="literal">&amp;</code> is equivalent to
+      <code class="literal">union</code>.</p>
+</div>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="CompositeTypesBags"></a>3.2.2. Bags</h3></div></div></div>
+<p>A typical bag declaration might be:</p>
+<div class="informalexample"><pre class="programlisting">  b : bag of integer;</pre></div>
+<p>This declares <code class="varname">b</code> to be a variable
+    which has a number of elements, each of which is of type
+    <span class="type">integer</span>. Like <span class="type">set</span>s, <span class="type">bag</span>s can be
+    concatenated together using the operator <code class="literal">&amp;</code>. Again
+    it has the same precedence as binary plus. The two operands must be of the
+    same base type and the result is a <span class="type">bag</span> of that type whose
+    value contains all the elements of the two <span class="type">bag</span>s. One or other
+    of the operands of <code class="literal">&amp;</code> can also be a single value of
+    the element type. So, for example:</p>
+<div class="informalexample"><pre class="programlisting">  b := b &amp; 15;
+  b := 31 &amp; b &amp; 57;
+  b := b &amp; 31;</pre></div>
+<p>After the first assignment, <code class="varname">b</code> will
+    contain the single element <code class="literal">15</code>. After the second
+    assignment, <code class="varname">b</code> will contain the three elements
+    <code class="literal">15</code>, <code class="literal">31</code> and <code class="literal">57</code>.
+    After the third assignment, <code class="varname">b</code> will contain the elements
+    <code class="literal">15</code>, <code class="literal">31</code> twice and
+    <code class="literal">57</code>. Notice that unlike <code class="literal">set</code>s,
+    duplicates are not removed.</p>
+<p>If we now declare:</p>
+<div class="informalexample"><pre class="programlisting">  a : bag of integer;
+  c : bag of integer;</pre></div>
+<p>then:</p>
+<div class="informalexample"><pre class="programlisting">  c := c &amp; 31 &amp; 44 &amp; 15;
+  a := b &amp; c;</pre></div>
+<p>will result in a containing the elements
+    <code class="literal">15</code> twice, <code class="literal">31</code> three times,
+    <code class="literal">44</code> once and <code class="literal">57</code> once. Bags, like
+    sets, have various characteristics. <code class="literal">length</code> gives the
+    number of elements in a <span class="type">bag</span>. So using our current
+    example:</p>
+<div class="informalexample"><div class="literallayout"><p>  a’length = 7<br>
+  b’length = 4<br>
+  c’length = 3</p></div></div>
+<p>We can loop over all the elements in a <span class="type">bag</span> in the same
+    way as we did with <span class="type">set</span>s by using a <code class="literal">for</code>
+    statement together with the characteristic elements. </p>
+<div class="informalexample"><pre class="programlisting">  for i in a’elements loop
+    // …
+  end loop;</pre></div>
+<p>This declares <code class="varname">i</code> to be of type
+    <span class="type">integer</span> and executes the loop with the values of the elements
+    of a in turn. Again, like a <span class="type">set</span>, the order in which the
+    elements are taken is arbitrary. If a <span class="type">bag</span> contains duplicate
+    elements then the loop will be executed for each of these duplicate
+    elements. In our example, <code class="varname">i</code> might take the values
+    <code class="literal">15</code>, <code class="literal">31</code>, <code class="literal">44</code>,
+    <code class="literal">31</code>, <code class="literal">15</code>, <code class="literal">57</code> and
+    <code class="literal">31</code> in turn.</p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="CompositeTypesSequences"></a>3.2.3. Sequences</h3></div></div></div>
+<p>A typical sequence declaration might be:</p>
+<div class="informalexample"><pre class="programlisting">  q : sequence of integer;</pre></div>
+<p>This declares <code class="varname">q</code> to be a variable which has a
+    number of elements, each of which is of type <span class="type">integer</span>. Like
+    <span class="type">set</span>s and <span class="type">bag</span>s, <span class="type">sequence</span>s can be
+    concatenated together using the operator <code class="literal">&amp;</code>. Again
+    it has the same precedence as binary plus. The two operands must be of the
+    same type and the result is a <span class="type">sequence</span> of the same type whose
+    value contains all the elements of the two sequences. In addition, the
+    order of the elements in the resultant sequence is obtained by juxtaposing
+    the two operands. One or other of the operands of <code class="literal">&amp;</code>
+    can also be a single value of the element type.</p>
+<p>So, for example:</p>
+<div class="informalexample"><pre class="programlisting">  q := q &amp; 15;
+  q := 31 &amp; q &amp; 57;
+  q := q &amp; 31;</pre></div>
+<p>After the first assignment, <code class="varname">q</code> will contain the
+    single element <code class="literal">15</code>. After the second assignment,
+    <code class="varname">q</code> will contain the three elements
+    <code class="literal">31</code>, <code class="literal">15</code> and <code class="literal">57</code> in
+    that order. After the third assignment, <code class="varname">q</code> will contain
+    the elements <code class="literal">31</code>, <code class="literal">15</code>,
+    <code class="literal">57</code> and <code class="literal">31</code> in that order.</p>
+<p>If we now declare:</p>
+<div class="informalexample"><pre class="programlisting">  n : sequence of integer;
+  p : sequence of integer;</pre></div>
+<p>then:</p>
+<div class="informalexample"><pre class="programlisting">  p := p &amp; 31 &amp; 44 &amp; 15;
+  n := p &amp; q;</pre></div>
+<p>will result in <code class="varname">n</code> containing the elements
+    <code class="literal">31</code>, <code class="literal">44</code>, <code class="literal">15</code>,
+    <code class="literal">31</code>, <code class="literal">15</code>, <code class="literal">57</code> and
+    <code class="literal">31</code> in that order. <span class="type">sequence</span>s, like
+    <span class="type">set</span>s and <span class="type">bag</span>s, have various characteristics.
+    <code class="literal">length</code> gives the number elements in a
+    <span class="type">sequence</span>. So using our current example:</p>
+<div class="informalexample"><div class="literallayout"><p>  n’length = 7<br>
+  p’length = 3<br>
+  q’length = 4</p></div></div>
+<p>We can loop over all the elements in a <span class="type">sequence</span> in the
+    same way as we did with <span class="type">set</span>s and <span class="type">bag</span>s by using a
+    for statement together with the characteristic elements.</p>
+<div class="informalexample"><pre class="programlisting">  for i in n’elements loop
+    // …
+  end loop;</pre></div>
+<p>This declares <code class="varname">i</code> to be of type
+    <span class="type">integer</span> and executes the loop with the values of the elements
+    of <code class="varname">n</code> in turn. Since the elements in a sequence are
+    ordered, the order in which the elements are taken is given by that order.
+    In our example, <code class="varname">i</code> would take the values
+    <code class="literal">31</code>, <code class="literal">44</code>, <code class="literal">15</code>,
+    <code class="literal">31</code>, <code class="literal">15</code>, <code class="literal">57</code> and
+    <code class="literal">31</code> in that order.</p>
+<p>The individual elements of a <span class="type">sequence</span> can be referred
+    to by following the <span class="type">sequence</span> name with an expression in
+    brackets giving a value in the range of indices of the
+    <span class="type">sequence</span>. If this expression, known as the index value, has a
+    value outside of the range, then an exception will be raised.</p>
+<p>One way of obtaining a valid index value is to use one of the two
+    characteristics <code class="literal">first</code> or <code class="literal">last</code>, which
+    give the lower and upper bounds of the indices of <code class="varname">q</code>.
+    For example, we could set the first element of a <span class="type">sequence</span> to
+    zero by writing:</p>
+<div class="informalexample"><pre class="programlisting">  q[q'first] := 0;</pre></div>
+<p>If a <span class="type">sequence</span> is empty both <code class="literal">first</code>
+    and <code class="literal">last</code> will raise an exception. Using
+    <code class="literal">first</code> and <code class="literal">last</code> we could loop though
+    the index values of a <code class="literal">sequence</code>.</p>
+<div class="informalexample"><pre class="programlisting">  for i in n'first .. n'last loop
+    q[i] := 0;
+  end loop;</pre></div>
+<p>The expression <code class="varname">q</code><code class="literal">'first ..
+    </code><code class="varname">q</code><code class="literal">'last</code> is so common that a
+    shorthand <code class="varname">q</code><code class="literal">'range</code> is provided. Hence
+    we could have written the previous loop as:</p>
+<div class="informalexample"><pre class="programlisting">  for i in n'range loop
+    q[i] := 0;
+  end loop;</pre></div>
+<p>Finally, we can denote a slice of a sequence by following the
+    sequence name with a discrete range in brackets. So:</p>
+<div class="informalexample"><pre class="programlisting">  q := n[n'first + 2 .. n'last - 2];</pre></div>
+<p>results in <code class="varname">q</code> containing the
+    elements <code class="literal">15</code>, <code class="literal">31</code> and
+    <code class="literal">15</code> in that order.</p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="CompositeTypesArrays"></a>3.2.4. Arrays</h3></div></div></div>
+<p>A typical array declaration might be:</p>
+<div class="informalexample"><pre class="programlisting">  a : array (1 .. 6) of  integer;</pre></div>
+<p>This declares <code class="varname">a</code> to be a variable
+    which has a six elements, each of which is of type <span class="type">integer</span>.
+    The range of an <span class="type">array</span> can be in terms of any discrete type
+    that is any <span class="type">integer</span> <span class="type">numeric</span> type or any
+    enumeration type. For example, given:</p>
+<div class="informalexample"><pre class="programlisting">  type day_type is enum (MON, TUE, WED, THU, FRI, SAT, SUN);</pre></div>
+<p>we could declare an array to have elements for each
+    day of the week by writing:</p>
+<div class="informalexample"><pre class="programlisting">  hours_worked : array (MON .. SUN) of integer;</pre></div>
+<p>or better:</p>
+<div class="informalexample"><pre class="programlisting">  hours_worked : array (day_type’range) of integer;</pre></div>
+<p>Since <span class="type">array</span>s have a fixed size they cannot be
+    concatenated together like <span class="type">bag</span>s, <span class="type">set</span>s and
+    <span class="type">sequence</span>s. Arrays, like all the other collection types, have
+    various characteristics. Length gives the number of elements in an
+    <span class="type">array</span>. So using our current example:</p>
+<div class="informalexample"><div class="literallayout"><p>  a’length = 6</p></div></div>
+<p>Note that because <span class="type">array</span>s have a fixed
+    size this value will never change. </p>
+<p>We can loop over all the elements in an <span class="type">array</span> in the
+    same way as we did with <span class="type">sequence</span>s by using a
+    <code class="literal">for</code> statement together with the characteristic
+    elements. </p>
+<div class="informalexample"><pre class="programlisting">  for i in a’elements loop
+    // …
+  end loop;</pre></div>
+<p>This declares <code class="varname">i</code> to be of type
+    <span class="type">integer</span> and executes the loop with the values of the elements
+    of <code class="varname">a</code> in turn. Since the elements in an
+    <span class="type">array</span> are ordered, the order in which the elements are taken
+    is given by that order.</p>
+<p>Like <span class="type">sequence</span>s, the individual elements of an
+    <span class="type">array</span> can be referred to by following the <span class="type">array</span>
+    name with an expression in brackets giving a value in the range of indices
+    of the <span class="type">array</span>. If this expression, known as the index value,
+    has a value outside of the range, then an exception will be raised.</p>
+<p>One way of obtaining a valid index value is to use one of the two
+    characteristics <code class="literal">first</code> or <code class="literal">last</code> which
+    give the lower and upper bounds of the indices of <code class="varname">a</code>.
+    For example we could set the first element of an <span class="type">array</span> to
+    zero by writing:</p>
+<div class="informalexample"><pre class="programlisting">  a[a'first] := 0;.</pre></div>
+<p>Since we explicitly define the upper and lower bounds of the indices
+    of an <span class="type">array</span> in its declaration, we could have equally done
+    this by using an explicit value in this range.</p>
+<div class="informalexample"><pre class="programlisting">  a[1] := 0;
+  hours_worked[WED] := 0;</pre></div>
+<p>Using <code class="literal">first</code> and <code class="literal">last</code> we could
+    loop though the index values of an <span class="type">array</span>.</p>
+<div class="informalexample"><pre class="programlisting">  for i in a'first .. a'last loop
+    a[i] := 0;
+  end loop;</pre></div>
+<p>Again, as for <span class="type">sequence</span>s, we could have used the
+    shorthand <code class="varname">a</code><code class="literal">'range</code> instead of
+    <code class="varname">a</code><code class="literal">'first..
+    </code><code class="varname">a</code><code class="literal">'last</code>.</p>
+<div class="informalexample"><pre class="programlisting">  for i in a'range loop
+    a[i] := 0;
+  end loop;</pre></div>
+<p>Finally, we can denote a slice of an <span class="type">array</span> by following
+    the <span class="type">array</span> name with a discrete range in brackets.
+    So:</p>
+<div class="informalexample"><pre class="programlisting">  declare
+    q : sequence of integer;
+  begin
+    q := a[3 .. 5];
+  end;</pre></div>
+<p>results in <code class="varname">q</code> containing the
+    elements at indices <code class="literal">3</code>, <code class="literal">4</code> and
+    <code class="literal">5</code> of the <span class="type">array</span> <code class="varname">a</code> in
+    that order. Notice that taking a slice of an <span class="type">array</span> results in
+    a <span class="type">sequence</span> of the same element type.</p>
+</div>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="CompositeTypesStructures.html">Prev</a> </td>
+<td width="20%" align="center"><a accesskey="u" href="CompositeTypes.html">Up</a></td>
+<td width="40%" align="right"> <a accesskey="n" href="CompositeTypesCollectionTypes.html">Next</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left" valign="top">3.1. Structures </td>
+<td width="20%" align="center">
+<a accesskey="h" href="index.html">Home</a> | <a accesskey="t" href="bk01-toc.html">ToC</a>
+</td>
+<td width="40%" align="right" valign="top"> 3.3. Collection Types</td>
+</tr>
+</table>
+</div>
+<div align="center">UNCLASSIFIED</div>
+</body>
+</html>

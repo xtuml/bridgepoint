@@ -1,6 +1,9 @@
 package org.xtuml.bp.debug.engine;
 
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.debug.test.VerifierTest;
+import org.xtuml.bp.test.common.OrderedRunner;
 
 
 //========================================================================
@@ -25,12 +28,14 @@ import org.xtuml.bp.debug.test.VerifierTest;
 // the License.
 //========================================================================
 
+@RunWith(OrderedRunner.class)
 public class CreateAndGenerateEventTest extends VerifierTest {
 
 	public CreateAndGenerateEventTest() {
 		super("Verifier_event_specification_statements_test");
 	}
 
+	@Test
 	public void testBasicCreateAndGenerateEvent()throws InterruptedException {
 	    redirectOutput("Verifier_event_specification_statements_test");
 		executeModel();

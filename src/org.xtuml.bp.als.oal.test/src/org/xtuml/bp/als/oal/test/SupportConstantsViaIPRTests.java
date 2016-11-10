@@ -27,37 +27,49 @@ import org.eclipse.core.internal.resources.Marker;
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.resources.IResource;
-import org.eclipse.core.resources.ProjectScope;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Platform;
-import org.eclipse.core.runtime.preferences.IScopeContext;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.osgi.framework.Bundle;
 import org.osgi.service.prefs.BackingStoreException;
-import org.osgi.service.prefs.Preferences;
-
-import org.xtuml.bp.core.Bridge_c;
-import org.xtuml.bp.core.Component_c;
 import org.xtuml.bp.core.CorePlugin;
-import org.xtuml.bp.core.ExternalEntity_c;
 import org.xtuml.bp.core.Package_c;
-import org.xtuml.bp.core.PackageableElement_c;
 import org.xtuml.bp.core.common.ClassQueryInterface_c;
 import org.xtuml.bp.core.common.IAllActivityModifier;
 import org.xtuml.bp.core.common.NonRootModelElement;
-import org.xtuml.bp.core.ui.preferences.BridgePointProjectActionLanguagePreferences;
-import org.xtuml.bp.core.ui.preferences.BridgePointProjectPreferences;
 import org.xtuml.bp.test.common.BaseTest;
+import org.xtuml.bp.test.common.OrderedRunner;
 
+@RunWith(OrderedRunner.class)
 public class SupportConstantsViaIPRTests extends BaseTest {
-	String projectName = "Constant_Project";
+	static private String projectName = "Constant_Project";
+	static private boolean initialized = false;
 
+	public SupportConstantsViaIPRTests() throws Exception {
+		super(null, null);
+	}
+	
 	@Override
-	public void initialSetup() throws Exception {
-		loadProject(projectName);
+	@Before
+	public void setUp() throws Exception {
+		super.setUp();
+		if (!initialized){
+			loadProject(projectName);
+			initialized = true;
+		}
 	}
 
+	@After
+	public void tearDown() throws Exception {
+		super.tearDown();
+	}
+
+	@Test
 	public void testNoParseErrorWhenIPRisSet() throws BackingStoreException, CoreException {
 		
 		loadProject("IPR_Project");
@@ -76,6 +88,7 @@ public class SupportConstantsViaIPRTests extends BaseTest {
 
 	}
 
+	@Test
 	public void testParseErrorsWhenIPRisNotSet() throws BackingStoreException, CoreException {
 		
 		loadProject("IPR_notSet_Project");

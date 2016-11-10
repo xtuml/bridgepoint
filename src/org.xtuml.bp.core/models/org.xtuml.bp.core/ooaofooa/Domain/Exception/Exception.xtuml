@@ -1,0 +1,334 @@
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("f7cd37b4-309c-4a8d-b621-602317676050",
+	'Exception',
+	37,
+	'S_EXP',
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_TFR
+	VALUES ("edf36dfd-1b7c-494d-8fdc-26d24ab3a3f2",
+	"f7cd37b4-309c-4a8d-b621-602317676050",
+	'get_compartment_text',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	1,
+	'result = "";
+if (param.at == Justification::Center_in_X)
+  result = "«exception»";
+elif (param.at == Justification::Center)
+  result = self.Name;
+  select one pe related by self->PE_PE[R8001];
+  if not_empty pe
+    result = pe.getVisibilityAdornment() + result;
+  end if;
+end if;
+return result;',
+	1,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_TPARM
+	VALUES ("1f95f5db-5c38-49dd-916f-c3cce63ee600",
+	"edf36dfd-1b7c-494d-8fdc-26d24ab3a3f2",
+	'comp_num',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"d00f8dda-b61b-429a-92e8-a7edead4f4f1",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("a63f7464-0207-4bde-a8c7-411c8ff85b5d",
+	"edf36dfd-1b7c-494d-8fdc-26d24ab3a3f2",
+	'ent_num',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"1f95f5db-5c38-49dd-916f-c3cce63ee600",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("d00f8dda-b61b-429a-92e8-a7edead4f4f1",
+	"edf36dfd-1b7c-494d-8fdc-26d24ab3a3f2",
+	'at',
+	"a9382bea-4a3f-43ec-9191-1f9f158b11a4",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("a9382bea-4a3f-43ec-9191-1f9f158b11a4",
+	"00000000-0000-0000-0000-000000000000",
+	'Justification',
+	'The Justification data type is used to specify text at a given location in a compartment.
+------------------------------------------------------------------------------
+Bridge:GD',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("cd540845-1fa9-4249-a0ee-4288e7a3dc2a",
+	"f7cd37b4-309c-4a8d-b621-602317676050",
+	'get_compartments',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	1,
+	'return 1;',
+	1,
+	'',
+	"edf36dfd-1b7c-494d-8fdc-26d24ab3a3f2");
+INSERT INTO O_TFR
+	VALUES ("ca953086-7c12-49d7-897d-a8d8d710da5c",
+	"f7cd37b4-309c-4a8d-b621-602317676050",
+	'get_entries',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	1,
+	'return 1;',
+	1,
+	'',
+	"cd540845-1fa9-4249-a0ee-4288e7a3dc2a");
+INSERT INTO O_TPARM
+	VALUES ("4a3d0541-e148-42db-8c16-644cea44755b",
+	"ca953086-7c12-49d7-897d-a8d8d710da5c",
+	'comp_num',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("0bcbb81a-041f-4b9e-a5a1-b8fdca2800d4",
+	"f7cd37b4-309c-4a8d-b621-602317676050",
+	'get_ooa_id',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	1,
+	'return self.Exception_ID;',
+	1,
+	'',
+	"ca953086-7c12-49d7-897d-a8d8d710da5c");
+INSERT INTO O_TFR
+	VALUES ("8864df2d-7837-400c-9527-ef9d06ec96fc",
+	"f7cd37b4-309c-4a8d-b621-602317676050",
+	'get_style',
+	'',
+	"6e636321-0fd1-4577-b185-e4d76b0d0c71",
+	1,
+	'return Style::Box;',
+	1,
+	'',
+	"0bcbb81a-041f-4b9e-a5a1-b8fdca2800d4");
+INSERT INTO S_DT_PROXY
+	VALUES ("6e636321-0fd1-4577-b185-e4d76b0d0c71",
+	"00000000-0000-0000-0000-000000000000",
+	'Style',
+	'The Style data type specifies the precise form a graphical element will take when drawn.
+--------------------------------------------------------------------------
+Bridge:GD',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("1c45cd96-a73d-4ea8-9bcb-46e44a267510",
+	"f7cd37b4-309c-4a8d-b621-602317676050",
+	'get_text_style',
+	'',
+	"6e636321-0fd1-4577-b185-e4d76b0d0c71",
+	1,
+	'return Style::None;',
+	1,
+	'',
+	"8864df2d-7837-400c-9527-ef9d06ec96fc");
+INSERT INTO O_TPARM
+	VALUES ("39ba8e10-c8f8-4430-9159-55a63540059d",
+	"1c45cd96-a73d-4ea8-9bcb-46e44a267510",
+	'comp_num',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"b5264e03-061e-4982-b911-9963c2096557",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("4e55a040-710a-4e83-86c9-a30c4e07f99a",
+	"1c45cd96-a73d-4ea8-9bcb-46e44a267510",
+	'ent_num',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"39ba8e10-c8f8-4430-9159-55a63540059d",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("b5264e03-061e-4982-b911-9963c2096557",
+	"1c45cd96-a73d-4ea8-9bcb-46e44a267510",
+	'at',
+	"a9382bea-4a3f-43ec-9191-1f9f158b11a4",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("f3d8c62e-dbb7-40b0-808e-3a2189a3e0a2",
+	"f7cd37b4-309c-4a8d-b621-602317676050",
+	'dispose',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'// Domain Subsystem
+select one pe related by self->PE_PE[R8001];
+if(not_empty pe)
+  // PE_PE.dispose() will call back into this function at which time the
+  // rest of the activity will execute.
+  pe.dispose();
+  return;
+end if;
+
+// Finally delete self
+delete object instance self;',
+	1,
+	'',
+	"1c45cd96-a73d-4ea8-9bcb-46e44a267510");
+INSERT INTO O_TFR
+	VALUES ("4aca5bc4-6cb0-4877-b3ad-bc943714f970",
+	"f7cd37b4-309c-4a8d-b621-602317676050",
+	'convertToInstance',
+	'A utility operation to cast an instance of this type to the
+instance datatype.
+
+Translate: native',
+	"bc3722c8-5188-4529-8519-cf9eb9816b17",
+	1,
+	'return this;',
+	0,
+	'',
+	"f3d8c62e-dbb7-40b0-808e-3a2189a3e0a2");
+INSERT INTO S_DT_PROXY
+	VALUES ("bc3722c8-5188-4529-8519-cf9eb9816b17",
+	"00000000-0000-0000-0000-000000000000",
+	'instance',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("672da21d-8a1a-4a0a-a681-b0701450728a",
+	"f7cd37b4-309c-4a8d-b621-602317676050",
+	'downgradeCheck',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'',
+	3,
+	'',
+	"4aca5bc4-6cb0-4877-b3ad-bc943714f970");
+INSERT INTO O_REF
+	VALUES ("f7cd37b4-309c-4a8d-b621-602317676050",
+	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
+	0,
+	"5776264f-c7e9-4abe-839f-24d0750e007c",
+	"08087bed-f0b1-4c84-b515-8662480ac484",
+	"4c34c6ab-961f-4829-9c2f-a908ba384ae6",
+	"28f75ede-123b-4d84-8dcc-b0537a94aa4a",
+	"eb8892fd-5b80-42d5-b283-a51eb391bb1d",
+	"e6547326-be64-45b3-a81d-a46aca9f47dd",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Packageable Element',
+	'Element_ID',
+	'R8001');
+INSERT INTO R_RGO_PROXY
+	VALUES ("f7cd37b4-309c-4a8d-b621-602317676050",
+	"08087bed-f0b1-4c84-b515-8662480ac484",
+	"4c34c6ab-961f-4829-9c2f-a908ba384ae6",
+	'../../Packageable Element/Packageable Element.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("5776264f-c7e9-4abe-839f-24d0750e007c",
+	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
+	0,
+	"08087bed-f0b1-4c84-b515-8662480ac484",
+	"28f75ede-123b-4d84-8dcc-b0537a94aa4a",
+	'../../Packageable Element/Packageable Element.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("eb8892fd-5b80-42d5-b283-a51eb391bb1d",
+	"f7cd37b4-309c-4a8d-b621-602317676050",
+	"5776264f-c7e9-4abe-839f-24d0750e007c",
+	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
+	0,
+	'Element_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("5776264f-c7e9-4abe-839f-24d0750e007c",
+	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
+	'../../Packageable Element/Packageable Element/Packageable Element.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("eb8892fd-5b80-42d5-b283-a51eb391bb1d",
+	"f7cd37b4-309c-4a8d-b621-602317676050",
+	"00000000-0000-0000-0000-000000000000",
+	'Exception_ID',
+	'',
+	'',
+	'Exception_ID',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000007",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("9f9073e4-c273-451b-9327-75e1cefc9f64",
+	"f7cd37b4-309c-4a8d-b621-602317676050");
+INSERT INTO O_BATTR
+	VALUES ("9f9073e4-c273-451b-9327-75e1cefc9f64",
+	"f7cd37b4-309c-4a8d-b621-602317676050");
+INSERT INTO O_ATTR
+	VALUES ("9f9073e4-c273-451b-9327-75e1cefc9f64",
+	"f7cd37b4-309c-4a8d-b621-602317676050",
+	"eb8892fd-5b80-42d5-b283-a51eb391bb1d",
+	'Name',
+	'Full Name: Exception Name',
+	'',
+	'Name',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000004",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("accf98d8-f08a-4776-a789-b77a9e8876d1",
+	"f7cd37b4-309c-4a8d-b621-602317676050");
+INSERT INTO O_BATTR
+	VALUES ("accf98d8-f08a-4776-a789-b77a9e8876d1",
+	"f7cd37b4-309c-4a8d-b621-602317676050");
+INSERT INTO O_ATTR
+	VALUES ("accf98d8-f08a-4776-a789-b77a9e8876d1",
+	"f7cd37b4-309c-4a8d-b621-602317676050",
+	"9f9073e4-c273-451b-9327-75e1cefc9f64",
+	'Descrip',
+	'Full Name: Exception Description',
+	'',
+	'Descrip',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000004",
+	'',
+	'');
+INSERT INTO O_ID
+	VALUES (0,
+	"f7cd37b4-309c-4a8d-b621-602317676050");
+INSERT INTO O_OIDA
+	VALUES ("eb8892fd-5b80-42d5-b283-a51eb391bb1d",
+	"f7cd37b4-309c-4a8d-b621-602317676050",
+	0,
+	'Exception_ID');
+INSERT INTO O_ID
+	VALUES (1,
+	"f7cd37b4-309c-4a8d-b621-602317676050");
+INSERT INTO O_ID
+	VALUES (2,
+	"f7cd37b4-309c-4a8d-b621-602317676050");
+INSERT INTO PE_PE
+	VALUES ("f7cd37b4-309c-4a8d-b621-602317676050",
+	1,
+	"703df30a-ee7e-44ec-a7cf-22d2171bb270",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
+	VALUES ("703df30a-ee7e-44ec-a7cf-22d2171bb270",
+	"00000000-0000-0000-0000-000000000000",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
+	'Domain',
+	'A domain (S_DOM) consists of one or more subsystems (S_SS) that each contain an information model that abstracts a portion of the data for the domain: classes (O_OBJ), associations (R_REL), etc.  Breaking a domain into subsystems allows the complexity of the domain to be more easily managed: 1) subsystems are components and can be checked out individually allowing parallelism in development of the models and 2) breaking up a domain into smaller units is easier to understand.  A subsystem is composed of classes that tend to cluster, i.e., they have few associations that span subsystem boundaries.  Inter-subsystem associations, communications, and accesses are captured in the Subsystem Relationship Model (SRM), Subsystem Communication Model (SCM), and Subsystem Access Model (SAM) respectively.',
+	1,
+	'../Domain.xtuml');

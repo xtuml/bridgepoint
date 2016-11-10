@@ -9,10 +9,12 @@ Preparation
 
 3) This document uses ```~/git``` as the root folder for git repostiories, and it uses ```~/workspace``` as the development workspace. You may substitute any folder you desire, but you must be consistent.
 
-4) <a id="help"></a>If you have any problems or questions, check the [FAQ](https://github.com/xtuml/bridgepoint/blob/master/doc-bridgepoint/process/FAQ.md#bpdevelopers) or post to the [xtUML.org Forums] (https://xtuml.org/community/forum/xtuml-forum/) for help.
+4) Optionally, a pre-configured development virtual machine (VirtualBox) is available for download. See intructions to download and setup [here](developer-vm-getting-started.md)
+
+5) <a id="help"></a>If you have any problems or questions, check the [FAQ](https://github.com/xtuml/bridgepoint/blob/master/doc-bridgepoint/process/FAQ.md#bpdevelopers) or post to the [xtUML.org Forums] (https://xtuml.org/community/forum/xtuml-forum/) for help.
 
 
-Instructions
+Setup Instructions
 ------------
 
   - If you do not already have a Github.com account, [create one now.](https://github.com/join)
@@ -21,7 +23,7 @@ Instructions
     __WARNING!:__ If you already have a fork, [assure your fork is up to date]( https://help.github.com/articles/merging-an-upstream-repository-into-your-fork).
     - https://github.com/xtuml/bridgepoint
     - https://github.com/xtuml/mc
-    - https://github.com/xtuml/packaging
+    - https://github.com/xtuml/pt_antlr
     - https://github.com/xtuml/models
     
   - [Download the latest released version of the tool](http://xtuml.org/download/ "xtuml.org/download").
@@ -33,29 +35,44 @@ Instructions
     - __LINUX__ - Linux Ubuntu installation commands are presented below.  If installing in a 
     different Linux distribution you must use the [commands appropriate for your Linux distribution](https://github.com/xtuml/bridgepoint/blob/master/doc-bridgepoint/process/FAQ.md#linux).
     ```
-    sudo apt-get install libxtst6:i386 libgtk2.0-0:i386 gtk2-engines:i386 gtk2-engines-*:i386 --reinstall unity-gtk2-module:i386 libgtkmm-2.4-1c2:i386 libcanberra-gtk-module:i386 tofrodos wine libstdc++5 g++ ant git default-jdk  
+    sudo apt-get install libxtst6:i386 libgtk2.0-0:i386 gtk2-engines:i386 gtk2-engines-*:i386 --reinstall unity-gtk2-module:i386 libgtkmm-2.4-1c2:i386 libcanberra-gtk-module:i386 tofrodos libstdc++5 g++ ant git default-jdk  
+    ```  
+    The build runs __a lot__ faster if the pypy python tool is available.  We recommend it be installed:
     ```
+    sudo add-apt-repository ppa:pypy/ppa
+    sudo apt-get update
+    sudo apt-get install pypy pypy-dev
+    ```   
     - __WINDOWS__
       - Perl ([We recommend strawberry perl.](http://strawberryperl.com/ "strawberry perl"))
       - [JDK](http://www.oracle.com/technetwork/java/javase/downloads/index.html "Oracle JDK")
       - [Cygwin](http://cygwin.com/install.html "Cygwin Install") (Make sure to select Git)
 
+GUI Build Instructions
+------------
+The instructions in this section describe how to use the eclipse BridgePoint UI to build the BridgePoint plug-ins.   
+
   - Clone the repositories:
   ```
   git clone https://github.com/"username"/bridgepoint.git ~/git/bridgepoint
   git clone https://github.com/"username"/mc.git ~/git/mc
-  git clone https://github.com/"username"/packaging.git ~/git/packaging
+  git clone https://github.com/"username"/pt_antlr.git ~/git/pt_antlr
   git clone https://github.com/"username"/models.git ~/git/models
   ```
     
   - Prepare the development environment to call gen_erate. In the command below replace "\<version\>" with the version of the product:
   ```
-  cp -Rp ~/xtuml/BridgePoint/eclipse/plugins/org.xtuml.bp.mc.c.binary_<version>/mc3020/* ~/git/bridgepoint/src/org.xtuml.bp.mc.c.binary/mc3020
+  cp -Rp ~/xtuml/BridgePoint/eclipse/plugins/org.xtuml.bp.mc.c.source_<version>/mc3020/* ~/git/bridgepoint/src/org.xtuml.bp.mc.c.source/mc3020
   ```
   - Prepare your development workspace with the required preferences. 
   ```
   mkdir -p ~/workspace/.metadata/.plugins/org.eclipse.core.runtime/.settings
   cp -f ~/git/bridgepoint/utilities/build/preferences/*  ~/workspace/.metadata/.plugins/org.eclipse.core.runtime/.settings
+  ```
+
+  - Set up pt_antlr for building BridgePoint 
+  ```
+  cp -f ~/git/pt_antlr/pt_antlr/antlr.jar  ~/git/bridgepoint/src/org.xtuml.bp.als/lib/antlr.jar
   ```
 
   - Launch BridgePoint (```~/xtuml/BridgePoint/eclipse/Launcher.sh```)
@@ -69,9 +86,6 @@ Instructions
     - __WARNING!:__ Import all projects from this bridgepoint repository, but do NOT import any projects from the other repositories.  Only projects from bridgepoint are needed in the workspace.
 
   - Switch to the Java perspective
-    - Close these projects (Right click on the project, select Close Project):
-      - libTrans
-      - pt_antlr
 
   - Select Project > Build Automatically
     - This will cause each project in the workspace to build.  The builder will build dependent projects first. Since all projects are being processed, the build will take a while and should finish successfully.
@@ -83,3 +97,5 @@ Instructions
   - If you want to run BridgePoint unit tests, instructions are available in [HOWTO Run the BridgePoint Unit Tests](https://github.com/xtuml/bridgepoint/blob/master/doc-bridgepoint/process/HOWTO-run-bridgepoint-unit-tests.md)
    
 
+### Additional Notes
+  - Information about running the BridgePoint build via the command line may be found [in the FAQ](https://github.com/xtuml/bridgepoint/blob/master/doc-bridgepoint/process/FAQ.md#clibuild).

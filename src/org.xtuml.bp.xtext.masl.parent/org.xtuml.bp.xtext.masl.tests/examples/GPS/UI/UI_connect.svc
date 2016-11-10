@@ -1,0 +1,4 @@
+public  service UI::UI.connect () is
+begin
+  null;
+end service;

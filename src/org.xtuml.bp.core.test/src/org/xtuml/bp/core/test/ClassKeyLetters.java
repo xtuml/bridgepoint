@@ -23,17 +23,21 @@ package org.xtuml.bp.core.test;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.TreeViewer;
-
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.ModelClass_c;
 import org.xtuml.bp.core.Package_c;
 import org.xtuml.bp.core.PackageableElement_c;
 import org.xtuml.bp.test.TestUtil;
 import org.xtuml.bp.test.common.BaseTest;
 import org.xtuml.bp.test.common.ExplorerUtil;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.test.common.TestingUtilities;
 
+@RunWith(OrderedRunner.class)
 public class ClassKeyLetters extends BaseTest {
 
+	@Test
 	public void testClassKeyLetterSynchronization() throws Exception {
 		IProject project = TestingUtilities
 				.createProject("testClassKeyLetterSynchronization");

@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
- File:      $RCSfile: generate.xml,v $
- Version:   $Revision: 1.36.6.1 $
- Modified:  $Date: 2013/07/31 21:17:38 $
-
- (c) Copyright 2004-2014 by Mentor Graphics Corp.  All rights reserved.
+ File:      generate.xml
 
 -->
 <project name="bp.ui.properties" default="all" basedir=".">
@@ -20,7 +16,7 @@
 
   <property name="eclipse-home" value="${basedir}/../.."/>
   <property name="plugins-home" value="${ant.home}/../.."/>
-  <property name="util_bin_dir" value="${eclipse-home}/src/org.xtuml.bp.mc.c.binary/mc3020/bin"/>
+  <property name="util_bin_dir" value="${eclipse-home}/src/org.xtuml.bp.mc.c.source/mc3020/bin"/>
 
   <property environment="env"/>
 
@@ -88,50 +84,6 @@
           <fileset dir="src/org/xtuml/bp/ui/properties" includes="*PropertySource.java" />
         </PTCodeFormat>
   </target>
-
-  <!-- COMPILE TARGETS -->
-
-  <!-- This target is not used in the eclipse environment.  The eclipse Java
-       builder handles the java compilation when building BridgePoint under
-       eclipse.  This target is used only when building BridgePoint from the
-       command line on the build server. -->
-  <target name="compile"
-                  description="Compile project" >
-
-    <echo>Compiling ${ant.project.name}</echo>
-
-    <mkdir dir="../org.xtuml.bp.ui.properties/bin" />
-
-    <javac memoryinitialsize="512m" memorymaximumsize="512m" source="1.6"
-        fork="yes" destdir="../org.xtuml.bp.ui.properties/bin"
-        debug="true" debuglevel="lines,vars,source" encoding="UTF-8">
-       <src path="../org.xtuml.bp.ui.properties/src/org/xtuml/bp/ui/properties" />
-       <classpath>
-         <pathelement path="../org.xtuml.bp.core/bin" />
-         <pathelement path="../org.xtuml.bp.ui.text/bin" />
-         <fileset dir="${eclipse-home}/plugins" casesensitive="yes">
-           <include name="**/org.eclipse.osgi_*.jar" />
-           <include name="**/org.eclipse.text_*.jar" />
-           <include name="**/org.eclipse.ui.workbench.texteditor_*.jar" />
-           <include name="**/org.eclipse.ui.editors_*.jar" />
-           <include name="**/org.eclipse.ui.views_*.jar" />
-           <include name="**/org.eclipse.ui_*.jar" />
-           <include name="**/org.eclipse.jface_*.jar" />
-           <include name="**/org.eclipse.core.runtime_*.jar" />
-           <include name="**/org.eclipse.core.resources_*.jar" />
-           <include name="**/org.eclipse.ui.workbench_*.jar" />
-           <include name="**/org.eclipse.ui.win32_*.jar" />
-           <include name="**/org.eclipse.swt.win32.win32.x86_*.jar" />
-           <include name="**/org.eclipse.ui.ide_*.jar" />
-           <include name="**/org.eclipse.equinox.common_*.jar"/>
-           <include name="**/org.eclipse.equinox.registry_*.jar"/>
-           <include name="**/org.eclipse.core.commands_*.jar"/>
-         </fileset>
-       </classpath>
-    </javac>
-
-  </target>
-
 
   <!-- CLEAN TARGETS -->
 

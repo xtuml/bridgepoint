@@ -819,8 +819,13 @@ public class TestingUtilities {
 		String repository_location = System.getenv("XTUML_TEST_MODEL_REPOSITORY");
 		if (repository_location == null || repository_location.equals("")) {
 			// use the default location
-			testProjectPath = BaseTest.DEFAULT_XTUML_TEST_MODEL_REPOSITORY
-					+ "/" + testProject;
+			repository_location = BaseTest.DEFAULT_XTUML_TEST_MODEL_REPOSITORY;
+		}
+		if (testProject.equals("GPS Watch")) {
+			// GPS Watch is special. As of completion of DEI 7986, we have one 
+			// version that is used for testing and for distribution in the tool.
+			// This special case finds it in the proper home.
+			testProjectPath = repository_location + "/../applications/gps/" + testProject;				
 		} else {
 			testProjectPath = repository_location + "/" + testProject;
 		}

@@ -43,14 +43,12 @@ import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.ui.WorkbenchException;
-
 import org.xtuml.bp.core.ActionHome_c;
 import org.xtuml.bp.core.Action_c;
 import org.xtuml.bp.core.Body_c;
 import org.xtuml.bp.core.BridgeBody_c;
 import org.xtuml.bp.core.Bridge_c;
 import org.xtuml.bp.core.ClassStateMachine_c;
-import org.xtuml.bp.core.Component_c;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.DataType_c;
 import org.xtuml.bp.core.DerivedAttributeBody_c;
@@ -105,7 +103,8 @@ public class PersistableModelComponent implements Comparable {
     // and component type is determined by reading the header of the file.
     private String componentType;
 
-    protected IFile underlyingResource;
+    private IFile underlyingResource;
+    private ActionFile afm;
 
     // instance of ME when component is loaded otherwise it will be null;
     private NonRootModelElement componentRootME;
@@ -132,6 +131,7 @@ public class PersistableModelComponent implements Comparable {
 
         underlyingResource = ResourcesPlugin.getWorkspace().getRoot().getFile(
                 modelFilePath);
+        afm = new ActionFile(modelFilePath);
         if (PersistenceManager.findComponent(modelFilePath) != null)
             throw new WorkbenchException(
                     "Another component with same path already exists");
@@ -173,6 +173,7 @@ public class PersistableModelComponent implements Comparable {
         IPath modelFilePath = getChildPath(parent.getFullPath(), name);
         underlyingResource = ResourcesPlugin.getWorkspace().getRoot().getFile(
                 modelFilePath);
+        afm = new ActionFile(modelFilePath);
         checkComponentConsistancy(null);
         
         // we don't check if underlying resource exists for the case when the ME
@@ -198,6 +199,7 @@ public class PersistableModelComponent implements Comparable {
         
         underlyingResource = ResourcesPlugin.getWorkspace().getRoot().getFile(
                 getRootComponentPath(systemModel.getName()));
+        afm = new ActionFile(getRootComponentPath(systemModel.getName()));
          checkComponentConsistancy(null);
         
         componentRootME = systemModel;
@@ -219,6 +221,7 @@ public class PersistableModelComponent implements Comparable {
         componentRootME = systemModel;
         componentType = PersistenceManager.getHierarchyMetaData().getComponentType(systemModel);
       underlyingResource=ResourcesPlugin.getWorkspace().getRoot().getFile(new Path(dummyCompareName));
+        afm = new ActionFile(new Path(dummyCompareName));
         setComponent(systemModel);
 
     }
@@ -487,7 +490,7 @@ public class PersistableModelComponent implements Comparable {
     }
     
     public boolean isLoaded() {
-        return !(componentRootME == null || componentRootME.isProxy());
+        return !(componentRootME == null);
     }
     
     public boolean isOrphaned(){
@@ -501,6 +504,13 @@ public class PersistableModelComponent implements Comparable {
     public IFile getFile() {
       if (underlyingResource != null)
         return underlyingResource;
+      else
+        return null;
+    }
+
+    public IFile getActionFile() {
+      if (afm != null)
+        return afm.getFile();
       else
         return null;
     }
@@ -546,7 +556,7 @@ public class PersistableModelComponent implements Comparable {
         }
     }
     
-    boolean persisting = false;
+    private boolean persisting = false;
 
     public boolean isPersisting(){
       return persisting;
@@ -580,6 +590,7 @@ public class PersistableModelComponent implements Comparable {
         }
 
         IFile file = getFile();
+        IFile actionFile = getActionFile();
 
         persisting = true;
         // create an export-factory and have it perform the persistence
@@ -587,7 +598,7 @@ public class PersistableModelComponent implements Comparable {
                 .getInstance();
         try {
             IRunnableWithProgress runnable = factory.create(componentRootME,
-                    file.getLocation().toString(), true);
+                    file.getLocation().toString(), actionFile.getLocation().toString(), true);
             runnable.run(monitor);
         
             // get Eclipse to notice that the model's file has changed on disk
@@ -643,7 +654,7 @@ public class PersistableModelComponent implements Comparable {
             throws CoreException {
         if (status == STATUS_LOADING) {
             // recursive call from some where
-            // any code causing cotrol to reach here should be addressed
+            // any code causing control to reach here should be addressed
             // probably it requires disabled lazy loading
             return;
           }
@@ -682,6 +693,14 @@ public class PersistableModelComponent implements Comparable {
     	// do not load if the persistence version is not acceptable
     	if(!PersistenceManager.isPersistenceVersionAcceptable(this)) {
     		return;
+    	}
+    	
+    	// Make sure the parent PMC is loaded before trying to load this PMC
+    	PersistableModelComponent parent_pmc = getParent();
+    	if ( null != parent_pmc ) {
+    		if ( !parent_pmc.isLoaded() ) {
+    			parent_pmc.load(monitor, parseOal, reload);
+    		}
     	}
     	
         int oldStatus = status;
@@ -762,18 +781,21 @@ public class PersistableModelComponent implements Comparable {
             }
         }
         if(rootME != null){
-            if (rootME == null) {
-                throw new WorkbenchException(
-                        "Component's Root Model Element does not exist:"
-                        + getFullPath());
-            }
             if( ! (rootME instanceof SystemModel_c )) {
                 NonRootModelElement myParentRootME = PersistenceManager.getHierarchyMetaData().getParentComponentRootModelElement(rootME,false);
                 if (myParentRootME != null){// in case of component is being created and not yet relate with others.
                     PersistableModelComponent myParentPMC = myParentRootME.getPersistableComponent();
                     if (myParentPMC != getParent()){
+                    	String parentName = "null";
+                    	if (myParentPMC != null) {
+                    		parentName = myParentPMC.getName();
+                    	}
+                    	String childName = "null";
+                    	if (getParent() != null) {
+                    		childName = getParent().getName();
+                    	}
                         throw new WorkbenchException(
-                                "Component's Parent child ID Mismatch:" 
+                                "Component's Parent (" + parentName + ") and child (" + childName + ") ID Mismatch. Full path: " 
                                 + getFullPath());
                     }
                 }
@@ -794,13 +816,13 @@ public class PersistableModelComponent implements Comparable {
             }
             else if(fileNameWithoutExtension != null && ! fileNameWithoutExtension.equals(CoreUtil.getName(rootME))){
                 throw new WorkbenchException(
-                        "Component's file name and root model element name does not match:"
+                        "Component's file name (" + fileNameWithoutExtension + ") and root model element name (" + CoreUtil.getName(rootME) + ")does not match. Full path: "
                         + getFullPath());
             }
         }
     }
 
-    private IModelImport createImporter(IFile file, Ooaofooa modelRoot,
+    private IModelImport createImporter(IFile file, IFile actionFile, Ooaofooa modelRoot,
             boolean parseOal) throws IOException {
         if (!file.exists() ) {
             // can't import file from a closed project or that doesn't exist
@@ -813,14 +835,14 @@ public class PersistableModelComponent implements Comparable {
             modelRoot = Ooaofooa.getInstance(getUniqueID());
         }
         
-        return factory.create(file, modelRoot, this, parseOal, true, true,
+        return factory.create(file, actionFile, modelRoot, this, parseOal, true, true,
                 false);
     }
     
     private IModelImport createImporter(Ooaofooa modelRoot, boolean parseOal)
             throws IOException {
 
-        return createImporter(getFile(), modelRoot, parseOal);
+        return createImporter(getFile(), getActionFile(), modelRoot, parseOal);
     }
     
     public PersistableModelComponent getDomainComponent() {
@@ -859,7 +881,7 @@ public class PersistableModelComponent implements Comparable {
 
     private String getComponentType(IFile componentFile) throws CoreException {
         try {
-            IModelImport im = createImporter(componentFile, null, false);
+            IModelImport im = createImporter(componentFile, null, null, false);
             if (im == null) {
                 // we're trying to load a file in a closed project
                 return "";
@@ -1056,6 +1078,7 @@ public class PersistableModelComponent implements Comparable {
     public void updateResource(IFile newFile) {
         updateResource(newFile, getChildren());
     }
+
     private void updateResource(IFile newFile, Collection children) {
         // remap component as key(path) has been changed
         NonRootModelElement thisMe = getRootModelElement();
@@ -1070,22 +1093,11 @@ public class PersistableModelComponent implements Comparable {
         }
         PersistenceManager.removeComponent(this);
         underlyingResource = newFile;
+        afm.updateFiles(newFile.getFullPath());
         PersistenceManager.addComponent(this);
         if (thisMe != null && thisMe.isProxy()) {
             thisMe.updateContentPath(underlyingResource.getFullPath());
         }
-    }
-
-    public static void ensureCoreDataTypesAvailable(ModelRoot modelRoot) {
-    	//TODO: BOB REmove this obsolete function
-    }    
-
-    public static void ensureSystemCoreDataTypesAvailable(final SystemModel_c system) {
-    	//TODO: BOB REmove this obsolete function
-    }
-    
-    public static void ensureComponentCoreDataTypesAvailable(Component_c component) {
-    	//TODO: BOB REmove this obsolete function
     }
     
     public static void ensureDataTypesAvailable(ModelRoot modelRoot) {

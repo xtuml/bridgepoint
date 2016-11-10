@@ -91,6 +91,10 @@ ${bphomedir}/eclipse/eclipse ${eclipse_args} ${import_cmd} -data "${workspace}"
 # The import calls will have created the .metadata folder
 mkdir -p ${workspace}/.metadata/bridgepoint/build/log
 
+# Build the MASL plugins using maven.
+cd "${git_bp}/src/org.xtuml.bp.xtext.masl.parent"
+mvn clean install
+
 build "${perform_clean}" ""
 RETVAL=$?
 if [ $RETVAL -ne 0 ]; then
@@ -104,5 +108,4 @@ if [ $RETVAL -ne 0 ]; then
   echo "The second build FAILED."
   exit 1
 fi
-
 

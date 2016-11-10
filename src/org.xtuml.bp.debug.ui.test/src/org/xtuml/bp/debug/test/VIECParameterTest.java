@@ -30,7 +30,10 @@ import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.MenuItem;
-
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.ComponentInstance_c;
 import org.xtuml.bp.core.ComponentReference_c;
 import org.xtuml.bp.core.CorePlugin;
@@ -48,9 +51,11 @@ import org.xtuml.bp.debug.ui.launch.BPDebugUtils;
 import org.xtuml.bp.debug.ui.test.DebugUITestUtilities;
 import org.xtuml.bp.test.TestUtil;
 import org.xtuml.bp.test.common.BaseTest;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.test.common.TestingUtilities;
 import org.xtuml.bp.test.common.UITestingUtilities;
 
+@RunWith(OrderedRunner.class)
 public class VIECParameterTest extends BaseTest {
 	private static String projectName = "dts0100959004";
 
@@ -58,12 +63,13 @@ public class VIECParameterTest extends BaseTest {
 	private boolean deterministicState = true;
 
 
-	public VIECParameterTest(String testName) throws Exception {
-		super(null,testName);
+	public VIECParameterTest() throws Exception {
+		super(null, null);
 	}
 
 	@Override
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		super.setUp();
 		if (!initialized){
 			
@@ -104,6 +110,7 @@ public class VIECParameterTest extends BaseTest {
 		}
 	}
 	
+	@After
 	public void tearDown() throws Exception {
 		// terminate all launches
 		DebugUITestUtilities.terminateAllProcesses(m_sys);
@@ -122,6 +129,7 @@ public class VIECParameterTest extends BaseTest {
 	}
 	
 	
+	@Test
 	public void testPassingValuesToParameterList() {
 		ModelRoot[] roots = Ooaofooa.getInstancesUnderSystem(projectName);
 		
@@ -160,7 +168,7 @@ public class VIECParameterTest extends BaseTest {
 			expectedConsoleText = expectedConsoleText.replace("\r", "");
 		}
 
-		String actualConsoleText = DebugUITestUtilities.getConsoleText("null");
+		String actualConsoleText = DebugUITestUtilities.getConsoleText();
 		assertEquals(expectedConsoleText, actualConsoleText);
 		
 	}

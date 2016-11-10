@@ -1,0 +1,216 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>4.1. Service, Function and State Declarations</title>
+<link rel="stylesheet" type="text/css" href="docbook.css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
+<meta name="keywords" content="MASL, Action Language, Action Semantics, UML, Unified Modelling Language, Shlaer Mellor">
+<link rel="home" href="index.html" title="MASL Reference Manual">
+<link rel="up" href="section.Services.html" title="Chapter 4. Services, Functions and State Actions">
+<link rel="prev" href="section.Services.html" title="Chapter 4. Services, Functions and State Actions">
+<link rel="next" href="section.Services.Definition.html" title="4.2. Service, Function and State Action Definitions">
+<link rel="chapter" href="section.LexicalStructure.html" title="Chapter 1. Lexical Structure">
+<link rel="chapter" href="section.Types.html" title="Chapter 2. Type System">
+<link rel="chapter" href="section.Domains.html" title="Chapter 3. Domains">
+<link rel="chapter" href="section.Services.html" title="Chapter 4. Services, Functions and State Actions">
+<link rel="chapter" href="section.Relationships.html" title="Chapter 5. Relationships">
+<link rel="chapter" href="section.Exceptions.html" title="Chapter 6. Exceptions">
+<link rel="chapter" href="section.Terminators.html" title="Chapter 7. Terminators">
+<link rel="chapter" href="section.Objects.html" title="Chapter 8. Objects">
+<link rel="chapter" href="section.Statements.html" title="Chapter 9. Statements">
+<link rel="chapter" href="section.Expressions.html" title="Chapter 10. Expressions">
+<link rel="chapter" href="section.Projects.html" title="Chapter 11. Projects">
+<link rel="chapter" href="section.Pragmas.html" title="Chapter 12. Pragmas">
+<link rel="appendix" href="AlphabeticalSyntaxReference.html" title="Appendix A. Alphabetical Syntax Reference">
+<link rel="index" href="ix01.html" title="Index">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div align="center">OFFICIAL</div>
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center">4.1. Service, Function and State Declarations</th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="section.Services.html">Prev</a> </td>
+<th width="60%" align="center">Chapter 4. Services, Functions and State Actions</th>
+<td width="20%" align="right"> <a accesskey="n" href="section.Services.Definition.html">Next</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h2 class="title">
+<a name="section.Services.Declaration"></a>4.1. Service, Function and State Declarations</h2></div></div></div>
+<p>to do</p>
+<table width="100%" cellpadding="5" bgcolor="#F5DCB3" border="1" class="productionset" summary="EBNF"><tr><td><table border="0" width="99%" cellpadding="0" bgcolor="#F5DCB3" class="productionset" summary="EBNF productions">
+<tr>
+<td align="left" valign="top" width="3%">[65]</td>
+<td align="right" valign="top" width="10%"><a href="section.Domains.Services.html#ebnf.domainServiceDeclaration">domain service declaration</a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">[ <a href="section.Services.Declaration.html#ebnf.serviceVisibility">service visibility</a> ] , 'service' , <a href="section.Services.Declaration.html#ebnf.serviceName">service name</a> ,
+      <a href="section.Services.Declaration.html#ebnf.parameterList">parameter list</a> , ';' , <a href="section.Pragmas.html#ebnf.pragmaList">pragma list</a>;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[66]</td>
+<td align="right" valign="top" width="10%"><a href="section.Domains.Services.html#ebnf.domainFunctionDeclaration">domain function declaration</a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">[ <a href="section.Services.Declaration.html#ebnf.serviceVisibility">service visibility</a> ] , 'function' , <a href="section.Services.Declaration.html#ebnf.serviceName">service name</a> ,
+      <a href="section.Services.Declaration.html#ebnf.parameterList">parameter list</a> , 'return' , <a href="section.Services.Declaration.html#ebnf.returnType">return type</a> , ';' , <a href="section.Pragmas.html#ebnf.pragmaList">pragma list</a>;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[96]</td>
+<td align="right" valign="top" width="10%"><a href="section.Terminators.Definition.html#ebnf.terminatorServiceDeclaration">terminator service declaration</a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">[ <a href="section.Services.Declaration.html#ebnf.serviceVisibility">service visibility</a> ] , 'service' , <a href="section.Services.Declaration.html#ebnf.serviceName">service name</a> ,
+      <a href="section.Services.Declaration.html#ebnf.parameterList">parameter list</a> , ';' , <a href="section.Pragmas.html#ebnf.pragmaList">pragma list</a>;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[97]</td>
+<td align="right" valign="top" width="10%"><a href="section.Terminators.Definition.html#ebnf.terminatorFunctionDeclaration">terminator function declaration</a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">[ <a href="section.Services.Declaration.html#ebnf.serviceVisibility">service visibility</a> ] , 'function' , <a href="section.Services.Declaration.html#ebnf.serviceName">service name</a> ,
+      <a href="section.Services.Declaration.html#ebnf.parameterList">parameter list</a> , 'return' , <a href="section.Services.Declaration.html#ebnf.returnType">return type</a> , ';' , <a href="section.Pragmas.html#ebnf.pragmaList">pragma list</a>;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[111]</td>
+<td align="right" valign="top" width="10%"><a href="section.Objects.Services.html#ebnf.objectServiceDeclaration">object service declaration</a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">[ <a href="section.Services.Declaration.html#ebnf.serviceVisibility">service visibility</a> ] , [ <a href="section.Objects.Services.html#ebnf.serviceType">service type</a> ] , 'service' ,
+      <a href="section.Services.Declaration.html#ebnf.serviceName">service name</a> , <a href="section.Services.Declaration.html#ebnf.parameterList">parameter list</a> , ';' , <a href="section.Pragmas.html#ebnf.pragmaList">pragma list</a>;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[112]</td>
+<td align="right" valign="top" width="10%"><a href="section.Objects.Services.html#ebnf.objectFunctionDeclaration">object function declaration</a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">[ <a href="section.Services.Declaration.html#ebnf.serviceVisibility">service visibility</a> ] , [ <a href="section.Objects.Services.html#ebnf.serviceType">service type</a> ] , 'function' ,
+      <a href="section.Services.Declaration.html#ebnf.serviceName">service name</a> , <a href="section.Services.Declaration.html#ebnf.parameterList">parameter list</a> , 'return' , <a href="section.Services.Declaration.html#ebnf.returnType">return type</a> , ';' , <a href="section.Pragmas.html#ebnf.pragmaList">pragma list</a>;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[116]</td>
+<td align="right" valign="top" width="10%"><a href="section.Objects.Lifecycles.html#ebnf.stateDeclaration">state declaration</a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">[ <a href="section.Services.Declaration.html#ebnf.stateType">state type</a> ] , 'state' , <a href="section.Services.Declaration.html#ebnf.stateName">state name</a> , <a href="section.Services.Declaration.html#ebnf.parameterList">parameter list</a> , ';' , <a href="section.Pragmas.html#ebnf.pragmaList">pragma list</a>;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[69]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.serviceVisibility"></a>service visibility</td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">'private' | 'public';</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[70]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.serviceName"></a>service name</td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="section.Tokenization.html#ebnf.Identifier">identifier</a>
+      ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[71]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.stateType"></a>state type</td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">'assigner' | 'assigner' , 'start' | 'creation' | 'terminal';</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[72]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.stateName"></a>state name</td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="section.Tokenization.html#ebnf.Identifier">identifier</a>
+      ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[73]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.parameterList"></a>parameter list</td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">'(' , [ <a href="section.Services.Declaration.html#ebnf.parameterDefinition">parameter definition</a> ] , { ',' , <a href="section.Services.Declaration.html#ebnf.parameterDefinition">parameter definition</a> } , ')';</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[74]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.parameterDefinition"></a>parameter definition</td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+<a href="section.Services.Declaration.html#ebnf.parameterName">parameter name</a> , ':' , <a href="section.Services.Declaration.html#ebnf.parameterMode">parameter mode</a> , <a href="section.Services.Declaration.html#ebnf.parameterType">parameter type</a>;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[75]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.parameterName"></a>parameter name</td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="section.Tokenization.html#ebnf.Identifier">identifier</a>
+      ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[76]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.parameterMode"></a>parameter mode</td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">'in' | 'out';</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[77]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.parameterType"></a>parameter type</td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="section.Types.Reference.html#ebnf.typeRef">type ref</a>
+      ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[78]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.returnType"></a>return type</td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="section.Types.Reference.html#ebnf.typeRef">type ref</a>
+      ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+</table></td></tr></table>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="section.Services.html">Prev</a> </td>
+<td width="20%" align="center"><a accesskey="u" href="section.Services.html">Up</a></td>
+<td width="40%" align="right"> <a accesskey="n" href="section.Services.Definition.html">Next</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left" valign="top">Chapter 4. Services, Functions and State Actions </td>
+<td width="20%" align="center">
+<a accesskey="h" href="index.html">Home</a> | <a accesskey="t" href="bk01-toc.html">ToC</a>
+</td>
+<td width="40%" align="right" valign="top"> 4.2. Service, Function and State Action Definitions</td>
+</tr>
+</table>
+</div>
+<div align="center">OFFICIAL</div>
+</body>
+</html>

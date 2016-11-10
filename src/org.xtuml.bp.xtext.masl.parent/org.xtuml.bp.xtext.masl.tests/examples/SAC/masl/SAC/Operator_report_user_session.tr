@@ -1,0 +1,4 @@
+private service SAC::Operator~>report_user_session (        session_id : in integer,        user_id : in integer,        login_time : in timestamp,        session_timed_out : in boolean,        workstation_hostname : in string,        login_name : in string) is 
+begin
+  null;
+end service;

@@ -33,11 +33,9 @@ import java.util.regex.Pattern;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jface.preference.IPreferenceStore;
-
-import antlr.RecognitionException;
-import antlr.TokenStreamException;
-import antlr.TokenStreamRecognitionException;
-
+import org.junit.After;
+import org.junit.Before;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.als.oal.OalLexer;
 import org.xtuml.bp.als.oal.OalParser;
 import org.xtuml.bp.als.oal.Oal_validate;
@@ -77,10 +75,16 @@ import org.xtuml.bp.core.common.BridgePointPreferencesStore;
 import org.xtuml.bp.core.common.ClassQueryInterface_c;
 import org.xtuml.bp.core.util.ContainerUtil;
 import org.xtuml.bp.test.common.BaseTest;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.test.common.TestingUtilities;
 import org.xtuml.bp.ui.canvas.test.CanvasTest;
 import org.xtuml.bp.ui.graphics.editor.GraphicalEditor;
 
+import antlr.RecognitionException;
+import antlr.TokenStreamException;
+import antlr.TokenStreamRecognitionException;
+
+@RunWith(OrderedRunner.class)
 public class ArrayBaseTest extends CanvasTest {
 	public static boolean generateResults = false;
 	private static boolean m_requiresClear = false;
@@ -109,7 +113,8 @@ public class ArrayBaseTest extends CanvasTest {
 		return "test_" + count;
 	}
 
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		super.setUp();
 	}
 
@@ -160,7 +165,8 @@ public class ArrayBaseTest extends CanvasTest {
 		populateArrayStateActionInstances();
 	}
 	
-	protected void tearDown() throws Exception {
+	@After
+	public void tearDown() throws Exception {
 		try {
 			super.tearDown();
 			ArrayBaseTest.tearDownActionData();
@@ -613,7 +619,7 @@ public class ArrayBaseTest extends CanvasTest {
 		} else
 			assertTrue(
 					"An instance with degree of freedom type \"T\" was not found.  Instance Name: "
-							+ element + ".", ele != "");
+							+ element + ".", !ele.isEmpty());
 		return ele;
 	}
 

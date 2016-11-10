@@ -82,7 +82,9 @@ import org.xtuml.bp.core.TimeSpan_c;
 import org.xtuml.bp.core.TimingMark_c;
 import org.xtuml.bp.core.Transition_c;
 import org.xtuml.bp.core.UserDataType_c;
+import org.xtuml.bp.core.ui.DeleteAction;
 import org.xtuml.bp.core.ui.IModelImport;
+import org.xtuml.bp.core.ui.Selection;
 import org.xtuml.bp.core.util.OoaofgraphicsUtil;
 import org.xtuml.bp.core.util.SupertypeSubtypeUtil;
 
@@ -227,7 +229,7 @@ public class ModelStreamProcessor {
 		// resolve RGOs
 		NonRootModelElement[] exportedElements = fImporter.getLoadedInstances();
 		for (int i = 0; i < exportedElements.length; i++) {
-			NonRootModelElement element = getRTOElementForResolution(exportedElements[i]);
+			NonRootModelElement element = exportedElements[i].getRTOElementForResolution();
 			// if the old proxy map contains an element
 			// we must use it to find the RGOs
 			NonRootModelElement oldProxy = fOldProxyMap
@@ -276,25 +278,6 @@ public class ModelStreamProcessor {
 			elements[i].batchUnrelate();
 			elements[i].delete_unchecked();
 			monitor.worked(1);
-		}
-	}
-
-	private NonRootModelElement getRTOElementForResolution(
-			NonRootModelElement element) {
-		if (element instanceof UserDataType_c) {
-			DataType_c dt = DataType_c
-					.getOneS_DTOnR17((UserDataType_c) element);
-			return dt;
-		} else if (element instanceof StructuredDataType_c) {
-			DataType_c dt = DataType_c
-					.getOneS_DTOnR17((StructuredDataType_c) element);
-			return dt;
-		} else if (element instanceof EnumerationDataType_c) {
-			DataType_c dt = DataType_c
-					.getOneS_DTOnR17((EnumerationDataType_c) element);
-			return dt;
-		} else {
-			return element;
 		}
 	}
 
@@ -707,6 +690,7 @@ public class ModelStreamProcessor {
 		callPasteOperations(monitor);
 		setComponents();
 		callResolutionOperations(monitor);
+		
 	}
 
 	public IModelImport getImporter() {

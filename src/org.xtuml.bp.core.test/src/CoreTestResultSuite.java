@@ -1,7 +1,7 @@
+import org.xtuml.bp.core.test.CoreTestResultCreator;
+
 import junit.framework.Test;
 import junit.framework.TestSuite;
-
-import org.xtuml.bp.core.test.CoreTestResultCreator;
 
 public class CoreTestResultSuite extends TestSuite {
 

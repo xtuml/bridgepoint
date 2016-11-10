@@ -73,6 +73,7 @@ This file is the plugin manifest for the BridgePoint core plugin.
    <extension point = "org.eclipse.ui.elementFactories">
        <factory id ="org.xtuml.bp.ui.text.activity.factory" class="org.xtuml.bp.ui.text.activity.ActivityEditorInputFactory"/>
        <factory id ="org.xtuml.bp.ui.text.description.factory" class="org.xtuml.bp.ui.text.description.DescriptionEditorInputFactory"/>
+       <factory id ="org.xtuml.bp.ui.text.masl.factory" class="org.xtuml.bp.ui.text.masl.MASLEditorInputFactory"/>
    </extension>
 
    <extension
@@ -166,6 +167,115 @@ This file is the plugin manifest for the BridgePoint core plugin.
 .end for
    </extension>
    <extension
+         id="org.xtuml.bp.ui.text.MASLEditorAction"
+         name="MASL Editor"
+         point="org.eclipse.ui.popupMenus">
+      <objectContribution
+            objectClass="org.xtuml.bp.core.RequiredOperation_c"
+            adaptable="true"
+            id="org.xtuml.bp.ui.text.contribution1">
+         <action
+               label="MASL Editor"
+               icon="platform:/plugin/org.xtuml.bp.core/icons/edit_oal.gif"
+               class="org.xtuml.bp.ui.text.masl.ShowMASLAction"
+               menubarPath="org.xtuml.bp.ui.openroot/org.xtuml.bp.ui.openmenu"
+               enablesFor="1"
+               id="org.xtuml.bp.ui.text.masl.ShowMASLEditorAction1">
+         </action>
+      </objectContribution>
+      <objectContribution
+            objectClass="org.xtuml.bp.core.RequiredSignal_c"
+            adaptable="true"
+            id="org.xtuml.bp.ui.text.contribution2">
+         <action
+               label="MASL Editor"
+               icon="platform:/plugin/org.xtuml.bp.core/icons/edit_oal.gif"
+               class="org.xtuml.bp.ui.text.masl.ShowMASLAction"
+               menubarPath="org.xtuml.bp.ui.openroot/org.xtuml.bp.ui.openmenu"
+               enablesFor="1"
+               id="org.xtuml.bp.ui.text.masl.ShowMASLEditorAction2">
+         </action>
+      </objectContribution>
+      <objectContribution
+            objectClass="org.xtuml.bp.core.ProvidedOperation_c"
+            adaptable="true"
+            id="org.xtuml.bp.ui.text.contribution3">
+         <action
+               label="MASL Editor"
+               icon="platform:/plugin/org.xtuml.bp.core/icons/edit_oal.gif"
+               class="org.xtuml.bp.ui.text.masl.ShowMASLAction"
+               menubarPath="org.xtuml.bp.ui.openroot/org.xtuml.bp.ui.openmenu"
+               enablesFor="1"
+               id="org.xtuml.bp.ui.text.masl.ShowMASLEditorAction3">
+         </action>
+      </objectContribution>
+      <objectContribution
+            objectClass="org.xtuml.bp.core.ProvidedSignal_c"
+            adaptable="true"
+            id="org.xtuml.bp.ui.text.contribution4">
+         <action
+               label="MASL Editor"
+               icon="platform:/plugin/org.xtuml.bp.core/icons/edit_oal.gif"
+               class="org.xtuml.bp.ui.text.masl.ShowMASLAction"
+               menubarPath="org.xtuml.bp.ui.openroot/org.xtuml.bp.ui.openmenu"
+               enablesFor="1"
+               id="org.xtuml.bp.ui.text.masl.ShowMASLEditorAction4">
+         </action>
+      </objectContribution>
+      <objectContribution
+            objectClass="org.xtuml.bp.core.Bridge_c"
+            adaptable="true"
+            id="org.xtuml.bp.ui.text.contribution5">
+         <action
+               label="MASL Editor"
+               icon="platform:/plugin/org.xtuml.bp.core/icons/edit_oal.gif"
+               class="org.xtuml.bp.ui.text.masl.ShowMASLAction"
+               menubarPath="org.xtuml.bp.ui.openroot/org.xtuml.bp.ui.openmenu"
+               enablesFor="1"
+               id="org.xtuml.bp.ui.text.masl.ShowMASLEditorAction5">
+         </action>
+      </objectContribution>
+      <objectContribution
+            objectClass="org.xtuml.bp.core.Function_c"
+            adaptable="true"
+            id="org.xtuml.bp.ui.text.contribution6">
+         <action
+               label="MASL Editor"
+               icon="platform:/plugin/org.xtuml.bp.core/icons/edit_oal.gif"
+               class="org.xtuml.bp.ui.text.masl.ShowMASLAction"
+               menubarPath="org.xtuml.bp.ui.openroot/org.xtuml.bp.ui.openmenu"
+               enablesFor="1"
+               id="org.xtuml.bp.ui.text.masl.ShowMASLEditorAction6">
+         </action>
+      </objectContribution>
+      <objectContribution
+            objectClass="org.xtuml.bp.core.Operation_c"
+            adaptable="true"
+            id="org.xtuml.bp.ui.text.contribution7">
+         <action
+               label="MASL Editor"
+               icon="platform:/plugin/org.xtuml.bp.core/icons/edit_oal.gif"
+               class="org.xtuml.bp.ui.text.masl.ShowMASLAction"
+               menubarPath="org.xtuml.bp.ui.openroot/org.xtuml.bp.ui.openmenu"
+               enablesFor="1"
+               id="org.xtuml.bp.ui.text.masl.ShowMASLEditorAction7">
+         </action>
+      </objectContribution>
+      <objectContribution
+            objectClass="org.xtuml.bp.core.StateMachineState_c"
+            adaptable="true"
+            id="org.xtuml.bp.ui.text.contribution8">
+         <action
+               label="MASL Editor"
+               icon="platform:/plugin/org.xtuml.bp.core/icons/edit_oal.gif"
+               class="org.xtuml.bp.ui.text.masl.ShowMASLAction"
+               menubarPath="org.xtuml.bp.ui.openroot/org.xtuml.bp.ui.openmenu"
+               enablesFor="1"
+               id="org.xtuml.bp.ui.text.masl.ShowMASLEditorAction8">
+         </action>
+      </objectContribution>
+   </extension>
+   <extension
          id="org.xtuml.bp.ui.text.editors"
          name="Text Editors"
          point="org.xtuml.bp.core.editors">
@@ -174,7 +284,7 @@ This file is the plugin manifest for the BridgePoint core plugin.
             class="org.xtuml.bp.ui.text.activity.ActivityEditor">
 .assign dflt_oal_obj_set = oal_obj_set
 .assign dflt_oal_obj_set = dflt_oal_obj_set - canvas_oal_obj_set
-.select any attribute_class from instances of O_OBJ where selected.Key_Lett == "O_ATTR"
+.select any attribute_class from instances of O_OBJ where (selected.Key_Lett == "O_ATTR")
 .assign dflt_oal_obj_set = dflt_oal_obj_set
 .assign index = 0
 .for each obj in dflt_oal_obj_set

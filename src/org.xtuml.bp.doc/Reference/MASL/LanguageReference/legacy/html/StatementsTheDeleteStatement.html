@@ -1,0 +1,145 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>12.17. The Delete Statement</title>
+<link rel="stylesheet" type="text/css" href="docbook.css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
+<meta name="keywords" content="MASL, Action Language, Action Semantics, UML, Unified Modelling Language, Shlaer Mellor">
+<link rel="home" href="index.html" title="MASL Reference Manual">
+<link rel="up" href="Statements.html" title="Chapter 12. Statements">
+<link rel="prev" href="StatementsTheRaiseStatement.html" title="12.16. The Raise Statement">
+<link rel="next" href="StatementsTheDelayStatement.html" title="12.18. The Delay Statement">
+<link rel="preface" href="preface.html" title="Preface">
+<link rel="chapter" href="Grammars.html" title="Chapter 1. Grammars">
+<link rel="chapter" href="LexicalStructure.html" title="Chapter 2. Lexical Structure">
+<link rel="chapter" href="Types.html" title="Chapter 3. Types">
+<link rel="chapter" href="TypeConversion.html" title="Chapter 4. Type Conversion">
+<link rel="chapter" href="Domains.html" title="Chapter 5. Domains">
+<link rel="chapter" href="Objects.html" title="Chapter 6. Objects">
+<link rel="chapter" href="Relationships.html" title="Chapter 7. Relationships">
+<link rel="chapter" href="Lifecycles.html" title="Chapter 8. Lifecycles">
+<link rel="chapter" href="Functions.html" title="Chapter 9. Functions">
+<link rel="chapter" href="Services.html" title="Chapter 10. Services">
+<link rel="chapter" href="Exceptions.html" title="Chapter 11. Exceptions">
+<link rel="chapter" href="Statements.html" title="Chapter 12. Statements">
+<link rel="chapter" href="Names.html" title="Chapter 13. Names">
+<link rel="chapter" href="Expressions.html" title="Chapter 14. Expressions">
+<link rel="appendix" href="LanguageDefinedCharacteristics.html" title="Appendix A. Language Defined Characteristics">
+<link rel="appendix" href="SyntaxSummary.html" title="Appendix B. Syntax Summary">
+<link rel="index" href="ix01.html" title="Index">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div align="center">OFFICIAL</div>
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center">12.17. The Delete Statement</th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="StatementsTheRaiseStatement.html">Prev</a> </td>
+<th width="60%" align="center">Chapter 12. Statements</th>
+<td width="20%" align="right"> <a accesskey="n" href="StatementsTheDelayStatement.html">Next</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h2 class="title">
+<a name="StatementsTheDeleteStatement"></a>12.17. The Delete Statement</h2></div></div></div>
+<p>
+A <a class="link" href="StatementsTheDeleteStatement.html#ebnf.deletestatement"><code class="literal">delete</code></a> statement
+<a class="indexterm" name="idp69719632"></a>
+<a class="indexterm" name="idp69721376"></a>
+allows instances of objects to be deleted.
+</p>
+<a class="indexterm" name="idp69722864"></a><a class="indexterm" name="idp69724032"></a><a class="indexterm" name="idp69725328"></a><a class="indexterm" name="idp69726496"></a><table width="100%" cellpadding="5" bgcolor="#F5DCB3" border="1" class="productionset" summary="EBNF"><tr><td><table border="0" width="99%" cellpadding="0" bgcolor="#F5DCB3" class="productionset" summary="EBNF productions"><tr>
+<td align="left" valign="top" width="3%">[176]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.deletestatement"></a>
+        delete statement
+    </td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        ('delete',
+        <a href="Names.html#ebnf.name">name</a>,
+        ';') |
+        ('delete', 'this', ';')
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr></table></td></tr></table>
+<p>
+When a delete on a <a class="link" href="Names.html" title="Chapter 13. Names"><span class="emphasis"><em>name</em></span></a>
+<a class="indexterm" name="idp69731888"></a>
+is specified the <a class="link" href="Names.html" title="Chapter 13. Names"><span class="emphasis"><em>name</em></span></a>
+<a class="indexterm" name="idp69733632"></a>
+must be an instance or an instance
+<a class="link" href="TypesCollectionTypes.html" title="3.3. Collection Types">collection type</a>.
+<a class="indexterm" name="idp69735264"></a>
+In each case the
+delete will set the <a class="link" href="Names.html" title="Chapter 13. Names"><span class="emphasis"><em>name</em></span></a>
+<a class="indexterm" name="idp69737024"></a>
+to a null or empty collection respectively.
+</p>
+<p>
+When an instance of an object is deleted, it is no longer available to the
+domain where the object is defined.
+</p>
+<p>
+If an instance collection
+<a class="indexterm" name="idp69738960"></a>
+is used, then all the instances specified will be
+deleted. Deletion of an instance will not cause the deletion of any attached
+relationships. The analyst must explicitly unlink relationships, or the case of
+associative objects, unassociate relationships before deleting
+the participating object instances.
+</p>
+<p>
+A compile-time error occurs if an attempt to delete
+<a class="link" href="Names.html" title="Chapter 13. Names"><code class="literal">this</code></a>
+<a class="indexterm" name="idp69741920"></a>
+is made in a non-terminal state.
+<a class="indexterm" name="idp69742960"></a>
+A <a class="link" href="StatementsTheDeleteStatement.html#ebnf.deletestatement"><code class="literal">delete</code></a>
+statement is
+<a class="indexterm" name="idp69745152"></a>
+executed by evaluating the
+<a class="link" href="ExpressionsInstanceandInstanceCollectionExpressions.html" title="14.14. Instance and Instance Collection Expressions">instance expression</a>
+<a class="indexterm" name="idp69746944"></a>
+or the instance collection expression. If this evaluation completes abruptly,
+<a class="indexterm" name="idp69748352"></a>
+then the
+<a class="link" href="StatementsTheDeleteStatement.html#ebnf.deletestatement"><code class="literal">delete</code></a>
+<a class="indexterm" name="idp69750096"></a>
+completes abruptly
+<a class="indexterm" name="idp69751120"></a>
+for the same reason; no instances are deleted. The instance or instances
+determined by the
+<a class="link" href="ExpressionsInstanceandInstanceCollectionExpressions.html" title="14.14. Instance and Instance Collection Expressions">instance expression</a>
+<a class="indexterm" name="idp69752848"></a>
+or instance collection
+<a class="indexterm" name="idp69754208"></a>
+expression are then deleted.
+</p>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="StatementsTheRaiseStatement.html">Prev</a> </td>
+<td width="20%" align="center"><a accesskey="u" href="Statements.html">Up</a></td>
+<td width="40%" align="right"> <a accesskey="n" href="StatementsTheDelayStatement.html">Next</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left" valign="top">12.16. The Raise Statement </td>
+<td width="20%" align="center">
+<a accesskey="h" href="index.html">Home</a> | <a accesskey="t" href="bk01-toc.html">ToC</a>
+</td>
+<td width="40%" align="right" valign="top"> 12.18. The Delay Statement</td>
+</tr>
+</table>
+</div>
+<div align="center">OFFICIAL</div>
+</body>
+</html>

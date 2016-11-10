@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: BridgePoint Explorer Plug-in
 Bundle-SymbolicName: org.xtuml.bp.ui.explorer; singleton:=true
-Bundle-Version: 5.2.0
+Bundle-Version: 5.5.0
 Bundle-ClassPath: explorer.jar
 Bundle-Activator: org.xtuml.bp.ui.explorer.ExplorerPlugin
 Bundle-Vendor: xtUML.org
@@ -21,3 +21,5 @@ Require-Bundle: org.eclipse.core.runtime,
  org.xtuml.bp.ui.properties
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Import-Package: org.xtuml.bp.ui.text.activity,
+ org.xtuml.bp.ui.text.masl

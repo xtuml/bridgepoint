@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+<plugin>
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated MaslStructure -->
+      <package
+            uri="http://www.xtuml.org/bp/xtext/masl/MASLStructure"
+            class="org.xtuml.bp.xtext.masl.masl.structure.StructurePackage"
+            genModel="model/MaslStructure.xcore"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated MaslBehavior -->
+      <package
+            uri="http://www.xtuml.org/bp/xtext/masl/MASLBehavior"
+            class="org.xtuml.bp.xtext.masl.masl.behavior.BehaviorPackage"
+            genModel="model/MaslBehavior.xcore"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated MaslTypes -->
+      <package
+            uri="http://www.xtuml.org/bp/xtext/masl/MASLTypes"
+            class="org.xtuml.bp.xtext.masl.masl.types.TypesPackage"
+            genModel="model/MaslTypes.xcore"/>
+   </extension>
+
+   <extension
+         point="org.eclipse.emf.ecore.uri_mapping">
+      <mapping
+            source="lib:/BuiltinLibrary.int"
+            target="platform:/plugin/org.xtuml.bp.xtext.masl/org/xtuml/bp/xtext/masl/lib/BuiltinLibrary.int">
+      </mapping>
+   </extension>
+</plugin>

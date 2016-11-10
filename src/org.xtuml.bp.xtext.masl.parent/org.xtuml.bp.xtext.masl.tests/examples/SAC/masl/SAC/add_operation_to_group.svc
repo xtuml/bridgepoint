@@ -1,0 +1,28 @@
+public service SAC::add_operation_to_group (        group_name : in string,        operations : in sequence of string) is 
+the_group : instance of Group;
+the_operation : instance of Operation;
+group_operation : instance of Group_Operation;
+
+begin
+   
+   the_group := find_one Group(group_name = group_name);
+   if the_group = null then
+      the_group := create unique Group(group_name => group_name);
+      Operator~>report_group(group_name);
+   end if;
+   
+   for an_operation in operations'elements loop
+      the_operation := find_one Operation(operation_name = an_operation);
+      if the_operation = null then
+         the_operation := create unique Operation(operation_name => an_operation);
+      end if;
+      group_operation := the_group with the_operation -> R1.Group_Operation;
+      if group_operation = null then
+         group_operation := create Group_Operation(group_id => the_group.group_id, 
+                                                         operation_id => the_operation.operation_id);
+         link the_group R1 the_operation using group_operation;
+         Operator~>report_group_operation(group_name, an_operation);
+      end if;
+   end loop;
+   
+end service;

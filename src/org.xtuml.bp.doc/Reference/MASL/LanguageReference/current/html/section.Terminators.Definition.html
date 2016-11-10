@@ -1,0 +1,283 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>7.1. Definition</title>
+<link rel="stylesheet" type="text/css" href="docbook.css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
+<meta name="keywords" content="MASL, Action Language, Action Semantics, UML, Unified Modelling Language, Shlaer Mellor">
+<link rel="home" href="index.html" title="MASL Reference Manual">
+<link rel="up" href="section.Terminators.html" title="Chapter 7. Terminators">
+<link rel="prev" href="section.Terminators.html" title="Chapter 7. Terminators">
+<link rel="next" href="section.Objects.html" title="Chapter 8. Objects">
+<link rel="chapter" href="section.LexicalStructure.html" title="Chapter 1. Lexical Structure">
+<link rel="chapter" href="section.Types.html" title="Chapter 2. Type System">
+<link rel="chapter" href="section.Domains.html" title="Chapter 3. Domains">
+<link rel="chapter" href="section.Services.html" title="Chapter 4. Services, Functions and State Actions">
+<link rel="chapter" href="section.Relationships.html" title="Chapter 5. Relationships">
+<link rel="chapter" href="section.Exceptions.html" title="Chapter 6. Exceptions">
+<link rel="chapter" href="section.Terminators.html" title="Chapter 7. Terminators">
+<link rel="chapter" href="section.Objects.html" title="Chapter 8. Objects">
+<link rel="chapter" href="section.Statements.html" title="Chapter 9. Statements">
+<link rel="chapter" href="section.Expressions.html" title="Chapter 10. Expressions">
+<link rel="chapter" href="section.Projects.html" title="Chapter 11. Projects">
+<link rel="chapter" href="section.Pragmas.html" title="Chapter 12. Pragmas">
+<link rel="appendix" href="AlphabeticalSyntaxReference.html" title="Appendix A. Alphabetical Syntax Reference">
+<link rel="index" href="ix01.html" title="Index">
+<link rel="subsection" href="section.Terminators.Definition.html#section.Terminators.Service" title="7.1.1. Terminator Service">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div align="center">OFFICIAL</div>
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center">7.1. Definition</th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="section.Terminators.html">Prev</a> </td>
+<th width="60%" align="center">Chapter 7. Terminators</th>
+<td width="20%" align="right"> <a accesskey="n" href="section.Objects.html">Next</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h2 class="title">
+<a name="section.Terminators.Definition"></a>7.1. Definition</h2></div></div></div>
+<div class="toc"><dl class="toc">
+<dt><span class="section"><a href="section.Terminators.Definition.html#section.Terminators.Service">7.1.1. Terminator Service</a></span></dt>
+<dd><dl>
+<dt><span class="section"><a href="section.Terminators.Definition.html#section.Terminators.Service.Declaration">7.1.1.1. Declaration</a></span></dt>
+<dt><span class="section"><a href="section.Terminators.Definition.html#section.Terminators.Service.Definition">7.1.1.2. Declaration</a></span></dt>
+</dl></dd>
+</dl></div>
+<p>
+      Each terminator definition defines the services and functions that the enclosing domain wishes to provide or requires 
+      regarding one subject matter. 
+    </p>
+<table width="100%" cellpadding="5" bgcolor="#F5DCB3" border="1" class="productionset" summary="EBNF"><tr><td><table border="0" width="99%" cellpadding="0" bgcolor="#F5DCB3" class="productionset" summary="EBNF productions">
+<tr>
+<td align="left" valign="top" width="3%">[93]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.terminatorDefinition"></a>terminator definition</td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">'terminator' , <a href="section.Terminators.Definition.html#ebnf.terminatorName">terminator name</a> , 'is' , { <a href="section.Terminators.Definition.html#ebnf.terminatorItem">terminator item</a>
+      } , 'end' , [ 'terminator' ] , ';' , <a href="section.Pragmas.html#ebnf.pragmaList">pragma list</a>;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[94]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.terminatorName"></a>terminator name</td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="section.Tokenization.html#ebnf.Identifier">identifier</a>
+      ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[95]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.terminatorItem"></a>terminator item</td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+<a href="section.Terminators.Definition.html#ebnf.terminatorServiceDeclaration">terminator service declaration</a> | <a href="section.Terminators.Definition.html#ebnf.terminatorFunctionDeclaration">terminator function declaration</a>;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+</table></td></tr></table>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="section.Terminators.Service"></a>7.1.1. Terminator Service</h3></div></div></div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="section.Terminators.Service.Declaration"></a>7.1.1.1. Declaration</h4></div></div></div>
+<p>
+          A terminator service or function declaration declares that the domain wishes to publish a set of information about 
+          itself or that it requires certain information to be provided to it. The parameters on the service define what that 
+          information is, with published information contained in <code class="code">in</code> parameters, and required information contained 
+          in <code class="code">out</code> parameters or a function return value. Full details of service and function declarations are 
+          provided in <a class="xref" href="section.Services.Declaration.html" title="4.1. Service, Function and State Declarations">Section 4.1, “Service, Function and State Declarations”</a>.
+        </p>
+<table width="100%" cellpadding="5" bgcolor="#F5DCB3" border="1" class="productionset" summary="EBNF"><tr><td><table border="0" width="99%" cellpadding="0" bgcolor="#F5DCB3" class="productionset" summary="EBNF productions">
+<tr>
+<td align="left" valign="top" width="3%">[96]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.terminatorServiceDeclaration"></a>terminator service declaration</td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">[ <a href="section.Services.Declaration.html#ebnf.serviceVisibility">service visibility</a> ] , 'service' , <a href="section.Services.Declaration.html#ebnf.serviceName">service name</a> ,
+      <a href="section.Services.Declaration.html#ebnf.parameterList">parameter list</a> , ';' , <a href="section.Pragmas.html#ebnf.pragmaList">pragma list</a>;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[97]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.terminatorFunctionDeclaration"></a>terminator function declaration</td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">[ <a href="section.Services.Declaration.html#ebnf.serviceVisibility">service visibility</a> ] , 'function' , <a href="section.Services.Declaration.html#ebnf.serviceName">service name</a> ,
+      <a href="section.Services.Declaration.html#ebnf.parameterList">parameter list</a> , 'return' , <a href="section.Services.Declaration.html#ebnf.returnType">return type</a> , ';' , <a href="section.Pragmas.html#ebnf.pragmaList">pragma list</a>;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[69]</td>
+<td align="right" valign="top" width="10%"><a href="section.Services.Declaration.html#ebnf.serviceVisibility">service visibility</a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">'private' | 'public';</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[94]</td>
+<td align="right" valign="top" width="10%"><a href="section.Terminators.Definition.html#ebnf.terminatorName">terminator name</a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="section.Tokenization.html#ebnf.Identifier">identifier</a>
+      ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[70]</td>
+<td align="right" valign="top" width="10%"><a href="section.Services.Declaration.html#ebnf.serviceName">service name</a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="section.Tokenization.html#ebnf.Identifier">identifier</a>
+      ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[73]</td>
+<td align="right" valign="top" width="10%"><a href="section.Services.Declaration.html#ebnf.parameterList">parameter list</a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">'(' , [ <a href="section.Services.Declaration.html#ebnf.parameterDefinition">parameter definition</a> ] , { ',' , <a href="section.Services.Declaration.html#ebnf.parameterDefinition">parameter definition</a> } , ')';</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[74]</td>
+<td align="right" valign="top" width="10%"><a href="section.Services.Declaration.html#ebnf.parameterDefinition">parameter definition</a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+<a href="section.Services.Declaration.html#ebnf.parameterName">parameter name</a> , ':' , <a href="section.Services.Declaration.html#ebnf.parameterMode">parameter mode</a> , <a href="section.Services.Declaration.html#ebnf.parameterType">parameter type</a>;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[75]</td>
+<td align="right" valign="top" width="10%"><a href="section.Services.Declaration.html#ebnf.parameterName">parameter name</a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="section.Tokenization.html#ebnf.Identifier">identifier</a>
+      ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[76]</td>
+<td align="right" valign="top" width="10%"><a href="section.Services.Declaration.html#ebnf.parameterMode">parameter mode</a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">'in' | 'out';</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[77]</td>
+<td align="right" valign="top" width="10%"><a href="section.Services.Declaration.html#ebnf.parameterType">parameter type</a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="section.Types.Reference.html#ebnf.typeRef">type ref</a>
+      ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[78]</td>
+<td align="right" valign="top" width="10%"><a href="section.Services.Declaration.html#ebnf.returnType">return type</a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="section.Types.Reference.html#ebnf.typeRef">type ref</a>
+      ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+</table></td></tr></table>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="section.Terminators.Service.Definition"></a>7.1.1.2. Declaration</h4></div></div></div>
+<p>
+          A terminator service definition defines the action that will publish or provide the information provided or required by 
+          the declaration. Full details of action definitions are provided in <a class="xref" href="section.Services.Definition.html" title="4.2. Service, Function and State Action Definitions">Section 4.2, “Service, Function and State Action Definitions”</a>. 
+        </p>
+<table width="100%" cellpadding="5" bgcolor="#F5DCB3" border="1" class="productionset" summary="EBNF"><tr><td><table border="0" width="99%" cellpadding="0" bgcolor="#F5DCB3" class="productionset" summary="EBNF productions">
+<tr>
+<td align="left" valign="top" width="3%">[98]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.terminatorServiceDefinition"></a>terminator service definition</td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">[ <a href="section.Services.Declaration.html#ebnf.serviceVisibility">service visibility</a> ] , 'service' , <a href="section.Domains.Definition.html#ebnf.domainName">domain name</a> , '::' ,
+      <a href="section.Terminators.Definition.html#ebnf.terminatorName">terminator name</a> , '~&gt;' , <a href="section.Services.Declaration.html#ebnf.serviceName">service name</a> , <a href="section.Services.Declaration.html#ebnf.parameterList">parameter list</a> , 'is' , <a href="section.Services.Definition.html#ebnf.codeBlock">code block</a> , 'end' , [ 'service' ] , ';' ,
+      <a href="section.Pragmas.html#ebnf.pragmaList">pragma list</a>;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[99]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.terminatorFunctionDefinition"></a>terminator function definition</td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">[ <a href="section.Services.Declaration.html#ebnf.serviceVisibility">service visibility</a> ] , 'function' , <a href="section.Domains.Definition.html#ebnf.domainName">domain name</a> , '::'
+      , <a href="section.Terminators.Definition.html#ebnf.terminatorName">terminator name</a> , '~&gt;' , <a href="section.Services.Declaration.html#ebnf.serviceName">service name</a> , <a href="section.Services.Declaration.html#ebnf.parameterList">parameter list</a> , 'return' , <a href="section.Services.Declaration.html#ebnf.returnType">return type</a> , 'is' , <a href="section.Services.Definition.html#ebnf.codeBlock">code block</a> , 'end' , [ 'function' ] , ';' , <a href="section.Pragmas.html#ebnf.pragmaList">pragma list</a>;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[63]</td>
+<td align="right" valign="top" width="10%"><a href="section.Domains.Definition.html#ebnf.domainName">domain name</a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="section.Tokenization.html#ebnf.Identifier">identifier</a>
+      ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[94]</td>
+<td align="right" valign="top" width="10%"><a href="section.Terminators.Definition.html#ebnf.terminatorName">terminator name</a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="section.Tokenization.html#ebnf.Identifier">identifier</a>
+      ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[70]</td>
+<td align="right" valign="top" width="10%"><a href="section.Services.Declaration.html#ebnf.serviceName">service name</a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="section.Tokenization.html#ebnf.Identifier">identifier</a>
+      ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[79]</td>
+<td align="right" valign="top" width="10%"><a href="section.Services.Definition.html#ebnf.codeBlock">code block</a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">{ <a href="section.Statements.CodeBlock.html#ebnf.variableDeclaration">variable declaration</a> } , 'begin' , <a href="section.Statements.html#ebnf.statementSequence">statement sequence</a> , [
+      'exception' , { <a href="section.Statements.CodeBlock.html#ebnf.exceptionHandler">exception handler</a> } , [ <a href="section.Statements.CodeBlock.html#ebnf.otherHandler">other handler</a> ]
+      ];</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+</table></td></tr></table>
+</div>
+</div>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="section.Terminators.html">Prev</a> </td>
+<td width="20%" align="center"><a accesskey="u" href="section.Terminators.html">Up</a></td>
+<td width="40%" align="right"> <a accesskey="n" href="section.Objects.html">Next</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left" valign="top">Chapter 7. Terminators </td>
+<td width="20%" align="center">
+<a accesskey="h" href="index.html">Home</a> | <a accesskey="t" href="bk01-toc.html">ToC</a>
+</td>
+<td width="40%" align="right" valign="top"> Chapter 8. Objects</td>
+</tr>
+</table>
+</div>
+<div align="center">OFFICIAL</div>
+</body>
+</html>

@@ -3156,18 +3156,20 @@ if isInGenericPackage
   select one package related by containingElem->EP_PKG[R8001];
 
   // Check for Class keyletter match for token
+  allowIPRClasses = PREF::getSystemBoolean(systemName: ::getSystemName(),
+                     name:"bp.project.class_references");
   if not_empty component
     component.collectVisibleElementsForName(name:param.a3_text,
          type:ElementTypeConstants::CLASS,
                           originatingContainerID:component.Id,
                                    delegatingContainerID:GD::NULL_UNIQUE_ID(),
-                                                         collectGlobally:false);
+                                                         collectGlobally:allowIPRClasses);
   else
     package.collectVisibleElementsForName(name:param.a3_text,
          type:ElementTypeConstants::CLASS, descending:false,
                            originatingContainerID:package.Package_ID,
                                           delegatingPkgID:GD::NULL_UNIQUE_ID(),
-                                                         collectGlobally:false);
+                                                         collectGlobally:allowIPRClasses);
   end if;
   select any resultSet related by component->PE_CRS[R8007] where
                                     selected.Name == param.a3_text and 
@@ -6784,18 +6786,20 @@ if isInGenericPackage
   select one package related by containingElem->EP_PKG[R8001];
 
   // Check for Class keyletter match for token
+  allowIPRClasses = PREF::getSystemBoolean(systemName: ::getSystemName(),
+                     name:"bp.project.class_references");
   if not_empty component
     component.collectVisibleElementsForName(name:param.a3_text,
          type:ElementTypeConstants::ASSOCIATION,
                           originatingContainerID:component.Id,
                                    delegatingContainerID:GD::NULL_UNIQUE_ID(),
-                                                         collectGlobally:false);
+                                                         collectGlobally:allowIPRClasses);
   else
     package.collectVisibleElementsForName(name:param.a3_text,
          type:ElementTypeConstants::ASSOCIATION, descending:false,
                            originatingContainerID:package.Package_ID,
                                           delegatingPkgID:GD::NULL_UNIQUE_ID(),
-                                                         collectGlobally:false);
+                                                         collectGlobally:allowIPRClasses);
   end if;
   select any resultSet related by component->PE_CRS[R8007] where
                                      selected.Name == param.a3_text and 
@@ -10355,18 +10359,20 @@ if isInGenericPackage
   select one comp related by containingElem->C_C[R8001];
   select one pkg related by containingElem->EP_PKG[R8001];
   // Check for class keyletter match for token
+  allowIPRClasses = PREF::getSystemBoolean(systemName: ::getSystemName(),
+                     name:"bp.project.class_references");
   if not_empty comp
     comp.collectVisibleElementsForName(name:param.a3_text,
          type:ElementTypeConstants::CLASS,
                           originatingContainerID:comp.Id,
                                    delegatingContainerID:GD::NULL_UNIQUE_ID(),
-                                                         collectGlobally:false);
+                                                         collectGlobally:allowIPRClasses);
   else
     pkg.collectVisibleElementsForName(name:param.a3_text,
          type:ElementTypeConstants::CLASS, descending:false,
                            originatingContainerID:pkg.Package_ID,
                                           delegatingPkgID:GD::NULL_UNIQUE_ID(),
-                                                         collectGlobally:false);
+                                                         collectGlobally:allowIPRClasses);
   end if;
   select any resultSet related by comp->PE_CRS[R8007] where
                                       selected.Name == param.a3_text and 
@@ -10618,18 +10624,20 @@ if isInGenericPackage
   // invocation yet (we do that at the end when we know there are no duplicates)
   //
   // Check for class keyletter match for token
+  allowIPRClasses = PREF::getSystemBoolean(systemName: ::getSystemName(),
+                     name:"bp.project.class_references");
   if not_empty component
     component.collectVisibleElementsForName(name:identifier,
          type:ElementTypeConstants::CLASS,
                           originatingContainerID:component.Id,
                                    delegatingContainerID:GD::NULL_UNIQUE_ID(),
-                                                         collectGlobally:false);
+                                                         collectGlobally:allowIPRClasses);
   else
     package.collectVisibleElementsForName(name:identifier,
          type:ElementTypeConstants::CLASS, descending:false,
                            originatingContainerID:package.Package_ID,
                                           delegatingPkgID:GD::NULL_UNIQUE_ID(),
-                                                         collectGlobally:false);
+                                                         collectGlobally:allowIPRClasses);
   end if;
   select any resultSet related by component->PE_CRS[R8007] where
                                    selected.Name == identifier and 
@@ -16263,18 +16271,20 @@ if isInGenericPackage
   select one component related by containingElem->C_C[R8001];
   select one package related by containingElem->EP_PKG[R8001];
   // Check for function match for token
+  allowIPRClassesAndFuncs = PREF::getSystemBoolean(systemName: ::getSystemName(),
+                     name:"bp.project.class_references");
   if not_empty component
     component.collectVisibleElementsForName(name:param.a3_text,
          type:ElementTypeConstants::FUNCTION,
                           originatingContainerID:component.Id,
                                    delegatingContainerID:GD::NULL_UNIQUE_ID(),
-                                                         collectGlobally:false);
+                                                         collectGlobally:allowIPRClassesAndFuncs);
   else
     package.collectVisibleElementsForName(name:param.a3_text,
          type:ElementTypeConstants::FUNCTION, descending:false,
                            originatingContainerID:package.Package_ID,
                                           delegatingPkgID:GD::NULL_UNIQUE_ID(),
-                                                         collectGlobally:false);
+                                                         collectGlobally:allowIPRClassesAndFuncs);
   end if;
   select any resultSet related by component->PE_CRS[R8007] where
                                  selected.Name == param.a3_text and 
@@ -17333,15 +17343,21 @@ INSERT INTO S_SYNC
 	'ParserValidateFunction: TRUE',
 	's1 = ::get_var_in_scope( name:"Selected", rule_token: param.a1_rule_token );
 select any var from instances of V_VAR where (selected.Var_ID == s1 );
-var.dispose();
+if ( not_empty var )
+  var.dispose();
+end if;
 
 s2 = ::get_var_in_scope( name:"SELECTED", rule_token: param.a1_rule_token );
 select any var from instances of V_VAR where (selected.Var_ID == s2 );
-var.dispose();
+if ( not_empty var )
+  var.dispose();
+end if;
 
 s3 = ::get_var_in_scope( name:"selected", rule_token: param.a1_rule_token );
 select any var from instances of V_VAR where (selected.Var_ID == s3 );
-var.dispose();
+if ( not_empty var )
+  var.dispose();
+end if;
 
 current_scope = ::get_current_scope();
 select any blk from instances of ACT_BLK where (selected.Block_ID == current_scope);

@@ -1,0 +1,25 @@
+public service SAC::delete_group_operation (        group_name : in string,        operations : in sequence of string) is 
+the_group : instance of Group;
+the_operations : sequence of instance of Operation;
+the_operation : instance of Operation;
+the_group_operation : instance of Group_Operation;
+begin
+   
+   the_group := find_one Group(group_name = group_name);
+   if the_group /= null then
+      the_operations := the_group -> R1.Operation;
+      for an_operation in operations'elements loop
+         the_operation := find_one the_operations(operation_name = an_operation);
+         if the_operation /= null then
+            the_group_operation := the_group with the_operation -> R1.Group_Operation;
+            Operator~>group_operation_removed(group_name, the_operation.operation_name);
+            unlink the_group R1 the_operation using the_group_operation;
+            delete the_group_operation;
+         end if;
+         if (the_operation -> R1.Group)'length = 0 then
+            delete the_operation;
+         end if;
+      end loop;
+   end if;
+   
+end service;

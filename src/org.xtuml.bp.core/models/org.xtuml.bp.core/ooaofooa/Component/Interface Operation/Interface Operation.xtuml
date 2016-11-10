@@ -53,26 +53,10 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
-	'select one packageableElem related by self->C_EP[R4004]->C_I[R4003]->PE_PE[R8001];
-select one package related by packageableElem->EP_PKG[R8000];
-select one component related by packageableElem->C_C[R8003];
-select one system related by package->S_SYS[R1405];  
-  if (empty system)
-    rootCompIdInPkg = component.getRootComponentId();
-    select any rootComponent from instances of C_C where (selected.Id == rootCompIdInPkg);
-    select one system related by rootComponent->PE_PE[R8001]->EP_PKG[R8000]->S_SYS[R1405];
-  end if;
-
-select one interface related by self->C_EP[R4004]->C_I[R4003];
+	'select one interface related by self->C_EP[R4004]->C_I[R4003];
 interface.addInterfaceOperationToOrder(id:self.Id);
 
-  def_dt_id = GD::NULL_UNIQUE_ID();
-  if not_empty system
-    def_dt_id = system.getCoreTypeId(name:"void");
-  end if;
-  select any pe from instances of PE_PE where selected.Element_ID == def_dt_id;
-  select one def_dt related by pe->S_DT[R8001]; 
-  relate self to def_dt across R4008;
+self.setToDefaultDataType();
 
 name = "Unnamed Operation";
 success = ::getNewElementName(name:name,instance: self.convertToInstance(),validateName:true);    
@@ -566,11 +550,11 @@ if(not_empty system)
   sys_id = system.Sys_ID;
 end if;
 for each operation in operations
-  if(operation != self and operation.getSignature() == self.getSignature())
+  if(operation != self and operation.getSignature(flavor:0) == self.getSignature(flavor:0))
     MI_IM::createIssue(sys_id:sys_id, description:
                     "Found another operation under the same interface with a " +
                            "matching signature." + GD::newline() + GD::newline()
-                                          + "Signature: " + self.getSignature(),
+                                          + "Signature: " + self.getSignature(flavor:0),
                                        severity:Severity::Error, name:self.Name,
                            path:iface.getPath(path:self.Name, includeSelf:true),
                               id:self.Id, element:self.convertToInstance());
@@ -588,30 +572,150 @@ INSERT INTO O_TFR
 	1,
 	'/**
  *  Return a string representation of this operations signature
- *  signature = operation(param1_type, param2_type, param3_type)
+ *  with the specified flavor
+ *  0 = named parameters
+ *  1 = positional parameters
+ *  named signature = return_type operation(param1:type, param2:type, param3:type)
+ *  parameters for the named flavor are sorted alphanumerically
+ *  positional signature = return_type operation(param1_type, param2_type, param3_type)
  */
-signature = self.Name;
-count = 0;
-select many parameters related by self->C_EP[R4004]->C_PP[R4006];
-paramLength = cardinality parameters;
-if(paramLength > 0)
-  signature = signature + "(";
-end if;
-for each parameter in parameters
-  select one type related by parameter->S_DT[R4007];
-  if(count > 0 and count != paramLength - 1)
-    signature = signature + ", ";
+ 
+signature = "";
+
+// Get return type
+select one returntype related by self->S_DT[R4008];
+signature = signature + returntype.Name + " ";
+ 
+// Get name
+signature = signature + self.Name;
+
+// Get parameters
+
+if ( 1 == param.flavor )
+
+  // Get the first parameter.
+  select any parameter related by self->C_EP[R4004]->C_PP[R4006];
+  first_param = parameter;
+  while ( not_empty parameter )
+	first_param = parameter;
+	select one parameter related by parameter->C_PP[R4021.''succeeds''];
+  end while;
+
+  if( not_empty first_param )
+	signature = signature + "(";
   end if;
-  signature = signature + type.Name;
-  count = count + 1;
-end for;
-if(paramLength > 0)
-  signature = signature + ")";
+  separator = "";
+  parameter = first_param;
+  while ( not_empty parameter )
+	select one type related by parameter->S_DT[R4007];
+	signature = signature + separator + type.Name;
+	separator = ", ";
+	select one parameter related by parameter->C_PP[R4021.''precedes''];
+  end while;
+  if( not_empty first_param )
+	signature = signature + ")";
+  end if;
+
+elif ( 0 == param.flavor )
+
+  // get the parameters in sorted order
+  separator = "";
+  select many parameters related by self->C_EP[R4004]->C_PP[R4006];
+  num_params = cardinality parameters; 
+  if ( num_params > 0 )
+	signature = signature + "(";
+  end if;
+
+  // the following time complexity is n^2
+  count = 0;
+  select any last_param from instances of C_PP where false;
+  select any curr_param from instances of C_PP where false;
+  while ( count < num_params )
+    for each parameter in parameters
+      if ( ( empty curr_param and empty last_param )
+           or ( empty curr_param and not_empty last_param and parameter != last_param and parameter.Name >= last_param.Name )
+           or ( not_empty curr_param and empty last_param and parameter.Name < curr_param.Name )
+           or ( not_empty curr_param and not_empty last_param and parameter != last_param and parameter.Name >= last_param.Name and parameter.Name < curr_param.Name ) )
+        curr_param = parameter;
+      end if;
+    end for;
+    
+    select one type related by curr_param->S_DT[R4007];
+    signature = signature + separator + curr_param.Name + ":" + type.Name;
+    separator = ", ";
+
+    last_param = curr_param;
+    select any curr_param from instances of C_PP where false;
+    count = count + 1;
+  end while;
+
+  if ( num_params > 0 )
+	signature = signature + ")";
+  end if;
+  
 end if;
+
 return signature;',
 	1,
 	'',
 	"c27cedb3-9c80-4e06-8213-9ab042da3ef2");
+INSERT INTO O_TPARM
+	VALUES ("8670e352-3aeb-472b-9b4c-0797c5858854",
+	"3bc2205f-1c2f-47e2-ae3d-960eb6d09ee8",
+	'flavor',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("e43ea8dc-6095-42c6-ac1a-8325c059ec75",
+	"23a3f406-54ec-43c7-8c16-9e8ba14a92a4",
+	'setToDefaultDataType',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'elementType = Util::getSimpleClassName(element:self.convertToInstance());
+defaultTypeName = S_DT::getDefaultDataTypeName(elementType:elementType);
+
+select one system related by self->C_EP[R4004]->C_I[R4003]->PE_PE[R8001]->EP_PKG[R8000]->S_SYS[R1405];
+if not_empty system
+  // Unhook from the current data type (if any)
+  select one currentDt related by self->S_DT[R4008];
+  if ( not_empty currentDt )
+    unrelate self from currentDt across R4008;
+  end if;
+  // Now connect to the default type
+  dt_id = system.getCoreTypeId(name:defaultTypeName);
+  select any pe from instances of PE_PE where selected.Element_ID == dt_id;
+  select one defaultDt related by pe->S_DT[R8001]; 
+  relate self to defaultDt across R4008;
+else
+  // this is an error, if the system is not
+  // found we cannot find the core type
+  USER::logError(msg:"Unable to locate system root for data type: " + defaultTypeName,path:"");
+end if;
+',
+	1,
+	'',
+	"3bc2205f-1c2f-47e2-ae3d-960eb6d09ee8");
+INSERT INTO O_TFR
+	VALUES ("fbbe31d3-7cd7-4041-bf46-ad4ac52cf076",
+	"23a3f406-54ec-43c7-8c16-9e8ba14a92a4",
+	'downgradeCheck',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'isVisible = self.canReferToDataType();
+if ( not isVisible )
+  select one s_dt related by self->S_DT[R4008];
+  Util::reportElementDowngraded(rto:s_dt.convertToInstance(), rgoDowngraded:self.convertToInstance(), relationship:"R4008");
+  self.setToDefaultDataType();
+end if;
+',
+	1,
+	'',
+	"e43ea8dc-6095-42c6-ac1a-8325c059ec75");
 INSERT INTO O_REF
 	VALUES ("23a3f406-54ec-43c7-8c16-9e8ba14a92a4",
 	"30125d4c-7b45-4f34-b9a1-802a670a7614",

@@ -1,0 +1,16 @@
+//
+// UK Crown Copyright (c) 2016. All rights reserved.
+//
+
+public instance service PSC::TANK.Check_Level (Below_Threshold : out boolean) is
+  percent_level : real; 
+
+begin
+  percent_level := (this.Tank_Level / this.Tank_Capacity) * 100.0 ;
+  
+  if percent_level < this.Empty_Threshold then
+  	Below_Threshold := true;
+  else
+  	Below_Threshold := false;
+  end if;
+end service;

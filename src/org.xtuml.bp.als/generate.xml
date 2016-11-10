@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
- File:      $RCSfile: generate.xml,v $
- Version:   $Revision: 1.38.24.1 $
- Modified:  $Date: 2013/07/19 12:26:20 $
-
- Copyright 2004-2014 Mentor Graphics Corporation  All rights reserved.
+ File:      generate.xml
 
 -->
 <project name="bp.als" default="all" basedir=".">
@@ -21,7 +17,7 @@
 
   <property name="eclipse-home" value="${basedir}/../.."/>
   <property name="plugins-home" value="${ant.home}/../.."/>
-  <property name="util_bin_dir" value="${eclipse-home}/src/org.xtuml.bp.mc.c.binary/mc3020/bin"/>
+  <property name="util_bin_dir" value="${eclipse-home}/src/org.xtuml.bp.mc.c.source/mc3020/bin"/>
 
   <property name="sql.input" value="models/org.xtuml.bp.als/grammar" />
   <property name="sql.output" value="grammar_model.sql" />
@@ -229,44 +225,6 @@
   <target name="refresh" description="Refresh project" >
       <echo>Refreshing bp.als.oal project, which this build updated.</echo>
       <eclipse.refreshLocal resource="../org.xtuml.bp.als.oal/src" depth="infinite" />
-  </target>
-
-  <!-- This target is not used in the eclipse environment.  The eclipse Java
-       builder handles the java compilation when building BridgePoint under
-       eclipse.  This target is used only when building BridgePoint from the
-       command line on the build server. -->
-  <target name="compile"
-                  description="Compile project" >
-
-    <echo>Compiling ${ant.project.name}</echo>
-
-    <mkdir dir="../org.xtuml.bp.als.oal/bin" />
-
-    <javac memoryinitialsize="512m" memorymaximumsize="512m" source="1.6"
-        fork="yes" destdir="../org.xtuml.bp.als.oal/bin"
-        debug="true" debuglevel="lines,vars,source"  encoding="UTF-8">
-       <src path="../org.xtuml.bp.als.oal/src/org/xtuml/bp/als/oal" />
-       <classpath >
-          <pathelement path="../org.xtuml.bp.core/bin" />
-          <fileset dir="${eclipse-home}/plugins" casesensitive="yes">
-            <include name="**/org.eclipse.core.resources_*.jar"/>
-            <include name="**/org.eclipse.core.runtime_*.jar"/>
-            <include name="**/org.eclipse.ui.workbench_*.jar"/>
-            <include name="**/org.eclipse.ui_*.jar"/>
-            <include name="**/org.eclipse.ui.ide_*.jar"/>
-            <include name="**/org.eclipse.ui.views_*.jar"/>
-            <include name="**/org.eclipse.jface.text_*.jar"/>
-            <include name="**/org.eclipse.ui.workbench.texteditor_*.jar"/>
-            <include name="**/org.eclipse.ui.editors_*.jar"/>
-            <include name="**/org.eclipse.osgi_*.jar"/>
-            <include name="**/org.antlr_*/antlr.jar" />
-            <include name="**/org.eclipse.equinox.common_*.jar"/>
-            <include name="**/org.eclipse.equinox.registry_*.jar"/>
-            <include name="**/org.eclipse.core.commands_*.jar"/>
-          </fileset>
-       </classpath>
-    </javac>
-
   </target>
 
   <!-- CLEAN TARGETS -->

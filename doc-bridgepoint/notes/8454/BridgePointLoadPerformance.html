@@ -1,0 +1,35 @@
+
+<!-- saved from url=(0114)http://wv-svn-01.wv.mentorg.com/svn/tenmile/trunk/documentation/qa/test_procedures/BridgePointLoadPerformance.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></head><body>
+<pre>Test Procedure
+--------------
+_- This test must be run on the following machine:   svr-azt-eng-03.wv.mentorg.com
+_- Start BridgePoint.  Create a new workspace during startup.
+_- In the BridgePoint Welcome Quick Start, create the xtUML Metamodel example project.
+_- Before exiting from this workspace assure that no editors or canvases are open.
+_- Exit from the workspace
+_- Start BP again in the same workspace, make sure the "Use as default workspace" is checked.
+_- Exit BP (Before exiting from this workspace assure that no editors are open)
+_- Start BP from the desktop shortcut and start the stopwatch, stop the watch when the workspace comes up. Note this Startup Time and reset the stopwatch.
+_- Select the Project and Right-Click (start the timer)
+_- Stop the timer when the context menu appears and record this as RightClick Time
+_- Expand the xtUML_Metamodel project to the first level
+_- Open the ooaofooa in the editor and start the stopwatch at the same time. Stop the watch when it opens in the diagram editor and note this CanvasLoad Time.
+_- Close the canvas editor
+_- Close BP
+
+
+
+Test Results
+-------------
+The times here a recorded in seconds.
+
+Date        Version         Startup Time    RightClick Time    CanvasLoad Time    Total Time
+09/20/2012  3.4.4           10.8            9.7                6.2                26.7
+09/20/2012  3.5.4           21.0            0.7                2.1                23.8
+09/20/2012  09202012HEAD    23.0            0.8                2.0                25.8
+10/14/2012  10142012HEAD    21.4            1.2                3.0                25.6
+
+</pre>
+
+</body></html>

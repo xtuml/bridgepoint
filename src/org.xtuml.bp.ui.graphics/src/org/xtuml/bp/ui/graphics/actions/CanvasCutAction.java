@@ -53,32 +53,15 @@ public class CanvasCutAction extends CutAction {
 
 	/**
 	 * Determines whether or not the selection
-	 * contains elements which are may be cut
+	 * contains elements which may be cut
 	 */
 	public boolean isSelectionCuttable() {
 		if(m_editor == null) return false;
-		boolean copiable = CanvasCopyAction.isSelectionCopiable(m_editor.getModel());
-		// only ask the delete action if the selection contains only
-		// NonRootModelElement represented graphics
-		if(selectionContainsOnlyCoreElements()) {
-			if(!DeleteAction.canDeleteAction()) {
-				copiable = false;
-			}
-		} else {
-			return false;
+		boolean cuttable = CanvasCopyAction.isSelectionCopiable(m_editor.getModel());
+		if(!cuttable || !selectionIsCuttable()) {
+			cuttable = false;
 		}
-		return copiable;
-	}
-
-	public static boolean selectionContainsOnlyCoreElements() {
-		IStructuredSelection selection = (IStructuredSelection) Selection.getInstance().getStructuredSelection();
-		for(Iterator<?> iterator = selection.iterator(); iterator.hasNext();) {
-			Object selected = iterator.next();
-			if(!(selected instanceof NonRootModelElement)) {
-				return false;
-			}
-		}
-		return true;
+		return cuttable;
 	}
 
 	@Override

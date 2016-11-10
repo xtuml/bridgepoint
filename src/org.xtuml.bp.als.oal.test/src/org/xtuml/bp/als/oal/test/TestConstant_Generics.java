@@ -27,10 +27,10 @@ import java.util.HashMap;
 
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.jface.viewers.StructuredSelection;
-
-import antlr.RecognitionException;
-import antlr.TokenStreamException;
-
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.als.oal.OalLexer;
 import org.xtuml.bp.als.oal.OalParser;
 import org.xtuml.bp.als.oal.Oal_validate;
@@ -45,8 +45,13 @@ import org.xtuml.bp.core.SymbolicConstant_c;
 import org.xtuml.bp.core.ui.Selection;
 import org.xtuml.bp.core.util.ContainerUtil;
 import org.xtuml.bp.test.common.BaseTest;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.test.common.TestingUtilities;
 
+import antlr.RecognitionException;
+import antlr.TokenStreamException;
+
+@RunWith(OrderedRunner.class)
 public class TestConstant_Generics extends BaseTest {
 
     // This test class just tests the *negative* cases where we expect to find
@@ -62,7 +67,8 @@ public class TestConstant_Generics extends BaseTest {
 		public static final String NOT_FOUND ="Variable Not Found";
 		 HashMap<String, String> expectedResults = new HashMap<String, String>();
 		 
-    protected void setUp() throws Exception {
+    @Before
+	public void setUp() throws Exception {
         super.setUp();
 		if (!initialized)
 		{
@@ -150,7 +156,8 @@ public class TestConstant_Generics extends BaseTest {
 		
     }
 
-    protected void tearDown() throws Exception {
+    @After
+	public void tearDown() throws Exception {
         try {
             super.tearDown();
             OalParserTest_Generics.tearDownActionData();
@@ -162,7 +169,8 @@ public class TestConstant_Generics extends BaseTest {
     }
 
   
-    public void testConstant() throws RecognitionException,
+    @Test
+	public void testConstant() throws RecognitionException,
             TokenStreamException {
      	String stmts ="";   	
     	Function_c[] functions = Function_c.getManyS_SYNCsOnR8001(PackageableElement_c.getManyPE_PEsOnR8000(Package_c.getManyEP_PKGsOnR1405(m_sys)));
@@ -193,7 +201,8 @@ public class TestConstant_Generics extends BaseTest {
             
          
     }
-   public void testConstInComponent() throws RecognitionException, TokenStreamException
+   @Test
+	public void testConstInComponent() throws RecognitionException, TokenStreamException
    {      
 	   String stmts ="";   	   
 	   Function_c[] functions = Function_c.getManyS_SYNCsOnR8001(PackageableElement_c.getManyPE_PEsOnR8000(Package_c.getManyEP_PKGsOnR1405(m_sys)));

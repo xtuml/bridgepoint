@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   version="1.0"
+   width="531.49603"
+   height="354.33069"
+   id="svg2">
+  <defs
+     id="defs4">
+    <marker
+       refX="0"
+       refY="0"
+       orient="auto"
+       style="overflow:visible"
+       id="Arrow2Lend">
+      <path
+         d="M 8.7185878,4.0337352 L -2.2072895,0.016013256 L 8.7185884,-4.0017078 C 6.97309,-1.6296469 6.9831476,1.6157441 8.7185878,4.0337352 z "
+         transform="matrix(-1.1,0,0,-1.1,-1.1,0)"
+         style="font-size:12px;fill-rule:evenodd;stroke-width:0.625;stroke-linejoin:round"
+         id="path13688" />
+    </marker>
+  </defs>
+  <rect
+     width="88.903564"
+     height="88.903564"
+     ry="0"
+     x="-13.58036"
+     y="220.65724"
+     transform="matrix(0.895329,-0.445405,0.895329,0.445405,0,0)"
+     style="fill:white;fill-opacity:1;stroke:black;stroke-width:0.90020365;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+     id="rect27225" />
+  <text
+     x="263.13281"
+     y="92.920532"
+     style="font-size:12px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;fill:black;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Helvetica"
+     id="text29882"
+     xml:space="preserve"><tspan
+       x="263.13281"
+       y="92.920532"
+       id="tspan29884">Maintain</tspan><tspan
+       x="263.13281"
+       y="107.92053"
+       id="tspan29886">insertion</tspan><tspan
+       x="263.13281"
+       y="122.92053"
+       id="tspan29888">order ?</tspan></text>
+  <rect
+     width="88.903534"
+     height="88.903534"
+     ry="0"
+     x="-175.92862"
+     y="215.46957"
+     transform="matrix(0.895329,-0.445405,0.895329,0.445405,0,0)"
+     style="fill:white;fill-opacity:1;stroke:black;stroke-width:0.90020329;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+     id="rect29890" />
+  <text
+     x="115.1173"
+     y="165.946"
+     style="font-size:12px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;fill:black;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Helvetica"
+     id="text29892"
+     xml:space="preserve"><tspan
+       x="115.1173"
+       y="165.946"
+       id="tspan29898">Allow</tspan><tspan
+       x="115.1173"
+       y="180.946"
+       id="tspan29914">duplicates ?</tspan></text>
+  <rect
+     width="88.903519"
+     height="88.903519"
+     ry="0"
+     x="-8.3924637"
+     y="383.00549"
+     transform="matrix(0.895329,-0.445405,0.895329,0.445405,0,0)"
+     style="fill:white;fill-opacity:1;stroke:black;stroke-width:0.90020311;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+     id="rect29900" />
+  <text
+     x="413.13297"
+     y="162.92064"
+     style="font-size:12px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;fill:black;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Helvetica"
+     id="text29902"
+     xml:space="preserve"><tspan
+       x="413.13297"
+       y="162.92064"
+       id="tspan29908">Sized fixed</tspan><tspan
+       x="413.13297"
+       y="177.92064"
+       id="tspan29920">at compile</tspan><tspan
+       x="413.13297"
+       y="192.92064"
+       id="tspan29922">time ?</tspan></text>
+  <path
+     d="M 185,104.33069 L 115,104.33069 L 115,134.33069"
+     style="fill:none;fill-opacity:0.75;fill-rule:evenodd;stroke:black;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;marker-end:url(#Arrow2Lend);stroke-opacity:1"
+     id="path29924" />
+  <path
+     d="M 345.03717,104.36786 C 414.46283,104.36786 414.46283,104.36786 414.46283,104.36786 L 414.46283,134.29352"
+     style="fill:none;fill-opacity:0.75;fill-rule:evenodd;stroke:black;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;marker-end:url(#Arrow2Lend);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+     id="path29926" />
+  <path
+     d="M 265,24.330688 C 265,64.330688 265,64.330688 265,64.330688"
+     style="fill:none;fill-opacity:0.75;fill-rule:evenodd;stroke:black;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;marker-end:url(#Arrow2Lend);stroke-opacity:1"
+     id="path29928" />
+  <path
+     d="M 115.00007,214.34719 C 115.00007,267.92689 115.00007,267.92689 115.00007,267.92689"
+     style="fill:none;fill-opacity:0.75;fill-rule:evenodd;stroke:black;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;marker-end:url(#Arrow2Lend);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+     id="path34357" />
+  <path
+     d="M 195,174.33069 C 220,174.33069 220,174.33069 220,174.33069 L 220,269.33069"
+     style="fill:none;fill-opacity:0.75;fill-rule:evenodd;stroke:black;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;marker-end:url(#Arrow2Lend);stroke-opacity:1"
+     id="path34359" />
+  <path
+     d="M 335,174.33069 C 310,174.33069 310,174.33069 310,174.33069 L 310,269.33069"
+     style="fill:none;fill-opacity:0.75;fill-rule:evenodd;stroke:black;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;marker-end:url(#Arrow2Lend);stroke-opacity:1"
+     id="path34363" />
+  <path
+     d="M 415,214.33069 C 415,269.33069 415,269.33069 415,269.33069"
+     style="fill:none;fill-opacity:0.75;fill-rule:evenodd;stroke:black;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;marker-end:url(#Arrow2Lend);stroke-opacity:1"
+     id="path34365" />
+  <text
+     x="128.37744"
+     y="97.204712"
+     style="font-size:11px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;fill:black;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Helvetica"
+     id="text38792"
+     xml:space="preserve"><tspan
+       x="128.37744"
+       y="97.204712"
+       id="tspan38794">No</tspan></text>
+  <text
+     x="398.94824"
+     y="99.201782"
+     style="font-size:11px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;fill:black;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Helvetica"
+     id="text38796"
+     xml:space="preserve"><tspan
+       x="398.94824"
+       y="99.201782"
+       id="tspan38798">Yes</tspan></text>
+  <text
+     x="128.37744"
+     y="237.20471"
+     style="font-size:11px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;fill:black;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Helvetica"
+     id="text38800"
+     xml:space="preserve"><tspan
+       x="128.37744"
+       y="237.20471"
+       id="tspan38802">No</tspan></text>
+  <text
+     x="323.37744"
+     y="237.20471"
+     style="font-size:11px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;fill:black;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Helvetica"
+     id="text38808"
+     xml:space="preserve"><tspan
+       x="323.37744"
+       y="237.20471"
+       id="tspan38810">No</tspan></text>
+  <text
+     x="431.44385"
+     y="237.20471"
+     style="font-size:11px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;fill:black;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Helvetica"
+     id="text38816"
+     xml:space="preserve"><tspan
+       x="431.44385"
+       y="237.20471"
+       id="tspan38818">Yes</tspan></text>
+  <text
+     x="236.44385"
+     y="237.20471"
+     style="font-size:11px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;fill:black;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Helvetica"
+     id="text38820"
+     xml:space="preserve"><tspan
+       x="236.44385"
+       y="237.20471"
+       id="tspan38822">Yes</tspan></text>
+  <text
+     x="116.08203"
+     y="283.06702"
+     style="font-size:12px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;fill:black;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Helvetica"
+     id="text38824"
+     xml:space="preserve"><tspan
+       x="116.08203"
+       y="283.06702"
+       id="tspan38826">Set</tspan></text>
+  <text
+     x="220.13281"
+     y="282.92053"
+     style="font-size:12px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;fill:black;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Helvetica"
+     id="text38828"
+     xml:space="preserve"><tspan
+       x="220.13281"
+       y="282.92053"
+       id="tspan38830">Bag</tspan></text>
+  <text
+     x="308.46875"
+     y="283.06702"
+     style="font-size:12px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;fill:black;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Helvetica"
+     id="text38832"
+     xml:space="preserve"><tspan
+       x="308.46875"
+       y="283.06702"
+       id="tspan38834">Sequence</tspan></text>
+  <text
+     x="415.76172"
+     y="282.92053"
+     style="font-size:12px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;fill:black;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Helvetica"
+     id="text38836"
+     xml:space="preserve"><tspan
+       x="415.76172"
+       y="282.92053"
+       id="tspan38838">Array</tspan></text>
+</svg>

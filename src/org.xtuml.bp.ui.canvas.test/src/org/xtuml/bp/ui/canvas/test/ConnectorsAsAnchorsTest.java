@@ -27,7 +27,9 @@ import java.util.UUID;
 
 import org.eclipse.gef.tools.AbstractTool;
 import org.eclipse.swt.graphics.Point;
-
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.ActorParticipant_c;
 import org.xtuml.bp.core.ClassInstanceParticipant_c;
 import org.xtuml.bp.core.InteractionParticipant_c;
@@ -38,6 +40,7 @@ import org.xtuml.bp.core.SynchronousMessage_c;
 import org.xtuml.bp.core.common.ClassQueryInterface_c;
 import org.xtuml.bp.core.ui.Selection;
 import org.xtuml.bp.test.common.CanvasTestUtils;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.test.common.UITestingUtilities;
 import org.xtuml.bp.ui.canvas.Connector_c;
 import org.xtuml.bp.ui.canvas.ElementSpecification_c;
@@ -51,13 +54,14 @@ import org.xtuml.bp.utilities.ui.CanvasUtilities;
 /**
  * Contains tests that exercise the functionality for sequence support.
  */
+@RunWith(OrderedRunner.class)
 public class ConnectorsAsAnchorsTest extends CanvasTest {
 	private String test_id;
 
 	private static boolean generateResults = false;
 
-	public ConnectorsAsAnchorsTest(String arg0) {
-		super(null, arg0);
+	public ConnectorsAsAnchorsTest() {
+		super(null, null);
 	}
 
 	/**
@@ -71,7 +75,8 @@ public class ConnectorsAsAnchorsTest extends CanvasTest {
 	 * 
 	 * @see junit.framework.TestCase#setUp()
 	 */
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		super.setUp();
 
 		// if it's the first test of this class that's being setup
@@ -85,6 +90,7 @@ public class ConnectorsAsAnchorsTest extends CanvasTest {
 	 * Tests that connectors connected to another remain connected after a
 	 * waypoint is moved
 	 */
+	@Test
 	public void testBendingConnectorWithConnectorsStartingAt() {
 		test_id = "1";
 		String diagramName = "SQ A";
@@ -253,6 +259,7 @@ public class ConnectorsAsAnchorsTest extends CanvasTest {
 	 * Tests that last connector intersected is what the connector is finalized
 	 * on.
 	 */
+	@Test
 	public void testNewConnectorIntersectingMultipleConnectors() {
 		test_id = "4";
 		String diagramName = "SQ B";
@@ -349,6 +356,7 @@ public class ConnectorsAsAnchorsTest extends CanvasTest {
 	/**
 	 * Tests that a segments end may be moved to another segment
 	 */
+	@Test
 	public void testUpdatingEndOfSegmentWithNewSegment() {
 		test_id = "5";
 		String diagramName = "SQ B";
@@ -456,6 +464,7 @@ public class ConnectorsAsAnchorsTest extends CanvasTest {
 	/**
 	 * Tests that fixed aspect shapes are drawn with a fixed aspect ratio
 	 */
+	@Test
 	public void testFixedAspectDrawing() {
 		// This test is removed as the fixed aspect support
 		// has changed
@@ -465,6 +474,7 @@ public class ConnectorsAsAnchorsTest extends CanvasTest {
 	 * Tests resizing a fixed aspect shape leaves the shape with the
 	 * same aspect
 	 */
+	@Test
 	public void testFixedAspectResizing() {
 		// This test is removed as the fixed aspect support
 		// has changed
@@ -499,6 +509,7 @@ public class ConnectorsAsAnchorsTest extends CanvasTest {
 	 * Tests that an actor is drawn to fill the shape compartment
 	 * when no name is given
 	 */
+	@Test
 	public void testActorDrawnToFullShapeSizeWhenNotNamed() {
 		test_id = "9";
 		String diagramName = "SQ C";

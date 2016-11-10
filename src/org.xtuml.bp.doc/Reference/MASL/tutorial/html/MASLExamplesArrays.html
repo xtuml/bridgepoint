@@ -1,0 +1,168 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>8.8. Arrays</title>
+<link rel="stylesheet" type="text/css" href="docbook.css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
+<meta name="keywords" content="MASL, Action Language, Action Semantics, UML, Unified Modelling Language, Shlaer Mellor">
+<link rel="home" href="index.html" title="MASL Tutorial">
+<link rel="up" href="MASLExamples.html" title="Chapter 8. MASL Examples">
+<link rel="prev" href="MASLExamplesControlStatements.html" title="8.7. Control Statements">
+<link rel="next" href="MASLExamplesExceptions.html" title="8.9. Exceptions">
+<link rel="preface" href="preface.html" title="Preface">
+<link rel="chapter" href="Types.html" title="Chapter 1. Types">
+<link rel="chapter" href="ExecutionControl.html" title="Chapter 2. Execution Control">
+<link rel="chapter" href="CompositeTypes.html" title="Chapter 3. Composite Types">
+<link rel="chapter" href="Exceptions.html" title="Chapter 4. Exceptions">
+<link rel="chapter" href="ObjectsandRelationships.html" title="Chapter 5. Objects and Relationships">
+<link rel="chapter" href="Actions.html" title="Chapter 6. Actions">
+<link rel="chapter" href="DeviceIO.html" title="Chapter 7. Device Input/Output">
+<link rel="chapter" href="MASLExamples.html" title="Chapter 8. MASL Examples">
+<link rel="index" href="ix01.html" title="Index">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div align="center">UNCLASSIFIED</div>
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center">8.8. Arrays</th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="MASLExamplesControlStatements.html">Prev</a> </td>
+<th width="60%" align="center">Chapter 8. MASL Examples</th>
+<td width="20%" align="right"> <a accesskey="n" href="MASLExamplesExceptions.html">Next</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h2 class="title">
+<a name="MASLExamplesArrays"></a>8.8. Arrays</h2></div></div></div>
+<p>
+</p>
+<pre class="programlisting">
+
+declare
+  my_b_array        : array(1..2) of byte;
+  my_int_array_1    : array(1..5) of integer;
+  my_int_array_2    : my_int_array_type;
+  my_int_array_3    : my_int_array_type;
+  my_struct_array   : array(1..2)  of nested_structure_type;
+  my_time_array     : array(2..3)  of Calendar::time_type;
+  my_sub_type_array : array(3..30) of my_int_sub_type_type;
+  my_array_array    : array(1..5)  of my_int_array_type;
+  x                 : integer:=0;
+  s                 : nested_structure_type;
+begin
+  for i in 1..10 loop
+    my_int_array_2[i] := 9;
+    my_int_array_3[i] := 10;
+  end loop;
+  if (my_int_array_2[5] /= 9) then
+    raise Standard::constraint_error;
+  end if;
+
+  //general access
+  my_int_array_1[1] := 55;
+  if (my_int_array_1[1] /= 55) then
+    raise Standard::constraint_error;
+  end if;
+
+  my_int_array_1[my_int_array_1'first] := 55;
+  if (my_int_array_1[1] /= 55) then
+    raise Standard::constraint_error;
+  end if;
+
+  my_int_array_1[my_int_array_1'last] := 55;
+  if (my_int_array_1[5] /= 55) then
+    raise Standard::constraint_error;
+  end if;
+
+  //parser error
+  //my_int_array_1[my_int_array_type'last] := 55;
+
+  //copy
+  my_int_array_2 := my_int_array_3;
+  my_int_array_3[4] := 0;
+  
+  //slices, parser error
+  for i in 1..5 loop
+    my_int_array_1[i] := i;
+  end loop;
+  //my_int_array_1 := my_int_array_2[1..5];
+  x := 0;
+  for i in my_int_array_1'elements loop
+    x:=x+i;
+  end loop;
+  //if (x /= 5) then
+  //  raise Standard::constraint_error;
+  //end if;
+
+  //arrays as parameters
+  Array_passing(my_int_array_2,my_int_array_3);
+
+  //array of strucures
+  my_struct_array[2].id := 9;
+  s := my_struct_array[2];
+  if (s.id /= 9) then
+    raise Standard::constraint_error;
+  end if;
+
+  //array of arrays
+  my_array_array[1][1] := 55;
+  my_int_array_2 :=  my_array_array[1];
+  if (my_int_array_2[1] /= 55) then
+    raise Standard::constraint_error;
+  end if;
+
+  //expected exceptions
+  x := 0;
+  begin
+    my_b_array[10] := 0;
+  exception
+    when Standard::constraint_error =&gt;
+      x := x + 1;
+  end;
+  begin
+    my_array_array[0][1] := 0;
+  exception
+    when Standard::constraint_error =&gt;
+      x := x + 1;
+  end;
+  begin
+    my_array_array[1][0] := 0;
+  exception
+    when Standard::constraint_error =&gt;
+      x := x + 1;
+  end;
+  if (x /= 3) then
+    raise Standard::constraint_error;
+  end if;
+end;
+
+</pre>
+<p>
+</p>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="MASLExamplesControlStatements.html">Prev</a> </td>
+<td width="20%" align="center"><a accesskey="u" href="MASLExamples.html">Up</a></td>
+<td width="40%" align="right"> <a accesskey="n" href="MASLExamplesExceptions.html">Next</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left" valign="top">8.7. Control Statements </td>
+<td width="20%" align="center">
+<a accesskey="h" href="index.html">Home</a> | <a accesskey="t" href="bk01-toc.html">ToC</a>
+</td>
+<td width="40%" align="right" valign="top"> 8.9. Exceptions</td>
+</tr>
+</table>
+</div>
+<div align="center">UNCLASSIFIED</div>
+</body>
+</html>

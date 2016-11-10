@@ -50,10 +50,6 @@ public class CompareTransactionManager implements ITransactionListener {
 		manager.processTransaction(transaction, false);
 	}
 	
-	public List<Transaction> getTransactions() {
-		return manager.getUndoStack();
-	}
-
 	/**
 	 * Returns the plugin's redo action
 	 */

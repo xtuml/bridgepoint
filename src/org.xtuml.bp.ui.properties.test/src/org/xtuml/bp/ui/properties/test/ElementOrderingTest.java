@@ -17,18 +17,23 @@ package org.xtuml.bp.ui.properties.test;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.views.properties.IPropertyDescriptor;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.Bridge_c;
 import org.xtuml.bp.core.ExternalEntity_c;
 import org.xtuml.bp.core.Package_c;
 import org.xtuml.bp.core.PackageableElement_c;
 import org.xtuml.bp.core.common.ClassQueryInterface_c;
 import org.xtuml.bp.test.common.BaseTest;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.ui.properties.BridgeParameterS_BPARMPropertySource;
 import org.xtuml.bp.ui.properties.BridgeS_BRGPropertySource;
 
 /**
  * Contains tests that exercise various aspects of the properties view.
  */
+@RunWith(OrderedRunner.class)
 public class ElementOrderingTest extends BaseTest 
 {
     /**
@@ -37,13 +42,14 @@ public class ElementOrderingTest extends BaseTest
      */
     private static boolean firstTest = true;
 
-    public ElementOrderingTest(String name) {
-        super(null, name);
-    }    
+    public ElementOrderingTest(){
+		super(null, null);
+	}    
     /* (non-Javadoc)
      * @see junit.framework.TestCase#setUp()
      */
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
         super.setUp();
 
         // if it's the first test of this class that's being setup
@@ -57,7 +63,8 @@ public class ElementOrderingTest extends BaseTest
 		while(PlatformUI.getWorkbench().getDisplay().readAndDispatch());
     }
     
-    public void testElementOrderingInView() throws CoreException {
+    @Test
+	public void testElementOrderingInView() throws CoreException {
     	Package_c eePkg = Package_c.getOneEP_PKGOnR1405(m_sys, new ClassQueryInterface_c() {
 			
 			@Override

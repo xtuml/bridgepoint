@@ -1,27 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
- File:      $RCSfile: generate.xml,v $
- Version:   $Revision: 1.116.10.1 $
- Modified:  $Date: 2013/07/31 20:58:54 $
-
- (c) Copyright 2005-2014 Mentor Graphics Corporation  All rights reserved.
+ File:     generate.xml
 
 -->
 <project name="bp.core" default="all" basedir=".">
   <target name="all"
           description="Generate all code for this project"
-          depends="sql,schema,java,cme,cme_schema,cme_menus,inspector.java, cell_modifiers,generate_supertype_subtype_util, action_language_description_util, generate_rto_util, format_java">
+          depends="sql,java,cme,cme_schema,cme_menus,inspector.java, cell_modifiers,generate_supertype_subtype_util, action_language_description_util, generate_rto_util, format_java">
   </target>
 
   <target name="nb_all"
           description="Generate all code for this project"
-          depends="sql,schema,java,cme,cme_schema,cme_menus,inspector.java, cell_modifiers,generate_supertype_subtype_util, action_language_description_util, generate_rto_util">
+          depends="sql,java,cme,cme_schema,cme_menus,inspector.java, cell_modifiers,generate_supertype_subtype_util, action_language_description_util, generate_rto_util">
   </target>
 
   <property name="eclipse-home" value="${basedir}/../.."/>
   <property name="plugins-home" value="${ant.home}/../.."/>
-  <property name="util_bin_dir" value="${eclipse-home}/src/org.xtuml.bp.mc.c.binary/mc3020/bin"/>
+  <property name="util_bin_dir" value="${eclipse-home}/src/org.xtuml.bp.mc.c.source/mc3020/bin"/>
 
   <property name="sql.input" value="models/org.xtuml.bp.core/ooaofooa" />
   <property name="sql.output" value="ooaofooa.sql" />
@@ -167,7 +163,7 @@
           depends="java.depends"
           unless="java.buildNotNeeded" >
     <echo >Generating java files ...</echo>
-  	<!--<parallel>-->
+  	<!--<parallel>  -->
   <ant antfile="${mcj_path}/build.xml" target="generate-with-file_io.java" >
     <property name="param1" value="ooaofooa" />
     <property name="param2" value="Ooaofooa" />
@@ -504,7 +500,8 @@
       ui/PtWizardPage.java,ui/Selection.java,ui/IModelImport.java,ui/AbstractModelImportFactory.java,
     ui/AbstractModelExportFactory.java, ui/NewDomainWizard.java, ui/BinaryFormalizeOnR_RELWizard.java, ui/BinaryFormalizeOnR_RELWizardPage1.java, ui/BinaryFormalizeOnR_RELWizardPage2.java,
     ui/NewSystemWizard.java, ui/ToggleNatureAction.java, ui/CopyCutAction.java, ui/PasteAction.java,
-    ui/WizardNewDomainCreationPage.java, ui/WizardNewSystemCreationPage.java, ui/CutAction.java, ui/CopyAction.java, ui/SetBPProjectPreferencesAction.java,
+    ui/WizardNewDomainCreationPage.java, ui/WizardNewSystemCreationPage.java, ui/CutAction.java, ui/CopyAction.java, 
+  	ui/CutCopyPasteAction.java, ui/SetBPProjectPreferencesAction.java,
     ui/perspective/BridgePointPerspective.java,ui/preferences/BridgePointPreferences.java, ui/preferences/BuildTranslationPreferences.java,
     ui/preferences/ExportPreferences.java,ui/preferences/MessageDirectionPreferences.java,ui/preferences/VerifierPreferences.java,
     ui/preferences/ActionLanguagePreferences.java, ui/preferences/BridgePointProjectPreferences.java,
@@ -564,52 +561,6 @@
   <!-- Need to touch the output file for the case where the input data
        changed, but the output didn't -->
   <touch file="${java.output}" />
-  </target>
-
-  <!-- COMPILE TARGETS -->
-
-  <!-- This target is not used in the eclipse environment.  The eclipse Java
-       builder handles the java compilation when building BridgePoint under
-       eclipse.  This target is used only when building BridgePoint from the
-       command line on the build server. -->
-  <target name="compile"
-                  description="Compile project" >
-
-    <echo>Compiling ${ant.project.name}</echo>
-    <mkdir dir="bin" />
-    <javac memoryinitialsize="512m" memorymaximumsize="512m" source="1.6"
-        fork="yes" destdir="bin" debug="true" debuglevel="lines,vars,source" encoding="UTF-8">
-       <src path="src/org/xtuml/bp" />
-       <src path="src/lib" />
-       <classpath>
-         <pathelement path="bin/org/xtuml/bp/core" />
-         <pathelement path="bin/lib" />
-       	 <fileset dir="${eclipse-home}/plugins" casesensitive="yes">
-           <include name="**/org.eclipse.osgi_*.jar" />
-           <include name="**/org.eclipse.ui.ide_*.jar" />
-           <include name="**/org.eclipse.jface_*.jar" />
-           <include name="**/org.eclipse.ui.views_*.jar" />
-           <include name="**/org.eclipse.jface.text_*.jar" />
-           <include name="**/org.eclipse.core.runtime_*.jar" />
-           <include name="**/org.eclipse.core.resources_*.jar" />
-           <include name="**/org.eclipse.ui.workbench_*.jar" />
-           <include name="**/org.eclipse.swt.win32.win32.x86_*.jar" />
-           <include name="**/org.eclipse.ui_*.jar" />
-           <include name="**/org.eclipse.core.boot_*.jar" />
-           <include name="**/org.eclipse.ui.workbench.texteditor_*.jar" />
-           <include name="**/org.eclipse.ui.editors_*.jar" />
-           <include name="**/org.eclipse.equinox.common_*.jar"/>
-           <include name="**/org.eclipse.core.jobs_*.jar"/>
-           <include name="**/org.eclipse.equinox.registry_*.jar"/>
-           <include name="**/org.eclipse.core.commands_*.jar"/>
-           <include name="**/org.eclipse.core.variables_*.jar"/>
-       	   <include name="**/org.eclipse.core.variables.source_*.jar"/>
-       	   <include name="**/org.eclipse.text_*.jar" />
-       	   <include name="**/org.eclipse.equinox.preferences_*.jar" />       	   
-       	 </fileset>
-       </classpath>
-    </javac>
-
   </target>
 
   <!-- CLEAN TARGETS -->

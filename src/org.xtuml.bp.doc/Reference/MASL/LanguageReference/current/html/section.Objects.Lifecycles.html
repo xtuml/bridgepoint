@@ -1,0 +1,562 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>8.6. Object Lifecycles</title>
+<link rel="stylesheet" type="text/css" href="docbook.css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
+<meta name="keywords" content="MASL, Action Language, Action Semantics, UML, Unified Modelling Language, Shlaer Mellor">
+<link rel="home" href="index.html" title="MASL Reference Manual">
+<link rel="up" href="section.Objects.html" title="Chapter 8. Objects">
+<link rel="prev" href="section.Objects.Services.html" title="8.5. Object Services and Functions">
+<link rel="next" href="section.Statements.html" title="Chapter 9. Statements">
+<link rel="chapter" href="section.LexicalStructure.html" title="Chapter 1. Lexical Structure">
+<link rel="chapter" href="section.Types.html" title="Chapter 2. Type System">
+<link rel="chapter" href="section.Domains.html" title="Chapter 3. Domains">
+<link rel="chapter" href="section.Services.html" title="Chapter 4. Services, Functions and State Actions">
+<link rel="chapter" href="section.Relationships.html" title="Chapter 5. Relationships">
+<link rel="chapter" href="section.Exceptions.html" title="Chapter 6. Exceptions">
+<link rel="chapter" href="section.Terminators.html" title="Chapter 7. Terminators">
+<link rel="chapter" href="section.Objects.html" title="Chapter 8. Objects">
+<link rel="chapter" href="section.Statements.html" title="Chapter 9. Statements">
+<link rel="chapter" href="section.Expressions.html" title="Chapter 10. Expressions">
+<link rel="chapter" href="section.Projects.html" title="Chapter 11. Projects">
+<link rel="chapter" href="section.Pragmas.html" title="Chapter 12. Pragmas">
+<link rel="appendix" href="AlphabeticalSyntaxReference.html" title="Appendix A. Alphabetical Syntax Reference">
+<link rel="index" href="ix01.html" title="Index">
+<link rel="subsection" href="section.Objects.Lifecycles.html#section.Objects.States" title="8.6.1. States">
+<link rel="subsection" href="section.Objects.Lifecycles.html#section.Objects.Events" title="8.6.2. Events">
+<link rel="subsection" href="section.Objects.Lifecycles.html#section.Objects.TransitionTable" title="8.6.3. State Transition Table">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div align="center">OFFICIAL</div>
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center">8.6. Object Lifecycles</th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="section.Objects.Services.html">Prev</a> </td>
+<th width="60%" align="center">Chapter 8. Objects</th>
+<td width="20%" align="right"> <a accesskey="n" href="section.Statements.html">Next</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h2 class="title">
+<a name="section.Objects.Lifecycles"></a>8.6. Object Lifecycles</h2></div></div></div>
+<div class="toc"><dl class="toc">
+<dt><span class="section"><a href="section.Objects.Lifecycles.html#section.Objects.States">8.6.1. States</a></span></dt>
+<dd><dl>
+<dt><span class="section"><a href="section.Objects.Lifecycles.html#section.Objects.States.Declaration">8.6.1.1. State Declaration</a></span></dt>
+<dt><span class="section"><a href="section.Objects.Lifecycles.html#section.Objects.States.Definition">8.6.1.2. State Action Defintion</a></span></dt>
+</dl></dd>
+<dt><span class="section"><a href="section.Objects.Lifecycles.html#section.Objects.Events">8.6.2. Events</a></span></dt>
+<dd><dl>
+<dt><span class="section"><a href="section.Objects.Lifecycles.html#section.Objects.Events.Creation">8.6.2.1. Creation Events</a></span></dt>
+<dt><span class="section"><a href="section.Objects.Lifecycles.html#section.Objects.Events.Instance">8.6.2.2. Instance Events</a></span></dt>
+<dt><span class="section"><a href="section.Objects.Lifecycles.html#section.Objects.Events.Polymorphic">8.6.2.3. Polymorphic Events</a></span></dt>
+<dt><span class="section"><a href="section.Objects.Lifecycles.html#section.Objects.Events.Assigner">8.6.2.4. Assigner Events</a></span></dt>
+</dl></dd>
+<dt><span class="section"><a href="section.Objects.Lifecycles.html#section.Objects.TransitionTable">8.6.3. State Transition Table</a></span></dt>
+</dl></div>
+<p>
+      An object may be either passive or active. Active objects have a lifecycle that is modelled using
+      <a class="link" href="section.Objects.Lifecycles.html#section.Objects.States" title="8.6.1. States">states</a> and <a class="link" href="section.Objects.Lifecycles.html#section.Objects.Events" title="8.6.2. Events">events</a>. A 
+      state represents a stage within the lifecycle, and has an action associated with it that is carried out upon entry to the 
+      state. An event causes and instance or assigner to change from one state to another, and can carry data to the state 
+      action. The state that is entered on receipt of a particular event is defined in the
+      <a class="link" href="section.Objects.Lifecycles.html#section.Objects.TransitionTable" title="8.6.3. State Transition Table">state transition table</a>. 
+    </p>
+<p>
+      Any object may define an instance lifecycle. In this case every instance of the object has a lifecycle.
+    </p>
+<p>
+      Associative objects may also have an assigner lifecycle. Assigner lifecycles provide a single point of control through 
+      which competing requests are serialized. They are used to manage the associations formed by relationship that the 
+      associative object formalizes. Because of this, there is only one copy of an assigner lifecycle for all instances of an 
+      object. 
+    </p>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="section.Objects.States"></a>8.6.1. States</h3></div></div></div>
+<p>
+        A state represents a stage in an instance or assigner lifecycle. Further details on services, functions and state actions 
+        in general can be found in <a class="xref" href="section.Services.html" title="Chapter 4. Services, Functions and State Actions">Chapter 4, <i>Services, Functions and State Actions</i></a>, so this section will just highlight where state actions 
+        differ from the general case. 
+      </p>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="section.Objects.States.Declaration"></a>8.6.1.1. State Declaration</h4></div></div></div>
+<p>
+          A state declaration declares a state in the lifecycle of an object instance or assigner object. It specifies the type 
+          and name of the state, and any parameters which must be passed to the state action by any events which the
+          <a class="link" href="section.Objects.Lifecycles.html#section.Objects.TransitionTable" title="8.6.3. State Transition Table">state transition table</a> shows as causing the state to be entered. 
+          As states are always entered asynchronously, they must not declare parameters with a mode of <code class="code">out</code>. 
+        </p>
+<table width="100%" cellpadding="5" bgcolor="#F5DCB3" border="1" class="productionset" summary="EBNF"><tr><td><table border="0" width="99%" cellpadding="0" bgcolor="#F5DCB3" class="productionset" summary="EBNF productions">
+<tr>
+<td align="left" valign="top" width="3%">[116]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.stateDeclaration"></a>state declaration</td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">[ <a href="section.Services.Declaration.html#ebnf.stateType">state type</a> ] , 'state' , <a href="section.Services.Declaration.html#ebnf.stateName">state name</a> , <a href="section.Services.Declaration.html#ebnf.parameterList">parameter list</a> , ';' , <a href="section.Pragmas.html#ebnf.pragmaList">pragma list</a>;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[72]</td>
+<td align="right" valign="top" width="10%"><a href="section.Services.Declaration.html#ebnf.stateName">state name</a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="section.Tokenization.html#ebnf.Identifier">identifier</a>
+      ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[71]</td>
+<td align="right" valign="top" width="10%"><a href="section.Services.Declaration.html#ebnf.stateType">state type</a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">'assigner' | 'assigner' , 'start' | 'creation' | 'terminal';</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[73]</td>
+<td align="right" valign="top" width="10%"><a href="section.Services.Declaration.html#ebnf.parameterList">parameter list</a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">'(' , [ <a href="section.Services.Declaration.html#ebnf.parameterDefinition">parameter definition</a> ] , { ',' , <a href="section.Services.Declaration.html#ebnf.parameterDefinition">parameter definition</a> } , ')';</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[74]</td>
+<td align="right" valign="top" width="10%"><a href="section.Services.Declaration.html#ebnf.parameterDefinition">parameter definition</a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+<a href="section.Services.Declaration.html#ebnf.parameterName">parameter name</a> , ':' , <a href="section.Services.Declaration.html#ebnf.parameterMode">parameter mode</a> , <a href="section.Services.Declaration.html#ebnf.parameterType">parameter type</a>;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[76]</td>
+<td align="right" valign="top" width="10%"><a href="section.Services.Declaration.html#ebnf.parameterMode">parameter mode</a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">'in' | 'out';</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[75]</td>
+<td align="right" valign="top" width="10%"><a href="section.Services.Declaration.html#ebnf.parameterName">parameter name</a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="section.Tokenization.html#ebnf.Identifier">identifier</a>
+      ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[77]</td>
+<td align="right" valign="top" width="10%"><a href="section.Services.Declaration.html#ebnf.parameterType">parameter type</a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="section.Types.Reference.html#ebnf.typeRef">type ref</a>
+      ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+</table></td></tr></table>
+<div class="section">
+<div class="titlepage"><div><div><h5 class="title">
+<a name="section.Objects.States.Creation"></a>8.6.1.1.1. Creation States</h5></div></div></div>
+<p>
+            A state that is declared as <code class="code">creation</code> is entered when a creation event is sent to an object. It does not 
+            have an associated instance, but would typically result in an instance of the object being created with its current 
+            state set to the creation state. 
+          </p>
+<div class="caution">
+<h3 class="title">Deprecated</h3>
+<p>
+              Use of creation states is deprecated, and they are likely to be removed in a future version of the language. 
+              Synchronous creation of instances should be preferred. 
+            </p>
+</div>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h5 class="title">
+<a name="section.Objects.States.Instance"></a>8.6.1.1.2. Instance States</h5></div></div></div>
+<p>
+            A state that is declared without a state type is an instance state. An instance state is always entered with respect to 
+            a particular instance, which becomes the instance to which the name <code class="code">this</code> refers within the
+            <a class="link" href="section.Objects.Lifecycles.html#section.Objects.States.Definition" title="8.6.1.2. State Action Defintion">state definition</a>. 
+          </p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h5 class="title">
+<a name="section.Objects.States.Terminal"></a>8.6.1.1.3. Terminal States</h5></div></div></div>
+<p>
+            A state that is declared as <code class="code">terminal</code> is an instance state which represents a state in which an instance 
+            will be deleted. A terminal state is always entered with respect to a particular instance, which becomes the instance 
+            to which the name <code class="code">this</code> refers within the
+            <a class="link" href="section.Objects.Lifecycles.html#section.Objects.States.Definition" title="8.6.1.2. State Action Defintion">state definition</a>.
+          </p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h5 class="title">
+<a name="section.Objects.States.AssignerStart"></a>8.6.1.1.4. Assigner Start States</h5></div></div></div>
+<p>
+            A state that is declared as <code class="code">assigner start</code> is an an assigner state which represents the state in which an 
+            assigner lifecycle begins. Exactly one state of an assigner lifecycle must be declared as a start state. Once the 
+            lifecycle is active, the start state acts exactly as any other assigner state. 
+          </p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h5 class="title">
+<a name="section.Objects.States.Assigner"></a>8.6.1.1.5. Assigner States</h5></div></div></div>
+<p>
+            A state that is declared as <code class="code">assigner</code> is an an assigner state which represents any state of an 
+            assigner lifecycle other than the start state.
+          </p>
+</div>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="section.Objects.States.Definition"></a>8.6.1.2. State Action Defintion</h4></div></div></div>
+<p>
+          A state definition defines a state action to be performed upon entry to the state. In addition to the standard action 
+          definition features detailed in <a class="xref" href="section.Services.Definition.html" title="4.2. Service, Function and State Action Definitions">Section 4.2, “Service, Function and State Action Definitions”</a>, state actions work within the scope of 
+          their enclosing object, so all object services, functions, and events may be referred to by name without being 
+          qualified by the object name. Note that any parameters or local variables with identical names will hide these object 
+          level names. Instance state actions allow reference to attributes, services and functions of the current instance by 
+          name, and introduce the name <code class="code">this</code> which may be used to refer to the current instance explicity. At the end 
+          of the state action, the lifecycle of the instance or assigner is defined to be in the relevant 
+          state. 
+        </p>
+<table width="100%" cellpadding="5" bgcolor="#F5DCB3" border="1" class="productionset" summary="EBNF"><tr><td><table border="0" width="99%" cellpadding="0" bgcolor="#F5DCB3" class="productionset" summary="EBNF productions">
+<tr>
+<td align="left" valign="top" width="3%">[117]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.stateDefinition"></a>state definition</td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+<a href="section.Services.Declaration.html#ebnf.stateType">state type</a> , 'state' , <a href="section.Domains.Definition.html#ebnf.domainName">domain name</a> , '::' , <a href="section.Objects.Declaration.html#ebnf.objectName">object name</a> , '.' , <a href="section.Services.Declaration.html#ebnf.stateName">state name</a> , <a href="section.Services.Declaration.html#ebnf.parameterList">parameter list</a> ,
+      'is' , <a href="section.Services.Definition.html#ebnf.codeBlock">code block</a> , 'end' , [ 'state' ] , ';' , <a href="section.Pragmas.html#ebnf.pragmaList">pragma list</a>;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[63]</td>
+<td align="right" valign="top" width="10%"><a href="section.Domains.Definition.html#ebnf.domainName">domain name</a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="section.Tokenization.html#ebnf.Identifier">identifier</a>
+      ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[101]</td>
+<td align="right" valign="top" width="10%"><a href="section.Objects.Declaration.html#ebnf.objectName">object name</a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="section.Tokenization.html#ebnf.Identifier">identifier</a>
+      ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[72]</td>
+<td align="right" valign="top" width="10%"><a href="section.Services.Declaration.html#ebnf.stateName">state name</a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="section.Tokenization.html#ebnf.Identifier">identifier</a>
+      ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[71]</td>
+<td align="right" valign="top" width="10%"><a href="section.Services.Declaration.html#ebnf.stateType">state type</a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">'assigner' | 'assigner' , 'start' | 'creation' | 'terminal';</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[79]</td>
+<td align="right" valign="top" width="10%"><a href="section.Services.Definition.html#ebnf.codeBlock">code block</a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">{ <a href="section.Statements.CodeBlock.html#ebnf.variableDeclaration">variable declaration</a> } , 'begin' , <a href="section.Statements.html#ebnf.statementSequence">statement sequence</a> , [
+      'exception' , { <a href="section.Statements.CodeBlock.html#ebnf.exceptionHandler">exception handler</a> } , [ <a href="section.Statements.CodeBlock.html#ebnf.otherHandler">other handler</a> ]
+      ];</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+</table></td></tr></table>
+</div>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="section.Objects.Events"></a>8.6.2. Events</h3></div></div></div>
+<p>
+        An event signals to an instance or assigner that its lifecyle should move from one state to another. An event can carry 
+        data to the destination state for its state action to act upon. The
+        <a class="link" href="section.Objects.Lifecycles.html#section.Objects.TransitionTable" title="8.6.3. State Transition Table">state transition table</a> shows which state the lifecyle should move 
+        into depending on which state it is already in. An event is generated to an instance or assigner by an action by means of 
+        an <a class="link" href="section.Statements.EventGeneration.html" title="9.13. Event Generation">event generation</a> statement. 
+      </p>
+<table width="100%" cellpadding="5" bgcolor="#F5DCB3" border="1" class="productionset" summary="EBNF"><tr><td><table border="0" width="99%" cellpadding="0" bgcolor="#F5DCB3" class="productionset" summary="EBNF productions">
+<tr>
+<td align="left" valign="top" width="3%">[118]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.eventDefinition"></a>event definition</td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">[ <a href="section.Objects.Lifecycles.html#ebnf.eventType">event type</a> ] , 'event' , <a href="section.Objects.Lifecycles.html#ebnf.eventName">event name</a> , <a href="section.Services.Declaration.html#ebnf.parameterList">parameter list</a> , ';' , <a href="section.Pragmas.html#ebnf.pragmaList">pragma list</a>;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[119]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.eventName"></a>event name</td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="section.Tokenization.html#ebnf.Identifier">identifier</a>
+      ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[120]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.eventType"></a>event type</td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">'assigner' | 'creation';</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[73]</td>
+<td align="right" valign="top" width="10%"><a href="section.Services.Declaration.html#ebnf.parameterList">parameter list</a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">'(' , [ <a href="section.Services.Declaration.html#ebnf.parameterDefinition">parameter definition</a> ] , { ',' , <a href="section.Services.Declaration.html#ebnf.parameterDefinition">parameter definition</a> } , ')';</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[74]</td>
+<td align="right" valign="top" width="10%"><a href="section.Services.Declaration.html#ebnf.parameterDefinition">parameter definition</a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+<a href="section.Services.Declaration.html#ebnf.parameterName">parameter name</a> , ':' , <a href="section.Services.Declaration.html#ebnf.parameterMode">parameter mode</a> , <a href="section.Services.Declaration.html#ebnf.parameterType">parameter type</a>;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+</table></td></tr></table>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="section.Objects.Events.Creation"></a>8.6.2.1. Creation Events</h4></div></div></div>
+<p>
+          An event that is defined as an <code class="code">creation</code> event is always generated without reference to a particular 
+          instance, and causes a creation state to be entered. 
+        </p>
+<div class="caution">
+<h3 class="title">Deprecated</h3>
+<p>
+          Use of creation events is deprecated, and they are likely to be removed in a future version of the language. 
+          Synchronous creation of instances should be preferred. 
+        </p>
+</div>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="section.Objects.Events.Instance"></a>8.6.2.2. Instance Events</h4></div></div></div>
+<p>
+          An event that is defined without an event type is an instance event. An instance event is always generated with respect to 
+          a particular instance, and is destined for the lifecyle of that instance. 
+        </p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="section.Objects.Events.Polymorphic"></a>8.6.2.3. Polymorphic Events</h4></div></div></div>
+<p>
+          Any instance events that are defined on a <a class="link" href="section.Relationships.Supertype.html" title="5.4. Supertype Relationships">supertype object</a> are 
+          inherited by all subtypes. Once the state action (if any) for the supertype has completed, the event is passed on to 
+          any subtypes. Polymorphic events are not defined on the subtype, but referenced in the subtype's state transition table 
+          by prefixing them with the supertype object name. 
+        </p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="section.Objects.Events.Assigner"></a>8.6.2.4. Assigner Events</h4></div></div></div>
+<p>
+          An event that is defined as an <code class="code">assigner</code> event is always generated without reference to a particular 
+          instance, and is destined for the assigner lifecyle of the containing object. 
+        </p>
+</div>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="section.Objects.TransitionTable"></a>8.6.3. State Transition Table</h3></div></div></div>
+<p>
+        A state transition table defines the transitions in the lifecycle of an instance or assigner object. Given any starting 
+        state, it specifies whether a particular event is valid for a lifecycle in that state, and if so whether the event should 
+        cause transition to another state or be ignored.
+      </p>
+<p>
+        The following conditions must be met for any object:
+      </p>
+<p>
+        </p>
+<div class="itemizedlist"><ul class="itemizedlist">
+<li class="listitem">
+              If any creation, instance or terminal states are declared, the object must define exactly one instance state 
+              transition table. 
+            </li>
+<li class="listitem">
+              If any assigner or assigner start states are declared, the object must define exactly one assigner state 
+              transition table. 
+            </li>
+</ul></div>
+<p>
+      </p>
+<p>
+        The following conditions must be met in any instance state transition table:
+      </p>
+<p>
+        </p>
+<div class="itemizedlist"><ul class="itemizedlist">
+<li class="listitem">
+              Every instance, creation or terminal state declared by the object must occur as a
+              <a href="section.Objects.Lifecycles.html#ebnf.startState">start state</a> in exactly one row of the instance state transition table. 
+            </li>
+<li class="listitem">
+              Assigner or assigner start states must not occur as a <a href="section.Objects.Lifecycles.html#ebnf.startState">start state</a>. 
+            </li>
+<li class="listitem">
+              Exactly one row must have a <a href="section.Objects.Lifecycles.html#ebnf.startState">start state</a> of <code class="code">Non_Existent</code>.
+            </li>
+<li class="listitem">
+              Every row must contain a <a href="section.Objects.Lifecycles.html#ebnf.transitionOption">transition option</a> for each instance or creation event defined in 
+              the enclosing object.
+            </li>
+<li class="listitem">
+              Every row must contain a <a href="section.Objects.Lifecycles.html#ebnf.transitionOption">transition option</a> for each polymorphic event defined in 
+              every supertype of the enclosing object.
+            </li>
+<li class="listitem">
+              For the <code class="code">Non_Existent</code> <a href="section.Objects.Lifecycles.html#ebnf.startState">start state</a>, all transition options for instance or 
+              terminal events must be marked as <code class="code">Cannot_Happen</code> 
+            </li>
+<li class="listitem">
+              For the <code class="code">Non_Existent</code> <a href="section.Objects.Lifecycles.html#ebnf.startState">start state</a>, all transition options for creation events 
+              must result in a creation state. 
+            </li>
+<li class="listitem">
+              All transitions from creation, instance or terminal <a href="section.Objects.Lifecycles.html#ebnf.startState">start state</a>s for creation events must 
+              be marked as <code class="code">Cannot_Happen</code> 
+            </li>
+<li class="listitem">
+              All transitions from creation, instance or terminal <a href="section.Objects.Lifecycles.html#ebnf.startState">start state</a>s for instance or 
+              polymorphic events must not result in a creation state. 
+            </li>
+<li class="listitem">
+              All transitions from a terminal <a href="section.Objects.Lifecycles.html#ebnf.startState">start state</a> must be marked as <code class="code">Ignore</code> or 
+              <code class="code">Cannot_Happen</code>.
+            </li>
+<li class="listitem">
+              Each <a href="section.Objects.Lifecycles.html#ebnf.incomingEvent">incoming event</a> with parameter types that do not match exactly the parameter types of 
+              the <a href="section.Objects.Lifecycles.html#ebnf.endState">end state</a> must be marked as <code class="code">Ignore</code> or <code class="code">Cannot_Happen</code>. 
+            </li>
+</ul></div>
+<p>
+      </p>
+<p>
+        The following conditions must be met in any assigner state transition table:
+      </p>
+<p>
+        </p>
+<div class="itemizedlist"><ul class="itemizedlist">
+<li class="listitem">
+              Every assigner or assigner start state declared by the enclosing object must occur as a
+              <a href="section.Objects.Lifecycles.html#ebnf.startState">start state</a> in exactly one row of the assigner transition table. 
+            </li>
+<li class="listitem">
+              Instance, creation or terminal states must not occur as a <a href="section.Objects.Lifecycles.html#ebnf.startState">start state</a>. 
+            </li>
+<li class="listitem">
+              All rows must not have a <a href="section.Objects.Lifecycles.html#ebnf.startState">start state</a> of <code class="code">Non_Existent</code>.
+            </li>
+<li class="listitem">
+              All rows must contain exactly one <a href="section.Objects.Lifecycles.html#ebnf.transitionOption">transition option</a> for each assigner event defined in the 
+              enclosing object. 
+            </li>
+<li class="listitem">
+              Each <a href="section.Objects.Lifecycles.html#ebnf.incomingEvent">incoming event</a> with parameter types that do not match exactly the
+              <a href="section.Objects.Lifecycles.html#ebnf.endState">end state</a> parameter types must be marked as <code class="code">Ignore</code> or 
+              <code class="code">Cannot_Happen</code>. 
+            </li>
+</ul></div>
+<p>
+      </p>
+<table width="100%" cellpadding="5" bgcolor="#F5DCB3" border="1" class="productionset" summary="EBNF"><tr><td><table border="0" width="99%" cellpadding="0" bgcolor="#F5DCB3" class="productionset" summary="EBNF productions">
+<tr>
+<td align="left" valign="top" width="3%">[121]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.transitionTable"></a>transition table</td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">[ 'assigner' ] , 'transition' , 'is' , <a href="section.Objects.Lifecycles.html#ebnf.transitionRow">transition row</a> , { <a href="section.Objects.Lifecycles.html#ebnf.transitionRow">transition row</a> } , 'end' , 'transition' , ';' , <a href="section.Pragmas.html#ebnf.pragmaList">pragma list</a>;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[122]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.transitionRow"></a>transition row</td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+<a href="section.Objects.Lifecycles.html#ebnf.startState">start state</a> , '(' , <a href="section.Objects.Lifecycles.html#ebnf.transitionOption">transition option</a> , { ',' ,
+      <a href="section.Objects.Lifecycles.html#ebnf.transitionOption">transition option</a> } , ')' , ';' , <a href="section.Pragmas.html#ebnf.pragmaList">pragma list</a>;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[123]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.transitionOption"></a>transition option</td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+<a href="section.Objects.Lifecycles.html#ebnf.incomingEvent">incoming event</a> , '=&gt;' , <a href="section.Objects.Lifecycles.html#ebnf.endState">end state</a>;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[124]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.incomingEvent"></a>incoming event</td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">[ <a href="section.Objects.Declaration.html#ebnf.objectName">object name</a> , '.' ] , <a href="section.Objects.Lifecycles.html#ebnf.eventName">event name</a>;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[125]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.startState"></a>start state</td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">'Non_Existent' | <a href="section.Services.Declaration.html#ebnf.stateName">state name</a>;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[126]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.endState"></a>end state</td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+<a href="section.Services.Declaration.html#ebnf.stateName">state name</a> | 'Ignore' | 'Cannot_Happen';</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+</table></td></tr></table>
+</div>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="section.Objects.Services.html">Prev</a> </td>
+<td width="20%" align="center"><a accesskey="u" href="section.Objects.html">Up</a></td>
+<td width="40%" align="right"> <a accesskey="n" href="section.Statements.html">Next</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left" valign="top">8.5. Object Services and Functions </td>
+<td width="20%" align="center">
+<a accesskey="h" href="index.html">Home</a> | <a accesskey="t" href="bk01-toc.html">ToC</a>
+</td>
+<td width="40%" align="right" valign="top"> Chapter 9. Statements</td>
+</tr>
+</table>
+</div>
+<div align="center">OFFICIAL</div>
+</body>
+</html>

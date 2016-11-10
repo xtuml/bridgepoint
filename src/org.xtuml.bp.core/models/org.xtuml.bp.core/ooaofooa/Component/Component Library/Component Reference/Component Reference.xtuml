@@ -596,8 +596,17 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000002",
 	1,
-	'select many importedReferences related by self->CL_POR[R4707]->CL_IIR[R4708]->CL_IP[R4703];
-return cardinality importedReferences;',
+	'count = 0;
+select one outerPkg related by self->PE_PE[R8001]->EP_PKG[R8000];
+select many importedReferences related by self->CL_POR[R4707]->CL_IIR[R4708]->CL_IP[R4703];
+for each importedReference in importedReferences
+  select one innerPkg related by importedReference->CL_IIR[R4703]->CL_POR[R4708]->CL_IC[R4707]->PE_PE[R8001]->EP_PKG[R8000];
+  if (outerPkg.Package_ID == innerPkg.Package_ID)
+    count = count+1;
+  end if;
+end for;
+return count;
+',
 	1,
 	'',
 	"5462159f-15ec-49cc-91d4-b8d90d0e41ec");
@@ -617,8 +626,17 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000002",
 	1,
-	'select many importedReferences related by self->CL_POR[R4707]->CL_IIR[R4708]->CL_IR[R4703];
-return cardinality importedReferences;',
+	'count = 0;
+select one outerPkg related by self->PE_PE[R8001]->EP_PKG[R8000];
+select many importedReferences related by self->CL_POR[R4707]->CL_IIR[R4708]->CL_IR[R4703];
+for each importedReference in importedReferences
+  select one innerPkg related by importedReference->CL_IIR[R4703]->CL_POR[R4708]->CL_IC[R4707]->PE_PE[R8001]->EP_PKG[R8000];
+  if (outerPkg.Package_ID == innerPkg.Package_ID)
+    count = count+1;
+  end if;
+end for;
+return count;
+',
 	1,
 	'',
 	"e71bb59d-d5a7-45ea-8e95-0fba96765df6");
@@ -640,12 +658,16 @@ INSERT INTO O_TFR
 	1,
 	'id = GD::NULL_UNIQUE_ID();
 select many importedRefs related by self->CL_POR[R4707]->CL_IIR[R4708]->CL_IP[R4703];
+select one outerPkg related by self->PE_PE[R8001]->EP_PKG[R8000];
 // We''re preincrementing the index
 count = -1;
 for each importedRef in importedRefs
+  select one innerPkg related by importedRef->CL_IIR[R4703]->CL_POR[R4708]->CL_IC[R4707]->PE_PE[R8001]->EP_PKG[R8000];
+  if (outerPkg.Package_ID == innerPkg.Package_ID)
   count = count+1;
   if (count == param.index)
     return importedRef.Id;
+  end if;
   end if;
 end for;
 return id;',
@@ -679,12 +701,16 @@ INSERT INTO O_TFR
 	1,
 	'id = GD::NULL_UNIQUE_ID();
 select many importedRefs related by self->CL_POR[R4707]->CL_IIR[R4708]->CL_IR[R4703];
+select one outerPkg related by self->PE_PE[R8001]->EP_PKG[R8000];
 // We''re preincrementing the index
 count = -1;
 for each importedRef in importedRefs
+  select one innerPkg related by importedRef->CL_IIR[R4703]->CL_POR[R4708]->CL_IC[R4707]->PE_PE[R8001]->EP_PKG[R8000];
+  if (outerPkg.Package_ID == innerPkg.Package_ID)
   count = count+1;
   if (count == param.index)
     return importedRef.Id;
+  end if;
   end if;
 end for;
 return id;',
@@ -716,18 +742,28 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
-	'select any importedReq related by self->CL_POR[R4707]->CL_IIR[R4708]->CL_IR[R4703]
+	'select one outerPkg related by self->PE_PE[R8001]->EP_PKG[R8000];
+select any importedReq related by self->CL_POR[R4707]->CL_IIR[R4708]->CL_IR[R4703]
 	where (selected.Id == param.id);
-if(not_empty importedReq)
+select one innerPkg related by importedReq->CL_IIR[R4703]->CL_POR[R4708]->CL_IC[R4707]->PE_PE[R8001]->EP_PKG[R8000];
+if(not_empty importedReq and (outerPkg.Package_ID == innerPkg.Package_ID))
+  select one delegation related by importedReq->CL_IIR[R4703]->C_DG[R4704];
   if(param.considerDelegations)
-    select one delegation related by importedReq->CL_IIR[R4703]->C_DG[R4704];
-    if(not_empty delegation)
-      return false;
+    if(empty delegation)
+      return true;
+    else
+      // if including delegations, only include those in the same package
+      select one dPkg related by delegation->PE_PE[R8001]->EP_PKG[R8000];
+      if (not_empty dPkg and outerPkg.Package_ID == dPkg.Package_ID)
+        return true;
+      end if;    
     end if;
+  else
+    return true;
   end if;
-  return true;
 end if;
-return false;',
+return false;
+',
 	1,
 	'',
 	"c6250195-a9ad-45b3-9d5f-526ae00a3232");
@@ -756,16 +792,25 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
-	'select any importedPro related by self->CL_POR[R4707]->CL_IIR[R4708]->CL_IP[R4703]
+	'select one outerPkg related by self->PE_PE[R8001]->EP_PKG[R8000];
+select any importedPro related by self->CL_POR[R4707]->CL_IIR[R4708]->CL_IP[R4703]
 	where (selected.Id == param.id);
-if(not_empty importedPro)
+select one innerPkg related by importedPro->CL_IIR[R4703]->CL_POR[R4708]->CL_IC[R4707]->PE_PE[R8001]->EP_PKG[R8000];
+if(not_empty importedPro and (outerPkg.Package_ID == innerPkg.Package_ID))
+  select one delegation related by importedPro->CL_IIR[R4703]->C_DG[R4704];
   if(param.considerDelegations)
-    select one delegation related by importedPro->CL_IIR[R4703]->C_DG[R4704];
-    if(not_empty delegation)
-      return false;
+    if(empty delegation)
+      return true;
+    else
+      // if including delegations, only include those in the same package
+      select one dPkg related by delegation->PE_PE[R8001]->EP_PKG[R8000];
+      if (not_empty dPkg and outerPkg.Package_ID == dPkg.Package_ID)
+        return true;
+      end if;    
     end if;
+  else
+    return true;
   end if;
-  return true;
 end if;
 return false;',
 	1,
@@ -798,21 +843,28 @@ INSERT INTO O_TFR
 	1,
 	'id = GD::NULL_UNIQUE_ID();
 select many importedRefs related by self->CL_POR[R4707]->CL_IIR[R4708]->CL_IP[R4703];
+select one outerPkg related by self->PE_PE[R8001]->EP_PKG[R8000];
 // We''re preincrementing the index
 count = -1;
 for each importedRef in importedRefs
-  count = count+1;
-  if (count == param.index)
     select one provision related by importedRef->CL_IIR[R4703]->C_IR[R4701]
     															   ->C_P[R4009];
     select one delegation related by importedRef->CL_IIR[R4703]->C_DG[R4704];
     if(not_empty delegation)
-      return delegation.Id;
+      select one dPkg related by delegation->PE_PE[R8001]->EP_PKG[R8000];
+      if (not_empty dPkg and outerPkg.Package_ID == dPkg.Package_ID)       
+        count = count + 1;
+        if (count == param.index)
+          return delegation.Id;
+        end if;
+      end if;    
     end if;
     if(not_empty provision)
-      return provision.Provision_Id;
+        count = count + 1;
+        if (count == param.index)
+          return provision.Provision_Id;
+        end if;
     end if;
-  end if;
 end for;
 return id;',
 	1,
@@ -845,21 +897,28 @@ INSERT INTO O_TFR
 	1,
 	'id = GD::NULL_UNIQUE_ID();
 select many importedRefs related by self->CL_POR[R4707]->CL_IIR[R4708]->CL_IR[R4703];
+select one outerPkg related by self->PE_PE[R8001]->EP_PKG[R8000];
 // We''re preincrementing the index
 count = -1;
 for each importedRef in importedRefs
-  count = count+1;
-  if (count == param.index)
     select one requirement related by importedRef->CL_IIR[R4703]->C_IR[R4701]
     															   ->C_R[R4009];
     select one delegation related by importedRef->CL_IIR[R4703]->C_DG[R4704];
     if(not_empty delegation)
-      return delegation.Id;
+      select one dPkg related by delegation->PE_PE[R8001]->EP_PKG[R8000];
+      if (not_empty dPkg and outerPkg.Package_ID == dPkg.Package_ID)       
+        count = count + 1;
+        if (count == param.index)
+          return delegation.Id;
+        end if;
+      end if;    
     end if;
     if(not_empty requirement)
-      return requirement.Requirement_Id;
+        count = count + 1;
+        if (count == param.index)
+          return requirement.Requirement_Id;
+        end if;
     end if;
-  end if;
 end for;
 return id;',
 	1,
@@ -1312,7 +1371,7 @@ else
         relate importedReq to importedRef across R4703;        
       end if;
       create object instance portRef of CL_POR;
-      select one existingPort related by localRef->C_PO[R4016];
+      select one existingPort related by interfaceRef->C_PO[R4016];
       relate existingPort to portRef across R4709;
       relate portRef to self across R4707;
       relate importedRef to portRef across R4708;
@@ -1486,6 +1545,29 @@ return isAccessible and self.canAssignToComp(Id:comp.Id,
 	1,
 	'',
 	"90e0b7b7-e0b0-4751-b105-5d47bde9e851");
+INSERT INTO O_TFR
+	VALUES ("250aa665-07b5-49a9-9b60-1244538f9b76",
+	"14d6c781-a341-481a-b67d-09ec4e8b9ed3",
+	'downgradeCheck',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'isAccessible = true; 
+
+// We only need to run this check if this component reference is assigned
+if ( self.isAssigned() )
+  isAccessible = self.canReferToComponent();
+
+  if ( not isAccessible )
+    select one comp related by self->C_C[R4201];
+    self.unAssign();
+    Util::reportElementDowngraded(rto:self.convertToInstance(), rgoDowngraded:comp.convertToInstance(), relationship:"R4201");
+  end if;
+end if;
+',
+	1,
+	'',
+	"6bd64ba7-35f2-45ef-9c2e-6692db8eece8");
 INSERT INTO O_NBATTR
 	VALUES ("b819ae30-4d2e-458a-9ff4-77c81e4cbccf",
 	"14d6c781-a341-481a-b67d-09ec4e8b9ed3");
