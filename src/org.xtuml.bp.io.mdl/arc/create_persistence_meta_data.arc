@@ -236,7 +236,7 @@
         .else
           .assign relNumbAndPhrase = "R${relNumb}"
           .if(nextRelPhrase != "")
-            .assign relNumbAndPhrase = relNumbAndPhrase + ".'${nextRelPhrase}'"
+            .assign relNumbAndPhrase = relNumbAndPhrase + ".'$cr{nextRelPhrase}'"
           .end if
           .assign rel_chain = "->${table.Key_Lett}[${relNumbAndPhrase}]" + rel_chain
         .end if
@@ -945,7 +945,7 @@ return null;
 			          .else
 			            .assign relAndPhrase = "R${child.Numb}"
 			            .if(child.rel_phrase != "")
-			              .assign relAndPhrase = relAndPhrase + ".'${child.rel_phrase}'"
+			              .assign relAndPhrase = relAndPhrase + ".'$cr{child.rel_phrase}'"
 			            .end if
        			      .assign rel_chain = "->${child_table.Key_Lett}[${relAndPhrase}]"
 			          .end if
