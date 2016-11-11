@@ -17,14 +17,16 @@ Undo support was not carried along with the initial model element move work
 <a id="2.1"></a>2.1 [BridgePoint DEI #8755](https://support.onefact.net/issues/8755) Undo is not available for a move (cut/paste) operation  
 <a id="2.2"></a>2.2 [BridgePoint DEI #8321](https://support.onefact.net/issues/8321) Model Element Move   
 <a id="2.3"></a>2.3 [BridgePoint DEI #8837](https://support.onefact.net/issues/8837) Model Element Move (cut/paste) testing  
-<a id="2.3"></a>2.4 [BridgePoint DEI #8853](https://support.onefact.net/issues/8853) Undo does not consider original list order   
-<a id="2.3"></a>2.5 [BridgePoint DEI #8854](https://support.onefact.net/issues/8854) Support move to location with existing element
+<a id="2.4"></a>2.4 [BridgePoint DEI #8853](https://support.onefact.net/issues/8853) Undo does not consider original list order   
+<a id="2.5"></a>2.5 [BridgePoint DEI #8854](https://support.onefact.net/issues/8854) Support move to location with existing element
+<a id="2.6"></a>2.5 [BridgePoint DEI #8854](https://github.com/xtuml/internal/blob/71c842bdcd937f946f977d529dc90e0f9a5f2486/Documentation_archive/20090903/technical/Undo_Redo_Revert/undo_redo_revert-i473.ant) Provide Undo, Redo and Revert functionality    
+<a id="2.7"></a>2.5 [BridgePoint DEI #8854](https://github.com/xtuml/internal/blob/71c842bdcd937f946f977d529dc90e0f9a5f2486/Documentation_archive/20090903/technical/Architecture/i865.dnt) Batch Event Delivery Mechanism    
 
 3. Background
 -------------
 
 Model element move was redesigned [2.2] such that a move is represented by a
-copy/paste/delete action.  It used to be copy/delete/paste which did not
+copy/paste/delete action.  It use to be copy/delete/paste which did not
 accurately describe a move.  It required two separate transactions which lead
 to two undo calls for a proper restoration.  The new move support has made it
 into the main baseline, with undo disabled.

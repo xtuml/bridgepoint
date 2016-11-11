@@ -14,10 +14,10 @@ Present:  Travis,Cort,Bob
 <pre>
 
 -- Num Type  Who  Section  Comment
-_- 01  min   bob  2      Add reference to the orginal undo/redo implementation
-_- 02  min   bob  3      used -> use
-_- 03  min   bob  6.3      Why does this operation get called.
-
+x- 01  min   bob  2      Add reference to the orginal undo/redo implementation
+x- 02  min   bob  3      used -> use
+x- 03  min   bob  6.3      Why does this operation get called.
+						Travis: This operation is called during the check for downgrade requirement.  It is called and does show the same problem with move.  Not specific to undo. 
 </pre>
    
 No major observations, a re-review is not required.
