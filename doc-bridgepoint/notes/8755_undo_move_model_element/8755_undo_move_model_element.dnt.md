@@ -1,40 +1,27 @@
-Skip to content
-This repository
-Search
-Pull requests
-Issues
-Gist
- @travislondon
- Unwatch 16
-  Star 8
- Fork 38 xtuml/bridgepoint
- Code  Pull requests 3  Projects 0  Wiki  Pulse  Graphs
-Branch: master Find file Copy pathbridgepoint/doc-bridgepoint/process/templates/dnt_template.md
-be4f27e  on Aug 5
-@keithbrown keithbrown job #8438 - Add INT. Add nb_all target back in since the maven build
-3 contributors @keithbrown @rmulvey @cortlandstarrett
-RawBlameHistory    
-122 lines (94 sloc)  3.71 KB
+---
+
 This work is licensed under the Creative Commons CC0 License
 
-Title goes here
+---
 
-xtUML Project Design Note
+# Undo model element move
+### xtUML Project Design Note
 
 1. Abstract
-
+-----------
 Undo support was not carried along with the initial model element move work
 [2.2].  This note describes the changes required to re-enable undo support.
 
 2. Document References
-
-2.1 BridgePoint DEI #8755 Undo is not available for a move (cut/paste) operation
-2.2 BridgePoint DEI #8321 Model Element Move
-2.3 BridgePoint DEI #8837 Model Element Move (cut/paste) testing
-2.4 BridgePoint DEI #8853 Undo does not consider original list order
-2.5 BridgePoint DEI #8854 Support move to location with existing element   
+----------------------
+<a id="2.1"></a>2.1 [BridgePoint DEI #8755](https://support.onefact.net/issues/8755) Undo is not available for a move (cut/paste) operation  
+<a id="2.2"></a>2.2 [BridgePoint DEI #8321](https://support.onefact.net/issues/8321) Model Element Move   
+<a id="2.3"></a>2.3 [BridgePoint DEI #8837](https://support.onefact.net/issues/8837) Model Element Move (cut/paste) testing  
+<a id="2.3"></a>2.3 [BridgePoint DEI #8853](https://support.onefact.net/issues/8853) Undo does not consider original list order
+<a id="2.3"></a>2.3 [BridgePoint DEI #8854](https://support.onefact.net/issues/8854) Support move to location with existing element
 
 3. Background
+-------------
 
 Model element move was redesigned [2.2] such that a move is represented by a
 copy/paste/delete action.  It used to be copy/delete/paste which did not
@@ -43,12 +30,14 @@ to two undo calls for a proper restoration.  The new move support has made it
 into the main baseline, with undo disabled.
 
 4. Requirements
+---------------
 
 4.1 Supported elements shall be moved in a single operation that can be undone
 with a single operation.
 4.2 Tests listed in [2.3], which use supported elements shall pass
 
 5. Analysis
+-----------
 
 5.1 Enabling undo
 
@@ -63,6 +52,7 @@ same code that handles the move (no undo involved) shall support the undo move
 just the same.
 
 6. Design
+---------   
 
 6.1 Enabling undo
 
@@ -117,10 +107,13 @@ rename, abort.
 Issue [2.5] was raised to capture this.
 
 7. Design Comments
+------------------
 
 8. User Documentation
+---------------------
 
 9. Unit Test
+------------
 
 9.1 Run relevant tests described in [2.3]
 9.1.1 Result test passes
@@ -131,5 +124,4 @@ Issue [2.5] was raised to capture this.
 9.1.6 Result the appropriate editor is opened
 
 End
-Contact GitHub API Training Shop Blog About
-© 2016 GitHub, Inc. Terms Privacy Security Status Help
+--- 
