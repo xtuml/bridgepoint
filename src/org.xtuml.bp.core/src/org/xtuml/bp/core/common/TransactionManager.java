@@ -275,19 +275,12 @@ public class TransactionManager {
 
 	private void addTransactionToStack(ArrayList<Transaction> stack,
 			Transaction transaction) {
-		// Move will not be undoable until https://support.onefact.net/issues/8755 has been resolved.
-		// Until then we prevent undo on Model Element Moves
-		if (PasteAction.TransactionNameForMove.equals(transaction.getDisplayName())) {
-			clearStacks();
-			setUndoRedoActionsState();
-		} else {
-			if (stack.size() == maxStackSize) {
-				// if this stack is at its limit
-				// remove the bottom transaction
-				stack.remove(0);
-			}
-			stack.add(transaction);
+		if (stack.size() == maxStackSize) {
+			// if this stack is at its limit
+			// remove the bottom transaction
+			stack.remove(0);
 		}
+		stack.add(transaction);
 	}
 
 	/**

@@ -168,8 +168,9 @@ public abstract class PasteAction extends CutCopyPasteAction  {
 				// All the work prior to this changed the in memory model.
 				// The transaction processing for this type of transaction 
 				// will update the files on disk as needed.
+				NonRootModelElement parentNRME = getContainerForMove(sourceElement);
 				ModelElementMovedModelDelta change = new ModelElementMovedModelDelta(sourceElement, destination,
-						rgosAffectedByMove);
+						parentNRME, rgosAffectedByMove);
 				Ooaofooa.getDefaultInstance().fireModelElementMoved(change);									
 			} 
 		
