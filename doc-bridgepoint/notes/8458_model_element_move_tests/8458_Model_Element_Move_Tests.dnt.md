@@ -378,6 +378,22 @@ related across R3 in Source package is moved to Destination package.
   * 9. Restart BridgePoint
   * 10. Open the p2/impl2/EEs, verify TestEE::testBridgeParam::p has type integer, TestEE::testBridgeRval has type void
 
+7.29 Verify moved element can be moved back (Uses test model [2.7](#2.7))  
+  * 1. cut P1
+  * 2. paste into P3
+  * 3. Result - P1 is properly moved
+  * 4. cut P1
+  * 5. Paste in to the system level
+  * 6. Result - Paste is successful  
+
+7.30 Visible move doesn't affect sequence diagram  
+* Cut InvisibleExternalEntity in FailureCasesComponentPackage and paste into Destination package.
+* Verify InvisibleExternalEntity and Bridge1 aren't downgraded in Sequences package in FailureCasesComponentPackage  
+
+7.31 Non-visible move causes downgrades on sequence diagram  
+* Cut InvisibleExternalEntity in FailureCasesComponentPackage and paste into DestinationComponentPackage.  
+* Downgrade message is shown for InvisibleExternalEntity and Bridge1
+* InvisibleExternalEntity and Bridge1 references in Sequences package in FailureCasesComponentPackage are changed to be Informal  
 
 End
 ---
