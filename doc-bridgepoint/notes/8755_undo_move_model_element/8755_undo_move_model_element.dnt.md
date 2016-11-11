@@ -17,8 +17,8 @@ Undo support was not carried along with the initial model element move work
 <a id="2.1"></a>2.1 [BridgePoint DEI #8755](https://support.onefact.net/issues/8755) Undo is not available for a move (cut/paste) operation  
 <a id="2.2"></a>2.2 [BridgePoint DEI #8321](https://support.onefact.net/issues/8321) Model Element Move   
 <a id="2.3"></a>2.3 [BridgePoint DEI #8837](https://support.onefact.net/issues/8837) Model Element Move (cut/paste) testing  
-<a id="2.3"></a>2.3 [BridgePoint DEI #8853](https://support.onefact.net/issues/8853) Undo does not consider original list order
-<a id="2.3"></a>2.3 [BridgePoint DEI #8854](https://support.onefact.net/issues/8854) Support move to location with existing element
+<a id="2.3"></a>2.4 [BridgePoint DEI #8853](https://support.onefact.net/issues/8853) Undo does not consider original list order   
+<a id="2.3"></a>2.5 [BridgePoint DEI #8854](https://support.onefact.net/issues/8854) Support move to location with existing element
 
 3. Background
 -------------
@@ -33,7 +33,7 @@ into the main baseline, with undo disabled.
 ---------------
 
 4.1 Supported elements shall be moved in a single operation that can be undone
-with a single operation.
+with a single operation.   
 4.2 Tests listed in [2.3], which use supported elements shall pass
 
 5. Analysis
@@ -115,13 +115,13 @@ Issue [2.5] was raised to capture this.
 9. Unit Test
 ------------
 
-9.1 Run relevant tests described in [2.3]
-9.1.1 Result test passes
-9.1.2 Undo the move from the test
-9.1.3 Result the element is moved back
-9.1.4 Result the file structure matches the model structure 
-9.1.5 Double click on the element moved after undo
-9.1.6 Result the appropriate editor is opened
+9.1 Run relevant tests described in [2.3]   
+9.1.1 Result test passes   
+9.1.2 Undo the move from the test   
+9.1.3 Result the element is moved back   
+9.1.4 Result the file structure matches the model structure    
+9.1.5 Double click on the element moved after undo   
+9.1.6 Result the appropriate editor is opened   
 
 End
 --- 
