@@ -22,7 +22,6 @@
 //
 package org.xtuml.bp.core.common;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -31,7 +30,9 @@ import java.util.List;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.IWorkspaceRoot;
+import org.eclipse.core.resources.IWorkspaceRunnable;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.resources.WorkspaceJob;
 import org.eclipse.core.runtime.CoreException;
@@ -41,15 +42,11 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.Job;
-import org.eclipse.ui.PlatformUI;
-import org.xtuml.bp.core.Component_c;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.DataType_c;
 import org.xtuml.bp.core.Modeleventnotification_c;
 import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.Package_c;
-import org.xtuml.bp.core.PackageableElement_c;
-import org.xtuml.bp.core.SystemModel_c;
 import org.xtuml.bp.core.ui.PasteAction;
 import org.xtuml.bp.core.util.CoreUtil;
 
@@ -164,17 +161,36 @@ public class ComponentTransactionListener implements ITransactionListener {
 						}		
 
 						if (!errorDuringFileMove) {
-							
 							// persist the moved element and all its RGOs
 							PersistableModelComponent destinationPMC = destinationElement.getPersistableComponent(true);
 							persistRenamedME(sourceElement, destinationPMC, false);
-							
+
 							// In case it was not yet persisted above in persistRenamedME, do it now
 							persist(sourcePMC);
-							
-							// assure all rgos are persisted
-							rgosAffectedByMove.addAll(((ModelElementMovedModelDelta) delta)
-									.getRGOsAffectedByMove());
+
+							IWorkspace workspace = ResourcesPlugin.getWorkspace();
+							try {
+								workspace.run(new IWorkspaceRunnable() {
+									
+									@Override
+									public void run(IProgressMonitor monitor) throws CoreException {
+										// assure all rgos are persisted
+										rgosAffectedByMove.addAll(((ModelElementMovedModelDelta) delta)
+												.getRGOsAffectedByMove());
+										/**
+										 * Persist all the RGOs, if any, associated with the Move operation
+										 */
+										for (Iterator<PersistableModelComponent> iter = rgosAffectedByMove.iterator(); iter.hasNext();) {
+											PersistableModelComponent rgo = (PersistableModelComponent) iter.next();
+
+											persist(rgo);
+										}
+
+									}
+								}, workspace.getRoot(), IWorkspace.AVOID_UPDATE, null);
+							} catch (CoreException e) {
+								CorePlugin.logError("Resource exception occured during persistence of an element move.", e);
+							}
 						}
 					}
 				}
@@ -239,14 +255,6 @@ public class ComponentTransactionListener implements ITransactionListener {
 					}
 				}
 			}
-		}
-
-		/**
-		 * Persist all the RGOs, if any, associated with the Move operation
-		 */
-		for (Iterator<PersistableModelComponent> iter = rgosAffectedByMove.iterator(); iter.hasNext();) {
-			PersistableModelComponent rgo = (PersistableModelComponent) iter.next();
-			persist(rgo);
 		}
 		
 		Ooaofooa[] instances = Ooaofooa.getInstances();
@@ -351,6 +359,8 @@ public class ComponentTransactionListener implements ITransactionListener {
 		if (dontMakeResourceChanges()) {
 			return;
 		}
+		ComponentResourceListener.setIgnoreResourceChanges(true);
+		TransactionManager.getSingleton().setIgnoreResourceChange(true);
 		final String oldName = (String) delta.getOldValue();
 		final String newName = (String) delta.getNewValue();
 		if (oldName.equals("")) // $NON-NLS-1$
@@ -432,6 +442,8 @@ public class ComponentTransactionListener implements ITransactionListener {
 	 * @param destination This is the destination selected by the user
 	 */
 	private static void moveElement(NonRootModelElement sourceElement, NonRootModelElement destinationElement) throws CoreException {
+		ComponentResourceListener.setIgnoreResourceChanges(true);
+		TransactionManager.getSingleton().setIgnoreResourceChange(true);
 		final IWorkspaceRoot wsRoot = ResourcesPlugin.getWorkspace().getRoot();
 		IPersistenceHierarchyMetaData metadata = PersistenceManager.getHierarchyMetaData();
 		PersistableModelComponent destinationPMC = destinationElement.getPersistableComponent(true);

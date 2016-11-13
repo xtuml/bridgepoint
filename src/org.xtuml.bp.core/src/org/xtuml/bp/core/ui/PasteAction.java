@@ -94,7 +94,7 @@ public abstract class PasteAction extends CutCopyPasteAction  {
 			// @see ModelElementMovedDelta.java
 			IPersistenceHierarchyMetaData metaData = PersistenceManager.getHierarchyMetaData();
 			for (NonRootModelElement sourceElement : ELEMENT_MOVE_SOURCE_SELECTION) {
-				List selfExternalRGOs = metaData.findExternalRGOsToContainingComponent(sourceElement.getFirstParentPackage(), true);		
+				List selfExternalRGOs = metaData.findExternalRGOs(sourceElement.getRTOElementForResolution());		
 				for (Iterator iterator = selfExternalRGOs.iterator(); iterator.hasNext();) {
 					PersistableModelComponent target = ((NonRootModelElement) iterator.next()).getPersistableComponent();
 					if (target != null && !rgosAffectedByMove.contains(target)) {
