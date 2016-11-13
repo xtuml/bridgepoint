@@ -34,14 +34,10 @@ import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.IWorkspaceRunnable;
 import org.eclipse.core.resources.ResourcesPlugin;
-import org.eclipse.core.resources.WorkspaceJob;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.NullProgressMonitor;
-import org.eclipse.core.runtime.Status;
-import org.eclipse.core.runtime.jobs.Job;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.DataType_c;
 import org.xtuml.bp.core.Modeleventnotification_c;
@@ -139,12 +135,17 @@ public class ComponentTransactionListener implements ITransactionListener {
 							}
 						}
 					} else if (delta instanceof ModelElementMovedModelDelta) {
+						// here we have to use ignore resource changes caused
+						// by CMs like git, this and rename are the only cases
+						// where git injects resource changes into our transaction
+						ComponentResourceListener.setIgnoreResourceChanges(true);
+						TransactionManager.getSingleton().setIgnoreResourceChanges(true);
 						// When multiple elements are being moved we will re-persist elements
 						persisted.clear();
-						
+
 						NonRootModelElement sourceElement = (NonRootModelElement) delta.getModelElement();
 						NonRootModelElement destinationElement = ((ModelElementMovedModelDelta)delta).getDestination();
-	
+
 						PersistableModelComponent sourcePMC = PasteAction.getContainerForMove(sourceElement).getPersistableComponent();
 						boolean errorDuringFileMove = false;
 
@@ -161,19 +162,19 @@ public class ComponentTransactionListener implements ITransactionListener {
 						}		
 
 						if (!errorDuringFileMove) {
-							// persist the moved element and all its RGOs
-							PersistableModelComponent destinationPMC = destinationElement.getPersistableComponent(true);
-							persistRenamedME(sourceElement, destinationPMC, false);
-
-							// In case it was not yet persisted above in persistRenamedME, do it now
-							persist(sourcePMC);
-
 							IWorkspace workspace = ResourcesPlugin.getWorkspace();
 							try {
 								workspace.run(new IWorkspaceRunnable() {
-									
+
 									@Override
 									public void run(IProgressMonitor monitor) throws CoreException {
+										// persist the moved element and all its RGOs
+										PersistableModelComponent destinationPMC = destinationElement.getPersistableComponent(true);
+										persistRenamedME(sourceElement, destinationPMC, false);
+
+										// In case it was not yet persisted above in persistRenamedME, do it now
+										persist(sourcePMC);
+
 										// assure all rgos are persisted
 										rgosAffectedByMove.addAll(((ModelElementMovedModelDelta) delta)
 												.getRGOsAffectedByMove());
@@ -359,8 +360,9 @@ public class ComponentTransactionListener implements ITransactionListener {
 		if (dontMakeResourceChanges()) {
 			return;
 		}
+		// See comment in the move case above...
 		ComponentResourceListener.setIgnoreResourceChanges(true);
-		TransactionManager.getSingleton().setIgnoreResourceChange(true);
+		TransactionManager.getSingleton().setIgnoreResourceChanges(true);
 		final String oldName = (String) delta.getOldValue();
 		final String newName = (String) delta.getNewValue();
 		if (oldName.equals("")) // $NON-NLS-1$
@@ -442,13 +444,11 @@ public class ComponentTransactionListener implements ITransactionListener {
 	 * @param destination This is the destination selected by the user
 	 */
 	private static void moveElement(NonRootModelElement sourceElement, NonRootModelElement destinationElement) throws CoreException {
-		ComponentResourceListener.setIgnoreResourceChanges(true);
-		TransactionManager.getSingleton().setIgnoreResourceChange(true);
 		final IWorkspaceRoot wsRoot = ResourcesPlugin.getWorkspace().getRoot();
 		IPersistenceHierarchyMetaData metadata = PersistenceManager.getHierarchyMetaData();
 		PersistableModelComponent destinationPMC = destinationElement.getPersistableComponent(true);
 		NonRootModelElement rtoForResolution = sourceElement.getRTOElementForResolution();
-		
+
 		// start: move the element to the new ModelRoot in memory
 		// 		To implement undo, this in-memory section will be moved
 		//		from here into PasteAction, and any NRME modified here will
@@ -482,7 +482,7 @@ public class ComponentTransactionListener implements ITransactionListener {
 						+ destinationPath.toString() + "   Element being moved: " + sourceElement.getName(), e);
 				throw e;
 			}				
-			
+
 			// Update the moved PMCs file resource to point at its new file
 			sourceElement.getPersistableComponent().updateResource(newFile);
 		} else {
@@ -491,7 +491,7 @@ public class ComponentTransactionListener implements ITransactionListener {
 			if (rtoForResolution instanceof DataType_c) {
 				rtoForResolution.setComponent(destinationPMC);			
 			}
-		}		
+		}
 	}
 
 	public static void setDontMakeResourceChanges(boolean newValue) {

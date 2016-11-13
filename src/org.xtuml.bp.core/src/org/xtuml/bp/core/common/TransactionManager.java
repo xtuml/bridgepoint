@@ -1005,8 +1005,12 @@ public class TransactionManager {
 		return singleton;
 	}
 	
-	public void setIgnoreResourceChange(boolean value) {
+	public void setIgnoreResourceChanges(boolean value) {
 		ignoreResourceChanges = value;
+	}
+	
+	public void setIgnoreResourceChangesMarker(boolean value) {
+		ignoreResourceChangesMarker = value;
 	}
 
 	public void processTransaction(Transaction transaction, boolean processNew) {

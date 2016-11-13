@@ -102,9 +102,6 @@ public abstract class PasteAction extends CutCopyPasteAction  {
 					}
 				}
 			}
-				
-			// Move the graphics to their graphical model root
-			processGraphics(destination); 
 						
 			// Iterate over each element that was selected. Note that
 			// this is the actual selection. This is NOT using the "importer"
@@ -194,6 +191,9 @@ public abstract class PasteAction extends CutCopyPasteAction  {
 					throw e;
 				}
 			} 
+			
+			// Move the graphics to their graphical model root
+			processGraphics(destination); 
 		}
 		
 		/**
