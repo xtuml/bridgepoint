@@ -31,6 +31,14 @@ See [2.2].
 6. Implementation Comments
 --------------------------
 
+6.1 Resource changes causing disposal of elements during move   
+
+When renaming a source element to live in the destination we are seeing   
+responses to resource changes from git.  These responses trigger reloads of the   
+model element while we are in the middle of moving the data.  To prevent this
+code was added to disable the component resource listener, for any notifications
+during the rename.
+
 7. Unit Test
 ------------
 See [2.2].   
