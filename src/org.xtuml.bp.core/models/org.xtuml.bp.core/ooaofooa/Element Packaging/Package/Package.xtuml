@@ -6473,6 +6473,17 @@ INSERT INTO O_TPARM
 	'',
 	"00000000-0000-0000-0000-000000000000",
 	'The ID of the package to check as a target when making this package a package reference.');
+INSERT INTO O_TFR
+	VALUES ("5f9fbbeb-fd01-4db5-be48-01bee4e480e4",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'isCuttable',
+	'A shape type is cuttable if it is selected, and if each connector anchored to it is also selected.',
+	"ba5eda7a-def5-0000-0000-000000000001",
+	1,
+	'return Sel::isSelected(element:self.convertToInstance());',
+	1,
+	'',
+	"cacea0fc-4740-4230-8242-d728c337d0ff");
 INSERT INTO O_NBATTR
 	VALUES ("bceab74d-6f82-4823-b3be-7791bab58106",
 	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e");
