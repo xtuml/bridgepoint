@@ -779,7 +779,7 @@ throws IOException
             .else
               .assign relNumbAndPhrase = "R${child.Numb}"
               .if(child.rel_phrase != "")
-                .assign relNumbAndPhrase = relNumbAndPhrase + ".'${child.rel_phrase}'"
+                .assign relNumbAndPhrase = relNumbAndPhrase + ".'$cr{child.rel_phrase}'"
               .end if
               .invoke nav = generate_backward_rel_chain_nav_from_kl(table.Key_Lett, "->${table.Key_Lett}[${relNumbAndPhrase}]", child.Card, "inst", variableName, false);
               .assign nav_string = nav.body

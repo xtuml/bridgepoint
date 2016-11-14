@@ -36,14 +36,15 @@ INSERT INTO EO VALUES ( '23.24',  '1.6.4.1.1', '23.25',  'External Entity', -1, 
 INSERT INTO EO VALUES ( '23.25',  '1.7.4.1.1', '23.26',  'Function', -1, 'many', 'first', false, false, '', false, false, '->PE_PE[R8000]->S_SYNC[R8001]'  );
 INSERT INTO EO VALUES ( '23.26',  '10.4.1.1', '23.27',  'Use Case Association', -1, 'many', 'first', false, false, '', false, false, '->PE_PE[R8000]->UC_UCA[R8001]'  );
 INSERT INTO EO VALUES ( '23.27',  '23.27.1',        '23.28',  'Satisfaction', -1, 'many', 'first', false, false, '', false, false, '->PE_PE[R8000]->C_SF[R8001]'  );
-INSERT INTO EO VALUES ( '23.28',  '12.4.9.1.1', '23.30',       'Delegation', -1, 'many', 'first', false, false, '', false, false, '->PE_PE[R8000]->C_DG[R8001]'  );
-INSERT INTO EO VALUES ( '23.30',  '23.30.1', '23.29',  'Exception', -1, 'many', 'first', false, false, '', false, false, '->PE_PE[R8000]->S_EXP[R8001]'  );
+INSERT INTO EO VALUES ( '23.28',  '12.4.9.1.1', '23.29',       'Delegation', -1, 'many', 'first', false, false, '', false, false, '->PE_PE[R8000]->C_DG[R8001]'  );
+INSERT INTO EO VALUES ( '23.29',  '23.30.1', '23.30',  'Exception', -1, 'many', 'first', false, false, '', false, false, '->PE_PE[R8000]->S_EXP[R8001]'  );
+INSERT INTO EO VALUES ( '23.30',  '', '23.31',  'Package Reference', 1402, 'one', 'first', false, false, 'refers to', false, false, ''  );
+INSERT INTO EO VALUES ( '23.31',      '', '', 'Packageable Element', 8001, 'one', 'first', false );
 INSERT INTO EO VALUES ( '23.19.1',    '', '', 'Packageable Element', 8001, 'one', 'first', false );
 INSERT INTO EO VALUES ( '23.20.1',    '', '', 'Packageable Element', 8001, 'one', 'first', false );
 INSERT INTO EO VALUES ( '23.23.1',    '', '', 'Packageable Element', 8001, 'one', 'first', false );
 INSERT INTO EO VALUES ( '23.27.1',    '', '', 'Packageable Element', 8001, 'one', 'first', false );
 INSERT INTO EO VALUES ( '23.30.1',    '', '', 'Packageable Element', 8001, 'one', 'first', false );
-INSERT INTO EO VALUES ( '23.29',      '', '', 'Packageable Element', 8001, 'one', 'first', false );
 
 INSERT INTO EO VALUES ( '12.4.1',       '',    '12.4.3',     'ComponentDiagram', 0, '', 'first', false );
 INSERT INTO EO VALUES ( '12.4.3',     '12.4.3.1',  '12.4.9',      'Port', 4010, 'many', 'first', false );             
