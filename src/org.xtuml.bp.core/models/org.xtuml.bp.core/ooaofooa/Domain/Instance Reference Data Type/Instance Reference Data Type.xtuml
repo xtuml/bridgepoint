@@ -69,6 +69,28 @@ INSERT INTO O_TFR
 	1,
 	'',
 	"3bfaac1d-e12d-4889-8f93-9b4e0f205429");
+INSERT INTO O_TFR
+	VALUES ("e794459c-f40a-4366-b680-6be0c28d31f3",
+	"56660124-1fff-49e2-acbc-2b3849dfe565",
+	'convertToInstance',
+	'A utility operation to cast an instance of this type to the
+instance datatype.
+
+Translate: native',
+	"bc3722c8-5188-4529-8519-cf9eb9816b17",
+	1,
+	'// just return this instance as an Object
+return this;',
+	0,
+	'',
+	"d589b77a-3779-4e87-80cf-2c4a7e2c429d");
+INSERT INTO S_DT_PROXY
+	VALUES ("bc3722c8-5188-4529-8519-cf9eb9816b17",
+	"00000000-0000-0000-0000-000000000000",
+	'instance',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_NBATTR
 	VALUES ("ccd0563b-ee39-4ddf-93d3-c27382c88c75",
 	"56660124-1fff-49e2-acbc-2b3849dfe565");

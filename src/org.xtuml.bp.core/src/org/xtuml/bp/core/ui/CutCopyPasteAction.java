@@ -15,6 +15,8 @@
 //
 package org.xtuml.bp.core.ui;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
@@ -99,15 +101,33 @@ public abstract class CutCopyPasteAction extends Action {
 			cuttable = DeleteAction.canDeleteAction();
 		}
 		
-		// TODO: This restriction will be lifted with #8798  
-		//  Only allow cut on Packages and datatypes for now
-		//  
+                // Filter the selection based on valid selection definition
 		for (int i = 0; cuttable && i < selectedNRMEs.length; i++) {
-			cuttable = false;
-			NonRootModelElement rto = selectedNRMEs[i].getRTOElementForResolution();
-			if (selectedNRMEs[i] instanceof Package_c || rto instanceof DataType_c) {
-				cuttable = true;
-			} 
+                    NonRootModelElement element = selectedNRMEs[i];
+		    NonRootModelElement rto = selectedNRMEs[i].getRTOElementForResolution();    // for DataTypes, gets the DataType_c instance
+                    if ( rto instanceof DataType_c ) element = rto;
+
+                    // use reflection to call "isCuttable"
+                    Class elementClass = element.getClass();
+                    try {
+                        Method isCuttable = elementClass.getMethod( "Iscuttable" );
+                        cuttable = (boolean)isCuttable.invoke( element );
+                    }
+                    catch ( NoSuchMethodException e ) {
+                        cuttable = false;
+                    } catch ( NullPointerException e ) {
+                        cuttable = false;
+                    } catch ( SecurityException e ) {
+                        cuttable = false;
+                    } catch ( IllegalAccessException e ) {
+                        cuttable = false;
+                    } catch ( IllegalArgumentException e ) {
+                        cuttable = false;
+                    } catch ( InvocationTargetException e ) {
+                        cuttable = false;
+                    } catch ( ExceptionInInitializerError e ) {
+                        cuttable = false;
+                    }
 		}
 		
 		return cuttable;

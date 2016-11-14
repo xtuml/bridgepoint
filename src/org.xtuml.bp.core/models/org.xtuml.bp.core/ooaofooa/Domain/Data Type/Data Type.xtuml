@@ -627,6 +627,40 @@ end for;
 	1,
 	'',
 	"2bf571a5-4f94-404e-899f-1b2ed2dafc5a");
+INSERT INTO O_TFR
+	VALUES ("9228ad21-9b7f-486b-85b4-f391a49acf26",
+	"ead52fac-9782-434b-a35c-c07452c3b26d",
+	'isCuttable',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000001",
+	1,
+	'isselected = Sel::isSelected(element:self.convertToInstance());
+if ( not isselected )
+  select one s_sdt related by self->S_SDT[R17];
+  if ( not_empty s_sdt )
+    isselected = Sel::isSelected(element:s_sdt.convertToInstance());
+  else
+    select one s_irdt related by self->S_IRDT[R17];
+    if ( not_empty s_irdt )
+      isselected = Sel::isSelected(element:s_irdt.convertToInstance());
+    else
+      select one s_edt related by self->S_EDT[R17];
+      if ( not_empty s_edt )
+        isselected = Sel::isSelected(element:s_edt.convertToInstance());
+      else 
+        select one s_cdt related by self->S_CDT[R17];
+        if ( not_empty s_cdt )
+          isselected = Sel::isSelected(element:s_cdt.convertToInstance());
+        end if;
+      end if;
+    end if;
+  end if;
+end if;
+
+return isselected;',
+	1,
+	'',
+	"57932e59-c7e1-4095-97ff-031fd470e233");
 INSERT INTO O_NBATTR
 	VALUES ("cbfb448a-f0dc-4961-8e66-276b89eed6d4",
 	"ead52fac-9782-434b-a35c-c07452c3b26d");
