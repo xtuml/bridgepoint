@@ -624,7 +624,7 @@ if (v_${use_var.Name} != null) {
 v_${use_var.Name}.\
   .end if
   .select one rel related by unrel_using_stmt->R_REL[R656]
-unrelateAcrossR${rel.Numb}From${one_rel_phrase}( \
+unrelateAcrossR${rel.Numb}From${oth_rel_phrase}( \
   .if ("$l{one_var.Name}" != "self")
 v_${one_var.Name} \
   .else
@@ -634,7 +634,7 @@ this \
   .if ("$l{use_var.Name}" != "self")
 v_${use_var.Name}.\
   .end if
-unrelateAcrossR${rel.Numb}From${oth_rel_phrase}( \
+unrelateAcrossR${rel.Numb}From${one_rel_phrase}( \
   .if ("$l{oth_var.Name}" != "self")
 v_${oth_var.Name} \
   .else
@@ -707,13 +707,12 @@ v_${var.Name} = ${cn.body}.$cr{tgt_obj.Name}Instance(${mr}${where_clause_arg}) ;
     .if (not_empty assoc )
       .select one assr related by assoc->R_ASSR[R211]
       .if ( assr.Obj_ID != tgt_obj.Obj_ID )
-        .// phrases are reversed when navigating from assr to aone or aoth
         .select one aone related by assoc->R_AONE[R209]
         .select one aoth related by assoc->R_AOTH[R210]
         .if ( link_phrase == aone.Txt_Phrs )
-          .assign attr_result = "$cr{aoth.Txt_Phrs}"
-        .else
           .assign attr_result = "$cr{aone.Txt_Phrs}"
+        .else
+          .assign attr_result = "$cr{aoth.Txt_Phrs}"
         .end if
       .else
         .assign attr_result = "$cr{link_phrase}"
