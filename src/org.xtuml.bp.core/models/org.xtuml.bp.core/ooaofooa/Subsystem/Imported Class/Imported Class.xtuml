@@ -913,6 +913,35 @@ end for;
 	1,
 	'',
 	"398d015a-3d16-49a7-a385-0589b3c4a99e");
+INSERT INTO O_TFR
+	VALUES ("e9ad7aac-ad15-45ca-b901-43414740f109",
+	"fcc05ac4-6434-449e-9045-c76c52ee8c78",
+	'isCuttable',
+	'A shape type is cuttable if it is selected, and if each connector anchored to it is also selected.',
+	"ba5eda7a-def5-0000-0000-000000000001",
+	1,
+	'cuttable = true;
+
+// check if this element is selected
+if ( not Sel::isSelected(element:self.convertToInstance()) )
+  cuttable = false;
+else
+  select many r_oirs related by self->R_OIR[R202];
+  for each r_oir in r_oirs
+    select one r_rel related by r_oir->R_REL[R201];
+    // if the association (connector) is not selected, this class is not
+    // cuttable. break from the loop
+    if ( not Sel::isSelected(element:r_rel.convertToInstance()) )
+      cuttable = false;
+      break;
+    end if;
+  end for;
+end if;
+
+return cuttable;',
+	1,
+	'',
+	"eda2bf77-e976-427f-9905-d631a8fa8690");
 INSERT INTO O_NBATTR
 	VALUES ("a94ea28b-2350-4269-9287-788cea2336c6",
 	"fcc05ac4-6434-449e-9045-c76c52ee8c78");
