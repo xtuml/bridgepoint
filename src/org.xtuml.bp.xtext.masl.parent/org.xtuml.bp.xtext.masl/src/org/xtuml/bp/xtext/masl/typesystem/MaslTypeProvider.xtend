@@ -51,6 +51,7 @@ import org.xtuml.bp.xtext.masl.masl.behavior.SimpleFeatureCall
 import org.xtuml.bp.xtext.masl.masl.behavior.StreamExpression
 import org.xtuml.bp.xtext.masl.masl.behavior.StringLiteral
 import org.xtuml.bp.xtext.masl.masl.behavior.StructureAggregateExpression
+import org.xtuml.bp.xtext.masl.masl.behavior.TerminatorActionCall
 import org.xtuml.bp.xtext.masl.masl.behavior.ThisLiteral
 import org.xtuml.bp.xtext.masl.masl.behavior.TimestampLiteral
 import org.xtuml.bp.xtext.masl.masl.behavior.UnaryExp
@@ -97,7 +98,6 @@ import org.xtuml.bp.xtext.masl.masl.types.TypeDeclaration
 import org.xtuml.bp.xtext.masl.masl.types.UnconstrainedArrayDefinition
 
 import static org.xtuml.bp.xtext.masl.typesystem.BuiltinType.*
-import org.xtuml.bp.xtext.masl.masl.behavior.TerminatorActionCall
 
 class MaslTypeProvider {
 
@@ -341,8 +341,11 @@ class MaslTypeProvider {
 	}
 	
 	private def MaslType getMaslTypeOfLinkExpression(LinkExpression it) {
-		// TODO
-		null
+		val relationship = navigation.relationship
+		if(relationship instanceof AssocRelationshipDefinition)
+			relationship.object.maslTypeOfFeature
+		else 
+			NO_TYPE
 	}
 	
 	private def MaslType getMaslTypeOfFindExpression(FindExpression find) {

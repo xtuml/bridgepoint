@@ -74,6 +74,10 @@ public class BehaviorAdapterFactory extends AdapterFactoryImpl {
 	protected BehaviorSwitch<Adapter> modelSwitch =
 		new BehaviorSwitch<Adapter>() {
 			@Override
+			public Adapter caseStatementList(StatementList object) {
+				return createStatementListAdapter();
+			}
+			@Override
 			public Adapter caseCodeBlock(CodeBlock object) {
 				return createCodeBlockAdapter();
 			}
@@ -380,6 +384,20 @@ public class BehaviorAdapterFactory extends AdapterFactoryImpl {
 		return modelSwitch.doSwitch((EObject)target);
 	}
 
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.xtuml.bp.xtext.masl.masl.behavior.StatementList <em>Statement List</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.xtuml.bp.xtext.masl.masl.behavior.StatementList
+	 * @generated
+	 */
+	public Adapter createStatementListAdapter() {
+		return null;
+	}
 
 	/**
 	 * Creates a new adapter for an object of class '{@link org.xtuml.bp.xtext.masl.masl.behavior.CodeBlock <em>Code Block</em>}'.

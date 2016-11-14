@@ -19,6 +19,7 @@ import org.xtuml.bp.xtext.masl.masl.structure.Visualized
 import org.xtuml.bp.xtext.masl.scoping.ProjectScopeIndexProvider
 
 import static extension org.eclipse.xtext.EcoreUtil2.*
+import org.xtuml.bp.xtext.masl.masl.structure.AttributeDefinition
 
 class VisibilityProvider {
 	
@@ -34,6 +35,8 @@ class VisibilityProvider {
 			DomainFunctionDeclaration,
 			DomainServiceDeclaration:
 				feature.eContainer.domainName == callersActionDefinition.domain.name
+			AttributeDefinition:
+				feature.domainName == callersActionDefinition.domain.name
 			ObjectFunctionDeclaration,
 			ObjectServiceDeclaration: {
 				switch callersActionDefinition {
@@ -55,8 +58,6 @@ class VisibilityProvider {
 		val feature = call.terminatorAction
 		val callersDomain = call.getContainerOfType(AbstractActionDefinition).domain
 		switch feature {
-			Visualized case feature.visibility == Visibility.PUBLIC:
-				true  
 			TerminatorFunctionDeclaration,
 			TerminatorServiceDeclaration:
 				feature.eContainer.eContainer.domainName == callersDomain.name

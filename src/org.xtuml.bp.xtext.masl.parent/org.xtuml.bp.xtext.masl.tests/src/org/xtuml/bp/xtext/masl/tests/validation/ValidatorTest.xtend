@@ -451,17 +451,14 @@ class ValidatorTest {
 		load('''
 			domain dom is
 				terminator Foo is
-					private function func() return integer;
-					private service serv();
-					public function func0() return integer;
-					public service serv0();
+					function func() return integer;
+					service serv();
 				end;
 			end;
 			
 			domain dom0 is
 				service caller();
 				service caller0();
-				service caller1();
 			end;
 		''').assertNoErrors
 		load('''
@@ -469,8 +466,6 @@ class ValidatorTest {
 			begin
 				Foo~>func();
 				Foo~>serv();
-				Foo~>func0();
-				Foo~>serv0();
 			end
 		''').assertNoErrors(INVISIBLE_FEATURE)
 		load('''
@@ -485,13 +480,49 @@ class ValidatorTest {
 				dom::Foo~>serv();
 			end
 		''').assertError(terminatorActionCall, INVISIBLE_FEATURE)
+	}
+	
+	@Test 
+	def void testLinkExpression() {
 		load('''
-			service dom0::caller1() is
+			domain dom is
+				object Foo;
+				object Foo is end;
+				relationship R1 is 
+					Foo conditionally there one Foo,
+					Foo conditionally back one Foo
+					using Foo;
+				service serv(foo: in instance of Foo);				
+			end;
+		''').assertNoErrors()
+		load('''	
+			service dom::serv(foo: in instance of Foo) is
+				foo2: instance of Foo;
 			begin
-				dom::Foo~>serv0();
-				dom::Foo~>func0();
+				foo2 = link foo R1 foo;
 			end
-		''').assertNoErrors(INVISIBLE_FEATURE)
+		''').assertNoErrors(INVALID_LINK_EXPRESSION)
+	}
+
+	@Test 
+	def void testLinkExpression1() {
+		load('''
+			domain dom is
+				object Foo;
+				object Foo is end;
+				relationship R1 is 
+					Foo conditionally there one Foo,
+					Foo conditionally back one Foo;
+				service serv(foo: in instance of Foo);				
+			end;
+		''').assertNoErrors()
+		load('''	
+			service dom::serv(foo: in instance of Foo) is
+				foo2: instance of Foo;
+			begin
+				foo2 = link foo R1 foo;
+			end
+		''').assertError(relationshipNavigation, INVALID_LINK_EXPRESSION)
 	}
 
 	private def assertNoError(EObject element, String type) {

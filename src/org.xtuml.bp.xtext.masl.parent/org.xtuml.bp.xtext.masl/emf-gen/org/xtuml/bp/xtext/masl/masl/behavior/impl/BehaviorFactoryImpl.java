@@ -58,6 +58,7 @@ public class BehaviorFactoryImpl extends EFactoryImpl implements BehaviorFactory
 	@Override
 	public EObject create(EClass eClass) {
 		switch (eClass.getClassifierID()) {
+			case BehaviorPackage.STATEMENT_LIST: return createStatementList();
 			case BehaviorPackage.CODE_BLOCK: return createCodeBlock();
 			case BehaviorPackage.VARIABLE_DECLARATION: return createVariableDeclaration();
 			case BehaviorPackage.EXCEPTION_HANDLER: return createExceptionHandler();
@@ -167,6 +168,16 @@ public class BehaviorFactoryImpl extends EFactoryImpl implements BehaviorFactory
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public StatementList createStatementList() {
+		StatementListImpl statementList = new StatementListImpl();
+		return statementList;
 	}
 
 	/**

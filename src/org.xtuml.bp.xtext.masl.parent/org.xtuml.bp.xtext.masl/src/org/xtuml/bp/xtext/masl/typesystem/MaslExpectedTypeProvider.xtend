@@ -28,6 +28,8 @@ import org.xtuml.bp.xtext.masl.masl.structure.SubtypeRelationshipDefinition
 import static org.xtuml.bp.xtext.masl.typesystem.BuiltinType.*
 
 import static extension org.eclipse.xtext.EcoreUtil2.*
+import org.xtuml.bp.xtext.masl.masl.behavior.CancelTimerStatement
+import org.xtuml.bp.xtext.masl.masl.behavior.ScheduleStatement
 
 class MaslExpectedTypeProvider {
 
@@ -66,7 +68,19 @@ class MaslExpectedTypeProvider {
 			return getRelationshipNavigationLhsExpectation(context as NavigateExpression)
 		if(reference == navigateExpression_With && context instanceof NavigateExpression) 
 			return getRelationshipNavigationWithExpectation(context as NavigateExpression)
-
+		if(reference == exitStatement_Condition 
+			|| reference == ifStatement_Condition
+			|| reference == elsifBlock_Condition
+			|| reference == whileStatement_Condition)
+			return #[BOOLEAN]
+		if(reference == delayStatement_Value)
+			return #[DURATION]
+		if(reference == scheduleStatement_TimerId 
+			||reference == cancelTimerStatement_TimerId)
+			return #[TIMER]
+		if(reference == scheduleStatement_Time) 
+			return #[DURATION]
+		
 		return #[]
 	}
 

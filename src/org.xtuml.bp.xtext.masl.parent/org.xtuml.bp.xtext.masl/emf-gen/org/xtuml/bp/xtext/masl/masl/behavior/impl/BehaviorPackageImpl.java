@@ -76,6 +76,7 @@ import org.xtuml.bp.xtext.masl.masl.behavior.SimpleFeatureCall;
 import org.xtuml.bp.xtext.masl.masl.behavior.SortOrder;
 import org.xtuml.bp.xtext.masl.masl.behavior.SortOrderComponent;
 import org.xtuml.bp.xtext.masl.masl.behavior.SortOrderFeature;
+import org.xtuml.bp.xtext.masl.masl.behavior.StatementList;
 import org.xtuml.bp.xtext.masl.masl.behavior.StreamExpression;
 import org.xtuml.bp.xtext.masl.masl.behavior.StringLiteral;
 import org.xtuml.bp.xtext.masl.masl.behavior.StructureAggregateExpression;
@@ -101,6 +102,13 @@ import org.xtuml.bp.xtext.masl.masl.types.impl.TypesPackageImpl;
  * @generated
  */
 public class BehaviorPackageImpl extends EPackageImpl implements BehaviorPackage {
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass statementListEClass = null;
+
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -672,6 +680,24 @@ public class BehaviorPackageImpl extends EPackageImpl implements BehaviorPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getStatementList() {
+		return statementListEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getStatementList_Statements() {
+		return (EReference)statementListEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getCodeBlock() {
 		return codeBlockEClass;
 	}
@@ -690,7 +716,7 @@ public class BehaviorPackageImpl extends EPackageImpl implements BehaviorPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getCodeBlock_Statements() {
+	public EReference getCodeBlock_ExceptionHandler() {
 		return (EReference)codeBlockEClass.getEStructuralFeatures().get(1);
 	}
 
@@ -699,17 +725,8 @@ public class BehaviorPackageImpl extends EPackageImpl implements BehaviorPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getCodeBlock_ExceptionHandler() {
-		return (EReference)codeBlockEClass.getEStructuralFeatures().get(2);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EReference getCodeBlock_DefaultHandler() {
-		return (EReference)codeBlockEClass.getEStructuralFeatures().get(3);
+		return (EReference)codeBlockEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -771,26 +788,8 @@ public class BehaviorPackageImpl extends EPackageImpl implements BehaviorPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getExceptionHandler_Statements() {
-		return (EReference)exceptionHandlerEClass.getEStructuralFeatures().get(1);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EClass getDefaultExceptionHandler() {
 		return defaultExceptionHandlerEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getDefaultExceptionHandler_Statements() {
-		return (EReference)defaultExceptionHandlerEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -1068,7 +1067,7 @@ public class BehaviorPackageImpl extends EPackageImpl implements BehaviorPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getIfStatement_Statements() {
+	public EReference getIfStatement_ElseIfs() {
 		return (EReference)ifStatementEClass.getEStructuralFeatures().get(1);
 	}
 
@@ -1077,17 +1076,8 @@ public class BehaviorPackageImpl extends EPackageImpl implements BehaviorPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getIfStatement_ElseIfs() {
-		return (EReference)ifStatementEClass.getEStructuralFeatures().get(2);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EReference getIfStatement_Else() {
-		return (EReference)ifStatementEClass.getEStructuralFeatures().get(3);
+		return (EReference)ifStatementEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -1113,26 +1103,8 @@ public class BehaviorPackageImpl extends EPackageImpl implements BehaviorPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getElsifBlock_Statements() {
-		return (EReference)elsifBlockEClass.getEStructuralFeatures().get(1);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EClass getElseBlock() {
 		return elseBlockEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getElseBlock_Statements() {
-		return (EReference)elseBlockEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -1151,15 +1123,6 @@ public class BehaviorPackageImpl extends EPackageImpl implements BehaviorPackage
 	 */
 	public EReference getWhileStatement_Condition() {
 		return (EReference)whileStatementEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getWhileStatement_Statements() {
-		return (EReference)whileStatementEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -1221,26 +1184,8 @@ public class BehaviorPackageImpl extends EPackageImpl implements BehaviorPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getCaseAlternative_Statements() {
-		return (EReference)caseAlternativeEClass.getEStructuralFeatures().get(1);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EClass getCaseOthers() {
 		return caseOthersEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getCaseOthers_Statements() {
-		return (EReference)caseOthersEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -1277,15 +1222,6 @@ public class BehaviorPackageImpl extends EPackageImpl implements BehaviorPackage
 	 */
 	public EReference getForStatement_Expression() {
 		return (EReference)forStatementEClass.getEStructuralFeatures().get(2);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getForStatement_Statements() {
-		return (EReference)forStatementEClass.getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -2423,9 +2359,11 @@ public class BehaviorPackageImpl extends EPackageImpl implements BehaviorPackage
 		isCreated = true;
 
 		// Create classes and their features
+		statementListEClass = createEClass(STATEMENT_LIST);
+		createEReference(statementListEClass, STATEMENT_LIST__STATEMENTS);
+
 		codeBlockEClass = createEClass(CODE_BLOCK);
 		createEReference(codeBlockEClass, CODE_BLOCK__VARIABLES);
-		createEReference(codeBlockEClass, CODE_BLOCK__STATEMENTS);
 		createEReference(codeBlockEClass, CODE_BLOCK__EXCEPTION_HANDLER);
 		createEReference(codeBlockEClass, CODE_BLOCK__DEFAULT_HANDLER);
 
@@ -2436,10 +2374,8 @@ public class BehaviorPackageImpl extends EPackageImpl implements BehaviorPackage
 
 		exceptionHandlerEClass = createEClass(EXCEPTION_HANDLER);
 		createEReference(exceptionHandlerEClass, EXCEPTION_HANDLER__EXCEPTION);
-		createEReference(exceptionHandlerEClass, EXCEPTION_HANDLER__STATEMENTS);
 
 		defaultExceptionHandlerEClass = createEClass(DEFAULT_EXCEPTION_HANDLER);
-		createEReference(defaultExceptionHandlerEClass, DEFAULT_EXCEPTION_HANDLER__STATEMENTS);
 
 		abstractStatementEClass = createEClass(ABSTRACT_STATEMENT);
 
@@ -2482,20 +2418,16 @@ public class BehaviorPackageImpl extends EPackageImpl implements BehaviorPackage
 
 		ifStatementEClass = createEClass(IF_STATEMENT);
 		createEReference(ifStatementEClass, IF_STATEMENT__CONDITION);
-		createEReference(ifStatementEClass, IF_STATEMENT__STATEMENTS);
 		createEReference(ifStatementEClass, IF_STATEMENT__ELSE_IFS);
 		createEReference(ifStatementEClass, IF_STATEMENT__ELSE);
 
 		elsifBlockEClass = createEClass(ELSIF_BLOCK);
 		createEReference(elsifBlockEClass, ELSIF_BLOCK__CONDITION);
-		createEReference(elsifBlockEClass, ELSIF_BLOCK__STATEMENTS);
 
 		elseBlockEClass = createEClass(ELSE_BLOCK);
-		createEReference(elseBlockEClass, ELSE_BLOCK__STATEMENTS);
 
 		whileStatementEClass = createEClass(WHILE_STATEMENT);
 		createEReference(whileStatementEClass, WHILE_STATEMENT__CONDITION);
-		createEReference(whileStatementEClass, WHILE_STATEMENT__STATEMENTS);
 
 		caseStatementEClass = createEClass(CASE_STATEMENT);
 		createEReference(caseStatementEClass, CASE_STATEMENT__VALUE);
@@ -2504,16 +2436,13 @@ public class BehaviorPackageImpl extends EPackageImpl implements BehaviorPackage
 
 		caseAlternativeEClass = createEClass(CASE_ALTERNATIVE);
 		createEReference(caseAlternativeEClass, CASE_ALTERNATIVE__CHOICES);
-		createEReference(caseAlternativeEClass, CASE_ALTERNATIVE__STATEMENTS);
 
 		caseOthersEClass = createEClass(CASE_OTHERS);
-		createEReference(caseOthersEClass, CASE_OTHERS__STATEMENTS);
 
 		forStatementEClass = createEClass(FOR_STATEMENT);
 		createEReference(forStatementEClass, FOR_STATEMENT__VARIABLE);
 		createEAttribute(forStatementEClass, FOR_STATEMENT__REVERSE);
 		createEReference(forStatementEClass, FOR_STATEMENT__EXPRESSION);
-		createEReference(forStatementEClass, FOR_STATEMENT__STATEMENTS);
 
 		loopVariableEClass = createEClass(LOOP_VARIABLE);
 
@@ -2720,9 +2649,12 @@ public class BehaviorPackageImpl extends EPackageImpl implements BehaviorPackage
 
 		// Add supertypes to classes
 		codeBlockEClass.getESuperTypes().add(this.getCodeBlockStatement());
+		codeBlockEClass.getESuperTypes().add(this.getStatementList());
 		variableDeclarationEClass.getESuperTypes().add(theStructurePackage.getAbstractNamed());
 		variableDeclarationEClass.getESuperTypes().add(theStructurePackage.getPragmatized());
 		variableDeclarationEClass.getESuperTypes().add(theStructurePackage.getAbstractFeature());
+		exceptionHandlerEClass.getESuperTypes().add(this.getStatementList());
+		defaultExceptionHandlerEClass.getESuperTypes().add(this.getStatementList());
 		abstractStatementEClass.getESuperTypes().add(theStructurePackage.getPragmatized());
 		expressionEClass.getESuperTypes().add(this.getAbstractStatement());
 		expressionEClass.getESuperTypes().add(this.getConstExpression());
@@ -2736,9 +2668,16 @@ public class BehaviorPackageImpl extends EPackageImpl implements BehaviorPackage
 		cancelTimerStatementEClass.getESuperTypes().add(this.getAbstractStatement());
 		generateStatementEClass.getESuperTypes().add(this.getAbstractStatement());
 		ifStatementEClass.getESuperTypes().add(this.getAbstractStatement());
+		ifStatementEClass.getESuperTypes().add(this.getStatementList());
+		elsifBlockEClass.getESuperTypes().add(this.getStatementList());
+		elseBlockEClass.getESuperTypes().add(this.getStatementList());
 		whileStatementEClass.getESuperTypes().add(this.getAbstractStatement());
+		whileStatementEClass.getESuperTypes().add(this.getStatementList());
 		caseStatementEClass.getESuperTypes().add(this.getAbstractStatement());
+		caseAlternativeEClass.getESuperTypes().add(this.getStatementList());
+		caseOthersEClass.getESuperTypes().add(this.getStatementList());
 		forStatementEClass.getESuperTypes().add(this.getAbstractStatement());
+		forStatementEClass.getESuperTypes().add(this.getStatementList());
 		loopVariableEClass.getESuperTypes().add(theStructurePackage.getAbstractNamed());
 		loopVariableEClass.getESuperTypes().add(theStructurePackage.getAbstractFeature());
 		codeBlockStatementEClass.getESuperTypes().add(this.getAbstractStatement());
@@ -2783,9 +2722,11 @@ public class BehaviorPackageImpl extends EPackageImpl implements BehaviorPackage
 		structureAggregateExpressionEClass.getESuperTypes().add(this.getExpression());
 
 		// Initialize classes, features, and operations; add parameters
+		initEClass(statementListEClass, StatementList.class, "StatementList", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getStatementList_Statements(), this.getAbstractStatement(), null, "statements", null, 0, -1, StatementList.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
 		initEClass(codeBlockEClass, CodeBlock.class, "CodeBlock", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getCodeBlock_Variables(), this.getVariableDeclaration(), null, "variables", null, 0, -1, CodeBlock.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getCodeBlock_Statements(), this.getAbstractStatement(), null, "statements", null, 0, -1, CodeBlock.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getCodeBlock_ExceptionHandler(), this.getExceptionHandler(), null, "exceptionHandler", null, 0, -1, CodeBlock.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getCodeBlock_DefaultHandler(), this.getDefaultExceptionHandler(), null, "defaultHandler", null, 0, 1, CodeBlock.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
@@ -2796,10 +2737,8 @@ public class BehaviorPackageImpl extends EPackageImpl implements BehaviorPackage
 
 		initEClass(exceptionHandlerEClass, ExceptionHandler.class, "ExceptionHandler", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getExceptionHandler_Exception(), theStructurePackage.getExceptionDeclaration(), null, "exception", null, 0, 1, ExceptionHandler.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getExceptionHandler_Statements(), this.getAbstractStatement(), null, "statements", null, 0, -1, ExceptionHandler.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(defaultExceptionHandlerEClass, DefaultExceptionHandler.class, "DefaultExceptionHandler", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getDefaultExceptionHandler_Statements(), this.getAbstractStatement(), null, "statements", null, 0, -1, DefaultExceptionHandler.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(abstractStatementEClass, AbstractStatement.class, "AbstractStatement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
@@ -2842,20 +2781,16 @@ public class BehaviorPackageImpl extends EPackageImpl implements BehaviorPackage
 
 		initEClass(ifStatementEClass, IfStatement.class, "IfStatement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getIfStatement_Condition(), this.getExpression(), null, "condition", null, 0, 1, IfStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getIfStatement_Statements(), this.getAbstractStatement(), null, "statements", null, 0, -1, IfStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getIfStatement_ElseIfs(), this.getElsifBlock(), null, "elseIfs", null, 0, -1, IfStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getIfStatement_Else(), this.getElseBlock(), null, "else", null, 0, 1, IfStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(elsifBlockEClass, ElsifBlock.class, "ElsifBlock", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getElsifBlock_Condition(), this.getExpression(), null, "condition", null, 0, 1, ElsifBlock.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getElsifBlock_Statements(), this.getAbstractStatement(), null, "statements", null, 0, -1, ElsifBlock.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(elseBlockEClass, ElseBlock.class, "ElseBlock", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getElseBlock_Statements(), this.getAbstractStatement(), null, "statements", null, 0, -1, ElseBlock.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(whileStatementEClass, WhileStatement.class, "WhileStatement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getWhileStatement_Condition(), this.getExpression(), null, "condition", null, 0, 1, WhileStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getWhileStatement_Statements(), this.getAbstractStatement(), null, "statements", null, 0, -1, WhileStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(caseStatementEClass, CaseStatement.class, "CaseStatement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getCaseStatement_Value(), this.getExpression(), null, "value", null, 0, 1, CaseStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -2864,16 +2799,13 @@ public class BehaviorPackageImpl extends EPackageImpl implements BehaviorPackage
 
 		initEClass(caseAlternativeEClass, CaseAlternative.class, "CaseAlternative", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getCaseAlternative_Choices(), this.getExpression(), null, "choices", null, 0, -1, CaseAlternative.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getCaseAlternative_Statements(), this.getAbstractStatement(), null, "statements", null, 0, -1, CaseAlternative.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(caseOthersEClass, CaseOthers.class, "CaseOthers", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getCaseOthers_Statements(), this.getAbstractStatement(), null, "statements", null, 0, -1, CaseOthers.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(forStatementEClass, ForStatement.class, "ForStatement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getForStatement_Variable(), this.getLoopVariable(), null, "variable", null, 0, 1, ForStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getForStatement_Reverse(), theEcorePackage.getEBoolean(), "reverse", null, 0, 1, ForStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getForStatement_Expression(), this.getExpression(), null, "expression", null, 0, 1, ForStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getForStatement_Statements(), this.getAbstractStatement(), null, "statements", null, 0, -1, ForStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(loopVariableEClass, LoopVariable.class, "LoopVariable", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 

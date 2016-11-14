@@ -71,8 +71,11 @@ class MASLScopeProvider extends AbstractMASLScopeProvider {
 			case featureCall_Feature:
 				return context.featureScope
 			case generateStatement_Event: {
-				if(context instanceof GenerateStatement) 
-					return createObjectScope(context.object, [events])
+				if(context instanceof GenerateStatement) {
+					val containerObject = context.containerObject
+					if(containerObject != null)	 				
+						return createObjectScope(containerObject, [events], super.getScope(context, reference))
+				}
 			}
 			case createArgument_CurrentState: {
 				val contextObject = context.getContainerOfType(CreateExpression)?.object
@@ -87,10 +90,6 @@ class MASLScopeProvider extends AbstractMASLScopeProvider {
 			case attributeReferential_Attribute: {
 				if(context instanceof AttributeReferential) 
 					return createObjectScope(context.referredObject, [attributes])
-			}
-			case generateStatement_Event: {
-				if(context instanceof GenerateStatement) 
-					return createObjectScope(context.object, [events])
 			}
 			case transitionRow_Start: {
 				if(context instanceof TransitionRow) 
