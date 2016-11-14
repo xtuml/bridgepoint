@@ -88,18 +88,6 @@ public abstract class CutCopyPasteAction extends Action {
 	public static boolean selectionIsCuttable() {
 		NonRootModelElement[] selectedNRMEs = Selection.getInstance().getSelectedNonRootModelElements();;
 		boolean cuttable = true;
-		for(int i = 0; i < selectedNRMEs.length; i++) {
-			PackageableElement_c pe_pe = selectedNRMEs[i].getPE();
-			if (null == pe_pe) {
-				cuttable = false;
-				break;
-			} 
-		}
-		// only ask the delete action if the selection contains only
-		// NonRootModelElement represented graphics
-		if (selectionContainsOnlyCoreElements()) {
-			cuttable = DeleteAction.canDeleteAction();
-		}
 		
                 // Filter the selection based on valid selection definition
 		for (int i = 0; cuttable && i < selectedNRMEs.length; i++) {
