@@ -117,7 +117,6 @@ public abstract class CutCopyPasteAction extends Action {
                         cuttable = false;
                     }
 		}
-		
 		return cuttable;
 	}
 	

@@ -52,13 +52,11 @@ import org.eclipse.swt.graphics.Image;
 import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.actions.ActionFactory;
-
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.Modeleventnotification_c;
 import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.PropertyViewListener;
 import org.xtuml.bp.core.SystemModel_c;
-import org.xtuml.bp.core.ui.CutCopyPasteAction;
 import org.xtuml.bp.core.ui.PasteAction;
 import org.xtuml.bp.core.ui.Selection;
 import org.xtuml.bp.core.ui.marker.DelayedMarkerJob;
@@ -194,7 +192,7 @@ public class TransactionManager {
 
 		// If a Move is in progress we require that the next transaction be the paste. If the user
 		// does anything else before that, we cancel the move operation.
-		if (PasteAction.moveIsInProgress() && !displayName.equals(PasteAction.TransactionNameForMove)) {
+		if (PasteAction.moveIsInProgress() && !displayName.contains(PasteAction.TransactionNameForMove)) {
 			PasteAction.stopMove();
 		}
 		
@@ -275,19 +273,12 @@ public class TransactionManager {
 
 	private void addTransactionToStack(ArrayList<Transaction> stack,
 			Transaction transaction) {
-		// Move will not be undoable until https://support.onefact.net/issues/8755 has been resolved.
-		// Until then we prevent undo on Model Element Moves
-		if (PasteAction.TransactionNameForMove.equals(transaction.getDisplayName())) {
-			clearStacks();
-			setUndoRedoActionsState();
-		} else {
-			if (stack.size() == maxStackSize) {
-				// if this stack is at its limit
-				// remove the bottom transaction
-				stack.remove(0);
-			}
-			stack.add(transaction);
+		if (stack.size() == maxStackSize) {
+			// if this stack is at its limit
+			// remove the bottom transaction
+			stack.remove(0);
 		}
+		stack.add(transaction);
 	}
 
 	/**
@@ -316,7 +307,7 @@ public class TransactionManager {
 		Transaction revertTransaction = null;
 		try {
 			revertTransaction = startTransaction(
-					"Transaction: Revert transaction", modelRoots, type,
+					"Transaction: Revert transaction " + transaction.getDisplayName(), modelRoots, type,
 					undoable);
 			revertTransaction.memoryOnly = inMemoryOnly;
 		} catch (TransactionException e) {
@@ -669,7 +660,7 @@ public class TransactionManager {
 							throws CoreException {
 						fireTransactionEndedEvents();
 					}
-				}, null);
+				}, workspace.getRoot(), IWorkspace.AVOID_UPDATE, null);
 			} catch (CoreException e) {
 				CorePlugin.logError(
 						"Unable to handle modifications made by the transaction: "
@@ -878,16 +869,14 @@ public class TransactionManager {
 				return;
 
 			CorePlugin.logResourceActivity(delta);
-
+			
 			Job buildJob = Job.getJobManager().currentJob();
-			if (buildJob != null
-					&& (buildJob.belongsTo(ResourcesPlugin.FAMILY_AUTO_BUILD) || (buildJob
-							.belongsTo(ResourcesPlugin.FAMILY_MANUAL_BUILD)
-							|| buildJob
-									.belongsTo(DelayedMarkerJob.FAMILY_DELAYED_MARKER_JOB)
+			if (buildJob != null && (buildJob.belongsTo(ResourcesPlugin.FAMILY_AUTO_BUILD)
+					|| (buildJob.belongsTo(ResourcesPlugin.FAMILY_MANUAL_BUILD)
+							|| buildJob.belongsTo(DelayedMarkerJob.FAMILY_DELAYED_MARKER_JOB)
 							|| buildJob.belongsTo("System Data Type Upgrade") //$NON-NLS-1$
-							|| buildJob.belongsTo(FAMILY_TRANSACTION) || buildJob
-								.belongsTo(IntegrityCheckScheduler.INTEGRITY_ISSUE_JOB_FAMILY)))) {
+							|| buildJob.belongsTo(FAMILY_TRANSACTION)
+							|| buildJob.belongsTo(IntegrityCheckScheduler.INTEGRITY_ISSUE_JOB_FAMILY)))) {
 				return;
 			}
 
@@ -895,7 +884,7 @@ public class TransactionManager {
 				ignoreResourceChanges = false;
 				return;
 			}
-
+			
 			// get the event's delta visited by this manager
 			try {
 				delta.accept(this);
@@ -952,7 +941,7 @@ public class TransactionManager {
 			if (Ooaofooa.MODELS_EXT.equalsIgnoreCase(file.getFileExtension())
 					&& delta.getKind() == IResourceDelta.CHANGED
 					&& !isComponentOrChildrenPersisting()
-					&& (delta.getKind() & IResourceDelta.CONTENT) == 0) {
+					&& (delta.getFlags() & IResourceDelta.CONTENT) != 0) {
 				clearStacks();
 				setUndoRedoActionsState();
 			}
@@ -1016,8 +1005,12 @@ public class TransactionManager {
 		return singleton;
 	}
 	
-	public void setIgnoreResourceChange(boolean value) {
+	public void setIgnoreResourceChanges(boolean value) {
 		ignoreResourceChanges = value;
+	}
+	
+	public void setIgnoreResourceChangesMarker(boolean value) {
+		ignoreResourceChangesMarker = value;
 	}
 
 	public void processTransaction(Transaction transaction, boolean processNew) {
