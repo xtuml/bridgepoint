@@ -942,8 +942,8 @@ if(not_empty requirement)
      // create Packageable Element supertype and hook it up . . . 
       create object instance pe of PE_PE;
       relate satisfaction to pe across R8001;
-      if(not_empty importedRef)
-        select one importedComp related by importedRef->CL_POR[R4708]->CL_IC[R4707];
+      if(not_empty importedProvisionRef)
+        select one importedComp related by importedProvisionRef->CL_POR[R4708]->CL_IC[R4707];
         select one epPkg related by importedComp->PE_PE[R8001]->EP_PKG[R8000];
         select one comp related by importedComp->PE_PE[R8001]->C_C[R8003];
         if not_empty epPkg
@@ -1145,8 +1145,8 @@ if(not_empty provision)
       // create Packageable Element supertype and hook it up . . . 
       create object instance pe of PE_PE;
       relate satisfaction to pe across R8001;
-      if(not_empty importedRef)
-        select one importedComp related by importedRef->CL_POR[R4708]->CL_IC[R4707];
+      if(not_empty importedReqRef)
+        select one importedComp related by importedReqRef->CL_POR[R4708]->CL_IC[R4707];
         select one epPkg related by importedComp->PE_PE[R8001]->EP_PKG[R8000];
         select one comp related by importedComp->PE_PE[R8001]->C_C[R8003];
         if not_empty epPkg
@@ -3325,6 +3325,33 @@ INSERT INTO O_TPARM
 	'',
 	"8c055273-1f60-4597-bc1f-979ddc7814b9",
 	'');
+INSERT INTO O_TFR
+	VALUES ("2eb3cb57-7b4f-4607-b24d-577d9e8a13ee",
+	"2786d973-1537-44a1-81d6-3ddbd2377865",
+	'downgradeCheck',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'// Check contained packageable elements
+select many pe_pes related by self->PE_PE[R8003];
+for each pe_pe in pe_pes
+  pe_pe.downgradeCheck();
+end for;
+
+// Check ports/interface references 
+select many c_irs related by self->C_PO[R4010]->C_IR[R4016];
+for each c_ir in c_irs
+  c_ir.downgradeCheck();
+end for;
+
+// Check references to this component
+select many cl_ics related by self->CL_IC[R4201];
+for each cl_ic in cl_ics
+  cl_ic.downgradeCheck();
+end for;',
+	1,
+	'',
+	"eb42ec03-f0d3-49b9-9ef6-784b43bbeb81");
 INSERT INTO O_NBATTR
 	VALUES ("44ad7e17-9251-42cf-aa73-ac271023c8a3",
 	"2786d973-1537-44a1-81d6-3ddbd2377865");

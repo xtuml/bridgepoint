@@ -1,0 +1,18 @@
+//
+// Filename: SAC_OP_report_user_session.tr
+//
+// Description: 
+//
+// UK Crown Copyright (c) 2010,2014. All rights reserved.
+//
+private service SAC::Operator~>report_user_session (session_id           : in  integer,
+                                                    user_id              : in  integer,
+                                                    login_time           : in  timestamp,
+                                                    session_timed_out    : in  boolean,
+                                                    workstation_hostname : in  string,
+                                                    login_name           : in  string) is
+begin
+   
+   I_DC::info_User_Session(session_id, login_time, session_timed_out, workstation_hostname, login_name);
+   
+end service;

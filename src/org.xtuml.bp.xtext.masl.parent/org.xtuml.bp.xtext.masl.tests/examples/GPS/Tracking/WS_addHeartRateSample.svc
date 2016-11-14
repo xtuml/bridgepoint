@@ -1,0 +1,4 @@
+public instance service Tracking::WorkoutSession.addHeartRateSample (        heartRate : in integer) is
+begin
+  null;
+end service;

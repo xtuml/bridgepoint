@@ -146,7 +146,8 @@ This file is the plugin manifest for the BridgePoint core plugin.
                .end if
                id="${action_class_name}">
          </action>
-      .select many filter_set related by menu_entry->MEF[R2013]
+      .//.select many filter_set related by menu_entry->MEF[R2013]
+      .select many filter_set from instances of MEF where (((selected.Specialism == menu_entry.Specialism) and (selected.Label == menu_entry.Label)) and (selected.Key_Lett == menu_entry.Key_Lett))
       .for each filter in filter_set
          <filter name="${filter.name}" value="${filter.value}" />
       .end for

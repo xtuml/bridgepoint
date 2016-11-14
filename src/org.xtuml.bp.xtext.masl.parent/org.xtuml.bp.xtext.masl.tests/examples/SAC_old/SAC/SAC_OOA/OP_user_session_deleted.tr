@@ -1,0 +1,12 @@
+//
+// Filename: OP_user_session_deleted.tr
+//
+// Description: Allows the domain to report that a user session has been
+//              deleted.
+//
+// UK Crown Copyright (c) 2010. All rights reserved.
+//
+private service SAC::Operator~>user_session_deleted (session_id : in  integer) is
+begin
+  null;
+end;

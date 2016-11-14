@@ -1,0 +1,4 @@
+public instance function Tracking::Goal.evaluateAchievement () return GoalDisposition is
+begin
+  null;
+end function;

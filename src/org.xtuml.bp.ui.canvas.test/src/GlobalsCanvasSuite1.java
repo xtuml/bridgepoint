@@ -19,6 +19,7 @@ import org.xtuml.bp.ui.canvas.test.CanvasCreationTest;
 import org.xtuml.bp.ui.canvas.test.CanvasCreationTest2;
 import org.xtuml.bp.ui.canvas.test.CanvasEditorReloadContentsTest;
 import org.xtuml.bp.ui.canvas.test.CanvasEditorTestSuite;
+import org.xtuml.bp.ui.canvas.test.CanvasInitialMASLNameTests;
 import org.xtuml.bp.ui.canvas.test.CanvasInitialNameTests;
 import org.xtuml.bp.ui.canvas.test.CreationTransitionTest;
 import org.xtuml.bp.ui.canvas.test.ErrorPathsTest;
@@ -43,6 +44,7 @@ import junit.framework.TestSuite;
 	GlobalsCanvasTestSuite1.class,
 	ErrorPathsTest.class,
 	CanvasInitialNameTests.class,
+	CanvasInitialMASLNameTests.class,
 	SymbolTest.class,
 	ODMSTest.class,
 	CanvasEditorReloadContentsTest.class,
