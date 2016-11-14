@@ -166,30 +166,6 @@ else
   end while;
   
   
-  while (not_empty parm)
-    for each arg in args
-      if (parm.Name == arg.Name)
-        select one cval related by arg->V_VAL[R800];
-        select one ctype related by parm->S_DT[R22];
-        select any result related by stack_frame->I_VSF[R2951] where
-                                             selected.Value_ID == cval.Value_ID;
-        select one rtVal related by result->RV_RVL[R3305];
-        isByRef = false;
-        if (parm.By_Ref == 1)
-          isByRef = true;
-          newValue = GD::convertToBPDataType(type: ctype.Name,
-                                                       value: rtVal.getValue());
-          rtVal.setValue(value:newValue);
-          cval.setValue(stack_frame_id: stack_frame.Stack_Frame_ID,
-                               value: newValue, member_id:GD::NULL_UNIQUE_ID());
-        end if;
-
-        VM::addArgumentValue(value:rtVal.getValue(), type:ctype.Name,
-                                                                byRef: isByRef);
-      end if;
-    end for;
-    select one parm related by parm->S_BPARM[R55.''precedes''];
-  end while;
   // Look for a user''s class that matches the EE name
   if(ee.Realized_Class_Path != "")
     VM::addUserClassPath(System_ID:sys.Sys_ID, path:ee.Realized_Class_Path);
@@ -198,32 +174,54 @@ else
   end if;
   success = VM::loadClass(system_id: sys.Sys_ID, name:ee.Key_Lett);
   if (success)
+    while (not_empty parm)
+      for each arg in args
+        if (parm.Name == arg.Name)
+          select one cval related by arg->V_VAL[R800];
+          select one ctype related by parm->S_DT[R22];
+          select any result related by stack_frame->I_VSF[R2951] where
+                                               selected.Value_ID == cval.Value_ID;
+          select one rtVal related by result->RV_RVL[R3305];
+          isByRef = false;
+          if (parm.By_Ref == 1)
+            isByRef = true;
+            newValue = GD::convertToBPDataType(type: ctype.Name,
+                                                         value: rtVal.getValue());
+            rtVal.setValue(value:newValue);
+            cval.setValue(stack_frame_id: stack_frame.Stack_Frame_ID,
+                                 value: newValue, member_id:GD::NULL_UNIQUE_ID());
+          end if;
+  
+          VM::addArgumentValue(value:rtVal.getValue(), type:ctype.Name,
+                                                                  byRef: isByRef);
+        end if;
+      end for;
+      select one parm related by parm->S_BPARM[R55.''precedes''];
+    end while;
     // Execute a method matching the bridge
     success = VM::execute(stack_frame_id:param.stack_frame_id, name: brg.Name);
-    if (success)    
-      // Now convert any by ref parameters back to the original data type
-      for each parm in parms
-        for each arg in args
-          if (parm.By_Ref == 1 and parm.Name == arg.Name)
-            select one cval related by arg->V_VAL[R800];
-            select one ctype related by parm->S_DT[R22];
-            select any result related by stack_frame->I_VSF[R2951] where
-                                             selected.Value_ID == cval.Value_ID;
-            select one rtVal related by result->RV_RVL[R3305];
-            select one udt related by ctype->S_UDT[R17]; // is it core?
-            if (not_empty udt)// if not, check user data type
-              id = udt.getCoreType();
-              select any dt_pe from instances of PE_PE where (selected.Element_ID == id);
-              select one ctype related by dt_pe->S_DT[R8001];
-            end if;
-            newValue = GD::convertFromBPDataType(type: ctype.Name, value:
-                                                              rtVal.getValue());
-            cval.setValue(stack_frame_id: stack_frame.Stack_Frame_ID,
-                               value: newValue, member_id:GD::NULL_UNIQUE_ID());
+    // Now convert any by ref parameters back to the original data type
+    for each parm in parms
+      for each arg in args
+        if (parm.By_Ref == 1 and parm.Name == arg.Name)
+          select one cval related by arg->V_VAL[R800];
+          select one ctype related by parm->S_DT[R22];
+          select any result related by stack_frame->I_VSF[R2951] where
+                                           selected.Value_ID == cval.Value_ID;
+          select one rtVal related by result->RV_RVL[R3305];
+          select one udt related by ctype->S_UDT[R17]; // is it core?
+          if (not_empty udt)// if not, check user data type
+            id = udt.getCoreType();
+            select any dt_pe from instances of PE_PE where (selected.Element_ID == id);
+            select one ctype related by dt_pe->S_DT[R8001];
           end if;
-        end for;
+          newValue = GD::convertFromBPDataType(type: ctype.Name, value:
+                                                            rtVal.getValue());
+          cval.setValue(stack_frame_id: stack_frame.Stack_Frame_ID,
+                             value: newValue, member_id:GD::NULL_UNIQUE_ID());
+        end if;
       end for;
-    end if;
+    end for;
   end if;
   for each arg in args
     stack_frame.popValue(value_id:arg.Value_ID);
