@@ -9,14 +9,15 @@ This work is licensed under the Creative Commons CC0 License
 
 1. Abstract
 -----------
-In the current state of the Model Element Move work the cut source selection was
-limited to Packages and Datatypes. This issue is raised to enabled full
-functionality. Note that the main reason this is disabled is that the concept
-what a logical element selection is not present. Which this filter, a user is
-allowed to select any subset of elements across many canvases. The problem with
-this lies mainly in connectors. It simply does not make sense to make partial
-selections of connected elements in most cases. This issue is raised to resolve
-this problem.
+In the current state of the Model Element Move work the cut source selection
+was limited to Packages and Datatypes. This issue is raised to enabled full
+functionality. Note that the main reason selection is limited is that the
+concept of what a logical element selection is not present. With this filter, a
+user is allowed to select any subset of elements across many canvases. The
+problem with logical selection lies mainly in connectors. It simply does not
+make sense to make partial selections of connected elements in most cases. This
+issue is raised to resolve this problem. This issue also covers the issue of
+logical paste.
 
 2. Document References
 ----------------------
@@ -45,7 +46,14 @@ Move [[2.3]](#2.3), and internal readers should also review the SOW
 4.1 "Invalid cut selection" shall be defined (see section 5.1)  
 4.2 Cut shall be disabled on an invalid selection  
 4.2.1 The _Cut_ CME shall be grayed out when an invalid cut group is selected  
-4.2.2 Cut shall not be prevented on an invalid selection when cut is attemped
+4.2.2 Cut shall be prevented on an invalid selection when cut is attemped
+via keyboard shortcut  
+
+4.3 "Invalid paste selection" shall be defined (see
+4.4 Paste shall be disabled on an invalid selection  
+4.4.1 The _Paste_ CME shall be grayed out when an invalid paste group is
+selected  
+4.4.2 Paste shall be prevented on an invalid selection when paste is attemped
 via keyboard shortcut  
 
 5. Analysis
@@ -146,6 +154,16 @@ copy because the canvas must exist for canvas copy to happen anyway, however,
 for cut, the filter must also apply to the model explorer and graphical
 instances may not always be present.
 
+5.3 Invalid paste selection
+
+A selection candidate for paste after cut is said to be invalid if
+* If the destination does not support paste  
+* More than one destination is selected  
+* The destination is the same as the source  
+
+After analysis, it was determined that no additional work is needed to fulfill
+the requirements for paste.
+
 6. Design
 ---------
 
@@ -158,7 +176,7 @@ and specifics
 ```
 for each element in the selection list
   if the element is a shape type (class, imported class, component, component reference, data type, package, interface definition)
-    check if each connector is selected (if no selection is invalid)
+    check if each connector is selected (if no, selection is invalid)
   else if element is a connector type (relationship, provision, requirement, imported provision, imported requirement)
     check if the shape element on either side is selected (if no, selection is invalid)
   end if
