@@ -6323,7 +6323,7 @@ INSERT INTO O_TFR
 	VALUES ("3ff67bfe-ce7a-4f4e-a9dd-3164ac173a2e",
 	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
 	'isCuttable',
-	'',
+	'A shape type is cuttable if it is selected, and if each connector anchored to it is also selected.',
 	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
 	' return Sel::isSelected(element:self.convertToInstance());',
