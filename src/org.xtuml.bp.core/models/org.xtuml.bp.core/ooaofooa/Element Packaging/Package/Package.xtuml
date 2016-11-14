@@ -217,13 +217,20 @@ INSERT INTO O_TFR
 if (param.at == Justification::Center_in_X)
   result = "«package»";
 elif (param.at == Justification::Center)
-  result = self.Name;
-  select one pe related by self->PE_PE[R8001];
-  if not_empty pe
-    result = pe.getVisibilityAdornment() + result;
+  if(self.isAssigned())
+    select one ep_pkgref related by self->EP_PKGREF[R1402.''refers to''];
+    select one ep_pkg related by ep_pkgref->EP_PKG[R1402.''refers to''];
+    result = ep_pkg.getPath(path:"");
+  else
+    result = self.Name;
+    select one pe related by self->PE_PE[R8001];
+    if not_empty pe
+      result = pe.getVisibilityAdornment() + result;
+    end if;
   end if;
 end if;
-return result;',
+return result;
+',
 	1,
 	'',
 	"c37581ca-5a4a-4ea5-83bf-9461372fea83");
@@ -6408,7 +6415,7 @@ INSERT INTO O_TFR
 	1,
 	'select one ep_pkgref related by self->EP_PKGREF[R1402.''refers to''];
 if (not_empty ep_pkgref)
-  select one ep_pkg related by self->EP_PKGREF[R1402.''refers to'']->EP_PKG[R1402.''refers to''];
+  select one ep_pkg related by ep_pkgref->EP_PKG[R1402.''refers to''];
   unrelate self from ep_pkg across R1402.''refers to'' using ep_pkgref;
   delete object instance ep_pkgref;
 end if;
