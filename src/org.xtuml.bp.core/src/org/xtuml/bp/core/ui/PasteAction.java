@@ -94,7 +94,7 @@ public abstract class PasteAction extends CutCopyPasteAction  {
 			// @see ModelElementMovedDelta.java
 			IPersistenceHierarchyMetaData metaData = PersistenceManager.getHierarchyMetaData();
 			for (NonRootModelElement sourceElement : ELEMENT_MOVE_SOURCE_SELECTION) {
-				List selfExternalRGOs = metaData.findExternalRGOsToContainingComponent(sourceElement.getFirstParentPackage(), true);		
+				List selfExternalRGOs = metaData.findExternalRGOs(sourceElement.getRTOElementForResolution());		
 				for (Iterator iterator = selfExternalRGOs.iterator(); iterator.hasNext();) {
 					PersistableModelComponent target = ((NonRootModelElement) iterator.next()).getPersistableComponent();
 					if (target != null && !rgosAffectedByMove.contains(target)) {
@@ -102,9 +102,6 @@ public abstract class PasteAction extends CutCopyPasteAction  {
 					}
 				}
 			}
-				
-			// Move the graphics to their graphical model root
-			processGraphics(destination); 
 						
 			// Iterate over each element that was selected. Note that
 			// this is the actual selection. This is NOT using the "importer"
@@ -168,8 +165,9 @@ public abstract class PasteAction extends CutCopyPasteAction  {
 				// All the work prior to this changed the in memory model.
 				// The transaction processing for this type of transaction 
 				// will update the files on disk as needed.
+				NonRootModelElement parentNRME = getContainerForMove(sourceElement);
 				ModelElementMovedModelDelta change = new ModelElementMovedModelDelta(sourceElement, destination,
-						rgosAffectedByMove);
+						parentNRME, rgosAffectedByMove);
 				Ooaofooa.getDefaultInstance().fireModelElementMoved(change);									
 			} 
 		
@@ -193,6 +191,9 @@ public abstract class PasteAction extends CutCopyPasteAction  {
 					throw e;
 				}
 			} 
+			
+			// Move the graphics to their graphical model root
+			processGraphics(destination); 
 		}
 		
 		/**
