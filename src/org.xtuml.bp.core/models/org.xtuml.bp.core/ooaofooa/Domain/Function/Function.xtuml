@@ -77,35 +77,7 @@ INSERT INTO O_TFR
 	'The initialization operation for this class.  Set the name and the return value to defaults.',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
-	'select one packageableElem related by self->PE_PE[R8001];
-select one package related by packageableElem->EP_PKG[R8000];
-select one component related by packageableElem->C_C[R8003];
-
-   if (not_empty package)
-     select one system related by package->S_SYS[R1405];
-     def_dt_id = GD::NULL_UNIQUE_ID();
-     if not_empty system
-       def_dt_id = system.getCoreTypeId(name:"void");
-     end if;
-     select any pe from instances of PE_PE where selected.Element_ID == def_dt_id;
-     select one def_dt related by pe->S_DT[R8001]; 
-     if (not_empty def_dt)
-        relate self to def_dt across R25;
-     end if;
-   else
-     rootCompIdInPkg = component.getRootComponentId();
-     select any rootComponent from instances of C_C where (selected.Id == rootCompIdInPkg);
-     select one system related by rootComponent->PE_PE[R8001]->EP_PKG[R8000]->S_SYS[R1405];
-     def_dt_id = GD::NULL_UNIQUE_ID();
-     if not_empty system
-       def_dt_id = system.getCoreTypeId(name:"void");
-     end if;
-     select any pe from instances of PE_PE where selected.Element_ID == def_dt_id;
-     select one def_dt related by pe->S_DT[R8001]; 
-     if (not_empty def_dt)
-        relate self to def_dt across R25;
-     end if;
-   end if;
+	'self.setToDefaultDataType();
 
 name = ::getUniqueInitialName( 
     instance: self.convertToInstance(), 
@@ -396,8 +368,6 @@ INSERT INTO O_TFR
 select one dt related by self->S_DT[R25];
 if(not_empty dt)
   select one packageableElem related by self->PE_PE[R8001];
-  select one package related by packageableElem->EP_PKG[R8000];
-  select one component related by packageableElem->C_C[R8003];
     return packageableElem.canReferToDataType(dtID:dt.DT_ID, dtName: dt.Name);
 end if;
 return false;
@@ -765,6 +735,59 @@ INSERT INTO O_TPARM
 	'',
 	"00000000-0000-0000-0000-000000000000",
 	'');
+INSERT INTO O_TFR
+	VALUES ("7776869e-dc27-4ad9-8c73-5e2a0a32b6f6",
+	"bc9a6c16-8809-4681-92ab-421898fa108a",
+	'downgradeCheck',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'isVisible = self.canReferToDataType();
+if ( not isVisible )
+  select one s_dt related by self->S_DT[R25];
+  Util::reportElementDowngraded(rto:s_dt.convertToInstance(), rgoDowngraded:self.convertToInstance(), relationship:"R25");
+  self.setToDefaultDataType();
+end if;
+
+// Check function parameters
+select many s_sparms related by self->S_SPARM[R24];
+for each s_sparm in s_sparms
+  s_sparm.downgradeCheck();
+end for;',
+	1,
+	'',
+	"381144e2-c3a3-4f11-b8f8-a245937cdc88");
+INSERT INTO O_TFR
+	VALUES ("381144e2-c3a3-4f11-b8f8-a245937cdc88",
+	"bc9a6c16-8809-4681-92ab-421898fa108a",
+	'setToDefaultDataType',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'elementType = Util::getSimpleClassName(element:self.convertToInstance());
+defaultTypeName = S_DT::getDefaultDataTypeName(elementType:elementType);
+
+select one system related by self->PE_PE[R8001]->EP_PKG[R8000]->S_SYS[R1405];
+if not_empty system
+  // Unhook from the current data type (if any)
+  select one currentDt related by self->S_DT[R25];
+  if ( not_empty currentDt )
+    unrelate self from currentDt across R25;
+  end if;
+  // Now connect to the default type
+  dt_id = system.getCoreTypeId(name:defaultTypeName);
+  select any pe from instances of PE_PE where selected.Element_ID == dt_id;
+  select one defaultDt related by pe->S_DT[R8001]; 
+  relate self to defaultDt across R25;
+else
+  // this is an error, if the system is not
+  // found we cannot find the core type
+  USER::logError(msg:"Unable to locate system root for data type: " + defaultTypeName,path:"");
+end if;
+',
+	1,
+	'',
+	"db818c67-a176-46df-95bd-be1be9a0ddee");
 INSERT INTO O_NBATTR
 	VALUES ("d1398f19-3322-4cf6-882c-368b5143249f",
 	"bc9a6c16-8809-4681-92ab-421898fa108a");
