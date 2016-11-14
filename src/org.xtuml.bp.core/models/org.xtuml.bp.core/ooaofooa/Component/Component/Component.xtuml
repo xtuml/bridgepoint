@@ -3352,6 +3352,45 @@ end for;',
 	1,
 	'',
 	"eb42ec03-f0d3-49b9-9ef6-784b43bbeb81");
+INSERT INTO O_TFR
+	VALUES ("7923017f-22f6-4753-bfec-b3e652648057",
+	"2786d973-1537-44a1-81d6-3ddbd2377865",
+	'isCuttable',
+	'A shape type is cuttable if it is selected, and if each connector anchored to it is also selected.',
+	"ba5eda7a-def5-0000-0000-000000000001",
+	1,
+	'cuttable = true;
+
+// check if this element is selected
+if ( not Sel::isSelected(element:self.convertToInstance()) )
+  cuttable = false;
+else
+  select many c_irs related by self->C_PO[R4010]->C_IR[R4016];
+  for each c_ir in c_irs
+    select one c_p related by c_ir->C_P[R4009];
+    if ( not_empty c_p )
+      // if any provision is not selected, this component is not cuttable
+	  if ( not Sel::isSelected(element:c_p.convertToInstance()) )
+		cuttable = false;
+		break;
+	  end if;
+    else
+      select one c_r related by c_ir->C_R[R4009];
+      if ( not_empty c_r )
+        // if any requirement is not selected, this component is not cuttable
+	    if ( not Sel::isSelected(element:c_r.convertToInstance()) )
+		  cuttable = false;
+		  break;
+	    end if;
+      end if;
+    end if;
+  end for;
+end if;
+
+return cuttable;',
+	1,
+	'',
+	"2eb3cb57-7b4f-4607-b24d-577d9e8a13ee");
 INSERT INTO O_NBATTR
 	VALUES ("44ad7e17-9251-42cf-aa73-ac271023c8a3",
 	"2786d973-1537-44a1-81d6-3ddbd2377865");

@@ -2382,6 +2382,28 @@ Translate:native',
 	'	Selection.getInstance().clear();',
 	0,
 	'');
+INSERT INTO S_BRG
+	VALUES ("9b7646f1-d383-4d87-a774-109a287f6fcd",
+	"ca7a7f08-4459-4ff5-bf0b-941446e8b3c5",
+	'isSelected',
+	'Check if an instance is part of the selection group
+
+Import:org.xtuml.bp.core.ui.Selection
+Translate:native',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000001",
+	'return Selection.getInstance().contains(p_Element);',
+	0,
+	'');
+INSERT INTO S_BPARM
+	VALUES ("5920fd77-86ed-4aa9-9bd4-e55e292beee0",
+	"9b7646f1-d383-4d87-a774-109a287f6fcd",
+	'element',
+	"bc3722c8-5188-4529-8519-cf9eb9816b17",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
 INSERT INTO PE_PE
 	VALUES ("ca7a7f08-4459-4ff5-bf0b-941446e8b3c5",
 	1,

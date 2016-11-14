@@ -473,6 +473,46 @@ return result;',
 	1,
 	'',
 	"127cf6e0-2907-48d6-baca-47ee26d78971");
+INSERT INTO O_TFR
+	VALUES ("850a306c-8d5c-4909-a6d3-a0ceba09b294",
+	"7f4be496-f22b-4efc-af0d-8a4fdb873e98",
+	'isCuttable',
+	'A connector type is cuttable if it is selected, and if each shape anchored by it is also selected.',
+	"ba5eda7a-def5-0000-0000-000000000001",
+	1,
+	'cuttable = true;
+
+// check if this element is selected
+if ( not Sel::isSelected(element:self.convertToInstance()) )
+  cuttable = false;
+else
+  select one cl_ic related by self->CL_IIR[R4703]->CL_POR[R4708]->CL_IC[R4707];
+  if ( not Sel::isSelected(element:cl_ic.convertToInstance()) )
+    cuttable = false;
+  else
+    select one c_sf related by self->C_SF[R4706];
+    if ( not_empty c_sf )
+      select one cl_ip related by c_sf->CL_IP[R4705];
+      // if an imported provision is present, check its selection, otherwise it is
+      // a real provision
+      if ( not_empty cl_ip )
+        if ( not Sel::isSelected(element:cl_ip.convertToInstance()) )
+          cuttable = false;
+        end if;
+      else
+        select one c_p related by c_sf->C_P[R4002];
+        if ( not Sel::isSelected(element:c_p.convertToInstance()) )
+          cuttable = false;
+        end if;
+      end if;
+    end if;
+  end if;
+end if;
+
+return cuttable;',
+	1,
+	'',
+	"da572e8e-a78d-4894-9e29-b7b09351e7ba");
 INSERT INTO O_DBATTR
 	VALUES ("9e03a085-3fe5-4062-a4ce-63b081e781d8",
 	"7f4be496-f22b-4efc-af0d-8a4fdb873e98",
