@@ -131,19 +131,7 @@ else
  self.dispose();
 end if;        
 
-  // Owning Class is in a package . . .
-  select one system related by self->O_OBJ[R102]->PE_PE[R8001]->
-                                                    EP_PKG[R8000]->S_SYS[R1405];
-  if not_empty system
-    dt_id = system.getCoreTypeId(name:"integer");
-    select any pe from instances of PE_PE where selected.Element_ID == dt_id;
-    select one intdt related by pe->S_DT[R8001]; 
-    relate self to intdt across R114;
-  else
-    // this is an error, if the system is not
-    // found we cannot find the core type
-    USER::logError(msg:"Unable to locate system root for data type: integer",path:"");
-  end if;
+self.setToDefaultDataType();
 
 create object instance ba of O_BATTR;
 relate self to ba across R106;
@@ -884,6 +872,54 @@ end for;',
 	1,
 	'',
 	"f854ce28-93eb-4799-a3b7-103e85e0faa6");
+INSERT INTO O_TFR
+	VALUES ("7fc66d55-cf5a-45dc-a26f-046c1b6338de",
+	"d931d595-21f3-4ce8-bad1-6661a0e261b8",
+	'setToDefaultDataType',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'elementType = Util::getSimpleClassName(element:self.convertToInstance());
+defaultTypeName = S_DT::getDefaultDataTypeName(elementType:elementType);
+
+select one system related by self->O_OBJ[R102]->PE_PE[R8001]->EP_PKG[R8000]->S_SYS[R1405];
+if not_empty system
+  // Unhook from the current data type (if any)
+  select one currentDt related by self->S_DT[R114];
+  if ( not_empty currentDt )
+    unrelate self from currentDt across R114;
+  end if;
+  // Now connect to the default type
+  dt_id = system.getCoreTypeId(name:defaultTypeName);
+  select any pe from instances of PE_PE where selected.Element_ID == dt_id;
+  select one defaultDt related by pe->S_DT[R8001]; 
+  relate self to defaultDt across R114;
+else
+  // this is an error, if the system is not
+  // found we cannot find the core type
+  USER::logError(msg:"Unable to locate system root for data type: " + defaultTypeName,path:"");
+end if;
+',
+	1,
+	'',
+	"5e32d1d5-3602-4b38-b96e-49c0a64464a5");
+INSERT INTO O_TFR
+	VALUES ("eb6ba56f-23ab-40d5-a84d-c4795119a7fb",
+	"d931d595-21f3-4ce8-bad1-6661a0e261b8",
+	'downgradeCheck',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'isVisible = self.canReferToDataType();
+if ( not isVisible )
+  select one s_dt related by self->S_DT[R114];
+  Util::reportElementDowngraded(rto:s_dt.convertToInstance(), rgoDowngraded:self.convertToInstance(), relationship:"R114");
+  self.setToDefaultDataType();
+end if;
+',
+	1,
+	'',
+	"7fc66d55-cf5a-45dc-a26f-046c1b6338de");
 INSERT INTO O_NBATTR
 	VALUES ("fcdcb857-f08e-413d-bf60-637f228f1941",
 	"d931d595-21f3-4ce8-bad1-6661a0e261b8");

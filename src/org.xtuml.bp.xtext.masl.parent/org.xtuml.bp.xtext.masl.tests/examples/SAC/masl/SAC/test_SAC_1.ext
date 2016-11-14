@@ -1,0 +1,268 @@
+private service SAC::test_SAC_1 () is 
+the_groups : sequence of string;
+empty_groups : sequence of string;
+the_session : instance of Session;
+
+begin
+   
+   // check that the groups and operations have been added
+   Test::check_equal ( "test_SAC_1.ext", 16, ((find _TEST_Operator_report_group())'length), 4 );
+   Test::check_equal ( "test_SAC_1.ext", 17, ((find _TEST_Operator_report_group_operation())'length), 8 );
+   
+   // login user 1 on workstation 1 with group 1
+   the_groups := empty_groups & "group1";
+   SAC::user_logon(1, "user1", "User One", "Workstation1", the_groups);
+   Test::service_event_queue();
+   if Test::check_size ( "test_SAC_1.ext", 23, find _TEST_Operator_report_user(), 1 ) then
+      Test::check_equal ( "test_SAC_1.ext", 24, ((find _TEST_Operator_report_user(user_id = 1 and logged_on = logged_on))'length), 1 );
+   end if;
+   if Test::check_size ( "test_SAC_1.ext", 26, find _TEST_Operator_report_user_operation(), 2 ) then
+      Test::check_equal ( "test_SAC_1.ext", 27, ((find _TEST_Operator_report_user_operation(
+                                                          (user_id = 1 and operation_name = "operation1") or 
+                                                           (user_id = 1 and operation_name = "operation2")))'length), 2 );
+   end if;
+   if Test::check_size ( "test_SAC_1.ext", 31, find _TEST_Operator_report_user_session(), 1 ) then
+      Test::check_equal ( "test_SAC_1.ext", 32, ((find _TEST_Operator_report_user_session(user_id = 1 and 
+                                                                                    workstation_hostname = "Workstation1" and
+                                                                                    session_timed_out = false))'length), 1 );
+   end if;
+   delete find _TEST_Operator_report_user();
+   delete find _TEST_Operator_report_user_operation();
+   delete find _TEST_Operator_report_user_session();
+      
+   // login user 1 on workstation 2 with group 1 + 2
+   the_groups := empty_groups & "group1" & "group2";
+   SAC::user_logon(1, "user1", "User One", "Workstation2", the_groups);
+   Test::service_event_queue();
+   if Test::check_size ( "test_SAC_1.ext", 44, find _TEST_Operator_report_user(), 1 ) then
+      Test::check_equal ( "test_SAC_1.ext", 45, ((find _TEST_Operator_report_user(user_id = 1 and logged_on = logged_on))'length), 1 );
+   end if;
+   if Test::check_size ( "test_SAC_1.ext", 47, find _TEST_Operator_report_user_operation(), 4 ) then
+      Test::check_equal ( "test_SAC_1.ext", 48, ((find _TEST_Operator_report_user_operation(
+                                                          (user_id = 1 and operation_name = "operation1") or 
+                                                           (user_id = 1 and operation_name = "operation2") or
+                                                           (user_id = 1 and operation_name = "operation3") or
+                                                           (user_id = 1 and operation_name = "operation4")))'length), 4 );
+   end if;
+   if Test::check_size ( "test_SAC_1.ext", 54, find _TEST_Operator_report_user_session(), 1 ) then
+      Test::check_equal ( "test_SAC_1.ext", 55, ((find _TEST_Operator_report_user_session(user_id = 1 and 
+                                                                                    workstation_hostname = "Workstation2" and
+                                                                                    session_timed_out = false))'length), 1 );
+   end if;
+   delete find _TEST_Operator_report_user();
+   delete find _TEST_Operator_report_user_operation();
+   delete find _TEST_Operator_report_user_session();
+   
+   // login user 2 on workstation 3 with group 3
+   the_groups := empty_groups & "group3";
+   SAC::user_logon(2, "user2", "User Two", "Workstation3", the_groups);
+   Test::service_event_queue();
+   if Test::check_size ( "test_SAC_1.ext", 67, find _TEST_Operator_report_user(), 1 ) then
+      Test::check_equal ( "test_SAC_1.ext", 68, ((find _TEST_Operator_report_user(user_id = 2 and logged_on = logged_on))'length), 1 );
+   end if;
+   if Test::check_size ( "test_SAC_1.ext", 70, find _TEST_Operator_report_user_operation(), 2 ) then
+      Test::check_equal ( "test_SAC_1.ext", 71, ((find _TEST_Operator_report_user_operation(
+                                                          (user_id = 2 and operation_name = "operation1") or 
+                                                           (user_id = 2 and operation_name = "operation3")))'length), 2 );
+   end if;
+   if Test::check_size ( "test_SAC_1.ext", 75, find _TEST_Operator_report_user_session(), 1 ) then
+      Test::check_equal ( "test_SAC_1.ext", 76, ((find _TEST_Operator_report_user_session(user_id = 2 and 
+                                                                                    workstation_hostname = "Workstation3" and
+                                                                                    session_timed_out = false))'length), 1 );
+   end if;
+   delete find _TEST_Operator_report_user();
+   delete find _TEST_Operator_report_user_operation();
+   delete find _TEST_Operator_report_user_session();
+   
+   // login user 2 on workstation 4 with group 3 + 4
+   the_groups := empty_groups & "group3" & "group4";
+   SAC::user_logon(2, "user2", "User Two", "Workstation4", the_groups);
+   Test::service_event_queue();
+   if Test::check_size ( "test_SAC_1.ext", 88, find _TEST_Operator_report_user(), 1 ) then
+      Test::check_equal ( "test_SAC_1.ext", 89, ((find _TEST_Operator_report_user(user_id = 2 and logged_on = logged_on))'length), 1 );
+   end if;
+   if Test::check_size ( "test_SAC_1.ext", 91, find _TEST_Operator_report_user_operation(), 4 ) then
+      Test::check_equal ( "test_SAC_1.ext", 92, ((find _TEST_Operator_report_user_operation(
+                                                          (user_id = 2 and operation_name = "operation1") or 
+                                                           (user_id = 2 and operation_name = "operation2") or
+                                                           (user_id = 2 and operation_name = "operation3") or
+                                                           (user_id = 2 and operation_name = "operation4")))'length), 4 );
+   end if;
+   if Test::check_size ( "test_SAC_1.ext", 98, find _TEST_Operator_report_user_session(), 1 ) then
+      Test::check_equal ( "test_SAC_1.ext", 99, ((find _TEST_Operator_report_user_session(user_id = 2 and 
+                                                                                    workstation_hostname = "Workstation4" and
+                                                                                    session_timed_out = false))'length), 1 );
+   end if;
+   delete find _TEST_Operator_report_user();
+   delete find _TEST_Operator_report_user_operation();
+   delete find _TEST_Operator_report_user_session();
+   
+   // fail the heartbeat 4 times on workstation 1 and get the session to become timed out
+   the_session:= find_one Session(user_id = 1 and workstation_id = 0);
+   generate Session.heartbeat_timeout_expired() to the_session;
+   Test::service_event_queue();
+   generate Session.heartbeat_timeout_expired() to the_session;
+   Test::service_event_queue();
+   generate Session.heartbeat_timeout_expired() to the_session;
+   Test::service_event_queue();
+   generate Session.heartbeat_timeout_expired() to the_session;
+   Test::service_event_queue();
+   if Test::check_size ( "test_SAC_1.ext", 117, find _TEST_Operator_report_user_session(), 1 ) then
+      Test::check_equal ( "test_SAC_1.ext", 118, ((find _TEST_Operator_report_user_session(user_id = 1 and 
+                                                                                    workstation_hostname = "Workstation1" and
+                                                                                    session_timed_out = true))'length), 1 );
+   end if;
+   delete find _TEST_Operator_report_user_session();
+   
+   // fail the heartbeat 4 times on workstation 2 and get the session to become 
+   // timed out and the user marked as suspect
+   the_session:= find_one Session(user_id = 1 and workstation_id = 1);
+   generate Session.heartbeat_timeout_expired() to the_session;
+   Test::service_event_queue();
+   generate Session.heartbeat_timeout_expired() to the_session;
+   Test::service_event_queue();
+   generate Session.heartbeat_timeout_expired() to the_session;
+   Test::service_event_queue();
+   generate Session.heartbeat_timeout_expired() to the_session;
+   Test::service_event_queue();
+   if Test::check_size ( "test_SAC_1.ext", 135, find _TEST_Operator_report_user_session(), 1 ) then
+      Test::check_equal ( "test_SAC_1.ext", 136, ((find _TEST_Operator_report_user_session(user_id = 1 and 
+                                                                                    workstation_hostname = "Workstation2" and
+                                                                                    session_timed_out = true))'length), 1 );
+   end if;
+   if Test::check_size ( "test_SAC_1.ext", 140, find _TEST_Operator_report_user(), 1 ) then
+      Test::check_equal ( "test_SAC_1.ext", 141, ((find _TEST_Operator_report_user(user_id = 1 and logged_on = suspect))'length), 1 );
+   end if;
+   delete find _TEST_Operator_report_user();
+   delete find _TEST_Operator_report_user_session();
+   
+   // start the heartbeat for workstation 1 and check that the session 
+   // is no longer timed out and the user becomes logged on
+   SAC::session_active(0, 1, "");
+   Test::service_event_queue();
+   if Test::check_size ( "test_SAC_1.ext", 150, find _TEST_Operator_report_user_session(), 1 ) then
+      Test::check_equal ( "test_SAC_1.ext", 151, ((find _TEST_Operator_report_user_session(user_id = 1 and 
+                                                                                    workstation_hostname = "Workstation1" and
+                                                                                    session_timed_out = false))'length), 1 );
+   end if;
+   if Test::check_size ( "test_SAC_1.ext", 155, find _TEST_Operator_report_user(), 1 ) then
+      Test::check_equal ( "test_SAC_1.ext", 156, ((find _TEST_Operator_report_user(user_id = 1 and logged_on = logged_on))'length), 1 );
+   end if;
+   delete find _TEST_Operator_report_user();
+   delete find _TEST_Operator_report_user_session();
+   
+   // login user 3 on workstation 3 with group 4 check user 2 is logged off the workstation and that 2 
+   // operations added for the new user 
+   the_groups := empty_groups & "group3";
+   SAC::user_logon(3, "user3", "User Three", "Workstation3", the_groups);
+   Test::service_event_queue();
+   if Test::check_size ( "test_SAC_1.ext", 166, find _TEST_Operator_user_session_deleted(), 1 ) then
+      Test::check_equal ( "test_SAC_1.ext", 167, ((find _TEST_Operator_user_session_deleted(session_id = 2))'length), 1 );
+   end if;
+   if Test::check_size ( "test_SAC_1.ext", 169, find _TEST_Operator_report_user(), 1 ) then
+      Test::check_equal ( "test_SAC_1.ext", 170, ((find _TEST_Operator_report_user(user_id = 3 and logged_on = logged_on))'length), 1 );
+   end if;
+   if Test::check_size ( "test_SAC_1.ext", 172, find _TEST_Operator_report_user_operation(), 2 ) then
+      Test::check_equal ( "test_SAC_1.ext", 173, ((find _TEST_Operator_report_user_operation(
+                                                          (user_id = 3 and operation_name = "operation1") or 
+                                                           (user_id = 3 and operation_name = "operation3")))'length), 2 );
+   end if;
+   if Test::check_size ( "test_SAC_1.ext", 177, find _TEST_Operator_report_user_session(), 1 ) then
+      Test::check_equal ( "test_SAC_1.ext", 178, ((find _TEST_Operator_report_user_session(user_id = 3 and 
+                                                                                    workstation_hostname = "Workstation3" and
+                                                                                    session_timed_out = false))'length), 1 );
+   end if;
+   delete find _TEST_Operator_user_session_deleted();
+   delete find _TEST_Operator_report_user();
+   delete find _TEST_Operator_report_user_operation();
+   delete find _TEST_Operator_report_user_session();
+   delete find _TEST_Operator_user_operation_removed();
+   
+   // log off workstation 4 user 2
+   SAC::user_logoff(3, 2, "");
+   Test::service_event_queue();
+   if Test::check_size ( "test_SAC_1.ext", 191, find _TEST_Operator_user_session_deleted(), 1 ) then
+      Test::check_equal ( "test_SAC_1.ext", 192, ((find _TEST_Operator_user_session_deleted(session_id = 3))'length), 1 );
+   end if;
+   if Test::check_size ( "test_SAC_1.ext", 194, find _TEST_Operator_user_operation_removed(), 4 ) then
+      Test::check_equal ( "test_SAC_1.ext", 195, ((find _TEST_Operator_user_operation_removed(
+                                                          (user_id = 2 and operation_name = "operation1") or 
+                                                          (user_id = 2 and operation_name = "operation2") or 
+                                                          (user_id = 2 and operation_name = "operation3") or 
+                                                           (user_id = 2 and operation_name = "operation4")))'length), 4 );
+   end if;
+   if Test::check_size ( "test_SAC_1.ext", 201, find _TEST_Operator_user_removed(), 1 ) then
+      Test::check_equal ( "test_SAC_1.ext", 202, ((find _TEST_Operator_user_removed(user_id = 2))'length), 1 );
+   end if;
+   delete find _TEST_Operator_user_session_deleted();
+   delete find _TEST_Operator_user_operation_removed();
+   delete find _TEST_Operator_user_removed();
+   
+   // log off workstation 3 user 3
+   SAC::user_logoff(4, 3, "");
+   Test::service_event_queue();
+   if Test::check_size ( "test_SAC_1.ext", 211, find _TEST_Operator_user_session_deleted(), 1 ) then
+      Test::check_equal ( "test_SAC_1.ext", 212, ((find _TEST_Operator_user_session_deleted(session_id = 4))'length), 1 );
+   end if;
+   if Test::check_size ( "test_SAC_1.ext", 214, find _TEST_Operator_user_operation_removed(), 2 ) then
+      Test::check_equal ( "test_SAC_1.ext", 215, ((find _TEST_Operator_user_operation_removed(
+                                                          (user_id = 3 and operation_name = "operation1") or 
+                                                           (user_id = 3 and operation_name = "operation3")))'length), 2 );
+   end if;
+   if Test::check_size ( "test_SAC_1.ext", 219, find _TEST_Operator_user_removed(), 1 ) then
+      Test::check_equal ( "test_SAC_1.ext", 220, ((find _TEST_Operator_user_removed(user_id = 3))'length), 1 );
+   end if;
+   delete find _TEST_Operator_user_session_deleted();
+   delete find _TEST_Operator_user_operation_removed();
+   delete find _TEST_Operator_user_removed();
+   
+   // log off workstation 1 user 1 check that the user becomes suspect
+   SAC::user_logoff(0, 1, "");
+   Test::service_event_queue();
+   if Test::check_size ( "test_SAC_1.ext", 229, find _TEST_Operator_user_session_deleted(), 1 ) then
+      Test::check_equal ( "test_SAC_1.ext", 230, ((find _TEST_Operator_user_session_deleted(session_id = 0))'length), 1 );
+   end if;
+   if Test::check_size ( "test_SAC_1.ext", 232, find _TEST_Operator_report_user(), 1 ) then
+      Test::check_equal ( "test_SAC_1.ext", 233, ((find _TEST_Operator_report_user(user_id = 1 and logged_on = suspect))'length), 1 );
+   end if;
+   delete find _TEST_Operator_user_session_deleted();
+   delete find _TEST_Operator_report_user();
+   
+   // start the heartbeat for workstation 2 and check that the session 
+   // is no longer timed out and the user becomes logged on
+   SAC::session_active(1, 1, "");
+   Test::service_event_queue();
+   if Test::check_size ( "test_SAC_1.ext", 242, find _TEST_Operator_report_user_session(), 1 ) then
+      Test::check_equal ( "test_SAC_1.ext", 243, ((find _TEST_Operator_report_user_session(user_id = 1 and 
+                                                                                    workstation_hostname = "Workstation2" and
+                                                                                    session_timed_out = false))'length), 1 );
+   end if;
+   if Test::check_size ( "test_SAC_1.ext", 247, find _TEST_Operator_report_user(), 1 ) then
+      Test::check_equal ( "test_SAC_1.ext", 248, ((find _TEST_Operator_report_user(user_id = 1 and logged_on = logged_on))'length), 1 );
+   end if;
+   delete find _TEST_Operator_report_user();
+   delete find _TEST_Operator_report_user_session();
+   
+   // log off workstation 2 user 1 
+   SAC::user_logoff(1, 1, "");
+   Test::service_event_queue();
+   if Test::check_size ( "test_SAC_1.ext", 256, find _TEST_Operator_user_session_deleted(), 1 ) then
+      Test::check_equal ( "test_SAC_1.ext", 257, ((find _TEST_Operator_user_session_deleted(session_id = 1))'length), 1 );
+   end if;
+   if Test::check_size ( "test_SAC_1.ext", 259, find _TEST_Operator_user_operation_removed(), 4 ) then
+      Test::check_equal ( "test_SAC_1.ext", 260, ((find _TEST_Operator_user_operation_removed(
+                                                          (user_id = 1 and operation_name = "operation1") or 
+                                                          (user_id = 1 and operation_name = "operation2") or 
+                                                          (user_id = 1 and operation_name = "operation3") or 
+                                                          (user_id = 1 and operation_name = "operation4")))'length), 4 );
+   end if;
+   if Test::check_size ( "test_SAC_1.ext", 266, find _TEST_Operator_user_removed(), 1 ) then
+      Test::check_equal ( "test_SAC_1.ext", 267, ((find _TEST_Operator_user_removed(user_id = 1))'length), 1 );
+   end if;
+   delete find _TEST_Operator_user_session_deleted();
+   delete find _TEST_Operator_report_user();
+   
+   Test::print_results();
+   Process::requestShutdown();
+   
+end service;

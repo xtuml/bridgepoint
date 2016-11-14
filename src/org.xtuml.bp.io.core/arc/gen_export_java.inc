@@ -62,6 +62,7 @@ import java.util.Set;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.jface.preference.IPreferenceStore;
 
 import org.xtuml.bp.core.*;
 import org.xtuml.bp.core.common.*;

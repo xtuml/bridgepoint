@@ -112,7 +112,12 @@ public class CanvasModelListener extends ModelChangeAdapter  {
         
         Model_c[] mdls = getGraphicsModels(event);
         Model_c[] newMdls = new Model_c[mdls.length + 1];
-        GraphicalElement_c graphicalElement = CanvasPlugin.getGraphicalElement(Ooaofgraphics.getDefaultInstance(), modelElement);
+		GraphicalElement_c graphicalElement = CanvasPlugin
+				.getGraphicalElement(Ooaofgraphics.getInstance(modelElement.getModelRoot().getId()), modelElement);
+        if(graphicalElement == null) {
+        	// try the system root
+        	graphicalElement = CanvasPlugin.getGraphicalElement(Ooaofgraphics.getDefaultInstance(), modelElement);
+        }
         
         Model_c sysModel = null;
         if(graphicalElement != null) {

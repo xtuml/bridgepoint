@@ -264,40 +264,31 @@ be set to the default "integer".  This is needed during initialization and when
 the previously associated datatype is disposed.',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
-	'// Symbolic Constant (CNST_SYC) setToDefaultDatatype operation
+	'elementType = Util::getSimpleClassName(element:self.convertToInstance());
+defaultTypeName = S_DT::getDefaultDataTypeName(elementType:elementType);
 
-
-// if empty we may be in a generic package
-select one sys related by self->CNST_CSP[R1504]->PE_PE[R8001]->EP_PKG[R8000]->S_SYS[R1405];
-int_dt_id = GD::NULL_UNIQUE_ID();
-if not_empty sys
-  int_dt_id = sys.getCoreTypeId(name:"integer");
-end if;
-select any pe from instances of PE_PE where selected.Element_ID == int_dt_id;
-select one int_dt related by pe->S_DT[R8001];
-if (empty int_dt)
-  // TBD Why is this here?
-  select any int_dt related by sys->EP_PKG[R1405]->PE_PE[R8000]->S_DT[R8001] where (selected.Name == "integer");
-end if;
-
-if(not_empty sys)
-  intdt_id = GD::NULL_UNIQUE_ID();
-  if not_empty sys
-    intdt_id = sys.getCoreTypeId(name:"integer");
+select one system related by self->CNST_CSP[R1504]->PE_PE[R8001]->EP_PKG[R8000]->S_SYS[R1405];
+if not_empty system
+  // Unhook from the current data type (if any)
+  select one currentDt related by self->S_DT[R1500];
+  if ( not_empty currentDt )
+    unrelate self from currentDt across R1500;
   end if;
-  select any pe from instances of PE_PE where selected.Element_ID == intdt_id;
-  select one intdt related by pe->S_DT[R8001]; 
+  // Now connect to the default type
+  dt_id = system.getCoreTypeId(name:defaultTypeName);
+  select any pe from instances of PE_PE where selected.Element_ID == dt_id;
+  select one defaultDt related by pe->S_DT[R8001]; 
+  relate self to defaultDt across R1500;
+  select one lsc related by self->CNST_LFSC[R1502]->CNST_LSC[R1503];
+  if (not_empty lsc)
+    lsc.Value = "0";
+  end if;
+else
+  // this is an error, if the system is not
+  // found we cannot find the core type
+  USER::logError(msg:"Unable to locate system root for data type: " + defaultTypeName,path:"");
 end if;
-
-// Now that we have the integer datatype, clean up the CNST_SYC->S_DT
-// association and reset them to the integer. Set the value of the constant to 0.
-select one dt related by self->S_DT[R1500];
-unrelate self from dt across R1500;
-relate self to int_dt across R1500;
-select one lsc related by self->CNST_LFSC[R1502]->CNST_LSC[R1503];
-if (not_empty lsc)
-  lsc.Value = "0";
-end if;',
+',
 	1,
 	'',
 	"607e26e2-4834-4b8c-a1b1-479e7a1c6470");
@@ -370,6 +361,39 @@ end for;',
 	1,
 	'',
 	"b7a99667-f968-4df6-b55a-5710add7d669");
+INSERT INTO O_TFR
+	VALUES ("3dec08e0-dfd6-47f5-902d-dfa1bb6ff90c",
+	"d4956257-25ce-4df9-a48f-3600e0983412",
+	'downgradeCheck',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'isVisible = self.canReferToDataType();
+if ( not isVisible )
+  select one s_dt related by self->S_DT[R1500];
+  Util::reportElementDowngraded(rto:s_dt.convertToInstance(), rgoDowngraded:self.convertToInstance(), relationship:"R1500");
+  self.setToDefaultDatatype();
+end if;
+',
+	1,
+	'',
+	"00f98f21-563b-48c1-8126-fb83e7f71718");
+INSERT INTO O_TFR
+	VALUES ("fd21466e-e1a5-4b91-ac63-9332468207f2",
+	"d4956257-25ce-4df9-a48f-3600e0983412",
+	'canReferToDataType',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000001",
+	1,
+	'select one dt related by self->S_DT[R1500];
+if(not_empty dt)
+  select one packageableElem related by self->CNST_CSP[R1504]->PE_PE[R8001];
+  return packageableElem.canReferToDataType(dtID:dt.DT_ID, dtName: dt.Name);
+end if;
+return false;',
+	1,
+	'',
+	"3dec08e0-dfd6-47f5-902d-dfa1bb6ff90c");
 INSERT INTO O_NBATTR
 	VALUES ("2e6beca5-0d3b-4f5d-b2cd-b71a070d3ec8",
 	"d4956257-25ce-4df9-a48f-3600e0983412");

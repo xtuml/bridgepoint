@@ -580,6 +580,54 @@ return package.getPath(path:"") + "::" + self.get_name();',
 	1,
 	'',
 	"6efa13c2-a742-41dc-8538-975276af3443");
+INSERT INTO O_TFR
+	VALUES ("564c0e16-6ce2-4864-880a-b9231370a188",
+	"fccf477f-dde6-4d1a-9020-5effbe338738",
+	'downgradeCheck',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'',
+	1,
+	'',
+	"2dd6e6e3-5e2f-465e-8d0b-125c0912c492");
+INSERT INTO O_TFR
+	VALUES ("fa50f390-f898-48d7-a9dd-02c23b73bb3f",
+	"fccf477f-dde6-4d1a-9020-5effbe338738",
+	'isCuttable',
+	'A connector type is cuttable if it is selected, and if each shape anchored by it is also selected.',
+	"ba5eda7a-def5-0000-0000-000000000001",
+	1,
+	'cuttable = true;
+
+// check if this element is selected
+if ( not Sel::isSelected(element:self.convertToInstance()) )
+  cuttable = false;
+else
+  select many r_oirs related by self->R_OIR[R201];
+  for each r_oir in r_oirs
+    select one o_iobj related by r_oir->O_IOBJ[R202];
+    // if an o_iobj instance is present, check if that is selected
+    // otherwise the relationship is to a real class
+    if ( not_empty o_iobj )
+      if ( not Sel::isSelected(element:o_iobj.convertToInstance()) )
+        cuttable = false;
+        break;
+      end if;
+    else
+      select one o_obj related by r_oir->O_OBJ[R201];
+      if ( not Sel::isSelected(element:o_obj.convertToInstance()) )
+        cuttable = false;
+        break;
+      end if;
+    end if;
+  end for;
+end if;
+
+return cuttable;',
+	1,
+	'',
+	"564c0e16-6ce2-4864-880a-b9231370a188");
 INSERT INTO O_NBATTR
 	VALUES ("40ed956f-425d-4976-8913-ae0859b64e93",
 	"fccf477f-dde6-4d1a-9020-5effbe338738");
