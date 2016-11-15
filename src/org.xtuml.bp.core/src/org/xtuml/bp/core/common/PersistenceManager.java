@@ -810,14 +810,6 @@ public class PersistenceManager {
 
           IPath path = null;
 
-          // for the compare and clipboard roots return an empty list
-          // of components (there are never components related to these
-          // roots)
-          if (modelRoot.getId().equals(ModelRoot.CLIPBOARD_MODEL_ROOT_NAME)
-			   || modelRoot.getId().equals(ModelRoot.COMPARE_MODEL_ROOT_NAME)) {
-            return results;
-          }
-            
           if (modelRoot == null || !ModelRoot.isFileBasedID(modelRoot.getId())) {//$NON-NLS-1$
             // used to find components in the entire workspace
         	// provides support for RTO resolution
@@ -825,6 +817,14 @@ public class PersistenceManager {
             path = new Path("/");
           }
           else {
+              // for the compare and clipboard roots return an empty list
+              // of components (there are never components related to these
+              // roots)
+            if (modelRoot.getId().equals(ModelRoot.CLIPBOARD_MODEL_ROOT_NAME)
+            		|| modelRoot.getId().equals(ModelRoot.COMPARE_MODEL_ROOT_NAME)) {
+              return results;
+            }
+
             path = new Path(modelRoot.getId());
             String domName = path.removeFileExtension().segment(1);
             if (domName == null){
