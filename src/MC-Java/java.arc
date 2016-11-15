@@ -79,7 +79,6 @@
       .else
         .select one aone related by rel->R_ASSOC[R206]->R_AONE[R209]
         .select one aoth related by rel->R_ASSOC[R206]->R_AOTH[R210]
-        .select one rto_obj related by rto->R_OIR[R203]->O_OBJ[R201]
         .if ( rto.OIR_ID == aone.OIR_ID )
           .assign attr_result = "$cr{aone.Txt_Phrs}"
         .else
@@ -93,7 +92,6 @@
       .else
         .select one aone related by rel->R_ASSOC[R206]->R_AONE[R209]
         .select one aoth related by rel->R_ASSOC[R206]->R_AOTH[R210]
-        .select one rto_obj related by rto->R_OIR[R203]->O_OBJ[R201]
         .if ( rto.OIR_ID == aone.OIR_ID )
           .assign attr_result = "$cr{aoth.Txt_Phrs}"
         .else
