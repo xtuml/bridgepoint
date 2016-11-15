@@ -1166,7 +1166,7 @@ ${gen_RGO_resolution.body}\
             // if we did not find the element, load all possible PMCs containing expected RTO type
             // then search again by id
 			if(${rel_inst_var_name} == null) {
-				// load all potential PMCs that may contain our target
+				// load all potential PMCs that may contain our target 
 				PersistenceManager.ensureAllInstancesLoaded(null,
 						Package_c.class);
 				PersistenceManager.ensureAllInstancesLoaded(null,
@@ -1175,9 +1175,6 @@ ${gen_RGO_resolution.body}\
 						ModelClass_c.class);
 				${rel_inst_var_name} = (${rcn.body}) baseRoot.getInstanceList(${rcn.body}.class)
 						..get(new Object[]${guk.key});
-				if(${rel_inst_var_name} != null) {
-					break;
-				}
 			}
                 .assign search_all_model_roots = package.search_all_model_roots
                 .if(search_all_model_roots)
