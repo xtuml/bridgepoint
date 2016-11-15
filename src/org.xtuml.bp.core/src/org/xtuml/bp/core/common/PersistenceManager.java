@@ -857,7 +857,7 @@ public class PersistenceManager {
           return results;
         }
     }
-    
+
     static public void ensureAllInstancesLoaded(ModelRoot modelRoot,
             Class elementClass) {
             List comps = findAllComponents(modelRoot, elementClass);
@@ -866,7 +866,10 @@ public class PersistenceManager {
                         .next();
                 if (!component.isLoaded()) {
                     try {
-                        component.load(new NullProgressMonitor());
+                    	// do not load if the model root should be ignored
+                    	if(component.getStatus() != PersistableModelComponent.STATUS_LOADING) {
+                    		component.load(new NullProgressMonitor());	
+                    	}
                     } catch (CoreException e) {
                         CorePlugin.logError("Can't load component", e);
                     }
