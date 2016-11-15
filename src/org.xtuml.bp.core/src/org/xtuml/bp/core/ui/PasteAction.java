@@ -22,13 +22,11 @@
 package org.xtuml.bp.core.ui;
 
 import java.io.ByteArrayInputStream;
-import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
@@ -89,20 +87,6 @@ public abstract class PasteAction extends CutCopyPasteAction  {
 		 * @throws Exception
 		 */
 		private void processPasteForMove(NonRootModelElement destination) throws Exception {			
-			HashSet<PersistableModelComponent> rgosAffectedByMove = new HashSet<PersistableModelComponent>();
-			// find all RGOs that this move would affect. Do this before we move things around!
-			// @see ModelElementMovedDelta.java
-			IPersistenceHierarchyMetaData metaData = PersistenceManager.getHierarchyMetaData();
-			for (NonRootModelElement sourceElement : ELEMENT_MOVE_SOURCE_SELECTION) {
-				List selfExternalRGOs = metaData.findExternalRGOs(sourceElement.getRTOElementForResolution());		
-				for (Iterator iterator = selfExternalRGOs.iterator(); iterator.hasNext();) {
-					PersistableModelComponent target = ((NonRootModelElement) iterator.next()).getPersistableComponent();
-					if (target != null && !rgosAffectedByMove.contains(target)) {
-						rgosAffectedByMove.add(target);
-					}
-				}
-			}
-						
 			// Iterate over each element that was selected. Note that
 			// this is the actual selection. This is NOT using the "importer"
 			// to suck in all dependent elements
@@ -167,7 +151,7 @@ public abstract class PasteAction extends CutCopyPasteAction  {
 				// will update the files on disk as needed.
 				NonRootModelElement parentNRME = getContainerForMove(sourceElement);
 				ModelElementMovedModelDelta change = new ModelElementMovedModelDelta(sourceElement, destination,
-						parentNRME, rgosAffectedByMove);
+						parentNRME);
 				Ooaofooa.getDefaultInstance().fireModelElementMoved(change);									
 			} 
 		
