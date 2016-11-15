@@ -28,9 +28,9 @@ Analysis referenced in design note.
 <a id="2.5"></a>2.5 [Model Element Move User Test Cases #8726](https://support.onefact.net/issues/8726)    
 
 <a id="
-"></a>2.6 [Model Element Move Test Model For Downgrade Testing (movetest)](https://github.com/xtuml/models/tree/master/test/movetest)  
+"></a>2.6 [Model Element Move Test Model For Downgrade Testing (movetest)](https://github.com/xtuml/models/tree/master/movetest)  
 
-<a id="2.7"></a>2.7 [Model Element Move Test Model For Misc Test Cases (ModelElementMoveTests2)](https://github.com/xtuml/models/tree/master/test/ModelElementMoveTests2)   
+<a id="2.7"></a>2.7 [Model Element Move Test Model For Misc Test Cases (ModelElementMoveTests2)](https://github.com/xtuml/models/tree/master/ModelElementMoveTest2)   
 
 <a id="2.8"></a>2.8 [Main Model Element Move Test Model (ModelElementMoveTests)](https://github.com/xtuml/models/tree/master/test/ModelElementMoveTests)  
 
