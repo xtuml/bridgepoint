@@ -7303,6 +7303,46 @@ INSERT INTO PE_PE
 	"42d5848f-dabe-43e1-9ac4-b840f2789360",
 	"00000000-0000-0000-0000-000000000000",
 	1);
+INSERT INTO S_SYNC
+	VALUES ("0850464e-5d5e-45b7-a05a-34e3215165c6",
+	"00000000-0000-0000-0000-000000000000",
+	'EP_PKG_Unassign',
+	'',
+	'select any ep_pkg from instances of EP_PKG where USER::selectOne(id:selected.Package_ID);
+if(not_empty ep_pkg)
+  ep_pkg.unAssign();
+end if;',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'');
+INSERT INTO PE_PE
+	VALUES ("0850464e-5d5e-45b7-a05a-34e3215165c6",
+	1,
+	"42d5848f-dabe-43e1-9ac4-b840f2789360",
+	"00000000-0000-0000-0000-000000000000",
+	1);
+INSERT INTO S_SYNC
+	VALUES ("15d7024c-93d8-427d-ade3-8d3a49130db6",
+	"00000000-0000-0000-0000-000000000000",
+	'EP_PKG_AssignAsPackageReference',
+	'',
+	'select any element from instances of EP_PKG where USER::selectOne(id:selected.Package_ID);
+if not_empty element
+  select any selectedPkg from instances of EP_PKG where USER::selectOne(id:selected.Package_ID);
+  if not_empty selectedPkg
+    element.assignAsPackageReference(Id:selectedPkg.Package_ID);
+  end if;
+end if;
+',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'');
+INSERT INTO PE_PE
+	VALUES ("15d7024c-93d8-427d-ade3-8d3a49130db6",
+	1,
+	"42d5848f-dabe-43e1-9ac4-b840f2789360",
+	"00000000-0000-0000-0000-000000000000",
+	1);
 INSERT INTO PE_PE
 	VALUES ("42d5848f-dabe-43e1-9ac4-b840f2789360",
 	1,
