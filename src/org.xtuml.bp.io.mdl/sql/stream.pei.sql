@@ -18,7 +18,7 @@ INSERT INTO EO VALUES ( '13',	'',	  '24',     'SystemModelPackage',0 , '', 'firs
 INSERT INTO EO VALUES ( '24', '24.1', '', 'Package', 1401, 'many', 'first', true );
 
 INSERT INTO EO VALUES ( '24.1',       '',          '24.10', 'PackageDiagram', 0, '', 'first', false );
-INSERT INTO EO VALUES ( '24.10',    '24.10.1', '', 'Packageable Element', 8000, 'many', 'first', false );
+INSERT INTO EO VALUES ( '24.10',    '24.10.1', '24.11', 'Packageable Element', 8000, 'many', 'first', false );
 INSERT INTO EO VALUES ( '24.10.1',  '1.5.3.1.1', '24.10.2', 'Data Type', 8001, 'one', 'first', false );
 INSERT INTO EO VALUES ( '24.10.2',  '6.2.1', '24.10.3',     'Interaction Participant', 8001, 'one', 'first', false );
 INSERT INTO EO VALUES ( '24.10.3',  '1.14.2.1', '24.10.4',       'Activity Node', 8001, 'one', 'first', false );
@@ -39,6 +39,7 @@ INSERT INTO EO VALUES ( '24.10.17',  '6.2.8.1', '24.10.18',  'Use Case Associati
 INSERT INTO EO VALUES ( '24.10.18',  '',        '24.10.19',  'Satisfaction', 8001, 'one', 'first', false );
 INSERT INTO EO VALUES ( '24.10.19',  '12.4.9.1.1', '24.10.20',       'Delegation', 8001, 'one', 'first', false );
 INSERT INTO EO VALUES ( '24.10.20',  '', '',                       'Exception', 8001, 'one', 'first', true );
+INSERT INTO EO VALUES ( '24.11',  '', '',  'Package Reference', 1402, 'one', 'first', false, false, 'refers to', false, false, ''  );
 
 INSERT INTO EO VALUES ( '12.4.1',       '',    '12.4.3',     'ComponentDiagram', 0, '', 'first', false );
 INSERT INTO EO VALUES ( '12.4.3',     '12.4.3.1',  '12.4.9',      'Port', 4010, 'many', 'first', false );             
