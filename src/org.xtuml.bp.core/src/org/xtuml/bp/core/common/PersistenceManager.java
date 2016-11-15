@@ -819,7 +819,8 @@ public class PersistenceManager {
           }
             
           if (modelRoot == null || !ModelRoot.isFileBasedID(modelRoot.getId())) {//$NON-NLS-1$
-            // for unit testing
+            // used to find components in the entire workspace
+        	// provides support for RTO resolution
             comps = Instances.values();
             path = new Path("/");
           }

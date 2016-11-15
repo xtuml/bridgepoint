@@ -1167,20 +1167,16 @@ ${gen_RGO_resolution.body}\
             // then search again by id
 			if(${rel_inst_var_name} == null) {
 				// load all potential PMCs that may contain our target
-				PersistableModelComponent[] rootComponents = PersistenceManager.findRootComponentInstances();
-				for(int i = 0; i < rootComponents.length; i++) {
-					// potential containers, check them all
-					PersistenceManager.ensureAllInstancesLoaded(rootComponents[i].getRootModelElement().getModelRoot(),
-							Package_c.class);
-					PersistenceManager.ensureAllInstancesLoaded(rootComponents[i].getRootModelElement().getModelRoot(),
-							Component_c.class);
-					PersistenceManager.ensureAllInstancesLoaded(rootComponents[i].getRootModelElement().getModelRoot(),
-							ModelClass_c.class);
-					${rel_inst_var_name} = (${rcn.body}) baseRoot.getInstanceList(${rcn.body}.class)
-							..get(new Object[]{${guk.key}});
-					if(${rel_inst_var_name} != null) {
-						break;
-					}
+				PersistenceManager.ensureAllInstancesLoaded(null,
+						Package_c.class);
+				PersistenceManager.ensureAllInstancesLoaded(null,
+						Component_c.class);
+				PersistenceManager.ensureAllInstancesLoaded(null,
+						ModelClass_c.class);
+				${rel_inst_var_name} = (${rcn.body}) baseRoot.getInstanceList(${rcn.body}.class)
+						..get(new Object[]${guk.key});
+				if(${rel_inst_var_name} != null) {
+					break;
 				}
 			}
                 .assign search_all_model_roots = package.search_all_model_roots
