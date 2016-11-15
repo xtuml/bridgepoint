@@ -1165,14 +1165,17 @@ ${gen_RGO_resolution.body}\
             }
             // if we did not find the element, load all possible PMCs containing expected RTO type
             // then search again by id
-			if(${rel_inst_var_name} == null && !baseRoot.isCompareRoot()) {
-				// load all potential PMCs that may contain our target 
-				PersistenceManager.ensureAllInstancesLoaded(null,
-						Package_c.class);
-				PersistenceManager.ensureAllInstancesLoaded(null,
-						Component_c.class);
-				PersistenceManager.ensureAllInstancesLoaded(null,
-						ModelClass_c.class);
+            Object[] ${rel_inst_var_name}_uk = new Object[] ${guk.key};
+            if(${rel_inst_var_name}_uk[0] instanceof UUID) {
+				if(${rel_inst_var_name} == null && !baseRoot.isCompareRoot() && !((UUID) ${rel_inst_var_name}_uk[0]).equals(Gd_c.Null_unique_id())) {
+					// load all potential PMCs that may contain our target 
+					PersistenceManager.ensureAllInstancesLoaded(null,
+							Package_c.class, getPersistableComponent());
+					PersistenceManager.ensureAllInstancesLoaded(null,
+							Component_c.class, getPersistableComponent());
+					PersistenceManager.ensureAllInstancesLoaded(null,
+							ModelClass_c.class, getPersistableComponent());
+				}
 			}
                 .assign search_all_model_roots = package.search_all_model_roots
                 .if(search_all_model_roots)
