@@ -65,6 +65,7 @@ import org.xtuml.bp.core.SystemModel_c;
 import org.xtuml.bp.core.XtUMLNature;
 import org.xtuml.bp.core.ui.IModelImport;
 import org.xtuml.bp.core.ui.IModelImport.IFileHeader;
+import org.xtuml.bp.core.ui.preferences.BridgePointProjectReferencesPreferences;
 import org.xtuml.bp.core.util.SupertypeSubtypeUtil;
 import org.xtuml.bp.core.util.UIUtil;
 
@@ -872,7 +873,7 @@ public class PersistenceManager {
 			if(ignoredComponent != null) {
 				// only load cross project if IPRs are enabled
 				NonRootModelElement ignoredRoot = ignoredComponent.getRootModelElement().getRoot();
-				boolean iprsEnabled = Pref_c.Getsystemboolean("bp.project.class_references",
+				boolean iprsEnabled = Pref_c.Getsystemboolean(BridgePointProjectReferencesPreferences.BP_PROJECT_REFERENCES_ID,
 						ignoredRoot.getName());
 				if (!iprsEnabled && !component.getFullPath().equals(ignoredRoot.getPersistableComponent().getFullPath())) {
 					return;
