@@ -344,8 +344,15 @@ ${attrs.body}\
   .//
   .invoke rto_cn = get_class_name(obj)
   .assign temp_var = "temp${proxy_index}"
+  .assign phrase = ""
+  .if ("${rel.Numb}" == "1402")
+    .// R1402 and Package References are a special case where we allow using a
+    .// reflexive for persistence.  Those traversals require a relationship phrase
+    .// and this hardcodes the rel phrase to use.
+    .assign phrase = "RefersTo"
+  .end if
   .if(not many)
-            ${rto_cn.body} ${temp_var} = ${rto_cn.body}.getOne$U_{obj.Key_Lett}OnR${rel.Numb}(inst,true);
+            ${rto_cn.body} ${temp_var} = ${rto_cn.body}.getOne$U_{obj.Key_Lett}OnR${rel.Numb}${phrase}(inst,true);
   .if(checkParentForComponentContainment)
 	.// TODO The code below works for references to data
     .// types only. This all that the current global
@@ -850,6 +857,11 @@ throws IOException
           .assign proxy_index = proxy_index + 1
           .select one rel related by rgo->R_OIR[R203]->R_REL[R201]
           .invoke ir = is_reflexive(rel)
+		  .if ("${rel.Numb}" == "1402")
+            .// R1402 and Package References are a special case where we allow using a
+            .// reflexive for proxy persistence.
+		    .assign ir.result = false
+		  .end if
           .invoke ic = is_containment(rel)
           .assign ignored = false
           .// some relationships should not be used for persistence,
@@ -876,10 +888,14 @@ ${gpe.body}\
     // select aone ${aone_obj.Key_Lett} on R${rel.Numb}
                 .invoke gpe = gen_proxy_export(aone_obj, rel, proxy_index, checkParentForComponentContainment, false)
 ${gpe.body}\
-                .assign proxy_index = proxy_index + 1
+                .if ("${rel.Numb}" != "1402")
+                  .// For this special case relationship, we only want to export the proxy to the RTO side.
+                  .// This if test keeps us from outputting the RGO as a proxy.
+                  .assign proxy_index = proxy_index + 1
     // select aoth ${aoth_obj.Key_Lett} on R${rel.Numb}
-                .invoke gpe = gen_proxy_export(aoth_obj, rel, proxy_index, checkParentForComponentContainment, false)
+                  .invoke gpe = gen_proxy_export(aoth_obj, rel, proxy_index, checkParentForComponentContainment, false)
 ${gpe.body}\
+                .end if
               .else
 			    .if(checkParentForComponentContainment)
 				  .// for stream export, write each supertype
