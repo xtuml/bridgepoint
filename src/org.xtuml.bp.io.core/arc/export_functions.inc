@@ -889,8 +889,9 @@ ${gpe.body}\
                 .invoke gpe = gen_proxy_export(aone_obj, rel, proxy_index, checkParentForComponentContainment, false)
 ${gpe.body}\
                 .if ("${rel.Numb}" != "1402")
-                  .// For this special case relationship, we only want to export the proxy to the RTO side.
-                  .// This if test keeps us from outputting the RGO as a proxy.
+                  .// For this special case relationship, we only want to export the proxy to the RTO side, which we
+                  .// do in the lines just above this block. Th if test here then keeps us from outputting the RGO as
+				  .// a proxy.
                   .assign proxy_index = proxy_index + 1
     // select aoth ${aoth_obj.Key_Lett} on R${rel.Numb}
                   .invoke gpe = gen_proxy_export(aoth_obj, rel, proxy_index, checkParentForComponentContainment, false)
