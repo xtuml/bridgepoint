@@ -91,7 +91,6 @@ public abstract class PasteAction extends CutCopyPasteAction  {
 			// this is the actual selection. This is NOT using the "importer"
 			// to suck in all dependent elements
 			for (NonRootModelElement sourceElement : ELEMENT_MOVE_SOURCE_SELECTION) {
-				PackageableElement_c srcPE = sourceElement.getPE();
 
 				// disconnect
 				try {
@@ -111,9 +110,10 @@ public abstract class PasteAction extends CutCopyPasteAction  {
 					}
 					
 					// Now, use the generated operation for disconnecting the PE from parent 
-					// package or component, skip if we're directly under the System
+					// package or component, skip if we're directly under the System or if this is note a PE_PE (ex Requirements and Provisions)
+					PackageableElement_c srcPE = sourceElement.getPE();
 					boolean parentIsSys = parentNRME instanceof SystemModel_c;
-					if ( !parentIsSys ) {
+					if ( !parentIsSys && srcPE != null ) {
 						opName = "unrelateAcrossR8000From";
 						if (getClassName(parentNRME).equals("component")) {
 							opName = "unrelateAcrossR8003From";
