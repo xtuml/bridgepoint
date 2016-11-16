@@ -1165,22 +1165,16 @@ ${gen_RGO_resolution.body}\
             }
             // if we did not find the element, load all possible PMCs containing expected RTO type
             // then search again by id
-			if(${rel_inst_var_name} == null) {
-				// load all potential PMCs that may contain our target
-				PersistableModelComponent[] rootComponents = PersistenceManager.findRootComponentInstances();
-				for(int i = 0; i < rootComponents.length; i++) {
-					// potential containers, check them all
-					PersistenceManager.ensureAllInstancesLoaded(rootComponents[i].getRootModelElement().getModelRoot(),
-							Package_c.class);
-					PersistenceManager.ensureAllInstancesLoaded(rootComponents[i].getRootModelElement().getModelRoot(),
-							Component_c.class);
-					PersistenceManager.ensureAllInstancesLoaded(rootComponents[i].getRootModelElement().getModelRoot(),
-							ModelClass_c.class);
-					${rel_inst_var_name} = (${rcn.body}) baseRoot.getInstanceList(${rcn.body}.class)
-							..get(new Object[]{${guk.key}});
-					if(${rel_inst_var_name} != null) {
-						break;
-					}
+            Object[] ${rel_inst_var_name}_uk = new Object[] ${guk.key};
+            if(${rel_inst_var_name}_uk[0] instanceof UUID) {
+				if(${rel_inst_var_name} == null && !baseRoot.isCompareRoot() && !((UUID) ${rel_inst_var_name}_uk[0]).equals(Gd_c.Null_unique_id())) {
+					// load all potential PMCs that may contain our target 
+					PersistenceManager.ensureAllInstancesLoaded(null,
+							Package_c.class, getPersistableComponent());
+					PersistenceManager.ensureAllInstancesLoaded(null,
+							Component_c.class, getPersistableComponent());
+					PersistenceManager.ensureAllInstancesLoaded(null,
+							ModelClass_c.class, getPersistableComponent());
 				}
 			}
                 .assign search_all_model_roots = package.search_all_model_roots
