@@ -10,10 +10,10 @@ This work is licensed under the Creative Commons CC0 License
 1. Abstract
 -----------
 Components hide functionality and implementation details from external elements
-except by accessing ports. However, elements outside a component are visible
+except by accessing ports. However, elements outside a component had been visible
 from the inside. This property could cause unwanted consequences when package
 references are introduced. This work is to allow components to restrict
-visibility of external components as well.
+visibility of external elements as well.
 
 2. Document References
 ----------------------
@@ -31,7 +31,7 @@ None
 elements external to a component through element choosers  
 4.1.2 The OAL parser shall have the capability to restrict visibility of model
 elements external to a component  
-4.2 The access restriction shall be toggled with a preference  
+4.2 The access restriction shall be set/reset with a preference  
 4.2.1 The preference shall not introduce new UI elements, but shall be
 controlled via config file  
 4.2.2 The preference shall default to allow access of external elements from
