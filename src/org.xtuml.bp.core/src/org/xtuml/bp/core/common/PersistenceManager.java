@@ -60,6 +60,7 @@ import org.xtuml.bp.core.InteractionParticipant_c;
 import org.xtuml.bp.core.Message_c;
 import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.PackageableElement_c;
+import org.xtuml.bp.core.Pref_c;
 import org.xtuml.bp.core.SystemModel_c;
 import org.xtuml.bp.core.XtUMLNature;
 import org.xtuml.bp.core.ui.IModelImport;
@@ -863,22 +864,31 @@ public class PersistenceManager {
     	ensureAllInstancesLoaded(modelRoot, elementClass, null);
     }
     
-    static public void ensureAllInstancesLoaded(ModelRoot modelRoot,
-            Class elementClass, PersistableModelComponent ignoredComponent) {
-            List comps = findAllComponents(modelRoot, elementClass);
-            for (Iterator iter = comps.iterator(); iter.hasNext();) {
-                PersistableModelComponent component = (PersistableModelComponent) iter
-                        .next();
+	static public void ensureAllInstancesLoaded(ModelRoot modelRoot, Class elementClass,
+			PersistableModelComponent ignoredComponent) {
+		List comps = findAllComponents(modelRoot, elementClass);
+		for (Iterator iter = comps.iterator(); iter.hasNext();) {
+			PersistableModelComponent component = (PersistableModelComponent) iter.next();
+			if(ignoredComponent != null) {
+				// only load cross project if IPRs are enabled
+				NonRootModelElement ignoredRoot = ignoredComponent.getRootModelElement().getRoot();
+				boolean iprsEnabled = Pref_c.Getsystemboolean("bp.project.class_references",
+						ignoredRoot.getName());
+				if (!iprsEnabled && !component.getFullPath().equals(ignoredRoot.getPersistableComponent().getFullPath())) {
+					return;
+				}
+			}
 			if (!component.isLoaded() && component.getStatus() != PersistableModelComponent.STATUS_LOADED
 					&& component.getStatus() != PersistableModelComponent.STATUS_LOADING) {
-                    try {
-                   		component.load(new NullProgressMonitor());	
-                    } catch (CoreException e) {
-                        CorePlugin.logError("Can't load component", e);
-                    }
-                }
-            }
-        }
+				try {
+					component.load(new NullProgressMonitor());
+				} catch (CoreException e) {
+					CorePlugin.logError("Can't load component", e);
+				}
+			}
+		}
+	}
+
     static public List findAllChildComponents(PersistableModelComponent parent,
     		ModelRoot modelRoot, Class childType, boolean deep) {
         if (parent == null) {

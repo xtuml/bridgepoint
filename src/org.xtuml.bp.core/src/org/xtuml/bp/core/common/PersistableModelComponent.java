@@ -629,7 +629,7 @@ public class PersistableModelComponent implements Comparable {
  * @throws CoreException
  */
     public void load(IProgressMonitor monitor) throws CoreException {
-        if (status == STATUS_LOADING) {
+        if (status == STATUS_LOADING && status == PersistableModelComponent.STATUS_LOADING) {
             // recursive call from some where
             // any code causing cotrol to reach here should be addressed
             // probably it requires disabled lazy loading
@@ -652,7 +652,7 @@ public class PersistableModelComponent implements Comparable {
 
     public void load(IProgressMonitor monitor, boolean parseOal,boolean reload)
             throws CoreException {
-        if (status == STATUS_LOADING) {
+        if (status == STATUS_LOADING && status == PersistableModelComponent.STATUS_LOADING) {
             // recursive call from some where
             // any code causing control to reach here should be addressed
             // probably it requires disabled lazy loading
@@ -668,7 +668,7 @@ public class PersistableModelComponent implements Comparable {
 
     public void load(Ooaofooa modelRoot, IProgressMonitor monitor)
             throws CoreException {
-        if (status == STATUS_LOADING) {
+        if (status == STATUS_LOADING && status == PersistableModelComponent.STATUS_LOADING) {
             // recursive call from some where
             // any code causing cotrol to reach here should be addressed
             // probably it requires disabled lazy loading
