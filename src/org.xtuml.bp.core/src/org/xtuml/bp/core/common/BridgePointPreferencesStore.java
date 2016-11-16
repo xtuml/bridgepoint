@@ -298,6 +298,6 @@ public class BridgePointPreferencesStore implements IPreferenceModelStore {
         prefs.useDefaultNamesForNewModelElements = false;
         prefs.createGraphicsDuringImport = false;
         prefs.requireMaslStyleIdentifiers = false;
-        prefs.opaqueComponents = true;
+        prefs.opaqueComponents = false;
     }
 }
