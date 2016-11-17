@@ -25,7 +25,6 @@ package org.xtuml.bp.core.common;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 
@@ -382,10 +381,6 @@ public class TransactionManager {
 					continue;
 				}
 				component = modelElement.getPersistableComponent(true);
-				Ooaofooa ooaroot = null;
-				if (modelRoots[i] instanceof Ooaofooa) {
-					ooaroot = (Ooaofooa) modelRoots[i];
-				}
 				if (component != null) {
 					// if the delta is a deletion on a root element
 					// do not check as it has already been checked
@@ -430,16 +425,6 @@ public class TransactionManager {
 									// is a component root
 									addRGOsToAffectedComponentsList(modelElement);
 							}
-						}
-					}
-					
-					if (delta instanceof ModelElementMovedModelDelta) {
-						// assure all rgos are persisted
-						HashSet<PersistableModelComponent> rgosAffectedByMove = ((ModelElementMovedModelDelta) delta)
-								.getRGOsAffectedByMove();
-						for (Iterator<PersistableModelComponent> iter = rgosAffectedByMove.iterator(); iter.hasNext();) {
-							PersistableModelComponent rgo = (PersistableModelComponent) iter.next();
-							addRGOsToAffectedComponentsList(rgo.getRootModelElement());						
 						}
 					}
 				}

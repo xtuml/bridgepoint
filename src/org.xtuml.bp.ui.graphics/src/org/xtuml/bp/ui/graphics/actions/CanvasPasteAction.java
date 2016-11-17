@@ -183,35 +183,26 @@ public class CanvasPasteAction extends PasteAction {
 	 * @param destGD_MD
 	 */
 	private static void moveGraphicalElement(final NonRootModelElement ooaElementMoved, Model_c destGD_MD) {
-		NonRootModelElement sourceElementContainer = PasteAction.getContainerForMove(ooaElementMoved);
-
-		GraphicalElement_c graphicalElementMoved = GraphicalElement_c.getOneGD_GEOnR1(getModel(sourceElementContainer), new ClassQueryInterface_c() {
-			
-			@Override
-			public boolean evaluate(Object candidate) {
-				GraphicalElement_c element = (GraphicalElement_c) candidate;
-				if(element.getRepresents() != null) {
-					return element.getRepresents().equals(ooaElementMoved);
-				}
-				return false;
-			}
-		});
-		
-		// We have to have the graphical elements loaded in order to move them. 
-		// If the element is not loaded then we load the editor that is the container
-		// for the source element. 
-		if (graphicalElementMoved == null) {
-			CanvasPasteAction.openCanvasEditor(sourceElementContainer);			
-			
-			graphicalElementMoved = GraphicalElement_c.getOneGD_GEOnR1(getModel(sourceElementContainer), new ClassQueryInterface_c() {
+		Model_c srcModel = null;
+		Model_c[] models = Model_c.ModelInstances(Ooaofgraphics.getInstance(ooaElementMoved.getModelRoot().getId()));
+		GraphicalElement_c graphicalElementMoved = null;
+		for(int i = 0; i < models.length; i++) {
+			graphicalElementMoved = GraphicalElement_c.getOneGD_GEOnR1(models[i], new ClassQueryInterface_c() {
 				
 				@Override
 				public boolean evaluate(Object candidate) {
-					return ((GraphicalElement_c) candidate).getRepresents().equals(ooaElementMoved);
+					GraphicalElement_c element = (GraphicalElement_c) candidate;
+					if(element.getRepresents() != null) {
+						return element.getRepresents().equals(ooaElementMoved);
+					}
+					return false;
 				}
 			});
+			if(graphicalElementMoved != null) {
+				break;
+			}
 		}
-		
+
 		if (graphicalElementMoved != null) {
 
 			// Every GraphicalElement is part of a diagram, so this will never be null.
