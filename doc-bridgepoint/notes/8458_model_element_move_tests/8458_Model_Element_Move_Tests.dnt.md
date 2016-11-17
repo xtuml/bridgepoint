@@ -32,7 +32,7 @@ Analysis referenced in design note.
 
 <a id="2.7"></a>2.7 [Model Element Move Test Model For Misc Test Cases (ModelElementMoveTests2)](https://github.com/xtuml/models/tree/master/ModelElementMoveTest2)   
 
-<a id="2.8"></a>2.8 [Main Model Element Move Test Model (ModelElementMoveTests)](https://github.com/xtuml/models/tree/master/test/ModelElementMoveTests)  
+<a id="2.8"></a>2.8 [Main Model Element Move Test Model (ModelElementMoveTests1)](https://github.com/xtuml/models/tree/master/test/ModelElementMoveTests1)  
 
 3. Background   
 -------------     
