@@ -95,7 +95,7 @@ None.
 9. Code Changes
 ---------------
 Fork/Repository: keithbrown/bridgepoint   
-Branch: 8857_pkg_ref_filter  
+Branch: 8857_pkg_ref_filter   
 
 <pre>
 
