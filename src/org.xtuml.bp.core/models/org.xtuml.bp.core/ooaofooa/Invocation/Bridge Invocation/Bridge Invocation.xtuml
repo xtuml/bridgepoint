@@ -117,9 +117,8 @@ else
     sf_id = func_body.createStackFrameForBridge(stack_frame_id_caller:stack_frame.Stack_Frame_ID);
 
     if(sf_id != GD::NULL_UNIQUE_ID())
-
       success = self.setupParameterValues(target_stack_frame_id: sf_id,
-                                    stack_frame_id: stack_frame.Stack_Frame_ID);
+                               stack_frame_id: stack_frame.Stack_Frame_ID);
       if(not success)
         select any targetFrame from instances of I_STF
                                        where (selected.Stack_Frame_ID == sf_id);

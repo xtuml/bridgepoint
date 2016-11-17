@@ -54,10 +54,16 @@ if (empty stack_frame)
 end if;
 
 // Execute the bridge
-select one body related by brg->ACT_BRB[R697]->ACT_ACT[R698];
-select any statement related by body->ACT_BLK[R601]->ACT_SMT[R602];
 select any callResult related by stack_frame->I_VSF[R2951] where
                                              selected.Value_ID == self.Value_ID;
+select one dt related by brg->S_DT[R20];
+// Return the default result
+create object instance callRtVal of RV_RVL;
+callRtVal.createSimpleValue();
+relate callRtVal to callResult across R3305;
+callRtVal.setValue(value:dt.getDefaultValue());
+select one body related by brg->ACT_BRB[R697]->ACT_ACT[R698];
+select any statement related by body->ACT_BLK[R601]->ACT_SMT[R602];
 if (not_empty statement and not ee.isRealized)
   // Setup the parameter values within the newly created stack frame
   // We discard the result because it just tells us if we''re going yet deeper
@@ -80,12 +86,6 @@ else
 						    + " is modeled and the bridge: "
             + brg.Name + " has no OAL to execute.  Returning default value.",
 						path:pathMsg);
-    select one dt related by brg->S_DT[R20];
-    // Return the default result
-    create object instance callRtVal of RV_RVL;
-    callRtVal.createSimpleValue();
-    relate callRtVal to callResult across R3305;
-    callRtVal.setValue(value:dt.getDefaultValue());
     // remove all intermediate values from the stack
     for each arg in args
       stack_frame.popValue(value_id:arg.Value_ID);
@@ -123,15 +123,13 @@ else
     temp_stack_id = func_body.createStackForBridge();
     sf_id = func_body.createStackFrameForBridge(stack_frame_id_caller:stack_frame.Stack_Frame_ID);
 
-      success = self.setupParameterValues(
-                        target_stack_frame_id: sf_id,
+    if(sf_id != GD::NULL_UNIQUE_ID())
+      success = self.setupParameterValues(target_stack_frame_id: sf_id,
                                stack_frame_id: stack_frame.Stack_Frame_ID);
-
       func_body.deleteStackFrameForBridge(stack_id: temp_stack_id);
       func_body.deleteStackForBridge(stack_id: temp_stack_id); 
-
-  end if;    
-
+    end if;
+  end if;
   // We could not find OAL or a wired domain function to execute, try to execute  
   // realized code instead.  
   
@@ -215,10 +213,9 @@ else
           end if;
         end for;
       end for;
+    end if;
+    if (success)    
       // Return the result
-      create object instance callRtVal of RV_RVL;
-      callRtVal.createSimpleValue();
-      relate callRtVal to callResult across R3305;
       callRtVal.setValue(value:VM::getResult());
     end if;
   end if;
