@@ -1086,12 +1086,11 @@ ${gen_RGO_resolution.body}\
   
   public void batchRelate(ModelRoot modelRoot, boolean relateProxies, boolean notifyChanges, boolean searchAllRoots)
   {
+        .assign rto_ref_var_name = ""
         .if ( not_empty ref_rel_set )
         InstanceList instances=null;
         ModelRoot baseRoot = modelRoot;
-          .assign ref_var_name = ""
           .for each ref_rel in ref_rel_set
-
             .select any frm_ref_end related by ref_rel->R_FORM[R205]
             .assign notAlreadyRelatedTest = ""
             .if (not_empty frm_ref_end)
@@ -1102,6 +1101,7 @@ ${gen_RGO_resolution.body}\
               .assign tar_txt_phrs = "${tar_rel_end.Txt_Phrs}"
               .invoke grvn = get_referential_var_name( tar_obj, tar_txt_phrs )
               .assign ref_var_name = "${grvn.body}"
+              .assign rto_ref_var_name = ref_var_name
               .assign notAlreadyRelatedTest = "${grvn.body} == null || ${grvn.body}.isProxy()"
     if (${notAlreadyRelatedTest}) {          
             .end if
@@ -1196,8 +1196,14 @@ ${gen_RGO_resolution.body}\
                          continue;
                     }
                     ${rel_inst_var_name} = (${rcn.body}) roots[i].getInstanceList(${rcn.body}.class).get(new Object[] ${guk.key});
-                  .if(rel_var_name != "")
-                    if ((${rel_inst_var_name} != null && !${rel_inst_var_name}.isProxy()) || (${ref_var_name} != null && ${ref_var_name}.isProxy()))
+                  .if((not_empty frm_ref_end) and ("${rto_ref_var_name}" != ""))
+                    if (${rel_inst_var_name} != null && !${rel_inst_var_name}.isProxy()) {
+                     	if (!isProxy()) {
+							if (${rto_ref_var_name} != null && ${rto_ref_var_name}.isProxy()) {
+								break;
+							}
+						}
+                    }
                   .else
                     if (${rel_inst_var_name} != null)
                   .end if
