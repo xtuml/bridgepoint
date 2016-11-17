@@ -77,6 +77,16 @@ A finding of differences should be noted in the test results.
 Undo should be a single step. If multiple undo operations are required to 
 recind the move, it should be noted as an error in the test case results.
 
+Components with interfaces attached must be selected from the canvas and selection
+must include both component and interface(s).
+
+7.0 Selection of components with interfaces. (Uses test model [2.8](#2.8))  
+7.0.1. Select ComponentMovePass1 in Source package in ME.
+  * Cut is not enabled.  
+
+7.0.2. Select ComponentMovePass1 and attached interface (either drag box or ctrl-click select)
+  * Cut is enabled.  
+
 7.1 Use Case 4.1  (Uses test model [2.8](#2.8))  
 7.1.1. VisibleDataType in Source package is moved to Destination package.  
   * Result is successful move with no option menu shown for list of lost 
@@ -200,9 +210,7 @@ visibility items.
 7.10 Use Case 4.10  (Uses test model [2.8](#2.8))  
 7.10.1. ClusterClass4Fail, ClusterClass5Fail, and R2 in Source package is moved 
 to Destination package.  
-  * Warning is displayed stating that ClusterClass6Fail and R3 must be included 
-in the move. Move isn't permitted.  
-  * Perform undo.  
+  * Cut is not enabled.  
 
 7.11 Use Case 4.11  (Uses test model [2.8](#2.8))  
 7.11.1. ComponentMovePass4 in Source package is moved to Destination package.  
