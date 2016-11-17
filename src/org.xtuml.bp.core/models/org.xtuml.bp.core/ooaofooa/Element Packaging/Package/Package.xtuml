@@ -6414,7 +6414,44 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
-	'return true;',
+	'select one packageableElem related by self->PE_PE[R8001];
+select one package related by packageableElem->EP_PKG[R8000];
+select one component related by packageableElem->C_C[R8003];
+
+// Rule: do not allow assignment to self
+if (self.Package_ID == param.Id)
+  return false;
+end if;
+
+// Rule: do not allow assignment to a package that is already assigned as a package reference
+select any pkg from instances of EP_PKG where (selected.Package_ID == param.Id);
+if (not_empty pkg)
+  is_assigned = pkg.isAssigned();
+  if (is_assigned)
+    return false;
+  end if;
+end if;
+
+parentPackage = package;
+parentComp = component;
+while(not_empty parentPackage or not_empty parentComp)
+  if not_empty parentPackage and parentPackage.Package_ID == param.Id
+    // Rule: do not allow assignment to any parent package in this hierarchy
+    return false;
+  end if;
+  // traverse to container
+  select one parentPE related by parentPackage->PE_PE[R8001];
+  if empty parentPE
+    select one parentPE related by parentComp->PE_PE[R8001];
+  end if;
+  select one parentPackage related by parentPE->EP_PKG[R8000];
+  select one parentComp related by parentPE->C_C[R8003];
+end while;
+
+// All rules passed, allow it
+return true;
+
+',
 	1,
 	'',
 	"c3f0e2bc-b2dd-4ffb-bbc1-686fc6fb6acf");
