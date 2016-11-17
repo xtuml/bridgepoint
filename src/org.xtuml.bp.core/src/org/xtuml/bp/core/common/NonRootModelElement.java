@@ -772,16 +772,11 @@ public abstract class NonRootModelElement extends ModelElement implements IAdapt
 		if (isProxy()
 				&& (!getModelRoot().getId().equals(
 						Ooaofooa.COMPARE_MODEL_ROOT_NAME) && !getModelRoot().isCompareRoot())) {
-            result = PersistenceManager.loadAndFinishComponent(m_contentPath);
-            if(!result) {
-            	// batchRelate self
-            	batchRelate(getModelRoot(), true, true);
-            	return true;
-            }
-            }
-        return result;
-        }
-
+			result = PersistenceManager.loadAndFinishComponent(m_contentPath);
+		}
+		return result;
+    }
+    
     public void convertFromProxy() {
         if (isProxy()) {
             m_contentPath = null;
