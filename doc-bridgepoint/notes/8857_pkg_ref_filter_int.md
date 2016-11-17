@@ -99,7 +99,11 @@ Branch: 8857_pkg_ref_filter
 
 <pre>
 
+doc-bridgepoint/notes/8857_pkg_ref_filter_int.md 
 
+src/org.xtuml.bp.core/models/org.xtuml.bp.core/ooaofooa/Element Packaging/Package/Package.xtuml
+src/org.xtuml.bp.io.core/arc/export_functions.inc 
+ 
 </pre>
 
 End
