@@ -188,8 +188,8 @@ public static ${locn.body} ${nfn.body}${loc_phrase}(${tocn.body} target, boolean
 		boolean result = target.$cr{loc_txt_phrs}$cr{loc_obj.Name}.loadProxy();
 		// if we fail to locate the RTO by proxy path
 		// try the workspace by id
-		if(!result)) {
-			target.batchRelate(target.getModelRoot(), true, true)
+		if(!result) {
+			target.batchRelate(target.getModelRoot(), true, true);
 	    }
 	}
 	.end if

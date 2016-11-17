@@ -81,11 +81,11 @@
       .if(not_empty part)
         .assign attr_result = "$cr{part.Txt_Phrs}"
       .else
-        .select one aone related by rto->R_AONE[R204]
-        .if (not_empty aone)
+        .select one aone related by rel->R_ASSOC[R206]->R_AONE[R209]
+        .select one aoth related by rel->R_ASSOC[R206]->R_AOTH[R210]
+        .if ( rto.OIR_ID == aone.OIR_ID )
           .assign attr_result = "$cr{aone.Txt_Phrs}"
         .else
-          .select one aoth related by rto->R_AOTH[R204]
           .assign attr_result = "$cr{aoth.Txt_Phrs}"
         .end if
       .end if
@@ -94,12 +94,12 @@
       .if (not_empty form)
         .assign attr_result = "$cr{form.Txt_Phrs}"
       .else
-        .select one aone related by rto->R_AONE[R204]
-        .if (not_empty aone)
-          .assign attr_result = "$cr{aone.Txt_Phrs}"
-        .else
-          .select one aoth related by rto->R_AOTH[R204]
+        .select one aone related by rel->R_ASSOC[R206]->R_AONE[R209]
+        .select one aoth related by rel->R_ASSOC[R206]->R_AOTH[R210]
+        .if ( rto.OIR_ID == aone.OIR_ID )
           .assign attr_result = "$cr{aoth.Txt_Phrs}"
+        .else
+          .assign attr_result = "$cr{aone.Txt_Phrs}"
         .end if
       .end if 
     .end if
@@ -1196,8 +1196,12 @@ ${gen_RGO_resolution.body}\
                          continue;
                     }
                     ${rel_inst_var_name} = (${rcn.body}) roots[i].getInstanceList(${rcn.body}.class).get(new Object[] ${guk.key});
+                  .if(rel_var_name != "")
                     if ((${rel_inst_var_name} != null && !${rel_inst_var_name}.isProxy()) || (${ref_var_name} != null && ${ref_var_name}.isProxy()))
-                        break;
+                  .else
+                    if (${rel_inst_var_name} != null)
+                  .end if
+                    	break;
                 }
             }
                 .end if
