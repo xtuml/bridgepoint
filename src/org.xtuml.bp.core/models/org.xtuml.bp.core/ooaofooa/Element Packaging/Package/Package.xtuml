@@ -19,10 +19,12 @@ if(not_empty system)
   unrelate self from system across R1401;
 end if;
 
+// Dispose Package Participants from Interaction diagrams
 select many pps related by self->SQ_PP[R956];
 for each pp in pps
   pp.unformalize();
 end for;
+
 self.clearScope();
 // dispose Packagable Elements
 select many pes related by self ->PE_PE[R8000];
@@ -68,6 +70,15 @@ for each cie in classInEngines
   cie.dispose();
 end for;
 
+// Clean up package references, both if this package is assigned, or if other
+// packages are assigned to this
+if (self.isAssigned())
+  self.unAssign();
+end if;
+select many rgo_pkgs related by self->EP_PKGREF[R1402.''is referenced by'']->EP_PKG[R1402.''is referenced by''];
+for each rgo_pkg in rgo_pkgs
+  rgo_pkg.unAssign();
+end for;
 
 delete object instance self;
 ',
