@@ -598,11 +598,20 @@ INSERT INTO O_TFR
 	1,
 	'count = 0;
 select one outerPkg related by self->PE_PE[R8001]->EP_PKG[R8000];
+select one outerComp related by self->PE_PE[R8001]->C_C[R8003];
 select many importedReferences related by self->CL_POR[R4707]->CL_IIR[R4708]->CL_IP[R4703];
 for each importedReference in importedReferences
   select one innerPkg related by importedReference->CL_IIR[R4703]->CL_POR[R4708]->CL_IC[R4707]->PE_PE[R8001]->EP_PKG[R8000];
-  if (outerPkg.Package_ID == innerPkg.Package_ID)
-    count = count+1;
+  select one innerComp related by importedReference->CL_IIR[R4703]->CL_POR[R4708]->CL_IC[R4707]->PE_PE[R8001]->C_C[R8003];
+  if(not_empty innerPkg)
+    if (outerPkg.Package_ID == innerPkg.Package_ID)
+      count = count+1;
+    end if;
+  end if;
+  if(not_empty innerComp and not_empty outerComp)
+    if (outerComp.Id == innerComp.Id)
+      count = count+1;
+    end if;  
   end if;
 end for;
 return count;
@@ -628,10 +637,14 @@ INSERT INTO O_TFR
 	1,
 	'count = 0;
 select one outerPkg related by self->PE_PE[R8001]->EP_PKG[R8000];
+select one outerComp related by self->PE_PE[R8001]->C_C[R8003];
 select many importedReferences related by self->CL_POR[R4707]->CL_IIR[R4708]->CL_IR[R4703];
 for each importedReference in importedReferences
   select one innerPkg related by importedReference->CL_IIR[R4703]->CL_POR[R4708]->CL_IC[R4707]->PE_PE[R8001]->EP_PKG[R8000];
-  if (outerPkg.Package_ID == innerPkg.Package_ID)
+  select one innerComp related by importedReference->CL_IIR[R4703]->CL_POR[R4708]->CL_IC[R4707]->PE_PE[R8001]->C_C[R8003];
+  if ((not_empty outerPkg and not_empty innerPkg and
+  		outerPkg.Package_ID == innerPkg.Package_ID) or (not_empty outerComp and
+  		not_empty innerComp and outerComp.Id == innerComp.Id))
     count = count+1;
   end if;
 end for;
@@ -659,15 +672,27 @@ INSERT INTO O_TFR
 	'id = GD::NULL_UNIQUE_ID();
 select many importedRefs related by self->CL_POR[R4707]->CL_IIR[R4708]->CL_IP[R4703];
 select one outerPkg related by self->PE_PE[R8001]->EP_PKG[R8000];
+select one outerComp related by self->PE_PE[R8001]->C_C[R8003];
 // We''re preincrementing the index
 count = -1;
 for each importedRef in importedRefs
   select one innerPkg related by importedRef->CL_IIR[R4703]->CL_POR[R4708]->CL_IC[R4707]->PE_PE[R8001]->EP_PKG[R8000];
-  if (outerPkg.Package_ID == innerPkg.Package_ID)
-  count = count+1;
-  if (count == param.index)
-    return importedRef.Id;
+  select one innerComp related by importedRef->CL_IIR[R4703]->CL_POR[R4708]->CL_IC[R4707]->PE_PE[R8001]->C_C[R8003];
+  if(not_empty outerPkg and not_empty innerPkg)
+    if (outerPkg.Package_ID == innerPkg.Package_ID)
+      count = count+1;
+      if (count == param.index)
+        return importedRef.Id;
+      end if;
+    end if;
   end if;
+  if(not_empty outerComp and not_empty innerComp)
+    if (outerComp.Id == innerComp.Id)
+      count = count+1;
+      if (count == param.index)
+        return importedRef.Id;
+      end if;
+    end if;  
   end if;
 end for;
 return id;',
@@ -702,15 +727,20 @@ INSERT INTO O_TFR
 	'id = GD::NULL_UNIQUE_ID();
 select many importedRefs related by self->CL_POR[R4707]->CL_IIR[R4708]->CL_IR[R4703];
 select one outerPkg related by self->PE_PE[R8001]->EP_PKG[R8000];
+select one outerComp related by self->PE_PE[R8001]->C_C[R8003];
 // We''re preincrementing the index
 count = -1;
 for each importedRef in importedRefs
   select one innerPkg related by importedRef->CL_IIR[R4703]->CL_POR[R4708]->CL_IC[R4707]->PE_PE[R8001]->EP_PKG[R8000];
-  if (outerPkg.Package_ID == innerPkg.Package_ID)
-  count = count+1;
-  if (count == param.index)
-    return importedRef.Id;
-  end if;
+  select one innerComp related by importedRef->CL_IIR[R4703]->CL_POR[R4708]->CL_IC[R4707]->PE_PE[R8001]->C_C[R8003];
+  if ((not_empty outerPkg and not_empty innerPkg and
+        outerPkg.Package_ID == innerPkg.Package_ID) or
+        (not_empty outerComp and not_empty innerComp
+        and outerComp.Id == innerComp.Id))
+  	count = count+1;
+    if (count == param.index)
+      return importedRef.Id;
+    end if;
   end if;
 end for;
 return id;',
@@ -743,10 +773,15 @@ INSERT INTO O_TFR
 	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
 	'select one outerPkg related by self->PE_PE[R8001]->EP_PKG[R8000];
+select one outerComp related by self->PE_PE[R8001]->C_C[R8003];
 select any importedReq related by self->CL_POR[R4707]->CL_IIR[R4708]->CL_IR[R4703]
 	where (selected.Id == param.id);
 select one innerPkg related by importedReq->CL_IIR[R4703]->CL_POR[R4708]->CL_IC[R4707]->PE_PE[R8001]->EP_PKG[R8000];
-if(not_empty importedReq and (outerPkg.Package_ID == innerPkg.Package_ID))
+select one innerComp related by importedReq->CL_IIR[R4703]->CL_POR[R4708]->CL_IC[R4707]->PE_PE[R8001]->C_C[R8003];
+if(not_empty importedReq and ((not_empty outerPkg and not_empty innerPkg and
+	(outerPkg.Package_ID == innerPkg.Package_ID)) or
+	(not_empty innerComp and not_empty innerComp and
+	(outerComp.Id == innerComp.Id))))
   select one delegation related by importedReq->CL_IIR[R4703]->C_DG[R4704];
   if(param.considerDelegations)
     if(empty delegation)
@@ -793,10 +828,15 @@ INSERT INTO O_TFR
 	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
 	'select one outerPkg related by self->PE_PE[R8001]->EP_PKG[R8000];
+select one outerComp related by self->PE_PE[R8001]->C_C[R8003];
 select any importedPro related by self->CL_POR[R4707]->CL_IIR[R4708]->CL_IP[R4703]
 	where (selected.Id == param.id);
+select one innerComp related by importedPro->CL_IIR[R4703]->CL_POR[R4708]->CL_IC[R4707]->PE_PE[R8001]->C_C[R8003];
 select one innerPkg related by importedPro->CL_IIR[R4703]->CL_POR[R4708]->CL_IC[R4707]->PE_PE[R8001]->EP_PKG[R8000];
-if(not_empty importedPro and (outerPkg.Package_ID == innerPkg.Package_ID))
+if((not_empty importedPro and not_empty outerPkg and not_empty innerPkg and
+    outerPkg.Package_ID == innerPkg.Package_ID) or (not_empty outerComp and
+    not_empty innerComp and outerComp.Id == innerComp.Id))
+
   select one delegation related by importedPro->CL_IIR[R4703]->C_DG[R4704];
   if(param.considerDelegations)
     if(empty delegation)
@@ -844,6 +884,7 @@ INSERT INTO O_TFR
 	'id = GD::NULL_UNIQUE_ID();
 select many importedRefs related by self->CL_POR[R4707]->CL_IIR[R4708]->CL_IP[R4703];
 select one outerPkg related by self->PE_PE[R8001]->EP_PKG[R8000];
+select one outerComp related by self->PE_PE[R8001]->C_C[R8003];
 // We''re preincrementing the index
 count = -1;
 for each importedRef in importedRefs
@@ -857,7 +898,7 @@ for each importedRef in importedRefs
         if (count == param.index)
           return delegation.Id;
         end if;
-      end if;    
+      end if;
     end if;
     if(not_empty provision)
         count = count + 1;
@@ -898,6 +939,7 @@ INSERT INTO O_TFR
 	'id = GD::NULL_UNIQUE_ID();
 select many importedRefs related by self->CL_POR[R4707]->CL_IIR[R4708]->CL_IR[R4703];
 select one outerPkg related by self->PE_PE[R8001]->EP_PKG[R8000];
+select one outerComp related by self->PE_PE[R8001]->C_C[R8003];
 // We''re preincrementing the index
 count = -1;
 for each importedRef in importedRefs
