@@ -824,7 +824,7 @@ if ( self.isAssigned() )
 
   if ( not isAccessible )
     select one o_obj related by self->O_OBJ[R101];
-    self.unAssign();
+    self.dispose();
     Util::reportElementDowngraded(rto:self.convertToInstance(), rgoDowngraded:o_obj.convertToInstance(), relationship:"R101");
   end if;
 end if;
