@@ -239,10 +239,9 @@ related across R3 in Source package is moved to Destination package.
       * Imported class reference to ModelElementMoveTests::Source::FailureCasesComponent::FailureCasesComponentPackage::InvisibleImports::InvisibleImportClass to unassigned
   * Perform undo.   
  
-7.13 Pessimistic Locking Test - test checkout of RGOs with a Pessimistic locking RCS. (Uses test model [??](#??))  
-  * 1. Move a RTO that will cause one or more RGOs to be marked dirty
-  * 2. Result is the user should see a dialog warning them that shows them the files that will be checked out. The user should have the chance to cancel at this point.
-
+7.13 Obsolete - Pessimistic Locking Test - test checkout of RGOs with a Pessimistic locking RCS.   
+  * This test is obsolete with the fix to issue 7877 because we no longer force persistance of RGOs.
+  
 7.14 Moving a Package (create a model from scratch)
   * 1.    Create a xtUML project
   * 2.    Create a package named P1 at top level
@@ -395,11 +394,11 @@ related across R3 in Source package is moved to Destination package.
   * 6. Result - Paste is successful  
 
 7.30 Visible move doesn't affect sequence diagram  
-* Cut InvisibleExternalEntity in FailureCasesComponentPackage and paste into Destination package.
+* Cut Sequences in FailureCasesComponentPackage and paste into Destination package.
 * Verify InvisibleExternalEntity and Bridge1 aren't downgraded in Sequences package in FailureCasesComponentPackage  
 
 7.31 Non-visible move causes downgrades on sequence diagram  
-* Cut InvisibleExternalEntity in FailureCasesComponentPackage and paste into DestinationComponentPackage.  
+* Cut Sequences in FailureCasesComponentPackage and paste into DestinationComponentPackage.  
 * Downgrade message is shown for InvisibleExternalEntity and Bridge1
 * InvisibleExternalEntity and Bridge1 references in Sequences package in FailureCasesComponentPackage are changed to be Informal  
 
