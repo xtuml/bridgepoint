@@ -28,6 +28,8 @@ select many com_vis_links related by self->PE_CVS[R8004];
 for each com_vis_link in com_vis_links
   select one component related by com_vis_link->C_C[R8004];
   unrelate self from component across R8004 using com_vis_link;
+  select one componentResultset related by com_vis_link->PE_CRS[R8008];
+  unrelate com_vis_link from componentResultset across R8008; 
   delete object instance com_vis_link;
 end for;
 select one modelClass related by self->O_OBJ[R8001];
