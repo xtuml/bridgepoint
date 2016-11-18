@@ -1560,7 +1560,7 @@ if ( self.isAssigned() )
 
   if ( not isAccessible )
     select one comp related by self->C_C[R4201];
-    self.unAssign();
+    self.dispose();
     Util::reportElementDowngraded(rto:self.convertToInstance(), rgoDowngraded:comp.convertToInstance(), relationship:"R4201");
   end if;
 end if;
