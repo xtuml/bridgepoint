@@ -1206,8 +1206,8 @@ ${gen_RGO_resolution.body}\
                     }
                   .else
                     if (${rel_inst_var_name} != null)
-                  .end if
                     	break;
+                  .end if
                 }
             }
                 .end if
