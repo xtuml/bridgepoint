@@ -292,7 +292,6 @@ related across R3 in Source package is moved to Destination package.
   * 3.   Check the attribute type of Attr in CL1 by opening the set type dialog of the attribute, path 7_17_Data_Type_at_top_level::P3 will be shown and data type 7_17_Data_Type_at_top_level::P3 will not be selectable in the dialog.
   * 4.   Restart BridgePoint
   * 5.   Check the attribute type of Attr in CL1 by opening the set type dialog of the attribute, path will be empty and data type 7_17_Data_Type_at_top_level::P3 will be selectable in the dialog (Fail). Now it looks like that the data type is incorrect.
-  * 6.   Look into the p3.xtuml and cl1.xtuml files, find the instances of S_DT for My_DT and for O_ATTR of Attr, and verify that the correct data type is assigned to the attribute. 
 
 7.18 Data type inside component (Uses test model [2.7](#2.7))
   * 1. Create a new UDT named My_DT2 inside COMP1
