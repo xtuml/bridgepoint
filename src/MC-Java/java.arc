@@ -1197,9 +1197,9 @@ ${gen_RGO_resolution.body}\
                     }
                     ${rel_inst_var_name} = (${rcn.body}) roots[i].getInstanceList(${rcn.body}.class).get(new Object[] ${guk.key});
                   .if((not_empty frm_ref_end) and ("${rto_ref_var_name}" != ""))
-                    if (${rel_inst_var_name} != null && !${rel_inst_var_name}.isProxy()) {
+                    if (${rel_inst_var_name} != null) {
                      	if (!isProxy()) {
-							if (${rto_ref_var_name} != null && ${rto_ref_var_name}.isProxy()) {
+							if (${rto_ref_var_name} == null || (${rto_ref_var_name} != null && ${rto_ref_var_name}.isProxy())) {
 								break;
 							}
 						}
