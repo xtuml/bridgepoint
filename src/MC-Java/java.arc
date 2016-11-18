@@ -1197,13 +1197,21 @@ ${gen_RGO_resolution.body}\
                     }
                     ${rel_inst_var_name} = (${rcn.body}) roots[i].getInstanceList(${rcn.body}.class).get(new Object[] ${guk.key});
                   .if((not_empty frm_ref_end) and ("${rto_ref_var_name}" != ""))
-                    if (${rel_inst_var_name} != null) {
-                     	if (!isProxy()) {
-							if (${rto_ref_var_name} == null || (${rto_ref_var_name} != null && ${rto_ref_var_name}.isProxy())) {
-								break;
+					if (${rel_inst_var_name} != null) {
+						if (!${rel_inst_var_name}.isProxy() && ${rto_ref_var_name} != null) {
+							// relate to the non proxy element if the current referred to
+							// is a proxy and we are not
+							if (!isProxy()) {
+								if (${rto_ref_var_name}.isProxy()) {
+									break;
+								}
 							}
+						} else {
+							if (${rto_ref_var_name} == null)
+								// relate to the found proxy (initial batch relate)
+								break;
 						}
-                    }
+					}
                   .else
                     if (${rel_inst_var_name} != null)
                     	break;
