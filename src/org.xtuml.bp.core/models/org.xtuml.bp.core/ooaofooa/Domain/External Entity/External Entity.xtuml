@@ -487,6 +487,17 @@ end for;
 	1,
 	'',
 	"5b99f4e3-05b2-4f5c-9671-aeff98f8aba3");
+INSERT INTO O_TFR
+	VALUES ("d5225d5c-eae8-4b61-a84e-ef9fdab20ad8",
+	"a361b553-b2e3-46ea-a8f4-8b8633921011",
+	'isCuttable',
+	'A shape type is cuttable if it is selected, and if each connector anchored to it is also selected.',
+	"ba5eda7a-def5-0000-0000-000000000001",
+	1,
+	'return Sel::isSelected(element:self.convertToInstance());',
+	1,
+	'',
+	"b04655fc-86af-476d-ae98-a620d244abd9");
 INSERT INTO O_NBATTR
 	VALUES ("d597da19-93f3-476f-9e24-db650e00c933",
 	"a361b553-b2e3-46ea-a8f4-8b8633921011");
