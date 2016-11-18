@@ -17,14 +17,15 @@ visibility of external elements as well.
 
 2. Document References
 ----------------------
-<a id="2.1"></a>2.1 [#8769 Within a component restrict visibility to externally defined model elements](https://support.onefact.net/issues/8769)  
-Parent issue of this work.
-
-<a id="2.2"></a>2.1 [#8798 The "cut" currently implemented (Model Element Move) allows a limited element selection](https://support.onefact.net/issues/8798)  
+<a id="2.1"></a>2.1 [#8769 Within a component restrict visibility to externally defined model elements](https://support.onefact.net/issues/8769)  Parent issue of this work.  
+<a id="2.2"></a>2.2 [#8798 The "cut" currently implemented (Model Element Move) allows a limited element selection](https://support.onefact.net/issues/8798)  
+<a id="2.3"></a>2.3 [Package reference clarification truth table](https://docs.google.com/spreadsheets/d/1Xx349VAIN16xampkkm7EtqRtf-QNZIootUxY_xrNiZQ/edit#gid=0)  
+<a id="2.4"></a>2.4 [Internal One Fact design thoughts](https://docs.google.com/document/d/1ONBhHKfspMfvD5-3IEAQgrUQBjaW-at79gZy3HcmZ3o/edit)  
+<a id="2.5"></a>2.5 [#8875 Opaque component tests](https://support.onefact.net/issues/8875)  
 
 3. Background
 -------------
-None
+See Abstract.  Also see [2.3](#2.3) and [2.4](#2.4).
 
 4. Requirements
 ---------------
@@ -83,7 +84,6 @@ this check more specific.
 
 6. Work Required
 ----------------
-
 6.1 Add preference to `BridgePointPreferencesModel.java` and
 `BridgePointPreferencesStore.java`. Set default value to be "false" in
 `plugin_customization.ini`.
@@ -97,33 +97,42 @@ not package, do not traverse upwards. If we do not traverse upwards, select the
 system model to which this component belongs and select all the global elements.
 This allows us to get the global types from inside the component.
 
-6.3 Add `isCuttable` to External Entity
+6.3 Modify `collectVisibleElementsForName` operation on the Package class.  
+As we are collecting elements, if the package being processed is assigned as a
+package reference then we initiate collection (with descending traversal only)
+of the referred-to package.  In this way we bring the elements inside the 
+referred-to package into visible scope.  
+
+6.4 Add `isCuttable` to External Entity
+This was left off in the cut functionality fixes and is added here.  
 
 7. Implementation Comments
 --------------------------
-7.1 The change mentioned in 6.3 is a quick fix for issue #8798 [[2.2]](#2.2).
+7.1 The change mentioned in 6.4 is a quick fix for issue #8798 [[2.2]](#2.2).
 External Entities were overlooked when making cut filter support.
 
 8. Unit Test
 ------------
+See [2.5](#2.5).  
 
 9. User Documentation
 ---------------------
+None.  
 
 10. Code Changes
 ---------------
-Fork/Repository: leviathan747/bridgepoint
-Branch: 8769_opaque_components
+Fork/Repository: keithbrown/bridgepoint  
+Branch: 8769_opaque_components  
 
 <pre>
-
- src/org.xtuml.bp.core/models/org.xtuml.bp.core/ooaofooa/Component/Component/Component.xtuml | 44 ++++++++++++++++++++++++++++++--------------
- src/org.xtuml.bp.core/models/org.xtuml.bp.core/ooaofooa/Domain/External Entity/External Entity.xtuml |  11 +++++++++++
- src/org.xtuml.bp.core/src/org/xtuml/bp/core/common/BridgePointPreferencesModel.java         |  3 +++
- src/org.xtuml.bp.core/src/org/xtuml/bp/core/common/BridgePointPreferencesStore.java         |  5 +++++
- src/org.xtuml.bp.pkg/plugin_customization.ini                                               |  1 +
- 4 files changed, 39 insertions(+), 14 deletions(-)
-
+ doc-bridgepoint/notes/8769_opaque_components.int.md
+ src/org.xtuml.bp.core/models/org.xtuml.bp.core/ooaofooa/Component/Component/Component.xtuml
+ src/org.xtuml.bp.core/models/org.xtuml.bp.core/ooaofooa/Domain/External Entity/External Entity.xtuml
+ src/org.xtuml.bp.core/models/org.xtuml.bp.core/ooaofooa/Element Packaging/Package.xtuml
+ src/org.xtuml.bp.core/src/org/xtuml/bp/core/common/BridgePointPreferencesModel.java
+ src/org.xtuml.bp.core/src/org/xtuml/bp/core/common/BridgePointPreferencesStore.java
+ src/org.xtuml.bp.pkg/plugin_customization.ini                                      
+ 
 </pre>
 
 End
