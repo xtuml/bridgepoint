@@ -25,7 +25,6 @@ package org.xtuml.bp.core.common;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
-import java.util.List;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
@@ -42,7 +41,7 @@ import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.DataType_c;
 import org.xtuml.bp.core.Modeleventnotification_c;
 import org.xtuml.bp.core.Ooaofooa;
-import org.xtuml.bp.core.Package_c;
+import org.xtuml.bp.core.SystemModel_c;
 import org.xtuml.bp.core.ui.PasteAction;
 import org.xtuml.bp.core.util.CoreUtil;
 
@@ -170,23 +169,10 @@ public class ComponentTransactionListener implements ITransactionListener {
 									public void run(IProgressMonitor monitor) throws CoreException {
 										// persist the moved element and all its RGOs
 										PersistableModelComponent destinationPMC = destinationElement.getPersistableComponent(true);
-										persistRenamedME(sourceElement, destinationPMC, false);
+										persistRenamedME(sourceElement, destinationPMC);
 
 										// In case it was not yet persisted above in persistRenamedME, do it now
 										persist(sourcePMC);
-
-										// assure all rgos are persisted
-										rgosAffectedByMove.addAll(((ModelElementMovedModelDelta) delta)
-												.getRGOsAffectedByMove());
-										/**
-										 * Persist all the RGOs, if any, associated with the Move operation
-										 */
-										for (Iterator<PersistableModelComponent> iter = rgosAffectedByMove.iterator(); iter.hasNext();) {
-											PersistableModelComponent rgo = (PersistableModelComponent) iter.next();
-
-											persist(rgo);
-										}
-
 									}
 								}, workspace.getRoot(), IWorkspace.AVOID_UPDATE, null);
 							} catch (CoreException e) {
@@ -242,7 +228,7 @@ public class ComponentTransactionListener implements ITransactionListener {
 											.getHierarchyMetaData()
 											.isComponentRoot(modelElement)) {
 										modelElementRenamed((AttributeChangeModelDelta) delta);
-										persistRenamedME(element, element.getPersistableComponent(), true);
+										persistRenamedME(element, element.getPersistableComponent());
 									}
 								} else if(modelDelta.getAttributeName().equals("Represents")) {
 									// special case to avoid persistence caused by the setting
@@ -321,7 +307,7 @@ public class ComponentTransactionListener implements ITransactionListener {
 		return false;
 	}
 
-	private void persistRenamedME(NonRootModelElement elementRenamed, PersistableModelComponent newPMC, boolean persistRGOs) {
+	private void persistRenamedME(NonRootModelElement elementRenamed, PersistableModelComponent newPMC) {
 
 		IPersistenceHierarchyMetaData metaData = PersistenceManager
 				.getHierarchyMetaData();
@@ -333,25 +319,6 @@ public class ComponentTransactionListener implements ITransactionListener {
 		for (Iterator<PersistableModelComponent> iter = children.iterator(); iter.hasNext();) {
 			PersistableModelComponent child = (PersistableModelComponent) iter.next();
 			persist(child);
-		}
-
-		if (persistRGOs) {
-			// now persist all RGO proxies		
-	 		List selfExternalRGOs;
-	 		Package_c packageContainer;
-			if (elementRenamed instanceof Package_c) {
-				packageContainer = (Package_c)elementRenamed;
-			} else {			
-				packageContainer = elementRenamed.getFirstParentPackage();
-			}
-			selfExternalRGOs = metaData.findExternalRGOsToContainingComponent(packageContainer, true);
-			
-			for (Iterator iterator = selfExternalRGOs.iterator(); iterator.hasNext();) {
-				PersistableModelComponent target = ((NonRootModelElement) iterator.next()).getPersistableComponent();
-				if (target != null && !persisted.contains(target)) {
-					persist(target);
-				}
-			}
 		}
 	}
 
@@ -457,8 +424,15 @@ public class ComponentTransactionListener implements ITransactionListener {
 		//		ModelElementChanged transaction. In fact we can use a Transaction
 		//		group for move and use ModelElementChanged to store these before and
 		//		after NRMEs.
-		if (sourceElement.getModelRoot() != destinationElement.getModelRoot()) {
-			sourceElement.updateRootForSelfAndChildren(sourceElement.getModelRoot(), destinationElement.getModelRoot());			
+		ModelRoot destinationRoot = destinationElement.getModelRoot();
+		if (sourceElement.getModelRoot() != destinationRoot) {
+			// if this is the system root, we need to create a new model
+			// root for the package being moved
+			if(destinationRoot == Ooaofooa.getDefaultInstance()) {
+				String newRootId = Ooaofooa.createModelRootId(destinationElement.getName(), sourceElement.getName(), true);
+				destinationRoot = Ooaofooa.getInstance(newRootId);
+			}
+			sourceElement.updateRootForSelfAndChildren(sourceElement.getModelRoot(), destinationRoot);			
 		}		
 		// end: move the element to the new ModelRoot in memory
 
