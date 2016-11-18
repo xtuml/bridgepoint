@@ -77,6 +77,7 @@ if (self.isAssigned())
 end if;
 select many rgo_pkgs related by self->EP_PKGREF[R1402.''is referenced by'']->EP_PKG[R1402.''is referenced by''];
 for each rgo_pkg in rgo_pkgs
+  Util::reportElementDowngraded(rto:self.convertToInstance(), rgoDowngraded:rgo_pkg.convertToInstance(), relationship:"R1402");
   rgo_pkg.unAssign();
 end for;
 
