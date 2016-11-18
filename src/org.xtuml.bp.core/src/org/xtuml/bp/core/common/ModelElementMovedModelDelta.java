@@ -15,21 +15,10 @@
 
 package org.xtuml.bp.core.common;
 
-import java.util.HashSet;
-
 import org.xtuml.bp.core.Modeleventnotification_c;
 
 public class ModelElementMovedModelDelta extends BaseModelDelta {
 
-	// We store off the RGOs now before we start changing this in memory
-	// because in order to find RGOs we take advantage of ExternalLinkEvaluator.java
-	// and it uses PersistenceHierarchyMetaData.java which together use the
-	// folder structure in combination with loaded instance to determine RGOs
-	// Once we start moving things around, we can't determine RGOs again until
-	// the change is complete both in memory and on disk. So, we get the RGOs now so
-	// we can persist them later when persistence is done in 
-	// ComponentTransactionListener.java::endTransaction.
-	private HashSet<PersistableModelComponent> rgosAffectedByMove;
 	private NonRootModelElement destination;
 	// store the source from which the element was removed from
 	private NonRootModelElement elementSource;
@@ -40,10 +29,9 @@ public class ModelElementMovedModelDelta extends BaseModelDelta {
 	 * @param oldValue - the original (source) PMC of the element being moved
 	 * @param newValue - the destination PMC of the element being moved
 	 */
-	public ModelElementMovedModelDelta(ModelElement modelElement, NonRootModelElement destination, NonRootModelElement source, HashSet<PersistableModelComponent> rgos) {
+	public ModelElementMovedModelDelta(ModelElement modelElement, NonRootModelElement destination, NonRootModelElement source) {
 		super(Modeleventnotification_c.DELTA_MODEL_ELEMENT_MOVE, modelElement);
 		this.destination = destination;
-		this.rgosAffectedByMove = rgos;
 		this.elementSource = source;
 	}
 
@@ -61,9 +49,5 @@ public class ModelElementMovedModelDelta extends BaseModelDelta {
 	
 	public NonRootModelElement getSource() {
 		return elementSource;
-	}
-	
-	public HashSet<PersistableModelComponent> getRGOsAffectedByMove() {
-		return rgosAffectedByMove;
 	}
 }

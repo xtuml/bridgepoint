@@ -338,65 +338,19 @@ if(param.name == "can")
       return pe.Visibility != Visibility::Private;
     end if;
   elif param.value == "assign"
+    // Rules for displaying the cme for package reference assignment:
+    // Rule 1: The package must be empty
     select any pe_pe related by self->PE_PE[R8000];
-    if (empty pe_pe)
-      return true;
-    else
+    if (not_empty pe_pe)
       return false;
     end if;
-    /* TODO - IMPLEMENT FOR PACKAGE REFs
-    if(self.isAssigned())
-      // disabled until all bugs are resolved
-      // with the reassignment feature
+    // Rule 2: Only a Package located as a child of a Component shall be eligible to be a Package Reference.
+    select one c_c related by self->PE_PE[R8001]->C_C[R8003];
+    if (empty c_c)
       return false;
-    end if;
-    
-    // Restrict based on visibility.
-    if (empty package)
-      component.clearScope();
-      component.collectVisibleElementsForName(name:"", 
-             type:ElementTypeConstants::COMPONENT,
-             originatingContainerID:component.Id, 
-             delegatingContainerID:GD::NULL_UNIQUE_ID(), collectGlobally:true);
-    else
-      package.clearScope();
-      package.collectVisibleElementsForName(name:"", 
-             type:ElementTypeConstants::COMPONENT,
-             descending:false,
-             originatingContainerID:package.Package_ID, 
-             delegatingPkgID:GD::NULL_UNIQUE_ID(), collectGlobally:true);
-    end if;
-    select any resultSet related by package->PE_SRS[R8005] where
-       selected.Name == "" and selected.Type == ElementTypeConstants::COMPONENT;
-    select many results related by resultSet->PE_VIS[R8006]->PE_PE[R8002];   
-    if empty package
-      select any compResultSet related by component->PE_CRS[R8007] where
-                           selected.Name == "" and selected.Type == 
-                                                ElementTypeConstants::COMPONENT;
-      select many results related by compResultSet->PE_CVS[R8008]->PE_PE[R8004];   
-    end if;
-    select many comps related by results->C_C[R8001];
-    // The isContainedBy() call prevents a component that hosts the
-    // imported component from being available
-    if(self.isAssigned())
-      select one currentComp related by self->C_C[R4201];
-      for each comp in comps
-        if(self.componentHasMatchingInterfaces(id:comp.Id) and
-                           not comp.isContainedBy(element_id:comp.Id) and
-                                                not (comp.Id == currentComp.Id))
-          return true;
-        end if;
-      end for;
-    else
-      for each comp in comps
-        candidatePkg = comp.getPackageId();
-        if(self.componentHasMatchingInterfaces(id:comp.Id) and
-                                     not comp.isContainedBy(element_id:comp.Id))
-          return true;
-        end if;
-      end for;
-    end if;
-    return false;*/
+    end if; 
+    // We have passed all the rules
+    return true;
   elif(param.value == "unassign")
     return self.isAssigned();
   end if;
@@ -6460,7 +6414,44 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
-	'return true;',
+	'select one packageableElem related by self->PE_PE[R8001];
+select one package related by packageableElem->EP_PKG[R8000];
+select one component related by packageableElem->C_C[R8003];
+
+// Rule: do not allow assignment to self
+if (self.Package_ID == param.Id)
+  return false;
+end if;
+
+// Rule: do not allow assignment to a package that is already assigned as a package reference
+select any pkg from instances of EP_PKG where (selected.Package_ID == param.Id);
+if (not_empty pkg)
+  is_assigned = pkg.isAssigned();
+  if (is_assigned)
+    return false;
+  end if;
+end if;
+
+parentPackage = package;
+parentComp = component;
+while(not_empty parentPackage or not_empty parentComp)
+  if not_empty parentPackage and parentPackage.Package_ID == param.Id
+    // Rule: do not allow assignment to any parent package in this hierarchy
+    return false;
+  end if;
+  // traverse to container
+  select one parentPE related by parentPackage->PE_PE[R8001];
+  if empty parentPE
+    select one parentPE related by parentComp->PE_PE[R8001];
+  end if;
+  select one parentPackage related by parentPE->EP_PKG[R8000];
+  select one parentComp related by parentPE->C_C[R8003];
+end while;
+
+// All rules passed, allow it
+return true;
+
+',
 	1,
 	'',
 	"c3f0e2bc-b2dd-4ffb-bbc1-686fc6fb6acf");
