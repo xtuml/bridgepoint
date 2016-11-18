@@ -41,6 +41,7 @@ import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.DataType_c;
 import org.xtuml.bp.core.Modeleventnotification_c;
 import org.xtuml.bp.core.Ooaofooa;
+import org.xtuml.bp.core.SystemModel_c;
 import org.xtuml.bp.core.ui.PasteAction;
 import org.xtuml.bp.core.util.CoreUtil;
 
@@ -423,8 +424,15 @@ public class ComponentTransactionListener implements ITransactionListener {
 		//		ModelElementChanged transaction. In fact we can use a Transaction
 		//		group for move and use ModelElementChanged to store these before and
 		//		after NRMEs.
-		if (sourceElement.getModelRoot() != destinationElement.getModelRoot()) {
-			sourceElement.updateRootForSelfAndChildren(sourceElement.getModelRoot(), destinationElement.getModelRoot());			
+		ModelRoot destinationRoot = destinationElement.getModelRoot();
+		if (sourceElement.getModelRoot() != destinationRoot) {
+			// if this is the system root, we need to create a new model
+			// root for the package being moved
+			if(destinationRoot == Ooaofooa.getDefaultInstance()) {
+				String newRootId = Ooaofooa.createModelRootId(destinationElement.getName(), sourceElement.getName(), true);
+				destinationRoot = Ooaofooa.getInstance(newRootId);
+			}
+			sourceElement.updateRootForSelfAndChildren(sourceElement.getModelRoot(), destinationRoot);			
 		}		
 		// end: move the element to the new ModelRoot in memory
 
