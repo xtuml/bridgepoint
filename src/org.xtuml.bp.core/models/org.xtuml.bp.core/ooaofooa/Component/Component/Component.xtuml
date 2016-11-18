@@ -1924,21 +1924,37 @@ end for;
 // We now ascend the hierarchy. Note that components are never
 // descended when looking for elements, so the delegating package
 // is passed as NULL.
-select one parentPkg related by self->PE_PE[R8001]->EP_PKG[R8000]->PE_PE[R8001];
-if not_empty parentPkg
-  parentPkg.collectVisibleElementsForName(name:param.name,
-        type:param.type, descending:false,
-                      originatingContainerID: param.originatingContainerID,
-                                          delegatingPkgID:GD::NULL_UNIQUE_ID(),
-                                         collectGlobally:param.collectGlobally);
-else
-  select one parentComponent related by self->PE_PE[R8001]->C_C[R8003];
-  if not_empty parentComponent
-    parentComponent.collectVisibleElementsForName(name:param.name,
-        type:param.type, originatingContainerID: param.originatingContainerID,
-                                    delegatingContainerID:GD::NULL_UNIQUE_ID(),
-                                         collectGlobally:param.collectGlobally);
+// We only ascend the hierarchy if components are not opaque, that is
+// elements outside the component are visible to elements inside the component
+// We do allow packages to be collected so we can assign package references.
+if ( (not PREF::getBoolean(name:"bridgepoint_prefs_opaque_components")) or (param.type == ElementTypeConstants::PACKAGE) )
+  select one parentPkg related by self->PE_PE[R8001]->EP_PKG[R8000]->PE_PE[R8001];
+  if not_empty parentPkg
+	parentPkg.collectVisibleElementsForName(name:param.name,
+		  type:param.type, descending:false,
+						originatingContainerID: param.originatingContainerID,
+											delegatingPkgID:GD::NULL_UNIQUE_ID(),
+										   collectGlobally:param.collectGlobally);
+  else
+	select one parentComponent related by self->PE_PE[R8001]->C_C[R8003];
+	if not_empty parentComponent
+	  parentComponent.collectVisibleElementsForName(name:param.name,
+		  type:param.type, originatingContainerID: param.originatingContainerID,
+									  delegatingContainerID:GD::NULL_UNIQUE_ID(),
+										   collectGlobally:param.collectGlobally);
+	end if;
   end if;
+// if we are not ascending the hierarchy, we must collect the globals manually
+else
+  select any system from instances of S_SYS where ( selected.Sys_ID == self.getSystemId() );
+  select many globals related by system->G_EIS[R9100]->PE_PE[R9100];
+  for each global in globals
+    global.collectVisibleElementsForName(name:param.name, type:param.type,
+                                             descending: false,
+                        originatingContainerID:param.originatingContainerID,
+                                  delegatingPkgID:param.delegatingContainerID,
+                                                         collectGlobally:false);
+  end for;
 end if;',
 	1,
 	'',

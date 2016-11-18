@@ -72,6 +72,7 @@ public class BridgePointPreferencesModel implements IPreferenceModel {
 	public boolean useDefaultNamesForNewModelElements;
     public boolean createGraphicsDuringImport;
     public boolean requireMaslStyleIdentifiers;
+    public boolean opaqueComponents;
 	
     
 	public Class getStoreClass() {
@@ -133,6 +134,7 @@ public class BridgePointPreferencesModel implements IPreferenceModel {
         useDefaultNamesForNewModelElements = syncTo.useDefaultNamesForNewModelElements;
         createGraphicsDuringImport = syncTo.createGraphicsDuringImport;
         requireMaslStyleIdentifiers = syncTo.requireMaslStyleIdentifiers;;
+        opaqueComponents = syncTo.opaqueComponents;
 	}
 
     public Object deepClone() {
@@ -181,6 +183,7 @@ public class BridgePointPreferencesModel implements IPreferenceModel {
         prefs.useDefaultNamesForNewModelElements = useDefaultNamesForNewModelElements;
         prefs.createGraphicsDuringImport = createGraphicsDuringImport;
         prefs.requireMaslStyleIdentifiers = requireMaslStyleIdentifiers;
+        prefs.opaqueComponents = opaqueComponents;
 
         return prefs;
     }
