@@ -280,12 +280,10 @@ related across R3 in Source package is moved to Destination package.
   * 9.    Add Id as identifier
   * 10.   Create an association R1 between CL1 and CL2
   * 11.   Formalize association R1 using Id
-  * 12.   Cut CL2
-  * 13.   Paste in COMP1-P1
-  * 14.   Warning is displayed stating that CL1 and R1 must be included in the move. Move isn't permitted.  
-  * 15.   Cut CL1
-  * 16.   Paste in COMP1-P1
-  * 17.   Warning is displayed stating that CL2 and R1 must be included in the move. Move isn't permitted.      
+  * 12.   Select CL2
+  * 13.   Cut is disabled  
+  * 14.   Select CL1
+  * 15.   Cut is disabled    
 
 7.17  Data Type at top level within project (Uses test model [2.7](#2.7))
   * 1.   Cut My_DT from P1
