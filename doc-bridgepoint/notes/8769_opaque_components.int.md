@@ -20,6 +20,8 @@ visibility of external elements as well.
 <a id="2.1"></a>2.1 [#8769 Within a component restrict visibility to externally defined model elements](https://support.onefact.net/issues/8769)  
 Parent issue of this work.
 
+<a id="2.2"></a>2.1 [#8798 The "cut" currently implemented (Model Element Move) allows a limited element selection](https://support.onefact.net/issues/8798)  
+
 3. Background
 -------------
 None
@@ -95,9 +97,12 @@ not package, do not traverse upwards. If we do not traverse upwards, select the
 system model to which this component belongs and select all the global elements.
 This allows us to get the global types from inside the component.
 
+6.3 Add `isCuttable` to External Entity
+
 7. Implementation Comments
 --------------------------
-None
+7.1 The change mentioned in 6.3 is a quick fix for issue #8798 [[2.2]](#2.2).
+External Entities were overlooked when making cut filter support.
 
 8. Unit Test
 ------------
@@ -113,6 +118,7 @@ Branch: 8769_opaque_components
 <pre>
 
  src/org.xtuml.bp.core/models/org.xtuml.bp.core/ooaofooa/Component/Component/Component.xtuml | 44 ++++++++++++++++++++++++++++++--------------
+ src/org.xtuml.bp.core/models/org.xtuml.bp.core/ooaofooa/Domain/External Entity/External Entity.xtuml |  11 +++++++++++
  src/org.xtuml.bp.core/src/org/xtuml/bp/core/common/BridgePointPreferencesModel.java         |  3 +++
  src/org.xtuml.bp.core/src/org/xtuml/bp/core/common/BridgePointPreferencesStore.java         |  5 +++++
  src/org.xtuml.bp.pkg/plugin_customization.ini                                               |  1 +
