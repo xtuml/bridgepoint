@@ -19,10 +19,12 @@ if(not_empty system)
   unrelate self from system across R1401;
 end if;
 
+// Dispose Package Participants from Interaction diagrams
 select many pps related by self->SQ_PP[R956];
 for each pp in pps
   pp.unformalize();
 end for;
+
 self.clearScope();
 // dispose Packagable Elements
 select many pes related by self ->PE_PE[R8000];
@@ -68,6 +70,16 @@ for each cie in classInEngines
   cie.dispose();
 end for;
 
+// Clean up package references, both if this package is assigned, or if other
+// packages are assigned to this
+if (self.isAssigned())
+  self.unAssign();
+end if;
+select many rgo_pkgs related by self->EP_PKGREF[R1402.''is referenced by'']->EP_PKG[R1402.''is referenced by''];
+for each rgo_pkg in rgo_pkgs
+  Util::reportElementDowngraded(rto:self.convertToInstance(), rgoDowngraded:rgo_pkg.convertToInstance(), relationship:"R1402");
+  rgo_pkg.unAssign();
+end for;
 
 delete object instance self;
 ',
@@ -6335,10 +6347,31 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
-	'select many pe_pes related by self->PE_PE[R8000];
+	'// If the package contains elements, check them
+select many pe_pes related by self->PE_PE[R8000];
 for each pe_pe in pe_pes
   pe_pe.downgradeCheck();
-end for;',
+end for;
+
+// If this package is assigned as a reference, make sure we can see the target
+isAccessible = true; 
+if ( self.isAssigned() )
+  isAccessible = self.canReferToPackage();
+
+  if ( not isAccessible )
+    select one tgt_pkg related by self->EP_PKGREF[R1402.''refers to'']->EP_PKG[R1402.''refers to''];
+    self.unAssign();
+    Util::reportElementDowngraded(rto:tgt_pkg.convertToInstance(), rgoDowngraded:self.convertToInstance(), relationship:"R1402");
+  end if;
+end if;
+
+// If this package is the target of a package reference have the referring 
+// packages check.
+select many rgo_pkgs related by self->EP_PKGREF[R1402.''is referenced by'']->EP_PKG[R1402.''is referenced by''];
+for each rgo_pkg in rgo_pkgs
+  rgo_pkg.downgradeCheck();
+end for;
+',
 	1,
 	'',
 	"71f25991-161d-4092-b684-a166114dab97");
@@ -6472,6 +6505,30 @@ INSERT INTO O_TFR
 	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
 	'return Sel::isSelected(element:self.convertToInstance());',
+	1,
+	'',
+	"fba4541b-e166-4ffd-bde7-c522fb84e2ab");
+INSERT INTO O_TFR
+	VALUES ("fba4541b-e166-4ffd-bde7-c522fb84e2ab",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'canReferToPackage',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000001",
+	1,
+	'isAccessible = true;
+isAssignable = true;
+select one pe related by self->PE_PE[R8001];
+select one ep_pkgref related by self->EP_PKGREF[R1402.''refers to''];
+if (not_empty ep_pkgref)
+  select one ep_pkg related by ep_pkgref->EP_PKG[R1402.''refers to''];
+
+  isAccessible = pe.isElementVisibleToSelf(type:
+                            ElementTypeConstants::PACKAGE, elementId:ep_pkg.Package_ID);
+  
+  isAssignable = self.canAssignToPackage(Id:ep_pkg.Package_ID);
+end if;
+
+return isAccessible and isAssignable;',
 	1,
 	'',
 	"cacea0fc-4740-4230-8242-d728c337d0ff");
