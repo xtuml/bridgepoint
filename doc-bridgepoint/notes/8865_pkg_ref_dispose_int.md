@@ -4,115 +4,113 @@ This work is licensed under the Creative Commons CC0 License
 
 ---
 
-# Title goes here
+# Support package / package reference dispose and downgrade
 ### xtUML Project Implementation Note
 
-Note: Each section has a description that states the purpose of that section.
-Delete these section descriptions before checking in your note.  Delete this
-note as well. __If you are using markdown formatting, don't forget to put 2 
-spaces at the end of lines where you want a hard break.__
 
 1. Abstract
 -----------
-In this section, give a summary of the design that this note aims to
-describe.
+This note describes the work performed to handle dispose and downgrade of 
+package references.  
 
 2. Document References
 ----------------------
-In this section, list all the documents that the reader may need to refer to.
-Give the full path to reference a file.  
-<a id="2.1"></a>2.1 [BridgePoint DEI #xxx1](https://support.onefact.net/issues/xxx1) TODO: Add description here.  
-<a id="2.2"></a>2.2 [BridgePoint DEI #xxx2](https://support.onefact.net/issues/xxx2) TODO: Add description here.  
-<a id="2.3"></a>2.3 [BridgePoint DEI #xxx3](https://support.onefact.net/issues/xxx3) TODO: Add description here.  
-
+<a id="2.1"></a>2.1 [BridgePoint DEI #8865](https://support.onefact.net/issues/8865) Headline issue.     
+<a id="2.2"></a>2.2 [BridgePoint DEI #8873](https://support.onefact.net/issues/8873) Package Reference dispose and downgrade test.  
+ 
 3. Background
 -------------
-In this section, outline the important points relating to this issue/bug that
-the reader would need to know in order to understand the rest of this
-document. Here is an example reference to the Document References section [[2.1]](#2.1)
+Package reference support is being added in incremental baby steps.  This step 
+makes sure dispose and downgrade are handled properly.   
 
 4. Requirements
 ---------------
-This section is only required if there is no preceding design note. 
-If present it describes the requirements that need to be satisfied.  If there 
-is an SRS, this section may refer to it.  Each requirement should be as short 
-and simple as possible and must be clearly defined. Here is an example reference to the Document References section [[2.1]](#2.1)
-
-4.1 Item 1  
-4.1.1 Example sub-item
-* Example List Element
-  * Example Sub list item
-
-4.2 Item 2  
-4.2.1 Example sub-item
-* Example List Element
+4.1 BridgePoint shall clean up Package References instances and associations 
+  when a source or target package is removed from the model.    
+4.2 BridgePoint shall handle downgrade of an assigned package.    
 
 5. Work Required
 ----------------
-Elaborate on each point of the Work Required section of the design note and
-describe how you implemented each step.  
-If there is no design note, this section, breaks out the consequential work 
-(as a numbered list) needed to meet the requirements specified in the 
-Requirements section. Here is an example reference to the Document References section [[2.1]](#2.1)
+5.1  Dispose   
+5.1.1  Package dispose() must unAssign if the package is assigned as a reference  
+5.1.2  Package dispose() must also work in reverse. If the package is the target
+  of one or more package references, those references need to be forced to 
+  unAssign.  
 
-5.1 Item 1  
-5.1.1 Example sub-item
-* Example List Element
+5.2  Downgrade  
+5.2.1  Package downgradeCheck() must handle the same cases where the package is 
+  the source or target of a downgrade.
 
-5.2 Item 2  
-5.2.1 Example sub-item
-* Example List Element
 
 6. Implementation Comments
 --------------------------
-If the design cannot be implemented as written or if it needs some modification,
-enumerate the changes to the design in this section.  If there was no preceding
-design note, then this section documents any deviations from the implementation
-as presented at the pre-implementation engineering review. Here is an example reference to the Document References section [[2.1]](#2.1)
-
-6.1 Item 1  
-```java
-    // java code example
-    public void clearDatabase(IProgressMonitor pm) 
-    {
-        // clear the corresponding graphics-root's database
-        OoaofgraphicsUtil.clearGraphicsDatabase(rootId, pm);
-
-        Ooaofooa.getDefaultInstance().fireModelElementUnloaded(this);
-    }
-```
-6.1.1 Example sub-item
-* Example List Element
-
-6.2 Item 2  
-6.2.1 Example sub-item
-* Example List Element
+6.1  Tear down error on R8008   
+6.1.1  During testing we noticed an error in the log: 
+```The following relationships were not torn down by the Component Visibility.dispose call: 8008```. 
+Investigation found that this is due to ```PackageableElement.dispose()``` line 15. 
+The code tears down the R8004 link before deleting the ```PE_CVS``` but it does
+not unrelate across R8008 before deleting the ```PE_CVS```. We added code to 
+tear down R8008 before deleting.      
 
 7. Unit Test
 ------------
-Outline all the unit tests that need to pass and describe the method that you
-will use to design and perform the tests. Here is an example reference to the Document References section [[2.1]](#2.1)
+Captured as manual test [2.2](#2.2).  
+<pre>
+7.1 Downgrade test
 
-7.1 Item 1  
-7.1.1 Example sub-item
-* Example List Element
+    Create a new project "foo", import the test model
+    Open the comp diagram
+    R See that the package inside comp is assigned to tgt
+    Expand the model in Model Explorer
+    Move package tgt inside package privat to cause a loss of visibility
+    R The downgrade notice dialog pops up and notes that tgt is associated with b and will cause a downgrade
+    Select OK
+    R The package inside comp is unassigned and the name changes to b
 
-7.2 Item 2  
-7.2.1 Example sub-item
-* Example List Element
+7.2 Delete target test
+
+    Create a new project "bar", import the test model
+    Open the comp diagram
+    R See that the package inside comp is assigned to tgt
+    Expand the model in Model Explorer
+    Delete package tgt
+    R The downgrade notice dialog pops up and notes that this will cause a downgrade on b
+    Select OK
+    R The package inside comp is unassigned and the name changes to b
+
+7.3 Delete source test
+
+    Create a new project "baz", import the test model.
+    Open the comp diagram
+    R See that the package inside comp is assigned to tgt
+    Expand the model in Model Explorer
+    Open the "Instance Population Monitor" view
+    Expand baz/Ooaofooa Model Elements/baz.xtuml
+    R See there is one PackageReference_c instance
+    Delete assigned package "b" (assigned to tgt)
+    In the Instance Population Monitor, click the double arrow "Update population display" button
+    Expand baz/Ooaofooa Model Elements/baz.xtuml
+    R See there are no PackageReference_c instances
+</pre>
 
 8. User Documentation
 ---------------------
-Describe the end user documentation that was added for this change. 
+None.  
 
 9. Code Changes
 ---------------
-Fork/Repository: < enter your fork and repo name name >
-Branch: < enter your branch name here >
+Fork/Repository: keithbrown/bridgepoint  
+Branch: 8865_pkg_ref_dispose  
 
 <pre>
 
-< Put the file list here >
+doc-bridgepoint/notes/8865_pkg_ref_dispose_int.md
+
+org.xtuml.bp.core/models/org.xtuml.bp.core/ooaofooa/Element Packaging/
+    Package/Package.xtuml
+org.xtuml.bp.core/models/org.xtuml.bp.core/ooaofooa/Packageable Element/
+    Packageable Element/Packageable Element.xtuml
+
 
 </pre>
 
