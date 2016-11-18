@@ -392,14 +392,15 @@ related across R3 in Source package is moved to Destination package.
   * 5. Paste in to the system level
   * 6. Result - Paste is successful  
 
-7.30 Visible move doesn't affect sequence diagram  
-* Cut Sequences in FailureCasesComponentPackage and paste into Destination package.
+7.30 Visible move doesn't affect sequence diagram (Uses test model [2.8](#2.8))  
+* Cut Sequences in FailureCasesComponentPackage and paste into Destination package.  
 * Verify InvisibleExternalEntity and Bridge1 aren't downgraded in Sequences package in FailureCasesComponentPackage  
+* perform undo  
 
-7.31 Non-visible move causes downgrades on sequence diagram  
+7.31 Non-visible move causes downgrades on sequence diagram  (Uses test model [2.8](#2.8))  
 * Cut Sequences in FailureCasesComponentPackage and paste into DestinationComponentPackage.  
-* Downgrade message is shown for InvisibleExternalEntity and Bridge1
-* InvisibleExternalEntity and Bridge1 references in Sequences package in FailureCasesComponentPackage are changed to be Informal  
+* There should NOT be a downgrade message. BrdigePoint does not consider visibility for interaction elements.  You can see this by being able to assign to an EE contained within another component (like the destination container in the test).  Therefore the bridge should not be downgraded  
+* perform undo  
 
 End
 ---
