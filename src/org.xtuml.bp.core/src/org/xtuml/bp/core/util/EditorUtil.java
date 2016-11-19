@@ -46,6 +46,7 @@ import org.xtuml.bp.core.InteractionParticipant_c;
 import org.xtuml.bp.core.Lifespan_c;
 import org.xtuml.bp.core.ModelClass_c;
 import org.xtuml.bp.core.PackageParticipant_c;
+import org.xtuml.bp.core.PackageReference_c;
 import org.xtuml.bp.core.Package_c;
 import org.xtuml.bp.core.common.InstanceList;
 import org.xtuml.bp.core.common.ModelElement;
@@ -254,6 +255,15 @@ public class EditorUtil
 				// open the domain package diagram of the domain this component is
 				// formalized to.
 				return getElementToEdit(component);
+			}
+		} else if (forElement instanceof Package_c) {
+			PackageReference_c reference = PackageReference_c
+					.getOneEP_PKGREFOnR1402RefersTo((Package_c) forElement);
+			Package_c referredTo = Package_c.getOneEP_PKGOnR1402RefersTo(reference);
+			if (referredTo != null) {
+				return getElementToEdit(referredTo);
+			} else {
+				return forElement;
 			}
 		}
         
