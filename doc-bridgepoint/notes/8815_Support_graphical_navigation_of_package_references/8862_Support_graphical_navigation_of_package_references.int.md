@@ -18,6 +18,7 @@ diagram for the referred to package.
 <a id="2.1"></a>2.1 [BridgePoint DEI #8862](https://support.onefact.net/issues/8862) Navigate to referred to packages.   
 <a id="2.2"></a>2.2 [BridgePoint DEI #8848](https://support.onefact.net/issues/8848) A move that downgrades an imported class should delete the imported class, not unassign it  
 <a id="2.3"></a>2.3 [BridgePoint DEI #8863](https://support.onefact.net/issues/8863) Show package reference in ME  
+<a id="2.3"></a>2.4 [BridgePoint DNT for #8458](https://github.com/xtuml/bridgepoint/blob/master/doc-bridgepoint/notes/8458_model_element_move_tests/8458_Model_Element_Move_Tests.dnt.md) Element move tests   
 
 3. Background
 -------------
