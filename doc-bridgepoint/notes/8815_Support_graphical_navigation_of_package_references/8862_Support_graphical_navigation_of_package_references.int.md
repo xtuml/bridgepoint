@@ -81,15 +81,15 @@ The get_connector_text operation in Package is modified to return Label.
 Using the graphical editor:   
 
 7.1.1 Referring package     
-7.1.1.1 Double click a referring package
+7.1.1.1 Double click a referring package   
 7.1.1.2 The referred to package's diagram is shown   
 
 7.1.2 Non-referring package   
 7.1.2.1 Double click a non-referring package   
 7.1.2.2 The diagram for the package is shown   
 
-7.1.3 Repeat 7.1.1 and 7.1.2 using Model Explorer
-7.1.3.1 Navigate to test package
+7.1.3 Repeat 7.1.1 and 7.1.2 using Model Explorer   
+7.1.3.1 Navigate to test package   
 7.1.3.2 The label in Model Explorer when the package is referring shows the path   
         to the referred to package      
 
