@@ -2695,6 +2695,14 @@ else // not originating package
                                          collectGlobally:param.collectGlobally);
     end if;
   end for;
+  // If this package is a reference, collect in the target package
+  if (self.isAssigned())
+    select one tgt_pkg related by self->EP_PKGREF[R1402.''refers to'']->EP_PKG[R1402.''refers to''];
+    tgt_pkg.collectVisibleElementsForName(name:param.name, type:param.type,
+         descending:true, originatingContainerID: param.originatingContainerID,
+                                         delegatingPkgID:param.delegatingPkgID,
+                                         collectGlobally:param.collectGlobally);
+  end if;
 end if;
 if param.descending == false
   // We are ascending the hierarchy. Consider all parents,
