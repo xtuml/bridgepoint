@@ -91,6 +91,7 @@ Branch: 8876_unassign_downgrade
 
 <pre>
 
+doc-bridgepoint/notes/8876_unassign_downgrade_int.md 
 src/org.xtuml.bp.core/models/org.xtuml.bp.core/ooaofooa/Element Packaging/Package/Package.xtuml  
 
 </pre>
