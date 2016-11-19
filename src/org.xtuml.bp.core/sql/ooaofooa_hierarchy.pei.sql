@@ -122,7 +122,7 @@ INSERT INTO T_TNS VALUES (293, 'Requirement.gif',                  'CL_IR',  '',
 INSERT INTO T_TNS VALUES (294, 'Transition.gif',                  'SM_TXN',  '', 'Name', '',                 'Transitions',                        -1, '');
 INSERT INTO T_TNS VALUES (295, 'InstanceOfComponent.gif',                  'I_EXE',   '', 'Label', '',                 'Component Instances',                     -1, '');
 INSERT INTO T_TNS VALUES (296, 'Component.gif', 'SQ_COP',  '', 'Label', '', 'Component Participants', -1, '');
-INSERT INTO T_TNS VALUES (297, 'Package.gif', 'EP_PKG',  '', 'Name', '', 'Packages', -1, '');
+INSERT INTO T_TNS VALUES (297, 'Package.gif', 'EP_PKG',  '', 'Label', '', 'Packages', -1, '');
 INSERT INTO T_TNS VALUES (298, 'Association.gif',                'I_LIP',   '', 'Label', '',                     'Association', 					-1, '');
 INSERT INTO T_TNS VALUES (299, 'Class.gif',                  'CSME_CIE',   '', 'Label', '',                 'Classes Under Execution',                     -1, '');
 INSERT INTO T_TNS VALUES (300, 'ConstantSpecification.gif',  'CNST_CSP',  '', 'InformalGroupName', '',      'Constant Specification',  -1, '');

@@ -230,9 +230,7 @@ if (param.at == Justification::Center_in_X)
   result = "«package»";
 elif (param.at == Justification::Center)
   if(self.isAssigned())
-    select one ep_pkgref related by self->EP_PKGREF[R1402.''refers to''];
-    select one ep_pkg related by ep_pkgref->EP_PKG[R1402.''refers to''];
-    result = ep_pkg.getPath(path:"");
+	result = self.Label;
   else
     result = self.Name;
     select one pe related by self->PE_PE[R8001];
@@ -2695,6 +2693,14 @@ else // not originating package
                                          collectGlobally:param.collectGlobally);
     end if;
   end for;
+  // If this package is a reference, collect in the target package
+  if (self.isAssigned())
+    select one tgt_pkg related by self->EP_PKGREF[R1402.''refers to'']->EP_PKG[R1402.''refers to''];
+    tgt_pkg.collectVisibleElementsForName(name:param.name, type:param.type,
+         descending:true, originatingContainerID: param.originatingContainerID,
+                                         delegatingPkgID:param.delegatingPkgID,
+                                         collectGlobally:param.collectGlobally);
+  end if;
 end if;
 if param.descending == false
   // We are ascending the hierarchy. Consider all parents,
@@ -6736,6 +6742,38 @@ max_value: 9999',
 	'Num_Rng',
 	0,
 	"ba5eda7a-def5-0000-0000-000000000002",
+	'',
+	'');
+INSERT INTO O_DBATTR
+	VALUES ("6b635292-6bd5-44f6-b7f1-e3c889874c35",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'/**
+ *  Return the name of a referenced package, or the local name if not referencing
+ *  a package
+ */
+ select one referredToPackage related by self->EP_PKGREF[R1402.''refers to'']->EP_PKG[R1402.''refers to''];
+ if(not_empty referredToPackage)
+   self.Label = referredToPackage.getPath(path:"");
+ else 
+   self.Label = self.Name;
+ end if;
+',
+	1);
+INSERT INTO O_BATTR
+	VALUES ("6b635292-6bd5-44f6-b7f1-e3c889874c35",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e");
+INSERT INTO O_ATTR
+	VALUES ("6b635292-6bd5-44f6-b7f1-e3c889874c35",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	"f55df7b5-e84d-46ef-9b3b-b45e91cb56d8",
+	'Label',
+	'Full Name: Satisfaction Label
+User_Visible:false
+Persistent:false',
+	'',
+	'Label',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
 INSERT INTO O_ID
