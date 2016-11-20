@@ -80,7 +80,6 @@ else
 						    + " is modeled and the bridge: "
             + brg.Name + " has no OAL to execute.  Skipping bridge invocation.",
 						path:pathMsg);
-    // remove all intermediate values from the stack
     for each arg in args
       stack_frame.popValue(value_id:arg.Value_ID);
     end for;
@@ -90,16 +89,15 @@ else
   for each parm in parms
     for each arg in args
       if (parm.Name == arg.Name)
-        if (parm.By_Ref == 0)  // by value
-          select one act_val related by arg->V_VAL[R800];
-          act_val.computeValue(stack_frame_id: stack_frame.Stack_Frame_ID);
-          select any result related by stack_frame->I_VSF[R2951] where selected.Value_ID == act_val.Value_ID;
-          select one rtVal related by result->RV_RVL[R3305];
-          if (empty rtVal)
-            // Result requires computation.
-            // Return and let the new stack frame execute
-            return;    
-          end if;
+        select one act_val related by arg->V_VAL[R800];
+        act_val.computeValue(stack_frame_id: stack_frame.Stack_Frame_ID);
+        select any result related by stack_frame->I_VSF[R2951] where
+                                          selected.Value_ID == act_val.Value_ID;
+        select one rtVal related by result->RV_RVL[R3305];
+        if (empty rtVal)
+          // Result requires computation.
+          // Return and let the new stack frame execute
+          return;    
         end if;
       end if;
     end for;
@@ -151,11 +149,6 @@ else
               newValue = GD::convertToBPDataType(type: ctype.Name, value: rtVal.getValue());
               rtVal.setValue(value:newValue);
               cval.setValue(stack_frame_id: stack_frame.Stack_Frame_ID, value: newValue, member_id:GD::NULL_UNIQUE_ID());
-            else
-              select one l_lvl related by cval->L_LVL[R3010];
-              if ( not_empty l_lvl )
-                id = l_lvl.getRuntimeValue(stack_frame_id: stack_frame.Stack_Frame_ID);
-              end if;
             end if;
           end if;
 
@@ -172,21 +165,22 @@ else
       // Now convert any by ref parameters back to the original data type
       for each parm in parms
         for each arg in args
-          if ( parm.By_Ref == 1 and parm.Name == arg.Name )
+          if (parm.By_Ref == 1 and parm.Name == arg.Name)
             select one cval related by arg->V_VAL[R800];
             select one ctype related by parm->S_DT[R22];
-            select any result related by stack_frame->I_VSF[R2951] where selected.Value_ID == cval.Value_ID;
+            select any result related by stack_frame->I_VSF[R2951] where
+                                             selected.Value_ID == cval.Value_ID;
             select one rtVal related by result->RV_RVL[R3305];
-            if ( not_empty rtVal )
-              select one udt related by ctype->S_UDT[R17]; // is it core?
-              if (not_empty udt)// if not, check user data type
-                pe_id = udt.getCoreType();
-                select any dt_pe from instances of PE_PE where (selected.Element_ID == pe_id);
-                select one ctype related by dt_pe->S_DT[R8001];
-              end if;
-              newValue = GD::convertFromBPDataType(type: ctype.Name, value:rtVal.getValue());
-              cval.setValue(stack_frame_id: stack_frame.Stack_Frame_ID, value:newValue, member_id:GD::NULL_UNIQUE_ID());
+            select one udt related by ctype->S_UDT[R17]; // is it core?
+            if (not_empty udt)// if not, check user data type
+              id = udt.getCoreType();
+              select any dt_pe from instances of PE_PE where (selected.Element_ID == id);
+              select one ctype related by dt_pe->S_DT[R8001];
             end if;
+            newValue = GD::convertFromBPDataType(type: ctype.Name, value:
+                                                              rtVal.getValue());
+            cval.setValue(stack_frame_id: stack_frame.Stack_Frame_ID,
+                               value: newValue, member_id:GD::NULL_UNIQUE_ID());
           end if;
         end for;
       end for;
@@ -196,6 +190,7 @@ else
     stack_frame.popValue(value_id:arg.Value_ID);
   end for;
 end if;
+
 ',
 	1,
 	'',
