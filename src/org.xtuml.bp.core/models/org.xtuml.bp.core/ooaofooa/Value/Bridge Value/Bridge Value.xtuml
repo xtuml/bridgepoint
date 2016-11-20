@@ -198,7 +198,6 @@ else
       callRtVal.setValue(value:VM::getResult());
     end if;
   end if;
-  end if;
   for each arg in args
     stack_frame.popValue(value_id:arg.Value_ID);
   end for;
