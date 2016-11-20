@@ -126,12 +126,12 @@ else
     select any parm related by brg->S_BPARM[R21];
     firstParm = parm; 
     while (not_empty firstParm)
-              select one firstParm related by parm->S_BPARM[R55.''succeeds''];
-              if (not_empty firstParm)
-                parm = firstParm;
-              end if;
+      select one firstParm related by parm->S_BPARM[R55.''succeeds''];
+      if (not_empty firstParm)
+        parm = firstParm;
+      end if;
     end while;
-    
+
     convertedParms = false;
     while (not_empty parm)
       for each arg in args
@@ -144,12 +144,10 @@ else
           isByRef = false;
           if (parm.By_Ref == 1)
             isByRef = true;
-            if ( not_empty rtVal )
-              convertedParms = true;
-              newValue = GD::convertToBPDataType(type: ctype.Name, value: rtVal.getValue());
-              rtVal.setValue(value:newValue);
-              cval.setValue(stack_frame_id: stack_frame.Stack_Frame_ID, value: newValue, member_id:GD::NULL_UNIQUE_ID());
-            end if;
+            convertedParms = true;
+            newValue = GD::convertToBPDataType(type: ctype.Name, value: rtVal.getValue());
+            rtVal.setValue(value:newValue);
+            cval.setValue(stack_frame_id: stack_frame.Stack_Frame_ID, value: newValue, member_id:GD::NULL_UNIQUE_ID());
           end if;
 
           VM::addArgumentValue(value:rtVal.getValue(), type:ctype.Name, byRef: isByRef);
@@ -190,7 +188,6 @@ else
     stack_frame.popValue(value_id:arg.Value_ID);
   end for;
 end if;
-
 ',
 	1,
 	'',
