@@ -9,13 +9,12 @@ Preparation
 
 3) Edit ```~/xtuml/BridgePoint/eclipse/Launcher.sh``` in a text editor (in Windows Launcher.bat)
 
-- Directly after "export BP_JVM=..." add the following (on Windows substitute "set" for "export"):
-
-      ```      
-        export XTUML_DEVELOPMENT_REPOSITORY=~/git/bridgepoint
-        export XTUML_TEST_MODEL_REPOSITORY=~/git/models/test/
-        export XTUML_PRIVATE_MODEL_REPOSITORY=~/git/modelsmg/test/
-      ```
+- Directly after "export BP_JVM=..." add the following (on Windows substitute "set" for "export"):  
+```
+export XTUML_DEVELOPMENT_REPOSITORY=~/git/bridgepoint
+export XTUML_TEST_MODEL_REPOSITORY=~/git/models/test/
+export XTUML_PRIVATE_MODEL_REPOSITORY=~/git/modelsmg/test/
+```
 
 4) If you want to run BridgePoint unit tests on MS Windows you must perform some additional steps [described here.](https://github.com/xtuml/bridgepoint/blob/master/doc-bridgepoint/process/FAQ.md#windowstesting) 
 

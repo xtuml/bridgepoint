@@ -32,7 +32,7 @@ Analysis referenced in design note.
 
 <a id="2.7"></a>2.7 [Model Element Move Test Model For Misc Test Cases (ModelElementMoveTests2)](https://github.com/xtuml/models/tree/master/ModelElementMoveTest2)   
 
-<a id="2.8"></a>2.8 [Main Model Element Move Test Model (ModelElementMoveTests)](https://github.com/xtuml/models/tree/master/test/ModelElementMoveTests)  
+<a id="2.8"></a>2.8 [Main Model Element Move Test Model (ModelElementMoveTests1)](https://github.com/xtuml/models/tree/master/test/ModelElementMoveTests1)  
 
 3. Background   
 -------------     
@@ -76,6 +76,16 @@ clean checkout of the repository and let 'git diff' do the text compare.
 A finding of differences should be noted in the test results.  
 Undo should be a single step. If multiple undo operations are required to 
 recind the move, it should be noted as an error in the test case results.
+
+Components with interfaces attached must be selected from the canvas and selection
+must include both component and interface(s).
+
+7.0 Selection of components with interfaces. (Uses test model [2.8](#2.8))  
+7.0.1. Select ComponentMovePass1 in Source package in ME.
+  * Cut is not enabled.  
+
+7.0.2. Select ComponentMovePass1 and attached interface (either drag box or ctrl-click select)
+  * Cut is enabled.  
 
 7.1 Use Case 4.1  (Uses test model [2.8](#2.8))  
 7.1.1. VisibleDataType in Source package is moved to Destination package.  
@@ -125,13 +135,13 @@ visibility items.
   * Perform undo.  
 
 7.4 Use Case 4.4  (Uses test model [2.8](#2.8))  
-7.4.1. ComponentMovePass2 in Source package is moved to DestinationComponent in 
+7.4.1. ComponentMovePass2 in Source package is moved to DestinationComponentPackage in 
 Destination package.  
   * Result is successful move with no option menu shown for list of lost 
 visibility items.  
   * Perform undo.  
 
-7.4.2. FailureMoveComponent1 in Source package is moved to DestinationComponent 
+7.4.2. FailureMoveComponent1 in Source package is moved to DestinationComponentPackage 
 in Destination package.  
   * Options menu is shown for displaying downgrades.  
     * Check the following items to ensure a downgrade occurred:  
@@ -160,7 +170,7 @@ visibility items.
   * Perform undo.  
 
 7.6.2. FailureMoveComponentInComponent in FailureMoveComponent1 in Source 
-package is moved to DestinationComponent in Destination package.  
+package is moved to DestinationComponentPackage in Destination package.  
   * Options menu is shown for displaying downgrades.  
     * Check the following items to ensure a downgrade occurred:  
       * Same as 7.5.2
@@ -200,9 +210,7 @@ visibility items.
 7.10 Use Case 4.10  (Uses test model [2.8](#2.8))  
 7.10.1. ClusterClass4Fail, ClusterClass5Fail, and R2 in Source package is moved 
 to Destination package.  
-  * Warning is displayed stating that ClusterClass6Fail and R3 must be included 
-in the move. Move isn't permitted.  
-  * Perform undo.  
+  * Cut is not enabled.  
 
 7.11 Use Case 4.11  (Uses test model [2.8](#2.8))  
 7.11.1. ComponentMovePass4 in Source package is moved to Destination package.  
@@ -231,10 +239,9 @@ related across R3 in Source package is moved to Destination package.
       * Imported class reference to ModelElementMoveTests::Source::FailureCasesComponent::FailureCasesComponentPackage::InvisibleImports::InvisibleImportClass to unassigned
   * Perform undo.   
  
-7.13 Pessimistic Locking Test - test checkout of RGOs with a Pessimistic locking RCS. (Uses test model [??](#??))  
-  * 1. Move a RTO that will cause one or more RGOs to be marked dirty
-  * 2. Result is the user should see a dialog warning them that shows them the files that will be checked out. The user should have the chance to cancel at this point.
-
+7.13 Obsolete - Pessimistic Locking Test - test checkout of RGOs with a Pessimistic locking RCS.   
+  * This test is obsolete with the fix to issue 7877 because we no longer force persistance of RGOs.
+  
 7.14 Moving a Package (create a model from scratch)
   * 1.    Create a xtUML project
   * 2.    Create a package named P1 at top level
@@ -285,10 +292,9 @@ related across R3 in Source package is moved to Destination package.
   * 3.   Check the attribute type of Attr in CL1 by opening the set type dialog of the attribute, path 7_17_Data_Type_at_top_level::P3 will be shown and data type 7_17_Data_Type_at_top_level::P3 will not be selectable in the dialog.
   * 4.   Restart BridgePoint
   * 5.   Check the attribute type of Attr in CL1 by opening the set type dialog of the attribute, path will be empty and data type 7_17_Data_Type_at_top_level::P3 will be selectable in the dialog (Fail). Now it looks like that the data type is incorrect.
-  * 6.   Look into the p3.xtuml and cl1.xtuml files, find the instances of S_DT for My_DT and for O_ATTR of Attr, and verify that the correct data type is assigned to the attribute. 
 
 7.18 Data type inside component (Uses test model [2.7](#2.7))
-  * 1. Create a new UDT named My_DT2 inside COMP1
+  * 1. Create a new UDT named My_DT2 inside COMP1-P1
   * 2. Set Attr in CL1 to be of type My_DT2
   * 3. Restart BridgePoint
   * 4. Follow the steps in 7.17 (but moving My_DT2), see the same behavior as in 7.17
@@ -386,14 +392,15 @@ related across R3 in Source package is moved to Destination package.
   * 5. Paste in to the system level
   * 6. Result - Paste is successful  
 
-7.30 Visible move doesn't affect sequence diagram  
-* Cut InvisibleExternalEntity in FailureCasesComponentPackage and paste into Destination package.
+7.30 Visible move doesn't affect sequence diagram (Uses test model [2.8](#2.8))  
+* Cut Sequences in FailureCasesComponentPackage and paste into Destination package.  
 * Verify InvisibleExternalEntity and Bridge1 aren't downgraded in Sequences package in FailureCasesComponentPackage  
+* perform undo  
 
-7.31 Non-visible move causes downgrades on sequence diagram  
-* Cut InvisibleExternalEntity in FailureCasesComponentPackage and paste into DestinationComponentPackage.  
-* Downgrade message is shown for InvisibleExternalEntity and Bridge1
-* InvisibleExternalEntity and Bridge1 references in Sequences package in FailureCasesComponentPackage are changed to be Informal  
+7.31 Non-visible move causes downgrades on sequence diagram  (Uses test model [2.8](#2.8))  
+* Cut Sequences in FailureCasesComponentPackage and paste into DestinationComponentPackage.  
+* There should NOT be a downgrade message. BrdigePoint does not consider visibility for interaction elements.  You can see this by being able to assign to an EE contained within another component (like the destination container in the test).  Therefore the bridge should not be downgraded  
+* perform undo  
 
 End
 ---

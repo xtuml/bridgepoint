@@ -344,8 +344,15 @@ ${attrs.body}\
   .//
   .invoke rto_cn = get_class_name(obj)
   .assign temp_var = "temp${proxy_index}"
+  .assign phrase = ""
+  .if ("${rel.Numb}" == "1402")
+    .// R1402 and Package References are a special case where we allow using a
+    .// reflexive for persistence.  Those traversals require a relationship phrase
+    .// and this hardcodes the rel phrase to use.
+    .assign phrase = "RefersTo"
+  .end if
   .if(not many)
-            ${rto_cn.body} ${temp_var} = ${rto_cn.body}.getOne$U_{obj.Key_Lett}OnR${rel.Numb}(inst,true);
+            ${rto_cn.body} ${temp_var} = ${rto_cn.body}.getOne$U_{obj.Key_Lett}OnR${rel.Numb}${phrase}(inst,true);
   .if(checkParentForComponentContainment)
 	.// TODO The code below works for references to data
     .// types only. This all that the current global
@@ -483,10 +490,6 @@ ${attrs.body}\
 .//
 .//====================================================================
 .//
-.function is_containment
-  .param inst_ref rel   .// R_REL
-  .assign attr_result = false
-.end function
 .function should_export_rgo_proxy
   .param inst_ref object
   .param integer rel_numb
@@ -591,14 +594,13 @@ ${attrs.body}\
             .assign proxy_index = proxy_index + 1
             .select one rel related by rto->R_OIR[R203]->R_REL[R201]
             .invoke ir = is_reflexive(rel)
-            .invoke ic = is_containment(rel)
             .assign ignored = false
             .// some relationships should not be used for persistence,
             .// ignore them.
             .if("${rel.Descrip:Persistent}" == "false")
               .assign ignored = true
             .end if
-            .if(((not ir.result) and (not ic.result)) and (not ignored))
+            .if((not ir.result) and (not ignored))
               .select one rgoOBJ related by rto->R_PART[R204]->R_SIMP[R207]->R_FORM[R208]->R_RGO[R205]->R_OIR[R203]->O_OBJ[R201];
               .if(not_empty rgoOBJ)
                 .invoke rgoProxyResult = should_export_rgo_proxy(rgoOBJ, rel.Numb)
@@ -850,7 +852,11 @@ throws IOException
           .assign proxy_index = proxy_index + 1
           .select one rel related by rgo->R_OIR[R203]->R_REL[R201]
           .invoke ir = is_reflexive(rel)
-          .invoke ic = is_containment(rel)
+		  .if ("${rel.Numb}" == "1402")
+            .// R1402 and Package References are a special case where we allow using a
+            .// reflexive for proxy persistence.
+		    .assign ir.result = false
+		  .end if
           .assign ignored = false
           .// some relationships should not be used for persistence,
           .// ignore them.
@@ -859,7 +865,7 @@ throws IOException
           .end if
           .// reflexive relationships can't cross component boundaries
           .// proxies are not exported for containment relationships
-          .if ( (not ir.result) and ((not ic.result) and (not ignored)) )
+          .if ( (not ir.result) and (not ignored) )
             .select one form related by rgo->R_FORM[R205]
             .if ( not_empty form )
               .select one part_obj related by form->R_SIMP[R208]->R_PART[R207]->R_RTO[R204]->R_OIR[R203]->O_OBJ[R201]
@@ -876,10 +882,15 @@ ${gpe.body}\
     // select aone ${aone_obj.Key_Lett} on R${rel.Numb}
                 .invoke gpe = gen_proxy_export(aone_obj, rel, proxy_index, checkParentForComponentContainment, false)
 ${gpe.body}\
-                .assign proxy_index = proxy_index + 1
+                .if ("${rel.Numb}" != "1402")
+                  .// For this special case relationship, we only want to export the proxy to the RTO side, which we
+                  .// do in the lines just above this block. Th if test here then keeps us from outputting the RGO as
+				  .// a proxy.
+                  .assign proxy_index = proxy_index + 1
     // select aoth ${aoth_obj.Key_Lett} on R${rel.Numb}
-                .invoke gpe = gen_proxy_export(aoth_obj, rel, proxy_index, checkParentForComponentContainment, false)
+                  .invoke gpe = gen_proxy_export(aoth_obj, rel, proxy_index, checkParentForComponentContainment, false)
 ${gpe.body}\
+                .end if
               .else
 			    .if(checkParentForComponentContainment)
 				  .// for stream export, write each supertype

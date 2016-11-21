@@ -244,8 +244,8 @@ public class Transaction {
 					NonRootModelElement dest = memd.getDestination();
 					NonRootModelElement element = (NonRootModelElement) memd.getModelElement();
 					NonRootModelElement src = (NonRootModelElement) memd.getSource();
-					modelRoots[i].fireModelElementMoved((new ModelElementMovedModelDelta(element, memd.getSource(),
-							dest, memd.getRGOsAffectedByMove())));
+					modelRoots[i].fireModelElementMoved((new ModelElementMovedModelDelta(element, src,
+							dest)));
 				}
 				// restore any deletions contained in the
 				// delta set
