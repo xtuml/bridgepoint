@@ -6411,6 +6411,12 @@ if (not_empty ep_pkgref)
   select one ep_pkg related by ep_pkgref->EP_PKG[R1402.''refers to''];
   unrelate self from ep_pkg across R1402.''refers to'' using ep_pkgref;
   delete object instance ep_pkgref;
+  
+  // This may have caused elements inside the parent component to need downgrade
+  select one c_c related by self->PE_PE[R8001]->C_C[R8003];
+  if (not_empty c_c)
+    c_c.downgradeCheck();
+  end if;
 end if;
 ',
 	1,
