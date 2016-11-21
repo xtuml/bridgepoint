@@ -1227,7 +1227,8 @@ Import:org.xtuml.bp.core.common.IdAssigner',
 	'try
 {			
   if (p_Type.equals("boolean")) { //$NON-NLS-1$
-    return new Boolean(((lib.BPBoolean) p_Value).getValue());
+    Boolean b = new Boolean(((lib.BPBoolean) p_Value).getValue());
+    return String.valueOf(b);
   } else if (p_Type.equals("integer")) { //$NON-NLS-1$
     return new Integer(((lib.BPInteger) p_Value).getValue());
   } else if (p_Type.equals("real")) { //$NON-NLS-1$
