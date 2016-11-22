@@ -295,7 +295,8 @@ related across R3 in Source package is moved to Destination package.
 7.19 Data type at top level across project (Uses test model [2.7](#2.7))
   * 1. Create a new xtUML project named TestProj2
   * 2. Create a new package PKG2 inside TestProj2
-  * 3. Follow the steps in 7.17 (but moving My_DT into TestProj2/PKG2 instead of P3), see the same behavior as in 7.17
+  * 3. Enable IPRs in TestProj2 and in ModelElementMoveTest2
+  * 4. Follow the steps in 7.17 (but moving My_DT into TestProj2/PKG2 instead of P3), see the same behavior as in 7.17
 
 7.20 Check graphics moved with element (Uses test model [2.7](#2.7))
   * 1. Start BridgePoint with no canvases open
