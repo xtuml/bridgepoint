@@ -135,13 +135,13 @@ visibility items.
   * Perform undo.  
 
 7.4 Use Case 4.4  (Uses test model [2.8](#2.8))  
-7.4.1. ComponentMovePass2 in Source package is moved to DestinationComponent in 
+7.4.1. ComponentMovePass2 in Source package is moved to DestinationComponentPackage in 
 Destination package.  
   * Result is successful move with no option menu shown for list of lost 
 visibility items.  
   * Perform undo.  
 
-7.4.2. FailureMoveComponent1 in Source package is moved to DestinationComponent 
+7.4.2. FailureMoveComponent1 in Source package is moved to DestinationComponentPackage 
 in Destination package.  
   * Options menu is shown for displaying downgrades.  
     * Check the following items to ensure a downgrade occurred:  
@@ -170,7 +170,7 @@ visibility items.
   * Perform undo.  
 
 7.6.2. FailureMoveComponentInComponent in FailureMoveComponent1 in Source 
-package is moved to DestinationComponent in Destination package.  
+package is moved to DestinationComponentPackage in Destination package.  
   * Options menu is shown for displaying downgrades.  
     * Check the following items to ensure a downgrade occurred:  
       * Same as 7.5.2
@@ -292,7 +292,7 @@ related across R3 in Source package is moved to Destination package.
   * 5.   Check the attribute type of Attr in CL1 by opening the set type dialog of the attribute, path will be empty and data type 7_17_Data_Type_at_top_level::P3 will be selectable in the dialog (Fail). Now it looks like that the data type is incorrect.
 
 7.18 Data type inside component (Uses test model [2.7](#2.7))
-  * 1. Create a new UDT named My_DT2 inside COMP1
+  * 1. Create a new UDT named My_DT2 inside COMP1-P1
   * 2. Set Attr in CL1 to be of type My_DT2
   * 3. Restart BridgePoint
   * 4. Follow the steps in 7.17 (but moving My_DT2), see the same behavior as in 7.17
