@@ -409,8 +409,8 @@ related across R3 in Source package is moved to Destination package.
   * 9. The mode is restored
   * 10. select redo
   * 11. The change is performed again (same result as step 6 and 7)
-  * 8. restart BridgePoint
-  * 9. Result 3 - The satisfaction_test and "private" package diagrams are the same as before the restart (same result as step 6 and 7)
+  * 12. restart BridgePoint
+  * 13. Result 3 - The satisfaction_test and "private" package diagrams are the same as before the restart (same result as step 6 and 7)
 
 End
 ---
