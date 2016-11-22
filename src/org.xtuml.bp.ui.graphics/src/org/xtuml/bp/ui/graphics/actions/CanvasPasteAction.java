@@ -49,6 +49,7 @@ import org.xtuml.bp.core.common.NonRootModelElement;
 import org.xtuml.bp.core.common.TransactionManager;
 import org.xtuml.bp.core.ui.PasteAction;
 import org.xtuml.bp.core.ui.Selection;
+import org.xtuml.bp.ui.canvas.CanvasPlugin;
 import org.xtuml.bp.ui.canvas.Cl_c;
 import org.xtuml.bp.ui.canvas.Connector_c;
 import org.xtuml.bp.ui.canvas.ContainingShape_c;
@@ -184,25 +185,33 @@ public class CanvasPasteAction extends PasteAction {
 	 */
 	private static void moveGraphicalElement(final NonRootModelElement ooaElementMoved, Model_c destGD_MD) {
 		Model_c srcModel = null;
-		Model_c[] models = Model_c.ModelInstances(Ooaofgraphics.getInstance(ooaElementMoved.getModelRoot().getId()));
 		GraphicalElement_c graphicalElementMoved = null;
-		for(int i = 0; i < models.length; i++) {
-			graphicalElementMoved = GraphicalElement_c.getOneGD_GEOnR1(models[i], new ClassQueryInterface_c() {
-				
-				@Override
-				public boolean evaluate(Object candidate) {
-					GraphicalElement_c element = (GraphicalElement_c) candidate;
-					if(element.getRepresents() != null) {
-						return element.getRepresents().equals(ooaElementMoved);
+		
+		// If the element moved is at the system level then use the system model root to find it.
+		// If not check the others.  //
+		if ( Ooaofooa.getDefaultInstance() == PasteAction.getContainerForMove(ooaElementMoved).getModelRoot() ) {
+			graphicalElementMoved = CanvasPlugin.getGraphicalElement(Ooaofgraphics.getDefaultInstance(), ooaElementMoved);			
+		} else {		
+			Model_c[] models = Model_c.ModelInstances(Ooaofgraphics.getInstance(ooaElementMoved.getModelRoot().getId()));
+			for(int i = 0; i < models.length; i++) {
+				graphicalElementMoved = GraphicalElement_c.getOneGD_GEOnR1(models[i], new ClassQueryInterface_c() {
+					
+					@Override
+					public boolean evaluate(Object candidate) {
+						GraphicalElement_c element = (GraphicalElement_c) candidate;
+						if(element.getRepresents() != null) {
+							return element.getRepresents().equals(ooaElementMoved);
+						}
+						return false;
 					}
-					return false;
+				});
+				if(graphicalElementMoved != null) {
+					break;
 				}
-			});
-			if(graphicalElementMoved != null) {
-				break;
 			}
 		}
 
+		
 		if (graphicalElementMoved != null) {
 
 			// Every GraphicalElement is part of a diagram, so this will never be null.
