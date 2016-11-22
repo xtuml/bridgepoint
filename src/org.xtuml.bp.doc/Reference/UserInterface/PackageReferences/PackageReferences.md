@@ -6,7 +6,7 @@ Introduction
 To formalize the use of shared class models, support for package references is
 being added to BridgePoint.    
 
-With BridgePoint 5.4 classes must be defined within a component to be useful 
+Prior to BridgePoint 5.8 classes must be defined within a component to be useful 
 throughout the entire tool chain.  However, it is possible to define classes 
 (and functions) outside a component, and elements defined within a component 
 will have visibility to these externally defined elements so long as they 
@@ -27,7 +27,7 @@ User Interface
 Unlike Component References, Package References do not have their own graphical
 tool in the Palette.  
 
-To create a Package Reference:
+To create a Package Reference:  
 1. Select the Package tool in the Palette and add a package inside a Component    
 
 2. Right-click on the package to open the context-menu and select ```Assign As Package Reference...```  
