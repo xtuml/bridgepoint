@@ -23,6 +23,7 @@
 package org.xtuml.bp.ui.graphics.actions;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -41,6 +42,7 @@ import org.eclipse.swt.widgets.Event;
 import org.eclipse.ui.PlatformUI;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.Ooaofooa;
+import org.xtuml.bp.core.SystemModel_c;
 import org.xtuml.bp.core.common.ClassQueryInterface_c;
 import org.xtuml.bp.core.common.InstanceList;
 import org.xtuml.bp.core.common.ModelRoot;
@@ -185,33 +187,31 @@ public class CanvasPasteAction extends PasteAction {
 	 */
 	private static void moveGraphicalElement(final NonRootModelElement ooaElementMoved, Model_c destGD_MD) {
 		Model_c srcModel = null;
+		Model_c[] models = Model_c.ModelInstances(Ooaofgraphics.getInstance(ooaElementMoved.getModelRoot().getId()));
+		Model_c[] systemModels = Model_c.ModelInstances(Ooaofgraphics.getDefaultInstance());
+		Model_c[] allModels = new Model_c[models.length + systemModels.length];
+		System.arraycopy(models, 0, allModels, 0, models.length);
+		System.arraycopy(systemModels, 0, allModels, models.length, systemModels.length);
 		GraphicalElement_c graphicalElementMoved = null;
-		
-		// If the element moved is at the system level then use the system model root to find it.
-		// If not check the others.  //
-		if ( Ooaofooa.getDefaultInstance() == PasteAction.getContainerForMove(ooaElementMoved).getModelRoot() ) {
-			graphicalElementMoved = CanvasPlugin.getGraphicalElement(Ooaofgraphics.getDefaultInstance(), ooaElementMoved);			
-		} else {		
-			Model_c[] models = Model_c.ModelInstances(Ooaofgraphics.getInstance(ooaElementMoved.getModelRoot().getId()));
-			for(int i = 0; i < models.length; i++) {
-				graphicalElementMoved = GraphicalElement_c.getOneGD_GEOnR1(models[i], new ClassQueryInterface_c() {
-					
-					@Override
-					public boolean evaluate(Object candidate) {
-						GraphicalElement_c element = (GraphicalElement_c) candidate;
-						if(element.getRepresents() != null) {
-							return element.getRepresents().equals(ooaElementMoved);
-						}
-						return false;
+		for(int i = 0; i < allModels.length; i++) {
+			graphicalElementMoved = GraphicalElement_c.getOneGD_GEOnR1(allModels[i], new ClassQueryInterface_c() {
+				
+				@Override
+				public boolean evaluate(Object candidate) {
+					GraphicalElement_c element = (GraphicalElement_c) candidate;
+					if(element.getRepresents() != null) {
+						return element.getRepresents().equals(ooaElementMoved);
+					} else {
+						return element.getOoa_id().equals(ooaElementMoved.Get_ooa_id());
 					}
-				});
-				if(graphicalElementMoved != null) {
-					break;
 				}
+			});
+			CanvasPlugin.setGraphicalRepresents(allModels[i]);
+			if(graphicalElementMoved != null) {
+				break;
 			}
 		}
 
-		
 		if (graphicalElementMoved != null) {
 
 			// Every GraphicalElement is part of a diagram, so this will never be null.
