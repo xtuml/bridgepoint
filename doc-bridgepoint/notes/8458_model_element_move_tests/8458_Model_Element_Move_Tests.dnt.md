@@ -282,9 +282,9 @@ related across R3 in Source package is moved to Destination package.
 7.17  Data Type at top level within project (Uses test model [2.7](#2.7))
   * 1.   Cut My_DT from P1
   * 2.   Paste My_DT into P3
-  * 3.   Check the attribute type of Attr in CL1 by opening the set type dialog of the attribute, path 7_17_Data_Type_at_top_level::P3 will be shown and data type 7_17_Data_Type_at_top_level::P3 will not be selectable in the dialog.
+  * 3.   Check the attribute type of Attr in CL1 by opening the set type dialog of the attribute, the path 7_17_Data_Type_at_top_level::P3 will be shown and data type 7_17_Data_Type_at_top_level::P3 will not be availble as a choice in the dialog.
   * 4.   Restart BridgePoint
-  * 5.   Check the attribute type of Attr in CL1 by opening the set type dialog of the attribute, path will be empty and data type 7_17_Data_Type_at_top_level::P3 will be selectable in the dialog (Fail). Now it looks like that the data type is incorrect.
+  * 5.   Check the attribute type of Attr in CL1 verify the same result as step 3 above.
 
 7.18 Data type inside component (Uses test model [2.7](#2.7))
   * 1. Create a new UDT named My_DT2 inside COMP1-P1
