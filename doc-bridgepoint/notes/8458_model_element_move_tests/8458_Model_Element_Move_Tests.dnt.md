@@ -242,20 +242,15 @@ related across R3 in Source package is moved to Destination package.
 7.13 Obsolete - Pessimistic Locking Test - test checkout of RGOs with a Pessimistic locking RCS.   
   * This test is obsolete with the fix to issue 7877 because we no longer force persistance of RGOs.
   
-7.14 Moving a Package (create a model from scratch)
-  * 1.    Create a xtUML project
-  * 2.    Create a package named P1 at top level
-  * 3.    Create a package named P1-1 in P1
-  * 4.    Create a package named P2 at top level
-  * 5.    Cut P1-1
-  * 6.    Paste into P2
-  * 7.    Open CME on P1-1 (in P2), Cut is enabled.  Close the CME.
-  * 8.    Create a package named P3 at top level
-  * 9.    Cut P2
-  * 10.   Paste into P3
-  * 11.   P2 graphic at top level is gone, P2 graphic is added to P3
-  * 12.   Restart BridgePoint
-  * 13.   P2 is not available at top level, P2 is under P3   
+7.14 Moving a Package (use 2.7)
+  * 1.    Cut pkg1_1
+  * 2.    Paste into pkg2
+  * 3.    Open CME on pkg1_1 (in pkg2), Cut is enabled.  Close the CME.
+  * 4.    Cut pkg2
+  * 5.   Paste into pkg3
+  * 6.   Result - pkg2 graphic at top level is gone, pkg2 graphic is added to pkg3
+  * 7.   Restart BridgePoint
+  * 8.   pkg2 is not available at top level, pkg2 is under pkg3   
   
 
 7.15 Move class into component (create a model from scratch)  
