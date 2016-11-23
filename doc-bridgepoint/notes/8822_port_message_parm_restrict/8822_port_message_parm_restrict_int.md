@@ -65,7 +65,7 @@ The manual testing is run using the sample GPS Watch model.
 * Select LocationProvider and verify the context menu has "Delete" unselectable.  
 
 7.2.4 CL_IR in interface reference  
-* Expand System>GPS Watch::Library::Tracker>LOC  
+* Expand System>GPS Watch::Library::Tracking>LOC  
 * Select LocationProvider and verify the context menu has "Delete" unselectable.  
 
 7.2.5 C_I in interface definition  
@@ -77,7 +77,7 @@ The manual testing is run using the sample GPS Watch model.
 * Select getLocation and verify the context menu has "Delete" unselectable.  
 
 7.2.7 SPR_RO in interface reference  
-* Expand System>GPS Watch::Library::Tracker>LOC>LocationProvider  
+* Expand System>GPS Watch::Library::Tracking>LOC>LocationProvider  
 * Select getLocation and verify the context menu has "Delete" unselectable.  
 
 7.2.8 C_IO in interface definition  
@@ -89,7 +89,7 @@ The manual testing is run using the sample GPS Watch model.
 * Select registerListener and verify the context menu has "Delete" unselectable.  
 
 7.2.10 SPR_RS in interface reference  
-* Expand System>GPS Watch::Library::Tracker>LOC>LocationProvider  
+* Expand System>GPS Watch::Library::Tracking>LOC>LocationProvider  
 * Select registerListener and verify the context menu has "Delete" unselectable.  
 
 7.2.11 C_AS in interface definition  
