@@ -9,286 +9,233 @@ This work is licensed under the Creative Commons CC0 License
 
 1. Abstract
 -----------
-In this section, give a summary of the design that this note aims to
-describe.
+This note describes the work performed to implement the Model Element Move (MEM)
+feature.
 
 2. Document References
 ----------------------
-<a id="2.1"></a>2.1 [BridgePoint DEI #8321](https://support.onefact.net/redmine/issues/8321) 
+<a id="2.1"></a>2.1 [BridgePoint DEI #8321](https://support.onefact.net/issues/8321) 
 This is a link to this issue in the issue tracking system.  
 
-<a id="2.2"></a>2.2 [Analysis of Model Element Move #8031](https://support.onefact.net/redmine/issues/8031) 
-The [analysis produced by this work allowed]
-(../8031_Analyze_Model_Element_Move/8031_Analyze_Model_Element_Move.ant.md) was used 
-during the SOW creation to help define the requirements for this project.  
+<a id="2.2"></a>2.2 [MEM design note](8321_Model_Element_Move.dnt.md) 
 
-<a id="2.3"></a>2.3 [Statement of Work](https://docs.google.com/document/d/1_T4H7StO-VM8zfIFjr-V7VwUQMXML1c7nFJJofU0vGs/edit)  
-This is a link to this issue's Statement of Work document.  
+<a id="2.3"></a>2.3 [MEM Manual Test Procedure](https://support.onefact.net/issues/8837) 
 
-<a id="2.4"></a>2.4 [UnitTestGenerator.pl](https://github.com/xtuml/bridgepoint/blob/master/src/org.xtuml.bp.test/UnitTestGenerator.pl)  
-This is a link to the BridgePoint utility that is used to generate test suites 
-from a defined test matrix.  
+<a id="2.4"></a>2.4 [MEM Test Result Spreadsheet](https://docs.google.com/spreadsheets/d/1eJmEWtx3EDawwCslxL2MfvaqoJm8JawFnoCTLPuX9SM/edit#gid=1793892663) 
+This is a spreadsheet used as an aide to track results during the long manual MEM test procedure. 
 
-<a id="2.5"></a>2.5 [Design note for Model Element Move](8321_Model_Element_Move.dnt.md)  
+<a id="2.5"></a>2.5 [MEM Visibility Downgrade Research](8321_VisibilityDowngradeResearch.md)  
 
-<a id="2.6"></a>2.6 [Milestone 1 -  #8491](https://support.onefact.net/issues/8491)  
-This is a delivery milestone for the project. What is included in this intermediate, internal deliverable 
-is defined in (the Work Required section below)[#milestone1].  
+<a id="2.6"></a>2.6 [Undo is not available for a move (cut/paste) operation](https://support.onefact.net/issues/8755)  
+This is a followup issue that must be completed before MEM is finalized.  
 
-<a id="2.7"></a>2.7 [Milestone 2 -  #8492](https://support.onefact.net/issues/8492)  
-This is a delivery milestone for the project. I covers the work to update GUI 
-dialogs to account for changes due to this new functionality and add 
-enhancements to the dialog.  
+<a id="2.7"></a>2.7 [The initial Cut implemented (Model Element Move) currently allows a limited element selection
+](https://support.onefact.net/issues/8798)  
+This is a followup issue that must be completed before MEM is finalized.  
 
-<a id="2.8"></a>2.8 [Test Model Creation -  #8458](https://support.onefact.net/issues/8458)  
-Test model(s) for this issue.  
+<a id="2.8"></a>2.8 [MEM SOW](https://drive.google.com/drive/u/0/folders/0B834tggB4vylMENIOWxhY29nNGs)  
+
+<a id="2.9"></a>2.9 [Enable Summary data in the BridgePoint Instance Population Viewer](https://support.onefact.net/issues/8810)  
+
+<a id="2.10"></a>2.10 [Downgrade of component reference leaves an orphaned connector](https://support.onefact.net/issues/8840)  
 
 3. Background
 -------------
-
-See the background in [[2.2]](#2.2) as well as the background in the SOW [[2.3]](#2.3).
+See [Design note for Model Element Move](8321_Model_Element_Move.dnt.md)
 
 4. Requirements
 ---------------
-see [Design note for Model Element Move](8321_Model_Element_Move.dnt.md)
+See [Design note for Model Element Move](8321_Model_Element_Move.dnt.md)
 
 5. Work Required
 ----------------
-6.1 Modify cut/paste operation to be analogous to "move" by making it a 
-single long-lived transaction. This shall adhere to the ACID properties 
-of transactions.  
+See [Design note for Model Element Move](8321_Model_Element_Move.dnt.md)
 
-I introduced a new abstract class, `CutCopyPasteAction extends Action`, and
-I modified the  existing `CutCopyAction` and `PasteAction` classes
-to extend this new class instead of extending Action directly as they were doing befire this
-change. This allowed me to move some common implementation from `CutCopyAction` "up" into this new
-class. This allowed PasteAction to know when the user has selected cut vs
-copy and to performed the cut/paste in a single transaction that occurs
-in PasteAction (previously cut was performed in a transaction of its own). I 
-moved the code that was deleting elements out of `CutAction.java::postRun()`
-and put this into `PasteAction::run()` at the point AFTER the move has taken place. 
-I added an attribute to CutCopyPasteAction named ELEMENT_MOVE_SOURCE_SELECTION that 
-holds the IStructuredSelection made by the user during cut. This allows us to
-deleted the selection without concern that the user may have pasted some
-element under the same model root that it was cut from. It also removes
-any other potential problems with lookup by ID that may have problems
-because the element IDs are not changed.  In order to prevent the
-element IDs from being changed I modified `bp/io/CoreImport` constructors
-to pass a new parameter, `boolean createIDsDuringModelImport`. This flag
-is used in the generated file `ImportModelStream.java::finishLoad()` to
-prevent the code that changes the IDs from running. There was a quite a
-bit of fallout from this change because the change was made to an
-archetype that generates a lot of different types of import classes. For 
-example, this generaates the import classes for both stream and file 
-import. This change is specific to the stream import, but the archetype 
-generates both.  
-
-Each place that instantiated one of these import class objects had to be 
-modified to account for the new parameter. Note that in almost all cases 
-the value of this new parameter is set to true, because we DO update the 
-IDs in most cases. In addition to this new case just added, the only other 
-cases where we were not updating IDs are in model merge.  
-
-6.2 Modify the paste action (`core/ui/PasteAction.java`).  
-@see 6.1  
-
-6.2.1 The source element ID(s) shall be used and no new IDs shall be created  
-@see 6.1  
-
-6.2.2 The element is created in the target model root.  
-@see 6.1 and 6.2.3
-
-6.2.3 This is where requirement 4.2 is handled.  
-As described in the design note, the desire is that we could have a situation 
-where diff, after move of a model root, would show no changes and thus have a 
-good chance for RCS system to handle it as a move. After move, there are changes 
-in the target. The specific changes follow.  6.2.3.1 is the biggest hurdle to 
-this WRT trying to be RCS friendly. Of course the changeset of the move from 
-a diff point of view now that IDs are not changed is very small, but it is a diff. 
-However, these diffs do not deter RCS systems that implements move from treating 
-this as a move.  
-6.2.3.1 The model root has changed. This means, for example, if moving a package 
-from under one package to another, the PE_PE.Package_ID changes accordingly   
-6.2.3.2 Proxies get updated (when we are able to remove proxies, this change this will go away)   
-6.2.3.3 graphics - GD_GE instances contain a path to the location of the ooaofooa model element they represent (GD_GE.represents_path). This path gets updated with the move.  
-
-6.2.4 Where deletion of elements is required (paste is performed to a different model root) 
-the deletion of the source elements will occur. The deletion shall occur after the paste to
-faciliate 6.2.3.  
-@see 6.1  
-
-<a id="milestone1"></a>(Milestone 1) [#2.6] - Everything above this point is included in Milestone 1.
-
-6.2.5 An attempt to paste to the same location that the copy was made from is considered an 
-invalid selection and shall not be allowed.  
-
-6.2.5.1. Disable paste when the selected target is the same as the source.  
-6.2.5.1.1. `bp/ui/explorer/actions/ui/Explorer{Cut | Copy | Paste}Action.java::isEnabled()` 
-implements this behavior on behalf of the org.eclipse.jface.action.Action abstract class. 
-This is where BridgePoint determines if the CME should be enabled or not. Note that there 
-is an analogous implementation for canvas in 
-`bp.ui.graphics.actions/Canvas{Cut | Copy | Paste}Action.java::isEnabled()`  
-6.2.5.1.2. The operation called out in the prior step is implemented to check the source and destination to
-see if the CME should be enabled or not.  
-6.2.5.1.3. In the PasteAction case, the operations look to see if the destination allows paste for 
-elements in the source being pasted to the target. It does this by calling an ooaofooa 
-operation that is of the form {target model element instance}.Paste{Source Model Element Name}
-. The structure of this code was such that this behavior 
-was essentially duplicated in `{Explorer | Canvas}PasteAction.java`. I refactored this and 
-"moved up" an operation named `clipboardContainsPastableModelElements()` into the parent class
-`core/ui/PasteAction.java` to facilitate adding the check to assure that on move the
-if the source and target PMCs match paste is not enabled.  
-6.2.5.1.4 The actual code added to assure paste is disabled if the source and target PMCs match was added to the refactored
-`core/ui/PasteAction.java::isEnabled()` function.  
-6.2.5.1.4.1 The change was specific to move, copy/paste still allows paste into the same PMC as it did before this change.  
-6.2.5.2. In PasteAction.java::isEnabled() if a move is in progress do not allow more than 1 
-selected destination. This is another chage that is specific to move and is still allowed by copy/paste.  
-
-6.3.1 The dialog allows the user to cancel.  On cancel, no action is performed
-  on the underlying model data.   
-
-6.3.2 In the type demotion dialog, consider adding text to tell the user to consider turning on IPRs or checking package visibility.  
-@see 6.4  
-
-6.3.3 As per the SOW [[2.3](#2.3)], the dialog needs to have save and print options added.  
-6.3.3.1  Updated `ScrolledTextDialog.java` to take a new parameter in the
-  constructor that indicates if the save and print buttons shall be used.  
-6.3.3.2  Updated the existing callers of ScrolledTextDialog such that the 
-  `TransactionManager.java` is the only one that uses save and print.  Other 
-  users retain existing behavior and do not use save and print.  
-6.3.3.3  Added code to implement button "Save...".  This button opens a modal
-  dialog that allows the user to select a file to save into.  The contents of 
-  the list box (the affected elements) are written to the file if the user 
-  completes the dialog.  No action is taken if the user cancels the dialog.   
-6.3.3.4  Added code to implement button "Print...".  This button opens a modal
-  printer selection dialog.  The contents of the list box (the affected 
-  elements) are sent to the printer if the user completes the dialog.  No action
-  is taken if the user cancels the dialog.  
-
-6.4 Modify all resolution operations to first search by ID  instead of name  
-6.4.1 Analysis of this problem  
-During paste, after the elements are put in their new destination, the source elements must be
-cleaned-up from the previous location. In the existing cut/paste implementation this meant 
-performing a delete.  It is during the delete that elements (Datatypes) are "downgraded". 
-In S_DT.Dispose() as a datatype is disposed the OAL disconnects the datatype, reconnects to 
-the default type, and then calls a bridge that is used to record the "downgrade" so that 
-it may be reported to the user. An example of what this looks like for one datatype, 
-Bridges, is as follows:  
-```
-select many brgs related by self->S_BRG[R20];
-for each brg in brgs
-  unrelate self from brg across R20;
-  relate brg to voidDt across R20;
-  Util::collectModelElementsNames(elementType:"- Bridge : ",elementName:brg.Name);
-end for;
-```  
-
-`PasteAction.java::run()` is responsible for paste in both the copy/paste and cut/paste senarios. When a cut/paste occurs, after the elements are moved to their new home they most be removed from their source home. In this senario, where the elements were simple moved (their IDs are the same) we do NOT want to call the ooaofooa Dispose operations on the elements. However, we DO need to perfom some cleanup. The cleanup needed is:  
-* Remove the elements from the source root's instance list  
-* remove the files  
-  * This happens in the Transaction end operation. The ComponentTransactionListener.transactionEnded() operation looks to see if there were deletions in the transaction, and if so, it calls PersistableModelComponent.deleteSelfAndChildren()  
-
-6.4.1.1. core/ui/DeleteAction(ISelection) is generated. It deletes the model types in the given selection in a specific order (starting with S_SYS).  The archetype generates code that finds the count of a given type (example EP_PKG) in the selection and then iterates over them one at a time calling <Element instance>.Dispose() on each one.  
-6.4.1.2. <Element Instance>.Dispose() is of course generated from MC-Java and of course each model element in ooaofooa has a Dispose operation. MC-Java adds some code to the bottom of each of these operations that looks like this:  
-```
-    if (delete()) {
-			Ooaofooa.getDefaultInstance()
-					.fireModelElementDeleted(new BaseModelDelta(Modeleventnotification_c.DELTA_DELETE, this));
-		}
-```  
-6.4.1.2.1 the delete() operation is generated for each model element.  
-6.4.1.2.1.1 What this does first is to call super.delete() (NonRootModelElement.java::delete()), which assures the element is not orphaned. (Being orphanded means the element does not exist in the root's instance list.), and if not orphanded we remove the elements from this roots instance list (and return true. Additionally, it is worth noting there is a special case in this situation for merge. It looks like this:  
-```
-      ...
-			// During merge we do not convert elements, they are moved
-			// as is from one side to the other.  During a merge undo we
-			// can hit a case where RTOs are removed before the RGO, causing
-			// the check for external references to be true.
-			if(hasExternalRefs && !getModelRoot().isCompareRoot()) {
-				convertToProxy();
-			} else {
-				delete_unchecked();
-			}
-			return true;
-			...
-```  
-6.4.1.2.1.1.1 Note that delete_unchecked() is where we remove the elements from the roots instance list as described 
-in 2.1.  
-6.4.1.2.1.2 delete() then has code that tests to assure relationships were torn down by the element's Dispose() properly, and reports non-fatal errors is the relationships were not properly disposed.  
-
-6.4.2 Resolution for cut/paste's problem of "downgrading" model elements and improper element "deletion" on move.  
-6.4.2.1  modify MC-Java's handling of the Dispose() operation and wrap the body of the OAL action in a conditional expression that check to see if a move is in progress, and do NOT call the action body if a move is in progress.  
-6.4.2.2 modify the generated delete() operations to check to see if a move is in progress and if a move is in progress do not report the error about relationships not being torn down.  
-6.4.2.3 Investigate the "convertToProxy()" used in NonRootModelElement.delete()   
-
-6.4.3 In the type demotion dialog, we considered adding text to tell the user to consider turning on IPRs or checking package visibility and decided against it for now since the issue at hand actual does not include IPR support.  
-
-6.5 Fix inconsistent proxy paths [[2.4](#2.4)]  
-6.5.1 I removed all generated code from the operations that load and write the proxies.  
-This was a very small change. The change to stub out proxies writes was in:
-`io/core/arc/export_functions.inc::public void write_${r.body}_proxy_sql(${r.body} inst)`
-
-The change to stub out proxies load was in:
-`io/core/arc/import_functions.inc::private void create${stn.body} (${main_class_name} modelRoot, String table, Vector parms, Vector rawParms, int numParms, IProgressMonitor pm)`.  
-
-6.5.2 I also modified io/core/arc/gen_import_java.inc and removed a List variable generated into
-each of the import classes that is no longer used. It's name was:
-    `private List<NonRootModelElement> loadedProxies = new Vector<NonRootModelElement>();`  
-6.5.3 I modified NonRootModelElement.java::isProxy() to always return false.  
-6.5.4 I manually tested this by:  
-* run the tool in a workspace with GPS Watch
-* search the model for all occurrences of "INSERT INTO .*PROXY" in *.xtuml
-* result is lots of hits
-* open Model Explorer, select GPS Watch, right click -> BridgePoint Utilities -> Load and Persist
-* result is all files are marked dirty
-* search the model for all occurrences of "INSERT INTO .*PROXY" in *.xtuml
-* result is 0 occurrences 
-* exit and restart
-* assure there are no errors loading GPS Watch
-  
 
 6. Implementation Comments
 --------------------------
-NONE
+6.0 Graphical Element Move  
+6.0.1 In the design note section 6.4.1.1 that describes the changes made to CanvasPasteAction.java::handleNonDiagramElementAsDestination() to move graphics a change was made.  
+If the element moved if being moved from one PMC (file) to another then the code updates the PMC and
+model root of the soruce element.
+```
+Before Change:
+  Find the GraphicalElement (GD_GE) associated with selected_element
+  Find the Model (GD_MD) associated with the GraphicalElement
+  unrelate the GraphicalElement from the Model across R1  
+  relate the GraphicalElement to the destination's Model across R1
+  update the selected_element's associated container symbol on R307 if containment has changed
+```
+```
+After Change:
+  Find the GraphicalElement (GD_GE) associated with selected_element
+  If the GraphicalElement was not found load the graphical model for the source element and search again
+  Find the canvas (GD_MD) that the GD_GE is part of by navigating GD_GE->GD_MD[R1]
+  Find the canvas (GD_MD) that has the same "represents" as the GD_GE (if there is one)
+  if the GD_GE DOES have a canvas then update its GD_MD PMC to be the destination
+  update the PMC of the GD_GE
+  unrelate the GraphicalElement from the Model across R1  
+  relate the GraphicalElement to the destination's Model across R1
+  update the selected_element's associated container symbol on R307 if containment has changed  
+```
+
+6.0.2 The design note's section 6.4 read as follows:  
+```
+The exception is in the situation where component references are unassigned, in this case we must run graphics reconciliation to remove the provision and requirements when the element is unassigned. However, note that since unassign is being performed in this situation, no code change outside of the unassign is required.
+```
+That statement is not true. The move implementation does NOT use graphics reconciliation. If fact, graphics reconciliation is
+explicitly disabled for the Move transaction. The Component Reference case does NOT need graphics reconciliation. The reason it does not is that the model eleent downgrade explicitly unformalizes the component reference in the case where it loses
+visiibility and needs to be unformalized. This act of unformalzing causes the graphics for that component reference to be updated.  
+
+6.0.2.1 There is a known bug in the model downgrade case of a component reference. The problem manifests itself by showing un
+un-formalized component reference with a stick and no end after the downgrade [2.10](#2.10).
+
+6.1 During implementation, section 6 of the design note that describes the MEM flow of control was updated. The update was
+made to account for the fact that move of graphical instances is done before any other modifications. This was simply an error in the flow that was fixed.
+
+6.2 In design note section 6.5 a TODO was left that referenced an external document. This external document captured some additional detail about model element downgrade research and its implementation. The document referred to has been captured here [2.4](#2.4), and that TODO was removed.  
+
+6.3 MEM requires UNDO functionality to be present. In this initial implementation UNDO is not implemented. A follow-on issue has been raised for this task [2.6](#2.6).  
+
+6.4 This initial version of MEM limits the elements that may be moved to packages and datatypes.  A follow-on issue has been raised [2.7](#2.7) to add the ability to move other models elements as specified in this issues Statement of Work [2.8](#2.8).
+
+6.5 Instance Population Viewer
+BridgePoint has an internal utility that allows instance population counts to be viewed by model root. During debugging of issues found during testing this utliity was used. In order to use the utility some changes were made.  
+6.5.1 The ooaofgraphics instance population was added  
+6.5.2 The "__default_root" population was added  
+6.5.3 A bug that caused statistics to be incorrect for some models roots was fixed by turning off summary data in this utility. A sererate issue was raised about this problem [2.9](#2.9).  
 
 
 7. Unit Test
 ------------
-The test model is found with the [Test Model Creation Issue](#2.8).  
-
-7.1 Use the [[test generation utility]](#2.2) to generate tests for all source and target permutations. Note that documentation for this utility is found in the header of this perl script.  The goal of these generated tests is to assure all requirements are satisfied for each generated test. This assure that requirements are satisfied for each test permutation.  
-
-7.1.1 Create a test matrix that defines all possible "degrees of freedom" for source and target selection.   
-
-7.1.2 Add this matrix to bp.core.test plugin as a new test suite.  
-
-7.1.3 Modify bp.core.test/generate.xml to generate the test suite from the test matrix using the test generation utility.  
-
-7.1.4 Implement the pieces of the suite that the test generation utilitie's results require additional work for.  
-
-7.1.4.1 Each generated tests shall assure that element IDs are not modified during move.  
-
-7.1.4.2 Each generated tests shall assure that move is performed as an atomic operation.  
-
-7.1.4.2.1 After the move a single "undo" restore the model to the state it was in prior to the move operation  
-
-7.1.4.2.2 If the move operation is canceled no changes shall be made.  
-
-7.1.4.3 Each generated test shall assure that its result modifies the minimum number of files necessary.  
-
-7.1.5 Run the suite and assure it passes  
+7.1 Run the manual test suite for this issue [2.3](#2.3).  
+Note that this manual test references the fact that there is a spreadsheet, [2.4](#2.4),
+that can be used to help track results of the tests in this suite.  
 
 8. User Documentation
 ---------------------
-TODO: Describe the end user documentation that was added for this change. 
+No change was made to user documentation.  
 
 9. Code Changes
 ---------------
-Branch name: < enter your branch name here >
+Branch name: [models/rmulvey/8321_Model_Element_Move](https://github.com/rmulvey/bridgepoint/tree/8321_model_element_move)
+<pre>
+
+Two models were added: ModelElementMove2, and movetest.
+
+Both of these models are used as part of the manual test procedure [2.3].
+
+</pre>
+
+Branch name: [bridgepoint/rmulvey/8321_Model_Element_Move](https://github.com/rmulvey/bridgepoint/tree/8321_Model_Element_Move)
 
 <pre>
 
-< Put the file list here >
+> doc-bridgepoint/notes/8321_Model_Element_Move/8321_Model_Element_Move.dnt.md
+> doc-bridgepoint/notes/8321_Model_Element_Move/8321_Model Element_Move.int.md
+> doc-bridgepoint/notes/8321_Model_Element_Move/BridgePointArchitecture.jpg
+> doc-bridgepoint/notes/8321_Model_Element_Move/BridgePointArchitecture.png
+> doc-bridgepoint/notes/8321_Model_Element_Move/BridgePointArchitecture.svg
+> doc-bridgepoint/notes/8321_Model_Element_Move/BridgePointArchitecture.ucls
+> doc-bridgepoint/review-minutes/8321_Model_Element_Move.dnt.rvm2.md
+> doc-bridgepoint/review-minutes/8321_Model_Element_Move.int.rvm.md
+
+org.xtuml.bp.core/models/org.xtuml.bp.core/ooaofooa/Association/Association/
+    Association.xtuml
+org.xtuml.bp.core/models/org.xtuml.bp.core/ooaofooa/Component/Component/
+    Component.xtuml
+org.xtuml.bp.core/models/org.xtuml.bp.core/ooaofooa/Component/
+    Component Library/Component Reference/Component Reference.xtuml
+org.xtuml.bp.core/models/org.xtuml.bp.core/ooaofooa/Component/
+    Component Library/Imported Reference/Imported Reference.xtuml
+org.xtuml.bp.core/models/org.xtuml.bp.core/ooaofooa/Component/Delegation/
+    Delegation.xtuml
+org.xtuml.bp.core/models/org.xtuml.bp.core/ooaofooa/Component/Interface/
+    Interface.xtuml
+org.xtuml.bp.core/models/org.xtuml.bp.core/ooaofooa/Component/
+    Interface Operation/Interface Operation.xtuml
+org.xtuml.bp.core/models/org.xtuml.bp.core/ooaofooa/Component/
+    Interface Reference/Interface Reference.xtuml
+org.xtuml.bp.core/models/org.xtuml.bp.core/ooaofooa/Component/
+    Property Parameter/Property Parameter.xtuml
+org.xtuml.bp.core/models/org.xtuml.bp.core/ooaofooa/Component/Satisfaction/
+    Satisfaction.xtuml
+org.xtuml.bp.core/models/org.xtuml.bp.core/ooaofooa/Constants/
+    Constant Specification/Constant Specification.xtuml
+org.xtuml.bp.core/models/org.xtuml.bp.core/ooaofooa/Constants/
+    Symbolic Constant/Symbolic Constant.xtuml
+org.xtuml.bp.core/models/org.xtuml.bp.core/ooaofooa/Domain/Bridge/Bridge.xtuml
+org.xtuml.bp.core/models/org.xtuml.bp.core/ooaofooa/Domain/Bridge Parameter/
+    Bridge Parameter.xtuml
+org.xtuml.bp.core/models/org.xtuml.bp.core/ooaofooa/Domain/Data Type/
+    Data Type.xtuml
+org.xtuml.bp.core/models/org.xtuml.bp.core/ooaofooa/Domain/
+    Enumeration Data Type/Enumeration Data Type.xtuml
+org.xtuml.bp.core/models/org.xtuml.bp.core/ooaofooa/Domain/Exception/
+    Exception.xtuml
+org.xtuml.bp.core/models/org.xtuml.bp.core/ooaofooa/Domain/External Entity/
+    External Entity.xtuml
+org.xtuml.bp.core/models/org.xtuml.bp.core/ooaofooa/Domain/
+    External Entity Data Item/External Entity Data Item.xtuml
+org.xtuml.bp.core/models/org.xtuml.bp.core/ooaofooa/Domain/
+    External Entity Event Data Item/External Entity Event Data Item.xtuml
+org.xtuml.bp.core/models/org.xtuml.bp.core/ooaofooa/Domain/Function/
+    Function.xtuml
+org.xtuml.bp.core/models/org.xtuml.bp.core/ooaofooa/Domain/Function Parameter/
+    Function Parameter.xtuml
+org.xtuml.bp.core/models/org.xtuml.bp.core/ooaofooa/Domain/
+    Structured Data Type/Structured Data Type.xtuml
+org.xtuml.bp.core/models/org.xtuml.bp.core/ooaofooa/Domain/Structure Member/
+    Structure Member.xtuml
+org.xtuml.bp.core/models/org.xtuml.bp.core/ooaofooa/Domain/User Data Type/
+    User Data Type.xtuml
+org.xtuml.bp.core/models/org.xtuml.bp.core/ooaofooa/Element Packaging/Package/
+    Package.xtuml
+org.xtuml.bp.core/models/org.xtuml.bp.core/ooaofooa/Packageable Element/
+    Packageable Element/Packageable Element.xtuml
+org.xtuml.bp.core/models/org.xtuml.bp.core/ooaofooa/State Machine/
+    State Machine Event Data Item/State Machine Event Data Item.xtuml
+org.xtuml.bp.core/models/org.xtuml.bp.core/ooaofooa/Subsystem/Attribute/
+    Attribute.xtuml
+org.xtuml.bp.core/models/org.xtuml.bp.core/ooaofooa/Subsystem/Imported Class/
+    Imported Class.xtuml
+org.xtuml.bp.core/models/org.xtuml.bp.core/ooaofooa/Subsystem/Model Class/
+    Model Class.xtuml
+org.xtuml.bp.core/models/org.xtuml.bp.core/ooaofooa/Subsystem/Operation/
+    Operation.xtuml
+org.xtuml.bp.core/models/org.xtuml.bp.core/ooaofooa/Subsystem/
+    Operation Parameter/Operation Parameter.xtuml
+org.xtuml.bp.core/src/org/xtuml/bp/core/common/ComponentTransactionListener.java
+org.xtuml.bp.core/src/org/xtuml/bp/core/common/ModelElementMovedModelDelta.java
+org.xtuml.bp.core/src/org/xtuml/bp/core/common/ModelStreamProcessor.java
+org.xtuml.bp.core/src/org/xtuml/bp/core/common/NonRootModelElement.java
+org.xtuml.bp.core/src/org/xtuml/bp/core/common/PersistableModelComponent.java
+org.xtuml.bp.core/src/org/xtuml/bp/core/common/TransactionManager.java
+org.xtuml.bp.core/src/org/xtuml/bp/core/ui/CopyCutAction.java
+org.xtuml.bp.core/src/org/xtuml/bp/core/ui/CutCopyPasteAction.java
+org.xtuml.bp.core/src/org/xtuml/bp/core/ui/PasteAction.java
+
+org.xtuml.bp.core.test/src/org/xtuml/bp/core/test/rtomove/RTOMoveTests.java
+
+org.xtuml.bp.internal.tools/META-INF/MANIFEST.MF
+org.xtuml.bp.internal.tools/src/org/xtuml/bp/internal/tools/views/
+    BPInstancePopulationView.java
+org.xtuml.bp.internal.tools/.classpath
+
+org.xtuml.bp.model.compare/src/org/xtuml/bp/model/compare/
+    CompareTransactionManager.java
+
+org.xtuml.bp.ui.canvas/src/org/xtuml/bp/ui/canvas/
+    GraphicsReconcilerLauncher.java
+
+org.xtuml.bp.ui.explorer/src/org/xtuml/bp/ui/explorer/ui/actions/
+    ExplorerCutAction.java
+
+org.xtuml.bp.ui.graphics/src/org/xtuml/bp/ui/graphics/actions/
+    CanvasCutAction.java
+org.xtuml.bp.ui.graphics/src/org/xtuml/bp/ui/graphics/actions/
+    CanvasPasteAction.java
+
 
 </pre>
 

@@ -17,19 +17,7 @@ INSERT INTO O_TFR
 	'create object instance mbr of S_MBR;
 relate self to mbr across R44;
 
-    select one sys related by self->S_DT[R17]->PE_PE[R8001]->EP_PKG[R8000]->S_SYS[R1405];
-    intdt_id = GD::NULL_UNIQUE_ID();
-    if not_empty sys
-      intdt_id = sys.getCoreTypeId(name:"integer");
-    end if;
-    select any pe from instances of PE_PE where selected.Element_ID == intdt_id;
-    select one int_dt related by pe->S_DT[R8001]; 
-    if (empty int_dt)
-      select any int_dt related by sys->EP_PKG[R1405]->PE_PE[R8000]->S_DT[R8001] where (selected.Name == "integer");
-    end if;
-
-
-relate mbr to int_dt across R45;
+mbr.setToDefaultDataType();
 mbr.initialize(newname:"Unnamed Structured Member");',
 	1,
 	'',
@@ -471,6 +459,27 @@ return dt.Descrip;',
 	1,
 	'',
 	"605fb4a0-4b21-4cae-85d1-50eee1b0e8cb");
+INSERT INTO O_TFR
+	VALUES ("370c0e72-4b66-46c2-a515-dad23d70c2e1",
+	"7df3083a-b3d9-4c10-9be4-db85fdd83e5e",
+	'downgradeCheck',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'// The Data Type superclass can check all the RGOs
+select one dt related by self->S_DT[R17];
+dt.downgradeCheck();
+
+// Now we do RTO checking
+// loop over the members, checking each one for type downgrade
+select many s_mbrs related by self->S_MBR[R44];
+for each s_mbr in s_mbrs
+  s_mbr.downgradeCheck();
+end for;
+',
+	1,
+	'',
+	"08d480cd-e130-4cce-b18d-e7954ec58ceb");
 INSERT INTO O_REF
 	VALUES ("7df3083a-b3d9-4c10-9be4-db85fdd83e5e",
 	"ead52fac-9782-434b-a35c-c07452c3b26d",

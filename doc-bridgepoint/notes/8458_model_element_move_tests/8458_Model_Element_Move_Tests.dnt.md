@@ -27,11 +27,12 @@ Analysis referenced in design note.
 
 <a id="2.5"></a>2.5 [Model Element Move User Test Cases #8726](https://support.onefact.net/issues/8726)    
 
-<a id="2.6"></a>2.6 [Keith's Model Element Move Test Model](https://github.com/keithbrown/sandbox/tree/master/models/movetest)  
+<a id="
+"></a>2.6 [Model Element Move Test Model For Downgrade Testing (movetest)](https://github.com/xtuml/models/tree/master/movetest)  
 
-<a id="2.7"></a>2.7 [Bob's Model Element Move Test Model](https://github.com/rmulvey/sandbox/tree/master/7_17_Data_Type_at_top_level)   
+<a id="2.7"></a>2.7 [Model Element Move Test Model For Misc Test Cases (ModelElementMoveTests2)](https://github.com/xtuml/models/tree/master/ModelElementMoveTest2)   
 
-<a id="2.8"></a>2.8 [Lee's Model Element Move Test Model](https://github.com/xtuml/models/tree/master/test/ModelElementMoveTests)  
+<a id="2.8"></a>2.8 [Main Model Element Move Test Model (ModelElementMoveTests1)](https://github.com/xtuml/models/tree/master/test/ModelElementMoveTests1)  
 
 3. Background   
 -------------     
@@ -75,6 +76,16 @@ clean checkout of the repository and let 'git diff' do the text compare.
 A finding of differences should be noted in the test results.  
 Undo should be a single step. If multiple undo operations are required to 
 recind the move, it should be noted as an error in the test case results.
+
+Components with interfaces attached must be selected from the canvas and selection
+must include both component and interface(s).
+
+7.0 Selection of components with interfaces. (Uses test model [2.8](#2.8))  
+7.0.1. Select ComponentMovePass1 in Source package in ME.
+  * Cut is not enabled.  
+
+7.0.2. Select ComponentMovePass1 and attached interface (either drag box or ctrl-click select)
+  * Cut is enabled.  
 
 7.1 Use Case 4.1  (Uses test model [2.8](#2.8))  
 7.1.1. VisibleDataType in Source package is moved to Destination package.  
@@ -124,13 +135,13 @@ visibility items.
   * Perform undo.  
 
 7.4 Use Case 4.4  (Uses test model [2.8](#2.8))  
-7.4.1. ComponentMovePass2 in Source package is moved to DestinationComponent in 
+7.4.1. ComponentMovePass2 in Source package is moved to DestinationComponentPackage in 
 Destination package.  
   * Result is successful move with no option menu shown for list of lost 
 visibility items.  
   * Perform undo.  
 
-7.4.2. FailureMoveComponent1 in Source package is moved to DestinationComponent 
+7.4.2. FailureMoveComponent1 in Source package is moved to DestinationComponentPackage 
 in Destination package.  
   * Options menu is shown for displaying downgrades.  
     * Check the following items to ensure a downgrade occurred:  
@@ -159,7 +170,7 @@ visibility items.
   * Perform undo.  
 
 7.6.2. FailureMoveComponentInComponent in FailureMoveComponent1 in Source 
-package is moved to DestinationComponent in Destination package.  
+package is moved to DestinationComponentPackage in Destination package.  
   * Options menu is shown for displaying downgrades.  
     * Check the following items to ensure a downgrade occurred:  
       * Same as 7.5.2
@@ -199,9 +210,7 @@ visibility items.
 7.10 Use Case 4.10  (Uses test model [2.8](#2.8))  
 7.10.1. ClusterClass4Fail, ClusterClass5Fail, and R2 in Source package is moved 
 to Destination package.  
-  * Warning is displayed stating that ClusterClass6Fail and R3 must be included 
-in the move. Move isn't permitted.  
-  * Perform undo.  
+  * Cut is not enabled.  
 
 7.11 Use Case 4.11  (Uses test model [2.8](#2.8))  
 7.11.1. ComponentMovePass4 in Source package is moved to Destination package.  
@@ -230,38 +239,30 @@ related across R3 in Source package is moved to Destination package.
       * Imported class reference to ModelElementMoveTests::Source::FailureCasesComponent::FailureCasesComponentPackage::InvisibleImports::InvisibleImportClass to unassigned
   * Perform undo.   
  
-7.13 Pessimistic Locking Test - test checkout of RGOs with a Pessimistic locking RCS. (Uses test model [??](#??))  
-  * 1. Move a RTO that will cause one or more RGOs to be marked dirty
-  * 2. Result is the user should see a dialog warning them that shows them the files that will be checked out. The user should have the chance to cancel at this point.
-
-7.14 Moving a Package
-  * 1.    Create a xtUML project
-  * 2.    Create a package named P1 at top level
-  * 3.    Create a package named P1-1 in P1
-  * 4.    Create a package named P2 at top level
-  * 5.    Cut P1-1
-  * 6.    Paste into P2
-  * 7.    Open CME on P1-1 (in P2), Cut is enabled.  Close the CME.
-  * 8.    Create a package named P3 at top level
-  * 9.    Cut P2
-  * 10.   Paste into P3
-  * 11.   P2 graphic at top level is gone, P2 graphic is added to P3
-  * 12.   Restart BridgePoint
-  * 13.   P2 is not available at top level, P2 is under P3   
+7.13 Obsolete - Pessimistic Locking Test - test checkout of RGOs with a Pessimistic locking RCS.   
+  * This test is obsolete with the fix to issue 7877 because we no longer force persistance of RGOs.
+  
+7.14 Moving a Package (use 2.7)
+  * 1.    Cut pkg1_1
+  * 2.    Paste into pkg2
+  * 3.    Open CME on pkg1_1 (in pkg2), Cut is enabled.  Close the CME.
+  * 4.    Cut pkg2
+  * 5.   Paste into pkg3
+  * 6.   Result - pkg2 graphic at top level is gone, pkg2 graphic is added to pkg3
+  * 7.   Restart BridgePoint
+  * 8.   pkg2 is not available at top level, pkg2 is under pkg3   
   
 
-7.15 Move class into component
+7.15 Move class into component (create a model from scratch)  
+  * 1.    Create a xtUML project
+  * 2.    Create a package named P1 at top level
+  * 3.    Create a class named CL1 in P1
+  * 4.    Create a component named COMP1 in P1
+  * 5.    Create a package named COMP1-P1 in COMP1
+  * 6.    Cut CL1
+  * 7.    Paste into COMP1-P1  
 
-
-  * 1.       Create a xtUML project
-  * 2.       Create a package named P1 at top level
-  * 3.       Create a class named CL1 in P1
-  * 4.       Create a component named COMP1 in P1
-  * 5.       Create a package named COMP1-P1 in COMP1
-  * 6.       Cut CL1
-  * 7.       Paste into COMP1-P1  
-
-7.16  Move class in association into component
+7.16  Move class in association into component (create a model from scratch)
   * 1.    Create a xtUML project
   * 2.    Create a package named P1 at top level
   * 3.    Create a component named COMP1 in P1
@@ -273,25 +274,20 @@ related across R3 in Source package is moved to Destination package.
   * 9.    Add Id as identifier
   * 10.   Create an association R1 between CL1 and CL2
   * 11.   Formalize association R1 using Id
-  * 12.   Cut CL2, should that be ok?
-  * 13.   Paste in COMP1-P1
-  * 14.   Graphic in COMP1-P1 is incorrect and probably the consistency of the model, Error!
-  * 15.    
-  * 16.   Alternate the Cut of CL2 with a Cut of CL1 should that be ok?
-  * 17.   Paste in COMP1-P1
-  * 18.   Graphic in COMP1-P1 is incorrect and probably the consistency of the model, Error!      
-
+  * 12.   Select CL2
+  * 13.   Cut is disabled  
+  * 14.   Select CL1
+  * 15.   Cut is disabled
+  
 7.17  Data Type at top level within project (Uses test model [2.7](#2.7))
   * 1.   Cut My_DT from P1
   * 2.   Paste My_DT into P3
-  * 3.   Check the attribute type of Attr in CL1 by opening the set type dialog of the attribute, path 7_17_Data_Type_at_top_level::P3 will be shown and data type 7_17_Data_Type_at_top_level::P3 will not be selectable in the dialog (Correct)
+  * 3.   Check the attribute type of Attr in CL1 by opening the set type dialog of the attribute, the path 7_17_Data_Type_at_top_level::P3 will be shown and data type 7_17_Data_Type_at_top_level::P3 will not be availble as a choice in the dialog.
   * 4.   Restart BridgePoint
-  * 5.   Check the attribute type of Attr in CL1 by opening the set type dialog of the attribute, path will be empty and data type 7_17_Data_Type_at_top_level::P3 will be selectable in the dialog (Fail). Now it looks like that the data type is incorrect.
-  * 6.   Look into the p3.xtuml and cl1.xtuml files and find the instances of S_DT for My_DT and for O_ATTR of Attr, find out that the correct data type is assigned to the attribute
-  * 7.   The model is correct but the editor does not show the correct information. 
+  * 5.   Check the attribute type of Attr in CL1 verify the same result as step 3 above.
 
 7.18 Data type inside component (Uses test model [2.7](#2.7))
-  * 1. Create a new UDT named My_DT2 inside COMP1
+  * 1. Create a new UDT named My_DT2 inside COMP1-P1
   * 2. Set Attr in CL1 to be of type My_DT2
   * 3. Restart BridgePoint
   * 4. Follow the steps in 7.17 (but moving My_DT2), see the same behavior as in 7.17
@@ -299,16 +295,15 @@ related across R3 in Source package is moved to Destination package.
 7.19 Data type at top level across project (Uses test model [2.7](#2.7))
   * 1. Create a new xtUML project named TestProj2
   * 2. Create a new package PKG2 inside TestProj2
-  * 3. Follow the steps in 7.17 (but moving My_DT into TestProj2/PKG2 instead of P3), see the same behavior as in 7.17
+  * 3. Enable IPRs in TestProj2 and in ModelElementMoveTest2
+  * 4. Follow the steps in 7.17 (but moving My_DT into TestProj2/PKG2 instead of P3), see the same behavior as in 7.17
 
 7.20 Check graphics moved with element (Uses test model [2.7](#2.7))
   * 1. Start BridgePoint with no canvases open
   * 2. Cut and paste a top-level package into another top-level pacakge from Model Explorer with no Canvas open.
   * 3. Open the System-level package
   * 4. The graphic on the system-level diagram is has been removed
-  *       --- ERROR! Currently it is an empty white box.
-  * 5. The Graphic on the target is fine when the target package is opened
-  *       --- ERROR! Currently, the graphic is not present as it should be
+  * 5. The Graphic on the target is fine when the target package is opened  
    
 7.21 Move UDT causing downgrade in source and destination (Uses test model [2.6](#2.6))
   * 1. Expand movetest/p1/impl
@@ -383,6 +378,39 @@ related across R3 in Source package is moved to Destination package.
   * 9. Restart BridgePoint
   * 10. Open the p2/impl2/EEs, verify TestEE::testBridgeParam::p has type integer, TestEE::testBridgeRval has type void
 
+7.29 Verify moved element can be moved back (Uses test model [2.7](#2.7))  
+  * 1. cut P1
+  * 2. paste into P3
+  * 3. Result - P1 is properly moved
+  * 4. cut P1
+  * 5. Paste in to the system level
+  * 6. Result - Paste is successful  
+
+7.30 Visible move doesn't affect sequence diagram (Uses test model [2.8](#2.8))  
+  * Cut Sequences in FailureCasesComponentPackage and paste into Destination package.  
+  * Verify InvisibleExternalEntity and Bridge1 aren't downgraded in Sequences package in FailureCasesComponentPackage  
+  * perform undo  
+
+7.31 Non-visible move causes downgrades on sequence diagram  (Uses test model [2.8](#2.8))  
+  * Cut Sequences in FailureCasesComponentPackage and paste into DestinationComponentPackage.  
+  * There should NOT be a downgrade message. BrdigePoint does not consider visibility for interaction elements.  You can see this by being able to assign to an EE contained within another component (like the destination container in the test).  Therefore the bridge should not be downgraded  
+  * perform undo  
+
+
+7.32 Test downgraded component reference with satisfaction (Uses test model [2.7](#2.7))  
+  * 1. open the satisfaction_test package diagram
+  * 2. select comp1 and its provision
+  * 3. select cut
+  * 4. paste the selection into the package named private
+  * 5. The downgrade dialog should report that the component reference will be downgraded, select ok
+  * 6. Result 1 - The satisfaction_test component diagram no longer shows compp-1 (it has been moved to "private".
+  * 7. Result 2 - The component reference to comp1 is present in satisfaction_test, but the satisfaction is no longer present.
+  * 8. select undo
+  * 9. The mode is restored
+  * 10. select redo
+  * 11. The change is performed again (same result as step 6 and 7)
+  * 12. restart BridgePoint
+  * 13. Result 3 - The satisfaction_test and "private" package diagrams are the same as before the restart (same result as step 6 and 7)
 
 End
 ---

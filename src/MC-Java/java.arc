@@ -81,11 +81,11 @@
       .if(not_empty part)
         .assign attr_result = "$cr{part.Txt_Phrs}"
       .else
-        .select one aone related by rto->R_AONE[R204]
-        .if (not_empty aone)
+        .select one aone related by rel->R_ASSOC[R206]->R_AONE[R209]
+        .select one aoth related by rel->R_ASSOC[R206]->R_AOTH[R210]
+        .if ( rto.OIR_ID == aone.OIR_ID )
           .assign attr_result = "$cr{aone.Txt_Phrs}"
         .else
-          .select one aoth related by rto->R_AOTH[R204]
           .assign attr_result = "$cr{aoth.Txt_Phrs}"
         .end if
       .end if
@@ -94,12 +94,12 @@
       .if (not_empty form)
         .assign attr_result = "$cr{form.Txt_Phrs}"
       .else
-        .select one aone related by rto->R_AONE[R204]
-        .if (not_empty aone)
-          .assign attr_result = "$cr{aone.Txt_Phrs}"
-        .else
-          .select one aoth related by rto->R_AOTH[R204]
+        .select one aone related by rel->R_ASSOC[R206]->R_AONE[R209]
+        .select one aoth related by rel->R_ASSOC[R206]->R_AOTH[R210]
+        .if ( rto.OIR_ID == aone.OIR_ID )
           .assign attr_result = "$cr{aoth.Txt_Phrs}"
+        .else
+          .assign attr_result = "$cr{aone.Txt_Phrs}"
         .end if
       .end if 
     .end if
@@ -1086,11 +1086,11 @@ ${gen_RGO_resolution.body}\
   
   public void batchRelate(ModelRoot modelRoot, boolean relateProxies, boolean notifyChanges, boolean searchAllRoots)
   {
+        .assign rto_ref_var_name = ""
         .if ( not_empty ref_rel_set )
         InstanceList instances=null;
         ModelRoot baseRoot = modelRoot;
           .for each ref_rel in ref_rel_set
-
             .select any frm_ref_end related by ref_rel->R_FORM[R205]
             .assign notAlreadyRelatedTest = ""
             .if (not_empty frm_ref_end)
@@ -1101,7 +1101,8 @@ ${gen_RGO_resolution.body}\
               .assign tar_txt_phrs = "${tar_rel_end.Txt_Phrs}"
               .invoke grvn = get_referential_var_name( tar_obj, tar_txt_phrs )
               .assign ref_var_name = "${grvn.body}"
-              .assign notAlreadyRelatedTest = "${grvn.body} == null"
+              .assign rto_ref_var_name = ref_var_name
+              .assign notAlreadyRelatedTest = "${grvn.body} == null || ${grvn.body}.isProxy()"
     if (${notAlreadyRelatedTest}) {          
             .end if
             .select one rel related by ref_rel->R_OIR[R203]->R_REL[R201]
@@ -1163,9 +1164,31 @@ ${gen_RGO_resolution.body}\
             if (${rel_inst_var_name} == null) {
                 ${rel_inst_var_name} = (${rcn.body}) Ooaofooa.getDefaultInstance().getInstanceList(${rcn.body}.class).get(new Object[] ${guk.key});
             }
+            // if we did not find the element, load all possible PMCs containing expected RTO type
+            // then search again by id
+            .// For now this is a workaround special case, the case is for Base Attribute
+            .// where there is a circular dependency between itself and a Referential Attribute
+            .if(object.Key_Lett != "O_BATTR")
+            Object[] ${rel_inst_var_name}_uk = new Object[] ${guk.key};
+            if(${rel_inst_var_name}_uk[0] instanceof UUID && ((UUID) ${rel_inst_var_name}_uk[0]).getLeastSignificantBits() != 0) {
+				if((${rel_inst_var_name} == null  || ${rel_inst_var_name}.isProxy()) && !baseRoot.isCompareRoot() && !isProxy() && !((UUID) ${rel_inst_var_name}_uk[0]).equals(Gd_c.Null_unique_id())) {
+					// load all potential PMCs that may contain our target 
+					PersistenceManager.ensureAllInstancesLoaded(null,
+							Package_c.class, getPersistableComponent());
+					PersistenceManager.ensureAllInstancesLoaded(null,
+							Component_c.class, getPersistableComponent());
+					PersistenceManager.ensureAllInstancesLoaded(null,
+							ModelClass_c.class, getPersistableComponent());
+					PersistenceManager.ensureAllInstancesLoaded(null,
+							InstanceStateMachine_c.class, getPersistableComponent());
+					PersistenceManager.ensureAllInstancesLoaded(null,
+							ClassStateMachine_c.class, getPersistableComponent());
+				}
+			}
+			.end if
                 .assign search_all_model_roots = package.search_all_model_roots
                 .if(search_all_model_roots)
-            if (${rel_inst_var_name} == null && searchAllRoots && !baseRoot.isCompareRoot()) {
+            if ((${rel_inst_var_name} == null  || ${rel_inst_var_name}.isProxy()) && searchAllRoots && !baseRoot.isCompareRoot()) {
                 ${application_root_class}[] roots = ${application_root_class}.getInstances();
                 for (int i = 0; i < roots.length; i++) {
                     if(roots[i].isCompareRoot()) {
@@ -1173,14 +1196,32 @@ ${gen_RGO_resolution.body}\
                          continue;
                     }
                     ${rel_inst_var_name} = (${rcn.body}) roots[i].getInstanceList(${rcn.body}.class).get(new Object[] ${guk.key});
+                  .if((not_empty frm_ref_end) and ("${rto_ref_var_name}" != ""))
+					if (${rel_inst_var_name} != null) {
+						if (!${rel_inst_var_name}.isProxy() && ${rto_ref_var_name} != null) {
+							// relate to the non proxy element if the current referred to
+							// is a proxy and we are not
+							if (!isProxy()) {
+								if (${rto_ref_var_name}.isProxy()) {
+									break;
+								}
+							}
+						} else {
+							if (${rto_ref_var_name} == null)
+								// relate to the found proxy (initial batch relate)
+								break;
+						}
+					}
+                  .else
                     if (${rel_inst_var_name} != null)
-                        break;
+                    	break;
+                  .end if
                 }
             }
                 .end if
               .end if
             //synchronized
-      if ( ${rel_inst_var_name} != null )
+      if ( ${rel_inst_var_name} != null ) 
       {
               .invoke grf = get_reflexive_phrase( rel, rto, false )
               .assign func_suffix = grf.result

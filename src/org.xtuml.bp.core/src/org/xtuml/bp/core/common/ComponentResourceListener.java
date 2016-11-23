@@ -112,6 +112,7 @@ public class ComponentResourceListener implements IResourceChangeListener, IReso
                         || (buildJob
                                 .belongsTo(TransactionManager.FAMILY_TRANSACTION)) || (buildJob
                         .belongsTo(CorePlugin.UPGRADE_FAMILY)))) {
+			setIgnoreResourceChanges(false);
 			return;
 		}
         if ( !ignoreResourceChanges() && !isIgnoreResourceChangesMarkerSet() )

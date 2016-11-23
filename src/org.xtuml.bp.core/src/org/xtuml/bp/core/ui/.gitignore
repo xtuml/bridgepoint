@@ -120,6 +120,7 @@ NewParameterOnC_IOAction.java
 ProvidedInterface*.java
 RequiredInterface*.java
 UnassignOnCL_ICAction.java
+UnassignOnEP_PKGAction.java
 UnformalizeOnC_CAction.java
 NewMemberOnS_SDTAction.java
 MoveDownOnS_MBRAction.java

@@ -598,11 +598,20 @@ INSERT INTO O_TFR
 	1,
 	'count = 0;
 select one outerPkg related by self->PE_PE[R8001]->EP_PKG[R8000];
+select one outerComp related by self->PE_PE[R8001]->C_C[R8003];
 select many importedReferences related by self->CL_POR[R4707]->CL_IIR[R4708]->CL_IP[R4703];
 for each importedReference in importedReferences
   select one innerPkg related by importedReference->CL_IIR[R4703]->CL_POR[R4708]->CL_IC[R4707]->PE_PE[R8001]->EP_PKG[R8000];
-  if (outerPkg.Package_ID == innerPkg.Package_ID)
-    count = count+1;
+  select one innerComp related by importedReference->CL_IIR[R4703]->CL_POR[R4708]->CL_IC[R4707]->PE_PE[R8001]->C_C[R8003];
+  if(not_empty innerPkg)
+    if (outerPkg.Package_ID == innerPkg.Package_ID)
+      count = count+1;
+    end if;
+  end if;
+  if(not_empty innerComp and not_empty outerComp)
+    if (outerComp.Id == innerComp.Id)
+      count = count+1;
+    end if;  
   end if;
 end for;
 return count;
@@ -628,10 +637,14 @@ INSERT INTO O_TFR
 	1,
 	'count = 0;
 select one outerPkg related by self->PE_PE[R8001]->EP_PKG[R8000];
+select one outerComp related by self->PE_PE[R8001]->C_C[R8003];
 select many importedReferences related by self->CL_POR[R4707]->CL_IIR[R4708]->CL_IR[R4703];
 for each importedReference in importedReferences
   select one innerPkg related by importedReference->CL_IIR[R4703]->CL_POR[R4708]->CL_IC[R4707]->PE_PE[R8001]->EP_PKG[R8000];
-  if (outerPkg.Package_ID == innerPkg.Package_ID)
+  select one innerComp related by importedReference->CL_IIR[R4703]->CL_POR[R4708]->CL_IC[R4707]->PE_PE[R8001]->C_C[R8003];
+  if ((not_empty outerPkg and not_empty innerPkg and
+  		outerPkg.Package_ID == innerPkg.Package_ID) or (not_empty outerComp and
+  		not_empty innerComp and outerComp.Id == innerComp.Id))
     count = count+1;
   end if;
 end for;
@@ -659,15 +672,27 @@ INSERT INTO O_TFR
 	'id = GD::NULL_UNIQUE_ID();
 select many importedRefs related by self->CL_POR[R4707]->CL_IIR[R4708]->CL_IP[R4703];
 select one outerPkg related by self->PE_PE[R8001]->EP_PKG[R8000];
+select one outerComp related by self->PE_PE[R8001]->C_C[R8003];
 // We''re preincrementing the index
 count = -1;
 for each importedRef in importedRefs
   select one innerPkg related by importedRef->CL_IIR[R4703]->CL_POR[R4708]->CL_IC[R4707]->PE_PE[R8001]->EP_PKG[R8000];
-  if (outerPkg.Package_ID == innerPkg.Package_ID)
-  count = count+1;
-  if (count == param.index)
-    return importedRef.Id;
+  select one innerComp related by importedRef->CL_IIR[R4703]->CL_POR[R4708]->CL_IC[R4707]->PE_PE[R8001]->C_C[R8003];
+  if(not_empty outerPkg and not_empty innerPkg)
+    if (outerPkg.Package_ID == innerPkg.Package_ID)
+      count = count+1;
+      if (count == param.index)
+        return importedRef.Id;
+      end if;
+    end if;
   end if;
+  if(not_empty outerComp and not_empty innerComp)
+    if (outerComp.Id == innerComp.Id)
+      count = count+1;
+      if (count == param.index)
+        return importedRef.Id;
+      end if;
+    end if;  
   end if;
 end for;
 return id;',
@@ -702,15 +727,20 @@ INSERT INTO O_TFR
 	'id = GD::NULL_UNIQUE_ID();
 select many importedRefs related by self->CL_POR[R4707]->CL_IIR[R4708]->CL_IR[R4703];
 select one outerPkg related by self->PE_PE[R8001]->EP_PKG[R8000];
+select one outerComp related by self->PE_PE[R8001]->C_C[R8003];
 // We''re preincrementing the index
 count = -1;
 for each importedRef in importedRefs
   select one innerPkg related by importedRef->CL_IIR[R4703]->CL_POR[R4708]->CL_IC[R4707]->PE_PE[R8001]->EP_PKG[R8000];
-  if (outerPkg.Package_ID == innerPkg.Package_ID)
-  count = count+1;
-  if (count == param.index)
-    return importedRef.Id;
-  end if;
+  select one innerComp related by importedRef->CL_IIR[R4703]->CL_POR[R4708]->CL_IC[R4707]->PE_PE[R8001]->C_C[R8003];
+  if ((not_empty outerPkg and not_empty innerPkg and
+        outerPkg.Package_ID == innerPkg.Package_ID) or
+        (not_empty outerComp and not_empty innerComp
+        and outerComp.Id == innerComp.Id))
+  	count = count+1;
+    if (count == param.index)
+      return importedRef.Id;
+    end if;
   end if;
 end for;
 return id;',
@@ -743,10 +773,15 @@ INSERT INTO O_TFR
 	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
 	'select one outerPkg related by self->PE_PE[R8001]->EP_PKG[R8000];
+select one outerComp related by self->PE_PE[R8001]->C_C[R8003];
 select any importedReq related by self->CL_POR[R4707]->CL_IIR[R4708]->CL_IR[R4703]
 	where (selected.Id == param.id);
 select one innerPkg related by importedReq->CL_IIR[R4703]->CL_POR[R4708]->CL_IC[R4707]->PE_PE[R8001]->EP_PKG[R8000];
-if(not_empty importedReq and (outerPkg.Package_ID == innerPkg.Package_ID))
+select one innerComp related by importedReq->CL_IIR[R4703]->CL_POR[R4708]->CL_IC[R4707]->PE_PE[R8001]->C_C[R8003];
+if(not_empty importedReq and ((not_empty outerPkg and not_empty innerPkg and
+	(outerPkg.Package_ID == innerPkg.Package_ID)) or
+	(not_empty innerComp and not_empty innerComp and
+	(outerComp.Id == innerComp.Id))))
   select one delegation related by importedReq->CL_IIR[R4703]->C_DG[R4704];
   if(param.considerDelegations)
     if(empty delegation)
@@ -793,10 +828,15 @@ INSERT INTO O_TFR
 	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
 	'select one outerPkg related by self->PE_PE[R8001]->EP_PKG[R8000];
+select one outerComp related by self->PE_PE[R8001]->C_C[R8003];
 select any importedPro related by self->CL_POR[R4707]->CL_IIR[R4708]->CL_IP[R4703]
 	where (selected.Id == param.id);
+select one innerComp related by importedPro->CL_IIR[R4703]->CL_POR[R4708]->CL_IC[R4707]->PE_PE[R8001]->C_C[R8003];
 select one innerPkg related by importedPro->CL_IIR[R4703]->CL_POR[R4708]->CL_IC[R4707]->PE_PE[R8001]->EP_PKG[R8000];
-if(not_empty importedPro and (outerPkg.Package_ID == innerPkg.Package_ID))
+if((not_empty importedPro and not_empty outerPkg and not_empty innerPkg and
+    outerPkg.Package_ID == innerPkg.Package_ID) or (not_empty outerComp and
+    not_empty innerComp and outerComp.Id == innerComp.Id))
+
   select one delegation related by importedPro->CL_IIR[R4703]->C_DG[R4704];
   if(param.considerDelegations)
     if(empty delegation)
@@ -844,6 +884,7 @@ INSERT INTO O_TFR
 	'id = GD::NULL_UNIQUE_ID();
 select many importedRefs related by self->CL_POR[R4707]->CL_IIR[R4708]->CL_IP[R4703];
 select one outerPkg related by self->PE_PE[R8001]->EP_PKG[R8000];
+select one outerComp related by self->PE_PE[R8001]->C_C[R8003];
 // We''re preincrementing the index
 count = -1;
 for each importedRef in importedRefs
@@ -857,7 +898,7 @@ for each importedRef in importedRefs
         if (count == param.index)
           return delegation.Id;
         end if;
-      end if;    
+      end if;
     end if;
     if(not_empty provision)
         count = count + 1;
@@ -898,6 +939,7 @@ INSERT INTO O_TFR
 	'id = GD::NULL_UNIQUE_ID();
 select many importedRefs related by self->CL_POR[R4707]->CL_IIR[R4708]->CL_IR[R4703];
 select one outerPkg related by self->PE_PE[R8001]->EP_PKG[R8000];
+select one outerComp related by self->PE_PE[R8001]->C_C[R8003];
 // We''re preincrementing the index
 count = -1;
 for each importedRef in importedRefs
@@ -1545,6 +1587,68 @@ return isAccessible and self.canAssignToComp(Id:comp.Id,
 	1,
 	'',
 	"90e0b7b7-e0b0-4751-b105-5d47bde9e851");
+INSERT INTO O_TFR
+	VALUES ("250aa665-07b5-49a9-9b60-1244538f9b76",
+	"14d6c781-a341-481a-b67d-09ec4e8b9ed3",
+	'downgradeCheck',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'isAccessible = true; 
+
+// We only need to run this check if this component reference is assigned
+if ( self.isAssigned() )
+  isAccessible = self.canReferToComponent();
+
+  if ( not isAccessible )
+    select one comp related by self->C_C[R4201];
+    self.dispose();
+    Util::reportElementDowngraded(rto:self.convertToInstance(), rgoDowngraded:comp.convertToInstance(), relationship:"R4201");
+  end if;
+end if;
+',
+	1,
+	'',
+	"6bd64ba7-35f2-45ef-9c2e-6692db8eece8");
+INSERT INTO O_TFR
+	VALUES ("61de6d1c-ff79-46f9-a943-fd13f330a9f8",
+	"14d6c781-a341-481a-b67d-09ec4e8b9ed3",
+	'isCuttable',
+	'A shape type is cuttable if it is selected, and if each connector anchored to it is also selected.',
+	"ba5eda7a-def5-0000-0000-000000000001",
+	1,
+	'cuttable = true;
+
+// check if this element is selected
+if ( not Sel::isSelected(element:self.convertToInstance()) )
+  cuttable = false;
+else
+  select many cl_iirs related by self->CL_POR[R4707]->CL_IIR[R4708];
+  for each cl_iir in cl_iirs
+    select one cl_ip related by cl_iir->CL_IP[R4703];
+    if ( not_empty cl_ip )
+      // if any imported provision is not selected, this component reference is not cuttable
+	  if ( not Sel::isSelected(element:cl_ip.convertToInstance()) )
+		cuttable = false;
+		break;
+	  end if;
+    else
+      select one cl_ir related by cl_iir->CL_IR[R4703];
+      if ( not_empty cl_ir )
+        // if any imported requirement is not selected, this component reference is not cuttable
+	    if ( not Sel::isSelected(element:cl_ir.convertToInstance()) )
+		  cuttable = false;
+		  break;
+	    end if;
+      end if;
+    end if;
+  end for;
+end if;
+
+return cuttable;',
+	1,
+	'',
+	"250aa665-07b5-49a9-9b60-1244538f9b76");
 INSERT INTO O_NBATTR
 	VALUES ("b819ae30-4d2e-458a-9ff4-77c81e4cbccf",
 	"14d6c781-a341-481a-b67d-09ec4e8b9ed3");

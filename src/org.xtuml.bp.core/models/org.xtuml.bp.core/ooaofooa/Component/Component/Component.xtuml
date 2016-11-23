@@ -1924,21 +1924,37 @@ end for;
 // We now ascend the hierarchy. Note that components are never
 // descended when looking for elements, so the delegating package
 // is passed as NULL.
-select one parentPkg related by self->PE_PE[R8001]->EP_PKG[R8000]->PE_PE[R8001];
-if not_empty parentPkg
-  parentPkg.collectVisibleElementsForName(name:param.name,
-        type:param.type, descending:false,
-                      originatingContainerID: param.originatingContainerID,
-                                          delegatingPkgID:GD::NULL_UNIQUE_ID(),
-                                         collectGlobally:param.collectGlobally);
-else
-  select one parentComponent related by self->PE_PE[R8001]->C_C[R8003];
-  if not_empty parentComponent
-    parentComponent.collectVisibleElementsForName(name:param.name,
-        type:param.type, originatingContainerID: param.originatingContainerID,
-                                    delegatingContainerID:GD::NULL_UNIQUE_ID(),
-                                         collectGlobally:param.collectGlobally);
+// We only ascend the hierarchy if components are not opaque, that is
+// elements outside the component are visible to elements inside the component
+// We do allow packages to be collected so we can assign package references.
+if ( (not PREF::getBoolean(name:"bridgepoint_prefs_opaque_components")) or (param.type == ElementTypeConstants::PACKAGE) )
+  select one parentPkg related by self->PE_PE[R8001]->EP_PKG[R8000]->PE_PE[R8001];
+  if not_empty parentPkg
+	parentPkg.collectVisibleElementsForName(name:param.name,
+		  type:param.type, descending:false,
+						originatingContainerID: param.originatingContainerID,
+											delegatingPkgID:GD::NULL_UNIQUE_ID(),
+										   collectGlobally:param.collectGlobally);
+  else
+	select one parentComponent related by self->PE_PE[R8001]->C_C[R8003];
+	if not_empty parentComponent
+	  parentComponent.collectVisibleElementsForName(name:param.name,
+		  type:param.type, originatingContainerID: param.originatingContainerID,
+									  delegatingContainerID:GD::NULL_UNIQUE_ID(),
+										   collectGlobally:param.collectGlobally);
+	end if;
   end if;
+// if we are not ascending the hierarchy, we must collect the globals manually
+else
+  select any system from instances of S_SYS where ( selected.Sys_ID == self.getSystemId() );
+  select many globals related by system->G_EIS[R9100]->PE_PE[R9100];
+  for each global in globals
+    global.collectVisibleElementsForName(name:param.name, type:param.type,
+                                             descending: false,
+                        originatingContainerID:param.originatingContainerID,
+                                  delegatingPkgID:param.delegatingContainerID,
+                                                         collectGlobally:false);
+  end for;
 end if;',
 	1,
 	'',
@@ -3325,6 +3341,72 @@ INSERT INTO O_TPARM
 	'',
 	"8c055273-1f60-4597-bc1f-979ddc7814b9",
 	'');
+INSERT INTO O_TFR
+	VALUES ("2eb3cb57-7b4f-4607-b24d-577d9e8a13ee",
+	"2786d973-1537-44a1-81d6-3ddbd2377865",
+	'downgradeCheck',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'// Check contained packageable elements
+select many pe_pes related by self->PE_PE[R8003];
+for each pe_pe in pe_pes
+  pe_pe.downgradeCheck();
+end for;
+
+// Check ports/interface references 
+select many c_irs related by self->C_PO[R4010]->C_IR[R4016];
+for each c_ir in c_irs
+  c_ir.downgradeCheck();
+end for;
+
+// Check references to this component
+select many cl_ics related by self->CL_IC[R4201];
+for each cl_ic in cl_ics
+  cl_ic.downgradeCheck();
+end for;',
+	1,
+	'',
+	"eb42ec03-f0d3-49b9-9ef6-784b43bbeb81");
+INSERT INTO O_TFR
+	VALUES ("7923017f-22f6-4753-bfec-b3e652648057",
+	"2786d973-1537-44a1-81d6-3ddbd2377865",
+	'isCuttable',
+	'A shape type is cuttable if it is selected, and if each connector anchored to it is also selected.',
+	"ba5eda7a-def5-0000-0000-000000000001",
+	1,
+	'cuttable = true;
+
+// check if this element is selected
+if ( not Sel::isSelected(element:self.convertToInstance()) )
+  cuttable = false;
+else
+  select many c_irs related by self->C_PO[R4010]->C_IR[R4016];
+  for each c_ir in c_irs
+    select one c_p related by c_ir->C_P[R4009];
+    if ( not_empty c_p )
+      // if any provision is not selected, this component is not cuttable
+	  if ( not Sel::isSelected(element:c_p.convertToInstance()) )
+		cuttable = false;
+		break;
+	  end if;
+    else
+      select one c_r related by c_ir->C_R[R4009];
+      if ( not_empty c_r )
+        // if any requirement is not selected, this component is not cuttable
+	    if ( not Sel::isSelected(element:c_r.convertToInstance()) )
+		  cuttable = false;
+		  break;
+	    end if;
+      end if;
+    end if;
+  end for;
+end if;
+
+return cuttable;',
+	1,
+	'',
+	"2eb3cb57-7b4f-4607-b24d-577d9e8a13ee");
 INSERT INTO O_NBATTR
 	VALUES ("44ad7e17-9251-42cf-aa73-ac271023c8a3",
 	"2786d973-1537-44a1-81d6-3ddbd2377865");

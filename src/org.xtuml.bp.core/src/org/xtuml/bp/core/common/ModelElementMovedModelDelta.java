@@ -20,16 +20,19 @@ import org.xtuml.bp.core.Modeleventnotification_c;
 public class ModelElementMovedModelDelta extends BaseModelDelta {
 
 	private NonRootModelElement destination;
-
+	// store the source from which the element was removed from
+	private NonRootModelElement elementSource;
+	
 	/**
 	 * @param eventType - 
 	 * @param modelElement - the model element being moved
 	 * @param oldValue - the original (source) PMC of the element being moved
 	 * @param newValue - the destination PMC of the element being moved
 	 */
-	public ModelElementMovedModelDelta(ModelElement modelElement, NonRootModelElement destination) {
+	public ModelElementMovedModelDelta(ModelElement modelElement, NonRootModelElement destination, NonRootModelElement source) {
 		super(Modeleventnotification_c.DELTA_MODEL_ELEMENT_MOVE, modelElement);
 		this.destination = destination;
+		this.elementSource = source;
 	}
 
 	public NonRootModelElement getDestination() {
@@ -40,4 +43,11 @@ public class ModelElementMovedModelDelta extends BaseModelDelta {
 		this.destination = newValue;
 	}
 
+	public void setSource(NonRootModelElement newValue) {
+		this.elementSource = newValue;
+	}
+	
+	public NonRootModelElement getSource() {
+		return elementSource;
+	}
 }

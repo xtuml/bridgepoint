@@ -266,6 +266,29 @@ return false;',
 	1,
 	'',
 	"f2998785-d5b4-4f88-a388-d6901d90ffe3");
+INSERT INTO O_TFR
+	VALUES ("ea00ad91-0fc8-4c20-9f6a-e3011268905f",
+	"e695ccff-28f5-4931-89dd-59c6995c1a73",
+	'downgradeCheck',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'isAccessible = true; 
+
+// We only need to run this check if this component reference is assigned
+if ( self.isSynchronized() )
+  isAccessible = self.canReferToInterfaceReference();
+
+  if ( not isAccessible )
+    select one c_ir related by self->C_IR[R4701];
+    self.dispose();
+    Util::reportElementDowngraded(rto:self.convertToInstance(), rgoDowngraded:c_ir.convertToInstance(), relationship:"R4701");
+  end if;
+end if;
+',
+	1,
+	'',
+	"5f553380-c0cf-4f1e-bd9a-267b9f63ca77");
 INSERT INTO O_DBATTR
 	VALUES ("0f68d4c5-0940-4d36-88bf-19738358b7b8",
 	"e695ccff-28f5-4931-89dd-59c6995c1a73",

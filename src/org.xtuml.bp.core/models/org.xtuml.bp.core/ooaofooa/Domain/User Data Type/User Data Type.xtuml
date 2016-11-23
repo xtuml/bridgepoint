@@ -616,6 +616,31 @@ return dt.Descrip;',
 	1,
 	'',
 	"71c2b3e4-a52c-4f93-870a-397ee6facf54");
+INSERT INTO O_TFR
+	VALUES ("dcdf61ff-379f-42f2-b16c-6e42aafdadf4",
+	"2150fa65-813f-46c3-a6f9-7c7dbae3aced",
+	'downgradeCheck',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'// The Data Type superclass can check all the RGOs
+select one dt related by self->S_DT[R17];
+dt.downgradeCheck();
+
+// Now we do RTO checking
+// See if we''re based on another UDT.  Check if that UDT is visible.
+isVisible = self.canReferToDataType();
+
+if ( not isVisible )
+  select one dt related by self->S_DT[R18];
+  Util::reportElementDowngraded(rto:self.convertToInstance(), rgoDowngraded:dt.convertToInstance(), relationship:"R18");
+  elementType = Util::getSimpleClassName(element:self.convertToInstance());
+  defaultTypeName = S_DT::getDefaultDataTypeName(elementType:elementType);
+  self.changeCoreType(typeName:defaultTypeName);
+end if;',
+	1,
+	'',
+	"d9b28ec7-1e4d-4244-8780-5449b797cd90");
 INSERT INTO O_NBATTR
 	VALUES ("a681e0de-40d5-491f-a628-c369bf13952a",
 	"2150fa65-813f-46c3-a6f9-7c7dbae3aced");

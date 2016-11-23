@@ -812,7 +812,7 @@ public class CopyPasteSourceDestinationTests extends CanvasTest {
 						fileContents = fileContents.replaceAll(sourceName
 								+ "_dup", sourceName);
 						contents.close();
-						TransactionManager.getSingleton().setIgnoreResourceChange(true);
+						TransactionManager.getSingleton().setIgnoreResourceChanges(true);
 						((IFile) resources[i]).setContents(new ByteArrayInputStream(fileContents
 								.getBytes()), true, false,
 								new NullProgressMonitor());
@@ -841,7 +841,7 @@ public class CopyPasteSourceDestinationTests extends CanvasTest {
 								String fileContents = new String(fileBytes);
 								fileContents = fileContents.replaceAll(pasted.getName(), source.getName());
 								contents.close();
-								TransactionManager.getSingleton().setIgnoreResourceChange(true);
+								TransactionManager.getSingleton().setIgnoreResourceChanges(true);
 								file.setContents(new ByteArrayInputStream(fileContents
 										.getBytes()), true, false,
 										new NullProgressMonitor());
