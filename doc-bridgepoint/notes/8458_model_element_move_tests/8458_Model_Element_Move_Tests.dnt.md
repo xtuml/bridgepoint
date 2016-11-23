@@ -387,14 +387,30 @@ related across R3 in Source package is moved to Destination package.
   * 6. Result - Paste is successful  
 
 7.30 Visible move doesn't affect sequence diagram (Uses test model [2.8](#2.8))  
-* Cut Sequences in FailureCasesComponentPackage and paste into Destination package.  
-* Verify InvisibleExternalEntity and Bridge1 aren't downgraded in Sequences package in FailureCasesComponentPackage  
-* perform undo  
+  * Cut Sequences in FailureCasesComponentPackage and paste into Destination package.  
+  * Verify InvisibleExternalEntity and Bridge1 aren't downgraded in Sequences package in FailureCasesComponentPackage  
+  * perform undo  
 
 7.31 Non-visible move causes downgrades on sequence diagram  (Uses test model [2.8](#2.8))  
-* Cut Sequences in FailureCasesComponentPackage and paste into DestinationComponentPackage.  
-* There should NOT be a downgrade message. BrdigePoint does not consider visibility for interaction elements.  You can see this by being able to assign to an EE contained within another component (like the destination container in the test).  Therefore the bridge should not be downgraded  
-* perform undo  
+  * Cut Sequences in FailureCasesComponentPackage and paste into DestinationComponentPackage.  
+  * There should NOT be a downgrade message. BrdigePoint does not consider visibility for interaction elements.  You can see this by being able to assign to an EE contained within another component (like the destination container in the test).  Therefore the bridge should not be downgraded  
+  * perform undo  
+
+
+7.32 Test downgraded component reference with satisfaction (Uses test model [2.7](#2.7))  
+  * 1. open the satisfaction_test package diagram
+  * 2. select comp1 and its provision
+  * 3. select cut
+  * 4. paste the selection into the package named private
+  * 5. The downgrade dialog should report that the component reference will be downgraded, select ok
+  * 6. Result 1 - The satisfaction_test component diagram no longer shows compp-1 (it has been moved to "private".
+  * 7. Result 2 - The component reference to comp1 is present in satisfaction_test, but the satisfaction is no longer present.
+  * 8. select undo
+  * 9. The mode is restored
+  * 10. select redo
+  * 11. The change is performed again (same result as step 6 and 7)
+  * 12. restart BridgePoint
+  * 13. Result 3 - The satisfaction_test and "private" package diagrams are the same as before the restart (same result as step 6 and 7)
 
 End
 ---
