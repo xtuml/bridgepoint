@@ -122,7 +122,7 @@ abstract class OoaofooaBase extends ModelRoot
         List<Ooaofooa> list = new ArrayList<Ooaofooa>();
         Ooaofooa[] roots = getInstances();
         for(int i = 0; i < roots.length; i++) {
-            if(getProjectNameFromModelRootId(roots[i].getId()).equals(systemName))
+            if(!roots[i].getId().equals("") && getProjectNameFromModelRootId(roots[i].getId()).equals(systemName))
                 list.add(roots[i]);
         }
         return list.toArray(new Ooaofooa[list.size()]);

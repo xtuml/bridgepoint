@@ -1276,7 +1276,7 @@ if ( self.isFormal() )
 
   if ( not isAccessible )
     select one interface related by self->C_I[R4012];
-    self.unformalize(unformalizeOther: true);
+    self.unformalize(unformalizeOther: false);
     Util::reportElementDowngraded(rto:self.convertToInstance(), rgoDowngraded:interface.convertToInstance(), relationship:"R4012");
   end if;
 end if;

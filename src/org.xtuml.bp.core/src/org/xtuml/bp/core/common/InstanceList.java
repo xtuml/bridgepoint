@@ -134,8 +134,12 @@ public abstract class InstanceList extends ArrayList<NonRootModelElement> {
 					if (src_system != null) {
 						roots = Ooaofooa.getInstancesUnderSystem(src_system.getName());
 					} else {
-						roots = Ooaofooa
-								.getInstancesUnderSystem(firstRootSearched);
+						if(root.getId().equals(Ooaofooa.getDefaultInstance().getId())) {
+							roots = Ooaofooa.getInstances();
+						} else {
+							roots = Ooaofooa
+									.getInstancesUnderSystem(firstRootSearched);
+						}
 					}
 				}
 				for (int rootCount = 0; result == null
