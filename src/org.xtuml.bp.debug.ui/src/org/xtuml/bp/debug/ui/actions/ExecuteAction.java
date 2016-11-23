@@ -320,7 +320,7 @@ public class ExecuteAction implements IViewActionDelegate {
 				RequiredExecutableProperty_c.getOneSPR_REPOnR4502(requiredOp)));
 			RuntimeChannel_c [] channels = RuntimeChannel_c.getManyI_RCHsOnR2969(sats);
 			for (int i=0; i < channels.length; i++) {
-				if (ComponentInstance_c.getOneI_EXEOnR2968IsInterfaceProviderTo(channels[i]).equals(exe)) {
+				if (ComponentInstance_c.getOneI_EXEOnR2968IsInterfaceRequirerOf(channels[i]).equals(exe)) {
 					isWired = true;
 				}
 			}
@@ -368,7 +368,7 @@ public class ExecuteAction implements IViewActionDelegate {
                RequiredExecutableProperty_c.getOneSPR_REPOnR4502(requiredSig)));
 			RuntimeChannel_c [] channels = RuntimeChannel_c.getManyI_RCHsOnR2969(sats);
             for (int i=0; i < channels.length; i++) {
-              if (ComponentInstance_c.getOneI_EXEOnR2968IsInterfaceProviderTo(channels[i]).equals(exe)) {
+              if (ComponentInstance_c.getOneI_EXEOnR2968IsInterfaceRequirerOf(channels[i]).equals(exe)) {
                 isWired = true;
               }
             }
@@ -453,7 +453,7 @@ public class ExecuteAction implements IViewActionDelegate {
                 ProvidedExecutableProperty_c.getOneSPR_PEPOnR4503(providedOp)));
 			RuntimeChannel_c [] channels = RuntimeChannel_c.getManyI_RCHsOnR2969(sats);
             for (int i=0; i < channels.length; i++) {
-              if (ComponentInstance_c.getOneI_EXEOnR2968IsInterfaceRequirerOf(channels[i]).equals(exe)) {
+              if (ComponentInstance_c.getOneI_EXEOnR2968IsInterfaceProviderTo(channels[i]).equals(exe)) {
                 isWired = true;
               }
             }
@@ -498,7 +498,7 @@ public class ExecuteAction implements IViewActionDelegate {
                ProvidedExecutableProperty_c.getOneSPR_PEPOnR4503(providedSig)));
 			RuntimeChannel_c [] channels = RuntimeChannel_c.getManyI_RCHsOnR2969(sats);
             for (int i=0; i < channels.length; i++) {
-              if (ComponentInstance_c.getOneI_EXEOnR2968IsInterfaceRequirerOf(channels[i]).equals(exe)) {
+              if (ComponentInstance_c.getOneI_EXEOnR2968IsInterfaceProviderTo(channels[i]).equals(exe)) {
                 isWired = true;
               }
             }
