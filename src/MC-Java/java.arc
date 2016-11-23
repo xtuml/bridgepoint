@@ -1171,7 +1171,7 @@ ${gen_RGO_resolution.body}\
             .if(object.Key_Lett != "O_BATTR")
             Object[] ${rel_inst_var_name}_uk = new Object[] ${guk.key};
             if(${rel_inst_var_name}_uk[0] instanceof UUID && ((UUID) ${rel_inst_var_name}_uk[0]).getLeastSignificantBits() != 0) {
-				if(${rel_inst_var_name} == null && !baseRoot.isCompareRoot() && !isProxy() && !((UUID) ${rel_inst_var_name}_uk[0]).equals(Gd_c.Null_unique_id())) {
+				if((${rel_inst_var_name} == null  || ${rel_inst_var_name}.isProxy()) && !baseRoot.isCompareRoot() && !isProxy() && !((UUID) ${rel_inst_var_name}_uk[0]).equals(Gd_c.Null_unique_id())) {
 					// load all potential PMCs that may contain our target 
 					PersistenceManager.ensureAllInstancesLoaded(null,
 							Package_c.class, getPersistableComponent());
@@ -1188,7 +1188,7 @@ ${gen_RGO_resolution.body}\
 			.end if
                 .assign search_all_model_roots = package.search_all_model_roots
                 .if(search_all_model_roots)
-            if (${rel_inst_var_name} == null && searchAllRoots && !baseRoot.isCompareRoot()) {
+            if ((${rel_inst_var_name} == null  || ${rel_inst_var_name}.isProxy()) && searchAllRoots && !baseRoot.isCompareRoot()) {
                 ${application_root_class}[] roots = ${application_root_class}.getInstances();
                 for (int i = 0; i < roots.length; i++) {
                     if(roots[i].isCompareRoot()) {
