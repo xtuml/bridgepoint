@@ -24,19 +24,17 @@ Property Parameter instances are the same in both the Interface definition and t
 4. Requirements
 ---------------
 
-4.1 Restrict rename  
-* Ensure rename of a Property Parameter can only be done in the Interface definition.  
+4.1 Property Parameter rename shall only be allowed in the Interface definition.  
 
-4.2 Restrict delete  
-* Ensure deletion of a Property Parameter can only be done in the Interface definition.  
-* Ensure deletion of a Signal can only be done in the Interface definition.  
-* Ensure deletion of an Operation can only be done in the Interface definition.  
+4.2 Deletion of a Property Parameter shall only be allowed in the Interface definition.  
 
-4.3 Restrict type set  
-* Ensure type setting of a Property Parameter can only be done in the Interface definition.  
+4.3 Deletion of a Signal shall only be allowed in the Interface definition.  
 
-4.4 Restrict reorder  
-* Ensure move up or down of a Property Parameter can only be done in the Interface definition.  
+4.4 Deletion of an Operation shall only be allowed in the Interface definition.  
+
+4.5 Type setting of a Property Parameter shall only be allowed in the Interface definition.  
+
+4.6 Move up or down of a Property Parameter shall only be allowed in the Interface definition.  
 
 5. Analysis
 -----------
