@@ -909,6 +909,18 @@ return cuttable;',
 	1,
 	'',
 	"f35ddeb4-154b-4f1b-9d9c-9f4f75f2187f");
+INSERT INTO O_TFR
+	VALUES ("c8c34f79-e1b7-41b1-a7c6-48ea73600662",
+	"74121abd-8a97-4ef3-a0af-5cea170b182b",
+	'canDelete',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000001",
+	1,
+	'return not self.isFormal();
+',
+	1,
+	'',
+	"363a633a-e234-44a0-914a-5c8dab31c998");
 INSERT INTO O_DBATTR
 	VALUES ("54fa393d-5a91-4fb6-869d-27b6c7e71af4",
 	"74121abd-8a97-4ef3-a0af-5cea170b182b",
