@@ -60,6 +60,8 @@ For signals and operations, the same test used to restrict rename can be used.
 7.2 Delete  
 * Verify delete isn't available in interface reference for parameters.  
 * Verify delete is still available in interface definition for parameters.  
+* Verify delete isn't available in interface reference for provisions.  
+* Verify delete isn't available in interface reference for requirements. 
 * Verify delete isn't available in interface reference for signals.  
 * Verify delete is still available in interface definition for signals.  
 * Verify delete isn't available in interface reference for operations.  

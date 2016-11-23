@@ -37,6 +37,86 @@ See Analysis Note [[2.3]](#2.3)
 
 7. Unit Test
 ------------
+This section describes manual testing for the acceptance tests in the analysis note. [[2.3]](#2.3)  
+The manual testing is run using the sample GPS Watch model.  
+
+7.1 Rename  
+
+7.1.1 C_PP in interface reference  
+* Expand System>GPS Watch::Library::Location>LOC>LocationProvider>getLocation  
+* Select latitude and verify the context menu has "Rename" unselectable.  
+
+7.1.2 C_PP in interface definition   
+* Expand LocationInterfaces>LocationProvider>getLocation  
+* Select latitude and verify the context menu has "Rename" selectable.  
+
+7.2 Delete  
+
+7.2.1 C_PP in interface reference  
+* Expand System>GPS Watch::Library::Location>LOC>LocationProvider>getLocation  
+* Select latitude and verify the context menu has "Delete" unselectable.  
+
+7.2.2 C_PP in interface definition   
+* Expand LocationInterfaces>LocationProvider>getLocation  
+* Select latitude and verify the context menu has "Delete" selectable.  
+
+7.2.3 CL_IP in interface reference  
+* Expand System>GPS Watch::Library::Location>LOC  
+* Select LocationProvider and verify the context menu has "Delete" unselectable.  
+
+7.2.4 CL_IR in interface reference  
+* Expand System>GPS Watch::Library::Tracker>LOC  
+* Select LocationProvider and verify the context menu has "Delete" unselectable.  
+
+7.2.5 C_I in interface definition  
+* Expand LocationInterfaces  
+* Select LocationProvider and verify the context menu has "Delete" selectable.  
+
+7.2.6 SPR_PO in interface reference  
+* Expand System>GPS Watch::Library::Location>LOC>LocationProvider  
+* Select getLocation and verify the context menu has "Delete" unselectable.  
+
+7.2.7 SPR_RO in interface reference  
+* Expand System>GPS Watch::Library::Tracker>LOC>LocationProvider  
+* Select getLocation and verify the context menu has "Delete" unselectable.  
+
+7.2.8 C_IO in interface definition  
+* Expand LocationInterfaces>LocationProvider  
+* Select getLocation and verify the context menu has "Delete" selectable.  
+
+7.2.9 SPR_PS in interface reference  
+* Expand System>GPS Watch::Library::Location>LOC>LocationProvider  
+* Select registerListener and verify the context menu has "Delete" unselectable.  
+
+7.2.10 SPR_RS in interface reference  
+* Expand System>GPS Watch::Library::Tracker>LOC>LocationProvider  
+* Select registerListener and verify the context menu has "Delete" unselectable.  
+
+7.2.11 C_AS in interface definition  
+* Expand LocationInterfaces>LocationProvider  
+* Select registerListener and verify the context menu has "Delete" selectable.  
+
+7.3 Set Type  
+
+7.3.1 C_PP in interface reference  
+* Expand System>GPS Watch::Library::Location>LOC>LocationProvider>getLocation  
+* Select latitude and verify the context menu has no "Set Type..." entry.  
+
+7.3.2 C_PP in interface definition   
+* Expand LocationInterfaces>LocationProvider>getLocation  
+* Select latitude and verify the context menu has a "Set Type..." entry.  
+
+7.4 Reorder  
+
+7.4.1 C_PP in interface reference  
+* Expand System>GPS Watch::Library::Location>LOC>LocationProvider>getLocation  
+* Select latitude and verify the context menu has no "Move Down" or "Move Up" entries.  
+* Select longitude and verify the context menu has no "Move Down" or "Move Up" entries.  
+
+7.4.2 C_PP in interface definition   
+* Expand LocationInterfaces>LocationProvider>getLocation  
+* Select latitude and verify the context menu has both "Move Down" and "Move Up" entries.  
+* Select longitude and verify the context menu has both "Move Down" and "Move Up" entries.  
 
 8. User Documentation
 ---------------------
