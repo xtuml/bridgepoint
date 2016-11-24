@@ -91,6 +91,7 @@ the License.
     </topic>
     <topic label="Model Verifier Java Interface" href="Reference/UserInterface/ModelVerifierJavaInterface/ModelVerifierJavaInterface.htm" />
     <topic label="Command Line Interface" href="Reference/UserInterface/CommandLineInterface/HTML/CommandLineInterface.htm" />
+    <topic label="Package References" href="Reference/UserInterface/PackageReferences/PackageReferences.html" />
     <topic label="Revision Control" href="Reference/UserInterface/RevisionControl/HTML/RevisionControl.htm" />
     <topic label="OAL Reference">
       <topic label="Introduction" href="Reference/OAL/HTML/bpalref.book-1.htm"/>

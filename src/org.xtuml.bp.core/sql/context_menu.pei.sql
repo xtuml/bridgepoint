@@ -334,10 +334,6 @@ INSERT INTO CME VALUES ('New', 'Attribute',                   'SQ_CIP','SQ_AV', 
 INSERT INTO CME VALUES ('New', 'Attribute',                   'SQ_CP', 'SQ_CPA',           false , '', '', false, '', false, false, '' ,'->SQ_CPA[R935]');
 INSERT INTO CME VALUES ('',                                   'Unformalize',   'SQ_COP', '', false );
 
-INSERT INTO CME VALUES ('Delete', '',                         'SPR_RO', '',                 true );
-INSERT INTO CME VALUES ('Delete', '',                         'SPR_RS', '',                 true );
-INSERT INTO CME VALUES ('Delete', '',                         'SPR_PO', '',                 true );
-INSERT INTO CME VALUES ('Delete', '',                         'SPR_PS', '',                 true );
 INSERT INTO CME VALUES ('', 'Set To Provider',                         'C_AS', '',                 false );
 INSERT INTO CME VALUES ('', 'Set From Provider',                         'C_AS', '',                 false );
 INSERT INTO CME VALUES ('', 'Set To Provider',                         'C_IO', '',                 false );
@@ -412,6 +408,7 @@ INSERT INTO MEF VALUES ('',       'Move Up',       'SM_EVTDI',    'can', 'move u
 INSERT INTO MEF VALUES ('',       'Move Down',     'SM_EVTDI',    'can', 'move down' );
 INSERT INTO MEF VALUES ('',       'Move Up',       'C_PP',    'can', 'move up' );
 INSERT INTO MEF VALUES ('',       'Move Down',     'C_PP',    'can', 'move down' );
+INSERT INTO MEF VALUES ('Set',    'Type',          'C_PP',    'can', 'SetType' );
 INSERT INTO MEF VALUES ('',       'Move Up',       'O_TFR',    'can', 'move up' );
 INSERT INTO MEF VALUES ('',       'Move Down',     'O_TFR',    'can', 'move down' );
 INSERT INTO MEF VALUES ('',       'Move Up',       'C_AS',    'can', 'move up' );

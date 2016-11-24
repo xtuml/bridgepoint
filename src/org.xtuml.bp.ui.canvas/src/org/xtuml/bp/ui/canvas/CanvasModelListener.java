@@ -130,21 +130,19 @@ public class CanvasModelListener extends ModelChangeAdapter  {
 	    
 		if (newMdls != null){
 		    for (int i = 0; i < newMdls.length; i++) {            
-		        if (CanvasPlugin.classInView(newMdls[i], modelElement)){
-		        	CanvasPlugin.setGraphicalRepresents(newMdls[i]);
-                    newMdls[i].Elementdeleted(modelElement);
-                }else{
-                    UUID id = Cl_c.Getooa_idfrominstance(modelElement);
-		            int  type=GraphicsUtil.getOoaType(modelElement);
-                    if(modelElement instanceof InstanceStateMachine_c)
-                        id=((InstanceStateMachine_c)modelElement).getSm_idCachedValue();
-                    
-                    if(newMdls[i].getOoa_id().equals(id) && newMdls[i].getOoa_type()==type) {
-                    	CanvasPlugin.setGraphicalRepresents(newMdls[i]);
-                    	newMdls[i].setRepresents(modelElement);
-                    	newMdls[i].Elementdeleted(modelElement);
-                    }
-		        }
+				CanvasPlugin.setGraphicalRepresents(newMdls[i]);
+				newMdls[i].Elementdeleted(modelElement);
+				UUID id = Cl_c.Getooa_idfrominstance(modelElement);
+				int type = GraphicsUtil.getOoaType(modelElement);
+				if (modelElement instanceof InstanceStateMachine_c)
+					id = ((InstanceStateMachine_c) modelElement).getSm_idCachedValue();
+
+				if (newMdls[i].getOoa_id().equals(id) && newMdls[i].getOoa_type() == type) {
+					CanvasPlugin.setGraphicalRepresents(newMdls[i]);
+					newMdls[i].setRepresents(modelElement);
+					newMdls[i].Elementdeleted(modelElement);
+				}
+		        
 		    }
 		}
 	}

@@ -416,14 +416,6 @@ public class ComponentTransactionListener implements ITransactionListener {
 		PersistableModelComponent destinationPMC = destinationElement.getPersistableComponent(true);
 		NonRootModelElement rtoForResolution = sourceElement.getRTOElementForResolution();
 
-		// start: move the element to the new ModelRoot in memory
-		// 		To implement undo, this in-memory section will be moved
-		//		from here into PasteAction, and any NRME modified here will
-		//		be be saved-off into the transaction in its state BEFORE
-		//		any changes are made to it. Similar to what we do for a 
-		//		ModelElementChanged transaction. In fact we can use a Transaction
-		//		group for move and use ModelElementChanged to store these before and
-		//		after NRMEs.
 		ModelRoot destinationRoot = destinationElement.getModelRoot();
 		if (sourceElement.getModelRoot() != destinationRoot) {
 			// if this is the system root, we need to create a new model
@@ -434,7 +426,6 @@ public class ComponentTransactionListener implements ITransactionListener {
 			}
 			sourceElement.updateRootForSelfAndChildren(sourceElement.getModelRoot(), destinationRoot);			
 		}		
-		// end: move the element to the new ModelRoot in memory
 
 		// Move the folder on disk if the sourceElement is associated 
 		// with a folder/file on disk.
