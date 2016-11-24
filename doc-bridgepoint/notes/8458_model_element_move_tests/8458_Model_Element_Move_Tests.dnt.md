@@ -242,20 +242,15 @@ related across R3 in Source package is moved to Destination package.
 7.13 Obsolete - Pessimistic Locking Test - test checkout of RGOs with a Pessimistic locking RCS.   
   * This test is obsolete with the fix to issue 7877 because we no longer force persistance of RGOs.
   
-7.14 Moving a Package (create a model from scratch)
-  * 1.    Create a xtUML project
-  * 2.    Create a package named P1 at top level
-  * 3.    Create a package named P1-1 in P1
-  * 4.    Create a package named P2 at top level
-  * 5.    Cut P1-1
-  * 6.    Paste into P2
-  * 7.    Open CME on P1-1 (in P2), Cut is enabled.  Close the CME.
-  * 8.    Create a package named P3 at top level
-  * 9.    Cut P2
-  * 10.   Paste into P3
-  * 11.   P2 graphic at top level is gone, P2 graphic is added to P3
-  * 12.   Restart BridgePoint
-  * 13.   P2 is not available at top level, P2 is under P3   
+7.14 Moving a Package (use 2.7)
+  * 1.    Cut pkg1_1
+  * 2.    Paste into pkg2
+  * 3.    Open CME on pkg1_1 (in pkg2), Cut is enabled.  Close the CME.
+  * 4.    Cut pkg2
+  * 5.   Paste into pkg3
+  * 6.   Result - pkg2 graphic at top level is gone, pkg2 graphic is added to pkg3
+  * 7.   Restart BridgePoint
+  * 8.   pkg2 is not available at top level, pkg2 is under pkg3   
   
 
 7.15 Move class into component (create a model from scratch)  
@@ -279,19 +274,17 @@ related across R3 in Source package is moved to Destination package.
   * 9.    Add Id as identifier
   * 10.   Create an association R1 between CL1 and CL2
   * 11.   Formalize association R1 using Id
-  * 12.   Cut CL2
-  * 13.   Paste in COMP1-P1
-  * 14.   Warning is displayed stating that CL1 and R1 must be included in the move. Move isn't permitted.  
-  * 15.   Cut CL1
-  * 16.   Paste in COMP1-P1
-  * 17.   Warning is displayed stating that CL2 and R1 must be included in the move. Move isn't permitted.      
+  * 12.   Select CL2
+  * 13.   Cut is disabled  
+  * 14.   Select CL1  
+  * 15.   Cut is disabled  
 
 7.17  Data Type at top level within project (Uses test model [2.7](#2.7))
   * 1.   Cut My_DT from P1
   * 2.   Paste My_DT into P3
-  * 3.   Check the attribute type of Attr in CL1 by opening the set type dialog of the attribute, path 7_17_Data_Type_at_top_level::P3 will be shown and data type 7_17_Data_Type_at_top_level::P3 will not be selectable in the dialog.
+  * 3.   Check the attribute type of Attr in CL1 by opening the set type dialog of the attribute, the path 7_17_Data_Type_at_top_level::P3 will be shown and data type 7_17_Data_Type_at_top_level::P3 will not be availble as a choice in the dialog.
   * 4.   Restart BridgePoint
-  * 5.   Check the attribute type of Attr in CL1 by opening the set type dialog of the attribute, path will be empty and data type 7_17_Data_Type_at_top_level::P3 will be selectable in the dialog (Fail). Now it looks like that the data type is incorrect.
+  * 5.   Check the attribute type of Attr in CL1 verify the same result as step 3 above.
 
 7.18 Data type inside component (Uses test model [2.7](#2.7))
   * 1. Create a new UDT named My_DT2 inside COMP1-P1
@@ -302,7 +295,8 @@ related across R3 in Source package is moved to Destination package.
 7.19 Data type at top level across project (Uses test model [2.7](#2.7))
   * 1. Create a new xtUML project named TestProj2
   * 2. Create a new package PKG2 inside TestProj2
-  * 3. Follow the steps in 7.17 (but moving My_DT into TestProj2/PKG2 instead of P3), see the same behavior as in 7.17
+  * 3. Enable IPRs in TestProj2 and in ModelElementMoveTest2
+  * 4. Follow the steps in 7.17 (but moving My_DT into TestProj2/PKG2 instead of P3), see the same behavior as in 7.17
 
 7.20 Check graphics moved with element (Uses test model [2.7](#2.7))
   * 1. Start BridgePoint with no canvases open
@@ -393,14 +387,30 @@ related across R3 in Source package is moved to Destination package.
   * 6. Result - Paste is successful  
 
 7.30 Visible move doesn't affect sequence diagram (Uses test model [2.8](#2.8))  
-* Cut Sequences in FailureCasesComponentPackage and paste into Destination package.  
-* Verify InvisibleExternalEntity and Bridge1 aren't downgraded in Sequences package in FailureCasesComponentPackage  
-* perform undo  
+  * Cut Sequences in FailureCasesComponentPackage and paste into Destination package.  
+  * Verify InvisibleExternalEntity and Bridge1 aren't downgraded in Sequences package in FailureCasesComponentPackage  
+  * perform undo  
 
 7.31 Non-visible move causes downgrades on sequence diagram  (Uses test model [2.8](#2.8))  
-* Cut Sequences in FailureCasesComponentPackage and paste into DestinationComponentPackage.  
-* There should NOT be a downgrade message. BrdigePoint does not consider visibility for interaction elements.  You can see this by being able to assign to an EE contained within another component (like the destination container in the test).  Therefore the bridge should not be downgraded  
-* perform undo  
+  * Cut Sequences in FailureCasesComponentPackage and paste into DestinationComponentPackage.  
+  * There should NOT be a downgrade message. BrdigePoint does not consider visibility for interaction elements.  You can see this by being able to assign to an EE contained within another component (like the destination container in the test).  Therefore the bridge should not be downgraded  
+  * perform undo  
+
+
+7.32 Test downgraded component reference with satisfaction (Uses test model [2.7](#2.7))  
+  * 1. open the satisfaction_test package diagram
+  * 2. select comp1 and its provision
+  * 3. select cut
+  * 4. paste the selection into the package named private
+  * 5. The downgrade dialog should report that the component reference will be downgraded, select ok
+  * 6. Result 1 - The satisfaction_test component diagram no longer shows compp-1 (it has been moved to "private".
+  * 7. Result 2 - The component reference to comp1 is present in satisfaction_test, but the satisfaction is no longer present.
+  * 8. select undo
+  * 9. The mode is restored
+  * 10. select redo
+  * 11. The change is performed again (same result as step 6 and 7)
+  * 12. restart BridgePoint
+  * 13. Result 3 - The satisfaction_test and "private" package diagrams are the same as before the restart (same result as step 6 and 7)
 
 End
 ---
