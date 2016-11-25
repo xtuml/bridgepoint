@@ -57,10 +57,10 @@ Please check here for known issues and to submit bug reports and requests for ne
 Closed Issues
 ------
 The full [v5.8 – All Issues](https://support.onefact.net/issues?query_id=47) list 
-is available in the One Fact Support system. The highlights are included here:
-
-DEI/SR |  Project |    Subject
---|----------|------------
+is available in the One Fact Support system. The highlights are included here:  
+  
+| DEI/SR |  Project |    Subject |
+|--------|----------|------------|
     60  |  BridgePoint | Minor cosmetic flaw for Constant Specification
     510  |  Service Pro |  Problem with consecutive calls to Bridge when a parameter is sent by reference
     59  |  BridgePoint | Problem with consecutive calls to Bridge when a parameter is sent by reference
