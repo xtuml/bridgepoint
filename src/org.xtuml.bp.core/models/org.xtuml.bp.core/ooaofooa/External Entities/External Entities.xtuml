@@ -2320,6 +2320,7 @@ Translate:native',
             viewer = getExplorerTreeViewer.invoke(explorerViewClass, args);
         } catch (Exception e) {
             CorePlugin.logError("Error invoking getExplorerTreeViewer in GraphicsUtil  ", e); //$NON-NLS-1$
+            return false;
         }
 
         Tree foundTree = null;
@@ -2330,12 +2331,17 @@ Translate:native',
             foundTree = (Tree) getTree.invoke(viewer, args);
         } catch (Exception e) {
             CorePlugin.logError("Error invoking findTreeItem in GraphicsUtil  ", e); //$NON-NLS-1$
+            return false;
         }
 
         TreeItem[] foundItems = foundTree.getSelection();
-        Object parent = foundItems[0].getParentItem().getData();
-        if ((parent instanceof InterfaceSignal_c) || (parent instanceof InterfaceOperation_c)) {
-            return false;
+        if(foundItems.length != 0) {
+        	Object parent = foundItems[0].getParentItem().getData();
+        	if ((parent instanceof InterfaceSignal_c) || (parent instanceof InterfaceOperation_c)) {
+            	return false;
+        	}
+        } else {
+        	return false;
         }
         return true;
         ',
