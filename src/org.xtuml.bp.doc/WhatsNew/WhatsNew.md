@@ -31,7 +31,7 @@ It is at ```BridgePoint UML Suite Help > Reference > UserInterface > PackageRefe
 Model Element Move
 ------    
 BridgePoint now supports moving model elements via Cut & Paste.  As opposed to 
-prior versions where this action performed a copy/create/delete process, this
+prior versions where this action performed a copy/delete/create process, this
 version truly moves model elements from one location to another.  This means that
 underlying UUIDs of model elements are _not_ recalculated, making the move operation
 much safer and user-friendly.  
@@ -39,7 +39,8 @@ much safer and user-friendly.
 The tool also recognizes if the user is moving elements to new locations where 
 referring elements do not have visibility.  It will display a warning in this case
 telling the user what model elements will be affected and downgraded to default
-values.  The modeler is given the option to cancel the operation.  BridgePoint
+values (or deleted in the case of imported classes and component references).  The 
+modeler is given the option to cancel the operation.  BridgePoint
 also supports undo-ing the move after it has occurred.  
 
 Verifier
