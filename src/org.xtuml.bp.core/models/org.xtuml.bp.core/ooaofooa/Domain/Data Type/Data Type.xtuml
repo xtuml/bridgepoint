@@ -586,6 +586,10 @@ select many sycs related by self->CNST_SYC[R1500];
 for each syc in sycs
   syc.downgradeCheck();
 end for;
+select many udts related by self->S_UDT[R18];
+for each udt in udts
+  udt.downgradeCheck();
+end for;
 //
 // Value Subsystem
 /* NOTE: do we really need to update value instances on downgrade (or dispose)?
