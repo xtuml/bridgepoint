@@ -93,6 +93,14 @@ flag to false (resetting to a clean state).  The new startMove method takes a
 boolean indicating that we simply want to set the marker back to true, leaving   
 the expected selection alone.      
 
+5.5 Explorer tests
+
+There was an array index out of bounds occuring.  The menu items on first pass   
+were not available, to prevent this a check for an empty array is added, before   
+assuming the array was populated.  A dispatch event call was added which   
+prevents the out of bounds exception, but the check for an empty array is left   
+as a precaution.  
+
 6. Implementation Comments
 --------------------------
 
