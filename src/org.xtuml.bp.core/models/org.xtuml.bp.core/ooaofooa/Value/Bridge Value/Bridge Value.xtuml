@@ -54,19 +54,10 @@ if (empty stack_frame)
 end if;
 
 // Execute the bridge
-select any callResult related by stack_frame->I_VSF[R2951] where
-                                             selected.Value_ID == self.Value_ID;
-// Return the default result
-create object instance callRtVal of RV_RVL;
-callRtVal.createSimpleValue();
-relate callRtVal to callResult across R3305;
-select one dt related by brg->S_DT[R20];
-dtName = dt.getCoreDataTypeName();
-if ( ( "boolean" == dtName ) or ( "integer" == dtName ) or ( "real" == dtName ) or ( "string" == dtName ) or ( "unique_id" == dtName ) )
-  callRtVal.setValue(value:dt.getDefaultValue());
-end if;
 select one body related by brg->ACT_BRB[R697]->ACT_ACT[R698];
 select any statement related by body->ACT_BLK[R601]->ACT_SMT[R602];
+select any callResult related by stack_frame->I_VSF[R2951] where
+                                             selected.Value_ID == self.Value_ID;
 if (not_empty statement and not ee.isRealized)
   // Setup the parameter values within the newly created stack frame
   // We discard the result because it just tells us if we are going yet deeper
@@ -89,6 +80,15 @@ else
 						    + " is modeled and the bridge: "
             + brg.Name + " has no OAL to execute.  Returning default value.",
 						path:pathMsg);
+    // Return the default result
+    create object instance callRtVal of RV_RVL;
+    callRtVal.createSimpleValue();
+    relate callRtVal to callResult across R3305;
+    select one dt related by brg->S_DT[R20];
+    dtName = dt.getCoreDataTypeName();
+    if ( ( "boolean" == dtName ) or ( "integer" == dtName ) or ( "real" == dtName ) or ( "string" == dtName ) or ( "unique_id" == dtName ) )
+      callRtVal.setValue(value:dt.getDefaultValue());
+    end if;
     // remove all intermediate values from the stack
     for each arg in args
       stack_frame.popValue(value_id:arg.Value_ID);
@@ -195,6 +195,9 @@ else
     end if;
     if (success)    
       // Return the result
+      create object instance callRtVal of RV_RVL;
+      callRtVal.createSimpleValue();
+      relate callRtVal to callResult across R3305;
       callRtVal.setValue(value:VM::getResult());
     end if;
   end if;
