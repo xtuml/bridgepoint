@@ -1137,8 +1137,12 @@ public class TestUtil
         chooserThread.start();
         return runnable;
     }
-    
+
 	public static void executeInTransaction(NonRootModelElement element, String method, Object[] parameters) {
+		executeInTransaction(element, method, parameters, true);
+	}
+	
+	public static void executeInTransaction(NonRootModelElement element, String method, Object[] parameters, boolean undoable) {
 		Class<?>[] paramClasses = new Class<?>[parameters.length];
 		for(int i = 0; i < parameters.length; i++) {
 			if(parameters[i] instanceof Integer) {
@@ -1154,7 +1158,7 @@ public class TestUtil
 		try {
 			transaction = manager.startTransaction("test transaction",
 					new ModelElement[] { Ooaofooa.getDefaultInstance(),
-							Ooaofgraphics.getDefaultInstance() });
+							Ooaofgraphics.getDefaultInstance() }, undoable);
 			Method m = element.getClass().getMethod(method, paramClasses);
 			m.invoke(element, parameters);
 			manager.endTransaction(transaction);
