@@ -64,7 +64,7 @@ The full [v5.8 – All Issues](https://support.onefact.net/issues?query_id=47) l
 is available in the One Fact Support system. The highlights are included here:  
   
 | Issue |  Subject |
-|-------|----------|
+|-------|-----------------------------------------------------------------|
  [59](https://support.onefact.net/issues/59) |  Problem with consecutive calls to Bridge when a parameter is sent by reference
  [60](https://support.onefact.net/issues/60) |  Minor cosmetic flaw for Constant Specification
  [510](https://support.onefact.net/issues/510) |  Problem with consecutive calls to Bridge when a parameter is sent by reference
