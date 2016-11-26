@@ -2333,9 +2333,13 @@ Translate:native',
         }
 
         TreeItem[] foundItems = foundTree.getSelection();
-        Object parent = foundItems[0].getParentItem().getData();
-        if ((parent instanceof InterfaceSignal_c) || (parent instanceof InterfaceOperation_c)) {
-            return false;
+        if(foundItems.length != 0) {
+        	Object parent = foundItems[0].getParentItem().getData();
+        	if ((parent instanceof InterfaceSignal_c) || (parent instanceof InterfaceOperation_c)) {
+            	return false;
+        	}
+        } else {
+        	return false;
         }
         return true;
         ',
