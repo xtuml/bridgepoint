@@ -47,7 +47,7 @@ interfaces for any component reference.
 broken graphical connection.      
 
 The first one is resolved by passing false to the Unformalize operation, which   
-prevents unformalization of the other end attached to the compoent reference   
+prevents unformalization of the other end attached to the component reference   
 being disposed.
 
 The second issue is addressed by assuring that all elements are considered
@@ -67,10 +67,31 @@ proxy.
 5.3 Fix problem causing several model execution tests to fail.  
 As part of the work done to introduce package references, [issue 8633](https://support.onefact.net/issues/8633), MC-Java was 
 modified to support associative classes on a one to many reflexive relationship. Prior to this change the ooaofooa meta model did not use such a relationship, and therefore MC-Java did not properly support it. The ooaofooa did however contain an associative many to many. This is R2968. The work done for 8633 fixed a problem with how relationship phrases were being used.
-This fix cause verified execution to fail in many cases because it effectively switched the way role phrases were being interpreted in this case. To resolve this the role phrases on R2968 were swapped. Addtionally places that were using traversing this relationships in hand-craft java code were also modifed to switch the usage of the relations phrase. There were only 4 such files that were not getnerated files. They were: bp/debug/java/access/VerifierInvocationHandler.java, bp/debug/ui/actions/ExecuteAction.java, bp/debug/ui/model/BPDebugTarget.java. An example of the failures this fixed comes from 
+This fix cause verified execution to fail in many cases because it effectively switched the way role phrases were being interpreted in this case. To resolve this the role phrases on R2968 were swapped. Addtionally places that were using traversing this relationships in hand-craft java code were also modified to switch the usage of the relations phrase. There were only 4 such files that were not generated files. They were: bp/debug/java/access/VerifierInvocationHandler.java, bp/debug/ui/actions/ExecuteAction.java, bp/debug/ui/model/BPDebugTarget.java. An example of the failures this fixed comes from 
 [General Graphics Testing 2](https://support.onefact.net/issues/1609) and its execution of the Looped test model. The pull request with this fix is [pull request 260](https://github.com/xtuml/bridgepoint/pull/260).
 
+5.4 RTO Tests   
+   
+The RTO tests were failing mostly due to the new move behavior.  The test code   
+has been reworked to test expected behavior of the new move functionality.  This    
+includes taking out comments preventing result validation (added with [2.3]).   
+It also includes some changes to deal with a delete when it actually occurs,   
+previously we deleted the element after extracting the data to the clipboard.
 
+The RTO tests also found an issue with the downgrade functionality of move.  The
+downgrade when necessary will re-associate an element with a default RTO or   
+simply dispose of the RGO if no valid element can be a reference.  The case of   
+a User Data Type requires we check both the role of an RGO as well as a RTO.   
+The code in User Data Type.downgradeCheck() is modified to traverse R18   
+(RGO case) and check the visibility for the RTO.
+
+Another change was made to overload the startMove method.  This method sets a   
+flag indicating we are beginning a move.  It also clears the selected elements   
+to be moved.  During testing we are creating transactions that execute inbetween   
+the cut marker and the actual paste.  Starting a transaction sets the in-move   
+flag to false (resetting to a clean state).  The new startMove method takes a   
+boolean indicating that we simply want to set the marker back to true, leaving   
+the expected selection alone.      
 
 6. Implementation Comments
 --------------------------
