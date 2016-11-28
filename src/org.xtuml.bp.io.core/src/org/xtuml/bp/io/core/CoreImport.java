@@ -65,7 +65,7 @@ public abstract class CoreImport implements IModelImport {
 
     File m_actionFile;
 
-    String m_dialect = "";
+    int m_dialect = -1;
     ActionFile m_actionFiles;
 
     private StringBuffer inputBuffer = null;
@@ -94,7 +94,7 @@ public abstract class CoreImport implements IModelImport {
         read(inStream);
     }
 
-    public CoreImport(Ooaofooa modelRoot, String inFile, String dialect, ActionFile actionFile, boolean clearDatabase, boolean templateFile)
+    public CoreImport(Ooaofooa modelRoot, String inFile, int dialect, ActionFile actionFile, boolean clearDatabase, boolean templateFile)
             throws FileNotFoundException {
         m_success = false;
         m_errorMessage = ""; //$NON-NLS-1$
@@ -109,7 +109,7 @@ public abstract class CoreImport implements IModelImport {
             throw new FileNotFoundException(inFile + " not found");
     }
 
-    public CoreImport(IPath inFile, String dialect, ActionFile actionFile) throws FileNotFoundException {
+    public CoreImport(IPath inFile, int dialect, ActionFile actionFile) throws FileNotFoundException {
         m_success = false;
         m_errorMessage = ""; //$NON-NLS-1$
         m_modelRoot = null;
@@ -168,7 +168,7 @@ public abstract class CoreImport implements IModelImport {
 
     public abstract int postprocessStatements();
 
-    public abstract void processAction( String smasl, String dialect );
+    public abstract void processAction( String smasl, int dialect );
 
     protected Ooaofooa getModelRoot() {
         return m_modelRoot;
@@ -344,12 +344,12 @@ public abstract class CoreImport implements IModelImport {
         }
         // here's where the code is actually read
         try {
-            String[] dialects;
-            if ( m_dialect.equals("") ) {
-                dialects = m_actionFiles.getAvailableDialects();
+            int[] dialects;
+            if ( m_dialect == -1 ) {
+                dialects = m_actionFiles.getAvailableDialectCodes();
             }
             else {
-                dialects = new String[1];
+                dialects = new int[1];
                 dialects[0] = m_dialect;
             }
 

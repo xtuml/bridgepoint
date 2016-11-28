@@ -38,7 +38,7 @@ public class ImportModelFactory extends AbstractModelImportFactory {
 
 	public IModelImport create(
 		String fileName,
-		String dialect,
+		int dialect,
 		Ooaofooa aModelRoot,
 		SystemModel_c system,
 		boolean parseAll,
@@ -76,7 +76,7 @@ public class ImportModelFactory extends AbstractModelImportFactory {
 	
 	public IModelImport create(
 			IFile file,
-			String dialect,
+			int dialect,
 			Ooaofooa aModelRoot,
 			PersistableModelComponent component,
 			boolean parseAll,
