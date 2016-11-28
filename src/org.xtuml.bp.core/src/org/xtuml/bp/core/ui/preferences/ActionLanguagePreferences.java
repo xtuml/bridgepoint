@@ -41,6 +41,7 @@ import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
 import org.eclipse.ui.PlatformUI;
 
+import org.xtuml.bp.core.Actiondialect_c;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.common.BridgePointPreferencesModel;
 import org.xtuml.bp.core.common.BridgePointPreferencesStore;
@@ -243,13 +244,13 @@ public class ActionLanguagePreferences
       
       BridgePointPreferencesModel bpPrefs = (BridgePointPreferencesModel) model;
       if (defaultDialectOALRadio.getSelection()) {
-          bpPrefs.defaultActionLanguageDialect = BridgePointPreferencesStore.OAL_DIALECT;
+          bpPrefs.defaultActionLanguageDialect = Actiondialect_c.oal;
       }
       else if ( defaultDialectMASLRadio.getSelection()) {
-          bpPrefs.defaultActionLanguageDialect = BridgePointPreferencesStore.MASL_DIALECT;
+          bpPrefs.defaultActionLanguageDialect = Actiondialect_c.masl;
       }
       else {
-          bpPrefs.defaultActionLanguageDialect = BridgePointPreferencesStore.OAL_DIALECT;
+          bpPrefs.defaultActionLanguageDialect = Actiondialect_c.oal;
       }
       if (allowPromotionYesRadio.getSelection()) {
           bpPrefs.allowIntToRealPromotion = MessageDialogWithToggle.ALWAYS;
@@ -324,11 +325,11 @@ public class ActionLanguagePreferences
       // here would overwrite the population of the default model data in
       // performDefaults().
 
-      if (bpPrefs.defaultActionLanguageDialect.equals(BridgePointPreferencesStore.OAL_DIALECT)) {
+      if (bpPrefs.defaultActionLanguageDialect == Actiondialect_c.oal) {
           defaultDialectOALRadio.setSelection(true);
           defaultDialectMASLRadio.setSelection(false);
       }
-      else if (bpPrefs.defaultActionLanguageDialect.equals(BridgePointPreferencesStore.MASL_DIALECT)) {
+      else if (bpPrefs.defaultActionLanguageDialect == Actiondialect_c.masl) {
           defaultDialectOALRadio.setSelection(false);
           defaultDialectMASLRadio.setSelection(true);
       }

@@ -14,7 +14,8 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
-	'self.Suc_Pars = ParseStatus::parseInitial;',
+	'self.Dialect = PREF::getActionDialect(name:"bridgepoint_prefs_default_action_language_dialect");
+self.Suc_Pars = ParseStatus::parseInitial;',
 	1,
 	'',
 	"55d257f8-53b5-40d1-aaa6-a031254b72c6");
