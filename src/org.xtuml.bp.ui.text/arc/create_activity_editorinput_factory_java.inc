@@ -56,7 +56,7 @@ import org.xtuml.bp.core.common.*;
 import org.xtuml.bp.ui.text.AbstractModelElementEditorInputFactory;
 
 public class ${input_class_name} extends AbstractModelElementEditorInputFactory{
-	public static final String PLACEHOLDER_EXTENSION = "oal"; //$$NON-NLS-1$$
+	public static final String PLACEHOLDER_EXTENSION = "oal_err"; //$$NON-NLS-1$$
 
 	private static List supportedList = null;
 	

@@ -55,6 +55,11 @@ class ExampleModelsIntegrationTest {
 		testProject('examples/SAC')
 	}
 
+	@Test
+	def void testWikiExamples() {
+		testProject('examples/wiki')
+	}
+
 	protected def testProject(String folderName) {
 		val resourceSet = resourceSetProvider.get
 		load(new File(folderName), resourceSet)

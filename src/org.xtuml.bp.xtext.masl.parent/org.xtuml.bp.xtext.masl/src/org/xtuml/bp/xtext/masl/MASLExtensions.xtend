@@ -10,13 +10,12 @@ import org.eclipse.xtext.naming.IQualifiedNameProvider
 import org.eclipse.xtext.nodemodel.util.NodeModelUtils
 import org.eclipse.xtext.resource.ISelectable
 import org.xtuml.bp.xtext.masl.masl.behavior.Expression
+import org.xtuml.bp.xtext.masl.masl.structure.AbstractActionDefinition
 import org.xtuml.bp.xtext.masl.masl.structure.AbstractNamed
 import org.xtuml.bp.xtext.masl.masl.structure.AttributeDefinition
 import org.xtuml.bp.xtext.masl.masl.structure.DomainDefinition
 import org.xtuml.bp.xtext.masl.masl.structure.DomainFunctionDeclaration
-import org.xtuml.bp.xtext.masl.masl.structure.DomainFunctionDefinition
 import org.xtuml.bp.xtext.masl.masl.structure.DomainServiceDeclaration
-import org.xtuml.bp.xtext.masl.masl.structure.DomainServiceDefinition
 import org.xtuml.bp.xtext.masl.masl.structure.ObjectDeclaration
 import org.xtuml.bp.xtext.masl.masl.structure.ObjectDefinition
 import org.xtuml.bp.xtext.masl.masl.structure.ObjectFunctionDeclaration
@@ -48,20 +47,8 @@ class MASLExtensions {
 		switch it {
 			DomainDefinition:
 				name
-			ObjectServiceDefinition:
-				getReferredElementName(objectServiceDefinition_Domain)
-			ObjectFunctionDefinition:
-				getReferredElementName(objectFunctionDefinition_Domain)
-			StateDefinition:
-				getReferredElementName(stateDefinition_Domain)
-			DomainServiceDefinition:
-				getReferredElementName(domainServiceDefinition_Domain)
-			DomainFunctionDefinition:
-				getReferredElementName(domainFunctionDefinition_Domain)
-			TerminatorServiceDefinition:
-				getReferredElementName(terminatorServiceDefinition_Domain)
-			TerminatorFunctionDefinition:
-				getReferredElementName(terminatorFunctionDefinition_Domain)
+			AbstractActionDefinition:
+				getReferredElementName(abstractActionDefinition_Domain)
 			default:
 				eContainer?.domainName
 		}
@@ -203,7 +190,7 @@ class MASLExtensions {
 		return null
 	}
 
-	def boolean isOperation(EObject it) {
+	def boolean isAction(EObject it) {
 		switch it {
 			DomainFunctionDeclaration,
 			DomainServiceDeclaration,
@@ -217,7 +204,7 @@ class MASLExtensions {
 		}
 	}
 		
-	def ObjectDeclaration getContainerObject(Expression expr) {
+	def ObjectDeclaration getContainerObject(EObject expr) {
 		var parent = expr.eContainer
 		while (parent != null) {
 			switch parent {
@@ -232,29 +219,7 @@ class MASLExtensions {
 		}
 		return null
 	}
-	
-	def DomainDefinition getDomain(EObject expr) {
-		var current = expr
-		while (current != null) {
-			switch current {
-				DomainDefinition:
-					return current
-				ObjectServiceDefinition:
-					return current.domain
-				ObjectFunctionDefinition:
-					return current.domain
-				TerminatorServiceDefinition:
-					return current.domain
-				TerminatorFunctionDefinition:
-					return current.domain
-				StateDefinition:
-					return current.domain
-			}
-			current = current.eContainer
-		}
-		return null
-	}
-	
+		
 	def boolean isIdentifier(AttributeDefinition attr) {
 		val isIdentifier = (attr.eContainer as ObjectDefinition)
 			.identifiers

@@ -15,7 +15,6 @@ import org.eclipse.emf.common.util.EList;
  * </p>
  * <ul>
  *   <li>{@link org.xtuml.bp.xtext.masl.masl.behavior.IfStatement#getCondition <em>Condition</em>}</li>
- *   <li>{@link org.xtuml.bp.xtext.masl.masl.behavior.IfStatement#getStatements <em>Statements</em>}</li>
  *   <li>{@link org.xtuml.bp.xtext.masl.masl.behavior.IfStatement#getElseIfs <em>Else Ifs</em>}</li>
  *   <li>{@link org.xtuml.bp.xtext.masl.masl.behavior.IfStatement#getElse <em>Else</em>}</li>
  * </ul>
@@ -24,7 +23,7 @@ import org.eclipse.emf.common.util.EList;
  * @model
  * @generated
  */
-public interface IfStatement extends AbstractStatement {
+public interface IfStatement extends AbstractStatement, StatementList {
 	/**
 	 * Returns the value of the '<em><b>Condition</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
@@ -50,22 +49,6 @@ public interface IfStatement extends AbstractStatement {
 	 * @generated
 	 */
 	void setCondition(Expression value);
-
-	/**
-	 * Returns the value of the '<em><b>Statements</b></em>' containment reference list.
-	 * The list contents are of type {@link org.xtuml.bp.xtext.masl.masl.behavior.AbstractStatement}.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Statements</em>' containment reference list isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Statements</em>' containment reference list.
-	 * @see org.xtuml.bp.xtext.masl.masl.behavior.BehaviorPackage#getIfStatement_Statements()
-	 * @model containment="true"
-	 * @generated
-	 */
-	EList<AbstractStatement> getStatements();
 
 	/**
 	 * Returns the value of the '<em><b>Else Ifs</b></em>' containment reference list.

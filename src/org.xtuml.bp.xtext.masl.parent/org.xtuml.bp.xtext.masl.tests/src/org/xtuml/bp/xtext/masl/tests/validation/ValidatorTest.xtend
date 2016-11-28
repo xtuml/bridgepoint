@@ -63,8 +63,8 @@ class ValidatorTest {
 	}
 	
 	@Test
-	def void testInvalidOperationCall() {
-		'1()'.model.assertError(operationCall, INVALID_OPERATION_CALL)
+	def void testInvalidActionCall() {
+		'1()'.model.assertError(actionCall, INVALID_ACTION_CALL)
 	}
 	
 	@Test 
@@ -162,6 +162,28 @@ class ValidatorTest {
 				delay 1;
 			end;
 		''').elements.last.assertError(delayStatement, UNREACHABLE_CODE)
+	}
+
+	@Test 
+	def void testVisibilityValidation() { 
+		load('''
+			domain dom is 
+				public function func() return integer;
+				private service serv();
+			end;
+		''').assertNoErrors()
+		load('''	
+			private function dom::func() return integer 
+			is
+			begin
+			end;
+		''').assertError(domainFunctionDefinition, DECLARATION_MISSMATCH)
+		load('''	
+			private service dom::serv() 
+			is
+			begin
+			end;
+		''').assertNoErrors(DECLARATION_MISSMATCH)
 	}
 
 	@Test 
@@ -275,6 +297,232 @@ class ValidatorTest {
 			begin
 			end;
 		''').elements.last.assertNoError(DECLARATION_MISSMATCH)
+	}
+
+	@Test
+	def void testDomainActionVisibilities() {
+		load('''
+			domain dom0 is 
+				private function func() return integer;
+				private service serv();
+				public function func0() return integer;
+				public service serv0();
+			end;
+			
+			domain dom1 is 
+				function func() return integer;
+				service serv();
+				service serv1();
+			end;
+		''').assertNoErrors
+		load('''
+			function dom1::func() return integer is
+			begin
+				return dom0::func();
+			end
+		''').assertError(simpleFeatureCall, INVISIBLE_FEATURE)
+		load('''
+			service dom1::serv() is
+			begin 
+				dom0::serv();
+			end
+		''').assertError(simpleFeatureCall, INVISIBLE_FEATURE)
+		load('''
+			service dom1::serv1() is
+			begin 
+				dom0::serv0();
+				dom0::func0();
+			end
+		''').assertNoErrors(INVISIBLE_FEATURE)
+	}
+
+	@Test
+	def void testObjectActionVisibilities() {
+		load('''
+			domain dom is
+				object Foo;
+				object Foo is
+					private function func() return integer;
+					private service serv();
+					public function func0() return integer;
+					public service serv0();
+					state s();
+				end;
+				service caller(f: in instance of Foo);
+				service caller0(f: in instance of Foo);
+				service caller1(f: in instance of Foo);
+			end;
+		''').assertNoErrors
+		load('''
+			service dom::Foo.serv() is
+			begin
+				func();
+				serv();
+				func0();
+				serv0();
+			end
+		''').assertNoErrors(INVISIBLE_FEATURE)
+		load('''
+			state dom::Foo.s() is
+			begin
+				func();
+				serv();
+				func0();
+				serv0();
+			end
+		''').assertNoErrors(INVISIBLE_FEATURE)
+		load('''
+			service dom::caller(f: in instance of Foo) is
+			begin
+				f.func();
+			end
+		''').assertError(simpleFeatureCall, INVISIBLE_FEATURE)
+		load('''
+			service dom::caller0(f: in instance of Foo) is
+			begin
+				f.serv();
+			end
+		''').assertError(simpleFeatureCall, INVISIBLE_FEATURE)
+		load('''
+			service dom::caller1(f: in instance of Foo) is
+			begin
+				f.serv0();
+				f.func0();
+			end
+		''').assertNoErrors(INVISIBLE_FEATURE)
+	}
+
+	@Test
+	def void testActionOverloading() {
+		load('''
+			domain dom is
+				function f(x: in integer) return integer;
+				function f(x: in string) return integer;
+			end;
+		''').assertNoErrors(DUPLICATE_NAME)
+	}
+	
+	@Test
+	def void testActionOverloading1() {
+		load('''
+			domain dom is
+				function f(x: in integer) return integer;
+				function f(y: in integer) return integer;
+			end;
+		''').assertError(domainFunctionDeclaration, DUPLICATE_NAME)
+	}
+	
+	@Test
+	def void testActionOverloading2() {
+		load('''
+			domain dom is
+				function f(x: in integer) return integer;
+				function f(x: in string) return string;
+			end;
+		''').assertNoErrors(DUPLICATE_NAME)
+	}
+	
+	@Test
+	def void testActionOverloading3() {
+		load('''
+			function dom::f(x: in integer) return integer is begin end;
+			function dom::f(x: in string) return integer is begin end;
+		''').assertNoErrors(DUPLICATE_NAME)
+	}
+	
+	@Test
+	def void testActionOverloading4() {
+		load('''
+			function dom::f(x: in integer) return integer is begin end;
+			function dom::f(y: in integer) return integer is begin end;
+		''').assertError(domainFunctionDefinition, DUPLICATE_NAME)
+	}
+	
+	@Test
+	def void testActionOverloading5() {
+		load('''
+			function dom::f(x: in integer) return integer is begin end;
+			function dom::f(x: in string) return string is begin end;
+		''').assertNoErrors(DUPLICATE_NAME)
+	}
+	
+	@Test
+	def void testTerminatorActionVisibilities() {
+		load('''
+			domain dom is
+				terminator Foo is
+					function func() return integer;
+					service serv();
+				end;
+			end;
+			
+			domain dom0 is
+				service caller();
+				service caller0();
+			end;
+		''').assertNoErrors
+		load('''
+			service dom::Foo~>serv() is
+			begin
+				Foo~>func();
+				Foo~>serv();
+			end
+		''').assertNoErrors(INVISIBLE_FEATURE)
+		load('''
+			service dom0::caller() is
+			begin
+				dom::Foo~>func();
+			end
+		''').assertError(terminatorActionCall, INVISIBLE_FEATURE)
+		load('''
+			service dom0::caller0() is
+			begin
+				dom::Foo~>serv();
+			end
+		''').assertError(terminatorActionCall, INVISIBLE_FEATURE)
+	}
+	
+	@Test 
+	def void testLinkExpression() {
+		load('''
+			domain dom is
+				object Foo;
+				object Foo is end;
+				relationship R1 is 
+					Foo conditionally there one Foo,
+					Foo conditionally back one Foo
+					using Foo;
+				service serv(foo: in instance of Foo);				
+			end;
+		''').assertNoErrors()
+		load('''	
+			service dom::serv(foo: in instance of Foo) is
+				foo2: instance of Foo;
+			begin
+				foo2 = link foo R1 foo;
+			end
+		''').assertNoErrors(INVALID_LINK_EXPRESSION)
+	}
+
+	@Test 
+	def void testLinkExpression1() {
+		load('''
+			domain dom is
+				object Foo;
+				object Foo is end;
+				relationship R1 is 
+					Foo conditionally there one Foo,
+					Foo conditionally back one Foo;
+				service serv(foo: in instance of Foo);				
+			end;
+		''').assertNoErrors()
+		load('''	
+			service dom::serv(foo: in instance of Foo) is
+				foo2: instance of Foo;
+			begin
+				foo2 = link foo R1 foo;
+			end
+		''').assertError(relationshipNavigation, INVALID_LINK_EXPRESSION)
 	}
 
 	private def assertNoError(EObject element, String type) {
