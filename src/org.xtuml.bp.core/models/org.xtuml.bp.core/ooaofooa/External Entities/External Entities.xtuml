@@ -1251,7 +1251,8 @@ Import:org.xtuml.bp.core.common.IdAssigner',
 	'try
 {			
   if (p_Type.equals("boolean")) { //$NON-NLS-1$
-    return new Boolean(((lib.BPBoolean) p_Value).getValue());
+    Boolean b = new Boolean(((lib.BPBoolean) p_Value).getValue());
+    return String.valueOf(b);
   } else if (p_Type.equals("integer")) { //$NON-NLS-1$
     return new Integer(((lib.BPInteger) p_Value).getValue());
   } else if (p_Type.equals("real")) { //$NON-NLS-1$
@@ -2343,6 +2344,7 @@ Translate:native',
             viewer = getExplorerTreeViewer.invoke(explorerViewClass, args);
         } catch (Exception e) {
             CorePlugin.logError("Error invoking getExplorerTreeViewer in GraphicsUtil  ", e); //$NON-NLS-1$
+            return false;
         }
 
         Tree foundTree = null;
@@ -2353,12 +2355,17 @@ Translate:native',
             foundTree = (Tree) getTree.invoke(viewer, args);
         } catch (Exception e) {
             CorePlugin.logError("Error invoking findTreeItem in GraphicsUtil  ", e); //$NON-NLS-1$
+            return false;
         }
 
         TreeItem[] foundItems = foundTree.getSelection();
-        Object parent = foundItems[0].getParentItem().getData();
-        if ((parent instanceof InterfaceSignal_c) || (parent instanceof InterfaceOperation_c)) {
-            return false;
+        if(foundItems.length != 0) {
+        	Object parent = foundItems[0].getParentItem().getData();
+        	if ((parent instanceof InterfaceSignal_c) || (parent instanceof InterfaceOperation_c)) {
+            	return false;
+        	}
+        } else {
+        	return false;
         }
         return true;
         ',
@@ -2405,6 +2412,28 @@ Translate:native',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	'	Selection.getInstance().clear();',
 	0,
+	'');
+INSERT INTO S_BRG
+	VALUES ("9b7646f1-d383-4d87-a774-109a287f6fcd",
+	"ca7a7f08-4459-4ff5-bf0b-941446e8b3c5",
+	'isSelected',
+	'Check if an instance is part of the selection group
+
+Import:org.xtuml.bp.core.ui.Selection
+Translate:native',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000001",
+	'return Selection.getInstance().contains(p_Element);',
+	0,
+	'');
+INSERT INTO S_BPARM
+	VALUES ("5920fd77-86ed-4aa9-9bd4-e55e292beee0",
+	"9b7646f1-d383-4d87-a774-109a287f6fcd",
+	'element',
+	"bc3722c8-5188-4529-8519-cf9eb9816b17",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
 	'');
 INSERT INTO PE_PE
 	VALUES ("ca7a7f08-4459-4ff5-bf0b-941446e8b3c5",

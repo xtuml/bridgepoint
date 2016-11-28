@@ -534,10 +534,12 @@ INSERT INTO O_TFR
 	1,
 	'count = 0;
 select one outerPkg related by self->C_IR[R4009]->C_PO[R4016]->C_C[R4010]->PE_PE[R8001]->EP_PKG[R8000];
+select one outerComp related by self->C_IR[R4009]->C_PO[R4016]->C_C[R4010]->PE_PE[R8001]->C_C[R8003];
 select many satisfactions related by self->C_SF[R4002];
 for each satisfaction in satisfactions
   select one sPkg related by satisfaction->PE_PE[R8001]->EP_PKG[R8000];
-  if (outerPkg.Package_ID == sPkg.Package_ID)
+  select one sComp related by satisfaction->PE_PE[R8001]->C_C[R8003];
+  if ((not_empty outerPkg and outerPkg.Package_ID == sPkg.Package_ID) or (not_empty outerComp and outerComp.Id == sComp.Id))
     count = count+1;
   end if;
 end for;
@@ -860,6 +862,65 @@ end if;
 	1,
 	'',
 	"60f023b8-16d9-4875-9e28-50b273813243");
+INSERT INTO O_TFR
+	VALUES ("363a633a-e234-44a0-914a-5c8dab31c998",
+	"74121abd-8a97-4ef3-a0af-5cea170b182b",
+	'isCuttable',
+	'A connector type is cuttable if it is selected, and if each shape anchored by it is also selected.',
+	"ba5eda7a-def5-0000-0000-000000000001",
+	1,
+	'cuttable = true;
+
+// check if this element is selected
+if ( not Sel::isSelected(element:self.convertToInstance()) )
+  cuttable = false;
+else
+  select one c_c related by self->C_IR[R4009]->C_PO[R4016]->C_C[R4010];
+  if ( not Sel::isSelected(element:c_c.convertToInstance()) )
+    cuttable = false;
+  else
+    select many c_sfs related by self->C_SF[R4002];
+    for each c_sf in c_sfs
+      select one cl_ir related by c_sf->CL_IR[R4706];
+      // if there is an instance of imported requirement present, then the satisfaction
+      // is on a different diagram and should be ignored
+      if ( empty cl_ir )
+        select one cl_ip related by c_sf->CL_IP[R4705];
+        // if an imported provision is present, check its selection, otherwise it is
+        // a real provision
+        if ( not_empty cl_ip )
+          if ( not Sel::isSelected(element:cl_ip.convertToInstance()) )
+            cuttable = false;
+            break;
+          end if;
+        else
+          select one c_p related by c_sf->C_P[R4002];
+          if ( not Sel::isSelected(element:c_p.convertToInstance()) )
+            cuttable = false;
+            break;
+          end if;
+        end if;
+      end if;
+    end for;
+  end if;
+end if;
+
+return cuttable;',
+	1,
+	'',
+	"f35ddeb4-154b-4f1b-9d9c-9f4f75f2187f");
+INSERT INTO O_TFR
+	VALUES ("c8c34f79-e1b7-41b1-a7c6-48ea73600662",
+	"74121abd-8a97-4ef3-a0af-5cea170b182b",
+	'canDelete',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000001",
+	1,
+	'return not self.isFormal();
+',
+	1,
+	'',
+	"363a633a-e234-44a0-914a-5c8dab31c998");
 INSERT INTO O_DBATTR
 	VALUES ("54fa393d-5a91-4fb6-869d-27b6c7e71af4",
 	"74121abd-8a97-4ef3-a0af-5cea170b182b",

@@ -22,13 +22,11 @@
 package org.xtuml.bp.core.ui;
 
 import java.io.ByteArrayInputStream;
-import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
@@ -89,28 +87,10 @@ public abstract class PasteAction extends CutCopyPasteAction  {
 		 * @throws Exception
 		 */
 		private void processPasteForMove(NonRootModelElement destination) throws Exception {			
-			HashSet<PersistableModelComponent> rgosAffectedByMove = new HashSet<PersistableModelComponent>();
-			// find all RGOs that this move would affect. Do this before we move things around!
-			// @see ModelElementMovedDelta.java
-			IPersistenceHierarchyMetaData metaData = PersistenceManager.getHierarchyMetaData();
-			for (NonRootModelElement sourceElement : ELEMENT_MOVE_SOURCE_SELECTION) {
-				List selfExternalRGOs = metaData.findExternalRGOsToContainingComponent(sourceElement.getFirstParentPackage(), true);		
-				for (Iterator iterator = selfExternalRGOs.iterator(); iterator.hasNext();) {
-					PersistableModelComponent target = ((NonRootModelElement) iterator.next()).getPersistableComponent();
-					if (target != null && !rgosAffectedByMove.contains(target)) {
-						rgosAffectedByMove.add(target);
-					}
-				}
-			}
-				
-			// Move the graphics to their graphical model root
-			processGraphics(destination); 
-						
 			// Iterate over each element that was selected. Note that
 			// this is the actual selection. This is NOT using the "importer"
 			// to suck in all dependent elements
 			for (NonRootModelElement sourceElement : ELEMENT_MOVE_SOURCE_SELECTION) {
-				PackageableElement_c srcPE = sourceElement.getPE();
 
 				// disconnect
 				try {
@@ -130,9 +110,10 @@ public abstract class PasteAction extends CutCopyPasteAction  {
 					}
 					
 					// Now, use the generated operation for disconnecting the PE from parent 
-					// package or component, skip if we're directly under the System
+					// package or component, skip if we're directly under the System or if this is note a PE_PE (ex Requirements and Provisions)
+					PackageableElement_c srcPE = sourceElement.getPE();
 					boolean parentIsSys = parentNRME instanceof SystemModel_c;
-					if ( !parentIsSys ) {
+					if ( !parentIsSys && srcPE != null ) {
 						opName = "unrelateAcrossR8000From";
 						if (getClassName(parentNRME).equals("component")) {
 							opName = "unrelateAcrossR8003From";
@@ -158,6 +139,9 @@ public abstract class PasteAction extends CutCopyPasteAction  {
 					Method pasteMethod = clazz.getMethod(opName, new Class[] { UUID.class });
 					pasteMethod.invoke(destination, new Object[] { sourceElement.Get_ooa_id() });
 							
+				} catch (NoSuchMethodException nsme) {
+					// ignore for the case of elements that do not require calling
+					// a paste operation
 				} catch (Exception e) {
 					CorePlugin.logError("Unable to connect " + getClassName(sourceElement) + "  (" //$NON-NLS-1$
 							+ sourceElement.getName() + ") to " + destination.getClass().getSimpleName()
@@ -168,8 +152,9 @@ public abstract class PasteAction extends CutCopyPasteAction  {
 				// All the work prior to this changed the in memory model.
 				// The transaction processing for this type of transaction 
 				// will update the files on disk as needed.
+				NonRootModelElement parentNRME = getContainerForMove(sourceElement);
 				ModelElementMovedModelDelta change = new ModelElementMovedModelDelta(sourceElement, destination,
-						rgosAffectedByMove);
+						parentNRME);
 				Ooaofooa.getDefaultInstance().fireModelElementMoved(change);									
 			} 
 		
@@ -193,6 +178,9 @@ public abstract class PasteAction extends CutCopyPasteAction  {
 					throw e;
 				}
 			} 
+			
+			// Move the graphics to their graphical model root
+			processGraphics(destination); 
 		}
 		
 		/**

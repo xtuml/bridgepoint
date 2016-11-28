@@ -22,33 +22,25 @@
 //
 package org.xtuml.bp.core.common;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
-import java.util.List;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.IWorkspaceRoot;
+import org.eclipse.core.resources.IWorkspaceRunnable;
 import org.eclipse.core.resources.ResourcesPlugin;
-import org.eclipse.core.resources.WorkspaceJob;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.NullProgressMonitor;
-import org.eclipse.core.runtime.Status;
-import org.eclipse.core.runtime.jobs.Job;
-import org.eclipse.ui.PlatformUI;
-import org.xtuml.bp.core.Component_c;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.DataType_c;
 import org.xtuml.bp.core.Modeleventnotification_c;
 import org.xtuml.bp.core.Ooaofooa;
-import org.xtuml.bp.core.Package_c;
-import org.xtuml.bp.core.PackageableElement_c;
 import org.xtuml.bp.core.SystemModel_c;
 import org.xtuml.bp.core.ui.PasteAction;
 import org.xtuml.bp.core.util.CoreUtil;
@@ -142,12 +134,17 @@ public class ComponentTransactionListener implements ITransactionListener {
 							}
 						}
 					} else if (delta instanceof ModelElementMovedModelDelta) {
+						// here we have to use ignore resource changes caused
+						// by CMs like git, this and rename are the only cases
+						// where git injects resource changes into our transaction
+						ComponentResourceListener.setIgnoreResourceChanges(true);
+						TransactionManager.getSingleton().setIgnoreResourceChanges(true);
 						// When multiple elements are being moved we will re-persist elements
 						persisted.clear();
-						
+
 						NonRootModelElement sourceElement = (NonRootModelElement) delta.getModelElement();
 						NonRootModelElement destinationElement = ((ModelElementMovedModelDelta)delta).getDestination();
-	
+
 						PersistableModelComponent sourcePMC = PasteAction.getContainerForMove(sourceElement).getPersistableComponent();
 						boolean errorDuringFileMove = false;
 
@@ -164,17 +161,23 @@ public class ComponentTransactionListener implements ITransactionListener {
 						}		
 
 						if (!errorDuringFileMove) {
-							
-							// persist the moved element and all its RGOs
-							PersistableModelComponent destinationPMC = destinationElement.getPersistableComponent(true);
-							persistRenamedME(sourceElement, destinationPMC, false);
-							
-							// In case it was not yet persisted above in persistRenamedME, do it now
-							persist(sourcePMC);
-							
-							// assure all rgos are persisted
-							rgosAffectedByMove.addAll(((ModelElementMovedModelDelta) delta)
-									.getRGOsAffectedByMove());
+							IWorkspace workspace = ResourcesPlugin.getWorkspace();
+							try {
+								workspace.run(new IWorkspaceRunnable() {
+
+									@Override
+									public void run(IProgressMonitor monitor) throws CoreException {
+										// persist the moved element and all its RGOs
+										PersistableModelComponent destinationPMC = destinationElement.getPersistableComponent(true);
+										persistRenamedME(sourceElement, destinationPMC);
+
+										// In case it was not yet persisted above in persistRenamedME, do it now
+										persist(sourcePMC);
+									}
+								}, workspace.getRoot(), IWorkspace.AVOID_UPDATE, null);
+							} catch (CoreException e) {
+								CorePlugin.logError("Resource exception occured during persistence of an element move.", e);
+							}
 						}
 					}
 				}
@@ -225,7 +228,7 @@ public class ComponentTransactionListener implements ITransactionListener {
 											.getHierarchyMetaData()
 											.isComponentRoot(modelElement)) {
 										modelElementRenamed((AttributeChangeModelDelta) delta);
-										persistRenamedME(element, element.getPersistableComponent(), true);
+										persistRenamedME(element, element.getPersistableComponent());
 									}
 								} else if(modelDelta.getAttributeName().equals("Represents")) {
 									// special case to avoid persistence caused by the setting
@@ -239,14 +242,6 @@ public class ComponentTransactionListener implements ITransactionListener {
 					}
 				}
 			}
-		}
-
-		/**
-		 * Persist all the RGOs, if any, associated with the Move operation
-		 */
-		for (Iterator<PersistableModelComponent> iter = rgosAffectedByMove.iterator(); iter.hasNext();) {
-			PersistableModelComponent rgo = (PersistableModelComponent) iter.next();
-			persist(rgo);
 		}
 		
 		Ooaofooa[] instances = Ooaofooa.getInstances();
@@ -312,7 +307,7 @@ public class ComponentTransactionListener implements ITransactionListener {
 		return false;
 	}
 
-	private void persistRenamedME(NonRootModelElement elementRenamed, PersistableModelComponent newPMC, boolean persistRGOs) {
+	private void persistRenamedME(NonRootModelElement elementRenamed, PersistableModelComponent newPMC) {
 
 		IPersistenceHierarchyMetaData metaData = PersistenceManager
 				.getHierarchyMetaData();
@@ -325,25 +320,6 @@ public class ComponentTransactionListener implements ITransactionListener {
 			PersistableModelComponent child = (PersistableModelComponent) iter.next();
 			persist(child);
 		}
-
-		if (persistRGOs) {
-			// now persist all RGO proxies		
-	 		List selfExternalRGOs;
-	 		Package_c packageContainer;
-			if (elementRenamed instanceof Package_c) {
-				packageContainer = (Package_c)elementRenamed;
-			} else {			
-				packageContainer = elementRenamed.getFirstParentPackage();
-			}
-			selfExternalRGOs = metaData.findExternalRGOsToContainingComponent(packageContainer, true);
-			
-			for (Iterator iterator = selfExternalRGOs.iterator(); iterator.hasNext();) {
-				PersistableModelComponent target = ((NonRootModelElement) iterator.next()).getPersistableComponent();
-				if (target != null && !persisted.contains(target)) {
-					persist(target);
-				}
-			}
-		}
 	}
 
 	private static void modelElementRenamed(
@@ -351,6 +327,9 @@ public class ComponentTransactionListener implements ITransactionListener {
 		if (dontMakeResourceChanges()) {
 			return;
 		}
+		// See comment in the move case above...
+		ComponentResourceListener.setIgnoreResourceChanges(true);
+		TransactionManager.getSingleton().setIgnoreResourceChanges(true);
 		final String oldName = (String) delta.getOldValue();
 		final String newName = (String) delta.getNewValue();
 		if (oldName.equals("")) // $NON-NLS-1$
@@ -436,19 +415,17 @@ public class ComponentTransactionListener implements ITransactionListener {
 		IPersistenceHierarchyMetaData metadata = PersistenceManager.getHierarchyMetaData();
 		PersistableModelComponent destinationPMC = destinationElement.getPersistableComponent(true);
 		NonRootModelElement rtoForResolution = sourceElement.getRTOElementForResolution();
-		
-		// start: move the element to the new ModelRoot in memory
-		// 		To implement undo, this in-memory section will be moved
-		//		from here into PasteAction, and any NRME modified here will
-		//		be be saved-off into the transaction in its state BEFORE
-		//		any changes are made to it. Similar to what we do for a 
-		//		ModelElementChanged transaction. In fact we can use a Transaction
-		//		group for move and use ModelElementChanged to store these before and
-		//		after NRMEs.
-		if (sourceElement.getModelRoot() != destinationElement.getModelRoot()) {
-			sourceElement.updateRootForSelfAndChildren(sourceElement.getModelRoot(), destinationElement.getModelRoot());			
+
+		ModelRoot destinationRoot = destinationElement.getModelRoot();
+		if (sourceElement.getModelRoot() != destinationRoot) {
+			// if this is the system root, we need to create a new model
+			// root for the package being moved
+			if(destinationRoot == Ooaofooa.getDefaultInstance()) {
+				String newRootId = Ooaofooa.createModelRootId(destinationElement.getName(), sourceElement.getName(), true);
+				destinationRoot = Ooaofooa.getInstance(newRootId);
+			}
+			sourceElement.updateRootForSelfAndChildren(sourceElement.getModelRoot(), destinationRoot);			
 		}		
-		// end: move the element to the new ModelRoot in memory
 
 		// Move the folder on disk if the sourceElement is associated 
 		// with a folder/file on disk.
@@ -470,7 +447,7 @@ public class ComponentTransactionListener implements ITransactionListener {
 						+ destinationPath.toString() + "   Element being moved: " + sourceElement.getName(), e);
 				throw e;
 			}				
-			
+
 			// Update the moved PMCs file resource to point at its new file
 			sourceElement.getPersistableComponent().updateResource(newFile);
 		} else {
@@ -479,7 +456,7 @@ public class ComponentTransactionListener implements ITransactionListener {
 			if (rtoForResolution instanceof DataType_c) {
 				rtoForResolution.setComponent(destinationPMC);			
 			}
-		}		
+		}
 	}
 
 	public static void setDontMakeResourceChanges(boolean newValue) {

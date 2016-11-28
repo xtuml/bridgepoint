@@ -23,14 +23,12 @@
 package org.xtuml.bp.ui.graphics.actions;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.UUID;
 
-import org.eclipse.core.resources.IWorkspaceRunnable;
-import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.GraphicalViewer;
@@ -40,20 +38,16 @@ import org.eclipse.jface.action.Action;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.StructuredSelection;
-import org.eclipse.swt.dnd.Clipboard;
-import org.eclipse.swt.dnd.TextTransfer;
 import org.eclipse.swt.widgets.Event;
-import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.xtuml.bp.core.CorePlugin;
-import org.xtuml.bp.core.DataType_c;
 import org.xtuml.bp.core.Ooaofooa;
-import org.xtuml.bp.core.common.IPersistenceHierarchyMetaData;
+import org.xtuml.bp.core.SystemModel_c;
+import org.xtuml.bp.core.common.ClassQueryInterface_c;
 import org.xtuml.bp.core.common.InstanceList;
 import org.xtuml.bp.core.common.ModelRoot;
 import org.xtuml.bp.core.common.ModelStreamProcessor;
 import org.xtuml.bp.core.common.NonRootModelElement;
-import org.xtuml.bp.core.common.PersistenceManager;
 import org.xtuml.bp.core.common.TransactionManager;
 import org.xtuml.bp.core.ui.PasteAction;
 import org.xtuml.bp.core.ui.Selection;
@@ -72,7 +66,6 @@ import org.xtuml.bp.ui.canvas.Model_c;
 import org.xtuml.bp.ui.canvas.Ooaofgraphics;
 import org.xtuml.bp.ui.canvas.Shape_c;
 import org.xtuml.bp.ui.graphics.editor.GraphicalEditor;
-import org.xtuml.bp.ui.graphics.editor.GraphicalEditorInput;
 import org.xtuml.bp.ui.graphics.tools.GraphicalPanningSelectionTool;
 import org.xtuml.bp.ui.graphics.utilities.GraphicsUtil;
 
@@ -126,6 +119,7 @@ public class CanvasPasteAction extends PasteAction {
 			boolean newParent = areGraphicalElementsExternal();
 			updateGraphicalElementRoots(elements, m_editor.getModel().getModelRoot());
 			for (int i = 0; i < graphicElements.length; i++) {
+				graphicElements[i].unrelateAcrossR1From(Model_c.getOneGD_MDOnR1(graphicElements[i]));
 				graphicElements[i].relateAcrossR1To(m_editor.getModel());
 				updateContainement(m_editor.getModel(), graphicElements[i]);
 			}
@@ -191,21 +185,33 @@ public class CanvasPasteAction extends PasteAction {
 	 * @param ooaElementMoved
 	 * @param destGD_MD
 	 */
-	private static void moveGraphicalElement(NonRootModelElement ooaElementMoved, Model_c destGD_MD) {
-		NonRootModelElement sourceElementContainer = PasteAction.getContainerForMove(ooaElementMoved);
-		Ooaofgraphics ooaofg = Ooaofgraphics
-				.getInstance(sourceElementContainer.getModelRoot().getId());
-		GraphicalElement_c graphicalElementMoved = CanvasPlugin.getGraphicalElement(ooaofg, ooaElementMoved);
-		
-		// We have to have the graphical elements loaded in order to move them. 
-		// If the element is not loaded then we load the editor that is the container
-		// for the source element. 
-		if (graphicalElementMoved == null) {
-			CanvasPasteAction.openCanvasEditor(sourceElementContainer);			
-			
-			graphicalElementMoved = CanvasPlugin.getGraphicalElement(ooaofg, ooaElementMoved);
+	private static void moveGraphicalElement(final NonRootModelElement ooaElementMoved, Model_c destGD_MD) {
+		Model_c srcModel = null;
+		Model_c[] models = Model_c.ModelInstances(Ooaofgraphics.getInstance(ooaElementMoved.getModelRoot().getId()));
+		Model_c[] systemModels = Model_c.ModelInstances(Ooaofgraphics.getDefaultInstance());
+		Model_c[] allModels = new Model_c[models.length + systemModels.length];
+		System.arraycopy(models, 0, allModels, 0, models.length);
+		System.arraycopy(systemModels, 0, allModels, models.length, systemModels.length);
+		GraphicalElement_c graphicalElementMoved = null;
+		for(int i = 0; i < allModels.length; i++) {
+			graphicalElementMoved = GraphicalElement_c.getOneGD_GEOnR1(allModels[i], new ClassQueryInterface_c() {
+				
+				@Override
+				public boolean evaluate(Object candidate) {
+					GraphicalElement_c element = (GraphicalElement_c) candidate;
+					if(element.getRepresents() != null) {
+						return element.getRepresents().equals(ooaElementMoved);
+					} else {
+						return element.getOoa_id().equals(ooaElementMoved.Get_ooa_id());
+					}
+				}
+			});
+			CanvasPlugin.setGraphicalRepresents(allModels[i]);
+			if(graphicalElementMoved != null) {
+				break;
+			}
 		}
-		
+
 		if (graphicalElementMoved != null) {
 
 			// Every GraphicalElement is part of a diagram, so this will never be null.
