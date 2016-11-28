@@ -1,10 +1,11 @@
-What's New in BridgePoint 5.8
+What's New in BridgePoint 5.8.2
 ========================
 
 Release Highlights
 -------
 * Package References
 * Model Element Move
+* Activities Persisted in Files
 * Verifier
 * MASL
 * Editor
@@ -42,6 +43,16 @@ telling the user what model elements will be affected and downgraded to default
 values (or deleted in the case of imported classes and component references).  The 
 modeler is given the option to cancel the operation.  BridgePoint
 also supports undo-ing the move after it has occurred.  
+
+Activities Persisted in Files
+------    
+This version of BridgePoint persists action language activities in files separate
+from the structural model data in the ```.xtuml``` file.  All the sibling activities 
+for a given parent are persisted into the same file.   
+  
+This change is related to a metamodel update.  BridgePoint now has a ```Dialect```
+attributes on action home instances.  Any class that had ```Action_Semantics``` now
+has a ```Dialect``` attribute.   
 
 Verifier
 ------

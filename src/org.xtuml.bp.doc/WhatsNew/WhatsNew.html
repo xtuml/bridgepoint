@@ -12,11 +12,12 @@
   <![endif]-->
 </head>
 <body>
-<h1 id="whats-new-in-bridgepoint-5.8">What's New in BridgePoint 5.8</h1>
+<h1 id="whats-new-in-bridgepoint-5.8.2">What's New in BridgePoint 5.8.2</h1>
 <h2 id="release-highlights">Release Highlights</h2>
 <ul>
 <li>Package References</li>
 <li>Model Element Move</li>
+<li>Activities Persisted in Files</li>
 <li>Verifier</li>
 <li>MASL</li>
 <li>Editor</li>
@@ -45,6 +46,13 @@ telling the user what model elements will be affected and downgraded to default<
 values (or deleted in the case of imported classes and component references). The<br />
 modeler is given the option to cancel the operation. BridgePoint<br />
 also supports undo-ing the move after it has occurred.</p>
+<h2 id="activities-persisted-in-files">Activities Persisted in Files</h2>
+<p>This version of BridgePoint persists action language activities in files separate<br />
+from the structural model data in the <code>.xtuml</code> file. All the sibling activities<br />
+for a given parent are persisted into the same file.</p>
+<p>This change is related to a metamodel update. BridgePoint now has a <code>Dialect</code><br />
+attributes on action home instances. Any class that had <code>Action_Semantics</code> now<br />
+has a <code>Dialect</code> attribute.</p>
 <h2 id="verifier">Verifier</h2>
 <p>A number of features and fixes were made to improve Verifier:</p>
 <ul>
