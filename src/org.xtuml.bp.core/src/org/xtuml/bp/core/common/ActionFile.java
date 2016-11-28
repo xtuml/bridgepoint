@@ -54,37 +54,6 @@ public class ActionFile {
 		}
 	}
 	
-	// get the dialect for this action file manager. This will check to see if actions exist
-	// for one dialect, if not it will go to the default dialect
-	public String getDialect() {
-            String dialect = "";
-            Iterator<Map.Entry<String,IFile>> it = fileMap.entrySet().iterator();
-            while ( it.hasNext() ) {
-                Map.Entry<String,IFile> entry = (Map.Entry<String,IFile>)it.next();
-                IFile file = entry.getValue();
-                if ( file != null && file.exists() ) {
-                    if ( "" == dialect ) {
-                        dialect = entry.getKey();
-                    }
-                    else {
-	                return getDefaultDialect(); // more than one action file exists
-                    }
-                }
-            }
-            if ( dialect == "" ) {
-	        return getDefaultDialect(); // no action file exists
-            }
-            else {
-                return dialect.toLowerCase();
-            }
-	}
-	
-	// get the file for this action file manager. This will check to see if actions exist
-	// for one dialect, if not it will go to the default dialect
-	public IFile getFile() {
-		return fileMap.get(getDialect());
-	}
-
         // get all the files for this action file manager
         public IFile[] getAllFiles() {
             return fileMap.values().toArray(new IFile[0]);
@@ -151,26 +120,12 @@ public class ActionFile {
 		return null;
 	}
 	
-	public static String getDefaultDialect() {
-                String[] dialects = getAvailableDialects();
+	public static int getDefaultDialect() {
                 IPreferenceStore store = CorePlugin.getDefault().getPreferenceStore();
-                String prefDialect = store.getString(BridgePointPreferencesStore.DEFAULT_ACTION_LANGUAGE_DIALECT).toLowerCase();
-                if ( Arrays.asList( dialects ).contains( prefDialect ) ) {
-                    return prefDialect;
-                }
-                else if ( dialects.length > 0 ) {
-                    return dialects[0];     // if the preference does not match a dialect, use the first dialect in the list
-                }
-                else {
-                    return "";
-                }
+                return store.getInt(BridgePointPreferencesStore.DEFAULT_ACTION_LANGUAGE_DIALECT);
 	}
 	
 	// get the action file path from the component file path
-	public IPath getPathFromComponent( IPath path ) {
-		return getPathFromComponent( path, getDialect() );
-	}
-
 	public static IPath getPathFromComponent( IPath path, String tag ) {
 		if ( null != path ) {
 			return path.removeFileExtension().addFileExtension(tag);
