@@ -9,6 +9,8 @@ package org.xtuml.bp.core.common;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -17,36 +19,38 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jface.preference.IPreferenceStore;
+import org.xtuml.bp.core.Actiondialect_c;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.Ooaofooa;
 
 public class ActionFile {
 	
-	private static final String[] DIALECTS = { "masl" }; //, "oal" };
-	
 	private HashMap<String,IFile> fileMap;
 	
 	public ActionFile( String componentFileName ) {
+                String[] dialects = getAvailableDialects();
 		fileMap = new HashMap<String,IFile>();
-		for ( int i = 0; i < DIALECTS.length; i++ ) {
-			IPath actionFilePath = getPathFromComponent(componentFileName, DIALECTS[i]);
-			fileMap.put(DIALECTS[i], ResourcesPlugin.getWorkspace().getRoot().getFile(actionFilePath));
+		for ( int i = 0; i < dialects.length; i++ ) {
+			IPath actionFilePath = getPathFromComponent(componentFileName, dialects[i]);
+			fileMap.put(dialects[i], ResourcesPlugin.getWorkspace().getRoot().getFile(actionFilePath));
 		}
 	}
 	
 	public ActionFile( IPath componentPath ) {
+                String[] dialects = getAvailableDialects();
 		fileMap = new HashMap<String,IFile>();
-		for ( int i = 0; i < DIALECTS.length; i++ ) {
-			IPath actionFilePath = getPathFromComponent(componentPath, DIALECTS[i]);
-			fileMap.put(DIALECTS[i], ResourcesPlugin.getWorkspace().getRoot().getFile(actionFilePath));
+		for ( int i = 0; i < dialects.length; i++ ) {
+			IPath actionFilePath = getPathFromComponent(componentPath, dialects[i]);
+			fileMap.put(dialects[i], ResourcesPlugin.getWorkspace().getRoot().getFile(actionFilePath));
 		}
 	}
 	
 	public void updateFiles( IPath newPath ) {
+                String[] dialects = getAvailableDialects();
 		fileMap = new HashMap<String,IFile>();
-		for ( int i = 0; i < DIALECTS.length; i++ ) {
-			IPath actionFilePath = getPathFromComponent(newPath, DIALECTS[i]);
-			fileMap.put(DIALECTS[i], ResourcesPlugin.getWorkspace().getRoot().getFile(actionFilePath));
+		for ( int i = 0; i < dialects.length; i++ ) {
+			IPath actionFilePath = getPathFromComponent(newPath, dialects[i]);
+			fileMap.put(dialects[i], ResourcesPlugin.getWorkspace().getRoot().getFile(actionFilePath));
 		}
 	}
 	
@@ -88,22 +92,74 @@ public class ActionFile {
 
         // get all available dialects 
         public static String[] getAvailableDialects() {
-            return DIALECTS;
+            List<String> dialects = new ArrayList<String>();
+            Class actionDialects = Actiondialect_c.class;
+            try {
+                Field[] dialectFields = actionDialects.getFields();
+                for ( int i = 0; i < dialectFields.length; i++ ) {
+	            if ( !dialectFields[i].getName().equals("OOA_UNINITIALIZED_ENUM") ) {
+                        dialects.add( dialectFields[i].getName().toLowerCase() );
+                    }
+                }
+            } catch ( SecurityException e ) {
+                System.out.println( e );
+            }
+
+            return dialects.toArray(new String[0]);
+        }
+
+        // get enumerator codes of all available dialects 
+        public static int[] getAvailableDialectCodes() {
+            List<Integer> dialects = new ArrayList<Integer>();
+            Class actionDialects = Actiondialect_c.class;
+            try {
+                Field[] dialectFields = actionDialects.getFields();
+                for ( int i = 0; i < dialectFields.length; i++ ) {
+	            if ( !dialectFields[i].getName().equals("OOA_UNINITIALIZED_ENUM") ) {
+                        dialects.add( dialectFields[i].getInt(null) );
+                    }
+                }
+            } catch ( SecurityException e ) {
+                System.out.println( e );
+            } catch ( IllegalAccessException e ) {
+                System.out.println( e );
+            } catch ( IllegalArgumentException e ) {
+                System.out.println( e );
+            } catch ( NullPointerException e ) {
+                System.out.println( e );
+            } catch ( ExceptionInInitializerError e ) {
+                System.out.println( e );
+            }
+
+            return dialects.stream().mapToInt(i->i).toArray();
         }
 
         // get the file for this action file manager with a specific dialect
 	public IFile getFile( String dialect ) {
 		return fileMap.get(dialect);
 	}
+
+        // get the file for this action file manager with a specific dialect code
+	public IFile getFile( int dialect ) {
+                int[] dialectCodes = getAvailableDialectCodes();
+                String[] dialects = getAvailableDialects();
+                for ( int i = 0; i < dialectCodes.length; i++ ) {
+                    if ( dialect == dialectCodes[i] ) {
+                        return getFile( dialects[i] );
+                    }
+                }
+		return null;
+	}
 	
 	public static String getDefaultDialect() {
+                String[] dialects = getAvailableDialects();
                 IPreferenceStore store = CorePlugin.getDefault().getPreferenceStore();
                 String prefDialect = store.getString(BridgePointPreferencesStore.DEFAULT_ACTION_LANGUAGE_DIALECT).toLowerCase();
-                if ( Arrays.asList( DIALECTS ).contains( prefDialect ) ) {
+                if ( Arrays.asList( dialects ).contains( prefDialect ) ) {
                     return prefDialect;
                 }
-                else if ( DIALECTS.length > 0 ) {
-                    return DIALECTS[0];     // if the preference does not match a dialect, use the first dialect in the list
+                else if ( dialects.length > 0 ) {
+                    return dialects[0];     // if the preference does not match a dialect, use the first dialect in the list
                 }
                 else {
                     return "";
