@@ -508,9 +508,9 @@ public class PersistableModelComponent implements Comparable {
         return null;
     }
 
-    public IFile getActionFile() {
+    public IFile getActionFile( int dialect ) {
       if (afm != null)
-        return afm.getFile();
+        return afm.getFile(dialect);
       else
         return null;
     }
