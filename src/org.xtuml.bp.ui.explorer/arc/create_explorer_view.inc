@@ -866,7 +866,7 @@ public class ${viewer_name} extends ViewPart implements IModelViewerProvider {
 
                 String editorId = elems[j].getAttribute("class"); //$$NON-NLS-1$$
 
-				String dialect = "";
+				int dialect = -1;
 				if (editorId.equals(ActivityEditorInput.EDITOR_ID)) {
 					// see if the current element should open
 					// something other than itself
@@ -881,33 +881,23 @@ public class ${viewer_name} extends ViewPart implements IModelViewerProvider {
 
 					// Get the value of the dialect attribute
 					Method getDialectMethod = dialectObj.getClass().getMethod("getDialect"); //$$NON-NLS-1$$
-					dialect = (String) getDialectMethod.invoke(dialectObj, new Object[]{});
+					dialect = (int) getDialectMethod.invoke(dialectObj);
 
 					// If the "dialect" attribute is neither "oal" nor "masl",
 					// check the default language preference. Set "dialect" to
 					// be the preference value and open the proper editor.
-					if (dialect.isEmpty()) {
+					if ( dialect != Actiondialect_c.masl && dialect != Actiondialect_c.oal ) {
 						IPreferenceStore store = CorePlugin.getDefault().getPreferenceStore();
-						String option = store.getString(BridgePointPreferencesStore.DEFAULT_ACTION_LANGUAGE_DIALECT);
+						int option = store.getInt(BridgePointPreferencesStore.DEFAULT_ACTION_LANGUAGE_DIALECT);
 
-						Class[] type = new Class[1];
-						type[0] = String.class;
-						Method setDialectMethod = dialectObj.getClass().getMethod("setDialect", type); //$$NON-NLS-1$$
-						Object[] args = new Object[1];
-
-						if (option.equals("MASL")) { //$$NON-NLS-1$$
-							dialect = "masl"; //$$NON-NLS-1$$
-							args[0] = dialect;
-						} else {
-							dialect = "oal"; //$$NON-NLS-1$$
-							args[0] = dialect;
-						}
-						setDialectMethod.invoke(dialectObj, args);
+						Method setDialectMethod = dialectObj.getClass().getMethod("setDialect", Integer.class); //$$NON-NLS-1$$
+						Object arg = new Integer(option);
+						setDialectMethod.invoke(dialectObj, arg);
 					}
 				}
 
 				// check to see if we need to open the MASL editor
-				if (MASLEditorInput.isSupported(current) && dialect.equals("masl")) { //$$NON-NLS-1$$
+				if (MASLEditorInput.isSupported(current) && dialect == Actiondialect_c.masl ) { //$$NON-NLS-1$$
 					inputClass = bundle.loadClass("org.xtuml.bp.ui.text.masl.MASLEditorInput"); //$$NON-NLS-1$$
 					try {
 						editorId = (String) inputClass.getField("EDITOR_ID").get(null); //$$NON-NLS-1$$
