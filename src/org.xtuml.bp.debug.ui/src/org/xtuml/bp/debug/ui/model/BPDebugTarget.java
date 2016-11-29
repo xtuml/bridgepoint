@@ -766,7 +766,7 @@ public class BPDebugTarget extends BPDebugElement implements IDebugTarget {
     // Now do the real optimization . . .
     if (element instanceof ComponentInstance_c) {
       RuntimeChannel_c[] channels = RuntimeChannel_c
-          .getManyI_RCHsOnR2968IsInterfaceProviderTo((ComponentInstance_c) element);
+          .getManyI_RCHsOnR2968IsInterfaceRequirerOf((ComponentInstance_c) element);
       for (int i = 0; i < channels.length; i++) {
         //optimizeChannel(channels[i]);
       }
@@ -1016,10 +1016,10 @@ public class BPDebugTarget extends BPDebugElement implements IDebugTarget {
         // Now we need to worry about imported child components.
         // This seems very very complex. :-(
         RuntimeChannel_c[] rtcs = RuntimeChannel_c
-            .getManyI_RCHsOnR2968IsInterfaceProviderTo(parentExEng);
+            .getManyI_RCHsOnR2968IsInterfaceRequirerOf(parentExEng);
         for (int i = 0; i < rtcs.length; i++) {
           if (exEng == ComponentInstance_c
-              .getOneI_EXEOnR2968IsInterfaceRequirerOf(rtcs[i])) {
+              .getOneI_EXEOnR2968IsInterfaceProviderTo(rtcs[i])) {
             // We may need to handle delegation for this
           }
         }
@@ -1116,10 +1116,10 @@ public class BPDebugTarget extends BPDebugElement implements IDebugTarget {
           ComponentInstance_c ci = null;
           if (isReq) {
             ci = ComponentInstance_c
-            .getOneI_EXEOnR2968IsInterfaceProviderTo(rtchs[k]);
+            .getOneI_EXEOnR2968IsInterfaceRequirerOf(rtchs[k]);
           } else {
             ci = ComponentInstance_c
-            .getOneI_EXEOnR2968IsInterfaceRequirerOf(rtchs[k]);
+            .getOneI_EXEOnR2968IsInterfaceProviderTo(rtchs[k]);
           }
           if (ci == parentExEng) {
             return rtchs[k];
@@ -1134,10 +1134,10 @@ public class BPDebugTarget extends BPDebugElement implements IDebugTarget {
           ComponentInstance_c ci = null;
           if (isReq) {
             ci = ComponentInstance_c
-                .getOneI_EXEOnR2968IsInterfaceProviderTo(rtchs[k]);
+                .getOneI_EXEOnR2968IsInterfaceRequirerOf(rtchs[k]);
           } else {
             ci = ComponentInstance_c
-                .getOneI_EXEOnR2968IsInterfaceRequirerOf(rtchs[k]);
+                .getOneI_EXEOnR2968IsInterfaceProviderTo(rtchs[k]);
           }
           if (ci == parentExEng) {
             return rtchs[k];
@@ -1364,14 +1364,14 @@ public class BPDebugTarget extends BPDebugElement implements IDebugTarget {
 				wireForwards = !isRequired;
 			}
 			if (wireForwards) {
-				channel.relateAcrossR2968ToIsInterfaceProviderTo(src);
-				channel.relateAcrossR2968ToIsInterfaceRequirerOf(target);
+				channel.relateAcrossR2968ToIsInterfaceRequirerOf(src);
+				channel.relateAcrossR2968ToIsInterfaceProviderTo(target);
 			} else {
 				// If this is a provision, we relate the source and target the
 				// other way around. This provides consistency across R2968,
 				// which is important across all reflexive associations.
-				channel.relateAcrossR2968ToIsInterfaceProviderTo(target);
-				channel.relateAcrossR2968ToIsInterfaceRequirerOf(src);
+				channel.relateAcrossR2968ToIsInterfaceRequirerOf(target);
+				channel.relateAcrossR2968ToIsInterfaceProviderTo(src);
 			}
 			if (parentRt != null) {
 				if (isRequired) {
@@ -1389,7 +1389,7 @@ public class BPDebugTarget extends BPDebugElement implements IDebugTarget {
 	private boolean alreadyWired(ComponentInstance_c exEng,
 			NonRootModelElement element) {
 		RuntimeChannel_c[] existingChannels = RuntimeChannel_c
-				.getManyI_RCHsOnR2968IsInterfaceProviderTo(exEng);
+				.getManyI_RCHsOnR2968IsInterfaceRequirerOf(exEng);
 		for (int i = 0; i < existingChannels.length; i++) {
 			Satisfaction_c oneSat = Satisfaction_c
 					.getOneC_SFOnR2969(existingChannels[i]);
@@ -1405,7 +1405,7 @@ public class BPDebugTarget extends BPDebugElement implements IDebugTarget {
 			}
 		}
 		existingChannels = RuntimeChannel_c
-				.getManyI_RCHsOnR2968IsInterfaceRequirerOf(exEng);
+				.getManyI_RCHsOnR2968IsInterfaceProviderTo(exEng);
 		for (int i = 0; i < existingChannels.length; i++) {
 			Satisfaction_c othSat = Satisfaction_c
 					.getOneC_SFOnR2969(existingChannels[i]);

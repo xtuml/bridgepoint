@@ -2,7 +2,7 @@
 <feature
       id="org.xtuml.bp.pkg"
       label="BridgePoint UML"
-      version="5.8.0"
+      version="5.8.2"
       provider-name="xtUML.org"
       image="images/GreenChip.gif">
 
@@ -26,18 +26,18 @@ the License.
 
    <includes
          id="org.xtuml.bp.bld.pkg"
-         version="5.8.0"
+         version="5.8.2"
          name="BridgePoint Builder"/>
 
    <includes
          id="org.xtuml.bp.verifier.pkg"
-         version="5.8.0"
+         version="5.8.2"
          name="BridgePoint Verifier"/>
 
    <plugin
          id="org.xtuml.bp.pkg"
          download-size="0"
          install-size="0"
-         version="5.8.0"/>
+         version="5.8.2"/>
 
 </feature>

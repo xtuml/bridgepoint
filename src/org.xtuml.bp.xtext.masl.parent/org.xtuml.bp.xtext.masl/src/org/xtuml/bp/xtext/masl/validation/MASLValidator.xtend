@@ -8,8 +8,8 @@ import java.util.HashSet
 import java.util.Set
 import org.eclipse.xtext.validation.Check
 import org.eclipse.xtext.validation.ComposedChecks
-import org.xtuml.bp.xtext.masl.masl.behavior.CodeBlock
 import org.xtuml.bp.xtext.masl.masl.behavior.ReturnStatement
+import org.xtuml.bp.xtext.masl.masl.behavior.StatementList
 import org.xtuml.bp.xtext.masl.masl.behavior.ThisLiteral
 import org.xtuml.bp.xtext.masl.masl.structure.AbstractTopLevelElement
 import org.xtuml.bp.xtext.masl.masl.structure.DomainDefinition
@@ -74,7 +74,7 @@ class MASLValidator extends AbstractMASLValidator {
 	@Check
 	def checkReturnIsLastStatement(ReturnStatement it) {
 		val parent = eContainer 
-		if(parent instanceof CodeBlock) {
+		if(parent instanceof StatementList) {
 			val siblings = parent.statements
 			val index = siblings.indexOf(it)
 			if(index < siblings.size()-1) {

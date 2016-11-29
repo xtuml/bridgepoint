@@ -41,6 +41,7 @@ import org.xtuml.bp.xtext.masl.scoping.ProjectScopeIndexProvider
 import static org.xtuml.bp.xtext.masl.validation.MaslIssueCodesProvider.*
 
 import static extension org.eclipse.emf.ecore.util.EcoreUtil.*
+import org.eclipse.emf.ecore.EObject
 
 class StructureValidator extends AbstractMASLValidator {
 
@@ -249,27 +250,27 @@ class StructureValidator extends AbstractMASLValidator {
 
 	@Check
 	def definitionPresent(DomainFunctionDeclaration it) {
-		if (getDefinitions(domainFunctionDefinition, index).empty)
+		if (!isInterfaceFile && getDefinitions(domainFunctionDefinition, index).empty)
 			addIssue('Domain function has not been implemented', it, structurePackage.abstractNamed_Name,
 				MISSING_IMPLEMENTATION)
 	}
 
 	@Check
 	def definitionPresent(DomainServiceDeclaration it) {
-		if (getDefinitions(domainServiceDefinition, index).empty)
+		if (!isInterfaceFile && getDefinitions(domainServiceDefinition, index).empty)
 			addIssue('Domain service has not been implemented', it, structurePackage.abstractNamed_Name, MISSING_IMPLEMENTATION)
 	}
 
 	@Check
 	def definitionPresent(TerminatorFunctionDeclaration it) {
-		if (getDefinitions(terminatorFunctionDefinition, index).empty)
+		if (!isInterfaceFile && getDefinitions(terminatorFunctionDefinition, index).empty)
 			addIssue('Terminator function has not been implemented', it, structurePackage.abstractNamed_Name,
 				MISSING_IMPLEMENTATION)
 	}
 
 	@Check
 	def definitionPresent(TerminatorServiceDeclaration it) {
-		if (getDefinitions(terminatorServiceDefinition, index).empty)
+		if (!isInterfaceFile && getDefinitions(terminatorServiceDefinition, index).empty)
 			addIssue('Terminator service has not been implemented', it, structurePackage.abstractNamed_Name,
 				MISSING_DEFINITION)
 	}
@@ -307,5 +308,9 @@ class StructureValidator extends AbstractMASLValidator {
 			}
 		}
 		return result
+	}
+	
+	private def boolean isInterfaceFile(EObject element) {
+		element?.eResource?.URI?.fileExtension == 'int'
 	}
 }

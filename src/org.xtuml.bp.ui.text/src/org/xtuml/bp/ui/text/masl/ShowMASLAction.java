@@ -1,11 +1,7 @@
 package org.xtuml.bp.ui.text.masl;
 //====================================================================
 //
-// File:      $RCSfile: ShowMASLAction.java,v $
-// Version:   $Revision: 1.13 $
-// Modified:  $Date: 2013/01/10 23:20:48 $
-//
-// (c) Copyright 2004-2014 by Mentor Graphics Corp.  All rights reserved.
+// File:      ShowMASLAction.java
 //
 //====================================================================
 //
@@ -41,7 +37,7 @@ public class ShowMASLAction implements IActionDelegate
       }
       catch (CoreException e)
       {
-		TextPlugin.logError("Could not activate Action Editor", e); //$NON-NLS-1$
+		TextPlugin.logError("Could not activate MASL Action Editor", e); //$NON-NLS-1$
       }
     }
   }

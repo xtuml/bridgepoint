@@ -21,6 +21,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
 import org.xtuml.bp.xtext.masl.masl.behavior.AbstractStatement;
 import org.xtuml.bp.xtext.masl.masl.behavior.BehaviorPackage;
 import org.xtuml.bp.xtext.masl.masl.behavior.Expression;
+import org.xtuml.bp.xtext.masl.masl.behavior.StatementList;
 import org.xtuml.bp.xtext.masl.masl.behavior.WhileStatement;
 
 /**
@@ -31,23 +32,13 @@ import org.xtuml.bp.xtext.masl.masl.behavior.WhileStatement;
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link org.xtuml.bp.xtext.masl.masl.behavior.impl.WhileStatementImpl#getCondition <em>Condition</em>}</li>
  *   <li>{@link org.xtuml.bp.xtext.masl.masl.behavior.impl.WhileStatementImpl#getStatements <em>Statements</em>}</li>
+ *   <li>{@link org.xtuml.bp.xtext.masl.masl.behavior.impl.WhileStatementImpl#getCondition <em>Condition</em>}</li>
  * </ul>
  *
  * @generated
  */
 public class WhileStatementImpl extends AbstractStatementImpl implements WhileStatement {
-	/**
-	 * The cached value of the '{@link #getCondition() <em>Condition</em>}' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getCondition()
-	 * @generated
-	 * @ordered
-	 */
-	protected Expression condition;
-
 	/**
 	 * The cached value of the '{@link #getStatements() <em>Statements</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
@@ -57,6 +48,16 @@ public class WhileStatementImpl extends AbstractStatementImpl implements WhileSt
 	 * @ordered
 	 */
 	protected EList<AbstractStatement> statements;
+
+	/**
+	 * The cached value of the '{@link #getCondition() <em>Condition</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getCondition()
+	 * @generated
+	 * @ordered
+	 */
+	protected Expression condition;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -75,6 +76,18 @@ public class WhileStatementImpl extends AbstractStatementImpl implements WhileSt
 	@Override
 	protected EClass eStaticClass() {
 		return BehaviorPackage.Literals.WHILE_STATEMENT;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EList<AbstractStatement> getStatements() {
+		if (statements == null) {
+			statements = new EObjectContainmentEList<AbstractStatement>(AbstractStatement.class, this, BehaviorPackage.WHILE_STATEMENT__STATEMENTS);
+		}
+		return statements;
 	}
 
 	/**
@@ -125,25 +138,13 @@ public class WhileStatementImpl extends AbstractStatementImpl implements WhileSt
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<AbstractStatement> getStatements() {
-		if (statements == null) {
-			statements = new EObjectContainmentEList<AbstractStatement>(AbstractStatement.class, this, BehaviorPackage.WHILE_STATEMENT__STATEMENTS);
-		}
-		return statements;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case BehaviorPackage.WHILE_STATEMENT__CONDITION:
-				return basicSetCondition(null, msgs);
 			case BehaviorPackage.WHILE_STATEMENT__STATEMENTS:
 				return ((InternalEList<?>)getStatements()).basicRemove(otherEnd, msgs);
+			case BehaviorPackage.WHILE_STATEMENT__CONDITION:
+				return basicSetCondition(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -156,10 +157,10 @@ public class WhileStatementImpl extends AbstractStatementImpl implements WhileSt
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case BehaviorPackage.WHILE_STATEMENT__CONDITION:
-				return getCondition();
 			case BehaviorPackage.WHILE_STATEMENT__STATEMENTS:
 				return getStatements();
+			case BehaviorPackage.WHILE_STATEMENT__CONDITION:
+				return getCondition();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -173,12 +174,12 @@ public class WhileStatementImpl extends AbstractStatementImpl implements WhileSt
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case BehaviorPackage.WHILE_STATEMENT__CONDITION:
-				setCondition((Expression)newValue);
-				return;
 			case BehaviorPackage.WHILE_STATEMENT__STATEMENTS:
 				getStatements().clear();
 				getStatements().addAll((Collection<? extends AbstractStatement>)newValue);
+				return;
+			case BehaviorPackage.WHILE_STATEMENT__CONDITION:
+				setCondition((Expression)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -192,11 +193,11 @@ public class WhileStatementImpl extends AbstractStatementImpl implements WhileSt
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case BehaviorPackage.WHILE_STATEMENT__CONDITION:
-				setCondition((Expression)null);
-				return;
 			case BehaviorPackage.WHILE_STATEMENT__STATEMENTS:
 				getStatements().clear();
+				return;
+			case BehaviorPackage.WHILE_STATEMENT__CONDITION:
+				setCondition((Expression)null);
 				return;
 		}
 		super.eUnset(featureID);
@@ -210,12 +211,44 @@ public class WhileStatementImpl extends AbstractStatementImpl implements WhileSt
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case BehaviorPackage.WHILE_STATEMENT__CONDITION:
-				return condition != null;
 			case BehaviorPackage.WHILE_STATEMENT__STATEMENTS:
 				return statements != null && !statements.isEmpty();
+			case BehaviorPackage.WHILE_STATEMENT__CONDITION:
+				return condition != null;
 		}
 		return super.eIsSet(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public int eBaseStructuralFeatureID(int derivedFeatureID, Class<?> baseClass) {
+		if (baseClass == StatementList.class) {
+			switch (derivedFeatureID) {
+				case BehaviorPackage.WHILE_STATEMENT__STATEMENTS: return BehaviorPackage.STATEMENT_LIST__STATEMENTS;
+				default: return -1;
+			}
+		}
+		return super.eBaseStructuralFeatureID(derivedFeatureID, baseClass);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public int eDerivedStructuralFeatureID(int baseFeatureID, Class<?> baseClass) {
+		if (baseClass == StatementList.class) {
+			switch (baseFeatureID) {
+				case BehaviorPackage.STATEMENT_LIST__STATEMENTS: return BehaviorPackage.WHILE_STATEMENT__STATEMENTS;
+				default: return -1;
+			}
+		}
+		return super.eDerivedStructuralFeatureID(baseFeatureID, baseClass);
 	}
 
 } //WhileStatementImpl

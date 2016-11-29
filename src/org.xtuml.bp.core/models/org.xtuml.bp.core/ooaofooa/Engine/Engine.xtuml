@@ -27,7 +27,7 @@ INSERT INTO GD_MD
 	200,
 	150,
 	0,
-	'4.1.6',
+	'4.1.17',
 	'org.xtuml.bp.core::ooaofooa::Engine');
 INSERT INTO GD_GE
 	VALUES ("0fdae07e-b5c9-4a59-92ca-f381f62d469a",
@@ -5459,7 +5459,7 @@ INSERT INTO R_AONE
 	"4b9e7490-e56e-4807-9805-70feb877dbe9",
 	1,
 	1,
-	'is interface provider to');
+	'is interface requirer of');
 INSERT INTO O_RTIDA
 	VALUES ("28aa4283-2190-4d46-b247-2cf82958ad34",
 	"e31aa7b2-374b-4a6c-8c11-b9762ce9c824",
@@ -5482,7 +5482,7 @@ INSERT INTO R_AOTH
 	"e2ec8b02-4019-4853-9138-a9f696b8605f",
 	1,
 	1,
-	'is interface requirer of');
+	'is interface provider to');
 INSERT INTO O_RTIDA
 	VALUES ("28aa4283-2190-4d46-b247-2cf82958ad34",
 	"e31aa7b2-374b-4a6c-8c11-b9762ce9c824",

@@ -23,6 +23,7 @@ import org.xtuml.bp.xtext.masl.masl.behavior.BehaviorPackage;
 import org.xtuml.bp.xtext.masl.masl.behavior.CodeBlock;
 import org.xtuml.bp.xtext.masl.masl.behavior.DefaultExceptionHandler;
 import org.xtuml.bp.xtext.masl.masl.behavior.ExceptionHandler;
+import org.xtuml.bp.xtext.masl.masl.behavior.StatementList;
 import org.xtuml.bp.xtext.masl.masl.behavior.VariableDeclaration;
 
 /**
@@ -33,8 +34,8 @@ import org.xtuml.bp.xtext.masl.masl.behavior.VariableDeclaration;
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link org.xtuml.bp.xtext.masl.masl.behavior.impl.CodeBlockImpl#getVariables <em>Variables</em>}</li>
  *   <li>{@link org.xtuml.bp.xtext.masl.masl.behavior.impl.CodeBlockImpl#getStatements <em>Statements</em>}</li>
+ *   <li>{@link org.xtuml.bp.xtext.masl.masl.behavior.impl.CodeBlockImpl#getVariables <em>Variables</em>}</li>
  *   <li>{@link org.xtuml.bp.xtext.masl.masl.behavior.impl.CodeBlockImpl#getExceptionHandler <em>Exception Handler</em>}</li>
  *   <li>{@link org.xtuml.bp.xtext.masl.masl.behavior.impl.CodeBlockImpl#getDefaultHandler <em>Default Handler</em>}</li>
  * </ul>
@@ -42,16 +43,6 @@ import org.xtuml.bp.xtext.masl.masl.behavior.VariableDeclaration;
  * @generated
  */
 public class CodeBlockImpl extends CodeBlockStatementImpl implements CodeBlock {
-	/**
-	 * The cached value of the '{@link #getVariables() <em>Variables</em>}' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getVariables()
-	 * @generated
-	 * @ordered
-	 */
-	protected EList<VariableDeclaration> variables;
-
 	/**
 	 * The cached value of the '{@link #getStatements() <em>Statements</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
@@ -61,6 +52,16 @@ public class CodeBlockImpl extends CodeBlockStatementImpl implements CodeBlock {
 	 * @ordered
 	 */
 	protected EList<AbstractStatement> statements;
+
+	/**
+	 * The cached value of the '{@link #getVariables() <em>Variables</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getVariables()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<VariableDeclaration> variables;
 
 	/**
 	 * The cached value of the '{@link #getExceptionHandler() <em>Exception Handler</em>}' containment reference list.
@@ -106,11 +107,11 @@ public class CodeBlockImpl extends CodeBlockStatementImpl implements CodeBlock {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<VariableDeclaration> getVariables() {
-		if (variables == null) {
-			variables = new EObjectContainmentEList<VariableDeclaration>(VariableDeclaration.class, this, BehaviorPackage.CODE_BLOCK__VARIABLES);
+	public EList<AbstractStatement> getStatements() {
+		if (statements == null) {
+			statements = new EObjectContainmentEList<AbstractStatement>(AbstractStatement.class, this, BehaviorPackage.CODE_BLOCK__STATEMENTS);
 		}
-		return variables;
+		return statements;
 	}
 
 	/**
@@ -118,11 +119,11 @@ public class CodeBlockImpl extends CodeBlockStatementImpl implements CodeBlock {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<AbstractStatement> getStatements() {
-		if (statements == null) {
-			statements = new EObjectContainmentEList<AbstractStatement>(AbstractStatement.class, this, BehaviorPackage.CODE_BLOCK__STATEMENTS);
+	public EList<VariableDeclaration> getVariables() {
+		if (variables == null) {
+			variables = new EObjectContainmentEList<VariableDeclaration>(VariableDeclaration.class, this, BehaviorPackage.CODE_BLOCK__VARIABLES);
 		}
-		return statements;
+		return variables;
 	}
 
 	/**
@@ -188,10 +189,10 @@ public class CodeBlockImpl extends CodeBlockStatementImpl implements CodeBlock {
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case BehaviorPackage.CODE_BLOCK__VARIABLES:
-				return ((InternalEList<?>)getVariables()).basicRemove(otherEnd, msgs);
 			case BehaviorPackage.CODE_BLOCK__STATEMENTS:
 				return ((InternalEList<?>)getStatements()).basicRemove(otherEnd, msgs);
+			case BehaviorPackage.CODE_BLOCK__VARIABLES:
+				return ((InternalEList<?>)getVariables()).basicRemove(otherEnd, msgs);
 			case BehaviorPackage.CODE_BLOCK__EXCEPTION_HANDLER:
 				return ((InternalEList<?>)getExceptionHandler()).basicRemove(otherEnd, msgs);
 			case BehaviorPackage.CODE_BLOCK__DEFAULT_HANDLER:
@@ -208,10 +209,10 @@ public class CodeBlockImpl extends CodeBlockStatementImpl implements CodeBlock {
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case BehaviorPackage.CODE_BLOCK__VARIABLES:
-				return getVariables();
 			case BehaviorPackage.CODE_BLOCK__STATEMENTS:
 				return getStatements();
+			case BehaviorPackage.CODE_BLOCK__VARIABLES:
+				return getVariables();
 			case BehaviorPackage.CODE_BLOCK__EXCEPTION_HANDLER:
 				return getExceptionHandler();
 			case BehaviorPackage.CODE_BLOCK__DEFAULT_HANDLER:
@@ -229,13 +230,13 @@ public class CodeBlockImpl extends CodeBlockStatementImpl implements CodeBlock {
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case BehaviorPackage.CODE_BLOCK__VARIABLES:
-				getVariables().clear();
-				getVariables().addAll((Collection<? extends VariableDeclaration>)newValue);
-				return;
 			case BehaviorPackage.CODE_BLOCK__STATEMENTS:
 				getStatements().clear();
 				getStatements().addAll((Collection<? extends AbstractStatement>)newValue);
+				return;
+			case BehaviorPackage.CODE_BLOCK__VARIABLES:
+				getVariables().clear();
+				getVariables().addAll((Collection<? extends VariableDeclaration>)newValue);
 				return;
 			case BehaviorPackage.CODE_BLOCK__EXCEPTION_HANDLER:
 				getExceptionHandler().clear();
@@ -256,11 +257,11 @@ public class CodeBlockImpl extends CodeBlockStatementImpl implements CodeBlock {
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case BehaviorPackage.CODE_BLOCK__VARIABLES:
-				getVariables().clear();
-				return;
 			case BehaviorPackage.CODE_BLOCK__STATEMENTS:
 				getStatements().clear();
+				return;
+			case BehaviorPackage.CODE_BLOCK__VARIABLES:
+				getVariables().clear();
 				return;
 			case BehaviorPackage.CODE_BLOCK__EXCEPTION_HANDLER:
 				getExceptionHandler().clear();
@@ -280,16 +281,48 @@ public class CodeBlockImpl extends CodeBlockStatementImpl implements CodeBlock {
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case BehaviorPackage.CODE_BLOCK__VARIABLES:
-				return variables != null && !variables.isEmpty();
 			case BehaviorPackage.CODE_BLOCK__STATEMENTS:
 				return statements != null && !statements.isEmpty();
+			case BehaviorPackage.CODE_BLOCK__VARIABLES:
+				return variables != null && !variables.isEmpty();
 			case BehaviorPackage.CODE_BLOCK__EXCEPTION_HANDLER:
 				return exceptionHandler != null && !exceptionHandler.isEmpty();
 			case BehaviorPackage.CODE_BLOCK__DEFAULT_HANDLER:
 				return defaultHandler != null;
 		}
 		return super.eIsSet(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public int eBaseStructuralFeatureID(int derivedFeatureID, Class<?> baseClass) {
+		if (baseClass == StatementList.class) {
+			switch (derivedFeatureID) {
+				case BehaviorPackage.CODE_BLOCK__STATEMENTS: return BehaviorPackage.STATEMENT_LIST__STATEMENTS;
+				default: return -1;
+			}
+		}
+		return super.eBaseStructuralFeatureID(derivedFeatureID, baseClass);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public int eDerivedStructuralFeatureID(int baseFeatureID, Class<?> baseClass) {
+		if (baseClass == StatementList.class) {
+			switch (baseFeatureID) {
+				case BehaviorPackage.STATEMENT_LIST__STATEMENTS: return BehaviorPackage.CODE_BLOCK__STATEMENTS;
+				default: return -1;
+			}
+		}
+		return super.eDerivedStructuralFeatureID(baseFeatureID, baseClass);
 	}
 
 } //CodeBlockImpl

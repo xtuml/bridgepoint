@@ -65,6 +65,7 @@ import org.xtuml.bp.core.common.InstanceList;
 import org.xtuml.bp.core.common.NonRootModelElement;
 import org.xtuml.bp.core.common.Transaction;
 import org.xtuml.bp.core.common.TransactionManager;
+import org.xtuml.bp.core.ui.CopyCutAction;
 import org.xtuml.bp.core.ui.preferences.BridgePointProjectPreferences;
 import org.xtuml.bp.core.ui.preferences.BridgePointProjectReferencesPreferences;
 import org.xtuml.bp.core.util.WorkspaceUtil;
@@ -134,11 +135,15 @@ public class RTOMoveTests extends CanvasTest {
 				.getNode(BridgePointProjectPreferences.BP_PROJECT_PREFERENCES_ID);
 		projectNode.putBoolean(
 				BridgePointProjectReferencesPreferences.BP_PROJECT_REFERENCES_ID, true);
-		inscopeOtherProject.Newpackage();
+		TestUtil.executeInTransaction(inscopeOtherProject, "Newpackage", new Object[0]);
+		// clear transaction stack to prevent reverting this creation
+		TransactionManager.getSingleton().clearStacks();
 		IProject outOfScope = TestingUtilities
 				.createProject("OutOfScope Other");
 		outOfScopeOtherProject = getSystemModel(outOfScope.getName());
-		outOfScopeOtherProject.Newpackage();
+		TestUtil.executeInTransaction(outOfScopeOtherProject, "Newpackage", new Object[0], true);
+		// clear transaction stack to prevent reverting this creation
+		TransactionManager.getSingleton().clearStacks();
 	}
 
 	@Before
@@ -258,6 +263,12 @@ public class RTOMoveTests extends CanvasTest {
 			return RequiredExecutableProperty_c
 					.getOneSPR_REPOnR4502((RequiredOperation_c) element);
 		}
+		// Imported References are deleted when the RTO Interface Reference is
+		// moved out of scope, do not assert not null here
+		if (element == null && rgo instanceof ImportedReference_c && rto instanceof InterfaceReference_c) {
+			return null;
+		}
+
 		assertNotNull("Missing test element with details : Type->"
 				+ elementType + " Name->" + name, element);
 		return element;
@@ -297,47 +308,43 @@ public class RTOMoveTests extends CanvasTest {
 	 *            Model instance from the row
 	 */
 	void AC_BD_Action(NonRootModelElement source, NonRootModelElement target) {
-// TODO: See 8587
-//      This test is removed until Model Element Move is implemented	
-//		
-//
-//		cutSuccessful = false;
-//		pasteSuccessful = false;
-//		if(getMethodName().contains("C4")) {
-//			// do not allow inter-project referencing
-//			IScopeContext projectScope = new ProjectScope(getProjectHandle(m_sys.getName()));
-//			Preferences projectNode = projectScope
-//					.getNode(BridgePointProjectPreferences.BP_PROJECT_PREFERENCES_ID);
-//			projectNode.putBoolean(
-//					BridgePointProjectReferencesPreferences.BP_PROJECT_REFERENCES_ID, false);
-//		} else {
-//			// allow inter-project referencing
-//			IScopeContext projectScope = new ProjectScope(getProjectHandle(m_sys.getName()));
-//			Preferences projectNode = projectScope
-//					.getNode(BridgePointProjectPreferences.BP_PROJECT_PREFERENCES_ID);
-//			projectNode.putBoolean(
-//					BridgePointProjectReferencesPreferences.BP_PROJECT_REFERENCES_ID, true);			
-//		}
-//		NonRootModelElement destination = getDestination(getSelectableElement(rto));
-//		// cut the source
-//		if(getMethodName().contains("A6")) {
-//			TestUtil.okToDialog(500, false);
-//		}
-//		UITestingUtilities.cutElementsInExplorer(getCuttableElements(rto), getExplorerView());
-//		cutSuccessful = true;
-//		assertRGOReference(rgo, rto, true);
-//		if (rgoShouldReferToNonDefault()) {
-//			// set the RTO of this element to something other than default
-//			configureRGOReference(rgo, rto);
-//		}
-//		if(getMethodName().contains("C3") || getMethodName().contains("C4")) {
-//			// need to click Proceed on dialog that is display
-//			TestUtil.selectButtonInDialog(500, "Proceed", false);
-//		}
-//		UITestingUtilities.pasteClipboardContentsInExplorer(destination);
-//		pasteSuccessful = true;
-//		rto = getElement(getMethodName().replaceAll("test", ""), rto.getClass(),
-//				false);
+		cutSuccessful = false;
+		pasteSuccessful = false;
+		if(getMethodName().contains("C4")) {
+			// do not allow inter-project referencing
+			IScopeContext projectScope = new ProjectScope(getProjectHandle(m_sys.getName()));
+			Preferences projectNode = projectScope
+					.getNode(BridgePointProjectPreferences.BP_PROJECT_PREFERENCES_ID);
+			projectNode.putBoolean(
+					BridgePointProjectReferencesPreferences.BP_PROJECT_REFERENCES_ID, false);
+		} else {
+			// allow inter-project referencing
+			IScopeContext projectScope = new ProjectScope(getProjectHandle(m_sys.getName()));
+			Preferences projectNode = projectScope
+					.getNode(BridgePointProjectPreferences.BP_PROJECT_PREFERENCES_ID);
+			projectNode.putBoolean(
+					BridgePointProjectReferencesPreferences.BP_PROJECT_REFERENCES_ID, true);			
+		}
+		NonRootModelElement destination = getDestination(getSelectableElement(rto));
+		// cut the source
+		if(getMethodName().contains("A6")) {
+			TestUtil.okToDialog(500, false);
+		}
+		UITestingUtilities.cutElementsInExplorer(getCuttableElements(rto), getExplorerView());
+		cutSuccessful = true;
+		assertRGOReference(rgo, rto, true);
+		if (rgoShouldReferToNonDefault()) {
+			// set the RTO of this element to something other than default
+			configureRGOReference(rgo, rto);
+		}
+		if(getMethodName().contains("C3") || getMethodName().contains("C4")) {
+			// need to click Proceed on dialog that is displayed
+			TestUtil.okToDialog(500, false);
+		}
+		UITestingUtilities.pasteClipboardContentsInExplorer(destination);
+		pasteSuccessful = true;
+		rto = getElement(getMethodName().replaceAll("test", ""), rto.getClass(),
+				false);
 	}
 
 	private String getMethodName() {
@@ -397,16 +404,25 @@ public class RTOMoveTests extends CanvasTest {
 	}
 
 	private NonRootModelElement getDestination(NonRootModelElement rto) {
-		if(rto instanceof InterfaceReference_c && getMethodName().contains("C1")) {
-			// need the package for the parent component
-			return rto.getFirstParentComponent().getFirstParentPackage();
-		}
-		if(rto instanceof Port_c && getMethodName().contains("C1")) {
-			// need the package for the parent component
-			return rto.getFirstParentComponent().getFirstParentPackage();
-		}
 		if (getMethodName().contains("C1")) {
-			return rto.getFirstParentPackage();
+			Package_c pkg = null;
+			if(rto instanceof Port_c || rto instanceof InterfaceReference_c) {
+				// need the package for the parent component
+				pkg =  rto.getFirstParentComponent().getFirstParentPackage();
+			} else {
+				pkg = rto.getFirstParentPackage();
+			}
+
+			// create a new package, with element move you cannot
+			// cut and paste to the same directory as the element is
+			// not removed via cut
+			TestUtil.executeInTransaction(pkg, "Newpackage", new Object[0], false);
+			// clear transaction stack to prevent reverting this creation
+			TransactionManager.getSingleton().clearStacks();
+			Package_c[] packages = Package_c.getManyEP_PKGsOnR8001(PackageableElement_c.getManyPE_PEsOnR8000(pkg));
+			Package_c newPackage = packages[packages.length - 1];
+			BaseTest.dispatchEvents(0);
+			return newPackage;
 		} else if (getMethodName().contains("C2")) {
 			return Package_c.getOneEP_PKGOnR1401(inscopeOtherProject);
 		} else if (getMethodName().contains("C3")) {
@@ -474,6 +490,9 @@ public class RTOMoveTests extends CanvasTest {
 			}
 		}
 		BaseTest.dispatchEvents(0);
+		// the transaction will cause in-move to be false
+		// for these tests we must have that set to true
+		CopyCutAction.startMove(false);
 	}
 
 	private Method getRelateMethod(String association, NonRootModelElement rto,
@@ -498,32 +517,37 @@ public class RTOMoveTests extends CanvasTest {
 
 	private void assertRGOReference(NonRootModelElement rgo,
 			NonRootModelElement rto, boolean defaultReference) {
-		Method defaultMethod;
-		try {
-			defaultMethod = getDefaultReferenceMethod(rgo, rto);
-			Object result = defaultMethod.invoke(rgo, new Object[0]);
-			if (defaultReference) {
-				assertTrue("After a cut the RGO of type "
-						+ rgo.getClass().getSimpleName()
-						+ " was not referring to default RTO.",
-						((Boolean) result).booleanValue());
-			} else {
-				assertFalse("After a paste the RGO of type "
-						+ rgo.getClass().getSimpleName()
-						+ " was referring to default RTO.", ((Boolean) result)
-						.booleanValue());
-			}
-		} catch (SecurityException e) {
-			fail(e.getMessage());
-		} catch (NoSuchMethodException e) {
-			fail(e.getMessage());
-		} catch (IllegalArgumentException e) {
-			fail(e.getMessage());
-		} catch (IllegalAccessException e) {
-			fail(e.getMessage());
-		} catch (InvocationTargetException e) {
-			fail(e.getMessage());
-		}
+//      The following code is not correct for model element
+//      move.  A cut now simply captures the data and on
+//      paste the element is moved.  This method could be
+//      made to test downgrading.
+		
+//		Method defaultMethod;
+//		try {
+//			defaultMethod = getDefaultReferenceMethod(rgo, rto);
+//			Object result = defaultMethod.invoke(rgo, new Object[0]);
+//			if (defaultReference) {
+//				assertTrue("After a cut the RGO of type "
+//						+ rgo.getClass().getSimpleName()
+//						+ " was not referring to default RTO.",
+//						((Boolean) result).booleanValue());
+//			} else {
+//				assertFalse("After a paste the RGO of type "
+//						+ rgo.getClass().getSimpleName()
+//						+ " was referring to default RTO.", ((Boolean) result)
+//						.booleanValue());
+//			}
+//		} catch (SecurityException e) {
+//			fail(e.getMessage());
+//		} catch (NoSuchMethodException e) {
+//			fail(e.getMessage());
+//		} catch (IllegalArgumentException e) {
+//			fail(e.getMessage());
+//		} catch (IllegalAccessException e) {
+//			fail(e.getMessage());
+//		} catch (InvocationTargetException e) {
+//			fail(e.getMessage());
+//		}
 	}
 
 	private Method getDefaultReferenceMethod(NonRootModelElement rgo,
@@ -548,22 +572,18 @@ public class RTOMoveTests extends CanvasTest {
 	 */
 	boolean checkResult_rgoResolvedChanged(NonRootModelElement source,
 			NonRootModelElement target) {
-// TODO: See 8587
-//      This test is removed until Model Element Move is implemented	
-//		
-return true;
-//		Method getMethod = getAccessorMethod(rgo, rto);
-//		try {
-//			Object referredTo = getMethod.invoke(rto, new Object[] {rgo});
-//			return referredTo == rto;
-//		} catch (IllegalArgumentException e) {
-//			fail(e.getMessage());
-//		} catch (IllegalAccessException e) {
-//			fail(e.getMessage());
-//		} catch (InvocationTargetException e) {
-//			fail(e.getMessage());
-//		}
-//		return false;
+		Method getMethod = getAccessorMethod(rgo, rto);
+		try {
+			Object referredTo = getMethod.invoke(rto, new Object[] {rgo});
+			return referredTo == rto;
+		} catch (IllegalArgumentException e) {
+			fail(e.getMessage());
+		} catch (IllegalAccessException e) {
+			fail(e.getMessage());
+		} catch (InvocationTargetException e) {
+			fail(e.getMessage());
+		}
+		return false;
 	}
 
 	private Method getAccessorMethod(NonRootModelElement rgo,
@@ -595,27 +615,28 @@ return true;
 	 */
 	boolean checkResult_rgoUnresolved(NonRootModelElement source,
 			NonRootModelElement target) {
-// TODO: See 8587
-//      This test is removed until Model Element Move is implemented	
-//		
-return true;
-//		try {
-//			Method defaultReferenceMethod = getDefaultReferenceMethod(rgo, rto);
-//			Boolean bool = (Boolean) defaultReferenceMethod.invoke(rgo,
-//					new Object[0]);
-//			return bool.booleanValue();
-//		} catch (SecurityException e) {
-//			fail(e.getMessage());
-//		} catch (NoSuchMethodException e) {
-//			fail(e.getMessage());
-//		} catch (IllegalArgumentException e) {
-//			fail(e.getMessage());
-//		} catch (IllegalAccessException e) {
-//			fail(e.getMessage());
-//		} catch (InvocationTargetException e) {
-//			fail(e.getMessage());
-//		}
-//		return false;
+		if(rgo.isOrphaned()) {
+			// in the case of an Imported Reference, being unresolved
+			// equals being disposed
+			return true;
+		}
+		try {
+			Method defaultReferenceMethod = getDefaultReferenceMethod(rgo, rto);
+			Boolean bool = (Boolean) defaultReferenceMethod.invoke(rgo,
+					new Object[0]);
+			return bool.booleanValue();
+		} catch (SecurityException e) {
+			fail(e.getMessage());
+		} catch (NoSuchMethodException e) {
+			fail(e.getMessage());
+		} catch (IllegalArgumentException e) {
+			fail(e.getMessage());
+		} catch (IllegalAccessException e) {
+			fail(e.getMessage());
+		} catch (InvocationTargetException e) {
+			fail(e.getMessage());
+		}
+		return false;
 	}
 
 	/**
@@ -631,29 +652,25 @@ return true;
 	 */
 	boolean checkResult_rgoResolvedNotChanged(NonRootModelElement source,
 			NonRootModelElement target) {
-// TODO: See 8587
-//       This test is removed until Model Element Move is implemented	
-//		
-return true;
-//		Method getMethod = getAccessorMethod(rgo, rto);
-//		try {
-//			Object referredTo = getMethod.invoke(rto, new Object[] {rgo});
-//			Method defaultReferenceMethod = getDefaultReferenceMethod(rgo, rto);
-//			Boolean bool = (Boolean) defaultReferenceMethod.invoke(rgo,
-//					new Object[0]);
-//			return referredTo != rto && !bool.booleanValue();
-//		} catch (IllegalArgumentException e) {
-//			fail(e.getMessage());
-//		} catch (IllegalAccessException e) {
-//			fail(e.getMessage());
-//		} catch (InvocationTargetException e) {
-//			fail(e.getMessage());
-//		} catch (SecurityException e) {
-//			fail(e.getMessage());
-//		} catch (NoSuchMethodException e) {
-//			fail(e.getMessage());
-//		}
-//		return false;
+		Method getMethod = getAccessorMethod(rgo, rto);
+		try {
+			Object referredTo = getMethod.invoke(rto, new Object[] {rgo});
+			Method defaultReferenceMethod = getDefaultReferenceMethod(rgo, rto);
+			Boolean bool = (Boolean) defaultReferenceMethod.invoke(rgo,
+					new Object[0]);
+			return referredTo != rto && !bool.booleanValue();
+		} catch (IllegalArgumentException e) {
+			fail(e.getMessage());
+		} catch (IllegalAccessException e) {
+			fail(e.getMessage());
+		} catch (InvocationTargetException e) {
+			fail(e.getMessage());
+		} catch (SecurityException e) {
+			fail(e.getMessage());
+		} catch (NoSuchMethodException e) {
+			fail(e.getMessage());
+		}
+		return false;
 	}
 
 }
