@@ -240,7 +240,7 @@ public class PlaceHolderEntry {
 		if(existingFile.getLocation() == null && existingFile.getProject().exists()){
 			return null;
 		}
-
+		
 		return new PlaceHolderFileProxy(existingFile);
 	}
 	
@@ -339,11 +339,17 @@ public class PlaceHolderEntry {
 			}
 		}
 		
+		/**
+		 * This is where we create the physical file, 
+		 * orginalFile, that is the IFile instance held
+		 * inside the PlaceHolderFileProxy class.
+		 * 
+		 * @throws CoreException
+		 */
 		private void createOriginalFileIfNotPresent() throws CoreException{
 			if(!originalFile.exists()){
-								
 				getModelElementID().saveTo(originalFile);
-				originalFile.setDerived(true);
+				originalFile.setDerived(true, null);
 				originalFile.getResourceAttributes().setReadOnly(true);
 			}
 		}

@@ -12,12 +12,9 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
-import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
-
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
-import org.xtuml.bp.xtext.masl.masl.behavior.AbstractStatement;
 import org.xtuml.bp.xtext.masl.masl.behavior.BehaviorPackage;
 import org.xtuml.bp.xtext.masl.masl.behavior.CaseAlternative;
 import org.xtuml.bp.xtext.masl.masl.behavior.Expression;
@@ -31,12 +28,11 @@ import org.xtuml.bp.xtext.masl.masl.behavior.Expression;
  * </p>
  * <ul>
  *   <li>{@link org.xtuml.bp.xtext.masl.masl.behavior.impl.CaseAlternativeImpl#getChoices <em>Choices</em>}</li>
- *   <li>{@link org.xtuml.bp.xtext.masl.masl.behavior.impl.CaseAlternativeImpl#getStatements <em>Statements</em>}</li>
  * </ul>
  *
  * @generated
  */
-public class CaseAlternativeImpl extends MinimalEObjectImpl.Container implements CaseAlternative {
+public class CaseAlternativeImpl extends StatementListImpl implements CaseAlternative {
 	/**
 	 * The cached value of the '{@link #getChoices() <em>Choices</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
@@ -46,16 +42,6 @@ public class CaseAlternativeImpl extends MinimalEObjectImpl.Container implements
 	 * @ordered
 	 */
 	protected EList<Expression> choices;
-
-	/**
-	 * The cached value of the '{@link #getStatements() <em>Statements</em>}' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getStatements()
-	 * @generated
-	 * @ordered
-	 */
-	protected EList<AbstractStatement> statements;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -93,25 +79,11 @@ public class CaseAlternativeImpl extends MinimalEObjectImpl.Container implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<AbstractStatement> getStatements() {
-		if (statements == null) {
-			statements = new EObjectContainmentEList<AbstractStatement>(AbstractStatement.class, this, BehaviorPackage.CASE_ALTERNATIVE__STATEMENTS);
-		}
-		return statements;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case BehaviorPackage.CASE_ALTERNATIVE__CHOICES:
 				return ((InternalEList<?>)getChoices()).basicRemove(otherEnd, msgs);
-			case BehaviorPackage.CASE_ALTERNATIVE__STATEMENTS:
-				return ((InternalEList<?>)getStatements()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -126,8 +98,6 @@ public class CaseAlternativeImpl extends MinimalEObjectImpl.Container implements
 		switch (featureID) {
 			case BehaviorPackage.CASE_ALTERNATIVE__CHOICES:
 				return getChoices();
-			case BehaviorPackage.CASE_ALTERNATIVE__STATEMENTS:
-				return getStatements();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -145,10 +115,6 @@ public class CaseAlternativeImpl extends MinimalEObjectImpl.Container implements
 				getChoices().clear();
 				getChoices().addAll((Collection<? extends Expression>)newValue);
 				return;
-			case BehaviorPackage.CASE_ALTERNATIVE__STATEMENTS:
-				getStatements().clear();
-				getStatements().addAll((Collection<? extends AbstractStatement>)newValue);
-				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -164,9 +130,6 @@ public class CaseAlternativeImpl extends MinimalEObjectImpl.Container implements
 			case BehaviorPackage.CASE_ALTERNATIVE__CHOICES:
 				getChoices().clear();
 				return;
-			case BehaviorPackage.CASE_ALTERNATIVE__STATEMENTS:
-				getStatements().clear();
-				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -181,8 +144,6 @@ public class CaseAlternativeImpl extends MinimalEObjectImpl.Container implements
 		switch (featureID) {
 			case BehaviorPackage.CASE_ALTERNATIVE__CHOICES:
 				return choices != null && !choices.isEmpty();
-			case BehaviorPackage.CASE_ALTERNATIVE__STATEMENTS:
-				return statements != null && !statements.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

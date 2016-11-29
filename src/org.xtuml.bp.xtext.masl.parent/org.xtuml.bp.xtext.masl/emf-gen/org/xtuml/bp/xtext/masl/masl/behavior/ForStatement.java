@@ -3,7 +3,6 @@
  */
 package org.xtuml.bp.xtext.masl.masl.behavior;
 
-import org.eclipse.emf.common.util.EList;
 
 /**
  * <!-- begin-user-doc -->
@@ -17,14 +16,13 @@ import org.eclipse.emf.common.util.EList;
  *   <li>{@link org.xtuml.bp.xtext.masl.masl.behavior.ForStatement#getVariable <em>Variable</em>}</li>
  *   <li>{@link org.xtuml.bp.xtext.masl.masl.behavior.ForStatement#isReverse <em>Reverse</em>}</li>
  *   <li>{@link org.xtuml.bp.xtext.masl.masl.behavior.ForStatement#getExpression <em>Expression</em>}</li>
- *   <li>{@link org.xtuml.bp.xtext.masl.masl.behavior.ForStatement#getStatements <em>Statements</em>}</li>
  * </ul>
  *
  * @see org.xtuml.bp.xtext.masl.masl.behavior.BehaviorPackage#getForStatement()
  * @model
  * @generated
  */
-public interface ForStatement extends AbstractStatement {
+public interface ForStatement extends AbstractStatement, StatementList {
 	/**
 	 * Returns the value of the '<em><b>Variable</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
@@ -102,21 +100,5 @@ public interface ForStatement extends AbstractStatement {
 	 * @generated
 	 */
 	void setExpression(Expression value);
-
-	/**
-	 * Returns the value of the '<em><b>Statements</b></em>' containment reference list.
-	 * The list contents are of type {@link org.xtuml.bp.xtext.masl.masl.behavior.AbstractStatement}.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Statements</em>' containment reference list isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Statements</em>' containment reference list.
-	 * @see org.xtuml.bp.xtext.masl.masl.behavior.BehaviorPackage#getForStatement_Statements()
-	 * @model containment="true"
-	 * @generated
-	 */
-	EList<AbstractStatement> getStatements();
 
 } // ForStatement

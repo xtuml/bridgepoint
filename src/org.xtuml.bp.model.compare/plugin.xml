@@ -39,7 +39,7 @@ This file is the plugin manifest for the BridgePoint compare plugin.
       </viewer>
       <viewer
             class="org.xtuml.bp.model.compare.contentmergeviewer.ActionLanguageMergeViewerCreator"
-            extensions="OAL"
+            extensions="OAL,oal_err"
             id="org.xtuml.bp.model.compare.ActionLanguageMergeViewer"
             label="Action Language Compare">
       </viewer>

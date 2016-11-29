@@ -80,6 +80,21 @@ public class ActionFile {
 	public IFile getFile() {
 		return fileMap.get(getDialect());
 	}
+
+        // get all the files for this action file manager
+        public IFile[] getAllFiles() {
+            return fileMap.values().toArray(new IFile[0]);
+        }
+
+        // get all available dialects 
+        public static String[] getAvailableDialects() {
+            return DIALECTS;
+        }
+
+        // get the file for this action file manager with a specific dialect
+	public IFile getFile( String dialect ) {
+		return fileMap.get(dialect);
+	}
 	
 	public static String getDefaultDialect() {
                 IPreferenceStore store = CorePlugin.getDefault().getPreferenceStore();

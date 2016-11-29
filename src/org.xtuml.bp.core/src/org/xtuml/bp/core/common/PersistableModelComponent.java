@@ -515,6 +515,10 @@ public class PersistableModelComponent implements Comparable {
         return null;
     }
 
+    public ActionFile getActionFiles() {
+        return afm;
+    }
+
     // we need to synchronized with loaded MEs
     public void refresh() throws CoreException {
         if (!isLoaded()) {
@@ -822,7 +826,7 @@ public class PersistableModelComponent implements Comparable {
         }
     }
 
-    private IModelImport createImporter(IFile file, IFile actionFile, Ooaofooa modelRoot,
+    private IModelImport createImporter(IFile file, String dialect, Ooaofooa modelRoot,
             boolean parseOal) throws IOException {
         if (!file.exists() ) {
             // can't import file from a closed project or that doesn't exist
@@ -835,14 +839,14 @@ public class PersistableModelComponent implements Comparable {
             modelRoot = Ooaofooa.getInstance(getUniqueID());
         }
         
-        return factory.create(file, actionFile, modelRoot, this, parseOal, true, true,
+        return factory.create(file, dialect, modelRoot, this, parseOal, true, true,
                 false);
     }
     
     private IModelImport createImporter(Ooaofooa modelRoot, boolean parseOal)
             throws IOException {
 
-        return createImporter(getFile(), getActionFile(), modelRoot, parseOal);
+        return createImporter(getFile(), "", modelRoot, parseOal);
     }
     
     public PersistableModelComponent getDomainComponent() {

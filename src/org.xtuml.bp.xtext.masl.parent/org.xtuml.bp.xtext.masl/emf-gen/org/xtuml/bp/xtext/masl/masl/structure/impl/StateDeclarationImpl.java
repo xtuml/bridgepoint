@@ -26,7 +26,7 @@ import org.xtuml.bp.xtext.masl.masl.structure.StructurePackage;
  *
  * @generated
  */
-public class StateDeclarationImpl extends ParameterizedImpl implements StateDeclaration {
+public class StateDeclarationImpl extends AbstractActionDeclarationImpl implements StateDeclaration {
 	/**
 	 * The default value of the '{@link #getType() <em>Type</em>}' attribute.
 	 * <!-- begin-user-doc -->

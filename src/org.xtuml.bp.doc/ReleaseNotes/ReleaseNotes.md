@@ -1,7 +1,7 @@
 BridgePoint xtUML Release Notes
 ========================
 
-Release 5.8  
+Release 5.8.2  
 
 License
 -------
@@ -46,11 +46,14 @@ Imported class, Package (when package contains supported model elements)
 language.  An Xtext-based editor provides syntax highlighting, validation
 and context-sensitive edit assistance.  
 
+* This version adds a new attribute ```Dialect``` in the metamodel to action 
+homes that used to populate the ```Action_Semantics``` field.   
+
 Interoperability with Previous Releases
 ------
-BridgePoint 5.8 is compatible with workspaces and projects created with prior 
-versions back to BridgePoint 5.0.
-
+BridgePoint 5.8.2 is compatible with workspaces and projects created with prior 
+versions back to BridgePoint 5.0.  However, after opening the model in this version
+a modeler will not be able to open the model in a prior version.   
 
 Issues and Feature Requests
 ------

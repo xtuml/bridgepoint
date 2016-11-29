@@ -23,6 +23,7 @@ import org.xtuml.bp.xtext.masl.masl.structure.Pragma;
 import org.xtuml.bp.xtext.masl.masl.structure.Pragmatized;
 import org.xtuml.bp.xtext.masl.masl.structure.StructurePackage;
 import org.xtuml.bp.xtext.masl.masl.structure.Visibility;
+import org.xtuml.bp.xtext.masl.masl.structure.Visualized;
 
 /**
  * <!-- begin-user-doc -->
@@ -218,6 +219,12 @@ public class ExceptionDeclarationImpl extends AbstractNamedImpl implements Excep
 				default: return -1;
 			}
 		}
+		if (baseClass == Visualized.class) {
+			switch (derivedFeatureID) {
+				case StructurePackage.EXCEPTION_DECLARATION__VISIBILITY: return StructurePackage.VISUALIZED__VISIBILITY;
+				default: return -1;
+			}
+		}
 		return super.eBaseStructuralFeatureID(derivedFeatureID, baseClass);
 	}
 
@@ -231,6 +238,12 @@ public class ExceptionDeclarationImpl extends AbstractNamedImpl implements Excep
 		if (baseClass == Pragmatized.class) {
 			switch (baseFeatureID) {
 				case StructurePackage.PRAGMATIZED__PRAGMAS: return StructurePackage.EXCEPTION_DECLARATION__PRAGMAS;
+				default: return -1;
+			}
+		}
+		if (baseClass == Visualized.class) {
+			switch (baseFeatureID) {
+				case StructurePackage.VISUALIZED__VISIBILITY: return StructurePackage.EXCEPTION_DECLARATION__VISIBILITY;
 				default: return -1;
 			}
 		}
