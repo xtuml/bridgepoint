@@ -82,7 +82,7 @@ import junit.framework.TestSuite;
 		OperationsTestGenerics.class,
 		DeleteTestGenerics.class,
 		TigerNatureTestGenerics.class,
-		ReferenceResolutionOnLoadTest.class
+		// Travis says these tests are not ready to use yet (11-25-2016). ReferenceResolutionOnLoadTest.class
 })
 public class CoreGlobalsTestSuiteGenerics extends TestSuite {
 	

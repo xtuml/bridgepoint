@@ -3,17 +3,31 @@
  */
 package org.xtuml.bp.xtext.masl.masl.structure.impl;
 
+import java.util.Collection;
+
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
+
+import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.InternalEList;
+
+import org.xtuml.bp.xtext.masl.masl.structure.AbstractActionDeclaration;
+import org.xtuml.bp.xtext.masl.masl.structure.AbstractFunction;
 import org.xtuml.bp.xtext.masl.masl.structure.DomainFunctionDeclaration;
+import org.xtuml.bp.xtext.masl.masl.structure.Parameter;
+import org.xtuml.bp.xtext.masl.masl.structure.Parameterized;
+import org.xtuml.bp.xtext.masl.masl.structure.Pragma;
+import org.xtuml.bp.xtext.masl.masl.structure.Pragmatized;
 import org.xtuml.bp.xtext.masl.masl.structure.StructurePackage;
 import org.xtuml.bp.xtext.masl.masl.structure.Visibility;
+import org.xtuml.bp.xtext.masl.masl.structure.Visualized;
 
 import org.xtuml.bp.xtext.masl.masl.types.AbstractTypeReference;
 
@@ -25,13 +39,35 @@ import org.xtuml.bp.xtext.masl.masl.types.AbstractTypeReference;
  * The following features are implemented:
  * </p>
  * <ul>
+ *   <li>{@link org.xtuml.bp.xtext.masl.masl.structure.impl.DomainFunctionDeclarationImpl#getPragmas <em>Pragmas</em>}</li>
+ *   <li>{@link org.xtuml.bp.xtext.masl.masl.structure.impl.DomainFunctionDeclarationImpl#getParameters <em>Parameters</em>}</li>
  *   <li>{@link org.xtuml.bp.xtext.masl.masl.structure.impl.DomainFunctionDeclarationImpl#getVisibility <em>Visibility</em>}</li>
  *   <li>{@link org.xtuml.bp.xtext.masl.masl.structure.impl.DomainFunctionDeclarationImpl#getReturnType <em>Return Type</em>}</li>
  * </ul>
  *
  * @generated
  */
-public class DomainFunctionDeclarationImpl extends ParameterizedImpl implements DomainFunctionDeclaration {
+public class DomainFunctionDeclarationImpl extends AbstractFeatureImpl implements DomainFunctionDeclaration {
+	/**
+	 * The cached value of the '{@link #getPragmas() <em>Pragmas</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getPragmas()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<Pragma> pragmas;
+
+	/**
+	 * The cached value of the '{@link #getParameters() <em>Parameters</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getParameters()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<Parameter> parameters;
+
 	/**
 	 * The default value of the '{@link #getVisibility() <em>Visibility</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -79,6 +115,30 @@ public class DomainFunctionDeclarationImpl extends ParameterizedImpl implements 
 	@Override
 	protected EClass eStaticClass() {
 		return StructurePackage.Literals.DOMAIN_FUNCTION_DECLARATION;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EList<Pragma> getPragmas() {
+		if (pragmas == null) {
+			pragmas = new EObjectContainmentEList<Pragma>(Pragma.class, this, StructurePackage.DOMAIN_FUNCTION_DECLARATION__PRAGMAS);
+		}
+		return pragmas;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EList<Parameter> getParameters() {
+		if (parameters == null) {
+			parameters = new EObjectContainmentEList<Parameter>(Parameter.class, this, StructurePackage.DOMAIN_FUNCTION_DECLARATION__PARAMETERS);
+		}
+		return parameters;
 	}
 
 	/**
@@ -153,6 +213,10 @@ public class DomainFunctionDeclarationImpl extends ParameterizedImpl implements 
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
+			case StructurePackage.DOMAIN_FUNCTION_DECLARATION__PRAGMAS:
+				return ((InternalEList<?>)getPragmas()).basicRemove(otherEnd, msgs);
+			case StructurePackage.DOMAIN_FUNCTION_DECLARATION__PARAMETERS:
+				return ((InternalEList<?>)getParameters()).basicRemove(otherEnd, msgs);
 			case StructurePackage.DOMAIN_FUNCTION_DECLARATION__RETURN_TYPE:
 				return basicSetReturnType(null, msgs);
 		}
@@ -167,6 +231,10 @@ public class DomainFunctionDeclarationImpl extends ParameterizedImpl implements 
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
+			case StructurePackage.DOMAIN_FUNCTION_DECLARATION__PRAGMAS:
+				return getPragmas();
+			case StructurePackage.DOMAIN_FUNCTION_DECLARATION__PARAMETERS:
+				return getParameters();
 			case StructurePackage.DOMAIN_FUNCTION_DECLARATION__VISIBILITY:
 				return getVisibility();
 			case StructurePackage.DOMAIN_FUNCTION_DECLARATION__RETURN_TYPE:
@@ -180,9 +248,18 @@ public class DomainFunctionDeclarationImpl extends ParameterizedImpl implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
+			case StructurePackage.DOMAIN_FUNCTION_DECLARATION__PRAGMAS:
+				getPragmas().clear();
+				getPragmas().addAll((Collection<? extends Pragma>)newValue);
+				return;
+			case StructurePackage.DOMAIN_FUNCTION_DECLARATION__PARAMETERS:
+				getParameters().clear();
+				getParameters().addAll((Collection<? extends Parameter>)newValue);
+				return;
 			case StructurePackage.DOMAIN_FUNCTION_DECLARATION__VISIBILITY:
 				setVisibility((Visibility)newValue);
 				return;
@@ -201,6 +278,12 @@ public class DomainFunctionDeclarationImpl extends ParameterizedImpl implements 
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
+			case StructurePackage.DOMAIN_FUNCTION_DECLARATION__PRAGMAS:
+				getPragmas().clear();
+				return;
+			case StructurePackage.DOMAIN_FUNCTION_DECLARATION__PARAMETERS:
+				getParameters().clear();
+				return;
 			case StructurePackage.DOMAIN_FUNCTION_DECLARATION__VISIBILITY:
 				setVisibility(VISIBILITY_EDEFAULT);
 				return;
@@ -219,12 +302,94 @@ public class DomainFunctionDeclarationImpl extends ParameterizedImpl implements 
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
+			case StructurePackage.DOMAIN_FUNCTION_DECLARATION__PRAGMAS:
+				return pragmas != null && !pragmas.isEmpty();
+			case StructurePackage.DOMAIN_FUNCTION_DECLARATION__PARAMETERS:
+				return parameters != null && !parameters.isEmpty();
 			case StructurePackage.DOMAIN_FUNCTION_DECLARATION__VISIBILITY:
 				return visibility != VISIBILITY_EDEFAULT;
 			case StructurePackage.DOMAIN_FUNCTION_DECLARATION__RETURN_TYPE:
 				return returnType != null;
 		}
 		return super.eIsSet(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public int eBaseStructuralFeatureID(int derivedFeatureID, Class<?> baseClass) {
+		if (baseClass == Pragmatized.class) {
+			switch (derivedFeatureID) {
+				case StructurePackage.DOMAIN_FUNCTION_DECLARATION__PRAGMAS: return StructurePackage.PRAGMATIZED__PRAGMAS;
+				default: return -1;
+			}
+		}
+		if (baseClass == Parameterized.class) {
+			switch (derivedFeatureID) {
+				case StructurePackage.DOMAIN_FUNCTION_DECLARATION__PARAMETERS: return StructurePackage.PARAMETERIZED__PARAMETERS;
+				default: return -1;
+			}
+		}
+		if (baseClass == Visualized.class) {
+			switch (derivedFeatureID) {
+				case StructurePackage.DOMAIN_FUNCTION_DECLARATION__VISIBILITY: return StructurePackage.VISUALIZED__VISIBILITY;
+				default: return -1;
+			}
+		}
+		if (baseClass == AbstractActionDeclaration.class) {
+			switch (derivedFeatureID) {
+				default: return -1;
+			}
+		}
+		if (baseClass == AbstractFunction.class) {
+			switch (derivedFeatureID) {
+				case StructurePackage.DOMAIN_FUNCTION_DECLARATION__RETURN_TYPE: return StructurePackage.ABSTRACT_FUNCTION__RETURN_TYPE;
+				default: return -1;
+			}
+		}
+		return super.eBaseStructuralFeatureID(derivedFeatureID, baseClass);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public int eDerivedStructuralFeatureID(int baseFeatureID, Class<?> baseClass) {
+		if (baseClass == Pragmatized.class) {
+			switch (baseFeatureID) {
+				case StructurePackage.PRAGMATIZED__PRAGMAS: return StructurePackage.DOMAIN_FUNCTION_DECLARATION__PRAGMAS;
+				default: return -1;
+			}
+		}
+		if (baseClass == Parameterized.class) {
+			switch (baseFeatureID) {
+				case StructurePackage.PARAMETERIZED__PARAMETERS: return StructurePackage.DOMAIN_FUNCTION_DECLARATION__PARAMETERS;
+				default: return -1;
+			}
+		}
+		if (baseClass == Visualized.class) {
+			switch (baseFeatureID) {
+				case StructurePackage.VISUALIZED__VISIBILITY: return StructurePackage.DOMAIN_FUNCTION_DECLARATION__VISIBILITY;
+				default: return -1;
+			}
+		}
+		if (baseClass == AbstractActionDeclaration.class) {
+			switch (baseFeatureID) {
+				default: return -1;
+			}
+		}
+		if (baseClass == AbstractFunction.class) {
+			switch (baseFeatureID) {
+				case StructurePackage.ABSTRACT_FUNCTION__RETURN_TYPE: return StructurePackage.DOMAIN_FUNCTION_DECLARATION__RETURN_TYPE;
+				default: return -1;
+			}
+		}
+		return super.eDerivedStructuralFeatureID(baseFeatureID, baseClass);
 	}
 
 	/**

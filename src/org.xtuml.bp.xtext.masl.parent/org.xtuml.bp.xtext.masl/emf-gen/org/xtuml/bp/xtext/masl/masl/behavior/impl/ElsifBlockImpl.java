@@ -3,23 +3,14 @@
  */
 package org.xtuml.bp.xtext.masl.masl.behavior.impl;
 
-import java.util.Collection;
-
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
-
-import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
-import org.eclipse.emf.ecore.util.EObjectContainmentEList;
-import org.eclipse.emf.ecore.util.InternalEList;
-
-import org.xtuml.bp.xtext.masl.masl.behavior.AbstractStatement;
 import org.xtuml.bp.xtext.masl.masl.behavior.BehaviorPackage;
 import org.xtuml.bp.xtext.masl.masl.behavior.ElsifBlock;
 import org.xtuml.bp.xtext.masl.masl.behavior.Expression;
@@ -33,12 +24,11 @@ import org.xtuml.bp.xtext.masl.masl.behavior.Expression;
  * </p>
  * <ul>
  *   <li>{@link org.xtuml.bp.xtext.masl.masl.behavior.impl.ElsifBlockImpl#getCondition <em>Condition</em>}</li>
- *   <li>{@link org.xtuml.bp.xtext.masl.masl.behavior.impl.ElsifBlockImpl#getStatements <em>Statements</em>}</li>
  * </ul>
  *
  * @generated
  */
-public class ElsifBlockImpl extends MinimalEObjectImpl.Container implements ElsifBlock {
+public class ElsifBlockImpl extends StatementListImpl implements ElsifBlock {
 	/**
 	 * The cached value of the '{@link #getCondition() <em>Condition</em>}' containment reference.
 	 * <!-- begin-user-doc -->
@@ -48,16 +38,6 @@ public class ElsifBlockImpl extends MinimalEObjectImpl.Container implements Elsi
 	 * @ordered
 	 */
 	protected Expression condition;
-
-	/**
-	 * The cached value of the '{@link #getStatements() <em>Statements</em>}' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getStatements()
-	 * @generated
-	 * @ordered
-	 */
-	protected EList<AbstractStatement> statements;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -126,25 +106,11 @@ public class ElsifBlockImpl extends MinimalEObjectImpl.Container implements Elsi
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<AbstractStatement> getStatements() {
-		if (statements == null) {
-			statements = new EObjectContainmentEList<AbstractStatement>(AbstractStatement.class, this, BehaviorPackage.ELSIF_BLOCK__STATEMENTS);
-		}
-		return statements;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case BehaviorPackage.ELSIF_BLOCK__CONDITION:
 				return basicSetCondition(null, msgs);
-			case BehaviorPackage.ELSIF_BLOCK__STATEMENTS:
-				return ((InternalEList<?>)getStatements()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -159,8 +125,6 @@ public class ElsifBlockImpl extends MinimalEObjectImpl.Container implements Elsi
 		switch (featureID) {
 			case BehaviorPackage.ELSIF_BLOCK__CONDITION:
 				return getCondition();
-			case BehaviorPackage.ELSIF_BLOCK__STATEMENTS:
-				return getStatements();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -170,16 +134,11 @@ public class ElsifBlockImpl extends MinimalEObjectImpl.Container implements Elsi
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case BehaviorPackage.ELSIF_BLOCK__CONDITION:
 				setCondition((Expression)newValue);
-				return;
-			case BehaviorPackage.ELSIF_BLOCK__STATEMENTS:
-				getStatements().clear();
-				getStatements().addAll((Collection<? extends AbstractStatement>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -196,9 +155,6 @@ public class ElsifBlockImpl extends MinimalEObjectImpl.Container implements Elsi
 			case BehaviorPackage.ELSIF_BLOCK__CONDITION:
 				setCondition((Expression)null);
 				return;
-			case BehaviorPackage.ELSIF_BLOCK__STATEMENTS:
-				getStatements().clear();
-				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -213,8 +169,6 @@ public class ElsifBlockImpl extends MinimalEObjectImpl.Container implements Elsi
 		switch (featureID) {
 			case BehaviorPackage.ELSIF_BLOCK__CONDITION:
 				return condition != null;
-			case BehaviorPackage.ELSIF_BLOCK__STATEMENTS:
-				return statements != null && !statements.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

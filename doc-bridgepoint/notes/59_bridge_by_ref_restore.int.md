@@ -66,6 +66,10 @@ a change was made to `GD::convertFromBPType` to convert the `BPBoolean` to
 the string representation used by Verifier.  This allows the test case
 supplied by the user to run correctly.
 
+Found another problem.  The original design initial the return run-time
+value in all cases.  This is incorrect; when there are statements in the
+body, do not initialize the return run-time value.
+
 Next, we need to consider how `Integer`, `Real` and `unique\_id` are handled.
 
 7. Unit Test

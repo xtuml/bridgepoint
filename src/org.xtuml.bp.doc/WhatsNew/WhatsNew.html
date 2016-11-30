@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="../github-pandoc.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<h1 id="whats-new-in-bridgepoint-5.8.2">What's New in BridgePoint 5.8.2</h1>
+<h2 id="release-highlights">Release Highlights</h2>
+<ul>
+<li>Package References</li>
+<li>Model Element Move</li>
+<li>Activities Persisted in Files</li>
+<li>Verifier</li>
+<li>MASL</li>
+<li>Editor</li>
+</ul>
+<hr />
+<h2 id="package-references">Package References</h2>
+<p>To formalize the use of shared class models, support for package references is<br />
+being added to BridgePoint.</p>
+<p><img src="assign_pkgref.png" alt="Assign Package Reference Menu" /></p>
+<p>Package References allow the modeler to explicitly give local visibility to<br />
+elements that exist inside another package. A package must be empty and located<br />
+directly inside a component to be assignable as a package reference. The target<br />
+package being referred to may exist in the same project or in another project.</p>
+<p>Package references are supported in the BridgePoint model compilers. Documentation<br />
+exists in the BridgePoint Help system that explains Package References in detail.<br />
+It is at <code>BridgePoint UML Suite Help &gt; Reference &gt; UserInterface &gt; PackageReferences</code>.</p>
+<h2 id="model-element-move">Model Element Move</h2>
+<p>BridgePoint now supports moving model elements via Cut &amp; Paste. As opposed to<br />
+prior versions where this action performed a copy/delete/create process, this<br />
+version truly moves model elements from one location to another. This means that<br />
+underlying UUIDs of model elements are <em>not</em> recalculated, making the move operation<br />
+much safer and user-friendly.</p>
+<p>The tool also recognizes if the user is moving elements to new locations where<br />
+referring elements do not have visibility. It will display a warning in this case<br />
+telling the user what model elements will be affected and downgraded to default<br />
+values (or deleted in the case of imported classes and component references). The<br />
+modeler is given the option to cancel the operation. BridgePoint<br />
+also supports undo-ing the move after it has occurred.</p>
+<h2 id="activities-persisted-in-files">Activities Persisted in Files</h2>
+<p>This version of BridgePoint persists action language activities in files separate<br />
+from the structural model data in the <code>.xtuml</code> file. All the sibling activities<br />
+for a given parent are persisted into the same file.</p>
+<p>This change is related to a metamodel update. BridgePoint now has a <code>Dialect</code><br />
+attributes on action home instances. Any class that had <code>Action_Semantics</code> now<br />
+has a <code>Dialect</code> attribute.</p>
+<h2 id="verifier">Verifier</h2>
+<p>A number of features and fixes were made to improve Verifier:</p>
+<ul>
+<li>Improved handling when making consecutive calls to a bridge when a parameter is sent by reference</li>
+<li>Fixed Stack Overflow Error that occurred when breakpoints set in code manipulating combined reflexive and non-reflexive associations</li>
+<li>Audit Realized Bindings now reloads java classes</li>
+<li>Realized structured data types now handle primitive types</li>
+<li>BPClassLoader now closes the file stream after loading .class files</li>
+</ul>
+<h2 id="masl">MASL</h2>
+<p>Improvements continue to be made in MASL support throughout the<br />
+convert/import/edit/export flow. The MASL editor now supports context-sensitive<br />
+edit/completion assistance in addition to syntax highlighting.</p>
+<p>In addition, MASL is now displayed on state model canvas.</p>
+<p><img src="masl_in_states.png" alt="MASL in state actions" /></p>
+<h2 id="editor">Editor</h2>
+<p>This release adds a number of improvements to the xtUML Editor. Here are a few<br />
+of the highlights:</p>
+<ul>
+<li>Fixed an issue with the context-menu filtering that was allowing operations to<br />
+be available on the context-menu when they should not.</li>
+<li>Changes to interfaces are now only allowed on the interface definition. Modelers<br />
+are no longer allowed to make changes on any interface references associated with ports.</li>
+<li>The BridgePoint OAL marker extension is changed from <code>.oal</code> to <code>.oal_err</code>. This<br />
+is in preparation for a change that will come in the future where BridgePoint saves OAL<br />
+text in <code>.oal</code> files instead of inside the instance data in the <code>.xtuml</code> files.</li>
+</ul>
+</body>
+</html>

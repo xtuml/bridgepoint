@@ -139,6 +139,9 @@ public abstract class PasteAction extends CutCopyPasteAction  {
 					Method pasteMethod = clazz.getMethod(opName, new Class[] { UUID.class });
 					pasteMethod.invoke(destination, new Object[] { sourceElement.Get_ooa_id() });
 							
+				} catch (NoSuchMethodException nsme) {
+					// ignore for the case of elements that do not require calling
+					// a paste operation
 				} catch (Exception e) {
 					CorePlugin.logError("Unable to connect " + getClassName(sourceElement) + "  (" //$NON-NLS-1$
 							+ sourceElement.getName() + ") to " + destination.getClass().getSimpleName()
