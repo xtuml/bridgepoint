@@ -594,7 +594,6 @@ public class PersistableModelComponent implements Comparable {
         }
 
         IFile file = getFile();
-        IFile actionFile = getActionFile();
 
         persisting = true;
         // create an export-factory and have it perform the persistence
@@ -602,7 +601,7 @@ public class PersistableModelComponent implements Comparable {
                 .getInstance();
         try {
             IRunnableWithProgress runnable = factory.create(componentRootME,
-                    file.getLocation().toString(), actionFile.getLocation().toString(), true);
+                    file.getLocation().toString(), true);
             runnable.run(monitor);
         
             // get Eclipse to notice that the model's file has changed on disk
