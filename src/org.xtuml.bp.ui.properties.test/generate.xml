@@ -14,6 +14,11 @@
           depends="java,readonly_test,test_data,format_java">
   </target>
 
+  <target name="nb_all"
+          description="Generate UI Properties Test classes"
+          depends="java,readonly_test,test_data">
+  </target>
+
   <property name="mcj_path" value="../MC-Java" />
 
   <property name="eclipse-home" value="${basedir}/../.."/>

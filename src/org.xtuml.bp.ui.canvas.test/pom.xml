@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.xtuml.bp</groupId>
+		<artifactId>org.xtuml.bp.releng.parent.tests</artifactId>
+		<version>5.5.0</version>
+		<relativePath>../../releng/org.xtuml.bp.releng.parent.tests/</relativePath>
+	</parent>
+	<groupId>org.xtuml.bp</groupId>
+	<artifactId>org.xtuml.bp.ui.canvas.test</artifactId>
+	<version>1.0.0</version>
+	<packaging>eclipse-test-plugin</packaging>
+
+
+	<build>
+		<plugins>
+			<plugin>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<version>1.8</version>
+				<executions>
+
+					<execution>
+						<id>generate-ant</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>run</goal>
+						</goals>
+						<configuration>
+							<tasks>
+								<property name="compile_classpath" refid="maven.compile.classpath" />
+								<property name="runtime_classpath" refid="maven.runtime.classpath" />
+								<property name="test_classpath" refid="maven.test.classpath" />
+								<property name="plugin_classpath" refid="maven.plugin.classpath" />
+
+								<property name="outputDir" value="${project.build.outputDirectory}" />
+								<property name="sourceDir" value="${project.build.sourceDirectory}" />
+								<property name="ant.home" value="${ant-home-path}" />
+
+								<ant antfile="${basedir}/generate.xml" target="nb_all" />
+							</tasks>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>tycho-surefire-plugin</artifactId>
+				<version>${tycho-version}</version>
+				<configuration>
+					<testSuite>org.xtuml.bp.ui.canvas.test</testSuite>
+					<testClass>CanvasCCPGlobalsTestSuite</testClass>
+					<argLine>-Xmx1024m -Xms512m -Dorg.eclipse.epp.logging.aeri.ui.skipReports=true -DWORKSPACE_PATH=${basedir} -DLOGFILE_PATH=${project.build.directory}/bp_tests/ui_explorer/.metadata/.log -Dfile.encoding=UTF-8</argLine>
+							
+					<executions>
+						<execution>
+							<id>GlobalsCanvasSuite1</id>
+							<configuration>
+								<testSuite>org.xtuml.bp.ui.canvas.test</testSuite>
+								<testClass>GlobalsCanvasSuite1</testClass>
+								<argLine>-Xmx1024m -Xms512m -Dorg.eclipse.epp.logging.aeri.ui.skipReports=true -DWORKSPACE_PATH=${basedir} -DLOGFILE_PATH=${project.build.directory}/bp_tests/ui_explorer/.metadata/.log -Dfile.encoding=UTF-8</argLine>
+							</configuration>
+						</execution>
+						
+						<execution>
+							<id>GlobalsCanvasSuite2</id>
+							<configuration>
+								<testSuite>org.xtuml.bp.ui.canvas.test</testSuite>
+								<testClass>GlobalsCanvasSuite2</testClass>
+								<argLine>-Xmx1024m -Xms512m -Dorg.eclipse.epp.logging.aeri.ui.skipReports=true -DWORKSPACE_PATH=${basedir} -DLOGFILE_PATH=${project.build.directory}/bp_tests/ui_explorer/.metadata/.log -Dfile.encoding=UTF-8</argLine>
+							</configuration>
+						</execution>
+					</executions>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>

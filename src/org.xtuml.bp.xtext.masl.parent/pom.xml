@@ -7,7 +7,7 @@
 	<packaging>pom</packaging>
 
 	<properties>
-		<tycho-version>0.23.1</tycho-version>
+		<tycho-version>0.25.0</tycho-version>
 		<xtextVersion>2.9.2</xtextVersion>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.source>1.8</maven.compiler.source>
@@ -20,7 +20,7 @@
 		<module>org.xtuml.bp.xtext.masl.ui</module>
 		<module>org.xtuml.bp.xtext.masl.target</module>
 		<module>org.xtuml.bp.xtext.masl.tests</module>
-		<module>org.xtuml.bp.xtext.masl.ui.tests</module>
+		<!--module>org.xtuml.bp.xtext.masl.ui.tests</module-->
 		<module>org.xtuml.bp.xtext.masl.feature</module>
 		<module>org.xtuml.bp.xtext.masl.updatesite</module>
 	</modules>

@@ -9,3 +9,4 @@ Bundle-Vendor: %providerName
 Bundle-Localization: plugin
 Require-Bundle: org.eclipse.core.runtime
 Bundle-ActivationPolicy: lazy
+Eclipse-BundleShape: dir

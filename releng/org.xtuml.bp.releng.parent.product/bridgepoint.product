@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?pde version="3.5"?>
+
+<product name="BridgePoint" uid="org.xtuml.bp.product" id="org.xtuml.bp.pkg.BridgePoint" application="org.eclipse.ui.ide.workbench" version="5.5.0" useFeatures="true" includeLaunchers="true">
+
+   <configIni use="default">
+   </configIni>
+
+   <launcherArgs>
+      <vmArgsMac>-XstartOnFirstThread -Dorg.eclipse.swt.internal.carbon.smallFonts
+      </vmArgsMac>
+   </launcherArgs>
+
+   <windowImages/>
+
+   <splash
+      location="org.xtuml.bp.pkg"
+      startupProgressRect="5,275,445,15"
+      startupMessageRect="7,252,445,20"
+      startupForegroundColor="000000" />
+   <launcher name="bridgepoint">
+      <solaris/>
+      <win useIco="false">
+         <bmp/>
+      </win>
+   </launcher>
+
+   <vm>
+   </vm>
+
+   <plugins>
+   </plugins>
+
+   <features>
+      <feature id="org.xtuml.bp.bld.pkg.feature"/>
+      <feature id="org.xtuml.bp.pkg.feature"/>
+      <feature id="org.xtuml.bp.verifier.pkg.feature"/>
+      <feature id="org.xtuml.bp.jre"/>
+      <feature id="org.xtuml.bp.xtext.masl.feature"/>
+      <feature id="org.eclipse.cdt"/>
+      <feature id="org.eclipse.sdk.examples"/>
+      <feature id="org.antlr.ui"/>
+      <feature id="org.eclipse.xtext.sdk"/>
+      <feature id="org.eclipse.platform"/>
+      <feature id="org.eclipse.equinox.p2.user.ui"/>
+      <feature id="org.eclipse.help"/>
+      <feature id="org.eclipse.jdt"/>
+      <feature id="org.eclipse.pde"/>
+      <feature id="org.eclipse.sdk"/>
+      <feature id="org.eclipse.rcp"/>
+      <feature id="org.eclipse.emf.sdk"/>
+      <feature id="org.eclipse.gef.sdk"/>
+      <feature id="org.eclipse.uml2.sdk"/>
+      <feature id="org.eclipse.ocl.all.sdk"/>
+      <feature id="org.eclipse.emf.transaction.sdk"/>
+      <feature id="org.eclipse.emf.ecoretools.design"/>
+      <feature id="org.eclipse.emf.query.sdk"/>
+      <feature id="org.eclipse.xsd.sdk"/>
+      <feature id="org.eclipse.emf.validation.sdk"/>
+      <feature id="org.eclipse.emf.compare.source"/>
+      <feature id="org.eclipse.emf.compare.ide.ui.source"/>
+      <feature id="org.eclipse.gmf.runtime.sdk"/>
+      <feature id="org.eclipse.egit"/>
+      <feature id="org.eclipse.epp.package.common.feature"/>
+   </features>
+
+   <configurations>
+      <plugin id="org.eclipse.core.runtime" autoStart="true" startLevel="0" />
+      <plugin id="org.eclipse.equinox.common" autoStart="true" startLevel="2" />
+      <plugin id="org.eclipse.equinox.ds" autoStart="true" startLevel="2" />
+      <plugin id="org.eclipse.equinox.event" autoStart="true" startLevel="2" />
+      <plugin id="org.eclipse.equinox.p2.reconciler.dropins" autoStart="true" startLevel="0" />
+      <plugin id="org.eclipse.equinox.simpleconfigurator" autoStart="true" startLevel="1" />
+   </configurations>
+
+</product>

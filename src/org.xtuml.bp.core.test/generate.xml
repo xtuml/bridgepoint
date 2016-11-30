@@ -8,7 +8,13 @@
   <target name="all" description="Generate all code for this project" depends="dispose_test,action_test,delete_test,formalize_test,context_menu_tests,copy_paste_tests, rto_move_tests, consistency_all">
   </target>
 
+  <target name="nb_all" description="Generate all code for this project" depends="dispose_test,action_test,delete_test,formalize_test,context_menu_tests,copy_paste_tests, rto_move_tests, nb_consistency_all">
+  </target>
+
   <target name="consistency_all" description="Generate a test domain for the consistency checker" depends="sql,schema,java,format_java">
+  </target>
+
+  <target name="nb_consistency_all" description="Generate a test domain for the consistency checker" depends="sql,schema,java">
   </target>
 
   <property name="eclipse-home" value="${basedir}/../.." />

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>org.xtuml.bp</groupId>
+		<artifactId>org.xtuml.bp.releng.parent</artifactId>
+		<version>5.5.0</version>
+		<relativePath>../org.xtuml.bp.releng.parent/</relativePath>
+	</parent>
+
+	<groupId>org.xtuml.bp</groupId>
+	<artifactId>org.xtuml.bp.releng.parent.generation</artifactId>
+	<version>5.5.0</version>
+	<packaging>pom</packaging>
+
+	<modules>
+		<module>../../src/org.xtuml.bp.compare</module>
+		<module>../../src/org.xtuml.bp.core</module>
+		<module>../../src/org.xtuml.bp.io.core</module>
+		<module>../../src/org.xtuml.bp.io.mdl</module>
+		<module>../../src/org.xtuml.bp.model.compare</module>
+		<module>../../src/org.xtuml.bp.ui.canvas</module>
+		<module>../../src/org.xtuml.bp.ui.explorer</module>
+		<module>../../src/org.xtuml.bp.ui.properties</module>
+		<module>../../src/org.xtuml.bp.ui.session</module>
+		<module>../../src/org.xtuml.bp.ui.text</module>
+
+		<module>../../src/org.xtuml.bp.xtext.masl.parent</module>
+	</modules>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.eclipse.xtend</groupId>
+				<artifactId>xtend-maven-plugin</artifactId>
+				<version>2.7.3</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>compile</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${basedir}/xtend-gen</outputDirectory>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+</project>
