@@ -430,7 +430,7 @@ public class ComponentResourceListener implements IResourceChangeListener, IReso
 			if (file.exists()) {
 				importer = CorePlugin
 						.getModelImportFactory()
-						.create(file, -1, Ooaofooa.getDefaultInstance(),
+						.create(file, Ooaofooa.getDefaultInstance(),
 								com, false, false, false, false);
 				IFileHeader header = importer.getHeader();
 				InputStream contents = file.getContents();
