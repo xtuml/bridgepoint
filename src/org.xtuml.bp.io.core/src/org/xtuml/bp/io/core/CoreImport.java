@@ -65,7 +65,6 @@ public abstract class CoreImport implements IModelImport {
 
     File m_actionFile;
 
-    int m_dialect = -1;
     ActionFile m_actionFiles;
 
     private StringBuffer inputBuffer = null;
@@ -94,14 +93,13 @@ public abstract class CoreImport implements IModelImport {
         read(inStream);
     }
 
-    public CoreImport(Ooaofooa modelRoot, String inFile, int dialect, ActionFile actionFile, boolean clearDatabase, boolean templateFile)
+    public CoreImport(Ooaofooa modelRoot, String inFile, ActionFile actionFile, boolean clearDatabase, boolean templateFile)
             throws FileNotFoundException {
         m_success = false;
         m_errorMessage = ""; //$NON-NLS-1$
         m_modelRoot = modelRoot;
         m_fileName = inFile;
         m_inFile = new File(inFile);
-        m_dialect = dialect;
         m_actionFiles = actionFile;
         m_clear_database = clearDatabase;
         m_templateFile = templateFile;
@@ -109,13 +107,12 @@ public abstract class CoreImport implements IModelImport {
             throw new FileNotFoundException(inFile + " not found");
     }
 
-    public CoreImport(IPath inFile, int dialect, ActionFile actionFile) throws FileNotFoundException {
+    public CoreImport(IPath inFile, ActionFile actionFile) throws FileNotFoundException {
         m_success = false;
         m_errorMessage = ""; //$NON-NLS-1$
         m_modelRoot = null;
         m_fileName = inFile.toString();
         m_inFile = inFile.toFile();
-        m_dialect = dialect;
         m_actionFiles = actionFile;
 
         if (!m_inFile.exists() || !m_inFile.isFile())
@@ -344,14 +341,7 @@ public abstract class CoreImport implements IModelImport {
         }
         // here's where the code is actually read
         try {
-            int[] dialects;
-            if ( m_dialect == -1 ) {
-                dialects = m_actionFiles.getAvailableDialectCodes();
-            }
-            else {
-                dialects = new int[1];
-                dialects[0] = m_dialect;
-            }
+            int[] dialects = m_actionFiles.getAvailableDialectCodes();
 
             // import actions for each dialect
             for ( int i = 0; i < dialects.length; i++ ) {
