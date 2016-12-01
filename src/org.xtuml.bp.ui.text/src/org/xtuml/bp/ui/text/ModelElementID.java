@@ -238,6 +238,12 @@ public class ModelElementID implements Serializable, Comparable<ModelElementID>
 		return buffer.toByteArray();
     }
   
+    /**
+     * This is where the file actually gets created.
+     * 
+     * @param file
+     * @throws CoreException
+     */
     public void saveTo(IFile file) throws CoreException
     {
         try {

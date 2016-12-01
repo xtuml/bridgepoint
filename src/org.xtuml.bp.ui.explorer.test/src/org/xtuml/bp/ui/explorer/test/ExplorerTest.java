@@ -519,6 +519,7 @@ import org.xtuml.bp.utilities.ui.CanvasUtilities;
 						.getElement())));
 		Selection.getInstance().clear();
 		Selection.getInstance().addToSelection(ele);
+		BaseTest.dispatchEvents(0);
 		assertTrue(
 				"Unable to find Copy menu item for MultipleOccurrenceElement.",
 				UITestingUtilities.checkItemStatusInContextMenu(menu, "Copy",

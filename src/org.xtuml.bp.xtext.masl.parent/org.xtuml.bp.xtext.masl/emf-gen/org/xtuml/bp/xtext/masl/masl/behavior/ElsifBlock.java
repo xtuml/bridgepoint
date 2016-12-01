@@ -3,9 +3,6 @@
  */
 package org.xtuml.bp.xtext.masl.masl.behavior;
 
-import org.eclipse.emf.common.util.EList;
-
-import org.eclipse.emf.ecore.EObject;
 
 /**
  * <!-- begin-user-doc -->
@@ -17,14 +14,13 @@ import org.eclipse.emf.ecore.EObject;
  * </p>
  * <ul>
  *   <li>{@link org.xtuml.bp.xtext.masl.masl.behavior.ElsifBlock#getCondition <em>Condition</em>}</li>
- *   <li>{@link org.xtuml.bp.xtext.masl.masl.behavior.ElsifBlock#getStatements <em>Statements</em>}</li>
  * </ul>
  *
  * @see org.xtuml.bp.xtext.masl.masl.behavior.BehaviorPackage#getElsifBlock()
  * @model
  * @generated
  */
-public interface ElsifBlock extends EObject {
+public interface ElsifBlock extends StatementList {
 	/**
 	 * Returns the value of the '<em><b>Condition</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
@@ -50,21 +46,5 @@ public interface ElsifBlock extends EObject {
 	 * @generated
 	 */
 	void setCondition(Expression value);
-
-	/**
-	 * Returns the value of the '<em><b>Statements</b></em>' containment reference list.
-	 * The list contents are of type {@link org.xtuml.bp.xtext.masl.masl.behavior.AbstractStatement}.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Statements</em>' containment reference list isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Statements</em>' containment reference list.
-	 * @see org.xtuml.bp.xtext.masl.masl.behavior.BehaviorPackage#getElsifBlock_Statements()
-	 * @model containment="true"
-	 * @generated
-	 */
-	EList<AbstractStatement> getStatements();
 
 } // ElsifBlock

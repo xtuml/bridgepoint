@@ -31,7 +31,7 @@ the License.
     </topic>
     <topic href="Reference/DesignGuide/PDF/DesignGuide.pdf" label="The xtUML Modeling Guide">
     </topic>
-    <topic label="Using BridgePoint">
+    <topic label="User Interface">
       <topic label="xtUML Modeling Perspective" href="Reference/UserInterface/xtUMLModeling/HTML/xtUMLModeling.htm">
         <topic label="Views" href="Reference/UserInterface/xtUMLModeling/Views/HTML/Views.htm">
           <topic label="Model Explorer" href="Reference/UserInterface/xtUMLModeling/Views/HTML/ModelExplorer.htm"/>
@@ -88,9 +88,11 @@ the License.
           <topic label="Undo and Redo" href="Reference/UserInterface/xtUMLModeling/UndoRedo/HTML/UndoRedo.htm"/>
         </topic>
       </topic>
+      <topic label="Downgrade Dialog" href="Reference/UserInterface/DowngradeDialog/DowngradeDialog.html"/>
     </topic>
     <topic label="Model Verifier Java Interface" href="Reference/UserInterface/ModelVerifierJavaInterface/ModelVerifierJavaInterface.htm" />
     <topic label="Command Line Interface" href="Reference/UserInterface/CommandLineInterface/HTML/CommandLineInterface.htm" />
+    <topic label="Package References" href="Reference/UserInterface/PackageReferences/PackageReferences.html" />
     <topic label="Revision Control" href="Reference/UserInterface/RevisionControl/HTML/RevisionControl.htm" />
     <topic label="OAL Reference">
       <topic label="Introduction" href="Reference/OAL/HTML/bpalref.book-1.htm"/>

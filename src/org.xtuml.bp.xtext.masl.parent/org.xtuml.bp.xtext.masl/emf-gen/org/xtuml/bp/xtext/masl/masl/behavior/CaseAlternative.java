@@ -5,8 +5,6 @@ package org.xtuml.bp.xtext.masl.masl.behavior;
 
 import org.eclipse.emf.common.util.EList;
 
-import org.eclipse.emf.ecore.EObject;
-
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Case Alternative</b></em>'.
@@ -17,14 +15,13 @@ import org.eclipse.emf.ecore.EObject;
  * </p>
  * <ul>
  *   <li>{@link org.xtuml.bp.xtext.masl.masl.behavior.CaseAlternative#getChoices <em>Choices</em>}</li>
- *   <li>{@link org.xtuml.bp.xtext.masl.masl.behavior.CaseAlternative#getStatements <em>Statements</em>}</li>
  * </ul>
  *
  * @see org.xtuml.bp.xtext.masl.masl.behavior.BehaviorPackage#getCaseAlternative()
  * @model
  * @generated
  */
-public interface CaseAlternative extends EObject {
+public interface CaseAlternative extends StatementList {
 	/**
 	 * Returns the value of the '<em><b>Choices</b></em>' containment reference list.
 	 * The list contents are of type {@link org.xtuml.bp.xtext.masl.masl.behavior.Expression}.
@@ -40,21 +37,5 @@ public interface CaseAlternative extends EObject {
 	 * @generated
 	 */
 	EList<Expression> getChoices();
-
-	/**
-	 * Returns the value of the '<em><b>Statements</b></em>' containment reference list.
-	 * The list contents are of type {@link org.xtuml.bp.xtext.masl.masl.behavior.AbstractStatement}.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Statements</em>' containment reference list isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Statements</em>' containment reference list.
-	 * @see org.xtuml.bp.xtext.masl.masl.behavior.BehaviorPackage#getCaseAlternative_Statements()
-	 * @model containment="true"
-	 * @generated
-	 */
-	EList<AbstractStatement> getStatements();
 
 } // CaseAlternative

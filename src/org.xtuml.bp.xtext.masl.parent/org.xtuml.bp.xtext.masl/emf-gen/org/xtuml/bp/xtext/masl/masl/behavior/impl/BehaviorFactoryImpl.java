@@ -58,6 +58,7 @@ public class BehaviorFactoryImpl extends EFactoryImpl implements BehaviorFactory
 	@Override
 	public EObject create(EClass eClass) {
 		switch (eClass.getClassifierID()) {
+			case BehaviorPackage.STATEMENT_LIST: return createStatementList();
 			case BehaviorPackage.CODE_BLOCK: return createCodeBlock();
 			case BehaviorPackage.VARIABLE_DECLARATION: return createVariableDeclaration();
 			case BehaviorPackage.EXCEPTION_HANDLER: return createExceptionHandler();
@@ -121,8 +122,8 @@ public class BehaviorFactoryImpl extends EFactoryImpl implements BehaviorFactory
 			case BehaviorPackage.UNARY_EXP: return createUnaryExp();
 			case BehaviorPackage.LINK_EXPRESSION: return createLinkExpression();
 			case BehaviorPackage.NAVIGATE_EXPRESSION: return createNavigateExpression();
-			case BehaviorPackage.OPERATION_CALL: return createOperationCall();
-			case BehaviorPackage.TERMINATOR_OPERATION_CALL: return createTerminatorOperationCall();
+			case BehaviorPackage.ACTION_CALL: return createActionCall();
+			case BehaviorPackage.TERMINATOR_ACTION_CALL: return createTerminatorActionCall();
 			case BehaviorPackage.INDEXED_EXPRESSION: return createIndexedExpression();
 			case BehaviorPackage.CHARACTERISTIC_CALL: return createCharacteristicCall();
 			case BehaviorPackage.STRUCTURE_AGGREGATE_EXPRESSION: return createStructureAggregateExpression();
@@ -167,6 +168,16 @@ public class BehaviorFactoryImpl extends EFactoryImpl implements BehaviorFactory
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public StatementList createStatementList() {
+		StatementListImpl statementList = new StatementListImpl();
+		return statementList;
 	}
 
 	/**
@@ -804,9 +815,9 @@ public class BehaviorFactoryImpl extends EFactoryImpl implements BehaviorFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public OperationCall createOperationCall() {
-		OperationCallImpl operationCall = new OperationCallImpl();
-		return operationCall;
+	public ActionCall createActionCall() {
+		ActionCallImpl actionCall = new ActionCallImpl();
+		return actionCall;
 	}
 
 	/**
@@ -814,9 +825,9 @@ public class BehaviorFactoryImpl extends EFactoryImpl implements BehaviorFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public TerminatorOperationCall createTerminatorOperationCall() {
-		TerminatorOperationCallImpl terminatorOperationCall = new TerminatorOperationCallImpl();
-		return terminatorOperationCall;
+	public TerminatorActionCall createTerminatorActionCall() {
+		TerminatorActionCallImpl terminatorActionCall = new TerminatorActionCallImpl();
+		return terminatorActionCall;
 	}
 
 	/**

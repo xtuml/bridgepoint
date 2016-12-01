@@ -3,23 +3,13 @@
  */
 package org.xtuml.bp.xtext.masl.masl.behavior.impl;
 
-import java.util.Collection;
-
 import org.eclipse.emf.common.notify.Notification;
-import org.eclipse.emf.common.notify.NotificationChain;
-
-import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
-import org.eclipse.emf.ecore.util.EObjectContainmentEList;
-import org.eclipse.emf.ecore.util.InternalEList;
-
-import org.xtuml.bp.xtext.masl.masl.behavior.AbstractStatement;
 import org.xtuml.bp.xtext.masl.masl.behavior.BehaviorPackage;
 import org.xtuml.bp.xtext.masl.masl.behavior.ExceptionHandler;
 
@@ -34,12 +24,11 @@ import org.xtuml.bp.xtext.masl.masl.structure.ExceptionDeclaration;
  * </p>
  * <ul>
  *   <li>{@link org.xtuml.bp.xtext.masl.masl.behavior.impl.ExceptionHandlerImpl#getException <em>Exception</em>}</li>
- *   <li>{@link org.xtuml.bp.xtext.masl.masl.behavior.impl.ExceptionHandlerImpl#getStatements <em>Statements</em>}</li>
  * </ul>
  *
  * @generated
  */
-public class ExceptionHandlerImpl extends MinimalEObjectImpl.Container implements ExceptionHandler {
+public class ExceptionHandlerImpl extends StatementListImpl implements ExceptionHandler {
 	/**
 	 * The cached value of the '{@link #getException() <em>Exception</em>}' reference.
 	 * <!-- begin-user-doc -->
@@ -49,16 +38,6 @@ public class ExceptionHandlerImpl extends MinimalEObjectImpl.Container implement
 	 * @ordered
 	 */
 	protected ExceptionDeclaration exception;
-
-	/**
-	 * The cached value of the '{@link #getStatements() <em>Statements</em>}' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getStatements()
-	 * @generated
-	 * @ordered
-	 */
-	protected EList<AbstractStatement> statements;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -122,40 +101,12 @@ public class ExceptionHandlerImpl extends MinimalEObjectImpl.Container implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<AbstractStatement> getStatements() {
-		if (statements == null) {
-			statements = new EObjectContainmentEList<AbstractStatement>(AbstractStatement.class, this, BehaviorPackage.EXCEPTION_HANDLER__STATEMENTS);
-		}
-		return statements;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
-		switch (featureID) {
-			case BehaviorPackage.EXCEPTION_HANDLER__STATEMENTS:
-				return ((InternalEList<?>)getStatements()).basicRemove(otherEnd, msgs);
-		}
-		return super.eInverseRemove(otherEnd, featureID, msgs);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case BehaviorPackage.EXCEPTION_HANDLER__EXCEPTION:
 				if (resolve) return getException();
 				return basicGetException();
-			case BehaviorPackage.EXCEPTION_HANDLER__STATEMENTS:
-				return getStatements();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -165,16 +116,11 @@ public class ExceptionHandlerImpl extends MinimalEObjectImpl.Container implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case BehaviorPackage.EXCEPTION_HANDLER__EXCEPTION:
 				setException((ExceptionDeclaration)newValue);
-				return;
-			case BehaviorPackage.EXCEPTION_HANDLER__STATEMENTS:
-				getStatements().clear();
-				getStatements().addAll((Collection<? extends AbstractStatement>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -191,9 +137,6 @@ public class ExceptionHandlerImpl extends MinimalEObjectImpl.Container implement
 			case BehaviorPackage.EXCEPTION_HANDLER__EXCEPTION:
 				setException((ExceptionDeclaration)null);
 				return;
-			case BehaviorPackage.EXCEPTION_HANDLER__STATEMENTS:
-				getStatements().clear();
-				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -208,8 +151,6 @@ public class ExceptionHandlerImpl extends MinimalEObjectImpl.Container implement
 		switch (featureID) {
 			case BehaviorPackage.EXCEPTION_HANDLER__EXCEPTION:
 				return exception != null;
-			case BehaviorPackage.EXCEPTION_HANDLER__STATEMENTS:
-				return statements != null && !statements.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}
