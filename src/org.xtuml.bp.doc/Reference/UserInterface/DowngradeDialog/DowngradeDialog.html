@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="../../../github-pandoc.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<h1 id="downgrade-dialog">Downgrade Dialog</h1>
+<p>Several actions, including delete, rename, move, and visibility change, cause<br />
+the appearance of this dialog:</p>
+<p><img src="dialog.png" alt="Image of Downgrade Dialog" /></p>
+<p>It indicates that the action in question, if completed, will cause the (likely<br />
+undesirable) disassociation of model elements. The following model element<br />
+types may be involved:</p>
+<ul>
+<li>Attribute, referring to a data type</li>
+<li>Parameter, referring to a data type</li>
+<li>Data type, referring to a data type</li>
+<li>Constant specification, referring to a data type</li>
+<li>Imported class, referring to a class</li>
+<li>Component reference, referring to a component definition</li>
+<li>Component definition, referring to an interface definition (through formalization of a port)</li>
+<li>Package reference, referring to a package</li>
+</ul>
+<p>Examples include:</p>
+<ul>
+<li>Deletion of a data type causing all parameters and attributes typed by the<br />
+deleted data type to be reverted to the corresponding core type.</li>
+<li>Moving of classes such that they lose visibility to data types to which they<br />
+refer for typing of attributes and parameters.</li>
+<li>Changing the visibility of a package such that referring model elements no<br />
+longer have visibility to some of the model elements to which they refer. For<br />
+example an imported class no longer has visibility to the class to which it refers.</li>
+<li>Moving a package such that a component reference has lost visibility to the<br />
+associated component definition or a component definition can no longer see an<br />
+interface definition used to formalize one of its ports.</li>
+</ul>
+<p>The dialog presents an opportunity to copy or print the list of affected model<br />
+elements before either continuing or canceling the operation. Typically it is<br />
+best to prevent the dissociation of the affected model elements before<br />
+continuing with the operation in question, so it is recommended that you:</p>
+<ol>
+<li>Copy or print the list of affected elements.</li>
+<li>Cancel the operation.</li>
+<li>Adjust the model to ensure visibility between the affected elements will be<br />
+maintained after the contemplated operation is completed.</li>
+<li>Perform the operation in question.</li>
+</ol>
+</body>
+</html>
