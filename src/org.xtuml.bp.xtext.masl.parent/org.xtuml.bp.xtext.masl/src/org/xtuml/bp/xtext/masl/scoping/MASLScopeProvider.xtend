@@ -72,9 +72,9 @@ class MASLScopeProvider extends AbstractMASLScopeProvider {
 				return context.featureScope
 			case generateStatement_Event: {
 				if(context instanceof GenerateStatement) {
-					val containerObject = context.containerObject
-					if(containerObject != null)	 				
-						return createObjectScope(containerObject, [events], super.getScope(context, reference))
+					val contextObject = context.object?:context.containerObject
+					if(contextObject != null)	 				
+						return createObjectScope(contextObject, [events], super.getScope(context, reference))
 				}
 			}
 			case createArgument_CurrentState: {
