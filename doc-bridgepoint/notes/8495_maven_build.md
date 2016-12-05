@@ -49,8 +49,8 @@ these servers.
   
 5. Analysis
 -----------
-5.1  Eclipse.org uses Hudson[2.3](#2.3) and Maven[2.2](#2.2)/Tycho[2.6](#2.6) to 
-  build plug-ins  and products as described in their build system overview [2.7](#2.7).   
+5.1  Eclipse.org uses Hudson[[2.3]](#2.3) and Maven[[2.2]](#2.2)/Tycho[[2.6]](#2.6) to 
+  build plug-ins  and products as described in their build system overview [[2.7]](#2.7).   
 
       
 6. Design
@@ -63,10 +63,10 @@ these servers.
 * The Maven build is executed with “mvn verify” started from the directory of 
   the parent pom
 * Build results are found in the target folder next to the pom.xmls
-* Maven lifecycle documentation [2.4](#2.4)
+* Maven lifecycle documentation [[2.4]](#2.4)
 
 6.2  Tycho   
-* Tycho [2.6](#2.6) are the maven plugins for building osgi/Eclipse-Artifacts
+* Tycho [[2.6]](#2.6) are the maven plugins for building osgi/Eclipse-Artifacts
 * Tycho takes most information from existing Manifest.MF, feature.xml, etc. 
   (in regular maven for java you specify dependencies in the pom.xml)
 * Tycho is very “picky” about the metadata. The build will fail if something is 
@@ -125,7 +125,7 @@ these servers.
 * There is an example for executing a test: ```bridgepoint/src/org.xtuml.bp.ui.explorer.test/pom.xml```
 * The packaging type has to be eclipse-test-plugin (otherwise tests are not executed)
 * The tests are configured via the tycho-surefire-plugin
-  * Documentation details [2.5](#2.5)
+  * Documentation details [[2.5]](#2.5)
 * Configuration states testSuite (=id of the bundle container the test-suite), 
   testClass (fully qualified name of the test suite) and an argline
 
