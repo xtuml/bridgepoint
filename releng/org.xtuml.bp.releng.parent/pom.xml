@@ -73,8 +73,8 @@
 		<module>../org.xtuml.bp.releng.parent.tests</module>
 		<module>../org.xtuml.bp.releng.parent.product</module>
 		<module>../../../packaging/features/org.xtuml.bp.jre.parent</module>
-
-
+        <module>../../../packaging/features/org.xtuml.bp.docgen.parent</module>
+        <module>../../../packaging/features/org.xtuml.bp.MinGW.parent</module>
 	</modules>
 
 	<build>
