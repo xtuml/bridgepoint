@@ -39,6 +39,7 @@ import org.xtuml.bp.core.common.TransactionManager;
 import org.xtuml.bp.core.ui.DeleteAction;
 import org.xtuml.bp.core.ui.Selection;
 import org.xtuml.bp.test.common.OrderedRunner;
+import org.xtuml.bp.ui.text.activity.ActivityEditorInputFactory;
 import org.xtuml.bp.ui.text.placeholder.PlaceHolderEntry;
 import org.xtuml.bp.ui.text.test.activity.ActivityEditorInteraction;
 import org.xtuml.bp.ui.text.test.description.DescriptionEditorInteraction;
@@ -106,7 +107,7 @@ public class DomainDeleteTestI744 extends UITextTest{
 		assertNotNull(ed);
 		
 		//Checking the instance exists in the map
-		IFile oalFile = UITextTest.getExistingPlaceHolderFromManager(op, "oal", this); //$NON-NLS-1$
+		IFile oalFile = UITextTest.getExistingPlaceHolderFromManager(op, ActivityEditorInputFactory.PLACEHOLDER_EXTENSION, this); //$NON-NLS-1$
 		assertNotNull(oalFile);
 		
 		//The underlying file must not exist

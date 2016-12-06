@@ -1,0 +1,1 @@
+service tutorial::Array_passing(a: in my_int_array_type, b: in my_int_array_type) is begin end;

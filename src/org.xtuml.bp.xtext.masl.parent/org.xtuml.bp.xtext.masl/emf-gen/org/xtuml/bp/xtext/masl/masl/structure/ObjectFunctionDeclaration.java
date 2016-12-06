@@ -3,7 +3,6 @@
  */
 package org.xtuml.bp.xtext.masl.masl.structure;
 
-import org.xtuml.bp.xtext.masl.masl.types.AbstractTypeReference;
 
 /**
  * <!-- begin-user-doc -->
@@ -14,46 +13,15 @@ import org.xtuml.bp.xtext.masl.masl.types.AbstractTypeReference;
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link org.xtuml.bp.xtext.masl.masl.structure.ObjectFunctionDeclaration#getVisibility <em>Visibility</em>}</li>
  *   <li>{@link org.xtuml.bp.xtext.masl.masl.structure.ObjectFunctionDeclaration#isInstance <em>Instance</em>}</li>
  *   <li>{@link org.xtuml.bp.xtext.masl.masl.structure.ObjectFunctionDeclaration#getRelationship <em>Relationship</em>}</li>
- *   <li>{@link org.xtuml.bp.xtext.masl.masl.structure.ObjectFunctionDeclaration#getReturnType <em>Return Type</em>}</li>
  * </ul>
  *
  * @see org.xtuml.bp.xtext.masl.masl.structure.StructurePackage#getObjectFunctionDeclaration()
  * @model
  * @generated
  */
-public interface ObjectFunctionDeclaration extends Parameterized, AbstractFeature {
-	/**
-	 * Returns the value of the '<em><b>Visibility</b></em>' attribute.
-	 * The literals are from the enumeration {@link org.xtuml.bp.xtext.masl.masl.structure.Visibility}.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Visibility</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Visibility</em>' attribute.
-	 * @see org.xtuml.bp.xtext.masl.masl.structure.Visibility
-	 * @see #setVisibility(Visibility)
-	 * @see org.xtuml.bp.xtext.masl.masl.structure.StructurePackage#getObjectFunctionDeclaration_Visibility()
-	 * @model unique="false"
-	 * @generated
-	 */
-	Visibility getVisibility();
-
-	/**
-	 * Sets the value of the '{@link org.xtuml.bp.xtext.masl.masl.structure.ObjectFunctionDeclaration#getVisibility <em>Visibility</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Visibility</em>' attribute.
-	 * @see org.xtuml.bp.xtext.masl.masl.structure.Visibility
-	 * @see #getVisibility()
-	 * @generated
-	 */
-	void setVisibility(Visibility value);
-
+public interface ObjectFunctionDeclaration extends AbstractFeature, AbstractActionDeclaration, AbstractFunction {
 	/**
 	 * Returns the value of the '<em><b>Instance</b></em>' attribute.
 	 * <!-- begin-user-doc -->
@@ -105,31 +73,5 @@ public interface ObjectFunctionDeclaration extends Parameterized, AbstractFeatur
 	 * @generated
 	 */
 	void setRelationship(RelationshipDefinition value);
-
-	/**
-	 * Returns the value of the '<em><b>Return Type</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Return Type</em>' containment reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Return Type</em>' containment reference.
-	 * @see #setReturnType(AbstractTypeReference)
-	 * @see org.xtuml.bp.xtext.masl.masl.structure.StructurePackage#getObjectFunctionDeclaration_ReturnType()
-	 * @model containment="true"
-	 * @generated
-	 */
-	AbstractTypeReference getReturnType();
-
-	/**
-	 * Sets the value of the '{@link org.xtuml.bp.xtext.masl.masl.structure.ObjectFunctionDeclaration#getReturnType <em>Return Type</em>}' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Return Type</em>' containment reference.
-	 * @see #getReturnType()
-	 * @generated
-	 */
-	void setReturnType(AbstractTypeReference value);
 
 } // ObjectFunctionDeclaration

@@ -344,11 +344,12 @@ public class TransactionManager {
 			boolean result = UIUtil.openScrollableTextDialog(PlatformUI
 					.getWorkbench().getDisplay().getActiveShell(), true,
 					"Confirm Changes", message, 
-					"The requested change will cause elements to be reset to their default values. " +
-					"This is due to a loss of visibility inside the destination.\nConsider allowing " +
-					"inter-project references for this project and relaxing package visibility settings " +
-					"before proceeding with this change.\n\n" +
-					"Do you want to continue?",
+					"The requested change will affect associated model elements that refer to the " +
+					"items in this changeset.  If you proceed, datatype-related\nelements will be " +
+					"modified to refer to a core type.  Imported or reference elements will be deleted.  " +
+					"The affected elements are listed\nbelow.  " + 
+					"For more information see the BridgePoint UML Suite Help > Reference > User Interface > Downgrade Dialog ." +
+                    "\n\nDo you want to continue?",
 					null,
 					BridgePointPreferencesStore.SHOW_SYNC_DELETION_DIALOG, true, true);			
 			if(!result) {
