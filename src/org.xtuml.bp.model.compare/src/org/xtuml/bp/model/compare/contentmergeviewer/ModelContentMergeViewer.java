@@ -345,7 +345,7 @@ public class ModelContentMergeViewer extends ContentMergeViewer implements IMode
 				AbstractModelExportFactory modelExportFactory = CorePlugin
 						.getModelExportFactory();
 				IRunnableWithProgress runnable = modelExportFactory.create(
-						root, baos, rootElement);
+						root, baos, null, rootElement);
 				runnable.run(new NullProgressMonitor());
 				((IEditableContent) destination).setContent(baos.toByteArray());
 				if (destination instanceof LocalResourceTypedElement) {

@@ -1,10 +1,7 @@
 //
-// Filename: DEL_Delivery_Cancelled.al
+// UK Crown Copyright (c) 2016. All rights reserved.
 //
-// Description: 
-//
-// UK Crown Copyright (c) 2007,2009. All rights reserved.
-//
+
 terminal state PSC::DELIVERY.Delivery_Cancelled () is
   pump_instance : instance of PUMP; 
 

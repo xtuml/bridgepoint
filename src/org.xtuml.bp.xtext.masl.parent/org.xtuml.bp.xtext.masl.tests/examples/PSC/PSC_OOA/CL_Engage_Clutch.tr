@@ -1,11 +1,8 @@
 //
-// Filename: CL_Engage_Clutch.tr
+// UK Crown Copyright (c) 2016. All rights reserved.
 //
-// Description: 
-//
-// UK Crown Copyright (c) 2007,2009. All rights reserved.
-//
-private service PSC::CLUTCH~>Engage_Clutch () is
+
+public service PSC::CLUTCH~>Engage_Clutch () is
 
 begin
   null;

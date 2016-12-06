@@ -1,10 +1,7 @@
 //
-// Filename: TRN_Creating_pending_transaction.al
+// UK Crown Copyright (c) 2016. All rights reserved.
 //
-// Description: 
-//
-// UK Crown Copyright (c) 2007,2009. All rights reserved.
-//
+
 creation state PSC::TRANSACTION.Creating_pending_transaction (Delivery_Time : in  timestamp,
                                                               Delivery_Pump : in  integer,
                                                               Delivery_Cost : in  real) is

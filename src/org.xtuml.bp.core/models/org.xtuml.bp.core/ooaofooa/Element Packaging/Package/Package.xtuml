@@ -19,10 +19,12 @@ if(not_empty system)
   unrelate self from system across R1401;
 end if;
 
+// Dispose Package Participants from Interaction diagrams
 select many pps related by self->SQ_PP[R956];
 for each pp in pps
   pp.unformalize();
 end for;
+
 self.clearScope();
 // dispose Packagable Elements
 select many pes related by self ->PE_PE[R8000];
@@ -68,6 +70,16 @@ for each cie in classInEngines
   cie.dispose();
 end for;
 
+// Clean up package references, both if this package is assigned, or if other
+// packages are assigned to this
+if (self.isAssigned())
+  self.unAssign();
+end if;
+select many rgo_pkgs related by self->EP_PKGREF[R1402.''is referenced by'']->EP_PKG[R1402.''is referenced by''];
+for each rgo_pkg in rgo_pkgs
+  Util::reportElementDowngraded(rto:self.convertToInstance(), rgoDowngraded:rgo_pkg.convertToInstance(), relationship:"R1402");
+  rgo_pkg.unAssign();
+end for;
 
 delete object instance self;
 ',
@@ -217,13 +229,18 @@ INSERT INTO O_TFR
 if (param.at == Justification::Center_in_X)
   result = "«package»";
 elif (param.at == Justification::Center)
-  result = self.Name;
-  select one pe related by self->PE_PE[R8001];
-  if not_empty pe
-    result = pe.getVisibilityAdornment() + result;
+  if(self.isAssigned())
+	result = self.Label;
+  else
+    result = self.Name;
+    select one pe related by self->PE_PE[R8001];
+    if not_empty pe
+      result = pe.getVisibilityAdornment() + result;
+    end if;
   end if;
 end if;
-return result;',
+return result;
+',
 	1,
 	'',
 	"c37581ca-5a4a-4ea5-83bf-9461372fea83");
@@ -330,6 +347,22 @@ if(param.name == "can")
     if not_empty pe 
       return pe.Visibility != Visibility::Private;
     end if;
+  elif param.value == "assign"
+    // Rules for displaying the cme for package reference assignment:
+    // Rule 1: The package must be empty
+    select any pe_pe related by self->PE_PE[R8000];
+    if (not_empty pe_pe)
+      return false;
+    end if;
+    // Rule 2: Only a Package located as a child of a Component shall be eligible to be a Package Reference.
+    select one c_c related by self->PE_PE[R8001]->C_C[R8003];
+    if (empty c_c)
+      return false;
+    end if; 
+    // We have passed all the rules
+    return true;
+  elif(param.value == "unassign")
+    return self.isAssigned();
   end if;
 elif (param.name == "has")
   if (param.value == "realized components")
@@ -2660,6 +2693,14 @@ else // not originating package
                                          collectGlobally:param.collectGlobally);
     end if;
   end for;
+  // If this package is a reference, collect in the target package
+  if (self.isAssigned())
+    select one tgt_pkg related by self->EP_PKGREF[R1402.''refers to'']->EP_PKG[R1402.''refers to''];
+    tgt_pkg.collectVisibleElementsForName(name:param.name, type:param.type,
+         descending:true, originatingContainerID: param.originatingContainerID,
+                                         delegatingPkgID:param.delegatingPkgID,
+                                         collectGlobally:param.collectGlobally);
+  end if;
 end if;
 if param.descending == false
   // We are ascending the hierarchy. Consider all parents,
@@ -6305,6 +6346,204 @@ end if;
 	1,
 	'',
 	"106f6a4c-e49b-4879-ad83-2f3e652b18d1");
+INSERT INTO O_TFR
+	VALUES ("12903e07-fb7b-44f1-a698-f648059f3ee1",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'downgradeCheck',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'// If the package contains elements, check them
+select many pe_pes related by self->PE_PE[R8000];
+for each pe_pe in pe_pes
+  pe_pe.downgradeCheck();
+end for;
+
+// If this package is assigned as a reference, make sure we can see the target
+isAccessible = true; 
+if ( self.isAssigned() )
+  isAccessible = self.canReferToPackage();
+
+  if ( not isAccessible )
+    select one tgt_pkg related by self->EP_PKGREF[R1402.''refers to'']->EP_PKG[R1402.''refers to''];
+    self.unAssign();
+    Util::reportElementDowngraded(rto:tgt_pkg.convertToInstance(), rgoDowngraded:self.convertToInstance(), relationship:"R1402");
+  end if;
+end if;
+
+// If this package is the target of a package reference have the referring 
+// packages check.
+select many rgo_pkgs related by self->EP_PKGREF[R1402.''is referenced by'']->EP_PKG[R1402.''is referenced by''];
+for each rgo_pkg in rgo_pkgs
+  rgo_pkg.downgradeCheck();
+end for;
+',
+	1,
+	'',
+	"71f25991-161d-4092-b684-a166114dab97");
+INSERT INTO O_TFR
+	VALUES ("1e6a84be-d2ea-4a2f-aab2-9b2385f7a6b0",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'isAssigned',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000001",
+	1,
+	'rval = false;
+
+select one ep_pkgref related by self->EP_PKGREF[R1402.''refers to''];
+if (not_empty ep_pkgref)
+  rval = true;
+end if;
+
+return rval;',
+	1,
+	'',
+	"12903e07-fb7b-44f1-a698-f648059f3ee1");
+INSERT INTO O_TFR
+	VALUES ("91ec38ef-2d51-4055-a2ec-99af3640e214",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'unAssign',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'select one ep_pkgref related by self->EP_PKGREF[R1402.''refers to''];
+if (not_empty ep_pkgref)
+  select one ep_pkg related by ep_pkgref->EP_PKG[R1402.''refers to''];
+  unrelate self from ep_pkg across R1402.''refers to'' using ep_pkgref;
+  delete object instance ep_pkgref;
+  
+  // This may have caused elements inside the parent component to need downgrade
+  select one c_c related by self->PE_PE[R8001]->C_C[R8003];
+  if (not_empty c_c)
+    c_c.downgradeCheck();
+  end if;
+end if;
+',
+	1,
+	'',
+	"1e6a84be-d2ea-4a2f-aab2-9b2385f7a6b0");
+INSERT INTO O_TFR
+	VALUES ("c3f0e2bc-b2dd-4ffb-bbc1-686fc6fb6acf",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'assignAsPackageReference',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'// If the package reference is already assigned, unassign before proceeding
+if ( self.isAssigned() )
+  self.unAssign();
+end if;
+
+select any targetPkg from instances of EP_PKG where selected.Package_ID == param.Id;
+
+create object instance ep_pkgref of EP_PKGREF;
+
+relate self to targetPkg across R1402.''refers to'' using ep_pkgref;
+',
+	1,
+	'',
+	"91ec38ef-2d51-4055-a2ec-99af3640e214");
+INSERT INTO O_TPARM
+	VALUES ("609843af-c529-4be2-9dcf-24652ebc2d59",
+	"c3f0e2bc-b2dd-4ffb-bbc1-686fc6fb6acf",
+	'Id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("cacea0fc-4740-4230-8242-d728c337d0ff",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'canAssignToPackage',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000001",
+	1,
+	'select one packageableElem related by self->PE_PE[R8001];
+select one package related by packageableElem->EP_PKG[R8000];
+select one component related by packageableElem->C_C[R8003];
+
+// Rule: do not allow assignment to self
+if (self.Package_ID == param.Id)
+  return false;
+end if;
+
+// Rule: do not allow assignment to a package that is already assigned as a package reference
+select any pkg from instances of EP_PKG where (selected.Package_ID == param.Id);
+if (not_empty pkg)
+  is_assigned = pkg.isAssigned();
+  if (is_assigned)
+    return false;
+  end if;
+end if;
+
+parentPackage = package;
+parentComp = component;
+while(not_empty parentPackage or not_empty parentComp)
+  if not_empty parentPackage and parentPackage.Package_ID == param.Id
+    // Rule: do not allow assignment to any parent package in this hierarchy
+    return false;
+  end if;
+  // traverse to container
+  select one parentPE related by parentPackage->PE_PE[R8001];
+  if empty parentPE
+    select one parentPE related by parentComp->PE_PE[R8001];
+  end if;
+  select one parentPackage related by parentPE->EP_PKG[R8000];
+  select one parentComp related by parentPE->C_C[R8003];
+end while;
+
+// All rules passed, allow it
+return true;
+
+',
+	1,
+	'',
+	"c3f0e2bc-b2dd-4ffb-bbc1-686fc6fb6acf");
+INSERT INTO O_TPARM
+	VALUES ("1bee2e36-253b-43b2-ba47-fae7aa160817",
+	"cacea0fc-4740-4230-8242-d728c337d0ff",
+	'Id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'The ID of the package to check as a target when making this package a package reference.');
+INSERT INTO O_TFR
+	VALUES ("5f9fbbeb-fd01-4db5-be48-01bee4e480e4",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'isCuttable',
+	'A shape type is cuttable if it is selected, and if each connector anchored to it is also selected.',
+	"ba5eda7a-def5-0000-0000-000000000001",
+	1,
+	'return Sel::isSelected(element:self.convertToInstance());',
+	1,
+	'',
+	"fba4541b-e166-4ffd-bde7-c522fb84e2ab");
+INSERT INTO O_TFR
+	VALUES ("fba4541b-e166-4ffd-bde7-c522fb84e2ab",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'canReferToPackage',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000001",
+	1,
+	'isAccessible = true;
+isAssignable = true;
+select one pe related by self->PE_PE[R8001];
+select one ep_pkgref related by self->EP_PKGREF[R1402.''refers to''];
+if (not_empty ep_pkgref)
+  select one ep_pkg related by ep_pkgref->EP_PKG[R1402.''refers to''];
+
+  isAccessible = pe.isElementVisibleToSelf(type:
+                            ElementTypeConstants::PACKAGE, elementId:ep_pkg.Package_ID);
+  
+  isAssignable = self.canAssignToPackage(Id:ep_pkg.Package_ID);
+end if;
+
+return isAccessible and isAssignable;',
+	1,
+	'',
+	"cacea0fc-4740-4230-8242-d728c337d0ff");
 INSERT INTO O_NBATTR
 	VALUES ("bceab74d-6f82-4823-b3be-7791bab58106",
 	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e");
@@ -6509,6 +6748,38 @@ max_value: 9999',
 	'Num_Rng',
 	0,
 	"ba5eda7a-def5-0000-0000-000000000002",
+	'',
+	'');
+INSERT INTO O_DBATTR
+	VALUES ("6b635292-6bd5-44f6-b7f1-e3c889874c35",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'/**
+ *  Return the name of a referenced package, or the local name if not referencing
+ *  a package
+ */
+ select one referredToPackage related by self->EP_PKGREF[R1402.''refers to'']->EP_PKG[R1402.''refers to''];
+ if(not_empty referredToPackage)
+   self.Label = referredToPackage.getPath(path:"");
+ else 
+   self.Label = self.Name;
+ end if;
+',
+	1);
+INSERT INTO O_BATTR
+	VALUES ("6b635292-6bd5-44f6-b7f1-e3c889874c35",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e");
+INSERT INTO O_ATTR
+	VALUES ("6b635292-6bd5-44f6-b7f1-e3c889874c35",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	"f55df7b5-e84d-46ef-9b3b-b45e91cb56d8",
+	'Label',
+	'Full Name: Satisfaction Label
+User_Visible:false
+Persistent:false',
+	'',
+	'Label',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
 INSERT INTO O_ID

@@ -4,14 +4,14 @@ import com.google.inject.Inject
 import org.eclipse.xtext.naming.DefaultDeclarativeQualifiedNameProvider
 import org.eclipse.xtext.naming.QualifiedName
 import org.xtuml.bp.xtext.masl.MASLExtensions
-import org.xtuml.bp.xtext.masl.masl.DomainFunctionDefinition
-import org.xtuml.bp.xtext.masl.masl.DomainServiceDefinition
-import org.xtuml.bp.xtext.masl.masl.ObjectFunctionDefinition
-import org.xtuml.bp.xtext.masl.masl.ObjectServiceDefinition
-import org.xtuml.bp.xtext.masl.masl.TerminatorFunctionDefinition
-import org.xtuml.bp.xtext.masl.masl.TerminatorServiceDefinition
-import org.xtuml.bp.xtext.masl.masl.StateDefinition
-import org.xtuml.bp.xtext.masl.masl.DomainDefinition
+import org.xtuml.bp.xtext.masl.masl.structure.DomainDefinition
+import org.xtuml.bp.xtext.masl.masl.structure.DomainFunctionDefinition
+import org.xtuml.bp.xtext.masl.masl.structure.DomainServiceDefinition
+import org.xtuml.bp.xtext.masl.masl.structure.ObjectFunctionDefinition
+import org.xtuml.bp.xtext.masl.masl.structure.ObjectServiceDefinition
+import org.xtuml.bp.xtext.masl.masl.structure.StateDefinition
+import org.xtuml.bp.xtext.masl.masl.structure.TerminatorFunctionDefinition
+import org.xtuml.bp.xtext.masl.masl.structure.TerminatorServiceDefinition
 
 /** 
  * The qualified names of some top-level elements depend on the domain x-ref.

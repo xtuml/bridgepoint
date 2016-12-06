@@ -83,6 +83,7 @@ import org.xtuml.bp.ui.canvas.CanvasTransactionListener;
 import org.xtuml.bp.ui.canvas.Ooaofgraphics;
 import org.xtuml.bp.ui.canvas.test.CanvasTest;
 import org.xtuml.bp.ui.graphics.editor.GraphicalEditor;
+import org.xtuml.bp.ui.text.activity.ActivityEditorInputFactory;
 
 @RunWith(OrderedRunner.class)
 public class CopyPasteSourceDestinationTests extends CanvasTest {
@@ -787,7 +788,7 @@ public class CopyPasteSourceDestinationTests extends CanvasTest {
 			}
 			// skip OAL files
 			if(resources[i] instanceof IFile) {
-				if(resources[i].getFileExtension().equals("oal")) {
+				if(resources[i].getFileExtension().equals(ActivityEditorInputFactory.PLACEHOLDER_EXTENSION)) {
 					continue;
 				}
 			}
@@ -811,7 +812,7 @@ public class CopyPasteSourceDestinationTests extends CanvasTest {
 						fileContents = fileContents.replaceAll(sourceName
 								+ "_dup", sourceName);
 						contents.close();
-						TransactionManager.getSingleton().setIgnoreResourceChange(true);
+						TransactionManager.getSingleton().setIgnoreResourceChanges(true);
 						((IFile) resources[i]).setContents(new ByteArrayInputStream(fileContents
 								.getBytes()), true, false,
 								new NullProgressMonitor());
@@ -840,7 +841,7 @@ public class CopyPasteSourceDestinationTests extends CanvasTest {
 								String fileContents = new String(fileBytes);
 								fileContents = fileContents.replaceAll(pasted.getName(), source.getName());
 								contents.close();
-								TransactionManager.getSingleton().setIgnoreResourceChange(true);
+								TransactionManager.getSingleton().setIgnoreResourceChanges(true);
 								file.setContents(new ByteArrayInputStream(fileContents
 										.getBytes()), true, false,
 										new NullProgressMonitor());

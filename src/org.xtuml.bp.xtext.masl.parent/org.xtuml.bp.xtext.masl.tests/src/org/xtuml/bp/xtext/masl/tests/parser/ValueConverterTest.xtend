@@ -10,7 +10,7 @@ import org.eclipse.xtext.nodemodel.impl.CompositeNode
 import org.eclipse.xtext.nodemodel.impl.LeafNode
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.xtuml.bp.xtext.masl.maslBase.StateType
+import org.xtuml.bp.xtext.masl.masl.structure.StateType
 import org.xtuml.bp.xtext.masl.tests.MASLInjectorProvider
 import org.xtuml.bp.xtext.masl.tests.parser.ValueConverterTest.DummyLeafNode
 

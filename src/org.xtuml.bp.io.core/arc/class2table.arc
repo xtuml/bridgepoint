@@ -39,6 +39,27 @@
       .end if
 INSERT INTO EI VALUES ( '${obj.Name}' );
 INSERT INTO T VALUES ( '${obj.Name}', '${obj.Key_Lett}', '${obj.Name}', '${domain_name}' );
+    .select any action_semantics related by obj->O_ATTR[R102] where ( selected.Name == "Action_Semantics_internal" )
+    .if ( not_empty action_semantics )
+      .select many o_attrs from instances of O_ATTR where (selected.Attr_ID == -1)
+      .select any id related by obj->O_ID[R104] where (selected.Oid_ID == 0)
+      .if(not_empty id)
+        .select many o_attrs related by id->O_OIDA[R105]->O_ATTR[R105];
+      .end if
+      .if ( (cardinality o_attrs) == 1 )
+        .for each o_id_attr in o_attrs
+INSERT INTO AB VALUES ( '${obj.Name}', '${obj.Key_Lett}', '${o_id_attr.Name}', '' );
+        .end for
+      .elif ( (cardinality o_attrs) == 2 )
+        .for each o_id_attr in o_attrs
+          .if ( first o_attrs )
+INSERT INTO AB VALUES ( '${obj.Name}', '${obj.Key_Lett}', '${o_id_attr.Name}'\
+          .else
+, '${o_id_attr.Name}' );
+          .end if
+        .end for
+      .end if
+    .end if
     .select many attr_set related by obj->O_ATTR[R102]
     .for each attr in attr_set
       .invoke aip = attr_is_persistent(attr)

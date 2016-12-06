@@ -1,0 +1,59 @@
+service tutorial::device_output() is
+  s : string;
+  i : integer;
+  r : real;
+  b1 : boolean;
+  b2 : boolean;
+  e : Calendar::month_type;
+  test : device;
+  res : string;
+
+begin
+
+  s := "Hello";
+  i := 123;
+  r := 45.67;
+  b1 := true;
+  b2 := false;
+  e := Calendar::MARCH;
+
+  // Test single writes
+  Device_IO::create_file("output.tst", true);
+  Device_IO::open("output.tst", Device_IO::OUT, test);
+  test << s;
+  test << i;
+  test << r;
+  test << b1;
+  test << b2;
+  test << e;
+  Device_IO::close(test);
+
+  Device_IO::open("output.tst", Device_IO::IN, test);
+  test >> res;
+  Device_IO::close(test);
+
+  if res /= "Hello12345.67truefalseMARCH" then 
+    console << res;
+    raise Standard::constraint_error;
+  end if;
+
+  // Test concatenated writes
+  Device_IO::create_file("output.tst", true);
+  Device_IO::open("output.tst", Device_IO::OUT, test);
+  test << s << i << r << b1 << b2 << e;
+  Device_IO::close(test);
+
+  Device_IO::open("output.tst", Device_IO::IN, test);
+  test >> res;
+  Device_IO::close(test);
+
+  if res/= "Hello12345.67truefalseMARCH" then 
+    console << res;
+    raise Standard::constraint_error;
+  end if;
+
+  Device_IO::delete_file("output.tst");
+
+  console << "TEST PASSED" << endl;
+
+end;

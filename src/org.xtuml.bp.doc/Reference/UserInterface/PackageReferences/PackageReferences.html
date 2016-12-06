@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="../../../github-pandoc.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<h1 id="package-references">Package References</h1>
+<h2 id="introduction">Introduction</h2>
+<p>To formalize the use of shared class models, support for package references is<br />
+being added to BridgePoint.</p>
+<p>Prior to BridgePoint 5.8 classes must be defined within a component to be useful<br />
+throughout the entire tool chain. However, it is possible to define classes<br />
+(and functions) outside a component, and elements defined within a component<br />
+will have visibility to these externally defined elements so long as they<br />
+reside within the same project.</p>
+<p>While the parser recognizes this visibility and parses actions referring to<br />
+externally defined elements, the remainder of the tool chain does not fully<br />
+support such elements. Even though these capabilities have been in place for<br />
+several years (as a step toward shared classes), without the ability to execute<br />
+and compile models, they have not been widely used.</p>
+<p>Package References allow the modeler to explicitly give local visibility to<br />
+elements that exist inside another package.</p>
+<h2 id="user-interface">User Interface</h2>
+<h3 id="creating-package-references">Creating Package References</h3>
+<p>Unlike Component References, Package References do not have their own graphical<br />
+tool in the Palette.</p>
+<p>To create a Package Reference:</p>
+<ol>
+<li><p>Select the Package tool in the Palette and add a package inside a Component</p></li>
+<li><p>Right-click on the package to open the context-menu and select <code>Assign As Package Reference...</code><br />
+<img src="assign_pkgref.png" alt="Assign Package Reference Menu" /></p></li>
+<li><p>Choose the target package to refer to<br />
+<img src="assign_pkgref_dlg.png" alt="Assign Package Reference Dialog" /></p></li>
+<li><p>The displayed name of the package will change to show the path to the referred-to package<br />
+<img src="assigned_pkgref_path.png" alt="Assigned Package Reference" /></p></li>
+</ol>
+<blockquote>
+<p>Notes:</p>
+<ul>
+<li>Packages must be empty in order to make them a Package Reference</li>
+<li>Only Packages directly under a Component may be Package References</li>
+<li>Once a Package is assigned as a Package Reference, elements may not be added to it</li>
+</ul>
+</blockquote>
+<h3 id="component-opacity">Component Opacity</h3>
+<p>Closely associated with Package References is the concept of &quot;component<br />
+opacity&quot;. By this we mean: does the boundary of a component create a wall that<br />
+keeps elements inside the component from seeing elements outside the component?<br />
+When components are opaque, the modelers must use package references to import<br />
+elements and functionality from other packages into the component. BridgePoint<br />
+has a preference that determines whether components are considered to be opaque<br />
+or not. The default for this preference (opaque components = false) allows for<br />
+backwards compatibility with existing models. It is likely this setting will<br />
+change in the future as stricter use of Package References becomes more common.<br />
+The setting is found in the file <code>&lt;install dir&gt;/BridgePoint/eclipse/plugins/org.xtuml.bp.pkg_&lt;version&gt;/plugin_customization.ini</code>:</p>
+<pre><code>org.xtuml.bp.core/bridgepoint_prefs_opaque_components=false</code></pre>
+<h2 id="model-compilers">Model Compilers</h2>
+<p>Package References are implemented in the xtUML metamodel with a new<br />
+reflexive-associative relationship <code>R1402</code> and class <code>Package Reference [EP_PKGREF]</code>.</p>
+<p><img src="pkgref.png" alt="Package Reference" /></p>
+<p>BridgePoint model compilers are updated to handle this relationship and traverse<br />
+to the referred-to package if a package is found that has an associated Package<br />
+Reference across <code>R1402</code>.</p>
+<p>Custom-developed model compilers must be updated to handle this relationship<br />
+as well.</p>
+</body>
+</html>

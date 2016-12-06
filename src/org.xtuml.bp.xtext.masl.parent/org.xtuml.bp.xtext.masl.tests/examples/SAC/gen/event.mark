@@ -1,0 +1,43 @@
+.//============================================================================
+.// File:  event.mark
+.//
+.// Description:
+.// This marking file is used to indicate event related xtUML
+.// specialization(s) to the model compiler's translation engine.
+.//
+.// Notice:
+.//============================================================================
+.// Notes:
+.// (1) Marking is specified via archetype function invocation(s) in this file.
+.//     A function invocation statement MUST be specified on a single line.
+.//     All indicated function input parameters must be supplied.
+.// (2) All quoted string parameters are case sensitive.
+.// (3) Comments in this file start with ".//".
+.// (4) Do not leave any blank lines in this file.
+.//============================================================================
+.//
+.//
+.//============================================================================
+.// Mark Priority Event(s):
+.//
+.// To indicate to the model compiler that an event is to be given
+.// higher priority, use the following invocation (one for each
+.// priority event):
+.//
+.// MarkPriorityEvent( "component", "event_label", value )
+.//
+.// Where the input parameter(s) are:
+.//   component = name of component (domain) containing class having event
+.//               to be marked
+.//   event_label = label of event to be tagged
+.//   value = priority of event (0-255, 0 is lowest and default)
+.//
+.// Example:
+.//   .invoke MarkPriorityEvent( "autosampler", "CAR1", 4 )
+.//   .invoke MarkPriorityEvent( "*", "SP2", 10 )
+.//============================================================================
+.//
+.//
+.//============================================================================
+.// Do not add anything at the end of this file!
+.//============================================================================

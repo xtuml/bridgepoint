@@ -3,9 +3,8 @@ package org.xtuml.bp.xtext.masl.parser
 import org.eclipse.xtext.conversion.ValueConverterException
 import org.eclipse.xtext.conversion.impl.AbstractValueConverter
 import org.eclipse.xtext.nodemodel.INode
-import org.xtuml.bp.xtext.masl.maslBase.StateType
-
-import static org.xtuml.bp.xtext.masl.maslBase.StateType.*
+import org.xtuml.bp.xtext.masl.masl.structure.StateType
+import static org.xtuml.bp.xtext.masl.masl.structure.StateType.*
 
 /**
  * In Xtext, an enum literal cannot be represented by two keywords, like 'assigner' 'start'.

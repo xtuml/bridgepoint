@@ -1,10 +1,7 @@
 //
-// Filename: TRN_Paid_state.al
+// UK Crown Copyright (c) 2016. All rights reserved.
 //
-// Description: 
-//
-// UK Crown Copyright (c) 2007. All rights reserved.
-//
+
 state PSC::TRANSACTION.Paid_state () is
   pending_transaction_instance : instance of PENDING_TRANSACTION; 
   connected_pump : instance of PUMP; 

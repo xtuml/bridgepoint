@@ -21,6 +21,8 @@
 		<module>org.xtuml.bp.xtext.masl.target</module>
 		<module>org.xtuml.bp.xtext.masl.tests</module>
 		<module>org.xtuml.bp.xtext.masl.ui.tests</module>
+		<module>org.xtuml.bp.xtext.masl.feature</module>
+		<module>org.xtuml.bp.xtext.masl.updatesite</module>
 	</modules>
 	<build>
 		<plugins>

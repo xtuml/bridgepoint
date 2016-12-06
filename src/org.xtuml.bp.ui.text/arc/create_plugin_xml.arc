@@ -93,7 +93,7 @@ This file is the plugin manifest for the BridgePoint core plugin.
             name="Activity Editor"
             default="true"
             icon="platform:/plugin/org.xtuml.bp.core/icons/edit_oal.gif"
-            extensions="oal"
+            extensions="oal,oal_err"
             contributorClass="org.eclipse.ui.texteditor.BasicTextEditorActionContributor"
             class="org.xtuml.bp.ui.text.activity.ActivityEditor"
             id="org.xtuml.bp.ui.text.activity.ActivityEditor">
@@ -107,12 +107,6 @@ This file is the plugin manifest for the BridgePoint core plugin.
            id="org.xtuml.bp.ui.text.editor.oal.preference.OALEditorPreferencesPage"
            class="org.xtuml.bp.ui.text.editor.oal.preference.OALEditorPreferencesPage"
             name="Activity Editor">
-       </page>
-       <page
-           category="org.xtuml.bp.core.root"
-           id="org.xtuml.bp.ui.text.editor.preference.DefaultActivityEditorPreferencesPage"
-           class="org.xtuml.bp.ui.text.editor.preference.DefaultActivityEditorPreferencesPage"
-            name="Default Activity Editor">
        </page>
    </extension>
 

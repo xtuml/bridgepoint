@@ -53,6 +53,7 @@ import org.xtuml.bp.test.common.BaseTest;
 import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.ui.text.AbstractModelElementEditorInput;
 import org.xtuml.bp.ui.text.activity.ActivityEditor;
+import org.xtuml.bp.ui.text.activity.ActivityEditorInputFactory;
 import org.xtuml.bp.ui.text.description.DescriptionEditor;
 import org.xtuml.bp.ui.text.test.UITextTest;
 
@@ -168,7 +169,7 @@ public class ElementDeleteTest extends UITextTest {
 		    for (int index =0;index<members.length;index++)
 		    {
 		    	String fileExtension = (members[index] instanceof IFile)?members[index].getFileExtension():null;
-		    	if(fileExtension != null && (fileExtension.equals("dsc") || fileExtension.equals("oal"))) //$NON-NLS-1$ //$NON-NLS-2$
+		    	if(fileExtension != null && (fileExtension.equals("dsc") || fileExtension.equals(ActivityEditorInputFactory.PLACEHOLDER_EXTENSION))) //$NON-NLS-1$ //$NON-NLS-2$
 		    	{
 		    		if(!found)
 		    		{

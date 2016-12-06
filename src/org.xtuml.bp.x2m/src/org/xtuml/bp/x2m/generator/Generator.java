@@ -1,12 +1,3 @@
-//====================================================================
-//
-// File:      $RCSfile: Generator.java,v $
-// Version:   $Revision: 1.23 $
-// Modified:  $Date: 2013/01/10 23:43:41 $
-//
-// (c) Copyright 2004-2014 by Mentor Graphics Corp.  All rights reserved.
-//
-//====================================================================
 package org.xtuml.bp.x2m.generator;
 
 import java.io.BufferedOutputStream;
@@ -208,7 +199,7 @@ public class Generator extends Task {
                                     monitor.subTask("Gathering model information");
                                     ExportBuilder eb = new ExportBuilder();
                                     new File(codeGenPath).mkdirs();
-                                    eb.exportSystem(sys, codeGenPath, new NullProgressMonitor());
+                                    eb.exportSystem(sys, codeGenPath, new NullProgressMonitor(), false, "", false);
                                     monitor.worked(1);
                                     break;
                                 case 4:

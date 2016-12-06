@@ -1,10 +1,7 @@
 //
-// Filename: PMP_Waiting_For_Customer.al
+// UK Crown Copyright (c) 2016. All rights reserved.
 //
-// Description: 
-//
-// UK Crown Copyright (c) 2007. All rights reserved.
-//
+
 state PSC::PUMP.Waiting_For_Customer () is
 
 begin

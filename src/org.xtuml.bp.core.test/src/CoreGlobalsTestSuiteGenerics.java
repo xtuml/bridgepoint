@@ -48,6 +48,7 @@ import org.xtuml.bp.core.test.RenameTest2Generics;
 import org.xtuml.bp.core.test.RenameTestGenerics;
 import org.xtuml.bp.core.test.SetTypeTestGenerics;
 import org.xtuml.bp.core.test.TigerNatureTestGenerics;
+import org.xtuml.bp.core.test.references.ReferenceResolutionOnLoadTest;
 import org.xtuml.bp.core.util.WorkspaceUtil;
 
 import junit.framework.TestSuite;
@@ -81,6 +82,7 @@ import junit.framework.TestSuite;
 		OperationsTestGenerics.class,
 		DeleteTestGenerics.class,
 		TigerNatureTestGenerics.class,
+		// Travis says these tests are not ready to use yet (11-25-2016). ReferenceResolutionOnLoadTest.class
 })
 public class CoreGlobalsTestSuiteGenerics extends TestSuite {
 	

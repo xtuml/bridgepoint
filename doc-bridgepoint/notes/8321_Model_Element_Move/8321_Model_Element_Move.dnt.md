@@ -14,7 +14,7 @@ Move functionality in BridgePoint.
 
 2. Document References     
 ----------------------   
-<a id="2.1"></a>2.1 [Model Element move (Issue 8321)](https://support.onefact.net/issues/8321) 
+<a id="2.1"></a>2.1 [Model Element move (Issue 8321)](https://support.onefact.net/issues/8321)  
 This is a link to this issue in the issue tracking system.  
 
 <a id="2.2"></a>2.2 [Analysis note for Model Element Move Issue](https://support.onefact.net/issues/8031) 
@@ -32,7 +32,7 @@ Proxy paths are not written consistently.
 
 <a id="2.6"></a>2.6 [Issue 3532 design note - Support data type move capabilities through cut, copy, paste](../8031_Analyze_Model_Element_Move/i3532.dnt)  
 This is the note introduced when datatype move support was introduced into BridgePoint.  
-  
+
 <a id="2.7"></a>2.7 [Original Model Element Move Design note - before redesign](https://github.com/xtuml/bridgepoint/blob/82f9dace19ee79c8011f687eb2d12315ea6e8dc3/doc-bridgepoint/notes/8321_Model_Element_Move/8321_Model_Element_Move.dnt.md)  
 This Model Element Move project's original selected design encountered problems 
 during implementation and a different design approach, outlined in this note, 
@@ -158,42 +158,44 @@ copy/paste behavior shall not be changed during this change.</b>
 
 <pre>
   User Makes a Selection through either Model Explorer or Canvas
-
+  
   User Right-clicks the selection
-
+  
   Cut is enabled only if the selection is valid
-
+  
   User Selects Cut
-
+  
   Selection is stored in a list<NonRootModelElement> (ELEMENTS_TO_MOVE). 
 
   User Makes a Selection through either Model Explorer or Canvas
-
+  
   User Right-clicks the selection
 
   Paste is enabled only if the selection is valid
-
+  
   User Selects Paste
-
+  
   Start a Move Transaction
-
-  for each selected_element in ELEMENTS_TO_MOVE
-    unhook the selected_element from container it is attached to (R8000/R8003)
-  end for
-
+  
+  Collect the RGOs that will be affected by this Move 
+  
   for each selected_element in ELEMENTS_TO_MOVE 
       disconnect the graphical element associated selected_element from its canvas
       connect selected_element to the canvas associated with the destination
   end for 
-
+   
+  for each selected_element in ELEMENTS_TO_MOVE
+    unhook the selected_element from container it is attached to (R8000/R8003)
+  end for
+    
   for each selected_element in ELEMENTS_TO_MOVE
     update selected_element''s  model root and set it to the destination model root
   end for
-
+  
   for each selected_element in ELEMENTS_TO_MOVE
      Connect selected_element to the destination
      Add a "ModelElementMovedModelDelta" to the ongoing transaction
-  end for
+  end for    
 
   for each selected_element in ELEMENTS_TO_MOVE
     if (selected_element downgrade is needed)
@@ -204,10 +206,11 @@ copy/paste behavior shall not be changed during this change.</b>
 
   show the user the elements that were downgraded
   if (user DOES want to continue)
-    Complete the Move Transaction (this is where any affected files or folders get moved on disk)
+    Complete the Move Transaction (this is where any affected files or folders get moved on disk and changes are persisted)
   else 
     Abort the Move transaction
   end if
+
 
 </pre>
 
@@ -311,10 +314,14 @@ Here is the pseudo code:
 
 ```
   Find the GraphicalElement (GD_GE) associated with selected_element
-  Find the Model (GD_MD) associated with the GraphicalElement
+  If the GraphicalElement was not found load the graphical model for the source element and search again
+  Find the canvas (GD_MD) that the GD_GE is part of by navigating GD_GE->GD_MD[R1]
+  Find the canvas (GD_MD) that has the same "represents" as the GD_GE (if there is one)
+  if the GD_GE DOES have a canvas then update its GD_MD PMC to be the destination
+  update the PMC of the GD_GE
   unrelate the GraphicalElement from the Model across R1  
   relate the GraphicalElement to the destination's Model across R1
-  update the selected_element's associated container symbol on R307 if containment has changed
+  update the selected_element's associated container symbol on R307 if containment has changed  
 ```  
 
 6.5 Downgrade model elements that lose visibility to their referred-to types during move  
@@ -324,7 +331,7 @@ needs to perform work to clean up "referring" (RGO) and "referred to" (RTO)
 links to the element being moved.  This work must be done in both the originating and 
 target containers.  Here is pseudo-code describing the work to be performed:
 
-```  
+```
 for each selectedElement
   // Downgrade src 
   find RGOs
@@ -345,12 +352,7 @@ for each selectedElement
   end for
 
 end for
-```  
-
-<b>TODO: This section is not finished.</b>
-There is still some final work ongoing on this piece of the work. The analysis and design for this is
-captured in a seperate document right now. When complete, it will be moved here, but for now here is the link:
-https://docs.google.com/document/d/1y65rak0hc1gwUGiDslN1MjxDSPF5gk5u-i7YAEbNaZ8/edit  
+```
 
 6.6 UI Changes
 
@@ -423,7 +425,6 @@ by copy/paste.
 Investigation into fixing this problem showed that there was no problem with 
 the way proxy paths were being written. After this investigation no additional 
 action was required.  
-
 
 8. User Documentation   
 ---------------------  

@@ -1,0 +1,16 @@
+public service SAC::session_active (        session_id : in integer,        user_id : in integer,        login_name : in string) is 
+the_session : instance of Session;
+
+begin
+   
+   // locate the session
+   the_session := find_one Session(session_id = session_id and user_id = user_id and login_name = login_name);
+   if the_session /= null then
+      generate Session.user_logged_on() to the_session;
+   else
+      // log an error as this is an invalid logoff request
+      console << "SAC::session-active - Invalid session active received, session_id = " << session_id'image  << 
+                 ", uid = " << user_id'image << ", sid = " << login_name << endl << flush;
+   end if;
+   
+end service;

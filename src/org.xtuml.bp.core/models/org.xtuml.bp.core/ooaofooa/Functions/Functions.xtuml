@@ -21,8 +21,8 @@ INSERT INTO GD_MD
 	1,
 	4548,
 	3426,
-	0,
-	0,
+	200,
+	150,
 	0,
 	'',
 	'org.xtuml.bp.core::ooaofooa::Functions');
@@ -32,7 +32,7 @@ INSERT INTO GD_GE
 	"42d5848f-dabe-43e1-9ac4-b840f2789360",
 	108,
 	0,
-	'org.xtuml.bp.core::ooaofooa::Functions::Context Menu Entry Functions');
+	'Context Menu Entry Functions');
 INSERT INTO GD_SHP
 	VALUES ("b84e2b6d-c600-4709-a921-6124b4b5296f");
 INSERT INTO GD_NCS
@@ -96,6 +96,54 @@ INSERT INTO DIM_GE
 	"00000000-0000-0000-0000-000000000000");
 INSERT INTO DIM_ELE
 	VALUES ("c1e8b3f7-87b3-424c-8919-15b612e634c5",
+	0,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO GD_GE
+	VALUES ("be0d2a05-d69a-4101-b496-9375cbb104d2",
+	"47a98ef6-0a18-4583-a794-84f33de26575",
+	"0eec87ca-63af-4b65-8769-1c99e84ebf64",
+	108,
+	0,
+	'org.xtuml.bp.core::ooaofooa::Functions::x2m_functions');
+INSERT INTO GD_SHP
+	VALUES ("be0d2a05-d69a-4101-b496-9375cbb104d2");
+INSERT INTO GD_NCS
+	VALUES ("be0d2a05-d69a-4101-b496-9375cbb104d2");
+INSERT INTO DIM_ND
+	VALUES (200.000000,
+	150.000000,
+	"be0d2a05-d69a-4101-b496-9375cbb104d2");
+INSERT INTO DIM_GE
+	VALUES (4580.000000,
+	3096.000000,
+	"be0d2a05-d69a-4101-b496-9375cbb104d2",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("be0d2a05-d69a-4101-b496-9375cbb104d2",
+	0,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO GD_GE
+	VALUES ("f53b2eb2-ae0c-428d-b179-638371848e42",
+	"47a98ef6-0a18-4583-a794-84f33de26575",
+	"6af64c1a-bd5b-4eb5-b9db-60839e11d10c",
+	108,
+	0,
+	'org.xtuml.bp.core::ooaofooa::Functions::import_functions');
+INSERT INTO GD_SHP
+	VALUES ("f53b2eb2-ae0c-428d-b179-638371848e42");
+INSERT INTO GD_NCS
+	VALUES ("f53b2eb2-ae0c-428d-b179-638371848e42");
+INSERT INTO DIM_ND
+	VALUES (200.000000,
+	150.000000,
+	"f53b2eb2-ae0c-428d-b179-638371848e42");
+INSERT INTO DIM_GE
+	VALUES (4800.000000,
+	3096.000000,
+	"f53b2eb2-ae0c-428d-b179-638371848e42",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("f53b2eb2-ae0c-428d-b179-638371848e42",
 	0,
 	"00000000-0000-0000-0000-000000000000");
 INSERT INTO DIM_DIA
@@ -558,6 +606,84 @@ INSERT INTO S_SYNC
 	'');
 INSERT INTO PE_PE
 	VALUES ("4ad9745c-5f47-48c8-9bd6-a08ed39d7e5a",
+	1,
+	"2467e6dc-9ef4-46c6-afa6-883c1e23a96c",
+	"00000000-0000-0000-0000-000000000000",
+	1);
+INSERT INTO S_SYNC
+	VALUES ("9cdb3095-7035-4797-8fc8-e4fcc0076910",
+	"00000000-0000-0000-0000-000000000000",
+	'replaceFormalInterface',
+	'',
+	'select any c_ir from instances of C_IR where ( selected.Id == param.c_ir );
+select any new_c_i from instances of C_I where ( selected.Id == param.new_c_i );
+
+if ( not_empty c_ir and not_empty new_c_i )
+
+  select many new_eps related by new_c_i->C_EP[R4003];
+  select one provision related by c_ir->C_P[R4009];
+  select one requirement related by c_ir->C_R[R4009];
+
+  if ( not_empty provision )
+    select many peps related by provision->SPR_PEP[R4501];
+    for each pep in peps
+      // unhook old executable property
+      select one ep related by pep->C_EP[R4501];
+      unrelate provision from ep across R4501 using pep;
+      // find and hook up new executable property
+      for each new_ep in new_eps
+        if ( new_ep.getSignature(flavor:0) == ep.getSignature(flavor:0) )
+          relate provision to new_ep across R4501 using pep;
+          break;
+        end if;
+      end for;
+    end for;
+  elif ( not_empty requirement )
+    select many reps related by requirement->SPR_REP[R4500];
+    for each rep in reps
+      // unhook old executable property
+      select one ep related by rep->C_EP[R4500];
+      unrelate requirement from ep across R4500 using rep;
+      // find and hook up new executable property
+      for each new_ep in new_eps
+        if ( new_ep.getSignature(flavor:0) == ep.getSignature(flavor:0) )
+          relate requirement to new_ep across R4500 using rep;
+          break;
+        end if;
+      end for;
+    end for;
+  end if;
+  
+  // unhook the interface reference from the old interface itself
+  select one old_c_i related by c_ir->C_I[R4012];
+  unrelate c_ir from old_c_i across R4012;
+  // hook up the new interface 
+  relate c_ir to new_c_i across R4012;
+
+end if;',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'');
+INSERT INTO S_SPARM
+	VALUES ("9af6af67-e81e-4e93-a231-060ca6905cd9",
+	"9cdb3095-7035-4797-8fc8-e4fcc0076910",
+	'c_ir',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("3e8a2140-0381-4de8-803d-26611ce01878",
+	"9cdb3095-7035-4797-8fc8-e4fcc0076910",
+	'new_c_i',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"9af6af67-e81e-4e93-a231-060ca6905cd9",
+	'');
+INSERT INTO PE_PE
+	VALUES ("9cdb3095-7035-4797-8fc8-e4fcc0076910",
 	1,
 	"2467e6dc-9ef4-46c6-afa6-883c1e23a96c",
 	"00000000-0000-0000-0000-000000000000",

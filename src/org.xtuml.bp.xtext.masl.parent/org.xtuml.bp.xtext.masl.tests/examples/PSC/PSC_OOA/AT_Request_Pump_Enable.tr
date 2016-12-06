@@ -1,11 +1,8 @@
 //
-// Filename: AT_Request_Pump_Enable.tr
+// UK Crown Copyright (c) 2016. All rights reserved.
 //
-// Description: 
-//
-// UK Crown Copyright (c) 2007,2009. All rights reserved.
-//
-private service PSC::ATTENDANT~>Request_Pump_Enable () is
+
+public service PSC::ATTENDANT~>Request_Pump_Enable () is
 
 begin
   null;

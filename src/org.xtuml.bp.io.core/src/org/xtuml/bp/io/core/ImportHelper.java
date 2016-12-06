@@ -65,6 +65,7 @@ import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.DataType_c;
 import org.xtuml.bp.core.Dimensions_c;
 import org.xtuml.bp.core.EclipseOoaofooa;
+import org.xtuml.bp.core.ElementVisibility_c;
 import org.xtuml.bp.core.Elementtypeconstants_c;
 import org.xtuml.bp.core.End_c;
 import org.xtuml.bp.core.EnumerationDataType_c;
@@ -108,6 +109,7 @@ import org.xtuml.bp.core.RequiredSignal_c;
 import org.xtuml.bp.core.Requirement_c;
 import org.xtuml.bp.core.SatisfactionInComponent_c;
 import org.xtuml.bp.core.Satisfaction_c;
+import org.xtuml.bp.core.SearchResultSet_c;
 import org.xtuml.bp.core.StateMachineEventDataItem_c;
 import org.xtuml.bp.core.StateMachineEvent_c;
 import org.xtuml.bp.core.StateMachineState_c;
@@ -164,8 +166,6 @@ import org.xtuml.bp.ui.canvas.Ooaofgraphics;
 import org.xtuml.bp.ui.canvas.Shape_c;
 import org.xtuml.bp.ui.canvas.Waypoint_c;
 import org.xtuml.bp.ui.graphics.commands.CreateConnectionCommand;
-import org.xtuml.bp.ui.text.masl.MASLEditorInput;
-import org.xtuml.bp.ui.text.masl.MASLEditorInputFactory;
 
 /**
  * Holds Java-only methods that were previously specified as part of
@@ -337,19 +337,15 @@ public class ImportHelper
     }
 
     /**
-     * Resolve the MASL project by searching the workspace for components
-     * of the same name as the unassigned component references and assigning
-     * them.
+     * Resolve the MASL project
+     *   - Assign unassigned component references
+     *   - Unhook temporary interface definitions and re-attach to existing interfaces in domains
      */
-    public NonRootModelElement[] resolveMASLproject( NonRootModelElement[] elements ) {
+    public void resolveMASLproject( NonRootModelElement[] elements ) {
+        if ( elements == null ) return;
 
-        LinkedList<NonRootModelElement> els = new LinkedList<NonRootModelElement>();
-        if ( elements == null ) return null;
-
+        // first pass, assign componenent references and swap interfaces, formalize interfaces
         for ( NonRootModelElement el : elements ) {
-            // add to list
-            els.add( el );
-
             // process the unassigned component references
             if ( el instanceof ComponentReference_c ) {
 		TransactionUtil.TransactionGroup transactionGroup = TransactionUtil.startTransactionsOnSelectedModelRoots("Resolve Component Reference");
@@ -357,30 +353,46 @@ public class ImportHelper
 
                 ComponentReference_c cl_ic = (ComponentReference_c)el;
 
-                // get the name of the component we're looking for from the Descrip field
-            	String description = cl_ic.getDescrip();
-
-                // parse name
-                String cl_ic_name = "";
-                if ( !description.isEmpty() ) {
-                    Matcher m = Pattern.compile( "name:.*" ).matcher( description );
-                    if ( m.find() ) {
-                        cl_ic_name = m.group().substring(5);
-            	        cl_ic.setDescrip( m.replaceAll("") );
+                // check if containing package is a MASL project package
+                boolean masl_project = false;
+                Package_c pkg = Package_c.getOneEP_PKGOnR8000( PackageableElement_c.getOnePE_PEOnR8001( cl_ic ) );
+                if ( null != pkg ) {
+            	    String pkg_descrip = pkg.getDescrip();
+                    if ( !pkg_descrip.isEmpty() ) {
+                        Matcher m = Pattern.compile( "masl_project" ).matcher( pkg_descrip );
+                        if ( m.find() ) {
+                            masl_project = true;
+                        }
                     }
                 }
 
-		// ensure that all Components are loaded
-		PersistenceManager.ensureAllInstancesLoaded(cl_ic.getModelRoot(), Component_c.class);
-                // get reachable components
-		Component_c[] components = GenericPackageAssignComponentOnCL_ICAction.getElements( cl_ic );
+                if ( masl_project ) {
 
-                // match the ComponentReference with the Component
-                for ( Component_c c_c : components ) {
-                    if ( c_c.getName().equals( cl_ic_name ) ) {
-                        // assign the component reference to the component
-                        cl_ic.Assigntocomp( c_c.getId() );
-                        break;
+                    // get the name of the component we're looking for from the Descrip field
+                    String description = cl_ic.getDescrip();
+
+                    // parse name
+                    String cl_ic_name = "";
+                    if ( !description.isEmpty() ) {
+                        Matcher m = Pattern.compile( "name:.*" ).matcher( description );
+                        if ( m.find() ) {
+                            cl_ic_name = m.group().substring(5);
+                            cl_ic.setDescrip( m.replaceAll("") );
+                        }
+                    }
+
+                    // ensure that all Components are loaded
+                    PersistenceManager.ensureAllInstancesLoaded(cl_ic.getModelRoot(), Component_c.class);
+                    // get reachable components
+                    Component_c[] components = GenericPackageAssignComponentOnCL_ICAction.getElements( cl_ic );
+
+                    // match the ComponentReference with the Component
+                    for ( Component_c c_c : components ) {
+                        if ( c_c.getName().equals( cl_ic_name ) ) {
+                            // assign the component reference to the component
+                            cl_ic.Assigntocomp( c_c.getId() );
+                            break;
+                        }
                     }
                 }
 
@@ -388,220 +400,153 @@ public class ImportHelper
 		TransactionUtil.endTransactions(transactionGroup);
 
             }
+            // process temporary interfaces
+            else if ( el instanceof Interface_c ) {
+                TransactionUtil.TransactionGroup transactionGroup = TransactionUtil.startTransactionsOnSelectedModelRoots("Resolve Temporary Interface");
+		Ooaofooa.beginSaveOperation();
+
+                Interface_c c_i = (Interface_c)el;
+
+                // check if this is a temporary interface
+            	String description = c_i.getDescrip();
+                boolean temporary = true;
+                if ( !description.isEmpty() ) {
+                    Matcher m = Pattern.compile( "temporary" ).matcher( description );
+                    if ( !m.find() ) {
+                        temporary = false;
+                    }
+                }
+
+                if ( temporary ) {
+
+                    // ensure that all Interfaces are loaded
+                    PersistenceManager.ensureAllInstancesLoaded(c_i.getModelRoot(), Interface_c.class);
+
+                    // get reachable Interfaces
+                    Package_c pkg = Package_c.getOneEP_PKGOnR8000( PackageableElement_c.getOnePE_PEOnR8001( c_i ) );
+		    List<Interface_c> elementList = new ArrayList<Interface_c>();
+                    PackageableElement_c[] pes = null;
+		    if (pkg != null) {
+			pkg.Clearscope();
+			pkg.Collectvisibleelementsforname(true, Gd_c.Null_unique_id(), false, "", pkg.getPackage_id(), Elementtypeconstants_c.INTERFACE);
+			class PETest implements ClassQueryInterface_c {
+			    public boolean evaluate(Object candidate) {
+			        SearchResultSet_c selected = (SearchResultSet_c) candidate;
+				return (selected.getName().equals("") && selected.getType() == Elementtypeconstants_c.INTERFACE);
+			    }
+			}
+			SearchResultSet_c results = SearchResultSet_c.getOnePE_SRSOnR8005(pkg, new PETest());
+			pes = PackageableElement_c.getManyPE_PEsOnR8002(ElementVisibility_c.getManyPE_VISsOnR8006(results));
+			for (int i = 0; pes != null && i < pes.length; i++) {
+			    Interface_c elem = Interface_c.getOneC_IOnR8001(pes[i]);
+			    elementList.add(elem);
+
+			}
+                    }
+                    Interface_c[] interfaces = elementList.toArray(new Interface_c[elementList.size()]);
+
+                    // check for matching interfaces
+                    for ( int i = 0; i < interfaces.length; i++ ) {
+                        // if name matches, but not the same interface
+                        if ( !interfaces[i].getId().equals(c_i.getId()) && interfaces[i].getName().equals(c_i.getName()) ) {
+                            // select my interface reference
+                            InterfaceReference_c c_ir = InterfaceReference_c.getOneC_IROnR4012( c_i );
+                            if ( null != c_ir ) {
+                                // replace the temporary interface
+                                Ooaofooa.Replaceformalinterface( c_ir.getModelRoot(), c_ir.getId(), interfaces[i].getId() );
+
+                                // dispose self
+                                c_i.Dispose();
+
+                                // break from loop
+                                break;
+                            }
+                        }
+                    }
+                }
+		Ooaofooa.endSaveOperation();
+		TransactionUtil.endTransactions(transactionGroup);
+            }
             else if ( el instanceof Requirement_c ) {
-		TransactionUtil.TransactionGroup transactionGroup = TransactionUtil.startTransactionsOnSelectedModelRoots("Resolve Required Interface");
+		TransactionUtil.TransactionGroup transactionGroup = TransactionUtil.startTransactionsOnSelectedModelRoots("Formalize Required Interface");
 		Ooaofooa.beginSaveOperation();
 
                 // process the unformalized required interfaces
                 Requirement_c c_r = (Requirement_c)el;
 
-                // get the name of the interface we're looking for from the InformalName field
-                String c_r_name = c_r.getInformalname();
-
-		// ensure that all Interfaces are loaded
-		PersistenceManager.ensureAllInstancesLoaded(c_r.getModelRoot(), Interface_c.class);
-                // get reachable interfaces
-                Interface_c[] interfaces = GenericPackageFormalizeOnC_RAction.getElements( c_r );
-
-                // match the ComponentReference with the Component
-                for ( Interface_c c_i : interfaces ) {
-                    if ( c_i.getName().equals( c_r_name ) ) {
-                        // formalize the requirement
-                        c_r.Formalize(c_i.getId(), true);
-
-                        // get all the new instances
-                        RequiredOperation_c[] spr_ros = RequiredOperation_c.getManySPR_ROsOnR4502( RequiredExecutableProperty_c.getManySPR_REPsOnR4500( c_r ) );
-                        for ( RequiredOperation_c spr_ro : spr_ros ) {
-                            els.add( spr_ro );
-                        }
-                        break;
+                // check if requirement needs formalizing
+                boolean formalize = false;
+            	String descrip = c_r.getDescrip();
+                if ( !descrip.isEmpty() ) {
+                    Matcher m = Pattern.compile( "formalize" ).matcher( descrip );
+                    if ( m.find() ) {
+                        formalize = true;
                     }
+                }
+
+                if ( formalize ) {
+
+                    // get the name of the interface we're looking for from the InformalName field
+                    String c_r_name = c_r.getInformalname();
+
+                    // ensure that all Interfaces are loaded
+                    PersistenceManager.ensureAllInstancesLoaded(c_r.getModelRoot(), Interface_c.class);
+                    // get reachable interfaces
+                    Interface_c[] interfaces = GenericPackageFormalizeOnC_RAction.getElements( c_r );
+
+                    // match the Interface
+                    for ( Interface_c c_i : interfaces ) {
+                        if ( c_i.getName().equals( c_r_name ) ) {
+                            // formalize the requirement
+                            c_r.Formalize(c_i.getId(), true);
+                            break;
+                        }
+                    }
+
                 }
 
 		Ooaofooa.endSaveOperation();
 		TransactionUtil.endTransactions(transactionGroup);
             }
             else if ( el instanceof Provision_c ) {
-		TransactionUtil.TransactionGroup transactionGroup = TransactionUtil.startTransactionsOnSelectedModelRoots("Resolve Provided Interface");
+		TransactionUtil.TransactionGroup transactionGroup = TransactionUtil.startTransactionsOnSelectedModelRoots("Formalize Provided Interface");
 		Ooaofooa.beginSaveOperation();
 
                 // process the unformalized provided interfaces
                 Provision_c c_p =  (Provision_c)el;
 
-                // get the name of the interface we're looking for from the InformalName field
-                String c_p_name = c_p.getInformalname();
-
-		// ensure that all Interfaces are loaded
-		PersistenceManager.ensureAllInstancesLoaded(c_p.getModelRoot(), Interface_c.class);
-                // get reachable interfaces
-                Interface_c[] interfaces = GenericPackageFormalizeOnC_PAction.getElements( c_p );
-
-                // match the ComponentReference with the Component
-                for ( Interface_c c_i : interfaces ) {
-                    if ( c_i.getName().equals( c_p_name ) ) {
-                        // formalize the requirement
-                        c_p.Formalize(c_i.getId(), true);
-
-                        // get all the new instances
-                        ProvidedOperation_c[] spr_pos = ProvidedOperation_c.getManySPR_POsOnR4503( ProvidedExecutableProperty_c.getManySPR_PEPsOnR4501( c_p ) );
-                        for ( ProvidedOperation_c spr_po : spr_pos ) {
-                            els.add( spr_po );
-                        }
-                        break;
-                    }
-                }
-
-                // copy the codeblock locations into the descrips of the new formalized provision
-                String description = c_p.getDescrip();
-
-                // parse codeblock mapping (op signature, filename)
-                if ( !description.isEmpty() ) {
-                    Matcher m = Pattern.compile( "routine:(.*),(codeblock:.*)" ).matcher( description );
-                    while ( m.find() ) {
-                        // select the specified routine
-                        ProvidedOperation_c spr_po = null;
-                        ProvidedExecutableProperty_c[] spr_peps = ProvidedExecutableProperty_c.getManySPR_PEPsOnR4501( c_p );
-                        for ( ProvidedExecutableProperty_c spr_pep : spr_peps ) {
-                            spr_po = ProvidedOperation_c.getOneSPR_POOnR4503( spr_pep );
-                            if ( spr_po != null ) {
-                                InterfaceOperation_c c_io = InterfaceOperation_c.getOneC_IOOnR4004(
-                                                            ExecutableProperty_c.getOneC_EPOnR4501(
-                                                            ProvidedExecutableProperty_c.getOneSPR_PEPOnR4503(spr_po)));
-                                if ( c_io.Getsignature(1).equals( m.group(1) ) ) break;
-                            }
-                        }
-
-                        // put the codeblock in the action semantics field
-                        if ( spr_po != null ) {
-                            spr_po.setAction_semantics_internal( m.group(2) );
-                        }
-                    }
-                    c_p.setDescrip( m.replaceAll("") );
-                }
-
-	        Ooaofooa.endSaveOperation();
-	        TransactionUtil.endTransactions(transactionGroup);
-
-            }
-
-        }
-
-        return els.toArray( new NonRootModelElement[0] );
-    }
-
-    /**
-     * Load the MASL activities into the BridgePoint model
-     */
-    public void loadMASLActivities( Ooaofooa modelRoot, IPath srcFileDir, NonRootModelElement[] elements ) {
-
-        if ( elements == null ) return;
-
-        for ( NonRootModelElement el : elements ) {
-            //System.out.println( el.getClass().getName() );
-            //System.out.println( el.getRoot() );
-            //System.out.println( el.getPersistableComponent() );
-
-            // for each MASL activity object
-            if ( !( el instanceof Action_c ) && MASLEditorInput.isSupported( el ) ) {
-
-		TransactionUtil.TransactionGroup transactionGroup = TransactionUtil.startTransactionsOnSelectedModelRoots("Load MASL activity");
-		Ooaofooa.beginSaveOperation();
-
-                // get Action_Semantics_internal field
-            	String action_semantics = "";
-                if ( el instanceof StateMachineState_c ) {
-                    // select one sm_act related by sm_state->SM_MOAH[R511]->SM_AH[R513]->SM_ACT[R514];
-                    StateMachineState_c sm_state = (StateMachineState_c)el;
-                    Action_c sm_act = Action_c.getOneSM_ACTOnR514( ActionHome_c.getOneSM_AHOnR513( MooreActionHome_c.getOneSM_MOAHOnR511( sm_state ) ) );
-                    if ( sm_act != null ) {
-                        action_semantics = sm_act.getAction_semantics_internal();
-                    }
-                }
-                else {
-                    try {
-                                            Method method = el.getClass().getMethod("getAction_semantics_internal", null);
-                                            action_semantics = (String)method.invoke((Object)el, null);
-                    } catch ( SecurityException e ) {
-                            System.out.println(e);
-                    } catch ( NoSuchMethodException e ) {
-                            System.out.println(e);
-                    } catch ( InvocationTargetException e ) {
-                            System.out.println(e);
-                    } catch (IllegalAccessException e) {
-                            System.out.println(e);
-                    }
-                }
-
-                // parse codeblock
-                String filename = "";
-                if ( !action_semantics.isEmpty() ) {
-                    Matcher m = Pattern.compile( "codeblock:.*" ).matcher( action_semantics );
+                // check if requirement needs formalizing
+                boolean formalize = false;
+            	String descrip = c_p.getDescrip();
+                if ( !descrip.isEmpty() ) {
+                    Matcher m = Pattern.compile( "formalize" ).matcher( descrip );
                     if ( m.find() ) {
-                        filename = m.group().substring(10);
-                        if ( el instanceof StateMachineState_c ) {
-                            // select one sm_act related by sm_state->SM_MOAH[R511]->SM_AH[R513]->SM_ACT[R514];
-                            StateMachineState_c sm_state = (StateMachineState_c)el;
-                            Action_c sm_act = Action_c.getOneSM_ACTOnR514( ActionHome_c.getOneSM_AHOnR513( MooreActionHome_c.getOneSM_MOAHOnR511( sm_state ) ) );
-                            if ( sm_act != null ) {
-                                sm_act.setAction_semantics_internal( m.replaceAll("") );
-                            }
-                        }
-                        else {
-                            try {
-                                Method method = el.getClass().getMethod( "setAction_semantics_internal", String.class );
-                                method.invoke((Object)el, m.replaceAll("") );
-                            } catch ( SecurityException e ) {
-                                    System.out.println(e);
-                            } catch ( NoSuchMethodException e ) {
-                                    System.out.println(e);
-                            } catch ( InvocationTargetException e ) {
-                                    System.out.println(e);
-                            } catch (IllegalAccessException e) {
-                                    System.out.println(e);
-                            }
-                        }
+                        formalize = true;
                     }
                 }
 
-                // try to get MASL activity file
-                File mf = new File(srcFileDir.toOSString() + "/" + filename);
-                if ( !filename.isEmpty() && mf.exists() && mf.isFile() ) {
+                if ( formalize ) {
 
-                    // create file at right location
-                    IFile file;
+                    // get the name of the interface we're looking for from the InformalName field
+                    String c_p_name = c_p.getInformalname();
 
-                    // get name
-                    String name = MASLEditorInputFactory.getFileNameForModelElement( el );
+                    // ensure that all Interfaces are loaded
+                    PersistenceManager.ensureAllInstancesLoaded(c_p.getModelRoot(), Interface_c.class);
+                    // get reachable interfaces
+                    Interface_c[] interfaces = GenericPackageFormalizeOnC_PAction.getElements( c_p );
 
-                    // find the xtuml file path
-                    PersistableModelComponent pmc = el.getPersistableComponent();
-                    if ( pmc == null ) {
-                        pmc = PersistenceManager.findElementComponent(el, true);
-                    }
-                    IPath path = pmc.getFullPath();
-                    IWorkspaceRoot workspace = ResourcesPlugin.getWorkspace().getRoot();
-                    IProject project = workspace.getProject( path.segment(0) );
-                    IFolder folder = project.getFolder( path.removeFirstSegments(1).removeLastSegments(1).toOSString() );
-                    file = folder.getFile( name + ".masl" );
-                    if ( !file.exists() ) {
-                        try {
-                                InputStream source = new FileInputStream(mf);
-                                file.create(source, IResource.NONE, null);
-                        } catch ( CoreException e ) {
-                                System.out.println(e);
-                        } catch ( FileNotFoundException e ) {
-                                System.out.println(e);
+                    // match the Interface
+                    for ( Interface_c c_i : interfaces ) {
+                        if ( c_i.getName().equals( c_p_name ) ) {
+                            // formalize the requirement
+                            c_p.Formalize(c_i.getId(), true);
+                            break;
                         }
                     }
-
                 }
-                else if ( !filename.isEmpty() ) {
-                    System.out.println( "Could not find MASL activity file. filename: '" + srcFileDir.toOSString() + "/" + filename + "'" );
-                }
-
-	        Ooaofooa.endSaveOperation();
-	        TransactionUtil.endTransactions(transactionGroup);
-
+		    
+		Ooaofooa.endSaveOperation();
+		TransactionUtil.endTransactions(transactionGroup);
             }
         }
     }

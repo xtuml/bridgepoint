@@ -13,12 +13,13 @@ import org.eclipse.xtext.junit4.InjectWith
 import org.eclipse.xtext.junit4.XtextRunner
 import org.eclipse.xtext.junit4.util.ParseHelper
 import org.eclipse.xtext.junit4.validation.ValidationTestHelper
+import org.eclipse.xtext.resource.FileExtensionProvider
 import org.eclipse.xtext.resource.XtextResourceSet
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.xtuml.bp.xtext.masl.masl.MaslModel
+import org.xtuml.bp.xtext.masl.masl.structure.MaslModel
+
 import static org.junit.Assert.*
-import org.eclipse.xtext.resource.FileExtensionProvider
 
 @RunWith(XtextRunner)
 @InjectWith(MASLInjectorProvider)
@@ -30,8 +31,8 @@ class ExampleModelsIntegrationTest {
 	@Inject FileExtensionProvider fileExtensionProvider
 	
 	@Test
-	def void testCharacteristicsExample() {
-		testProject('examples/Characteristics')
+	def void testExamplesFromTutorial() {
+		testProject('examples/tutorial')
 	}
 
 	@Test
@@ -45,8 +46,18 @@ class ExampleModelsIntegrationTest {
 	}
 
 	@Test
+	def void testSACExample_old() {
+		testProject('examples/SAC_old')
+	}
+
+	@Test
 	def void testSACExample() {
 		testProject('examples/SAC')
+	}
+
+	@Test
+	def void testWikiExamples() {
+		testProject('examples/wiki')
 	}
 
 	protected def testProject(String folderName) {
@@ -63,7 +74,7 @@ class ExampleModelsIntegrationTest {
 			i++
 		}
 		assertTrue(i > 0)
-		println('Validated ' + i + ' resources')
+		//println('Validated ' + i + ' resources')
 	}
 
 	protected def void load(File file, ResourceSet resourceSet) {

@@ -21,8 +21,8 @@ INSERT INTO GD_MD
 	1,
 	0,
 	0,
-	0,
-	0,
+	200,
+	150,
 	0,
 	'3.2.5',
 	'org.xtuml.bp.core::ooaofooa::External Entities');
@@ -240,6 +240,30 @@ INSERT INTO DIM_GE
 	"00000000-0000-0000-0000-000000000000");
 INSERT INTO DIM_ELE
 	VALUES ("9784dac7-b168-4653-abdc-9543614bc253",
+	0,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO GD_GE
+	VALUES ("ce7f27ad-0051-4378-a2af-fbec7f6ee7a1",
+	"734339f1-ac44-4aee-b543-a8a885e6670b",
+	"6fb76ebe-620e-4fc2-b7be-5f29887b61c8",
+	12,
+	0,
+	'org.xtuml.bp.core::ooaofooa::External Entities::URL');
+INSERT INTO GD_SHP
+	VALUES ("ce7f27ad-0051-4378-a2af-fbec7f6ee7a1");
+INSERT INTO GD_NCS
+	VALUES ("ce7f27ad-0051-4378-a2af-fbec7f6ee7a1");
+INSERT INTO DIM_ND
+	VALUES (200.000000,
+	150.000000,
+	"ce7f27ad-0051-4378-a2af-fbec7f6ee7a1");
+INSERT INTO DIM_GE
+	VALUES (2744.000000,
+	1584.000000,
+	"ce7f27ad-0051-4378-a2af-fbec7f6ee7a1",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("ce7f27ad-0051-4378-a2af-fbec7f6ee7a1",
 	0,
 	"00000000-0000-0000-0000-000000000000");
 INSERT INTO DIM_DIA
@@ -1227,7 +1251,8 @@ Import:org.xtuml.bp.core.common.IdAssigner',
 	'try
 {			
   if (p_Type.equals("boolean")) { //$NON-NLS-1$
-    return new Boolean(((lib.BPBoolean) p_Value).getValue());
+    Boolean b = new Boolean(((lib.BPBoolean) p_Value).getValue());
+    return String.valueOf(b);
   } else if (p_Type.equals("integer")) { //$NON-NLS-1$
     return new Integer(((lib.BPInteger) p_Value).getValue());
   } else if (p_Type.equals("real")) { //$NON-NLS-1$
@@ -2286,6 +2311,66 @@ INSERT INTO S_BPARM
 	'',
 	"d4edd0a0-eb44-4195-9698-81dd3b2d47a8",
 	'');
+INSERT INTO S_BRG
+	VALUES ("cc133c4a-1bd5-4bf9-b44c-a3352007d628",
+	"b69262ac-62eb-4030-b329-b967033f0ee0",
+	'isProvidedParameter',
+	'This bridge is used to check the current selection to see if it is associated   
+with a provided interface.
+
+Import:java.lang.reflect.Method; import org.eclipse.core.runtime.Platform; import org.eclipse.swt.widgets.Tree; import org.eclipse.swt.widgets.TreeItem; import org.osgi.framework.Bundle;
+Translate:native',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000001",
+	'        Object viewer = null;
+        Class<?> explorerViewClass = null;
+        Class<?> explorerTreeViewerClass = null;
+
+        try {
+            Bundle ui_explorer = Platform.getBundle("org.xtuml.bp.ui.explorer");//$NON-NLS-1$
+            explorerViewClass = ui_explorer.loadClass("org.xtuml.bp.ui.explorer.ExplorerView"); //$NON-NLS-1$
+            explorerTreeViewerClass = ui_explorer.loadClass("org.xtuml.bp.ui.explorer.ExplorerTreeViewer"); //$NON-NLS-1$
+        } catch (Exception cnf) {
+            CorePlugin.logError("Problem accessing GraphicsUtil class ", cnf); //$NON-NLS-1$
+            return false;
+        }
+
+        Class<?>[] type;
+        try {
+            type = new Class<?>[]{};
+
+            Method getExplorerTreeViewer = explorerViewClass.getMethod("getExplorerTreeViewer", type); //$NON-NLS-1$
+            Object[] args = new Object[]{};
+            viewer = getExplorerTreeViewer.invoke(explorerViewClass, args);
+        } catch (Exception e) {
+            CorePlugin.logError("Error invoking getExplorerTreeViewer in GraphicsUtil  ", e); //$NON-NLS-1$
+            return false;
+        }
+
+        Tree foundTree = null;
+        try {
+            type = new Class<?>[]{};
+            Method getTree = explorerTreeViewerClass.getMethod("getTree", type); //$NON-NLS-1$
+            Object[] args = new Object[]{};
+            foundTree = (Tree) getTree.invoke(viewer, args);
+        } catch (Exception e) {
+            CorePlugin.logError("Error invoking findTreeItem in GraphicsUtil  ", e); //$NON-NLS-1$
+            return false;
+        }
+
+        TreeItem[] foundItems = foundTree.getSelection();
+        if(foundItems.length != 0) {
+        	Object parent = foundItems[0].getParentItem().getData();
+        	if ((parent instanceof InterfaceSignal_c) || (parent instanceof InterfaceOperation_c)) {
+            	return false;
+        	}
+        } else {
+        	return false;
+        }
+        return true;
+        ',
+	0,
+	'');
 INSERT INTO PE_PE
 	VALUES ("b69262ac-62eb-4030-b329-b967033f0ee0",
 	1,
@@ -2327,6 +2412,28 @@ Translate:native',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	'	Selection.getInstance().clear();',
 	0,
+	'');
+INSERT INTO S_BRG
+	VALUES ("9b7646f1-d383-4d87-a774-109a287f6fcd",
+	"ca7a7f08-4459-4ff5-bf0b-941446e8b3c5",
+	'isSelected',
+	'Check if an instance is part of the selection group
+
+Import:org.xtuml.bp.core.ui.Selection
+Translate:native',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000001",
+	'return Selection.getInstance().contains(p_Element);',
+	0,
+	'');
+INSERT INTO S_BPARM
+	VALUES ("5920fd77-86ed-4aa9-9bd4-e55e292beee0",
+	"9b7646f1-d383-4d87-a774-109a287f6fcd",
+	'element',
+	"bc3722c8-5188-4529-8519-cf9eb9816b17",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
 	'');
 INSERT INTO PE_PE
 	VALUES ("ca7a7f08-4459-4ff5-bf0b-941446e8b3c5",
@@ -3074,6 +3181,97 @@ INSERT INTO S_BPARM
 	'');
 INSERT INTO PE_PE
 	VALUES ("4dbc824e-7f35-4e67-b275-79632eac75cc",
+	1,
+	"53bf3c8b-adde-4d47-8f16-aba92cc91cb2",
+	"00000000-0000-0000-0000-000000000000",
+	5);
+INSERT INTO S_EE
+	VALUES ("6fb76ebe-620e-4fc2-b7be-5f29887b61c8",
+	'URL',
+	'',
+	'URL',
+	"00000000-0000-0000-0000-000000000000",
+	'',
+	'URL',
+	1);
+INSERT INTO S_BRG
+	VALUES ("66e3eb90-4e9d-4385-849b-1e500b69f22d",
+	"6fb76ebe-620e-4fc2-b7be-5f29887b61c8",
+	'encode',
+	'Translate:native',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000004",
+	'/* 
+ * URL::encode
+ *
+ * This function encodes a serial MASL string, replacing
+ * special characters according to the following table:
+ *
+ * | Character | Encoding |
+ * |:---------:|:--------:|
+ * | %         | %25      |
+ * | ,         | %2C      |
+ * | \n        | %0A      |
+ * | \r        | %0D      |
+ *
+ * @arg string     String to encode
+ */
+ if ( null == p_String ) return "";
+ 
+ String ret_string = p_String.replaceAll("%", "%25").replaceAll(",", "%2C").replaceAll("\n", "%0A").replaceAll("\r", "%0D");
+ 
+ return ret_string;',
+	0,
+	'');
+INSERT INTO S_BPARM
+	VALUES ("3a0bf209-d618-4568-afc5-e521ebb1731a",
+	"66e3eb90-4e9d-4385-849b-1e500b69f22d",
+	'string',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_BRG
+	VALUES ("b1c7182f-d06d-4cbe-9f3f-4b412a511be5",
+	"6fb76ebe-620e-4fc2-b7be-5f29887b61c8",
+	'decode',
+	'Translate:native',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000004",
+	'/* 
+ * URL::decode
+ *
+ * This function decodes a serial MASL string, replacing
+ * special characters according to the following table:
+ *
+ * | Character | Encoding |
+ * |:---------:|:--------:|
+ * | %         | %25      |
+ * | ,         | %2C      |
+ * | \n        | %0A      |
+ * | \r        | %0D      |
+ *
+ * @arg string     String to decode
+ */
+ if ( null == p_String ) return "";
+ 
+ String ret_string = p_String.replaceAll("%25", "%").replaceAll("%2C", ",").replaceAll("%0A", "\n").replaceAll("%0D", "\r");
+ 
+ return ret_string;',
+	0,
+	'');
+INSERT INTO S_BPARM
+	VALUES ("7738b5ca-4b6c-4708-9524-e0930c3c29a6",
+	"b1c7182f-d06d-4cbe-9f3f-4b412a511be5",
+	'string',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO PE_PE
+	VALUES ("6fb76ebe-620e-4fc2-b7be-5f29887b61c8",
 	1,
 	"53bf3c8b-adde-4d47-8f16-aba92cc91cb2",
 	"00000000-0000-0000-0000-000000000000",

@@ -1,10 +1,7 @@
 //
-// Filename: TNK_Checking_Levels_After_Tanker_Delivery.al
+// UK Crown Copyright (c) 2016. All rights reserved.
 //
-// Description: 
-//
-// UK Crown Copyright (c) 2007,2009. All rights reserved.
-//
+
 state PSC::TANK.Checking_Levels_After_Tanker_Delivery (Added_Volume : in  real) is
   below_threshold : boolean; 
 

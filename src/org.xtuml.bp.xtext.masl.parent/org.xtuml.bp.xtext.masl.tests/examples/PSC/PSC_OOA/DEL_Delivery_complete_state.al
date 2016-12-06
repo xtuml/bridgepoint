@@ -1,10 +1,7 @@
 //
-// Filename: DEL_Delivery_complete_state.al
+// UK Crown Copyright (c) 2016. All rights reserved.
 //
-// Description: 
-//
-// UK Crown Copyright (c) 2007. All rights reserved.
-//
+
 terminal state PSC::DELIVERY.Delivery_complete_state () is
   supplying_tank : instance of TANK; 
   pump_instance : instance of PUMP; 
