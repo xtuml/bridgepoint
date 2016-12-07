@@ -738,7 +738,7 @@ public class ${class_name} extends CoreImport
 	.if (class_name == "ImportModelComponent")
         IPreferenceStore store = CorePlugin.getDefault().getPreferenceStore();
         String persistActivities = store.getString(BridgePointPreferencesStore.ACTIVITY_PERSISTENCE);
-        if ( persistActivities.equals(BridgePointPreferencesStore.PERSIST_ACTIVITY_FILES) ) {
+        if ( persistActivities.equals(BridgePointPreferencesStore.PERSIST_ACTIVITY_FILES) && dialect == Actiondialect_c.masl ) {
             NonRootModelElement pmc_root_element = getRootModelElement();
             ModelRoot modelRoot = pmc_root_element.getModelRoot();
 
