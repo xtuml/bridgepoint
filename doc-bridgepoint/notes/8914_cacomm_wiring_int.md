@@ -41,14 +41,31 @@ by components, interfaces, ports and inter-component messaging.
 5.1 Delete Communication and Access  
 5.2 Delete Automatic Wiring  
 5.3 Search for the class keyletters in other places and surgically elide.  
+```
+ack S_AW from within bp.core/models
+Removed a few disposes.
+ack CA_ from within bp.core/models
+Removed lots of disposes.
+
+Removed CA_ and S_AW from ooa_schema.
+Removed clearooa2.sql.  This was used with the old gen database tools.
+Removed microwave.sql with is out of date and not used.
+
+Updated export_functions.inc to not add a special brace around CA_SMSMC.
+Similar update for import_functions.inc.
+```
   
 6. Implementation Comments
 --------------------------
+6.1 `xtumlmc_schema`  
+Note that `MSG_M` wants a `participateInCommunication BOOLEAN` attribute.
+This needs to stay in the MC schema for a release or two.  
   
 7. Unit Test
 ------------
-7.1 Build BridgePoint.  
-7.2 Run GPS Watch.  
+7.1 Build the schema.  Make sure no referentials shifted.  
+7.2 Build BridgePoint.  
+7.3 Run GPS Watch.  
 
 8. Code Changes
 ---------------

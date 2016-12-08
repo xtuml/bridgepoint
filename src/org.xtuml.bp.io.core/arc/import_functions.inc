@@ -172,12 +172,6 @@
       parms.setSize(${no_of_cols});
         .// set columns size in case of backward compatibility
     .end if
-    .if ( table.Key_Lett == "CA_SMSMC" )
-        UUID val4 = IdAssigner.NULL_UUID;
-    if ( numParms == 5 ) {
-        val4 = IdAssigner.createUUIDFromString((String) parms.elementAt(4));
-    }
-    .end if
     .if (table.Key_Lett == "EP_PKG" )
       parms.setSize(${no_of_cols});
         .// set columns size in case of backward compatibility
