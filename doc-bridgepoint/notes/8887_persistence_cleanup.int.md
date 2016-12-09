@@ -17,10 +17,10 @@ cleaned up.
 2. Document References
 ----------------------
 <a id="2.1"></a>2.1 [#8887 Clean up new persistence mechanism for activities](https://support.onefact.net/issues/8887) -- Parent issue  
-8917 Fully support persistence as activity files for OAL
-8918 Fix import parser in the io plugin
-8919 NumberFormatException when loading pre-dialect attribute models with
-proxies
+<a id="2.2"></a>2.2 [#8917 Fully support persistence as activity files for OAL](https://support.onefact.net/issues/8917)  
+<a id="2.3"></a>2.3 [#8918 Fix import parser in the io plugin](https://support.onefact.net/issues/8918)  
+<a id="2.4"></a>2.4 [#8919 NumberFormatException when loading pre-dialect attribute models with proxies](https://support.onefact.net/issues/8919)  
+<a id="2.5"></a>2.5 [#8920 Update Dialect attribute usage in the MC projects](https://support.onefact.net/issues/8920)  
 
 3. Background
 -------------
@@ -116,6 +116,10 @@ classes. I observed this first when loading the "GPS Watch" model. A
 `NumberFormatException` is raised when loading a provided signal proxy because the proxy path is supposed to be the
 dialect attribute and is parsed as an integer. I believe this bug was missed
 before because dialect was a string also. Issue #8919 [[2.4]](#2.4) is raised.
+
+6.2.4 Dialect attributes are still strings in the MC projects. m2x, masl, and
+x2m need to update any references to dialect to match the enumeration in the
+OOA of OOA. Issue #8920 [[2.5]](#2.5) has been raised.
 
 7. Unit Test
 ------------
