@@ -30,10 +30,10 @@ eclipse project.
 -------------
 BridgePoint has long relied on a set of UNIX shell scripts to build BridgePoint
 on a server.  The build involves a number of steps:  
-1. Get code from source control
-2. Build plug-ins in the correct order
-3. Use post-build processing to copy extra files into plugins and the product configuration
-4. Create OS-specific product zip files
+1. Get code from source control  
+2. Build plug-ins in the correct order  
+3. Use post-build processing to copy extra files into plugins and the product configuration  
+4. Create OS-specific product zip files  
 
 The xtUML development team is creating an official project under eclipse called
 papyrus-xtuml.  It will house the open source BridgePoint plug-ins.  The team
