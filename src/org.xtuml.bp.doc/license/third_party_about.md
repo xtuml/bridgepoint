@@ -57,7 +57,7 @@ License version 2.0 at:  https://www.gnu.org/licenses/old-licenses/lgpl-2.0.html
 
 Portions of this software may be subject to the Perl Artistic License version 2.0.
 You can view a copy of the Perl Artistic License version 2.0 at:
-http://www.perlfoundation.org/artistic_license_2_0/ .
+http://www.perlfoundation.org/artistic_license_2_0/.
 
 MinGW/MSYS version 3.1.8 may be subject to the following copyrights:
 ```
@@ -268,10 +268,10 @@ software. MinGW gcc v5.1.3 is distributed under the terms of the General Public
 License version 2.0 and is distributed on an "AS IS" basis, WITHOUT WARRANTY OF
 ANY KIND, either express or implied. See the license for the specific language
 governing rights and limitations under the license. You can view a copy of the
-license at:  https://www.gnu.org/licenses/gpl-2.0.html
+license at:  https://www.gnu.org/licenses/gpl-2.0.html.
 Portions of this software may be subject to the GNU Free Documentation License
 version 1.2. You can view a copy of the GNU Free Documentation License version
-1.2 at:  https://www.gnu.org/licenses/fdl-1.2.html
+1.2 at:  https://www.gnu.org/licenses/fdl-1.2.html.
 Portions of this software may be subject to the Cygwin License. You can view a
 copy of the Cygwin License at:  https://cygwin.com/licensing.html.
 
@@ -361,4 +361,32 @@ in supporting documentation. Hewlett-Packard Company makes no
 representations about the suitability of this software for any
 purpose. It is provided "as is" without express or implied warranty.
 ```
+
+
+#### Java JRE (Linux) version 1.6.0_35
+This software application may include Java JRE (Linux) version 1.6.0_35
+third-party software.  Java JRE (Linux) version 1.6.0_35 distributed under the
+terms of the Oracle Corporation Binary Code License Agreement for the JAVA SE
+RUNTIME ENVIRONMENT (JRE) VERSION 6 and JAVAFX RUNTIME VERSION 1 and is
+distributed on an "AS IS" basis, WITHOUT WARRANTY OF ANY KIND, either express or
+implied.  See the license for the specific language governing rights and
+limitations under the license.  You can view a copy of the license at:
+http://www.oracle.com/technetwork/java/javase/terms/license/index.html
+Additional copyright notices and license terms applicable to portions Java JRE
+(Linux) version 1.6.0_35 can be found here: 
+`<BridgePoint installation directory>/jre/THIRDPARTYLICENSEREADME.txt`
+
+
+#### Java JRE (Windows) version 1.6.0_35
+This software application may include Java JRE (Windows) version 1.6.0_35
+third-party software.  Java JRE (Windows) version 1.6.0_35 distributed under the
+terms of the Oracle Corporation Binary Code License Agreement for the JAVA SE
+RUNTIME ENVIRONMENT (JRE) VERSION 6 and JAVAFX RUNTIME VERSION 1 and is
+distributed on an "AS IS" basis, WITHOUT WARRANTY OF ANY KIND, either express or
+implied.  See the license for the specific language governing rights and
+limitations under the license.  You can view a copy of the license at:
+http://www.oracle.com/technetwork/java/javase/terms/license/index.html
+Additional copyright notices and license terms applicable to portions Java JRE
+(Windows) version 1.6.0_35 can be found here:
+`<BridgePoint installation directory>/jre/THIRDPARTYLICENSEREADME.txt`
 
