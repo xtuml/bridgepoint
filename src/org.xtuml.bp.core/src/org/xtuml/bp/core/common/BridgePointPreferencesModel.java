@@ -48,7 +48,7 @@ public class BridgePointPreferencesModel implements IPreferenceModel {
     public String exportGraphics;
     public String messageDirection;  
     public String activityPersistenceAsFiles;  
-    public String defaultActionLanguageDialect;  
+    public int defaultActionLanguageDialect;  
     public boolean showTransitionActions;
 	public boolean showEventParameters;
     public boolean enableFLAs;
