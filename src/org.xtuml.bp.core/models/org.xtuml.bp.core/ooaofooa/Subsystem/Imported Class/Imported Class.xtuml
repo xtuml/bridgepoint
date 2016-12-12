@@ -891,24 +891,6 @@ for each oir in oirs
     oir.dispose();
   end if;
 end for;
-//
-// Communication and Access Subsystem
-select many oaps related by self->CA_ACC[R425];
-for each oap in oaps
-  oap.dispose();
-end for;
-select many daps related by self->CA_SMOA[R420]->CA_ACC[R415];
-for each dap in daps
-  dap.dispose();
-end for;
-select many dcps related by self->CA_SMSMC[R414]->CA_COMM[R401];
-for each dcp in dcps
-  dcp.dispose();
-end for;
-select many ocps related by self->CA_SMSMC[R424]->CA_COMM[R401];
-for each ocp in ocps
-  ocp.dispose();
-end for;
 ',
 	1,
 	'',

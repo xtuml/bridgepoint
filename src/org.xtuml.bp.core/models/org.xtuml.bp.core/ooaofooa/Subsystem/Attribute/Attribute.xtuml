@@ -72,12 +72,6 @@ end if;
 ::changeNotificationEnablement(enabled:true);
 unrelate self from owningClass across R102;
 //
-// Communication and Access Subsystem
-select many smoaas related by self->CA_SMOAA[R419];
-for each smoaa in smoaas
-  smoaa.dispose();
-end for;
-//
 // Value Subsystem
 select many selref_set related by self->V_SLR[R812];
 for each selref in selref_set
