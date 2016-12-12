@@ -3018,6 +3018,36 @@ INSERT INTO S_BPARM
 	'',
 	"1f776497-6d13-4ce2-bc93-c908403a74e0",
 	'');
+INSERT INTO S_BRG
+	VALUES ("6653cec6-27ab-42ed-9cce-caebdf952653",
+	"1b0b6da2-9849-46f1-8c76-390cd1e4f934",
+	'getActionDialect',
+	'This bridge is used to get an integer eclipse preference cast to an ActionDialect.
+
+Translate:native',
+	0,
+	"7b54f646-a8a8-4b82-9bb0-cf5465115f3b",
+	'        IPreferenceStore store = CorePlugin.getDefault().getPreferenceStore();
+        return store.getInt(p_Name);
+',
+	0,
+	'');
+INSERT INTO S_BPARM
+	VALUES ("4cfdf4ff-b5d2-4ddd-9b6d-2015105ef173",
+	"6653cec6-27ab-42ed-9cce-caebdf952653",
+	'name',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("7b54f646-a8a8-4b82-9bb0-cf5465115f3b",
+	"00000000-0000-0000-0000-000000000000",
+	'ActionDialect',
+	'Enumerator for available action dialects',
+	'',
+	'../Datatypes/Datatypes.xtuml');
 INSERT INTO PE_PE
 	VALUES ("1b0b6da2-9849-46f1-8c76-390cd1e4f934",
 	1,
