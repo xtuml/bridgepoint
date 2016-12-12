@@ -78,9 +78,31 @@
   m_fh.print( "'"); //$$NON-NLS-1$$
       .if ( (((multilevel) AND (not stream)) AND (col.Name == "Action_Semantics_internal")) )
         .// exclude action semantics
+
+    // get the dialect
+    int dialect = -1;
+    try {
+        Method getDialectMethod = inst.getClass().getMethod("getDialect");
+        dialect = (int) getDialectMethod.invoke(inst);
+    } catch ( NoSuchMethodException e ) {
+        System.out.println( e );
+    } catch ( NullPointerException e ) {
+        System.out.println( e );
+    } catch ( SecurityException e ) {
+        System.out.println( e );
+    } catch ( IllegalAccessException e ) {
+        System.out.println( e );
+    } catch ( IllegalArgumentException e ) {
+        System.out.println( e );
+    } catch ( InvocationTargetException e ) {
+        System.out.println( e );
+    } catch ( ExceptionInInitializerError e ) {
+        System.out.println( e );
+    }
+
   IPreferenceStore store = org.xtuml.bp.core.CorePlugin.getDefault().getPreferenceStore();
   String persistActivities = store.getString(BridgePointPreferencesStore.ACTIVITY_PERSISTENCE);
-  if ( persistActivities.equals(BridgePointPreferencesStore.NO_PERSIST_ACTIVITY_FILES) ) {
+  if ( persistActivities.equals(BridgePointPreferencesStore.NO_PERSIST_ACTIVITY_FILES) || dialect != Actiondialect_c.masl ) {
       m_fh.print( inst.${a.body}().replaceAll( "'", "''" ) ); //$$NON-NLS-1$$ //$$NON-NLS-2$$
   }
       .else
@@ -1058,11 +1080,33 @@ ${sql.body}\
 void write_${r.body}_actions(${r.body} inst)
 throws IOException
 {
+
+// get the dialect
+int dialect = -1;
+try {
+    Method getDialectMethod = inst.getClass().getMethod("getDialect");
+    dialect = (int) getDialectMethod.invoke(inst);
+} catch ( NoSuchMethodException e ) {
+    System.out.println( e );
+} catch ( NullPointerException e ) {
+    System.out.println( e );
+} catch ( SecurityException e ) {
+    System.out.println( e );
+} catch ( IllegalAccessException e ) {
+    System.out.println( e );
+} catch ( IllegalArgumentException e ) {
+    System.out.println( e );
+} catch ( InvocationTargetException e ) {
+    System.out.println( e );
+} catch ( ExceptionInInitializerError e ) {
+    System.out.println( e );
+}
+
 IPreferenceStore store = org.xtuml.bp.core.CorePlugin.getDefault().getPreferenceStore();
 String persistActivities = store.getString(BridgePointPreferencesStore.ACTIVITY_PERSISTENCE);
-if ( persistActivities.equals(BridgePointPreferencesStore.PERSIST_ACTIVITY_FILES) ) {
+if ( persistActivities.equals(BridgePointPreferencesStore.PERSIST_ACTIVITY_FILES) && dialect == Actiondialect_c.masl ) {
 
-if(inst != null && !inst.isProxy()){
+if(inst != null && !inst.isProxy() && -1 != dialect){
   String smasl = "";
     .if ( "S_SYNC" == action_body.Key_Lett )
   smasl = Ooaofooa.S_sync2routine( inst.getModelRoot(), inst.getSync_id() );
@@ -1179,7 +1223,7 @@ if(inst != null && !inst.isProxy()){
               }
           }
           else {
-            m_afh.print( "// Activity '" + values[0] + "'unsupported\n" ); //$$NON-NLS-1$$
+            m_afh.get(dialect).print( "// Activity '" + values[0] + "'unsupported\n" ); //$$NON-NLS-1$$
             m_updateActions = true;
             return;
           }
@@ -1206,7 +1250,7 @@ if(inst != null && !inst.isProxy()){
       parameter_list = parameter_list.replaceAll("\n", buf);
 
       // output activity
-      m_afh.print( preface + activity_type + sig_begin + parameter_list + sig_end + codeblock + end ); //$$NON-NLS-1$$
+      m_afh.get(dialect).print( preface + activity_type + sig_begin + parameter_list + sig_end + codeblock + end ); //$$NON-NLS-1$$
       m_updateActions = true;
   }
 }

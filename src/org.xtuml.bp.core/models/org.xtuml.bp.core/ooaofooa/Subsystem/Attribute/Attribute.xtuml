@@ -310,6 +310,7 @@ if ( not_empty battr )
   select one nbattr related by battr->O_NBATTR[R107];
   if ( not_empty nbattr )
     create object instance dbattr of O_DBATTR;
+    dbattr.Dialect = PREF::getActionDialect(name:"bridgepoint_prefs_default_action_language_dialect");
     dbattr.Suc_Pars = ParseStatus::parseInitial;
     unrelate battr from nbattr across R107;
     relate battr to dbattr across R107;

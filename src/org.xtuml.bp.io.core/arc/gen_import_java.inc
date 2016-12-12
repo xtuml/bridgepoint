@@ -301,7 +301,7 @@
 		  .assign dialectAdded = true;
 		.end if
 		.if (dialectAdded)
-			rawParms.size() <= ${attr_col_num} ? "" : removeTics((String)parms.elementAt(${attr_col_num}))\
+			rawParms.size() <= ${attr_col_num} ? -1 : Integer.parseInt((String)parms.elementAt(${attr_col_num}))\
 		  .assign special_case = true
 		.end if
 	  .end if
@@ -489,8 +489,8 @@ public class ${class_name} extends CoreImport
             .assign parentC = "SystemModel_c"
       .end if
     .if(multilevel and setComponent)
-    public ${class_name}(IFile file, String dialect, ${var.main_class_name} aModelRoot, PersistableModelComponent component, boolean parseAll, boolean clearDatabase, boolean parseGraphics, boolean isTemplate) throws IOException {
-        super(aModelRoot, (file != null ? file.getLocation().toOSString() : ""), dialect, (component != null ? component.getActionFiles() : null), clearDatabase, isTemplate);
+    public ${class_name}(IFile file, ${var.main_class_name} aModelRoot, PersistableModelComponent component, boolean parseAll, boolean clearDatabase, boolean parseGraphics, boolean isTemplate) throws IOException {
+        super(aModelRoot, (file != null ? file.getLocation().toOSString() : ""), (component != null ? component.getActionFiles() : null), clearDatabase, isTemplate);
         m_component = component;
         m_parseAll = parseAll;
         m_parseGraphics = parseGraphics;
@@ -533,15 +533,15 @@ public class ${class_name} extends CoreImport
             .end if
         .end if
         .if(not multilevel)
-    public ${class_name}(String fileName, String dialect, ${var.main_class_name} aModelRoot, ${parentC} parent, boolean parseAll, boolean clearDatabase, boolean isTemplate) throws FileNotFoundException {
-        super(aModelRoot, fileName, dialect, null, clearDatabase, isTemplate);
+    public ${class_name}(String fileName, ${var.main_class_name} aModelRoot, ${parentC} parent, boolean parseAll, boolean clearDatabase, boolean isTemplate) throws FileNotFoundException {
+        super(aModelRoot, fileName, null, clearDatabase, isTemplate);
         m_inFile = fileName;
         m_parseAll = parseAll;
         m_parent = parent;
     }
 
-    public ${class_name}(IPath filePath, String dialect) throws FileNotFoundException {
-        super(filePath, dialect, null);
+    public ${class_name}(IPath filePath) throws FileNotFoundException {
+        super(filePath, null);
     }
        .end if
     .end if
@@ -720,11 +720,11 @@ public class ${class_name} extends CoreImport
         .end if
     }
 
-    public void processAction( String smasl, String dialect ) {
+    public void processAction( String smasl, int dialect ) {
 	.if (class_name == "ImportModelComponent")
         IPreferenceStore store = CorePlugin.getDefault().getPreferenceStore();
         String persistActivities = store.getString(BridgePointPreferencesStore.ACTIVITY_PERSISTENCE);
-        if ( persistActivities.equals(BridgePointPreferencesStore.PERSIST_ACTIVITY_FILES) ) {
+        if ( persistActivities.equals(BridgePointPreferencesStore.PERSIST_ACTIVITY_FILES) && dialect == Actiondialect_c.masl ) {
             NonRootModelElement pmc_root_element = getRootModelElement();
             ModelRoot modelRoot = pmc_root_element.getModelRoot();
 

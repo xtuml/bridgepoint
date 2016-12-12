@@ -38,7 +38,6 @@ public class ImportModelFactory extends AbstractModelImportFactory {
 
 	public IModelImport create(
 		String fileName,
-		String dialect,
 		Ooaofooa aModelRoot,
 		SystemModel_c system,
 		boolean parseAll,
@@ -48,7 +47,6 @@ public class ImportModelFactory extends AbstractModelImportFactory {
 
 		return new ImportModel(
 				fileName,
-				dialect,
 				aModelRoot,
 				system,
 				parseAll,
@@ -76,7 +74,6 @@ public class ImportModelFactory extends AbstractModelImportFactory {
 	
 	public IModelImport create(
 			IFile file,
-			String dialect,
 			Ooaofooa aModelRoot,
 			PersistableModelComponent component,
 			boolean parseAll,
@@ -85,7 +82,6 @@ public class ImportModelFactory extends AbstractModelImportFactory {
 			boolean isTemplate ) throws IOException {
 			return new ImportModelComponent(
 				file,
-				dialect,
 				aModelRoot,
 				component,
 				parseAll,

@@ -508,9 +508,9 @@ public class PersistableModelComponent implements Comparable {
         return null;
     }
 
-    public IFile getActionFile() {
+    public IFile getActionFile( int dialect ) {
       if (afm != null)
-        return afm.getFile();
+        return afm.getFile(dialect);
       else
         return null;
     }
@@ -594,7 +594,6 @@ public class PersistableModelComponent implements Comparable {
         }
 
         IFile file = getFile();
-        IFile actionFile = getActionFile();
 
         persisting = true;
         // create an export-factory and have it perform the persistence
@@ -602,7 +601,7 @@ public class PersistableModelComponent implements Comparable {
                 .getInstance();
         try {
             IRunnableWithProgress runnable = factory.create(componentRootME,
-                    file.getLocation().toString(), actionFile.getLocation().toString(), true);
+                    file.getLocation().toString(), true);
             runnable.run(monitor);
         
             // get Eclipse to notice that the model's file has changed on disk
@@ -826,7 +825,7 @@ public class PersistableModelComponent implements Comparable {
         }
     }
 
-    private IModelImport createImporter(IFile file, String dialect, Ooaofooa modelRoot,
+    private IModelImport createImporter(IFile file, Ooaofooa modelRoot,
             boolean parseOal) throws IOException {
         if (!file.exists() ) {
             // can't import file from a closed project or that doesn't exist
@@ -839,14 +838,14 @@ public class PersistableModelComponent implements Comparable {
             modelRoot = Ooaofooa.getInstance(getUniqueID());
         }
         
-        return factory.create(file, dialect, modelRoot, this, parseOal, true, true,
+        return factory.create(file, modelRoot, this, parseOal, true, true,
                 false);
     }
     
     private IModelImport createImporter(Ooaofooa modelRoot, boolean parseOal)
             throws IOException {
 
-        return createImporter(getFile(), "", modelRoot, parseOal);
+        return createImporter(getFile(), modelRoot, parseOal);
     }
     
     public PersistableModelComponent getDomainComponent() {
@@ -885,7 +884,7 @@ public class PersistableModelComponent implements Comparable {
 
     private String getComponentType(IFile componentFile) throws CoreException {
         try {
-            IModelImport im = createImporter(componentFile, null, null, false);
+            IModelImport im = createImporter(componentFile, null, false);
             if (im == null) {
                 // we're trying to load a file in a closed project
                 return "";
