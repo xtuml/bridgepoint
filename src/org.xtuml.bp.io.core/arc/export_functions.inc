@@ -278,19 +278,11 @@
     .//
     .select one col related by col->C[R6.'precedes']
     .if ( not_empty col )
-      .if ( (table.Key_Lett == "CA_SMSMC") and (col.Name == "OIObj_ID") )
-  if ( ! m_is_fully_derived )
-  {
-      .end if
       .// if code we're currently outputting is for BP 6.1 connector-texts, we
       .// don't need to output the enclosed delimeter, since the code
       .// for all columns is generated together in one block, above
       .if ((callingProject != "BP") or (table.Key_Lett != "GD_CTXT"))
   m_fh.print(",\n\t");  //$$NON-NLS-1$$
-      .end if
-    .else
-      .if (table.Key_Lett == "CA_SMSMC")
-  }
       .end if
     .end if
   .end while

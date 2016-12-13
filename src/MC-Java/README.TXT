@@ -99,8 +99,7 @@ Other Files:
 			a)	BUILD.SH
 			b)	GEN.SH
 			c)	README.TXT
-			d)	clearooa2.sql
-			e)	mc_java.depends
+			d)	mc_java.depends
 
 Coloring
 ---------
