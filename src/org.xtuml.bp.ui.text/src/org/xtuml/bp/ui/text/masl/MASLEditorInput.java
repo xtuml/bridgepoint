@@ -54,28 +54,4 @@ public class MASLEditorInput extends FileEditorInput {
 		return factory.isSupported(inputObject);
         }
 
-        /**
-         * checks if the MASL activity for the model element is empty or not
-         */
-        public static boolean activityEmpty(Object modelElementObject) throws CoreException {
-            PersistableModelComponent pmc = ((NonRootModelElement) modelElementObject).getPersistableComponent();
-            IFile file = pmc.getActionFile();
-            
-            boolean empty = false;
-            
-            try {
-            	if ( file.getContents().read() == -1 ) {	// file is empty
-            		empty = true;
-            	}
-            }
-            catch ( IOException e ) {
-            	System.out.println(e);
-            	empty = true;
-            }
-            
-            if ( empty ) file.delete(true, false, null);
-            
-            return empty;
-        }
-
 }

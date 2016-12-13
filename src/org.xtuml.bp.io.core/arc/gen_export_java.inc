@@ -52,8 +52,10 @@ import java.io.PrintStream;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.text.NumberFormat;
+import java.util.Collection;
 import java.util.UUID;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Locale;
 .if ( multilevel )
 import java.util.HashSet;
@@ -82,44 +84,39 @@ public class ${class_name} extends CoreExport
 	protected Path m_path;
 	boolean m_isUpdate = false;
 	ByteArrayOutputStream m_updateData;
-        .if ( class_name == "ExportModelComponent" )
+        .if ( multilevel )
         boolean m_updateActions = false;
-        protected PrintStream m_afh; // handle for actions
-	ByteArrayOutputStream m_actionUpdateData;
+        protected Map<Integer,PrintStream> m_afh; // handle for actions
+	protected Map<Integer,ByteArrayOutputStream> m_actionUpdateData;
         .end if;
     .end if
 
-    public ${class_name}(${var.main_class_name} modelRoot, String outfileName,
-    .if (multilevel)
-    String outActionFileName,
-    .end if
-    boolean export_graphics)
+    public ${class_name}(${var.main_class_name} modelRoot, String outfileName,boolean export_graphics)
     	throws FileNotFoundException 
     {
 		super(modelRoot, CoreExport.YES);
     .if (callingProject == "NBP")
-        determineUpdateStatus(modelRoot.getFile(), outfileName
-        .if (multilevel)
-        , outActionFileName
-        .end if
-        );
+        determineUpdateStatus(modelRoot.getFile(), outfileName);
 	.else
 		Path path = new Path(outfileName);
 		File fh = path.toFile();
 		FileOutputStream fs = new FileOutputStream(fh);
 		m_fh = new PrintStream(fs);
                 .if (multilevel)
-		Path actionPath = new Path(outActionFileName);
-		File afh = actionPath.toFile();
-		FileOutputStream afs = new FileOutputStream(afh);
-		m_afh = new PrintStream(afs);
+                m_afh = new HashMap<Integer,PrintStream>();
+                m_actionUpdateData = new HashMap<Integer,ByteArrayOutputStream>();
+                int[] dialects = ActionFile.getAvailableDialectCodes();
+                for (int i = 0; i < dialects.length; i++) {
+                    m_actionUpdateData.put( dialects[i], new ByteArrayOutputStream() );
+		    m_afh.put( dialects[i], new PrintStream(m_actionUpdateData.get(dialects[i])) );
+                }
                 .end if
 	.end if
         m_export_graphics = export_graphics;
     }
 	.if(multilevel)
 
-	public ExportModelComponent(String outfileName, String outActionFileName,
+	public ExportModelComponent(String outfileName,
 			NonRootModelElement element)
 			throws FileNotFoundException {
 		super((Ooaofooa) element.getModelRoot(), CoreExport.YES);
@@ -129,47 +126,44 @@ public class ${class_name} extends CoreExport
         m_fh = new PrintStream(fs);
 		m_inst = element;
 		m_export_graphics = true;
-        Path actionPath = new Path(outActionFileName);
-        File afh = actionPath.toFile();
-        FileOutputStream afs = new FileOutputStream(afh);
-        m_afh = new PrintStream(afs);
+            m_afh = new HashMap<Integer,PrintStream>();
+            m_actionUpdateData = new HashMap<Integer,ByteArrayOutputStream>();
+            int[] dialects = ActionFile.getAvailableDialectCodes();
+            for (int i = 0; i < dialects.length; i++) {
+                m_actionUpdateData.put( dialects[i], new ByteArrayOutputStream() );
+                m_afh.put( dialects[i], new PrintStream(m_actionUpdateData.get(dialects[i])) );
+            }
 	}
 	
-	public ExportModelComponent(Ooaofooa modelRoot, ByteArrayOutputStream baos, ByteArrayOutputStream actionbaos,
+	public ExportModelComponent(Ooaofooa modelRoot, ByteArrayOutputStream baos,
 			NonRootModelElement element) {
     	super(modelRoot, CoreExport.YES);
     	m_fh = new PrintStream(baos);
-    	m_afh = new PrintStream(actionbaos);
+        m_afh = new HashMap<Integer,PrintStream>();
+        m_actionUpdateData = new HashMap<Integer,ByteArrayOutputStream>();
+        int[] dialects = ActionFile.getAvailableDialectCodes();
+        for (int i = 0; i < dialects.length; i++) {
+            m_actionUpdateData.put( dialects[i], new ByteArrayOutputStream() );
+            m_afh.put( dialects[i], new PrintStream(m_actionUpdateData.get(dialects[i])) );
+        }
     	m_inst = element;
     	m_export_graphics = true;
 	}
 	
-	public ${class_name}(${var.main_class_name} modelRoot, String outfileName,
-        .if (multilevel)
-        String outActionFileName,
-        .end if
-        boolean export_graphics, NonRootModelElement instance)
+	public ${class_name}(${var.main_class_name} modelRoot, String outfileName,boolean export_graphics, NonRootModelElement instance)
     	throws FileNotFoundException 
     {
 		super(modelRoot, CoreExport.YES);
         PersistableModelComponent mc = 
             PersistenceManager.getComponent(instance);
         IFile f = MdlPlugin.getWorkspace().getRoot().getFile(mc.getFullPath());
-        determineUpdateStatus(f, outfileName
-        .if (multilevel)
-        , outActionFileName
-        .end if
-        );
+        determineUpdateStatus(f, outfileName);
 		m_inst = instance;
         m_export_graphics = export_graphics;
     }
 	.end if	
     .if (callingProject == "NBP")
-    private void determineUpdateStatus(IFile mrFile, String outfileName
-    .if (multilevel)
-    , String outActionFileName
-    .end if
-    )
+    private void determineUpdateStatus(IFile mrFile, String outfileName)
     throws FileNotFoundException {
         m_path = new Path(outfileName);
         // getLocation() is null for some unit tests
@@ -180,19 +174,27 @@ public class ${class_name} extends CoreExport
             m_isUpdate = true;
             m_updateData = new ByteArrayOutputStream();
             m_fh = new PrintStream(m_updateData);
-            .if ( class_name == "ExportModelComponent" )
-            m_actionUpdateData = new ByteArrayOutputStream();
-            m_afh = new PrintStream(m_actionUpdateData);
+            .if (multilevel)
+            m_afh = new HashMap<Integer,PrintStream>();
+            m_actionUpdateData = new HashMap<Integer,ByteArrayOutputStream>();
+            int[] dialects = ActionFile.getAvailableDialectCodes();
+            for (int i = 0; i < dialects.length; i++) {
+                m_actionUpdateData.put( dialects[i], new ByteArrayOutputStream() );
+                m_afh.put( dialects[i], new PrintStream(m_actionUpdateData.get(dialects[i])) );
+            }
             .end if
         } else {
             File fh = m_path.toFile();
             FileOutputStream fs = new FileOutputStream(fh);
             m_fh = new PrintStream(fs);
-            .if ( class_name == "ExportModelComponent" )
-            Path actionPath = new Path(outActionFileName);
-            File afh = actionPath.toFile();
-            FileOutputStream afs = new FileOutputStream(afh);
-            m_afh = new PrintStream(afs);
+            .if (multilevel)
+            m_afh = new HashMap<Integer,PrintStream>();
+            m_actionUpdateData = new HashMap<Integer,ByteArrayOutputStream>();
+            int[] dialects = ActionFile.getAvailableDialectCodes();
+            for (int i = 0; i < dialects.length; i++) {
+                m_actionUpdateData.put( dialects[i], new ByteArrayOutputStream() );
+                m_afh.put( dialects[i], new PrintStream(m_actionUpdateData.get(dialects[i])) );
+            }
             .end if
         }
     }
@@ -280,8 +282,11 @@ public class ${class_name} extends CoreExport
          				.end if
             }
             m_fh.close();
-            .if ( class_name == "ExportModelComponent" )
-            m_afh.close();
+            .if ( multilevel )
+            Collection<PrintStream> actionStreams = m_afh.values();
+            for ( PrintStream actionStream : actionStreams ) {
+                actionStream.close();
+            }
             .end if
     .if (callingProject == "NBP")
 			if (m_isUpdate) {
@@ -293,19 +298,22 @@ public class ${class_name} extends CoreExport
 				} else {
 				f.setContents(stream, true, true, pm);
 			}
-                                .if ( class_name == "ExportModelComponent" )
-				InputStream astream = new ByteArrayInputStream(m_actionUpdateData.toByteArray());
-                                IFile af = mc.getActionFile();
-                                if (!af.exists()) {
-                                    if ( m_actionUpdateData.toByteArray().length != 0 && m_updateActions ) {
-				        af.create(astream, true, pm);
-                                    }
-                                } else {
-                                    if ( m_actionUpdateData.toByteArray().length != 0 && m_updateActions ) {
-				        af.setContents(astream, true, true, pm);
-                                    }
-                                    else {
-                                        af.delete(true, false, pm);
+                                .if ( multilevel )
+                                int[] dialects = ActionFile.getAvailableDialectCodes();
+                                for ( int i = 0; i < dialects.length; i++ ) {
+                                    InputStream action_stream = new ByteArrayInputStream(m_actionUpdateData.get(dialects[i]).toByteArray());
+                                    IFile af = mc.getActionFile(dialects[i]);
+                                    if ( null != af && !af.exists()) {
+                                        if ( m_actionUpdateData.get(dialects[i]).toByteArray().length != 0 && m_updateActions ) {
+                                            af.create(action_stream, true, pm);
+                                        }
+                                    } else {
+                                        if ( m_actionUpdateData.get(dialects[i]).toByteArray().length != 0 && m_updateActions ) {
+                                            af.setContents(action_stream, true, true, pm);
+                                        }
+                                        else {
+                                            af.delete(true, false, pm);
+                                        }
                                     }
                                 }
                                 .end if
