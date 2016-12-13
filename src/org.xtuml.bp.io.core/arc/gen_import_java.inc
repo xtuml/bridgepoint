@@ -315,7 +315,7 @@
 		  .assign dialectAdded = true;
 		.end if
 		.if (dialectAdded)
-			rawParms.size() <= ${attr_col_num} ? -1 : Integer.parseInt((String)parms.elementAt(${attr_col_num}))\
+			rawParms.size() <= ${attr_col_num} ? Actiondialect_c.oal : Integer.parseInt((String)parms.elementAt(${attr_col_num}))\
 		  .assign special_case = true
 		.end if
 	  .end if
