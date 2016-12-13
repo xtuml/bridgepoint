@@ -340,6 +340,7 @@ public class ImportHelper
      * Resolve the MASL project
      *   - Assign unassigned component references
      *   - Unhook temporary interface definitions and re-attach to existing interfaces in domains
+     *   - create satisfacions
      */
     public void resolveMASLproject( NonRootModelElement[] elements ) {
         if ( elements == null ) return;
@@ -549,6 +550,40 @@ public class ImportHelper
 		TransactionUtil.endTransactions(transactionGroup);
             }
         }
+        
+        
+		// Create satisfactions
+		for (NonRootModelElement nrme : elements) {
+			// process the unassigned component references
+			if (nrme instanceof Package_c) {
+
+				// check if containing package is a MASL project package
+				boolean masl_project = false;
+				Package_c pkg = (Package_c)nrme;
+				if (null != pkg) {
+					String pkg_descrip = pkg.getDescrip();
+					if (!pkg_descrip.isEmpty()) {
+						Matcher m = Pattern.compile("masl_project").matcher(pkg_descrip);
+						if (m.find()) {
+							masl_project = true;
+						}
+					}
+				}
+
+				if (masl_project) {
+					TransactionUtil.TransactionGroup transactionGroup = TransactionUtil
+							.startTransactionsOnSelectedModelRoots("Automatically Create Satisfaction");
+					Ooaofooa.beginSaveOperation();
+					
+					Ooaofooa.Autocreatesatisfactions(pkg.getModelRoot(), pkg.getPackage_id());
+					
+					Ooaofooa.endSaveOperation();
+					TransactionUtil.endTransactions(transactionGroup);
+
+				}
+			}
+		}
+        
     }
 
     /**
