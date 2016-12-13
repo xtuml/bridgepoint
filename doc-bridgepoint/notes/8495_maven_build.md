@@ -155,15 +155,15 @@ these servers.
 6.10.4  To work around this problem, I set up the MinGW feature like the JRE. This
   meant moving the MinGW files in the repository from their old home in under the
   ```BridgePointDeliverables``` folder into the plugin at ```packaging/features/org.xtuml.bp.MinGW/win32.all/MinGW```.   
-6.10.5  __TODO__ There is a problem though: the generated ```p2content.xml``` does not
-  list all the files to be installed by this feature like is found in the generated ```p2content.xml``` 
-  produced by the maven build of the jre feature.  
+6.10.5  Updated ```bridgepoint/releng/org.xtuml.bp.releng.parent.product/bridgepoint.product``` to 
+  pull in ```org.xtuml.bp.MinGW```   
   
 6.11  docgen   
 6.11.1  The docgen product feature is set up like the jre and MinGW features  
 6.11.2  Configuring docgen in this way again required moving the docgen files 
   around in the packaging repository.  
-6.11.3  __TODO__: suffers from the same problem as 6.10.5  
+6.11.3  Updated ```bridgepoint/releng/org.xtuml.bp.releng.parent.product/bridgepoint.product``` to 
+  pull in ```org.xtuml.bp.docgen```    
 
 6.12  __TODO__ Model compiler files  
 6.12.1  The mc files: archetypes, binaries, and schema need to be packaged and
