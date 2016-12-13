@@ -15,7 +15,6 @@ import org.eclipse.emf.common.util.EList;
  * </p>
  * <ul>
  *   <li>{@link org.xtuml.bp.xtext.masl.masl.behavior.CodeBlock#getVariables <em>Variables</em>}</li>
- *   <li>{@link org.xtuml.bp.xtext.masl.masl.behavior.CodeBlock#getStatements <em>Statements</em>}</li>
  *   <li>{@link org.xtuml.bp.xtext.masl.masl.behavior.CodeBlock#getExceptionHandler <em>Exception Handler</em>}</li>
  *   <li>{@link org.xtuml.bp.xtext.masl.masl.behavior.CodeBlock#getDefaultHandler <em>Default Handler</em>}</li>
  * </ul>
@@ -24,7 +23,7 @@ import org.eclipse.emf.common.util.EList;
  * @model
  * @generated
  */
-public interface CodeBlock extends CodeBlockStatement {
+public interface CodeBlock extends CodeBlockStatement, StatementList {
 	/**
 	 * Returns the value of the '<em><b>Variables</b></em>' containment reference list.
 	 * The list contents are of type {@link org.xtuml.bp.xtext.masl.masl.behavior.VariableDeclaration}.
@@ -40,22 +39,6 @@ public interface CodeBlock extends CodeBlockStatement {
 	 * @generated
 	 */
 	EList<VariableDeclaration> getVariables();
-
-	/**
-	 * Returns the value of the '<em><b>Statements</b></em>' containment reference list.
-	 * The list contents are of type {@link org.xtuml.bp.xtext.masl.masl.behavior.AbstractStatement}.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Statements</em>' containment reference list isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Statements</em>' containment reference list.
-	 * @see org.xtuml.bp.xtext.masl.masl.behavior.BehaviorPackage#getCodeBlock_Statements()
-	 * @model containment="true"
-	 * @generated
-	 */
-	EList<AbstractStatement> getStatements();
 
 	/**
 	 * Returns the value of the '<em><b>Exception Handler</b></em>' containment reference list.

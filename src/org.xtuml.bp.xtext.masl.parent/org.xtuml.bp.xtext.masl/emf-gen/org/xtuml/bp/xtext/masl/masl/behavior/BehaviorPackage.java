@@ -62,6 +62,43 @@ public interface BehaviorPackage extends EPackage {
 	BehaviorPackage eINSTANCE = org.xtuml.bp.xtext.masl.masl.behavior.impl.BehaviorPackageImpl.init();
 
 	/**
+	 * The meta object id for the '{@link org.xtuml.bp.xtext.masl.masl.behavior.impl.StatementListImpl <em>Statement List</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.xtuml.bp.xtext.masl.masl.behavior.impl.StatementListImpl
+	 * @see org.xtuml.bp.xtext.masl.masl.behavior.impl.BehaviorPackageImpl#getStatementList()
+	 * @generated
+	 */
+	int STATEMENT_LIST = 0;
+
+	/**
+	 * The feature id for the '<em><b>Statements</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STATEMENT_LIST__STATEMENTS = 0;
+
+	/**
+	 * The number of structural features of the '<em>Statement List</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STATEMENT_LIST_FEATURE_COUNT = 1;
+
+	/**
+	 * The number of operations of the '<em>Statement List</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STATEMENT_LIST_OPERATION_COUNT = 0;
+
+	/**
 	 * The meta object id for the '{@link org.xtuml.bp.xtext.masl.masl.behavior.impl.AbstractStatementImpl <em>Abstract Statement</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -69,7 +106,7 @@ public interface BehaviorPackage extends EPackage {
 	 * @see org.xtuml.bp.xtext.masl.masl.behavior.impl.BehaviorPackageImpl#getAbstractStatement()
 	 * @generated
 	 */
-	int ABSTRACT_STATEMENT = 4;
+	int ABSTRACT_STATEMENT = 5;
 
 	/**
 	 * The feature id for the '<em><b>Pragmas</b></em>' containment reference list.
@@ -106,7 +143,7 @@ public interface BehaviorPackage extends EPackage {
 	 * @see org.xtuml.bp.xtext.masl.masl.behavior.impl.BehaviorPackageImpl#getCodeBlockStatement()
 	 * @generated
 	 */
-	int CODE_BLOCK_STATEMENT = 24;
+	int CODE_BLOCK_STATEMENT = 25;
 
 	/**
 	 * The feature id for the '<em><b>Pragmas</b></em>' containment reference list.
@@ -143,7 +180,7 @@ public interface BehaviorPackage extends EPackage {
 	 * @see org.xtuml.bp.xtext.masl.masl.behavior.impl.BehaviorPackageImpl#getCodeBlock()
 	 * @generated
 	 */
-	int CODE_BLOCK = 0;
+	int CODE_BLOCK = 1;
 
 	/**
 	 * The feature id for the '<em><b>Pragmas</b></em>' containment reference list.
@@ -155,22 +192,22 @@ public interface BehaviorPackage extends EPackage {
 	int CODE_BLOCK__PRAGMAS = CODE_BLOCK_STATEMENT__PRAGMAS;
 
 	/**
-	 * The feature id for the '<em><b>Variables</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CODE_BLOCK__VARIABLES = CODE_BLOCK_STATEMENT_FEATURE_COUNT + 0;
-
-	/**
 	 * The feature id for the '<em><b>Statements</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CODE_BLOCK__STATEMENTS = CODE_BLOCK_STATEMENT_FEATURE_COUNT + 1;
+	int CODE_BLOCK__STATEMENTS = CODE_BLOCK_STATEMENT_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Variables</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CODE_BLOCK__VARIABLES = CODE_BLOCK_STATEMENT_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Exception Handler</b></em>' containment reference list.
@@ -216,7 +253,7 @@ public interface BehaviorPackage extends EPackage {
 	 * @see org.xtuml.bp.xtext.masl.masl.behavior.impl.BehaviorPackageImpl#getVariableDeclaration()
 	 * @generated
 	 */
-	int VARIABLE_DECLARATION = 1;
+	int VARIABLE_DECLARATION = 2;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -289,16 +326,7 @@ public interface BehaviorPackage extends EPackage {
 	 * @see org.xtuml.bp.xtext.masl.masl.behavior.impl.BehaviorPackageImpl#getExceptionHandler()
 	 * @generated
 	 */
-	int EXCEPTION_HANDLER = 2;
-
-	/**
-	 * The feature id for the '<em><b>Exception</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EXCEPTION_HANDLER__EXCEPTION = 0;
+	int EXCEPTION_HANDLER = 3;
 
 	/**
 	 * The feature id for the '<em><b>Statements</b></em>' containment reference list.
@@ -307,7 +335,16 @@ public interface BehaviorPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int EXCEPTION_HANDLER__STATEMENTS = 1;
+	int EXCEPTION_HANDLER__STATEMENTS = STATEMENT_LIST__STATEMENTS;
+
+	/**
+	 * The feature id for the '<em><b>Exception</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EXCEPTION_HANDLER__EXCEPTION = STATEMENT_LIST_FEATURE_COUNT + 0;
 
 	/**
 	 * The number of structural features of the '<em>Exception Handler</em>' class.
@@ -316,7 +353,7 @@ public interface BehaviorPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int EXCEPTION_HANDLER_FEATURE_COUNT = 2;
+	int EXCEPTION_HANDLER_FEATURE_COUNT = STATEMENT_LIST_FEATURE_COUNT + 1;
 
 	/**
 	 * The number of operations of the '<em>Exception Handler</em>' class.
@@ -325,7 +362,7 @@ public interface BehaviorPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int EXCEPTION_HANDLER_OPERATION_COUNT = 0;
+	int EXCEPTION_HANDLER_OPERATION_COUNT = STATEMENT_LIST_OPERATION_COUNT + 0;
 
 	/**
 	 * The meta object id for the '{@link org.xtuml.bp.xtext.masl.masl.behavior.impl.DefaultExceptionHandlerImpl <em>Default Exception Handler</em>}' class.
@@ -335,7 +372,7 @@ public interface BehaviorPackage extends EPackage {
 	 * @see org.xtuml.bp.xtext.masl.masl.behavior.impl.BehaviorPackageImpl#getDefaultExceptionHandler()
 	 * @generated
 	 */
-	int DEFAULT_EXCEPTION_HANDLER = 3;
+	int DEFAULT_EXCEPTION_HANDLER = 4;
 
 	/**
 	 * The feature id for the '<em><b>Statements</b></em>' containment reference list.
@@ -344,7 +381,7 @@ public interface BehaviorPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int DEFAULT_EXCEPTION_HANDLER__STATEMENTS = 0;
+	int DEFAULT_EXCEPTION_HANDLER__STATEMENTS = STATEMENT_LIST__STATEMENTS;
 
 	/**
 	 * The number of structural features of the '<em>Default Exception Handler</em>' class.
@@ -353,7 +390,7 @@ public interface BehaviorPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int DEFAULT_EXCEPTION_HANDLER_FEATURE_COUNT = 1;
+	int DEFAULT_EXCEPTION_HANDLER_FEATURE_COUNT = STATEMENT_LIST_FEATURE_COUNT + 0;
 
 	/**
 	 * The number of operations of the '<em>Default Exception Handler</em>' class.
@@ -362,7 +399,7 @@ public interface BehaviorPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int DEFAULT_EXCEPTION_HANDLER_OPERATION_COUNT = 0;
+	int DEFAULT_EXCEPTION_HANDLER_OPERATION_COUNT = STATEMENT_LIST_OPERATION_COUNT + 0;
 
 	/**
 	 * The meta object id for the '{@link org.xtuml.bp.xtext.masl.masl.behavior.impl.ExpressionImpl <em>Expression</em>}' class.
@@ -372,7 +409,7 @@ public interface BehaviorPackage extends EPackage {
 	 * @see org.xtuml.bp.xtext.masl.masl.behavior.impl.BehaviorPackageImpl#getExpression()
 	 * @generated
 	 */
-	int EXPRESSION = 5;
+	int EXPRESSION = 6;
 
 	/**
 	 * The feature id for the '<em><b>Pragmas</b></em>' containment reference list.
@@ -409,7 +446,7 @@ public interface BehaviorPackage extends EPackage {
 	 * @see org.xtuml.bp.xtext.masl.masl.behavior.impl.BehaviorPackageImpl#getExitStatement()
 	 * @generated
 	 */
-	int EXIT_STATEMENT = 6;
+	int EXIT_STATEMENT = 7;
 
 	/**
 	 * The feature id for the '<em><b>Pragmas</b></em>' containment reference list.
@@ -455,7 +492,7 @@ public interface BehaviorPackage extends EPackage {
 	 * @see org.xtuml.bp.xtext.masl.masl.behavior.impl.BehaviorPackageImpl#getReturnStatement()
 	 * @generated
 	 */
-	int RETURN_STATEMENT = 7;
+	int RETURN_STATEMENT = 8;
 
 	/**
 	 * The feature id for the '<em><b>Pragmas</b></em>' containment reference list.
@@ -501,7 +538,7 @@ public interface BehaviorPackage extends EPackage {
 	 * @see org.xtuml.bp.xtext.masl.masl.behavior.impl.BehaviorPackageImpl#getDelayStatement()
 	 * @generated
 	 */
-	int DELAY_STATEMENT = 8;
+	int DELAY_STATEMENT = 9;
 
 	/**
 	 * The feature id for the '<em><b>Pragmas</b></em>' containment reference list.
@@ -547,7 +584,7 @@ public interface BehaviorPackage extends EPackage {
 	 * @see org.xtuml.bp.xtext.masl.masl.behavior.impl.BehaviorPackageImpl#getRaiseStatement()
 	 * @generated
 	 */
-	int RAISE_STATEMENT = 9;
+	int RAISE_STATEMENT = 10;
 
 	/**
 	 * The feature id for the '<em><b>Pragmas</b></em>' containment reference list.
@@ -602,7 +639,7 @@ public interface BehaviorPackage extends EPackage {
 	 * @see org.xtuml.bp.xtext.masl.masl.behavior.impl.BehaviorPackageImpl#getDeleteStatement()
 	 * @generated
 	 */
-	int DELETE_STATEMENT = 10;
+	int DELETE_STATEMENT = 11;
 
 	/**
 	 * The feature id for the '<em><b>Pragmas</b></em>' containment reference list.
@@ -648,7 +685,7 @@ public interface BehaviorPackage extends EPackage {
 	 * @see org.xtuml.bp.xtext.masl.masl.behavior.impl.BehaviorPackageImpl#getEraseStatement()
 	 * @generated
 	 */
-	int ERASE_STATEMENT = 11;
+	int ERASE_STATEMENT = 12;
 
 	/**
 	 * The feature id for the '<em><b>Pragmas</b></em>' containment reference list.
@@ -694,7 +731,7 @@ public interface BehaviorPackage extends EPackage {
 	 * @see org.xtuml.bp.xtext.masl.masl.behavior.impl.BehaviorPackageImpl#getScheduleStatement()
 	 * @generated
 	 */
-	int SCHEDULE_STATEMENT = 12;
+	int SCHEDULE_STATEMENT = 13;
 
 	/**
 	 * The feature id for the '<em><b>Pragmas</b></em>' containment reference list.
@@ -776,7 +813,7 @@ public interface BehaviorPackage extends EPackage {
 	 * @see org.xtuml.bp.xtext.masl.masl.behavior.impl.BehaviorPackageImpl#getCancelTimerStatement()
 	 * @generated
 	 */
-	int CANCEL_TIMER_STATEMENT = 13;
+	int CANCEL_TIMER_STATEMENT = 14;
 
 	/**
 	 * The feature id for the '<em><b>Pragmas</b></em>' containment reference list.
@@ -822,7 +859,7 @@ public interface BehaviorPackage extends EPackage {
 	 * @see org.xtuml.bp.xtext.masl.masl.behavior.impl.BehaviorPackageImpl#getGenerateStatement()
 	 * @generated
 	 */
-	int GENERATE_STATEMENT = 14;
+	int GENERATE_STATEMENT = 15;
 
 	/**
 	 * The feature id for the '<em><b>Pragmas</b></em>' containment reference list.
@@ -895,7 +932,7 @@ public interface BehaviorPackage extends EPackage {
 	 * @see org.xtuml.bp.xtext.masl.masl.behavior.impl.BehaviorPackageImpl#getIfStatement()
 	 * @generated
 	 */
-	int IF_STATEMENT = 15;
+	int IF_STATEMENT = 16;
 
 	/**
 	 * The feature id for the '<em><b>Pragmas</b></em>' containment reference list.
@@ -907,22 +944,22 @@ public interface BehaviorPackage extends EPackage {
 	int IF_STATEMENT__PRAGMAS = ABSTRACT_STATEMENT__PRAGMAS;
 
 	/**
-	 * The feature id for the '<em><b>Condition</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int IF_STATEMENT__CONDITION = ABSTRACT_STATEMENT_FEATURE_COUNT + 0;
-
-	/**
 	 * The feature id for the '<em><b>Statements</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int IF_STATEMENT__STATEMENTS = ABSTRACT_STATEMENT_FEATURE_COUNT + 1;
+	int IF_STATEMENT__STATEMENTS = ABSTRACT_STATEMENT_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Condition</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int IF_STATEMENT__CONDITION = ABSTRACT_STATEMENT_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Else Ifs</b></em>' containment reference list.
@@ -968,16 +1005,7 @@ public interface BehaviorPackage extends EPackage {
 	 * @see org.xtuml.bp.xtext.masl.masl.behavior.impl.BehaviorPackageImpl#getElsifBlock()
 	 * @generated
 	 */
-	int ELSIF_BLOCK = 16;
-
-	/**
-	 * The feature id for the '<em><b>Condition</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ELSIF_BLOCK__CONDITION = 0;
+	int ELSIF_BLOCK = 17;
 
 	/**
 	 * The feature id for the '<em><b>Statements</b></em>' containment reference list.
@@ -986,7 +1014,16 @@ public interface BehaviorPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ELSIF_BLOCK__STATEMENTS = 1;
+	int ELSIF_BLOCK__STATEMENTS = STATEMENT_LIST__STATEMENTS;
+
+	/**
+	 * The feature id for the '<em><b>Condition</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ELSIF_BLOCK__CONDITION = STATEMENT_LIST_FEATURE_COUNT + 0;
 
 	/**
 	 * The number of structural features of the '<em>Elsif Block</em>' class.
@@ -995,7 +1032,7 @@ public interface BehaviorPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ELSIF_BLOCK_FEATURE_COUNT = 2;
+	int ELSIF_BLOCK_FEATURE_COUNT = STATEMENT_LIST_FEATURE_COUNT + 1;
 
 	/**
 	 * The number of operations of the '<em>Elsif Block</em>' class.
@@ -1004,7 +1041,7 @@ public interface BehaviorPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ELSIF_BLOCK_OPERATION_COUNT = 0;
+	int ELSIF_BLOCK_OPERATION_COUNT = STATEMENT_LIST_OPERATION_COUNT + 0;
 
 	/**
 	 * The meta object id for the '{@link org.xtuml.bp.xtext.masl.masl.behavior.impl.ElseBlockImpl <em>Else Block</em>}' class.
@@ -1014,7 +1051,7 @@ public interface BehaviorPackage extends EPackage {
 	 * @see org.xtuml.bp.xtext.masl.masl.behavior.impl.BehaviorPackageImpl#getElseBlock()
 	 * @generated
 	 */
-	int ELSE_BLOCK = 17;
+	int ELSE_BLOCK = 18;
 
 	/**
 	 * The feature id for the '<em><b>Statements</b></em>' containment reference list.
@@ -1023,7 +1060,7 @@ public interface BehaviorPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ELSE_BLOCK__STATEMENTS = 0;
+	int ELSE_BLOCK__STATEMENTS = STATEMENT_LIST__STATEMENTS;
 
 	/**
 	 * The number of structural features of the '<em>Else Block</em>' class.
@@ -1032,7 +1069,7 @@ public interface BehaviorPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ELSE_BLOCK_FEATURE_COUNT = 1;
+	int ELSE_BLOCK_FEATURE_COUNT = STATEMENT_LIST_FEATURE_COUNT + 0;
 
 	/**
 	 * The number of operations of the '<em>Else Block</em>' class.
@@ -1041,7 +1078,7 @@ public interface BehaviorPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ELSE_BLOCK_OPERATION_COUNT = 0;
+	int ELSE_BLOCK_OPERATION_COUNT = STATEMENT_LIST_OPERATION_COUNT + 0;
 
 	/**
 	 * The meta object id for the '{@link org.xtuml.bp.xtext.masl.masl.behavior.impl.WhileStatementImpl <em>While Statement</em>}' class.
@@ -1051,7 +1088,7 @@ public interface BehaviorPackage extends EPackage {
 	 * @see org.xtuml.bp.xtext.masl.masl.behavior.impl.BehaviorPackageImpl#getWhileStatement()
 	 * @generated
 	 */
-	int WHILE_STATEMENT = 18;
+	int WHILE_STATEMENT = 19;
 
 	/**
 	 * The feature id for the '<em><b>Pragmas</b></em>' containment reference list.
@@ -1063,22 +1100,22 @@ public interface BehaviorPackage extends EPackage {
 	int WHILE_STATEMENT__PRAGMAS = ABSTRACT_STATEMENT__PRAGMAS;
 
 	/**
-	 * The feature id for the '<em><b>Condition</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int WHILE_STATEMENT__CONDITION = ABSTRACT_STATEMENT_FEATURE_COUNT + 0;
-
-	/**
 	 * The feature id for the '<em><b>Statements</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int WHILE_STATEMENT__STATEMENTS = ABSTRACT_STATEMENT_FEATURE_COUNT + 1;
+	int WHILE_STATEMENT__STATEMENTS = ABSTRACT_STATEMENT_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Condition</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int WHILE_STATEMENT__CONDITION = ABSTRACT_STATEMENT_FEATURE_COUNT + 1;
 
 	/**
 	 * The number of structural features of the '<em>While Statement</em>' class.
@@ -1106,7 +1143,7 @@ public interface BehaviorPackage extends EPackage {
 	 * @see org.xtuml.bp.xtext.masl.masl.behavior.impl.BehaviorPackageImpl#getCaseStatement()
 	 * @generated
 	 */
-	int CASE_STATEMENT = 19;
+	int CASE_STATEMENT = 20;
 
 	/**
 	 * The feature id for the '<em><b>Pragmas</b></em>' containment reference list.
@@ -1170,16 +1207,7 @@ public interface BehaviorPackage extends EPackage {
 	 * @see org.xtuml.bp.xtext.masl.masl.behavior.impl.BehaviorPackageImpl#getCaseAlternative()
 	 * @generated
 	 */
-	int CASE_ALTERNATIVE = 20;
-
-	/**
-	 * The feature id for the '<em><b>Choices</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CASE_ALTERNATIVE__CHOICES = 0;
+	int CASE_ALTERNATIVE = 21;
 
 	/**
 	 * The feature id for the '<em><b>Statements</b></em>' containment reference list.
@@ -1188,7 +1216,16 @@ public interface BehaviorPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CASE_ALTERNATIVE__STATEMENTS = 1;
+	int CASE_ALTERNATIVE__STATEMENTS = STATEMENT_LIST__STATEMENTS;
+
+	/**
+	 * The feature id for the '<em><b>Choices</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CASE_ALTERNATIVE__CHOICES = STATEMENT_LIST_FEATURE_COUNT + 0;
 
 	/**
 	 * The number of structural features of the '<em>Case Alternative</em>' class.
@@ -1197,7 +1234,7 @@ public interface BehaviorPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CASE_ALTERNATIVE_FEATURE_COUNT = 2;
+	int CASE_ALTERNATIVE_FEATURE_COUNT = STATEMENT_LIST_FEATURE_COUNT + 1;
 
 	/**
 	 * The number of operations of the '<em>Case Alternative</em>' class.
@@ -1206,7 +1243,7 @@ public interface BehaviorPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CASE_ALTERNATIVE_OPERATION_COUNT = 0;
+	int CASE_ALTERNATIVE_OPERATION_COUNT = STATEMENT_LIST_OPERATION_COUNT + 0;
 
 	/**
 	 * The meta object id for the '{@link org.xtuml.bp.xtext.masl.masl.behavior.impl.CaseOthersImpl <em>Case Others</em>}' class.
@@ -1216,7 +1253,7 @@ public interface BehaviorPackage extends EPackage {
 	 * @see org.xtuml.bp.xtext.masl.masl.behavior.impl.BehaviorPackageImpl#getCaseOthers()
 	 * @generated
 	 */
-	int CASE_OTHERS = 21;
+	int CASE_OTHERS = 22;
 
 	/**
 	 * The feature id for the '<em><b>Statements</b></em>' containment reference list.
@@ -1225,7 +1262,7 @@ public interface BehaviorPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CASE_OTHERS__STATEMENTS = 0;
+	int CASE_OTHERS__STATEMENTS = STATEMENT_LIST__STATEMENTS;
 
 	/**
 	 * The number of structural features of the '<em>Case Others</em>' class.
@@ -1234,7 +1271,7 @@ public interface BehaviorPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CASE_OTHERS_FEATURE_COUNT = 1;
+	int CASE_OTHERS_FEATURE_COUNT = STATEMENT_LIST_FEATURE_COUNT + 0;
 
 	/**
 	 * The number of operations of the '<em>Case Others</em>' class.
@@ -1243,7 +1280,7 @@ public interface BehaviorPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CASE_OTHERS_OPERATION_COUNT = 0;
+	int CASE_OTHERS_OPERATION_COUNT = STATEMENT_LIST_OPERATION_COUNT + 0;
 
 	/**
 	 * The meta object id for the '{@link org.xtuml.bp.xtext.masl.masl.behavior.impl.ForStatementImpl <em>For Statement</em>}' class.
@@ -1253,7 +1290,7 @@ public interface BehaviorPackage extends EPackage {
 	 * @see org.xtuml.bp.xtext.masl.masl.behavior.impl.BehaviorPackageImpl#getForStatement()
 	 * @generated
 	 */
-	int FOR_STATEMENT = 22;
+	int FOR_STATEMENT = 23;
 
 	/**
 	 * The feature id for the '<em><b>Pragmas</b></em>' containment reference list.
@@ -1265,13 +1302,22 @@ public interface BehaviorPackage extends EPackage {
 	int FOR_STATEMENT__PRAGMAS = ABSTRACT_STATEMENT__PRAGMAS;
 
 	/**
+	 * The feature id for the '<em><b>Statements</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FOR_STATEMENT__STATEMENTS = ABSTRACT_STATEMENT_FEATURE_COUNT + 0;
+
+	/**
 	 * The feature id for the '<em><b>Variable</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int FOR_STATEMENT__VARIABLE = ABSTRACT_STATEMENT_FEATURE_COUNT + 0;
+	int FOR_STATEMENT__VARIABLE = ABSTRACT_STATEMENT_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Reverse</b></em>' attribute.
@@ -1280,7 +1326,7 @@ public interface BehaviorPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FOR_STATEMENT__REVERSE = ABSTRACT_STATEMENT_FEATURE_COUNT + 1;
+	int FOR_STATEMENT__REVERSE = ABSTRACT_STATEMENT_FEATURE_COUNT + 2;
 
 	/**
 	 * The feature id for the '<em><b>Expression</b></em>' containment reference.
@@ -1289,16 +1335,7 @@ public interface BehaviorPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FOR_STATEMENT__EXPRESSION = ABSTRACT_STATEMENT_FEATURE_COUNT + 2;
-
-	/**
-	 * The feature id for the '<em><b>Statements</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FOR_STATEMENT__STATEMENTS = ABSTRACT_STATEMENT_FEATURE_COUNT + 3;
+	int FOR_STATEMENT__EXPRESSION = ABSTRACT_STATEMENT_FEATURE_COUNT + 3;
 
 	/**
 	 * The number of structural features of the '<em>For Statement</em>' class.
@@ -1326,7 +1363,7 @@ public interface BehaviorPackage extends EPackage {
 	 * @see org.xtuml.bp.xtext.masl.masl.behavior.impl.BehaviorPackageImpl#getLoopVariable()
 	 * @generated
 	 */
-	int LOOP_VARIABLE = 23;
+	int LOOP_VARIABLE = 24;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -1363,7 +1400,7 @@ public interface BehaviorPackage extends EPackage {
 	 * @see org.xtuml.bp.xtext.masl.masl.behavior.impl.BehaviorPackageImpl#getFindCondition()
 	 * @generated
 	 */
-	int FIND_CONDITION = 25;
+	int FIND_CONDITION = 26;
 
 	/**
 	 * The number of structural features of the '<em>Find Condition</em>' class.
@@ -1391,7 +1428,7 @@ public interface BehaviorPackage extends EPackage {
 	 * @see org.xtuml.bp.xtext.masl.masl.behavior.impl.BehaviorPackageImpl#getConstExpression()
 	 * @generated
 	 */
-	int CONST_EXPRESSION = 26;
+	int CONST_EXPRESSION = 27;
 
 	/**
 	 * The number of structural features of the '<em>Const Expression</em>' class.
@@ -1419,7 +1456,7 @@ public interface BehaviorPackage extends EPackage {
 	 * @see org.xtuml.bp.xtext.masl.masl.behavior.impl.BehaviorPackageImpl#getSortOrder()
 	 * @generated
 	 */
-	int SORT_ORDER = 27;
+	int SORT_ORDER = 28;
 
 	/**
 	 * The feature id for the '<em><b>Components</b></em>' containment reference list.
@@ -1456,7 +1493,7 @@ public interface BehaviorPackage extends EPackage {
 	 * @see org.xtuml.bp.xtext.masl.masl.behavior.impl.BehaviorPackageImpl#getSortOrderComponent()
 	 * @generated
 	 */
-	int SORT_ORDER_COMPONENT = 28;
+	int SORT_ORDER_COMPONENT = 29;
 
 	/**
 	 * The feature id for the '<em><b>Reverse</b></em>' attribute.
@@ -1502,7 +1539,7 @@ public interface BehaviorPackage extends EPackage {
 	 * @see org.xtuml.bp.xtext.masl.masl.behavior.impl.BehaviorPackageImpl#getSimpleFeatureCall()
 	 * @generated
 	 */
-	int SIMPLE_FEATURE_CALL = 34;
+	int SIMPLE_FEATURE_CALL = 35;
 
 	/**
 	 * The feature id for the '<em><b>Pragmas</b></em>' containment reference list.
@@ -1557,7 +1594,7 @@ public interface BehaviorPackage extends EPackage {
 	 * @see org.xtuml.bp.xtext.masl.masl.behavior.impl.BehaviorPackageImpl#getSortOrderFeature()
 	 * @generated
 	 */
-	int SORT_ORDER_FEATURE = 29;
+	int SORT_ORDER_FEATURE = 30;
 
 	/**
 	 * The feature id for the '<em><b>Pragmas</b></em>' containment reference list.
@@ -1612,7 +1649,7 @@ public interface BehaviorPackage extends EPackage {
 	 * @see org.xtuml.bp.xtext.masl.masl.behavior.impl.BehaviorPackageImpl#getCreateExpression()
 	 * @generated
 	 */
-	int CREATE_EXPRESSION = 30;
+	int CREATE_EXPRESSION = 31;
 
 	/**
 	 * The feature id for the '<em><b>Pragmas</b></em>' containment reference list.
@@ -1676,7 +1713,7 @@ public interface BehaviorPackage extends EPackage {
 	 * @see org.xtuml.bp.xtext.masl.masl.behavior.impl.BehaviorPackageImpl#getCreateArgument()
 	 * @generated
 	 */
-	int CREATE_ARGUMENT = 31;
+	int CREATE_ARGUMENT = 32;
 
 	/**
 	 * The feature id for the '<em><b>Attribute</b></em>' reference.
@@ -1731,7 +1768,7 @@ public interface BehaviorPackage extends EPackage {
 	 * @see org.xtuml.bp.xtext.masl.masl.behavior.impl.BehaviorPackageImpl#getFindExpression()
 	 * @generated
 	 */
-	int FIND_EXPRESSION = 32;
+	int FIND_EXPRESSION = 33;
 
 	/**
 	 * The feature id for the '<em><b>Pragmas</b></em>' containment reference list.
@@ -1795,7 +1832,7 @@ public interface BehaviorPackage extends EPackage {
 	 * @see org.xtuml.bp.xtext.masl.masl.behavior.impl.BehaviorPackageImpl#getFeatureCall()
 	 * @generated
 	 */
-	int FEATURE_CALL = 33;
+	int FEATURE_CALL = 34;
 
 	/**
 	 * The feature id for the '<em><b>Pragmas</b></em>' containment reference list.
@@ -1850,7 +1887,7 @@ public interface BehaviorPackage extends EPackage {
 	 * @see org.xtuml.bp.xtext.masl.masl.behavior.impl.BehaviorPackageImpl#getRealLiteral()
 	 * @generated
 	 */
-	int REAL_LITERAL = 35;
+	int REAL_LITERAL = 36;
 
 	/**
 	 * The feature id for the '<em><b>Pragmas</b></em>' containment reference list.
@@ -1896,7 +1933,7 @@ public interface BehaviorPackage extends EPackage {
 	 * @see org.xtuml.bp.xtext.masl.masl.behavior.impl.BehaviorPackageImpl#getIntegerLiteral()
 	 * @generated
 	 */
-	int INTEGER_LITERAL = 36;
+	int INTEGER_LITERAL = 37;
 
 	/**
 	 * The feature id for the '<em><b>Pragmas</b></em>' containment reference list.
@@ -1942,7 +1979,7 @@ public interface BehaviorPackage extends EPackage {
 	 * @see org.xtuml.bp.xtext.masl.masl.behavior.impl.BehaviorPackageImpl#getStringLiteral()
 	 * @generated
 	 */
-	int STRING_LITERAL = 37;
+	int STRING_LITERAL = 38;
 
 	/**
 	 * The feature id for the '<em><b>Pragmas</b></em>' containment reference list.
@@ -1988,7 +2025,7 @@ public interface BehaviorPackage extends EPackage {
 	 * @see org.xtuml.bp.xtext.masl.masl.behavior.impl.BehaviorPackageImpl#getCharacterLiteral()
 	 * @generated
 	 */
-	int CHARACTER_LITERAL = 38;
+	int CHARACTER_LITERAL = 39;
 
 	/**
 	 * The feature id for the '<em><b>Pragmas</b></em>' containment reference list.
@@ -2034,7 +2071,7 @@ public interface BehaviorPackage extends EPackage {
 	 * @see org.xtuml.bp.xtext.masl.masl.behavior.impl.BehaviorPackageImpl#getDurationLiteral()
 	 * @generated
 	 */
-	int DURATION_LITERAL = 39;
+	int DURATION_LITERAL = 40;
 
 	/**
 	 * The feature id for the '<em><b>Pragmas</b></em>' containment reference list.
@@ -2080,7 +2117,7 @@ public interface BehaviorPackage extends EPackage {
 	 * @see org.xtuml.bp.xtext.masl.masl.behavior.impl.BehaviorPackageImpl#getTimestampLiteral()
 	 * @generated
 	 */
-	int TIMESTAMP_LITERAL = 40;
+	int TIMESTAMP_LITERAL = 41;
 
 	/**
 	 * The feature id for the '<em><b>Pragmas</b></em>' containment reference list.
@@ -2126,7 +2163,7 @@ public interface BehaviorPackage extends EPackage {
 	 * @see org.xtuml.bp.xtext.masl.masl.behavior.impl.BehaviorPackageImpl#getBooleanLiteral()
 	 * @generated
 	 */
-	int BOOLEAN_LITERAL = 41;
+	int BOOLEAN_LITERAL = 42;
 
 	/**
 	 * The feature id for the '<em><b>Pragmas</b></em>' containment reference list.
@@ -2172,7 +2209,7 @@ public interface BehaviorPackage extends EPackage {
 	 * @see org.xtuml.bp.xtext.masl.masl.behavior.impl.BehaviorPackageImpl#getNullLiteral()
 	 * @generated
 	 */
-	int NULL_LITERAL = 42;
+	int NULL_LITERAL = 43;
 
 	/**
 	 * The feature id for the '<em><b>Pragmas</b></em>' containment reference list.
@@ -2209,7 +2246,7 @@ public interface BehaviorPackage extends EPackage {
 	 * @see org.xtuml.bp.xtext.masl.masl.behavior.impl.BehaviorPackageImpl#getFlushLiteral()
 	 * @generated
 	 */
-	int FLUSH_LITERAL = 43;
+	int FLUSH_LITERAL = 44;
 
 	/**
 	 * The feature id for the '<em><b>Pragmas</b></em>' containment reference list.
@@ -2246,7 +2283,7 @@ public interface BehaviorPackage extends EPackage {
 	 * @see org.xtuml.bp.xtext.masl.masl.behavior.impl.BehaviorPackageImpl#getThisLiteral()
 	 * @generated
 	 */
-	int THIS_LITERAL = 44;
+	int THIS_LITERAL = 45;
 
 	/**
 	 * The feature id for the '<em><b>Pragmas</b></em>' containment reference list.
@@ -2283,7 +2320,7 @@ public interface BehaviorPackage extends EPackage {
 	 * @see org.xtuml.bp.xtext.masl.masl.behavior.impl.BehaviorPackageImpl#getConsoleLiteral()
 	 * @generated
 	 */
-	int CONSOLE_LITERAL = 45;
+	int CONSOLE_LITERAL = 46;
 
 	/**
 	 * The feature id for the '<em><b>Pragmas</b></em>' containment reference list.
@@ -2320,7 +2357,7 @@ public interface BehaviorPackage extends EPackage {
 	 * @see org.xtuml.bp.xtext.masl.masl.behavior.impl.BehaviorPackageImpl#getEndlLiteral()
 	 * @generated
 	 */
-	int ENDL_LITERAL = 46;
+	int ENDL_LITERAL = 47;
 
 	/**
 	 * The feature id for the '<em><b>Pragmas</b></em>' containment reference list.
@@ -2357,7 +2394,7 @@ public interface BehaviorPackage extends EPackage {
 	 * @see org.xtuml.bp.xtext.masl.masl.behavior.impl.BehaviorPackageImpl#getLineNoLiteral()
 	 * @generated
 	 */
-	int LINE_NO_LITERAL = 47;
+	int LINE_NO_LITERAL = 48;
 
 	/**
 	 * The feature id for the '<em><b>Pragmas</b></em>' containment reference list.
@@ -2394,7 +2431,7 @@ public interface BehaviorPackage extends EPackage {
 	 * @see org.xtuml.bp.xtext.masl.masl.behavior.impl.BehaviorPackageImpl#getFileNameLiteral()
 	 * @generated
 	 */
-	int FILE_NAME_LITERAL = 48;
+	int FILE_NAME_LITERAL = 49;
 
 	/**
 	 * The feature id for the '<em><b>Pragmas</b></em>' containment reference list.
@@ -2431,7 +2468,7 @@ public interface BehaviorPackage extends EPackage {
 	 * @see org.xtuml.bp.xtext.masl.masl.behavior.impl.BehaviorPackageImpl#getAttributeReferential()
 	 * @generated
 	 */
-	int ATTRIBUTE_REFERENTIAL = 49;
+	int ATTRIBUTE_REFERENTIAL = 50;
 
 	/**
 	 * The feature id for the '<em><b>Relationship</b></em>' reference.
@@ -2495,7 +2532,7 @@ public interface BehaviorPackage extends EPackage {
 	 * @see org.xtuml.bp.xtext.masl.masl.behavior.impl.BehaviorPackageImpl#getAssignStatement()
 	 * @generated
 	 */
-	int ASSIGN_STATEMENT = 50;
+	int ASSIGN_STATEMENT = 51;
 
 	/**
 	 * The feature id for the '<em><b>Pragmas</b></em>' containment reference list.
@@ -2550,7 +2587,7 @@ public interface BehaviorPackage extends EPackage {
 	 * @see org.xtuml.bp.xtext.masl.masl.behavior.impl.BehaviorPackageImpl#getStreamExpression()
 	 * @generated
 	 */
-	int STREAM_EXPRESSION = 51;
+	int STREAM_EXPRESSION = 52;
 
 	/**
 	 * The feature id for the '<em><b>Pragmas</b></em>' containment reference list.
@@ -2614,7 +2651,7 @@ public interface BehaviorPackage extends EPackage {
 	 * @see org.xtuml.bp.xtext.masl.masl.behavior.impl.BehaviorPackageImpl#getRangeExpression()
 	 * @generated
 	 */
-	int RANGE_EXPRESSION = 52;
+	int RANGE_EXPRESSION = 53;
 
 	/**
 	 * The feature id for the '<em><b>Pragmas</b></em>' containment reference list.
@@ -2678,7 +2715,7 @@ public interface BehaviorPackage extends EPackage {
 	 * @see org.xtuml.bp.xtext.masl.masl.behavior.impl.BehaviorPackageImpl#getLogicalOr()
 	 * @generated
 	 */
-	int LOGICAL_OR = 53;
+	int LOGICAL_OR = 54;
 
 	/**
 	 * The feature id for the '<em><b>Pragmas</b></em>' containment reference list.
@@ -2742,7 +2779,7 @@ public interface BehaviorPackage extends EPackage {
 	 * @see org.xtuml.bp.xtext.masl.masl.behavior.impl.BehaviorPackageImpl#getLogicalXor()
 	 * @generated
 	 */
-	int LOGICAL_XOR = 54;
+	int LOGICAL_XOR = 55;
 
 	/**
 	 * The feature id for the '<em><b>Pragmas</b></em>' containment reference list.
@@ -2806,7 +2843,7 @@ public interface BehaviorPackage extends EPackage {
 	 * @see org.xtuml.bp.xtext.masl.masl.behavior.impl.BehaviorPackageImpl#getLogicalAnd()
 	 * @generated
 	 */
-	int LOGICAL_AND = 55;
+	int LOGICAL_AND = 56;
 
 	/**
 	 * The feature id for the '<em><b>Pragmas</b></em>' containment reference list.
@@ -2870,7 +2907,7 @@ public interface BehaviorPackage extends EPackage {
 	 * @see org.xtuml.bp.xtext.masl.masl.behavior.impl.BehaviorPackageImpl#getEquality()
 	 * @generated
 	 */
-	int EQUALITY = 56;
+	int EQUALITY = 57;
 
 	/**
 	 * The feature id for the '<em><b>Pragmas</b></em>' containment reference list.
@@ -2934,7 +2971,7 @@ public interface BehaviorPackage extends EPackage {
 	 * @see org.xtuml.bp.xtext.masl.masl.behavior.impl.BehaviorPackageImpl#getRelationalExp()
 	 * @generated
 	 */
-	int RELATIONAL_EXP = 57;
+	int RELATIONAL_EXP = 58;
 
 	/**
 	 * The feature id for the '<em><b>Pragmas</b></em>' containment reference list.
@@ -2998,7 +3035,7 @@ public interface BehaviorPackage extends EPackage {
 	 * @see org.xtuml.bp.xtext.masl.masl.behavior.impl.BehaviorPackageImpl#getAdditiveExp()
 	 * @generated
 	 */
-	int ADDITIVE_EXP = 58;
+	int ADDITIVE_EXP = 59;
 
 	/**
 	 * The feature id for the '<em><b>Pragmas</b></em>' containment reference list.
@@ -3062,7 +3099,7 @@ public interface BehaviorPackage extends EPackage {
 	 * @see org.xtuml.bp.xtext.masl.masl.behavior.impl.BehaviorPackageImpl#getMultExp()
 	 * @generated
 	 */
-	int MULT_EXP = 59;
+	int MULT_EXP = 60;
 
 	/**
 	 * The feature id for the '<em><b>Pragmas</b></em>' containment reference list.
@@ -3126,7 +3163,7 @@ public interface BehaviorPackage extends EPackage {
 	 * @see org.xtuml.bp.xtext.masl.masl.behavior.impl.BehaviorPackageImpl#getUnaryExp()
 	 * @generated
 	 */
-	int UNARY_EXP = 60;
+	int UNARY_EXP = 61;
 
 	/**
 	 * The feature id for the '<em><b>Pragmas</b></em>' containment reference list.
@@ -3181,7 +3218,7 @@ public interface BehaviorPackage extends EPackage {
 	 * @see org.xtuml.bp.xtext.masl.masl.behavior.impl.BehaviorPackageImpl#getLinkExpression()
 	 * @generated
 	 */
-	int LINK_EXPRESSION = 61;
+	int LINK_EXPRESSION = 62;
 
 	/**
 	 * The feature id for the '<em><b>Pragmas</b></em>' containment reference list.
@@ -3263,7 +3300,7 @@ public interface BehaviorPackage extends EPackage {
 	 * @see org.xtuml.bp.xtext.masl.masl.behavior.impl.BehaviorPackageImpl#getNavigateExpression()
 	 * @generated
 	 */
-	int NAVIGATE_EXPRESSION = 62;
+	int NAVIGATE_EXPRESSION = 63;
 
 	/**
 	 * The feature id for the '<em><b>Pragmas</b></em>' containment reference list.
@@ -3347,14 +3384,14 @@ public interface BehaviorPackage extends EPackage {
 	int NAVIGATE_EXPRESSION_OPERATION_COUNT = EXPRESSION_OPERATION_COUNT + 0;
 
 	/**
-	 * The meta object id for the '{@link org.xtuml.bp.xtext.masl.masl.behavior.impl.OperationCallImpl <em>Operation Call</em>}' class.
+	 * The meta object id for the '{@link org.xtuml.bp.xtext.masl.masl.behavior.impl.ActionCallImpl <em>Action Call</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see org.xtuml.bp.xtext.masl.masl.behavior.impl.OperationCallImpl
-	 * @see org.xtuml.bp.xtext.masl.masl.behavior.impl.BehaviorPackageImpl#getOperationCall()
+	 * @see org.xtuml.bp.xtext.masl.masl.behavior.impl.ActionCallImpl
+	 * @see org.xtuml.bp.xtext.masl.masl.behavior.impl.BehaviorPackageImpl#getActionCall()
 	 * @generated
 	 */
-	int OPERATION_CALL = 63;
+	int ACTION_CALL = 64;
 
 	/**
 	 * The feature id for the '<em><b>Pragmas</b></em>' containment reference list.
@@ -3363,7 +3400,7 @@ public interface BehaviorPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int OPERATION_CALL__PRAGMAS = EXPRESSION__PRAGMAS;
+	int ACTION_CALL__PRAGMAS = EXPRESSION__PRAGMAS;
 
 	/**
 	 * The feature id for the '<em><b>Receiver</b></em>' containment reference.
@@ -3372,7 +3409,7 @@ public interface BehaviorPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int OPERATION_CALL__RECEIVER = EXPRESSION_FEATURE_COUNT + 0;
+	int ACTION_CALL__RECEIVER = EXPRESSION_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Arguments</b></em>' containment reference list.
@@ -3381,35 +3418,35 @@ public interface BehaviorPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int OPERATION_CALL__ARGUMENTS = EXPRESSION_FEATURE_COUNT + 1;
+	int ACTION_CALL__ARGUMENTS = EXPRESSION_FEATURE_COUNT + 1;
 
 	/**
-	 * The number of structural features of the '<em>Operation Call</em>' class.
+	 * The number of structural features of the '<em>Action Call</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int OPERATION_CALL_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 2;
+	int ACTION_CALL_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 2;
 
 	/**
-	 * The number of operations of the '<em>Operation Call</em>' class.
+	 * The number of operations of the '<em>Action Call</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int OPERATION_CALL_OPERATION_COUNT = EXPRESSION_OPERATION_COUNT + 0;
+	int ACTION_CALL_OPERATION_COUNT = EXPRESSION_OPERATION_COUNT + 0;
 
 	/**
-	 * The meta object id for the '{@link org.xtuml.bp.xtext.masl.masl.behavior.impl.TerminatorOperationCallImpl <em>Terminator Operation Call</em>}' class.
+	 * The meta object id for the '{@link org.xtuml.bp.xtext.masl.masl.behavior.impl.TerminatorActionCallImpl <em>Terminator Action Call</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see org.xtuml.bp.xtext.masl.masl.behavior.impl.TerminatorOperationCallImpl
-	 * @see org.xtuml.bp.xtext.masl.masl.behavior.impl.BehaviorPackageImpl#getTerminatorOperationCall()
+	 * @see org.xtuml.bp.xtext.masl.masl.behavior.impl.TerminatorActionCallImpl
+	 * @see org.xtuml.bp.xtext.masl.masl.behavior.impl.BehaviorPackageImpl#getTerminatorActionCall()
 	 * @generated
 	 */
-	int TERMINATOR_OPERATION_CALL = 64;
+	int TERMINATOR_ACTION_CALL = 65;
 
 	/**
 	 * The feature id for the '<em><b>Pragmas</b></em>' containment reference list.
@@ -3418,7 +3455,7 @@ public interface BehaviorPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TERMINATOR_OPERATION_CALL__PRAGMAS = EXPRESSION__PRAGMAS;
+	int TERMINATOR_ACTION_CALL__PRAGMAS = EXPRESSION__PRAGMAS;
 
 	/**
 	 * The feature id for the '<em><b>Receiver</b></em>' containment reference.
@@ -3427,16 +3464,16 @@ public interface BehaviorPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TERMINATOR_OPERATION_CALL__RECEIVER = EXPRESSION_FEATURE_COUNT + 0;
+	int TERMINATOR_ACTION_CALL__RECEIVER = EXPRESSION_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Terminator Operation</b></em>' reference.
+	 * The feature id for the '<em><b>Terminator Action</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int TERMINATOR_OPERATION_CALL__TERMINATOR_OPERATION = EXPRESSION_FEATURE_COUNT + 1;
+	int TERMINATOR_ACTION_CALL__TERMINATOR_ACTION = EXPRESSION_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Arguments</b></em>' containment reference list.
@@ -3445,25 +3482,25 @@ public interface BehaviorPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TERMINATOR_OPERATION_CALL__ARGUMENTS = EXPRESSION_FEATURE_COUNT + 2;
+	int TERMINATOR_ACTION_CALL__ARGUMENTS = EXPRESSION_FEATURE_COUNT + 2;
 
 	/**
-	 * The number of structural features of the '<em>Terminator Operation Call</em>' class.
+	 * The number of structural features of the '<em>Terminator Action Call</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int TERMINATOR_OPERATION_CALL_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 3;
+	int TERMINATOR_ACTION_CALL_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 3;
 
 	/**
-	 * The number of operations of the '<em>Terminator Operation Call</em>' class.
+	 * The number of operations of the '<em>Terminator Action Call</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int TERMINATOR_OPERATION_CALL_OPERATION_COUNT = EXPRESSION_OPERATION_COUNT + 0;
+	int TERMINATOR_ACTION_CALL_OPERATION_COUNT = EXPRESSION_OPERATION_COUNT + 0;
 
 	/**
 	 * The meta object id for the '{@link org.xtuml.bp.xtext.masl.masl.behavior.impl.IndexedExpressionImpl <em>Indexed Expression</em>}' class.
@@ -3473,7 +3510,7 @@ public interface BehaviorPackage extends EPackage {
 	 * @see org.xtuml.bp.xtext.masl.masl.behavior.impl.BehaviorPackageImpl#getIndexedExpression()
 	 * @generated
 	 */
-	int INDEXED_EXPRESSION = 65;
+	int INDEXED_EXPRESSION = 66;
 
 	/**
 	 * The feature id for the '<em><b>Pragmas</b></em>' containment reference list.
@@ -3528,7 +3565,7 @@ public interface BehaviorPackage extends EPackage {
 	 * @see org.xtuml.bp.xtext.masl.masl.behavior.impl.BehaviorPackageImpl#getCharacteristicCall()
 	 * @generated
 	 */
-	int CHARACTERISTIC_CALL = 66;
+	int CHARACTERISTIC_CALL = 67;
 
 	/**
 	 * The feature id for the '<em><b>Pragmas</b></em>' containment reference list.
@@ -3592,7 +3629,7 @@ public interface BehaviorPackage extends EPackage {
 	 * @see org.xtuml.bp.xtext.masl.masl.behavior.impl.BehaviorPackageImpl#getStructureAggregateExpression()
 	 * @generated
 	 */
-	int STRUCTURE_AGGREGATE_EXPRESSION = 67;
+	int STRUCTURE_AGGREGATE_EXPRESSION = 68;
 
 	/**
 	 * The feature id for the '<em><b>Pragmas</b></em>' containment reference list.
@@ -3638,7 +3675,7 @@ public interface BehaviorPackage extends EPackage {
 	 * @see org.xtuml.bp.xtext.masl.masl.behavior.impl.BehaviorPackageImpl#getLinkType()
 	 * @generated
 	 */
-	int LINK_TYPE = 68;
+	int LINK_TYPE = 69;
 
 	/**
 	 * The meta object id for the '{@link org.xtuml.bp.xtext.masl.masl.behavior.ScheduleType <em>Schedule Type</em>}' enum.
@@ -3648,7 +3685,7 @@ public interface BehaviorPackage extends EPackage {
 	 * @see org.xtuml.bp.xtext.masl.masl.behavior.impl.BehaviorPackageImpl#getScheduleType()
 	 * @generated
 	 */
-	int SCHEDULE_TYPE = 69;
+	int SCHEDULE_TYPE = 70;
 
 	/**
 	 * The meta object id for the '{@link org.xtuml.bp.xtext.masl.masl.behavior.FindType <em>Find Type</em>}' enum.
@@ -3658,8 +3695,29 @@ public interface BehaviorPackage extends EPackage {
 	 * @see org.xtuml.bp.xtext.masl.masl.behavior.impl.BehaviorPackageImpl#getFindType()
 	 * @generated
 	 */
-	int FIND_TYPE = 70;
+	int FIND_TYPE = 71;
 
+
+	/**
+	 * Returns the meta object for class '{@link org.xtuml.bp.xtext.masl.masl.behavior.StatementList <em>Statement List</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Statement List</em>'.
+	 * @see org.xtuml.bp.xtext.masl.masl.behavior.StatementList
+	 * @generated
+	 */
+	EClass getStatementList();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.xtuml.bp.xtext.masl.masl.behavior.StatementList#getStatements <em>Statements</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Statements</em>'.
+	 * @see org.xtuml.bp.xtext.masl.masl.behavior.StatementList#getStatements()
+	 * @see #getStatementList()
+	 * @generated
+	 */
+	EReference getStatementList_Statements();
 
 	/**
 	 * Returns the meta object for class '{@link org.xtuml.bp.xtext.masl.masl.behavior.CodeBlock <em>Code Block</em>}'.
@@ -3681,17 +3739,6 @@ public interface BehaviorPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getCodeBlock_Variables();
-
-	/**
-	 * Returns the meta object for the containment reference list '{@link org.xtuml.bp.xtext.masl.masl.behavior.CodeBlock#getStatements <em>Statements</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Statements</em>'.
-	 * @see org.xtuml.bp.xtext.masl.masl.behavior.CodeBlock#getStatements()
-	 * @see #getCodeBlock()
-	 * @generated
-	 */
-	EReference getCodeBlock_Statements();
 
 	/**
 	 * Returns the meta object for the containment reference list '{@link org.xtuml.bp.xtext.masl.masl.behavior.CodeBlock#getExceptionHandler <em>Exception Handler</em>}'.
@@ -3780,17 +3827,6 @@ public interface BehaviorPackage extends EPackage {
 	EReference getExceptionHandler_Exception();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.xtuml.bp.xtext.masl.masl.behavior.ExceptionHandler#getStatements <em>Statements</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Statements</em>'.
-	 * @see org.xtuml.bp.xtext.masl.masl.behavior.ExceptionHandler#getStatements()
-	 * @see #getExceptionHandler()
-	 * @generated
-	 */
-	EReference getExceptionHandler_Statements();
-
-	/**
 	 * Returns the meta object for class '{@link org.xtuml.bp.xtext.masl.masl.behavior.DefaultExceptionHandler <em>Default Exception Handler</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3799,17 +3835,6 @@ public interface BehaviorPackage extends EPackage {
 	 * @generated
 	 */
 	EClass getDefaultExceptionHandler();
-
-	/**
-	 * Returns the meta object for the containment reference list '{@link org.xtuml.bp.xtext.masl.masl.behavior.DefaultExceptionHandler#getStatements <em>Statements</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Statements</em>'.
-	 * @see org.xtuml.bp.xtext.masl.masl.behavior.DefaultExceptionHandler#getStatements()
-	 * @see #getDefaultExceptionHandler()
-	 * @generated
-	 */
-	EReference getDefaultExceptionHandler_Statements();
 
 	/**
 	 * Returns the meta object for class '{@link org.xtuml.bp.xtext.masl.masl.behavior.AbstractStatement <em>Abstract Statement</em>}'.
@@ -4130,17 +4155,6 @@ public interface BehaviorPackage extends EPackage {
 	EReference getIfStatement_Condition();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.xtuml.bp.xtext.masl.masl.behavior.IfStatement#getStatements <em>Statements</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Statements</em>'.
-	 * @see org.xtuml.bp.xtext.masl.masl.behavior.IfStatement#getStatements()
-	 * @see #getIfStatement()
-	 * @generated
-	 */
-	EReference getIfStatement_Statements();
-
-	/**
 	 * Returns the meta object for the containment reference list '{@link org.xtuml.bp.xtext.masl.masl.behavior.IfStatement#getElseIfs <em>Else Ifs</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -4184,17 +4198,6 @@ public interface BehaviorPackage extends EPackage {
 	EReference getElsifBlock_Condition();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.xtuml.bp.xtext.masl.masl.behavior.ElsifBlock#getStatements <em>Statements</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Statements</em>'.
-	 * @see org.xtuml.bp.xtext.masl.masl.behavior.ElsifBlock#getStatements()
-	 * @see #getElsifBlock()
-	 * @generated
-	 */
-	EReference getElsifBlock_Statements();
-
-	/**
 	 * Returns the meta object for class '{@link org.xtuml.bp.xtext.masl.masl.behavior.ElseBlock <em>Else Block</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -4203,17 +4206,6 @@ public interface BehaviorPackage extends EPackage {
 	 * @generated
 	 */
 	EClass getElseBlock();
-
-	/**
-	 * Returns the meta object for the containment reference list '{@link org.xtuml.bp.xtext.masl.masl.behavior.ElseBlock#getStatements <em>Statements</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Statements</em>'.
-	 * @see org.xtuml.bp.xtext.masl.masl.behavior.ElseBlock#getStatements()
-	 * @see #getElseBlock()
-	 * @generated
-	 */
-	EReference getElseBlock_Statements();
 
 	/**
 	 * Returns the meta object for class '{@link org.xtuml.bp.xtext.masl.masl.behavior.WhileStatement <em>While Statement</em>}'.
@@ -4235,17 +4227,6 @@ public interface BehaviorPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getWhileStatement_Condition();
-
-	/**
-	 * Returns the meta object for the containment reference list '{@link org.xtuml.bp.xtext.masl.masl.behavior.WhileStatement#getStatements <em>Statements</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Statements</em>'.
-	 * @see org.xtuml.bp.xtext.masl.masl.behavior.WhileStatement#getStatements()
-	 * @see #getWhileStatement()
-	 * @generated
-	 */
-	EReference getWhileStatement_Statements();
 
 	/**
 	 * Returns the meta object for class '{@link org.xtuml.bp.xtext.masl.masl.behavior.CaseStatement <em>Case Statement</em>}'.
@@ -4312,17 +4293,6 @@ public interface BehaviorPackage extends EPackage {
 	EReference getCaseAlternative_Choices();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.xtuml.bp.xtext.masl.masl.behavior.CaseAlternative#getStatements <em>Statements</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Statements</em>'.
-	 * @see org.xtuml.bp.xtext.masl.masl.behavior.CaseAlternative#getStatements()
-	 * @see #getCaseAlternative()
-	 * @generated
-	 */
-	EReference getCaseAlternative_Statements();
-
-	/**
 	 * Returns the meta object for class '{@link org.xtuml.bp.xtext.masl.masl.behavior.CaseOthers <em>Case Others</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -4331,17 +4301,6 @@ public interface BehaviorPackage extends EPackage {
 	 * @generated
 	 */
 	EClass getCaseOthers();
-
-	/**
-	 * Returns the meta object for the containment reference list '{@link org.xtuml.bp.xtext.masl.masl.behavior.CaseOthers#getStatements <em>Statements</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Statements</em>'.
-	 * @see org.xtuml.bp.xtext.masl.masl.behavior.CaseOthers#getStatements()
-	 * @see #getCaseOthers()
-	 * @generated
-	 */
-	EReference getCaseOthers_Statements();
 
 	/**
 	 * Returns the meta object for class '{@link org.xtuml.bp.xtext.masl.masl.behavior.ForStatement <em>For Statement</em>}'.
@@ -4385,17 +4344,6 @@ public interface BehaviorPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getForStatement_Expression();
-
-	/**
-	 * Returns the meta object for the containment reference list '{@link org.xtuml.bp.xtext.masl.masl.behavior.ForStatement#getStatements <em>Statements</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Statements</em>'.
-	 * @see org.xtuml.bp.xtext.masl.masl.behavior.ForStatement#getStatements()
-	 * @see #getForStatement()
-	 * @generated
-	 */
-	EReference getForStatement_Statements();
 
 	/**
 	 * Returns the meta object for class '{@link org.xtuml.bp.xtext.masl.masl.behavior.LoopVariable <em>Loop Variable</em>}'.
@@ -5502,79 +5450,79 @@ public interface BehaviorPackage extends EPackage {
 	EReference getNavigateExpression_ReverseOrder();
 
 	/**
-	 * Returns the meta object for class '{@link org.xtuml.bp.xtext.masl.masl.behavior.OperationCall <em>Operation Call</em>}'.
+	 * Returns the meta object for class '{@link org.xtuml.bp.xtext.masl.masl.behavior.ActionCall <em>Action Call</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Operation Call</em>'.
-	 * @see org.xtuml.bp.xtext.masl.masl.behavior.OperationCall
+	 * @return the meta object for class '<em>Action Call</em>'.
+	 * @see org.xtuml.bp.xtext.masl.masl.behavior.ActionCall
 	 * @generated
 	 */
-	EClass getOperationCall();
+	EClass getActionCall();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link org.xtuml.bp.xtext.masl.masl.behavior.OperationCall#getReceiver <em>Receiver</em>}'.
+	 * Returns the meta object for the containment reference '{@link org.xtuml.bp.xtext.masl.masl.behavior.ActionCall#getReceiver <em>Receiver</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the containment reference '<em>Receiver</em>'.
-	 * @see org.xtuml.bp.xtext.masl.masl.behavior.OperationCall#getReceiver()
-	 * @see #getOperationCall()
+	 * @see org.xtuml.bp.xtext.masl.masl.behavior.ActionCall#getReceiver()
+	 * @see #getActionCall()
 	 * @generated
 	 */
-	EReference getOperationCall_Receiver();
+	EReference getActionCall_Receiver();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.xtuml.bp.xtext.masl.masl.behavior.OperationCall#getArguments <em>Arguments</em>}'.
+	 * Returns the meta object for the containment reference list '{@link org.xtuml.bp.xtext.masl.masl.behavior.ActionCall#getArguments <em>Arguments</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the containment reference list '<em>Arguments</em>'.
-	 * @see org.xtuml.bp.xtext.masl.masl.behavior.OperationCall#getArguments()
-	 * @see #getOperationCall()
+	 * @see org.xtuml.bp.xtext.masl.masl.behavior.ActionCall#getArguments()
+	 * @see #getActionCall()
 	 * @generated
 	 */
-	EReference getOperationCall_Arguments();
+	EReference getActionCall_Arguments();
 
 	/**
-	 * Returns the meta object for class '{@link org.xtuml.bp.xtext.masl.masl.behavior.TerminatorOperationCall <em>Terminator Operation Call</em>}'.
+	 * Returns the meta object for class '{@link org.xtuml.bp.xtext.masl.masl.behavior.TerminatorActionCall <em>Terminator Action Call</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Terminator Operation Call</em>'.
-	 * @see org.xtuml.bp.xtext.masl.masl.behavior.TerminatorOperationCall
+	 * @return the meta object for class '<em>Terminator Action Call</em>'.
+	 * @see org.xtuml.bp.xtext.masl.masl.behavior.TerminatorActionCall
 	 * @generated
 	 */
-	EClass getTerminatorOperationCall();
+	EClass getTerminatorActionCall();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link org.xtuml.bp.xtext.masl.masl.behavior.TerminatorOperationCall#getReceiver <em>Receiver</em>}'.
+	 * Returns the meta object for the containment reference '{@link org.xtuml.bp.xtext.masl.masl.behavior.TerminatorActionCall#getReceiver <em>Receiver</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the containment reference '<em>Receiver</em>'.
-	 * @see org.xtuml.bp.xtext.masl.masl.behavior.TerminatorOperationCall#getReceiver()
-	 * @see #getTerminatorOperationCall()
+	 * @see org.xtuml.bp.xtext.masl.masl.behavior.TerminatorActionCall#getReceiver()
+	 * @see #getTerminatorActionCall()
 	 * @generated
 	 */
-	EReference getTerminatorOperationCall_Receiver();
+	EReference getTerminatorActionCall_Receiver();
 
 	/**
-	 * Returns the meta object for the reference '{@link org.xtuml.bp.xtext.masl.masl.behavior.TerminatorOperationCall#getTerminatorOperation <em>Terminator Operation</em>}'.
+	 * Returns the meta object for the reference '{@link org.xtuml.bp.xtext.masl.masl.behavior.TerminatorActionCall#getTerminatorAction <em>Terminator Action</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Terminator Operation</em>'.
-	 * @see org.xtuml.bp.xtext.masl.masl.behavior.TerminatorOperationCall#getTerminatorOperation()
-	 * @see #getTerminatorOperationCall()
+	 * @return the meta object for the reference '<em>Terminator Action</em>'.
+	 * @see org.xtuml.bp.xtext.masl.masl.behavior.TerminatorActionCall#getTerminatorAction()
+	 * @see #getTerminatorActionCall()
 	 * @generated
 	 */
-	EReference getTerminatorOperationCall_TerminatorOperation();
+	EReference getTerminatorActionCall_TerminatorAction();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.xtuml.bp.xtext.masl.masl.behavior.TerminatorOperationCall#getArguments <em>Arguments</em>}'.
+	 * Returns the meta object for the containment reference list '{@link org.xtuml.bp.xtext.masl.masl.behavior.TerminatorActionCall#getArguments <em>Arguments</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the containment reference list '<em>Arguments</em>'.
-	 * @see org.xtuml.bp.xtext.masl.masl.behavior.TerminatorOperationCall#getArguments()
-	 * @see #getTerminatorOperationCall()
+	 * @see org.xtuml.bp.xtext.masl.masl.behavior.TerminatorActionCall#getArguments()
+	 * @see #getTerminatorActionCall()
 	 * @generated
 	 */
-	EReference getTerminatorOperationCall_Arguments();
+	EReference getTerminatorActionCall_Arguments();
 
 	/**
 	 * Returns the meta object for class '{@link org.xtuml.bp.xtext.masl.masl.behavior.IndexedExpression <em>Indexed Expression</em>}'.
@@ -5726,6 +5674,24 @@ public interface BehaviorPackage extends EPackage {
 	 */
 	interface Literals {
 		/**
+		 * The meta object literal for the '{@link org.xtuml.bp.xtext.masl.masl.behavior.impl.StatementListImpl <em>Statement List</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.xtuml.bp.xtext.masl.masl.behavior.impl.StatementListImpl
+		 * @see org.xtuml.bp.xtext.masl.masl.behavior.impl.BehaviorPackageImpl#getStatementList()
+		 * @generated
+		 */
+		EClass STATEMENT_LIST = eINSTANCE.getStatementList();
+
+		/**
+		 * The meta object literal for the '<em><b>Statements</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference STATEMENT_LIST__STATEMENTS = eINSTANCE.getStatementList_Statements();
+
+		/**
 		 * The meta object literal for the '{@link org.xtuml.bp.xtext.masl.masl.behavior.impl.CodeBlockImpl <em>Code Block</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -5742,14 +5708,6 @@ public interface BehaviorPackage extends EPackage {
 		 * @generated
 		 */
 		EReference CODE_BLOCK__VARIABLES = eINSTANCE.getCodeBlock_Variables();
-
-		/**
-		 * The meta object literal for the '<em><b>Statements</b></em>' containment reference list feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference CODE_BLOCK__STATEMENTS = eINSTANCE.getCodeBlock_Statements();
 
 		/**
 		 * The meta object literal for the '<em><b>Exception Handler</b></em>' containment reference list feature.
@@ -5820,14 +5778,6 @@ public interface BehaviorPackage extends EPackage {
 		EReference EXCEPTION_HANDLER__EXCEPTION = eINSTANCE.getExceptionHandler_Exception();
 
 		/**
-		 * The meta object literal for the '<em><b>Statements</b></em>' containment reference list feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference EXCEPTION_HANDLER__STATEMENTS = eINSTANCE.getExceptionHandler_Statements();
-
-		/**
 		 * The meta object literal for the '{@link org.xtuml.bp.xtext.masl.masl.behavior.impl.DefaultExceptionHandlerImpl <em>Default Exception Handler</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -5836,14 +5786,6 @@ public interface BehaviorPackage extends EPackage {
 		 * @generated
 		 */
 		EClass DEFAULT_EXCEPTION_HANDLER = eINSTANCE.getDefaultExceptionHandler();
-
-		/**
-		 * The meta object literal for the '<em><b>Statements</b></em>' containment reference list feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference DEFAULT_EXCEPTION_HANDLER__STATEMENTS = eINSTANCE.getDefaultExceptionHandler_Statements();
 
 		/**
 		 * The meta object literal for the '{@link org.xtuml.bp.xtext.masl.masl.behavior.impl.AbstractStatementImpl <em>Abstract Statement</em>}' class.
@@ -6110,14 +6052,6 @@ public interface BehaviorPackage extends EPackage {
 		EReference IF_STATEMENT__CONDITION = eINSTANCE.getIfStatement_Condition();
 
 		/**
-		 * The meta object literal for the '<em><b>Statements</b></em>' containment reference list feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference IF_STATEMENT__STATEMENTS = eINSTANCE.getIfStatement_Statements();
-
-		/**
 		 * The meta object literal for the '<em><b>Else Ifs</b></em>' containment reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -6152,14 +6086,6 @@ public interface BehaviorPackage extends EPackage {
 		EReference ELSIF_BLOCK__CONDITION = eINSTANCE.getElsifBlock_Condition();
 
 		/**
-		 * The meta object literal for the '<em><b>Statements</b></em>' containment reference list feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference ELSIF_BLOCK__STATEMENTS = eINSTANCE.getElsifBlock_Statements();
-
-		/**
 		 * The meta object literal for the '{@link org.xtuml.bp.xtext.masl.masl.behavior.impl.ElseBlockImpl <em>Else Block</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -6168,14 +6094,6 @@ public interface BehaviorPackage extends EPackage {
 		 * @generated
 		 */
 		EClass ELSE_BLOCK = eINSTANCE.getElseBlock();
-
-		/**
-		 * The meta object literal for the '<em><b>Statements</b></em>' containment reference list feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference ELSE_BLOCK__STATEMENTS = eINSTANCE.getElseBlock_Statements();
 
 		/**
 		 * The meta object literal for the '{@link org.xtuml.bp.xtext.masl.masl.behavior.impl.WhileStatementImpl <em>While Statement</em>}' class.
@@ -6194,14 +6112,6 @@ public interface BehaviorPackage extends EPackage {
 		 * @generated
 		 */
 		EReference WHILE_STATEMENT__CONDITION = eINSTANCE.getWhileStatement_Condition();
-
-		/**
-		 * The meta object literal for the '<em><b>Statements</b></em>' containment reference list feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference WHILE_STATEMENT__STATEMENTS = eINSTANCE.getWhileStatement_Statements();
 
 		/**
 		 * The meta object literal for the '{@link org.xtuml.bp.xtext.masl.masl.behavior.impl.CaseStatementImpl <em>Case Statement</em>}' class.
@@ -6256,14 +6166,6 @@ public interface BehaviorPackage extends EPackage {
 		EReference CASE_ALTERNATIVE__CHOICES = eINSTANCE.getCaseAlternative_Choices();
 
 		/**
-		 * The meta object literal for the '<em><b>Statements</b></em>' containment reference list feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference CASE_ALTERNATIVE__STATEMENTS = eINSTANCE.getCaseAlternative_Statements();
-
-		/**
 		 * The meta object literal for the '{@link org.xtuml.bp.xtext.masl.masl.behavior.impl.CaseOthersImpl <em>Case Others</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -6272,14 +6174,6 @@ public interface BehaviorPackage extends EPackage {
 		 * @generated
 		 */
 		EClass CASE_OTHERS = eINSTANCE.getCaseOthers();
-
-		/**
-		 * The meta object literal for the '<em><b>Statements</b></em>' containment reference list feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference CASE_OTHERS__STATEMENTS = eINSTANCE.getCaseOthers_Statements();
 
 		/**
 		 * The meta object literal for the '{@link org.xtuml.bp.xtext.masl.masl.behavior.impl.ForStatementImpl <em>For Statement</em>}' class.
@@ -6314,14 +6208,6 @@ public interface BehaviorPackage extends EPackage {
 		 * @generated
 		 */
 		EReference FOR_STATEMENT__EXPRESSION = eINSTANCE.getForStatement_Expression();
-
-		/**
-		 * The meta object literal for the '<em><b>Statements</b></em>' containment reference list feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference FOR_STATEMENT__STATEMENTS = eINSTANCE.getForStatement_Statements();
 
 		/**
 		 * The meta object literal for the '{@link org.xtuml.bp.xtext.masl.masl.behavior.impl.LoopVariableImpl <em>Loop Variable</em>}' class.
@@ -7236,14 +7122,14 @@ public interface BehaviorPackage extends EPackage {
 		EReference NAVIGATE_EXPRESSION__REVERSE_ORDER = eINSTANCE.getNavigateExpression_ReverseOrder();
 
 		/**
-		 * The meta object literal for the '{@link org.xtuml.bp.xtext.masl.masl.behavior.impl.OperationCallImpl <em>Operation Call</em>}' class.
+		 * The meta object literal for the '{@link org.xtuml.bp.xtext.masl.masl.behavior.impl.ActionCallImpl <em>Action Call</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see org.xtuml.bp.xtext.masl.masl.behavior.impl.OperationCallImpl
-		 * @see org.xtuml.bp.xtext.masl.masl.behavior.impl.BehaviorPackageImpl#getOperationCall()
+		 * @see org.xtuml.bp.xtext.masl.masl.behavior.impl.ActionCallImpl
+		 * @see org.xtuml.bp.xtext.masl.masl.behavior.impl.BehaviorPackageImpl#getActionCall()
 		 * @generated
 		 */
-		EClass OPERATION_CALL = eINSTANCE.getOperationCall();
+		EClass ACTION_CALL = eINSTANCE.getActionCall();
 
 		/**
 		 * The meta object literal for the '<em><b>Receiver</b></em>' containment reference feature.
@@ -7251,7 +7137,7 @@ public interface BehaviorPackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference OPERATION_CALL__RECEIVER = eINSTANCE.getOperationCall_Receiver();
+		EReference ACTION_CALL__RECEIVER = eINSTANCE.getActionCall_Receiver();
 
 		/**
 		 * The meta object literal for the '<em><b>Arguments</b></em>' containment reference list feature.
@@ -7259,17 +7145,17 @@ public interface BehaviorPackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference OPERATION_CALL__ARGUMENTS = eINSTANCE.getOperationCall_Arguments();
+		EReference ACTION_CALL__ARGUMENTS = eINSTANCE.getActionCall_Arguments();
 
 		/**
-		 * The meta object literal for the '{@link org.xtuml.bp.xtext.masl.masl.behavior.impl.TerminatorOperationCallImpl <em>Terminator Operation Call</em>}' class.
+		 * The meta object literal for the '{@link org.xtuml.bp.xtext.masl.masl.behavior.impl.TerminatorActionCallImpl <em>Terminator Action Call</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see org.xtuml.bp.xtext.masl.masl.behavior.impl.TerminatorOperationCallImpl
-		 * @see org.xtuml.bp.xtext.masl.masl.behavior.impl.BehaviorPackageImpl#getTerminatorOperationCall()
+		 * @see org.xtuml.bp.xtext.masl.masl.behavior.impl.TerminatorActionCallImpl
+		 * @see org.xtuml.bp.xtext.masl.masl.behavior.impl.BehaviorPackageImpl#getTerminatorActionCall()
 		 * @generated
 		 */
-		EClass TERMINATOR_OPERATION_CALL = eINSTANCE.getTerminatorOperationCall();
+		EClass TERMINATOR_ACTION_CALL = eINSTANCE.getTerminatorActionCall();
 
 		/**
 		 * The meta object literal for the '<em><b>Receiver</b></em>' containment reference feature.
@@ -7277,15 +7163,15 @@ public interface BehaviorPackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference TERMINATOR_OPERATION_CALL__RECEIVER = eINSTANCE.getTerminatorOperationCall_Receiver();
+		EReference TERMINATOR_ACTION_CALL__RECEIVER = eINSTANCE.getTerminatorActionCall_Receiver();
 
 		/**
-		 * The meta object literal for the '<em><b>Terminator Operation</b></em>' reference feature.
+		 * The meta object literal for the '<em><b>Terminator Action</b></em>' reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference TERMINATOR_OPERATION_CALL__TERMINATOR_OPERATION = eINSTANCE.getTerminatorOperationCall_TerminatorOperation();
+		EReference TERMINATOR_ACTION_CALL__TERMINATOR_ACTION = eINSTANCE.getTerminatorActionCall_TerminatorAction();
 
 		/**
 		 * The meta object literal for the '<em><b>Arguments</b></em>' containment reference list feature.
@@ -7293,7 +7179,7 @@ public interface BehaviorPackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference TERMINATOR_OPERATION_CALL__ARGUMENTS = eINSTANCE.getTerminatorOperationCall_Arguments();
+		EReference TERMINATOR_ACTION_CALL__ARGUMENTS = eINSTANCE.getTerminatorActionCall_Arguments();
 
 		/**
 		 * The meta object literal for the '{@link org.xtuml.bp.xtext.masl.masl.behavior.impl.IndexedExpressionImpl <em>Indexed Expression</em>}' class.

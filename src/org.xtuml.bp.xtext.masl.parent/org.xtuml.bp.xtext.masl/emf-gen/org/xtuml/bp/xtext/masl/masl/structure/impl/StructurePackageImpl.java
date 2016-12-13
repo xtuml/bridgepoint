@@ -16,7 +16,10 @@ import org.xtuml.bp.xtext.masl.masl.behavior.BehaviorPackage;
 
 import org.xtuml.bp.xtext.masl.masl.behavior.impl.BehaviorPackageImpl;
 
+import org.xtuml.bp.xtext.masl.masl.structure.AbstractActionDeclaration;
+import org.xtuml.bp.xtext.masl.masl.structure.AbstractActionDefinition;
 import org.xtuml.bp.xtext.masl.masl.structure.AbstractFeature;
+import org.xtuml.bp.xtext.masl.masl.structure.AbstractFunction;
 import org.xtuml.bp.xtext.masl.masl.structure.AbstractNamed;
 import org.xtuml.bp.xtext.masl.masl.structure.AbstractTopLevelElement;
 import org.xtuml.bp.xtext.masl.masl.structure.AssocRelationshipDefinition;
@@ -71,6 +74,7 @@ import org.xtuml.bp.xtext.masl.masl.structure.TransitionRow;
 import org.xtuml.bp.xtext.masl.masl.structure.TransitionTable;
 import org.xtuml.bp.xtext.masl.masl.structure.TypeParameter;
 import org.xtuml.bp.xtext.masl.masl.structure.Visibility;
+import org.xtuml.bp.xtext.masl.masl.structure.Visualized;
 
 import org.xtuml.bp.xtext.masl.masl.types.TypesPackage;
 
@@ -117,6 +121,34 @@ public class StructurePackageImpl extends EPackageImpl implements StructurePacka
 	 * @generated
 	 */
 	private EClass parameterizedEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass visualizedEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass abstractActionDeclarationEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass abstractActionDefinitionEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass abstractFunctionEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -600,6 +632,78 @@ public class StructurePackageImpl extends EPackageImpl implements StructurePacka
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getVisualized() {
+		return visualizedEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getVisualized_Visibility() {
+		return (EAttribute)visualizedEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getAbstractActionDeclaration() {
+		return abstractActionDeclarationEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getAbstractActionDefinition() {
+		return abstractActionDefinitionEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getAbstractActionDefinition_Domain() {
+		return (EReference)abstractActionDefinitionEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getAbstractActionDefinition_Body() {
+		return (EReference)abstractActionDefinitionEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getAbstractFunction() {
+		return abstractFunctionEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getAbstractFunction_ReturnType() {
+		return (EReference)abstractFunctionEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getPragmatized() {
 		return pragmatizedEClass;
 	}
@@ -816,35 +920,8 @@ public class StructurePackageImpl extends EPackageImpl implements StructurePacka
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getDomainServiceDeclaration_Visibility() {
-		return (EAttribute)domainServiceDeclarationEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EClass getDomainFunctionDeclaration() {
 		return domainFunctionDeclarationEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getDomainFunctionDeclaration_Visibility() {
-		return (EAttribute)domainFunctionDeclarationEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getDomainFunctionDeclaration_ReturnType() {
-		return (EReference)domainFunctionDeclarationEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -861,33 +938,6 @@ public class StructurePackageImpl extends EPackageImpl implements StructurePacka
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getDomainServiceDefinition_Visibility() {
-		return (EAttribute)domainServiceDefinitionEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getDomainServiceDefinition_Domain() {
-		return (EReference)domainServiceDefinitionEClass.getEStructuralFeatures().get(1);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getDomainServiceDefinition_Body() {
-		return (EReference)domainServiceDefinitionEClass.getEStructuralFeatures().get(2);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EClass getDomainFunctionDefinition() {
 		return domainFunctionDefinitionEClass;
 	}
@@ -897,53 +947,8 @@ public class StructurePackageImpl extends EPackageImpl implements StructurePacka
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getDomainFunctionDefinition_Visibility() {
-		return (EAttribute)domainFunctionDefinitionEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getDomainFunctionDefinition_Domain() {
-		return (EReference)domainFunctionDefinitionEClass.getEStructuralFeatures().get(1);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getDomainFunctionDefinition_ReturnType() {
-		return (EReference)domainFunctionDefinitionEClass.getEStructuralFeatures().get(2);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getDomainFunctionDefinition_Body() {
-		return (EReference)domainFunctionDefinitionEClass.getEStructuralFeatures().get(3);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EClass getExceptionDeclaration() {
 		return exceptionDeclarationEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getExceptionDeclaration_Visibility() {
-		return (EAttribute)exceptionDeclarationEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -987,35 +992,8 @@ public class StructurePackageImpl extends EPackageImpl implements StructurePacka
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getTerminatorServiceDeclaration_Visibility() {
-		return (EAttribute)terminatorServiceDeclarationEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EClass getTerminatorFunctionDeclaration() {
 		return terminatorFunctionDeclarationEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getTerminatorFunctionDeclaration_Visibility() {
-		return (EAttribute)terminatorFunctionDeclarationEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getTerminatorFunctionDeclaration_ReturnType() {
-		return (EReference)terminatorFunctionDeclarationEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -1032,35 +1010,8 @@ public class StructurePackageImpl extends EPackageImpl implements StructurePacka
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getTerminatorServiceDefinition_Visibility() {
-		return (EAttribute)terminatorServiceDefinitionEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getTerminatorServiceDefinition_Domain() {
-		return (EReference)terminatorServiceDefinitionEClass.getEStructuralFeatures().get(1);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EReference getTerminatorServiceDefinition_Terminator() {
-		return (EReference)terminatorServiceDefinitionEClass.getEStructuralFeatures().get(2);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getTerminatorServiceDefinition_Body() {
-		return (EReference)terminatorServiceDefinitionEClass.getEStructuralFeatures().get(3);
+		return (EReference)terminatorServiceDefinitionEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -1077,44 +1028,8 @@ public class StructurePackageImpl extends EPackageImpl implements StructurePacka
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getTerminatorFunctionDefinition_Visibility() {
-		return (EAttribute)terminatorFunctionDefinitionEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getTerminatorFunctionDefinition_Domain() {
-		return (EReference)terminatorFunctionDefinitionEClass.getEStructuralFeatures().get(1);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EReference getTerminatorFunctionDefinition_Terminator() {
-		return (EReference)terminatorFunctionDefinitionEClass.getEStructuralFeatures().get(2);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getTerminatorFunctionDefinition_ReturnType() {
-		return (EReference)terminatorFunctionDefinitionEClass.getEStructuralFeatures().get(3);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getTerminatorFunctionDefinition_Body() {
-		return (EReference)terminatorFunctionDefinitionEClass.getEStructuralFeatures().get(4);
+		return (EReference)terminatorFunctionDefinitionEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -1392,7 +1307,7 @@ public class StructurePackageImpl extends EPackageImpl implements StructurePacka
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getObjectServiceDeclaration_Visibility() {
+	public EAttribute getObjectServiceDeclaration_Instance() {
 		return (EAttribute)objectServiceDeclarationEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -1401,17 +1316,8 @@ public class StructurePackageImpl extends EPackageImpl implements StructurePacka
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getObjectServiceDeclaration_Instance() {
-		return (EAttribute)objectServiceDeclarationEClass.getEStructuralFeatures().get(1);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EReference getObjectServiceDeclaration_Relationship() {
-		return (EReference)objectServiceDeclarationEClass.getEStructuralFeatures().get(2);
+		return (EReference)objectServiceDeclarationEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -1428,7 +1334,7 @@ public class StructurePackageImpl extends EPackageImpl implements StructurePacka
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getObjectFunctionDeclaration_Visibility() {
+	public EAttribute getObjectFunctionDeclaration_Instance() {
 		return (EAttribute)objectFunctionDeclarationEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -1437,26 +1343,8 @@ public class StructurePackageImpl extends EPackageImpl implements StructurePacka
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getObjectFunctionDeclaration_Instance() {
-		return (EAttribute)objectFunctionDeclarationEClass.getEStructuralFeatures().get(1);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EReference getObjectFunctionDeclaration_Relationship() {
-		return (EReference)objectFunctionDeclarationEClass.getEStructuralFeatures().get(2);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getObjectFunctionDeclaration_ReturnType() {
-		return (EReference)objectFunctionDeclarationEClass.getEStructuralFeatures().get(3);
+		return (EReference)objectFunctionDeclarationEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -1473,7 +1361,7 @@ public class StructurePackageImpl extends EPackageImpl implements StructurePacka
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getObjectServiceDefinition_Visibility() {
+	public EAttribute getObjectServiceDefinition_Instance() {
 		return (EAttribute)objectServiceDefinitionEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -1482,35 +1370,8 @@ public class StructurePackageImpl extends EPackageImpl implements StructurePacka
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getObjectServiceDefinition_Instance() {
-		return (EAttribute)objectServiceDefinitionEClass.getEStructuralFeatures().get(1);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getObjectServiceDefinition_Domain() {
-		return (EReference)objectServiceDefinitionEClass.getEStructuralFeatures().get(2);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EReference getObjectServiceDefinition_Object() {
-		return (EReference)objectServiceDefinitionEClass.getEStructuralFeatures().get(3);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getObjectServiceDefinition_Body() {
-		return (EReference)objectServiceDefinitionEClass.getEStructuralFeatures().get(4);
+		return (EReference)objectServiceDefinitionEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -1527,7 +1388,7 @@ public class StructurePackageImpl extends EPackageImpl implements StructurePacka
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getObjectFunctionDefinition_Visibility() {
+	public EAttribute getObjectFunctionDefinition_Instance() {
 		return (EAttribute)objectFunctionDefinitionEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -1536,26 +1397,8 @@ public class StructurePackageImpl extends EPackageImpl implements StructurePacka
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getObjectFunctionDefinition_Instance() {
-		return (EAttribute)objectFunctionDefinitionEClass.getEStructuralFeatures().get(1);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EReference getObjectFunctionDefinition_Relationship() {
-		return (EReference)objectFunctionDefinitionEClass.getEStructuralFeatures().get(2);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getObjectFunctionDefinition_Domain() {
-		return (EReference)objectFunctionDefinitionEClass.getEStructuralFeatures().get(3);
+		return (EReference)objectFunctionDefinitionEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -1564,25 +1407,7 @@ public class StructurePackageImpl extends EPackageImpl implements StructurePacka
 	 * @generated
 	 */
 	public EReference getObjectFunctionDefinition_Object() {
-		return (EReference)objectFunctionDefinitionEClass.getEStructuralFeatures().get(4);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getObjectFunctionDefinition_ReturnType() {
-		return (EReference)objectFunctionDefinitionEClass.getEStructuralFeatures().get(5);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getObjectFunctionDefinition_Body() {
-		return (EReference)objectFunctionDefinitionEClass.getEStructuralFeatures().get(6);
+		return (EReference)objectFunctionDefinitionEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -1842,26 +1667,8 @@ public class StructurePackageImpl extends EPackageImpl implements StructurePacka
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getStateDefinition_Domain() {
-		return (EReference)stateDefinitionEClass.getEStructuralFeatures().get(1);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EReference getStateDefinition_Object() {
-		return (EReference)stateDefinitionEClass.getEStructuralFeatures().get(2);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getStateDefinition_Body() {
-		return (EReference)stateDefinitionEClass.getEStructuralFeatures().get(3);
+		return (EReference)stateDefinitionEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -2076,6 +1883,18 @@ public class StructurePackageImpl extends EPackageImpl implements StructurePacka
 		parameterizedEClass = createEClass(PARAMETERIZED);
 		createEReference(parameterizedEClass, PARAMETERIZED__PARAMETERS);
 
+		visualizedEClass = createEClass(VISUALIZED);
+		createEAttribute(visualizedEClass, VISUALIZED__VISIBILITY);
+
+		abstractActionDeclarationEClass = createEClass(ABSTRACT_ACTION_DECLARATION);
+
+		abstractActionDefinitionEClass = createEClass(ABSTRACT_ACTION_DEFINITION);
+		createEReference(abstractActionDefinitionEClass, ABSTRACT_ACTION_DEFINITION__DOMAIN);
+		createEReference(abstractActionDefinitionEClass, ABSTRACT_ACTION_DEFINITION__BODY);
+
+		abstractFunctionEClass = createEClass(ABSTRACT_FUNCTION);
+		createEReference(abstractFunctionEClass, ABSTRACT_FUNCTION__RETURN_TYPE);
+
 		pragmatizedEClass = createEClass(PRAGMATIZED);
 		createEReference(pragmatizedEClass, PRAGMATIZED__PRAGMAS);
 
@@ -2106,49 +1925,28 @@ public class StructurePackageImpl extends EPackageImpl implements StructurePacka
 		createEReference(domainDefinitionEClass, DOMAIN_DEFINITION__EXCEPTIONS);
 
 		domainServiceDeclarationEClass = createEClass(DOMAIN_SERVICE_DECLARATION);
-		createEAttribute(domainServiceDeclarationEClass, DOMAIN_SERVICE_DECLARATION__VISIBILITY);
 
 		domainFunctionDeclarationEClass = createEClass(DOMAIN_FUNCTION_DECLARATION);
-		createEAttribute(domainFunctionDeclarationEClass, DOMAIN_FUNCTION_DECLARATION__VISIBILITY);
-		createEReference(domainFunctionDeclarationEClass, DOMAIN_FUNCTION_DECLARATION__RETURN_TYPE);
 
 		domainServiceDefinitionEClass = createEClass(DOMAIN_SERVICE_DEFINITION);
-		createEAttribute(domainServiceDefinitionEClass, DOMAIN_SERVICE_DEFINITION__VISIBILITY);
-		createEReference(domainServiceDefinitionEClass, DOMAIN_SERVICE_DEFINITION__DOMAIN);
-		createEReference(domainServiceDefinitionEClass, DOMAIN_SERVICE_DEFINITION__BODY);
 
 		domainFunctionDefinitionEClass = createEClass(DOMAIN_FUNCTION_DEFINITION);
-		createEAttribute(domainFunctionDefinitionEClass, DOMAIN_FUNCTION_DEFINITION__VISIBILITY);
-		createEReference(domainFunctionDefinitionEClass, DOMAIN_FUNCTION_DEFINITION__DOMAIN);
-		createEReference(domainFunctionDefinitionEClass, DOMAIN_FUNCTION_DEFINITION__RETURN_TYPE);
-		createEReference(domainFunctionDefinitionEClass, DOMAIN_FUNCTION_DEFINITION__BODY);
 
 		exceptionDeclarationEClass = createEClass(EXCEPTION_DECLARATION);
-		createEAttribute(exceptionDeclarationEClass, EXCEPTION_DECLARATION__VISIBILITY);
 
 		terminatorDefinitionEClass = createEClass(TERMINATOR_DEFINITION);
 		createEReference(terminatorDefinitionEClass, TERMINATOR_DEFINITION__SERVICES);
 		createEReference(terminatorDefinitionEClass, TERMINATOR_DEFINITION__FUNCTIONS);
 
 		terminatorServiceDeclarationEClass = createEClass(TERMINATOR_SERVICE_DECLARATION);
-		createEAttribute(terminatorServiceDeclarationEClass, TERMINATOR_SERVICE_DECLARATION__VISIBILITY);
 
 		terminatorFunctionDeclarationEClass = createEClass(TERMINATOR_FUNCTION_DECLARATION);
-		createEAttribute(terminatorFunctionDeclarationEClass, TERMINATOR_FUNCTION_DECLARATION__VISIBILITY);
-		createEReference(terminatorFunctionDeclarationEClass, TERMINATOR_FUNCTION_DECLARATION__RETURN_TYPE);
 
 		terminatorServiceDefinitionEClass = createEClass(TERMINATOR_SERVICE_DEFINITION);
-		createEAttribute(terminatorServiceDefinitionEClass, TERMINATOR_SERVICE_DEFINITION__VISIBILITY);
-		createEReference(terminatorServiceDefinitionEClass, TERMINATOR_SERVICE_DEFINITION__DOMAIN);
 		createEReference(terminatorServiceDefinitionEClass, TERMINATOR_SERVICE_DEFINITION__TERMINATOR);
-		createEReference(terminatorServiceDefinitionEClass, TERMINATOR_SERVICE_DEFINITION__BODY);
 
 		terminatorFunctionDefinitionEClass = createEClass(TERMINATOR_FUNCTION_DEFINITION);
-		createEAttribute(terminatorFunctionDefinitionEClass, TERMINATOR_FUNCTION_DEFINITION__VISIBILITY);
-		createEReference(terminatorFunctionDefinitionEClass, TERMINATOR_FUNCTION_DEFINITION__DOMAIN);
 		createEReference(terminatorFunctionDefinitionEClass, TERMINATOR_FUNCTION_DEFINITION__TERMINATOR);
-		createEReference(terminatorFunctionDefinitionEClass, TERMINATOR_FUNCTION_DEFINITION__RETURN_TYPE);
-		createEReference(terminatorFunctionDefinitionEClass, TERMINATOR_FUNCTION_DEFINITION__BODY);
 
 		builtinLibraryDefinitionEClass = createEClass(BUILTIN_LIBRARY_DEFINITION);
 		createEReference(builtinLibraryDefinitionEClass, BUILTIN_LIBRARY_DEFINITION__TYPES);
@@ -2188,31 +1986,21 @@ public class StructurePackageImpl extends EPackageImpl implements StructurePacka
 		createEReference(identifierDefinitionEClass, IDENTIFIER_DEFINITION__ATTRIBUTES);
 
 		objectServiceDeclarationEClass = createEClass(OBJECT_SERVICE_DECLARATION);
-		createEAttribute(objectServiceDeclarationEClass, OBJECT_SERVICE_DECLARATION__VISIBILITY);
 		createEAttribute(objectServiceDeclarationEClass, OBJECT_SERVICE_DECLARATION__INSTANCE);
 		createEReference(objectServiceDeclarationEClass, OBJECT_SERVICE_DECLARATION__RELATIONSHIP);
 
 		objectFunctionDeclarationEClass = createEClass(OBJECT_FUNCTION_DECLARATION);
-		createEAttribute(objectFunctionDeclarationEClass, OBJECT_FUNCTION_DECLARATION__VISIBILITY);
 		createEAttribute(objectFunctionDeclarationEClass, OBJECT_FUNCTION_DECLARATION__INSTANCE);
 		createEReference(objectFunctionDeclarationEClass, OBJECT_FUNCTION_DECLARATION__RELATIONSHIP);
-		createEReference(objectFunctionDeclarationEClass, OBJECT_FUNCTION_DECLARATION__RETURN_TYPE);
 
 		objectServiceDefinitionEClass = createEClass(OBJECT_SERVICE_DEFINITION);
-		createEAttribute(objectServiceDefinitionEClass, OBJECT_SERVICE_DEFINITION__VISIBILITY);
 		createEAttribute(objectServiceDefinitionEClass, OBJECT_SERVICE_DEFINITION__INSTANCE);
-		createEReference(objectServiceDefinitionEClass, OBJECT_SERVICE_DEFINITION__DOMAIN);
 		createEReference(objectServiceDefinitionEClass, OBJECT_SERVICE_DEFINITION__OBJECT);
-		createEReference(objectServiceDefinitionEClass, OBJECT_SERVICE_DEFINITION__BODY);
 
 		objectFunctionDefinitionEClass = createEClass(OBJECT_FUNCTION_DEFINITION);
-		createEAttribute(objectFunctionDefinitionEClass, OBJECT_FUNCTION_DEFINITION__VISIBILITY);
 		createEAttribute(objectFunctionDefinitionEClass, OBJECT_FUNCTION_DEFINITION__INSTANCE);
 		createEReference(objectFunctionDefinitionEClass, OBJECT_FUNCTION_DEFINITION__RELATIONSHIP);
-		createEReference(objectFunctionDefinitionEClass, OBJECT_FUNCTION_DEFINITION__DOMAIN);
 		createEReference(objectFunctionDefinitionEClass, OBJECT_FUNCTION_DEFINITION__OBJECT);
-		createEReference(objectFunctionDefinitionEClass, OBJECT_FUNCTION_DEFINITION__RETURN_TYPE);
-		createEReference(objectFunctionDefinitionEClass, OBJECT_FUNCTION_DEFINITION__BODY);
 
 		relationshipDefinitionEClass = createEClass(RELATIONSHIP_DEFINITION);
 
@@ -2251,9 +2039,7 @@ public class StructurePackageImpl extends EPackageImpl implements StructurePacka
 
 		stateDefinitionEClass = createEClass(STATE_DEFINITION);
 		createEAttribute(stateDefinitionEClass, STATE_DEFINITION__TYPE);
-		createEReference(stateDefinitionEClass, STATE_DEFINITION__DOMAIN);
 		createEReference(stateDefinitionEClass, STATE_DEFINITION__OBJECT);
-		createEReference(stateDefinitionEClass, STATE_DEFINITION__BODY);
 
 		transitionTableEClass = createEClass(TRANSITION_TABLE);
 		createEAttribute(transitionTableEClass, TRANSITION_TABLE__TYPE);
@@ -2318,31 +2104,37 @@ public class StructurePackageImpl extends EPackageImpl implements StructurePacka
 		abstractFeatureEClass.getESuperTypes().add(this.getAbstractNamed());
 		parameterizedEClass.getESuperTypes().add(this.getAbstractNamed());
 		parameterizedEClass.getESuperTypes().add(this.getPragmatized());
+		abstractActionDeclarationEClass.getESuperTypes().add(this.getParameterized());
+		abstractActionDeclarationEClass.getESuperTypes().add(this.getVisualized());
+		abstractActionDefinitionEClass.getESuperTypes().add(this.getAbstractTopLevelElement());
+		abstractActionDefinitionEClass.getESuperTypes().add(this.getParameterized());
+		abstractActionDefinitionEClass.getESuperTypes().add(this.getVisualized());
 		parameterEClass.getESuperTypes().add(this.getAbstractNamed());
 		parameterEClass.getESuperTypes().add(this.getAbstractFeature());
 		projectDefinitionEClass.getESuperTypes().add(this.getAbstractTopLevelElement());
 		domainDefinitionEClass.getESuperTypes().add(this.getAbstractTopLevelElement());
-		domainServiceDeclarationEClass.getESuperTypes().add(this.getParameterized());
 		domainServiceDeclarationEClass.getESuperTypes().add(this.getAbstractFeature());
-		domainFunctionDeclarationEClass.getESuperTypes().add(this.getParameterized());
+		domainServiceDeclarationEClass.getESuperTypes().add(this.getAbstractActionDeclaration());
 		domainFunctionDeclarationEClass.getESuperTypes().add(this.getAbstractFeature());
-		domainServiceDefinitionEClass.getESuperTypes().add(this.getAbstractTopLevelElement());
-		domainServiceDefinitionEClass.getESuperTypes().add(this.getParameterized());
-		domainFunctionDefinitionEClass.getESuperTypes().add(this.getAbstractTopLevelElement());
-		domainFunctionDefinitionEClass.getESuperTypes().add(this.getParameterized());
+		domainFunctionDeclarationEClass.getESuperTypes().add(this.getAbstractActionDeclaration());
+		domainFunctionDeclarationEClass.getESuperTypes().add(this.getAbstractFunction());
+		domainServiceDefinitionEClass.getESuperTypes().add(this.getAbstractActionDefinition());
+		domainFunctionDefinitionEClass.getESuperTypes().add(this.getAbstractActionDefinition());
+		domainFunctionDefinitionEClass.getESuperTypes().add(this.getAbstractFunction());
 		exceptionDeclarationEClass.getESuperTypes().add(this.getAbstractNamed());
 		exceptionDeclarationEClass.getESuperTypes().add(this.getPragmatized());
+		exceptionDeclarationEClass.getESuperTypes().add(this.getVisualized());
 		terminatorDefinitionEClass.getESuperTypes().add(this.getAbstractNamed());
 		terminatorDefinitionEClass.getESuperTypes().add(this.getPragmatized());
 		terminatorDefinitionEClass.getESuperTypes().add(this.getAbstractFeature());
-		terminatorServiceDeclarationEClass.getESuperTypes().add(this.getParameterized());
 		terminatorServiceDeclarationEClass.getESuperTypes().add(this.getAbstractFeature());
-		terminatorFunctionDeclarationEClass.getESuperTypes().add(this.getParameterized());
+		terminatorServiceDeclarationEClass.getESuperTypes().add(this.getAbstractActionDeclaration());
 		terminatorFunctionDeclarationEClass.getESuperTypes().add(this.getAbstractFeature());
-		terminatorServiceDefinitionEClass.getESuperTypes().add(this.getAbstractTopLevelElement());
-		terminatorServiceDefinitionEClass.getESuperTypes().add(this.getParameterized());
-		terminatorFunctionDefinitionEClass.getESuperTypes().add(this.getAbstractTopLevelElement());
-		terminatorFunctionDefinitionEClass.getESuperTypes().add(this.getParameterized());
+		terminatorFunctionDeclarationEClass.getESuperTypes().add(this.getAbstractActionDeclaration());
+		terminatorFunctionDeclarationEClass.getESuperTypes().add(this.getAbstractFunction());
+		terminatorServiceDefinitionEClass.getESuperTypes().add(this.getAbstractActionDefinition());
+		terminatorFunctionDefinitionEClass.getESuperTypes().add(this.getAbstractActionDefinition());
+		terminatorFunctionDefinitionEClass.getESuperTypes().add(this.getAbstractFunction());
 		builtinLibraryDefinitionEClass.getESuperTypes().add(this.getMaslModel());
 		characteristicEClass.getESuperTypes().add(this.getParameterized());
 		typeParameterEClass.getESuperTypes().add(theTypesPackage.getTypeDeclaration());
@@ -2357,14 +2149,14 @@ public class StructurePackageImpl extends EPackageImpl implements StructurePacka
 		attributeDefinitionEClass.getESuperTypes().add(this.getPragmatized());
 		attributeDefinitionEClass.getESuperTypes().add(this.getAbstractFeature());
 		identifierDefinitionEClass.getESuperTypes().add(this.getPragmatized());
-		objectServiceDeclarationEClass.getESuperTypes().add(this.getParameterized());
 		objectServiceDeclarationEClass.getESuperTypes().add(this.getAbstractFeature());
-		objectFunctionDeclarationEClass.getESuperTypes().add(this.getParameterized());
+		objectServiceDeclarationEClass.getESuperTypes().add(this.getAbstractActionDeclaration());
 		objectFunctionDeclarationEClass.getESuperTypes().add(this.getAbstractFeature());
-		objectServiceDefinitionEClass.getESuperTypes().add(this.getAbstractTopLevelElement());
-		objectServiceDefinitionEClass.getESuperTypes().add(this.getParameterized());
-		objectFunctionDefinitionEClass.getESuperTypes().add(this.getAbstractTopLevelElement());
-		objectFunctionDefinitionEClass.getESuperTypes().add(this.getParameterized());
+		objectFunctionDeclarationEClass.getESuperTypes().add(this.getAbstractActionDeclaration());
+		objectFunctionDeclarationEClass.getESuperTypes().add(this.getAbstractFunction());
+		objectServiceDefinitionEClass.getESuperTypes().add(this.getAbstractActionDefinition());
+		objectFunctionDefinitionEClass.getESuperTypes().add(this.getAbstractActionDefinition());
+		objectFunctionDefinitionEClass.getESuperTypes().add(this.getAbstractFunction());
 		relationshipDefinitionEClass.getESuperTypes().add(this.getAbstractNamed());
 		relationshipDefinitionEClass.getESuperTypes().add(this.getPragmatized());
 		regularRelationshipDefinitionEClass.getESuperTypes().add(this.getRelationshipDefinition());
@@ -2373,9 +2165,8 @@ public class StructurePackageImpl extends EPackageImpl implements StructurePacka
 		relationshipEndEClass.getESuperTypes().add(this.getObjectOrRole());
 		subtypeRelationshipDefinitionEClass.getESuperTypes().add(this.getRelationshipDefinition());
 		eventDefinitionEClass.getESuperTypes().add(this.getParameterized());
-		stateDeclarationEClass.getESuperTypes().add(this.getParameterized());
-		stateDefinitionEClass.getESuperTypes().add(this.getAbstractTopLevelElement());
-		stateDefinitionEClass.getESuperTypes().add(this.getParameterized());
+		stateDeclarationEClass.getESuperTypes().add(this.getAbstractActionDeclaration());
+		stateDefinitionEClass.getESuperTypes().add(this.getAbstractActionDefinition());
 		transitionTableEClass.getESuperTypes().add(this.getPragmatized());
 		transitionRowEClass.getESuperTypes().add(this.getPragmatized());
 
@@ -2392,6 +2183,18 @@ public class StructurePackageImpl extends EPackageImpl implements StructurePacka
 
 		initEClass(parameterizedEClass, Parameterized.class, "Parameterized", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getParameterized_Parameters(), this.getParameter(), null, "parameters", null, 0, -1, Parameterized.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(visualizedEClass, Visualized.class, "Visualized", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getVisualized_Visibility(), this.getVisibility(), "visibility", null, 0, 1, Visualized.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(abstractActionDeclarationEClass, AbstractActionDeclaration.class, "AbstractActionDeclaration", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(abstractActionDefinitionEClass, AbstractActionDefinition.class, "AbstractActionDefinition", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getAbstractActionDefinition_Domain(), this.getDomainDefinition(), null, "domain", null, 0, 1, AbstractActionDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getAbstractActionDefinition_Body(), theBehaviorPackage.getCodeBlock(), null, "body", null, 0, 1, AbstractActionDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(abstractFunctionEClass, AbstractFunction.class, "AbstractFunction", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getAbstractFunction_ReturnType(), theTypesPackage.getAbstractTypeReference(), null, "returnType", null, 0, 1, AbstractFunction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(pragmatizedEClass, Pragmatized.class, "Pragmatized", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getPragmatized_Pragmas(), this.getPragma(), null, "pragmas", null, 0, -1, Pragmatized.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -2423,49 +2226,28 @@ public class StructurePackageImpl extends EPackageImpl implements StructurePacka
 		initEReference(getDomainDefinition_Exceptions(), this.getExceptionDeclaration(), null, "exceptions", null, 0, -1, DomainDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(domainServiceDeclarationEClass, DomainServiceDeclaration.class, "DomainServiceDeclaration", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getDomainServiceDeclaration_Visibility(), this.getVisibility(), "visibility", null, 0, 1, DomainServiceDeclaration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(domainFunctionDeclarationEClass, DomainFunctionDeclaration.class, "DomainFunctionDeclaration", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getDomainFunctionDeclaration_Visibility(), this.getVisibility(), "visibility", null, 0, 1, DomainFunctionDeclaration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getDomainFunctionDeclaration_ReturnType(), theTypesPackage.getAbstractTypeReference(), null, "returnType", null, 0, 1, DomainFunctionDeclaration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(domainServiceDefinitionEClass, DomainServiceDefinition.class, "DomainServiceDefinition", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getDomainServiceDefinition_Visibility(), this.getVisibility(), "visibility", null, 0, 1, DomainServiceDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getDomainServiceDefinition_Domain(), this.getDomainDefinition(), null, "domain", null, 0, 1, DomainServiceDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getDomainServiceDefinition_Body(), theBehaviorPackage.getCodeBlock(), null, "body", null, 0, 1, DomainServiceDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(domainFunctionDefinitionEClass, DomainFunctionDefinition.class, "DomainFunctionDefinition", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getDomainFunctionDefinition_Visibility(), this.getVisibility(), "visibility", null, 0, 1, DomainFunctionDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getDomainFunctionDefinition_Domain(), this.getDomainDefinition(), null, "domain", null, 0, 1, DomainFunctionDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getDomainFunctionDefinition_ReturnType(), theTypesPackage.getAbstractTypeReference(), null, "returnType", null, 0, 1, DomainFunctionDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getDomainFunctionDefinition_Body(), theBehaviorPackage.getCodeBlock(), null, "body", null, 0, 1, DomainFunctionDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(exceptionDeclarationEClass, ExceptionDeclaration.class, "ExceptionDeclaration", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getExceptionDeclaration_Visibility(), this.getVisibility(), "visibility", null, 0, 1, ExceptionDeclaration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(terminatorDefinitionEClass, TerminatorDefinition.class, "TerminatorDefinition", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getTerminatorDefinition_Services(), this.getTerminatorServiceDeclaration(), null, "services", null, 0, -1, TerminatorDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getTerminatorDefinition_Functions(), this.getTerminatorFunctionDeclaration(), null, "functions", null, 0, -1, TerminatorDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(terminatorServiceDeclarationEClass, TerminatorServiceDeclaration.class, "TerminatorServiceDeclaration", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getTerminatorServiceDeclaration_Visibility(), this.getVisibility(), "visibility", null, 0, 1, TerminatorServiceDeclaration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(terminatorFunctionDeclarationEClass, TerminatorFunctionDeclaration.class, "TerminatorFunctionDeclaration", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getTerminatorFunctionDeclaration_Visibility(), this.getVisibility(), "visibility", null, 0, 1, TerminatorFunctionDeclaration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getTerminatorFunctionDeclaration_ReturnType(), theTypesPackage.getAbstractTypeReference(), null, "returnType", null, 0, 1, TerminatorFunctionDeclaration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(terminatorServiceDefinitionEClass, TerminatorServiceDefinition.class, "TerminatorServiceDefinition", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getTerminatorServiceDefinition_Visibility(), this.getVisibility(), "visibility", null, 0, 1, TerminatorServiceDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getTerminatorServiceDefinition_Domain(), this.getDomainDefinition(), null, "domain", null, 0, 1, TerminatorServiceDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getTerminatorServiceDefinition_Terminator(), this.getTerminatorDefinition(), null, "terminator", null, 0, 1, TerminatorServiceDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getTerminatorServiceDefinition_Body(), theBehaviorPackage.getCodeBlock(), null, "body", null, 0, 1, TerminatorServiceDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(terminatorFunctionDefinitionEClass, TerminatorFunctionDefinition.class, "TerminatorFunctionDefinition", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getTerminatorFunctionDefinition_Visibility(), this.getVisibility(), "visibility", null, 0, 1, TerminatorFunctionDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getTerminatorFunctionDefinition_Domain(), this.getDomainDefinition(), null, "domain", null, 0, 1, TerminatorFunctionDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getTerminatorFunctionDefinition_Terminator(), this.getTerminatorDefinition(), null, "terminator", null, 0, 1, TerminatorFunctionDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getTerminatorFunctionDefinition_ReturnType(), theTypesPackage.getAbstractTypeReference(), null, "returnType", null, 0, 1, TerminatorFunctionDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getTerminatorFunctionDefinition_Body(), theBehaviorPackage.getCodeBlock(), null, "body", null, 0, 1, TerminatorFunctionDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(builtinLibraryDefinitionEClass, BuiltinLibraryDefinition.class, "BuiltinLibraryDefinition", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getBuiltinLibraryDefinition_Types(), theTypesPackage.getTypeDeclaration(), null, "types", null, 0, -1, BuiltinLibraryDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -2505,31 +2287,21 @@ public class StructurePackageImpl extends EPackageImpl implements StructurePacka
 		initEReference(getIdentifierDefinition_Attributes(), this.getAttributeDefinition(), null, "attributes", null, 0, -1, IdentifierDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(objectServiceDeclarationEClass, ObjectServiceDeclaration.class, "ObjectServiceDeclaration", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getObjectServiceDeclaration_Visibility(), this.getVisibility(), "visibility", null, 0, 1, ObjectServiceDeclaration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getObjectServiceDeclaration_Instance(), theEcorePackage.getEBoolean(), "instance", null, 0, 1, ObjectServiceDeclaration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getObjectServiceDeclaration_Relationship(), this.getRelationshipDefinition(), null, "relationship", null, 0, 1, ObjectServiceDeclaration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(objectFunctionDeclarationEClass, ObjectFunctionDeclaration.class, "ObjectFunctionDeclaration", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getObjectFunctionDeclaration_Visibility(), this.getVisibility(), "visibility", null, 0, 1, ObjectFunctionDeclaration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getObjectFunctionDeclaration_Instance(), theEcorePackage.getEBoolean(), "instance", null, 0, 1, ObjectFunctionDeclaration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getObjectFunctionDeclaration_Relationship(), this.getRelationshipDefinition(), null, "relationship", null, 0, 1, ObjectFunctionDeclaration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getObjectFunctionDeclaration_ReturnType(), theTypesPackage.getAbstractTypeReference(), null, "returnType", null, 0, 1, ObjectFunctionDeclaration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(objectServiceDefinitionEClass, ObjectServiceDefinition.class, "ObjectServiceDefinition", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getObjectServiceDefinition_Visibility(), this.getVisibility(), "visibility", null, 0, 1, ObjectServiceDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getObjectServiceDefinition_Instance(), theEcorePackage.getEBoolean(), "instance", null, 0, 1, ObjectServiceDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getObjectServiceDefinition_Domain(), this.getDomainDefinition(), null, "domain", null, 0, 1, ObjectServiceDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getObjectServiceDefinition_Object(), this.getObjectDeclaration(), null, "object", null, 0, 1, ObjectServiceDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getObjectServiceDefinition_Body(), theBehaviorPackage.getCodeBlock(), null, "body", null, 0, 1, ObjectServiceDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(objectFunctionDefinitionEClass, ObjectFunctionDefinition.class, "ObjectFunctionDefinition", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getObjectFunctionDefinition_Visibility(), this.getVisibility(), "visibility", null, 0, 1, ObjectFunctionDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getObjectFunctionDefinition_Instance(), theEcorePackage.getEBoolean(), "instance", null, 0, 1, ObjectFunctionDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getObjectFunctionDefinition_Relationship(), this.getRelationshipDefinition(), null, "relationship", null, 0, 1, ObjectFunctionDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getObjectFunctionDefinition_Domain(), this.getDomainDefinition(), null, "domain", null, 0, 1, ObjectFunctionDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getObjectFunctionDefinition_Object(), this.getObjectDeclaration(), null, "object", null, 0, 1, ObjectFunctionDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getObjectFunctionDefinition_ReturnType(), theTypesPackage.getAbstractTypeReference(), null, "returnType", null, 0, 1, ObjectFunctionDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getObjectFunctionDefinition_Body(), theBehaviorPackage.getCodeBlock(), null, "body", null, 0, 1, ObjectFunctionDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(relationshipDefinitionEClass, RelationshipDefinition.class, "RelationshipDefinition", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
@@ -2568,9 +2340,7 @@ public class StructurePackageImpl extends EPackageImpl implements StructurePacka
 
 		initEClass(stateDefinitionEClass, StateDefinition.class, "StateDefinition", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getStateDefinition_Type(), this.getStateType(), "type", null, 0, 1, StateDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getStateDefinition_Domain(), this.getDomainDefinition(), null, "domain", null, 0, 1, StateDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getStateDefinition_Object(), this.getObjectDeclaration(), null, "object", null, 0, 1, StateDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getStateDefinition_Body(), theBehaviorPackage.getCodeBlock(), null, "body", null, 0, 1, StateDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(transitionTableEClass, TransitionTable.class, "TransitionTable", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getTransitionTable_Type(), this.getTransTableType(), "type", null, 0, 1, TransitionTable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

@@ -14,7 +14,8 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
-	'self.Suc_Pars = ParseStatus::parseInitial;',
+	'self.Dialect = PREF::getActionDialect(name:"bridgepoint_prefs_default_action_language_dialect");
+self.Suc_Pars = ParseStatus::parseInitial;',
 	1,
 	'',
 	"ebcda465-4ce8-4d1c-adfc-d9f64b3869f2");
@@ -433,6 +434,31 @@ INSERT INTO S_DT_PROXY
 	"00000000-0000-0000-0000-000000000000",
 	'ParseStatus',
 	'Indicates the status of the parse for an action specification in the attribute Action_Semantics',
+	'',
+	'../../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_NBATTR
+	VALUES ("08f49e46-cf45-4761-84e8-77cf1c440946",
+	"d113e0d5-c2e8-4091-a78c-e09abec06ed0");
+INSERT INTO O_BATTR
+	VALUES ("08f49e46-cf45-4761-84e8-77cf1c440946",
+	"d113e0d5-c2e8-4091-a78c-e09abec06ed0");
+INSERT INTO O_ATTR
+	VALUES ("08f49e46-cf45-4761-84e8-77cf1c440946",
+	"d113e0d5-c2e8-4091-a78c-e09abec06ed0",
+	"b1564813-bb38-4e8d-9b7c-57da9edf4553",
+	'Dialect',
+	'Full Name: Action Dialect',
+	'',
+	'Dialect',
+	0,
+	"7b54f646-a8a8-4b82-9bb0-cf5465115f3b",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("7b54f646-a8a8-4b82-9bb0-cf5465115f3b",
+	"00000000-0000-0000-0000-000000000000",
+	'ActionDialect',
+	'Enumerator for available action dialects',
 	'',
 	'../../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_ID

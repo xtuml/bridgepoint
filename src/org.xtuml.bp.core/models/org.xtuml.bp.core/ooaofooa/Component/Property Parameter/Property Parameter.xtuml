@@ -443,10 +443,12 @@ INSERT INTO O_TFR
 	'if (param.name == "can" )
   if ( param.value == "move up" )
     select one prev_attr related by self->C_PP[R4021.''succeeds''];
-    return not_empty prev_attr;
+    return (not_empty prev_attr) and not Util::isProvidedParameter();
   elif ( param.value == "move down" )
     select one next_attr related by self->C_PP[R4021.''precedes''];
-    return not_empty next_attr;
+    return (not_empty next_attr) and not Util::isProvidedParameter();
+  elif ( param.value == "SetType")
+    return not Util::isProvidedParameter();
   end if;
 end if;
 return false;

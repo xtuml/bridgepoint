@@ -160,10 +160,10 @@ public class VerifierInvocationHandler implements InvocationHandler {
 						.getModelRoot().getInstanceList(RuntimeChannel_c.class)
 						.getGlobal(channelID);
 				ComponentInstance_c targetEngine = ComponentInstance_c
-						.getOneI_EXEOnR2968IsInterfaceProviderTo(channel);
+						.getOneI_EXEOnR2968IsInterfaceRequirerOf(channel);
 				if (targetInterfaceIsRequired) {
 					targetEngine = ComponentInstance_c
-							.getOneI_EXEOnR2968IsInterfaceRequirerOf(channel);
+							.getOneI_EXEOnR2968IsInterfaceProviderTo(channel);
 				}
 				Stack_c targetStack = Stack_c
 						.getOneI_STACKOnR2930(targetEngine);

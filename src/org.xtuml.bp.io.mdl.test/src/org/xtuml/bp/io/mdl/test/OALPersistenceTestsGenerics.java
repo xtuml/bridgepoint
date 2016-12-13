@@ -130,6 +130,9 @@ public class OALPersistenceTestsGenerics extends BaseTest {
 			store.setValue(BridgePointPreferencesStore.EXPORT_OAL, "always"); //$NON-NLS-1$
 			store.setValue(BridgePointPreferencesStore.EXPORT_GRAPHICS, "always"); //$NON-NLS-1$
 			store.setValue(BridgePointPreferencesStore.SHOW_EVENT_PARAMETERS, false); 
+			
+			String actualResultPath = m_workspace_path + "actual_results/";
+			BaseTest.ensureFolderExists(actualResultPath);
 			// export with persisted OAL
 			TestingUtilities.exportModelUsingWizard(m_workspace_path
 					+ (generateResults ? TestingUtilities.getExpectedResultsPath()
@@ -174,46 +177,5 @@ public class OALPersistenceTestsGenerics extends BaseTest {
 			fail(f.toString());
 		}
     }
-   @Test
-	public void testOALInstancesExportedProperly()
-			throws FileNotFoundException, CoreException {
-		try {
-			String testProjectName = "Integration";
-			loadProject(testProjectName);
-
-			SystemModel_c systemModel = getSystemModel(project.getName());
-
-			IPreferenceStore store = CorePlugin.getDefault()
-					.getPreferenceStore();
-			store.setValue(BridgePointPreferencesStore.EXPORT_GRAPHICS,
-					MessageDialogWithToggle.NEVER); //$NON-NLS-1$
-			store.setValue(BridgePointPreferencesStore.EXPORT_OAL,
-					MessageDialogWithToggle.ALWAYS); //$NON-NLS-1$	     
-
-			// add the systemModel to the selection
-			Selection.getInstance().clear();
-			Selection.getInstance().addToSelection(systemModel);
-
-			String specializedModelPath = m_workspace_path + "actual_results"
-					+ "/" + testProjectName + "Specialized" + "."
-					+ Ooaofooa.MODELS_EXT;
-			TestingUtilities.exportModelUsingWizard(specializedModelPath, true);
-			BufferedReader bufferReader = new BufferedReader(new FileReader(
-					specializedModelPath));
-			String line = "";
-			int Act_Count_inSpecialized = 0;
-			while ((line = bufferReader.readLine()) != null) {
-				if (line.contains("ACT_")) {
-					Act_Count_inSpecialized++;
-				}
-			}
-			bufferReader.close();
-			
-			assertEquals(8049, Act_Count_inSpecialized);
-
-		} catch (Exception e) {
-			fail(e.toString());
-		}
-	}
 	
 }

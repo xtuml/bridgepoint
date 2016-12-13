@@ -13,7 +13,6 @@ package org.xtuml.bp.xtext.masl.masl.structure;
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link org.xtuml.bp.xtext.masl.masl.structure.ObjectServiceDeclaration#getVisibility <em>Visibility</em>}</li>
  *   <li>{@link org.xtuml.bp.xtext.masl.masl.structure.ObjectServiceDeclaration#isInstance <em>Instance</em>}</li>
  *   <li>{@link org.xtuml.bp.xtext.masl.masl.structure.ObjectServiceDeclaration#getRelationship <em>Relationship</em>}</li>
  * </ul>
@@ -22,36 +21,7 @@ package org.xtuml.bp.xtext.masl.masl.structure;
  * @model
  * @generated
  */
-public interface ObjectServiceDeclaration extends Parameterized, AbstractFeature {
-	/**
-	 * Returns the value of the '<em><b>Visibility</b></em>' attribute.
-	 * The literals are from the enumeration {@link org.xtuml.bp.xtext.masl.masl.structure.Visibility}.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Visibility</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Visibility</em>' attribute.
-	 * @see org.xtuml.bp.xtext.masl.masl.structure.Visibility
-	 * @see #setVisibility(Visibility)
-	 * @see org.xtuml.bp.xtext.masl.masl.structure.StructurePackage#getObjectServiceDeclaration_Visibility()
-	 * @model unique="false"
-	 * @generated
-	 */
-	Visibility getVisibility();
-
-	/**
-	 * Sets the value of the '{@link org.xtuml.bp.xtext.masl.masl.structure.ObjectServiceDeclaration#getVisibility <em>Visibility</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Visibility</em>' attribute.
-	 * @see org.xtuml.bp.xtext.masl.masl.structure.Visibility
-	 * @see #getVisibility()
-	 * @generated
-	 */
-	void setVisibility(Visibility value);
-
+public interface ObjectServiceDeclaration extends AbstractFeature, AbstractActionDeclaration {
 	/**
 	 * Returns the value of the '<em><b>Instance</b></em>' attribute.
 	 * <!-- begin-user-doc -->

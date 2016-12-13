@@ -24,11 +24,13 @@ import java.util.Vector;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.SystemModel_c;
+import org.xtuml.bp.core.common.ActionFile;
 import org.xtuml.bp.core.common.ClassQueryInterface_c;
 import org.xtuml.bp.core.common.IdAssigner;
 import org.xtuml.bp.core.common.InstanceList;
@@ -42,6 +44,7 @@ import org.xtuml.bp.ui.canvas.Ooaofgraphics;
 
 import antlr.RecognitionException;
 import antlr.TokenStreamException;
+import antlr.TokenStreamSelector;
 
 public abstract class CoreImport implements IModelImport {
     public boolean m_success;
@@ -61,6 +64,8 @@ public abstract class CoreImport implements IModelImport {
     File m_inFile;
 
     File m_actionFile;
+
+    ActionFile m_actionFiles;
 
     private StringBuffer inputBuffer = null;
 
@@ -88,37 +93,27 @@ public abstract class CoreImport implements IModelImport {
         read(inStream);
     }
 
-    public CoreImport(Ooaofooa modelRoot, String inFile, String actionFile, boolean clearDatabase, boolean templateFile)
+    public CoreImport(Ooaofooa modelRoot, String inFile, ActionFile actionFile, boolean clearDatabase, boolean templateFile)
             throws FileNotFoundException {
         m_success = false;
         m_errorMessage = ""; //$NON-NLS-1$
         m_modelRoot = modelRoot;
         m_fileName = inFile;
         m_inFile = new File(inFile);
-        if ( null != actionFile && "" != actionFile ) {
-        	m_actionFile = new File(actionFile);
-        }
-        else {
-        	m_actionFile = null;
-        }
+        m_actionFiles = actionFile;
         m_clear_database = clearDatabase;
         m_templateFile = templateFile;
         if (!m_inFile.exists() || !m_inFile.isFile())
             throw new FileNotFoundException(inFile + " not found");
     }
 
-    public CoreImport(IPath inFile, IPath actionFile) throws FileNotFoundException {
+    public CoreImport(IPath inFile, ActionFile actionFile) throws FileNotFoundException {
         m_success = false;
         m_errorMessage = ""; //$NON-NLS-1$
         m_modelRoot = null;
         m_fileName = inFile.toString();
         m_inFile = inFile.toFile();
-        if ( null != actionFile ) {
-        	m_actionFile = actionFile.toFile();
-        }
-        else {
-        	m_actionFile = null;
-        }
+        m_actionFiles = actionFile;
 
         if (!m_inFile.exists() || !m_inFile.isFile())
             throw new FileNotFoundException(inFile + " not found");
@@ -170,7 +165,7 @@ public abstract class CoreImport implements IModelImport {
 
     public abstract int postprocessStatements();
 
-    public abstract void processAction( String name, String key_lett, String id1, String id2, String body, IProgressMonitor pm );
+    public abstract void processAction( String smasl, int dialect );
 
     protected Ooaofooa getModelRoot() {
         return m_modelRoot;
@@ -340,29 +335,48 @@ public abstract class CoreImport implements IModelImport {
     }
     
     protected boolean doLoadActions(IProgressMonitor pm) {
-        if ( m_actionFile == null || !m_actionFile.exists() ) {
+        if ( m_actionFiles == null ) {
             pm.done();
             return true;
         }
         // here's where the code is actually read
         try {
-            Reader reader = getActionInputReader();
+            int[] dialects = m_actionFiles.getAvailableDialectCodes();
 
-            ActionLexer lexer = new ActionLexer(reader);
+            // import actions for each dialect
+            for ( int i = 0; i < dialects.length; i++ ) {
+            	m_actionFile = m_actionFiles.getFile(dialects[i]).getLocation().toFile();
+            	if ( !m_actionFile.exists() ) continue;
 
-            pm.beginTask("Reading activity data...", IProgressMonitor.UNKNOWN );
-            ActionParser parser = new ActionParser(lexer, this);
-            // Parse the input expression
-            parser.actions(pm);
-            if (!parser.m_output.isEmpty())
-            {
-                m_errorMessage = parser.m_output;
-                pm.done();
-                return false;
-            } else {
-                pm.done();
-                return true;
+                Reader reader = getActionInputReader();
+
+                SignatureLexer sig_lexer = new SignatureLexer(reader);
+                BodyLexer body_lexer = new BodyLexer(sig_lexer.getInputState());
+                CommentLexer comment_lexer = new CommentLexer(sig_lexer.getInputState());
+
+                TokenStreamSelector selector = new TokenStreamSelector();
+                selector.addInputStream(sig_lexer, "main");
+                selector.addInputStream(body_lexer, "bodylexer");
+                selector.addInputStream(comment_lexer, "commentlexer");
+                selector.select("main");
+
+                pm.beginTask("Reading activity data...", IProgressMonitor.UNKNOWN );
+                ActionParser parser = new ActionParser(selector, this, dialects[i]);
+                parser.activityDefinitions();
+
+                // reset the input buffer
+                actionInputBuffer = null;
+                if (!parser.m_output.isEmpty())
+                {
+                    m_errorMessage = parser.m_output;
+                    pm.done();
+                    return false;
+                } else {
+                    pm.worked(1);
+                }
             }
+            pm.done();
+            return true;
         } catch (IOException e) {
             m_errorMessage = "IO exception: " + e; //$NON-NLS-1$
         } catch (TokenStreamException e) {

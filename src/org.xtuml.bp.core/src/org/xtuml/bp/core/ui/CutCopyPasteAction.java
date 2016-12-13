@@ -74,8 +74,14 @@ public abstract class CutCopyPasteAction extends Action {
 	}
 	
 	public static void startMove() {
+		startMove(true);
+	}
+	
+	public static void startMove(boolean clearSelection) {
 		MOVE_IS_IN_PROGRESS = true;
-		ELEMENT_MOVE_SOURCE_SELECTION.clear();
+		if(clearSelection) {
+			ELEMENT_MOVE_SOURCE_SELECTION.clear();
+		}
 	}
 	
 	public static void stopMove() {

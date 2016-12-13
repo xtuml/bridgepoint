@@ -265,7 +265,7 @@
 	    .if(col.Name == "useGlobals")
 		  parms.elementAt(${attr_col_num}) != null && ((String)parms.elementAt(${attr_col_num})).equals( "true" ) ? true : false\
 		  .assign special_case = true
-	  .end if
+	    .end if
       .elif (table.Key_lett == "C_C")
         .if(col.Name == "isRealized")
           parms.elementAt(${attr_col_num}) != null && ((String)parms.elementAt(${attr_col_num})).equals( "true" ) ? true : false\
@@ -292,6 +292,34 @@
           .assign special_case = true
         .end if
 	  .end if
+	  .// Dialect attribute introduced
+	  .assign dialectAdded = false;
+	  .if(col.Name == "Dialect")
+	    .if(table.Key_lett == "O_DBATTR")
+	      .assign dialectAdded = true;
+	    .elif(table.Key_lett == "O_TFR")
+          .assign dialectAdded = true;
+	    .elif(table.Key_lett == "SM_ACT")
+          .assign dialectAdded = true;
+	    .elif(table.Key_lett == "SPR_PO")
+		  .assign dialectAdded = true;
+        .elif(table.Key_lett == "SPR_PS")
+		  .assign dialectAdded = true;
+	    .elif(table.Key_lett == "SPR_RO")
+		  .assign dialectAdded = true;
+	    .elif(table.Key_lett == "SPR_RS")
+		  .assign dialectAdded = true;
+	    .elif(table.Key_lett == "S_BRG")
+		  .assign dialectAdded = true;
+	    .elif(table.Key_lett == "S_SYNC")
+		  .assign dialectAdded = true;
+		.end if
+		.if (dialectAdded)
+			rawParms.size() <= ${attr_col_num} ? -1 : Integer.parseInt((String)parms.elementAt(${attr_col_num}))\
+		  .assign special_case = true
+		.end if
+	  .end if
+	  .// end of Dialect attribute introduced change
       .if (special_case == false)
         .if ( col.type == "boolean" )
            ((String)parms.elementAt(${attr_col_num})).equals( "false" ) ? false : true\
@@ -392,6 +420,7 @@ import org.xtuml.bp.io.core.CoreImport;
 import org.xtuml.bp.io.core.ImportHelper;
 .end if
 import org.xtuml.bp.io.core.ImportInteger;
+import org.xtuml.bp.io.core.SmaslScanner;
 import org.xtuml.bp.ui.canvas.*;
 import org.xtuml.bp.ui.text.activity.AllActivityModifier;
 
@@ -474,8 +503,8 @@ public class ${class_name} extends CoreImport
             .assign parentC = "SystemModel_c"
       .end if
     .if(multilevel and setComponent)
-    public ${class_name}(IFile file, IFile actionFile, ${var.main_class_name} aModelRoot, PersistableModelComponent component, boolean parseAll, boolean clearDatabase, boolean parseGraphics, boolean isTemplate) throws IOException {
-        super(aModelRoot, (file != null ? file.getLocation().toOSString() : ""), (actionFile != null ? actionFile.getLocation().toOSString() : ""), clearDatabase, isTemplate);
+    public ${class_name}(IFile file, ${var.main_class_name} aModelRoot, PersistableModelComponent component, boolean parseAll, boolean clearDatabase, boolean parseGraphics, boolean isTemplate) throws IOException {
+        super(aModelRoot, (file != null ? file.getLocation().toOSString() : ""), (component != null ? component.getActionFiles() : null), clearDatabase, isTemplate);
         m_component = component;
         m_parseAll = parseAll;
         m_parseGraphics = parseGraphics;
@@ -518,15 +547,15 @@ public class ${class_name} extends CoreImport
             .end if
         .end if
         .if(not multilevel)
-    public ${class_name}(String fileName, String actionFileName, ${var.main_class_name} aModelRoot, ${parentC} parent, boolean parseAll, boolean clearDatabase, boolean isTemplate) throws FileNotFoundException {
-        super(aModelRoot, fileName, actionFileName, clearDatabase, isTemplate);
+    public ${class_name}(String fileName, ${var.main_class_name} aModelRoot, ${parentC} parent, boolean parseAll, boolean clearDatabase, boolean isTemplate) throws FileNotFoundException {
+        super(aModelRoot, fileName, null, clearDatabase, isTemplate);
         m_inFile = fileName;
         m_parseAll = parseAll;
         m_parent = parent;
     }
 
-    public ${class_name}(IPath filePath, IPath actionFilePath) throws FileNotFoundException {
-        super(filePath, actionFilePath);
+    public ${class_name}(IPath filePath) throws FileNotFoundException {
+        super(filePath, null);
     }
        .end if
     .end if
@@ -705,55 +734,119 @@ public class ${class_name} extends CoreImport
         .end if
     }
 
-    public void processAction( String name, String key_lett, String id1, String id2, String body, IProgressMonitor pm ) {
+    public void processAction( String smasl, int dialect ) {
 	.if (class_name == "ImportModelComponent")
         IPreferenceStore store = CorePlugin.getDefault().getPreferenceStore();
         String persistActivities = store.getString(BridgePointPreferencesStore.ACTIVITY_PERSISTENCE);
-        if ( persistActivities.equals(BridgePointPreferencesStore.PERSIST_ACTIVITY_FILES) ) {
-            ModelRoot modelRoot = getRootModelElement().getModelRoot();
-              .assign test = "if"
-              .select many ab_set from instances of AB
-              .for each action_body in ab_set
-                .select any o_obj from instances of O_OBJ where ( selected.Key_Lett == action_body.Key_Lett )
-                .assign obj_name = "$cr{o_obj.Name}_c"
-            ${test} ( key_lett.equals("${action_body.Key_Lett}") ) {
-                class ${obj_name}_test implements ClassQueryInterface_c {
-                    ${obj_name}_test( java.util.UUID p_id1\
-                .if ( "" != action_body.ID_attr2 )
-    , java.util.UUID p_id2\
-                .end if
-     ) {
-                        m_id1 = p_id1;
-                .if ( "" != action_body.ID_attr2 )
-                        m_id2 = p_id2;
-                .end if
-                    }
-                    private java.util.UUID m_id1;
-                .if ( "" != action_body.ID_attr2 )
-                    private java.util.UUID m_id2;
-                .end if
-                    public boolean evaluate(Object candidate) {
-                        ${obj_name} selected = (${obj_name})candidate;
-                        return (selected.get$cr{action_body.ID_attr}().equals(m_id1)\
-                .if ( "" != action_body.ID_attr2 )
-     && selected.get$cr{action_body.ID_attr2}().equals(m_id2)\
-                .end if
-    );
+        if ( persistActivities.equals(BridgePointPreferencesStore.PERSIST_ACTIVITY_FILES) && dialect == Actiondialect_c.masl ) {
+            NonRootModelElement pmc_root_element = getRootModelElement();
+            ModelRoot modelRoot = pmc_root_element.getModelRoot();
+
+            // create SMASL reader
+            SmaslScanner sc = new SmaslScanner( smasl );
+            String[] values;
+
+            String ret_type = "void";
+            String name = "";
+            String parameter_list = "";
+
+            boolean in_parameter = false;
+            String separator = "(";
+
+            String activity_type = "";
+            String body = "";
+            String signature = "";
+            String port_name = "";
+
+            // parse serial MASL
+            while ( sc.hasNext() ) {
+                values = sc.next();
+                if ( values[0].equals("routine") ) {
+                    if ( !values[4].equals("") ) {
+                        name = values[4];
+                        port_name = values[2];
+                        activity_type = "routine";
                     }
                 }
-                ${obj_name} v_inst = ${obj_name}.$cr{o_obj.Name}Instance(modelRoot, new ${obj_name}_test( IdAssigner.createUUIDFromString(id1)\
-                .if ( "" != action_body.ID_attr2 )
-    , IdAssigner.createUUIDFromString(id2)\
-                .end if
-    ));
-                if ( null != v_inst ) {
-                    v_inst.setAction_semantics_internal( body );
+                else if ( values[0].equals("operation")) {
+                    if ( !values[4].equals("") ) {
+                        name = values[4];
+                        activity_type = "operation";
+                    }
+                }
+                else if ( values[0].equals("state") ) {
+                    if ( !values[3].equals("") ) {
+                        name = values[3];
+                        activity_type = "state";
+                    }
+                }
+                else if ( values[0].equals("attribute") ) {
+                }
+                else if ( values[0].equals("transition") ) {
+                }
+                else if ( values[0].equals("parameter") ) {
+                    if ( !values[1].equals("") ) {
+                        in_parameter = true;
+                    }
+                }
+                else if ( values[0].equals("typeref") ) {
+                    if ( !values[1].equals("") ) {
+                        if ( !in_parameter ) { // return type
+                            ret_type = values[1];
+                        }
+                        else { // parameter type
+                            parameter_list += separator + values[1];
+                            separator = ", ";
+                            in_parameter = false;
+                        }
+                    }
+                }
+                else if ( values[0].equals("codeblock") ) {
+                    if ( !values[1].equals("") ) {
+                        body = Url_c.Decode( values[1] ).trim();
+                    }
+                }
+                else {
+                  System.out.println( "// SMASL element '" + values[0] + "'unsupported" ); //$$NON-NLS-1$$
+                  return;
                 }
             }
-                .assign test = "else if"
-              .end for
+
+            // fix parameter list format
+            if ( !parameter_list.equals("") ) {
+                parameter_list += ")";
+            }
+
+            // compile the signature
+            signature = ret_type + " " + name + parameter_list;
+
+            // call import function
+            if ( pmc_root_element instanceof SystemModel_c ) {
+                SystemModel_c inst = (SystemModel_c)pmc_root_element;
+                Ooaofooa.S_syssetactions( modelRoot, activity_type, body, dialect, inst.getSys_id(), signature );
+            }
+            else if ( pmc_root_element instanceof Package_c ) {
+                Package_c inst = (Package_c)pmc_root_element;
+                Ooaofooa.Ep_pkgsetactions( modelRoot, activity_type, body, dialect, inst.getPackage_id(), signature );
+            }
+            else if ( pmc_root_element instanceof ModelClass_c ) {
+                ModelClass_c inst = (ModelClass_c)pmc_root_element;
+                Ooaofooa.O_objsetactions( modelRoot, activity_type, body, dialect, inst.getObj_id(), signature );
+            }
+            else if ( pmc_root_element instanceof Component_c ) {
+                Component_c inst = (Component_c)pmc_root_element;
+                Ooaofooa.C_csetactions( modelRoot, activity_type, body, inst.getId(), dialect, port_name, signature );
+            }
+            else if ( pmc_root_element instanceof InstanceStateMachine_c ) {
+                InstanceStateMachine_c inst = (InstanceStateMachine_c)pmc_root_element;
+                Ooaofooa.Sm_ismsetactions( modelRoot, activity_type, body, dialect, signature, inst.getSm_id() );
+            }
+            else if ( pmc_root_element instanceof ClassStateMachine_c ) {
+                ClassStateMachine_c inst = (ClassStateMachine_c)pmc_root_element;
+                Ooaofooa.Sm_asmsetactions( modelRoot, activity_type, body, dialect, signature, inst.getSm_id() );
+            }
             else {
-                System.out.println( "Unrecognized key letters for activity" );
+                System.out.println( "Root element type not supported" );
             }
         }
         .else

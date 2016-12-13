@@ -276,9 +276,9 @@ related across R3 in Source package is moved to Destination package.
   * 11.   Formalize association R1 using Id
   * 12.   Select CL2
   * 13.   Cut is disabled  
-  * 14.   Select CL1
-  * 15.   Cut is disabled
-  
+  * 14.   Select CL1  
+  * 15.   Cut is disabled  
+
 7.17  Data Type at top level within project (Uses test model [2.7](#2.7))
   * 1.   Cut My_DT from P1
   * 2.   Paste My_DT into P3

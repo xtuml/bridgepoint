@@ -24,6 +24,7 @@ package org.xtuml.bp.core.common;
 
 import org.eclipse.jface.dialogs.MessageDialogWithToggle;
 import org.eclipse.jface.preference.IPreferenceStore;
+import org.xtuml.bp.core.Actiondialect_c;
 import org.xtuml.bp.ui.preference.BasePlugin;
 import org.xtuml.bp.ui.preference.IPreferenceModel;
 import org.xtuml.bp.ui.preference.IPreferenceModelStore;
@@ -80,9 +81,6 @@ public class BridgePointPreferencesStore implements IPreferenceModelStore {
 
 	public static final String TO_PROVIDER = "to provider"; //$NON-NLS-1$
 	
-	public static final String OAL_DIALECT = "OAL"; //$NON-NLS-1$
-	public static final String MASL_DIALECT = "MASL"; //$NON-NLS-1$
-
 	public static final String PERSIST_ACTIVITY_FILES = "persist_activity_files";
 	public static final String NO_PERSIST_ACTIVITY_FILES = "no_persist_activity_files";
 		
@@ -191,8 +189,6 @@ public class BridgePointPreferencesStore implements IPreferenceModelStore {
             store.getString(BridgePointPreferencesStore.MESSAGE_DIRECTION);
         prefs.activityPersistenceAsFiles =
             store.getString(BridgePointPreferencesStore.ACTIVITY_PERSISTENCE);
-        prefs.defaultActionLanguageDialect =
-            store.getString(BridgePointPreferencesStore.DEFAULT_ACTION_LANGUAGE_DIALECT);
         prefs.showTransitionActions =
             store.getBoolean(BridgePointPreferencesStore.SHOW_TRANSITION_ACTIONS);
         prefs.showEventParameters =
@@ -224,6 +220,8 @@ public class BridgePointPreferencesStore implements IPreferenceModelStore {
           store.getInt(BridgePointPreferencesStore.ENABLE_DELETE_AUDIT);
         prefs.startUpTime =
           store.getInt(BridgePointPreferencesStore.START_UP_TIME);
+        prefs.defaultActionLanguageDialect =
+            store.getInt(BridgePointPreferencesStore.DEFAULT_ACTION_LANGUAGE_DIALECT);
         
         prefs.showGrid = store.getBoolean(BridgePointPreferencesStore.SHOW_GRID);
         prefs.snapToGrid = store.getBoolean(BridgePointPreferencesStore.SNAP_TO_GRID);
@@ -277,8 +275,8 @@ public class BridgePointPreferencesStore implements IPreferenceModelStore {
         prefs.exportOAL = MessageDialogWithToggle.NEVER;
         prefs.exportGraphics = MessageDialogWithToggle.ALWAYS;
         prefs.messageDirection = TO_PROVIDER;
-        prefs.activityPersistenceAsFiles = NO_PERSIST_ACTIVITY_FILES;
-        prefs.defaultActionLanguageDialect = OAL_DIALECT;
+        prefs.activityPersistenceAsFiles = PERSIST_ACTIVITY_FILES;
+        prefs.defaultActionLanguageDialect = Actiondialect_c.oal;
         
         prefs.enableVerifierAudit = false;
         prefs.enableSelectAudit = 1;

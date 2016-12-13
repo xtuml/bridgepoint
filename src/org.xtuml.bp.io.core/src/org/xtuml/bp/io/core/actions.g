@@ -1,80 +1,339 @@
-//====================================================================
-//
-// File:      $RCSfile: actions.g,v $
-//
-//====================================================================
+// activity parser
 header 
 {
-	package org.xtuml.bp.io.core;
+    package org.xtuml.bp.io.core;
+
+    import antlr.TokenStreamSelector;
+    import org.xtuml.bp.core.Url_c;
 }
 //---------------------------------------------------------------------
 // Parser class is defined here.
 //---------------------------------------------------------------------
-{
-	import org.xtuml.bp.core.Ooaofooa;
-	import org.eclipse.core.runtime.IProgressMonitor;
-}
+
 class ActionParser extends Parser;
 options {
-	exportVocab=Action;
     k=2;
 }
 {
-	public ActionParser(ActionLexer lexer, CoreImport ci){
-		this(lexer, 2);
-		m_ci = ci;		
-	}
-	
-	private CoreImport m_ci = null;
+    private String smasl = "";
+    private int m_dialect = -1;
+    private TokenStreamSelector selector;
+    private CoreImport m_ci;
 
-	public void reportError(RecognitionException arg0) {
-		m_output += arg0.toString() + "\n";
-	}
-	public String m_output = "";
+    public ActionParser(TokenStreamSelector s, CoreImport ci, int dialect) {
+        this((TokenStream)s);
+        selector = s;
+        m_ci = ci;
+        m_dialect = dialect;
+
+    }
+
+    private void populate( String element, String[] values ) {
+        // check arguments
+        if ( null == element || 8 != values.length ) return;
+        for ( int i = 0; i < values.length; i++ ) {
+            if ( null == values[i] ) return;
+        }
+
+        smasl += element;
+        for ( int i = 0; i < values.length; i++ ) {
+            smasl += "," + Url_c.Encode( values[i] );
+        }
+        smasl += "\n";
+
+        clearValues( values );
+    }
+
+    private void clearValues( String[] values ) {
+        if ( null == values ) return;
+        for ( int i = 0; i < values.length; i++ ) values[i] = "";
+    }
+
+    private void sendSmasl() {
+        m_ci.processAction( smasl, m_dialect );
+        smasl = "";
+    }
+
+    public void reportError(RecognitionException arg0) {
+	    m_output += arg0.toString() + "\n";
+            System.out.println(m_output);
+    }
+    public String m_output = "";
 }
-actions [ IProgressMonitor pm ]
-    :
-    (
-      action[pm]
-    )+
-    EOF
-    ;
-action[ IProgressMonitor pm ]
-    :
-    { String name = "";
-      String key_lett = "";
-      String id1 = "";
-      String id2 = "";
-      String body = ""; }
-    TOK_LBRACK
-    name = text
-    TOK_COLCOL
-    key_lett = text
-    TOK_COLCOL
-    id1 = text
-    ( TOK_DASH
-    id2 = text )?
-    TOK_RBRACK
-    body = text
-      {
-      	m_ci.processAction( name.trim(), key_lett.trim(), id1.trim(), id2.trim(), body.trim(), pm );
-      }
-    ;
-text returns [String s]
-    { s = ""; }
-    : ( str:TOK_CHAR { s = s + str.getText(); } )*
-    ;
-class ActionLexer extends Lexer;
+
+activityDefinitions:
+            (activityDefinition)+
+            EOF
+            ;
+
+activityDefinition:     
+            serviceDefinition 
+            | stateDefinition
+            | attributeDefinition
+            | transitionDefinition
+            ;
+
+serviceDefinition:
+            {
+                String element = "routine";
+                String[] values = new String[8];
+                clearValues(values);
+                String val = "";
+            }
+            val=serviceVisibility { values[2]=val; }
+            ("instance" {values[4]="instance";} )?
+            "service"
+            (val=domainName {values[0]=val; } )? "::" 
+            ( val=terminatorName "~>" { values[1]=val; }
+            | val=objectName "." { values[1]=val; element="operation"; } )?
+            val=serviceName { values[3]=val; }
+            { populate( element, values ); }
+            parameterList
+            ( "return" val=returnType { values[0]=val; populate( "typeref", values ); })? "is"
+            {
+                selector.push("bodylexer");
+                BodyParser bodyparser = new BodyParser(getInputState(), selector);
+                values[0] = bodyparser.serviceCodeBlock();
+                populate( "codeblock", values );
+                selector.pop();
+                populate( element, values );
+                sendSmasl();
+            }
+            ;
+
+stateDefinition:
+            {
+                String[] values = new String[8];
+                clearValues(values);
+                String val = "";
+            }
+            val=stateType {values[3]=val;} "state"
+            (val=domainName {values[0]=val;} )? "::"
+            val=objectName "." {values[1]=val;}
+            val=stateName {values[2]=val;}
+            { populate( "state", values ); }
+            parameterList "is"
+            {
+                selector.push("bodylexer");
+                BodyParser bodyparser = new BodyParser(getInputState(), selector);
+                values[0] = bodyparser.stateCodeBlock();
+                populate( "codeblock", values );
+                selector.pop();
+                populate( "state", values );
+                sendSmasl();
+            }
+            ;
+
+attributeDefinition:
+            {
+                String[] values = new String[8];
+                clearValues(values);
+                String val = "";
+            }
+            "attribute"
+            (val=domainName {values[3]=val;})? "::"
+            val=objectName "." {values[4]=val;}
+            val=attributeName {values[0]=val;}
+            { populate( "attribute", values ); }
+            "return" val=returnType "is"
+            { values[0]=val; populate( "typeref", values ); }
+            {
+                selector.push("bodylexer");
+                BodyParser bodyparser = new BodyParser(getInputState(), selector);
+                values[0] = bodyparser.attributeCodeBlock();
+                populate( "codeblock", values );
+                selector.pop();
+                populate( "attribute", values );
+                sendSmasl();
+            }
+            ;
+
+transitionDefinition:
+            {
+                String[] values = new String[8];
+                clearValues(values);
+                String val = "";
+            }
+            "transition"
+            (val=domainName {values[1]=val;})? "::" val=objectName {values[2]=val;}
+            "in" val=stateName {values[0]=val;} "receives" val=eventName {values[3]=val;}
+            { populate( "transition", values ); }
+            parameterList "is"
+            {
+                selector.push("bodylexer");
+                BodyParser bodyparser = new BodyParser(getInputState(), selector);
+                values[0] = bodyparser.transitionCodeBlock();
+                populate( "codeblock", values );
+                selector.pop();
+                populate( "transition", values );
+                sendSmasl();
+            }
+            ;
+
+serviceVisibility returns [String s = ""]:
+            "public"        { s = "public"; }
+            | "private"     { s = "private"; }
+            | /* empty */   { s = "public"; }
+            ;
+
+domainName returns [String s = ""]:
+            id:ID { s = id.getText(); }
+            ;
+
+terminatorName returns [String s = ""]:
+            id:ID { s = id.getText(); }
+            ;
+
+objectName returns [String s = ""]:
+            id:ID { s = id.getText(); }
+            ;
+
+stateName returns [String s = ""]:
+            id:ID { s = id.getText(); }
+            ;
+
+eventName returns [String s = ""]:
+            id:ID { s = id.getText(); }
+            ;
+
+attributeName returns [String s = ""]:
+            id:ID { s = id.getText(); }
+            ;
+
+serviceName returns [String s = ""]:
+            id:ID { s = id.getText(); }
+            ;
+
+parameterList:
+            "("
+            ( parameterDefinitions )?
+            ")"
+            ;
+
+parameterDefinitions:
+            {
+                String[] values = new String[8];
+                clearValues(values);
+            }
+            parameterDefinition ( "," parameterDefinitions )?
+            { populate( "parameter", values ); }
+            ;
+
+parameterDefinition:
+            {
+                String[] values = new String[8];
+                clearValues(values);
+                String val = "";
+            }
+            val=parameterName { values[0]=val; }
+            ":" val=parameterMode { values[1]=val; }
+            { populate( "parameter", values ); }
+            val=parameterType { values[0]=val; populate( "typeref", values ); }
+            ;
+
+parameterName returns [String s = ""]:
+            id:ID { s = id.getText(); }
+            ;
+
+parameterMode returns [String s = ""]:
+            "in"        { s = "in"; }
+            | "out"     { s = "in"; }
+            ;
+
+stateType returns [String s = ""]:
+            "assigner"              { s = "assigner"; }
+            | "assigner" "start"    { s = "assigner start"; }
+            | "creation"            { s = "creation"; }
+            | "terminal"            { s = "terminal"; }
+            | /* empty */
+            ;
+
+parameterType returns [String s = ""]:
+            s=typeReference
+            ;
+
+returnType returns [String s = ""]:
+            s=typeReference
+            ;
+
+typeReference returns [String s = ""]: 
+            { String val = ""; }
+            ("anonymous" {s="anonymous ";} )?
+            ( val=namedTypeRef      { s += val; }
+            | val=instanceTypeRef   { s += val; }
+            | val=collectionTypeRef { s += val; } )
+            ;
+
+qualifiedObjectName returns [String s = ""]:
+            { String val = ""; }
+            (s=domainName "::")? val=objectName { s += val; }
+            ;
+
+instanceTypeRef returns [String s = ""]:
+            { String val = ""; }
+            "instance" "of" val=qualifiedObjectName { s = "instance of " + val; }
+            ;
+
+namedTypeRef returns [String s = ""]:
+            { String val = ""; }
+            (s=domainName "::")? val=typeName { s += val; }
+            ;
+
+typeName returns [String s = ""]:
+            id:ID { s = id.getText(); }
+            ;
+
+/*
+arrayBounds:
+            "(" expression ")"
+            ;
+*/
+
+collectionTypeRef returns [String s = ""]:
+            { String val = ""; }
+            ( "sequence" /*("(" expression ")")?*/ "of" val=typeReference { s = "sequence of " + val; }
+            //| "array"  arrayBounds "of" typeReference
+            | "set" "of" val=typeReference { s = "set of " + val; }
+            | "bag" "of" val=typeReference { s = "bag of " + val; }
+            | "dictionary" {s="dictionary";}
+            ( (val=dictKeyType { s += " " + val; } )? "of" val=dictValueType { s += " of " + val; } )?
+            )
+            ;
+
+dictKeyType returns [String s = ""]:
+            s=namedTypeRef
+	    | s=instanceTypeRef
+	    ;
+
+dictValueType returns [String s = ""]:
+            s=typeReference
+            ;
+	
+
+class SignatureLexer extends Lexer;
 options {
-	exportVocab=Action;
-    caseSensitiveLiterals=false;
-    caseSensitive=false;
-    testLiterals=true;
     k=2;
-    charVocabulary = '\u0000'..'\ufffe';
 }
-TOK_LBRACK : "{{";
-TOK_RBRACK : "}}";
-TOK_COLCOL : "%%";
-TOK_DASH   : "--";
-TOK_CHAR   : .;
+{
+    public void reportError(RecognitionException arg0) {
+	    m_output += arg0.toString() + "\n";
+            System.out.println(m_output);
+    }
+    public String m_output = "";
+}
+
+SCOPE               : "::";
+SEMI                : ";";
+RPAREN              : ")";
+LPAREN              : "(";
+COLON               : ":";
+TERMINATOR_SCOPE    : "~>";
+DOT                 : ".";
+COMMA               : ",";
+
+ID                  : ( ('A'..'Z' | 'a'..'z') | '_' ) ( ('A'..'Z' | 'a'..'z') | ('0'..'9') | '_' )*;
+
+WS                  : (' ' | '\t' | '\f' | '\n'{newline();} | '\r' )+ { $setType(Token.SKIP); };
+COMMENT             : "//" (~('\n'|'\r'))* ('\r')? '\n' { $setType(Token.SKIP); };
+
+

@@ -2,7 +2,6 @@ package org.xtuml.bp.xtext.masl.lib
 
 import com.google.inject.Inject
 import com.google.inject.name.Named
-import java.util.ArrayList
 import org.eclipse.emf.common.util.URI
 import org.eclipse.xtend.lib.annotations.FinalFieldsConstructor
 import org.eclipse.xtext.resource.IResourceDescriptions

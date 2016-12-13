@@ -96,6 +96,7 @@ else
  self.dispose();   
 end if;   
 self.Instance_Based = Scope::Instance;
+self.Dialect = PREF::getActionDialect(name:"bridgepoint_prefs_default_action_language_dialect");
 self.Suc_Pars = ParseStatus::parseInitial;
 ',
 	1,
@@ -1185,6 +1186,31 @@ INSERT INTO O_ATTR
 	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
+INSERT INTO O_NBATTR
+	VALUES ("ad0610bc-594c-4195-806b-b4bab885fd69",
+	"32854b2d-b225-40d9-abb2-4519ff4e4af7");
+INSERT INTO O_BATTR
+	VALUES ("ad0610bc-594c-4195-806b-b4bab885fd69",
+	"32854b2d-b225-40d9-abb2-4519ff4e4af7");
+INSERT INTO O_ATTR
+	VALUES ("ad0610bc-594c-4195-806b-b4bab885fd69",
+	"32854b2d-b225-40d9-abb2-4519ff4e4af7",
+	"4b050f56-3443-49bd-ac27-b579c9154a50",
+	'Dialect',
+	'Full Name: Action Dialect',
+	'',
+	'Dialect',
+	0,
+	"7b54f646-a8a8-4b82-9bb0-cf5465115f3b",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("7b54f646-a8a8-4b82-9bb0-cf5465115f3b",
+	"00000000-0000-0000-0000-000000000000",
+	'ActionDialect',
+	'Enumerator for available action dialects',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_ID
 	VALUES (0,
 	"32854b2d-b225-40d9-abb2-4519ff4e4af7");

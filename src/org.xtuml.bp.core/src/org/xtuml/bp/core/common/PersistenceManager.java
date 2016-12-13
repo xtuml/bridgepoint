@@ -1023,7 +1023,7 @@ public class PersistenceManager {
 		IModelImport importer;
 		try {
 			importer = CorePlugin.getModelImportFactory().create(
-					pmc.getFile(), pmc.getActionFile(), Ooaofooa.getDefaultInstance(),
+					pmc.getFile(), Ooaofooa.getDefaultInstance(),
 					pmc, false, false, false, false);
 			return importer.getHeader();
 		} catch (IOException e) {

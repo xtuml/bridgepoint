@@ -23,6 +23,7 @@ import org.xtuml.bp.xtext.masl.masl.behavior.BehaviorPackage;
 import org.xtuml.bp.xtext.masl.masl.behavior.Expression;
 import org.xtuml.bp.xtext.masl.masl.behavior.ForStatement;
 import org.xtuml.bp.xtext.masl.masl.behavior.LoopVariable;
+import org.xtuml.bp.xtext.masl.masl.behavior.StatementList;
 
 /**
  * <!-- begin-user-doc -->
@@ -32,15 +33,25 @@ import org.xtuml.bp.xtext.masl.masl.behavior.LoopVariable;
  * The following features are implemented:
  * </p>
  * <ul>
+ *   <li>{@link org.xtuml.bp.xtext.masl.masl.behavior.impl.ForStatementImpl#getStatements <em>Statements</em>}</li>
  *   <li>{@link org.xtuml.bp.xtext.masl.masl.behavior.impl.ForStatementImpl#getVariable <em>Variable</em>}</li>
  *   <li>{@link org.xtuml.bp.xtext.masl.masl.behavior.impl.ForStatementImpl#isReverse <em>Reverse</em>}</li>
  *   <li>{@link org.xtuml.bp.xtext.masl.masl.behavior.impl.ForStatementImpl#getExpression <em>Expression</em>}</li>
- *   <li>{@link org.xtuml.bp.xtext.masl.masl.behavior.impl.ForStatementImpl#getStatements <em>Statements</em>}</li>
  * </ul>
  *
  * @generated
  */
 public class ForStatementImpl extends AbstractStatementImpl implements ForStatement {
+	/**
+	 * The cached value of the '{@link #getStatements() <em>Statements</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getStatements()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<AbstractStatement> statements;
+
 	/**
 	 * The cached value of the '{@link #getVariable() <em>Variable</em>}' containment reference.
 	 * <!-- begin-user-doc -->
@@ -82,16 +93,6 @@ public class ForStatementImpl extends AbstractStatementImpl implements ForStatem
 	protected Expression expression;
 
 	/**
-	 * The cached value of the '{@link #getStatements() <em>Statements</em>}' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getStatements()
-	 * @generated
-	 * @ordered
-	 */
-	protected EList<AbstractStatement> statements;
-
-	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -108,6 +109,18 @@ public class ForStatementImpl extends AbstractStatementImpl implements ForStatem
 	@Override
 	protected EClass eStaticClass() {
 		return BehaviorPackage.Literals.FOR_STATEMENT;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EList<AbstractStatement> getStatements() {
+		if (statements == null) {
+			statements = new EObjectContainmentEList<AbstractStatement>(AbstractStatement.class, this, BehaviorPackage.FOR_STATEMENT__STATEMENTS);
+		}
+		return statements;
 	}
 
 	/**
@@ -222,27 +235,15 @@ public class ForStatementImpl extends AbstractStatementImpl implements ForStatem
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<AbstractStatement> getStatements() {
-		if (statements == null) {
-			statements = new EObjectContainmentEList<AbstractStatement>(AbstractStatement.class, this, BehaviorPackage.FOR_STATEMENT__STATEMENTS);
-		}
-		return statements;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
+			case BehaviorPackage.FOR_STATEMENT__STATEMENTS:
+				return ((InternalEList<?>)getStatements()).basicRemove(otherEnd, msgs);
 			case BehaviorPackage.FOR_STATEMENT__VARIABLE:
 				return basicSetVariable(null, msgs);
 			case BehaviorPackage.FOR_STATEMENT__EXPRESSION:
 				return basicSetExpression(null, msgs);
-			case BehaviorPackage.FOR_STATEMENT__STATEMENTS:
-				return ((InternalEList<?>)getStatements()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -255,14 +256,14 @@ public class ForStatementImpl extends AbstractStatementImpl implements ForStatem
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
+			case BehaviorPackage.FOR_STATEMENT__STATEMENTS:
+				return getStatements();
 			case BehaviorPackage.FOR_STATEMENT__VARIABLE:
 				return getVariable();
 			case BehaviorPackage.FOR_STATEMENT__REVERSE:
 				return isReverse();
 			case BehaviorPackage.FOR_STATEMENT__EXPRESSION:
 				return getExpression();
-			case BehaviorPackage.FOR_STATEMENT__STATEMENTS:
-				return getStatements();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -276,6 +277,10 @@ public class ForStatementImpl extends AbstractStatementImpl implements ForStatem
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
+			case BehaviorPackage.FOR_STATEMENT__STATEMENTS:
+				getStatements().clear();
+				getStatements().addAll((Collection<? extends AbstractStatement>)newValue);
+				return;
 			case BehaviorPackage.FOR_STATEMENT__VARIABLE:
 				setVariable((LoopVariable)newValue);
 				return;
@@ -284,10 +289,6 @@ public class ForStatementImpl extends AbstractStatementImpl implements ForStatem
 				return;
 			case BehaviorPackage.FOR_STATEMENT__EXPRESSION:
 				setExpression((Expression)newValue);
-				return;
-			case BehaviorPackage.FOR_STATEMENT__STATEMENTS:
-				getStatements().clear();
-				getStatements().addAll((Collection<? extends AbstractStatement>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -301,6 +302,9 @@ public class ForStatementImpl extends AbstractStatementImpl implements ForStatem
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
+			case BehaviorPackage.FOR_STATEMENT__STATEMENTS:
+				getStatements().clear();
+				return;
 			case BehaviorPackage.FOR_STATEMENT__VARIABLE:
 				setVariable((LoopVariable)null);
 				return;
@@ -309,9 +313,6 @@ public class ForStatementImpl extends AbstractStatementImpl implements ForStatem
 				return;
 			case BehaviorPackage.FOR_STATEMENT__EXPRESSION:
 				setExpression((Expression)null);
-				return;
-			case BehaviorPackage.FOR_STATEMENT__STATEMENTS:
-				getStatements().clear();
 				return;
 		}
 		super.eUnset(featureID);
@@ -325,16 +326,48 @@ public class ForStatementImpl extends AbstractStatementImpl implements ForStatem
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
+			case BehaviorPackage.FOR_STATEMENT__STATEMENTS:
+				return statements != null && !statements.isEmpty();
 			case BehaviorPackage.FOR_STATEMENT__VARIABLE:
 				return variable != null;
 			case BehaviorPackage.FOR_STATEMENT__REVERSE:
 				return reverse != REVERSE_EDEFAULT;
 			case BehaviorPackage.FOR_STATEMENT__EXPRESSION:
 				return expression != null;
-			case BehaviorPackage.FOR_STATEMENT__STATEMENTS:
-				return statements != null && !statements.isEmpty();
 		}
 		return super.eIsSet(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public int eBaseStructuralFeatureID(int derivedFeatureID, Class<?> baseClass) {
+		if (baseClass == StatementList.class) {
+			switch (derivedFeatureID) {
+				case BehaviorPackage.FOR_STATEMENT__STATEMENTS: return BehaviorPackage.STATEMENT_LIST__STATEMENTS;
+				default: return -1;
+			}
+		}
+		return super.eBaseStructuralFeatureID(derivedFeatureID, baseClass);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public int eDerivedStructuralFeatureID(int baseFeatureID, Class<?> baseClass) {
+		if (baseClass == StatementList.class) {
+			switch (baseFeatureID) {
+				case BehaviorPackage.STATEMENT_LIST__STATEMENTS: return BehaviorPackage.FOR_STATEMENT__STATEMENTS;
+				default: return -1;
+			}
+		}
+		return super.eDerivedStructuralFeatureID(baseFeatureID, baseClass);
 	}
 
 	/**
