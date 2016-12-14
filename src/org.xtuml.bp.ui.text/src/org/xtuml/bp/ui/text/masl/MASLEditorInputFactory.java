@@ -220,15 +220,31 @@ public class MASLEditorInputFactory extends FileEditorInputFactory {
 	}
 
 	private IFile getFileForModelElement(NonRootModelElement modelElement) throws CoreException {
-		IFile file;
+		IFile file = null;
 
-		PersistableModelComponent pmc = modelElement.getPersistableComponent();
-		file = pmc.getActionFile();
-		if (!file.exists()) {
-			byte[] bytes = "".getBytes();
-			InputStream source = new ByteArrayInputStream(bytes);
-			file.create(source, IResource.NONE, null);
-		}
+                // get the dialect
+                try {
+                    Method getDialectMethod = modelElement.getClass().getMethod("getDialect");
+                    int dialect = (int) getDialectMethod.invoke(modelElement);
+
+                    PersistableModelComponent pmc = modelElement.getPersistableComponent();
+                    file = pmc.getActionFile( dialect );
+
+                } catch ( NoSuchMethodException e ) {
+                    System.out.println( e );
+                } catch ( NullPointerException e ) {
+                    System.out.println( e );
+                } catch ( SecurityException e ) {
+                    System.out.println( e );
+                } catch ( IllegalAccessException e ) {
+                    System.out.println( e );
+                } catch ( IllegalArgumentException e ) {
+                    System.out.println( e );
+                } catch ( InvocationTargetException e ) {
+                    System.out.println( e );
+                } catch ( ExceptionInInitializerError e ) {
+                    System.out.println( e );
+                }
 
 		return file;
 	}

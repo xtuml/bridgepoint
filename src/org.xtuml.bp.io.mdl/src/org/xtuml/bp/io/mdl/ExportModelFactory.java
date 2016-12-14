@@ -39,29 +39,27 @@ public class ExportModelFactory extends AbstractModelExportFactory {
 	public IRunnableWithProgress create(
 		NonRootModelElement me,
 		String fileName,
-		String actionFileName,
 		boolean exportGraphics) throws FileNotFoundException {
-		return new ExportModelComponent((Ooaofooa)me.getModelRoot(), fileName, actionFileName, exportGraphics, me);
+		return new ExportModelComponent((Ooaofooa)me.getModelRoot(), fileName, exportGraphics, me);
 	}
 	
 	public IRunnableWithProgress create(
 		Ooaofooa aModelRoot,
 		String fileName,
-		String actionFileName,
 		boolean exportGraphics) throws FileNotFoundException {
 		return new ExportModel(aModelRoot, fileName, exportGraphics);
 	}
 	
 
-	public IRunnableWithProgress create(String file, String actionFile, NonRootModelElement element)
+	public IRunnableWithProgress create(String file, NonRootModelElement element)
 			throws FileNotFoundException {
-		ExportModelComponent emc = new ExportModelComponent(file, actionFile, element);
+		ExportModelComponent emc = new ExportModelComponent(file, element);
 		emc.outputCachedIDs = true;
 		return emc;
 	}
 
-	public IRunnableWithProgress create(Ooaofooa modelRoot, ByteArrayOutputStream baos, ByteArrayOutputStream actionbaos, NonRootModelElement element) {
-		ExportModelComponent emc = new ExportModelComponent(modelRoot, baos, actionbaos, element);
+	public IRunnableWithProgress create(Ooaofooa modelRoot, ByteArrayOutputStream baos, NonRootModelElement element) {
+		ExportModelComponent emc = new ExportModelComponent(modelRoot, baos, element);
 		emc.outputCachedIDs = true;
 		return emc;
 	}

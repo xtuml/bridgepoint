@@ -459,12 +459,6 @@ if (not_empty asm)
   unrelate self from asm across R519;
 end if;
 //
-// Communication and Access Subsystem
-select many accpaths related by self->CA_SMOA[R417]->CA_ACC[R415];
-for each accpath in accpaths
-  accpath.dispose();
-end for;
-//
 // Body Subsystem
 select many forstmts related by self->ACT_FOR[R670];
 for each forstmt in forstmts
