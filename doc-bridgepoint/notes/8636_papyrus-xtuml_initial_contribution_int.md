@@ -85,7 +85,27 @@ license should be removed.
 
 * We can simply remove all the license PDFs in org.xtuml.bp.doc/legal/
 
-  * Items were removed.
+  * Mentor Graphics required that the PDF versions of the third party licenses
+be part of the distribution.  Eclipse does not.  Files removed from the
+bridgepoint repo:
+<pre>
+src/org.xtuml.bp.doc/legal/apache_1.1.pdf
+src/org.xtuml.bp.doc/legal/apache_2.0.pdf
+src/org.xtuml.bp.doc/legal/boost_1.0.pdf
+src/org.xtuml.bp.doc/legal/cddl_1.0.pdf
+src/org.xtuml.bp.doc/legal/cpl_1.0.pdf
+src/org.xtuml.bp.doc/legal/cygwin_api.pdf
+src/org.xtuml.bp.doc/legal/eclipse_1.0.pdf
+src/org.xtuml.bp.doc/legal/gnu_free_doc_1.2.pdf
+src/org.xtuml.bp.doc/legal/gnu_gpl_2.0.pdf
+src/org.xtuml.bp.doc/legal/gnu_gpl_3.0.pdf
+src/org.xtuml.bp.doc/legal/gnu_lgpl_2.1.pdf
+src/org.xtuml.bp.doc/legal/gnu_lgpl_3.0.pdf
+src/org.xtuml.bp.doc/legal/gnu_library_gpl_2.0.pdf
+src/org.xtuml.bp.doc/legal/oracle_binary_jre_javafx_6.pdf
+src/org.xtuml.bp.doc/legal/perl_artistic_2.0.pdf
+src/org.xtuml.bp.doc/legal/w3c_2002.pdf
+</pre>
 
 5.3  Update-copyright.pl contains copyright to Jari Aalto under the GPL.  This
 content will need to be removed as that is not an approved license for Eclipse
@@ -94,7 +114,12 @@ distribution.
 * This is simply a utility we use very rarely and it's not really part of
 papyrus-xtuml itself.  We'll remove it from the submission.
 
-  * Item removed.
+  * The following two files were removed from bridgepoint.  They still exist
+in the xtuml/internal repository if needed.
+<pre>
+utilities/update-copyright/test_input.txt
+utilities/update-copyright/update-copyright.pl
+</pre>
 
 5.4  Many files indicate they contain proprietary and confidential information
 and are not for external distribution.  A sampling of these files follow:
@@ -112,6 +137,8 @@ As you can imagine, these are not terms associated with open source.
 We will remove these notices.
 
   * Notices were removed.
+  * Note the ooaofooa was not flagged because the "proprietary and confidental"
+language was not present.
 
 5.5  About.htmls indicate the use of the software is subject to license
 restriction and read this license agreement.  This needs to be removed and
@@ -141,8 +168,9 @@ will not be checked into the Eclipse repo or included in downloads or ?
 It's possible we have submitted some things that should not have been submitted.
 Can you please provide a list of offending files?
 
-  * Most hits found to GNU were "Gnu Make Builder" in `.cproject` files.
-  * Two files are output from GNU Bison and the header notes a special
+  * A list was not provided.  Using grep the following observations were made:  
+    * Most hits found to GNU were "Gnu Make Builder" in `.cproject` files.
+    * Two files are output from GNU Bison and the header notes a special
 exception for output files.  
 `mc/model/escher/gen/y.tab.h`  
 `mc/model/escher/gen/template_engine.tab.c`  
@@ -236,6 +264,12 @@ has been taken yet.
 copyright and license headers.  (from 5.6)
 
 6.2  Third Party Dependencies  (from 5.8)  
+
+Note:  After review it was decided that the dependencies listed in the rest of
+this section do not apply to the Papyrus-xtUML submission.  The Third Party
+About file mentioned in 6.2.1 was removed.  The discussion in 6.2.2 no longer
+applies.
+
 6.2.1  "Oss.htm seems to include the project’s third party dependencies.  This
 file needs to be replaced by the necessary standard Eclipse Third Party About
 files."
