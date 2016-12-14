@@ -24,9 +24,6 @@
         <link id="upgrade" label="What's New" style-id="left" url="http://org.eclipse.ui.intro/showHelpTopic?id=/org.xtuml.bp.doc/WhatsNew/WhatsNew.html">
           <text>Click here to view new features in this release.</text>
         </link>
-        <link id="license" label="Licensing" style-id="right" url="http://org.eclipse.ui.intro/showHelpTopic?id=/org.xtuml.bp.doc/license/licenseagreement.htm">
-          <text>Click here to view information about BridgePoint UML licensing.</text>
-        </link>
         <anchor id="additions"/>
         <anchor id="bottom"/>
       </group>
@@ -51,9 +48,6 @@
         </link>
         <link id="upgrade" label="What's New" style-id="left" url="http://org.eclipse.ui.intro/showHelpTopic?id=/org.xtuml.bp.doc/WhatsNew/WhatsNew.html">
           <text>Click here to view new features in this release.</text>
-        </link>
-        <link id="license" label="Licensing" style-id="right" url="http://org.eclipse.ui.intro/showHelpTopic?id=/org.xtuml.bp.doc/license/licenseagreement.htm">
-          <text>Click here to view information about BridgePoint UML licensing.</text>
         </link>
         <anchor id="additions"/>
         <anchor id="bottom"/>
