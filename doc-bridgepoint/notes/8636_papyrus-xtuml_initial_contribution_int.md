@@ -325,6 +325,8 @@ Branch:  8636_ip_review_cleanup
 
 <pre>
 ~/git/bridgepoint$ git diff --name-status master..8636_ip_review_cleanup
+A       doc-bridgepoint/notes/8636_papyrus-xtuml_initial_contribution_int.md
+A       doc-bridgepoint/review-minutes/8636_initial_contribution.int.md
 M       src/org.xtuml.bp.als.oal/about.html
 M       src/org.xtuml.bp.bld.pkg/about.html
 M       src/org.xtuml.bp.cdt/about.html
@@ -377,8 +379,6 @@ A       src/org.xtuml.bp.doc/license/copyright.html
 A       src/org.xtuml.bp.doc/license/copyright.md
 D       src/org.xtuml.bp.doc/license/licenseagreement.htm
 D       src/org.xtuml.bp.doc/license/oss.htm
-A       src/org.xtuml.bp.doc/license/third_party_about.html
-A       src/org.xtuml.bp.doc/license/third_party_about.md
 M       src/org.xtuml.bp.doc/toc.xml
 M       src/org.xtuml.bp.doc/topics_GettingStarted.xml
 M       src/org.xtuml.bp.doc/topics_license.xml
@@ -440,14 +440,13 @@ M       model/mcooa/models/mcooa/ooaofooa/Interaction/Interaction.xtuml
 M       model/mcooa/models/mcooa/ooaofooa/Invocation/Invocation.xtuml
 M       model/mcooa/models/mcooa/ooaofooa/Message/Message.xtuml
 M       model/mcooa/models/mcooa/ooaofooa/Packageable Element/Packageable Element.xtuml
-M       model/mcooa/models/mcooa/ooaofooa/Persistence Associations/Persistence Associations.xtum
+M       model/mcooa/models/mcooa/ooaofooa/Persistence Associations/Persistence Associations.xtuml
 M       model/mcooa/models/mcooa/ooaofooa/Relate And Unrelate/Relate And Unrelate.xtuml
 M       model/mcooa/models/mcooa/ooaofooa/Selection/Selection.xtuml
 M       model/mcooa/models/mcooa/ooaofooa/State Machine/State Machine.xtuml
 M       model/mcooa/models/mcooa/ooaofooa/Subsystem/Subsystem.xtuml
 M       model/mcooa/models/mcooa/ooaofooa/Use Case/Use Case.xtuml
 M       model/mcooa/models/mcooa/ooaofooa/Value/Value.xtuml
-M       model/mcooa/models/mcooa/ooaofooa/Wiring/Wiring.xtuml
 M       model/mcooa/models/mcooa/ooaofooa/ooaofooa.xtuml
 M       schema/colors/sys_functions.arc
 </pre>

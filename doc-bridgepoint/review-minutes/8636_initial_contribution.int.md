@@ -15,7 +15,8 @@ Present:  Cort,Keith,bob,jason
 <pre>
 
 -- Num Type  Who  Section  Comment
-_- 01  min   cds  3      create a follow on issue for the work that remains (parent task). 
+x- 01  min   cds  3      create a follow on issue for the work that remains (parent task). 
+                         Created:  https://support.onefact.net/issues/8926
                            We have done a lot of work, but are
                            unsure what to do next. Section 3 calls out what was submitted but much was not.
                            We must deal with what was not submitted.
@@ -23,21 +24,22 @@ _- 02  min   cds  5.1      No action taken on headers, raise issue (child)
                            --Note: during review we decided no action is needed. This was after long 
                            review of the implementation comments.
                            
-_- 03  min   cds  5.2      Provide some history about why the old licenses are included (Mentor history)
-_- 04  min   skb  5.3      This was moved to a different repo, add the link to where we put it.
+x- 03  min   cds  5.2      Provide some history about why the old licenses are included (Mentor history)
+x- 04  min   skb  5.3      This was moved to a different repo, add the link to where we put it.
 _- 05  min   bob  5.4      This item already calls out that this is not exhaustive, but note that 
                            this list is mcooaofooa and all these will almost certainly also be in ooaofooa, 
                            so if mcooaofooa is editied ooaofooa will also need to be modified.
                            
                            Note: No action needed. The line that caused this comment was removed from ooaofooa.
                            
-_- 06  min   cds  4        Declaration (raise issue under new parent task):
+x- 06  min   cds  4        Declaration (raise issue under new parent task):
                            Remove all Mentor Graphics copyrights.
                            
                            We will remove all Mentor Graphics copyrights anywhere they exist whenever we see them from this
                            point forward.
+                           Created:  https://support.onefact.net/issues/8927
                            
-_- 07  min   jr  5.7      they did not respond with a list, we (jason)grepped and found them.
+x- 07  min   jr  5.7      they did not respond with a list, we (jason)grepped and found them.
 _- 08  min   cds  5.9      Note that the words "One.*Fact" should probably not exist in the source code anywhere.
 _- 09  min   bob  6.1.2    Raise a child issue from the new parent. Cort has a stretagy for this. We do not feel every 
                            file should have a header.
@@ -86,8 +88,9 @@ _- 10  min   cds  6.2.2   What packages will be include, and what is the justifa
                           
                         Decision:
                           We will do #5
-_- 11  min   skb  general      Add a link to xtuml.org/download from papyrus-xtuml on eclipse.org make sure that download works.
+x- 11  min   skb  general      Add a link to xtuml.org/download from papyrus-xtuml on eclipse.org make sure that download works.
                            This lets us know a new user can download something useful.
+                           NOTE:  After the meeting Cort discovered any links added must be to an Eclipse Foundation property.
 
 </pre>
    
