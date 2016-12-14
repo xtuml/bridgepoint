@@ -47,11 +47,6 @@ for each fv in fvs
   unrelate self from fv across R827;
 end for;
 //
-// Wiring Subsystem
-select many aws related by self->S_AW[R3201];
-for each aw in aws
-  unrelate self from aw across R3201;
-end for;
 // for each message that this function
 // is associated with
 select many fms related by self->MSG_F[R1010];

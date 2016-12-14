@@ -48,13 +48,6 @@ for each bm in bms
   select one message related by bm->MSG_SM[R1020]->MSG_M[R1018];
   message.unformalize();
 end for;
-//
-// Wiring Subsystem
-select one wiring related by self->S_AW[R3200];
-if (not_empty wiring)
-  unrelate wiring from self across R3200;
-  wiring.dispose();
-end if;
 
 select many dims related by self->S_DIM[R50];
 for each dim in dims

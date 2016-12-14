@@ -74,21 +74,7 @@
     .while (not_empty col)
       .assign post_string = ""
       .assign special_case = false
-      .if (( (table.Key_Lett == "CA_SMSMC") and (col.Name == "DIObj_ID") ) and (callingProject == "BP") )
-        .//
-        .// this column is special, because it isn't always output
-        .// due to a bug in Model Builder bp issue 2837
-        .// so just set it to the value parsed above
-           val4\
-        .assign special_case = true
-      .elif (( (table.Key_Lett == "CA_SMSMC") and (col.Name == "OIObj_ID")) and (callingProject == "BP") )
-        .//
-        .// this column is special, because BP outputs the last
-        .// two attributes in reverse order.  If the ooaofooa
-        .// model is changed to have the same order as BP, this reversal can be removed.
-           IdAssigner.createUUIDFromString((String)parms.elementAt(3))\
-        .assign special_case = true
-      .elif (( (table.Key_Lett == "GD_MD") and (col.Name == "ScrollXPos")) and (callingProject == "BP") )
+      .if (( (table.Key_Lett == "GD_MD") and (col.Name == "ScrollXPos")) and (callingProject == "BP") )
         .//
         .// this column is special, because the scroll position is -1 for
         .// diagrams that have never been viewed.
@@ -315,7 +301,7 @@
 		  .assign dialectAdded = true;
 		.end if
 		.if (dialectAdded)
-			rawParms.size() <= ${attr_col_num} ? -1 : Integer.parseInt((String)parms.elementAt(${attr_col_num}))\
+			(rawParms.size() <= ${attr_col_num} || !ImportInteger.isInt(parms.elementAt(${attr_col_num}))) ? Actiondialect_c.oal : Integer.parseInt((String)parms.elementAt(${attr_col_num}))\
 		  .assign special_case = true
 		.end if
 	  .end if

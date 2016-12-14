@@ -18,10 +18,6 @@ INSERT INTO O_TFR
 unrelate self from dt across R15;
 select one ee related by self->S_EE[R11];
 unrelate self from ee across R11;
-select many smeeds related by self->CA_SMEED[R423];
-for each smeed in smeeds
-  smeed.dispose();
-end for;
 delete object instance self;',
 	1,
 	'',
