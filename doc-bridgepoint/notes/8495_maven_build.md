@@ -182,6 +182,13 @@ these servers.
 6.13.1  Need to "install" the MASL tools either into the ```tools/``` folder or 
   with the MC pieces.  So likely either duplicate or piggyback on the implementations
   in 6.11 or 6.12.  
+Brain dump of what I did (update into the note later):
+- Add a new feature to manage the tools/masl files.  At build time this copies 
+the files into the right places.  Note that this includes a pre-compiled version 
+of MASLParser.jar.  This POM can probably be enhanced later to build MASLParser 
+on the fly rather than storing a compiled version.  The other files are copied 
+into place from the MC repository and from the extra_files folder in this repo.
+- Updated bp.releng.parent/pom.xml to build it and bridgepoint.product to package it
 
 7. Design Comments
 ------------------
