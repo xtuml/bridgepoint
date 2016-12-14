@@ -27,17 +27,17 @@
 .// --------------------------------------------------------
 .function gen_for_statement
   .param inst_ref statement
-  .assign nestlevel = "${info.unique_num}"
   .select one tgt_obj related by statement->O_OBJ[R670]
   .select one set_var related by statement->V_VAR[R652]
   .select one loop_var related by statement->V_VAR[R614]
+  .assign nestlevel = "for_index_" + loop_var.Name
   .if ( statement.is_implicit == 1 )
     .invoke cn = get_class_name( tgt_obj )
 ${cn.body}  v_${loop_var.Name} = null;
   .end if
-for ( int i${nestlevel} = 0; i${nestlevel} < v_${set_var.Name}.length; i${nestlevel}++)
+for ( int ${nestlevel} = 0; ${nestlevel} < v_${set_var.Name}.length; ${nestlevel}++)
 {
-  v_${loop_var.Name} = v_${set_var.Name}[i${nestlevel}] ;
+  v_${loop_var.Name} = v_${set_var.Name}[${nestlevel}] ;
 .end function
 .//
 .// ----------------------------------------------------------
@@ -874,7 +874,7 @@ ${where_clause_arg}\
       .select one selected_ref related by attribute_val->V_VAL[R807]->V_SLR[R801]
       .select one operation_val related by p_val->V_TRV[R801]
       .if (((not_empty transient_val) or ((not_empty attribute_val) and (empty selected_ref))) or (not_empty operation_val))
-        .assign temp_var = "p${info.unique_num}"
+        .assign temp_var = "p${p_val.LineNumber}_${p_val.StartPosition}_${p_val.EndPosition}"
         .select any type from instances of S_DT where (selected.DT_ID == p_val.DT_ID)
         .invoke result = do_type(type)
         .assign attr_param_decl  = "${result.body} ${temp_var}"
@@ -895,7 +895,12 @@ ${where_clause_arg}\
   .param inst_ref where_clause
   .//
   .invoke cn = get_class_name( tgt_obj )
-  .assign test_num = "${info.unique_num}"
+  .assign test_num = ""
+  .if ( empty where_clause )
+    .assign test_num = "p${info.unique_num}"
+  .else
+    .assign test_num = "${where_clause.LineNumber}_${where_clause.StartPosition}_${where_clause.EndPosition}"
+  .end if
   .invoke tcn = get_test_class_name()
   .assign new_test_class_name = "$cr{tgt_obj.Name}_test${test_num}_c"
   class ${new_test_class_name} implements ${tcn.body}
