@@ -5,9 +5,13 @@
 
 -->
 <project name="bp.core" default="all" basedir=".">
+  <property file="generate.properties"/>
   <target name="all"
           description="Generate all code for this project"
           depends="sql,java,cme,cme_schema,cme_menus,inspector.java, cell_modifiers,generate_supertype_subtype_util, action_language_description_util, generate_rto_util, format_java">
+          <!-- Swap this in (for the above line) when you just want java generated.
+          depends="sql,java">
+          -->
   </target>
 
   <target name="nb_all"
@@ -171,6 +175,8 @@
     <property name="param4" value="" />
     <property name="param5" value="Constants" />
     <property name="param6" value = "1"/>
+    <property name="param7" value = "${ptc_mcc_ss_only}"/>
+    <property name="param8" value = "${ptc_mcc_class_only}"/>
     <property name="verify_selects" value="false" />
     <property name="mcjava.project.root" value="${basedir}"/>
   </ant>
@@ -181,6 +187,8 @@
       <property name="param4" value="Constants" />
       <property name="param5" value="Invocation" />
       <property name="param6" value = "2"/>
+      <property name="param7" value = "${ptc_mcc_ss_only}"/>
+      <property name="param8" value = "${ptc_mcc_class_only}"/>
       <property name="verify_selects" value="false" />
       <property name="mcjava.project.root" value="${basedir}"/>
     </ant>
@@ -191,6 +199,8 @@
       <property name="param4" value="Invocation" />
       <property name="param5" value="Use Case" />
       <property name="param6" value = "3"/>
+      <property name="param7" value = "${ptc_mcc_ss_only}"/>
+      <property name="param8" value = "${ptc_mcc_class_only}"/>
       <property name="verify_selects" value="false" />
       <property name="mcjava.project.root" value="${basedir}"/>
     </ant>
@@ -201,6 +211,8 @@
       <property name="param4" value="Use Case" />
       <property name="param5" value="" />
       <property name="param6" value = "4"/>
+      <property name="param7" value = "${ptc_mcc_ss_only}"/>
+      <property name="param8" value = "${ptc_mcc_class_only}"/>
       <property name="verify_selects" value="false" />
       <property name="mcjava.project.root" value="${basedir}"/>
     </ant>
