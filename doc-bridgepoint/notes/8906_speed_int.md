@@ -54,6 +54,10 @@ of model.
   
 6. Implementation Comments
 --------------------------
+6.1 With the supplied changes, a core build can run in roughly 5 minutes.
+(down from 30 minutes).  The parse is now a significant amount of time.  
+6.2 Consider update prebuilder to not parse and to emit a small fraction
+of OAL.
   
 7. Unit Test
 ------------
@@ -74,6 +78,13 @@ Fork: cortlandstarrett/mc
 Branch name: 8906_speed
 
 xtuml/bridgepoint
+ doc-bridgepoint/notes/8906_speed_int.md   | 86 +++++++++++++++++++++++++++++++++++++++++++++++++++
+ src/MC-Java/build.xml                     |  4 +++
+ src/MC-Java/java.arc                      | 26 +++++++++++++---
+ src/MC-Java/statement.inc                 | 21 +++++++------
+ src/org.xtuml.bp.core/generate.properties |  2 ++
+ src/org.xtuml.bp.core/generate.xml        | 14 ++++++++-
+ 6 files changed, 138 insertions(+), 15 deletions(-)
 
 </pre>
 

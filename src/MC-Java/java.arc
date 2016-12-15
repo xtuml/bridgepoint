@@ -1121,11 +1121,13 @@ ${gen_RGO_resolution.body}\
             .select one rel related by ref_rel->R_OIR[R203]->R_REL[R201]
             .select many rto_set related by rel->R_OIR[R201]->R_RTO[R203]
       // R${rel.Numb}
+            .assign rto_index = 0
             .for each rto in rto_set
+              .assign rto_index = rto_index + 1
               .select one rto_obj related by rto->R_OIR[R203]->O_OBJ[R201]
               .invoke rcn = get_class_name( rto_obj )
               .invoke guk = get_unique_instance_key_from_rto(object, rto)
-              .assign rel_inst_var_name = "relInst${info.unique_num}"
+              .assign rel_inst_var_name = "relInst${rto_obj.Key_Lett}${rel.Numb}_${rto_index}"
               .if ("${rto_obj.Descrip:PEI}" == "true")
       baseRoot = ${package.application_root_class}.getDefaultInstance();
       if(baseRoot != modelRoot && modelRoot.isCompareRoot()) {

@@ -874,7 +874,7 @@ ${where_clause_arg}\
       .select one selected_ref related by attribute_val->V_VAL[R807]->V_SLR[R801]
       .select one operation_val related by p_val->V_TRV[R801]
       .if (((not_empty transient_val) or ((not_empty attribute_val) and (empty selected_ref))) or (not_empty operation_val))
-        .assign temp_var = "p${p_val.LineNumber}_${p_val.StartPosition}_${p_val.EndPosition}"
+        .assign temp_var = "p${p_val.LineNumber}_${p_val.StartPosition}"
         .select any type from instances of S_DT where (selected.DT_ID == p_val.DT_ID)
         .invoke result = do_type(type)
         .assign attr_param_decl  = "${result.body} ${temp_var}"
@@ -893,16 +893,11 @@ ${where_clause_arg}\
   .param string root_pkg_name
   .param inst_ref tgt_obj
   .param inst_ref where_clause
+  .param string salt
   .//
   .invoke cn = get_class_name( tgt_obj )
-  .assign test_num = ""
-  .if ( empty where_clause )
-    .assign test_num = "p${info.unique_num}"
-  .else
-    .assign test_num = "${where_clause.LineNumber}_${where_clause.StartPosition}_${where_clause.EndPosition}"
-  .end if
   .invoke tcn = get_test_class_name()
-  .assign new_test_class_name = "$cr{tgt_obj.Name}_test${test_num}_c"
+  .assign new_test_class_name = "$cr{tgt_obj.Name}_test${salt}_c"
   class ${new_test_class_name} implements ${tcn.body}
   {
   .invoke twc = traverse_where_clause (root_pkg_name, where_clause )
@@ -928,10 +923,12 @@ ${twc.member_decl}
   .// select instance where statement
   .// --------------------------------------------------------
   .select any tgt_obj related by sel_inst_where->O_OBJ[R676]
-  .select one owner_action related by sel_inst_where->ACT_SMT[R603]->ACT_BLK[R602]->ACT_ACT[R601]
+  .select one act_smt related by sel_inst_where->ACT_SMT[R603]
+  .select one owner_action related by act_smt->ACT_BLK[R602]->ACT_ACT[R601]
   .select any where_clause related by sel_inst_where->V_VAL[R610]
   .select any src_tfr related by where_clause->V_TRV[R801]->O_TFR[R829]
   .select one src_obj related by src_tfr->O_OBJ[R115]
+  .assign salt = "gsiws${act_smt.LineNumber}"
   .assign non_single_unique_id = true
   .// only generate specific selections on ids for binary
   .// operations
@@ -1043,7 +1040,7 @@ v_${var.Name} = v_${var.Name}List.toArray(new ${cn.body}[v_${var.Name}List.size(
     .end for
   .end if
   .if(non_single_unique_id == true)
-    .invoke gcqd = get_class_query_decl(root_pkg_name, tgt_obj, where_clause )
+    .invoke gcqd = get_class_query_decl(root_pkg_name, tgt_obj, where_clause, salt )
 ${gcqd.body}\
     .invoke gss = gen_select_fiw_statement(sel_inst_where, gcqd.query_new )
 ${gss.body}\
@@ -1098,6 +1095,7 @@ v_${var.Name} = ${cn.body}.$cr{tgt_obj.Name}Instance(${mr}${where_clause_arg}) ;
   .param string cme_env
   .//
   .select one sel_rel_where related by sel_rel_where_subt->ACT_SEL[R664]
+  .select one act_smt related by sel_rel_where->ACT_SMT[R603]
   .// --------------------------------------------------------
   .// select related by where statement
   .// --------------------------------------------------------
@@ -1116,7 +1114,7 @@ v_${var.Name} = ${cn.body}.$cr{tgt_obj.Name}Instance(${mr}${where_clause_arg}) ;
     .end if
   .end if
   .if ( emit_code )
-    .invoke gcqd = get_class_query_decl(root_pkg_name, tgt_obj, where_clause )
+    .invoke gcqd = get_class_query_decl(root_pkg_name, tgt_obj, where_clause, "$r{last_link.Rel_Phrase}${act_smt.LineNumber}" )
 ${gcqd.body}\
     .invoke gss = gen_select_inst_rel_by_statement(sel_rel_where_subt, gcqd.query_new )
 ${gss.body}\
