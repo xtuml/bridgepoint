@@ -8,15 +8,16 @@
   <property file="generate.properties"/>
   <target name="all"
           description="Generate all code for this project"
-          depends="sql,java,cme,cme_schema,cme_menus,inspector.java, cell_modifiers,generate_supertype_subtype_util, action_language_description_util, generate_rto_util, format_java">
-          <!-- Swap this in (for the above line) when you just want java generated.
-          depends="sql,java">
-          -->
+          depends="justjava,therest">
   </target>
-
-  <target name="nb_all"
-          description="Generate all code for this project"
-          depends="sql,java,cme,cme_schema,cme_menus,inspector.java, cell_modifiers,generate_supertype_subtype_util, action_language_description_util, generate_rto_util">
+  <target name="justjava"
+          description="Generate only the java code (and maybe only the specified class)"
+          depends="sql,java">
+  </target>
+  <target name="therest"
+          description="Finish generating code for this project unless only one class was specified"
+          depends="cme,cme_schema,cme_menus,inspector.java, cell_modifiers,generate_supertype_subtype_util, action_language_description_util, generate_rto_util, format_java"
+          unless="ptc_mcc_class_only" >
   </target>
 
   <property name="eclipse-home" value="${basedir}/../.."/>
@@ -163,12 +164,20 @@
     </uptodate>
   </target>
 
+  <condition property="itemsfoundin1"> <contains string="${items1}" substring="${ptc_mcc_ss_only}"/> </condition>
+  <condition property="itemsfoundin2"> <contains string="${items2}" substring="${ptc_mcc_ss_only}"/> </condition>
+  <condition property="itemsfoundin3"> <contains string="${items3}" substring="${ptc_mcc_ss_only}"/> </condition>
+  <condition property="itemsfoundin4"> <contains string="${items4}" substring="${ptc_mcc_ss_only}"/> </condition>
   <target name="java" description="Generate java code for this project"
-          depends="java.depends"
+          depends="java.depends,java1,java2,java3,java4"
           unless="java.buildNotNeeded" >
     <echo >Generating java files ...</echo>
-  	<!--<parallel>  -->
-  <ant antfile="${mcj_path}/build.xml" target="generate-with-file_io.java" >
+  <!-- Need to touch the output file for the case where the input data
+       changed, but the output didn't -->
+  <touch file="${java.output}" />
+  </target>
+  <target name="java1" if="itemsfoundin1">
+  <ant antfile="${mcj_path}/build.xml" target="generate-with-file_io.java">
     <property name="param1" value="ooaofooa" />
     <property name="param2" value="Ooaofooa" />
     <property name="param3" value="${mcj_path}" />
@@ -180,7 +189,9 @@
     <property name="verify_selects" value="false" />
     <property name="mcjava.project.root" value="${basedir}"/>
   </ant>
-    <ant antfile="${mcj_path}/build.xml" target="generate-with-file_io.java" >
+  </target>
+  <target name="java2" if="itemsfoundin2">
+    <ant antfile="${mcj_path}/build.xml" target="generate-with-file_io.java">
       <property name="param1" value="ooaofooa" />
       <property name="param2" value="Ooaofooa" />
       <property name="param3" value="${mcj_path}" />
@@ -192,7 +203,9 @@
       <property name="verify_selects" value="false" />
       <property name="mcjava.project.root" value="${basedir}"/>
     </ant>
-    <ant antfile="${mcj_path}/build.xml" target="generate-with-file_io.java" >
+  </target>
+  <target name="java3" if="itemsfoundin3">
+    <ant antfile="${mcj_path}/build.xml" target="generate-with-file_io.java">
       <property name="param1" value="ooaofooa" />
       <property name="param2" value="Ooaofooa" />
       <property name="param3" value="${mcj_path}" />
@@ -204,7 +217,9 @@
       <property name="verify_selects" value="false" />
       <property name="mcjava.project.root" value="${basedir}"/>
     </ant>
-    <ant antfile="${mcj_path}/build.xml" target="generate-with-file_io.java" >
+  </target>
+  <target name="java4" if="itemsfoundin4">
+    <ant antfile="${mcj_path}/build.xml" target="generate-with-file_io.java">
       <property name="param1" value="ooaofooa" />
       <property name="param2" value="Ooaofooa" />
       <property name="param3" value="${mcj_path}" />
@@ -216,10 +231,6 @@
       <property name="verify_selects" value="false" />
       <property name="mcjava.project.root" value="${basedir}"/>
     </ant>
-  	<!--</parallel>-->
-  <!-- Need to touch the output file for the case where the input data
-       changed, but the output didn't -->
-  <touch file="${java.output}" />
   </target>
 
   <property name="cme_actions.input" value="context_menu.pei.sql" />
