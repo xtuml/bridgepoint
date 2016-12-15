@@ -76,6 +76,7 @@
         <module>../../../packaging/features/org.xtuml.bp.docgen.parent</module>
         <module>../../../packaging/features/org.xtuml.bp.MinGW.parent</module>
         <module>../../../packaging/features/org.xtuml.bp.masltools.parent</module>
+        <module>../../../packaging/features/org.xtuml.bp.mctools.parent</module>
 	</modules>
 
 	<build>
