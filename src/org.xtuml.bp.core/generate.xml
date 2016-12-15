@@ -5,14 +5,19 @@
 
 -->
 <project name="bp.core" default="all" basedir=".">
+  <property file="generate.properties"/>
   <target name="all"
           description="Generate all code for this project"
-          depends="sql,java,cme,cme_schema,cme_menus,inspector.java, cell_modifiers,generate_supertype_subtype_util, action_language_description_util, generate_rto_util, format_java">
+          depends="justjava,therest">
   </target>
-
-  <target name="nb_all"
-          description="Generate all code for this project"
-          depends="sql,java,cme,cme_schema,cme_menus,inspector.java, cell_modifiers,generate_supertype_subtype_util, action_language_description_util, generate_rto_util">
+  <target name="justjava"
+          description="Generate only the java code (and maybe only the specified class)"
+          depends="sql,java">
+  </target>
+  <target name="therest"
+          description="Finish generating code for this project unless only one class was specified"
+          depends="cme,cme_schema,cme_menus,inspector.java, cell_modifiers,generate_supertype_subtype_util, action_language_description_util, generate_rto_util, format_java"
+          unless="ptc_mcc_class_only" >
   </target>
 
   <property name="eclipse-home" value="${basedir}/../.."/>
@@ -159,11 +164,19 @@
     </uptodate>
   </target>
 
+  <condition property="itemsfoundin1"> <contains string="${items1}" substring="${ptc_mcc_ss_only}"/> </condition>
+  <condition property="itemsfoundin2"> <contains string="${items2}" substring="${ptc_mcc_ss_only}"/> </condition>
+  <condition property="itemsfoundin3"> <contains string="${items3}" substring="${ptc_mcc_ss_only}"/> </condition>
+  <condition property="itemsfoundin4"> <contains string="${items4}" substring="${ptc_mcc_ss_only}"/> </condition>
   <target name="java" description="Generate java code for this project"
-          depends="java.depends"
+          depends="java.depends,java1,java2,java3,java4"
           unless="java.buildNotNeeded" >
     <echo >Generating java files ...</echo>
-  	<!--<parallel>  -->
+  <!-- Need to touch the output file for the case where the input data
+       changed, but the output didn't -->
+  <touch file="${java.output}" />
+  </target>
+  <target name="java1" if="itemsfoundin1">
   <ant antfile="${mcj_path}/build.xml" target="generate-with-file_io.java" >
     <property name="param1" value="ooaofooa" />
     <property name="param2" value="Ooaofooa" />
@@ -171,9 +184,13 @@
     <property name="param4" value="" />
     <property name="param5" value="Constants" />
     <property name="param6" value = "1"/>
+    <property name="param7" value = "${ptc_mcc_ss_only}"/>
+    <property name="param8" value = "${ptc_mcc_class_only}"/>
     <property name="verify_selects" value="false" />
     <property name="mcjava.project.root" value="${basedir}"/>
   </ant>
+  </target>
+  <target name="java2" if="itemsfoundin2">
     <ant antfile="${mcj_path}/build.xml" target="generate-with-file_io.java" >
       <property name="param1" value="ooaofooa" />
       <property name="param2" value="Ooaofooa" />
@@ -181,9 +198,13 @@
       <property name="param4" value="Constants" />
       <property name="param5" value="Invocation" />
       <property name="param6" value = "2"/>
+      <property name="param7" value = "${ptc_mcc_ss_only}"/>
+      <property name="param8" value = "${ptc_mcc_class_only}"/>
       <property name="verify_selects" value="false" />
       <property name="mcjava.project.root" value="${basedir}"/>
     </ant>
+  </target>
+  <target name="java3" if="itemsfoundin3">
     <ant antfile="${mcj_path}/build.xml" target="generate-with-file_io.java" >
       <property name="param1" value="ooaofooa" />
       <property name="param2" value="Ooaofooa" />
@@ -191,9 +212,13 @@
       <property name="param4" value="Invocation" />
       <property name="param5" value="Use Case" />
       <property name="param6" value = "3"/>
+      <property name="param7" value = "${ptc_mcc_ss_only}"/>
+      <property name="param8" value = "${ptc_mcc_class_only}"/>
       <property name="verify_selects" value="false" />
       <property name="mcjava.project.root" value="${basedir}"/>
     </ant>
+  </target>
+  <target name="java4" if="itemsfoundin4">
     <ant antfile="${mcj_path}/build.xml" target="generate-with-file_io.java" >
       <property name="param1" value="ooaofooa" />
       <property name="param2" value="Ooaofooa" />
@@ -201,13 +226,11 @@
       <property name="param4" value="Use Case" />
       <property name="param5" value="" />
       <property name="param6" value = "4"/>
+      <property name="param7" value = "${ptc_mcc_ss_only}"/>
+      <property name="param8" value = "${ptc_mcc_class_only}"/>
       <property name="verify_selects" value="false" />
       <property name="mcjava.project.root" value="${basedir}"/>
     </ant>
-  	<!--</parallel>-->
-  <!-- Need to touch the output file for the case where the input data
-       changed, but the output didn't -->
-  <touch file="${java.output}" />
   </target>
 
   <property name="cme_actions.input" value="context_menu.pei.sql" />
