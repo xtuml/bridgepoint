@@ -880,19 +880,50 @@ public class ${viewer_name} extends ViewPart implements IModelViewerProvider {
 					}
 
 					// Get the value of the dialect attribute
-					Method getDialectMethod = dialectObj.getClass().getMethod("getDialect"); //$$NON-NLS-1$$
-					dialect = (int) getDialectMethod.invoke(dialectObj);
+                                        try {
+                                            Method getDialectMethod = dialectObj.getClass().getMethod("getDialect"); //$$NON-NLS-1$$
+                                            dialect = (int) getDialectMethod.invoke(dialectObj);
+                                        } catch ( NoSuchMethodException e ) {
+                                            System.out.println( e );
+                                        } catch ( NullPointerException e ) {
+                                            System.out.println( e );
+                                        } catch ( SecurityException e ) {
+                                            System.out.println( e );
+                                        } catch ( IllegalAccessException e ) {
+                                            System.out.println( e );
+                                        } catch ( IllegalArgumentException e ) {
+                                            System.out.println( e );
+                                        } catch ( InvocationTargetException e ) {
+                                            System.out.println( e );
+                                        } catch ( ExceptionInInitializerError e ) {
+                                            System.out.println( e );
+                                        }
 
 					// If the "dialect" attribute is neither "oal" nor "masl",
 					// check the default language preference. Set "dialect" to
 					// be the preference value and open the proper editor.
 					if ( dialect != Actiondialect_c.masl && dialect != Actiondialect_c.oal ) {
 						IPreferenceStore store = CorePlugin.getDefault().getPreferenceStore();
-						int option = store.getInt(BridgePointPreferencesStore.DEFAULT_ACTION_LANGUAGE_DIALECT);
+                                                dialect = store.getInt(BridgePointPreferencesStore.DEFAULT_ACTION_LANGUAGE_DIALECT);
 
-						Method setDialectMethod = dialectObj.getClass().getMethod("setDialect", Integer.class); //$$NON-NLS-1$$
-						Object arg = new Integer(option);
-						setDialectMethod.invoke(dialectObj, arg);
+                                                try {
+                                                    Method setDialectMethod = dialectObj.getClass().getMethod("setDialect", int.class); //$$NON-NLS-1$$
+                                                    setDialectMethod.invoke(dialectObj, dialect);
+                                                } catch ( NoSuchMethodException e ) {
+                                                    System.out.println( e );
+                                                } catch ( NullPointerException e ) {
+                                                    System.out.println( e );
+                                                } catch ( SecurityException e ) {
+                                                    System.out.println( e );
+                                                } catch ( IllegalAccessException e ) {
+                                                    System.out.println( e );
+                                                } catch ( IllegalArgumentException e ) {
+                                                    System.out.println( e );
+                                                } catch ( InvocationTargetException e ) {
+                                                    System.out.println( e );
+                                                } catch ( ExceptionInInitializerError e ) {
+                                                    System.out.println( e );
+                                                }
 					}
 				}
 
