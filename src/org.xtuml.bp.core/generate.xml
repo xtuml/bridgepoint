@@ -7,17 +7,15 @@
 <project name="bp.core" default="all" basedir=".">
   <property file="generate.properties"/>
   <target name="all"
-          description="Generate all code for this project"
-          depends="justjava,therest">
-  </target>
-  <target name="justjava"
-          description="Generate only the java code (and maybe only the specified class)"
-          depends="sql,java">
+          description="Generate java code (and maybe only the specified class) and then the rest."
+          depends="sql,java"
+          unless="ptc_mcc_class_only" >
+    <!-- skip the rest if one class was specified to be the only thing translated -->
+    <antcall target="therest"/>
   </target>
   <target name="therest"
           description="Finish generating code for this project unless only one class was specified"
-          depends="cme,cme_schema,cme_menus,inspector.java, cell_modifiers,generate_supertype_subtype_util, action_language_description_util, generate_rto_util, format_java"
-          unless="ptc_mcc_class_only" >
+          depends="cme,cme_schema,cme_menus,inspector.java, cell_modifiers,generate_supertype_subtype_util, action_language_description_util, generate_rto_util, format_java">
   </target>
 
   <property name="eclipse-home" value="${basedir}/../.."/>
@@ -172,7 +170,7 @@
           depends="java.depends,java1,java2,java3,java4" >
   <!-- Need to touch the output file for the case where the input data
        changed, but the output didn't -->
-  <touch file="${java.output}" />
+    <touch file="${java.output}" />
   </target>
   <target name="java1" if="itemsfoundin1" unless="java.buildNotNeeded" >
     <echo >Generating java files 1...</echo>
