@@ -174,6 +174,11 @@ these servers.
 * to use the maven-resources plugin (https://maven.apache.org/plugins/maven-resources-plugin/copy-resources-mojo.html) 
   to copy it there during the maven build.
 * other?   
+``` 
+WORK IN PROGRESS:
+- created org.xtuml.bp.mctools[.parent] to populate the tools/mc folder
+- Updated releng plugins to build and package it
+```
 
 6.12.3  Need to consider if we should put the MC files inside each mc plugin (like 
   we do currently), at the root of the BP installation, or in the shared bp.mc plug-in.    
@@ -182,6 +187,8 @@ these servers.
 6.13.1  Need to "install" the MASL tools either into the ```tools/``` folder or 
   with the MC pieces.  So likely either duplicate or piggyback on the implementations
   in 6.11 or 6.12.  
+``` 
+WORK IN PROGRESS:
 Brain dump of what I did (update into the note later):
 - Add a new feature to manage the tools/masl files.  At build time this copies 
 the files into the right places.  Note that this includes a pre-compiled version 
@@ -189,6 +196,9 @@ of MASLParser.jar.  This POM can probably be enhanced later to build MASLParser
 on the fly rather than storing a compiled version.  The other files are copied 
 into place from the MC repository and from the extra_files folder in this repo.
 - Updated bp.releng.parent/pom.xml to build it and bridgepoint.product to package it
+```
+
+6.14 TODO - mc3020help.zip
 
 7. Design Comments
 ------------------
