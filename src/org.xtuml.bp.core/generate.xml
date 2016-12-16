@@ -169,14 +169,13 @@
   <condition property="itemsfoundin3"> <contains string="${items3}" substring="${ptc_mcc_ss_only}"/> </condition>
   <condition property="itemsfoundin4"> <contains string="${items4}" substring="${ptc_mcc_ss_only}"/> </condition>
   <target name="java" description="Generate java code for this project"
-          depends="java.depends,java1,java2,java3,java4"
-          unless="java.buildNotNeeded" >
-    <echo >Generating java files ...</echo>
+          depends="java.depends,java1,java2,java3,java4" >
   <!-- Need to touch the output file for the case where the input data
        changed, but the output didn't -->
   <touch file="${java.output}" />
   </target>
-  <target name="java1" if="itemsfoundin1">
+  <target name="java1" if="itemsfoundin1" unless="java.buildNotNeeded" >
+    <echo >Generating java files 1...</echo>
   <ant antfile="${mcj_path}/build.xml" target="generate-with-file_io.java" >
     <property name="param1" value="ooaofooa" />
     <property name="param2" value="Ooaofooa" />
@@ -190,7 +189,8 @@
     <property name="mcjava.project.root" value="${basedir}"/>
   </ant>
   </target>
-  <target name="java2" if="itemsfoundin2">
+  <target name="java2" if="itemsfoundin2" unless="java.buildNotNeeded" >
+    <echo >Generating java files 2...</echo>
     <ant antfile="${mcj_path}/build.xml" target="generate-with-file_io.java" >
       <property name="param1" value="ooaofooa" />
       <property name="param2" value="Ooaofooa" />
@@ -204,7 +204,8 @@
       <property name="mcjava.project.root" value="${basedir}"/>
     </ant>
   </target>
-  <target name="java3" if="itemsfoundin3">
+  <target name="java3" if="itemsfoundin3" unless="java.buildNotNeeded" >
+    <echo >Generating java files 3...</echo>
     <ant antfile="${mcj_path}/build.xml" target="generate-with-file_io.java" >
       <property name="param1" value="ooaofooa" />
       <property name="param2" value="Ooaofooa" />
@@ -218,7 +219,8 @@
       <property name="mcjava.project.root" value="${basedir}"/>
     </ant>
   </target>
-  <target name="java4" if="itemsfoundin4">
+  <target name="java4" if="itemsfoundin4" unless="java.buildNotNeeded" >
+    <echo >Generating java files 4...</echo>
     <ant antfile="${mcj_path}/build.xml" target="generate-with-file_io.java" >
       <property name="param1" value="ooaofooa" />
       <property name="param2" value="Ooaofooa" />
