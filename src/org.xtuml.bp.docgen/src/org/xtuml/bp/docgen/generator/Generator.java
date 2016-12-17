@@ -1,10 +1,6 @@
 //====================================================================
 //
-// File:      $RCSfile: Generator.java,v $
-// Version:   $Revision: 1.23 $
-// Modified:  $Date: 2013/01/10 23:43:41 $
-//
-// (c) Copyright 2004-2014 by Mentor Graphics Corp.  All rights reserved.
+// File:      Generator.java
 //
 //====================================================================
 package org.xtuml.bp.docgen.generator;
@@ -410,7 +406,8 @@ public class Generator extends Task {
         throws IOException, RuntimeException, CoreException, InterruptedException 
     {
         // Run xsltproc to convert doc.xml into doc.html
-        String homedir = System.getenv("BPHOMEDIR"); //$NON-NLS-1$
+        String homedir = System.getProperty("eclipse.home.location"); //$NON-NLS-1$
+        homedir = homedir.replaceFirst("file:", "");
         String app = homedir + DOCGEN_DIR + XSLTPROC_EXE;
         String docbook_folder = homedir + XHTMLFILES;
         String workingDir = workDir.replaceAll("\\\\", "/"); //$NON-NLS-1$ //$NON-NLS-2$

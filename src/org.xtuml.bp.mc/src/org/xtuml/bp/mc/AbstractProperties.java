@@ -1,10 +1,6 @@
-// ========================================================================
+//========================================================================
 //
-//File: $RCSfile: AbstractProperties.java,v $
-//Version: $Revision: 1.4 $
-//Modified: $Date: 2013/01/10 23:43:52 $
-//
-//(c) Copyright 2005-2014 by Mentor Graphics Corp. All rights reserved.
+//  File: AbstractProperties.java
 //
 //========================================================================
 //This document contains information proprietary and confidential to
@@ -65,7 +61,7 @@ public abstract class AbstractProperties {
 
 	private static final String XBUILD_LOCAL_LOCATION_NAME = "xbuild_local_location"; //$NON-NLS-1$
 
-	private static final String XBUILD_LOCAL_LOCATION_DEFAULT = "mc3020/bin/xtumlmc_build.exe"; //$NON-NLS-1$
+	private static final String XBUILD_LOCAL_LOCATION_DEFAULT = "mc/bin/xtumlmc_build.exe"; //$NON-NLS-1$
 
 	private static String names[] = { MARKING_FILE_LOCATION_NAME,
 			GENERATED_SOURCE_CODE_DEST_NAME, BUILD_COMMAND_NAME,
