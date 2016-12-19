@@ -128,7 +128,6 @@ these servers.
   found next to the launcher
 * The ```build.properties``` also specify that for linux the ```jre/``` folder 
   will be made executable
-* __TODO__ In the JRE parent config, why is windows 32-bit specified but not 64-bit?
 
 6.8  Tests
 * There is an example for executing a test: ```bridgepoint/src/org.xtuml.bp.ui.explorer.test/pom.xml```
@@ -169,11 +168,8 @@ these servers.
 6.12.1  The mc files: archetypes, binaries, and schema need to be packaged and
   installed by maven.  
 6.12.2  The approach is not yet determined.   Possibilities are:   
-* fragments
-* copy the files into the plugin before the maven build (via shell scripting?)
-* to use the maven-resources plugin (https://maven.apache.org/plugins/maven-resources-plugin/copy-resources-mojo.html) 
+* used the maven-resources plugin (https://maven.apache.org/plugins/maven-resources-plugin/copy-resources-mojo.html) 
   to copy it there during the maven build.
-* other?   
 ``` 
 WORK IN PROGRESS:
 - created org.xtuml.bp.mctools[.parent] to populate the tools/mc folder
@@ -190,7 +186,7 @@ WORK IN PROGRESS:
 ``` 
 WORK IN PROGRESS:
 Brain dump of what I did (update into the note later):
-- Add a new feature to manage the tools/masl files.  At build time this copies 
+- Add a new feature to manage the tools/mc files.  At build time this copies 
 the files into the right places.  Note that this includes a pre-compiled version 
 of MASLParser.jar.  This POM can probably be enhanced later to build MASLParser 
 on the fly rather than storing a compiled version.  The other files are copied 
@@ -198,7 +194,8 @@ into place from the MC repository and from the extra_files folder in this repo.
 - Updated bp.releng.parent/pom.xml to build it and bridgepoint.product to package it
 ```
 
-6.14 TODO - mc3020help.zip
+6.14 TODO - mc3020doc.zip - it is doc.zip in org.xtuml.help.bp.mc.  It is what 
+provides BridgePoint Model Compiler - User's Guide in the eclipse help.
 
 7. Design Comments
 ------------------
@@ -231,6 +228,11 @@ into place from the MC repository and from the extra_files folder in this repo.
 in the packaging repository.  Can they be removed?  Should they?  Do we want or 
 need to still support the old script-based build of BP Pro?
    
+7.6 TODO - the maven-resources-plugin (which we use to copy files) needs the 
+encoding attribute to be set.  During a build it was defaulting to UTF-8 and 
+this was causing problems, especially with executable files which didn't run 
+after being copied.  I have added and encoding specification for ISO-8859-1 
+that allows the md5sum of the files to be identical to the source after the copy.
 
 8. User Documentation
 ---------------------

@@ -72,6 +72,7 @@ public class Generator extends Task {
     private static final int SLEEPTIME = 500;
     private static final int KILLTIMEOUT = 20000;
 
+    private static String homedir = "";
     public static MessageConsole myConsole;
     public static MessageConsoleStream msgbuf;
     public static Generator self;
@@ -79,6 +80,8 @@ public class Generator extends Task {
     public Generator() {
         myConsole = findConsole(CONSOLE_NAME);
         msgbuf = myConsole.newMessageStream();
+        homedir = System.getProperty("eclipse.home.location"); //$NON-NLS-1$
+        homedir = homedir.replaceFirst("file:", ""); //$NON-NLS-1$
     }
     
     public static void genAll(SystemModel_c sys) {
@@ -374,7 +377,6 @@ public class Generator extends Task {
         throws IOException, RuntimeException, CoreException, InterruptedException 
     {
         // Call docgen.exe 
-        String homedir = System.getenv("BPHOMEDIR"); //$NON-NLS-1$
         String app = homedir + DOCGEN_DIR + DOCGEN_EXE;
         String outputfile = DOC_XML;
         File output = new File(workingDir + outputfile);
@@ -406,8 +408,6 @@ public class Generator extends Task {
         throws IOException, RuntimeException, CoreException, InterruptedException 
     {
         // Run xsltproc to convert doc.xml into doc.html
-        String homedir = System.getProperty("eclipse.home.location"); //$NON-NLS-1$
-        homedir = homedir.replaceFirst("file:", "");
         String app = homedir + DOCGEN_DIR + XSLTPROC_EXE;
         String docbook_folder = homedir + XHTMLFILES;
         String workingDir = workDir.replaceAll("\\\\", "/"); //$NON-NLS-1$ //$NON-NLS-2$
