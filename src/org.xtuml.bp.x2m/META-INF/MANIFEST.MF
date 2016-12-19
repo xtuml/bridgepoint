@@ -28,4 +28,4 @@ Require-Bundle: org.xtuml.bp.core,
  org.eclipse.core.filesystem
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
-Eclipse-BundleShape: dir
+Eclipse-BundleShape: jar
