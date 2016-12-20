@@ -691,8 +691,9 @@ INSERT INTO PE_PE
 INSERT INTO S_SYNC
 	VALUES ("42629015-7c95-4803-a75e-5895fe58629c",
 	"00000000-0000-0000-0000-000000000000",
-	'autoCreateSatisfactions',
-	'',
+	'autoCreateMASLSatisfactions',
+	'This operation is specific to MASL import. In MASL there will only ever be 1 satisfaction for a given provision.
+',
 	'// this function creates satisfactions by searching in a package for provisions and requirements
 // that match. It does not consider delegations
 
@@ -705,8 +706,13 @@ select many imported_requirements related by pkg->PE_PE[R8000]->CL_IC[R8001]->CL
 
 for each provision in provisions
   // match provisions and requirements
-  select one epPkg related by provision->C_IR[R4009]->C_PO[R4016]->C_C[R4010]->PE_PE[R8001]->EP_PKG[R8000];
   select one p_interface related by provision->C_IR[R4009]->C_I[R4012];
+  // This rountine is MASL specific and there will always only be at most  1 matching 
+  // interface. Don''t bother searching is this is already satisfied.
+  satisfactionCount = provision.getSatisfactionCount(filterDelegations:false);
+  if (satisfactionCount > 0) 
+    continue;
+  end if;
   for each requirement in requirements
     select one r_interface related by requirement->C_IR[R4009]->C_I[R4012];
     if ( not_empty p_interface and not_empty r_interface and p_interface.Id == r_interface.Id )
@@ -714,13 +720,19 @@ for each provision in provisions
       create object instance satisfaction of C_SF;
       create object instance pe of PE_PE;
       relate satisfaction to pe across R8001;
-      relate pe to epPkg across R8000;
+      relate pe to pkg across R8000;
       pe.type = ElementTypeConstants::SATISFACTION;
       pe.initialize();
       // link the provision and requirement
       relate provision to requirement across R4002 using satisfaction;
+      satisfactionCount = satisfactionCount + 1;
     end if;
   end for;
+  
+  if (satisfactionCount > 0) 
+    continue;
+  end if;
+  
   // match provisions and imported requirements
   for each i_requirement in imported_requirements
     select one r_interface related by i_requirement->CL_IIR[R4703]->C_IR[R4701]->C_I[R4012];
@@ -729,7 +741,7 @@ for each provision in provisions
       create object instance satisfaction of C_SF;
       create object instance pe of PE_PE;
       relate satisfaction to pe across R8001;
-      relate pe to epPkg across R8000;
+      relate pe to pkg across R8000;
       pe.type = ElementTypeConstants::SATISFACTION;
       pe.initialize();
       // link the provision and requirement
@@ -740,10 +752,23 @@ for each provision in provisions
   end for;
 end for;
 for each i_provision in imported_provisions
+
   // match imported provisions and requirements
-  select one epPkg related by i_provision->CL_IIR[R4703]->C_IR[R4701]->C_PO[R4016]->C_C[R4010]->PE_PE[R8001]->EP_PKG[R8000];
   select one provision related by i_provision->CL_IIR[R4703]->C_IR[R4701]->C_P[R4009];
   select one p_interface related by i_provision->CL_IIR[R4703]->C_IR[R4701]->C_I[R4012];
+
+  // This rountine is MASL specific and there will always only be at most  1 matching 
+  // interface. Don''t bother searching is this is already satisfied.
+  satisfactionCount = 0; 
+  if (not_empty provision)
+    // this looks odd, but note that CL_IP.getProvisionCount is actually
+    // return the satisfaction count for the CL_IP
+    satisfactionCount = i_provision.getProvisionCount(filterDelegations:false);
+  end if;
+  if (satisfactionCount > 0) 
+    continue;
+  end if;
+ 
   for each requirement in requirements
     select one r_interface related by requirement->C_IR[R4009]->C_I[R4012];
     if ( not_empty p_interface and not_empty r_interface and p_interface.Id == r_interface.Id )
@@ -751,15 +776,21 @@ for each i_provision in imported_provisions
       create object instance satisfaction of C_SF;
       create object instance pe of PE_PE;
       relate satisfaction to pe across R8001;
-      relate pe to epPkg across R8000;
+      relate pe to pkg across R8000;
       pe.type = ElementTypeConstants::SATISFACTION;
       pe.initialize();
       // link the provision and requirement
       relate provision to requirement across R4002 using satisfaction;
       create object instance ipins of CL_IPINS;
       relate i_provision to satisfaction across R4705 using ipins;
+      satisfactionCount = satisfactionCount + 1;
     end if;
   end for;
+
+  if (satisfactionCount > 0) 
+    continue;
+  end if;
+
   // match imported provisions and imported requirements
   for each i_requirement in imported_requirements
     select one r_interface related by i_requirement->CL_IIR[R4703]->C_IR[R4701]->C_I[R4012];
@@ -768,7 +799,7 @@ for each i_provision in imported_provisions
       create object instance satisfaction of C_SF;
       create object instance pe of PE_PE;
       relate satisfaction to pe across R8001;
-      relate pe to epPkg across R8000;
+      relate pe to pkg across R8000;
       pe.type = ElementTypeConstants::SATISFACTION;
       pe.initialize();
       // link the provision and requirement

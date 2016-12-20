@@ -340,7 +340,7 @@ public class ImportHelper
      * Resolve the MASL project
      *   - Assign unassigned component references
      *   - Unhook temporary interface definitions and re-attach to existing interfaces in domains
-     *   - create satisfacions
+     *   - create satisfactions
      */
     public void resolveMASLproject( NonRootModelElement[] elements ) {
         if ( elements == null ) return;
@@ -550,10 +550,14 @@ public class ImportHelper
 		TransactionUtil.endTransactions(transactionGroup);
             }
         }
-        
-        
+
+        // create satisfactions
+        createSatisfactions(elements);
+    }
+
+    private void createSatisfactions(NonRootModelElement[] nrmes) {    	
 		// Create satisfactions
-		for (NonRootModelElement nrme : elements) {
+		for (NonRootModelElement nrme : nrmes) {
 			// process the unassigned component references
 			if (nrme instanceof Package_c) {
 
@@ -575,7 +579,7 @@ public class ImportHelper
 							.startTransactionsOnSelectedModelRoots("Automatically Create Satisfaction");
 					Ooaofooa.beginSaveOperation();
 					
-					Ooaofooa.Autocreatesatisfactions(pkg.getModelRoot(), pkg.getPackage_id());
+					Ooaofooa.Autocreatemaslsatisfactions(pkg.getModelRoot(), pkg.getPackage_id());
 					
 					Ooaofooa.endSaveOperation();
 					TransactionUtil.endTransactions(transactionGroup);
@@ -583,9 +587,8 @@ public class ImportHelper
 				}
 			}
 		}
-        
     }
-
+    
     /**
      * Creates a model instance and initializes its values
      * to the given pre-BP-7.1-format parameters.
