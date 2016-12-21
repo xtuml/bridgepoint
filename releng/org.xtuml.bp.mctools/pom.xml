@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>org.xtuml.bp</groupId>
+    <artifactId>org.xtuml.bp.mctools.parent</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <relativePath>../org.xtuml.bp.mctools.parent/</relativePath>
+  </parent>
+  <groupId>org.xtuml.bp</groupId>
+  <artifactId>org.xtuml.bp.mctools</artifactId>
+  <version>1.0.0-SNAPSHOT</version>
+  <packaging>eclipse-feature</packaging>
+  <properties>
+    <project.build.sourceEncoding>ISO-8859-1</project.build.sourceEncoding>
+    <project.reporting.outputEncoding>ISO-8859-1</project.reporting.outputEncoding>
+  </properties>
+  
+  <build>
+    <plugins>
+      <plugin>
+        <artifactId>maven-resources-plugin</artifactId>
+        <version>3.0.2</version>
+        <executions>
+          <!-- Populate the common/ folder -->
+          <execution>
+            <id>copy-resources-common</id>
+            <phase>validate</phase>
+            <goals>
+              <goal>copy-resources</goal>
+            </goals>
+            <configuration>
+              <outputDirectory>${basedir}/common/tools/mc</outputDirectory>
+              <resources>          
+                <resource>
+                  <directory>../../../mc</directory>
+                  <includes>
+                    <include>arc/**</include>
+                    <include>schema/**</include>
+                  </includes>
+                </resource>
+              </resources>              
+            </configuration>            
+          </execution>
+
+          <!-- Populate the linux.all/ folder with the pre-compiled binaries-->
+          <execution>
+            <id>copy-resources-linux</id>
+            <phase>validate</phase>
+            <goals>
+              <goal>copy-resources</goal>
+            </goals>
+            <configuration>
+              <outputDirectory>${basedir}/linux.all/tools/mc/bin</outputDirectory>
+              <resources>          
+                <resource>
+                  <directory>../../../mc/bin/</directory>
+                  <includes>
+                    <include>gen_erate.pyz</include>
+                    <include>mcmc</include>
+                    <include>mcmc64</include>
+                    <include>m2x</include>
+                    <include>masl</include>
+                    <include>masl2xtuml</include>
+                    <include>masldiff</include>
+                    <include>MASLParser.jar</include>
+                    <include>x2m</include>
+                    <include>xtuml2masl</include>
+                    <include>xtumlmc_build</include>
+                  </includes>
+                </resource>
+              </resources>              
+            </configuration>            
+          </execution>
+
+          <!-- Populate the win.all/ folder with pre-compiled binaries -->
+          <execution>
+            <id>copy-resources-win</id>
+            <phase>validate</phase>
+            <goals>
+              <goal>copy-resources</goal>
+            </goals>
+            <configuration>
+              <outputDirectory>${basedir}/win.all/tools/mc/bin</outputDirectory>
+              <resources>          
+                <resource>
+                  <directory>../../../mc/bin/</directory>
+                  <includes>
+                    <include>gen_erate.exe</include>
+                    <include>mcmc.exe</include>
+                    <include>xtumlmc_build.exe</include>
+                    <include>xtumlmc_build</include>
+                  </includes>
+                </resource>
+              </resources>              
+            </configuration>            
+          </execution>
+        </executions>
+      </plugin>
+
+      <!-- This cleans up in case the arc specialized folder exists.  We
+           don't want to package it. It also creates a copy for the
+           xtumlmc_build script for common execution with the .exe extension. -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-antrun-plugin</artifactId>
+        <version>1.8</version>
+        <executions>
+          <execution>
+            <phase>validate</phase>
+            <goals>
+              <goal>run</goal>
+            </goals>
+            <configuration>
+              <target>
+                <delete 
+                  dir="${basedir}/common/tools/mc/arc/specialized"
+                  includeemptydirs="true"/>        
+                <copy file="${basedir}/linux.all/tools/mc/bin/xtumlmc_build" 
+                      tofile="${basedir}/linux.all/tools/mc/bin/xtumlmc_build.exe"
+                      overwrite="true" />             
+              </target>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+
+      <!--download the antlr jar file-->
+      <plugin>
+        <artifactId>maven-antrun-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>download-antlr</id>
+            <phase>validate</phase>
+            <configuration>
+              <tasks>
+                <get src="http://www.antlr3.org/download/antlr-3.5.2-complete.jar" 
+                     dest="${basedir}/linux.all/tools/mc/bin/antlr-3.5.2-complete.jar" />
+              </tasks>
+            </configuration>
+            <goals>
+              <goal>run</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+        
+    </plugins>
+  </build>
+  
+</project>
