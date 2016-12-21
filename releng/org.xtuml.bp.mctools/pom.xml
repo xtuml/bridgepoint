@@ -57,6 +57,7 @@
                 <resource>
                   <directory>../../../mc/bin/</directory>
                   <includes>
+                    <include>docgen</include>
                     <include>gen_erate.pyz</include>
                     <include>mcmc</include>
                     <include>mcmc64</include>
@@ -87,6 +88,7 @@
                 <resource>
                   <directory>../../../mc/bin/</directory>
                   <includes>
+                    <include>docgen.exe</include>
                     <include>gen_erate.exe</include>
                     <include>mcmc.exe</include>
                     <include>xtumlmc_build.exe</include>
