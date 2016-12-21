@@ -58,6 +58,7 @@ public class Generator extends Task {
     public static final String CORE_ICON_DIR = "icons/metadata/"; //$NON-NLS-1$
     public static final String IMAGE_DIR = "images/"; //$NON-NLS-1$
     public static final String DOCGEN_DIR = "/tools/docgen/"; //$NON-NLS-1$
+    public static final String DOCGEN_BIN_DIR = "/tools/mc/bin/"; //$NON-NLS-1$
     public static final String DOCGEN_EXE = "docgen"; //$NON-NLS-1$
     public static final String XSLTPROC_EXE = "docbook/xsltproc"; //$NON-NLS-1$
     public static final String XHTMLFILES = DOCGEN_DIR + "docbook/docbook-xsl-1.75.1/xhtml/"; //$NON-NLS-1$
@@ -377,7 +378,7 @@ public class Generator extends Task {
         throws IOException, RuntimeException, CoreException, InterruptedException 
     {
         // Call docgen.exe 
-        String app = homedir + DOCGEN_DIR + DOCGEN_EXE;
+        String app = homedir + DOCGEN_BIN_DIR + DOCGEN_EXE;
         String outputfile = DOC_XML;
         File output = new File(workingDir + outputfile);
         File input = new File(workingDir + DOCGEN_INPUT);
