@@ -99,13 +99,14 @@
         </executions>
       </plugin>
 
-      <!-- This cleans up in case the arc specialized folder exists.  We
-           don't want to package it. It also creates a copy for the
-           xtumlmc_build script for common execution with the .exe extension. -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-antrun-plugin</artifactId>
         <version>1.8</version>
+
+        <!-- This cleans up in case the arc specialized folder exists.  We
+           don't want to package it. It also creates a copy for the
+           xtumlmc_build script for common execution with the .exe extension. -->
         <executions>
           <execution>
             <phase>validate</phase>
@@ -123,26 +124,22 @@
               </target>
             </configuration>
           </execution>
-        </executions>
-      </plugin>
-
-      <!--download the antlr jar file-->
-      <plugin>
-        <artifactId>maven-antrun-plugin</artifactId>
-        <executions>
+          
+          <!--download the antlr jar file-->
           <execution>
             <id>download-antlr</id>
             <phase>validate</phase>
             <configuration>
-              <tasks>
+              <target>
                 <get src="http://www.antlr3.org/download/antlr-3.5.2-complete.jar" 
                      dest="${basedir}/linux.all/tools/mc/bin/antlr-3.5.2-complete.jar" />
-              </tasks>
+              </target>
             </configuration>
             <goals>
               <goal>run</goal>
             </goals>
           </execution>
+          
         </executions>
       </plugin>
         
