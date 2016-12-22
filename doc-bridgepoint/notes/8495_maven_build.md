@@ -24,7 +24,8 @@ eclipse project.
 <a id="2.4"></a>2.4 [Maven Lifecycle Documentation](https://maven.apache.org/guides/introduction/introduction-to-the-lifecycle.html)   
 <a id="2.5"></a>2.5 [Using Tycho for tests](https://eclipse.org/tycho/sitedocs/tycho-surefire/tycho-surefire-plugin/test-mojo.html)   
 <a id="2.6"></a>2.6 [Tycho - Eclipse project](https://www.eclipse.org/tycho/)  
-<a id="2.7"></a>2.7 [A Brief Overview of Building at Eclipse](https://wiki.eclipse.org/A_Brief_Overview_of_Building_at_Eclipse)     
+<a id="2.7"></a>2.7 [A Brief Overview of Building at Eclipse](https://wiki.eclipse.org/A_Brief_Overview_of_Building_at_Eclipse)   
+<a id="2.8"></a>2.8 [Build server improvements issue](https://support.onefact.net/issues/8943)      
 
 3. Background
 -------------
@@ -164,38 +165,30 @@ these servers.
 6.11.3  Updated ```bridgepoint/releng/org.xtuml.bp.releng.parent.product/bridgepoint.product``` to 
   pull in ```org.xtuml.bp.docgen```    
 
-6.12  __TODO__ Model compiler files  
-6.12.1  The mc files: archetypes, binaries, and schema need to be packaged and
-  installed by maven.  
-6.12.2  The approach is not yet determined.   Possibilities are:   
-* used the maven-resources plugin (https://maven.apache.org/plugins/maven-resources-plugin/copy-resources-mojo.html) 
-  to copy it there during the maven build.
-``` 
-WORK IN PROGRESS:
-- created org.xtuml.bp.mctools[.parent] to populate the tools/mc folder
-- Updated releng plugins to build and package it
-```
+6.12  Model compiler files  
+6.12.1  The mc files: archetypes, binaries, and schema all live in the ```xtuml/mc```
+  repository.  Compiled mc-related binaries are moved from the ```xtuml/packaging``` 
+  repository ```/build/extra_files``` folder into ```/bin``` in the mc repository.   
+6.12.2  To be packaged and installed by maven, a feature is created in the 
+  ```xtuml/bridgepoint``` repository at ```/releng/org.xtuml.bp.mctools[.parent]```.  This
+  feature is added to the maven top-level POM file for building and is added to the
+  ```bridgepoint.product```.   
+6.12.2.1  The mc files are now populated to the top level ```tools/mc``` folder and 
+  no ```mc3020``` files now exist under the various model-compiler plugins.      
 
-6.12.3  Need to consider if we should put the MC files inside each mc plugin (like 
-  we do currently), at the root of the BP installation, or in the shared bp.mc plug-in.    
+6.13  MASL tools  
+6.13.1  The MASL helper scripts and the compiled masl tools are moved in the 
+  ```xtuml/mc``` repository to be in the ```/bin``` folder.   
+6.13.2  Note that right now a compiled version of ```MASLparser.jar``` is also put 
+  into the ```/bin``` folder.   
 
-6.13  __TODO__ MASL tools  
-6.13.1  Need to "install" the MASL tools either into the ```tools/``` folder or 
-  with the MC pieces.  So likely either duplicate or piggyback on the implementations
-  in 6.11 or 6.12.  
-``` 
-WORK IN PROGRESS:
-Brain dump of what I did (update into the note later):
-- Add a new feature to manage the tools/mc files.  At build time this copies 
-the files into the right places.  Note that this includes a pre-compiled version 
-of MASLParser.jar.  This POM can probably be enhanced later to build MASLParser 
-on the fly rather than storing a compiled version.  The other files are copied 
-into place from the MC repository and from the extra_files folder in this repo.
-- Updated bp.releng.parent/pom.xml to build it and bridgepoint.product to package it
-```
-
-6.14 TODO - mc3020doc.zip - it is doc.zip in org.xtuml.help.bp.mc.  It is what 
-provides BridgePoint Model Compiler - User's Guide in the eclipse help.
+6.14 MC-3020 Help documentation  
+6.14.1  The old build kept a file named ```mc3020doc.zip``` in the ```packaging/build/extra_files```
+  folder rather.  This, along with a ```techpub.css``` and ```toc.xml``` (which 
+  came from ```git/mc/doc/ug/xml/toc.xml```) were copied into the 
+  ```org.xtuml.help.bp.mc``` plugin at build time.  This is changed so these files
+  now live in the plugin and are not copied around at build time.  These are what 
+  provide ```BridgePoint Model Compiler - User's Guide``` in the eclipse help.   
 
 7. Design Comments
 ------------------
@@ -219,43 +212,26 @@ provides BridgePoint Model Compiler - User's Guide in the eclipse help.
   tell maven to run offline and reuse the downloaded dependencies from previous 
   runs rather than re-downloading dependencies from the internet.
 
-7.4  __TODO__ Need to update the build env on the hudson server from BridgePoint 5.5 to 5.8.0  
-
-7.5  Improvements to be handled in a second phase:  
-* Don't have hudson re-clone every time from scratch, use smart remote/branch switching
-* Enable running JUnits with the build and make them all runnable
-* Decide what to do about "the old way" of storing JRE and eclipse install bases 
-in the packaging repository.  Can they be removed?  Should they?  Do we want or 
-need to still support the old script-based build of BP Pro?
+7.4  Improvements to be handled in a second phase are captured in [[2.8]](2.8)  
    
-7.6 TODO - the maven-resources-plugin (which we use to copy files) needs the 
-encoding attribute to be set.  During a build it was defaulting to UTF-8 and 
-this was causing problems, especially with executable files which didn't run 
-after being copied.  I have added and encoding specification for ISO-8859-1 
-that allows the md5sum of the files to be identical to the source after the copy.
+7.5  An issue was encountered where files copied by the maven-resources-plugin 
+  were not right.  Binary files were completely unusable after copy.  It turned
+  out that the copy-resources command needs the encoding attribute to be set.  
+  During a build it was defaulting to UTF-8 and this was causing problems, 
+  especially with executable files which didn't run after being copied.  Added 
+  an encoding specification for ISO-8859-1 that allows the md5sum of the files 
+  to be identical to the source after the copy.
 
 8. User Documentation
 ---------------------
-8.1  __TODO__ - need to update HOWTO run a build doc for developers with info:
-* Starting the hudson server  
-* Running maven build locally
-* Editing the branch to build on build job configuration webpage  
-* Turning unit tests on/off   
-
+8.1  Need to update HOWTO run a build doc for developers.  This work is captured 
+  in [[2.8]](2.8).   
 
 9. Unit Test
 ------------
 9.1 Successfully run a build of BridgePoint on a 1F AWS-based Hudson server (build 
 branch 8495_maven_update)   
 
-9.2  Successfully build locally by going to org.xtuml.bp.releng.parent and 
-  running ```mvn verify```  
-9.2.1  __TODO__ requires some work to deal with hardcoded paths in the maven pom files
-  that are currently set up for the server.  
-  
-9.3  Successfully build on old build server with old/current script-based process      
-9.3.1  __TODO__ requires work on the scripts to handle (copy and locate) files that
-  now live in new homes in the repository.   
 
 End
 ---
