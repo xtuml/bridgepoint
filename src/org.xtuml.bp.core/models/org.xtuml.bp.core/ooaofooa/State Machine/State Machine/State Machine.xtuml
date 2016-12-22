@@ -98,26 +98,6 @@ if (not_empty moore)
   moore.dispose();
 end if;
 //
-select many aps related by self->CA_ACC[R416];
-for each ap in aps
-  ap.dispose();
-end for;
-select many ecps related by self->CA_EESMC[R403]->CA_COMM[R401];
-for each ecp in ecps
-  ecp.dispose();
-end for;
-select many scps related by self->CA_SMSMC[R406]->CA_COMM[R401];
-for each scp in scps
-  scp.dispose();
-end for;
-select many ocps related by self->CA_SMSMC[R407]->CA_COMM[R401];
-for each ocp in ocps
-  ocp.dispose();
-end for;
-select many secps related by self->CA_SMEEC[R410]->CA_COMM[R401];
-for each secp in secps
-  secp.dispose();
-end for;
 delete object instance self;',
 	1,
 	'',

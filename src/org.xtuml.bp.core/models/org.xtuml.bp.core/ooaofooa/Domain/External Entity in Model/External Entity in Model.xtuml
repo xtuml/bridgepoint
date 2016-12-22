@@ -16,18 +16,6 @@ INSERT INTO O_TFR
 	1,
 	'select one ee related by self->S_EE[R9];
 unrelate self from ee across R9;
-select many eesmcs related by self->CA_EESMC[R402];
-for each eesmc in eesmcs
-  eesmc.dispose();
-end for;
-select many smeecs related by self->CA_SMEEC[R411];
-for each smeec in smeecs
-  smeec.dispose();
-end for;
-select many accpaths related by self->CA_SMEEA[R421]->CA_ACC[R415];
-for each  accpath in accpaths
-  accpath.dispose();
-end for;
 delete object instance self;
 ',
 	1,

@@ -22,6 +22,11 @@
 .end if
 .//
 .//
+.// ss_only allows for a specific package and/or class to be generated alone
+.invoke mc_ss_only_check = GET_ENV_VAR( "PTC_MCC_SS_ONLY")
+.assign mc_ss_only = mc_ss_only_check.result
+.invoke mc_class_only_check = GET_ENV_VAR( "PTC_MCC_CLASS_ONLY")
+.assign mc_class_only = mc_class_only_check.result
 .invoke mc_ss_start_check = GET_ENV_VAR( "PTC_MCC_SS_START")
 .assign mc_ss_start = mc_ss_start_check.result
 .invoke mc_ss_end_check = GET_ENV_VAR( "PTC_MCC_SS_END")
@@ -508,7 +513,10 @@ p_${an.body}\
 .// - put in by wgt
 .print "Time is: ${info.date}"
 .assign send_changes = package.is_eclipse_plugin
-.invoke translate_all_oal( mc_root_pkg, application_root_class, send_changes );
+.if (mc_class_only == "")
+  .// Translate all OAL unless looking for a specific class.
+  .invoke translate_all_oal( mc_root_pkg, application_root_class, send_changes );
+.end if
 .print "Time is: ${info.date}"
 .//
 .//
@@ -517,7 +525,7 @@ p_${an.body}\
   .assign translate_enabled = false
 .end if
 .//
-.if (translate_enabled == true)
+.if ((translate_enabled == true) and ((mc_ss_only == "") and (mc_class_only == "")))
   .invoke gen_enum_classes( package.name, package.location, project_root )
   .//
   .//
@@ -610,13 +618,18 @@ ${blck.body}
     .assign translate_enabled = false
     .break for
   .end if
-  .if (translate_enabled == true)
+  .if ((translate_enabled == true) and ((mc_ss_only == "") or (mc_ss_only == pkg.Name)))
     .if ("${pkg.Descrip:Translate}" == "false")
       .print "Package ${pkg.Name} ignored"
     .else
+      .if (mc_ss_only == pkg.Name)
+        .// Translate OAL before translating the specifically requested class.
+        .invoke translate_all_oal( mc_root_pkg, application_root_class, send_changes );
+      .end if
       .invoke tcn = get_test_class_name()
       .select many objects related by pkg->PE_PE[R8000]->O_OBJ[R8001]
       .for each object in objects
+        .if ((mc_class_only == "") or (mc_class_only == object.Name))
         .print " Translating Object:   ${object.Name}"
         .invoke cn = get_class_name ( object )
         .assign class_name = "${cn.body}"
@@ -1108,11 +1121,13 @@ ${gen_RGO_resolution.body}\
             .select one rel related by ref_rel->R_OIR[R203]->R_REL[R201]
             .select many rto_set related by rel->R_OIR[R201]->R_RTO[R203]
       // R${rel.Numb}
+            .assign rto_index = 0
             .for each rto in rto_set
+              .assign rto_index = rto_index + 1
               .select one rto_obj related by rto->R_OIR[R203]->O_OBJ[R201]
               .invoke rcn = get_class_name( rto_obj )
               .invoke guk = get_unique_instance_key_from_rto(object, rto)
-              .assign rel_inst_var_name = "relInst${info.unique_num}"
+              .assign rel_inst_var_name = "relInst${rto_obj.Key_Lett}${rel.Numb}_${rto_index}"
               .if ("${rto_obj.Descrip:PEI}" == "true")
       baseRoot = ${package.application_root_class}.getDefaultInstance();
       if(baseRoot != modelRoot && modelRoot.isCompareRoot()) {
@@ -2164,13 +2179,14 @@ ${gsm.body}\
 
           .emit to file "${project_root}/${package.location}/$cr{object.Name}_assgner_c.java"
         .end if
+        .end if .// mc_class_only
       .end for
     .end if
   .end if .// if translate_enabled
 .end for .// each package
 .//
 .//
-.if (translate_enabled == true)
+.if ((translate_enabled == true) and (mc_class_only == ""))
   .invoke gfh = get_file_header("${package.name}.${package.application_root_class}.java")
 ${gfh.body}\
 

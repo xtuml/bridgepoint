@@ -72,12 +72,6 @@ end if;
 ::changeNotificationEnablement(enabled:true);
 unrelate self from owningClass across R102;
 //
-// Communication and Access Subsystem
-select many smoaas related by self->CA_SMOAA[R419];
-for each smoaa in smoaas
-  smoaa.dispose();
-end for;
-//
 // Value Subsystem
 select many selref_set related by self->V_SLR[R812];
 for each selref in selref_set
@@ -316,6 +310,7 @@ if ( not_empty battr )
   select one nbattr related by battr->O_NBATTR[R107];
   if ( not_empty nbattr )
     create object instance dbattr of O_DBATTR;
+    dbattr.Dialect = PREF::getActionDialect(name:"bridgepoint_prefs_default_action_language_dialect");
     dbattr.Suc_Pars = ParseStatus::parseInitial;
     unrelate battr from nbattr across R107;
     relate battr to dbattr across R107;

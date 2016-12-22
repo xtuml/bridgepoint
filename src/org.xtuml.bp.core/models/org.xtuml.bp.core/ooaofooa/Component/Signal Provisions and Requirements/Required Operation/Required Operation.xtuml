@@ -14,7 +14,8 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
-	'self.Suc_Pars = ParseStatus::parseInitial;',
+	'self.Dialect = PREF::getActionDialect(name:"bridgepoint_prefs_default_action_language_dialect");
+self.Suc_Pars = ParseStatus::parseInitial;',
 	1,
 	'',
 	"5c56147a-9487-4bf4-a3da-7fd0101d7765");
@@ -453,9 +454,16 @@ INSERT INTO O_ATTR
 	'',
 	'Dialect',
 	0,
-	"ba5eda7a-def5-0000-0000-000000000004",
+	"7b54f646-a8a8-4b82-9bb0-cf5465115f3b",
 	'',
 	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("7b54f646-a8a8-4b82-9bb0-cf5465115f3b",
+	"00000000-0000-0000-0000-000000000000",
+	'ActionDialect',
+	'Enumerator for available action dialects',
+	'',
+	'../../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_ID
 	VALUES (0,
 	"5d57cf7a-744e-4b5b-bc6e-e839d04a8fd3");

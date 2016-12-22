@@ -48,7 +48,6 @@ public class MergeWorkbenchAdvisor extends BPCLIWorkbenchAdvisor {
 	String rightFile = "";
 	String ancestorFile = "";
 	String outputFile = "";
-	String outputActionFile = "";
 	protected int mergeResult = -1;
 	private boolean disableIntegrityChecks = false;
 
@@ -59,7 +58,6 @@ public class MergeWorkbenchAdvisor extends BPCLIWorkbenchAdvisor {
 		rightFile = cmdLine.getStringValue("-rightFile");
 		ancestorFile = cmdLine.getStringValue("-ancestorFile");
 		outputFile = cmdLine.getStringValue("-outputFile");
-		outputActionFile = cmdLine.getStringValue("-outputActionFile");
 		disableIntegrityChecks  = cmdLine.getBooleanValue("-disableIntegrityChecks");
 	}
 
@@ -193,7 +191,7 @@ public class MergeWorkbenchAdvisor extends BPCLIWorkbenchAdvisor {
 				}
 				manager.endTransaction(transaction);
 				CoreExport.ignoreMissingPMCErrors = true;
-				IRunnableWithProgress exporter = CorePlugin.getModelExportFactory().create(outputFile, outputActionFile, leftRoot);
+				IRunnableWithProgress exporter = CorePlugin.getModelExportFactory().create(outputFile, leftRoot);
 				exporter.run(new NullProgressMonitor());
 				// run an integrity report if possible
 				if(!disableIntegrityChecks) {
