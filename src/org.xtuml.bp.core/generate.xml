@@ -8,17 +8,19 @@
   <condition property="itemsfoundin2"><contains string="${items2}" substring="${ptc_mcc_ss_only}"/></condition>
   <condition property="itemsfoundin3"><contains string="${items3}" substring="${ptc_mcc_ss_only}"/></condition>
   <condition property="itemsfoundin4"><contains string="${items4}" substring="${ptc_mcc_ss_only}"/></condition>
-  <condition property="nonempty_class_only"><not><equals arg1="${ptc_mcc_class_only}" arg2=""/></not></condition>
+  <condition property="nonempty_ss_only"><not><equals arg1="${ptc_mcc_ss_only}" arg2=""/></not></condition>
   <target name="all"
           description="Generate java code (and maybe only the specified class) and then the rest."
           depends="sql,java"
-          unless="nonempty_class_only" >
-    <!-- skip the rest if one class was specified to be the only thing translated -->
+          unless="nonempty_ss_only" >
+    <!-- skip the rest if a package was specified to be the only thing translated -->
     <antcall target="therest"/>
   </target>
   <target name="therest"
           description="Finish generating code for this project unless only one class was specified"
           depends="cme,cme_schema,cme_menus,inspector.java, cell_modifiers,generate_supertype_subtype_util, action_language_description_util, generate_rto_util, format_java">
+  </target>
+  <target name="nb_all" description="no formatting" depends="sql,java,cme,cme_schema,cme_menus,inspector.java, cell_modifiers,generate_supertype_subtype_util, action_language_description_util, generate_rto_util">
   </target>
 
   <property name="plugins-home" value="${ant.home}/../.."/>
