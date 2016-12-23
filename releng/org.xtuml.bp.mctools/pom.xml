@@ -75,6 +75,39 @@
             </configuration>            
           </execution>
 
+          <!-- Populate the mac.all/ folder with the pre-compiled binaries-->
+          <execution>
+            <id>copy-resources-mac</id>
+            <phase>validate</phase>
+            <goals>
+              <goal>copy-resources</goal>
+            </goals>
+            <configuration>
+              <outputDirectory>${basedir}/mac.all/tools/mc/bin</outputDirectory>
+              <resources>          
+                <resource>
+                  <directory>../../../mc/bin/</directory>
+                  <includes>
+                    <include>gen_erate.pyz</include>
+                    <include>MASLParser.jar</include>
+                    <include>xtumlmc_build</include>
+                    <!-- Don't have mac versions of these yet
+                    <include>docgen</include>
+                    <include>mcmc</include>
+                    <include>mcmc64</include>
+                    <include>m2x</include>
+                    <include>masl</include>
+                    <include>masl2xtuml</include>
+                    <include>masldiff</include>
+                    <include>x2m</include>
+                    <include>xtuml2masl</include>
+                    -->
+                  </includes>
+                </resource>
+              </resources>              
+            </configuration>            
+          </execution>
+
           <!-- Populate the win.all/ folder with pre-compiled binaries -->
           <execution>
             <id>copy-resources-win</id>
@@ -123,6 +156,9 @@
                 <copy file="${basedir}/linux.all/tools/mc/bin/xtumlmc_build" 
                       tofile="${basedir}/linux.all/tools/mc/bin/xtumlmc_build.exe"
                       overwrite="true" />             
+                <copy file="${basedir}/mac.all/tools/mc/bin/xtumlmc_build" 
+                      tofile="${basedir}/mac.all/tools/mc/bin/xtumlmc_build.exe"
+                      overwrite="true" />             
               </target>
             </configuration>
           </execution>
@@ -135,6 +171,9 @@
               <target>
                 <get src="http://www.antlr3.org/download/antlr-3.5.2-complete.jar" 
                      dest="${basedir}/linux.all/tools/mc/bin/antlr-3.5.2-complete.jar" />
+                <copy file="${basedir}/linux.all/tools/mc/bin/antlr-3.5.2-complete.jar" 
+                      tofile="${basedir}/mac.all/tools/mc/bin/antlr-3.5.2-complete.jar"
+                      overwrite="true" />             
               </target>
             </configuration>
             <goals>
