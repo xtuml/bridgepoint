@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-
- File:      generate.xml
-
--->
 <project name="bp.ui.canvas" default="all" basedir=".">
+	
+	<import file="../MC-Java/common.xml"/>
+	
 	<target name="all"
           description="Generate all code for this project"
           depends="sql,schema,java,Build_Outline,inspector.java, cell_modifiers, format_java">
@@ -15,9 +13,7 @@
           depends="sql,java,Build_Outline, inspector.java, cell_modifiers">
 	</target>
 
-	<property name="eclipse-home" value="${basedir}/../.."/>
 	<property name="plugins-home" value="${ant.home}/../.."/>
-	<property name="util_bin_dir" value="${eclipse-home}/src/org.xtuml.bp.mc.c.source/mc3020/bin"/>
 
 	<property name="sql.input" value="models/org.xtuml.bp.ui.canvas/ooaofgraphics" />
 	<property name="sql.output" value="ooaofgraphics.sql" />
@@ -35,13 +31,12 @@
           unless="sql.buildNotNeeded" >
 		<echo >Generating ${sql.output} ...</echo>
 		<copy file="../org.xtuml.bp.pkg/globals/Globals.xtuml" tofile="${sql.input}/Globals.xtuml" />
-		<exec vmlauncher="false" failonerror="true" executable="${util_bin_dir}/xtumlmc_build.exe" >
+		<exec vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
 			<arg line="xtumlmc_cleanse_for_BridgePoint -u 500000 ${sql.input} sql/${sql.output} ${subsystems_to_remove}" />
 		</exec>
 		<delete file="${sql.input}/Globals.xtuml" />
 	</target>
 
-	<property name="mcj_path" value="../MC-Java" />
 	<property file="${mcj_path}/mc_java.depends" />
 
 	<property name="sg.dep" value="ooa_schema.sql,schema_gen.arc" />
@@ -122,7 +117,7 @@
           description="Generate the Canvas outline file"
           unless="Build_Outline.buildNotNeeded" >
 		<echo >Generating ${outline.output} ...</echo>
-		<exec vmlauncher="false" failonerror="true" executable="${util_bin_dir}/xtumlmc_build.exe" >
+		<exec vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
 			<env key="PTC_MC_ARC_DIR" value="${mcj_path}"/>
 			<env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
 			<arg line="xtumlmc_gen_erate -nopersist
@@ -154,7 +149,7 @@
 	          unless="inspector.sql.buildNotNeeded" >
 		<echo >Generating ${inspector.sql.output} ...</echo>
 		<copy file="../org.xtuml.bp.pkg/globals/Globals.xtuml" tofile="${inspector.sql.input}/Globals.xtuml" />
-		<exec vmlauncher="false" failonerror="true" executable="${util_bin_dir}/xtumlmc_build.exe" >
+		<exec vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
 			<arg line="xtumlmc_cleanse_for_BridgePoint ${inspector.sql.input} sql/${inspector.sql.output} ${subsystems_to_remove}" />
 		</exec>
 		<delete file="${inspector.sql.input}/Globals.xtuml" />
@@ -205,7 +200,7 @@
 	          description="Generate the tree adapter files"
 	          unless="inspector.java.buildNotNeeded" >
 		<echo >Generating ${inspector.java.output} ...</echo>
-		<exec vmlauncher="false" failonerror="true" executable="${util_bin_dir}/xtumlmc_build.exe" >
+		<exec vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
 			<env key="PTC_MC_ARC_DIR" value="${mcj_path}"/>
 			<env key="CHAIN_UTIL_DIR" value="${chain_util_path}"/>
 			<env key="LOCAL_ARC_DIR" value="../org.xtuml.bp.core/arc" />
@@ -243,7 +238,7 @@
 
 	<target name="cell_modifiers" depends="cell_modifier.depends" unless="cell_modifier.buildNotNeeded">
 		<echo >Generating ${cell_modifier.output} ...</echo>
-		<exec vmlauncher="false" failonerror="true" executable="${util_bin_dir}/xtumlmc_build.exe" >
+		<exec vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
 			<env key="PTC_MC_ARC_DIR" value="${mcj_path}"/>
 			<env key="CHAIN_UTIL_DIR" value="${chain_util_path}"/>
 			<env key="OUTPUT_PATH" value="org/xtuml/bp/ui/canvas/cells" />

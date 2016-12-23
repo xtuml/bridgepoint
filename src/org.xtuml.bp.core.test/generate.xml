@@ -1,21 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-
- File:      generate.xml
-
--->
 <project name="bp.core.test" default="all" basedir=".">
+
+  <import file="../MC-Java/common.xml"/>
+
   <target name="all" description="Generate all code for this project" depends="dispose_test,action_test,delete_test,formalize_test,context_menu_tests,copy_paste_tests, rto_move_tests, consistency_all">
   </target>
 
   <target name="consistency_all" description="Generate a test domain for the consistency checker" depends="sql,schema,java,format_java">
   </target>
 
-  <property name="eclipse-home" value="${basedir}/../.." />
   <property name="plugins-home" value="${ant.home}/../.."/>
-  <property name="util_bin_dir" value="${eclipse-home}/src/org.xtuml.bp.mc.c.source/mc3020/bin"/>
-
-  <property name="mcj_path" value="../MC-Java" />
 
   <property name="dispose_test.output" value="src/org/xtuml/bp/core/test/DisposeTestGenerics.java" />
 
@@ -29,7 +23,7 @@
 
   <target name="dispose_test" depends="dispose_test.depends" description="Generate the dispose test code" unless="dispose_test.buildNotNeeded">
     <echo>Generating ${dispose_test.output} ...</echo>
-      <exec vmlauncher="false" failonerror="true" executable="${util_bin_dir}/xtumlmc_build.exe" >
+      <exec vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
       <env key="PTC_MC_ARC_DIR" value="${mcj_path}" />
       <env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
       <arg line="xtumlmc_gen_erate -nopersist
@@ -59,7 +53,7 @@
   <target name="action_test" depends="action_test.depends" description="Generate the Context Menu Entry action function bodies" unless="action_test.buildNotNeeded">
     <echo>Generating ${action_test.output} ...</echo>
 
-      <exec vmlauncher="false" failonerror="true" executable="${util_bin_dir}/xtumlmc_build.exe" >
+      <exec vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
       <env key="PTC_MC_ARC_DIR" value="${mcj_path}" />
       <env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
       <arg line="xtumlmc_gen_erate -nopersist
@@ -88,11 +82,11 @@
   </target>
 
   <target name="delete_test" depends="delete_test.depends" description="Generate the delete test code" unless="delete_test.buildNotNeeded">
-    <exec vmlauncher="false" failonerror="true" executable="${util_bin_dir}/xtumlmc_build.exe" >
+    <exec vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
       <arg line="xtumlmc_cleanse_for_BridgePoint models/org.xtuml.bp.core.test/DeleteTestModel sql/DeleteTestModel.sql ${subsystems_to_remove}" />
     </exec>
     <echo>Generating ${delete_test.output} ...</echo>
-      <exec vmlauncher="false" failonerror="true" executable="${util_bin_dir}/xtumlmc_build.exe" >
+      <exec vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
       <env key="PTC_MC_ARC_DIR" value="${mcj_path}" />
       <env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
       <arg line="xtumlmc_gen_erate -nopersist
@@ -117,11 +111,11 @@
   </target>
 
   <target name="formalize_test" depends="formalize_test.depends" description="Generate the Formalize test code" unless="formalize_test.buildNotNeeded">
-    <exec vmlauncher="false" failonerror="true" executable="${util_bin_dir}/xtumlmc_build.exe" >
+    <exec vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
       <arg line="xtumlmc_cleanse_for_BridgePoint models/org.xtuml.bp.core.test/FormalizeUnformalizeTests sql/FormalizeUnformalizeTests.sql ${subsystems_to_remove}" />
     </exec>
     <echo>Generating ${formalize_test.output} ...</echo>
-      <exec vmlauncher="false" failonerror="true" executable="${util_bin_dir}/xtumlmc_build.exe" >
+      <exec vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
       <env key="PTC_MC_ARC_DIR" value="${mcj_path}" />
       <env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
       <arg line="xtumlmc_gen_erate -nopersist
@@ -162,7 +156,7 @@
           description="Generate the test matrix for copy paste"
           unless="copy_paste_tests.buildNotNeeded" >
     <echo >Generating ${copy_paste_tests.output} ...</echo>
-  <exec vmlauncher="false" failonerror="true" executable="${util_bin_dir}/xtumlmc_build.exe" >
+  <exec vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
         <env key="PTC_MC_ARC_DIR" value="${mcj_path}"/>
         <env key="CHAIN_UTIL_DIR" value="${chain_util_path}"/>
       	<env key="GEN_FULL_TESTS" value=""/>
@@ -174,7 +168,7 @@
         -import ../org.xtuml.bp.ui.explorer/sql/UITree.pei.sql
         -arch arc/generate_test_matrix_for_copy_paste.arc" />
     </exec>
-    <exec vmlauncher="false" failonerror="true" executable="${util_bin_dir}/xtumlmc_build.exe" >
+    <exec vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
           <env key="PTC_MC_ARC_DIR" value="${mcj_path}"/>
           <env key="CHAIN_UTIL_DIR" value="${chain_util_path}"/>
     	  <env key="GEN_FULL_TESTS" value="true"/>
@@ -215,7 +209,7 @@
 
   <property name="rto_move_test_location" value="src/org/xtuml/bp/core/test/rtomove" />
   <target name="rto_move_tests" depends="rto_move_tests.depends" unless="rto_move_tests.buildNotNeeded">
-    <exec vmlauncher="false" failonerror="true" executable="${util_bin_dir}/xtumlmc_build.exe" >
+    <exec vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
           <env key="PTC_MC_ARC_DIR" value="${mcj_path}"/>
           <env key="CHAIN_UTIL_DIR" value="${chain_util_path}"/>
         	<env key="GEN_FULL_TESTS" value=""/>
@@ -243,7 +237,7 @@
 
   <target name="context_menu_tests" depends="context_menu_tests.depends" unless="context_menu_tests.buildNotNeeded">
     <delete file="____file.txt" />
-      <exec vmlauncher="false" failonerror="true" executable="${util_bin_dir}/xtumlmc_build.exe" >
+      <exec vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
       <env key="PTC_MC_ARC_DIR" value="${mcj_path}" />
       <env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
       <arg line="xtumlmc_gen_erate -nopersist
@@ -408,7 +402,7 @@
   <target name="sql" depends="sql.depends" description="Generate the sql version of the Consistency test model" unless="sql.buildNotNeeded">
     <echo>Generating ${sql.output} ...</echo>
     <copy file="../org.xtuml.bp.pkg/globals/Globals.xtuml" tofile="models/org.xtuml.bp.core.test/consistencyTest/${sql.input}/Globals.xtuml" />
-    <exec vmlauncher="false" failonerror="true" executable="${util_bin_dir}/xtumlmc_build.exe" >
+    <exec vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
       <arg line="xtumlmc_cleanse_for_BridgePoint models/org.xtuml.bp.core.test/${sql.input} sql/${sql.output} ${subsystems_to_remove}" />
     </exec>
     <delete file="models/org.xtuml.bp.core.test/consistencyTest/${sql.input}/Globals.xtuml" />

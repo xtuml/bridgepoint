@@ -1,14 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-
- File:      generate.xml
-
--->
 <project name="bp.ui.canvas.test" default="all" basedir=".">
-	<property name="mcj_path" value="../MC-Java" />
-	<property name="eclipse-home" value="${basedir}/../.."/>
+	
+	<import file="../MC-Java/common.xml"/>
+	
 	<property name="plugins-home" value="${ant.home}/../.."/>
-    <property name="util_bin_dir" value="${eclipse-home}/src/org.xtuml.bp.mc.c.source/mc3020/bin"/>
 
 	<target name="nb_all" description="Generate all code for this project" depends="gen_testClass, generate_graphical_anchor_matrix_tests, generate_connector_move_matrix_tests, generate_rectilinear_matrix_tests">
 	</target>
@@ -32,7 +27,7 @@
 	<target name="test_gen"
           description="Create the test specs">
 		<delete file="sql/____file.txt" />
-		<exec vmlauncher="false" failonerror="true" executable="${util_bin_dir}/xtumlmc_build.exe" >
+		<exec vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
 	        <env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
 			<arg line="xtumlmc_gen_erate -nopersist
               	-import ../${mcj_path}/ooa_schema.sql
@@ -45,7 +40,7 @@
 	<target name="skel_gen"
           description="Create the test skeleton">
 		<delete file="sql/____file.txt" />
-		<exec vmlauncher="false" failonerror="true" executable="${util_bin_dir}/xtumlmc_build.exe" >
+		<exec vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
 			<env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
 			<arg line="xtumlmc_gen_erate -nopersist
 			    -import ../${mcj_path}/ooa_schema.sql
@@ -67,7 +62,7 @@
 
 	<target name="sql" depends="sql.depends" description="Generate the sql version of the OoaofGraphics model" unless="sql.buildNotNeeded">
 		<echo>Generating ${sql.output} ...</echo>
-		<exec vmlauncher="false" failonerror="true" executable="${util_bin_dir}/xtumlmc_build.exe" >
+		<exec vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
 			<arg line="xtumlmc_cleanse_for_BridgePoint ${sql.input} sql/${sql.output} ${subsystems_to_remove}" />
 		</exec>
 	</target>
@@ -78,7 +73,7 @@
 	</target>
 
 	<target name="gen_testClass" depends="gen_testClass.depends" description="Create class for testing Ooaofooa.clearDatabase" unless="testClass.buildNotNeeded">
-		<exec vmlauncher="false" failonerror="true" executable="${util_bin_dir}/xtumlmc_build.exe" >
+		<exec vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
 			<env key="PTC_MC_ARC_DIR" value="${mcj_path}" />
 			<env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
 			<arg line="xtumlmc_gen_erate -nopersist

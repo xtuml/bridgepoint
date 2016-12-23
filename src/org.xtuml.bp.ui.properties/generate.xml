@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-
- File:      generate.xml
-
--->
 <project name="bp.ui.properties" default="all" basedir=".">
+	
+  <import file="../MC-Java/common.xml"/>
+	
   <target name="all"
           description="Generate UI Properties classes"
           depends="java,format_java">
@@ -12,11 +10,7 @@
 
   <target name="nb_all"  description="Nightly build target" depends="java" />
 
-  <property name="mcj_path" value="../MC-Java" />
-
-  <property name="eclipse-home" value="${basedir}/../.."/>
   <property name="plugins-home" value="${ant.home}/../.."/>
-  <property name="util_bin_dir" value="${eclipse-home}/src/org.xtuml.bp.mc.c.source/mc3020/bin"/>
 
   <property environment="env"/>
 
@@ -38,7 +32,7 @@
           description="Generate the tree Properties file and util class"
           unless="java.buildNotNeeded" >
     <echo >Generating PropertySource files ...</echo>
-    <exec vmlauncher="false" failonerror="true" executable="${util_bin_dir}/xtumlmc_build.exe" >
+    <exec vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
         <env key="PTC_MC_ARC_DIR" value="${mcj_path}"/>
         <env key="CHAIN_UTIL_DIR" value="${chain_util_path}"/>
         <env key="CORE_COLOR_DIR" value="${core_color_path}"/>

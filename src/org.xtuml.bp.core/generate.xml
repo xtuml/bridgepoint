@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-
- File:     generate.xml
-
--->
 <project name="bp.core" default="all" basedir=".">
+
+  <import file="../MC-Java/common.xml"/>
+
   <property file="generate.properties"/>
   <condition property="itemsfoundin1"><contains string="${items1}" substring="${ptc_mcc_ss_only}"/></condition>
   <condition property="itemsfoundin2"><contains string="${items2}" substring="${ptc_mcc_ss_only}"/></condition>
@@ -23,9 +21,7 @@
           depends="cme,cme_schema,cme_menus,inspector.java, cell_modifiers,generate_supertype_subtype_util, action_language_description_util, generate_rto_util, format_java">
   </target>
 
-  <property name="eclipse-home" value="${basedir}/../.."/>
   <property name="plugins-home" value="${ant.home}/../.."/>
-  <property name="util_bin_dir" value="${eclipse-home}/src/org.xtuml.bp.mc.c.source/mc3020/bin"/>
 
   <property name="sql.input" value="models/org.xtuml.bp.core/ooaofooa" />
   <property name="sql.output" value="ooaofooa.sql" />
@@ -42,9 +38,7 @@
   <property name="model_excludes" value="${context_menu_input}, ${oal_validation_input}, ${oal_utility_input}" />
 
   <target name="sql.depends" >
-    <echo >Eclipse home: ${eclipse-home}</echo>
     <echo >Plugins home: ${plugins-home}</echo>
-    <echo >Util home (xtumlmc_build.exe): ${util_bin_dir}</echo>
   	
     <uptodate property="sql.buildNotNeeded" targetfile="sql/${sql.output}">
       <srcfiles dir="${sql.input}" excludes="${model_excludes}" includes="**/*.xtuml" />
@@ -56,7 +50,7 @@
           unless="sql.buildNotNeeded" >
     <echo >Generating ${sql.output} ...</echo>
   	<copy file="gen/code_generation/ooaofooa-1.sql" tofile="gen/code_generation/ooaofooa.xtuml"/>
-  	<exec vmlauncher="false" failonerror="true" executable="${util_bin_dir}/xtumlmc_build.exe" >
+  	<exec vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
   	      <arg line="xtumlmc_cleanse_for_BridgePoint ${basedir}/gen/code_generation sql/ooaofooa.sql" />
   	</exec>
   	<delete file="gen/code_generation/ooaofooa.xtuml" />
@@ -76,13 +70,12 @@
           unless="cme.buildNotNeeded" >
     <echo >Generating ${cme.output} ...</echo>
   	<copy file="../org.xtuml.bp.pkg/globals/Globals.xtuml" tofile="${cme.input}/Globals.xtuml" />
-  	<exec vmlauncher="false" failonerror="true" executable="${util_bin_dir}/xtumlmc_build.exe" >
+  	<exec vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
       <arg line="xtumlmc_cleanse_for_BridgePoint ${cme.input} sql/${cme.output} ${subsystems_to_remove}" />
     </exec>
   	<delete file="${cme.input}/Globals.xtuml" />
   </target>
 
-  <property name="mcj_path" value="../MC-Java" />
   <property file="${mcj_path}/mc_java.depends" />
 
   <property name="sg.dep" value="ooa_schema.sql,schema_gen.arc" />
@@ -249,7 +242,7 @@
           description="Generate the sql version of the OoaofOoa model for cme use"
           unless="cme_sql.buildNotNeeded" >
     <echo >Generating ${sql.output} ...</echo>
-    <exec vmlauncher="false" failonerror="true" executable="${util_bin_dir}/xtumlmc_build.exe" >
+    <exec vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
       <arg line="xtumlmc_cleanse_for_BridgePoint ${sql.input} ${cme_sql.output} ${subsystems_to_remove}" />
     </exec>
     <touch file="${cme_sql.output}" />
@@ -283,7 +276,7 @@
           description="Generate the Context Menu Entry action classes"
           unless="cme_menus.buildNotNeeded" >
     <echo >Generating Action Classes ...</echo>
-    <exec vmlauncher="false" failonerror="true" executable="${util_bin_dir}/xtumlmc_build.exe" >
+    <exec vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
         <env key="PTC_MC_ARC_DIR" value="${mcj_path}"/>
     <env key="VERIFY_SELECTS" value="false" />
     <env key="CHECK_FUNCTIONS_ONLY" value="true" />
@@ -330,7 +323,7 @@
           unless="inspector.sql.buildNotNeeded" >
     <echo >Generating ${inspector.sql.output} ...</echo>
   	<copy file="../org.xtuml.bp.pkg/globals/Globals.xtuml" tofile="${inspector.sql.input}/Globals.xtuml" />
-    <exec vmlauncher="false" failonerror="true" executable="${util_bin_dir}/xtumlmc_build.exe" >
+    <exec vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
       <arg line="xtumlmc_cleanse_for_BridgePoint ${inspector.sql.input} sql/${inspector.sql.output} ${subsystems_to_remove}" />
     </exec>
   	<delete file="${inspector.sql.input}/Globals.xtuml" />
@@ -380,7 +373,7 @@
           description="Generate the tree adapter files"
           unless="inspector.java.buildNotNeeded" >
     <echo >Generating ${inspector.java.output} ...</echo>
-    <exec vmlauncher="false" failonerror="true" executable="${util_bin_dir}/xtumlmc_build.exe" >
+    <exec vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
         <env key="PTC_MC_ARC_DIR" value="${mcj_path}"/>
         <env key="CHAIN_UTIL_DIR" value="${chain_util_path}"/>
     	<env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
@@ -419,7 +412,7 @@
 	
 	<target name="cell_modifiers" depends="cell_modifier.depends" unless="cell_modifier.buildNotNeeded">
 	    <echo >Generating ${cell_modifier.output} ...</echo>
-	    <exec vmlauncher="false" failonerror="true" executable="${util_bin_dir}/xtumlmc_build.exe" >
+	    <exec vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
 	        <env key="PTC_MC_ARC_DIR" value="${mcj_path}"/>
 	        <env key="CHAIN_UTIL_DIR" value="${chain_util_path}"/>
 	    	<env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
@@ -453,7 +446,7 @@
 
 	<target name="generate_supertype_subtype_util" unless="supertype_subtype_util.buildNotNeeded" depends="generate_supertype_subtype_util.depends" >
 	    <echo >Generating ${gssu.output} ...</echo>
-	    <exec vmlauncher="false" failonerror="true" executable="${util_bin_dir}/xtumlmc_build.exe" >
+	    <exec vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
 	        <env key="PTC_MC_ARC_DIR" value="${mcj_path}"/>
 	    	<env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
 	    	<arg line="xtumlmc_gen_erate -nopersist
@@ -478,7 +471,7 @@
 
 	<target name="generate_rto_util" unless="rto_util.buildNotNeeded" depends="generate_rto_util.depends" >
 	    <echo >Generating ${grtou.output} ...</echo>
-	    <exec vmlauncher="false" failonerror="true" executable="${util_bin_dir}/xtumlmc_build.exe" >
+	    <exec vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
 	        <env key="PTC_MC_ARC_DIR" value="${mcj_path}"/>
 	    	<env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
 	    	<arg line="xtumlmc_gen_erate -nopersist
@@ -503,7 +496,7 @@
 
 	<target name="action_language_description_util" unless="action_language_description_util.buildNotNeeded" depends="action_language_description_util.depends" >
 	    <echo >Generating ${ald.output} ...</echo>
-	    <exec vmlauncher="false" failonerror="true" executable="${util_bin_dir}/xtumlmc_build.exe" >
+	    <exec vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
 	        <env key="PTC_MC_ARC_DIR" value="${mcj_path}"/>
 	    	<env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
 	    	<arg line="xtumlmc_gen_erate -nopersist
