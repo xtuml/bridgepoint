@@ -1,11 +1,3 @@
-//========================================================================
-//
-//  File: AbstractProperties.java
-//
-//========================================================================
-//This document contains information proprietary and confidential to
-//Mentor Graphics Corp. and is not for external distribution.
-//========================================================================
 package org.xtuml.bp.mc;
 
 import java.util.Properties;
