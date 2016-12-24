@@ -1,15 +1,3 @@
-//========================================================================
-//
-//File:      $RCSfile: AbstractExportBuilder.java,v $
-//Version:   $Revision: 1.10.6.2 $
-//Modified:  $Date: 2013/08/09 15:11:55 $
-//
-//(c) Copyright 2007-2014 by Mentor Graphics Corp. All rights reserved.
-//
-//========================================================================
-//This document contains information proprietary and confidential to
-//Mentor Graphics Corp. and is not for external distribution.
-//========================================================================
 package org.xtuml.bp.mc;
 
 import java.io.ByteArrayOutputStream;

@@ -16,11 +16,11 @@ options {
 }
 {
     private String smasl = "";
-    private String m_dialect = "";
+    private int m_dialect = -1;
     private TokenStreamSelector selector;
     private CoreImport m_ci;
 
-    public ActionParser(TokenStreamSelector s, CoreImport ci, String dialect) {
+    public ActionParser(TokenStreamSelector s, CoreImport ci, int dialect) {
         this((TokenStream)s);
         selector = s;
         m_ci = ci;

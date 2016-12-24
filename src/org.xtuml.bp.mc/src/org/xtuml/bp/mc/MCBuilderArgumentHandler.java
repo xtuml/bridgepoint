@@ -1,6 +1,3 @@
-// ========================================================================
-// File: MCBuilderArgumentHandler.java
-// ========================================================================
 package org.xtuml.bp.mc;
 
 import java.io.File;
@@ -51,11 +48,14 @@ public class MCBuilderArgumentHandler {
 		String srcDestFolder = AbstractProperties.getPropertyOrDefault(properties,
 				AbstractProperties.GENERATED_SOURCE_CODE_DEST);
 
+        String homedir = System.getProperty("eclipse.home.location"); //$NON-NLS-1$
+        homedir = homedir.replaceFirst("file:", "");
+        homedir = homedir + "tools/";
 
-		String mc_plugin_dir = " -home \"" + m_activator.getPluginPathAbsolute() + "\" "; //$NON-NLS-1$ //$NON-NLS-2$
+		String mc_home_dir = " -home \"" + homedir + "\" "; //$NON-NLS-1$ //$NON-NLS-2$
 
 		String cmdLine = 
-					mc_plugin_dir                                   // Location of the model compiler plugin
+					mc_home_dir                                   // Location of the model compiler plugin
 			        + getBuilderDependantArguments() 			    // -i (XMI build) and/or -c (no builder specified)
 					+  getLicenseString(builderIDSelected)          // -l license string
 					+ " " + eclipseSpecificArg						// -e  to tell the xtumlmc_build this is eclipse
@@ -76,7 +76,7 @@ public class MCBuilderArgumentHandler {
 				AbstractProperties.XBUILD_LOCAL_LOCATION);
 		BuilderManagement.replaceBuilderInfo(launchFile,
 				AbstractNature.LAUNCH_ATTR_TOOL_LOCATION,
-				m_activator.getPluginPathAbsolute() + xbuild_path);
+				homedir + xbuild_path);
 
 		String projPath = m_project.getLocation().toOSString();
         IPath outputPath = new Path(projPath + File.separator

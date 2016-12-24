@@ -230,7 +230,7 @@ public class CorePlugin extends AbstractUIPlugin {
 		}
 		AbstractModelImportFactory mif = CorePlugin.getModelImportFactory();
 		try {
-		  IModelImport importer = mif.create(fileName, null,
+		  IModelImport importer = mif.create(fileName,
                         Ooaofooa.getDefaultInstance(), null, false, true, true);
 		  importer.run(new NullProgressMonitor());
 		  loadedGlobals = importer.getLoadedInstances();
@@ -294,10 +294,8 @@ public class CorePlugin extends AbstractUIPlugin {
 		IProgressMonitor monitor,
 		boolean parseAll, boolean isTemplate) {
 		try {
-			String actionFilePath = ActionFile.getPathFromComponent(model.getAbsolutePath(), ActionFile.getDefaultDialect()).toFile().getAbsolutePath();
 			IModelImport im = importFactory.create(
 				model.getAbsolutePath(),
-                                actionFilePath,
 				Ooaofooa.getInstance(rootId, false),
 				system,
 				parseAll,

@@ -13,4 +13,5 @@ Require-Bundle: org.eclipse.core.runtime,
  org.xtuml.bp.core,
  org.eclipse.core.resources,
  org.xtuml.bp.ui.text
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Eclipse-BundleShape: dir

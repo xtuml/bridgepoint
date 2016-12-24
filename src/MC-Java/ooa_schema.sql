@@ -876,7 +876,7 @@ CREATE TABLE O_DBATTR (
     Obj_ID UNIQUE_ID,
     Action_Semantics STRING,
     Suc_Pars INTEGER,
-    Dialect STRING
+    Dialect INTEGER
 );
 CREATE TABLE O_ID (
     Oid_ID INTEGER,
@@ -953,7 +953,7 @@ CREATE TABLE O_TFR (
     Suc_Pars INTEGER,
     Return_Dimensions STRING,
     Previous_Tfr_ID UNIQUE_ID,
-    Dialect STRING
+    Dialect INTEGER
 );
 CREATE TABLE O_TPARM (
     TParm_ID UNIQUE_ID,
@@ -1112,7 +1112,7 @@ CREATE TABLE SM_ACT (
     Suc_Pars INTEGER,
     Action_Semantics STRING,
     Descrip STRING,
-    Dialect STRING
+    Dialect INTEGER
 );
 CREATE TABLE SM_AH (
     Act_ID UNIQUE_ID,
@@ -1274,7 +1274,7 @@ CREATE TABLE SPR_PO (
     Descrip STRING,
     Action_Semantics STRING,
     Suc_Pars INTEGER,
-    Dialect STRING
+    Dialect INTEGER
 );
 CREATE TABLE SPR_PS (
     Id UNIQUE_ID,
@@ -1282,7 +1282,7 @@ CREATE TABLE SPR_PS (
     Descrip STRING,
     Action_Semantics STRING,
     Suc_Pars INTEGER,
-    Dialect STRING
+    Dialect INTEGER
 );
 CREATE TABLE SPR_REP (
     Id UNIQUE_ID,
@@ -1295,7 +1295,7 @@ CREATE TABLE SPR_RO (
     Descrip STRING,
     Action_Semantics STRING,
     Suc_Pars INTEGER,
-    Dialect STRING
+    Dialect INTEGER
 );
 CREATE TABLE SPR_RS (
     Id UNIQUE_ID,
@@ -1303,7 +1303,7 @@ CREATE TABLE SPR_RS (
     Descrip STRING,
     Action_Semantics STRING,
     Suc_Pars INTEGER,
-    Dialect STRING
+    Dialect INTEGER
 );
 CREATE TABLE SQ_AP (
     Part_ID UNIQUE_ID,
@@ -1406,10 +1406,6 @@ CREATE TABLE SQ_TS (
     Name STRING,
     Descrip STRING
 );
-CREATE TABLE S_AW (
-    Brg_ID UNIQUE_ID,
-    Sync_ID UNIQUE_ID
-);
 CREATE TABLE S_BPARM (
     BParm_ID UNIQUE_ID,
     Brg_ID UNIQUE_ID,
@@ -1431,7 +1427,7 @@ CREATE TABLE S_BRG (
     Action_Semantics STRING,
     Suc_Pars INTEGER,
     Return_Dimensions STRING,
-    Dialect STRING
+    Dialect INTEGER
 );
 CREATE TABLE S_CDT (
     DT_ID UNIQUE_ID,
@@ -1532,7 +1528,7 @@ CREATE TABLE S_SYNC (
     DT_ID UNIQUE_ID,
     Suc_Pars INTEGER,
     Return_Dimensions STRING,
-    Dialect STRING
+    Dialect INTEGER
 );
 CREATE TABLE S_SYS (
     Sys_ID UNIQUE_ID,
@@ -3235,8 +3231,6 @@ CREATE ROP REF_ID R2975 FROM MC I_EXE (Container_ID) TO 1C I_CIN (Container_ID);
 CREATE ROP REF_ID R2976 FROM MC I_EVI (Originating_Execution_Engine_ID) TO 1C I_EXE (Execution_Engine_ID);
 CREATE ROP REF_ID R2977 FROM MC I_ICQE (Execution_Engine_ID) TO 1 I_EXE (Execution_Engine_ID);
 CREATE ROP REF_ID R2978 FROM MC I_VSF (Value_ID) TO 1C V_VAL (Value_ID);
-CREATE ROP REF_ID R3200 FROM 1C S_AW (Brg_ID) TO 1 S_BRG (Brg_ID);
-CREATE ROP REF_ID R3201 FROM MC S_AW (Sync_ID) TO 1C S_SYNC (Sync_ID);
 CREATE ROP REF_ID R4002 FROM MC C_SF (Requirement_Id) TO 1 C_R (Requirement_Id);
 CREATE ROP REF_ID R4002 FROM MC C_SF (Provision_Id) TO 1 C_P (Provision_Id);
 CREATE ROP REF_ID R4003 FROM MC C_EP (Interface_Id) TO 1 C_I (Id);

@@ -17,7 +17,7 @@ Require-Bundle: org.eclipse.ui,
  org.xtuml.bp.ui.text,
  org.eclipse.gef,
  org.eclipse.debug.ui
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy
 Export-Package: org.xtuml.bp.utilities.build,
  org.xtuml.bp.utilities.data,

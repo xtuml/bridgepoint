@@ -34,14 +34,9 @@ INSERT INTO O_TFR
 select one ee related by self->S_EE[R10];
 unrelate self from ee across R10;
 // 
-// Communication and Access Subsystem
 select many eeedts related by self->S_EEEDT[R13];
 for each eeedt in eeedts
   eeedt.dispose();
-end for;
-select many smeecomms related by self->CA_SMEEE[R413];
-for each smeecomm in smeecomms
-  smeecomm.dispose();
 end for;
 //
 // Event Subsystem

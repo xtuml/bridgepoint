@@ -98,15 +98,6 @@ select many dis related by self->SM_EVTDI[R532];
 for each di in dis
   di.dispose();
 end for;
-// Communication and Access Subsystem
-select many smsmes related by self->CA_SMSME[R409];
-for each smsme in smsmes
-  smsme.dispose();
-end for;
-select many eesmes related by self->CA_EESME[R405];
-for each eesme in eesmes
-  eesme.dispose();
-end for;
 //Event subsystem
 select many csmes related by self->E_CSME[R706];
 for each csme in csmes

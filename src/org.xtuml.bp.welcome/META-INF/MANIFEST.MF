@@ -32,4 +32,5 @@ Require-Bundle: org.eclipse.core.resources,
  org.xtuml.bp.ui.text,
  org.xtuml.bp.utilities
 Bundle-ActivationPolicy: lazy
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Eclipse-BundleShape: dir

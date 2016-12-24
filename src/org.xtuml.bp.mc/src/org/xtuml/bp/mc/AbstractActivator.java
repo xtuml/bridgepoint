@@ -1,15 +1,3 @@
-//========================================================================
-//
-//File:      $RCSfile: AbstractActivator.java,v $
-//Version:   $Revision: 1.6.18.1 $
-//Modified:  $Date: 2013/07/26 10:13:15 $
-//
-//(c) Copyright 2005-2014 by Mentor Graphics Corp. All rights reserved.
-//
-//========================================================================
-//This document contains information proprietary and confidential to
-//Mentor Graphics Corp. and is not for external distribution.
-//========================================================================
 package org.xtuml.bp.mc;
 
 import java.io.FileInputStream;

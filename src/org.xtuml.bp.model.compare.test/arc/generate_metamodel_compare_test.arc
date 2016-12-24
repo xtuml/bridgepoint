@@ -270,6 +270,8 @@ public class ModelComparisonTests extends BaseTest {
 	  .assign attr_result = "UUID.randomUUID()"
 	.elif(dt.Name == "ParseStatus")
 	  .assign attr_result = "Parsestatus_c.doNotParse"
+	.elif(dt.Name == "ActionDialect")
+	  .assign attr_result = "Actiondialect_c.oal"
 	.elif(dt.Name == "Scope")
 	  .assign attr_result = "Scope_c.Class"
 	.elif(dt.Name == "Visibility")

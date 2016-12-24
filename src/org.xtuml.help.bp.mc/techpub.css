@@ -1,0 +1,161 @@
+h1
+      {
+	color: #000000;
+	font-size: 18pt;
+	line-height: 1.3em;
+	font-weight: normal;
+	font-style: normal;
+	font-family: Arial;
+}
+
+LI.kadov-h1
+      {
+	color: #000000;
+	font-size: 18pt;
+	line-height: 1.3em;
+	font-weight: normal;
+	font-style: normal;
+	font-family: Arial;
+}
+
+h2
+      {
+	color: #000080;
+	line-height: 1.3em;
+	font-size: 12pt;
+	font-weight: bold;
+	font-style: normal;
+	font-family: Arial;
+}
+
+LI.kadov-h2
+      {
+	color: #000080;
+	line-height: 1.3em;
+	font-size: 12pt;
+	font-weight: bold;
+	font-style: normal;
+	font-family: Arial;
+}
+
+h3
+      {
+	color: #800000;
+	line-height: 1.3em;
+	font-family: Arial;
+	margin-bottom: 0.2em;
+	font-size: 11pt;
+}
+
+LI.kadov-h3
+      {
+	color: #800000;
+	line-height: 1.3em;
+	font-family: Arial;
+	font-size: 11pt;
+}
+
+h4
+      {
+	color: #0176b9;
+	font-family: Arial;
+	font-size: 11pt;
+	margin-bottom: 0.2em;
+}
+
+LI.kadov-h4
+      {
+	color: #0176b9;
+	font-family: Arial;
+	font-size: 11pt;
+}
+
+h5
+      {
+	font-family: Arial;
+	font-size: 9pt;
+	color: #000000;
+	font-weight: bold;
+}
+
+LI.kadov-h5
+      {
+	font-family: Arial;
+	font-size: 9pt;
+	color: #000000;
+	font-weight: bold;
+}
+
+H6
+{
+	font-size: 12pt;
+	font-family: "Courier New", monospace;
+	color: #0000ff;
+}
+
+LI.kadov-H6 {
+	font-size: 12pt;
+	font-family: "Courier New", monospace;
+	color: #0000ff;
+}
+
+P
+   {
+	font-family: Arial;
+	font-size: 10pt;
+	font-weight: normal;
+}
+
+LI.kadov-P
+   {
+	font-family: Arial;
+	font-size: 10pt;
+	font-weight: normal;
+}
+
+span.tp\005fcode
+
+   {
+	font-family: "Courier New";
+	font-size: 10pt;
+}
+
+a {
+	x-text-underline: normal;
+}
+
+a:link {
+	color: #000080;
+}
+
+a:active {
+	color: #cc0000;
+}
+
+a:visited {
+	color: #0176b9;
+}
+
+a:hover {
+	color: #cc0000;
+}
+
+li {
+	margin-bottom: .25em;
+	font-size: 10pt;
+	font-family: Arial, sans-serif;
+}
+
+ul {
+	list-style-type: square;
+	font-size: 10pt;
+	font-family: Arial, sans-serif;
+}
+
+OL,
+UL {
+	font-size: 10pt;
+	font-family: Arial, sans-serif;
+}
+
+
