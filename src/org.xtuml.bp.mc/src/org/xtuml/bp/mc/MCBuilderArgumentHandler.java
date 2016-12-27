@@ -74,6 +74,11 @@ public class MCBuilderArgumentHandler {
 		// make sure the path for xtulmc_build is correct
 		String xbuild_path = AbstractProperties.getPropertyOrDefault(properties,
 				AbstractProperties.XBUILD_LOCAL_LOCATION);
+		if( System.getProperty("os.name").startsWith("Windows") && 
+				!xbuild_path.endsWith(".exe") &&
+				!xbuild_path.endsWith(".EXE")) {
+			xbuild_path.concat(".exe");
+		}
 		BuilderManagement.replaceBuilderInfo(launchFile,
 				AbstractNature.LAUNCH_ATTR_TOOL_LOCATION,
 				homedir + xbuild_path);
