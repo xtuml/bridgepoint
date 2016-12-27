@@ -13,10 +13,6 @@
     <property name="xtumlmc_build" value="${util_bin_dir}/xtumlmc_build.exe"/>
   </target>
 
-  <!--<target name="configureUnix" unless="isWindows">
-    <property name="xtumlmc_build" value="${util_bin_dir}/xtumlmc_build"/>
-  </target>-->
-
   <target name="common_config" depends="configureWindows">
     <echo >Eclipse home: ${eclipse.home}</echo>
     <echo >Util home: ${util_bin_dir}</echo>

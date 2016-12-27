@@ -102,7 +102,7 @@
      description="Compile bp.io.core antlr grammar"
     unless="compile_grammar.NotNeeded" >
 
-    <echo >Eclipse home: ${eclipse-home}</echo>
+    <echo >Eclipse home: ${eclipse.home}</echo>
     <echo >Plugins home: ${plugins-home}</echo>
   	
     <antlr target="${grammar-folder}/sql_insert.g" >
@@ -132,7 +132,7 @@
      description="Compile bp.io.core antlr grammar"
     unless="compile_action_grammar.NotNeeded" >
 
-    <echo >Eclipse home: ${eclipse-home}</echo>
+    <echo >Eclipse home: ${eclipse.home}</echo>
     <echo >Plugins home: ${plugins-home}</echo>
   	
     <antlr target="${grammar-folder}/actions.g" >
