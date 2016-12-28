@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
-      id="org.xtuml.bp.verifier.pkg"
+      id="org.xtuml.bp.verifier.pkg.feature"
       label="BridgePoint Verifier"
       version="5.8.3"
       provider-name="xtUML.org">

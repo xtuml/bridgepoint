@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
-      id="org.xtuml.bp.pkg"
+      id="org.xtuml.bp.pkg.feature"
       label="BridgePoint UML"
       version="5.8.3"
       provider-name="xtUML.org"
+      plugin="org.xtuml.bp.pkg"
       image="images/GreenChip.gif">
 
    <copyright>
@@ -25,12 +26,12 @@ the License.
    </license>
 
    <includes
-         id="org.xtuml.bp.bld.pkg"
+         id="org.xtuml.bp.bld.pkg.feature"
          version="5.8.3"
          name="BridgePoint Builder"/>
 
    <includes
-         id="org.xtuml.bp.verifier.pkg"
+         id="org.xtuml.bp.verifier.pkg.feature"
          version="5.8.3"
          name="BridgePoint Verifier"/>
 

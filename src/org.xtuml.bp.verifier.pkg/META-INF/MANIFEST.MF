@@ -8,3 +8,4 @@ Bundle-Activator: org.xtuml.bp.verfier.pkg.Unreferenced
 Bundle-Vendor: xtUML.org
 Bundle-Localization: plugin
 Bundle-ActivationPolicy: lazy
+Eclipse-BundleShape: dir

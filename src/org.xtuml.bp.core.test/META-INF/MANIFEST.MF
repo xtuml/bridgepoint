@@ -48,4 +48,4 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.team.ui,
  org.xtuml.bp.model.compare
 Bundle-ActivationPolicy: lazy
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
