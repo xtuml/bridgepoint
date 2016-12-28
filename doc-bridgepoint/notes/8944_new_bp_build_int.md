@@ -88,7 +88,7 @@ BridgePoint build itself work from the ```tools/mc/``` folder rather than the
 +  if( System.getProperty("os.name").startsWith("Windows") && 
 +        !xbuild_path.endsWith(".exe") &&
 +        !xbuild_path.endsWith(".EXE")) {
-+      xbuild_path.concat(".exe");
++      xbuild_path = xbuild_path.concat(".exe");
 +  }
   BuilderManagement.replaceBuilderInfo(launchFile,
      AbstractNature.LAUNCH_ATTR_TOOL_LOCATION,
