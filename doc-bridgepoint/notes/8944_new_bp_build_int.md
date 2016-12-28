@@ -113,7 +113,79 @@ Fork/Repository: keithbrown
 Branch: 8944_new_bp_build     
 
 <pre>
-
+ doc-bridgepoint/notes/8944_new_bp_build_int.md     | 122 +++++++++++++++++++++
+ .../process/Developer Getting Started Guide.md     |   4 -
+ releng/org.xtuml.bp.mctools/pom.xml                |   6 -
+ src/MC-Java/build.xml                              |  22 +---
+ src/MC-Java/common.xml                             |  22 ++++
+ src/MC-Java/java.arc                               |  14 ++-
+ src/org.xtuml.bp.als/generate.xml                  |  19 ++--
+ src/org.xtuml.bp.cli/generate.xml                  |  11 +-
+ src/org.xtuml.bp.compare/generate.xml              |  13 +--
+ src/org.xtuml.bp.core.test/generate.xml            |  38 +++----
+ src/org.xtuml.bp.core/generate.properties          |   6 +-
+ src/org.xtuml.bp.core/generate.xml                 |  39 +++----
+ src/org.xtuml.bp.debug.ui/generate.xml             |  11 +-
+ src/org.xtuml.bp.docgen/generate.xml               |  11 +-
+ src/org.xtuml.bp.io.core/generate.xml              |  15 +--
+ src/org.xtuml.bp.io.image/generate.xml             |   9 +-
+ src/org.xtuml.bp.io.mdl/generate.xml               |  31 +++---
+ src/org.xtuml.bp.mc.c.source/build.properties      |   2 -
+ .../build_settings/build_setting.properties        |   2 +-
+ src/org.xtuml.bp.mc.c.source/generate.xml          |   9 +-
+ src/org.xtuml.bp.mc.c.source/log_dir/.gitignore    |   1 -
+ src/org.xtuml.bp.mc.c.source/log_dir/README.txt    |   1 -
+ src/org.xtuml.bp.mc.c.source/mc3020/.gitignore     |  12 --
+ src/org.xtuml.bp.mc.c.source/mc3020/README.txt     |   1 -
+ src/org.xtuml.bp.mc.cpp.source/build.properties    |   2 -
+ .../build_settings/build_setting.properties        |   2 +-
+ src/org.xtuml.bp.mc.cpp.source/generate.xml        |   9 +-
+ src/org.xtuml.bp.mc.cpp.source/log_dir/.gitignore  |   1 -
+ src/org.xtuml.bp.mc.cpp.source/log_dir/README.txt  |   1 -
+ src/org.xtuml.bp.mc.cpp.source/mc3020/.gitignore   |  12 --
+ src/org.xtuml.bp.mc.cpp.source/mc3020/README.txt   |   1 -
+ src/org.xtuml.bp.mc.java.source/build.properties   |   2 -
+ .../build_settings/build_setting.properties        |   2 +-
+ src/org.xtuml.bp.mc.java.source/generate.xml       |   9 +-
+ src/org.xtuml.bp.mc.java.source/log_dir/README.txt |   1 -
+ src/org.xtuml.bp.mc.java.source/mc3020/.gitignore  |  12 --
+ src/org.xtuml.bp.mc.java.source/mc3020/README.txt  |   1 -
+ src/org.xtuml.bp.mc.none/generate.xml              |   9 +-
+ .../build.properties                               |   2 -
+ .../build_settings/build_setting.properties        |   2 +-
+ src/org.xtuml.bp.mc.systemc.source/generate.xml    |   9 +-
+ .../log_dir/.gitignore                             |   1 -
+ .../log_dir/README.txt                             |   1 -
+ .../mc3020/.gitignore                              |  12 --
+ .../mc3020/README.txt                              |   1 -
+ src/org.xtuml.bp.mc.template/generate.xml          |   9 +-
+ .../build_settings/build_setting.properties        |   2 +-
+ .../templates/model_compiler/generate.xml          |   9 +-
+ .../templates/model_compiler/log_dir/README.txt    |   1 -
+ .../templates/model_compiler/mc3020/.gitignore     |  12 --
+ .../templates/model_compiler/mc3020/README.txt     |   1 -
+ src/org.xtuml.bp.mc/generate.xml                   |   9 +-
+ .../src/org/xtuml/bp/mc/AbstractProperties.java    |   2 +-
+ .../org/xtuml/bp/mc/MCBuilderArgumentHandler.java  |   5 +
+ src/org.xtuml.bp.model.compare.test/generate.xml   |  11 +-
+ src/org.xtuml.bp.model.compare/generate.xml        |  15 +--
+ src/org.xtuml.bp.ui.canvas.test/generate.xml       |  19 ++--
+ src/org.xtuml.bp.ui.canvas.test/test.xml           |  28 ++---
+ src/org.xtuml.bp.ui.canvas/generate.xml            |  21 ++--
+ src/org.xtuml.bp.ui.explorer/generate.xml          |  15 +--
+ src/org.xtuml.bp.ui.graphics/generate.xml          |   7 +-
+ src/org.xtuml.bp.ui.properties.test/generate.xml   |  24 ++--
+ src/org.xtuml.bp.ui.properties/generate.xml        |  14 +--
+ src/org.xtuml.bp.ui.sem/generate.xml               |  11 +-
+ src/org.xtuml.bp.ui.session/generate.xml           |   8 +-
+ src/org.xtuml.bp.ui.text.test/test.xml             |  18 ++-
+ src/org.xtuml.bp.ui.text/generate.xml              |  18 ++-
+ src/org.xtuml.bp.ui.tree/generate_schema.xml       |  10 +-
+ src/org.xtuml.bp.ui.tree/templates/generate.xml    |   8 +-
+ src/org.xtuml.bp.welcome.test/test.xml             |  28 ++---
+ src/org.xtuml.bp.welcome/generate.xml              |  14 +--
+ src/org.xtuml.bp.x2m/generate.xml                  |  11 +-
+ 72 files changed, 348 insertions(+), 495 deletions(-)
 
 </pre>
 
