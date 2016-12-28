@@ -125,7 +125,6 @@
                     <include>gen_erate.exe</include>
                     <include>mcmc.exe</include>
                     <include>xtumlmc_build.exe</include>
-                    <include>xtumlmc_build</include>
                   </includes>
                 </resource>
               </resources>              
