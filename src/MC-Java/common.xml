@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="mc-java-common" default="common_config" basedir=".">
+
+  <property name="util_bin_dir" value="${eclipse.home}/tools/mc/bin"/>
+  <property name="mcj_path" value="../MC-Java" />
+  <property name="xtumlmc_build" value="${util_bin_dir}/xtumlmc_build"/>
+	
+  <condition property="isWindows" value="true" else="false">
+    <os family="windows" />
+  </condition>
+
+  <target name="configureWindows" if="isWindows">
+    <property name="xtumlmc_build" value="${util_bin_dir}/xtumlmc_build.exe"/>
+  </target>
+
+  <target name="common_config" depends="configureWindows">
+    <echo >Eclipse home: ${eclipse.home}</echo>
+    <echo >Util home: ${util_bin_dir}</echo>
+  	<echo >xtUML MC bin script: ${xtumlmc_build}</echo>
+  </target>
+	
+</project>

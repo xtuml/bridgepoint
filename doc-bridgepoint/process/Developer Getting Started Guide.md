@@ -60,10 +60,6 @@ The instructions in this section describe how to use the eclipse BridgePoint UI 
   git clone https://github.com/"username"/models.git ~/git/models
   ```
     
-  - Prepare the development environment to call gen_erate. In the command below replace "\<version\>" with the version of the product:
-  ```
-  cp -Rp ~/xtuml/BridgePoint/eclipse/plugins/org.xtuml.bp.mc.c.source_<version>/mc3020/* ~/git/bridgepoint/src/org.xtuml.bp.mc.c.source/mc3020
-  ```
   - Prepare your development workspace with the required preferences. 
   ```
   mkdir -p ~/workspace/.metadata/.plugins/org.eclipse.core.runtime/.settings
