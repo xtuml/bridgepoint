@@ -513,9 +513,11 @@ p_${an.body}\
 .// - put in by wgt
 .print "Time is: ${info.date}"
 .assign send_changes = package.is_eclipse_plugin
-.if (mc_class_only == "")
-  .// Translate all OAL unless looking for a specific class.
+.assign already_translated = false
+.if ((mc_class_only == "") and (mc_ss_only == ""))
+  .// Translate all OAL unless looking for a specific package or class.
   .invoke translate_all_oal( mc_root_pkg, application_root_class, send_changes );
+  .assign already_translated = true
 .end if
 .print "Time is: ${info.date}"
 .//
@@ -625,6 +627,7 @@ ${blck.body}
       .if (mc_ss_only == pkg.Name)
         .// Translate OAL before translating the specifically requested class.
         .invoke translate_all_oal( mc_root_pkg, application_root_class, send_changes );
+        .assign already_translated = true
       .end if
       .invoke tcn = get_test_class_name()
       .select many objects related by pkg->PE_PE[R8000]->O_OBJ[R8001]
@@ -2186,7 +2189,12 @@ ${gsm.body}\
 .end for .// each package
 .//
 .//
-.if ((translate_enabled == true) and (mc_class_only == ""))
+.if (((translate_enabled == true) or (mc_ss_only != "")) and (mc_class_only == ""))
+  .if (not already_translated)
+    .// Translate OAL before translating the specifically requested package.
+    .invoke translate_all_oal( mc_root_pkg, application_root_class, send_changes );
+    .assign already_translated = true
+  .end if
   .invoke gfh = get_file_header("${package.name}.${package.application_root_class}.java")
 ${gfh.body}\
 

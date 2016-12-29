@@ -1,12 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-
- File:      generate.xml
-
--->
 <project name="bp.ui.graphics" default="" basedir=".">
 
-	<property name="eclipse-home" value="${ant.home}/../.."/>
+  <import file="../MC-Java/common.xml"/>
 	
   <!-- CLEAN TARGETS -->
 

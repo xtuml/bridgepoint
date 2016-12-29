@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: BridgePoint xtUML to MASL Plug-in
 Bundle-SymbolicName: org.xtuml.bp.x2m; singleton:=true
-Bundle-Version: 5.8.3
+Bundle-Version: 5.8.5
 Bundle-ClassPath: x2m.jar
 Bundle-Activator: org.xtuml.bp.x2m.X2MPlugin
 Bundle-Vendor: xtUML.org
@@ -27,4 +27,5 @@ Require-Bundle: org.xtuml.bp.core,
  org.eclipse.ui.console,
  org.eclipse.core.filesystem
 Bundle-ActivationPolicy: lazy
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Eclipse-BundleShape: jar

@@ -18,5 +18,5 @@ Require-Bundle: org.eclipse.ui,
  org.xtuml.bp.ui.graphics,
  org.eclipse.team.core,
  org.xtuml.bp.ui.explorer
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy

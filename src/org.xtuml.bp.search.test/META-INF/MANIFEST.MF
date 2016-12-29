@@ -16,5 +16,5 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.search,
  org.xtuml.bp.ui.explorer,
  org.xtuml.bp.welcome
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy
