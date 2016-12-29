@@ -1,4 +1,4 @@
-What's New in BridgePoint 5.8.3
+What's New in BridgePoint 5.8.5
 ========================
 
 Release Highlights
