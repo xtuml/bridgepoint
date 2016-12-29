@@ -4,7 +4,7 @@
  Usage Instructions: /doc-bridgepoint/process/HOWTO-update-the-BP-version-number.md
 
 -->
-<project name="bp.internal.tools" default="updateVersion" basedir="./..">
+<project name="bp.internal.tools" default="updateVersion" basedir="./../..">
 
     <property name="currentVersion" value="5.8.3" />
     <property name="newVersion" value="5.8.5" />
