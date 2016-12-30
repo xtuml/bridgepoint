@@ -1,16 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-
- File:      generate.xml
-
--->
 <project name="bp.welcome" default="all" basedir=".">
-  <!-- The property ${eclipse-home} should be passed into this script -->
-  <!-- Set a meaningful default value for when it is not. -->
-  <property name="eclipse-home" value="${basedir}/../.."/>
-
   <target name="all"
           description="Build entire project"
+          >
+  </target>
+
+  <target name="nb_all"
+          description="Build entire project (nightly build flavor)"
           >
   </target>
 

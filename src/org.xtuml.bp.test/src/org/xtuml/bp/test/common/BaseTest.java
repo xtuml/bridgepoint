@@ -76,9 +76,10 @@ import org.eclipse.ui.internal.decorators.DecoratorManager;
 import org.eclipse.ui.internal.views.log.AbstractEntry;
 import org.eclipse.ui.internal.views.log.LogEntry;
 import org.eclipse.ui.internal.views.log.LogView;
+import org.eclipse.ui.intro.IIntroManager;
+import org.eclipse.ui.intro.IIntroPart;
 import org.eclipse.ui.texteditor.AbstractDecoratedTextEditorPreferenceConstants;
 import org.junit.After;
-import org.junit.Before;
 import org.osgi.framework.Constants;
 import org.xtuml.bp.core.Attribute_c;
 import org.xtuml.bp.core.BridgeParameter_c;
@@ -210,6 +211,11 @@ public class BaseTest extends TestCase {
 		this(null, "");
 	}
 	public BaseTest(String projectName, String name) {
+		final IIntroManager introManager = PlatformUI.getWorkbench().getIntroManager();
+		IIntroPart part = introManager.getIntro();
+		if ( part != null ) {
+			introManager.closeIntro(part);
+		}
 		//super(name);
 		// disable synchronization decoration, costs too
 		// much test time
