@@ -1,17 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-
- File:      $RCSfile: build.xml,v $
- Version:   $Revision: 1.24.34.1 $
- Modified:  $Date: 2013/07/19 12:26:00 $
-
- (c) Copyright 2003-2014 Mentor Graphics Corporation  All rights reserved.
-
--->
 <project name="mc-java" default="do.nothing" basedir=".">
 
-  <property name="eclipse-home" value="${basedir}/../.."/>
-  <property name="util_bin_dir" value="${eclipse-home}/src/org.xtuml.bp.mc.c.source/mc3020/bin"/>
+  <import file="./common.xml"/>
 	
   <target name="do.nothing" />
 
@@ -34,19 +24,23 @@
   	      param4 = start package
   	      param5 = end package
   	      param6 = pass count
+  	      param7 = only package to gen
+  	      param8 = only class to gen
   	-->
   	<echo>Building from: gen/code_generation/${param1}-${param6}.sql</echo>
   	<copy file="gen/code_generation/${param1}-${param6}.sql" tofile="gen/code_generation/${param1}-${param6}.xtuml"/>
-  	<exec vmlauncher="false" failonerror="true" executable="${util_bin_dir}/xtumlmc_build.exe" >
+  	<exec vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
   	      <arg line="xtumlmc_cleanse_for_BridgePoint ${mcjava.project.root}/gen/code_generation sql/${param1}-${param6}.sql" />
   	</exec>
   	<!-- delete the copied xtuml file to prevent adding previously processed xtumls files -->
   	<delete file="gen/code_generation/${param1}-${param6}.xtuml" />
     <!-- for NON-parallel core builds -->
-  	<exec vmlauncher="false" failonerror="true" executable="${util_bin_dir}/xtumlmc_build.exe" >
+  	<exec vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
 		    <env key="PTC_MC_ARC_DIR" value="${param3}" />
 	    	<env key="PTC_MCC_SS_START" value="${param4}" />
 	    	<env key="PTC_MCC_SS_END" value="${param5}" />
+	    	<env key="PTC_MCC_SS_ONLY" value="${param7}" />
+	    	<env key="PTC_MCC_CLASS_ONLY" value="${param8}" />
 			<env key="VERIFY_SELECTS" value="${verify_selects}" />
             <env key="PTC_MCC_ROOT" value="${param1}" />
   		    <env key="PROJECT_ROOT" value="${mcjava.project.root}" />
@@ -93,10 +87,10 @@
 -->
     <echo>Building from: gen/code_generation/${param1}.sql</echo>
     <copy file="gen/code_generation/${param1}.sql" tofile="gen/code_generation/${param1}.xtuml"/>
-    <exec vmlauncher="false" failonerror="true" executable="${util_bin_dir}/xtumlmc_build.exe" >
+    <exec vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
           <arg line="xtumlmc_cleanse_for_BridgePoint ${UUID_Seed} ${mcjava.project.root}/gen/code_generation sql/${param1}.sql" />
     </exec>
-    <exec vmlauncher="false" failonerror="true" executable="${util_bin_dir}/xtumlmc_build.exe" >
+    <exec vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
 	    <env key="PTC_MC_ARC_DIR" value="${param3}" />
     	<env key="PTC_MCC_SS_START" value="" />
     	<env key="PTC_MCC_SS_END" value="" />
@@ -119,7 +113,7 @@
       param3 = TRANSLATE_FOR_EXTERNAL_USE environment variable value
       param4 = root package name
 -->
-    <exec dir="sql" vmlauncher="false" failonerror="true" executable="${util_bin_dir}/xtumlmc_build.exe" >
+    <exec dir="sql" vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
 		<env key="OS_CACHE_SIZE" value="64000000" />
 		<env key="TRANSLATE_FOR_EXTERNAL_USE" value="${param3}" />
         <env key="PTC_MCC_ROOT" value="${param4}" />

@@ -19,6 +19,9 @@ the License.
 
 -->
 <project name="**PROJECT**" default="all" basedir=".">
+	
+  <import file="../MC-Java/common.xml"/>
+	
   <target name="all"
           description="Generate all code for this project"
           depends="update_schema,java,format_java">
@@ -29,11 +32,8 @@ the License.
           depends="update_schema,java">
   </target>
 
-  <property name="eclipse-home" value="${basedir}/../.."/>
   <property name="plugins-home" value="${ant.home}/../.."/>
-  <property name="util_bin_dir" value="${eclipse-home}/src/org.xtuml.bp.mc.c.source/mc3020/bin"/>
   <property name="chain_util_path" value="../org.xtuml.bp.core"/>
-  <property name="mcj_path" value="../MC-Java" />
   <property name="sg.dep" value="ooa_schema.sql,schema_gen.arc" />
   <property name="schema.output_path" value="../org.xtuml.bp.ui.tree/sql" />
   <target name="update_schema"
@@ -62,7 +62,7 @@ the License.
           description="Generate the tree explorer files"
           unless="java.buildNotNeeded" >
     <echo >Generating ${java.output} ...</echo>
-  <exec vmlauncher="false" failonerror="true" executable="${util_bin_dir}/xtumlmc_build.exe" >
+  <exec vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
         <env key="PTC_MC_ARC_DIR" value="${mcj_path}"/>
         <env key="CHAIN_UTIL_DIR" value="${chain_util_path}"/>
         <env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
