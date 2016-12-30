@@ -69,6 +69,7 @@ The instructions in this section describe how to use the eclipse BridgePoint UI 
   - Set up pt_antlr for building BridgePoint 
   ```
   cp -f ~/git/pt_antlr/pt_antlr/antlr.jar  ~/git/bridgepoint/src/org.xtuml.bp.als/lib/antlr.jar
+  chmod a+x ~/xtuml/BridgePoint/plugins/org.apache.ant*/bin/*
   ```
 
   - Launch BridgePoint (```~/xtuml/BridgePoint/bridgepoint```)
