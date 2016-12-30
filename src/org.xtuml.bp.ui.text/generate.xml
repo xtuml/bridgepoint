@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="bp.ui.text" default="all" basedir=".">
-  <!-- The property ${eclipse-home} should be passed into this script -->
-  <!-- Set a meaningful default value for when it is not. -->
-  <property name="eclipse-home" value="${basedir}/../.."/>
+	
+  <import file="../MC-Java/common.xml"/>
+	
   <property name="plugins-home" value="${ant.home}/../.."/>
-  <property name="util_bin_dir" value="${eclipse-home}/src/org.xtuml.bp.mc.c.source/mc3020/bin"/>
 
   <target name="all"
           description="Generate all code for this project"
@@ -19,7 +18,6 @@
 
   <property name="core_sql_dir" value="../org.xtuml.bp.core/sql" />
 
-  <property name="mcj_path" value="../MC-Java" />
   <property name="src_path" value="src/org/xtuml/bp/ui/text" />
 
   <target name="create_gen.depends"
@@ -38,7 +36,7 @@
           description="Create the generation database"
           unless="create_gen.buildNotNeeded" >
   <delete file="sql/db.gen" />
-    <exec dir="sql" vmlauncher="false" failonerror="true" executable="${util_bin_dir}/xtumlmc_build.exe" >
+    <exec dir="sql" vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
       <env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
       <arg line="xtumlmc_gen_erate -f db.gen
         -import ../${mcj_path}/ooa_schema.sql
@@ -76,7 +74,7 @@
           description="Generate the text plugin.xml file"
           unless="plugin_xml.buildNotNeeded" >
     <echo >Generating plugin.xml ...</echo>
-  <exec vmlauncher="false" failonerror="true" executable="${util_bin_dir}/xtumlmc_build.exe" >
+  <exec vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
   	<env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
     <arg line="xtumlmc_gen_erate -f sql/db.gen
       -arch arc/create_plugin_xml.arc" />
@@ -104,7 +102,7 @@
           description="Generate the ModelAdapter.java file"
           unless="modeladapter_java.buildNotNeeded" >
     <echo >Generating ModelAdapter.java ...</echo>
-  <exec vmlauncher="false" failonerror="true" executable="${util_bin_dir}/xtumlmc_build.exe" >
+  <exec vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
         <env key="PTC_MC_ARC_DIR" value="${mcj_path}"/>
         <env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
     <arg line="xtumlmc_gen_erate -f sql/db.gen
@@ -138,7 +136,7 @@
           description="Generate the Activity and Description EditorInput java files"
           unless="editorinputfactories_java.buildNotNeeded" >
     <echo >Activity and Description EditorInputFactory java files ...</echo>
-  <exec vmlauncher="false" failonerror="true" executable="${util_bin_dir}/xtumlmc_build.exe" >
+  <exec vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
         <env key="PTC_MC_ARC_DIR" value="${mcj_path}"/>
         <env key="CHAIN_UTIL_DIR" value="${chain_util_path}"/>
         <env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
@@ -164,7 +162,7 @@
   </target>
 
   <target name="literal_rule" description="Generate File OALKeywords.java for Syntax Highlighting" unless="literal_rule.buildNotNeeded" depends="literal_rule.depends">
-    <exec vmlauncher="false" failonerror="true" executable="${util_bin_dir}/xtumlmc_build.exe" >
+    <exec vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
     	<env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
     <arg line="xtumlmc_gen_erate -nopersist
       -import ${als.dir}/grammar_schema.sql

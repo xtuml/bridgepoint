@@ -125,7 +125,6 @@
                     <include>gen_erate.exe</include>
                     <include>mcmc.exe</include>
                     <include>xtumlmc_build.exe</include>
-                    <include>xtumlmc_build</include>
                   </includes>
                 </resource>
               </resources>              
@@ -153,12 +152,6 @@
                 <delete 
                   dir="${basedir}/common/tools/mc/arc/specialized"
                   includeemptydirs="true"/>        
-                <copy file="${basedir}/linux.all/tools/mc/bin/xtumlmc_build" 
-                      tofile="${basedir}/linux.all/tools/mc/bin/xtumlmc_build.exe"
-                      overwrite="true" />             
-                <copy file="${basedir}/mac.all/tools/mc/bin/xtumlmc_build" 
-                      tofile="${basedir}/mac.all/tools/mc/bin/xtumlmc_build.exe"
-                      overwrite="true" />             
               </target>
             </configuration>
           </execution>

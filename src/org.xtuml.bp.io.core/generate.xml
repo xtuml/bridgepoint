@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-
- File:      generate.xml
-
--->
 <project name="bp.io.core" default="all" basedir=".">
+
+  <import file="../MC-Java/common.xml"/>
+
   <target name="all"
           description="Generate all code for this project"
           depends="sql,schema,compile_grammar,compile_action_grammar,format_java">
@@ -15,9 +13,7 @@
           depends="sql,schema,compile_grammar,compile_action_grammar">
   </target>
 
-  <property name="eclipse-home" value="${basedir}/../.."/>
   <property name="plugins-home" value="${ant.home}/../.."/>
-  <property name="util_bin_dir" value="${eclipse-home}/src/org.xtuml.bp.mc.c.source/mc3020/bin"/>
 
   <property name="sql.input" value="models/org.xtuml.bp.io.core/file_io" />
   <property name="sql.output" value="file_io.sql" />
@@ -34,13 +30,12 @@
           unless="sql.buildNotNeeded" >
     <echo >Generating ${sql.output} ...</echo>
   	<copy file="../org.xtuml.bp.pkg/globals/Globals.xtuml" tofile="${sql.input}/Globals.xtuml" />
-  	<exec vmlauncher="false" failonerror="true" executable="${util_bin_dir}/xtumlmc_build.exe" >
+  	<exec vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
       <arg line="xtumlmc_cleanse_for_BridgePoint ${sql.input} sql/${sql.output} ${subsystems_to_remove}"/>
   	</exec>
     <delete file="${sql.input}/Globals.xtuml" />
   </target>
 
-  <property name="mcj_path" value="../MC-Java" />
   <property name="sg.dep" value="ooa_schema.sql,schema_gen.arc" />
   <property name="schema.output" value="file_io_schema.sql" />
 
@@ -107,7 +102,7 @@
      description="Compile bp.io.core antlr grammar"
     unless="compile_grammar.NotNeeded" >
 
-    <echo >Eclipse home: ${eclipse-home}</echo>
+    <echo >Eclipse home: ${eclipse.home}</echo>
     <echo >Plugins home: ${plugins-home}</echo>
   	
     <antlr target="${grammar-folder}/sql_insert.g" >
@@ -137,7 +132,7 @@
      description="Compile bp.io.core antlr grammar"
     unless="compile_action_grammar.NotNeeded" >
 
-    <echo >Eclipse home: ${eclipse-home}</echo>
+    <echo >Eclipse home: ${eclipse.home}</echo>
     <echo >Plugins home: ${plugins-home}</echo>
   	
     <antlr target="${grammar-folder}/actions.g" >
