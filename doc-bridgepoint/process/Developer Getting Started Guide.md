@@ -5,7 +5,7 @@ Preparation
 -----------
 1) [This is a link to git documentation that describes working with forks.](https://help.github.com/articles/fork-a-repo/ "fork-a-repo") BridgePoint development requires developers to have a working knowledge of git and git forks. Throughout this document we will refer to the repositories using the formula: ```https://github.com/"username"/"repository".git``` where "username" is your personal Github user name. (For example: ```https://github.com/keithbrown/bridgepoint.git```)
 
-2) This document may be used in Linux,MAC, or Windows, but its examples use Linux. In Windows, cygwin is used to ease setup. Throughout this document we use "~" in the example path names.  If you are building on Windows replace "~" with  "c:" (or "/cygdrive/c" when using the cygwin shell).  
+2) This document may be used in Linux, MAC, or Windows, but its examples use Linux. In Windows, cygwin is used to ease setup. Throughout this document we use "~" in the example path names.  If you are building on Windows replace "~" with  "c:" (or "/cygdrive/c" when using the cygwin shell).  
 
 3) This document uses ```~/git``` as the root folder for git repostiories, and it uses ```~/workspace``` as the development workspace. You may substitute any folder you desire, but you must be consistent.
 
@@ -29,7 +29,8 @@ Setup Instructions
   - [Download the latest version of the tool](https://s3.amazonaws.com/xtuml-releases/nightly-build/buildfiles.html "https://s3.amazonaws.com/xtuml-releases/nightly-build/buildfiles.html").
   
   - Install BridgePoint.  
-    - You may unzip wherever you like, but these instructions assume:  ```~/xtuml/BridgePoint```
+    - You may unzip wherever you like, a suggestion is:  ```~/xtuml/BridgePoint```
+      For MAC it is suggested that you unzip into the /Applications folder, doing so will create a folder named Eclipse.app with all files in it.
 
   - The following 3rd party tools are required to build BridgePoint.  Install them now.    
     - __LINUX__ - Linux Ubuntu installation commands are presented below.  If installing in a 
@@ -47,7 +48,10 @@ Setup Instructions
       - Perl ([We recommend strawberry perl.](http://strawberryperl.com/ "strawberry perl"))
       - [JDK](http://www.oracle.com/technetwork/java/javase/downloads/index.html "Oracle JDK")
       - [Cygwin](http://cygwin.com/install.html "Cygwin Install") (Make sure to select Git)
-
+     
+    - __MAC__
+      - No action required
+      
 GUI Build Instructions
 ------------
 The instructions in this section describe how to use the eclipse BridgePoint UI to build the BridgePoint plug-ins.   
@@ -69,10 +73,14 @@ The instructions in this section describe how to use the eclipse BridgePoint UI 
   - Set up pt_antlr for building BridgePoint 
   ```
   cp -f ~/git/pt_antlr/pt_antlr/antlr.jar  ~/git/bridgepoint/src/org.xtuml.bp.als/lib/antlr.jar
-  chmod a+x ~/xtuml/BridgePoint/plugins/org.apache.ant*/bin/*
+  ```
+  
+  - Assure that ant binaries are executable 
+  ```
+  chmod a+x <BridgePoint installation folder>/plugins/org.apache.ant*/bin/*
   ```
 
-  - Launch BridgePoint (```~/xtuml/BridgePoint/bridgepoint```)
+  - Launch BridgePoint (```<BridgePoint installation folder>/bridgepoint for MAC it is Eclipse.app```)
     - During startup, enter the name of a new eclipse workspace that will become your development workspace.   
     (Example:  ```~/workspace```)
 
