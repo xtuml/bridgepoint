@@ -474,10 +474,19 @@ public class ${class_name} extends CoreImport
     private final static String bp7_1_4VersionNumber = "7.1.4";
 
 	private final static String bp7_1_5VersionNumber = "7.1.5";
-    /**
-     * The current persistence version
+
+	private final static String bp7_1_5VersionNumber = "7.1.6";
+
+	/**
+	 * We moved from 7.1.6 to 7.1.7 in Jan 2017 in BridgePoint v5.8.6.
+	 * It was BridgePoint 5.8.5 where MASL persistence was introduced (#8417).
+	 * This is a persistence format change. We did not update the persistence
+	 * version at that time, but are doing so now.
+	 */
+	/**
+     * The current persistence version.
      */
-    private final static String persistenceVersion = "7.1.6";
+    private final static String persistenceVersion = "7.1.7";
 
     .end if
     String actualVersion = getHeader().getFileFormatVersion();
