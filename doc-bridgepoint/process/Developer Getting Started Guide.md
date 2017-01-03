@@ -8,7 +8,7 @@ Preparation
 2) This document may be used in Linux, MAC, or Windows, but its examples use Linux. In Windows, cygwin is used to ease setup. Throughout this document we use "~" in the example path names.  If you are building on Windows replace "~" with  "c:" (or "/cygdrive/c" when using the cygwin shell).  
 
 3) This document uses ```~/git``` as the root folder for git repostiories, and it uses ```~/workspace``` as the development workspace. You may substitute any folder you desire, but you must be consistent. 
-__WARNING!:__ If you are updating your development environment to 5.8.6  or greater start with a clean workspace.
+__WARNING!:__ If you are updating your development environment to 5.8.5  or greater start with a clean workspace.
 
 4) Optionally, a pre-configured development virtual machine (VirtualBox) is available for download. See intructions to download and setup [here](developer-vm-getting-started.md)
 
