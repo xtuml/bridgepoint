@@ -479,7 +479,7 @@ public class ${class_name} extends CoreImport
 
 	/**
 	 * We moved from 7.1.6 to 7.1.7 in Jan 2017 in BridgePoint v5.8.6.
-	 * It was BridgePoint 5.8.5 where MASL persistence was introduced (#8417).
+	 * It was BridgePoint 5.8.6 where MASL persistence was introduced (#8417).
 	 * This is a persistence format change. We did not update the persistence
 	 * version at that time, but are doing so now.
 	 */
