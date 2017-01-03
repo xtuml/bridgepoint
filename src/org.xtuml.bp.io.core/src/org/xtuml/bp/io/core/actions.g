@@ -56,7 +56,7 @@ options {
 
     public void reportError(RecognitionException arg0) {
         m_errors = true;
-	m_output += "ActionParser: " + arg0.toString() + "\n";
+	m_output += "ActionParser: " + (( m_ci != null && m_ci.m_actionFile != null) ? m_ci.m_actionFile.getPath() + " " : "") + arg0.toString() + "\n";
     }
     public String m_output = "";
     public boolean m_errors = false;
@@ -93,7 +93,7 @@ serviceDefinition:
             ( "return" val=returnType { values[0]=val; populate( "typeref", values ); })? "is"
             {
                 selector.push("bodylexer");
-                BodyParser bodyparser = new BodyParser(selector);
+                BodyParser bodyparser = new BodyParser(selector, m_ci);
                 values[0] = bodyparser.serviceCodeBlock();
                 if ( bodyparser.m_errors ) {
                     m_errors = true;
@@ -120,7 +120,7 @@ stateDefinition:
             parameterList "is"
             {
                 selector.push("bodylexer");
-                BodyParser bodyparser = new BodyParser(selector);
+                BodyParser bodyparser = new BodyParser(selector, m_ci);
                 values[0] = bodyparser.stateCodeBlock();
                 if ( bodyparser.m_errors ) {
                     m_errors = true;
@@ -148,7 +148,7 @@ attributeDefinition:
             { values[0]=val; populate( "typeref", values ); }
             {
                 selector.push("bodylexer");
-                BodyParser bodyparser = new BodyParser(selector);
+                BodyParser bodyparser = new BodyParser(selector, m_ci);
                 values[0] = bodyparser.attributeCodeBlock();
                 if ( bodyparser.m_errors ) {
                     m_errors = true;
@@ -174,7 +174,7 @@ transitionDefinition:
             parameterList "is"
             {
                 selector.push("bodylexer");
-                BodyParser bodyparser = new BodyParser(selector);
+                BodyParser bodyparser = new BodyParser(selector, m_ci);
                 values[0] = bodyparser.transitionCodeBlock();
                 if ( bodyparser.m_errors ) {
                     m_errors = true;
@@ -332,12 +332,20 @@ options {
     k=2;
 }
 {
+    public SignatureLexer( Reader in, CoreImport ci ) {
+        this(in);
+        m_ci = ci;
+    }
+
     public void reportError(RecognitionException arg0) {
         m_errors = true;
-	m_output += "SignatureLexer: " + arg0.toString() + "\n";
+	m_output += "SignatureLexer: " + (( m_ci != null && m_ci.m_actionFile != null) ? m_ci.m_actionFile.getPath() + " " : "") + arg0.toString() + "\n";
     }
+
     public String m_output = "";
     public boolean m_errors = false;
+    
+    private CoreImport m_ci = null;
 }
 
 SCOPE               : "::";

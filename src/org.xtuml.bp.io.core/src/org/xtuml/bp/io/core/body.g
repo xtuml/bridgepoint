@@ -11,12 +11,19 @@ options {
     k=1;
 }
 {
+    public BodyParser( TokenStream ts, CoreImport ci ) {
+        this(ts);
+        m_ci = ci;
+    }
+
     public void reportError(RecognitionException arg0) {
         m_errors = true;
-	m_output += "BodyParser: " + arg0.toString() + "\n";
+	m_output += "BodyParser: " + (( m_ci != null && m_ci.m_actionFile != null) ? m_ci.m_actionFile.getPath() + " " : "") + arg0.toString() + "\n";
     }
+
     public String m_output = "";
     public boolean m_errors = false;
+    public CoreImport m_ci = null;
 }
 
 attributeCodeBlock returns [String s = ""]:
@@ -59,12 +66,20 @@ options {
     k=1;
 }
 {
+    public BodyLexer( LexerSharedInputState is, CoreImport ci ) {
+        this(is);
+        m_ci = ci;
+    }
+
     public void reportError(RecognitionException arg0) {
         m_errors = true;
-	m_output += "BodyLexer: " + arg0.toString() + "\n";
+	m_output += "BodyLexer: " + (( m_ci != null && m_ci.m_actionFile != null) ? m_ci.m_actionFile.getPath() + " " : "") + arg0.toString() + "\n";
     }
+
     public String m_output = "";
     public boolean m_errors = false;
+
+    private CoreImport m_ci = null;
 }
 
 LINE        : '\n' | ( (~( '\n' ))+ ('\n'{newline();})? );

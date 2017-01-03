@@ -49,6 +49,8 @@ import antlr.TokenStreamSelector;
 public abstract class CoreImport implements IModelImport {
     public boolean m_success;
 
+    public boolean m_actionSuccess;
+
     public String m_errorMessage;
 
     protected boolean m_clear_database = true;
@@ -350,8 +352,8 @@ public abstract class CoreImport implements IModelImport {
 
                 Reader reader = getActionInputReader();
 
-                SignatureLexer sig_lexer = new SignatureLexer(reader);
-                BodyLexer body_lexer = new BodyLexer(sig_lexer.getInputState());
+                SignatureLexer sig_lexer = new SignatureLexer(reader, this);
+                BodyLexer body_lexer = new BodyLexer(sig_lexer.getInputState(), this);
 
                 TokenStreamSelector selector = new TokenStreamSelector();
                 selector.addInputStream(sig_lexer, "main");
@@ -573,6 +575,10 @@ public abstract class CoreImport implements IModelImport {
 	public boolean getSuccessful() {
 		return m_success;
 	}
+
+        public boolean getActionSuccessful() {
+            return m_actionSuccess;
+        }
 	
 	public void upgradeStreamData(Ooaofooa root) {};
 }
