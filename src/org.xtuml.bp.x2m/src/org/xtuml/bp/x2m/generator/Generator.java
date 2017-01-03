@@ -48,7 +48,7 @@ public class Generator extends Task {
     
     public static final String X2M_DIR = "/tools/mc/bin/";
     public static final String X2M_CMD = "xtuml2masl";
-    public static final String X2M_EXE = "xtumlmc_build.exe";
+    public static final String X2M_EXE = "xtumlmc_build";
     public static final String MASL_DIR = "/masl/";
     public static final String CODE_GEN_DIR = "/gen/code_generation/";
     public static final String LOGFILE = "export.log";
