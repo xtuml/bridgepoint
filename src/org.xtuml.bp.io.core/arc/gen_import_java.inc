@@ -475,7 +475,7 @@ public class ${class_name} extends CoreImport
 
 	private final static String bp7_1_5VersionNumber = "7.1.5";
 
-	private final static String bp7_1_5VersionNumber = "7.1.6";
+	private final static String bp7_1_6VersionNumber = "7.1.6";
 
 	/**
 	 * We moved from 7.1.6 to 7.1.7 in Jan 2017 in BridgePoint v5.8.6.
