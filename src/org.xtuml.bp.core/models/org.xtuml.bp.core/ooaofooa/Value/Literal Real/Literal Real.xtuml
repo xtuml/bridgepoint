@@ -17,7 +17,8 @@ INSERT INTO O_TFR
 	'return GD::string_to_real(value:self.Value);',
 	1,
 	'',
-	"00000000-0000-0000-0000-000000000000");
+	"00000000-0000-0000-0000-000000000000",
+	0);
 INSERT INTO O_REF
 	VALUES ("79750157-def7-45f7-ad2d-0c4144ba1f1f",
 	"80366c8b-358d-4b86-a0fd-bd9d289c9cd2",

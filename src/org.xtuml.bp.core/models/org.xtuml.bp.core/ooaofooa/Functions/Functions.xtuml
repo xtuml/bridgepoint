@@ -173,7 +173,8 @@ enabledEventsMask = (p_Eventmask & Modeleventnotification_c.MASK_ALL_EVENTS);
 return ret_val;',
 	"8672d1f0-ac73-4097-a597-505333093f53",
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_SPARM
 	VALUES ("8cc8fe70-c27f-407f-af09-62e0ebb0bc0b",
 	"7839aa8d-4ec4-41e5-8cfc-81768856fdbb",
@@ -216,7 +217,8 @@ INSERT INTO S_SYNC
 ',
 	"ba5eda7a-def5-0000-0000-000000000004",
 	1,
-	'');
+	'',
+	0);
 INSERT INTO PE_PE
 	VALUES ("d3c7ce68-3967-43be-b14d-acf4f42386df",
 	1,
@@ -232,7 +234,8 @@ INSERT INTO S_SYNC
 ',
 	"ba5eda7a-def5-0000-0000-000000000004",
 	1,
-	'');
+	'',
+	0);
 INSERT INTO PE_PE
 	VALUES ("b8ec6180-685e-4f0e-97d4-cf438b2a4ef5",
 	1,
@@ -260,7 +263,8 @@ return state.canIgnoreOrSayEventCantHappen(
 	',
 	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
-	'');
+	'',
+	0);
 INSERT INTO S_SPARM
 	VALUES ("47fc2ee3-f2a5-4e88-948d-bf065b4b2e15",
 	"ffe11c50-ac91-4ce5-ab06-81723d989643",
@@ -321,7 +325,8 @@ INSERT INTO S_SYNC
 ',
 	"ba5eda7a-def5-0000-0000-000000000004",
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_SPARM
 	VALUES ("2cd48ddb-d5cd-4175-a6bd-10c54d0c466e",
 	"f82cea67-364f-41e5-87da-f21c8beda6ef",
@@ -346,7 +351,8 @@ INSERT INTO S_SYNC
 	(NonRootModelElement)p_Instance, p_Candidatename);',
 	"ba5eda7a-def5-0000-0000-000000000004",
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_SPARM
 	VALUES ("ae7b74ea-c797-4552-8e66-e99bf6570662",
 	"7b6e3d0e-69b5-47fe-b27c-bef17ad99f63",
@@ -386,7 +392,8 @@ INSERT INTO S_SYNC
 	'return "Datatypes";',
 	"ba5eda7a-def5-0000-0000-000000000004",
 	1,
-	'');
+	'',
+	0);
 INSERT INTO PE_PE
 	VALUES ("d8007d84-7609-4132-8698-04a8c69bba88",
 	1,
@@ -402,7 +409,8 @@ INSERT INTO S_SYNC
 	(NonRootModelElement)p_Instance, (NonRootModelElement) p_Parent, p_Name);',
 	"ba5eda7a-def5-0000-0000-000000000004",
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_SPARM
 	VALUES ("b6af181a-0c9d-46d4-9ad9-a0a4f3c8b213",
 	"b95ec7d5-1a3a-4e2b-bfa5-96fe1fa76539",
@@ -448,7 +456,8 @@ else
 end if;',
 	"ba5eda7a-def5-0000-0000-000000000004",
 	1,
-	'');
+	'',
+	0);
 INSERT INTO S_SPARM
 	VALUES ("8dbde6ea-1c12-497d-a409-f07092e2d31a",
 	"5cc4dd50-34da-4202-9b81-f549fc423318",
@@ -520,7 +529,8 @@ for each clazz in clazzes
 end for;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
-	'');
+	'',
+	0);
 INSERT INTO PE_PE
 	VALUES ("c1ab2cf1-4e4d-4911-8cc6-70ae167d34bc",
 	1,
@@ -536,7 +546,8 @@ INSERT INTO S_SYNC
 	'',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_SPARM
 	VALUES ("2e7d6127-9d90-4546-83c7-e2e486feffb6",
 	"a53a52fd-5479-42d1-b38a-c03f2f56cabd",
@@ -561,7 +572,8 @@ INSERT INTO S_SYNC
 ',
 	"ba5eda7a-def5-0000-0000-000000000004",
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_SPARM
 	VALUES ("406de874-1a4c-45b5-81a5-99c3cdd5c5e3",
 	"f8ab1bfc-f9e9-46de-b7f3-72de13e38559",
@@ -603,7 +615,8 @@ INSERT INTO S_SYNC
 	'return "Pasted imported classes could not have their classes resolved.";',
 	"ba5eda7a-def5-0000-0000-000000000004",
 	1,
-	'');
+	'',
+	0);
 INSERT INTO PE_PE
 	VALUES ("4ad9745c-5f47-48c8-9bd6-a08ed39d7e5a",
 	1,
@@ -663,7 +676,8 @@ if ( not_empty c_ir and not_empty new_c_i )
 end if;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
-	'');
+	'',
+	0);
 INSERT INTO S_SPARM
 	VALUES ("9af6af67-e81e-4e93-a231-060ca6905cd9",
 	"9cdb3095-7035-4797-8fc8-e4fcc0076910",

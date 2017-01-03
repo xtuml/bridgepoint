@@ -31,7 +31,8 @@ delete object instance self;
 ',
 	1,
 	'',
-	"00000000-0000-0000-0000-000000000000");
+	"00000000-0000-0000-0000-000000000000",
+	0);
 INSERT INTO O_TFR
 	VALUES ("aa3f41fd-fb24-42e5-8606-c5e4b80d7654",
 	"3e4fba3b-45dd-4a78-b82e-94d3b9291eae",
@@ -44,7 +45,8 @@ return edi.Name;
 ',
 	1,
 	'',
-	"20b297f1-037d-474b-95d5-b5028aab168e");
+	"20b297f1-037d-474b-95d5-b5028aab168e",
+	0);
 INSERT INTO O_REF
 	VALUES ("3e4fba3b-45dd-4a78-b82e-94d3b9291eae",
 	"2ae439ff-559b-458d-88ab-b3bb161e565f",

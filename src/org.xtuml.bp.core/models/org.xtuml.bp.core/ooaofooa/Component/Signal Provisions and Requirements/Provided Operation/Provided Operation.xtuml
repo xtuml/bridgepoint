@@ -18,7 +18,8 @@ INSERT INTO O_TFR
 self.Suc_Pars = ParseStatus::parseInitial;',
 	1,
 	'',
-	"ebcda465-4ce8-4d1c-adfc-d9f64b3869f2");
+	"ebcda465-4ce8-4d1c-adfc-d9f64b3869f2",
+	0);
 INSERT INTO O_TFR
 	VALUES ("26eb888e-d1f0-4ec2-9b25-af43685eb6e7",
 	"d113e0d5-c2e8-4091-a78c-e09abec06ed0",
@@ -43,7 +44,8 @@ end for;
 delete object instance self;',
 	1,
 	'',
-	"00000000-0000-0000-0000-000000000000");
+	"00000000-0000-0000-0000-000000000000",
+	0);
 INSERT INTO O_TFR
 	VALUES ("ebcda465-4ce8-4d1c-adfc-d9f64b3869f2",
 	"d113e0d5-c2e8-4091-a78c-e09abec06ed0",
@@ -55,7 +57,8 @@ INSERT INTO O_TFR
 return pep.getComponentId();',
 	1,
 	'',
-	"26eb888e-d1f0-4ec2-9b25-af43685eb6e7");
+	"26eb888e-d1f0-4ec2-9b25-af43685eb6e7",
+	0);
 INSERT INTO O_TFR
 	VALUES ("30f2ad06-4b7e-43b7-85bc-8649b60e2342",
 	"d113e0d5-c2e8-4091-a78c-e09abec06ed0",
@@ -77,7 +80,8 @@ else
 end if;',
 	1,
 	'',
-	"bae173f0-bb9b-4247-ba03-70d88a76a8be");
+	"bae173f0-bb9b-4247-ba03-70d88a76a8be",
+	0);
 INSERT INTO O_TFR
 	VALUES ("b6eedd7d-60f9-43b5-a8ce-76d011f86747",
 	"d113e0d5-c2e8-4091-a78c-e09abec06ed0",
@@ -94,7 +98,8 @@ end if;
 return true;',
 	1,
 	'',
-	"30f2ad06-4b7e-43b7-85bc-8649b60e2342");
+	"30f2ad06-4b7e-43b7-85bc-8649b60e2342",
+	0);
 INSERT INTO O_TFR
 	VALUES ("1b0267c1-4c03-41ea-b718-45102bc1cce5",
 	"d113e0d5-c2e8-4091-a78c-e09abec06ed0",
@@ -108,7 +113,8 @@ Translate: native',
 	'return this;',
 	0,
 	'',
-	"b6eedd7d-60f9-43b5-a8ce-76d011f86747");
+	"b6eedd7d-60f9-43b5-a8ce-76d011f86747",
+	0);
 INSERT INTO S_DT_PROXY
 	VALUES ("bc3722c8-5188-4529-8519-cf9eb9816b17",
 	"00000000-0000-0000-0000-000000000000",
@@ -133,7 +139,8 @@ if(not self.isSynchronized())
 end if;',
 	1,
 	'',
-	"1b0267c1-4c03-41ea-b718-45102bc1cce5");
+	"1b0267c1-4c03-41ea-b718-45102bc1cce5",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("0b8a7ce2-831e-476a-92fa-bf13a8a3bbd8",
 	"effeea6f-7969-4573-a196-b148eee0cf6b",
@@ -161,7 +168,8 @@ if(not self.isSynchronized())
 end if;',
 	1,
 	'',
-	"effeea6f-7969-4573-a196-b148eee0cf6b");
+	"effeea6f-7969-4573-a196-b148eee0cf6b",
+	0);
 INSERT INTO O_TFR
 	VALUES ("feb868a1-f2c4-4d87-93ce-bd1ce9e8d464",
 	"d113e0d5-c2e8-4091-a78c-e09abec06ed0",
@@ -172,7 +180,8 @@ INSERT INTO O_TFR
 	'	return m_name;',
 	0,
 	'',
-	"e13a5a30-c84f-4abc-aa44-3c61f3ffa227");
+	"e13a5a30-c84f-4abc-aa44-3c61f3ffa227",
+	0);
 INSERT INTO O_TFR
 	VALUES ("2c6c4e19-1d6d-4bb5-8d5a-7f8896df0070",
 	"d113e0d5-c2e8-4091-a78c-e09abec06ed0",
@@ -183,7 +192,8 @@ INSERT INTO O_TFR
 	'	m_name = p_Name;',
 	0,
 	'',
-	"feb868a1-f2c4-4d87-93ce-bd1ce9e8d464");
+	"feb868a1-f2c4-4d87-93ce-bd1ce9e8d464",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("1260c39e-5639-4c68-9ff7-30c090e1aad3",
 	"2c6c4e19-1d6d-4bb5-8d5a-7f8896df0070",
@@ -221,7 +231,8 @@ if empty blk
 end if;',
 	1,
 	'',
-	"2c6c4e19-1d6d-4bb5-8d5a-7f8896df0070");
+	"2c6c4e19-1d6d-4bb5-8d5a-7f8896df0070",
+	0);
 INSERT INTO O_TFR
 	VALUES ("1dd28432-40cd-4db2-8338-c7ac4343770d",
 	"d113e0d5-c2e8-4091-a78c-e09abec06ed0",
@@ -232,7 +243,8 @@ INSERT INTO O_TFR
 	'	return m_descrip;',
 	0,
 	'',
-	"36b26e7b-4994-4e9e-ad76-6e7f584f61c2");
+	"36b26e7b-4994-4e9e-ad76-6e7f584f61c2",
+	0);
 INSERT INTO O_TFR
 	VALUES ("46957363-64cb-4f0c-9565-760688270195",
 	"d113e0d5-c2e8-4091-a78c-e09abec06ed0",
@@ -243,7 +255,8 @@ INSERT INTO O_TFR
 	'	m_descrip = p_Descrip;',
 	0,
 	'',
-	"1dd28432-40cd-4db2-8338-c7ac4343770d");
+	"1dd28432-40cd-4db2-8338-c7ac4343770d",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("b6dfedc2-62c7-4c9e-96d2-7c920d182727",
 	"46957363-64cb-4f0c-9565-760688270195",
@@ -319,7 +332,8 @@ else
     self.Name = self.getCachedName();
   end if;
 end if;',
-	1);
+	1,
+	0);
 INSERT INTO O_BATTR
 	VALUES ("28d5f59d-e460-4938-b23d-b86005b78c16",
 	"d113e0d5-c2e8-4091-a78c-e09abec06ed0");
@@ -350,7 +364,8 @@ else
     self.Descrip = self.getCachedDescrip();
   end if;
 end if;',
-	1);
+	1,
+	0);
 INSERT INTO O_BATTR
 	VALUES ("3e36803a-eec0-4085-86fb-6bb298f88185",
 	"d113e0d5-c2e8-4091-a78c-e09abec06ed0");
@@ -371,7 +386,8 @@ INSERT INTO O_DBATTR
 	VALUES ("0d3593c5-a85f-461e-832f-79770ac2b56b",
 	"d113e0d5-c2e8-4091-a78c-e09abec06ed0",
 	'self.Action_Semantics = ::convertRelocatableTags(in:self.Action_Semantics_internal);',
-	1);
+	1,
+	0);
 INSERT INTO O_BATTR
 	VALUES ("0d3593c5-a85f-461e-832f-79770ac2b56b",
 	"d113e0d5-c2e8-4091-a78c-e09abec06ed0");

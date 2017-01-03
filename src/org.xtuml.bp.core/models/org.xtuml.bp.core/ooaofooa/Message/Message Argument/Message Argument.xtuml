@@ -62,7 +62,8 @@ end if;
 delete object instance self;',
 	1,
 	'',
-	"950b6eb3-c420-4e12-aa67-d06b2673ca68");
+	"950b6eb3-c420-4e12-aa67-d06b2673ca68",
+	0);
 INSERT INTO O_TFR
 	VALUES ("f0c4f50f-3959-4f44-b589-beb863ffe1d0",
 	"47e060be-45f5-4197-9592-1f6599becfb5",
@@ -79,7 +80,8 @@ else
 end if;      ',
 	1,
 	'',
-	"c07870b5-526a-4503-8c67-9bf28568c843");
+	"c07870b5-526a-4503-8c67-9bf28568c843",
+	0);
 INSERT INTO O_TFR
 	VALUES ("c07870b5-526a-4503-8c67-9bf28568c843",
 	"47e060be-45f5-4197-9592-1f6599becfb5",
@@ -90,7 +92,8 @@ INSERT INTO O_TFR
 	'return self.Label;',
 	1,
 	'',
-	"1af9aa22-153b-476d-94fe-ac6d1a7f60ce");
+	"1af9aa22-153b-476d-94fe-ac6d1a7f60ce",
+	0);
 INSERT INTO O_TFR
 	VALUES ("950b6eb3-c420-4e12-aa67-d06b2673ca68",
 	"47e060be-45f5-4197-9592-1f6599becfb5",
@@ -101,7 +104,8 @@ INSERT INTO O_TFR
 	'return not self.isFormal;',
 	1,
 	'',
-	"a3a6fc88-a143-4070-8754-ba603ac321c9");
+	"a3a6fc88-a143-4070-8754-ba603ac321c9",
+	0);
 INSERT INTO O_TFR
 	VALUES ("a3a6fc88-a143-4070-8754-ba603ac321c9",
 	"47e060be-45f5-4197-9592-1f6599becfb5",
@@ -112,7 +116,8 @@ INSERT INTO O_TFR
 	'return not self.isFormal;',
 	1,
 	'',
-	"00000000-0000-0000-0000-000000000000");
+	"00000000-0000-0000-0000-000000000000",
+	0);
 INSERT INTO O_TFR
 	VALUES ("336536ad-7ee2-4d43-b25c-9727bd1db8b3",
 	"47e060be-45f5-4197-9592-1f6599becfb5",
@@ -126,7 +131,8 @@ Translate: native
 	'return this;',
 	0,
 	'',
-	"f0c4f50f-3959-4f44-b589-beb863ffe1d0");
+	"f0c4f50f-3959-4f44-b589-beb863ffe1d0",
+	0);
 INSERT INTO S_DT_PROXY
 	VALUES ("bc3722c8-5188-4529-8519-cf9eb9816b17",
 	"00000000-0000-0000-0000-000000000000",
@@ -184,7 +190,8 @@ if(self.Value != "")
 else
   self.Label = label;
 end if;',
-	1);
+	1,
+	0);
 INSERT INTO O_BATTR
 	VALUES ("ffdcd426-5a03-4a5a-85b1-319a62906e8a",
 	"47e060be-45f5-4197-9592-1f6599becfb5");
@@ -260,7 +267,8 @@ INSERT INTO O_DBATTR
 	"47e060be-45f5-4197-9592-1f6599becfb5",
 	'select one message related by self->MSG_M[R1001];
 self.isFormal = not_empty message;',
-	1);
+	1,
+	0);
 INSERT INTO O_BATTR
 	VALUES ("149a7ee5-a28d-45dc-b4c7-31838d4c09ee",
 	"47e060be-45f5-4197-9592-1f6599becfb5");

@@ -39,7 +39,8 @@ unrelate exe from pevt across R2946 using self;
 delete object instance self;',
 	1,
 	'',
-	"00000000-0000-0000-0000-000000000000");
+	"00000000-0000-0000-0000-000000000000",
+	0);
 INSERT INTO O_NBATTR
 	VALUES ("5553640a-8959-45b8-96d8-bb8e240a5d6d",
 	"ee833f3e-4685-468c-a119-815bc5efb344");

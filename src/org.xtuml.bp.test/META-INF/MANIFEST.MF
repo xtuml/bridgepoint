@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: BridgePoint Test Plug-in
 Bundle-SymbolicName: org.xtuml.bp.test; singleton:=true
-Bundle-Version: 5.8.5
+Bundle-Version: 5.8.6
 Bundle-ClassPath: test.jar
 Bundle-Activator: org.xtuml.bp.test.TestPlugin
 Bundle-Vendor: xtUML.org

@@ -21,7 +21,8 @@ end if;
 delete object instance self;',
 	1,
 	'',
-	"00000000-0000-0000-0000-000000000000");
+	"00000000-0000-0000-0000-000000000000",
+	0);
 INSERT INTO O_TFR
 	VALUES ("7c70b3d5-ddde-42f9-a1e5-4231d18f7b18",
 	"3146ec6b-217b-4e7e-a4dc-7e5fdb5799be",
@@ -38,7 +39,8 @@ else
 end if;',
 	1,
 	'',
-	"fedd59fa-b6ee-459f-a7df-bbecba282648");
+	"fedd59fa-b6ee-459f-a7df-bbecba282648",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("60a1d5a9-ac72-4aa0-bf78-0e9ad08536fb",
 	"7c70b3d5-ddde-42f9-a1e5-4231d18f7b18",
@@ -79,7 +81,8 @@ end if;
 return "";',
 	1,
 	'',
-	"7a0edab9-f6d4-4b46-89a0-6a0ce09c283b");
+	"7a0edab9-f6d4-4b46-89a0-6a0ce09c283b",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("9d52683b-2619-405a-a901-a05925f0789a",
 	"2c043c76-c6a2-41a4-affc-67825bed68e6",
@@ -126,7 +129,8 @@ INSERT INTO O_TFR
 	'return self.Assoc_ID;',
 	1,
 	'',
-	"8290ed44-c435-4353-ac41-1d32c0f2364f");
+	"8290ed44-c435-4353-ac41-1d32c0f2364f",
+	0);
 INSERT INTO O_TFR
 	VALUES ("8290ed44-c435-4353-ac41-1d32c0f2364f",
 	"3146ec6b-217b-4e7e-a4dc-7e5fdb5799be",
@@ -137,7 +141,8 @@ INSERT INTO O_TFR
 	'return "";',
 	1,
 	'',
-	"2c043c76-c6a2-41a4-affc-67825bed68e6");
+	"2c043c76-c6a2-41a4-affc-67825bed68e6",
+	0);
 INSERT INTO O_NBATTR
 	VALUES ("f2666ba9-d507-4cb8-9ec4-79028c42b90b",
 	"3146ec6b-217b-4e7e-a4dc-7e5fdb5799be");

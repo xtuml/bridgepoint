@@ -25,7 +25,8 @@ end for;
 delete object instance self;',
 	1,
 	'',
-	"4402a563-2511-44bb-b60d-f4caaf7fd886");
+	"4402a563-2511-44bb-b60d-f4caaf7fd886",
+	0);
 INSERT INTO O_TFR
 	VALUES ("4402a563-2511-44bb-b60d-f4caaf7fd886",
 	"9b35aece-af3e-4a8c-b571-557cffcd828f",
@@ -65,7 +66,8 @@ return newAttr_id;
 ',
 	1,
 	'',
-	"00000000-0000-0000-0000-000000000000");
+	"00000000-0000-0000-0000-000000000000",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("fd51fb52-75ec-43ff-a0ab-3c39b746ddf2",
 	"4402a563-2511-44bb-b60d-f4caaf7fd886",
@@ -131,7 +133,8 @@ INSERT INTO O_TFR
 ',
 	1,
 	'',
-	"d475f2f5-e338-4166-99ef-00a0d6bc39e4");
+	"d475f2f5-e338-4166-99ef-00a0d6bc39e4",
+	0);
 INSERT INTO O_TFR
 	VALUES ("0bdc781c-2304-4dfc-9a52-e9696c736af6",
 	"9b35aece-af3e-4a8c-b571-557cffcd828f",
@@ -142,7 +145,8 @@ INSERT INTO O_TFR
 	'	return m_localattributename;',
 	0,
 	'',
-	"b015ba68-a72e-4547-89c9-5d0694d73e7f");
+	"b015ba68-a72e-4547-89c9-5d0694d73e7f",
+	0);
 INSERT INTO O_TFR
 	VALUES ("5c6ca6a6-1815-427d-96eb-69aa84df4e9e",
 	"9b35aece-af3e-4a8c-b571-557cffcd828f",
@@ -153,7 +157,8 @@ INSERT INTO O_TFR
 	'	m_localattributename = p_Value;',
 	0,
 	'',
-	"0bdc781c-2304-4dfc-9a52-e9696c736af6");
+	"0bdc781c-2304-4dfc-9a52-e9696c736af6",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("b2935621-4dad-4f5c-9112-df924924e519",
 	"5c6ca6a6-1815-427d-96eb-69aa84df4e9e",
@@ -339,7 +344,8 @@ if(not_empty attribute)
 else
   self.localAttributeName = self.getCachedLocalAttributeName();
 end if;',
-	1);
+	1,
+	0);
 INSERT INTO O_BATTR
 	VALUES ("9e28c67c-d792-4a04-8ade-08ca05f68b62",
 	"9b35aece-af3e-4a8c-b571-557cffcd828f");
