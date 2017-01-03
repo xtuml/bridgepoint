@@ -30,7 +30,8 @@ delete object instance self;
 ',
 	1,
 	'',
-	"00000000-0000-0000-0000-000000000000");
+	"00000000-0000-0000-0000-000000000000",
+	0);
 INSERT INTO O_TFR
 	VALUES ("7ea1653e-0af9-4b31-a516-25cc15195c5b",
 	"0dfdb169-7ae7-4a71-b970-2d2cbe378350",
@@ -54,7 +55,8 @@ elif (not_empty genGEEv)
 end if;',
 	1,
 	'',
-	"d053d96a-8ed6-49cb-8dd8-ff4376ca9c59");
+	"d053d96a-8ed6-49cb-8dd8-ff4376ca9c59",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("0af42177-6f20-405c-aa51-d35d98dd7b44",
 	"7ea1653e-0af9-4b31-a516-25cc15195c5b",

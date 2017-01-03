@@ -39,7 +39,8 @@ else
 end if;',
 	1,
 	'',
-	"e58649f8-7fe2-4d20-844b-093337b404ab");
+	"e58649f8-7fe2-4d20-844b-093337b404ab",
+	0);
 INSERT INTO O_TFR
 	VALUES ("e58649f8-7fe2-4d20-844b-093337b404ab",
 	"fdfd5407-5392-47ec-9fc2-e1957a3b7852",
@@ -75,7 +76,8 @@ unrelate rtida from rgo across R111 using self;
 delete object instance self;',
 	1,
 	'',
-	"00000000-0000-0000-0000-000000000000");
+	"00000000-0000-0000-0000-000000000000",
+	0);
 INSERT INTO O_TFR
 	VALUES ("3e02f1a5-a5f0-4bce-bb4e-056157e7d216",
 	"fdfd5407-5392-47ec-9fc2-e1957a3b7852",
@@ -105,7 +107,8 @@ end if;
 return result;',
 	1,
 	'',
-	"ac303aa7-cf31-48e1-834a-84d73f5710e7");
+	"ac303aa7-cf31-48e1-834a-84d73f5710e7",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("ca0a0ba3-24db-4240-b481-a95a7f0a219f",
 	"3e02f1a5-a5f0-4bce-bb4e-056157e7d216",
@@ -149,7 +152,8 @@ end if;
 ',
 	1,
 	'',
-	"3e02f1a5-a5f0-4bce-bb4e-056157e7d216");
+	"3e02f1a5-a5f0-4bce-bb4e-056157e7d216",
+	0);
 INSERT INTO O_TFR
 	VALUES ("ffe5e476-987c-495d-8343-3b2ffd111b70",
 	"fdfd5407-5392-47ec-9fc2-e1957a3b7852",
@@ -174,7 +178,8 @@ end if;
 return txt_phrase;',
 	1,
 	'',
-	"19ab6875-1685-4b64-947b-ca7ecd2957e3");
+	"19ab6875-1685-4b64-947b-ca7ecd2957e3",
+	0);
 INSERT INTO O_REF
 	VALUES ("fdfd5407-5392-47ec-9fc2-e1957a3b7852",
 	"858066a7-431d-40c6-9e0f-ab4ec2e813ca",
@@ -529,6 +534,7 @@ if (base_class != null){
 else{
 	return m_robj_name;
 }',
+	0,
 	0);
 INSERT INTO O_BATTR
 	VALUES ("7e1e44db-8eec-4ab9-9fea-eb3f9964712c",
@@ -564,6 +570,7 @@ if (base_attribute != null){
 else{
 	return m_rattr_name;
 }',
+	0,
 	0);
 INSERT INTO O_BATTR
 	VALUES ("421acf4f-d049-4179-854b-986aa4ee1fdf",
@@ -606,6 +613,7 @@ if (base_association != null){
 else{
 	return m_rel_name;
 }',
+	0,
 	0);
 INSERT INTO O_BATTR
 	VALUES ("9c742fe4-40c0-4d2d-a934-c7aa425ee64d",

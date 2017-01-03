@@ -41,7 +41,8 @@ delete object instance self;
 ',
 	1,
 	'',
-	"00000000-0000-0000-0000-000000000000");
+	"00000000-0000-0000-0000-000000000000",
+	0);
 INSERT INTO O_TFR
 	VALUES ("f171381f-0f4c-4a89-a18b-1730b7551153",
 	"a4e6c94c-670a-4e7f-b085-6727308a33db",
@@ -68,7 +69,8 @@ return result + ")";
 ',
 	1,
 	'',
-	"78c14aef-1015-4713-99af-668755473018");
+	"78c14aef-1015-4713-99af-668755473018",
+	0);
 INSERT INTO O_TFR
 	VALUES ("78c14aef-1015-4713-99af-668755473018",
 	"a4e6c94c-670a-4e7f-b085-6727308a33db",
@@ -134,7 +136,8 @@ return GD::NULL_UNIQUE_ID();
 ',
 	1,
 	'',
-	"74d5be1d-80a8-4470-8799-bbd8e0927776");
+	"74d5be1d-80a8-4470-8799-bbd8e0927776",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("cb2dd4ad-0865-4fe7-b441-6db1d498d674",
 	"78c14aef-1015-4713-99af-668755473018",
@@ -228,7 +231,8 @@ INSERT INTO O_DBATTR
 	'select any nlevt related by self->SM_EVT[R520]->SM_SEVT[R525]->SM_NLEVT[R526];
 self.Non_Local = not_empty nlevt;
 ',
-	1);
+	1,
+	0);
 INSERT INTO O_BATTR
 	VALUES ("ab574cb8-9bbf-428e-9acd-5983d04883c9",
 	"a4e6c94c-670a-4e7f-b085-6727308a33db");

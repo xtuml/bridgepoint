@@ -21,7 +21,8 @@ delete object instance self;
 ',
 	1,
 	'',
-	"00000000-0000-0000-0000-000000000000");
+	"00000000-0000-0000-0000-000000000000",
+	0);
 INSERT INTO O_TFR
 	VALUES ("a4cc9ba9-5792-463b-9f1a-cba092b5ea8b",
 	"4f0d8995-4288-4b02-b65b-5e9a4b29e29b",
@@ -32,7 +33,8 @@ INSERT INTO O_TFR
 	'return "as New Base Attribute";',
 	1,
 	'',
-	"8f156492-ea6b-4f2b-8b57-204d2bec5edf");
+	"8f156492-ea6b-4f2b-8b57-204d2bec5edf",
+	0);
 INSERT INTO O_REF
 	VALUES ("4f0d8995-4288-4b02-b65b-5e9a4b29e29b",
 	"5952fd59-15b0-4b33-ab6d-24edc88b8a26",

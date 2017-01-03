@@ -32,7 +32,8 @@ end if;
 delete object instance self;',
 	1,
 	'',
-	"00000000-0000-0000-0000-000000000000");
+	"00000000-0000-0000-0000-000000000000",
+	0);
 INSERT INTO O_TFR
 	VALUES ("e424745a-ee5d-48d9-bdbd-84bedf8a0f3e",
 	"35f0913d-12d6-430c-9ea7-319b0dbc0ab8",
@@ -49,7 +50,8 @@ else
 end if;  ',
 	1,
 	'',
-	"420f6917-3fba-4613-843a-2216368bcad2");
+	"420f6917-3fba-4613-843a-2216368bcad2",
+	0);
 INSERT INTO O_TFR
 	VALUES ("afea2f5d-ea21-4701-8fe9-6aaf6927eea2",
 	"35f0913d-12d6-430c-9ea7-319b0dbc0ab8",
@@ -63,7 +65,8 @@ Translate: native',
 	'return this;',
 	0,
 	'',
-	"e424745a-ee5d-48d9-bdbd-84bedf8a0f3e");
+	"e424745a-ee5d-48d9-bdbd-84bedf8a0f3e",
+	0);
 INSERT INTO S_DT_PROXY
 	VALUES ("bc3722c8-5188-4529-8519-cf9eb9816b17",
 	"00000000-0000-0000-0000-000000000000",

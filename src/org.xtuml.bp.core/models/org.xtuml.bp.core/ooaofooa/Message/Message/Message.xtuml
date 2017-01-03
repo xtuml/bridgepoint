@@ -70,7 +70,8 @@ end if;
 delete object instance self;',
 	1,
 	'',
-	"00000000-0000-0000-0000-000000000000");
+	"00000000-0000-0000-0000-000000000000",
+	0);
 INSERT INTO O_TFR
 	VALUES ("d8909b77-3728-40f6-b39a-683db44b4290",
 	"77d1cb23-9b16-462c-99a7-0df500aade81",
@@ -85,7 +86,8 @@ relate argument to informalArg across R1013;
 argument.initialize();',
 	1,
 	'',
-	"1e87adc4-c1ae-4430-9de6-a7b45de1c40d");
+	"1e87adc4-c1ae-4430-9de6-a7b45de1c40d",
+	0);
 INSERT INTO O_TFR
 	VALUES ("1e87adc4-c1ae-4430-9de6-a7b45de1c40d",
 	"77d1cb23-9b16-462c-99a7-0df500aade81",
@@ -107,7 +109,8 @@ else
 end if;',
 	1,
 	'',
-	"884bdd10-bd8a-43d2-9c40-3038e69a4c26");
+	"884bdd10-bd8a-43d2-9c40-3038e69a4c26",
+	0);
 INSERT INTO O_TFR
 	VALUES ("cea6f2b4-c6a0-48c1-b8cc-880847eb7b7f",
 	"77d1cb23-9b16-462c-99a7-0df500aade81",
@@ -128,7 +131,8 @@ elif(not_empty am)
 end if;',
 	1,
 	'',
-	"d8909b77-3728-40f6-b39a-683db44b4290");
+	"d8909b77-3728-40f6-b39a-683db44b4290",
+	0);
 INSERT INTO O_TFR
 	VALUES ("884bdd10-bd8a-43d2-9c40-3038e69a4c26",
 	"77d1cb23-9b16-462c-99a7-0df500aade81",
@@ -148,7 +152,8 @@ for each argument in arguments
 end for;',
 	1,
 	'',
-	"cedc6170-6217-47c3-a269-6be087c2e7fa");
+	"cedc6170-6217-47c3-a269-6be087c2e7fa",
+	0);
 INSERT INTO O_TFR
 	VALUES ("bb108cf6-fe71-46cd-aaa3-dfcd5cb0b121",
 	"77d1cb23-9b16-462c-99a7-0df500aade81",
@@ -166,7 +171,8 @@ if(not_empty argument)
 end if;',
 	1,
 	'',
-	"cea6f2b4-c6a0-48c1-b8cc-880847eb7b7f");
+	"cea6f2b4-c6a0-48c1-b8cc-880847eb7b7f",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("109f8e32-17ea-4f01-ae16-d94a809740ef",
 	"bb108cf6-fe71-46cd-aaa3-dfcd5cb0b121",
@@ -195,7 +201,8 @@ end if;
 return true;',
 	1,
 	'',
-	"bb108cf6-fe71-46cd-aaa3-dfcd5cb0b121");
+	"bb108cf6-fe71-46cd-aaa3-dfcd5cb0b121",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("603a4fc0-e0f8-41d4-995a-133d33673dd9",
 	"8ed5565a-64d5-46f8-ad14-470a5eceb070",
@@ -244,7 +251,8 @@ if(not_empty destPart)
 end if;',
 	1,
 	'',
-	"8ed5565a-64d5-46f8-ad14-470a5eceb070");
+	"8ed5565a-64d5-46f8-ad14-470a5eceb070",
+	0);
 INSERT INTO O_REF
 	VALUES ("77d1cb23-9b16-462c-99a7-0df500aade81",
 	"0b1fad94-33b5-4bb3-8fb7-d1cc2d9b7b94",

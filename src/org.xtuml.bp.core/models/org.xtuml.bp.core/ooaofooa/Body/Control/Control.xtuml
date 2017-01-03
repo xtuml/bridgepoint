@@ -20,7 +20,8 @@ delete object instance self;
 ',
 	1,
 	'',
-	"00000000-0000-0000-0000-000000000000");
+	"00000000-0000-0000-0000-000000000000",
+	0);
 INSERT INTO O_TFR
 	VALUES ("f2b9b405-03cf-49b7-b876-f4086f385c5c",
 	"f8533578-7e3d-4d5a-913e-39276cb1592f",
@@ -40,7 +41,8 @@ INSERT INTO O_TFR
 // (in Stack.execute, the caller) over whether we execute the statement or not.',
 	1,
 	'',
-	"8834fdb3-bd9c-49d9-b6b9-00f493bf4e14");
+	"8834fdb3-bd9c-49d9-b6b9-00f493bf4e14",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("1c6348df-911e-4824-ad9a-3742a81f0ef9",
 	"f2b9b405-03cf-49b7-b876-f4086f385c5c",

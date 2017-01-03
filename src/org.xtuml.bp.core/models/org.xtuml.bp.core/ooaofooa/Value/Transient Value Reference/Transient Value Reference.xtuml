@@ -59,7 +59,8 @@ pathMsg = "<No Path Available - Empty instance>";
 return GD::string_to_instance(value:"Error");',
 	1,
 	'',
-	"bb9682a5-abdc-47d2-9e03-aff1688094c1");
+	"bb9682a5-abdc-47d2-9e03-aff1688094c1",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("af2b0327-5fc6-4357-8bff-2f81d27e51f6",
 	"485cf2a5-b70a-4797-b5ed-a59483e5c30b",
@@ -120,7 +121,8 @@ end if;
 ',
 	1,
 	'',
-	"485cf2a5-b70a-4797-b5ed-a59483e5c30b");
+	"485cf2a5-b70a-4797-b5ed-a59483e5c30b",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("a337399f-5988-47d7-946f-999667018886",
 	"eb8ab6e1-0c5b-493e-a444-0e40cab96116",
@@ -218,7 +220,8 @@ pathMsg = "<No Path Available - Empty instance>";
 return GD::NULL_UNIQUE_ID();',
 	1,
 	'',
-	"00000000-0000-0000-0000-000000000000");
+	"00000000-0000-0000-0000-000000000000",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("adc84451-3bf5-486d-adfd-9ab64da0ec07",
 	"bb9682a5-abdc-47d2-9e03-aff1688094c1",

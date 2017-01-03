@@ -62,7 +62,8 @@ if ( not_empty sm_asm )
 end if;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
-	'');
+	'',
+	0);
 INSERT INTO S_SPARM
 	VALUES ("6f1d7bf2-659b-4c1c-b408-83a7a2451bea",
 	"d75791e8-f025-4657-a7da-a8db6274d2d7",
@@ -149,7 +150,8 @@ if ( not_empty o_obj )
 end if;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
-	'');
+	'',
+	0);
 INSERT INTO S_SPARM
 	VALUES ("ba5c2e82-95d8-4828-b0f6-15159de12e30",
 	"d95d98c2-dac3-4f07-8e64-e6d8c6a49a7c",
@@ -228,7 +230,8 @@ if ( not_empty s_sys )
 end if;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
-	'');
+	'',
+	0);
 INSERT INTO S_SPARM
 	VALUES ("cadc9684-39cf-4a8e-9ac7-63a232b2ebaf",
 	"a193cba0-de4d-497f-8cf7-b07ccf9d4270",
@@ -307,7 +310,8 @@ if ( not_empty ep_pkg )
 end if;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
-	'');
+	'',
+	0);
 INSERT INTO S_SPARM
 	VALUES ("afdc89b2-013f-4bda-8d7d-d909180d5219",
 	"eeba59f4-8e74-4937-bbff-588d35c7ab45",
@@ -388,7 +392,8 @@ if ( not_empty sm_ism )
 end if;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
-	'');
+	'',
+	0);
 INSERT INTO S_SPARM
 	VALUES ("86c2121d-c8e0-461f-a314-48a67ed5f4e1",
 	"3bb908bd-182f-4fed-bb72-5c1822b2dd76",
@@ -513,7 +518,8 @@ if ( not_empty c_c )
 end if;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
-	'');
+	'',
+	0);
 INSERT INTO S_SPARM
 	VALUES ("6cbc34a6-0d55-4bbb-a547-cb8ff14ad79e",
 	"11781c06-7e09-45ea-a448-ab85e9fdb235",

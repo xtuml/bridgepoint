@@ -19,7 +19,8 @@ rtVal.setValue(value:GD::boolean_to_instance(value:param.value));
 ',
 	1,
 	'',
-	"c3e76aae-e8a4-4fe5-aa73-04481d2fadc9");
+	"c3e76aae-e8a4-4fe5-aa73-04481d2fadc9",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("dcf854cd-8518-48c2-88e5-0bf6bc564c2d",
 	"a17be6f2-cf21-4dfe-9ea6-163cca807665",
@@ -41,7 +42,8 @@ rtVal.setValue(value:GD::int_to_instance(value:param.value));
 ',
 	1,
 	'',
-	"a17be6f2-cf21-4dfe-9ea6-163cca807665");
+	"a17be6f2-cf21-4dfe-9ea6-163cca807665",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("0279e733-ed4b-4b85-a73f-b0f95945274e",
 	"c5d80047-a3fa-4b33-a4d1-aab193bda6b9",
@@ -63,7 +65,8 @@ rtVal.setValue(value:GD::real_to_instance(value:param.value));
 ',
 	1,
 	'',
-	"c5d80047-a3fa-4b33-a4d1-aab193bda6b9");
+	"c5d80047-a3fa-4b33-a4d1-aab193bda6b9",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("e1201346-a060-4e21-9713-dab3fe13dc67",
 	"2eba0e44-2e9e-4a59-968c-ed3f78adf29b",
@@ -84,7 +87,8 @@ INSERT INTO O_TFR
 rtVal.setValue(value:GD::string_to_instance(value:param.value));',
 	1,
 	'',
-	"2eba0e44-2e9e-4a59-968c-ed3f78adf29b");
+	"2eba0e44-2e9e-4a59-968c-ed3f78adf29b",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("68b815c1-e4db-45a0-971c-0987b9d69bbc",
 	"ef807427-8f59-4ebf-8e80-19f9f2a77f13",
@@ -105,7 +109,8 @@ INSERT INTO O_TFR
 rtVal.setValue(value:GD::unique_id_to_instance(value:param.value));',
 	1,
 	'',
-	"ef807427-8f59-4ebf-8e80-19f9f2a77f13");
+	"ef807427-8f59-4ebf-8e80-19f9f2a77f13",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("b526ffa2-7a85-4e42-acbd-cdf82a1a8b71",
 	"0ba33489-7747-4042-a9a1-ee09fd0578f2",
@@ -126,7 +131,8 @@ INSERT INTO O_TFR
 return rtVal.getValue(); ',
 	1,
 	'',
-	"32fe65e6-0876-4858-b3b7-3168bed2bb8b");
+	"32fe65e6-0876-4858-b3b7-3168bed2bb8b",
+	0);
 INSERT INTO S_DT_PROXY
 	VALUES ("bc3722c8-5188-4529-8519-cf9eb9816b17",
 	"00000000-0000-0000-0000-000000000000",
@@ -166,7 +172,8 @@ end if;
 delete object instance self;',
 	1,
 	'',
-	"00000000-0000-0000-0000-000000000000");
+	"00000000-0000-0000-0000-000000000000",
+	0);
 INSERT INTO O_REF
 	VALUES ("6f09c1c3-e9bd-40d0-845a-4a466d1f940d",
 	"79496128-07be-4d16-a155-65a1c3441479",

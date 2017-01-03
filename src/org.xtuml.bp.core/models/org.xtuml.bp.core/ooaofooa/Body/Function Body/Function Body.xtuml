@@ -23,7 +23,8 @@ delete object instance self;
 ',
 	1,
 	'',
-	"00000000-0000-0000-0000-000000000000");
+	"00000000-0000-0000-0000-000000000000",
+	0);
 INSERT INTO O_TFR
 	VALUES ("9867e5b4-73d4-43a2-ad0c-de029216fadc",
 	"3048f68f-092c-4db0-b786-5eff71fb0a8c",
@@ -35,7 +36,8 @@ INSERT INTO O_TFR
 return function.getContainingComponentId();',
 	1,
 	'',
-	"50e6969b-8a05-4f27-8af1-fcab4bd63c6f");
+	"50e6969b-8a05-4f27-8af1-fcab4bd63c6f",
+	0);
 INSERT INTO O_TFR
 	VALUES ("2908fd72-0cdc-4bf1-8d41-78030c976145",
 	"3048f68f-092c-4db0-b786-5eff71fb0a8c",
@@ -48,7 +50,8 @@ select one function related by self->S_SYNC[R695];
 return function.getContainerId();',
 	1,
 	'',
-	"9867e5b4-73d4-43a2-ad0c-de029216fadc");
+	"9867e5b4-73d4-43a2-ad0c-de029216fadc",
+	0);
 INSERT INTO O_TFR
 	VALUES ("8928e9c2-939d-43e2-8e01-ea754b7882b2",
 	"3048f68f-092c-4db0-b786-5eff71fb0a8c",
@@ -68,7 +71,8 @@ end if;
 return fnPath;',
 	1,
 	'',
-	"2908fd72-0cdc-4bf1-8d41-78030c976145");
+	"2908fd72-0cdc-4bf1-8d41-78030c976145",
+	0);
 INSERT INTO O_REF
 	VALUES ("3048f68f-092c-4db0-b786-5eff71fb0a8c",
 	"d1c9af7b-9df6-432a-a25e-96cab24fc6af",

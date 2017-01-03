@@ -51,7 +51,8 @@ return "";
 ',
 	1,
 	'',
-	"97194fd7-c045-48c1-9a5c-0944910549a9");
+	"97194fd7-c045-48c1-9a5c-0944910549a9",
+	0);
 INSERT INTO O_TFR
 	VALUES ("97194fd7-c045-48c1-9a5c-0944910549a9",
 	"2a83ce0a-3939-4ef4-9a99-70471ff57de9",
@@ -101,7 +102,8 @@ return Multiplicity::Unknown;
 ',
 	1,
 	'',
-	"8f319d9f-78e5-43de-9094-1f42c94c5067");
+	"8f319d9f-78e5-43de-9094-1f42c94c5067",
+	0);
 INSERT INTO S_DT_PROXY
 	VALUES ("c785b82e-b0aa-4f8c-8df4-f1b9cf451edd",
 	"00000000-0000-0000-0000-000000000000",
@@ -151,7 +153,8 @@ end if;
 delete object instance self;',
 	1,
 	'',
-	"00000000-0000-0000-0000-000000000000");
+	"00000000-0000-0000-0000-000000000000",
+	0);
 INSERT INTO O_NBATTR
 	VALUES ("cec47d4c-9e06-4c8c-b68e-89c4a69f3c1f",
 	"2a83ce0a-3939-4ef4-9a99-70471ff57de9");

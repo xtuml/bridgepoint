@@ -56,7 +56,8 @@ end if;
 delete object instance self;',
 	1,
 	'',
-	"3f820199-760b-43cb-9bea-2b3060a9d77a");
+	"3f820199-760b-43cb-9bea-2b3060a9d77a",
+	0);
 INSERT INTO O_TFR
 	VALUES ("87792474-209b-413e-bd06-a5fbec9f47f9",
 	"422f8e95-ef3d-4d53-a819-1116c0b1eaad",
@@ -87,7 +88,8 @@ create object instance im of MSG_ISM;
 relate im to self across R1020;',
 	1,
 	'',
-	"ce92d5e9-8f51-4f67-a8da-155cd88863ed");
+	"ce92d5e9-8f51-4f67-a8da-155cd88863ed",
+	0);
 INSERT INTO O_TFR
 	VALUES ("f876717f-89da-4ca8-8c8f-e96d97649d72",
 	"422f8e95-ef3d-4d53-a819-1116c0b1eaad",
@@ -101,7 +103,8 @@ create object instance im of MSG_ISM;
 relate im to self across R1020;',
 	1,
 	'',
-	"88f78e72-ee74-4c2f-940a-90f7f90303f2");
+	"88f78e72-ee74-4c2f-940a-90f7f90303f2",
+	0);
 INSERT INTO O_TFR
 	VALUES ("45b11a8a-87a0-4335-9574-fb64a8500ab3",
 	"422f8e95-ef3d-4d53-a819-1116c0b1eaad",
@@ -116,7 +119,8 @@ if(not_empty msg)
 end if;',
 	1,
 	'',
-	"f876717f-89da-4ca8-8c8f-e96d97649d72");
+	"f876717f-89da-4ca8-8c8f-e96d97649d72",
+	0);
 INSERT INTO O_TFR
 	VALUES ("3f820199-760b-43cb-9bea-2b3060a9d77a",
 	"422f8e95-ef3d-4d53-a819-1116c0b1eaad",
@@ -133,7 +137,8 @@ else
 end if;',
 	1,
 	'',
-	"e7d1091b-21cb-4108-b1ff-b3e8295a0e4b");
+	"e7d1091b-21cb-4108-b1ff-b3e8295a0e4b",
+	0);
 INSERT INTO O_TFR
 	VALUES ("8b503941-300b-4100-b724-6ff3de0fc1e7",
 	"422f8e95-ef3d-4d53-a819-1116c0b1eaad",
@@ -144,7 +149,8 @@ INSERT INTO O_TFR
 	'return self.Label;',
 	1,
 	'',
-	"b4ea93de-8c79-4026-97d4-d385638fc8bd");
+	"b4ea93de-8c79-4026-97d4-d385638fc8bd",
+	0);
 INSERT INTO O_TFR
 	VALUES ("88f78e72-ee74-4c2f-940a-90f7f90303f2",
 	"422f8e95-ef3d-4d53-a819-1116c0b1eaad",
@@ -159,7 +165,8 @@ else
 end if;',
 	1,
 	'',
-	"e01285f3-af67-4c16-a9bc-7f81044c7fe1");
+	"e01285f3-af67-4c16-a9bc-7f81044c7fe1",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("eecbe5b2-c40d-43c5-a35e-124e914d2b26",
 	"88f78e72-ee74-4c2f-940a-90f7f90303f2",
@@ -243,7 +250,8 @@ else
 end if;',
 	1,
 	'',
-	"53b47ca0-97e4-4c08-b09a-09db63e97cda");
+	"53b47ca0-97e4-4c08-b09a-09db63e97cda",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("2f65f903-6ca3-4a1d-b5d6-282b9f681575",
 	"b4ea93de-8c79-4026-97d4-d385638fc8bd",
@@ -509,7 +517,8 @@ end if;
 return false;',
 	1,
 	'',
-	"00000000-0000-0000-0000-000000000000");
+	"00000000-0000-0000-0000-000000000000",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("80e09b7c-25e6-4eed-80f3-b0fe889efec7",
 	"e7d1091b-21cb-4108-b1ff-b3e8295a0e4b",
@@ -538,7 +547,8 @@ INSERT INTO O_TFR
 	'return self.Msg_ID;',
 	1,
 	'',
-	"8b503941-300b-4100-b724-6ff3de0fc1e7");
+	"8b503941-300b-4100-b724-6ff3de0fc1e7",
+	0);
 INSERT INTO O_TFR
 	VALUES ("1356874d-063f-4113-8391-2cfd5fdfd779",
 	"422f8e95-ef3d-4d53-a819-1116c0b1eaad",
@@ -550,7 +560,8 @@ INSERT INTO O_TFR
 parent.disposeFormalArguments();',
 	1,
 	'',
-	"c1a7ac10-77ca-4a9a-8b0c-6100a1fe341f");
+	"c1a7ac10-77ca-4a9a-8b0c-6100a1fe341f",
+	0);
 INSERT INTO O_TFR
 	VALUES ("2f0f7ac4-b8aa-4123-9b48-fc1f8de80f1d",
 	"422f8e95-ef3d-4d53-a819-1116c0b1eaad",
@@ -579,7 +590,8 @@ end for;
 ',
 	1,
 	'',
-	"1d840a60-fa4d-4d71-a1e5-5e60890553ee");
+	"1d840a60-fa4d-4d71-a1e5-5e60890553ee",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("e3485d38-7d65-4e8b-84a6-dcd0bbda869c",
 	"2f0f7ac4-b8aa-4123-9b48-fc1f8de80f1d",
@@ -624,7 +636,8 @@ elif not_empty iOp
 end if;',
 	1,
 	'',
-	"45b11a8a-87a0-4335-9574-fb64a8500ab3");
+	"45b11a8a-87a0-4335-9574-fb64a8500ab3",
+	0);
 INSERT INTO O_TFR
 	VALUES ("1d840a60-fa4d-4d71-a1e5-5e60890553ee",
 	"422f8e95-ef3d-4d53-a819-1116c0b1eaad",
@@ -649,7 +662,8 @@ for each bparm in bparms
 end for;',
 	1,
 	'',
-	"1356874d-063f-4113-8391-2cfd5fdfd779");
+	"1356874d-063f-4113-8391-2cfd5fdfd779",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("3ac8cff9-07a3-40bb-9d29-dbece0b2e4cb",
 	"1d840a60-fa4d-4d71-a1e5-5e60890553ee",
@@ -683,7 +697,8 @@ for each fparm in fparms
 end for;    ',
 	1,
 	'',
-	"2f0f7ac4-b8aa-4123-9b48-fc1f8de80f1d");
+	"2f0f7ac4-b8aa-4123-9b48-fc1f8de80f1d",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("3952a7b9-c9c3-4ffd-9c04-7915ee2cd48b",
 	"53b47ca0-97e4-4c08-b09a-09db63e97cda",
@@ -725,7 +740,8 @@ end if;
 ',
 	1,
 	'',
-	"87792474-209b-413e-bd06-a5fbec9f47f9");
+	"87792474-209b-413e-bd06-a5fbec9f47f9",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("e82ed9ad-fd38-4838-9c7e-fa00f7a68871",
 	"0ed4d71d-cf11-4f24-9974-3d96f9565792",
@@ -756,7 +772,8 @@ end if;
 return true;',
 	1,
 	'',
-	"0ed4d71d-cf11-4f24-9974-3d96f9565792");
+	"0ed4d71d-cf11-4f24-9974-3d96f9565792",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("e823dcad-8ebd-4ac7-891a-a4dd7b4d9fcb",
 	"e67f0ef3-9865-467c-949b-2e9b5cea7c34",
@@ -777,7 +794,8 @@ INSERT INTO O_TFR
 message.pasteMessageArgument(id:param.id);',
 	1,
 	'',
-	"e67f0ef3-9865-467c-949b-2e9b5cea7c34");
+	"e67f0ef3-9865-467c-949b-2e9b5cea7c34",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("61486467-3ecb-473c-af0d-71986256738c",
 	"8a9351eb-0a2e-45d5-b249-c9b31947e0d6",
@@ -798,7 +816,8 @@ INSERT INTO O_TFR
 return message.canCopyMessageArgument(id:param.id);',
 	1,
 	'',
-	"8a9351eb-0a2e-45d5-b249-c9b31947e0d6");
+	"8a9351eb-0a2e-45d5-b249-c9b31947e0d6",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("eaf9b1e8-d8f2-4751-b6bd-86ab882fd113",
 	"f1bfcc27-a341-4a49-8e77-d235b84c48aa",
@@ -818,7 +837,8 @@ INSERT INTO O_TFR
 	'return not self.isFormal;',
 	1,
 	'',
-	"f1bfcc27-a341-4a49-8e77-d235b84c48aa");
+	"f1bfcc27-a341-4a49-8e77-d235b84c48aa",
+	0);
 INSERT INTO O_NBATTR
 	VALUES ("9659aec5-889c-4301-922c-e0fb86530af6",
 	"422f8e95-ef3d-4d53-a819-1116c0b1eaad");
@@ -900,7 +920,8 @@ if(not_empty ism)
 else
   self.isFormal = true;
 end if;',
-	1);
+	1,
+	0);
 INSERT INTO O_BATTR
 	VALUES ("180cd319-f0e0-4fab-8f0f-b82004f1d0fe",
 	"422f8e95-ef3d-4d53-a819-1116c0b1eaad");
@@ -940,7 +961,8 @@ else
   result = self.InformalName;
 end if;
 self.Label = result;',
-	1);
+	1,
+	0);
 INSERT INTO O_BATTR
 	VALUES ("5ed144b8-4c6b-45f8-9399-b8c1cb880f2f",
 	"422f8e95-ef3d-4d53-a819-1116c0b1eaad");
