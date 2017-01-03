@@ -30,7 +30,8 @@ unrelate self from component across R8007;
 delete object instance self;',
 	1,
 	'',
-	"00000000-0000-0000-0000-000000000000");
+	"00000000-0000-0000-0000-000000000000",
+	0);
 INSERT INTO O_NBATTR
 	VALUES ("fd024bad-0774-4075-b91d-4f5778b5aad1",
 	"8daeb6cd-f7c9-4ce9-bdfe-0a5922e1ba32");

@@ -33,7 +33,8 @@ end if;
  // self.Direction=IFDirectionType::Bidirectional ;',
 	1,
 	'',
-	"2d3d9226-6500-414b-9add-0105bfebda65");
+	"2d3d9226-6500-414b-9add-0105bfebda65",
+	0);
 INSERT INTO O_TFR
 	VALUES ("ece61f46-00f8-41bc-bb1a-fbbfdb05a85d",
 	"8738e393-904e-4abf-a2eb-7ce36c6bb823",
@@ -49,7 +50,8 @@ ep.createMessageArgumentsForParameter(id:parameter.PP_Id);
 ',
 	1,
 	'',
-	"67e9fff4-f2f5-4f4d-9f5b-2f82fbaea576");
+	"67e9fff4-f2f5-4f4d-9f5b-2f82fbaea576",
+	0);
 INSERT INTO O_TFR
 	VALUES ("2d3d9226-6500-414b-9add-0105bfebda65",
 	"8738e393-904e-4abf-a2eb-7ce36c6bb823",
@@ -79,7 +81,8 @@ end for;
 delete object instance self;',
 	1,
 	'',
-	"b4d8ae76-f9d8-4f93-adda-05db65f1532b");
+	"b4d8ae76-f9d8-4f93-adda-05db65f1532b",
+	0);
 INSERT INTO O_TFR
 	VALUES ("67e9fff4-f2f5-4f4d-9f5b-2f82fbaea576",
 	"8738e393-904e-4abf-a2eb-7ce36c6bb823",
@@ -115,7 +118,8 @@ end if;
 ',
 	1,
 	'',
-	"e2b65b0e-9ffe-4334-a7cc-c9e4072aa2aa");
+	"e2b65b0e-9ffe-4334-a7cc-c9e4072aa2aa",
+	0);
 INSERT INTO O_TFR
 	VALUES ("e2b65b0e-9ffe-4334-a7cc-c9e4072aa2aa",
 	"8738e393-904e-4abf-a2eb-7ce36c6bb823",
@@ -152,7 +156,8 @@ end if;
 ',
 	1,
 	'',
-	"75150a5e-2a0b-4d27-a455-0d08ec390d11");
+	"75150a5e-2a0b-4d27-a455-0d08ec390d11",
+	0);
 INSERT INTO O_TFR
 	VALUES ("b4d8ae76-f9d8-4f93-adda-05db65f1532b",
 	"8738e393-904e-4abf-a2eb-7ce36c6bb823",
@@ -177,7 +182,8 @@ return false;
 ',
 	1,
 	'',
-	"00000000-0000-0000-0000-000000000000");
+	"00000000-0000-0000-0000-000000000000",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("a942e53a-ad8c-4d88-93c8-67d6a1ad2b5e",
 	"b4d8ae76-f9d8-4f93-adda-05db65f1532b",
@@ -206,7 +212,8 @@ INSERT INTO O_TFR
 	'return self.Id;',
 	1,
 	'',
-	"ece61f46-00f8-41bc-bb1a-fbbfdb05a85d");
+	"ece61f46-00f8-41bc-bb1a-fbbfdb05a85d",
+	0);
 INSERT INTO O_TFR
 	VALUES ("0fd20cb0-0495-4b5a-8af0-c2187c908f3b",
 	"8738e393-904e-4abf-a2eb-7ce36c6bb823",
@@ -217,7 +224,8 @@ INSERT INTO O_TFR
 	'return this;',
 	0,
 	'',
-	"42e09fbc-43cb-489a-b0c9-04af14812231");
+	"42e09fbc-43cb-489a-b0c9-04af14812231",
+	0);
 INSERT INTO S_DT_PROXY
 	VALUES ("bc3722c8-5188-4529-8519-cf9eb9816b17",
 	"00000000-0000-0000-0000-000000000000",
@@ -236,7 +244,8 @@ INSERT INTO O_TFR
 ep.pastePropertyParameter(id:param.id);',
 	1,
 	'',
-	"0fd20cb0-0495-4b5a-8af0-c2187c908f3b");
+	"0fd20cb0-0495-4b5a-8af0-c2187c908f3b",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("7f66ee15-9203-472f-84ed-c2533d2584e8",
 	"bce56e1d-889f-46bb-9d31-4958f4af6008",
@@ -284,7 +293,8 @@ for each signal in signals
 end for;',
 	1,
 	'',
-	"bce56e1d-889f-46bb-9d31-4958f4af6008");
+	"bce56e1d-889f-46bb-9d31-4958f4af6008",
+	0);
 INSERT INTO O_TFR
 	VALUES ("f1caa8bd-5d43-4860-9e8f-af45e007a087",
 	"8738e393-904e-4abf-a2eb-7ce36c6bb823",
@@ -376,7 +386,8 @@ end if;
 return signature;',
 	1,
 	'',
-	"de8720d8-f4f4-4b4f-85b8-ef3cbb51be9e");
+	"de8720d8-f4f4-4b4f-85b8-ef3cbb51be9e",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("bdf8fff4-f075-4965-9cda-36f5ead80be2",
 	"f1caa8bd-5d43-4860-9e8f-af45e007a087",

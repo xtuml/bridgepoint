@@ -93,7 +93,8 @@ end for;
 delete object instance self;',
 	1,
 	'',
-	"00000000-0000-0000-0000-000000000000");
+	"00000000-0000-0000-0000-000000000000",
+	0);
 INSERT INTO O_TFR
 	VALUES ("b2b2d864-4a31-41f0-99d0-98fbb79a878d",
 	"60fd0d8e-9f75-40a3-b729-2bf3b7068c52",
@@ -110,7 +111,8 @@ end if;
 return false;',
 	1,
 	'',
-	"2c880c77-ad9e-4e6f-bdbc-f3e28cc36fb2");
+	"2c880c77-ad9e-4e6f-bdbc-f3e28cc36fb2",
+	0);
 INSERT INTO O_TFR
 	VALUES ("20845fb2-fa55-4e86-be04-af5896eba057",
 	"60fd0d8e-9f75-40a3-b729-2bf3b7068c52",
@@ -126,7 +128,8 @@ relate val to val_in_stack_frame across R2978;
 relate val_in_stack_frame to self across R2951;',
 	1,
 	'',
-	"402b5d64-3ed8-4d40-9c64-2f2172619b2c");
+	"402b5d64-3ed8-4d40-9c64-2f2172619b2c",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("40d00142-2cfd-4f67-bf4d-d89423f9417a",
 	"20845fb2-fa55-4e86-be04-af5896eba057",
@@ -157,7 +160,8 @@ else
 end if;',
 	1,
 	'',
-	"3965974c-2beb-4243-a75a-46767d47f36e");
+	"3965974c-2beb-4243-a75a-46767d47f36e",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("7deb3b5c-dafe-4368-bae9-9ca32bb1995a",
 	"402b5d64-3ed8-4d40-9c64-2f2172619b2c",
@@ -178,7 +182,8 @@ INSERT INTO O_TFR
 return empty stack;',
 	1,
 	'',
-	"198b0e09-daf7-42c5-b9ca-949f901ac68b");
+	"198b0e09-daf7-42c5-b9ca-949f901ac68b",
+	0);
 INSERT INTO O_TFR
 	VALUES ("2c880c77-ad9e-4e6f-bdbc-f3e28cc36fb2",
 	"60fd0d8e-9f75-40a3-b729-2bf3b7068c52",
@@ -238,7 +243,8 @@ end if;
 return GD::NULL_UNIQUE_ID();',
 	1,
 	'',
-	"20845fb2-fa55-4e86-be04-af5896eba057");
+	"20845fb2-fa55-4e86-be04-af5896eba057",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("782aa764-0aff-41d8-8248-95ca12dd3d44",
 	"2c880c77-ad9e-4e6f-bdbc-f3e28cc36fb2",

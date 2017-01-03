@@ -29,9 +29,10 @@ for each attribute in attributes
    	// make this attribute no longer visited
    	unrelate attribute from self across R119;
 end for;',
-	2,
+	1,
 	'',
-	"0e6127f0-c8e4-4ddd-b91a-d438d4ea2c5f");
+	"0e6127f0-c8e4-4ddd-b91a-d438d4ea2c5f",
+	0);
 INSERT INTO O_TFR
 	VALUES ("0e6127f0-c8e4-4ddd-b91a-d438d4ea2c5f",
 	"5cff0d15-8ba0-4073-967d-1e146a7a1f2d",
@@ -43,7 +44,8 @@ INSERT INTO O_TFR
 return not_empty attribute;',
 	1,
 	'',
-	"00000000-0000-0000-0000-000000000000");
+	"00000000-0000-0000-0000-000000000000",
+	0);
 INSERT INTO O_NBATTR
 	VALUES ("ef4f0cca-628a-44f6-99b2-ce0e6d71a157",
 	"5cff0d15-8ba0-4073-967d-1e146a7a1f2d");

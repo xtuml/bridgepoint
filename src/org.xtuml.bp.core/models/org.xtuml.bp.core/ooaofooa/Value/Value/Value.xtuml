@@ -302,7 +302,8 @@ delete object instance self;
 ',
 	1,
 	'',
-	"df9ce6b2-5184-4e5d-8151-315b8b499a28");
+	"df9ce6b2-5184-4e5d-8151-315b8b499a28",
+	0);
 INSERT INTO O_TFR
 	VALUES ("ec4d1100-850c-44d8-b972-d2c6ee312baf",
 	"80366c8b-358d-4b86-a0fd-bd9d289c9cd2",
@@ -531,7 +532,8 @@ else
 end if;',
 	1,
 	'',
-	"7f5ae1b4-7505-496f-9857-629ecd01cfc9");
+	"7f5ae1b4-7505-496f-9857-629ecd01cfc9",
+	0);
 INSERT INTO O_TFR
 	VALUES ("f7c11726-17e8-4828-88dd-cffc7e15f3c5",
 	"80366c8b-358d-4b86-a0fd-bd9d289c9cd2",
@@ -861,7 +863,8 @@ else
 end if;',
 	1,
 	'',
-	"3cd1fa26-5324-45dd-bae2-d0682cdc018c");
+	"3cd1fa26-5324-45dd-bae2-d0682cdc018c",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("5bcd254f-e77b-464b-b955-2ceafd311741",
 	"f7c11726-17e8-4828-88dd-cffc7e15f3c5",
@@ -950,7 +953,8 @@ pathMsg = "<No Path Available - Empty instance>";
 ',
 	1,
 	'',
-	"bfc94d15-e1a4-4705-9c6b-714c51bf0842");
+	"bfc94d15-e1a4-4705-9c6b-714c51bf0842",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("f85126c3-f9eb-44f5-8186-9820b7970505",
 	"13c225bd-4e16-4628-b991-73ee6bfb4575",
@@ -1045,7 +1049,8 @@ pathMsg = "<No Path Available - Empty instance>";
 return GD::NULL_INSTANCE();',
 	1,
 	'',
-	"bafee802-9f45-45fd-b986-aed781a8ad94");
+	"bafee802-9f45-45fd-b986-aed781a8ad94",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("47f92123-aecc-46d0-9ec0-3fc36cd6a889",
 	"a039735e-8d4e-4c56-89e2-75f4eb86bdf7",
@@ -1137,7 +1142,8 @@ end if;
 return false;',
 	1,
 	'',
-	"a039735e-8d4e-4c56-89e2-75f4eb86bdf7");
+	"a039735e-8d4e-4c56-89e2-75f4eb86bdf7",
+	0);
 INSERT INTO O_TFR
 	VALUES ("bafee802-9f45-45fd-b986-aed781a8ad94",
 	"80366c8b-358d-4b86-a0fd-bd9d289c9cd2",
@@ -1184,7 +1190,8 @@ end if;
 return runtimeVal;',
 	1,
 	'',
-	"cc92274a-3094-47ec-b09b-0b2509ea7a23");
+	"cc92274a-3094-47ec-b09b-0b2509ea7a23",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("6405ceba-5c39-4e5c-b3bf-d2b03932fe0f",
 	"bafee802-9f45-45fd-b986-aed781a8ad94",
@@ -1207,7 +1214,8 @@ select one arrayRef related by self->V_AER[R838];
 return empty mvlRef and empty arrayRef;',
 	1,
 	'',
-	"409bf33f-2fb3-4984-855b-03c6cff9d2f6");
+	"409bf33f-2fb3-4984-855b-03c6cff9d2f6",
+	0);
 INSERT INTO O_TFR
 	VALUES ("bfc94d15-e1a4-4705-9c6b-714c51bf0842",
 	"80366c8b-358d-4b86-a0fd-bd9d289c9cd2",
@@ -1268,7 +1276,8 @@ return varID;
 ',
 	1,
 	'',
-	"ec4d1100-850c-44d8-b972-d2c6ee312baf");
+	"ec4d1100-850c-44d8-b972-d2c6ee312baf",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("2dcf028d-0f71-426a-b4cb-5ec4ac93e59f",
 	"bfc94d15-e1a4-4705-9c6b-714c51bf0842",
@@ -1386,7 +1395,8 @@ else
 end if;',
 	1,
 	'',
-	"ce84d822-f34c-4d47-a09c-e5dc65e043f2");
+	"ce84d822-f34c-4d47-a09c-e5dc65e043f2",
+	0);
 INSERT INTO O_TFR
 	VALUES ("ce84d822-f34c-4d47-a09c-e5dc65e043f2",
 	"80366c8b-358d-4b86-a0fd-bd9d289c9cd2",
@@ -1465,7 +1475,8 @@ end if;
 return dimensionSize;',
 	1,
 	'',
-	"a7bdcd64-e592-4b09-82ec-95f387cc5308");
+	"a7bdcd64-e592-4b09-82ec-95f387cc5308",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("c1836616-8e1d-445e-8e3a-e26a22faf956",
 	"ce84d822-f34c-4d47-a09c-e5dc65e043f2",
@@ -1534,7 +1545,8 @@ end while;
 return isValid;',
 	1,
 	'',
-	"13c225bd-4e16-4628-b991-73ee6bfb4575");
+	"13c225bd-4e16-4628-b991-73ee6bfb4575",
+	0);
 INSERT INTO O_TFR
 	VALUES ("7f5ae1b4-7505-496f-9857-629ecd01cfc9",
 	"80366c8b-358d-4b86-a0fd-bd9d289c9cd2",
@@ -1550,7 +1562,8 @@ end if;
 return false;',
 	1,
 	'',
-	"a0673e69-c41e-4da2-85d9-6bdd5ea0b2e8");
+	"a0673e69-c41e-4da2-85d9-6bdd5ea0b2e8",
+	0);
 INSERT INTO O_TFR
 	VALUES ("df9ce6b2-5184-4e5d-8151-315b8b499a28",
 	"80366c8b-358d-4b86-a0fd-bd9d289c9cd2",
@@ -1561,7 +1574,8 @@ INSERT INTO O_TFR
 	'return this;',
 	0,
 	'',
-	"f7c11726-17e8-4828-88dd-cffc7e15f3c5");
+	"f7c11726-17e8-4828-88dd-cffc7e15f3c5",
+	0);
 INSERT INTO O_TFR
 	VALUES ("3cd1fa26-5324-45dd-bae2-d0682cdc018c",
 	"80366c8b-358d-4b86-a0fd-bd9d289c9cd2",
@@ -1607,7 +1621,8 @@ else
 end if;',
 	1,
 	'',
-	"00000000-0000-0000-0000-000000000000");
+	"00000000-0000-0000-0000-000000000000",
+	0);
 INSERT INTO O_TFR
 	VALUES ("0eba4f9a-91fa-40e5-977c-fb6ae6f838b5",
 	"80366c8b-358d-4b86-a0fd-bd9d289c9cd2",
@@ -1674,7 +1689,8 @@ end while;
 return isValid;',
 	1,
 	'',
-	"b2e2f063-482d-4986-85bc-1e19996d4a17");
+	"b2e2f063-482d-4986-85bc-1e19996d4a17",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("fd48ac86-6e12-4ed4-bba0-31f3756f05fa",
 	"0eba4f9a-91fa-40e5-977c-fb6ae6f838b5",

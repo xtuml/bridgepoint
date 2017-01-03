@@ -64,7 +64,8 @@ relate irHandle to localRef across R3003;
 return localRef.getRuntimeValue(stack_frame_id:param.stack_frame_id);',
 	1,
 	'',
-	"00000000-0000-0000-0000-000000000000");
+	"00000000-0000-0000-0000-000000000000",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("19831fab-9e4d-4a26-a5c1-a4987b977966",
 	"cdafabc6-e820-48ff-bfe8-73914e415cc0",

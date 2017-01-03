@@ -23,7 +23,8 @@ responsible for, from the model.',
 ',
 	1,
 	'',
-	"00000000-0000-0000-0000-000000000000");
+	"00000000-0000-0000-0000-000000000000",
+	0);
 INSERT INTO O_TFR
 	VALUES ("7c38727f-0eb9-4217-936a-464cc7007e83",
 	"c071aeb3-3cac-4452-b5a4-85cc3711b2bc",
@@ -35,7 +36,8 @@ INSERT INTO O_TFR
 return brg.getContainingComponentId();',
 	1,
 	'',
-	"f20abf2b-9064-49fc-a34c-9e1937b6fe9d");
+	"f20abf2b-9064-49fc-a34c-9e1937b6fe9d",
+	0);
 INSERT INTO O_TFR
 	VALUES ("ba39f4f6-1497-4258-b2db-2e727d34f6d7",
 	"c071aeb3-3cac-4452-b5a4-85cc3711b2bc",
@@ -48,7 +50,8 @@ select one brg related by self->S_BRG[R697];
 return brg.getContainerId();',
 	1,
 	'',
-	"7c38727f-0eb9-4217-936a-464cc7007e83");
+	"7c38727f-0eb9-4217-936a-464cc7007e83",
+	0);
 INSERT INTO O_TFR
 	VALUES ("cba2e04d-8dca-4e5e-9375-a32f9262e599",
 	"c071aeb3-3cac-4452-b5a4-85cc3711b2bc",
@@ -68,7 +71,8 @@ end if;
 return brdgPath;',
 	1,
 	'',
-	"ba39f4f6-1497-4258-b2db-2e727d34f6d7");
+	"ba39f4f6-1497-4258-b2db-2e727d34f6d7",
+	0);
 INSERT INTO O_REF
 	VALUES ("c071aeb3-3cac-4452-b5a4-85cc3711b2bc",
 	"d1c9af7b-9df6-432a-a25e-96cab24fc6af",

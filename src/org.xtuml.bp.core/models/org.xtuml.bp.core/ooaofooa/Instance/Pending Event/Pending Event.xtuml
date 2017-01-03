@@ -139,7 +139,8 @@ end if;
 delete object instance self;',
 	1,
 	'',
-	"134c9927-d936-4e50-8a21-8fef13ede32b");
+	"134c9927-d936-4e50-8a21-8fef13ede32b",
+	0);
 INSERT INTO O_TFR
 	VALUES ("a2a8fb70-ddab-4cdb-bc99-af71ae801ddb",
 	"79496128-07be-4d16-a155-65a1c3441479",
@@ -215,7 +216,8 @@ end if;
 ',
 	1,
 	'',
-	"abe12da5-1530-4881-a18a-482dfc2c89c7");
+	"abe12da5-1530-4881-a18a-482dfc2c89c7",
+	0);
 INSERT INTO O_TFR
 	VALUES ("61deafa3-4bc3-4557-8e57-5a2f86c5ce65",
 	"79496128-07be-4d16-a155-65a1c3441479",
@@ -290,7 +292,8 @@ else
 end if;',
 	1,
 	'',
-	"e3360ee1-6eba-4980-9c11-1a38e654bbc8");
+	"e3360ee1-6eba-4980-9c11-1a38e654bbc8",
+	0);
 INSERT INTO O_TFR
 	VALUES ("e3360ee1-6eba-4980-9c11-1a38e654bbc8",
 	"79496128-07be-4d16-a155-65a1c3441479",
@@ -409,7 +412,8 @@ end if;
 ',
 	1,
 	'',
-	"a2a8fb70-ddab-4cdb-bc99-af71ae801ddb");
+	"a2a8fb70-ddab-4cdb-bc99-af71ae801ddb",
+	0);
 INSERT INTO O_TFR
 	VALUES ("c9004271-98a9-497f-be59-6d72495308ec",
 	"79496128-07be-4d16-a155-65a1c3441479",
@@ -472,7 +476,8 @@ ee.unlockQueue(queue_name:"I_EQE");
                             ',
 	1,
 	'',
-	"998ddaba-2845-49ad-8351-a2266ab8ecbe");
+	"998ddaba-2845-49ad-8351-a2266ab8ecbe",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("36684dca-2ee1-4025-803b-358f3b213d49",
 	"c9004271-98a9-497f-be59-6d72495308ec",
@@ -501,7 +506,8 @@ INSERT INTO O_TFR
 	'return this;',
 	0,
 	'',
-	"61deafa3-4bc3-4557-8e57-5a2f86c5ce65");
+	"61deafa3-4bc3-4557-8e57-5a2f86c5ce65",
+	0);
 INSERT INTO S_DT_PROXY
 	VALUES ("bc3722c8-5188-4529-8519-cf9eb9816b17",
 	"00000000-0000-0000-0000-000000000000",
@@ -579,7 +585,8 @@ end if;
 self.fire();',
 	1,
 	'',
-	"c9004271-98a9-497f-be59-6d72495308ec");
+	"c9004271-98a9-497f-be59-6d72495308ec",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("efa6abe7-37ac-4e4c-b375-43dc0a642f5e",
 	"134c9927-d936-4e50-8a21-8fef13ede32b",
@@ -679,7 +686,8 @@ end for;
 return new_event.Event_ID;',
 	1,
 	'',
-	"00000000-0000-0000-0000-000000000000");
+	"00000000-0000-0000-0000-000000000000",
+	0);
 INSERT INTO O_NBATTR
 	VALUES ("cff65269-f1bb-4153-b4e5-5a68ea6ec78c",
 	"79496128-07be-4d16-a155-65a1c3441479");
@@ -1024,7 +1032,8 @@ select one evt related by self ->SM_EVT[R2906];
     end if;
   end if;
 self.Label = result;',
-	1);
+	1,
+	0);
 INSERT INTO O_BATTR
 	VALUES ("d67cf1ba-79d7-4cd9-a860-9d729697f98a",
 	"79496128-07be-4d16-a155-65a1c3441479");

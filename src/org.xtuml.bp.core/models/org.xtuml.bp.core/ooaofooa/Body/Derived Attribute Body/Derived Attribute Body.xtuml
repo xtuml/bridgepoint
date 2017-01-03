@@ -23,7 +23,8 @@ delete object instance self;
 ',
 	1,
 	'',
-	"00000000-0000-0000-0000-000000000000");
+	"00000000-0000-0000-0000-000000000000",
+	0);
 INSERT INTO O_TFR
 	VALUES ("acc697f5-c802-44ca-9306-335f0f7afacc",
 	"607b3eaf-95a9-4a66-a123-0398a539af90",
@@ -36,7 +37,8 @@ INSERT INTO O_TFR
 return clazz.getContainingComponentId();',
 	1,
 	'',
-	"b71aac37-fb6c-48d4-8ce3-afdf47fd3181");
+	"b71aac37-fb6c-48d4-8ce3-afdf47fd3181",
+	0);
 INSERT INTO O_TFR
 	VALUES ("885fbde1-65e0-4d76-8494-b97f1a509cca",
 	"607b3eaf-95a9-4a66-a123-0398a539af90",
@@ -50,7 +52,8 @@ select one clazz related by self->O_DBATTR[R693]->O_BATTR[R107]->O_ATTR[R106]
 return clazz.getContainerId();',
 	1,
 	'',
-	"acc697f5-c802-44ca-9306-335f0f7afacc");
+	"acc697f5-c802-44ca-9306-335f0f7afacc",
+	0);
 INSERT INTO O_TFR
 	VALUES ("e0939451-1fb0-4125-b6e9-ded99747c60b",
 	"607b3eaf-95a9-4a66-a123-0398a539af90",
@@ -71,7 +74,8 @@ end if;
 return attrPath;',
 	1,
 	'',
-	"885fbde1-65e0-4d76-8494-b97f1a509cca");
+	"885fbde1-65e0-4d76-8494-b97f1a509cca",
+	0);
 INSERT INTO O_REF
 	VALUES ("607b3eaf-95a9-4a66-a123-0398a539af90",
 	"d1c9af7b-9df6-432a-a25e-96cab24fc6af",

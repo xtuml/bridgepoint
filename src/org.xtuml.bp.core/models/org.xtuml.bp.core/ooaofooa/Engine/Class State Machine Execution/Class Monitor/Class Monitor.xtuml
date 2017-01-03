@@ -21,7 +21,8 @@ unrelate exe from cie across R2950 using self;
 delete object instance self;',
 	1,
 	'',
-	"00000000-0000-0000-0000-000000000000");
+	"00000000-0000-0000-0000-000000000000",
+	0);
 INSERT INTO O_REF
 	VALUES ("82fc24e2-9354-449a-832b-038b1f70dd23",
 	"f2bf6a7f-e727-41ab-9daa-0679223b1bb3",

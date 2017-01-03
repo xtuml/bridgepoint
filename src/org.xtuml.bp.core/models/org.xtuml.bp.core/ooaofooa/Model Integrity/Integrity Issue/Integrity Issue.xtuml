@@ -17,7 +17,8 @@ INSERT INTO O_TFR
 	'self.dispose();',
 	1,
 	'',
-	"00000000-0000-0000-0000-000000000000");
+	"00000000-0000-0000-0000-000000000000",
+	0);
 INSERT INTO O_TFR
 	VALUES ("ae4188ae-d83b-47cf-ad80-8ff1f2d087a6",
 	"f5f6d22d-f17b-4748-96dd-f551c64d3055",
@@ -30,7 +31,8 @@ unrelate self from manager across R1300;
 delete object instance self;',
 	1,
 	'',
-	"e0113899-2337-4288-aceb-de93a99caa54");
+	"e0113899-2337-4288-aceb-de93a99caa54",
+	0);
 INSERT INTO O_REF
 	VALUES ("f5f6d22d-f17b-4748-96dd-f551c64d3055",
 	"16fe769a-497a-4e93-be51-481486d49012",

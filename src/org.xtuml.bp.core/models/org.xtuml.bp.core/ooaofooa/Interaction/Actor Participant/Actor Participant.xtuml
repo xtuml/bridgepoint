@@ -18,7 +18,8 @@ INSERT INTO O_TFR
 	'return Style::StickFigure;',
 	1,
 	'',
-	"86ecdb4f-6fb6-431f-b91a-8a4bba3dd464");
+	"86ecdb4f-6fb6-431f-b91a-8a4bba3dd464",
+	0);
 INSERT INTO S_DT_PROXY
 	VALUES ("6e636321-0fd1-4577-b185-e4d76b0d0c71",
 	"00000000-0000-0000-0000-000000000000",
@@ -38,7 +39,8 @@ INSERT INTO O_TFR
 	'return Style::None;',
 	1,
 	'',
-	"a2612061-eabc-4d36-8927-569ad9a96626");
+	"a2612061-eabc-4d36-8927-569ad9a96626",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("a17bb718-4ed4-4598-9a52-8143404aeee0",
 	"66478bc8-7dc3-4b38-9b41-284332a6ee92",
@@ -85,7 +87,8 @@ INSERT INTO O_TFR
 	'return self.Part_ID;',
 	1,
 	'',
-	"4ee17952-0d60-40c1-87e9-62b9eae59a3d");
+	"4ee17952-0d60-40c1-87e9-62b9eae59a3d",
+	0);
 INSERT INTO O_TFR
 	VALUES ("4ee17952-0d60-40c1-87e9-62b9eae59a3d",
 	"aed6bfab-0694-4c62-9765-ce062108bf22",
@@ -96,7 +99,8 @@ INSERT INTO O_TFR
 	'return 1;',
 	1,
 	'',
-	"b87a9992-4f20-4c23-90cd-0d840c42ee01");
+	"b87a9992-4f20-4c23-90cd-0d840c42ee01",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("c6fae188-c128-4052-a336-c607a9099ecd",
 	"4ee17952-0d60-40c1-87e9-62b9eae59a3d",
@@ -120,7 +124,8 @@ else
 end if;',
 	1,
 	'',
-	"f400d7a9-8a0c-438f-a511-783a162af0a0");
+	"f400d7a9-8a0c-438f-a511-783a162af0a0",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("48a056c6-d032-4ba8-bf1b-e0a83a0db547",
 	"a1162a4b-fa9e-4216-9936-93dacd1f763c",
@@ -164,7 +169,8 @@ else
 end if;      ',
 	1,
 	'',
-	"66478bc8-7dc3-4b38-9b41-284332a6ee92");
+	"66478bc8-7dc3-4b38-9b41-284332a6ee92",
+	0);
 INSERT INTO O_TFR
 	VALUES ("b87a9992-4f20-4c23-90cd-0d840c42ee01",
 	"aed6bfab-0694-4c62-9765-ce062108bf22",
@@ -175,7 +181,8 @@ INSERT INTO O_TFR
 	'return 2;',
 	1,
 	'',
-	"a1162a4b-fa9e-4216-9936-93dacd1f763c");
+	"a1162a4b-fa9e-4216-9936-93dacd1f763c",
+	0);
 INSERT INTO O_TFR
 	VALUES ("f400d7a9-8a0c-438f-a511-783a162af0a0",
 	"aed6bfab-0694-4c62-9765-ce062108bf22",
@@ -198,7 +205,8 @@ else
 end if;',
 	1,
 	'',
-	"00000000-0000-0000-0000-000000000000");
+	"00000000-0000-0000-0000-000000000000",
+	0);
 INSERT INTO O_TFR
 	VALUES ("f5421801-9eda-4303-8ef4-6e842fb9b12d",
 	"aed6bfab-0694-4c62-9765-ce062108bf22",
@@ -212,7 +220,8 @@ Translate: native',
 	'return this;',
 	0,
 	'',
-	"dd8f9ed4-836a-4ab3-a8ef-002edf5cacc5");
+	"dd8f9ed4-836a-4ab3-a8ef-002edf5cacc5",
+	0);
 INSERT INTO S_DT_PROXY
 	VALUES ("bc3722c8-5188-4529-8519-cf9eb9816b17",
 	"00000000-0000-0000-0000-000000000000",

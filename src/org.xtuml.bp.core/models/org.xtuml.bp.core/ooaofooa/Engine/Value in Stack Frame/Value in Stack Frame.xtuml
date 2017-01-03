@@ -33,7 +33,8 @@ end if;
 delete object instance self;',
 	1,
 	'',
-	"473ff5de-af1f-466c-8fe4-660d9a30aa57");
+	"473ff5de-af1f-466c-8fe4-660d9a30aa57",
+	0);
 INSERT INTO O_TFR
 	VALUES ("473ff5de-af1f-466c-8fe4-660d9a30aa57",
 	"4fc323f9-e406-4f83-92ff-7c8c5186cd0d",
@@ -99,7 +100,8 @@ end if;
 return rtVal.getValue();',
 	1,
 	'',
-	"00000000-0000-0000-0000-000000000000");
+	"00000000-0000-0000-0000-000000000000",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("ed1d83cd-7b97-4e4e-88ef-6e25336f51a4",
 	"473ff5de-af1f-466c-8fe4-660d9a30aa57",

@@ -21,7 +21,8 @@ end if;
 delete object instance self;',
 	1,
 	'',
-	"00000000-0000-0000-0000-000000000000");
+	"00000000-0000-0000-0000-000000000000",
+	0);
 INSERT INTO O_TFR
 	VALUES ("5babfa09-50dc-49a7-934c-712eaea3d5e0",
 	"1cf05e22-86a7-426b-b03f-4bbe22dd579d",
@@ -33,7 +34,8 @@ INSERT INTO O_TFR
 return requiredOp.getComponentId();',
 	1,
 	'',
-	"4dff92e9-80c4-4158-b1da-6860ba71837c");
+	"4dff92e9-80c4-4158-b1da-6860ba71837c",
+	0);
 INSERT INTO O_TFR
 	VALUES ("6da63bb3-abed-4d45-b5e1-e9962326402d",
 	"1cf05e22-86a7-426b-b03f-4bbe22dd579d",
@@ -46,7 +48,8 @@ select one requiredOp related by self->SPR_RO[R685];
 return requiredOp.getComponentId();',
 	1,
 	'',
-	"5babfa09-50dc-49a7-934c-712eaea3d5e0");
+	"5babfa09-50dc-49a7-934c-712eaea3d5e0",
+	0);
 INSERT INTO O_TFR
 	VALUES ("15844c50-df5c-4342-859a-71d7d0494db2",
 	"1cf05e22-86a7-426b-b03f-4bbe22dd579d",
@@ -65,7 +68,8 @@ end if;
 return requiredOpPath;',
 	1,
 	'',
-	"6da63bb3-abed-4d45-b5e1-e9962326402d");
+	"6da63bb3-abed-4d45-b5e1-e9962326402d",
+	0);
 INSERT INTO O_REF
 	VALUES ("1cf05e22-86a7-426b-b03f-4bbe22dd579d",
 	"d1c9af7b-9df6-432a-a25e-96cab24fc6af",

@@ -52,7 +52,8 @@ end if;
 delete object instance self;',
 	1,
 	'',
-	"00000000-0000-0000-0000-000000000000");
+	"00000000-0000-0000-0000-000000000000",
+	0);
 INSERT INTO O_TFR
 	VALUES ("754de6e0-97e7-42b0-b408-b22baa35c10f",
 	"f2bf6a7f-e727-41ab-9daa-0679223b1bb3",
@@ -273,7 +274,8 @@ end if;
 exEng.unlockQueue(queue_name:"I_EQE");',
 	1,
 	'',
-	"9c02e492-b398-4ad7-b411-db997e87519c");
+	"9c02e492-b398-4ad7-b411-db997e87519c",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("0c02781d-71b2-4eb3-9515-4831c8db72ff",
 	"754de6e0-97e7-42b0-b408-b22baa35c10f",
@@ -329,7 +331,8 @@ if (not_empty csm)
 end if;',
 	1,
 	'',
-	"d11c5cf4-a5e4-4fca-aa89-6103ef485153");
+	"d11c5cf4-a5e4-4fca-aa89-6103ef485153",
+	0);
 INSERT INTO O_TFR
 	VALUES ("48a3d7bb-68af-44d4-b890-a83ff481ec09",
 	"f2bf6a7f-e727-41ab-9daa-0679223b1bb3",
@@ -391,7 +394,8 @@ else
 end if;',
 	1,
 	'',
-	"754de6e0-97e7-42b0-b408-b22baa35c10f");
+	"754de6e0-97e7-42b0-b408-b22baa35c10f",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("ed58d403-958b-474c-973d-62cdabff1f34",
 	"48a3d7bb-68af-44d4-b890-a83ff481ec09",
@@ -432,7 +436,8 @@ if (not_empty stack)
 end if;',
 	1,
 	'',
-	"143bea21-35f3-44cd-8008-a90878ba6d66");
+	"143bea21-35f3-44cd-8008-a90878ba6d66",
+	0);
 INSERT INTO O_TFR
 	VALUES ("9c02e492-b398-4ad7-b411-db997e87519c",
 	"f2bf6a7f-e727-41ab-9daa-0679223b1bb3",
@@ -455,7 +460,8 @@ if (not_empty stack)
 end if;',
 	1,
 	'',
-	"e38ce827-32e8-4041-9ca4-3475a3327d81");
+	"e38ce827-32e8-4041-9ca4-3475a3327d81",
+	0);
 INSERT INTO O_TFR
 	VALUES ("788707be-8f75-4001-9e88-85209ff6c02b",
 	"f2bf6a7f-e727-41ab-9daa-0679223b1bb3",
@@ -468,7 +474,8 @@ select one pkg related by self->EP_PKG[R2971];
 return not_empty pkg;',
 	1,
 	'',
-	"48a3d7bb-68af-44d4-b890-a83ff481ec09");
+	"48a3d7bb-68af-44d4-b890-a83ff481ec09",
+	0);
 INSERT INTO O_NBATTR
 	VALUES ("ab96f30b-1d4f-46d4-b23c-215ddd08a110",
 	"f2bf6a7f-e727-41ab-9daa-0679223b1bb3");
@@ -496,7 +503,8 @@ if(not_empty clazz)
   result = clazz.Name;
 end if;
 self.Label = result;',
-	1);
+	1,
+	0);
 INSERT INTO O_BATTR
 	VALUES ("07c031bf-9145-443c-8f9e-c725b4ae3426",
 	"f2bf6a7f-e727-41ab-9daa-0679223b1bb3");

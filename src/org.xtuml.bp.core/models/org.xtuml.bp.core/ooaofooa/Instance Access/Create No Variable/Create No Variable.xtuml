@@ -25,7 +25,8 @@ delete object instance self;
 ',
 	1,
 	'',
-	"00000000-0000-0000-0000-000000000000");
+	"00000000-0000-0000-0000-000000000000",
+	0);
 INSERT INTO O_TFR
 	VALUES ("e31dcdcb-b8ab-423f-8cf9-f231a11be296",
 	"eea2b705-158b-4305-9014-5204773739c5",
@@ -53,7 +54,8 @@ relate newInst to ee across R2957;
 newInst.initialize(initializeState:true);',
 	1,
 	'',
-	"fb9dc176-dc88-492e-b961-f350f703b8b3");
+	"fb9dc176-dc88-492e-b961-f350f703b8b3",
+	0);
 INSERT INTO O_REF
 	VALUES ("eea2b705-158b-4305-9014-5204773739c5",
 	"e9011b75-e798-45a3-ac83-92ba7c04db4e",

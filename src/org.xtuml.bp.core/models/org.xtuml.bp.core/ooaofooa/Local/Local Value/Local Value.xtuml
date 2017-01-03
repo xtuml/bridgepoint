@@ -39,7 +39,8 @@ end if;
 delete object instance self;',
 	1,
 	'',
-	"00000000-0000-0000-0000-000000000000");
+	"00000000-0000-0000-0000-000000000000",
+	0);
 INSERT INTO O_TFR
 	VALUES ("f985d61f-0b64-4fa5-9c04-645b63080381",
 	"550ab42f-edbf-451b-80b2-11fd061bfe9a",
@@ -56,7 +57,8 @@ end if;
 ',
 	1,
 	'',
-	"7b4527d0-4959-4fa0-ad5c-8087fc8f2d98");
+	"7b4527d0-4959-4fa0-ad5c-8087fc8f2d98",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("e4554162-711c-409b-a3ef-8ebd99445cf1",
 	"f985d61f-0b64-4fa5-9c04-645b63080381",
@@ -82,7 +84,8 @@ end if;
 ',
 	1,
 	'',
-	"f985d61f-0b64-4fa5-9c04-645b63080381");
+	"f985d61f-0b64-4fa5-9c04-645b63080381",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("c58794ab-9327-443a-8278-2ec4912aaf58",
 	"5895c922-a150-420b-b883-1bdef6dfd759",
@@ -108,7 +111,8 @@ end if;
 ',
 	1,
 	'',
-	"9c672349-bb64-44d2-b63d-12927e3c7d7f");
+	"9c672349-bb64-44d2-b63d-12927e3c7d7f",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("4a01a571-d4f8-4857-a0de-aa140edc1b09",
 	"9ae197c0-5a5d-47fe-a177-7b3cdd5ef100",
@@ -134,7 +138,8 @@ end if;
 ',
 	1,
 	'',
-	"5895c922-a150-420b-b883-1bdef6dfd759");
+	"5895c922-a150-420b-b883-1bdef6dfd759",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("efacef7a-e0c2-4e27-9b18-73e8a85b36ad",
 	"9c672349-bb64-44d2-b63d-12927e3c7d7f",
@@ -160,7 +165,8 @@ end if;
 ',
 	1,
 	'',
-	"9ae197c0-5a5d-47fe-a177-7b3cdd5ef100");
+	"9ae197c0-5a5d-47fe-a177-7b3cdd5ef100",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("d9ea5d2d-2f2b-4faf-880a-41b0d39e838a",
 	"00cd816f-c102-48a9-a48d-c02d90bb8c6d",
@@ -233,7 +239,8 @@ end if;
 return val.getValue(stack_frame_id: sf_id);',
 	1,
 	'',
-	"25f8bd44-d73b-4cd6-8c74-5c2bd23877c4");
+	"25f8bd44-d73b-4cd6-8c74-5c2bd23877c4",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("a4c75552-6584-458f-926e-ccc7b742ad14",
 	"7b4527d0-4959-4fa0-ad5c-8087fc8f2d98",
@@ -338,7 +345,8 @@ val.setValue(stack_frame_id: sf_id, value: param.value,
 ',
 	1,
 	'',
-	"00cd816f-c102-48a9-a48d-c02d90bb8c6d");
+	"00cd816f-c102-48a9-a48d-c02d90bb8c6d",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("23afa4f7-877d-4716-a307-caf63971ab59",
 	"9ee67f55-3e36-461e-83d3-df2c3c98f62d",
@@ -429,7 +437,8 @@ end if;
 return val.getRuntimeValue(stack_frame_id: sf_id);',
 	1,
 	'',
-	"826e73e7-5b89-424e-9ec4-6226ce018852");
+	"826e73e7-5b89-424e-9ec4-6226ce018852",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("0b74a3dc-9402-4db1-9797-d93135960501",
 	"25f8bd44-d73b-4cd6-8c74-5c2bd23877c4",

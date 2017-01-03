@@ -20,7 +20,8 @@ select one edt related by enum->S_EDT[R27]->S_DT[R17];
 return GD::string_to_instance(value:edt.Name + "::" + enum.Name);',
 	1,
 	'',
-	"00000000-0000-0000-0000-000000000000");
+	"00000000-0000-0000-0000-000000000000",
+	0);
 INSERT INTO S_DT_PROXY
 	VALUES ("bc3722c8-5188-4529-8519-cf9eb9816b17",
 	"00000000-0000-0000-0000-000000000000",

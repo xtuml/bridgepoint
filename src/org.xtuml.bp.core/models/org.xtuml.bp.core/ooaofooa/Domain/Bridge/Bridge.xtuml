@@ -60,7 +60,8 @@ end for;
 delete object instance self;',
 	1,
 	'',
-	"16f12a2e-c315-4cf9-ad4c-de974a66233b");
+	"16f12a2e-c315-4cf9-ad4c-de974a66233b",
+	0);
 INSERT INTO O_TFR
 	VALUES ("d1de5937-f13e-49ed-b8be-e824ba188127",
 	"47a1eb94-2620-4ecd-85d3-29f76391509f",
@@ -84,7 +85,8 @@ self.Suc_Pars = ParseStatus::parseInitial;
 ',
 	1,
 	'',
-	"b4f06b4d-d54f-4dab-9a54-9ee4ae6dfd27");
+	"b4f06b4d-d54f-4dab-9a54-9ee4ae6dfd27",
+	0);
 INSERT INTO O_TFR
 	VALUES ("92f921dc-1abb-41a5-a5d6-36c93ccbd17e",
 	"47a1eb94-2620-4ecd-85d3-29f76391509f",
@@ -99,7 +101,8 @@ self.createMessageArgumentsForParameter(id:bparm.BParm_ID);
 ',
 	1,
 	'',
-	"c9f2219c-dcfa-457c-9a84-8b75cfac0c74");
+	"c9f2219c-dcfa-457c-9a84-8b75cfac0c74",
+	0);
 INSERT INTO O_TFR
 	VALUES ("0962cab9-5e0b-4d9c-a41c-4b9c77ce7200",
 	"47a1eb94-2620-4ecd-85d3-29f76391509f",
@@ -120,7 +123,8 @@ select one packageableElem related by self->S_EE[R19]->PE_PE[R8001];
 ',
 	1,
 	'',
-	"4344defa-1993-42dc-bc0d-3b9c9b072f22");
+	"4344defa-1993-42dc-bc0d-3b9c9b072f22",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("abcf4ca5-0a8a-4342-9719-2f30dd83d8b4",
 	"0962cab9-5e0b-4d9c-a41c-4b9c77ce7200",
@@ -144,7 +148,8 @@ Translate: native',
 return this;',
 	0,
 	'',
-	"90d78cdb-2d3a-4712-b5f2-ebb207ab3004");
+	"90d78cdb-2d3a-4712-b5f2-ebb207ab3004",
+	0);
 INSERT INTO S_DT_PROXY
 	VALUES ("bc3722c8-5188-4529-8519-cf9eb9816b17",
 	"00000000-0000-0000-0000-000000000000",
@@ -162,7 +167,8 @@ INSERT INTO O_TFR
 	'return self.Brg_ID;',
 	1,
 	'',
-	"fc3ed89d-63a7-4bd0-850e-13da70b7c8f3");
+	"fc3ed89d-63a7-4bd0-850e-13da70b7c8f3",
+	0);
 INSERT INTO O_TFR
 	VALUES ("2536f60c-236b-450a-8657-b2ea4c50008c",
 	"47a1eb94-2620-4ecd-85d3-29f76391509f",
@@ -193,7 +199,8 @@ if(not_empty dtProxy and not Util::isProxy(element:self.convertToInstance()))
 end if;',
 	1,
 	'',
-	"1d245940-7d9d-463b-873a-c82f11e1c32f");
+	"1d245940-7d9d-463b-873a-c82f11e1c32f",
+	0);
 INSERT INTO O_TFR
 	VALUES ("c9f2219c-dcfa-457c-9a84-8b75cfac0c74",
 	"47a1eb94-2620-4ecd-85d3-29f76391509f",
@@ -205,7 +212,8 @@ INSERT INTO O_TFR
 return dt.Name == "void";',
 	1,
 	'',
-	"ab20ff45-30e3-4181-8443-550574ed61cd");
+	"ab20ff45-30e3-4181-8443-550574ed61cd",
+	0);
 INSERT INTO O_TFR
 	VALUES ("fc3ed89d-63a7-4bd0-850e-13da70b7c8f3",
 	"47a1eb94-2620-4ecd-85d3-29f76391509f",
@@ -219,7 +227,8 @@ return dimensions;
 ',
 	1,
 	'',
-	"9eb42efd-1991-4305-9309-3f1b4a054502");
+	"9eb42efd-1991-4305-9309-3f1b4a054502",
+	0);
 INSERT INTO O_TFR
 	VALUES ("1d245940-7d9d-463b-873a-c82f11e1c32f",
 	"47a1eb94-2620-4ecd-85d3-29f76391509f",
@@ -251,7 +260,8 @@ if (param.numDimensions > 0)
 end if; ',
 	1,
 	'',
-	"92f921dc-1abb-41a5-a5d6-36c93ccbd17e");
+	"92f921dc-1abb-41a5-a5d6-36c93ccbd17e",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("4117335c-5b5d-4f45-918c-979acc955216",
 	"1d245940-7d9d-463b-873a-c82f11e1c32f",
@@ -348,7 +358,8 @@ if (cardinality peers > 1)
 end if;',
 	1,
 	'',
-	"d1de5937-f13e-49ed-b8be-e824ba188127");
+	"d1de5937-f13e-49ed-b8be-e824ba188127",
+	0);
 INSERT INTO O_TFR
 	VALUES ("90d78cdb-2d3a-4712-b5f2-ebb207ab3004",
 	"47a1eb94-2620-4ecd-85d3-29f76391509f",
@@ -369,7 +380,8 @@ return false;
 ',
 	1,
 	'',
-	"00000000-0000-0000-0000-000000000000");
+	"00000000-0000-0000-0000-000000000000",
+	0);
 INSERT INTO O_TFR
 	VALUES ("ab20ff45-30e3-4181-8443-550574ed61cd",
 	"47a1eb94-2620-4ecd-85d3-29f76391509f",
@@ -386,7 +398,8 @@ return false;
 ',
 	1,
 	'',
-	"0962cab9-5e0b-4d9c-a41c-4b9c77ce7200");
+	"0962cab9-5e0b-4d9c-a41c-4b9c77ce7200",
+	0);
 INSERT INTO O_TFR
 	VALUES ("90d1836c-740f-4727-ac49-f553326c8c49",
 	"47a1eb94-2620-4ecd-85d3-29f76391509f",
@@ -399,7 +412,8 @@ return ee.getContainingComponentId();
 ',
 	1,
 	'',
-	"2536f60c-236b-450a-8657-b2ea4c50008c");
+	"2536f60c-236b-450a-8657-b2ea4c50008c",
+	0);
 INSERT INTO O_TFR
 	VALUES ("153a923c-0f70-450b-a793-60c12077f275",
 	"47a1eb94-2620-4ecd-85d3-29f76391509f",
@@ -433,7 +447,8 @@ select one component related by packageableElem->C_C[R8003];
 ',
 	1,
 	'',
-	"90d1836c-740f-4727-ac49-f553326c8c49");
+	"90d1836c-740f-4727-ac49-f553326c8c49",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("5a764669-cc9e-46bc-b188-5a24b6338bcf",
 	"153a923c-0f70-450b-a793-60c12077f275",
@@ -455,7 +470,8 @@ select one ee related by self->S_EE[R19];
 return ee.getContainerId();',
 	1,
 	'',
-	"153a923c-0f70-450b-a793-60c12077f275");
+	"153a923c-0f70-450b-a793-60c12077f275",
+	0);
 INSERT INTO O_TFR
 	VALUES ("cabeb45c-8a95-4d86-8363-422c9d675744",
 	"47a1eb94-2620-4ecd-85d3-29f76391509f",
@@ -479,7 +495,8 @@ if(not_empty parameter)
 end if;',
 	1,
 	'',
-	"accc4bad-691d-4e71-8ab7-a464ee614aca");
+	"accc4bad-691d-4e71-8ab7-a464ee614aca",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("08300ce6-b5ee-4b93-bbc4-5d380b14042d",
 	"cabeb45c-8a95-4d86-8363-422c9d675744",
@@ -512,7 +529,8 @@ if(not_empty parameter)
 end if;',
 	1,
 	'',
-	"cabeb45c-8a95-4d86-8363-422c9d675744");
+	"cabeb45c-8a95-4d86-8363-422c9d675744",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("d2f24784-29c0-416d-8455-59367be85522",
 	"9690f515-58a6-417b-a790-fda4b9fac5b4",
@@ -547,7 +565,8 @@ end if;
 ',
 	1,
 	'',
-	"9690f515-58a6-417b-a790-fda4b9fac5b4");
+	"9690f515-58a6-417b-a790-fda4b9fac5b4",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("98d9ec89-3a5e-4ef9-8be0-412a29b23e9f",
 	"b12e3e4b-7b51-4279-8a0e-d6262af6a5ee",
@@ -588,7 +607,8 @@ for each brg in bridges
 end for;',
 	1,
 	'',
-	"b12e3e4b-7b51-4279-8a0e-d6262af6a5ee");
+	"b12e3e4b-7b51-4279-8a0e-d6262af6a5ee",
+	0);
 INSERT INTO O_TFR
 	VALUES ("683e2b72-4be1-4c1b-ae03-dbffe2cb5112",
 	"47a1eb94-2620-4ecd-85d3-29f76391509f",
@@ -684,7 +704,8 @@ end if;
 return signature;',
 	1,
 	'',
-	"3a6520c0-ab28-4e05-9723-762bd4e7eb45");
+	"3a6520c0-ab28-4e05-9723-762bd4e7eb45",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("c56900f6-362c-4ec8-a943-b2b2bf5096ac",
 	"683e2b72-4be1-4c1b-ae03-dbffe2cb5112",
@@ -724,7 +745,8 @@ end if;
 ',
 	1,
 	'',
-	"683e2b72-4be1-4c1b-ae03-dbffe2cb5112");
+	"683e2b72-4be1-4c1b-ae03-dbffe2cb5112",
+	0);
 INSERT INTO O_TFR
 	VALUES ("d0c5e5bf-a736-4275-9fc3-0bc03e202351",
 	"47a1eb94-2620-4ecd-85d3-29f76391509f",
@@ -746,7 +768,8 @@ for each s_bparm in s_bparms
 end for;',
 	1,
 	'',
-	"280a6408-f262-4655-a1a5-a3ab08daff80");
+	"280a6408-f262-4655-a1a5-a3ab08daff80",
+	0);
 INSERT INTO O_NBATTR
 	VALUES ("eab964fb-80ce-4810-ba03-8a871dfc6923",
 	"47a1eb94-2620-4ecd-85d3-29f76391509f");
@@ -832,7 +855,8 @@ INSERT INTO O_DBATTR
 	"47a1eb94-2620-4ecd-85d3-29f76391509f",
 	'self.Action_Semantics = ::convertRelocatableTags(in:self.Action_Semantics_internal);
 ',
-	1);
+	1,
+	0);
 INSERT INTO O_BATTR
 	VALUES ("5732d44f-367f-4a7b-a930-be9267712d4a",
 	"47a1eb94-2620-4ecd-85d3-29f76391509f");

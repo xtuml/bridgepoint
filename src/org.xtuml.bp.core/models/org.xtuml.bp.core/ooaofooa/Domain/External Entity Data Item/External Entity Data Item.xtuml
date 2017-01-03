@@ -21,7 +21,8 @@ unrelate self from ee across R11;
 delete object instance self;',
 	1,
 	'',
-	"00000000-0000-0000-0000-000000000000");
+	"00000000-0000-0000-0000-000000000000",
+	0);
 INSERT INTO O_TFR
 	VALUES ("f4fcc00a-a92c-4f45-9078-cb16663cd916",
 	"a88f50c7-5695-415c-a7b8-24466cfb1378",
@@ -36,7 +37,8 @@ Translate: native',
 return this;',
 	0,
 	'',
-	"20b23a2b-654e-4ba9-9d3b-557971d7052e");
+	"20b23a2b-654e-4ba9-9d3b-557971d7052e",
+	0);
 INSERT INTO S_DT_PROXY
 	VALUES ("bc3722c8-5188-4529-8519-cf9eb9816b17",
 	"00000000-0000-0000-0000-000000000000",
@@ -74,7 +76,8 @@ end if;
 ',
 	1,
 	'',
-	"fa9f53f3-92e6-4092-8e0a-8a89ac86a3e1");
+	"fa9f53f3-92e6-4092-8e0a-8a89ac86a3e1",
+	0);
 INSERT INTO O_TFR
 	VALUES ("3cb384cf-e2f1-4249-824f-7a3682175e0d",
 	"a88f50c7-5695-415c-a7b8-24466cfb1378",
@@ -91,7 +94,8 @@ end if;
 ',
 	1,
 	'',
-	"a805a595-833e-4161-90ee-0b00160b90a1");
+	"a805a595-833e-4161-90ee-0b00160b90a1",
+	0);
 INSERT INTO O_TFR
 	VALUES ("fa9f53f3-92e6-4092-8e0a-8a89ac86a3e1",
 	"a88f50c7-5695-415c-a7b8-24466cfb1378",
@@ -108,7 +112,8 @@ return false;
 ',
 	1,
 	'',
-	"f4fcc00a-a92c-4f45-9078-cb16663cd916");
+	"f4fcc00a-a92c-4f45-9078-cb16663cd916",
+	0);
 INSERT INTO O_NBATTR
 	VALUES ("dcda0fda-3da4-4f8f-82a1-9875221507a7",
 	"a88f50c7-5695-415c-a7b8-24466cfb1378");

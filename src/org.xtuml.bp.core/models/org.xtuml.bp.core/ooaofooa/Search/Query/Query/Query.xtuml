@@ -25,7 +25,8 @@ return false;
 ',
 	1,
 	'',
-	"00000000-0000-0000-0000-000000000000");
+	"00000000-0000-0000-0000-000000000000",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("1fdcfb70-f805-4e7b-9aa1-a722377564b9",
 	"523dbac0-311e-4f1c-8e86-a04a8b68f80d",
@@ -68,7 +69,8 @@ query.scope = param.scope;
 return query.Id;',
 	1,
 	'',
-	"523dbac0-311e-4f1c-8e86-a04a8b68f80d");
+	"523dbac0-311e-4f1c-8e86-a04a8b68f80d",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("2b8582ff-c59a-48d8-b7b4-244c06324d06",
 	"fd4533f1-1cc2-445a-a952-4b13abc67267",
@@ -138,7 +140,8 @@ query.scope = param.scope;
 return query.Id;',
 	1,
 	'',
-	"fd4533f1-1cc2-445a-a952-4b13abc67267");
+	"fd4533f1-1cc2-445a-a952-4b13abc67267",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("a0486c57-7956-44df-8b9f-e00bca34d9f2",
 	"1cd91bd3-e9a0-4acc-81ec-a36fcee45dc9",
@@ -198,7 +201,8 @@ query.scope = param.scope;
 return query.Id;',
 	1,
 	'',
-	"1cd91bd3-e9a0-4acc-81ec-a36fcee45dc9");
+	"1cd91bd3-e9a0-4acc-81ec-a36fcee45dc9",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("55d6bc6c-0674-4f94-91c6-97cf66558048",
 	"8a30802c-1128-4fc9-9b78-0f058a51a095",
@@ -258,7 +262,8 @@ query.scope = param.scope;
 return query.Id;',
 	1,
 	'',
-	"8a30802c-1128-4fc9-9b78-0f058a51a095");
+	"8a30802c-1128-4fc9-9b78-0f058a51a095",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("3b852270-47b0-48f2-b884-6c6f81c501d1",
 	"550467cc-4db9-4892-8702-f1d5c4726678",
@@ -314,7 +319,8 @@ if(not_empty descriptionQuery)
 end if;',
 	1,
 	'',
-	"550467cc-4db9-4892-8702-f1d5c4726678");
+	"550467cc-4db9-4892-8702-f1d5c4726678",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("78ad41e8-51a7-4a9e-ae0e-d92efb7bd6ed",
 	"3ef2b69f-2a44-4ba3-9540-e555beba3e45",
@@ -358,7 +364,8 @@ end if;
 delete object instance self;',
 	1,
 	'',
-	"3ef2b69f-2a44-4ba3-9540-e555beba3e45");
+	"3ef2b69f-2a44-4ba3-9540-e555beba3e45",
+	0);
 INSERT INTO O_TFR
 	VALUES ("658db895-a8eb-4775-a805-54eb507a2cf4",
 	"525a6deb-951f-4843-80a5-6ec89e5ff969",
@@ -380,7 +387,8 @@ if(not_empty descriptionQuery)
 end if;',
 	1,
 	'',
-	"fcd9a116-744b-4cf5-b965-080348008729");
+	"fcd9a116-744b-4cf5-b965-080348008729",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("fd5391e3-874e-4d97-bb56-711dc3287807",
 	"658db895-a8eb-4775-a805-54eb507a2cf4",
@@ -428,7 +436,8 @@ INSERT INTO O_TFR
 Search::configureScope(scope:param.scope, monitor:param.monitor);',
 	1,
 	'',
-	"658db895-a8eb-4775-a805-54eb507a2cf4");
+	"658db895-a8eb-4775-a805-54eb507a2cf4",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("78abeee4-e67e-4542-8408-7df4d888dbd8",
 	"c5e2cc05-9fbe-4575-9ff6-fc99153425d0",

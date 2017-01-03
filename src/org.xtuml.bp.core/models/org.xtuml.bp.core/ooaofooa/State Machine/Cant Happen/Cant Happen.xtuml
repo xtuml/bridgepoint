@@ -17,7 +17,8 @@ INSERT INTO O_TFR
 	'	return "Can''t Happen";',
 	0,
 	'',
-	"00000000-0000-0000-0000-000000000000");
+	"00000000-0000-0000-0000-000000000000",
+	0);
 INSERT INTO O_TFR
 	VALUES ("00aa1713-8cfd-4104-89c1-6506980fb0ac",
 	"ab57f344-d58b-4009-9047-a060915f01bf",
@@ -32,7 +33,8 @@ end if;
 delete object instance self;',
 	1,
 	'',
-	"51ec85f6-1c2f-47a4-acac-0f94ff413e08");
+	"51ec85f6-1c2f-47a4-acac-0f94ff413e08",
+	0);
 INSERT INTO O_TFR
 	VALUES ("7cc9804c-04e8-4c59-ab15-be5c8e4a8406",
 	"ab57f344-d58b-4009-9047-a060915f01bf",
@@ -57,7 +59,8 @@ end if;
 ',
 	1,
 	'',
-	"00aa1713-8cfd-4104-89c1-6506980fb0ac");
+	"00aa1713-8cfd-4104-89c1-6506980fb0ac",
+	0);
 INSERT INTO O_REF
 	VALUES ("ab57f344-d58b-4009-9047-a060915f01bf",
 	"dec48676-c96c-4395-bf7a-050a1058da7a",

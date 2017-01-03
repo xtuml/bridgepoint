@@ -28,7 +28,8 @@ INSERT INTO O_TFR
 end if;',
 	1,
 	'',
-	"4c656f6c-9665-40c4-a63d-cf060a3e8cef");
+	"4c656f6c-9665-40c4-a63d-cf060a3e8cef",
+	0);
 INSERT INTO O_TFR
 	VALUES ("12f6ae2d-3c4d-4ba5-8456-ef7abdab5803",
 	"d3bdf15f-16b7-40c7-a34f-e8b92091139d",
@@ -56,7 +57,8 @@ if (self.recurring == false)
 end if;',
 	1,
 	'',
-	"44d41992-37ed-4313-b1a7-44b70ea00d91");
+	"44d41992-37ed-4313-b1a7-44b70ea00d91",
+	0);
 INSERT INTO O_TFR
 	VALUES ("44d41992-37ed-4313-b1a7-44b70ea00d91",
 	"d3bdf15f-16b7-40c7-a34f-e8b92091139d",
@@ -81,7 +83,8 @@ delete object instance self;
 return result;',
 	1,
 	'',
-	"00000000-0000-0000-0000-000000000000");
+	"00000000-0000-0000-0000-000000000000",
+	0);
 INSERT INTO O_TFR
 	VALUES ("4c656f6c-9665-40c4-a63d-cf060a3e8cef",
 	"d3bdf15f-16b7-40c7-a34f-e8b92091139d",
@@ -95,7 +98,8 @@ self.delay = param.delay;
 self.expiration = Util::addIntToLong(longVar:self.currentTime(), intVar:self.delay);',
 	1,
 	'',
-	"12f6ae2d-3c4d-4ba5-8456-ef7abdab5803");
+	"12f6ae2d-3c4d-4ba5-8456-ef7abdab5803",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("8283b821-8ab3-4e17-b703-fa6969552548",
 	"4c656f6c-9665-40c4-a63d-cf060a3e8cef",
@@ -115,7 +119,8 @@ INSERT INTO O_TFR
 	'return lib.TIM.getCurrentTime();',
 	0,
 	'',
-	"ebe5be81-7e5e-4f59-aba1-df328eeddeac");
+	"ebe5be81-7e5e-4f59-aba1-df328eeddeac",
+	0);
 INSERT INTO S_DT_PROXY
 	VALUES ("f0e53f72-2765-4257-ae4c-e44680e63219",
 	"00000000-0000-0000-0000-000000000000",
@@ -133,7 +138,8 @@ INSERT INTO O_TFR
 	'lib.TIM.removeTimer(this);',
 	0,
 	'',
-	"88f3c2ef-bac3-4cbd-a7a5-c30cb8b770e1");
+	"88f3c2ef-bac3-4cbd-a7a5-c30cb8b770e1",
+	0);
 INSERT INTO O_TFR
 	VALUES ("b0662693-63a2-4723-b1da-7cc6dcb139c9",
 	"d3bdf15f-16b7-40c7-a34f-e8b92091139d",
@@ -149,7 +155,8 @@ lib.TIM.insertTimer(this, ee);
 ',
 	0,
 	'',
-	"85726d06-1aa3-4470-82c8-6e8edee6a79f");
+	"85726d06-1aa3-4470-82c8-6e8edee6a79f",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("d6cfc24d-06be-44b7-ba2b-f3d1cf08b5b2",
 	"b0662693-63a2-4723-b1da-7cc6dcb139c9",
@@ -294,7 +301,8 @@ else
   result = result + ", " + evt.Label;
 end if;
 self.Label = result;',
-	1);
+	1,
+	0);
 INSERT INTO O_BATTR
 	VALUES ("321d1992-0a0e-4cef-bb65-84c1f0820090",
 	"d3bdf15f-16b7-40c7-a34f-e8b92091139d");
