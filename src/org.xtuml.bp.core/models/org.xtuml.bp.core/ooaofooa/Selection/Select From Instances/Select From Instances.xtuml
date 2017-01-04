@@ -32,7 +32,8 @@ delete object instance self;
 ',
 	1,
 	'',
-	"00000000-0000-0000-0000-000000000000");
+	"00000000-0000-0000-0000-000000000000",
+	0);
 INSERT INTO O_TFR
 	VALUES ("7c82daff-6602-4e16-a925-813460efebd9",
 	"89fa6f15-b93c-405a-821d-a7b066b3c937",
@@ -167,7 +168,8 @@ else  // Cardinality is either any or one
 end if;',
 	1,
 	'',
-	"90610fa2-6fb3-4b5e-af1d-8b2216633362");
+	"90610fa2-6fb3-4b5e-af1d-8b2216633362",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("4c3984d3-7a21-498d-beaa-20b12d077cb0",
 	"7c82daff-6602-4e16-a925-813460efebd9",

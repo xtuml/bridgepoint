@@ -20,7 +20,8 @@ select one query related by self->SQU_Q[R9600];
 Search::gatherParticipants(queryId:query.Id, monitor:param.monitor);',
 	1,
 	'',
-	"00000000-0000-0000-0000-000000000000");
+	"00000000-0000-0000-0000-000000000000",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("2a7594c9-c87f-40b1-b4d1-1e4973a6d097",
 	"01257b99-5596-4dad-9fea-a428b696f643",
@@ -57,7 +58,8 @@ select one engine related by self->SQU_Q[R9600]->SEN_E[R9500];
 relate engine to participant across R9502;',
 	1,
 	'',
-	"01257b99-5596-4dad-9fea-a428b696f643");
+	"01257b99-5596-4dad-9fea-a428b696f643",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("fdf7a798-a90f-450d-836a-f7e816dbe1db",
 	"daafefe8-a1db-401a-8e50-97f1f92d175b",

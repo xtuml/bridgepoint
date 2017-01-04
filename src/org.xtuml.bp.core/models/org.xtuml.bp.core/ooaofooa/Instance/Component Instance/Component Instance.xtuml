@@ -23,7 +23,8 @@ if(not_empty stack)
 end if;',
 	1,
 	'',
-	"891f3115-cdef-4798-bf2b-46e560344b88");
+	"891f3115-cdef-4798-bf2b-46e560344b88",
+	0);
 INSERT INTO O_TFR
 	VALUES ("8ac2fe50-86fb-4e6e-80ae-49b7492df666",
 	"e31aa7b2-374b-4a6c-8c11-b9762ce9c824",
@@ -41,7 +42,8 @@ stack.runState = RunStateType::Running;
 relate stack to self across R2930;',
 	1,
 	'',
-	"00000000-0000-0000-0000-000000000000");
+	"00000000-0000-0000-0000-000000000000",
+	0);
 INSERT INTO O_TFR
 	VALUES ("98e3902f-8710-4673-846b-02298947645f",
 	"e31aa7b2-374b-4a6c-8c11-b9762ce9c824",
@@ -56,7 +58,8 @@ self.Next_Unique_ID = self.Next_Unique_ID + 1;
 return self.Next_Unique_ID;',
 	1,
 	'',
-	"5b7cb9e2-6d77-4c6c-8004-4ef3904f3e88");
+	"5b7cb9e2-6d77-4c6c-8004-4ef3904f3e88",
+	0);
 INSERT INTO O_TFR
 	VALUES ("891f3115-cdef-4798-bf2b-46e560344b88",
 	"e31aa7b2-374b-4a6c-8c11-b9762ce9c824",
@@ -72,7 +75,8 @@ if(not_empty stack)
 end if;',
 	1,
 	'',
-	"515919c8-d356-4644-b3f3-ed464623126c");
+	"515919c8-d356-4644-b3f3-ed464623126c",
+	0);
 INSERT INTO O_TFR
 	VALUES ("e9557967-0146-4c9f-af73-6ac883c37119",
 	"e31aa7b2-374b-4a6c-8c11-b9762ce9c824",
@@ -171,7 +175,8 @@ end if;
 self.Running = false;',
 	1,
 	'',
-	"b8590eb2-2e59-4d2e-902f-f1ed17287c60");
+	"b8590eb2-2e59-4d2e-902f-f1ed17287c60",
+	0);
 INSERT INTO O_TFR
 	VALUES ("5b7cb9e2-6d77-4c6c-8004-4ef3904f3e88",
 	"e31aa7b2-374b-4a6c-8c11-b9762ce9c824",
@@ -184,7 +189,8 @@ self.Next_Instance_ID = self.Next_Instance_ID + 1;
 return GD::int_to_string(value:self.Next_Instance_ID);',
 	1,
 	'',
-	"8d230335-b01b-4405-95c4-c60c39919633");
+	"8d230335-b01b-4405-95c4-c60c39919633",
+	0);
 INSERT INTO O_TFR
 	VALUES ("515919c8-d356-4644-b3f3-ed464623126c",
 	"e31aa7b2-374b-4a6c-8c11-b9762ce9c824",
@@ -356,7 +362,8 @@ end if;
 self.InitializeArchitecture();',
 	1,
 	'',
-	"98e3902f-8710-4673-846b-02298947645f");
+	"98e3902f-8710-4673-846b-02298947645f",
+	0);
 INSERT INTO O_TFR
 	VALUES ("6331aaf9-11c3-4f2f-b3cf-523dc906d56a",
 	"e31aa7b2-374b-4a6c-8c11-b9762ce9c824",
@@ -498,7 +505,8 @@ end if;
 delete object instance self;',
 	1,
 	'',
-	"8ac2fe50-86fb-4e6e-80ae-49b7492df666");
+	"8ac2fe50-86fb-4e6e-80ae-49b7492df666",
+	0);
 INSERT INTO O_TFR
 	VALUES ("8d230335-b01b-4405-95c4-c60c39919633",
 	"e31aa7b2-374b-4a6c-8c11-b9762ce9c824",
@@ -532,7 +540,8 @@ end if;
 return 1;',
 	1,
 	'',
-	"6331aaf9-11c3-4f2f-b3cf-523dc906d56a");
+	"6331aaf9-11c3-4f2f-b3cf-523dc906d56a",
+	0);
 INSERT INTO O_TFR
 	VALUES ("9cf93079-6161-4b95-893e-b8bf5e20ed1d",
 	"e31aa7b2-374b-4a6c-8c11-b9762ce9c824",
@@ -563,7 +572,8 @@ INSERT INTO O_TFR
 ',
 	1,
 	'',
-	"e9557967-0146-4c9f-af73-6ac883c37119");
+	"e9557967-0146-4c9f-af73-6ac883c37119",
+	0);
 INSERT INTO O_TFR
 	VALUES ("55e52e78-33ed-43a7-9c33-60e8f505c061",
 	"e31aa7b2-374b-4a6c-8c11-b9762ce9c824",
@@ -578,7 +588,8 @@ Translate: native',
 return this;',
 	0,
 	'',
-	"9cf93079-6161-4b95-893e-b8bf5e20ed1d");
+	"9cf93079-6161-4b95-893e-b8bf5e20ed1d",
+	0);
 INSERT INTO S_DT_PROXY
 	VALUES ("bc3722c8-5188-4529-8519-cf9eb9816b17",
 	"00000000-0000-0000-0000-000000000000",
@@ -602,7 +613,8 @@ synchronized(this) {
 }',
 	0,
 	'',
-	"55e52e78-33ed-43a7-9c33-60e8f505c061");
+	"55e52e78-33ed-43a7-9c33-60e8f505c061",
+	0);
 INSERT INTO O_TFR
 	VALUES ("b114be7a-dd7f-49a3-9fa7-630e4ade47ef",
 	"e31aa7b2-374b-4a6c-8c11-b9762ce9c824",
@@ -624,7 +636,8 @@ INSERT INTO O_TFR
 ',
 	0,
 	'',
-	"4b7db2eb-8a6e-44e1-80bf-7acd24059d60");
+	"4b7db2eb-8a6e-44e1-80bf-7acd24059d60",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("214d24db-a6e8-4978-9bc5-5e00ce0e9ee5",
 	"b114be7a-dd7f-49a3-9fa7-630e4ade47ef",
@@ -655,7 +668,8 @@ INSERT INTO O_TFR
 ',
 	0,
 	'',
-	"b114be7a-dd7f-49a3-9fa7-630e4ade47ef");
+	"b114be7a-dd7f-49a3-9fa7-630e4ade47ef",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("0980a3bf-2487-4ba2-98fb-a2961d64528b",
 	"e3bc1f84-f9bc-4411-8326-625e7de35207",
@@ -681,7 +695,8 @@ end if;
 return result;',
 	1,
 	'',
-	"e3bc1f84-f9bc-4411-8326-625e7de35207");
+	"e3bc1f84-f9bc-4411-8326-625e7de35207",
+	0);
 INSERT INTO O_TFR
 	VALUES ("4d8b9e7d-df6a-49fa-9ed2-3bcfddfb97f6",
 	"e31aa7b2-374b-4a6c-8c11-b9762ce9c824",
@@ -916,7 +931,8 @@ end if;
 ',
 	1,
 	'',
-	"7fc7042f-3019-4ae7-a2be-7689c7e86765");
+	"7fc7042f-3019-4ae7-a2be-7689c7e86765",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("ae129118-8175-49d4-8da9-c4dc6d7d2094",
 	"4d8b9e7d-df6a-49fa-9ed2-3bcfddfb97f6",
@@ -1018,7 +1034,8 @@ end if;
 return GD::NULL_UNIQUE_ID();',
 	1,
 	'',
-	"4d8b9e7d-df6a-49fa-9ed2-3bcfddfb97f6");
+	"4d8b9e7d-df6a-49fa-9ed2-3bcfddfb97f6",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("1827d7ba-a31a-4917-bf52-02fb8f32c3c5",
 	"86425309-1fd4-4c69-b961-a8553df6592d",
@@ -1097,7 +1114,8 @@ localStackFrame.popValue(value_id:arg.Value_ID);
 ',
 	1,
 	'',
-	"86425309-1fd4-4c69-b961-a8553df6592d");
+	"86425309-1fd4-4c69-b961-a8553df6592d",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("1989dfbc-2c27-40b5-82e2-d17c402890aa",
 	"76dc389e-0fa5-47d1-ba58-2d72b6bf0ef1",
@@ -1242,7 +1260,8 @@ if not Util::isNull(element:self.RealizedBy)
   result = result + " (Realized)";
 end if;
 self.Label = result;',
-	1);
+	1,
+	0);
 INSERT INTO O_BATTR
 	VALUES ("75ac1102-1a9c-4122-bd1f-05a955b9044e",
 	"e31aa7b2-374b-4a6c-8c11-b9762ce9c824");

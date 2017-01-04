@@ -32,7 +32,8 @@ select many attrs related by self->SQ_CPA[R935];
 end if;',
 	1,
 	'',
-	"c50ce073-c339-435c-8987-f3b859c3e413");
+	"c50ce073-c339-435c-8987-f3b859c3e413",
+	0);
 INSERT INTO O_TFR
 	VALUES ("d77587bf-2de3-4695-8a5b-8b0c628e2b50",
 	"05b26853-8bf3-4323-8266-03812d16d2ac",
@@ -43,7 +44,8 @@ INSERT INTO O_TFR
 	'return Style::Box;',
 	1,
 	'',
-	"dab1d33f-da15-4016-b9ef-a85973b45980");
+	"dab1d33f-da15-4016-b9ef-a85973b45980",
+	0);
 INSERT INTO S_DT_PROXY
 	VALUES ("6e636321-0fd1-4577-b185-e4d76b0d0c71",
 	"00000000-0000-0000-0000-000000000000",
@@ -81,7 +83,8 @@ end if;
 return 0;',
 	1,
 	'',
-	"700f37a2-37cf-4aa4-84ea-ff3a54d94505");
+	"700f37a2-37cf-4aa4-84ea-ff3a54d94505",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("e67a04e9-96db-4ef0-a780-0c8c679ab658",
 	"86ecddb0-6381-4585-8fe9-76e12ab01888",
@@ -101,7 +104,8 @@ INSERT INTO O_TFR
 	'return 3;',
 	1,
 	'',
-	"0c047862-4994-43ae-9cfb-fba4b979725a");
+	"0c047862-4994-43ae-9cfb-fba4b979725a",
+	0);
 INSERT INTO O_TFR
 	VALUES ("edd79dfe-1c4f-4d7b-a2b3-a760e16fb28a",
 	"05b26853-8bf3-4323-8266-03812d16d2ac",
@@ -119,7 +123,8 @@ end if;
 return Style::None;',
 	1,
 	'',
-	"d77587bf-2de3-4695-8a5b-8b0c628e2b50");
+	"d77587bf-2de3-4695-8a5b-8b0c628e2b50",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("3cdf3b15-e5a7-4b81-823c-88bda782bed6",
 	"edd79dfe-1c4f-4d7b-a2b3-a760e16fb28a",
@@ -166,7 +171,8 @@ INSERT INTO O_TFR
 	'return self.Part_ID;',
 	1,
 	'',
-	"6d82c445-fecf-4ff3-ace4-cc0cb616c9d3");
+	"6d82c445-fecf-4ff3-ace4-cc0cb616c9d3",
+	0);
 INSERT INTO O_TFR
 	VALUES ("0c047862-4994-43ae-9cfb-fba4b979725a",
 	"05b26853-8bf3-4323-8266-03812d16d2ac",
@@ -229,7 +235,8 @@ end if;
 return "";',
 	1,
 	'',
-	"4cbb2b72-2ddf-40c9-a8b0-56ba16f296f7");
+	"4cbb2b72-2ddf-40c9-a8b0-56ba16f296f7",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("03199600-23ce-4045-968d-2a50c07af44c",
 	"0c047862-4994-43ae-9cfb-fba4b979725a",
@@ -273,7 +280,8 @@ else
 end if;  ',
 	1,
 	'',
-	"edd79dfe-1c4f-4d7b-a2b3-a760e16fb28a");
+	"edd79dfe-1c4f-4d7b-a2b3-a760e16fb28a",
+	0);
 INSERT INTO O_TFR
 	VALUES ("988544df-ecbc-4843-8e0d-2d423802297b",
 	"05b26853-8bf3-4323-8266-03812d16d2ac",
@@ -288,7 +296,8 @@ relate ia to attr across R947;
 attr.initialize();',
 	1,
 	'',
-	"cf251d34-bdf6-4891-bd42-1811ed06d93f");
+	"cf251d34-bdf6-4891-bd42-1811ed06d93f",
+	0);
 INSERT INTO O_TFR
 	VALUES ("95f7738d-e950-47d0-b45f-6ea5ae39977a",
 	"05b26853-8bf3-4323-8266-03812d16d2ac",
@@ -361,7 +370,8 @@ end if;
 return false;',
 	1,
 	'',
-	"00000000-0000-0000-0000-000000000000");
+	"00000000-0000-0000-0000-000000000000",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("d77e0f16-79ee-4e99-bf64-73db76e13ede",
 	"95f7738d-e950-47d0-b45f-6ea5ae39977a",
@@ -414,7 +424,8 @@ for each cpa in cpas
 end for;',
 	1,
 	'',
-	"988544df-ecbc-4843-8e0d-2d423802297b");
+	"988544df-ecbc-4843-8e0d-2d423802297b",
+	0);
 INSERT INTO O_TFR
 	VALUES ("6d82c445-fecf-4ff3-ace4-cc0cb616c9d3",
 	"05b26853-8bf3-4323-8266-03812d16d2ac",
@@ -425,7 +436,8 @@ INSERT INTO O_TFR
 	'return self.Label;',
 	1,
 	'',
-	"86ecddb0-6381-4585-8fe9-76e12ab01888");
+	"86ecddb0-6381-4585-8fe9-76e12ab01888",
+	0);
 INSERT INTO O_TFR
 	VALUES ("61bf4e89-0806-4d1e-ae0e-f128f46259e7",
 	"05b26853-8bf3-4323-8266-03812d16d2ac",
@@ -436,7 +448,8 @@ INSERT INTO O_TFR
 	'return not self.isFormal;',
 	1,
 	'',
-	"95f7738d-e950-47d0-b45f-6ea5ae39977a");
+	"95f7738d-e950-47d0-b45f-6ea5ae39977a",
+	0);
 INSERT INTO O_TFR
 	VALUES ("4cbb2b72-2ddf-40c9-a8b0-56ba16f296f7",
 	"05b26853-8bf3-4323-8266-03812d16d2ac",
@@ -471,7 +484,8 @@ end for;
 ',
 	1,
 	'',
-	"4f03941d-635c-4f4c-84a0-758d5aa5e8cd");
+	"4f03941d-635c-4f4c-84a0-758d5aa5e8cd",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("f8f424e5-b8cd-4a78-bd9c-2ec9efadd7e3",
 	"4cbb2b72-2ddf-40c9-a8b0-56ba16f296f7",
@@ -497,7 +511,8 @@ end if;
 return false;',
 	1,
 	'',
-	"82cba28d-a66b-4e0f-bf44-f199f74a0f3c");
+	"82cba28d-a66b-4e0f-bf44-f199f74a0f3c",
+	0);
 INSERT INTO O_TFR
 	VALUES ("82cba28d-a66b-4e0f-bf44-f199f74a0f3c",
 	"05b26853-8bf3-4323-8266-03812d16d2ac",
@@ -536,7 +551,8 @@ end if;
 return false;',
 	1,
 	'',
-	"8fba0f34-4da9-48e2-96ea-ca4efd927da5");
+	"8fba0f34-4da9-48e2-96ea-ca4efd927da5",
+	0);
 INSERT INTO O_TFR
 	VALUES ("c50ce073-c339-435c-8987-f3b859c3e413",
 	"05b26853-8bf3-4323-8266-03812d16d2ac",
@@ -548,7 +564,8 @@ INSERT INTO O_TFR
 return part.definedAtSystemLevel();',
 	1,
 	'',
-	"61bf4e89-0806-4d1e-ae0e-f128f46259e7");
+	"61bf4e89-0806-4d1e-ae0e-f128f46259e7",
+	0);
 INSERT INTO O_TFR
 	VALUES ("ada6bc52-ba17-4a91-b34f-80876172c263",
 	"05b26853-8bf3-4323-8266-03812d16d2ac",
@@ -564,7 +581,8 @@ end if;
 return 0;',
 	1,
 	'',
-	"57f4f6b0-5681-4292-81a1-877faf35d38c");
+	"57f4f6b0-5681-4292-81a1-877faf35d38c",
+	0);
 INSERT INTO O_TFR
 	VALUES ("6a38c4b3-4543-4f08-9773-39c5c3161ade",
 	"05b26853-8bf3-4323-8266-03812d16d2ac",
@@ -594,7 +612,8 @@ end if;
 return 0;',
 	1,
 	'',
-	"ada6bc52-ba17-4a91-b34f-80876172c263");
+	"ada6bc52-ba17-4a91-b34f-80876172c263",
+	0);
 INSERT INTO O_TFR
 	VALUES ("41455187-0957-4076-a49e-2a912a73b1aa",
 	"05b26853-8bf3-4323-8266-03812d16d2ac",
@@ -608,7 +627,8 @@ Translate: native',
 	'return this;',
 	0,
 	'',
-	"6a38c4b3-4543-4f08-9773-39c5c3161ade");
+	"6a38c4b3-4543-4f08-9773-39c5c3161ade",
+	0);
 INSERT INTO S_DT_PROXY
 	VALUES ("bc3722c8-5188-4529-8519-cf9eb9816b17",
 	"00000000-0000-0000-0000-000000000000",
@@ -634,7 +654,8 @@ if(not_empty attribute)
 end if;',
 	1,
 	'',
-	"41455187-0957-4076-a49e-2a912a73b1aa");
+	"41455187-0957-4076-a49e-2a912a73b1aa",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("cfe3014b-0672-415b-ab87-6d1d0127367f",
 	"d4de4516-a011-4041-97ca-0370460089d8",
@@ -664,7 +685,8 @@ end if;
 return true;',
 	1,
 	'',
-	"d4de4516-a011-4041-97ca-0370460089d8");
+	"d4de4516-a011-4041-97ca-0370460089d8",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("f6280ec1-9e50-442e-a71d-405c60d59dd0",
 	"11a8d63f-9ccb-4d1e-9a7b-cf544e2a1775",
@@ -684,7 +706,8 @@ INSERT INTO O_TFR
 	'return not self.isFormal;',
 	1,
 	'',
-	"11a8d63f-9ccb-4d1e-9a7b-cf544e2a1775");
+	"11a8d63f-9ccb-4d1e-9a7b-cf544e2a1775",
+	0);
 INSERT INTO O_TFR
 	VALUES ("c7d03c5a-d404-4be9-ad9a-ba4bc316f650",
 	"05b26853-8bf3-4323-8266-03812d16d2ac",
@@ -748,7 +771,8 @@ end if;
 ',
 	1,
 	'',
-	"d70ca440-a1ab-4162-a70f-da48095a4d49");
+	"d70ca440-a1ab-4162-a70f-da48095a4d49",
+	0);
 INSERT INTO O_TFR
 	VALUES ("aca1878f-4f53-4edb-ae53-4761d3292609",
 	"05b26853-8bf3-4323-8266-03812d16d2ac",
@@ -852,7 +876,8 @@ if(not_empty ls)
 end if;',
 	1,
 	'',
-	"c7d03c5a-d404-4be9-ad9a-ba4bc316f650");
+	"c7d03c5a-d404-4be9-ad9a-ba4bc316f650",
+	0);
 INSERT INTO O_TFR
 	VALUES ("e672a0ae-5d4c-4a13-8a3c-b320264b4144",
 	"05b26853-8bf3-4323-8266-03812d16d2ac",
@@ -867,7 +892,8 @@ end if;
 return self.convertToInstance();',
 	1,
 	'',
-	"aca1878f-4f53-4edb-ae53-4761d3292609");
+	"aca1878f-4f53-4edb-ae53-4761d3292609",
+	0);
 INSERT INTO O_DBATTR
 	VALUES ("901f2cab-a463-4b9b-b645-f2259fab6c7c",
 	"05b26853-8bf3-4323-8266-03812d16d2ac",
@@ -877,7 +903,8 @@ if(not_empty mclass)
 else
   self.Label = self.InformalName;
 end if;',
-	1);
+	1,
+	0);
 INSERT INTO O_BATTR
 	VALUES ("901f2cab-a463-4b9b-b645-f2259fab6c7c",
 	"05b26853-8bf3-4323-8266-03812d16d2ac");
@@ -939,7 +966,8 @@ if(not_empty mclass)
 else
   self.isFormal = false;
 end if;',
-	1);
+	1,
+	0);
 INSERT INTO O_BATTR
 	VALUES ("c0eea756-97d8-40ef-a099-36c6e959ed4f",
 	"05b26853-8bf3-4323-8266-03812d16d2ac");

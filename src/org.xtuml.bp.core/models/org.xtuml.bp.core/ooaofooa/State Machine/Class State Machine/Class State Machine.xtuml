@@ -26,7 +26,8 @@ end if;
 ',
 	1,
 	'',
-	"6eff7ef7-eac2-40d2-98aa-9d61bb443854");
+	"6eff7ef7-eac2-40d2-98aa-9d61bb443854",
+	0);
 INSERT INTO O_TFR
 	VALUES ("a445a181-bbb8-4972-9dfc-11fc58278ebf",
 	"6a33f00a-6f18-40e7-b657-d4765d647ff7",
@@ -38,7 +39,8 @@ INSERT INTO O_TFR
 sm.newState();',
 	1,
 	'',
-	"e6e433f8-3ba0-4bbf-bb99-eb76375dbb71");
+	"e6e433f8-3ba0-4bbf-bb99-eb76375dbb71",
+	0);
 INSERT INTO O_TFR
 	VALUES ("e6e433f8-3ba0-4bbf-bb99-eb76375dbb71",
 	"6a33f00a-6f18-40e7-b657-d4765d647ff7",
@@ -52,7 +54,8 @@ sm.newEvent();
 ',
 	1,
 	'',
-	"757a41c8-282d-46b2-9854-e608e7d67e5d");
+	"757a41c8-282d-46b2-9854-e608e7d67e5d",
+	0);
 INSERT INTO O_TFR
 	VALUES ("42509303-7de3-4c20-9e6d-22497f0478d8",
 	"6a33f00a-6f18-40e7-b657-d4765d647ff7",
@@ -64,7 +67,8 @@ INSERT INTO O_TFR
 return sm.newTransition(from:param.from, to:param.to);',
 	1,
 	'',
-	"a445a181-bbb8-4972-9dfc-11fc58278ebf");
+	"a445a181-bbb8-4972-9dfc-11fc58278ebf",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("aaec124a-0afa-4055-9443-17cb1e37f3c3",
 	"42509303-7de3-4c20-9e6d-22497f0478d8",
@@ -112,7 +116,8 @@ INSERT INTO O_TFR
 return sm.newCreationTransition(from:param.from, to:param.to);',
 	1,
 	'',
-	"85a74dfd-529e-4f23-9f7a-ad9b26576853");
+	"85a74dfd-529e-4f23-9f7a-ad9b26576853",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("f4f03f49-b803-490a-909e-b3d8337b9c23",
 	"757a41c8-282d-46b2-9854-e608e7d67e5d",
@@ -161,7 +166,8 @@ Bridge:GD',
 	'return self.SM_ID;',
 	1,
 	'',
-	"573abb8a-75b0-40f9-b9ba-c747b7265310");
+	"573abb8a-75b0-40f9-b9ba-c747b7265310",
+	0);
 INSERT INTO O_TFR
 	VALUES ("6eff7ef7-eac2-40d2-98aa-9d61bb443854",
 	"6a33f00a-6f18-40e7-b657-d4765d647ff7",
@@ -173,7 +179,8 @@ INSERT INTO O_TFR
 sm.dispose();',
 	1,
 	'',
-	"ef7742c2-039e-4958-9dda-f6253ec0cc5d");
+	"ef7742c2-039e-4958-9dda-f6253ec0cc5d",
+	0);
 INSERT INTO O_TFR
 	VALUES ("ef7742c2-039e-4958-9dda-f6253ec0cc5d",
 	"6a33f00a-6f18-40e7-b657-d4765d647ff7",
@@ -185,7 +192,8 @@ Translate:native',
 	'return this;',
 	0,
 	'',
-	"00000000-0000-0000-0000-000000000000");
+	"00000000-0000-0000-0000-000000000000",
+	0);
 INSERT INTO S_DT_PROXY
 	VALUES ("bc3722c8-5188-4529-8519-cf9eb9816b17",
 	"00000000-0000-0000-0000-000000000000",
@@ -204,7 +212,8 @@ INSERT INTO O_TFR
 sm.pasteTransition(id:param.id);',
 	1,
 	'',
-	"efe1cca5-ef86-47b8-b4eb-e2914a74b3a6");
+	"efe1cca5-ef86-47b8-b4eb-e2914a74b3a6",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("b877d67d-d871-4132-90ac-e4ed67edcc5b",
 	"bd4bf520-ab5d-408c-b476-2782ab253652",
@@ -225,7 +234,8 @@ INSERT INTO O_TFR
 sm.pasteStateMachineState(id:param.id);',
 	1,
 	'',
-	"42509303-7de3-4c20-9e6d-22497f0478d8");
+	"42509303-7de3-4c20-9e6d-22497f0478d8",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("45a0f5e7-36b6-45a5-bb4a-dccbb9952747",
 	"efe1cca5-ef86-47b8-b4eb-e2914a74b3a6",
@@ -246,7 +256,8 @@ INSERT INTO O_TFR
 return cardinality states;',
 	1,
 	'',
-	"bd4bf520-ab5d-408c-b476-2782ab253652");
+	"bd4bf520-ab5d-408c-b476-2782ab253652",
+	0);
 INSERT INTO O_TFR
 	VALUES ("35b15c5d-eb63-46fd-b5d3-e1c92f393fd2",
 	"6a33f00a-6f18-40e7-b657-d4765d647ff7",
@@ -269,7 +280,8 @@ end for;
 return id;',
 	1,
 	'',
-	"b592243c-6a3b-40ee-b92a-0e82f2d9aeb1");
+	"b592243c-6a3b-40ee-b92a-0e82f2d9aeb1",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("e7d5d11b-ece7-4559-becf-a153d69dff7f",
 	"35b15c5d-eb63-46fd-b5d3-e1c92f393fd2",
@@ -290,7 +302,8 @@ INSERT INTO O_TFR
 sm.pasteStateMachineEvent(id:param.id);',
 	1,
 	'',
-	"35b15c5d-eb63-46fd-b5d3-e1c92f393fd2");
+	"35b15c5d-eb63-46fd-b5d3-e1c92f393fd2",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("07899ac2-bcbd-4e05-b4ff-a903e7454c0f",
 	"1f2e0a19-6c4d-4208-890a-d21d361bec54",
@@ -311,7 +324,8 @@ INSERT INTO O_TFR
 return cardinality transitions; ',
 	1,
 	'',
-	"1f2e0a19-6c4d-4208-890a-d21d361bec54");
+	"1f2e0a19-6c4d-4208-890a-d21d361bec54",
+	0);
 INSERT INTO O_TFR
 	VALUES ("efd768e4-33b2-4b34-8a71-23f4c54dbeb7",
 	"6a33f00a-6f18-40e7-b657-d4765d647ff7",
@@ -333,7 +347,8 @@ end for;
 return id;',
 	1,
 	'',
-	"6e2ea9aa-a603-4c88-9edc-5bd6117b407a");
+	"6e2ea9aa-a603-4c88-9edc-5bd6117b407a",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("00c3b3d0-929d-4788-9107-7c73c5fc767d",
 	"efd768e4-33b2-4b34-8a71-23f4c54dbeb7",

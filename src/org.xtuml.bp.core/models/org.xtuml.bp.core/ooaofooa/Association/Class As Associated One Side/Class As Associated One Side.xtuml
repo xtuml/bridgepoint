@@ -27,7 +27,8 @@ end if;
 return result;',
 	1,
 	'',
-	"4a0b1fe2-d792-41c6-9513-507c468fb2c7");
+	"4a0b1fe2-d792-41c6-9513-507c468fb2c7",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("6362b1b3-4e4e-4294-944f-0383c4c0d1e9",
 	"b9bb7670-ecbe-4d77-849a-03b625361a9e",
@@ -61,7 +62,8 @@ delete object instance self;
 ',
 	1,
 	'',
-	"00000000-0000-0000-0000-000000000000");
+	"00000000-0000-0000-0000-000000000000",
+	0);
 INSERT INTO O_TFR
 	VALUES ("74ed4bee-3682-417b-9ac1-c113166a7d6c",
 	"a5e66f08-6e0b-4552-81cb-e0fea282baca",
@@ -74,7 +76,8 @@ return obj.Name;
 ',
 	1,
 	'',
-	"b9bb7670-ecbe-4d77-849a-03b625361a9e");
+	"b9bb7670-ecbe-4d77-849a-03b625361a9e",
+	0);
 INSERT INTO O_TFR
 	VALUES ("b203a75f-ad75-4e41-9e57-35321e8aef00",
 	"a5e66f08-6e0b-4552-81cb-e0fea282baca",
@@ -86,7 +89,8 @@ INSERT INTO O_TFR
 ',
 	1,
 	'',
-	"74ed4bee-3682-417b-9ac1-c113166a7d6c");
+	"74ed4bee-3682-417b-9ac1-c113166a7d6c",
+	0);
 INSERT INTO O_REF
 	VALUES ("a5e66f08-6e0b-4552-81cb-e0fea282baca",
 	"9935b740-f46f-477e-9f9b-70972448e4a7",

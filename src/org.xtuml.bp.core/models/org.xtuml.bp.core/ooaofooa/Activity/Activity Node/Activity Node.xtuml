@@ -48,7 +48,8 @@ delete object instance self;
 ',
 	1,
 	'',
-	"00000000-0000-0000-0000-000000000000");
+	"00000000-0000-0000-0000-000000000000",
+	0);
 INSERT INTO O_TFR
 	VALUES ("a9818cee-2442-492a-82b6-b99340f8d975",
 	"22460b1d-db48-46a1-bc6d-1f92b3f96978",
@@ -73,7 +74,8 @@ end if;
 return false;',
 	1,
 	'',
-	"2312bf3a-d231-444c-b8ad-9b19e4d8ff31");
+	"2312bf3a-d231-444c-b8ad-9b19e4d8ff31",
+	0);
 INSERT INTO O_TFR
 	VALUES ("e293baee-acc6-465a-9902-c937b7ec9d69",
 	"22460b1d-db48-46a1-bc6d-1f92b3f96978",
@@ -98,7 +100,8 @@ end if;
 return false;',
 	1,
 	'',
-	"246c8fa8-99ee-448a-9e6d-b1137b867ea4");
+	"246c8fa8-99ee-448a-9e6d-b1137b867ea4",
+	0);
 INSERT INTO O_TFR
 	VALUES ("0eb5919d-ac5d-4596-b659-1df2e862f454",
 	"22460b1d-db48-46a1-bc6d-1f92b3f96978",
@@ -110,7 +113,8 @@ INSERT INTO O_TFR
 return cardinality inEdges;',
 	1,
 	'',
-	"a9818cee-2442-492a-82b6-b99340f8d975");
+	"a9818cee-2442-492a-82b6-b99340f8d975",
+	0);
 INSERT INTO O_TFR
 	VALUES ("246c8fa8-99ee-448a-9e6d-b1137b867ea4",
 	"22460b1d-db48-46a1-bc6d-1f92b3f96978",
@@ -122,7 +126,8 @@ INSERT INTO O_TFR
 return cardinality outEdges;',
 	1,
 	'',
-	"0eb5919d-ac5d-4596-b659-1df2e862f454");
+	"0eb5919d-ac5d-4596-b659-1df2e862f454",
+	0);
 INSERT INTO O_REF
 	VALUES ("22460b1d-db48-46a1-bc6d-1f92b3f96978",
 	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",

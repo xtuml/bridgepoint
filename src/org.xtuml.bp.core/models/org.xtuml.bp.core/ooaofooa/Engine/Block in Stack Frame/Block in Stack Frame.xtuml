@@ -36,7 +36,8 @@ delete object instance self;
 ',
 	1,
 	'',
-	"00000000-0000-0000-0000-000000000000");
+	"00000000-0000-0000-0000-000000000000",
+	0);
 INSERT INTO O_NBATTR
 	VALUES ("9bdd972f-8a66-4d8e-ad6d-4f8f307aaccd",
 	"d82f59cf-68e9-4390-a7e9-4f889a65d214");

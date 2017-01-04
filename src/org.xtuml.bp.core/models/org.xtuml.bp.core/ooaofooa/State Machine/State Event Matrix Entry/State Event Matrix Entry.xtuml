@@ -22,7 +22,8 @@ return "State Event Matrix Entry (" + evt.get_name() + ")";
 ',
 	1,
 	'',
-	"3390d53a-9b8c-4107-a479-1e26b99b0649");
+	"3390d53a-9b8c-4107-a479-1e26b99b0649",
+	0);
 INSERT INTO O_TFR
 	VALUES ("26986586-9a26-49f3-a683-55a7f6581b17",
 	"dec48676-c96c-4395-bf7a-050a1058da7a",
@@ -49,7 +50,8 @@ delete object instance self;
 ',
 	1,
 	'',
-	"00000000-0000-0000-0000-000000000000");
+	"00000000-0000-0000-0000-000000000000",
+	0);
 INSERT INTO O_TFR
 	VALUES ("5d89b536-a426-4b25-8d95-000eb9633c1d",
 	"dec48676-c96c-4395-bf7a-050a1058da7a",
@@ -67,7 +69,8 @@ end if;
 ',
 	1,
 	'',
-	"cf1a635f-5b36-47ba-a93b-fa16bed55e42");
+	"cf1a635f-5b36-47ba-a93b-fa16bed55e42",
+	0);
 INSERT INTO O_TFR
 	VALUES ("96ddc90e-2224-458b-82c8-459edeceaae2",
 	"dec48676-c96c-4395-bf7a-050a1058da7a",
@@ -85,7 +88,8 @@ end if;
 ',
 	1,
 	'',
-	"5d89b536-a426-4b25-8d95-000eb9633c1d");
+	"5d89b536-a426-4b25-8d95-000eb9633c1d",
+	0);
 INSERT INTO O_TFR
 	VALUES ("3390d53a-9b8c-4107-a479-1e26b99b0649",
 	"dec48676-c96c-4395-bf7a-050a1058da7a",
@@ -106,7 +110,8 @@ end if;
 ',
 	1,
 	'',
-	"26986586-9a26-49f3-a683-55a7f6581b17");
+	"26986586-9a26-49f3-a683-55a7f6581b17",
+	0);
 INSERT INTO O_TFR
 	VALUES ("f55f9746-0822-4fb1-a215-c30432528318",
 	"dec48676-c96c-4395-bf7a-050a1058da7a",
@@ -122,7 +127,8 @@ delete object instance self;
 ',
 	1,
 	'',
-	"96ddc90e-2224-458b-82c8-459edeceaae2");
+	"96ddc90e-2224-458b-82c8-459edeceaae2",
+	0);
 INSERT INTO O_REF
 	VALUES ("dec48676-c96c-4395-bf7a-050a1058da7a",
 	"aee0c0bf-2bc2-41e5-b9ad-01341d2944be",

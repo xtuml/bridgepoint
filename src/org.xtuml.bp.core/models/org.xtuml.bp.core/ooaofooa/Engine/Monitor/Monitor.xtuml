@@ -21,7 +21,8 @@ unrelate exe from inst across R2949 using self;
 delete object instance self;',
 	1,
 	'',
-	"00000000-0000-0000-0000-000000000000");
+	"00000000-0000-0000-0000-000000000000",
+	0);
 INSERT INTO O_NBATTR
 	VALUES ("7622fd6f-8900-4a34-8336-b83d0e17a1fe",
 	"7ce0a83e-fcec-4ea9-9590-e671b452c969");

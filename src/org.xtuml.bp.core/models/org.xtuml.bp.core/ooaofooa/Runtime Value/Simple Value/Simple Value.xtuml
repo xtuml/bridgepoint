@@ -38,7 +38,8 @@ return value;
 ',
 	1,
 	'',
-	"00000000-0000-0000-0000-000000000000");
+	"00000000-0000-0000-0000-000000000000",
+	0);
 INSERT INTO S_DT_PROXY
 	VALUES ("bc3722c8-5188-4529-8519-cf9eb9816b17",
 	"00000000-0000-0000-0000-000000000000",
@@ -102,7 +103,8 @@ else
 end if;',
 	1,
 	'',
-	"44d4df6b-6b7b-42b9-a744-789f7bfe5e05");
+	"44d4df6b-6b7b-42b9-a744-789f7bfe5e05",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("78f1ff9b-4ed0-4ea0-8368-0856e0298161",
 	"88660877-f9d5-488b-b5c6-a9cb4b577634",
@@ -135,7 +137,8 @@ end if;
 ',
 	1,
 	'',
-	"88660877-f9d5-488b-b5c6-a9cb4b577634");
+	"88660877-f9d5-488b-b5c6-a9cb4b577634",
+	0);
 INSERT INTO O_TFR
 	VALUES ("851a4aef-d10f-44ea-82c6-61b24dbe260d",
 	"d8e71bfe-32a2-40ba-9c13-1cba01322a80",
@@ -151,7 +154,8 @@ end if;
 delete object instance self;',
 	1,
 	'',
-	"85e3f8c1-5d08-4f1a-8e20-6c2b3612afa0");
+	"85e3f8c1-5d08-4f1a-8e20-6c2b3612afa0",
+	0);
 INSERT INTO O_TFR
 	VALUES ("49a320bd-c52f-4ecb-a057-516f404e4c55",
 	"d8e71bfe-32a2-40ba-9c13-1cba01322a80",
@@ -181,7 +185,8 @@ if not_empty irv
 end if;',
 	1,
 	'',
-	"851a4aef-d10f-44ea-82c6-61b24dbe260d");
+	"851a4aef-d10f-44ea-82c6-61b24dbe260d",
+	0);
 INSERT INTO O_REF
 	VALUES ("d8e71bfe-32a2-40ba-9c13-1cba01322a80",
 	"013bfc9e-d3c0-4807-8613-deccd09763b5",
