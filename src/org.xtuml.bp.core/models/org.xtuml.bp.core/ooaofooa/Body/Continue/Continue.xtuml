@@ -20,7 +20,8 @@ delete object instance self;
 ',
 	1,
 	'',
-	"00000000-0000-0000-0000-000000000000");
+	"00000000-0000-0000-0000-000000000000",
+	0);
 INSERT INTO O_TFR
 	VALUES ("96487926-87b5-4952-bfd7-bed05dc16f46",
 	"982386b4-db03-44d6-827b-fbe9d059c7ff",
@@ -87,7 +88,8 @@ statement.popUpToBlock(block_id:containing_block.Block_ID,
 ',
 	1,
 	'',
-	"12f34b37-0713-4e87-ad8b-598f51a335df");
+	"12f34b37-0713-4e87-ad8b-598f51a335df",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("68701fd7-128f-407b-b372-5e146b6ee887",
 	"96487926-87b5-4952-bfd7-bed05dc16f46",

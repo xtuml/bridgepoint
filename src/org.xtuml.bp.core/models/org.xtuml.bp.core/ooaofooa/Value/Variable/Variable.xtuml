@@ -192,7 +192,8 @@ delete object instance self;
 ',
 	1,
 	'',
-	"e58b9ddd-c972-4d0f-9de6-4efcd2ca2fb0");
+	"e58b9ddd-c972-4d0f-9de6-4efcd2ca2fb0",
+	0);
 INSERT INTO O_TFR
 	VALUES ("520d811c-7939-4bbd-bb7c-9dce83b43ed6",
 	"04ccf45f-92e0-4d09-ba38-c8b5e3c789c4",
@@ -213,7 +214,8 @@ end if;
 ',
 	1,
 	'',
-	"029369c1-fe06-4918-ae3d-bdcebd733fcf");
+	"029369c1-fe06-4918-ae3d-bdcebd733fcf",
+	0);
 INSERT INTO O_TFR
 	VALUES ("029369c1-fe06-4918-ae3d-bdcebd733fcf",
 	"04ccf45f-92e0-4d09-ba38-c8b5e3c789c4",
@@ -234,7 +236,8 @@ end if;
 ',
 	1,
 	'',
-	"a14eca2d-a986-4af3-b763-c8954c54ad95");
+	"a14eca2d-a986-4af3-b763-c8954c54ad95",
+	0);
 INSERT INTO O_TFR
 	VALUES ("4fa7224b-3675-4dbb-b42f-830bd7e52331",
 	"04ccf45f-92e0-4d09-ba38-c8b5e3c789c4",
@@ -249,7 +252,8 @@ loc.EndPosition = loc.StartPosition + GD::strlen(s: self.Name) - 1;
 relate loc to self across R835;',
 	1,
 	'',
-	"00000000-0000-0000-0000-000000000000");
+	"00000000-0000-0000-0000-000000000000",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("8ee6e6ea-f409-4121-a60c-ac40c64f52fc",
 	"4fa7224b-3675-4dbb-b42f-830bd7e52331",
@@ -280,7 +284,8 @@ dimensions = cardinality dims;
 return dimensions;',
 	1,
 	'',
-	"64e6b32b-af23-4408-ae07-b2fdfbf988cb");
+	"64e6b32b-af23-4408-ae07-b2fdfbf988cb",
+	0);
 INSERT INTO O_TFR
 	VALUES ("93668d6b-527d-42f2-988f-50ad525550f8",
 	"04ccf45f-92e0-4d09-ba38-c8b5e3c789c4",
@@ -312,7 +317,8 @@ if (param.numDimensions > 0)
 end if;',
 	1,
 	'',
-	"520d811c-7939-4bbd-bb7c-9dce83b43ed6");
+	"520d811c-7939-4bbd-bb7c-9dce83b43ed6",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("9c9d2c97-4891-49c4-815b-7e1c666a84af",
 	"93668d6b-527d-42f2-988f-50ad525550f8",
@@ -355,7 +361,8 @@ end if;
 return false;',
 	1,
 	'',
-	"598f70d1-a50e-49c2-a88f-0768bc5c9389");
+	"598f70d1-a50e-49c2-a88f-0768bc5c9389",
+	0);
 INSERT INTO O_TFR
 	VALUES ("e58b9ddd-c972-4d0f-9de6-4efcd2ca2fb0",
 	"04ccf45f-92e0-4d09-ba38-c8b5e3c789c4",
@@ -366,7 +373,8 @@ INSERT INTO O_TFR
 	'return this;',
 	0,
 	'',
-	"266a43ce-de9f-4a17-9ecc-37838e00de98");
+	"266a43ce-de9f-4a17-9ecc-37838e00de98",
+	0);
 INSERT INTO S_DT_PROXY
 	VALUES ("bc3722c8-5188-4529-8519-cf9eb9816b17",
 	"00000000-0000-0000-0000-000000000000",
@@ -419,7 +427,8 @@ else
 end if;',
 	1,
 	'',
-	"4fa7224b-3675-4dbb-b42f-830bd7e52331");
+	"4fa7224b-3675-4dbb-b42f-830bd7e52331",
+	0);
 INSERT INTO O_NBATTR
 	VALUES ("aa0af814-2950-42d7-b263-1e32565f47ac",
 	"04ccf45f-92e0-4d09-ba38-c8b5e3c789c4");

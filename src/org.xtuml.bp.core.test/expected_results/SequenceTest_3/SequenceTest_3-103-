@@ -1,3 +1,0 @@
-drawRectangle(137, 230, 956, 395)
-drawText("SQinSQ Inst : Informal Class", 346, 241, true)
-drawline(137, 305, 1093, 305)

@@ -43,7 +43,8 @@ end if;
 return result;',
 	1,
 	'',
-	"724cc53d-2ef7-4cd7-9ed8-eebdf167bbfa");
+	"724cc53d-2ef7-4cd7-9ed8-eebdf167bbfa",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("b46df297-f846-4c45-b4d7-be9d1c51d3c9",
 	"1bb49cef-e1fd-4ac4-a70b-84ecc48d1485",
@@ -108,7 +109,8 @@ else
 end if;',
 	1,
 	'',
-	"9eaccf38-6770-46f6-92af-623aa0a2cff7");
+	"9eaccf38-6770-46f6-92af-623aa0a2cff7",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("20be76c5-dc31-4edd-817c-39e7f578ead9",
 	"f25dc9b9-7ec2-4ee0-9ccb-728b5c1e0317",
@@ -139,7 +141,8 @@ Bridge:GD',
 	'return self.Trans_ID;',
 	1,
 	'',
-	"23896638-1fb2-43cb-a4f2-d940cd7f78e7");
+	"23896638-1fb2-43cb-a4f2-d940cd7f78e7",
+	0);
 INSERT INTO O_TFR
 	VALUES ("724cc53d-2ef7-4cd7-9ed8-eebdf167bbfa",
 	"013b28a8-a7ff-49e2-8a2c-acb4b3dcab7e",
@@ -151,7 +154,8 @@ INSERT INTO O_TFR
 return trans.actionFilter(name:param.name, value:param.value);',
 	1,
 	'',
-	"00000000-0000-0000-0000-000000000000");
+	"00000000-0000-0000-0000-000000000000",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("698b5305-c3b9-49e5-b7ca-7df2ce0aa97b",
 	"724cc53d-2ef7-4cd7-9ed8-eebdf167bbfa",
@@ -191,7 +195,8 @@ end if;
 return result;',
 	1,
 	'',
-	"1bb49cef-e1fd-4ac4-a70b-84ecc48d1485");
+	"1bb49cef-e1fd-4ac4-a70b-84ecc48d1485",
+	0);
 INSERT INTO O_TFR
 	VALUES ("46f707ba-7532-40b0-b41a-e9b7a00ba550",
 	"013b28a8-a7ff-49e2-8a2c-acb4b3dcab7e",
@@ -204,7 +209,8 @@ return
     transition.mergeStateMachineEventAssignedLocalEvent(event_id:param.eventId);',
 	1,
 	'',
-	"f25dc9b9-7ec2-4ee0-9ccb-728b5c1e0317");
+	"f25dc9b9-7ec2-4ee0-9ccb-728b5c1e0317",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("a520e24f-5208-416e-9624-e5a15ef5e9e0",
 	"46f707ba-7532-40b0-b41a-e9b7a00ba550",
@@ -225,7 +231,8 @@ INSERT INTO O_TFR
 return transition.getDescription();',
 	1,
 	'',
-	"46f707ba-7532-40b0-b41a-e9b7a00ba550");
+	"46f707ba-7532-40b0-b41a-e9b7a00ba550",
+	0);
 INSERT INTO O_REF
 	VALUES ("013b28a8-a7ff-49e2-8a2c-acb4b3dcab7e",
 	"71e37b76-a350-435b-a3fd-e3d016eb39ef",

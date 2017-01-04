@@ -48,7 +48,8 @@ delete object instance self;
 ',
 	1,
 	'',
-	"00000000-0000-0000-0000-000000000000");
+	"00000000-0000-0000-0000-000000000000",
+	0);
 INSERT INTO O_REF
 	VALUES ("51639b01-a417-4a8b-8b22-c80dd91abf10",
 	"c50d7849-51aa-4f4f-a7aa-431b4b07a5e3",
@@ -160,7 +161,8 @@ if not_empty assoc
 else
   self.Label = "Unknown Association";
 end if;',
-	1);
+	1,
+	0);
 INSERT INTO O_BATTR
 	VALUES ("bcbad805-04e6-48cf-a455-b48380fb3e9c",
 	"51639b01-a417-4a8b-8b22-c80dd91abf10");

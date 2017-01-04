@@ -64,7 +64,8 @@ relate irHandle to localRef across R3004;
 return localRef.getRuntimeValue(stack_frame_id:param.stack_frame_id);',
 	1,
 	'',
-	"00000000-0000-0000-0000-000000000000");
+	"00000000-0000-0000-0000-000000000000",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("f8425967-2f3e-4cf0-8f91-67d49e6460ad",
 	"76d67435-48ba-4a37-a936-c2102de8441c",
@@ -164,7 +165,8 @@ pathMsg = "<No Path Available - Empty instance>";
 	USER::logError(msg:"Instance Reference.setValue error" + error_message + ".",path:pathMsg);',
 	1,
 	'',
-	"76d67435-48ba-4a37-a936-c2102de8441c");
+	"76d67435-48ba-4a37-a936-c2102de8441c",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("35dee87d-1c9e-4527-8a0a-4c058a9c8192",
 	"0d927073-7821-470f-ba02-32433d894c3d",

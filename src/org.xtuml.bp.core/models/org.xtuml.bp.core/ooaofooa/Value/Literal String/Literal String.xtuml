@@ -17,7 +17,8 @@ INSERT INTO O_TFR
 	'return self.Value;',
 	1,
 	'',
-	"00000000-0000-0000-0000-000000000000");
+	"00000000-0000-0000-0000-000000000000",
+	0);
 INSERT INTO O_TFR
 	VALUES ("edfce2e0-aac6-4bc6-bf14-515a25bd4b91",
 	"c5c73a79-b24c-42ad-aa76-e137b1d7ebcc",
@@ -45,7 +46,8 @@ return out;
 ',
 	0,
 	'',
-	"b6c18911-0ea0-4703-bb6a-226a429fd354");
+	"b6c18911-0ea0-4703-bb6a-226a429fd354",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("b49068fd-ba54-4040-ae8d-39374f03eb08",
 	"edfce2e0-aac6-4bc6-bf14-515a25bd4b91",

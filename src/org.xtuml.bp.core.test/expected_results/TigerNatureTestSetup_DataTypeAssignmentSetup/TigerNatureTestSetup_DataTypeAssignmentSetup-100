@@ -1,4 +1,0 @@
-drawRectangle(11327, 8544, 532, 566)
-drawText("«dataType»", 11478, 8554, true)
-drawText("DataTypeAssignmentSe...", 11340, 8772, true)
-drawText("{ integer }", 11489, 8824, true)

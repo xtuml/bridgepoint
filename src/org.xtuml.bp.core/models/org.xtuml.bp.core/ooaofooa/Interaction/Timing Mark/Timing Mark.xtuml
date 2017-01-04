@@ -18,7 +18,8 @@ INSERT INTO O_TFR
 	'return Style::None;',
 	1,
 	'',
-	"c1d1b446-6eca-4ca2-b048-5724829fa948");
+	"c1d1b446-6eca-4ca2-b048-5724829fa948",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("b102ceaf-0570-4d28-bc39-ed4e90a490f2",
 	"fe4f8d08-be13-4f6e-b639-16c14faeeba8",
@@ -59,7 +60,8 @@ end if;
 return "";',
 	1,
 	'',
-	"dc0099b5-7b8d-4284-94de-0ad00ac7a0a4");
+	"dc0099b5-7b8d-4284-94de-0ad00ac7a0a4",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("0e823e6e-8650-472d-8066-7e3eee413c92",
 	"573db835-65a3-468a-989e-499683ed0e83",
@@ -117,7 +119,8 @@ delete object instance self;
 ',
 	1,
 	'',
-	"00000000-0000-0000-0000-000000000000");
+	"00000000-0000-0000-0000-000000000000",
+	0);
 INSERT INTO O_TFR
 	VALUES ("c1d1b446-6eca-4ca2-b048-5724829fa948",
 	"7d2889ad-2fdb-4613-b5ec-a76356184055",
@@ -128,7 +131,8 @@ INSERT INTO O_TFR
 	'return self.Mark_ID;',
 	1,
 	'',
-	"573db835-65a3-468a-989e-499683ed0e83");
+	"573db835-65a3-468a-989e-499683ed0e83",
+	0);
 INSERT INTO O_NBATTR
 	VALUES ("adfb54ab-a4cc-4dd6-a79a-38928a53c5e9",
 	"7d2889ad-2fdb-4613-b5ec-a76356184055");

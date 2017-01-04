@@ -26,7 +26,8 @@ if(not_empty descriptionEngine)
 end if;',
 	1,
 	'',
-	"00000000-0000-0000-0000-000000000000");
+	"00000000-0000-0000-0000-000000000000",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("1c10b468-a3c7-4d5c-993e-88d410aff4a1",
 	"a0a4d604-b3a3-4ff4-9e73-eddf63565cd5",
@@ -96,7 +97,8 @@ end if;
 delete object instance self;',
 	1,
 	'',
-	"a0a4d604-b3a3-4ff4-9e73-eddf63565cd5");
+	"a0a4d604-b3a3-4ff4-9e73-eddf63565cd5",
+	0);
 INSERT INTO O_NBATTR
 	VALUES ("5650c244-7ad2-4cf5-891d-ad575051d877",
 	"43dcf905-5d9b-4f80-a260-68543c5fbe15");

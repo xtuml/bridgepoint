@@ -32,7 +32,8 @@ else
 end if;',
 	1,
 	'',
-	"00000000-0000-0000-0000-000000000000");
+	"00000000-0000-0000-0000-000000000000",
+	0);
 INSERT INTO O_TFR
 	VALUES ("9d0c1093-e257-4efb-ac64-b3a778be7af9",
 	"6e354a21-d32e-4d4a-a2dd-39ff210b6230",
@@ -54,7 +55,8 @@ else
 end if;',
 	1,
 	'',
-	"4283e5fd-06db-4e79-a24c-450cb8ae7efb");
+	"4283e5fd-06db-4e79-a24c-450cb8ae7efb",
+	0);
 INSERT INTO O_REF
 	VALUES ("6e354a21-d32e-4d4a-a2dd-39ff210b6230",
 	"71e37b76-a350-435b-a3fd-e3d016eb39ef",
