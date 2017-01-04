@@ -19,7 +19,8 @@ unrelate self from assoc across R206;
 delete object instance self;',
 	1,
 	'',
-	"00000000-0000-0000-0000-000000000000");
+	"00000000-0000-0000-0000-000000000000",
+	0);
 INSERT INTO O_TFR
 	VALUES ("4483e3f2-22d9-4f64-b77b-37e00a8c932d",
 	"8dda05a2-aafb-4bfc-ba3e-6949da87f72b",
@@ -33,7 +34,8 @@ return not_empty rtida;
 ',
 	1,
 	'',
-	"34770236-2043-419f-b9ad-a04e9600680a");
+	"34770236-2043-419f-b9ad-a04e9600680a",
+	0);
 INSERT INTO O_TFR
 	VALUES ("34770236-2043-419f-b9ad-a04e9600680a",
 	"8dda05a2-aafb-4bfc-ba3e-6949da87f72b",
@@ -71,7 +73,8 @@ end for;
 ',
 	1,
 	'',
-	"1a18fcf9-fadb-4aac-8963-310ca26e032d");
+	"1a18fcf9-fadb-4aac-8963-310ca26e032d",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("a6833ab9-01d3-468b-9667-d18ceb755fe0",
 	"34770236-2043-419f-b9ad-a04e9600680a",
@@ -100,7 +103,8 @@ relate sup_oir to sup_rto across R203;
 ',
 	1,
 	'',
-	"4483e3f2-22d9-4f64-b77b-37e00a8c932d");
+	"4483e3f2-22d9-4f64-b77b-37e00a8c932d",
+	0);
 INSERT INTO O_REF
 	VALUES ("8dda05a2-aafb-4bfc-ba3e-6949da87f72b",
 	"fccf477f-dde6-4d1a-9020-5effbe338738",

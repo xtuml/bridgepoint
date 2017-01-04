@@ -62,7 +62,8 @@ end if;
 return true;',
 	1,
 	'',
-	"b769114d-52a8-457a-a670-1f1eea999692");
+	"b769114d-52a8-457a-a670-1f1eea999692",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("615e6f82-3537-48ac-860d-7a6ebeaf28d1",
 	"f0b82949-d19e-4853-91ed-805974163ee0",
@@ -131,7 +132,8 @@ return 0;
 ',
 	1,
 	'',
-	"5389dc25-45b8-480e-8380-3443638dc421");
+	"5389dc25-45b8-480e-8380-3443638dc421",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("42052d0c-e1da-4a3d-be67-3d485c41c3b3",
 	"b769114d-52a8-457a-a670-1f1eea999692",
@@ -160,7 +162,8 @@ end for;
 delete object instance self;',
 	1,
 	'',
-	"00000000-0000-0000-0000-000000000000");
+	"00000000-0000-0000-0000-000000000000",
+	0);
 INSERT INTO O_REF
 	VALUES ("7d3f482b-bd30-4b8b-8729-72434cf8eb22",
 	"04ccf45f-92e0-4d09-ba38-c8b5e3c789c4",

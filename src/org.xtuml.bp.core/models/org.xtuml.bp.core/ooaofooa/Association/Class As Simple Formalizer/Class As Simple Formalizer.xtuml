@@ -27,7 +27,8 @@ end if;
 return result;',
 	1,
 	'',
-	"f5d59a0b-dd2c-42f6-b339-9a2ab97a7677");
+	"f5d59a0b-dd2c-42f6-b339-9a2ab97a7677",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("c5e1d893-860d-4af0-892b-8163d964d4cb",
 	"deb7beab-e808-4ed6-91e9-2d12c07524b6",
@@ -61,7 +62,8 @@ delete object instance self;
 ',
 	1,
 	'',
-	"00000000-0000-0000-0000-000000000000");
+	"00000000-0000-0000-0000-000000000000",
+	0);
 INSERT INTO O_TFR
 	VALUES ("4b307296-cb3d-40ac-9313-3701b5a5cfa3",
 	"04bd0a38-9559-4ea0-9ff0-cf445e373e21",
@@ -74,7 +76,8 @@ return obj.Name;
 ',
 	1,
 	'',
-	"deb7beab-e808-4ed6-91e9-2d12c07524b6");
+	"deb7beab-e808-4ed6-91e9-2d12c07524b6",
+	0);
 INSERT INTO O_TFR
 	VALUES ("4578996f-c32c-4d90-89eb-cdaa559cdf63",
 	"04bd0a38-9559-4ea0-9ff0-cf445e373e21",
@@ -103,7 +106,8 @@ rgo.dispose();
 ',
 	1,
 	'',
-	"aa866c90-b3db-41e8-8e28-a4a692b43757");
+	"aa866c90-b3db-41e8-8e28-a4a692b43757",
+	0);
 INSERT INTO O_TFR
 	VALUES ("aa866c90-b3db-41e8-8e28-a4a692b43757",
 	"04bd0a38-9559-4ea0-9ff0-cf445e373e21",
@@ -116,7 +120,8 @@ return part.Mult == 0;
 ',
 	1,
 	'',
-	"4b307296-cb3d-40ac-9313-3701b5a5cfa3");
+	"4b307296-cb3d-40ac-9313-3701b5a5cfa3",
+	0);
 INSERT INTO O_TFR
 	VALUES ("4c846330-e6c3-41f0-a257-036961d6c1eb",
 	"04bd0a38-9559-4ea0-9ff0-cf445e373e21",
@@ -146,7 +151,8 @@ delete object instance self;
 ',
 	1,
 	'',
-	"4578996f-c32c-4d90-89eb-cdaa559cdf63");
+	"4578996f-c32c-4d90-89eb-cdaa559cdf63",
+	0);
 INSERT INTO O_REF
 	VALUES ("04bd0a38-9559-4ea0-9ff0-cf445e373e21",
 	"5f12a98d-bc4a-40f7-8642-7a2819fd4159",

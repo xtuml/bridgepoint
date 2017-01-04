@@ -28,7 +28,8 @@ unrelate self from syc across R1502;
 delete object instance self;',
 	1,
 	'',
-	"00000000-0000-0000-0000-000000000000");
+	"00000000-0000-0000-0000-000000000000",
+	0);
 INSERT INTO O_REF
 	VALUES ("7c2f224d-1929-42ab-8be2-19a6e03dd14e",
 	"d4956257-25ce-4df9-a48f-3600e0983412",

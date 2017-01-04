@@ -17,7 +17,8 @@ INSERT INTO O_TFR
 	'return self.DT_ID;',
 	1,
 	'',
-	"9a71e2ab-9c17-4680-9a2f-c9d190f11ddf");
+	"9a71e2ab-9c17-4680-9a2f-c9d190f11ddf",
+	0);
 INSERT INTO O_TFR
 	VALUES ("5dda6960-2700-4ba2-9382-a08e2cfacce9",
 	"af9b2e82-f3b4-4227-943d-0d5781594f36",
@@ -43,7 +44,8 @@ end if;
 return result;',
 	1,
 	'',
-	"e13d2446-ca9e-4e28-97ed-eb6f85462c48");
+	"e13d2446-ca9e-4e28-97ed-eb6f85462c48",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("05b3eda9-b060-44df-ac5a-283af122efcf",
 	"5dda6960-2700-4ba2-9382-a08e2cfacce9",
@@ -90,7 +92,8 @@ INSERT INTO O_TFR
 	'return 1;',
 	1,
 	'',
-	"5dda6960-2700-4ba2-9382-a08e2cfacce9");
+	"5dda6960-2700-4ba2-9382-a08e2cfacce9",
+	0);
 INSERT INTO O_TFR
 	VALUES ("5e2368e3-ebd9-413e-aae2-71f15b8e79d2",
 	"af9b2e82-f3b4-4227-943d-0d5781594f36",
@@ -101,7 +104,8 @@ INSERT INTO O_TFR
 	'return 1;',
 	1,
 	'',
-	"0be1d9bb-269c-477f-a4ed-37a5e8f5fa7e");
+	"0be1d9bb-269c-477f-a4ed-37a5e8f5fa7e",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("d3956043-e122-4f8c-b993-cc9bd9592001",
 	"5e2368e3-ebd9-413e-aae2-71f15b8e79d2",
@@ -121,7 +125,8 @@ INSERT INTO O_TFR
 	'return Style::None;',
 	1,
 	'',
-	"c44828db-a3b9-4ac1-9511-497808578faf");
+	"c44828db-a3b9-4ac1-9511-497808578faf",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("3cf033c3-8911-4158-bd53-e40566e1cd41",
 	"218f3f92-96b9-4f06-99b4-498512530c65",
@@ -168,7 +173,8 @@ INSERT INTO O_TFR
 	'return Style::Box;',
 	1,
 	'',
-	"3b286844-05f1-417a-9dbd-a9f029c9a007");
+	"3b286844-05f1-417a-9dbd-a9f029c9a007",
+	0);
 INSERT INTO O_TFR
 	VALUES ("9a71e2ab-9c17-4680-9a2f-c9d190f11ddf",
 	"af9b2e82-f3b4-4227-943d-0d5781594f36",
@@ -185,7 +191,8 @@ end if;
 ',
 	1,
 	'',
-	"5e2368e3-ebd9-413e-aae2-71f15b8e79d2");
+	"5e2368e3-ebd9-413e-aae2-71f15b8e79d2",
+	0);
 INSERT INTO O_TFR
 	VALUES ("e13d2446-ca9e-4e28-97ed-eb6f85462c48",
 	"af9b2e82-f3b4-4227-943d-0d5781594f36",
@@ -198,7 +205,8 @@ unrelate self from dt across R17;
 delete object instance self;',
 	1,
 	'',
-	"00000000-0000-0000-0000-000000000000");
+	"00000000-0000-0000-0000-000000000000",
+	0);
 INSERT INTO O_TFR
 	VALUES ("089252bf-3ad0-4646-b8a8-061ddb75599a",
 	"af9b2e82-f3b4-4227-943d-0d5781594f36",
@@ -209,7 +217,8 @@ INSERT INTO O_TFR
 	'return this;',
 	0,
 	'',
-	"218f3f92-96b9-4f06-99b4-498512530c65");
+	"218f3f92-96b9-4f06-99b4-498512530c65",
+	0);
 INSERT INTO S_DT_PROXY
 	VALUES ("bc3722c8-5188-4529-8519-cf9eb9816b17",
 	"00000000-0000-0000-0000-000000000000",
