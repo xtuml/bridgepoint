@@ -1,8 +1,0 @@
-actual_results
-bin
-build.xml
-jcoverage.ser
-org.xtuml.bp.ui.canvas.test_*.zip
-test.jar
-testsrc.zip
-.DS_Store
