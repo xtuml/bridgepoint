@@ -48,6 +48,11 @@ make adjustments as necessary.
 I grep'd bptest/src for "elocatable" and got no hits.  This indicates that
 there are no dependencies in the test plugins.
 
+6.2 `markComponentRoot`  
+While grep'ing I found a concentration of specialized package marking
+code that was wrong.  It was benign, but it is disconcerting to see
+specialized pacakge stuff.
+
 7. Unit Test
 ------------
 7.1 Build BridgePoint.  
