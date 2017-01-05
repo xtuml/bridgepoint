@@ -388,7 +388,7 @@ Description: A textual description of this required operation.',
 INSERT INTO O_DBATTR
 	VALUES ("157d1c2b-50a2-42d3-93ab-79904462dd30",
 	"5d57cf7a-744e-4b5b-bc6e-e839d04a8fd3",
-	'self.Action_Semantics = ::convertRelocatableTags(in:self.Action_Semantics_internal);',
+	'self.Action_Semantics = self.Action_Semantics_internal;',
 	1,
 	0);
 INSERT INTO O_BATTR

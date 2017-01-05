@@ -454,7 +454,7 @@ Description: A textual description of this provided signal.',
 INSERT INTO O_DBATTR
 	VALUES ("e99809eb-503f-49b2-80a9-feca9f52afa1",
 	"e85528c7-bdd7-46da-8137-12e7490df0d0",
-	'self.Action_Semantics = ::convertRelocatableTags(in:self.Action_Semantics_internal);',
+	'self.Action_Semantics = self.Action_Semantics_internal;',
 	1,
 	0);
 INSERT INTO O_BATTR

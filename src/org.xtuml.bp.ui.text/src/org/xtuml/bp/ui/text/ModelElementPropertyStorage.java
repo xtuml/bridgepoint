@@ -32,7 +32,6 @@ import org.xtuml.bp.core.common.PersistableModelComponent;
 import org.xtuml.bp.core.common.PersistenceManager;
 import org.xtuml.bp.core.common.Transaction;
 import org.xtuml.bp.core.common.TransactionManager;
-import org.xtuml.bp.core.relocatables.RelocatableTagConversionUtil;
 import org.xtuml.bp.ui.text.activity.ActivityEditor;
 
 /**
@@ -86,10 +85,6 @@ public class ModelElementPropertyStorage implements IStorage{
 		String contents = ""; //$NON-NLS-1$
 		if(modelElement != null){
 			contents = (String) invokeMethod(modelElement, "get" + propertyName, null); //$NON-NLS-1$
-            
-            // convert any relocatable tags found in the text of the model-element
-            contents = RelocatableTagConversionUtil.convertRelocatableTags(
-                modelElement.getModelRoot(), contents);
 		}
 		return contents;
 	}

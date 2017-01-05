@@ -126,7 +126,7 @@ INSERT INTO O_ATTR
 INSERT INTO O_DBATTR
 	VALUES ("d248b6c2-83f5-43d1-8c58-45299a874a3f",
 	"217ade74-f54e-4fda-8497-0513abeb05fc",
-	'self.Action_Semantics = ::convertRelocatableTags(in:self.Action_Semantics_internal);
+	'self.Action_Semantics = self.Action_Semantics_internal;
 ',
 	1,
 	0);
