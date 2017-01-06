@@ -317,32 +317,6 @@ INSERT INTO PE_PE
 	"00000000-0000-0000-0000-000000000000",
 	1);
 INSERT INTO S_SYNC
-	VALUES ("f82cea67-364f-41e5-87da-f21c8beda6ef",
-	"00000000-0000-0000-0000-000000000000",
-	'convertRelocatableTags',
-	'Translate: native',
-	'return org.xtuml.bp.core.relocatables.RelocatableTagConversionUtil.convertRelocatableTags(modelRoot, p_In);
-',
-	"ba5eda7a-def5-0000-0000-000000000004",
-	0,
-	'',
-	0);
-INSERT INTO S_SPARM
-	VALUES ("2cd48ddb-d5cd-4175-a6bd-10c54d0c466e",
-	"f82cea67-364f-41e5-87da-f21c8beda6ef",
-	'in',
-	"ba5eda7a-def5-0000-0000-000000000004",
-	0,
-	'',
-	"00000000-0000-0000-0000-000000000000",
-	'');
-INSERT INTO PE_PE
-	VALUES ("f82cea67-364f-41e5-87da-f21c8beda6ef",
-	1,
-	"2467e6dc-9ef4-46c6-afa6-883c1e23a96c",
-	"00000000-0000-0000-0000-000000000000",
-	1);
-INSERT INTO S_SYNC
 	VALUES ("7b6e3d0e-69b5-47fe-b27c-bef17ad99f63",
 	"00000000-0000-0000-0000-000000000000",
 	'getUniqueInitialName',

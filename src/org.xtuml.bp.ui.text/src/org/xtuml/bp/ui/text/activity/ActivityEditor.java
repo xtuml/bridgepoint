@@ -1,14 +1,4 @@
 package org.xtuml.bp.ui.text.activity;
-//====================================================================
-//
-// File:      $RCSfile: ActivityEditor.java,v $
-// Version:   $Revision: 1.46 $
-// Modified:  $Date: 2013/01/10 23:20:48 $
-//
-// (c) Copyright 2004-2014 by Mentor Graphics Corp.  All rights reserved.
-//
-//====================================================================
-//
 import java.io.StringReader;
 
 import org.eclipse.core.resources.IFile;
@@ -54,9 +44,6 @@ import org.xtuml.bp.core.common.ModelChangeAdapter;
 import org.xtuml.bp.core.common.ModelChangedEvent;
 import org.xtuml.bp.core.common.NonRootModelElement;
 import org.xtuml.bp.core.common.NullEditorInput;
-import org.xtuml.bp.core.relocatables.RelocatableTagConversionUtil;
-import org.xtuml.bp.core.relocatables.RelocatableTagCreationUtil;
-import org.xtuml.bp.core.relocatables.Relocatables;
 import org.xtuml.bp.core.ui.Selection;
 import org.xtuml.bp.core.util.EditorUtil;
 import org.xtuml.bp.core.util.HierarchyUtil;
@@ -75,24 +62,6 @@ public class ActivityEditor extends OALEditor
   IDocumentListener listener = null;
   FocusListener focusListener = null;
 
-  /**
-   * See field's type, which is an inner class of this one.
-   */
-  private ModelChangeListener modelChangeListener = new ModelChangeListener();
-
-  /**
-   * An intermediate place to store the results of replacing portions of
-   * this editor's contents with tags that reference relocatables.  We can't 
-   * store such results directly in the model elements because saving an 
-   * activity editor winds up saving the whole model, so any other activity
-   * editors with user-entered changes would also be saved, as a detrimental 
-   * side effect.
-   * 
-   * One cavaet to keep in mind concerning relocatables is that changing the 
-   * value of a relocatable while a parse is occurring can cause that parse 
-   * to fail, which will empty this field and prevent updates to relocatables
-   * in the editor's text until the next successful parse.
-   */
   private String taggedContent;
   
   /**
@@ -231,23 +200,13 @@ public class ActivityEditor extends OALEditor
             
 		// if there were no parse errors
         if (parseCompleted && !problemsFound) {
-            // replace references to relocatables in the text under parse
-            // with tags
-            String taggedActionSemantics = 
-                RelocatableTagCreationUtil.createRelocatableTags(
-                m_modelElement, m_document.get());
+            // Relocatables are deprecated, so simply store the document.
+            String taggedActionSemantics = m_document.get();
                 
             // if the parse isn't being done for an editor (but rather, it is
             // being done as part of a parse-all)
             if (forEditor == null) {
-              if ( ! taggedActionSemantics.equals(m_document.get()) ) {
-                // store the tagged action semantics into the document,
-                // so that the save that will occur after the parse will
-                // contain the tags; this way, an activity that hasn't had 
-                // tags created for it yet will have them created here
-                m_document.set(taggedActionSemantics);
 	            m_myAnnotationModel.resetMarkers();
-              }
             }
                 
             // if the parse is being done for an editor
@@ -418,14 +377,6 @@ public class ActivityEditor extends OALEditor
     if(document != null){
         listener = new Listener();
         document.addDocumentListener(listener);
-
-        // connect our model change listener
-        // relocatables functionality is disabled in this release 
-        
-        // cause the activity text to be parsed immediately, so that 
-        // relocatable tags will be created for an activity text that previously
-        // did not make use of them
-        listener.documentChanged(new DocumentEvent());
     }
   }
 
@@ -480,7 +431,6 @@ public class ActivityEditor extends OALEditor
  
     // disconnect our model change listener
     ActivityEditorInput input = (ActivityEditorInput)getEditorInput();
-    Ooaofooa.getDefaultInstance().removeModelChangeListener(modelChangeListener);
 
     disposed = true;
     
@@ -545,7 +495,7 @@ public void waitForParseThread()
         waitForParseThread();
         super.doSave(progressMonitor);
         // write the contents of this editor's intermediate buffer 
-        // (containing the action semantics with relocatables tags)
+        // (containing the action semantics)
         // or the document text (if the intermediate buffer is empty due 
         // to one or more parse errors) into the model
         ActivityEditorInput input = (ActivityEditorInput)getEditorInput();
@@ -553,89 +503,6 @@ public void waitForParseThread()
             (taggedContent != null) ? new Document(taggedContent) : 
                 getDocumentProvider().getDocument(input), 
             true);
-    }
-    
-    /**
-     * Listens for changes of interest to the model containing the activity
-     * this editor is editing.
-     */
-    private class ModelChangeListener extends ModelChangeAdapter
-    {
-        /* (non-Javadoc)
-         * @see org.xtuml.bp.core.common.IModelChangeListener#modelElementAttributeChanged(org.xtuml.bp.core.common.ModelChangedEvent, org.xtuml.bp.core.common.IModelDelta)
-         * 
-         * Something to keep in mind concerning relocatables is that changing 
-         * the value of a relocatable (an event of which this is editor is 
-         * notified by a call to this method) while a parse is occurring can 
-         * cause that parse to fail, which will empty this editor's 
-         * taggedContent field and prevent updates to relocatables in the 
-         * editor's text until the next successful parse.
-         */
-        public void modelElementAttributeChanged(  
-            ModelChangedEvent event, IModelDelta delta)
-        {
-            // if the given delta does not affect a relocatable, then there 
-            // is nothing to do
-            if (!Relocatables.doesDeltaAffectRelocatable(delta)) return;
-            
-            // note that we don't wait for any currently-running parse-thread
-            // to finish, as this attribute-change will likely invalidate it, 
-            // anyway, and a new parse will be started, below
-            
-            // if this editor was not able to formulate tags for the results
-            // of the last parse on its text, then there is nothing to do
-            if (taggedContent == null) return;
-            
-            // re-translate the relocatable tags in this editor's text
-            String contents = 
-                RelocatableTagConversionUtil.convertRelocatableTags(
-                    ((ActivityEditorInput)getEditorInput()).getModelRoot(),
-                    taggedContent);
-
-            // if the re-translated text has any differences with what's
-            // currently displayed in the editor
-            IDocument document = 
-                getDocumentProvider().getDocument(getEditorInput());
-            if (!document.get().equals(contents)) {
-                // remember whether this editor is currently marked as dirty,
-                // since the code below will make it dirty, no matter what
-                boolean dirty = isDirty();
-
-                // record where the caret and scroll position of the
-                // editor currently are, as the refresh performed below
-                // will home them
-                ISourceViewer viewer = getSourceViewer();
-                int topIndex = viewer.getTopIndex();
-                StyledText widget = viewer.getTextWidget();
-                int caretOffset = widget.getCaretOffset();
-                
-                // set the re-translated text into the editor, which will
-                // affect the editor's caret and scroll positions, as well
-                // as its dirty status
-                document.set(contents);
-                
-                // restore the editor's caret and scroll positions to
-                // their values prior to the above refresh
-                viewer.setTopIndex(topIndex);
-                widget.setCaretOffset(
-                    Math.min(caretOffset, document.getLength()));
-                
-                // if this editor was not marked as dirty before the 
-                // re-setting of its text of its input, above (which makes 
-                // it dirty)
-                if (!dirty) {
-                    // remove the dirty marker
-                    setAsNotDirty();
-                }
-            }
-            
-            // otherwise
-            else {
-                // get the editor's text reparsed, since the relocatable 
-                // change might fix current parse errors
-                listener.documentChanged(new DocumentEvent());
-            }
-        }
     }
     
     /**
