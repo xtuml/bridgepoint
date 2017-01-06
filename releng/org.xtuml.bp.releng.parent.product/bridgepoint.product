@@ -32,9 +32,7 @@
    </plugins>
 
    <features>
-      <feature id="org.xtuml.bp.bld.pkg.feature"/>
       <feature id="org.xtuml.bp.pkg.feature"/>
-      <feature id="org.xtuml.bp.verifier.pkg.feature"/>
       <feature id="org.xtuml.bp.jre"/>
       <feature id="org.xtuml.bp.MinGW"/>
       <feature id="org.xtuml.bp.docgen"/>
