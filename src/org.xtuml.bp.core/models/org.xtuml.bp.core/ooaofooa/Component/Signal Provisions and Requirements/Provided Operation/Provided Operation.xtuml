@@ -389,7 +389,7 @@ Description: A textual description of this provided operation.',
 INSERT INTO O_DBATTR
 	VALUES ("0d3593c5-a85f-461e-832f-79770ac2b56b",
 	"d113e0d5-c2e8-4091-a78c-e09abec06ed0",
-	'self.Action_Semantics = ::convertRelocatableTags(in:self.Action_Semantics_internal);',
+	'self.Action_Semantics = self.Action_Semantics_internal;',
 	1,
 	0);
 INSERT INTO O_BATTR

@@ -857,7 +857,7 @@ readonly: true
 INSERT INTO O_DBATTR
 	VALUES ("5732d44f-367f-4a7b-a930-be9267712d4a",
 	"47a1eb94-2620-4ecd-85d3-29f76391509f",
-	'self.Action_Semantics = ::convertRelocatableTags(in:self.Action_Semantics_internal);
+	'self.Action_Semantics = self.Action_Semantics_internal;
 ',
 	1,
 	0);

@@ -180,7 +180,7 @@ INSERT INTO S_DT_PROXY
 INSERT INTO O_DBATTR
 	VALUES ("59d2c68a-fb72-4918-954e-7e848519a305",
 	"51d28929-d81b-4ffc-8b96-028f5ed244c2",
-	'self.Action_Semantics = ::convertRelocatableTags(in:self.Action_Semantics_internal);
+	'self.Action_Semantics = self.Action_Semantics_internal;
 ',
 	1,
 	0);

@@ -458,7 +458,7 @@ Description: A textual description of this required signal.',
 INSERT INTO O_DBATTR
 	VALUES ("c57cfbeb-42a8-4463-b7db-762fbfae89b5",
 	"7267de3e-fe63-474a-952b-d3155f3e36f2",
-	'self.Action_Semantics = ::convertRelocatableTags(in:self.Action_Semantics_internal);',
+	'self.Action_Semantics = self.Action_Semantics_internal;',
 	1,
 	0);
 INSERT INTO O_BATTR

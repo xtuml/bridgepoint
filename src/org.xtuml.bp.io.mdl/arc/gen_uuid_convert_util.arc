@@ -131,7 +131,6 @@ package org.xtuml.bp.io.mdl;
 
 import org.xtuml.bp.core.*;
 import org.xtuml.bp.core.common.*;
-import org.xtuml.bp.core.relocatables.*;
 import org.xtuml.bp.ui.canvas.*;
 import java.util.*;
 .// 
@@ -146,25 +145,6 @@ import java.util.*;
 .end for
 
 public class ${class_name} extends IDConvertor{
-
-	protected void updateRelocatables(){
-		for (NonRootModelElement me : mesWithRelocatables) {
-.select many table_set from instances of T where (selected.DomainName == "ooaofooa")
-.assign elseString = ""
-.for each table in table_set
-   .select any col related by table->C[R5] where (selected.Name == "Action_Semantics_internal")
-   .if(not_empty col)
-       .invoke cn = get_class_name ( table )
-			${elseString} if(me instanceof ${cn.body}){
-				${cn.body} meWithRelocatable = (${cn.body})me;
-				String as_internal = RelocatableTagCreationUtil.createRelocatableTags(meWithRelocatable, meWithRelocatable.getAction_semantics_internal());
-				meWithRelocatable.setAction_semantics_internal(as_internal);
-			}
-		.assign elseString = "else"	
-   .end if 
-.end for		
-		}
-	}
 
     protected final String createKey(NonRootModelElement modelElement){
 .for each id_eo in id_eos
