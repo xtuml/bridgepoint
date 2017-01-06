@@ -55,17 +55,7 @@
 						<extraRequirements>
 							<requirement>
 								<type>eclipse-feature</type>
-								<id>org.xtuml.bp.bld.pkg.feature</id>
-								<versionRange>0.0.0</versionRange>
-							</requirement>
-							<requirement>
-								<type>eclipse-feature</type>
 								<id>org.xtuml.bp.pkg.feature</id>
-								<versionRange>0.0.0</versionRange>
-							</requirement>
-							<requirement>
-								<type>eclipse-feature</type>
-								<id>org.xtuml.bp.verifier.pkg.feature</id>
 								<versionRange>0.0.0</versionRange>
 							</requirement>
 							<requirement>

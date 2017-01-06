@@ -1452,7 +1452,6 @@
 <plugin id="org.xtuml.bp.ui.session"/>
 <plugin id="org.xtuml.bp.ui.text"/>
 <plugin id="org.xtuml.bp.utilities"/>
-<plugin id="org.xtuml.bp.verifier.pkg"/>
 <plugin id="org.xtuml.bp.welcome"/>
 <plugin id="org.xtuml.bp.x2m"/>
 <plugin id="org.xtuml.help.bp.mc"/>
