@@ -443,24 +443,41 @@ public class ${class_name} extends CoreImport
     private ${helperClass} helper = new ${helperClass}(this);
 
     .if (callingProject == "NBP")
-        /**
-         * The version number found at the beginning of some legacy BridgePoint 7.1 model files.
-         * BridgePoint forced users to update model persistence when specialized packages
-         * were deprecated at persistence version 7.1.6, so BridgePoint no longer expects
-         * to see anything older than that.
-         */
-    	private final static String bp7_1_6VersionNumber = "7.1.6";
+    /**
+     * The version number found at the beginning of legacy BridgePoint 7.0 model files.
+     */
+    private final static String bp7_0VersionNumber = "7.0";
 
-    	/**
-    	 * We moved from 7.1.6 to 7.1.7 in Jan 2017 in BridgePoint v5.8.6.
-    	 * It was BridgePoint 5.8.6 where MASL persistence was introduced (#8417).
-    	 * This is a persistence format change. We did not update the persistence
-    	 * version with that promotion, but are doing so now.
-    	 */
-    	/**
-         * The current persistence version.
-         */
-        private final static String currentPersistenceVersion = "7.1.7";
+    /**
+     * The version number found at the beginning of legacy BridgePoint 7.1 model files.
+     */
+    private final static String bp7_1VersionNumber = "7.1";
+
+    /**
+     * The version number found at the beginning of some legacy BridgePoint 7.1 model files.
+     */
+    private final static String bp7_1_1VersionNumber = "7.1.1";
+
+    /**
+     * The version number found at the beginning of some legacy BridgePoint 7.1 model files.
+     */
+    private final static String bp7_1_2VersionNumber = "7.1.2";
+
+    /**
+     * The version number found at the beginning of some legacy BridgePoint 7.1 model files.
+     */
+    private final static String bp7_1_3VersionNumber = "7.1.3";
+
+    /**
+     * The version number found at the beginning of some legacy BridgePoint 7.1 model files.
+     */
+    private final static String bp7_1_4VersionNumber = "7.1.4";
+
+	private final static String bp7_1_5VersionNumber = "7.1.5";
+    /**
+     * The current persistence version
+     */
+    private final static String persistenceVersion = "7.1.6";
 
     .end if
     String actualVersion = getHeader().getFileFormatVersion();
@@ -611,8 +628,12 @@ public class ${class_name} extends CoreImport
     {
         return actualVersion.equals("${tool}")
     .if (callingProject == "NBP")
-            || actualVersion.equals(bp7_1_6VersionNumber)
-            || actualVersion.equals(currentPersistenceVersion)
+            || actualVersion.equals(bp7_1_3VersionNumber)
+          || actualVersion.equals(bp7_1_2VersionNumber)
+                || actualVersion.equals(bp7_1_1VersionNumber)
+            || actualVersion.equals(bp7_1VersionNumber)
+            || actualVersion.equals(bp7_0VersionNumber)
+            || actualVersion.equals("7.1.6")
     .end if
         ;
     }
@@ -701,7 +722,9 @@ public class ${class_name} extends CoreImport
 
     public void processAction( String smasl, int dialect ) {
 	.if (class_name == "ImportModelComponent")
-        if ( dialect == Actiondialect_c.masl ) {
+        IPreferenceStore store = CorePlugin.getDefault().getPreferenceStore();
+        String persistActivities = store.getString(BridgePointPreferencesStore.ACTIVITY_PERSISTENCE);
+        if ( persistActivities.equals(BridgePointPreferencesStore.PERSIST_ACTIVITY_FILES) && dialect == Actiondialect_c.masl ) {
             NonRootModelElement pmc_root_element = getRootModelElement();
             ModelRoot modelRoot = pmc_root_element.getModelRoot();
 
@@ -783,14 +806,6 @@ public class ${class_name} extends CoreImport
             // compile the signature
             signature = ret_type + " " + name + parameter_list;
 
-            // fix the body
-            body = body.trim();
-            if ( dialect == Actiondialect_c.masl ) {
-                // if the dialect is MASL, the 'end' keyword belongs
-                // as part of the code body itself and must be added
-                body += "\nend";
-            }
-
             // call import function
             if ( pmc_root_element instanceof SystemModel_c ) {
                 SystemModel_c inst = (SystemModel_c)pmc_root_element;
@@ -863,6 +878,9 @@ public class ${class_name} extends CoreImport
             }
             loadedInstances.addAll(helper.upgradeTransitions(loadedInstances));
             helper.upgradeEventData(getModelRoot(), getRootModelElement());
+            if(actualVersion.equals(bp7_1_4VersionNumber)) {
+            	  helper.associateSatisfactionsThroughIdentifier(getModelRoot());
+            }
             helper.upgradeDSAs(getModelRoot());
             helper.upgradeElementOrder(getModelRoot());
 			loadedInstances.addAll(helper.upgradeDatatypes(loadedInstances));
@@ -911,11 +929,7 @@ public class ${class_name} extends CoreImport
           }
 
             .if (class_name == "ImportModelComponent")
-            IPreferenceStore store = CorePlugin.getDefault().getPreferenceStore();
-            String persistActivities = store.getString(BridgePointPreferencesStore.ACTIVITY_PERSISTENCE);
-            if ( persistActivities.equals(BridgePointPreferencesStore.PERSIST_ACTIVITY_FILES) ) {
-              m_actionSuccess = doLoadActions(pm);
-            }
+            doLoadActions(pm);
             .end if;
             pm.done();
             if (m_parseAll) {
@@ -980,6 +994,8 @@ ${result.body}\
         .end if
       .invoke result = genCreationMethodCalls()
 ${result.body}\
+      .invoke result = genExtraCreationMethodCalls(callingProject)
+${result.body}\
       .invoke result = genGraphicsCreationCode(callingProject, multilevel, setComponent)
 ${result.body}\
         pm.worked(1);
@@ -989,6 +1005,8 @@ ${result.body}\
     }
 
      .invoke result = genCreateMethods(callingProject, multilevel, setComponent, var.main_class_name);
+${result.body}\
+     .invoke result = genExtraCreateMethods(callingProject, multilevel, setComponent, var.main_class_name);
 ${result.body}\
      .invoke result = genProcessValueMethod();
 ${result.body}\
