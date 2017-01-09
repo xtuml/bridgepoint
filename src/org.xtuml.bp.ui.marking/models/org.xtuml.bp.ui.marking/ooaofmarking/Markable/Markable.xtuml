@@ -1,0 +1,55 @@
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("83d1c28c-bef4-4d7c-93e2-4bf8af8a6eb8",
+	'Markable',
+	1,
+	'Markable',
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_NBATTR
+	VALUES ("506d4040-7b2b-43c1-81f0-61385370b244",
+	"83d1c28c-bef4-4d7c-93e2-4bf8af8a6eb8");
+INSERT INTO O_BATTR
+	VALUES ("506d4040-7b2b-43c1-81f0-61385370b244",
+	"83d1c28c-bef4-4d7c-93e2-4bf8af8a6eb8");
+INSERT INTO O_ATTR
+	VALUES ("506d4040-7b2b-43c1-81f0-61385370b244",
+	"83d1c28c-bef4-4d7c-93e2-4bf8af8a6eb8",
+	"00000000-0000-0000-0000-000000000000",
+	'name',
+	'',
+	'',
+	'name',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000004",
+	'',
+	'');
+INSERT INTO O_ID
+	VALUES (0,
+	"83d1c28c-bef4-4d7c-93e2-4bf8af8a6eb8");
+INSERT INTO O_OIDA
+	VALUES ("506d4040-7b2b-43c1-81f0-61385370b244",
+	"83d1c28c-bef4-4d7c-93e2-4bf8af8a6eb8",
+	0,
+	'name');
+INSERT INTO O_ID
+	VALUES (1,
+	"83d1c28c-bef4-4d7c-93e2-4bf8af8a6eb8");
+INSERT INTO O_ID
+	VALUES (2,
+	"83d1c28c-bef4-4d7c-93e2-4bf8af8a6eb8");
+INSERT INTO PE_PE
+	VALUES ("83d1c28c-bef4-4d7c-93e2-4bf8af8a6eb8",
+	1,
+	"b97268c4-66eb-4387-8dbb-2d7d7751f166",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
+	VALUES ("b97268c4-66eb-4387-8dbb-2d7d7751f166",
+	"346c775f-ce20-4599-8bbc-9b4256b4d2ed",
+	"346c775f-ce20-4599-8bbc-9b4256b4d2ed",
+	'ooaofmarking',
+	'',
+	0,
+	'../ooaofmarking.xtuml');
