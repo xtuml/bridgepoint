@@ -38,6 +38,13 @@
   .param String callingProject
   .//
   .if (callingProject == "NBP")
+        storeC_C(modelRoot, table, parms, rawParms, numParms, pm);
+        storeC_P(modelRoot, table, parms, rawParms, numParms, pm);
+        storeC_R(modelRoot, table, parms, rawParms, numParms, pm);
+        storeCD_IC(modelRoot, table, parms, rawParms, numParms, pm);
+        storeCD_IID(modelRoot, table, parms, rawParms, numParms, pm);
+        storeCD_CID(modelRoot, table, parms, rawParms, numParms, pm);
+        storeCD_CDE(modelRoot, table, parms, rawParms, numParms, pm);
         storeCL_IR(modelRoot, table, parms, rawParms, numParms, pm);
         storeCL_IPINS(modelRoot, table, parms, rawParms, numParms, pm);
         storePA_SIC(modelRoot, table, parms, rawParms, numParms, pm);
@@ -299,6 +306,120 @@ ${setSize.body}
   .param boolean setComponent
   .param String main_class_name
   .if (callingProject == "NBP")
+  private void storeC_C(Ooaofooa modelRoot, String table, Vector parms,
+                          Vector rawParms, int numParms, IProgressMonitor pm) {
+    if (table.equalsIgnoreCase("C_C") && !actualVersion.equals(persistenceVersion) && (!actualVersion.equals(bp7_1_5VersionNumber)) && !actualVersion.equals(bp7_1_4VersionNumber)) { //$$NON-NLS-1$$
+      // TODO - This code was added to upgrade C_C instances, but only for
+      // these instances when created before 1.5
+      Component_c component = new Component_c(modelRoot, IdAssigner.createUUIDFromString((String)parms.elementAt(0)), 
+          IdAssigner.NULL_UUID,
+          IdAssigner.NULL_UUID,
+          removeTics((String)parms.elementAt(2)).trim(), 
+          removeTics((String)parms.elementAt(3)),
+          0, 
+          IdAssigner.NULL_UUID, false, "");
+          .if(multilevel)
+      if (rootModelElement == null) {
+          rootModelElement = component;
+            .if(setComponent)
+          m_component.setRootModelElement(component, false, false);
+            .end if
+        }
+      loadedInstances.add(component);
+      metadata.setComponentOfME(component, m_component);
+          .end if
+      ImportHelper.C_C cc = new ImportHelper.C_C(
+        IdAssigner.createUUIDFromString((String) parms.elementAt(0)),
+        IdAssigner.createUUIDFromString((String) parms.elementAt(1)),
+        removeTics((String) parms.elementAt(2)),
+        removeTics((String) parms.elementAt(3)), component
+        );
+      helper.old_components.add(cc);
+    }
+  }
+  private void storeC_P(Ooaofooa modelRoot, String table, Vector parms,
+                        Vector rawParms, int numParms, IProgressMonitor pm) {
+    if (table.equalsIgnoreCase("C_P") && !actualVersion.equals(persistenceVersion) && (!actualVersion.equals(bp7_1_5VersionNumber)) && !actualVersion.equals(bp7_1_4VersionNumber)) { //$$NON-NLS-1$$
+      ImportHelper.C_P cp = new ImportHelper.C_P(
+        IdAssigner.createUUIDFromString((String) parms.elementAt(0)),
+        IdAssigner.createUUIDFromString((String) parms.elementAt(1)),
+        IdAssigner.createUUIDFromString((String) parms.elementAt(2)),
+        IdAssigner.createUUIDFromString((String) parms.elementAt(3)),
+        removeTics((String) parms.elementAt(4)),
+        removeTics((String) parms.elementAt(5)),
+        removeTics((String) parms.elementAt(6))
+      );
+      ImportHelper.old_provisions.add(cp);
+    }
+  }
+  private void storeC_R(Ooaofooa modelRoot, String table, Vector parms,
+                        Vector rawParms, int numParms, IProgressMonitor pm) {
+    if (table.equalsIgnoreCase("C_R") && !actualVersion.equals(persistenceVersion) && (!actualVersion.equals(bp7_1_5VersionNumber)) && !actualVersion.equals(bp7_1_4VersionNumber)) { //$$NON-NLS-1$$
+      ImportHelper.C_R cr = new ImportHelper.C_R(
+        IdAssigner.createUUIDFromString((String) parms.elementAt(0)),
+        IdAssigner.createUUIDFromString((String) parms.elementAt(1)),
+        IdAssigner.createUUIDFromString((String) parms.elementAt(2)),
+        IdAssigner.createUUIDFromString((String) parms.elementAt(3)),
+        removeTics((String) parms.elementAt(4)),
+        removeTics((String) parms.elementAt(5)),
+        removeTics((String) parms.elementAt(6))
+      );
+      ImportHelper.old_requirements.add(cr);
+    }
+  }
+  private void storeCD_IC(Ooaofooa modelRoot, String table, Vector parms,
+                          Vector rawParms, int numParms, IProgressMonitor pm) {
+    if (table.equalsIgnoreCase("CD_IC") && !actualVersion.equals(persistenceVersion) && (!actualVersion.equals(bp7_1_5VersionNumber)) && !actualVersion.equals(bp7_1_4VersionNumber)) { //$$NON-NLS-1$$
+      // TODO - This code was added to upgrade CD_IC instances, but only for
+      // these instances when created before 1.5
+      ImportHelper.CD_IC cdic = new ImportHelper.CD_IC(
+        IdAssigner.createUUIDFromString((String) parms.elementAt(0)),
+        IdAssigner.createUUIDFromString((String) parms.elementAt(1)),
+        IdAssigner.createUUIDFromString((String) parms.elementAt(2)),
+        Integer.parseInt((String) parms.elementAt(3)),
+        removeTics((String) parms.elementAt(4)),
+        removeTics((String) parms.elementAt(5)), modelRoot
+        );
+      ImportHelper.used_components.add(cdic);
+    }
+  }
+  private void storeCD_IID(Ooaofooa modelRoot, String table, Vector parms,
+                           Vector rawParms, int numParms, IProgressMonitor pm) {
+    if (table.equalsIgnoreCase("CD_IID") && !actualVersion.equals(persistenceVersion) && (!actualVersion.equals(bp7_1_5VersionNumber)) && !actualVersion.equals(bp7_1_4VersionNumber)) { //$$NON-NLS-1$$
+      // TODO - This code was added to upgrade CD_IID instances, but only for
+      // these instances when created before 1.5
+      ImportHelper.CD_IID cdiid = new ImportHelper.CD_IID(
+        IdAssigner.createUUIDFromString((String) parms.elementAt(0)),
+        IdAssigner.createUUIDFromString((String) parms.elementAt(1)),
+        IdAssigner.createUUIDFromString((String) parms.elementAt(2))
+        );
+      ImportHelper.interface_in_diagrams.add(cdiid);
+    }
+  }
+  private void storeCD_CID(Ooaofooa modelRoot, String table, Vector parms,
+                           Vector rawParms, int numParms, IProgressMonitor pm) {
+    if (table.equalsIgnoreCase("CD_CID") && !actualVersion.equals(persistenceVersion) && (!actualVersion.equals(bp7_1_5VersionNumber)) && !actualVersion.equals(bp7_1_4VersionNumber)) { //$$NON-NLS-1$$
+      // TODO - This code was added to upgrade CD_CID instances, but only for
+      // these instances when created before 1.5
+      ImportHelper.CD_CID cdcid = new ImportHelper.CD_CID(
+        IdAssigner.createUUIDFromString((String) parms.elementAt(0)),
+        IdAssigner.createUUIDFromString((String) parms.elementAt(1))
+        );
+      ImportHelper.component_in_diagrams.add(cdcid);
+    }
+  }
+  private void storeCD_CDE(Ooaofooa modelRoot, String table, Vector parms,
+                           Vector rawParms, int numParms, IProgressMonitor pm) {
+    if (table.equalsIgnoreCase("CD_CDE") && !actualVersion.equals(persistenceVersion) && (!actualVersion.equals(bp7_1_5VersionNumber)) && !actualVersion.equals(bp7_1_4VersionNumber)) { //$$NON-NLS-1$$
+      // TODO - This code was added to upgrade CD_CDE instances, but only for
+      // these instances when created before 1.5
+      ImportHelper.CD_CDE cdcde = new ImportHelper.CD_CDE(
+        IdAssigner.createUUIDFromString((String) parms.elementAt(0)),
+        IdAssigner.createUUIDFromString((String) parms.elementAt(1))
+        );
+      ImportHelper.component_diagram_elements.add(cdcde);
+    }
+  }
   private void storeCL_IR(Ooaofooa modelRoot, String table, Vector parms,
                           Vector rawParms, int numParms, IProgressMonitor pm) {
     if (table.equalsIgnoreCase("CL_IR") && actualVersion.equals(bp7_1_4VersionNumber)) { //$$NON-NLS-1$$

@@ -1,0 +1,3 @@
+instructions.configure = \
+ chmod(targetDir:${installFolder}/plugins/org.apache.ant_1.9.6.v201510161327/bin,targetFile:ant,permissions:755); \
+ chmod(targetDir:${installFolder}/plugins/org.apache.ant_1.9.6.v201510161327/bin,targetFile:antRun,permissions:755);
