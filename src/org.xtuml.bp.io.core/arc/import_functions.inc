@@ -32,6 +32,25 @@
     .assign attr_result = true;
   .end if
 .end function
+.// this function outputs any additional calls to the creation methods
+.// for specific table entries that have to be supported
+.function genExtraCreationMethodCalls
+  .param String callingProject
+  .//
+  .if (callingProject == "NBP")
+        storeC_C(modelRoot, table, parms, rawParms, numParms, pm);
+        storeC_P(modelRoot, table, parms, rawParms, numParms, pm);
+        storeC_R(modelRoot, table, parms, rawParms, numParms, pm);
+        storeCD_IC(modelRoot, table, parms, rawParms, numParms, pm);
+        storeCD_IID(modelRoot, table, parms, rawParms, numParms, pm);
+        storeCD_CID(modelRoot, table, parms, rawParms, numParms, pm);
+        storeCD_CDE(modelRoot, table, parms, rawParms, numParms, pm);
+        storeCL_IR(modelRoot, table, parms, rawParms, numParms, pm);
+        storeCL_IPINS(modelRoot, table, parms, rawParms, numParms, pm);
+        storePA_SIC(modelRoot, table, parms, rawParms, numParms, pm);
+        storePA_SICP(modelRoot, table, parms, rawParms, numParms, pm);
+  .end if
+.end function
 .// this function generates creation methods
 .// for each table entry
 .function genCreateMethods
@@ -61,8 +80,13 @@
     .end if
     .if(table.Key_Lett == "C_SF")
       // we need to store the satisfaction before the early return
-      helper.addSatisfactionToInstances(null, IdAssigner.createUUIDFromString((String) parms.elementAt(0)),  IdAssigner
-              ..createUUIDFromString((String) parms.elementAt(1)));
+      helper.addSatisfactionToInstances(null, IdAssigner.createUUIDFromString((String) parms.elementAt(actualVersion.equals(bp7_1_3VersionNumber)?1:0)),  IdAssigner
+              ..createUUIDFromString((String) parms.elementAt(actualVersion.equals(bp7_1_3VersionNumber)?0:
+                  1)));
+    .end if
+    .invoke earlyReturnResult = shouldReturnEarlyIfNotCurrent(table.Key_Lett);
+    .if(earlyReturnResult.result != "")
+    ${earlyReturnResult.result}
     .end if
     .select many col_set related by table->C[R5];
     .assign no_of_cols = cardinality col_set;
@@ -171,6 +195,10 @@
     .// sequence number attributes
     .//
     .if(((table.Key_Lett == "MSG_R") or (table.Key_Lett == "MSG_SM")) or (table.Key_Lett == "MSG_AM"))
+    if(!actualVersion.equals(persistenceVersion) && (!actualVersion.equals(bp7_1_5VersionNumber)) && (!actualVersion.equals(bp7_1_3VersionNumber)) && (!actualVersion.equals(bp7_1_4VersionNumber))) {
+      .// add a blank string for the missing parameter
+        parms.add("");
+    }
 	  .// set the non persistent attribute (particpatesInCommunication) to false
 	  .// it will get configured properly by the ImportHelper
 	  parms.setSize(${no_of_cols});
@@ -231,6 +259,10 @@
       ${else_str}if ( table.equalsIgnoreCase("${stn.body}_PROXY") ) //$$NON-NLS-1$$
       .end if
       {
+      .invoke earlyReturnResult = shouldReturnEarlyIfNotCurrent(table.Key_Lett);
+      .if(earlyReturnResult.result != "")
+    ${earlyReturnResult.result}
+      .end if
     String path = (String)parms.lastElement();
     .invoke setSize = backwardCompatibilitySizeAdjustment(table, true)
     .if (setSize.body != "")
@@ -252,6 +284,189 @@ ${setSize.body}
     .end if
   }
   .end for  .// end generation of creation methods
+.end function
+.function shouldReturnEarlyIfNotCurrent
+  .param String kl
+  .assign attr_result = ""
+  .if(((kl == "C_C") or (kl == "C_P")) or (kl == "C_R"))
+    .// not that the only version where these above elements require
+    .// upgrading is 1.4.2
+    .assign attr_result = "if(actualVersion.equals(bp7_1_3VersionNumber)) { return; } // Components before 1.5 are imported using migrateImports()"
+  .elif((((kl == "CL_IR") or (kl == "CL_IPINS")) or (kl == "PA_SIC")) or (kl == "PA_SICP"))
+    .assign attr_result = "if (!actualVersion.equals(persistenceVersion) && !actualVersion.equals(bp7_1_5VersionNumber)) { return; }"
+  .elif(kl == "C_SF")
+    .assign attr_result = "if (actualVersion.equals(bp7_1_4VersionNumber) || actualVersion.equals(bp7_1_3VersionNumber)) { return; }"
+  .end if
+.end function
+.// this function outputs any additional creation methods
+.// for specific table entries that have to be supported
+.function genExtraCreateMethods
+  .param String callingProject
+  .param boolean multilevel
+  .param boolean setComponent
+  .param String main_class_name
+  .if (callingProject == "NBP")
+  private void storeC_C(Ooaofooa modelRoot, String table, Vector parms,
+                          Vector rawParms, int numParms, IProgressMonitor pm) {
+    if (table.equalsIgnoreCase("C_C") && !actualVersion.equals(persistenceVersion) && (!actualVersion.equals(bp7_1_5VersionNumber)) && !actualVersion.equals(bp7_1_4VersionNumber)) { //$$NON-NLS-1$$
+      // TODO - This code was added to upgrade C_C instances, but only for
+      // these instances when created before 1.5
+      Component_c component = new Component_c(modelRoot, IdAssigner.createUUIDFromString((String)parms.elementAt(0)), 
+          IdAssigner.NULL_UUID,
+          IdAssigner.NULL_UUID,
+          removeTics((String)parms.elementAt(2)).trim(), 
+          removeTics((String)parms.elementAt(3)),
+          0, 
+          IdAssigner.NULL_UUID, false, "");
+          .if(multilevel)
+      if (rootModelElement == null) {
+          rootModelElement = component;
+            .if(setComponent)
+          m_component.setRootModelElement(component, false, false);
+            .end if
+        }
+      loadedInstances.add(component);
+      metadata.setComponentOfME(component, m_component);
+          .end if
+      ImportHelper.C_C cc = new ImportHelper.C_C(
+        IdAssigner.createUUIDFromString((String) parms.elementAt(0)),
+        IdAssigner.createUUIDFromString((String) parms.elementAt(1)),
+        removeTics((String) parms.elementAt(2)),
+        removeTics((String) parms.elementAt(3)), component
+        );
+      helper.old_components.add(cc);
+    }
+  }
+  private void storeC_P(Ooaofooa modelRoot, String table, Vector parms,
+                        Vector rawParms, int numParms, IProgressMonitor pm) {
+    if (table.equalsIgnoreCase("C_P") && !actualVersion.equals(persistenceVersion) && (!actualVersion.equals(bp7_1_5VersionNumber)) && !actualVersion.equals(bp7_1_4VersionNumber)) { //$$NON-NLS-1$$
+      ImportHelper.C_P cp = new ImportHelper.C_P(
+        IdAssigner.createUUIDFromString((String) parms.elementAt(0)),
+        IdAssigner.createUUIDFromString((String) parms.elementAt(1)),
+        IdAssigner.createUUIDFromString((String) parms.elementAt(2)),
+        IdAssigner.createUUIDFromString((String) parms.elementAt(3)),
+        removeTics((String) parms.elementAt(4)),
+        removeTics((String) parms.elementAt(5)),
+        removeTics((String) parms.elementAt(6))
+      );
+      ImportHelper.old_provisions.add(cp);
+    }
+  }
+  private void storeC_R(Ooaofooa modelRoot, String table, Vector parms,
+                        Vector rawParms, int numParms, IProgressMonitor pm) {
+    if (table.equalsIgnoreCase("C_R") && !actualVersion.equals(persistenceVersion) && (!actualVersion.equals(bp7_1_5VersionNumber)) && !actualVersion.equals(bp7_1_4VersionNumber)) { //$$NON-NLS-1$$
+      ImportHelper.C_R cr = new ImportHelper.C_R(
+        IdAssigner.createUUIDFromString((String) parms.elementAt(0)),
+        IdAssigner.createUUIDFromString((String) parms.elementAt(1)),
+        IdAssigner.createUUIDFromString((String) parms.elementAt(2)),
+        IdAssigner.createUUIDFromString((String) parms.elementAt(3)),
+        removeTics((String) parms.elementAt(4)),
+        removeTics((String) parms.elementAt(5)),
+        removeTics((String) parms.elementAt(6))
+      );
+      ImportHelper.old_requirements.add(cr);
+    }
+  }
+  private void storeCD_IC(Ooaofooa modelRoot, String table, Vector parms,
+                          Vector rawParms, int numParms, IProgressMonitor pm) {
+    if (table.equalsIgnoreCase("CD_IC") && !actualVersion.equals(persistenceVersion) && (!actualVersion.equals(bp7_1_5VersionNumber)) && !actualVersion.equals(bp7_1_4VersionNumber)) { //$$NON-NLS-1$$
+      // TODO - This code was added to upgrade CD_IC instances, but only for
+      // these instances when created before 1.5
+      ImportHelper.CD_IC cdic = new ImportHelper.CD_IC(
+        IdAssigner.createUUIDFromString((String) parms.elementAt(0)),
+        IdAssigner.createUUIDFromString((String) parms.elementAt(1)),
+        IdAssigner.createUUIDFromString((String) parms.elementAt(2)),
+        Integer.parseInt((String) parms.elementAt(3)),
+        removeTics((String) parms.elementAt(4)),
+        removeTics((String) parms.elementAt(5)), modelRoot
+        );
+      ImportHelper.used_components.add(cdic);
+    }
+  }
+  private void storeCD_IID(Ooaofooa modelRoot, String table, Vector parms,
+                           Vector rawParms, int numParms, IProgressMonitor pm) {
+    if (table.equalsIgnoreCase("CD_IID") && !actualVersion.equals(persistenceVersion) && (!actualVersion.equals(bp7_1_5VersionNumber)) && !actualVersion.equals(bp7_1_4VersionNumber)) { //$$NON-NLS-1$$
+      // TODO - This code was added to upgrade CD_IID instances, but only for
+      // these instances when created before 1.5
+      ImportHelper.CD_IID cdiid = new ImportHelper.CD_IID(
+        IdAssigner.createUUIDFromString((String) parms.elementAt(0)),
+        IdAssigner.createUUIDFromString((String) parms.elementAt(1)),
+        IdAssigner.createUUIDFromString((String) parms.elementAt(2))
+        );
+      ImportHelper.interface_in_diagrams.add(cdiid);
+    }
+  }
+  private void storeCD_CID(Ooaofooa modelRoot, String table, Vector parms,
+                           Vector rawParms, int numParms, IProgressMonitor pm) {
+    if (table.equalsIgnoreCase("CD_CID") && !actualVersion.equals(persistenceVersion) && (!actualVersion.equals(bp7_1_5VersionNumber)) && !actualVersion.equals(bp7_1_4VersionNumber)) { //$$NON-NLS-1$$
+      // TODO - This code was added to upgrade CD_CID instances, but only for
+      // these instances when created before 1.5
+      ImportHelper.CD_CID cdcid = new ImportHelper.CD_CID(
+        IdAssigner.createUUIDFromString((String) parms.elementAt(0)),
+        IdAssigner.createUUIDFromString((String) parms.elementAt(1))
+        );
+      ImportHelper.component_in_diagrams.add(cdcid);
+    }
+  }
+  private void storeCD_CDE(Ooaofooa modelRoot, String table, Vector parms,
+                           Vector rawParms, int numParms, IProgressMonitor pm) {
+    if (table.equalsIgnoreCase("CD_CDE") && !actualVersion.equals(persistenceVersion) && (!actualVersion.equals(bp7_1_5VersionNumber)) && !actualVersion.equals(bp7_1_4VersionNumber)) { //$$NON-NLS-1$$
+      // TODO - This code was added to upgrade CD_CDE instances, but only for
+      // these instances when created before 1.5
+      ImportHelper.CD_CDE cdcde = new ImportHelper.CD_CDE(
+        IdAssigner.createUUIDFromString((String) parms.elementAt(0)),
+        IdAssigner.createUUIDFromString((String) parms.elementAt(1))
+        );
+      ImportHelper.component_diagram_elements.add(cdcde);
+    }
+  }
+  private void storeCL_IR(Ooaofooa modelRoot, String table, Vector parms,
+                          Vector rawParms, int numParms, IProgressMonitor pm) {
+    if (table.equalsIgnoreCase("CL_IR") && actualVersion.equals(bp7_1_4VersionNumber)) { //$$NON-NLS-1$$
+      ImportHelper.CL_IR ir = new ImportHelper.CL_IR(
+        IdAssigner.createUUIDFromString((String) parms.elementAt(0)),
+        IdAssigner.createUUIDFromString((String) parms.elementAt(1)),
+        IdAssigner.createUUIDFromString((String) parms.elementAt(2)),
+        removeTics((String) parms.elementAt(3)),
+        removeTics((String) parms.elementAt(4))
+      );
+      helper.old_imported_requirements.add(ir);
+    }
+  }
+  private void storeCL_IPINS(Ooaofooa modelRoot, String table, Vector parms,
+                          Vector rawParms, int numParms, IProgressMonitor pm) {
+    if (table.equalsIgnoreCase("CL_IPINS") && actualVersion.equals(bp7_1_4VersionNumber)) { //$$NON-NLS-1$$
+      ImportHelper.CL_IPINS ips = new ImportHelper.CL_IPINS(
+        IdAssigner.createUUIDFromString((String) parms.elementAt(0)),
+        IdAssigner.createUUIDFromString((String) parms.elementAt(1)),
+        IdAssigner.createUUIDFromString((String) parms.elementAt(2))
+      );
+      helper.old_imported_provision_satisfactions.add(ips);
+    }
+  }
+  private void storePA_SICP(Ooaofooa modelRoot, String table, Vector parms,
+                          Vector rawParms, int numParms, IProgressMonitor pm) {
+    if (table.equalsIgnoreCase("PA_SICP") && actualVersion.equals(bp7_1_4VersionNumber)) { //$$NON-NLS-1$$
+      ImportHelper.PA_SICP sicp = new ImportHelper.PA_SICP(
+        IdAssigner.createUUIDFromString((String) parms.elementAt(0)),
+        IdAssigner.createUUIDFromString((String) parms.elementAt(1)),
+        IdAssigner.createUUIDFromString((String) parms.elementAt(2))
+      );
+      helper.old_satisfactions_in_comppackage.add(sicp);
+    }
+  }
+  private void storePA_SIC(Ooaofooa modelRoot, String table, Vector parms,
+                          Vector rawParms, int numParms, IProgressMonitor pm) {
+    if (table.equalsIgnoreCase("PA_SIC") && actualVersion.equals(bp7_1_4VersionNumber)) { //$$NON-NLS-1$$
+      ImportHelper.PA_SIC sic = new ImportHelper.PA_SIC(
+        IdAssigner.createUUIDFromString((String) parms.elementAt(0)),
+        IdAssigner.createUUIDFromString((String) parms.elementAt(1)),
+        IdAssigner.createUUIDFromString((String) parms.elementAt(2))
+      );
+      helper.old_satisfactions_in_comp.add(sic);
+    }
+  }
+  .end if
 .end function
 .// this function generates
 .// a method which will process
@@ -329,6 +544,33 @@ ${setSize.body}
         .end if
             .end if
     .else
+        boolean translated = false;
+        if (actualVersion.equals(bp7_0VersionNumber)) {
+        .if (table.Key_Lett == "GD_MD")
+            helper.parsePreBP7_1Model(rawParms);
+            translated = true;
+        .elif (table.Key_Lett == "GD_GE")
+            helper.parsePreBP7_1GraphicalElement(rawParms);
+            translated = true;
+        .elif (table.Key_Lett == "GD_SHP")
+            helper.parsePreBP7_1Shape(rawParms);
+            translated = true;
+        .elif (table.Key_Lett == "GD_CON")
+            helper.parsePreBP7_1Connector(rawParms);
+            translated = true;
+        .elif (table.Key_Lett == "GD_LS")
+            helper.parsePreBP7_1LineSegment(rawParms);
+            translated = true;
+        .end if
+        }
+        if (actualVersion.equals(bp7_0VersionNumber)
+            || actualVersion.equals(bp7_1VersionNumber)) {
+        .if (table.Key_Lett == "GD_CTXT")
+            helper.storePreBP7_1_1ConnectorText(rawParms);
+            translated = true;
+        .end if
+        }
+        if (!translated) {
         ${local_var} new ${cn.body}(getGraphicsModelRoot(),
         .invoke paramsText = generate_params( table, callingProject )
     ${paramsText.body}
@@ -344,6 +586,7 @@ ${setSize.body}
         metadata.setComponentOfME(newInst, m_component);
         .end if
       .end if
+        }
     .end if
     .assign else_str = "} else "
   .end for
@@ -464,6 +707,9 @@ ${setSize.body}
     .end if
         }
     .if((multilevel) and (not setComponent))
+            // upgrade 7.1.4 satisfactions
+            if(actualVersion.equals(bp7_1_4VersionNumber))
+            		helper.associateSatisfactionsThroughIdentifier(getModelRoot());
           .// generate code to recreate UUIDs
             // first set the represents for all
             // models that were loaded into
