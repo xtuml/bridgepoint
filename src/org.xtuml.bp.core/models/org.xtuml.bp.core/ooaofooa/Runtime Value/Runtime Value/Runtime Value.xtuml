@@ -24,7 +24,8 @@ else
 end if;',
 	1,
 	'',
-	"de1c0609-0f62-47d7-8b38-376822efd883");
+	"de1c0609-0f62-47d7-8b38-376822efd883",
+	0);
 INSERT INTO S_DT_PROXY
 	VALUES ("bc3722c8-5188-4529-8519-cf9eb9816b17",
 	"00000000-0000-0000-0000-000000000000",
@@ -109,7 +110,8 @@ else
 end if;',
 	1,
 	'',
-	"00000000-0000-0000-0000-000000000000");
+	"00000000-0000-0000-0000-000000000000",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("fb408879-32bc-4702-b116-b8305f2444f2",
 	"96cf5c0f-f6eb-4cba-b66a-44bf052e62ed",
@@ -185,7 +187,8 @@ delete object instance self;
 ',
 	1,
 	'',
-	"96cf5c0f-f6eb-4cba-b66a-44bf052e62ed");
+	"96cf5c0f-f6eb-4cba-b66a-44bf052e62ed",
+	0);
 INSERT INTO O_TFR
 	VALUES ("ea8ae14e-bbb3-4165-a752-ff3e66df6b9c",
 	"013bfc9e-d3c0-4807-8613-deccd09763b5",
@@ -210,7 +213,8 @@ end if;
 ',
 	1,
 	'',
-	"30f4db2b-48c3-4792-9ed1-9c6aac84faf9");
+	"30f4db2b-48c3-4792-9ed1-9c6aac84faf9",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("89fa1d28-524a-4991-befd-44a6d433afcc",
 	"ea8ae14e-bbb3-4165-a752-ff3e66df6b9c",
@@ -248,7 +252,8 @@ else
 end if;',
 	1,
 	'',
-	"23244ba6-708f-4a49-85da-55cf80661768");
+	"23244ba6-708f-4a49-85da-55cf80661768",
+	0);
 INSERT INTO O_TFR
 	VALUES ("0915bb3c-6c49-4cf3-80ee-f9e62e368210",
 	"013bfc9e-d3c0-4807-8613-deccd09763b5",
@@ -326,7 +331,8 @@ else
 end if;',
 	1,
 	'',
-	"30eb9784-56b7-475c-9f8e-03c0f0890557");
+	"30eb9784-56b7-475c-9f8e-03c0f0890557",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("f2294f98-b20e-4460-a01f-3d5c97062cf1",
 	"0915bb3c-6c49-4cf3-80ee-f9e62e368210",
@@ -395,7 +401,8 @@ else
 end if;',
 	1,
 	'',
-	"0915bb3c-6c49-4cf3-80ee-f9e62e368210");
+	"0915bb3c-6c49-4cf3-80ee-f9e62e368210",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("5233e0cb-6523-4cb5-b96f-fc9e44aab661",
 	"30f4db2b-48c3-4792-9ed1-9c6aac84faf9",
@@ -419,7 +426,8 @@ simplVal.initialize();
 ',
 	1,
 	'',
-	"ea8ae14e-bbb3-4165-a752-ff3e66df6b9c");
+	"ea8ae14e-bbb3-4165-a752-ff3e66df6b9c",
+	0);
 INSERT INTO O_TFR
 	VALUES ("76b54826-7b3f-48bb-a579-64d78f789906",
 	"013bfc9e-d3c0-4807-8613-deccd09763b5",
@@ -435,7 +443,8 @@ relate simplVal to refVal across R3308;
 ',
 	1,
 	'',
-	"eabcc99a-24e8-4052-81f4-cc9602eb1f78");
+	"eabcc99a-24e8-4052-81f4-cc9602eb1f78",
+	0);
 INSERT INTO O_NBATTR
 	VALUES ("79b643e8-6840-46d6-aafa-e1d9f8af1f60",
 	"013bfc9e-d3c0-4807-8613-deccd09763b5");
@@ -508,7 +517,8 @@ elif not_empty arrVal
   result = result + " [" + GD::int_to_string(value:length) + "]";
 end if;
 self.Label = result;',
-	1);
+	1,
+	0);
 INSERT INTO O_BATTR
 	VALUES ("34920723-7a1b-4912-bc77-6d81c78ad81b",
 	"013bfc9e-d3c0-4807-8613-deccd09763b5");

@@ -23,7 +23,8 @@ responsible for, from the model.',
 ',
 	1,
 	'',
-	"00000000-0000-0000-0000-000000000000");
+	"00000000-0000-0000-0000-000000000000",
+	0);
 INSERT INTO O_TFR
 	VALUES ("aee63c38-1be7-4113-a9f9-756b2c11a081",
 	"06724f31-10ba-4698-aff1-a6fc1fcac736",
@@ -35,7 +36,8 @@ INSERT INTO O_TFR
 return op.getContainingComponentId();',
 	1,
 	'',
-	"abcbda66-2e8b-4d37-b8a2-5d16f77f5ae1");
+	"abcbda66-2e8b-4d37-b8a2-5d16f77f5ae1",
+	0);
 INSERT INTO O_TFR
 	VALUES ("0a6db753-313c-4ca9-93ba-41f5f5dce3de",
 	"06724f31-10ba-4698-aff1-a6fc1fcac736",
@@ -48,7 +50,8 @@ select one op related by self->O_TFR[R696];
 return op.getContainerId();',
 	1,
 	'',
-	"aee63c38-1be7-4113-a9f9-756b2c11a081");
+	"aee63c38-1be7-4113-a9f9-756b2c11a081",
+	0);
 INSERT INTO O_TFR
 	VALUES ("002c1b66-a316-4097-8d7c-1f17302f8e40",
 	"06724f31-10ba-4698-aff1-a6fc1fcac736",
@@ -68,7 +71,8 @@ end if;
 return opPath;',
 	1,
 	'',
-	"0a6db753-313c-4ca9-93ba-41f5f5dce3de");
+	"0a6db753-313c-4ca9-93ba-41f5f5dce3de",
+	0);
 INSERT INTO O_REF
 	VALUES ("06724f31-10ba-4698-aff1-a6fc1fcac736",
 	"d1c9af7b-9df6-432a-a25e-96cab24fc6af",

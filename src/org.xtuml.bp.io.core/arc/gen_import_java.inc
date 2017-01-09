@@ -725,9 +725,7 @@ public class ${class_name} extends CoreImport
 
     public void processAction( String smasl, int dialect ) {
 	.if (class_name == "ImportModelComponent")
-        IPreferenceStore store = CorePlugin.getDefault().getPreferenceStore();
-        String persistActivities = store.getString(BridgePointPreferencesStore.ACTIVITY_PERSISTENCE);
-        if ( persistActivities.equals(BridgePointPreferencesStore.PERSIST_ACTIVITY_FILES) && dialect == Actiondialect_c.masl ) {
+        if ( dialect == Actiondialect_c.masl ) {
             NonRootModelElement pmc_root_element = getRootModelElement();
             ModelRoot modelRoot = pmc_root_element.getModelRoot();
 
@@ -808,6 +806,14 @@ public class ${class_name} extends CoreImport
 
             // compile the signature
             signature = ret_type + " " + name + parameter_list;
+
+            // fix the body
+            body = body.trim();
+            if ( dialect == Actiondialect_c.masl ) {
+                // if the dialect is MASL, the 'end' keyword belongs
+                // as part of the code body itself and must be added
+                body += "\nend";
+            }
 
             // call import function
             if ( pmc_root_element instanceof SystemModel_c ) {
@@ -932,7 +938,11 @@ public class ${class_name} extends CoreImport
           }
 
             .if (class_name == "ImportModelComponent")
-            doLoadActions(pm);
+            IPreferenceStore store = CorePlugin.getDefault().getPreferenceStore();
+            String persistActivities = store.getString(BridgePointPreferencesStore.ACTIVITY_PERSISTENCE);
+            if ( persistActivities.equals(BridgePointPreferencesStore.PERSIST_ACTIVITY_FILES) ) {
+              m_actionSuccess = doLoadActions(pm);
+            }
             .end if;
             pm.done();
             if (m_parseAll) {

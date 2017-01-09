@@ -61,7 +61,8 @@ return GD::NULL_UNIQUE_ID();
 ',
 	1,
 	'',
-	"00000000-0000-0000-0000-000000000000");
+	"00000000-0000-0000-0000-000000000000",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("48992355-df21-4f44-acb9-183d2c3e3c06",
 	"a4596945-d226-4c6a-96d0-e6cc6f63b923",
@@ -152,7 +153,8 @@ delete object instance self;
                             ',
 	1,
 	'',
-	"a4596945-d226-4c6a-96d0-e6cc6f63b923");
+	"a4596945-d226-4c6a-96d0-e6cc6f63b923",
+	0);
 INSERT INTO O_TFR
 	VALUES ("0eac94c9-ec18-4157-a859-87dce9b7a43d",
 	"b6f482cf-cac6-44d1-8171-6f362d3e1a29",
@@ -177,7 +179,8 @@ return false;
 ',
 	1,
 	'',
-	"16eb95c0-67c8-4d8f-bcdd-94f7d2b94a23");
+	"16eb95c0-67c8-4d8f-bcdd-94f7d2b94a23",
+	0);
 INSERT INTO O_NBATTR
 	VALUES ("3fe66864-8457-464f-9c92-f382b26dfaa4",
 	"b6f482cf-cac6-44d1-8171-6f362d3e1a29");

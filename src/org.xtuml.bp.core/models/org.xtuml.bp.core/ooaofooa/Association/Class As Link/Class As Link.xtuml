@@ -25,7 +25,8 @@ end if;
 return result;',
 	1,
 	'',
-	"a49e2617-bc47-416f-acc2-d0fb40dd007d");
+	"a49e2617-bc47-416f-acc2-d0fb40dd007d",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("103bde7f-c53c-46f3-a15d-b112df08a055",
 	"6b7a1ee8-af72-4514-9b13-017c432e4a1c",
@@ -89,7 +90,8 @@ delete object instance self;
 ',
 	1,
 	'',
-	"d286553f-7814-433a-91f3-bc70eeb886c6");
+	"d286553f-7814-433a-91f3-bc70eeb886c6",
+	0);
 INSERT INTO O_TFR
 	VALUES ("3180218e-9afb-44c8-a819-461cf2c915e7",
 	"58dc4733-c0b2-4481-8e9f-d3513b63d991",
@@ -102,7 +104,8 @@ Bridge:GD',
 	'return self.Rel_ID;',
 	1,
 	'',
-	"3dcf4024-7a3b-4ebd-9efe-e676b8da3af4");
+	"3dcf4024-7a3b-4ebd-9efe-e676b8da3af4",
+	0);
 INSERT INTO O_TFR
 	VALUES ("a5f2775b-da88-467c-9892-35eb02735231",
 	"58dc4733-c0b2-4481-8e9f-d3513b63d991",
@@ -115,7 +118,8 @@ Bridge:GD',
 	'return Style::Broken;',
 	1,
 	'',
-	"3180218e-9afb-44c8-a819-461cf2c915e7");
+	"3180218e-9afb-44c8-a819-461cf2c915e7",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("4573619a-8bb1-49be-97aa-ec93db9af7a4",
 	"a5f2775b-da88-467c-9892-35eb02735231",
@@ -146,7 +150,8 @@ return obj.Name;
 ',
 	1,
 	'',
-	"6b7a1ee8-af72-4514-9b13-017c432e4a1c");
+	"6b7a1ee8-af72-4514-9b13-017c432e4a1c",
+	0);
 INSERT INTO O_TFR
 	VALUES ("a4542f7b-7401-42d0-92cb-48dd65f07d57",
 	"58dc4733-c0b2-4481-8e9f-d3513b63d991",
@@ -158,7 +163,8 @@ INSERT INTO O_TFR
 ',
 	1,
 	'',
-	"a5f2775b-da88-467c-9892-35eb02735231");
+	"a5f2775b-da88-467c-9892-35eb02735231",
+	0);
 INSERT INTO O_TFR
 	VALUES ("d286553f-7814-433a-91f3-bc70eeb886c6",
 	"58dc4733-c0b2-4481-8e9f-d3513b63d991",
@@ -176,7 +182,8 @@ end if;
 ',
 	1,
 	'',
-	"00000000-0000-0000-0000-000000000000");
+	"00000000-0000-0000-0000-000000000000",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("82fba555-3e35-4e99-923d-b11bb10fa86a",
 	"d286553f-7814-433a-91f3-bc70eeb886c6",
@@ -220,7 +227,8 @@ delete object instance self;
 ',
 	1,
 	'',
-	"a4542f7b-7401-42d0-92cb-48dd65f07d57");
+	"a4542f7b-7401-42d0-92cb-48dd65f07d57",
+	0);
 INSERT INTO O_REF
 	VALUES ("58dc4733-c0b2-4481-8e9f-d3513b63d991",
 	"5f12a98d-bc4a-40f7-8642-7a2819fd4159",

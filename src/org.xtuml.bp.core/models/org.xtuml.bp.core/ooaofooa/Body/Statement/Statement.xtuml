@@ -211,7 +211,8 @@ delete object instance self;
 ',
 	1,
 	'',
-	"1e7cd3e0-a4b7-4029-8cf7-429ef08f6349");
+	"1e7cd3e0-a4b7-4029-8cf7-429ef08f6349",
+	0);
 INSERT INTO O_TFR
 	VALUES ("5e6d8def-310f-40f1-848e-99c400e5b9dd",
 	"e9011b75-e798-45a3-ac83-92ba7c04db4e",
@@ -368,7 +369,8 @@ else
 end if;',
 	1,
 	'',
-	"bbb7c9cf-8f48-4b18-9f26-a7354319d14f");
+	"bbb7c9cf-8f48-4b18-9f26-a7354319d14f",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("fb626b69-f4cc-414b-938f-13ba2c7a586b",
 	"5e6d8def-310f-40f1-848e-99c400e5b9dd",
@@ -421,7 +423,8 @@ return result;
 ',
 	1,
 	'',
-	"00000000-0000-0000-0000-000000000000");
+	"00000000-0000-0000-0000-000000000000",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("3fe22ca4-b957-4b67-b008-4b99f4de6347",
 	"1e7cd3e0-a4b7-4029-8cf7-429ef08f6349",
@@ -472,7 +475,8 @@ end if;
 return false;',
 	1,
 	'',
-	"799dc760-b1a6-4dfc-a51d-d82cebd978c5");
+	"799dc760-b1a6-4dfc-a51d-d82cebd978c5",
+	0);
 INSERT INTO O_TFR
 	VALUES ("799dc760-b1a6-4dfc-a51d-d82cebd978c5",
 	"e9011b75-e798-45a3-ac83-92ba7c04db4e",
@@ -496,7 +500,8 @@ else
 end if;',
 	1,
 	'',
-	"a391a1ac-5388-408b-ba80-73c49999f36b");
+	"a391a1ac-5388-408b-ba80-73c49999f36b",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("366dd416-9c1d-4cba-87bf-bf29d8f78b06",
 	"799dc760-b1a6-4dfc-a51d-d82cebd978c5",
@@ -576,7 +581,8 @@ end while;
 ',
 	1,
 	'',
-	"5e6d8def-310f-40f1-848e-99c400e5b9dd");
+	"5e6d8def-310f-40f1-848e-99c400e5b9dd",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("6defefcc-8842-4ce4-81ef-d2a55ef0a9d6",
 	"a391a1ac-5388-408b-ba80-73c49999f36b",
@@ -786,7 +792,8 @@ if (not_empty body)
   result = body.Label;
 end if;
 self.Label = result + " line: " + GD::int_to_string(value:self.LineNumber);',
-	1);
+	1,
+	0);
 INSERT INTO O_BATTR
 	VALUES ("295c4e40-9143-4302-800d-3f4884d0b073",
 	"e9011b75-e798-45a3-ac83-92ba7c04db4e");
