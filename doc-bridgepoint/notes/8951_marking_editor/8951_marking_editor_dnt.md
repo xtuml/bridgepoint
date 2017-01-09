@@ -119,28 +119,52 @@ Attribute, soa_remote
   example:   
 ```
 MicrowaveOven::components::MicrowaveOven::Microwave Oven::Turntable,id,2
-MicrowaveOven::components::MicrowaveOven::Microwave Oven::Turntable,soa_remote,2
+MicrowaveOven::components::MicrowaveOven::Microwave Oven::Turntable,soa_remote,""
 MicrowaveOven::components::MicrowaveOven::Microwave Oven::Turntable,bar,doit
 MicrowaveOven::components::MicrowaveOven::Microwave Oven::Turntable,baz,ajb
 MicrowaveOven::components::MicrowaveOven::Microwave Oven::Door,id,1
 MicrowaveOven::components::MicrowaveOven::Microwave Oven::Door,bar,ddd
-MicrowaveOven::components::MicrowaveOven::Microwave Oven::Door,baz,yepperdo
-MicrowaveOven::components::MicrowaveOven::Microwave Oven::Door,soa_remote,
+MicrowaveOven::components::MicrowaveOven::Microwave Oven::Door,baz,"yepperdo"
+MicrowaveOven::components::MicrowaveOven::Microwave Oven::Door,soa_remote,""
 MicrowaveOven::components::MicrowaveOven,id,9
 MicrowaveOven::components::MicrowaveOven,foo,fooval
-MicrowaveOven::components::MicrowaveOven::Microwave Oven::Magnetron Tube,soa_remote,3
-MicrowaveOven::components::MicrowaveOven::Microwave Oven::Magnetron Tube,baz,999
-MicrowaveOven::components::MicrowaveOven::Microwave Oven::Magnetron Tube,bar,
+MicrowaveOven::components::MicrowaveOven::Microwave Oven::Magnetron Tube,soa_remote,""
+MicrowaveOven::components::MicrowaveOven::Microwave Oven::Magnetron Tube,baz,"999"
+MicrowaveOven::components::MicrowaveOven::Microwave Oven::Magnetron Tube,bar,ddd
 MicrowaveOven::components::MicrowaveOven::Microwave Oven::Internal Light,id,4
 MicrowaveOven::components::MicrowaveOven::Microwave Oven::Oven,id,33
 MicrowaveOven::components::MicrowaveOven::Microwave Oven::Oven,bar,barov
 ```   
-    
-6.4  Model of marking  
-6.4.1  TODO  
-  
-  
+6.3.3  The file contains tuples, one per line of the form:
+```
+<model instance path>, <feature name>, <value>
+```   
+6.3.3.1  Note that quotation marks are part of the value data, allowing the
+  value to be passed downstream exactly as written in the marking.  Thus, if the
+  modeler marks a feature with ```""``` that is stored as the value for the 
+  feature, whereas, if they completely delete the value in the marking editor
+  then the feature is removed from the stored application marks.    
 
+6.4  Model of marking  
+![ooaofmarking](ooaofmarking.png)  
+  
+6.5  Creation of marking data during ```m2x```   
+6.5.1  The m2x process will have the necessary information it needs in hand to
+  create the ```features.mark``` and ```application.mark``` files programmatically 
+  as it can divine the information from the MASL model as it is being processed.   
+6.5.2  Because the project name the user will import into is not known at the
+  time m2x runs, this flow must be cognizant and possibly enhanced to deal with
+  the path information used.   
+6.5.2.1  It might be useful to strip the path data down, either removing the 
+  project name, or only taking the last three segments, or some similar scheme. 
+  Of course, we must be careful to avoid ambiguity and potential duplicates 
+  showing in the UI or written in data.     
+
+6.6  Constraining modifications   
+6.6.1  It is desirable that the ```applications.mark``` file is not significantly 
+  changed if the user edits a single value.  Maintaining ordering in the data
+  will minimize unwanted changes.   
+  
 7. Design Comments
 ------------------
 7.1  There are several enhancements that are desireable that will be tracked for
@@ -149,13 +173,19 @@ MicrowaveOven::components::MicrowaveOven::Microwave Oven::Oven,bar,barov
   (like ```#```) could denote a comment.  This will provide flexibility for 
   power users who inspect and edit the data inside the marking files rather than
   using the marking editor.   
+   
 7.2  Selection filtering - provide a means to enter regex style filtering of the
   model element instance list to make it quicker for a user to find the element
   they are looking for.   
-   
+7.3  Provide a means to tell the user of invalid marks in the application marking
+  data.  Currently, moving or copying an element will not be automatically 
+  reflected in the application marks.   
+     
 8. User Documentation
 ---------------------
-
+8.1  Documentation shall be added to the BridgePoint help to explain the marking
+  editor usage and underlying files.   
+  
 9. Unit Test
 ------------
 
