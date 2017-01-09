@@ -4,117 +4,160 @@ This work is licensed under the Creative Commons CC0 License
 
 ---
 
-# Title goes here
+# Marking Editor
 ### xtUML Project Design Note
 
 
-Note: Each section has a description that states the purpose of that section.
-Delete these section descriptions before checking in your note.  Delete this
-note as well.
-
 1. Abstract
 -----------
-In this section, give a summary of the design that this note aims to
-describe.
+This note describes the work done to introduce a marking editor that provides a
+front end for MASL pragma data.  
 
 2. Document References
 ----------------------
-In this section, list all the documents that the reader may need to refer to.
-Give the full path to reference a file.  
-<a id="2.1"></a>2.1 [BridgePoint DEI #xxx1](https://support.onefact.net/issues/xxx1) TODO: Add description here.  
-<a id="2.2"></a>2.2 [BridgePoint DEI #xxx2](https://support.onefact.net/issues/xxx2) TODO: Add description here.  
-<a id="2.3"></a>2.3 [BridgePoint DEI #xxx3](https://support.onefact.net/issues/xxx3) TODO: Add description here.  
+<a id="2.1"></a>2.1 [BridgePoint DEI #8951](https://support.onefact.net/issues/8951) Headline issue.  
+<a id="2.2"></a>2.2 [BridgePoint DEI #xxx2](https://support.onefact.net/issues/8416) Pragmas     
+<a id="2.3"></a>2.3 [BridgePoint DEI #xxx3](https://support.onefact.net/issues/8360) Marking     
 
 3. Background
 -------------
-In this section, outline the important points relating to this issue/bug that
-the reader would need to know in order to understand the rest of this
-document. Here is an example reference to the Document References section [[2.1]](#2.1)
+The first version of Raven stored pragmas in the description fields of model 
+elements being marked.  This approach was functional but it had some limitations:
+* The pragma names were not validated in any way, a user could easily mistype the
+name and not know it was wrong until much later in the toolchain at MASL translation time.  
+* Pragmas are not pre-defined, each one is individually managed in free-form text.   
+
+This document uses the following vocabulary:  
+* __Element Type__ - xtUML metamodel class name (e.g. Model Class, Component, Attribute)  
+* __Element__ - an application instance of a given element type (e.g. in the GPS Watch
+ there is "Tracking" and "UI" components)   
+* __Feature__ - a feature is defined by a model compiler architect independent of
+  all application models.  During model translation it may provide input to the 
+  model compiler about some aspect of the application model or it may provide
+  dynamic input (flag) to the model compiler itself.  
+* __Mark__ - A mark is the user-created specification of a value for a feature tied
+  to a specific model element.  
 
 4. Requirements
 ---------------
-This section is only required if there is no preceding analysis note. 
-If present it describes the requirements that need to be satisfied.  If there 
-is an SRS, this section may simply refer to it.  Each requirement should be as 
-short and simple as possible and must be clearly defined. Here is an example reference to the Document References section [[2.1]](#2.1)
-
-4.1 Item 1  
-4.1.1 Example sub-item
-* Example List Element
-  * Example Sub list item
-
-4.2 Item 2  
-4.2.1 Example sub-item
-* Example List Element
-
+4.1  The specification of available features shall be managed independently of
+  the marks.   
+4.1.1  This means that features are pre-defined before the application modeler
+  uses them to create fully specified marks.  
+4.2  The user shall not be allowed to create invalid marks.  
+4.3  The MASL export process shall apply marks as pragmas in the output MASL data.  
+    
 5. Analysis
 -----------
-This section is only required if there is no preceding analysis note. If present
-it sets out a brief analysis of the problem to be resolved by this design note. Here is an example reference to the Document References section [[2.1]](#2.1)
+5.1  Analysis of the original requirements uncovered the following as additional
+  design goals.  
+5.1.1  Avoid overloading description field  
+5.1.2  Avoid dirtying model data with mark data  
 
-5.1 Item 1  
-5.1.1 Example sub-item
-* Example List Element
+5.2  User Interface  
+5.2.1  Marks could be applied by selecting a model element on the canvas or 
+  Model Explorer and then activating a marking editor from the context menu.
+5.2.1.1  We would need to use CME filtering to only show the marking option on 
+  applicable model elements.  The applicable features would then be shown to
+  set values for.    
+5.2.2  Another option is to create a single entry/launch point for the marking
+  editor, likely at the top level of a project.  The marking editor would then 
+  need a means of navigating to the correct model element to mark.  
+      
+5.3  Data Management  
+5.3.1  Since we desire to decouple the marking data and the model data, the MASL
+  marks shall be stored in human-readable text files inside the project ```gen/```
+  folder.  This is identical to what BridgePoint does today for xtUML marking
+  data, but unlike what BridgePoint currently does for MASL marking data.     
 
-5.2 Item 2  
-5.2.1 Example sub-item
-* Example List Element
 
 6. Design
 ---------
-In this section, describe in detail each step of the Work Required section of
-the analysis, how the task will be accomplished, what technologies will
-be used, algorithms, etc. Here is an example reference to the Document References section [[2.1]](#2.1)
+6.1  Highly-Decoupled approach  
+6.1.1  By storing the marking data in text files outside the model, we do not 
+  pollute the application model with marking or perturb the application model
+  when markings change.  
+6.1.2  The user interface shall work as proposed in 5.2.2.  We will provide a 
+  single entry point to launch the marking editor.  This means that the
+  marking editor functionality will not be tightly woven into the model explorer
+  or canvas editor.  The marking editor will query data __from__ the application
+  model.  
+6.1.2.1  A major benefit of this approach is that the configuration data that 
+  maps available features to xtUML metamodel classes can change without any need
+  to change underlying BridgePoint code (e.g. for CME filters).  
 
-6.1 Item 1  
-```java
-    // java code example
-    public void clearDatabase(IProgressMonitor pm) 
-    {
-        // clear the corresponding graphics-root's database
-        OoaofgraphicsUtil.clearGraphicsDatabase(rootId, pm);
-
-        Ooaofooa.getDefaultInstance().fireModelElementUnloaded(this);
-    }
+6.2  Pre-defined available features  
+6.2.1  A file called ```features.mark``` (a human-readable text file) will be 
+  created by the model compiler architect and stored in the project's ```gen/```
+  folder.  This file will indicate which marks are valid for which OOA of OOA 
+  elements.  For example:  
 ```
-6.1.1 Example sub-item
-* Example List Element
-
-6.2 Item 2  
-6.2.1 Example sub-item
-* Example List Element
+Model Class, id
+Model Class, soa_remote
+Model Class, bar
+Model Class, baz  
+Component, id
+Attribute, id
+Component, foo
+Attribute, foo
+Attribute, soa_remote
+```
+6.2.2  The file contains pairs, one per line of the form:
+```
+<OOA element type>, <feature name>
+```   
+6.2.3  This file is not expected to be modified by the marking editor.  It is
+  expected to be modified by hand by the model compiler architect.   
+  
+6.3  Application marking   
+6.3.1  The marking editor UI provides a means to select the element type, then
+  set values for the applicable features for a chosen application model 
+  instance of the selected element type.  
+6.3.2  The marking data is stored in the project in the ```gen/application.mark```
+  file (a human-readable text file).  This file maps the unique path to the 
+  application model instance with the feature/value pair set by the user.  For
+  example:   
+```
+MicrowaveOven::components::MicrowaveOven::Microwave Oven::Turntable,id,2
+MicrowaveOven::components::MicrowaveOven::Microwave Oven::Turntable,soa_remote,2
+MicrowaveOven::components::MicrowaveOven::Microwave Oven::Turntable,bar,doit
+MicrowaveOven::components::MicrowaveOven::Microwave Oven::Turntable,baz,ajb
+MicrowaveOven::components::MicrowaveOven::Microwave Oven::Door,id,1
+MicrowaveOven::components::MicrowaveOven::Microwave Oven::Door,bar,ddd
+MicrowaveOven::components::MicrowaveOven::Microwave Oven::Door,baz,yepperdo
+MicrowaveOven::components::MicrowaveOven::Microwave Oven::Door,soa_remote,
+MicrowaveOven::components::MicrowaveOven,id,9
+MicrowaveOven::components::MicrowaveOven,foo,fooval
+MicrowaveOven::components::MicrowaveOven::Microwave Oven::Magnetron Tube,soa_remote,3
+MicrowaveOven::components::MicrowaveOven::Microwave Oven::Magnetron Tube,baz,999
+MicrowaveOven::components::MicrowaveOven::Microwave Oven::Magnetron Tube,bar,
+MicrowaveOven::components::MicrowaveOven::Microwave Oven::Internal Light,id,4
+MicrowaveOven::components::MicrowaveOven::Microwave Oven::Oven,id,33
+MicrowaveOven::components::MicrowaveOven::Microwave Oven::Oven,bar,barov
+```   
+    
+6.4  Model of marking  
+6.4.1  TODO  
+  
+  
 
 7. Design Comments
 ------------------
-If research carried out during this phase shows that a requirement stated in the
-analysis note is infeasible or needs some modification, enumerate those changes
-here. If there was no preceding analysis note, then this section documents any
-deviations from the design as presented at the design review. Here is an example reference to the Document References section [[2.1]](#2.1)
-
-7.1 Item 1  
-7.1.1 Example sub-item
-* Example List Element
-
-7.2 Item 2  
-7.2.1 Example sub-item
-* Example List Element
-
+7.1  There are several enhancements that are desireable that will be tracked for
+  implementation in a future version:   
+  * Comments in the marking files - Lines that start with a special character
+  (like ```#```) could denote a comment.  This will provide flexibility for 
+  power users who inspect and edit the data inside the marking files rather than
+  using the marking editor.   
+7.2  Selection filtering - provide a means to enter regex style filtering of the
+  model element instance list to make it quicker for a user to find the element
+  they are looking for.   
+   
 8. User Documentation
 ---------------------
-Describe the end user documentation that was added for this change. 
 
 9. Unit Test
 ------------
-Outline all the unit tests that need to pass and describe the method that you
-will use to design and perform the tests. Here is an example reference to the Document References section [[2.1]](#2.1)
-
-9.1 Item 1  
-9.1.1 Example sub-item
-* Example List Element
-
-9.2 Item 2  
-9.2.1 Example sub-item
-* Example List Element
 
 End
 ---
