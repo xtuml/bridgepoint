@@ -60,6 +60,7 @@
 	          description="Generate the marking java files"
 	          unless="java.buildNotNeeded" >
 		<echo >Generating java files ...</echo>
+		<!-- TODO - re-enable
 		<ant antfile="${mcj_path}/build.xml" target="generate.java" >
 			<property name="param1" value="ooaofmarking" />
 			<property name="param2" value="Ooaofmarking" />
@@ -67,7 +68,7 @@
 			<property name="verify_selects" value="false" />
 			<property name="UUID_Seed" value="-u 500000" />
 			<property name="mcjava.project.root" value="${basedir}"/>
-		</ant>
+		</ant>-->
 		<!-- Need to touch the output file for the case where the input data
 	       changed, but the output didn't -->
 		<touch file="${java.output}" />
