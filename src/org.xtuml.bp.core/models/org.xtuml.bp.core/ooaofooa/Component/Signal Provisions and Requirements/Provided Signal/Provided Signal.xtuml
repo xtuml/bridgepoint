@@ -15,6 +15,10 @@ INSERT INTO O_TFR
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'self.Dialect = PREF::getActionDialect(name:"bridgepoint_prefs_default_action_language_dialect");
+if ( self.Dialect == ActionDialect::masl )
+  // new MASL activities get initialized with the "null" statement
+  self.Action_Semantics_internal = "begin\n  null;\nend";
+end if;
 self.Suc_Pars = ParseStatus::parseInitial;',
 	1,
 	'',
@@ -454,7 +458,7 @@ Description: A textual description of this provided signal.',
 INSERT INTO O_DBATTR
 	VALUES ("e99809eb-503f-49b2-80a9-feca9f52afa1",
 	"e85528c7-bdd7-46da-8137-12e7490df0d0",
-	'self.Action_Semantics = ::convertRelocatableTags(in:self.Action_Semantics_internal);',
+	'self.Action_Semantics = self.Action_Semantics_internal;',
 	1,
 	0);
 INSERT INTO O_BATTR

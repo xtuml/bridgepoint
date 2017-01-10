@@ -8,104 +8,79 @@ header
 }
 class BodyParser extends Parser;
 options {
-    k=3;
+    k=1;
 }
 {
-    private TokenStreamSelector selector;
-
-    public BodyParser(ParserSharedInputState is, TokenStreamSelector s) {
-        this(is);
-        selector = s;
+    public BodyParser( TokenStream ts, CoreImport ci ) {
+        this(ts);
+        m_ci = ci;
     }
 
     public void reportError(RecognitionException arg0) {
-	    m_output += arg0.toString() + "\n";
-            System.out.println(m_output);
+        m_errors = true;
+	m_output += "BodyParser: " + (( m_ci != null && m_ci.m_actionFile != null) ? m_ci.m_actionFile.getPath() + " " : "") + arg0.toString() + "\n";
     }
+
     public String m_output = "";
+    public boolean m_errors = false;
+    public CoreImport m_ci = null;
 }
 
 attributeCodeBlock returns [String s = ""]:
-            { String cb = ""; }
-            cb=codeBlock
-            "attribute" ";" { s = cb.trim(); }
-            ;
-
-serviceCodeBlock returns [String s = ""]:
-            { String cb = ""; }
-            cb=codeBlock
-            "service" ";" { s = cb.trim(); }
-            ;
-
-stateCodeBlock returns [String s = ""]:
-            { String cb = ""; }
-            cb=codeBlock
-            "state" ";" { s = cb.trim(); }
-            ;
-
-transitionCodeBlock returns [String s = ""]:
-            { String cb = ""; }
-            cb=codeBlock
-            "transition" ";" { s = cb.trim(); }
-            ;
-
-codeBlock returns [String s = ""]:
-            { String ns = "";String kw = ""; }
-            ( ns=nonSemi                    { s += ns; }
-            | ";"                           { s += ";"; }
-            | kw=keyword ns=nonSemi         { s += kw + ns; }
-            )+
-            ( kw=keyword                    { s += kw; }
-            )?
-            | /* empty */
-            ;
-
-keyword returns [String s = ""]:
-            "attribute"                     { s = "attribute"; }
-            | "service"                     { s = "service"; }
-            | "state"                       { s = "state"; }
-            | "transition"                  { s = "transition"; }
-            ;
-
-nonSemi returns [String s = ""]:
-            { String com = ""; }
-            (wd:WORD                         { s = wd.getText(); }
-            | sym:SYMBOL                    { s = sym.getText(); }
-            | ws:WS                         { s = ws.getText(); }
-            | com=comment                   { s = com; }
+            s=codeBlock
+            ( "end attribute;\n"
+            | "end attribute;"
             )
             ;
 
-comment returns [String s = ""]:
-            ( "//"
-            {
-                selector.push("commentlexer");
-                CommentParser commentparser = new CommentParser(selector);
-                s = "//" + commentparser.singleLineComment();
-                selector.pop();
-            }
-            | "/*"
-            {
-                selector.push("commentlexer");
-                CommentParser commentparser = new CommentParser(selector);
-                s = "/*" + commentparser.blockComment();
-                selector.pop();
-            } )
+serviceCodeBlock returns [String s = ""]:
+            s=codeBlock
+            ( "end service;\n"
+            | "end service;"
+            )
+            ;
+
+stateCodeBlock returns [String s = ""]:
+            s=codeBlock
+            ( "end state;\n"
+            | "end state;"
+            )
+            ;
+
+transitionCodeBlock returns [String s = ""]:
+            s=codeBlock
+            ( "end transition;\n"
+            | "end transition;"
+            )
+            ;
+
+codeBlock returns [String s = ""]:
+            "\n"
+            ( ln:LINE   { s += ln.getText(); }
+            | "\n"      { s += "\n"; }
+            )*
             ;
 
 class BodyLexer extends Lexer;
 options {
-    k=2;
+    k=1;
 }
 {
-    public void reportError(RecognitionException arg0) {
-	    m_output += arg0.toString() + "\n";
-            System.out.println(m_output);
+    public BodyLexer( LexerSharedInputState is, CoreImport ci ) {
+        this(is);
+        m_ci = ci;
     }
+
+    public void reportError(RecognitionException arg0) {
+        m_errors = true;
+	m_output += "BodyLexer: " + (( m_ci != null && m_ci.m_actionFile != null) ? m_ci.m_actionFile.getPath() + " " : "") + arg0.toString() + "\n";
+    }
+
     public String m_output = "";
+    public boolean m_errors = false;
+
+    private CoreImport m_ci = null;
 }
 
-SYMBOL      : (~( ' ' | '\t' | '\f' | '\n' | '\r' | 'A'..'Z' | 'a'..'z' ))+;
-WORD        : ( 'A'..'Z' | 'a'..'z' )+;
-WS          : ( ' ' | '\t' | '\f' | '\n'{newline();} | '\r' )+;
+LINE        : '\n' | ( (~( '\n' ))+ ('\n'{newline();})? );
 

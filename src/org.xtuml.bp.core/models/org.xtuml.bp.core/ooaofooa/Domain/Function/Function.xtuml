@@ -85,6 +85,10 @@ else
  self.dispose();
 end if; 	
 self.Dialect = PREF::getActionDialect(name:"bridgepoint_prefs_default_action_language_dialect");
+if ( self.Dialect == ActionDialect::masl )
+  // new MASL activities get initialized with the "null" statement
+  self.Action_Semantics_internal = "begin\n  null;\nend";
+end if;
 self.Suc_Pars = ParseStatus::parseInitial;
 ',
 	1,
@@ -847,7 +851,7 @@ INSERT INTO O_ATTR
 INSERT INTO O_DBATTR
 	VALUES ("638bee3f-c63f-4fc3-91f3-8419830a9810",
 	"bc9a6c16-8809-4681-92ab-421898fa108a",
-	'self.Action_Semantics = ::convertRelocatableTags(in:self.Action_Semantics_internal);
+	'self.Action_Semantics = self.Action_Semantics_internal;
 ',
 	1,
 	0);

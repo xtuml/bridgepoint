@@ -89,7 +89,6 @@
   <property name="antlr-output" value="SqlLexer.java"/>
   <property name="antlr-action-output1" value="SignatureLexer.java"/>
   <property name="antlr-action-output2" value="BodyLexer.java"/>
-  <property name="antlr-action-output3" value="CommentLexer.java"/>
 
   <target name="compile_grammar.depends" >
     <uptodate property="compile_grammar.NotNeeded"
@@ -122,9 +121,6 @@
     <uptodate property="compile_action_grammar.NotNeeded"
       srcfile="${grammar-folder}/body.g"
       targetfile="${grammar-folder}/${antlr-action-output2}"/>
-    <uptodate property="compile_action_grammar.NotNeeded"
-      srcfile="${grammar-folder}/comment.g"
-      targetfile="${grammar-folder}/${antlr-action-output3}"/>
   </target>
 
   <target name="compile_action_grammar"
@@ -143,13 +139,6 @@
   	  </classpath>
     </antlr>
     <antlr target="${grammar-folder}/body.g" >
-      <classpath>
-  	    <fileset dir="${plugins-home}/plugins" casesensitive="yes">
-  	      <include name="**/antlr.jar" />
-  	    </fileset>
-  	  </classpath>
-    </antlr>
-    <antlr target="${grammar-folder}/comment.g" >
       <classpath>
   	    <fileset dir="${plugins-home}/plugins" casesensitive="yes">
   	      <include name="**/antlr.jar" />
@@ -202,8 +191,7 @@
      <fileset dir="${grammar-folder}" includes="SqlLexer.java, SqlParser.java,
      SqlTokenTypes.java, SqlTokenTypes.txt, ActionLexer.java, SignatureLexer.java, ActionParser.java,
      ActionTokenTypes.java, ActionTokenTypes.txt, BodyLexer.java, BodyParser.java, BodyParserTokenTypes.java,
-     BodyParserTokenTypes.txt, CommentLexer.java, CommentParser.java, CommentParserTokenTypes.java,
-     CommentParserTokenTypes.txt" />
+     BodyParserTokenTypes.txt" />
    </delete>
 
   </target>
