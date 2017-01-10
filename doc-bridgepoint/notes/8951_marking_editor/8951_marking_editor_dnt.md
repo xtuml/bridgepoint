@@ -147,7 +147,10 @@ MicrowaveOven::components::MicrowaveOven::Microwave Oven::Oven,bar,barov
 
 6.4  Model of marking  
 ![ooaofmarking](ooaofmarking.png)  
-  
+6.4.1  Note that the model of marking as displayed here cannot be translated by
+  MC-Java because the many-to-many R2 relationship is not formalized and requires
+  an associative class in order to formalize.   
+    
 6.5  Marking Editor User Interface   
 ![marking_editor](marking_editor.png)   
 6.5.1  The initial implementation of the marking editor shall be a dialog.   
@@ -177,7 +180,9 @@ MicrowaveOven::components::MicrowaveOven::Microwave Oven::Oven,bar,barov
   project name, or only taking the last three segments, or some similar scheme. 
   Of course, we must be careful to avoid ambiguity and potential duplicates 
   showing in the UI or written in data.     
-
+6.6.3  The m2x tooling for interfacing and managing marking data is independent
+  of the marking editor and will be handled in it's own issue.  
+  
 6.7  Constraining modifications   
 6.7.1  It is desirable that the ```applications.mark``` file is not significantly 
   changed if the user edits a single value.  Maintaining ordering in the data
@@ -187,6 +192,8 @@ MicrowaveOven::components::MicrowaveOven::Microwave Oven::Oven,bar,barov
 6.8.1  During the MASL export process, the BridgePoint xtuml2masl toolchain must
   query the application marking data and output MASL ```pragma``` entities for each
   applicable feature/value pair.   
+6.8.2  The x2m tooling for interfacing and managing marking data is independent
+  of the marking editor and will be handled in it's own issue.  
   
 7. Design Comments
 ------------------
@@ -197,12 +204,29 @@ MicrowaveOven::components::MicrowaveOven::Microwave Oven::Oven,bar,barov
   they are looking for.  
   * Provide a means to tell the user of invalid marks in the application marking
   data.  Currently, moving or copying an element will not be automatically 
-  reflected in the application marks.   
-  * The mechanism of a thin UI layed over the top of a file is very similar to 
-  the way eclipse provides a front-end view for the ```plugin.xml```, ```build.properties```, 
-  and ```MANIFEST.MF``` data.  Especially, how the view is a tabbed editor that
-  provides direct access to the underlying files. A desirable enhancement is to
-  implement this sort of view instead of the dialog-style interface.     
+  reflected in the application marks.    
+
+7.2  The mechanism of a thin UI layered over the top of a file is very similar 
+  to the way eclipse provides a front-end view for the ```plugin.xml```, 
+  ```build.properties```, and ```MANIFEST.MF``` data.  Especially, how the view 
+  is a tabbed editor that provides direct access to the underlying files. A 
+  desirable enhancement is to implement this sort of view instead of the 
+  dialog-style interface.     
+7.2.1  Based on initial research, I estimate it will take 4 days to implement 
+  this style of interface rather than the dialog.  It is called a multi-page
+  editor in eclipse parlance.  From the documentation about editors:  
+  * Form-based editors can layout controls in a fashion similar to a dialog or 
+  wizard.  The Plug-in Development Environment (PDE) uses this approach in 
+  building its manifest editors.
+  * List-oriented editors can use JFace list, tree, and table viewers to 
+  manipulate their data.  
+  
+7.2.2  Here is a capture of useful information and links found while 
+  investigating the possibility of this approach:  
+  * Help > Platform Plug-in Developer Guide > Programmer's Guide > Editors  
+  * Help > Platform Plug-in Developer Guide > Examples Guide > Workbench > Example - Multi-page Editor  
+  * Help > Platform Plug-in Developer Guide > Programmer's Guide > UI Forms > Multi-page form editors  
+  * A Introduction to Forms: https://www.eclipse.org/articles/Article-Forms/article.html  
      
 8. User Documentation
 ---------------------
@@ -211,7 +235,25 @@ MicrowaveOven::components::MicrowaveOven::Microwave Oven::Oven,bar,barov
   
 9. Unit Test
 ------------
-
+9.1  Functional test   
+9.1.1  Start the marking editor, verify that only the element types specified 
+  in the ```features.mark``` are available in the element types selection list.   
+9.1.2  Verify that once an element type is selected, all the model elements of 
+  that type in the current project are available in the list.  Model elements of
+  the same type from other projects shall not be displayed.   
+9.1.3  Once an application model element is selected:  
+9.1.3.1  The features shown in the table shall be exactly those specified in 
+  ```features.mark``` for the selected element type.   
+9.1.3.2  The marking values shown in the table shall exactly match the data 
+  previously specified for the given model element in ```application.mark```.   
+9.1.4  The feature field in the table shall not be editable.   
+9.1.5  The value field in the table shall be editable.  User changes are stored
+  in memory until the dialog is dismissed.   
+9.1.6  The updated in-memory data is not persisted if the user cancels the 
+  marking editor dialog.   
+9.1.7  The updated in-memory data is persisted if the user OKs the marking 
+  editor dialog    
+  
 End
 ---
 
