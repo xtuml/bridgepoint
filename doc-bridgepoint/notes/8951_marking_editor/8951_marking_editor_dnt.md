@@ -16,8 +16,10 @@ front end for MASL pragma data.
 2. Document References
 ----------------------
 <a id="2.1"></a>2.1 [BridgePoint DEI #8951](https://support.onefact.net/issues/8951) Headline issue.  
-<a id="2.2"></a>2.2 [BridgePoint DEI #xxx2](https://support.onefact.net/issues/8416) Pragmas     
-<a id="2.3"></a>2.3 [BridgePoint DEI #xxx3](https://support.onefact.net/issues/8360) Marking     
+<a id="2.2"></a>2.2 [BridgePoint DEI #8416](https://support.onefact.net/issues/8416) Pragma metamodeling     
+<a id="2.3"></a>2.3 [BridgePoint DEI #8360](https://support.onefact.net/issues/8360) Sales - Marking issue    
+<a id="2.4"></a>2.4 [BridgePoint DEI #8980](https://support.onefact.net/issues/8980) m2x support for updated marking   
+<a id="2.5"></a>2.5 [BridgePoint DEI #8981](https://support.onefact.net/issues/8981) x2m support for updated marking   
 
 3. Background
 -------------
@@ -181,7 +183,7 @@ MicrowaveOven::components::MicrowaveOven::Microwave Oven::Oven,bar,barov
   Of course, we must be careful to avoid ambiguity and potential duplicates 
   showing in the UI or written in data.     
 6.6.3  The m2x tooling for interfacing and managing marking data is independent
-  of the marking editor and will be handled in it's own issue.  
+  of the marking editor and will be handled in it's own issue[[2.4]](#2.4).  
   
 6.7  Constraining modifications   
 6.7.1  It is desirable that the ```applications.mark``` file is not significantly 
@@ -193,7 +195,7 @@ MicrowaveOven::components::MicrowaveOven::Microwave Oven::Oven,bar,barov
   query the application marking data and output MASL ```pragma``` entities for each
   applicable feature/value pair.   
 6.8.2  The x2m tooling for interfacing and managing marking data is independent
-  of the marking editor and will be handled in it's own issue.  
+  of the marking editor and will be handled in it's own issue[[2.5]](#2.5).  
   
 7. Design Comments
 ------------------
