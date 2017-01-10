@@ -15,7 +15,6 @@
 <stringAttribute key="org.eclipse.debug.ui.target_run_perspective" value="perspective_none"/>
 <stringAttribute key="org.eclipse.jdt.launching.CLASSPATH_PROVIDER" value="org.eclipse.ant.ui.AntClasspathProvider"/>
 <booleanAttribute key="org.eclipse.jdt.launching.DEFAULT_CLASSPATH" value="true"/>
-<stringAttribute key="org.eclipse.jdt.launching.VM_ARGUMENTS" value="-Xmx1024m -Xms1024m"/>
 <booleanAttribute key="org.eclipse.ui.externaltools.ATTR_BUILDER_ENABLED" value="true"/>
 <stringAttribute key="org.eclipse.ui.externaltools.ATTR_LOCATION" value="${workspace_loc:/org.xtuml.bp.ui.marking/generate.xml}"/>
 <stringAttribute key="org.eclipse.ui.externaltools.ATTR_REFRESH_SCOPE" value="${project}"/>
@@ -23,6 +22,4 @@
 <booleanAttribute key="org.eclipse.ui.externaltools.ATTR_RUN_IN_BACKGROUND" value="false"/>
 <booleanAttribute key="org.eclipse.ui.externaltools.ATTR_TRIGGERS_CONFIGURED" value="true"/>
 <stringAttribute key="org.eclipse.ui.externaltools.ATTR_WORKING_DIRECTORY" value="${workspace_loc:/org.xtuml.bp.ui.marking}"/>
-<stringAttribute key="process_factory_id" value="org.eclipse.ant.ui.remoteAntProcessFactory"/>
 </launchConfiguration>
-

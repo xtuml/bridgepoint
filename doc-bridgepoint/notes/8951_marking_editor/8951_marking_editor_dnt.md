@@ -149,7 +149,7 @@ MicrowaveOven::components::MicrowaveOven::Microwave Oven::Oven,bar,barov
 ![ooaofmarking](ooaofmarking.png)  
   
 6.5  Marking Editor User Interface   
-![marking_editor](marking_editor.png)
+![marking_editor](marking_editor.png)   
 6.5.1  The initial implementation of the marking editor shall be a dialog.   
 6.5.2  The marking editor dialog shall be opened via a context menu on the project
   called "Manage Project Markings"   
