@@ -29,7 +29,9 @@ Graphics reconciliation is not connecting the ball and cup in a satisfaction.
 During the process of migrating a MASL model to xtUML a single-file xtuml model
 is created. This model contains some annotation that helps the model importer
 know how to process the model. A prior task, [[2.2]](#2.2), introduced the 
-blueprint for how MASL artifacts are migrated into a xtUML model.
+blueprint for how MASL artifacts are migrated into a xtUML model 
+(the blueprint here refers to the ImportHelper.java::resolveMASLProject()
+operartion).
 This issue is raised to extend the work from [[2.2]](#2.2) to perform the 
 task of automatically creating satisfactions between formalized provisions and 
 requirements that have been annotated to indicate that a satisfaction is 
@@ -40,7 +42,7 @@ masl interfaces that need to be satisfied shall contain the following text
 string in the package description: masl_project
 
 Since the this task is specific to creating satisfactions for MASL project 
-there are constraints from the MASL export that can be used to limit the 
+there are constraints from the MASL convert that can be used to limit the 
 required work.  
 
 3.1 The package that contains provisions and requirements to be satisfied shall
@@ -54,8 +56,6 @@ a given provision or requirement no more satisfactions are needed.
 
 4. Requirements
 ---------------
-The following requirements are specific to model import of a single file model 
-with packages that contain a description string: masl_project.  
 4.1 For each unsatisfied provision search the package for a matching 
 requirement and create a satisfaction if a match is found.  
 4.2 Create no more than 1 satisfaction per requirement and provision.  
