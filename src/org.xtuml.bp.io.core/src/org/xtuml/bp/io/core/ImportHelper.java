@@ -336,6 +336,8 @@ public class ImportHelper
         return importer.getGraphicsModelRoot();
     }
 
+    boolean m_graphicsReconciliationIsNeeded = false;
+    
     /**
      * Resolve the MASL project
      *   - Assign unassigned component references
@@ -362,6 +364,7 @@ public class ImportHelper
                         Matcher m = Pattern.compile( "masl_project" ).matcher( pkg_descrip );
                         if ( m.find() ) {
                             masl_project = true;
+                            m_graphicsReconciliationIsNeeded = true;
                         }
                     }
                 }
@@ -551,6 +554,16 @@ public class ImportHelper
         }
     }
 
+    /**
+     * If this was an import of a masl model file that contained no graphics
+     * then perform full graphics reconciliation to create the graphics.
+     * 
+     * @return
+     */
+    public boolean graphicsReconciliationIsNeeded() {
+    	return m_graphicsReconciliationIsNeeded;
+    }
+    
     /**
      * Creates a model instance and initializes its values
      * to the given pre-BP-7.1-format parameters.
