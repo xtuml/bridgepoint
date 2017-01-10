@@ -4,18 +4,12 @@ This work is licensed under the Creative Commons CC0 License
 
 ---
 
-# Title goes here
+# Update import to create satisfactions
 ### xtUML Project Implementation Note
-
-Note: Each section has a description that states the purpose of that section.
-Delete these section descriptions before checking in your note.  Delete this
-note as well. __If you are using markdown formatting, don't forget to put 2 
-spaces at the end of lines where you want a hard break.__
 
 1. Abstract
 -----------
-In this section, give a summary of the design that this note aims to
-describe.
+Currently component references get automatically assigned, and interface references get formalized, but satisactions do not get created. This issue is raised to auto create satisfaction during import of a MASL model.  
 
 2. Document References
 ----------------------
@@ -27,6 +21,8 @@ Update import to create satisfactions.
 Adapt BridgePoint model import to copy MASL activities to their proper locations.  
 <a id="2.3"></a>2.3 [BridgePoint DEI #8977](https://support.onefact.net/issues/8977) 
 Manual test for automatic satisfaction creation.  
+<a id="2.4"></a>2.4 [BridgePoint DEI #8978](https://support.onefact.net/issues/8978) 
+Graphics reconciliation is not connecting the ball and cup in a satisfaction.  
 
 3. Background
 -------------
@@ -75,7 +71,8 @@ by the requirements.
 
 5.2 Introduce OAL that creates the satisfactions  
 5.2.1 Introduce ooaofooa::Functions::autoCreateSatisfactions  
-'''
+Here is the pseudo-code:
+```
 find all provisions in the given package
 find all imported provisions in the given package
 find all requirements in the given package
@@ -101,14 +98,14 @@ end for
 
 repeat the above look with imported provisions
 
-'''  
+```  
 
 6. Implementation Comments
 --------------------------
 6.1 During testing it was found that graphics reconciliation of satisfactions
 is not working. The "ball and cup" are not being connected. This problem 
 existed prior to this task, and is being handled by a separate issue 
-[[2.3]](#2.3).
+[[2.4]](#2.4).
 
 
 
@@ -127,7 +124,13 @@ Branch: 8484_create_satisfaction_on_import
 
 <pre>
 
-< Put the file list here >
+doc-bridgepoint/notes/8484_masl_auto_satisfaction_creation/
+    8484_masl_auto_satisfaction.int.md
+
+org.xtuml.bp.core/models/org.xtuml.bp.core/ooaofooa/Functions/Functions.xtuml
+
+org.xtuml.bp.io.core/src/org/xtuml/bp/io/core/ImportHelper.java
+
 
 </pre>
 
