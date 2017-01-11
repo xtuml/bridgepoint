@@ -126,7 +126,7 @@ Attribute,soa_remote
   example:   
 ```
 components::MicrowaveOven::Microwave Oven::Turntable,id,2
-components::MicrowaveOven::Microwave Oven::Turntable,soa_remote,""
+components::MicrowaveOven::Microwave Oven::Turntable,soa_remote,"aj", 0,    "keith", 2
 components::MicrowaveOven::Microwave Oven::Turntable,bar,doit
 components::MicrowaveOven::Microwave Oven::Turntable,baz,ajb
 components::MicrowaveOven::Microwave Oven::Door,id,1
@@ -161,6 +161,36 @@ components::MicrowaveOven::Microwave Oven::Oven,bar,barov
   situation where the user wishes to mark the System Model.  We need to make sure
   that the segment removal proposed in 6.3.3.2 does not interfere with marking
   the System Model.   
+6.3.3.4  This file is loaded and persisted in an ordered way to minimize file
+  differences when data is added and removed with the editor.  The primary sorting
+  key is the model instance path.  Entries with the same path are persisted 
+  together.  Within the same path entries are persisted back out in the order in
+  which they were read in.  If a user were to edit the file with "vi" and add a
+  new line at the end like:
+```
+components::MicrowaveOven::Microwave Oven::Internal Light,soa_remote,""
+```  
+  then when the file is written out, the value is moved up:  
+```
+...
+components::MicrowaveOven::Microwave Oven::Magnetron Tube,bar,ddd
+components::MicrowaveOven::Microwave Oven::Internal Light,id,4
+components::MicrowaveOven::Microwave Oven::Internal Light,soa_remote,""
+components::MicrowaveOven::Microwave Oven::Oven,id,33
+...
+```   
+  When features are given values, they are added after other features with the
+  same path.  Thus, if the user uses the marking editor to set value "1000" to 
+  the ```baz``` feature and change ```id``` to 5, the output is:  
+```
+...
+components::MicrowaveOven::Microwave Oven::Magnetron Tube,bar,ddd
+components::MicrowaveOven::Microwave Oven::Internal Light,id,5
+components::MicrowaveOven::Microwave Oven::Internal Light,soa_remote,""
+components::MicrowaveOven::Microwave Oven::Internal Light,baz,"1000"
+components::MicrowaveOven::Microwave Oven::Oven,id,33
+...
+```  
   
 6.4  Model of marking  
 ![ooaofmarking](ooaofmarking.png)  
