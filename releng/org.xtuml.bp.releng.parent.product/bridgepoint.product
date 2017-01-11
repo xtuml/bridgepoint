@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?pde version="3.5"?>
 
-<product name="BridgePoint" uid="org.xtuml.bp.product" id="org.xtuml.bp.pkg.BridgePoint" application="org.eclipse.ui.ide.workbench" version="5.8.5" useFeatures="true" includeLaunchers="true">
+<product name="BridgePoint" uid="org.xtuml.bp.product" id="org.xtuml.bp.pkg.BridgePoint" application="org.eclipse.ui.ide.workbench" version="5.8.6" useFeatures="true" includeLaunchers="true">
 
    <configIni use="default">
    </configIni>
 
    <launcherArgs>
+      <programArgsLin>--launcher.GTK_version
+2
+      </programArgsLin>
       <vmArgsMac>-XstartOnFirstThread -Dorg.eclipse.swt.internal.carbon.smallFonts
       </vmArgsMac>
    </launcherArgs>
@@ -32,9 +35,7 @@
    </plugins>
 
    <features>
-      <feature id="org.xtuml.bp.bld.pkg.feature"/>
       <feature id="org.xtuml.bp.pkg.feature"/>
-      <feature id="org.xtuml.bp.verifier.pkg.feature"/>
       <feature id="org.xtuml.bp.jre"/>
       <feature id="org.xtuml.bp.MinGW"/>
       <feature id="org.xtuml.bp.docgen"/>

@@ -57,7 +57,8 @@ end for;
 // Done . . . ',
 	1,
 	'',
-	"aeb8f953-4fc7-405c-a6b9-2d8872044f85");
+	"aeb8f953-4fc7-405c-a6b9-2d8872044f85",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("73c72121-a35f-428d-8f9f-9b8d28febba7",
 	"20bfbc4d-ea07-4185-aa36-7cee851e7b45",
@@ -86,7 +87,8 @@ delete object instance self;
 ',
 	1,
 	'',
-	"00000000-0000-0000-0000-000000000000");
+	"00000000-0000-0000-0000-000000000000",
+	0);
 INSERT INTO O_REF
 	VALUES ("4a50cb4c-0279-4fc5-8de2-4b36a0452634",
 	"013bfc9e-d3c0-4807-8613-deccd09763b5",

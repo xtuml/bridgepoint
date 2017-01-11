@@ -1,5 +1,0 @@
-drawText(" 1. TestState1", ...)
-drawline(...)
-drawPolyline(4 omitted points)
-drawText("No Event Assigned", ...)
-drawPolyline(6 omitted points)

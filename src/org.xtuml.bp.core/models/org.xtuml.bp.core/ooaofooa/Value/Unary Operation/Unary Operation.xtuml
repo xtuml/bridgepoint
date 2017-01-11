@@ -24,7 +24,8 @@ delete object instance self;
 ',
 	1,
 	'',
-	"00000000-0000-0000-0000-000000000000");
+	"00000000-0000-0000-0000-000000000000",
+	0);
 INSERT INTO O_TFR
 	VALUES ("ec3c67f5-f495-4c02-bd76-09a44b5ec9d3",
 	"3f8db3e3-3a95-493f-86e5-a15f75e74c51",
@@ -50,7 +51,8 @@ end if;
 return GD::string_to_instance(value:"Error");',
 	1,
 	'',
-	"14126168-a57a-4165-b670-a4cbeed1a560");
+	"14126168-a57a-4165-b670-a4cbeed1a560",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("4112bf87-3ba3-45bb-818e-b7d0545e45cf",
 	"ec3c67f5-f495-4c02-bd76-09a44b5ec9d3",
@@ -121,7 +123,8 @@ pathMsg = "<No Path Available - Empty instance>";
 return false;',
 	1,
 	'',
-	"af83effe-c055-4bd0-b4ec-b6acc4de6fd8");
+	"af83effe-c055-4bd0-b4ec-b6acc4de6fd8",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("c4c6b921-efd6-4876-9aa9-54f10197437d",
 	"8c1903a3-2a7e-4dc0-8c5e-bccfdfdd1cd6",
@@ -175,7 +178,8 @@ return 0;
 ',
 	1,
 	'',
-	"8c1903a3-2a7e-4dc0-8c5e-bccfdfdd1cd6");
+	"8c1903a3-2a7e-4dc0-8c5e-bccfdfdd1cd6",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("c16d34cb-70ab-4f32-9610-8862fd20b8ad",
 	"9ac0eb08-8a07-4133-98e9-88a9f00be470",
@@ -216,7 +220,8 @@ return GD::instance_to_real(value:rtVal.getValue());
  ',
 	1,
 	'',
-	"9ac0eb08-8a07-4133-98e9-88a9f00be470");
+	"9ac0eb08-8a07-4133-98e9-88a9f00be470",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("e11d5239-1b3d-46c5-9863-896adb579986",
 	"14126168-a57a-4165-b670-a4cbeed1a560",

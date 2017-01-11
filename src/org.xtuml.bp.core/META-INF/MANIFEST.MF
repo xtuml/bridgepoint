@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: BridgePoint Core Plug-in
 Bundle-SymbolicName: org.xtuml.bp.core; singleton:=true
-Bundle-Version: 5.8.5
+Bundle-Version: 5.8.6
 Bundle-ClassPath: core.jar
 Bundle-Activator: org.xtuml.bp.core.CorePlugin
 Bundle-Vendor: xtUML.org
@@ -11,7 +11,6 @@ Export-Package: lib,
  org.xtuml.bp.core,
  org.xtuml.bp.core.common,
  org.xtuml.bp.core.inspector,
- org.xtuml.bp.core.relocatables,
  org.xtuml.bp.core.search,
  org.xtuml.bp.core.sorter,
  org.xtuml.bp.core.ui,

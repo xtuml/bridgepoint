@@ -7,13 +7,13 @@
 	<parent>
 		<groupId>org.xtuml.bp</groupId>
 		<artifactId>org.xtuml.bp.releng.parent</artifactId>
-		<version>5.8.5</version>
+		<version>5.8.6</version>
 		<relativePath>../org.xtuml.bp.releng.parent/</relativePath>
 	</parent>
 
 	<groupId>org.xtuml.bp</groupId>
 	<artifactId>org.xtuml.bp.releng.parent.tests</artifactId>
-	<version>5.8.5</version>
+	<version>5.8.6</version>
 	<packaging>pom</packaging>
 
 	<modules>
@@ -55,17 +55,7 @@
 						<extraRequirements>
 							<requirement>
 								<type>eclipse-feature</type>
-								<id>org.xtuml.bp.bld.pkg.feature</id>
-								<versionRange>0.0.0</versionRange>
-							</requirement>
-							<requirement>
-								<type>eclipse-feature</type>
 								<id>org.xtuml.bp.pkg.feature</id>
-								<versionRange>0.0.0</versionRange>
-							</requirement>
-							<requirement>
-								<type>eclipse-feature</type>
-								<id>org.xtuml.bp.verifier.pkg.feature</id>
 								<versionRange>0.0.0</versionRange>
 							</requirement>
 							<requirement>

@@ -25,7 +25,8 @@ else
 end if;',
 	1,
 	'',
-	"703cd5e4-9083-4af6-8982-c3cc3c103b59");
+	"703cd5e4-9083-4af6-8982-c3cc3c103b59",
+	0);
 INSERT INTO O_TFR
 	VALUES ("9e7ba5bd-75ef-4954-9f63-b6ee0ecd7897",
 	"740b3ec4-b1d1-4cd4-888c-96a2ebc201a1",
@@ -39,7 +40,8 @@ sm.newState();
 ',
 	1,
 	'',
-	"1658e2e9-4bfa-48d2-884c-219188c59ee0");
+	"1658e2e9-4bfa-48d2-884c-219188c59ee0",
+	0);
 INSERT INTO O_TFR
 	VALUES ("1658e2e9-4bfa-48d2-884c-219188c59ee0",
 	"740b3ec4-b1d1-4cd4-888c-96a2ebc201a1",
@@ -53,7 +55,8 @@ sm.newEvent();
 ',
 	1,
 	'',
-	"800b83cd-dc6f-4cb2-8ccc-825f0137ea3f");
+	"800b83cd-dc6f-4cb2-8ccc-825f0137ea3f",
+	0);
 INSERT INTO O_TFR
 	VALUES ("4da18602-cbc0-4d02-8fb9-11c994bd7385",
 	"740b3ec4-b1d1-4cd4-888c-96a2ebc201a1",
@@ -65,7 +68,8 @@ INSERT INTO O_TFR
 return sm.newTransition(from:param.from, to:param.to);',
 	1,
 	'',
-	"9e7ba5bd-75ef-4954-9f63-b6ee0ecd7897");
+	"9e7ba5bd-75ef-4954-9f63-b6ee0ecd7897",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("d993d1e8-f34d-4af3-97b9-db8aa4df4f85",
 	"4da18602-cbc0-4d02-8fb9-11c994bd7385",
@@ -113,7 +117,8 @@ INSERT INTO O_TFR
 return sm.newCreationTransition(from:param.from, to:param.to);',
 	1,
 	'',
-	"febf77da-45d5-46b3-9a2d-9fae6c0b28d6");
+	"febf77da-45d5-46b3-9a2d-9fae6c0b28d6",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("4e076c08-5bf8-4b9b-9b49-cabc3e0c4176",
 	"800b83cd-dc6f-4cb2-8ccc-825f0137ea3f",
@@ -162,7 +167,8 @@ Bridge:GD',
 	'return self.SM_ID;',
 	1,
 	'',
-	"cecbcfdd-ccbd-46f5-ab51-991475834c37");
+	"cecbcfdd-ccbd-46f5-ab51-991475834c37",
+	0);
 INSERT INTO O_TFR
 	VALUES ("703cd5e4-9083-4af6-8982-c3cc3c103b59",
 	"740b3ec4-b1d1-4cd4-888c-96a2ebc201a1",
@@ -174,7 +180,8 @@ INSERT INTO O_TFR
 sm.dispose();',
 	1,
 	'',
-	"c87b5cd0-ac68-46b1-ba61-a4b53759a945");
+	"c87b5cd0-ac68-46b1-ba61-a4b53759a945",
+	0);
 INSERT INTO O_TFR
 	VALUES ("7bd5280d-b107-40f7-91e3-eaa60eb6ec3c",
 	"740b3ec4-b1d1-4cd4-888c-96a2ebc201a1",
@@ -186,7 +193,8 @@ INSERT INTO O_TFR
 sm.pasteStateMachineState(id:param.id);',
 	1,
 	'',
-	"09d81d7e-871f-4285-90c4-b279fafe9535");
+	"09d81d7e-871f-4285-90c4-b279fafe9535",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("5add0d3d-7490-469d-b4ec-82fd97966fc7",
 	"7bd5280d-b107-40f7-91e3-eaa60eb6ec3c",
@@ -207,7 +215,8 @@ Translate:native',
 	'return this;',
 	0,
 	'',
-	"00000000-0000-0000-0000-000000000000");
+	"00000000-0000-0000-0000-000000000000",
+	0);
 INSERT INTO S_DT_PROXY
 	VALUES ("bc3722c8-5188-4529-8519-cf9eb9816b17",
 	"00000000-0000-0000-0000-000000000000",
@@ -226,7 +235,8 @@ INSERT INTO O_TFR
 sm.pasteTransition(id:param.id);',
 	1,
 	'',
-	"7bd5280d-b107-40f7-91e3-eaa60eb6ec3c");
+	"7bd5280d-b107-40f7-91e3-eaa60eb6ec3c",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("2a306139-d4b2-474a-abef-a4f9d1719c83",
 	"63902a53-a754-40a0-86eb-11a57a2b6dc3",
@@ -247,7 +257,8 @@ INSERT INTO O_TFR
 sm.pasteTransition(id:param.id);',
 	1,
 	'',
-	"4da18602-cbc0-4d02-8fb9-11c994bd7385");
+	"4da18602-cbc0-4d02-8fb9-11c994bd7385",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("f06ba351-e6b9-45e9-91b1-b61113ab25aa",
 	"09d81d7e-871f-4285-90c4-b279fafe9535",
@@ -268,7 +279,8 @@ INSERT INTO O_TFR
 return cardinality states;',
 	1,
 	'',
-	"63902a53-a754-40a0-86eb-11a57a2b6dc3");
+	"63902a53-a754-40a0-86eb-11a57a2b6dc3",
+	0);
 INSERT INTO O_TFR
 	VALUES ("846c248f-575a-4db8-b633-fbdefe8ead3d",
 	"740b3ec4-b1d1-4cd4-888c-96a2ebc201a1",
@@ -291,7 +303,8 @@ end for;
 return id;',
 	1,
 	'',
-	"bf844db0-3d62-45fb-abff-2bd251a8f390");
+	"bf844db0-3d62-45fb-abff-2bd251a8f390",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("2869088b-ebbf-4e0b-b2d8-3732b8b686ff",
 	"846c248f-575a-4db8-b633-fbdefe8ead3d",
@@ -312,7 +325,8 @@ INSERT INTO O_TFR
 sm.pasteStateMachineEvent(id:param.id);',
 	1,
 	'',
-	"846c248f-575a-4db8-b633-fbdefe8ead3d");
+	"846c248f-575a-4db8-b633-fbdefe8ead3d",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("550abce3-8c55-4f43-b70e-67b9ca7a451c",
 	"99dc5ace-df50-4a1d-9644-3e1c43bc5d7f",
@@ -333,7 +347,8 @@ INSERT INTO O_TFR
 return cardinality transitions; ',
 	1,
 	'',
-	"99dc5ace-df50-4a1d-9644-3e1c43bc5d7f");
+	"99dc5ace-df50-4a1d-9644-3e1c43bc5d7f",
+	0);
 INSERT INTO O_TFR
 	VALUES ("454677b5-1e5b-4d0d-b7a2-a4d5b5c384da",
 	"740b3ec4-b1d1-4cd4-888c-96a2ebc201a1",
@@ -355,7 +370,8 @@ end for;
 return id;',
 	1,
 	'',
-	"e1f13430-d7c8-485d-b24b-b2eb6a19160e");
+	"e1f13430-d7c8-485d-b24b-b2eb6a19160e",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("83b7f35e-a227-4133-9f5d-5791f7cfc07c",
 	"454677b5-1e5b-4d0d-b7a2-a4d5b5c384da",

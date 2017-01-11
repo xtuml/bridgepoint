@@ -15,10 +15,15 @@ INSERT INTO O_TFR
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'self.Dialect = PREF::getActionDialect(name:"bridgepoint_prefs_default_action_language_dialect");
+if ( self.Dialect == ActionDialect::masl )
+  // new MASL activities get initialized with the "null" statement
+  self.Action_Semantics_internal = "begin\n  null;\nend";
+end if;
 self.Suc_Pars = ParseStatus::parseInitial;',
 	1,
 	'',
-	"55d257f8-53b5-40d1-aaa6-a031254b72c6");
+	"55d257f8-53b5-40d1-aaa6-a031254b72c6",
+	0);
 INSERT INTO O_TFR
 	VALUES ("ec803127-0574-4b09-9ee4-04537665ef21",
 	"e85528c7-bdd7-46da-8137-12e7490df0d0",
@@ -47,7 +52,8 @@ end for;
 delete object instance self;',
 	1,
 	'',
-	"00000000-0000-0000-0000-000000000000");
+	"00000000-0000-0000-0000-000000000000",
+	0);
 INSERT INTO O_TFR
 	VALUES ("8cd2e6f5-85ac-4b95-b645-c656c65f9da6",
 	"e85528c7-bdd7-46da-8137-12e7490df0d0",
@@ -99,7 +105,8 @@ end if;
 return false;',
 	1,
 	'',
-	"07ec2f6c-b5c0-437f-a273-6d3eda60ee8b");
+	"07ec2f6c-b5c0-437f-a273-6d3eda60ee8b",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("2b5534d3-ebe8-4d32-8545-0d0ae9da4925",
 	"8cd2e6f5-85ac-4b95-b645-c656c65f9da6",
@@ -120,7 +127,8 @@ INSERT INTO O_TFR
 return pep.getComponentId();',
 	1,
 	'',
-	"ec803127-0574-4b09-9ee4-04537665ef21");
+	"ec803127-0574-4b09-9ee4-04537665ef21",
+	0);
 INSERT INTO O_TFR
 	VALUES ("1a1670b9-1410-42ff-a902-298cd487e455",
 	"e85528c7-bdd7-46da-8137-12e7490df0d0",
@@ -137,7 +145,8 @@ return this;
 ',
 	0,
 	'',
-	"8cd2e6f5-85ac-4b95-b645-c656c65f9da6");
+	"8cd2e6f5-85ac-4b95-b645-c656c65f9da6",
+	0);
 INSERT INTO S_DT_PROXY
 	VALUES ("bc3722c8-5188-4529-8519-cf9eb9816b17",
 	"00000000-0000-0000-0000-000000000000",
@@ -166,7 +175,8 @@ else
 end if;',
 	1,
 	'',
-	"1a1670b9-1410-42ff-a902-298cd487e455");
+	"1a1670b9-1410-42ff-a902-298cd487e455",
+	0);
 INSERT INTO O_TFR
 	VALUES ("eb57b38a-8af6-4b9e-baa7-8eba6b1f337b",
 	"e85528c7-bdd7-46da-8137-12e7490df0d0",
@@ -183,7 +193,8 @@ end if;
 return true;',
 	1,
 	'',
-	"49e724b1-ce6d-4598-bb6b-dbe1728a59bd");
+	"49e724b1-ce6d-4598-bb6b-dbe1728a59bd",
+	0);
 INSERT INTO O_TFR
 	VALUES ("3e17d389-edd7-47a0-9a42-cb0e10496572",
 	"e85528c7-bdd7-46da-8137-12e7490df0d0",
@@ -201,7 +212,8 @@ if(not self.isSynchronized())
 end if;',
 	1,
 	'',
-	"eb57b38a-8af6-4b9e-baa7-8eba6b1f337b");
+	"eb57b38a-8af6-4b9e-baa7-8eba6b1f337b",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("5be19003-950e-4e23-85a3-134875dcd1d3",
 	"3e17d389-edd7-47a0-9a42-cb0e10496572",
@@ -229,7 +241,8 @@ if(not self.isSynchronized())
 end if;',
 	1,
 	'',
-	"3e17d389-edd7-47a0-9a42-cb0e10496572");
+	"3e17d389-edd7-47a0-9a42-cb0e10496572",
+	0);
 INSERT INTO O_TFR
 	VALUES ("0ef1cad5-0396-4345-86cb-e7da2fed82f6",
 	"e85528c7-bdd7-46da-8137-12e7490df0d0",
@@ -240,7 +253,8 @@ INSERT INTO O_TFR
 	'	return m_name;',
 	0,
 	'',
-	"85230e79-225c-456e-b101-4db02e837e6d");
+	"85230e79-225c-456e-b101-4db02e837e6d",
+	0);
 INSERT INTO O_TFR
 	VALUES ("c01fc587-e186-4e16-b03b-f486c1c1f4d6",
 	"e85528c7-bdd7-46da-8137-12e7490df0d0",
@@ -251,7 +265,8 @@ INSERT INTO O_TFR
 	'	m_name = p_Name;',
 	0,
 	'',
-	"0ef1cad5-0396-4345-86cb-e7da2fed82f6");
+	"0ef1cad5-0396-4345-86cb-e7da2fed82f6",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("ae6672c4-c50b-49b3-a4c0-8b664e96e645",
 	"c01fc587-e186-4e16-b03b-f486c1c1f4d6",
@@ -289,7 +304,8 @@ if empty blk
 end if;',
 	1,
 	'',
-	"c01fc587-e186-4e16-b03b-f486c1c1f4d6");
+	"c01fc587-e186-4e16-b03b-f486c1c1f4d6",
+	0);
 INSERT INTO O_TFR
 	VALUES ("c44284f3-4039-4f7e-9353-8693cde280ef",
 	"e85528c7-bdd7-46da-8137-12e7490df0d0",
@@ -300,7 +316,8 @@ INSERT INTO O_TFR
 	'	return m_descrip;',
 	0,
 	'',
-	"935afba6-b22b-4f26-8540-141f1b81ab58");
+	"935afba6-b22b-4f26-8540-141f1b81ab58",
+	0);
 INSERT INTO O_TFR
 	VALUES ("3be9fe53-5e54-4dd5-84d8-c1564171414d",
 	"e85528c7-bdd7-46da-8137-12e7490df0d0",
@@ -311,7 +328,8 @@ INSERT INTO O_TFR
 	'	m_descrip = p_Descrip;',
 	0,
 	'',
-	"c44284f3-4039-4f7e-9353-8693cde280ef");
+	"c44284f3-4039-4f7e-9353-8693cde280ef",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("64e97fd2-36e6-4b1c-a72a-41c3758ce313",
 	"3be9fe53-5e54-4dd5-84d8-c1564171414d",
@@ -387,7 +405,8 @@ else
     self.Name = self.getCachedName();
   end if;
 end if;',
-	1);
+	1,
+	0);
 INSERT INTO O_BATTR
 	VALUES ("160452ea-efc5-4cfb-8e4b-03d357f9841d",
 	"e85528c7-bdd7-46da-8137-12e7490df0d0");
@@ -418,7 +437,8 @@ else
     self.Descrip = self.getCachedDescrip();
   end if;
 end if;',
-	1);
+	1,
+	0);
 INSERT INTO O_BATTR
 	VALUES ("9fe5eff4-1608-4b72-8f42-52ec3b3a0b4d",
 	"e85528c7-bdd7-46da-8137-12e7490df0d0");
@@ -438,8 +458,9 @@ Description: A textual description of this provided signal.',
 INSERT INTO O_DBATTR
 	VALUES ("e99809eb-503f-49b2-80a9-feca9f52afa1",
 	"e85528c7-bdd7-46da-8137-12e7490df0d0",
-	'self.Action_Semantics = ::convertRelocatableTags(in:self.Action_Semantics_internal);',
-	1);
+	'self.Action_Semantics = self.Action_Semantics_internal;',
+	1,
+	0);
 INSERT INTO O_BATTR
 	VALUES ("e99809eb-503f-49b2-80a9-feca9f52afa1",
 	"e85528c7-bdd7-46da-8137-12e7490df0d0");

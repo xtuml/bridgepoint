@@ -1,7 +1,0 @@
-drawRectangle(...)
-drawText("+motor", ...)
-drawText("{1,MOT}", ...)
-drawline(...)
-drawText("Unnamed Attribute:Orphaned", ...)
-drawline(...)
-drawText("simulate(start:Orphaned):Orpha...", ...)

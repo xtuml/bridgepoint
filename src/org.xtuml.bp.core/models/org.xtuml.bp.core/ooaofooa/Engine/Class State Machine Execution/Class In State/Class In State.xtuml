@@ -23,7 +23,8 @@ unrelate self from transition across R2952;
 delete object instance self;',
 	1,
 	'',
-	"00000000-0000-0000-0000-000000000000");
+	"00000000-0000-0000-0000-000000000000",
+	0);
 INSERT INTO O_REF
 	VALUES ("ae5fc0fd-00bc-4b53-a88e-eeb0b5078a62",
 	"f2bf6a7f-e727-41ab-9daa-0679223b1bb3",
