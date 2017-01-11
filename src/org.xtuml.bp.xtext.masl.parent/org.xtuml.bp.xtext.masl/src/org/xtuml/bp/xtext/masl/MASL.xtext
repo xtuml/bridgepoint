@@ -417,7 +417,7 @@ DomainServiceDefinition:
 	visibility=Visibility? 'service'
 	domain=[DomainDefinition] '::' name=ID
 	ParameterList
-	'is' body=CodeBlock
+	'is' body=CodeBlock?
 	'service'? 
 	';'? PragmaList;
 
@@ -426,7 +426,7 @@ DomainFunctionDefinition:
 	domain=[DomainDefinition] '::' name=ID
 	ParameterList
 	'return' returnType=AbstractTypeReference
-	'is' body=CodeBlock
+	'is' body=CodeBlock?
 	'function'? 
 	';'? PragmaList;
 
@@ -434,7 +434,7 @@ ObjectServiceDefinition:
 	visibility=Visibility? instance?='instance'? 'service'
 	domain=[DomainDefinition] '::' object=[ObjectDeclaration] '.' name=ID
 	ParameterList
-	'is' body=CodeBlock
+	'is' body=CodeBlock?
 	'service'? 
 	';'? PragmaList;
 
@@ -444,7 +444,7 @@ ObjectFunctionDefinition:
 	domain=[DomainDefinition] '::' object=[ObjectDeclaration] '.' name=ID
 	ParameterList
 	'return' returnType=AbstractTypeReference
-	'is' body=CodeBlock
+	'is' body=CodeBlock?
 	'function'? 
 	';'? PragmaList;
 
@@ -452,7 +452,7 @@ TerminatorServiceDefinition:
 	visibility=Visibility? 'service'
 	domain=[DomainDefinition] '::' terminator=[TerminatorDefinition] '~>' name=ID
 	ParameterList
-	'is' body=CodeBlock
+	'is' body=CodeBlock?
 	'service'? 
 	';'? PragmaList;
 
@@ -461,7 +461,7 @@ TerminatorFunctionDefinition:
 	domain=[DomainDefinition] '::' terminator=[TerminatorDefinition] '~>' name=ID
 	ParameterList
 	'return' returnType=AbstractTypeReference
-	'is' body=CodeBlock
+	'is' body=CodeBlock?
 	'function'? 
 	';'? PragmaList;
 
@@ -469,7 +469,7 @@ StateDefinition:
 	type=StateTypeSyntax? 'state'
 	domain=[DomainDefinition] '::' object=[ObjectDeclaration] '.' name=ID
 	ParameterList
-	'is' body=CodeBlock
+	'is' body=CodeBlock?
 	'state'? 
 	';'? PragmaList;
 
