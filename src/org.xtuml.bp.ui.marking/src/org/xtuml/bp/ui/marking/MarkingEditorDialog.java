@@ -213,7 +213,9 @@ public class MarkingEditorDialog extends Dialog {
 			// Persist the markings
 			for (Map.Entry<String, LinkedHashMap<String,String>> elementEntry : markingsMap.entrySet()) {
 				for ( Map.Entry<String, String> featureEntry : elementEntry.getValue().entrySet()) {
-					stream.println(elementEntry.getKey() + DELIM + featureEntry.getKey() + DELIM + featureEntry.getValue());
+					if ( ! featureEntry.getValue().isEmpty() ) {
+						stream.println(elementEntry.getKey() + DELIM + featureEntry.getKey() + DELIM + featureEntry.getValue());
+					}
 				}
 			}
 			fout.close();
