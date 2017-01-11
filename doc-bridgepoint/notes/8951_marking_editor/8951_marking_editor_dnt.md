@@ -20,6 +20,9 @@ front end for MASL pragma data.
 <a id="2.3"></a>2.3 [BridgePoint DEI #8360](https://support.onefact.net/issues/8360) Sales - Marking issue    
 <a id="2.4"></a>2.4 [BridgePoint DEI #8980](https://support.onefact.net/issues/8980) m2x support for updated marking   
 <a id="2.5"></a>2.5 [BridgePoint DEI #8981](https://support.onefact.net/issues/8981) x2m support for updated marking   
+<a id="2.6"></a>2.6 [BridgePoint DEI #8983](https://support.onefact.net/issues/8983) Document the new marking editor     
+<a id="2.7"></a>2.7 [BridgePoint DEI #8984](https://support.onefact.net/issues/8984) Marking editor enhancements     
+<a id="2.8"></a>2.8 [BridgePoint DEI #8985](https://support.onefact.net/issues/8985) Marking editor test     
 
 3. Background
 -------------
@@ -58,7 +61,7 @@ This document uses the following vocabulary:
 
 5.2  User Interface  
 5.2.1  Marks could be applied by selecting a model element on the canvas or 
-  Model Explorer and then activating a marking editor from the context menu.
+  Model Explorer and then activating a marking editor from the context menu.  
 5.2.1.1  We would need to use CME filtering to only show the marking option on 
   applicable model elements.  The applicable features would then be shown to
   set values for.    
@@ -94,22 +97,24 @@ This document uses the following vocabulary:
   folder.  This file will indicate which marks are valid for which OOA of OOA 
   elements.  For example:  
 ```
-Model Class, id
-Model Class, soa_remote
-Model Class, bar
-Model Class, baz  
-Component, id
-Attribute, id
-Component, foo
-Attribute, foo
-Attribute, soa_remote
+Model Class,id
+Model Class,soa_remote
+Model Class,bar
+Model Class,baz  
+Component,id
+Attribute,id
+Component,foo
+Attribute,foo
+Attribute,soa_remote
 ```
 6.2.2  The file contains pairs, one per line of the form:
 ```
-<OOA element type>, <feature name>
+<OOA element type name>,<feature name>
 ```   
 6.2.3  This file is not expected to be modified by the marking editor.  It is
   expected to be modified by hand by the model compiler architect.   
+6.2.4  When the marking editor starts, it shall tell the user if it finds an
+  invalid element type specified in this file.   
   
 6.3  Application marking   
 6.3.1  The marking editor UI provides a means to select the element type, then
@@ -120,33 +125,43 @@ Attribute, soa_remote
   application model instance with the feature/value pair set by the user.  For
   example:   
 ```
-MicrowaveOven::components::MicrowaveOven::Microwave Oven::Turntable,id,2
-MicrowaveOven::components::MicrowaveOven::Microwave Oven::Turntable,soa_remote,""
-MicrowaveOven::components::MicrowaveOven::Microwave Oven::Turntable,bar,doit
-MicrowaveOven::components::MicrowaveOven::Microwave Oven::Turntable,baz,ajb
-MicrowaveOven::components::MicrowaveOven::Microwave Oven::Door,id,1
-MicrowaveOven::components::MicrowaveOven::Microwave Oven::Door,bar,ddd
-MicrowaveOven::components::MicrowaveOven::Microwave Oven::Door,baz,"yepperdo"
-MicrowaveOven::components::MicrowaveOven::Microwave Oven::Door,soa_remote,""
-MicrowaveOven::components::MicrowaveOven,id,9
-MicrowaveOven::components::MicrowaveOven,foo,fooval
-MicrowaveOven::components::MicrowaveOven::Microwave Oven::Magnetron Tube,soa_remote,""
-MicrowaveOven::components::MicrowaveOven::Microwave Oven::Magnetron Tube,baz,"999"
-MicrowaveOven::components::MicrowaveOven::Microwave Oven::Magnetron Tube,bar,ddd
-MicrowaveOven::components::MicrowaveOven::Microwave Oven::Internal Light,id,4
-MicrowaveOven::components::MicrowaveOven::Microwave Oven::Oven,id,33
-MicrowaveOven::components::MicrowaveOven::Microwave Oven::Oven,bar,barov
+components::MicrowaveOven::Microwave Oven::Turntable,id,2
+components::MicrowaveOven::Microwave Oven::Turntable,soa_remote,""
+components::MicrowaveOven::Microwave Oven::Turntable,bar,doit
+components::MicrowaveOven::Microwave Oven::Turntable,baz,ajb
+components::MicrowaveOven::Microwave Oven::Door,id,1
+components::MicrowaveOven::Microwave Oven::Door,bar,ddd
+components::MicrowaveOven::Microwave Oven::Door,baz,"yepperdo"
+components::MicrowaveOven::Microwave Oven::Door,soa_remote,""
+components::MicrowaveOven,id,9
+components::MicrowaveOven,foo,fooval
+components::MicrowaveOven::Microwave Oven::Magnetron Tube,soa_remote,""
+components::MicrowaveOven::Microwave Oven::Magnetron Tube,baz,"999"
+components::MicrowaveOven::Microwave Oven::Magnetron Tube,bar,ddd
+components::MicrowaveOven::Microwave Oven::Internal Light,id,4
+components::MicrowaveOven::Microwave Oven::Oven,id,33
+components::MicrowaveOven::Microwave Oven::Oven,bar,barov
 ```   
 6.3.3  The file contains tuples, one per line of the form:
 ```
-<model instance path>, <feature name>, <value>
+<model instance path>,<feature name>,<value>
 ```   
 6.3.3.1  Note that quotation marks are part of the value data, allowing the
   value to be passed downstream exactly as written in the marking.  Thus, if the
   modeler marks a feature with ```""``` that is stored as the value for the 
   feature, whereas, if they completely delete the value in the marking editor
   then the feature is removed from the stored application marks.    
-
+6.3.3.2  Note that the first field is populated with the value of ```NonRootModelElement::getPath()```. 
+  But this value is modified to strip off the first segment, the project name. This
+  allows the marking data to be portable if the user renames the project.  It also
+  simplifies the creation of this file by ```m2x``` as it won't know the 
+  project name the user will specify in the future as it is creating the data from 
+  the MASL model.   
+6.3.3.3  Since the project name is stripped out, we will have to deal with the 
+  situation where the user wishes to mark the System Model.  We need to make sure
+  that the segment removal proposed in 6.3.3.2 does not interfere with marking
+  the System Model.   
+  
 6.4  Model of marking  
 ![ooaofmarking](ooaofmarking.png)  
 6.4.1  Note that the model of marking as displayed here cannot be translated by
@@ -167,6 +182,8 @@ MicrowaveOven::components::MicrowaveOven::Microwave Oven::Oven,bar,barov
 6.5.5.1  In the table, the feature fields are read-only.   
 6.5.5.2  In the table, the value fields are editable.  Whatever the user types
   into the field is persisted exactly as written.   
+6.5.5.3  The value field shall support the user entering a value that contains 
+  comma characters.   
 6.5.6  The dialog shall provide ```OK``` and ```Cancel``` buttons.  If the user
   clicks ```Cancel``` no data changes are persisted to the ```applications.mark```
   file.  If the user clicks ```OK```, the data is persisted.   
@@ -174,14 +191,13 @@ MicrowaveOven::components::MicrowaveOven::Microwave Oven::Oven,bar,barov
 6.6  Creation of marking data during ```m2x```   
 6.6.1  The m2x process will have the necessary information it needs in hand to
   create the ```features.mark``` and ```application.mark``` files programmatically 
-  as it can divine the information from the MASL model as it is being processed.   
+  as it can divine the information from the MASL model as it is being processed. 
+  However, it will not create ```features.mark```.  The flow assumes the model
+  compiler architect will provide this separately.      
 6.6.2  Because the project name the user will import into is not known at the
-  time m2x runs, this flow must be cognizant and possibly enhanced to deal with
+  time m2x runs, this flow must be cognizant and enhanced to deal with
   the path information used.   
-6.6.2.1  It might be useful to strip the path data down, either removing the 
-  project name, or only taking the last three segments, or some similar scheme. 
-  Of course, we must be careful to avoid ambiguity and potential duplicates 
-  showing in the UI or written in data.     
+6.6.2.1  We intend to strip the path data down, removing the project name.      
 6.6.3  The m2x tooling for interfacing and managing marking data is independent
   of the marking editor and will be handled in its own issue[[2.4]](#2.4).  
   
@@ -207,6 +223,10 @@ MicrowaveOven::components::MicrowaveOven::Microwave Oven::Oven,bar,barov
   * Provide a means to tell the user of invalid marks in the application marking
   data.  Currently, moving or copying an element will not be automatically 
   reflected in the application marks.    
+  *  Allow comments in ```feature.mark```.  For example, lines starting with "#"
+  or as another field.   
+  
+7.1.1  An issue is created to track future enhancements. [[2.7]](#2.7)  
 
 7.2  The mechanism of a thin UI layered over the top of a file is very similar 
   to the way eclipse provides a front-end view for the ```plugin.xml```, 
@@ -233,29 +253,12 @@ MicrowaveOven::components::MicrowaveOven::Microwave Oven::Oven,bar,barov
 8. User Documentation
 ---------------------
 8.1  Documentation shall be added to the BridgePoint help to explain the marking
-  editor usage and underlying files.   
+  editor usage and underlying files. [[2.6]](#2.6)   
   
 9. Unit Test
 ------------
-9.1  Functional test   
-9.1.1  Start the marking editor, verify that only the element types specified 
-  in the ```features.mark``` are available in the element types selection list.   
-9.1.2  Verify that once an element type is selected, all the model elements of 
-  that type in the current project are available in the list.  Model elements of
-  the same type from other projects shall not be displayed.   
-9.1.3  Once an application model element is selected:  
-9.1.3.1  The features shown in the table shall be exactly those specified in 
-  ```features.mark``` for the selected element type.   
-9.1.3.2  The marking values shown in the table shall exactly match the data 
-  previously specified for the given model element in ```application.mark```.   
-9.1.4  The feature field in the table shall not be editable.   
-9.1.5  The value field in the table shall be editable.  User changes are stored
-  in memory until the dialog is dismissed.   
-9.1.6  The updated in-memory data is not persisted if the user cancels the 
-  marking editor dialog.   
-9.1.7  The updated in-memory data is persisted if the user OKs the marking 
-  editor dialog    
-  
+9.1  Functional test is captured in [[2.8]](#2.8)      
+        
 End
 ---
 

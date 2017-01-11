@@ -2,7 +2,7 @@
 
 INSERT INTO O_OBJ
 	VALUES ("83d1c28c-bef4-4d7c-93e2-4bf8af8a6eb8",
-	'Markable',
+	'Markable Element Type',
 	1,
 	'Markable',
 	'',

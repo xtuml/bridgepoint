@@ -32,7 +32,7 @@ INSERT INTO GD_GE
 	"83d1c28c-bef4-4d7c-93e2-4bf8af8a6eb8",
 	21,
 	0,
-	'org.xtuml.bp.ui.marking::ooaofmarking::Markable');
+	'org.xtuml.bp.ui.marking::ooaofmarking::Markable Element Type');
 INSERT INTO GD_SHP
 	VALUES ("d54850fb-636a-4083-a866-8588ce14a16f");
 INSERT INTO GD_NCS
@@ -192,8 +192,8 @@ INSERT INTO DIM_ND
 	0.000000,
 	"daf10ecf-dd7e-4bb1-8022-7f1da01db392");
 INSERT INTO DIM_GE
-	VALUES (0.000000,
-	0.000000,
+	VALUES (4270.000000,
+	3357.000000,
 	"daf10ecf-dd7e-4bb1-8022-7f1da01db392",
 	"00000000-0000-0000-0000-000000000000");
 INSERT INTO DIM_ELE
@@ -600,7 +600,7 @@ INSERT INTO R_AONE
 	"fb58898c-89eb-401d-93ee-9e7aed28241f",
 	1,
 	0,
-	'is marked by');
+	'marks');
 INSERT INTO O_RTIDA
 	VALUES ("506d4040-7b2b-43c1-81f0-61385370b244",
 	"83d1c28c-bef4-4d7c-93e2-4bf8af8a6eb8",
@@ -612,7 +612,7 @@ INSERT INTO O_OIDA_PROXY
 	"83d1c28c-bef4-4d7c-93e2-4bf8af8a6eb8",
 	0,
 	'name',
-	'./Markable/Markable.xtuml');
+	'./Markable Element Type/Markable Element Type.xtuml');
 INSERT INTO R_RTO
 	VALUES ("83d1c28c-bef4-4d7c-93e2-4bf8af8a6eb8",
 	"1e8a81ac-d13e-4f0f-b2fe-b4507d41dd4d",
@@ -621,7 +621,7 @@ INSERT INTO R_RTO
 INSERT INTO O_ID_PROXY
 	VALUES (0,
 	"83d1c28c-bef4-4d7c-93e2-4bf8af8a6eb8",
-	'./Markable/Markable.xtuml');
+	'./Markable Element Type/Markable Element Type.xtuml');
 INSERT INTO R_OIR
 	VALUES ("83d1c28c-bef4-4d7c-93e2-4bf8af8a6eb8",
 	"1e8a81ac-d13e-4f0f-b2fe-b4507d41dd4d",
@@ -629,19 +629,19 @@ INSERT INTO R_OIR
 	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_OBJ_PROXY
 	VALUES ("83d1c28c-bef4-4d7c-93e2-4bf8af8a6eb8",
-	'Markable',
+	'Markable Element Type',
 	1,
-	'Markable',
+	'MarkableElementType',
 	'',
 	"00000000-0000-0000-0000-000000000000",
-	'./Markable/Markable.xtuml');
+	'./Markable Element Type/Markable Element Type.xtuml');
 INSERT INTO R_AOTH
 	VALUES ("cb1516d4-40ca-4afa-954b-5fdc4726e5e7",
 	"1e8a81ac-d13e-4f0f-b2fe-b4507d41dd4d",
 	"4325cd0d-e655-4af2-abce-92a2a06ff1da",
 	1,
 	0,
-	'marks');
+	'is marked by');
 INSERT INTO O_RTIDA
 	VALUES ("2232e914-1392-4ee8-8bb0-1947058f895a",
 	"cb1516d4-40ca-4afa-954b-5fdc4726e5e7",
