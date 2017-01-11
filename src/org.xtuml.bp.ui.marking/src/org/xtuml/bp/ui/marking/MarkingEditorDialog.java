@@ -115,10 +115,10 @@ public class MarkingEditorDialog extends Dialog {
 		}
 		
 		while ( inFile.hasNext() ) {
-			// TODO - would be nice to be able to ignore comment lines (starting with #, // or some such)
 			String modelElement = inFile.next().trim();
 			String featureName = inFile.next().trim();
-			String featureValue = inFile.next().trim();
+			String featureValue = inFile.nextLine().trim();
+			featureValue = featureValue.replaceFirst(",", "");
 			updateFeature(modelElement, featureName, featureValue);
 		}
 		
