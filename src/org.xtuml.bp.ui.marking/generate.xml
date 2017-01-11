@@ -71,7 +71,7 @@
 		</ant>-->
 		<!-- Need to touch the output file for the case where the input data
 	       changed, but the output didn't -->
-		<touch file="${java.output}" />
+		<!-- TODO - re-enable <touch file="${java.output}" /> -->
 	</target>
 
 	<property name="rcs_java_files" value="Activator.java, LaunchMarkingEditorAction.java, MarkingEditorDialog.java" />
