@@ -1,18 +1,9 @@
 package org.xtuml.bp.ui.marking;
 
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.PrintStream;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.Scanner;
-import java.util.Set;
 import java.util.Vector;
 
 import org.eclipse.core.resources.IProject;
@@ -50,133 +41,26 @@ public class MarkingEditorDialog extends Dialog {
     private CCombo modelElementCombo;
     private Table table;
     
-    private static final String DELIM = ",";
-    private static final String PREFIX = "org.xtuml.bp.core.";
-
     private static final int MAX_FEATURES = 15;
-    private static final String FEATURE_FILE = "/gen/features.mark";
-    private static final String MARKINGS_FILE = "/gen/application.mark";
     
-    // Map of Element Types and a vector of associated features
-    private HashMap<String, Vector<String>> featureMap;
-    
-    // Ordered map of fully-pathed application model elements and an ordered map of associated feature/value pairs
-    private LinkedHashMap<String, LinkedHashMap<String,String>> markingsMap;
-    
+    private MarkingData markingData;
+        
 	public MarkingEditorDialog(Shell parentShell, String title, IProject project) {
 		super(parentShell);
 		this.title = title;
 		this.project = project;
 	
-		// Read in the feature map
-		populateFeatures();
-		
-		// Read in the markings
-		populateMarkings();
+		markingData = new MarkingData(project);		
 	}
 
-	private void populateFeatures() {
-		featureMap = new HashMap<String, Vector<String>>();
-		Scanner inFile = new Scanner("");
-		
-		try {
-			inFile = new Scanner(new FileReader(project.getLocation().toString() + FEATURE_FILE));
-			inFile.useDelimiter(",|\\r|\\n");
-		} catch (FileNotFoundException fnfe) {
-			System.out.println( fnfe );
-		}
-		
-		while ( inFile.hasNext() ) {
-			String elementType = inFile.next().trim();
-			if ( elementType.startsWith("#") || elementType.isEmpty() ) {
-				inFile.nextLine().trim();  // Throw away rest of line in case there are delimiters in the comment
-				continue; 
-			}
-			
-			String featureName = inFile.next().trim();
-			Vector<String> list;
-			
-			if ( featureMap.containsKey(elementType) ) {
-				// The element type has already been seen, add the feature to the list
-				list = featureMap.get(elementType);
-			} else {
-				// Element Type has not been seen yet
-				list = new Vector<String>();
-				featureMap.put(elementType, list);
-			}
-			list.add(featureName);
-		}
-		
-		inFile.close();
-	}
-
-	private String validateFeatures() {
-		Set<String> featureSet = featureMap.keySet();
-		Iterator<String> featureSetIter = featureSet.iterator();
-		String invalidElements = "";
-		
-		while (featureSetIter.hasNext()) {
-			String ooaClassName = featureSetIter.next();
-			ooaClassName = ooaClassName.replaceAll(" ", "");
-			try {
-				Class.forName(PREFIX + ooaClassName + "_c");
-			} catch (ClassNotFoundException e) {
-				invalidElements = invalidElements + ooaClassName + "\n";
-			}
-		}
-		
-		if ( !invalidElements.isEmpty() ) {
-			invalidElements = "The features marking data contains the following invalid element types. You must\n" + 
-					"correct these errors in order to edit application marks: \n\n" + invalidElements;
-		}
-		
-		return invalidElements;
-	}
-	
-	private void populateMarkings() {
-		markingsMap = new LinkedHashMap<String, LinkedHashMap<String,String>>();
-		Scanner inFile = new Scanner("");
-		
-		try {
-			inFile = new Scanner(new FileReader(project.getLocation().toString() + MARKINGS_FILE));
-			inFile.useDelimiter(",|\\r|\\n");
-		} catch (FileNotFoundException fnfe) {
-			System.out.println( fnfe );
-		}
-		
-		while ( inFile.hasNext() ) {
-			String modelElement = inFile.next().trim();
-			String featureName = inFile.next().trim();
-			String featureValue = inFile.nextLine().trim();
-			featureValue = featureValue.replaceFirst(",", "");
-			updateFeature(modelElement, featureName, featureValue);
-		}
-		
-		inFile.close();
-	}
-
-	private void updateFeature(String modelElement, String featureName, String newValue) {
-		LinkedHashMap<String,String> markList;
-
-		if ( markingsMap.containsKey(modelElement) ) {
-			// The model element has already been seen, add the feature to the list
-			markList = markingsMap.get(modelElement);
-		} else {
-			// Element Type has not been seen yet
-			markList = new LinkedHashMap<String,String>();
-			markingsMap.put(modelElement, markList);
-		}
-		markList.put(featureName, newValue);
-	}
-	
 	private void reloadTableFeatures(String elementType, String modelElement) {
 		table.clearAll();
 		table.deselectAll();
 		
-		Vector<String> featureList = featureMap.get(elementType);
+		Vector<String> featureList = markingData.getFeatures(elementType);
 		if ( featureList == null ) { return; }
 		Iterator<String> listIter = featureList.iterator();
-		LinkedHashMap<String,String> markList = markingsMap.get(modelElement);
+		LinkedHashMap<String,String> markList = markingData.getMarks(modelElement);
 		int i = 0;
 		while (listIter.hasNext()) {
 			TableItem item = table.getItem(i);
@@ -199,7 +83,7 @@ public class MarkingEditorDialog extends Dialog {
 			// returns the Class object for the class with the specified name
 			String ooaClassName = elementType.trim();
 			ooaClassName = ooaClassName.replaceAll(" ", "");
-			Class<?> clazz = Class.forName(PREFIX + ooaClassName + "_c");
+			Class<?> clazz = Class.forName(MarkingData.PREFIX + ooaClassName + "_c");
 
 			ModelRoot[] roots = Ooaofooa.getInstancesUnderSystem(project.getName());
 			// This Java reflection call helps invoke a method like this:
@@ -214,7 +98,6 @@ public class MarkingEditorDialog extends Dialog {
 					modelElementCombo.add(entryText);
 				}
 			}
-
 		} catch (ClassNotFoundException e) {
 			System.out.println(e.toString());
 	    } catch ( NoSuchMethodException e ) {
@@ -248,23 +131,7 @@ public class MarkingEditorDialog extends Dialog {
 	
 	@Override
 	protected void okPressed() {
-		try {
-			FileOutputStream fout = new FileOutputStream(project.getLocation().toString() + MARKINGS_FILE);
-			PrintStream stream = new PrintStream(fout);
-			
-			// Persist the markings
-			for (Map.Entry<String, LinkedHashMap<String,String>> elementEntry : markingsMap.entrySet()) {
-				for ( Map.Entry<String, String> featureEntry : elementEntry.getValue().entrySet()) {
-					if ( ! featureEntry.getValue().isEmpty() ) {
-						stream.println(elementEntry.getKey() + DELIM + featureEntry.getKey() + DELIM + featureEntry.getValue());
-					}
-				}
-			}
-			fout.close();
-		} catch (IOException e) {
-			System.out.println( e );
-		}
-        
+		markingData.persist();
 		super.okPressed();
 	}
 	
@@ -295,7 +162,7 @@ public class MarkingEditorDialog extends Dialog {
         Composite parent = (Composite) super.createDialogArea(container);
         parent.setSize(size);
 
-		String validationError = validateFeatures();
+		String validationError = markingData.validateFeatures();
 		// If there was a feature validation error, show an error message.  Otherwise
 		// build the marking editor dialog
 		if (!validationError.isEmpty()) {
@@ -322,7 +189,7 @@ public class MarkingEditorDialog extends Dialog {
 			elementTypeGroup.setLayoutData(gridData);
 
 			elementTypeCombo = new CCombo(elementTypeGroup, SWT.BORDER | SWT.READ_ONLY);
-			String[] featuresArray = featureMap.keySet().stream().toArray(String[]::new);
+			String[] featuresArray = markingData.getMarkables();
 			elementTypeCombo.setItems(featuresArray);
 			elementTypeCombo.setBounds(5, 5, 100, 20);
 			elementTypeCombo.addSelectionListener(new SelectionListener() {
@@ -404,7 +271,7 @@ public class MarkingEditorDialog extends Dialog {
 								switch (e.type) {
 								case SWT.FocusOut:
 									item.setText(column, text.getText());
-									updateFeature(modelElementCombo.getText(), item.getText(0), item.getText(column));
+									markingData.updateFeature(modelElementCombo.getText(), item.getText(0), item.getText(column));
 									text.dispose();
 									break;
 								case SWT.Traverse:
@@ -413,7 +280,7 @@ public class MarkingEditorDialog extends Dialog {
 										item.setText(column, text.getText());
 										// FALL THROUGH
 									case SWT.TRAVERSE_ESCAPE:
-										updateFeature(modelElementCombo.getText(), item.getText(0),
+										markingData.updateFeature(modelElementCombo.getText(), item.getText(0),
 												item.getText(column));
 										text.dispose();
 										e.doit = false;
