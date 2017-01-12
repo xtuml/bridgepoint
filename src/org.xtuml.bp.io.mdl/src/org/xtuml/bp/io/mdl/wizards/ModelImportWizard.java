@@ -75,7 +75,7 @@ import org.xtuml.bp.ui.canvas.Graphnode_c;
 import org.xtuml.bp.ui.canvas.Model_c;
 import org.xtuml.bp.ui.canvas.Ooaofgraphics;
 import org.xtuml.bp.ui.canvas.Shape_c;
-
+import org.xtuml.bp.x2m.generator.Generator;;
 /**
  * This wizard imports model data from a system level export file, or from on
  * older BridgePoint single file model
@@ -224,7 +224,7 @@ public class ModelImportWizard extends Wizard implements IImportWizard {
 					// export project if there was one imported
 					PlatformUI.getWorkbench().getDisplay().syncExec(new Runnable() {
 						public void run() {
-//							Generator.exportProject(maslProject);
+							Generator.exportProject(maslProject);
 						}
 	
 					});				
@@ -236,7 +236,7 @@ public class ModelImportWizard extends Wizard implements IImportWizard {
 						PlatformUI.getWorkbench().getDisplay().syncExec(new Runnable() {
 							public void run() {
 								// export all domains in this masl package
-//								Generator.exportDomain(maslDomainsPackage);
+								Generator.exportDomain(maslDomainsPackage);
 							}
 
 						});
