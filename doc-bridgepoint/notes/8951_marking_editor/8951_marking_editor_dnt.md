@@ -115,6 +115,9 @@ Attribute,soa_remote
   expected to be modified by hand by the model compiler architect.   
 6.2.4  When the marking editor starts, it shall tell the user if it finds an
   invalid element type specified in this file.   
+6.2.5  The file is allowed to have blank lines  
+6.2.6  The file is allowed to have lines that begin with ```#``` to denote a 
+  comment line that should be ignored.   
   
 6.3  Application marking   
 6.3.1  The marking editor UI provides a means to select the element type, then

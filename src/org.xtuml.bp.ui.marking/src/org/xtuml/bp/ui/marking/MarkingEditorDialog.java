@@ -84,8 +84,12 @@ public class MarkingEditorDialog extends Dialog {
 		}
 		
 		while ( inFile.hasNext() ) {
-			// TODO - would be nice to be able to ignore comment lines (starting with #, // or some such)
 			String elementType = inFile.next().trim();
+			if ( elementType.startsWith("#") || elementType.isEmpty() ) {
+				inFile.nextLine().trim();  // Throw away rest of line in case there are delimiters in the comment
+				continue; 
+			}
+			
 			String featureName = inFile.next().trim();
 			Vector<String> list;
 			
