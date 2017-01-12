@@ -14,6 +14,7 @@ import java.util.Set;
 import java.util.Vector;
 
 import org.eclipse.core.resources.IProject;
+import org.xtuml.bp.core.CorePlugin;
 
 public class MarkingData {
 
@@ -51,7 +52,7 @@ public class MarkingData {
 			inFile = new Scanner(new FileReader(project.getLocation().toString() + FEATURE_FILE));
 			inFile.useDelimiter(",|\\r|\\n");
 		} catch (FileNotFoundException fnfe) {
-			System.out.println( fnfe );
+			CorePlugin.logError("Error loading feature markings from " + FEATURE_FILE, fnfe);
 		}
 		
 		while ( inFile.hasNext() ) {
@@ -88,7 +89,7 @@ public class MarkingData {
 			inFile = new Scanner(new FileReader(project.getLocation().toString() + MARKINGS_FILE));
 			inFile.useDelimiter(",|\\r|\\n");
 		} catch (FileNotFoundException fnfe) {
-			System.out.println( fnfe );
+			CorePlugin.logError("Problem loading " + MARKINGS_FILE, fnfe);
 		}
 		
 		while ( inFile.hasNext() ) {
@@ -169,7 +170,7 @@ public class MarkingData {
 			}
 			fout.close();
 		} catch (IOException e) {
-			System.out.println( e );
+			CorePlugin.logError("Error persisting to " + MARKINGS_FILE, e);
 		}        
 	}
 

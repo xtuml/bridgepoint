@@ -29,6 +29,7 @@ import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.PlatformUI;
+import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.common.ModelRoot;
 import org.xtuml.bp.core.common.NonRootModelElement;
@@ -100,21 +101,21 @@ public class MarkingEditorDialog extends Dialog {
 				}
 			}
 		} catch (ClassNotFoundException e) {
-			System.out.println(e.toString());
+			CorePlugin.logError(e.toString(), e);
 	    } catch ( NoSuchMethodException e ) {
-            System.out.println(e.toString());
+			CorePlugin.logError(e.toString(), e);
         } catch ( NullPointerException e ) {
-            System.out.println(e.toString());
+			CorePlugin.logError(e.toString(), e);
         } catch ( SecurityException e ) {
-        	System.out.println(e.toString());
+			CorePlugin.logError(e.toString(), e);
         } catch ( IllegalAccessException e ) {
-        	System.out.println(e.toString());
+			CorePlugin.logError(e.toString(), e);
         } catch ( IllegalArgumentException e ) {
-        	System.out.println(e.toString());
+			CorePlugin.logError(e.toString(), e);
         } catch ( InvocationTargetException e ) {
-        	System.out.println(e.toString());
+			CorePlugin.logError(e.toString(), e);
         } catch ( ExceptionInInitializerError e ) {
-        	System.out.println(e.toString());
+			CorePlugin.logError(e.toString(), e);
         }
 	}
 	
