@@ -95,6 +95,7 @@ public class MarkingEditorDialog extends Dialog {
 				Object[] instances = (Object[]) instancesMethod.invoke(null, modelroot);
 				for (Object inst : instances) {
 					String entryText = ((NonRootModelElement) inst).getPath();
+					entryText = entryText.replaceFirst(project.getName() + "::", "");
 					modelElementCombo.add(entryText);
 				}
 			}
