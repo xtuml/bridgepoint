@@ -25,7 +25,8 @@ import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
-import org.eclipse.swt.layout.RowLayout;
+import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Group;
@@ -294,17 +295,6 @@ public class MarkingEditorDialog extends Dialog {
         Composite parent = (Composite) super.createDialogArea(container);
         parent.setSize(size);
 
-        RowLayout rowLayout = new RowLayout();
-        rowLayout.wrap = false;
-        rowLayout.pack = true;
-        rowLayout.justify = true;
-        rowLayout.type = SWT.HORIZONTAL;
-        rowLayout.marginLeft = 5;
-        rowLayout.marginTop = 5;
-        rowLayout.marginRight = 5;
-        rowLayout.marginBottom = 5;
-        rowLayout.spacing = 5;
-
 		String validationError = validateFeatures();
 		// If there was a feature validation error, show an error message.  Otherwise
 		// build the marking editor dialog
@@ -312,19 +302,29 @@ public class MarkingEditorDialog extends Dialog {
 			Label label = new Label(parent, SWT.NONE);
 			label.setText(validationError);
 			label.pack();
-		} else {
+		} else {			
+			GridLayout oneColGridLayout = new GridLayout();
+			oneColGridLayout.numColumns = 1;
+			GridLayout twoColGridLayout = new GridLayout();
+			twoColGridLayout.numColumns = 2;
+			GridData gridData = new GridData(GridData.FILL, GridData.CENTER, true, false);
+			gridData.horizontalSpan = 2;
+			
 			Composite selectionComposite = new Composite(parent, SWT.NONE);
-			selectionComposite.setLayout(rowLayout);
-
+			selectionComposite.setLayout(twoColGridLayout);
+			selectionComposite.setLayoutData(gridData);
+			
 			Group elementTypeGroup = new Group(selectionComposite, SWT.SHADOW_ETCHED_IN);
 			elementTypeGroup.setLocation(10, 10);
-			elementTypeGroup.setSize(225, 75);
+			elementTypeGroup.setSize(100, 75);
 			elementTypeGroup.setText("Element Type");
+			elementTypeGroup.setLayout(oneColGridLayout);
+			elementTypeGroup.setLayoutData(gridData);
 
 			elementTypeCombo = new CCombo(elementTypeGroup, SWT.BORDER | SWT.READ_ONLY);
 			String[] featuresArray = featureMap.keySet().stream().toArray(String[]::new);
 			elementTypeCombo.setItems(featuresArray);
-			elementTypeCombo.setBounds(5, 5, 200, 20);
+			elementTypeCombo.setBounds(5, 5, 100, 20);
 			elementTypeCombo.addSelectionListener(new SelectionListener() {
 				public void widgetSelected(SelectionEvent e) {
 					reloadModelElements(elementTypeCombo.getText());
@@ -334,11 +334,15 @@ public class MarkingEditorDialog extends Dialog {
 					reloadModelElements(elementTypeCombo.getText());
 				}
 			});
+			elementTypeCombo.setLayout(oneColGridLayout);
+			elementTypeCombo.setLayoutData(new GridData(GridData.FILL, GridData.CENTER, true, false));
 
 			Group modelElementGroup = new Group(selectionComposite, SWT.SHADOW_ETCHED_IN);
 			modelElementGroup.setLocation(10, 10);
-			modelElementGroup.setSize(625, 75);
+			modelElementGroup.setSize(500, 75);
 			modelElementGroup.setText("Model Element");
+			modelElementGroup.setLayout(oneColGridLayout);
+			modelElementGroup.setLayoutData(gridData);
 
 			modelElementCombo = new CCombo(modelElementGroup, SWT.BORDER | SWT.READ_ONLY);
 			modelElementCombo.setItems(new String[] { " " });
@@ -352,9 +356,11 @@ public class MarkingEditorDialog extends Dialog {
 					reloadTableFeatures(elementTypeCombo.getText(), modelElementCombo.getText());
 				}
 			});
+			modelElementCombo.setLayout(oneColGridLayout);
+			modelElementCombo.setLayoutData(new GridData(GridData.FILL, GridData.CENTER, true, false));
 
 			Composite tableComposite = new Composite(parent, SWT.NONE);
-			tableComposite.setLayout(rowLayout);
+			tableComposite.setLayout(oneColGridLayout);
 
 			table = new Table(tableComposite, SWT.BORDER | SWT.MULTI);
 			table.setHeaderVisible(true);
@@ -363,10 +369,10 @@ public class MarkingEditorDialog extends Dialog {
 				TableColumn column = new TableColumn(table, SWT.LEFT);
 				if (i == 0) {
 					column.setText("Feature");
-					column.setWidth(200);
+					column.setWidth(175);
 				} else {
 					column.setText("Value");
-					column.setWidth(600);
+					column.setWidth(500);
 				}
 				column.setResizable(true);
 			}
@@ -434,7 +440,6 @@ public class MarkingEditorDialog extends Dialog {
 			});
 
 			elementTypeCombo.setFocus();
-			elementTypeCombo.select(0);
 		}
         return parent;
 	}
