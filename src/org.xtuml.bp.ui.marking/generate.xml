@@ -77,6 +77,7 @@
 	<property name="rcs_java_files" value="Activator.java, LaunchMarkingEditorAction.java, MarkingEditorDialog.java" />
 
 	<target name="format_java" description="Format the generated java source">
+		<!-- TODO : current unused since we're not generating anything
 		<taskdef name="PTCodeFormat" classname="PTCodeFormatterTask">
 			<classpath>
 				<pathelement path="../org.xtuml.bp.core/tools/" />
@@ -93,7 +94,7 @@
 		</taskdef>
 		<PTCodeFormat>
 			<fileset dir="src/org/xtuml/bp/ui/marking" excludes="${rcs_java_files}" includes="*.java" />
-		</PTCodeFormat>
+		</PTCodeFormat>-->
 	</target>
 	
 	<target name="instrument_for_jcoverage" description="Instrument the classes to produce JCoverage data">
