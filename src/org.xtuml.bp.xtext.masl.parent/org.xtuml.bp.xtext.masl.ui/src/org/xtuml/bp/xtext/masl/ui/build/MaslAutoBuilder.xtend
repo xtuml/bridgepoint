@@ -190,7 +190,7 @@ class MaslAutoBuilder extends Job implements IPropertyChangeListener, IResourceC
 			interrupted = true
 		return interrupted
 	}
-
+	
 	override IStatus run(IProgressMonitor monitor) {
 		// synchronized in case build starts during checkCancel
 		synchronized (this) {
