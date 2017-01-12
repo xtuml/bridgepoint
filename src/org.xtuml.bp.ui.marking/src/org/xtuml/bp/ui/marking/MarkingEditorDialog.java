@@ -12,10 +12,12 @@ import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.Set;
 import java.util.Vector;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.jface.dialogs.Dialog;
+import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CCombo;
 import org.eclipse.swt.custom.TableEditor;
@@ -23,11 +25,11 @@ import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
-import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.layout.RowLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Group;
+import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
@@ -107,6 +109,29 @@ public class MarkingEditorDialog extends Dialog {
 		inFile.close();
 	}
 
+	private String validateFeatures() {
+		Set<String> featureSet = featureMap.keySet();
+		Iterator<String> featureSetIter = featureSet.iterator();
+		String invalidElements = "";
+		
+		while (featureSetIter.hasNext()) {
+			String ooaClassName = featureSetIter.next();
+			ooaClassName = ooaClassName.replaceAll(" ", "");
+			try {
+				Class.forName(PREFIX + ooaClassName + "_c");
+			} catch (ClassNotFoundException e) {
+				invalidElements = invalidElements + ooaClassName + "\n";
+			}
+		}
+		
+		if ( !invalidElements.isEmpty() ) {
+			invalidElements = "The features marking data contains the following invalid element types. You must\n" + 
+					"correct these errors in order to edit application marks: \n\n" + invalidElements;
+		}
+		
+		return invalidElements;
+	}
+	
 	private void populateMarkings() {
 		markingsMap = new LinkedHashMap<String, LinkedHashMap<String,String>>();
 		Scanner inFile = new Scanner("");
@@ -209,6 +234,18 @@ public class MarkingEditorDialog extends Dialog {
 	}
 	
 	@Override
+	protected void createButtonsForButtonBar (Composite parent)
+	{
+		// If there were errors while creating the dialog, we only want to provide
+		// a cancel button
+		if ( elementTypeCombo == null ) {
+			createButton (parent, IDialogConstants.CANCEL_ID, "Cancel", true) ;
+		} else {
+			super.createButtonsForButtonBar(parent);
+		}
+	} 
+	
+	@Override
 	protected void okPressed() {
 		try {
 			FileOutputStream fout = new FileOutputStream(project.getLocation().toString() + MARKINGS_FILE);
@@ -268,126 +305,137 @@ public class MarkingEditorDialog extends Dialog {
         rowLayout.marginBottom = 5;
         rowLayout.spacing = 5;
 
-        Composite selectionComposite = new Composite(parent, SWT.NONE);
-		selectionComposite.setLayout(rowLayout);
+		String validationError = validateFeatures();
+		// If there was a feature validation error, show an error message.  Otherwise
+		// build the marking editor dialog
+		if (!validationError.isEmpty()) {
+			Label label = new Label(parent, SWT.NONE);
+			label.setText(validationError);
+			label.pack();
+		} else {
+			Composite selectionComposite = new Composite(parent, SWT.NONE);
+			selectionComposite.setLayout(rowLayout);
 
-		Group elementTypeGroup = new Group(selectionComposite, SWT.SHADOW_ETCHED_IN);
-	    elementTypeGroup.setLocation(10, 10);
-	    elementTypeGroup.setSize(225, 75);
-	    elementTypeGroup.setText("Element Type");
-	    
-	    elementTypeCombo = new CCombo(elementTypeGroup, SWT.BORDER | SWT.READ_ONLY);
-	    String[] featuresArray = featureMap.keySet().stream().toArray(String[]::new);
-	    elementTypeCombo.setItems(featuresArray);
-	    elementTypeCombo.setBounds(5, 5, 200, 20);
-	    elementTypeCombo.addSelectionListener(new SelectionListener() {
-	        public void widgetSelected(SelectionEvent e) {
-	        	reloadModelElements(elementTypeCombo.getText());
-	        }
+			Group elementTypeGroup = new Group(selectionComposite, SWT.SHADOW_ETCHED_IN);
+			elementTypeGroup.setLocation(10, 10);
+			elementTypeGroup.setSize(225, 75);
+			elementTypeGroup.setText("Element Type");
 
-	        public void widgetDefaultSelected(SelectionEvent e) {
-	        	reloadModelElements(elementTypeCombo.getText());
-	        }
-	      });
+			elementTypeCombo = new CCombo(elementTypeGroup, SWT.BORDER | SWT.READ_ONLY);
+			String[] featuresArray = featureMap.keySet().stream().toArray(String[]::new);
+			elementTypeCombo.setItems(featuresArray);
+			elementTypeCombo.setBounds(5, 5, 200, 20);
+			elementTypeCombo.addSelectionListener(new SelectionListener() {
+				public void widgetSelected(SelectionEvent e) {
+					reloadModelElements(elementTypeCombo.getText());
+				}
 
-		Group modelElementGroup = new Group(selectionComposite, SWT.SHADOW_ETCHED_IN);
-	    modelElementGroup.setLocation(10, 10);
-	    modelElementGroup.setSize(625, 75);
-	    modelElementGroup.setText("Model Element");
+				public void widgetDefaultSelected(SelectionEvent e) {
+					reloadModelElements(elementTypeCombo.getText());
+				}
+			});
 
-	    modelElementCombo = new CCombo(modelElementGroup, SWT.BORDER | SWT.READ_ONLY);
-	    modelElementCombo.setItems(new String[] {" "});
-	    modelElementCombo.setBounds(5, 5, 600, 20);
-	    modelElementCombo.addSelectionListener(new SelectionListener() {
-	        public void widgetSelected(SelectionEvent e) {
-	            reloadTableFeatures(elementTypeCombo.getText(), modelElementCombo.getText());
-	        }
+			Group modelElementGroup = new Group(selectionComposite, SWT.SHADOW_ETCHED_IN);
+			modelElementGroup.setLocation(10, 10);
+			modelElementGroup.setSize(625, 75);
+			modelElementGroup.setText("Model Element");
 
-	        public void widgetDefaultSelected(SelectionEvent e) {
-	        	reloadTableFeatures(elementTypeCombo.getText(), modelElementCombo.getText());
-	        }
-	      });
+			modelElementCombo = new CCombo(modelElementGroup, SWT.BORDER | SWT.READ_ONLY);
+			modelElementCombo.setItems(new String[] { " " });
+			modelElementCombo.setBounds(5, 5, 600, 20);
+			modelElementCombo.addSelectionListener(new SelectionListener() {
+				public void widgetSelected(SelectionEvent e) {
+					reloadTableFeatures(elementTypeCombo.getText(), modelElementCombo.getText());
+				}
 
-        Composite tableComposite = new Composite(parent, SWT.NONE);
-		tableComposite.setLayout(rowLayout);
+				public void widgetDefaultSelected(SelectionEvent e) {
+					reloadTableFeatures(elementTypeCombo.getText(), modelElementCombo.getText());
+				}
+			});
 
-		table = new Table(tableComposite, SWT.BORDER | SWT.MULTI);
-		table.setHeaderVisible(true);
-		table.setLinesVisible (true);
-		for (int i=0; i<2; i++) {
-			TableColumn column = new TableColumn (table, SWT.LEFT);
-			if ( i == 0 ) {
-				column.setText("Feature");
-				column.setWidth(200);
-			} else {
-				column.setText("Value");
-				column.setWidth(600);
+			Composite tableComposite = new Composite(parent, SWT.NONE);
+			tableComposite.setLayout(rowLayout);
+
+			table = new Table(tableComposite, SWT.BORDER | SWT.MULTI);
+			table.setHeaderVisible(true);
+			table.setLinesVisible(true);
+			for (int i = 0; i < 2; i++) {
+				TableColumn column = new TableColumn(table, SWT.LEFT);
+				if (i == 0) {
+					column.setText("Feature");
+					column.setWidth(200);
+				} else {
+					column.setText("Value");
+					column.setWidth(600);
+				}
+				column.setResizable(true);
 			}
-			column.setResizable(true);
-		}
-		for (int i=0; i<MAX_FEATURES; i++) {
-			TableItem item = new TableItem (table, SWT.LEFT);
-			item.setText(new String [] {"", "" });
-		}
-		final TableEditor editor = new TableEditor (table);
-		editor.horizontalAlignment = SWT.LEFT;
-		editor.grabHorizontal = true;
-		table.addListener (SWT.MouseDown, event -> {
-			Rectangle clientArea = table.getClientArea ();
-			Point pt = new Point (event.x, event.y);
-			int index = table.getTopIndex ();
-			while (index < table.getItemCount ()) {
-				boolean visible = false;
-				final TableItem item = table.getItem (index);
-				for (int i=1; i<table.getColumnCount (); i++) {
-					if ( item.getText(0).isEmpty() ) {
-						// We don't want to make the table editable for blank feature lines
-						continue;	
-					}
-					Rectangle rect = item.getBounds (i);
-					if (rect.contains (pt)) {
-						final int column = i;
-						final Text text = new Text (table, SWT.NONE);
-						Listener textListener = e -> {
-							switch (e.type) {
+			for (int i = 0; i < MAX_FEATURES; i++) {
+				TableItem item = new TableItem(table, SWT.LEFT);
+				item.setText(new String[] { "", "" });
+			}
+			final TableEditor editor = new TableEditor(table);
+			editor.horizontalAlignment = SWT.LEFT;
+			editor.grabHorizontal = true;
+			table.addListener(SWT.MouseDown, event -> {
+				Rectangle clientArea = table.getClientArea();
+				Point pt = new Point(event.x, event.y);
+				int index = table.getTopIndex();
+				while (index < table.getItemCount()) {
+					boolean visible = false;
+					final TableItem item = table.getItem(index);
+					for (int i = 1; i < table.getColumnCount(); i++) {
+						if (item.getText(0).isEmpty()) {
+							// We don't want to make the table editable for
+							// blank feature lines
+							continue;
+						}
+						Rectangle rect = item.getBounds(i);
+						if (rect.contains(pt)) {
+							final int column = i;
+							final Text text = new Text(table, SWT.NONE);
+							Listener textListener = e -> {
+								switch (e.type) {
 								case SWT.FocusOut:
-									item.setText (column, text.getText ());
+									item.setText(column, text.getText());
 									updateFeature(modelElementCombo.getText(), item.getText(0), item.getText(column));
-									text.dispose ();
+									text.dispose();
 									break;
 								case SWT.Traverse:
 									switch (e.detail) {
-										case SWT.TRAVERSE_RETURN:
-											item.setText (column, text.getText ());
-											//FALL THROUGH
-										case SWT.TRAVERSE_ESCAPE:
-											updateFeature(modelElementCombo.getText(), item.getText(0), item.getText(column));
-											text.dispose ();
-											e.doit = false;
+									case SWT.TRAVERSE_RETURN:
+										item.setText(column, text.getText());
+										// FALL THROUGH
+									case SWT.TRAVERSE_ESCAPE:
+										updateFeature(modelElementCombo.getText(), item.getText(0),
+												item.getText(column));
+										text.dispose();
+										e.doit = false;
 									}
 									break;
-							}
-						};
-						text.addListener (SWT.FocusOut, textListener);
-						text.addListener (SWT.Traverse, textListener);
-						editor.setEditor (text, item, i);
-						text.setText (item.getText (i));
-						text.selectAll ();
-						text.setFocus ();
+								}
+							};
+							text.addListener(SWT.FocusOut, textListener);
+							text.addListener(SWT.Traverse, textListener);
+							editor.setEditor(text, item, i);
+							text.setText(item.getText(i));
+							text.selectAll();
+							text.setFocus();
+							return;
+						}
+						if (!visible && rect.intersects(clientArea)) {
+							visible = true;
+						}
+					}
+					if (!visible)
 						return;
-					}
-					if (!visible && rect.intersects (clientArea)) {
-						visible = true;
-					}
+					index++;
 				}
-				if (!visible) return;
-				index++;
-			}
-		});
-		
-		elementTypeCombo.setFocus();
-		elementTypeCombo.select(0);
-		
+			});
+
+			elementTypeCombo.setFocus();
+			elementTypeCombo.select(0);
+		}
         return parent;
 	}
 
