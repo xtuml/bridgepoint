@@ -70,7 +70,6 @@ public class BridgePointPreferencesModel implements IPreferenceModel {
 	public boolean showReferenceRemovalDialog;
 	public boolean showReferenceSyncReport;
 	public boolean useDefaultNamesForNewModelElements;
-    public boolean createGraphicsDuringImport;
     public boolean requireMaslStyleIdentifiers;
     public boolean opaqueComponents;
 	
@@ -104,7 +103,6 @@ public class BridgePointPreferencesModel implements IPreferenceModel {
 
         emitRTOData = syncTo.emitRTOData;
         exportOAL = syncTo.exportOAL;
-        createGraphicsDuringImport = syncTo.createGraphicsDuringImport;
         exportGraphics = syncTo.exportGraphics;
         messageDirection = syncTo.messageDirection; 
         activityPersistenceAsFiles = syncTo.activityPersistenceAsFiles;
@@ -116,7 +114,6 @@ public class BridgePointPreferencesModel implements IPreferenceModel {
         enableDeterministicVerifier = syncTo.enableDeterministicVerifier;
         enableInstanceReferences = syncTo.enableInstanceReferences;
         enableModelIntegrityCheck = syncTo.enableModelIntegrityCheck;
-        createGraphicsDuringImport = syncTo.createGraphicsDuringImport;
 
         enableVerifierAudit = syncTo.enableVerifierAudit;
         enableSelectAudit = syncTo.enableSelectAudit;
@@ -132,7 +129,6 @@ public class BridgePointPreferencesModel implements IPreferenceModel {
         showReferenceRemovalDialog = syncTo.showReferenceRemovalDialog;
         showReferenceSyncReport = syncTo.showReferenceSyncReport;
         useDefaultNamesForNewModelElements = syncTo.useDefaultNamesForNewModelElements;
-        createGraphicsDuringImport = syncTo.createGraphicsDuringImport;
         requireMaslStyleIdentifiers = syncTo.requireMaslStyleIdentifiers;;
         opaqueComponents = syncTo.opaqueComponents;
 	}
@@ -181,7 +177,6 @@ public class BridgePointPreferencesModel implements IPreferenceModel {
         prefs.showReferenceRemovalDialog = showReferenceRemovalDialog;
         prefs.showReferenceSyncReport = showReferenceSyncReport;
         prefs.useDefaultNamesForNewModelElements = useDefaultNamesForNewModelElements;
-        prefs.createGraphicsDuringImport = createGraphicsDuringImport;
         prefs.requireMaslStyleIdentifiers = requireMaslStyleIdentifiers;
         prefs.opaqueComponents = opaqueComponents;
 
