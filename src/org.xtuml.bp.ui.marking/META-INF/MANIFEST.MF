@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Marking Editor
 Bundle-SymbolicName: org.xtuml.bp.ui.marking;singleton:=true
-Bundle-Version: 5.8.7
+Bundle-Version: 5.8.6
 Bundle-Activator: org.xtuml.bp.ui.marking.Activator
 Bundle-Vendor: xtUML.org
 Require-Bundle: org.eclipse.ui,

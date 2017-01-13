@@ -11,7 +11,7 @@
 	</parent>
 	<groupId>org.xtuml.bp</groupId>
 	<artifactId>org.xtuml.bp.ui.marking</artifactId>
-	<version>5.8.7</version>
+	<version>5.8.6</version>
 	<packaging>eclipse-plugin</packaging>
 
 	<build>
