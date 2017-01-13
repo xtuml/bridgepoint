@@ -84,7 +84,7 @@ public class MarkingEditorDialog extends Dialog {
 			// returns the Class object for the class with the specified name
 			String ooaClassName = elementType.trim();
 			ooaClassName = ooaClassName.replaceAll(" ", "");
-			Class<?> clazz = Class.forName(MarkingData.PREFIX + ooaClassName + "_c");
+			Class<?> clazz = Class.forName(CorePlugin.getDefault().getBundle().getSymbolicName() + "." + ooaClassName + "_c");
 
 			ModelRoot[] roots = Ooaofooa.getInstancesUnderSystem(project.getName());
 			// This Java reflection call helps invoke a method like this:

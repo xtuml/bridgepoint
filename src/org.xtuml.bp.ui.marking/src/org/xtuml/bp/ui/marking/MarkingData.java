@@ -21,7 +21,6 @@ public class MarkingData {
 	private IProject project;
     
     private static final String DELIM = ",";
-    public static final String PREFIX = "org.xtuml.bp.core.";
 
     private static final String FEATURE_FILE = "/gen/features.mark";
     private static final String MARKINGS_FILE = "/gen/application.mark";
@@ -117,7 +116,7 @@ public class MarkingData {
 			String ooaClassName = featureSetIter.next();
 			ooaClassName = ooaClassName.replaceAll(" ", "");
 			try {
-				Class.forName(PREFIX + ooaClassName + "_c");
+				Class.forName(CorePlugin.getDefault().getBundle().getSymbolicName() + "." + ooaClassName + "_c");
 			} catch (ClassNotFoundException e) {
 				invalidElements = invalidElements + ooaClassName + "\n";
 			}

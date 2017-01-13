@@ -39,6 +39,10 @@ the DNT.
   pieces to perform code generation are left in the ```generate.xml``` commented 
   out.       
 
+6.3  Removed ```doc-bridgepoint/8031_Analyze_Model_Element_Move/8031_Analyze_Model_Element_Move.ant.md ```
+  as part of this branch.  The files is out of place and out of date, a newer 
+  one exists in the proper folder under ```doc-bridgepoint/notes```.   
+  
 7. Unit Test
 ------------
 7.1  The DNT calls out the unit testing.   
