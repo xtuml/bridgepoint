@@ -25,7 +25,8 @@ else
 end if;     ',
 	1,
 	'',
-	"ff14aee4-571c-4b5e-9c32-aa46be9e90b4");
+	"ff14aee4-571c-4b5e-9c32-aa46be9e90b4",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("dbe0cbc4-3122-49cb-a6d6-b0a7c54ef81f",
 	"8336a628-fc0e-421c-8e02-e7de6c7ac4cc",
@@ -78,7 +79,8 @@ delete object instance self;
 ',
 	1,
 	'',
-	"a9497173-1eda-4e16-9adc-712a5a0235f4");
+	"a9497173-1eda-4e16-9adc-712a5a0235f4",
+	0);
 INSERT INTO O_TFR
 	VALUES ("bd5e0dba-bc11-4f66-bab3-641717976803",
 	"10bbec7e-549f-48a0-bf2e-2c442db77b30",
@@ -114,7 +116,8 @@ end if;
 ',
 	1,
 	'',
-	"bb6c09c6-db5e-48de-91af-a41189aa5141");
+	"bb6c09c6-db5e-48de-91af-a41189aa5141",
+	0);
 INSERT INTO O_TFR
 	VALUES ("bb6c09c6-db5e-48de-91af-a41189aa5141",
 	"10bbec7e-549f-48a0-bf2e-2c442db77b30",
@@ -150,53 +153,8 @@ if ( not_empty next_next_mbr )
 end if;',
 	1,
 	'',
-	"5e866793-bb88-4956-a583-60e31458e159");
-INSERT INTO O_TFR
-	VALUES ("3be5ea46-19dd-4bed-8d30-ee654a8c65af",
-	"10bbec7e-549f-48a0-bf2e-2c442db77b30",
-	'changeType',
-	'',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'select one old_dt related by self->S_DT[R45];
-
-select one packageableElem related by self->S_SDT[R44]->S_DT[R17]->PE_PE[R8001];
-select one package related by packageableElem->EP_PKG[R8000];
-select one component related by packageableElem->C_C[R8003];
-
-    select one system related by packageableElem->EP_PKG[R8001]->S_SYS[R1405];
-    if (empty system and not_empty component)
-      rootCompIdInPkg = component.getRootComponentId();
-      select any rootComponent from instances of C_C where (selected.Id == rootCompIdInPkg);
-      select one system related by rootComponent->PE_PE[R8001]->EP_PKG[R8000]->S_SYS[R1405];
-    end if;
-    
-    id = packageableElem.resolveDataTypeRelativeToSelf(default_name:"integer",
-                                                            expected_name:param.typeName);                                                          
-    if not_empty system and system.useGlobals
-      select any pe related by system->G_EIS[R9100]->PE_PE[R9100]
-                                                where selected.Element_ID == id;
-      select one dt related by pe->S_DT[R8001]; 
-    end if;
-      select any new_dt related by system->EP_PKG[R1405]->PE_PE[R8000]->S_DT[R8001]
-                                     where (selected.DT_ID == id);
-    if ( not_empty new_dt )
-      unrelate self from old_dt across R45;
-      relate self to new_dt across R45;
-    end if;
-',
-	1,
-	'',
-	"267057f9-58d7-415f-b584-3899471de805");
-INSERT INTO O_TPARM
-	VALUES ("2a97d9dd-8c48-470b-8745-8da28dfa9430",
-	"3be5ea46-19dd-4bed-8d30-ee654a8c65af",
-	'typeName',
-	"ba5eda7a-def5-0000-0000-000000000004",
-	0,
-	'',
-	"00000000-0000-0000-0000-000000000000",
-	'');
+	"5e866793-bb88-4956-a583-60e31458e159",
+	0);
 INSERT INTO O_TFR
 	VALUES ("b03e5a8f-77e0-4e2e-832a-d9cc71c6d670",
 	"10bbec7e-549f-48a0-bf2e-2c442db77b30",
@@ -216,7 +174,8 @@ end if;
 return false;',
 	1,
 	'',
-	"00000000-0000-0000-0000-000000000000");
+	"00000000-0000-0000-0000-000000000000",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("892b2639-b996-470d-896a-5b03c3b96baa",
 	"b03e5a8f-77e0-4e2e-832a-d9cc71c6d670",
@@ -245,7 +204,8 @@ INSERT INTO O_TFR
 	'self.Name = param.new_name;',
 	1,
 	'',
-	"bd5e0dba-bc11-4f66-bab3-641717976803");
+	"bd5e0dba-bc11-4f66-bab3-641717976803",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("1006468e-1eaa-4277-b4df-5bc679faf2dc",
 	"5af88b93-04b5-4c86-a87d-6e6fa5db08e1",
@@ -273,7 +233,8 @@ select one component related by packageableElem->C_C[R8003];
 ',
 	1,
 	'',
-	"8336a628-fc0e-421c-8e02-e7de6c7ac4cc");
+	"8336a628-fc0e-421c-8e02-e7de6c7ac4cc",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("a5d842e6-fdc3-45a6-b42c-ceee157986a7",
 	"5ed9e4f2-2164-4413-8466-336630bda62f",
@@ -314,7 +275,8 @@ if(not_empty dtProxy and not Util::isProxy(element:self.convertToInstance()))
 end if;',
 	1,
 	'',
-	"71cf1da8-8834-4705-8aef-8e2cc07debd6");
+	"71cf1da8-8834-4705-8aef-8e2cc07debd6",
+	0);
 INSERT INTO O_TFR
 	VALUES ("ff14aee4-571c-4b5e-9c32-aa46be9e90b4",
 	"10bbec7e-549f-48a0-bf2e-2c442db77b30",
@@ -328,7 +290,8 @@ return dimensions;
 ',
 	1,
 	'',
-	"8b3e1aa8-b969-42b4-97c7-150850c27aba");
+	"8b3e1aa8-b969-42b4-97c7-150850c27aba",
+	0);
 INSERT INTO O_TFR
 	VALUES ("71cf1da8-8834-4705-8aef-8e2cc07debd6",
 	"10bbec7e-549f-48a0-bf2e-2c442db77b30",
@@ -361,7 +324,8 @@ end if;
 ',
 	1,
 	'',
-	"5af88b93-04b5-4c86-a87d-6e6fa5db08e1");
+	"5af88b93-04b5-4c86-a87d-6e6fa5db08e1",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("30796a0b-c444-4c02-8797-d666a9472ee2",
 	"71cf1da8-8834-4705-8aef-8e2cc07debd6",
@@ -409,7 +373,8 @@ return false;
 ',
 	1,
 	'',
-	"b03e5a8f-77e0-4e2e-832a-d9cc71c6d670");
+	"b03e5a8f-77e0-4e2e-832a-d9cc71c6d670",
+	0);
 INSERT INTO O_TFR
 	VALUES ("a9497173-1eda-4e16-9adc-712a5a0235f4",
 	"10bbec7e-549f-48a0-bf2e-2c442db77b30",
@@ -423,7 +388,8 @@ Translate: native
 	'return this;',
 	0,
 	'',
-	"3be5ea46-19dd-4bed-8d30-ee654a8c65af");
+	"267057f9-58d7-415f-b584-3899471de805",
+	0);
 INSERT INTO S_DT_PROXY
 	VALUES ("bc3722c8-5188-4529-8519-cf9eb9816b17",
 	"00000000-0000-0000-0000-000000000000",
@@ -447,7 +413,8 @@ return false;
 ',
 	1,
 	'',
-	"5ed9e4f2-2164-4413-8466-336630bda62f");
+	"5ed9e4f2-2164-4413-8466-336630bda62f",
+	0);
 INSERT INTO O_TFR
 	VALUES ("267057f9-58d7-415f-b584-3899471de805",
 	"10bbec7e-549f-48a0-bf2e-2c442db77b30",
@@ -481,7 +448,8 @@ select one component related by packageableElem->C_C[R8003];
 ',
 	1,
 	'',
-	"2361ce7c-1bd9-472c-a7e0-546b4a08d5c2");
+	"2361ce7c-1bd9-472c-a7e0-546b4a08d5c2",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("b23dc7cf-5b29-473b-a399-af007024d151",
 	"267057f9-58d7-415f-b584-3899471de805",
@@ -529,7 +497,57 @@ for each member in members
 end for;',
 	1,
 	'',
-	"f1a54ab0-de09-49cf-9021-68da69085e40");
+	"f1a54ab0-de09-49cf-9021-68da69085e40",
+	0);
+INSERT INTO O_TFR
+	VALUES ("8902acba-4d7f-44df-b1c1-c9a7b17ba175",
+	"10bbec7e-549f-48a0-bf2e-2c442db77b30",
+	'downgradeCheck',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'isVisible = self.canReferToDataType();
+if ( not isVisible )
+  select one dt related by self->S_DT[R45];
+  Util::reportElementDowngraded(rto:self.convertToInstance(), rgoDowngraded:dt.convertToInstance(), relationship:"R45");
+  self.setToDefaultDataType();
+end if;',
+	1,
+	'',
+	"846bd721-d453-43de-b690-5f7ad0262f88",
+	0);
+INSERT INTO O_TFR
+	VALUES ("4eaa3e61-3ea7-4ccf-afdc-7087d0ce1a1d",
+	"10bbec7e-549f-48a0-bf2e-2c442db77b30",
+	'setToDefaultDataType',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'elementType = Util::getSimpleClassName(element:self.convertToInstance());
+defaultTypeName = S_DT::getDefaultDataTypeName(elementType:elementType);
+
+select one system related by self->S_SDT[R44]->S_DT[R17]->PE_PE[R8001]->EP_PKG[R8000]->S_SYS[R1405];
+if not_empty system
+  // Unhook from the current data type (if any)
+  select one currentDt related by self->S_DT[R45];
+  if ( not_empty currentDt )
+    unrelate self from currentDt across R45;
+  end if;
+  // Now connect to the default type
+  dt_id = system.getCoreTypeId(name:defaultTypeName);
+  select any pe from instances of PE_PE where selected.Element_ID == dt_id;
+  select one defaultDt related by pe->S_DT[R8001]; 
+  relate self to defaultDt across R45;
+else
+  // this is an error, if the system is not
+  // found we cannot find the core type
+  USER::logError(msg:"Unable to locate system root for data type: " + defaultTypeName,path:"");
+end if;
+',
+	1,
+	'',
+	"8902acba-4d7f-44df-b1c1-c9a7b17ba175",
+	0);
 INSERT INTO O_NBATTR
 	VALUES ("e98dcff5-ffa0-4ec8-b702-a91009ca2cbe",
 	"10bbec7e-549f-48a0-bf2e-2c442db77b30");

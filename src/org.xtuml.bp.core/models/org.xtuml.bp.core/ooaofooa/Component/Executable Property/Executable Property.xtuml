@@ -35,7 +35,8 @@ end if;
 delete object instance self;',
 	1,
 	'',
-	"00000000-0000-0000-0000-000000000000");
+	"00000000-0000-0000-0000-000000000000",
+	0);
 INSERT INTO O_TFR
 	VALUES ("a6e30463-18c5-4bbe-b587-7408b00541a8",
 	"30125d4c-7b45-4f34-b9a1-802a670a7614",
@@ -105,7 +106,8 @@ if (cardinality peers > 1)
 end if;',
 	1,
 	'',
-	"bfdf97d9-c17d-467c-8890-4690848c2f94");
+	"bfdf97d9-c17d-467c-8890-4690848c2f94",
+	0);
 INSERT INTO O_TFR
 	VALUES ("135f8d85-5b58-497a-8a1f-2c3c5a54bc65",
 	"30125d4c-7b45-4f34-b9a1-802a670a7614",
@@ -128,7 +130,8 @@ if(not_empty parameter)
 end if;',
 	1,
 	'',
-	"a6e30463-18c5-4bbe-b587-7408b00541a8");
+	"a6e30463-18c5-4bbe-b587-7408b00541a8",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("5326e73f-8186-424e-8266-eaa2bd2f5638",
 	"135f8d85-5b58-497a-8a1f-2c3c5a54bc65",
@@ -148,7 +151,8 @@ INSERT INTO O_TFR
 	'return this;',
 	0,
 	'',
-	"135f8d85-5b58-497a-8a1f-2c3c5a54bc65");
+	"135f8d85-5b58-497a-8a1f-2c3c5a54bc65",
+	0);
 INSERT INTO S_DT_PROXY
 	VALUES ("bc3722c8-5188-4529-8519-cf9eb9816b17",
 	"00000000-0000-0000-0000-000000000000",
@@ -178,7 +182,8 @@ end for;
 ',
 	1,
 	'',
-	"23355088-2436-435e-9013-d939f0bdfb9c");
+	"23355088-2436-435e-9013-d939f0bdfb9c",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("b6fab508-8b8a-48d5-b8d8-2247d7ce0cd1",
 	"871c1a25-e46b-478b-aa50-073d032d288e",
@@ -215,7 +220,8 @@ if(not_empty parameter)
 end if;',
 	1,
 	'',
-	"871c1a25-e46b-478b-aa50-073d032d288e");
+	"871c1a25-e46b-478b-aa50-073d032d288e",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("6ee3498c-915d-4604-b212-69c770d54d4f",
 	"a656d869-408e-4e5d-8d04-17629d2628a4",
@@ -235,7 +241,8 @@ INSERT INTO O_TFR
 	'	return m_name;',
 	0,
 	'',
-	"a656d869-408e-4e5d-8d04-17629d2628a4");
+	"a656d869-408e-4e5d-8d04-17629d2628a4",
+	0);
 INSERT INTO O_TFR
 	VALUES ("8dafa42d-27c3-4310-bcea-735a3aa949ed",
 	"30125d4c-7b45-4f34-b9a1-802a670a7614",
@@ -246,7 +253,8 @@ INSERT INTO O_TFR
 	'	m_name = p_Name;',
 	0,
 	'',
-	"00c0ffdc-2913-43ac-88f4-2e5c41ab4fa1");
+	"00c0ffdc-2913-43ac-88f4-2e5c41ab4fa1",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("f91b259b-f36c-410e-a6b2-634d12b14e70",
 	"8dafa42d-27c3-4310-bcea-735a3aa949ed",
@@ -266,7 +274,8 @@ INSERT INTO O_TFR
 	'	return m_descrip;',
 	0,
 	'',
-	"8dafa42d-27c3-4310-bcea-735a3aa949ed");
+	"8dafa42d-27c3-4310-bcea-735a3aa949ed",
+	0);
 INSERT INTO O_TFR
 	VALUES ("263b60cc-7cc1-4348-b2bf-a2595fa96faf",
 	"30125d4c-7b45-4f34-b9a1-802a670a7614",
@@ -277,12 +286,54 @@ INSERT INTO O_TFR
 	'	m_descrip = p_Descrip;',
 	0,
 	'',
-	"362eea93-9013-4581-b922-f36a88941dd5");
+	"362eea93-9013-4581-b922-f36a88941dd5",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("cb43b585-6909-4ab7-901b-3c85b3f4c382",
 	"263b60cc-7cc1-4348-b2bf-a2595fa96faf",
 	'descrip',
 	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("10bfeda6-e0e4-4df6-963a-0ef15360020e",
+	"30125d4c-7b45-4f34-b9a1-802a670a7614",
+	'getSignature',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	1,
+	'/**
+ *  Return a string representation of this operations signature
+ *  with the specified flavor
+ *  0 = named parameters
+ *  1 = positional parameters
+ *  named signature = return_type operation(param1:type, param2:type, param3:type)
+ *  parameters for the named flavor are sorted alphanumerically
+ *  positional signature = return_type operation(param1_type, param2_type, param3_type)
+ */
+ 
+ select one io related by self->C_IO[R4004];
+ if ( not_empty io )
+   return io.getSignature(flavor:param.flavor);
+ else
+   select one as related by self->C_AS[R4004];
+   if ( not_empty as )
+     return as.getSignature(flavor:param.flavor);
+   end if;
+end if;
+
+return "";',
+	1,
+	'',
+	"263b60cc-7cc1-4348-b2bf-a2595fa96faf",
+	0);
+INSERT INTO O_TPARM
+	VALUES ("2f263b6f-6407-485a-9588-645a01a89c7e",
+	"10bfeda6-e0e4-4df6-963a-0ef15360020e",
+	'flavor',
+	"ba5eda7a-def5-0000-0000-000000000002",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -408,7 +459,8 @@ else
   self.setCachedName(name: result);
 end if;
 self.Name = result;',
-	1);
+	1,
+	0);
 INSERT INTO O_BATTR
 	VALUES ("2688e2d8-5f80-4f06-bb30-7702d3dbb7cc",
 	"30125d4c-7b45-4f34-b9a1-802a670a7614");
@@ -442,7 +494,8 @@ else
   self.setCachedDescrip(descrip: result);
 end if;
 self.Descrip = result;',
-	1);
+	1,
+	0);
 INSERT INTO O_BATTR
 	VALUES ("36297162-85a0-49b3-9da1-8a407316be43",
 	"30125d4c-7b45-4f34-b9a1-802a670a7614");

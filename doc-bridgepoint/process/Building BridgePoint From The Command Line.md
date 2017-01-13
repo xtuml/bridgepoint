@@ -4,7 +4,8 @@ Building BridgePoint From The Command Line
 
 Abstract
 ------------
-This document will guide developers who wish to build a BridgePoint version using the command line.
+This document will guide developers who wish to build a BridgePoint version 
+using the command line.
 
 References
 ------------
@@ -12,12 +13,11 @@ References
 
 Notes
 -----
-The current build scripts are only tested and used in linux.  While they may work in a cygwin environment it is suggested that a linux environment be used.   
+The current build scripts are only tested and used in linux.  While they may 
+work in a cygwin environment it is suggested that a linux environment be used.   
 
-Preparations
-------------
-### Execute the procedures outlined in reference [1].      
-### Install the latest izpack 4.x version from http://izpack.org/downloads/   
+The steps in this note perform most of the procedures outlined in reference [1]. 
+It is a good idea to familiarize yourself with that document before proceeding.        
 
 Build Environment Setup
 -----------------------
@@ -40,6 +40,7 @@ username@hostname:~$ cd git/xtuml
 username@hostname:~$ git clone https://github.com/xtuml/bridgepoint.git
 username@hostname:~$ git clone https://github.com/xtuml/mc.git
 username@hostname:~$ git clone https://github.com/xtuml/packaging.git
+username@hostname:~$ git clone https://github.com/xtuml/pt_antlr.git
 ```
 ### Change back to the build directory
 ```bash

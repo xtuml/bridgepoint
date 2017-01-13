@@ -331,6 +331,8 @@ super.toString\
         .elif (dt.Name == "string" )
           .if (attr.Name == "Descrip" )
                 m_propertyDescriptors[${attr_num_attr}] = new DescriptionPropertyDescriptor("${name}", "${fullname}", m_inst);
+          .elif (attr.Name == "Definition" )
+                m_propertyDescriptors[${attr_num_attr}] = new TypeDefinitionPropertyDescriptor("${name}", "${fullname}", m_inst);
           .elif ( (obj.Key_Lett == "CNST_LSC") and (attr.Name == "Value") )
                 m_propertyDescriptors[${attr_num_attr}] = new ConstantValuePropertyDescriptor("${name}", "${fullname}");
           .elif ( attr.Name == "Action_Semantics" )
@@ -359,7 +361,7 @@ super.toString\
                 m_propertyDescriptors[${attr_num_attr}] = new TextPropertyDescriptor("${name}", "${fullname}");
             .end if
           .end if
-          .if ((attr.Name == "Name") or (attr.Name == "Root_Nam"))
+          .if (((attr.Name == "Name") or (attr.Name == "Root_Nam")) or (attr.Name == "Txt_Phrs"))
                 m_propertyDescriptors[${attr_num_attr}].setValidator(new ModelElementNameValidator(m_inst));
           .end if
         .end if
@@ -395,7 +397,7 @@ super.toString\
         .end if
         .assign else_stmt = "else "
       .elif (dt.Name == "string" )
-        .if ( (attr.Name == "Descrip") or (attr.Name == "Action_Semantics") )
+        .if ( (attr.Name == "Descrip") or (attr.Name == "Action_Semantics") or (attr.Name == "Definition") )
             return m_inst.${gaa.body}().replace('\n', '/');
         .else
             return m_inst.${gaa.body}();

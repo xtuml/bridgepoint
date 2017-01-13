@@ -88,7 +88,8 @@ end if;
 return false;',
 	1,
 	'',
-	"00000000-0000-0000-0000-000000000000");
+	"00000000-0000-0000-0000-000000000000",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("e42b216e-7676-487c-aef2-a5bb2ff20f4b",
 	"94fc4412-ae3d-4af1-bb01-11ea6a9e8a55",
@@ -118,7 +119,8 @@ INSERT INTO O_TFR
 return not_empty component;',
 	1,
 	'',
-	"28db6e44-324b-4a47-98fa-aea323a57ace");
+	"28db6e44-324b-4a47-98fa-aea323a57ace",
+	0);
 INSERT INTO O_TFR
 	VALUES ("ee000abc-c8d0-4b61-9745-7b48b9da8027",
 	"14d6c781-a341-481a-b67d-09ec4e8b9ed3",
@@ -151,7 +153,8 @@ end if;
 delete object instance self;',
 	1,
 	'',
-	"39eb5a96-b5d4-40c0-854b-a9aed92ba6ea");
+	"39eb5a96-b5d4-40c0-854b-a9aed92ba6ea",
+	0);
 INSERT INTO O_TFR
 	VALUES ("5c3e974b-63d6-4853-8096-fb1dd5fde19a",
 	"14d6c781-a341-481a-b67d-09ec4e8b9ed3",
@@ -259,7 +262,8 @@ end if;
 ',
 	1,
 	'',
-	"94fc4412-ae3d-4af1-bb01-11ea6a9e8a55");
+	"94fc4412-ae3d-4af1-bb01-11ea6a9e8a55",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("90e581f0-5932-49bd-aa11-f613d34e314e",
 	"5c3e974b-63d6-4853-8096-fb1dd5fde19a",
@@ -286,7 +290,8 @@ if(not_empty comp)
 end if;',
 	1,
 	'',
-	"b5e674bc-528b-49b8-bf7f-86452eff3b97");
+	"b5e674bc-528b-49b8-bf7f-86452eff3b97",
+	0);
 INSERT INTO O_TFR
 	VALUES ("39eb5a96-b5d4-40c0-854b-a9aed92ba6ea",
 	"14d6c781-a341-481a-b67d-09ec4e8b9ed3",
@@ -300,7 +305,8 @@ Translate: native',
 	'return this;',
 	0,
 	'',
-	"b101bb6b-ff7f-4cfb-87c9-666b781c5d1b");
+	"b101bb6b-ff7f-4cfb-87c9-666b781c5d1b",
+	0);
 INSERT INTO S_DT_PROXY
 	VALUES ("bc3722c8-5188-4529-8519-cf9eb9816b17",
 	"00000000-0000-0000-0000-000000000000",
@@ -337,7 +343,8 @@ end if;
 return result;',
 	1,
 	'',
-	"b8b8c716-9e06-481d-8b42-b779603d0db3");
+	"b8b8c716-9e06-481d-8b42-b779603d0db3",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("b0f7dd3b-35ed-4184-a2f9-e2ec06e77c0f",
 	"63aa27cb-92ad-4317-b42a-98fe385e1d5e",
@@ -390,7 +397,8 @@ elideAtFront = param.comp_num == 1 and param.ent_num == 0
 return elideAtFront;',
 	1,
 	'',
-	"ee000abc-c8d0-4b61-9745-7b48b9da8027");
+	"ee000abc-c8d0-4b61-9745-7b48b9da8027",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("2665828a-8991-4fea-9980-e403135b9781",
 	"5462159f-15ec-49cc-91d4-b8d90d0e41ec",
@@ -419,7 +427,8 @@ INSERT INTO O_TFR
 	'return 1;',
 	1,
 	'',
-	"63aa27cb-92ad-4317-b42a-98fe385e1d5e");
+	"63aa27cb-92ad-4317-b42a-98fe385e1d5e",
+	0);
 INSERT INTO O_TFR
 	VALUES ("6ffd3a8c-a6cf-4cf9-b249-14258912d66a",
 	"14d6c781-a341-481a-b67d-09ec4e8b9ed3",
@@ -430,7 +439,8 @@ INSERT INTO O_TFR
 	'return 1;',
 	1,
 	'',
-	"81e2b23c-a653-4ca1-9978-67d4f70003fe");
+	"81e2b23c-a653-4ca1-9978-67d4f70003fe",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("dd6cf32d-5308-480b-90f9-2a6e7c3313b4",
 	"6ffd3a8c-a6cf-4cf9-b249-14258912d66a",
@@ -450,7 +460,8 @@ INSERT INTO O_TFR
 	'return Style::Component;',
 	1,
 	'',
-	"6ffd3a8c-a6cf-4cf9-b249-14258912d66a");
+	"6ffd3a8c-a6cf-4cf9-b249-14258912d66a",
+	0);
 INSERT INTO S_DT_PROXY
 	VALUES ("6e636321-0fd1-4577-b185-e4d76b0d0c71",
 	"00000000-0000-0000-0000-000000000000",
@@ -470,7 +481,8 @@ INSERT INTO O_TFR
 	'return Style::None;',
 	1,
 	'',
-	"50078952-2671-4140-9d20-e094865ca660");
+	"50078952-2671-4140-9d20-e094865ca660",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("c57f393c-6091-4fac-8192-38b18e114fa0",
 	"51f357ac-fe2a-4a64-8ae8-3f77a97bc2c8",
@@ -508,7 +520,8 @@ INSERT INTO O_TFR
 	'return true;',
 	1,
 	'',
-	"2bf17aff-6967-4c6a-a27f-3e8daca6f72b");
+	"2bf17aff-6967-4c6a-a27f-3e8daca6f72b",
+	0);
 INSERT INTO O_TFR
 	VALUES ("943dc050-ef93-484e-8098-a3ace6cf7196",
 	"14d6c781-a341-481a-b67d-09ec4e8b9ed3",
@@ -570,7 +583,8 @@ select one component related by packageableElem->C_C[R8003];
 ',
 	1,
 	'',
-	"5c3e974b-63d6-4853-8096-fb1dd5fde19a");
+	"5c3e974b-63d6-4853-8096-fb1dd5fde19a",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("3154f32c-1717-404f-968a-08850bc0d4ce",
 	"943dc050-ef93-484e-8098-a3ace6cf7196",
@@ -598,18 +612,28 @@ INSERT INTO O_TFR
 	1,
 	'count = 0;
 select one outerPkg related by self->PE_PE[R8001]->EP_PKG[R8000];
+select one outerComp related by self->PE_PE[R8001]->C_C[R8003];
 select many importedReferences related by self->CL_POR[R4707]->CL_IIR[R4708]->CL_IP[R4703];
 for each importedReference in importedReferences
   select one innerPkg related by importedReference->CL_IIR[R4703]->CL_POR[R4708]->CL_IC[R4707]->PE_PE[R8001]->EP_PKG[R8000];
-  if (outerPkg.Package_ID == innerPkg.Package_ID)
-    count = count+1;
+  select one innerComp related by importedReference->CL_IIR[R4703]->CL_POR[R4708]->CL_IC[R4707]->PE_PE[R8001]->C_C[R8003];
+  if(not_empty innerPkg)
+    if (outerPkg.Package_ID == innerPkg.Package_ID)
+      count = count+1;
+    end if;
+  end if;
+  if(not_empty innerComp and not_empty outerComp)
+    if (outerComp.Id == innerComp.Id)
+      count = count+1;
+    end if;  
   end if;
 end for;
 return count;
 ',
 	1,
 	'',
-	"5462159f-15ec-49cc-91d4-b8d90d0e41ec");
+	"5462159f-15ec-49cc-91d4-b8d90d0e41ec",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("80886cc2-6d0d-486c-82cf-545aa3f6a5b9",
 	"92c802f4-4398-42cf-934d-ccde516fdecb",
@@ -628,10 +652,14 @@ INSERT INTO O_TFR
 	1,
 	'count = 0;
 select one outerPkg related by self->PE_PE[R8001]->EP_PKG[R8000];
+select one outerComp related by self->PE_PE[R8001]->C_C[R8003];
 select many importedReferences related by self->CL_POR[R4707]->CL_IIR[R4708]->CL_IR[R4703];
 for each importedReference in importedReferences
   select one innerPkg related by importedReference->CL_IIR[R4703]->CL_POR[R4708]->CL_IC[R4707]->PE_PE[R8001]->EP_PKG[R8000];
-  if (outerPkg.Package_ID == innerPkg.Package_ID)
+  select one innerComp related by importedReference->CL_IIR[R4703]->CL_POR[R4708]->CL_IC[R4707]->PE_PE[R8001]->C_C[R8003];
+  if ((not_empty outerPkg and not_empty innerPkg and
+  		outerPkg.Package_ID == innerPkg.Package_ID) or (not_empty outerComp and
+  		not_empty innerComp and outerComp.Id == innerComp.Id))
     count = count+1;
   end if;
 end for;
@@ -639,7 +667,8 @@ return count;
 ',
 	1,
 	'',
-	"e71bb59d-d5a7-45ea-8e95-0fba96765df6");
+	"e71bb59d-d5a7-45ea-8e95-0fba96765df6",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("b5bdb2ac-bc75-445d-a5f2-8327f81a196c",
 	"e44530b1-46b8-4876-b362-77da47e8406b",
@@ -659,21 +688,34 @@ INSERT INTO O_TFR
 	'id = GD::NULL_UNIQUE_ID();
 select many importedRefs related by self->CL_POR[R4707]->CL_IIR[R4708]->CL_IP[R4703];
 select one outerPkg related by self->PE_PE[R8001]->EP_PKG[R8000];
+select one outerComp related by self->PE_PE[R8001]->C_C[R8003];
 // We''re preincrementing the index
 count = -1;
 for each importedRef in importedRefs
   select one innerPkg related by importedRef->CL_IIR[R4703]->CL_POR[R4708]->CL_IC[R4707]->PE_PE[R8001]->EP_PKG[R8000];
-  if (outerPkg.Package_ID == innerPkg.Package_ID)
-  count = count+1;
-  if (count == param.index)
-    return importedRef.Id;
+  select one innerComp related by importedRef->CL_IIR[R4703]->CL_POR[R4708]->CL_IC[R4707]->PE_PE[R8001]->C_C[R8003];
+  if(not_empty outerPkg and not_empty innerPkg)
+    if (outerPkg.Package_ID == innerPkg.Package_ID)
+      count = count+1;
+      if (count == param.index)
+        return importedRef.Id;
+      end if;
+    end if;
   end if;
+  if(not_empty outerComp and not_empty innerComp)
+    if (outerComp.Id == innerComp.Id)
+      count = count+1;
+      if (count == param.index)
+        return importedRef.Id;
+      end if;
+    end if;  
   end if;
 end for;
 return id;',
 	1,
 	'',
-	"92c802f4-4398-42cf-934d-ccde516fdecb");
+	"92c802f4-4398-42cf-934d-ccde516fdecb",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("4d73d8ff-8390-4088-a74f-8052573e6ffe",
 	"09813edb-7447-44e3-9d9a-cdb5ef7b4599",
@@ -702,21 +744,27 @@ INSERT INTO O_TFR
 	'id = GD::NULL_UNIQUE_ID();
 select many importedRefs related by self->CL_POR[R4707]->CL_IIR[R4708]->CL_IR[R4703];
 select one outerPkg related by self->PE_PE[R8001]->EP_PKG[R8000];
+select one outerComp related by self->PE_PE[R8001]->C_C[R8003];
 // We''re preincrementing the index
 count = -1;
 for each importedRef in importedRefs
   select one innerPkg related by importedRef->CL_IIR[R4703]->CL_POR[R4708]->CL_IC[R4707]->PE_PE[R8001]->EP_PKG[R8000];
-  if (outerPkg.Package_ID == innerPkg.Package_ID)
-  count = count+1;
-  if (count == param.index)
-    return importedRef.Id;
-  end if;
+  select one innerComp related by importedRef->CL_IIR[R4703]->CL_POR[R4708]->CL_IC[R4707]->PE_PE[R8001]->C_C[R8003];
+  if ((not_empty outerPkg and not_empty innerPkg and
+        outerPkg.Package_ID == innerPkg.Package_ID) or
+        (not_empty outerComp and not_empty innerComp
+        and outerComp.Id == innerComp.Id))
+  	count = count+1;
+    if (count == param.index)
+      return importedRef.Id;
+    end if;
   end if;
 end for;
 return id;',
 	1,
 	'',
-	"e44530b1-46b8-4876-b362-77da47e8406b");
+	"e44530b1-46b8-4876-b362-77da47e8406b",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("6cbc7ec8-b384-46af-afdc-8c092511c81d",
 	"f60ea1cb-aef9-49d6-b37d-3b8da976c7cc",
@@ -743,10 +791,15 @@ INSERT INTO O_TFR
 	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
 	'select one outerPkg related by self->PE_PE[R8001]->EP_PKG[R8000];
+select one outerComp related by self->PE_PE[R8001]->C_C[R8003];
 select any importedReq related by self->CL_POR[R4707]->CL_IIR[R4708]->CL_IR[R4703]
 	where (selected.Id == param.id);
 select one innerPkg related by importedReq->CL_IIR[R4703]->CL_POR[R4708]->CL_IC[R4707]->PE_PE[R8001]->EP_PKG[R8000];
-if(not_empty importedReq and (outerPkg.Package_ID == innerPkg.Package_ID))
+select one innerComp related by importedReq->CL_IIR[R4703]->CL_POR[R4708]->CL_IC[R4707]->PE_PE[R8001]->C_C[R8003];
+if(not_empty importedReq and ((not_empty outerPkg and not_empty innerPkg and
+	(outerPkg.Package_ID == innerPkg.Package_ID)) or
+	(not_empty innerComp and not_empty innerComp and
+	(outerComp.Id == innerComp.Id))))
   select one delegation related by importedReq->CL_IIR[R4703]->C_DG[R4704];
   if(param.considerDelegations)
     if(empty delegation)
@@ -766,7 +819,8 @@ return false;
 ',
 	1,
 	'',
-	"c6250195-a9ad-45b3-9d5f-526ae00a3232");
+	"c6250195-a9ad-45b3-9d5f-526ae00a3232",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("6ed72eaf-6ef8-4fc1-904a-6726f3105e98",
 	"28db6e44-324b-4a47-98fa-aea323a57ace",
@@ -793,10 +847,15 @@ INSERT INTO O_TFR
 	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
 	'select one outerPkg related by self->PE_PE[R8001]->EP_PKG[R8000];
+select one outerComp related by self->PE_PE[R8001]->C_C[R8003];
 select any importedPro related by self->CL_POR[R4707]->CL_IIR[R4708]->CL_IP[R4703]
 	where (selected.Id == param.id);
+select one innerComp related by importedPro->CL_IIR[R4703]->CL_POR[R4708]->CL_IC[R4707]->PE_PE[R8001]->C_C[R8003];
 select one innerPkg related by importedPro->CL_IIR[R4703]->CL_POR[R4708]->CL_IC[R4707]->PE_PE[R8001]->EP_PKG[R8000];
-if(not_empty importedPro and (outerPkg.Package_ID == innerPkg.Package_ID))
+if((not_empty importedPro and not_empty outerPkg and not_empty innerPkg and
+    outerPkg.Package_ID == innerPkg.Package_ID) or (not_empty outerComp and
+    not_empty innerComp and outerComp.Id == innerComp.Id))
+
   select one delegation related by importedPro->CL_IIR[R4703]->C_DG[R4704];
   if(param.considerDelegations)
     if(empty delegation)
@@ -815,7 +874,8 @@ end if;
 return false;',
 	1,
 	'',
-	"51f357ac-fe2a-4a64-8ae8-3f77a97bc2c8");
+	"51f357ac-fe2a-4a64-8ae8-3f77a97bc2c8",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("aa2afdb1-248a-424d-ad08-de5057d13341",
 	"c6250195-a9ad-45b3-9d5f-526ae00a3232",
@@ -844,6 +904,7 @@ INSERT INTO O_TFR
 	'id = GD::NULL_UNIQUE_ID();
 select many importedRefs related by self->CL_POR[R4707]->CL_IIR[R4708]->CL_IP[R4703];
 select one outerPkg related by self->PE_PE[R8001]->EP_PKG[R8000];
+select one outerComp related by self->PE_PE[R8001]->C_C[R8003];
 // We''re preincrementing the index
 count = -1;
 for each importedRef in importedRefs
@@ -857,7 +918,7 @@ for each importedRef in importedRefs
         if (count == param.index)
           return delegation.Id;
         end if;
-      end if;    
+      end if;
     end if;
     if(not_empty provision)
         count = count + 1;
@@ -869,7 +930,8 @@ end for;
 return id;',
 	1,
 	'',
-	"09813edb-7447-44e3-9d9a-cdb5ef7b4599");
+	"09813edb-7447-44e3-9d9a-cdb5ef7b4599",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("bb3888c8-6fa8-4762-92df-ab2320dd7d61",
 	"e71bb59d-d5a7-45ea-8e95-0fba96765df6",
@@ -898,6 +960,7 @@ INSERT INTO O_TFR
 	'id = GD::NULL_UNIQUE_ID();
 select many importedRefs related by self->CL_POR[R4707]->CL_IIR[R4708]->CL_IR[R4703];
 select one outerPkg related by self->PE_PE[R8001]->EP_PKG[R8000];
+select one outerComp related by self->PE_PE[R8001]->C_C[R8003];
 // We''re preincrementing the index
 count = -1;
 for each importedRef in importedRefs
@@ -923,7 +986,8 @@ end for;
 return id;',
 	1,
 	'',
-	"f60ea1cb-aef9-49d6-b37d-3b8da976c7cc");
+	"f60ea1cb-aef9-49d6-b37d-3b8da976c7cc",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("936ccd14-5775-4699-b70f-bd0a038f40df",
 	"b8b8c716-9e06-481d-8b42-b779603d0db3",
@@ -1012,7 +1076,8 @@ end if;
 return true;',
 	1,
 	'',
-	"943dc050-ef93-484e-8098-a3ace6cf7196");
+	"943dc050-ef93-484e-8098-a3ace6cf7196",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("9f4690a1-7190-424b-bf98-7c94cc43d742",
 	"22d3c97d-facb-45dc-8630-70d8b6129857",
@@ -1083,7 +1148,8 @@ select one comp related by packageableElem->C_C[R8003];
 return true;',
 	1,
 	'',
-	"22d3c97d-facb-45dc-8630-70d8b6129857");
+	"22d3c97d-facb-45dc-8630-70d8b6129857",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("eef3f2d0-389d-4b70-af95-b096f2af1a5f",
 	"b101bb6b-ff7f-4cfb-87c9-666b781c5d1b",
@@ -1153,7 +1219,8 @@ if(not_empty componentProxy) and
 end if;',
 	1,
 	'',
-	"807c57e5-469c-4b76-a024-1fba5b7c84ba");
+	"807c57e5-469c-4b76-a024-1fba5b7c84ba",
+	0);
 INSERT INTO O_TFR
 	VALUES ("15912627-e5cb-47fe-b05f-fc6af9e9916a",
 	"14d6c781-a341-481a-b67d-09ec4e8b9ed3",
@@ -1205,7 +1272,8 @@ if(not_empty resolvedComp)
 end if;',
 	1,
 	'',
-	"66fd465e-7817-439d-ab1e-1b526b65a5a9");
+	"66fd465e-7817-439d-ab1e-1b526b65a5a9",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("7e363b60-f426-4c02-be65-7a427f358e52",
 	"15912627-e5cb-47fe-b05f-fc6af9e9916a",
@@ -1228,7 +1296,8 @@ return not_empty container;
 ',
 	1,
 	'',
-	"15912627-e5cb-47fe-b05f-fc6af9e9916a");
+	"15912627-e5cb-47fe-b05f-fc6af9e9916a",
+	0);
 INSERT INTO O_TFR
 	VALUES ("15a1e1f3-bbbc-45d0-8c04-3373584fc8f4",
 	"14d6c781-a341-481a-b67d-09ec4e8b9ed3",
@@ -1250,7 +1319,8 @@ end if;
 return 1;',
 	1,
 	'',
-	"75e98ec6-f8e1-4564-b454-e70eda9e06d6");
+	"75e98ec6-f8e1-4564-b454-e70eda9e06d6",
+	0);
 INSERT INTO O_TFR
 	VALUES ("acf65b98-0092-4abc-8245-fc5145695531",
 	"14d6c781-a341-481a-b67d-09ec4e8b9ed3",
@@ -1268,7 +1338,8 @@ select any instance related by self->I_EXE[R2963];
 return not_empty instance;',
 	1,
 	'',
-	"15a1e1f3-bbbc-45d0-8c04-3373584fc8f4");
+	"15a1e1f3-bbbc-45d0-8c04-3373584fc8f4",
+	0);
 INSERT INTO O_TFR
 	VALUES ("3b29e02d-6523-456d-91f5-da4ef3008025",
 	"14d6c781-a341-481a-b67d-09ec4e8b9ed3",
@@ -1279,7 +1350,8 @@ INSERT INTO O_TFR
 	'return self.Id;',
 	1,
 	'',
-	"acf65b98-0092-4abc-8245-fc5145695531");
+	"acf65b98-0092-4abc-8245-fc5145695531",
+	0);
 INSERT INTO O_TFR
 	VALUES ("184a0712-7711-4f9b-8260-1ac5ab9dec6e",
 	"14d6c781-a341-481a-b67d-09ec4e8b9ed3",
@@ -1294,7 +1366,8 @@ end if;
 return self.convertToInstance();',
 	1,
 	'',
-	"3b29e02d-6523-456d-91f5-da4ef3008025");
+	"3b29e02d-6523-456d-91f5-da4ef3008025",
+	0);
 INSERT INTO O_TFR
 	VALUES ("ca48a2bc-2100-4376-a303-5a730b90b820",
 	"14d6c781-a341-481a-b67d-09ec4e8b9ed3",
@@ -1335,7 +1408,8 @@ end for;
 return true;',
 	1,
 	'',
-	"184a0712-7711-4f9b-8260-1ac5ab9dec6e");
+	"184a0712-7711-4f9b-8260-1ac5ab9dec6e",
+	0);
 INSERT INTO O_TFR
 	VALUES ("258d785b-1985-4e68-8208-5a331c698628",
 	"14d6c781-a341-481a-b67d-09ec4e8b9ed3",
@@ -1381,7 +1455,8 @@ else
 end if;',
 	1,
 	'',
-	"ca48a2bc-2100-4376-a303-5a730b90b820");
+	"ca48a2bc-2100-4376-a303-5a730b90b820",
+	0);
 INSERT INTO O_TFR
 	VALUES ("0162e46e-f2fa-4e75-881b-d1b17ffce7d4",
 	"14d6c781-a341-481a-b67d-09ec4e8b9ed3",
@@ -1420,7 +1495,8 @@ if(not self.isSynchronized())
 end if;',
 	1,
 	'',
-	"258d785b-1985-4e68-8208-5a331c698628");
+	"258d785b-1985-4e68-8208-5a331c698628",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("2df2e1b1-a937-49de-9b73-0cf10ee89a3b",
 	"0162e46e-f2fa-4e75-881b-d1b17ffce7d4",
@@ -1452,7 +1528,8 @@ for each importedReq in importedRequirements
 end for;',
 	1,
 	'',
-	"0162e46e-f2fa-4e75-881b-d1b17ffce7d4");
+	"0162e46e-f2fa-4e75-881b-d1b17ffce7d4",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("453f98ad-d62f-41aa-9c58-54a8a9b1e724",
 	"29398700-b897-457c-bfbd-288f8187db13",
@@ -1488,7 +1565,8 @@ INSERT INTO O_TFR
 	'	return m_name;',
 	0,
 	'',
-	"29398700-b897-457c-bfbd-288f8187db13");
+	"29398700-b897-457c-bfbd-288f8187db13",
+	0);
 INSERT INTO O_TFR
 	VALUES ("62e9aa12-cd45-4f48-886c-3f63813032c4",
 	"14d6c781-a341-481a-b67d-09ec4e8b9ed3",
@@ -1499,7 +1577,8 @@ INSERT INTO O_TFR
 	'	m_name = p_Name;',
 	0,
 	'',
-	"2247c8a5-4e1c-405b-9c62-ddca0cf8ea28");
+	"2247c8a5-4e1c-405b-9c62-ddca0cf8ea28",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("30ecded1-4fce-4493-b064-8820c04e0de6",
 	"62e9aa12-cd45-4f48-886c-3f63813032c4",
@@ -1523,7 +1602,8 @@ end if;
 return true;',
 	1,
 	'',
-	"62e9aa12-cd45-4f48-886c-3f63813032c4");
+	"62e9aa12-cd45-4f48-886c-3f63813032c4",
+	0);
 INSERT INTO O_TFR
 	VALUES ("6bd64ba7-35f2-45ef-9c2e-6692db8eece8",
 	"14d6c781-a341-481a-b67d-09ec4e8b9ed3",
@@ -1544,7 +1624,72 @@ return isAccessible and self.canAssignToComp(Id:comp.Id,
                                                       checkExistingType: false);',
 	1,
 	'',
-	"90e0b7b7-e0b0-4751-b105-5d47bde9e851");
+	"90e0b7b7-e0b0-4751-b105-5d47bde9e851",
+	0);
+INSERT INTO O_TFR
+	VALUES ("250aa665-07b5-49a9-9b60-1244538f9b76",
+	"14d6c781-a341-481a-b67d-09ec4e8b9ed3",
+	'downgradeCheck',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'isAccessible = true; 
+
+// We only need to run this check if this component reference is assigned
+if ( self.isAssigned() )
+  isAccessible = self.canReferToComponent();
+
+  if ( not isAccessible )
+    select one comp related by self->C_C[R4201];
+    self.dispose();
+    Util::reportElementDowngraded(rto:self.convertToInstance(), rgoDowngraded:comp.convertToInstance(), relationship:"R4201");
+  end if;
+end if;
+',
+	1,
+	'',
+	"6bd64ba7-35f2-45ef-9c2e-6692db8eece8",
+	0);
+INSERT INTO O_TFR
+	VALUES ("61de6d1c-ff79-46f9-a943-fd13f330a9f8",
+	"14d6c781-a341-481a-b67d-09ec4e8b9ed3",
+	'isCuttable',
+	'A shape type is cuttable if it is selected, and if each connector anchored to it is also selected.',
+	"ba5eda7a-def5-0000-0000-000000000001",
+	1,
+	'cuttable = true;
+
+// check if this element is selected
+if ( not Sel::isSelected(element:self.convertToInstance()) )
+  cuttable = false;
+else
+  select many cl_iirs related by self->CL_POR[R4707]->CL_IIR[R4708];
+  for each cl_iir in cl_iirs
+    select one cl_ip related by cl_iir->CL_IP[R4703];
+    if ( not_empty cl_ip )
+      // if any imported provision is not selected, this component reference is not cuttable
+	  if ( not Sel::isSelected(element:cl_ip.convertToInstance()) )
+		cuttable = false;
+		break;
+	  end if;
+    else
+      select one cl_ir related by cl_iir->CL_IR[R4703];
+      if ( not_empty cl_ir )
+        // if any imported requirement is not selected, this component reference is not cuttable
+	    if ( not Sel::isSelected(element:cl_ir.convertToInstance()) )
+		  cuttable = false;
+		  break;
+	    end if;
+      end if;
+    end if;
+  end for;
+end if;
+
+return cuttable;',
+	1,
+	'',
+	"250aa665-07b5-49a9-9b60-1244538f9b76",
+	0);
 INSERT INTO O_NBATTR
 	VALUES ("b819ae30-4d2e-458a-9ff4-77c81e4cbccf",
 	"14d6c781-a341-481a-b67d-09ec4e8b9ed3");
@@ -1602,7 +1747,8 @@ else
 end if;
 self.setCachedName(name:result);
 self.Name = result;',
-	1);
+	1,
+	0);
 INSERT INTO O_BATTR
 	VALUES ("10f6a900-b222-467e-8d34-af1493058746",
 	"14d6c781-a341-481a-b67d-09ec4e8b9ed3");

@@ -30,7 +30,8 @@ delete object instance self;
 ',
 	1,
 	'',
-	"00000000-0000-0000-0000-000000000000");
+	"00000000-0000-0000-0000-000000000000",
+	0);
 INSERT INTO O_TFR
 	VALUES ("d124d99d-eaca-4c48-92c7-64fee4aad3e3",
 	"5c555031-8a96-48b8-b278-74709d129fa3",
@@ -39,16 +40,15 @@ INSERT INTO O_TFR
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'// Invocation:Bridge Invocation.execute()
-select one body related by self ->ACT_SMT[R603]->ACT_BLK[R602]->ACT_ACT[R601];   
-
 select one brg related by self->S_BRG[R674];
 select one ee related by brg->S_EE[R19];
 
 // Get the top stack frame
 select any stack_frame from instances of I_STF where
                                 selected.Stack_Frame_ID == param.stack_frame_id;
-if empty stack_frame
+if (empty stack_frame)
   pathMsg = "<No Path Available - Empty instance>";
+    select one body related by self->ACT_SMT[R603]->ACT_BLK[R602]->ACT_ACT[R601];   
     if (not_empty body)
       pathMsg = body.getPath();
     end if;
@@ -61,14 +61,12 @@ select one body related by brg->ACT_BRB[R697]->ACT_ACT[R698];
 select any statement related by body->ACT_BLK[R601]->ACT_SMT[R602];
 if (not_empty statement and not ee.isRealized)
   // Setup the parameter values within the newly created stack frame
-  // We discard the result because it just tells us if we''re going yet deeper
+  // We discard the result because it just tells us if we are going yet deeper
   // in the call tree. This can happen if a parameter is itself a call, but
   // we do not need to do anything different in that case.
   discard = self.setupParameterValues(stack_frame_id: param.stack_frame_id,
-                                   target_stack_frame_id: GD::NULL_UNIQUE_ID());
+                                   target_stack_frame_id:GD::NULL_UNIQUE_ID());
 else
-  // Select the parameter and arguments for this bridge invocation
-  select many parms related by brg->S_BPARM[R21];
   select many args related by self->V_PAR[R628];
   // do not attempt any realized execution unless the user has the EE
   // configured as realized
@@ -88,6 +86,7 @@ else
     end for;
     return;
   end if;
+  select many parms related by brg->S_BPARM[R21];
   for each parm in parms
     for each arg in args
       if (parm.Name == arg.Name)
@@ -104,103 +103,64 @@ else
       end if;
     end for;
   end for;
-  // We could not find OAL to execute, try to execute an automatically wired
-  // bridge instead.
-  // Check for wiring
-  select one function related by brg->S_AW[R3200]->S_SYNC[R3201];   
-  if (not_empty function)
-    // Found a matching function name in the domain, now we need to 
-    // setup the stack frame and parameters and execute it.
-    select one func_body related by function->ACT_FNB[R695]->ACT_ACT[R698];
-
-    sf_id = func_body.createStackFrameForBridge(stack_frame_id_caller:
-                                                    stack_frame.Stack_Frame_ID);
-
-    if(sf_id != GD::NULL_UNIQUE_ID())
-
-      success = self.setupParameterValues(target_stack_frame_id: sf_id,
-                                    stack_frame_id: stack_frame.Stack_Frame_ID);
-      if(not success)
-        select any targetFrame from instances of I_STF
-                                       where (selected.Stack_Frame_ID == sf_id);
-        if(not_empty targetFrame)
-          select one targetStack related by targetFrame->I_STACK[R2929];
-          if(empty targetStack)
-            // there is no action currently executing in the
-            // target engine, pop the created target frame to
-            // allow execution
-            select one targetStack related by targetFrame->I_STACK[R2943];
-            targetStack.pop(disposeFrame:true);
-            // recompute the parameter values
-            discard = self.setupParameterValues(target_stack_frame_id: sf_id,
-                                    stack_frame_id: stack_frame.Stack_Frame_ID);
-          end if;
-        end if;
-      end if;
-    end if; 
-    return; 
-  end if;
   // We could not find OAL or a wired domain function to execute, try to execute  
   // realized code instead.  
   
   // Set up the bridge arguments 
+  select one sys related by ee->PE_PE[R8001]->EP_PKG[R8000]->S_SYS[R1405];
+  if (empty sys)
+    select one sys related by ee->PE_PE[R8001]->C_C[R8003]->PE_PE[R8001]->EP_PKG[R8000]->S_SYS[R1405];
+  end if;
   
   VM::resetValues();
-
-    // if a system was not found via the component,
-    //  must be in a generic package 
-    select one sys related by ee->PE_PE[R8001]->EP_PKG[R8000]->S_SYS[R1405];
-    if (empty sys)
-      select one sys related by ee->PE_PE[R8001]->C_C[R8003]->PE_PE[R8001]->EP_PKG[R8000]->S_SYS[R1405];
-    end if;
-  // Find the first parameter in the ordered relationship.  Use the ordered
-  // relationship so the user can can the parameter order in the model to macth
-  // the order in the realized code.
-  select any parm related by brg->S_BPARM[R21];
-  firstParm = parm; 
-  while (not_empty firstParm)
-	    select one firstParm related by parm->S_BPARM[R55.''succeeds''];
-	    if (not_empty firstParm)
-	      parm = firstParm;
-	    end if;
-  end while;
-  
-  
-  while (not_empty parm)
-    for each arg in args
-      if (parm.Name == arg.Name)
-        select one cval related by arg->V_VAL[R800];
-        select one ctype related by parm->S_DT[R22];
-        select any result related by stack_frame->I_VSF[R2951] where
-                                             selected.Value_ID == cval.Value_ID;
-        select one rtVal related by result->RV_RVL[R3305];
-        isByRef = false;
-        if (parm.By_Ref == 1)
-          isByRef = true;
-          newValue = GD::convertToBPDataType(type: ctype.Name,
-                                                       value: rtVal.getValue());
-          rtVal.setValue(value:newValue);
-          cval.setValue(stack_frame_id: stack_frame.Stack_Frame_ID,
-                               value: newValue, member_id:GD::NULL_UNIQUE_ID());
-        end if;
-
-        VM::addArgumentValue(value:rtVal.getValue(), type:ctype.Name,
-                                                                byRef: isByRef);
-      end if;
-    end for;
-    select one parm related by parm->S_BPARM[R55.''precedes''];
-  end while;
-  // Look for a user''s class that matches the EE name
+  // Look for a user class that matches the EE name
   if(ee.Realized_Class_Path != "")
     VM::addUserClassPath(System_ID:sys.Sys_ID, path:ee.Realized_Class_Path);
   else
     VM::setUserClassPath(System_ID:sys.Sys_ID);
   end if;
-  success = VM::loadClass(system_id: sys.Sys_ID, name:ee.Key_Lett);
-  if (success)
+  loadedClass = VM::loadClass(system_id:sys.Sys_ID, name:ee.Key_Lett);
+  if ( loadedClass )
+    // Find the first parameter in the ordered relationship.  Use the ordered
+    // relationship so the user can get the parameter order in the model to match
+    // the order in the realized code.
+    select any parm related by brg->S_BPARM[R21];
+    firstParm = parm; 
+    while (not_empty firstParm)
+      select one firstParm related by parm->S_BPARM[R55.''succeeds''];
+      if (not_empty firstParm)
+        parm = firstParm;
+      end if;
+    end while;
+
+    convertedParms = false;
+    while (not_empty parm)
+      for each arg in args
+        if (parm.Name == arg.Name)
+          select one cval related by arg->V_VAL[R800];
+          select one ctype related by parm->S_DT[R22];
+          select any result related by stack_frame->I_VSF[R2951] where
+                                               selected.Value_ID == cval.Value_ID;
+          select one rtVal related by result->RV_RVL[R3305];
+          isByRef = false;
+          if (parm.By_Ref == 1)
+            isByRef = true;
+            convertedParms = true;
+            newValue = GD::convertToBPDataType(type: ctype.Name, value: rtVal.getValue());
+            rtVal.setValue(value:newValue);
+            cval.setValue(stack_frame_id: stack_frame.Stack_Frame_ID, value: newValue, member_id:GD::NULL_UNIQUE_ID());
+          end if;
+
+          VM::addArgumentValue(value:rtVal.getValue(), type:ctype.Name, byRef: isByRef);
+        end if;
+      end for;
+      select one parm related by parm->S_BPARM[R55.''precedes''];
+    end while;
+
     // Execute a method matching the bridge
     success = VM::execute(stack_frame_id:param.stack_frame_id, name: brg.Name);
-    if (success)    
+
+    if (convertedParms)    
       // Now convert any by ref parameters back to the original data type
       for each parm in parms
         for each arg in args
@@ -228,12 +188,12 @@ else
   for each arg in args
     stack_frame.popValue(value_id:arg.Value_ID);
   end for;
-end if;                                   
-
+end if;
 ',
 	1,
 	'',
-	"730927e7-9e9c-450f-84f7-821fb603831c");
+	"730927e7-9e9c-450f-84f7-821fb603831c",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("163b0786-09af-48f0-85e7-9019e74e4400",
 	"d124d99d-eaca-4c48-92c7-64fee4aad3e3",
@@ -357,7 +317,8 @@ end if;
 return true;',
 	1,
 	'',
-	"d124d99d-eaca-4c48-92c7-64fee4aad3e3");
+	"d124d99d-eaca-4c48-92c7-64fee4aad3e3",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("ddd8bde2-7d87-41bb-9048-713ada684c79",
 	"c2d83609-25e3-420a-b296-1a7ea27950f3",

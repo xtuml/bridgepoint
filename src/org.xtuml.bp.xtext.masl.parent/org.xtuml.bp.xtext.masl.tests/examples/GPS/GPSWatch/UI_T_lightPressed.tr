@@ -1,0 +1,4 @@
+private service UI::Tracking~>lightPressed () is
+begin
+  null;
+end service;

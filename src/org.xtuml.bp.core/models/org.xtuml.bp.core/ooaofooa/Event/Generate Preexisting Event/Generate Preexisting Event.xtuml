@@ -24,7 +24,8 @@ delete object instance self;
 ',
 	1,
 	'',
-	"00000000-0000-0000-0000-000000000000");
+	"00000000-0000-0000-0000-000000000000",
+	0);
 INSERT INTO O_TFR
 	VALUES ("76f76582-bd32-49d0-8d9e-93c3bc2a51d9",
 	"dc8e7dff-4cdb-4160-a179-2f0c9443d0fb",
@@ -59,7 +60,8 @@ USER::logError(msg:"Generate PreexistingEvent.execute: Could not find the "
 ',
 	1,
 	'',
-	"fc201293-01bc-43d8-ac39-ee8e50581739");
+	"fc201293-01bc-43d8-ac39-ee8e50581739",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("ca889b5c-efaf-40f2-87d1-7bf225a16174",
 	"76f76582-bd32-49d0-8d9e-93c3bc2a51d9",

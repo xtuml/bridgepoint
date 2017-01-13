@@ -1,12 +1,3 @@
-//====================================================================
-//
-//File:      $RCSfile: DocGenPlugin.java,v $
-//Version:   $Revision: 1.6 $
-//Modified:  $Date: 2013/01/10 23:43:44 $
-//
-//(c) Copyright 2008-2014 by Mentor Graphics Corp.  All rights reserved.
-//
-//====================================================================
 package org.xtuml.bp.x2m;
 
 import java.io.IOException;

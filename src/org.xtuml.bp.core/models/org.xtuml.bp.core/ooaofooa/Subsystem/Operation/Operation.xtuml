@@ -72,7 +72,8 @@ end for;
 delete object instance self;',
 	1,
 	'',
-	"f5cbf68b-c0d3-4bf6-8ca6-8415633d947b");
+	"f5cbf68b-c0d3-4bf6-8ca6-8415633d947b",
+	0);
 INSERT INTO O_TFR
 	VALUES ("82b17ab1-f21d-44aa-a143-90ee872f42c3",
 	"32854b2d-b225-40d9-abb2-4519ff4e4af7",
@@ -83,19 +84,8 @@ INSERT INTO O_TFR
 	1,
 	'select one clazz related by self->O_OBJ[R115];
 clazz.addOperationToOrdering(id:self.Tfr_ID);
-  // Owning Class is in a package . . . 
-  select one system related by self->O_OBJ[R115]->PE_PE[R8001]->
-                                                    EP_PKG[R8000]->S_SYS[R1405];
-  if not_empty system
-    dt_id = system.getCoreTypeId(name:"void");
-    select any pe from instances of PE_PE where selected.Element_ID == dt_id;
-    select one def_dt related by pe->S_DT[R8001];
-    relate self to def_dt across R116;
-  else
-    // this is an error, if the system is not
-    // found we cannot find the core type
-    USER::logError(msg:"Unable to locate system root for data type: void",path:"");
-  end if;
+
+self.setToDefaultDataType();
 
 name = ::getUniqueInitialName( 
     instance: self.convertToInstance(), 
@@ -107,11 +97,17 @@ else
  self.dispose();   
 end if;   
 self.Instance_Based = Scope::Instance;
+self.Dialect = PREF::getActionDialect(name:"bridgepoint_prefs_default_action_language_dialect");
+if ( self.Dialect == ActionDialect::masl )
+  // new MASL activities get initialized with the "null" statement
+  self.Action_Semantics_internal = "begin\n  null;\nend";
+end if;
 self.Suc_Pars = ParseStatus::parseInitial;
 ',
 	1,
 	'',
-	"82900736-052d-4b0a-a598-3eba3f030a05");
+	"82900736-052d-4b0a-a598-3eba3f030a05",
+	0);
 INSERT INTO O_TFR
 	VALUES ("535802ea-2f59-41e3-82a7-76e585a3e4be",
 	"32854b2d-b225-40d9-abb2-4519ff4e4af7",
@@ -125,7 +121,8 @@ parm.initialize();
 self.createParameterInInteractions(id:parm.TParm_ID);',
 	1,
 	'',
-	"c706de9b-8129-4184-89d7-8fd9006da379");
+	"c706de9b-8129-4184-89d7-8fd9006da379",
+	0);
 INSERT INTO O_TFR
 	VALUES ("f97970a1-2190-4754-9b4a-882ca20c6917",
 	"32854b2d-b225-40d9-abb2-4519ff4e4af7",
@@ -147,7 +144,8 @@ select one component related by packageableElem->C_C[R8003];
 ',
 	1,
 	'',
-	"360960c1-600a-4abe-968d-10ca28601831");
+	"360960c1-600a-4abe-968d-10ca28601831",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("1ba0a5bf-8281-4469-a672-616cc138f268",
 	"f97970a1-2190-4754-9b4a-882ca20c6917",
@@ -171,7 +169,8 @@ Translate: native',
 return this;',
 	0,
 	'',
-	"eaa0b1a7-9259-4724-9eb2-ef8926698fa4");
+	"eaa0b1a7-9259-4724-9eb2-ef8926698fa4",
+	0);
 INSERT INTO S_DT_PROXY
 	VALUES ("bc3722c8-5188-4529-8519-cf9eb9816b17",
 	"00000000-0000-0000-0000-000000000000",
@@ -189,7 +188,8 @@ INSERT INTO O_TFR
 	'return self.Tfr_ID;',
 	1,
 	'',
-	"75673610-97fd-4a09-b134-344f7bb30724");
+	"75673610-97fd-4a09-b134-344f7bb30724",
+	0);
 INSERT INTO O_TFR
 	VALUES ("bc4b0232-49dc-4954-9fd6-16d6ef01bef9",
 	"32854b2d-b225-40d9-abb2-4519ff4e4af7",
@@ -220,7 +220,8 @@ if(not_empty dtProxy and not Util::isProxy(element:self.convertToInstance()))
 end if;',
 	1,
 	'',
-	"5a2cfd95-ea2d-4499-8094-5297cb6409bd");
+	"5a2cfd95-ea2d-4499-8094-5297cb6409bd",
+	0);
 INSERT INTO O_TFR
 	VALUES ("67370533-0fb3-4375-b3f4-d4d470f38065",
 	"32854b2d-b225-40d9-abb2-4519ff4e4af7",
@@ -232,7 +233,8 @@ INSERT INTO O_TFR
 return dt.Name == "void";',
 	1,
 	'',
-	"c966ac78-22e5-416d-8228-3aa178ad290c");
+	"c966ac78-22e5-416d-8228-3aa178ad290c",
+	0);
 INSERT INTO O_TFR
 	VALUES ("75673610-97fd-4a09-b134-344f7bb30724",
 	"32854b2d-b225-40d9-abb2-4519ff4e4af7",
@@ -245,7 +247,8 @@ dimensions = cardinality dims;
 return dimensions;',
 	1,
 	'',
-	"e3cce374-c383-4bd3-bccd-8cea6fad673f");
+	"e3cce374-c383-4bd3-bccd-8cea6fad673f",
+	0);
 INSERT INTO O_TFR
 	VALUES ("5a2cfd95-ea2d-4499-8094-5297cb6409bd",
 	"32854b2d-b225-40d9-abb2-4519ff4e4af7",
@@ -278,7 +281,8 @@ end if;
 ',
 	1,
 	'',
-	"535802ea-2f59-41e3-82a7-76e585a3e4be");
+	"535802ea-2f59-41e3-82a7-76e585a3e4be",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("237361fb-c503-4ce1-821a-58cb253f03ae",
 	"5a2cfd95-ea2d-4499-8094-5297cb6409bd",
@@ -341,7 +345,8 @@ end if;
 ',
 	1,
 	'',
-	"84ba0f37-64a9-4043-9b90-50a63fe962a7");
+	"84ba0f37-64a9-4043-9b90-50a63fe962a7",
+	0);
 INSERT INTO O_TFR
 	VALUES ("84ba0f37-64a9-4043-9b90-50a63fe962a7",
 	"32854b2d-b225-40d9-abb2-4519ff4e4af7",
@@ -378,7 +383,8 @@ end if;
 ',
 	1,
 	'',
-	"67370533-0fb3-4375-b3f4-d4d470f38065");
+	"67370533-0fb3-4375-b3f4-d4d470f38065",
+	0);
 INSERT INTO O_TFR
 	VALUES ("77d1c376-72f6-43ea-990a-4be4e29f2777",
 	"32854b2d-b225-40d9-abb2-4519ff4e4af7",
@@ -399,7 +405,8 @@ return false;
 ',
 	1,
 	'',
-	"00000000-0000-0000-0000-000000000000");
+	"00000000-0000-0000-0000-000000000000",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("09143469-07e7-4c7b-9d8e-54c66cfb2d8f",
 	"77d1c376-72f6-43ea-990a-4be4e29f2777",
@@ -487,7 +494,8 @@ if (cardinality peers > 1)
 end if;',
 	1,
 	'',
-	"82b17ab1-f21d-44aa-a143-90ee872f42c3");
+	"82b17ab1-f21d-44aa-a143-90ee872f42c3",
+	0);
 INSERT INTO O_TFR
 	VALUES ("eaa0b1a7-9259-4724-9eb2-ef8926698fa4",
 	"32854b2d-b225-40d9-abb2-4519ff4e4af7",
@@ -506,7 +514,8 @@ return false;
 ',
 	1,
 	'',
-	"77d1c376-72f6-43ea-990a-4be4e29f2777");
+	"77d1c376-72f6-43ea-990a-4be4e29f2777",
+	0);
 INSERT INTO O_TFR
 	VALUES ("c966ac78-22e5-416d-8228-3aa178ad290c",
 	"32854b2d-b225-40d9-abb2-4519ff4e4af7",
@@ -523,7 +532,8 @@ return false;
 ',
 	1,
 	'',
-	"f97970a1-2190-4754-9b4a-882ca20c6917");
+	"f97970a1-2190-4754-9b4a-882ca20c6917",
+	0);
 INSERT INTO O_TFR
 	VALUES ("1cd1e65e-5629-48e7-bfd4-ae803c4f6d1e",
 	"32854b2d-b225-40d9-abb2-4519ff4e4af7",
@@ -536,7 +546,8 @@ return clazz.getContainingComponentId();
 ',
 	1,
 	'',
-	"bc4b0232-49dc-4954-9fd6-16d6ef01bef9");
+	"bc4b0232-49dc-4954-9fd6-16d6ef01bef9",
+	0);
 INSERT INTO O_TFR
 	VALUES ("4cf1c3a6-f9fd-4a60-888c-04954a2d3806",
 	"32854b2d-b225-40d9-abb2-4519ff4e4af7",
@@ -570,7 +581,8 @@ select one component related by packageableElem->C_C[R8003];
 ',
 	1,
 	'',
-	"1cd1e65e-5629-48e7-bfd4-ae803c4f6d1e");
+	"1cd1e65e-5629-48e7-bfd4-ae803c4f6d1e",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("6cedc647-1da3-4ae5-b583-10c8c17018b5",
 	"4cf1c3a6-f9fd-4a60-888c-04954a2d3806",
@@ -592,7 +604,8 @@ select one clazz related by self->O_OBJ[R115];
 return clazz.getContainerId();',
 	1,
 	'',
-	"4cf1c3a6-f9fd-4a60-888c-04954a2d3806");
+	"4cf1c3a6-f9fd-4a60-888c-04954a2d3806",
+	0);
 INSERT INTO O_TFR
 	VALUES ("93b06972-4984-47d9-8b6a-e9372acdefd8",
 	"32854b2d-b225-40d9-abb2-4519ff4e4af7",
@@ -615,7 +628,8 @@ if(not_empty opParm)
 end if;',
 	1,
 	'',
-	"c342c766-cfa1-4e69-86cd-3e3fbd3ed4b1");
+	"c342c766-cfa1-4e69-86cd-3e3fbd3ed4b1",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("6b6644f1-b55c-4fb3-84b3-bc9fcbd81b8c",
 	"93b06972-4984-47d9-8b6a-e9372acdefd8",
@@ -646,7 +660,8 @@ end for;
 ',
 	1,
 	'',
-	"93b06972-4984-47d9-8b6a-e9372acdefd8");
+	"93b06972-4984-47d9-8b6a-e9372acdefd8",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("c69a9334-ae85-47ef-abe3-7359779ca3d2",
 	"933d74df-6c9b-4f4c-948b-8a4bd0290ddd",
@@ -680,7 +695,8 @@ if(not_empty parameter)
 end if;',
 	1,
 	'',
-	"933d74df-6c9b-4f4c-948b-8a4bd0290ddd");
+	"933d74df-6c9b-4f4c-948b-8a4bd0290ddd",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("7c7d67f4-4ccb-4afc-8698-36c3591564db",
 	"6d3d58f5-ea5e-4b53-9036-2c09ed1c8354",
@@ -719,7 +735,8 @@ for each operation in operations
 end for;',
 	1,
 	'',
-	"6d3d58f5-ea5e-4b53-9036-2c09ed1c8354");
+	"6d3d58f5-ea5e-4b53-9036-2c09ed1c8354",
+	0);
 INSERT INTO O_TFR
 	VALUES ("8ba04a71-31b7-4503-90bc-f7c72b75672d",
 	"32854b2d-b225-40d9-abb2-4519ff4e4af7",
@@ -815,7 +832,8 @@ end if;
 return signature;',
 	1,
 	'',
-	"ca6f4164-2b36-4e87-a092-a73d2ed55435");
+	"ca6f4164-2b36-4e87-a092-a73d2ed55435",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("fe7adf66-2e41-4eee-b20e-1883ff031b71",
 	"8ba04a71-31b7-4503-90bc-f7c72b75672d",
@@ -825,6 +843,61 @@ INSERT INTO O_TPARM
 	'',
 	"00000000-0000-0000-0000-000000000000",
 	'');
+INSERT INTO O_TFR
+	VALUES ("526027fd-7223-4f59-a55a-d55a625c8850",
+	"32854b2d-b225-40d9-abb2-4519ff4e4af7",
+	'setToDefaultDataType',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'elementType = Util::getSimpleClassName(element:self.convertToInstance());
+defaultTypeName = S_DT::getDefaultDataTypeName(elementType:elementType);
+
+select one system related by self->O_OBJ[R115]->PE_PE[R8001]->EP_PKG[R8000]->S_SYS[R1405];
+if not_empty system
+  // Unhook from the current data type (if any)
+  select one currentDt related by self->S_DT[R116];
+  if ( not_empty currentDt )
+    unrelate self from currentDt across R116;
+  end if;
+  // Now connect to the default type
+  dt_id = system.getCoreTypeId(name:defaultTypeName);
+  select any pe from instances of PE_PE where selected.Element_ID == dt_id;
+  select one defaultDt related by pe->S_DT[R8001]; 
+  relate self to defaultDt across R116;
+else
+  // this is an error, if the system is not
+  // found we cannot find the core type
+  USER::logError(msg:"Unable to locate system root for data type: " + defaultTypeName,path:"");
+end if;
+',
+	1,
+	'',
+	"8ba04a71-31b7-4503-90bc-f7c72b75672d",
+	0);
+INSERT INTO O_TFR
+	VALUES ("2befe97c-e633-444b-a770-cc44b1e7371d",
+	"32854b2d-b225-40d9-abb2-4519ff4e4af7",
+	'downgradeCheck',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'isVisible = self.canReferToDataType();
+if ( not isVisible )
+  select one s_dt related by self->S_DT[R116];
+  Util::reportElementDowngraded(rto:s_dt.convertToInstance(), rgoDowngraded:self.convertToInstance(), relationship:"R116");
+  self.setToDefaultDataType();
+end if;
+
+// Check operation parameters
+select many o_tparms related by self->O_TPARM[R117];
+for each o_tparm in o_tparms
+  o_tparm.downgradeCheck();
+end for;',
+	1,
+	'',
+	"526027fd-7223-4f59-a55a-d55a625c8850",
+	0);
 INSERT INTO O_NBATTR
 	VALUES ("fedd7310-e864-45bb-abf6-b4c4e4a09551",
 	"32854b2d-b225-40d9-abb2-4519ff4e4af7");
@@ -912,9 +985,10 @@ INSERT INTO S_DT_PROXY
 INSERT INTO O_DBATTR
 	VALUES ("469a8d65-8e28-46f9-81a1-1a5b31e364f3",
 	"32854b2d-b225-40d9-abb2-4519ff4e4af7",
-	'self.Action_Semantics = ::convertRelocatableTags(in:self.Action_Semantics_internal);
+	'self.Action_Semantics = self.Action_Semantics_internal;
 ',
-	1);
+	1,
+	0);
 INSERT INTO O_BATTR
 	VALUES ("469a8d65-8e28-46f9-81a1-1a5b31e364f3",
 	"32854b2d-b225-40d9-abb2-4519ff4e4af7");
@@ -1143,6 +1217,31 @@ INSERT INTO O_ATTR
 	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
+INSERT INTO O_NBATTR
+	VALUES ("ad0610bc-594c-4195-806b-b4bab885fd69",
+	"32854b2d-b225-40d9-abb2-4519ff4e4af7");
+INSERT INTO O_BATTR
+	VALUES ("ad0610bc-594c-4195-806b-b4bab885fd69",
+	"32854b2d-b225-40d9-abb2-4519ff4e4af7");
+INSERT INTO O_ATTR
+	VALUES ("ad0610bc-594c-4195-806b-b4bab885fd69",
+	"32854b2d-b225-40d9-abb2-4519ff4e4af7",
+	"4b050f56-3443-49bd-ac27-b579c9154a50",
+	'Dialect',
+	'Full Name: Action Dialect',
+	'',
+	'Dialect',
+	0,
+	"7b54f646-a8a8-4b82-9bb0-cf5465115f3b",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("7b54f646-a8a8-4b82-9bb0-cf5465115f3b",
+	"00000000-0000-0000-0000-000000000000",
+	'ActionDialect',
+	'Enumerator for available action dialects',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_ID
 	VALUES (0,
 	"32854b2d-b225-40d9-abb2-4519ff4e4af7");

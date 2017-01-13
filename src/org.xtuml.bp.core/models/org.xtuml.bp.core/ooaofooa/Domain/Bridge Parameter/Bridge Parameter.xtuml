@@ -59,7 +59,8 @@ end for;
 delete object instance self;',
 	1,
 	'',
-	"c5831637-1430-48fe-b26b-674da6d63d09");
+	"c5831637-1430-48fe-b26b-674da6d63d09",
+	0);
 INSERT INTO O_TFR
 	VALUES ("332bdbdb-fd76-4c9c-a511-205781ed4a7d",
 	"b6e08131-fb43-412a-8d6c-4c30a1664b17",
@@ -110,7 +111,8 @@ else
 end if;    ',
 	1,
 	'',
-	"d92aec2c-ea5c-4866-9c37-c0294ddabfd4");
+	"d92aec2c-ea5c-4866-9c37-c0294ddabfd4",
+	0);
 INSERT INTO O_TFR
 	VALUES ("933a29af-37ab-4b50-b4ba-b48eb4a0062c",
 	"b6e08131-fb43-412a-8d6c-4c30a1664b17",
@@ -129,7 +131,8 @@ select one packageableElem related by self->S_BRG[R21]->S_EE[R19]->PE_PE[R8001];
 ',
 	1,
 	'',
-	"332bdbdb-fd76-4c9c-a511-205781ed4a7d");
+	"332bdbdb-fd76-4c9c-a511-205781ed4a7d",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("82034ed2-4378-488b-a924-e581cbf1e98a",
 	"933a29af-37ab-4b50-b4ba-b48eb4a0062c",
@@ -153,7 +156,8 @@ Translate: native',
 return this;',
 	0,
 	'',
-	"4c4c5913-2eb9-4cec-a565-a74e4a963f37");
+	"4c4c5913-2eb9-4cec-a565-a74e4a963f37",
+	0);
 INSERT INTO S_DT_PROXY
 	VALUES ("bc3722c8-5188-4529-8519-cf9eb9816b17",
 	"00000000-0000-0000-0000-000000000000",
@@ -194,7 +198,8 @@ select one dt related by self->S_DT[R22];
 return dt.getDefaultValue();',
 	1,
 	'',
-	"2a656ee1-370c-4e6c-9047-9e48ea659630");
+	"2a656ee1-370c-4e6c-9047-9e48ea659630",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("0de61486-4f56-4fc5-b5b7-13253b6e5807",
 	"d92aec2c-ea5c-4866-9c37-c0294ddabfd4",
@@ -236,7 +241,8 @@ end for;
 USER::logError(msg:"Error in Bridge Parameter.setValue: Could not find the local value in the stack frame.",path:self.getPath());',
 	1,
 	'',
-	"20d4da7f-f22b-454f-9af6-befba8eaae2e");
+	"20d4da7f-f22b-454f-9af6-befba8eaae2e",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("0b58ee97-3c8b-4ccd-8331-e129d3674c66",
 	"9eb08b6d-87b9-4b6d-86e0-d53c47daace3",
@@ -293,7 +299,8 @@ if(not_empty dtProxy and not Util::isProxy(element:self.convertToInstance()))
 end if;',
 	1,
 	'',
-	"8bc50b20-707d-44aa-b9cd-b8743de7a677");
+	"8bc50b20-707d-44aa-b9cd-b8743de7a677",
+	0);
 INSERT INTO O_TFR
 	VALUES ("2a656ee1-370c-4e6c-9047-9e48ea659630",
 	"b6e08131-fb43-412a-8d6c-4c30a1664b17",
@@ -307,7 +314,8 @@ return dimensions;
 ',
 	1,
 	'',
-	"a209d1bc-321d-4733-97b8-555d954aa91f");
+	"a209d1bc-321d-4733-97b8-555d954aa91f",
+	0);
 INSERT INTO O_TFR
 	VALUES ("8bc50b20-707d-44aa-b9cd-b8743de7a677",
 	"b6e08131-fb43-412a-8d6c-4c30a1664b17",
@@ -340,7 +348,8 @@ end if;
 ',
 	1,
 	'',
-	"6930f9a1-f116-444a-925a-f17079925a5f");
+	"6930f9a1-f116-444a-925a-f17079925a5f",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("03a77d6e-6147-4f50-a857-7362449eba40",
 	"8bc50b20-707d-44aa-b9cd-b8743de7a677",
@@ -403,7 +412,8 @@ end if;
 ',
 	1,
 	'',
-	"7c51cc2a-1c27-4c44-bc7e-b812a3aba080");
+	"7c51cc2a-1c27-4c44-bc7e-b812a3aba080",
+	0);
 INSERT INTO O_TFR
 	VALUES ("7c51cc2a-1c27-4c44-bc7e-b812a3aba080",
 	"b6e08131-fb43-412a-8d6c-4c30a1664b17",
@@ -440,7 +450,8 @@ end if;
 ',
 	1,
 	'',
-	"954690c8-5c69-4717-a89c-156e451e8c2c");
+	"954690c8-5c69-4717-a89c-156e451e8c2c",
+	0);
 INSERT INTO O_TFR
 	VALUES ("dde831a7-be57-4921-8f25-a43362a94ad2",
 	"b6e08131-fb43-412a-8d6c-4c30a1664b17",
@@ -461,7 +472,8 @@ return false;
 ',
 	1,
 	'',
-	"00000000-0000-0000-0000-000000000000");
+	"00000000-0000-0000-0000-000000000000",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("6512f1a0-f2f3-43a9-8efb-d4a055422c57",
 	"dde831a7-be57-4921-8f25-a43362a94ad2",
@@ -499,7 +511,8 @@ return false;
 ',
 	1,
 	'',
-	"dde831a7-be57-4921-8f25-a43362a94ad2");
+	"dde831a7-be57-4921-8f25-a43362a94ad2",
+	0);
 INSERT INTO O_TFR
 	VALUES ("954690c8-5c69-4717-a89c-156e451e8c2c",
 	"b6e08131-fb43-412a-8d6c-4c30a1664b17",
@@ -516,7 +529,8 @@ return false;
 ',
 	1,
 	'',
-	"933a29af-37ab-4b50-b4ba-b48eb4a0062c");
+	"933a29af-37ab-4b50-b4ba-b48eb4a0062c",
+	0);
 INSERT INTO O_TFR
 	VALUES ("4c4c5913-2eb9-4cec-a565-a74e4a963f37",
 	"b6e08131-fb43-412a-8d6c-4c30a1664b17",
@@ -549,7 +563,8 @@ select one component related by packageableElem->C_C[R8003];
 ',
 	1,
 	'',
-	"65750a88-49ba-4afa-85a7-eee7910d2014");
+	"65750a88-49ba-4afa-85a7-eee7910d2014",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("70305d22-c019-494f-a6a0-f924c1b6c2b4",
 	"4c4c5913-2eb9-4cec-a565-a74e4a963f37",
@@ -572,7 +587,8 @@ return self.Name+"::"+ee.getPath();
 ',
 	1,
 	'',
-	"9eb08b6d-87b9-4b6d-86e0-d53c47daace3");
+	"9eb08b6d-87b9-4b6d-86e0-d53c47daace3",
+	0);
 INSERT INTO O_TFR
 	VALUES ("5883f770-5cb3-48a9-a0ca-e376b240f4fb",
 	"b6e08131-fb43-412a-8d6c-4c30a1664b17",
@@ -604,7 +620,58 @@ for each parameter in parameters
 end for;',
 	1,
 	'',
-	"8fe48bcf-f2a9-46f9-aba1-e015773db445");
+	"8fe48bcf-f2a9-46f9-aba1-e015773db445",
+	0);
+INSERT INTO O_TFR
+	VALUES ("1b8e20d1-c279-403e-80fd-230e74311589",
+	"b6e08131-fb43-412a-8d6c-4c30a1664b17",
+	'setToDefaultDataType',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'elementType = Util::getSimpleClassName(element:self.convertToInstance());
+defaultTypeName = S_DT::getDefaultDataTypeName(elementType:elementType);
+
+select one system related by self->S_BRG[R21]->S_EE[R19]->PE_PE[R8001]->EP_PKG[R8000]->S_SYS[R1405];
+if not_empty system
+  // Unhook from the current data type (if any)
+  select one currentDt related by self->S_DT[R22];
+  if ( not_empty currentDt )
+    unrelate self from currentDt across R22;
+  end if;
+  // Now connect to the default type
+  dt_id = system.getCoreTypeId(name:defaultTypeName);
+  select any pe from instances of PE_PE where selected.Element_ID == dt_id;
+  select one defaultDt related by pe->S_DT[R8001]; 
+  relate self to defaultDt across R22;
+else
+  // this is an error, if the system is not
+  // found we cannot find the core type
+  USER::logError(msg:"Unable to locate system root for data type: " + defaultTypeName,path:"");
+end if;
+',
+	1,
+	'',
+	"5883f770-5cb3-48a9-a0ca-e376b240f4fb",
+	0);
+INSERT INTO O_TFR
+	VALUES ("e7f86aad-a5b0-4bb0-9b3e-a72a45f42f71",
+	"b6e08131-fb43-412a-8d6c-4c30a1664b17",
+	'downgradeCheck',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'isVisible = self.canReferToDataType();
+if ( not isVisible )
+  select one s_dt related by self->S_DT[R22];
+  Util::reportElementDowngraded(rto:s_dt.convertToInstance(), rgoDowngraded:self.convertToInstance(), relationship:"R22");
+  self.setToDefaultDataType();
+end if;
+',
+	1,
+	'',
+	"1b8e20d1-c279-403e-80fd-230e74311589",
+	0);
 INSERT INTO O_NBATTR
 	VALUES ("8d625520-f25f-4d8c-8d3a-3158467d9cf9",
 	"b6e08131-fb43-412a-8d6c-4c30a1664b17");

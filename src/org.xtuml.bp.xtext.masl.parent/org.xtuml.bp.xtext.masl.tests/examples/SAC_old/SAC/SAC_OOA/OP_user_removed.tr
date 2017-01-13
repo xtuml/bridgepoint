@@ -1,0 +1,12 @@
+//
+// Filename: OP_user_removed.tr
+//
+// Description: Allows the domain to report that the user has been deleted.
+//
+// UK Crown Copyright (c) 2010,2014. All rights reserved.
+//
+private service SAC::Operator~>user_removed (user_id    : in  integer,
+                                             login_name : in  string) is
+begin
+  null;
+end;

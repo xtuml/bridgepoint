@@ -30,7 +30,8 @@ end if;
 return "";',
 	1,
 	'',
-	"279d1e2c-4e5e-40d5-8d78-50cb6110e932");
+	"279d1e2c-4e5e-40d5-8d78-50cb6110e932",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("f5057471-2a79-421b-b6eb-4847c5739c2f",
 	"3a87299c-c682-4764-82ca-9af0fba9cd7a",
@@ -95,7 +96,8 @@ INSERT INTO O_TFR
 	'return self.Id;',
 	1,
 	'',
-	"3a87299c-c682-4764-82ca-9af0fba9cd7a");
+	"3a87299c-c682-4764-82ca-9af0fba9cd7a",
+	0);
 INSERT INTO O_TFR
 	VALUES ("39d8a097-40d3-434c-8f6a-547e76b85171",
 	"e695ccff-28f5-4931-89dd-59c6995c1a73",
@@ -114,7 +116,8 @@ end if;
 return Style::None;',
 	1,
 	'',
-	"f770bf6e-4158-425a-97fe-079e93ebbaaa");
+	"f770bf6e-4158-425a-97fe-079e93ebbaaa",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("617fac49-97b1-4139-ace0-0c2b6aba212e",
 	"39d8a097-40d3-434c-8f6a-547e76b85171",
@@ -146,7 +149,8 @@ Translate: native',
 	'return this;',
 	0,
 	'',
-	"00000000-0000-0000-0000-000000000000");
+	"00000000-0000-0000-0000-000000000000",
+	0);
 INSERT INTO S_DT_PROXY
 	VALUES ("bc3722c8-5188-4529-8519-cf9eb9816b17",
 	"00000000-0000-0000-0000-000000000000",
@@ -187,7 +191,8 @@ end if;
 delete object instance self;',
 	1,
 	'',
-	"37efc267-e5f7-4431-bd2d-7588df14f365");
+	"37efc267-e5f7-4431-bd2d-7588df14f365",
+	0);
 INSERT INTO O_TFR
 	VALUES ("be50b5df-4c0d-4f5c-a20a-3a1fbf8163cc",
 	"e695ccff-28f5-4931-89dd-59c6995c1a73",
@@ -210,7 +215,8 @@ if(not_empty referenceProxy) and
 end if;',
 	1,
 	'',
-	"39d8a097-40d3-434c-8f6a-547e76b85171");
+	"39d8a097-40d3-434c-8f6a-547e76b85171",
+	0);
 INSERT INTO O_TFR
 	VALUES ("57e43d30-8519-4d55-af14-1ab2a5b37fa7",
 	"e695ccff-28f5-4931-89dd-59c6995c1a73",
@@ -234,7 +240,8 @@ end if;
 return true;',
 	1,
 	'',
-	"be50b5df-4c0d-4f5c-a20a-3a1fbf8163cc");
+	"be50b5df-4c0d-4f5c-a20a-3a1fbf8163cc",
+	0);
 INSERT INTO O_TFR
 	VALUES ("f2998785-d5b4-4f88-a388-d6901d90ffe3",
 	"e695ccff-28f5-4931-89dd-59c6995c1a73",
@@ -249,7 +256,8 @@ end if;
 return false;',
 	1,
 	'',
-	"57e43d30-8519-4d55-af14-1ab2a5b37fa7");
+	"57e43d30-8519-4d55-af14-1ab2a5b37fa7",
+	0);
 INSERT INTO O_TFR
 	VALUES ("5f553380-c0cf-4f1e-bd9a-267b9f63ca77",
 	"e695ccff-28f5-4931-89dd-59c6995c1a73",
@@ -265,7 +273,32 @@ end if;
 return false;',
 	1,
 	'',
-	"f2998785-d5b4-4f88-a388-d6901d90ffe3");
+	"f2998785-d5b4-4f88-a388-d6901d90ffe3",
+	0);
+INSERT INTO O_TFR
+	VALUES ("ea00ad91-0fc8-4c20-9f6a-e3011268905f",
+	"e695ccff-28f5-4931-89dd-59c6995c1a73",
+	'downgradeCheck',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'isAccessible = true; 
+
+// We only need to run this check if this component reference is assigned
+if ( self.isSynchronized() )
+  isAccessible = self.canReferToInterfaceReference();
+
+  if ( not isAccessible )
+    select one c_ir related by self->C_IR[R4701];
+    self.dispose();
+    Util::reportElementDowngraded(rto:self.convertToInstance(), rgoDowngraded:c_ir.convertToInstance(), relationship:"R4701");
+  end if;
+end if;
+',
+	1,
+	'',
+	"5f553380-c0cf-4f1e-bd9a-267b9f63ca77",
+	0);
 INSERT INTO O_DBATTR
 	VALUES ("0f68d4c5-0940-4d36-88bf-19738358b7b8",
 	"e695ccff-28f5-4931-89dd-59c6995c1a73",
@@ -279,7 +312,8 @@ if(not_empty requirement)
   name = requirement.Name;
 end if;
 self.Name = name;',
-	1);
+	1,
+	0);
 INSERT INTO O_BATTR
 	VALUES ("0f68d4c5-0940-4d36-88bf-19738358b7b8",
 	"e695ccff-28f5-4931-89dd-59c6995c1a73");

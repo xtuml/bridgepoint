@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: BridgePoint Text Plug-in
 Bundle-SymbolicName: org.xtuml.bp.ui.text; singleton:=true
-Bundle-Version: 5.5.0
+Bundle-Version: 5.8.6
 Bundle-ClassPath: text.jar
 Bundle-Activator: org.xtuml.bp.ui.text.TextPlugin
 Bundle-Vendor: xtUML.org
@@ -14,7 +14,8 @@ Export-Package: org.xtuml.bp.ui.text,
  org.xtuml.bp.ui.text.editor.oal,
  org.xtuml.bp.ui.text.editor.oal.preference,
  org.xtuml.bp.ui.text.masl,
- org.xtuml.bp.ui.text.placeholder
+ org.xtuml.bp.ui.text.placeholder,
+ org.xtuml.bp.ui.text.typedefinition
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.ui,
  org.eclipse.core.resources,
@@ -27,4 +28,5 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.ui.editors,
  org.eclipse.ui.ide
 Bundle-ActivationPolicy: lazy
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Eclipse-BundleShape: dir

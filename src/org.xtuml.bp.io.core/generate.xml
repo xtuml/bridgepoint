@@ -1,27 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-
- File:      $RCSfile: generate.xml,v $
- Version:   $Revision: 1.39 $
- Modified:  $Date: 2013/01/10 23:07:28 $
-
- (c) Copyright 2004-2014 by Mentor Graphics Corp.  All rights reserved.
-
--->
 <project name="bp.io.core" default="all" basedir=".">
+
+  <import file="../MC-Java/common.xml"/>
+
   <target name="all"
           description="Generate all code for this project"
-          depends="sql,schema,compile_grammar,format_java">
+          depends="sql,schema,compile_grammar,compile_action_grammar,format_java">
   </target>
 
   <target name="nb_all"
           description="Generate all code for this project"
-          depends="sql,schema,compile_grammar">
+          depends="sql,schema,compile_grammar,compile_action_grammar">
   </target>
 
-  <property name="eclipse-home" value="${basedir}/../.."/>
   <property name="plugins-home" value="${ant.home}/../.."/>
-  <property name="util_bin_dir" value="${eclipse-home}/src/org.xtuml.bp.mc.c.source/mc3020/bin"/>
 
   <property name="sql.input" value="models/org.xtuml.bp.io.core/file_io" />
   <property name="sql.output" value="file_io.sql" />
@@ -38,13 +30,12 @@
           unless="sql.buildNotNeeded" >
     <echo >Generating ${sql.output} ...</echo>
   	<copy file="../org.xtuml.bp.pkg/globals/Globals.xtuml" tofile="${sql.input}/Globals.xtuml" />
-  	<exec vmlauncher="false" failonerror="true" executable="${util_bin_dir}/xtumlmc_build.exe" >
+  	<exec vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
       <arg line="xtumlmc_cleanse_for_BridgePoint ${sql.input} sql/${sql.output} ${subsystems_to_remove}"/>
   	</exec>
     <delete file="${sql.input}/Globals.xtuml" />
   </target>
 
-  <property name="mcj_path" value="../MC-Java" />
   <property name="sg.dep" value="ooa_schema.sql,schema_gen.arc" />
   <property name="schema.output" value="file_io_schema.sql" />
 
@@ -94,56 +85,10 @@
         </PTCodeFormat>
   </target>
 
-  <!-- COMPILE TARGETS -->
-
-  <!-- This target is not used in the eclipse environment.  The eclipse Java
-       builder handles the java compilation when building BridgePoint under
-       eclipse.  This target is used only when building BridgePoint from the
-       command line on the build server. -->
-  <target name="compile"
-                  description="Compile project" >
-
-    <echo>Compiling ${ant.project.name}</echo>
-
-    <mkdir dir="bin" />
-
-    <javac memoryinitialsize="512m" memorymaximumsize="512m" source="1.6"
-        fork="yes" destdir="bin" debug="true" debuglevel="lines,vars,source" encoding="UTF-8">
-       <src path="src/org/xtuml/bp/io/core" />
-       <classpath>
-         <pathelement path="../org.xtuml.bp.core/bin" />
-         <pathelement path="../org.xtuml.bp.ui.canvas/bin" />
-         <pathelement path="../org.xtuml.bp.ui.graphics/bin" />
-         <pathelement path="../org.xtuml.bp.ui.text/bin" />
-         <pathelement path="../org.xtuml.bp.ui.explorer/bin" />
-         <pathelement path="../org.xtuml.bp.als.oal/bin" />
-         <fileset dir="${eclipse-home}/plugins" casesensitive="yes">
-           <include name="**/org.eclipse.osgi_*.jar" />
-           <include name="**/org.eclipse.ui.ide_*.jar" />
-           <include name="**/org.antlr_*/antlr.jar" />
-           <include name="**/org.eclipse.jface_*.jar" />
-           <include name="**/org.eclipse.core.runtime_*.jar" />
-           <include name="**/org.eclipse.core.resources_*.jar" />
-           <include name="**/org.eclipse.ui.workbench_*.jar" />
-           <include name="**/org.eclipse.swt.win32.win32.x86_*.jar" />
-           <include name="**/org.eclipse.ui_*.jar" />
-           <include name="**/org.eclipse.ui.views_*.jar" />
-           <include name="**/org.eclipse.jface.text_*.jar" />
-           <include name="**/org.eclipse.ui.workbench.texteditor_*.jar" />
-           <include name="**/org.eclipse.ui.editors_*.jar" />
-           <include name="**/org.eclipse.equinox.common_*.jar"/>
-           <include name="**/org.eclipse.equinox.registry_*.jar"/>
-           <include name="**/org.eclipse.core.commands_*.jar"/>
-           <include name="**/org.eclipse.core.jobs_*.jar"/>
-           <include name="**/org.eclipse.gef_*.jar"/>
-         </fileset>
-       </classpath>
-    </javac>
-
-  </target>
-
   <property name="grammar-folder" value="./src/org/xtuml/bp/io/core"/>
   <property name="antlr-output" value="SqlLexer.java"/>
+  <property name="antlr-action-output1" value="SignatureLexer.java"/>
+  <property name="antlr-action-output2" value="BodyLexer.java"/>
 
   <target name="compile_grammar.depends" >
     <uptodate property="compile_grammar.NotNeeded"
@@ -156,10 +101,44 @@
      description="Compile bp.io.core antlr grammar"
     unless="compile_grammar.NotNeeded" >
 
-    <echo >Eclipse home: ${eclipse-home}</echo>
+    <echo >Eclipse home: ${eclipse.home}</echo>
     <echo >Plugins home: ${plugins-home}</echo>
   	
     <antlr target="${grammar-folder}/sql_insert.g" >
+      <classpath>
+  	    <fileset dir="${plugins-home}/plugins" casesensitive="yes">
+  	      <include name="**/antlr.jar" />
+  	    </fileset>
+  	  </classpath>
+    </antlr>
+
+  </target>
+
+  <target name="compile_action_grammar.depends" >
+    <uptodate property="compile_action_grammar.NotNeeded"
+      srcfile="${grammar-folder}/actions.g"
+      targetfile="${grammar-folder}/${antlr-action-output1}"/>
+    <uptodate property="compile_action_grammar.NotNeeded"
+      srcfile="${grammar-folder}/body.g"
+      targetfile="${grammar-folder}/${antlr-action-output2}"/>
+  </target>
+
+  <target name="compile_action_grammar"
+     depends="compile_action_grammar.depends"
+     description="Compile bp.io.core antlr grammar"
+    unless="compile_action_grammar.NotNeeded" >
+
+    <echo >Eclipse home: ${eclipse.home}</echo>
+    <echo >Plugins home: ${plugins-home}</echo>
+  	
+    <antlr target="${grammar-folder}/actions.g" >
+      <classpath>
+  	    <fileset dir="${plugins-home}/plugins" casesensitive="yes">
+  	      <include name="**/antlr.jar" />
+  	    </fileset>
+  	  </classpath>
+    </antlr>
+    <antlr target="${grammar-folder}/body.g" >
       <classpath>
   	    <fileset dir="${plugins-home}/plugins" casesensitive="yes">
   	      <include name="**/antlr.jar" />
@@ -205,12 +184,14 @@
   </target>
 
   <target name="clean_antlr_files"
-        description="Remove the files generated by the sql_insert.g antlr grammar file" >
+        description="Remove the files generated by the sql_insert.g and actions.g antlr grammar files" >
 
-   <echo>Removing the files generated by the sql_insert.g antlr grammar file ...</echo>
+   <echo>Removing the files generated by the sql_insert.g and actions.g antlr grammar files ...</echo>
    <delete verbose="true" >
      <fileset dir="${grammar-folder}" includes="SqlLexer.java, SqlParser.java,
-     SqlTokenTypes.java, SqlTokenTypes.txt" />
+     SqlTokenTypes.java, SqlTokenTypes.txt, ActionLexer.java, SignatureLexer.java, ActionParser.java,
+     ActionTokenTypes.java, ActionTokenTypes.txt, BodyLexer.java, BodyParser.java, BodyParserTokenTypes.java,
+     BodyParserTokenTypes.txt" />
    </delete>
 
   </target>

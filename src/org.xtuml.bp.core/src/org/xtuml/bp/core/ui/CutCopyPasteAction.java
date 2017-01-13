@@ -15,14 +15,20 @@
 //
 package org.xtuml.bp.core.ui;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.PlatformUI;
+import org.xtuml.bp.core.CorePlugin;
+import org.xtuml.bp.core.DataType_c;
+import org.xtuml.bp.core.Package_c;
 import org.xtuml.bp.core.PackageableElement_c;
 import org.xtuml.bp.core.common.NonRootModelElement;
 
@@ -38,9 +44,9 @@ public abstract class CutCopyPasteAction extends Action {
 	
 	protected String transactioName;
 	
-	protected static boolean MOVE_IS_IN_PROGRESS = false;
+	private static boolean MOVE_IS_IN_PROGRESS = false;
 
-	protected static List<NonRootModelElement> ELEMENT_MOVE_SOURCE_SELECTION = new ArrayList<NonRootModelElement>();
+	public static ArrayList<NonRootModelElement> ELEMENT_MOVE_SOURCE_SELECTION = new ArrayList<NonRootModelElement>();
 	public CutCopyPasteAction() {
 		if (getActionType() == CUT_TYPE) {
 			setImageDescriptor(PlatformUI.getWorkbench().getSharedImages()
@@ -67,13 +73,66 @@ public abstract class CutCopyPasteAction extends Action {
 		return MOVE_IS_IN_PROGRESS;
 	}
 	
-	public static boolean selectionContainsOnlyPEs() {
+	public static void startMove() {
+		startMove(true);
+	}
+	
+	public static void startMove(boolean clearSelection) {
+		MOVE_IS_IN_PROGRESS = true;
+		if(clearSelection) {
+			ELEMENT_MOVE_SOURCE_SELECTION.clear();
+		}
+	}
+	
+	public static void stopMove() {
+		MOVE_IS_IN_PROGRESS = false;
+		ELEMENT_MOVE_SOURCE_SELECTION.clear();
+		// Clear the clipboard to prevent another paste
+		CorePlugin.getSystemClipboard().clearContents();
+	}
+		
+	public static boolean selectionIsCuttable() {
 		NonRootModelElement[] selectedNRMEs = Selection.getInstance().getSelectedNonRootModelElements();;
-		for(int i = 0; i < selectedNRMEs.length; i++) {
-			PackageableElement_c pe_pe = selectedNRMEs[i].getPE();
-			if (null == pe_pe) {
+		boolean cuttable = true;
+		
+                // Filter the selection based on valid selection definition
+		for (int i = 0; cuttable && i < selectedNRMEs.length; i++) {
+                    NonRootModelElement element = selectedNRMEs[i];
+		    NonRootModelElement rto = selectedNRMEs[i].getRTOElementForResolution();    // for DataTypes, gets the DataType_c instance
+                    if ( rto instanceof DataType_c ) element = rto;
+
+                    // use reflection to call "isCuttable"
+                    Class elementClass = element.getClass();
+                    try {
+                        Method isCuttable = elementClass.getMethod( "Iscuttable" );
+                        cuttable = (boolean)isCuttable.invoke( element );
+                    }
+                    catch ( NoSuchMethodException e ) {
+                        cuttable = false;
+                    } catch ( NullPointerException e ) {
+                        cuttable = false;
+                    } catch ( SecurityException e ) {
+                        cuttable = false;
+                    } catch ( IllegalAccessException e ) {
+                        cuttable = false;
+                    } catch ( IllegalArgumentException e ) {
+                        cuttable = false;
+                    } catch ( InvocationTargetException e ) {
+                        cuttable = false;
+                    } catch ( ExceptionInInitializerError e ) {
+                        cuttable = false;
+                    }
+		}
+		return cuttable;
+	}
+	
+	public static boolean selectionContainsOnlyCoreElements() {
+		IStructuredSelection selection = (IStructuredSelection) Selection.getInstance().getStructuredSelection();
+		for(Iterator<?> iterator = selection.iterator(); iterator.hasNext();) {
+			Object selected = iterator.next();
+			if(!(selected instanceof NonRootModelElement)) {
 				return false;
-			} 
+			}
 		}
 		return true;
 	}

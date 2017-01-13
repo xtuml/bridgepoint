@@ -28,7 +28,8 @@ delete object instance self;
 ',
 	1,
 	'',
-	"00000000-0000-0000-0000-000000000000");
+	"00000000-0000-0000-0000-000000000000",
+	0);
 INSERT INTO O_TFR
 	VALUES ("8c6e0672-e93f-43ec-be61-977d475a2d37",
 	"217ade74-f54e-4fda-8497-0513abeb05fc",
@@ -44,7 +45,8 @@ else
 end if;',
 	1,
 	'',
-	"bbf2faf3-9078-4669-80ea-e1a29871c1b8");
+	"bbf2faf3-9078-4669-80ea-e1a29871c1b8",
+	0);
 INSERT INTO O_TFR
 	VALUES ("8165af3c-0cb2-4f7d-b2fc-2facb7e7f9ec",
 	"217ade74-f54e-4fda-8497-0513abeb05fc",
@@ -61,7 +63,8 @@ return this;
 ',
 	0,
 	'',
-	"8c6e0672-e93f-43ec-be61-977d475a2d37");
+	"8c6e0672-e93f-43ec-be61-977d475a2d37",
+	0);
 INSERT INTO S_DT_PROXY
 	VALUES ("bc3722c8-5188-4529-8519-cf9eb9816b17",
 	"00000000-0000-0000-0000-000000000000",
@@ -123,9 +126,10 @@ INSERT INTO O_ATTR
 INSERT INTO O_DBATTR
 	VALUES ("d248b6c2-83f5-43d1-8c58-45299a874a3f",
 	"217ade74-f54e-4fda-8497-0513abeb05fc",
-	'self.Action_Semantics = ::convertRelocatableTags(in:self.Action_Semantics_internal);
+	'self.Action_Semantics = self.Action_Semantics_internal;
 ',
-	1);
+	1,
+	0);
 INSERT INTO O_BATTR
 	VALUES ("d248b6c2-83f5-43d1-8c58-45299a874a3f",
 	"217ade74-f54e-4fda-8497-0513abeb05fc");
@@ -235,6 +239,31 @@ INSERT INTO O_ATTR
 	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
+INSERT INTO O_NBATTR
+	VALUES ("08743d74-46e7-4b25-b76f-064d1f608e5d",
+	"217ade74-f54e-4fda-8497-0513abeb05fc");
+INSERT INTO O_BATTR
+	VALUES ("08743d74-46e7-4b25-b76f-064d1f608e5d",
+	"217ade74-f54e-4fda-8497-0513abeb05fc");
+INSERT INTO O_ATTR
+	VALUES ("08743d74-46e7-4b25-b76f-064d1f608e5d",
+	"217ade74-f54e-4fda-8497-0513abeb05fc",
+	"be8bb698-b07a-4cd4-8274-14793c1f063a",
+	'Dialect',
+	'Full Name: Action Dialect',
+	'',
+	'Dialect',
+	0,
+	"7b54f646-a8a8-4b82-9bb0-cf5465115f3b",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("7b54f646-a8a8-4b82-9bb0-cf5465115f3b",
+	"00000000-0000-0000-0000-000000000000",
+	'ActionDialect',
+	'Enumerator for available action dialects',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_ID
 	VALUES (0,
 	"217ade74-f54e-4fda-8497-0513abeb05fc");

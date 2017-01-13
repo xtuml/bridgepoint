@@ -34,6 +34,8 @@
 .function gen_write_attr_function
   .param inst_ref table
   .param string callingProject
+  .param boolean multilevel
+  .param boolean stream
   .if (callingProject == "BP")
     .if (table.Key_Lett == "GD_MD")
   Diagram_c diagram = Diagram_c.getOneDIM_DIAOnR18(inst);
@@ -74,7 +76,38 @@
     .invoke a = get_attribute_accessor( col )
     .if ( col.type == "string" )
   m_fh.print( "'"); //$$NON-NLS-1$$
+      .if ( (((multilevel) AND (not stream)) AND (col.Name == "Action_Semantics_internal")) )
+        .// exclude action semantics
+
+    // get the dialect
+    int dialect = -1;
+    try {
+        Method getDialectMethod = inst.getClass().getMethod("getDialect");
+        dialect = (int) getDialectMethod.invoke(inst);
+    } catch ( NoSuchMethodException e ) {
+        System.out.println( e );
+    } catch ( NullPointerException e ) {
+        System.out.println( e );
+    } catch ( SecurityException e ) {
+        System.out.println( e );
+    } catch ( IllegalAccessException e ) {
+        System.out.println( e );
+    } catch ( IllegalArgumentException e ) {
+        System.out.println( e );
+    } catch ( InvocationTargetException e ) {
+        System.out.println( e );
+    } catch ( ExceptionInInitializerError e ) {
+        System.out.println( e );
+    }
+
+  IPreferenceStore store = org.xtuml.bp.core.CorePlugin.getDefault().getPreferenceStore();
+  String persistActivities = store.getString(BridgePointPreferencesStore.ACTIVITY_PERSISTENCE);
+  if ( persistActivities.equals(BridgePointPreferencesStore.NO_PERSIST_ACTIVITY_FILES) || dialect != Actiondialect_c.masl ) {
+      m_fh.print( inst.${a.body}().replaceAll( "'", "''" ) ); //$$NON-NLS-1$$ //$$NON-NLS-2$$
+  }
+      .else
   m_fh.print( inst.${a.body}().replaceAll( "'", "''" ) ); //$$NON-NLS-1$$ //$$NON-NLS-2$$
+      .end if
   m_fh.print( "'"); //$$NON-NLS-1$$
     .elif ( col.type == "boolean" )
       .if((table.Key_Lett == "S_SYS") and (col.Name == "useGlobals"))
@@ -245,19 +278,11 @@
     .//
     .select one col related by col->C[R6.'precedes']
     .if ( not_empty col )
-      .if ( (table.Key_Lett == "CA_SMSMC") and (col.Name == "OIObj_ID") )
-  if ( ! m_is_fully_derived )
-  {
-      .end if
       .// if code we're currently outputting is for BP 6.1 connector-texts, we
       .// don't need to output the enclosed delimeter, since the code
       .// for all columns is generated together in one block, above
       .if ((callingProject != "BP") or (table.Key_Lett != "GD_CTXT"))
   m_fh.print(",\n\t");  //$$NON-NLS-1$$
-      .end if
-    .else
-      .if (table.Key_Lett == "CA_SMSMC")
-  }
       .end if
     .end if
   .end while
@@ -273,7 +298,7 @@
   .// T
   .//
   .invoke r = get_class_name( table )
-  .invoke attrs = gen_write_attr_function(table, callingProject)
+  .invoke attrs = gen_write_attr_function(table, callingProject, multilevel, stream)
 void write_${r.body}_sql(${r.body} inst)
 throws IOException
 {
@@ -333,8 +358,15 @@ ${attrs.body}\
   .//
   .invoke rto_cn = get_class_name(obj)
   .assign temp_var = "temp${proxy_index}"
+  .assign phrase = ""
+  .if ("${rel.Numb}" == "1402")
+    .// R1402 and Package References are a special case where we allow using a
+    .// reflexive for persistence.  Those traversals require a relationship phrase
+    .// and this hardcodes the rel phrase to use.
+    .assign phrase = "RefersTo"
+  .end if
   .if(not many)
-            ${rto_cn.body} ${temp_var} = ${rto_cn.body}.getOne$U_{obj.Key_Lett}OnR${rel.Numb}(inst,true);
+            ${rto_cn.body} ${temp_var} = ${rto_cn.body}.getOne$U_{obj.Key_Lett}OnR${rel.Numb}${phrase}(inst,true);
   .if(checkParentForComponentContainment)
 	.// TODO The code below works for references to data
     .// types only. This all that the current global
@@ -472,10 +504,6 @@ ${attrs.body}\
 .//
 .//====================================================================
 .//
-.function is_containment
-  .param inst_ref rel   .// R_REL
-  .assign attr_result = false
-.end function
 .function should_export_rgo_proxy
   .param inst_ref object
   .param integer rel_numb
@@ -532,6 +560,7 @@ ${attrs.body}\
 .//
 .function gen_export_methods
   .param boolean multilevel
+  .param boolean stream
   .param String domain_class_name
   .param String tool
   .param boolean checkParentForComponentContainment
@@ -579,14 +608,13 @@ ${attrs.body}\
             .assign proxy_index = proxy_index + 1
             .select one rel related by rto->R_OIR[R203]->R_REL[R201]
             .invoke ir = is_reflexive(rel)
-            .invoke ic = is_containment(rel)
             .assign ignored = false
             .// some relationships should not be used for persistence,
             .// ignore them.
             .if("${rel.Descrip:Persistent}" == "false")
               .assign ignored = true
             .end if
-            .if(((not ir.result) and (not ic.result)) and (not ignored))
+            .if((not ir.result) and (not ignored))
               .select one rgoOBJ related by rto->R_PART[R204]->R_SIMP[R207]->R_FORM[R208]->R_RGO[R205]->R_OIR[R203]->O_OBJ[R201];
               .if(not_empty rgoOBJ)
                 .invoke rgoProxyResult = should_export_rgo_proxy(rgoOBJ, rel.Numb)
@@ -767,7 +795,7 @@ throws IOException
             .else
               .assign relNumbAndPhrase = "R${child.Numb}"
               .if(child.rel_phrase != "")
-                .assign relNumbAndPhrase = relNumbAndPhrase + ".'${child.rel_phrase}'"
+                .assign relNumbAndPhrase = relNumbAndPhrase + ".'$cr{child.rel_phrase}'"
               .end if
               .invoke nav = generate_backward_rel_chain_nav_from_kl(table.Key_Lett, "->${table.Key_Lett}[${relNumbAndPhrase}]", child.Card, "inst", variableName, false);
               .assign nav_string = nav.body
@@ -838,7 +866,11 @@ throws IOException
           .assign proxy_index = proxy_index + 1
           .select one rel related by rgo->R_OIR[R203]->R_REL[R201]
           .invoke ir = is_reflexive(rel)
-          .invoke ic = is_containment(rel)
+		  .if ("${rel.Numb}" == "1402")
+            .// R1402 and Package References are a special case where we allow using a
+            .// reflexive for proxy persistence.
+		    .assign ir.result = false
+		  .end if
           .assign ignored = false
           .// some relationships should not be used for persistence,
           .// ignore them.
@@ -847,7 +879,7 @@ throws IOException
           .end if
           .// reflexive relationships can't cross component boundaries
           .// proxies are not exported for containment relationships
-          .if ( (not ir.result) and ((not ic.result) and (not ignored)) )
+          .if ( (not ir.result) and (not ignored) )
             .select one form related by rgo->R_FORM[R205]
             .if ( not_empty form )
               .select one part_obj related by form->R_SIMP[R208]->R_PART[R207]->R_RTO[R204]->R_OIR[R203]->O_OBJ[R201]
@@ -864,10 +896,15 @@ ${gpe.body}\
     // select aone ${aone_obj.Key_Lett} on R${rel.Numb}
                 .invoke gpe = gen_proxy_export(aone_obj, rel, proxy_index, checkParentForComponentContainment, false)
 ${gpe.body}\
-                .assign proxy_index = proxy_index + 1
+                .if ("${rel.Numb}" != "1402")
+                  .// For this special case relationship, we only want to export the proxy to the RTO side, which we
+                  .// do in the lines just above this block. Th if test here then keeps us from outputting the RGO as
+				  .// a proxy.
+                  .assign proxy_index = proxy_index + 1
     // select aoth ${aoth_obj.Key_Lett} on R${rel.Numb}
-                .invoke gpe = gen_proxy_export(aoth_obj, rel, proxy_index, checkParentForComponentContainment, false)
+                  .invoke gpe = gen_proxy_export(aoth_obj, rel, proxy_index, checkParentForComponentContainment, false)
 ${gpe.body}\
+                .end if
               .else
 			    .if(checkParentForComponentContainment)
 				  .// for stream export, write each supertype
@@ -985,6 +1022,14 @@ ${gpe.body}\
         .end for
     }
       .end if
+
+      .if ( ((multilevel) AND (not stream)) )
+        .select one action_body related by eo->EI[R3]->AB[R12]
+        .if ( not_empty action_body )
+        write_${parent_name}_actions(inst${extra_args});
+        .end if
+      .end if
+
 }
     .end if
   .end for
@@ -1021,6 +1066,205 @@ ${gpe.body}\
       .invoke sql = gen_write_sql_function( table, callingProject, multilevel, stream )
 ${sql.body}\
     .end for
+.end function
+
+.//
+.//  This function generates methods
+.//  which will place the action semantics
+.//  into a file
+.//
+.function gen_action_write_statements
+  .select many ab_set from instances of AB
+  .for each action_body in ab_set
+    .invoke r = get_class_name( action_body )
+void write_${r.body}_actions(${r.body} inst)
+throws IOException
+{
+
+// get the dialect
+int dialect = -1;
+try {
+    Method getDialectMethod = inst.getClass().getMethod("getDialect");
+    dialect = (int) getDialectMethod.invoke(inst);
+} catch ( NoSuchMethodException e ) {
+    System.out.println( e );
+} catch ( NullPointerException e ) {
+    System.out.println( e );
+} catch ( SecurityException e ) {
+    System.out.println( e );
+} catch ( IllegalAccessException e ) {
+    System.out.println( e );
+} catch ( IllegalArgumentException e ) {
+    System.out.println( e );
+} catch ( InvocationTargetException e ) {
+    System.out.println( e );
+} catch ( ExceptionInInitializerError e ) {
+    System.out.println( e );
+}
+
+IPreferenceStore store = org.xtuml.bp.core.CorePlugin.getDefault().getPreferenceStore();
+String persistActivities = store.getString(BridgePointPreferencesStore.ACTIVITY_PERSISTENCE);
+if ( persistActivities.equals(BridgePointPreferencesStore.PERSIST_ACTIVITY_FILES) && dialect == Actiondialect_c.masl ) {
+
+if(inst != null && !inst.isProxy() && -1 != dialect){
+  String smasl = "";
+    .if ( "S_SYNC" == action_body.Key_Lett )
+  smasl = Ooaofooa.S_sync2routine( inst.getModelRoot(), inst.getSync_id() );
+    .elif ( "S_BRG" == action_body.Key_Lett )
+  smasl = Ooaofooa.S_brg2routine( inst.getModelRoot(), inst.getBrg_id() );
+    .elif ( "O_TFR" == action_body.Key_Lett )
+  smasl = Ooaofooa.O_tfr2objectop( inst.getModelRoot(), inst.getTfr_id() );
+    .elif ( "O_DBATTR" == action_body.Key_Lett )
+  smasl = Ooaofooa.O_dbattr2attribute( inst.getModelRoot(), inst.getAttr_id() );
+    .elif ( "SM_ACT" == action_body.Key_Lett )
+  smasl = Ooaofooa.Sm_act2stateortxn( inst.getModelRoot(), inst.getAct_id() );
+    .elif ( "SPR_PO" == action_body.Key_Lett )
+  smasl = Ooaofooa.Spr_po2routine( inst.getModelRoot(), inst.getId() );
+    .elif ( "SPR_PS" == action_body.Key_Lett )
+  smasl = Ooaofooa.Spr_ps2routine( inst.getModelRoot(), inst.getId() );
+    .elif ( "SPR_RO" == action_body.Key_Lett )
+  smasl = Ooaofooa.Spr_ro2routine( inst.getModelRoot(), inst.getId() );
+    .elif ( "SPR_RS" == action_body.Key_Lett )
+  smasl = Ooaofooa.Spr_rs2routine( inst.getModelRoot(), inst.getId() );
+    .end if
+  if ( !smasl.equals("") ) {
+      SmaslScanner sc = new SmaslScanner( smasl );
+      String[] values;
+
+      String preface = "";
+      String activity_type = "";
+      String sig_begin = "";
+      String parameter_list = "";
+      String sig_end = "";
+      String codeblock = "";
+      String end = "";
+
+      String ret_type = "";
+      String parameter_name = "";
+      String separator = " ";
+
+      // parse serial MASL
+      while ( sc.hasNext() ) {
+          values = sc.next();
+          if ( values[0].equals("routine") ) {
+              if ( !values[4].equals("") ) {
+                  preface = values[3] + " ";
+                  activity_type = "service";
+                  sig_begin = " " + values[1] + "::";
+                  if ( !values[2].equals("") ) {
+                      sig_begin += values[2] + "~>";
+                  }
+                  sig_begin += values[4] + " ";
+                  parameter_list = "(";
+              }
+          }
+          else if ( values[0].equals("operation")) {
+              if ( !values[4].equals("") ) {
+                  preface = values[3] + " ";
+                  if ( !values[5].equals("") ) {
+                      preface += values[5] + " ";
+                  }
+                  activity_type = "service";
+                  sig_begin = " " + values[1] + "::" + values[2] + "." + values[4] + " ";
+                  parameter_list = "(";
+              }
+          }
+          else if ( values[0].equals("state") ) {
+              if ( !values[3].equals("") ) {
+                  preface = values[4];
+                  if ( !preface.equals("") ) {
+                      preface += " ";
+                  }
+                  activity_type = "state";
+                  sig_begin = " " + values[1] + "::" + values[2] + "." + values[3] + " ";
+                  parameter_list = "(";
+              }
+          }
+          else if ( values[0].equals("attribute") ) {
+              if ( !values[1].equals("") ) {
+                  activity_type = "attribute";
+                  sig_begin = " " + values[4] + "::" + values[5] + "." + values[1] + " ";
+              }
+          }
+          else if ( values[0].equals("transition") ) {
+              if ( !values[1].equals("") ) {
+                  activity_type = "transition";
+                  sig_begin = " " + values[2] + "::" + values[3] + " in " + values[1] + " receives " + values[4] + " ";
+                  parameter_list = "(";
+              }
+          }
+          else if ( values[0].equals("parameter") ) {
+              if ( !values[1].equals("") ) {
+                  parameter_name = values[1] + " : " + values[2];
+              }
+          }
+          else if ( values[0].equals("typeref") ) {
+              if ( !values[1].equals("") ) {
+                  if ( parameter_name.equals("") ) { // return type
+                      ret_type = "return " + values[1] + " ";
+                  }
+                  else { // parameter type
+                      parameter_name += " " + values[1];
+                      parameter_list += separator + parameter_name;
+                      separator = ",\n";
+                      parameter_name = "";
+                  }
+              }
+          }
+          else if ( values[0].equals("codeblock") ) {
+              if ( !values[1].equals("") ) {
+                  codeblock = Url_c.Decode( values[1] ).trim();
+                  if ( codeblock.endsWith("end") ) {
+                      codeblock += " ";
+                  }
+                  else {
+                      codeblock += "\n";
+                  }
+              }
+          }
+          else {
+            m_afh.get(dialect).print( "// Activity '" + values[0] + "'unsupported\n" ); //$$NON-NLS-1$$
+            m_updateActions = true;
+            return;
+          }
+      }
+
+      // fix end of signature format
+      if ( parameter_list.equals("") ) {
+          sig_end = ret_type + "is\n";
+      }
+      else if ( parameter_list.equals("(") ) {
+          sig_end = ") " + ret_type + "is\n";
+      }
+      else {
+          sig_end = " ) " + ret_type + "is\n";
+      }
+      end = "\nend " + activity_type + ";\n\n";
+
+      // fix parameter list
+      int buf_len = (preface + activity_type + sig_begin).length();
+      String buf = "\n ";
+      for (int i = 0; i < buf_len; i++) {
+          buf += " ";
+      }
+      parameter_list = parameter_list.replaceAll("\n", buf);
+
+      // fix codeblock
+      codeblock = codeblock.trim();
+      if ( codeblock.endsWith( "end" ) ) {
+          // if the codeblock ends with end, the final 'end' is removed because
+          // the exporter will add it
+          codeblock = codeblock.substring(0, codeblock.length()-3).trim();;
+      }
+
+      // output activity
+      m_afh.get(dialect).print( preface + activity_type + sig_begin + parameter_list + sig_end + codeblock + end ); //$$NON-NLS-1$$
+      m_updateActions = true;
+  }
+}
+}
+}
+  .end for
 .end function
 
 .//

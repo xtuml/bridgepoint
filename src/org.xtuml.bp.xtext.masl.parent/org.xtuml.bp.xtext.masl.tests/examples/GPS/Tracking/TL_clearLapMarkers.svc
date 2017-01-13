@@ -1,0 +1,4 @@
+public instance service Tracking::TrackLog.clearLapMarkers () is
+begin
+  null;
+end service;

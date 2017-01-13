@@ -27,7 +27,8 @@ end if;
 return result;',
 	1,
 	'',
-	"00000000-0000-0000-0000-000000000000");
+	"00000000-0000-0000-0000-000000000000",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("1f95f5db-5c38-49dd-916f-c3cce63ee600",
 	"edf36dfd-1b7c-494d-8fdc-26d24ab3a3f2",
@@ -74,7 +75,8 @@ INSERT INTO O_TFR
 	'return 1;',
 	1,
 	'',
-	"edf36dfd-1b7c-494d-8fdc-26d24ab3a3f2");
+	"edf36dfd-1b7c-494d-8fdc-26d24ab3a3f2",
+	0);
 INSERT INTO O_TFR
 	VALUES ("ca953086-7c12-49d7-897d-a8d8d710da5c",
 	"f7cd37b4-309c-4a8d-b621-602317676050",
@@ -85,7 +87,8 @@ INSERT INTO O_TFR
 	'return 1;',
 	1,
 	'',
-	"cd540845-1fa9-4249-a0ee-4288e7a3dc2a");
+	"cd540845-1fa9-4249-a0ee-4288e7a3dc2a",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("4a3d0541-e148-42db-8c16-644cea44755b",
 	"ca953086-7c12-49d7-897d-a8d8d710da5c",
@@ -105,7 +108,8 @@ INSERT INTO O_TFR
 	'return self.Exception_ID;',
 	1,
 	'',
-	"ca953086-7c12-49d7-897d-a8d8d710da5c");
+	"ca953086-7c12-49d7-897d-a8d8d710da5c",
+	0);
 INSERT INTO O_TFR
 	VALUES ("8864df2d-7837-400c-9527-ef9d06ec96fc",
 	"f7cd37b4-309c-4a8d-b621-602317676050",
@@ -116,7 +120,8 @@ INSERT INTO O_TFR
 	'return Style::Box;',
 	1,
 	'',
-	"0bcbb81a-041f-4b9e-a5a1-b8fdca2800d4");
+	"0bcbb81a-041f-4b9e-a5a1-b8fdca2800d4",
+	0);
 INSERT INTO S_DT_PROXY
 	VALUES ("6e636321-0fd1-4577-b185-e4d76b0d0c71",
 	"00000000-0000-0000-0000-000000000000",
@@ -136,7 +141,8 @@ INSERT INTO O_TFR
 	'return Style::None;',
 	1,
 	'',
-	"8864df2d-7837-400c-9527-ef9d06ec96fc");
+	"8864df2d-7837-400c-9527-ef9d06ec96fc",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("39ba8e10-c8f8-4430-9159-55a63540059d",
 	"1c45cd96-a73d-4ea8-9bcb-46e44a267510",
@@ -184,7 +190,8 @@ end if;
 delete object instance self;',
 	1,
 	'',
-	"1c45cd96-a73d-4ea8-9bcb-46e44a267510");
+	"1c45cd96-a73d-4ea8-9bcb-46e44a267510",
+	0);
 INSERT INTO O_TFR
 	VALUES ("4aca5bc4-6cb0-4877-b3ad-bc943714f970",
 	"f7cd37b4-309c-4a8d-b621-602317676050",
@@ -198,7 +205,8 @@ Translate: native',
 	'return this;',
 	0,
 	'',
-	"f3d8c62e-dbb7-40b0-808e-3a2189a3e0a2");
+	"f3d8c62e-dbb7-40b0-808e-3a2189a3e0a2",
+	0);
 INSERT INTO S_DT_PROXY
 	VALUES ("bc3722c8-5188-4529-8519-cf9eb9816b17",
 	"00000000-0000-0000-0000-000000000000",
@@ -206,6 +214,18 @@ INSERT INTO S_DT_PROXY
 	'',
 	'',
 	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("672da21d-8a1a-4a0a-a681-b0701450728a",
+	"f7cd37b4-309c-4a8d-b621-602317676050",
+	'downgradeCheck',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'',
+	1,
+	'',
+	"4aca5bc4-6cb0-4877-b3ad-bc943714f970",
+	0);
 INSERT INTO O_REF
 	VALUES ("f7cd37b4-309c-4a8d-b621-602317676050",
 	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",

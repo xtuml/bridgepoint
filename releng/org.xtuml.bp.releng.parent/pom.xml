@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>org.xtuml.bp</groupId>
+	<artifactId>org.xtuml.bp.releng.parent</artifactId>
+	<version>5.8.6</version>
+	<packaging>pom</packaging>
+
+	<properties>
+		<tycho-version>0.25.0</tycho-version>
+		<ant-home-path>/build/buildmt/BridgePoint/eclipse/plugins/org.apache.ant_1.9.4.v201504302020</ant-home-path>
+	</properties>
+
+	<repositories>
+		<repository>
+			<id>mars</id>
+			<layout>p2</layout>
+			<url>http://download.eclipse.org/releases/mars/</url>
+		</repository>
+		<repository>
+			<id>mars-update</id>
+			<layout>p2</layout>
+			<url>http://download.eclipse.org/eclipse/updates/4.5/</url>
+		</repository>
+		<repository>
+			<id>antlr</id>
+			<layout>p2</layout>
+			<url>file:////build/buildmt/repository</url>
+		</repository>
+		<repository>
+			<id>cdt</id>
+			<layout>p2</layout>
+			<url>http://download.eclipse.org/tools/cdt/releases/8.8.1</url>
+		</repository>
+	</repositories>
+
+	<modules>
+		<module>../../src/org.xtuml.bp.als</module>
+		<module>../../src/org.xtuml.bp.als.oal</module>
+		<module>../../src/org.xtuml.bp.cdt</module>
+		<module>../../src/org.xtuml.bp.cli</module>
+		<module>../../src/org.xtuml.bp.debug.ui</module>
+		<module>../../src/org.xtuml.bp.doc</module>
+		<module>../../src/org.xtuml.bp.docgen</module>
+		<module>../../src/org.xtuml.bp.internal.tools</module>
+		<module>../../src/org.xtuml.bp.io.image</module>
+		<module>../../src/org.xtuml.bp.mc</module>
+		<module>../../src/org.xtuml.bp.mc.c.source</module>
+		<module>../../src/org.xtuml.bp.mc.cpp.source</module>
+		<module>../../src/org.xtuml.bp.mc.java.source</module>
+		<module>../../src/org.xtuml.bp.mc.none</module>
+		<module>../../src/org.xtuml.bp.mc.systemc.source</module>
+		<module>../../src/org.xtuml.bp.mc.template</module>
+		<module>../../src/org.xtuml.bp.pkg</module>
+		<module>../../src/org.xtuml.bp.pkg-feature</module>
+		<module>../../src/org.xtuml.bp.search</module>
+		<module>../../src/org.xtuml.bp.ui.graphics</module>
+		<module>../../src/org.xtuml.bp.ui.search</module>
+		<module>../../src/org.xtuml.bp.ui.sem</module>
+		<module>../../src/org.xtuml.bp.ui.marking</module> <!-- move to bp.releng.parent.generation/pom.xml if we wanted to generate this project -->
+		<module>../../src/org.xtuml.bp.utilities</module>
+		<module>../../src/org.xtuml.bp.welcome</module>
+		<module>../../src/org.xtuml.bp.x2m</module>
+		<module>../../src/org.xtuml.help.bp.mc</module>
+		<module>../org.xtuml.bp.releng.p2</module>
+		<module>../org.xtuml.bp.releng.parent.generation</module>
+		<module>../org.xtuml.bp.releng.parent.product</module>
+        <module>../org.xtuml.bp.mctools.parent</module>
+		<module>../../../packaging/features/org.xtuml.bp.jre.parent</module>
+        <module>../../../packaging/features/org.xtuml.bp.docgen.parent</module>
+        <module>../../../packaging/features/org.xtuml.bp.MinGW.parent</module>
+	</modules>
+
+	<build>
+		<sourceDirectory>src</sourceDirectory>
+		<outputDirectory>bin</outputDirectory>
+		<plugins>
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>tycho-maven-plugin</artifactId>
+				<version>${tycho-version}</version>
+				<extensions>true</extensions>
+			</plugin>
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>tycho-compiler-plugin</artifactId>
+				<version>${tycho-version}</version>
+				<configuration>
+					<compilerArgument>-warn:+discouraged,forbidden</compilerArgument>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>target-platform-configuration</artifactId>
+				<version>${tycho-version}</version>
+				<configuration>
+					<resolver>p2</resolver>
+					<allowConflictingDependencies>true</allowConflictingDependencies>
+					<includePackedArtifacts>true</includePackedArtifacts>
+					<environments>
+						<!--<environment>
+							<os>linux</os>
+							<ws>gtk</ws>
+							<arch>x86</arch>
+						</environment>-->
+						<environment>
+							<os>linux</os>
+							<ws>gtk</ws>
+							<arch>x86_64</arch>
+						</environment>
+						<environment>
+						    <os>macosx</os>
+						    <ws>cocoa</ws>
+						    <arch>x86_64</arch>
+						</environment>
+						<environment>
+							<os>win32</os>
+							<ws>win32</ws>
+							<arch>x86</arch>
+						</environment>
+						<environment>
+							<os>win32</os>
+							<ws>win32</ws>
+							<arch>x86_64</arch>
+						</environment>
+					</environments>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>

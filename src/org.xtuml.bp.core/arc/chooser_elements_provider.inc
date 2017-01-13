@@ -56,6 +56,7 @@ public static ${cn.body}[] getElements(${contextClName.body} v_${firstContextIte
 	    .end if
       Package_c pkg = Package_c.getOneEP_PKGOnR8000(pe);
       Component_c comp = Component_c.getOneC_COnR8003(pe);
+      SystemModel_c sys = ((Ooaofooa)v_${firstContextItemName}.getModelRoot()).getRoot();
 	    .if(not cme.EnableVisibilityFiltering)
 	  boolean isInGenericPackage = ((pkg !=null) || (comp !=null));
       if (!isInGenericPackage) {
@@ -73,7 +74,6 @@ public static ${cn.body}[] getElements(${contextClName.body} v_${firstContextIte
 			${precondition.postamble}
     	  }
         }
-		SystemModel_c sys = ((Ooaofooa)v_${firstContextItemName}.getModelRoot()).getRoot();
 		if (sys.getUseglobals()) {
 		  PackageableElement_c[] pes = PackageableElement_c.
 		             getManyPE_PEsOnR9100(GlobalElementInSystem_c.
@@ -93,6 +93,8 @@ public static ${cn.body}[] getElements(${contextClName.body} v_${firstContextIte
 		.assign globalEnable = "false"
 		.if (tn != "CLASS")
 		  .assign globalEnable = "true"
+		.else
+		  .assign globalEnable = "Pref_c.Getsystemboolean(BridgePointProjectReferencesPreferences.BP_PROJECT_CLASS_REFERENCES_ID, sys.getName())"
 		.end if
 	  }
       else {

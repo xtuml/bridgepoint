@@ -1,0 +1,5 @@
+Initializing MASL export...
+cat /opt/xtuml/BridgePoint55/eclipse/bp_test/test_workspace_mars/SAC/gen/code_generation/a.xtuml | x2m  -dSAC | masl  -i/opt/xtuml/BridgePoint55/eclipse/bp_test/test_workspace_mars/SAC  -dSAC -o/opt/xtuml/BridgePoint55/eclipse/bp_test/test_workspace_mars/SAC/masl/
+103 ___ info ___ Starting domain.
+104 ___ info ___ Done.
+Done.

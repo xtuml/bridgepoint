@@ -1,0 +1,4 @@
+public  function Tracking::Display.goalDispositionIndicator () return UI::Indicator is
+begin
+  null;
+end function;

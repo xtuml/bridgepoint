@@ -237,6 +237,16 @@ public class Transaction {
 				ModelElement modelElement = deltas[j].getModelElement();
 				NonRootModelElement nrme = (NonRootModelElement) modelElement;
 
+				// restore any moves
+				if (deltas[j].getKind() == Modeleventnotification_c.DELTA_MODEL_ELEMENT_MOVE) {
+					// switch the move and process it later in ComponentTransactionListener
+					ModelElementMovedModelDelta memd = (ModelElementMovedModelDelta) deltas[j];
+					NonRootModelElement dest = memd.getDestination();
+					NonRootModelElement element = (NonRootModelElement) memd.getModelElement();
+					NonRootModelElement src = (NonRootModelElement) memd.getSource();
+					modelRoots[i].fireModelElementMoved((new ModelElementMovedModelDelta(element, src,
+							dest)));
+				}
 				// restore any deletions contained in the
 				// delta set
 				if (deltas[j].getKind() == Modeleventnotification_c.DELTA_DELETE) {

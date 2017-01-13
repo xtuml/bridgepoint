@@ -36,7 +36,8 @@ delete object instance self;
 ',
 	1,
 	'',
-	"00000000-0000-0000-0000-000000000000");
+	"00000000-0000-0000-0000-000000000000",
+	0);
 INSERT INTO O_TFR
 	VALUES ("a8472ca9-1e51-4703-b07a-4697de3965c3",
 	"b9bfc391-5d31-4942-b49c-9a74a8607ea6",
@@ -61,7 +62,8 @@ elif (not_empty createEEEvt)
 end if;',
 	1,
 	'',
-	"724a3749-7e26-4a0c-b696-75cec3ec052d");
+	"724a3749-7e26-4a0c-b696-75cec3ec052d",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("10e3ef6e-5ddd-4e9e-9a66-0682e81793f5",
 	"a8472ca9-1e51-4703-b07a-4697de3965c3",
@@ -135,7 +137,8 @@ relate rtVal to lcl across R3306;
 rtVal.setValue(value:evtInst.getValue());',
 	1,
 	'',
-	"a8472ca9-1e51-4703-b07a-4697de3965c3");
+	"a8472ca9-1e51-4703-b07a-4697de3965c3",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("accb5f78-e3b9-418f-b453-f70a9d2bfa8e",
 	"d6ae974a-3c14-4b6c-9e24-229127ce1daf",

@@ -1,15 +1,3 @@
-//========================================================================
-//
-//File:      $RCSfile: AbstractExportBuilder.java,v $
-//Version:   $Revision: 1.10.6.2 $
-//Modified:  $Date: 2013/08/09 15:11:55 $
-//
-//(c) Copyright 2007-2014 by Mentor Graphics Corp. All rights reserved.
-//
-//========================================================================
-//This document contains information proprietary and confidential to
-//Mentor Graphics Corp. and is not for external distribution.
-//========================================================================
 package org.xtuml.bp.mc;
 
 import java.io.ByteArrayOutputStream;
@@ -274,9 +262,15 @@ public abstract class AbstractExportBuilder extends IncrementalProjectBuilder {
         exportSystem(system, destDir, monitor, false, "");
         return m_exportedSystems;
     }
-    
+
 	public List<SystemModel_c> exportSystem(SystemModel_c system, String destDir,
 			final IProgressMonitor monitor, boolean append, String originalSystem) throws CoreException {
+        exportSystem(system, destDir, monitor, false, "", true);
+        return m_exportedSystems;
+	}
+	
+	public List<SystemModel_c> exportSystem(SystemModel_c system, String destDir,
+			final IProgressMonitor monitor, boolean append, String originalSystem, boolean parseOnExport) throws CoreException {
 
 		String errorMsg = "Unable to export to destination file.";
 		boolean exportSucceeded = false;
@@ -313,11 +307,12 @@ public abstract class AbstractExportBuilder extends IncrementalProjectBuilder {
 
 				exporter.setExportOAL(CoreExport.YES);
 				exporter.setExportGraphics(CoreExport.NO);
-				// Perform a parse-all to assure the model is up to date
-				exporter.parseAllForExport(m_elements
-						.toArray(new NonRootModelElement[m_elements.size()]),
-						monitor);
-
+				if (parseOnExport) {
+					// Perform a parse-all to assure the model is up to date
+					exporter.parseAllForExport(m_elements
+							.toArray(new NonRootModelElement[m_elements.size()]),
+							monitor);
+				}
 				m_exporter.run(monitor);
 				m_outputFile.createNewFile();
                 fos = new FileOutputStream(m_outputFile, append);
@@ -343,7 +338,7 @@ public abstract class AbstractExportBuilder extends IncrementalProjectBuilder {
                             // the data to our original system's file.  Note that this will cause a parse
                             // on the referredToSystem.
                             m_exportedSystems.add(referredToSystem);
-                            exportSystem(referredToSystem, destDir, monitor, true, originalSystem);
+                            exportSystem(referredToSystem, destDir, monitor, true, originalSystem, parseOnExport);
                         }
                     }
                 }

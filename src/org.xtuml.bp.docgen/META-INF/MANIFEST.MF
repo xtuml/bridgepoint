@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: BridgePoint Documentation Generator Plug-in
 Bundle-SymbolicName: org.xtuml.bp.docgen; singleton:=true
-Bundle-Version: 5.5.0
+Bundle-Version: 5.8.6
 Bundle-ClassPath: docgen.jar
 Bundle-Activator: org.xtuml.bp.docgen.DocGenPlugin
 Bundle-Vendor: xtUML.org
@@ -28,4 +28,5 @@ Require-Bundle: org.xtuml.bp.core,
  org.eclipse.ui.console,
  org.eclipse.core.filesystem
 Bundle-ActivationPolicy: lazy
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Eclipse-BundleShape: dir

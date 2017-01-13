@@ -17,23 +17,12 @@ INSERT INTO O_TFR
 	'create object instance mbr of S_MBR;
 relate self to mbr across R44;
 
-    select one sys related by self->S_DT[R17]->PE_PE[R8001]->EP_PKG[R8000]->S_SYS[R1405];
-    intdt_id = GD::NULL_UNIQUE_ID();
-    if not_empty sys
-      intdt_id = sys.getCoreTypeId(name:"integer");
-    end if;
-    select any pe from instances of PE_PE where selected.Element_ID == intdt_id;
-    select one int_dt related by pe->S_DT[R8001]; 
-    if (empty int_dt)
-      select any int_dt related by sys->EP_PKG[R1405]->PE_PE[R8000]->S_DT[R8001] where (selected.Name == "integer");
-    end if;
-
-
-relate mbr to int_dt across R45;
+mbr.setToDefaultDataType();
 mbr.initialize(newname:"Unnamed Structured Member");',
 	1,
 	'',
-	"a289e6dd-b912-4cc7-b69e-4b09cb1b9552");
+	"a289e6dd-b912-4cc7-b69e-4b09cb1b9552",
+	0);
 INSERT INTO O_TFR
 	VALUES ("8b4733a2-55af-4a2d-87b5-77c7e029e8da",
 	"7df3083a-b3d9-4c10-9be4-db85fdd83e5e",
@@ -52,7 +41,8 @@ delete object instance self;
 ',
 	1,
 	'',
-	"00000000-0000-0000-0000-000000000000");
+	"00000000-0000-0000-0000-000000000000",
+	0);
 INSERT INTO O_TFR
 	VALUES ("d084d061-3986-4bc1-bb87-a17cac7a9d05",
 	"7df3083a-b3d9-4c10-9be4-db85fdd83e5e",
@@ -98,7 +88,8 @@ end if;
 return result;',
 	1,
 	'',
-	"8b4733a2-55af-4a2d-87b5-77c7e029e8da");
+	"8b4733a2-55af-4a2d-87b5-77c7e029e8da",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("b4f053b8-4700-4be1-97e6-d15a80341371",
 	"d084d061-3986-4bc1-bb87-a17cac7a9d05",
@@ -145,7 +136,8 @@ INSERT INTO O_TFR
 	'return 2;',
 	1,
 	'',
-	"d084d061-3986-4bc1-bb87-a17cac7a9d05");
+	"d084d061-3986-4bc1-bb87-a17cac7a9d05",
+	0);
 INSERT INTO O_TFR
 	VALUES ("3eb2cffe-f567-45a9-a90c-1123774771b1",
 	"7df3083a-b3d9-4c10-9be4-db85fdd83e5e",
@@ -156,7 +148,8 @@ INSERT INTO O_TFR
 	'return Style::Box;',
 	1,
 	'',
-	"c41e8fcb-1c52-4aed-8408-5a23df99658a");
+	"c41e8fcb-1c52-4aed-8408-5a23df99658a",
+	0);
 INSERT INTO S_DT_PROXY
 	VALUES ("6e636321-0fd1-4577-b185-e4d76b0d0c71",
 	"00000000-0000-0000-0000-000000000000",
@@ -176,7 +169,8 @@ INSERT INTO O_TFR
 	'return Style::None;',
 	1,
 	'',
-	"3eb2cffe-f567-45a9-a90c-1123774771b1");
+	"3eb2cffe-f567-45a9-a90c-1123774771b1",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("7f635dc1-7397-4c99-bd51-a783722ffc0f",
 	"a289e6dd-b912-4cc7-b69e-4b09cb1b9552",
@@ -219,7 +213,8 @@ else
 end if;',
 	1,
 	'',
-	"251f9079-8f97-4356-9393-2f330b438095");
+	"251f9079-8f97-4356-9393-2f330b438095",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("ed936f3e-5846-4595-86ae-1449982e738b",
 	"73ba1dd1-7f4f-44df-bdec-36973020a633",
@@ -244,7 +239,8 @@ else
 end if;',
 	1,
 	'',
-	"73ba1dd1-7f4f-44df-bdec-36973020a633");
+	"73ba1dd1-7f4f-44df-bdec-36973020a633",
+	0);
 INSERT INTO O_TFR
 	VALUES ("eade500d-0764-4178-8c0f-2b9973f3dae0",
 	"7df3083a-b3d9-4c10-9be4-db85fdd83e5e",
@@ -257,7 +253,8 @@ dt.Name = param.new_name;
 ',
 	1,
 	'',
-	"5400bd59-40af-43dd-9285-5cd53fdb51f5");
+	"5400bd59-40af-43dd-9285-5cd53fdb51f5",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("9a4f1e47-b4cd-4834-99fb-71d0e9716797",
 	"eade500d-0764-4178-8c0f-2b9973f3dae0",
@@ -277,7 +274,8 @@ INSERT INTO O_TFR
 	'return self.DT_ID;',
 	1,
 	'',
-	"8260aad3-9a97-44d0-9317-b06a0171484b");
+	"8260aad3-9a97-44d0-9317-b06a0171484b",
+	0);
 INSERT INTO O_TFR
 	VALUES ("b9dbc478-9d9d-44eb-be9c-7bb0eb68febf",
 	"7df3083a-b3d9-4c10-9be4-db85fdd83e5e",
@@ -317,7 +315,8 @@ end if;
 return false;',
 	1,
 	'',
-	"eade500d-0764-4178-8c0f-2b9973f3dae0");
+	"eade500d-0764-4178-8c0f-2b9973f3dae0",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("fbedf525-1bbd-4262-abc4-22c7000498bd",
 	"b9dbc478-9d9d-44eb-be9c-7bb0eb68febf",
@@ -355,7 +354,8 @@ if(not_empty member)
 end if;',
 	1,
 	'',
-	"b9dbc478-9d9d-44eb-be9c-7bb0eb68febf");
+	"b9dbc478-9d9d-44eb-be9c-7bb0eb68febf",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("50a39652-4d96-4072-a226-7fff6754e060",
 	"e4e30701-5cb3-4056-8408-658e09762a49",
@@ -390,7 +390,8 @@ end if;
 ',
 	1,
 	'',
-	"e4e30701-5cb3-4056-8408-658e09762a49");
+	"e4e30701-5cb3-4056-8408-658e09762a49",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("f61481ab-3576-4b88-99b2-776b0a3603b6",
 	"02a1d872-e8b2-4a82-8a1b-b3d602dfee71",
@@ -440,7 +441,8 @@ for each otherDt in dts
 end for;',
 	1,
 	'',
-	"02a1d872-e8b2-4a82-8a1b-b3d602dfee71");
+	"02a1d872-e8b2-4a82-8a1b-b3d602dfee71",
+	0);
 INSERT INTO O_TFR
 	VALUES ("605fb4a0-4b21-4cae-85d1-50eee1b0e8cb",
 	"7df3083a-b3d9-4c10-9be4-db85fdd83e5e",
@@ -451,7 +453,8 @@ INSERT INTO O_TFR
 	'return this;',
 	0,
 	'',
-	"b2bb5c6e-b82d-4b0f-ad55-8b0457b82a3b");
+	"b2bb5c6e-b82d-4b0f-ad55-8b0457b82a3b",
+	0);
 INSERT INTO S_DT_PROXY
 	VALUES ("bc3722c8-5188-4529-8519-cf9eb9816b17",
 	"00000000-0000-0000-0000-000000000000",
@@ -470,7 +473,30 @@ INSERT INTO O_TFR
 return dt.Descrip;',
 	1,
 	'',
-	"605fb4a0-4b21-4cae-85d1-50eee1b0e8cb");
+	"605fb4a0-4b21-4cae-85d1-50eee1b0e8cb",
+	0);
+INSERT INTO O_TFR
+	VALUES ("370c0e72-4b66-46c2-a515-dad23d70c2e1",
+	"7df3083a-b3d9-4c10-9be4-db85fdd83e5e",
+	'downgradeCheck',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'// The Data Type superclass can check all the RGOs
+select one dt related by self->S_DT[R17];
+dt.downgradeCheck();
+
+// Now we do RTO checking
+// loop over the members, checking each one for type downgrade
+select many s_mbrs related by self->S_MBR[R44];
+for each s_mbr in s_mbrs
+  s_mbr.downgradeCheck();
+end for;
+',
+	1,
+	'',
+	"08d480cd-e130-4cce-b18d-e7954ec58ceb",
+	0);
 INSERT INTO O_REF
 	VALUES ("7df3083a-b3d9-4c10-9be4-db85fdd83e5e",
 	"ead52fac-9782-434b-a35c-c07452c3b26d",

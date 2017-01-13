@@ -28,6 +28,8 @@ select many com_vis_links related by self->PE_CVS[R8004];
 for each com_vis_link in com_vis_links
   select one component related by com_vis_link->C_C[R8004];
   unrelate self from component across R8004 using com_vis_link;
+  select one componentResultset related by com_vis_link->PE_CRS[R8008];
+  unrelate com_vis_link from componentResultset across R8008; 
   delete object instance com_vis_link;
 end for;
 select one modelClass related by self->O_OBJ[R8001];
@@ -159,7 +161,8 @@ end for;
 delete object instance self;',
 	1,
 	'',
-	"00000000-0000-0000-0000-000000000000");
+	"00000000-0000-0000-0000-000000000000",
+	0);
 INSERT INTO O_TFR
 	VALUES ("69115024-26db-4ec7-a090-987abb80ca2a",
 	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
@@ -257,7 +260,8 @@ if self.type == ElementTypeConstants::PACKAGE
 end if;',
 	1,
 	'',
-	"d7f10c92-2026-4f6c-ad30-77958a473334");
+	"d7f10c92-2026-4f6c-ad30-77958a473334",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("00dac2a1-caf9-4d41-8c24-494fd0168d84",
 	"69115024-26db-4ec7-a090-987abb80ca2a",
@@ -330,7 +334,8 @@ INSERT INTO O_TFR
 self.Visibility = Visibility::Public;',
 	1,
 	'',
-	"69115024-26db-4ec7-a090-987abb80ca2a");
+	"69115024-26db-4ec7-a090-987abb80ca2a",
+	0);
 INSERT INTO O_TFR
 	VALUES ("dc5721d8-8df7-447e-9506-ae986463cffa",
 	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
@@ -356,7 +361,8 @@ result = result + self.getLocalName();
 return result;',
 	1,
 	'',
-	"48405ea7-e3a7-457c-abef-a418bed792e4");
+	"48405ea7-e3a7-457c-abef-a418bed792e4",
+	0);
 INSERT INTO O_TFR
 	VALUES ("bb4965fa-ee05-41d9-8ea1-c3b280bac4e3",
 	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
@@ -405,7 +411,8 @@ end if;
 return "";',
 	1,
 	'',
-	"dc5721d8-8df7-447e-9506-ae986463cffa");
+	"dc5721d8-8df7-447e-9506-ae986463cffa",
+	0);
 INSERT INTO O_TFR
 	VALUES ("652fb3a4-60fa-41fc-9cd3-47786f45f0b1",
 	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
@@ -438,7 +445,8 @@ end if;
 return false;',
 	1,
 	'',
-	"bb4965fa-ee05-41d9-8ea1-c3b280bac4e3");
+	"bb4965fa-ee05-41d9-8ea1-c3b280bac4e3",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("46610d3e-390f-4ea1-8a2f-28dcb879cba4",
 	"652fb3a4-60fa-41fc-9cd3-47786f45f0b1",
@@ -532,7 +540,8 @@ return GD::NULL_UNIQUE_ID();
 ',
 	1,
 	'',
-	"652fb3a4-60fa-41fc-9cd3-47786f45f0b1");
+	"652fb3a4-60fa-41fc-9cd3-47786f45f0b1",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("89cf7aeb-b829-4ba0-bcb6-45c9081c1402",
 	"e279c5c5-b188-443b-8400-ce2ddc4e4ce8",
@@ -585,7 +594,7 @@ if not_empty component
   select any compResultSet related by component->PE_CRS[R8007] where
       selected.Name == param.dtName and selected.Type == ElementTypeConstants::DATATYPE;
   select any dt related by compResultSet->PE_CVS[R8008]->
-                   PE_PE[R8004]->S_DT[R8001] where selected.DT_ID == dt.DT_ID;
+                   PE_PE[R8004]->S_DT[R8001] where selected.DT_ID == param.dtID;
 end if;
 if(not_empty dt)
   return true;
@@ -594,7 +603,8 @@ return false;
 ',
 	1,
 	'',
-	"e279c5c5-b188-443b-8400-ce2ddc4e4ce8");
+	"e279c5c5-b188-443b-8400-ce2ddc4e4ce8",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("5fe668e6-8b39-47ba-add1-04c84d11679d",
 	"f254751a-7399-41fe-a8dc-adcb041c6500",
@@ -638,7 +648,8 @@ end if;
 return result;',
 	1,
 	'',
-	"f254751a-7399-41fe-a8dc-adcb041c6500");
+	"f254751a-7399-41fe-a8dc-adcb041c6500",
+	0);
 INSERT INTO O_TFR
 	VALUES ("3f2c851b-510d-4b9b-9ebe-3a32468b32ed",
 	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
@@ -654,7 +665,8 @@ end if;
 return self.Visibility;',
 	1,
 	'',
-	"594fd456-5547-4e59-913e-e4f510347efd");
+	"594fd456-5547-4e59-913e-e4f510347efd",
+	0);
 INSERT INTO S_DT_PROXY
 	VALUES ("cada8912-c244-4001-8c77-ae1fc60554d0",
 	"00000000-0000-0000-0000-000000000000",
@@ -689,7 +701,8 @@ else
 end if;',
 	1,
 	'',
-	"3f2c851b-510d-4b9b-9ebe-3a32468b32ed");
+	"3f2c851b-510d-4b9b-9ebe-3a32468b32ed",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("693704ac-0356-4cc1-a89a-faada5ccba80",
 	"91c4b396-788e-436e-b4b6-c3ee58d7ebf3",
@@ -726,7 +739,8 @@ else
 end if;',
 	1,
 	'',
-	"91c4b396-788e-436e-b4b6-c3ee58d7ebf3");
+	"91c4b396-788e-436e-b4b6-c3ee58d7ebf3",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("a1cdcca2-3364-4f8b-b8af-8556646d952f",
 	"99b167be-1bb9-441f-97de-56e64f5fe01d",
@@ -779,7 +793,8 @@ return GD::NULL_UNIQUE_ID();
 ',
 	1,
 	'',
-	"99b167be-1bb9-441f-97de-56e64f5fe01d");
+	"99b167be-1bb9-441f-97de-56e64f5fe01d",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("ebc3668f-db87-4bd4-b515-afe0473caba1",
 	"f132abfa-7093-47bb-bdd7-950a0a3803c1",
@@ -816,7 +831,8 @@ else
 end if;',
 	1,
 	'',
-	"f132abfa-7093-47bb-bdd7-950a0a3803c1");
+	"f132abfa-7093-47bb-bdd7-950a0a3803c1",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("3e34693a-b3b7-45f3-8e93-88cbb4bdead5",
 	"a620d162-0a29-4967-b0c3-38efc21a4473",
@@ -853,7 +869,8 @@ else
 end if;',
 	1,
 	'',
-	"a620d162-0a29-4967-b0c3-38efc21a4473");
+	"a620d162-0a29-4967-b0c3-38efc21a4473",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("bdaf9a1b-2b4e-44ea-a409-d3c98fe46b13",
 	"1bc3f9c0-ddce-4805-b000-53b660c731a7",
@@ -909,7 +926,8 @@ end for;
 return false;',
 	1,
 	'',
-	"1bc3f9c0-ddce-4805-b000-53b660c731a7");
+	"1bc3f9c0-ddce-4805-b000-53b660c731a7",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("0dec1fb0-c8b9-404d-9db3-f40d6b038b31",
 	"39234bd4-7c4b-4acb-ba0a-3941999ac9d1",
@@ -928,6 +946,143 @@ INSERT INTO O_TPARM
 	'',
 	"0dec1fb0-c8b9-404d-9db3-f40d6b038b31",
 	'');
+INSERT INTO O_TFR
+	VALUES ("e680b8a3-b89e-4acc-b2c9-89aa2112a148",
+	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
+	'downgradeCheck',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'// Iterate over each subtype and call it''s downgradeCheck().  We currently only 
+// process subtypes that are not part of analysis diagrams.
+
+// Package 
+select one ep_pkg related by self->EP_PKG[R8001];
+if ( not_empty ep_pkg )
+  ep_pkg.downgradeCheck();
+  return;
+end if;
+
+// Constant Specification
+select one cnst_csp related by self->CNST_CSP[R8001];
+if ( not_empty cnst_csp )
+  cnst_csp.downgradeCheck();
+  return;
+end if;
+
+// Interface
+select one c_i related by self->C_I[R8001];
+if ( not_empty c_i )
+  c_i.downgradeCheck();
+  return;
+end if;
+
+// Activity Partition (skipped)
+
+// Model Class
+select one o_obj related by self->O_OBJ[R8001];
+if ( not_empty o_obj )
+  o_obj.downgradeCheck();
+  return;
+end if;
+
+// Activity Edge (skipped) 
+
+// Data Type
+select one s_dt related by self->S_DT[R8001];
+if ( not_empty s_dt )
+  // When checking a datatype, we want to initiate the check on the subtype and let it
+  // do the supertype check as part of its processing.
+  select one s_udt related by s_dt->S_UDT[R17];
+  if ( not_empty s_udt )
+    s_udt.downgradeCheck();
+  end if;
+  select one s_sdt related by s_dt->S_SDT[R17];
+  if ( not_empty s_sdt )
+    s_sdt.downgradeCheck();
+  end if;
+  select one s_edt related by s_dt->S_EDT[R17];
+  if ( not_empty s_edt )
+    s_edt.downgradeCheck();
+  end if;
+  return;
+end if;
+
+// Exception
+select one s_exp related by self->S_EXP[R8001];
+if ( not_empty s_exp )
+  s_exp.downgradeCheck();
+  return;
+end if;
+
+// Interaction Participant (skipped)
+
+// Use Case Association (skipped)
+
+// Message (skipped)
+
+// Activity Node (skipped)
+
+// Imported Class
+select one o_iobj related by self->O_IOBJ[R8001];
+if ( not_empty o_iobj )
+  o_iobj.downgradeCheck();
+  return;
+end if;
+
+// Component
+select one c_c related by self->C_C[R8001];
+if ( not_empty c_c )
+  c_c.downgradeCheck();
+  return;
+end if;
+
+// Association
+select one r_rel related by self->R_REL[R8001];
+if ( not_empty r_rel )
+  r_rel.downgradeCheck();
+  return;
+end if;
+
+// Function
+select one s_sync related by self->S_SYNC[R8001];
+if ( not_empty s_sync )
+  s_sync.downgradeCheck();
+  return;
+end if;
+
+// Component Reference
+select one cl_ic related by self->CL_IC[R8001];
+if ( not_empty cl_ic )
+  cl_ic.downgradeCheck();
+  return;
+end if;
+
+// Satisfaction
+select one c_sf related by self->C_SF[R8001];
+if ( not_empty c_sf )
+  c_sf.downgradeCheck();
+  return;
+end if;
+
+// External Entity
+select one s_ee related by self->S_EE[R8001];
+if ( not_empty s_ee )
+  s_ee.downgradeCheck();
+  return;
+end if;
+
+// Delegation
+select one c_dg related by self->C_DG[R8001];
+if ( not_empty c_dg )
+  c_dg.downgradeCheck();
+  return;
+end if;
+',
+	1,
+	'',
+	"39234bd4-7c4b-4acb-ba0a-3941999ac9d1",
+	0);
 INSERT INTO O_NBATTR
 	VALUES ("5776264f-c7e9-4abe-839f-24d0750e007c",
 	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6");

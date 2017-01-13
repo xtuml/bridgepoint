@@ -43,7 +43,8 @@ delete object instance self;
 ',
 	1,
 	'',
-	"00000000-0000-0000-0000-000000000000");
+	"00000000-0000-0000-0000-000000000000",
+	0);
 INSERT INTO O_TFR
 	VALUES ("03cc716b-2b40-445c-9d9d-79331239250f",
 	"474836ad-558f-45eb-8c7b-a3740b2b73b4",
@@ -66,7 +67,8 @@ elif (not_empty createCreatorEvt)
 end if;',
 	1,
 	'',
-	"eb8bb922-fedd-4731-bb01-7f72e8793346");
+	"eb8bb922-fedd-4731-bb01-7f72e8793346",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("2e7baf53-8690-430a-b96c-c1d57bc09c6e",
 	"03cc716b-2b40-445c-9d9d-79331239250f",

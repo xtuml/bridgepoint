@@ -36,7 +36,8 @@ end if;
 delete object instance self;',
 	1,
 	'',
-	"00000000-0000-0000-0000-000000000000");
+	"00000000-0000-0000-0000-000000000000",
+	0);
 INSERT INTO O_TFR
 	VALUES ("eb55134e-2964-4073-b409-93dee6e1a749",
 	"d1de52ab-15c2-4485-a13e-87e52785a064",
@@ -48,7 +49,8 @@ INSERT INTO O_TFR
 return func.Name;',
 	1,
 	'',
-	"5fbc6abc-54f1-4926-bc8b-8f08a04a7aad");
+	"5fbc6abc-54f1-4926-bc8b-8f08a04a7aad",
+	0);
 INSERT INTO O_REF
 	VALUES ("d1de52ab-15c2-4485-a13e-87e52785a064",
 	"422f8e95-ef3d-4d53-a819-1116c0b1eaad",

@@ -1,0 +1,88 @@
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("6935c001-2f0f-4bb5-8f2e-9e563900abae",
+	'Group',
+	1,
+	'G',
+	'pragma id( 3 );
+',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_NBATTR
+	VALUES ("57529ed9-9bef-43cb-bf86-da0ab326c612",
+	"6935c001-2f0f-4bb5-8f2e-9e563900abae");
+INSERT INTO O_BATTR
+	VALUES ("57529ed9-9bef-43cb-bf86-da0ab326c612",
+	"6935c001-2f0f-4bb5-8f2e-9e563900abae");
+INSERT INTO O_ATTR
+	VALUES ("57529ed9-9bef-43cb-bf86-da0ab326c612",
+	"6935c001-2f0f-4bb5-8f2e-9e563900abae",
+	"00000000-0000-0000-0000-000000000000",
+	'group_id',
+	'',
+	'',
+	'group_id',
+	0,
+	"b4abe33b-b9a9-4bfe-9933-0c69146d6153",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("b4abe33b-b9a9-4bfe-9933-0c69146d6153",
+	"00000000-0000-0000-0000-000000000000",
+	'MASLunique',
+	'',
+	'',
+	'../../../Shared/Shared.xtuml');
+INSERT INTO O_NBATTR
+	VALUES ("768146b8-d6cf-42de-a088-0edfb481fd7e",
+	"6935c001-2f0f-4bb5-8f2e-9e563900abae");
+INSERT INTO O_BATTR
+	VALUES ("768146b8-d6cf-42de-a088-0edfb481fd7e",
+	"6935c001-2f0f-4bb5-8f2e-9e563900abae");
+INSERT INTO O_ATTR
+	VALUES ("768146b8-d6cf-42de-a088-0edfb481fd7e",
+	"6935c001-2f0f-4bb5-8f2e-9e563900abae",
+	"57529ed9-9bef-43cb-bf86-da0ab326c612",
+	'group_name',
+	'',
+	'',
+	'group_name',
+	0,
+	"61475a14-7431-4460-8c53-4608786b81e6",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("61475a14-7431-4460-8c53-4608786b81e6",
+	"00000000-0000-0000-0000-000000000000",
+	'string',
+	'',
+	'',
+	'../../../../types/types.xtuml');
+INSERT INTO O_ID
+	VALUES (0,
+	"6935c001-2f0f-4bb5-8f2e-9e563900abae");
+INSERT INTO O_OIDA
+	VALUES ("57529ed9-9bef-43cb-bf86-da0ab326c612",
+	"6935c001-2f0f-4bb5-8f2e-9e563900abae",
+	0,
+	'group_id');
+INSERT INTO O_ID
+	VALUES (1,
+	"6935c001-2f0f-4bb5-8f2e-9e563900abae");
+INSERT INTO O_ID
+	VALUES (2,
+	"6935c001-2f0f-4bb5-8f2e-9e563900abae");
+INSERT INTO PE_PE
+	VALUES ("6935c001-2f0f-4bb5-8f2e-9e563900abae",
+	1,
+	"0739986a-167c-4f05-8597-b3430cdbb938",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
+	VALUES ("0739986a-167c-4f05-8597-b3430cdbb938",
+	"00000000-0000-0000-0000-000000000000",
+	"ae413277-027c-471b-a0ca-1f4d4363bbcf",
+	'SAC',
+	'',
+	0,
+	'../SAC.xtuml');

@@ -17,13 +17,12 @@ the License.
 -->
 <project name="bp.ui.tree" default="all" basedir=".">
 
+  <import file="../MC-Java/common.xml"/>
+	
   <target name="all" 
           description="Generate all code for this project" 
     depends="sql,schema">
   </target>
-
-  <property name="eclipse-home" value="${basedir}/../.."/>
-  <property name="util_bin_dir" value="${eclipse-home}/src/org.xtuml.bp.mc.c.source/mc3020/bin"/>
 
   <property name="sql.input" value="models/org.xtuml.bp.ui.tree/UITree" />
   <property name="sql.output" value="uitree.sql" />
@@ -40,16 +39,15 @@ the License.
   <target name="sql" depends="sql.depends" 
           description="Generate the sql version of the UI Tree model" 
           unless="sql.buildNotNeeded" >
-    <echo >${util_bin_dir}/xtumlmc_build.exe Generating ${sql.output_path}/${sql.output} ...</echo>
+    <echo >${xtumlmc_build} Generating ${sql.output_path}/${sql.output} ...</echo>
     <copy file="../org.xtuml.bp.pkg/globals/Globals.xtuml" tofile="${sql.input}/Globals.xtuml" />
   	<echo>xtumlmc_cleanse_for_BridgePoint ${sql.input} ${sql.output_path}/${sql.output} ${subsystems_to_remove}</echo>
-	<exec vmlauncher="false" failonerror="true" executable="${util_bin_dir}/xtumlmc_build.exe" >
+	<exec vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
 		<arg line="xtumlmc_cleanse_for_BridgePoint ${sql.input} ${sql.output_path}/${sql.output} ${subsystems_to_remove}" />
 	</exec>
     <delete file="${sql.input}/Globals.xtuml" />
   </target>
 
-  <property name="mcj_path" value="../MC-Java" />
   <property name="sg.dep" value="ooa_schema.sql,schema_gen.arc" />
   <property name="schema.output" value="UITree_schema.sql" />
   <property name="schema.output_path" value="../org.xtuml.bp.ui.tree/sql" />	

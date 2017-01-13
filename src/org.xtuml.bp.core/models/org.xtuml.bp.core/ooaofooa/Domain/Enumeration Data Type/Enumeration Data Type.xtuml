@@ -23,7 +23,8 @@ unrelate self from dt across R17;
 delete object instance self;',
 	1,
 	'',
-	"00000000-0000-0000-0000-000000000000");
+	"00000000-0000-0000-0000-000000000000",
+	0);
 INSERT INTO O_TFR
 	VALUES ("0d82a309-a960-4da8-8c5f-7deb49eea4c0",
 	"942a736a-d379-4a82-9b01-d8e56ae947be",
@@ -37,7 +38,8 @@ enum.initialize();
 ',
 	1,
 	'',
-	"f260219c-1f60-4a87-b9ac-8b4de63df68b");
+	"f260219c-1f60-4a87-b9ac-8b4de63df68b",
+	0);
 INSERT INTO O_TFR
 	VALUES ("dfa0b081-15d3-45c1-9795-57d4de5f934d",
 	"942a736a-d379-4a82-9b01-d8e56ae947be",
@@ -50,7 +52,8 @@ dt.Name = param.new_name;
 ',
 	1,
 	'',
-	"0d82a309-a960-4da8-8c5f-7deb49eea4c0");
+	"0d82a309-a960-4da8-8c5f-7deb49eea4c0",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("90016e48-9f4d-44ef-9554-34b1b123c7c2",
 	"dfa0b081-15d3-45c1-9795-57d4de5f934d",
@@ -75,7 +78,8 @@ else
 end if;',
 	1,
 	'',
-	"682c49b8-2692-46a9-968b-0855f05ffbbc");
+	"682c49b8-2692-46a9-968b-0855f05ffbbc",
+	0);
 INSERT INTO O_TFR
 	VALUES ("bbacff2d-8698-40c9-8d74-c247f16bfac4",
 	"942a736a-d379-4a82-9b01-d8e56ae947be",
@@ -86,7 +90,8 @@ INSERT INTO O_TFR
 	'return self.DT_ID;',
 	1,
 	'',
-	"c92814ad-31d2-46ac-9f8d-c36cb9aeab18");
+	"c92814ad-31d2-46ac-9f8d-c36cb9aeab18",
+	0);
 INSERT INTO O_TFR
 	VALUES ("5855e55d-91b8-4648-b72a-81f5a76084ff",
 	"942a736a-d379-4a82-9b01-d8e56ae947be",
@@ -128,7 +133,8 @@ end if;
 return result;',
 	1,
 	'',
-	"5a836da8-28c7-4c67-8698-a1ea208a9beb");
+	"5a836da8-28c7-4c67-8698-a1ea208a9beb",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("dbe37b9a-bb04-448e-98b8-0b63932269e2",
 	"5855e55d-91b8-4648-b72a-81f5a76084ff",
@@ -175,7 +181,8 @@ INSERT INTO O_TFR
 	'return 2;',
 	1,
 	'',
-	"5855e55d-91b8-4648-b72a-81f5a76084ff");
+	"5855e55d-91b8-4648-b72a-81f5a76084ff",
+	0);
 INSERT INTO O_TFR
 	VALUES ("682c49b8-2692-46a9-968b-0855f05ffbbc",
 	"942a736a-d379-4a82-9b01-d8e56ae947be",
@@ -191,7 +198,8 @@ else
 end if;',
 	1,
 	'',
-	"abe4ae4f-0d36-4d80-bc48-d91577309d8c");
+	"abe4ae4f-0d36-4d80-bc48-d91577309d8c",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("9e5d5b42-8d75-4630-bbf2-6590f195fd0e",
 	"682c49b8-2692-46a9-968b-0855f05ffbbc",
@@ -211,7 +219,8 @@ INSERT INTO O_TFR
 	'return Style::Box;',
 	1,
 	'',
-	"bbacff2d-8698-40c9-8d74-c247f16bfac4");
+	"bbacff2d-8698-40c9-8d74-c247f16bfac4",
+	0);
 INSERT INTO S_DT_PROXY
 	VALUES ("6e636321-0fd1-4577-b185-e4d76b0d0c71",
 	"00000000-0000-0000-0000-000000000000",
@@ -231,7 +240,8 @@ INSERT INTO O_TFR
 	'return Style::None;',
 	1,
 	'',
-	"32ce073a-64da-433b-ad78-92d2bb00e411");
+	"32ce073a-64da-433b-ad78-92d2bb00e411",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("b66da827-4ea2-4d5b-803e-7f4297465cf3",
 	"a873d187-4375-4f60-b16e-d4c38021502f",
@@ -328,7 +338,8 @@ if (cardinality peers > 1)
 end if;',
 	1,
 	'',
-	"a873d187-4375-4f60-b16e-d4c38021502f");
+	"a873d187-4375-4f60-b16e-d4c38021502f",
+	0);
 INSERT INTO O_TFR
 	VALUES ("86fd6044-986c-4697-b19f-d48893356412",
 	"942a736a-d379-4a82-9b01-d8e56ae947be",
@@ -368,7 +379,8 @@ end if;
 return false;',
 	1,
 	'',
-	"dfa0b081-15d3-45c1-9795-57d4de5f934d");
+	"dfa0b081-15d3-45c1-9795-57d4de5f934d",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("1b4f3cce-414b-48e9-be80-a9c6af2029bf",
 	"86fd6044-986c-4697-b19f-d48893356412",
@@ -409,7 +421,8 @@ if(not_empty enumerator)
 end if;',
 	1,
 	'',
-	"86fd6044-986c-4697-b19f-d48893356412");
+	"86fd6044-986c-4697-b19f-d48893356412",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("0ad2af18-2f14-43f1-93aa-17fb88f56f9e",
 	"59dce3c7-e3ed-4a95-938f-ed263c7ba752",
@@ -443,7 +456,8 @@ if(not_empty enumerator)
 end if;',
 	1,
 	'',
-	"59dce3c7-e3ed-4a95-938f-ed263c7ba752");
+	"59dce3c7-e3ed-4a95-938f-ed263c7ba752",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("3d5c1e1a-5f76-40e8-8137-eabbdfecf753",
 	"4bcdb70d-26ad-47c7-b6e2-1e7cb429645e",
@@ -463,7 +477,8 @@ INSERT INTO O_TFR
 	'return this;',
 	0,
 	'',
-	"4bcdb70d-26ad-47c7-b6e2-1e7cb429645e");
+	"4bcdb70d-26ad-47c7-b6e2-1e7cb429645e",
+	0);
 INSERT INTO S_DT_PROXY
 	VALUES ("bc3722c8-5188-4529-8519-cf9eb9816b17",
 	"00000000-0000-0000-0000-000000000000",
@@ -511,7 +526,8 @@ for each otherDt in dts
 end for;',
 	1,
 	'',
-	"c638ef3c-93c1-413d-be81-a426dcace1fb");
+	"c638ef3c-93c1-413d-be81-a426dcace1fb",
+	0);
 INSERT INTO O_TFR
 	VALUES ("b3aa28fb-5069-434b-8a2e-e6f60edeede7",
 	"942a736a-d379-4a82-9b01-d8e56ae947be",
@@ -523,7 +539,24 @@ INSERT INTO O_TFR
 return dt.Descrip;',
 	1,
 	'',
-	"8c05285e-8df2-434e-b3f4-00287cca24f2");
+	"8c05285e-8df2-434e-b3f4-00287cca24f2",
+	0);
+INSERT INTO O_TFR
+	VALUES ("61cb1f84-3dfa-446d-8b99-f89652e1ba33",
+	"942a736a-d379-4a82-9b01-d8e56ae947be",
+	'downgradeCheck',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'// The Data Type superclass can check all the RGOs
+select one dt related by self->S_DT[R17];
+dt.downgradeCheck();
+
+// Enums don''t refer to any other elements, so no RTO checking needed',
+	1,
+	'',
+	"b3aa28fb-5069-434b-8a2e-e6f60edeede7",
+	0);
 INSERT INTO O_REF
 	VALUES ("942a736a-d379-4a82-9b01-d8e56ae947be",
 	"ead52fac-9782-434b-a35c-c07452c3b26d",

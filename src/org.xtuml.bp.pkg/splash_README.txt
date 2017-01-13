@@ -1,10 +1,8 @@
-To update the copyright year:
+To update the splash screen:
 ------------------------------
 _- Open splash.xcf in GiMP
-_- Edit the text in the copyright layer to have the right year
-_- Export the file to BMP, overwriting the splash.bmp here
-
-Eclipse has a problem with the BMP output by GiMP, so now:
-_- Open the BMP with MS Paint
-_- Save the file as splash.bmp, overwriting the existing splash.bmp
+_- Edit
+_- Export the file to BMP, overwriting the splash.bmp here.  During the export
+  be sure to go to advanced options and choose 24-bit color.
+_- Test the new splash screen in a BridgePoint launch
 _- Commit the files

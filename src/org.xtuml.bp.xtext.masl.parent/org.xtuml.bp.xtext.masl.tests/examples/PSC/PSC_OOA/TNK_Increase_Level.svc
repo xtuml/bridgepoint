@@ -1,0 +1,11 @@
+//
+// UK Crown Copyright (c) 2016. All rights reserved.
+//
+
+public instance service PSC::TANK.Increase_Level (Delivered_Volume : in  real) is
+  new_level : real; 
+
+begin
+  new_level := this.Tank_Level + Delivered_Volume;
+  this.Tank_Level := new_level;
+end service;

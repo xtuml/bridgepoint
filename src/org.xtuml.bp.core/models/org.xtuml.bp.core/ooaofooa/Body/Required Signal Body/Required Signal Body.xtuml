@@ -21,7 +21,8 @@ end if;
 delete object instance self;',
 	1,
 	'',
-	"00000000-0000-0000-0000-000000000000");
+	"00000000-0000-0000-0000-000000000000",
+	0);
 INSERT INTO O_TFR
 	VALUES ("e5961665-2c04-48c8-95a6-2012052edb75",
 	"0372e9a2-4087-4880-8e23-a0df2184df2c",
@@ -33,7 +34,8 @@ INSERT INTO O_TFR
 return requiredSig.getComponentId();',
 	1,
 	'',
-	"215afe87-4e98-42dd-9265-6533f2ccc9cd");
+	"215afe87-4e98-42dd-9265-6533f2ccc9cd",
+	0);
 INSERT INTO O_TFR
 	VALUES ("37c2e11e-6f7c-4850-99d5-e96c1e1ad2df",
 	"0372e9a2-4087-4880-8e23-a0df2184df2c",
@@ -46,7 +48,8 @@ select one requiredSig related by self->SPR_RS[R684];
 return requiredSig.getComponentId();',
 	1,
 	'',
-	"e5961665-2c04-48c8-95a6-2012052edb75");
+	"e5961665-2c04-48c8-95a6-2012052edb75",
+	0);
 INSERT INTO O_TFR
 	VALUES ("2d494c52-ec63-4ee1-b805-ea5e1f25ccec",
 	"0372e9a2-4087-4880-8e23-a0df2184df2c",
@@ -65,7 +68,8 @@ end if;
 return requiredSigPath;',
 	1,
 	'',
-	"37c2e11e-6f7c-4850-99d5-e96c1e1ad2df");
+	"37c2e11e-6f7c-4850-99d5-e96c1e1ad2df",
+	0);
 INSERT INTO O_REF
 	VALUES ("0372e9a2-4087-4880-8e23-a0df2184df2c",
 	"d1c9af7b-9df6-432a-a25e-96cab24fc6af",

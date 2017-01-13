@@ -89,6 +89,7 @@ import org.xtuml.bp.ui.text.activity.ActivityEditorInputFactory;
 import org.xtuml.bp.ui.text.activity.AllActivityModifier;
 import org.xtuml.bp.ui.text.description.DescriptionEditorInputFactory;
 import org.xtuml.bp.ui.text.placeholder.PlaceHolderEntry.PlaceHolderFileProxy;
+import org.xtuml.bp.ui.text.typedefinition.TypeDefinitionEditorInputFactory;
 
 public class PlaceHolderManager {
 	
@@ -100,7 +101,7 @@ public class PlaceHolderManager {
 	 * @see PlaceHolderFileReWriter
 	 */ 
 	public static String PLACEHOLDER_REWRITER_THREAD_NAME = "__PlaceHolderFileReWriter_Thread"; //$NON-NLS-1$
-	static String[] supportedExtensions = new String[]{ActivityEditorInputFactory.PLACEHOLDER_EXTENSION, DescriptionEditorInputFactory.PLACEHOLDER_EXTENSION};
+	static String[] supportedExtensions = new String[]{ActivityEditorInputFactory.PLACEHOLDER_EXTENSION, DescriptionEditorInputFactory.PLACEHOLDER_EXTENSION, TypeDefinitionEditorInputFactory.PLACEHOLDER_EXTENSION};
 
 	Map<ModelElementID, PlaceHolderEntry> placeholderMap = new TreeMap<ModelElementID, PlaceHolderEntry>();
 	private boolean parseInProgress = false;
@@ -137,7 +138,7 @@ public class PlaceHolderManager {
 	 * exits.
 	 * 
 	 * @param modelElementID Must not be null, used as the key for the PlaceHolderMap
-	 * @param extension Currently can only be "oal" or "dsc"
+	 * @param extension Currently can only be "oal_err" or "dsc"
 	 * @param requester Must not be null
 	 * @return An already exsiting IFile or a newly created instance
 	 * 	 * @throws IllegalArgumentException if the extension is not knows
@@ -175,7 +176,7 @@ public class PlaceHolderManager {
 	 * more instances left. 
 	 * 
 	 * @param modelElementID Must not be null, used as the key for the PlaceHolderMap 
-	 * @param extension Currently can only be "oal" or "dsc"
+	 * @param extension Currently can only be "oal_err" or "dsc"
 	 * @param requester Must not be null
 	 * @throws IllegalArgumentException if the extension is not knows
 	 */
@@ -306,6 +307,16 @@ public class PlaceHolderManager {
         return true;
     }
 	
+    /**
+     * This is where we determine the IFile instance 
+     * that represents the 
+     * PlaceHolderEntry.java::PlaceHolderFileProxy::originalFile
+     * attribute. Of course an IFile instance need not actually exist.
+     * It is not until the file is actually written out that it gets
+     * created (if it does not already exist when this routine is called).
+     * 
+     * This routine gets invoked when an editor is opened.
+     */
 	IFile getFileWithUniqueName(ModelElementID modelElementID, IPath path, String fileNameWithoutExt, String extension) {
 		fileNameWithoutExt = getLegalFileName(fileNameWithoutExt);
         String proposedName = fileNameWithoutExt;

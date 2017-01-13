@@ -22,7 +22,8 @@ else
 end if;',
 	1,
 	'',
-	"dad9f2ed-20f7-4675-aa63-703fb55d88bc");
+	"dad9f2ed-20f7-4675-aa63-703fb55d88bc",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("0dc9470a-533e-4d9e-a300-d96c33cc1de6",
 	"5e951303-aab6-4795-8cda-ed671ac330b5",
@@ -47,7 +48,8 @@ else
 end if;',
 	1,
 	'',
-	"5e951303-aab6-4795-8cda-ed671ac330b5");
+	"5e951303-aab6-4795-8cda-ed671ac330b5",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("cd9ea182-ee1f-4400-903b-9d03782d7e89",
 	"65e673ed-dbde-4f79-9259-6b6f5caf5b7a",
@@ -72,7 +74,8 @@ else
 end if;',
 	1,
 	'',
-	"e56eb16e-2bf0-4fa3-adf2-57bed2256a70");
+	"e56eb16e-2bf0-4fa3-adf2-57bed2256a70",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("d0a73b3c-8df5-4f88-8e2c-a67c2ed93094",
 	"df338680-ec87-47bc-9619-0a812f88df53",
@@ -97,7 +100,8 @@ else
 end if;',
 	1,
 	'',
-	"65e673ed-dbde-4f79-9259-6b6f5caf5b7a");
+	"65e673ed-dbde-4f79-9259-6b6f5caf5b7a",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("1af19291-8430-45f9-b85b-cd0f9c9ff789",
 	"e56eb16e-2bf0-4fa3-adf2-57bed2256a70",
@@ -142,7 +146,8 @@ end if;
 delete object instance self;',
 	1,
 	'',
-	"00000000-0000-0000-0000-000000000000");
+	"00000000-0000-0000-0000-000000000000",
+	0);
 INSERT INTO O_TFR
 	VALUES ("6dc052d1-6d4a-4eed-a30d-b9da516dde7e",
 	"8bfaa268-bfec-4150-9e25-2dd9f6f3c9a5",
@@ -158,7 +163,8 @@ else
 end if;',
 	1,
 	'',
-	"df338680-ec87-47bc-9619-0a812f88df53");
+	"df338680-ec87-47bc-9619-0a812f88df53",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("b972c245-6307-4c1b-9fb8-c2623ea5c117",
 	"6dc052d1-6d4a-4eed-a30d-b9da516dde7e",
@@ -194,7 +200,8 @@ else
 end if;',
 	1,
 	'',
-	"8286e32f-84b7-4c4e-8eda-a261a8264b9e");
+	"8286e32f-84b7-4c4e-8eda-a261a8264b9e",
+	0);
 INSERT INTO S_DT_PROXY
 	VALUES ("bc3722c8-5188-4529-8519-cf9eb9816b17",
 	"00000000-0000-0000-0000-000000000000",
@@ -222,13 +229,18 @@ else
   // This is a referential attribute, we will need to find the value of the 
   // attribute value that it refers to.
   select one inst related by self->I_INS[R2909];
+  // There may be many Attribute Reference in Class (O_REF) associated with
+  // this referential attribute. We are going to look for the one associated
+  // with the Instance just found above.
   select many oref_set related by ref_attr->O_REF[R108];
   for each oref in oref_set
     select one rta related by oref->O_RTIDA[R111]->O_OIDA[R110]->O_ATTR[R105];
     if (not_empty rta)
+      // See if this instance participates via a unformalized participant.
       select any simp_link related by inst->I_LIP[R2958]->I_LNK[R2901] where
                                                  selected.Rel_ID == oref.Rel_ID;
       if (empty simp_link)
+        // If it was not an unformalized participant, see if it is formalized.
         select any simp_link related by inst->I_LIP[R2958]->I_LNK[R2902] where
                                                  selected.Rel_ID == oref.Rel_ID;
       end if;
@@ -246,7 +258,13 @@ else
                                                 selected.Attr_ID == rta.Attr_ID;
         end if;  
         if (not_empty attr_val)
-          return attr_val.getRuntimeValue();  //recursive call
+          if (self.Attr_ID == attr_val.Attr_ID)
+            // If we just found ourself, skip over the recursive call to avoid
+            // an infinite loop.
+            continue;
+          else
+            return attr_val.getRuntimeValue();  //recursive call
+          end if;
         end if;
         break;      
       elif (not_empty assoc_link)
@@ -274,7 +292,13 @@ else
                                                 selected.Attr_ID == rta.Attr_ID;
         end if;                
         if (not_empty attr_val)
-          return attr_val.getRuntimeValue();  //recursive call
+          if (self.Attr_ID == attr_val.Attr_ID)
+            // If we just found ourself, skip over the recursive call to avoid
+            // an infinite loop.
+            continue;
+          else
+            return attr_val.getRuntimeValue();  //recursive call
+          end if;
         end if;
         break;          
       end if;   
@@ -285,7 +309,8 @@ else
 end if;',
 	1,
 	'',
-	"839ac3c4-c819-412f-ab18-fd1f6f440de2");
+	"839ac3c4-c819-412f-ab18-fd1f6f440de2",
+	0);
 INSERT INTO O_DBATTR
 	VALUES ("ba87a80b-f054-4bc3-a063-3e3681e8a7bc",
 	"8bfaa268-bfec-4150-9e25-2dd9f6f3c9a5",
@@ -297,7 +322,8 @@ else
   self.Value = dt.Name;
 end if;
 ',
-	1);
+	1,
+	0);
 INSERT INTO O_BATTR
 	VALUES ("ba87a80b-f054-4bc3-a063-3e3681e8a7bc",
 	"8bfaa268-bfec-4150-9e25-2dd9f6f3c9a5");
@@ -461,7 +487,8 @@ else
   self.Label = attrName;
 end if;
 ',
-	1);
+	1,
+	0);
 INSERT INTO O_BATTR
 	VALUES ("fce5a46c-2f1e-4cf0-9e34-ff8152cc6e82",
 	"8bfaa268-bfec-4150-9e25-2dd9f6f3c9a5");

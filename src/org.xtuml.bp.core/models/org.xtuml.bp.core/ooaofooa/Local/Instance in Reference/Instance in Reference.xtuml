@@ -43,7 +43,8 @@ unrelate self from lrefrv across R3311;
 delete object instance self;',
 	1,
 	'',
-	"00000000-0000-0000-0000-000000000000");
+	"00000000-0000-0000-0000-000000000000",
+	0);
 INSERT INTO O_REF
 	VALUES ("bb08d5d2-523e-4e50-a261-47a54b297b94",
 	"c50d7849-51aa-4f4f-a7aa-431b4b07a5e3",

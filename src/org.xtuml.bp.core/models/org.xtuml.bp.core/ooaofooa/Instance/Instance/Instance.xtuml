@@ -298,7 +298,8 @@ else
 end if;',
 	1,
 	'',
-	"c79d0fdb-d777-4b01-bcf4-ee07c49de40b");
+	"c79d0fdb-d777-4b01-bcf4-ee07c49de40b",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("d191550f-7f80-4973-aba9-8ee7b5e169ed",
 	"66729cd1-616e-42a8-8039-22ff5d794e39",
@@ -418,7 +419,8 @@ delete object instance self;
 ',
 	1,
 	'',
-	"c56fd14b-afcf-4100-bacc-d2de93b68765");
+	"c56fd14b-afcf-4100-bacc-d2de93b68765",
+	0);
 INSERT INTO O_TFR
 	VALUES ("32894210-4f53-4e1e-9a5e-d4569a26b598",
 	"c50d7849-51aa-4f4f-a7aa-431b4b07a5e3",
@@ -553,7 +555,8 @@ for each assoc in assocs
 end for;',
 	1,
 	'',
-	"6e61b267-acef-4a39-b06f-39cf07ed0439");
+	"6e61b267-acef-4a39-b06f-39cf07ed0439",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("2a8d06b2-03c9-44c1-a477-ff4acec12c6c",
 	"32894210-4f53-4e1e-9a5e-d4569a26b598",
@@ -592,7 +595,8 @@ if (not_empty stack)
 end if;',
 	1,
 	'',
-	"32894210-4f53-4e1e-9a5e-d4569a26b598");
+	"32894210-4f53-4e1e-9a5e-d4569a26b598",
+	0);
 INSERT INTO O_TFR
 	VALUES ("c79d0fdb-d777-4b01-bcf4-ee07c49de40b",
 	"c50d7849-51aa-4f4f-a7aa-431b4b07a5e3",
@@ -622,7 +626,8 @@ if (not_empty stack)
 end if; ',
 	1,
 	'',
-	"3955a35c-8b93-41d2-bbe6-e9ea328a318d");
+	"3955a35c-8b93-41d2-bbe6-e9ea328a318d",
+	0);
 INSERT INTO O_TFR
 	VALUES ("9acfb10e-b9a9-4541-b5aa-7414154be84a",
 	"c50d7849-51aa-4f4f-a7aa-431b4b07a5e3",
@@ -682,7 +687,8 @@ else
 end if;',
 	1,
 	'',
-	"66729cd1-616e-42a8-8039-22ff5d794e39");
+	"66729cd1-616e-42a8-8039-22ff5d794e39",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("af937b09-21d0-495e-8ada-5c475abcb057",
 	"9acfb10e-b9a9-4541-b5aa-7414154be84a",
@@ -711,7 +717,8 @@ INSERT INTO O_TFR
 	'return self.Inst_ID;',
 	1,
 	'',
-	"806cfa5c-2f94-4740-be06-c0161d7b1d26");
+	"806cfa5c-2f94-4740-be06-c0161d7b1d26",
+	0);
 INSERT INTO O_TFR
 	VALUES ("c56fd14b-afcf-4100-bacc-d2de93b68765",
 	"c50d7849-51aa-4f4f-a7aa-431b4b07a5e3",
@@ -790,7 +797,8 @@ end if;
 return foundTarget;',
 	1,
 	'',
-	"00000000-0000-0000-0000-000000000000");
+	"00000000-0000-0000-0000-000000000000",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("dd07c707-21ec-47c6-956b-baf4f9607377",
 	"c56fd14b-afcf-4100-bacc-d2de93b68765",
@@ -1038,7 +1046,8 @@ else
     self.Label = self.Default_Name + result;
   end if;
 end if;',
-	1);
+	1,
+	0);
 INSERT INTO O_BATTR
 	VALUES ("6038e7a8-00d6-4750-81fe-68b90748fced",
 	"c50d7849-51aa-4f4f-a7aa-431b4b07a5e3");

@@ -70,6 +70,7 @@ import org.xtuml.bp.ui.text.ModelElementID;
 import org.xtuml.bp.ui.text.TextPlugin;
 import org.xtuml.bp.ui.text.activity.ActivityEditorInputFactory;
 import org.xtuml.bp.ui.text.description.DescriptionEditorInputFactory;
+import org.xtuml.bp.ui.text.typedefinition.TypeDefinitionEditorInputFactory;
 
 public class PlaceHolderEntry {
 	
@@ -240,7 +241,7 @@ public class PlaceHolderEntry {
 		if(existingFile.getLocation() == null && existingFile.getProject().exists()){
 			return null;
 		}
-
+		
 		return new PlaceHolderFileProxy(existingFile);
 	}
 	
@@ -334,16 +335,24 @@ public class PlaceHolderEntry {
 				return ActivityEditorInputFactory.getDefaultInstance();
 			}else if(fileExtension.equalsIgnoreCase(DescriptionEditorInputFactory.PLACEHOLDER_EXTENSION)){
 				return DescriptionEditorInputFactory.getDefaultInstance();
+			}else if(fileExtension.equalsIgnoreCase(TypeDefinitionEditorInputFactory.PLACEHOLDER_EXTENSION)){
+				return TypeDefinitionEditorInputFactory.getDefaultInstance();
 			}else{
 				throw new IllegalArgumentException("Unsupported file extension:" + fileExtension); //$NON-NLS-1$
 			}
 		}
 		
+		/**
+		 * This is where we create the physical file, 
+		 * orginalFile, that is the IFile instance held
+		 * inside the PlaceHolderFileProxy class.
+		 * 
+		 * @throws CoreException
+		 */
 		private void createOriginalFileIfNotPresent() throws CoreException{
 			if(!originalFile.exists()){
-								
 				getModelElementID().saveTo(originalFile);
-				originalFile.setDerived(true);
+				originalFile.setDerived(true, null);
 				originalFile.getResourceAttributes().setReadOnly(true);
 			}
 		}

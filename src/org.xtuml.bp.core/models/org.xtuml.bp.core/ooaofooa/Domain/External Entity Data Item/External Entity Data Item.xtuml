@@ -18,14 +18,11 @@ INSERT INTO O_TFR
 unrelate self from dt across R15;
 select one ee related by self->S_EE[R11];
 unrelate self from ee across R11;
-select many smeeds related by self->CA_SMEED[R423];
-for each smeed in smeeds
-  smeed.dispose();
-end for;
 delete object instance self;',
 	1,
 	'',
-	"00000000-0000-0000-0000-000000000000");
+	"00000000-0000-0000-0000-000000000000",
+	0);
 INSERT INTO O_TFR
 	VALUES ("f4fcc00a-a92c-4f45-9078-cb16663cd916",
 	"a88f50c7-5695-415c-a7b8-24466cfb1378",
@@ -40,7 +37,8 @@ Translate: native',
 return this;',
 	0,
 	'',
-	"20b23a2b-654e-4ba9-9d3b-557971d7052e");
+	"20b23a2b-654e-4ba9-9d3b-557971d7052e",
+	0);
 INSERT INTO S_DT_PROXY
 	VALUES ("bc3722c8-5188-4529-8519-cf9eb9816b17",
 	"00000000-0000-0000-0000-000000000000",
@@ -48,6 +46,74 @@ INSERT INTO S_DT_PROXY
 	'',
 	'',
 	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("a805a595-833e-4161-90ee-0b00160b90a1",
+	"a88f50c7-5695-415c-a7b8-24466cfb1378",
+	'setToDefaultDataType',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'elementType = Util::getSimpleClassName(element:self.convertToInstance());
+defaultTypeName = S_DT::getDefaultDataTypeName(elementType:elementType);
+
+select one system related by self->S_EE[R11]->PE_PE[R8001]->EP_PKG[R8000]->S_SYS[R1405];
+if not_empty system
+  // Unhook from the current data type (if any)
+  select one currentDt related by self->S_DT[R15];
+  if ( not_empty currentDt )
+    unrelate self from currentDt across R15;
+  end if;
+  // Now connect to the default type
+  dt_id = system.getCoreTypeId(name:defaultTypeName);
+  select any pe from instances of PE_PE where selected.Element_ID == dt_id;
+  select one defaultDt related by pe->S_DT[R8001]; 
+  relate self to defaultDt across R15;
+else
+  // this is an error, if the system is not
+  // found we cannot find the core type
+  USER::logError(msg:"Unable to locate system root for data type: " + defaultTypeName,path:"");
+end if;
+',
+	1,
+	'',
+	"fa9f53f3-92e6-4092-8e0a-8a89ac86a3e1",
+	0);
+INSERT INTO O_TFR
+	VALUES ("3cb384cf-e2f1-4249-824f-7a3682175e0d",
+	"a88f50c7-5695-415c-a7b8-24466cfb1378",
+	'downgradeCheck',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'isVisible = self.canReferToDataType();
+if ( not isVisible )
+  select one s_dt related by self->S_DT[R15];
+  Util::reportElementDowngraded(rto:s_dt.convertToInstance(), rgoDowngraded:self.convertToInstance(), relationship:"R15");
+  self.setToDefaultDataType();
+end if;
+',
+	1,
+	'',
+	"a805a595-833e-4161-90ee-0b00160b90a1",
+	0);
+INSERT INTO O_TFR
+	VALUES ("fa9f53f3-92e6-4092-8e0a-8a89ac86a3e1",
+	"a88f50c7-5695-415c-a7b8-24466cfb1378",
+	'canReferToDataType',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000001",
+	1,
+	'select one dt related by self->S_DT[R15];
+if(not_empty dt)
+  select one packageableElem related by self->S_EE[R11]->PE_PE[R8001];
+  return packageableElem.canReferToDataType(dtID:dt.DT_ID, dtName: dt.Name);
+end if;
+return false;
+',
+	1,
+	'',
+	"f4fcc00a-a92c-4f45-9078-cb16663cd916",
+	0);
 INSERT INTO O_NBATTR
 	VALUES ("dcda0fda-3da4-4f8f-82a1-9875221507a7",
 	"a88f50c7-5695-415c-a7b8-24466cfb1378");

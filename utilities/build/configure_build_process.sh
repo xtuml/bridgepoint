@@ -51,12 +51,6 @@ function configure_installer_files {
     tr -d '\r' < Launcher.sh > ${eclipse_deliverables_linux}/eclipse/Launcher.sh 2>>${error_file}
     tr -d '\r' < CLI.sh > ${eclipse_deliverables_linux}/eclipse/CLI.sh 2>>${error_file}
 
-	# Add in the Windows fontchecker
-    cd ${git_bp}/${utilities_project}/fontchecker/Release
-    mkdir -p ${bp_deliverables}/tools/fontchecker
-    cp -f font_list.txt ${bp_deliverables}/tools/fontchecker/font_list.txt 2>>${error_file}
-    cp -f fontchecker.exe ${bp_deliverables}/tools/fontchecker/fontchecker.exe 2>>${error_file}
-    
 	echo -e "Exiting configure_build_process.sh::configure_installer_files"
 }
 
@@ -70,8 +64,10 @@ function configure_masl_files {
     # Copy files and do the dos2unix translation.
     tr -d '\r' < masl2xtuml > ${bp_deliverables_linux}/tools/masl/masl2xtuml 2>>${error_file}
     tr -d '\r' < xtuml2masl > ${bp_deliverables_linux}/tools/masl/xtuml2masl 2>>${error_file}
+    tr -d '\r' < masldiff > ${bp_deliverables_linux}/tools/masl/masldiff 2>>${error_file}
     chmod a+x ${bp_deliverables_linux}/tools/masl/masl2xtuml 2>>${error_file}
     chmod a+x ${bp_deliverables_linux}/tools/masl/xtuml2masl 2>>${error_file}
+    chmod a+x ${bp_deliverables_linux}/tools/masl/masldiff 2>>${error_file}
     
     cd ${bp_deliverables_linux}/tools/masl
     cp -fp ${user_supplied_files}/m2x  ./lib
@@ -80,11 +76,15 @@ function configure_masl_files {
     chmod a+x lib/masl 2>>${error_file}
     chmod a+x lib/m2x  2>>${error_file}
     chmod a+x lib/x2m  2>>${error_file}
-    
-    cp -fp ${git_mc}/masl/parser/lib/antlr-3.5.2-complete.jar ./lib
+
+    # Download the ANTLR used during the build
+    cd ${bp_deliverables_linux}/tools/masl/lib
+    ANTLR_JAR="antlr-3.5.2-complete.jar"
+    wget http://www.antlr3.org/download/${ANTLR_JAR}
     
     # Build the MASL parser
     cd ${git_mc}/masl/parser
+    cp -fp ${bp_deliverables_linux}/tools/masl/lib/${ANTLR_JAR} ./lib
     ant dist
     
     cd ${bp_deliverables_linux}/tools/masl

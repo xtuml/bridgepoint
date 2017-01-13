@@ -1,0 +1,974 @@
+-- BP 7.1.6 content: Package syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO EP_PKG
+	VALUES ("0eec87ca-63af-4b65-8769-1c99e84ebf64",
+	"00000000-0000-0000-0000-000000000000",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
+	'x2m_functions',
+	'',
+	0);
+INSERT INTO GD_MD
+	VALUES ("2c8600c5-2c02-4fbf-bcd5-cc1aab7c5aa2",
+	112,
+	"0eec87ca-63af-4b65-8769-1c99e84ebf64",
+	108,
+	0,
+	0,
+	1,
+	1,
+	1,
+	12,
+	1,
+	0,
+	0,
+	0,
+	0,
+	0,
+	'',
+	'org.xtuml.bp.core::ooaofooa::Functions::x2m_functions');
+INSERT INTO DIM_DIA
+	VALUES ("2c8600c5-2c02-4fbf-bcd5-cc1aab7c5aa2",
+	'',
+	1.000000,
+	0.000000,
+	0.000000,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO S_SYNC
+	VALUES ("caed34bd-f947-4372-a034-abe700f055d6",
+	"00000000-0000-0000-0000-000000000000",
+	'S_SYNC2routine',
+	'',
+	'// adapted from maslout function2routine
+
+smasl = "";
+
+select any s_sync from instances of S_SYNC where ( selected.Sync_ID == param.s_sync );
+if ( not_empty s_sync )
+
+  c_c_name = "";
+  visibility = "";
+  s_sync_name = "";
+
+  // find parent component if it exists
+  select any c_c from instances of C_C where false;
+  select one pe_pe related by s_sync->PE_PE[R8001];
+  while ( not_empty pe_pe )
+    select one c_c related by pe_pe->C_C[R8003];
+    if ( not_empty c_c )
+      c_c_name = c_c.Name; 
+    end if;
+    select one pe_pe related by pe_pe->EP_PKG[R8000]->PE_PE[R8001];
+  end while;
+
+  visibility = "public";
+  if ( not_empty c_c )
+	select many c_eps related by c_c->C_PO[R4010]->C_IR[R4016]->C_P[R4009]->C_IR[R4009]->C_I[R4012]->C_EP[R4003];
+	visibility = "private";
+	// Find a provided port message with this same name.  If found, mark public.
+	for each c_ep in c_eps
+	  if ( c_ep.Name == s_sync.Name )
+		visibility = "public";
+		break;
+	  end if;
+	end for;
+  end if;
+
+  s_sync_name = s_sync.Name;
+	
+  // Get the first parameter.
+  select any s_sparm related by s_sync->S_SPARM[R24];
+  first_s_sparm = s_sparm;
+  while ( not_empty s_sparm )
+	first_s_sparm = s_sparm;
+	select one s_sparm related by s_sparm->S_SPARM[R54.''succeeds''];
+  end while;
+	
+  // populate
+  smasl = smasl + "routine," + c_c_name + ",," + visibility + "," + s_sync_name + ",,,,\n";
+  
+  // populate parameters
+  s_sparm = first_s_sparm;
+  s_parm_count = 0;
+  while ( not_empty s_sparm )
+    direction = "";
+    if ( 0 == s_sparm.By_Ref )
+      direction = "in";
+    else
+      direction = "out";
+    end if;
+	smasl = smasl + "parameter," + s_sparm.Name + "," + direction + ",,,,,,\n";
+    select one s_dt related by s_sparm->S_DT[R26];
+    if ( not_empty s_dt )
+	  smasl = smasl + "typeref," + s_dt.Name + ",,,,,,,\ntyperef,,,,,,,,\n";
+	end if;
+    select one s_sparm related by s_sparm->S_SPARM[R54.''precedes''];
+    s_parm_count = s_parm_count + 1;
+  end while;
+  while ( s_parm_count > 0 )
+	smasl = smasl + "parameter,,,,,,,,\n";
+    s_parm_count = s_parm_count - 1;
+  end while;
+
+  // find return type if exists
+  select one s_dt related by s_sync->S_DT[R25];
+  if ( not_empty s_dt )
+	// Do not send a void typeref.  No typeref equals void in MASL.
+	if ( "void" != s_dt.Name )
+	  smasl = smasl + "typeref," + s_dt.Name + ",,,,,,,\ntyperef,,,,,,,,\n";
+	end if;
+  end if;
+	
+  // Populate the action langauge body.
+  smasl = smasl + "codeblock," + URL::encode(string:s_sync.Action_Semantics_internal) + ",,,,,,,\n";
+	
+  // end tag
+  smasl = smasl + "routine,,,,,,,,\n";
+	
+end if;
+
+return smasl;
+',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	1,
+	'',
+	0);
+INSERT INTO S_SPARM
+	VALUES ("c15d1389-17ba-4aa3-a4be-e75bd6c2c02a",
+	"caed34bd-f947-4372-a034-abe700f055d6",
+	's_sync',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO PE_PE
+	VALUES ("caed34bd-f947-4372-a034-abe700f055d6",
+	1,
+	"0eec87ca-63af-4b65-8769-1c99e84ebf64",
+	"00000000-0000-0000-0000-000000000000",
+	1);
+INSERT INTO S_SYNC
+	VALUES ("2dc602f9-a18a-49cd-a123-06021547e5f8",
+	"00000000-0000-0000-0000-000000000000",
+	'O_TFR2objectop',
+	'',
+	'// adapted from maslout classop2objectop
+
+smasl = "";
+
+select any o_tfr from instances of O_TFR where ( selected.Tfr_ID == param.o_tfr );
+if ( not_empty o_tfr )
+
+  c_c_name = "";
+  o_obj_name = "";
+  instance_based = "";
+  
+  select one o_obj related by o_tfr->O_OBJ[R115];
+
+  // find parent component if it exists
+  select one pe_pe related by o_obj->PE_PE[R8001];
+  while ( not_empty pe_pe )
+    select one c_c related by pe_pe->C_C[R8003];
+    if ( not_empty c_c )
+      c_c_name = c_c.Name; 
+    end if;
+    select one pe_pe related by pe_pe->EP_PKG[R8000]->PE_PE[R8001];
+  end while;
+
+  if ( Scope::Instance == o_tfr.Instance_Based )
+    instance_based = "instance";
+  end if;
+  
+  smasl = smasl + "operation," + c_c_name + "," + o_obj.Name + ",public," + o_tfr.Name + "," + instance_based + ",,,\n";
+  
+  // Get the first parameter.
+  select any o_tparm related by o_tfr->O_TPARM[R117];
+  first_o_tparm = o_tparm;
+  while ( not_empty o_tparm )
+    first_o_tparm = o_tparm;
+    select one o_tparm related by o_tparm->O_TPARM[R124.''succeeds''];
+  end while;
+
+  // populate parameters
+  o_tparm = first_o_tparm;
+  o_tparm_count = 0;
+  while ( not_empty o_tparm )
+    direction = "";
+    if ( 0 == o_tparm.By_Ref )
+      direction = "in";
+    else
+      direction = "out";
+    end if;
+	smasl = smasl + "parameter," + o_tparm.Name + "," + direction + ",,,,,,\n";
+    select one s_dt related by o_tparm->S_DT[R118];
+    if ( not_empty s_dt )
+	  smasl = smasl + "typeref," + s_dt.Name + ",,,,,,,\ntyperef,,,,,,,,\n";
+	end if;
+    select one o_tparm related by o_tparm->O_TPARM[R124.''precedes''];
+    o_tparm_count = o_tparm_count + 1;
+  end while;
+  while ( o_tparm_count > 0 )
+	smasl = smasl + "parameter,,,,,,,,\n";
+    o_tparm_count = o_tparm_count - 1;
+  end while;
+  
+  // find return type if exists
+  select one s_dt related by o_tfr->S_DT[R116];
+  if ( not_empty s_dt )
+	// Do not send a void typeref.  No typeref equals void in MASL.
+	if ( "void" != s_dt.Name )
+	  smasl = smasl + "typeref," + s_dt.Name + ",,,,,,,\ntyperef,,,,,,,,\n";
+	end if;
+  end if;
+  
+  // Populate the action langauge body.
+  smasl = smasl + "codeblock," + URL::encode(string:o_tfr.Action_Semantics_internal) + ",,,,,,,\n";
+  
+  // end tag
+  smasl = smasl + "operation,,,,,,,,\n";
+  
+end if;
+
+return smasl;
+',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	1,
+	'',
+	0);
+INSERT INTO S_SPARM
+	VALUES ("b4b05656-c05b-4fdf-a7f5-011bef757178",
+	"2dc602f9-a18a-49cd-a123-06021547e5f8",
+	'o_tfr',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO PE_PE
+	VALUES ("2dc602f9-a18a-49cd-a123-06021547e5f8",
+	1,
+	"0eec87ca-63af-4b65-8769-1c99e84ebf64",
+	"00000000-0000-0000-0000-000000000000",
+	1);
+INSERT INTO S_SYNC
+	VALUES ("dc68e125-37a7-4422-8727-bb37a75ef8bf",
+	"00000000-0000-0000-0000-000000000000",
+	'SM_ACT2state',
+	'',
+	'// adapted from maslout state2state
+
+smasl = "";
+
+select any sm_act from instances of SM_ACT where ( selected.Act_ID == param.sm_act );
+select one sm_state related by sm_act->SM_AH[R514]->SM_MOAH[R513]->SM_STATE[R511];
+if ( not_empty sm_state and not_empty sm_act )
+
+  type = "";
+  select any o_obj from instances of O_OBJ where false;
+  select one sm_asm related by sm_state->SM_SM[R501]->SM_ASM[R517];
+  if ( not_empty sm_asm )
+	type = "assigner";
+	select one o_obj related by sm_asm->O_OBJ[R519];
+  else
+	select one o_obj related by sm_state->SM_SM[R501]->SM_ISM[R517]->O_OBJ[R518];
+  end if;
+
+  c_c_name = "";
+
+  // find parent component if it exists
+  select one pe_pe related by o_obj->PE_PE[R8001];
+  while ( not_empty pe_pe )
+    select one c_c related by pe_pe->C_C[R8003];
+    if ( not_empty c_c )
+      c_c_name = c_c.Name; 
+    end if;
+    select one pe_pe related by pe_pe->EP_PKG[R8000]->PE_PE[R8001];
+  end while;
+
+  lowest = 7777;
+  if ( "assigner" == type )
+	// Find the lowest numbered state to be ASSIGNER START.
+	select many sm_states related by sm_state->SM_SM[R501]->SM_STATE[R501];
+	for each sm_st in sm_states
+	  if ( sm_st.Numb < lowest )
+		lowest = sm_st.Numb;
+	  end if;
+	end for;
+  end if;
+
+  // set state type
+  state_type = "";
+  if ( ( "assigner" == type ) and ( lowest == sm_state.Numb ) )
+    state_type = "assigner start";
+  elif ( "assigner" == type )
+    state_type = "assigner";
+  elif ( 1 == sm_state.Final )
+    state_type = "terminal";
+  else
+    // check for any creation transition destined to this state
+    select any sm_crtxn related by sm_state->SM_TXN[R506]->SM_CRTXN[R507];
+    if ( not_empty sm_crtxn )
+      state_type = "creation";
+    end if;
+  end if;
+
+  smasl = smasl + "state," + c_c_name + "," + o_obj.Name + "," + sm_state.Name + "," + state_type + ",,,,\n";
+
+  // MASL states declare their parameter signatures.
+  // Traverse to any event transitioning to this state and use its parameters.
+  select any sm_evtdi related by sm_state->SM_TXN[R506]->SM_NSTXN[R507]->SM_SEME[R504]->SM_SEVT[R503]->SM_EVT[R525]->SM_EVTDI[R532];
+  if ( empty sm_evtdi )	// if there are no state to state transitions to this state, it may be a creation
+  						// state. Check the path to an event through a creation transition
+    select any sm_evtdi related by sm_state->SM_TXN[R506]->SM_CRTXN[R507]->SM_LEVT[R509]->SM_SEVT[R526]->SM_EVT[R525]->SM_EVTDI[R532];
+  end if;
+  // Get first parameter.
+  first_sm_evtdi = sm_evtdi;
+  while ( not_empty sm_evtdi )
+    first_sm_evtdi = sm_evtdi;
+    select one sm_evtdi related by sm_evtdi->SM_EVTDI[R533.''succeeds''];
+  end while;
+  
+  // populate parameters
+  sm_evtdi = first_sm_evtdi;
+  sm_evtdi_count = 0;
+  while ( not_empty sm_evtdi )
+	smasl = smasl + "parameter," + sm_evtdi.Name + ",in,,,,,,\n";
+    select one s_dt related by sm_evtdi->S_DT[R524];
+    if ( not_empty s_dt )
+	  smasl = smasl + "typeref," + s_dt.Name + ",,,,,,,\ntyperef,,,,,,,,\n";
+	end if;
+    select one sm_evtdi related by sm_evtdi->SM_EVTDI[R533.''precedes''];
+    sm_evtdi_count = sm_evtdi_count + 1;
+  end while;
+  while ( sm_evtdi_count > 0 )
+	smasl = smasl + "parameter,,,,,,,,\n";
+    sm_evtdi_count = sm_evtdi_count - 1;
+  end while;
+  
+  // Populate the action langauge body.
+  smasl = smasl + "codeblock," + URL::encode(string:sm_act.Action_Semantics_internal) + ",,,,,,,\n";
+  
+  // end tag
+  smasl = smasl + "state,,,,,,,,\n";
+
+end if;
+
+return smasl;
+',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	1,
+	'',
+	0);
+INSERT INTO S_SPARM
+	VALUES ("f8678a8f-af0b-4ecf-b437-33503042f7ef",
+	"dc68e125-37a7-4422-8727-bb37a75ef8bf",
+	'sm_act',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO PE_PE
+	VALUES ("dc68e125-37a7-4422-8727-bb37a75ef8bf",
+	1,
+	"0eec87ca-63af-4b65-8769-1c99e84ebf64",
+	"00000000-0000-0000-0000-000000000000",
+	1);
+INSERT INTO S_SYNC
+	VALUES ("a82e2eb4-4c0f-4eca-8eb9-1bfac7d76f8e",
+	"00000000-0000-0000-0000-000000000000",
+	'SPR_RO2routine',
+	'',
+	'select any spr_ro from instances of SPR_RO where ( selected.Id == param.spr_ro );
+select one c_ep related by spr_ro->SPR_REP[R4502]->C_EP[R4500];
+select one c_po related by spr_ro->SPR_REP[R4502]->C_R[R4500]->C_IR[R4009]->C_PO[R4016];
+if ( not_empty c_ep and not_empty c_po )
+  return ::message2routine( c_ep:c_ep.Id, c_po:c_po.Id );
+else
+  return "";
+end if;',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	1,
+	'',
+	0);
+INSERT INTO S_SPARM
+	VALUES ("59bd049a-705b-48dc-bd3e-bb5c0ce4da8d",
+	"a82e2eb4-4c0f-4eca-8eb9-1bfac7d76f8e",
+	'spr_ro',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO PE_PE
+	VALUES ("a82e2eb4-4c0f-4eca-8eb9-1bfac7d76f8e",
+	1,
+	"0eec87ca-63af-4b65-8769-1c99e84ebf64",
+	"00000000-0000-0000-0000-000000000000",
+	1);
+INSERT INTO S_SYNC
+	VALUES ("fd2c8b88-33ae-46a5-a5c9-d5f72ed05a7c",
+	"00000000-0000-0000-0000-000000000000",
+	'SPR_PO2routine',
+	'',
+	'select any spr_po from instances of SPR_PO where ( selected.Id == param.spr_po );
+select one c_ep related by spr_po->SPR_PEP[R4503]->C_EP[R4501];
+select one c_po related by spr_po->SPR_PEP[R4503]->C_P[R4501]->C_IR[R4009]->C_PO[R4016];
+if ( not_empty c_ep and not_empty c_po )
+  return ::message2routine( c_ep:c_ep.Id, c_po:c_po.Id );
+else
+  return "";
+end if;',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	1,
+	'',
+	0);
+INSERT INTO S_SPARM
+	VALUES ("deb6ad43-9c6a-40b7-b1b1-6b713cdded99",
+	"fd2c8b88-33ae-46a5-a5c9-d5f72ed05a7c",
+	'spr_po',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO PE_PE
+	VALUES ("fd2c8b88-33ae-46a5-a5c9-d5f72ed05a7c",
+	1,
+	"0eec87ca-63af-4b65-8769-1c99e84ebf64",
+	"00000000-0000-0000-0000-000000000000",
+	1);
+INSERT INTO S_SYNC
+	VALUES ("5a48c142-0378-439e-b35d-38ab6958986b",
+	"00000000-0000-0000-0000-000000000000",
+	'message2routine',
+	'',
+	'// adapted from maslout message2routine
+
+smasl = "";
+
+select any c_ep from instances of C_EP where ( selected.Id == param.c_ep );
+select any c_po from instances of C_PO where ( selected.Id == param.c_po );
+if ( not_empty c_ep and not_empty c_po )
+
+  c_c_name = "";
+
+  select one c_c related by c_po->C_C[R4010];
+  if ( not_empty c_c )
+	c_c_name = c_c.Name;
+  end if;
+
+  // message -> function/service
+  smasl = smasl + "routine," + c_c_name + "," + c_po.Name + ",private," + c_ep.Name + ",,,,\n";
+  
+  select any c_pp related by c_ep->C_PP[R4006];
+  first_c_pp = c_pp;
+  while ( not_empty c_pp )
+    first_c_pp = c_pp;
+    select one c_pp related by c_pp->C_PP[R4021.''succeeds''];
+  end while;
+
+  // populate parameters
+  c_pp = first_c_pp;
+  c_pp_count = 0;
+  while ( not_empty c_pp )
+    direction = "";
+    if ( 0 == c_pp.By_Ref )
+      direction = "in";
+    else
+      direction = "out";
+    end if;
+	smasl = smasl + "parameter," + c_pp.Name + "," + direction + ",,,,,,\n";
+    select one s_dt related by c_pp->S_DT[R4007];
+    if ( not_empty s_dt )
+	  smasl = smasl + "typeref," + s_dt.Name + ",,,,,,,\ntyperef,,,,,,,,\n";
+	end if;
+    select one c_pp related by c_pp->C_PP[R4021.''precedes''];
+    c_pp_count = c_pp_count + 1;
+  end while;
+  while ( c_pp_count > 0 )
+	smasl = smasl + "parameter,,,,,,,,\n";
+    c_pp_count = c_pp_count - 1;
+  end while;
+  
+  select one s_dt related by c_ep->C_IO[R4004]->S_DT[R4008];
+  if ( not_empty s_dt )
+    // Do not send a void typeref.  No typeref equals void in MASL.
+    if ( "void" != s_dt.Name )
+	  smasl = smasl + "typeref," + s_dt.Name + ",,,,,,,\ntyperef,,,,,,,,\n";
+    end if;
+  end if;
+  
+  // Populate the action langauge body.
+  select any spr_po related by c_ep->SPR_PEP[R4501]->SPR_PO[R4503];
+  if ( not_empty spr_po )
+    smasl = smasl + "codeblock," + URL::encode(string:spr_po.Action_Semantics_internal) + ",,,,,,,\n";
+  else
+    select any spr_ro related by c_ep->SPR_REP[R4500]->SPR_RO[R4502];
+    if ( not_empty spr_ro )
+      smasl = smasl + "codeblock," + URL::encode(string:spr_ro.Action_Semantics_internal) + ",,,,,,,\n";
+    else
+      select any spr_ps related by c_ep->SPR_PEP[R4501]->SPR_PS[R4503];
+      if ( not_empty spr_ps )
+        smasl = smasl + "codeblock," + URL::encode(string:spr_ps.Action_Semantics_internal) + ",,,,,,,\n";
+      else
+        select any spr_rs related by c_ep->SPR_REP[R4500]->SPR_RS[R4502];
+        if ( not_empty spr_rs )
+          smasl = smasl + "codeblock," + URL::encode(string:spr_rs.Action_Semantics_internal) + ",,,,,,,\n";
+        end if;
+      end if;
+    end if;
+  end if;
+
+  // end tag
+  smasl = smasl + "routine,,,,,,,,\n";
+
+end if;
+
+return smasl;',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	1,
+	'',
+	0);
+INSERT INTO S_SPARM
+	VALUES ("318d6b01-fc47-4258-9832-e45054a9e028",
+	"5a48c142-0378-439e-b35d-38ab6958986b",
+	'c_ep',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("4b40ec64-164c-466e-a9c1-325284c3484d",
+	"5a48c142-0378-439e-b35d-38ab6958986b",
+	'c_po',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"318d6b01-fc47-4258-9832-e45054a9e028",
+	'');
+INSERT INTO PE_PE
+	VALUES ("5a48c142-0378-439e-b35d-38ab6958986b",
+	1,
+	"0eec87ca-63af-4b65-8769-1c99e84ebf64",
+	"00000000-0000-0000-0000-000000000000",
+	1);
+INSERT INTO S_SYNC
+	VALUES ("259c9160-f26b-40d8-ad3d-94ed6af41616",
+	"00000000-0000-0000-0000-000000000000",
+	'O_DBATTR2attribute',
+	'',
+	'// adapted from maslout classop2objectop
+
+smasl = "";
+
+select any o_dbattr from instances of O_DBATTR where ( selected.Attr_ID == param.o_dbattr );
+if ( not_empty o_dbattr )
+
+  c_c_name = "";
+  o_obj_name = "";
+  instance_based = "";
+  
+  select one o_attr related by o_dbattr->O_BATTR[R107]->O_ATTR[R106];
+  select one o_obj related by o_attr->O_OBJ[R102];
+
+  // find parent component if it exists
+  select one pe_pe related by o_obj->PE_PE[R8001];
+  while ( not_empty pe_pe )
+    select one c_c related by pe_pe->C_C[R8003];
+    if ( not_empty c_c )
+      c_c_name = c_c.Name; 
+    end if;
+    select one pe_pe related by pe_pe->EP_PKG[R8000]->PE_PE[R8001];
+  end while;
+  
+  smasl = smasl + "attribute," + o_attr.Name + ",,," + c_c_name + "," + o_obj.Name + ",,,\n";
+  
+  // find return type
+  select one s_dt related by o_attr->S_DT[R114];
+  if ( not_empty s_dt )
+	// Do not send a void typeref.  No typeref equals void in MASL.
+	if ( "void" != s_dt.Name )
+	  smasl = smasl + "typeref," + s_dt.Name + ",,,,,,,\ntyperef,,,,,,,,\n";
+	end if;
+  end if;
+  
+  // Populate the action langauge body.
+  smasl = smasl + "codeblock," + URL::encode(string:o_dbattr.Action_Semantics_internal) + ",,,,,,,\n";
+  
+  // end tag
+  smasl = smasl + "attribute,,,,,,,,\n";
+  
+end if;
+
+return smasl;
+',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	1,
+	'',
+	0);
+INSERT INTO S_SPARM
+	VALUES ("6a2d0e57-12e1-48db-8d0c-d58a9cc64c54",
+	"259c9160-f26b-40d8-ad3d-94ed6af41616",
+	'o_dbattr',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO PE_PE
+	VALUES ("259c9160-f26b-40d8-ad3d-94ed6af41616",
+	1,
+	"0eec87ca-63af-4b65-8769-1c99e84ebf64",
+	"00000000-0000-0000-0000-000000000000",
+	1);
+INSERT INTO S_SYNC
+	VALUES ("7a63954d-b2b2-442e-8178-03da52541c06",
+	"00000000-0000-0000-0000-000000000000",
+	'S_BRG2routine',
+	'',
+	'// adapted from maslout function2routine
+
+smasl = "";
+
+select any s_brg from instances of S_BRG where ( selected.Brg_ID == param.s_brg );
+if ( not_empty s_brg )
+
+  c_c_name = "";
+  visibility = "";
+  s_sync_name = "";
+
+  select one s_ee related by s_brg->S_EE[R19];
+
+  // find parent component if it exists
+  select one pe_pe related by s_ee->PE_PE[R8001];
+  while ( not_empty pe_pe )
+    select one c_c related by pe_pe->C_C[R8003];
+    if ( not_empty c_c )
+      c_c_name = c_c.Name; 
+    end if;
+    select one pe_pe related by pe_pe->EP_PKG[R8000]->PE_PE[R8001];
+  end while;
+
+  // populate
+  smasl = smasl + "routine," + c_c_name + "," + s_ee.Name + ",private," + s_brg.Name + ",,,,\n";
+	
+  // Get the first parameter.
+  select any s_bparm related by s_brg->S_BPARM[R21];
+  first_s_bparm = s_bparm;
+  while ( not_empty s_bparm )
+	first_s_bparm = s_bparm;
+	select one s_bparm related by s_bparm->S_BPARM[R55.''succeeds''];
+  end while;
+	
+  // populate parameters
+  s_bparm = first_s_bparm;
+  s_parm_count = 0;
+  while ( not_empty s_bparm )
+    direction = "";
+    if ( 0 == s_bparm.By_Ref )
+      direction = "in";
+    else
+      direction = "out";
+    end if;
+	smasl = smasl + "parameter," + s_bparm.Name + "," + direction + ",,,,,,\n";
+    select one s_dt related by s_bparm->S_DT[R22];
+    if ( not_empty s_dt )
+	  smasl = smasl + "typeref," + s_dt.Name + ",,,,,,,\ntyperef,,,,,,,,\n";
+	end if;
+    select one s_bparm related by s_bparm->S_BPARM[R55.''precedes''];
+    s_parm_count = s_parm_count + 1;
+  end while;
+  while ( s_parm_count > 0 )
+	smasl = smasl + "parameter,,,,,,,,\n";
+    s_parm_count = s_parm_count - 1;
+  end while;
+
+  // find return type if exists
+  select one s_dt related by s_brg->S_DT[R20];
+  if ( not_empty s_dt )
+	// Do not send a void typeref.  No typeref equals void in MASL.
+	if ( "void" != s_dt.Name )
+	  smasl = smasl + "typeref," + s_dt.Name + ",,,,,,,\ntyperef,,,,,,,,\n";
+	end if;
+  end if;
+	
+  // Populate the action langauge body.
+  smasl = smasl + "codeblock," + URL::encode(string:s_brg.Action_Semantics_internal) + ",,,,,,,\n";
+	
+  // end tag
+  smasl = smasl + "routine,,,,,,,,\n";
+	
+end if;
+
+return smasl;
+',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	1,
+	'',
+	0);
+INSERT INTO S_SPARM
+	VALUES ("4bb2bbf5-e7e7-4ffd-a780-c4003f7654d2",
+	"7a63954d-b2b2-442e-8178-03da52541c06",
+	's_brg',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO PE_PE
+	VALUES ("7a63954d-b2b2-442e-8178-03da52541c06",
+	1,
+	"0eec87ca-63af-4b65-8769-1c99e84ebf64",
+	"00000000-0000-0000-0000-000000000000",
+	1);
+INSERT INTO S_SYNC
+	VALUES ("5e0418d7-5ade-4680-9cfd-b9649e89bb23",
+	"00000000-0000-0000-0000-000000000000",
+	'SPR_PS2routine',
+	'',
+	'select any spr_ps from instances of SPR_PS where ( selected.Id == param.spr_ps );
+select one c_ep related by spr_ps->SPR_PEP[R4503]->C_EP[R4501];
+select one c_po related by spr_ps->SPR_PEP[R4503]->C_P[R4501]->C_IR[R4009]->C_PO[R4016];
+if ( not_empty c_ep and not_empty c_po )
+  return ::message2routine( c_ep:c_ep.Id, c_po:c_po.Id );
+else
+  return "";
+end if;',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	1,
+	'',
+	0);
+INSERT INTO S_SPARM
+	VALUES ("b4ef0097-ab36-4864-8cdc-b464e264df88",
+	"5e0418d7-5ade-4680-9cfd-b9649e89bb23",
+	'spr_ps',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO PE_PE
+	VALUES ("5e0418d7-5ade-4680-9cfd-b9649e89bb23",
+	1,
+	"0eec87ca-63af-4b65-8769-1c99e84ebf64",
+	"00000000-0000-0000-0000-000000000000",
+	1);
+INSERT INTO S_SYNC
+	VALUES ("3a3d0dc2-d019-4c07-bfcf-e0990e25c016",
+	"00000000-0000-0000-0000-000000000000",
+	'SPR_RS2routine',
+	'',
+	'select any spr_rs from instances of SPR_RS where ( selected.Id == param.spr_rs );
+select one c_ep related by spr_rs->SPR_REP[R4502]->C_EP[R4500];
+select one c_po related by spr_rs->SPR_REP[R4502]->C_R[R4500]->C_IR[R4009]->C_PO[R4016];
+if ( not_empty c_ep and not_empty c_po )
+  return ::message2routine( c_ep:c_ep.Id, c_po:c_po.Id );
+else
+  return "";
+end if;',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	1,
+	'',
+	0);
+INSERT INTO S_SPARM
+	VALUES ("c995e28e-c7cc-415c-ba3f-c77dff465575",
+	"3a3d0dc2-d019-4c07-bfcf-e0990e25c016",
+	'spr_rs',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO PE_PE
+	VALUES ("3a3d0dc2-d019-4c07-bfcf-e0990e25c016",
+	1,
+	"0eec87ca-63af-4b65-8769-1c99e84ebf64",
+	"00000000-0000-0000-0000-000000000000",
+	1);
+INSERT INTO S_SYNC
+	VALUES ("afcd00a8-8ff7-447d-85f9-86107560dd30",
+	"00000000-0000-0000-0000-000000000000",
+	'SM_ACT2txn',
+	'',
+	'// adapted from maslout state2state
+
+smasl = "";
+
+select any sm_act from instances of SM_ACT where ( selected.Act_ID == param.sm_act );
+select one sm_txn related by sm_act->SM_AH[R514]->SM_TAH[R513]->SM_TXN[R530];
+if ( empty sm_txn )
+  select one sm_txn related by sm_act->SM_AH[R514]->SM_MEAH[R513]->SM_TXN[R512];
+end if;
+if ( not_empty sm_txn and not_empty sm_act )
+
+  select one o_obj related by sm_txn->SM_SM[R505]->SM_ISM[R517]->O_OBJ[R518];
+  if ( empty o_obj )
+    select one o_obj related by sm_txn->SM_SM[R505]->SM_ASM[R517]->O_OBJ[R519];
+  end if;
+
+  c_c_name = "";
+
+  // find parent component if it exists
+  select one pe_pe related by o_obj->PE_PE[R8001];
+  while ( not_empty pe_pe )
+    select one c_c related by pe_pe->C_C[R8003];
+    if ( not_empty c_c )
+      c_c_name = c_c.Name; 
+    end if;
+    select one pe_pe related by pe_pe->EP_PKG[R8000]->PE_PE[R8001];
+  end while;
+  
+  state_name = "";
+  event_name = "";
+  // check for any creation transition destined to this state
+  select one sm_crtxn related by sm_txn->SM_CRTXN[R507];
+  if ( not_empty sm_crtxn )
+	state_name = "Non_Existent";
+	select one evt related by sm_crtxn->SM_LEVT[R509]->SM_SEVT[R526]->SM_EVT[R525];
+	if ( empty evt )
+	  event_name = "No_Event_Assigned";
+	else 
+	  event_name = evt.Mning;
+	end if;
+  else
+    select one sm_netxn related by sm_txn->SM_NETXN[R507];
+    if ( not_empty sm_netxn  )
+      event_name = "No_Event_Assigned";
+      select one sm_state related by sm_netxn->SM_STATE[R508];
+      state_name = sm_state.Name;
+    else
+      select one sm_nstxn related by sm_txn->SM_NSTXN[R507];
+      if ( not_empty sm_nstxn )
+        select one sm_state related by sm_nstxn->SM_SEME[R504]->SM_STATE[R503];
+        select one sm_evt related by sm_nstxn->SM_SEME[R504]->SM_SEVT[R503]->SM_EVT[R525];
+        state_name = sm_state.Name;
+        event_name = sm_evt.Mning;
+      end if;
+    end if;
+  end if;
+
+  smasl = smasl + "transition," + state_name + "," + c_c_name + "," + o_obj.Name + "," + event_name + ",,,,\n";
+
+  // MASL states declare their parameter signatures.
+  // Traverse to any event transitioning to this state and use its parameters.
+  select any sm_evtdi related by sm_txn->SM_NSTXN[R507]->SM_SEME[R504]->SM_SEVT[R503]->SM_EVT[R525]->SM_EVTDI[R532];
+  if ( empty sm_evtdi )	// if there are no state to state transitions to this state, it may be a creation
+  						// state. Check the path to an event through a creation transition
+    select any sm_evtdi related by sm_txn->SM_CRTXN[R507]->SM_LEVT[R509]->SM_SEVT[R526]->SM_EVT[R525]->SM_EVTDI[R532];
+  end if;
+  // Get first parameter.
+  first_sm_evtdi = sm_evtdi;
+  while ( not_empty sm_evtdi )
+    first_sm_evtdi = sm_evtdi;
+    select one sm_evtdi related by sm_evtdi->SM_EVTDI[R533.''succeeds''];
+  end while;
+  
+  // populate parameters
+  sm_evtdi = first_sm_evtdi;
+  sm_evtdi_count = 0;
+  while ( not_empty sm_evtdi )
+	smasl = smasl + "parameter," + sm_evtdi.Name + ",in,,,,,,\n";
+    select one s_dt related by sm_evtdi->S_DT[R524];
+    if ( not_empty s_dt )
+	  smasl = smasl + "typeref," + s_dt.Name + ",,,,,,,\ntyperef,,,,,,,,\n";
+	end if;
+    select one sm_evtdi related by sm_evtdi->SM_EVTDI[R533.''precedes''];
+    sm_evtdi_count = sm_evtdi_count + 1;
+  end while;
+  while ( sm_evtdi_count > 0 )
+	smasl = smasl + "parameter,,,,,,,,\n";
+    sm_evtdi_count = sm_evtdi_count - 1;
+  end while;
+  
+  // Populate the action langauge body.
+  smasl = smasl + "codeblock," + URL::encode(string:sm_act.Action_Semantics_internal) + ",,,,,,,\n";
+  
+  // end tag
+  smasl = smasl + "transition,,,,,,,,\n";
+
+end if;
+
+return smasl;
+',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	1,
+	'',
+	0);
+INSERT INTO S_SPARM
+	VALUES ("ff6dea2c-b092-4a82-b0a3-60c0c35bb655",
+	"afcd00a8-8ff7-447d-85f9-86107560dd30",
+	'sm_act',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO PE_PE
+	VALUES ("afcd00a8-8ff7-447d-85f9-86107560dd30",
+	1,
+	"0eec87ca-63af-4b65-8769-1c99e84ebf64",
+	"00000000-0000-0000-0000-000000000000",
+	1);
+INSERT INTO S_SYNC
+	VALUES ("1dd2cf0d-72f5-48e3-992f-b6812edbe9ea",
+	"00000000-0000-0000-0000-000000000000",
+	'SM_ACT2stateortxn',
+	'',
+	'smasl = "";
+
+select any sm_act from instances of SM_ACT where ( selected.Act_ID == param.sm_act );
+select one sm_state related by sm_act->SM_AH[R514]->SM_MOAH[R513]->SM_STATE[R511];
+if ( not_empty sm_state and not_empty sm_act )
+  return ::SM_ACT2state(sm_act:param.sm_act);
+else
+  select one sm_txn related by sm_act->SM_AH[R514]->SM_TAH[R513]->SM_TXN[R530];
+  if ( empty sm_txn )
+	select one sm_txn related by sm_act->SM_AH[R514]->SM_MEAH[R513]->SM_TXN[R512];
+  end if;
+  if ( not_empty sm_txn and not_empty sm_act )
+    return ::SM_ACT2txn(sm_act:param.sm_act);
+  end if;
+end if;
+
+return smasl;
+',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	1,
+	'',
+	0);
+INSERT INTO S_SPARM
+	VALUES ("c136638d-5c50-45be-8b12-82e392233f85",
+	"1dd2cf0d-72f5-48e3-992f-b6812edbe9ea",
+	'sm_act',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO PE_PE
+	VALUES ("1dd2cf0d-72f5-48e3-992f-b6812edbe9ea",
+	1,
+	"0eec87ca-63af-4b65-8769-1c99e84ebf64",
+	"00000000-0000-0000-0000-000000000000",
+	1);
+INSERT INTO PE_PE
+	VALUES ("0eec87ca-63af-4b65-8769-1c99e84ebf64",
+	1,
+	"2467e6dc-9ef4-46c6-afa6-883c1e23a96c",
+	"00000000-0000-0000-0000-000000000000",
+	7);
+INSERT INTO EP_PKG_PROXY
+	VALUES ("2467e6dc-9ef4-46c6-afa6-883c1e23a96c",
+	"00000000-0000-0000-0000-000000000000",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
+	'Functions',
+	'',
+	0,
+	'../Functions.xtuml');
+INSERT INTO S_SYS_PROXY
+	VALUES ("d9bc5487-4193-4817-be1c-6c3f3339aebf",
+	'org.xtuml.bp.core',
+	1,
+	'../../../org.xtuml.bp.core.xtuml');

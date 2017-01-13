@@ -74,21 +74,7 @@
     .while (not_empty col)
       .assign post_string = ""
       .assign special_case = false
-      .if (( (table.Key_Lett == "CA_SMSMC") and (col.Name == "DIObj_ID") ) and (callingProject == "BP") )
-        .//
-        .// this column is special, because it isn't always output
-        .// due to a bug in Model Builder bp issue 2837
-        .// so just set it to the value parsed above
-           val4\
-        .assign special_case = true
-      .elif (( (table.Key_Lett == "CA_SMSMC") and (col.Name == "OIObj_ID")) and (callingProject == "BP") )
-        .//
-        .// this column is special, because BP outputs the last
-        .// two attributes in reverse order.  If the ooaofooa
-        .// model is changed to have the same order as BP, this reversal can be removed.
-           IdAssigner.createUUIDFromString((String)parms.elementAt(3))\
-        .assign special_case = true
-      .elif (( (table.Key_Lett == "GD_MD") and (col.Name == "ScrollXPos")) and (callingProject == "BP") )
+      .if (( (table.Key_Lett == "GD_MD") and (col.Name == "ScrollXPos")) and (callingProject == "BP") )
         .//
         .// this column is special, because the scroll position is -1 for
         .// diagrams that have never been viewed.
@@ -265,7 +251,7 @@
 	    .if(col.Name == "useGlobals")
 		  parms.elementAt(${attr_col_num}) != null && ((String)parms.elementAt(${attr_col_num})).equals( "true" ) ? true : false\
 		  .assign special_case = true
-	  .end if
+	    .end if
       .elif (table.Key_lett == "C_C")
         .if(col.Name == "isRealized")
           parms.elementAt(${attr_col_num}) != null && ((String)parms.elementAt(${attr_col_num})).equals( "true" ) ? true : false\
@@ -291,7 +277,38 @@
           parms.elementAt(${attr_col_num}) != null ? removeTics((String)parms.elementAt(${attr_col_num})) : ""\
           .assign special_case = true
         .end if
+      .elif((table.Key_lett == "S_UDT") and (col.Name == "Definition"))
+          (parms.size() > ${attr_col_num} && parms.elementAt(${attr_col_num}) != null) ? removeTics((String) parms.elementAt(${attr_col_num})).trim() : ""\
+          .assign special_case = true
 	  .end if
+	  .// Dialect attribute introduced
+	  .assign dialectAdded = false;
+	  .if(col.Name == "Dialect")
+	    .if(table.Key_lett == "O_DBATTR")
+	      .assign dialectAdded = true;
+	    .elif(table.Key_lett == "O_TFR")
+          .assign dialectAdded = true;
+	    .elif(table.Key_lett == "SM_ACT")
+          .assign dialectAdded = true;
+	    .elif(table.Key_lett == "SPR_PO")
+		  .assign dialectAdded = true;
+        .elif(table.Key_lett == "SPR_PS")
+		  .assign dialectAdded = true;
+	    .elif(table.Key_lett == "SPR_RO")
+		  .assign dialectAdded = true;
+	    .elif(table.Key_lett == "SPR_RS")
+		  .assign dialectAdded = true;
+	    .elif(table.Key_lett == "S_BRG")
+		  .assign dialectAdded = true;
+	    .elif(table.Key_lett == "S_SYNC")
+		  .assign dialectAdded = true;
+		.end if
+		.if (dialectAdded)
+			(rawParms.size() <= ${attr_col_num} || !ImportInteger.isInt(parms.elementAt(${attr_col_num}))) ? Actiondialect_c.oal : Integer.parseInt((String)parms.elementAt(${attr_col_num}))\
+		  .assign special_case = true
+		.end if
+	  .end if
+	  .// end of Dialect attribute introduced change
       .if (special_case == false)
         .if ( col.type == "boolean" )
            ((String)parms.elementAt(${attr_col_num})).equals( "false" ) ? false : true\
@@ -376,6 +393,7 @@ import java.util.UUID;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.preferences.IScopeContext;
+import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.ui.PlatformUI;
 import org.osgi.service.prefs.Preferences;
@@ -391,6 +409,7 @@ import org.xtuml.bp.io.core.CoreImport;
 import org.xtuml.bp.io.core.ImportHelper;
 .end if
 import org.xtuml.bp.io.core.ImportInteger;
+import org.xtuml.bp.io.core.SmaslScanner;
 import org.xtuml.bp.ui.canvas.*;
 import org.xtuml.bp.ui.text.activity.AllActivityModifier;
 
@@ -474,7 +493,7 @@ public class ${class_name} extends CoreImport
       .end if
     .if(multilevel and setComponent)
     public ${class_name}(IFile file, ${var.main_class_name} aModelRoot, PersistableModelComponent component, boolean parseAll, boolean clearDatabase, boolean parseGraphics, boolean isTemplate) throws IOException {
-        super(aModelRoot, file.getLocation().toOSString(), clearDatabase, isTemplate);
+        super(aModelRoot, (file != null ? file.getLocation().toOSString() : ""), (component != null ? component.getActionFiles() : null), clearDatabase, isTemplate);
         m_component = component;
         m_parseAll = parseAll;
         m_parseGraphics = parseGraphics;
@@ -518,14 +537,14 @@ public class ${class_name} extends CoreImport
         .end if
         .if(not multilevel)
     public ${class_name}(String fileName, ${var.main_class_name} aModelRoot, ${parentC} parent, boolean parseAll, boolean clearDatabase, boolean isTemplate) throws FileNotFoundException {
-        super(aModelRoot, fileName, clearDatabase, isTemplate);
+        super(aModelRoot, fileName, null, clearDatabase, isTemplate);
         m_inFile = fileName;
         m_parseAll = parseAll;
         m_parent = parent;
     }
 
     public ${class_name}(IPath filePath) throws FileNotFoundException {
-        super(filePath);
+        super(filePath, null);
     }
        .end if
     .end if
@@ -704,6 +723,132 @@ public class ${class_name} extends CoreImport
         .end if
     }
 
+    public void processAction( String smasl, int dialect ) {
+	.if (class_name == "ImportModelComponent")
+        if ( dialect == Actiondialect_c.masl ) {
+            NonRootModelElement pmc_root_element = getRootModelElement();
+            ModelRoot modelRoot = pmc_root_element.getModelRoot();
+
+            // create SMASL reader
+            SmaslScanner sc = new SmaslScanner( smasl );
+            String[] values;
+
+            String ret_type = "void";
+            String name = "";
+            String parameter_list = "";
+
+            boolean in_parameter = false;
+            String separator = "(";
+
+            String activity_type = "";
+            String body = "";
+            String signature = "";
+            String port_name = "";
+
+            // parse serial MASL
+            while ( sc.hasNext() ) {
+                values = sc.next();
+                if ( values[0].equals("routine") ) {
+                    if ( !values[4].equals("") ) {
+                        name = values[4];
+                        port_name = values[2];
+                        activity_type = "routine";
+                    }
+                }
+                else if ( values[0].equals("operation")) {
+                    if ( !values[4].equals("") ) {
+                        name = values[4];
+                        activity_type = "operation";
+                    }
+                }
+                else if ( values[0].equals("state") ) {
+                    if ( !values[3].equals("") ) {
+                        name = values[3];
+                        activity_type = "state";
+                    }
+                }
+                else if ( values[0].equals("attribute") ) {
+                }
+                else if ( values[0].equals("transition") ) {
+                }
+                else if ( values[0].equals("parameter") ) {
+                    if ( !values[1].equals("") ) {
+                        in_parameter = true;
+                    }
+                }
+                else if ( values[0].equals("typeref") ) {
+                    if ( !values[1].equals("") ) {
+                        if ( !in_parameter ) { // return type
+                            ret_type = values[1];
+                        }
+                        else { // parameter type
+                            parameter_list += separator + values[1];
+                            separator = ", ";
+                            in_parameter = false;
+                        }
+                    }
+                }
+                else if ( values[0].equals("codeblock") ) {
+                    if ( !values[1].equals("") ) {
+                        body = Url_c.Decode( values[1] ).trim();
+                    }
+                }
+                else {
+                  System.out.println( "// SMASL element '" + values[0] + "'unsupported" ); //$$NON-NLS-1$$
+                  return;
+                }
+            }
+
+            // fix parameter list format
+            if ( !parameter_list.equals("") ) {
+                parameter_list += ")";
+            }
+
+            // compile the signature
+            signature = ret_type + " " + name + parameter_list;
+
+            // fix the body
+            body = body.trim();
+            if ( dialect == Actiondialect_c.masl ) {
+                // if the dialect is MASL, the 'end' keyword belongs
+                // as part of the code body itself and must be added
+                body += "\nend";
+            }
+
+            // call import function
+            if ( pmc_root_element instanceof SystemModel_c ) {
+                SystemModel_c inst = (SystemModel_c)pmc_root_element;
+                Ooaofooa.S_syssetactions( modelRoot, activity_type, body, dialect, inst.getSys_id(), signature );
+            }
+            else if ( pmc_root_element instanceof Package_c ) {
+                Package_c inst = (Package_c)pmc_root_element;
+                Ooaofooa.Ep_pkgsetactions( modelRoot, activity_type, body, dialect, inst.getPackage_id(), signature );
+            }
+            else if ( pmc_root_element instanceof ModelClass_c ) {
+                ModelClass_c inst = (ModelClass_c)pmc_root_element;
+                Ooaofooa.O_objsetactions( modelRoot, activity_type, body, dialect, inst.getObj_id(), signature );
+            }
+            else if ( pmc_root_element instanceof Component_c ) {
+                Component_c inst = (Component_c)pmc_root_element;
+                Ooaofooa.C_csetactions( modelRoot, activity_type, body, inst.getId(), dialect, port_name, signature );
+            }
+            else if ( pmc_root_element instanceof InstanceStateMachine_c ) {
+                InstanceStateMachine_c inst = (InstanceStateMachine_c)pmc_root_element;
+                Ooaofooa.Sm_ismsetactions( modelRoot, activity_type, body, dialect, signature, inst.getSm_id() );
+            }
+            else if ( pmc_root_element instanceof ClassStateMachine_c ) {
+                ClassStateMachine_c inst = (ClassStateMachine_c)pmc_root_element;
+                Ooaofooa.Sm_asmsetactions( modelRoot, activity_type, body, dialect, signature, inst.getSm_id() );
+            }
+            else {
+                System.out.println( "Root element type not supported" );
+            }
+        }
+        .else
+        // not implemented
+        .end if
+    }
+
     .if((multilevel) and (setComponent))
     public void finishComponentLoad(IProgressMonitor pm, boolean searchAllRootsForBatchRelate) {
         if(m_success){
@@ -791,6 +936,14 @@ public class ${class_name} extends CoreImport
 								getModelRoot(), element.getOoa_id(), element.getOoa_type()));
               }
           }
+
+            .if (class_name == "ImportModelComponent")
+            IPreferenceStore store = CorePlugin.getDefault().getPreferenceStore();
+            String persistActivities = store.getString(BridgePointPreferencesStore.ACTIVITY_PERSISTENCE);
+            if ( persistActivities.equals(BridgePointPreferencesStore.PERSIST_ACTIVITY_FILES) ) {
+              m_actionSuccess = doLoadActions(pm);
+            }
+            .end if;
             pm.done();
             if (m_parseAll) {
                 AllActivityModifier aam = new AllActivityModifier(rootModelElement, pm);

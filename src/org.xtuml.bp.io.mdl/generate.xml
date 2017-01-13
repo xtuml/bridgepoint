@@ -1,14 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-
- File:      $RCSfile: generate.xml,v $
- Version:   $Revision: 1.41.40.1 $
- Modified:  $Date: 2013/07/19 12:26:31 $
-
- (c) Copyright 2004-2014 Mentor Graphics Corporation  All rights reserved.
-
--->
 <project name="bp.io.mdl" default="all" basedir=".">
+
+  <import file="../MC-Java/common.xml"/>
+
   <target name="all"
           description="Generate all code for this project"
           depends="class2table,import.java,export.java,export_stream.java,uuid_convert_util.java,persistence_meta_data.java,external_link_evaluator.java,delete_gen,format_java">
@@ -19,13 +13,10 @@
           depends="class2table,import.java,export.java,export_stream.java,uuid_convert_util.java,persistence_meta_data.java,external_link_evaluator.java,delete_gen">
   </target>
 
-  <property name="eclipse-home" value="${basedir}/../.."/>
   <property name="plugins-home" value="${ant.home}/../.."/>
-  <property name="util_bin_dir" value="${eclipse-home}/src/org.xtuml.bp.mc.c.source/mc3020/bin"/>
 
   <property name="iocore_path" value="../org.xtuml.bp.io.core" />
 
-  <property name="mcj_path" value="../MC-Java" />
   <property name="sg.dep" value="ooa_schema.sql,schema_gen.arc" />
   <property name="schema" value="file_io_schema.sql" />
 
@@ -51,7 +42,7 @@
           description="Generate the Tiger OOA pre-existing instances file"
           unless="class2table.buildNotNeeded" >
     <echo >Generating ${class2table.output} ...</echo>
-    <exec dir="sql" vmlauncher="false" failonerror="true" executable="${util_bin_dir}/xtumlmc_build.exe" >
+    <exec dir="sql" vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
     <env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
     <arg line="xtumlmc_gen_erate -nopersist
       -import ../${mcj_path}/ooa_schema.sql
@@ -156,7 +147,7 @@
           description="Create the generation database"
           unless="create_gen.buildNotNeeded" >
     <echo >Generating gen_oal.gen ...</echo>
-  <exec vmlauncher="false" failonerror="true" executable="${util_bin_dir}/xtumlmc_build.exe" >
+  <exec vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
     <env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
     <arg line="xtumlmc_gen_erate -f gen_oal.gen
       -import ${iocore_path}/sql/${schema}
@@ -172,7 +163,7 @@
           depends="create_gen"
           description="Create the import java code"
           unless="import.buildNotNeeded" >
-  <exec vmlauncher="false" failonerror="true" executable="${util_bin_dir}/xtumlmc_build.exe" >
+  <exec vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
         <env key="PTC_MC_ARC_DIR" value="${mcj_path}"/>
         <env key="CORE_ARC_DIR" value="../org.xtuml.bp.core/arc"/>
       	<env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
@@ -191,7 +182,7 @@
           depends="create_gen"
           description="Create the export java code"
           unless="export.buildNotNeeded" >
-  <exec vmlauncher="false" failonerror="true" executable="${util_bin_dir}/xtumlmc_build.exe" >
+  <exec vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
         <env key="PTC_MC_ARC_DIR" value="${mcj_path}"/>
         <env key="CORE_ARC_DIR" value="../org.xtuml.bp.core/arc"/>
         <env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
@@ -209,7 +200,7 @@
           depends="export_stream.depends"
           description="Create the export java code"
           unless="export_stream.buildNotNeeded" >
-  <exec vmlauncher="false" failonerror="true" executable="${util_bin_dir}/xtumlmc_build.exe" >
+  <exec vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
         <env key="PTC_MC_ARC_DIR" value="${mcj_path}"/>
         <env key="CORE_ARC_DIR" value="../org.xtuml.bp.core/arc"/>
       	<env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
@@ -233,7 +224,7 @@
     depends="create_gen"
     description="Generate implementation of IPersistenceHierarchyMetaData"
     unless="uuid_convert_util.buildNotNeeded">
-    <exec vmlauncher="false" failonerror="true" executable="${util_bin_dir}/xtumlmc_build.exe" >
+    <exec vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
       <env key="PTC_MC_ARC_DIR" value="${mcj_path}"/>
       <env key="IO_CORE_ARC_DIR" value="${iocore_path}/arc"/>
       <env key="CORE_ARC_DIR" value="../org.xtuml.bp.core/arc"/>
@@ -250,7 +241,7 @@
     depends="create_gen"
     description="Generate implementation of IPersistenceHierarchyMetaData"
     unless="persistence_meta_data.buildNotNeeded">
-    <exec vmlauncher="false" failonerror="true" executable="${util_bin_dir}/xtumlmc_build.exe" >
+    <exec vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
       <env key="PTC_MC_ARC_DIR" value="${mcj_path}"/>
       <env key="IO_CORE_ARC_DIR" value="${iocore_path}/arc"/>
       <env key="CORE_ARC_DIR" value="../org.xtuml.bp.core/arc"/>
@@ -281,7 +272,7 @@
     depends="create_gen"
     description="Generate implementation of ExternalLink"
     unless="external_link_evaluator.buildNotNeeded">
-    <exec vmlauncher="false" failonerror="true" executable="${util_bin_dir}/xtumlmc_build.exe" >
+    <exec vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
       <env key="PTC_MC_ARC_DIR" value="${mcj_path}"/>
       <env key="IO_CORE_ARC_DIR" value="${iocore_path}/arc"/>
       <env key="CORE_ARC_DIR" value="../org.xtuml.bp.core/arc"/>
@@ -297,7 +288,7 @@
 	          depends="create_gen.depends"
 	          description="Test the instance population" >
 	    <echo >Testing the instance population of what would be in gen_oal.gen...</echo>
-	  <exec vmlauncher="false" failonerror="true" executable="${util_bin_dir}/xtumlmc_build.exe" >
+	  <exec vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
 	    <env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
 	    <env key="PTC_MC_ARC_DIR" value="${mcj_path}"/>
 	    <env key="CORE_ARC_DIR" value="../org.xtuml.bp.core/arc"/>
@@ -317,7 +308,7 @@
 	          depends="create_gen.depends"
 	          description="Test the instance population" >
 	    <echo >Testing the instance population of what would be in gen_oal.gen...</echo>
-	  <exec vmlauncher="false" failonerror="true" executable="${util_bin_dir}/xtumlmc_build.exe" >
+	  <exec vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
 	    <env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
 	    <env key="PTC_MC_ARC_DIR" value="${mcj_path}"/>
 	    <env key="CORE_ARC_DIR" value="../org.xtuml.bp.core/arc"/>
@@ -338,7 +329,7 @@
 	          description="Create the generation database"
 	          unless="create_gen.buildNotNeeded" >
 	    <echo >Generating all.  This replace the targets that use the intermediate gen_oal.gen file ...</echo>
-	  <exec vmlauncher="false" failonerror="true" executable="${util_bin_dir}/xtumlmc_build.exe" >
+	  <exec vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
 	    <env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
 	    <env key="PTC_MC_ARC_DIR" value="${mcj_path}"/>
 	    <env key="CORE_ARC_DIR" value="../org.xtuml.bp.core/arc"/>
@@ -391,51 +382,6 @@
           description="Delete generation working files" >
   <delete file="gen_oal.gen" />
   <delete file="____file.txt" />
-  </target>
-
-  <!-- COMPILE TARGETS -->
-
-  <!-- This target is not used in the eclipse environment.  The eclipse Java
-       builder handles the java compilation when building BridgePoint under
-       eclipse.  This target is used only when building BridgePoint from the
-       command line on the build server. -->
-  <target name="compile"
-                  description="Compile project" >
-
-    <echo>Compiling ${ant.project.name}</echo>
-
-    <mkdir dir="bin" />
-
-    <javac memoryinitialsize="512m" memorymaximumsize="512m" source="1.6"
-        fork="yes" destdir="bin" debug="true" debuglevel="lines,vars,source" encoding="UTF-8">
-       <src path="src/org/xtuml/bp/io/mdl" />
-       <classpath>
-         <pathelement path="../org.xtuml.bp.core/bin" />
-         <pathelement path="../org.xtuml.bp.ui.canvas/bin" />
-         <pathelement path="../org.xtuml.bp.ui.text/bin" />
-         <pathelement path="../org.xtuml.bp.io.core/bin" />
-         <pathelement path="../org.xtuml.bp.ui.explorer/bin" />
-         <pathelement path="../org.xtuml.bp.als.oal/bin" />
-         <fileset dir="${eclipse-home}/plugins" casesensitive="yes">
-           <include name="**/org.eclipse.osgi_*.jar" />
-           <include name="**/org.eclipse.ui.ide_*.jar" />
-           <include name="**/org.antlr_*/antlr.jar" />
-           <include name="**/org.eclipse.jface_*.jar" />
-           <include name="**/org.eclipse.core.runtime_*.jar" />
-           <include name="**/org.eclipse.core.resources_*.jar" />
-           <include name="**/org.eclipse.ui.workbench_*.jar" />
-           <include name="**/org.eclipse.swt.win32.win32.x86_*.jar" />
-           <include name="**/org.eclipse.ui_*.jar" />
-           <include name="**/org.eclipse.ui.ide_*.jar" />
-           <include name="**/org.eclipse.equinox.common_*.jar"/>
-           <include name="**/org.eclipse.equinox.registry_*.jar"/>
-           <include name="**/org.eclipse.equinox.preferences_*.jar"/>
-           <include name="**/org.eclipse.core.commands_*.jar"/>
-           <include name="**/org.eclipse.core.jobs_*.jar"/>
-         </fileset>
-       </classpath>
-    </javac>
-
   </target>
 
   <!-- CLEAN TARGETS -->

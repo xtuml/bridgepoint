@@ -32,7 +32,8 @@ delete object instance self;
 ',
 	1,
 	'',
-	"00000000-0000-0000-0000-000000000000");
+	"00000000-0000-0000-0000-000000000000",
+	0);
 INSERT INTO O_TFR
 	VALUES ("cd1c2495-5606-494f-a99b-76779123cbd0",
 	"51d28929-d81b-4ffc-8b96-028f5ed244c2",
@@ -54,7 +55,8 @@ end if;
 ',
 	1,
 	'',
-	"1d49884f-89d5-470f-bc0e-0e649f306567");
+	"1d49884f-89d5-470f-bc0e-0e649f306567",
+	0);
 INSERT INTO O_TFR
 	VALUES ("afb1ea8c-31d9-4fc6-9821-682ef090ff45",
 	"51d28929-d81b-4ffc-8b96-028f5ed244c2",
@@ -69,7 +71,8 @@ Translate: native',
 return this;',
 	0,
 	'',
-	"cd1c2495-5606-494f-a99b-76779123cbd0");
+	"cd1c2495-5606-494f-a99b-76779123cbd0",
+	0);
 INSERT INTO S_DT_PROXY
 	VALUES ("bc3722c8-5188-4529-8519-cf9eb9816b17",
 	"00000000-0000-0000-0000-000000000000",
@@ -177,9 +180,10 @@ INSERT INTO S_DT_PROXY
 INSERT INTO O_DBATTR
 	VALUES ("59d2c68a-fb72-4918-954e-7e848519a305",
 	"51d28929-d81b-4ffc-8b96-028f5ed244c2",
-	'self.Action_Semantics = ::convertRelocatableTags(in:self.Action_Semantics_internal);
+	'self.Action_Semantics = self.Action_Semantics_internal;
 ',
-	1);
+	1,
+	0);
 INSERT INTO O_BATTR
 	VALUES ("59d2c68a-fb72-4918-954e-7e848519a305",
 	"51d28929-d81b-4ffc-8b96-028f5ed244c2");
@@ -234,6 +238,31 @@ INSERT INTO O_ATTR
 	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
+INSERT INTO O_NBATTR
+	VALUES ("62bbf2c3-d767-40ad-8074-c724051563f2",
+	"51d28929-d81b-4ffc-8b96-028f5ed244c2");
+INSERT INTO O_BATTR
+	VALUES ("62bbf2c3-d767-40ad-8074-c724051563f2",
+	"51d28929-d81b-4ffc-8b96-028f5ed244c2");
+INSERT INTO O_ATTR
+	VALUES ("62bbf2c3-d767-40ad-8074-c724051563f2",
+	"51d28929-d81b-4ffc-8b96-028f5ed244c2",
+	"5af6c055-4907-4f6e-9e47-c870b768725f",
+	'Dialect',
+	'Full Name: Action Dialect',
+	'',
+	'Dialect',
+	0,
+	"7b54f646-a8a8-4b82-9bb0-cf5465115f3b",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("7b54f646-a8a8-4b82-9bb0-cf5465115f3b",
+	"00000000-0000-0000-0000-000000000000",
+	'ActionDialect',
+	'Enumerator for available action dialects',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_ID
 	VALUES (0,
 	"51d28929-d81b-4ffc-8b96-028f5ed244c2");
