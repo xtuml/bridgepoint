@@ -4,115 +4,100 @@ This work is licensed under the Creative Commons CC0 License
 
 ---
 
-# Title goes here
+# Marking Editor
 ### xtUML Project Implementation Note
 
-Note: Each section has a description that states the purpose of that section.
-Delete these section descriptions before checking in your note.  Delete this
-note as well. __If you are using markdown formatting, don't forget to put 2 
-spaces at the end of lines where you want a hard break.__
 
 1. Abstract
 -----------
-In this section, give a summary of the design that this note aims to
-describe.
+This note describes the work done for the first phase of the MASL marking editor.  
 
 2. Document References
 ----------------------
-In this section, list all the documents that the reader may need to refer to.
-Give the full path to reference a file.  
-<a id="2.1"></a>2.1 [BridgePoint DEI #xxx1](https://support.onefact.net/issues/xxx1) TODO: Add description here.  
-<a id="2.2"></a>2.2 [BridgePoint DEI #xxx2](https://support.onefact.net/issues/xxx2) TODO: Add description here.  
-<a id="2.3"></a>2.3 [BridgePoint DEI #xxx3](https://support.onefact.net/issues/xxx3) TODO: Add description here.  
+<a id="2.1"></a>2.1 [BridgePoint DEI #8951](https://support.onefact.net/issues/8951) Headline issue.     
 
 3. Background
 -------------
-In this section, outline the important points relating to this issue/bug that
-the reader would need to know in order to understand the rest of this
-document. Here is an example reference to the Document References section [[2.1]](#2.1)
+See design note.   
 
 4. Requirements
 ---------------
-This section is only required if there is no preceding design note. 
-If present it describes the requirements that need to be satisfied.  If there 
-is an SRS, this section may refer to it.  Each requirement should be as short 
-and simple as possible and must be clearly defined. Here is an example reference to the Document References section [[2.1]](#2.1)
-
-4.1 Item 1  
-4.1.1 Example sub-item
-* Example List Element
-  * Example Sub list item
-
-4.2 Item 2  
-4.2.1 Example sub-item
-* Example List Element
+See design note.   
 
 5. Work Required
 ----------------
-Elaborate on each point of the Work Required section of the design note and
-describe how you implemented each step.  
-If there is no design note, this section, breaks out the consequential work 
-(as a numbered list) needed to meet the requirements specified in the 
-Requirements section. Here is an example reference to the Document References section [[2.1]](#2.1)
-
-5.1 Item 1  
-5.1.1 Example sub-item
-* Example List Element
-
-5.2 Item 2  
-5.2.1 Example sub-item
-* Example List Element
+5.1  The marking editor dialog is implemented as specified in the DNT.  
 
 6. Implementation Comments
 --------------------------
-If the design cannot be implemented as written or if it needs some modification,
-enumerate the changes to the design in this section.  If there was no preceding
-design note, then this section documents any deviations from the implementation
-as presented at the pre-implementation engineering review. Here is an example reference to the Document References section [[2.1]](#2.1)
+6.1  Additional features and documentation work is called out in separate issues in
+the DNT.
 
-6.1 Item 1  
-```java
-    // java code example
-    public void clearDatabase(IProgressMonitor pm) 
-    {
-        // clear the corresponding graphics-root's database
-        OoaofgraphicsUtil.clearGraphicsDatabase(rootId, pm);
-
-        Ooaofooa.getDefaultInstance().fireModelElementUnloaded(this);
-    }
-```
-6.1.1 Example sub-item
-* Example List Element
-
-6.2 Item 2  
-6.2.1 Example sub-item
-* Example List Element
+6.2  Added new plug-in named ```org.xtuml.bp.ui.marking```   
+6.2.1  This plug-in includes an xtuml model that describes the marking data, but
+  this model is not code generated and used inside the plug-in code.  The necessary
+  pieces to perform code generation are left in the ```generate.xml``` commented 
+  out.       
 
 7. Unit Test
 ------------
-Outline all the unit tests that need to pass and describe the method that you
-will use to design and perform the tests. Here is an example reference to the Document References section [[2.1]](#2.1)
-
-7.1 Item 1  
-7.1.1 Example sub-item
-* Example List Element
-
-7.2 Item 2  
-7.2.1 Example sub-item
-* Example List Element
+7.1  The DNT calls out the unit testing.   
 
 8. User Documentation
 ---------------------
-Describe the end user documentation that was added for this change. 
+8.1  The DNT calls out a documentation issue to go along with this work.   
 
 9. Code Changes
 ---------------
-Fork/Repository: < enter your fork and repo name name >
-Branch: < enter your branch name here >
+Fork/Repository: keithbrown/bridgepoint  
+Branch: 8951_marking_editor    
 
 <pre>
+> doc-bridgepoint/8031_Analyze_Model_Element_Move/
+    8031_Analyze_Model_Element_Move.ant.md
+> doc-bridgepoint/> notes/8951_marking_editor/8951_marking_editor_dnt.md
+> doc-bridgepoint/> notes/8951_marking_editor/8951_marking_editor_int.md
+> doc-bridgepoint/> notes/8951_marking_editor/marking_editor.png
+> doc-bridgepoint/> notes/8951_marking_editor/ooaofmarking.png
+> doc-bridgepoint/review-minutes/8951_marking_editor.dnt.rvm.md
 
-< Put the file list here >
+org.xtuml.bp.pkg-feature/feature.xml
+
+org.xtuml.bp.releng.parent/pom.xml
+
+org.xtuml.bp.ui.marking/.externalToolBuilders/Marking Builder.launch
+org.xtuml.bp.ui.marking/.settings/org.eclipse.jdt.core.prefs
+org.xtuml.bp.ui.marking/color/ooaofmarking_import_spec.clr
+org.xtuml.bp.ui.marking/color/ooaofmarking_package_spec.clr
+org.xtuml.bp.ui.marking/color/ooaofmarking_startspec.clr
+org.xtuml.bp.ui.marking/gen/.gitignore
+org.xtuml.bp.ui.marking/META-INF/MANIFEST.MF
+org.xtuml.bp.ui.marking/models/org.xtuml.bp.ui.marking/
+    org.xtuml.bp.ui.marking.xtuml
+org.xtuml.bp.ui.marking/models/org.xtuml.bp.ui.marking/ooaofmarking/
+    ooaofmarking.xtuml
+org.xtuml.bp.ui.marking/models/org.xtuml.bp.ui.marking/ooaofmarking/Feature/
+    Feature.xtuml
+org.xtuml.bp.ui.marking/models/org.xtuml.bp.ui.marking/ooaofmarking/Mark/
+    Mark.xtuml
+org.xtuml.bp.ui.marking/models/org.xtuml.bp.ui.marking/ooaofmarking/
+    Markable Element Type/Markable Element Type.xtuml
+org.xtuml.bp.ui.marking/sql/.gitignore
+org.xtuml.bp.ui.marking/src/org/xtuml/bp/ui/marking/.gitignore
+org.xtuml.bp.ui.marking/src/org/xtuml/bp/ui/marking/Activator.java
+org.xtuml.bp.ui.marking/src/org/xtuml/bp/ui/marking/
+    LaunchMarkingEditorAction.java
+org.xtuml.bp.ui.marking/src/org/xtuml/bp/ui/marking/MarkingData.java
+org.xtuml.bp.ui.marking/src/org/xtuml/bp/ui/marking/MarkingEditorDialog.java
+org.xtuml.bp.ui.marking/.classpath
+org.xtuml.bp.ui.marking/.gitignore
+org.xtuml.bp.ui.marking/.project
+org.xtuml.bp.ui.marking/about.html
+org.xtuml.bp.ui.marking/build.properties
+org.xtuml.bp.ui.marking/generate.xml
+org.xtuml.bp.ui.marking/plugin.xml
+org.xtuml.bp.ui.marking/pom.xml
+
 
 </pre>
 
