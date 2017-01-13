@@ -49,6 +49,7 @@ import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.PlatformUI;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.Ooaofooa;
+import org.xtuml.bp.core.Package_c;
 import org.xtuml.bp.core.SystemModel_c;
 import org.xtuml.bp.core.common.BridgePointPreferencesStore;
 import org.xtuml.bp.core.common.ClassQueryInterface_c;
@@ -74,7 +75,6 @@ import org.xtuml.bp.ui.canvas.Graphnode_c;
 import org.xtuml.bp.ui.canvas.Model_c;
 import org.xtuml.bp.ui.canvas.Ooaofgraphics;
 import org.xtuml.bp.ui.canvas.Shape_c;
-
 /**
  * This wizard imports model data from a system level export file, or from on
  * older BridgePoint single file model
@@ -201,19 +201,51 @@ public class ModelImportWizard extends Wizard implements IImportWizard {
             ImportHelper helper = new ImportHelper((CoreImport)fImporter);
             helper.resolveMASLproject( fImporter.getLoadedInstances() );
             
-			if (helper.graphicsReconciliationIsNeeded()) {
-				// this must be run on the display thread
-				PlatformUI.getWorkbench().getDisplay().syncExec(
-						new Runnable() {
+			if (helper.maslModelWasImported()) {
+				// Reconcile graphics.
+				PlatformUI.getWorkbench().getDisplay().syncExec(new Runnable() {
+					public void run() {
+						List<NonRootModelElement> systems = new ArrayList<NonRootModelElement>();
+						systems.add(fSystem);
+						GraphicsReconcilerLauncher reconciler = new GraphicsReconcilerLauncher(systems);
+						reconciler.runReconciler(false, true);
+					}
 
+				});				
+/********
+ * see the 8979 implementation note. 
+ * this is commented out until a solution for
+ * the cyclical build problem caused by importing bp.x2m is found.
+ * 
+				// Note that currently xtml files imported from masl models
+				// represent either a masl domain or a project, not both.
+				// below we one or the other if this was a masl model.
+				//
+				// export masl project, if a masl project was imported
+				Package_c maslProject = helper.getImportedMASLProject();
+				if (maslProject != null) {
+					// export project if there was one imported
+					PlatformUI.getWorkbench().getDisplay().syncExec(new Runnable() {
+						public void run() {
+							Generator.exportProject(maslProject);
+						}
+	
+					});				
+				} else {
+					// export masl donmain if a masl domain was imported
+					Package_c maslDomainsPackage = helper.getImportedMASLDomainPackage();
+					if (maslDomainsPackage != null) {
+						// export domain if there was one imported
+						PlatformUI.getWorkbench().getDisplay().syncExec(new Runnable() {
 							public void run() {
-								List<NonRootModelElement> systems = new ArrayList<NonRootModelElement>();
-								systems.add(fSystem);
-								GraphicsReconcilerLauncher reconciler = new GraphicsReconcilerLauncher(systems);
-								reconciler.runReconciler(false, true);
+								// export all domains in this masl package
+								Generator.exportDomain(maslDomainsPackage);
 							}
 
 						});
+					}
+				}
+*********/				
 			}
             
 		}

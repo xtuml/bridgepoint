@@ -331,6 +331,8 @@ super.toString\
         .elif (dt.Name == "string" )
           .if (attr.Name == "Descrip" )
                 m_propertyDescriptors[${attr_num_attr}] = new DescriptionPropertyDescriptor("${name}", "${fullname}", m_inst);
+          .elif (attr.Name == "Definition" )
+                m_propertyDescriptors[${attr_num_attr}] = new TypeDefinitionPropertyDescriptor("${name}", "${fullname}", m_inst);
           .elif ( (obj.Key_Lett == "CNST_LSC") and (attr.Name == "Value") )
                 m_propertyDescriptors[${attr_num_attr}] = new ConstantValuePropertyDescriptor("${name}", "${fullname}");
           .elif ( attr.Name == "Action_Semantics" )
@@ -395,7 +397,7 @@ super.toString\
         .end if
         .assign else_stmt = "else "
       .elif (dt.Name == "string" )
-        .if ( (attr.Name == "Descrip") or (attr.Name == "Action_Semantics") )
+        .if ( (attr.Name == "Descrip") or (attr.Name == "Action_Semantics") or (attr.Name == "Definition") )
             return m_inst.${gaa.body}().replace('\n', '/');
         .else
             return m_inst.${gaa.body}();

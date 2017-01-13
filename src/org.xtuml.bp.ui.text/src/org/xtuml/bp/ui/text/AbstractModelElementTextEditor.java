@@ -29,7 +29,9 @@ import org.xtuml.bp.core.common.NonRootModelElement;
 import org.xtuml.bp.core.util.EditorUtil;
 import org.xtuml.bp.ui.text.activity.ActivityEditorInput;
 import org.xtuml.bp.ui.text.activity.ActivityEditorInputFactory;
+import org.xtuml.bp.ui.text.description.DescriptionEditorInput;
 import org.xtuml.bp.ui.text.description.DescriptionEditorInputFactory;
+import org.xtuml.bp.ui.text.typedefinition.TypeDefinitionEditorInputFactory;
 
 public class AbstractModelElementTextEditor extends TextEditor {
 	
@@ -86,11 +88,12 @@ public class AbstractModelElementTextEditor extends TextEditor {
                     // create either an activity editor input, or a description
                     // editor input, based on the type of the old input
                     IEditorPart editor, NonRootModelElement element) throws Exception {
-                    return (oldInput instanceof ActivityEditorInput) ?
-                        ActivityEditorInputFactory.getDefaultInstance().
-                            createInstance(element)
-                        : DescriptionEditorInputFactory.getDefaultInstance().
-                            createInstance(element); 
+                    if ( oldInput instanceof ActivityEditorInput )
+                        return ActivityEditorInputFactory.getDefaultInstance().createInstance(element);
+                    else if ( oldInput instanceof DescriptionEditorInput )
+                        return DescriptionEditorInputFactory.getDefaultInstance().createInstance(element); 
+                    else
+                        return TypeDefinitionEditorInputFactory.getDefaultInstance().createInstance(element); 
                 }
                 public void setInput(IEditorPart editor, IEditorInput input) {
                     ((TextEditor)editor).setInput(input);
