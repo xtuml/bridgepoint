@@ -14,7 +14,8 @@ Export-Package: org.xtuml.bp.ui.text,
  org.xtuml.bp.ui.text.editor.oal,
  org.xtuml.bp.ui.text.editor.oal.preference,
  org.xtuml.bp.ui.text.masl,
- org.xtuml.bp.ui.text.placeholder
+ org.xtuml.bp.ui.text.placeholder,
+ org.xtuml.bp.ui.text.typedefinition
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.ui,
  org.eclipse.core.resources,

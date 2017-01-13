@@ -71,7 +71,6 @@ public class BridgePointPreferencesStore implements IPreferenceModelStore {
     public static final String USE_DEFAULT_NAME_FOR_CREATION = PREFIX + "use_default_name_for_new_element_creation"; //$NON-NLS-1$
     public static final String REQUIRE_MASL_STYLE_IDENTIFIERS = PREFIX + "require_masl_style_identifiers"; //$NON-NLS-1$
     public static final String OPAQUE_COMPONENTS = PREFIX + "opaque_components"; //$NON-NLS-1$
-    public static final String CREATE_GRAPHICS_DURING_IMPORT = PREFIX + "create_graphics_during_import"; //$NON-NLS-1$
     public static final String ENABLE_MODEL_INTEGRITY_CHECK = PREFIX + "enable_model_integrity_check"; //$NON-NLS-1$
 	public final static String EnableModelIntegrityToolTip = "When enabled, model integrity checks run during most BridgePoint model opertions and validate the integrity of the model for the opertion performed. This can be useful to assure there is no model corruption, but there is performance overhead when enabled.";
 
@@ -137,7 +136,6 @@ public class BridgePointPreferencesStore implements IPreferenceModelStore {
         store.setValue(SHOW_SYNC_DELETION_DIALOG, prefs.showReferenceRemovalDialog);
         store.setValue(SHOW_SYNC_REPORT, prefs.showReferenceSyncReport);
         store.setValue(USE_DEFAULT_NAME_FOR_CREATION, prefs.useDefaultNamesForNewModelElements);        
-        store.setValue(CREATE_GRAPHICS_DURING_IMPORT, prefs.createGraphicsDuringImport);
         store.setValue(REQUIRE_MASL_STYLE_IDENTIFIERS, prefs.requireMaslStyleIdentifiers);
         store.setValue(OPAQUE_COMPONENTS, prefs.opaqueComponents);
     }
@@ -233,8 +231,6 @@ public class BridgePointPreferencesStore implements IPreferenceModelStore {
         
         prefs.useDefaultNamesForNewModelElements =
             store.getBoolean(BridgePointPreferencesStore.USE_DEFAULT_NAME_FOR_CREATION);
-        prefs.createGraphicsDuringImport =
-            store.getBoolean(BridgePointPreferencesStore.CREATE_GRAPHICS_DURING_IMPORT);
         prefs.requireMaslStyleIdentifiers =
         	store.getBoolean(BridgePointPreferencesStore.REQUIRE_MASL_STYLE_IDENTIFIERS);
         prefs.opaqueComponents =
@@ -294,7 +290,6 @@ public class BridgePointPreferencesStore implements IPreferenceModelStore {
         prefs.showReferenceRemovalDialog = true;
         prefs.showReferenceSyncReport = true;
         prefs.useDefaultNamesForNewModelElements = false;
-        prefs.createGraphicsDuringImport = false;
         prefs.requireMaslStyleIdentifiers = false;
         prefs.opaqueComponents = false;
     }
