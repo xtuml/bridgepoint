@@ -70,6 +70,7 @@ import org.xtuml.bp.ui.text.ModelElementID;
 import org.xtuml.bp.ui.text.TextPlugin;
 import org.xtuml.bp.ui.text.activity.ActivityEditorInputFactory;
 import org.xtuml.bp.ui.text.description.DescriptionEditorInputFactory;
+import org.xtuml.bp.ui.text.typedefinition.TypeDefinitionEditorInputFactory;
 
 public class PlaceHolderEntry {
 	
@@ -334,6 +335,8 @@ public class PlaceHolderEntry {
 				return ActivityEditorInputFactory.getDefaultInstance();
 			}else if(fileExtension.equalsIgnoreCase(DescriptionEditorInputFactory.PLACEHOLDER_EXTENSION)){
 				return DescriptionEditorInputFactory.getDefaultInstance();
+			}else if(fileExtension.equalsIgnoreCase(TypeDefinitionEditorInputFactory.PLACEHOLDER_EXTENSION)){
+				return TypeDefinitionEditorInputFactory.getDefaultInstance();
 			}else{
 				throw new IllegalArgumentException("Unsupported file extension:" + fileExtension); //$NON-NLS-1$
 			}
