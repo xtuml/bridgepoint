@@ -55,6 +55,7 @@ import org.xtuml.bp.ui.text.activity.AllActivityModifier;
 import org.xtuml.bp.ui.text.annotation.ActivityProblemAnnotation;
 import org.xtuml.bp.ui.text.description.DescriptionAnnotationModel;
 import org.xtuml.bp.ui.text.description.DescriptionEditorInput;
+import org.xtuml.bp.ui.text.typedefinition.TypeDefinitionEditorInput;
 import org.xtuml.bp.ui.text.editor.oal.OALDocumentProvider;
 
 public class DocumentProvider extends OALDocumentProvider
@@ -150,6 +151,14 @@ public class DocumentProvider extends OALDocumentProvider
           (DescriptionAnnotationModel) info.fModel;
         model.updateMarkers(info.fDocument);
       }
+    }
+    else if (element instanceof TypeDefinitionEditorInput)
+    {
+      ((TypeDefinitionEditorInput) element).doSaveDocument(
+        monitor,
+        element,
+        document,
+        overwrite);
     }
     else
     {
@@ -326,6 +335,9 @@ public class DocumentProvider extends OALDocumentProvider
 					fireElementContentReplaced(input);
 				}
 				if(delta.getAttributeName().equals("Descrip") && input instanceof DescriptionEditorInput) { //$NON-NLS-1$
+					fireElementContentReplaced(input);
+				}
+				if(delta.getAttributeName().equals("Definition") && input instanceof TypeDefinitionEditorInput) { //$NON-NLS-1$
 					fireElementContentReplaced(input);
 				}
 			}
