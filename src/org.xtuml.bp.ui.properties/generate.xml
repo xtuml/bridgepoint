@@ -56,7 +56,7 @@
   	          ChooserPropertyDescriptor.java,ConstantValuePropertyDescriptor.java,
   	          BridgepointPropertySheetPage.java, BridgepointPropertySheetSorter.java,
               ModelElementNameValidator.java,DimensionsPropertyDescriptor.java,
-              DimensionsValidator.java" />
+              DimensionsValidator.java,TypeDefinitionPropertyDescriptor.java" />
 
   <target name="format_java"
         description="Format the generated java source" >
