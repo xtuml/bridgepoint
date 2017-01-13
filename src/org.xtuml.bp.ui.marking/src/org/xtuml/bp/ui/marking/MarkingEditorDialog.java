@@ -133,6 +133,7 @@ public class MarkingEditorDialog extends Dialog {
 	
 	@Override
 	protected void okPressed() {
+		table.forceFocus();  // Make sure we move the focus out of an cell edits in progress so they are persisted
 		markingData.persist();
 		super.okPressed();
 	}
