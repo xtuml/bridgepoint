@@ -75,7 +75,6 @@ import org.xtuml.bp.ui.canvas.Graphnode_c;
 import org.xtuml.bp.ui.canvas.Model_c;
 import org.xtuml.bp.ui.canvas.Ooaofgraphics;
 import org.xtuml.bp.ui.canvas.Shape_c;
-//import org.xtuml.bp.x2m.generator.Generator;
 /**
  * This wizard imports model data from a system level export file, or from on
  * older BridgePoint single file model
@@ -213,10 +212,12 @@ public class ModelImportWizard extends Wizard implements IImportWizard {
 					}
 
 				});				
-
-/**	Commenting out this code until the reference to x2m does not cause a cyclic dependency
- 
- 				// Note that currently xtml files imported from masl models
+/********
+ * see the 8979 implementation note. 
+ * this is commented out until a solution for
+ * the cyclical build problem caused by importing bp.x2m is found.
+ * 
+				// Note that currently xtml files imported from masl models
 				// represent either a masl domain or a project, not both.
 				// below we one or the other if this was a masl model.
 				//
@@ -244,8 +245,9 @@ public class ModelImportWizard extends Wizard implements IImportWizard {
 						});
 					}
 				}
+*********/				
 			}
-*/            
+            
 		}
 		return true;
 	}
