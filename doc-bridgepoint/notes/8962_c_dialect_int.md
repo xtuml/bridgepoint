@@ -17,6 +17,7 @@ services with the specific dialect.
 ----------------------
 [1] [8962](https://support.onefact.net/issues/8962) - Incorrect import of wrapper domains  
 [2] `xtuml/mc/model/maslin/test_data/8962_test`
+[3] [8986](https://support.onefact.net/issues/8986) - Annotate MASL models to communicate to Import  
 
 3. Background
 -------------
@@ -41,7 +42,8 @@ generating a service file for these activities.
 
 5. Work Required
 ----------------
-5.1 Add Alf, java and c to the ActionDialect enumeration.  
+5.1 Add Alf, java and c to the ActionDialect enumeration in both ooaofooa
+and mcooa.  
 5.2 Detect empty services during population in the m2x processing.  Set
 the dialect attribute to C instead of MASL in these cases.  
 5.3 Skip the creation of MASL service files for activities that have
@@ -49,6 +51,24 @@ a dialect of C.
 
 6. Implementation Comments
 --------------------------
+6.1 `"masl_temporary"`  
+Changed a constant string from `"temporary"` to `"masl_temporary"` for
+consistency reasons.  This was a small update as follow-on to issue [3].
+
+6.2 m2x crash  
+A missing or misnamed domain caused m2x to crash.  This was found to be
+a selection by name that returned empty when transformDomainFunction was
+called on a service file with incorrectly domain qualifier.  A trace
+has been added.  The code will still crash.
+
+6.3 x2m Empty Handles  
+```
+UserEmptyHandleDetectedCallout element masl_element_R3784_Unlink_has_current.
+UserEmptyHandleDetectedCallout element masl_element_R3787_Link_child_of.
+UserEmptyHandleDetectedCallout element masl_element_R3784_Link_has_current.
+```
+
+6.4 option k  
 
 7. Unit Test
 ------------
