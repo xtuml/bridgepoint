@@ -729,6 +729,12 @@ public class PersistableModelComponent implements Comparable {
                 .fillInStackTrace());
           }else{
             importer.finishComponentLoad(monitor, true);
+	    if ( !importer.getActionSuccessful() ) {
+	      CorePlugin.logError("Error while loading model from "
+			      + getFullPath() + " ERROR: "
+		  + importer.getErrorMessage(), null );
+	    }
+
             // check integrity after load, but not for the compare root
             if(!rootME.getModelRoot().isCompareRoot()) {
             	IntegrityChecker.createIntegrityIssuesForLoad(getRootModelElement());

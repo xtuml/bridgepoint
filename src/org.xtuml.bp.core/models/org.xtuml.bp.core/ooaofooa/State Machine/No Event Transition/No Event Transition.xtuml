@@ -20,7 +20,8 @@ Bridge:GD
 	'return "No Event Assigned";',
 	1,
 	'',
-	"00000000-0000-0000-0000-000000000000");
+	"00000000-0000-0000-0000-000000000000",
+	0);
 INSERT INTO O_TFR
 	VALUES ("d19019eb-e368-4bb2-b1f4-236d27ceb68b",
 	"b83584fb-8d8c-4c4b-9e2e-186c2254b93c",
@@ -39,7 +40,8 @@ end if;
 ',
 	1,
 	'',
-	"141b12cc-9f00-4ea6-8c05-c95404fb13c4");
+	"141b12cc-9f00-4ea6-8c05-c95404fb13c4",
+	0);
 INSERT INTO O_REF
 	VALUES ("b83584fb-8d8c-4c4b-9e2e-186c2254b93c",
 	"71e37b76-a350-435b-a3fd-e3d016eb39ef",

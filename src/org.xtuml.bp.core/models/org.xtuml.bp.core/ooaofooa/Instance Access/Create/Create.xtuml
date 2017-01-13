@@ -30,7 +30,8 @@ delete object instance self;
 ',
 	1,
 	'',
-	"00000000-0000-0000-0000-000000000000");
+	"00000000-0000-0000-0000-000000000000",
+	0);
 INSERT INTO O_TFR
 	VALUES ("ef69a331-bf9f-4a95-8657-c93e2166d953",
 	"5d38192c-4cdd-43f7-9143-438f744adfce",
@@ -118,7 +119,8 @@ newInst.initialize(initializeState:true);
 ',
 	1,
 	'',
-	"dab36edb-a9d7-4c9a-9bb2-f707008c40f1");
+	"dab36edb-a9d7-4c9a-9bb2-f707008c40f1",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("b203620e-24b3-436a-9b7d-054ce91aa259",
 	"ef69a331-bf9f-4a95-8657-c93e2166d953",

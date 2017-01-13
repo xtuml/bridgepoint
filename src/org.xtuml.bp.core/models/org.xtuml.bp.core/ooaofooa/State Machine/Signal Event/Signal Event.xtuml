@@ -30,7 +30,8 @@ end if;
 delete object instance self;',
 	1,
 	'',
-	"00000000-0000-0000-0000-000000000000");
+	"00000000-0000-0000-0000-000000000000",
+	0);
 INSERT INTO O_TFR
 	VALUES ("ad5adefc-e1fe-4abd-a3c6-3cd5fa1ec2a6",
 	"514d0f8c-2a86-4ba3-932c-bd4364d14b4d",
@@ -70,7 +71,8 @@ else
 end if;',
 	1,
 	'',
-	"54fc75f0-bcc1-40a9-bfca-f663040f8783");
+	"54fc75f0-bcc1-40a9-bfca-f663040f8783",
+	0);
 INSERT INTO O_TFR
 	VALUES ("bedeaf4e-e4f1-49ec-8ce3-87c6c8398086",
 	"514d0f8c-2a86-4ba3-932c-bd4364d14b4d",
@@ -82,7 +84,8 @@ INSERT INTO O_TFR
 return self.signal_name;',
 	1,
 	'',
-	"ad5adefc-e1fe-4abd-a3c6-3cd5fa1ec2a6");
+	"ad5adefc-e1fe-4abd-a3c6-3cd5fa1ec2a6",
+	0);
 INSERT INTO O_TFR
 	VALUES ("f165b304-3742-4873-8cee-bed84e3d62b6",
 	"514d0f8c-2a86-4ba3-932c-bd4364d14b4d",
@@ -93,7 +96,8 @@ INSERT INTO O_TFR
 	'	return m_signal_name;',
 	0,
 	'',
-	"bedeaf4e-e4f1-49ec-8ce3-87c6c8398086");
+	"bedeaf4e-e4f1-49ec-8ce3-87c6c8398086",
+	0);
 INSERT INTO O_TFR
 	VALUES ("8ca85019-13e3-4945-84d6-7aafc1eafc51",
 	"514d0f8c-2a86-4ba3-932c-bd4364d14b4d",
@@ -104,7 +108,8 @@ INSERT INTO O_TFR
 	'	m_signal_name = p_Value;',
 	0,
 	'',
-	"f165b304-3742-4873-8cee-bed84e3d62b6");
+	"f165b304-3742-4873-8cee-bed84e3d62b6",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("6367005a-a703-4ad8-9e02-1b1cd1b259e7",
 	"8ca85019-13e3-4945-84d6-7aafc1eafc51",
@@ -402,7 +407,8 @@ else
   self.signal_name = self.getCachedSignalName();
 end if; 
 ',
-	1);
+	1,
+	0);
 INSERT INTO O_BATTR
 	VALUES ("34e5f057-305a-427f-8bf9-0a3ac4e0299e",
 	"514d0f8c-2a86-4ba3-932c-bd4364d14b4d");

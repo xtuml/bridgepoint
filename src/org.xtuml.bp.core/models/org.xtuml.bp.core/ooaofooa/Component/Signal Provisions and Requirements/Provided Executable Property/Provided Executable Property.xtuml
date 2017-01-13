@@ -36,7 +36,8 @@ end for;
 delete object instance self;',
 	1,
 	'',
-	"00000000-0000-0000-0000-000000000000");
+	"00000000-0000-0000-0000-000000000000",
+	0);
 INSERT INTO O_TFR
 	VALUES ("55bd8075-a144-49b7-8359-d7959dda39b9",
 	"6e1f9b12-bc84-48ed-af2d-02831c049629",
@@ -48,7 +49,8 @@ INSERT INTO O_TFR
 return provision.getComponentId();',
 	1,
 	'',
-	"c147583e-8011-46fa-817c-f3f183ce6b62");
+	"c147583e-8011-46fa-817c-f3f183ce6b62",
+	0);
 INSERT INTO O_TFR
 	VALUES ("0e1da90e-0339-4e49-9a3f-b3cd926d4d06",
 	"6e1f9b12-bc84-48ed-af2d-02831c049629",
@@ -73,7 +75,8 @@ end if;
 return true;',
 	1,
 	'',
-	"55bd8075-a144-49b7-8359-d7959dda39b9");
+	"55bd8075-a144-49b7-8359-d7959dda39b9",
+	0);
 INSERT INTO O_TFR
 	VALUES ("9d6deb39-314a-4570-a746-5dea72d26b0d",
 	"6e1f9b12-bc84-48ed-af2d-02831c049629",
@@ -113,7 +116,8 @@ if(Util::isProxy(element:epProxy.convertToInstance()))
 end if;',
 	1,
 	'',
-	"0e1da90e-0339-4e49-9a3f-b3cd926d4d06");
+	"0e1da90e-0339-4e49-9a3f-b3cd926d4d06",
+	0);
 INSERT INTO O_TFR
 	VALUES ("613eeae3-8cc7-4e1d-bf73-d049f1548cd1",
 	"6e1f9b12-bc84-48ed-af2d-02831c049629",
@@ -128,7 +132,8 @@ end if;
 return false;',
 	1,
 	'',
-	"9d6deb39-314a-4570-a746-5dea72d26b0d");
+	"9d6deb39-314a-4570-a746-5dea72d26b0d",
+	0);
 INSERT INTO O_TFR
 	VALUES ("96271228-aa3a-4c47-87a9-b3ec22019349",
 	"6e1f9b12-bc84-48ed-af2d-02831c049629",
@@ -158,7 +163,8 @@ end if;
 return false;',
 	1,
 	'',
-	"613eeae3-8cc7-4e1d-bf73-d049f1548cd1");
+	"613eeae3-8cc7-4e1d-bf73-d049f1548cd1",
+	0);
 INSERT INTO O_TFR
 	VALUES ("345fae6d-a1b9-49fc-aa0e-3a4aa5653e85",
 	"6e1f9b12-bc84-48ed-af2d-02831c049629",
@@ -172,7 +178,8 @@ Translate: native',
 	'return this;',
 	0,
 	'',
-	"96271228-aa3a-4c47-87a9-b3ec22019349");
+	"96271228-aa3a-4c47-87a9-b3ec22019349",
+	0);
 INSERT INTO S_DT_PROXY
 	VALUES ("bc3722c8-5188-4529-8519-cf9eb9816b17",
 	"00000000-0000-0000-0000-000000000000",

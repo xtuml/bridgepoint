@@ -22,7 +22,8 @@ end if;
 delete object instance self;',
 	1,
 	'',
-	"00000000-0000-0000-0000-000000000000");
+	"00000000-0000-0000-0000-000000000000",
+	0);
 INSERT INTO O_TFR
 	VALUES ("4be5e006-b28e-4462-ae43-323e9758416a",
 	"d8d0008a-8432-431f-9d3b-df5380f0d629",
@@ -33,7 +34,8 @@ INSERT INTO O_TFR
 	'return self.Id;',
 	1,
 	'',
-	"fac50ad3-4ede-48d3-9e8a-7b074e0b08de");
+	"fac50ad3-4ede-48d3-9e8a-7b074e0b08de",
+	0);
 INSERT INTO O_TFR
 	VALUES ("96e68224-0317-425a-a47d-fd212bf94bc0",
 	"d8d0008a-8432-431f-9d3b-df5380f0d629",
@@ -44,7 +46,8 @@ INSERT INTO O_TFR
 	'return Style::None;',
 	1,
 	'',
-	"4be5e006-b28e-4462-ae43-323e9758416a");
+	"4be5e006-b28e-4462-ae43-323e9758416a",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("25b4c527-190e-42aa-aaf3-4caa3d2ae862",
 	"96e68224-0317-425a-a47d-fd212bf94bc0",
@@ -86,7 +89,8 @@ end if;
 return result;',
 	1,
 	'',
-	"14ae6bea-50fc-4615-9866-145cbb2c3626");
+	"14ae6bea-50fc-4615-9866-145cbb2c3626",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("325ab5a2-4c73-4aa6-b997-3b0b0874d063",
 	"b78378aa-7ad3-4395-a8c1-f3cd7b7085c4",
@@ -133,7 +137,8 @@ INSERT INTO O_TFR
 	'return self.GuardCondition;',
 	1,
 	'',
-	"b78378aa-7ad3-4395-a8c1-f3cd7b7085c4");
+	"b78378aa-7ad3-4395-a8c1-f3cd7b7085c4",
+	0);
 INSERT INTO O_TFR
 	VALUES ("844edab0-009d-429f-be58-fce374aebf70",
 	"d8d0008a-8432-431f-9d3b-df5380f0d629",
@@ -144,7 +149,8 @@ INSERT INTO O_TFR
 	'return true;',
 	1,
 	'',
-	"96e68224-0317-425a-a47d-fd212bf94bc0");
+	"96e68224-0317-425a-a47d-fd212bf94bc0",
+	0);
 INSERT INTO O_TFR
 	VALUES ("f6956bf8-31fc-46ef-8778-bbd55c656438",
 	"d8d0008a-8432-431f-9d3b-df5380f0d629",
@@ -155,7 +161,8 @@ INSERT INTO O_TFR
 	'return true;',
 	1,
 	'',
-	"844edab0-009d-429f-be58-fce374aebf70");
+	"844edab0-009d-429f-be58-fce374aebf70",
+	0);
 INSERT INTO O_NBATTR
 	VALUES ("f594eb78-cdfd-4adc-a572-9b0b5953ac62",
 	"d8d0008a-8432-431f-9d3b-df5380f0d629");

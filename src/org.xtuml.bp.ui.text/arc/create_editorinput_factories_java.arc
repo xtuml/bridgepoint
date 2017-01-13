@@ -118,8 +118,10 @@
 .invoke result = get_editor_obj_set()
 .assign oal_object_set = result.oal_obj_set
 .assign dsc_object_set = result.dsc_obj_set
+.assign tdf_object_set = result.tdf_obj_set
 .assign oal_source_set = result.oal_source_set
 .assign dsc_source_set = result.dsc_source_set
 .include "arc/create_activity_editorinput_factory_java.inc"  
 .include "arc/create_description_editorinput_factory_java.inc"  
+.include "arc/create_typedefinition_editorinput_factory_java.inc"  
 .//

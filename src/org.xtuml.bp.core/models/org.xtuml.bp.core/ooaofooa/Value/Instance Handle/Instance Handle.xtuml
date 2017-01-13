@@ -28,7 +28,8 @@ return true;
 ',
 	1,
 	'',
-	"b4a8ece4-de1f-4a73-9685-10beee04bbb7");
+	"b4a8ece4-de1f-4a73-9685-10beee04bbb7",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("ce6905b4-9308-42fd-904c-34c49cd696eb",
 	"6c625e65-92b3-4c96-b7ee-286511ea82f9",
@@ -57,7 +58,8 @@ end for;
 delete object instance self;',
 	1,
 	'',
-	"00000000-0000-0000-0000-000000000000");
+	"00000000-0000-0000-0000-000000000000",
+	0);
 INSERT INTO O_TFR
 	VALUES ("b4a8ece4-de1f-4a73-9685-10beee04bbb7",
 	"97baa2ef-fc0b-46e7-8d55-caccba4cb123",
@@ -116,7 +118,8 @@ pathMsg = "<No Path Available - Empty instance>";
 return 0;',
 	1,
 	'',
-	"d974182c-1a33-4324-9b7d-c053a95b47e3");
+	"d974182c-1a33-4324-9b7d-c053a95b47e3",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("86cc5be7-a4ba-4372-a69e-e92838fd1764",
 	"b4a8ece4-de1f-4a73-9685-10beee04bbb7",
