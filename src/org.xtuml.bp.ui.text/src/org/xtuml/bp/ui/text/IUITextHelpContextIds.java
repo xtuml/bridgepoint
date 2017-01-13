@@ -34,4 +34,5 @@ public interface IUITextHelpContextIds {
 	public static final String activityPreferencesId = PREFIX + "activityPreferencesId"; //$NON-NLS-1$
 	public static final String activityEditorId = PREFIX + "activityEditorId"; //$NON-NLS-1$
 	public static final String descriptionEditorId = PREFIX + "descriptionEditorId"; //$NON-NLS-1$
+	public static final String typedefinitionEditorId = PREFIX + "typedefinitionEditorId"; //$NON-NLS-1$
 }
