@@ -97,10 +97,13 @@ This document uses the following vocabulary:
   folder.  This file will indicate which marks are valid for which OOA of OOA 
   elements.  For example:  
 ```
+# Features that can be set on classes
 Model Class,id
 Model Class,soa_remote
 Model Class,bar
-Model Class,baz  
+Model Class,baz
+
+# Other features  
 Component,id
 Attribute,id
 Component,foo
@@ -164,7 +167,8 @@ components::MicrowaveOven::Microwave Oven::Oven,bar,barov
   situation where the user wishes to mark the System Model.  We need to make sure
   that the segment removal proposed in 6.3.3.2 does not interfere with marking
   the System Model.   
-6.3.3.4  This file is loaded and persisted in an ordered way to minimize file
+6.3.3.4  Comments __are not__ supported in this file.   
+6.3.3.5  This file is loaded and persisted in an ordered way to minimize file
   differences when data is added and removed with the editor.  The primary sorting
   key is the model instance path.  Entries with the same path are persisted 
   together.  Within the same path entries are persisted back out in the order in
