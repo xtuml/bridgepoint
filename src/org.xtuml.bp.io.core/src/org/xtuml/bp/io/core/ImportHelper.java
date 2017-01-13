@@ -336,232 +336,288 @@ public class ImportHelper
         return importer.getGraphicsModelRoot();
     }
 
-    boolean m_graphicsReconciliationIsNeeded = false;
+    // If a masl model was import then one of the following 2
+    // elements will not be null
+    private Package_c m_maslProjectImported = null;
+    private Package_c m_maslDomainsImported = null;
+    
+    
+    // m2x writes the following strings into description fields to flag that 
+    // is a masl model being imported.
+    private final String MASL_PROJECT = "masl_project";
+    private final String MASL_DOMAIN = "masl_domain";
+    private final String MASL_FORMALIZE = "masl_formalize";
+    private final String MASL_TEMPORARY_INTERFACE = "masl_temporary";
     
     /**
      * Resolve the MASL project
      *   - Assign unassigned component references
      *   - Unhook temporary interface definitions and re-attach to existing interfaces in domains
      */
-    public void resolveMASLproject( NonRootModelElement[] elements ) {
+    public void resolveMASLproject( NonRootModelElement[] elements ) {    	
         if ( elements == null ) return;
-
-        // first pass, assign componenent references and swap interfaces, formalize interfaces
+                
+        // first pass, assign component references and swap interfaces, formalize interfaces
         for ( NonRootModelElement el : elements ) {
-            // process the unassigned component references
             if ( el instanceof ComponentReference_c ) {
-		TransactionUtil.TransactionGroup transactionGroup = TransactionUtil.startTransactionsOnSelectedModelRoots("Resolve Component Reference");
-		Ooaofooa.beginSaveOperation();
-
-                ComponentReference_c cl_ic = (ComponentReference_c)el;
-
-                // check if containing package is a MASL project package
-                boolean masl_project = false;
-                Package_c pkg = Package_c.getOneEP_PKGOnR8000( PackageableElement_c.getOnePE_PEOnR8001( cl_ic ) );
-                if ( null != pkg ) {
-            	    String pkg_descrip = pkg.getDescrip();
-                    if ( !pkg_descrip.isEmpty() ) {
-                        Matcher m = Pattern.compile( "masl_project" ).matcher( pkg_descrip );
-                        if ( m.find() ) {
-                            masl_project = true;
-                            m_graphicsReconciliationIsNeeded = true;
-                        }
-                    }
-                }
-
-                if ( masl_project ) {
-
-                    // get the name of the component we're looking for from the Descrip field
-                    String description = cl_ic.getDescrip();
-
-                    // parse name
-                    String cl_ic_name = "";
-                    if ( !description.isEmpty() ) {
-                        Matcher m = Pattern.compile( "name:.*" ).matcher( description );
-                        if ( m.find() ) {
-                            cl_ic_name = m.group().substring(5);
-                            cl_ic.setDescrip( m.replaceAll("") );
-                        }
-                    }
-
-                    // ensure that all Components are loaded
-                    PersistenceManager.ensureAllInstancesLoaded(cl_ic.getModelRoot(), Component_c.class);
-                    // get reachable components
-                    Component_c[] components = GenericPackageAssignComponentOnCL_ICAction.getElements( cl_ic );
-
-                    // match the ComponentReference with the Component
-                    for ( Component_c c_c : components ) {
-                        if ( c_c.getName().equals( cl_ic_name ) ) {
-                            // assign the component reference to the component
-                            cl_ic.Assigntocomp( c_c.getId() );
-                            break;
-                        }
-                    }
-                }
-
-		Ooaofooa.endSaveOperation();
-		TransactionUtil.endTransactions(transactionGroup);
-
-            }
-            // process temporary interfaces
-            else if ( el instanceof Interface_c ) {
-                TransactionUtil.TransactionGroup transactionGroup = TransactionUtil.startTransactionsOnSelectedModelRoots("Resolve Temporary Interface");
-		Ooaofooa.beginSaveOperation();
-
-                Interface_c c_i = (Interface_c)el;
-
-                // check if this is a temporary interface
-            	String description = c_i.getDescrip();
-                boolean temporary = true;
-                if ( !description.isEmpty() ) {
-                    Matcher m = Pattern.compile( "temporary" ).matcher( description );
-                    if ( !m.find() ) {
-                        temporary = false;
-                    }
-                }
-
-                if ( temporary ) {
-
-                    // ensure that all Interfaces are loaded
-                    PersistenceManager.ensureAllInstancesLoaded(c_i.getModelRoot(), Interface_c.class);
-
-                    // get reachable Interfaces
-                    Package_c pkg = Package_c.getOneEP_PKGOnR8000( PackageableElement_c.getOnePE_PEOnR8001( c_i ) );
-		    List<Interface_c> elementList = new ArrayList<Interface_c>();
-                    PackageableElement_c[] pes = null;
-		    if (pkg != null) {
-			pkg.Clearscope();
-			pkg.Collectvisibleelementsforname(true, Gd_c.Null_unique_id(), false, "", pkg.getPackage_id(), Elementtypeconstants_c.INTERFACE);
-			class PETest implements ClassQueryInterface_c {
-			    public boolean evaluate(Object candidate) {
-			        SearchResultSet_c selected = (SearchResultSet_c) candidate;
-				return (selected.getName().equals("") && selected.getType() == Elementtypeconstants_c.INTERFACE);
-			    }
-			}
-			SearchResultSet_c results = SearchResultSet_c.getOnePE_SRSOnR8005(pkg, new PETest());
-			pes = PackageableElement_c.getManyPE_PEsOnR8002(ElementVisibility_c.getManyPE_VISsOnR8006(results));
-			for (int i = 0; pes != null && i < pes.length; i++) {
-			    Interface_c elem = Interface_c.getOneC_IOnR8001(pes[i]);
-			    elementList.add(elem);
-
-			}
-                    }
-                    Interface_c[] interfaces = elementList.toArray(new Interface_c[elementList.size()]);
-
-                    // check for matching interfaces
-                    for ( int i = 0; i < interfaces.length; i++ ) {
-                        // if name matches, but not the same interface
-                        if ( !interfaces[i].getId().equals(c_i.getId()) && interfaces[i].getName().equals(c_i.getName()) ) {
-                            // select my interface reference
-                            InterfaceReference_c c_ir = InterfaceReference_c.getOneC_IROnR4012( c_i );
-                            if ( null != c_ir ) {
-                                // replace the temporary interface
-                                Ooaofooa.Replaceformalinterface( c_ir.getModelRoot(), c_ir.getId(), interfaces[i].getId() );
-
-                                // dispose self
-                                c_i.Dispose();
-
-                                // break from loop
-                                break;
-                            }
-                        }
-                    }
-                }
-		Ooaofooa.endSaveOperation();
-		TransactionUtil.endTransactions(transactionGroup);
-            }
-            else if ( el instanceof Requirement_c ) {
-		TransactionUtil.TransactionGroup transactionGroup = TransactionUtil.startTransactionsOnSelectedModelRoots("Formalize Required Interface");
-		Ooaofooa.beginSaveOperation();
-
-                // process the unformalized required interfaces
-                Requirement_c c_r = (Requirement_c)el;
-
-                // check if requirement needs formalizing
-                boolean formalize = false;
-            	String descrip = c_r.getDescrip();
-                if ( !descrip.isEmpty() ) {
-                    Matcher m = Pattern.compile( "formalize" ).matcher( descrip );
-                    if ( m.find() ) {
-                        formalize = true;
-                    }
-                }
-
-                if ( formalize ) {
-
-                    // get the name of the interface we're looking for from the InformalName field
-                    String c_r_name = c_r.getInformalname();
-
-                    // ensure that all Interfaces are loaded
-                    PersistenceManager.ensureAllInstancesLoaded(c_r.getModelRoot(), Interface_c.class);
-                    // get reachable interfaces
-                    Interface_c[] interfaces = GenericPackageFormalizeOnC_RAction.getElements( c_r );
-
-                    // match the Interface
-                    for ( Interface_c c_i : interfaces ) {
-                        if ( c_i.getName().equals( c_r_name ) ) {
-                            // formalize the requirement
-                            c_r.Formalize(c_i.getId(), true);
-                            break;
-                        }
-                    }
-
-                }
-
-		Ooaofooa.endSaveOperation();
-		TransactionUtil.endTransactions(transactionGroup);
-            }
-            else if ( el instanceof Provision_c ) {
-		TransactionUtil.TransactionGroup transactionGroup = TransactionUtil.startTransactionsOnSelectedModelRoots("Formalize Provided Interface");
-		Ooaofooa.beginSaveOperation();
-
-                // process the unformalized provided interfaces
-                Provision_c c_p =  (Provision_c)el;
-
-                // check if requirement needs formalizing
-                boolean formalize = false;
-            	String descrip = c_p.getDescrip();
-                if ( !descrip.isEmpty() ) {
-                    Matcher m = Pattern.compile( "formalize" ).matcher( descrip );
-                    if ( m.find() ) {
-                        formalize = true;
-                    }
-                }
-
-                if ( formalize ) {
-
-                    // get the name of the interface we're looking for from the InformalName field
-                    String c_p_name = c_p.getInformalname();
-
-                    // ensure that all Interfaces are loaded
-                    PersistenceManager.ensureAllInstancesLoaded(c_p.getModelRoot(), Interface_c.class);
-                    // get reachable interfaces
-                    Interface_c[] interfaces = GenericPackageFormalizeOnC_PAction.getElements( c_p );
-
-                    // match the Interface
-                    for ( Interface_c c_i : interfaces ) {
-                        if ( c_i.getName().equals( c_p_name ) ) {
-                            // formalize the requirement
-                            c_p.Formalize(c_i.getId(), true);
-                            break;
-                        }
-                    }
-                }
-		    
-		Ooaofooa.endSaveOperation();
-		TransactionUtil.endTransactions(transactionGroup);
+            	resolveMASLComponentReference((ComponentReference_c)el);
+            } else if ( el instanceof Interface_c ) {
+            	resolveMASLTemporaryInterface((Interface_c)el);
+            } else if ( el instanceof Requirement_c ) {
+            	resolveMASLRequirement((Requirement_c)el);
+            } else if ( el instanceof Provision_c ) {
+            	resolveMASLProvision((Provision_c) el);
+            } else if (m_maslProjectImported==null && m_maslDomainsImported==null && (el instanceof Package_c)) {
+            	// If any package is marked as a masl project then
+            	// set the flag indicating a masl model was imported
+            	
+        		String descrip = ((Package_c)el).getDescrip();
+        		if (!descrip.isEmpty()) {
+        			Matcher m = Pattern.compile(MASL_PROJECT).matcher(descrip);
+        			if (m.find()) {
+        				m_maslProjectImported = (Package_c)el;
+        			} else {
+            			m = Pattern.compile(MASL_DOMAIN).matcher(descrip);
+            			if (m.find()) {
+            				m_maslDomainsImported = (Package_c)el;
+            			}
+        			}
+        		}
             }
         }
     }
 
+	// process an unformalized provided interface
+	private void resolveMASLProvision(Provision_c c_p) {
+		TransactionUtil.TransactionGroup transactionGroup = TransactionUtil
+				.startTransactionsOnSelectedModelRoots("Formalize Provided Interface");
+		Ooaofooa.beginSaveOperation();
+
+		// check if requirement needs formalizing
+		boolean formalize = false;
+		String descrip = c_p.getDescrip();
+		if (!descrip.isEmpty()) {
+			Matcher m = Pattern.compile(MASL_FORMALIZE).matcher(descrip);
+			if (m.find()) {
+				formalize = true;
+			}
+		}
+
+		if (formalize) {
+
+			// get the name of the interface we're looking for from the
+			// InformalName field
+			String c_p_name = c_p.getInformalname();
+
+			// ensure that all Interfaces are loaded
+			PersistenceManager.ensureAllInstancesLoaded(c_p.getModelRoot(), Interface_c.class);
+			// get reachable interfaces
+			Interface_c[] interfaces = GenericPackageFormalizeOnC_PAction.getElements(c_p);
+
+			// match the Interface
+			for (Interface_c c_i : interfaces) {
+				if (c_i.getName().equals(c_p_name)) {
+					// formalize the requirement
+					c_p.Formalize(c_i.getId(), true);
+					break;
+				}
+			}
+		}
+
+		Ooaofooa.endSaveOperation();
+		TransactionUtil.endTransactions(transactionGroup);
+	}    
+    
+	// process an unformalized required interface
+	private void resolveMASLRequirement(Requirement_c c_r) {
+		TransactionUtil.TransactionGroup transactionGroup = TransactionUtil
+				.startTransactionsOnSelectedModelRoots("Formalize Required Interface");
+		Ooaofooa.beginSaveOperation();
+
+		// check if requirement needs formalizing
+		boolean formalize = false;
+		String descrip = c_r.getDescrip();
+		if (!descrip.isEmpty()) {
+			Matcher m = Pattern.compile(MASL_FORMALIZE).matcher(descrip);
+			if (m.find()) {
+				formalize = true;
+			}
+		}
+
+		if (formalize) {
+
+			// get the name of the interface we're looking for from the
+			// InformalName field
+			String c_r_name = c_r.getInformalname();
+
+			// ensure that all Interfaces are loaded
+			PersistenceManager.ensureAllInstancesLoaded(c_r.getModelRoot(), Interface_c.class);
+			// get reachable interfaces
+			Interface_c[] interfaces = GenericPackageFormalizeOnC_RAction.getElements(c_r);
+
+			// match the Interface
+			for (Interface_c c_i : interfaces) {
+				if (c_i.getName().equals(c_r_name)) {
+					// formalize the requirement
+					c_r.Formalize(c_i.getId(), true);
+					break;
+				}
+			}
+
+		}
+
+		Ooaofooa.endSaveOperation();
+		TransactionUtil.endTransactions(transactionGroup);
+	}    
+    
+	/**
+	 * Create masl "temporary interfaces"
+	 * 
+	 * There are some action bodies coming from masl that are associated with a masl 
+	 * domain that we need to import into xtuml. We do this by creating an
+	 * interface to put these action bodies in. 
+	 * 
+	 * @param c_i
+	 */
+	private void resolveMASLTemporaryInterface(Interface_c c_i) {
+		TransactionUtil.TransactionGroup transactionGroup = TransactionUtil
+				.startTransactionsOnSelectedModelRoots("Resolve Temporary Interface");
+		Ooaofooa.beginSaveOperation();
+
+		// check if this is a temporary interface
+		String description = c_i.getDescrip();
+		boolean temporary_interface = true;
+		if (!description.isEmpty()) {
+			Matcher m = Pattern.compile(MASL_TEMPORARY_INTERFACE).matcher(description);
+			if (!m.find()) {
+				temporary_interface = false;
+			}
+		}
+
+		if (temporary_interface) {
+
+			// ensure that all Interfaces are loaded
+			PersistenceManager.ensureAllInstancesLoaded(c_i.getModelRoot(), Interface_c.class);
+
+			// get reachable Interfaces
+			Package_c pkg = Package_c.getOneEP_PKGOnR8000(PackageableElement_c.getOnePE_PEOnR8001(c_i));
+			List<Interface_c> elementList = new ArrayList<Interface_c>();
+			PackageableElement_c[] pes = null;
+			if (pkg != null) {
+				pkg.Clearscope();
+				pkg.Collectvisibleelementsforname(true, Gd_c.Null_unique_id(), false, "", pkg.getPackage_id(),
+						Elementtypeconstants_c.INTERFACE);
+				class PETest implements ClassQueryInterface_c {
+					public boolean evaluate(Object candidate) {
+						SearchResultSet_c selected = (SearchResultSet_c) candidate;
+						return (selected.getName().equals("")
+								&& selected.getType() == Elementtypeconstants_c.INTERFACE);
+					}
+				}
+				SearchResultSet_c results = SearchResultSet_c.getOnePE_SRSOnR8005(pkg, new PETest());
+				pes = PackageableElement_c.getManyPE_PEsOnR8002(ElementVisibility_c.getManyPE_VISsOnR8006(results));
+				for (int i = 0; pes != null && i < pes.length; i++) {
+					Interface_c elem = Interface_c.getOneC_IOnR8001(pes[i]);
+					elementList.add(elem);
+
+				}
+			}
+			Interface_c[] interfaces = elementList.toArray(new Interface_c[elementList.size()]);
+
+			// check for matching interfaces
+			for (int i = 0; i < interfaces.length; i++) {
+				// if name matches, but not the same interface
+				if (!interfaces[i].getId().equals(c_i.getId()) && interfaces[i].getName().equals(c_i.getName())) {
+					// select my interface reference
+					InterfaceReference_c c_ir = InterfaceReference_c.getOneC_IROnR4012(c_i);
+					if (null != c_ir) {
+						// replace the temporary interface
+						Ooaofooa.Replaceformalinterface(c_ir.getModelRoot(), c_ir.getId(), interfaces[i].getId());
+
+						// dispose self
+						c_i.Dispose();
+
+						// break from loop
+						break;
+					}
+				}
+			}
+		}
+		Ooaofooa.endSaveOperation();
+		TransactionUtil.endTransactions(transactionGroup);
+
+	}
+	
+	// assign a masl component reference 
+	private void resolveMASLComponentReference(ComponentReference_c cl_ic) {
+		TransactionUtil.TransactionGroup transactionGroup = TransactionUtil
+				.startTransactionsOnSelectedModelRoots("Resolve Component Reference");
+		Ooaofooa.beginSaveOperation();
+
+		// check if containing package is a MASL project package
+		boolean masl_project = false;
+		Package_c pkg = Package_c.getOneEP_PKGOnR8000(PackageableElement_c.getOnePE_PEOnR8001(cl_ic));
+		if (null != pkg) {
+			String pkg_descrip = pkg.getDescrip();
+			if (!pkg_descrip.isEmpty()) {
+				Matcher m = Pattern.compile(MASL_PROJECT).matcher(pkg_descrip);
+				if (m.find()) {
+					masl_project = true;
+				}
+			}
+		}
+
+		if (masl_project) {
+
+			// get the name of the component we're looking for from the Descrip
+			// field
+			String description = cl_ic.getDescrip();
+
+			// parse name
+			String cl_ic_name = "";
+			if (!description.isEmpty()) {
+				Matcher m = Pattern.compile("name:.*").matcher(description);
+				if (m.find()) {
+					cl_ic_name = m.group().substring(5);
+					cl_ic.setDescrip(m.replaceAll(""));
+				}
+			}
+
+			// ensure that all Components are loaded
+			PersistenceManager.ensureAllInstancesLoaded(cl_ic.getModelRoot(), Component_c.class);
+			// get reachable components
+			Component_c[] components = GenericPackageAssignComponentOnCL_ICAction.getElements(cl_ic);
+
+			// match the ComponentReference with the Component
+			for (Component_c c_c : components) {
+				if (c_c.getName().equals(cl_ic_name)) {
+					// assign the component reference to the component
+					cl_ic.Assigntocomp(c_c.getId());
+					break;
+				}
+			}
+		}
+
+		Ooaofooa.endSaveOperation();
+		TransactionUtil.endTransactions(transactionGroup);
+	}
+
+    public Package_c getImportedMASLDomainPackage() {
+    	return m_maslDomainsImported;
+    }
+    
+    public Package_c getImportedMASLProject() {
+    	return m_maslProjectImported;
+    }
+
     /**
-     * If this was an import of a masl model file that contained no graphics
-     * then perform full graphics reconciliation to create the graphics.
+     * @return true if either a masl domain package or a masl project
+     * package was imported. 
      * 
      * @return
      */
-    public boolean graphicsReconciliationIsNeeded() {
-    	return m_graphicsReconciliationIsNeeded;
+    public boolean maslModelWasImported() {
+    	return m_maslDomainsImported != null || m_maslProjectImported != null;
     }
     
     /**
