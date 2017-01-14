@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="../../../github-pandoc.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<h1 id="marking-editor">Marking Editor</h1>
+<p>Application marks are used to control and customize the model translation<br />
+process. They allow the modeler to provide values for pre-defined features<br />
+of the model compiler. The name ``mark'' comes from the visualization of using<br />
+a highlighter pen to mark each element that has a particular property.</p>
+<p>The MASL model compiler takes this input in the form of <code>pragma</code> statements<br />
+associated with application model element. The marks created using this marking<br />
+editor are output as <code>pragma</code>s when the modeler runs the <code>Export MASL</code><br />
+tool.</p>
+<p>The marking editor provides a user interface for the MASL marking process. It<br />
+uses selection fields to minimize the possibility of user-induced typing errors<br />
+in the marking process.</p>
+<p>This document uses the following vocabulary:</p>
+<ul>
+<li><strong>Element Type</strong> - xtUML metamodel class name (e.g. Model Class, Component, Attribute)<br />
+</li>
+<li><strong>Element</strong> - an application instance of a given element type (e.g. in the GPS Watch<br />
+there are &quot;Tracking&quot; and &quot;UI&quot; components)<br />
+</li>
+<li><strong>Feature</strong> - a feature is defined by a model compiler architect independent of<br />
+all application models. During model translation it may provide input to the<br />
+model compiler about some aspect of the application model or it may provide<br />
+dynamic input (flag) to the model compiler itself.<br />
+</li>
+<li><strong>Mark</strong> - A mark is the user-created specification of a value for a feature tied<br />
+to a specific model element.</li>
+</ul>
+<h2 id="user-interface">User Interface</h2>
+<p>The marking editor dialog is launched via the context-menu of an xtUML Project (Figure 1).<br />
+Simply right-click on the project then choose <code>Manage Project Markings</code>.</p>
+<p><img src="marking_cme.png" alt="Image of marking CME" /><br />
+<strong>Figure 1</strong></p>
+<p>This action will open the <code>Manage Project Markings</code> dialog (Figure 2). This<br />
+dialog displays provides selection lists and a table editor to enter values.</p>
+<p><img src="marking_editor.png" alt="Image of Marking Editor" /><br />
+<strong>Figure 2</strong></p>
+<p>The modeler will first select the type of element they wish to mark, such as a<br />
+<code>Model Class</code> or <code>Component</code>.</p>
+<p>Once the element type is selected, the <code>Model Element</code> list is populated with<br />
+all the instances of that element type in the current model. The elements are<br />
+displayed with using their path inside the model to allow the user to uniquely<br />
+identify the desired model element.</p>
+<p>After the model element is selected, the table is populated with the available<br />
+features that are valid to mark for that element. The value field is populated<br />
+with any marks previously defined by the modeler. The value field is editable,<br />
+allowing the user to change or remove values for any mark.</p>
+<ul>
+<li>Values are stored and passed to the model compiler exactly as written. It is<br />
+up to the modeler to add quotes where necessary, even providing empty quoted<br />
+strings <code>&quot;&quot;</code>.<br />
+</li>
+<li>Value fields that are blank are considered to be unmarked and are removed from<br />
+the marking data and not passed downstream to the model compiler.<br />
+</li>
+<li>It is legal to put comma characters in value fields and to mix quoted and non-<br />
+quoted data in the value list. For example: <code>2, &quot;domain&quot;, &quot;trigger&quot;</code></li>
+</ul>
+<p>The dialog provides <code>OK</code> and <code>Cancel</code> buttons. If the user clicks <code>Cancel</code><br />
+then no data changes are persisted. If the user clicks <code>OK</code>, the data is persisted.</p>
+<h2 id="marking-data-files">Marking Data Files</h2>
+<p>The marking data is stored in two files: <code>features.mark</code> and <code>application.mark</code>.<br />
+Both files live in the project's <code>gen/</code> folder, which can be found by opening the<br />
+Navigator view in the xtUML Modeling perspective or by opening the C/C++ perspective.</p>
+<h3 id="file-features.mark">File: features.mark</h3>
+<p>A file called <code>features.mark</code> (a human-readable text file) is created by the<br />
+model compiler architect and stored in the project's <code>gen/</code> folder. This<br />
+file indicate which features are valid for which OOA of OOA elements (Figure 3).</p>
+<pre><code># Features that can be set on classes
+Model Class,id
+Model Class,soa_remote
+Model Class,bar
+Model Class,baz
+
+# Other features  
+Component,id
+Attribute,id
+Component,foo
+Attribute,foo
+Attribute,soa_remote</code></pre>
+<p><strong>Figure 3</strong></p>
+<p>The file contains pairs, one per line (Figure 4).</p>
+<pre><code>&lt;OOA element type name&gt;,&lt;feature name&gt;</code></pre>
+<p><strong>Figure 4</strong></p>
+<p>This file is not modified by the marking editor. It is modified by hand by the<br />
+model compiler architect. The OOA element type matches the name of a class in<br />
+the xtUML metamodel.</p>
+<ul>
+<li>This file is allowed to have blank lines<br />
+</li>
+<li>This file is allowed to have lines that begin with <code>#</code> to denote a comment<br />
+line that should be ignored<br />
+</li>
+<li>Comma characters are not allowed in feature names</li>
+</ul>
+<p>If the model compiler architect has entered an invalid OOA element type name, the<br />
+marking editor will catch this and require it to be fixed before proceeding (Figure 5).</p>
+<p><img src="marking_feature_error.png" alt="Image of feature validation error" /><br />
+<strong>Figure 5</strong></p>
+<h3 id="file-application.mark">File: application.mark</h3>
+<pre><code>Marks are not automatically updated if elements are renamed or removed
+note that unused marks (due to rename/remove) are left in the applciation.mark but unused</code></pre>
+<p>The marking editor UI provides a means to select the element type, then<br />
+set values for the applicable features for a chosen application model<br />
+instance of the selected element type.<br />
+6.3.2 The marking data is stored in the project in the <code>gen/application.mark</code><br />
+file (a human-readable text file). This file maps the unique path to the<br />
+application model instance with the feature/value pair set by the user. For<br />
+example:</p>
+<pre><code>components::MicrowaveOven::Microwave Oven::Turntable,id,2
+components::MicrowaveOven::Microwave Oven::Turntable,soa_remote,&quot;aj&quot;, 0,    &quot;keith&quot;, 2
+components::MicrowaveOven::Microwave Oven::Turntable,bar,doit
+components::MicrowaveOven::Microwave Oven::Turntable,baz,ajb
+components::MicrowaveOven::Microwave Oven::Door,id,1
+components::MicrowaveOven::Microwave Oven::Door,bar,ddd
+components::MicrowaveOven::Microwave Oven::Door,baz,&quot;yepperdo&quot;
+components::MicrowaveOven::Microwave Oven::Door,soa_remote,&quot;&quot;
+components::MicrowaveOven,id,9
+components::MicrowaveOven,foo,fooval
+components::MicrowaveOven::Microwave Oven::Magnetron Tube,soa_remote,&quot;&quot;
+components::MicrowaveOven::Microwave Oven::Magnetron Tube,baz,&quot;999&quot;
+components::MicrowaveOven::Microwave Oven::Magnetron Tube,bar,ddd
+components::MicrowaveOven::Microwave Oven::Internal Light,id,4
+components::MicrowaveOven::Microwave Oven::Oven,id,33
+components::MicrowaveOven::Microwave Oven::Oven,bar,barov</code></pre>
+<p>6.3.3 The file contains tuples, one per line of the form:</p>
+<pre><code>&lt;model instance path&gt;,&lt;feature name&gt;,&lt;value&gt;</code></pre>
+<p>6.3.3.1 Note that quotation marks are part of the value data, allowing the<br />
+value to be passed downstream exactly as written in the marking. Thus, if the<br />
+modeler marks a feature with <code>&quot;&quot;</code> that is stored as the value for the<br />
+feature, whereas, if they completely delete the value in the marking editor<br />
+then the feature is removed from the stored application marks.<br />
+6.3.3.2 Note that the first field is populated with the value of <code>NonRootModelElement::getPath()</code>.<br />
+But this value is modified to strip off the first segment, the project name. This<br />
+allows the marking data to be portable if the user renames the project. It also<br />
+simplifies the creation of this file by <code>m2x</code> as it won't know the<br />
+project name the user will specify in the future as it is creating the data from<br />
+the MASL model.<br />
+6.3.3.3 Since the project name is stripped out, we will have to deal with the<br />
+situation where the user wishes to mark the System Model. We need to make sure<br />
+that the segment removal proposed in 6.3.3.2 does not interfere with marking<br />
+the System Model.<br />
+6.3.3.4 Comments <strong>are not</strong> supported in this file.<br />
+6.3.3.5 This file is loaded and persisted in an ordered way to minimize file<br />
+differences when data is added and removed with the editor. The primary sorting<br />
+key is the model instance path. Entries with the same path are persisted<br />
+together. Within the same path entries are persisted back out in the order in<br />
+which they were read in. If a user were to edit the file with &quot;vi&quot; and add a<br />
+new line at the end like:</p>
+<pre><code>components::MicrowaveOven::Microwave Oven::Internal Light,soa_remote,&quot;&quot;</code></pre>
+<p>then when the file is written out, the value is moved up:</p>
+<pre><code>...
+components::MicrowaveOven::Microwave Oven::Magnetron Tube,bar,ddd
+components::MicrowaveOven::Microwave Oven::Internal Light,id,4
+components::MicrowaveOven::Microwave Oven::Internal Light,soa_remote,&quot;&quot;
+components::MicrowaveOven::Microwave Oven::Oven,id,33
+...</code></pre>
+<p>When features are given values, they are added after other features with the<br />
+same path. Thus, if the user uses the marking editor to set value &quot;1000&quot; to<br />
+the <code>baz</code> feature and change <code>id</code> to 5, the output is:</p>
+<pre><code>...
+components::MicrowaveOven::Microwave Oven::Magnetron Tube,bar,ddd
+components::MicrowaveOven::Microwave Oven::Internal Light,id,5
+components::MicrowaveOven::Microwave Oven::Internal Light,soa_remote,&quot;&quot;
+components::MicrowaveOven::Microwave Oven::Internal Light,baz,&quot;1000&quot;
+components::MicrowaveOven::Microwave Oven::Oven,id,33
+...</code></pre>
+</body>
+</html>
