@@ -47,7 +47,7 @@ and mcooa.
 5.2 Detect empty services during population in the m2x processing.  Set
 the dialect attribute to C instead of MASL in these cases.  
 5.3 Skip the creation of MASL service files for activities that have
-a dialect of C.  
+a dialect of C (or not MASL).  
 
 6. Implementation Comments
 --------------------------
@@ -67,8 +67,7 @@ UserEmptyHandleDetectedCallout element masl_element_R3784_Unlink_has_current.
 UserEmptyHandleDetectedCallout element masl_element_R3787_Link_child_of.
 UserEmptyHandleDetectedCallout element masl_element_R3784_Link_has_current.
 ```
-
-6.4 option k  
+Fixed these by testing for empty handles appropriately.
 
 7. Unit Test
 ------------
@@ -93,8 +92,25 @@ Fork: cortlandstarrett/bridgepoint 8962_wrapper
       cortlandstarrett/mc 8962_c_dialect
 
 xtuml/bridgepoint
+ doc-bridgepoint/notes/8962_c_dialect_int.md                       | 119 ++++++++++++++++++++++++++++++++++++
+ .../models/org.xtuml.bp.core/ooaofooa/Datatypes/Datatypes.xtuml   |  21 +++++++
+ 2 files changed, 140 insertions(+)
 
 xtuml/mc
+ bin/m2x                                                           | Bin 646657 -> 650753 bytes
+ bin/masl                                                          | Bin 239623 -> 239586 bytes
+ bin/x2m                                                           | Bin 680533 -> 680533 bytes
+ model/masl/gen/masl_population_class.c                            |  18 ++++++---
+ model/masl/models/masl/maslpopulation/file/file.xtuml             |  60 ++++++++++++++--------------
+ model/masl/models/masl/maslpopulation/population/population.xtuml |  14 ++++---
+ model/maslin/gen/masl2xtuml_ooapopulation_class.c                 |  19 ++++++---
+ model/maslin/models/maslin/m2x/ooapopulation/ooapopulation.xtuml  |  16 ++++++--
+ model/maslin/test_data/8962_test/actualmaslroutine.svc            |   5 +++
+ model/maslin/test_data/8962_test/mydom.mod                        |  12 ++++++
+ model/maslin/test_data/8962_test/mydom.smasl                      |  28 +++++++++++++
+ model/maslout/models/maslout/lib/xtuml2masl/maslout/maslout.xtuml |  12 +++---
+ model/mcooa/models/mcooa/ooaofooa/Datatypes/Datatypes.xtuml       |  21 ++++++++++
+ 13 files changed, 156 insertions(+), 61 deletions(-)
 
 </pre>
 
