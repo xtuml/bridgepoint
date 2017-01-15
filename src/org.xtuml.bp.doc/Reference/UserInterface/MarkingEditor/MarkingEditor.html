@@ -111,15 +111,10 @@ marking editor will catch this and require it to be fixed before proceeding (Fig
 <p><img src="marking_feature_error.png" alt="Image of feature validation error" /><br />
 <strong>Figure 5</strong></p>
 <h3 id="file-application.mark">File: application.mark</h3>
-<pre><code>Marks are not automatically updated if elements are renamed or removed
-note that unused marks (due to rename/remove) are left in the applciation.mark but unused</code></pre>
-<p>The marking editor UI provides a means to select the element type, then<br />
-set values for the applicable features for a chosen application model<br />
-instance of the selected element type.<br />
-6.3.2 The marking data is stored in the project in the <code>gen/application.mark</code><br />
-file (a human-readable text file). This file maps the unique path to the<br />
-application model instance with the feature/value pair set by the user. For<br />
-example:</p>
+<p>The application-specific marking data is stored in the project in the <code>gen/application.mark</code>,<br />
+a human-readable text file. This file maps the unique path to the application model<br />
+instance with the feature/value pair set by the user. An example for the Microwave Oven<br />
+project is provided in Figure 6.</p>
 <pre><code>components::MicrowaveOven::Microwave Oven::Turntable,id,2
 components::MicrowaveOven::Microwave Oven::Turntable,soa_remote,&quot;aj&quot;, 0,    &quot;keith&quot;, 2
 components::MicrowaveOven::Microwave Oven::Turntable,bar,doit
@@ -136,41 +131,40 @@ components::MicrowaveOven::Microwave Oven::Magnetron Tube,bar,ddd
 components::MicrowaveOven::Microwave Oven::Internal Light,id,4
 components::MicrowaveOven::Microwave Oven::Oven,id,33
 components::MicrowaveOven::Microwave Oven::Oven,bar,barov</code></pre>
-<p>6.3.3 The file contains tuples, one per line of the form:</p>
+<p><strong>Figure 6</strong></p>
+<p>The file contains tuples, one per line (Figure 7).</p>
 <pre><code>&lt;model instance path&gt;,&lt;feature name&gt;,&lt;value&gt;</code></pre>
-<p>6.3.3.1 Note that quotation marks are part of the value data, allowing the<br />
-value to be passed downstream exactly as written in the marking. Thus, if the<br />
-modeler marks a feature with <code>&quot;&quot;</code> that is stored as the value for the<br />
-feature, whereas, if they completely delete the value in the marking editor<br />
-then the feature is removed from the stored application marks.<br />
-6.3.3.2 Note that the first field is populated with the value of <code>NonRootModelElement::getPath()</code>.<br />
-But this value is modified to strip off the first segment, the project name. This<br />
-allows the marking data to be portable if the user renames the project. It also<br />
-simplifies the creation of this file by <code>m2x</code> as it won't know the<br />
-project name the user will specify in the future as it is creating the data from<br />
-the MASL model.<br />
-6.3.3.3 Since the project name is stripped out, we will have to deal with the<br />
-situation where the user wishes to mark the System Model. We need to make sure<br />
-that the segment removal proposed in 6.3.3.2 does not interfere with marking<br />
-the System Model.<br />
-6.3.3.4 Comments <strong>are not</strong> supported in this file.<br />
-6.3.3.5 This file is loaded and persisted in an ordered way to minimize file<br />
-differences when data is added and removed with the editor. The primary sorting<br />
-key is the model instance path. Entries with the same path are persisted<br />
-together. Within the same path entries are persisted back out in the order in<br />
-which they were read in. If a user were to edit the file with &quot;vi&quot; and add a<br />
-new line at the end like:</p>
+<p><strong>Figure 7</strong></p>
+<p>There are a few specific things to note about this file:</p>
+<ul>
+<li>Comments <strong>are not</strong> supported<br />
+</li>
+<li>Marks are not automatically updated if elements are renamed or removed. This<br />
+means that if the modeler moves, deletes, or renames an element, they must either<br />
+remark the new element in this file and delete the old element, or edit the new<br />
+path data into this file by hand on the old entries. Marks that do not match<br />
+any instances in the model are simply ignored by the <code>Export MASL</code> process and<br />
+are not passed downstream. Therefore, they do not hurt anything if left in place.</li>
+</ul>
+<p>This file is loaded and persisted in an ordered way to minimize file differences<br />
+when data is added and removed with the editor. The primary sorting key is the<br />
+model instance path. Entries with the same path are persisted together. Within<br />
+the same path entries are persisted back out in the order in which they were read<br />
+in. Thus, if a user were to edit the file with a text editor and add a new line<br />
+at the end as in Figure 8:</p>
 <pre><code>components::MicrowaveOven::Microwave Oven::Internal Light,soa_remote,&quot;&quot;</code></pre>
-<p>then when the file is written out, the value is moved up:</p>
+<p><strong>Figure 8</strong></p>
+<p>then when the file is written out, the value is moved up (Figure 9):</p>
 <pre><code>...
 components::MicrowaveOven::Microwave Oven::Magnetron Tube,bar,ddd
 components::MicrowaveOven::Microwave Oven::Internal Light,id,4
 components::MicrowaveOven::Microwave Oven::Internal Light,soa_remote,&quot;&quot;
 components::MicrowaveOven::Microwave Oven::Oven,id,33
 ...</code></pre>
-<p>When features are given values, they are added after other features with the<br />
-same path. Thus, if the user uses the marking editor to set value &quot;1000&quot; to<br />
-the <code>baz</code> feature and change <code>id</code> to 5, the output is:</p>
+<p><strong>Figure 9</strong></p>
+<p>When features are given values, they are added after other features with the same<br />
+path. Therefore, if the user uses the marking editor to set value &quot;1000&quot; to the<br />
+<code>baz</code> feature and change <code>id</code> to 5, the output will be as in Figure 10:</p>
 <pre><code>...
 components::MicrowaveOven::Microwave Oven::Magnetron Tube,bar,ddd
 components::MicrowaveOven::Microwave Oven::Internal Light,id,5
@@ -178,5 +172,6 @@ components::MicrowaveOven::Microwave Oven::Internal Light,soa_remote,&quot;&quot
 components::MicrowaveOven::Microwave Oven::Internal Light,baz,&quot;1000&quot;
 components::MicrowaveOven::Microwave Oven::Oven,id,33
 ...</code></pre>
+<p><strong>Figure 10</strong></p>
 </body>
 </html>
