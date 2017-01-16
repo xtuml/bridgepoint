@@ -129,6 +129,7 @@ import org.xtuml.bp.core.common.BaseModelDelta;
 import org.xtuml.bp.core.common.BridgePointPreferencesStore;
 import org.xtuml.bp.core.common.ClassQueryInterface_c;
 import org.xtuml.bp.core.common.ComponentResourceListener;
+import org.xtuml.bp.core.common.ILogger;
 import org.xtuml.bp.core.common.IdAssigner;
 import org.xtuml.bp.core.common.InstanceList;
 import org.xtuml.bp.core.common.ModelRoot;
@@ -356,43 +357,55 @@ public class ImportHelper
      */
     public void resolveMASLproject( NonRootModelElement[] elements ) {    	
         if ( elements == null ) return;
-                
-        // first pass, assign component references and swap interfaces, formalize interfaces
-        for ( NonRootModelElement el : elements ) {
-            if ( el instanceof ComponentReference_c ) {
-            	resolveMASLComponentReference((ComponentReference_c)el);
-            } else if ( el instanceof Interface_c ) {
-            	resolveMASLTemporaryInterface((Interface_c)el);
-            } else if ( el instanceof Requirement_c ) {
-            	resolveMASLRequirement((Requirement_c)el);
-            } else if ( el instanceof Provision_c ) {
-            	resolveMASLProvision((Provision_c) el);
-            } else if (m_maslProjectImported==null && m_maslDomainsImported==null && (el instanceof Package_c)) {
-            	// If any package is marked as a masl project then
-            	// set the flag indicating a masl model was imported
-            	
-        		String descrip = ((Package_c)el).getDescrip();
-        		if (!descrip.isEmpty()) {
-        			Matcher m = Pattern.compile(MASL_PROJECT).matcher(descrip);
-        			if (m.find()) {
-        				m_maslProjectImported = (Package_c)el;
-        			} else {
-            			m = Pattern.compile(MASL_DOMAIN).matcher(descrip);
-            			if (m.find()) {
-            				m_maslDomainsImported = (Package_c)el;
-            			}
-        			}
-        		}
-            }
-        }
+        
+        boolean transaction_aborted = false;
+		TransactionUtil.TransactionGroup transactionGroup = TransactionUtil
+				.startTransactionsOnSelectedModelRoots("Import MASL");
+		Ooaofooa.beginSaveOperation();
+		try {
+	        // first pass, assign component references and swap interfaces, formalize interfaces
+	        for ( NonRootModelElement el : elements ) {
+	            if ( el instanceof ComponentReference_c ) {
+	            	resolveMASLComponentReference((ComponentReference_c)el);
+	            } else if ( el instanceof Interface_c ) {
+	            	resolveMASLTemporaryInterface((Interface_c)el);
+	            } else if ( el instanceof Requirement_c ) {
+	            	resolveMASLRequirement((Requirement_c)el);
+	            } else if ( el instanceof Provision_c ) {
+	            	resolveMASLProvision((Provision_c) el);
+	            } else if (m_maslProjectImported==null && m_maslDomainsImported==null && (el instanceof Package_c)) {
+	            	// If any package is marked as a masl project then
+	            	// set the flag indicating a masl model was imported
+	            	
+	        		String descrip = ((Package_c)el).getDescrip();
+	        		if (!descrip.isEmpty()) {
+	        			Matcher m = Pattern.compile(MASL_PROJECT).matcher(descrip);
+	        			if (m.find()) {
+	        				m_maslProjectImported = (Package_c)el;
+	        			} else {
+	            			m = Pattern.compile(MASL_DOMAIN).matcher(descrip);
+	            			if (m.find()) {
+	            				m_maslDomainsImported = (Package_c)el;
+	            			}
+	        			}
+	        		}
+	            }
+	        }
+		} catch (Exception e) {
+			// revert the transation
+			CorePlugin.logError("Aborting the MASL import transaction", e);
+			transaction_aborted = true;
+			TransactionUtil.cancelTransactions(transactionGroup, e);
+		} finally {
+			Ooaofooa.endSaveOperation();
+			if (!transaction_aborted) {
+				TransactionUtil.endTransactions(transactionGroup);				
+			}
+		}
     }
 
 	// process an unformalized provided interface
 	private void resolveMASLProvision(Provision_c c_p) {
-		TransactionUtil.TransactionGroup transactionGroup = TransactionUtil
-				.startTransactionsOnSelectedModelRoots("Formalize Provided Interface");
-		Ooaofooa.beginSaveOperation();
-
 		// check if requirement needs formalizing
 		boolean formalize = false;
 		String descrip = c_p.getDescrip();
@@ -423,17 +436,10 @@ public class ImportHelper
 				}
 			}
 		}
-
-		Ooaofooa.endSaveOperation();
-		TransactionUtil.endTransactions(transactionGroup);
 	}    
     
 	// process an unformalized required interface
 	private void resolveMASLRequirement(Requirement_c c_r) {
-		TransactionUtil.TransactionGroup transactionGroup = TransactionUtil
-				.startTransactionsOnSelectedModelRoots("Formalize Required Interface");
-		Ooaofooa.beginSaveOperation();
-
 		// check if requirement needs formalizing
 		boolean formalize = false;
 		String descrip = c_r.getDescrip();
@@ -465,9 +471,6 @@ public class ImportHelper
 			}
 
 		}
-
-		Ooaofooa.endSaveOperation();
-		TransactionUtil.endTransactions(transactionGroup);
 	}    
     
 	/**
@@ -480,10 +483,6 @@ public class ImportHelper
 	 * @param c_i
 	 */
 	private void resolveMASLTemporaryInterface(Interface_c c_i) {
-		TransactionUtil.TransactionGroup transactionGroup = TransactionUtil
-				.startTransactionsOnSelectedModelRoots("Resolve Temporary Interface");
-		Ooaofooa.beginSaveOperation();
-
 		// check if this is a temporary interface
 		String description = c_i.getDescrip();
 		boolean temporary_interface = true;
@@ -543,17 +542,10 @@ public class ImportHelper
 				}
 			}
 		}
-		Ooaofooa.endSaveOperation();
-		TransactionUtil.endTransactions(transactionGroup);
-
 	}
 	
 	// assign a masl component reference 
 	private void resolveMASLComponentReference(ComponentReference_c cl_ic) {
-		TransactionUtil.TransactionGroup transactionGroup = TransactionUtil
-				.startTransactionsOnSelectedModelRoots("Resolve Component Reference");
-		Ooaofooa.beginSaveOperation();
-
 		// check if containing package is a MASL project package
 		boolean masl_project = false;
 		Package_c pkg = Package_c.getOneEP_PKGOnR8000(PackageableElement_c.getOnePE_PEOnR8001(cl_ic));
@@ -589,17 +581,26 @@ public class ImportHelper
 			Component_c[] components = GenericPackageAssignComponentOnCL_ICAction.getElements(cl_ic);
 
 			// match the ComponentReference with the Component
+			boolean wasAssigned = false;
 			for (Component_c c_c : components) {
 				if (c_c.getName().equals(cl_ic_name)) {
 					// assign the component reference to the component
 					cl_ic.Assigntocomp(c_c.getId());
+					wasAssigned = true;
 					break;
 				}
 			}
-		}
+			
+			// If a masl component reference was not found, warn the user 
+			// via a a console message
+			if (!wasAssigned && !cl_ic_name.isEmpty()) {
+				String msg = "The following Component Reference was not assigned: " + cl_ic_name;
+					msg += "\nThe domain was not found in the workspace.";
+					msg += "\nAssure that Interproject References are enabled and that the domain has been imported.";
 
-		Ooaofooa.endSaveOperation();
-		TransactionUtil.endTransactions(transactionGroup);
+				CorePlugin.logError(msg, null);
+			}
+		}
 	}
 
     public Package_c getImportedMASLDomainPackage() {
