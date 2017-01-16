@@ -12,10 +12,12 @@ class MaslResourceDescriptionManager extends DefaultResourceDescriptionManager i
 		// Rebuild dependent resources on all changes in the resource.
 		// This is necessary, as we're linking against elements which are not 
 		// indexed, e.g. action signatures.  
-		true
+		super.hasChanges(delta, candidate)
 	}
 	
 	override isAffectedByAny(Collection<Delta> deltas, IResourceDescription candidate, IResourceDescriptions context) throws IllegalArgumentException {
+		if(candidate.URI.fileExtension == 'mod')
+			return true
 		isAffected(deltas, candidate, context)
 	}
 	
