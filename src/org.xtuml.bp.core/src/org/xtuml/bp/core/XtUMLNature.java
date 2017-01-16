@@ -29,6 +29,7 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.Job;
+import org.eclipse.xtext.ui.XtextProjectHelper;
 
 public class XtUMLNature implements IProjectNature {
 	private static final String ID = "org.xtuml.bp.core.xtumlnature";
@@ -87,7 +88,7 @@ public class XtUMLNature implements IProjectNature {
 			if (!project.hasNature(ID)) {
 				IProjectDescription desc = project.getDescription();
 				String[] oldNatures = desc.getNatureIds();
-				String[] newNatures = new String[oldNatures.length + 1];
+				String[] newNatures = new String[oldNatures.length + 2];
 				System.arraycopy(
 					oldNatures,
 					0,
@@ -95,6 +96,7 @@ public class XtUMLNature implements IProjectNature {
 					0,
 					oldNatures.length);
 				newNatures[oldNatures.length] = ID;
+				newNatures[oldNatures.length+1] = XtextProjectHelper.NATURE_ID;
 				desc.setNatureIds(newNatures);
 				project.setDescription(desc, null);
 				addNatureResources(project);
