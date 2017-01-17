@@ -80,11 +80,6 @@ The instructions in this section describe how to use the eclipse BridgePoint UI 
   cp -f ~/git/pt_antlr/pt_antlr/antlr.jar  ~/git/bridgepoint/src/org.xtuml.bp.als/lib/antlr.jar
   ```
   
-  - Assure that ant binaries are executable 
-  ```
-  chmod a+x <BridgePoint installation folder>/plugins/org.apache.ant*/bin/*
-  ```
-
   - Launch BridgePoint (```<BridgePoint installation folder>/bridgepoint for MAC it is Eclipse.app```)
     - During startup, enter the name of a new eclipse workspace that will become your development workspace.   
     (Example:  ```~/workspace```)

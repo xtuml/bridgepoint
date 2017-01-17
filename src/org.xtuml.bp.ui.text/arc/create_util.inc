@@ -96,6 +96,9 @@ query$cr{obj.name}_c\
 .//============================================================
 .function get_editor_obj_set
   .//
+  .select many tdf_attr_set from instances of O_ATTR where (selected.name == "Definition")
+  .select many tdf_obj_set related by tdf_attr_set->O_OBJ[R102]
+
   .select many dsc_attr_set from instances of O_ATTR where (selected.name == "Descrip")
   .select many dsc_obj_set related by dsc_attr_set->O_OBJ[R102]
   .for each obj in dsc_obj_set
@@ -163,6 +166,7 @@ query$cr{obj.name}_c\
     .assign attr_oal_source_set = attr_oal_source_set | src_obj
   .end for
   .//  
+  .assign attr_tdf_obj_set = tdf_obj_set
   .assign attr_dsc_obj_set = dsc_obj_set
   .assign attr_oal_obj_set = oal_obj_set
   .assign attr_canvas_dsc_obj_set = canvas_dsc_obj_set

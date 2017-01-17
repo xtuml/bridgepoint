@@ -1,0 +1,3 @@
+.function get_imports
+  .assign attr_import = "// Imports declared in ooaofmarking_import_spec.clr\nimport org.xtuml.bp.core.*;\n// End pre-defined imports\n"
+.end function
