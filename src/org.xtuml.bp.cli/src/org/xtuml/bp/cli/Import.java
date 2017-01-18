@@ -1,11 +1,3 @@
-//=====================================================================
-//
-//File:      $RCSfile: Import.java,v $
-//Version:   $Revision: 1.9 $
-//Modified:  $Date: 2013/06/12 13:08:01 $
-//
-//(c) Copyright 2004-2014 by Mentor Graphics Corp. All rights reserved.
-//
 //========================================================================
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not 
 // use this file except in compliance with the License.  You may obtain a copy 
@@ -26,7 +18,6 @@ import org.eclipse.equinox.app.IApplicationContext;
 import org.eclipse.swt.widgets.Display;
 
 import org.xtuml.bp.cli.BPCLIPreferences.CommandLineOption;
-import org.xtuml.bp.core.CorePlugin;
 
 public class Import implements IApplication {
 	private Display display = null;
@@ -38,6 +29,10 @@ public class Import implements IApplication {
 			CommandLineOption[] cmdLineOptions = new CommandLineOption[] {
 					new CommandLineOption("-project", "",
 							"The fully qualified name of the project to import."),
+					new CommandLineOption("-file", "",
+							"The fully qualified name of the xtUML file to import."),
+					new CommandLineOption("-targetProject", "",
+							"The name of the project to import into.  The file name (minus extension) is assumed if this argument is not specified."),
 					new CommandLineOption(
 							"-deleteExisting",
 							false,
