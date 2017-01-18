@@ -277,6 +277,9 @@
           parms.elementAt(${attr_col_num}) != null ? removeTics((String)parms.elementAt(${attr_col_num})) : ""\
           .assign special_case = true
         .end if
+      .elif((table.Key_lett == "S_UDT") and (col.Name == "Definition"))
+          (parms.size() > ${attr_col_num} && parms.elementAt(${attr_col_num}) != null) ? removeTics((String) parms.elementAt(${attr_col_num})).trim() : ""\
+          .assign special_case = true
 	  .end if
 	  .// Dialect attribute introduced
 	  .assign dialectAdded = false;

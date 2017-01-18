@@ -1,0 +1,8 @@
+.function define_startspec
+  .assign attr_init_type  = ""
+  .assign attr_init_var_name = ""
+  .assign attr_init_class = ""
+  .assign attr_init_stim  = ""
+  .assign attr_parameter1 = ""
+  .assign attr_parameter2 = ""
+.end function

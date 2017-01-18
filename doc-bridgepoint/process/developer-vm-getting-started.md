@@ -8,27 +8,39 @@ Preparation
 
 1) Download and install [VirtualBox](https://www.virtualbox.org/wiki/Downloads).
 
-2) Download the developer VirtualBox image [here](https://s3.amazonaws.com/1f-outgoing/BridgePointDeveloperStart.ova). Import the
+2) Download the developer VirtualBox image [here](https://s3.amazonaws.com/1f-outgoing/BridgePointDeveloper.ova). Import the
 image into VirtualBox (instructions for importing an image [here](https://www.virtualbox.org/manual/ch01.html#ovf)).
 
 3) Follow the instructions in the [Developer Getting Started Guide](Developer%20Getting%20Started%20Guide.md) to create a Github
 account and fork the xtUML repositories
 
+General Information
+-------------------
+* The VM image is based off Ubuntu 16.04 Desktop (LTS).
+* The username is "developer"; there is no password.  
+_Note: Due to a Unity bug, if the machine is "locked", the operating system will still require the password (which does not exist) to unlock. To Unlock the machine, click the gear in the upper right hand corner and select "Switch Account...". This will allow you to log in to the developer account without a password by clicking "Log In"._
+* BridgePoint 5.8.6 is installed at `~/xtuml/l586/`.
+* The xtuml repositories bptest, bridgepoint, mc, models, and pt_antlr are cloned at `~/git/`.
+  * Each repository has one remote repository called "upstream" that references the xtuml repositories on GitHub.
+* A development workspace is preconfigured at `~/workspace`. BridgePoint is pre-built in this workspace at revision `8f884be`
+
 Setup Instructions
 ------------------
+* Pull the `master` branch from the _upstream_ remote of each repository. This assures that your development environment
+is up to date with the latest development
+```
+git pull upstream master
+```
+* If master in the bridgepoint repository is already up to date, BridgePoint is ready to run and you are done. If master was not up to date, you will need to re-build BridgePoint.
+* Launch BridgePoint and select `~/workspace`. Select Project > Build Automatically.
 
-* General information about the developer virtual machine:  
-  * The username and password for the developer VM are: username, password.  
-  * BridgePoint 5.5 is pre-installed at `~/xtuml/linux550/`.  
-  * The bridgepoint, mc, and models repositories are located at `~/git/`.  
-  * BridgePoint is pre-built in a workspace located at "~/workspace/".  
+Git Setup
+---------
+Although you can run and test BridgePoint, extra setup is required to make commits to the repositories.
 * Set up your global git identity. See the tutorial [here](https://git-scm.com/book/en/v2/Getting-Started-First-Time-Git-Setup).  
 * Add remote repositories to the local git repositories  
-  * Add **your fork** as a remote on each repository (referred to as _origin_)  
-  * Add **the xtuml repository** as a remote on each repository (referred to as _upstream_)  
+  * Add _**your fork**_ as a remote on each repository (referred to as _origin_)  
   * Consult [this tutorial](https://help.github.com/articles/adding-a-remote/) for help with adding remotes  
-* Pull the `master` branch from the _upstream_ remotes of each repository. This assures that your development environment
-is up to date with the latest development
 
 ### Congratulations!  Your environment is now built and ready for BridgePoint development.
 

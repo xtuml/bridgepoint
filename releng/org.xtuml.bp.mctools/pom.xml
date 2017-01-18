@@ -69,6 +69,7 @@
                     <include>x2m</include>
                     <include>xtuml2masl</include>
                     <include>xtumlmc_build</include>
+                    <include>CLI.sh</include>
                   </includes>
                 </resource>
               </resources>              
@@ -91,6 +92,7 @@
                     <include>gen_erate.pyz</include>
                     <include>MASLParser.jar</include>
                     <include>xtumlmc_build</include>
+                    <include>CLI.sh</include>
                     <!-- Don't have mac versions of these yet
                     <include>docgen</include>
                     <include>mcmc</include>
@@ -125,6 +127,7 @@
                     <include>gen_erate.exe</include>
                     <include>mcmc.exe</include>
                     <include>xtumlmc_build.exe</include>
+                    <include>CLI.bat</include>
                   </includes>
                 </resource>
               </resources>              
