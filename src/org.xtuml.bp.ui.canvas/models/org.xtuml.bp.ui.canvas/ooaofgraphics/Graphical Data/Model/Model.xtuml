@@ -1290,7 +1290,10 @@ end for;
 create object instance newConElem of GD_GE;
 // In most cases  sourceSpec == targetSpec. In cases
 // where it is not, we create the connector from the 
-// targetSpec.
+// targetSpec. While this can simplying to jsut using
+// targetSpec, for orthagonality with the case where
+// we have exitinf graphics, we seperate the cases here.
+//
 // Examples are imported required interface or imported provided interface.
 // In this case the type of the element spec being associated is 
 // not the same as the element created. 
@@ -1302,7 +1305,8 @@ if (sourceSpec == targetSpec)
   relate newConElem to sourceSpec across R10;
 else
   relate newConElem to targetSpec across R10;
-end if;relate newConElem to self across R1;
+end if;
+relate newConElem to self across R1;
 create object instance connector of GD_CON;
 relate newConElem to connector across R2;
 create object instance graphEdge of DIM_ED;
