@@ -24,7 +24,8 @@ INSERT INTO O_TFR
 mdlTool.finalizeConnector(startElement:OS::NULL_UNIQUE_ID(), endElement:OS::NULL_UNIQUE_ID());',
 	1,
 	'',
-	"ee4b331f-8c4e-4b54-b555-576ba8cee14c");
+	"ee4b331f-8c4e-4b54-b555-576ba8cee14c",
+	0);
 INSERT INTO O_TFR
 	VALUES ("2c0df8db-7719-4466-9f54-4a4a4039dae1",
 	"52036122-c8b9-41ef-aab0-5b87e07a7824",
@@ -166,7 +167,8 @@ else
 end if;',
 	1,
 	'',
-	"4f57df3d-475e-4306-91ab-c8256c21a40b");
+	"4f57df3d-475e-4306-91ab-c8256c21a40b",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("bad8455c-a338-4a0a-9f19-80c28ca64696",
 	"2c0df8db-7719-4466-9f54-4a4a4039dae1",
@@ -222,7 +224,8 @@ end if;
 ',
 	1,
 	'',
-	"6e5ee5a2-46fc-4baa-8680-c94d0b8dce46");
+	"6e5ee5a2-46fc-4baa-8680-c94d0b8dce46",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("2654c4e2-ea92-4f0c-99ca-ec75bfc39e6d",
 	"2f43134c-d1dc-45db-b96c-e172c1950249",
@@ -266,7 +269,8 @@ if (not_empty ge)
 end if;',
 	1,
 	'',
-	"2c0df8db-7719-4466-9f54-4a4a4039dae1");
+	"2c0df8db-7719-4466-9f54-4a4a4039dae1",
+	0);
 INSERT INTO O_TFR
 	VALUES ("4f57df3d-475e-4306-91ab-c8256c21a40b",
 	"52036122-c8b9-41ef-aab0-5b87e07a7824",
@@ -288,7 +292,8 @@ if (not_empty element)
 end if;',
 	1,
 	'',
-	"00000000-0000-0000-0000-000000000000");
+	"00000000-0000-0000-0000-000000000000",
+	0);
 INSERT INTO O_REF
 	VALUES ("52036122-c8b9-41ef-aab0-5b87e07a7824",
 	"43aa371a-c94c-48a9-acb6-21b733e4a55e",
