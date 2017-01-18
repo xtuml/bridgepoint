@@ -43,7 +43,8 @@ termSpec.satisfied = true;
 return true;',
 	1,
 	'',
-	"00000000-0000-0000-0000-000000000000");
+	"00000000-0000-0000-0000-000000000000",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("e78a37d4-7c27-4d11-9d9c-8e420e6a4ff3",
 	"59718433-5b56-4fde-bb04-4939d35fe0d7",
