@@ -14,11 +14,113 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
-	'// delete this mark
+	'select one markable related by self->Markable[R2821];
+select one feature related by self->Feature[R2821];
+unrelate markable from feature across R2821 using self;
+select one previous_mark related by self->Mark[R2823.''succeeds''];
+if ( not_empty previous_mark )
+  unrelate previous_mark from self across R2823.''succeeds'';
+end if;
+select one following_mark related by self->Mark[R2823.''precedes''];
+if ( not_empty following_mark )
+  unrelate following_mark from self across R2823.''precedes'';
+end if;
+delete object instance self;
 ',
 	1,
 	'',
 	"00000000-0000-0000-0000-000000000000",
+	0);
+INSERT INTO O_TFR
+	VALUES ("7023a849-b776-4b71-bbbf-2fd9306abcb0",
+	"955e06e4-88e2-45e8-b0c5-a7fcf53f5d1d",
+	'populate',
+	'',
+	"401fe5b0-5de4-43ba-9db0-de05f9b422f7",
+	0,
+	'select any mark from instances of Mark where ( false );
+select any feature from instances of Feature where ( selected.name == param.feature_name );
+select any markable from instances of Markable where ( selected.name == param.markable_name );
+if ( not_empty feature and not_empty markable )
+  create object instance mark of Mark;
+  mark.value = param.value;
+  relate feature to markable across R2821 using mark;
+end if;
+return mark;
+',
+	1,
+	'',
+	"96d5b8fb-afe9-4c91-8416-6f6549b6359e",
+	0);
+INSERT INTO O_TPARM
+	VALUES ("21061b9d-43ff-41fc-9c59-944c71aadc26",
+	"7023a849-b776-4b71-bbbf-2fd9306abcb0",
+	'feature_name',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"a8447d88-f7e8-485a-a712-329001d6435c",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("a8447d88-f7e8-485a-a712-329001d6435c",
+	"7023a849-b776-4b71-bbbf-2fd9306abcb0",
+	'markable_name',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("0f7ddf56-cd7d-40f2-babf-fbd0c7d78608",
+	"7023a849-b776-4b71-bbbf-2fd9306abcb0",
+	'value',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"21061b9d-43ff-41fc-9c59-944c71aadc26",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("401fe5b0-5de4-43ba-9db0-de05f9b422f7",
+	"00000000-0000-0000-0000-000000000000",
+	'inst_ref<Mark>',
+	'',
+	'',
+	'../ooaofmarking.xtuml');
+INSERT INTO O_TFR
+	VALUES ("c43e8dde-c7b5-469f-98fa-a48d4c2498c4",
+	"955e06e4-88e2-45e8-b0c5-a7fcf53f5d1d",
+	'load',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'line[7]="";line[6]="";line[5]="";line[4]="";line[3]="";line[2]="";line[1]="";line[0]="";
+done = false;
+while ( not done )
+  // Read a line from the feature file populating line array.
+  count = CSV::readline( filename:"application.mark", values:line );
+  if ( count > 0 )
+    if ( count > 1 ) // valid non-comment line
+      mark = Mark::populate(  markable_name:line[0], feature_name:line[1], value:line[2] );
+    end if;
+  else
+    done = true;
+  end if;
+end while;',
+	1,
+	'',
+	"498afae1-5a3d-47af-8277-d1d853131505",
+	0);
+INSERT INTO O_TFR
+	VALUES ("96d5b8fb-afe9-4c91-8416-6f6549b6359e",
+	"955e06e4-88e2-45e8-b0c5-a7fcf53f5d1d",
+	'persist',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'',
+	3,
+	'',
+	"c43e8dde-c7b5-469f-98fa-a48d4c2498c4",
 	0);
 INSERT INTO O_NBATTR
 	VALUES ("157b732f-2703-4386-ba49-d31e584af03c",
@@ -51,9 +153,9 @@ INSERT INTO O_REF
 	"00000000-0000-0000-0000-000000000000",
 	0,
 	'',
-	'Markable',
+	'Markable Element Type',
 	'name',
-	'R1');
+	'R2821.''marks''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("955e06e4-88e2-45e8-b0c5-a7fcf53f5d1d",
 	"1e8a81ac-d13e-4f0f-b2fe-b4507d41dd4d",
@@ -76,7 +178,7 @@ INSERT INTO O_RATTR
 INSERT INTO O_BATTR_PROXY
 	VALUES ("506d4040-7b2b-43c1-81f0-61385370b244",
 	"83d1c28c-bef4-4d7c-93e2-4bf8af8a6eb8",
-	'../Markable/Markable.xtuml');
+	'../Markable Element Type/Markable Element Type.xtuml');
 INSERT INTO O_ATTR
 	VALUES ("52e998f8-cbe5-4946-aa3e-661b22230c30",
 	"955e06e4-88e2-45e8-b0c5-a7fcf53f5d1d",
@@ -104,7 +206,7 @@ INSERT INTO O_REF
 	'',
 	'Feature',
 	'name',
-	'R1');
+	'R2821.''is marked by''');
 INSERT INTO O_RTIDA_PROXY
 	VALUES ("2232e914-1392-4ee8-8bb0-1947058f895a",
 	"cb1516d4-40ca-4afa-954b-5fdc4726e5e7",

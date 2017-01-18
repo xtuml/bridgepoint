@@ -7,6 +7,82 @@ INSERT INTO O_OBJ
 	'Feature',
 	'',
 	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_TFR
+	VALUES ("8b10470c-1967-4506-9545-030a91275fe0",
+	"cb1516d4-40ca-4afa-954b-5fdc4726e5e7",
+	'load',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	0,
+	'line[7]="";line[6]="";line[5]="";line[4]="";line[3]="";line[2]="";line[1]="";line[0]="";
+done = false;
+while ( not done )
+  // Read a line from the feature file populating line array.
+  count = CSV::readline( filename:"features.mark", values:line );
+  if ( count > 0 )
+    if ( count == 2 ) // valid non-comment line
+      markable = Markable::populate( name:line[0] );
+      feature = Feature::populate( name:line[1] );
+      select any related_feature related by markable->Feature[R2822] where ( selected.name == feature.name );
+      if ( empty related_feature )
+        relate markable to feature across R2822;
+      end if;
+    end if;
+  else
+    done = true;
+  end if;
+end while;
+',
+	1,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	0);
+INSERT INTO O_TFR
+	VALUES ("6236b28d-3b1e-4ae8-82f6-aeae0fcb28f8",
+	"cb1516d4-40ca-4afa-954b-5fdc4726e5e7",
+	'persist',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	0,
+	'',
+	3,
+	'',
+	"8b10470c-1967-4506-9545-030a91275fe0",
+	0);
+INSERT INTO O_TFR
+	VALUES ("7972a86a-8b4f-48e0-ab45-ba1e31bc5844",
+	"cb1516d4-40ca-4afa-954b-5fdc4726e5e7",
+	'populate',
+	'',
+	"1c853970-4617-4835-9981-3307a350267d",
+	0,
+	'// name is an identifier, so we can only have one of these.
+select any feature from instances of Feature where ( selected.name == param.name );
+if ( empty feature )
+  create object instance feature of Feature;
+  feature.name = param.name;
+end if;
+return feature;',
+	1,
+	'',
+	"6236b28d-3b1e-4ae8-82f6-aeae0fcb28f8",
+	0);
+INSERT INTO O_TPARM
+	VALUES ("1d95bba7-11d0-4540-ae95-c33c5938b49a",
+	"7972a86a-8b4f-48e0-ab45-ba1e31bc5844",
+	'name',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("1c853970-4617-4835-9981-3307a350267d",
+	"00000000-0000-0000-0000-000000000000",
+	'inst_ref<Feature>',
+	'',
+	'',
+	'../ooaofmarking.xtuml');
 INSERT INTO O_NBATTR
 	VALUES ("2232e914-1392-4ee8-8bb0-1947058f895a",
 	"cb1516d4-40ca-4afa-954b-5fdc4726e5e7");
