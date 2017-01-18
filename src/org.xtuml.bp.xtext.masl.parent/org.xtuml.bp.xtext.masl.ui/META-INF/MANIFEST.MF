@@ -16,10 +16,21 @@ Require-Bundle: org.xtuml.bp.xtext.masl,
  org.eclipse.compare,
  org.eclipse.xtext.builder,
  org.eclipse.xtend.lib;resolution:=optional,
- org.eclipse.xtext.xbase.lib
+ org.eclipse.xtext.xbase.lib,
+ org.xtuml.bp.core;bundle-version="5.8.6";resolution:=optional,
+ org.xtuml.bp.ui.text;bundle-version="5.8.6"
 Import-Package: org.apache.log4j
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
-Export-Package: org.xtuml.bp.xtext.masl.ui.internal,
+Export-Package: org.xtuml.bp.xtext.masl.ui,
+ org.xtuml.bp.xtext.masl.ui.build,
+ org.xtuml.bp.xtext.masl.ui.contentassist,
+ org.xtuml.bp.xtext.masl.ui.document,
+ org.xtuml.bp.xtext.masl.ui.edit,
+ org.xtuml.bp.xtext.masl.ui.hyperlink,
+ org.xtuml.bp.xtext.masl.ui.internal,
+ org.xtuml.bp.xtext.masl.ui.labeling,
+ org.xtuml.bp.xtext.masl.ui.outline,
  org.xtuml.bp.xtext.masl.ui.quickfix,
- org.xtuml.bp.xtext.masl.ui.contentassist
+ org.xtuml.bp.xtext.masl.ui.rename,
+ org.xtuml.bp.xtext.masl.ui.validation
 Bundle-Activator: org.xtuml.bp.xtext.masl.ui.internal.MaslActivator

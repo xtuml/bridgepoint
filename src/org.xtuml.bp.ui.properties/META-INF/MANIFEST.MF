@@ -12,6 +12,7 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.ui.views,
  org.xtuml.bp.core,
  org.eclipse.core.resources,
- org.xtuml.bp.ui.text
+ org.xtuml.bp.ui.text,
+ org.xtuml.bp.xtext.masl.ui;bundle-version="1.0.0"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Eclipse-BundleShape: dir

@@ -42,6 +42,7 @@ import static org.xtuml.bp.xtext.masl.validation.MaslIssueCodesProvider.*
 
 import static extension org.eclipse.emf.ecore.util.EcoreUtil.*
 import org.eclipse.emf.ecore.EObject
+import org.eclipse.xtext.resource.FileExtensionProvider
 
 class StructureValidator extends AbstractMASLValidator {
 
@@ -49,31 +50,34 @@ class StructureValidator extends AbstractMASLValidator {
 	@Inject extension MASLExtensions
 	@Inject extension StructurePackage structurePackage
 	@Inject extension URI2DeclarationMapper
-
+	@Inject FileExtensionProvider fileExtensionProvider
+	
 	override register(EValidatorRegistrar registrar) {
 	}
 
 	@Check
 	def checkFileExtension(MaslModel model) {
 		val fileExtension = model.eResource.URI.fileExtension
-		model.elements.forEach [
-			val expectedFileExtensions = switch it {
-				ProjectDefinition: #['prj', 'masl']
-				DomainDefinition: #['mod', 'int', 'masl']
-				ObjectServiceDefinition: #['svc', 'masl']
-				DomainServiceDefinition: #['ext', 'scn', 'svc', 'masl']
-				ObjectFunctionDefinition,
-				DomainFunctionDefinition: #['fn', 'masl']
-				TerminatorServiceDefinition,
-				TerminatorFunctionDefinition: #['tr', 'masl']
-				StateDefinition: #['al', 'masl']
-			}
-			if (!expectedFileExtensions.contains(
-				fileExtension)) {
-				addIssue('''«eClass.name» elements should be defined in a file with extension «expectedFileExtensions.map['\'.'+ it + '\''].join(' or ')».''',
-					it, structurePackage.abstractNamed_Name, WRONG_STRUCTURE)
-			}
-		]
+		if(fileExtensionProvider.isValid(fileExtension)) {
+			model.elements.forEach [
+				val expectedFileExtensions = switch it {
+					ProjectDefinition: #['prj', 'masl']
+					DomainDefinition: #['mod', 'int', 'masl']
+					ObjectServiceDefinition: #['svc', 'masl']
+					DomainServiceDefinition: #['ext', 'scn', 'svc', 'masl']
+					ObjectFunctionDefinition,
+					DomainFunctionDefinition: #['fn', 'masl']
+					TerminatorServiceDefinition,
+					TerminatorFunctionDefinition: #['tr', 'masl']
+					StateDefinition: #['al', 'masl']
+				}
+				if (!expectedFileExtensions.contains(
+					fileExtension)) {
+					addIssue('''«eClass.name» elements should be defined in a file with extension «expectedFileExtensions.map['\'.'+ it + '\''].join(' or ')».''',
+						it, structurePackage.abstractNamed_Name, WRONG_STRUCTURE)
+				}
+			]
+		}
 	}
 
 	@Check
