@@ -27,7 +27,8 @@ unrelate model from elem across R25 using self;
 delete object instance self;',
 	1,
 	'',
-	"00000000-0000-0000-0000-000000000000");
+	"00000000-0000-0000-0000-000000000000",
+	0);
 INSERT INTO O_REF
 	VALUES ("37ce39d4-f4ad-4ace-84bf-0d8906ae81d6",
 	"9d561ba9-b78b-4769-9ab2-c793c6b1b46c",

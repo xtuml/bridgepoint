@@ -58,7 +58,8 @@ else
 end if;',
 	1,
 	'',
-	"00000000-0000-0000-0000-000000000000");
+	"00000000-0000-0000-0000-000000000000",
+	0);
 INSERT INTO O_TFR
 	VALUES ("2c42e294-b0cd-4f32-8c6f-b0683e3184c7",
 	"2d1f6d38-7e9e-4999-ada8-a67731acf6c2",
@@ -69,7 +70,8 @@ INSERT INTO O_TFR
 	'return "Positional Data";',
 	1,
 	'',
-	"60c61064-846c-44fb-a3f5-d265ba7fcfab");
+	"60c61064-846c-44fb-a3f5-d265ba7fcfab",
+	0);
 INSERT INTO O_NBATTR
 	VALUES ("773a07f4-1c98-49a9-b352-618516061de9",
 	"2d1f6d38-7e9e-4999-ada8-a67731acf6c2");
