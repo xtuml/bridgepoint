@@ -124,7 +124,8 @@ end if;
 ',
 	1,
 	'',
-	"1dd3025c-5378-4eef-a50a-a068d3dbd15e");
+	"1dd3025c-5378-4eef-a50a-a068d3dbd15e",
+	0);
 INSERT INTO O_TFR
 	VALUES ("cee3b332-041b-4881-bc2b-89f2a23bc0ef",
 	"0ac5a7ee-e799-478f-ae62-a1be52fa199b",
@@ -234,7 +235,8 @@ end if;
 ',
 	1,
 	'',
-	"00000000-0000-0000-0000-000000000000");
+	"00000000-0000-0000-0000-000000000000",
+	0);
 INSERT INTO O_TFR
 	VALUES ("790dacbd-a5e0-48c6-a687-d13dfd0091bd",
 	"0ac5a7ee-e799-478f-ae62-a1be52fa199b",
@@ -327,7 +329,8 @@ return appropriate_point;
 ',
 	1,
 	'',
-	"f4142706-5965-4b2d-997b-29045e0c4bf4");
+	"f4142706-5965-4b2d-997b-29045e0c4bf4",
+	0);
 INSERT INTO O_TFR
 	VALUES ("f4142706-5965-4b2d-997b-29045e0c4bf4",
 	"0ac5a7ee-e799-478f-ae62-a1be52fa199b",
@@ -380,7 +383,8 @@ return appropriate_point;
 ',
 	1,
 	'',
-	"cee3b332-041b-4881-bc2b-89f2a23bc0ef");
+	"cee3b332-041b-4881-bc2b-89f2a23bc0ef",
+	0);
 INSERT INTO O_TFR
 	VALUES ("a995a9cf-6541-4f73-8c43-0f15f13d6ed4",
 	"0ac5a7ee-e799-478f-ae62-a1be52fa199b",
@@ -402,7 +406,8 @@ end for;
 return appropriate_point; ',
 	1,
 	'',
-	"790dacbd-a5e0-48c6-a687-d13dfd0091bd");
+	"790dacbd-a5e0-48c6-a687-d13dfd0091bd",
+	0);
 INSERT INTO O_TFR
 	VALUES ("1dd3025c-5378-4eef-a50a-a068d3dbd15e",
 	"0ac5a7ee-e799-478f-ae62-a1be52fa199b",
@@ -454,7 +459,8 @@ end if;  // segment terminates in the Middle of the target connector
 return appropriate_point;',
 	1,
 	'',
-	"a995a9cf-6541-4f73-8c43-0f15f13d6ed4");
+	"a995a9cf-6541-4f73-8c43-0f15f13d6ed4",
+	0);
 INSERT INTO O_NBATTR
 	VALUES ("fe015387-d17b-447b-8c68-2aa37d0e3ae9",
 	"0ac5a7ee-e799-478f-ae62-a1be52fa199b");

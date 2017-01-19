@@ -36,7 +36,8 @@ delete object instance self;
 ',
 	1,
 	'',
-	"00000000-0000-0000-0000-000000000000");
+	"00000000-0000-0000-0000-000000000000",
+	0);
 INSERT INTO O_TFR
 	VALUES ("39260c3c-3350-4417-88f9-422206d6d530",
 	"a2f9b584-b553-4037-acb2-0227d0fd18ea",
@@ -47,7 +48,8 @@ INSERT INTO O_TFR
 	'return "Anchor Point";',
 	1,
 	'',
-	"ba53d2bf-1dc7-4b15-8df9-cf53f9dccad8");
+	"ba53d2bf-1dc7-4b15-8df9-cf53f9dccad8",
+	0);
 INSERT INTO O_NBATTR
 	VALUES ("1a8d87dc-5803-48c4-a0c8-cf4f500ad9d4",
 	"a2f9b584-b553-4037-acb2-0227d0fd18ea");
