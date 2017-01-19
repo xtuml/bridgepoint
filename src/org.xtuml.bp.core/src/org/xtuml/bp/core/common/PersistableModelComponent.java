@@ -106,6 +106,12 @@ public class PersistableModelComponent implements Comparable {
     private IFile underlyingResource;
     private ActionFile afm;
 
+    private boolean activityImportFailures = false;
+    private String activityImportFailureMessage = "";
+
+    private ActivityCount importedActivityCount = new ActivityCount();
+    private ActivityCount activityCount = new ActivityCount();
+
     // instance of ME when component is loaded otherwise it will be null;
     private NonRootModelElement componentRootME;
     
@@ -1140,5 +1146,39 @@ public class PersistableModelComponent implements Comparable {
         return 1;
       }
       return getFullPath().toString().compareTo(pmc.getFullPath().toString());
+    }
+
+    // methods for handling import assertions
+    public boolean getActivityImportFailures() {
+        return activityImportFailures;
+    }
+
+    public void setActivityImportFailures( boolean failures ) {
+        activityImportFailures = failures;
+    }
+
+    public String getActivityImportFailureMessage() {
+        return activityImportFailureMessage;
+    }
+
+    public void appendActivityImportFailureMessage( String message ) {
+        activityImportFailureMessage += message;
+    }
+
+    public void resetActivityImportFailureMessage() {
+        activityImportFailureMessage = "";
+    }
+
+    public void incrementImportedActivities( String type, int dialect ) {
+        importedActivityCount.increment( type, dialect );
+    }
+
+    public void incrementActivities( String type, int dialect ) {
+        activityCount.increment( type, dialect );
+    }
+
+    public void resetActivityCounts() {
+        importedActivityCount = new ActivityCount();
+        activityCount = new ActivityCount();
     }
 }
