@@ -61,7 +61,8 @@ requirement and create a satisfaction if a match is found.
 4.2 Create no more than 1 satisfaction per requirement and provision.  
 4.3 The satisfaction shall be created in the package that that contains the 
 {imported}provision/{imported}requirement being satisfied.  
- 
+4.4 The graphics associated with the satisfaction must be reconciled [[2.4]](#2.4).  
+
 5. Work Required
 ----------------
 5.1 Modify ImportHelper.java::resolveMASLproject() that was introduced with  
@@ -105,9 +106,11 @@ repeat the above look with imported provisions
 6.1 During testing it was found that graphics reconciliation of satisfactions
 is not working. The "ball and cup" are not being connected. This problem 
 existed prior to this task, and is being handled by a separate issue 
-[[2.4]](#2.4).
-
-
+[[2.4]](#2.4). However, this is a blocker for this task. The reason this is
+a blocker is that once the satisfaction is created, if the graphics reconciliation
+does not connect the "ball and cup". The user is left worse off then had auto satisfaction
+never happend because they are unable to connect the ball and cup manually without first
+unsatisfying the interface.  
 
 7. Unit Test
 ------------
