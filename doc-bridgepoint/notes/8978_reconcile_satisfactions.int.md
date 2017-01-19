@@ -91,17 +91,17 @@ spot there that does handle this. See it by looing at where the GD_AOS is create
    a provision that has satisfaction(s) the GD_ARS.reconcileConnectorsNoGraphics
    shall handle processing in the graphics client EE (CL)
 
-5.2.1. Create CL::reconcileSatisfaction(provision:<instance>, canvas:<instance>)
-5.2.1.1 paramater 1 is a provision or imported provision
-5.2.1.2 parameter 2 is a package or component
+5.2.1. Create CL::reconcileSatisfaction(provision:<instance>, canvas:<instance>)  
+5.2.1.1 paramater 1 is a provision or imported provision  
+5.2.1.2 parameter 2 is a package or component  
 
-5.2.2 Find all the requirements satisfied to the provisions on the same canvas
-5.2.2.1 For each requirement found reconcile the graphics
+5.2.2 Find all the requirements satisfied to the provisions on the same canvas  
+5.2.2.1 For each requirement found reconcile the graphics  
 5.2.2.2 Use oal from Model Tool (CT_MTL.finalizeConnector()) to create a new operation that
-just creates graphics associated with a satisfaction.
+just creates graphics associated with a satisfaction.  
 5.2.2.2.1 It is worth noting that the parameters used in CT_MTL.finalizeConnector the
 startElement is the element beingMoved and the endElement is the destination. Therefore,
-for this task:
+for this task:  
 ```
    startElement is the GD_GE with represents of Requirement_c
    endElement is the GD_GE with represents of Provision_c
