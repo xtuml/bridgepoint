@@ -1103,7 +1103,6 @@ INSERT INTO O_TFR
 if (CL::traceGraphicsCreationIsEnabled()) 
   msg = "Connector needed: ";
   CL::logTraceMsg(filterType:LoggerType::OPERATION, filterValue:"use_string_buffer", message:msg);
-  return reprocess;
 end if;
 if (param.existingGraphicsArePresent)
 select any ars related by self->GD_MS[R9]->GD_EMS[R11]->
@@ -1288,10 +1287,25 @@ for each otherAnchor in otherAnchors
   end if;
 end for;
 
-//if(startElementGE.represents != self.represents)
-
 create object instance newConElem of GD_GE;
-relate newConElem to sourceSpec across R10;
+// In most cases  sourceSpec == targetSpec. In cases
+// where it is not, we create the connector from the 
+// targetSpec. While this can simplying to jsut using
+// targetSpec, for orthagonality with the case where
+// we have exitinf graphics, we seperate the cases here.
+//
+// Examples are imported required interface or imported provided interface.
+// In this case the type of the element spec being associated is 
+// not the same as the element created. 
+// As an example, see CL_IR::{getImportedRequirementID  && getImportedRequirementRequirementID}.
+//    Those are named in an odd way, but what they do is 
+//    the first returns the CL_IR.id and the second gets the C_R.id of the
+//    formalized requirement.
+if (sourceSpec == targetSpec)
+  relate newConElem to sourceSpec across R10;
+else
+  relate newConElem to targetSpec across R10;
+end if;
 relate newConElem to self across R1;
 create object instance connector of GD_CON;
 relate newConElem to connector across R2;
