@@ -167,7 +167,7 @@ public abstract class CoreImport implements IModelImport {
 
     public abstract int postprocessStatements();
 
-    public abstract void processAction( String smasl, int dialect );
+    public abstract void processAction( String smasl, int dialect, int startLine );
 
     protected Ooaofooa getModelRoot() {
         return m_modelRoot;
@@ -378,11 +378,11 @@ public abstract class CoreImport implements IModelImport {
             pm.done();
             return true;
         } catch (IOException e) {
-            m_errorMessage = "IO exception: " + e; //$NON-NLS-1$
+	        m_errorMessage += "IO exception: " + ( m_actionFile != null ? m_actionFile.getName() + " " : "") + e;
         } catch (TokenStreamException e) {
-            m_errorMessage = "Stream exception: " + e; //$NON-NLS-1$
+	        m_errorMessage += "Stream exception: " + ( m_actionFile != null ? m_actionFile.getName() + " " : "") + e;
         } catch (RecognitionException e) {
-            m_errorMessage = "Recog exception: " + e; //$NON-NLS-1$
+	        m_errorMessage += "Recog exception: " + ( m_actionFile != null ? m_actionFile.getName() + " " : "") + e;
         }
         return false;
     }
