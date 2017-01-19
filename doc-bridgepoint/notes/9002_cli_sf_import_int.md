@@ -19,6 +19,7 @@ single xtUML file.
 <a id="2.1"></a>2.1 [BridgePoint DEI #9002](https://support.onefact.net/issues/9002) Headline issue     
 <a id="2.2"></a>2.2 [BridgePoint DEI #9007](https://support.onefact.net/issues/9007) Marking Editor Help Text      
 <a id="2.3"></a>2.3 [BridgePoint DEI #9010](https://support.onefact.net/issues/9010) Marking Editor Warning Messages      
+<a id="2.4"></a>2.4 [BridgePoint DEI #9012](https://support.onefact.net/issues/9012) Unit test for CLI single file import         
 
 3. Background
 -------------
@@ -51,7 +52,7 @@ needed to be updated to support import of an xtUML file into a project.
   
 7. Unit Test
 ------------
-7.1  Functional Test  
+7.1  Functional Test  - captured as issue 9012   
 * Create a workspace
 * Create an xtUML project ```sac_ooa```  
 * Exit BridgePoint   
