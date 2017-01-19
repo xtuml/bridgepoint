@@ -354,6 +354,7 @@ public class ImportHelper
      * Resolve the MASL project
      *   - Assign unassigned component references
      *   - Unhook temporary interface definitions and re-attach to existing interfaces in domains
+     *   - create satisfactions
      */
     public void resolveMASLproject( NonRootModelElement[] elements ) {    	
         if ( elements == null ) return;
@@ -390,6 +391,11 @@ public class ImportHelper
 	        			}
 	        		}
 	            }
+	        }
+	        
+	        if (m_maslProjectImported != null) {
+	            // create satisfactions
+	            createMASLSatisfactions(elements);
 	        }
 		} catch (Exception e) {
 			// revert the transation
@@ -621,7 +627,7 @@ public class ImportHelper
     	return m_maslDomainsImported != null || m_maslProjectImported != null;
     }
     
-    private void createSatisfactions(NonRootModelElement[] nrmes) {    	
+    private void createMASLSatisfactions(NonRootModelElement[] nrmes) {    	
 		// Create satisfactions
 		for (NonRootModelElement nrme : nrmes) {
 			// process the unassigned component references
