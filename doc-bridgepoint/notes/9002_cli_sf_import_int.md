@@ -73,6 +73,23 @@ Fork/Repository: keithbrown/bridgepoint
 Branch: 9002_cli_sf_import   
 
 <pre>
+doc-bridgepoint/notes/9002_cli_sf_import_int.md
+
+org.xtuml.bp.cli/META-INF/MANIFEST.MF
+org.xtuml.bp.cli/src/org/xtuml/bp/cli/Import.java
+org.xtuml.bp.cli/src/org/xtuml/bp/cli/ImportWorkbenchAdvisor.java
+
+org.xtuml.bp.doc/Reference/UserInterface/CommandLineInterface/
+    CommandLineInterface.html
+org.xtuml.bp.doc/Reference/UserInterface/CommandLineInterface/
+    CommandLineInterface.md
+org.xtuml.bp.doc/Reference/UserInterface/MarkingEditor/MarkingEditor.html
+org.xtuml.bp.doc/Reference/UserInterface/MarkingEditor/MarkingEditor.md
+
+org.xtuml.bp.ui.marking/src/org/xtuml/bp/ui/marking/MarkingData.java
+
+org.xtuml.bp.utilities/src/org/xtuml/bp/utilities/ui/ProjectUtilities.java
+
 
 
 </pre>
