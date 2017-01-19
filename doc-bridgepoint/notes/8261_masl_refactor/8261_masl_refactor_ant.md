@@ -112,13 +112,27 @@ rename of elements that are not supported.
 5.2.1 There is a change to `build.properties` in `debug.ui` and `session`
 plugins. Why?
 
+These changes eliminate compile errors in the respective files. I've added these
+to earlier commits but they still don't seem to be merged to master.
+
 5.2.2 The `xtext.masl` plugin is creating two new generated directories `text`
 and `emf-gen` should these be added to the `.gitignore` file in
 `xtext.masl.parent`?
 
+Nope, please leave them checked in unless we automatically generate the artifacts
+from the Xcore models.
+
 5.2.3 Errors in refactor result in a popup error message. Is there a good reason
 for this? It is usually preferred to avoid using distracting UI for errors with
 the exception of critical errors.
+
+Just didn't know what to do else. The popup appears if the pre-refactoring checks
+of Xtext fail. This is when the user has already chosen to rename something. 
+What should we do then instead? Silently fail and leave a corrupted workspace?
+Siliently cancel the rename operation?
+
+Maybe we should rather investigate and eliminate the issues that cause errors.
+
 
 6. Work Required
 ----------------
