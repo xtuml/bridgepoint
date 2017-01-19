@@ -57,7 +57,8 @@ end if;
 delete object instance self;',
 	1,
 	'',
-	"00000000-0000-0000-0000-000000000000");
+	"00000000-0000-0000-0000-000000000000",
+	0);
 INSERT INTO O_TFR
 	VALUES ("73974328-afc0-4909-8589-9fc7f7c79f67",
 	"7e1e895a-1165-4c2f-b740-6ef7bea4058a",
@@ -68,7 +69,8 @@ INSERT INTO O_TFR
 	'return "Bendpoint";',
 	1,
 	'',
-	"75008049-31d0-4784-90c2-28615ac34d9a");
+	"75008049-31d0-4784-90c2-28615ac34d9a",
+	0);
 INSERT INTO O_NBATTR
 	VALUES ("2f37b53a-e785-4107-8fc6-ed8f35cb3f7d",
 	"7e1e895a-1165-4c2f-b740-6ef7bea4058a");

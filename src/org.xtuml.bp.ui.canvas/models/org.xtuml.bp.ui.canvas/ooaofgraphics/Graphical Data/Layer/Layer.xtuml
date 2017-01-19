@@ -22,7 +22,8 @@ if(not_empty ge)
 end if;',
 	1,
 	'',
-	"00000000-0000-0000-0000-000000000000");
+	"00000000-0000-0000-0000-000000000000",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("62927fcb-343f-48a9-9404-b2960ebce55d",
 	"7b0989ee-a608-42cb-bbac-f6c3813020ef",
@@ -52,7 +53,8 @@ end for;
 delete object instance self;',
 	1,
 	'',
-	"7b0989ee-a608-42cb-bbac-f6c3813020ef");
+	"7b0989ee-a608-42cb-bbac-f6c3813020ef",
+	0);
 INSERT INTO O_TFR
 	VALUES ("f81284c3-ba8a-4d96-bd05-b0771b24fbaf",
 	"5cf6c181-af37-4eac-8fe2-ea007fd9220d",
@@ -63,7 +65,8 @@ INSERT INTO O_TFR
 	'return self.Layer_Name;',
 	1,
 	'',
-	"146a27d7-b37d-448e-bf88-0df3b84d8416");
+	"146a27d7-b37d-448e-bf88-0df3b84d8416",
+	0);
 INSERT INTO O_NBATTR
 	VALUES ("a246b659-140d-4ce4-91c3-7aea62cdf070",
 	"5cf6c181-af37-4eac-8fe2-ea007fd9220d");

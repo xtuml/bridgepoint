@@ -26,7 +26,8 @@ end if;
 delete object instance self;',
 	1,
 	'',
-	"97802dca-e5cf-417d-9e76-62f83c573ce5");
+	"97802dca-e5cf-417d-9e76-62f83c573ce5",
+	0);
 INSERT INTO O_TFR
 	VALUES ("1fa74a3b-13f7-44bb-bb73-cf7b65d9e919",
 	"1439746f-8b00-4b77-a05f-bf32f9817898",
@@ -37,7 +38,8 @@ INSERT INTO O_TFR
 	'CL::clearSelection();',
 	1,
 	'',
-	"92ca792e-fb46-405b-a1c6-0f7f065ef743");
+	"92ca792e-fb46-405b-a1c6-0f7f065ef743",
+	0);
 INSERT INTO O_TFR
 	VALUES ("92ca792e-fb46-405b-a1c6-0f7f065ef743",
 	"1439746f-8b00-4b77-a05f-bf32f9817898",
@@ -50,7 +52,8 @@ model.enableTextMoveUnder(x: param.x, y: param.y);
 ',
 	1,
 	'',
-	"d5130011-0223-423a-aba1-717860ab976b");
+	"d5130011-0223-423a-aba1-717860ab976b",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("7c384c07-5430-45e8-80c4-f48c5e8adccd",
 	"92ca792e-fb46-405b-a1c6-0f7f065ef743",
@@ -85,7 +88,8 @@ if (not_empty con_text)
 end if;',
 	1,
 	'',
-	"00000000-0000-0000-0000-000000000000");
+	"00000000-0000-0000-0000-000000000000",
+	0);
 INSERT INTO O_TFR
 	VALUES ("0e9c002b-517e-497a-a1bf-68d66892e0fc",
 	"1439746f-8b00-4b77-a05f-bf32f9817898",
@@ -152,7 +156,8 @@ end if;
 ',
 	1,
 	'',
-	"1fa74a3b-13f7-44bb-bb73-cf7b65d9e919");
+	"1fa74a3b-13f7-44bb-bb73-cf7b65d9e919",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("d71f08a0-d18a-49df-b9fa-3975654a3ccd",
 	"0e9c002b-517e-497a-a1bf-68d66892e0fc",

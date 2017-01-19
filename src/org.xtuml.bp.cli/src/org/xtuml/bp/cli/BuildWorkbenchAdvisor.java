@@ -33,6 +33,7 @@ public class BuildWorkbenchAdvisor extends BPCLIWorkbenchAdvisor {
 	String buildConfigString = "";
 	boolean prebuilderOnly = false;
 	boolean cleanBuild = false;
+	boolean doNotParse = false;
 	
 	protected BuildWorkbenchAdvisor(BPCLIPreferences prefs) {
 		super(prefs);
@@ -41,6 +42,7 @@ public class BuildWorkbenchAdvisor extends BPCLIWorkbenchAdvisor {
 		buildConfigString = cmdLine.getStringValue("-buildConfig");
 		prebuilderOnly = cmdLine.getBooleanValue("-prebuildOnly");
 		cleanBuild = cmdLine.getBooleanValue("-cleanCLI");
+		doNotParse = cmdLine.getBooleanValue("-doNotParse");
 	}
 
 	/**
@@ -308,7 +310,7 @@ public class BuildWorkbenchAdvisor extends BPCLIWorkbenchAdvisor {
 			if (!destPath.toFile().exists()) {
 				destPath.toFile().mkdir();
 			}
-			jeb.exportSystem(sys, destPath.toOSString(), new NullProgressMonitor());
+			jeb.exportSystem(sys, destPath.toOSString(), new NullProgressMonitor(), false, "", !doNotParse);
 
 		}else{
 			
@@ -318,7 +320,7 @@ public class BuildWorkbenchAdvisor extends BPCLIWorkbenchAdvisor {
 			if (!destPath.toFile().exists()) {
 				destPath.toFile().mkdir();
 			}
-			eb.exportSystem(sys, destPath.toOSString(), new NullProgressMonitor());
+			eb.exportSystem(sys, destPath.toOSString(), new NullProgressMonitor(), false, "", !doNotParse);
 		}
 	}
 }

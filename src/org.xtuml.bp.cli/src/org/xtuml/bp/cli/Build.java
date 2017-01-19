@@ -1,11 +1,3 @@
-//=====================================================================
-//
-//File:      $RCSfile: Build.java,v $
-//Version:   $Revision: 1.17 $
-//Modified:  $Date: 2013/06/12 13:08:01 $
-//
-//(c) Copyright 2004-2014 by Mentor Graphics Corp. All rights reserved.
-//
 //========================================================================
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not 
 // use this file except in compliance with the License.  You may obtain a copy 
@@ -48,6 +40,8 @@ public class Build implements IApplication {
 							"Run ONLY the BridgePoint Model Compiler pre-builder."),
 					new CommandLineOption("-cleanCLI", false,
 							"Performs a clean build on the project."),
+					new CommandLineOption("-doNotParse", false,
+							"Prevents the action language parser from running during build."),
 					new CommandLineOption(
 							"-debugCLI",
 							false,
