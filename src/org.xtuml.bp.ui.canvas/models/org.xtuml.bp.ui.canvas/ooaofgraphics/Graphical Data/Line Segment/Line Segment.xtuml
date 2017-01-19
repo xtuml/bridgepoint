@@ -20,7 +20,8 @@ return seg_con_elem.isSelected();
 ',
 	1,
 	'',
-	"351be5e7-6e9d-4365-831d-1652aafa7ef0");
+	"351be5e7-6e9d-4365-831d-1652aafa7ef0",
+	0);
 INSERT INTO O_TFR
 	VALUES ("351be5e7-6e9d-4365-831d-1652aafa7ef0",
 	"77c5fcd0-0f54-42c1-ab6e-4476ff4e6931",
@@ -36,7 +37,8 @@ end if;
 return false;',
 	1,
 	'',
-	"02c444e2-dcea-4d4e-ad46-a6bc1ce280e3");
+	"02c444e2-dcea-4d4e-ad46-a6bc1ce280e3",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("5ccf541f-4a00-4c4d-a7f2-1a58d1039b13",
 	"351be5e7-6e9d-4365-831d-1652aafa7ef0",
@@ -72,7 +74,8 @@ return GR::isWithinHotspot(x:GR::scale(value:param.x) + diagram.viewportX,
 ',
 	1,
 	'',
-	"6c198bb7-a795-4df2-b5cf-62f61fcaf99e");
+	"6c198bb7-a795-4df2-b5cf-62f61fcaf99e",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("3ed97a5e-697a-43e6-bf47-b5e8bdece9e6",
 	"02c444e2-dcea-4d4e-ad46-a6bc1ce280e3",
@@ -107,7 +110,8 @@ return GR::isWithinHotspot(x:GR::scale(value:param.x) + diagram.viewportX,
 ',
 	1,
 	'',
-	"d17f439b-a40f-4395-815f-a48c3cd3c794");
+	"d17f439b-a40f-4395-815f-a48c3cd3c794",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("65ad2c33-12a8-4ca1-9562-cd9402b2a2ee",
 	"6c198bb7-a795-4df2-b5cf-62f61fcaf99e",
@@ -138,7 +142,8 @@ self.moveEnd(xDelta:param.xDelta, yDelta:param.yDelta, snapToGrid:param.snapToGr
 ',
 	1,
 	'',
-	"d8d8457a-2e0a-43ce-a0ac-978309564994");
+	"d8d8457a-2e0a-43ce-a0ac-978309564994",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("4e3bd405-1159-4829-a68b-5245ece0b33a",
 	"c362f14e-3431-431a-9e09-0ed39cc5574c",
@@ -208,7 +213,8 @@ selfStart.positionX = selfStart.positionX + deltaX;
 selfStart.positionY = selfStart.positionY + deltaY;',
 	1,
 	'',
-	"985699a2-58f5-45eb-8375-7763a2808bb6");
+	"985699a2-58f5-45eb-8375-7763a2808bb6",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("8f3393ae-f2cd-4e70-b2f4-3444ef7c770b",
 	"21e64153-3278-41b1-9f2f-a614b6781996",
@@ -272,7 +278,8 @@ selfEnd.positionY = selfEnd.positionY + deltaY;
 ',
 	1,
 	'',
-	"c362f14e-3431-431a-9e09-0ed39cc5574c");
+	"c362f14e-3431-431a-9e09-0ed39cc5574c",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("eb84736f-b157-46e7-8877-cc8505b2470b",
 	"c56f6c15-3224-4e7c-96d4-55f4d22ee547",
@@ -316,7 +323,8 @@ return GR::isOver(x:param.x, y:param.y,
 ',
 	1,
 	'',
-	"16d5e8dd-4355-4051-92e0-bd81e9a17831");
+	"16d5e8dd-4355-4051-92e0-bd81e9a17831",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("b681c867-34af-4b4f-a90c-69c8409330f9",
 	"d17f439b-a40f-4395-815f-a48c3cd3c794",
@@ -358,7 +366,8 @@ halfway = total_segs / 2;
 return count == halfway;',
 	1,
 	'',
-	"c653f7d3-c6d2-494d-86fd-a8001f3d0518");
+	"c653f7d3-c6d2-494d-86fd-a8001f3d0518",
+	0);
 INSERT INTO O_TFR
 	VALUES ("c653f7d3-c6d2-494d-86fd-a8001f3d0518",
 	"77c5fcd0-0f54-42c1-ab6e-4476ff4e6931",
@@ -406,7 +415,8 @@ return false;
 ',
 	1,
 	'',
-	"63e22f13-5b17-4d63-baa0-21b44d80b82f");
+	"63e22f13-5b17-4d63-baa0-21b44d80b82f",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("ee63630b-7410-4225-b740-e01605f50802",
 	"c653f7d3-c6d2-494d-86fd-a8001f3d0518",
@@ -510,7 +520,8 @@ end for;
 delete object instance self;',
 	1,
 	'',
-	"00000000-0000-0000-0000-000000000000");
+	"00000000-0000-0000-0000-000000000000",
+	0);
 INSERT INTO O_TFR
 	VALUES ("5ee863d3-0c4f-4125-8c7b-19ff469617f6",
 	"77c5fcd0-0f54-42c1-ab6e-4476ff4e6931",
@@ -528,7 +539,8 @@ selfEnd.positionY = ::roundToGridSnapPoint(
 ',
 	1,
 	'',
-	"21e64153-3278-41b1-9f2f-a614b6781996");
+	"21e64153-3278-41b1-9f2f-a614b6781996",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("06fbb347-542b-4f2d-8482-623835c151bd",
 	"5ee863d3-0c4f-4125-8c7b-19ff469617f6",
@@ -647,7 +659,8 @@ else
 end if;',
 	1,
 	'',
-	"7f94e7e5-de71-4d40-a29a-960e1583b098");
+	"7f94e7e5-de71-4d40-a29a-960e1583b098",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("5104941c-399d-4829-a90c-e20f52398ed7",
 	"63e22f13-5b17-4d63-baa0-21b44d80b82f",
@@ -728,7 +741,8 @@ end if;
 ',
 	1,
 	'',
-	"c56f6c15-3224-4e7c-96d4-55f4d22ee547");
+	"c56f6c15-3224-4e7c-96d4-55f4d22ee547",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("0bd46b06-9cbf-448c-be32-30e4b008ff23",
 	"985699a2-58f5-45eb-8375-7763a2808bb6",
@@ -807,7 +821,8 @@ for each link in links
 end for;',
 	1,
 	'',
-	"5ee863d3-0c4f-4125-8c7b-19ff469617f6");
+	"5ee863d3-0c4f-4125-8c7b-19ff469617f6",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("70ce78a6-a3ab-424e-9e37-61beacdf7f09",
 	"1728c4bb-5409-4b9a-848f-1187bc213060",
