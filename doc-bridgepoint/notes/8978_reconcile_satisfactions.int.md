@@ -71,15 +71,17 @@ spot there that does handle this. See it by looing at where the GD_AOS is create
 
 
 3.4 Options:  
-* Extend the existing infrastructure so it works
-  * find satisfactions on on requirements in addition to provisions
-  * modify the connector reconciliation to be bale to handle this case where one
+3.4.1 Extend the existing infrastructure so it works
+* find satisfactions on on requirements in addition to provisions
+* modify the connector reconciliation to be bale to handle this case where one
   	side of the connection has cardinality 0..1 (requirement) and the other has
   	cardinality 0..* (provision).  Note that this is similar to connector creation for
   	subtype/subertype.
-* Once satisfaction are found on provisions, write a special routine to reconcile
+3.4.2 Once satisfaction are found on provisions, write a special routine to reconcile
   	   satisfaction. Special case it.
 
+Option 3.4.2 shall be used because even after modified the flow for 3.4.1 the GD_MD.newConnector operation would
+have to be "special cased" to handle satisfactions (it is the only place a GD_AOS is created).  
 
 4. Requirements
 ---------------
