@@ -43,6 +43,7 @@ select any feature from instances of Feature where ( selected.name == param.feat
 select any markable from instances of Markable where ( selected.name == param.markable_name );
 if ( not_empty feature and not_empty markable )
   create object instance mark of Mark;
+  mark.path = ""; // path the element
   mark.value = param.value;
   relate feature to markable across R2821 using mark;
 end if;
@@ -92,12 +93,12 @@ INSERT INTO O_TFR
 	'load',
 	'',
 	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'line[7]="";line[6]="";line[5]="";line[4]="";line[3]="";line[2]="";line[1]="";line[0]="";
-done = false;
+	0,
+	'done = false;
 while ( not done )
   // Read a line from the feature file populating line array.
-  count = CSV::readline( filename:"application.mark", values:line );
+  line[7]="";line[6]="";line[5]="";line[4]="";line[3]="";line[2]="";line[1]="";line[0]="";
+  count = CSV::readline( filename:param.filename, values:line );
   if ( count > 0 )
     if ( count > 1 ) // valid non-comment line
       mark = Mark::populate(  markable_name:line[0], feature_name:line[1], value:line[2] );
@@ -110,18 +111,43 @@ end while;',
 	'',
 	"498afae1-5a3d-47af-8277-d1d853131505",
 	0);
+INSERT INTO O_TPARM
+	VALUES ("9ebc3d4b-1b55-439d-bb85-b1a7ab31c00a",
+	"c43e8dde-c7b5-469f-98fa-a48d4c2498c4",
+	'filename',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
 INSERT INTO O_TFR
 	VALUES ("96d5b8fb-afe9-4c91-8416-6f6549b6359e",
 	"955e06e4-88e2-45e8-b0c5-a7fcf53f5d1d",
 	'persist',
 	'',
 	"ba5eda7a-def5-0000-0000-000000000000",
+	0,
+	'line[7]="";line[3]="";
+select many marks from instances of Mark;
+for each mark in marks
+  line[2] = mark.value;
+  line[1] = mark.feature_name;
+  line[0] = mark.path;
+  r = CSV::writeline( filename:param.filename + "a", values:line );
+end for;',
 	1,
-	'',
-	3,
 	'',
 	"c43e8dde-c7b5-469f-98fa-a48d4c2498c4",
 	0);
+INSERT INTO O_TPARM
+	VALUES ("5f3e9330-3747-4b0d-b53d-6aebb452068f",
+	"96d5b8fb-afe9-4c91-8416-6f6549b6359e",
+	'filename',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
 INSERT INTO O_NBATTR
 	VALUES ("157b732f-2703-4386-ba49-d31e584af03c",
 	"955e06e4-88e2-45e8-b0c5-a7fcf53f5d1d");

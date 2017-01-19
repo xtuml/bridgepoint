@@ -14,11 +14,11 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	0,
-	'line[7]="";line[6]="";line[5]="";line[4]="";line[3]="";line[2]="";line[1]="";line[0]="";
-done = false;
+	'done = false;
 while ( not done )
   // Read a line from the feature file populating line array.
-  count = CSV::readline( filename:"features.mark", values:line );
+  line[7]="";line[6]="";line[5]="";line[4]="";line[3]="";line[2]="";line[1]="";line[0]="";
+  count = CSV::readline( filename:param.filename, values:line );
   if ( count > 0 )
     if ( count == 2 ) // valid non-comment line
       markable = Markable::populate( name:line[0] );
@@ -37,6 +37,15 @@ end while;
 	'',
 	"00000000-0000-0000-0000-000000000000",
 	0);
+INSERT INTO O_TPARM
+	VALUES ("e9f8029b-e5a2-4787-b36c-c85603887a2f",
+	"8b10470c-1967-4506-9545-030a91275fe0",
+	'filename',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
 INSERT INTO O_TFR
 	VALUES ("6236b28d-3b1e-4ae8-82f6-aeae0fcb28f8",
 	"cb1516d4-40ca-4afa-954b-5fdc4726e5e7",
@@ -44,11 +53,29 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	0,
-	'',
-	3,
+	'line[7]="";line[2]="";
+select many markables from instances of Markable;
+for each markable in markables
+  select many features related by markable->Feature[R2822];
+  for each feature in features;
+    line[1] = feature.name;
+    line[0] = markable.name;
+    r = CSV::writeline( filename:param.filename + "a", values:line );
+  end for;
+end for;',
+	1,
 	'',
 	"8b10470c-1967-4506-9545-030a91275fe0",
 	0);
+INSERT INTO O_TPARM
+	VALUES ("d623c5ba-aaef-457b-9476-6ba8d15e785e",
+	"6236b28d-3b1e-4ae8-82f6-aeae0fcb28f8",
+	'filename',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
 INSERT INTO O_TFR
 	VALUES ("7972a86a-8b4f-48e0-ab45-ba1e31bc5844",
 	"cb1516d4-40ca-4afa-954b-5fdc4726e5e7",
