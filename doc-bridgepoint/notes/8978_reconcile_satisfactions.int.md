@@ -54,28 +54,27 @@ else
   return GD::NULL_UNIQUE_ID();
 end if;
 ```
-# This is what gets modified/created when a satisfaction is graphcially recionciled
-## A new GD_AOS instance is added
-## A new DIM_CON instance is added 
-## DIM_ED.last_id (second parameter) changed from null to the id of the new GD_AOS instance
-## DIM_WAY coordinates are adjusted
+* This is what gets modified/created when a satisfaction is graphcially recionciled
+  * A new GD_AOS instance is added
+  * A new DIM_CON instance is added 
+  * DIM_ED.last_id (second parameter) changed from null to the id of the new GD_AOS instance
+  * DIM_WAY coordinates are adjusted
 
-# Other useful references:
-## @see Model Tool (CT_MTL.finalizeConnector()) - This is where drag/drop 
+* Other useful references:
+  * @see Model Tool (CT_MTL.finalizeConnector()) - This is where drag/drop 
 performs the satisfaction. 
-## @see the GD_MD.newConnector, the case where graphics ARE present. There is a 
+  * @see the GD_MD.newConnector, the case where graphics ARE present. There is a 
 spot there that does handle this. See it by looing at where the GD_AOS is created.  
 
 
-# Options:
-## Extend the existing infrastructure so it works
-### find satisfactions on on requirements in addition to provisions
-### modify the connector reconciliation to be bale to handle this case where one
+* Options:
+  * Extend the existing infrastructure so it works
+    * find satisfactions on on requirements in addition to provisions
+    * modify the connector reconciliation to be bale to handle this case where one
   	side of the connection has cardinality 0..1 (requirement) and the other has
   	cardinality 0..* (provision).  Note that this is similar to connector creation for
   	subtype/subertype.
-
-## Once satisfaction are found on provisions, write a special routine to reconcile
+  * Once satisfaction are found on provisions, write a special routine to reconcile
   	   satisfaction. Special case it.
 
 
