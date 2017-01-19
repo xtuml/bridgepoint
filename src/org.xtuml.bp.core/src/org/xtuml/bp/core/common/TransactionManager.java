@@ -361,6 +361,39 @@ public class TransactionManager {
 			affectedModelElementsNames.clear();
 		}
 
+        // check if any affected components have
+        // activity import failures
+        ArrayList<PersistableModelComponent> pmcs = new ArrayList<PersistableModelComponent>();
+        ModelRoot[] mrs = transaction.getParticipatingModelRoots();
+        NonRootModelElement element = null;
+        PersistableModelComponent elementPMC = null;
+        for (int i = 0; i < mrs.length; i++) {
+            IModelDelta[] deltas = transaction.getDeltas(mrs[i]);
+            for (int j = 0; j < deltas.length; j++) {
+                IModelDelta delta = deltas[j];
+                element = (NonRootModelElement) delta.getModelElement();
+                if( element == null )
+                    continue;
+                elementPMC = element.getPersistableComponent(true);
+                if ( elementPMC != null && !pmcs.contains( elementPMC ) )
+                    pmcs.add( elementPMC );
+            }
+        }
+        for ( PersistableModelComponent pmc : pmcs ) {
+            if ( pmc.getActivityImportFailures() ) {
+            	boolean proceed = false;
+                String message = "Errors in activity file caused import failures. " +
+                                 "Continuing could result in action language being lost.\n" +
+                                 "Ensure that you have not added, deleted, or modified any activity signatures. " +
+                                 "Select OK to proceed anyway.";
+                proceed = UIUtil.openScrollableTextDialog( PlatformUI.getWorkbench().getModalDialogShellProvider().getShell(),
+                                                           true, "ERROR!", pmc.getActivityImportFailureMessage(),
+                                                           message, null, null, false, false );
+                if ( !proceed )
+                    return false;
+            }
+        }
+
 		/*
 		 * see if the files to be affected are read-only, if so let the user
 		 * decide whether or not the transaction proceeds
@@ -613,6 +646,10 @@ public class TransactionManager {
 			}
 		} else {
 			transaction.revert();
+			if(Ooaofooa.getDefaultInstance().persistEnabled()) {
+				ignoreResourceChangesMarker = false;
+				ComponentResourceListener.setIgnoreResourceChangesMarker(false);
+			}
 	    	fireTransactionCancelled(transaction);
 	    	return true;
 		}
