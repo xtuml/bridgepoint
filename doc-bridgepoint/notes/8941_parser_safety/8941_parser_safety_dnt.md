@@ -37,9 +37,10 @@ activity and the original source is overwritten.
 ---------------
 4.1 Detect MASL import parse failures  
 4.2 Notify or prevent a user before potentially overwriting MASL source  
-4.3 User experience  
-4.3.1 The user shall have sufficient warning before performing an unsafe action  
-4.3.2 The user shall not be interrupted unnecessarily  
+4.3 Notify or prevent a user before potentially exporting bad MASL data  
+4.4 User experience  
+4.4.1 The user shall have sufficient warning before performing an unsafe action  
+4.4.2 The user shall not be interrupted unnecessarily  
 
 5. Analysis
 -----------
@@ -120,16 +121,48 @@ to cancel the persist, or continue.
 The user should then find and fix the problem causing the import failure and
 refresh the workspace. This will trigger a reimport and unset the flag.
 
+6.3.1 MASL export
+
+The same mechanism will be used to notify a user if an export operation is
+triggered with an import failure flag set.
+
 6.4 User experience considerations
 
 It is a specific design decision to **_not_** inform the user of parse failures
 immediately after import. The reason for this decision is considering the case
 when a user is in the middle of an intermediate state. Error popups would be a
-distracting and the user may be fully aware of the inconsistency.
+distraction and the user may be fully aware of the inconsistency.
 
 7. Design Comments
 ------------------
-None
+
+7.1 Use cases
+
+7.1.1 User adds an activity through the text editor
+* A number/type mismatch would be caught.
+
+7.1.2 User deletes an activity through the text editor
+* An empty body would be caught
+* A number/type mismatch would be caught
+
+7.1.3 User deletes the entire body of an activity
+* An empty body would be caught
+
+7.1.4 User changes signature with text editor
+* An empty body would be caught
+* A number/type mismatch would be caught
+
+7.1.5 User changes signature with invalid syntax
+* A parse error is caught
+
+7.1.6 User inadvertantly inserts comment or whitespace on end tag line
+* An empty body would be caught
+* A number/type mismatch would be caught
+
+7.1.7 User has an unsaved file in the text editor, changes a signature through
+Model Explorer, saves the file
+* An empty body would be caught
+* A number/type mismatch would be caught
 
 8. User Documentation
 ---------------------
