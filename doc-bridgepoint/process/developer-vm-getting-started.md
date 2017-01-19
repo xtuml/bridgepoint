@@ -1,4 +1,4 @@
-# Developer Virtual Machine Getting Started Guid
+# Developer Virtual Machine Getting Started Guide
 This document provides the information required to create a fully functional BridgePoint development environment starting with
 the developer VirtualBox image
 
