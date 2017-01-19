@@ -41,9 +41,9 @@ the CLI script must be customized as follows:</p>
 is initiated by</p>
 <pre><code>CLI  Build  &lt;Argument List&gt;</code></pre>
 <p>where <code>&lt;Argument List&gt;</code> can contain any of the following options</p>
-<table style="width:88%;">
+<table style="width:93%;">
 <colgroup>
-<col style="width: 33%" />
+<col style="width: 38%" />
 <col style="width: 54%" />
 </colgroup>
 <thead>
@@ -54,11 +54,11 @@ is initiated by</p>
 </thead>
 <tbody>
 <tr class="odd">
-<td>-project</td>
+<td>-project &lt;name&gt;</td>
 <td>The name of the project to be built</td>
 </tr>
 <tr class="even">
-<td>-buildConfig</td>
+<td>-buildConfig &lt;name&gt;</td>
 <td>The name of the CDT build configuration to be used. If omitted then the current Active configuration is used</td>
 </tr>
 <tr class="odd">
@@ -87,9 +87,9 @@ is initiated by</p>
 <p>The Import task is used to add the named project to the current workspace. The task is initiated by</p>
 <pre><code>CLI  Import  &lt;Argument List&gt;</code></pre>
 <p>where <code>&lt;Argument List&gt;</code> can contain any of the following options</p>
-<table style="width:88%;">
+<table style="width:96%;">
 <colgroup>
-<col style="width: 33%" />
+<col style="width: 41%" />
 <col style="width: 54%" />
 </colgroup>
 <thead>
@@ -100,12 +100,20 @@ is initiated by</p>
 </thead>
 <tbody>
 <tr class="odd">
-<td>-project</td>
-<td>The fully qualified name of the project to be Imported</td>
+<td>-project &lt;directory&gt;</td>
+<td>The fully qualified path of the project to be Imported</td>
 </tr>
 <tr class="even">
 <td>-deleteExisting</td>
 <td>If a project with the same name exists in the workspace, this option will delete it before importing the named project.</td>
+</tr>
+<tr class="odd">
+<td>-file &lt;file&gt;</td>
+<td>The fully qualified path of the xtUML file to import.</td>
+</tr>
+<tr class="even">
+<td>-targetProject &lt;name&gt;</td>
+<td>This argument is used together with &quot;-file&quot;. Specify the name of project to import into. The project must already exist in the workspace. If this is not specified, the project name will be assumed to be the name (minus extension) of the file being imported.</td>
 </tr>
 <tr class="odd">
 <td>-help</td>
@@ -131,7 +139,7 @@ task is initiated by</p>
 </thead>
 <tbody>
 <tr class="odd">
-<td>-launch</td>
+<td>-launch &lt;name&gt;</td>
 <td>The name of the launch configuration to execute</td>
 </tr>
 <tr class="even">
@@ -149,9 +157,9 @@ task is initiated by</p>
 xtUML model files that are derived from a common ancestor. The task is initiated by</p>
 <pre><code>CLI  Merge  &lt;Argument List&gt;</code></pre>
 <p>where <code>&lt;Argument List&gt;</code> must contain either <code>-help</code> or the other arguments</p>
-<table style="width:88%;">
+<table style="width:94%;">
 <colgroup>
-<col style="width: 33%" />
+<col style="width: 40%" />
 <col style="width: 54%" />
 </colgroup>
 <thead>
@@ -162,20 +170,20 @@ xtUML model files that are derived from a common ancestor. The task is initiated
 </thead>
 <tbody>
 <tr class="odd">
-<td>-rightFile</td>
-<td>The name of the remote File to be used in the comparison.</td>
+<td>-rightFile &lt;file&gt;</td>
+<td>The name of the remote file to be used in the comparison.</td>
 </tr>
 <tr class="even">
-<td>-leftFile</td>
-<td>The name of the local File to be used in the comparison.</td>
+<td>-leftFile &lt;file&gt;</td>
+<td>The name of the local file to be used in the comparison.</td>
 </tr>
 <tr class="odd">
-<td>-ancestorFile</td>
+<td>-ancestorFile &lt;file&gt;</td>
 <td>The name of the common ancestor to the rightFile and the leftFile.</td>
 </tr>
 <tr class="even">
-<td>-outputFile</td>
-<td>The name of the File to hold the result produced when the leftFile is merged with the rightFile.</td>
+<td>-outputFile &lt;file&gt;</td>
+<td>The name of the file to hold the result produced when the leftFile is merged with the rightFile.</td>
 </tr>
 <tr class="odd">
 <td>-help</td>

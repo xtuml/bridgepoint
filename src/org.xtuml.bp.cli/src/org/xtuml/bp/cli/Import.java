@@ -32,7 +32,7 @@ public class Import implements IApplication {
 					new CommandLineOption("-file", "",
 							"The fully qualified name of the xtUML file to import."),
 					new CommandLineOption("-targetProject", "",
-							"The name of the project to import into.  The file name (minus extension) is assumed if this argument is not specified."),
+							"The name of the pre-existing project to import into.  The file name (minus extension) is assumed if this argument is not specified."),
 					new CommandLineOption(
 							"-deleteExisting",
 							false,

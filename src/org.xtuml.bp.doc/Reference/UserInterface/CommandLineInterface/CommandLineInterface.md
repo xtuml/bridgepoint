@@ -47,15 +47,15 @@ CLI  Build  <Argument List>
 ```
 where ```<Argument List>``` can contain any of the following options
 
-| Parameter             | Description                          |
-|-----------------------|--------------------------------------|
-| -project              | The name of the project to be built  |
-| -buildConfig          | The name of the CDT build configuration to be used. If omitted then the current Active configuration is used |
-| -prebuildOnly         | Only the BridgePoint Model Compiler pre-builder will be executed |
-| -doNotParse           | Do not parse the model during this build process.  Only applies if -prebuildOnly is used. |  
-| -cleanCLI             | Perform a clean build of the project |
-| -debugCLI             | Launch a workbench and leave it open after executing |
-| -help                 | Displays usage information |
+| Parameter                 | Description                          |
+|---------------------------|--------------------------------------|
+| -project &lt;name&gt;     | The name of the project to be built  |
+| -buildConfig &lt;name&gt; | The name of the CDT build configuration to be used. If omitted then the current Active configuration is used |
+| -prebuildOnly             | Only the BridgePoint Model Compiler pre-builder will be executed |
+| -doNotParse               | Do not parse the model during this build process.  Only applies if -prebuildOnly is used. |  
+| -cleanCLI                 | Perform a clean build of the project |
+| -debugCLI                 | Launch a workbench and leave it open after executing |
+| -help                     | Displays usage information |
 
  
 Importing a Project Using the CLI
@@ -67,11 +67,13 @@ CLI  Import  <Argument List>
 ```  
 where ```<Argument List>``` can contain any of the following options
 
-| Parameter             | Description                          |
-|-----------------------|--------------------------------------|
-| -project              | The fully qualified name of the project to be Imported  |
-| -deleteExisting       | If a project with the same name exists in the workspace, this option will delete it before importing the named project. |
-| -help                 | Displays usage information |
+| Parameter                   | Description                          |
+|-----------------------------|--------------------------------------|
+| -project &lt;directory&gt;  | The fully qualified path of the project to be Imported  |
+| -deleteExisting             | If a project with the same name exists in the workspace, this option will delete it before importing the named project. |
+| -file &lt;file&gt;          | The fully qualified path of the xtUML file to import. |
+| -targetProject &lt;name&gt; | This argument is used together with "-file". Specify the name of project to import into.  The project must already exist in the workspace. If this is not specified, the project name will be assumed to be the name (minus extension) of the file being imported. |
+| -help                       | Displays usage information |
    
     
 Executing a Project Using the CLI
@@ -86,7 +88,7 @@ where ```<Argument List>``` can contain any of the following options
    
 | Parameter             | Description                          |
 |-----------------------|--------------------------------------|
-| -launch               | The name of the launch configuration to execute |
+| -launch &lt;name&gt;  | The name of the launch configuration to execute |
 | -debugCLI             | Launch a workbench and leave it open after executing the command |
 | -help                 | Displays usage information |
    
@@ -101,13 +103,13 @@ CLI  Merge  <Argument List>
 ```   
 where ```<Argument List>``` must contain either ```-help``` or the other arguments
    
-| Parameter             | Description                          |
-|-----------------------|--------------------------------------|
-| -rightFile            | The name of the remote File to be used in the comparison.| 
-| -leftFile             | The name of the local File to be used in the comparison.|
-| -ancestorFile         | The name of the common ancestor to the rightFile and the leftFile.|
-| -outputFile           | The name of the File to hold the result produced when the leftFile is merged with the rightFile.|
-| -help                 | Displays usage information |
+| Parameter                  | Description                          |
+|----------------------------|--------------------------------------|
+| -rightFile &lt;file&gt;    | The name of the remote file to be used in the comparison.| 
+| -leftFile  &lt;file&gt;    | The name of the local file to be used in the comparison.|
+| -ancestorFile &lt;file&gt; | The name of the common ancestor to the rightFile and the leftFile.|
+| -outputFile &lt;file&gt;   | The name of the file to hold the result produced when the leftFile is merged with the rightFile.|
+| -help                      | Displays usage information |
    
 Note that the Merge task will fail and no output file generated, if conflicts exist between the 
 leftFile and the rightFile. Also, an absolute path must be specified for the left, right, ancestor 

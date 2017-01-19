@@ -155,10 +155,6 @@ public class ImportWorkbenchAdvisor extends BPCLIWorkbenchAdvisor {
 			} 
 		} 
 		if (!project.exists()) {
-			/* TODO - it would be nicer if this tool created the required project, but it doesn't yet.  Maybe
-			 * We need to add this bit into the Runnable below?
-			System.out.println("  Project " + targetProjectName + " does not exist.  Creating.");
-			project = ProjectUtilities.createProject(targetProjectName);*/
 			throw new BPCLIException("The single file import requires the target project already exist.");
 		}
 		
