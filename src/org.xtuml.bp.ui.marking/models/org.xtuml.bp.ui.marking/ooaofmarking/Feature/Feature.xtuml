@@ -17,12 +17,11 @@ INSERT INTO O_TFR
 	'done = false;
 while ( not done )
   // Read a line from the feature file populating line array.
-  line[7]="";line[6]="";line[5]="";line[4]="";line[3]="";line[2]="";line[1]="";line[0]="";
-  count = CSV::readline( filename:param.filename, values:line );
+  count = CSV::readline( filename:param.filename, values:param.values );
   if ( count > 0 )
     if ( count == 2 ) // valid non-comment line
-      markable = Markable::populate( name:line[0] );
-      feature = Feature::populate( name:line[1] );
+      markable = Markable::populate( name:param.values[0] );
+      feature = Feature::populate( name:param.values[1] );
       select any related_feature related by markable->Feature[R2822] where ( selected.name == feature.name );
       if ( empty related_feature )
         relate markable to feature across R2822;
@@ -46,6 +45,34 @@ INSERT INTO O_TPARM
 	'',
 	"00000000-0000-0000-0000-000000000000",
 	'');
+INSERT INTO O_TPARM
+	VALUES ("3ec180c6-6ff0-42bd-97cd-2600efc2ca32",
+	"8b10470c-1967-4506-9545-030a91275fe0",
+	'values',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'[8]',
+	"e9f8029b-e5a2-4787-b36c-c85603887a2f",
+	'');
+INSERT INTO S_DIM
+	VALUES (8,
+	0,
+	"00000000-0000-0000-0000-000000000000",
+	"00000000-0000-0000-0000-000000000000",
+	"00000000-0000-0000-0000-000000000000",
+	"00000000-0000-0000-0000-000000000000",
+	"00000000-0000-0000-0000-000000000000",
+	"00000000-0000-0000-0000-000000000000",
+	"00000000-0000-0000-0000-000000000000",
+	"3ec180c6-6ff0-42bd-97cd-2600efc2ca32",
+	"00000000-0000-0000-0000-000000000000",
+	"00000000-0000-0000-0000-000000000000",
+	"00000000-0000-0000-0000-000000000000",
+	"00000000-0000-0000-0000-000000000000",
+	"00000000-0000-0000-0000-000000000000",
+	"00000000-0000-0000-0000-000000000000",
+	"a1d1ebdf-6d0b-4792-91a7-2d94a690144a",
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_TFR
 	VALUES ("6236b28d-3b1e-4ae8-82f6-aeae0fcb28f8",
 	"cb1516d4-40ca-4afa-954b-5fdc4726e5e7",
@@ -53,14 +80,14 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	0,
-	'line[7]="";line[2]="";
-select many markables from instances of Markable;
+	'select many markables from instances of Markable;
 for each markable in markables
   select many features related by markable->Feature[R2822];
   for each feature in features;
-    line[1] = feature.name;
-    line[0] = markable.name;
-    r = CSV::writeline( filename:param.filename + "a", values:line );
+    param.values[0] = markable.name;
+    param.values[1] = feature.name;
+    param.values[2] = "";
+    r = CSV::writeline( filename:param.filename + "a", values:param.values );
   end for;
 end for;',
 	1,
@@ -76,6 +103,34 @@ INSERT INTO O_TPARM
 	'',
 	"00000000-0000-0000-0000-000000000000",
 	'');
+INSERT INTO O_TPARM
+	VALUES ("b4243508-85a2-426b-ad15-6292f51c4725",
+	"6236b28d-3b1e-4ae8-82f6-aeae0fcb28f8",
+	'values',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	1,
+	'[8]',
+	"d623c5ba-aaef-457b-9476-6ba8d15e785e",
+	'');
+INSERT INTO S_DIM
+	VALUES (8,
+	0,
+	"00000000-0000-0000-0000-000000000000",
+	"00000000-0000-0000-0000-000000000000",
+	"00000000-0000-0000-0000-000000000000",
+	"00000000-0000-0000-0000-000000000000",
+	"00000000-0000-0000-0000-000000000000",
+	"00000000-0000-0000-0000-000000000000",
+	"00000000-0000-0000-0000-000000000000",
+	"b4243508-85a2-426b-ad15-6292f51c4725",
+	"00000000-0000-0000-0000-000000000000",
+	"00000000-0000-0000-0000-000000000000",
+	"00000000-0000-0000-0000-000000000000",
+	"00000000-0000-0000-0000-000000000000",
+	"00000000-0000-0000-0000-000000000000",
+	"00000000-0000-0000-0000-000000000000",
+	"ac18f360-e821-4c6f-bcdb-54615b7b7a74",
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_TFR
 	VALUES ("7972a86a-8b4f-48e0-ab45-ba1e31bc5844",
 	"cb1516d4-40ca-4afa-954b-5fdc4726e5e7",
