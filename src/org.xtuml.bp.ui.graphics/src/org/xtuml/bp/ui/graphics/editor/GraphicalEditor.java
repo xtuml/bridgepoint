@@ -127,6 +127,7 @@ import org.eclipse.ui.views.properties.PropertySheetPage;
 import org.osgi.framework.Bundle;
 import org.xtuml.bp.core.ActionHome_c;
 import org.xtuml.bp.core.Action_c;
+import org.xtuml.bp.core.Actiondialect_c;
 import org.xtuml.bp.core.Component_c;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.ModelClass_c;
@@ -1192,7 +1193,7 @@ public class GraphicalEditor extends GraphicalEditorWithFlyoutPalette implements
 									
 									String editorId = elems[j].getAttribute("class"); //$NON-NLS-1$
 									
-									String dialect = "";
+								    int dialect = -1;
 									if (editorId.equals(ActivityEditorInput.EDITOR_ID)) {
 										// see if the current element should open
 										// something other than itself
@@ -1207,35 +1208,57 @@ public class GraphicalEditor extends GraphicalEditorWithFlyoutPalette implements
 										}
 
 										// Get the value of the dialect attribute
-										Method getDialectMethod = dialectObj.getClass().getMethod("getDialect"); //$NON-NLS-1$
-										dialect = (String) getDialectMethod.invoke(dialectObj, new Object[]{});
+                                        try {
+                                            Method getDialectMethod = dialectObj.getClass().getMethod("getDialect"); //$NON-NLS-1$
+                                            dialect = (Integer) getDialectMethod.invoke(dialectObj);
+                                        } catch (NoSuchMethodException e) {
+                                            System.out.println(e);
+                                        } catch (NullPointerException e) {
+                                            System.out.println(e);
+                                        } catch (SecurityException e) {
+                                            System.out.println(e);
+                                        } catch (IllegalAccessException e) {
+                                            System.out.println(e);
+                                        } catch (IllegalArgumentException e) {
+                                            System.out.println(e);
+                                        } catch (InvocationTargetException e) {
+                                            System.out.println(e);
+                                        } catch (ExceptionInInitializerError e) {
+                                            System.out.println(e);
+                                        }
 
 										// If the "dialect" attribute is neither "oal" nor "masl",
 										// check the default language preference. Set "dialect" to
 										// be the preference value and open the proper editor.
-										if (dialect.isEmpty()) {
-											IPreferenceStore store = CorePlugin.getDefault().getPreferenceStore();
-											String option = store
-													.getString(BridgePointPreferencesStore.DEFAULT_ACTION_LANGUAGE_DIALECT);
+                                        if (dialect != Actiondialect_c.masl && dialect != Actiondialect_c.oal) {
+                                            IPreferenceStore store = CorePlugin.getDefault().getPreferenceStore();
+                                            dialect = store
+                                                    .getInt(BridgePointPreferencesStore.DEFAULT_ACTION_LANGUAGE_DIALECT);
 
-											Class[] type = new Class[1];
-											type[0] = String.class;
-											Method setDialectMethod = dialectObj.getClass().getMethod("setDialect", type); //$NON-NLS-1$
-											Object[] args = new Object[1];
-
-											if (option.equals("MASL")) { //$NON-NLS-1$
-												dialect = "masl"; //$NON-NLS-1$
-												args[0] = dialect;
-											} else {
-												dialect = "oal"; //$NON-NLS-1$
-												args[0] = dialect;
-											}
-											setDialectMethod.invoke(dialectObj, args);
-										}
+                                            try {
+                                                Method setDialectMethod = dialectObj.getClass().getMethod("setDialect", //$NON-NLS-1$
+                                                        int.class);
+                                                setDialectMethod.invoke(dialectObj, dialect);
+                                            } catch (NoSuchMethodException e) {
+                                                System.out.println(e);
+                                            } catch (NullPointerException e) {
+                                                System.out.println(e);
+                                            } catch (SecurityException e) {
+                                                System.out.println(e);
+                                            } catch (IllegalAccessException e) {
+                                                System.out.println(e);
+                                            } catch (IllegalArgumentException e) {
+                                                System.out.println(e);
+                                            } catch (InvocationTargetException e) {
+                                                System.out.println(e);
+                                            } catch (ExceptionInInitializerError e) {
+                                                System.out.println(e);
+                                            }
+                                        }
 									}
 
 									// check to see if we need to open the MASL editor
-									if (MASLEditorInput.isSupported(current) && dialect.equals("masl")) { //$NON-NLS-1$
+								    if (MASLEditorInput.isSupported(current) && dialect == Actiondialect_c.masl) { //$NON-NLS-1$
 										inputClass = bundle.loadClass("org.xtuml.bp.ui.text.masl.MASLEditorInput"); //$NON-NLS-1$
 										try {
 											editorId = (String) inputClass.getField("EDITOR_ID").get(null); //$NON-NLS-1$
