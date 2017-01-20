@@ -461,6 +461,42 @@ end for;',
 	"d106c7e6-3fc2-42ee-8b92-0ff9fd9fd881",
 	0);
 INSERT INTO O_TFR
+	VALUES ("c080e05a-980d-4276-9b38-d196cbcdf7d4",
+	"8969f73f-606a-4e4e-a698-aafd54115472",
+	'getSatisfactionCount',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	1,
+	'count = 0;
+select one outerPkg related by self->C_IR[R4009]->C_PO[R4016]->C_C[R4010]->PE_PE[R8001]->EP_PKG[R8000];
+select one outerComp related by self->C_IR[R4009]->C_PO[R4016]->C_C[R4010]->PE_PE[R8001]->C_C[R8003];
+select many satisfactions related by self->C_SF[R4002];
+for each satisfaction in satisfactions
+  select one sPkg related by satisfaction->PE_PE[R8001]->EP_PKG[R8000];
+  if (not_empty sPkg and outerPkg.Package_ID == sPkg.Package_ID)
+    count = count+1;
+  end if;
+  select one sComp related by satisfaction->PE_PE[R8001]->C_C[R8003];
+  if (not_empty sComp and outerComp.Id == sComp.Id)
+    count = count+1;
+  end if;  
+end for;
+return count;
+',
+	1,
+	'',
+	"e235d99a-030b-46cf-be8d-ca85d8821d1d",
+	0);
+INSERT INTO O_TPARM
+	VALUES ("537682d3-008e-4fd1-8b9c-d05a45e4872a",
+	"c080e05a-980d-4276-9b38-d196cbcdf7d4",
+	'filterDelegations',
+	"ba5eda7a-def5-0000-0000-000000000001",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
 	VALUES ("0e4199bc-7e85-4d39-9f8c-13d9c6d8ba47",
 	"8969f73f-606a-4e4e-a698-aafd54115472",
 	'canLinkConnector',
@@ -484,7 +520,7 @@ return isLinked;
 ',
 	1,
 	'',
-	"e235d99a-030b-46cf-be8d-ca85d8821d1d",
+	"c080e05a-980d-4276-9b38-d196cbcdf7d4",
 	0);
 INSERT INTO O_TPARM
 	VALUES ("e60fd2b8-4359-4a0b-842b-2e12ddee4168",
