@@ -97,6 +97,7 @@ import org.xtuml.bp.core.ReferredToClassInAssoc_c;
 import org.xtuml.bp.core.ReferringClassInAssoc_c;
 import org.xtuml.bp.core.Requirement_c;
 import org.xtuml.bp.core.ReturnMessage_c;
+import org.xtuml.bp.core.Satisfaction_c;
 import org.xtuml.bp.core.SendSignal_c;
 import org.xtuml.bp.core.SimpleAssociation_c;
 import org.xtuml.bp.core.StateEventMatrixEntry_c;
@@ -2186,5 +2187,13 @@ public static void Settoolbarstate(boolean readonly) {
 		
 		return isDestination;
 	}
-        
+
+	public static Object Getprovisionfromsatisfaction(Object requirement, Object satisfaction, Object canvas) {
+		Object result = null;
+		if (satisfaction instanceof Satisfaction_c) {
+			result = Provision_c.getOneC_POnR4002((Satisfaction_c)satisfaction);
+		}
+		return result;
+	}
+
 }// End Cl_c

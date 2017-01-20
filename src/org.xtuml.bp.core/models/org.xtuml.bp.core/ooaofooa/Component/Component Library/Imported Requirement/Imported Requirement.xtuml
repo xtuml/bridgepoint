@@ -532,6 +532,32 @@ return cuttable;',
 	'',
 	"da572e8e-a78d-4894-9e29-b7b09351e7ba",
 	0);
+INSERT INTO O_TFR
+	VALUES ("1bd6fd6e-f5ad-4e99-a9cb-0c69ffa8adcc",
+	"7f4be496-f22b-4efc-af0d-8a4fdb873e98",
+	'getSatisfactionID',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	1,
+	'select one satisfaction related by self->C_SF[R4706];
+if not_empty satisfaction
+  return satisfaction.Id;
+end if;
+return GD::NULL_UNIQUE_ID();
+',
+	1,
+	'',
+	"850a306c-8d5c-4909-a6d3-a0ceba09b294",
+	0);
+INSERT INTO O_TPARM
+	VALUES ("99628fed-1596-46ee-ab1a-b30c2dd0d240",
+	"1bd6fd6e-f5ad-4e99-a9cb-0c69ffa8adcc",
+	'filterDelegations',
+	"ba5eda7a-def5-0000-0000-000000000001",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
 INSERT INTO O_DBATTR
 	VALUES ("9e03a085-3fe5-4062-a4ce-63b081e781d8",
 	"7f4be496-f22b-4efc-af0d-8a4fdb873e98",

@@ -952,6 +952,52 @@ INSERT INTO O_TFR
 	'',
 	"363a633a-e234-44a0-914a-5c8dab31c998",
 	0);
+INSERT INTO O_TFR
+	VALUES ("7c1c3a73-7984-4c60-a0c1-429e730a4ed3",
+	"74121abd-8a97-4ef3-a0af-5cea170b182b",
+	'getSatisfactionID',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	1,
+	'// We''re preincrementing the index
+count = -1;
+select one outerPkg related by self->C_IR[R4009]->C_PO[R4016]->C_C[R4010]->PE_PE[R8001]->EP_PKG[R8000];
+select one outerComp related by self->C_IR[R4009]->C_PO[R4016]->C_C[R4010]->PE_PE[R8001]->C_C[R8003];
+select many satisfactions related by self->C_SF[R4002];
+for each satisfaction in satisfactions
+  select one sPkg related by satisfaction->PE_PE[R8001]->EP_PKG[R8000];
+  select one sComp related by satisfaction->PE_PE[R8001]->C_C[R8003];
+  if ((not_empty outerPkg and outerPkg.Package_ID == sPkg.Package_ID) or (not_empty outerComp and outerComp.Id == sComp.Id))
+    count = count+1;
+  end if;
+  if (count == param.index)
+      return satisfaction.Id;  
+  end if;  
+end for;
+return GD::NULL_UNIQUE_ID();
+',
+	1,
+	'',
+	"c8c34f79-e1b7-41b1-a7c6-48ea73600662",
+	0);
+INSERT INTO O_TPARM
+	VALUES ("8c2676cf-02c6-4696-9903-8b3b1cd6283b",
+	"7c1c3a73-7984-4c60-a0c1-429e730a4ed3",
+	'filterDelegations',
+	"ba5eda7a-def5-0000-0000-000000000001",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("df3af8b0-9dcb-4dd3-8ee7-b3379d4352ad",
+	"7c1c3a73-7984-4c60-a0c1-429e730a4ed3",
+	'index',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"8c2676cf-02c6-4696-9903-8b3b1cd6283b",
+	'');
 INSERT INTO O_DBATTR
 	VALUES ("54fa393d-5a91-4fb6-869d-27b6c7e71af4",
 	"74121abd-8a97-4ef3-a0af-5cea170b182b",
