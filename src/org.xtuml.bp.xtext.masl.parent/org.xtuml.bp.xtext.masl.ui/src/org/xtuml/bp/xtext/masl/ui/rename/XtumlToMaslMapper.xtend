@@ -8,7 +8,8 @@ import org.xtuml.bp.core.Attribute_c
 import org.xtuml.bp.core.Component_c
 import org.xtuml.bp.core.Function_c
 import org.xtuml.bp.core.InstanceStateMachine_c
-import org.xtuml.bp.core.InterfaceOperation_c
+import org.xtuml.bp.core.RequiredOperation_c
+import org.xtuml.bp.core.ProvidedOperation_c
 import org.xtuml.bp.core.ModelClass_c
 import org.xtuml.bp.core.Operation_c
 import org.xtuml.bp.core.Port_c
@@ -19,6 +20,11 @@ import org.xtuml.bp.core.UserDataType_c
 import org.xtuml.bp.core.common.NonRootModelElement
 import org.xtuml.bp.xtext.masl.masl.structure.StructurePackage
 import org.xtuml.bp.xtext.masl.masl.types.TypesPackage
+import org.xtuml.bp.core.InterfaceReference_c
+import org.xtuml.bp.core.Requirement_c
+import org.xtuml.bp.core.RequiredExecutableProperty_c
+import org.xtuml.bp.core.Provision_c
+import org.xtuml.bp.core.ProvidedExecutableProperty_c
 
 class XtumlToMaslMapper {
 	
@@ -33,7 +39,9 @@ class XtumlToMaslMapper {
 				#[domainServiceDeclaration, domainFunctionDeclaration]
 //			FunctionParameter_c:
 //				#[parameter]
-			InterfaceOperation_c:
+			RequiredOperation_c:
+				#[terminatorServiceDeclaration, terminatorFunctionDeclaration]
+			ProvidedOperation_c:
 				#[terminatorServiceDeclaration, terminatorFunctionDeclaration]
 			ModelClass_c:
 				#[objectDeclaration]
@@ -64,9 +72,14 @@ class XtumlToMaslMapper {
 				xtumlElement.component.maslQualifiedName.append(xtumlElement.name)
 //			FunctionParameter_c:
 //				Function_c.getOneS_SYNCOnR24(xtumlElement).maslQualifiedName.append(xtumlElement.name)
-			InterfaceOperation_c:
-				// TODO: derive the name for the terminator action.
-				null
+			RequiredOperation_c:
+                Port_c.getOneC_POOnR4016(InterfaceReference_c.getOneC_IROnR4009(Requirement_c.getOneC_ROnR4500(
+                    RequiredExecutableProperty_c.getOneSPR_REPOnR4502(xtumlElement))))
+                    .maslQualifiedName.append(xtumlElement.name)
+			ProvidedOperation_c:
+                Port_c.getOneC_POOnR4016(InterfaceReference_c.getOneC_IROnR4009(Provision_c.getOneC_POnR4501(
+                    ProvidedExecutableProperty_c.getOneSPR_PEPOnR4503(xtumlElement))))
+                    .maslQualifiedName.append(xtumlElement.name)
 			ModelClass_c:
 				xtumlElement.component.maslQualifiedName.append(xtumlElement.name)
 			Operation_c:
