@@ -381,16 +381,17 @@ public class TransactionManager {
         }
         for ( PersistableModelComponent pmc : pmcs ) {
             if ( pmc.getActivityImportFailures() ) {
-            	boolean proceed = false;
-                String message = "Errors in activity file caused import failures. " +
-                                 "Continuing could result in action language being lost.\n" +
-                                 "Ensure that you have not added, deleted, or modified any activity signatures. " +
-                                 "Select OK to proceed anyway.";
-                proceed = UIUtil.openScrollableTextDialog( PlatformUI.getWorkbench().getModalDialogShellProvider().getShell(),
-                                                           true, "ERROR!", pmc.getActivityImportFailureMessage(),
-                                                           message, null, null, false, false );
-                if ( !proceed )
-                    return false;
+            	String message = "Errors in an action language file caused a load failure. " +
+                                 "It is likely that an activty signature was edited or deleted.\n" + 
+                                 "Ensure that function names, parameters, return types and end " +
+                                 "tags are not modified by hand in the action language file.\n\n" +
+                                 "Print to print this message. " +
+                                 "Save to save the body of this message. " +
+                                 "OK to dismiss.";
+                UIUtil.openScrollableTextDialog( PlatformUI.getWorkbench().getModalDialogShellProvider().getShell(),
+                                                 false, "ERROR", pmc.getActivityImportFailureMessage(),
+                                                 message, null, null, true, true );
+                return false;
             }
         }
 
