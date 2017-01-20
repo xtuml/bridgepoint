@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.MultiStatus;
@@ -57,13 +56,11 @@ public class RenameParticipantUtil {
 			IFile file = element.getFile();
 			if(file == null) 
 				return Status.OK_STATUS;
-			IProject project = file.getProject();
-			String oldQualifiedName = getQualifiedName(oldName, file);
 			IStatus returnStatus = null;
 			for(IConfigurationElement configurationElement: Platform.getExtensionRegistry().getConfigurationElementsFor(EXTENSION_POINT_ID)) {
 				try {
 					IRenameElementParticipant renameParticipant = (IRenameElementParticipant) configurationElement.createExecutableExtension(CLASS_ATTRIBUTE);
-					IStatus status = renameParticipant.beforeRenameElement(oldQualifiedName, newName, element.getClass().getSimpleName(), project);
+					IStatus status = renameParticipant.beforeRenameElement(element, newName);
 					returnStatus = merge(returnStatus, status);
 					if(returnStatus.getSeverity() == IStatus.ERROR)
 						break;
@@ -84,7 +81,7 @@ public class RenameParticipantUtil {
 	}
 	
 	private IStatus doAfterRenameElement() {
-		IStatus returnStatus = null;
+		IStatus returnStatus = Status.OK_STATUS;
 		for(IRenameElementParticipant participant: participants) {
 			IStatus status = participant.afterRenameElement();
 			returnStatus = merge(returnStatus, status);
@@ -103,19 +100,4 @@ public class RenameParticipantUtil {
 		}
 	}
 
-	private static String getQualifiedName(String oldName, IFile file) {
-		String[] qualifiedName = file.getProjectRelativePath().removeLastSegments(1).segments();
-		StringBuilder builder = new StringBuilder();
-		boolean firstSegment = true;
-		for(String segment: qualifiedName) {
-			if(!firstSegment)
-				builder.append("::");
-			firstSegment = false;
-			builder.append(segment);
-		}
-		if(!firstSegment)
-			builder.append("::");
-		builder.append(oldName);
-		return builder.toString();
-	}
 }
