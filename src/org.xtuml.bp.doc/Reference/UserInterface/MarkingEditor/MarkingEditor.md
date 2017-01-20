@@ -34,7 +34,7 @@ Simply right-click on the project then choose ```Manage Project Markings```.
 __Figure 1__   
     
 This action will open the ```Manage Project Markings``` dialog (Figure 2).  This 
-dialog displays provides selection lists and a table editor to enter values.   
+dialog displays selection lists and a table editor to enter values.   
    
 ![Image of Marking Editor](marking_editor.png)  
 __Figure 2__   
@@ -44,7 +44,7 @@ The modeler will first select the type of element they wish to mark, such as a
 
 Once the element type is selected, the ```Model Element``` list is populated with 
 all the instances of that element type in the current model.  The elements are 
-displayed with using their path inside the model to allow the user to uniquely 
+displayed using their path inside the model to allow the user to uniquely 
 identify the desired model element.   
    
 After the model element is selected, the table is populated with the available
@@ -70,7 +70,7 @@ Navigator view in the xtUML Modeling perspective or by opening the C/C++ perspec
 ### File: features.mark   
 A file called ```features.mark``` (a human-readable text file) is created by the 
 model compiler architect and stored in the project's ```gen/```  folder.  This 
-file indicate which features are valid for which OOA of OOA elements (Figure 3).
+file indicates which features are valid for which OOA of OOA elements (Figure 3).
     
 ```
 # Features that can be set on classes
@@ -144,10 +144,11 @@ There are a few specific things to note about this file:
 * Comments __are not__ supported  
 * Marks are not automatically updated if elements are renamed or removed.  This 
 means that if the modeler moves, deletes, or renames an element, they must either
-remark the new element in this file and delete the old element, or edit the new
+re-mark the new element in this file and delete the old element, or edit the new
 path data into this file by hand on the old entries.  Marks that do not match
 any instances in the model are simply ignored by the ```Export MASL``` process and
-are not passed downstream.  Therefore, they do not hurt anything if left in place.    
+are not passed downstream.  Therefore, they do not hurt anything if left in place.
+The export process will provide warnings for unused marks.        
     
 This file is loaded and persisted in an ordered way to minimize file differences 
 when data is added and removed with the editor.  The primary sorting key is the 

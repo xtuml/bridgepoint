@@ -111,6 +111,7 @@ public class MarkingData {
 		Set<String> featureSet = featureMap.keySet();
 		Iterator<String> featureSetIter = featureSet.iterator();
 		String invalidElements = "";
+		String msg = "";
 		
 		while (featureSetIter.hasNext()) {
 			String ooaClassName = featureSetIter.next();
@@ -123,11 +124,18 @@ public class MarkingData {
 		}
 		
 		if ( !invalidElements.isEmpty() ) {
-			invalidElements = "The features marking data contains the following invalid element types. You must\n" + 
+			msg = "The features marking data contains the following invalid element types. You must\n" + 
 					"correct these errors in order to edit application marks: \n\n" + invalidElements;
 		}
 		
-		return invalidElements;
+		if ( msg.isEmpty() ) {
+			if ( featureMap.isEmpty() ) {
+				msg = "The gen/features.mark file does not contain any model compiler features. You must\n" +
+					  "specify valid features to proceed.  For more information see the documentation at:\n\n" + 
+					  "Help > BridgePoint UML Suite Help > Reference > User Interface > Marking Editor.\n";
+			}
+		}
+		return msg;
 	}
 	
 	/**
