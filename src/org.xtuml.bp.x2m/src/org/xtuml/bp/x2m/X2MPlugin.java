@@ -5,13 +5,20 @@ import java.net.URL;
 
 import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.jface.resource.ImageDescriptor;
+import org.eclipse.ui.IPartListener2;
+import org.eclipse.ui.IStartup;
+import org.eclipse.ui.IWorkbench;
+import org.eclipse.ui.IWorkbenchPage;
+import org.eclipse.ui.IWorkbenchWindow;
+import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
+import org.xtuml.bp.x2m.refresher.MASLEditorPartListener;
 
 /**
  * The main plugin class to be used in the desktop.
  */
-public class X2MPlugin extends AbstractUIPlugin {
+public class X2MPlugin extends AbstractUIPlugin implements IStartup {
 
 	//The shared instance.
 	private static X2MPlugin plugin;
@@ -20,14 +27,14 @@ public class X2MPlugin extends AbstractUIPlugin {
 	 * The constructor.
 	 */
 	public X2MPlugin() {
-		plugin = this;
+		plugin = this;		
 	}
 
 	/**
 	 * This method is called upon plug-in activation
 	 */
 	public void start(BundleContext context) throws Exception {
-		super.start(context);
+		super.start(context);		
 	}
 
 	/**
@@ -66,5 +73,36 @@ public class X2MPlugin extends AbstractUIPlugin {
         }
         return resolvedURL.getPath();
     }
+    
+    public void earlyStartup() {
+		final IWorkbench workbench = PlatformUI.getWorkbench();
+		workbench.getDisplay().asyncExec(new Runnable() {
+			public void run() {
+				System.out.println("TODO -starting up to add the listener");
+				IWorkbenchWindow window = workbench.getActiveWorkbenchWindow();
+				IWorkbenchPage page = null;
+				if (window != null) {
+					page = window.getActivePage();
+				}
 
+				if (page == null) {
+					IWorkbenchWindow[] windows = workbench.getWorkbenchWindows();
+					for (int i = 0; i < windows.length; i++) {
+						if (windows[i] != null) {
+							window = windows[i];
+							page = windows[i].getActivePage();
+							if (page != null)
+								System.out.println("TODO -starting up to add the listener2");
+								page.addPartListener((IPartListener2) new MASLEditorPartListener());
+						}
+					}
+				} else {
+					System.out.println("TODO -starting up to add the listener");
+					page.addPartListener((IPartListener2) new MASLEditorPartListener());
+				}
+			}
+		});
+
+    }
+    
 }
