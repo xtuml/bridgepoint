@@ -43,6 +43,10 @@ mark.path = param.path;
 mark.value = param.value;
 select any feature from instances of Feature where ( selected.name == param.feature_name );
 select any markable from instances of Markable where ( selected.name == param.markable_name );
+if ( empty markable )
+  // CDS - We do not get a markable_name, so find one related to the feature.
+  select any markable related by feature->Markable[R2822];
+end if;
 if ( not_empty feature and not_empty markable )
   relate feature to markable across R2821 using mark;
 end if;
@@ -162,14 +166,16 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	0,
-	'select many marks from instances of Mark;
+	'newfilename = param.filename + "a";
+select many marks from instances of Mark;
 for each mark in marks
   // CDS - need mark.markable_name
   param.values[0] = mark.path;
   param.values[1] = mark.feature_name;
   param.values[2] = mark.value;
   param.values[3] = "";
-  r = CSV::writeline( filename:param.filename + "a", values:param.values );
+//r = CSV::writeline( filename:param.filename + "a", values:param.values );
+  r = CSV::writeline( filename:newfilename, values:param.values );
 end for;',
 	1,
 	'',
