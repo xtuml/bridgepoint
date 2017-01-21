@@ -39,7 +39,7 @@ INSERT INTO O_TFR
 	"401fe5b0-5de4-43ba-9db0-de05f9b422f7",
 	0,
 	'create object instance mark of Mark;
-mark.path = ""; // path the element
+mark.path = param.path;
 mark.value = param.value;
 select any feature from instances of Feature where ( selected.name == param.feature_name );
 select any markable from instances of Markable where ( selected.name == param.markable_name );
