@@ -474,8 +474,9 @@ while (j < connectorCount)
     continue;
   end if;
 
-  // create a null instance to use later in the routine
-  select any provisionInSatisfactionGDGEInstance related by model->GD_GE[R1]  where selected.elementId==OS::NULL_UNIQUE_ID();
+  // create a null instance to use later in the routine.
+  // This will hold a Provision_c instance
+  provisionInSatisfactionOOAInstance = OS::NULL_INSTANCE();
   
   if((not foundExistingStartConnector) and (not foundExistingEndConnector) )
     side2_GD_GEId = OS::NULL_UNIQUE_ID();
@@ -483,10 +484,15 @@ while (j < connectorCount)
     // model element that is on the other side of this connector
     // (if there is one)
     if (not searchingForSide2)
-      // In cases where this operation is available (currently only interfaces) we do
-      // not have to perform an exhaustive search of the other side of the connector.
-      // Instead, we use the ooaofooa to give us the other side.
-      if ((targetSpec.Name=="Imported Provided Interface") or
+      // There are a couple of special cases where we do NOT do an exhaustive
+      // search to find the other side. Here we look to see if this is
+      // one of those cases.
+      if (param.passNumber == 3 and self.Bridge_NumElements=="Getsatisfactioncount")
+        // There is a GD_GE provision on this canvas, and I need to find it.
+        // We should have already validated (in ooaofooa) that this is on the same canvas.
+        provisionInSatisfactionOOAInstance = CL::getProvisionFromSatisfaction(satisfaction:connectorInstance);
+        side2_GD_GEId = CL::getOOAId(from:provisionInSatisfactionOOAInstance);
+      elif ((targetSpec.Name=="Imported Provided Interface") or
 	      	(targetSpec.Name=="Imported Required Interface") or
 			(targetSpec.Name=="Provided Interface") or
 			(targetSpec.Name=="Required Interface")
@@ -494,10 +500,6 @@ while (j < connectorCount)
         side2_GD_GEId = CL::getConnectorID(from:graphicalElement.represents,
              index:j, elementTypesMatch:sourceSpec == targetSpec,
              using:self.Bridge_GetConnectorIDConditional);
-	  elif (param.passNumber == 3 and self.Bridge_NumElements=="Getsatisfactioncount")
-        // There is a GD_GE provision on this canvas, and I need to find it.
-        provisionInSatisfaction = CL::getProvisionFromSatisfaction(requirement:graphicalElement.represents, satisfaction:connectorInstance, canvas:model.represents);
-        select any provisionInSatisfactionGDGEInstance related by model->GD_GE[R1] where selected.represents == provisionInSatisfaction;
 	  else // exhauseively search for the other side
         select many shapes related by model->GD_GE[R1];
         for each shapeInPackage in shapes
@@ -580,7 +582,7 @@ while (j < connectorCount)
         side2_OOAID=CL::getOOAId(from:side2_GD_GE.represents);
       end if;
 
-// TODO: use provisionInSatisfactionGDGEInstance to create the satisfaction
+// TODO: use provisionInSatisfactionOOAInstance to create the satisfaction
 // i know that graphicalElement is the GD_GE I need to move , and it need to move
 // to the provisionInSatisfactionGDGEInstance and we need to create a 
 // GD_AOS
