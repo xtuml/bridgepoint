@@ -78,7 +78,6 @@ public class X2MPlugin extends AbstractUIPlugin implements IStartup {
 		final IWorkbench workbench = PlatformUI.getWorkbench();
 		workbench.getDisplay().asyncExec(new Runnable() {
 			public void run() {
-				System.out.println("TODO -starting up to add the listener");
 				IWorkbenchWindow window = workbench.getActiveWorkbenchWindow();
 				IWorkbenchPage page = null;
 				if (window != null) {
@@ -92,12 +91,10 @@ public class X2MPlugin extends AbstractUIPlugin implements IStartup {
 							window = windows[i];
 							page = windows[i].getActivePage();
 							if (page != null)
-								System.out.println("TODO -starting up to add the listener2");
 								page.addPartListener((IPartListener2) new MASLEditorPartListener());
 						}
 					}
 				} else {
-					System.out.println("TODO -starting up to add the listener");
 					page.addPartListener((IPartListener2) new MASLEditorPartListener());
 				}
 			}
