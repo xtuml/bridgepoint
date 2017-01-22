@@ -17,6 +17,7 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
+import org.xtuml.bp.core.ComponentReference_c;
 import org.xtuml.bp.core.Component_c;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.Package_c;
@@ -55,16 +56,21 @@ public class Refresher extends Task {
 		Package_c[] topLevelPkgs = Package_c.getManyEP_PKGsOnR1401(sys);
 
 		for (Package_c pkg : topLevelPkgs) {
-			// select many comps related by pkg->PE_PE[R8000]->C_C[R8001]
-			Component_c[] comps = Component_c.getManyC_CsOnR8001(PackageableElement_c.getManyPE_PEsOnR8000(pkg));
+			// select many compRefs related by pkg->PE_PE[R8000]->CL_IC[R8001]
+			ComponentReference_c[] compRefs = ComponentReference_c.getManyCL_ICsOnR8001(PackageableElement_c.getManyPE_PEsOnR8000(pkg));
 
-			for (Component_c comp : comps) {
-				// get the component name
-				String[] names = new String[1];
-				names[0] = comp.getName();
+			// If the package contains component references treat it as a MASL project.  If it
+			// does not contain any component references, look for components and treat them as
+			// MASL domains.
+			if ( compRefs.length > 0) {
+				exportProject(pkg);
+			} else {
+				// select many comps related by pkg->PE_PE[R8000]->C_C[R8001]
+				Component_c[] comps = Component_c.getManyC_CsOnR8001(PackageableElement_c.getManyPE_PEsOnR8000(pkg));
 
-				// export the domain
-				exportMASL(sys, MASL_DOMAIN, names);
+				for (Component_c comp : comps) {
+					exportDomain(comp);
+				}
 			}
 		}
 	}
