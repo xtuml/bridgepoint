@@ -476,7 +476,8 @@ while (j < connectorCount)
 
   // create a null instance to use later in the routine.
   // This will hold a Provision_c instance
-  provisionInSatisfactionOOAInstance = OS::NULL_INSTANCE();
+  provisionInSatisfaction_OOAInstance = OS::NULL_INSTANCE();
+  provisionInSatisfaction_OOAId = OS::NULL_UNIQUE_ID();
   
   if((not foundExistingStartConnector) and (not foundExistingEndConnector) )
     side2_GD_GEId = OS::NULL_UNIQUE_ID();
@@ -490,8 +491,8 @@ while (j < connectorCount)
       if (param.passNumber == 3 and self.Bridge_NumElements=="Getsatisfactioncount")
         // There is a GD_GE provision on this canvas, and I need to find it.
         // We should have already validated (in ooaofooa) that this is on the same canvas.
-        provisionInSatisfactionOOAInstance = CL::getProvisionFromSatisfaction(satisfaction:connectorInstance);
-        side2_GD_GEId = CL::getOOAId(from:provisionInSatisfactionOOAInstance);
+        provisionInSatisfaction_OOAInstance = CL::getProvisionFromSatisfaction(satisfaction:connectorInstance);
+        provisionInSatisfaction_OOAId = CL::getOOAId(from:provisionInSatisfaction_OOAInstance);
       elif ((targetSpec.Name=="Imported Provided Interface") or
 	      	(targetSpec.Name=="Imported Required Interface") or
 			(targetSpec.Name=="Provided Interface") or
@@ -573,7 +574,7 @@ while (j < connectorCount)
             side1GD_GDElementId = graphicalElement.elementId;
           end if;
           swappedSides = true;
-     end if;
+      end if;
       
       side2_OOAID=OS::NULL_UNIQUE_ID();
       side2_elementID=OS::NULL_UNIQUE_ID();
@@ -582,40 +583,51 @@ while (j < connectorCount)
         side2_OOAID=CL::getOOAId(from:side2_GD_GE.represents);
       end if;
 
-// TODO: use provisionInSatisfactionOOAInstance to create the satisfaction
-// i know that graphicalElement is the GD_GE I need to move , and it need to move
-// to the provisionInSatisfactionGDGEInstance and we need to create a 
-// GD_AOS
-      reprocess = model.newConnector(elementIdOfExistingGD_CON:connectorOOAId,
+      reprocess = false;
+      
+      // Special case to assure the newConnector call for satisfactions is
+      // setup the way it is needed.
+      if (provisionInSatisfaction_OOAId != OS::NULL_UNIQUE_ID()) 
+        // This is the GD_GE that this requirement GD_GE will connect to
+        select any provisionGDGEInstance related by model->GD_GE[R1] where selected.represents==provisionInSatisfaction_OOAInstance;
+        select any modelTool related by model->CT_MTL[R100];
+        if (not_empty modelTool and not_empty provisionGDGEInstance)
+          // the startelement is the element being moved (the requirement side)
+          modelTool.finalizeConnector(endElement:provisionGDGEInstance.elementId,
+                                      startElement:graphicalElement.elementId);
+        end if;                                                        
+      else
+        reprocess = model.newConnector(elementIdOfExistingGD_CON:connectorOOAId,
                        startingGD_GEId:side1GD_GDElementId, arsId:self.Id,
                                                   ooaIdOfElementToConnectTo:side2_OOAID,
                                                   existingGraphicsArePresent:false,
                                                   endingGD_GEId:side2_elementID); 
-
-      select one newConnector related by sourceSpec->GD_GE[R16];
-      //set the OOA_ID of the new GE created
-      newConnector.OOA_ID=connectorOOAId;
-      newConnector.represents=CL::getInstanceFromOOA_ID(
-                                    rootInst: model.represents,
-                                    OOA_ID: newConnector.OOA_ID,
-                                    OOA_Type: newConnector.OOA_Type );
-      if (newConnector.represents == OS::NULL_INSTANCE())
-        // log an error it makes no sense that we would not be able to find the ooaofooa instance at this point
-        CL::logError(message:"Failed to find the ooaofooa instance during graphics reconciliation.  ooaofooa id: " + OS::uniqueIdToString(id:newConnector.OOA_ID) + "  ooaofooa type: " + OS::ooaTypeToString(id:newConnector.OOA_Type));
-      end if;
-      unrelate sourceSpec from newConnector across R16;
       
-      // If we swapped sides to create this element, swap back now
-      if (swappedSides)      
-          temp = side2_GD_GE;
-          side2_GD_GE = graphicalElement;
-          graphicalElement = temp;
-          if (empty graphicalElement) 
-            side1GD_GDElementId = OS::NULL_UNIQUE_ID();
-          else
-            side1GD_GDElementId = graphicalElement.elementId;
-          end if;
-      end if;
+	    select one newConnector related by sourceSpec->GD_GE[R16];
+	    //set the OOA_ID of the new GE created
+	    newConnector.OOA_ID=connectorOOAId;
+	    newConnector.represents=CL::getInstanceFromOOA_ID(
+	                                    rootInst: model.represents,
+	                                    OOA_ID: newConnector.OOA_ID,
+	                                    OOA_Type: newConnector.OOA_Type );
+	    if (newConnector.represents == OS::NULL_INSTANCE())
+	      // log an error it makes no sense that we would not be able to find the ooaofooa instance at this point
+	      CL::logError(message:"Failed to find the ooaofooa instance during graphics reconciliation.  ooaofooa id: " + OS::uniqueIdToString(id:newConnector.OOA_ID) + "  ooaofooa type: " + OS::ooaTypeToString(id:newConnector.OOA_Type));
+	    end if;
+	    unrelate sourceSpec from newConnector across R16;
+	      
+	    // If we swapped sides to create this element, swap back now
+	    if (swappedSides)      
+	        temp = side2_GD_GE;
+	        side2_GD_GE = graphicalElement;
+	        graphicalElement = temp;
+	        if (empty graphicalElement) 
+	          side1GD_GDElementId = OS::NULL_UNIQUE_ID();
+            else
+	          side1GD_GDElementId = graphicalElement.elementId;
+	        end if;
+	    end if;
+	  end if;	  
     end if;
   end if;
   j = j + 1;
