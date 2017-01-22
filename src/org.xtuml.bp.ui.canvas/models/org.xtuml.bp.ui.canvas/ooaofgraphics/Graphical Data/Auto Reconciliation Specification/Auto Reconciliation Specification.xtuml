@@ -478,6 +478,7 @@ while (j < connectorCount)
   // This will hold a Provision_c instance
   provisionInSatisfaction_OOAInstance = OS::NULL_INSTANCE();
   provisionInSatisfaction_OOAId = OS::NULL_UNIQUE_ID();
+  pass3Satisfaction = false;
   
   if((not foundExistingStartConnector) and (not foundExistingEndConnector) )
     side2_GD_GEId = OS::NULL_UNIQUE_ID();
@@ -489,6 +490,7 @@ while (j < connectorCount)
       // search to find the other side. Here we look to see if this is
       // one of those cases.
       if (param.passNumber == 3 and self.Bridge_NumElements=="Getsatisfactioncount")
+        pass3Satisfaction = true;
         // There is a GD_GE provision on this canvas, and I need to find it.
         // We should have already validated (in ooaofooa) that this is on the same canvas.
         provisionInSatisfaction_OOAInstance = CL::getProvisionFromSatisfaction(satisfaction:connectorInstance);
@@ -587,14 +589,37 @@ while (j < connectorCount)
       
       // Special case to assure the newConnector call for satisfactions is
       // setup the way it is needed.
-      if (provisionInSatisfaction_OOAId != OS::NULL_UNIQUE_ID()) 
-        // This is the GD_GE that this requirement GD_GE will connect to
-        select any provisionGDGEInstance related by model->GD_GE[R1] where selected.represents==provisionInSatisfaction_OOAInstance;
-        select any modelTool related by model->CT_MTL[R100];
-        if (not_empty modelTool and not_empty provisionGDGEInstance)
-          // the startelement is the element being moved (the requirement side)
-          modelTool.finalizeConnector(endElement:provisionGDGEInstance.elementId,
+      if (pass3Satisfaction) 
+        diagramName = CL::getModelElementName(from:model.represents);
+        requirementName = CL::getModelElementName(from:graphicalElement.represents);
+        location = " Diagram: " + diagramName + " Requirement: " + requirementName;
+        
+        // This is "A" GD_GE that this requirement GD_GE could connect to.
+        // Note that "A" is in quotes. That is because it is possible that
+        // there are many GD_GEs with this represents value. For example,
+        // If the diagram has several components/component references that
+        // have provided interfaces that have been formalized to this 
+        // provision we can not know which graphical element to create the 
+        // satsisfaction to. 
+        select many provisionGDGEInstances related by model->GD_GE[R1] where selected.represents==provisionInSatisfaction_OOAInstance;
+        if ((cardinality provisionGDGEInstances) == 1)
+          for each provisionGDGEInstance in provisionGDGEInstances
+            select any modelTool related by model->CT_MTL[R100];
+            if (not_empty modelTool and not_empty provisionGDGEInstance)            
+              // see if this already has a graphcal satisfaction
+              select any anchor related by provisionGDGEInstance->GD_CON[R2]->GD_LS[R6]->GD_AOS[R26];
+              if (empty anchor)
+                // the startelement is the element being moved (the requirement side)
+                modelTool.finalizeConnector(endElement:provisionGDGEInstance.elementId,
                                       startElement:graphicalElement.elementId);
+              end if;
+            end if;
+          end for;
+        elif ((cardinality provisionGDGEInstances) > 1)
+          // log this. See issue 8978 
+          CL::logError(message:"There are multiple provisions on this diagram that this requirement could be satisfied to. " + location);
+        else
+          // If there are no matching provisions on this diagram then no action is needed.
         end if;                                                        
       else
         reprocess = model.newConnector(elementIdOfExistingGD_CON:connectorOOAId,
