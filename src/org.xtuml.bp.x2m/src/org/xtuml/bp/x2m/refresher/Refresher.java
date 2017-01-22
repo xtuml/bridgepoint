@@ -33,7 +33,7 @@ public class Refresher extends Task {
     public static final String X2M_DIR = "/tools/mc/bin/";
     public static final String X2M_CMD = "xtuml2masl";
     public static final String X2M_EXE = "xtumlmc_build";
-    public static final String MASL_DIR = "/models/.masl/";
+    public static final String MASL_DIR = "/models/masl/";
     public static final String CODE_GEN_DIR = "/gen/code_generation/";
     private static final int SLEEPTIME = 500;
     private static final int KILLTIMEOUT = 20000;
@@ -44,7 +44,6 @@ public class Refresher extends Task {
     private static final int MASL_DOMAIN    = 2;
     
     public Refresher() {
-    	System.out.println("TODO - started the refresher.");
     }
     
 	public static void exportSystem(SystemModel_c sys) {
@@ -148,11 +147,6 @@ public class Refresher extends Task {
             final String destPath = path.toOSString();
             final String codeGenPath = path2.toOSString();
 
-            /*ProgressMonitorDialog pmd = new ProgressMonitorDialog(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell());
-            pmd.setCancelable(true);
-            pmd.create();
-            IProgressMonitor monitor = pmd.getProgressMonitor();*/
-            
             try {
                 // Next proceed with actually running xtuml2masl on the model
             	Thread refreshThread = new Thread(new Runnable() {
@@ -177,69 +171,6 @@ public class Refresher extends Task {
 					}
             	});
                 refreshThread.start();
-
-                /*pmd.run(true, true, new IRunnableWithProgress() {
-
-                    public void run(IProgressMonitor monitor)
-                            throws InvocationTargetException,
-                            InterruptedException {
-
-                        int steps = 5;
-                        int curStep = 1;
-
-                        if ( MASL_PROJECT == export_type ) monitor.beginTask("Exporting MASL project...", steps);
-                        else if ( MASL_DOMAIN == export_type ) monitor.beginTask("Exporting MASL domain...", steps);
-                        else return;
-
-                        if (!path.toFile().exists()) {
-                            path.toFile().mkdir();
-                        }
-
-                        while (curStep <= steps) {
-                            if (monitor.isCanceled()) {
-                                InterruptedException ie = new InterruptedException("User cancelled the operation");
-                                throw ie;
-                            }
-
-                            try {
-                                switch (curStep) {
-                                case 1:
-                                    monitor.subTask("Cleaning");
-                                    monitor.worked(1);
-                                    break;
-                                case 2:
-                                    monitor.subTask("Loading model");
-                                    PersistableModelComponent pmc = sys.getPersistableComponent();
-                                    pmc.loadComponentAndChildren(new NullProgressMonitor());
-                                    monitor.worked(1);
-                                    break;
-                                case 3:
-                                    monitor.subTask("Gathering model information");
-                                    ExportBuilder eb = new ExportBuilder();
-                                    new File(codeGenPath).mkdirs();
-                                    eb.exportSystem(sys, codeGenPath, new NullProgressMonitor(), false, "", false);
-                                    monitor.worked(1);
-                                    break;
-                                case 4:
-                                    monitor.subTask("Processing model");
-                                    runExport(project, projPath, destPath, export_type, names);
-                                    monitor.worked(1);
-                                    break;
-                                case 5:
-                                    monitor.subTask("Refreshing");
-                                    project.refreshLocal(IResource.DEPTH_INFINITE, null);
-                                    monitor.worked(1);
-                                    break;
-                                }
-                            } catch (Throwable e) {
-                            	RuntimeException err = new RuntimeException(e.getMessage());
-                                throw err;
-                            } 
-                            curStep++;
-                        }
-                    }
-                });*/
-
             } catch (Throwable e) {
                 String errMsg = e.getMessage();
                 if ( (errMsg == null) || errMsg.isEmpty() ) {
@@ -266,7 +197,6 @@ public class Refresher extends Task {
                         CorePlugin.logError("Error.  MASL export failed during cleanup: " + errMsg, ce);
                     }
                 }
-                // TODO - not needed with new thread monitor.done();
             }
         }
     }
@@ -309,7 +239,7 @@ public class Refresher extends Task {
         env.put( "MASL_BIN_DIR", bin_dir );
 
         // set change working dir
-        pb.directory(new File(workingDir));
+        pb.directory(new File(bin_dir));
 
         // start the process
         Process process = pb.start();

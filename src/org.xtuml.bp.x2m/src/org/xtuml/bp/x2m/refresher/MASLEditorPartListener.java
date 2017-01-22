@@ -34,8 +34,6 @@ public class MASLEditorPartListener implements IPartListener2
 
     @Override
     public void partOpened(IWorkbenchPartReference partRef) {
-    	//inputClass = bundle.loadClass("org.xtuml.bp.ui.text.masl.MASLEditorInput"); //$NON-NLS-1$
-			//editorId = (String) inputClass.getField("EDITOR_ID").get(null); //$NON-NLS-1$
     	if ( !partRef.getId().equals("org.xtuml.bp.xtext.masl.MASL")) { return; }
     		
     	IStructuredSelection sel = Selection.getInstance().getStructuredSelection();
@@ -47,11 +45,7 @@ public class MASLEditorPartListener implements IPartListener2
 		if (dialectObj instanceof NonRootModelElement) {
 			NonRootModelElement nrme = ((NonRootModelElement) dialectObj).getRoot();
 			if (nrme instanceof SystemModel_c) {
-				long startTime = System.nanoTime(); // TODO - remove timing
 				Refresher.exportSystem(((SystemModel_c)nrme));
-				long endTime = System.nanoTime();
-				long duration = (endTime - startTime);  //divide by 1000000 to get milliseconds.
-				System.out.println("Refresh took " + duration + " milliseconds.");
 			}
 		}
     }
