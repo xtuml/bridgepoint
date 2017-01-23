@@ -34,7 +34,7 @@ public class Refresher extends Task {
     public static final String X2M_DIR = "/tools/mc/bin/";
     public static final String X2M_CMD = "xtuml2masl";
     public static final String X2M_EXE = "xtumlmc_build";
-    public static final String MASL_DIR = "/models/masl/";
+    public static final String MASL_DIR = "models";
     public static final String CODE_GEN_DIR = "/gen/code_generation/";
     private static final int SLEEPTIME = 500;
     private static final int KILLTIMEOUT = 20000;
@@ -88,7 +88,7 @@ public class Refresher extends Task {
         SystemModel_c sys = (SystemModel_c)pack.getRoot();
         
         // export the project
-        exportMASL(sys, MASL_PROJECT, names);
+        exportMASL(sys, MASL_PROJECT, names, null);
     }
 
     public static void exportDomain(Package_c pack) {
@@ -117,7 +117,7 @@ public class Refresher extends Task {
         SystemModel_c sys = (SystemModel_c)pack.getRoot();
 
         // export the domain
-        exportMASL(sys, MASL_DOMAIN, names_array);
+        exportMASL(sys, MASL_DOMAIN, names_array, pack);
     }
 
     public static void exportDomain(Component_c comp) {
@@ -132,15 +132,18 @@ public class Refresher extends Task {
         // get the system
         SystemModel_c sys = (SystemModel_c)comp.getRoot();
         
+        // get the parent package
+        Package_c pkg = Package_c.getOneEP_PKGOnR8000(PackageableElement_c.getOnePE_PEOnR8001(comp));
+        
         // export the domain
-        exportMASL(sys, MASL_DOMAIN, names);
+        exportMASL(sys, MASL_DOMAIN, names, pkg);
     }
  
     /*
      * The flow of this function is: 
      * - Run the xtuml2masl utility
      */
-    private static void exportMASL(final SystemModel_c sys, final int export_type, final String[] names) {
+    private static void exportMASL(final SystemModel_c sys, final int export_type, final String[] names, Package_c parentPkg) {
 
         final IProject project = org.xtuml.bp.io.image.generator.Generator.getProject(sys);
         
@@ -148,7 +151,12 @@ public class Refresher extends Task {
         
         if ( project != null ) {
             final String projPath = project.getLocation().toOSString();
-            final IPath path = new Path(projPath + File.separator + MASL_DIR);
+            IPath path;
+            if ( export_type == MASL_PROJECT ) {
+              path = new Path(projPath + File.separator + MASL_DIR + File.separator + sys.getName() + File.separator);
+            } else {
+              path = new Path(projPath + File.separator + MASL_DIR + File.separator + sys.getName() + File.separator + parentPkg.getName() + File.separator);
+            }
             final IPath path2 = new Path(projPath + File.separator + CODE_GEN_DIR);
             final String destPath = path.toOSString();
             final String codeGenPath = path2.toOSString();
@@ -234,8 +242,9 @@ public class Refresher extends Task {
         }
         cmd.add("-o");
         cmd.add(workingDir);
-        cmd.add("-e");      // running within eclipse
+        cmd.add("-e");       // running within eclipse
         cmd.add("-xf");      // skip the formatter
+        cmd.add("-xl");      // skip the action language output
         ProcessBuilder pb = new ProcessBuilder( cmd );
 
         System.out.println( cmd );
