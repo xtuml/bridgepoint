@@ -72,6 +72,13 @@ See [[2.3]](#2.3).
 6.1  This branch also contains a fix for [[2.4]](#2.4) to update the build ID
   on each build of BridgePoint with maven.    
   
+6.2  We originally considered using a file scooping approach rather than using 
+  existing java pre-build/exportSystem architecture.  This was implemented a 
+  bit but we hit an issue with the Globals.xtuml integration and decided to just
+  use java pre-build for now.  The code to do the file scooping is left in the 
+  history of this branch, but is removed in the final version as it is not used
+  and there were still some TODOs to make it work.   
+  
 7. Unit Test
 ------------
 7.1  Run the MASL Round Trip Test up to Import step 5.
