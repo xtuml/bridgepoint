@@ -40,11 +40,12 @@ See [[2.3]](#2.3).
 
 5.2  xtumlmc_build   
 5.2.1  Add new parameters to xtumlmc_build   
+   
 | Flag         | Description                  |
 |--------------|------------------------------|
 | -xf          | Do not run the MASL formatter on output MASL |
 | -xl          | Skip MASL activities.  This indicates we only want .mod, .prj, and .int files in the output |
-
+   
 5.2.2 The current implementation of ```-xl``` simply lets the existing masl export
   process produce the action language files then deletes them after the fact.  This
   is not optimal.  A follow-on issue is [[2.5]](#2.5) raised to re-evaluate this.   
@@ -97,7 +98,7 @@ Branch: 8797_scoop
 
 <pre>
 
-doc-bridgepoint/> notes/8797_scoop_int.md
+doc-bridgepoint/notes/8797_scoop_int.md
 
 org.xtuml.bp.pkg/about.mappings
 org.xtuml.bp.pkg/pom.xml
