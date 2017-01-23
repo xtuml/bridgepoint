@@ -8,28 +8,20 @@ import org.xtuml.bp.core.ui.Selection;
 
 public class MASLEditorPartListener implements IPartListener2
 {
-	// TODO - should this be a singleton???
-	
     @Override
     public void partClosed(IWorkbenchPartReference partRef) {
     }
 
     @Override
     public void partActivated(IWorkbenchPartReference partRef) {
-            // Auto-generated method stub
-            
     }
 
     @Override
     public void partBroughtToTop(IWorkbenchPartReference partRef) {
-            // Auto-generated method stub
-            
     }
 
     @Override
     public void partDeactivated(IWorkbenchPartReference partRef) {
-            // Auto-generated method stub
-            
     }
 
     @Override
@@ -52,20 +44,14 @@ public class MASLEditorPartListener implements IPartListener2
 
     @Override
     public void partHidden(IWorkbenchPartReference partRef) {
-            // Auto-generated method stub
-            
     }
 
     @Override
     public void partVisible(IWorkbenchPartReference partRef) {
-            // Auto-generated method stub
-            
     }
 
     @Override
     public void partInputChanged(IWorkbenchPartReference partRef) {
-            // Auto-generated method stub
-            
     }
 
 }
