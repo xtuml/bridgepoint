@@ -42,9 +42,11 @@ INSERT INTO O_TFR
 mark.path = param.path;
 mark.value = param.value;
 select any feature from instances of Feature where ( selected.name == param.feature_name );
-select any markable from instances of Markable where ( selected.name == param.markable_name );
+select any markable related by feature->Markable[R2822] where ( selected.name == param.markable_name );
 if ( empty markable )
-  // CDS - We do not get a markable_name, so find one related to the feature.
+  // CDS - We do not get a markable_name, so find any related to the feature.
+  // Note, it is technically possible to have more than one markable.
+  // This will be fixed by adding markable_name to the application.mark file.
   select any markable related by feature->Markable[R2822];
 end if;
 if ( not_empty feature and not_empty markable )
