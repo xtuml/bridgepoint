@@ -287,15 +287,6 @@ end if;',
 	'',
 	"5cd6d774-717c-4d42-949b-c01a44c42643",
 	0);
-INSERT INTO O_TPARM
-	VALUES ("d904d0c5-3f70-4351-bc25-c806b1b49821",
-	"27344f5e-a437-46d8-80b4-9c3149d78361",
-	'filterDelegations',
-	"ba5eda7a-def5-0000-0000-000000000001",
-	0,
-	'',
-	"00000000-0000-0000-0000-000000000000",
-	'');
 INSERT INTO O_TFR
 	VALUES ("7f587a18-2e54-48aa-a881-c400cf18ece8",
 	"7f4be496-f22b-4efc-af0d-8a4fdb873e98",
@@ -552,8 +543,8 @@ return GD::NULL_UNIQUE_ID();
 INSERT INTO O_TPARM
 	VALUES ("99628fed-1596-46ee-ab1a-b30c2dd0d240",
 	"1bd6fd6e-f5ad-4e99-a9cb-0c69ffa8adcc",
-	'filterDelegations',
-	"ba5eda7a-def5-0000-0000-000000000001",
+	'index',
+	"ba5eda7a-def5-0000-0000-000000000002",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
