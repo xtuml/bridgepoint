@@ -647,15 +647,7 @@ public class ImportHelper
 				}
 
 				if (masl_project) {
-					TransactionUtil.TransactionGroup transactionGroup = TransactionUtil
-							.startTransactionsOnSelectedModelRoots("Automatically Create Satisfaction");
-					Ooaofooa.beginSaveOperation();
-					
-					Ooaofooa.Autocreatemaslsatisfactions(pkg.getModelRoot(), pkg.getPackage_id());
-					
-					Ooaofooa.endSaveOperation();
-					TransactionUtil.endTransactions(transactionGroup);
-
+					Ooaofooa.Autocreatemaslsatisfactions(pkg.getModelRoot(), pkg.getPackage_id());					
 				}
 			}
 		}
