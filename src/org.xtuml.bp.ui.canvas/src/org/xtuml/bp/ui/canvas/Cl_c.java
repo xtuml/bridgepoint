@@ -1483,7 +1483,7 @@ public class Cl_c {
             }
             return result;
         } else if (Ooa_type == Ooatype_c.Satisfaction) {
-            Object result = modelRoot.getInstanceList(Exception_c.class).get(
+            Object result = modelRoot.getInstanceList(Satisfaction_c.class).get(
                     Ooa_id);
             if (result == null) {
 	            class Satisfaction_Query_c implements ClassQueryInterface_c {
