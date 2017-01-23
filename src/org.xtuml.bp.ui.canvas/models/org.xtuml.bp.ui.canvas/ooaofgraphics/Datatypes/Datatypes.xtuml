@@ -1519,7 +1519,7 @@ INSERT INTO S_ENUM
 INSERT INTO S_ENUM
 	VALUES ("a3b8251c-8306-41bc-8d0c-dfe777f1be5b",
 	'Satisfaction',
-	'Value: 208',
+	'Value:208',
 	"89cd32c4-a73f-44f5-ac4f-6468ce4ae2bb",
 	"d86b95a7-f176-4e7c-976a-3fdbdf338930");
 INSERT INTO PE_PE
