@@ -79,6 +79,10 @@ See [[2.3]](#2.3).
   use java pre-build for now.  The code to do the file scooping is left in the 
   history of this branch, but is removed in the final version as it is not used
   and there were still some TODOs to make it work.   
+   
+6.3  Removed commented out code in ```ModelImportWizard.java``` that was attempting
+  to export masl during import but had been commented out due to circular dependency.  This
+  code is no longer needed.  It was associated with issue 8979.    
   
 7. Unit Test
 ------------

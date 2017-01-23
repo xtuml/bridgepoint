@@ -27,14 +27,14 @@ public class X2MPlugin extends AbstractUIPlugin implements IStartup {
 	 * The constructor.
 	 */
 	public X2MPlugin() {
-		plugin = this;		
+		plugin = this;
 	}
 
 	/**
 	 * This method is called upon plug-in activation
 	 */
 	public void start(BundleContext context) throws Exception {
-		super.start(context);		
+		super.start(context);
 	}
 
 	/**
