@@ -20,6 +20,8 @@ options {
     private TokenStreamSelector selector;
     private CoreImport m_ci;
 
+    private int startLine = 0;
+
     public ActionParser(TokenStreamSelector s, CoreImport ci, int dialect) {
         this((TokenStream)s);
         selector = s;
@@ -50,13 +52,13 @@ options {
     }
 
     private void sendSmasl() {
-        m_ci.processAction( smasl, m_dialect );
+        m_ci.processAction( smasl, m_dialect, startLine );
         smasl = "";
     }
 
     public void reportError(RecognitionException arg0) {
         m_errors = true;
-	m_output += "ActionParser: " + (( m_ci != null && m_ci.m_actionFile != null) ? m_ci.m_actionFile.getPath() + " " : "") + arg0.toString() + "\n";
+	m_output += "ActionParser: " + (( m_ci != null && m_ci.m_actionFile != null) ? m_ci.m_actionFile.getName() + " " : "") + arg0.toString() + "\n";
     }
     public String m_output = "";
     public boolean m_errors = false;
@@ -83,7 +85,7 @@ serviceDefinition:
             }
             val=serviceVisibility { values[2]=val; }
             ("instance" {values[4]="instance";} )?
-            "service"
+            kw:"service" { startLine = kw.getLine(); }
             (val=domainName {values[0]=val; } )? "::" 
             ( val=terminatorName "~>" { values[1]=val; }
             | val=objectName "." { values[1]=val; element="operation"; } )?
@@ -112,7 +114,8 @@ stateDefinition:
                 clearValues(values);
                 String val = "";
             }
-            val=stateType {values[3]=val;} "state"
+            val=stateType {values[3]=val;}
+            kw:"state" { startLine = kw.getLine(); }
             (val=domainName {values[0]=val;} )? "::"
             val=objectName "." {values[1]=val;}
             val=stateName {values[2]=val;}
@@ -139,7 +142,7 @@ attributeDefinition:
                 clearValues(values);
                 String val = "";
             }
-            "attribute"
+            kw:"attribute" { startLine = kw.getLine(); }
             (val=domainName {values[3]=val;})? "::"
             val=objectName "." {values[4]=val;}
             val=attributeName {values[0]=val;}
@@ -167,7 +170,7 @@ transitionDefinition:
                 clearValues(values);
                 String val = "";
             }
-            "transition"
+            kw:"transition" { startLine = kw.getLine(); }
             (val=domainName {values[1]=val;})? "::" val=objectName {values[2]=val;}
             "in" val=stateName {values[0]=val;} "receives" val=eventName {values[3]=val;}
             { populate( "transition", values ); }
@@ -339,7 +342,7 @@ options {
 
     public void reportError(RecognitionException arg0) {
         m_errors = true;
-	m_output += "SignatureLexer: " + (( m_ci != null && m_ci.m_actionFile != null) ? m_ci.m_actionFile.getPath() + " " : "") + arg0.toString() + "\n";
+	m_output += "SignatureLexer: " + (( m_ci != null && m_ci.m_actionFile != null) ? m_ci.m_actionFile.getName() + " " : "") + arg0.toString() + "\n";
     }
 
     public String m_output = "";
@@ -360,6 +363,6 @@ COMMA               : ",";
 ID                  : ( ('A'..'Z' | 'a'..'z') | '_' ) ( ('A'..'Z' | 'a'..'z') | ('0'..'9') | '_' )*;
 
 WS                  : (' ' | '\t' | '\f' | '\n'{newline();} | '\r' )+ { $setType(Token.SKIP); };
-COMMENT             : "//" (~('\n'|'\r'))* ('\r')? '\n' { $setType(Token.SKIP); };
+COMMENT             : "//" (~('\n'|'\r'))* ('\r')? '\n' { newline(); $setType(Token.SKIP); };
 
 
