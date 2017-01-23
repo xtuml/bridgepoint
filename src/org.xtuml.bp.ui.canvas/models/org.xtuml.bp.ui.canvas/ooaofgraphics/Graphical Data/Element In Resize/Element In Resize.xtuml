@@ -30,7 +30,8 @@ self.End = symbol.getEndUnder(x:GR::getAbsoluteXPosition(),
 ',
 	1,
 	'',
-	"72abd2d3-9e70-40a8-afcf-20b194194b89");
+	"72abd2d3-9e70-40a8-afcf-20b194194b89",
+	0);
 INSERT INTO O_TFR
 	VALUES ("72abd2d3-9e70-40a8-afcf-20b194194b89",
 	"558681b3-16a8-4412-a2a2-59b606dea487",
@@ -41,7 +42,8 @@ INSERT INTO O_TFR
 	'// removed to as the support for resizing text is moved to GEF',
 	1,
 	'',
-	"7c981677-836b-42f5-960f-7fc403c17887");
+	"7c981677-836b-42f5-960f-7fc403c17887",
+	0);
 INSERT INTO O_TFR
 	VALUES ("7c981677-836b-42f5-960f-7fc403c17887",
 	"558681b3-16a8-4412-a2a2-59b606dea487",
@@ -55,7 +57,8 @@ unrelate ge from model across R12 using self;
 delete object instance self;',
 	1,
 	'',
-	"00000000-0000-0000-0000-000000000000");
+	"00000000-0000-0000-0000-000000000000",
+	0);
 INSERT INTO O_NBATTR
 	VALUES ("0e212976-e6ba-474d-ba18-38d2843cb219",
 	"558681b3-16a8-4412-a2a2-59b606dea487");

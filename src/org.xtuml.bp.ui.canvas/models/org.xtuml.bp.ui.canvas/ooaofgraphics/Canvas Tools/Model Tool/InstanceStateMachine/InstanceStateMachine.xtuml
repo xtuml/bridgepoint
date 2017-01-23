@@ -949,7 +949,8 @@ INSERT INTO SM_ACT
 	"313780c2-d010-42d8-b211-5c868569834e",
 	1,
 	'',
-	'');
+	'',
+	0);
 INSERT INTO SM_MOAH
 	VALUES ("7d065b2f-21bf-4738-95b0-2fd6f4bc6857",
 	"313780c2-d010-42d8-b211-5c868569834e",
@@ -976,7 +977,8 @@ elif (not_empty scroll_tool)
 end if;
 generate CT_MTL2:Done to self;
 ',
-	'');
+	'',
+	0);
 INSERT INTO SM_MOAH
 	VALUES ("37d3f1e4-9f85-4735-a6dd-cfa91adc3b35",
 	"313780c2-d010-42d8-b211-5c868569834e",
@@ -1010,7 +1012,8 @@ end if;
 
 generate CT_MTL2:Done to self;
 ',
-	'');
+	'',
+	0);
 INSERT INTO SM_MOAH
 	VALUES ("466e29b4-4bfd-4bbb-9ed3-b17a86ede270",
 	"313780c2-d010-42d8-b211-5c868569834e",
@@ -1044,7 +1047,8 @@ end if;
 
 generate CT_MTL2:Done to self;
 ',
-	'');
+	'',
+	0);
 INSERT INTO SM_MOAH
 	VALUES ("dc48bbdc-c588-4b3d-bda7-f2310b426ff2",
 	"313780c2-d010-42d8-b211-5c868569834e",
@@ -1079,7 +1083,8 @@ INSERT INTO SM_ACT
 	select one policy related by self->GD_MD[R100]->CT_ACT[R108];
 	generate CT_ACT3:''Tool Deactivated''(toolID: self.Tool_ID) to policy;
 end if;',
-	'');
+	'',
+	0);
 INSERT INTO SM_MOAH
 	VALUES ("e6d02cdd-09b4-4c20-af0b-3f46c681d33b",
 	"313780c2-d010-42d8-b211-5c868569834e",
@@ -1108,7 +1113,8 @@ end if;
 
 self.active = true;
 generate CT_MTL2:Done to self;',
-	'');
+	'',
+	0);
 INSERT INTO SM_MOAH
 	VALUES ("2407d3eb-e28b-4381-b018-31f569da696f",
 	"313780c2-d010-42d8-b211-5c868569834e",
@@ -1124,7 +1130,8 @@ INSERT INTO SM_ACT
 select one policy related by self->GD_MD[R100]->CT_ACT[R108];
 generate CT_ACT1:''Activation Permission Requested''(toolID: self.Tool_ID) to policy;
 ',
-	'');
+	'',
+	0);
 INSERT INTO SM_TAH
 	VALUES ("6d87a236-3f64-4c78-9482-af03185aaaaa",
 	"313780c2-d010-42d8-b211-5c868569834e",
@@ -1135,9 +1142,10 @@ INSERT INTO SM_AH
 INSERT INTO SM_ACT
 	VALUES ("6d87a236-3f64-4c78-9482-af03185aaaaa",
 	"313780c2-d010-42d8-b211-5c868569834e",
-	3,
+	1,
 	'',
-	'');
+	'',
+	0);
 INSERT INTO SM_TAH
 	VALUES ("8f7b80da-085c-4e97-bd2e-3f82e53fae3d",
 	"313780c2-d010-42d8-b211-5c868569834e",
@@ -1148,9 +1156,10 @@ INSERT INTO SM_AH
 INSERT INTO SM_ACT
 	VALUES ("8f7b80da-085c-4e97-bd2e-3f82e53fae3d",
 	"313780c2-d010-42d8-b211-5c868569834e",
-	3,
+	1,
 	'',
-	'');
+	'',
+	0);
 INSERT INTO SM_TAH
 	VALUES ("79458adc-71de-438a-b893-54cc2efab887",
 	"313780c2-d010-42d8-b211-5c868569834e",
@@ -1161,9 +1170,10 @@ INSERT INTO SM_AH
 INSERT INTO SM_ACT
 	VALUES ("79458adc-71de-438a-b893-54cc2efab887",
 	"313780c2-d010-42d8-b211-5c868569834e",
-	3,
+	1,
 	'',
-	'');
+	'',
+	0);
 INSERT INTO SM_TAH
 	VALUES ("21f7db90-e1b7-45e6-895f-8ccc7eb7c44e",
 	"313780c2-d010-42d8-b211-5c868569834e",
@@ -1174,9 +1184,10 @@ INSERT INTO SM_AH
 INSERT INTO SM_ACT
 	VALUES ("21f7db90-e1b7-45e6-895f-8ccc7eb7c44e",
 	"313780c2-d010-42d8-b211-5c868569834e",
-	3,
+	1,
 	'',
-	'');
+	'',
+	0);
 INSERT INTO SM_TAH
 	VALUES ("c31386d3-6c63-4417-aa54-58843f464e04",
 	"313780c2-d010-42d8-b211-5c868569834e",
@@ -1187,9 +1198,10 @@ INSERT INTO SM_AH
 INSERT INTO SM_ACT
 	VALUES ("c31386d3-6c63-4417-aa54-58843f464e04",
 	"313780c2-d010-42d8-b211-5c868569834e",
-	3,
+	1,
 	'',
-	'');
+	'',
+	0);
 INSERT INTO SM_TAH
 	VALUES ("66aff1e1-3d82-4e0b-8147-b8dd35b45122",
 	"313780c2-d010-42d8-b211-5c868569834e",
@@ -1200,9 +1212,10 @@ INSERT INTO SM_AH
 INSERT INTO SM_ACT
 	VALUES ("66aff1e1-3d82-4e0b-8147-b8dd35b45122",
 	"313780c2-d010-42d8-b211-5c868569834e",
-	3,
+	1,
 	'',
-	'');
+	'',
+	0);
 INSERT INTO SM_TAH
 	VALUES ("8c19bc1b-4e93-4bfa-a68a-9effc946295e",
 	"313780c2-d010-42d8-b211-5c868569834e",
@@ -1213,9 +1226,10 @@ INSERT INTO SM_AH
 INSERT INTO SM_ACT
 	VALUES ("8c19bc1b-4e93-4bfa-a68a-9effc946295e",
 	"313780c2-d010-42d8-b211-5c868569834e",
-	3,
+	1,
 	'',
-	'');
+	'',
+	0);
 INSERT INTO SM_TAH
 	VALUES ("831dec26-ead1-4c30-a710-b66012308979",
 	"313780c2-d010-42d8-b211-5c868569834e",
@@ -1226,9 +1240,10 @@ INSERT INTO SM_AH
 INSERT INTO SM_ACT
 	VALUES ("831dec26-ead1-4c30-a710-b66012308979",
 	"313780c2-d010-42d8-b211-5c868569834e",
-	3,
+	1,
 	'',
-	'');
+	'',
+	0);
 INSERT INTO SM_TAH
 	VALUES ("f4c311e8-fadf-4bc7-b17b-53ad4403396a",
 	"313780c2-d010-42d8-b211-5c868569834e",
@@ -1239,9 +1254,10 @@ INSERT INTO SM_AH
 INSERT INTO SM_ACT
 	VALUES ("f4c311e8-fadf-4bc7-b17b-53ad4403396a",
 	"313780c2-d010-42d8-b211-5c868569834e",
-	3,
+	1,
 	'',
-	'');
+	'',
+	0);
 INSERT INTO SM_TAH
 	VALUES ("78b3c533-73be-4b82-891d-8dfed2e1e8fa",
 	"313780c2-d010-42d8-b211-5c868569834e",
@@ -1252,9 +1268,10 @@ INSERT INTO SM_AH
 INSERT INTO SM_ACT
 	VALUES ("78b3c533-73be-4b82-891d-8dfed2e1e8fa",
 	"313780c2-d010-42d8-b211-5c868569834e",
-	3,
+	1,
 	'',
-	'');
+	'',
+	0);
 INSERT INTO SM_TAH
 	VALUES ("452ad93e-bd42-4959-a222-85368dc0d5a1",
 	"313780c2-d010-42d8-b211-5c868569834e",
@@ -1265,9 +1282,10 @@ INSERT INTO SM_AH
 INSERT INTO SM_ACT
 	VALUES ("452ad93e-bd42-4959-a222-85368dc0d5a1",
 	"313780c2-d010-42d8-b211-5c868569834e",
-	3,
+	1,
 	'',
-	'');
+	'',
+	0);
 INSERT INTO GD_MD
 	VALUES ("049579dd-fe03-457b-8ec6-5c48951aa42b",
 	8,

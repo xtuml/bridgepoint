@@ -266,6 +266,30 @@ INSERT INTO DIM_ELE
 	VALUES ("ce7f27ad-0051-4378-a2af-fbec7f6ee7a1",
 	0,
 	"00000000-0000-0000-0000-000000000000");
+INSERT INTO GD_GE
+	VALUES ("acc37ee1-886e-47e5-8c9c-832ce046638d",
+	"734339f1-ac44-4aee-b543-a8a885e6670b",
+	"f5fca9e3-9eba-4c8b-9f16-9f79f8b6cf9a",
+	12,
+	0,
+	'org.xtuml.bp.core::ooaofooa::External Entities::Import Error Reporting');
+INSERT INTO GD_SHP
+	VALUES ("acc37ee1-886e-47e5-8c9c-832ce046638d");
+INSERT INTO GD_NCS
+	VALUES ("acc37ee1-886e-47e5-8c9c-832ce046638d");
+INSERT INTO DIM_ND
+	VALUES (200.000000,
+	150.000000,
+	"acc37ee1-886e-47e5-8c9c-832ce046638d");
+INSERT INTO DIM_GE
+	VALUES (2964.000000,
+	1584.000000,
+	"acc37ee1-886e-47e5-8c9c-832ce046638d",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("acc37ee1-886e-47e5-8c9c-832ce046638d",
+	0,
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO DIM_DIA
 	VALUES ("734339f1-ac44-4aee-b543-a8a885e6670b",
 	'',
@@ -3402,6 +3426,170 @@ INSERT INTO S_BPARM
 	'');
 INSERT INTO PE_PE
 	VALUES ("6fb76ebe-620e-4fc2-b7be-5f29887b61c8",
+	1,
+	"53bf3c8b-adde-4d47-8f16-aba92cc91cb2",
+	"00000000-0000-0000-0000-000000000000",
+	5);
+INSERT INTO S_EE
+	VALUES ("f5fca9e3-9eba-4c8b-9f16-9f79f8b6cf9a",
+	'Import Error Reporting',
+	'This EE allows the import functions to report errors raised from failed assertions loading action language
+for a persistable model component
+
+Import: org.xtuml.bp.core.common.PersistableModelComponent;',
+	'IMPORT_ERR',
+	"00000000-0000-0000-0000-000000000000",
+	'',
+	'Import Error Reporting',
+	1);
+INSERT INTO S_BRG
+	VALUES ("2c95b11e-f085-416a-8429-a9c2d2b5f4b9",
+	"f5fca9e3-9eba-4c8b-9f16-9f79f8b6cf9a",
+	'reportError',
+	'Translate:native',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000000",
+	'PersistableModelComponent pmc = (PersistableModelComponent)p_Pmc;
+String message = p_Message;
+int line = p_Line_num;
+int dialect = (int)p_Dialect;
+
+// check pmc
+if ( pmc == null ) return;
+
+// get action file path
+String path = pmc.getActionFile( dialect ).getName();
+
+// set errors and send message
+pmc.setActivityImportFailures( true );
+pmc.appendActivityImportFailureMessage( "File: " + path + ", line: " + Integer.toString(line) + ": " + message + "\n" );',
+	0,
+	'',
+	0);
+INSERT INTO S_BPARM
+	VALUES ("14ddd891-0f1a-4445-80c3-fbe969df39fb",
+	"2c95b11e-f085-416a-8429-a9c2d2b5f4b9",
+	'PMC',
+	"bc3722c8-5188-4529-8519-cf9eb9816b17",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_BPARM
+	VALUES ("04a98a77-a577-496f-b2f6-df0d7f835881",
+	"2c95b11e-f085-416a-8429-a9c2d2b5f4b9",
+	'message',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"14ddd891-0f1a-4445-80c3-fbe969df39fb",
+	'');
+INSERT INTO S_BPARM
+	VALUES ("7882dc78-fa6f-4920-bcc8-df4c4f0b1557",
+	"2c95b11e-f085-416a-8429-a9c2d2b5f4b9",
+	'line_num',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"04a98a77-a577-496f-b2f6-df0d7f835881",
+	'');
+INSERT INTO S_BPARM
+	VALUES ("7e8c2f26-c171-43df-a0a0-1c41c96ecda7",
+	"2c95b11e-f085-416a-8429-a9c2d2b5f4b9",
+	'dialect',
+	"7b54f646-a8a8-4b82-9bb0-cf5465115f3b",
+	0,
+	'',
+	"7882dc78-fa6f-4920-bcc8-df4c4f0b1557",
+	'');
+INSERT INTO S_BRG
+	VALUES ("e61f59ee-d7f3-4aca-a317-0dbce45923de",
+	"f5fca9e3-9eba-4c8b-9f16-9f79f8b6cf9a",
+	'incrementImportedActivities',
+	'Translate:native',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000000",
+	'PersistableModelComponent pmc = (PersistableModelComponent)p_Pmc;
+
+// check pmc
+if ( pmc == null ) return;
+
+pmc.incrementImportedActivities( p_Type, p_Dialect );',
+	0,
+	'',
+	0);
+INSERT INTO S_BPARM
+	VALUES ("40927d12-2c72-471d-89ad-2673f0aae2e3",
+	"e61f59ee-d7f3-4aca-a317-0dbce45923de",
+	'PMC',
+	"bc3722c8-5188-4529-8519-cf9eb9816b17",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_BPARM
+	VALUES ("930675ee-c3fb-403c-a75f-c6b71b754357",
+	"e61f59ee-d7f3-4aca-a317-0dbce45923de",
+	'type',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"40927d12-2c72-471d-89ad-2673f0aae2e3",
+	'');
+INSERT INTO S_BPARM
+	VALUES ("8705b4c1-7ecb-4264-b705-eb9c9b74f0d8",
+	"e61f59ee-d7f3-4aca-a317-0dbce45923de",
+	'dialect',
+	"7b54f646-a8a8-4b82-9bb0-cf5465115f3b",
+	0,
+	'',
+	"930675ee-c3fb-403c-a75f-c6b71b754357",
+	'');
+INSERT INTO S_BRG
+	VALUES ("1fe715f6-2f25-4a4b-bcf4-080cabb4898d",
+	"f5fca9e3-9eba-4c8b-9f16-9f79f8b6cf9a",
+	'incrementActivities',
+	'Translate:native',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000000",
+	'PersistableModelComponent pmc = (PersistableModelComponent)p_Pmc;
+
+// check pmc
+if ( pmc == null ) return;
+
+pmc.incrementActivities( p_Type, p_Dialect );',
+	0,
+	'',
+	0);
+INSERT INTO S_BPARM
+	VALUES ("2c231838-b2c2-4aea-8286-2069ad56a11d",
+	"1fe715f6-2f25-4a4b-bcf4-080cabb4898d",
+	'PMC',
+	"bc3722c8-5188-4529-8519-cf9eb9816b17",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_BPARM
+	VALUES ("d430b717-c988-4814-bea1-367006580d9f",
+	"1fe715f6-2f25-4a4b-bcf4-080cabb4898d",
+	'type',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"2c231838-b2c2-4aea-8286-2069ad56a11d",
+	'');
+INSERT INTO S_BPARM
+	VALUES ("ead1a176-6afa-42bd-8c03-b41801e5b01a",
+	"1fe715f6-2f25-4a4b-bcf4-080cabb4898d",
+	'dialect',
+	"7b54f646-a8a8-4b82-9bb0-cf5465115f3b",
+	0,
+	'',
+	"d430b717-c988-4814-bea1-367006580d9f",
+	'');
+INSERT INTO PE_PE
+	VALUES ("f5fca9e3-9eba-4c8b-9f16-9f79f8b6cf9a",
 	1,
 	"53bf3c8b-adde-4d47-8f16-aba92cc91cb2",
 	"00000000-0000-0000-0000-000000000000",
