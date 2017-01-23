@@ -603,9 +603,14 @@ while (j < connectorCount)
         // satsisfaction to. 
         select many provisionGDGEInstances related by model->GD_GE[R1] where selected.represents==provisionInSatisfaction_OOAInstance;
         if ((cardinality provisionGDGEInstances) == 1)
-          for each provisionGDGEInstance in provisionGDGEInstances
-            select any modelTool related by model->CT_MTL[R100];
-            if (not_empty modelTool and not_empty provisionGDGEInstance)            
+          for each provisionGDGEInstance in provisionGDGEInstances 
+              if (not_empty provisionGDGEInstance)            
+              select any modelTool related by model->CT_MTL[R100];
+              if (empty modelTool) 
+                model.initializeTools();            
+                select any modelTool related by model->CT_MTL[R100];
+              end if;
+            
               // see if this already has a graphcal satisfaction
               select any anchor related by provisionGDGEInstance->GD_CON[R2]->GD_LS[R6]->GD_AOS[R26];
               if (empty anchor)
