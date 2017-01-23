@@ -361,6 +361,40 @@ public class TransactionManager {
 			affectedModelElementsNames.clear();
 		}
 
+        // check if any affected components have
+        // activity import failures
+        ArrayList<PersistableModelComponent> pmcs = new ArrayList<PersistableModelComponent>();
+        ModelRoot[] mrs = transaction.getParticipatingModelRoots();
+        NonRootModelElement element = null;
+        PersistableModelComponent elementPMC = null;
+        for (int i = 0; i < mrs.length; i++) {
+            IModelDelta[] deltas = transaction.getDeltas(mrs[i]);
+            for (int j = 0; j < deltas.length; j++) {
+                IModelDelta delta = deltas[j];
+                element = (NonRootModelElement) delta.getModelElement();
+                if( element == null )
+                    continue;
+                elementPMC = element.getPersistableComponent(true);
+                if ( elementPMC != null && !pmcs.contains( elementPMC ) )
+                    pmcs.add( elementPMC );
+            }
+        }
+        for ( PersistableModelComponent pmc : pmcs ) {
+            if ( pmc.getActivityImportFailures() ) {
+            	String message = "Errors in an action language file caused a load failure. " +
+                                 "It is likely that an activty signature was edited or deleted.\n" + 
+                                 "Ensure that function names, parameters, return types and end " +
+                                 "tags are not modified by hand in the action language file.\n\n" +
+                                 "Print to print this message. " +
+                                 "Save to save the body of this message. " +
+                                 "OK to dismiss.";
+                UIUtil.openScrollableTextDialog( PlatformUI.getWorkbench().getModalDialogShellProvider().getShell(),
+                                                 false, "ERROR", pmc.getActivityImportFailureMessage(),
+                                                 message, null, null, true, true );
+                return false;
+            }
+        }
+
 		/*
 		 * see if the files to be affected are read-only, if so let the user
 		 * decide whether or not the transaction proceeds
@@ -613,6 +647,10 @@ public class TransactionManager {
 			}
 		} else {
 			transaction.revert();
+			if(Ooaofooa.getDefaultInstance().persistEnabled()) {
+				ignoreResourceChangesMarker = false;
+				ComponentResourceListener.setIgnoreResourceChangesMarker(false);
+			}
 	    	fireTransactionCancelled(transaction);
 	    	return true;
 		}
