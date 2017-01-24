@@ -34,12 +34,12 @@ Simply right-click on the project then choose ```Manage Project Markings```.
 __Figure 1__   
     
 This action will open the ```Manage Project Markings``` dialog (Figure 2).  This 
-dialog displays selection lists and a table editor to enter values.   
+dialog provides selection lists and a table editor to enter values.   
    
 ![Image of Marking Editor](marking_editor.png)  
 __Figure 2__   
    
-The modeler will first select the type of element they wish to mark, such as a 
+The modeler will first select the type of element to mark, such as a 
 ```Model Class``` or ```Component```.  
 
 Once the element type is selected, the ```Model Element``` list is populated with 
@@ -134,7 +134,7 @@ components::MicrowaveOven::Microwave Oven::Oven,bar,barov
 ```   
 __Figure 6__  
   
-The file contains tuples, one per line (Figure 7).  
+The file contains triples (3-tuples), one per line (Figure 7).  
 ```
 <model instance path>,<feature name>,<value>
 ```   
@@ -143,8 +143,8 @@ __Figure 7__
 There are a few specific things to note about this file:  
 * Comments __are not__ supported  
 * Marks are not automatically updated if elements are renamed or removed.  This 
-means that if the modeler moves, deletes, or renames an element, they must either
-re-mark the new element in this file and delete the old element, or edit the new
+means that if the modeler moves, deletes, or renames an element, he or she must either
+remark the new element in this file and delete the old element, or edit the new
 path data into this file by hand on the old entries.  Marks that do not match
 any instances in the model are simply ignored by the ```Export MASL``` process and
 are not passed downstream.  Therefore, they do not hurt anything if left in place.
