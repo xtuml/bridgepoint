@@ -51,8 +51,13 @@ class ExampleModelsIntegrationTest {
 	}
 
 	@Test
-	def void testSACExample() {
-		testProject('examples/SAC')
+	def void testSACExample_MASL() {
+		testProject('examples/SAC/masl')
+	}
+
+	@Test
+	def void testSACExample_xtUML() {
+		testProject('examples/SAC/models')
 	}
 
 	@Test
