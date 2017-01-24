@@ -28,6 +28,8 @@ import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.part.FileEditorInputFactory;
 import org.xtuml.bp.ui.text.ModelElementID;
+import org.xtuml.bp.ui.text.TextPlugin;
+
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import org.xtuml.bp.core.inspector.IModelClassInspector;
@@ -219,34 +221,44 @@ public class MASLEditorInputFactory extends FileEditorInputFactory {
 		return input;
 	}
 
-	private IFile getFileForModelElement(NonRootModelElement modelElement) throws CoreException {
-		IFile file = null;
+    private IFile getFileForModelElement(NonRootModelElement modelElement) throws CoreException {
+        IFile file = null;
 
-                // get the dialect
-                try {
-                    Method getDialectMethod = modelElement.getClass().getMethod("getDialect");
-                    int dialect = (int) getDialectMethod.invoke(modelElement);
+        NonRootModelElement dialectObj = modelElement;
+        if (dialectObj instanceof StateMachineState_c) {
+            StateMachineState_c state = (StateMachineState_c) dialectObj;
+            Action_c action = Action_c.getOneSM_ACTOnR514(ActionHome_c
+                    .getOneSM_AHOnR513((MooreActionHome_c.getOneSM_MOAHOnR511(state))));
+            if (action != null) {
+                dialectObj = action;
+            }
+        }
 
-                    PersistableModelComponent pmc = modelElement.getPersistableComponent();
-                    file = pmc.getActionFile( dialect );
+        // get the dialect
+        try {
+            Method getDialectMethod = dialectObj.getClass().getMethod("getDialect");
+            int dialect = (int) getDialectMethod.invoke(dialectObj);
 
-                } catch ( NoSuchMethodException e ) {
-                    System.out.println( e );
-                } catch ( NullPointerException e ) {
-                    System.out.println( e );
-                } catch ( SecurityException e ) {
-                    System.out.println( e );
-                } catch ( IllegalAccessException e ) {
-                    System.out.println( e );
-                } catch ( IllegalArgumentException e ) {
-                    System.out.println( e );
-                } catch ( InvocationTargetException e ) {
-                    System.out.println( e );
-                } catch ( ExceptionInInitializerError e ) {
-                    System.out.println( e );
-                }
+            PersistableModelComponent pmc = dialectObj.getPersistableComponent();
+            file = pmc.getActionFile( dialect );
 
-		return file;
-	}
+        } catch ( NoSuchMethodException e ) {
+            TextPlugin.logError( "Could not get element dialect", e );
+        } catch ( NullPointerException e ) {
+            TextPlugin.logError( "Could not get element dialect", e );
+        } catch ( SecurityException e ) {
+            TextPlugin.logError( "Could not get element dialect", e );
+        } catch ( IllegalAccessException e ) {
+            TextPlugin.logError( "Could not get element dialect", e );
+        } catch ( IllegalArgumentException e ) {
+            TextPlugin.logError( "Could not get element dialect", e );
+        } catch ( InvocationTargetException e ) {
+            TextPlugin.logError( "Could not get element dialect", e );
+        } catch ( ExceptionInInitializerError e ) {
+            TextPlugin.logError( "Could not get element dialect", e );
+        }
+
+        return file;
+    }
 
 }

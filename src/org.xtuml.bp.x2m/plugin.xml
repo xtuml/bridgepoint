@@ -2,6 +2,10 @@
 <?eclipse version="3.0"?>
 <plugin>
 
+     <extension point="org.eclipse.ui.startup">
+         <startup class="org.xtuml.bp.x2m.X2MPlugin"/>
+     </extension>
+
      <extension
          id="org.xtuml.ui.x2m.Export"
          point="org.eclipse.ui.popupMenus">
