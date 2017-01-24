@@ -2298,14 +2298,14 @@
             </dependsOn>
             <autoReconcile
                   Bridge_NumElements="Getsatisfactioncount"
-                  Bridge_ConnectorExists="marker for boolean paramater"
-                  Bridge_GetElementID=""
+                  Bridge_ConnectorExists=""
+                  Bridge_GetElementID="Getsatisfactionid"
                   targetSymbol="Provided Interface">
             </autoReconcile>
             <autoReconcile
                   Bridge_NumElements="Getsatisfactioncount"
-                  Bridge_ConnectorExists="marker for boolean paramater"
-                  Bridge_GetElementID=""
+                  Bridge_ConnectorExists=""
+                  Bridge_GetElementID="Getsatisfactionid"
                   targetSymbol="Imported Provided Interface">
             </autoReconcile>
          </symbol>
@@ -2408,14 +2408,14 @@
             </dependsOn>
             <autoReconcile
                   Bridge_NumElements="Getsatisfactioncount"
-                  Bridge_ConnectorExists="marker for boolean paramater"
-                  Bridge_GetElementID=""
+                  Bridge_ConnectorExists=""
+                  Bridge_GetElementID="Getsatisfactionid"
                   targetSymbol="Provided Interface">
             </autoReconcile>
             <autoReconcile
                   Bridge_NumElements="Getsatisfactioncount"
-                  Bridge_ConnectorExists="marker for boolean paramater"
-                  Bridge_GetElementID=""
+                  Bridge_ConnectorExists=""
+                  Bridge_GetElementID="Getsatisfactionid"
                   targetSymbol="Imported Provided Interface">
             </autoReconcile>
          </symbol>

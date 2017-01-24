@@ -97,6 +97,7 @@ import org.xtuml.bp.core.ReferredToClassInAssoc_c;
 import org.xtuml.bp.core.ReferringClassInAssoc_c;
 import org.xtuml.bp.core.Requirement_c;
 import org.xtuml.bp.core.ReturnMessage_c;
+import org.xtuml.bp.core.Satisfaction_c;
 import org.xtuml.bp.core.SendSignal_c;
 import org.xtuml.bp.core.SimpleAssociation_c;
 import org.xtuml.bp.core.StateEventMatrixEntry_c;
@@ -1481,6 +1482,25 @@ public class Cl_c {
 	                    new Exception_Query_c());
             }
             return result;
+        } else if (Ooa_type == Ooatype_c.Satisfaction) {
+            Object result = modelRoot.getInstanceList(Satisfaction_c.class).get(
+                    Ooa_id);
+            if (result == null) {
+	            class Satisfaction_Query_c implements ClassQueryInterface_c {
+	                public boolean evaluate(Object candidate) {
+	                    if (((Satisfaction_c) candidate).Get_ooa_id().equals(
+	                            Ooa_id)) {
+	                        return true;
+	                    }
+	
+	                    return false;
+	                }
+	            }
+	
+	            result = Satisfaction_c.SatisfactionInstance(modelRoot,
+	                    new Satisfaction_Query_c());
+            }
+            return result;
         } else {
             return null;
         }
@@ -2186,5 +2206,16 @@ public static void Settoolbarstate(boolean readonly) {
 		
 		return isDestination;
 	}
-        
+
+	public static Object Getprovisionfromsatisfaction(Object Satisfaction) {
+		Object result = null;
+		if (Satisfaction instanceof Satisfaction_c) {
+			result = ImportedProvision_c.getOneCL_IPOnR4705((Satisfaction_c)Satisfaction);
+			if (result == null) {
+				result = Provision_c.getOneC_POnR4002((Satisfaction_c)Satisfaction);				
+			}
+		}
+		return result;
+	}
+
 }// End Cl_c

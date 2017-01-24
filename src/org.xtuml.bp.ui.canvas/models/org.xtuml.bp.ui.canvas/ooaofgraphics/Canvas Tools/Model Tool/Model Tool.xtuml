@@ -222,11 +222,16 @@ if (not_empty endElement)
    	delete object instance snapPoint;
 
   elif (not_empty con) // Find the segment on the target connector that intersects the last segment being drawn
+    // set a default for termination
+    terminateAT = End::End;
     select any cnt related by endElement->TS_TSP[R206]->TS_CNT[R201];
-    if (cnt.terminatesAt == End::Middle)
+    if (not_empty cnt)
+      terminateAT = cnt.terminatesAt;
+    end if;
+    if (terminateAT == End::Middle)
       // crop the segment to the connector
 	  con.cropTo(attachingSegmentId:segment.elementId, createdAnchorId:anchor.conId, end:End::End);
-    elif (cnt.terminatesAt == End::Start)
+    elif (terminateAT == End::Start)
       create object instance aos of GD_AOS;
       startSegId = con.getStartingSegmentId();
       select any startSeg related by con->GD_LS[R6] where (selected.elementId == startSegId);
@@ -235,7 +240,7 @@ if (not_empty endElement)
       select one segmentEnd related by segment->DIM_WAY[R22];
       segment.moveEnd(xDelta:con.getStartX() - segmentEnd.positionX, 
         	yDelta:con.getStartY() - segmentEnd.positionY, snapToGrid:false);
-    elif (cnt.terminatesAt == End::End)
+    elif (terminateAT == End::End)
       create object instance aos of GD_AOS;
       endSegId = con.getEndingSegmentId();
       select any endSeg related by con->GD_LS[R6] where (selected.elementId == endSegId);
