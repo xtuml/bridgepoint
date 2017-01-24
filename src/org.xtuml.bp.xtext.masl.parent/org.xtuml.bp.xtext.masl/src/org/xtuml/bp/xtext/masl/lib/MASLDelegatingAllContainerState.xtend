@@ -31,8 +31,12 @@ class MASLDelegatingAllContainerState implements IAllContainersState {
 	
 	val IAllContainersState delegate
 	
+	static val SEPARATOR = '/'
+
 	override getVisibleContainerHandles(String handle) {
-		val delegateHandle = handle.substring(0, handle.length - 2)
+		val segments = handle.split(SEPARATOR)
+		val delegateHandle = segments.head
+		val rootFolder = segments.last
 		val visibleHandles = newHashSet
 		visibleHandles += delegate.getVisibleContainerHandles(delegateHandle)
 		visibleHandles.remove(delegateHandle)
@@ -40,40 +44,24 @@ class MASLDelegatingAllContainerState implements IAllContainersState {
 		val newVisibleHandles = newArrayList
 		newVisibleHandles += handle
 		newVisibleHandles += BUILTIN_LIBRARY_CONTAINER_HANDLE
-		newVisibleHandles += visibleHandles.map[it + SHARED_HANDLE_SUFFIX]
+		newVisibleHandles += visibleHandles.map[it + SEPARATOR + rootFolder]
 		return newVisibleHandles
-	}
-	
-	static val SHARED_HANDLE_SUFFIX = '/s'
-	static val EXPORTED_HANDLE_SUFFIX = '/e'
-	static val IMPORTED_HANDLE_SUFFIX = '/i'
-	
-	static val SHARED_FILE_EXTENSIONS = #{
-		'mod', 'int'
-	}
-	
-	static val EXPORTED_FILE_EXTENSIONS = #{
-		'svc', 'al', 'mod', 'int', 'tr', 'scn', 'ext', 'prj', 'fn'
-	}
-	
-	static val IMPORTED_FILE_EXTENSIONS = #{
-		'mod', 'int', 'masl'
 	}
 	
 	override getContainerHandle(URI uri) {
 		if(uri == MASLLibraryProvider.MODEL_URI) {
 			return BUILTIN_LIBRARY_CONTAINER_HANDLE
 		} else {
-			val fileExtension = uri.fileExtension
-			val suffix = if(SHARED_FILE_EXTENSIONS.contains(fileExtension)) 
-				SHARED_HANDLE_SUFFIX
-			else if(EXPORTED_FILE_EXTENSIONS.contains(fileExtension))
-				EXPORTED_HANDLE_SUFFIX
-			else if(IMPORTED_FILE_EXTENSIONS.contains(fileExtension))
-				IMPORTED_HANDLE_SUFFIX
-			else 
-				SHARED_HANDLE_SUFFIX 
-			return delegate.getContainerHandle(uri) + suffix
+			val delegateHandle = delegate.getContainerHandle(uri)
+			val pathSegments = if(uri.fileExtension != null)
+					uri.trimFragment.trimSegments(1).segments
+				else
+					uri.trimFragment.segments 
+			val index = pathSegments.indexOf(delegateHandle)
+			if(index == -1 || index + 1 > pathSegments.size)
+				return delegateHandle
+			else
+				return delegateHandle + SEPARATOR + pathSegments.get(index + 1)
 		}
 	}
 	
@@ -81,21 +69,11 @@ class MASLDelegatingAllContainerState implements IAllContainersState {
 		if(containerHandle == BUILTIN_LIBRARY_CONTAINER_HANDLE) {
 			#[MASLLibraryProvider.MODEL_URI]		
 		} else {
-			val delegateHandle = containerHandle.substring(0, containerHandle.length - 2)
-			val suffix = containerHandle.substring(containerHandle.length-2)
-			val containedURIs = delegate.getContainedURIs(delegateHandle)
-			switch suffix {
-				case EXPORTED_HANDLE_SUFFIX: {
-					val toList = containedURIs
-										 	.filter[EXPORTED_FILE_EXTENSIONS.contains(fileExtension)]
-										 	.toList
-					 return toList
-				}
-				case IMPORTED_HANDLE_SUFFIX:
-					 return containedURIs
-					 	.filter[IMPORTED_FILE_EXTENSIONS.contains(fileExtension)]
-					 	.toList
-			}
+			val segments = containerHandle.split(SEPARATOR)
+			val delegateHandle = segments.head
+			val delegateContainedURIs = delegate.getContainedURIs(delegateHandle)
+			val containedURIs = newArrayList
+			containedURIs += delegateContainedURIs.filter[it.containerHandle == containerHandle]
 			return containedURIs
 		} 
 	}
@@ -104,6 +82,6 @@ class MASLDelegatingAllContainerState implements IAllContainersState {
 		if(containerHandle == BUILTIN_LIBRARY_CONTAINER_HANDLE)
 			false
 		else
-			delegate.isEmpty(containerHandle.substring(0, containerHandle.length - 2))
+			containerHandle.getContainedURIs.isEmpty
 	}
 }
