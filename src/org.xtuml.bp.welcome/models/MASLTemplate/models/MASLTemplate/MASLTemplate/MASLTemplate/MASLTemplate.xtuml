@@ -217,7 +217,7 @@ INSERT INTO GD_GE
 	"533acbe9-6b27-4b71-9c1a-c941947682fb",
 	93,
 	0,
-	'MASLTemplate::MASLTemplate::MASLTemplate::MASLTemplateOtherComponent::MASLTemplateOtherComponent');
+	'MASLTemplate::MASLTemplate::MASLTemplate::TermA::MASLTemplateExTerminator');
 INSERT INTO GD_CON
 	VALUES ("c3f83df6-051e-47d6-bb37-705456c6869b",
 	"00000000-0000-0000-0000-000000000000");
@@ -367,10 +367,8 @@ INSERT INTO SPR_PO
 	VALUES ("27a72d0a-847f-49aa-8bcb-f39bcc4e5678",
 	'public_service_1',
 	'',
-	'begin
-null;
-end',
-	3,
+	'',
+	1,
 	0);
 INSERT INTO C_EP_PROXY
 	VALUES ("ffd58301-1fcf-4376-bc16-5ea0a2629c93",
@@ -388,7 +386,7 @@ INSERT INTO C_I_PROXY
 INSERT INTO C_PO
 	VALUES ("ac376a28-f294-4e10-9f4e-e38ee12ec574",
 	"7139f370-e39b-4f59-ab48-9ab496642a27",
-	'MASLTemplateOtherComponent',
+	'TermA',
 	0,
 	0);
 INSERT INTO C_IR
@@ -398,17 +396,17 @@ INSERT INTO C_IR
 	"ac376a28-f294-4e10-9f4e-e38ee12ec574");
 INSERT INTO C_R
 	VALUES ("533acbe9-6b27-4b71-9c1a-c941947682fb",
-	'MASLTemplateOtherComponent',
+	'MASLTemplateExTerminator',
 	'',
 	'Unnamed Interface',
-	'MASLTemplate::MASLTemplateOtherComponent::MASLTemplateOtherComponent');
+	'MASLTemplate::TermA::MASLTemplateExTerminator');
 INSERT INTO SPR_REP
 	VALUES ("4b48bce5-19be-46f4-9de9-6ac06ed3e9e4",
 	"0e10f1d1-7547-400b-8d86-17b2ad2cf494",
 	"533acbe9-6b27-4b71-9c1a-c941947682fb");
 INSERT INTO SPR_RO
 	VALUES ("4b48bce5-19be-46f4-9de9-6ac06ed3e9e4",
-	'terminator_1',
+	'terminator_svc_1',
 	'',
 	'',
 	3,
@@ -417,15 +415,15 @@ INSERT INTO C_EP_PROXY
 	VALUES ("0e10f1d1-7547-400b-8d86-17b2ad2cf494",
 	"15e99221-9a1b-4f64-8337-a4048e2d2950",
 	-1,
-	'terminator_1',
+	'terminator_svc_1',
 	'',
-	'../Shared/MASLTemplateOtherComponent/MASLTemplateOtherComponent.xtuml');
+	'../Shared/MASLTemplateExTerminator/MASLTemplateExTerminator.xtuml');
 INSERT INTO C_I_PROXY
 	VALUES ("15e99221-9a1b-4f64-8337-a4048e2d2950",
 	"00000000-0000-0000-0000-000000000000",
-	'MASLTemplateOtherComponent',
+	'MASLTemplateExTerminator',
 	'',
-	'../Shared/MASLTemplateOtherComponent/MASLTemplateOtherComponent.xtuml');
+	'../Shared/MASLTemplateExTerminator/MASLTemplateExTerminator.xtuml');
 INSERT INTO PE_PE
 	VALUES ("7139f370-e39b-4f59-ab48-9ab496642a27",
 	1,

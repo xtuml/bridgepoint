@@ -1,10 +1,12 @@
 domain MASLTemplate is
   object a_class;
   object b_class;
+  private type domtyp is integer
+  ;
     public service public_service_1 (
         val : in ex_type    );
-  terminator MASLTemplateOtherComponent is
-    private service terminator_1 (
+  terminator TermA is
+    private service terminator_svc_1 (
     );
   end terminator;
   relationship R1 is a_class conditionally uses many b_class,
