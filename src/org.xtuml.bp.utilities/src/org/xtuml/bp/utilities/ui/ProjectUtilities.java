@@ -434,10 +434,18 @@ public class ProjectUtilities {
 					if(allChildren[i+1] instanceof Combo) {
 						((Combo)allChildren[i+1]).setEnabled(!isArchive);
 						if (!isArchive) {
-							((Combo)allChildren[i+1]).setText(fqFilePath);					
-							((Combo)allChildren[i+1]).notifyListeners(SWT.FocusOut, new Event());
+							((Button)allChildren[i]).setSelection(!isArchive);
+							UIUtil.dispatchAll();
+							((Combo)allChildren[i+1]).setEnabled(true);
+							((Combo)allChildren[i+1]).forceFocus();
+							UIUtil.dispatchAll();
+							((Combo)allChildren[i+1]).setText(fqFilePath);							
+							((Combo)allChildren[i+1]).notifyListeners(SWT.KeyDown, createKeyEvent(SWT.NONE, SWT.CR, SWT.Selection));
+							UIUtil.dispatchAll();
 							// set focus elsewhere
-							((Combo)allChildren[i+1]).setEnabled(false);
+							((Button)allChildren[i]).setFocus();
+							((Combo)allChildren[i+1]).notifyListeners(SWT.FocusOut, new Event());
+							UIUtil.dispatchAll();
 						}
 					} else {
 						// for pre eclipse 4.4 use Text widget
@@ -453,15 +461,23 @@ public class ProjectUtilities {
 					optionsSet++;
 				} else if (btnText.equalsIgnoreCase("Select &archive file:")) {
 					// Set the text associated with this button to the 
-					// fully qualified folder name.  We then have to select 
+					// fully qualified archive file path.  We then have to select 
 					// the browse button
 					if(allChildren[i+1] instanceof Combo) {
 						((Combo)allChildren[i+1]).setEnabled(isArchive);
 						if (isArchive) {
+							((Button)allChildren[i]).setSelection(isArchive);
+							UIUtil.dispatchAll();
+							((Combo)allChildren[i+1]).setEnabled(true);
+							((Combo)allChildren[i+1]).forceFocus();
+							UIUtil.dispatchAll();
 							((Combo)allChildren[i+1]).setText(fqFilePath);					
-							((Combo)allChildren[i+1]).notifyListeners(SWT.FocusOut, new Event());
+							((Combo)allChildren[i+1]).notifyListeners(SWT.KeyDown, createKeyEvent(SWT.NONE, SWT.CR, SWT.Selection));
+							UIUtil.dispatchAll();
 							// set focus elsewhere
-							((Combo)allChildren[i+1]).setEnabled(false);
+							((Button)allChildren[i]).setFocus();
+							((Combo)allChildren[i+1]).notifyListeners(SWT.FocusOut, new Event());
+							UIUtil.dispatchAll();
 						}
 					} else {
 						// for pre eclipse 4.4 use Text widget
@@ -494,4 +510,12 @@ public class ProjectUtilities {
 		return optionsSet;
 	}
 
+	private static Event createKeyEvent(int modificationKey, char c, int keyCode) {
+		Event keyEvent = new Event();
+		keyEvent.stateMask = modificationKey;
+		keyEvent.character = c;
+		keyEvent.keyCode = keyCode;
+		return keyEvent;
+	}
+	
 }
