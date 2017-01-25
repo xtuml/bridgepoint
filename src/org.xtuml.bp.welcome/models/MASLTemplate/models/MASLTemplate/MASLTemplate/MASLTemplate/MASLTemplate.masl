@@ -1,0 +1,5 @@
+private service MASLTemplate::MASLTemplateOtherComponent~>terminator_1 () is
+begin
+  null;
+end service;
+
