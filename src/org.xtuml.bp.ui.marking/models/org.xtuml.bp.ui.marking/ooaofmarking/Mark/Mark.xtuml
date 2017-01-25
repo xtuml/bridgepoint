@@ -168,7 +168,7 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	0,
-	'newfilename = param.filename + "a";
+	'newfilename = param.filename;
 select many marks from instances of Mark;
 for each mark in marks
   // CDS - need mark.markable_name
@@ -176,7 +176,6 @@ for each mark in marks
   param.values[1] = mark.feature_name;
   param.values[2] = mark.value;
   param.values[3] = "";
-//r = CSV::writeline( filename:param.filename + "a", values:param.values );
   r = CSV::writeline( filename:newfilename, values:param.values );
 end for;',
 	1,

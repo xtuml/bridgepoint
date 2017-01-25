@@ -87,7 +87,7 @@ for each markable in markables
     param.values[0] = markable.name;
     param.values[1] = feature.name;
     param.values[2] = "";
-    r = CSV::writeline( filename:param.filename + "a", values:param.values );
+    r = CSV::writeline( filename:param.filename, values:param.values );
   end for;
 end for;',
 	1,
