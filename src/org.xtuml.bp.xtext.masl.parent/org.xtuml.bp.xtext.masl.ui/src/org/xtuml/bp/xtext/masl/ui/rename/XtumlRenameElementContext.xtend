@@ -10,18 +10,15 @@ import org.eclipse.xtext.ui.refactoring.ui.IRenameElementContext
 class XtumlRenameElementContext implements IRenameElementContext {
 	
 	val URI modTargetURI
-	val URI intTargetURI
 	
 	val EClass modTargetEClass
-	val EClass intTargetEClass
+	val List<Pair<URI, EClass>> allTargetURI2EClass
 
 	new(List<Pair<URI, EClass>> targetURI2EClass) {
 		val modEntry = targetURI2EClass.filter[key.fileExtension == 'mod'].head
 		modTargetURI = modEntry?.key
 		modTargetEClass = modEntry?.value
-		val intEntry = targetURI2EClass.filter[key.fileExtension == 'int'].head
-		intTargetURI = intEntry?.key
-		intTargetEClass = intEntry?.value
+		this.allTargetURI2EClass = targetURI2EClass
 	}
 
 	def boolean isEmpty() {

@@ -30,11 +30,12 @@ class MaslRenameStrategyProvider extends DefaultRenameStrategyProvider {
 			allTargets += target.getDefinitions(target.definitionClass, target.index)
 		}
 		if(renameElementContext instanceof XtumlRenameElementContext) {
-			val intTargetURI = renameElementContext.intTargetURI
-			if(intTargetURI != null) {
-				val intTarget = target.eResource.resourceSet.getEObject(intTargetURI, true)
-				if (intTarget != null && intTarget.eClass == renameElementContext.intTargetEClass) {
-					allTargets += intTarget
+			for(uri2EClass: renameElementContext.allTargetURI2EClass) {
+				if(uri2EClass.key != renameElementContext.targetElementURI) {
+					val intTarget = target.eResource.resourceSet.getEObject(uri2EClass.key, true)
+					if (intTarget != null && intTarget.eClass == uri2EClass.value) {
+						allTargets += intTarget
+					}
 				}
 			}
 		}

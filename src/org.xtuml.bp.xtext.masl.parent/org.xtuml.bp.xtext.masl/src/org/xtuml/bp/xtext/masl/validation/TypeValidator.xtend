@@ -12,6 +12,7 @@ import org.xtuml.bp.xtext.masl.linking.RankedCandidate
 import org.xtuml.bp.xtext.masl.masl.behavior.ActionCall
 import org.xtuml.bp.xtext.masl.masl.behavior.BehaviorPackage
 import org.xtuml.bp.xtext.masl.masl.behavior.Expression
+import org.xtuml.bp.xtext.masl.masl.behavior.GenerateStatement
 import org.xtuml.bp.xtext.masl.masl.behavior.IndexedExpression
 import org.xtuml.bp.xtext.masl.masl.behavior.LinkExpression
 import org.xtuml.bp.xtext.masl.masl.behavior.NavigateExpression
@@ -19,7 +20,6 @@ import org.xtuml.bp.xtext.masl.masl.behavior.SimpleFeatureCall
 import org.xtuml.bp.xtext.masl.masl.behavior.StatementList
 import org.xtuml.bp.xtext.masl.masl.behavior.TerminatorActionCall
 import org.xtuml.bp.xtext.masl.masl.structure.AbstractActionDeclaration
-import org.xtuml.bp.xtext.masl.masl.structure.AbstractFeature
 import org.xtuml.bp.xtext.masl.masl.structure.AssocRelationshipDefinition
 import org.xtuml.bp.xtext.masl.masl.structure.ObjectFunctionDeclaration
 import org.xtuml.bp.xtext.masl.masl.structure.ObjectFunctionDefinition
@@ -46,8 +46,6 @@ import org.xtuml.bp.xtext.masl.typesystem.StructureType
 
 import static org.xtuml.bp.xtext.masl.typesystem.BuiltinType.*
 import static org.xtuml.bp.xtext.masl.validation.MaslIssueCodesProvider.*
-import org.xtuml.bp.xtext.masl.masl.behavior.RaiseStatement
-import org.xtuml.bp.xtext.masl.masl.behavior.GenerateStatement
 
 class TypeValidator extends AbstractMASLValidator {
 	
@@ -132,13 +130,15 @@ class TypeValidator extends AbstractMASLValidator {
 	@Check 
 	def checkGenerateStatement(GenerateStatement it) {
 		val argTypes = arguments.map[maslType]
-		val ranked = rankParameterized(event, argTypes)
-		if(!ranked.acceptable) 
-			addIssue('''The event «
-				event.fullyQualifiedName»«event.parametersAsString
-				» cannot be generated with arguments («
-					arguments.map[maslType.toString].join(', ')
-				»)''', it, generateStatement_Event, WRONG_TYPE)
+		if(event != null && !event.eIsProxy) {
+			val ranked = rankParameterized(event, argTypes)
+			if(!ranked.acceptable) 
+				addIssue('''The event «
+					event.fullyQualifiedName»«event.parametersAsString
+					» cannot be generated with arguments («
+						arguments.map[maslType.toString].join(', ')
+					»)''', it, generateStatement_Event, WRONG_TYPE)
+		}
 	}
 	
 	@Check
@@ -200,8 +200,10 @@ class TypeValidator extends AbstractMASLValidator {
 				addIssue("Navigation expression with 'with' can only use an association relationship", expr.navigation, structurePackage.relationshipNavigation_Relationship, INCONSISTENT_RELATIONSHIP_NAVIGATION)
 			if(expr.navigation.object != null) 
 				addIssue("Navigation expression with 'with' can only use an association class", expr.navigation, structurePackage.relationshipNavigation_Object, INCONSISTENT_RELATIONSHIP_NAVIGATION)
-			if(expr.navigation.objectOrRole != (relationship as AssocRelationshipDefinition).object)
-				addIssue("Navigation expression with 'with' can only use an association class", expr.navigation, structurePackage.relationshipNavigation_ObjectOrRole, INCONSISTENT_RELATIONSHIP_NAVIGATION)
+			if(relationship instanceof AssocRelationshipDefinition) {
+				if(expr.navigation.objectOrRole != relationship.object)
+					addIssue("Navigation expression with 'with' can only use an association class", expr.navigation, structurePackage.relationshipNavigation_ObjectOrRole, INCONSISTENT_RELATIONSHIP_NAVIGATION)
+			}
 		}
 	}
 	

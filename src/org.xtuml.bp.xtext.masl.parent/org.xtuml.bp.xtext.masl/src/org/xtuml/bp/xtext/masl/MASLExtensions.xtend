@@ -154,16 +154,18 @@ class MASLExtensions {
 	}
 	
 	def Iterable<EObject> getDefinitions(EObject declaration, EClass definitionClass, ISelectable index) {
-		if (declaration != null && definitionClass != null) {
-			val entries = index.getExportedObjects(definitionClass, declaration.fullyQualifiedName, false)
+		val declarationQN = declaration?.fullyQualifiedName
+		if (index != null && declarationQN != null && definitionClass != null) {
+			val entries = index.getExportedObjects(definitionClass, declarationQN, false)
 			return entries.map[EcoreUtil.resolve(EObjectOrProxy, declaration)]
 		}
 		return emptyList
 	}
 
 	def Iterable<EObject> getDeclarations(EObject definition, EClass declarationClass, ISelectable index) {
-		if (definition != null && declarationClass != null) {
-			val entries = index.getExportedObjects(declarationClass, definition.fullyQualifiedName, false)
+		val definitionQN = definition?.fullyQualifiedName
+		if (index != null && definitionQN != null && declarationClass != null) {
+			val entries = index.getExportedObjects(declarationClass, definitionQN, false)
 			return entries.map[EcoreUtil.resolve(EObjectOrProxy, definition)] 
 		}
 		return emptyList

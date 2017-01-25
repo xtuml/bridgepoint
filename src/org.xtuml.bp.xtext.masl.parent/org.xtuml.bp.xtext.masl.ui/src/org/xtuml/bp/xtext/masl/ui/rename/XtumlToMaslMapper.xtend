@@ -35,6 +35,8 @@ class XtumlToMaslMapper {
 		switch xtumlElement{
 			Attribute_c:
 				#[attributeDefinition]
+			Component_c:
+				#[domainDefinition]
 			Function_c:
 				#[domainServiceDeclaration, domainFunctionDeclaration]
 //			FunctionParameter_c:

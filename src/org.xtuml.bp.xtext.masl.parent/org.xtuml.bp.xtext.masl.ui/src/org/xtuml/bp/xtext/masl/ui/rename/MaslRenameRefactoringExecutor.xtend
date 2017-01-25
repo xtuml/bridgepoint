@@ -69,7 +69,7 @@ class MaslRenameRefactoringExecutor {
 
 	private def IStatus execute(ProcessorBasedRefactoring refactoring, boolean tryOnly) throws InterruptedException {
 		try {
-			val shell = Display.current.activeShell
+			val shell = Display.^default.activeShell
 			val window = PlatformUI.workbench.workbenchWindows.head
 			val workbench = window.workbench
 			if (!refactoring.isApplicable)
@@ -83,7 +83,7 @@ class MaslRenameRefactoringExecutor {
 							manager.beginRule(rule, null)
 						}
 					}
-					BusyIndicator.showWhile(shell.getDisplay(),
+					BusyIndicator.showWhile(Display.^default,
 						r)
 				} catch (OperationCanceledException e) {
 					return Status.CANCEL_STATUS
@@ -101,7 +101,8 @@ class MaslRenameRefactoringExecutor {
 							validationStatus.getMessageMatchingSeverity(RefactoringStatus.FATAL))
 				}
 			} finally {
-				manager.endRule(rule)
+				if(manager.currentRule == rule)
+					manager.endRule(rule)
 				refactoring.validationContext = null
 			}
 			if(!tryOnly) {

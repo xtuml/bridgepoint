@@ -3,6 +3,7 @@ package org.xtuml.bp.xtext.masl.typesystem
 import com.google.inject.Inject
 import java.util.List
 import java.util.Set
+import org.apache.log4j.Logger
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.emf.ecore.EReference
 import org.xtuml.bp.xtext.masl.masl.behavior.ActionCall
@@ -28,59 +29,63 @@ import org.xtuml.bp.xtext.masl.masl.structure.SubtypeRelationshipDefinition
 import static org.xtuml.bp.xtext.masl.typesystem.BuiltinType.*
 
 import static extension org.eclipse.xtext.EcoreUtil2.*
-import org.xtuml.bp.xtext.masl.masl.behavior.CancelTimerStatement
-import org.xtuml.bp.xtext.masl.masl.behavior.ScheduleStatement
 
 class MaslExpectedTypeProvider {
+	
+	static val LOG = Logger.getLogger(MaslExpectedTypeProvider) 
 
 	@Inject extension BehaviorPackage
 	@Inject extension MaslTypeProvider
 
 	def Iterable<MaslType> getExpectedTypes(EObject context, EReference reference, int index) {
-		if (reference == assignStatement_Rhs && context instanceof AssignStatement)
-			return #[(context as AssignStatement).lhs.maslType]
-		if (reference == createArgument_Value && context instanceof CreateArgument)
-			return #[(context as CreateArgument).attribute.maslType]
-		if (reference == caseAlternative_Choices && context instanceof CaseAlternative)
-			return #[((context as CaseAlternative).eContainer as CaseStatement).value.maslType]
-		if (reference == variableDeclaration_Expression && context instanceof VariableDeclaration)
-			return #[(context as VariableDeclaration).type.maslType]
-		if (reference == returnStatement_Value) {
-			val topLevelElement = context.getContainerOfType(AbstractTopLevelElement)
-			switch topLevelElement {
-				AbstractFunction:
-					return #[topLevelElement.returnType.maslType]
-				default:
-					return #[NO_TYPE]
+		try {
+			if (reference == assignStatement_Rhs && context instanceof AssignStatement)
+				return #[(context as AssignStatement).lhs.maslType]
+			if (reference == createArgument_Value && context instanceof CreateArgument)
+				return #[(context as CreateArgument).attribute.maslType]
+			if (reference == caseAlternative_Choices && context instanceof CaseAlternative)
+				return #[((context as CaseAlternative).eContainer as CaseStatement).value.maslType]
+			if (reference == variableDeclaration_Expression && context instanceof VariableDeclaration)
+				return #[(context as VariableDeclaration).type.maslType]
+			if (reference == returnStatement_Value) {
+				val topLevelElement = context.getContainerOfType(AbstractTopLevelElement)
+				switch topLevelElement {
+					AbstractFunction:
+						return #[topLevelElement.returnType.maslType]
+					default:
+						return #[NO_TYPE]
+				}
 			}
+			if(reference == actionCall_Arguments && context instanceof ActionCall && index != -1) {
+				val action = (context as ActionCall).receiver
+				if(action instanceof SimpleFeatureCall)
+					return action.feature.getParameterType(index)
+			}
+			if(reference == indexedExpression_Brackets && context instanceof IndexedExpression) {
+				return #[INTEGER, new RangeType(INTEGER)]
+			}
+			if(reference == terminatorActionCall_Arguments && context instanceof TerminatorActionCall && index != -1) 
+				return (context as TerminatorActionCall).terminatorAction.getParameterType(index)
+			if(reference == navigateExpression_Lhs && context instanceof NavigateExpression) 
+				return getRelationshipNavigationLhsExpectation(context as NavigateExpression)
+			if(reference == navigateExpression_With && context instanceof NavigateExpression) 
+				return getRelationshipNavigationWithExpectation(context as NavigateExpression)
+			if(reference == exitStatement_Condition 
+				|| reference == ifStatement_Condition
+				|| reference == elsifBlock_Condition
+				|| reference == whileStatement_Condition)
+				return #[BOOLEAN]
+			if(reference == delayStatement_Value)
+				return #[DURATION]
+			if(reference == scheduleStatement_TimerId 
+				||reference == cancelTimerStatement_TimerId)
+				return #[TIMER]
+			if(reference == scheduleStatement_Time) 
+				return #[DURATION]
+			
+		} catch (Exception exc) {
+			LOG.error(exc.message)
 		}
-		if(reference == actionCall_Arguments && context instanceof ActionCall && index != -1) {
-			val action = (context as ActionCall).receiver
-			if(action instanceof SimpleFeatureCall)
-				return action.feature.getParameterType(index)
-		}
-		if(reference == indexedExpression_Brackets && context instanceof IndexedExpression) {
-			return #[INTEGER, new RangeType(INTEGER)]
-		}
-		if(reference == terminatorActionCall_Arguments && context instanceof TerminatorActionCall && index != -1) 
-			return (context as TerminatorActionCall).terminatorAction.getParameterType(index)
-		if(reference == navigateExpression_Lhs && context instanceof NavigateExpression) 
-			return getRelationshipNavigationLhsExpectation(context as NavigateExpression)
-		if(reference == navigateExpression_With && context instanceof NavigateExpression) 
-			return getRelationshipNavigationWithExpectation(context as NavigateExpression)
-		if(reference == exitStatement_Condition 
-			|| reference == ifStatement_Condition
-			|| reference == elsifBlock_Condition
-			|| reference == whileStatement_Condition)
-			return #[BOOLEAN]
-		if(reference == delayStatement_Value)
-			return #[DURATION]
-		if(reference == scheduleStatement_TimerId 
-			||reference == cancelTimerStatement_TimerId)
-			return #[TIMER]
-		if(reference == scheduleStatement_Time) 
-			return #[DURATION]
-		
 		return #[]
 	}
 
@@ -91,7 +96,7 @@ class MaslExpectedTypeProvider {
 				newArrayList(relationship.forwards.from.maslType, relationship.backwards.from.maslType)
 			AssocRelationshipDefinition:
 				newArrayList(relationship.forwards.from.maslType, relationship.backwards.from.maslType)
-			SubtypeRelationshipDefinition:
+			default:
 				return #[]
 		}
 		val lhsType = context.lhs.maslType
