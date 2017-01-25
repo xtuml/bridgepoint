@@ -500,19 +500,21 @@ if ( not_empty c_ep and not_empty c_po )
   end if;
   
   // Populate the action langauge body.
-  select any spr_po related by c_ep->SPR_PEP[R4501]->SPR_PO[R4503];
+  select any spr_pep related by c_po->C_IR[R4016]->C_P[R4009]->SPR_PEP[R4501] where ( selected.ExecutableProperty_Id == c_ep.Id );
+  select one spr_po related by spr_pep->SPR_PO[R4503];
   if ( not_empty spr_po )
     smasl = smasl + "codeblock," + URL::encode(string:spr_po.Action_Semantics_internal) + ",,,,,,,\n";
   else
-    select any spr_ro related by c_ep->SPR_REP[R4500]->SPR_RO[R4502];
-    if ( not_empty spr_ro )
-      smasl = smasl + "codeblock," + URL::encode(string:spr_ro.Action_Semantics_internal) + ",,,,,,,\n";
-    else
-      select any spr_ps related by c_ep->SPR_PEP[R4501]->SPR_PS[R4503];
-      if ( not_empty spr_ps )
-        smasl = smasl + "codeblock," + URL::encode(string:spr_ps.Action_Semantics_internal) + ",,,,,,,\n";
-      else
-        select any spr_rs related by c_ep->SPR_REP[R4500]->SPR_RS[R4502];
+	select one spr_ps related by spr_pep->SPR_PS[R4503];
+	if ( not_empty spr_ps )
+	  smasl = smasl + "codeblock," + URL::encode(string:spr_ps.Action_Semantics_internal) + ",,,,,,,\n";
+	else
+      select any spr_rep related by c_po->C_IR[R4016]->C_R[R4009]->SPR_REP[R4500] where ( selected.ExecutableProperty_Id == c_ep.Id );
+	  select one spr_ro related by spr_rep->SPR_RO[R4502];
+	  if ( not_empty spr_ro )
+		smasl = smasl + "codeblock," + URL::encode(string:spr_ro.Action_Semantics_internal) + ",,,,,,,\n";
+	  else
+        select one spr_rs related by spr_rep->SPR_RS[R4502];
         if ( not_empty spr_rs )
           smasl = smasl + "codeblock," + URL::encode(string:spr_rs.Action_Semantics_internal) + ",,,,,,,\n";
         end if;
