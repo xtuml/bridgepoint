@@ -1,0 +1,54 @@
+-- BP 7.1.6 content: Package syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO EP_PKG
+	VALUES ("b1db067e-83ca-4e9e-a3cb-53134604edb3",
+	"00000000-0000-0000-0000-000000000000",
+	"caeb992d-705b-4741-8e19-2e442e50c51e",
+	'Shared',
+	'',
+	0);
+INSERT INTO GD_MD
+	VALUES ("54f66a24-d3b6-42b1-b1a4-25e6a938fd39",
+	112,
+	"b1db067e-83ca-4e9e-a3cb-53134604edb3",
+	108,
+	0,
+	0,
+	1,
+	1,
+	1,
+	12,
+	1,
+	0,
+	0,
+	0,
+	0,
+	0,
+	'',
+	'MASLTemplate::MASLTemplate::Shared');
+INSERT INTO DIM_DIA
+	VALUES ("54f66a24-d3b6-42b1-b1a4-25e6a938fd39",
+	'',
+	1.000000,
+	0.000000,
+	0.000000,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO PE_PE
+	VALUES ("b1db067e-83ca-4e9e-a3cb-53134604edb3",
+	1,
+	"38dd8edf-d4c6-41f1-bbc7-976ef77611ac",
+	"00000000-0000-0000-0000-000000000000",
+	7);
+INSERT INTO EP_PKG_PROXY
+	VALUES ("38dd8edf-d4c6-41f1-bbc7-976ef77611ac",
+	"caeb992d-705b-4741-8e19-2e442e50c51e",
+	"caeb992d-705b-4741-8e19-2e442e50c51e",
+	'MASLTemplate',
+	'masl_domain',
+	0,
+	'../MASLTemplate.xtuml');
+INSERT INTO S_SYS_PROXY
+	VALUES ("caeb992d-705b-4741-8e19-2e442e50c51e",
+	'MASLTemplate',
+	1,
+	'../../MASLTemplate.xtuml');
