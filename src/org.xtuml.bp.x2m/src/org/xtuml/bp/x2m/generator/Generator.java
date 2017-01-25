@@ -317,7 +317,7 @@ public class Generator extends Task {
 
         // set error redirect and change working dir
         pb.redirectError(err);
-        pb.directory(new File(workingDir));
+        pb.directory(new File(bin_dir));
 
         // start the process
         Process process = pb.start();

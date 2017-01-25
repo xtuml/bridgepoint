@@ -18,7 +18,7 @@ options {
 
     public void reportError(RecognitionException arg0) {
         m_errors = true;
-	m_output += "BodyParser: " + (( m_ci != null && m_ci.m_actionFile != null) ? m_ci.m_actionFile.getPath() + " " : "") + arg0.toString() + "\n";
+	m_output += "BodyParser: " + (( m_ci != null && m_ci.m_actionFile != null) ? m_ci.m_actionFile.getName() + " " : "") + arg0.toString() + "\n";
     }
 
     public String m_output = "";
@@ -73,7 +73,7 @@ options {
 
     public void reportError(RecognitionException arg0) {
         m_errors = true;
-	m_output += "BodyLexer: " + (( m_ci != null && m_ci.m_actionFile != null) ? m_ci.m_actionFile.getPath() + " " : "") + arg0.toString() + "\n";
+	m_output += "BodyLexer: " + (( m_ci != null && m_ci.m_actionFile != null) ? m_ci.m_actionFile.getName() + " " : "") + arg0.toString() + "\n";
     }
 
     public String m_output = "";
@@ -82,5 +82,5 @@ options {
     private CoreImport m_ci = null;
 }
 
-LINE        : '\n' | ( (~( '\n' ))+ ('\n'{newline();})? );
+LINE        : '\n'{newline();} | ( (~( '\n' ))+ ('\n'{newline();})? );
 

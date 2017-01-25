@@ -24,7 +24,7 @@ INSERT INTO GD_MD
 	0,
 	0,
 	0,
-	'',
+	'4.1.17',
 	'org.xtuml.bp.ui.canvas::ooaofgraphics::External Entities');
 INSERT INTO GD_GE
 	VALUES ("bd61de77-6c7e-44f7-b3d6-29c9b64b1086",
@@ -153,7 +153,8 @@ INSERT INTO S_BRG
 	"ba5eda7a-def5-0000-0000-000000000004",
 	'// implementation will supplied by native code',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("4fd6cde6-4228-4015-a02f-b92d29e67650",
 	"731f19ad-3960-4f7b-ab0d-18e63e1896b2",
@@ -225,7 +226,8 @@ INSERT INTO S_BRG
 	"ba5eda7a-def5-0000-0000-000000000004",
 	'// implementation will supplied by native code',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("d03765ad-b7e9-4a16-ab4e-49c4fc5120f5",
 	"e7738dfd-0dc8-4bd9-a3bc-069c74f0e8c2",
@@ -281,7 +283,8 @@ INSERT INTO S_BRG
 	"ba5eda7a-def5-0000-0000-000000000002",
 	'// implementation will supplied by native code',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("23f0a7b9-a6e9-4399-81f9-eb993ba5abc3",
 	"ab694e1b-9fe2-4f47-a980-2d44bf9998c9",
@@ -303,7 +306,8 @@ INSERT INTO S_BRG
 	"ba5eda7a-def5-0000-0000-000000000001",
 	'// implementation will supplied by native code',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("a50b06f4-ae51-4484-9308-b5180f601413",
 	"e10d90b1-7402-4ac1-a9cd-affdef272390",
@@ -325,7 +329,8 @@ INSERT INTO S_BRG
 	"68dedb08-fd5a-420e-9ec7-e7985ad0c856",
 	'// implementation will supplied by native code',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("bd38a722-63db-42e6-b37f-125a061ee9e8",
 	"15e1de0a-3fda-4c80-b908-c5aa404466e3",
@@ -372,7 +377,8 @@ INSERT INTO S_BRG
 	"71b14676-25f7-49a8-a3f5-e834aa0bca09",
 	'// implementation will supplied by native code',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("b7365e0a-883a-46dc-828d-a249d7e29f02",
 	"319cc68a-3f9f-4d01-8825-6aa243a2c4da",
@@ -401,7 +407,8 @@ INSERT INTO S_BRG
 	"ba5eda7a-def5-0000-0000-000000000001",
 	'// implementation will supplied by native code',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("9eb7b48a-b757-466b-9de5-353a28fbb240",
 	"33127d58-e6e4-43a3-b9bf-40f838ff1f77",
@@ -423,7 +430,8 @@ INSERT INTO S_BRG
 	"71b14676-25f7-49a8-a3f5-e834aa0bca09",
 	'// implementation will supplied by native code',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("8dace236-f985-4e3f-ac51-7d68e5239010",
 	"655b33fe-b4a3-4abd-b1db-19d96b33ba3b",
@@ -454,7 +462,8 @@ INSERT INTO S_BRG
 	"ba5eda7a-def5-0000-0000-000000000002",
 	'// implementation will supplied by native code',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("edfecc4e-a5d9-4957-a66c-e7dd5257d682",
 	"e738cc2f-274b-41ef-9cfb-60c6861e9c38",
@@ -485,7 +494,8 @@ INSERT INTO S_BRG
 	"71b14676-25f7-49a8-a3f5-e834aa0bca09",
 	'// implementation will supplied by native code',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("edf54419-1675-4d4e-b443-321f752c65d0",
 	"540104c2-f391-451f-b353-2fa22b6beac9",
@@ -534,7 +544,8 @@ INSERT INTO S_BRG
 	"ba5eda7a-def5-0000-0000-000000000000",
 	'// implementation will supplied by native code',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("9d029de5-d8f1-4980-8421-9fb2626a5f51",
 	"552ca340-3192-42c8-a7c9-966b26758458",
@@ -556,7 +567,8 @@ INSERT INTO S_BRG
 	"ba5eda7a-def5-0000-0000-000000000000",
 	'// implementation will supplied by native code',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("f6f1a0a9-beac-4376-8c57-075e3dc70dee",
 	"ec3e10bb-0783-4d10-a115-844006e4753e",
@@ -578,7 +590,8 @@ INSERT INTO S_BRG
 	"ba5eda7a-def5-0000-0000-000000000000",
 	'// implementation will supplied by native code',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BRG
 	VALUES ("26921c24-f143-45c0-8855-1f0c74bd5a4c",
 	"f168c92b-6d64-4ecb-a677-5a1d7cce8352",
@@ -591,7 +604,8 @@ INSERT INTO S_BRG
 	"ba5eda7a-def5-0000-0000-000000000000",
 	'// implementation will supplied by native code',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BRG
 	VALUES ("b3da84a4-4f79-448a-a709-2e8f1c8129cf",
 	"f168c92b-6d64-4ecb-a677-5a1d7cce8352",
@@ -604,7 +618,8 @@ INSERT INTO S_BRG
 	"ba5eda7a-def5-0000-0000-000000000000",
 	'// implementation will supplied by native code',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("ad232bf1-6d77-4c14-b24d-c8e90d12c4f5",
 	"b3da84a4-4f79-448a-a709-2e8f1c8129cf",
@@ -635,7 +650,8 @@ INSERT INTO S_BRG
 	"ba5eda7a-def5-0000-0000-000000000005",
 	'// implementation will supplied by native code',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("38b78517-0f37-44d2-b947-8f060124227f",
 	"dae5c6c8-6e33-4468-8d74-282e070ac970",
@@ -656,7 +672,8 @@ INSERT INTO S_BRG
 	"ba5eda7a-def5-0000-0000-000000000001",
 	'// implementation will supplied by native code',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("fc1a5a78-ed4f-410d-816b-d6950d03e8d6",
 	"131df675-ce82-40cf-863c-15851a84eea0",
@@ -720,7 +737,8 @@ INSERT INTO S_BRG
 	"a172f187-f843-4aeb-af5b-873deb036646",
 	'',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("b002232e-303e-4fc1-b434-9a34be8dcbe8",
 	"30ddc6d8-af00-43b9-bdb8-a0888c48186e",
@@ -755,7 +773,8 @@ INSERT INTO S_BRG
 	"ba5eda7a-def5-0000-0000-000000000000",
 	'',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("65644129-0c3b-493c-b9a9-95573b1f7b26",
 	"01c0a1dd-13c1-4265-af24-4ea40a8cc0a2",
@@ -783,7 +802,8 @@ INSERT INTO S_BRG
 	"ba5eda7a-def5-0000-0000-000000000000",
 	'',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("a5db7ec9-23ae-4ef7-a3e5-7d17bbaed3b4",
 	"349998cf-4908-472f-9d88-2ac0c6592c32",
@@ -811,7 +831,8 @@ INSERT INTO S_BRG
 	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("e1a3f9e6-543a-42a1-bffb-1efe4f2f5ff1",
 	"5dc1db90-c389-468a-864f-9bcf9fb55e3f",
@@ -839,7 +860,8 @@ INSERT INTO S_BRG
 	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("7d4f5aba-7ff5-49a7-bad0-b5616784d77b",
 	"167ca970-147e-4709-bc32-e3a1b6218ace",
@@ -876,7 +898,8 @@ INSERT INTO S_BRG
 	"ba5eda7a-def5-0000-0000-000000000001",
 	'',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("f758d04c-ad7c-4df5-b1ee-1b72d17c3184",
 	"3cd71004-1c17-457a-a948-1fb223e22edd",
@@ -913,7 +936,8 @@ INSERT INTO S_BRG
 	"68dedb08-fd5a-420e-9ec7-e7985ad0c856",
 	'',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("aacd8ef6-35dc-4a2b-a9d6-717fa6e1f6c7",
 	"92f45857-5ac9-4f24-a6b7-540f890e072c",
@@ -950,7 +974,8 @@ INSERT INTO S_BRG
 	"ba5eda7a-def5-0000-0000-000000000001",
 	'',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("cba71c82-be4b-4710-ab59-30ffeffafc42",
 	"cfcd175d-0fb3-4f34-ae97-5788637cb01a",
@@ -987,7 +1012,8 @@ INSERT INTO S_BRG
 	"ba5eda7a-def5-0000-0000-000000000001",
 	'// implementation will supplied by native code',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("26a6032d-7010-40ec-8bab-d5e8a8c076c0",
 	"33acc304-2cf6-4774-844a-733e58483b7a",
@@ -1006,7 +1032,8 @@ INSERT INTO S_BRG
 	"ba5eda7a-def5-0000-0000-000000000002",
 	'// implementation will supplied by native code',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("b6ef211e-a480-4e5d-8eb3-bf32672d81ac",
 	"7c02aa5f-3c97-43f5-8227-6aa97a78635f",
@@ -1043,7 +1070,8 @@ INSERT INTO S_BRG
 	"ba5eda7a-def5-0000-0000-000000000005",
 	'// implementation will supplied by native code',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("bd159dcf-2a68-4b6d-9439-86a257138c58",
 	"4ac48078-e27e-4243-9578-66d22239b43c",
@@ -1089,7 +1117,8 @@ INSERT INTO S_BRG
 	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("90441f35-29c7-4faa-ac60-80a56a8e0e06",
 	"43ddcdc2-3d8e-4451-8875-93c50e776bfa",
@@ -1108,7 +1137,8 @@ INSERT INTO S_BRG
 	"ba5eda7a-def5-0000-0000-000000000001",
 	'',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("1f6ef382-b262-43f7-bfb8-17c5865fdc78",
 	"8334d7b6-0773-4d64-a296-42594606a59c",
@@ -1136,7 +1166,8 @@ INSERT INTO S_BRG
 	"ba5eda7a-def5-0000-0000-000000000001",
 	'',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("490d1cc9-9ced-4f7b-aedf-15a1849dae73",
 	"b8a80c2d-18e5-45a9-9c16-41c5df47a20e",
@@ -1182,7 +1213,8 @@ INSERT INTO S_BRG
 	"ba5eda7a-def5-0000-0000-000000000000",
 	'',
 	1,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("b48f6181-eb57-460a-938d-20c022e84758",
 	"255a50d0-c440-4164-9ab9-2d3f36204e3f",
@@ -1201,7 +1233,8 @@ INSERT INTO S_BRG
 	"ba5eda7a-def5-0000-0000-000000000001",
 	'',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("ed77c3a3-ac01-45c8-ad74-d49fc47cf197",
 	"9a20fe6a-caba-423b-8255-b7763c47ab89",
@@ -1229,7 +1262,8 @@ INSERT INTO S_BRG
 	"ba5eda7a-def5-0000-0000-000000000001",
 	'',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("ee0a324c-4ca1-4b32-828a-e225301ee467",
 	"66d7e3b3-93a2-4c51-9d05-deaf1f091c81",
@@ -1248,7 +1282,8 @@ INSERT INTO S_BRG
 	"ba5eda7a-def5-0000-0000-000000000002",
 	'// implementation will supplied by native code',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("951cff37-52c8-4d30-ad60-5de3baa060f0",
 	"53d76c64-d568-423e-bd32-22b9993baa5f",
@@ -1276,7 +1311,8 @@ INSERT INTO S_BRG
 	"ba5eda7a-def5-0000-0000-000000000005",
 	'',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("0f6489bb-d150-4ed3-88fa-f97d0c9e385e",
 	"f70565a6-a101-4d27-8646-5fbe972da46b",
@@ -1313,7 +1349,8 @@ INSERT INTO S_BRG
 	"ba5eda7a-def5-0000-0000-000000000000",
 	'',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("4ec9cb10-b18f-4984-9b38-ca4042967189",
 	"b5414c0d-e7b6-4f13-8394-19e2332345d2",
@@ -1341,7 +1378,8 @@ INSERT INTO S_BRG
 	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BRG
 	VALUES ("3222730f-b47e-4c13-9c12-23f7e58e95ae",
 	"f168c92b-6d64-4ecb-a677-5a1d7cce8352",
@@ -1351,7 +1389,8 @@ INSERT INTO S_BRG
 	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BRG
 	VALUES ("ae3f7e17-1d49-47ec-ac2a-ed2d5fa8a4aa",
 	"f168c92b-6d64-4ecb-a677-5a1d7cce8352",
@@ -1361,7 +1400,8 @@ INSERT INTO S_BRG
 	"ba5eda7a-def5-0000-0000-000000000001",
 	'',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BRG
 	VALUES ("f2f41869-3f02-4a8c-8355-7af36e33492e",
 	"f168c92b-6d64-4ecb-a677-5a1d7cce8352",
@@ -1371,7 +1411,8 @@ INSERT INTO S_BRG
 	"ba5eda7a-def5-0000-0000-000000000000",
 	'',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("ac989799-41dd-4704-b7c8-b88a09dadc1a",
 	"f2f41869-3f02-4a8c-8355-7af36e33492e",
@@ -1393,7 +1434,8 @@ INSERT INTO S_BRG
 	"ba5eda7a-def5-0000-0000-000000000004",
 	'// implementation will supplied by native code',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("4b2a7437-e889-4947-8c57-f89e25a370fd",
 	"bd0747e1-f279-45b6-8134-6a8fffdb5951",
@@ -1412,7 +1454,8 @@ INSERT INTO S_BRG
 	"ba5eda7a-def5-0000-0000-000000000000",
 	'',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("93344b2d-ff31-4d7e-9824-8d78885640e6",
 	"36ecb2ad-2b0e-436f-bcc1-f13a7f2c3524",
@@ -1433,7 +1476,8 @@ INSERT INTO S_BRG
 	"ba5eda7a-def5-0000-0000-000000000005",
 	'// implementation will supplied by native code',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("84b744ba-40cc-46cd-b124-cb33cd91bc3b",
 	"6636cf62-0ac9-4cc6-89d0-2e560672c1ea",
@@ -1471,7 +1515,8 @@ implemented via bp/core/common/TraceLogger.java. ',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	'',
 	1,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("bfbd6067-2411-4630-90e7-f863373a5141",
 	"fbdc1473-f695-46cc-8225-03aa60506c41",
@@ -1520,7 +1565,8 @@ INSERT INTO S_BRG
 	'CL::logTraceMsg(filterType:LoggerType::OPERATION, filterValue:"", 
 				message:param.message);',
 	1,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("62a6302f-55ab-4b14-bbd5-08c93ad5cfc2",
 	"9b0a0e52-9901-470a-8efe-2086c83d2486",
@@ -1539,7 +1585,8 @@ INSERT INTO S_BRG
 	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("1e834810-0c9b-47e0-ba8f-0376533ebb5c",
 	"bd9f8b2d-7cc4-444a-89e2-d4c2335b8808",
@@ -1562,7 +1609,8 @@ https://github.com/xtuml/bridgepoint/blob/master/doc-bridgepoint/process/FAQ.md#
 	"ba5eda7a-def5-0000-0000-000000000001",
 	'',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BRG
 	VALUES ("1bd141bc-0e4a-4522-b588-f41a917bcaca",
 	"f168c92b-6d64-4ecb-a677-5a1d7cce8352",
@@ -1572,7 +1620,8 @@ INSERT INTO S_BRG
 	"ba5eda7a-def5-0000-0000-000000000000",
 	'',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("25dbd062-e30a-4700-998a-15797d4b47a6",
 	"1bd141bc-0e4a-4522-b588-f41a917bcaca",
@@ -1591,7 +1640,8 @@ INSERT INTO S_BRG
 	"68dedb08-fd5a-420e-9ec7-e7985ad0c856",
 	'',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("e1994d8e-12c6-4339-93f0-d21d3ca6c8a5",
 	"8f466ea3-a45e-4ad1-b64f-b4299ef5a554",
@@ -1633,7 +1683,8 @@ INSERT INTO S_BRG
 
 ',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("c219f9b6-7275-4679-a54e-c9bc4dfc62d4",
 	"07e91c1d-a9bd-439b-9110-0b812e1b4098",
@@ -1661,7 +1712,8 @@ INSERT INTO S_BRG
 	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("cb026d8a-c4d1-4cb4-a320-0e4e2f4b060d",
 	"9826bcdc-abce-4e78-ad6f-3adfbc70a76f",
@@ -1680,7 +1732,8 @@ INSERT INTO S_BRG
 	"ba5eda7a-def5-0000-0000-000000000001",
 	'',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("bffa429a-d271-478c-b69e-586a2d4cdecf",
 	"cd82f423-3cc5-46a2-baee-6a2fcbebcf88",
@@ -1699,7 +1752,8 @@ INSERT INTO S_BRG
 	"ba5eda7a-def5-0000-0000-000000000001",
 	'',
 	1,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("096e0824-874f-45d2-9c60-aa992047f9ef",
 	"94009a26-ffdc-4196-bc0f-2325ca36374f",
@@ -1718,7 +1772,8 @@ INSERT INTO S_BRG
 	"68dedb08-fd5a-420e-9ec7-e7985ad0c856",
 	'',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("90256525-2f48-40fd-9710-1bae22ca423e",
 	"e0fc98be-1313-461c-b57f-7fecb27c8676",
@@ -1737,7 +1792,8 @@ INSERT INTO S_BRG
 	"ba5eda7a-def5-0000-0000-000000000001",
 	'',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("82ad7294-415d-413f-aaf2-34d37b71b109",
 	"2a4514aa-e52c-4289-9d37-336e4d61048d",
@@ -1755,6 +1811,26 @@ INSERT INTO S_BPARM
 	0,
 	'',
 	"82ad7294-415d-413f-aaf2-34d37b71b109",
+	'');
+INSERT INTO S_BRG
+	VALUES ("d30ce44f-350f-43f8-8dcd-68f2981bfd38",
+	"f168c92b-6d64-4ecb-a677-5a1d7cce8352",
+	'getProvisionFromSatisfaction',
+	'// implementation will supplied by native code',
+	0,
+	"68dedb08-fd5a-420e-9ec7-e7985ad0c856",
+	'',
+	0,
+	'',
+	0);
+INSERT INTO S_BPARM
+	VALUES ("3fb1b342-74d2-45ca-a210-89f1d4c414c5",
+	"d30ce44f-350f-43f8-8dcd-68f2981bfd38",
+	'satisfaction',
+	"68dedb08-fd5a-420e-9ec7-e7985ad0c856",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
 	'');
 INSERT INTO PE_PE
 	VALUES ("f168c92b-6d64-4ecb-a677-5a1d7cce8352",
@@ -1787,7 +1863,8 @@ is Left justification.
 	"ba5eda7a-def5-0000-0000-000000000000",
 	' // implementation will supplied by native code',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("dc6f2bc6-62e9-43d1-a6bc-3b60073b773a",
 	"2922f945-b5c6-4079-9004-57d74ae3add6",
@@ -1859,7 +1936,8 @@ INSERT INTO S_BRG
 	"ba5eda7a-def5-0000-0000-000000000000",
 	'// implementation will supplied by native code',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("3b1dcd3c-7577-4426-b313-c426091d1061",
 	"34d779b9-09a4-4dc6-a637-44a72afaa033",
@@ -1924,7 +2002,8 @@ graphics will be rendered outside the specified area.',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	'// implementation will supplied by native code',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("d68c03e2-1235-454b-a2f2-629c1e32a9df",
 	"a87907ec-aa1a-4920-9d5c-68d1c77b308c",
@@ -1982,7 +2061,8 @@ the font style and size and the type of display in use.
 	"ba5eda7a-def5-0000-0000-000000000002",
 	'// implementation will supplied by native code',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("21cafe44-9cbd-4485-a1f2-4053be9f865e",
 	"48ae2100-f2a5-4765-b695-c359c97dd7b4",
@@ -2028,7 +2108,8 @@ block of text and its enclosing symbol.',
 	"ba5eda7a-def5-0000-0000-000000000002",
 	'// implementation will supplied by native code',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BRG
 	VALUES ("8002ef15-3ae1-47bf-8194-707514caaff9",
 	"b648f8f8-7be4-47ca-97fb-05830dc194e7",
@@ -2038,7 +2119,8 @@ INSERT INTO S_BRG
 	"ba5eda7a-def5-0000-0000-000000000000",
 	'// implementation will supplied by native code',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("02bfdd06-ae84-4764-a178-374c0c62d5d9",
 	"8002ef15-3ae1-47bf-8194-707514caaff9",
@@ -2096,7 +2178,8 @@ client area.
 	"ba5eda7a-def5-0000-0000-000000000000",
 	'// implementation will supplied by native code',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("4a696c53-7d00-423d-9618-2af69e187b23",
 	"256a7068-2231-4010-af75-e5802274b3c4",
@@ -2116,7 +2199,8 @@ INSERT INTO S_BRG
 	"ba5eda7a-def5-0000-0000-000000000000",
 	'// implementation will supplied by native code',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("425cff15-19c5-4897-936d-b1ca61a1e7a1",
 	"62f9697d-8f48-41a1-af11-ad02e20b58e6",
@@ -2173,7 +2257,8 @@ width w and height h
 	"ba5eda7a-def5-0000-0000-000000000000",
 	'// implementation will supplied by native code',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("6145439d-99a1-446d-82fd-b17dba8ee5c4",
 	"448a09fd-dcf2-4a3a-9cae-db4f2db22e37",
@@ -2239,7 +2324,8 @@ line width is scaled if scaling is greater than 100%.
 	"ba5eda7a-def5-0000-0000-000000000000",
 	'// implementation will supplied by native code',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("148351a2-6a01-4d34-a548-2ca6973caba3",
 	"09083a4b-1a0f-4f7e-a5a8-d480d3f3348c",
@@ -2272,7 +2358,8 @@ the existing tool.
 	"ba5eda7a-def5-0000-0000-000000000000",
 	'// implementation will supplied by native code',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("e56ac8b1-b500-45d1-832b-df49fe3ab82c",
 	"d4218ebd-0d2e-42af-9811-f399f7259d08",
@@ -2302,7 +2389,8 @@ on the drawing canvas.
 	"ba5eda7a-def5-0000-0000-000000000002",
 	'// implementation will supplied by native code',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("c9da552d-3927-449a-8469-ded8714e4868",
 	"ad45f127-5583-4ff0-ac72-4808a0266922",
@@ -2324,7 +2412,8 @@ model.
 	"ba5eda7a-def5-0000-0000-000000000002",
 	'// implementation will supplied by native code',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("ecd4a638-33f0-4160-9485-68f7d58b642f",
 	"4e59c7fd-cc34-4d2b-90ed-8f0e2a2c08b4",
@@ -2345,7 +2434,8 @@ graphic shape.
 	"ba5eda7a-def5-0000-0000-000000000000",
 	'// implementation will supplied by native code',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("57cabbf4-b45f-4002-ba04-4047dc324a77",
 	"4979b52f-6bc3-4c73-b391-5f3b4876f5f1",
@@ -2402,7 +2492,8 @@ cause a cursor to change appropriately.
 	"ba5eda7a-def5-0000-0000-000000000002",
 	'// implementation will supplied by native code',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BRG
 	VALUES ("25a8b3a5-0c35-4dd8-a78e-2314a9925859",
 	"b648f8f8-7be4-47ca-97fb-05830dc194e7",
@@ -2413,7 +2504,8 @@ INSERT INTO S_BRG
 	"ba5eda7a-def5-0000-0000-000000000003",
 	'// implementation will supplied by native code',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("137a9b72-3ce6-45f4-89b6-9ab1bbe2974b",
 	"25a8b3a5-0c35-4dd8-a78e-2314a9925859",
@@ -2460,7 +2552,8 @@ INSERT INTO S_BRG
 	"ba5eda7a-def5-0000-0000-000000000000",
 	'// implementation will supplied by native code',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("45236a49-aeb2-4223-a947-26fce34aa5d7",
 	"d91223ea-397e-414c-a9e0-ff76c4592149",
@@ -2510,7 +2603,8 @@ boundaries until the text has been consumed.
 	"ba5eda7a-def5-0000-0000-000000000004",
 	'// implementation will supplied by native code',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("1fa6c353-c234-4270-9cb7-bd1dfc26760d",
 	"efc9ac2a-240a-4348-a933-4ee97dcd8935",
@@ -2549,7 +2643,8 @@ i.e. North, South, East or West.
 	"293e701c-c0ef-48ec-86be-6421be45fefb",
 	'// implementation will supplied by native code',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("1ffb8e05-6eb5-4692-b4d1-dc7cfd734eb8",
 	"5f84e11d-36ee-455a-8bf8-62f056431180",
@@ -2577,7 +2672,8 @@ screen or page.
 	"ba5eda7a-def5-0000-0000-000000000002",
 	'// implementation will supplied by native code',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BRG
 	VALUES ("4e01b916-9838-4c06-9032-89dda825cfb4",
 	"b648f8f8-7be4-47ca-97fb-05830dc194e7",
@@ -2591,7 +2687,8 @@ denote the truncation.
 	"ba5eda7a-def5-0000-0000-000000000004",
 	'// implementation will supplied by native code',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("2bf6e49f-7b1c-48d0-968f-ab40817fd826",
 	"4e01b916-9838-4c06-9032-89dda825cfb4",
@@ -2638,7 +2735,8 @@ else draw a filled arrow.',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	'// implementation will supplied by native code',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("fafe191b-311c-4c73-9319-f5564ec67aed",
 	"a20047ac-c79c-4abd-a7ce-f53324a6c371",
@@ -2694,7 +2792,8 @@ INSERT INTO S_BRG
 	"ba5eda7a-def5-0000-0000-000000000000",
 	'// implementation will supplied by native code',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("c5369630-de51-4f8f-a71b-848e9eebd0dd",
 	"cc9aa5cd-ae3b-44b6-9053-1a10ddcb9c42",
@@ -2730,7 +2829,8 @@ INSERT INTO S_BRG
 	"ba5eda7a-def5-0000-0000-000000000000",
 	'// implementation will supplied by native code',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("11fbd5bd-38f6-4122-9626-203701035258",
 	"63b1e106-7b61-4908-8185-facbed0c9fad",
@@ -2750,7 +2850,8 @@ INSERT INTO S_BRG
 	"ba5eda7a-def5-0000-0000-000000000000",
 	'// implementation will supplied by native code',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("b273889b-1301-402e-adcd-94eef07b2d37",
 	"7df698ca-7e31-4df8-b8ef-1111af3c599e",
@@ -2778,7 +2879,8 @@ INSERT INTO S_BRG
 	"ba5eda7a-def5-0000-0000-000000000000",
 	'// implementation will supplied by native code',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("8f3788ca-cde9-4e8f-9e62-7d4d179a7182",
 	"ec475863-565f-4416-be4f-8d12932ddcd4",
@@ -2797,7 +2899,8 @@ INSERT INTO S_BRG
 	"ba5eda7a-def5-0000-0000-000000000000",
 	'// implementation will supplied by native code',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("9fb233ba-8f48-4dc3-9797-823a89ffe5c4",
 	"ec4b1756-4a3f-47a9-a0d1-5386bb618e0a",
@@ -2856,7 +2959,8 @@ known.',
 	"ba5eda7a-def5-0000-0000-000000000002",
 	'// implementation will supplied by native code',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BRG
 	VALUES ("3e56fcf4-95c1-4c31-aa39-96bdfc4089d8",
 	"b648f8f8-7be4-47ca-97fb-05830dc194e7",
@@ -2866,7 +2970,8 @@ INSERT INTO S_BRG
 	"ba5eda7a-def5-0000-0000-000000000000",
 	'// implementation will supplied by native code',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("6433e81a-5810-43fa-8c51-c9b37ee3b8f7",
 	"3e56fcf4-95c1-4c31-aa39-96bdfc4089d8",
@@ -2885,7 +2990,8 @@ INSERT INTO S_BRG
 	"ba5eda7a-def5-0000-0000-000000000000",
 	'// implementation will supplied by native code',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BRG
 	VALUES ("cc8a79a9-2508-409a-8a37-c25b06959800",
 	"b648f8f8-7be4-47ca-97fb-05830dc194e7",
@@ -2895,7 +3001,8 @@ INSERT INTO S_BRG
 	"ba5eda7a-def5-0000-0000-000000000002",
 	'// implementation will supplied by native code',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BRG
 	VALUES ("a6b30d0f-7460-464d-b960-90aa02f2223f",
 	"b648f8f8-7be4-47ca-97fb-05830dc194e7",
@@ -2905,7 +3012,8 @@ INSERT INTO S_BRG
 	"ba5eda7a-def5-0000-0000-000000000002",
 	'// implementation will supplied by native code',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BRG
 	VALUES ("3061e1cc-cd1f-464b-86a9-db391f97c68b",
 	"b648f8f8-7be4-47ca-97fb-05830dc194e7",
@@ -2915,7 +3023,8 @@ INSERT INTO S_BRG
 	"ba5eda7a-def5-0000-0000-000000000003",
 	'// implementation will supplied by native code',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("75640d80-4f91-4648-94a1-0209f914113a",
 	"3061e1cc-cd1f-464b-86a9-db391f97c68b",
@@ -2962,7 +3071,8 @@ a connector can be modified.',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	'// implementation will supplied by native code',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("7c5cd100-1b2d-466e-9ef3-b7bf83098fad",
 	"775381e8-69f8-4560-b342-d2581936fac7",
@@ -3008,7 +3118,8 @@ INSERT INTO S_BRG
 	"ba5eda7a-def5-0000-0000-000000000000",
 	'// implementation will supplied by native code',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("ec1fc7d3-2b00-49d8-968b-a09f55b1b9a0",
 	"fd677db5-f313-48f7-b544-c417ff2b83db",
@@ -3037,7 +3148,8 @@ hotspot distance of the point (x2, y2).',
 	"ba5eda7a-def5-0000-0000-000000000001",
 	'// implementation will supplied by native code',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("0b9b7c5b-22d8-4a9b-8d9a-e0cf065072ea",
 	"f009d7e3-1696-40db-8234-5e6274ddd165",
@@ -3084,7 +3196,8 @@ based on the distance (x3, y3) along the line (x1, y1), (x2, y2).',
 	"ba5eda7a-def5-0000-0000-000000000002",
 	'// implementation will supplied by native code',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("11e71ef3-80f1-400a-a976-db3b97f8b595",
 	"6030e395-91bb-48c1-8aaa-915ae97d77cb",
@@ -3167,7 +3280,8 @@ based on the distance (x3, y3) along the line (x1, y1), (x2, y2).',
 	"ba5eda7a-def5-0000-0000-000000000002",
 	'// implementation will supplied by native code',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("6cf94c54-547f-49ef-91f8-f09aa37caa2b",
 	"a2b4a002-a7d8-405c-9962-5ee66bd467f0",
@@ -3249,7 +3363,8 @@ INSERT INTO S_BRG
 	"ba5eda7a-def5-0000-0000-000000000002",
 	'// implementation will supplied by native code',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("8940c615-56d3-4343-bbe4-ced7ef466ea3",
 	"23086a3e-fb02-4aef-8b0e-77eff41b6b77",
@@ -3331,7 +3446,8 @@ INSERT INTO S_BRG
 	"ba5eda7a-def5-0000-0000-000000000002",
 	'// implementation will supplied by native code',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("e8384f6b-0b6d-47cf-84ee-eb85815961a4",
 	"c8eeae92-e148-4e4d-a204-f531a0fb089f",
@@ -3413,7 +3529,8 @@ INSERT INTO S_BRG
 	"231cb314-a496-47fb-aee2-1317be81deb5",
 	'// implementation will supplied by native code',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BRG
 	VALUES ("c8f44b02-6bd0-42c0-ab9c-7a9be6a3a7c6",
 	"b648f8f8-7be4-47ca-97fb-05830dc194e7",
@@ -3423,7 +3540,8 @@ INSERT INTO S_BRG
 	"ba5eda7a-def5-0000-0000-000000000000",
 	'// implementation will supplied by native code',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("dada1c88-a3d2-45e3-ad88-f1b77dd7637e",
 	"c8f44b02-6bd0-42c0-ab9c-7a9be6a3a7c6",
@@ -3442,7 +3560,8 @@ INSERT INTO S_BRG
 	"ba5eda7a-def5-0000-0000-000000000001",
 	'// implementation will supplied by native code',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("262a5b06-208d-4fc5-9ec6-9cb5733cdb57",
 	"0526b1ff-13a7-41cf-b4ff-372be266bd67",
@@ -3515,7 +3634,8 @@ INSERT INTO S_BRG
 	"ba5eda7a-def5-0000-0000-000000000000",
 	'// implementation will supplied by native code',
 	1,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("2aabfae6-85b5-4583-8057-390d3966f85b",
 	"d374a64f-d881-4841-ad32-4b93deee427e",
@@ -3534,7 +3654,8 @@ INSERT INTO S_BRG
 	"ba5eda7a-def5-0000-0000-000000000000",
 	'// implementation will supplied by native code',
 	1,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("5ae0267b-a767-43c8-a38f-695e214ce99b",
 	"e5837e76-aa92-4f98-a0ac-ec6eafed7050",
@@ -3553,7 +3674,8 @@ INSERT INTO S_BRG
 	"ba5eda7a-def5-0000-0000-000000000000",
 	'',
 	1,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("e82eaf0d-4797-4079-b67c-53828a6188cd",
 	"f29e67b2-a02a-426a-af86-2b9556496744",
@@ -3599,7 +3721,8 @@ INSERT INTO S_BRG
 	"ba5eda7a-def5-0000-0000-000000000000",
 	'',
 	1,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("f04d0a43-d401-48fe-bdbc-a6d155dc091e",
 	"4088ba41-e891-40ec-9f90-dc36cc87ddb8",
@@ -3654,7 +3777,8 @@ INSERT INTO S_BRG
 	"ba5eda7a-def5-0000-0000-000000000000",
 	'',
 	1,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("c4b7ab07-8841-442a-9fa5-ffca5b893eaa",
 	"8bca734d-63ef-4362-a177-9aec2651f0f6",
@@ -3700,7 +3824,8 @@ INSERT INTO S_BRG
 	"ba5eda7a-def5-0000-0000-000000000000",
 	'',
 	1,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("ffb875d1-4bb0-446e-995d-70c820a6cf8f",
 	"1d6f72b9-7fb3-40a0-ae1b-e98f8a1fb68f",
@@ -3755,7 +3880,8 @@ INSERT INTO S_BRG
 	"ba5eda7a-def5-0000-0000-000000000002",
 	'// implementation will supplied by native code',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BRG
 	VALUES ("80cf5879-ca93-4d3b-aa79-64824daf6e0a",
 	"b648f8f8-7be4-47ca-97fb-05830dc194e7",
@@ -3765,7 +3891,8 @@ INSERT INTO S_BRG
 	"68dedb08-fd5a-420e-9ec7-e7985ad0c856",
 	'',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("97f32285-3906-4e81-aa51-ff092d75d4b2",
 	"80cf5879-ca93-4d3b-aa79-64824daf6e0a",
@@ -3784,7 +3911,8 @@ INSERT INTO S_BRG
 	"ba5eda7a-def5-0000-0000-000000000000",
 	'',
 	1,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("0c947e8a-baee-4db2-9f7b-29e39f8ef8ba",
 	"c647ba4a-83d9-49ee-8201-fb3d1841b06a",
@@ -3821,7 +3949,8 @@ INSERT INTO S_BRG
 	"ba5eda7a-def5-0000-0000-000000000000",
 	'',
 	1,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("33d20765-5505-44c1-864e-e58d7d618ec2",
 	"6412721b-31ec-4bd5-b464-5160123a259f",
@@ -3849,7 +3978,8 @@ INSERT INTO S_BRG
 	"ba5eda7a-def5-0000-0000-000000000000",
 	'',
 	1,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("a1140fb6-149e-4c72-b4db-f74d5e88a3e5",
 	"de9c248c-67c8-4b34-bbc3-c5babbda6913",
@@ -3877,7 +4007,8 @@ INSERT INTO S_BRG
 	"ba5eda7a-def5-0000-0000-000000000000",
 	'',
 	1,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("bc3277e8-fd76-4f70-89e5-66b1ec63b8f3",
 	"9ed2e76d-33b9-4bb0-aafd-66ced6da8768",
@@ -3905,7 +4036,8 @@ INSERT INTO S_BRG
 	"ba5eda7a-def5-0000-0000-000000000000",
 	'// implementation will supplied by native code',
 	1,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("0d9cd094-3980-4214-829b-b6f79634ffc5",
 	"ce4ec1eb-df31-4d05-af59-4264d51c9d9d",
@@ -3969,7 +4101,8 @@ INSERT INTO S_BRG
 	"ba5eda7a-def5-0000-0000-000000000000",
 	'',
 	1,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("a386761f-1b22-484d-8902-8b43af6fac25",
 	"44b01b99-e494-4927-8f6d-24e5fdc87754",
@@ -3997,7 +4130,8 @@ INSERT INTO S_BRG
 	"ba5eda7a-def5-0000-0000-000000000002",
 	'// implementation will supplied by native code',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BRG
 	VALUES ("6547f2c9-62d9-453c-a52b-03561a5916dc",
 	"b648f8f8-7be4-47ca-97fb-05830dc194e7",
@@ -4007,7 +4141,8 @@ INSERT INTO S_BRG
 	"ba5eda7a-def5-0000-0000-000000000002",
 	'// implementation will supplied by native code',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO PE_PE
 	VALUES ("b648f8f8-7be4-47ca-97fb-05830dc194e7",
 	1,
@@ -4033,7 +4168,8 @@ INSERT INTO S_BRG
 	"ba5eda7a-def5-0000-0000-000000000005",
 	'return org.xtuml.bp.core.common.IdAssigner.NULL_UUID;',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BRG
 	VALUES ("d30bd2bb-cb99-46ae-875f-6d0a063d3076",
 	"7a07d0b6-c286-468d-a0e8-167f0791be9c",
@@ -4043,7 +4179,8 @@ INSERT INTO S_BRG
 	"ba5eda7a-def5-0000-0000-000000000002",
 	'return Integer.MAX_VALUE;',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BRG
 	VALUES ("ee9a9430-dc14-4974-a205-c700d541bf22",
 	"7a07d0b6-c286-468d-a0e8-167f0791be9c",
@@ -4053,7 +4190,8 @@ INSERT INTO S_BRG
 	"ba5eda7a-def5-0000-0000-000000000001",
 	'return p_Text.indexOf(''\n'') != -1;',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("3d138323-c4ff-415f-9f0e-698416ffe1c8",
 	"ee9a9430-dc14-4974-a205-c700d541bf22",
@@ -4072,7 +4210,8 @@ INSERT INTO S_BRG
 	"ba5eda7a-def5-0000-0000-000000000002",
 	'return (int)p_Value;',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("c6f77f83-596a-4fe4-bca3-1c9390c47068",
 	"2233afe0-72ae-4e4f-ae02-e369b3fcc5bd",
@@ -4091,7 +4230,8 @@ INSERT INTO S_BRG
 	"ba5eda7a-def5-0000-0000-000000000003",
 	'return (float)p_Value;',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("cd30c73f-8977-44fc-9acb-6e6de51099ec",
 	"17c6b4ba-ad20-4e1a-8c66-5970ee0040ef",
@@ -4113,7 +4253,8 @@ Returns the square root of the given non-negative value.
 */
 return (float) Math.sqrt(p_Value);',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("86a2f4a2-4541-4f22-be1d-0c7663bb10a4",
 	"3eda2214-3da7-4c64-aa55-9362d7ba46b6",
@@ -4132,7 +4273,8 @@ INSERT INTO S_BRG
 	"68dedb08-fd5a-420e-9ec7-e7985ad0c856",
 	'return null;',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BRG
 	VALUES ("2e67d84e-a3ff-432b-8f32-7aed4889cee0",
 	"7a07d0b6-c286-468d-a0e8-167f0791be9c",
@@ -4142,7 +4284,8 @@ INSERT INTO S_BRG
 	"ba5eda7a-def5-0000-0000-000000000004",
 	'return p_Id.toString();',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("3698f2bd-17dd-4f2a-8caf-8633b1f73cec",
 	"2e67d84e-a3ff-432b-8f32-7aed4889cee0",
@@ -4161,7 +4304,8 @@ INSERT INTO S_BRG
 	"ba5eda7a-def5-0000-0000-000000000004",
 	'return System.getProperty("line.separator");',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BRG
 	VALUES ("03b3fe43-03e5-49d8-809d-f894d2952639",
 	"7a07d0b6-c286-468d-a0e8-167f0791be9c",
@@ -4171,7 +4315,8 @@ INSERT INTO S_BRG
 	"ba5eda7a-def5-0000-0000-000000000004",
 	'return Integer.toString(p_Value);',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("8c86ccf1-bf99-4950-9e1f-cb6592d1c296",
 	"03b3fe43-03e5-49d8-809d-f894d2952639",
@@ -4190,7 +4335,8 @@ INSERT INTO S_BRG
 	"ba5eda7a-def5-0000-0000-000000000004",
 	'return Integer.toString(p_Id);',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("6877c901-fc14-42a7-adad-6902b6129aaa",
 	"14dbf6af-539f-47e7-81f4-2fc1157d8321",
@@ -4216,7 +4362,8 @@ INSERT INTO S_BRG
 	"ba5eda7a-def5-0000-0000-000000000004",
 	'return Integer.toString(p_Id);',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("ce202bfd-c079-4409-af89-340ad494753d",
 	"afcf1282-9966-4c26-bdfa-c2eacc4e590b",
@@ -4241,7 +4388,8 @@ Return the Class type instance for the given Object instance',
 		}		
 ',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("df423203-92a7-4e17-9605-e45e0a6104ef",
 	"3ac557bb-f09d-4a22-8e7d-4c8c0103185c",
@@ -4266,7 +4414,8 @@ Return the Class type instance for the given Object instance',
 		}		
 ',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("5f5e22ae-c995-4ba4-bf2d-9626c700fcc3",
 	"93b6bd90-3277-49d8-9c1b-b56d1e72c9a1",
@@ -4304,7 +4453,8 @@ INSERT INTO S_BRG
 	"ba5eda7a-def5-0000-0000-000000000000",
 	'// implemented by architecture',
 	1,
-	'');
+	'',
+	0);
 INSERT INTO PE_PE
 	VALUES ("12027cc0-8404-42e4-b85f-163b04200545",
 	1,

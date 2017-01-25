@@ -32,7 +32,8 @@ else
 end if;',
 	1,
 	'',
-	"00000000-0000-0000-0000-000000000000");
+	"00000000-0000-0000-0000-000000000000",
+	0);
 INSERT INTO O_TFR
 	VALUES ("1beeca87-3b5a-414b-825c-d592e8d1c0dd",
 	"04bcd415-c1a2-437e-9b8f-2cd45a955c31",
@@ -43,7 +44,8 @@ INSERT INTO O_TFR
 	'return "Size Data";',
 	1,
 	'',
-	"7f290dfd-7873-428e-a647-a9184cbe2d78");
+	"7f290dfd-7873-428e-a647-a9184cbe2d78",
+	0);
 INSERT INTO O_NBATTR
 	VALUES ("271839e5-c0a3-4ba3-b2f3-841435509dc3",
 	"04bcd415-c1a2-437e-9b8f-2cd45a955c31");

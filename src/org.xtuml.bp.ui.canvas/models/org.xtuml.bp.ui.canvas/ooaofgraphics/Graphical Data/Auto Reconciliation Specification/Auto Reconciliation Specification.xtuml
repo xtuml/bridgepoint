@@ -40,7 +40,8 @@ end for;
 return OS::NULL_UNIQUE_ID();',
 	1,
 	'',
-	"00000000-0000-0000-0000-000000000000");
+	"00000000-0000-0000-0000-000000000000",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("42d98f22-42d8-42d9-bcdb-0c595e38daa3",
 	"01e90c90-3e42-4325-9395-f04aa3dcdeec",
@@ -119,7 +120,8 @@ end if;
 ',
 	1,
 	'',
-	"7c49d5b8-f700-44f4-8348-1fdcf662c1a5");
+	"7c49d5b8-f700-44f4-8348-1fdcf662c1a5",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("965be58d-e2e1-4b02-a7a2-f2fddb250d11",
 	"c02376d4-138e-44c1-8e19-e42d4e5bdff4",
@@ -165,7 +167,8 @@ end for;
 return OS::NULL_UNIQUE_ID();',
 	1,
 	'',
-	"01e90c90-3e42-4325-9395-f04aa3dcdeec");
+	"01e90c90-3e42-4325-9395-f04aa3dcdeec",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("4d74bdcf-fec2-4fe9-be56-75e7e582a41f",
 	"bb127757-3046-42f0-8eaa-58bc50d7f658",
@@ -244,7 +247,8 @@ end if;
 end for;',
 	1,
 	'',
-	"bb127757-3046-42f0-8eaa-58bc50d7f658");
+	"bb127757-3046-42f0-8eaa-58bc50d7f658",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("f245eb89-4c4e-47a6-9a78-6ec44ade0c95",
 	"7c49d5b8-f700-44f4-8348-1fdcf662c1a5",
@@ -315,7 +319,8 @@ end while;
 ',
 	1,
 	'',
-	"c02376d4-138e-44c1-8e19-e42d4e5bdff4");
+	"c02376d4-138e-44c1-8e19-e42d4e5bdff4",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("f2156974-c155-4272-9b85-288b824e669f",
 	"35593d44-4cf2-4d7a-ac20-1f39b82f20db",
@@ -369,8 +374,9 @@ if (self.Bridge_ConnectorExists != "")
       connectorCount = CL::numConnectors( from:graphicalElement.represents,
                        elementTypesMatch:sourceSpec == targetSpec,
                        using:self.Bridge_NumElements);
+                       
 else
-            useNumConnectorsBridge = false;
+      useNumConnectorsBridge = false;
       connectorCount = CL::numElements( from:graphicalElement.represents,
                        using:self.Bridge_NumElements);
 end if;
@@ -386,7 +392,7 @@ while (j < connectorCount)
     connectorOOAId = CL::getElementID(from:graphicalElement.represents,
                     index:j, using:self.Bridge_GetElementID);
   end if;
-  
+
   // Check to see if this shape alreaday has a graphical connector 
   // associated with this ooaofooa connectorID
   // If it does, it means graphical for this already exist.
@@ -467,6 +473,12 @@ while (j < connectorCount)
     j = j + 1;
     continue;
   end if;
+
+  // create a null instance to use later in the routine.
+  // This will hold a Provision_c instance
+  provisionInSatisfaction_OOAInstance = OS::NULL_INSTANCE();
+  provisionInSatisfaction_OOAId = OS::NULL_UNIQUE_ID();
+  pass3Satisfaction = false;
   
   if((not foundExistingStartConnector) and (not foundExistingEndConnector) )
     side2_GD_GEId = OS::NULL_UNIQUE_ID();
@@ -474,10 +486,16 @@ while (j < connectorCount)
     // model element that is on the other side of this connector
     // (if there is one)
     if (not searchingForSide2)
-      // In cases where this operation is available (currently only interfaces) we do
-      // not have to perform an exhaustive search of the other side of the connector.
-      // Instead, we use the ooaofooa to give us the other side.
-      if ((targetSpec.Name=="Imported Provided Interface") or
+      // There are a couple of special cases where we do NOT do an exhaustive
+      // search to find the other side. Here we look to see if this is
+      // one of those cases.
+      if (param.passNumber == 3 and self.Bridge_NumElements=="Getsatisfactioncount")
+        pass3Satisfaction = true;
+        // There is a GD_GE provision on this canvas, and I need to find it.
+        // We should have already validated (in ooaofooa) that this is on the same canvas.
+        provisionInSatisfaction_OOAInstance = CL::getProvisionFromSatisfaction(satisfaction:connectorInstance);
+        provisionInSatisfaction_OOAId = CL::getOOAId(from:provisionInSatisfaction_OOAInstance);
+      elif ((targetSpec.Name=="Imported Provided Interface") or
 	      	(targetSpec.Name=="Imported Required Interface") or
 			(targetSpec.Name=="Provided Interface") or
 			(targetSpec.Name=="Required Interface")
@@ -558,7 +576,7 @@ while (j < connectorCount)
             side1GD_GDElementId = graphicalElement.elementId;
           end if;
           swappedSides = true;
-     end if;
+      end if;
       
       side2_OOAID=OS::NULL_UNIQUE_ID();
       side2_elementID=OS::NULL_UNIQUE_ID();
@@ -566,37 +584,80 @@ while (j < connectorCount)
         side2_elementID=side2_GD_GE.elementId;
         side2_OOAID=CL::getOOAId(from:side2_GD_GE.represents);
       end if;
+
+      reprocess = false;
       
-      reprocess = model.newConnector(elementIdOfExistingGD_CON:connectorOOAId,
+      // Special case to assure the newConnector call for satisfactions is
+      // setup the way it is needed.
+      if (pass3Satisfaction) 
+        diagramName = CL::getModelElementName(from:model.represents);
+        requirementName = CL::getModelElementName(from:graphicalElement.represents);
+        location = " Diagram: " + diagramName + " Requirement: " + requirementName;
+        
+        // This is "A" GD_GE that this requirement GD_GE could connect to.
+        // Note that "A" is in quotes. That is because it is possible that
+        // there are many GD_GEs with this represents value. For example,
+        // If the diagram has several components/component references that
+        // have provided interfaces that have been formalized to this 
+        // provision we can not know which graphical element to create the 
+        // satsisfaction to. 
+        select many provisionGDGEInstances related by model->GD_GE[R1] where selected.represents==provisionInSatisfaction_OOAInstance;
+        if ((cardinality provisionGDGEInstances) == 1)
+          for each provisionGDGEInstance in provisionGDGEInstances 
+              if (not_empty provisionGDGEInstance)            
+              select any modelTool related by model->CT_MTL[R100];
+              if (empty modelTool) 
+                model.initializeTools();            
+                select any modelTool related by model->CT_MTL[R100];
+              end if;
+            
+              // see if this already has a graphcal satisfaction
+              select any anchor related by provisionGDGEInstance->GD_CON[R2]->GD_LS[R6]->GD_AOS[R26];
+              if (empty anchor)
+                // the startelement is the element being moved (the requirement side)
+                modelTool.finalizeConnector(endElement:provisionGDGEInstance.elementId,
+                                      startElement:graphicalElement.elementId);
+              end if;
+            end if;
+          end for;
+        elif ((cardinality provisionGDGEInstances) > 1)
+          // log this. See issue 8978 
+          CL::logError(message:"There are multiple provisions on this diagram that this requirement could be satisfied to. " + location);
+        else
+          // If there are no matching provisions on this diagram then no action is needed.
+        end if;                                                        
+      else
+        reprocess = model.newConnector(elementIdOfExistingGD_CON:connectorOOAId,
                        startingGD_GEId:side1GD_GDElementId, arsId:self.Id,
                                                   ooaIdOfElementToConnectTo:side2_OOAID,
                                                   existingGraphicsArePresent:false,
                                                   endingGD_GEId:side2_elementID); 
-
-      select one newConnector related by sourceSpec->GD_GE[R16];
-      //set the OOA_ID of the new GE created
-      newConnector.OOA_ID=connectorOOAId;
-      newConnector.represents=CL::getInstanceFromOOA_ID(
-                                    rootInst: model.represents,
-                                    OOA_ID: newConnector.OOA_ID,
-                                    OOA_Type: newConnector.OOA_Type );
-      if (newConnector.represents == OS::NULL_INSTANCE())
-        // log an error it makes no sense that we would not be able to find the ooaofooa instance at this point
-        CL::logError(message:"Failed to find the ooaofooa instance during graphics reconciliation.  ooaofooa id: " + OS::uniqueIdToString(id:newConnector.OOA_ID) + "  ooaofooa type: " + OS::ooaTypeToString(id:newConnector.OOA_Type));
-      end if;
-      unrelate sourceSpec from newConnector across R16;
       
-      // If we swapped sides to create this element, swap back now
-      if (swappedSides)      
-          temp = side2_GD_GE;
-          side2_GD_GE = graphicalElement;
-          graphicalElement = temp;
-          if (empty graphicalElement) 
-            side1GD_GDElementId = OS::NULL_UNIQUE_ID();
-          else
-            side1GD_GDElementId = graphicalElement.elementId;
-          end if;
-      end if;
+	    select one newConnector related by sourceSpec->GD_GE[R16];
+	    //set the OOA_ID of the new GE created
+	    newConnector.OOA_ID=connectorOOAId;
+	    newConnector.represents=CL::getInstanceFromOOA_ID(
+	                                    rootInst: model.represents,
+	                                    OOA_ID: newConnector.OOA_ID,
+	                                    OOA_Type: newConnector.OOA_Type );
+	    if (newConnector.represents == OS::NULL_INSTANCE())
+	      // log an error it makes no sense that we would not be able to find the ooaofooa instance at this point
+	      CL::logError(message:"Failed to find the ooaofooa instance during graphics reconciliation.  ooaofooa id: " + OS::uniqueIdToString(id:newConnector.OOA_ID) + "  ooaofooa type: " + OS::ooaTypeToString(id:newConnector.OOA_Type));
+	    end if;
+	    unrelate sourceSpec from newConnector across R16;
+	      
+	    // If we swapped sides to create this element, swap back now
+	    if (swappedSides)      
+	        temp = side2_GD_GE;
+	        side2_GD_GE = graphicalElement;
+	        graphicalElement = temp;
+	        if (empty graphicalElement) 
+	          side1GD_GDElementId = OS::NULL_UNIQUE_ID();
+            else
+	          side1GD_GDElementId = graphicalElement.elementId;
+	        end if;
+	    end if;
+	  end if;	  
     end if;
   end if;
   j = j + 1;
@@ -605,7 +666,8 @@ return OS::NULL_UNIQUE_ID();
  ',
 	1,
 	'',
-	"d4306342-68fd-418b-9c81-c7573bdd3a9b");
+	"d4306342-68fd-418b-9c81-c7573bdd3a9b",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("cd5179d3-74a4-498f-9076-7ef3c9076490",
 	"8ffad301-a127-4be7-a504-064da8b3f9dc",
@@ -878,7 +940,8 @@ return reprocess;
 ',
 	1,
 	'',
-	"998fe17d-8e1a-4ed6-9b5b-cca166288747");
+	"998fe17d-8e1a-4ed6-9b5b-cca166288747",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("1a45fe35-90f8-4600-a05b-b32b762cdc9f",
 	"d4306342-68fd-418b-9c81-c7573bdd3a9b",
@@ -1032,7 +1095,8 @@ INSERT INTO O_TFR
 ',
 	1,
 	'',
-	"35593d44-4cf2-4d7a-ac20-1f39b82f20db");
+	"35593d44-4cf2-4d7a-ac20-1f39b82f20db",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("59e275c9-55e2-46b6-aadc-6488129b4721",
 	"998fe17d-8e1a-4ed6-9b5b-cca166288747",
@@ -1127,13 +1191,16 @@ while (i < numRoots)
               if (not empty connectorSpec)
                 if (param.passNumber==2)
                   // We can''t create these until we get the association between the 2 linked classes drawn / the supertype
-                  if (shapeARSInstance.Bridge_NumElements=="Getclassaslinkcount" or shapeARSInstance.Bridge_NumElements=="Getsubtypecount")
+                  if (shapeARSInstance.Bridge_NumElements=="Getclassaslinkcount" or shapeARSInstance.Bridge_NumElements=="Getsubtypecount" or
+                      shapeARSInstance.Bridge_NumElements=="Getsatisfactioncount")
                     continue;
                   end if;
                   
                 elif (param.passNumber==3)
                     // We only need to create the associative link drawn and subtypes in this pass.
-                  if (shapeARSInstance.Bridge_NumElements!="Getclassaslinkcount" and shapeARSInstance.Bridge_NumElements!="Getsubtypecount")
+                  if (shapeARSInstance.Bridge_NumElements!="Getclassaslinkcount" and shapeARSInstance.Bridge_NumElements!="Getsubtypecount" and
+                      shapeARSInstance.Bridge_NumElements!="Getsatisfactioncount"
+                     )
                     continue;
                   end if;
                   
@@ -1179,14 +1246,16 @@ if (param.passNumber == 1)
   GD_ARS::ReconcileAllGraphics(system_id:param.system_id,s_sys:param.s_sys, passNumber:2);
 end if;
 if(param.passNumber==2)
-  // currently pass 3 is only for associative links. We have allow pass 2 to create the 
-  // Association between the R_AONE and the R_AOTH before we can create the associative
+  // pass 3 is for associative links, sub/super, and satisfaction. 
+  // For example for associative links, we have to allow pass 2 to 
+  // create the Association between the R_AONE and the R_AOTH before we can create the associative
   // link line between the R_ASSOC and the R_ASSR (Class as Link class)
   GD_ARS::ReconcileAllGraphics(system_id:param.system_id,s_sys:param.s_sys, passNumber:3);
 end if;',
 	1,
 	'',
-	"8ffad301-a127-4be7-a504-064da8b3f9dc");
+	"8ffad301-a127-4be7-a504-064da8b3f9dc",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("359667d7-e97c-4387-b488-8efdb1cbffdc",
 	"7e13f464-e15d-46f9-b10e-404018a1da48",

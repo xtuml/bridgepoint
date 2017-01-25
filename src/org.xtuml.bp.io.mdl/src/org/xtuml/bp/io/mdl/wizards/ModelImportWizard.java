@@ -212,40 +212,6 @@ public class ModelImportWizard extends Wizard implements IImportWizard {
 					}
 
 				});				
-/********
- * see the 8979 implementation note. 
- * this is commented out until a solution for
- * the cyclical build problem caused by importing bp.x2m is found.
- * 
-				// Note that currently xtml files imported from masl models
-				// represent either a masl domain or a project, not both.
-				// below we one or the other if this was a masl model.
-				//
-				// export masl project, if a masl project was imported
-				Package_c maslProject = helper.getImportedMASLProject();
-				if (maslProject != null) {
-					// export project if there was one imported
-					PlatformUI.getWorkbench().getDisplay().syncExec(new Runnable() {
-						public void run() {
-							Generator.exportProject(maslProject);
-						}
-	
-					});				
-				} else {
-					// export masl donmain if a masl domain was imported
-					Package_c maslDomainsPackage = helper.getImportedMASLDomainPackage();
-					if (maslDomainsPackage != null) {
-						// export domain if there was one imported
-						PlatformUI.getWorkbench().getDisplay().syncExec(new Runnable() {
-							public void run() {
-								// export all domains in this masl package
-								Generator.exportDomain(maslDomainsPackage);
-							}
-
-						});
-					}
-				}
-*********/				
 			}
             
 		}
