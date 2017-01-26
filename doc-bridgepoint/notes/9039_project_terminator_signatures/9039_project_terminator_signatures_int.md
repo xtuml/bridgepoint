@@ -60,6 +60,13 @@ include code to set all the dialects to OAL. See comments in section 6.2.2
 6. Implementation Comments
 --------------------------
 
+6.0 Reverted
+
+5.1 - 5.2 have been reverted. Model load with the correct naming was not
+considered as part of this work. The serialization part without the
+corresponding load part makes BridgePoint unusable. Revisit this note when
+model load is considered.
+
 6.1 "masl_project"
 
 Currently this code is keying off the string "masl_project" existing in the
