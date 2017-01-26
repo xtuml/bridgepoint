@@ -2464,43 +2464,6 @@ Translate:native',
 	0,
 	'',
 	0);
-INSERT INTO S_BRG
-	VALUES ("3e9e5352-5f65-4f8d-a63a-c0021c165798",
-	"b69262ac-62eb-4030-b329-b967033f0ee0",
-	'stringContains',
-	'Import:java.util.regex.Matcher; import java.util.regex.Pattern
-Translate:native',
-	0,
-	"ba5eda7a-def5-0000-0000-000000000001",
-	'boolean matched = false;      
-if ( p_Needle != null && p_Haystack != null && !p_Haystack.isEmpty()) {       
-    Matcher m = Pattern.compile(p_Needle).matcher(p_Haystack);
-    if (m.find()) {
-        matched = true;               
-    }             
-} 
-return matched;',
-	0,
-	'',
-	0);
-INSERT INTO S_BPARM
-	VALUES ("c69b8dff-3fb9-44fa-ba2c-bc6b80585679",
-	"3e9e5352-5f65-4f8d-a63a-c0021c165798",
-	'haystack',
-	"ba5eda7a-def5-0000-0000-000000000004",
-	0,
-	'',
-	"00000000-0000-0000-0000-000000000000",
-	'');
-INSERT INTO S_BPARM
-	VALUES ("eac1cc61-2dea-4507-8b0a-3012cf592bb4",
-	"3e9e5352-5f65-4f8d-a63a-c0021c165798",
-	'needle',
-	"ba5eda7a-def5-0000-0000-000000000004",
-	0,
-	'',
-	"c69b8dff-3fb9-44fa-ba2c-bc6b80585679",
-	'');
 INSERT INTO PE_PE
 	VALUES ("b69262ac-62eb-4030-b329-b967033f0ee0",
 	1,
