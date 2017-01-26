@@ -24,7 +24,7 @@ INSERT INTO GD_MD
 	0,
 	0,
 	0,
-	'',
+	'4.1.17',
 	'org.xtuml.bp.core::ooaofooa::Functions::x2m_functions');
 INSERT INTO DIM_DIA
 	VALUES ("2c8600c5-2c02-4fbf-bcd5-cc1aab7c5aa2",
@@ -452,14 +452,33 @@ select any c_po from instances of C_PO where ( selected.Id == param.c_po );
 if ( not_empty c_ep and not_empty c_po )
 
   c_c_name = "";
+  c_po_name = c_po.Name;
 
   select one c_c related by c_po->C_C[R4010];
   if ( not_empty c_c )
 	c_c_name = c_c.Name;
+
+    // check if this is a MASL project 
+    select one ep_pkg related by c_c->PE_PE[R8001]->EP_PKG[R8000];
+    if ( Util::stringContains( haystack:ep_pkg.Descrip, needle:"masl_project" ) )
+	  select any new_c_po related by c_po->C_IR[R4016]->C_P[R4009]->C_SF[R4002]->C_R[R4002]->C_IR[R4009]->C_PO[R4016];
+	  select one new_c_c related by new_c_po->C_C[R4010];
+	  if ( not_empty new_c_c and not_empty new_c_po )
+		c_c_name = new_c_c.Name;
+		c_po_name = new_c_po.Name;
+	  else
+	    select any new_c_po related by c_po->C_IR[R4016]->C_R[R4009]->C_SF[R4002]->C_P[R4002]->C_IR[R4009]->C_PO[R4016];
+		select one new_c_c related by new_c_po->C_C[R4010];
+		if ( not_empty new_c_c and not_empty new_c_po )
+		  c_c_name = new_c_c.Name;
+		  c_po_name = new_c_po.Name;
+		end if;
+	  end if;
+	end if;
   end if;
 
   // message -> function/service
-  smasl = smasl + "routine," + c_c_name + "," + c_po.Name + ",private," + c_ep.Name + ",,,,\n";
+  smasl = smasl + "routine," + c_c_name + "," + c_po_name + ",private," + c_ep.Name + ",,,,\n";
   
   select any c_pp related by c_ep->C_PP[R4006];
   first_c_pp = c_pp;
@@ -500,19 +519,21 @@ if ( not_empty c_ep and not_empty c_po )
   end if;
   
   // Populate the action langauge body.
-  select any spr_po related by c_ep->SPR_PEP[R4501]->SPR_PO[R4503];
+  select any spr_pep related by c_po->C_IR[R4016]->C_P[R4009]->SPR_PEP[R4501] where ( selected.ExecutableProperty_Id == c_ep.Id );
+  select one spr_po related by spr_pep->SPR_PO[R4503];
   if ( not_empty spr_po )
     smasl = smasl + "codeblock," + URL::encode(string:spr_po.Action_Semantics_internal) + ",,,,,,,\n";
   else
-    select any spr_ro related by c_ep->SPR_REP[R4500]->SPR_RO[R4502];
-    if ( not_empty spr_ro )
-      smasl = smasl + "codeblock," + URL::encode(string:spr_ro.Action_Semantics_internal) + ",,,,,,,\n";
-    else
-      select any spr_ps related by c_ep->SPR_PEP[R4501]->SPR_PS[R4503];
-      if ( not_empty spr_ps )
-        smasl = smasl + "codeblock," + URL::encode(string:spr_ps.Action_Semantics_internal) + ",,,,,,,\n";
-      else
-        select any spr_rs related by c_ep->SPR_REP[R4500]->SPR_RS[R4502];
+	select one spr_ps related by spr_pep->SPR_PS[R4503];
+	if ( not_empty spr_ps )
+	  smasl = smasl + "codeblock," + URL::encode(string:spr_ps.Action_Semantics_internal) + ",,,,,,,\n";
+	else
+      select any spr_rep related by c_po->C_IR[R4016]->C_R[R4009]->SPR_REP[R4500] where ( selected.ExecutableProperty_Id == c_ep.Id );
+	  select one spr_ro related by spr_rep->SPR_RO[R4502];
+	  if ( not_empty spr_ro )
+		smasl = smasl + "codeblock," + URL::encode(string:spr_ro.Action_Semantics_internal) + ",,,,,,,\n";
+	  else
+        select one spr_rs related by spr_rep->SPR_RS[R4502];
         if ( not_empty spr_rs )
           smasl = smasl + "codeblock," + URL::encode(string:spr_rs.Action_Semantics_internal) + ",,,,,,,\n";
         end if;

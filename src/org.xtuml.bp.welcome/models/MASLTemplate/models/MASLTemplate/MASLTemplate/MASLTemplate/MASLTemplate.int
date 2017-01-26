@@ -1,0 +1,4 @@
+domain MASLTemplate is
+    public service public_service_1 (
+        val : in ex_type    );
+end domain;
