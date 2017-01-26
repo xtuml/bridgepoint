@@ -34,7 +34,7 @@ end while;
 ',
 	1,
 	'',
-	"00000000-0000-0000-0000-000000000000",
+	"f690053d-5f24-40ef-bfee-ee02396ffa82",
 	0);
 INSERT INTO O_TPARM
 	VALUES ("e9f8029b-e5a2-4787-b36c-c85603887a2f",
@@ -87,7 +87,7 @@ for each markable in markables
     param.values[0] = markable.name;
     param.values[1] = feature.name;
     param.values[2] = "";
-    r = CSV::writeline( filename:param.filename + "a", values:param.values );
+    r = CSV::writeline( filename:param.filename, values:param.values );
   end for;
 end for;',
 	1,
@@ -165,6 +165,22 @@ INSERT INTO S_DT_PROXY
 	'',
 	'',
 	'../ooaofmarking.xtuml');
+INSERT INTO O_TFR
+	VALUES ("f690053d-5f24-40ef-bfee-ee02396ffa82",
+	"cb1516d4-40ca-4afa-954b-5fdc4726e5e7",
+	'dispose',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'select many markables related by self->Markable[R2822];
+for each markable in markables
+  unrelate self from markable across R2822;
+end for;
+delete object instance self;',
+	1,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	0);
 INSERT INTO O_NBATTR
 	VALUES ("2232e914-1392-4ee8-8bb0-1947058f895a",
 	"cb1516d4-40ca-4afa-954b-5fdc4726e5e7");

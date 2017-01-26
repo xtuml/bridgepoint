@@ -1,0 +1,5 @@
+public instance service MASLTemplate::a_class.get_name () return wstring is
+begin
+  null;
+end service;
+
