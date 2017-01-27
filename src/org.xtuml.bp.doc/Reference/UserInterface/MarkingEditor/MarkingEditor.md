@@ -108,6 +108,7 @@ from MASL:
 |domain                 | Component                            |
 |(domain-)terminator    | Port                                 |
 |(project-)terminator   | Provision                            |
+|(project terminator service) routine | Provided Operation     |
 |object                 | Model Class                          |
 |(domain function or service) routine | Function               |
 |(terminator function or service) routine | Required Operation |
