@@ -91,19 +91,48 @@ __Figure 3__
  The file contains pairs, one per line (Figure 4).  
    
 ```
-<OOA element type name>,<feature name>
+<xtUML element type>,<feature name>
 ```
 __Figure 4__  
    
 This file is not modified by the marking editor.  It is modified by hand by the 
-model compiler architect.   The OOA element type matches the name of a class in 
-the xtUML metamodel.  
+model compiler architect.   The xtUML element type matches the name of a class in 
+the xtUML metamodel.  Table 1 provides mappings from MASL markable elements to 
+xtUML element types for use in creating this marking file for a model converted 
+from MASL:  
+
+| MASL Markable Element | xtUML Element Type                   |
+|-----------------------|--------------------------------------|
+|project                | Component                            |
+|(project-)domain       | Component Reference                  |
+|domain                 | Component                            |
+|(domain-)terminator    | Port                                 |
+|(project-)terminator   | Provision                            |
+|(project terminator service) routine | Provided Operation     |
+|object                 | Model Class                          |
+|(domain function or service) routine | Function               |
+|(terminator function or service) routine | Required Operation |
+|operation              | Operation                            |
+|state                  | State Machine State                  |
+|attribute              | Attribute                            |
+|transitiontable        | State Machine                        |
+|event                  | State Machine Event                  |
+|type                   | User Data Type                       |
+|member                 | not yet mapped                       |
+|exception              | Exception                            |
+|identifier             | not yet mapped                       |
+|regularrel             | Association                          |
+|associative            | Association                          |
+|subsuper               | Association                          |   
+__Table 1__   
+
+Notes:
 * This file is allowed to have blank lines    
 * This file is allowed to have lines that begin with ```#``` to denote a comment
 line that should be ignored  
 * Comma characters are not allowed in feature names  
   
-If the model compiler architect has entered an invalid OOA element type name, the
+If the model compiler architect has entered an invalid xtUML element type name, the
 marking editor will catch this and require it to be fixed before proceeding (Figure 5).  
   
 ![Image of feature validation error](marking_feature_error.png)  
