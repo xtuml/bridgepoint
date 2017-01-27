@@ -1,7 +1,7 @@
 BridgePoint xtUML Release Notes
 ========================
 
-Release 5.8.6  
+Release 6.0.0  
 
 License
 -------
@@ -51,7 +51,7 @@ homes that used to populate the ```Action_Semantics``` field.
 
 Interoperability with Previous Releases
 ------
-BridgePoint 5.8.6 is compatible with workspaces and projects created with prior 
+BridgePoint 6.0.0 is compatible with workspaces and projects created with prior 
 versions back to BridgePoint 5.0.  However, after opening the model in this version
 a modeler will not be able to open the model in a prior version.   
 
