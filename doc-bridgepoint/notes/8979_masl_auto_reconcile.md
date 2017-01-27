@@ -71,9 +71,9 @@ org.xtuml.bp.mc.none, org.xtuml.bp.welcome}
 On the build server the error looks like this:  
 ```
 [ERROR] The projects in the reactor contain a cyclic reference: Edge between 
-Vertex{label=org.xtuml.bp:org.xtuml.bp.mc.c.source:5.8.6} and 
-Vertex{label=org.xtuml.bp:org.xtuml.bp.mc:5.8.6} introduces to cycle in the 
-graph org.xtuml.bp:org.xtuml.bp.mc:5.8.6 --> org.xtuml.bp:org.xtuml.bp.mc.c.source:5.8.6 --> org.xtuml.bp:org.xtuml.bp.mc:5.8.6 -> [Help 1]
+Vertex{label=org.xtuml.bp:org.xtuml.bp.mc.c.source:6.0.0} and 
+Vertex{label=org.xtuml.bp:org.xtuml.bp.mc:6.0.0} introduces to cycle in the 
+graph org.xtuml.bp:org.xtuml.bp.mc:6.0.0 --> org.xtuml.bp:org.xtuml.bp.mc.c.source:6.0.0 --> org.xtuml.bp:org.xtuml.bp.mc:6.0.0 -> [Help 1]
 ```
 
 6.1.1 To work around this problem in the local build and test the changes made,
