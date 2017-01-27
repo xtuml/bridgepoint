@@ -39,7 +39,7 @@ models:
 Model Compilers
 ------
 The model compiler files have moved from underneath individual plug-ins to the
-top level folder ```&lt;install dir&gt;/tools/mc/```.   
+top level folder ```<install dir>/tools/mc/```.   
 
 
 Native Platform Builds
