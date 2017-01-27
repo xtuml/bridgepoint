@@ -5,7 +5,7 @@ Bundle-Vendor: OneFact
 Bundle-Version: 1.0.0.qualifier
 Bundle-SymbolicName: org.xtuml.bp.xtext.masl.ui; singleton:=true
 Bundle-ActivationPolicy: lazy
-Require-Bundle: org.xtuml.bp.xtext.masl,
+Require-Bundle: org.xtuml.bp.xtext.masl;visibility:=reexport,
  org.xtuml.bp.xtext.masl.ide,
  org.eclipse.xtext.ui,
  org.eclipse.xtext.ui.shared,
@@ -17,8 +17,7 @@ Require-Bundle: org.xtuml.bp.xtext.masl,
  org.eclipse.xtext.builder,
  org.eclipse.xtend.lib;resolution:=optional,
  org.eclipse.xtext.xbase.lib,
- org.xtuml.bp.core;bundle-version="5.8.6";resolution:=optional,
- org.xtuml.bp.ui.text;bundle-version="5.8.6"
+ org.xtuml.bp.core;bundle-version="5.8.6";resolution:=optional
 Import-Package: org.apache.log4j
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Export-Package: org.xtuml.bp.xtext.masl.ui,

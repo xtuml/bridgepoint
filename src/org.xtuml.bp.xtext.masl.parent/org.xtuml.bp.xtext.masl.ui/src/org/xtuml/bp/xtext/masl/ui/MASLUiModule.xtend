@@ -9,17 +9,18 @@ import org.eclipse.xtend.lib.annotations.FinalFieldsConstructor
 import org.eclipse.xtext.ide.editor.syntaxcoloring.DefaultSemanticHighlightingCalculator
 import org.eclipse.xtext.resource.containers.IAllContainersState
 import org.eclipse.xtext.ui.editor.hyperlinking.IHyperlinkHelper
+import org.eclipse.xtext.ui.editor.model.XtextDocumentProvider
 import org.eclipse.xtext.ui.validation.AbstractValidatorConfigurationBlock
 import org.xtuml.bp.xtext.masl.ide.highlighting.MaslSemanticHighligtingCalculator
 import org.xtuml.bp.xtext.masl.lib.MASLDelegatingAllContainerState
-import org.xtuml.bp.xtext.masl.ui.hyperlink.MASLHyperlinkHelper
-import org.xtuml.bp.xtext.masl.ui.validation.MaslValidationConfigurationBlock
-import static org.eclipse.xtext.ui.editor.contentassist.XtextContentAssistProcessor.*
-import org.xtuml.bp.xtext.masl.ui.edit.MaslAutoEditStrategyProvider
 import org.xtuml.bp.xtext.masl.ui.build.MaslAutoBuilder
-import org.eclipse.xtext.ui.editor.model.XtextDocumentProvider
 import org.xtuml.bp.xtext.masl.ui.document.MaslDocumentProvider
 import org.xtuml.bp.xtext.masl.ui.document.MaslResourceForIEditorInputFactory
+import org.xtuml.bp.xtext.masl.ui.edit.MaslAutoEditStrategyProvider
+import org.xtuml.bp.xtext.masl.ui.hyperlink.MASLHyperlinkHelper
+import org.xtuml.bp.xtext.masl.ui.validation.MaslValidationConfigurationBlock
+
+import static org.eclipse.xtext.ui.editor.contentassist.XtextContentAssistProcessor.*
 
 /**
  * Use this class to register components to be used within the Eclipse IDE.
@@ -68,5 +69,4 @@ class MASLUiModule extends AbstractMASLUiModule {
 	override bindIResourceForEditorInputFactory() {
 		MaslResourceForIEditorInputFactory
 	}
-	
 }

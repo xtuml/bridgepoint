@@ -4,9 +4,8 @@ import com.google.inject.Inject
 import org.eclipse.swt.widgets.Composite
 import org.eclipse.xtext.ui.IImageHelper
 import org.eclipse.xtext.ui.editor.XtextEditor
-import org.xtuml.bp.ui.text.typedefinition.TypeDefinitionEditorInput
 
-class PartialMaslEditor extends XtextEditor {
+class MaslSnippetEditor extends XtextEditor {
 	
 	@Inject IImageHelper imageHelper
 	 
@@ -17,7 +16,7 @@ class PartialMaslEditor extends XtextEditor {
 	override createPartControl(Composite parent) {
 		super.createPartControl(parent)
 		val input = editorInput
-		if(input instanceof TypeDefinitionEditorInput) {
+		if(input instanceof IMaslSnippetEditorInput) {
 			val prefix = (documentProvider as MaslDocumentProvider).getPrefix(input)
 			val editable = (documentProvider as MaslDocumentProvider).getEditable(input)
 			sourceViewer.setVisibleRegion(prefix.length, editable.length)
@@ -26,7 +25,7 @@ class PartialMaslEditor extends XtextEditor {
 	
 	
 	override getDefaultImage() {
-		if(editorInput instanceof TypeDefinitionEditorInput) 
+		if(editorInput instanceof IMaslSnippetEditorInput) 
 			imageHelper.getImage(editorInput.imageDescriptor)
 		else
 			super.getDefaultImage()

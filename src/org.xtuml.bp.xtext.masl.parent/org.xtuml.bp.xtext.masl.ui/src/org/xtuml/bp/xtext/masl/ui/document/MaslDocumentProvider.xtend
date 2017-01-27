@@ -12,19 +12,18 @@ import org.xtuml.bp.core.Ooaofooa
 import org.xtuml.bp.core.UserDataType_c
 import org.xtuml.bp.core.common.NonRootModelElement
 import org.xtuml.bp.core.util.TransactionUtil
-import org.xtuml.bp.ui.text.typedefinition.TypeDefinitionEditorInput
 
 class MaslDocumentProvider extends XtextDocumentProvider {
 	
 	override getEncoding(Object element) {
-		if(element instanceof TypeDefinitionEditorInput) 
+		if(element instanceof IMaslSnippetEditorInput) 
 			element.file.charset
 		else
 			super.getEncoding(element)
 	}
 	
 	override protected setDocumentContent(IDocument document, IEditorInput editorInput, String encoding) throws CoreException {
-		if(editorInput instanceof TypeDefinitionEditorInput) {
+		if(editorInput instanceof IMaslSnippetEditorInput) {
 			super.setDocumentContent(document, editorInput.extendedInputStream, encoding)
 			setDocumentResource(document as XtextDocument, editorInput, encoding)
 			true
@@ -34,13 +33,13 @@ class MaslDocumentProvider extends XtextDocumentProvider {
 	}
 	
 	override isDeleted(Object element) {
-		if(element instanceof TypeDefinitionEditorInput)
+		if(element instanceof IMaslSnippetEditorInput)
 			return false 
 		else 
 			super.isDeleted(element)
 	}
 	
-	def getExtendedInputStream(TypeDefinitionEditorInput editorInput) {
+	def getExtendedInputStream(IMaslSnippetEditorInput editorInput) {
 		return new StringInputStream('''
 			«editorInput.prefix»
 			«editorInput.editable»
@@ -56,23 +55,23 @@ class MaslDocumentProvider extends XtextDocumentProvider {
 			fullPath.segment(0) 
 	}
 	
-	def getPrefix(TypeDefinitionEditorInput editorInput) '''
+	def getPrefix(IMaslSnippetEditorInput editorInput) '''
 		domain «editorInput.modelElement.domain» is
 			type __dummy__;
 			type __dummy__ is 
 	'''
 	
-	def getEditable(TypeDefinitionEditorInput editorInput) {
+	def getEditable(IMaslSnippetEditorInput editorInput) {
 		(editorInput.modelElement as UserDataType_c).definition
 	}
 	
-	def getSuffix(TypeDefinitionEditorInput editorInput) '''
+	def getSuffix(IMaslSnippetEditorInput editorInput) '''
 		;
 		end domain;
 	'''
 	
 	override protected doSaveDocument(IProgressMonitor monitor, Object element, IDocument document, boolean overwrite) throws CoreException {
-		if(element instanceof TypeDefinitionEditorInput) {
+		if(element instanceof IMaslSnippetEditorInput) {
 			val type = element.modelElement as UserDataType_c
 			val prefixLength = element.prefix.length
 			val newDefinition = document.get(prefixLength, document.length - element.suffix.length - prefixLength)
