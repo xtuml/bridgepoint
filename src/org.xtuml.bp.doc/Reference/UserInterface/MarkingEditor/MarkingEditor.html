@@ -93,11 +93,105 @@ Attribute,foo
 Attribute,soa_remote</code></pre>
 <p><strong>Figure 3</strong></p>
 <p>The file contains pairs, one per line (Figure 4).</p>
-<pre><code>&lt;OOA element type name&gt;,&lt;feature name&gt;</code></pre>
+<pre><code>&lt;xtUML element type&gt;,&lt;feature name&gt;</code></pre>
 <p><strong>Figure 4</strong></p>
 <p>This file is not modified by the marking editor. It is modified by hand by the<br />
-model compiler architect. The OOA element type matches the name of a class in<br />
-the xtUML metamodel.</p>
+model compiler architect. The xtUML element type matches the name of a class in<br />
+the xtUML metamodel. Table 1 provides mappings from MASL markable elements to<br />
+xtUML element types for use in creating this marking file for a model converted<br />
+from MASL:</p>
+<table>
+<thead>
+<tr class="header">
+<th>MASL Markable Element</th>
+<th>xtUML Element Type</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>project</td>
+<td>Component</td>
+</tr>
+<tr class="even">
+<td>(project-)domain</td>
+<td>Component Reference</td>
+</tr>
+<tr class="odd">
+<td>domain</td>
+<td>Component</td>
+</tr>
+<tr class="even">
+<td>(domain-)terminator</td>
+<td>Port</td>
+</tr>
+<tr class="odd">
+<td>(project-)terminator</td>
+<td>Provision</td>
+</tr>
+<tr class="even">
+<td>object</td>
+<td>Model Class</td>
+</tr>
+<tr class="odd">
+<td>(domain function or service) routine</td>
+<td>Function</td>
+</tr>
+<tr class="even">
+<td>(terminator function or service) routine</td>
+<td>Required Operation</td>
+</tr>
+<tr class="odd">
+<td>operation</td>
+<td>Operation</td>
+</tr>
+<tr class="even">
+<td>state</td>
+<td>State Machine State</td>
+</tr>
+<tr class="odd">
+<td>attribute</td>
+<td>Attribute</td>
+</tr>
+<tr class="even">
+<td>transitiontable</td>
+<td>State Machine</td>
+</tr>
+<tr class="odd">
+<td>event</td>
+<td>State Machine Event</td>
+</tr>
+<tr class="even">
+<td>type</td>
+<td>User Data Type</td>
+</tr>
+<tr class="odd">
+<td>member</td>
+<td>not yet mapped</td>
+</tr>
+<tr class="even">
+<td>exception</td>
+<td>Exception</td>
+</tr>
+<tr class="odd">
+<td>identifier</td>
+<td>not yet mapped</td>
+</tr>
+<tr class="even">
+<td>regularrel</td>
+<td>Association</td>
+</tr>
+<tr class="odd">
+<td>associative</td>
+<td>Association</td>
+</tr>
+<tr class="even">
+<td>subsuper</td>
+<td>Association</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Table 1</strong></p>
+<p>Notes:</p>
 <ul>
 <li>This file is allowed to have blank lines<br />
 </li>
@@ -106,7 +200,7 @@ line that should be ignored<br />
 </li>
 <li>Comma characters are not allowed in feature names</li>
 </ul>
-<p>If the model compiler architect has entered an invalid OOA element type name, the<br />
+<p>If the model compiler architect has entered an invalid xtUML element type name, the<br />
 marking editor will catch this and require it to be fixed before proceeding (Figure 5).</p>
 <p><img src="marking_feature_error.png" alt="Image of feature validation error" /><br />
 <strong>Figure 5</strong></p>
