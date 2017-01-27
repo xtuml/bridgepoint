@@ -286,7 +286,7 @@ typeReference returns [String s = ""]:
 
 qualifiedObjectName returns [String s = ""]:
             { String val = ""; }
-            (s=domainName "::")? val=objectName { s += val; }
+            (s=domainName "::" { s += "::"; })? val=objectName { s += val; }
             ;
 
 instanceTypeRef returns [String s = ""]:
@@ -296,7 +296,7 @@ instanceTypeRef returns [String s = ""]:
 
 namedTypeRef returns [String s = ""]:
             { String val = ""; }
-            (s=domainName "::")? val=typeName { s += val; }
+            (s=domainName "::" { s += "::"; })? val=typeName { s += val; }
             ;
 
 typeName returns [String s = ""]:
