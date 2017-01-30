@@ -1,4 +1,4 @@
-What's New in BridgePoint 6.0.0
+What's New in BridgePoint 6.1.0
 ========================
 
 Release Highlights
