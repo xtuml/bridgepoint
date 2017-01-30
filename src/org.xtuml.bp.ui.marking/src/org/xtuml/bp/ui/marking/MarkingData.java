@@ -18,6 +18,16 @@ import org.xtuml.bp.core.CorePlugin;
 
 public class MarkingData {
 
+	public class ValueSet {
+		public String elementType;
+		public String value;
+		
+		public ValueSet() {
+			elementType = new String("");
+			value = new String("");
+		}
+	}
+	
 	private IProject project;
     
     private static final String DELIM = ",";
@@ -29,7 +39,7 @@ public class MarkingData {
     private HashMap<String, Vector<String>> featureMap;
     
     // Ordered map of fully-pathed application model elements and an ordered map of associated feature/value pairs
-    private LinkedHashMap<String, LinkedHashMap<String,String>> markingsMap;
+    private LinkedHashMap<String, LinkedHashMap<String,ValueSet>> markingsMap;
     
 	public MarkingData(IProject project) {
 		this.project = project;
@@ -81,7 +91,7 @@ public class MarkingData {
 	// Read the application marking data from the file on disk.  Populate it into an
 	// internal data structure.
 	private void populateMarkings() {
-		markingsMap = new LinkedHashMap<String, LinkedHashMap<String,String>>();
+		markingsMap = new LinkedHashMap<String, LinkedHashMap<String,ValueSet>>();
 		Scanner inFile = new Scanner("");
 		
 		try {
@@ -94,9 +104,10 @@ public class MarkingData {
 		while ( inFile.hasNext() ) {
 			String modelElement = inFile.next().trim();
 			String featureName = inFile.next().trim();
+			String elementType = inFile.next().trim();
 			String featureValue = inFile.nextLine().trim();
 			featureValue = featureValue.replaceFirst(",", "");
-			updateFeature(modelElement, featureName, featureValue);
+			updateFeature(modelElement, featureName, featureValue, elementType);
 		}
 		
 		inFile.close();
@@ -144,19 +155,23 @@ public class MarkingData {
 	 * @param modelElement string path of an instance in the application model deliminated by ::
 	 * @param featureName string feature name
 	 * @param newValue string value to assign to the feature
+	 * @param elemType the xtUML model element type name
 	 */
-	public void updateFeature(String modelElement, String featureName, String newValue) {
-		LinkedHashMap<String,String> markList;
+	public void updateFeature(String modelElement, String featureName, String newValue, String elemType) {
+		LinkedHashMap<String,ValueSet> markList;
 
 		if ( markingsMap.containsKey(modelElement) ) {
 			// The model element has already been seen, add the feature to the list
 			markList = markingsMap.get(modelElement);
 		} else {
 			// Element Type has not been seen yet
-			markList = new LinkedHashMap<String,String>();
+			markList = new LinkedHashMap<String,ValueSet>();
 			markingsMap.put(modelElement, markList);
 		}
-		markList.put(featureName, newValue);
+		ValueSet vs = new ValueSet();
+		vs.elementType = elemType;
+		vs.value = newValue;
+		markList.put(featureName, vs);
 	}
 	
 	/**
@@ -168,10 +183,10 @@ public class MarkingData {
 			PrintStream stream = new PrintStream(fout);
 			
 			// Persist the markings
-			for (Map.Entry<String, LinkedHashMap<String,String>> elementEntry : markingsMap.entrySet()) {
-				for ( Map.Entry<String, String> featureEntry : elementEntry.getValue().entrySet()) {
-					if ( ! featureEntry.getValue().isEmpty() ) {
-						stream.println(elementEntry.getKey() + DELIM + featureEntry.getKey() + DELIM + featureEntry.getValue());
+			for (Map.Entry<String, LinkedHashMap<String,ValueSet>> elementEntry : markingsMap.entrySet()) {
+				for ( Map.Entry<String, ValueSet> featureEntry : elementEntry.getValue().entrySet()) {
+					if ( ! featureEntry.getValue().value.isEmpty() ) {
+						stream.println(elementEntry.getKey() + DELIM + featureEntry.getKey() + DELIM + featureEntry.getValue().elementType + DELIM + featureEntry.getValue().value);
 					}
 				}
 			}
@@ -206,9 +221,9 @@ public class MarkingData {
 	 * application model instance.
 	 *
 	 * @param modelElement string path of an instance in the application model deliminated by ::
-	 * @return LinkedHashMap<String,String> ordered collection of feature/value pairs
+	 * @return LinkedHashMap<String,ValueSet> ordered collection of feature/value pairs
 	 */
-	public LinkedHashMap<String,String> getMarks(String modelElement) {
+	public LinkedHashMap<String,ValueSet> getMarks(String modelElement) {
 		return markingsMap.get(modelElement);
 	}
 }
