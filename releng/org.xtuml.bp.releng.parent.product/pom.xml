@@ -5,12 +5,12 @@
   <parent>
     <groupId>org.xtuml.bp</groupId>
     <artifactId>org.xtuml.bp.releng.parent</artifactId>
-    <version>6.0.0</version>
+    <version>6.1.0</version>
     <relativePath>../org.xtuml.bp.releng.parent/</relativePath>
   </parent>
   <groupId>org.xtuml.bp</groupId>
   <artifactId>org.xtuml.bp.releng.parent.product</artifactId>
-  <version>6.0.0</version>
+  <version>6.1.0</version>
   <packaging>eclipse-repository</packaging>
   
   <build>
