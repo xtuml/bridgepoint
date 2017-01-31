@@ -18,12 +18,16 @@ import org.xtuml.bp.core.CorePlugin;
 
 public class MarkingData {
 
-	public class ValueSet {
-		public String elementType;
+	public class Mark {
+		public String markable_name;
+		public String feature_name;
+		public String path;
 		public String value;
 		
-		public ValueSet() {
-			elementType = new String("");
+		public Mark() {
+			markable_name = new String("");
+			feature_name = new String("");
+			path = new String("");
 			value = new String("");
 		}
 	}
@@ -39,7 +43,7 @@ public class MarkingData {
     private HashMap<String, Vector<String>> featureMap;
     
     // Ordered map of fully-pathed application model elements and an ordered map of associated feature/value pairs
-    private LinkedHashMap<String, LinkedHashMap<String,ValueSet>> markingsMap;
+    private LinkedHashMap<String, LinkedHashMap<String,Mark>> markingsMap;
     
 	public MarkingData(IProject project) {
 		this.project = project;
@@ -91,7 +95,7 @@ public class MarkingData {
 	// Read the application marking data from the file on disk.  Populate it into an
 	// internal data structure.
 	private void populateMarkings() {
-		markingsMap = new LinkedHashMap<String, LinkedHashMap<String,ValueSet>>();
+		markingsMap = new LinkedHashMap<String, LinkedHashMap<String,Mark>>();
 		Scanner inFile = new Scanner("");
 		
 		try {
@@ -158,20 +162,32 @@ public class MarkingData {
 	 * @param elemType the xtUML model element type name
 	 */
 	public void updateFeature(String modelElement, String featureName, String newValue, String elemType) {
-		LinkedHashMap<String,ValueSet> markList;
+		LinkedHashMap<String,Mark> markList;
 
 		if ( markingsMap.containsKey(modelElement) ) {
 			// The model element has already been seen, add the feature to the list
 			markList = markingsMap.get(modelElement);
 		} else {
 			// Element Type has not been seen yet
-			markList = new LinkedHashMap<String,ValueSet>();
+			markList = new LinkedHashMap<String,Mark>();
 			markingsMap.put(modelElement, markList);
 		}
-		ValueSet vs = new ValueSet();
-		vs.elementType = elemType;
-		vs.value = newValue;
-		markList.put(featureName, vs);
+		Mark mark = new Mark();
+		mark.markable_name = elemType;
+		mark.feature_name = featureName;
+		mark.path = modelElement;
+		mark.value = newValue;
+		markList.put(getCombinedRef(featureName, elemType), mark);
+	}
+
+	/**
+	 * A mark is uniquely identified by its path and the combined referential 
+	 * composed of the feature name and markable name.  This function is used to 
+	 * "make" the combined referential string for the internal data structure used
+	 * to store and order the marks.
+	 */
+	public static String getCombinedRef(String f, String m) {
+		return f+"###"+m;
 	}
 	
 	/**
@@ -183,10 +199,10 @@ public class MarkingData {
 			PrintStream stream = new PrintStream(fout);
 			
 			// Persist the markings
-			for (Map.Entry<String, LinkedHashMap<String,ValueSet>> elementEntry : markingsMap.entrySet()) {
-				for ( Map.Entry<String, ValueSet> featureEntry : elementEntry.getValue().entrySet()) {
+			for (Map.Entry<String, LinkedHashMap<String,Mark>> elementEntry : markingsMap.entrySet()) {
+				for ( Map.Entry<String, Mark> featureEntry : elementEntry.getValue().entrySet()) {
 					if ( ! featureEntry.getValue().value.isEmpty() ) {
-						stream.println(elementEntry.getKey() + DELIM + featureEntry.getKey() + DELIM + featureEntry.getValue().elementType + DELIM + featureEntry.getValue().value);
+						stream.println(featureEntry.getValue().path + DELIM + featureEntry.getValue().feature_name + DELIM + featureEntry.getValue().markable_name + DELIM + featureEntry.getValue().value);
 					}
 				}
 			}
@@ -217,13 +233,29 @@ public class MarkingData {
 	}
 
 	/**
-	 * Returns an ordered collection of features/value pairs for a given 
-	 * application model instance.
+	 * Returns an ordered collection of marks for a given 
+	 * application model instance.  Makes sure we return a clean/unique set
+	 * of marks that avoids path collisions by using the element type to resolve
+	 * ambiguities.
 	 *
 	 * @param modelElement string path of an instance in the application model deliminated by ::
+	 * @param elemType the xtUML model element type name
 	 * @return LinkedHashMap<String,ValueSet> ordered collection of feature/value pairs
 	 */
-	public LinkedHashMap<String,ValueSet> getMarks(String modelElement) {
-		return markingsMap.get(modelElement);
+	public LinkedHashMap<String,Mark> getMarks(String modelElement, String elemType) {
+		LinkedHashMap<String,Mark> uncleanMarks = markingsMap.get(modelElement);
+		LinkedHashMap<String,Mark> uniqueMarks = new LinkedHashMap<String,Mark>();
+		
+		if ( uncleanMarks == null ) {
+			return null;
+		} else {
+			for (Map.Entry<String, Mark> entry : uncleanMarks.entrySet())
+			{
+				if ( entry.getValue().markable_name.equals(elemType) ) {
+					uniqueMarks.put(entry.getKey(), entry.getValue());
+				}
+			}
+		}
+		return uniqueMarks;
 	}
 }

@@ -33,7 +33,7 @@ import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.common.ModelRoot;
 import org.xtuml.bp.core.common.NonRootModelElement;
-import org.xtuml.bp.ui.marking.MarkingData.ValueSet;
+import org.xtuml.bp.ui.marking.MarkingData.Mark;
 
 public class MarkingEditorDialog extends Dialog {
 
@@ -62,16 +62,16 @@ public class MarkingEditorDialog extends Dialog {
 		Vector<String> featureList = markingData.getFeatures(elementType);
 		if ( featureList == null ) { return; }
 		Iterator<String> listIter = featureList.iterator();
-		LinkedHashMap<String,ValueSet> markList = markingData.getMarks(modelElement);
+		LinkedHashMap<String,Mark> markList = markingData.getMarks(modelElement, elementType);
 		int i = 0;
 		while (listIter.hasNext()) {
 			TableItem item = table.getItem(i);
 			String feature = listIter.next();
 			String value = "";
 			if ( markList != null ) { 
-				ValueSet vs = markList.get(feature);
-				if ( vs != null ) {
-					value = vs.value;
+				Mark mark = markList.get(MarkingData.getCombinedRef(feature, elementType));
+				if ( mark != null ) {
+					value = mark.value;
 				}
 			}
 			item.setText(new String [] {feature, value});
