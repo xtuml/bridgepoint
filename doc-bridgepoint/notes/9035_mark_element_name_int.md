@@ -16,6 +16,7 @@ file persisted data.
 2. Document References
 ----------------------
 <a id="2.1"></a>2.1 [BridgePoint DEI #9035](https://support.onefact.net/issues/9035) Headline issue    
+<a id="2.2"></a>2.2 [BridgePoint DEI #8985](https://support.onefact.net/issues/8985) MASL Marking Test       
 
 3. Background
 -------------
@@ -46,10 +47,14 @@ adds the field to the data.
   on the user selection.  From there, the user selects the application model 
   element and are presented with the corresponding features and their values.  
 5.2.3  When the features of a given model instance are edited, the model element
-  type shall now be included in the internal data structure.  When the user "OK"s 
-  the marking editor dialog, the data (now including the type) is persisted 
-  to ```application.mark```.  
-  
+  type shall now be included in the update to the internal data structure.  When 
+  the user "OK"s the marking editor dialog, the data (now including the element type) 
+  is persisted to ```application.mark```.  
+5.2.4  The element type is now used to index into the internal data.  To find the exact
+  mark we are looking for, we first get all rows with the desired path.  Inside this
+  data set we then locate the mark using a combination of the feature name and 
+  element type.  This allows us to uniquely find the exact mark we are looking for.   
+    
 5.3  x2m     
 
 
@@ -59,20 +64,52 @@ None.
 
 7. Unit Test
 ------------
-7.1  TODO - Update the MASL Mark test to validate the new field usage  
+7.1  Update the MASL Mark test [[2.2]](#2.2) to validate the new field usage in the Marking Editor   
+7.1.1  Add a new class to the model under test named "PathDupe"    
+7.1.2  Add a new attribute "dupe" to PathDupe     
+7.1.3  Add a new operation "dupe" to PathDupe  
+7.1.4  Open feature.mark  
+7.1.5  Add new features "Attribute, dupetest" and "Operation, dupetest"  
+7.1.6  Start the marking editor  
+7.1.7  Locate the new attribute in PathDupe  
+7.1.8  Set the value "att" for feature dupetest  
+7.1.9  Locate the new operation in PathDupe  
+7.1.10  Set the value "opp" for feature dupetest  
+7.1.11  Locate the new attribute in PathDupe again  
+7.1.12  Set the value "at" for feature dupetest  
+7.1.13  Locate the new operation in PathDupe again  
+7.1.14  Set the value "op" for feature dupetest  
+7.1.15  Click OK on the Marking Editor  
+7.1.16  Open application.mark  
+7.1.16.1  Verify that there are correct marks for both the attribute and operation in PathDupe  
+7.1.17  Open the Marking Editor again  
+7.1.18  Locate the new attribute in PathDupe  
+7.1.19  Verify the value is "at" for feature dupetest  
+7.1.20  Locate the new operation in PathDupe  
+7.1.21  Verify the value is "op" for feature dupetest  
+7.1.22  Set the value to empty (remove "op") for feature dupetest  
+7.1.23  Click OK on the Marking Editor  
+7.1.24  Open application.mark  
+7.1.24.1  Verify that there is only a correct marks for the attribute in PathDupe.  The operation mark is gone.  
+
 
 8. User Documentation
 ---------------------
-TODO - update the documentation for the marking editor  
+8.1  Update the Marking Editor document in Reference > User Interface for the 
+  addition of the new column.     
 
 9. Code Changes
 ---------------
 Fork/Repository: keithbrown/bridgepoint   
-Branch: 9035_mark_element_name
+Branch: 9035_mark_element_name  
 
 <pre>
+ .../notes/9035_mark_element_name_int.md            | 113 +++++++++++++++++++++
+ .../UserInterface/MarkingEditor/MarkingEditor.html |  56 +++++-----
+ .../UserInterface/MarkingEditor/MarkingEditor.md   |  56 +++++-----
+ .../src/org/xtuml/bp/ui/marking/MarkingData.java   |  79 +++++++++++---
+ .../xtuml/bp/ui/marking/MarkingEditorDialog.java   |  15 ++-
 
-< Put the file list here >
 
 </pre>
 
