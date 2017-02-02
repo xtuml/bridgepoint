@@ -3,12 +3,13 @@ This document provides the information required to run the BridgePoint developme
 
 Preparation 
 -----------
-1) See the [Developer Getting Started Guide](https://github.com/xtuml/bridgepoint/blob/master/doc-bridgepoint/process/Developer%20Getting%20Started%20Guide.md). This document assumes you have followed its instructions to get a good build of the product. If you have not, stop now and do so. Addtionally, this document uses the same naming conventions found in the preparation section of the that document, so take time to look at the now before continueing.  
+1) See the [Developer Getting Started Guide](https://github.com/xtuml/bridgepoint/blob/master/doc-bridgepoint/process/Developer%20Getting%20Started%20Guide.md). This document assumes you have followed its instructions to get a good build of the product. If you have not, stop now and do so. Addtionally, this document uses the same naming conventions found in the preparation section of the that document, so take time to look at the now before continuing.  
 
 2) For each of the following git repositories create a fork:  
   __WARNING!:__ If you already have a fork, [assure your fork is up to date]( https://help.github.com/articles/merging-an-upstream-repository-into-your-fork).
-    - https://github.com/xtuml/models
-    - https://github.com/xtuml/bptest
+  
+  - https://github.com/xtuml/models
+  - https://github.com/xtuml/bptest
 
 3) The following environment variables must exist in your environment BEFORE you launch BridgePoint.  
 ```
