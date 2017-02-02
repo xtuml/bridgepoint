@@ -3,14 +3,16 @@ This document provides the information required to run the BridgePoint developme
 
 Preparation 
 -----------
-1) See the [Developer Getting Started Guide](https://github.com/xtuml/bridgepoint/blob/master/doc-bridgepoint/process/Developer%20Getting%20Started%20Guide.md) for getting the proper environment set for running the BridgePoint development unit tests.  
+1) See the [Developer Getting Started Guide](https://github.com/xtuml/bridgepoint/blob/master/doc-bridgepoint/process/Developer%20Getting%20Started%20Guide.md). This document assumes you have followed its instructions to get a good build of the product. If you have not, stop now and do so. Addtionally, this document uses the same naming conventions found in the preparation section of the that document, so take time to look at the now before continueing.  
 
-2) This document uses ```~/git``` as the root folder for git repostiories, and it uses ```~/workspace``` as the development workspace. You may substitute any folder you desire, but you must be consistent.
+2) For each of the following git repositories create a fork:  
+  __WARNING!:__ If you already have a fork, [assure your fork is up to date]( https://help.github.com/articles/merging-an-upstream-repository-into-your-fork).
+    - https://github.com/xtuml/models
+    - https://github.com/xtuml/bptest
 
-3) Edit ```~/xtuml/BridgePoint/eclipse/Launcher.sh``` in a text editor (in Windows Launcher.bat)
-
-- Directly after "export BP_JVM=..." add the following (on Windows substitute "set" for "export"):  
+3) The following environment variables must exist in your environment BEFORE you launch BridgePoint.  
 ```
+export XTUML_BPTEST_REPOSITORY=~/git/bptest/
 export XTUML_DEVELOPMENT_REPOSITORY=~/git/bridgepoint
 export XTUML_TEST_MODEL_REPOSITORY=~/git/models/test/
 export XTUML_PRIVATE_MODEL_REPOSITORY=~/git/modelsmg/test/
