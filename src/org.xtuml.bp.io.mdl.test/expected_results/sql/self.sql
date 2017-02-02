@@ -1,0 +1,2454 @@
+-- BP 6.1D content: domain syschar: 3
+
+INSERT INTO S_DOM
+	VALUES (2279824,
+	'self',
+	'This domain exercises operations involving the keyword self.
+
+Given two classes, A and B,  involved in a simple 1:1 relationship class B relates itself to A using both relate self to A and relate A to self formats.
+
+A similar test is performed with the ''self'' class being an associative object between two other classes.',
+	0,
+	1);
+INSERT INTO S_CDT
+	VALUES (524289,
+	0);
+INSERT INTO S_DT
+	VALUES (524289,
+	2279824,
+	'void',
+	'');
+INSERT INTO S_CDT
+	VALUES (524290,
+	1);
+INSERT INTO S_DT
+	VALUES (524290,
+	2279824,
+	'boolean',
+	'');
+INSERT INTO S_CDT
+	VALUES (524291,
+	2);
+INSERT INTO S_DT
+	VALUES (524291,
+	2279824,
+	'integer',
+	'');
+INSERT INTO S_CDT
+	VALUES (524292,
+	3);
+INSERT INTO S_DT
+	VALUES (524292,
+	2279824,
+	'real',
+	'');
+INSERT INTO S_CDT
+	VALUES (524293,
+	4);
+INSERT INTO S_DT
+	VALUES (524293,
+	2279824,
+	'string',
+	'');
+INSERT INTO S_CDT
+	VALUES (524294,
+	5);
+INSERT INTO S_DT
+	VALUES (524294,
+	2279824,
+	'unique_id',
+	'');
+INSERT INTO S_CDT
+	VALUES (524295,
+	6);
+INSERT INTO S_DT
+	VALUES (524295,
+	2279824,
+	'state<State_Model>',
+	'');
+INSERT INTO S_CDT
+	VALUES (524296,
+	7);
+INSERT INTO S_DT
+	VALUES (524296,
+	2279824,
+	'same_as<Base_Attribute>',
+	'');
+INSERT INTO S_CDT
+	VALUES (524297,
+	8);
+INSERT INTO S_DT
+	VALUES (524297,
+	2279824,
+	'inst_ref<Object>',
+	'');
+INSERT INTO S_CDT
+	VALUES (524298,
+	9);
+INSERT INTO S_DT
+	VALUES (524298,
+	2279824,
+	'inst_ref_set<Object>',
+	'');
+INSERT INTO S_CDT
+	VALUES (524299,
+	10);
+INSERT INTO S_DT
+	VALUES (524299,
+	2279824,
+	'inst<Event>',
+	'');
+INSERT INTO S_CDT
+	VALUES (524300,
+	11);
+INSERT INTO S_DT
+	VALUES (524300,
+	2279824,
+	'inst<Mapping>',
+	'');
+INSERT INTO S_CDT
+	VALUES (524301,
+	12);
+INSERT INTO S_DT
+	VALUES (524301,
+	2279824,
+	'inst_ref<Mapping>',
+	'');
+INSERT INTO S_UDT
+	VALUES (524302,
+	524300,
+	1);
+INSERT INTO S_DT
+	VALUES (524302,
+	2279824,
+	'date',
+	'');
+INSERT INTO S_UDT
+	VALUES (524303,
+	524300,
+	2);
+INSERT INTO S_DT
+	VALUES (524303,
+	2279824,
+	'timestamp',
+	'');
+INSERT INTO S_UDT
+	VALUES (524304,
+	524301,
+	3);
+INSERT INTO S_DT
+	VALUES (524304,
+	2279824,
+	'inst_ref<Timer>',
+	'');
+INSERT INTO S_EE
+	VALUES (524290,
+	'Logging',
+	'',
+	'LOG',
+	2279824);
+INSERT INTO S_BRG
+	VALUES (524304,
+	524290,
+	'LogSuccess',
+	'',
+	0,
+	524289,
+	'',
+	1);
+INSERT INTO S_BPARM
+	VALUES (524311,
+	524304,
+	'message',
+	524293,
+	0);
+INSERT INTO S_BRG
+	VALUES (524305,
+	524290,
+	'LogFailure',
+	'',
+	0,
+	524289,
+	'',
+	1);
+INSERT INTO S_BPARM
+	VALUES (524312,
+	524305,
+	'message',
+	524293,
+	0);
+INSERT INTO S_BRG
+	VALUES (524306,
+	524290,
+	'LogInfo',
+	'',
+	0,
+	524289,
+	'',
+	1);
+INSERT INTO S_BPARM
+	VALUES (524313,
+	524306,
+	'message',
+	524293,
+	0);
+INSERT INTO S_EE
+	VALUES (524291,
+	'Time',
+	'',
+	'TIM',
+	2279824);
+INSERT INTO S_BRG
+	VALUES (524307,
+	524291,
+	'current_date',
+	'',
+	1,
+	524302,
+	'',
+	0);
+INSERT INTO S_BRG
+	VALUES (524308,
+	524291,
+	'create_date',
+	'',
+	1,
+	524302,
+	'',
+	0);
+INSERT INTO S_BPARM
+	VALUES (524314,
+	524308,
+	'second',
+	524291,
+	0);
+INSERT INTO S_BPARM
+	VALUES (524315,
+	524308,
+	'minute',
+	524291,
+	0);
+INSERT INTO S_BPARM
+	VALUES (524316,
+	524308,
+	'hour',
+	524291,
+	0);
+INSERT INTO S_BPARM
+	VALUES (524317,
+	524308,
+	'day',
+	524291,
+	0);
+INSERT INTO S_BPARM
+	VALUES (524318,
+	524308,
+	'month',
+	524291,
+	0);
+INSERT INTO S_BPARM
+	VALUES (524319,
+	524308,
+	'year',
+	524291,
+	0);
+INSERT INTO S_BRG
+	VALUES (524309,
+	524291,
+	'get_second',
+	'',
+	1,
+	524291,
+	'',
+	0);
+INSERT INTO S_BPARM
+	VALUES (524320,
+	524309,
+	'date',
+	524302,
+	0);
+INSERT INTO S_BRG
+	VALUES (524310,
+	524291,
+	'get_minute',
+	'',
+	1,
+	524291,
+	'',
+	0);
+INSERT INTO S_BPARM
+	VALUES (524321,
+	524310,
+	'date',
+	524302,
+	0);
+INSERT INTO S_BRG
+	VALUES (524311,
+	524291,
+	'get_hour',
+	'',
+	1,
+	524291,
+	'',
+	0);
+INSERT INTO S_BPARM
+	VALUES (524322,
+	524311,
+	'date',
+	524302,
+	0);
+INSERT INTO S_BRG
+	VALUES (524312,
+	524291,
+	'get_day',
+	'',
+	1,
+	524291,
+	'',
+	0);
+INSERT INTO S_BPARM
+	VALUES (524323,
+	524312,
+	'date',
+	524302,
+	0);
+INSERT INTO S_BRG
+	VALUES (524313,
+	524291,
+	'get_month',
+	'',
+	1,
+	524291,
+	'',
+	0);
+INSERT INTO S_BPARM
+	VALUES (524324,
+	524313,
+	'date',
+	524302,
+	0);
+INSERT INTO S_BRG
+	VALUES (524314,
+	524291,
+	'get_year',
+	'',
+	1,
+	524291,
+	'',
+	0);
+INSERT INTO S_BPARM
+	VALUES (524325,
+	524314,
+	'date',
+	524302,
+	0);
+INSERT INTO S_BRG
+	VALUES (524315,
+	524291,
+	'current_clock',
+	'',
+	1,
+	524303,
+	'',
+	0);
+INSERT INTO S_BRG
+	VALUES (524316,
+	524291,
+	'timer_start',
+	'',
+	1,
+	524304,
+	'',
+	0);
+INSERT INTO S_BPARM
+	VALUES (524326,
+	524316,
+	'microseconds',
+	524291,
+	0);
+INSERT INTO S_BPARM
+	VALUES (524327,
+	524316,
+	'event_inst',
+	524299,
+	0);
+INSERT INTO S_BRG
+	VALUES (524317,
+	524291,
+	'timer_start_recurring',
+	'',
+	1,
+	524304,
+	'',
+	0);
+INSERT INTO S_BPARM
+	VALUES (524328,
+	524317,
+	'microseconds',
+	524291,
+	0);
+INSERT INTO S_BPARM
+	VALUES (524329,
+	524317,
+	'event_inst',
+	524299,
+	0);
+INSERT INTO S_BRG
+	VALUES (524318,
+	524291,
+	'timer_remaining_time',
+	'',
+	1,
+	524291,
+	'',
+	0);
+INSERT INTO S_BPARM
+	VALUES (524330,
+	524318,
+	'timer_inst_ref',
+	524304,
+	0);
+INSERT INTO S_BRG
+	VALUES (524319,
+	524291,
+	'timer_reset_time',
+	'',
+	1,
+	524290,
+	'',
+	0);
+INSERT INTO S_BPARM
+	VALUES (524331,
+	524319,
+	'timer_inst_ref',
+	524304,
+	0);
+INSERT INTO S_BPARM
+	VALUES (524332,
+	524319,
+	'microseconds',
+	524291,
+	0);
+INSERT INTO S_BRG
+	VALUES (524320,
+	524291,
+	'timer_add_time',
+	'',
+	1,
+	524290,
+	'',
+	0);
+INSERT INTO S_BPARM
+	VALUES (524333,
+	524320,
+	'timer_inst_ref',
+	524304,
+	0);
+INSERT INTO S_BPARM
+	VALUES (524334,
+	524320,
+	'microseconds',
+	524291,
+	0);
+INSERT INTO S_BRG
+	VALUES (524321,
+	524291,
+	'timer_cancel',
+	'',
+	1,
+	524290,
+	'',
+	0);
+INSERT INTO S_BPARM
+	VALUES (524335,
+	524321,
+	'timer_inst_ref',
+	524304,
+	0);
+INSERT INTO S_EE
+	VALUES (524293,
+	'Architecture',
+	'',
+	'ARCH',
+	2279824);
+INSERT INTO S_BRG
+	VALUES (524322,
+	524293,
+	'shutdown',
+	'',
+	0,
+	524289,
+	'control stop;',
+	1);
+INSERT INTO GD_MD
+	VALUES (524289,
+	1,
+	2279824,
+	1,
+	1,
+	0,
+	1,
+	1,
+	0,
+	12,
+	1600,
+	4199,
+	1.000000,
+	0);
+INSERT INTO GD_GE
+	VALUES (524323,
+	524289,
+	3670023,
+	11);
+INSERT INTO GD_SHP
+	VALUES (524323,
+	1920,
+	1344,
+	2080,
+	1440);
+INSERT INTO GD_GE
+	VALUES (524301,
+	524289,
+	524290,
+	12);
+INSERT INTO GD_SHP
+	VALUES (524301,
+	2096,
+	1632,
+	2272,
+	1728);
+INSERT INTO GD_GE
+	VALUES (524324,
+	524289,
+	524291,
+	12);
+INSERT INTO GD_SHP
+	VALUES (524324,
+	1920,
+	1632,
+	2080,
+	1728);
+INSERT INTO GD_GE
+	VALUES (524326,
+	524289,
+	524293,
+	12);
+INSERT INTO GD_SHP
+	VALUES (524326,
+	1712,
+	1632,
+	1872,
+	1792);
+INSERT INTO S_SS
+	VALUES (3670023,
+	'asptest_self',
+	'',
+	'',
+	1,
+	2279824,
+	3670023);
+INSERT INTO O_OBJ
+	VALUES (3670017,
+	'Object A',
+	1,
+	'OA',
+	'',
+	3670023);
+INSERT INTO O_NBATTR
+	VALUES (3670017,
+	3670017);
+INSERT INTO O_BATTR
+	VALUES (3670017,
+	3670017);
+INSERT INTO O_ATTR
+	VALUES (3670017,
+	3670017,
+	0,
+	'oa_id',
+	'',
+	'',
+	'oa_id',
+	0,
+	524291);
+INSERT INTO O_ID
+	VALUES (0,
+	3670017);
+INSERT INTO O_OIDA
+	VALUES (3670017,
+	3670017,
+	0);
+INSERT INTO O_RTIDA
+	VALUES (3670017,
+	3670017,
+	0,
+	3670017,
+	3670017);
+INSERT INTO O_OBJ
+	VALUES (3670018,
+	'Object B',
+	2,
+	'OB',
+	'',
+	3670023);
+INSERT INTO O_NBATTR
+	VALUES (3670018,
+	3670018);
+INSERT INTO O_BATTR
+	VALUES (3670018,
+	3670018);
+INSERT INTO O_ATTR
+	VALUES (3670018,
+	3670018,
+	0,
+	'ob_id',
+	'',
+	'',
+	'ob_id',
+	0,
+	524291);
+INSERT INTO O_NBATTR
+	VALUES (3670019,
+	3670018);
+INSERT INTO O_BATTR
+	VALUES (3670019,
+	3670018);
+INSERT INTO O_ATTR
+	VALUES (3670019,
+	3670018,
+	3670018,
+	'current_state',
+	'',
+	'',
+	'current_state',
+	0,
+	524295);
+INSERT INTO O_REF
+	VALUES (3670018,
+	3670017,
+	0,
+	3670017,
+	3670017,
+	3670018,
+	3670017,
+	3670020,
+	3670017,
+	0,
+	0,
+	'');
+INSERT INTO O_RATTR
+	VALUES (3670020,
+	3670018,
+	3670017,
+	3670017,
+	1);
+INSERT INTO O_ATTR
+	VALUES (3670020,
+	3670018,
+	3670019,
+	'oa_id',
+	'',
+	'',
+	'oa_id',
+	0,
+	524296);
+INSERT INTO O_ID
+	VALUES (0,
+	3670018);
+INSERT INTO O_OIDA
+	VALUES (3670018,
+	3670018,
+	0);
+INSERT INTO SM_ISM
+	VALUES (1048578,
+	3670018);
+INSERT INTO SM_SM
+	VALUES (1048578,
+	'',
+	2);
+INSERT INTO SM_MOORE
+	VALUES (1048578);
+INSERT INTO SM_EVTDI
+	VALUES (1048577,
+	1048578,
+	'testNumber',
+	'',
+	524291);
+INSERT INTO SM_EVTDI
+	VALUES (240300896,
+	1048578,
+	'testNumber',
+	'',
+	524291);
+INSERT INTO SM_LEVT
+	VALUES (1048577,
+	1048578,
+	0);
+INSERT INTO SM_SEVT
+	VALUES (1048577,
+	1048578,
+	0);
+INSERT INTO SM_EVT
+	VALUES (1048577,
+	1048578,
+	0,
+	1,
+	'start test',
+	0,
+	'',
+	'OB1',
+	'');
+INSERT INTO SM_LEVT
+	VALUES (1048578,
+	1048578,
+	0);
+INSERT INTO SM_SEVT
+	VALUES (1048578,
+	1048578,
+	0);
+INSERT INTO SM_EVT
+	VALUES (1048578,
+	1048578,
+	0,
+	2,
+	'next test',
+	0,
+	'',
+	'OB2',
+	'');
+INSERT INTO SM_STATE
+	VALUES (1048577,
+	1048578,
+	0,
+	'Relate A to SELF',
+	1,
+	0);
+INSERT INTO SM_SEME
+	VALUES (1048577,
+	1048577,
+	1048578,
+	0);
+INSERT INTO SM_SEME
+	VALUES (1048577,
+	1048578,
+	1048578,
+	0);
+INSERT INTO SM_MOAH
+	VALUES (1048577,
+	1048578,
+	1048577);
+INSERT INTO SM_AH
+	VALUES (1048577,
+	1048578);
+INSERT INTO SM_ACT
+	VALUES (1048577,
+	1048578,
+	1,
+	'testNumber = rcvd_evt.testNumber;
+
+// Relate A to SELF
+  select any a from instances of OA where selected.oa_id == 10;
+  relate a to self across R1;
+  select one b related by a->OB[R1];
+
+  if (b == self)
+     LOG::LogSuccess(message:"Object B: Relate A to SELF");
+  else
+     LOG::LogFailure(message:"Object B: Relate A to SELF");
+  end if;
+
+  unrelate a from self across R1;
+
+
+//============================================================
+// Test complete
+//============================================================
+select any dr from instances of DR;
+generate DR2:''next test'' () to dr;
+',
+	'');
+INSERT INTO SM_STATE
+	VALUES (1048578,
+	1048578,
+	0,
+	'Relate SELF to A',
+	2,
+	0);
+INSERT INTO SM_EIGN
+	VALUES (1048578,
+	1048577,
+	1048578,
+	0,
+	'');
+INSERT INTO SM_SEME
+	VALUES (1048578,
+	1048577,
+	1048578,
+	0);
+INSERT INTO SM_EIGN
+	VALUES (1048578,
+	1048578,
+	1048578,
+	0,
+	'');
+INSERT INTO SM_SEME
+	VALUES (1048578,
+	1048578,
+	1048578,
+	0);
+INSERT INTO SM_MOAH
+	VALUES (1048578,
+	1048578,
+	1048578);
+INSERT INTO SM_AH
+	VALUES (1048578,
+	1048578);
+INSERT INTO SM_ACT
+	VALUES (1048578,
+	1048578,
+	1,
+	'testNumber = rcvd_evt.testNumber;
+
+// Relate SELF to A
+select any a from instances of OA where selected.oa_id == 12;
+relate self to a across R1;
+select one b related by a->OB[R1];
+
+if (b == self)
+     LOG::LogSuccess(message:"Object B: Relate SELF to A");
+else
+     LOG::LogFailure(message:"Object B: Relate SELF to A");
+end if;
+
+unrelate self from a across R1;
+
+
+//============================================================
+// Test complete
+//============================================================
+select any dr from instances of DR;
+generate DR2:''next test'' () to dr;
+',
+	'');
+INSERT INTO SM_NSTXN
+	VALUES (1048577,
+	1048578,
+	1048577,
+	1048578,
+	0);
+INSERT INTO SM_TXN
+	VALUES (1048577,
+	1048578,
+	1048578,
+	0);
+INSERT INTO SM_NSTXN
+	VALUES (1048578,
+	1048578,
+	1048577,
+	1048577,
+	0);
+INSERT INTO SM_TXN
+	VALUES (1048578,
+	1048578,
+	1048577,
+	0);
+INSERT INTO GD_MD
+	VALUES (1048577,
+	8,
+	1048578,
+	40,
+	1,
+	0,
+	1,
+	1,
+	0,
+	12,
+	1600,
+	4200,
+	1.000000,
+	0);
+INSERT INTO GD_GE
+	VALUES (1048578,
+	1048577,
+	1048577,
+	41);
+INSERT INTO GD_SHP
+	VALUES (1048578,
+	1760,
+	1296,
+	1968,
+	1408);
+INSERT INTO GD_GE
+	VALUES (1048579,
+	1048577,
+	1048578,
+	41);
+INSERT INTO GD_SHP
+	VALUES (1048579,
+	1760,
+	1488,
+	1968,
+	1600);
+INSERT INTO GD_GE
+	VALUES (1048580,
+	1048577,
+	1048577,
+	42);
+INSERT INTO GD_CON
+	VALUES (1048580,
+	1048578,
+	1048579,
+	0);
+INSERT INTO GD_CTXT
+	VALUES (1048580,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	1859,
+	1423,
+	1946,
+	1461,
+	19,
+	-10,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+	VALUES (1048581,
+	1048580,
+	1856,
+	1408,
+	1856,
+	1488,
+	0);
+INSERT INTO GD_GE
+	VALUES (1048582,
+	1048577,
+	1048578,
+	42);
+INSERT INTO GD_CON
+	VALUES (1048582,
+	1048578,
+	1048578,
+	0);
+INSERT INTO GD_CTXT
+	VALUES (1048582,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	1712,
+	1224,
+	1804,
+	1265,
+	9,
+	-25,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+	VALUES (1048583,
+	1048582,
+	1760,
+	1328,
+	1728,
+	1328,
+	0);
+INSERT INTO GD_LS
+	VALUES (1048584,
+	1048582,
+	1728,
+	1328,
+	1728,
+	1264,
+	1048583);
+INSERT INTO GD_LS
+	VALUES (1048585,
+	1048582,
+	1728,
+	1264,
+	1792,
+	1264,
+	1048584);
+INSERT INTO GD_LS
+	VALUES (1048586,
+	1048582,
+	1792,
+	1264,
+	1792,
+	1296,
+	1048585);
+INSERT INTO O_OBJ
+	VALUES (3670019,
+	'Object C',
+	3,
+	'OC',
+	'',
+	3670023);
+INSERT INTO O_NBATTR
+	VALUES (3670021,
+	3670019);
+INSERT INTO O_BATTR
+	VALUES (3670021,
+	3670019);
+INSERT INTO O_ATTR
+	VALUES (3670021,
+	3670019,
+	0,
+	'oc_id',
+	'',
+	'',
+	'oc_id',
+	0,
+	524294);
+INSERT INTO O_ID
+	VALUES (0,
+	3670019);
+INSERT INTO O_OIDA
+	VALUES (3670021,
+	3670019,
+	0);
+INSERT INTO O_RTIDA
+	VALUES (3670021,
+	3670019,
+	0,
+	3670018,
+	3670019);
+INSERT INTO O_OBJ
+	VALUES (3670020,
+	'Object D',
+	4,
+	'OD',
+	'',
+	3670023);
+INSERT INTO O_NBATTR
+	VALUES (3670022,
+	3670020);
+INSERT INTO O_BATTR
+	VALUES (3670022,
+	3670020);
+INSERT INTO O_ATTR
+	VALUES (3670022,
+	3670020,
+	0,
+	'od_id',
+	'',
+	'',
+	'od_id',
+	0,
+	524294);
+INSERT INTO O_ID
+	VALUES (0,
+	3670020);
+INSERT INTO O_OIDA
+	VALUES (3670022,
+	3670020,
+	0);
+INSERT INTO O_RTIDA
+	VALUES (3670022,
+	3670020,
+	0,
+	3670018,
+	3670020);
+INSERT INTO O_OBJ
+	VALUES (3670021,
+	'Object E',
+	5,
+	'OE',
+	'',
+	3670023);
+INSERT INTO O_NBATTR
+	VALUES (3670023,
+	3670021);
+INSERT INTO O_BATTR
+	VALUES (3670023,
+	3670021);
+INSERT INTO O_ATTR
+	VALUES (3670023,
+	3670021,
+	0,
+	'oe_id',
+	'',
+	'',
+	'oe_id',
+	0,
+	524294);
+INSERT INTO O_REF
+	VALUES (3670021,
+	3670019,
+	0,
+	3670021,
+	3670018,
+	3670021,
+	3670019,
+	3670024,
+	3670018,
+	0,
+	0,
+	'');
+INSERT INTO O_RATTR
+	VALUES (3670024,
+	3670021,
+	3670021,
+	3670019,
+	1);
+INSERT INTO O_ATTR
+	VALUES (3670024,
+	3670021,
+	3670023,
+	'oc_id',
+	'',
+	'',
+	'oc_id',
+	0,
+	524296);
+INSERT INTO O_REF
+	VALUES (3670021,
+	3670020,
+	0,
+	3670022,
+	3670018,
+	3670021,
+	3670020,
+	3670025,
+	3670019,
+	0,
+	0,
+	'');
+INSERT INTO O_RATTR
+	VALUES (3670025,
+	3670021,
+	3670022,
+	3670020,
+	1);
+INSERT INTO O_ATTR
+	VALUES (3670025,
+	3670021,
+	3670024,
+	'od_id',
+	'',
+	'',
+	'od_id',
+	0,
+	524296);
+INSERT INTO O_NBATTR
+	VALUES (3670026,
+	3670021);
+INSERT INTO O_BATTR
+	VALUES (3670026,
+	3670021);
+INSERT INTO O_ATTR
+	VALUES (3670026,
+	3670021,
+	3670025,
+	'current_state',
+	'',
+	'',
+	'current_state',
+	0,
+	524295);
+INSERT INTO O_ID
+	VALUES (0,
+	3670021);
+INSERT INTO O_OIDA
+	VALUES (3670023,
+	3670021,
+	0);
+INSERT INTO O_ID
+	VALUES (1,
+	3670021);
+INSERT INTO O_OIDA
+	VALUES (3670025,
+	3670021,
+	1);
+INSERT INTO O_OIDA
+	VALUES (3670024,
+	3670021,
+	1);
+INSERT INTO SM_ISM
+	VALUES (1572867,
+	3670021);
+INSERT INTO SM_SM
+	VALUES (1572867,
+	'',
+	3);
+INSERT INTO SM_MOORE
+	VALUES (1572867);
+INSERT INTO SM_EVTDI
+	VALUES (1572865,
+	1572867,
+	'testNumber',
+	'',
+	524291);
+INSERT INTO SM_LEVT
+	VALUES (1572865,
+	1572867,
+	0);
+INSERT INTO SM_SEVT
+	VALUES (1572865,
+	1572867,
+	0);
+INSERT INTO SM_EVT
+	VALUES (1572865,
+	1572867,
+	0,
+	1,
+	'start test',
+	0,
+	'',
+	'OE1',
+	'');
+INSERT INTO SM_STATE
+	VALUES (1572865,
+	1572867,
+	0,
+	'Relate C to D Using SELF',
+	1,
+	0);
+INSERT INTO SM_SEME
+	VALUES (1572865,
+	1572865,
+	1572867,
+	0);
+INSERT INTO SM_MOAH
+	VALUES (1572865,
+	1572867,
+	1572865);
+INSERT INTO SM_AH
+	VALUES (1572865,
+	1572867);
+INSERT INTO SM_ACT
+	VALUES (1572865,
+	1572867,
+	1,
+	'testNumber = rcvd_evt.testNumber;
+
+// Relate C to D Using SELF
+select any c from instances of OC;
+select any d from instances of OD;
+
+relate c to d across R2 using self;
+
+select one e related by c->OE[R2];
+if (e == self)
+     LOG::LogSuccess(message:"Object E: Relate C to D using SELF");
+else
+     LOG::LogFailure(message:"Object E: Relate C to D using SELF");
+end if;
+
+unrelate c from d across R2 using self;
+
+
+//============================================================
+// Test complete
+//============================================================
+select any dr from instances of DR;
+generate DR2:''next test'' () to dr;
+',
+	'');
+INSERT INTO SM_NSTXN
+	VALUES (1572865,
+	1572867,
+	1572865,
+	1572865,
+	0);
+INSERT INTO SM_TXN
+	VALUES (1572865,
+	1572867,
+	1572865,
+	0);
+INSERT INTO GD_MD
+	VALUES (1572865,
+	8,
+	1572867,
+	40,
+	1,
+	0,
+	1,
+	1,
+	0,
+	12,
+	1600,
+	4200,
+	1.000000,
+	0);
+INSERT INTO GD_GE
+	VALUES (1572866,
+	1572865,
+	1572865,
+	41);
+INSERT INTO GD_SHP
+	VALUES (1572866,
+	1776,
+	1296,
+	2016,
+	1440);
+INSERT INTO GD_GE
+	VALUES (1572867,
+	1572865,
+	1572865,
+	42);
+INSERT INTO GD_CON
+	VALUES (1572867,
+	1572866,
+	1572866,
+	0);
+INSERT INTO GD_CTXT
+	VALUES (1572867,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	1722,
+	1219,
+	1843,
+	1271,
+	3,
+	-30,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+	VALUES (1572868,
+	1572867,
+	1776,
+	1344,
+	1744,
+	1344,
+	0);
+INSERT INTO GD_LS
+	VALUES (1572869,
+	1572867,
+	1744,
+	1344,
+	1744,
+	1264,
+	1572868);
+INSERT INTO GD_LS
+	VALUES (1572870,
+	1572867,
+	1744,
+	1264,
+	1824,
+	1264,
+	1572869);
+INSERT INTO GD_LS
+	VALUES (1572871,
+	1572867,
+	1824,
+	1264,
+	1824,
+	1296,
+	1572870);
+INSERT INTO O_OBJ
+	VALUES (3670022,
+	'Driver',
+	6,
+	'DR',
+	'',
+	3670023);
+INSERT INTO O_NBATTR
+	VALUES (3670027,
+	3670022);
+INSERT INTO O_BATTR
+	VALUES (3670027,
+	3670022);
+INSERT INTO O_ATTR
+	VALUES (3670027,
+	3670022,
+	0,
+	'dr_id',
+	'',
+	'',
+	'dr_id',
+	0,
+	524291);
+INSERT INTO O_NBATTR
+	VALUES (3670028,
+	3670022);
+INSERT INTO O_BATTR
+	VALUES (3670028,
+	3670022);
+INSERT INTO O_ATTR
+	VALUES (3670028,
+	3670022,
+	3670027,
+	'testNumber',
+	'',
+	'',
+	'testNumber',
+	0,
+	524291);
+INSERT INTO O_NBATTR
+	VALUES (3670029,
+	3670022);
+INSERT INTO O_BATTR
+	VALUES (3670029,
+	3670022);
+INSERT INTO O_ATTR
+	VALUES (3670029,
+	3670022,
+	3670028,
+	'current_state',
+	'',
+	'',
+	'current_state',
+	0,
+	524295);
+INSERT INTO O_ID
+	VALUES (0,
+	3670022);
+INSERT INTO O_OIDA
+	VALUES (3670027,
+	3670022,
+	0);
+INSERT INTO SM_ISM
+	VALUES (2097156,
+	3670022);
+INSERT INTO SM_SM
+	VALUES (2097156,
+	'',
+	4);
+INSERT INTO SM_MOORE
+	VALUES (2097156);
+INSERT INTO SM_LEVT
+	VALUES (2097153,
+	2097156,
+	0);
+INSERT INTO SM_SEVT
+	VALUES (2097153,
+	2097156,
+	0);
+INSERT INTO SM_EVT
+	VALUES (2097153,
+	2097156,
+	0,
+	1,
+	'start test',
+	0,
+	'',
+	'DR1',
+	'');
+INSERT INTO SM_LEVT
+	VALUES (2097154,
+	2097156,
+	0);
+INSERT INTO SM_SEVT
+	VALUES (2097154,
+	2097156,
+	0);
+INSERT INTO SM_EVT
+	VALUES (2097154,
+	2097156,
+	0,
+	2,
+	'next test',
+	0,
+	'',
+	'DR2',
+	'');
+INSERT INTO SM_STATE
+	VALUES (2097153,
+	2097156,
+	0,
+	'Relate A to SELF',
+	1,
+	0);
+INSERT INTO SM_SEME
+	VALUES (2097153,
+	2097153,
+	2097156,
+	0);
+INSERT INTO SM_SEME
+	VALUES (2097153,
+	2097154,
+	2097156,
+	0);
+INSERT INTO SM_MOAH
+	VALUES (2097153,
+	2097156,
+	2097153);
+INSERT INTO SM_AH
+	VALUES (2097153,
+	2097156);
+INSERT INTO SM_ACT
+	VALUES (2097153,
+	2097156,
+	1,
+	'// Initialize test counter
+self.testNumber = 0;
+
+// Increment test counter
+self.testNumber = self.testNumber + 1;
+
+// Initialize while counter
+x = 0;
+// Create all A instances to be used
+while ( x <= 20 )
+   x = x + 1;
+   create object instance a of OA;
+   a.oa_id = x;
+end while;
+
+create object instance b of OB;
+generate OB1:''start test'' (testNumber:self.testNumber) to b;
+',
+	'');
+INSERT INTO SM_STATE
+	VALUES (2097154,
+	2097156,
+	0,
+	'Relate SELF to A',
+	2,
+	0);
+INSERT INTO SM_EIGN
+	VALUES (2097154,
+	2097153,
+	2097156,
+	0,
+	'');
+INSERT INTO SM_SEME
+	VALUES (2097154,
+	2097153,
+	2097156,
+	0);
+INSERT INTO SM_SEME
+	VALUES (2097154,
+	2097154,
+	2097156,
+	0);
+INSERT INTO SM_MOAH
+	VALUES (2097154,
+	2097156,
+	2097154);
+INSERT INTO SM_AH
+	VALUES (2097154,
+	2097156);
+INSERT INTO SM_ACT
+	VALUES (2097154,
+	2097156,
+	1,
+	'// Increment test counter
+self.testNumber = self.testNumber + 1;
+
+select any b from instances of OB;
+generate OB2:''next test'' (testNumber:self.testNumber) to b;
+
+',
+	'');
+INSERT INTO SM_STATE
+	VALUES (2097155,
+	2097156,
+	0,
+	'Relate C to D Using SELF',
+	3,
+	0);
+INSERT INTO SM_EIGN
+	VALUES (2097155,
+	2097153,
+	2097156,
+	0,
+	'');
+INSERT INTO SM_SEME
+	VALUES (2097155,
+	2097153,
+	2097156,
+	0);
+INSERT INTO SM_SEME
+	VALUES (2097155,
+	2097154,
+	2097156,
+	0);
+INSERT INTO SM_MOAH
+	VALUES (2097155,
+	2097156,
+	2097155);
+INSERT INTO SM_AH
+	VALUES (2097155,
+	2097156);
+INSERT INTO SM_ACT
+	VALUES (2097155,
+	2097156,
+	1,
+	'// Increment test counter
+self.testNumber = self.testNumber + 1;
+
+// Create all instances to be used
+create object instance c of OC;
+create object instance d of OD;
+
+// Initialize test counter
+x = 0;
+while ( x <= 20 )
+   create object instance e of OE;
+   x = x + 1;
+end while;
+
+create object instance e of OE;
+generate OE1:''start test'' (testNumber:self.testNumber) to e;
+',
+	'');
+INSERT INTO SM_STATE
+	VALUES (2097156,
+	2097156,
+	0,
+	'Test Complete',
+	4,
+	1);
+INSERT INTO SM_EIGN
+	VALUES (2097156,
+	2097153,
+	2097156,
+	0,
+	'');
+INSERT INTO SM_SEME
+	VALUES (2097156,
+	2097153,
+	2097156,
+	0);
+INSERT INTO SM_EIGN
+	VALUES (2097156,
+	2097154,
+	2097156,
+	0,
+	'');
+INSERT INTO SM_SEME
+	VALUES (2097156,
+	2097154,
+	2097156,
+	0);
+INSERT INTO SM_MOAH
+	VALUES (2097156,
+	2097156,
+	2097156);
+INSERT INTO SM_AH
+	VALUES (2097156,
+	2097156);
+INSERT INTO SM_ACT
+	VALUES (2097156,
+	2097156,
+	1,
+	'// Delete all objects created in test
+select many as from instances of OA;
+for each a in as
+   delete object instance a;
+end for;
+
+select many bs from instances of OB;
+for each b in bs
+   delete object instance b;
+end for;
+
+select many cs from instances of OC;
+for each c in cs
+   delete object instance c;
+end for;
+
+select many ds from instances of OD;
+for each d in ds
+   delete object instance d;
+end for;
+
+select many es from instances of OE;
+for each e in es
+   delete object instance e;
+end for;
+
+// Log ''test complete'' message
+LOG::LogInfo(message:"test complete");
+
+ARCH::shutdown();',
+	'');
+INSERT INTO SM_NSTXN
+	VALUES (2097153,
+	2097156,
+	2097153,
+	2097153,
+	0);
+INSERT INTO SM_TXN
+	VALUES (2097153,
+	2097156,
+	2097153,
+	0);
+INSERT INTO SM_NSTXN
+	VALUES (2097154,
+	2097156,
+	2097153,
+	2097154,
+	0);
+INSERT INTO SM_TXN
+	VALUES (2097154,
+	2097156,
+	2097154,
+	0);
+INSERT INTO SM_NSTXN
+	VALUES (2097155,
+	2097156,
+	2097154,
+	2097154,
+	0);
+INSERT INTO SM_TXN
+	VALUES (2097155,
+	2097156,
+	2097155,
+	0);
+INSERT INTO SM_NSTXN
+	VALUES (2097156,
+	2097156,
+	2097155,
+	2097154,
+	0);
+INSERT INTO SM_TXN
+	VALUES (2097156,
+	2097156,
+	2097156,
+	0);
+INSERT INTO GD_MD
+	VALUES (2097153,
+	8,
+	2097156,
+	40,
+	1,
+	0,
+	1,
+	1,
+	0,
+	12,
+	1600,
+	4200,
+	1.000000,
+	0);
+INSERT INTO GD_GE
+	VALUES (2097154,
+	2097153,
+	2097153,
+	41);
+INSERT INTO GD_SHP
+	VALUES (2097154,
+	1696,
+	1264,
+	1936,
+	1376);
+INSERT INTO GD_GE
+	VALUES (2097155,
+	2097153,
+	2097154,
+	41);
+INSERT INTO GD_SHP
+	VALUES (2097155,
+	1696,
+	1424,
+	1936,
+	1536);
+INSERT INTO GD_GE
+	VALUES (2097156,
+	2097153,
+	2097155,
+	41);
+INSERT INTO GD_SHP
+	VALUES (2097156,
+	1696,
+	1584,
+	1936,
+	1696);
+INSERT INTO GD_GE
+	VALUES (2097157,
+	2097153,
+	2097156,
+	41);
+INSERT INTO GD_SHP
+	VALUES (2097157,
+	2032,
+	1584,
+	2192,
+	1696);
+INSERT INTO GD_GE
+	VALUES (2097158,
+	2097153,
+	2097153,
+	42);
+INSERT INTO GD_CON
+	VALUES (2097158,
+	2097154,
+	2097154,
+	0);
+INSERT INTO GD_CTXT
+	VALUES (2097158,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	1650,
+	1202,
+	1764,
+	1239,
+	11,
+	-15,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+	VALUES (2097159,
+	2097158,
+	1696,
+	1296,
+	1664,
+	1296,
+	0);
+INSERT INTO GD_LS
+	VALUES (2097160,
+	2097158,
+	1664,
+	1296,
+	1664,
+	1232,
+	2097159);
+INSERT INTO GD_LS
+	VALUES (2097161,
+	2097158,
+	1664,
+	1232,
+	1728,
+	1232,
+	2097160);
+INSERT INTO GD_LS
+	VALUES (2097162,
+	2097158,
+	1728,
+	1232,
+	1728,
+	1264,
+	2097161);
+INSERT INTO GD_GE
+	VALUES (2097163,
+	2097153,
+	2097154,
+	42);
+INSERT INTO GD_CON
+	VALUES (2097163,
+	2097154,
+	2097155,
+	0);
+INSERT INTO GD_CTXT
+	VALUES (2097163,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	1809,
+	1383,
+	1907,
+	1420,
+	17,
+	-2,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+	VALUES (2097164,
+	2097163,
+	1808,
+	1376,
+	1808,
+	1424,
+	0);
+INSERT INTO GD_GE
+	VALUES (2097165,
+	2097153,
+	2097155,
+	42);
+INSERT INTO GD_CON
+	VALUES (2097165,
+	2097155,
+	2097156,
+	0);
+INSERT INTO GD_CTXT
+	VALUES (2097165,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	1814,
+	1547,
+	1908,
+	1581,
+	22,
+	2,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+	VALUES (2097166,
+	2097165,
+	1808,
+	1536,
+	1808,
+	1584,
+	0);
+INSERT INTO GD_GE
+	VALUES (2097167,
+	2097153,
+	2097156,
+	42);
+INSERT INTO GD_CON
+	VALUES (2097167,
+	2097156,
+	2097157,
+	0);
+INSERT INTO GD_CTXT
+	VALUES (2097167,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	1935,
+	1601,
+	2035,
+	1634,
+	-24,
+	-6,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+	VALUES (2097168,
+	2097167,
+	1936,
+	1632,
+	2032,
+	1632,
+	0);
+INSERT INTO O_OBJ
+	VALUES (3670023,
+	'self',
+	7,
+	'INIT',
+	'',
+	3670023);
+INSERT INTO O_NBATTR
+	VALUES (3670030,
+	3670023);
+INSERT INTO O_BATTR
+	VALUES (3670030,
+	3670023);
+INSERT INTO O_ATTR
+	VALUES (3670030,
+	3670023,
+	0,
+	'init_id',
+	'',
+	'',
+	'init_id',
+	0,
+	524294);
+INSERT INTO O_NBATTR
+	VALUES (3670031,
+	3670023);
+INSERT INTO O_BATTR
+	VALUES (3670031,
+	3670023);
+INSERT INTO O_ATTR
+	VALUES (3670031,
+	3670023,
+	3670030,
+	'current_state',
+	'',
+	'',
+	'current_state',
+	0,
+	524295);
+INSERT INTO O_ID
+	VALUES (0,
+	3670023);
+INSERT INTO O_OIDA
+	VALUES (3670030,
+	3670023,
+	0);
+INSERT INTO SM_ISM
+	VALUES (2621445,
+	3670023);
+INSERT INTO SM_SM
+	VALUES (2621445,
+	'',
+	5);
+INSERT INTO SM_MOORE
+	VALUES (2621445);
+INSERT INTO SM_LEVT
+	VALUES (2621441,
+	2621445,
+	0);
+INSERT INTO SM_SEVT
+	VALUES (2621441,
+	2621445,
+	0);
+INSERT INTO SM_EVT
+	VALUES (2621441,
+	2621445,
+	0,
+	1,
+	'initialize',
+	0,
+	'',
+	'INIT1',
+	'');
+INSERT INTO SM_STATE
+	VALUES (2621441,
+	2621445,
+	0,
+	'init',
+	1,
+	0);
+INSERT INTO SM_SEME
+	VALUES (2621441,
+	2621441,
+	2621445,
+	0);
+INSERT INTO SM_MOAH
+	VALUES (2621441,
+	2621445,
+	2621441);
+INSERT INTO SM_AH
+	VALUES (2621441,
+	2621445);
+INSERT INTO SM_ACT
+	VALUES (2621441,
+	2621445,
+	1,
+	'create object instance dr of DR;
+generate DR1 to dr;',
+	'');
+INSERT INTO SM_NSTXN
+	VALUES (2621441,
+	2621445,
+	2621441,
+	2621441,
+	0);
+INSERT INTO SM_TXN
+	VALUES (2621441,
+	2621445,
+	2621441,
+	0);
+INSERT INTO GD_MD
+	VALUES (2621441,
+	8,
+	2621445,
+	40,
+	1,
+	0,
+	1,
+	1,
+	0,
+	12,
+	1600,
+	4200,
+	1.000000,
+	0);
+INSERT INTO GD_GE
+	VALUES (2621442,
+	2621441,
+	2621441,
+	41);
+INSERT INTO GD_SHP
+	VALUES (2621442,
+	1792,
+	1408,
+	2048,
+	1552);
+INSERT INTO GD_GE
+	VALUES (2621443,
+	2621441,
+	2621441,
+	42);
+INSERT INTO GD_CON
+	VALUES (2621443,
+	2621442,
+	2621442,
+	0);
+INSERT INTO GD_CTXT
+	VALUES (2621443,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	2091,
+	1386,
+	2235,
+	1422,
+	-5,
+	41,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+	VALUES (2621444,
+	2621443,
+	2048,
+	1472,
+	2112,
+	1472,
+	0);
+INSERT INTO GD_LS
+	VALUES (2621445,
+	2621443,
+	2112,
+	1472,
+	2112,
+	1344,
+	2621444);
+INSERT INTO GD_LS
+	VALUES (2621446,
+	2621443,
+	2112,
+	1344,
+	2016,
+	1344,
+	2621445);
+INSERT INTO GD_LS
+	VALUES (2621447,
+	2621443,
+	2016,
+	1344,
+	2016,
+	1408,
+	2621446);
+INSERT INTO R_SIMP
+	VALUES (3670017);
+INSERT INTO R_REL
+	VALUES (3670017,
+	1,
+	'',
+	3670023);
+INSERT INTO R_PART
+	VALUES (3670017,
+	3670017,
+	3670017,
+	0,
+	0,
+	'');
+INSERT INTO R_RTO
+	VALUES (3670017,
+	3670017,
+	3670017,
+	0);
+INSERT INTO R_OIR
+	VALUES (3670017,
+	3670017,
+	3670017,
+	0);
+INSERT INTO R_FORM
+	VALUES (3670018,
+	3670017,
+	3670018,
+	0,
+	0,
+	'');
+INSERT INTO R_RGO
+	VALUES (3670018,
+	3670017,
+	3670018);
+INSERT INTO R_OIR
+	VALUES (3670018,
+	3670017,
+	3670018,
+	0);
+INSERT INTO R_ASSOC
+	VALUES (3670018);
+INSERT INTO R_REL
+	VALUES (3670018,
+	2,
+	'',
+	3670023);
+INSERT INTO R_AONE
+	VALUES (3670019,
+	3670018,
+	3670019,
+	0,
+	0,
+	'');
+INSERT INTO R_RTO
+	VALUES (3670019,
+	3670018,
+	3670019,
+	0);
+INSERT INTO R_OIR
+	VALUES (3670019,
+	3670018,
+	3670019,
+	0);
+INSERT INTO R_AOTH
+	VALUES (3670020,
+	3670018,
+	3670020,
+	0,
+	0,
+	'');
+INSERT INTO R_RTO
+	VALUES (3670020,
+	3670018,
+	3670020,
+	0);
+INSERT INTO R_OIR
+	VALUES (3670020,
+	3670018,
+	3670020,
+	0);
+INSERT INTO R_ASSR
+	VALUES (3670021,
+	3670018,
+	3670021,
+	0);
+INSERT INTO R_RGO
+	VALUES (3670021,
+	3670018,
+	3670021);
+INSERT INTO R_OIR
+	VALUES (3670021,
+	3670018,
+	3670021,
+	0);
+INSERT INTO GD_MD
+	VALUES (3670030,
+	5,
+	3670023,
+	11,
+	1,
+	0,
+	1,
+	1,
+	0,
+	12,
+	1600,
+	4200,
+	1.000000,
+	0);
+INSERT INTO GD_GE
+	VALUES (3670033,
+	3670030,
+	3670017,
+	21);
+INSERT INTO GD_SHP
+	VALUES (3670033,
+	1728,
+	1360,
+	1856,
+	1456);
+INSERT INTO GD_GE
+	VALUES (3670034,
+	3670030,
+	3670018,
+	21);
+INSERT INTO GD_SHP
+	VALUES (3670034,
+	1920,
+	1360,
+	2048,
+	1456);
+INSERT INTO GD_GE
+	VALUES (3670035,
+	3670030,
+	3670019,
+	21);
+INSERT INTO GD_SHP
+	VALUES (3670035,
+	1712,
+	1504,
+	1840,
+	1600);
+INSERT INTO GD_GE
+	VALUES (3670036,
+	3670030,
+	3670020,
+	21);
+INSERT INTO GD_SHP
+	VALUES (3670036,
+	1920,
+	1504,
+	2048,
+	1600);
+INSERT INTO GD_GE
+	VALUES (3670037,
+	3670030,
+	3670021,
+	21);
+INSERT INTO GD_SHP
+	VALUES (3670037,
+	1824,
+	1648,
+	2000,
+	1776);
+INSERT INTO GD_GE
+	VALUES (3670038,
+	3670030,
+	3670022,
+	21);
+INSERT INTO GD_SHP
+	VALUES (3670038,
+	1728,
+	1232,
+	1920,
+	1344);
+INSERT INTO GD_GE
+	VALUES (3670039,
+	3670030,
+	3670023,
+	21);
+INSERT INTO GD_SHP
+	VALUES (3670039,
+	1936,
+	1232,
+	2128,
+	1344);
+INSERT INTO GD_GE
+	VALUES (3670058,
+	3670030,
+	3670017,
+	24);
+INSERT INTO GD_CON
+	VALUES (3670058,
+	3670033,
+	3670034,
+	0);
+INSERT INTO GD_CTXT
+	VALUES (3670058,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	1857,
+	1388,
+	1907,
+	1418,
+	-7,
+	-7,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+	VALUES (3670059,
+	3670058,
+	1856,
+	1408,
+	1920,
+	1408,
+	0);
+INSERT INTO GD_GE
+	VALUES (3670060,
+	3670030,
+	3670018,
+	24);
+INSERT INTO GD_CON
+	VALUES (3670060,
+	3670035,
+	3670036,
+	3670061);
+INSERT INTO GD_CTXT
+	VALUES (3670060,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	1832,
+	1512,
+	1882,
+	1542,
+	-7,
+	-7,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+	VALUES (3670061,
+	3670060,
+	1840,
+	1552,
+	1920,
+	1552,
+	0);
+INSERT INTO GD_GE
+	VALUES (3670062,
+	3670030,
+	0,
+	-1);
+INSERT INTO GD_CON
+	VALUES (3670062,
+	3670037,
+	3670060,
+	0);
+INSERT INTO GD_CTXT
+	VALUES (3670062,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+	VALUES (3670063,
+	3670062,
+	1888,
+	1648,
+	1888,
+	1552,
+	0);

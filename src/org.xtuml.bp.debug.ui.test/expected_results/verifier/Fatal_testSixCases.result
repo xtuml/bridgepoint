@@ -1,0 +1,10 @@
+Simulation started.
+User invoked function: testSixCases
+FATAL Select: Unexpected empty population found while traversing unconditional association R1
+Execution Halted.  (Problem detected at previous statement) at AuditTestModel::AuditTestModel::AuditTestModel::Test Functions::testSixCases
+FATAL Unrelate: Instances not related on R1 at AuditTestModel::AuditTestModel::AuditTestModel::Test Functions::testSixCases
+FATAL Relate: Already related on R1 at AuditTestModel::AuditTestModel::AuditTestModel::Test Functions::testSixCases
+FATAL Delete: Instance still related on association R1 at AuditTestModel::AuditTestModel::AuditTestModel::Test Functions::testSixCases
+FATAL Unrelate: Instances not related on R9 at AuditTestModel::AuditTestModel::AuditTestModel::Test Functions::testSixCases
+FATAL Relate using: Already related on R9 at AuditTestModel::AuditTestModel::AuditTestModel::Test Functions::testSixCases
+

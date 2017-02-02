@@ -1,0 +1,32 @@
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("136c175e-2680-4c2a-aa69-f5caab4fd689",
+	'Test Class OtherSide 21',
+	12,
+	'T_CLSOTH21',
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_ID
+	VALUES (0,
+	"136c175e-2680-4c2a-aa69-f5caab4fd689");
+INSERT INTO O_ID
+	VALUES (1,
+	"136c175e-2680-4c2a-aa69-f5caab4fd689");
+INSERT INTO O_ID
+	VALUES (2,
+	"136c175e-2680-4c2a-aa69-f5caab4fd689");
+INSERT INTO PE_PE
+	VALUES ("136c175e-2680-4c2a-aa69-f5caab4fd689",
+	1,
+	"1ce3cd09-b588-4ec8-9f14-162647fb79d6",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
+	VALUES ("1ce3cd09-b588-4ec8-9f14-162647fb79d6",
+	"00000000-0000-0000-0000-000000000000",
+	"c6693612-7c4f-42e5-b64f-16c64f288945",
+	'O_IOBJ_Delete',
+	'',
+	0,
+	'../O_IOBJ_Delete.xtuml');

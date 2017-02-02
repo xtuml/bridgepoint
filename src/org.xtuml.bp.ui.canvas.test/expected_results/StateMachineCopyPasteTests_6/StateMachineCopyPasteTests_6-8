@@ -1,0 +1,8 @@
+drawText(" 4. State 3", 87, 314, true)
+drawline(81, 350, 407, 350)
+drawText("entry/", 87, 356, true)
+drawText(" 5. State 4", 830, 314, true)
+drawline(823, 350, 1149, 350)
+drawText("entry/", 830, 356, true)
+drawline(407, 424, 823, 424)
+drawText("KEY2: Local Event2(data_item)", 446, 371, true)

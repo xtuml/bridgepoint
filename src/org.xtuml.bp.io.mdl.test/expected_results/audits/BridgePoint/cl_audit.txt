@@ -1,0 +1,52 @@
+AUDIT RESULTS FOR DOMAIN cl
+
+SUBSYSTEMS WITHOUT DESCRIPTIONS:
+cl
+
+EXTERNAL ENTITIES WITHOUT DESCRIPTIONS:
+External Entity Logging 
+External Entity Time
+External Entity Architecture
+
+BRIDGES WITHOUT DESCRIPTIONS:
+External Entity Bridge Logging ::LogSuccess
+External Entity Bridge Logging ::LogFailure
+External Entity Bridge Logging ::LogInfo
+External Entity Bridge Architecture::shutdown
+
+CLASSES WITHOUT DESCRIPTIONS:
+Class cl::Driver
+Class cl::cl init
+Class cl::A
+
+ATTRIBUTES WITHOUT DESCRIPTIONS:
+Attribute Driver::driver_id
+Attribute Driver::testNumber
+Attribute Driver::current_state
+Attribute cl init::id
+Attribute cl init::current_state
+Attribute A::a_id
+Attribute A::val
+
+STATE MODELS WITHOUT DESCRIPTIONS:
+State Model Driver
+State Model cl init
+
+EVENTS WITHOUT DESCRIPTIONS:
+Event DR1
+Event DR2
+Event INIT1
+
+ACTION SPECIFICATIONS WITHOUT DESCRIPTIONS:
+Driver::ELIF Nesting
+Driver::ELIF Length
+Driver::WHILE Looping
+Driver::WHILE Nesting
+Driver::WHILE With No Statements
+Driver::Simple BREAK
+Driver::BREAK Out Of WHILE
+Driver::BREAK Out Of FOREACH
+Driver::CONTINUE In WHILE
+Driver::CONTINUE In FOREACH
+Driver::Test Complete
+cl init::Initialize System

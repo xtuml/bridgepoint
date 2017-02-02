@@ -1,0 +1,9 @@
+Simulation started.
+User invoked function: testSixCases
+Warning Select: Unexpected empty population found while traversing unconditional association R1 at: testSixCases line: 4 at AuditTestModel::AuditTestModel::AuditTestModel::Test Functions::testSixCases
+Warning Unrelate: Instances not related on R1 at: testSixCases line: 5 at AuditTestModel::AuditTestModel::AuditTestModel::Test Functions::testSixCases
+Warning Relate: Already related on R1 at: testSixCases line: 9 at AuditTestModel::AuditTestModel::AuditTestModel::Test Functions::testSixCases
+Warning Delete: Instance still related on association R1 at: testSixCases line: 10 at AuditTestModel::AuditTestModel::AuditTestModel::Test Functions::testSixCases
+Warning Unrelate: Instances not related on R9 at: testSixCases line: 16 at AuditTestModel::AuditTestModel::AuditTestModel::Test Functions::testSixCases
+Warning Relate using: Already related on R9 at: testSixCases line: 19 at AuditTestModel::AuditTestModel::AuditTestModel::Test Functions::testSixCases
+

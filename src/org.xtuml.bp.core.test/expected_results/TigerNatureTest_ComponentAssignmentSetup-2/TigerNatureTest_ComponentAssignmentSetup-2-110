@@ -1,0 +1,5 @@
+drawRectangle(342, 141, 543, 577)
+drawText("...entAssignmentSetup-1", 376, 405, true)
+drawRectangle(770, 186, 70, 56)
+drawRectangle(753, 192, 33, 16)
+drawRectangle(753, 215, 33, 16)

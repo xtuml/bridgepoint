@@ -1,0 +1,4 @@
+Simulation started.
+User invoked interface message: sendClientServerNoOALNonVoidReturn
+Error executing interface operation: fc1::Interface Client Server 2::clientServerNoOALNonVoidReturn. No operation OAL found, returning default value. at VerifierInterfaceExecutionTests::Components::fc1::clientServerNoOALNonVoidReturn
+

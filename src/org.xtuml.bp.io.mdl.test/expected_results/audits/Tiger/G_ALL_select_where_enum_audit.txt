@@ -1,0 +1,104 @@
+AUDIT RESULTS FOR DOMAIN G_ALL_select_where_enum
+
+FUNCTIONS WITHOUT DESCRIPTIONS:
+compare_enums
+
+ENUMERATORS WITHOUT DESCRIPTIONS:
+colors::red
+colors::blue
+colors::yellow
+colors::green
+colors::white
+colors::black
+colors::purple
+
+EXTERNAL ENTITIES WITHOUT DESCRIPTIONS:
+External Entity Time
+External Entity Bridge
+
+BRIDGES WITHOUT DESCRIPTIONS:
+External Entity Bridge Bridge::compare_enums
+
+CLASSES WITHOUT DESCRIPTIONS:
+Class G_STE_select_where_enum::Select
+Class G_STE_select_where_enum::Select Two
+Class G_STE_select_where_enum::Class
+Class G_STE_select_where_enum::Select One
+Class G_STE_select_where_enum::Select One Two
+
+ATTRIBUTES WITHOUT DESCRIPTIONS:
+Attribute Initialization::Init_ID
+Attribute Initialization::current_state
+Attribute Driver::Driver_ID
+Attribute Driver::count
+Attribute Driver::current_state
+Attribute Select::sel_ID
+Attribute Select::current_state
+Attribute Select::sel2_ID
+Attribute Select Two::sel2_ID
+Attribute Select Two::current_state
+Attribute Class::cl_ID
+Attribute Class::compare_enums
+Attribute Class::current_state
+Attribute Select One::sel_one_ID
+Attribute Select One::sel_one2_ID
+Attribute Select One::current_state
+Attribute Select One Two::sel_one2_ID
+Attribute Select One Two::current_state
+
+REFERENCES WITHOUT DESCRIPTIONS:
+Referential Attribute Select::sel2_ID
+Referential Attribute Select One::sel_one2_ID
+
+OPERATIONS WITHOUT DESCRIPTIONS:
+Operation Class::class_compare_enums
+Operation Class::instance_compare_enums
+
+RELATIONSHIPS WITHOUT DESCRIPTIONS:
+G_STE_select_where_enum::R1
+G_STE_select_where_enum::R2
+
+STATE MODELS WITHOUT DESCRIPTIONS:
+State Model Initialization
+State Model Driver
+State Model Select
+State Model Select Two
+State Model Class
+State Model Select One
+State Model Select One Two
+
+EVENTS WITHOUT DESCRIPTIONS:
+Event INIT1
+Event DRV1
+Event DRV2
+Event DRV3
+Event DRV4
+Event DRV7
+Event DRV5
+Event DRV6
+Event SEL2
+Event SEL1
+Event SEL3
+Event SEL_ONE1
+
+EVENT DATA WITHOUT DESCRIPTIONS:
+Event Data Driver::num
+
+ACTION SPECIFICATIONS WITHOUT DESCRIPTIONS:
+Initialization::Initialize
+Driver::Begin Test
+Driver::End Test
+Driver::Select One Related By
+Driver::Select Any Related By
+Driver::Select Many Related By
+Driver::Waiting
+Driver::Select Any
+Driver::Select Many
+Select::Select Any
+Select::Select Many
+Select::Select Any Related By
+Select::Select Many Related By
+Select Two::State One
+Class::State One
+Select One::Select One
+Select One Two::State One

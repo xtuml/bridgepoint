@@ -1,0 +1,172 @@
+-- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.5
+
+INSERT INTO O_OBJ
+	VALUES ("f6066c43-2301-4b2d-a699-03f26ccd8e26",
+	'Accident',
+	3,
+	'A',
+	'',
+	"b8c699da-971a-421b-be92-50dd3d41b58b");
+INSERT INTO O_TFR
+	VALUES ("65f1078f-f622-4a9e-b45a-21014b3a38f7",
+	"f6066c43-2301-4b2d-a699-03f26ccd8e26",
+	'setLocation',
+	'',
+	"63f91549-9407-42c4-a2c0-fdde2812f080",
+	1,
+	'',
+	1,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_TPARM
+	VALUES ("22c7ebac-4ec0-4edd-ab50-4863bd53dc20",
+	"65f1078f-f622-4a9e-b45a-21014b3a38f7",
+	'location',
+	"87a95076-eda4-49e3-9fc9-2eea9cc9f542",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("87a95076-eda4-49e3-9fc9-2eea9cc9f542",
+	"c3928f56-530d-4984-8114-35933dc4cb31",
+	'string',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO S_DT_PROXY
+	VALUES ("63f91549-9407-42c4-a2c0-fdde2812f080",
+	"c3928f56-530d-4984-8114-35933dc4cb31",
+	'void',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("1e9d578d-07b8-4d34-934a-9ca5d54cf636",
+	"f6066c43-2301-4b2d-a699-03f26ccd8e26",
+	'getPedestrian',
+	'',
+	"868bf3f5-19ff-4997-858b-e1d64ee21672",
+	1,
+	'select any p from instances of P;
+return p;',
+	1,
+	'',
+	"65f1078f-f622-4a9e-b45a-21014b3a38f7");
+INSERT INTO S_DT_PROXY
+	VALUES ("868bf3f5-19ff-4997-858b-e1d64ee21672",
+	"c3928f56-530d-4984-8114-35933dc4cb31",
+	'inst_ref<Pedestrian>',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("69882f67-a230-4c1a-96fd-cedb46206e1c",
+	"f6066c43-2301-4b2d-a699-03f26ccd8e26",
+	'getVehicle',
+	'',
+	"d4c5a13f-383d-4bca-8d5d-06c7eea7f5c9",
+	1,
+	'select any v from instances of V;
+return v; ',
+	1,
+	'',
+	"1e9d578d-07b8-4d34-934a-9ca5d54cf636");
+INSERT INTO S_DT_PROXY
+	VALUES ("d4c5a13f-383d-4bca-8d5d-06c7eea7f5c9",
+	"c3928f56-530d-4984-8114-35933dc4cb31",
+	'inst_ref<vehicle>',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("c487680e-c5e7-4efe-9bb2-edf5272748c0",
+	"f6066c43-2301-4b2d-a699-03f26ccd8e26",
+	'getAccident',
+	'',
+	"60af9710-a8c9-4041-9808-c3d3257619d5",
+	0,
+	'select any acc from instances of A;
+return acc;',
+	1,
+	'',
+	"69882f67-a230-4c1a-96fd-cedb46206e1c");
+INSERT INTO S_DT_PROXY
+	VALUES ("60af9710-a8c9-4041-9808-c3d3257619d5",
+	"c3928f56-530d-4984-8114-35933dc4cb31",
+	'inst_ref<Accident>',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_NBATTR
+	VALUES ("e0563a15-b407-4c4d-a2ac-8aa3966c9e36",
+	"f6066c43-2301-4b2d-a699-03f26ccd8e26");
+INSERT INTO O_BATTR
+	VALUES ("e0563a15-b407-4c4d-a2ac-8aa3966c9e36",
+	"f6066c43-2301-4b2d-a699-03f26ccd8e26");
+INSERT INTO O_ATTR
+	VALUES ("e0563a15-b407-4c4d-a2ac-8aa3966c9e36",
+	"f6066c43-2301-4b2d-a699-03f26ccd8e26",
+	"00000000-0000-0000-0000-000000000000",
+	'location',
+	'',
+	'',
+	'location',
+	0,
+	"87a95076-eda4-49e3-9fc9-2eea9cc9f542",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("826335d2-f87d-4ffe-a1d8-eb7e086e46c0",
+	"f6066c43-2301-4b2d-a699-03f26ccd8e26");
+INSERT INTO O_BATTR
+	VALUES ("826335d2-f87d-4ffe-a1d8-eb7e086e46c0",
+	"f6066c43-2301-4b2d-a699-03f26ccd8e26");
+INSERT INTO O_ATTR
+	VALUES ("826335d2-f87d-4ffe-a1d8-eb7e086e46c0",
+	"f6066c43-2301-4b2d-a699-03f26ccd8e26",
+	"e0563a15-b407-4c4d-a2ac-8aa3966c9e36",
+	'vehicleReference',
+	'',
+	'',
+	'vehicleReference',
+	0,
+	"d4c5a13f-383d-4bca-8d5d-06c7eea7f5c9",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("6f5bcd8d-bf8e-4897-858b-3de140bf2d6d",
+	"f6066c43-2301-4b2d-a699-03f26ccd8e26");
+INSERT INTO O_BATTR
+	VALUES ("6f5bcd8d-bf8e-4897-858b-3de140bf2d6d",
+	"f6066c43-2301-4b2d-a699-03f26ccd8e26");
+INSERT INTO O_ATTR
+	VALUES ("6f5bcd8d-bf8e-4897-858b-3de140bf2d6d",
+	"f6066c43-2301-4b2d-a699-03f26ccd8e26",
+	"826335d2-f87d-4ffe-a1d8-eb7e086e46c0",
+	'selfReference',
+	'',
+	'',
+	'selfReference',
+	0,
+	"60af9710-a8c9-4041-9808-c3d3257619d5",
+	'',
+	'');
+INSERT INTO O_ID
+	VALUES (0,
+	"f6066c43-2301-4b2d-a699-03f26ccd8e26");
+INSERT INTO O_ID
+	VALUES (1,
+	"f6066c43-2301-4b2d-a699-03f26ccd8e26");
+INSERT INTO O_ID
+	VALUES (2,
+	"f6066c43-2301-4b2d-a699-03f26ccd8e26");
+INSERT INTO S_SS_PROXY
+	VALUES ("b8c699da-971a-421b-be92-50dd3d41b58b",
+	'Subsystem',
+	'',
+	'',
+	0,
+	"c3928f56-530d-4984-8114-35933dc4cb31",
+	"00000000-0000-0000-0000-000000000000",
+	'../Subsystem.xtuml');

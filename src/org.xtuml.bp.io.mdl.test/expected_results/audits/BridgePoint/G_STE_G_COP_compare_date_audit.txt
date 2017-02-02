@@ -1,0 +1,28 @@
+AUDIT RESULTS FOR DOMAIN G_STE_G_COP_compare_date
+
+EXTERNAL ENTITIES WITHOUT DESCRIPTIONS:
+External Entity Time
+
+ATTRIBUTES WITHOUT DESCRIPTIONS:
+Attribute Initialization::Init_ID
+Attribute Initialization::current_state
+Attribute Driver::Driver_ID
+Attribute Driver::current_state
+
+OPERATIONS WITHOUT DESCRIPTIONS:
+Operation Driver::date_compare
+Operation Driver::date_compare_ref
+
+STATE MODELS WITHOUT DESCRIPTIONS:
+State Model Initialization
+State Model Driver
+
+EVENTS WITHOUT DESCRIPTIONS:
+Event INIT1
+Event DRV1
+Event DRV2
+
+ACTION SPECIFICATIONS WITHOUT DESCRIPTIONS:
+Initialization::Initialize
+Driver::Begin Test
+Driver::End Test

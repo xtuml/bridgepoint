@@ -1,0 +1,64 @@
+AUDIT RESULTS FOR DOMAIN BP50_evt2
+
+CLASSES WITHOUT IDENTIFIERS:
+Class Event_generation2::Init
+Class Event_generation2::Event Object
+
+SUBSYSTEMS WITHOUT DESCRIPTIONS:
+Event_generation2
+
+FUNCTIONS WITHOUT DESCRIPTIONS:
+brdg_gen_evt
+
+ENUMERATORS WITHOUT DESCRIPTIONS:
+color::red
+color::orange
+color::yellow
+color::green
+color::blue
+color::purple
+number::one
+number::two
+number::three
+number::four
+number::five
+
+EXTERNAL ENTITIES WITHOUT DESCRIPTIONS:
+External Entity Time
+External Entity Architecture
+External Entity Logging
+External Entity Extern2
+
+BRIDGES WITHOUT DESCRIPTIONS:
+External Entity Bridge Architecture::shutdown
+External Entity Bridge Logging::LogInfo
+External Entity Bridge Logging::LogFailure
+External Entity Bridge Logging::LogSuccess
+External Entity Bridge Extern2::Func_gen_evt
+
+CLASSES WITHOUT DESCRIPTIONS:
+Class Event_generation2::Init
+Class Event_generation2::Event Object
+
+ATTRIBUTES WITHOUT DESCRIPTIONS:
+Attribute Init::current_state
+Attribute Event Object::current_state
+Attribute Event Object::my_event
+Attribute Event Object::my_timer
+
+STATE MODELS WITHOUT DESCRIPTIONS:
+State Model Init
+State Model Event Object
+
+EVENTS WITHOUT DESCRIPTIONS:
+Event INIT1
+Event E_OBJ1
+Event E_OBJ2
+
+EVENT DATA WITHOUT DESCRIPTIONS:
+Event Data Event Object::count
+
+ACTION SPECIFICATIONS WITHOUT DESCRIPTIONS:
+Init::Init
+Event Object::Received Event
+Event Object::TimeOut

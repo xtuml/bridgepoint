@@ -1,0 +1,75 @@
+-- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("aa0ca1ee-27d4-47f8-8ba8-1afdcf61256d",
+	'Imported Class',
+	100,
+	'IMP',
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_TFR
+	VALUES ("df6036ed-b8eb-4354-8fc7-d302099752a9",
+	"aa0ca1ee-27d4-47f8-8ba8-1afdcf61256d",
+	'Test_OP',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	0,
+	'',
+	1,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_TPARM
+	VALUES ("1dc89213-06b7-4cee-bf97-7b649704a164",
+	"df6036ed-b8eb-4354-8fc7-d302099752a9",
+	'test_param',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("0292d3ab-22cf-4631-a6e3-2865d432fcac",
+	"aa0ca1ee-27d4-47f8-8ba8-1afdcf61256d");
+INSERT INTO O_BATTR
+	VALUES ("0292d3ab-22cf-4631-a6e3-2865d432fcac",
+	"aa0ca1ee-27d4-47f8-8ba8-1afdcf61256d");
+INSERT INTO O_ATTR
+	VALUES ("0292d3ab-22cf-4631-a6e3-2865d432fcac",
+	"aa0ca1ee-27d4-47f8-8ba8-1afdcf61256d",
+	"00000000-0000-0000-0000-000000000000",
+	'id',
+	'',
+	'',
+	'id',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000002",
+	'',
+	'');
+INSERT INTO O_ID
+	VALUES (0,
+	"aa0ca1ee-27d4-47f8-8ba8-1afdcf61256d");
+INSERT INTO O_OIDA
+	VALUES ("0292d3ab-22cf-4631-a6e3-2865d432fcac",
+	"aa0ca1ee-27d4-47f8-8ba8-1afdcf61256d",
+	0,
+	'id');
+INSERT INTO O_ID
+	VALUES (1,
+	"aa0ca1ee-27d4-47f8-8ba8-1afdcf61256d");
+INSERT INTO O_ID
+	VALUES (2,
+	"aa0ca1ee-27d4-47f8-8ba8-1afdcf61256d");
+INSERT INTO PE_PE
+	VALUES ("aa0ca1ee-27d4-47f8-8ba8-1afdcf61256d",
+	1,
+	"e2591827-a059-4d2c-9aca-d526fa339611",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
+	VALUES ("e2591827-a059-4d2c-9aca-d526fa339611",
+	"00000000-0000-0000-0000-000000000000",
+	"2a8f0b42-d0f7-4ec9-ac6f-3571c4caeba3",
+	'Import Subsystem',
+	'',
+	100,
+	'../Import Subsystem.xtuml');

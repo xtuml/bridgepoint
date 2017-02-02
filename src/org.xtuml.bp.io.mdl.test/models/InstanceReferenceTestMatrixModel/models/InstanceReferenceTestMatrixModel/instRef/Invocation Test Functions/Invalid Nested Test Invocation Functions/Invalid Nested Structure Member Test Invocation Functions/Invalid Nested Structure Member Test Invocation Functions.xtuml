@@ -1,0 +1,190 @@
+-- BP 7.1 content: FunctionPackage syschar: 3 persistence-version: 7.1.5
+
+INSERT INTO S_FPK
+	VALUES ("5619a70f-011f-4ac3-9b07-87ce6cb32b7e",
+	'Invalid Nested Structure Member Test Invocation Functions',
+	"00000000-0000-0000-0000-000000000000",
+	"d1f6a355-722f-4126-8ed5-a92fab2ec333");
+INSERT INTO GD_MD
+	VALUES ("93a8da96-0d2e-4afc-bdc1-cf09b287ddfe",
+	101,
+	"5619a70f-011f-4ac3-9b07-87ce6cb32b7e",
+	54,
+	0,
+	0,
+	1,
+	1,
+	1,
+	12,
+	1,
+	0,
+	0,
+	200,
+	150,
+	0,
+	'3.2.3');
+INSERT INTO DIM_DIA
+	VALUES ("93a8da96-0d2e-4afc-bdc1-cf09b287ddfe",
+	'',
+	1.000000,
+	4000.000000,
+	3000.000000,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO S_FPIP
+	VALUES ("5619a70f-011f-4ac3-9b07-87ce6cb32b7e");
+INSERT INTO PL_FPID
+	VALUES ("5619a70f-011f-4ac3-9b07-87ce6cb32b7e",
+	"c3928f56-530d-4984-8114-35933dc4cb31");
+INSERT INTO S_DOM_PROXY
+	VALUES ("c3928f56-530d-4984-8114-35933dc4cb31",
+	'instRef',
+	'',
+	0,
+	"00000000-0000-0000-0000-000000000002",
+	"13c14d34-d225-4949-89b6-fe738cc62cbb",
+	'../../../instRef.xtuml');
+INSERT INTO S_FIP
+	VALUES ("5619a70f-011f-4ac3-9b07-87ce6cb32b7e",
+	"0fd77d27-9e0d-4389-a4af-c77911965767");
+INSERT INTO S_SYNC
+	VALUES ("0fd77d27-9e0d-4389-a4af-c77911965767",
+	"c3928f56-530d-4984-8114-35933dc4cb31",
+	'StructureMember_booleanBinaryOperationLeftOperand_InvalidNested',
+	'',
+	'::setup(accessType:"Invalid Nested",referenceType:"Structure Member"); 
+select any test from instances of MBR4;
+test.S_MBR_booleanBinaryOperationLeftOperand();
+::dispose(accessType:"Invalid Nested",referenceType:"Structure Member");   ',
+	"63f91549-9407-42c4-a2c0-fdde2812f080",
+	1,
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("63f91549-9407-42c4-a2c0-fdde2812f080",
+	"c3928f56-530d-4984-8114-35933dc4cb31",
+	'void',
+	'',
+	'',
+	'../../../Datatypes/Datatypes.xtuml');
+INSERT INTO S_FIP
+	VALUES ("5619a70f-011f-4ac3-9b07-87ce6cb32b7e",
+	"03fb6185-885e-4cb5-9fbb-6ca2760a8731");
+INSERT INTO S_SYNC
+	VALUES ("03fb6185-885e-4cb5-9fbb-6ca2760a8731",
+	"c3928f56-530d-4984-8114-35933dc4cb31",
+	'StructureMember_booleanBinaryOperationRightOperand_InvalidNested',
+	'',
+	'::setup(accessType:"Invalid Nested",referenceType:"Structure Member"); 
+select any test from instances of MBR4;
+test.S_MBR_booleanBinaryOperationRightOperand();
+::dispose(accessType:"Invalid Nested",referenceType:"Structure Member");   ',
+	"63f91549-9407-42c4-a2c0-fdde2812f080",
+	1,
+	'');
+INSERT INTO S_FIP
+	VALUES ("5619a70f-011f-4ac3-9b07-87ce6cb32b7e",
+	"73662ccf-55b7-4a2d-ab08-83bdbb4e3943");
+INSERT INTO S_SYNC
+	VALUES ("73662ccf-55b7-4a2d-ab08-83bdbb4e3943",
+	"c3928f56-530d-4984-8114-35933dc4cb31",
+	'StructureMember_readAttr_InvalidNested',
+	'',
+	'::setup(accessType:"Invalid Nested",referenceType:"Structure Member"); 
+select any test from instances of MBR4;
+test.S_MBR_readAttr();
+::dispose(accessType:"Invalid Nested",referenceType:"Structure Member");   ',
+	"63f91549-9407-42c4-a2c0-fdde2812f080",
+	1,
+	'');
+INSERT INTO S_FIP
+	VALUES ("5619a70f-011f-4ac3-9b07-87ce6cb32b7e",
+	"47ea85db-a02b-49b1-823d-c8ce775dd9d0");
+INSERT INTO S_SYNC
+	VALUES ("47ea85db-a02b-49b1-823d-c8ce775dd9d0",
+	"c3928f56-530d-4984-8114-35933dc4cb31",
+	'StructureMember_WhereClause_InvalidNested',
+	'',
+	'::setup(accessType:"Invalid Nested",referenceType:"Structure Member"); 
+select any test from instances of MBR4;
+test.S_MBR_WhereClause();
+::dispose(accessType:"Invalid Nested",referenceType:"Structure Member");   ',
+	"63f91549-9407-42c4-a2c0-fdde2812f080",
+	1,
+	'');
+INSERT INTO S_FIP
+	VALUES ("5619a70f-011f-4ac3-9b07-87ce6cb32b7e",
+	"6b152e47-e99c-43c4-b3d4-dd138fb52157");
+INSERT INTO S_SYNC
+	VALUES ("6b152e47-e99c-43c4-b3d4-dd138fb52157",
+	"c3928f56-530d-4984-8114-35933dc4cb31",
+	'StructureMember_booleanBinaryOperationLeftOperandSet_InvalidNested',
+	'',
+	'::setup(accessType:"Invalid Nested",referenceType:"Structure Member"); 
+select any test from instances of MBR4;
+test.S_MBR_booleanBinaryOperationLeftOperandSet();
+::dispose(accessType:"Invalid Nested",referenceType:"Structure Member");   ',
+	"63f91549-9407-42c4-a2c0-fdde2812f080",
+	1,
+	'');
+INSERT INTO S_FIP
+	VALUES ("5619a70f-011f-4ac3-9b07-87ce6cb32b7e",
+	"60e0c8d1-4fa3-49b5-92b5-dba55f097104");
+INSERT INTO S_SYNC
+	VALUES ("60e0c8d1-4fa3-49b5-92b5-dba55f097104",
+	"c3928f56-530d-4984-8114-35933dc4cb31",
+	'StructureMember_writeAttr_InvalidNested',
+	'',
+	'::setup(accessType:"Invalid Nested",referenceType:"Structure Member"); 
+select any test from instances of MBR4;
+test.S_MBR_writeAttr();
+::dispose(accessType:"Invalid Nested",referenceType:"Structure Member");   ',
+	"63f91549-9407-42c4-a2c0-fdde2812f080",
+	1,
+	'');
+INSERT INTO S_FIP
+	VALUES ("5619a70f-011f-4ac3-9b07-87ce6cb32b7e",
+	"d2923bc5-57d5-4013-8fee-8620bff3d9b5");
+INSERT INTO S_SYNC
+	VALUES ("d2923bc5-57d5-4013-8fee-8620bff3d9b5",
+	"c3928f56-530d-4984-8114-35933dc4cb31",
+	'StructureMember_booleanBinaryOperationRightOperandSet_InvalidNested',
+	'',
+	'::setup(accessType:"Invalid Nested",referenceType:"Structure Member"); 
+select any test from instances of MBR4;
+test.S_MBR_booleanBinaryOperationRightOperandSet();
+::dispose(accessType:"Invalid Nested",referenceType:"Structure Member");   ',
+	"63f91549-9407-42c4-a2c0-fdde2812f080",
+	1,
+	'');
+INSERT INTO S_FIP
+	VALUES ("5619a70f-011f-4ac3-9b07-87ce6cb32b7e",
+	"e40c2495-31bc-4c50-941d-073e0d083639");
+INSERT INTO S_SYNC
+	VALUES ("e40c2495-31bc-4c50-941d-073e0d083639",
+	"c3928f56-530d-4984-8114-35933dc4cb31",
+	'StructureMember_ActivitiesInvocation_InvalidNested',
+	'',
+	'::setup(accessType:"Invalid Nested",referenceType:"Structure Member"); 
+select any test from instances of MBR4;
+test.S_MBR_ActivitiesInvocation();
+::dispose(accessType:"Invalid Nested",referenceType:"Structure Member");   ',
+	"63f91549-9407-42c4-a2c0-fdde2812f080",
+	1,
+	'');
+INSERT INTO S_FIP
+	VALUES ("5619a70f-011f-4ac3-9b07-87ce6cb32b7e",
+	"752d9d46-8e23-4cc4-a176-b33667534734");
+INSERT INTO S_SYNC
+	VALUES ("752d9d46-8e23-4cc4-a176-b33667534734",
+	"c3928f56-530d-4984-8114-35933dc4cb31",
+	'StructureMember_ActivitiesInvocationSet_InvalidNested',
+	'',
+	'::setup(accessType:"Invalid Nested",referenceType:"Structure Member"); 
+select any test from instances of MBR4;
+test.S_MBR_ActivitiesInvocationSet();
+::dispose(accessType:"Invalid Nested",referenceType:"Structure Member");   ',
+	"63f91549-9407-42c4-a2c0-fdde2812f080",
+	1,
+	'');
+INSERT INTO S_FPIP_PROXY
+	VALUES ("d1f6a355-722f-4126-8ed5-a92fab2ec333",
+	'../Invalid Nested Test Invocation Functions.xtuml');

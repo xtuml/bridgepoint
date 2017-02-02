@@ -1,0 +1,83 @@
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("22b729e9-9d46-445d-a906-3c50d7645bd9",
+	'Test Class OtherSide 14',
+	5,
+	'T_CLSOTH14',
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_REF
+	VALUES ("22b729e9-9d46-445d-a906-3c50d7645bd9",
+	"7a7fb83a-6d04-4fb4-acfc-a886367f8b37",
+	0,
+	"d2b8e956-dfee-4996-8fb0-1d3a1cda22f1",
+	"4f2aa2b2-d298-42fe-8803-55e2988343e8",
+	"ec13a152-65c4-473f-b548-4347da8cf73c",
+	"16cd1bcd-d23b-4c00-afe6-61957ed4f165",
+	"cb37ff07-9f07-4680-a749-5b5faeb2494f",
+	"8f5865f2-cd54-48a9-be92-21565cd108ab",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'IOBJ_REL_OBJ 5',
+	'TestAttrFormalizer',
+	'R5');
+INSERT INTO R_RGO_PROXY
+	VALUES ("22b729e9-9d46-445d-a906-3c50d7645bd9",
+	"4f2aa2b2-d298-42fe-8803-55e2988343e8",
+	"ec13a152-65c4-473f-b548-4347da8cf73c",
+	'../O_IOBJ_Delete.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("d2b8e956-dfee-4996-8fb0-1d3a1cda22f1",
+	"7a7fb83a-6d04-4fb4-acfc-a886367f8b37",
+	0,
+	"4f2aa2b2-d298-42fe-8803-55e2988343e8",
+	"16cd1bcd-d23b-4c00-afe6-61957ed4f165",
+	'../O_IOBJ_Delete.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("cb37ff07-9f07-4680-a749-5b5faeb2494f",
+	"22b729e9-9d46-445d-a906-3c50d7645bd9",
+	"d2b8e956-dfee-4996-8fb0-1d3a1cda22f1",
+	"7a7fb83a-6d04-4fb4-acfc-a886367f8b37",
+	1,
+	'TestAttrFormalizer');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("d2b8e956-dfee-4996-8fb0-1d3a1cda22f1",
+	"7a7fb83a-6d04-4fb4-acfc-a886367f8b37",
+	'../../IOBJ Import Subsystem/IOBJ_REL_OBJ 5/IOBJ_REL_OBJ 5.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("cb37ff07-9f07-4680-a749-5b5faeb2494f",
+	"22b729e9-9d46-445d-a906-3c50d7645bd9",
+	"00000000-0000-0000-0000-000000000000",
+	'TestAttrFormalizer',
+	'',
+	'',
+	'TestAttrFormalizer',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000007",
+	'',
+	'');
+INSERT INTO O_ID
+	VALUES (0,
+	"22b729e9-9d46-445d-a906-3c50d7645bd9");
+INSERT INTO O_ID
+	VALUES (1,
+	"22b729e9-9d46-445d-a906-3c50d7645bd9");
+INSERT INTO O_ID
+	VALUES (2,
+	"22b729e9-9d46-445d-a906-3c50d7645bd9");
+INSERT INTO PE_PE
+	VALUES ("22b729e9-9d46-445d-a906-3c50d7645bd9",
+	1,
+	"1ce3cd09-b588-4ec8-9f14-162647fb79d6",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
+	VALUES ("1ce3cd09-b588-4ec8-9f14-162647fb79d6",
+	"00000000-0000-0000-0000-000000000000",
+	"c6693612-7c4f-42e5-b64f-16c64f288945",
+	'O_IOBJ_Delete',
+	'',
+	0,
+	'../O_IOBJ_Delete.xtuml');

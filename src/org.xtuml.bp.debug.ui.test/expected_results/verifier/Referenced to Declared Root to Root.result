@@ -1,0 +1,25 @@
+Simulation started.
+User invoked function: test
+LogInfo:  Test Provider::executeOpTest() entered
+LogInfo:  Referenced Operation Test: pingRequirer entered
+LogInfo:  Referenced Operation Test: pingProvider entered
+LogInfo:  Referenced Operation Test: pingRequirerS entered
+LogInfo:  Referenced Operation Test: pingProviderS entered
+LogInfo:  Test Provider::replyToProvider() entered from pingRequirerS
+LogInfo:  Test Library::Test Requirer::replyToRequirer() entered from pingProviderS
+LogInfo:  Test Provider::replyToProvider() entered from pingRequirer
+LogInfo:  Referenced Operation Test: Passed.
+LogInfo:  Test Provider::executeSignalTest() entered
+LogInfo:  Test Library::Test Requirer::replyToRequirer() entered from pingProvider
+LogInfo:  Test Library::Test Requirer::replyToRequirer() entered from execute
+LogInfo:  Referenced Signal Test: pingRequirerSig entered
+LogInfo:  Referenced Signal Test: pingProviderSig entered
+LogInfo:  Test Library::Test Requirer::replyToRequirer() entered from execute
+LogInfo:  Test Provider::replyToProvider() entered from pingRequirerSig
+LogInfo:  Referenced Signal Test: pingRequirerSigS entered
+LogInfo:  Referenced Signal Test: pingProviderSigS entered
+LogInfo:  Test Library::Test Requirer::replyToRequirer() entered from pingProviderSig
+LogInfo:  Test Provider::replyToProvider() entered from pingRequirerSigS
+LogInfo:  Test Library::Test Requirer::replyToRequirer() entered from pingProviderSigS
+LogInfo:  Referenced Signal Test: Passed.
+

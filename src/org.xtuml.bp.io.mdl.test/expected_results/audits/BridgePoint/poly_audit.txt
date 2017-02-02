@@ -1,0 +1,397 @@
+AUDIT RESULTS FOR DOMAIN poly
+
+CLASSES & EXTERNAL ENTITIES WITH IDENTICAL NAMES:
+Simple::Supertype and Subtype Chain::Supertype
+Simple::Subtype A and Subtype Chain::Subtype A
+Simple::Subtype A and Complex::Subtype A
+Simple::Subtype B and Subtype Chain::Subtype B
+Simple::Subtype B and Complex::Subtype B
+Simple::Driver and Subtype Chain::Driver
+Simple::Driver and Complex::Driver
+Simple::Init and Subtype Chain::Init
+Simple::Init and Complex::Init
+Simple::Init and Mission Control::Init
+Subtype Chain::Subtype A and Complex::Subtype A
+Subtype Chain::Subtype AB and Complex::Subtype AB
+Subtype Chain::Driver and Complex::Driver
+Subtype Chain::Init and Complex::Init
+Subtype Chain::Init and Mission Control::Init
+Subtype Chain::Subtype B and Complex::Subtype B
+Complex::Init and Mission Control::Init
+
+CLASSES WITHOUT IDENTIFIERS:
+Class Simple::Driver
+Class Simple::Init
+Class Subtype Chain::Driver
+Class Subtype Chain::Init
+Class Complex::Init
+Class Complex::Driver
+Class Mission Control::Init
+
+SUBSYSTEMS WITHOUT DESCRIPTIONS:
+Simple
+Subtype Chain
+Complex
+Mission Control
+
+ENUMERATORS WITHOUT DESCRIPTIONS:
+color::red
+color::yellow
+color::blue
+color::green
+color::purple
+color::orange
+number::one
+number::two
+number::three
+number::four
+
+EXTERNAL ENTITIES WITHOUT DESCRIPTIONS:
+External Entity Time
+External Entity Logging
+External Entity Architecture
+
+BRIDGES WITHOUT DESCRIPTIONS:
+External Entity Bridge Logging::LogInfo
+External Entity Bridge Logging::LogSuccess
+External Entity Bridge Logging::LogFailure
+External Entity Bridge Architecture::shutdown
+
+CLASSES WITHOUT DESCRIPTIONS:
+Class Simple::Supertype
+Class Simple::Subtype A
+Class Simple::Subtype B
+Class Simple::Related
+Class Simple::Associated
+Class Simple::Driver
+Class Simple::Init
+Class Subtype Chain::Subtype A
+Class Subtype Chain::Subtype AA
+Class Subtype Chain::Subtype AB
+Class Subtype Chain::Supertype
+Class Subtype Chain::Driver
+Class Subtype Chain::Init
+Class Subtype Chain::Subtype B
+Class Subtype Chain::Subtype BA
+Class Subtype Chain::Subtype BB
+Class Complex::Subtype AB
+Class Complex::Supertype A
+Class Complex::Supertype B
+Class Complex::Subtype B
+Class Complex::Subtype A
+Class Complex::Init
+Class Complex::Driver
+Class Complex::Subtype B2
+Class Mission Control::MC
+Class Mission Control::Init
+
+ATTRIBUTES WITHOUT DESCRIPTIONS:
+Attribute Supertype::id
+Attribute Supertype::x
+Attribute Supertype::current_state
+Attribute Subtype A::id
+Attribute Subtype A::x
+Attribute Subtype A::current_state
+Attribute Subtype B::id
+Attribute Subtype B::x
+Attribute Subtype B::current_state
+Attribute Related::id
+Attribute Related::x
+Attribute Related::current_state
+Attribute Associated::supertype id
+Attribute Associated::related id
+Attribute Associated::x
+Attribute Associated::current_state
+Attribute Driver::timer
+Attribute Driver::current_state
+Attribute Init::current_state
+Attribute Subtype A::x
+Attribute Subtype A::current_state
+Attribute Subtype A::id
+Attribute Subtype AA::x
+Attribute Subtype AA::current_state
+Attribute Subtype AA::id
+Attribute Subtype AB::x
+Attribute Subtype AB::current_state
+Attribute Subtype AB::id
+Attribute Supertype::id
+Attribute Supertype::x
+Attribute Supertype::current_state
+Attribute Driver::timer
+Attribute Driver::current_state
+Attribute Init::current_state
+Attribute Subtype B::x
+Attribute Subtype B::current_state
+Attribute Subtype B::id
+Attribute Subtype BA::x
+Attribute Subtype BA::current_state
+Attribute Subtype BA::id
+Attribute Subtype BB::x
+Attribute Subtype BB::current_state
+Attribute Subtype BB::id
+Attribute Subtype AB::ida
+Attribute Subtype AB::idb
+Attribute Subtype AB::x
+Attribute Subtype AB::current_state
+Attribute Supertype A::ida
+Attribute Supertype A::x
+Attribute Supertype A::current_state
+Attribute Supertype B::idb
+Attribute Supertype B::x
+Attribute Supertype B::current_state
+Attribute Subtype B::idb
+Attribute Subtype B::x
+Attribute Subtype B::current_state
+Attribute Subtype A::ida
+Attribute Subtype A::x
+Attribute Subtype A::current_state
+Attribute Init::current_state
+Attribute Driver::timer
+Attribute Driver::current_state
+Attribute Subtype B2::idb
+Attribute Subtype B2::x
+Attribute Subtype B2::current_state
+Attribute MC::ID
+Attribute MC::num_tests
+Attribute MC::done_tests
+Attribute MC::current_state
+Attribute Init::current_state
+
+REFERENCES WITHOUT DESCRIPTIONS:
+Referential Attribute Subtype A::id
+Referential Attribute Subtype B::id
+Referential Attribute Associated::supertype id
+Referential Attribute Associated::related id
+Referential Attribute Subtype A::id
+Referential Attribute Subtype AA::id
+Referential Attribute Subtype AB::id
+Referential Attribute Subtype B::id
+Referential Attribute Subtype BA::id
+Referential Attribute Subtype BB::id
+Referential Attribute Subtype AB::ida
+Referential Attribute Subtype AB::idb
+Referential Attribute Subtype B::idb
+Referential Attribute Subtype A::ida
+Referential Attribute Subtype B2::idb
+
+RELATIONSHIPS WITHOUT DESCRIPTIONS:
+Simple::R1
+Simple::R2
+Subtype Chain::R100
+Subtype Chain::R102
+Subtype Chain::R101
+Complex::R200
+Complex::R201
+Complex::R202
+
+STATE MODELS WITHOUT DESCRIPTIONS:
+State Model Supertype
+State Model Subtype A
+State Model Subtype B
+State Model Related
+State Model Associated
+State Model Associated
+State Model Driver
+State Model Init
+State Model Subtype A
+State Model Subtype AA
+State Model Subtype AB
+State Model Supertype
+State Model Driver
+State Model Init
+State Model Subtype B
+State Model Subtype BA
+State Model Subtype BB
+State Model Subtype AB
+State Model Supertype A
+State Model Supertype B
+State Model Subtype B
+State Model Subtype A
+State Model Init
+State Model Driver
+State Model Subtype B2
+State Model MC
+State Model Init
+
+EVENTS WITHOUT DESCRIPTIONS:
+Event S_P1
+Event S_BA0
+Event S_BA1
+Event S_BB1
+Event S_BB0
+Event S_D1
+Event S_D2
+Event S_D3
+Event S_D4
+Event S_D5
+Event S_D0
+Event INIT1
+Event C_A1
+Event C_A3
+Event C_A2
+Event C_AA0
+Event C_AA1
+Event C_AB1
+Event C_AB0
+Event C_S1
+Event C_S2
+Event C_S3
+Event C_S4
+Event C_D1
+Event C_D2
+Event C_D3
+Event C_D4
+Event C_D5
+Event C_D0
+Event C_INIT1
+Event C_B1
+Event C_B2
+Event C_B3
+Event C_BA0
+Event C_BA1
+Event C_BB1
+Event C_BB0
+Event X_BAB1
+Event X_BAB2
+Event X_PA1
+Event X_PB1
+Event X_PB2
+Event X_PB3
+Event X_PB4
+Event X_INIT1
+Event X_D1
+Event X_D2
+Event X_D3
+Event X_D4
+Event X_D5
+Event X_D0
+Event X_BB21
+Event MC_MC1
+Event MC_INIT1
+
+EVENT DATA WITHOUT DESCRIPTIONS:
+Event Data Supertype::key
+Event Data Supertype::instance
+Event Data Subtype A::instance
+Event Data Subtype A::key
+Event Data Subtype B::instance
+Event Data Subtype B::key
+Event Data Subtype A::key
+Event Data Subtype A::instance
+Event Data Subtype AA::instance
+Event Data Subtype AA::key
+Event Data Subtype AB::instance
+Event Data Subtype AB::key
+Event Data Supertype::key
+Event Data Supertype::instance
+Event Data Subtype B::key
+Event Data Subtype B::instance
+Event Data Subtype BA::instance
+Event Data Subtype BA::key
+Event Data Subtype BB::instance
+Event Data Subtype BB::key
+Event Data Subtype AB::key
+Event Data Subtype AB::instance
+Event Data Supertype A::instance
+Event Data Supertype A::key
+Event Data Supertype B::instance
+Event Data Supertype B::key
+
+ACTION SPECIFICATIONS WITHOUT DESCRIPTIONS:
+Supertype::State Name
+Subtype A::One
+Subtype A::Three
+Subtype B::One
+Subtype B::Three
+Related::State Name
+Associated::State Name
+Associated::State Name (Class Based)
+Driver::Send PE to Subtype A
+Driver::No Response (PE BA)
+Driver::Send PE to Supertype (A)
+Driver::Send LE to Subtype A
+Driver::No Response (LE BA)
+Driver::No Response (PE PA)
+Driver::Send LE to Subtype B
+Driver::No Response (LE BB)
+Driver::Send PE to Subtype B
+Driver::No Response (PE BB)
+Driver::Send PE to Supertype (B)
+Driver::No Response (PE PB)
+Driver::Done
+Init::One
+Subtype A::One
+Subtype A::Two
+Subtype A::Three
+Subtype AA::One
+Subtype AA::Three
+Subtype AA::Four
+Subtype AB::One
+Subtype AB::Three
+Subtype AB::Four
+Supertype::One
+Supertype::Two
+Driver::Send PE of S to S (B)
+Driver::No Response (S S B)
+Driver::Send PE of S to A (AA)
+Driver::Send PE of S to S (AA)
+Driver::No Response (S S AA)
+Driver::No Response (A S AA)
+Driver::Send PE of S to B (B)
+Driver::No Response (B S B)
+Driver::Send LE of S to S 
+Driver::No Response (S S)
+Driver::Send PE of A to A (AA)
+Driver::No Response (A A AA)
+Driver::Done
+Driver::Send LE to A
+Driver::No Response (A A)
+Driver::Send PE of S to AA (AA)
+Driver::No Response (AA S AA)
+Driver::Send PE of A to AA (AA)
+Driver::No Response (AA A AA)
+Driver::Send LE to AA
+Driver::No Response (AA AA)
+Driver::Received ACK from BB, Poly Event
+Driver::No Response
+Init::One
+Subtype B::Three
+Subtype B::One
+Subtype B::Four
+Subtype B::Five
+Subtype BA::Three
+Subtype BA::One
+Subtype BA::Two
+Subtype BB::Three
+Subtype BB::One
+Subtype BB::Two
+Subtype BB::Four
+Subtype AB::One
+Subtype AB::Three
+Subtype AB::Four
+Supertype A::State Name
+Supertype B::Supertype B
+Subtype B::Receive self PE
+Subtype A::State Name
+Init::One
+Driver::Send PE of Supertype A to Subtype AB (via A)
+Driver::No Response (A A AB)
+Driver::Send LE to Subtype AB
+Driver::Send PE of Supertype A to Subtype AB (via AB)
+Driver::No Response (AB A AB)
+Driver::No Response (AB AB)
+Driver::Send PE of Supertype B to Subtype AB (via AB)
+Driver::No Response (AB B AB)
+Driver::Send PE of Supertype B to Subtype AB (via B)
+Driver::No Response (B B AB)
+Driver::Send PE of Supertype B to Subtype B2 (via B)
+Driver::No Response (B B B2 via B)
+Driver::Done
+Driver::Send PE of Supertype B to Subtype B2 (via B2)
+Driver::No Response (B B B2 via B2)
+Driver::Send LE to Supertype B
+Driver::No Response 
+Subtype B2::Two
+Subtype B2::One
+MC::Test Finished
+Init::Init

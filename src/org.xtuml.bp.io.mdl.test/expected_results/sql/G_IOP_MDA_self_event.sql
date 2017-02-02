@@ -1,0 +1,7707 @@
+-- BP 6.1D content: domain syschar: 3
+
+INSERT INTO S_DOM
+	VALUES (17724606,
+	'G_IOP_MDA_self_event',
+	'',
+	0,
+	1);
+INSERT INTO S_CDT
+	VALUES (524289,
+	0);
+INSERT INTO S_DT
+	VALUES (524289,
+	17724606,
+	'void',
+	'');
+INSERT INTO S_CDT
+	VALUES (524290,
+	1);
+INSERT INTO S_DT
+	VALUES (524290,
+	17724606,
+	'boolean',
+	'');
+INSERT INTO S_CDT
+	VALUES (524291,
+	2);
+INSERT INTO S_DT
+	VALUES (524291,
+	17724606,
+	'integer',
+	'');
+INSERT INTO S_CDT
+	VALUES (524292,
+	3);
+INSERT INTO S_DT
+	VALUES (524292,
+	17724606,
+	'real',
+	'');
+INSERT INTO S_CDT
+	VALUES (524293,
+	4);
+INSERT INTO S_DT
+	VALUES (524293,
+	17724606,
+	'string',
+	'');
+INSERT INTO S_CDT
+	VALUES (524294,
+	5);
+INSERT INTO S_DT
+	VALUES (524294,
+	17724606,
+	'unique_id',
+	'');
+INSERT INTO S_CDT
+	VALUES (524295,
+	6);
+INSERT INTO S_DT
+	VALUES (524295,
+	17724606,
+	'state<State_Model>',
+	'');
+INSERT INTO S_CDT
+	VALUES (524296,
+	7);
+INSERT INTO S_DT
+	VALUES (524296,
+	17724606,
+	'same_as<Base_Attribute>',
+	'');
+INSERT INTO S_CDT
+	VALUES (524297,
+	8);
+INSERT INTO S_DT
+	VALUES (524297,
+	17724606,
+	'inst_ref<Object>',
+	'');
+INSERT INTO S_CDT
+	VALUES (524298,
+	9);
+INSERT INTO S_DT
+	VALUES (524298,
+	17724606,
+	'inst_ref_set<Object>',
+	'');
+INSERT INTO S_CDT
+	VALUES (524299,
+	10);
+INSERT INTO S_DT
+	VALUES (524299,
+	17724606,
+	'inst<Event>',
+	'');
+INSERT INTO S_CDT
+	VALUES (524300,
+	11);
+INSERT INTO S_DT
+	VALUES (524300,
+	17724606,
+	'inst<Mapping>',
+	'');
+INSERT INTO S_CDT
+	VALUES (524301,
+	12);
+INSERT INTO S_DT
+	VALUES (524301,
+	17724606,
+	'inst_ref<Mapping>',
+	'');
+INSERT INTO S_UDT
+	VALUES (524302,
+	524300,
+	1);
+INSERT INTO S_DT
+	VALUES (524302,
+	17724606,
+	'date',
+	'');
+INSERT INTO S_UDT
+	VALUES (524303,
+	524300,
+	2);
+INSERT INTO S_DT
+	VALUES (524303,
+	17724606,
+	'timestamp',
+	'');
+INSERT INTO S_UDT
+	VALUES (524304,
+	524301,
+	3);
+INSERT INTO S_DT
+	VALUES (524304,
+	17724606,
+	'inst_ref<Timer>',
+	'');
+INSERT INTO S_UDT
+	VALUES (524305,
+	524294,
+	0);
+INSERT INTO S_DT
+	VALUES (524305,
+	17724606,
+	'arbitrary_id',
+	'Arbitrary ID with core data type of unique_id.');
+INSERT INTO S_EE
+	VALUES (524289,
+	'Time',
+	'',
+	'TIM',
+	17724606);
+INSERT INTO S_BRG
+	VALUES (524289,
+	524289,
+	'current_date',
+	'Returns the current date.',
+	1,
+	524302,
+	'',
+	0);
+INSERT INTO S_BRG
+	VALUES (524290,
+	524289,
+	'create_date',
+	'Creates a date based on input parameters.
+
+Returns a date.',
+	1,
+	524302,
+	'',
+	0);
+INSERT INTO S_BPARM
+	VALUES (524289,
+	524290,
+	'second',
+	524291,
+	0);
+INSERT INTO S_BPARM
+	VALUES (524290,
+	524290,
+	'minute',
+	524291,
+	0);
+INSERT INTO S_BPARM
+	VALUES (524291,
+	524290,
+	'hour',
+	524291,
+	0);
+INSERT INTO S_BPARM
+	VALUES (524292,
+	524290,
+	'day',
+	524291,
+	0);
+INSERT INTO S_BPARM
+	VALUES (524293,
+	524290,
+	'month',
+	524291,
+	0);
+INSERT INTO S_BPARM
+	VALUES (524294,
+	524290,
+	'year',
+	524291,
+	0);
+INSERT INTO S_BRG
+	VALUES (524291,
+	524289,
+	'get_second',
+	'Returns the second contained in <date>.',
+	1,
+	524291,
+	'',
+	0);
+INSERT INTO S_BPARM
+	VALUES (524295,
+	524291,
+	'date',
+	524302,
+	0);
+INSERT INTO S_BRG
+	VALUES (524292,
+	524289,
+	'get_minute',
+	'Returns the minute contained in <date>.',
+	1,
+	524291,
+	'',
+	0);
+INSERT INTO S_BPARM
+	VALUES (524296,
+	524292,
+	'date',
+	524302,
+	0);
+INSERT INTO S_BRG
+	VALUES (524293,
+	524289,
+	'get_hour',
+	'Returns the hour contained in <date>.',
+	1,
+	524291,
+	'',
+	0);
+INSERT INTO S_BPARM
+	VALUES (524297,
+	524293,
+	'date',
+	524302,
+	0);
+INSERT INTO S_BRG
+	VALUES (524294,
+	524289,
+	'get_day',
+	'Returns the day contained in <date>.',
+	1,
+	524291,
+	'',
+	0);
+INSERT INTO S_BPARM
+	VALUES (524298,
+	524294,
+	'date',
+	524302,
+	0);
+INSERT INTO S_BRG
+	VALUES (524295,
+	524289,
+	'get_month',
+	'Returns the month contained in <date>.',
+	1,
+	524291,
+	'',
+	0);
+INSERT INTO S_BPARM
+	VALUES (524299,
+	524295,
+	'date',
+	524302,
+	0);
+INSERT INTO S_BRG
+	VALUES (524296,
+	524289,
+	'get_year',
+	'Returns the year contained in <date>.',
+	1,
+	524291,
+	'',
+	0);
+INSERT INTO S_BPARM
+	VALUES (524300,
+	524296,
+	'date',
+	524302,
+	0);
+INSERT INTO S_BRG
+	VALUES (524297,
+	524289,
+	'current_clock',
+	'Returns the current time.',
+	1,
+	524303,
+	'',
+	0);
+INSERT INTO S_BRG
+	VALUES (524298,
+	524289,
+	'timer_start',
+	'Starts a (one shot) timer to expire in <microseconds>, sending <event_inst> upon expiration.  Note that upon expiration the timer will be deleted.
+
+Returns the instance handle of the non-recurring timer.',
+	1,
+	524304,
+	'',
+	0);
+INSERT INTO S_BPARM
+	VALUES (524301,
+	524298,
+	'microseconds',
+	524291,
+	0);
+INSERT INTO S_BPARM
+	VALUES (524302,
+	524298,
+	'event_inst',
+	524299,
+	0);
+INSERT INTO S_BRG
+	VALUES (524299,
+	524289,
+	'timer_start_recurring',
+	'Starts a (recurring) timer to expire in <microseconds>, sending <event_inst> upon expiration.  Upon expiration, the timer will be restarted and fire again in <microseconds> and (re)generate the event <event_inst>.
+
+Returns the instance handle of the recurring timer.',
+	1,
+	524304,
+	'',
+	0);
+INSERT INTO S_BPARM
+	VALUES (524303,
+	524299,
+	'microseconds',
+	524291,
+	0);
+INSERT INTO S_BPARM
+	VALUES (524304,
+	524299,
+	'event_inst',
+	524299,
+	0);
+INSERT INTO S_BRG
+	VALUES (524300,
+	524289,
+	'timer_remaining_time',
+	'Returns the time remaining (in microseconds) before <timer_inst_ref> expires. If <timer_inst_ref> no longer exists, a zero value will be returned. 
+
+It is important to note that even if it no longer exists, an event may still be in transit (e.g., was generated) from a previous timer expiration.  Respectable OOA must account for this "ships passing" possibility.
+
+Returns the time remaining.
+',
+	1,
+	524291,
+	'',
+	0);
+INSERT INTO S_BPARM
+	VALUES (524305,
+	524300,
+	'timer_inst_ref',
+	524304,
+	0);
+INSERT INTO S_BRG
+	VALUES (524301,
+	524289,
+	'timer_reset_time',
+	'This method attempts to set <timer_inst_ref> to expire <microseconds>.
+
+It is important to note that an event may still be in transit (e.g., was already generated) from a previous expiration prior to this method invocation.  Respectable OOA must account for this "ships passing" possibility.
+
+Returns TRUE if the timer exists, otherwise FALSE.',
+	1,
+	524290,
+	'',
+	0);
+INSERT INTO S_BPARM
+	VALUES (524306,
+	524301,
+	'timer_inst_ref',
+	524304,
+	0);
+INSERT INTO S_BPARM
+	VALUES (524307,
+	524301,
+	'microseconds',
+	524291,
+	0);
+INSERT INTO S_BRG
+	VALUES (524302,
+	524289,
+	'timer_add_time',
+	'This method attempts to add <microseconds> to the <timer_inst_ref>. 
+
+It is important to note that an event may still be in transit (e.g., was already generated) from a previous expiration prior to this method invocation.  Respectable OOA must account for this "ships passing" possibility.
+
+Returns TRUE if the timer exists, otherwise FALSE.',
+	1,
+	524290,
+	'',
+	0);
+INSERT INTO S_BPARM
+	VALUES (524308,
+	524302,
+	'timer_inst_ref',
+	524304,
+	0);
+INSERT INTO S_BPARM
+	VALUES (524309,
+	524302,
+	'microseconds',
+	524291,
+	0);
+INSERT INTO S_BRG
+	VALUES (524303,
+	524289,
+	'timer_cancel',
+	'This method attempts to cancel and delete <timer_inst_ref>.  
+
+It is important to note that an event may still be in transit (e.g., was already generated) from a previous expiration prior to this method invocation.  Respectable OOA must account for this "ships passing" possibility.
+
+Returns TRUE if the timer exists, otherwise FALSE.',
+	1,
+	524290,
+	'',
+	0);
+INSERT INTO S_BPARM
+	VALUES (524310,
+	524303,
+	'timer_inst_ref',
+	524304,
+	0);
+INSERT INTO S_EE
+	VALUES (524290,
+	'Architecture',
+	'This EE provides an interface between the domain and the run time implementation that supports the execution of the domain.',
+	'ARCH',
+	17724606);
+INSERT INTO S_BRG
+	VALUES (524304,
+	524290,
+	'shutdown',
+	'This bridge sends a request to the run time implementation to shut down.',
+	0,
+	524289,
+	'control stop;',
+	1);
+INSERT INTO S_EE
+	VALUES (524291,
+	'Logging',
+	'This EE is responsible for logging test data.
+
+The output will be written to a file that may be used for test verification.',
+	'LOG',
+	17724606);
+INSERT INTO S_BRG
+	VALUES (524305,
+	524291,
+	'LogFailure',
+	'Log a test failure.
+
+Output fomat:
+
+"Log Failure - <message>"',
+	0,
+	524289,
+	'',
+	1);
+INSERT INTO S_BPARM
+	VALUES (524311,
+	524305,
+	'message',
+	524293,
+	0);
+INSERT INTO S_BRG
+	VALUES (524306,
+	524291,
+	'LogInfo',
+	'Log some information.
+
+Output fomat:
+
+"Log Info - <message>"',
+	0,
+	524289,
+	'',
+	1);
+INSERT INTO S_BPARM
+	VALUES (524312,
+	524306,
+	'message',
+	524293,
+	0);
+INSERT INTO S_BRG
+	VALUES (524307,
+	524291,
+	'LogSuccess',
+	'Log a test success.
+
+Output fomat:
+
+"Log Success - <message>"',
+	0,
+	524289,
+	'',
+	1);
+INSERT INTO S_BPARM
+	VALUES (524313,
+	524307,
+	'message',
+	524293,
+	0);
+INSERT INTO S_BRG
+	VALUES (524308,
+	524291,
+	'LogReal',
+	'Log a real value with an optional message.
+
+Output fomat:
+
+"Log Real - <real>: <message>"',
+	0,
+	524289,
+	'',
+	1);
+INSERT INTO S_BPARM
+	VALUES (524314,
+	524308,
+	'message',
+	524293,
+	0);
+INSERT INTO S_BPARM
+	VALUES (524315,
+	524308,
+	'real',
+	524292,
+	0);
+INSERT INTO S_BRG
+	VALUES (524309,
+	524291,
+	'LogDate',
+	'Log a date value with an optional message.
+
+Output fomat:
+
+"Log Date - <date>: <message>"',
+	0,
+	524289,
+	'',
+	1);
+INSERT INTO S_BPARM
+	VALUES (524316,
+	524309,
+	'message',
+	524293,
+	0);
+INSERT INTO S_BPARM
+	VALUES (524317,
+	524309,
+	'date',
+	524302,
+	0);
+INSERT INTO S_BRG
+	VALUES (524310,
+	524291,
+	'LogTime',
+	'Log a timestamp value with an optional message.
+
+Output fomat:
+
+"Log Time - <time>: <message>"',
+	0,
+	524289,
+	'',
+	1);
+INSERT INTO S_BPARM
+	VALUES (524318,
+	524310,
+	'message',
+	524293,
+	0);
+INSERT INTO S_BPARM
+	VALUES (524319,
+	524310,
+	'time',
+	524303,
+	0);
+INSERT INTO S_BRG
+	VALUES (524311,
+	524291,
+	'LogInt',
+	'Log an integer value with an optional message.
+
+Output fomat:
+
+"Log Int - <int>: <message>"',
+	0,
+	524289,
+	'',
+	1);
+INSERT INTO S_BPARM
+	VALUES (524320,
+	524311,
+	'message',
+	524293,
+	0);
+INSERT INTO S_BPARM
+	VALUES (524321,
+	524311,
+	'int',
+	524291,
+	0);
+INSERT INTO S_BRG
+	VALUES (524312,
+	524291,
+	'LogString',
+	'Log a string value with an optional message.
+
+Output fomat:
+
+"Log String - <str>: <message>"',
+	0,
+	524289,
+	'',
+	1);
+INSERT INTO S_BPARM
+	VALUES (524322,
+	524312,
+	'message',
+	524293,
+	0);
+INSERT INTO S_BPARM
+	VALUES (524323,
+	524312,
+	'str',
+	524293,
+	0);
+INSERT INTO S_BRG
+	VALUES (524313,
+	524291,
+	'LogBoolean',
+	'Log a boolean value with an optional message.
+
+Output fomat:
+
+"Log Boolean - <bool>: <message>"',
+	0,
+	524289,
+	'',
+	1);
+INSERT INTO S_BPARM
+	VALUES (524324,
+	524313,
+	'message',
+	524293,
+	0);
+INSERT INTO S_BPARM
+	VALUES (524325,
+	524313,
+	'bool',
+	524290,
+	0);
+INSERT INTO S_BRG
+	VALUES (524314,
+	524291,
+	'LogUniqueId',
+	'Log a unique_id value with an optional message.
+
+Output fomat:
+
+"Log Unique ID - <uid>: <message>"',
+	0,
+	524289,
+	'',
+	1);
+INSERT INTO S_BPARM
+	VALUES (524326,
+	524314,
+	'message',
+	524293,
+	0);
+INSERT INTO S_BPARM
+	VALUES (524327,
+	524314,
+	'uid',
+	524294,
+	0);
+INSERT INTO S_BRG
+	VALUES (524315,
+	524291,
+	'LogArbitraryId',
+	'Log an arbitrary_id value with an optional message.
+
+Output fomat:
+
+"Log Arbitrary ID - <aid>: <message>"',
+	0,
+	524289,
+	'',
+	1);
+INSERT INTO S_BPARM
+	VALUES (524328,
+	524315,
+	'message',
+	524293,
+	0);
+INSERT INTO S_BPARM
+	VALUES (524329,
+	524315,
+	'aid',
+	524305,
+	0);
+INSERT INTO GD_MD
+	VALUES (524289,
+	1,
+	17724606,
+	1,
+	1,
+	0,
+	1,
+	1,
+	0,
+	12,
+	1823,
+	4174,
+	1.000000,
+	0);
+INSERT INTO GD_GE
+	VALUES (524296,
+	524289,
+	1048578,
+	11);
+INSERT INTO GD_SHP
+	VALUES (524296,
+	2144,
+	1392,
+	2304,
+	1488);
+INSERT INTO GD_GE
+	VALUES (524293,
+	524289,
+	524289,
+	12);
+INSERT INTO GD_SHP
+	VALUES (524293,
+	1936,
+	1536,
+	2096,
+	1632);
+INSERT INTO GD_GE
+	VALUES (524294,
+	524289,
+	524290,
+	12);
+INSERT INTO GD_SHP
+	VALUES (524294,
+	2144,
+	1536,
+	2304,
+	1632);
+INSERT INTO GD_GE
+	VALUES (524295,
+	524289,
+	524291,
+	12);
+INSERT INTO GD_SHP
+	VALUES (524295,
+	2352,
+	1536,
+	2512,
+	1632);
+INSERT INTO S_SS
+	VALUES (1048578,
+	'G_IOP_MDA_self_event',
+	'Rename this subsystem to something appropriate for your purposes.',
+	'',
+	1,
+	17724606,
+	1048578);
+INSERT INTO O_OBJ
+	VALUES (1048577,
+	'Initialization',
+	1,
+	'INIT',
+	'This class is used to create any pre-existing instances necessary for the execution of the domain.  It also generates the creation event to the driver to begin the test(s).  
+
+This class is not translated the same as other classes by the architecture.  Events other than the creation event inside of the initialization class are not allowed.  Any instances created or events generated from its state chart are processed before the dispatcher is started.',
+	1048578);
+INSERT INTO O_NBATTR
+	VALUES (1048577,
+	1048577);
+INSERT INTO O_BATTR
+	VALUES (1048577,
+	1048577);
+INSERT INTO O_ATTR
+	VALUES (1048577,
+	1048577,
+	0,
+	'Init_ID',
+	'',
+	'',
+	'Init_ID',
+	0,
+	524294);
+INSERT INTO O_NBATTR
+	VALUES (1048578,
+	1048577);
+INSERT INTO O_BATTR
+	VALUES (1048578,
+	1048577);
+INSERT INTO O_ATTR
+	VALUES (1048578,
+	1048577,
+	1048577,
+	'current_state',
+	'',
+	'',
+	'current_state',
+	0,
+	524295);
+INSERT INTO O_ID
+	VALUES (0,
+	1048577);
+INSERT INTO O_OIDA
+	VALUES (1048577,
+	1048577,
+	0);
+INSERT INTO SM_ISM
+	VALUES (1572867,
+	1048577);
+INSERT INTO SM_SM
+	VALUES (1572867,
+	'',
+	3);
+INSERT INTO SM_MOORE
+	VALUES (1572867);
+INSERT INTO SM_LEVT
+	VALUES (1572865,
+	1572867,
+	0);
+INSERT INTO SM_SEVT
+	VALUES (1572865,
+	1572867,
+	0);
+INSERT INTO SM_EVT
+	VALUES (1572865,
+	1572867,
+	0,
+	1,
+	'Init',
+	0,
+	'',
+	'INIT1',
+	'');
+INSERT INTO SM_STATE
+	VALUES (1572865,
+	1572867,
+	0,
+	'Initialize',
+	1,
+	0);
+INSERT INTO SM_EIGN
+	VALUES (1572865,
+	1572865,
+	1572867,
+	0,
+	'');
+INSERT INTO SM_SEME
+	VALUES (1572865,
+	1572865,
+	1572867,
+	0);
+INSERT INTO SM_MOAH
+	VALUES (1572865,
+	1572867,
+	1572865);
+INSERT INTO SM_AH
+	VALUES (1572865,
+	1572867);
+INSERT INTO SM_ACT
+	VALUES (1572865,
+	1572867,
+	1,
+	'// Insert initialization action language here.
+
+create object instance sup of SUP;
+create object instance ibo of IBO;
+ibo.state = 0;
+create object instance sone of SONE;
+relate sup to ibo across R1;
+relate ibo to sone across R2;
+
+create object instance sup2 of SUP;
+create object instance mda of MDA;
+mda.state = 0;
+create object instance stwo of STWO;
+relate sup2 to mda across R1;
+relate mda to stwo across R3;
+
+generate DRV1 to DRV creator;',
+	'');
+INSERT INTO SM_CRTXN
+	VALUES (1572865,
+	1572867,
+	1572865,
+	1572865);
+INSERT INTO SM_TXN
+	VALUES (1572865,
+	1572867,
+	1572865,
+	0);
+INSERT INTO GD_MD
+	VALUES (1572865,
+	8,
+	1572867,
+	40,
+	1,
+	0,
+	1,
+	1,
+	0,
+	12,
+	1615,
+	4278,
+	1.000000,
+	0);
+INSERT INTO GD_GE
+	VALUES (1572866,
+	1572865,
+	1572865,
+	41);
+INSERT INTO GD_SHP
+	VALUES (1572866,
+	1856,
+	1376,
+	2176,
+	1520);
+INSERT INTO GD_GE
+	VALUES (1572867,
+	1572865,
+	1572865,
+	42);
+INSERT INTO GD_CON
+	VALUES (1572867,
+	1572866,
+	0,
+	0);
+INSERT INTO GD_CTXT
+	VALUES (1572867,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	1915,
+	1321,
+	1978,
+	1345,
+	-32,
+	-5,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+	VALUES (1572868,
+	1572867,
+	2016,
+	1376,
+	2016,
+	1296,
+	0);
+INSERT INTO O_OBJ
+	VALUES (1048578,
+	'Driver',
+	2,
+	'DRV',
+	'The Driver class is what runs the test(s).',
+	1048578);
+INSERT INTO O_NBATTR
+	VALUES (1048579,
+	1048578);
+INSERT INTO O_BATTR
+	VALUES (1048579,
+	1048578);
+INSERT INTO O_ATTR
+	VALUES (1048579,
+	1048578,
+	0,
+	'timer',
+	'',
+	'',
+	'timer',
+	0,
+	524304);
+INSERT INTO O_NBATTR
+	VALUES (1048580,
+	1048578);
+INSERT INTO O_BATTR
+	VALUES (1048580,
+	1048578);
+INSERT INTO O_ATTR
+	VALUES (1048580,
+	1048578,
+	1048579,
+	'Driver_ID',
+	'',
+	'',
+	'Driver_ID',
+	0,
+	524291);
+INSERT INTO O_NBATTR
+	VALUES (1048581,
+	1048578);
+INSERT INTO O_BATTR
+	VALUES (1048581,
+	1048578);
+INSERT INTO O_ATTR
+	VALUES (1048581,
+	1048578,
+	1048580,
+	'current_state',
+	'',
+	'',
+	'current_state',
+	0,
+	524295);
+INSERT INTO O_ID
+	VALUES (0,
+	1048578);
+INSERT INTO O_OIDA
+	VALUES (1048580,
+	1048578,
+	0);
+INSERT INTO SM_ISM
+	VALUES (2097156,
+	1048578);
+INSERT INTO SM_SM
+	VALUES (2097156,
+	'',
+	4);
+INSERT INTO SM_MOORE
+	VALUES (2097156);
+INSERT INTO SM_LEVT
+	VALUES (2097153,
+	2097156,
+	0);
+INSERT INTO SM_SEVT
+	VALUES (2097153,
+	2097156,
+	0);
+INSERT INTO SM_EVT
+	VALUES (2097153,
+	2097156,
+	0,
+	1,
+	'begin',
+	0,
+	'',
+	'DRV1',
+	'');
+INSERT INTO SM_LEVT
+	VALUES (2097154,
+	2097156,
+	0);
+INSERT INTO SM_SEVT
+	VALUES (2097154,
+	2097156,
+	0);
+INSERT INTO SM_EVT
+	VALUES (2097154,
+	2097156,
+	0,
+	2,
+	'end',
+	0,
+	'',
+	'DRV2',
+	'');
+INSERT INTO SM_LEVT
+	VALUES (2097155,
+	2097156,
+	0);
+INSERT INTO SM_SEVT
+	VALUES (2097155,
+	2097156,
+	0);
+INSERT INTO SM_EVT
+	VALUES (2097155,
+	2097156,
+	0,
+	3,
+	'next',
+	0,
+	'',
+	'DRV3',
+	'');
+INSERT INTO SM_STATE
+	VALUES (2097153,
+	2097156,
+	0,
+	'Begin Test',
+	1,
+	0);
+INSERT INTO SM_EIGN
+	VALUES (2097153,
+	2097153,
+	2097156,
+	0,
+	'');
+INSERT INTO SM_SEME
+	VALUES (2097153,
+	2097153,
+	2097156,
+	0);
+INSERT INTO SM_EIGN
+	VALUES (2097153,
+	2097154,
+	2097156,
+	0,
+	'');
+INSERT INTO SM_SEME
+	VALUES (2097153,
+	2097154,
+	2097156,
+	0);
+INSERT INTO SM_SEME
+	VALUES (2097153,
+	2097155,
+	2097156,
+	0);
+INSERT INTO SM_MOAH
+	VALUES (2097153,
+	2097156,
+	2097153);
+INSERT INTO SM_AH
+	VALUES (2097153,
+	2097156);
+INSERT INTO SM_ACT
+	VALUES (2097153,
+	2097156,
+	1,
+	'// Start the test.
+// Insert additional states between ''Begin Test'' and ''End Test''.
+
+generate DRV3 to self;',
+	'');
+INSERT INTO SM_STATE
+	VALUES (2097154,
+	2097156,
+	0,
+	'End Test',
+	4,
+	1);
+INSERT INTO SM_EIGN
+	VALUES (2097154,
+	2097153,
+	2097156,
+	0,
+	'');
+INSERT INTO SM_SEME
+	VALUES (2097154,
+	2097153,
+	2097156,
+	0);
+INSERT INTO SM_EIGN
+	VALUES (2097154,
+	2097154,
+	2097156,
+	0,
+	'');
+INSERT INTO SM_SEME
+	VALUES (2097154,
+	2097154,
+	2097156,
+	0);
+INSERT INTO SM_EIGN
+	VALUES (2097154,
+	2097155,
+	2097156,
+	0,
+	'');
+INSERT INTO SM_SEME
+	VALUES (2097154,
+	2097155,
+	2097156,
+	0);
+INSERT INTO SM_MOAH
+	VALUES (2097154,
+	2097156,
+	2097154);
+INSERT INTO SM_AH
+	VALUES (2097154,
+	2097156);
+INSERT INTO SM_ACT
+	VALUES (2097154,
+	2097156,
+	1,
+	'// End the test.
+
+ARCH::shutdown();',
+	'');
+INSERT INTO SM_STATE
+	VALUES (2097161,
+	2097156,
+	0,
+	'Instance Based Operation',
+	2,
+	0);
+INSERT INTO SM_EIGN
+	VALUES (2097161,
+	2097153,
+	2097156,
+	0,
+	'');
+INSERT INTO SM_SEME
+	VALUES (2097161,
+	2097153,
+	2097156,
+	0);
+INSERT INTO SM_EIGN
+	VALUES (2097161,
+	2097154,
+	2097156,
+	0,
+	'');
+INSERT INTO SM_SEME
+	VALUES (2097161,
+	2097154,
+	2097156,
+	0);
+INSERT INTO SM_SEME
+	VALUES (2097161,
+	2097155,
+	2097156,
+	0);
+INSERT INTO SM_MOAH
+	VALUES (2097161,
+	2097156,
+	2097161);
+INSERT INTO SM_AH
+	VALUES (2097161,
+	2097156);
+INSERT INTO SM_ACT
+	VALUES (2097161,
+	2097156,
+	1,
+	'select any ibo from instances of IBO;
+generate IBO0 to ibo;',
+	'');
+INSERT INTO SM_STATE
+	VALUES (2097162,
+	2097156,
+	0,
+	'Mathematically Dependant Attribute',
+	3,
+	0);
+INSERT INTO SM_EIGN
+	VALUES (2097162,
+	2097153,
+	2097156,
+	0,
+	'');
+INSERT INTO SM_SEME
+	VALUES (2097162,
+	2097153,
+	2097156,
+	0);
+INSERT INTO SM_SEME
+	VALUES (2097162,
+	2097154,
+	2097156,
+	0);
+INSERT INTO SM_EIGN
+	VALUES (2097162,
+	2097155,
+	2097156,
+	0,
+	'');
+INSERT INTO SM_SEME
+	VALUES (2097162,
+	2097155,
+	2097156,
+	0);
+INSERT INTO SM_MOAH
+	VALUES (2097162,
+	2097156,
+	2097162);
+INSERT INTO SM_AH
+	VALUES (2097162,
+	2097156);
+INSERT INTO SM_ACT
+	VALUES (2097162,
+	2097156,
+	1,
+	'select any mda from instances of MDA;
+generate MDA0 to mda;',
+	'');
+INSERT INTO SM_CRTXN
+	VALUES (2097153,
+	2097156,
+	2097153,
+	2097153);
+INSERT INTO SM_TXN
+	VALUES (2097153,
+	2097156,
+	2097153,
+	0);
+INSERT INTO SM_NSTXN
+	VALUES (2097163,
+	2097156,
+	2097153,
+	2097155,
+	0);
+INSERT INTO SM_TXN
+	VALUES (2097163,
+	2097156,
+	2097161,
+	0);
+INSERT INTO SM_NSTXN
+	VALUES (2097164,
+	2097156,
+	2097161,
+	2097155,
+	0);
+INSERT INTO SM_TXN
+	VALUES (2097164,
+	2097156,
+	2097162,
+	0);
+INSERT INTO SM_NSTXN
+	VALUES (2097165,
+	2097156,
+	2097162,
+	2097154,
+	0);
+INSERT INTO SM_TXN
+	VALUES (2097165,
+	2097156,
+	2097154,
+	0);
+INSERT INTO GD_MD
+	VALUES (2097153,
+	8,
+	2097156,
+	40,
+	1,
+	0,
+	1,
+	1,
+	0,
+	12,
+	1430,
+	4032,
+	0.822025,
+	0);
+INSERT INTO GD_GE
+	VALUES (2097154,
+	2097153,
+	2097153,
+	41);
+INSERT INTO GD_SHP
+	VALUES (2097154,
+	1632,
+	1296,
+	2208,
+	1456);
+INSERT INTO GD_GE
+	VALUES (2097155,
+	2097153,
+	2097154,
+	41);
+INSERT INTO GD_SHP
+	VALUES (2097155,
+	1632,
+	1920,
+	2208,
+	2080);
+INSERT INTO GD_GE
+	VALUES (2097184,
+	2097153,
+	2097161,
+	41);
+INSERT INTO GD_SHP
+	VALUES (2097184,
+	1632,
+	1504,
+	2208,
+	1664);
+INSERT INTO GD_GE
+	VALUES (2097193,
+	2097153,
+	2097162,
+	41);
+INSERT INTO GD_SHP
+	VALUES (2097193,
+	1632,
+	1712,
+	2208,
+	1872);
+INSERT INTO GD_GE
+	VALUES (2097162,
+	2097153,
+	2097153,
+	42);
+INSERT INTO GD_CON
+	VALUES (2097162,
+	2097154,
+	0,
+	0);
+INSERT INTO GD_CTXT
+	VALUES (2097162,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	1804,
+	1252,
+	1898,
+	1274,
+	-16,
+	-3,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+	VALUES (2097192,
+	2097162,
+	1920,
+	1296,
+	1920,
+	1232,
+	0);
+INSERT INTO GD_GE
+	VALUES (2097185,
+	2097153,
+	2097163,
+	42);
+INSERT INTO GD_CON
+	VALUES (2097185,
+	2097154,
+	2097184,
+	0);
+INSERT INTO GD_CTXT
+	VALUES (2097185,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	1826,
+	1470,
+	1905,
+	1492,
+	-9,
+	-1,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+	VALUES (2097186,
+	2097185,
+	1920,
+	1456,
+	1920,
+	1504,
+	0);
+INSERT INTO GD_GE
+	VALUES (2097194,
+	2097153,
+	2097164,
+	42);
+INSERT INTO GD_CON
+	VALUES (2097194,
+	2097184,
+	2097193,
+	0);
+INSERT INTO GD_CTXT
+	VALUES (2097194,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	1814,
+	1678,
+	1893,
+	1700,
+	-21,
+	-1,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+	VALUES (2097195,
+	2097194,
+	1920,
+	1664,
+	1920,
+	1712,
+	0);
+INSERT INTO GD_GE
+	VALUES (2097196,
+	2097153,
+	2097165,
+	42);
+INSERT INTO GD_CON
+	VALUES (2097196,
+	2097193,
+	2097155,
+	0);
+INSERT INTO GD_CTXT
+	VALUES (2097196,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	1819,
+	1887,
+	1896,
+	1909,
+	-18,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+	VALUES (2097197,
+	2097196,
+	1920,
+	1872,
+	1920,
+	1920,
+	0);
+INSERT INTO O_OBJ
+	VALUES (1048579,
+	'Instance Based Operation',
+	3,
+	'IBO',
+	'',
+	1048578);
+INSERT INTO O_TFR
+	VALUES (1048577,
+	1048579,
+	'ibo',
+	'',
+	524289,
+	1,
+	'local = self;
+
+// Put an event to this instance onto the dispatcher
+generate IBO1 to local;
+
+// Event generated to self
+generate IBO2 to self;
+
+// PE generated to self - consumed in self
+generate SUP1* to self;
+
+// PE generated to self - not consumed in self
+generate SUP2* to self;',
+	1);
+INSERT INTO O_NBATTR
+	VALUES (1048583,
+	1048579);
+INSERT INTO O_BATTR
+	VALUES (1048583,
+	1048579);
+INSERT INTO O_ATTR
+	VALUES (1048583,
+	1048579,
+	0,
+	'ibo_ID',
+	'',
+	'',
+	'ibo_ID',
+	0,
+	524294);
+INSERT INTO O_REF
+	VALUES (1048579,
+	1048581,
+	0,
+	1048587,
+	1048577,
+	1048578,
+	1048577,
+	1048593,
+	1048577,
+	0,
+	0,
+	'');
+INSERT INTO O_RATTR
+	VALUES (1048593,
+	1048579,
+	1048587,
+	1048581,
+	1);
+INSERT INTO O_ATTR
+	VALUES (1048593,
+	1048579,
+	1048583,
+	'sup_ID',
+	'',
+	'',
+	'sup_ID',
+	0,
+	524296);
+INSERT INTO O_NBATTR
+	VALUES (1048597,
+	1048579);
+INSERT INTO O_BATTR
+	VALUES (1048597,
+	1048579);
+INSERT INTO O_ATTR
+	VALUES (1048597,
+	1048579,
+	1048593,
+	'state',
+	'',
+	'',
+	'state',
+	0,
+	524291);
+INSERT INTO O_NBATTR
+	VALUES (1048582,
+	1048579);
+INSERT INTO O_BATTR
+	VALUES (1048582,
+	1048579);
+INSERT INTO O_ATTR
+	VALUES (1048582,
+	1048579,
+	1048597,
+	'current_state',
+	'',
+	'',
+	'current_state',
+	0,
+	524295);
+INSERT INTO O_ID
+	VALUES (0,
+	1048579);
+INSERT INTO O_OIDA
+	VALUES (1048583,
+	1048579,
+	0);
+INSERT INTO O_RTIDA
+	VALUES (1048583,
+	1048579,
+	0,
+	1048578,
+	1048580);
+INSERT INTO O_ID
+	VALUES (1,
+	1048579);
+INSERT INTO O_OIDA
+	VALUES (1048593,
+	1048579,
+	1);
+INSERT INTO SM_ISM
+	VALUES (2621445,
+	1048579);
+INSERT INTO SM_SM
+	VALUES (2621445,
+	'',
+	5);
+INSERT INTO SM_MOORE
+	VALUES (2621445);
+INSERT INTO SM_LEVT
+	VALUES (2621441,
+	2621445,
+	0);
+INSERT INTO SM_SEVT
+	VALUES (2621441,
+	2621445,
+	0);
+INSERT INTO SM_EVT
+	VALUES (2621441,
+	2621445,
+	0,
+	1,
+	'First',
+	0,
+	'',
+	'IBO1',
+	'');
+INSERT INTO SM_NLEVT
+	VALUES (2621442,
+	2621445,
+	0,
+	3670017,
+	3670023,
+	0,
+	'');
+INSERT INTO SM_SEVT
+	VALUES (2621442,
+	2621445,
+	0);
+INSERT INTO SM_EVT
+	VALUES (2621442,
+	2621445,
+	0,
+	0,
+	'Poly One',
+	0,
+	'',
+	'SUP1*',
+	'');
+INSERT INTO SM_LEVT
+	VALUES (2621444,
+	2621445,
+	0);
+INSERT INTO SM_SEVT
+	VALUES (2621444,
+	2621445,
+	0);
+INSERT INTO SM_EVT
+	VALUES (2621444,
+	2621445,
+	0,
+	0,
+	'Start',
+	0,
+	'',
+	'IBO0',
+	'');
+INSERT INTO SM_LEVT
+	VALUES (2621445,
+	2621445,
+	0);
+INSERT INTO SM_SEVT
+	VALUES (2621445,
+	2621445,
+	0);
+INSERT INTO SM_EVT
+	VALUES (2621445,
+	2621445,
+	0,
+	2,
+	'Second',
+	0,
+	'',
+	'IBO2',
+	'');
+INSERT INTO SM_LEVT
+	VALUES (2621446,
+	2621445,
+	0);
+INSERT INTO SM_SEVT
+	VALUES (2621446,
+	2621445,
+	0);
+INSERT INTO SM_EVT
+	VALUES (2621446,
+	2621445,
+	0,
+	3,
+	'End',
+	0,
+	'',
+	'IBO3',
+	'');
+INSERT INTO SM_NLEVT
+	VALUES (2621447,
+	2621445,
+	0,
+	3670019,
+	3670023,
+	0,
+	'');
+INSERT INTO SM_SEVT
+	VALUES (2621447,
+	2621445,
+	0);
+INSERT INTO SM_EVT
+	VALUES (2621447,
+	2621445,
+	0,
+	0,
+	'Poly Three',
+	0,
+	'',
+	'SUP3*',
+	'');
+INSERT INTO SM_STATE
+	VALUES (2621447,
+	2621445,
+	0,
+	'Third Success',
+	5,
+	0);
+INSERT INTO SM_SEME
+	VALUES (2621447,
+	2621441,
+	2621445,
+	0);
+INSERT INTO SM_EIGN
+	VALUES (2621447,
+	2621442,
+	2621445,
+	0,
+	'');
+INSERT INTO SM_SEME
+	VALUES (2621447,
+	2621442,
+	2621445,
+	0);
+INSERT INTO SM_EIGN
+	VALUES (2621447,
+	2621444,
+	2621445,
+	0,
+	'');
+INSERT INTO SM_SEME
+	VALUES (2621447,
+	2621444,
+	2621445,
+	0);
+INSERT INTO SM_EIGN
+	VALUES (2621447,
+	2621445,
+	2621445,
+	0,
+	'');
+INSERT INTO SM_SEME
+	VALUES (2621447,
+	2621445,
+	2621445,
+	0);
+INSERT INTO SM_EIGN
+	VALUES (2621447,
+	2621446,
+	2621445,
+	0,
+	'');
+INSERT INTO SM_SEME
+	VALUES (2621447,
+	2621446,
+	2621445,
+	0);
+INSERT INTO SM_EIGN
+	VALUES (2621447,
+	2621447,
+	2621445,
+	0,
+	'');
+INSERT INTO SM_SEME
+	VALUES (2621447,
+	2621447,
+	2621445,
+	0);
+INSERT INTO SM_MOAH
+	VALUES (2621447,
+	2621445,
+	2621447);
+INSERT INTO SM_AH
+	VALUES (2621447,
+	2621445);
+INSERT INTO SM_ACT
+	VALUES (2621447,
+	2621445,
+	1,
+	'LOG::LogSuccess(message:"IBO event to self was received before event from dispatcher.");
+',
+	'');
+INSERT INTO SM_STATE
+	VALUES (2621448,
+	2621445,
+	0,
+	'State One',
+	1,
+	0);
+INSERT INTO SM_SEME
+	VALUES (2621448,
+	2621441,
+	2621445,
+	0);
+INSERT INTO SM_SEME
+	VALUES (2621448,
+	2621442,
+	2621445,
+	0);
+INSERT INTO SM_SEME
+	VALUES (2621448,
+	2621444,
+	2621445,
+	0);
+INSERT INTO SM_SEME
+	VALUES (2621448,
+	2621445,
+	2621445,
+	0);
+INSERT INTO SM_EIGN
+	VALUES (2621448,
+	2621446,
+	2621445,
+	0,
+	'');
+INSERT INTO SM_SEME
+	VALUES (2621448,
+	2621446,
+	2621445,
+	0);
+INSERT INTO SM_EIGN
+	VALUES (2621448,
+	2621447,
+	2621445,
+	0,
+	'');
+INSERT INTO SM_SEME
+	VALUES (2621448,
+	2621447,
+	2621445,
+	0);
+INSERT INTO SM_MOAH
+	VALUES (2621448,
+	2621445,
+	2621448);
+INSERT INTO SM_AH
+	VALUES (2621448,
+	2621445);
+INSERT INTO SM_ACT
+	VALUES (2621448,
+	2621445,
+	1,
+	'// Invoke the Instance Based Operation.
+self.ibo();',
+	'');
+INSERT INTO SM_STATE
+	VALUES (2621449,
+	2621445,
+	0,
+	'First Success',
+	2,
+	0);
+INSERT INTO SM_EIGN
+	VALUES (2621449,
+	2621441,
+	2621445,
+	0,
+	'');
+INSERT INTO SM_SEME
+	VALUES (2621449,
+	2621441,
+	2621445,
+	0);
+INSERT INTO SM_SEME
+	VALUES (2621449,
+	2621442,
+	2621445,
+	0);
+INSERT INTO SM_EIGN
+	VALUES (2621449,
+	2621444,
+	2621445,
+	0,
+	'');
+INSERT INTO SM_SEME
+	VALUES (2621449,
+	2621444,
+	2621445,
+	0);
+INSERT INTO SM_SEME
+	VALUES (2621449,
+	2621445,
+	2621445,
+	0);
+INSERT INTO SM_EIGN
+	VALUES (2621449,
+	2621446,
+	2621445,
+	0,
+	'');
+INSERT INTO SM_SEME
+	VALUES (2621449,
+	2621446,
+	2621445,
+	0);
+INSERT INTO SM_EIGN
+	VALUES (2621449,
+	2621447,
+	2621445,
+	0,
+	'');
+INSERT INTO SM_SEME
+	VALUES (2621449,
+	2621447,
+	2621445,
+	0);
+INSERT INTO SM_MOAH
+	VALUES (2621449,
+	2621445,
+	2621449);
+INSERT INTO SM_AH
+	VALUES (2621449,
+	2621445);
+INSERT INTO SM_ACT
+	VALUES (2621449,
+	2621445,
+	1,
+	'LOG::LogSuccess(message:"IBO event sent to dispatcher was received in order.");
+self.state = 2;',
+	'');
+INSERT INTO SM_STATE
+	VALUES (2621450,
+	2621445,
+	0,
+	'Failure',
+	6,
+	0);
+INSERT INTO SM_EIGN
+	VALUES (2621450,
+	2621441,
+	2621445,
+	0,
+	'');
+INSERT INTO SM_SEME
+	VALUES (2621450,
+	2621441,
+	2621445,
+	0);
+INSERT INTO SM_EIGN
+	VALUES (2621450,
+	2621442,
+	2621445,
+	0,
+	'');
+INSERT INTO SM_SEME
+	VALUES (2621450,
+	2621442,
+	2621445,
+	0);
+INSERT INTO SM_EIGN
+	VALUES (2621450,
+	2621444,
+	2621445,
+	0,
+	'');
+INSERT INTO SM_SEME
+	VALUES (2621450,
+	2621444,
+	2621445,
+	0);
+INSERT INTO SM_EIGN
+	VALUES (2621450,
+	2621445,
+	2621445,
+	0,
+	'');
+INSERT INTO SM_SEME
+	VALUES (2621450,
+	2621445,
+	2621445,
+	0);
+INSERT INTO SM_SEME
+	VALUES (2621450,
+	2621446,
+	2621445,
+	0);
+INSERT INTO SM_EIGN
+	VALUES (2621450,
+	2621447,
+	2621445,
+	0,
+	'');
+INSERT INTO SM_SEME
+	VALUES (2621450,
+	2621447,
+	2621445,
+	0);
+INSERT INTO SM_MOAH
+	VALUES (2621450,
+	2621445,
+	2621450);
+INSERT INTO SM_AH
+	VALUES (2621450,
+	2621445);
+INSERT INTO SM_ACT
+	VALUES (2621450,
+	2621445,
+	1,
+	'LOG::LogFailure(message:"Events are out of order in IBO statechart!");
+self.state = -1;
+generate IBO3 to self;',
+	'');
+INSERT INTO SM_STATE
+	VALUES (2621451,
+	2621445,
+	0,
+	'Second Success',
+	3,
+	0);
+INSERT INTO SM_EIGN
+	VALUES (2621451,
+	2621441,
+	2621445,
+	0,
+	'');
+INSERT INTO SM_SEME
+	VALUES (2621451,
+	2621441,
+	2621445,
+	0);
+INSERT INTO SM_SEME
+	VALUES (2621451,
+	2621442,
+	2621445,
+	0);
+INSERT INTO SM_EIGN
+	VALUES (2621451,
+	2621444,
+	2621445,
+	0,
+	'');
+INSERT INTO SM_SEME
+	VALUES (2621451,
+	2621444,
+	2621445,
+	0);
+INSERT INTO SM_EIGN
+	VALUES (2621451,
+	2621445,
+	2621445,
+	0,
+	'');
+INSERT INTO SM_SEME
+	VALUES (2621451,
+	2621445,
+	2621445,
+	0);
+INSERT INTO SM_EIGN
+	VALUES (2621451,
+	2621446,
+	2621445,
+	0,
+	'');
+INSERT INTO SM_SEME
+	VALUES (2621451,
+	2621446,
+	2621445,
+	0);
+INSERT INTO SM_EIGN
+	VALUES (2621451,
+	2621447,
+	2621445,
+	0,
+	'');
+INSERT INTO SM_SEME
+	VALUES (2621451,
+	2621447,
+	2621445,
+	0);
+INSERT INTO SM_MOAH
+	VALUES (2621451,
+	2621445,
+	2621451);
+INSERT INTO SM_AH
+	VALUES (2621451,
+	2621445);
+INSERT INTO SM_ACT
+	VALUES (2621451,
+	2621445,
+	1,
+	'LOG::LogSuccess(message:"IBO event to self was received in order.");
+self.state = 3;',
+	'');
+INSERT INTO SM_STATE
+	VALUES (2621452,
+	2621445,
+	0,
+	'PE Success',
+	4,
+	0);
+INSERT INTO SM_SEME
+	VALUES (2621452,
+	2621441,
+	2621445,
+	0);
+INSERT INTO SM_EIGN
+	VALUES (2621452,
+	2621442,
+	2621445,
+	0,
+	'');
+INSERT INTO SM_SEME
+	VALUES (2621452,
+	2621442,
+	2621445,
+	0);
+INSERT INTO SM_EIGN
+	VALUES (2621452,
+	2621444,
+	2621445,
+	0,
+	'');
+INSERT INTO SM_SEME
+	VALUES (2621452,
+	2621444,
+	2621445,
+	0);
+INSERT INTO SM_SEME
+	VALUES (2621452,
+	2621445,
+	2621445,
+	0);
+INSERT INTO SM_EIGN
+	VALUES (2621452,
+	2621446,
+	2621445,
+	0,
+	'');
+INSERT INTO SM_SEME
+	VALUES (2621452,
+	2621446,
+	2621445,
+	0);
+INSERT INTO SM_EIGN
+	VALUES (2621452,
+	2621447,
+	2621445,
+	0,
+	'');
+INSERT INTO SM_SEME
+	VALUES (2621452,
+	2621447,
+	2621445,
+	0);
+INSERT INTO SM_MOAH
+	VALUES (2621452,
+	2621445,
+	2621452);
+INSERT INTO SM_AH
+	VALUES (2621452,
+	2621445);
+INSERT INTO SM_ACT
+	VALUES (2621452,
+	2621445,
+	1,
+	'LOG::LogSuccess(message:"IBO PE to self was received in order.");
+self.state = 4;
+local = self;
+generate IBO1 to local;
+generate IBO2 to self;',
+	'');
+INSERT INTO SM_STATE
+	VALUES (2621453,
+	2621445,
+	0,
+	'Generate PE to self',
+	7,
+	0);
+INSERT INTO SM_EIGN
+	VALUES (2621453,
+	2621441,
+	2621445,
+	0,
+	'');
+INSERT INTO SM_SEME
+	VALUES (2621453,
+	2621441,
+	2621445,
+	0);
+INSERT INTO SM_SEME
+	VALUES (2621453,
+	2621442,
+	2621445,
+	0);
+INSERT INTO SM_EIGN
+	VALUES (2621453,
+	2621444,
+	2621445,
+	0,
+	'');
+INSERT INTO SM_SEME
+	VALUES (2621453,
+	2621444,
+	2621445,
+	0);
+INSERT INTO SM_EIGN
+	VALUES (2621453,
+	2621445,
+	2621445,
+	0,
+	'');
+INSERT INTO SM_SEME
+	VALUES (2621453,
+	2621445,
+	2621445,
+	0);
+INSERT INTO SM_EIGN
+	VALUES (2621453,
+	2621446,
+	2621445,
+	0,
+	'');
+INSERT INTO SM_SEME
+	VALUES (2621453,
+	2621446,
+	2621445,
+	0);
+INSERT INTO SM_SEME
+	VALUES (2621453,
+	2621447,
+	2621445,
+	0);
+INSERT INTO SM_MOAH
+	VALUES (2621453,
+	2621445,
+	2621453);
+INSERT INTO SM_AH
+	VALUES (2621453,
+	2621445);
+INSERT INTO SM_ACT
+	VALUES (2621453,
+	2621445,
+	1,
+	'local = self;
+generate SUP3* to local;
+generate SUP1* to self;',
+	'');
+INSERT INTO SM_STATE
+	VALUES (2621454,
+	2621445,
+	0,
+	'PE Success 2',
+	8,
+	0);
+INSERT INTO SM_EIGN
+	VALUES (2621454,
+	2621441,
+	2621445,
+	0,
+	'');
+INSERT INTO SM_SEME
+	VALUES (2621454,
+	2621441,
+	2621445,
+	0);
+INSERT INTO SM_EIGN
+	VALUES (2621454,
+	2621442,
+	2621445,
+	0,
+	'');
+INSERT INTO SM_SEME
+	VALUES (2621454,
+	2621442,
+	2621445,
+	0);
+INSERT INTO SM_EIGN
+	VALUES (2621454,
+	2621444,
+	2621445,
+	0,
+	'');
+INSERT INTO SM_SEME
+	VALUES (2621454,
+	2621444,
+	2621445,
+	0);
+INSERT INTO SM_EIGN
+	VALUES (2621454,
+	2621445,
+	2621445,
+	0,
+	'');
+INSERT INTO SM_SEME
+	VALUES (2621454,
+	2621445,
+	2621445,
+	0);
+INSERT INTO SM_EIGN
+	VALUES (2621454,
+	2621446,
+	2621445,
+	0,
+	'');
+INSERT INTO SM_SEME
+	VALUES (2621454,
+	2621446,
+	2621445,
+	0);
+INSERT INTO SM_SEME
+	VALUES (2621454,
+	2621447,
+	2621445,
+	0);
+INSERT INTO SM_MOAH
+	VALUES (2621454,
+	2621445,
+	2621454);
+INSERT INTO SM_AH
+	VALUES (2621454,
+	2621445);
+INSERT INTO SM_ACT
+	VALUES (2621454,
+	2621445,
+	1,
+	'LOG::LogSuccess(message:"IBO PE to self was received before event from dispatcher.");
+select any sone from instances of SONE;
+generate SUP4* to sone;
+generate SUP2* to self;
+generate SONE1 to sone;',
+	'');
+INSERT INTO SM_STATE
+	VALUES (2621455,
+	2621445,
+	0,
+	'End',
+	9,
+	1);
+INSERT INTO SM_EIGN
+	VALUES (2621455,
+	2621441,
+	2621445,
+	0,
+	'');
+INSERT INTO SM_SEME
+	VALUES (2621455,
+	2621441,
+	2621445,
+	0);
+INSERT INTO SM_EIGN
+	VALUES (2621455,
+	2621442,
+	2621445,
+	0,
+	'');
+INSERT INTO SM_SEME
+	VALUES (2621455,
+	2621442,
+	2621445,
+	0);
+INSERT INTO SM_EIGN
+	VALUES (2621455,
+	2621444,
+	2621445,
+	0,
+	'');
+INSERT INTO SM_SEME
+	VALUES (2621455,
+	2621444,
+	2621445,
+	0);
+INSERT INTO SM_EIGN
+	VALUES (2621455,
+	2621445,
+	2621445,
+	0,
+	'');
+INSERT INTO SM_SEME
+	VALUES (2621455,
+	2621445,
+	2621445,
+	0);
+INSERT INTO SM_EIGN
+	VALUES (2621455,
+	2621446,
+	2621445,
+	0,
+	'');
+INSERT INTO SM_SEME
+	VALUES (2621455,
+	2621446,
+	2621445,
+	0);
+INSERT INTO SM_EIGN
+	VALUES (2621455,
+	2621447,
+	2621445,
+	0,
+	'');
+INSERT INTO SM_SEME
+	VALUES (2621455,
+	2621447,
+	2621445,
+	0);
+INSERT INTO SM_MOAH
+	VALUES (2621455,
+	2621445,
+	2621455);
+INSERT INTO SM_AH
+	VALUES (2621455,
+	2621445);
+INSERT INTO SM_ACT
+	VALUES (2621455,
+	2621445,
+	1,
+	'select any drv from instances of DRV;
+generate DRV3 to drv;',
+	'');
+INSERT INTO SM_NSTXN
+	VALUES (2621450,
+	2621445,
+	2621450,
+	2621446,
+	0);
+INSERT INTO SM_TXN
+	VALUES (2621450,
+	2621445,
+	2621455,
+	0);
+INSERT INTO SM_NSTXN
+	VALUES (2621454,
+	2621445,
+	2621447,
+	2621441,
+	0);
+INSERT INTO SM_TXN
+	VALUES (2621454,
+	2621445,
+	2621453,
+	0);
+INSERT INTO SM_NSTXN
+	VALUES (2621455,
+	2621445,
+	2621452,
+	2621441,
+	0);
+INSERT INTO SM_TXN
+	VALUES (2621455,
+	2621445,
+	2621450,
+	0);
+INSERT INTO SM_NSTXN
+	VALUES (2621456,
+	2621445,
+	2621448,
+	2621444,
+	0);
+INSERT INTO SM_TXN
+	VALUES (2621456,
+	2621445,
+	2621448,
+	0);
+INSERT INTO SM_NSTXN
+	VALUES (2621457,
+	2621445,
+	2621448,
+	2621441,
+	0);
+INSERT INTO SM_TXN
+	VALUES (2621457,
+	2621445,
+	2621449,
+	0);
+INSERT INTO SM_NSTXN
+	VALUES (2621458,
+	2621445,
+	2621448,
+	2621445,
+	0);
+INSERT INTO SM_TXN
+	VALUES (2621458,
+	2621445,
+	2621450,
+	0);
+INSERT INTO SM_NSTXN
+	VALUES (2621461,
+	2621445,
+	2621449,
+	2621445,
+	0);
+INSERT INTO SM_TXN
+	VALUES (2621461,
+	2621445,
+	2621451,
+	0);
+INSERT INTO SM_NSTXN
+	VALUES (2621463,
+	2621445,
+	2621452,
+	2621445,
+	0);
+INSERT INTO SM_TXN
+	VALUES (2621463,
+	2621445,
+	2621447,
+	0);
+INSERT INTO SM_NSTXN
+	VALUES (2621459,
+	2621445,
+	2621448,
+	2621442,
+	0);
+INSERT INTO SM_TXN
+	VALUES (2621459,
+	2621445,
+	2621450,
+	0);
+INSERT INTO SM_NSTXN
+	VALUES (2621460,
+	2621445,
+	2621449,
+	2621442,
+	0);
+INSERT INTO SM_TXN
+	VALUES (2621460,
+	2621445,
+	2621450,
+	0);
+INSERT INTO SM_NSTXN
+	VALUES (2621462,
+	2621445,
+	2621451,
+	2621442,
+	0);
+INSERT INTO SM_TXN
+	VALUES (2621462,
+	2621445,
+	2621452,
+	0);
+INSERT INTO SM_NSTXN
+	VALUES (2621452,
+	2621445,
+	2621453,
+	2621442,
+	0);
+INSERT INTO SM_TXN
+	VALUES (2621452,
+	2621445,
+	2621454,
+	0);
+INSERT INTO SM_NSTXN
+	VALUES (2621453,
+	2621445,
+	2621453,
+	2621447,
+	0);
+INSERT INTO SM_TXN
+	VALUES (2621453,
+	2621445,
+	2621450,
+	0);
+INSERT INTO SM_NSTXN
+	VALUES (2621451,
+	2621445,
+	2621454,
+	2621447,
+	0);
+INSERT INTO SM_TXN
+	VALUES (2621451,
+	2621445,
+	2621455,
+	0);
+INSERT INTO GD_MD
+	VALUES (2621441,
+	8,
+	2621445,
+	40,
+	1,
+	0,
+	1,
+	1,
+	0,
+	12,
+	2194,
+	3578,
+	0.513596,
+	0);
+INSERT INTO GD_GE
+	VALUES (2621490,
+	2621441,
+	2621447,
+	41);
+INSERT INTO GD_SHP
+	VALUES (2621490,
+	3360,
+	2160,
+	3728,
+	2400);
+INSERT INTO GD_GE
+	VALUES (2621491,
+	2621441,
+	2621448,
+	41);
+INSERT INTO GD_SHP
+	VALUES (2621491,
+	2224,
+	1504,
+	2592,
+	1744);
+INSERT INTO GD_GE
+	VALUES (2621492,
+	2621441,
+	2621449,
+	41);
+INSERT INTO GD_SHP
+	VALUES (2621492,
+	2224,
+	1840,
+	2592,
+	2080);
+INSERT INTO GD_GE
+	VALUES (2621493,
+	2621441,
+	2621450,
+	41);
+INSERT INTO GD_SHP
+	VALUES (2621493,
+	2816,
+	1664,
+	3184,
+	1904);
+INSERT INTO GD_GE
+	VALUES (2621494,
+	2621441,
+	2621451,
+	41);
+INSERT INTO GD_SHP
+	VALUES (2621494,
+	2224,
+	2160,
+	2592,
+	2400);
+INSERT INTO GD_GE
+	VALUES (2621495,
+	2621441,
+	2621452,
+	41);
+INSERT INTO GD_SHP
+	VALUES (2621495,
+	2816,
+	2160,
+	3184,
+	2400);
+INSERT INTO GD_GE
+	VALUES (2621496,
+	2621441,
+	2621453,
+	41);
+INSERT INTO GD_SHP
+	VALUES (2621496,
+	3360,
+	1664,
+	3728,
+	1904);
+INSERT INTO GD_GE
+	VALUES (2621497,
+	2621441,
+	2621454,
+	41);
+INSERT INTO GD_SHP
+	VALUES (2621497,
+	3360,
+	1216,
+	3728,
+	1456);
+INSERT INTO GD_GE
+	VALUES (2621498,
+	2621441,
+	2621455,
+	41);
+INSERT INTO GD_SHP
+	VALUES (2621498,
+	2816,
+	1216,
+	3184,
+	1456);
+INSERT INTO GD_GE
+	VALUES (2621499,
+	2621441,
+	2621450,
+	42);
+INSERT INTO GD_CON
+	VALUES (2621499,
+	2621493,
+	2621498,
+	0);
+INSERT INTO GD_CTXT
+	VALUES (2621499,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+	VALUES (2621500,
+	2621499,
+	3152,
+	1664,
+	3152,
+	1456,
+	0);
+INSERT INTO GD_GE
+	VALUES (2621501,
+	2621441,
+	2621451,
+	42);
+INSERT INTO GD_CON
+	VALUES (2621501,
+	2621497,
+	2621498,
+	0);
+INSERT INTO GD_CTXT
+	VALUES (2621501,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	3215,
+	1286,
+	3345,
+	1308,
+	6,
+	2,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+	VALUES (2621502,
+	2621501,
+	3360,
+	1312,
+	3184,
+	1312,
+	0);
+INSERT INTO GD_GE
+	VALUES (2621503,
+	2621441,
+	2621452,
+	42);
+INSERT INTO GD_CON
+	VALUES (2621503,
+	2621496,
+	2621497,
+	0);
+INSERT INTO GD_CTXT
+	VALUES (2621503,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+	VALUES (2621504,
+	2621503,
+	3536,
+	1664,
+	3536,
+	1456,
+	0);
+INSERT INTO GD_GE
+	VALUES (2621505,
+	2621441,
+	2621453,
+	42);
+INSERT INTO GD_CON
+	VALUES (2621505,
+	2621496,
+	2621493,
+	0);
+INSERT INTO GD_CTXT
+	VALUES (2621505,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	3206,
+	1818,
+	3336,
+	1840,
+	-3,
+	-10,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+	VALUES (2621506,
+	2621505,
+	3360,
+	1856,
+	3184,
+	1856,
+	0);
+INSERT INTO GD_GE
+	VALUES (2621507,
+	2621441,
+	2621454,
+	42);
+INSERT INTO GD_CON
+	VALUES (2621507,
+	2621490,
+	2621496,
+	0);
+INSERT INTO GD_CTXT
+	VALUES (2621507,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	3446,
+	2023,
+	3530,
+	2045,
+	-16,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+	VALUES (2621508,
+	2621507,
+	3552,
+	2160,
+	3552,
+	1904,
+	0);
+INSERT INTO GD_GE
+	VALUES (2621509,
+	2621441,
+	2621455,
+	42);
+INSERT INTO GD_CON
+	VALUES (2621509,
+	2621495,
+	2621493,
+	0);
+INSERT INTO GD_CTXT
+	VALUES (2621509,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	2825,
+	2034,
+	2909,
+	2056,
+	-13,
+	11,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+	VALUES (2621510,
+	2621509,
+	2928,
+	2160,
+	2928,
+	1904,
+	0);
+INSERT INTO GD_GE
+	VALUES (2621511,
+	2621441,
+	2621456,
+	42);
+INSERT INTO GD_CON
+	VALUES (2621511,
+	2621491,
+	2621491,
+	0);
+INSERT INTO GD_CTXT
+	VALUES (2621511,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	2362,
+	1443,
+	2451,
+	1465,
+	4,
+	-1,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+	VALUES (2621512,
+	2621511,
+	2240,
+	1504,
+	2240,
+	1472,
+	0);
+INSERT INTO GD_LS
+	VALUES (2621513,
+	2621511,
+	2240,
+	1472,
+	2560,
+	1472,
+	2621512);
+INSERT INTO GD_LS
+	VALUES (2621514,
+	2621511,
+	2560,
+	1472,
+	2560,
+	1504,
+	2621513);
+INSERT INTO GD_GE
+	VALUES (2621515,
+	2621441,
+	2621457,
+	42);
+INSERT INTO GD_CON
+	VALUES (2621515,
+	2621491,
+	2621492,
+	0);
+INSERT INTO GD_CTXT
+	VALUES (2621515,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	2309,
+	1781,
+	2383,
+	1803,
+	-27,
+	-2,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+	VALUES (2621540,
+	2621515,
+	2416,
+	1744,
+	2416,
+	1840,
+	0);
+INSERT INTO GD_GE
+	VALUES (2621517,
+	2621441,
+	2621458,
+	42);
+INSERT INTO GD_CON
+	VALUES (2621517,
+	2621491,
+	2621493,
+	0);
+INSERT INTO GD_CTXT
+	VALUES (2621517,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	2638,
+	1642,
+	2781,
+	1692,
+	-23,
+	8,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+	VALUES (2621518,
+	2621517,
+	2592,
+	1680,
+	2816,
+	1680,
+	0);
+INSERT INTO GD_GE
+	VALUES (2621519,
+	2621441,
+	2621459,
+	42);
+INSERT INTO GD_CON
+	VALUES (2621519,
+	2621491,
+	2621493,
+	0);
+INSERT INTO GD_CTXT
+	VALUES (2621519,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	2638,
+	1702,
+	2772,
+	1740,
+	-35,
+	20,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+	VALUES (2621520,
+	2621519,
+	2592,
+	1728,
+	2816,
+	1728,
+	0);
+INSERT INTO GD_GE
+	VALUES (2621521,
+	2621441,
+	2621460,
+	42);
+INSERT INTO GD_CON
+	VALUES (2621521,
+	2621492,
+	2621493,
+	0);
+INSERT INTO GD_CTXT
+	VALUES (2621521,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	2638,
+	1822,
+	2757,
+	1844,
+	-9,
+	-6,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+	VALUES (2621539,
+	2621521,
+	2592,
+	1856,
+	2816,
+	1856,
+	0);
+INSERT INTO GD_GE
+	VALUES (2621523,
+	2621441,
+	2621461,
+	42);
+INSERT INTO GD_CON
+	VALUES (2621523,
+	2621492,
+	2621494,
+	0);
+INSERT INTO GD_CTXT
+	VALUES (2621523,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	2297,
+	2111,
+	2394,
+	2133,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+	VALUES (2621538,
+	2621523,
+	2400,
+	2080,
+	2400,
+	2160,
+	0);
+INSERT INTO GD_GE
+	VALUES (2621525,
+	2621441,
+	2621462,
+	42);
+INSERT INTO GD_CON
+	VALUES (2621525,
+	2621494,
+	2621495,
+	0);
+INSERT INTO GD_CTXT
+	VALUES (2621525,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+	VALUES (2621526,
+	2621525,
+	2592,
+	2288,
+	2816,
+	2288,
+	0);
+INSERT INTO GD_GE
+	VALUES (2621527,
+	2621441,
+	2621463,
+	42);
+INSERT INTO GD_CON
+	VALUES (2621527,
+	2621495,
+	2621490,
+	0);
+INSERT INTO GD_CTXT
+	VALUES (2621527,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	3218,
+	2240,
+	3325,
+	2262,
+	-3,
+	-20,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+	VALUES (2621528,
+	2621527,
+	3184,
+	2288,
+	3360,
+	2288,
+	0);
+INSERT INTO O_OBJ
+	VALUES (1048580,
+	'MDA',
+	4,
+	'MDA',
+	'',
+	1048578);
+INSERT INTO O_DBATTR
+	VALUES (1048585,
+	1048580,
+	'local = self;
+// Put an event to this instance onto the dispatcher.
+generate MDA1 to local;
+
+// Event generated to self
+generate MDA2 to self;
+
+// PE generated to self - consumed in self
+generate SUP1* to self;
+
+// PE generated to self - not consumed in self
+generate SUP2* to self;
+
+self.mda = 1;',
+	1);
+INSERT INTO O_BATTR
+	VALUES (1048585,
+	1048580);
+INSERT INTO O_ATTR
+	VALUES (1048585,
+	1048580,
+	0,
+	'mda',
+	'',
+	'',
+	'mda',
+	0,
+	524291);
+INSERT INTO O_NBATTR
+	VALUES (1048586,
+	1048580);
+INSERT INTO O_BATTR
+	VALUES (1048586,
+	1048580);
+INSERT INTO O_ATTR
+	VALUES (1048586,
+	1048580,
+	1048585,
+	'mda_ID',
+	'',
+	'',
+	'mda_ID',
+	0,
+	524294);
+INSERT INTO O_REF
+	VALUES (1048580,
+	1048581,
+	0,
+	1048587,
+	1048577,
+	1048579,
+	1048577,
+	1048594,
+	1048578,
+	0,
+	0,
+	'');
+INSERT INTO O_RATTR
+	VALUES (1048594,
+	1048580,
+	1048587,
+	1048581,
+	1);
+INSERT INTO O_ATTR
+	VALUES (1048594,
+	1048580,
+	1048586,
+	'sup_ID',
+	'',
+	'',
+	'sup_ID',
+	0,
+	524296);
+INSERT INTO O_NBATTR
+	VALUES (1048598,
+	1048580);
+INSERT INTO O_BATTR
+	VALUES (1048598,
+	1048580);
+INSERT INTO O_ATTR
+	VALUES (1048598,
+	1048580,
+	1048594,
+	'state',
+	'',
+	'',
+	'state',
+	0,
+	524291);
+INSERT INTO O_NBATTR
+	VALUES (1048584,
+	1048580);
+INSERT INTO O_BATTR
+	VALUES (1048584,
+	1048580);
+INSERT INTO O_ATTR
+	VALUES (1048584,
+	1048580,
+	1048598,
+	'current_state',
+	'',
+	'',
+	'current_state',
+	0,
+	524295);
+INSERT INTO O_ID
+	VALUES (0,
+	1048580);
+INSERT INTO O_OIDA
+	VALUES (1048586,
+	1048580,
+	0);
+INSERT INTO O_RTIDA
+	VALUES (1048586,
+	1048580,
+	0,
+	1048579,
+	1048582);
+INSERT INTO O_ID
+	VALUES (1,
+	1048580);
+INSERT INTO O_OIDA
+	VALUES (1048594,
+	1048580,
+	1);
+INSERT INTO SM_ISM
+	VALUES (3145734,
+	1048580);
+INSERT INTO SM_SM
+	VALUES (3145734,
+	'',
+	6);
+INSERT INTO SM_MOORE
+	VALUES (3145734);
+INSERT INTO SM_NLEVT
+	VALUES (3145730,
+	3145734,
+	0,
+	3670017,
+	3670023,
+	0,
+	'');
+INSERT INTO SM_SEVT
+	VALUES (3145730,
+	3145734,
+	0);
+INSERT INTO SM_EVT
+	VALUES (3145730,
+	3145734,
+	0,
+	0,
+	'Poly One',
+	0,
+	'',
+	'SUP1*',
+	'');
+INSERT INTO SM_LEVT
+	VALUES (3145732,
+	3145734,
+	0);
+INSERT INTO SM_SEVT
+	VALUES (3145732,
+	3145734,
+	0);
+INSERT INTO SM_EVT
+	VALUES (3145732,
+	3145734,
+	0,
+	3,
+	'End',
+	0,
+	'',
+	'MDA3',
+	'');
+INSERT INTO SM_LEVT
+	VALUES (3145733,
+	3145734,
+	0);
+INSERT INTO SM_SEVT
+	VALUES (3145733,
+	3145734,
+	0);
+INSERT INTO SM_EVT
+	VALUES (3145733,
+	3145734,
+	0,
+	2,
+	'Second',
+	0,
+	'',
+	'MDA2',
+	'');
+INSERT INTO SM_LEVT
+	VALUES (3145734,
+	3145734,
+	0);
+INSERT INTO SM_SEVT
+	VALUES (3145734,
+	3145734,
+	0);
+INSERT INTO SM_EVT
+	VALUES (3145734,
+	3145734,
+	0,
+	1,
+	'First',
+	0,
+	'',
+	'MDA1',
+	'');
+INSERT INTO SM_LEVT
+	VALUES (3145735,
+	3145734,
+	0);
+INSERT INTO SM_SEVT
+	VALUES (3145735,
+	3145734,
+	0);
+INSERT INTO SM_EVT
+	VALUES (3145735,
+	3145734,
+	0,
+	0,
+	'Start',
+	0,
+	'',
+	'MDA0',
+	'');
+INSERT INTO SM_NLEVT
+	VALUES (3145736,
+	3145734,
+	0,
+	3670019,
+	3670023,
+	0,
+	'');
+INSERT INTO SM_SEVT
+	VALUES (3145736,
+	3145734,
+	0);
+INSERT INTO SM_EVT
+	VALUES (3145736,
+	3145734,
+	0,
+	0,
+	'Poly Three',
+	0,
+	'',
+	'SUP3*',
+	'');
+INSERT INTO SM_STATE
+	VALUES (3145731,
+	3145734,
+	0,
+	'Third Success',
+	6,
+	0);
+INSERT INTO SM_EIGN
+	VALUES (3145731,
+	3145730,
+	3145734,
+	0,
+	'');
+INSERT INTO SM_SEME
+	VALUES (3145731,
+	3145730,
+	3145734,
+	0);
+INSERT INTO SM_EIGN
+	VALUES (3145731,
+	3145732,
+	3145734,
+	0,
+	'');
+INSERT INTO SM_SEME
+	VALUES (3145731,
+	3145732,
+	3145734,
+	0);
+INSERT INTO SM_EIGN
+	VALUES (3145731,
+	3145733,
+	3145734,
+	0,
+	'');
+INSERT INTO SM_SEME
+	VALUES (3145731,
+	3145733,
+	3145734,
+	0);
+INSERT INTO SM_SEME
+	VALUES (3145731,
+	3145734,
+	3145734,
+	0);
+INSERT INTO SM_EIGN
+	VALUES (3145731,
+	3145735,
+	3145734,
+	0,
+	'');
+INSERT INTO SM_SEME
+	VALUES (3145731,
+	3145735,
+	3145734,
+	0);
+INSERT INTO SM_EIGN
+	VALUES (3145731,
+	3145736,
+	3145734,
+	0,
+	'');
+INSERT INTO SM_SEME
+	VALUES (3145731,
+	3145736,
+	3145734,
+	0);
+INSERT INTO SM_MOAH
+	VALUES (3145731,
+	3145734,
+	3145731);
+INSERT INTO SM_AH
+	VALUES (3145731,
+	3145734);
+INSERT INTO SM_ACT
+	VALUES (3145731,
+	3145734,
+	1,
+	'LOG::LogSuccess(message:"MDA event to self was received before event from dispatcher.");
+',
+	'');
+INSERT INTO SM_STATE
+	VALUES (3145732,
+	3145734,
+	0,
+	'State One',
+	1,
+	0);
+INSERT INTO SM_SEME
+	VALUES (3145732,
+	3145730,
+	3145734,
+	0);
+INSERT INTO SM_EIGN
+	VALUES (3145732,
+	3145732,
+	3145734,
+	0,
+	'');
+INSERT INTO SM_SEME
+	VALUES (3145732,
+	3145732,
+	3145734,
+	0);
+INSERT INTO SM_SEME
+	VALUES (3145732,
+	3145733,
+	3145734,
+	0);
+INSERT INTO SM_SEME
+	VALUES (3145732,
+	3145734,
+	3145734,
+	0);
+INSERT INTO SM_SEME
+	VALUES (3145732,
+	3145735,
+	3145734,
+	0);
+INSERT INTO SM_EIGN
+	VALUES (3145732,
+	3145736,
+	3145734,
+	0,
+	'');
+INSERT INTO SM_SEME
+	VALUES (3145732,
+	3145736,
+	3145734,
+	0);
+INSERT INTO SM_MOAH
+	VALUES (3145732,
+	3145734,
+	3145732);
+INSERT INTO SM_AH
+	VALUES (3145732,
+	3145734);
+INSERT INTO SM_ACT
+	VALUES (3145732,
+	3145734,
+	1,
+	'// Invoke the MDA.
+my_mda = self.mda;',
+	'');
+INSERT INTO SM_STATE
+	VALUES (3145733,
+	3145734,
+	0,
+	'First Success',
+	2,
+	0);
+INSERT INTO SM_SEME
+	VALUES (3145733,
+	3145730,
+	3145734,
+	0);
+INSERT INTO SM_EIGN
+	VALUES (3145733,
+	3145732,
+	3145734,
+	0,
+	'');
+INSERT INTO SM_SEME
+	VALUES (3145733,
+	3145732,
+	3145734,
+	0);
+INSERT INTO SM_SEME
+	VALUES (3145733,
+	3145733,
+	3145734,
+	0);
+INSERT INTO SM_EIGN
+	VALUES (3145733,
+	3145734,
+	3145734,
+	0,
+	'');
+INSERT INTO SM_SEME
+	VALUES (3145733,
+	3145734,
+	3145734,
+	0);
+INSERT INTO SM_EIGN
+	VALUES (3145733,
+	3145735,
+	3145734,
+	0,
+	'');
+INSERT INTO SM_SEME
+	VALUES (3145733,
+	3145735,
+	3145734,
+	0);
+INSERT INTO SM_EIGN
+	VALUES (3145733,
+	3145736,
+	3145734,
+	0,
+	'');
+INSERT INTO SM_SEME
+	VALUES (3145733,
+	3145736,
+	3145734,
+	0);
+INSERT INTO SM_MOAH
+	VALUES (3145733,
+	3145734,
+	3145733);
+INSERT INTO SM_AH
+	VALUES (3145733,
+	3145734);
+INSERT INTO SM_ACT
+	VALUES (3145733,
+	3145734,
+	1,
+	'LOG::LogSuccess(message:"MDA event sent to dispatcher was received in order.");
+self.state = 2;',
+	'');
+INSERT INTO SM_STATE
+	VALUES (3145734,
+	3145734,
+	0,
+	'Failure',
+	5,
+	0);
+INSERT INTO SM_EIGN
+	VALUES (3145734,
+	3145730,
+	3145734,
+	0,
+	'');
+INSERT INTO SM_SEME
+	VALUES (3145734,
+	3145730,
+	3145734,
+	0);
+INSERT INTO SM_SEME
+	VALUES (3145734,
+	3145732,
+	3145734,
+	0);
+INSERT INTO SM_EIGN
+	VALUES (3145734,
+	3145733,
+	3145734,
+	0,
+	'');
+INSERT INTO SM_SEME
+	VALUES (3145734,
+	3145733,
+	3145734,
+	0);
+INSERT INTO SM_EIGN
+	VALUES (3145734,
+	3145734,
+	3145734,
+	0,
+	'');
+INSERT INTO SM_SEME
+	VALUES (3145734,
+	3145734,
+	3145734,
+	0);
+INSERT INTO SM_EIGN
+	VALUES (3145734,
+	3145735,
+	3145734,
+	0,
+	'');
+INSERT INTO SM_SEME
+	VALUES (3145734,
+	3145735,
+	3145734,
+	0);
+INSERT INTO SM_EIGN
+	VALUES (3145734,
+	3145736,
+	3145734,
+	0,
+	'');
+INSERT INTO SM_SEME
+	VALUES (3145734,
+	3145736,
+	3145734,
+	0);
+INSERT INTO SM_MOAH
+	VALUES (3145734,
+	3145734,
+	3145734);
+INSERT INTO SM_AH
+	VALUES (3145734,
+	3145734);
+INSERT INTO SM_ACT
+	VALUES (3145734,
+	3145734,
+	1,
+	'LOG::LogFailure(message:"Events are out of order in MDA statechart!");
+self.state = -1;
+generate MDA3 to self;',
+	'');
+INSERT INTO SM_STATE
+	VALUES (3145735,
+	3145734,
+	0,
+	'Second Success',
+	3,
+	0);
+INSERT INTO SM_SEME
+	VALUES (3145735,
+	3145730,
+	3145734,
+	0);
+INSERT INTO SM_EIGN
+	VALUES (3145735,
+	3145732,
+	3145734,
+	0,
+	'');
+INSERT INTO SM_SEME
+	VALUES (3145735,
+	3145732,
+	3145734,
+	0);
+INSERT INTO SM_EIGN
+	VALUES (3145735,
+	3145733,
+	3145734,
+	0,
+	'');
+INSERT INTO SM_SEME
+	VALUES (3145735,
+	3145733,
+	3145734,
+	0);
+INSERT INTO SM_EIGN
+	VALUES (3145735,
+	3145734,
+	3145734,
+	0,
+	'');
+INSERT INTO SM_SEME
+	VALUES (3145735,
+	3145734,
+	3145734,
+	0);
+INSERT INTO SM_EIGN
+	VALUES (3145735,
+	3145735,
+	3145734,
+	0,
+	'');
+INSERT INTO SM_SEME
+	VALUES (3145735,
+	3145735,
+	3145734,
+	0);
+INSERT INTO SM_EIGN
+	VALUES (3145735,
+	3145736,
+	3145734,
+	0,
+	'');
+INSERT INTO SM_SEME
+	VALUES (3145735,
+	3145736,
+	3145734,
+	0);
+INSERT INTO SM_MOAH
+	VALUES (3145735,
+	3145734,
+	3145735);
+INSERT INTO SM_AH
+	VALUES (3145735,
+	3145734);
+INSERT INTO SM_ACT
+	VALUES (3145735,
+	3145734,
+	1,
+	'LOG::LogSuccess(message:"MDA event to self was received in order.");
+self.state = 3;',
+	'');
+INSERT INTO SM_STATE
+	VALUES (3145736,
+	3145734,
+	0,
+	'PE Success',
+	4,
+	0);
+INSERT INTO SM_EIGN
+	VALUES (3145736,
+	3145730,
+	3145734,
+	0,
+	'');
+INSERT INTO SM_SEME
+	VALUES (3145736,
+	3145730,
+	3145734,
+	0);
+INSERT INTO SM_EIGN
+	VALUES (3145736,
+	3145732,
+	3145734,
+	0,
+	'');
+INSERT INTO SM_SEME
+	VALUES (3145736,
+	3145732,
+	3145734,
+	0);
+INSERT INTO SM_SEME
+	VALUES (3145736,
+	3145733,
+	3145734,
+	0);
+INSERT INTO SM_SEME
+	VALUES (3145736,
+	3145734,
+	3145734,
+	0);
+INSERT INTO SM_EIGN
+	VALUES (3145736,
+	3145735,
+	3145734,
+	0,
+	'');
+INSERT INTO SM_SEME
+	VALUES (3145736,
+	3145735,
+	3145734,
+	0);
+INSERT INTO SM_EIGN
+	VALUES (3145736,
+	3145736,
+	3145734,
+	0,
+	'');
+INSERT INTO SM_SEME
+	VALUES (3145736,
+	3145736,
+	3145734,
+	0);
+INSERT INTO SM_MOAH
+	VALUES (3145736,
+	3145734,
+	3145736);
+INSERT INTO SM_AH
+	VALUES (3145736,
+	3145734);
+INSERT INTO SM_ACT
+	VALUES (3145736,
+	3145734,
+	1,
+	'LOG::LogSuccess(message:"MDA PE to self was received in order.");
+self.state = 4;
+local = self;
+generate MDA1 to local;
+generate MDA2 to self;',
+	'');
+INSERT INTO SM_STATE
+	VALUES (3145737,
+	3145734,
+	0,
+	'Generate PE to self',
+	7,
+	0);
+INSERT INTO SM_SEME
+	VALUES (3145737,
+	3145730,
+	3145734,
+	0);
+INSERT INTO SM_EIGN
+	VALUES (3145737,
+	3145732,
+	3145734,
+	0,
+	'');
+INSERT INTO SM_SEME
+	VALUES (3145737,
+	3145732,
+	3145734,
+	0);
+INSERT INTO SM_EIGN
+	VALUES (3145737,
+	3145733,
+	3145734,
+	0,
+	'');
+INSERT INTO SM_SEME
+	VALUES (3145737,
+	3145733,
+	3145734,
+	0);
+INSERT INTO SM_EIGN
+	VALUES (3145737,
+	3145734,
+	3145734,
+	0,
+	'');
+INSERT INTO SM_SEME
+	VALUES (3145737,
+	3145734,
+	3145734,
+	0);
+INSERT INTO SM_EIGN
+	VALUES (3145737,
+	3145735,
+	3145734,
+	0,
+	'');
+INSERT INTO SM_SEME
+	VALUES (3145737,
+	3145735,
+	3145734,
+	0);
+INSERT INTO SM_SEME
+	VALUES (3145737,
+	3145736,
+	3145734,
+	0);
+INSERT INTO SM_MOAH
+	VALUES (3145737,
+	3145734,
+	3145737);
+INSERT INTO SM_AH
+	VALUES (3145737,
+	3145734);
+INSERT INTO SM_ACT
+	VALUES (3145737,
+	3145734,
+	1,
+	'local = self;
+generate SUP3* to local;
+generate SUP1* to self;',
+	'');
+INSERT INTO SM_STATE
+	VALUES (3145738,
+	3145734,
+	0,
+	'PE Success 2',
+	8,
+	0);
+INSERT INTO SM_EIGN
+	VALUES (3145738,
+	3145730,
+	3145734,
+	0,
+	'');
+INSERT INTO SM_SEME
+	VALUES (3145738,
+	3145730,
+	3145734,
+	0);
+INSERT INTO SM_EIGN
+	VALUES (3145738,
+	3145732,
+	3145734,
+	0,
+	'');
+INSERT INTO SM_SEME
+	VALUES (3145738,
+	3145732,
+	3145734,
+	0);
+INSERT INTO SM_EIGN
+	VALUES (3145738,
+	3145733,
+	3145734,
+	0,
+	'');
+INSERT INTO SM_SEME
+	VALUES (3145738,
+	3145733,
+	3145734,
+	0);
+INSERT INTO SM_EIGN
+	VALUES (3145738,
+	3145734,
+	3145734,
+	0,
+	'');
+INSERT INTO SM_SEME
+	VALUES (3145738,
+	3145734,
+	3145734,
+	0);
+INSERT INTO SM_EIGN
+	VALUES (3145738,
+	3145735,
+	3145734,
+	0,
+	'');
+INSERT INTO SM_SEME
+	VALUES (3145738,
+	3145735,
+	3145734,
+	0);
+INSERT INTO SM_SEME
+	VALUES (3145738,
+	3145736,
+	3145734,
+	0);
+INSERT INTO SM_MOAH
+	VALUES (3145738,
+	3145734,
+	3145738);
+INSERT INTO SM_AH
+	VALUES (3145738,
+	3145734);
+INSERT INTO SM_ACT
+	VALUES (3145738,
+	3145734,
+	1,
+	'LOG::LogSuccess(message:"MDA PE to self was received before event from dispatcher.");
+select any stwo from instances of STWO;
+generate SUP4* to stwo;
+generate SUP2* to self;
+generate STWO1 to stwo;',
+	'');
+INSERT INTO SM_STATE
+	VALUES (3145739,
+	3145734,
+	0,
+	'End',
+	9,
+	1);
+INSERT INTO SM_EIGN
+	VALUES (3145739,
+	3145730,
+	3145734,
+	0,
+	'');
+INSERT INTO SM_SEME
+	VALUES (3145739,
+	3145730,
+	3145734,
+	0);
+INSERT INTO SM_EIGN
+	VALUES (3145739,
+	3145732,
+	3145734,
+	0,
+	'');
+INSERT INTO SM_SEME
+	VALUES (3145739,
+	3145732,
+	3145734,
+	0);
+INSERT INTO SM_EIGN
+	VALUES (3145739,
+	3145733,
+	3145734,
+	0,
+	'');
+INSERT INTO SM_SEME
+	VALUES (3145739,
+	3145733,
+	3145734,
+	0);
+INSERT INTO SM_EIGN
+	VALUES (3145739,
+	3145734,
+	3145734,
+	0,
+	'');
+INSERT INTO SM_SEME
+	VALUES (3145739,
+	3145734,
+	3145734,
+	0);
+INSERT INTO SM_EIGN
+	VALUES (3145739,
+	3145735,
+	3145734,
+	0,
+	'');
+INSERT INTO SM_SEME
+	VALUES (3145739,
+	3145735,
+	3145734,
+	0);
+INSERT INTO SM_EIGN
+	VALUES (3145739,
+	3145736,
+	3145734,
+	0,
+	'');
+INSERT INTO SM_SEME
+	VALUES (3145739,
+	3145736,
+	3145734,
+	0);
+INSERT INTO SM_MOAH
+	VALUES (3145739,
+	3145734,
+	3145739);
+INSERT INTO SM_AH
+	VALUES (3145739,
+	3145734);
+INSERT INTO SM_ACT
+	VALUES (3145739,
+	3145734,
+	1,
+	'select any drv from instances of DRV;
+generate DRV2 to drv;',
+	'');
+INSERT INTO SM_NSTXN
+	VALUES (3145734,
+	3145734,
+	3145733,
+	3145733,
+	0);
+INSERT INTO SM_TXN
+	VALUES (3145734,
+	3145734,
+	3145735,
+	0);
+INSERT INTO SM_NSTXN
+	VALUES (3145737,
+	3145734,
+	3145732,
+	3145733,
+	0);
+INSERT INTO SM_TXN
+	VALUES (3145737,
+	3145734,
+	3145734,
+	0);
+INSERT INTO SM_NSTXN
+	VALUES (3145738,
+	3145734,
+	3145732,
+	3145734,
+	0);
+INSERT INTO SM_TXN
+	VALUES (3145738,
+	3145734,
+	3145733,
+	0);
+INSERT INTO SM_NSTXN
+	VALUES (3145739,
+	3145734,
+	3145732,
+	3145735,
+	0);
+INSERT INTO SM_TXN
+	VALUES (3145739,
+	3145734,
+	3145732,
+	0);
+INSERT INTO SM_NSTXN
+	VALUES (3145736,
+	3145734,
+	3145732,
+	3145730,
+	0);
+INSERT INTO SM_TXN
+	VALUES (3145736,
+	3145734,
+	3145734,
+	0);
+INSERT INTO SM_NSTXN
+	VALUES (3145735,
+	3145734,
+	3145733,
+	3145730,
+	0);
+INSERT INTO SM_TXN
+	VALUES (3145735,
+	3145734,
+	3145734,
+	0);
+INSERT INTO SM_NSTXN
+	VALUES (3145733,
+	3145734,
+	3145735,
+	3145730,
+	0);
+INSERT INTO SM_TXN
+	VALUES (3145733,
+	3145734,
+	3145736,
+	0);
+INSERT INTO SM_NSTXN
+	VALUES (3145740,
+	3145734,
+	3145736,
+	3145734,
+	0);
+INSERT INTO SM_TXN
+	VALUES (3145740,
+	3145734,
+	3145734,
+	0);
+INSERT INTO SM_NSTXN
+	VALUES (3145731,
+	3145734,
+	3145736,
+	3145733,
+	0);
+INSERT INTO SM_TXN
+	VALUES (3145731,
+	3145734,
+	3145731,
+	0);
+INSERT INTO SM_NSTXN
+	VALUES (3145741,
+	3145734,
+	3145731,
+	3145734,
+	0);
+INSERT INTO SM_TXN
+	VALUES (3145741,
+	3145734,
+	3145737,
+	0);
+INSERT INTO SM_NSTXN
+	VALUES (3145743,
+	3145734,
+	3145737,
+	3145730,
+	0);
+INSERT INTO SM_TXN
+	VALUES (3145743,
+	3145734,
+	3145738,
+	0);
+INSERT INTO SM_NSTXN
+	VALUES (3145746,
+	3145734,
+	3145734,
+	3145732,
+	0);
+INSERT INTO SM_TXN
+	VALUES (3145746,
+	3145734,
+	3145739,
+	0);
+INSERT INTO SM_NSTXN
+	VALUES (3145742,
+	3145734,
+	3145737,
+	3145736,
+	0);
+INSERT INTO SM_TXN
+	VALUES (3145742,
+	3145734,
+	3145734,
+	0);
+INSERT INTO SM_NSTXN
+	VALUES (3145745,
+	3145734,
+	3145738,
+	3145736,
+	0);
+INSERT INTO SM_TXN
+	VALUES (3145745,
+	3145734,
+	3145739,
+	0);
+INSERT INTO GD_MD
+	VALUES (3145729,
+	8,
+	3145734,
+	40,
+	1,
+	0,
+	1,
+	1,
+	0,
+	12,
+	1666,
+	3787,
+	0.513577,
+	0);
+INSERT INTO GD_GE
+	VALUES (3145747,
+	3145729,
+	3145731,
+	41);
+INSERT INTO GD_SHP
+	VALUES (3145747,
+	2832,
+	1952,
+	3200,
+	2192);
+INSERT INTO GD_GE
+	VALUES (3145748,
+	3145729,
+	3145732,
+	41);
+INSERT INTO GD_SHP
+	VALUES (3145748,
+	1696,
+	1296,
+	2064,
+	1536);
+INSERT INTO GD_GE
+	VALUES (3145749,
+	3145729,
+	3145733,
+	41);
+INSERT INTO GD_SHP
+	VALUES (3145749,
+	1696,
+	1632,
+	2064,
+	1872);
+INSERT INTO GD_GE
+	VALUES (3145750,
+	3145729,
+	3145734,
+	41);
+INSERT INTO GD_SHP
+	VALUES (3145750,
+	2288,
+	1456,
+	2656,
+	1696);
+INSERT INTO GD_GE
+	VALUES (3145751,
+	3145729,
+	3145735,
+	41);
+INSERT INTO GD_SHP
+	VALUES (3145751,
+	1696,
+	1952,
+	2064,
+	2192);
+INSERT INTO GD_GE
+	VALUES (3145752,
+	3145729,
+	3145736,
+	41);
+INSERT INTO GD_SHP
+	VALUES (3145752,
+	2288,
+	1952,
+	2656,
+	2192);
+INSERT INTO GD_GE
+	VALUES (3145784,
+	3145729,
+	3145737,
+	41);
+INSERT INTO GD_SHP
+	VALUES (3145784,
+	2832,
+	1456,
+	3200,
+	1696);
+INSERT INTO GD_GE
+	VALUES (3145789,
+	3145729,
+	3145738,
+	41);
+INSERT INTO GD_SHP
+	VALUES (3145789,
+	2832,
+	1008,
+	3200,
+	1248);
+INSERT INTO GD_GE
+	VALUES (3145796,
+	3145729,
+	3145739,
+	41);
+INSERT INTO GD_SHP
+	VALUES (3145796,
+	2288,
+	1008,
+	2656,
+	1248);
+INSERT INTO GD_GE
+	VALUES (3145753,
+	3145729,
+	3145731,
+	42);
+INSERT INTO GD_CON
+	VALUES (3145753,
+	3145752,
+	3145747,
+	0);
+INSERT INTO GD_CTXT
+	VALUES (3145753,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	2690,
+	2032,
+	2797,
+	2054,
+	-3,
+	-20,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+	VALUES (3145783,
+	3145753,
+	2656,
+	2080,
+	2832,
+	2080,
+	0);
+INSERT INTO GD_GE
+	VALUES (3145759,
+	3145729,
+	3145733,
+	42);
+INSERT INTO GD_CON
+	VALUES (3145759,
+	3145751,
+	3145752,
+	0);
+INSERT INTO GD_CTXT
+	VALUES (3145759,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+	VALUES (3145760,
+	3145759,
+	2064,
+	2080,
+	2288,
+	2080,
+	0);
+INSERT INTO GD_GE
+	VALUES (3145761,
+	3145729,
+	3145734,
+	42);
+INSERT INTO GD_CON
+	VALUES (3145761,
+	3145749,
+	3145751,
+	0);
+INSERT INTO GD_CTXT
+	VALUES (3145761,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+	VALUES (3145762,
+	3145761,
+	1872,
+	1872,
+	1872,
+	1952,
+	0);
+INSERT INTO GD_GE
+	VALUES (3145763,
+	3145729,
+	3145735,
+	42);
+INSERT INTO GD_CON
+	VALUES (3145763,
+	3145749,
+	3145750,
+	0);
+INSERT INTO GD_CTXT
+	VALUES (3145763,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	2110,
+	1620,
+	2229,
+	1642,
+	-9,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+	VALUES (3145764,
+	3145763,
+	2064,
+	1648,
+	2288,
+	1648,
+	0);
+INSERT INTO GD_GE
+	VALUES (3145765,
+	3145729,
+	3145736,
+	42);
+INSERT INTO GD_CON
+	VALUES (3145765,
+	3145748,
+	3145750,
+	0);
+INSERT INTO GD_CTXT
+	VALUES (3145765,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	2110,
+	1492,
+	2229,
+	1514,
+	-9,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+	VALUES (3145766,
+	3145765,
+	2064,
+	1520,
+	2288,
+	1520,
+	0);
+INSERT INTO GD_GE
+	VALUES (3145767,
+	3145729,
+	3145737,
+	42);
+INSERT INTO GD_CON
+	VALUES (3145767,
+	3145748,
+	3145750,
+	0);
+INSERT INTO GD_CTXT
+	VALUES (3145767,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	2110,
+	1434,
+	2253,
+	1484,
+	-23,
+	8,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+	VALUES (3145768,
+	3145767,
+	2064,
+	1472,
+	2288,
+	1472,
+	0);
+INSERT INTO GD_GE
+	VALUES (3145769,
+	3145729,
+	3145738,
+	42);
+INSERT INTO GD_CON
+	VALUES (3145769,
+	3145748,
+	3145749,
+	0);
+INSERT INTO GD_CTXT
+	VALUES (3145769,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	1781,
+	1573,
+	1865,
+	1595,
+	-17,
+	-2,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+	VALUES (3145770,
+	3145769,
+	1888,
+	1536,
+	1888,
+	1632,
+	0);
+INSERT INTO GD_GE
+	VALUES (3145771,
+	3145729,
+	3145739,
+	42);
+INSERT INTO GD_CON
+	VALUES (3145771,
+	3145748,
+	3145748,
+	0);
+INSERT INTO GD_CTXT
+	VALUES (3145771,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	1834,
+	1235,
+	1923,
+	1257,
+	4,
+	-1,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+	VALUES (3145772,
+	3145771,
+	1712,
+	1296,
+	1712,
+	1264,
+	0);
+INSERT INTO GD_LS
+	VALUES (3145773,
+	3145771,
+	1712,
+	1264,
+	2032,
+	1264,
+	3145772);
+INSERT INTO GD_LS
+	VALUES (3145774,
+	3145771,
+	2032,
+	1264,
+	2032,
+	1296,
+	3145773);
+INSERT INTO GD_GE
+	VALUES (3145775,
+	3145729,
+	3145740,
+	42);
+INSERT INTO GD_CON
+	VALUES (3145775,
+	3145752,
+	3145750,
+	0);
+INSERT INTO GD_CTXT
+	VALUES (3145775,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	2297,
+	1826,
+	2381,
+	1848,
+	-13,
+	11,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+	VALUES (3145776,
+	3145775,
+	2400,
+	1952,
+	2400,
+	1696,
+	0);
+INSERT INTO GD_GE
+	VALUES (3145785,
+	3145729,
+	3145741,
+	42);
+INSERT INTO GD_CON
+	VALUES (3145785,
+	3145747,
+	3145784,
+	0);
+INSERT INTO GD_CTXT
+	VALUES (3145785,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	2918,
+	1815,
+	3002,
+	1837,
+	-16,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+	VALUES (3145786,
+	3145785,
+	3024,
+	1952,
+	3024,
+	1696,
+	0);
+INSERT INTO GD_GE
+	VALUES (3145787,
+	3145729,
+	3145742,
+	42);
+INSERT INTO GD_CON
+	VALUES (3145787,
+	3145784,
+	3145750,
+	0);
+INSERT INTO GD_CTXT
+	VALUES (3145787,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	2673,
+	1612,
+	2803,
+	1634,
+	-8,
+	-8,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+	VALUES (3145788,
+	3145787,
+	2832,
+	1648,
+	2656,
+	1648,
+	0);
+INSERT INTO GD_GE
+	VALUES (3145790,
+	3145729,
+	3145743,
+	42);
+INSERT INTO GD_CON
+	VALUES (3145790,
+	3145784,
+	3145789,
+	0);
+INSERT INTO GD_CTXT
+	VALUES (3145790,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+	VALUES (3145791,
+	3145790,
+	3008,
+	1456,
+	3008,
+	1248,
+	0);
+INSERT INTO GD_GE
+	VALUES (3145797,
+	3145729,
+	3145745,
+	42);
+INSERT INTO GD_CON
+	VALUES (3145797,
+	3145789,
+	3145796,
+	0);
+INSERT INTO GD_CTXT
+	VALUES (3145797,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	2686,
+	1074,
+	2816,
+	1096,
+	5,
+	-2,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+	VALUES (3145798,
+	3145797,
+	2832,
+	1104,
+	2656,
+	1104,
+	0);
+INSERT INTO GD_GE
+	VALUES (3145799,
+	3145729,
+	3145746,
+	42);
+INSERT INTO GD_CON
+	VALUES (3145799,
+	3145750,
+	3145796,
+	0);
+INSERT INTO GD_CTXT
+	VALUES (3145799,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+	VALUES (3145800,
+	3145799,
+	2624,
+	1456,
+	2624,
+	1248,
+	0);
+INSERT INTO O_OBJ
+	VALUES (1048581,
+	'Supertype',
+	5,
+	'SUP',
+	'',
+	1048578);
+INSERT INTO O_NBATTR
+	VALUES (1048587,
+	1048581);
+INSERT INTO O_BATTR
+	VALUES (1048587,
+	1048581);
+INSERT INTO O_ATTR
+	VALUES (1048587,
+	1048581,
+	0,
+	'sup_ID',
+	'',
+	'',
+	'sup_ID',
+	0,
+	524294);
+INSERT INTO O_NBATTR
+	VALUES (1048588,
+	1048581);
+INSERT INTO O_BATTR
+	VALUES (1048588,
+	1048581);
+INSERT INTO O_ATTR
+	VALUES (1048588,
+	1048581,
+	1048587,
+	'current_state',
+	'',
+	'',
+	'current_state',
+	0,
+	524295);
+INSERT INTO O_ID
+	VALUES (0,
+	1048581);
+INSERT INTO O_OIDA
+	VALUES (1048587,
+	1048581,
+	0);
+INSERT INTO O_RTIDA
+	VALUES (1048587,
+	1048581,
+	0,
+	1048577,
+	1048577);
+INSERT INTO SM_ISM
+	VALUES (3670023,
+	1048581);
+INSERT INTO SM_SM
+	VALUES (3670023,
+	'',
+	7);
+INSERT INTO SM_MOORE
+	VALUES (3670023);
+INSERT INTO SM_PEVT
+	VALUES (3670017,
+	3670023,
+	0);
+INSERT INTO SM_EVT
+	VALUES (3670017,
+	3670023,
+	0,
+	1,
+	'Poly One',
+	0,
+	'',
+	'SUP1',
+	'');
+INSERT INTO SM_PEVT
+	VALUES (3670018,
+	3670023,
+	0);
+INSERT INTO SM_EVT
+	VALUES (3670018,
+	3670023,
+	0,
+	2,
+	'Poly Two',
+	0,
+	'',
+	'SUP2',
+	'');
+INSERT INTO SM_PEVT
+	VALUES (3670019,
+	3670023,
+	0);
+INSERT INTO SM_EVT
+	VALUES (3670019,
+	3670023,
+	0,
+	3,
+	'Poly Three',
+	0,
+	'',
+	'SUP3',
+	'');
+INSERT INTO SM_PEVT
+	VALUES (3670020,
+	3670023,
+	0);
+INSERT INTO SM_EVT
+	VALUES (3670020,
+	3670023,
+	0,
+	4,
+	'Poly Four',
+	0,
+	'',
+	'SUP4',
+	'');
+INSERT INTO SM_STATE
+	VALUES (3670017,
+	3670023,
+	0,
+	'State One',
+	1,
+	0);
+INSERT INTO SM_MOAH
+	VALUES (3670017,
+	3670023,
+	3670017);
+INSERT INTO SM_AH
+	VALUES (3670017,
+	3670023);
+INSERT INTO SM_ACT
+	VALUES (3670017,
+	3670023,
+	1,
+	'',
+	'');
+INSERT INTO GD_MD
+	VALUES (3670017,
+	8,
+	3670023,
+	40,
+	1,
+	0,
+	1,
+	1,
+	0,
+	12,
+	1600,
+	4199,
+	1.000000,
+	0);
+INSERT INTO GD_GE
+	VALUES (3670018,
+	3670017,
+	3670017,
+	41);
+INSERT INTO GD_SHP
+	VALUES (3670018,
+	1824,
+	1312,
+	2112,
+	1520);
+INSERT INTO O_OBJ
+	VALUES (1048582,
+	'Subtype One',
+	6,
+	'SONE',
+	'',
+	1048578);
+INSERT INTO O_NBATTR
+	VALUES (1048589,
+	1048582);
+INSERT INTO O_BATTR
+	VALUES (1048589,
+	1048582);
+INSERT INTO O_ATTR
+	VALUES (1048589,
+	1048582,
+	0,
+	'current_state',
+	'',
+	'',
+	'current_state',
+	0,
+	524295);
+INSERT INTO O_NBATTR
+	VALUES (1048590,
+	1048582);
+INSERT INTO O_BATTR
+	VALUES (1048590,
+	1048582);
+INSERT INTO O_ATTR
+	VALUES (1048590,
+	1048582,
+	1048589,
+	'sone_ID',
+	'',
+	'',
+	'sone_ID',
+	0,
+	524294);
+INSERT INTO O_REF
+	VALUES (1048582,
+	1048579,
+	0,
+	1048583,
+	1048578,
+	1048581,
+	1048580,
+	1048595,
+	1048579,
+	0,
+	0,
+	'');
+INSERT INTO O_RATTR
+	VALUES (1048595,
+	1048582,
+	1048583,
+	1048579,
+	1);
+INSERT INTO O_ATTR
+	VALUES (1048595,
+	1048582,
+	1048590,
+	'ibo_ID',
+	'',
+	'',
+	'ibo_ID',
+	0,
+	524296);
+INSERT INTO O_ID
+	VALUES (0,
+	1048582);
+INSERT INTO O_OIDA
+	VALUES (1048590,
+	1048582,
+	0);
+INSERT INTO O_ID
+	VALUES (1,
+	1048582);
+INSERT INTO O_OIDA
+	VALUES (1048595,
+	1048582,
+	1);
+INSERT INTO SM_ISM
+	VALUES (4194312,
+	1048582);
+INSERT INTO SM_SM
+	VALUES (4194312,
+	'',
+	8);
+INSERT INTO SM_MOORE
+	VALUES (4194312);
+INSERT INTO SM_NLEVT
+	VALUES (4194306,
+	4194312,
+	0,
+	3670018,
+	3670023,
+	0,
+	'');
+INSERT INTO SM_SEVT
+	VALUES (4194306,
+	4194312,
+	0);
+INSERT INTO SM_EVT
+	VALUES (4194306,
+	4194312,
+	0,
+	0,
+	'Poly Two',
+	0,
+	'',
+	'SUP2*',
+	'');
+INSERT INTO SM_LEVT
+	VALUES (4194307,
+	4194312,
+	0);
+INSERT INTO SM_SEVT
+	VALUES (4194307,
+	4194312,
+	0);
+INSERT INTO SM_EVT
+	VALUES (4194307,
+	4194312,
+	0,
+	0,
+	'Start',
+	0,
+	'',
+	'SONE0',
+	'');
+INSERT INTO SM_LEVT
+	VALUES (4194308,
+	4194312,
+	0);
+INSERT INTO SM_SEVT
+	VALUES (4194308,
+	4194312,
+	0);
+INSERT INTO SM_EVT
+	VALUES (4194308,
+	4194312,
+	0,
+	1,
+	'End',
+	0,
+	'',
+	'SONE1',
+	'');
+INSERT INTO SM_NLEVT
+	VALUES (4194310,
+	4194312,
+	0,
+	3670020,
+	3670023,
+	0,
+	'');
+INSERT INTO SM_SEVT
+	VALUES (4194310,
+	4194312,
+	0);
+INSERT INTO SM_EVT
+	VALUES (4194310,
+	4194312,
+	0,
+	0,
+	'Poly Four',
+	0,
+	'',
+	'SUP4*',
+	'');
+INSERT INTO SM_STATE
+	VALUES (4194307,
+	4194312,
+	0,
+	'State One',
+	1,
+	0);
+INSERT INTO SM_SEME
+	VALUES (4194307,
+	4194306,
+	4194312,
+	0);
+INSERT INTO SM_SEME
+	VALUES (4194307,
+	4194307,
+	4194312,
+	0);
+INSERT INTO SM_EIGN
+	VALUES (4194307,
+	4194308,
+	4194312,
+	0,
+	'');
+INSERT INTO SM_SEME
+	VALUES (4194307,
+	4194308,
+	4194312,
+	0);
+INSERT INTO SM_EIGN
+	VALUES (4194307,
+	4194310,
+	4194312,
+	0,
+	'');
+INSERT INTO SM_SEME
+	VALUES (4194307,
+	4194310,
+	4194312,
+	0);
+INSERT INTO SM_MOAH
+	VALUES (4194307,
+	4194312,
+	4194307);
+INSERT INTO SM_AH
+	VALUES (4194307,
+	4194312);
+INSERT INTO SM_ACT
+	VALUES (4194307,
+	4194312,
+	1,
+	'select any ibo from instances of IBO;
+
+if ( ibo.state == 4 )
+  LOG::LogSuccess(message:"Successfully received PE generated to self from IBO.");
+elif ( ibo.state == -1 )
+  LOG::LogInfo(message:"Cannot determine if PE generated to self from IBO was received in order in Subtype One.");
+else
+  LOG::LogFailure(message:"PE generated to self from IBO was received out of order in Subtype One.");
+end if;
+
+generate SONE0 to self;
+',
+	'');
+INSERT INTO SM_STATE
+	VALUES (4194308,
+	4194312,
+	0,
+	'State Two',
+	2,
+	0);
+INSERT INTO SM_SEME
+	VALUES (4194308,
+	4194306,
+	4194312,
+	0);
+INSERT INTO SM_EIGN
+	VALUES (4194308,
+	4194307,
+	4194312,
+	0,
+	'');
+INSERT INTO SM_SEME
+	VALUES (4194308,
+	4194307,
+	4194312,
+	0);
+INSERT INTO SM_EIGN
+	VALUES (4194308,
+	4194308,
+	4194312,
+	0,
+	'');
+INSERT INTO SM_SEME
+	VALUES (4194308,
+	4194308,
+	4194312,
+	0);
+INSERT INTO SM_EIGN
+	VALUES (4194308,
+	4194310,
+	4194312,
+	0,
+	'');
+INSERT INTO SM_SEME
+	VALUES (4194308,
+	4194310,
+	4194312,
+	0);
+INSERT INTO SM_MOAH
+	VALUES (4194308,
+	4194312,
+	4194308);
+INSERT INTO SM_AH
+	VALUES (4194308,
+	4194312);
+INSERT INTO SM_ACT
+	VALUES (4194308,
+	4194312,
+	1,
+	'LOG::LogSuccess(message:"Subtype One - Successfully received event generated to instance from state action, in correct order.");
+',
+	'');
+INSERT INTO SM_STATE
+	VALUES (4194309,
+	4194312,
+	0,
+	'State Three',
+	3,
+	0);
+INSERT INTO SM_EIGN
+	VALUES (4194309,
+	4194306,
+	4194312,
+	0,
+	'');
+INSERT INTO SM_SEME
+	VALUES (4194309,
+	4194306,
+	4194312,
+	0);
+INSERT INTO SM_EIGN
+	VALUES (4194309,
+	4194307,
+	4194312,
+	0,
+	'');
+INSERT INTO SM_SEME
+	VALUES (4194309,
+	4194307,
+	4194312,
+	0);
+INSERT INTO SM_SEME
+	VALUES (4194309,
+	4194308,
+	4194312,
+	0);
+INSERT INTO SM_EIGN
+	VALUES (4194309,
+	4194310,
+	4194312,
+	0,
+	'');
+INSERT INTO SM_SEME
+	VALUES (4194309,
+	4194310,
+	4194312,
+	0);
+INSERT INTO SM_MOAH
+	VALUES (4194309,
+	4194312,
+	4194309);
+INSERT INTO SM_AH
+	VALUES (4194309,
+	4194312);
+INSERT INTO SM_ACT
+	VALUES (4194309,
+	4194312,
+	1,
+	'LOG::LogSuccess(message:"Successfully received PE generated to self from state action, but passed down one level to Subtype One, in correct order.");
+',
+	'');
+INSERT INTO SM_STATE
+	VALUES (4194310,
+	4194312,
+	0,
+	'Failure',
+	4,
+	0);
+INSERT INTO SM_EIGN
+	VALUES (4194310,
+	4194306,
+	4194312,
+	0,
+	'');
+INSERT INTO SM_SEME
+	VALUES (4194310,
+	4194306,
+	4194312,
+	0);
+INSERT INTO SM_EIGN
+	VALUES (4194310,
+	4194307,
+	4194312,
+	0,
+	'');
+INSERT INTO SM_SEME
+	VALUES (4194310,
+	4194307,
+	4194312,
+	0);
+INSERT INTO SM_SEME
+	VALUES (4194310,
+	4194308,
+	4194312,
+	0);
+INSERT INTO SM_EIGN
+	VALUES (4194310,
+	4194310,
+	4194312,
+	0,
+	'');
+INSERT INTO SM_SEME
+	VALUES (4194310,
+	4194310,
+	4194312,
+	0);
+INSERT INTO SM_MOAH
+	VALUES (4194310,
+	4194312,
+	4194310);
+INSERT INTO SM_AH
+	VALUES (4194310,
+	4194312);
+INSERT INTO SM_ACT
+	VALUES (4194310,
+	4194312,
+	1,
+	'LOG::LogFailure(message:"Events were received out of order in Subtype One.");',
+	'');
+INSERT INTO SM_STATE
+	VALUES (4194311,
+	4194312,
+	0,
+	'Waiting state',
+	5,
+	0);
+INSERT INTO SM_SEME
+	VALUES (4194311,
+	4194306,
+	4194312,
+	0);
+INSERT INTO SM_EIGN
+	VALUES (4194311,
+	4194307,
+	4194312,
+	0,
+	'');
+INSERT INTO SM_SEME
+	VALUES (4194311,
+	4194307,
+	4194312,
+	0);
+INSERT INTO SM_EIGN
+	VALUES (4194311,
+	4194308,
+	4194312,
+	0,
+	'');
+INSERT INTO SM_SEME
+	VALUES (4194311,
+	4194308,
+	4194312,
+	0);
+INSERT INTO SM_SEME
+	VALUES (4194311,
+	4194310,
+	4194312,
+	0);
+INSERT INTO SM_MOAH
+	VALUES (4194311,
+	4194312,
+	4194311);
+INSERT INTO SM_AH
+	VALUES (4194311,
+	4194312);
+INSERT INTO SM_ACT
+	VALUES (4194311,
+	4194312,
+	1,
+	'',
+	'');
+INSERT INTO SM_STATE
+	VALUES (4194312,
+	4194312,
+	0,
+	'End',
+	6,
+	1);
+INSERT INTO SM_EIGN
+	VALUES (4194312,
+	4194306,
+	4194312,
+	0,
+	'');
+INSERT INTO SM_SEME
+	VALUES (4194312,
+	4194306,
+	4194312,
+	0);
+INSERT INTO SM_EIGN
+	VALUES (4194312,
+	4194307,
+	4194312,
+	0,
+	'');
+INSERT INTO SM_SEME
+	VALUES (4194312,
+	4194307,
+	4194312,
+	0);
+INSERT INTO SM_EIGN
+	VALUES (4194312,
+	4194308,
+	4194312,
+	0,
+	'');
+INSERT INTO SM_SEME
+	VALUES (4194312,
+	4194308,
+	4194312,
+	0);
+INSERT INTO SM_EIGN
+	VALUES (4194312,
+	4194310,
+	4194312,
+	0,
+	'');
+INSERT INTO SM_SEME
+	VALUES (4194312,
+	4194310,
+	4194312,
+	0);
+INSERT INTO SM_MOAH
+	VALUES (4194312,
+	4194312,
+	4194312);
+INSERT INTO SM_AH
+	VALUES (4194312,
+	4194312);
+INSERT INTO SM_ACT
+	VALUES (4194312,
+	4194312,
+	1,
+	'',
+	'');
+INSERT INTO SM_NSTXN
+	VALUES (4194308,
+	4194312,
+	4194309,
+	4194308,
+	0);
+INSERT INTO SM_TXN
+	VALUES (4194308,
+	4194312,
+	4194312,
+	0);
+INSERT INTO SM_NSTXN
+	VALUES (4194311,
+	4194312,
+	4194307,
+	4194307,
+	0);
+INSERT INTO SM_TXN
+	VALUES (4194311,
+	4194312,
+	4194311,
+	0);
+INSERT INTO SM_NSTXN
+	VALUES (4194313,
+	4194312,
+	4194307,
+	4194306,
+	0);
+INSERT INTO SM_TXN
+	VALUES (4194313,
+	4194312,
+	4194307,
+	0);
+INSERT INTO SM_NSTXN
+	VALUES (4194309,
+	4194312,
+	4194311,
+	4194306,
+	0);
+INSERT INTO SM_TXN
+	VALUES (4194309,
+	4194312,
+	4194310,
+	0);
+INSERT INTO SM_NSTXN
+	VALUES (4194312,
+	4194312,
+	4194308,
+	4194306,
+	0);
+INSERT INTO SM_TXN
+	VALUES (4194312,
+	4194312,
+	4194309,
+	0);
+INSERT INTO SM_NSTXN
+	VALUES (4194310,
+	4194312,
+	4194311,
+	4194310,
+	0);
+INSERT INTO SM_TXN
+	VALUES (4194310,
+	4194312,
+	4194308,
+	0);
+INSERT INTO SM_NSTXN
+	VALUES (4194307,
+	4194312,
+	4194310,
+	4194308,
+	0);
+INSERT INTO SM_TXN
+	VALUES (4194307,
+	4194312,
+	4194312,
+	0);
+INSERT INTO GD_MD
+	VALUES (4194305,
+	8,
+	4194312,
+	40,
+	1,
+	0,
+	1,
+	1,
+	0,
+	12,
+	1125,
+	3330,
+	0.424552,
+	0);
+INSERT INTO GD_GE
+	VALUES (4194345,
+	4194305,
+	4194307,
+	41);
+INSERT INTO GD_SHP
+	VALUES (4194345,
+	1632,
+	1264,
+	2000,
+	1536);
+INSERT INTO GD_GE
+	VALUES (4194346,
+	4194305,
+	4194308,
+	41);
+INSERT INTO GD_SHP
+	VALUES (4194346,
+	1632,
+	1968,
+	2000,
+	2224);
+INSERT INTO GD_GE
+	VALUES (4194347,
+	4194305,
+	4194309,
+	41);
+INSERT INTO GD_SHP
+	VALUES (4194347,
+	1632,
+	2320,
+	2000,
+	2576);
+INSERT INTO GD_GE
+	VALUES (4194348,
+	4194305,
+	4194310,
+	41);
+INSERT INTO GD_SHP
+	VALUES (4194348,
+	2144,
+	1632,
+	2512,
+	1888);
+INSERT INTO GD_GE
+	VALUES (4194349,
+	4194305,
+	4194311,
+	41);
+INSERT INTO GD_SHP
+	VALUES (4194349,
+	1632,
+	1632,
+	2000,
+	1888);
+INSERT INTO GD_GE
+	VALUES (4194350,
+	4194305,
+	4194312,
+	41);
+INSERT INTO GD_SHP
+	VALUES (4194350,
+	2144,
+	2320,
+	2512,
+	2576);
+INSERT INTO GD_GE
+	VALUES (4194351,
+	4194305,
+	4194307,
+	42);
+INSERT INTO GD_CON
+	VALUES (4194351,
+	4194348,
+	4194350,
+	0);
+INSERT INTO GD_CTXT
+	VALUES (4194351,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	2226,
+	2095,
+	2318,
+	2117,
+	-12,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+	VALUES (4194352,
+	4194351,
+	2336,
+	1888,
+	2336,
+	2320,
+	0);
+INSERT INTO GD_GE
+	VALUES (4194353,
+	4194305,
+	4194308,
+	42);
+INSERT INTO GD_CON
+	VALUES (4194353,
+	4194347,
+	4194350,
+	0);
+INSERT INTO GD_CTXT
+	VALUES (4194353,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	2025,
+	2424,
+	2117,
+	2446,
+	-3,
+	-12,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+	VALUES (4194354,
+	4194353,
+	2000,
+	2464,
+	2144,
+	2464,
+	0);
+INSERT INTO GD_GE
+	VALUES (4194355,
+	4194305,
+	4194309,
+	42);
+INSERT INTO GD_CON
+	VALUES (4194355,
+	4194349,
+	4194348,
+	0);
+INSERT INTO GD_CTXT
+	VALUES (4194355,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	2014,
+	1732,
+	2151,
+	1754,
+	8,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+	VALUES (4194356,
+	4194355,
+	2000,
+	1760,
+	2144,
+	1760,
+	0);
+INSERT INTO GD_GE
+	VALUES (4194357,
+	4194305,
+	4194310,
+	42);
+INSERT INTO GD_CON
+	VALUES (4194357,
+	4194349,
+	4194346,
+	0);
+INSERT INTO GD_CTXT
+	VALUES (4194357,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	1683,
+	1917,
+	1805,
+	1939,
+	-13,
+	-2,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+	VALUES (4194382,
+	4194357,
+	1824,
+	1888,
+	1824,
+	1968,
+	0);
+INSERT INTO GD_GE
+	VALUES (4194359,
+	4194305,
+	4194311,
+	42);
+INSERT INTO GD_CON
+	VALUES (4194359,
+	4194345,
+	4194349,
+	0);
+INSERT INTO GD_CTXT
+	VALUES (4194359,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+	VALUES (4194360,
+	4194359,
+	1824,
+	1536,
+	1824,
+	1632,
+	0);
+INSERT INTO GD_GE
+	VALUES (4194361,
+	4194305,
+	4194312,
+	42);
+INSERT INTO GD_CON
+	VALUES (4194361,
+	4194346,
+	4194347,
+	0);
+INSERT INTO GD_CTXT
+	VALUES (4194361,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	1665,
+	2263,
+	1784,
+	2285,
+	-18,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+	VALUES (4194381,
+	4194361,
+	1808,
+	2224,
+	1808,
+	2320,
+	0);
+INSERT INTO GD_GE
+	VALUES (4194363,
+	4194305,
+	4194313,
+	42);
+INSERT INTO GD_CON
+	VALUES (4194363,
+	4194345,
+	4194345,
+	0);
+INSERT INTO GD_CTXT
+	VALUES (4194363,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	1750,
+	1207,
+	1901,
+	1247,
+	-23,
+	21,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+	VALUES (4194364,
+	4194363,
+	1680,
+	1264,
+	1680,
+	1232,
+	0);
+INSERT INTO GD_LS
+	VALUES (4194365,
+	4194363,
+	1680,
+	1232,
+	1952,
+	1232,
+	4194364);
+INSERT INTO GD_LS
+	VALUES (4194366,
+	4194363,
+	1952,
+	1232,
+	1952,
+	1264,
+	4194365);
+INSERT INTO O_OBJ
+	VALUES (1048583,
+	'Subtype Two',
+	7,
+	'STWO',
+	'',
+	1048578);
+INSERT INTO O_NBATTR
+	VALUES (1048591,
+	1048583);
+INSERT INTO O_BATTR
+	VALUES (1048591,
+	1048583);
+INSERT INTO O_ATTR
+	VALUES (1048591,
+	1048583,
+	0,
+	'stwo_ID',
+	'',
+	'',
+	'stwo_ID',
+	0,
+	524294);
+INSERT INTO O_NBATTR
+	VALUES (1048592,
+	1048583);
+INSERT INTO O_BATTR
+	VALUES (1048592,
+	1048583);
+INSERT INTO O_ATTR
+	VALUES (1048592,
+	1048583,
+	1048591,
+	'current_state',
+	'',
+	'',
+	'current_state',
+	0,
+	524295);
+INSERT INTO O_REF
+	VALUES (1048583,
+	1048580,
+	0,
+	1048586,
+	1048579,
+	1048583,
+	1048582,
+	1048596,
+	1048580,
+	0,
+	0,
+	'');
+INSERT INTO O_RATTR
+	VALUES (1048596,
+	1048583,
+	1048586,
+	1048580,
+	1);
+INSERT INTO O_ATTR
+	VALUES (1048596,
+	1048583,
+	1048592,
+	'mda_ID',
+	'',
+	'',
+	'mda_ID',
+	0,
+	524296);
+INSERT INTO O_ID
+	VALUES (0,
+	1048583);
+INSERT INTO O_OIDA
+	VALUES (1048591,
+	1048583,
+	0);
+INSERT INTO O_ID
+	VALUES (1,
+	1048583);
+INSERT INTO O_OIDA
+	VALUES (1048596,
+	1048583,
+	1);
+INSERT INTO SM_ISM
+	VALUES (4718601,
+	1048583);
+INSERT INTO SM_SM
+	VALUES (4718601,
+	'',
+	9);
+INSERT INTO SM_MOORE
+	VALUES (4718601);
+INSERT INTO SM_NLEVT
+	VALUES (4718594,
+	4718601,
+	0,
+	3670018,
+	3670023,
+	0,
+	'');
+INSERT INTO SM_SEVT
+	VALUES (4718594,
+	4718601,
+	0);
+INSERT INTO SM_EVT
+	VALUES (4718594,
+	4718601,
+	0,
+	0,
+	'Poly Two',
+	0,
+	'',
+	'SUP2*',
+	'');
+INSERT INTO SM_LEVT
+	VALUES (4718595,
+	4718601,
+	0);
+INSERT INTO SM_SEVT
+	VALUES (4718595,
+	4718601,
+	0);
+INSERT INTO SM_EVT
+	VALUES (4718595,
+	4718601,
+	0,
+	0,
+	'Start',
+	0,
+	'',
+	'STWO0',
+	'');
+INSERT INTO SM_LEVT
+	VALUES (4718596,
+	4718601,
+	0);
+INSERT INTO SM_SEVT
+	VALUES (4718596,
+	4718601,
+	0);
+INSERT INTO SM_EVT
+	VALUES (4718596,
+	4718601,
+	0,
+	1,
+	'End',
+	0,
+	'',
+	'STWO1',
+	'');
+INSERT INTO SM_NLEVT
+	VALUES (4718598,
+	4718601,
+	0,
+	3670020,
+	3670023,
+	0,
+	'');
+INSERT INTO SM_SEVT
+	VALUES (4718598,
+	4718601,
+	0);
+INSERT INTO SM_EVT
+	VALUES (4718598,
+	4718601,
+	0,
+	0,
+	'Poly Four',
+	0,
+	'',
+	'SUP4*',
+	'');
+INSERT INTO SM_STATE
+	VALUES (4718594,
+	4718601,
+	0,
+	'State One',
+	1,
+	0);
+INSERT INTO SM_SEME
+	VALUES (4718594,
+	4718594,
+	4718601,
+	0);
+INSERT INTO SM_SEME
+	VALUES (4718594,
+	4718595,
+	4718601,
+	0);
+INSERT INTO SM_EIGN
+	VALUES (4718594,
+	4718596,
+	4718601,
+	0,
+	'');
+INSERT INTO SM_SEME
+	VALUES (4718594,
+	4718596,
+	4718601,
+	0);
+INSERT INTO SM_EIGN
+	VALUES (4718594,
+	4718598,
+	4718601,
+	0,
+	'');
+INSERT INTO SM_SEME
+	VALUES (4718594,
+	4718598,
+	4718601,
+	0);
+INSERT INTO SM_MOAH
+	VALUES (4718594,
+	4718601,
+	4718594);
+INSERT INTO SM_AH
+	VALUES (4718594,
+	4718601);
+INSERT INTO SM_ACT
+	VALUES (4718594,
+	4718601,
+	1,
+	'select any mda from instances of MDA;
+
+if ( mda.state == 4 )
+  LOG::LogSuccess(message:"Successfully received PE generated to self from MDA.");
+elif ( mda.state == -1 )
+  LOG::LogInfo(message:"Cannot determine if PE generated to self from MDA was received in order in Subtype One.");
+else
+  LOG::LogFailure(message:"PE generated to self from MDA was received out of order in Subtype One.");
+end if;
+
+generate STWO0 to self;
+',
+	'');
+INSERT INTO SM_STATE
+	VALUES (4718595,
+	4718601,
+	0,
+	'State Two',
+	2,
+	0);
+INSERT INTO SM_SEME
+	VALUES (4718595,
+	4718594,
+	4718601,
+	0);
+INSERT INTO SM_EIGN
+	VALUES (4718595,
+	4718595,
+	4718601,
+	0,
+	'');
+INSERT INTO SM_SEME
+	VALUES (4718595,
+	4718595,
+	4718601,
+	0);
+INSERT INTO SM_EIGN
+	VALUES (4718595,
+	4718596,
+	4718601,
+	0,
+	'');
+INSERT INTO SM_SEME
+	VALUES (4718595,
+	4718596,
+	4718601,
+	0);
+INSERT INTO SM_EIGN
+	VALUES (4718595,
+	4718598,
+	4718601,
+	0,
+	'');
+INSERT INTO SM_SEME
+	VALUES (4718595,
+	4718598,
+	4718601,
+	0);
+INSERT INTO SM_MOAH
+	VALUES (4718595,
+	4718601,
+	4718595);
+INSERT INTO SM_AH
+	VALUES (4718595,
+	4718601);
+INSERT INTO SM_ACT
+	VALUES (4718595,
+	4718601,
+	1,
+	'LOG::LogSuccess(message:"Subtype Two - Successfully received event generated to instance from state action, in correct order.");
+',
+	'');
+INSERT INTO SM_STATE
+	VALUES (4718596,
+	4718601,
+	0,
+	'State Three',
+	3,
+	0);
+INSERT INTO SM_EIGN
+	VALUES (4718596,
+	4718594,
+	4718601,
+	0,
+	'');
+INSERT INTO SM_SEME
+	VALUES (4718596,
+	4718594,
+	4718601,
+	0);
+INSERT INTO SM_EIGN
+	VALUES (4718596,
+	4718595,
+	4718601,
+	0,
+	'');
+INSERT INTO SM_SEME
+	VALUES (4718596,
+	4718595,
+	4718601,
+	0);
+INSERT INTO SM_SEME
+	VALUES (4718596,
+	4718596,
+	4718601,
+	0);
+INSERT INTO SM_EIGN
+	VALUES (4718596,
+	4718598,
+	4718601,
+	0,
+	'');
+INSERT INTO SM_SEME
+	VALUES (4718596,
+	4718598,
+	4718601,
+	0);
+INSERT INTO SM_MOAH
+	VALUES (4718596,
+	4718601,
+	4718596);
+INSERT INTO SM_AH
+	VALUES (4718596,
+	4718601);
+INSERT INTO SM_ACT
+	VALUES (4718596,
+	4718601,
+	1,
+	'LOG::LogSuccess(message:"Successfully received PE generated to self from state action, but passed down one level to Subtype Two, in correct order.");
+',
+	'');
+INSERT INTO SM_STATE
+	VALUES (4718597,
+	4718601,
+	0,
+	'Failure',
+	4,
+	0);
+INSERT INTO SM_EIGN
+	VALUES (4718597,
+	4718594,
+	4718601,
+	0,
+	'');
+INSERT INTO SM_SEME
+	VALUES (4718597,
+	4718594,
+	4718601,
+	0);
+INSERT INTO SM_EIGN
+	VALUES (4718597,
+	4718595,
+	4718601,
+	0,
+	'');
+INSERT INTO SM_SEME
+	VALUES (4718597,
+	4718595,
+	4718601,
+	0);
+INSERT INTO SM_SEME
+	VALUES (4718597,
+	4718596,
+	4718601,
+	0);
+INSERT INTO SM_EIGN
+	VALUES (4718597,
+	4718598,
+	4718601,
+	0,
+	'');
+INSERT INTO SM_SEME
+	VALUES (4718597,
+	4718598,
+	4718601,
+	0);
+INSERT INTO SM_MOAH
+	VALUES (4718597,
+	4718601,
+	4718597);
+INSERT INTO SM_AH
+	VALUES (4718597,
+	4718601);
+INSERT INTO SM_ACT
+	VALUES (4718597,
+	4718601,
+	1,
+	'LOG::LogFailure(message:"Events were received out of order in Subtype Two.");',
+	'');
+INSERT INTO SM_STATE
+	VALUES (4718598,
+	4718601,
+	0,
+	'Waiting state',
+	5,
+	0);
+INSERT INTO SM_SEME
+	VALUES (4718598,
+	4718594,
+	4718601,
+	0);
+INSERT INTO SM_EIGN
+	VALUES (4718598,
+	4718595,
+	4718601,
+	0,
+	'');
+INSERT INTO SM_SEME
+	VALUES (4718598,
+	4718595,
+	4718601,
+	0);
+INSERT INTO SM_EIGN
+	VALUES (4718598,
+	4718596,
+	4718601,
+	0,
+	'');
+INSERT INTO SM_SEME
+	VALUES (4718598,
+	4718596,
+	4718601,
+	0);
+INSERT INTO SM_SEME
+	VALUES (4718598,
+	4718598,
+	4718601,
+	0);
+INSERT INTO SM_MOAH
+	VALUES (4718598,
+	4718601,
+	4718598);
+INSERT INTO SM_AH
+	VALUES (4718598,
+	4718601);
+INSERT INTO SM_ACT
+	VALUES (4718598,
+	4718601,
+	1,
+	'',
+	'');
+INSERT INTO SM_STATE
+	VALUES (4718599,
+	4718601,
+	0,
+	'End',
+	6,
+	1);
+INSERT INTO SM_EIGN
+	VALUES (4718599,
+	4718594,
+	4718601,
+	0,
+	'');
+INSERT INTO SM_SEME
+	VALUES (4718599,
+	4718594,
+	4718601,
+	0);
+INSERT INTO SM_EIGN
+	VALUES (4718599,
+	4718595,
+	4718601,
+	0,
+	'');
+INSERT INTO SM_SEME
+	VALUES (4718599,
+	4718595,
+	4718601,
+	0);
+INSERT INTO SM_EIGN
+	VALUES (4718599,
+	4718596,
+	4718601,
+	0,
+	'');
+INSERT INTO SM_SEME
+	VALUES (4718599,
+	4718596,
+	4718601,
+	0);
+INSERT INTO SM_EIGN
+	VALUES (4718599,
+	4718598,
+	4718601,
+	0,
+	'');
+INSERT INTO SM_SEME
+	VALUES (4718599,
+	4718598,
+	4718601,
+	0);
+INSERT INTO SM_MOAH
+	VALUES (4718599,
+	4718601,
+	4718599);
+INSERT INTO SM_AH
+	VALUES (4718599,
+	4718601);
+INSERT INTO SM_ACT
+	VALUES (4718599,
+	4718601,
+	1,
+	'',
+	'');
+INSERT INTO SM_NSTXN
+	VALUES (4718595,
+	4718601,
+	4718594,
+	4718594,
+	0);
+INSERT INTO SM_TXN
+	VALUES (4718595,
+	4718601,
+	4718594,
+	0);
+INSERT INTO SM_NSTXN
+	VALUES (4718596,
+	4718601,
+	4718595,
+	4718594,
+	0);
+INSERT INTO SM_TXN
+	VALUES (4718596,
+	4718601,
+	4718596,
+	0);
+INSERT INTO SM_NSTXN
+	VALUES (4718600,
+	4718601,
+	4718598,
+	4718594,
+	0);
+INSERT INTO SM_TXN
+	VALUES (4718600,
+	4718601,
+	4718597,
+	0);
+INSERT INTO SM_NSTXN
+	VALUES (4718598,
+	4718601,
+	4718594,
+	4718595,
+	0);
+INSERT INTO SM_TXN
+	VALUES (4718598,
+	4718601,
+	4718598,
+	0);
+INSERT INTO SM_NSTXN
+	VALUES (4718601,
+	4718601,
+	4718596,
+	4718596,
+	0);
+INSERT INTO SM_TXN
+	VALUES (4718601,
+	4718601,
+	4718599,
+	0);
+INSERT INTO SM_NSTXN
+	VALUES (4718602,
+	4718601,
+	4718597,
+	4718596,
+	0);
+INSERT INTO SM_TXN
+	VALUES (4718602,
+	4718601,
+	4718599,
+	0);
+INSERT INTO SM_NSTXN
+	VALUES (4718599,
+	4718601,
+	4718598,
+	4718598,
+	0);
+INSERT INTO SM_TXN
+	VALUES (4718599,
+	4718601,
+	4718595,
+	0);
+INSERT INTO GD_MD
+	VALUES (4718593,
+	8,
+	4718601,
+	40,
+	1,
+	0,
+	1,
+	1,
+	0,
+	12,
+	1191,
+	3295,
+	0.424552,
+	0);
+INSERT INTO GD_GE
+	VALUES (4718599,
+	4718593,
+	4718594,
+	41);
+INSERT INTO GD_SHP
+	VALUES (4718599,
+	1696,
+	1296,
+	2064,
+	1568);
+INSERT INTO GD_GE
+	VALUES (4718600,
+	4718593,
+	4718595,
+	41);
+INSERT INTO GD_SHP
+	VALUES (4718600,
+	1696,
+	2000,
+	2064,
+	2256);
+INSERT INTO GD_GE
+	VALUES (4718607,
+	4718593,
+	4718596,
+	41);
+INSERT INTO GD_SHP
+	VALUES (4718607,
+	1696,
+	2352,
+	2064,
+	2608);
+INSERT INTO GD_GE
+	VALUES (4718612,
+	4718593,
+	4718597,
+	41);
+INSERT INTO GD_SHP
+	VALUES (4718612,
+	2208,
+	1664,
+	2576,
+	1920);
+INSERT INTO GD_GE
+	VALUES (4718620,
+	4718593,
+	4718598,
+	41);
+INSERT INTO GD_SHP
+	VALUES (4718620,
+	1696,
+	1664,
+	2064,
+	1920);
+INSERT INTO GD_GE
+	VALUES (4718635,
+	4718593,
+	4718599,
+	41);
+INSERT INTO GD_SHP
+	VALUES (4718635,
+	2208,
+	2352,
+	2576,
+	2608);
+INSERT INTO GD_GE
+	VALUES (4718603,
+	4718593,
+	4718595,
+	42);
+INSERT INTO GD_CON
+	VALUES (4718603,
+	4718599,
+	4718599,
+	0);
+INSERT INTO GD_CTXT
+	VALUES (4718603,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	1814,
+	1239,
+	1965,
+	1279,
+	-23,
+	21,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+	VALUES (4718604,
+	4718603,
+	1744,
+	1296,
+	1744,
+	1264,
+	0);
+INSERT INTO GD_LS
+	VALUES (4718605,
+	4718603,
+	1744,
+	1264,
+	2016,
+	1264,
+	4718604);
+INSERT INTO GD_LS
+	VALUES (4718606,
+	4718603,
+	2016,
+	1264,
+	2016,
+	1296,
+	4718605);
+INSERT INTO GD_GE
+	VALUES (4718608,
+	4718593,
+	4718596,
+	42);
+INSERT INTO GD_CON
+	VALUES (4718608,
+	4718600,
+	4718607,
+	0);
+INSERT INTO GD_CTXT
+	VALUES (4718608,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	1729,
+	2295,
+	1848,
+	2317,
+	-18,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+	VALUES (4718619,
+	4718608,
+	1872,
+	2256,
+	1872,
+	2352,
+	0);
+INSERT INTO GD_GE
+	VALUES (4718621,
+	4718593,
+	4718598,
+	42);
+INSERT INTO GD_CON
+	VALUES (4718621,
+	4718599,
+	4718620,
+	0);
+INSERT INTO GD_CTXT
+	VALUES (4718621,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+	VALUES (4718622,
+	4718621,
+	1888,
+	1568,
+	1888,
+	1664,
+	0);
+INSERT INTO GD_GE
+	VALUES (4718623,
+	4718593,
+	4718599,
+	42);
+INSERT INTO GD_CON
+	VALUES (4718623,
+	4718620,
+	4718600,
+	0);
+INSERT INTO GD_CTXT
+	VALUES (4718623,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	1745,
+	1953,
+	1867,
+	1975,
+	-15,
+	2,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+	VALUES (4718624,
+	4718623,
+	1888,
+	1920,
+	1888,
+	2000,
+	0);
+INSERT INTO GD_GE
+	VALUES (4718625,
+	4718593,
+	4718600,
+	42);
+INSERT INTO GD_CON
+	VALUES (4718625,
+	4718620,
+	4718612,
+	0);
+INSERT INTO GD_CTXT
+	VALUES (4718625,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	2078,
+	1764,
+	2215,
+	1786,
+	8,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+	VALUES (4718634,
+	4718625,
+	2064,
+	1792,
+	2208,
+	1792,
+	0);
+INSERT INTO GD_GE
+	VALUES (4718636,
+	4718593,
+	4718601,
+	42);
+INSERT INTO GD_CON
+	VALUES (4718636,
+	4718607,
+	4718635,
+	0);
+INSERT INTO GD_CTXT
+	VALUES (4718636,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	2089,
+	2456,
+	2181,
+	2478,
+	-3,
+	-12,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+	VALUES (4718647,
+	4718636,
+	2064,
+	2496,
+	2208,
+	2496,
+	0);
+INSERT INTO GD_GE
+	VALUES (4718638,
+	4718593,
+	4718602,
+	42);
+INSERT INTO GD_CON
+	VALUES (4718638,
+	4718612,
+	4718635,
+	0);
+INSERT INTO GD_CTXT
+	VALUES (4718638,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	2290,
+	2127,
+	2382,
+	2149,
+	-12,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+	VALUES (4718646,
+	4718638,
+	2400,
+	1920,
+	2400,
+	2352,
+	0);
+INSERT INTO R_SUBSUP
+	VALUES (1048577);
+INSERT INTO R_REL
+	VALUES (1048577,
+	1,
+	'',
+	1048578);
+INSERT INTO R_SUPER
+	VALUES (1048581,
+	1048577,
+	1048577);
+INSERT INTO R_RTO
+	VALUES (1048581,
+	1048577,
+	1048577,
+	0);
+INSERT INTO R_OIR
+	VALUES (1048581,
+	1048577,
+	1048577,
+	0);
+INSERT INTO R_SUB
+	VALUES (1048579,
+	1048577,
+	1048578);
+INSERT INTO R_RGO
+	VALUES (1048579,
+	1048577,
+	1048578);
+INSERT INTO R_OIR
+	VALUES (1048579,
+	1048577,
+	1048578,
+	0);
+INSERT INTO R_SUB
+	VALUES (1048580,
+	1048577,
+	1048579);
+INSERT INTO R_RGO
+	VALUES (1048580,
+	1048577,
+	1048579);
+INSERT INTO R_OIR
+	VALUES (1048580,
+	1048577,
+	1048579,
+	0);
+INSERT INTO R_SUBSUP
+	VALUES (1048578);
+INSERT INTO R_REL
+	VALUES (1048578,
+	2,
+	'',
+	1048578);
+INSERT INTO R_SUPER
+	VALUES (1048579,
+	1048578,
+	1048580);
+INSERT INTO R_RTO
+	VALUES (1048579,
+	1048578,
+	1048580,
+	0);
+INSERT INTO R_OIR
+	VALUES (1048579,
+	1048578,
+	1048580,
+	0);
+INSERT INTO R_SUB
+	VALUES (1048582,
+	1048578,
+	1048581);
+INSERT INTO R_RGO
+	VALUES (1048582,
+	1048578,
+	1048581);
+INSERT INTO R_OIR
+	VALUES (1048582,
+	1048578,
+	1048581,
+	0);
+INSERT INTO R_SUBSUP
+	VALUES (1048579);
+INSERT INTO R_REL
+	VALUES (1048579,
+	3,
+	'',
+	1048578);
+INSERT INTO R_SUPER
+	VALUES (1048580,
+	1048579,
+	1048582);
+INSERT INTO R_RTO
+	VALUES (1048580,
+	1048579,
+	1048582,
+	0);
+INSERT INTO R_OIR
+	VALUES (1048580,
+	1048579,
+	1048582,
+	0);
+INSERT INTO R_SUB
+	VALUES (1048583,
+	1048579,
+	1048583);
+INSERT INTO R_RGO
+	VALUES (1048583,
+	1048579,
+	1048583);
+INSERT INTO R_OIR
+	VALUES (1048583,
+	1048579,
+	1048583,
+	0);
+INSERT INTO GD_MD
+	VALUES (1048577,
+	5,
+	1048578,
+	11,
+	1,
+	0,
+	1,
+	1,
+	0,
+	12,
+	1381,
+	3883,
+	0.707389,
+	0);
+INSERT INTO GD_GE
+	VALUES (1048580,
+	1048577,
+	1048577,
+	21);
+INSERT INTO GD_SHP
+	VALUES (1048580,
+	1728,
+	1248,
+	1904,
+	1360);
+INSERT INTO GD_GE
+	VALUES (1048581,
+	1048577,
+	1048578,
+	21);
+INSERT INTO GD_SHP
+	VALUES (1048581,
+	1936,
+	1248,
+	2112,
+	1360);
+INSERT INTO GD_GE
+	VALUES (1048582,
+	1048577,
+	1048579,
+	21);
+INSERT INTO GD_SHP
+	VALUES (1048582,
+	1664,
+	1664,
+	1888,
+	1840);
+INSERT INTO GD_GE
+	VALUES (1048583,
+	1048577,
+	1048580,
+	21);
+INSERT INTO GD_SHP
+	VALUES (1048583,
+	1952,
+	1664,
+	2176,
+	1840);
+INSERT INTO GD_GE
+	VALUES (1048592,
+	1048577,
+	1048581,
+	21);
+INSERT INTO GD_SHP
+	VALUES (1048592,
+	1808,
+	1392,
+	2032,
+	1568);
+INSERT INTO GD_GE
+	VALUES (1048603,
+	1048577,
+	1048582,
+	21);
+INSERT INTO GD_SHP
+	VALUES (1048603,
+	1664,
+	1920,
+	1888,
+	2096);
+INSERT INTO GD_GE
+	VALUES (1048605,
+	1048577,
+	1048583,
+	21);
+INSERT INTO GD_SHP
+	VALUES (1048605,
+	1952,
+	1920,
+	2176,
+	2096);
+INSERT INTO GD_GE
+	VALUES (1048595,
+	1048577,
+	1048577,
+	24);
+INSERT INTO GD_CON
+	VALUES (1048595,
+	1048592,
+	0,
+	0);
+INSERT INTO GD_CTXT
+	VALUES (1048595,
+	1946,
+	1572,
+	2081,
+	1594,
+	21,
+	-6,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	1807,
+	1574,
+	1831,
+	1596,
+	-118,
+	-14);
+INSERT INTO GD_LS
+	VALUES (1048596,
+	1048595,
+	1920,
+	1568,
+	1920,
+	1616,
+	0);
+INSERT INTO GD_GE
+	VALUES (1048597,
+	1048577,
+	0,
+	-1);
+INSERT INTO GD_CON
+	VALUES (1048597,
+	1048582,
+	1048595,
+	0);
+INSERT INTO GD_CTXT
+	VALUES (1048597,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+	VALUES (1048598,
+	1048597,
+	1760,
+	1664,
+	1760,
+	1648,
+	0);
+INSERT INTO GD_LS
+	VALUES (1048599,
+	1048597,
+	1760,
+	1648,
+	1920,
+	1616,
+	1048598);
+INSERT INTO GD_GE
+	VALUES (1048600,
+	1048577,
+	0,
+	-1);
+INSERT INTO GD_CON
+	VALUES (1048600,
+	1048583,
+	1048595,
+	0);
+INSERT INTO GD_CTXT
+	VALUES (1048600,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+	VALUES (1048601,
+	1048600,
+	2080,
+	1664,
+	2080,
+	1648,
+	0);
+INSERT INTO GD_LS
+	VALUES (1048602,
+	1048600,
+	2080,
+	1648,
+	1920,
+	1616,
+	1048601);
+INSERT INTO GD_GE
+	VALUES (1048607,
+	1048577,
+	1048578,
+	24);
+INSERT INTO GD_CON
+	VALUES (1048607,
+	1048582,
+	0,
+	0);
+INSERT INTO GD_CTXT
+	VALUES (1048607,
+	1782,
+	1845,
+	1917,
+	1867,
+	17,
+	-5,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	1664,
+	1844,
+	1688,
+	1866,
+	-101,
+	-16);
+INSERT INTO GD_LS
+	VALUES (1048618,
+	1048607,
+	1760,
+	1840,
+	1760,
+	1888,
+	0);
+INSERT INTO GD_GE
+	VALUES (1048609,
+	1048577,
+	0,
+	-1);
+INSERT INTO GD_CON
+	VALUES (1048609,
+	1048603,
+	1048607,
+	0);
+INSERT INTO GD_CTXT
+	VALUES (1048609,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+	VALUES (1048617,
+	1048609,
+	1760,
+	1920,
+	1760,
+	1888,
+	0);
+INSERT INTO GD_GE
+	VALUES (1048611,
+	1048577,
+	1048579,
+	24);
+INSERT INTO GD_CON
+	VALUES (1048611,
+	1048583,
+	0,
+	0);
+INSERT INTO GD_CTXT
+	VALUES (1048611,
+	2099,
+	1844,
+	2234,
+	1866,
+	14,
+	-6,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	1953,
+	1845,
+	1977,
+	1867,
+	-132,
+	-15);
+INSERT INTO GD_LS
+	VALUES (1048612,
+	1048611,
+	2080,
+	1840,
+	2080,
+	1888,
+	0);
+INSERT INTO GD_GE
+	VALUES (1048613,
+	1048577,
+	0,
+	-1);
+INSERT INTO GD_CON
+	VALUES (1048613,
+	1048605,
+	1048611,
+	0);
+INSERT INTO GD_CTXT
+	VALUES (1048613,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+	VALUES (1048614,
+	1048613,
+	2080,
+	1920,
+	2080,
+	1888,
+	0);

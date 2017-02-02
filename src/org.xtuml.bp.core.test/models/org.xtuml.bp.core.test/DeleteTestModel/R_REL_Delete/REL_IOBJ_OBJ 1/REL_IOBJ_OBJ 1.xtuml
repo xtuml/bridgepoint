@@ -1,0 +1,83 @@
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("2ee93489-0b73-4eff-b44c-cb96e28d23d5",
+	'REL_IOBJ_OBJ 1',
+	206,
+	'T_CLSREL7',
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_REF
+	VALUES ("2ee93489-0b73-4eff-b44c-cb96e28d23d5",
+	"58b33c45-a0ca-44d8-82a4-8b80ad83bc93",
+	0,
+	"d09d562d-39d8-4578-89e2-df7254c91bff",
+	"ac777284-14d8-4a95-ab7c-c0664a13b802",
+	"3c599965-fff5-485f-892d-e76879bd3f22",
+	"56b8d29b-057a-4353-98ef-464507afaf24",
+	"b8223a55-561d-4b93-a5c1-256ce130c973",
+	"1d2fdc6d-b1e4-4a23-8674-ee46a90ae80a",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'REL_IOBJ_OBJ 1',
+	'TestAttrFormalizer',
+	'R227');
+INSERT INTO R_RGO_PROXY
+	VALUES ("2ee93489-0b73-4eff-b44c-cb96e28d23d5",
+	"ac777284-14d8-4a95-ab7c-c0664a13b802",
+	"3c599965-fff5-485f-892d-e76879bd3f22",
+	'../R_REL_Delete.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("d09d562d-39d8-4578-89e2-df7254c91bff",
+	"58b33c45-a0ca-44d8-82a4-8b80ad83bc93",
+	0,
+	"ac777284-14d8-4a95-ab7c-c0664a13b802",
+	"56b8d29b-057a-4353-98ef-464507afaf24",
+	'../R_REL_Delete.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("b8223a55-561d-4b93-a5c1-256ce130c973",
+	"2ee93489-0b73-4eff-b44c-cb96e28d23d5",
+	"d09d562d-39d8-4578-89e2-df7254c91bff",
+	"58b33c45-a0ca-44d8-82a4-8b80ad83bc93",
+	1,
+	'TestAttrFormalizer');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("d09d562d-39d8-4578-89e2-df7254c91bff",
+	"58b33c45-a0ca-44d8-82a4-8b80ad83bc93",
+	'../../REL Import/REL_IOBJ_OBJ 1/REL_IOBJ_OBJ 1.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("b8223a55-561d-4b93-a5c1-256ce130c973",
+	"2ee93489-0b73-4eff-b44c-cb96e28d23d5",
+	"00000000-0000-0000-0000-000000000000",
+	'TestAttrFormalizer',
+	'',
+	'',
+	'TestAttrFormalizer',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000007",
+	'',
+	'');
+INSERT INTO O_ID
+	VALUES (0,
+	"2ee93489-0b73-4eff-b44c-cb96e28d23d5");
+INSERT INTO O_ID
+	VALUES (1,
+	"2ee93489-0b73-4eff-b44c-cb96e28d23d5");
+INSERT INTO O_ID
+	VALUES (2,
+	"2ee93489-0b73-4eff-b44c-cb96e28d23d5");
+INSERT INTO PE_PE
+	VALUES ("2ee93489-0b73-4eff-b44c-cb96e28d23d5",
+	1,
+	"8b1f55d2-d1c1-43a8-bc6f-0f722986ef77",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
+	VALUES ("8b1f55d2-d1c1-43a8-bc6f-0f722986ef77",
+	"00000000-0000-0000-0000-000000000000",
+	"c6693612-7c4f-42e5-b64f-16c64f288945",
+	'R_REL_Delete',
+	'',
+	0,
+	'../R_REL_Delete.xtuml');

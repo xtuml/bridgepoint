@@ -1,0 +1,171 @@
+AUDIT RESULTS FOR DOMAIN sm
+
+SUBSYSTEMS WITHOUT DESCRIPTIONS:
+sm
+
+EXTERNAL ENTITIES WITHOUT DESCRIPTIONS:
+External Entity Logging 
+External Entity Time
+External Entity Architecture
+
+BRIDGES WITHOUT DESCRIPTIONS:
+External Entity Bridge Logging ::LogSuccess
+External Entity Bridge Logging ::LogFailure
+External Entity Bridge Logging ::LogInfo
+External Entity Bridge Architecture::shutdown
+
+CLASSES WITHOUT DESCRIPTIONS:
+Class sm::SC Object A
+Class sm::sm init
+Class sm::SC Driver
+Class sm::SC Object B Left Object
+Class sm::SC Object C Right Object
+Class sm::SC Object D Associative Object
+Class sm::SC Object E Associative Object
+
+ATTRIBUTES WITHOUT DESCRIPTIONS:
+Attribute SC Object A::scoa_id
+Attribute SC Object A::current_state
+Attribute SC Object A::i
+Attribute SC Object A::b
+Attribute SC Object A::r
+Attribute SC Object A::s
+Attribute SC Object A::u
+Attribute sm init::id
+Attribute sm init::current_state
+Attribute SC Driver::id
+Attribute SC Driver::current_state
+Attribute SC Driver::i
+Attribute SC Driver::b
+Attribute SC Driver::r
+Attribute SC Driver::s
+Attribute SC Driver::u
+Attribute SC Driver::ack_count
+Attribute SC Object B Left Object::scob_id
+Attribute SC Object B Left Object::status
+Attribute SC Object B Left Object::current_state
+Attribute SC Object C Right Object::scoc_id
+Attribute SC Object C Right Object::status
+Attribute SC Object C Right Object::current_state
+Attribute SC Object D Associative Object::scob_id
+Attribute SC Object D Associative Object::scoc_id
+Attribute SC Object D Associative Object::current_state
+Attribute SC Object E Associative Object::scoe_id
+Attribute SC Object E Associative Object::scob_id
+Attribute SC Object E Associative Object::scoc_id
+
+REFERENCES WITHOUT DESCRIPTIONS:
+Referential Attribute SC Object D Associative Object::scob_id
+Referential Attribute SC Object D Associative Object::scoc_id
+Referential Attribute SC Object E Associative Object::scob_id
+Referential Attribute SC Object E Associative Object::scoc_id
+
+RELATIONSHIPS WITHOUT DESCRIPTIONS:
+sm::R1
+sm::R2
+
+STATE MODELS WITHOUT DESCRIPTIONS:
+State Model SC Object A
+State Model sm init
+State Model SC Driver
+State Model SC Object B Left Object
+State Model SC Object C Right Object
+State Model SC Object D Associative Object
+State Model SC Object D Associative Object
+State Model SC Object E Associative Object
+
+EVENTS WITHOUT DESCRIPTIONS:
+Event CREAT1
+Event CREAT2
+Event CREAT3
+Event SCOA4
+Event SCOA5
+Event SCOA6
+Event SCOA7
+Event CREAT8
+Event DRV_A9
+Event DRV_A10
+Event DRV_A11
+Event DRV_A12
+Event SCOA13
+Event SCOA14
+Event SCOA15
+Event DEL16
+Event SCOA17
+Event SCOA18
+Event SCOA19
+Event SPEPA20
+Event SCOA21
+Event SCOA22
+Event SCOA23
+Event genIG24
+Event SCOA25
+Event SCOA24
+Event INIT1
+Event SCD1
+Event SCD2
+Event SCD3
+Event SCD4
+Event SCD5
+Event scob1
+Event scob2
+Event scob3
+Event scoc1
+Event scoc2
+Event scoc3
+Event scod1
+Event scod2
+Event scod_A1
+Event scod_A2
+Event scod_A3
+Event SCOE_A1
+
+EVENT DATA WITHOUT DESCRIPTIONS:
+Event Data SC Object A::i
+Event Data SC Object A::b
+Event Data SC Object A::s
+Event Data SC Object A::r
+Event Data SC Object A::u
+Event Data SC Object E Associative Object (Class Based)::val
+
+ACTION SPECIFICATIONS WITHOUT DESCRIPTIONS:
+SC Object A::Sync creation state
+SC Object A::Creation unique KL no meaning no data
+SC Object A::Driven State A
+SC Object A::Driven State B
+SC Object A::Driven State C
+SC Object A::Final State Delete
+SC Object A::Creation unique KL meaning data
+SC Object A::Creation unique KL no meaning data
+SC Object A::Create object KL meaning no data
+SC Object A::Create object KL no meaning no data
+SC Object A::Create object KL no meaning data
+SC Object A::Create object KL meaning data
+SC Object A::Creation unique KL meaning no data
+SC Object A::Deletion State for Creation States
+SC Object A::generate event to self using self
+SC Object A::generate event to self using self_inst_ref
+SC Object A::create event instance and gen to self
+SC Object A::create event instance and gen to self_inst_ref
+SC Object A::gen IG to self
+SC Object A::check received event data
+SC Object A::check forwarded event data
+sm init::INIT
+SC Driver::Create SC Object A asynchronously
+SC Driver::Create and Drive Synch SC Object A
+SC Driver::Drive Assigner and Active Associative Object
+SC Driver::Waiting for Acks from B and C
+SC Driver::Shutting Down
+SC Object B Left Object::Creating
+SC Object B Left Object::Waiting
+SC Object B Left Object::Deleting
+SC Object C Right Object::Creating
+SC Object C Right Object::Waiting
+SC Object C Right Object::Deleting
+SC Object D Associative Object::Waiting
+SC Object D Associative Object::Deleting
+SC Object D Associative Object::Waiting for a B Request (Class Based)
+SC Object D Associative Object::Waiting for an Available C (Class Based)
+SC Object D Associative Object::Assigning B to C (Class Based)
+SC Object E Associative Object::Idling (Class Based)
+SC Object E Associative Object::Other_Idling (Class Based)

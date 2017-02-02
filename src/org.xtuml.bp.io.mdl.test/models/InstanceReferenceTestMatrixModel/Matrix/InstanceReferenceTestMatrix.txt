@@ -1,0 +1,146 @@
+#===========================================================================
+#
+# Description:
+# This test matrix is used to test the execution on instance reference
+# in the verifier.
+#
+#
+# Version:      $Revision: 1.2 $
+#
+# Notice:
+# (C) Copyright 2007-2014 Mentor Graphics Corporation
+#     All rights reserved.
+#===========================================================================
+#
+# 
+# The test model  :
+# 	 FullVerifierInstanceTest.xtuml
+#    <cvs>Documentation\internal\technical\notes\dts0100703003\
+#
+# Test Model Structure 	
+#   Matrix/Model Tractability : 
+#		- Each cell is represented with single activity in the model. 
+#        - Each A1-36 Vx Ix cells are represented in a single activities 
+#          holder model element ModelClass,FunctionPackage or ExternalEntity 
+#          depends on the Access Type.
+#        -  The naming convention of the activity is : 
+#          <ReferenceType KeyLetter><AccessType>
+#          e.g. O_ATTR_readAttribute()
+#        -  The naming convention of the activities holder is :
+#          test<ReferenceType>_<InstanceAccess>
+#          e.g. testAttribute_Direct
+#          
+#          To locate the activity that represents Matrix cell A2V1I3 :
+#          A2 : read attribute
+#          V1 : Direct  	
+#          I3 : Attribute "O_ATTR"
+#          Frsit : find the ModelClasses named "testAttribute_Direct"
+#          Second : inside it find the operation called "O_ATTR_readAttribute"
+#        - A LogInfo is printed in the console view for any test activity entry.
+#          The LogInfo reports the activity holder name, activity name, 
+#          corresponding cell number in the matrix
+#        .e.g
+#      	LOG::LogInfo(message:"Operation entered:
+#      			testAttribute_Direct::O_ATTR_readAttir, Matrix cell : A2 V1 I3");
+#      	- LogSuccess/LogFailure added for all activities to trace the test 
+#      	  result with the Matrix Cell number.
+#
+#  Running The test (until the the test get automated): 
+#		- Different functions are created and organized for test model execution: 
+#    	a. A set of functions that are responsible to setup the test environment. 
+#    	   These functions are held in "Test Environment Setup" function package
+#      	e.g. Create/Delete instances, relate and unrelate them, etc.
+#      	  
+#      	b. A set of functions that responsible for test activities invocation.
+#      	   
+#       c. A set of functions that run specific tests that are expected to 
+#			terminate the verifier session.
+#
+
+Degrees of Freedom:
+ 
+Access Type(A)
+# instRef/instRef_set are always the element under test.
+
+1. operation invocation									# instRef.Operation();
+2. read attribute										# x =  instRef.attr;
+3. select statement 1									#select one object related by instRef->P[R1];
+4. select statement 2									#select one instRef related by object->P[R1];
+5. select statement with where clause					#select one object related by instRef->P[R1] where (selected.ID = id);
+6. relate statement first operand						#relate instRef to object across R1 using object2;
+7. relate using statement								#relate object1 to object2 across R1 using instRef;
+8. relate statement second operand						#relate object to instRef   across R1 using object2;
+9. unrelate statement first operand						#unrelate instRef from object across R1 using object2;
+10. unrelate statement second operand					#unrelate object from instRef across R1 using object2;
+11. unrelate using statement							#unrelate object from object2 across R1 using instRef;
+12. For each statement for instance reference.			#for each instRef in object_sets
+13. Where clause using Instance reference.				# select one object related by object2->P[R1] where (selected.nextObject == instRef);
+14. Boolean Binary operation left operand				#instRef == object
+15. Boolean Binary operation right operand				#object == instRef
+16. Unary Operators ( empty/not empty/cardinality)		#if ( empty instRef)
+17. generate event										#generate V1:accelerate to instRef;
+18. create event statement								#create event instance accelerate_event of V1:'accelerate' to instRef;
+19. write attribute										#instRef.attr = x;
+20. delete statement 									#delete object instance instRef;
+21. For each for instance reference set.				#for each object in instRef_set
+22. select statement for instance reference set.		#select many objects related by instRef_set>P[R1];
+23. select statement for instance reference set.		#select many instRef_set related by objects>P[R1];
+24. select statement for instance reference set using where clause.					#select many objects related by instRef_set>P[R1] where (selected.ID == id);
+25. Unary Operators ( empty/not empty/cardinality)for instance reference set.		#if empty inst_ref_set
+
+# Binary operators are	| and  &
+26. Binary Operations with one instance reference operand and one instance reference set operand		# x = inst_ref_set | instRef;
+27. Binary Operations with two instance reference set operands   
+28. Binary Operations with two instance reference operands
+29. Create statement.  # create object instance instRef.attr of T;
+30. Boolean Binary operation left operand IR Set		#instRef_set == object_set
+31. Boolean Binary operation right operand IR Set		#object_set == instRef_set
+32. relate statement first operand						#relate instRef to object across R1;;
+33. relate statement second operand						#relate object to instRef across R1;
+34. unrelate statement first operand					#unrelate object to instRef across R1;
+35. unrelate statement second operand					#unrelate object to instRef across R1;
+36. activities invocation for instance reference		#::foo(ref: instRef);
+37. activities invocation for instance reference set    #::foo(refSet: instRefSet);
+
+
+Instance Access(V)
+1. Direct  				# e.g   instRef.attr = object;
+#  For all Reference Type except Mixed Reference.
+2. Invalid Direct (empty instance)
+#  For all Reference Type except Mixed Reference.
+3. Nested				# e.g.  instRef.another.attr = object;
+#  Only Attributes and Structure Member support Nested access. 
+4. Invalid Nested
+#  Only Attributes and Structure Member support Nested access. 
+
+Reference Type (I):
+1. Operation Parameter "O_TPARM"
+2. Function Parameter "S_SPARM"
+3. Attribute "O_ATTR"
+#4. Transient Variable "V_TRN"    - Already fully tested in AuditVerifier Test.
+5. Bridge Parameter "S_BPARM"
+#6. Property Parameter "C_PP"	  - Can not assign Instance Reference DataType to Interface Operation parameter
+7. Event Parameter "SM_EVTDI"
+8. Structure member "S_MBR"
+9. Array Element "V_AER"
+10. Mixed Reference  	# e.g  param.instRef.AttrReference.SdtReference = object;
+
+# The following Instance Access are commented because they are meant to be supported
+# in Parser so far.
+# Operation Return Value "V_TRV"    
+# Function Return Value "V_FNV"
+# Bridge Return Value "V_BRV"
+# Message Return Value "V_MSV"
+
+Result 
+1. Parser Error
+2. Run Successfully
+3. Verifier Error   "Null instance access, Suspending."
+
+
+
+# Note : The parser error hides possible the Validation and Verifier error
+#		i.e. by fixing this parser error, it is highly possible to get Validation
+#		error or Verifier error. Same goes with Validation error that may hide Verifier 
+#		error
+Matrix:

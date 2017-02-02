@@ -1,0 +1,24 @@
+ERROR: Found another data type under the same package with a matching name.
+
+Element Name: User Data Type
+Element Path: ModelIntegrityTests::User Data Type Tests::User Data Type
+
+
+ERROR: Found another data type under the same package with a matching name.
+
+Element Name: User Data Type
+Element Path: ModelIntegrityTests::User Data Type Tests::Component::User Data Type
+
+
+ERROR: Found another data type under the same package with a matching name.
+
+Element Name: User Data Type
+Element Path: ModelIntegrityTests::User Data Type Tests::Component::User Data Type
+
+
+ERROR: Found another data type under the same package with a matching name.
+
+Element Name: User Data Type
+Element Path: ModelIntegrityTests::User Data Type Tests::User Data Type
+
+

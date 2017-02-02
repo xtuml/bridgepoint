@@ -1,0 +1,291 @@
+AUDIT RESULTS FOR DOMAIN ooaofgraphics
+
+ATTRIBUTES WITHOUT DESCRIPTIONS:
+Attribute Model::Model_Type
+Attribute Model::OOA_Type
+Attribute Model::SelRectX
+Attribute Model::SelRectY
+Attribute Model::SelRectW
+Attribute Model::SelRectH
+Attribute Model::represents
+Attribute Model::current_state
+Attribute Graphical Element::OOA_Type
+Attribute Graphical Element::represents
+Attribute Model Specification::Name
+Attribute Model Specification::background
+Attribute Model Specification::represents
+Attribute Element Specification::Name
+Attribute Element Specification::isConnector
+Attribute Element Specification::internal
+Attribute Element Specification::represents
+Attribute Element in Model Specification::OOA_Type
+Attribute Element in Model Specification::Model_Type
+Attribute Element In Resize::GE_ID
+Attribute Element In Resize::Model_ID
+Attribute Segment In Flex::GE_ID
+Attribute Segment In Flex::Model_ID
+Attribute Text In Move::GE_ID
+Attribute Text In Move::Model_ID
+
+REFERENCES WITHOUT DESCRIPTIONS:
+Referential Attribute Model::Model_Type
+Referential Attribute Graphical Element::Model_ID
+Referential Attribute Graphical Element::OOA_Type
+Referential Attribute Shape::GE_ID
+Referential Attribute Connector::GE_ID
+Referential Attribute Connector::Starting_GE_ID
+Referential Attribute Connector::Ending_GE_ID
+Referential Attribute Line Segment::conn_GE_ID
+Referential Attribute Line Segment::Next_GE_ID
+Referential Attribute Connector Text::GE_ID
+Referential Attribute Element in Model Specification::OOA_Type
+Referential Attribute Element in Model Specification::Model_Type
+Referential Attribute Element In Resize::GE_ID
+Referential Attribute Element In Resize::Model_ID
+Referential Attribute Segment In Flex::GE_ID
+Referential Attribute Segment In Flex::Model_ID
+Referential Attribute Text In Move::GE_ID
+Referential Attribute Text In Move::Model_ID
+
+OPERATIONS WITHOUT DESCRIPTIONS:
+Operation Model::zoomTo
+Operation Model::unSelectAll
+Operation Model::enableTextMoveUnder
+Operation Model::disableTextMove
+Operation Graphical Element::isOver
+Operation Graphical Element::toggleSelect
+Operation Graphical Element::move
+Operation Graphical Element::isInside
+Operation Graphical Element::isOverVertex
+Operation Graphical Element::moveVertex
+Operation Graphical Element::getVertexUnder
+Operation Graphical Element::getEndUnder
+Operation Graphical Element::isOverNWSE
+Operation Graphical Element::getXIntersect
+Operation Graphical Element::getYIntersect
+Operation Shape::isOverNW
+Operation Shape::isOverSE
+Operation Shape::isOverNE
+Operation Shape::isOverSW
+Operation Shape::isSelected
+Operation Shape::isOverVertex
+Operation Shape::isOver
+Operation Shape::move
+Operation Shape::isInside
+Operation Shape::moveConnectors
+Operation Shape::moveVertex
+Operation Shape::getXIntersect
+Operation Shape::getYIntersect
+Operation Shape::getIntersect
+Operation Connector::isOver
+Operation Connector::moveStart
+Operation Connector::moveEnd
+Operation Connector::isSelected
+Operation Connector::isInside
+Operation Connector::isEndSelected
+Operation Connector::isStartSelected
+Operation Connector::endsOnWS
+Operation Connector::isOverVertex
+Operation Connector::getEndUnder
+Operation Connector::getVertexUnder
+Operation Connector::getStartX
+Operation Connector::getStartY
+Operation Connector::getEndX
+Operation Connector::getEndY
+Operation Connector::moveVertex
+Operation Connector::getIntersect
+Operation Connector::getXDeltaForCropTo
+Operation Connector::getYDeltaForCropTo
+Operation Connector::isOverEnd
+Operation Line Segment::isSelected
+Operation Line Segment::isOverVertex
+Operation Line Segment::isOverStart
+Operation Line Segment::isOverEnd
+Operation Line Segment::move
+Operation Line Segment::moveStart
+Operation Line Segment::moveEnd
+Operation Line Segment::isOver
+Operation Line Segment::isMiddleSegment
+Operation Connector Text::move
+Operation Connector Text::moveStart
+Operation Connector Text::moveEnd
+Operation Connector Text::moveMiddle
+Operation Connector Text::isOver
+Operation Element In Resize::initialize
+Operation Element In Resize::finish
+Operation Segment In Flex::initialize
+Operation Segment In Flex::finish
+
+RELATIONSHIPS WITHOUT DESCRIPTIONS:
+Graphical Data::R9
+Graphical Data::R10
+Graphical Data::R13
+Graphical Data::R12
+Graphical Data::R14
+
+EVENTS WITHOUT DESCRIPTIONS:
+Event GD_MD4
+Event GD_MD3
+Event GD_MD9
+Event GD_MD2
+Event GD_MD8
+Event GD_MD6
+Event GD_MD12
+Event GD_MD5
+Event GD_MD14
+Event GD_MD15
+Event GD_MD18
+Event GD_MD19
+
+EVENT DATA WITHOUT DESCRIPTIONS:
+Event Data Model::Retain_Selection
+Event Data Model::X
+Event Data Model::Y
+
+ACTION SPECIFICATIONS WITHOUT DESCRIPTIONS:
+Model::Checking Mouse Press
+Model::Preparing Selection Rectangle
+Model::Selecting Symbol
+Model::Dragging Selection Rectangle
+Model::Dragging Symbols
+Model::Toggling Symbols Caught By Selection Rectangle
+Model::Idle
+Model::Picking Up Selected Symbols
+Model::Opening Context Menu
+Model::Waiting for Mouse Press to Slide Canvas
+Model::Sliding Canvas
+Model::Awaiting Mouse Release
+Model::Mouse Released
+Model::Resting while Sliding Canvas
+Model::Checking for Hotspots
+Model::Waiting for Mouse Press over Hotspot
+Model::Moving Hotspot
+Model::Waiting to Move Hotspot
+Model::Ready to Slide Canvas
+Model::Releasing Text in Move
+
+UNPARSED ACTION SPECIFICATIONS:
+External Entity Bridge Client::getConnectorText has an Unparsed Action Specification
+External Entity Bridge Client::getCompartmentText has an Unparsed Action Specification
+External Entity Bridge Client::getCompartments has an Unparsed Action Specification
+External Entity Bridge Client::isEmpty has an Unparsed Action Specification
+External Entity Bridge Client::getInstanceFromOOA_ID has an Unparsed Action Specification
+External Entity Bridge Client::getShapeStyle has an Unparsed Action Specification
+External Entity Bridge Client::isSelected has an Unparsed Action Specification
+External Entity Bridge Client::getConnectorStyle has an Unparsed Action Specification
+External Entity Bridge Client::getOOA_IDFromInstance has an Unparsed Action Specification
+External Entity Bridge Client::getEntries has an Unparsed Action Specification
+External Entity Bridge Client::getTextStyle has an Unparsed Action Specification
+External Entity Bridge Client::addToSelection has an Unparsed Action Specification
+External Entity Bridge Client::removeFromSelection has an Unparsed Action Specification
+External Entity Bridge Client::clearSelection has an Unparsed Action Specification
+External Entity Bridge Graphics Platform::drawText has an Unparsed Action Specification
+External Entity Bridge Graphics Platform::drawRect has an Unparsed Action Specification
+External Entity Bridge Graphics Platform::clipTo has an Unparsed Action Specification
+External Entity Bridge Graphics Platform::getTextExtent has an Unparsed Action Specification
+External Entity Bridge Graphics Platform::getGraphicSpacing has an Unparsed Action Specification
+External Entity Bridge Graphics Platform::drawLine has an Unparsed Action Specification
+External Entity Bridge Graphics Platform::unClip has an Unparsed Action Specification
+External Entity Bridge Graphics Platform::drawRoundRect has an Unparsed Action Specification
+External Entity Bridge Graphics Platform::drawFolder has an Unparsed Action Specification
+External Entity Bridge Graphics Platform::setLineWidth has an Unparsed Action Specification
+External Entity Bridge Graphics Platform::setLineStyle has an Unparsed Action Specification
+External Entity Bridge Graphics Platform::scale has an Unparsed Action Specification
+External Entity Bridge Graphics Platform::unScale has an Unparsed Action Specification
+External Entity Bridge Graphics Platform::drawResizeHandles has an Unparsed Action Specification
+External Entity Bridge Graphics Platform::getHotspotSize has an Unparsed Action Specification
+External Entity Bridge Graphics Platform::getAngle has an Unparsed Action Specification
+External Entity Bridge Graphics Platform::drawTriangle has an Unparsed Action Specification
+External Entity Bridge Graphics Platform::wrapTextTo has an Unparsed Action Specification
+External Entity Bridge Graphics Platform::getDirection has an Unparsed Action Specification
+External Entity Bridge Graphics Platform::getMargin has an Unparsed Action Specification
+External Entity Bridge Graphics Platform::fitTextTo has an Unparsed Action Specification
+External Entity Bridge Graphics Platform::drawOpenArrow has an Unparsed Action Specification
+External Entity Bridge Graphics Platform::setFillTo has an Unparsed Action Specification
+External Entity Bridge Graphics Platform::setDefaultFill has an Unparsed Action Specification
+External Entity Bridge Graphics Platform::clearBackgroundTo has an Unparsed Action Specification
+External Entity Bridge Graphics Platform::setZoomFactor has an Unparsed Action Specification
+External Entity Bridge Graphics Platform::drawFilledCircle has an Unparsed Action Specification
+External Entity Bridge Graphics Platform::getDefaultTextWidth has an Unparsed Action Specification
+External Entity Bridge Graphics Platform::setMouseCursor has an Unparsed Action Specification
+External Entity Bridge Graphics Platform::reDraw has an Unparsed Action Specification
+External Entity Bridge Graphics Platform::getAbsoluteXPosition has an Unparsed Action Specification
+External Entity Bridge Graphics Platform::getAbsoluteYPosition has an Unparsed Action Specification
+External Entity Bridge Graphics Platform::getGradient has an Unparsed Action Specification
+External Entity Bridge Graphics Platform::drawFlexHandles has an Unparsed Action Specification
+External Entity Bridge Graphics Platform::isWithinHotspot has an Unparsed Action Specification
+External Entity Bridge Graphics Platform::getInterpolatedX has an Unparsed Action Specification
+External Entity Bridge Graphics Platform::getInterpolatedY has an Unparsed Action Specification
+External Entity Bridge Graphics Platform::getXIntersect has an Unparsed Action Specification
+External Entity Bridge Graphics Platform::getYIntersect has an Unparsed Action Specification
+External Entity Bridge Graphics Platform::getContext has an Unparsed Action Specification
+External Entity Bridge Graphics Platform::disposeContext has an Unparsed Action Specification
+External Entity Bridge Graphics Platform::isOver has an Unparsed Action Specification
+External Entity Bridge Operating System::NULL_UNIQUE_ID has an Unparsed Action Specification
+External Entity Bridge Operating System::MAX_INT has an Unparsed Action Specification
+External Entity Bridge Operating System::isMultiLine has an Unparsed Action Specification
+External Entity Bridge Operating System::realToInt has an Unparsed Action Specification
+External Entity Bridge Operating System::intToReal has an Unparsed Action Specification
+
+ACTION SPECIFICATIONS WITH UNDEFINED SYMBOLS:
+External Entity Bridge Client::getConnectorText has Undefined Symbols
+External Entity Bridge Client::getCompartmentText has Undefined Symbols
+External Entity Bridge Client::getCompartments has Undefined Symbols
+External Entity Bridge Client::isEmpty has Undefined Symbols
+External Entity Bridge Client::getInstanceFromOOA_ID has Undefined Symbols
+External Entity Bridge Client::getShapeStyle has Undefined Symbols
+External Entity Bridge Client::isSelected has Undefined Symbols
+External Entity Bridge Client::getConnectorStyle has Undefined Symbols
+External Entity Bridge Client::getOOA_IDFromInstance has Undefined Symbols
+External Entity Bridge Client::getEntries has Undefined Symbols
+External Entity Bridge Client::getTextStyle has Undefined Symbols
+External Entity Bridge Client::addToSelection has Undefined Symbols
+External Entity Bridge Client::removeFromSelection has Undefined Symbols
+External Entity Bridge Client::clearSelection has Undefined Symbols
+External Entity Bridge Graphics Platform::drawText has Undefined Symbols
+External Entity Bridge Graphics Platform::drawRect has Undefined Symbols
+External Entity Bridge Graphics Platform::clipTo has Undefined Symbols
+External Entity Bridge Graphics Platform::getTextExtent has Undefined Symbols
+External Entity Bridge Graphics Platform::getGraphicSpacing has Undefined Symbols
+External Entity Bridge Graphics Platform::drawLine has Undefined Symbols
+External Entity Bridge Graphics Platform::unClip has Undefined Symbols
+External Entity Bridge Graphics Platform::drawRoundRect has Undefined Symbols
+External Entity Bridge Graphics Platform::drawFolder has Undefined Symbols
+External Entity Bridge Graphics Platform::setLineWidth has Undefined Symbols
+External Entity Bridge Graphics Platform::setLineStyle has Undefined Symbols
+External Entity Bridge Graphics Platform::scale has Undefined Symbols
+External Entity Bridge Graphics Platform::unScale has Undefined Symbols
+External Entity Bridge Graphics Platform::drawResizeHandles has Undefined Symbols
+External Entity Bridge Graphics Platform::getHotspotSize has Undefined Symbols
+External Entity Bridge Graphics Platform::getAngle has Undefined Symbols
+External Entity Bridge Graphics Platform::drawTriangle has Undefined Symbols
+External Entity Bridge Graphics Platform::wrapTextTo has Undefined Symbols
+External Entity Bridge Graphics Platform::getDirection has Undefined Symbols
+External Entity Bridge Graphics Platform::getMargin has Undefined Symbols
+External Entity Bridge Graphics Platform::fitTextTo has Undefined Symbols
+External Entity Bridge Graphics Platform::drawOpenArrow has Undefined Symbols
+External Entity Bridge Graphics Platform::setFillTo has Undefined Symbols
+External Entity Bridge Graphics Platform::setDefaultFill has Undefined Symbols
+External Entity Bridge Graphics Platform::clearBackgroundTo has Undefined Symbols
+External Entity Bridge Graphics Platform::setZoomFactor has Undefined Symbols
+External Entity Bridge Graphics Platform::drawFilledCircle has Undefined Symbols
+External Entity Bridge Graphics Platform::getDefaultTextWidth has Undefined Symbols
+External Entity Bridge Graphics Platform::setMouseCursor has Undefined Symbols
+External Entity Bridge Graphics Platform::reDraw has Undefined Symbols
+External Entity Bridge Graphics Platform::getAbsoluteXPosition has Undefined Symbols
+External Entity Bridge Graphics Platform::getAbsoluteYPosition has Undefined Symbols
+External Entity Bridge Graphics Platform::getGradient has Undefined Symbols
+External Entity Bridge Graphics Platform::drawFlexHandles has Undefined Symbols
+External Entity Bridge Graphics Platform::isWithinHotspot has Undefined Symbols
+External Entity Bridge Graphics Platform::getInterpolatedX has Undefined Symbols
+External Entity Bridge Graphics Platform::getInterpolatedY has Undefined Symbols
+External Entity Bridge Graphics Platform::getXIntersect has Undefined Symbols
+External Entity Bridge Graphics Platform::getYIntersect has Undefined Symbols
+External Entity Bridge Graphics Platform::getContext has Undefined Symbols
+External Entity Bridge Graphics Platform::disposeContext has Undefined Symbols
+External Entity Bridge Graphics Platform::isOver has Undefined Symbols
+External Entity Bridge Operating System::NULL_UNIQUE_ID has Undefined Symbols
+External Entity Bridge Operating System::MAX_INT has Undefined Symbols
+External Entity Bridge Operating System::isMultiLine has Undefined Symbols
+External Entity Bridge Operating System::realToInt has Undefined Symbols
+External Entity Bridge Operating System::intToReal has Undefined Symbols

@@ -1,0 +1,162 @@
+AUDIT RESULTS FOR DOMAIN G_STE_G_STE_pe_le_same_state
+
+EXTERNAL ENTITIES WITHOUT DESCRIPTIONS:
+External Entity Time
+
+CLASSES WITHOUT DESCRIPTIONS:
+Class G_STE_G_STE_pe_le_same_state::A Class
+Class G_STE_G_STE_pe_le_same_state::B Class
+Class G_STE_G_STE_pe_le_same_state::C Class
+Class G_STE_G_STE_pe_le_same_state::D Class
+Class G_STE_G_STE_pe_le_same_state::E Class
+Class G_STE_G_STE_pe_le_same_state::F Class
+Class G_STE_G_STE_pe_le_same_state::Data Class
+
+ATTRIBUTES WITHOUT DESCRIPTIONS:
+Attribute Initialization::Init_ID
+Attribute Initialization::current_state
+Attribute Driver::Driver_ID
+Attribute Driver::watchdog
+Attribute Driver::current_state
+Attribute A Class::a_id
+Attribute A Class::current_state
+Attribute B Class::b_id
+Attribute B Class::a_id
+Attribute B Class::lap
+Attribute B Class::current_state
+Attribute C Class::c_id
+Attribute C Class::b_id
+Attribute C Class::lap
+Attribute C Class::current_state
+Attribute D Class::d_id
+Attribute D Class::b_id
+Attribute D Class::e_id
+Attribute D Class::lap
+Attribute D Class::current_state
+Attribute E Class::e_id
+Attribute E Class::current_state
+Attribute F Class::f_id
+Attribute F Class::d_id
+Attribute F Class::lap
+Attribute F Class::current_state
+Attribute Data Class::id
+Attribute Data Class::num
+Attribute Data Class::str
+
+REFERENCES WITHOUT DESCRIPTIONS:
+Referential Attribute B Class::a_id
+Referential Attribute C Class::b_id
+Referential Attribute D Class::b_id
+Referential Attribute D Class::e_id
+Referential Attribute F Class::d_id
+
+RELATIONSHIPS WITHOUT DESCRIPTIONS:
+G_STE_G_STE_pe_le_same_state::R1
+G_STE_G_STE_pe_le_same_state::R2
+G_STE_G_STE_pe_le_same_state::R3
+G_STE_G_STE_pe_le_same_state::R4
+
+STATE MODELS WITHOUT DESCRIPTIONS:
+State Model Initialization
+State Model Driver
+State Model A Class
+State Model B Class
+State Model C Class
+State Model D Class
+State Model E Class
+State Model F Class
+
+EVENTS WITHOUT DESCRIPTIONS:
+Event INIT1
+Event DRV1
+Event DRV2
+Event DRV3
+Event DRV4
+Event DRV5
+Event AC1
+Event AC2
+Event AC3
+Event AC7
+Event AC8
+Event AC9
+Event AC13
+Event AC14
+Event AC15
+Event AC4
+Event AC5
+Event AC6
+Event AC10
+Event AC11
+Event AC12
+Event BC1
+Event BC2
+Event BC3
+Event BC13
+Event BC14
+Event BC15
+Event BC4
+Event BC5
+Event BC6
+Event BC10
+Event BC11
+Event BC12
+Event CC1
+Event CC2
+Event CC3
+Event DC1
+Event DC2
+Event DC3
+Event DC7
+Event DC8
+Event DC9
+Event EC1
+Event EC2
+Event EC3
+Event EC10
+Event EC11
+Event EC12
+Event FC1
+Event FC2
+Event FC3
+
+EVENT DATA WITHOUT DESCRIPTIONS:
+Event Data A Class::num
+Event Data A Class::str
+Event Data B Class::num
+Event Data B Class::str
+Event Data C Class::num
+Event Data C Class::str
+Event Data D Class::num
+Event Data D Class::str
+Event Data E Class::num
+Event Data E Class::str
+Event Data F Class::num
+Event Data F Class::str
+
+ACTION SPECIFICATIONS WITHOUT DESCRIPTIONS:
+Initialization::Initialize
+Driver::Test B
+Driver::End Test
+Driver::Waiting for B
+Driver::B Failed
+Driver::Test C
+Driver::Test D
+Driver::Test F
+Driver::Waiting for C
+Driver::C Failed
+Driver::Waiting for D
+Driver::D Failed
+Driver::Waiting for F
+Driver::F Failed
+B Class::B No Sup Data
+B Class::B Int Sup Data
+B Class::B Int and Str Sup Data
+C Class::C No Sup Data
+C Class::C Int Sup Data
+C Class::C Int and Str Sup Data
+D Class::D No Sup Data
+D Class::D Int Sup Data
+D Class::D Int and Str Sup Data
+F Class::F No Sup Data
+F Class::F Int Sup Data
+F Class::F Int and Str Sup Data

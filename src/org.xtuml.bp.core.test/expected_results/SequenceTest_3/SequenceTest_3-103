@@ -1,0 +1,3 @@
+drawRectangle(11146, 8187, 951, 391)
+drawText("SQinSQ Inst : Informal Class", 11343, 8197, true)
+drawline(11146, 8261, 12097, 8261)

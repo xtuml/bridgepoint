@@ -1,0 +1,95 @@
+#===========================================================================
+#
+# Description:
+# This test matrix is used to test connector move capabilities
+#
+#
+# Version:      $Revision: 1.4 $
+#
+# Notice:
+# (C) Copyright 2007-2014 Mentor Graphics Corporation
+#     All rights reserved.
+#===========================================================================
+#
+#
+Degrees of Freedom:
+
+StartTerminal(A)
+1. Shape
+2. Connector
+3. Diagram
+
+End Terminal(B)
+1. Shape
+2. Connector
+3. Diagram
+
+Bendpoints(C)
+1. None
+2. One
+3. Two
+
+Segment over(D)
+1. Start
+2. End
+3. Middle
+
+Selection(E)
+1. One
+2. Two
+
+Attached connectors(F)
+1. Source
+2. Target
+3. None
+
+Results:
+1. startAnchorMoved     "The start anchor was not moved as expected."
+2. endAnchorMoved       "The end anchor was not moved as expected."
+3. firstBendpointMoved  "The first bendpoint was not moved as expected."
+4. secondBendpointMoved "The second bendpoint was not moved as expected."
+5. otherSelectedConnectorMoved "The other connection in the selection was not moved as expected."
+6. targetConnectionEndMoved  "Target connection was not moved as expected."
+7. sourceConnectionEndMoved  "Source connection was not moved as expected."
+8. targetConnectionEndNotMoved "The target connection attached was moved."
+9. sourceConnectionEndNotMoved "The source connection attached was moved."
+10. allPointsMoved "All connection points were not moved as expected."
+
+Matrix:
+           A1B1     A1B2   A1B3     A2B1   A2B2   A2B3     A3B1 A3B2   A3B3  
+C1D3E1F1   X        X      X        X      X      R1R2R7   X    X      X
+C1D3E2F1   X        X      X        X      X      R1R2R5R7 X    X      X
+C1D3E1F2   R1R2R6   X      R1R2R6   X      X      R1R2R6   X    X      X
+C1D3E2F2   R1R2R5R6 X      R1R2R5R6 X      X      R1R2R5R6 X 	X      X
+C1D3E1F3   X        R1R2   X        R1R2   R1R2   X        X 	R1R2   R1R2
+C1D3E2F3   X        R1R2R5 X        R1R2R5 R1R2R5 X        X 	R1R2R5 R1R2R5  
+C2D1E1F1   X        X      X        X      X      R1R3R7   X 	X      X
+C2D1E2F1   X        X      X        X      X      R10R5R7  X 	X      X
+C2D2E1F1   X        X      X        X      X      R2R3R7   X 	X      X
+C2D2E2F1   X        X      X        X      X      R10R5R6  X 	X      X
+C2D1E1F2   R1R3R6   X      R1R3R8   X      X      R1R3R6   X 	X      X
+C2D1E2F2   R10R5R6  X      R10R5R6  X      X      R10R5R6  X 	X      X
+C2D2E1F2   R2R3R6   X      R2R3R6   X      X      R2R3R6   X 	X      X
+C2D2E2F2   R10R5R6  X      R10R5R6  X      X      R10R5R6  X 	X      X
+C2D1E1F3   X        R1R3   X        R1R3   R1R3   X        X 	R1R3   R10
+C2D1E2F3   X        R10R5  X        R10R5  R10R5  X        X 	R10R5  R10R5
+C2D2E1F3   X        R2R3   X        R2R3   R2R3   X        X 	R2R3   R10
+C2D2E2F3   X        R10R5  X        R10R5  R10R5  X        X 	R10R5  R10R5
+C3D1E1F1   X        X      X        X      X      R1R3R9   X 	X      X
+C3D1E2F1   X        X      X        X      X      R1R3R5R7 X 	X      X
+C3D2E1F1   X        X      X        X      X      R2R4R7   X 	X      X
+C3D2E2F1   X        X      X        X      X      R2R3R5R7 X 	X      X
+C3D3E1F1   X        X      X        X      X      R3R4R7   X 	X      X
+C3D3E2F1   X        X      X        X      X      R3R4R5R7 X 	X      X
+C3D1E1F2   R1R3R8   X      R1R3R8   X      X      R1R3R8   X 	X      X
+C3D1E2F2   R10R5R6  X      R10R5R6  X      X      R10R5R6  X 	X      X
+C3D2E1F2   R2R4R6   X      R2R4R6   X      X      R2R4R6   X 	X      X
+C3D2E2F2   R10R5R6  X      R10R5R6  X      X      R10R5R6  X 	X      X
+C3D3E1F2   R3R4R6   X      R3R4R8   X      X      R3R4R6   X 	X      X
+C3D3E2F2   R10R5R6  X      R10R5R6  X      X      R10R5R6  X 	X      X
+C3D1E1F3   X        R1R3   X        R1R3   R1R3   X        X 	R1R3   R10
+C3D1E2F3   X        R10R5  X        R10R5  R10R5  X        X 	R10R5  R10R5 
+C3D2E1F3   X        R2R4   X        R2R4   R2R4   X        X 	R2R4   R10
+C3D2E2F3   X        R10R5  X        R10R5  R10R5  X        X 	R10R5  R10R5 
+C3D3E1F3   X        R3R4   X        R3R4   R3R4   X        X 	R3R4   R10
+C3D3E2F3   X        R10R5  X        R10R5  R10R5  X        X 	R10R5  R10R5

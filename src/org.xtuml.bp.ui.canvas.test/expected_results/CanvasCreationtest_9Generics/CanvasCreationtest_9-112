@@ -1,0 +1,7 @@
+drawRectangle(...)
+drawText("+Unnamed Class", ...)
+drawText("{1,UnnamedClass}", ...)
+drawline(...)
+drawline(...)
+drawRectangle(...)
+drawText("Unassigned Imported C...", ...)

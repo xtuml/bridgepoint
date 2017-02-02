@@ -1,0 +1,16 @@
+ERROR: Found another operation under the same class with a matching signature.
+
+Signature: OperationSameSig(integer)
+
+Element Name: OperationSameSig
+Element Path: ModelIntegrityTests::Operation Tests::Class::OperationSameSig
+
+
+ERROR: Found another operation under the same class with a matching signature.
+
+Signature: OperationSameSig(integer)
+
+Element Name: OperationSameSig
+Element Path: ModelIntegrityTests::Operation Tests::Class::OperationSameSig
+
+

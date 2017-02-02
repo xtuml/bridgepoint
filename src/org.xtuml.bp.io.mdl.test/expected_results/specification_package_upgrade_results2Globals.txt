@@ -1,0 +1,1114 @@
+
+-- BP 7.1 content: Package syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO EP_PKG
+	VALUES ("ac8243d2-268f-4242-ac29-4d6d7c9c5fc6",
+	"43b6e2ec-8827-ea55-8428-213c1756df90",
+	"43b6e2ec-8827-ea55-8428-213c1756df90",
+	'Specification Package Upgrade Testing',
+	'',
+	0);
+INSERT INTO GD_MD
+	VALUES ("f2a76b1e-1afa-4b71-b5f6-c4b47f6fd217",
+	112,
+	"ac8243d2-268f-4242-ac29-4d6d7c9c5fc6",
+	108,
+	0,
+	0,
+	1,
+	1,
+	1,
+	12,
+	1,
+	0,
+	0,
+	0,
+	0,
+	0,
+	'',
+	'Default Project::Specification Package Upgrade Testing');
+INSERT INTO GD_GE
+	VALUES ("65886a0e-cca2-4ac4-bdf4-e8f35491e723",
+	"f2a76b1e-1afa-4b71-b5f6-c4b47f6fd217",
+	"8969b72c-6302-48d6-a516-58828b89878c",
+	108,
+	0,
+	'Default Project::Specification Package Upgrade Testing::Component Package');
+INSERT INTO GD_SHP
+	VALUES ("65886a0e-cca2-4ac4-bdf4-e8f35491e723");
+INSERT INTO GD_NCS
+	VALUES ("65886a0e-cca2-4ac4-bdf4-e8f35491e723");
+INSERT INTO DIM_ND
+	VALUES (240.000000,
+	168.000000,
+	"65886a0e-cca2-4ac4-bdf4-e8f35491e723");
+INSERT INTO DIM_GE
+	VALUES (4068.000000,
+	3048.000000,
+	"65886a0e-cca2-4ac4-bdf4-e8f35491e723",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("65886a0e-cca2-4ac4-bdf4-e8f35491e723",
+	0,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO GD_GE
+	VALUES ("9cd63feb-a915-4bf9-81b8-5f34b310be5f",
+	"f2a76b1e-1afa-4b71-b5f6-c4b47f6fd217",
+	"92d6cdac-b086-44c5-b66c-86aaa93de8a5",
+	108,
+	0,
+	'Default Project::Specification Package Upgrade Testing::Interface Package');
+INSERT INTO GD_SHP
+	VALUES ("9cd63feb-a915-4bf9-81b8-5f34b310be5f");
+INSERT INTO GD_NCS
+	VALUES ("9cd63feb-a915-4bf9-81b8-5f34b310be5f");
+INSERT INTO DIM_ND
+	VALUES (240.000000,
+	168.000000,
+	"9cd63feb-a915-4bf9-81b8-5f34b310be5f");
+INSERT INTO DIM_GE
+	VALUES (4068.000000,
+	3228.000000,
+	"9cd63feb-a915-4bf9-81b8-5f34b310be5f",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("9cd63feb-a915-4bf9-81b8-5f34b310be5f",
+	0,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_DIA
+	VALUES ("f2a76b1e-1afa-4b71-b5f6-c4b47f6fd217",
+	'',
+	1.000000,
+	4000.000000,
+	3000.000000,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO PE_PE
+	VALUES ("ac8243d2-268f-4242-ac29-4d6d7c9c5fc6",
+	1,
+	"00000000-0000-0000-0000-000000000000",
+	"00000000-0000-0000-0000-000000000000",
+	7);
+INSERT INTO S_SYS_PROXY
+	VALUES ("43b6e2ec-8827-ea55-8428-213c1756df90",
+	'Default Project',
+	1,
+	'../Default Project.xtuml');
+
+-- BP 7.1 content: Package syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO EP_PKG
+	VALUES ("8969b72c-6302-48d6-a516-58828b89878c",
+	"00000000-0000-0000-0000-000000000000",
+	"43b6e2ec-8827-ea55-8428-213c1756df90",
+	'Component Package',
+	'',
+	0);
+INSERT INTO GD_MD
+	VALUES ("fd280d5d-de90-4c2c-a53e-7055a0b73cd4",
+	112,
+	"8969b72c-6302-48d6-a516-58828b89878c",
+	108,
+	0,
+	0,
+	1,
+	1,
+	1,
+	12,
+	1,
+	0,
+	0,
+	0,
+	0,
+	0,
+	'',
+	'Default Project::Specification Package Upgrade Testing::Component Package');
+INSERT INTO GD_GE
+	VALUES ("7bacdee2-4136-4c73-90d5-7ac304a6729e",
+	"fd280d5d-de90-4c2c-a53e-7055a0b73cd4",
+	"00a84448-609d-445c-b216-a21885ad70bc",
+	98,
+	0,
+	'Default Project::Specification Package Upgrade Testing::Component Package::Formal Component');
+INSERT INTO GD_SHP
+	VALUES ("7bacdee2-4136-4c73-90d5-7ac304a6729e");
+INSERT INTO GD_NCS
+	VALUES ("7bacdee2-4136-4c73-90d5-7ac304a6729e");
+INSERT INTO DIM_ND
+	VALUES (200.000000,
+	150.000000,
+	"7bacdee2-4136-4c73-90d5-7ac304a6729e");
+INSERT INTO DIM_GE
+	VALUES (4176.000000,
+	3084.000000,
+	"7bacdee2-4136-4c73-90d5-7ac304a6729e",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("7bacdee2-4136-4c73-90d5-7ac304a6729e",
+	0,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_DIA
+	VALUES ("fd280d5d-de90-4c2c-a53e-7055a0b73cd4",
+	'',
+	1.000000,
+	4000.000000,
+	3000.000000,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO PE_PE
+	VALUES ("8969b72c-6302-48d6-a516-58828b89878c",
+	1,
+	"ac8243d2-268f-4242-ac29-4d6d7c9c5fc6",
+	"00000000-0000-0000-0000-000000000000",
+	7);
+INSERT INTO EP_PKG_PROXY
+	VALUES ("ac8243d2-268f-4242-ac29-4d6d7c9c5fc6",
+	"43b6e2ec-8827-ea55-8428-213c1756df90",
+	"43b6e2ec-8827-ea55-8428-213c1756df90",
+	'Specification Package Upgrade Testing',
+	'',
+	0,
+	'../Specification Package Upgrade Testing.xtuml');
+INSERT INTO S_SYS_PROXY
+	VALUES ("43b6e2ec-8827-ea55-8428-213c1756df90",
+	'Default Project',
+	1,
+	'../../Default Project.xtuml');
+
+-- BP 7.1 content: Component syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO C_C
+	VALUES ("00a84448-609d-445c-b216-a21885ad70bc",
+	"00000000-0000-0000-0000-000000000000",
+	"00000000-0000-0000-0000-000000000000",
+	'Formal Component',
+	'',
+	0,
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'');
+INSERT INTO GD_MD
+	VALUES ("7d0e25c2-c99f-4b1b-b41d-5cc711a2bc48",
+	111,
+	"00a84448-609d-445c-b216-a21885ad70bc",
+	98,
+	0,
+	0,
+	1,
+	1,
+	1,
+	12,
+	1,
+	0,
+	0,
+	0,
+	0,
+	0,
+	'',
+	'Default Project::Specification Package Upgrade Testing::Component Package::Formal Component');
+INSERT INTO GD_GE
+	VALUES ("6889b6bb-3bab-421b-9d4f-9cb750375532",
+	"7d0e25c2-c99f-4b1b-b41d-5cc711a2bc48",
+	"00a84448-609d-445c-b216-a21885ad70bc",
+	103,
+	0,
+	'Default Project::Specification Package Upgrade Testing::Component Package::Formal Component');
+INSERT INTO GD_SHP
+	VALUES ("6889b6bb-3bab-421b-9d4f-9cb750375532");
+INSERT INTO GD_CTR
+	VALUES ("6889b6bb-3bab-421b-9d4f-9cb750375532");
+INSERT INTO DIM_ND
+	VALUES (604.000000,
+	676.000000,
+	"6889b6bb-3bab-421b-9d4f-9cb750375532");
+INSERT INTO DIM_GE
+	VALUES (2040.000000,
+	1260.000000,
+	"6889b6bb-3bab-421b-9d4f-9cb750375532",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("6889b6bb-3bab-421b-9d4f-9cb750375532",
+	0,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO GD_GE
+	VALUES ("b4e72aa2-eebb-4ecb-afbe-c9ce3eb68e00",
+	"7d0e25c2-c99f-4b1b-b41d-5cc711a2bc48",
+	"b08e35c8-1217-4c75-9ebe-b99412d0db87",
+	108,
+	0,
+	'Default Project::Specification Package Upgrade Testing::Component Package::Formal Component::External Entities');
+INSERT INTO GD_SHP
+	VALUES ("b4e72aa2-eebb-4ecb-afbe-c9ce3eb68e00");
+INSERT INTO GD_NCS
+	VALUES ("b4e72aa2-eebb-4ecb-afbe-c9ce3eb68e00");
+INSERT INTO DIM_ND
+	VALUES (175.000000,
+	98.000000,
+	"b4e72aa2-eebb-4ecb-afbe-c9ce3eb68e00");
+INSERT INTO DIM_GE
+	VALUES (2287.000000,
+	1502.000000,
+	"b4e72aa2-eebb-4ecb-afbe-c9ce3eb68e00",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("b4e72aa2-eebb-4ecb-afbe-c9ce3eb68e00",
+	1,
+	"6889b6bb-3bab-421b-9d4f-9cb750375532");
+INSERT INTO GD_GE
+	VALUES ("c276df7c-f96b-43ab-be58-2c66efb30d6c",
+	"7d0e25c2-c99f-4b1b-b41d-5cc711a2bc48",
+	"86b168bb-26db-45d0-81c6-57fe72ec1e38",
+	108,
+	0,
+	'Default Project::Specification Package Upgrade Testing::Component Package::Formal Component::Sequence');
+INSERT INTO GD_SHP
+	VALUES ("c276df7c-f96b-43ab-be58-2c66efb30d6c");
+INSERT INTO GD_NCS
+	VALUES ("c276df7c-f96b-43ab-be58-2c66efb30d6c");
+INSERT INTO DIM_ND
+	VALUES (156.000000,
+	96.000000,
+	"c276df7c-f96b-43ab-be58-2c66efb30d6c");
+INSERT INTO DIM_GE
+	VALUES (2052.000000,
+	1272.000000,
+	"c276df7c-f96b-43ab-be58-2c66efb30d6c",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("c276df7c-f96b-43ab-be58-2c66efb30d6c",
+	0,
+	"6889b6bb-3bab-421b-9d4f-9cb750375532");
+INSERT INTO GD_GE
+	VALUES ("66c2f0bb-98cf-4aa8-83d6-3710a7710b94",
+	"7d0e25c2-c99f-4b1b-b41d-5cc711a2bc48",
+	"a2b9beea-b74b-40a7-9a17-336c85b0c1e4",
+	108,
+	0,
+	'Default Project::Specification Package Upgrade Testing::Component Package::Formal Component::Use Case');
+INSERT INTO GD_SHP
+	VALUES ("66c2f0bb-98cf-4aa8-83d6-3710a7710b94");
+INSERT INTO GD_NCS
+	VALUES ("66c2f0bb-98cf-4aa8-83d6-3710a7710b94");
+INSERT INTO DIM_ND
+	VALUES (156.000000,
+	96.000000,
+	"66c2f0bb-98cf-4aa8-83d6-3710a7710b94");
+INSERT INTO DIM_GE
+	VALUES (2052.000000,
+	1380.000000,
+	"66c2f0bb-98cf-4aa8-83d6-3710a7710b94",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("66c2f0bb-98cf-4aa8-83d6-3710a7710b94",
+	0,
+	"6889b6bb-3bab-421b-9d4f-9cb750375532");
+INSERT INTO GD_GE
+	VALUES ("ccb44599-038b-4144-adbe-45e1507126e5",
+	"7d0e25c2-c99f-4b1b-b41d-5cc711a2bc48",
+	"e20dae12-d42d-4d21-9ea4-440f07345bd6",
+	108,
+	0,
+	'Default Project::Specification Package Upgrade Testing::Component Package::Formal Component::Communication');
+INSERT INTO GD_SHP
+	VALUES ("ccb44599-038b-4144-adbe-45e1507126e5");
+INSERT INTO GD_NCS
+	VALUES ("ccb44599-038b-4144-adbe-45e1507126e5");
+INSERT INTO DIM_ND
+	VALUES (156.000000,
+	96.000000,
+	"ccb44599-038b-4144-adbe-45e1507126e5");
+INSERT INTO DIM_GE
+	VALUES (2220.000000,
+	1272.000000,
+	"ccb44599-038b-4144-adbe-45e1507126e5",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("ccb44599-038b-4144-adbe-45e1507126e5",
+	0,
+	"6889b6bb-3bab-421b-9d4f-9cb750375532");
+INSERT INTO GD_GE
+	VALUES ("bcfe7425-b242-4d21-a5ce-15d3fa3892d8",
+	"7d0e25c2-c99f-4b1b-b41d-5cc711a2bc48",
+	"d59db075-3411-4654-a569-9c7b2f1cb346",
+	108,
+	0,
+	'Default Project::Specification Package Upgrade Testing::Component Package::Formal Component::Activity');
+INSERT INTO GD_SHP
+	VALUES ("bcfe7425-b242-4d21-a5ce-15d3fa3892d8");
+INSERT INTO GD_NCS
+	VALUES ("bcfe7425-b242-4d21-a5ce-15d3fa3892d8");
+INSERT INTO DIM_ND
+	VALUES (156.000000,
+	96.000000,
+	"bcfe7425-b242-4d21-a5ce-15d3fa3892d8");
+INSERT INTO DIM_GE
+	VALUES (2220.000000,
+	1380.000000,
+	"bcfe7425-b242-4d21-a5ce-15d3fa3892d8",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("bcfe7425-b242-4d21-a5ce-15d3fa3892d8",
+	0,
+	"6889b6bb-3bab-421b-9d4f-9cb750375532");
+INSERT INTO DIM_DIA
+	VALUES ("7d0e25c2-c99f-4b1b-b41d-5cc711a2bc48",
+	'',
+	1.000000,
+	4000.000000,
+	3000.000000,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO PE_PE
+	VALUES ("00a84448-609d-445c-b216-a21885ad70bc",
+	1,
+	"8969b72c-6302-48d6-a516-58828b89878c",
+	"00000000-0000-0000-0000-000000000000",
+	2);
+INSERT INTO EP_PKG_PROXY
+	VALUES ("8969b72c-6302-48d6-a516-58828b89878c",
+	"00000000-0000-0000-0000-000000000000",
+	"43b6e2ec-8827-ea55-8428-213c1756df90",
+	'Component Package',
+	'',
+	0,
+	'../Component Package.xtuml');
+
+-- BP 7.1 content: Package syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO EP_PKG
+	VALUES ("d59db075-3411-4654-a569-9c7b2f1cb346",
+	"00000000-0000-0000-0000-000000000000",
+	"43b6e2ec-8827-ea55-8428-213c1756df90",
+	'Activity',
+	'',
+	0);
+INSERT INTO GD_MD
+	VALUES ("6fd944d3-4ea5-4dfc-8b2d-81521ca7bcc1",
+	112,
+	"d59db075-3411-4654-a569-9c7b2f1cb346",
+	108,
+	0,
+	0,
+	1,
+	1,
+	1,
+	12,
+	1,
+	0,
+	0,
+	0,
+	0,
+	0,
+	'',
+	'Default Project::Specification Package Upgrade Testing::Component Package::Formal Component::Activity');
+INSERT INTO DIM_DIA
+	VALUES ("6fd944d3-4ea5-4dfc-8b2d-81521ca7bcc1",
+	'',
+	1.000000,
+	4000.000000,
+	3000.000000,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO PE_PE
+	VALUES ("d59db075-3411-4654-a569-9c7b2f1cb346",
+	1,
+	"00000000-0000-0000-0000-000000000000",
+	"00a84448-609d-445c-b216-a21885ad70bc",
+	7);
+INSERT INTO C_C_PROXY
+	VALUES ("00a84448-609d-445c-b216-a21885ad70bc",
+	"00000000-0000-0000-0000-000000000000",
+	"00000000-0000-0000-0000-000000000000",
+	'Formal Component',
+	'',
+	0,
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'../Formal Component.xtuml');
+INSERT INTO S_SYS_PROXY
+	VALUES ("43b6e2ec-8827-ea55-8428-213c1756df90",
+	'Default Project',
+	1,
+	'../../../../Default Project.xtuml');
+
+-- BP 7.1 content: Package syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO EP_PKG
+	VALUES ("e20dae12-d42d-4d21-9ea4-440f07345bd6",
+	"00000000-0000-0000-0000-000000000000",
+	"43b6e2ec-8827-ea55-8428-213c1756df90",
+	'Communication',
+	'',
+	0);
+INSERT INTO GD_MD
+	VALUES ("1c7b02ab-9bd0-4e10-b7e0-a9f8e42ce92f",
+	112,
+	"e20dae12-d42d-4d21-9ea4-440f07345bd6",
+	108,
+	0,
+	0,
+	1,
+	1,
+	1,
+	12,
+	1,
+	0,
+	0,
+	0,
+	0,
+	0,
+	'',
+	'Default Project::Specification Package Upgrade Testing::Component Package::Formal Component::Communication');
+INSERT INTO DIM_DIA
+	VALUES ("1c7b02ab-9bd0-4e10-b7e0-a9f8e42ce92f",
+	'',
+	1.000000,
+	4000.000000,
+	3000.000000,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO PE_PE
+	VALUES ("e20dae12-d42d-4d21-9ea4-440f07345bd6",
+	1,
+	"00000000-0000-0000-0000-000000000000",
+	"00a84448-609d-445c-b216-a21885ad70bc",
+	7);
+INSERT INTO C_C_PROXY
+	VALUES ("00a84448-609d-445c-b216-a21885ad70bc",
+	"00000000-0000-0000-0000-000000000000",
+	"00000000-0000-0000-0000-000000000000",
+	'Formal Component',
+	'',
+	0,
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'../Formal Component.xtuml');
+INSERT INTO S_SYS_PROXY
+	VALUES ("43b6e2ec-8827-ea55-8428-213c1756df90",
+	'Default Project',
+	1,
+	'../../../../Default Project.xtuml');
+
+-- BP 7.1 content: Package syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO EP_PKG
+	VALUES ("b08e35c8-1217-4c75-9ebe-b99412d0db87",
+	"00000000-0000-0000-0000-000000000000",
+	"43b6e2ec-8827-ea55-8428-213c1756df90",
+	'External Entities',
+	'',
+	0);
+INSERT INTO GD_MD
+	VALUES ("aafd3df9-4a3f-4d18-b25d-b8c4bdfb12b3",
+	112,
+	"b08e35c8-1217-4c75-9ebe-b99412d0db87",
+	108,
+	0,
+	0,
+	1,
+	1,
+	1,
+	12,
+	1,
+	0,
+	0,
+	0,
+	0,
+	0,
+	'',
+	'Default Project::Specification Package Upgrade Testing::Component Package::Formal Component::External Entities');
+INSERT INTO GD_GE
+	VALUES ("c9e2edf2-9d92-4177-b03d-72a4f498ec45",
+	"aafd3df9-4a3f-4d18-b25d-b8c4bdfb12b3",
+	"351ba006-d7e1-4e2d-a5a9-816f6853fb1a",
+	12,
+	0,
+	'Default Project::Specification Package Upgrade Testing::Component Package::Formal Component::External Entities::Time');
+INSERT INTO GD_SHP
+	VALUES ("c9e2edf2-9d92-4177-b03d-72a4f498ec45");
+INSERT INTO GD_NCS
+	VALUES ("c9e2edf2-9d92-4177-b03d-72a4f498ec45");
+INSERT INTO DIM_ND
+	VALUES (860.000000,
+	385.000000,
+	"c9e2edf2-9d92-4177-b03d-72a4f498ec45");
+INSERT INTO DIM_GE
+	VALUES (4143.000000,
+	3201.000000,
+	"c9e2edf2-9d92-4177-b03d-72a4f498ec45",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("c9e2edf2-9d92-4177-b03d-72a4f498ec45",
+	1,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_DIA
+	VALUES ("aafd3df9-4a3f-4d18-b25d-b8c4bdfb12b3",
+	'',
+	1.005945,
+	3978.000000,
+	2974.000000,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO S_EE
+	VALUES ("351ba006-d7e1-4e2d-a5a9-816f6853fb1a",
+	'Time',
+	'The Time external entity provides date, timestamp, and timer related operations.',
+	'TIM',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO S_BRG
+	VALUES ("dfdaf452-a566-44ad-907e-544039afa2dc",
+	"351ba006-d7e1-4e2d-a5a9-816f6853fb1a",
+	'current_date',
+	'',
+	1,
+	"ba5eda7a-def5-0000-0000-00000000000e",
+	'',
+	0,
+	'');
+INSERT INTO S_BRG
+	VALUES ("986466aa-0724-4c4c-b1bb-7ae603e5752c",
+	"351ba006-d7e1-4e2d-a5a9-816f6853fb1a",
+	'create_date',
+	'',
+	1,
+	"ba5eda7a-def5-0000-0000-00000000000e",
+	'',
+	0,
+	'');
+INSERT INTO S_BPARM
+	VALUES ("19cd1657-135a-488e-b575-8845ddfadb50",
+	"986466aa-0724-4c4c-b1bb-7ae603e5752c",
+	'second',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"1864ae76-83e6-4afd-91b6-630caa6503a8",
+	'');
+INSERT INTO S_BPARM
+	VALUES ("3a2423fc-3f00-4714-ba7e-7e7ea7679d72",
+	"986466aa-0724-4c4c-b1bb-7ae603e5752c",
+	'minute',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"7eb35446-770e-4773-9d51-4685347d0086",
+	'');
+INSERT INTO S_BPARM
+	VALUES ("7eb35446-770e-4773-9d51-4685347d0086",
+	"986466aa-0724-4c4c-b1bb-7ae603e5752c",
+	'hour',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"1c0b09e4-00c5-4292-b1f6-325495050ac4",
+	'');
+INSERT INTO S_BPARM
+	VALUES ("1c0b09e4-00c5-4292-b1f6-325495050ac4",
+	"986466aa-0724-4c4c-b1bb-7ae603e5752c",
+	'day',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_BPARM
+	VALUES ("1864ae76-83e6-4afd-91b6-630caa6503a8",
+	"986466aa-0724-4c4c-b1bb-7ae603e5752c",
+	'month',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"3a2423fc-3f00-4714-ba7e-7e7ea7679d72",
+	'');
+INSERT INTO S_BPARM
+	VALUES ("eb38f3f7-f401-4b47-a274-f1f614300554",
+	"986466aa-0724-4c4c-b1bb-7ae603e5752c",
+	'year',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"19cd1657-135a-488e-b575-8845ddfadb50",
+	'');
+INSERT INTO S_BRG
+	VALUES ("9cd67278-dd88-4ca7-bb41-24660abf447e",
+	"351ba006-d7e1-4e2d-a5a9-816f6853fb1a",
+	'get_second',
+	'',
+	1,
+	"ba5eda7a-def5-0000-0000-000000000002",
+	'',
+	0,
+	'');
+INSERT INTO S_BPARM
+	VALUES ("941b28ea-d28f-46df-b2a7-b8f874e4326f",
+	"9cd67278-dd88-4ca7-bb41-24660abf447e",
+	'date',
+	"ba5eda7a-def5-0000-0000-00000000000e",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_BRG
+	VALUES ("0ffb8a15-dd7c-48ca-a3b1-1653d7683267",
+	"351ba006-d7e1-4e2d-a5a9-816f6853fb1a",
+	'get_minute',
+	'',
+	1,
+	"ba5eda7a-def5-0000-0000-000000000002",
+	'',
+	0,
+	'');
+INSERT INTO S_BPARM
+	VALUES ("3515e1bc-2329-40a4-b6c8-520f7a41905b",
+	"0ffb8a15-dd7c-48ca-a3b1-1653d7683267",
+	'date',
+	"ba5eda7a-def5-0000-0000-00000000000e",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_BRG
+	VALUES ("a3f20cce-18eb-45d2-b90d-ead6a924470b",
+	"351ba006-d7e1-4e2d-a5a9-816f6853fb1a",
+	'get_hour',
+	'',
+	1,
+	"ba5eda7a-def5-0000-0000-000000000002",
+	'',
+	0,
+	'');
+INSERT INTO S_BPARM
+	VALUES ("df4899d7-14a7-4461-a5a8-8d9b47172bc5",
+	"a3f20cce-18eb-45d2-b90d-ead6a924470b",
+	'date',
+	"ba5eda7a-def5-0000-0000-00000000000e",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_BRG
+	VALUES ("bb46469f-af16-4d7d-93f0-0fc9c4d4daeb",
+	"351ba006-d7e1-4e2d-a5a9-816f6853fb1a",
+	'get_day',
+	'',
+	1,
+	"ba5eda7a-def5-0000-0000-000000000002",
+	'',
+	0,
+	'');
+INSERT INTO S_BPARM
+	VALUES ("be0be55e-eea2-4ba9-ac73-1592fe95f9a9",
+	"bb46469f-af16-4d7d-93f0-0fc9c4d4daeb",
+	'date',
+	"ba5eda7a-def5-0000-0000-00000000000e",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_BRG
+	VALUES ("37e98931-e29f-4d44-9fbc-efc6ff819ca0",
+	"351ba006-d7e1-4e2d-a5a9-816f6853fb1a",
+	'get_month',
+	'',
+	1,
+	"ba5eda7a-def5-0000-0000-000000000002",
+	'',
+	0,
+	'');
+INSERT INTO S_BPARM
+	VALUES ("4f341a90-f0c7-4591-8ae7-8b141d629e63",
+	"37e98931-e29f-4d44-9fbc-efc6ff819ca0",
+	'date',
+	"ba5eda7a-def5-0000-0000-00000000000e",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_BRG
+	VALUES ("dc18c492-c3c6-4033-bebd-a5ffe958f66d",
+	"351ba006-d7e1-4e2d-a5a9-816f6853fb1a",
+	'get_year',
+	'',
+	1,
+	"ba5eda7a-def5-0000-0000-000000000002",
+	'',
+	0,
+	'');
+INSERT INTO S_BPARM
+	VALUES ("67febd81-82ab-463a-b41a-5ad34e399ec8",
+	"dc18c492-c3c6-4033-bebd-a5ffe958f66d",
+	'date',
+	"ba5eda7a-def5-0000-0000-00000000000e",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_BRG
+	VALUES ("3fa390b3-2982-4da9-ac78-07a68481207c",
+	"351ba006-d7e1-4e2d-a5a9-816f6853fb1a",
+	'current_clock',
+	'',
+	1,
+	"ba5eda7a-def5-0000-0000-000000000010",
+	'',
+	0,
+	'');
+INSERT INTO S_BRG
+	VALUES ("f94de964-60c5-4295-a7b7-a9118b6d31d1",
+	"351ba006-d7e1-4e2d-a5a9-816f6853fb1a",
+	'timer_start',
+	'This bridge operation starts a timer set to expire in the specified number of
+microseconds, generating the passed event upon expiration. Returns the instance
+handle of the timer.',
+	1,
+	"ba5eda7a-def5-0000-0000-00000000000f",
+	'',
+	0,
+	'');
+INSERT INTO S_BPARM
+	VALUES ("d052dc71-427d-4bc3-ba28-ab99a27f82fd",
+	"f94de964-60c5-4295-a7b7-a9118b6d31d1",
+	'microseconds',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"bb9bb7be-3706-4511-8cae-8dc4471c886f",
+	'');
+INSERT INTO S_BPARM
+	VALUES ("bb9bb7be-3706-4511-8cae-8dc4471c886f",
+	"f94de964-60c5-4295-a7b7-a9118b6d31d1",
+	'event_inst',
+	"ba5eda7a-def5-0000-0000-00000000000a",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_BRG
+	VALUES ("04d8dd36-c326-46c6-81c1-1dd2993f8263",
+	"351ba006-d7e1-4e2d-a5a9-816f6853fb1a",
+	'timer_start_recurring',
+	'This bridge operation starts a timer set to expire in the specified number of
+microseconds, generating the passed event upon expiration. Upon expiration, the
+timer will be restarted and fire again in the specified number of microseconds
+generating the passed event. This bridge operation returns the instance handle
+of the timer.',
+	1,
+	"ba5eda7a-def5-0000-0000-00000000000f",
+	'',
+	0,
+	'');
+INSERT INTO S_BPARM
+	VALUES ("3d7b56af-d3ed-43c7-8b83-c556699c0b2c",
+	"04d8dd36-c326-46c6-81c1-1dd2993f8263",
+	'microseconds',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"03a75755-4b28-4eac-906f-2d72b5859304",
+	'');
+INSERT INTO S_BPARM
+	VALUES ("03a75755-4b28-4eac-906f-2d72b5859304",
+	"04d8dd36-c326-46c6-81c1-1dd2993f8263",
+	'event_inst',
+	"ba5eda7a-def5-0000-0000-00000000000a",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_BRG
+	VALUES ("ee2e0a3b-aacd-4b32-b657-13f760d201ea",
+	"351ba006-d7e1-4e2d-a5a9-816f6853fb1a",
+	'timer_remaining_time',
+	'Returns the time remaining (in microseconds) for the passed timer instance. If
+the timer has expired, a zero value is returned.',
+	1,
+	"ba5eda7a-def5-0000-0000-000000000002",
+	'',
+	0,
+	'');
+INSERT INTO S_BPARM
+	VALUES ("a31522a9-7aa0-4cb1-80b0-a60468c12eee",
+	"ee2e0a3b-aacd-4b32-b657-13f760d201ea",
+	'timer_inst_ref',
+	"ba5eda7a-def5-0000-0000-00000000000f",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_BRG
+	VALUES ("7de796e6-973b-4ffa-bf86-dbb76ee87e71",
+	"351ba006-d7e1-4e2d-a5a9-816f6853fb1a",
+	'timer_reset_time',
+	'This bridge operation attempts to set the passed existing timer to expire in
+the specified number of microseconds. If the timer exists (that is, it has not
+expired), a TRUE value is returned. If the timer no longer exists, a FALSE value
+is returned.',
+	1,
+	"ba5eda7a-def5-0000-0000-000000000001",
+	'',
+	0,
+	'');
+INSERT INTO S_BPARM
+	VALUES ("9c4be76e-ba12-447f-8cfe-80ee41f4d025",
+	"7de796e6-973b-4ffa-bf86-dbb76ee87e71",
+	'timer_inst_ref',
+	"ba5eda7a-def5-0000-0000-00000000000f",
+	0,
+	'',
+	"3a220250-181c-4629-99c8-0a049878110c",
+	'');
+INSERT INTO S_BPARM
+	VALUES ("3a220250-181c-4629-99c8-0a049878110c",
+	"7de796e6-973b-4ffa-bf86-dbb76ee87e71",
+	'microseconds',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_BRG
+	VALUES ("fd0d96a7-f949-4592-9777-ec8ad3376d00",
+	"351ba006-d7e1-4e2d-a5a9-816f6853fb1a",
+	'timer_add_time',
+	'This bridge operation attempts to add the specified number of microseconds to a
+passed existing timer. If the timer exists (that is, it has not expired), a TRUE
+value is returned. If the timer no longer exists, a FALSE value is returned.',
+	1,
+	"ba5eda7a-def5-0000-0000-000000000001",
+	'',
+	0,
+	'');
+INSERT INTO S_BPARM
+	VALUES ("56b47c90-6143-4fae-95e2-4b89115ae6d3",
+	"fd0d96a7-f949-4592-9777-ec8ad3376d00",
+	'timer_inst_ref',
+	"ba5eda7a-def5-0000-0000-00000000000f",
+	0,
+	'',
+	"316977c7-0dfe-47ca-a839-2b38e2d3cec2",
+	'');
+INSERT INTO S_BPARM
+	VALUES ("316977c7-0dfe-47ca-a839-2b38e2d3cec2",
+	"fd0d96a7-f949-4592-9777-ec8ad3376d00",
+	'microseconds',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_BRG
+	VALUES ("d69420dc-ed92-4d9e-84ce-6823f4a0449c",
+	"351ba006-d7e1-4e2d-a5a9-816f6853fb1a",
+	'timer_cancel',
+	'This bridge operation cancels and deletes the passed timer instance. If the 
+timer exists (that is, it had not expired), a TRUE value is returned. If the
+timer no longer exists, a FALSE value is returned.',
+	1,
+	"ba5eda7a-def5-0000-0000-000000000001",
+	'',
+	0,
+	'');
+INSERT INTO S_BPARM
+	VALUES ("b401e1c8-8c89-4061-a6d9-376e9272f990",
+	"d69420dc-ed92-4d9e-84ce-6823f4a0449c",
+	'timer_inst_ref',
+	"ba5eda7a-def5-0000-0000-00000000000f",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO PE_PE
+	VALUES ("351ba006-d7e1-4e2d-a5a9-816f6853fb1a",
+	1,
+	"b08e35c8-1217-4c75-9ebe-b99412d0db87",
+	"00000000-0000-0000-0000-000000000000",
+	5);
+INSERT INTO PE_PE
+	VALUES ("b08e35c8-1217-4c75-9ebe-b99412d0db87",
+	1,
+	"00000000-0000-0000-0000-000000000000",
+	"00a84448-609d-445c-b216-a21885ad70bc",
+	7);
+INSERT INTO C_C_PROXY
+	VALUES ("00a84448-609d-445c-b216-a21885ad70bc",
+	"00000000-0000-0000-0000-000000000000",
+	"00000000-0000-0000-0000-000000000000",
+	'Formal Component',
+	'',
+	0,
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'../Formal Component.xtuml');
+INSERT INTO S_SYS_PROXY
+	VALUES ("43b6e2ec-8827-ea55-8428-213c1756df90",
+	'Default Project',
+	1,
+	'../../../../Default Project.xtuml');
+
+-- BP 7.1 content: Package syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO EP_PKG
+	VALUES ("86b168bb-26db-45d0-81c6-57fe72ec1e38",
+	"00000000-0000-0000-0000-000000000000",
+	"43b6e2ec-8827-ea55-8428-213c1756df90",
+	'Sequence',
+	'',
+	0);
+INSERT INTO GD_MD
+	VALUES ("1b70df86-d705-40da-b5f8-d430995dd643",
+	112,
+	"86b168bb-26db-45d0-81c6-57fe72ec1e38",
+	108,
+	0,
+	0,
+	1,
+	1,
+	1,
+	12,
+	1,
+	0,
+	0,
+	0,
+	0,
+	0,
+	'',
+	'Default Project::Specification Package Upgrade Testing::Component Package::Formal Component::Sequence');
+INSERT INTO DIM_DIA
+	VALUES ("1b70df86-d705-40da-b5f8-d430995dd643",
+	'',
+	1.000000,
+	4000.000000,
+	3000.000000,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO PE_PE
+	VALUES ("86b168bb-26db-45d0-81c6-57fe72ec1e38",
+	1,
+	"00000000-0000-0000-0000-000000000000",
+	"00a84448-609d-445c-b216-a21885ad70bc",
+	7);
+INSERT INTO C_C_PROXY
+	VALUES ("00a84448-609d-445c-b216-a21885ad70bc",
+	"00000000-0000-0000-0000-000000000000",
+	"00000000-0000-0000-0000-000000000000",
+	'Formal Component',
+	'',
+	0,
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'../Formal Component.xtuml');
+INSERT INTO S_SYS_PROXY
+	VALUES ("43b6e2ec-8827-ea55-8428-213c1756df90",
+	'Default Project',
+	1,
+	'../../../../Default Project.xtuml');
+
+-- BP 7.1 content: Package syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO EP_PKG
+	VALUES ("a2b9beea-b74b-40a7-9a17-336c85b0c1e4",
+	"00000000-0000-0000-0000-000000000000",
+	"43b6e2ec-8827-ea55-8428-213c1756df90",
+	'Use Case',
+	'',
+	0);
+INSERT INTO GD_MD
+	VALUES ("493afcc0-5959-43c4-a5a7-82447ceb80d5",
+	112,
+	"a2b9beea-b74b-40a7-9a17-336c85b0c1e4",
+	108,
+	0,
+	0,
+	1,
+	1,
+	1,
+	12,
+	1,
+	0,
+	0,
+	0,
+	0,
+	0,
+	'',
+	'Default Project::Specification Package Upgrade Testing::Component Package::Formal Component::Use Case');
+INSERT INTO DIM_DIA
+	VALUES ("493afcc0-5959-43c4-a5a7-82447ceb80d5",
+	'',
+	1.000000,
+	4000.000000,
+	3000.000000,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO PE_PE
+	VALUES ("a2b9beea-b74b-40a7-9a17-336c85b0c1e4",
+	1,
+	"00000000-0000-0000-0000-000000000000",
+	"00a84448-609d-445c-b216-a21885ad70bc",
+	7);
+INSERT INTO C_C_PROXY
+	VALUES ("00a84448-609d-445c-b216-a21885ad70bc",
+	"00000000-0000-0000-0000-000000000000",
+	"00000000-0000-0000-0000-000000000000",
+	'Formal Component',
+	'',
+	0,
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'../Formal Component.xtuml');
+INSERT INTO S_SYS_PROXY
+	VALUES ("43b6e2ec-8827-ea55-8428-213c1756df90",
+	'Default Project',
+	1,
+	'../../../../Default Project.xtuml');
+
+-- BP 7.1 content: Package syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO EP_PKG
+	VALUES ("92d6cdac-b086-44c5-b66c-86aaa93de8a5",
+	"00000000-0000-0000-0000-000000000000",
+	"43b6e2ec-8827-ea55-8428-213c1756df90",
+	'Interface Package',
+	'',
+	0);
+INSERT INTO GD_MD
+	VALUES ("c567ffa3-a4f4-48c9-9945-f4ce5e7aa280",
+	112,
+	"92d6cdac-b086-44c5-b66c-86aaa93de8a5",
+	108,
+	0,
+	0,
+	1,
+	1,
+	1,
+	12,
+	1,
+	0,
+	0,
+	0,
+	0,
+	0,
+	'',
+	'Default Project::Specification Package Upgrade Testing::Interface Package');
+INSERT INTO DIM_DIA
+	VALUES ("c567ffa3-a4f4-48c9-9945-f4ce5e7aa280",
+	'',
+	1.000000,
+	4000.000000,
+	3000.000000,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO PE_PE
+	VALUES ("92d6cdac-b086-44c5-b66c-86aaa93de8a5",
+	1,
+	"ac8243d2-268f-4242-ac29-4d6d7c9c5fc6",
+	"00000000-0000-0000-0000-000000000000",
+	7);
+INSERT INTO EP_PKG_PROXY
+	VALUES ("ac8243d2-268f-4242-ac29-4d6d7c9c5fc6",
+	"43b6e2ec-8827-ea55-8428-213c1756df90",
+	"43b6e2ec-8827-ea55-8428-213c1756df90",
+	'Specification Package Upgrade Testing',
+	'',
+	0,
+	'../Specification Package Upgrade Testing.xtuml');
+INSERT INTO S_SYS_PROXY
+	VALUES ("43b6e2ec-8827-ea55-8428-213c1756df90",
+	'Default Project',
+	1,
+	'../../Default Project.xtuml');

@@ -1,0 +1,46 @@
+User invoked function: performSignalTest
+LogInfo:  RealizedUDTTest.testUDTSig PASSED
+LogInfo:  RealizedUDTTest.testNestedUDTSig PASSED
+LogInfo:  RealizedUDTTest.testRealizedUDTNoAccessorsSig PASSED
+LogInfo:  RealizedUDTTest.testNestedRealizedUDTNoAccessorsSig PASSED
+LogInfo:  RealizedTestUDTWithAccessors setValue() executed.
+LogInfo:  RealizedTestUDTWithAccessors getValue() executed.
+LogInfo:  RealizedUDTTest.testRealizedUDTWithAccessorsSig PASSED
+LogInfo:  RealizedTestUDTWithAccessors setValue() executed.
+LogInfo:  RealizedTestUDTWithAccessors getValue() executed.
+LogInfo:  RealizedUDTTest.testNestedRealizedUDTWithAccessorsSig PASSED
+LogInfo:  RealizedTestUDTWithAccessors setValue() executed.
+LogInfo:  RealizedTestUDTWithAccessors setValue() executed.
+LogInfo:  RealizedTestUDTWithAccessors getValue() executed.
+LogSuccess:  RealizedUDTTest.testSDTWithRealizedUDTsSig PASSED
+LogInfo:  RealizedTestUDTWithAccessors setValue() executed.
+LogInfo:  RealizedTestUDTWithAccessors setValue() executed.
+LogInfo:  RealizedTestUDTWithAccessors getValue() executed.
+LogSuccess:  RealizedUDTTest.testNestedSDTWithRealizedUDTsSig PASSED
+LogInfo:  RealizedUDTTest.testEnumerationSig PASSED
+LogInfo:  Beginning incoming signals test.
+LogInfo:  RealizedUDTTest.testEnumeration PASSED
+LogInfo:  Beginning incoming signals test execution.
+LogInfo:  RealizedTestUDTWithAccessors setValue() executed.
+LogInfo:  RealizedTestUDTWithAccessors setValue() executed.
+LogInfo:  Testing UDT Signal: PASSED
+LogInfo:  Testing Nested UDT Signal: PASSED
+LogInfo:  RealizedTestUDTWithAccessors setValue() executed.
+LogInfo:  RealizedTestUDTWithAccessors getValue() executed.
+LogInfo:  RealizedTestUDTWithAccessors setValue() executed.
+LogInfo:  Testing Realized UDT No Accessors Signal: PASSED
+LogInfo:  RealizedTestUDTWithAccessors getValue() executed.
+LogInfo:  Testing Nested Realized UDT No Accessors Signal: PASSED
+LogInfo:  Testing Realized UDT with Accessors Signal: PASSED
+LogInfo:  RealizedTestUDTWithAccessors getValue() executed.
+LogInfo:  Testing Nested Realized UDT with Accessors Signal: PASSED
+LogInfo:  RealizedTestUDTWithAccessors getValue() executed.
+LogInfo:  RealizedTestUDTWithAccessors setValue() executed.
+LogInfo:  RealizedTestUDTWithAccessors setValue() executed.
+LogInfo:  RealizedTestUDTWithAccessors getValue() executed.
+LogInfo:  RealizedTestUDTWithAccessors getValue() executed.
+LogSuccess:  Testing SDT with realized UDTs: PASSED
+LogSuccess:  Testing Nested SDT with realized UDTs: PASSED
+LogSuccess:  Testing Enumeration signal: PASSED
+LogSuccess:  Testing Nested Enumeration signal: PASSED
+

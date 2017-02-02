@@ -1,0 +1,189 @@
+AUDIT RESULTS FOR DOMAIN bridges
+
+CLASSES WITHOUT IDENTIFIERS:
+Class Objects::Integer
+Class Objects::Real
+Class Objects::Boolean
+Class Objects::String
+Class Objects::Instance
+Class Objects::Instance Ref
+Class Objects::Date and Time
+Class Objects::Unique
+Class Objects::Enumeration
+Class Drivers::Driver
+Class Drivers::Init
+
+SUBSYSTEMS WITHOUT DESCRIPTIONS:
+Objects
+Drivers
+
+FUNCTIONS WITHOUT DESCRIPTIONS:
+int
+real
+string
+bool
+date
+time
+color
+inst
+inst_ref
+number
+uBool
+uInt
+uUnique
+unique
+uReal
+uString
+void
+
+ENUMERATORS WITHOUT DESCRIPTIONS:
+color::red
+color::orange
+color::yellow
+color::green
+color::blue
+color::purple
+number::one
+number::two
+number::three
+number::four
+number::five
+
+EXTERNAL ENTITIES WITHOUT DESCRIPTIONS:
+External Entity Time
+External Entity Logging
+External Entity Bridge
+External Entity Architecture
+External Entity Stubby
+
+BRIDGES WITHOUT DESCRIPTIONS:
+External Entity Bridge Logging::LogInfo
+External Entity Bridge Logging::LogFailure
+External Entity Bridge Logging::LogSuccess
+External Entity Bridge Bridge::bool_b
+External Entity Bridge Bridge::date
+External Entity Bridge Bridge::inst
+External Entity Bridge Bridge::inst_ref
+External Entity Bridge Bridge::int_b
+External Entity Bridge Bridge::real_b
+External Entity Bridge Bridge::string
+External Entity Bridge Bridge::time
+External Entity Bridge Bridge::unique
+External Entity Bridge Bridge::color
+External Entity Bridge Bridge::uBool
+External Entity Bridge Bridge::number
+External Entity Bridge Bridge::void_b
+External Entity Bridge Bridge::uUnique
+External Entity Bridge Bridge::uInteger
+External Entity Bridge Bridge::uReal
+External Entity Bridge Bridge::uString
+External Entity Bridge Architecture::shutdown
+External Entity Bridge Stubby::change_int
+
+CLASSES WITHOUT DESCRIPTIONS:
+Class Objects::Integer
+Class Objects::Real
+Class Objects::Boolean
+Class Objects::String
+Class Objects::Instance
+Class Objects::Instance Ref
+Class Objects::Date and Time
+Class Objects::Unique
+Class Objects::Enumeration
+Class Drivers::Driver
+Class Drivers::Init
+
+ATTRIBUTES WITHOUT DESCRIPTIONS:
+Attribute Integer::width
+Attribute Integer::length
+Attribute Integer::area
+Attribute Integer::perimeter
+Attribute Real::width
+Attribute Real::length
+Attribute Real::area
+Attribute Real::perimeter
+Attribute Boolean::p
+Attribute Boolean::q
+Attribute Boolean::b_and
+Attribute String::first
+Attribute String::last
+Attribute String::FL
+Attribute String::LF
+Attribute Instance::one
+Attribute Instance::two
+Attribute Instance::three
+Attribute Instance::current_state
+Attribute Instance Ref::one
+Attribute Instance Ref::three
+Attribute Date and Time::date
+Attribute Date and Time::time
+Attribute Date and Time::next_date
+Attribute Date and Time::next_time
+Attribute Unique::one
+Attribute Unique::two
+Attribute Enumeration::color
+Attribute Enumeration::size
+Attribute Enumeration::color2
+Attribute Enumeration::size2
+Attribute Driver::current_state
+Attribute Init::current_state
+
+OPERATIONS WITHOUT DESCRIPTIONS:
+Operation Integer::uInt
+Operation Integer::int
+Operation Integer::int_i
+Operation Integer::uInt_i
+Operation Real::uReal
+Operation Real::real
+Operation Real::real_i
+Operation Real::uReal_i
+Operation Boolean::bool
+Operation Boolean::uBool
+Operation Boolean::bool_i
+Operation Boolean::uBool_i
+Operation String::string
+Operation String::uString
+Operation String::string_i
+Operation String::uString_i
+Operation Instance::inst
+Operation Instance::inst_i
+Operation Instance Ref::inst_ref
+Operation Instance Ref::inst_ref_i
+Operation Date and Time::date
+Operation Date and Time::time
+Operation Date and Time::date_i
+Operation Date and Time::time_i
+Operation Unique::unique
+Operation Unique::uUnique
+Operation Unique::unique_i
+Operation Unique::uUnique_i
+Operation Enumeration::size3
+Operation Enumeration::color3
+Operation Enumeration::color_i
+Operation Enumeration::size_i
+
+STATE MODELS WITHOUT DESCRIPTIONS:
+State Model Instance
+State Model Driver
+State Model Init
+
+EVENTS WITHOUT DESCRIPTIONS:
+Event INST1
+Event INST2
+Event D0
+Event D1
+Event D2
+Event INIT1
+
+EVENT DATA WITHOUT DESCRIPTIONS:
+Event Data Instance::int
+Event Data Driver::int
+Event Data Driver::time
+
+ACTION SPECIFICATIONS WITHOUT DESCRIPTIONS:
+Instance::One
+Instance::Two
+Driver::Test Complete
+Driver::Bridge
+Driver::Waiting
+Init::Initialize

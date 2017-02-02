@@ -1,0 +1,76 @@
+This matrix tracks the manual testing that is being performed on the verifier.
+
+
+Test Variation		Ran Test		Test Passed		Tester(s)	Comments
+--------------		--------		-----------		---------	--------
+ae																Multi-domain, bug 2623
+asc					x				y				CM
+Automatic Wiring	x				y				CM
+bounce				x				NO				KB			Runs infinitely, bug 2621
+BP50_evt														Multi-domain, bug 2623
+br1																Multi-domain, bug 2623
+br1f															Multi-domain, bug 2623
+bridges.a			x				y				KB
+bridges.b														Multi-domain, bug 2623
+bringup				x				y				KB
+cl					x				y				CM
+CMN					x				y				CM
+dma					x				y				KB
+dogs				x				y				CM,KB
+EEs					x				y				CM
+enum1				x				y				CM
+enum2				x				y				CM
+enum3				x				y				CM
+enum4				x				y				CM
+event				x				y				CM
+everest				x				y				KB
+ex2					x				y				KB
+generate			x				y				CM
+im1					x				y				CM
+im2					x				y				CM
+im3					x				y				CM
+im4					x				y				CM
+ims					x				y				CM
+ims2				x				y				CM
+imx					x				y				CM
+init1				x				y				CM
+justfunc			x				y				KB
+mc3020_meta			x				y				KB
+mcdbms				x				y				KB
+MicroWaveDemo		x				y				KB
+noclass				x				y				KB
+noinitevent			x				y				KB
+nostate				x				y				KB
+ooaofooa			x				y				KB			Nothing to run, but loads fine
+pbo					x				y				KB
+persist_create_del	x				y				KB
+poly				x				y				CM
+reflexive			x				y				CM
+ring_timers			x				NO				KB			Run infintely, bug 2621
+rosey				x				NO				KB			Run infintely, bug 2621
+Samp				x				y				CM
+Scratch				x				y				CM
+select				x				y				CM
+self				x				y				KB
+sudoku				x				y				CM
+SumoRobot			x				y				KB			model has no exit clause, it is designed to run infintely
+sync				x				y				KB
+syntax				x				y				KB			gets LogFailure but due to marking not being processed
+Timer				x				y				CM
+trans				x				y				KB
+wim2				x				y				KB
+wim3				x				y				KB
+wims				x				y				KB
+wimx				x				NO				KB			null instance access, but due to bug 2621
+yoyos				x				NO				KB			Run infintely, bug 2621
+
+
+Other tests marked as not working in the model_compiler suite:
+--------------------------------------------------------------
+ex1					x				NO				KB			Uninitialized attribute value access: 1:Expression Test.t, using default. Error: Attempted to get default value for data type, inst<Mapping>
+para_pe				x				?				KB			Ran for a while.  Then instances stopped being updated.  It looks like it finished, but the app did not terminate.
+pei					x				-				KB			Can't do proper start-up in Verifier
+persist1											KB			Multi-Domain
+persist2											KB			Multi-Domain
+school												KB			Chews processor but not much happens in "setup"
+school2												KB			Multi-Domain
