@@ -23,7 +23,7 @@ end if;
 return markable;',
 	1,
 	'',
-	"00000000-0000-0000-0000-000000000000",
+	"32a47463-cf43-484e-972e-7a6e3ff3cd58",
 	0);
 INSERT INTO O_TPARM
 	VALUES ("9178cc87-b061-444c-9afd-4bb7848f5353",
@@ -41,6 +41,22 @@ INSERT INTO S_DT_PROXY
 	'',
 	'',
 	'../ooaofmarking.xtuml');
+INSERT INTO O_TFR
+	VALUES ("32a47463-cf43-484e-972e-7a6e3ff3cd58",
+	"83d1c28c-bef4-4d7c-93e2-4bf8af8a6eb8",
+	'dispose',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'select many features related by self->Feature[R2822];
+for each feature in features
+  unrelate self from feature across R2822;
+end for;
+delete object instance self;',
+	1,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	0);
 INSERT INTO O_NBATTR
 	VALUES ("506d4040-7b2b-43c1-81f0-61385370b244",
 	"83d1c28c-bef4-4d7c-93e2-4bf8af8a6eb8");

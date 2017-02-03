@@ -2,6 +2,5 @@
 # contains fill-ins for about.properties
 # java.io.Properties file (ISO 8859-1 with "\" escapes)
 # This file does not need to be translated.
-# Build ID: Until the build server updates the build ID use the following format: YYYYMMDD-HHMM 
-0=5.8.6
-1=20170124-1406
+0=6.1.0
+1=InternalBuild

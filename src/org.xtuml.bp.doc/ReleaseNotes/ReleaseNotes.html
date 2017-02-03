@@ -13,7 +13,7 @@
 </head>
 <body>
 <h1 id="bridgepoint-xtuml-release-notes">BridgePoint xtUML Release Notes</h1>
-<p>Release 5.8.2</p>
+<p>Release 6.0.0</p>
 <h2 id="license">License</h2>
 <p>BridgePoint is licensed under the <a href="http://www.apache.org/licenses/LICENSE-2.0">Apache 2.0 License Agreement</a>.</p>
 <h2 id="system-requirements">System Requirements</h2>
@@ -44,12 +44,12 @@
 <ul>
 <li><p>A summary of the release highlights and new functionality is available on the<br />
 <a href="../WhatsNew/WhatsNew.html">What's New</a> page.</p></li>
-<li><p><strong>IMPORTANT</strong>: BridgePoint 5.8 is a completely open source version of the software.<br />
+<li><p><strong>IMPORTANT</strong>: BridgePoint 6.0 is a completely open source version of the software.<br />
 Please see <a href="http://xtuml.org">xtUML.org</a> and <a href="http://onefact.net">onefact.net</a><br />
 for ongoing development and support of BridgePoint.</p></li>
 <li><p>BridgePoint ships as a zip file, similar to standard eclipse packages. Users<br />
 who wish to create desktop shortcuts to start BridgePoint should set the<br />
-shortcut to start <code>&lt;install dir&gt;/eclipse/Launcher.[sh|bat]</code>.</p></li>
+shortcut to start <code>&lt;install dir&gt;/bridgepoint</code>.</p></li>
 <li>This version supports moving a model element via Cut &amp; Paste. The actual element<br />
 is moved and underlying UUIDs are not recalculated.<br />
 </li>
@@ -60,21 +60,24 @@ Model Explorer. The <code>Cut</code> menu item is disabled if the selection is i
 <li><p>Move is supported for a specific list of model elements: Data type definition,<br />
 Component definition, Interface definition, Class definition, Component reference,<br />
 Imported class, Package (when package contains supported model elements)</p></li>
-<li><p>BridgePoint 5.8 has enhanced support for modeling with the MASL action<br />
+<li><p>BridgePoint 6.0 has enhanced support for modeling with the MASL action<br />
 language. An Xtext-based editor provides syntax highlighting, validation<br />
 and context-sensitive edit assistance.</p></li>
-<li><p>This version adds a new attribute <code>Dialect</code> in the metamodel to action<br />
+<li><p>This version adds a integer attribute <code>Dialect</code> in the metamodel to action<br />
 homes that used to populate the <code>Action_Semantics</code> field.</p></li>
+<li><p>BridgePoint supports two different action languages: OAL and MASL. The default<br />
+is set via workspace preferences at xtUML &gt; Action Language &gt; Default Action Language Dialect.<br />
+In this release the default is set to MASL.</p></li>
 </ul>
 <h2 id="interoperability-with-previous-releases">Interoperability with Previous Releases</h2>
-<p>BridgePoint 5.8.2 is compatible with workspaces and projects created with prior<br />
+<p>BridgePoint 6.0.0 is compatible with workspaces and projects created with prior<br />
 versions back to BridgePoint 5.0. However, after opening the model in this version<br />
 a modeler will not be able to open the model in a prior version.</p>
 <h2 id="issues-and-feature-requests">Issues and Feature Requests</h2>
 <p>The BridgePoint support system is hosted at <a href="http://support.onefact.net" class="uri">http://support.onefact.net</a>.<br />
 Please check here for known issues and to submit bug reports and requests for new features.</p>
 <h2 id="closed-issues">Closed Issues</h2>
-<p>The full <a href="https://support.onefact.net/issues?query_id=47">v5.8 – All Issues</a> list<br />
+<p>The full <a href="https://support.onefact.net/issues?query_id=48">v6.0 – All Issues</a> list<br />
 is available in the One Fact Support system. The highlights are included here:</p>
 <table>
 <colgroup>
@@ -89,388 +92,328 @@ is available in the One Fact Support system. The highlights are included here:</
 </thead>
 <tbody>
 <tr class="odd">
-<td><a href="https://support.onefact.net/issues/59">59</a></td>
-<td>Problem with consecutive calls to Bridge when a parameter is sent by reference</td>
+<td><a href="https://support.onefact.net/issues/661">661</a></td>
+<td>Fix formatting of Welcome page on linux</td>
 </tr>
 <tr class="even">
-<td><a href="https://support.onefact.net/issues/60">60</a></td>
-<td>Minor cosmetic flaw for Constant Specification</td>
+<td><a href="https://support.onefact.net/issues/8053">8053</a></td>
+<td>The Welcome page needs some updates</td>
 </tr>
 <tr class="odd">
-<td><a href="https://support.onefact.net/issues/510">510</a></td>
-<td>Problem with consecutive calls to Bridge when a parameter is sent by reference</td>
+<td><a href="https://support.onefact.net/issues/8255">8255</a></td>
+<td>MASL to/from Alf &quot;distance&quot;</td>
 </tr>
 <tr class="even">
-<td><a href="https://support.onefact.net/issues/511">511</a></td>
-<td>Minor cosmetic flaw for Constant Specification</td>
+<td><a href="https://support.onefact.net/issues/8372">8372</a></td>
+<td>BridgePoint importer orphans MASL activities</td>
 </tr>
 <tr class="odd">
-<td><a href="https://support.onefact.net/issues/514">514</a></td>
-<td>Interproject reference not updated correctly which leads into a not consistent model</td>
+<td><a href="https://support.onefact.net/issues/8392">8392</a></td>
+<td>Java and C model compilers have mismatched enumeration types for ElementTypeConstants</td>
 </tr>
 <tr class="even">
-<td><a href="https://support.onefact.net/issues/591">591</a></td>
-<td>Have xtumlmc_build filter some Verifier runtime instances</td>
+<td><a href="https://support.onefact.net/issues/8416">8416</a></td>
+<td>Pragmas</td>
 </tr>
 <tr class="odd">
-<td><a href="https://support.onefact.net/issues/7525">7525</a></td>
-<td>Stack Overflow Error in Verifier with breakpoints in code manipulating combined reflexive and non-reflexive associations.</td>
+<td><a href="https://support.onefact.net/issues/8417">8417</a></td>
+<td>Storing activities as dialect files</td>
 </tr>
 <tr class="even">
-<td><a href="https://support.onefact.net/issues/7877">7877</a></td>
-<td>Interproject reference not updated correctly which leads into a not consistent model</td>
+<td><a href="https://support.onefact.net/issues/8484">8484</a></td>
+<td>Update model import of MASL model file to automatically create satisfactions</td>
 </tr>
 <tr class="odd">
-<td><a href="https://support.onefact.net/issues/7927">7927</a></td>
-<td>Remove models from bridgepoint repository</td>
+<td><a href="https://support.onefact.net/issues/8495">8495</a></td>
+<td>Update to eclipse.org infrastructure style build</td>
 </tr>
 <tr class="even">
-<td><a href="https://support.onefact.net/issues/7940">7940</a></td>
-<td>MC-Java: various syntax errors encountered by pyrsl</td>
+<td><a href="https://support.onefact.net/issues/8575">8575</a></td>
+<td>Sample project imports takes two tries.</td>
 </tr>
 <tr class="odd">
-<td><a href="https://support.onefact.net/issues/8061">8061</a></td>
-<td>Allow imported classes via IPR (phase 1)</td>
+<td><a href="https://support.onefact.net/issues/8616">8616</a></td>
+<td>integrity check too picky with event numbers</td>
 </tr>
 <tr class="even">
-<td><a href="https://support.onefact.net/issues/8072">8072</a></td>
-<td>Support package references in the MC.</td>
+<td><a href="https://support.onefact.net/issues/8636">8636</a></td>
+<td>Papyrus-xtUML -- Submit Initial Contribution</td>
 </tr>
 <tr class="odd">
-<td><a href="https://support.onefact.net/issues/8248">8248</a></td>
-<td>(semi)automate model conversion</td>
+<td><a href="https://support.onefact.net/issues/8691">8691</a></td>
+<td>Show MASL in state action boxes on the canvas</td>
 </tr>
 <tr class="even">
-<td><a href="https://support.onefact.net/issues/8250">8250</a></td>
-<td>compare unedited model export with import</td>
+<td><a href="https://support.onefact.net/issues/8741">8741</a></td>
+<td>Type definitions are messy</td>
 </tr>
 <tr class="odd">
-<td><a href="https://support.onefact.net/issues/8251">8251</a></td>
-<td>compare edited export with import</td>
+<td><a href="https://support.onefact.net/issues/8763">8763</a></td>
+<td>type system for MASL editor</td>
 </tr>
 <tr class="even">
-<td><a href="https://support.onefact.net/issues/8252">8252</a></td>
-<td>export existing model to MASL</td>
+<td><a href="https://support.onefact.net/issues/8770">8770</a></td>
+<td>Clean up maslin duplication</td>
 </tr>
 <tr class="odd">
-<td><a href="https://support.onefact.net/issues/8258">8258</a></td>
-<td>MASL syntax-highlighting editor</td>
+<td><a href="https://support.onefact.net/issues/8780">8780</a></td>
+<td>Extend persistence to store activities with MASL signatures</td>
 </tr>
 <tr class="even">
-<td><a href="https://support.onefact.net/issues/8259">8259</a></td>
-<td>MASL user defined identifier validation</td>
+<td><a href="https://support.onefact.net/issues/8797">8797</a></td>
+<td>Provide MASL data for editor</td>
 </tr>
 <tr class="odd">
-<td><a href="https://support.onefact.net/issues/8260">8260</a></td>
-<td>MASL xtUML context-sensitive edit/completion assistance</td>
+<td><a href="https://support.onefact.net/issues/8800">8800</a></td>
+<td>MASL formatter does not sort pragmas for MASL diff</td>
 </tr>
 <tr class="even">
-<td><a href="https://support.onefact.net/issues/8321">8321</a></td>
-<td>Model Element Move</td>
+<td><a href="https://support.onefact.net/issues/8805">8805</a></td>
+<td>Errors during &quot;Export MASL Project&quot;</td>
 </tr>
 <tr class="odd">
-<td><a href="https://support.onefact.net/issues/8330">8330</a></td>
-<td>GPS Watch acceptance test</td>
+<td><a href="https://support.onefact.net/issues/8817">8817</a></td>
+<td>Undo does not remove masl files</td>
 </tr>
 <tr class="even">
-<td><a href="https://support.onefact.net/issues/8353">8353</a></td>
-<td>update prebuilders and syntax of GPS for MASL</td>
+<td><a href="https://support.onefact.net/issues/8818">8818</a></td>
+<td>Integrate MASL editor with new persistence strategy</td>
 </tr>
 <tr class="odd">
-<td><a href="https://support.onefact.net/issues/8363">8363</a></td>
-<td>MASL editor not opened from the canvas</td>
+<td><a href="https://support.onefact.net/issues/8824">8824</a></td>
+<td>XText MASL editor should not rely on workspace's Build Automatically</td>
 </tr>
 <tr class="even">
-<td><a href="https://support.onefact.net/issues/8387">8387</a></td>
-<td>Export source: domain package or component?</td>
+<td><a href="https://support.onefact.net/issues/8826">8826</a></td>
+<td>Fix String::quote</td>
 </tr>
 <tr class="odd">
-<td><a href="https://support.onefact.net/issues/8393">8393</a></td>
-<td>Export from workspace only?</td>
+<td><a href="https://support.onefact.net/issues/8836">8836</a></td>
+<td>Add Xtext nature to new xtUML Projects</td>
 </tr>
 <tr class="even">
-<td><a href="https://support.onefact.net/issues/8400">8400</a></td>
-<td>Remove fontchecker</td>
+<td><a href="https://support.onefact.net/issues/8844">8844</a></td>
+<td>Unhack package reference marking in MC.</td>
 </tr>
 <tr class="odd">
-<td><a href="https://support.onefact.net/issues/8401">8401</a></td>
-<td>Clean up MC-Java build support tooling</td>
+<td><a href="https://support.onefact.net/issues/8887">8887</a></td>
+<td>Clean up new persistence mechanism for activities</td>
 </tr>
 <tr class="even">
-<td><a href="https://support.onefact.net/issues/8410">8410</a></td>
-<td>Update model of MASL</td>
+<td><a href="https://support.onefact.net/issues/8892">8892</a></td>
+<td>Test By_Ref parameters of all types to Realized EEs.</td>
 </tr>
 <tr class="odd">
-<td><a href="https://support.onefact.net/issues/8425">8425</a></td>
-<td>refine schema generation</td>
+<td><a href="https://support.onefact.net/issues/8898">8898</a></td>
+<td>MASL domain does not import correctly into BridgePoint</td>
 </tr>
 <tr class="even">
-<td><a href="https://support.onefact.net/issues/8438">8438</a></td>
-<td>Remove compile target from generate.xml</td>
+<td><a href="https://support.onefact.net/issues/8902">8902</a></td>
+<td>Downgrade dialog and help</td>
 </tr>
 <tr class="odd">
-<td><a href="https://support.onefact.net/issues/8441">8441</a></td>
-<td>Integrate richer XText MASL editor</td>
+<td><a href="https://support.onefact.net/issues/8911">8911</a></td>
+<td>Update splash screen to remove registration marks</td>
 </tr>
 <tr class="even">
-<td><a href="https://support.onefact.net/issues/8442">8442</a></td>
-<td>Build BridgePoint with pyrsl</td>
+<td><a href="https://support.onefact.net/issues/8912">8912</a></td>
+<td>m2x deletes empty C_EP</td>
 </tr>
 <tr class="odd">
-<td><a href="https://support.onefact.net/issues/8449">8449</a></td>
-<td>State diagram arrowheads point wrong direction in some cases</td>
+<td><a href="https://support.onefact.net/issues/8914">8914</a></td>
+<td>Delete deprecated OOA packages</td>
 </tr>
 <tr class="even">
-<td><a href="https://support.onefact.net/issues/8454">8454</a></td>
-<td>Milestone 3 - Proxy paths are inconsistent</td>
+<td><a href="https://support.onefact.net/issues/8918">8918</a></td>
+<td>Fix import parser in the io plugin</td>
 </tr>
 <tr class="odd">
-<td><a href="https://support.onefact.net/issues/8459">8459</a></td>
-<td>Fix graphics creation for creation transitions</td>
+<td><a href="https://support.onefact.net/issues/8919">8919</a></td>
+<td>NumberFormatException when loading pre-dialect attribute models with proxies</td>
 </tr>
 <tr class="even">
-<td><a href="https://support.onefact.net/issues/8471">8471</a></td>
-<td>remove libTrans</td>
+<td><a href="https://support.onefact.net/issues/8920">8920</a></td>
+<td>Update Dialect attribute usage in the MC projects</td>
 </tr>
 <tr class="odd">
-<td><a href="https://support.onefact.net/issues/8475">8475</a></td>
-<td>Update MASL test data</td>
+<td><a href="https://support.onefact.net/issues/8923">8923</a></td>
+<td>Deprecate relocatables code</td>
 </tr>
 <tr class="even">
-<td><a href="https://support.onefact.net/issues/8483">8483</a></td>
-<td>event labels not rendered for creation transitions</td>
+<td><a href="https://support.onefact.net/issues/8928">8928</a></td>
+<td>Consider import code for upgrading string dialect to int dialect</td>
 </tr>
 <tr class="odd">
-<td><a href="https://support.onefact.net/issues/8493">8493</a></td>
-<td>Create satisfactions for project wiring</td>
+<td><a href="https://support.onefact.net/issues/8931">8931</a></td>
+<td>Do not parse when Dialect is not OAL</td>
 </tr>
 <tr class="even">
-<td><a href="https://support.onefact.net/issues/8508">8508</a></td>
-<td>Move org.xtuml.bp.core build to standard pre-build style without split SQL</td>
+<td><a href="https://support.onefact.net/issues/8933">8933</a></td>
+<td>speed up stage 1</td>
 </tr>
 <tr class="odd">
-<td><a href="https://support.onefact.net/issues/8509">8509</a></td>
-<td>Debug model load problems</td>
+<td><a href="https://support.onefact.net/issues/8935">8935</a></td>
+<td>masl2xtuml core dumps when translating preferred identifiers that are merged referentials</td>
 </tr>
 <tr class="even">
-<td><a href="https://support.onefact.net/issues/8510">8510</a></td>
-<td>Deal with overloaded activity remaining issues</td>
+<td><a href="https://support.onefact.net/issues/8936">8936</a></td>
+<td>Additional types package created with every import</td>
 </tr>
 <tr class="odd">
-<td><a href="https://support.onefact.net/issues/8515">8515</a></td>
-<td>string fields are not escaped by the instance dumper</td>
+<td><a href="https://support.onefact.net/issues/8937">8937</a></td>
+<td>Incorrect import/conversion of preferred referential identifier</td>
 </tr>
 <tr class="even">
-<td><a href="https://support.onefact.net/issues/8548">8548</a></td>
-<td>Parent task for allowing imported classes via IPR</td>
+<td><a href="https://support.onefact.net/issues/8938">8938</a></td>
+<td>Merged Referential Problems With Associative Classes</td>
 </tr>
 <tr class="odd">
-<td><a href="https://support.onefact.net/issues/8557">8557</a></td>
-<td>Inter-project reference (IPR) enhancements</td>
+<td><a href="https://support.onefact.net/issues/8939">8939</a></td>
+<td>Failure To Import MASL Domain with no Relationship Definitions</td>
 </tr>
 <tr class="even">
-<td><a href="https://support.onefact.net/issues/8579">8579</a></td>
-<td>&quot;Remove Signal&quot; is never disabled</td>
+<td><a href="https://support.onefact.net/issues/8941">8941</a></td>
+<td>Updating masl and editting parametrs can result in masl being deleted</td>
 </tr>
 <tr class="odd">
-<td><a href="https://support.onefact.net/issues/8586">8586</a></td>
-<td>Data Visibility Not Visibly Changing With Selection</td>
+<td><a href="https://support.onefact.net/issues/8942">8942</a></td>
+<td>Segregate tests out of xtuml/bridgepoint</td>
 </tr>
 <tr class="even">
-<td><a href="https://support.onefact.net/issues/8599">8599</a></td>
-<td>GPS Watch README instructions fail in Linux.</td>
+<td><a href="https://support.onefact.net/issues/8944">8944</a></td>
+<td>Build BridgePoint with MC bits in toosl/mc folder</td>
 </tr>
 <tr class="odd">
-<td><a href="https://support.onefact.net/issues/8619">8619</a></td>
-<td>Provisions and Requirements are not being created properly on component references</td>
+<td><a href="https://support.onefact.net/issues/8950">8950</a></td>
+<td>Update the VM</td>
 </tr>
 <tr class="even">
-<td><a href="https://support.onefact.net/issues/8621">8621</a></td>
-<td>Use EmptyCheck more.</td>
+<td><a href="https://support.onefact.net/issues/8951">8951</a></td>
+<td>Marking editor</td>
 </tr>
 <tr class="odd">
-<td><a href="https://support.onefact.net/issues/8627">8627</a></td>
-<td>Bump the version to v5.5.0</td>
+<td><a href="https://support.onefact.net/issues/8954">8954</a></td>
+<td>&quot;Export MASL Domain&quot; fails</td>
 </tr>
 <tr class="even">
-<td><a href="https://support.onefact.net/issues/8633">8633</a></td>
-<td>Package References (Imported Packages)</td>
+<td><a href="https://support.onefact.net/issues/8957">8957</a></td>
+<td>Failure to convert/import default attribute value</td>
 </tr>
 <tr class="odd">
-<td><a href="https://support.onefact.net/issues/8637">8637</a></td>
-<td>Move pt_antlr from xtuml/bridgepoint to xtuml/pt_antlr</td>
+<td><a href="https://support.onefact.net/issues/8959">8959</a></td>
+<td>Deal with ant binaries not being executable.</td>
 </tr>
 <tr class="even">
-<td><a href="https://support.onefact.net/issues/8638">8638</a></td>
-<td>Mismatch between GPS Watch Welcome zip file and GPS Watch in the models repository</td>
+<td><a href="https://support.onefact.net/issues/8961">8961</a></td>
+<td>MASL parser mishandles FILE_NAME and LINE_NO terminals</td>
 </tr>
 <tr class="odd">
-<td><a href="https://support.onefact.net/issues/8641">8641</a></td>
-<td>It is possible to change the name of a parameter in a message (operation/signal) in a port. This affects all ports using the interface. (was #7541)</td>
+<td><a href="https://support.onefact.net/issues/8962">8962</a></td>
+<td>Incorrect import of wrapper domains</td>
 </tr>
 <tr class="even">
-<td><a href="https://support.onefact.net/issues/8643">8643</a></td>
-<td>combined referentials</td>
+<td><a href="https://support.onefact.net/issues/8963">8963</a></td>
+<td>Graphics reconciliation that starts with no graphics does not properly reconcile formalized required and provided interfaces</td>
 </tr>
 <tr class="odd">
-<td><a href="https://support.onefact.net/issues/8658">8658</a></td>
-<td>IPR classes not found</td>
+<td><a href="https://support.onefact.net/issues/8966">8966</a></td>
+<td>Clean up maven build issues</td>
 </tr>
 <tr class="even">
-<td><a href="https://support.onefact.net/issues/8671">8671</a></td>
-<td>Unformalize is enabled when it should not.</td>
+<td><a href="https://support.onefact.net/issues/8968">8968</a></td>
+<td>Upgrade models in mc repository with persistence changes</td>
 </tr>
 <tr class="odd">
-<td><a href="https://support.onefact.net/issues/8672">8672</a></td>
-<td>Throwable exception coming from Where_spec_end parser function</td>
+<td><a href="https://support.onefact.net/issues/8971">8971</a></td>
+<td>Error during graphics reconciliation on the SAC_PROC model</td>
 </tr>
 <tr class="even">
-<td><a href="https://support.onefact.net/issues/8679">8679</a></td>
-<td>Analyze Package References and Update Metamodel</td>
+<td><a href="https://support.onefact.net/issues/8974">8974</a></td>
+<td>Error during MASL project export</td>
 </tr>
 <tr class="odd">
-<td><a href="https://support.onefact.net/issues/8681">8681</a></td>
-<td>Pragma export cuts off single character pragma values</td>
+<td><a href="https://support.onefact.net/issues/8978">8978</a></td>
+<td>Graphics reconciliation is not connecting the ball and cup in a satisfaction</td>
 </tr>
 <tr class="even">
-<td><a href="https://support.onefact.net/issues/8682">8682</a></td>
-<td>Move the masldiff script so it is packaged more sensibly with the other MASL tools</td>
+<td><a href="https://support.onefact.net/issues/8979">8979</a></td>
+<td>Automatically run graphics reconciliation during MASL model import</td>
 </tr>
 <tr class="odd">
-<td><a href="https://support.onefact.net/issues/8688">8688</a></td>
-<td>Audit Realized Bindings does not reload java classes</td>
+<td><a href="https://support.onefact.net/issues/8980">8980</a></td>
+<td>m2x support for updated marking format</td>
 </tr>
 <tr class="even">
-<td><a href="https://support.onefact.net/issues/8689">8689</a></td>
-<td>Realized Strucutred data types can't handle primitive types</td>
+<td><a href="https://support.onefact.net/issues/8981">8981</a></td>
+<td>x2m support for updated marking</td>
 </tr>
 <tr class="odd">
-<td><a href="https://support.onefact.net/issues/8690">8690</a></td>
-<td>Verifier doesn't use setters when marshalling members in structs out</td>
+<td><a href="https://support.onefact.net/issues/8983">8983</a></td>
+<td>Document new marking editor</td>
 </tr>
 <tr class="even">
-<td><a href="https://support.onefact.net/issues/8703">8703</a></td>
-<td>BPClassLoader doesn't close file stream after loading .class files</td>
+<td><a href="https://support.onefact.net/issues/8986">8986</a></td>
+<td>Annotate MASL models to communicate to Import</td>
 </tr>
 <tr class="odd">
-<td><a href="https://support.onefact.net/issues/8708">8708</a></td>
-<td>Rework combining and splitting referential attributes</td>
+<td><a href="https://support.onefact.net/issues/8993">8993</a></td>
+<td>Introduce quick start for a new MASL domain or project</td>
 </tr>
 <tr class="even">
-<td><a href="https://support.onefact.net/issues/8714">8714</a></td>
-<td>Remove jars from bridgepoint and mc repos</td>
+<td><a href="https://support.onefact.net/issues/8996">8996</a></td>
+<td>Project import drops shared typeref</td>
 </tr>
 <tr class="odd">
-<td><a href="https://support.onefact.net/issues/8719">8719</a></td>
-<td>Class and Terminator keyletters and associated pragma</td>
+<td><a href="https://support.onefact.net/issues/8998">8998</a></td>
+<td>MASL command line export</td>
 </tr>
 <tr class="even">
-<td><a href="https://support.onefact.net/issues/8738">8738</a></td>
-<td>Service signatures</td>
+<td><a href="https://support.onefact.net/issues/8999">8999</a></td>
+<td>Error while attempting to open a MASL state action</td>
 </tr>
 <tr class="odd">
-<td><a href="https://support.onefact.net/issues/8739">8739</a></td>
-<td>MASL is not displayed on state model canvas</td>
+<td><a href="https://support.onefact.net/issues/9002">9002</a></td>
+<td>CLI Import of single file xtUML model</td>
 </tr>
 <tr class="even">
-<td><a href="https://support.onefact.net/issues/8743">8743</a></td>
-<td>Dialog pops up on new project</td>
+<td><a href="https://support.onefact.net/issues/9007">9007</a></td>
+<td>Marking Editor Help Text</td>
 </tr>
 <tr class="odd">
-<td><a href="https://support.onefact.net/issues/8744">8744</a></td>
-<td>BridgePoint hangs on import</td>
+<td><a href="https://support.onefact.net/issues/9008">9008</a></td>
+<td>Force a load and persist of the ooaofgraphics model</td>
 </tr>
 <tr class="even">
-<td><a href="https://support.onefact.net/issues/8753">8753</a></td>
-<td>Squash blanks from classes, role phrases, etc on MASL export</td>
+<td><a href="https://support.onefact.net/issues/9010">9010</a></td>
+<td>Marking Editor Warning Messages</td>
 </tr>
 <tr class="odd">
-<td><a href="https://support.onefact.net/issues/8755">8755</a></td>
-<td>Undo is not available for a move (cut/paste) operation</td>
+<td><a href="https://support.onefact.net/issues/9018">9018</a></td>
+<td>The BridgePoint Build ID reads &quot;Internal Build&quot;</td>
 </tr>
 <tr class="even">
-<td><a href="https://support.onefact.net/issues/8756">8756</a></td>
-<td>Update MASL tooling to utilize updated persistence structure</td>
+<td><a href="https://support.onefact.net/issues/9020">9020</a></td>
+<td>In BridgePoint models folders update .gitignore for oal_err</td>
 </tr>
 <tr class="odd">
-<td><a href="https://support.onefact.net/issues/8762">8762</a></td>
-<td>Enhance BP CLI to handle Java MC based projects</td>
+<td><a href="https://support.onefact.net/issues/9028">9028</a></td>
+<td>Define what version of the xtext editor to use in the 6.0 release</td>
 </tr>
 <tr class="even">
-<td><a href="https://support.onefact.net/issues/8767">8767</a></td>
-<td>Refresh available community build</td>
+<td><a href="https://support.onefact.net/issues/9043">9043</a></td>
+<td>Body of terminator service pulled over from project</td>
 </tr>
 <tr class="odd">
-<td><a href="https://support.onefact.net/issues/8769">8769</a></td>
-<td>Within a component restrict visibility to externally defined model elements</td>
+<td><a href="https://support.onefact.net/issues/9046">9046</a></td>
+<td>Suppress using keyletters in x2m</td>
 </tr>
 <tr class="even">
-<td><a href="https://support.onefact.net/issues/8771">8771</a></td>
-<td>Problem characters prevent MASL export</td>
+<td><a href="https://support.onefact.net/issues/9052">9052</a></td>
+<td>Activity import parser loads qualified type names wrong</td>
 </tr>
 <tr class="odd">
-<td><a href="https://support.onefact.net/issues/8773">8773</a></td>
-<td>Datatypes not included in MASL exported data</td>
-</tr>
-<tr class="even">
-<td><a href="https://support.onefact.net/issues/8774">8774</a></td>
-<td>Problem with MASL export and referentials</td>
-</tr>
-<tr class="odd">
-<td><a href="https://support.onefact.net/issues/8793">8793</a></td>
-<td>Saab- Model Element Move</td>
-</tr>
-<tr class="even">
-<td><a href="https://support.onefact.net/issues/8795">8795</a></td>
-<td>Satisfactions created in incorrect places</td>
-</tr>
-<tr class="odd">
-<td><a href="https://support.onefact.net/issues/8796">8796</a></td>
-<td>turn on dynamic strings in masl</td>
-</tr>
-<tr class="even">
-<td><a href="https://support.onefact.net/issues/8798">8798</a></td>
-<td>The &quot;cut&quot; currently implemented (Model Element Move) allows a limited element selection</td>
-</tr>
-<tr class="odd">
-<td><a href="https://support.onefact.net/issues/8807">8807</a></td>
-<td>Parser marks problems on MASL activities when exporting MASL</td>
-</tr>
-<tr class="even">
-<td><a href="https://support.onefact.net/issues/8812">8812</a></td>
-<td>CDT dialog during new project creation</td>
-</tr>
-<tr class="odd">
-<td><a href="https://support.onefact.net/issues/8813">8813</a></td>
-<td>Assign Signal is visible for Transitions Instance State Machines</td>
-</tr>
-<tr class="even">
-<td><a href="https://support.onefact.net/issues/8820">8820</a></td>
-<td>Change the BridgePoint oal marker extension to oal_err</td>
-</tr>
-<tr class="odd">
-<td><a href="https://support.onefact.net/issues/8822">8822</a></td>
-<td>It is possible to change the name of a parameter in a message (operation/signal) in a port. This affects all ports using the interface.</td>
-</tr>
-<tr class="even">
-<td><a href="https://support.onefact.net/issues/8840">8840</a></td>
-<td>Downgrade of component reference leaves an orphaned connector</td>
-</tr>
-<tr class="odd">
-<td><a href="https://support.onefact.net/issues/8857">8857</a></td>
-<td>Filter the package selection list</td>
-</tr>
-<tr class="even">
-<td><a href="https://support.onefact.net/issues/8858">8858</a></td>
-<td>Document package references</td>
-</tr>
-<tr class="odd">
-<td><a href="https://support.onefact.net/issues/8865">8865</a></td>
-<td>Support package / package reference dispose and downgrade</td>
-</tr>
-<tr class="even">
-<td><a href="https://support.onefact.net/issues/8883">8883</a></td>
-<td>Disallow operations on message parameters</td>
+<td><a href="https://support.onefact.net/issues/9053">9053</a></td>
+<td>Marking Mappings</td>
 </tr>
 </tbody>
 </table>

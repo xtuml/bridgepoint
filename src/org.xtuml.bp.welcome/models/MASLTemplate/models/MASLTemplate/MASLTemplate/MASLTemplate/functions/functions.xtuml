@@ -1,0 +1,89 @@
+-- BP 7.1.6 content: Package syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO EP_PKG
+	VALUES ("0ae524ed-6e05-4b9f-8f9f-510dd1cd2032",
+	"00000000-0000-0000-0000-000000000000",
+	"caeb992d-705b-4741-8e19-2e442e50c51e",
+	'functions',
+	'',
+	0);
+INSERT INTO GD_MD
+	VALUES ("cace5497-f721-4728-aea1-025e9b44d8fb",
+	112,
+	"0ae524ed-6e05-4b9f-8f9f-510dd1cd2032",
+	108,
+	0,
+	0,
+	1,
+	1,
+	1,
+	12,
+	1,
+	0,
+	0,
+	0,
+	0,
+	0,
+	'',
+	'MASLTemplate::MASLTemplate::MASLTemplate::functions');
+INSERT INTO DIM_DIA
+	VALUES ("cace5497-f721-4728-aea1-025e9b44d8fb",
+	'',
+	1.000000,
+	0.000000,
+	0.000000,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO S_SYNC
+	VALUES ("d422cf2f-5eac-4355-81d3-a7fe619733db",
+	"00000000-0000-0000-0000-000000000000",
+	'public_service_1',
+	'',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	3,
+	'',
+	1);
+INSERT INTO S_SPARM
+	VALUES ("61aa1692-9146-49a6-8e10-b2733919c52a",
+	"d422cf2f-5eac-4355-81d3-a7fe619733db",
+	'val',
+	"2ad9670a-a9a2-4c22-8c5d-9a5e656c4f56",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("2ad9670a-a9a2-4c22-8c5d-9a5e656c4f56",
+	"00000000-0000-0000-0000-000000000000",
+	'ex_type',
+	'',
+	'',
+	'../../Shared/Shared.xtuml');
+INSERT INTO PE_PE
+	VALUES ("d422cf2f-5eac-4355-81d3-a7fe619733db",
+	1,
+	"0ae524ed-6e05-4b9f-8f9f-510dd1cd2032",
+	"00000000-0000-0000-0000-000000000000",
+	1);
+INSERT INTO PE_PE
+	VALUES ("0ae524ed-6e05-4b9f-8f9f-510dd1cd2032",
+	1,
+	"00000000-0000-0000-0000-000000000000",
+	"7139f370-e39b-4f59-ab48-9ab496642a27",
+	7);
+INSERT INTO C_C_PROXY
+	VALUES ("7139f370-e39b-4f59-ab48-9ab496642a27",
+	"00000000-0000-0000-0000-000000000000",
+	"00000000-0000-0000-0000-000000000000",
+	'MASLTemplate',
+	'',
+	0,
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'../MASLTemplate.xtuml');
+INSERT INTO S_SYS_PROXY
+	VALUES ("caeb992d-705b-4741-8e19-2e442e50c51e",
+	'MASLTemplate',
+	1,
+	'../../../MASLTemplate.xtuml');
