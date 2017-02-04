@@ -17,6 +17,7 @@ MASL flow round trip testing.
 ----------------------
 <a id="2.1"></a>2.1 [BridgePoint DEI #9066](https://support.onefact.net/issues/9066) Headline issue.    
 <a id="2.2"></a>2.2 [BridgePoint DEI #9083](https://support.onefact.net/issues/9083) CLI Single file import shall have the ability to create a project     
+<a id="2.3"></a>2.3 [BridgePoint DEI #9038](https://support.onefact.net/issues/9038) Clear up problems with SAC model.       
 
 3. Background
 -------------
@@ -72,7 +73,9 @@ correctness of the flow and perform testing when tools inside the flow change.
 /opt/xtuml/BridgePoint6/tools/mc/bin/masl_round_trip -d ~/git/models/masl/SAC/SAC_OOA/ ~/git/masl/examples/petrol/PSC_OOA/ -o /tmp/difftest
 ```  
 At the time of this writing, the SAC model mostly shows diffs because of an extra
-newline at the end of some files.  There is also a diff on two types.   
+newline at the end of some files.  There is also a diff on two types.  A separate
+issue [[2.3]](#2.3) exists to clean up the SAC model.  The diffs reports will decrease
+as that issue progresses.     
 
 The PSC model shows many diffs.  Most notably is that the PSC orignal MASL model
 uses keyletter naming of files and the BP MASL export no longer uses keyletter
