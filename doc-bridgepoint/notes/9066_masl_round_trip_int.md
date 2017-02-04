@@ -59,11 +59,11 @@ correctness of the flow and perform testing when tools inside the flow change.
 --------------------------
 6.1  Limitations  
 6.1.1  The tool does not support MASL Projects at this time.  The issue is that
-  it currently re-creates the workspace for cycle.  This makes it impossible for
-  a MASL Project to have component references to other projects.  If or when 
-  BridgePoint adds the ability to create a project on single file import [[2.2]](#2.2), then 
-  the issue becomes that we must have the ability to turn on inter-project 
-  references on the new project.   
+  it currently re-creates (re-unzips) the clean workspace for each input model. This 
+  makes it impossible for a MASL Project to have component references to other 
+  projects.  If or when BridgePoint adds the ability to create a project on single 
+  file import [[2.2]](#2.2), then the issue becomes that we must have the ability 
+  to turn on inter-project references on the new project.   
   
 7. Unit Test
 ------------
