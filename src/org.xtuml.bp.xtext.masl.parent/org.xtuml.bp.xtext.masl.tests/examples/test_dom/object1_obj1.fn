@@ -1,0 +1,4 @@
+public function X::object1.obj1() return integer is
+begin
+  null;
+end function;

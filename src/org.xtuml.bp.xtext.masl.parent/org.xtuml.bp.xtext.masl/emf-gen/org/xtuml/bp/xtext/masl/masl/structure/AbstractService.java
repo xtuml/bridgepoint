@@ -9,21 +9,21 @@ import org.xtuml.bp.xtext.masl.masl.types.AbstractTypeReference;
 
 /**
  * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Abstract Function</b></em>'.
+ * A representation of the model object '<em><b>Abstract Service</b></em>'.
  * <!-- end-user-doc -->
  *
  * <p>
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link org.xtuml.bp.xtext.masl.masl.structure.AbstractFunction#getReturnType <em>Return Type</em>}</li>
+ *   <li>{@link org.xtuml.bp.xtext.masl.masl.structure.AbstractService#getReturnType <em>Return Type</em>}</li>
  * </ul>
  *
- * @see org.xtuml.bp.xtext.masl.masl.structure.StructurePackage#getAbstractFunction()
+ * @see org.xtuml.bp.xtext.masl.masl.structure.StructurePackage#getAbstractService()
  * @model abstract="true"
  * @generated
  */
-public interface AbstractFunction extends EObject {
+public interface AbstractService extends EObject {
 	/**
 	 * Returns the value of the '<em><b>Return Type</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
@@ -34,14 +34,14 @@ public interface AbstractFunction extends EObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Return Type</em>' containment reference.
 	 * @see #setReturnType(AbstractTypeReference)
-	 * @see org.xtuml.bp.xtext.masl.masl.structure.StructurePackage#getAbstractFunction_ReturnType()
+	 * @see org.xtuml.bp.xtext.masl.masl.structure.StructurePackage#getAbstractService_ReturnType()
 	 * @model containment="true"
 	 * @generated
 	 */
 	AbstractTypeReference getReturnType();
 
 	/**
-	 * Sets the value of the '{@link org.xtuml.bp.xtext.masl.masl.structure.AbstractFunction#getReturnType <em>Return Type</em>}' containment reference.
+	 * Sets the value of the '{@link org.xtuml.bp.xtext.masl.masl.structure.AbstractService#getReturnType <em>Return Type</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Return Type</em>' containment reference.
@@ -50,4 +50,4 @@ public interface AbstractFunction extends EObject {
 	 */
 	void setReturnType(AbstractTypeReference value);
 
-} // AbstractFunction
+} // AbstractService

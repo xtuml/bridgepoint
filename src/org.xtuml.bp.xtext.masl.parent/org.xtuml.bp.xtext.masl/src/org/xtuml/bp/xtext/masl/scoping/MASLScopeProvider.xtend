@@ -27,8 +27,6 @@ import org.xtuml.bp.xtext.masl.masl.structure.AssocRelationshipDefinition
 import org.xtuml.bp.xtext.masl.masl.structure.Characteristic
 import org.xtuml.bp.xtext.masl.masl.structure.ObjectDeclaration
 import org.xtuml.bp.xtext.masl.masl.structure.ObjectDefinition
-import org.xtuml.bp.xtext.masl.masl.structure.ObjectFunctionDefinition
-import org.xtuml.bp.xtext.masl.masl.structure.ObjectServiceDefinition
 import org.xtuml.bp.xtext.masl.masl.structure.Parameter
 import org.xtuml.bp.xtext.masl.masl.structure.RegularRelationshipDefinition
 import org.xtuml.bp.xtext.masl.masl.structure.RelationshipNavigation
@@ -50,6 +48,7 @@ import org.xtuml.bp.xtext.masl.typesystem.TypeParameterResolver
 import static org.eclipse.xtext.scoping.Scopes.*
 
 import static extension org.eclipse.xtext.EcoreUtil2.*
+import org.xtuml.bp.xtext.masl.masl.structure.ObjectServiceDefinition
 
 /**
  * This class contains custom scoping description.
@@ -105,7 +104,7 @@ class MASLScopeProvider extends AbstractMASLScopeProvider {
 					if(receiver instanceof SimpleFeatureCall) {
 						val feature = receiver.feature
 						if(feature instanceof TerminatorDefinition) {
-							return scopeFor(feature.services + feature.functions)		
+							return scopeFor(feature.services)		
 						}						
 					}
 				} 
@@ -203,7 +202,7 @@ class MASLScopeProvider extends AbstractMASLScopeProvider {
 	private def IScope getTypeFeatureScope(MaslType type) {
 		switch type {
 			InstanceType:
-				return type.instance.createObjectScope[attributes + functions + services]
+				return type.instance.createObjectScope[attributes + services]
 			NamedType: {
 				val innerType = type.type
 				if (innerType instanceof StructureType)
@@ -232,17 +231,15 @@ class MASLScopeProvider extends AbstractMASLScopeProvider {
 								null							
 						}
 					if (instance != null)
-						return instance.createObjectScope([attributes + functions + services], parent.getLocalSimpleFeatureScope(parentScope, false))
+						return instance.createObjectScope([attributes + services], parent.getLocalSimpleFeatureScope(parentScope, false))
 				}
 			}
 			CodeBlock:
 				return scopeFor(expr.variables, parent.getLocalSimpleFeatureScope(parentScope, false))
 			ForStatement:
 				return scopeFor(#[expr.variable], parent.getLocalSimpleFeatureScope(parentScope, false))
-			ObjectFunctionDefinition:
-				return getSimpleFeatureScopeForObjectAction(expr.parameters, expr.object, parentScope)
 			ObjectServiceDefinition:
-				return getSimpleFeatureScopeForObjectAction(expr.parameters, expr.object, parentScope)
+				return getSimpleFeatureScopeForObjectAction(expr.parameters, expr.getObject, parentScope)
 			StateDefinition:
 				return getSimpleFeatureScopeForObjectAction(expr.parameters, expr.object, parentScope)
 			AbstractActionDefinition:
@@ -252,7 +249,7 @@ class MASLScopeProvider extends AbstractMASLScopeProvider {
 	}
 	
 	private def getSimpleFeatureScopeForObjectAction(List<Parameter> parameters, ObjectDeclaration context, IScope parentScope) {
-		scopeFor(parameters, context.createObjectScope([attributes  + functions + services], parentScope))
+		scopeFor(parameters, context.createObjectScope([attributes  + services], parentScope))
 	}
 	
 	private def dispatch IScope getFeatureScope(EObject call) {

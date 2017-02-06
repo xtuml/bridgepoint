@@ -6,17 +6,15 @@ import java.util.regex.Pattern
 import org.eclipse.emf.ecore.EClass
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.xtext.naming.IQualifiedNameProvider
+import org.eclipse.xtext.resource.FileExtensionProvider
 import org.eclipse.xtext.validation.Check
 import org.eclipse.xtext.validation.EValidatorRegistrar
 import org.xtuml.bp.xtext.masl.masl.behavior.CodeBlock
 import org.xtuml.bp.xtext.masl.masl.structure.AbstractActionDeclaration
+import org.xtuml.bp.xtext.masl.masl.structure.AbstractActionDefinition
 import org.xtuml.bp.xtext.masl.masl.structure.DomainDefinition
-import org.xtuml.bp.xtext.masl.masl.structure.DomainFunctionDefinition
-import org.xtuml.bp.xtext.masl.masl.structure.DomainServiceDefinition
 import org.xtuml.bp.xtext.masl.masl.structure.MaslModel
 import org.xtuml.bp.xtext.masl.masl.structure.ObjectDefinition
-import org.xtuml.bp.xtext.masl.masl.structure.ObjectFunctionDefinition
-import org.xtuml.bp.xtext.masl.masl.structure.ObjectServiceDefinition
 import org.xtuml.bp.xtext.masl.masl.structure.Parameterized
 import org.xtuml.bp.xtext.masl.masl.structure.ProjectDefinition
 import org.xtuml.bp.xtext.masl.masl.structure.RegularRelationshipDefinition
@@ -28,7 +26,8 @@ import org.xtuml.bp.xtext.masl.masl.types.TypesPackage
 import org.xtuml.bp.xtext.masl.scoping.ProjectScopeIndexProvider
 
 import static org.xtuml.bp.xtext.masl.validation.MaslIssueCodesProvider.*
-import org.xtuml.bp.xtext.masl.masl.structure.AbstractActionDefinition
+import org.xtuml.bp.xtext.masl.masl.structure.DomainServiceDefinition
+import org.xtuml.bp.xtext.masl.masl.structure.ObjectServiceDefinition
 
 class NameValidator extends AbstractMASLValidator {
 	
@@ -40,6 +39,7 @@ class NameValidator extends AbstractMASLValidator {
 	@Inject extension StructurePackage structurePackage
 	@Inject extension IQualifiedNameProvider
 	@Inject extension ProjectScopeIndexProvider
+	@Inject FileExtensionProvider fileExtensionProvider
 	
 	static val INT_PATTERN = Pattern.compile('[0-9]+')
 	
@@ -55,19 +55,18 @@ class NameValidator extends AbstractMASLValidator {
 	def modelNamesAreUnique(MaslModel it) {
 		val allDomainsInFile = elements.filter(DomainDefinition) 
 			+ elements.filter(ProjectDefinition).map[domains].flatten
-		checkNamesAreGloballyUnique(allDomainsInFile, domainDefinition)
+		if(fileExtensionProvider.isValid(eResource.URI.fileExtension))
+			checkNamesAreGloballyUnique(allDomainsInFile, domainDefinition)
 		checkNamesAreGloballyUnique(elements.filter(ProjectDefinition), projectDefinition)
-		checkNamesAreGloballyUnique(elements.filter(ObjectServiceDefinition) 
-			+ elements.filter(ObjectFunctionDefinition), objectServiceDefinition, objectFunctionDefinition)
+		checkNamesAreGloballyUnique(elements.filter(ObjectServiceDefinition), objectServiceDefinition)
 		checkNamesAreGloballyUnique(elements.filter(StateDefinition), stateDefinition)
-		checkNamesAreGloballyUnique(elements.filter(DomainServiceDefinition) 
-			+ elements.filter(DomainFunctionDefinition), domainServiceDefinition, domainFunctionDefinition)
+		checkNamesAreGloballyUnique(elements.filter(DomainServiceDefinition), domainServiceDefinition)
 	}
 	
 	@Check
 	def domainNamesAreUnique(DomainDefinition it) {
 		checkNamesAreGloballyUnique(objects, objectDeclaration)
-		checkNamesAreGloballyUnique(services + functions, domainServiceDeclaration, domainFunctionDeclaration)
+		checkNamesAreGloballyUnique(services, domainServiceDeclaration)
 		checkNamesAreGloballyUnique(terminators, terminatorDefinition)
 		checkNamesAreGloballyUnique(relationships, relationshipDefinition)
 		checkNamesAreGloballyUnique(objectDefs, objectDefinition)
@@ -78,7 +77,7 @@ class NameValidator extends AbstractMASLValidator {
 	
 	@Check
 	def terminatorNamesAreUnique(TerminatorDefinition it) {
-		checkNamesAreGloballyUnique(services + functions, terminatorServiceDeclaration, terminatorFunctionDeclaration)
+		checkNamesAreGloballyUnique(services, terminatorServiceDeclaration)
 	}
 	
 	@Check
@@ -89,7 +88,7 @@ class NameValidator extends AbstractMASLValidator {
 	@Check 
 	def objectNamesAreUnique(ObjectDefinition it) {
 		checkNamesAreLocallyUnique(attributes)
-		checkNamesAreLocallyUnique(services + functions)
+		checkNamesAreLocallyUnique(services)
 		checkNamesAreLocallyUnique(events)
 		checkNamesAreLocallyUnique(states)
 	}

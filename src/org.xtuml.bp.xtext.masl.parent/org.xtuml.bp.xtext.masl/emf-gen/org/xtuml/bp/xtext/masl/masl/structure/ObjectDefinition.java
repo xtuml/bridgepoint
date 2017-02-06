@@ -17,7 +17,6 @@ import org.eclipse.emf.common.util.EList;
  *   <li>{@link org.xtuml.bp.xtext.masl.masl.structure.ObjectDefinition#getAttributes <em>Attributes</em>}</li>
  *   <li>{@link org.xtuml.bp.xtext.masl.masl.structure.ObjectDefinition#getIdentifiers <em>Identifiers</em>}</li>
  *   <li>{@link org.xtuml.bp.xtext.masl.masl.structure.ObjectDefinition#getServices <em>Services</em>}</li>
- *   <li>{@link org.xtuml.bp.xtext.masl.masl.structure.ObjectDefinition#getFunctions <em>Functions</em>}</li>
  *   <li>{@link org.xtuml.bp.xtext.masl.masl.structure.ObjectDefinition#getEvents <em>Events</em>}</li>
  *   <li>{@link org.xtuml.bp.xtext.masl.masl.structure.ObjectDefinition#getStates <em>States</em>}</li>
  *   <li>{@link org.xtuml.bp.xtext.masl.masl.structure.ObjectDefinition#getTransitions <em>Transitions</em>}</li>
@@ -75,22 +74,6 @@ public interface ObjectDefinition extends AbstractNamed, Pragmatized {
 	 * @generated
 	 */
 	EList<ObjectServiceDeclaration> getServices();
-
-	/**
-	 * Returns the value of the '<em><b>Functions</b></em>' containment reference list.
-	 * The list contents are of type {@link org.xtuml.bp.xtext.masl.masl.structure.ObjectFunctionDeclaration}.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Functions</em>' containment reference list isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Functions</em>' containment reference list.
-	 * @see org.xtuml.bp.xtext.masl.masl.structure.StructurePackage#getObjectDefinition_Functions()
-	 * @model containment="true"
-	 * @generated
-	 */
-	EList<ObjectFunctionDeclaration> getFunctions();
 
 	/**
 	 * Returns the value of the '<em><b>Events</b></em>' containment reference list.

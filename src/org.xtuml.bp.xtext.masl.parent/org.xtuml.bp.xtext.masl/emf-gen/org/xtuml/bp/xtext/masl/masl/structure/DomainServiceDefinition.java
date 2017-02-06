@@ -14,5 +14,5 @@ package org.xtuml.bp.xtext.masl.masl.structure;
  * @model
  * @generated
  */
-public interface DomainServiceDefinition extends AbstractActionDefinition {
+public interface DomainServiceDefinition extends AbstractActionDefinition, AbstractService {
 } // DomainServiceDefinition
