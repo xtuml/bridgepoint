@@ -1,0 +1,4 @@
+private function X::terminator1~>term1() return integer is
+begin
+  null;
+end function;

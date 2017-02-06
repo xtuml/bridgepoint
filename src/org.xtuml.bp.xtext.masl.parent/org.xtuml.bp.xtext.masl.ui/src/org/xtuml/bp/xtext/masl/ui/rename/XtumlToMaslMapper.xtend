@@ -40,17 +40,17 @@ class XtumlToMaslMapper {
 			Component_c:
 				#[domainDefinition]
 			Function_c:
-				#[domainServiceDefinition, domainFunctionDefinition]
+				#[domainServiceDefinition]
 			FunctionParameter_c:
 				#[parameter]
 			RequiredOperation_c:
-				#[terminatorServiceDefinition, terminatorFunctionDefinition]
+				#[terminatorServiceDefinition]
 			ProvidedOperation_c:
-				#[terminatorServiceDefinition, terminatorFunctionDefinition]
+				#[terminatorServiceDefinition]
 			ModelClass_c:
 				#[objectDeclaration]
 			Operation_c:
-				#[objectServiceDefinition, objectFunctionDefinition]
+				#[objectServiceDefinition]
 			OperationParameter_c:
 				#[parameter]
 			Port_c:
@@ -74,17 +74,17 @@ class XtumlToMaslMapper {
 			Component_c:
 				#[domainDefinition]
 			Function_c:
-				#[domainServiceDeclaration, domainFunctionDeclaration]
+				#[domainServiceDeclaration]
 //			FunctionParameter_c:
 //				#[parameter]
 			RequiredOperation_c:
-				#[terminatorServiceDeclaration, terminatorFunctionDeclaration]
+				#[terminatorServiceDeclaration]
 			ProvidedOperation_c:
-				#[terminatorServiceDeclaration, terminatorFunctionDeclaration]
+				#[terminatorServiceDeclaration]
 			ModelClass_c:
 				#[objectDeclaration]
 			Operation_c:
-				#[objectServiceDeclaration, objectFunctionDeclaration]
+				#[objectServiceDeclaration]
 //			OperationParameter_c:
 //				#[parameter]
 			Port_c:

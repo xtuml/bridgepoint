@@ -11,10 +11,10 @@ import org.xtuml.bp.xtext.masl.masl.behavior.CharacteristicCall
 import org.xtuml.bp.xtext.masl.masl.behavior.Expression
 import org.xtuml.bp.xtext.masl.masl.behavior.FindExpression
 import org.xtuml.bp.xtext.masl.masl.behavior.SimpleFeatureCall
-import org.xtuml.bp.xtext.masl.masl.structure.DomainServiceDefinition
 import org.xtuml.bp.xtext.masl.masl.structure.MaslModel
 
 import static org.junit.Assert.*
+import org.xtuml.bp.xtext.masl.masl.structure.DomainServiceDefinition
 
 @RunWith(XtextRunner)
 @InjectWith(MASLInjectorProvider)
