@@ -29,6 +29,7 @@ import org.xtuml.bp.xtext.masl.scoping.ProjectScopeIndexProvider
 
 import static org.xtuml.bp.xtext.masl.validation.MaslIssueCodesProvider.*
 import org.xtuml.bp.xtext.masl.masl.structure.AbstractActionDefinition
+import org.eclipse.xtext.resource.FileExtensionProvider
 
 class NameValidator extends AbstractMASLValidator {
 	
@@ -40,6 +41,7 @@ class NameValidator extends AbstractMASLValidator {
 	@Inject extension StructurePackage structurePackage
 	@Inject extension IQualifiedNameProvider
 	@Inject extension ProjectScopeIndexProvider
+	@Inject FileExtensionProvider fileExtensionProvider
 	
 	static val INT_PATTERN = Pattern.compile('[0-9]+')
 	
@@ -55,7 +57,8 @@ class NameValidator extends AbstractMASLValidator {
 	def modelNamesAreUnique(MaslModel it) {
 		val allDomainsInFile = elements.filter(DomainDefinition) 
 			+ elements.filter(ProjectDefinition).map[domains].flatten
-		checkNamesAreGloballyUnique(allDomainsInFile, domainDefinition)
+		if(fileExtensionProvider.isValid(eResource.URI.fileExtension))
+			checkNamesAreGloballyUnique(allDomainsInFile, domainDefinition)
 		checkNamesAreGloballyUnique(elements.filter(ProjectDefinition), projectDefinition)
 		checkNamesAreGloballyUnique(elements.filter(ObjectServiceDefinition) 
 			+ elements.filter(ObjectFunctionDefinition), objectServiceDefinition, objectFunctionDefinition)

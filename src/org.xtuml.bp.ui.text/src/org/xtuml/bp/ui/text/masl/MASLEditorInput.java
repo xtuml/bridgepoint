@@ -1,6 +1,4 @@
 package org.xtuml.bp.ui.text.masl;
-import java.io.IOException;
-
 //====================================================================
 //
 // File:      MASLEditorInput.java
@@ -13,19 +11,23 @@ import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.FileEditorInput;
 import org.xtuml.bp.core.common.NonRootModelElement;
-import org.xtuml.bp.core.common.PersistableModelComponent;
 import org.xtuml.bp.ui.text.IModelElementEditorInputFactory;
+import org.xtuml.bp.ui.text.ModelElementID;
+import org.xtuml.bp.xtext.masl.ui.document.IXtumlElementEditorInput;
 
-public class MASLEditorInput extends FileEditorInput {
+public class MASLEditorInput extends FileEditorInput implements IXtumlElementEditorInput {
 
 	public final static String EDITOR_ID = "org.xtuml.bp.xtext.masl.MASL"; //$NON-NLS-1$
 	public final static String FACTORY_ID = "org.xtuml.bp.ui.text.masl.factory"; //$NON-NLS-1$
+	private ModelElementID modelElementID;
 	
-	public MASLEditorInput(IFile file) {
+	
+	public MASLEditorInput(ModelElementID modelElementID, IFile file) {
 		super(file);
+		this.modelElementID = modelElementID;
 	}
 
-        /**
+    /**
 	 * @param modelElementObject
 	 * @return Instance of MASLEditorInput created from instanceof NonModelRootElement  
 	 * @throws PartInitException
@@ -49,9 +51,12 @@ public class MASLEditorInput extends FileEditorInput {
          * @see getSupportedModelElementRelatedTo(NonRootModelElement)
          * @see org.xtuml.bp.core.ui.IModelElementEditorInputFactory#isSupported(java.lang.Object)
          */
-        public static boolean isSupported(Object inputObject){
-		MASLEditorInputFactory factory = (MASLEditorInputFactory)PlatformUI.getWorkbench().getElementFactory(FACTORY_ID);
+    public static boolean isSupported(Object inputObject){
+    	MASLEditorInputFactory factory = (MASLEditorInputFactory)PlatformUI.getWorkbench().getElementFactory(FACTORY_ID);
 		return factory.isSupported(inputObject);
-        }
+    }
 
+    public NonRootModelElement getModelElement() {
+		return modelElementID != null ? modelElementID.resolve() : null;
+	}
 }
