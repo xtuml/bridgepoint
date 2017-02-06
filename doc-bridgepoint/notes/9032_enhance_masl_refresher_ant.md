@@ -53,11 +53,11 @@ at all.
   domain, the ```SAC.smasl``` (produced by the parser) was roughly one third of 
   the size after removing the "codeblock" statements. ```wc``` output below:  
   
-  | Newlines | Word Count | Byte Count | File Name              |
-  |----------|------------|------------|------------------------|
-  | 825      | 855        | 21783      | SAC_no_codeblock.smasl |
-  | 860      | 4517       | 65186      | SAC.smasl              |
-  | 1685     | 5372       | 86969      | total                  |
+| Newlines | Word Count | Byte Count | File Name              |
+|----------|------------|------------|------------------------|
+| 825      | 855        | 21783      | SAC_no_codeblock.smasl |
+| 860      | 4517       | 65186      | SAC.smasl              |
+| 1685     | 5372       | 86969      | total                  |
   
   The solution here will leverage the "model" class that is used as a singleton to 
   store the project root directory during output. A boolean flag could be attached 
@@ -102,7 +102,8 @@ at all.
 7.1  Run the MASL Round Trip Test [[2.3]](#2.3) up to Import step 2.9 
 * When the MASL is opened there are no red squigglies under elements in this domain.    
 * Open navigator view and verify the ```.mod``` and ```.int``` files are inside the
-models folder next to the SAC.xtuml that contains the C_C instance.   
+models folder next to the SAC.xtuml that contains the C_C instance.  There are no
+```.svc```, ```.fn```, etc. files in this location.   
 
 End
 ---
