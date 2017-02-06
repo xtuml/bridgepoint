@@ -17,6 +17,9 @@ import org.xtuml.bp.xtext.masl.ui.validation.MaslValidationConfigurationBlock
 import static org.eclipse.xtext.ui.editor.contentassist.XtextContentAssistProcessor.*
 import org.xtuml.bp.xtext.masl.ui.edit.MaslAutoEditStrategyProvider
 import org.xtuml.bp.xtext.masl.ui.build.MaslAutoBuilder
+import org.eclipse.xtext.ui.editor.model.XtextDocumentProvider
+import org.xtuml.bp.xtext.masl.ui.document.MaslDocumentProvider
+import org.xtuml.bp.xtext.masl.ui.document.MaslResourceForIEditorInputFactory
 
 /**
  * Use this class to register components to be used within the Eclipse IDE.
@@ -56,6 +59,14 @@ class MASLUiModule extends AbstractMASLUiModule {
 	
 	def configureMaslAutoBuilder(Binder binder) {
 		binder.bind(MaslAutoBuilder).asEagerSingleton
+	}
+	
+	def Class<? extends XtextDocumentProvider> bindXtextDocumentProvider() {
+		MaslDocumentProvider
+	}
+	
+	override bindIResourceForEditorInputFactory() {
+		MaslResourceForIEditorInputFactory
 	}
 	
 }
