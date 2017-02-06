@@ -70,6 +70,8 @@
                     <include>xtuml2masl</include>
                     <include>xtumlmc_build</include>
                     <include>CLI.sh</include>
+                    <include>masl_round_trip</include>
+                    <include>importworkspace.zip</include>
                   </includes>
                 </resource>
               </resources>              
@@ -103,6 +105,8 @@
                     <include>masldiff</include>
                     <include>x2m</include>
                     <include>xtuml2masl</include>
+                    <include>masl_round_trip</include>
+                    <include>importworkspace.zip</include>
                     -->
                   </includes>
                 </resource>
