@@ -10,29 +10,42 @@ This work is licensed under the Creative Commons CC0 License
 
 1. Abstract
 -----------
-With a move to storage of MASL activities in `.masl` files instead of the
-`Action_Semantics` in `.xtuml` files come growing pains. Currently, an
-architecture is followed that has been labeled "structure is king". In this
-architecture, the instances that represent the signature (the activity itself,
-return type, parameters and their types, etc.) are stored as SQL in the `.xtuml`
-file and only the action body itself is stored in text in `.masl` files and
-inserted into the instances at load time.
+
+With the move to storage of MASL activities in `.masl` files instead of the
+`Action_Semantics` in `.xtuml` files have come growing pains.  The current
+persistence architecture follows the philosophy "structure is king", in which
+the instances that represent the signature (the activity itself, return type,
+parameters and their types, etc.) are stored as SQL in the `.xtuml` file. Only
+the action body itself is stored as text in `.masl` files, and it is
+re-inserted into the model instances at load time.
 
 The underlying problem is that all the action bodies for each persistable model
-component are stored in one `.masl` file and are identified by MASL syntax
-signatures. As stated above the _source_ that defines the signature is stored in
-the `.xtuml` file and the signature in the `.masl` files is simply an
-_architectural artifact_ to enable the MASL bodies to be identified by the
-loader.
+component (package, class, state machine, etc.) are stored in one `.masl` file
+and are identified by signatures in MASL syntax. As stated above the _source
+artifacts_ that define the signature are stored in the `.xtuml` file and the
+signature in the `.masl` files is simply an _architectural artifact_ to enable
+the MASL bodies to be identified by the loader.
 
-This mix of _source_ and _architecture_ is dangerous for the user. Users are
-expected to edit only the source (action bodies) and leave the persistence
-architecture (signatures) alone. When the rules are disobeyed, the loader can
-fail in bad ways. For example, if a signature is changed, the importer may not
-be able to identify the correct activity to apply the action body to, and then
-when the activity is persisted again, the existing source action body would be
-overwritten by empty string.
+The term _source artifact_ refers to any model element you can edit in
+BridgePoint -- functions, packages, types, graphical elements, OAL text, etc.
+The term _architectual artifact_ refers to bits of the underlying files that are
+part of the persistence architecture (not the application model) and are used
+only by the tooling to load and persist models. SQL uses commas, curly braces,
+single quotes, etc. to delimit instance data. These are examples of
+architectural artifacts. The signatures in `.masl` files are also examples of
+architectural artifacts because they are only used as a mechanism to load action
+bodies into models.
 
+The critical error that was made is that _source artifacts_ (action bodies) and
+_architectural artifacts_ (textual signatures) are mixed together and presented
+simultaneously to the user. This mix of source and architecture is dangerous
+for the user. Users are expected to edit only the source (action bodies) and
+leave the persistence architecture (textual signatures) alone. When the rules
+are disobeyed, the loader can fail in bad ways. For example, if a signature is
+changed, the importer may not be able to identify the correct activity to apply
+the action body to, and then when the activity is persisted again, the existing
+source action body would be overwritten by an empty string. This exact behavior
+was observed in [[2.3]](#2.3).
 
 2. Document References
 ----------------------
@@ -64,8 +77,9 @@ artifacts in the first place.
 
 4. Requirements
 ---------------
-4.1 Architecture and source form MASL activities shall be separated in the
-MASL activity editing environment  
+
+4.1 Architectural and source artifacts shall not be mixed in the BridgePoint
+editing environment for MASL activities  
 4.1.1 The user shall never be allowed to edit architectural artifacts in
 BridgePoint  
 
@@ -91,13 +105,14 @@ mouse clicks.
 
 For this architecture to work, certain restrictions would need to be set in
 place (at least initially). `.masl` files must be read only from the perspective
-of BridgePoint. If users are allowed to edit in text and BridgePoint can
-re-persist the files on a structural change, there is a possibility of some
-import failure (maybe due to syntax error) that causes source to be overwritten
-when it should not. The assertion that `.masl` files are read only would mean
-that adding, deleting, typing, and otherwise changing signatures from
-BridgePoint (model explorer or properties) would be disabled. These actions
-could be modified to simply open the `.masl` file to the right place.
+of the BridgePoint structural editor. If users are allowed to edit signatures in
+text and BridgePoint can re-persist the files on a structural change, there is a
+possibility of some load failure (maybe due to syntax error) that causes source
+MASL to be overwritten when it should not. The assertion that `.masl` files are
+read only to the BridgePoint structural editor would mean that adding, deleting,
+assigning types, and otherwise changing signatures from BridgePoint (model
+explorer or properties) would be disabled. These actions could be modified to
+simply open the `.masl` file to the right place.
 
 5.1.2 Challenges and risks
 
@@ -158,24 +173,42 @@ with how the OAL editor has worked for years.
 
 An Xtext editor can be provided that can edit a single activity at a time in the
 memory model of BridgePoint. The editor could validate against existing MASL
-files in the workspace to provide all the same content assist and context aware
-features we love without revealing the signature for edit to the user.
+files in the `models/` directory to provide all the same content assist and
+context aware features we love without revealing the signature for edit to the
+user.
 
 5.2.1.1 Validating the signature
 
 A similar editor has been created for editing type definitions in MASL
-[[2.4]](#2.4). This editor provides a dummy domain in which to define a type.
-The text of the domain definition is hidden and only the type definition is
-visible and editable. This allows the syntax to validate correctly and provides
-the basis for content assist without revealing unnecessary and confusing
-details.
+[[2.4]](#2.4). This editor provides a domain definition and a dummy type for
+which to provide a definition.  The text of the domain definition is hidden and
+only the type definition is visible and editable. This allows the syntax to
+validate correctly and provides the basis for content assist without revealing
+unnecessary and confusing details. To illustrate, the Xtext editor sees:
+```
+domain MyDomain is
+  type __dummy__;
+  type __dummy__ is
+   enum( enumerator1, enumerator2 )
+  ;
+end domain;
+```
+while the user only sees:
+```
+enum( enumerator1, enumerator2 )
+```
+in the editor window. This provides the Xtext editor with a single parseable
+unit and only exposes the important part to the user.
 
 The body of an activity is linked to the parameters and the activities of
-_implementation_ (definition) not _delcaration_. This would present a problem if
-an Xtext editor is presented with no parameters. Using an editor similar to the
-one described above, the signature could exist but be hidden from the user. This
-would allow references to the parameters in the action body to be linked
-properly.
+_implementation_ (definition) not _delcaration_. In other words, the body of an
+activity needs the signature in order to validate references to formal
+parameters.
+
+This would present a problem if an Xtext editor is presented with no parameters.
+Using an editor similar to the one described above, the signature could exist
+but be hidden from the user. This would allow references to the parameters in
+the action body to be linked properly.
 
 The signatures to provide for the editor could be generated from the xtUML model
 in the same way they have been generated for persistence to `.masl` files.
@@ -183,10 +216,28 @@ in the same way they have been generated for persistence to `.masl` files.
 5.2.1.2 Duplicate activity definitions
 
 The Xtext editor would also have to handle the existing definition that is
-located on disk in a `.masl` file. If the editor is editing a buffer in memory
-but linking against all the MASL data in the project, there will be a duplicate
-on disk of the definition being edited in memory. This would have to be expected
-and handled by the Xtext editor.
+located on disk in a `.masl` file. If the editor is validating a buffer in
+memory but linking against all the MASL data in the `models/` directory, there
+will be a duplicate on disk of the definition being edited in memory. This would
+have to be expected and handled by the Xtext editor.
+
+5.2.1.3 Rename refactoring
+
+Refactoring after a rename would be the only time that `.masl` files would be
+modified by a something other than the BridgePoint persistence mechanism. The
+potential of refactoring must be considered in this work.
+
+Consider the case where a user is editing a MASL activity in a buffer and has
+not saved his work. He then renames a class, triggering the Xtext editor to
+refactor all of the references in every MASL file in the `models/` directory
+with the new class name. The resource listener wakes up and triggers a refresh
+of the model. The activity on disk would then replace the activity in the open
+buffer and the unsaved changes would be lost.
+
+A mechanism should be implemented to prevent this by either insisting that a
+user save any open buffer before renaming an element, or some sort of warning
+message that gives the user the choice to either save the current state of the
+buffer or replace it with the contents on disk.
 
 5.2.2 Persistence
 
@@ -201,11 +252,11 @@ Furthermore, it would break the Xtext editor to stop storing MASL in `.masl`
 files. The Xtext editor validates that each declared activity in a `.mod` file
 has a corresponding definition, so to take a step back and store MASL in
 `.xtuml` files would result in Xtext warnings that no implementation could be
-found.
+found for declared activities.
 
 5.3 Conclusions
 
-The second option (5.2) shall be taken. It presents far less of a risk with much
+The second option (5.2) shall be taken. It presents far less risk with much
 more manageable and predictable challenges, and it does not sacrifice the
 progress that has been made in the persistence of action language separate from
 structure.
@@ -213,8 +264,23 @@ structure.
 6. Work Required
 ----------------
 
+6.1 Create a new MASL partial Xtext editor that can edit activities.  
+6.2 Expose a hook to the new editor to get a formatted version of the MASL
+textual signature  
+6.3 Replace invocations of the full Xtext editor (on double click of activities
+or CME) with invocations to the new partial editor  
+6.4 Modify Xtext to handle duplicate activity definitions  
+6.5 Design and implement a mechanism to handle the case of refactoring an
+activity with an unsaved buffer  
+6.6 Define a test for 6.5  
+
 7. Acceptance Test
 ------------------
+
+7.1 Open a MASL activity. Verify that no textual signature is present.  
+7.2 Close and reopen the model. Verify that the action language was persisted
+and reloaded properly.  
+7.3 Test the mechanism for handling the refactor case (see 6.6)  
 
 End
 ---
