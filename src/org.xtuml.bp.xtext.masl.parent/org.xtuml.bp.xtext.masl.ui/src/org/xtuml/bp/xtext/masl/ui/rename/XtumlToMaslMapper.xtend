@@ -25,6 +25,8 @@ import org.xtuml.bp.core.Requirement_c
 import org.xtuml.bp.core.RequiredExecutableProperty_c
 import org.xtuml.bp.core.Provision_c
 import org.xtuml.bp.core.ProvidedExecutableProperty_c
+import org.xtuml.bp.core.FunctionParameter_c
+import org.xtuml.bp.core.OperationParameter_c
 
 class XtumlToMaslMapper {
 	
@@ -39,8 +41,8 @@ class XtumlToMaslMapper {
 				#[domainDefinition]
 			Function_c:
 				#[domainServiceDeclaration, domainFunctionDeclaration]
-//			FunctionParameter_c:
-//				#[parameter]
+			FunctionParameter_c:
+				#[parameter]
 			RequiredOperation_c:
 				#[terminatorServiceDeclaration, terminatorFunctionDeclaration]
 			ProvidedOperation_c:
@@ -49,8 +51,8 @@ class XtumlToMaslMapper {
 				#[objectDeclaration]
 			Operation_c:
 				#[objectServiceDeclaration, objectFunctionDeclaration]
-//			OperationParameter_c:
-//				#[parameter]
+			OperationParameter_c:
+				#[parameter]
 			Port_c:
 				#[terminatorDefinition]
 			StateMachineState_c:
@@ -89,8 +91,8 @@ class XtumlToMaslMapper {
 				ModelClass_c.getOneO_OBJOnR102(xtumlElement).maslQualifiedName
 			Function_c:
 				xtumlElement.component.maslQualifiedName
-//			FunctionParameter_c:
-//				Function_c.getOneS_SYNCOnR24(xtumlElement).maslQualifiedName
+			FunctionParameter_c:
+				Function_c.getOneS_SYNCOnR24(xtumlElement).maslQualifiedName
 			RequiredOperation_c:
                 Port_c.getOneC_POOnR4016(InterfaceReference_c.getOneC_IROnR4009(Requirement_c.getOneC_ROnR4500(
                     RequiredExecutableProperty_c.getOneSPR_REPOnR4502(xtumlElement))))
@@ -103,8 +105,8 @@ class XtumlToMaslMapper {
 				xtumlElement.component.maslQualifiedName
 			Operation_c:
 				ModelClass_c.getOneO_OBJOnR115(xtumlElement).maslQualifiedName
-//			OperationParameter_c:
-//				Operation_c.getOneO_TFROnR117(xtumlElement).maslQualifiedName
+			OperationParameter_c:
+				Operation_c.getOneO_TFROnR117(xtumlElement).maslQualifiedName
 			Port_c:
 				xtumlElement.component.maslQualifiedName
 			StateMachineState_c:
