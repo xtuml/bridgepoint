@@ -1,4 +1,4 @@
-package org.xtuml.bp.core.ui;
+package org.xtuml.bp.core.util;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +18,7 @@ import org.xtuml.bp.core.ProvidedOperation_c;
 import org.xtuml.bp.core.RequiredExecutableProperty_c;
 import org.xtuml.bp.core.RequiredOperation_c;
 import org.xtuml.bp.core.common.NonRootModelElement;
+import org.xtuml.bp.core.ui.IRenameElementParticipant;
 import org.xtuml.bp.core.util.UIUtil;
 
 public class RenameParticipantUtil {
@@ -27,16 +28,40 @@ public class RenameParticipantUtil {
 	
 	private List<IRenameElementParticipant> participants = new ArrayList<>();
 	
-	public boolean beforeRenameElement(IStructuredSelection selection, String newName) {
-		IStatus status = doBeforeRenameElement(selection, newName);
-		return handleStatus(status);
-	}
-	
-	public boolean afterRenameElement() {
-		IStatus status = doAfterRenameElement();
-		return handleStatus(status);
+	public boolean renameElement(IStructuredSelection selection, String newName, String oldName) {
+		Object renameTarget = selection.getFirstElement();
+		if(renameTarget instanceof NonRootModelElement) {
+            NonRootModelElement element = (NonRootModelElement) renameTarget;
+            return renameElement( element, newName, oldName );
+		}
+		return handleStatus(Status.OK_STATUS);
 	}
 
+    public boolean renameElement( NonRootModelElement element, String newName, String oldName ) {
+        IStatus status = null;
+        if ( element instanceof InterfaceOperation_c ) {
+            // For interface operations call the rename refactor on each
+            // provided or required interface operation
+            InterfaceOperation_c c_io = (InterfaceOperation_c)element;
+            ProvidedOperation_c[] spr_pos = ProvidedOperation_c.getManySPR_POsOnR4503(
+                                                ProvidedExecutableProperty_c.getManySPR_PEPsOnR4501(
+                                                ExecutableProperty_c.getOneC_EPOnR4004(c_io)));
+            for ( NonRootModelElement el : spr_pos ) {
+                status = merge(status, doRenameElement( el, newName, oldName ));
+            }
+            RequiredOperation_c[] spr_ros = RequiredOperation_c.getManySPR_ROsOnR4502(
+                                                RequiredExecutableProperty_c.getManySPR_REPsOnR4500(
+                                                ExecutableProperty_c.getOneC_EPOnR4004(c_io)));
+            for ( NonRootModelElement el : spr_ros ) {
+                status = merge(status, doRenameElement( el, newName, oldName ));
+            }
+        }
+        else {
+            status = doRenameElement( element, newName, oldName );
+        }
+        return handleStatus(status);
+    }
+	
 	private boolean handleStatus(IStatus status) {
 		switch (status.getSeverity()) {
 		case IStatus.CANCEL:
@@ -53,11 +78,8 @@ public class RenameParticipantUtil {
 
 	}
 	
-    private IStatus doBeforeRenameElement(NonRootModelElement element, String newName) {
+    private IStatus doRenameElement(NonRootModelElement element, String newName, String oldName) {
 		if(element != null) {
-            String oldName = element.getName();
-            if(oldName == null) 
-                return Status.OK_STATUS;
             IFile file = element.getFile();
             if(file == null) 
                 return Status.OK_STATUS;
@@ -65,7 +87,7 @@ public class RenameParticipantUtil {
             for(IConfigurationElement configurationElement: Platform.getExtensionRegistry().getConfigurationElementsFor(EXTENSION_POINT_ID)) {
                 try {
                     IRenameElementParticipant renameParticipant = (IRenameElementParticipant) configurationElement.createExecutableExtension(CLASS_ATTRIBUTE);
-                    IStatus status = renameParticipant.beforeRenameElement(element, newName);
+                    IStatus status = renameParticipant.renameElement(element, newName, oldName);
                     returnStatus = merge(returnStatus, status);
                     if(returnStatus.getSeverity() == IStatus.ERROR)
                         break;
@@ -85,44 +107,6 @@ public class RenameParticipantUtil {
 		return Status.OK_STATUS;
 	}
 
-    private IStatus doBeforeRenameElement(IStructuredSelection selection, String newName) {
-		Object renameTarget = selection.getFirstElement();
-		if(renameTarget instanceof NonRootModelElement) {
-            NonRootModelElement element = (NonRootModelElement) renameTarget;
-            if ( element instanceof InterfaceOperation_c ) {
-            	// For interface operations call the rename refactor on each
-            	// provided or required interface operation
-            	InterfaceOperation_c c_io = (InterfaceOperation_c)element;
-            	IStatus status;
-            	ProvidedOperation_c[] spr_pos = ProvidedOperation_c.getManySPR_POsOnR4503(ProvidedExecutableProperty_c.getManySPR_PEPsOnR4501(ExecutableProperty_c.getOneC_EPOnR4004(c_io)));
-            	for ( NonRootModelElement el : spr_pos ) {
-            		status = doBeforeRenameElement( el, newName );
-            		if ( !status.isOK() )
-            			return status;
-            	}
-            	RequiredOperation_c[] spr_ros = RequiredOperation_c.getManySPR_ROsOnR4502(RequiredExecutableProperty_c.getManySPR_REPsOnR4500(ExecutableProperty_c.getOneC_EPOnR4004(c_io)));
-            	for ( NonRootModelElement el : spr_ros ) {
-            		status = doBeforeRenameElement( el, newName );
-            		if ( !status.isOK() )
-            			return status;
-            	}
-            }
-            else {
-                return doBeforeRenameElement( element, newName );
-            }
-		}
-		return Status.OK_STATUS;
-	}
-	
-	private IStatus doAfterRenameElement() {
-		IStatus returnStatus = Status.OK_STATUS;
-		for(IRenameElementParticipant participant: participants) {
-			IStatus status = participant.afterRenameElement();
-			returnStatus = merge(returnStatus, status);
-		}
-		return returnStatus;
-	}
-	
 	private static IStatus merge(IStatus returnStatus, IStatus status) {
 		if(returnStatus == null) { 
 			return status;
