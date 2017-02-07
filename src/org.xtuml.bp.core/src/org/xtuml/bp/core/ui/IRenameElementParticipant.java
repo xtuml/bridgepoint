@@ -8,7 +8,6 @@ public interface IRenameElementParticipant {
 	/**
 	 * @return false if the participant vetoes the refactoring
 	 */
-	public IStatus beforeRenameElement(NonRootModelElement element, String newName);
+	public IStatus renameElement(NonRootModelElement element, String newName, String oldName);
 
-	public IStatus afterRenameElement();
 }

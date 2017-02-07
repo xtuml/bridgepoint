@@ -27,23 +27,15 @@ class MaslRenameParticipant implements IRenameElementParticipant {
 	QualifiedName oldQName
 	String newName
 	
-	override IStatus beforeRenameElement(NonRootModelElement xtumlElement, String newName) {
+	override IStatus renameElement(NonRootModelElement xtumlElement, String newName, String oldName) {
 		this.project = xtumlElement.file.project
 		this.newName = newName
 		this.eClasses = xtumlElement.maslEClasses
 		if(eClasses.empty)
 			return Status.OK_STATUS
-		this.oldQName = xtumlElement.maslQualifiedName
+		this.oldQName = getMaslQualifiedName(xtumlElement, oldName)
 		if(oldQName === null)
 			return Status.OK_STATUS
-		val renameElementContext = getRenameElementContext(eClasses, oldQName, project)
-		if(renameElementContext.empty) 
-			return Status.OK_STATUS
-		return executor.tryRename(renameElementContext, newName)
-	}
-	
-	override IStatus afterRenameElement() {
-		project.build(IncrementalProjectBuilder.INCREMENTAL_BUILD, XtextProjectHelper.BUILDER_ID, emptyMap, new NullProgressMonitor)
 		val renameElementContext = getRenameElementContext(eClasses, oldQName, project)
 		if(renameElementContext.empty) 
 			return Status.OK_STATUS
