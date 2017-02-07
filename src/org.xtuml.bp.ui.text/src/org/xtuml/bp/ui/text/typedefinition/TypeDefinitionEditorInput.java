@@ -22,7 +22,7 @@ import org.xtuml.bp.xtext.masl.ui.document.IXtumlElementEditorInput;
 
 public class TypeDefinitionEditorInput extends AbstractModelElementPropertyEditorInput implements IMaslSnippetEditorInput {
 
-	public final static String EDITOR_ID = "org.xtuml.bp.ui.text.typedefinition.TypeDefinitionEditor"; //$NON-NLS-1$
+	public final static String EDITOR_ID = "org.xtuml.bp.xtext.masl.MASLPartial"; //$NON-NLS-1$
 	public final static String FACTORY_ID = "org.xtuml.bp.ui.text.typedefinition.factory"; //$NON-NLS-1$
 
 	public TypeDefinitionEditorInput(ModelElementID modelElementID, IFile placeHolderFile) throws PartInitException {

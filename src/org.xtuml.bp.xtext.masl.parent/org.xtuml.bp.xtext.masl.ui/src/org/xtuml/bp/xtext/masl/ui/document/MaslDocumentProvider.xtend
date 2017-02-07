@@ -75,20 +75,8 @@ class MaslDocumentProvider extends XtextDocumentProvider {
 			val type = element.modelElement as UserDataType_c
 			val prefixLength = element.prefix.length
 			val newDefinition = document.get(prefixLength, document.length - element.suffix.length - prefixLength)
-			val transactionGroup = TransactionUtil
-				.startTransactionsOnSelectedModelRoots("Set definition of user defined type");
-			try {
-				// Ensure that actions take place between Verifier Activity executions
-				Ooaofooa.beginSaveOperation();
-				type.setDefinition(newDefinition)		
-				// end critical section
-				Ooaofooa.endSaveOperation();
-				// catch all exceptions and cancel the transactions
-			} catch (Exception e) {
-				Ooaofooa.endSaveOperation();
-				TransactionUtil.cancelTransactions(transactionGroup, e);
-				CorePlugin.logError("Transaction: Set definition of user defined type failed", e);//$NON-NLS-1$
-			}
+            document.set(newDefinition);
+            element.doSaveDocument(monitor, element, document, overwrite);
 		} else {
 			super.doSaveDocument(monitor, element, document, overwrite)
 		}

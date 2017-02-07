@@ -30,6 +30,5 @@ Export-Package: org.xtuml.bp.xtext.masl.ui,
  org.xtuml.bp.xtext.masl.ui.labeling,
  org.xtuml.bp.xtext.masl.ui.outline,
  org.xtuml.bp.xtext.masl.ui.quickfix,
- org.xtuml.bp.xtext.masl.ui.rename,
  org.xtuml.bp.xtext.masl.ui.validation
 Bundle-Activator: org.xtuml.bp.xtext.masl.ui.internal.MaslActivator
