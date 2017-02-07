@@ -209,11 +209,6 @@
         .if ((((((cme.Specialism == "Classes") or(cme.Specialism == "Components"))or ((cme.Specialism == "External")or(cme.Specialism == "Interaction")))or(((cme.Specialism == "New")or(cme.Specialism == "Activity"))or((cme.Specialism == "Types")or(cme.Specialism == "Usecase"))))or(cme.Specialism == "Exceptions"))and (cme.Resultant_Class_RelChain!=""))
      boolean abortTransaction = false;
     .end if 
-    .// refactor on rename
-    .if ( cme.Specialism == "Rename" )
-    RenameParticipantUtil rpu = new RenameParticipantUtil();
-    rpu.beforeRenameElement( selection, p_New_name );
-    .end if
     try {
 	.end if
     .//
@@ -289,9 +284,6 @@ for(Iterator<?> iterator = selection.iterator(); iterator.hasNext();) {
 	  .else
 	      TransactionUtil.endTransactions(transactionGroup);
       .end if 		  
-        .if ( cme.Specialism == "Rename" )
-        rpu.afterRenameElement();
-        .end if
 	.end if
 	.if(cme.UsesSelectionDialog)
 		}

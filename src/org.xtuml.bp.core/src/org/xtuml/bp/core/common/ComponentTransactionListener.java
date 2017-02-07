@@ -37,6 +37,7 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
+import org.eclipse.swt.widgets.Display;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.DataType_c;
 import org.xtuml.bp.core.Modeleventnotification_c;
@@ -44,12 +45,16 @@ import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.SystemModel_c;
 import org.xtuml.bp.core.ui.PasteAction;
 import org.xtuml.bp.core.util.CoreUtil;
+import org.xtuml.bp.core.util.RenameParticipantUtil;
 
 public class ComponentTransactionListener implements ITransactionListener {
 
 	// don't change the resource when a model element is changed
 	// if the resource has already been updated
 	static private boolean dontMakeResourceChanges = false;
+
+    // reload actions before persisitng
+	static private boolean reloadActionsBeforePersist = false;
 
 	private HashSet<PersistableModelComponent> persisted = new HashSet<PersistableModelComponent>();
 
@@ -230,6 +235,15 @@ public class ComponentTransactionListener implements ITransactionListener {
 										modelElementRenamed((AttributeChangeModelDelta) delta);
 										persistRenamedME(element, element.getPersistableComponent());
 									}
+                                    // Refactor the action language with the newly named element
+									Display.getDefault().syncExec(new Runnable() {
+										public void run() {
+                                            RenameParticipantUtil rpu = new RenameParticipantUtil();
+                                            rpu.renameElement( modelElement, (String)modelDelta.getNewValue(),
+                                                               (String)modelDelta.getOldValue() );
+										}
+									});
+	                                setReloadActionsBeforePersist(true);
 								} else if(modelDelta.getAttributeName().equals("Represents")) {
 									// special case to avoid persistence caused by the setting
 									// of the represents attributes of GD_GE, GD_MD, and DIM_EL
@@ -296,6 +310,10 @@ public class ComponentTransactionListener implements ITransactionListener {
 		if (!persisted.contains(component)
 				&& !component.getRootModelElement().isOrphaned()) {
 			try {
+                if ( reloadActionsBeforePersist() ) {
+                    component.load(new NullProgressMonitor(), false, true);
+	                setReloadActionsBeforePersist(false);
+                }
 				component.persist();
 				persisted.add(component);
 				return true;
@@ -465,6 +483,14 @@ public class ComponentTransactionListener implements ITransactionListener {
 
 	private static boolean dontMakeResourceChanges() {
 		return dontMakeResourceChanges;
+	}
+
+	public static void setReloadActionsBeforePersist(boolean newValue) {
+		reloadActionsBeforePersist = newValue;
+	}
+
+	private static boolean reloadActionsBeforePersist() {
+		return reloadActionsBeforePersist;
 	}
 
 }
