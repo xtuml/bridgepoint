@@ -61,6 +61,16 @@ public abstract class AbstractModelImportFactory {
 			boolean parseAll,
 			boolean clearDatabase,
 			boolean parseGraphics,
+			boolean isTemplate,
+            boolean actionsOnly) throws IOException;
+
+	public abstract IModelImport create(
+			IFile file,
+			Ooaofooa aModelRoot,
+			PersistableModelComponent component,
+			boolean parseAll,
+			boolean clearDatabase,
+			boolean parseGraphics,
 			boolean isTemplate) throws IOException;
 
 	public static AbstractModelImportFactory getInstance(
