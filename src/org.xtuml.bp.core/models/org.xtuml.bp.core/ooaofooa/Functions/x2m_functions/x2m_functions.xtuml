@@ -130,7 +130,8 @@ return smasl;
 ',
 	"ba5eda7a-def5-0000-0000-000000000004",
 	1,
-	'');
+	'',
+	0);
 INSERT INTO S_SPARM
 	VALUES ("c15d1389-17ba-4aa3-a4be-e75bd6c2c02a",
 	"caed34bd-f947-4372-a034-abe700f055d6",
@@ -232,7 +233,8 @@ return smasl;
 ',
 	"ba5eda7a-def5-0000-0000-000000000004",
 	1,
-	'');
+	'',
+	0);
 INSERT INTO S_SPARM
 	VALUES ("b4b05656-c05b-4fdf-a7f5-011bef757178",
 	"2dc602f9-a18a-49cd-a123-06021547e5f8",
@@ -355,7 +357,8 @@ return smasl;
 ',
 	"ba5eda7a-def5-0000-0000-000000000004",
 	1,
-	'');
+	'',
+	0);
 INSERT INTO S_SPARM
 	VALUES ("f8678a8f-af0b-4ecf-b437-33503042f7ef",
 	"dc68e125-37a7-4422-8727-bb37a75ef8bf",
@@ -386,7 +389,8 @@ else
 end if;',
 	"ba5eda7a-def5-0000-0000-000000000004",
 	1,
-	'');
+	'',
+	0);
 INSERT INTO S_SPARM
 	VALUES ("59bd049a-705b-48dc-bd3e-bb5c0ce4da8d",
 	"a82e2eb4-4c0f-4eca-8eb9-1bfac7d76f8e",
@@ -417,7 +421,8 @@ else
 end if;',
 	"ba5eda7a-def5-0000-0000-000000000004",
 	1,
-	'');
+	'',
+	0);
 INSERT INTO S_SPARM
 	VALUES ("deb6ad43-9c6a-40b7-b1b1-6b713cdded99",
 	"fd2c8b88-33ae-46a5-a5c9-d5f72ed05a7c",
@@ -495,19 +500,21 @@ if ( not_empty c_ep and not_empty c_po )
   end if;
   
   // Populate the action langauge body.
-  select any spr_po related by c_ep->SPR_PEP[R4501]->SPR_PO[R4503];
+  select any spr_pep related by c_po->C_IR[R4016]->C_P[R4009]->SPR_PEP[R4501] where ( selected.ExecutableProperty_Id == c_ep.Id );
+  select one spr_po related by spr_pep->SPR_PO[R4503];
   if ( not_empty spr_po )
     smasl = smasl + "codeblock," + URL::encode(string:spr_po.Action_Semantics_internal) + ",,,,,,,\n";
   else
-    select any spr_ro related by c_ep->SPR_REP[R4500]->SPR_RO[R4502];
-    if ( not_empty spr_ro )
-      smasl = smasl + "codeblock," + URL::encode(string:spr_ro.Action_Semantics_internal) + ",,,,,,,\n";
-    else
-      select any spr_ps related by c_ep->SPR_PEP[R4501]->SPR_PS[R4503];
-      if ( not_empty spr_ps )
-        smasl = smasl + "codeblock," + URL::encode(string:spr_ps.Action_Semantics_internal) + ",,,,,,,\n";
-      else
-        select any spr_rs related by c_ep->SPR_REP[R4500]->SPR_RS[R4502];
+	select one spr_ps related by spr_pep->SPR_PS[R4503];
+	if ( not_empty spr_ps )
+	  smasl = smasl + "codeblock," + URL::encode(string:spr_ps.Action_Semantics_internal) + ",,,,,,,\n";
+	else
+      select any spr_rep related by c_po->C_IR[R4016]->C_R[R4009]->SPR_REP[R4500] where ( selected.ExecutableProperty_Id == c_ep.Id );
+	  select one spr_ro related by spr_rep->SPR_RO[R4502];
+	  if ( not_empty spr_ro )
+		smasl = smasl + "codeblock," + URL::encode(string:spr_ro.Action_Semantics_internal) + ",,,,,,,\n";
+	  else
+        select one spr_rs related by spr_rep->SPR_RS[R4502];
         if ( not_empty spr_rs )
           smasl = smasl + "codeblock," + URL::encode(string:spr_rs.Action_Semantics_internal) + ",,,,,,,\n";
         end if;
@@ -523,7 +530,8 @@ end if;
 return smasl;',
 	"ba5eda7a-def5-0000-0000-000000000004",
 	1,
-	'');
+	'',
+	0);
 INSERT INTO S_SPARM
 	VALUES ("318d6b01-fc47-4258-9832-e45054a9e028",
 	"5a48c142-0378-439e-b35d-38ab6958986b",
@@ -600,7 +608,8 @@ return smasl;
 ',
 	"ba5eda7a-def5-0000-0000-000000000004",
 	1,
-	'');
+	'',
+	0);
 INSERT INTO S_SPARM
 	VALUES ("6a2d0e57-12e1-48db-8d0c-d58a9cc64c54",
 	"259c9160-f26b-40d8-ad3d-94ed6af41616",
@@ -699,7 +708,8 @@ return smasl;
 ',
 	"ba5eda7a-def5-0000-0000-000000000004",
 	1,
-	'');
+	'',
+	0);
 INSERT INTO S_SPARM
 	VALUES ("4bb2bbf5-e7e7-4ffd-a780-c4003f7654d2",
 	"7a63954d-b2b2-442e-8178-03da52541c06",
@@ -730,7 +740,8 @@ else
 end if;',
 	"ba5eda7a-def5-0000-0000-000000000004",
 	1,
-	'');
+	'',
+	0);
 INSERT INTO S_SPARM
 	VALUES ("b4ef0097-ab36-4864-8cdc-b464e264df88",
 	"5e0418d7-5ade-4680-9cfd-b9649e89bb23",
@@ -761,7 +772,8 @@ else
 end if;',
 	"ba5eda7a-def5-0000-0000-000000000004",
 	1,
-	'');
+	'',
+	0);
 INSERT INTO S_SPARM
 	VALUES ("c995e28e-c7cc-415c-ba3f-c77dff465575",
 	"3a3d0dc2-d019-4c07-bfcf-e0990e25c016",
@@ -884,7 +896,8 @@ return smasl;
 ',
 	"ba5eda7a-def5-0000-0000-000000000004",
 	1,
-	'');
+	'',
+	0);
 INSERT INTO S_SPARM
 	VALUES ("ff6dea2c-b092-4a82-b0a3-60c0c35bb655",
 	"afcd00a8-8ff7-447d-85f9-86107560dd30",
@@ -925,7 +938,8 @@ return smasl;
 ',
 	"ba5eda7a-def5-0000-0000-000000000004",
 	1,
-	'');
+	'',
+	0);
 INSERT INTO S_SPARM
 	VALUES ("c136638d-5c50-45be-8b12-82e392233f85",
 	"1dd2cf0d-72f5-48e3-992f-b6812edbe9ea",

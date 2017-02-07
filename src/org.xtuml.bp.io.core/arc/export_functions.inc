@@ -1239,7 +1239,7 @@ if(inst != null && !inst.isProxy() && -1 != dialect){
       else {
           sig_end = " ) " + ret_type + "is\n";
       }
-      end = activity_type + ";\n\n";
+      end = "\nend " + activity_type + ";\n\n";
 
       // fix parameter list
       int buf_len = (preface + activity_type + sig_begin).length();
@@ -1248,6 +1248,14 @@ if(inst != null && !inst.isProxy() && -1 != dialect){
           buf += " ";
       }
       parameter_list = parameter_list.replaceAll("\n", buf);
+
+      // fix codeblock
+      codeblock = codeblock.trim();
+      if ( codeblock.endsWith( "end" ) ) {
+          // if the codeblock ends with end, the final 'end' is removed because
+          // the exporter will add it
+          codeblock = codeblock.substring(0, codeblock.length()-3).trim();;
+      }
 
       // output activity
       m_afh.get(dialect).print( preface + activity_type + sig_begin + parameter_list + sig_end + codeblock + end ); //$$NON-NLS-1$$

@@ -49,6 +49,7 @@ import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.PlatformUI;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.Ooaofooa;
+import org.xtuml.bp.core.Package_c;
 import org.xtuml.bp.core.SystemModel_c;
 import org.xtuml.bp.core.common.BridgePointPreferencesStore;
 import org.xtuml.bp.core.common.ClassQueryInterface_c;
@@ -74,7 +75,6 @@ import org.xtuml.bp.ui.canvas.Graphnode_c;
 import org.xtuml.bp.ui.canvas.Model_c;
 import org.xtuml.bp.ui.canvas.Ooaofgraphics;
 import org.xtuml.bp.ui.canvas.Shape_c;
-
 /**
  * This wizard imports model data from a system level export file, or from on
  * older BridgePoint single file model
@@ -200,6 +200,20 @@ public class ModelImportWizard extends Wizard implements IImportWizard {
             // resolve component references and formalize interfaces in MASL projects
             ImportHelper helper = new ImportHelper((CoreImport)fImporter);
             helper.resolveMASLproject( fImporter.getLoadedInstances() );
+            
+			if (helper.maslModelWasImported()) {
+				// Reconcile graphics.
+				PlatformUI.getWorkbench().getDisplay().syncExec(new Runnable() {
+					public void run() {
+						List<NonRootModelElement> systems = new ArrayList<NonRootModelElement>();
+						systems.add(fSystem);
+						GraphicsReconcilerLauncher reconciler = new GraphicsReconcilerLauncher(systems);
+						reconciler.runReconciler(false, true);
+					}
+
+				});				
+			}
+            
 		}
 		return true;
 	}
@@ -278,21 +292,6 @@ public class ModelImportWizard extends Wizard implements IImportWizard {
 					job.schedule();
 				}
 				
-				boolean createGraphicsOnImport = store.getBoolean(BridgePointPreferencesStore.CREATE_GRAPHICS_DURING_IMPORT);
-				if (createGraphicsOnImport) {
-					// this must be run on the display thread
-					PlatformUI.getWorkbench().getDisplay().syncExec(
-							new Runnable() {
-
-								public void run() {
-									List<NonRootModelElement> systems = new ArrayList<NonRootModelElement>();
-									systems.add(fSystem);
-									GraphicsReconcilerLauncher reconciler = new GraphicsReconcilerLauncher(systems);
-									reconciler.runReconciler(false, true);
-								}
-
-							});
-				}
 			} catch (IOException e) {
 				org.xtuml.bp.io.core.CorePlugin.logError(
 						"There was an exception loading the give source file.",

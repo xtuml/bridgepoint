@@ -24,7 +24,8 @@ delete object instance self;
 ',
 	1,
 	'',
-	"00000000-0000-0000-0000-000000000000");
+	"00000000-0000-0000-0000-000000000000",
+	0);
 INSERT INTO O_TFR
 	VALUES ("ecfcf92c-0f41-4101-8bbe-b6cb2118282f",
 	"55b23123-bae5-45e9-af5d-cc11e627f826",
@@ -51,7 +52,8 @@ end if;
 return GD::string_to_instance(value:"Error");',
 	1,
 	'',
-	"4d25ba1e-25e5-40c3-8c28-b0d8aed88765");
+	"4d25ba1e-25e5-40c3-8c28-b0d8aed88765",
+	0);
 INSERT INTO S_DT_PROXY
 	VALUES ("bc3722c8-5188-4529-8519-cf9eb9816b17",
 	"00000000-0000-0000-0000-000000000000",
@@ -98,7 +100,8 @@ end if;
 return GD::NULL_UNIQUE_ID();',
 	1,
 	'',
-	"a383f6fb-bed9-4707-ad92-bd1e5d7fa531");
+	"a383f6fb-bed9-4707-ad92-bd1e5d7fa531",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("26202239-7a21-4318-9ada-5d7079e97136",
 	"4d25ba1e-25e5-40c3-8c28-b0d8aed88765",

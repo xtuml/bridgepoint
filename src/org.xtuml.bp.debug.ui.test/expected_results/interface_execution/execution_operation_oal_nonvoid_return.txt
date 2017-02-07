@@ -1,3 +1,0 @@
-Simulation started.
-User invoked interface message: sendClientServerOALNonVoidReturn
-

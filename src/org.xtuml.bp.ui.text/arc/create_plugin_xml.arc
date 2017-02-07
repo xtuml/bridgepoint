@@ -34,6 +34,7 @@
 .//
 .invoke result = get_editor_obj_set()
 .assign dsc_obj_set = result.dsc_obj_set
+.assign tdf_obj_set = result.tdf_obj_set
 .assign oal_obj_set = result.oal_obj_set
 .assign canvas_dsc_obj_set = result.canvas_dsc_obj_set
 .assign canvas_oal_obj_set = result.canvas_oal_obj_set
@@ -73,6 +74,7 @@ This file is the plugin manifest for the BridgePoint core plugin.
    <extension point = "org.eclipse.ui.elementFactories">
        <factory id ="org.xtuml.bp.ui.text.activity.factory" class="org.xtuml.bp.ui.text.activity.ActivityEditorInputFactory"/>
        <factory id ="org.xtuml.bp.ui.text.description.factory" class="org.xtuml.bp.ui.text.description.DescriptionEditorInputFactory"/>
+       <factory id ="org.xtuml.bp.ui.text.typedefinition.factory" class="org.xtuml.bp.ui.text.typedefinition.TypeDefinitionEditorInputFactory"/>
        <factory id ="org.xtuml.bp.ui.text.masl.factory" class="org.xtuml.bp.ui.text.masl.MASLEditorInputFactory"/>
    </extension>
 
@@ -85,6 +87,17 @@ This file is the plugin manifest for the BridgePoint core plugin.
             contributorClass="org.eclipse.ui.texteditor.BasicTextEditorActionContributor"
             class="org.xtuml.bp.ui.text.description.DescriptionEditor"
             id="org.xtuml.bp.ui.text.description.DescriptionEditor">
+      </editor>
+   </extension>
+   <extension
+         point="org.eclipse.ui.editors">
+      <editor
+            name="Type Definition Editor"
+            icon="platform:/plugin/org.xtuml.bp.core/icons/edit_tdf.gif"
+            extensions="tdf"
+            contributorClass="org.eclipse.ui.texteditor.BasicTextEditorActionContributor"
+            class="org.xtuml.bp.ui.text.typedefinition.TypeDefinitionEditor"
+            id="org.xtuml.bp.ui.text.typedefinition.TypeDefinitionEditor">
       </editor>
    </extension>
    <extension
@@ -132,6 +145,28 @@ This file is the plugin manifest for the BridgePoint core plugin.
                menubarPath="org.xtuml.bp.ui.openroot/org.xtuml.bp.ui.openmenu"
                enablesFor="1"
                id="org.xtuml.bp.ui.text.description.ShowDescriptionEditorAction${index}">
+         </action>
+      </objectContribution>
+.end for
+   </extension>
+   <extension
+         id="org.xtuml.bp.ui.text.TypeDefinitionEditorAction"
+         name="Type Definition Editor"
+         point="org.eclipse.ui.popupMenus">
+.assign index = 0
+.for each obj in tdf_obj_set
+  .assign index = index + 1
+      <objectContribution
+            objectClass="org.xtuml.bp.core.$cr{obj.name}_c"
+            adaptable="true"
+            id="org.xtuml.bp.ui.text.contribution${index}">
+         <action
+               label="Type Definition Editor"
+               icon="platform:/plugin/org.xtuml.bp.core/icons/edit_tdf.gif"
+               class="org.xtuml.bp.ui.text.typedefinition.ShowTypeDefinitionAction"
+               menubarPath="org.xtuml.bp.ui.openroot/org.xtuml.bp.ui.openmenu"
+               enablesFor="1"
+               id="org.xtuml.bp.ui.text.typedefinition.ShowTypeDefinitionEditorAction${index}">
          </action>
       </objectContribution>
 .end for
@@ -303,6 +338,7 @@ This file is the plugin manifest for the BridgePoint core plugin.
 .assign dflt_dsc_obj_set = dsc_obj_set
 .assign dflt_dsc_obj_set = dflt_dsc_obj_set - canvas_dsc_obj_set
 .assign dflt_dsc_obj_set = dflt_dsc_obj_set - oal_obj_set
+.assign dflt_dsc_obj_set = dflt_dsc_obj_set - tdf_obj_set
 .// the attribute class can only have one default, and it's the description editor
 .assign dflt_dsc_obj_set = dflt_dsc_obj_set | attribute_class
 .assign index = 0
@@ -311,6 +347,17 @@ This file is the plugin manifest for the BridgePoint core plugin.
   .if (not_empty clr_obj)
     .select any obj from instances of O_OBJ where (selected.key_lett == clr_obj.tgt_key_lett)
   .end if
+  .assign index = index + 1
+         <defaultFor class="org.xtuml.bp.core.$cr{obj.name}_c"
+             modelType="" name="" ooaType="" />
+.end for
+      </editor>
+      <editor
+            input="org.xtuml.bp.ui.text.typedefinition.TypeDefinitionEditorInput"
+            class="org.xtuml.bp.ui.text.typedefinition.TypeDefinitionEditor">
+.assign dflt_tdf_obj_set = tdf_obj_set
+.assign index = 0
+.for each obj in dflt_tdf_obj_set
   .assign index = index + 1
          <defaultFor class="org.xtuml.bp.core.$cr{obj.name}_c"
              modelType="" name="" ooaType="" />
@@ -379,6 +426,9 @@ This file is the plugin manifest for the BridgePoint core plugin.
       <ignore
             enabled="true"
             pattern="*.dsc"/>
+      <ignore
+            enabled="true"
+            pattern="*.tdf"/>
       <ignore
             enabled="true"
             pattern="*.oal"/>

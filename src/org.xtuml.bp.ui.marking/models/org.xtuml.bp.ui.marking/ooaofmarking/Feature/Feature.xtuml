@@ -1,0 +1,229 @@
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("cb1516d4-40ca-4afa-954b-5fdc4726e5e7",
+	'Feature',
+	2,
+	'Feature',
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_TFR
+	VALUES ("8b10470c-1967-4506-9545-030a91275fe0",
+	"cb1516d4-40ca-4afa-954b-5fdc4726e5e7",
+	'load',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	0,
+	'done = false;
+while ( not done )
+  // Read a line from the feature file populating line array.
+  count = CSV::readline( filename:param.filename, values:param.values );
+  if ( count > 0 )
+    if ( count == 2 ) // valid non-comment line
+      markable = Markable::populate( name:param.values[0] );
+      feature = Feature::populate( name:param.values[1] );
+      select any related_feature related by markable->Feature[R2822] where ( selected.name == feature.name );
+      if ( empty related_feature )
+        relate markable to feature across R2822;
+      end if;
+    end if;
+  else
+    done = true;
+  end if;
+end while;
+',
+	1,
+	'',
+	"f690053d-5f24-40ef-bfee-ee02396ffa82",
+	0);
+INSERT INTO O_TPARM
+	VALUES ("e9f8029b-e5a2-4787-b36c-c85603887a2f",
+	"8b10470c-1967-4506-9545-030a91275fe0",
+	'filename',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("3ec180c6-6ff0-42bd-97cd-2600efc2ca32",
+	"8b10470c-1967-4506-9545-030a91275fe0",
+	'values',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'[8]',
+	"e9f8029b-e5a2-4787-b36c-c85603887a2f",
+	'');
+INSERT INTO S_DIM
+	VALUES (8,
+	0,
+	"00000000-0000-0000-0000-000000000000",
+	"00000000-0000-0000-0000-000000000000",
+	"00000000-0000-0000-0000-000000000000",
+	"00000000-0000-0000-0000-000000000000",
+	"00000000-0000-0000-0000-000000000000",
+	"00000000-0000-0000-0000-000000000000",
+	"00000000-0000-0000-0000-000000000000",
+	"3ec180c6-6ff0-42bd-97cd-2600efc2ca32",
+	"00000000-0000-0000-0000-000000000000",
+	"00000000-0000-0000-0000-000000000000",
+	"00000000-0000-0000-0000-000000000000",
+	"00000000-0000-0000-0000-000000000000",
+	"00000000-0000-0000-0000-000000000000",
+	"00000000-0000-0000-0000-000000000000",
+	"a1d1ebdf-6d0b-4792-91a7-2d94a690144a",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_TFR
+	VALUES ("6236b28d-3b1e-4ae8-82f6-aeae0fcb28f8",
+	"cb1516d4-40ca-4afa-954b-5fdc4726e5e7",
+	'persist',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	0,
+	'select many markables from instances of Markable;
+for each markable in markables
+  select many features related by markable->Feature[R2822];
+  for each feature in features;
+    param.values[0] = markable.name;
+    param.values[1] = feature.name;
+    param.values[2] = "";
+    r = CSV::writeline( filename:param.filename, values:param.values );
+  end for;
+end for;',
+	1,
+	'',
+	"8b10470c-1967-4506-9545-030a91275fe0",
+	0);
+INSERT INTO O_TPARM
+	VALUES ("d623c5ba-aaef-457b-9476-6ba8d15e785e",
+	"6236b28d-3b1e-4ae8-82f6-aeae0fcb28f8",
+	'filename',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("b4243508-85a2-426b-ad15-6292f51c4725",
+	"6236b28d-3b1e-4ae8-82f6-aeae0fcb28f8",
+	'values',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	1,
+	'[8]',
+	"d623c5ba-aaef-457b-9476-6ba8d15e785e",
+	'');
+INSERT INTO S_DIM
+	VALUES (8,
+	0,
+	"00000000-0000-0000-0000-000000000000",
+	"00000000-0000-0000-0000-000000000000",
+	"00000000-0000-0000-0000-000000000000",
+	"00000000-0000-0000-0000-000000000000",
+	"00000000-0000-0000-0000-000000000000",
+	"00000000-0000-0000-0000-000000000000",
+	"00000000-0000-0000-0000-000000000000",
+	"b4243508-85a2-426b-ad15-6292f51c4725",
+	"00000000-0000-0000-0000-000000000000",
+	"00000000-0000-0000-0000-000000000000",
+	"00000000-0000-0000-0000-000000000000",
+	"00000000-0000-0000-0000-000000000000",
+	"00000000-0000-0000-0000-000000000000",
+	"00000000-0000-0000-0000-000000000000",
+	"ac18f360-e821-4c6f-bcdb-54615b7b7a74",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_TFR
+	VALUES ("7972a86a-8b4f-48e0-ab45-ba1e31bc5844",
+	"cb1516d4-40ca-4afa-954b-5fdc4726e5e7",
+	'populate',
+	'',
+	"1c853970-4617-4835-9981-3307a350267d",
+	0,
+	'// name is an identifier, so we can only have one of these.
+select any feature from instances of Feature where ( selected.name == param.name );
+if ( empty feature )
+  create object instance feature of Feature;
+  feature.name = param.name;
+end if;
+return feature;',
+	1,
+	'',
+	"6236b28d-3b1e-4ae8-82f6-aeae0fcb28f8",
+	0);
+INSERT INTO O_TPARM
+	VALUES ("1d95bba7-11d0-4540-ae95-c33c5938b49a",
+	"7972a86a-8b4f-48e0-ab45-ba1e31bc5844",
+	'name',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("1c853970-4617-4835-9981-3307a350267d",
+	"00000000-0000-0000-0000-000000000000",
+	'inst_ref<Feature>',
+	'',
+	'',
+	'../ooaofmarking.xtuml');
+INSERT INTO O_TFR
+	VALUES ("f690053d-5f24-40ef-bfee-ee02396ffa82",
+	"cb1516d4-40ca-4afa-954b-5fdc4726e5e7",
+	'dispose',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'select many markables related by self->Markable[R2822];
+for each markable in markables
+  unrelate self from markable across R2822;
+end for;
+delete object instance self;',
+	1,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	0);
+INSERT INTO O_NBATTR
+	VALUES ("2232e914-1392-4ee8-8bb0-1947058f895a",
+	"cb1516d4-40ca-4afa-954b-5fdc4726e5e7");
+INSERT INTO O_BATTR
+	VALUES ("2232e914-1392-4ee8-8bb0-1947058f895a",
+	"cb1516d4-40ca-4afa-954b-5fdc4726e5e7");
+INSERT INTO O_ATTR
+	VALUES ("2232e914-1392-4ee8-8bb0-1947058f895a",
+	"cb1516d4-40ca-4afa-954b-5fdc4726e5e7",
+	"00000000-0000-0000-0000-000000000000",
+	'name',
+	'',
+	'',
+	'name',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000004",
+	'',
+	'');
+INSERT INTO O_ID
+	VALUES (0,
+	"cb1516d4-40ca-4afa-954b-5fdc4726e5e7");
+INSERT INTO O_OIDA
+	VALUES ("2232e914-1392-4ee8-8bb0-1947058f895a",
+	"cb1516d4-40ca-4afa-954b-5fdc4726e5e7",
+	0,
+	'name');
+INSERT INTO O_ID
+	VALUES (1,
+	"cb1516d4-40ca-4afa-954b-5fdc4726e5e7");
+INSERT INTO O_ID
+	VALUES (2,
+	"cb1516d4-40ca-4afa-954b-5fdc4726e5e7");
+INSERT INTO PE_PE
+	VALUES ("cb1516d4-40ca-4afa-954b-5fdc4726e5e7",
+	1,
+	"b97268c4-66eb-4387-8dbb-2d7d7751f166",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
+	VALUES ("b97268c4-66eb-4387-8dbb-2d7d7751f166",
+	"346c775f-ce20-4599-8bbc-9b4256b4d2ed",
+	"346c775f-ce20-4599-8bbc-9b4256b4d2ed",
+	'ooaofmarking',
+	'',
+	0,
+	'../ooaofmarking.xtuml');

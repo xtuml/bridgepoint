@@ -32,7 +32,7 @@ INSERT INTO GD_GE
 	"42d5848f-dabe-43e1-9ac4-b840f2789360",
 	108,
 	0,
-	'Context Menu Entry Functions');
+	'org.xtuml.bp.core::ooaofooa::Functions::Context Menu Entry Functions');
 INSERT INTO GD_SHP
 	VALUES ("b84e2b6d-c600-4709-a921-6124b4b5296f");
 INSERT INTO GD_NCS
@@ -173,7 +173,8 @@ enabledEventsMask = (p_Eventmask & Modeleventnotification_c.MASK_ALL_EVENTS);
 return ret_val;',
 	"8672d1f0-ac73-4097-a597-505333093f53",
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_SPARM
 	VALUES ("8cc8fe70-c27f-407f-af09-62e0ebb0bc0b",
 	"7839aa8d-4ec4-41e5-8cfc-81768856fdbb",
@@ -216,7 +217,8 @@ INSERT INTO S_SYNC
 ',
 	"ba5eda7a-def5-0000-0000-000000000004",
 	1,
-	'');
+	'',
+	0);
 INSERT INTO PE_PE
 	VALUES ("d3c7ce68-3967-43be-b14d-acf4f42386df",
 	1,
@@ -232,7 +234,8 @@ INSERT INTO S_SYNC
 ',
 	"ba5eda7a-def5-0000-0000-000000000004",
 	1,
-	'');
+	'',
+	0);
 INSERT INTO PE_PE
 	VALUES ("b8ec6180-685e-4f0e-97d4-cf438b2a4ef5",
 	1,
@@ -260,7 +263,8 @@ return state.canIgnoreOrSayEventCantHappen(
 	',
 	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
-	'');
+	'',
+	0);
 INSERT INTO S_SPARM
 	VALUES ("47fc2ee3-f2a5-4e88-948d-bf065b4b2e15",
 	"ffe11c50-ac91-4ce5-ab06-81723d989643",
@@ -313,31 +317,6 @@ INSERT INTO PE_PE
 	"00000000-0000-0000-0000-000000000000",
 	1);
 INSERT INTO S_SYNC
-	VALUES ("f82cea67-364f-41e5-87da-f21c8beda6ef",
-	"00000000-0000-0000-0000-000000000000",
-	'convertRelocatableTags',
-	'Translate: native',
-	'return org.xtuml.bp.core.relocatables.RelocatableTagConversionUtil.convertRelocatableTags(modelRoot, p_In);
-',
-	"ba5eda7a-def5-0000-0000-000000000004",
-	0,
-	'');
-INSERT INTO S_SPARM
-	VALUES ("2cd48ddb-d5cd-4175-a6bd-10c54d0c466e",
-	"f82cea67-364f-41e5-87da-f21c8beda6ef",
-	'in',
-	"ba5eda7a-def5-0000-0000-000000000004",
-	0,
-	'',
-	"00000000-0000-0000-0000-000000000000",
-	'');
-INSERT INTO PE_PE
-	VALUES ("f82cea67-364f-41e5-87da-f21c8beda6ef",
-	1,
-	"2467e6dc-9ef4-46c6-afa6-883c1e23a96c",
-	"00000000-0000-0000-0000-000000000000",
-	1);
-INSERT INTO S_SYNC
 	VALUES ("7b6e3d0e-69b5-47fe-b27c-bef17ad99f63",
 	"00000000-0000-0000-0000-000000000000",
 	'getUniqueInitialName',
@@ -346,7 +325,8 @@ INSERT INTO S_SYNC
 	(NonRootModelElement)p_Instance, p_Candidatename);',
 	"ba5eda7a-def5-0000-0000-000000000004",
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_SPARM
 	VALUES ("ae7b74ea-c797-4552-8e66-e99bf6570662",
 	"7b6e3d0e-69b5-47fe-b27c-bef17ad99f63",
@@ -386,7 +366,8 @@ INSERT INTO S_SYNC
 	'return "Datatypes";',
 	"ba5eda7a-def5-0000-0000-000000000004",
 	1,
-	'');
+	'',
+	0);
 INSERT INTO PE_PE
 	VALUES ("d8007d84-7609-4132-8698-04a8c69bba88",
 	1,
@@ -402,7 +383,8 @@ INSERT INTO S_SYNC
 	(NonRootModelElement)p_Instance, (NonRootModelElement) p_Parent, p_Name);',
 	"ba5eda7a-def5-0000-0000-000000000004",
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_SPARM
 	VALUES ("b6af181a-0c9d-46d4-9ad9-a0a4f3c8b213",
 	"b95ec7d5-1a3a-4e2b-bfa5-96fe1fa76539",
@@ -448,7 +430,8 @@ else
 end if;',
 	"ba5eda7a-def5-0000-0000-000000000004",
 	1,
-	'');
+	'',
+	0);
 INSERT INTO S_SPARM
 	VALUES ("8dbde6ea-1c12-497d-a409-f07092e2d31a",
 	"5cc4dd50-34da-4202-9b81-f549fc423318",
@@ -520,7 +503,8 @@ for each clazz in clazzes
 end for;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
-	'');
+	'',
+	0);
 INSERT INTO PE_PE
 	VALUES ("c1ab2cf1-4e4d-4911-8cc6-70ae167d34bc",
 	1,
@@ -536,7 +520,8 @@ INSERT INTO S_SYNC
 	'',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_SPARM
 	VALUES ("2e7d6127-9d90-4546-83c7-e2e486feffb6",
 	"a53a52fd-5479-42d1-b38a-c03f2f56cabd",
@@ -561,7 +546,8 @@ INSERT INTO S_SYNC
 ',
 	"ba5eda7a-def5-0000-0000-000000000004",
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_SPARM
 	VALUES ("406de874-1a4c-45b5-81a5-99c3cdd5c5e3",
 	"f8ab1bfc-f9e9-46de-b7f3-72de13e38559",
@@ -603,7 +589,8 @@ INSERT INTO S_SYNC
 	'return "Pasted imported classes could not have their classes resolved.";',
 	"ba5eda7a-def5-0000-0000-000000000004",
 	1,
-	'');
+	'',
+	0);
 INSERT INTO PE_PE
 	VALUES ("4ad9745c-5f47-48c8-9bd6-a08ed39d7e5a",
 	1,
@@ -663,7 +650,8 @@ if ( not_empty c_ir and not_empty new_c_i )
 end if;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
-	'');
+	'',
+	0);
 INSERT INTO S_SPARM
 	VALUES ("9af6af67-e81e-4e93-a231-060ca6905cd9",
 	"9cdb3095-7035-4797-8fc8-e4fcc0076910",
@@ -684,6 +672,147 @@ INSERT INTO S_SPARM
 	'');
 INSERT INTO PE_PE
 	VALUES ("9cdb3095-7035-4797-8fc8-e4fcc0076910",
+	1,
+	"2467e6dc-9ef4-46c6-afa6-883c1e23a96c",
+	"00000000-0000-0000-0000-000000000000",
+	1);
+INSERT INTO S_SYNC
+	VALUES ("42629015-7c95-4803-a75e-5895fe58629c",
+	"00000000-0000-0000-0000-000000000000",
+	'autoCreateMASLSatisfactions',
+	'This operation is specific to MASL import. In MASL there will only ever be 1 satisfaction for a given provision.
+',
+	'// this function creates satisfactions by searching in a package for provisions and requirements
+// that match. It does not consider delegations
+
+select any pkg from instances of EP_PKG where ( selected.Package_ID == param.pkg );
+
+select many provisions related by pkg->PE_PE[R8000]->C_C[R8001]->C_PO[R4010]->C_IR[R4016]->C_P[R4009];
+select many requirements related by pkg->PE_PE[R8000]->C_C[R8001]->C_PO[R4010]->C_IR[R4016]->C_R[R4009];
+select many imported_provisions related by pkg->PE_PE[R8000]->CL_IC[R8001]->CL_POR[R4707]->CL_IIR[R4708]->CL_IP[R4703];
+select many imported_requirements related by pkg->PE_PE[R8000]->CL_IC[R8001]->CL_POR[R4707]->CL_IIR[R4708]->CL_IR[R4703];
+
+for each provision in provisions
+  // match provisions and requirements
+  select one p_interface related by provision->C_IR[R4009]->C_I[R4012];
+  // This rountine is MASL specific and there will always only be at most  1 matching 
+  // interface. Don''t bother searching is this is already satisfied.
+  satisfactionCount = provision.getSatisfactionCount(filterDelegations:false);
+  if (satisfactionCount > 0) 
+    continue;
+  end if;
+  for each requirement in requirements
+    select one r_interface related by requirement->C_IR[R4009]->C_I[R4012];
+    if ( not_empty p_interface and not_empty r_interface and p_interface.Id == r_interface.Id )
+      // create satisfaction
+      create object instance satisfaction of C_SF;
+      create object instance pe of PE_PE;
+      relate satisfaction to pe across R8001;
+      relate pe to pkg across R8000;
+      pe.type = ElementTypeConstants::SATISFACTION;
+      pe.initialize();
+      // link the provision and requirement
+      relate provision to requirement across R4002 using satisfaction;
+      satisfactionCount = satisfactionCount + 1;
+    end if;
+  end for;
+  
+  if (satisfactionCount > 0) 
+    continue;
+  end if;
+  
+  // match provisions and imported requirements
+  for each i_requirement in imported_requirements
+    select one r_interface related by i_requirement->CL_IIR[R4703]->C_IR[R4701]->C_I[R4012];
+    if ( not_empty p_interface and not_empty r_interface and p_interface.Id == r_interface.Id )
+      // create satisfaction
+      create object instance satisfaction of C_SF;
+      create object instance pe of PE_PE;
+      relate satisfaction to pe across R8001;
+      relate pe to pkg across R8000;
+      pe.type = ElementTypeConstants::SATISFACTION;
+      pe.initialize();
+      // link the provision and requirement
+      select one requirement related by i_requirement->CL_IIR[R4703]->C_IR[R4701]->C_R[R4009];
+      relate provision to requirement across R4002 using satisfaction;
+      relate i_requirement to satisfaction across R4706;
+    end if;
+  end for;
+end for;
+for each i_provision in imported_provisions
+
+  // match imported provisions and requirements
+  select one provision related by i_provision->CL_IIR[R4703]->C_IR[R4701]->C_P[R4009];
+  select one p_interface related by i_provision->CL_IIR[R4703]->C_IR[R4701]->C_I[R4012];
+
+  // This rountine is MASL specific and there will always only be at most  1 matching 
+  // interface. Don''t bother searching is this is already satisfied.
+  satisfactionCount = 0; 
+  if (not_empty provision)
+    // this looks odd, but note that CL_IP.getProvisionCount is actually
+    // return the satisfaction count for the CL_IP
+    satisfactionCount = i_provision.getProvisionCount(filterDelegations:false);
+  end if;
+  if (satisfactionCount > 0) 
+    continue;
+  end if;
+ 
+  for each requirement in requirements
+    select one r_interface related by requirement->C_IR[R4009]->C_I[R4012];
+    if ( not_empty p_interface and not_empty r_interface and p_interface.Id == r_interface.Id )
+      // create satisfaction
+      create object instance satisfaction of C_SF;
+      create object instance pe of PE_PE;
+      relate satisfaction to pe across R8001;
+      relate pe to pkg across R8000;
+      pe.type = ElementTypeConstants::SATISFACTION;
+      pe.initialize();
+      // link the provision and requirement
+      relate provision to requirement across R4002 using satisfaction;
+      create object instance ipins of CL_IPINS;
+      relate i_provision to satisfaction across R4705 using ipins;
+      satisfactionCount = satisfactionCount + 1;
+    end if;
+  end for;
+
+  if (satisfactionCount > 0) 
+    continue;
+  end if;
+
+  // match imported provisions and imported requirements
+  for each i_requirement in imported_requirements
+    select one r_interface related by i_requirement->CL_IIR[R4703]->C_IR[R4701]->C_I[R4012];
+    if ( not_empty p_interface and not_empty r_interface and p_interface.Id == r_interface.Id )
+      // create satisfaction
+      create object instance satisfaction of C_SF;
+      create object instance pe of PE_PE;
+      relate satisfaction to pe across R8001;
+      relate pe to pkg across R8000;
+      pe.type = ElementTypeConstants::SATISFACTION;
+      pe.initialize();
+      // link the provision and requirement
+      select one requirement related by i_requirement->CL_IIR[R4703]->C_IR[R4701]->C_R[R4009];
+      relate provision to requirement across R4002 using satisfaction;
+      relate i_requirement to satisfaction across R4706;
+      create object instance ipins of CL_IPINS;
+      relate i_provision to satisfaction across R4705 using ipins;
+    end if;
+  end for;
+end for;',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'');
+INSERT INTO S_SPARM
+	VALUES ("e8035584-8e90-4371-a47a-cd5cf98d944a",
+	"42629015-7c95-4803-a75e-5895fe58629c",
+	'pkg',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO PE_PE
+	VALUES ("42629015-7c95-4803-a75e-5895fe58629c",
 	1,
 	"2467e6dc-9ef4-46c6-afa6-883c1e23a96c",
 	"00000000-0000-0000-0000-000000000000",

@@ -35,7 +35,8 @@ delete object instance self;
 ',
 	1,
 	'',
-	"00000000-0000-0000-0000-000000000000");
+	"00000000-0000-0000-0000-000000000000",
+	0);
 INSERT INTO O_TFR
 	VALUES ("ac6ea1c6-8132-43d3-9b80-adc76d27ef7b",
 	"b98e968b-51f8-4ac6-a8c7-49d9db70a0eb",
@@ -71,7 +72,8 @@ end if;
 return GD::string_to_instance(value:"Error");',
 	1,
 	'',
-	"68e0fff1-a47b-42f0-a886-e4c337095f0a");
+	"68e0fff1-a47b-42f0-a886-e4c337095f0a",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("4b8a0f91-8677-4be6-b20e-c3a7c5182d6c",
 	"ac6ea1c6-8132-43d3-9b80-adc76d27ef7b",
@@ -124,7 +126,8 @@ else
 end if;',
 	1,
 	'',
-	"ac6ea1c6-8132-43d3-9b80-adc76d27ef7b");
+	"ac6ea1c6-8132-43d3-9b80-adc76d27ef7b",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("f067bbfb-cec1-4174-9df0-09a2af43baa5",
 	"479f5f68-dc7a-4722-9829-b7ef770adc59",
@@ -205,7 +208,8 @@ end if;
 ',
 	1,
 	'',
-	"6139c859-162e-4dc8-9cd1-fa7de6804605");
+	"6139c859-162e-4dc8-9cd1-fa7de6804605",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("710468dd-b266-4a02-bab2-2545861b7273",
 	"68e0fff1-a47b-42f0-a886-e4c337095f0a",

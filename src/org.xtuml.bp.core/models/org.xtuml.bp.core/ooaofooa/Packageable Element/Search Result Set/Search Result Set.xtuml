@@ -30,7 +30,8 @@ unrelate self from package across R8005;
 delete object instance self;',
 	1,
 	'',
-	"00000000-0000-0000-0000-000000000000");
+	"00000000-0000-0000-0000-000000000000",
+	0);
 INSERT INTO O_REF
 	VALUES ("40bc876e-d4d0-4736-8d3e-c7f07229f04a",
 	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",

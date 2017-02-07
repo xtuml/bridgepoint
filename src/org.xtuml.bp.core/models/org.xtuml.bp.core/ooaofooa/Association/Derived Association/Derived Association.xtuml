@@ -51,7 +51,8 @@ return result;
 ',
 	1,
 	'',
-	"b5067c63-f2c2-4c5d-962e-67b7d6766b1c");
+	"b5067c63-f2c2-4c5d-962e-67b7d6766b1c",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("51b02f6a-bdbb-4da9-8ba2-62cfdc4133f4",
 	"a2adedca-95d8-41b0-a621-41eb88a212ba",
@@ -91,7 +92,8 @@ unrelate self from assoc across R206;
 delete object instance self;',
 	1,
 	'',
-	"00000000-0000-0000-0000-000000000000");
+	"00000000-0000-0000-0000-000000000000",
+	0);
 INSERT INTO O_TFR
 	VALUES ("9ce0559f-8cb9-4b4a-8a4e-dec319f4d53c",
 	"86603347-465b-48b4-b460-f4449d0eb4d0",
@@ -104,7 +106,8 @@ return rel.get_name();
 ',
 	1,
 	'',
-	"a2adedca-95d8-41b0-a621-41eb88a212ba");
+	"a2adedca-95d8-41b0-a621-41eb88a212ba",
+	0);
 INSERT INTO O_NBATTR
 	VALUES ("7083e4fa-5f4c-49cc-b950-5c005b9a3af0",
 	"86603347-465b-48b4-b460-f4449d0eb4d0");

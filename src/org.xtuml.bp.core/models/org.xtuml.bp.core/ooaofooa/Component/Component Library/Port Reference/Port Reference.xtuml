@@ -32,7 +32,8 @@ end for;
 delete object instance self; ',
 	1,
 	'',
-	"00000000-0000-0000-0000-000000000000");
+	"00000000-0000-0000-0000-000000000000",
+	0);
 INSERT INTO O_TFR
 	VALUES ("10e0deaa-608b-4f5c-9651-39ed9a2f0570",
 	"d0f2e04e-149e-489c-924c-a42769aa8547",
@@ -46,7 +47,8 @@ Translate: native ',
 	'return this; ',
 	0,
 	'',
-	"e026966e-77f1-4cf3-927e-912998248ae8");
+	"e026966e-77f1-4cf3-927e-912998248ae8",
+	0);
 INSERT INTO S_DT_PROXY
 	VALUES ("bc3722c8-5188-4529-8519-cf9eb9816b17",
 	"00000000-0000-0000-0000-000000000000",
@@ -68,7 +70,8 @@ end if;
 return true; ',
 	1,
 	'',
-	"10e0deaa-608b-4f5c-9651-39ed9a2f0570");
+	"10e0deaa-608b-4f5c-9651-39ed9a2f0570",
+	0);
 INSERT INTO O_TFR
 	VALUES ("dd84f365-f651-490e-856c-d963f7c45e4b",
 	"d0f2e04e-149e-489c-924c-a42769aa8547",
@@ -81,7 +84,8 @@ result = componentReference.canReferToComponent();
 return result;',
 	1,
 	'',
-	"f8f41e09-40e9-4b63-9b4c-f2a8993be355");
+	"f8f41e09-40e9-4b63-9b4c-f2a8993be355",
+	0);
 INSERT INTO O_TFR
 	VALUES ("b4384779-260c-4add-a843-5c159b848fc7",
 	"d0f2e04e-149e-489c-924c-a42769aa8547",
@@ -92,7 +96,8 @@ INSERT INTO O_TFR
 	'	return m_name;  ',
 	0,
 	'',
-	"dd84f365-f651-490e-856c-d963f7c45e4b");
+	"dd84f365-f651-490e-856c-d963f7c45e4b",
+	0);
 INSERT INTO O_TFR
 	VALUES ("059f96d9-056d-4fd3-89cb-bb6060939c52",
 	"d0f2e04e-149e-489c-924c-a42769aa8547",
@@ -103,7 +108,8 @@ INSERT INTO O_TFR
 	'	m_name = p_Name; ',
 	0,
 	'',
-	"b4384779-260c-4add-a843-5c159b848fc7");
+	"b4384779-260c-4add-a843-5c159b848fc7",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("646d9954-b6fd-45b9-b1f0-07101b287b9b",
 	"059f96d9-056d-4fd3-89cb-bb6060939c52",
@@ -251,7 +257,8 @@ end if;
 self.setCachedName(name:result);
 self.Name = result;
 ',
-	1);
+	1,
+	0);
 INSERT INTO O_BATTR
 	VALUES ("fdcd8ad9-1ef8-4f49-be2c-73ab6c9a883f",
 	"d0f2e04e-149e-489c-924c-a42769aa8547");

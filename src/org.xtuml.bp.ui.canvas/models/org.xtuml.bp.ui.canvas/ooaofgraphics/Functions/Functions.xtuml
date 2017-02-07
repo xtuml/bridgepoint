@@ -45,7 +45,8 @@ else
 end if;',
 	"ba5eda7a-def5-0000-0000-000000000002",
 	1,
-	'');
+	'',
+	0);
 INSERT INTO S_SPARM
 	VALUES ("59bf1f3c-6ea5-4934-bcbb-03f8f4543a74",
 	"e6d75eb8-1515-4500-af0e-a6f5613f71ce",
@@ -82,7 +83,8 @@ else
 end if;',
 	"ba5eda7a-def5-0000-0000-000000000002",
 	1,
-	'');
+	'',
+	0);
 INSERT INTO S_SPARM
 	VALUES ("6c8e6f20-9a50-400c-8ad8-4d8d3eff862c",
 	"85c51c6f-0495-423e-98b7-0a71d2faafa6",
@@ -130,7 +132,8 @@ end if;
 return snap;',
 	"ba5eda7a-def5-0000-0000-000000000002",
 	1,
-	'');
+	'',
+	0);
 INSERT INTO S_SPARM
 	VALUES ("e7e35935-1533-4468-9025-1904d9a4248c",
 	"c7b1d888-da8c-41ce-aa8e-d8004b84cf89",
@@ -181,7 +184,8 @@ INSERT INTO S_SYNC
 	'return Math.round(p_Value);',
 	"ba5eda7a-def5-0000-0000-000000000002",
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_SPARM
 	VALUES ("24eed6a9-28d1-4914-8297-3e63ba2136e1",
 	"60c50177-e1fc-4f30-8981-71070307f52f",
@@ -209,7 +213,8 @@ else
 end if;',
 	"ba5eda7a-def5-0000-0000-000000000002",
 	1,
-	'');
+	'',
+	0);
 INSERT INTO S_SPARM
 	VALUES ("fee7b4a7-601a-4d5c-a5e5-807e5bf514ab",
 	"05f67195-0ef8-4b27-80f9-c49e364f1955",
@@ -235,7 +240,8 @@ return ::roundToGridSnapPointWithinLimits(ordinate:param.ordinate,
 	min:-maxInt, max:maxInt, isConnector:param.isConnector);',
 	"ba5eda7a-def5-0000-0000-000000000002",
 	1,
-	'');
+	'',
+	0);
 INSERT INTO S_SPARM
 	VALUES ("b08a89dd-3729-4e38-bae5-121bbba3096c",
 	"fb2594a9-e025-4bcb-8acb-cf2934a42bb2",
@@ -274,7 +280,8 @@ b = param.y2 - param.y1;
 return OS::getSquareRoot(value:(a * a + b * b));',
 	"ba5eda7a-def5-0000-0000-000000000003",
 	1,
-	'');
+	'',
+	0);
 INSERT INTO S_SPARM
 	VALUES ("b3a34c90-c043-43d5-a4e4-fc572b87307a",
 	"22da94bc-f04b-48dd-9c8d-8d2199ec4b67",
@@ -325,7 +332,8 @@ INSERT INTO S_SYNC
 	'return 4;',
 	"ba5eda7a-def5-0000-0000-000000000002",
 	1,
-	'');
+	'',
+	0);
 INSERT INTO PE_PE
 	VALUES ("fad10f81-13af-4f98-9aa3-aefec28e0b38",
 	1,
@@ -340,7 +348,8 @@ INSERT INTO S_SYNC
 	'return 16;',
 	"ba5eda7a-def5-0000-0000-000000000002",
 	1,
-	'');
+	'',
+	0);
 INSERT INTO PE_PE
 	VALUES ("270e097d-e2da-4802-a161-22ba55f59cea",
 	1,
@@ -355,7 +364,8 @@ INSERT INTO S_SYNC
 	'return 2;',
 	"ba5eda7a-def5-0000-0000-000000000002",
 	1,
-	'');
+	'',
+	0);
 INSERT INTO PE_PE
 	VALUES ("d5c82af9-0085-46a6-9776-5b1e5a6a0692",
 	1,
@@ -383,7 +393,8 @@ GR::polyAddPoint(poly:p, x: x,     y:y+h/2 );
 GR::polyDraw(context: param.context, poly:p);',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
-	'');
+	'',
+	0);
 INSERT INTO S_SPARM
 	VALUES ("b5ecec14-e594-47d6-a080-9edc20825a00",
 	"efd387cc-d10d-423b-8404-142c52f6ad6a",
@@ -465,7 +476,8 @@ GR::polyAddPoint(poly:p, x: x+w/5, y:y+h/2 );
 GR::polyDraw(context: param.context, poly:p);',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
-	'');
+	'',
+	0);
 INSERT INTO S_SPARM
 	VALUES ("e6872af2-59fa-4fb4-9afc-d379f3594ef3",
 	"aaa10e70-b761-4804-8b74-35b8bb8f4f93",
@@ -540,7 +552,8 @@ GR::polyAddPoint(poly:p, x: x, y:y+h );
 GR::polyDraw(context: param.context, poly:p);',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
-	'');
+	'',
+	0);
 INSERT INTO S_SPARM
 	VALUES ("baa36666-0f66-4146-8ff3-4b835c9939a5",
 	"07218182-1e3e-4e50-a444-d502b100e30a",
@@ -615,7 +628,8 @@ GR::polyAddPoint(poly:p1, x: x,     y:y );
 GR::polyDraw(context: param.context, poly:p1);',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
-	'');
+	'',
+	0);
 INSERT INTO S_SPARM
 	VALUES ("3b9cd9ac-87a4-40ed-9b3e-e27aa9031c53",
 	"a5451ef2-0052-467e-af6d-9b9d98970df1",
@@ -788,7 +802,8 @@ end if;
 ',
 	"ba5eda7a-def5-0000-0000-000000000003",
 	1,
-	'');
+	'',
+	0);
 INSERT INTO S_SPARM
 	VALUES ("d231dc32-718f-4f83-b423-56dcb75dc6e4",
 	"341a7b91-fd81-4d1a-8d8e-2bba8c182089",
@@ -912,7 +927,8 @@ end if;
 return (param.y2 - param.y) / (param.x2 - param.x);',
 	"ba5eda7a-def5-0000-0000-000000000003",
 	1,
-	'');
+	'',
+	0);
 INSERT INTO S_SPARM
 	VALUES ("3f2ecdc9-458f-4e9f-84ac-3aef98960029",
 	"2f723e19-a7bd-4c3c-849f-118088c66273",
@@ -971,7 +987,8 @@ slope = ::getSlope(x:param.x, y:param.y, x2:param.x2, y2:param.y2);
 return param.y - slope * param.x;',
 	"ba5eda7a-def5-0000-0000-000000000003",
 	1,
-	'');
+	'',
+	0);
 INSERT INTO S_SPARM
 	VALUES ("710e428e-f0b4-4ba1-a5a7-0cd7f6c895f9",
 	"2a2e6996-bfbb-44fa-b23e-4a1073702712",
@@ -1043,7 +1060,8 @@ return ((x >= minX and x <= maxX) and (y >= minY and y <= maxY));
 ',
 	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
-	'');
+	'',
+	0);
 INSERT INTO S_SPARM
 	VALUES ("8a167b06-2d79-4ed1-9a3f-02a289be5465",
 	"0a5f66ea-01b9-4f28-b503-c51dc1912284",
@@ -1267,7 +1285,8 @@ end if;
 return 0;',
 	"ba5eda7a-def5-0000-0000-000000000003",
 	1,
-	'');
+	'',
+	0);
 INSERT INTO S_SPARM
 	VALUES ("3a1f3bb6-cffb-434e-a48a-1efed13a04ca",
 	"9d598233-0d79-4730-b1f3-97a49b69e706",
@@ -1385,7 +1404,8 @@ if (p_Maxlines < lines.length) {
 return( trimmed_text );',
 	"ba5eda7a-def5-0000-0000-000000000004",
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_SPARM
 	VALUES ("1906d67b-83b3-4e4d-b9af-097c4d7bead5",
 	"3142aa17-acf5-40e2-8390-ba9691a7f40a",

@@ -1421,7 +1421,6 @@
 <plugin id="org.w3c.dom.svg" version="1.1.0.v201011041433"/>
 <plugin id="org.w3c.dom.svg.source" version="1.1.0.v201011041433"/>
 <plugin id="org.xtuml.bp.als.oal"/>
-<plugin id="org.xtuml.bp.bld.pkg"/>
 <plugin id="org.xtuml.bp.cdt"/>
 <plugin id="org.xtuml.bp.cli"/>
 <plugin id="org.xtuml.bp.compare"/>
@@ -1453,7 +1452,6 @@
 <plugin id="org.xtuml.bp.ui.session"/>
 <plugin id="org.xtuml.bp.ui.text"/>
 <plugin id="org.xtuml.bp.utilities"/>
-<plugin id="org.xtuml.bp.verifier.pkg"/>
 <plugin id="org.xtuml.bp.welcome"/>
 <plugin id="org.xtuml.bp.x2m"/>
 <plugin id="org.xtuml.help.bp.mc"/>

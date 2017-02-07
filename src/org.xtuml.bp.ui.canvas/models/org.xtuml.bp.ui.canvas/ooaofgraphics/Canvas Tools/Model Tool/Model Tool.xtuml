@@ -55,7 +55,8 @@ end if;
 delete object instance self;',
 	1,
 	'',
-	"00000000-0000-0000-0000-000000000000");
+	"00000000-0000-0000-0000-000000000000",
+	0);
 INSERT INTO O_TFR
 	VALUES ("c390427a-1e60-4f9f-aba9-0370066d1838",
 	"43aa371a-c94c-48a9-acb6-21b733e4a55e",
@@ -66,7 +67,8 @@ INSERT INTO O_TFR
 	'drawing = false;',
 	1,
 	'',
-	"35bbc4d2-967c-4a8c-9c06-895cf6b16620");
+	"35bbc4d2-967c-4a8c-9c06-895cf6b16620",
+	0);
 INSERT INTO O_TFR
 	VALUES ("35bbc4d2-967c-4a8c-9c06-895cf6b16620",
 	"43aa371a-c94c-48a9-acb6-21b733e4a55e",
@@ -220,11 +222,16 @@ if (not_empty endElement)
    	delete object instance snapPoint;
 
   elif (not_empty con) // Find the segment on the target connector that intersects the last segment being drawn
+    // set a default for termination
+    terminateAT = End::End;
     select any cnt related by endElement->TS_TSP[R206]->TS_CNT[R201];
-    if (cnt.terminatesAt == End::Middle)
+    if (not_empty cnt)
+      terminateAT = cnt.terminatesAt;
+    end if;
+    if (terminateAT == End::Middle)
       // crop the segment to the connector
 	  con.cropTo(attachingSegmentId:segment.elementId, createdAnchorId:anchor.conId, end:End::End);
-    elif (cnt.terminatesAt == End::Start)
+    elif (terminateAT == End::Start)
       create object instance aos of GD_AOS;
       startSegId = con.getStartingSegmentId();
       select any startSeg related by con->GD_LS[R6] where (selected.elementId == startSegId);
@@ -233,7 +240,7 @@ if (not_empty endElement)
       select one segmentEnd related by segment->DIM_WAY[R22];
       segment.moveEnd(xDelta:con.getStartX() - segmentEnd.positionX, 
         	yDelta:con.getStartY() - segmentEnd.positionY, snapToGrid:false);
-    elif (cnt.terminatesAt == End::End)
+    elif (terminateAT == End::End)
       create object instance aos of GD_AOS;
       endSegId = con.getEndingSegmentId();
       select any endSeg related by con->GD_LS[R6] where (selected.elementId == endSegId);
@@ -247,7 +254,8 @@ if (not_empty endElement)
 end if;',
 	1,
 	'',
-	"6276b7af-0d7f-4beb-b166-91be84b47352");
+	"6276b7af-0d7f-4beb-b166-91be84b47352",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("c0731eae-1871-43c6-a1d1-abfc74fa2886",
 	"35bbc4d2-967c-4a8c-9c06-895cf6b16620",

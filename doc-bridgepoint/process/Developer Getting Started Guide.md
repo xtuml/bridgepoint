@@ -60,10 +60,14 @@ The instructions in this section describe how to use the eclipse BridgePoint UI 
   - Clone the repositories:
   ```
   git clone https://github.com/"username"/bridgepoint.git ~/git/bridgepoint
+  git clone https://github.com/"username"/bptest.git ~/git/bptest
   git clone https://github.com/"username"/mc.git ~/git/mc
   git clone https://github.com/"username"/pt_antlr.git ~/git/pt_antlr
   git clone https://github.com/"username"/models.git ~/git/models
   ```
+  Note:  To build BridgePoint, you need only the bridgepoint, mc and pt_antlr
+  repositories.  bptest and models are used for unit testing and application
+  development.
     
   - Prepare your development workspace with the required preferences. 
   ```
@@ -76,11 +80,6 @@ The instructions in this section describe how to use the eclipse BridgePoint UI 
   cp -f ~/git/pt_antlr/pt_antlr/antlr.jar  ~/git/bridgepoint/src/org.xtuml.bp.als/lib/antlr.jar
   ```
   
-  - Assure that ant binaries are executable 
-  ```
-  chmod a+x <BridgePoint installation folder>/plugins/org.apache.ant*/bin/*
-  ```
-
   - Launch BridgePoint (```<BridgePoint installation folder>/bridgepoint for MAC it is Eclipse.app```)
     - During startup, enter the name of a new eclipse workspace that will become your development workspace.   
     (Example:  ```~/workspace```)

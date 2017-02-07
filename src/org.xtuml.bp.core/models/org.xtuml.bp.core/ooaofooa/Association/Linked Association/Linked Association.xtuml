@@ -50,7 +50,8 @@ end if;
 return result;',
 	1,
 	'',
-	"30570c8a-48f1-4b23-966b-67a2ff81ba8d");
+	"30570c8a-48f1-4b23-966b-67a2ff81ba8d",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("59852b6a-6b5f-4d9e-bb78-d54620b4bf56",
 	"bf78a44f-f791-4861-9afa-52a2a154b798",
@@ -139,7 +140,8 @@ assr_oir.dispose();
 delete object instance self;',
 	1,
 	'',
-	"d92ed224-7c36-439d-830d-127d622bbfb0");
+	"d92ed224-7c36-439d-830d-127d622bbfb0",
+	0);
 INSERT INTO O_TFR
 	VALUES ("b4678a69-28bc-4551-aff0-4a4553c425a5",
 	"e0b52879-6083-4676-8d0f-2feed955eeb4",
@@ -152,7 +154,8 @@ unrelate self from assoc across R206;
 delete object instance self;',
 	1,
 	'',
-	"00000000-0000-0000-0000-000000000000");
+	"00000000-0000-0000-0000-000000000000",
+	0);
 INSERT INTO O_TFR
 	VALUES ("d92ed224-7c36-439d-830d-127d622bbfb0",
 	"e0b52879-6083-4676-8d0f-2feed955eeb4",
@@ -168,7 +171,8 @@ return not_empty rtida1 and not_empty rtida2;
 ',
 	1,
 	'',
-	"bf78a44f-f791-4861-9afa-52a2a154b798");
+	"bf78a44f-f791-4861-9afa-52a2a154b798",
+	0);
 INSERT INTO O_TFR
 	VALUES ("30570c8a-48f1-4b23-966b-67a2ff81ba8d",
 	"e0b52879-6083-4676-8d0f-2feed955eeb4",
@@ -212,7 +216,8 @@ end for;
 ',
 	1,
 	'',
-	"b4678a69-28bc-4551-aff0-4a4553c425a5");
+	"b4678a69-28bc-4551-aff0-4a4553c425a5",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("ebb2c585-40b6-4829-a546-de78459b2a45",
 	"30570c8a-48f1-4b23-966b-67a2ff81ba8d",
@@ -255,7 +260,8 @@ relate aoth_oir to aoth_rto across R203;
 ',
 	1,
 	'',
-	"cbaaf05a-b28c-4ba5-b56d-b6619950f7e2");
+	"cbaaf05a-b28c-4ba5-b56d-b6619950f7e2",
+	0);
 INSERT INTO O_REF
 	VALUES ("e0b52879-6083-4676-8d0f-2feed955eeb4",
 	"fccf477f-dde6-4d1a-9020-5effbe338738",

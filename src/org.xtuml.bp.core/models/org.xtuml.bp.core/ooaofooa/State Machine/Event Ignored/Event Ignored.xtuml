@@ -17,7 +17,8 @@ INSERT INTO O_TFR
 	'return "Event Ignored";',
 	1,
 	'',
-	"00000000-0000-0000-0000-000000000000");
+	"00000000-0000-0000-0000-000000000000",
+	0);
 INSERT INTO O_TFR
 	VALUES ("9232c041-f936-49bd-a96c-376e64c6cd6f",
 	"78e82bce-dc6d-43bd-8177-04ce107edf44",
@@ -41,7 +42,8 @@ else
 end if;',
 	1,
 	'',
-	"1805342a-5663-41e8-9529-5fdc1a3f9b7c");
+	"1805342a-5663-41e8-9529-5fdc1a3f9b7c",
+	0);
 INSERT INTO O_REF
 	VALUES ("78e82bce-dc6d-43bd-8177-04ce107edf44",
 	"dec48676-c96c-4395-bf7a-050a1058da7a",

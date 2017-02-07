@@ -115,10 +115,12 @@
 
   <property name="activity_editorinput_factory_java.output" value="activity/ActivityEditorInputFactory.java" />
   <property name="description_editorinput_factory_java.output" value="description/DescriptionEditorInputFactory.java" />
+  <property name="typedefinition_editorinput_factory_java.output" value="typedefinition/TypeDefinitionEditorInputFactory.java" />
 
   <target name="editorinputfactories_java.depends">
     <uptodate property="editorinputfactories_java.buildNotNeeded" targetfile="${src_path}/${activity_editorinput_factory_java.output}">
         <srcfiles dir = "${core_sql_dir}" includes = "ooaofooa.sql" />
+        <srcfiles dir = "arc" includes = "create_typedefinition_editorinput_factory_java.inc"/>
         <srcfiles dir = "arc" includes = "create_description_editorinput_factory_java.inc"/>
         <srcfiles dir = "arc" includes = "create_activity_editorinput_factory_java.inc"/>
         <srcfiles dir = "arc" includes = "create_util.inc"/>
@@ -133,9 +135,9 @@
 
   <target name="editorinputfactories_java"
           depends="create_gen,editorinputfactories_java.depends"
-          description="Generate the Activity and Description EditorInput java files"
+          description="Generate the Activity, Description, and TypeDefinition EditorInput java files"
           unless="editorinputfactories_java.buildNotNeeded" >
-    <echo >Activity and Description EditorInputFactory java files ...</echo>
+    <echo >Activity, Description, and TypeDefinition EditorInputFactory java files ...</echo>
   <exec vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
         <env key="PTC_MC_ARC_DIR" value="${mcj_path}"/>
         <env key="CHAIN_UTIL_DIR" value="${chain_util_path}"/>
@@ -189,7 +191,7 @@
     </taskdef>
      <PTCodeFormat>
         <fileset dir="${src_path}" excludes=""
-          includes="${modeladapter_java.output},${activity_editorinput_factory_java.output},${description_editorinput_factory_java.output},editor/oal/${literalrule_java.output}" />
+          includes="${modeladapter_java.output},${activity_editorinput_factory_java.output},${description_editorinput_factory_java.output},${typedefinition_editorinput_factory_java.output},editor/oal/${literalrule_java.output}" />
      </PTCodeFormat>
   </target>
 
@@ -216,10 +218,11 @@
   </target>
 
   <target name="clean_editorinput"
-    description="Remove the generated files: ${activity_editorinput_factory_java.output} and ${description_editorinput_factory_java.output}">
-    <echo>Removing generated files: ${activity_editorinput_factory_java.output} and ${description_editorinput_factory_java.output} ...</echo>
+    description="Remove the generated files: ${activity_editorinput_factory_java.output}, ${description_editorinput_factory_java.output}, and ${typedefinition_editorinput_factory_java.output}">
+    <echo>Removing generated files: ${activity_editorinput_factory_java.output}, ${description_editorinput_factory_java.output}, and ${typedefinition_editorinput_factory_java.output} ...</echo>
      <delete file="${src_path}/${activity_editorinput_factory_java.output}"/>
      <delete file="${src_path}/${description_editorinput_factory_java.output}"/>
+     <delete file="${src_path}/${typedefinition_editorinput_factory_java.output}"/>
   </target>
 
   <target name="clean_literalRule"

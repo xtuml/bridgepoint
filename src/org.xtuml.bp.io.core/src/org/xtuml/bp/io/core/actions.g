@@ -20,6 +20,8 @@ options {
     private TokenStreamSelector selector;
     private CoreImport m_ci;
 
+    private int startLine = 0;
+
     public ActionParser(TokenStreamSelector s, CoreImport ci, int dialect) {
         this((TokenStream)s);
         selector = s;
@@ -50,15 +52,16 @@ options {
     }
 
     private void sendSmasl() {
-        m_ci.processAction( smasl, m_dialect );
+        m_ci.processAction( smasl, m_dialect, startLine );
         smasl = "";
     }
 
     public void reportError(RecognitionException arg0) {
-	    m_output += arg0.toString() + "\n";
-            System.out.println(m_output);
+        m_errors = true;
+	m_output += "ActionParser: " + (( m_ci != null && m_ci.m_actionFile != null) ? m_ci.m_actionFile.getName() + " " : "") + arg0.toString() + "\n";
     }
     public String m_output = "";
+    public boolean m_errors = false;
 }
 
 activityDefinitions:
@@ -82,7 +85,7 @@ serviceDefinition:
             }
             val=serviceVisibility { values[2]=val; }
             ("instance" {values[4]="instance";} )?
-            "service"
+            kw:"service" { startLine = kw.getLine(); }
             (val=domainName {values[0]=val; } )? "::" 
             ( val=terminatorName "~>" { values[1]=val; }
             | val=objectName "." { values[1]=val; element="operation"; } )?
@@ -92,8 +95,12 @@ serviceDefinition:
             ( "return" val=returnType { values[0]=val; populate( "typeref", values ); })? "is"
             {
                 selector.push("bodylexer");
-                BodyParser bodyparser = new BodyParser(getInputState(), selector);
+                BodyParser bodyparser = new BodyParser(selector, m_ci);
                 values[0] = bodyparser.serviceCodeBlock();
+                if ( bodyparser.m_errors ) {
+                    m_errors = true;
+                    m_output += bodyparser.m_output;
+                }
                 populate( "codeblock", values );
                 selector.pop();
                 populate( element, values );
@@ -107,7 +114,8 @@ stateDefinition:
                 clearValues(values);
                 String val = "";
             }
-            val=stateType {values[3]=val;} "state"
+            val=stateType {values[3]=val;}
+            kw:"state" { startLine = kw.getLine(); }
             (val=domainName {values[0]=val;} )? "::"
             val=objectName "." {values[1]=val;}
             val=stateName {values[2]=val;}
@@ -115,8 +123,12 @@ stateDefinition:
             parameterList "is"
             {
                 selector.push("bodylexer");
-                BodyParser bodyparser = new BodyParser(getInputState(), selector);
+                BodyParser bodyparser = new BodyParser(selector, m_ci);
                 values[0] = bodyparser.stateCodeBlock();
+                if ( bodyparser.m_errors ) {
+                    m_errors = true;
+                    m_output += bodyparser.m_output;
+                }
                 populate( "codeblock", values );
                 selector.pop();
                 populate( "state", values );
@@ -130,7 +142,7 @@ attributeDefinition:
                 clearValues(values);
                 String val = "";
             }
-            "attribute"
+            kw:"attribute" { startLine = kw.getLine(); }
             (val=domainName {values[3]=val;})? "::"
             val=objectName "." {values[4]=val;}
             val=attributeName {values[0]=val;}
@@ -139,8 +151,12 @@ attributeDefinition:
             { values[0]=val; populate( "typeref", values ); }
             {
                 selector.push("bodylexer");
-                BodyParser bodyparser = new BodyParser(getInputState(), selector);
+                BodyParser bodyparser = new BodyParser(selector, m_ci);
                 values[0] = bodyparser.attributeCodeBlock();
+                if ( bodyparser.m_errors ) {
+                    m_errors = true;
+                    m_output += bodyparser.m_output;
+                }
                 populate( "codeblock", values );
                 selector.pop();
                 populate( "attribute", values );
@@ -154,15 +170,19 @@ transitionDefinition:
                 clearValues(values);
                 String val = "";
             }
-            "transition"
+            kw:"transition" { startLine = kw.getLine(); }
             (val=domainName {values[1]=val;})? "::" val=objectName {values[2]=val;}
             "in" val=stateName {values[0]=val;} "receives" val=eventName {values[3]=val;}
             { populate( "transition", values ); }
             parameterList "is"
             {
                 selector.push("bodylexer");
-                BodyParser bodyparser = new BodyParser(getInputState(), selector);
+                BodyParser bodyparser = new BodyParser(selector, m_ci);
                 values[0] = bodyparser.transitionCodeBlock();
+                if ( bodyparser.m_errors ) {
+                    m_errors = true;
+                    m_output += bodyparser.m_output;
+                }
                 populate( "codeblock", values );
                 selector.pop();
                 populate( "transition", values );
@@ -266,7 +286,7 @@ typeReference returns [String s = ""]:
 
 qualifiedObjectName returns [String s = ""]:
             { String val = ""; }
-            (s=domainName "::")? val=objectName { s += val; }
+            (s=domainName "::" { s += "::"; })? val=objectName { s += val; }
             ;
 
 instanceTypeRef returns [String s = ""]:
@@ -276,7 +296,7 @@ instanceTypeRef returns [String s = ""]:
 
 namedTypeRef returns [String s = ""]:
             { String val = ""; }
-            (s=domainName "::")? val=typeName { s += val; }
+            (s=domainName "::" { s += "::"; })? val=typeName { s += val; }
             ;
 
 typeName returns [String s = ""]:
@@ -315,11 +335,20 @@ options {
     k=2;
 }
 {
-    public void reportError(RecognitionException arg0) {
-	    m_output += arg0.toString() + "\n";
-            System.out.println(m_output);
+    public SignatureLexer( Reader in, CoreImport ci ) {
+        this(in);
+        m_ci = ci;
     }
+
+    public void reportError(RecognitionException arg0) {
+        m_errors = true;
+	m_output += "SignatureLexer: " + (( m_ci != null && m_ci.m_actionFile != null) ? m_ci.m_actionFile.getName() + " " : "") + arg0.toString() + "\n";
+    }
+
     public String m_output = "";
+    public boolean m_errors = false;
+    
+    private CoreImport m_ci = null;
 }
 
 SCOPE               : "::";
@@ -334,6 +363,6 @@ COMMA               : ",";
 ID                  : ( ('A'..'Z' | 'a'..'z') | '_' ) ( ('A'..'Z' | 'a'..'z') | ('0'..'9') | '_' )*;
 
 WS                  : (' ' | '\t' | '\f' | '\n'{newline();} | '\r' )+ { $setType(Token.SKIP); };
-COMMENT             : "//" (~('\n'|'\r'))* ('\r')? '\n' { $setType(Token.SKIP); };
+COMMENT             : "//" (~('\n'|'\r'))* ('\r')? '\n' { newline(); $setType(Token.SKIP); };
 
 

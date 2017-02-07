@@ -1,11 +1,3 @@
-//=====================================================================
-//
-//File:      $RCSfile: ProjectUtilities.java,v $
-//Version:   $Revision: 1.11 $
-//Modified:  $Date: 2013/05/10 06:09:48 $
-//
-//(c) Copyright 2004-2014 by Mentor Graphics Corp. All rights reserved.
-//
 //========================================================================
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not 
 // use this file except in compliance with the License.  You may obtain a copy 
@@ -45,6 +37,8 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
+import org.eclipse.ui.IWorkbench;
+import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.WorkbenchException;
 import org.eclipse.ui.wizards.datatransfer.ExternalProjectImportWizard;
@@ -59,6 +53,7 @@ import org.xtuml.bp.core.common.ComponentResourceListener;
 import org.xtuml.bp.core.common.PersistableModelComponent;
 import org.xtuml.bp.core.common.PersistenceManager;
 import org.xtuml.bp.core.ui.Selection;
+import org.xtuml.bp.core.util.UIUtil;
 import org.xtuml.bp.io.mdl.wizards.ModelExportPage;
 import org.xtuml.bp.io.mdl.wizards.ModelExportWizard;
 import org.xtuml.bp.io.mdl.wizards.ModelImportPage;
@@ -97,7 +92,7 @@ public class ProjectUtilities {
         }
 
     	// Dispatch display events before deleting
-    	while ( Display.getCurrent().readAndDispatch() ) ;
+    	UIUtil.dispatchAll();
 
         // project doesn't exist, create a new project
         final IProjectDescription myTestProject = ResourcesPlugin
@@ -133,7 +128,7 @@ public class ProjectUtilities {
         if (projectHandle.exists()) {
         	
         	// Dispatch display events before deleting
-        	while ( Display.getCurrent().readAndDispatch() ) ;
+        	UIUtil.dispatchAll();
         	
     		WorkspaceJob job = new WorkspaceJob("Delete Project: " + projectHandle.getName()) {
     			
@@ -187,7 +182,7 @@ public class ProjectUtilities {
             CorePlugin.logError("Unable to open xtUML Modeling perspective", e);
         }
         // read and dispatch to insure focus on help
-        while(Display.getCurrent().readAndDispatch());
+        UIUtil.dispatchAll();
     }
 
     public static void allowJobCompletion() {
@@ -201,8 +196,7 @@ public class ProjectUtilities {
                        && disp.readAndDispatch())
                     ;
             } else {
-                while (!disp.isDisposed() && disp.readAndDispatch())
-                    ;
+                UIUtil.dispatchAll();
             }
         }
     }
@@ -288,8 +282,15 @@ public class ProjectUtilities {
         importWizard.init(PlatformUI.getWorkbench(), Selection.getInstance()
                 .getStructuredSelection());
 
-        WizardDialog dialog = new WizardDialog(PlatformUI.getWorkbench()
-                .getActiveWorkbenchWindow().getShell(), importWizard);
+        IWorkbench iwb = PlatformUI.getWorkbench();
+        IWorkbenchWindow iwbw = iwb.getActiveWorkbenchWindow();
+        Shell shell = null;
+        if ( iwbw != null ) { 
+        	shell = iwbw.getShell(); 
+        } else { 
+        	shell = iwb.getDisplay().getActiveShell(); 
+        }
+        WizardDialog dialog = new WizardDialog(shell, importWizard);
         dialog.create();
         ModelImportPage importPage = (ModelImportPage) importWizard
                 .getStartingPage();
@@ -433,10 +434,18 @@ public class ProjectUtilities {
 					if(allChildren[i+1] instanceof Combo) {
 						((Combo)allChildren[i+1]).setEnabled(!isArchive);
 						if (!isArchive) {
-							((Combo)allChildren[i+1]).setText(fqFilePath);					
-							((Combo)allChildren[i+1]).notifyListeners(SWT.FocusOut, new Event());
+							((Button)allChildren[i]).setSelection(!isArchive);
+							UIUtil.dispatchAll();
+							((Combo)allChildren[i+1]).setEnabled(true);
+							((Combo)allChildren[i+1]).forceFocus();
+							UIUtil.dispatchAll();
+							((Combo)allChildren[i+1]).setText(fqFilePath);							
+							((Combo)allChildren[i+1]).notifyListeners(SWT.KeyDown, createKeyEvent(SWT.NONE, SWT.CR, SWT.Selection));
+							UIUtil.dispatchAll();
 							// set focus elsewhere
-							((Combo)allChildren[i+1]).setEnabled(false);
+							((Button)allChildren[i]).setFocus();
+							((Combo)allChildren[i+1]).notifyListeners(SWT.FocusOut, new Event());
+							UIUtil.dispatchAll();
 						}
 					} else {
 						// for pre eclipse 4.4 use Text widget
@@ -452,15 +461,23 @@ public class ProjectUtilities {
 					optionsSet++;
 				} else if (btnText.equalsIgnoreCase("Select &archive file:")) {
 					// Set the text associated with this button to the 
-					// fully qualified folder name.  We then have to select 
+					// fully qualified archive file path.  We then have to select 
 					// the browse button
 					if(allChildren[i+1] instanceof Combo) {
 						((Combo)allChildren[i+1]).setEnabled(isArchive);
 						if (isArchive) {
+							((Button)allChildren[i]).setSelection(isArchive);
+							UIUtil.dispatchAll();
+							((Combo)allChildren[i+1]).setEnabled(true);
+							((Combo)allChildren[i+1]).forceFocus();
+							UIUtil.dispatchAll();
 							((Combo)allChildren[i+1]).setText(fqFilePath);					
-							((Combo)allChildren[i+1]).notifyListeners(SWT.FocusOut, new Event());
+							((Combo)allChildren[i+1]).notifyListeners(SWT.KeyDown, createKeyEvent(SWT.NONE, SWT.CR, SWT.Selection));
+							UIUtil.dispatchAll();
 							// set focus elsewhere
-							((Combo)allChildren[i+1]).setEnabled(false);
+							((Button)allChildren[i]).setFocus();
+							((Combo)allChildren[i+1]).notifyListeners(SWT.FocusOut, new Event());
+							UIUtil.dispatchAll();
 						}
 					} else {
 						// for pre eclipse 4.4 use Text widget
@@ -483,7 +500,7 @@ public class ProjectUtilities {
 					((Button)allChildren[i]).notifyListeners(SWT.Selection,  new Event());
 					optionsSet++;
 				}
-				while(PlatformUI.getWorkbench().getDisplay().readAndDispatch());
+				UIUtil.dispatchAll();
 				
 			} else {
 				Control temp = allChildren[i];
@@ -493,4 +510,12 @@ public class ProjectUtilities {
 		return optionsSet;
 	}
 
+	private static Event createKeyEvent(int modificationKey, char c, int keyCode) {
+		Event keyEvent = new Event();
+		keyEvent.stateMask = modificationKey;
+		keyEvent.character = c;
+		keyEvent.keyCode = keyCode;
+		return keyEvent;
+	}
+	
 }

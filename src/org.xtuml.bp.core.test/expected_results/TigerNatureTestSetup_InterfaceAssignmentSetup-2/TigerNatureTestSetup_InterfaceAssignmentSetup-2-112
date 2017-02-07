@@ -1,7 +1,0 @@
-drawRectangle(...)
-drawText("+Unnamed Component", ...)
-drawRectangle(...)
-drawRectangle(...)
-drawRectangle(...)
-drawPolyline(10 omitted points)
-drawText("Unnamed Interface", ...)

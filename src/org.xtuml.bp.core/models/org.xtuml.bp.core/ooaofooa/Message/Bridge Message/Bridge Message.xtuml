@@ -36,7 +36,8 @@ end if;
 delete object instance self;',
 	1,
 	'',
-	"00000000-0000-0000-0000-000000000000");
+	"00000000-0000-0000-0000-000000000000",
+	0);
 INSERT INTO O_TFR
 	VALUES ("83c6ddda-ec24-4a0f-992f-69aad59f432e",
 	"c1ddca62-3690-499f-bb55-7d727dfe14ca",
@@ -48,7 +49,8 @@ INSERT INTO O_TFR
 return brg.Name;',
 	1,
 	'',
-	"9235ed79-30aa-4cb8-966f-aed89e1d2b45");
+	"9235ed79-30aa-4cb8-966f-aed89e1d2b45",
+	0);
 INSERT INTO O_REF
 	VALUES ("c1ddca62-3690-499f-bb55-7d727dfe14ca",
 	"47a1eb94-2620-4ecd-85d3-29f76391509f",

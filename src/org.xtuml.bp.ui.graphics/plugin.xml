@@ -93,8 +93,12 @@
                							"". Otherwise, this is the name 
                							of an operation that test for the existence of 
                							any of the model elements of type targetSymbol in 
-               							the container. This is currently only used when 
-               							reconciling connectors.
+               							the container. This is currently used as a test
+               							to see if connectors are present when reconciling 
+               							to remove connectors. 
+               							Additionally, if not empty then this indicate that the
+               							operation specified in Bridge_NumElements requires 3 parameters,
+               							not 2 (in the oal it calls CL::Num_Connectors instead of CL_NumElements)               							
                							These operations are of the form: Has<symbol>id
                	Bridge_GetConnectorIDConditional: This is the same as Bridge_GetElementID, but this operation
                	                        uses an additional paramater of type boolean
@@ -2294,14 +2298,14 @@
             </dependsOn>
             <autoReconcile
                   Bridge_NumElements="Getsatisfactioncount"
-                  Bridge_ConnectorExists="marker for boolean paramater"
-                  Bridge_GetElementID=""
+                  Bridge_ConnectorExists=""
+                  Bridge_GetElementID="Getsatisfactionid"
                   targetSymbol="Provided Interface">
             </autoReconcile>
             <autoReconcile
                   Bridge_NumElements="Getsatisfactioncount"
-                  Bridge_ConnectorExists="marker for boolean paramater"
-                  Bridge_GetElementID=""
+                  Bridge_ConnectorExists=""
+                  Bridge_GetElementID="Getsatisfactionid"
                   targetSymbol="Imported Provided Interface">
             </autoReconcile>
          </symbol>
@@ -2404,14 +2408,14 @@
             </dependsOn>
             <autoReconcile
                   Bridge_NumElements="Getsatisfactioncount"
-                  Bridge_ConnectorExists="marker for boolean paramater"
-                  Bridge_GetElementID=""
+                  Bridge_ConnectorExists=""
+                  Bridge_GetElementID="Getsatisfactionid"
                   targetSymbol="Provided Interface">
             </autoReconcile>
             <autoReconcile
                   Bridge_NumElements="Getsatisfactioncount"
-                  Bridge_ConnectorExists="marker for boolean paramater"
-                  Bridge_GetElementID=""
+                  Bridge_ConnectorExists=""
+                  Bridge_GetElementID="Getsatisfactionid"
                   targetSymbol="Imported Provided Interface">
             </autoReconcile>
          </symbol>

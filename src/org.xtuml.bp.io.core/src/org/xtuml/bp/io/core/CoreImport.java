@@ -49,6 +49,8 @@ import antlr.TokenStreamSelector;
 public abstract class CoreImport implements IModelImport {
     public boolean m_success;
 
+    public boolean m_actionSuccess;
+
     public String m_errorMessage;
 
     protected boolean m_clear_database = true;
@@ -165,7 +167,7 @@ public abstract class CoreImport implements IModelImport {
 
     public abstract int postprocessStatements();
 
-    public abstract void processAction( String smasl, int dialect );
+    public abstract void processAction( String smasl, int dialect, int startLine );
 
     protected Ooaofooa getModelRoot() {
         return m_modelRoot;
@@ -350,14 +352,12 @@ public abstract class CoreImport implements IModelImport {
 
                 Reader reader = getActionInputReader();
 
-                SignatureLexer sig_lexer = new SignatureLexer(reader);
-                BodyLexer body_lexer = new BodyLexer(sig_lexer.getInputState());
-                CommentLexer comment_lexer = new CommentLexer(sig_lexer.getInputState());
+                SignatureLexer sig_lexer = new SignatureLexer(reader, this);
+                BodyLexer body_lexer = new BodyLexer(sig_lexer.getInputState(), this);
 
                 TokenStreamSelector selector = new TokenStreamSelector();
                 selector.addInputStream(sig_lexer, "main");
                 selector.addInputStream(body_lexer, "bodylexer");
-                selector.addInputStream(comment_lexer, "commentlexer");
                 selector.select("main");
 
                 pm.beginTask("Reading activity data...", IProgressMonitor.UNKNOWN );
@@ -366,9 +366,9 @@ public abstract class CoreImport implements IModelImport {
 
                 // reset the input buffer
                 actionInputBuffer = null;
-                if (!parser.m_output.isEmpty())
+                if (parser.m_errors || sig_lexer.m_errors || body_lexer.m_errors )
                 {
-                    m_errorMessage = parser.m_output;
+                    m_errorMessage = parser.m_output + sig_lexer.m_output + body_lexer.m_output;
                     pm.done();
                     return false;
                 } else {
@@ -378,11 +378,11 @@ public abstract class CoreImport implements IModelImport {
             pm.done();
             return true;
         } catch (IOException e) {
-            m_errorMessage = "IO exception: " + e; //$NON-NLS-1$
+	        m_errorMessage += "IO exception: " + ( m_actionFile != null ? m_actionFile.getName() + " " : "") + e;
         } catch (TokenStreamException e) {
-            m_errorMessage = "Stream exception: " + e; //$NON-NLS-1$
+	        m_errorMessage += "Stream exception: " + ( m_actionFile != null ? m_actionFile.getName() + " " : "") + e;
         } catch (RecognitionException e) {
-            m_errorMessage = "Recog exception: " + e; //$NON-NLS-1$
+	        m_errorMessage += "Recog exception: " + ( m_actionFile != null ? m_actionFile.getName() + " " : "") + e;
         }
         return false;
     }
@@ -575,6 +575,10 @@ public abstract class CoreImport implements IModelImport {
 	public boolean getSuccessful() {
 		return m_success;
 	}
+
+        public boolean getActionSuccessful() {
+            return m_actionSuccess;
+        }
 	
 	public void upgradeStreamData(Ooaofooa root) {};
 }

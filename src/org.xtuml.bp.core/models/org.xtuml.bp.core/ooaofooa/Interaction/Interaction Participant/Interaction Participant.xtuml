@@ -108,7 +108,8 @@ end if;
 delete object instance self;',
 	1,
 	'',
-	"a4181c45-0662-44d6-817e-d929332b46ff");
+	"a4181c45-0662-44d6-817e-d929332b46ff",
+	0);
 INSERT INTO O_TFR
 	VALUES ("fee4dcf9-1a7a-4271-b559-b6eba5952506",
 	"0b1fad94-33b5-4bb3-8fb7-d1cc2d9b7b94",
@@ -155,7 +156,8 @@ return Util::removeDuplicateStrings(completeString:result,
                                                        separator:GD::newline());',
 	1,
 	'',
-	"69fe2f79-c5f5-4a7c-94ae-1e6f9090eb77");
+	"69fe2f79-c5f5-4a7c-94ae-1e6f9090eb77",
+	0);
 INSERT INTO O_TFR
 	VALUES ("69fe2f79-c5f5-4a7c-94ae-1e6f9090eb77",
 	"0b1fad94-33b5-4bb3-8fb7-d1cc2d9b7b94",
@@ -175,7 +177,8 @@ return "";
 ',
 	1,
 	'',
-	"d30cb7ad-7d8a-4840-bd63-a5cd27e5c0cc");
+	"d30cb7ad-7d8a-4840-bd63-a5cd27e5c0cc",
+	0);
 INSERT INTO O_TFR
 	VALUES ("a4181c45-0662-44d6-817e-d929332b46ff",
 	"0b1fad94-33b5-4bb3-8fb7-d1cc2d9b7b94",
@@ -186,7 +189,8 @@ INSERT INTO O_TFR
 	'return false;',
 	1,
 	'',
-	"00000000-0000-0000-0000-000000000000");
+	"00000000-0000-0000-0000-000000000000",
+	0);
 INSERT INTO O_TFR
 	VALUES ("0cd49a19-a6dc-43e3-9cf3-1c3234037f04",
 	"0b1fad94-33b5-4bb3-8fb7-d1cc2d9b7b94",
@@ -210,7 +214,8 @@ USER::logError(msg:"Interaction Participant.getSystemId: No parent found.",path:
 return GD::NULL_UNIQUE_ID();',
 	1,
 	'',
-	"fee4dcf9-1a7a-4271-b559-b6eba5952506");
+	"fee4dcf9-1a7a-4271-b559-b6eba5952506",
+	0);
 INSERT INTO O_REF
 	VALUES ("0b1fad94-33b5-4bb3-8fb7-d1cc2d9b7b94",
 	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",

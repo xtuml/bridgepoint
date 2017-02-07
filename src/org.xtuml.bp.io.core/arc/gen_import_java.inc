@@ -277,6 +277,9 @@
           parms.elementAt(${attr_col_num}) != null ? removeTics((String)parms.elementAt(${attr_col_num})) : ""\
           .assign special_case = true
         .end if
+      .elif((table.Key_lett == "S_UDT") and (col.Name == "Definition"))
+          (parms.size() > ${attr_col_num} && parms.elementAt(${attr_col_num}) != null) ? removeTics((String) parms.elementAt(${attr_col_num})).trim() : ""\
+          .assign special_case = true
 	  .end if
 	  .// Dialect attribute introduced
 	  .assign dialectAdded = false;
@@ -720,11 +723,9 @@ public class ${class_name} extends CoreImport
         .end if
     }
 
-    public void processAction( String smasl, int dialect ) {
+    public void processAction( String smasl, int dialect, int startLine ) {
 	.if (class_name == "ImportModelComponent")
-        IPreferenceStore store = CorePlugin.getDefault().getPreferenceStore();
-        String persistActivities = store.getString(BridgePointPreferencesStore.ACTIVITY_PERSISTENCE);
-        if ( persistActivities.equals(BridgePointPreferencesStore.PERSIST_ACTIVITY_FILES) && dialect == Actiondialect_c.masl ) {
+        if ( dialect == Actiondialect_c.masl ) {
             NonRootModelElement pmc_root_element = getRootModelElement();
             ModelRoot modelRoot = pmc_root_element.getModelRoot();
 
@@ -806,33 +807,41 @@ public class ${class_name} extends CoreImport
             // compile the signature
             signature = ret_type + " " + name + parameter_list;
 
+            // fix the body
+            body = body.trim();
+            if ( dialect == Actiondialect_c.masl ) {
+                // if the dialect is MASL, the 'end' keyword belongs
+                // as part of the code body itself and must be added
+                body += "\nend";
+            }
+
             // call import function
             if ( pmc_root_element instanceof SystemModel_c ) {
                 SystemModel_c inst = (SystemModel_c)pmc_root_element;
-                Ooaofooa.S_syssetactions( modelRoot, activity_type, body, dialect, inst.getSys_id(), signature );
+                Ooaofooa.S_syssetactions( modelRoot, (Object)m_component, activity_type, body, dialect, inst.getSys_id(), signature, startLine );
             }
             else if ( pmc_root_element instanceof Package_c ) {
                 Package_c inst = (Package_c)pmc_root_element;
-                Ooaofooa.Ep_pkgsetactions( modelRoot, activity_type, body, dialect, inst.getPackage_id(), signature );
+                Ooaofooa.Ep_pkgsetactions( modelRoot, (Object)m_component, activity_type, body, dialect, inst.getPackage_id(), signature, startLine );
             }
             else if ( pmc_root_element instanceof ModelClass_c ) {
                 ModelClass_c inst = (ModelClass_c)pmc_root_element;
-                Ooaofooa.O_objsetactions( modelRoot, activity_type, body, dialect, inst.getObj_id(), signature );
+                Ooaofooa.O_objsetactions( modelRoot, (Object)m_component, activity_type, body, dialect, inst.getObj_id(), signature, startLine );
             }
             else if ( pmc_root_element instanceof Component_c ) {
                 Component_c inst = (Component_c)pmc_root_element;
-                Ooaofooa.C_csetactions( modelRoot, activity_type, body, inst.getId(), dialect, port_name, signature );
+                Ooaofooa.C_csetactions( modelRoot, (Object)m_component, activity_type, body, inst.getId(), dialect, port_name, signature, startLine );
             }
             else if ( pmc_root_element instanceof InstanceStateMachine_c ) {
                 InstanceStateMachine_c inst = (InstanceStateMachine_c)pmc_root_element;
-                Ooaofooa.Sm_ismsetactions( modelRoot, activity_type, body, dialect, signature, inst.getSm_id() );
+                Ooaofooa.Sm_ismsetactions( modelRoot, (Object)m_component, activity_type, body, dialect, signature, inst.getSm_id(), startLine );
             }
             else if ( pmc_root_element instanceof ClassStateMachine_c ) {
                 ClassStateMachine_c inst = (ClassStateMachine_c)pmc_root_element;
-                Ooaofooa.Sm_asmsetactions( modelRoot, activity_type, body, dialect, signature, inst.getSm_id() );
+                Ooaofooa.Sm_asmsetactions( modelRoot, (Object)m_component, activity_type, body, dialect, signature, inst.getSm_id(), startLine );
             }
             else {
-                System.out.println( "Root element type not supported" );
+                // Root element type not supported
             }
         }
         .else
@@ -929,7 +938,23 @@ public class ${class_name} extends CoreImport
           }
 
             .if (class_name == "ImportModelComponent")
-            doLoadActions(pm);
+            IPreferenceStore store = CorePlugin.getDefault().getPreferenceStore();
+            String persistActivities = store.getString(BridgePointPreferencesStore.ACTIVITY_PERSISTENCE);
+            if ( persistActivities.equals(BridgePointPreferencesStore.PERSIST_ACTIVITY_FILES) ) {
+              // reset action import failures
+              m_component.setActivityImportFailures(false);
+              m_component.resetActivityImportFailureMessage();
+              m_component.resetActivityCounts();
+              m_actionSuccess = doLoadActions(pm);
+              if ( !m_actionSuccess ) {
+                  // report parser errors as action import failures
+                  m_component.setActivityImportFailures(true);
+                  m_component.appendActivityImportFailureMessage( m_errorMessage + "\n" );
+              }
+              // assert that the number of MASL activities imported is the same
+              // as the number of activites in the structural model data
+              m_component.assertActivityCountMatch( Actiondialect_c.masl );
+            }
             .end if;
             pm.done();
             if (m_parseAll) {

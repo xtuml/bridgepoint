@@ -39,7 +39,8 @@ end if;
 delete object instance self;',
 	1,
 	'',
-	"00000000-0000-0000-0000-000000000000");
+	"00000000-0000-0000-0000-000000000000",
+	0);
 INSERT INTO O_TFR
 	VALUES ("79fc5397-9b9a-42ba-ab7d-2a410108c688",
 	"058d461b-89d2-486a-b6c3-0d7335a5c146",
@@ -58,7 +59,8 @@ else
 end if;',
 	1,
 	'',
-	"95436e09-fb9c-42fd-a182-4f82be28c2b0");
+	"95436e09-fb9c-42fd-a182-4f82be28c2b0",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("1f68516c-a8aa-4b5f-85b1-db1d9f0d4a3f",
 	"79fc5397-9b9a-42ba-ab7d-2a410108c688",
@@ -84,7 +86,8 @@ else
 end if;',
 	1,
 	'',
-	"79fc5397-9b9a-42ba-ab7d-2a410108c688");
+	"79fc5397-9b9a-42ba-ab7d-2a410108c688",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("32bd92a0-8506-414e-aeb0-b830b798c609",
 	"cc31fe16-bc35-4329-b4cd-699f72aa6c9f",
@@ -122,7 +125,8 @@ end if;
 rtVal.setValue(value:param.value);',
 	1,
 	'',
-	"cc31fe16-bc35-4329-b4cd-699f72aa6c9f");
+	"cc31fe16-bc35-4329-b4cd-699f72aa6c9f",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("925c6567-a628-4273-a0f5-434962944f13",
 	"9687145a-1962-4083-a9f3-12d1533b4536",
@@ -166,7 +170,8 @@ if not_empty inst
 end if;',
 	1,
 	'',
-	"9687145a-1962-4083-a9f3-12d1533b4536");
+	"9687145a-1962-4083-a9f3-12d1533b4536",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("3e7918b7-e309-44af-bda8-2ea52a3d84d4",
 	"bb542c89-d44f-4b92-9ba0-7964b3dc2610",
@@ -197,7 +202,8 @@ for each inst_in_ref in selection_inst_in_refs
 end for;',
 	1,
 	'',
-	"bb542c89-d44f-4b92-9ba0-7964b3dc2610");
+	"bb542c89-d44f-4b92-9ba0-7964b3dc2610",
+	0);
 INSERT INTO O_TFR
 	VALUES ("7b1bb883-fa06-4834-9c7b-475441a8fad5",
 	"058d461b-89d2-486a-b6c3-0d7335a5c146",
@@ -223,7 +229,8 @@ end if;
 ',
 	1,
 	'',
-	"6e98295d-9bae-4c05-8f83-6b6e72e104b2");
+	"6e98295d-9bae-4c05-8f83-6b6e72e104b2",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("c53a72e5-db8c-4c80-b3bc-78bddc035202",
 	"7b1bb883-fa06-4834-9c7b-475441a8fad5",
