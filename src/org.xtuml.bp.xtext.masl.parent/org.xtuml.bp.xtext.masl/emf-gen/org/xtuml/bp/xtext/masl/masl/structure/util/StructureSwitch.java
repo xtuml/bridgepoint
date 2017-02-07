@@ -133,9 +133,9 @@ public class StructureSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case StructurePackage.ABSTRACT_FUNCTION: {
-				AbstractFunction abstractFunction = (AbstractFunction)theEObject;
-				T result = caseAbstractFunction(abstractFunction);
+			case StructurePackage.ABSTRACT_SERVICE: {
+				AbstractService abstractService = (AbstractService)theEObject;
+				T result = caseAbstractService(abstractService);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -188,6 +188,7 @@ public class StructureSwitch<T> extends Switch<T> {
 				T result = caseDomainServiceDeclaration(domainServiceDeclaration);
 				if (result == null) result = caseAbstractFeature(domainServiceDeclaration);
 				if (result == null) result = caseAbstractActionDeclaration(domainServiceDeclaration);
+				if (result == null) result = caseAbstractService(domainServiceDeclaration);
 				if (result == null) result = caseParameterized(domainServiceDeclaration);
 				if (result == null) result = caseVisualized(domainServiceDeclaration);
 				if (result == null) result = caseAbstractNamed(domainServiceDeclaration);
@@ -195,41 +196,16 @@ public class StructureSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case StructurePackage.DOMAIN_FUNCTION_DECLARATION: {
-				DomainFunctionDeclaration domainFunctionDeclaration = (DomainFunctionDeclaration)theEObject;
-				T result = caseDomainFunctionDeclaration(domainFunctionDeclaration);
-				if (result == null) result = caseAbstractFeature(domainFunctionDeclaration);
-				if (result == null) result = caseAbstractActionDeclaration(domainFunctionDeclaration);
-				if (result == null) result = caseAbstractFunction(domainFunctionDeclaration);
-				if (result == null) result = caseParameterized(domainFunctionDeclaration);
-				if (result == null) result = caseVisualized(domainFunctionDeclaration);
-				if (result == null) result = caseAbstractNamed(domainFunctionDeclaration);
-				if (result == null) result = casePragmatized(domainFunctionDeclaration);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
 			case StructurePackage.DOMAIN_SERVICE_DEFINITION: {
 				DomainServiceDefinition domainServiceDefinition = (DomainServiceDefinition)theEObject;
 				T result = caseDomainServiceDefinition(domainServiceDefinition);
 				if (result == null) result = caseAbstractActionDefinition(domainServiceDefinition);
+				if (result == null) result = caseAbstractService(domainServiceDefinition);
 				if (result == null) result = caseAbstractTopLevelElement(domainServiceDefinition);
 				if (result == null) result = caseParameterized(domainServiceDefinition);
 				if (result == null) result = caseVisualized(domainServiceDefinition);
 				if (result == null) result = caseAbstractNamed(domainServiceDefinition);
 				if (result == null) result = casePragmatized(domainServiceDefinition);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
-			case StructurePackage.DOMAIN_FUNCTION_DEFINITION: {
-				DomainFunctionDefinition domainFunctionDefinition = (DomainFunctionDefinition)theEObject;
-				T result = caseDomainFunctionDefinition(domainFunctionDefinition);
-				if (result == null) result = caseAbstractActionDefinition(domainFunctionDefinition);
-				if (result == null) result = caseAbstractFunction(domainFunctionDefinition);
-				if (result == null) result = caseAbstractTopLevelElement(domainFunctionDefinition);
-				if (result == null) result = caseParameterized(domainFunctionDefinition);
-				if (result == null) result = caseVisualized(domainFunctionDefinition);
-				if (result == null) result = caseAbstractNamed(domainFunctionDefinition);
-				if (result == null) result = casePragmatized(domainFunctionDefinition);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -256,6 +232,7 @@ public class StructureSwitch<T> extends Switch<T> {
 				T result = caseTerminatorServiceDeclaration(terminatorServiceDeclaration);
 				if (result == null) result = caseAbstractFeature(terminatorServiceDeclaration);
 				if (result == null) result = caseAbstractActionDeclaration(terminatorServiceDeclaration);
+				if (result == null) result = caseAbstractService(terminatorServiceDeclaration);
 				if (result == null) result = caseParameterized(terminatorServiceDeclaration);
 				if (result == null) result = caseVisualized(terminatorServiceDeclaration);
 				if (result == null) result = caseAbstractNamed(terminatorServiceDeclaration);
@@ -263,41 +240,16 @@ public class StructureSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case StructurePackage.TERMINATOR_FUNCTION_DECLARATION: {
-				TerminatorFunctionDeclaration terminatorFunctionDeclaration = (TerminatorFunctionDeclaration)theEObject;
-				T result = caseTerminatorFunctionDeclaration(terminatorFunctionDeclaration);
-				if (result == null) result = caseAbstractFeature(terminatorFunctionDeclaration);
-				if (result == null) result = caseAbstractActionDeclaration(terminatorFunctionDeclaration);
-				if (result == null) result = caseAbstractFunction(terminatorFunctionDeclaration);
-				if (result == null) result = caseParameterized(terminatorFunctionDeclaration);
-				if (result == null) result = caseVisualized(terminatorFunctionDeclaration);
-				if (result == null) result = caseAbstractNamed(terminatorFunctionDeclaration);
-				if (result == null) result = casePragmatized(terminatorFunctionDeclaration);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
 			case StructurePackage.TERMINATOR_SERVICE_DEFINITION: {
 				TerminatorServiceDefinition terminatorServiceDefinition = (TerminatorServiceDefinition)theEObject;
 				T result = caseTerminatorServiceDefinition(terminatorServiceDefinition);
 				if (result == null) result = caseAbstractActionDefinition(terminatorServiceDefinition);
+				if (result == null) result = caseAbstractService(terminatorServiceDefinition);
 				if (result == null) result = caseAbstractTopLevelElement(terminatorServiceDefinition);
 				if (result == null) result = caseParameterized(terminatorServiceDefinition);
 				if (result == null) result = caseVisualized(terminatorServiceDefinition);
 				if (result == null) result = caseAbstractNamed(terminatorServiceDefinition);
 				if (result == null) result = casePragmatized(terminatorServiceDefinition);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
-			case StructurePackage.TERMINATOR_FUNCTION_DEFINITION: {
-				TerminatorFunctionDefinition terminatorFunctionDefinition = (TerminatorFunctionDefinition)theEObject;
-				T result = caseTerminatorFunctionDefinition(terminatorFunctionDefinition);
-				if (result == null) result = caseAbstractActionDefinition(terminatorFunctionDefinition);
-				if (result == null) result = caseAbstractFunction(terminatorFunctionDefinition);
-				if (result == null) result = caseAbstractTopLevelElement(terminatorFunctionDefinition);
-				if (result == null) result = caseParameterized(terminatorFunctionDefinition);
-				if (result == null) result = caseVisualized(terminatorFunctionDefinition);
-				if (result == null) result = caseAbstractNamed(terminatorFunctionDefinition);
-				if (result == null) result = casePragmatized(terminatorFunctionDefinition);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -374,6 +326,7 @@ public class StructureSwitch<T> extends Switch<T> {
 				T result = caseObjectServiceDeclaration(objectServiceDeclaration);
 				if (result == null) result = caseAbstractFeature(objectServiceDeclaration);
 				if (result == null) result = caseAbstractActionDeclaration(objectServiceDeclaration);
+				if (result == null) result = caseAbstractService(objectServiceDeclaration);
 				if (result == null) result = caseParameterized(objectServiceDeclaration);
 				if (result == null) result = caseVisualized(objectServiceDeclaration);
 				if (result == null) result = caseAbstractNamed(objectServiceDeclaration);
@@ -381,41 +334,16 @@ public class StructureSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case StructurePackage.OBJECT_FUNCTION_DECLARATION: {
-				ObjectFunctionDeclaration objectFunctionDeclaration = (ObjectFunctionDeclaration)theEObject;
-				T result = caseObjectFunctionDeclaration(objectFunctionDeclaration);
-				if (result == null) result = caseAbstractFeature(objectFunctionDeclaration);
-				if (result == null) result = caseAbstractActionDeclaration(objectFunctionDeclaration);
-				if (result == null) result = caseAbstractFunction(objectFunctionDeclaration);
-				if (result == null) result = caseParameterized(objectFunctionDeclaration);
-				if (result == null) result = caseVisualized(objectFunctionDeclaration);
-				if (result == null) result = caseAbstractNamed(objectFunctionDeclaration);
-				if (result == null) result = casePragmatized(objectFunctionDeclaration);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
 			case StructurePackage.OBJECT_SERVICE_DEFINITION: {
 				ObjectServiceDefinition objectServiceDefinition = (ObjectServiceDefinition)theEObject;
 				T result = caseObjectServiceDefinition(objectServiceDefinition);
 				if (result == null) result = caseAbstractActionDefinition(objectServiceDefinition);
+				if (result == null) result = caseAbstractService(objectServiceDefinition);
 				if (result == null) result = caseAbstractTopLevelElement(objectServiceDefinition);
 				if (result == null) result = caseParameterized(objectServiceDefinition);
 				if (result == null) result = caseVisualized(objectServiceDefinition);
 				if (result == null) result = caseAbstractNamed(objectServiceDefinition);
 				if (result == null) result = casePragmatized(objectServiceDefinition);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
-			case StructurePackage.OBJECT_FUNCTION_DEFINITION: {
-				ObjectFunctionDefinition objectFunctionDefinition = (ObjectFunctionDefinition)theEObject;
-				T result = caseObjectFunctionDefinition(objectFunctionDefinition);
-				if (result == null) result = caseAbstractActionDefinition(objectFunctionDefinition);
-				if (result == null) result = caseAbstractFunction(objectFunctionDefinition);
-				if (result == null) result = caseAbstractTopLevelElement(objectFunctionDefinition);
-				if (result == null) result = caseParameterized(objectFunctionDefinition);
-				if (result == null) result = caseVisualized(objectFunctionDefinition);
-				if (result == null) result = caseAbstractNamed(objectFunctionDefinition);
-				if (result == null) result = casePragmatized(objectFunctionDefinition);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -651,17 +579,17 @@ public class StructureSwitch<T> extends Switch<T> {
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Abstract Function</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Abstract Service</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Abstract Function</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Abstract Service</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseAbstractFunction(AbstractFunction object) {
+	public T caseAbstractService(AbstractService object) {
 		return null;
 	}
 
@@ -771,21 +699,6 @@ public class StructureSwitch<T> extends Switch<T> {
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Domain Function Declaration</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Domain Function Declaration</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseDomainFunctionDeclaration(DomainFunctionDeclaration object) {
-		return null;
-	}
-
-	/**
 	 * Returns the result of interpreting the object as an instance of '<em>Domain Service Definition</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
@@ -797,21 +710,6 @@ public class StructureSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseDomainServiceDefinition(DomainServiceDefinition object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Domain Function Definition</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Domain Function Definition</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseDomainFunctionDefinition(DomainFunctionDefinition object) {
 		return null;
 	}
 
@@ -861,21 +759,6 @@ public class StructureSwitch<T> extends Switch<T> {
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Terminator Function Declaration</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Terminator Function Declaration</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseTerminatorFunctionDeclaration(TerminatorFunctionDeclaration object) {
-		return null;
-	}
-
-	/**
 	 * Returns the result of interpreting the object as an instance of '<em>Terminator Service Definition</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
@@ -887,21 +770,6 @@ public class StructureSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseTerminatorServiceDefinition(TerminatorServiceDefinition object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Terminator Function Definition</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Terminator Function Definition</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseTerminatorFunctionDefinition(TerminatorFunctionDefinition object) {
 		return null;
 	}
 
@@ -1041,21 +909,6 @@ public class StructureSwitch<T> extends Switch<T> {
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Object Function Declaration</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Object Function Declaration</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseObjectFunctionDeclaration(ObjectFunctionDeclaration object) {
-		return null;
-	}
-
-	/**
 	 * Returns the result of interpreting the object as an instance of '<em>Object Service Definition</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
@@ -1067,21 +920,6 @@ public class StructureSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseObjectServiceDefinition(ObjectServiceDefinition object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Object Function Definition</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Object Function Definition</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseObjectFunctionDefinition(ObjectFunctionDefinition object) {
 		return null;
 	}
 

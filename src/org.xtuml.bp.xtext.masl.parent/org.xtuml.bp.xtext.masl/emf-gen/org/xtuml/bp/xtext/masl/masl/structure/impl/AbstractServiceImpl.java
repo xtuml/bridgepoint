@@ -12,25 +12,25 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
-import org.xtuml.bp.xtext.masl.masl.structure.AbstractFunction;
+import org.xtuml.bp.xtext.masl.masl.structure.AbstractService;
 import org.xtuml.bp.xtext.masl.masl.structure.StructurePackage;
 
 import org.xtuml.bp.xtext.masl.masl.types.AbstractTypeReference;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Abstract Function</b></em>'.
+ * An implementation of the model object '<em><b>Abstract Service</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link org.xtuml.bp.xtext.masl.masl.structure.impl.AbstractFunctionImpl#getReturnType <em>Return Type</em>}</li>
+ *   <li>{@link org.xtuml.bp.xtext.masl.masl.structure.impl.AbstractServiceImpl#getReturnType <em>Return Type</em>}</li>
  * </ul>
  *
  * @generated
  */
-public abstract class AbstractFunctionImpl extends MinimalEObjectImpl.Container implements AbstractFunction {
+public abstract class AbstractServiceImpl extends MinimalEObjectImpl.Container implements AbstractService {
 	/**
 	 * The cached value of the '{@link #getReturnType() <em>Return Type</em>}' containment reference.
 	 * <!-- begin-user-doc -->
@@ -46,7 +46,7 @@ public abstract class AbstractFunctionImpl extends MinimalEObjectImpl.Container 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected AbstractFunctionImpl() {
+	protected AbstractServiceImpl() {
 		super();
 	}
 
@@ -57,7 +57,7 @@ public abstract class AbstractFunctionImpl extends MinimalEObjectImpl.Container 
 	 */
 	@Override
 	protected EClass eStaticClass() {
-		return StructurePackage.Literals.ABSTRACT_FUNCTION;
+		return StructurePackage.Literals.ABSTRACT_SERVICE;
 	}
 
 	/**
@@ -78,7 +78,7 @@ public abstract class AbstractFunctionImpl extends MinimalEObjectImpl.Container 
 		AbstractTypeReference oldReturnType = returnType;
 		returnType = newReturnType;
 		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, StructurePackage.ABSTRACT_FUNCTION__RETURN_TYPE, oldReturnType, newReturnType);
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, StructurePackage.ABSTRACT_SERVICE__RETURN_TYPE, oldReturnType, newReturnType);
 			if (msgs == null) msgs = notification; else msgs.add(notification);
 		}
 		return msgs;
@@ -93,14 +93,14 @@ public abstract class AbstractFunctionImpl extends MinimalEObjectImpl.Container 
 		if (newReturnType != returnType) {
 			NotificationChain msgs = null;
 			if (returnType != null)
-				msgs = ((InternalEObject)returnType).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - StructurePackage.ABSTRACT_FUNCTION__RETURN_TYPE, null, msgs);
+				msgs = ((InternalEObject)returnType).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - StructurePackage.ABSTRACT_SERVICE__RETURN_TYPE, null, msgs);
 			if (newReturnType != null)
-				msgs = ((InternalEObject)newReturnType).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - StructurePackage.ABSTRACT_FUNCTION__RETURN_TYPE, null, msgs);
+				msgs = ((InternalEObject)newReturnType).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - StructurePackage.ABSTRACT_SERVICE__RETURN_TYPE, null, msgs);
 			msgs = basicSetReturnType(newReturnType, msgs);
 			if (msgs != null) msgs.dispatch();
 		}
 		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, StructurePackage.ABSTRACT_FUNCTION__RETURN_TYPE, newReturnType, newReturnType));
+			eNotify(new ENotificationImpl(this, Notification.SET, StructurePackage.ABSTRACT_SERVICE__RETURN_TYPE, newReturnType, newReturnType));
 	}
 
 	/**
@@ -111,7 +111,7 @@ public abstract class AbstractFunctionImpl extends MinimalEObjectImpl.Container 
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case StructurePackage.ABSTRACT_FUNCTION__RETURN_TYPE:
+			case StructurePackage.ABSTRACT_SERVICE__RETURN_TYPE:
 				return basicSetReturnType(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
@@ -125,7 +125,7 @@ public abstract class AbstractFunctionImpl extends MinimalEObjectImpl.Container 
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case StructurePackage.ABSTRACT_FUNCTION__RETURN_TYPE:
+			case StructurePackage.ABSTRACT_SERVICE__RETURN_TYPE:
 				return getReturnType();
 		}
 		return super.eGet(featureID, resolve, coreType);
@@ -139,7 +139,7 @@ public abstract class AbstractFunctionImpl extends MinimalEObjectImpl.Container 
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case StructurePackage.ABSTRACT_FUNCTION__RETURN_TYPE:
+			case StructurePackage.ABSTRACT_SERVICE__RETURN_TYPE:
 				setReturnType((AbstractTypeReference)newValue);
 				return;
 		}
@@ -154,7 +154,7 @@ public abstract class AbstractFunctionImpl extends MinimalEObjectImpl.Container 
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case StructurePackage.ABSTRACT_FUNCTION__RETURN_TYPE:
+			case StructurePackage.ABSTRACT_SERVICE__RETURN_TYPE:
 				setReturnType((AbstractTypeReference)null);
 				return;
 		}
@@ -169,10 +169,10 @@ public abstract class AbstractFunctionImpl extends MinimalEObjectImpl.Container 
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case StructurePackage.ABSTRACT_FUNCTION__RETURN_TYPE:
+			case StructurePackage.ABSTRACT_SERVICE__RETURN_TYPE:
 				return returnType != null;
 		}
 		return super.eIsSet(featureID);
 	}
 
-} //AbstractFunctionImpl
+} //AbstractServiceImpl

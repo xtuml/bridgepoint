@@ -15,7 +15,6 @@ import org.eclipse.emf.common.util.EList;
  * </p>
  * <ul>
  *   <li>{@link org.xtuml.bp.xtext.masl.masl.structure.TerminatorDefinition#getServices <em>Services</em>}</li>
- *   <li>{@link org.xtuml.bp.xtext.masl.masl.structure.TerminatorDefinition#getFunctions <em>Functions</em>}</li>
  * </ul>
  *
  * @see org.xtuml.bp.xtext.masl.masl.structure.StructurePackage#getTerminatorDefinition()
@@ -38,21 +37,5 @@ public interface TerminatorDefinition extends AbstractNamed, Pragmatized, Abstra
 	 * @generated
 	 */
 	EList<TerminatorServiceDeclaration> getServices();
-
-	/**
-	 * Returns the value of the '<em><b>Functions</b></em>' containment reference list.
-	 * The list contents are of type {@link org.xtuml.bp.xtext.masl.masl.structure.TerminatorFunctionDeclaration}.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Functions</em>' containment reference list isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Functions</em>' containment reference list.
-	 * @see org.xtuml.bp.xtext.masl.masl.structure.StructurePackage#getTerminatorDefinition_Functions()
-	 * @model containment="true"
-	 * @generated
-	 */
-	EList<TerminatorFunctionDeclaration> getFunctions();
 
 } // TerminatorDefinition

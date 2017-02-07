@@ -11,10 +11,12 @@ import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.ui.IActionDelegate;
 import org.eclipse.ui.IEditorInput;
+import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IPartListener2;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PlatformUI;
 import org.xtuml.bp.ui.text.TextPlugin;
+import org.xtuml.bp.xtext.masl.ui.document.MaslElementRevelator;
 
 public class ShowMASLAction implements IActionDelegate
 {
@@ -32,8 +34,9 @@ public class ShowMASLAction implements IActionDelegate
         MASLEditorInputFactory factory = (MASLEditorInputFactory)PlatformUI.getWorkbench().getElementFactory(MASLEditorInput.FACTORY_ID);
       	IEditorInput input = factory.createInstance(current);
         IWorkbenchPage page = (IWorkbenchPage) PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
-        page.addPartListener( (IPartListener2)new MASLPartListener() );
-        page.openEditor(input, MASLEditorInput.EDITOR_ID);
+        page.addPartListener( (IPartListener2)new MASLPartListener());
+        IEditorPart editor = page.openEditor(input, MASLEditorInput.EDITOR_ID);
+        MaslElementRevelator.revealMaslElement(editor, input);
       }
       catch (CoreException e)
       {
