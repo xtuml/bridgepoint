@@ -1,5 +1,5 @@
 //
-package org.xtuml.bp.io.core;
+package org.xtuml.bp.core.common;
 
 import java.util.Scanner;
 
