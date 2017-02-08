@@ -62,7 +62,7 @@ Steps to run are as follows:
 - In the window opened examine the hot spot methods
 - Note those that take the most time
 
-The results given here are at a higher level than others.  The data is enough to determine in the code what is likely causing any performance issues.
+The results given here are at a higher level than others.  The data is enough to determine in the code that is likely causing any performance issues.
 
 jvisualvm supports snapshots, which are also comparable.  This is a good feature specially when looking for regression issues.
 
@@ -166,6 +166,12 @@ Application
   • Right before UI interaction begin profiling (example moving a shape)   
   • Once the UI interaction is complete pause profiling   
   • Go to Investigate profiling data step   
+  
+- Regression testing
+
+  • For any of the above profiling procedures after running them save a snapshot
+  • Do this for the current and previous build(s)
+  • Compare the two snapshots taking note of the differences, specifically those that show CPU time increase
   
 - Investigate profiling data
 
