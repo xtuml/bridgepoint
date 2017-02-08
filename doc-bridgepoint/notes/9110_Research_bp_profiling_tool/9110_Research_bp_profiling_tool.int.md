@@ -14,7 +14,7 @@ This note describes the results from evaluation of commonly used java profilers 
 2. Document References
 ----------------------
 <a id="2.1"></a>2.1 [BridgePoint DEI #9110](https://support.onefact.net/issues/9110) Research best tool for profiling BridgePoint and define profiling procedure  
-<a id="2.2"></a>2.2 [BridgePoint Profiler Research](https://docs.google.com/spreadsheets/d/1PILhtDHFWBIWIWv07Ik1mYs_8G_QLoGVgwZoQWTWcaQ/edit#gid=0) Initial research into profiling tools
+<a id="2.2"></a>2.2 [BridgePoint Profiler Research](https://docs.google.com/spreadsheets/d/1PILhtDHFWBIWIWv07Ik1mYs_8G_QLoGVgwZoQWTWcaQ/edit#gid=0) Initial research into profiling tools   
 <a id="2.3"></a>2.3 [BridgePoint Profiler](https://docs.google.com/document/d/1PdtBOeROEGpihp4jrgOM8JSUT57Ymsr9E8G7H2qATZ0/edit) Document describing tools further along with environment settings  
 
 3. Background
@@ -46,9 +46,9 @@ Profiler Evaluation
 
 Ran procedure on all profilers, using latest release.  Load was tested as the problem area for evaluation.
 
-9110 jvisualvm
+jvisualvm
 
-Installation: Comes with any oracle idk
+Installation: Comes with any oracle jdk
 
 Steps to run are as follows:
 
@@ -68,13 +68,13 @@ jvisualvm supports snapshots, which are also comparable.  This is a good feature
 
 Conclusion: This seems to be a tool that is enough, nothing fancy but will point a developer in the right direction.
 
-9110 IBM Health Center
+IBM Health Center
 
 Installation: Update site found here: http://public.dhe.ibm.com/ibmdl/export/pub/software/websphere/runtimes/tools/healthcenter/
 
 IBM Health Center does not allow attaching to a process.  It requires a build and debug session.  The UI is none intuitive.  Given this the conclusion is to not look further into this profiler unless the others do not provide enough.  Even in such a case this one seems like there would be too much of a learning curve.
 
-9110 JProfiler
+JProfiler
 
 Installation: Has an OS based installer, easy to use and integrate into Eclipse
 
@@ -102,7 +102,7 @@ This one also supports snapshots and comparisons.  Again good for regression iss
 
 Conclusion: The tool has a lot to configure, but is easy to use.  At a minimum filtering org.xtuml and all others as compact is enough.  The profile minimizes the amount of extra digging that is required in jvisualvm.  With the extra data provided it may be easier in some situations for locating performance issues.  Considering that with the right configuration you can achieve minimal results as jvisualvm does this tool is preferred.  Caveats are there will be a learning curve for configuration and use, but it can start with minimal settings and grow as needed.  The other caveat is the price.
 
-9110 YourKit
+YourKit
 
 Installation: Has an OS based installer, easy to use and integrate into Eclipse.  Note for Mac is does not install into the Applications folder, but can be run from wherever it is unzipped.
 
