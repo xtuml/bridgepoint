@@ -7,6 +7,8 @@ package org.xtuml.bp.ui.text.masl;
 //
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.jface.text.IDocument;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.FileEditorInput;
@@ -58,5 +60,8 @@ public class MASLEditorInput extends FileEditorInput implements IXtumlElementEdi
 
     public NonRootModelElement getModelElement() {
 		return modelElementID != null ? modelElementID.resolve() : null;
+	}
+    
+	public void doSaveDocument(IProgressMonitor monitor, Object element, IDocument document, boolean overwrite) {
 	}
 }

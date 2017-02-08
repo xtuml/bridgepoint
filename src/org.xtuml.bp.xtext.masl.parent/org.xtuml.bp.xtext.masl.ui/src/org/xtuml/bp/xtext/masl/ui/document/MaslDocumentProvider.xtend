@@ -72,7 +72,6 @@ class MaslDocumentProvider extends XtextDocumentProvider {
 	
 	override protected doSaveDocument(IProgressMonitor monitor, Object element, IDocument document, boolean overwrite) throws CoreException {
 		if(element instanceof IMaslSnippetEditorInput) {
-			val type = element.modelElement as UserDataType_c
 			val prefixLength = element.prefix.length
 			val newDefinition = document.get(prefixLength, document.length - element.suffix.length - prefixLength)
             document.set(newDefinition);
