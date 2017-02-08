@@ -7,11 +7,10 @@ import org.eclipse.ui.IEditorInput
 import org.eclipse.xtext.ui.editor.model.XtextDocument
 import org.eclipse.xtext.ui.editor.model.XtextDocumentProvider
 import org.eclipse.xtext.util.StringInputStream
-import org.xtuml.bp.core.CorePlugin
 import org.xtuml.bp.core.Ooaofooa
 import org.xtuml.bp.core.UserDataType_c
 import org.xtuml.bp.core.common.NonRootModelElement
-import org.xtuml.bp.core.util.TransactionUtil
+import org.eclipse.swt.widgets.Display
 
 class MaslDocumentProvider extends XtextDocumentProvider {
 	
@@ -55,27 +54,51 @@ class MaslDocumentProvider extends XtextDocumentProvider {
 			fullPath.segment(0) 
 	}
 	
-	def getPrefix(IMaslSnippetEditorInput editorInput) '''
-		domain «editorInput.modelElement.domain» is
-			type __dummy__;
-			type __dummy__ is 
-	'''
-	
-	def getEditable(IMaslSnippetEditorInput editorInput) {
-		(editorInput.modelElement as UserDataType_c).definition
+	def String getHeader(IMaslSnippetEditorInput editorInput) {
+		val modelElement = editorInput.modelElement
+		switch modelElement {
+			UserDataType_c: null
+			default: editorInput.prefix.trim
+		}
 	}
 	
-	def getSuffix(IMaslSnippetEditorInput editorInput) '''
-		;
-		end domain;
-	'''
+	def String getPrefix(IMaslSnippetEditorInput editorInput) {
+		val modelElement = editorInput.modelElement
+		switch modelElement {
+			UserDataType_c: '''
+				domain «editorInput.modelElement.domain» is
+					type __dummy__;
+					type __dummy__ is 
+			'''
+			default: '''
+				«Ooaofooa.Get_formatted_body(modelElement.modelRoot, modelElement, true)» 
+			'''
+		}
+	}
+	
+	def String getEditable(IMaslSnippetEditorInput editorInput) {
+		editorInput.propertyValue
+	}
+	
+	def String getSuffix(IMaslSnippetEditorInput editorInput) {
+		val modelElement = editorInput.modelElement
+		switch modelElement {
+			UserDataType_c: '''
+				;
+				end domain;
+			'''
+			default: ''
+		}
+	}
 	
 	override protected doSaveDocument(IProgressMonitor monitor, Object element, IDocument document, boolean overwrite) throws CoreException {
 		if(element instanceof IMaslSnippetEditorInput) {
-			val prefixLength = element.prefix.length
-			val newDefinition = document.get(prefixLength, document.length - element.suffix.length - prefixLength)
-            document.set(newDefinition);
-            element.doSaveDocument(monitor, element, document, overwrite);
+			// we have the workspace lock which is makes the transaction manager deadlock
+			Display.^default.asyncExec [
+				val prefixLength = element.prefix.length
+				val newDefinition = document.get(prefixLength, document.length - element.suffix.length - prefixLength)
+	            element.propertyValue = newDefinition
+			]
 		} else {
 			super.doSaveDocument(monitor, element, document, overwrite)
 		}

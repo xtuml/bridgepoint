@@ -80,7 +80,6 @@ import org.xtuml.bp.ui.properties.ModelPropertySourceProvider;
 import org.xtuml.bp.ui.text.activity.ActivityEditorInput;
 import org.xtuml.bp.ui.text.masl.MASLEditorInput;
 import org.xtuml.bp.ui.text.masl.MASLPartListener;
-import org.xtuml.bp.xtext.masl.ui.document.MaslElementRevelator;
 import org.eclipse.jface.preference.IPreferenceStore;
 
 /**
@@ -961,7 +960,6 @@ public class ${viewer_name} extends ViewPart implements IModelViewerProvider {
 			page.addPartListener((IPartListener2) new MASLPartListener());
 		    }
 		    IEditorPart editor = page.openEditor(input, editorId);
-		    MaslElementRevelator.revealMaslElement(editor);
 		    return editor;
                 }
                 return null;

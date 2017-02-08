@@ -16,7 +16,6 @@ import org.eclipse.ui.IPartListener2;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PlatformUI;
 import org.xtuml.bp.ui.text.TextPlugin;
-import org.xtuml.bp.xtext.masl.ui.document.MaslElementRevelator;
 
 public class ShowMASLAction implements IActionDelegate
 {
@@ -36,7 +35,6 @@ public class ShowMASLAction implements IActionDelegate
         IWorkbenchPage page = (IWorkbenchPage) PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
         page.addPartListener( (IPartListener2)new MASLPartListener());
         IEditorPart editor = page.openEditor(input, MASLEditorInput.EDITOR_ID);
-        MaslElementRevelator.revealMaslElement(editor, input);
       }
       catch (CoreException e)
       {
