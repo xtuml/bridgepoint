@@ -21,7 +21,7 @@ This note describes the results from evaluation of commonly used java profilers 
 -------------
 3.1 Performance issues with BridgePoint
 
-Notable performance issues have shown within the last year.  The tool needs to be profiled in order to determine the cause.  BridgePoint has never had a dedicated tool for profiling.  We need to determine which tool is best to suite the needs of BridgePoint development.
+Notable performance issues have shown within the last year.  The tool needs to be profiled in order to determine the cause.  BridgePoint has never had a dedicated tool for profiling.  We need to determine which tool is best to suit the needs of BridgePoint development.
 
 4. Requirements
 ---------------
