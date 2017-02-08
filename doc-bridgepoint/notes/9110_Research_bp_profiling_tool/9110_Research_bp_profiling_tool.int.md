@@ -135,7 +135,7 @@ After determining this suggestion this website was found.  The suggestion is in 
 https://blog.oio.de/2014/03/07/java-profilers-a-short-comparison-between-jprofiler-yourkit-and-javas-visualvm/
 
 Procedures
-——————————
+----------
 
 JVM and Memory
 
@@ -151,34 +151,34 @@ Application
 
 - Startup
 
-  • Launch profiler
-  • Launch BridgePoint making sure a workspace chooser dialog is shown
-  • Connect profiler to BridgePoint process
-  • Begin profiling
-  • Once BridgePoint is ready for user interaction pause profiling
-  • Go to Investigate profiling data step
+  • Launch profiler   
+  • Launch BridgePoint making sure a workspace chooser dialog is shown   
+  • Connect profiler to BridgePoint process   
+  • Begin profiling   
+  • Once BridgePoint is ready for user interaction pause profiling   
+  • Go to Investigate profiling data step   
 
 - After startup
 
-  • Launch profiler
-  • Launch BridgePoint
-  • Connect profiler to BridgePoint process
-  • Right before UI interaction begin profiling (example moving a shape)
-  • Once the UI interaction is complete pause profiling
-  • Go to Investigate profiling data step
-
+  • Launch profiler   
+  • Launch BridgePoint   
+  • Connect profiler to BridgePoint process   
+  • Right before UI interaction begin profiling (example moving a shape)   
+  • Once the UI interaction is complete pause profiling   
+  • Go to Investigate profiling data step   
+  
 - Investigate profiling data
 
-  • Check the CPU usage by thread
-  • Navigate to the most CPU consuming calls
-  • Compare the data with the code at that point (in BridgePoint)
-  • Look mostly for calls that do not occur many times but take a good amount of time
-  • Also consider calls that occur many times and take time, seeing if they could possibly be reduced
-  • Report findings and pass for resolution determination
+  • Check the CPU usage by thread   
+  • Navigate to the most CPU consuming calls   
+  • Compare the data with the code at that point (in BridgePoint)   
+  • Look mostly for calls that do not occur many times but take a good amount of time   
+  • Also consider calls that occur many times and take time, seeing if they could possibly be reduced   
+  • Report findings and pass for resolution determination   
 
 - Filtering
 
-  • In most cases it is helpful to filter profiling data against only classes in the org.xtuml.* packages, if a problem is not found doing this then extend the filter to include more packages.
+  • In most cases it is helpful to filter profiling data against only classes in the org.xtuml.* packages, if a problem is not found doing this then extend the filter to include more packages.   
   • Include in these steps:
     • org.eclipse.* (depending on issues filter specific packages if possible, for instance org.eclipse.ui.*)
     • java.util.*
