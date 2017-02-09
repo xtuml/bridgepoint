@@ -44,14 +44,14 @@ The tool has seen recent degradation in performance.  This has been especially n
 5.2 Structure and location
 5.2.1 Structure   
 
-* BridgePoint_ProfilerSession_v<versionNumber>/BridgePoint_<shortProfileDesc>_<issueNum>/BridgePoint_Profiling_Report_v<versionNum>.md      
-* BridgePoint_ProfilerSession_v<versionNumber>/BridgePoint_<shortProfileDesc>_<issueNum>/BridgePoint_Profiling_<shortProfileDesc>_v<versionNum>.html   
-* BridgePoint_ProfilerSession_v<versionNumber>/BridgePoint_<shortProfileDesc>_<issueNum>/BridgePoint_Profiling_<shortProfileDesc>_v<versionNum>.jps   
-* BridgePoint_ProfilerSession_v<versionNumber>/BridgePoint_<shortProfileDesc>_<issueNum>/BridgePoint_Regression_<shortProfileDesc>_v<versionNumOne>_v<versionNumTwo>.html   
+* BridgePoint_ProfilerSession_v< versionNumber >/BridgePoint_< shortProfileDesc >_< issueNum >/BridgePoint_Profiling_Report_v< versionNum >.md      
+* BridgePoint_ProfilerSession_v< versionNumber >/BridgePoint_< shortProfileDesc >_< issueNum >/BridgePoint_Profiling_< shortProfileDesc >_v< versionNum >.html   
+* BridgePoint_ProfilerSession_v< versionNumber >/BridgePoint_< shortProfileDesc >_< issueNum >/BridgePoint_Profiling_< shortProfileDesc >_v< versionNum >.jps   
+* BridgePoint_ProfilerSession_v< versionNumber >/BridgePoint_< shortProfileDesc >_< issueNum >/BridgePoint_Regression_< shortProfileDesc >_v< versionNumOne >_v< versionNumTwo >.html   
 
 5.2.2 Location   
 
-All files will be stored with the above structure under this location, except for the BridgePoint_Profiling_Report_v<versionNum>.md file:
+All files will be stored with the above structure under this location, except for the BridgePoint_Profiling_Report_v< versionNum >.md file:
 
 [Profile Data Location](https://drive.google.com/drive/u/1/folders/0B834tggB4vylSzZEYkw3TGM3OVU)   
 
