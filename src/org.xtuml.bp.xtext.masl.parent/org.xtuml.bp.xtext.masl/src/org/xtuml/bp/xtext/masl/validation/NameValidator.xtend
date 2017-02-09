@@ -53,14 +53,15 @@ class NameValidator extends AbstractMASLValidator {
 	
 	@Check
 	def modelNamesAreUnique(MaslModel it) {
-		val allDomainsInFile = elements.filter(DomainDefinition) 
-			+ elements.filter(ProjectDefinition).map[domains].flatten
-		if(fileExtensionProvider.isValid(eResource.URI.fileExtension))
+		if(fileExtensionProvider.isValid(eResource.URI.fileExtension)) {
+			val allDomainsInFile = elements.filter(DomainDefinition) 
+				+ elements.filter(ProjectDefinition).map[domains].flatten
 			checkNamesAreGloballyUnique(allDomainsInFile, domainDefinition)
-		checkNamesAreGloballyUnique(elements.filter(ProjectDefinition), projectDefinition)
-		checkNamesAreGloballyUnique(elements.filter(ObjectServiceDefinition), objectServiceDefinition)
-		checkNamesAreGloballyUnique(elements.filter(StateDefinition), stateDefinition)
-		checkNamesAreGloballyUnique(elements.filter(DomainServiceDefinition), domainServiceDefinition)
+			checkNamesAreGloballyUnique(elements.filter(ProjectDefinition), projectDefinition)
+			checkNamesAreGloballyUnique(elements.filter(ObjectServiceDefinition), objectServiceDefinition)
+			checkNamesAreGloballyUnique(elements.filter(StateDefinition), stateDefinition)
+			checkNamesAreGloballyUnique(elements.filter(DomainServiceDefinition), domainServiceDefinition)			
+		}
 	}
 	
 	@Check
