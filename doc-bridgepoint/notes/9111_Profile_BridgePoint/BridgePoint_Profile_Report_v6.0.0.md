@@ -53,8 +53,8 @@ Procedure:
   
 Profiling Results   
 -------------
-2. [Initial Load Profiling Results](https://github.com/xtuml/bridgepoint/doc-bridgepoint/notes/9111_Profile_BridgePoint/BridgePoint_Profiling_initial_load_v6.0.0.html)      
-2.1 [Initial Load Profiling Snapshot](https://github.com/xtuml/bridgepoint/doc-bridgepoint/notes/9111_Profile_BridgePoint/BridgePoint_Profiling_initial_load_v6.0.0.jps).  
+2. [Initial Load Profiling Results](https://drive.google.com/open?id=0Bw01o4iXr5FuMmdPQUpFdW5fMG8)      
+2.1 [Initial Load Profiling Snapshot](https://drive.google.com/open?id=0Bw01o4iXr5FuajZ4MFdraUNFS0U).  
 
 Regression Results   
 ---------
@@ -70,6 +70,6 @@ Regression Results
 3.7 Expand the tree as done in the profiling section above   
 3.8 Export the session data in html format as done in section 1   
 
-[Initial Load Regression Results](https://github.com/xtuml/bridgepoint/doc-bridgepoint/notes/9111_Profile_BridgePoint/BridgePoint_Regression_initial_load_v5.2.2_v6.0.0.html)   
+[Initial Load Regression Results](https://drive.google.com/open?id=0Bw01o4iXr5FuT1BVc09LUXhmU2c)   
 
 
