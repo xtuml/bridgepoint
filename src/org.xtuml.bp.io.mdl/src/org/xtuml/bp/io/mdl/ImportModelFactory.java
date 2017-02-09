@@ -79,6 +79,28 @@ public class ImportModelFactory extends AbstractModelImportFactory {
 			boolean parseAll,
 			boolean clearDatabase,
 			boolean parseGraphics,
+			boolean isTemplate,
+            boolean actionsOnly ) throws IOException {
+			return new ImportModelComponent(
+				file,
+				aModelRoot,
+				component,
+				parseAll,
+				clearDatabase,
+				parseGraphics,
+				isTemplate,
+				actionsOnly);
+			
+			
+	}
+
+    public IModelImport create(
+			IFile file,
+			Ooaofooa aModelRoot,
+			PersistableModelComponent component,
+			boolean parseAll,
+			boolean clearDatabase,
+			boolean parseGraphics,
 			boolean isTemplate ) throws IOException {
 			return new ImportModelComponent(
 				file,
@@ -87,7 +109,8 @@ public class ImportModelFactory extends AbstractModelImportFactory {
 				parseAll,
 				clearDatabase,
 				parseGraphics,
-				isTemplate);
+				isTemplate,
+				false);
 			
 			
 	}

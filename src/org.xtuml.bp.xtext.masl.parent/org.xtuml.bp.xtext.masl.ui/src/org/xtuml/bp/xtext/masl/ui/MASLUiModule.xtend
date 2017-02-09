@@ -10,6 +10,8 @@ import org.eclipse.xtext.ide.editor.syntaxcoloring.DefaultSemanticHighlightingCa
 import org.eclipse.xtext.resource.containers.IAllContainersState
 import org.eclipse.xtext.ui.editor.hyperlinking.IHyperlinkHelper
 import org.eclipse.xtext.ui.editor.model.XtextDocumentProvider
+import org.eclipse.xtext.ui.refactoring.impl.DefaultDependentElementsCalculator
+import org.eclipse.xtext.ui.refactoring.impl.DefaultRenameStrategyProvider
 import org.eclipse.xtext.ui.validation.AbstractValidatorConfigurationBlock
 import org.xtuml.bp.xtext.masl.ide.highlighting.MaslSemanticHighligtingCalculator
 import org.xtuml.bp.xtext.masl.lib.MASLDelegatingAllContainerState
@@ -18,9 +20,13 @@ import org.xtuml.bp.xtext.masl.ui.document.MaslDocumentProvider
 import org.xtuml.bp.xtext.masl.ui.document.MaslResourceForIEditorInputFactory
 import org.xtuml.bp.xtext.masl.ui.edit.MaslAutoEditStrategyProvider
 import org.xtuml.bp.xtext.masl.ui.hyperlink.MASLHyperlinkHelper
+import org.xtuml.bp.xtext.masl.ui.rename.MaslDependentElementsCalculator
+import org.xtuml.bp.xtext.masl.ui.rename.MaslRenameStrategyProvider
 import org.xtuml.bp.xtext.masl.ui.validation.MaslValidationConfigurationBlock
 
 import static org.eclipse.xtext.ui.editor.contentassist.XtextContentAssistProcessor.*
+import org.eclipse.xtext.ui.refactoring.impl.RefactoringCrossReferenceSerializer
+import org.xtuml.bp.xtext.masl.ui.rename.MaslRefactoringCrossReferenceSerializer
 
 /**
  * Use this class to register components to be used within the Eclipse IDE.
@@ -68,5 +74,17 @@ class MASLUiModule extends AbstractMASLUiModule {
 	
 	override bindIResourceForEditorInputFactory() {
 		MaslResourceForIEditorInputFactory
+    }
+
+	def Class<? extends DefaultRenameStrategyProvider> bindDefaultRenameStrategyProvider() {
+		MaslRenameStrategyProvider
+	}
+	
+	def Class<? extends DefaultDependentElementsCalculator> bindDefaultDependentElementsCalculator() {
+		MaslDependentElementsCalculator
+	}
+	
+	def Class<? extends RefactoringCrossReferenceSerializer> bindRefactoringCrossReferenceSerializer() {
+		MaslRefactoringCrossReferenceSerializer
 	}
 }
