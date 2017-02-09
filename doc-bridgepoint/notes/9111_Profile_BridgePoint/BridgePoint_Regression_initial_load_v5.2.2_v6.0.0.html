@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8"></meta>
+<title>Hot spot comparison</title>
+<style>body, td, th, p, ul, ol, div {font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 10pt;}</style></head>
+<body>
+<h2>Hot spot comparison</h2>
+<table border="0">
+<tr><td valign="top"><b>Snapshots:</b></td> <td>1. BridgePoint_Profiling_initial_load_v5.2.2.jps [2017-02-09 09:43:21]<br />2. BridgePoint_Profiling_initial_load_v6.0.0.jps [2017-02-09 11:23:33]<br /></td></tr>
+<tr><td><b>Time of export:</b></td> <td>Thursday, February 9, 2017 11:34:13 AM MST</td></tr>
+<tr><td>&nbsp;</td><td>&nbsp;</td></tr>
+<td><b>Thread selection:&nbsp;</b></td> <td><img style="vertical-align: middle" "height="16" width="16" border="0" hspace="0" vspace="0" src="
+jprofiler_images/selector_group_16.png" />&nbsp;All threads</td></tr>
+<td><b>Thread status:&nbsp;</b></td> <td><img style="vertical-align: middle" "height="6" width="14" border="0" hspace="0" vspace="0" src="
+jprofiler_images/ff00c400_bff000000.png" />&nbsp;Runnable </td></tr>
+<td><b>Aggregation:&nbsp;</b></td> <td>Methods </td></tr>
+<td><b>Difference calculation:&nbsp;</b></td> <td>Total call times</td></tr>
+<td><b>Filtered classes:&nbsp;</b></td> <td>Show separately </td></tr>
+</table>
+
+<hr size="1"/><br />
+<style>th {border-color: #BBBBBB;}
+td {border-color: #BBBBBB;whitespace:nowrap;}</style><table class="monitor" border="1" cellpadding="3" style="border-collapse:collapse;border-color:#BBBBBB;">
+<tr><th>Hot spot</th><th>Self time</th><th>Invocations</th></tr>
+<tr><td>java.<wbr />lang.<wbr />String.<wbr />equalsIgnoreCase</td><td><img height="16" width="6" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ffffffff.png" />&nbsp;<img height="16" width="143" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ff800000.png" />&nbsp;+187 s (+599 %)</td><td align="right"><img height="16" width="0" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ffffffff.png" />&nbsp;<img height="16" width="0" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ff800000.png" />&nbsp;+8,259,938</td></tr>
+<tr><td>org.<wbr />xtuml.<wbr />bp.<wbr />core.<wbr />common.<wbr />PersistenceManager.<wbr />findAllComponents</td><td><img height="16" width="6" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ffffffff.png" />&nbsp;<img height="16" width="86" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ff800000.png" />&nbsp;+113 s (+24398 %)</td><td align="right"><img height="16" width="0" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ffffffff.png" />&nbsp;<img height="16" width="0" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ff800000.png" />&nbsp;+20,567</td></tr>
+<tr><td>org.<wbr />xtuml.<wbr />bp.<wbr />core.<wbr />common.<wbr />PersistableModelComponent.<wbr />isRootComponent</td><td><img height="16" width="6" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ffffffff.png" />&nbsp;<img height="16" width="54" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ff800000.png" />&nbsp;+71,164 ms (+1665 %)</td><td align="right"><img height="16" width="0" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ffffffff.png" />&nbsp;<img height="16" width="0" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ff800000.png" />&nbsp;+315,276</td></tr>
+<tr><td>org.<wbr />xtuml.<wbr />bp.<wbr />core.<wbr />common.<wbr />PersistenceManager.<wbr />findRootComponentInstances</td><td><img height="16" width="6" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ffffffff.png" />&nbsp;<img height="16" width="54" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ff800000.png" />&nbsp;+70,640 ms (+1533 %)</td><td align="right"><img height="16" width="0" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ffffffff.png" />&nbsp;<img height="16" width="0" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ff800000.png" />&nbsp;+502</td></tr>
+<tr><td>org.<wbr />xtuml.<wbr />bp.<wbr />io.<wbr />mdl.<wbr />ImportModelComponent.<wbr />processValue</td><td><img height="16" width="6" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ffffffff.png" />&nbsp;<img height="16" width="51" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ff800000.png" />&nbsp;+68,010 ms (+683 %)</td><td align="right"><img height="16" width="0" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ffffffff.png" />&nbsp;<img height="16" width="0" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ff800000.png" />&nbsp;+40,099</td></tr>
+<tr><td>org.<wbr />xtuml.<wbr />bp.<wbr />io.<wbr />mdl.<wbr />ImportModelComponent.<wbr />processStatement</td><td><img height="16" width="6" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ffffffff.png" />&nbsp;<img height="16" width="48" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ff800000.png" />&nbsp;+62,767 ms (+437 %)</td><td align="right"><img height="16" width="0" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ffffffff.png" />&nbsp;<img height="16" width="0" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ff800000.png" />&nbsp;+9,772</td></tr>
+<tr><td>java.<wbr />lang.<wbr />String.<wbr />equals</td><td><img height="16" width="6" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ffffffff.png" />&nbsp;<img height="16" width="46" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ff800000.png" />&nbsp;+60,284 ms (+1910 %)</td><td align="right"><img height="16" width="0" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ffffffff.png" />&nbsp;<img height="16" width="0" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ff800000.png" />&nbsp;+17,624,003</td></tr>
+<tr><td>java.<wbr />util.<wbr />Iterator.<wbr />next</td><td><img height="16" width="6" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ffffffff.png" />&nbsp;<img height="16" width="39" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ff800000.png" />&nbsp;+51,969 ms (+1132 %)</td><td align="right"><img height="16" width="0" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ffffffff.png" />&nbsp;<img height="16" width="0" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ff800000.png" />&nbsp;+8,678,981</td></tr>
+<tr><td>java.<wbr />util.<wbr />Iterator.<wbr />hasNext</td><td><img height="16" width="6" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ffffffff.png" />&nbsp;<img height="16" width="39" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ff800000.png" />&nbsp;+51,138 ms (+1115 %)</td><td align="right"><img height="16" width="0" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ffffffff.png" />&nbsp;<img height="16" width="0" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ff800000.png" />&nbsp;+8,690,992</td></tr>
+<tr><td>org.<wbr />xtuml.<wbr />bp.<wbr />core.<wbr />common.<wbr />PersistableModelComponent.<wbr />getComponentType</td><td><img height="16" width="6" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ffffffff.png" />&nbsp;<img height="16" width="31" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ff800000.png" />&nbsp;+41,250 ms (+1962 %)</td><td align="right"><img height="16" width="0" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ffffffff.png" />&nbsp;<img height="16" width="0" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ff800000.png" />&nbsp;+8,747,837</td></tr>
+<tr><td>org.<wbr />xtuml.<wbr />bp.<wbr />core.<wbr />common.<wbr />PersistableModelComponent.<wbr />getFullPath</td><td><img height="16" width="6" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ffffffff.png" />&nbsp;<img height="16" width="24" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ff800000.png" />&nbsp;+32,238 ms (+454 %)</td><td align="right"><img height="16" width="0" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ffffffff.png" />&nbsp;<img height="16" width="0" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ff800000.png" />&nbsp;+5,212,971</td></tr>
+<tr><td>org.<wbr />xtuml.<wbr />bp.<wbr />core.<wbr />AttributeReferenceInClass_<wbr />c.<wbr />batchRelate</td><td><img height="16" width="6" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ffffffff.png" />&nbsp;<img height="16" width="21" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ff800000.png" />&nbsp;+27,868 ms (+5883 %)</td><td align="right"><img height="16" width="0" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ffffffff.png" />&nbsp;<img height="16" width="0" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ff800000.png" />&nbsp;&#177;0</td></tr>
+<tr><td>org.<wbr />xtuml.<wbr />bp.<wbr />core.<wbr />Attribute_<wbr />c.<wbr />AttributeInstances</td><td><img height="16" width="6" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ffffffff.png" />&nbsp;<img height="16" width="18" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ff800000.png" />&nbsp;+24,533 ms (+5096 %)</td><td align="right"><img height="16" width="0" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ffffffff.png" />&nbsp;<img height="16" width="0" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ff800000.png" />&nbsp;+9</td></tr>
+<tr><td>org.<wbr />xtuml.<wbr />bp.<wbr />core.<wbr />common.<wbr />ModelRoot.<wbr />isCompareRoot</td><td><img height="16" width="6" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ffffffff.png" />&nbsp;<img height="16" width="15" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ff800000.png" />&nbsp;+19,813 ms (+391 %)</td><td align="right"><img height="16" width="0" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ffffffff.png" />&nbsp;<img height="16" width="0" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ff800000.png" />&nbsp;+1,499,336</td></tr>
+<tr><td>org.<wbr />xtuml.<wbr />bp.<wbr />core.<wbr />common.<wbr />NonRootModelElement.<wbr />getModelRoot</td><td><img height="16" width="6" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ffffffff.png" />&nbsp;<img height="16" width="14" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ff800000.png" />&nbsp;+18,657 ms (+2121 %)</td><td align="right"><img height="16" width="0" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ffffffff.png" />&nbsp;<img height="16" width="0" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ff800000.png" />&nbsp;+6,690,047</td></tr>
+<tr><td>org.<wbr />xtuml.<wbr />bp.<wbr />core.<wbr />common.<wbr />InstanceList.<wbr />size</td><td><img height="16" width="6" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ffffffff.png" />&nbsp;<img height="16" width="13" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ff800000.png" />&nbsp;+17,296 ms (+2178 %)</td><td align="right"><img height="16" width="0" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ffffffff.png" />&nbsp;<img height="16" width="0" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ff800000.png" />&nbsp;-318,485</td></tr>
+<tr><td>org.<wbr />xtuml.<wbr />bp.<wbr />core.<wbr />common.<wbr />InstanceList.<wbr />get(int)</td><td><img height="16" width="6" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ffffffff.png" />&nbsp;<img height="16" width="13" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ff800000.png" />&nbsp;+17,084 ms (+2072 %)</td><td align="right"><img height="16" width="0" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ffffffff.png" />&nbsp;<img height="16" width="0" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ff800000.png" />&nbsp;-326,777</td></tr>
+<tr><td>org.<wbr />eclipse.<wbr />core.<wbr />runtime.<wbr />IPath.<wbr />isPrefixOf</td><td><img height="16" width="6" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ffffffff.png" />&nbsp;<img height="16" width="12" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ff800000.png" />&nbsp;+16,695 ms (+914 %)</td><td align="right"><img height="16" width="0" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ffffffff.png" />&nbsp;<img height="16" width="0" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ff800000.png" />&nbsp;+7,396,271</td></tr>
+<tr><td>org.<wbr />eclipse.<wbr />core.<wbr />resources.<wbr />IFile.<wbr />getFullPath</td><td><img height="16" width="6" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ffffffff.png" />&nbsp;<img height="16" width="12" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ff800000.png" />&nbsp;+16,413 ms (+504 %)</td><td align="right"><img height="16" width="0" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ffffffff.png" />&nbsp;<img height="16" width="0" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ff800000.png" />&nbsp;+5,214,977</td></tr>
+<tr><td>org.<wbr />xtuml.<wbr />bp.<wbr />io.<wbr />core.<wbr />SqlLexer.<wbr />nextToken</td><td><img height="16" width="6" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ffffffff.png" />&nbsp;<img height="16" width="10" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ff800000.png" />&nbsp;+13,892 ms (+559 %)</td><td align="right"><img height="16" width="0" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ffffffff.png" />&nbsp;<img height="16" width="0" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ff800000.png" />&nbsp;+138,839</td></tr>
+<tr><td>org.<wbr />xtuml.<wbr />bp.<wbr />io.<wbr />core.<wbr />ImportHelper.<wbr />upgradeDSAs</td><td><img height="16" width="6" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ffffffff.png" />&nbsp;<img height="16" width="9" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ff800000.png" />&nbsp;+12,262 ms (+5321 %)</td><td align="right"><img height="16" width="0" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ffffffff.png" />&nbsp;<img height="16" width="0" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ff800000.png" />&nbsp;+9</td></tr>
+<tr><td>java.<wbr />util.<wbr />Vector.<wbr />add</td><td><img height="16" width="6" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ffffffff.png" />&nbsp;<img height="16" width="9" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ff800000.png" />&nbsp;+11,771 ms (+586 %)</td><td align="right"><img height="16" width="0" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ffffffff.png" />&nbsp;<img height="16" width="0" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ff800000.png" />&nbsp;+123,725</td></tr>
+<tr><td>antlr.<wbr />ANTLRStringBuffer.<wbr />length</td><td><img height="16" width="6" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ffffffff.png" />&nbsp;<img height="16" width="8" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ff800000.png" />&nbsp;+11,481 ms (+666 %)</td><td align="right"><img height="16" width="0" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ffffffff.png" />&nbsp;<img height="16" width="0" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ff800000.png" />&nbsp;+522,922</td></tr>
+<tr><td>java.<wbr />util.<wbr />ArrayList.<wbr />size</td><td><img height="16" width="6" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ffffffff.png" />&nbsp;<img height="16" width="8" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ff800000.png" />&nbsp;+11,226 ms (+852 %)</td><td align="right"><img height="16" width="0" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ffffffff.png" />&nbsp;<img height="16" width="0" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ff800000.png" />&nbsp;-1,260,404</td></tr>
+<tr><td>org.<wbr />xtuml.<wbr />bp.<wbr />core.<wbr />common.<wbr />ModelRoot.<wbr />getId</td><td><img height="16" width="6" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ffffffff.png" />&nbsp;<img height="16" width="8" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ff800000.png" />&nbsp;+10,921 ms (+714 %)</td><td align="right"><img height="16" width="0" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ffffffff.png" />&nbsp;<img height="16" width="0" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ff800000.png" />&nbsp;+7,839,871</td></tr>
+<tr><td>java.<wbr />util.<wbr />UUID.<wbr />equals</td><td><img height="16" width="6" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ffffffff.png" />&nbsp;<img height="16" width="7" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ff800000.png" />&nbsp;+9,786 ms (+1549 %)</td><td align="right"><img height="16" width="0" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ffffffff.png" />&nbsp;<img height="16" width="0" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ff800000.png" />&nbsp;+1,741,111</td></tr>
+<tr><td>java.<wbr />util.<wbr />ArrayList.<wbr />get</td><td><img height="16" width="6" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ffffffff.png" />&nbsp;<img height="16" width="7" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ff800000.png" />&nbsp;+9,487 ms (+760 %)</td><td align="right"><img height="16" width="0" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ffffffff.png" />&nbsp;<img height="16" width="0" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ff800000.png" />&nbsp;-1,278,632</td></tr>
+<tr><td>org.<wbr />xtuml.<wbr />bp.<wbr />io.<wbr />core.<wbr />SqlLexer.<wbr />mTOK_<wbr />STRING</td><td><img height="16" width="6" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ffffffff.png" />&nbsp;<img height="16" width="5" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ff800000.png" />&nbsp;+7,828 ms (+921 %)</td><td align="right"><img height="16" width="0" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ffffffff.png" />&nbsp;<img height="16" width="0" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ff800000.png" />&nbsp;+3,311</td></tr>
+<tr><td>org.<wbr />xtuml.<wbr />bp.<wbr />ui.<wbr />canvas.<wbr />Shape_<wbr />c.<wbr />ShapeInstances</td><td><img height="16" width="6" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ffffffff.png" />&nbsp;<img height="16" width="5" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ff800000.png" />&nbsp;+7,768 ms (+3297 %)</td><td align="right"><img height="16" width="0" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ffffffff.png" />&nbsp;<img height="16" width="0" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ff800000.png" />&nbsp;+9</td></tr>
+<tr><td>org.<wbr />xtuml.<wbr />bp.<wbr />core.<wbr />Operation_<wbr />c.<wbr />getManyO_<wbr />TFRsOnR115</td><td><img height="16" width="6" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ffffffff.png" />&nbsp;<img height="16" width="5" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ff800000.png" />&nbsp;+7,063 ms (+2657 %)</td><td align="right"><img height="16" width="0" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ffffffff.png" />&nbsp;<img height="16" width="0" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ff800000.png" />&nbsp;+6,724</td></tr>
+<tr><td>org.<wbr />xtuml.<wbr />bp.<wbr />core.<wbr />common.<wbr />NonRootModelElement.<wbr />isProxy</td><td><img height="16" width="6" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ffffffff.png" />&nbsp;<img height="16" width="5" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ff800000.png" />&nbsp;+6,872 ms (+1620 %)</td><td align="right"><img height="16" width="0" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ffffffff.png" />&nbsp;<img height="16" width="0" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ff800000.png" />&nbsp;-304,289</td></tr>
+<tr><td>antlr.<wbr />collections.<wbr />impl.<wbr />BitSet.<wbr />member</td><td><img height="16" width="6" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ffffffff.png" />&nbsp;<img height="16" width="5" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ff800000.png" />&nbsp;+6,665 ms (+1151 %)</td><td align="right"><img height="16" width="0" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ffffffff.png" />&nbsp;<img height="16" width="0" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ff800000.png" />&nbsp;+102,704</td></tr>
+<tr><td>org.<wbr />xtuml.<wbr />bp.<wbr />io.<wbr />core.<wbr />SqlParser.<wbr />insert_<wbr />statement</td><td><img height="16" width="6" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ffffffff.png" />&nbsp;<img height="16" width="4" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ff800000.png" />&nbsp;+6,506 ms (+563 %)</td><td align="right"><img height="16" width="0" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ffffffff.png" />&nbsp;<img height="16" width="0" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ff800000.png" />&nbsp;+9,772</td></tr>
+<tr><td>org.<wbr />xtuml.<wbr />bp.<wbr />io.<wbr />core.<wbr />SqlLexer.<wbr />mWS</td><td><img height="16" width="6" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ffffffff.png" />&nbsp;<img height="16" width="4" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ff800000.png" />&nbsp;+6,048 ms (+581 %)</td><td align="right"><img height="16" width="0" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ffffffff.png" />&nbsp;<img height="16" width="0" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ff800000.png" />&nbsp;+79,196</td></tr>
+<tr><td>java.<wbr />lang.<wbr />String.<wbr />startsWith</td><td><img height="16" width="6" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ffffffff.png" />&nbsp;<img height="16" width="4" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ff800000.png" />&nbsp;+5,528 ms (+452 %)</td><td align="right"><img height="16" width="0" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ffffffff.png" />&nbsp;<img height="16" width="0" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ff800000.png" />&nbsp;+4,512,703</td></tr>
+<tr><td>org.<wbr />xtuml.<wbr />bp.<wbr />io.<wbr />core.<wbr />SqlLexer.<wbr />mTOK_<wbr />UUID</td><td><img height="16" width="6" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ffffffff.png" />&nbsp;<img height="16" width="4" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ff800000.png" />&nbsp;+5,308 ms (+437 %)</td><td align="right"><img height="16" width="0" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ffffffff.png" />&nbsp;<img height="16" width="0" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ff800000.png" />&nbsp;+23,381</td></tr>
+<tr><td>org.<wbr />xtuml.<wbr />bp.<wbr />io.<wbr />core.<wbr />SqlLexer.<wbr />mTOK_<wbr />COMMA</td><td><img height="16" width="6" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ffffffff.png" />&nbsp;<img height="16" width="3" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ff800000.png" />&nbsp;+4,963 ms (+690 %)</td><td align="right"><img height="16" width="0" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ffffffff.png" />&nbsp;<img height="16" width="0" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ff800000.png" />&nbsp;+30,327</td></tr>
+<tr><td>org.<wbr />xtuml.<wbr />bp.<wbr />core.<wbr />common.<wbr />ModelRoot.<wbr />getInstanceList</td><td><img height="16" width="6" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ffffffff.png" />&nbsp;<img height="16" width="3" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ff800000.png" />&nbsp;+4,104 ms (+413 %)</td><td align="right"><img height="16" width="0" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ffffffff.png" />&nbsp;<img height="16" width="0" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ff800000.png" />&nbsp;+28,893</td></tr>
+<tr><td>org.<wbr />xtuml.<wbr />bp.<wbr />io.<wbr />core.<wbr />SqlLexer.<wbr />mTOK_<wbr />ID</td><td><img height="16" width="6" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ffffffff.png" />&nbsp;<img height="16" width="3" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ff800000.png" />&nbsp;+3,943 ms (+413 %)</td><td align="right"><img height="16" width="0" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ffffffff.png" />&nbsp;<img height="16" width="0" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ff800000.png" />&nbsp;+39,088</td></tr>
+<tr><td>org.<wbr />xtuml.<wbr />bp.<wbr />io.<wbr />core.<wbr />CoreImport.<wbr />countAndValidateInsertStatements</td><td><img height="16" width="6" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ffffffff.png" />&nbsp;<img height="16" width="2" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ff800000.png" />&nbsp;+3,908 ms (+698 %)</td><td align="right"><img height="16" width="0" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ffffffff.png" />&nbsp;<img height="16" width="0" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ff800000.png" />&nbsp;+9</td></tr>
+<tr><td>java.<wbr />lang.<wbr />Object.<wbr />equals</td><td><img height="16" width="6" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ffffffff.png" />&nbsp;<img height="16" width="2" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ff800000.png" />&nbsp;+3,464 ms (+463 %)</td><td align="right"><img height="16" width="0" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ffffffff.png" />&nbsp;<img height="16" width="0" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ff800000.png" />&nbsp;-39,242</td></tr>
+<tr><td>org.<wbr />xtuml.<wbr />bp.<wbr />core.<wbr />common.<wbr />IdAssigner.<wbr />isUUID</td><td><img height="16" width="6" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ffffffff.png" />&nbsp;<img height="16" width="2" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ff800000.png" />&nbsp;+3,274 ms (+635 %)</td><td align="right"><img height="16" width="0" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ffffffff.png" />&nbsp;<img height="16" width="0" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ff800000.png" />&nbsp;+22,676</td></tr>
+<tr><td>org.<wbr />xtuml.<wbr />bp.<wbr />core.<wbr />common.<wbr />PersistableModelComponent.<wbr />isLoaded</td><td><img height="16" width="6" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ffffffff.png" />&nbsp;<img height="16" width="2" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ff800000.png" />&nbsp;+3,126 ms (+646 %)</td><td align="right"><img height="16" width="0" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ffffffff.png" />&nbsp;<img height="16" width="0" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ff800000.png" />&nbsp;+1,562,241</td></tr>
+<tr><td>antlr.<wbr />ANTLRStringBuffer.<wbr />getBuffer</td><td><img height="16" width="6" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ffffffff.png" />&nbsp;<img height="16" width="2" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ff800000.png" />&nbsp;+3,076 ms (+652 %)</td><td align="right"><img height="16" width="0" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ffffffff.png" />&nbsp;<img height="16" width="0" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ff800000.png" />&nbsp;+138,830</td></tr>
+<tr><td>antlr.<wbr />Token.<wbr />setType</td><td><img height="16" width="6" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ffffffff.png" />&nbsp;<img height="16" width="2" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ff800000.png" />&nbsp;+3,064 ms (+674 %)</td><td align="right"><img height="16" width="0" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ffffffff.png" />&nbsp;<img height="16" width="0" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ff800000.png" />&nbsp;+138,839</td></tr>
+<tr><td>antlr.<wbr />Token.<wbr />getType</td><td><img height="16" width="6" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ffffffff.png" />&nbsp;<img height="16" width="2" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ff800000.png" />&nbsp;+3,015 ms (+667 %)</td><td align="right"><img height="16" width="0" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ffffffff.png" />&nbsp;<img height="16" width="0" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ff800000.png" />&nbsp;+138,839</td></tr>
+<tr><td>antlr.<wbr />Token.<wbr />setText</td><td><img height="16" width="6" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ffffffff.png" />&nbsp;<img height="16" width="2" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ff800000.png" />&nbsp;+3,006 ms (+665 %)</td><td align="right"><img height="16" width="0" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ffffffff.png" />&nbsp;<img height="16" width="0" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ff800000.png" />&nbsp;+138,830</td></tr>
+<tr><td>java.<wbr />lang.<wbr />String.<wbr />&lt;init&gt;</td><td><img height="16" width="6" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ffffffff.png" />&nbsp;<img height="16" width="2" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ff800000.png" />&nbsp;+3,002 ms (+622 %)</td><td align="right"><img height="16" width="0" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ffffffff.png" />&nbsp;<img height="16" width="0" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ff800000.png" />&nbsp;+138,830</td></tr>
+<tr><td>org.<wbr />xtuml.<wbr />bp.<wbr />io.<wbr />core.<wbr />SqlParser.<wbr />data_<wbr />value</td><td><img height="16" width="6" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ffffffff.png" />&nbsp;<img height="16" width="2" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ff800000.png" />&nbsp;+2,994 ms (+672 %)</td><td align="right"><img height="16" width="0" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ffffffff.png" />&nbsp;<img height="16" width="0" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ff800000.png" />&nbsp;+40,099</td></tr>
+<tr><td>org.<wbr />xtuml.<wbr />bp.<wbr />io.<wbr />core.<wbr />SqlLexer.<wbr />mWS1</td><td><img height="16" width="6" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ffffffff.png" />&nbsp;<img height="16" width="2" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ff800000.png" />&nbsp;+2,993 ms (+591 %)</td><td align="right"><img height="16" width="0" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ffffffff.png" />&nbsp;<img height="16" width="0" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ff800000.png" />&nbsp;+69,415</td></tr>
+<tr><td>org.<wbr />xtuml.<wbr />bp.<wbr />io.<wbr />mdl.<wbr />ImportModelComponent.<wbr />preprocessStatement</td><td><img height="16" width="6" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ffffffff.png" />&nbsp;<img height="16" width="2" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ff800000.png" />&nbsp;+2,841 ms (+527 %)</td><td align="right"><img height="16" width="0" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ffffffff.png" />&nbsp;<img height="16" width="0" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ff800000.png" />&nbsp;+9,774</td></tr>
+<tr><td>org.<wbr />xtuml.<wbr />bp.<wbr />core.<wbr />common.<wbr />PersistableModelComponent.<wbr />getParent</td><td><img height="16" width="6" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ffffffff.png" />&nbsp;<img height="16" width="1" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ff800000.png" />&nbsp;+2,683 ms (+838 %)</td><td align="right"><img height="16" width="0" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ffffffff.png" />&nbsp;<img height="16" width="0" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ff800000.png" />&nbsp;+89,376</td></tr>
+<tr><td>org.<wbr />xtuml.<wbr />bp.<wbr />core.<wbr />common.<wbr />ModelRoot.<wbr />isRuntime</td><td><img height="16" width="6" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ffffffff.png" />&nbsp;<img height="16" width="1" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ff800000.png" />&nbsp;+2,504 ms (+384 %)</td><td align="right"><img height="16" width="0" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ffffffff.png" />&nbsp;<img height="16" width="0" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ff800000.png" />&nbsp;+711</td></tr>
+<tr><td>org.<wbr />xtuml.<wbr />bp.<wbr />io.<wbr />core.<wbr />SqlLexer.<wbr />mWS2</td><td><img height="16" width="6" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ffffffff.png" />&nbsp;<img height="16" width="1" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ff800000.png" />&nbsp;+2,346 ms (+614 %)</td><td align="right"><img height="16" width="0" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ffffffff.png" />&nbsp;<img height="16" width="0" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ff800000.png" />&nbsp;+49,880</td></tr>
+<tr><td>org.<wbr />xtuml.<wbr />bp.<wbr />core.<wbr />common.<wbr />BPElementID.<wbr />hashCode</td><td><img height="16" width="6" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ffffffff.png" />&nbsp;<img height="16" width="1" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ff800000.png" />&nbsp;+2,225 ms (+552 %)</td><td align="right"><img height="16" width="0" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ffffffff.png" />&nbsp;<img height="16" width="0" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ff800000.png" />&nbsp;+41,474</td></tr>
+<tr><td>org.<wbr />xtuml.<wbr />bp.<wbr />core.<wbr />common.<wbr />NonRootModelElement.<wbr />setComponent</td><td><img height="16" width="6" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ffffffff.png" />&nbsp;<img height="16" width="1" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ff800000.png" />&nbsp;+2,209 ms (+370 %)</td><td align="right"><img height="16" width="0" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ffffffff.png" />&nbsp;<img height="16" width="0" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ff800000.png" />&nbsp;+9,276</td></tr>
+<tr><td>java.<wbr />lang.<wbr />String.<wbr />charAt</td><td><img height="16" width="6" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ffffffff.png" />&nbsp;<img height="16" width="1" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ff800000.png" />&nbsp;+2,197 ms (+717 %)</td><td align="right"><img height="16" width="0" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ffffffff.png" />&nbsp;<img height="16" width="0" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ff800000.png" />&nbsp;+90,704</td></tr>
+<tr><td>org.<wbr />xtuml.<wbr />bp.<wbr />core.<wbr />common.<wbr />InstanceList.<wbr />isEmpty</td><td><img height="16" width="6" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ffffffff.png" />&nbsp;<img height="16" width="1" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ff800000.png" />&nbsp;+2,032 ms (+454 %)</td><td align="right"><img height="16" width="0" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ffffffff.png" />&nbsp;<img height="16" width="0" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ff800000.png" />&nbsp;+28,911</td></tr>
+<tr><td>java.<wbr />util.<wbr />HashMap.<wbr />get</td><td><img height="16" width="6" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ffffffff.png" />&nbsp;<img height="16" width="1" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ff800000.png" />&nbsp;+1,938 ms (+435 %)</td><td align="right"><img height="16" width="0" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ffffffff.png" />&nbsp;<img height="16" width="0" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ff800000.png" />&nbsp;+55,683</td></tr>
+<tr><td>org.<wbr />xtuml.<wbr />bp.<wbr />core.<wbr />common.<wbr />InstanceList.<wbr />get(java.<wbr />lang.<wbr />Object)</td><td><img height="16" width="6" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ffffffff.png" />&nbsp;<img height="16" width="1" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ff800000.png" />&nbsp;+1,902 ms (+448 %)</td><td align="right"><img height="16" width="0" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ffffffff.png" />&nbsp;<img height="16" width="0" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ff800000.png" />&nbsp;+15,212</td></tr>
+<tr><td>org.<wbr />xtuml.<wbr />bp.<wbr />core.<wbr />common.<wbr />PersistableModelComponent.<wbr />getUniqueID</td><td><img height="16" width="6" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ffffffff.png" />&nbsp;<img height="16" width="1" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ff800000.png" />&nbsp;+1,873 ms (+407 %)</td><td align="right"><img height="16" width="0" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ffffffff.png" />&nbsp;<img height="16" width="0" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ff800000.png" />&nbsp;+9,284</td></tr>
+<tr><td>org.<wbr />xtuml.<wbr />bp.<wbr />core.<wbr />common.<wbr />PersistenceManager.<wbr />getChildrenOf</td><td><img height="16" width="0" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ffffffff.png" />&nbsp;<img height="16" width="6" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ff008000.png" />&nbsp;-8,534 ms (-66 %)</td><td align="right"><img height="16" width="0" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ffffffff.png" />&nbsp;<img height="16" width="0" border="0" hspace="0" vspace="0" src="
+jprofiler_images/pixel_ff800000.png" />&nbsp;-6,105</td></tr>
+</table>
+</body>
+</html>
