@@ -14,61 +14,61 @@ Profile Procedures
 ----------------------
 TODO: Enter all procedures run for this profiling session, see [1] for documented procedures.   
       Remove this text before submitting the profiling session results   
-      Example:
-1. BridgePoint load
+      Example:   
+1. BridgePoint load   
 
-Data present:
-org.xtuml.bp.ui.marker
-maslin
-mcooa
-mcshared
+Data present:   
+org.xtuml.bp.ui.marker   
+maslin   
+mcooa   
+mcshared   
 
-Procedure:
-1.1 Launch profiler
-1.2 Launch BridgePoint making sure a workspace chooser dialog is shown
-1.3 Connect profiler to BridgePoint process
-1.4 Begin profiling
-1.5 Click OK to start BridgePoint with the given workspace
-1.6 Once BridgePoint is ready for user interaction pause profiling
-1.7 Go to Investigate profiling data step
-END TODO
+Procedure:   
+1.1 Launch profiler   
+1.2 Launch BridgePoint making sure a workspace chooser dialog is shown   
+1.3 Connect profiler to BridgePoint process   
+1.4 Begin profiling   
+1.5 Click OK to start BridgePoint with the given workspace   
+1.6 Once BridgePoint is ready for user interaction pause profiling   
+1.7 Go to Investigate profiling data step   
+END TODO   
 
-1. <procedure_description>
+1. <procedure_description>   
 
-Data present:
-<data_present>
+Data present:   
+<data_present>   
 
-Procedure:
-<enter_procedure_used>
+Procedure:   
+<enter_procedure_used>   
 
-2. <procedure_description>
+2. <procedure_description>    
 
-Data present:
-<data_present>
+Data present:   
+<data_present>   
 
-Procedure:
-<enter_procedure_used>
+Procedure:   
+<enter_procedure_used>   
 
-...   
+...    
 
 Profiling Results   
 -------------
-TODO: Export the profiling session in the profiling tool, include links to the data here
-      Remove this text before submitting the profiling session results
-      Example:
-1. doc-bridgepoint/checklists/6.0/9111_profiling.html
-END TODO
+TODO: Export the profiling session in the profiling tool, include links to the data here   
+      Remove this text before submitting the profiling session results   
+      Example:   
+1. doc-bridgepoint/checklists/6.0/9111_profiling.html   
+END TODO   
 1. <path_to_results>   
 2. <path_to_results>   
 ...   
 
 Regression Results   
 ---------
-TODO: Using the procedure for collecting regression profiling data [1], compare the two snapshots.
-      Remove this text before submitting the profiling session results
-      Example:
-1. doc-bridgepoint/checklists/6.0/9111_regression_comparison.html
-END TODO
+TODO: Using the procedure for collecting regression profiling data [1], compare the two snapshots.   
+      Remove this text before submitting the profiling session results   
+      Example:   
+1. doc-bridgepoint/checklists/6.0/9111_regression_comparison.html   
+END TODO   
 1. <path_to_html_results>    
 2. <path_to_html_results>    
-...   
+...    
