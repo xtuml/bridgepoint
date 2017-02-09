@@ -158,8 +158,9 @@ See: https://docs.oracle.com/cd/E26576_01/doc.312/e24936/tuning-java.htm#GSPTG00
 1.2.2.2 Launch BridgePoint making sure a workspace chooser dialog is shown   
 1.2.2.3 Connect profiler to BridgePoint process   
 1.2.2.4 Begin profiling   
-1.2.2.5 Once BridgePoint is ready for user interaction pause profiling   
-1.2.2.6 Go to Investigate profiling data step   
+1.2.2.5 Click OK to start BridgePoint with the given workspace   
+1.2.2.6 Once BridgePoint is ready for user interaction pause profiling   
+1.2.2.7 Go to Investigate profiling data step   
 
 1.2.2 After startup
 
