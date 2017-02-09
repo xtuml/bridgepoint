@@ -17,10 +17,8 @@ import org.xtuml.bp.ui.text.AbstractModelElementPropertyEditorInput;
 import org.xtuml.bp.ui.text.IModelElementEditorInputFactory;
 import org.xtuml.bp.ui.text.ModelElementID;
 import org.xtuml.bp.ui.text.ModelElementPropertyStorage;
-import org.xtuml.bp.xtext.masl.ui.document.IMaslSnippetEditorInput;
-import org.xtuml.bp.xtext.masl.ui.document.IXtumlElementEditorInput;
 
-public class TypeDefinitionEditorInput extends AbstractModelElementPropertyEditorInput implements IMaslSnippetEditorInput {
+public class TypeDefinitionEditorInput extends AbstractModelElementPropertyEditorInput {
 
 	public final static String EDITOR_ID = "org.xtuml.bp.xtext.masl.MASLPartial"; //$NON-NLS-1$
 	public final static String FACTORY_ID = "org.xtuml.bp.ui.text.typedefinition.factory"; //$NON-NLS-1$

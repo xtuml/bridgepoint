@@ -1,6 +1,7 @@
 package org.xtuml.bp.xtext.masl.ui.document
 
 import com.google.inject.Inject
+import org.eclipse.jface.resource.JFaceResources
 import org.eclipse.swt.SWT
 import org.eclipse.swt.layout.GridData
 import org.eclipse.swt.layout.GridLayout
@@ -8,7 +9,7 @@ import org.eclipse.swt.widgets.Composite
 import org.eclipse.swt.widgets.Label
 import org.eclipse.xtext.ui.IImageHelper
 import org.eclipse.xtext.ui.editor.XtextEditor
-import org.eclipse.jface.resource.JFaceResources
+import org.xtuml.bp.ui.text.AbstractModelElementPropertyEditorInput
 
 class MaslSnippetEditor extends XtextEditor {
 	
@@ -20,7 +21,7 @@ class MaslSnippetEditor extends XtextEditor {
 	
 	override createPartControl(Composite parent) {
 		val input = editorInput
-		if(input instanceof IMaslSnippetEditorInput) {
+		if(input instanceof AbstractModelElementPropertyEditorInput) {
 			val maslDocumentProvider = documentProvider as MaslDocumentProvider
 			val header = maslDocumentProvider.getHeader(input)
 			if(header != null) {
@@ -51,7 +52,7 @@ class MaslSnippetEditor extends XtextEditor {
 	
 	
 	override getDefaultImage() {
-		if(editorInput instanceof IMaslSnippetEditorInput) 
+		if(editorInput instanceof AbstractModelElementPropertyEditorInput) 
 			imageHelper.getImage(editorInput.imageDescriptor)
 		else
 			super.getDefaultImage()
