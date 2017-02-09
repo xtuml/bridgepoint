@@ -95,11 +95,12 @@ Regression Results
 3.1.7 Expand the tree as done in the profiling section above   
 3.1.8 Export the session data in html format as done in section 1   
 
+[Initial Load Regression Results](https://drive.google.com/open?id=0Bw01o4iXr5FuT1BVc09LUXhmU2c)   
+
 3.2 v5.2.2 - v6.0.0 First time C/C++ Perspective     
 
 3.2.1 Repeat the steps above in 3.1   
 
-[Initial Load Regression Results](https://drive.google.com/open?id=0Bw01o4iXr5FuT1BVc09LUXhmU2c)   
 [First time C/C++ Regression Results](https://drive.google.com/open?id=0Bw01o4iXr5FuM0h4QmNabDhrU2c)   
 
 
