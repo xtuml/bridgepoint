@@ -53,12 +53,10 @@ Procedure:
   
 Profiling Results   
 -------------
-1. [Initial Load Profiling Results](https://github/xtuml/bridgepoint/doc-bridgepoint/notes/9111_Profile_BridgePoint/BridgePoint_Profiling_initial_load_v5.2.2.html)      
-1.1 [Initial Load Profiling Snapshot](https://github/xtuml/bridgepoint/doc-bridgepoint/notes/9111_Profile_BridgePoint/BridgePoint_Profiling_initial_load_v5.2.2.jps).  
+1. [Initial Load Profiling Results](https://drive.google.com/open?id=0Bw01o4iXr5FucmZEdEphaWJpNzA)      
+1.1 [Initial Load Profiling Snapshot](https://drive.google.com/open?id=0Bw01o4iXr5Fub0VLdHl4bTcydjA)   
 
 Regression Results   
 ---------
 None.  
-
-...    
 
