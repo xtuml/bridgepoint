@@ -81,8 +81,8 @@ class XtumlToMaslMapper {
 				#[domainDefinition]
 			Function_c:
 				#[domainServiceDeclaration]
-//			FunctionParameter_c:
-//				#[parameter]
+			FunctionParameter_c:
+				#[parameter]
 			RequiredOperation_c:
 				#[terminatorServiceDeclaration]
 			ProvidedOperation_c:
@@ -91,8 +91,8 @@ class XtumlToMaslMapper {
 				#[objectDeclaration]
 			Operation_c:
 				#[objectServiceDeclaration]
-//			OperationParameter_c:
-//				#[parameter]
+			OperationParameter_c:
+				#[parameter]
 			Port_c:
 				#[terminatorDefinition]
 			StateMachineState_c:
