@@ -12,7 +12,7 @@ Profile Engineer: Travis London
 
 Profile Procedures
 ----------------------
-1. BridgePoint initial load   
+1.0 BridgePoint initial load   
 
 Data present:   
 org.xtuml.bp.ui.marking   
@@ -51,7 +51,7 @@ Procedure:
 1.11.6 Choose the html format and press OK, give the report a name and save   
 1.11.7 Save the session as a snapshot by clicking the Save Snapshot tool in the toolbar    
   
-2. BridgePoint first switch to C/C++ Perspective   
+2.0 BridgePoint first switch to C/C++ Perspective   
 
 Data present:   
 org.xtuml.bp.ui.marking
