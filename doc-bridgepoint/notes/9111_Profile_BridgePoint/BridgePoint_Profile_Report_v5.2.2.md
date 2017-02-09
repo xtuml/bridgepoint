@@ -15,7 +15,7 @@ Profile Procedures
 1. BridgePoint initial load   
 
 Data present:   
-org.xtuml.bp.ui.marker   
+org.xtuml.bp.ui.marking   
 maslin   
 mcooa   
 mcshared   
@@ -51,10 +51,38 @@ Procedure:
 1.11.6 Choose the html format and press OK, give the report a name and save
 1.11.7 Save the session as a snapshot by clicking the Save Snapshot tool in the toolbar 
   
+2. BridgePoint first switch to C/C++ Perspective   
+
+Data present:   
+org.xtuml.bp.ui.marking
+maslin   
+mcooa   
+mcshared   
+
+Procedure:   
+2.1 Launch profiler   
+2.2 Launch BridgePoint with the xtUML perspective showing   
+2.3 Attach profiler to the BridgePoint process   
+2.4 Start CPU Profiling   
+2.5 Execute Window > Perspective > Open Perspective > C/C++    
+2.6 Once the UI is responsive stop the profiler   
+2.7 Create profiling report
+2.7.1 Right click on the root in the profiler data tree    
+2.7.2 Choose Analyze > Collapse Recursions   
+2.7.3 Expand the three highest cpu usage entries (listed from top to bottom)   
+2.7.4 Expand until the highest percentage is broken into multiple calls or you cannot expand further    
+2.7.5 Export the session data by clicking the Export tool in the toolbar   
+2.7.6 Choose the html format and press OK, give the report a name and save
+2.7.7 Save the session as a snapshot by clicking the Save Snapshot tool in the toolbar 
+ 
+
 Profiling Results   
 -------------
 1. [Initial Load Profiling Results](https://drive.google.com/open?id=0Bw01o4iXr5FucmZEdEphaWJpNzA)      
 1.1 [Initial Load Profiling Snapshot](https://drive.google.com/open?id=0Bw01o4iXr5Fub0VLdHl4bTcydjA)   
+
+2. [First time C/C++ Perspective Profiling Results](https://drive.google.com/open?id=0Bw01o4iXr5FucG0wVVVPdE1Yd2s)   
+2.1 [First time C/C++ Perspective Profiling Snapshot](https://drive.google.com/open?id=0Bw01o4iXr5FuWjZEUWtUUlZiMEU)
 
 Regression Results   
 ---------
