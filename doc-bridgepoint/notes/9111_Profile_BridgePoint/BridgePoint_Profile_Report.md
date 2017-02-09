@@ -1,5 +1,9 @@
 # BridgePoint Profiling Session
 
+References
+--------
+[1] [Description of reference](https://github.com/xtuml/bridgepoint/doc-bridgepoint/process/profiling/BridgePoint_Profiling.md)   
+
 System Configuration
 -----------
 OS: <os_name> <os_version>   
@@ -56,7 +60,7 @@ Profiling Results
 TODO: Export the profiling session in the profiling tool, include links to the data here   
       Remove this text before submitting the profiling session results   
       Example:   
-1. [Load Profiling Results](https://github/xtuml/bridgepoint/doc-bridgepoint/checklists/6.0/9111_profiling.html)   
+1. [Load Profiling Results](https://github.com/xtuml/bridgepoint/doc-bridgepoint/checklists/6.0/9111_profiling.html)   
 END TODO   
 1. <path_to_results>   
 2. <path_to_results>   
