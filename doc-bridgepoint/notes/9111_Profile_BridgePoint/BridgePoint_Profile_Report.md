@@ -6,13 +6,13 @@ References
 
 System Configuration
 -----------
-OS: <os_name> <os_version>   
-CPU: <cpu_speed> <num_processors> processors   
-Machine ID: <hostname>   
-Base BridgePoint Version: <bp_version>   
-Comparison BridgePoint Version: <bp_version>
-Profiler: <profiler_application>   
-Profile Engineer: <name>   
+OS: (os_name) (os_version)   
+CPU: (cpu_speed) (num_processors) processors   
+Machine ID: (hostname)   
+Base BridgePoint Version: (bp_version)   
+Comparison BridgePoint Version: (bp_version)
+Profiler: (profiler_application)   
+Profile Engineer: (name>)   
 
 Profile Procedures
 ----------------------
@@ -37,21 +37,21 @@ Procedure:
 1.7 Go to Investigate profiling data step   
 END TODO   
 
-1. <procedure_description>   
+1. (procedure_description)   
 
 Data present:   
-<data_present>   
+(data_present)   
 
 Procedure:   
-<enter_procedure_used>   
+(enter_procedure_used)   
 
-2. <procedure_description>    
+2. (procedure_description)    
 
 Data present:   
-<data_present>   
+(data_present)   
 
 Procedure:   
-<enter_procedure_used>   
+(enter_procedure_used)   
 
 ...    
 
@@ -62,8 +62,8 @@ TODO: Export the profiling session in the profiling tool, include links to the d
       Example:   
 1. [Load Profiling Results](https://github.com/xtuml/bridgepoint/doc-bridgepoint/checklists/6.0/9111_profiling.html)   
 END TODO   
-1. <path_to_results>   
-2. <path_to_results>   
+1. (path_to_results)   
+2. (path_to_results)   
 ...   
 
 Regression Results   
@@ -73,6 +73,6 @@ TODO: Using the procedure for collecting regression profiling data [1], compare 
       Example:   
 1. [Load Regression Results](https://github.com/xtuml/bridgepoint/doc-bridgepoint/checklists/6.0/9111_regression_comparison.html)   
 END TODO   
-1. <path_to_html_results>    
-2. <path_to_html_results>    
+1. (path_to_results)   
+2. (path_to_results)    
 ...    
