@@ -2,7 +2,7 @@
 
 References
 --------
-[1] [Description of reference](https://github.com/xtuml/bridgepoint/doc-bridgepoint/process/profiling/BridgePoint_Profiling.md)   
+[1] [Profiling Procedures](https://github.com/xtuml/bridgepoint/doc-bridgepoint/process/profiling/BridgePoint_Profiling.md)   
 
 System Configuration
 -----------
