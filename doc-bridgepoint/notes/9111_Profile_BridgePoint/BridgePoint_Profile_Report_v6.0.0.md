@@ -6,7 +6,7 @@ OS: Debian 8
 CPU: 2.70Ghz 2 processors   
 Machine ID: development-one-debian   
 Base BridgePoint Version: 6.0.0   
-Comparison BridgePoint Version: 5.2.2 
+Comparison BridgePoint Version: 5.2.2   
 Profiler: JProfiler   
 Profile Engineer: Travis London   
 
