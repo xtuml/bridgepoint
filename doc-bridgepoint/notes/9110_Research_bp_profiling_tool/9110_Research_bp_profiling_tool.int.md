@@ -173,10 +173,10 @@ See: https://docs.oracle.com/cd/E26576_01/doc.312/e24936/tuning-java.htm#GSPTG00
  
 1.2.3 Regression testing
 
-1.2.3.1 For any of the above profiling procedures after running them save a snapshot
-1.2.3.2 Do this for the current and previous build(s)
-1.2.3.3 For each build export a snapshot and store it on the amazon s3 server
-1.2.3.3 Compare the current and previous snapshots taking note of the differences, specifically those that show CPU time increase
+1.2.3.1 For any of the above profiling procedures after running them save a snapshot   
+1.2.3.2 Do this for the current and previous build(s)   
+1.2.3.3 For each build export a snapshot and store it on the amazon s3 server   
+1.2.3.3 Compare the current and previous snapshots taking note of the differences, specifically those that show CPU time increase   
   
 1.2.4 Investigate profiling data
 
