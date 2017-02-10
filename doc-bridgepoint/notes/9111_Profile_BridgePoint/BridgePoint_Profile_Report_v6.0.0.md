@@ -147,6 +147,58 @@ Procedure:
 5.7.6 Choose the html format and press OK, give the report a name and save   
 5.7.7 Save the session as a snapshot by clicking the Save Snapshot tool in the toolbar   
 
+6.0 BridgePoint first masl open function   
+
+Data present:   
+org.xtuml.bp.ui.marking    
+maslin   
+mcooa   
+mcshared   
+SAC   
+SAC_PROC   
+
+Procedure:   
+6.1 Launch profiler   
+6.2 Launch BridgePoint with the xtUML perspective showing      
+6.3 Attach profiler to the BridgePoint process   
+6.4 Start CPU Profiling   
+6.5 Navigate to SAC/SAC/SAC/functions/add_group and double click   
+6.6 Once the UI is responsive stop the profiler   
+6.7 Create profiling report   
+6.7.1 Right click on the root in the profiler data tree   
+6.7.2 Choose Analyze > Collapse Recursions   
+6.7.3 Expand the three highest cpu usage entries (listed from top to bottom)   
+6.7.4 Expand until the highest percentage is broken into multiple calls or you cannot expand further   
+6.7.5 Export the session data by clicking the Export tool in the toolbar   
+6.7.6 Choose the html format and press OK, give the report a name and save   
+6.7.7 Save the session as a snapshot by clicking the Save Snapshot tool in the toolbar   
+
+7.0 BridgePoint first masl open state   
+
+Data present:   
+org.xtuml.bp.ui.marking    
+maslin   
+mcooa   
+mcshared   
+SAC   
+SAC_PROC   
+
+Procedure:   
+7.1 Launch profiler   
+7.2 Launch BridgePoint with the xtUML perspective showing      
+7.3 Attach profiler to the BridgePoint process   
+7.4 Start CPU Profiling   
+7.5 Navigate to SAC/SAC/SAC/SAC/Session/ISM/Session_Established and double click   
+7.6 Once the UI is responsive stop the profiler   
+7.7 Create profiling report   
+7.7.1 Right click on the root in the profiler data tree   
+7.7.2 Choose Analyze > Collapse Recursions   
+7.7.3 Expand the three highest cpu usage entries (listed from top to bottom)   
+7.7.4 Expand until the highest percentage is broken into multiple calls or you cannot expand further   
+7.7.5 Export the session data by clicking the Export tool in the toolbar   
+7.7.6 Choose the html format and press OK, give the report a name and save   
+7.7.7 Save the session as a snapshot by clicking the Save Snapshot tool in the toolbar   
+
 Profiling Results   
 -------------
 6.0 [Initial Load Profiling Results](https://drive.google.com/open?id=0Bw01o4iXr5FuMmdPQUpFdW5fMG8)      
@@ -163,6 +215,12 @@ Profiling Results
 
 6.8 [First oal open Profiling Results]()   
 6.9 [First oal open Profiling Snapshot]()   
+
+6.10 [First masl open function Profiling Results]()   
+6.11 [First masl open function Profiling Snapshot]()   
+
+6.12 [First masl open state Profiling Results]()   
+6.13 [First masl open state Profiling Snapshot]()   
 
 Regression Results   
 ---------  
