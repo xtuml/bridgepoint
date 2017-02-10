@@ -7,14 +7,18 @@ Preparation
 
 2) This document uses ```~/git``` as the root folder for git repostiories, and it uses ```~/workspace``` as the development workspace. You may substitute any folder you desire, but you must be consistent.
 
-3) Edit ```~/xtuml/BridgePoint/eclipse/Launcher.sh``` in a text editor (in Windows Launcher.bat)
+3) Create a launcher. e.g.,```~/BridgePoint/Launcher.sh``` in a text editor (or in Windows Launcher.bat)
 
-- Directly after "export BP_JVM=..." add the following (on Windows substitute "set" for "export"):  
+- Add the following lines (on Windows substitute "set" for "export"):  
 ```
+#!/bin/sh
 export XTUML_DEVELOPMENT_REPOSITORY=~/git/bridgepoint
 export XTUML_TEST_MODEL_REPOSITORY=~/git/models/test/
 export XTUML_PRIVATE_MODEL_REPOSITORY=~/git/modelsmg/test/
+~/BridgePoint/bridgepoint
 ```
+
+- This launcher must be used to start BridgePoint for unit testing.
 
 4) If you want to run BridgePoint unit tests on MS Windows you must perform some additional steps [described here.](https://github.com/xtuml/bridgepoint/blob/master/doc-bridgepoint/process/FAQ.md#windowstesting) 
 
