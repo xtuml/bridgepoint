@@ -66,14 +66,16 @@ class NameValidator extends AbstractMASLValidator {
 	
 	@Check
 	def domainNamesAreUnique(DomainDefinition it) {
-		checkNamesAreGloballyUnique(objects, objectDeclaration)
-		checkNamesAreGloballyUnique(services, domainServiceDeclaration)
-		checkNamesAreGloballyUnique(terminators, terminatorDefinition)
-		checkNamesAreGloballyUnique(relationships, relationshipDefinition)
-		checkNamesAreGloballyUnique(objectDefs, objectDefinition)
-		checkNamesAreGloballyUnique(typeForwards, typeForwardDeclaration)
-		checkNamesAreGloballyUnique(types, typeDeclaration)
-		checkNamesAreGloballyUnique(exceptions, exceptionDeclaration)
+		if(fileExtensionProvider.isValid(eResource.URI.fileExtension)) {
+			checkNamesAreGloballyUnique(objects, objectDeclaration)
+			checkNamesAreGloballyUnique(services, domainServiceDeclaration)
+			checkNamesAreGloballyUnique(terminators, terminatorDefinition)
+			checkNamesAreGloballyUnique(relationships, relationshipDefinition)
+			checkNamesAreGloballyUnique(objectDefs, objectDefinition)
+			checkNamesAreGloballyUnique(typeForwards, typeForwardDeclaration)
+			checkNamesAreGloballyUnique(types, typeDeclaration)
+			checkNamesAreGloballyUnique(exceptions, exceptionDeclaration)
+		}
 	}
 	
 	@Check

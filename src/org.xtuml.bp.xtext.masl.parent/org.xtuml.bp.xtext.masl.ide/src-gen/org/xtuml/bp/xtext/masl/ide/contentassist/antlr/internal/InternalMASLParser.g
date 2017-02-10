@@ -8474,6 +8474,7 @@ rule__TypeDeclaration__Group__6
 	}
 :
 	rule__TypeDeclaration__Group__6__Impl
+	rule__TypeDeclaration__Group__7
 ;
 finally {
 	restoreStackSize(stackSize);
@@ -8485,9 +8486,35 @@ rule__TypeDeclaration__Group__6__Impl
 	}
 :
 (
-	{ before(grammarAccess.getTypeDeclarationAccess().getPragmaListParserRuleCall_6()); }
+	{ before(grammarAccess.getTypeDeclarationAccess().getSemicolonKeyword_6()); }
+	(Semicolon)?
+	{ after(grammarAccess.getTypeDeclarationAccess().getSemicolonKeyword_6()); }
+)
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+rule__TypeDeclaration__Group__7
+	@init {
+		int stackSize = keepStackSize();
+	}
+:
+	rule__TypeDeclaration__Group__7__Impl
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+rule__TypeDeclaration__Group__7__Impl
+	@init {
+		int stackSize = keepStackSize();
+	}
+:
+(
+	{ before(grammarAccess.getTypeDeclarationAccess().getPragmaListParserRuleCall_7()); }
 	rulePragmaList
-	{ after(grammarAccess.getTypeDeclarationAccess().getPragmaListParserRuleCall_6()); }
+	{ after(grammarAccess.getTypeDeclarationAccess().getPragmaListParserRuleCall_7()); }
 )
 ;
 finally {

@@ -1646,15 +1646,21 @@ ruleTypeDeclaration returns [EObject current=null]
 		{
 			newLeafNode(otherlv_6, grammarAccess.getTypeDeclarationAccess().getSemicolonKeyword_5());
 		}
+		(
+			otherlv_7=Semicolon
+			{
+				newLeafNode(otherlv_7, grammarAccess.getTypeDeclarationAccess().getSemicolonKeyword_6());
+			}
+		)?
 		{
 			if ($current==null) {
 				$current = createModelElement(grammarAccess.getTypeDeclarationRule());
 			}
-			newCompositeNode(grammarAccess.getTypeDeclarationAccess().getPragmaListParserRuleCall_6());
+			newCompositeNode(grammarAccess.getTypeDeclarationAccess().getPragmaListParserRuleCall_7());
 		}
-		this_PragmaList_7=rulePragmaList[$current]
+		this_PragmaList_8=rulePragmaList[$current]
 		{
-			$current = $this_PragmaList_7.current;
+			$current = $this_PragmaList_8.current;
 			afterParserOrEnumRuleCall();
 		}
 	)

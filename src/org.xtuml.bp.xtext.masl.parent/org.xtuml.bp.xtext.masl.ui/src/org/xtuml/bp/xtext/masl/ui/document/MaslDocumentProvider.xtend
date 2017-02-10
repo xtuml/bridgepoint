@@ -68,8 +68,8 @@ class MaslDocumentProvider extends XtextDocumentProvider {
 		switch modelElement {
 			UserDataType_c: '''
 				domain «editorInput.modelElement.domain» is
-					type __dummy__;
-					type __dummy__ is 
+					type «modelElement.name»;
+					type «modelElement.name» is 
 			'''
 			default: '''
 				«Ooaofooa.Get_formatted_body(modelElement.modelRoot, modelElement, true)» 
@@ -86,7 +86,7 @@ class MaslDocumentProvider extends XtextDocumentProvider {
 		switch modelElement {
 			UserDataType_c: '''
 				;
-				end domain;
+				end;
 			'''
 			default: ''
 		}
@@ -95,9 +95,13 @@ class MaslDocumentProvider extends XtextDocumentProvider {
 	override protected doSaveDocument(IProgressMonitor monitor, Object element, IDocument document, boolean overwrite) throws CoreException {
 		if(element instanceof AbstractModelElementPropertyEditorInput) {
 			// we have the workspace lock which is makes the transaction manager deadlock
+			val prefixLength = element.prefix.length
+			val editable = document.get(prefixLength, document.length - element.suffix.length - prefixLength).trim
+			val newDefinition = if(element.modelElement instanceof UserDataType_c && editable.endsWith(';')) 
+					editable.substring(0, editable.length - 1)
+				else
+					editable
 			Display.^default.asyncExec [
-				val prefixLength = element.prefix.length
-				val newDefinition = document.get(prefixLength, document.length - element.suffix.length - prefixLength)
 	            element.propertyValue = newDefinition
 			]
 		} else {

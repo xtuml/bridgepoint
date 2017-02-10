@@ -248,6 +248,7 @@ ruleTypeDeclaration:
 	'is'
 	ruleAbstractTypeDefinition
 	';'
+	';'?
 	rulePragmaList
 ;
 

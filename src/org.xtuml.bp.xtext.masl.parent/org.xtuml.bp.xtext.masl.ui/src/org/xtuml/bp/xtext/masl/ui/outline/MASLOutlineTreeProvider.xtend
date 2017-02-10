@@ -28,6 +28,10 @@ import org.xtuml.bp.xtext.masl.masl.structure.TerminatorServiceDeclaration
 import org.xtuml.bp.xtext.masl.masl.structure.TerminatorServiceDefinition
 import org.xtuml.bp.xtext.masl.masl.structure.ObjectServiceDeclaration
 import org.xtuml.bp.xtext.masl.masl.structure.ObjectServiceDefinition
+import org.eclipse.xtext.ui.editor.outline.impl.DocumentRootNode
+import org.eclipse.emf.ecore.EObject
+import org.xtuml.bp.xtext.masl.masl.structure.DomainDefinition
+import org.xtuml.bp.xtext.masl.masl.structure.MaslModel
 
 /**
  * Customization of the default outline structure.
@@ -44,6 +48,21 @@ class MASLOutlineTreeProvider extends DefaultOutlineTreeProvider {
 		super.createRoot(document, cancelIndicator)
 	}
 	
+	override protected _createChildren(DocumentRootNode parentNode, EObject modelElement) {
+		if(modelElement.eResource.URI.fileExtension =='tdf') {
+			if(modelElement instanceof MaslModel) {
+				if(modelElement.elements.size == 1) {
+					val domainCandidate = modelElement.elements.head
+					if(domainCandidate instanceof DomainDefinition) {
+						super._createChildren(parentNode, domainCandidate.types.head)
+						return						
+					}
+				}
+			}
+		}
+		super._createChildren(parentNode, modelElement)
+	}
+		
 	def _createChildren(IOutlineNode parent, ObjectDefinition object) {
 		object.attributes.forEach[createNode(parent, it)]
 		object.services.forEach[createNode(parent, it)]

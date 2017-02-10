@@ -932,15 +932,16 @@ public class MASLGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cDefinitionAssignment_4 = (Assignment)cGroup.eContents().get(4);
 		private final RuleCall cDefinitionAbstractTypeDefinitionParserRuleCall_4_0 = (RuleCall)cDefinitionAssignment_4.eContents().get(0);
 		private final Keyword cSemicolonKeyword_5 = (Keyword)cGroup.eContents().get(5);
-		private final RuleCall cPragmaListParserRuleCall_6 = (RuleCall)cGroup.eContents().get(6);
+		private final Keyword cSemicolonKeyword_6 = (Keyword)cGroup.eContents().get(6);
+		private final RuleCall cPragmaListParserRuleCall_7 = (RuleCall)cGroup.eContents().get(7);
 		
 		//TypeDeclaration:
 		//	visibility=Visibility? ('type' | subtype?='subtype') name=ID 'is'
 		//	definition=AbstractTypeDefinition
-		//	';' PragmaList;
+		//	';' ';'? PragmaList;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//visibility=Visibility? ('type' | subtype?='subtype') name=ID 'is' definition=AbstractTypeDefinition ';' PragmaList
+		//visibility=Visibility? ('type' | subtype?='subtype') name=ID 'is' definition=AbstractTypeDefinition ';' ';'? PragmaList
 		public Group getGroup() { return cGroup; }
 		
 		//visibility=Visibility?
@@ -979,8 +980,11 @@ public class MASLGrammarAccess extends AbstractGrammarElementFinder {
 		//';'
 		public Keyword getSemicolonKeyword_5() { return cSemicolonKeyword_5; }
 		
+		//';'?
+		public Keyword getSemicolonKeyword_6() { return cSemicolonKeyword_6; }
+		
 		//PragmaList
-		public RuleCall getPragmaListParserRuleCall_6() { return cPragmaListParserRuleCall_6; }
+		public RuleCall getPragmaListParserRuleCall_7() { return cPragmaListParserRuleCall_7; }
 	}
 	public class AbstractTypeDefinitionElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.xtuml.bp.xtext.masl.MASL.AbstractTypeDefinition");
@@ -8094,7 +8098,7 @@ public class MASLGrammarAccess extends AbstractGrammarElementFinder {
 	//TypeDeclaration:
 	//	visibility=Visibility? ('type' | subtype?='subtype') name=ID 'is'
 	//	definition=AbstractTypeDefinition
-	//	';' PragmaList;
+	//	';' ';'? PragmaList;
 	public TypeDeclarationElements getTypeDeclarationAccess() {
 		return pTypeDeclaration;
 	}
