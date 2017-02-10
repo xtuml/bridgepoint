@@ -149,19 +149,19 @@ Procedure:
 
 Profiling Results   
 -------------
-1.0 [Initial Load Profiling Results](http://htmlpreview.github.com/?https://github.com/travislondon/bridgepoint/blob/master/doc-bridgepoint/qa/profiling_data/BridgePoint_Profiling_first_canvas_open_v5.2.2.html)      
+1.0 [Initial Load Profiling Results](http://htmlpreview.github.com/?https://github.com/travislondon/bridgepoint/blob/master/doc-bridgepoint/qa/profiling_data/BridgePoint_Profiling_initial_load_v5.2.2.html)      
 1.1 [Initial Load Profiling Snapshot](https://drive.google.com/open?id=0Bw01o4iXr5Fub0VLdHl4bTcydjA)   
 
-2.0 [First time C/C++ Perspective Profiling Results](https://drive.google.com/open?id=0Bw01o4iXr5FucG0wVVVPdE1Yd2s)   
+2.0 [First time C/C++ Perspective Profiling Results](http://htmlpreview.github.com/?https://github.com/travislondon/bridgepoint/blob/master/doc-bridgepoint/qa/profiling_data/BridgePoint_Profiling_first_time_cc++_v5.2.2.html)   
 2.1 [First time C/C++ Perspective Profiling Snapshot](https://drive.google.com/open?id=0Bw01o4iXr5FuWjZEUWtUUlZiMEU)
 
-3.0 [First cme invocation Profiling Results](https://drive.google.com/open?id=0Bw01o4iXr5FubEgwckpMTEpkZzg)   
+3.0 [First cme invocation Profiling Results](http://htmlpreview.github.com/?https://github.com/travislondon/bridgepoint/blob/master/doc-bridgepoint/qa/profiling_data/BridgePoint_Profiling_first_cme_invocation_v5.2.2.html)   
 3.1 [First cme invocation Profiling Snapshot](https://drive.google.com/open?id=0Bw01o4iXr5FuaWdzbkVWWWdjd0U)   
 
-4.0 [First canvas open Profiling Results](https://drive.google.com/open?id=0Bw01o4iXr5FuM1RFTkVpdnZDOW8)   
+4.0 [First canvas open Profiling Results](http://htmlpreview.github.com/?https://github.com/travislondon/bridgepoint/blob/master/doc-bridgepoint/qa/profiling_data/BridgePoint_Profiling_first_canvas_open_v5.2.2.html)   
 4.1 [First canvas open Profiling Snapshot](https://drive.google.com/open?id=0Bw01o4iXr5FudE5Cem1GQ01vNlE)   
 
-5.0 [First oal open Profiling Results](https://drive.google.com/open?id=0Bw01o4iXr5Fud3l1Rnl2b2wybUE)   
+5.0 [First oal open Profiling Results](http://htmlpreview.github.com/?https://github.com/travislondon/bridgepoint/blob/master/doc-bridgepoint/qa/profiling_data/BridgePoint_Profiling_first_oal_open_v5.2.2.html)   
 5.1 [First oal open Profiling Snapshot](https://drive.google.com/open?id=0Bw01o4iXr5FuNGxMSVJnQnJvMjQ)   
 
 Regression Results   
