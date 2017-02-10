@@ -201,26 +201,26 @@ Procedure:
 
 Profiling Results   
 -------------
-6.0 [Initial Load Profiling Results](https://drive.google.com/open?id=0Bw01o4iXr5FuMmdPQUpFdW5fMG8)      
+6.0 [Initial Load Profiling Results](http://htmlpreview.github.com/?https://github.com/travislondon/bridgepoint/blob/master/doc-bridgepoint/qa/profiling_data/BridgePoint_Profiling_initial_load_v6.0.0.html)      
 6.1 [Initial Load Profiling Snapshot](https://drive.google.com/open?id=0Bw01o4iXr5FuajZ4MFdraUNFS0U).  
 
-6.2 [First time C/C++ Profiling Results](https://drive.google.com/open?id=0Bw01o4iXr5FuSHZOVllRcnNmTVk)   
+6.2 [First time C/C++ Profiling Results](http://htmlpreview.github.com/?https://github.com/travislondon/bridgepoint/blob/master/doc-bridgepoint/qa/profiling_data/BridgePoint_Profiling_first_time_cc++_v6.0.0.html)   
 6.3 [First time C/C++ Profiling Snapshot](https://drive.google.com/open?id=0Bw01o4iXr5FuNTJGaURWREt0MEU)   
 
-6.4 [First cme invocation Profiling Results]()   
-6.5 [First cme invocation Profiling Snapshot]()   
+6.4 [First cme invocation Profiling Results](http://htmlpreview.github.com/?https://github.com/travislondon/bridgepoint/blob/master/doc-bridgepoint/qa/profiling_data/BridgePoint_Profiling_first_cme_invocation_v6.0.0.html)   
+6.5 [First cme invocation Profiling Snapshot](https://drive.google.com/open?id=0Bw01o4iXr5FuTGtiNmVURWhqTnM)   
 
-6.6 [First canvas open Profiling Results]()   
-6.7 [First canvas open Profiling Snapshot]()   
+6.6 [First canvas open Profiling Results](http://htmlpreview.github.com/?https://github.com/travislondon/bridgepoint/blob/master/doc-bridgepoint/qa/profiling_data/BridgePoint_Profiling_first_canvas_open_v6.0.0.html)   
+6.7 [First canvas open Profiling Snapshot](https://drive.google.com/open?id=0Bw01o4iXr5FuUzlIVU50TXhiVUE)   
 
-6.8 [First oal open Profiling Results]()   
-6.9 [First oal open Profiling Snapshot]()   
+6.8 [First oal open Profiling Results](http://htmlpreview.github.com/?https://github.com/travislondon/bridgepoint/blob/master/doc-bridgepoint/qa/profiling_data/BridgePoint_Profiling_first_oal_open_v6.0.0.html)   
+6.9 [First oal open Profiling Snapshot](https://drive.google.com/open?id=0Bw01o4iXr5FualExZnl5czVLeTA)   
 
-6.10 [First masl open function Profiling Results]()   
-6.11 [First masl open function Profiling Snapshot]()   
+6.10 [First masl open function Profiling Results](http://htmlpreview.github.com/?https://github.com/travislondon/bridgepoint/blob/master/doc-bridgepoint/qa/profiling_data/BridgePoint_Profiling_first_masl_open_function_v6.0.0.html)   
+6.11 [First masl open function Profiling Snapshot](https://drive.google.com/open?id=0Bw01o4iXr5Fuc0wwLWVISFRybmM)   
 
-6.12 [First masl open state Profiling Results]()   
-6.13 [First masl open state Profiling Snapshot]()   
+6.12 [First masl open state Profiling Results](http://htmlpreview.github.com/?https://github.com/travislondon/bridgepoint/blob/master/doc-bridgepoint/qa/profiling_data/BridgePoint_Profiling_first_masl_open_state_v6.0.0.html)   
+6.13 [First masl open state Profiling Snapshot](https://drive.google.com/open?id=0Bw01o4iXr5FuczZxdGFXMmNkV28)   
 
 Regression Results   
 ---------  
@@ -235,31 +235,31 @@ Regression Results
 7.1.7 Expand the tree as done in the profiling section above   
 7.1.8 Export the session data in html format as done in section 1   
 
-[Initial Load Regression Results](https://drive.google.com/open?id=0Bw01o4iXr5FuT1BVc09LUXhmU2c)   
+[Initial Load Regression Results](http://htmlpreview.github.com/?https://github.com/travislondon/bridgepoint/blob/master/doc-bridgepoint/qa/profiling_data/BridgePoint_Regression_initial_load_v6.0.0.html)   
 
 7.2 v5.2.2 - v6.0.0 First time C/C++ Perspective     
 
 7.2.1 Repeat the steps above in 7.1   
 
-[First time C/C++ Regression Results](https://drive.google.com/open?id=0Bw01o4iXr5FuM0h4QmNabDhrU2c)   
+[First time C/C++ Regression Results](http://htmlpreview.github.com/?https://github.com/travislondon/bridgepoint/blob/master/doc-bridgepoint/qa/profiling_data/BridgePoint_Regression_first_time_cc++_v6.0.0.html)   
 
 7.3 v5.2.2 - v6.0.0 First cme invocation     
 
 7.3.1 Repeat the steps above in 7.1   
 
-[First cme invocation Regression Results](https://drive.google.com/open?id=0Bw01o4iXr5FuZmFYQWc5SnEzbVU)   
+[First cme invocation Regression Results](http://htmlpreview.github.com/?https://github.com/travislondon/bridgepoint/blob/master/doc-bridgepoint/qa/profiling_data/BridgePoint_Regression_first_cme_invocation_v6.0.0.html)   
 
 7.4 v5.2.2 - v6.0.0 First canvas open     
 
 7.4.1 Repeat the steps above in 7.1   
 
-[First canvas open Regression Results](https://drive.google.com/open?id=0Bw01o4iXr5FuWUsxUE1jVEE4TWs)   
+[First canvas open Regression Results](http://htmlpreview.github.com/?https://github.com/travislondon/bridgepoint/blob/master/doc-bridgepoint/qa/profiling_data/BridgePoint_Regression_first_canvas_open_v6.0.0.html)   
 
 7.5 v5.2.2 - v6.0.0 First oal open     
 
 7.5.1 Repeat the steps above in 7.1   
 
-[First oal open Regression Results](https://drive.google.com/open?id=0Bw01o4iXr5FuSzk5R0VoTk5mQ3c)   
+[First oal open Regression Results](http://htmlpreview.github.com/?https://github.com/travislondon/bridgepoint/blob/master/doc-bridgepoint/qa/profiling_data/BridgePoint_Regression_first_oal_open_v6.0.0.html)   
 
 
 
