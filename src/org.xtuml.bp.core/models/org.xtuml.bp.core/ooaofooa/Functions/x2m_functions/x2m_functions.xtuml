@@ -968,6 +968,18 @@ String signature = "";
 String body = "";
 if ( null != inst ) {
 
+    // navigate to the Action_c instance if it is a state or transition
+    if (inst instanceof StateMachineState_c) {
+        Action_c action = Action_c.getOneSM_ACTOnR514(ActionHome_c.getOneSM_AHOnR513((
+            MooreActionHome_c.getOneSM_MOAHOnR511((StateMachineState_c)inst))));
+        inst = (NonRootModelElement)action;
+    }
+    else if (inst instanceof Transition_c) {
+        Action_c action = Action_c.getOneSM_ACTOnR514(ActionHome_c.getOneSM_AHOnR513(
+            TransitionActionHome_c.getOneSM_TAHOnR530((Transition_c)inst)));
+        inst = (NonRootModelElement)action;
+    }
+
     // get the dialect
     int dialect = -1;
     try {
