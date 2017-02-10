@@ -14,7 +14,7 @@ This note describes the analysis of the profiling data capture by [4].
 2. Document References
 ----------------------
 <a id="2.1"></a>2.1 [BridgePoint DEI #9132]() Analyze profiling data for 5.2.2 and 6.0.0   
-<a id="2.2"></a>2.2 [BridgePoint Profiling Report 5.2.2]() Report for profiling 5.2.2   
+<a id="2.2"></a>2.2 [BridgePoint Profiling Report 5.2.2]() Report for profiling 5.2.2   
 <a id="2.3"></a>2.3 [BridgePoint Profiling Report 6.0.0]() Report for profiling 6.0.0    
 
 3. Background
