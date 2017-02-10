@@ -54,7 +54,8 @@ Procedure:
 2.0 BridgePoint first switch to C/C++ Perspective   
 
 Data present:   
-org.xtuml.bp.ui.marking maslin   
+org.xtuml.bp.ui.marking   
+maslin   
 mcooa   
 mcshared   
 
@@ -68,39 +69,140 @@ Procedure:
 2.7 Create profiling report   
 2.7.1 Right click on the root in the profiler data tree   
 2.7.2 Choose Analyze > Collapse Recursions   
-2.7.3 Expand the three highest cpu usage entries (listed from top to bottom)  
+2.7.3 Expand the three highest cpu usage entries (listed from top to bottom)   
 2.7.4 Expand until the highest percentage is broken into multiple calls or you cannot expand further    
 2.7.5 Export the session data by clicking the Export tool in the toolbar   
 2.7.6 Choose the html format and press OK, give the report a name and save.   
 2.7.7 Save the session as a snapshot by clicking the Save Snapshot tool in the toolbar    
 
+3.0 BridgePoint first cme invocation   
+
+Data present:   
+org.xtuml.bp.ui.marking   
+maslin   
+mcooa   
+mcshared   
+
+Procedure:   
+3.1 Launch profiler   
+3.2 Launch BridgePoint with the xtUML perspective showing   
+3.3 Attach profiler to the BridgePoint process   
+3.4 Start CPU Profiling   
+3.5 Right click on any project in Model Explorer   
+3.6 Once the UI is responsive stop the profiler   
+3.7 Create profiling report   
+3.7.1 Right click on the root in the profiler data tree   
+3.7.2 Choose Analyze > Collapse Recursions   
+3.7.3 Expand the three highest cpu usage entries (listed from top to bottom)   
+3.7.4 Expand until the highest percentage is broken into multiple calls or you cannot expand further    
+3.7.5 Export the session data by clicking the Export tool in the toolbar   
+3.7.6 Choose the html format and press OK, give the report a name and save.   
+3.7.7 Save the session as a snapshot by clicking the Save Snapshot tool in the toolbar    
+
+4.0 BridgePoint first canvas open   
+
+Data present:   
+org.xtuml.bp.ui.marking   
+maslin   
+mcooa   
+mcshared   
+
+Procedure:   
+4.1 Launch profiler   
+4.2 Launch BridgePoint with the xtUML perspective showing   
+4.3 Attach profiler to the BridgePoint process   
+4.4 Start CPU Profiling   
+4.5 Navigate to mcooa/ooaofooa in Model Explorer and double click   
+4.6 Once the UI is responsive stop the profiler   
+4.7 Create profiling report   
+4.7.1 Right click on the root in the profiler data tree   
+4.7.2 Choose Analyze > Collapse Recursions   
+4.7.3 Expand the three highest cpu usage entries (listed from top to bottom)   
+4.7.4 Expand until the highest percentage is broken into multiple calls or you cannot expand further   
+4.7.5 Export the session data by clicking the Export tool in the toolbar   
+4.7.6 Choose the html format and press OK, give the report a name and save   
+4.7.7 Save the session as a snapshot by clicking the Save Snapshot tool in the toolbar   
+
+5.0 BridgePoint first oal open   
+
+Data present:   
+org.xtuml.bp.ui.marking    
+maslin   
+mcooa   
+mcshared   
+
+Procedure:   
+5.1 Launch profiler   
+5.2 Launch BridgePoint with the xtUML perspective showing      
+5.3 Attach profiler to the BridgePoint process   
+5.4 Start CPU Profiling   
+5.5 Navigate to maslin/m2x/assocFormalization/getID and double click   
+5.6 Once the UI is responsive stop the profiler   
+5.7 Create profiling report   
+5.7.1 Right click on the root in the profiler data tree   
+5.7.2 Choose Analyze > Collapse Recursions   
+5.7.3 Expand the three highest cpu usage entries (listed from top to bottom)   
+5.7.4 Expand until the highest percentage is broken into multiple calls or you cannot expand further   
+5.7.5 Export the session data by clicking the Export tool in the toolbar   
+5.7.6 Choose the html format and press OK, give the report a name and save   
+5.7.7 Save the session as a snapshot by clicking the Save Snapshot tool in the toolbar   
+
 Profiling Results   
 -------------
-2.0 [Initial Load Profiling Results](https://drive.google.com/open?id=0Bw01o4iXr5FuMmdPQUpFdW5fMG8)      
-2.1 [Initial Load Profiling Snapshot](https://drive.google.com/open?id=0Bw01o4iXr5FuajZ4MFdraUNFS0U).  
+6.0 [Initial Load Profiling Results](https://drive.google.com/open?id=0Bw01o4iXr5FuMmdPQUpFdW5fMG8)      
+6.1 [Initial Load Profiling Snapshot](https://drive.google.com/open?id=0Bw01o4iXr5FuajZ4MFdraUNFS0U).  
 
-2.2 [First time C/C++ Profiling Results](https://drive.google.com/open?id=0Bw01o4iXr5FuSHZOVllRcnNmTVk)   
-2.3 [First time C/C++ Profiling Snapshow](https://drive.google.com/open?id=0Bw01o4iXr5FuNTJGaURWREt0MEU)   
+6.2 [First time C/C++ Profiling Results](https://drive.google.com/open?id=0Bw01o4iXr5FuSHZOVllRcnNmTVk)   
+6.3 [First time C/C++ Profiling Snapshot](https://drive.google.com/open?id=0Bw01o4iXr5FuNTJGaURWREt0MEU)   
+
+6.4 [First cme invocation Profiling Results]()   
+6.5 [First cme invocation Profiling Snapshot]()   
+
+6.6 [First canvas open Profiling Results]()   
+6.7 [First canvas open Profiling Snapshot]()   
+
+6.8 [First oal open Profiling Results]()   
+6.9 [First oal open Profiling Snapshot]()   
 
 Regression Results   
 ---------  
-3.1 v5.2.2 - v6.0.0 Intial load   
+7.1 v5.2.2 - v6.0.0 Intial load   
 
-3.1.1 In JProfiler compare the v5.2.2 and v6.0.0 snapshots by choosing Session > Compare Snapshots in New Window menu   
-3.1.2 Click the + toolbar button and add v5.2.2.jps and v6.0.0.jps snapshots   
-3.1.3 Select the two snapshots in the Available Snapshots tree   
-3.1.4 Right click and choose the Create CPU comparison item   
-3.1.5 Choose the Hot spot comparison option and click finish   
-3.1.6 Right click on the root in the session tree and choose Analyze > Collapse Recursions   
-3.1.7 Expand the tree as done in the profiling section above   
-3.1.8 Export the session data in html format as done in section 1   
+7.1.1 In JProfiler compare the v5.2.2 and v6.0.0 snapshots by choosing Session > Compare Snapshots in New Window menu   
+7.1.2 Click the + toolbar button and add v5.2.2.jps and v6.0.0.jps snapshots   
+7.1.3 Select the two snapshots in the Available Snapshots tree   
+7.1.4 Right click and choose the Create CPU comparison item   
+7.1.5 Choose the Hot spot comparison option and click finish   
+7.1.6 Right click on the root in the session tree and choose Analyze > Collapse Recursions   
+7.1.7 Expand the tree as done in the profiling section above   
+7.1.8 Export the session data in html format as done in section 1   
 
 [Initial Load Regression Results](https://drive.google.com/open?id=0Bw01o4iXr5FuT1BVc09LUXhmU2c)   
 
-3.2 v5.2.2 - v6.0.0 First time C/C++ Perspective     
+7.2 v5.2.2 - v6.0.0 First time C/C++ Perspective     
 
-3.2.1 Repeat the steps above in 3.1   
+7.2.1 Repeat the steps above in 7.1   
 
 [First time C/C++ Regression Results](https://drive.google.com/open?id=0Bw01o4iXr5FuM0h4QmNabDhrU2c)   
+
+7.3 v5.2.2 - v6.0.0 First cme invocation     
+
+7.3.1 Repeat the steps above in 7.1   
+
+[First cme invocation Regression Results](https://drive.google.com/open?id=0Bw01o4iXr5FuZmFYQWc5SnEzbVU)   
+
+7.4 v5.2.2 - v6.0.0 First canvas open     
+
+7.4.1 Repeat the steps above in 7.1   
+
+[First canvas open Regression Results](https://drive.google.com/open?id=0Bw01o4iXr5FuWUsxUE1jVEE4TWs)   
+
+7.5 v5.2.2 - v6.0.0 First oal open     
+
+7.5.1 Repeat the steps above in 7.1   
+
+[First oal open Regression Results](https://drive.google.com/open?id=0Bw01o4iXr5FuSzk5R0VoTk5mQ3c)   
+
+
 
 
