@@ -128,15 +128,13 @@ class TypeValidator extends AbstractMASLValidator {
 	@Check 
 	def checkGenerateStatement(GenerateStatement it) {
 		val argTypes = arguments.map[maslType]
-		if(event != null && !event.eIsProxy) {
-			val ranked = rankParameterized(event, argTypes)
-			if(!ranked.acceptable) 
-				addIssue('''The event «
-					event.fullyQualifiedName»«event.parametersAsString
-					» cannot be generated with arguments («
-						arguments.map[maslType.toString].join(', ')
-					»)''', it, generateStatement_Event, WRONG_TYPE)
-		}
+		val ranked = rankParameterized(event, argTypes)
+		if(!ranked.acceptable) 
+			addIssue('''The event «
+				event.fullyQualifiedName»«event.parametersAsString
+				» cannot be generated with arguments («
+					arguments.map[maslType.toString].join(', ')
+				»)''', it, generateStatement_Event, WRONG_TYPE)
 	}
 	
 	@Check
@@ -198,10 +196,8 @@ class TypeValidator extends AbstractMASLValidator {
 				addIssue("Navigation expression with 'with' can only use an association relationship", expr.navigation, structurePackage.relationshipNavigation_Relationship, INCONSISTENT_RELATIONSHIP_NAVIGATION)
 			if(expr.navigation.object != null) 
 				addIssue("Navigation expression with 'with' can only use an association class", expr.navigation, structurePackage.relationshipNavigation_Object, INCONSISTENT_RELATIONSHIP_NAVIGATION)
-			if(relationship instanceof AssocRelationshipDefinition) {
-				if(expr.navigation.objectOrRole != relationship.object)
-					addIssue("Navigation expression with 'with' can only use an association class", expr.navigation, structurePackage.relationshipNavigation_ObjectOrRole, INCONSISTENT_RELATIONSHIP_NAVIGATION)
-			}
+			if(expr.navigation.objectOrRole != (relationship as AssocRelationshipDefinition).object)
+				addIssue("Navigation expression with 'with' can only use an association class", expr.navigation, structurePackage.relationshipNavigation_ObjectOrRole, INCONSISTENT_RELATIONSHIP_NAVIGATION)
 		}
 	}
 	

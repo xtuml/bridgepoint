@@ -19,7 +19,6 @@ import org.xtuml.bp.xtext.masl.masl.types.BuiltinTypeDeclaration
 import org.xtuml.bp.xtext.masl.masl.types.EnumerationTypeDefinition
 import org.xtuml.bp.xtext.masl.masl.types.TypeDeclaration
 import org.apache.log4j.Logger
-import org.xtuml.bp.xtext.masl.masl.structure.Parameterized
 
 class MASLResourceDescriptionStrategy extends DefaultResourceDescriptionStrategy {
 
@@ -48,7 +47,6 @@ class MASLResourceDescriptionStrategy extends DefaultResourceDescriptionStrategy
 			|| eObject instanceof DomainDefinition 
 			|| eObject instanceof MaslModel 
 			|| eObject instanceof TerminatorDefinition
-			|| eObject instanceof Parameterized
 	}
 
 	private def doCreateEObjectDescriptions(EObject eObject, IAcceptor<IEObjectDescription> acceptor) {

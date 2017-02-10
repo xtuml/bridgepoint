@@ -15,13 +15,9 @@ class ProjectScopeIndexProvider {
 	@Inject IContainer.Manager containerManager
 
 	def ISelectable getIndex(Resource resource) {
-		if(resource != null) {
-			val resourceIndex = getResourceDescription(resource)
-			val workspaceIndex = getResourceDescriptions(resource)
-			containerManager.getContainer(resourceIndex, workspaceIndex)
-		} else {
-			null
-		}
+		val resourceIndex = getResourceDescription(resource)
+		val workspaceIndex = getResourceDescriptions(resource)
+		containerManager.getContainer(resourceIndex, workspaceIndex)
 	}
 	
 	def ISelectable getIndex(EObject element) {
