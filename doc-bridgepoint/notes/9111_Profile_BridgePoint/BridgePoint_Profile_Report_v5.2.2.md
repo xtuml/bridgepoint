@@ -3,7 +3,7 @@ BridgePoint Profiling Session
 System Configuration
 -----------
 OS: Debian 8   
-CPU: 2.70Ghz 2 processors   
+CPU: 2.70Ghz 4 processors   
 Machine ID: development-one-debian   
 Base BridgePoint Version: 5.2.2   
 Comparison BridgePoint Version: none   
