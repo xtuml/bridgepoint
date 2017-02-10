@@ -235,31 +235,31 @@ Regression Results
 7.1.7 Expand the tree as done in the profiling section above   
 7.1.8 Export the session data in html format as done in section 1   
 
-[Initial Load Regression Results](http://htmlpreview.github.com/?https://github.com/travislondon/bridgepoint/blob/master/doc-bridgepoint/qa/profiling_data/BridgePoint_Regression_initial_load_v6.0.0.html)   
+[Initial Load Regression Results](http://htmlpreview.github.com/?https://github.com/travislondon/bridgepoint/blob/master/doc-bridgepoint/qa/profiling_data/BridgePoint_Regression_initial_load_v_5.2.2_v6.0.0.html)   
 
 7.2 v5.2.2 - v6.0.0 First time C/C++ Perspective     
 
 7.2.1 Repeat the steps above in 7.1   
 
-[First time C/C++ Regression Results](http://htmlpreview.github.com/?https://github.com/travislondon/bridgepoint/blob/master/doc-bridgepoint/qa/profiling_data/BridgePoint_Regression_first_time_cc++_v6.0.0.html)   
+[First time C/C++ Regression Results](http://htmlpreview.github.com/?https://github.com/travislondon/bridgepoint/blob/master/doc-bridgepoint/qa/profiling_data/BridgePoint_Regression_first_time_cc++_v_5.2.2_v6.0.0.html)   
 
 7.3 v5.2.2 - v6.0.0 First cme invocation     
 
 7.3.1 Repeat the steps above in 7.1   
 
-[First cme invocation Regression Results](http://htmlpreview.github.com/?https://github.com/travislondon/bridgepoint/blob/master/doc-bridgepoint/qa/profiling_data/BridgePoint_Regression_first_cme_invocation_v6.0.0.html)   
+[First cme invocation Regression Results](http://htmlpreview.github.com/?https://github.com/travislondon/bridgepoint/blob/master/doc-bridgepoint/qa/profiling_data/BridgePoint_Regression_first_cme_invocation_v5.2.2_v6.0.0.html)   
 
 7.4 v5.2.2 - v6.0.0 First canvas open     
 
 7.4.1 Repeat the steps above in 7.1   
 
-[First canvas open Regression Results](http://htmlpreview.github.com/?https://github.com/travislondon/bridgepoint/blob/master/doc-bridgepoint/qa/profiling_data/BridgePoint_Regression_first_canvas_open_v6.0.0.html)   
+[First canvas open Regression Results](http://htmlpreview.github.com/?https://github.com/travislondon/bridgepoint/blob/master/doc-bridgepoint/qa/profiling_data/BridgePoint_Regression_first_canvas_open_v5.2.2_v6.0.0.html)   
 
 7.5 v5.2.2 - v6.0.0 First oal open     
 
 7.5.1 Repeat the steps above in 7.1   
 
-[First oal open Regression Results](http://htmlpreview.github.com/?https://github.com/travislondon/bridgepoint/blob/master/doc-bridgepoint/qa/profiling_data/BridgePoint_Regression_first_oal_open_v6.0.0.html)   
+[First oal open Regression Results](http://htmlpreview.github.com/?https://github.com/travislondon/bridgepoint/blob/master/doc-bridgepoint/qa/profiling_data/BridgePoint_Regression_first_oal_open_v5.2.2_v6.0.0.html)   
 
 
 
