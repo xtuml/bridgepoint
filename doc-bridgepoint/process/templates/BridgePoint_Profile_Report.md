@@ -58,6 +58,7 @@ Procedure:
 Profiling Results   
 -------------
 TODO: Export the profiling session in the profiling tool, include links to the data here   
+      Note to have the html rendered on github we must prepend the URL with http://htmlpreview.github.com/   
       Remove this text before submitting the profiling session results   
       Example:   
 1. [Load Profiling Results](https://github.com/xtuml/bridgepoint/doc-bridgepoint/checklists/6.0/9111_profiling.html)   
@@ -69,9 +70,10 @@ END TODO
 Regression Results   
 ---------
 TODO: Using the procedure for collecting regression profiling data [1], compare the two snapshots.   
-      Remove this text before submitting the profiling session results   
+      Note to have the html rendered on github we must prepend the URL with http://htmlpreview.github.com/   
+      Remove this text before submitting the profiling session results.   
       Example:   
-1. [Load Regression Results](https://github.com/xtuml/bridgepoint/doc-bridgepoint/checklists/6.0/9111_regression_comparison.html)   
+1. [Load Regression Results](http://htmlpreview.github.com/?https://github.com/xtuml/bridgepoint/doc-bridgepoint/checklists/6.0/9111_regression_comparison.html)   
 END TODO   
 1. (path_to_results)   
 2. (path_to_results)    
