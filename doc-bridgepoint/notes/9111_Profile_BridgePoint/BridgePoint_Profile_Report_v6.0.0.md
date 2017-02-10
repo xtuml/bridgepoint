@@ -69,7 +69,7 @@ Procedure:
 2.7 Create profiling report   
 2.7.1 Right click on the root in the profiler data tree   
 2.7.2 Choose Analyze > Collapse Recursions   
-2.7.3 Expand the three highest cpu usage entries (listed from top to bottom)   
+2.7.3 Expand the three highest cpu usage entries (listed from top to bottom)    
 2.7.4 Expand until the highest percentage is broken into multiple calls or you cannot expand further    
 2.7.5 Export the session data by clicking the Export tool in the toolbar   
 2.7.6 Choose the html format and press OK, give the report a name and save.   
@@ -235,13 +235,13 @@ Regression Results
 7.1.7 Expand the tree as done in the profiling section above   
 7.1.8 Export the session data in html format as done in section 1   
 
-[Initial Load Regression Results](http://htmlpreview.github.com/?https://github.com/travislondon/bridgepoint/blob/master/doc-bridgepoint/qa/profiling_data/BridgePoint_Regression_initial_load_v_5.2.2_v6.0.0.html)   
+[Initial Load Regression Results](http://htmlpreview.github.com/?https://github.com/travislondon/bridgepoint/blob/master/doc-bridgepoint/qa/profiling_data/BridgePoint_Regression_initial_load_v5.2.2_v6.0.0.html)   
 
 7.2 v5.2.2 - v6.0.0 First time C/C++ Perspective     
 
 7.2.1 Repeat the steps above in 7.1   
 
-[First time C/C++ Regression Results](http://htmlpreview.github.com/?https://github.com/travislondon/bridgepoint/blob/master/doc-bridgepoint/qa/profiling_data/BridgePoint_Regression_first_time_cc++_v_5.2.2_v6.0.0.html)   
+[First time C/C++ Regression Results](http://htmlpreview.github.com/?https://github.com/travislondon/bridgepoint/blob/master/doc-bridgepoint/qa/profiling_data/BridgePoint_Regression_first_time_cc++_v5.2.2_v6.0.0.html)   
 
 7.3 v5.2.2 - v6.0.0 First cme invocation     
 
