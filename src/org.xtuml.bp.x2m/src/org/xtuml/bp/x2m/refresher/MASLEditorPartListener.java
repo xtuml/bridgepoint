@@ -26,7 +26,7 @@ public class MASLEditorPartListener implements IPartListener2
 
     @Override
     public void partOpened(IWorkbenchPartReference partRef) {
-    	if ( !partRef.getId().equals("org.xtuml.bp.xtext.masl.MASL")) { return; }
+    	if ( !partRef.getId().equals("org.xtuml.bp.xtext.masl.MASL") && !partRef.getId().equals("org.xtuml.bp.xtext.masl.MASLPartial")) { return; }
     		
     	IStructuredSelection sel = Selection.getInstance().getStructuredSelection();
 		if (sel.isEmpty()) {
