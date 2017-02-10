@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="bp.compare" default="all" basedir=".">
 
-  <import file="../MC-Java/common.xml"/>
+  <import file="${mcj_path}/common.xml"/>
 
   <target name="all"
           description="Generate Compare tree"

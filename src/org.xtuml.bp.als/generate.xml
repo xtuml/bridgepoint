@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="bp.als" default="all" basedir=".">
 
-  <import file="../MC-Java/common.xml"/>
+  <import file="${mcj_path}/common.xml"/>
 
   <target name="all"
           description="Generate all code for this project"
@@ -29,8 +29,8 @@
           description="Generate the sql version of the Grammar model"
           unless="sql.buildNotNeeded" >
     <echo >Generating ${sql.output} ...</echo>
-    <echo >Using: ${xtumlmc_build} ...</echo>  	
-  	<copy file="../org.xtuml.bp.pkg/globals/Globals.xtuml" tofile="${sql.input}/Globals.xtuml" />
+    <echo >Using: ${xtumlmc_build} ...</echo>   
+   <copy file="../org.xtuml.bp.pkg/globals/Globals.xtuml" tofile="${sql.input}/Globals.xtuml" />
     <exec vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
       <arg line="xtumlmc_cleanse_for_BridgePoint ${sql.input} sql/${sql.output} ${subsystems_to_remove}" />
     </exec>
@@ -148,7 +148,7 @@
     <exec vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
           <arg line="xtumlmc_cleanse_for_BridgePoint ${basedir}/gen/code_generation sql/ooaofooa.sql" />
     </exec>
-  	<delete file="gen/code_generation/ooaofooa.xtuml"/>
+   <delete file="gen/code_generation/ooaofooa.xtuml"/>
     <exec vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
     <env key="PTC_MC_ARC_DIR" value="${mcj_path}" />
     <env key="ALS_NAME" value="oal" />

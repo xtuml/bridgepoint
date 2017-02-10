@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="bp.ui.properties" default="all" basedir=".">
-	
-  <import file="../MC-Java/common.xml"/>
-	
+   
+  <import file="${mcj_path}/common.xml"/>
+   
   <target name="all"
           description="Generate UI Properties classes"
           depends="java,format_java">
@@ -36,7 +36,7 @@
         <env key="PTC_MC_ARC_DIR" value="${mcj_path}"/>
         <env key="CHAIN_UTIL_DIR" value="${chain_util_path}"/>
         <env key="CORE_COLOR_DIR" value="${core_color_path}"/>
-       	<env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
+         <env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
     <arg line="xtumlmc_gen_erate -nopersist
       -import ${mcj_path}/ooa_schema.sql
       -import ${core_sql_dir}/ooaofooa_hierarchy_schema.sql
@@ -53,8 +53,8 @@
 
   <property name="cvs_java_files" value="ActivityPropertyDescriptor.java,BooleanPropertyDescriptor.java,
               DescriptionPropertyDescriptor.java,EnumPropertyDescriptor.java,IntegerPropertyDescriptor.java,
-  	          ChooserPropertyDescriptor.java,ConstantValuePropertyDescriptor.java,
-  	          BridgepointPropertySheetPage.java, BridgepointPropertySheetSorter.java,
+             ChooserPropertyDescriptor.java,ConstantValuePropertyDescriptor.java,
+             BridgepointPropertySheetPage.java, BridgepointPropertySheetSorter.java,
               ModelElementNameValidator.java,DimensionsPropertyDescriptor.java,
               DimensionsValidator.java,TypeDefinitionPropertyDescriptor.java" />
 
