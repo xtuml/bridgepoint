@@ -148,13 +148,13 @@ class DeclarationTypeProviderTest extends AbstractMaslModelTest {
 	}
 
 	@Test
-	def void testInstanceObjectFunctionCall() {
+	def void testInstanceObjectServiceCall() {
 		doAssertType('''
 			domain dom is
 				service svc();
 				object Foo; 
 				object Foo is
-					function foo() return integer;
+					service foo() return integer;
 				end;
 			end;
 		''', '''
@@ -167,17 +167,17 @@ class DeclarationTypeProviderTest extends AbstractMaslModelTest {
 	}
 
 	@Test
-	def void testObjectFunctionCall() {
+	def void testObjectServiceCall() {
 		'''
 			object Foo; 
 			object Foo is
-				function foo() return integer;
+				service foo() return integer;
 			end;
 		'''.assertType('Foo::foo()', 'integer')
 	}
 
 	@Test
-	def void testObjectServiceCall() {
+	def void testObjectServiceCall_1() {
 		'''
 			object Foo; 
 			object Foo is
@@ -187,30 +187,30 @@ class DeclarationTypeProviderTest extends AbstractMaslModelTest {
 	}
 
 	@Test
-	def void testDomainFunctionCall() {
+	def void testDomainServiceCall() {
 		'''
-			function foo() return string;
+			service foo() return string;
 		'''.assertType('foo()', 'string')
 	}
 
 	@Test
-	def void testDomainServiceCall() {
+	def void testDomainServiceCall_1() {
 		'''
 			service foo();
 		'''.assertType('foo()', 'anonymous no_type')
 	}
 
 	@Test
-	def void testTerminatorFunctionCall() {
+	def void testTerminatorServiceCall() {
 		'''
 			terminator Arnold is 
-				function foo() return string;
+				service foo() return string;
 			end;
 		'''.assertType('Arnold~>foo()', 'string')
 	}
 
 	@Test
-	def void testTerminatorServiceCall() {
+	def void testTerminatorServiceCall_1() {
 		'''
 			terminator Arnold is 
 				service foo();
@@ -407,8 +407,8 @@ class DeclarationTypeProviderTest extends AbstractMaslModelTest {
 	def void testOverloadedMethod() {
 		doAssertType('''
 			domain dom is 
-				function foo(i:in string) return string;
-				function foo(i:in integer) return integer;
+				service foo(i:in string) return string;
+				service foo(i:in integer) return integer;
 				service svc();
 			end;
 		''', '''

@@ -42,7 +42,7 @@ public class ShowTypeDefinitionAction implements IActionDelegate
           .getActivePage()
           .openEditor(
           input,
-          "org.xtuml.bp.ui.text.typedefinition.TypeDefinitionEditor"); //$NON-NLS-1$
+          "org.xtuml.bp.xtext.masl.MASLPartial"); //$NON-NLS-1$
       }
       catch (CoreException e)
       {

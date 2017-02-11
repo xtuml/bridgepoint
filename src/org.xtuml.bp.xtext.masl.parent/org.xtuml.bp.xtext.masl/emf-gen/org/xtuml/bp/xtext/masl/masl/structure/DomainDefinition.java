@@ -19,7 +19,6 @@ import org.xtuml.bp.xtext.masl.masl.types.TypeForwardDeclaration;
  * <ul>
  *   <li>{@link org.xtuml.bp.xtext.masl.masl.structure.DomainDefinition#getObjects <em>Objects</em>}</li>
  *   <li>{@link org.xtuml.bp.xtext.masl.masl.structure.DomainDefinition#getServices <em>Services</em>}</li>
- *   <li>{@link org.xtuml.bp.xtext.masl.masl.structure.DomainDefinition#getFunctions <em>Functions</em>}</li>
  *   <li>{@link org.xtuml.bp.xtext.masl.masl.structure.DomainDefinition#getTerminators <em>Terminators</em>}</li>
  *   <li>{@link org.xtuml.bp.xtext.masl.masl.structure.DomainDefinition#getRelationships <em>Relationships</em>}</li>
  *   <li>{@link org.xtuml.bp.xtext.masl.masl.structure.DomainDefinition#getObjectDefs <em>Object Defs</em>}</li>
@@ -64,22 +63,6 @@ public interface DomainDefinition extends AbstractTopLevelElement {
 	 * @generated
 	 */
 	EList<DomainServiceDeclaration> getServices();
-
-	/**
-	 * Returns the value of the '<em><b>Functions</b></em>' containment reference list.
-	 * The list contents are of type {@link org.xtuml.bp.xtext.masl.masl.structure.DomainFunctionDeclaration}.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Functions</em>' containment reference list isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Functions</em>' containment reference list.
-	 * @see org.xtuml.bp.xtext.masl.masl.structure.StructurePackage#getDomainDefinition_Functions()
-	 * @model containment="true"
-	 * @generated
-	 */
-	EList<DomainFunctionDeclaration> getFunctions();
 
 	/**
 	 * Returns the value of the '<em><b>Terminators</b></em>' containment reference list.

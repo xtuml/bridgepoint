@@ -27,7 +27,8 @@
 		<repository>
 			<id>antlr</id>
 			<layout>p2</layout>
-			<url>file:////build/buildmt/repository</url>
+			<!--<url>file:////build/buildmt/repository</url>-->
+			<url>https://s3.amazonaws.com/1f-outgoing/antlr_upsite/</url>
 		</repository>
 		<repository>
 			<id>cdt</id>

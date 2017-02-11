@@ -50,7 +50,7 @@ abstract class AbstractActionDefinition extends AbstractTopLevelElement, Paramet
 	contains CodeBlock body
 }
 
-abstract class AbstractFunction {
+abstract class AbstractService {
 	contains AbstractTypeReference returnType
 }
 
@@ -104,7 +104,6 @@ class ProjectDefinition extends AbstractTopLevelElement {
 class DomainDefinition extends AbstractTopLevelElement {
 	contains ObjectDeclaration[] objects
 	contains DomainServiceDeclaration[] services
-	contains DomainFunctionDeclaration[] functions
 	contains TerminatorDefinition[] terminators
 	contains RelationshipDefinition[] relationships
 	contains ObjectDefinition[] objectDefs
@@ -113,16 +112,10 @@ class DomainDefinition extends AbstractTopLevelElement {
 	contains ExceptionDeclaration[] exceptions
 }
 
-class DomainServiceDeclaration extends AbstractFeature, AbstractActionDeclaration {
+class DomainServiceDeclaration extends AbstractFeature, AbstractActionDeclaration, AbstractService {
 }
 
-class DomainFunctionDeclaration extends AbstractFeature, AbstractActionDeclaration, AbstractFunction {
-}
-
-class DomainServiceDefinition extends AbstractActionDefinition {
-}
-
-class DomainFunctionDefinition extends AbstractActionDefinition, AbstractFunction {
+class DomainServiceDefinition extends AbstractActionDefinition, AbstractService {
 }
 
 class ExceptionDeclaration extends AbstractNamed , Pragmatized, Visualized {
@@ -135,20 +128,12 @@ class ExceptionDeclaration extends AbstractNamed , Pragmatized, Visualized {
 
 class TerminatorDefinition extends AbstractNamed , Pragmatized , AbstractFeature {
 	contains TerminatorServiceDeclaration[] services
-	contains TerminatorFunctionDeclaration[] functions
 }
 
-class TerminatorServiceDeclaration extends AbstractFeature, AbstractActionDeclaration {
+class TerminatorServiceDeclaration extends AbstractFeature, AbstractActionDeclaration, AbstractService {
 }
 
-class TerminatorFunctionDeclaration extends AbstractFeature, AbstractActionDeclaration, AbstractFunction {
-}
-
-class TerminatorServiceDefinition extends AbstractActionDefinition {
-	refers TerminatorDefinition terminator
-}
-
-class TerminatorFunctionDefinition extends AbstractActionDefinition, AbstractFunction {
+class TerminatorServiceDefinition extends AbstractActionDefinition, AbstractService {
 	refers TerminatorDefinition terminator
 }
 
@@ -187,7 +172,6 @@ class ObjectDefinition extends AbstractNamed , Pragmatized {
 	contains AttributeDefinition[] attributes
 	contains IdentifierDefinition[] identifiers
 	contains ObjectServiceDeclaration[] services
-	contains ObjectFunctionDeclaration[] functions
 	contains EventDefinition[] events
 	contains StateDeclaration[] states
 	contains TransitionTable[] transitions
@@ -205,22 +189,12 @@ class IdentifierDefinition extends Pragmatized {
 	refers AttributeDefinition[] attributes
 }
 
-class ObjectServiceDeclaration extends AbstractFeature, AbstractActionDeclaration {
+class ObjectServiceDeclaration extends AbstractFeature, AbstractActionDeclaration, AbstractService {
 	boolean instance
 	refers RelationshipDefinition relationship
 }
 
-class ObjectFunctionDeclaration extends AbstractFeature, AbstractActionDeclaration, AbstractFunction {
-	boolean instance
-	refers RelationshipDefinition relationship
-}
-
-class ObjectServiceDefinition extends AbstractActionDefinition {
-	boolean instance
-	refers ObjectDeclaration object
-}
-
-class ObjectFunctionDefinition extends AbstractActionDefinition, AbstractFunction {
+class ObjectServiceDefinition extends AbstractActionDefinition, AbstractService {
 	boolean instance
 	refers RelationshipDefinition relationship
 	refers ObjectDeclaration object

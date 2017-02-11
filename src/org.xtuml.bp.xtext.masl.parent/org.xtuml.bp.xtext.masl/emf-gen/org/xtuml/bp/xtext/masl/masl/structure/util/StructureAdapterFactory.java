@@ -105,8 +105,8 @@ public class StructureAdapterFactory extends AdapterFactoryImpl {
 				return createAbstractActionDefinitionAdapter();
 			}
 			@Override
-			public Adapter caseAbstractFunction(AbstractFunction object) {
-				return createAbstractFunctionAdapter();
+			public Adapter caseAbstractService(AbstractService object) {
+				return createAbstractServiceAdapter();
 			}
 			@Override
 			public Adapter casePragmatized(Pragmatized object) {
@@ -137,16 +137,8 @@ public class StructureAdapterFactory extends AdapterFactoryImpl {
 				return createDomainServiceDeclarationAdapter();
 			}
 			@Override
-			public Adapter caseDomainFunctionDeclaration(DomainFunctionDeclaration object) {
-				return createDomainFunctionDeclarationAdapter();
-			}
-			@Override
 			public Adapter caseDomainServiceDefinition(DomainServiceDefinition object) {
 				return createDomainServiceDefinitionAdapter();
-			}
-			@Override
-			public Adapter caseDomainFunctionDefinition(DomainFunctionDefinition object) {
-				return createDomainFunctionDefinitionAdapter();
 			}
 			@Override
 			public Adapter caseExceptionDeclaration(ExceptionDeclaration object) {
@@ -161,16 +153,8 @@ public class StructureAdapterFactory extends AdapterFactoryImpl {
 				return createTerminatorServiceDeclarationAdapter();
 			}
 			@Override
-			public Adapter caseTerminatorFunctionDeclaration(TerminatorFunctionDeclaration object) {
-				return createTerminatorFunctionDeclarationAdapter();
-			}
-			@Override
 			public Adapter caseTerminatorServiceDefinition(TerminatorServiceDefinition object) {
 				return createTerminatorServiceDefinitionAdapter();
-			}
-			@Override
-			public Adapter caseTerminatorFunctionDefinition(TerminatorFunctionDefinition object) {
-				return createTerminatorFunctionDefinitionAdapter();
 			}
 			@Override
 			public Adapter caseBuiltinLibraryDefinition(BuiltinLibraryDefinition object) {
@@ -209,16 +193,8 @@ public class StructureAdapterFactory extends AdapterFactoryImpl {
 				return createObjectServiceDeclarationAdapter();
 			}
 			@Override
-			public Adapter caseObjectFunctionDeclaration(ObjectFunctionDeclaration object) {
-				return createObjectFunctionDeclarationAdapter();
-			}
-			@Override
 			public Adapter caseObjectServiceDefinition(ObjectServiceDefinition object) {
 				return createObjectServiceDefinitionAdapter();
-			}
-			@Override
-			public Adapter caseObjectFunctionDefinition(ObjectFunctionDefinition object) {
-				return createObjectFunctionDefinitionAdapter();
 			}
 			@Override
 			public Adapter caseRelationshipDefinition(RelationshipDefinition object) {
@@ -417,16 +393,16 @@ public class StructureAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.xtuml.bp.xtext.masl.masl.structure.AbstractFunction <em>Abstract Function</em>}'.
+	 * Creates a new adapter for an object of class '{@link org.xtuml.bp.xtext.masl.masl.structure.AbstractService <em>Abstract Service</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see org.xtuml.bp.xtext.masl.masl.structure.AbstractFunction
+	 * @see org.xtuml.bp.xtext.masl.masl.structure.AbstractService
 	 * @generated
 	 */
-	public Adapter createAbstractFunctionAdapter() {
+	public Adapter createAbstractServiceAdapter() {
 		return null;
 	}
 
@@ -529,20 +505,6 @@ public class StructureAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.xtuml.bp.xtext.masl.masl.structure.DomainFunctionDeclaration <em>Domain Function Declaration</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.xtuml.bp.xtext.masl.masl.structure.DomainFunctionDeclaration
-	 * @generated
-	 */
-	public Adapter createDomainFunctionDeclarationAdapter() {
-		return null;
-	}
-
-	/**
 	 * Creates a new adapter for an object of class '{@link org.xtuml.bp.xtext.masl.masl.structure.DomainServiceDefinition <em>Domain Service Definition</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
@@ -553,20 +515,6 @@ public class StructureAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createDomainServiceDefinitionAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link org.xtuml.bp.xtext.masl.masl.structure.DomainFunctionDefinition <em>Domain Function Definition</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.xtuml.bp.xtext.masl.masl.structure.DomainFunctionDefinition
-	 * @generated
-	 */
-	public Adapter createDomainFunctionDefinitionAdapter() {
 		return null;
 	}
 
@@ -613,20 +561,6 @@ public class StructureAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.xtuml.bp.xtext.masl.masl.structure.TerminatorFunctionDeclaration <em>Terminator Function Declaration</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.xtuml.bp.xtext.masl.masl.structure.TerminatorFunctionDeclaration
-	 * @generated
-	 */
-	public Adapter createTerminatorFunctionDeclarationAdapter() {
-		return null;
-	}
-
-	/**
 	 * Creates a new adapter for an object of class '{@link org.xtuml.bp.xtext.masl.masl.structure.TerminatorServiceDefinition <em>Terminator Service Definition</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
@@ -637,20 +571,6 @@ public class StructureAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createTerminatorServiceDefinitionAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link org.xtuml.bp.xtext.masl.masl.structure.TerminatorFunctionDefinition <em>Terminator Function Definition</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.xtuml.bp.xtext.masl.masl.structure.TerminatorFunctionDefinition
-	 * @generated
-	 */
-	public Adapter createTerminatorFunctionDefinitionAdapter() {
 		return null;
 	}
 
@@ -781,20 +701,6 @@ public class StructureAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.xtuml.bp.xtext.masl.masl.structure.ObjectFunctionDeclaration <em>Object Function Declaration</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.xtuml.bp.xtext.masl.masl.structure.ObjectFunctionDeclaration
-	 * @generated
-	 */
-	public Adapter createObjectFunctionDeclarationAdapter() {
-		return null;
-	}
-
-	/**
 	 * Creates a new adapter for an object of class '{@link org.xtuml.bp.xtext.masl.masl.structure.ObjectServiceDefinition <em>Object Service Definition</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
@@ -805,20 +711,6 @@ public class StructureAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createObjectServiceDefinitionAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link org.xtuml.bp.xtext.masl.masl.structure.ObjectFunctionDefinition <em>Object Function Definition</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.xtuml.bp.xtext.masl.masl.structure.ObjectFunctionDefinition
-	 * @generated
-	 */
-	public Adapter createObjectFunctionDefinitionAdapter() {
 		return null;
 	}
 
