@@ -120,7 +120,7 @@ TypeForwardDeclaration:
 TypeDeclaration:
 	visibility=Visibility? ('type' | subtype?='subtype') name=ID 'is'
 	definition=AbstractTypeDefinition 
-	';' PragmaList;
+	';' ';'? PragmaList;
 
 AbstractTypeDefinition:
 	StructureTypeDefinition
