@@ -20,7 +20,11 @@ export XTUML_PRIVATE_MODEL_REPOSITORY=~/git/modelsmg/test/
 
 - This launcher must be used to start BridgePoint for unit testing.
 
-4) If you want to run BridgePoint unit tests on MS Windows you must perform some additional steps [described here.](https://github.com/xtuml/bridgepoint/blob/master/doc-bridgepoint/process/FAQ.md#windowstesting) 
+4) Import the unit test projects into the same workspace set up in the [Developer Getting Started Guide](https://github.com/xtuml/bridgepoint/blob/master/doc-bridgepoint/process/Developer%20Getting%20Started%20Guide.md)
+- Import existing projects from the **bptest** repository into your workspace.
+- __WARNING!:__ Ensure "Search for nested projects" is Unchecked.  
+
+5) If you want to run BridgePoint unit tests on MS Windows you must perform some additional steps [described here.](https://github.com/xtuml/bridgepoint/blob/master/doc-bridgepoint/process/FAQ.md#windowstesting) 
 
 Instructions
 ------------
