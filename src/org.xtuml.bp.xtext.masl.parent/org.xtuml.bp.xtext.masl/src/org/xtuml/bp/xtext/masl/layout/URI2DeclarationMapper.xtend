@@ -6,19 +6,16 @@ import org.eclipse.emf.ecore.EObject
 import org.eclipse.xtext.naming.QualifiedName
 import org.xtuml.bp.xtext.masl.MASLExtensions
 import org.xtuml.bp.xtext.masl.masl.structure.DomainDefinition
-import org.xtuml.bp.xtext.masl.masl.structure.DomainFunctionDeclaration
-import org.xtuml.bp.xtext.masl.masl.structure.DomainServiceDeclaration
 import org.xtuml.bp.xtext.masl.masl.structure.MaslModel
 import org.xtuml.bp.xtext.masl.masl.structure.ObjectDeclaration
-import org.xtuml.bp.xtext.masl.masl.structure.ObjectFunctionDeclaration
-import org.xtuml.bp.xtext.masl.masl.structure.ObjectServiceDeclaration
+import org.xtuml.bp.xtext.masl.masl.structure.ObjectDefinition
 import org.xtuml.bp.xtext.masl.masl.structure.StateDeclaration
 import org.xtuml.bp.xtext.masl.masl.structure.StructurePackage
 import org.xtuml.bp.xtext.masl.masl.structure.TerminatorDefinition
-import org.xtuml.bp.xtext.masl.masl.structure.TerminatorFunctionDeclaration
-import org.xtuml.bp.xtext.masl.masl.structure.TerminatorServiceDeclaration
 import org.xtuml.bp.xtext.masl.scoping.ProjectScopeIndexProvider
-import org.xtuml.bp.xtext.masl.masl.structure.ObjectDefinition
+import org.xtuml.bp.xtext.masl.masl.structure.DomainServiceDeclaration
+import org.xtuml.bp.xtext.masl.masl.structure.TerminatorServiceDeclaration
+import org.xtuml.bp.xtext.masl.masl.structure.ObjectServiceDeclaration
 
 class URI2DeclarationMapper {
 	
@@ -73,14 +70,12 @@ class URI2DeclarationMapper {
 			.appendSegment(declaration.domainName)
 		switch declaration {
 			DomainDefinition,
-			DomainFunctionDeclaration,
 			DomainServiceDeclaration:
 				return domainBaseURI
 					.appendSegment(declaration.domainDefinition.name)
 					.appendSegment('functions')
 					.appendSegment('functions.masl')
 			ObjectDeclaration,
-			ObjectFunctionDeclaration,
 			ObjectServiceDeclaration: 
 				return domainBaseURI
 					.appendSegment(declaration.domainName)
@@ -95,7 +90,6 @@ class URI2DeclarationMapper {
 					.appendSegment('InstanceStateMachine')
 					.appendSegment('InstanceStateMachine.masl')
 			TerminatorDefinition,
-			TerminatorFunctionDeclaration,
 			TerminatorServiceDeclaration: {
 				val terminator = declaration.terminatorDefinition				
 				return domainBaseURI
@@ -110,7 +104,6 @@ class URI2DeclarationMapper {
 		switch declaration {
 			ObjectDefinition:
 				declaration
-			ObjectFunctionDeclaration,
 			ObjectServiceDeclaration,
 			StateDeclaration:
 				declaration.eContainer as ObjectDefinition
@@ -120,7 +113,6 @@ class URI2DeclarationMapper {
 	private def DomainDefinition getDomainDefinition(EObject declaration) {
 		switch declaration {
 			DomainDefinition: declaration
-			DomainFunctionDeclaration,
 			DomainServiceDeclaration:
 				declaration.eContainer as DomainDefinition
 		}	
@@ -130,7 +122,6 @@ class URI2DeclarationMapper {
 		switch declaration {
 			TerminatorDefinition:
 				declaration
-			TerminatorFunctionDeclaration,
 			TerminatorServiceDeclaration:
 				declaration.eContainer as TerminatorDefinition
 		}

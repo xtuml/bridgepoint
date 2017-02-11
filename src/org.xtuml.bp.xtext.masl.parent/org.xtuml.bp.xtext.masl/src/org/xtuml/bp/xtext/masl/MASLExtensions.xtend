@@ -9,28 +9,22 @@ import org.eclipse.emf.ecore.util.EcoreUtil
 import org.eclipse.xtext.naming.IQualifiedNameProvider
 import org.eclipse.xtext.nodemodel.util.NodeModelUtils
 import org.eclipse.xtext.resource.ISelectable
-import org.xtuml.bp.xtext.masl.masl.behavior.Expression
 import org.xtuml.bp.xtext.masl.masl.structure.AbstractActionDefinition
 import org.xtuml.bp.xtext.masl.masl.structure.AbstractNamed
 import org.xtuml.bp.xtext.masl.masl.structure.AttributeDefinition
 import org.xtuml.bp.xtext.masl.masl.structure.DomainDefinition
-import org.xtuml.bp.xtext.masl.masl.structure.DomainFunctionDeclaration
-import org.xtuml.bp.xtext.masl.masl.structure.DomainServiceDeclaration
 import org.xtuml.bp.xtext.masl.masl.structure.ObjectDeclaration
 import org.xtuml.bp.xtext.masl.masl.structure.ObjectDefinition
-import org.xtuml.bp.xtext.masl.masl.structure.ObjectFunctionDeclaration
-import org.xtuml.bp.xtext.masl.masl.structure.ObjectFunctionDefinition
-import org.xtuml.bp.xtext.masl.masl.structure.ObjectServiceDeclaration
-import org.xtuml.bp.xtext.masl.masl.structure.ObjectServiceDefinition
 import org.xtuml.bp.xtext.masl.masl.structure.RelationshipEnd
 import org.xtuml.bp.xtext.masl.masl.structure.RelationshipNavigation
 import org.xtuml.bp.xtext.masl.masl.structure.StateDefinition
 import org.xtuml.bp.xtext.masl.masl.structure.StructurePackage
 import org.xtuml.bp.xtext.masl.masl.structure.SubtypeRelationshipDefinition
-import org.xtuml.bp.xtext.masl.masl.structure.TerminatorFunctionDeclaration
-import org.xtuml.bp.xtext.masl.masl.structure.TerminatorFunctionDefinition
+import org.xtuml.bp.xtext.masl.masl.structure.DomainServiceDeclaration
 import org.xtuml.bp.xtext.masl.masl.structure.TerminatorServiceDeclaration
 import org.xtuml.bp.xtext.masl.masl.structure.TerminatorServiceDefinition
+import org.xtuml.bp.xtext.masl.masl.structure.ObjectServiceDeclaration
+import org.xtuml.bp.xtext.masl.masl.structure.ObjectServiceDefinition
 
 /**
  * Utility methods for MASL model elements.
@@ -61,8 +55,6 @@ class MASLExtensions {
 		switch it {
 			ObjectServiceDefinition:
 				getReferredElementName(objectServiceDefinition_Object)
-			ObjectFunctionDefinition:
-				getReferredElementName(objectFunctionDefinition_Object)
 			StateDefinition:
 				getReferredElementName(stateDefinition_Object)
 			default:
@@ -77,8 +69,6 @@ class MASLExtensions {
 		switch it {
 			TerminatorServiceDefinition:
 				getReferredElementName(terminatorServiceDefinition_Terminator)
-			TerminatorFunctionDefinition:
-				getReferredElementName(terminatorFunctionDefinition_Terminator)
 			default:
 				eContainer?.terminatorName
 		}
@@ -192,12 +182,9 @@ class MASLExtensions {
 
 	def boolean isAction(EObject it) {
 		switch it {
-			DomainFunctionDeclaration,
 			DomainServiceDeclaration,
-			ObjectFunctionDeclaration,
 			ObjectServiceDeclaration,
-			TerminatorFunctionDeclaration,
-			TerminatorServiceDeclaration: 
+			TerminatorServiceDeclaration:
 				true
 			default:
 				false		
@@ -209,9 +196,7 @@ class MASLExtensions {
 		while (parent != null) {
 			switch parent {
 				ObjectServiceDefinition:
-					return parent.object
-				ObjectFunctionDefinition:
-					return parent.object
+					return parent.getObject
 				StateDefinition:
 					return parent.object
 			}

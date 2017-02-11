@@ -2207,6 +2207,10 @@ import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import org.eclipse.jface.preference.IPreferenceStore;
+
 import org.xtuml.bp.core.util.UIUtil;
 import org.eclipse.core.runtime.IProgressMonitor;
     .else

@@ -113,15 +113,6 @@ public interface StructureFactory extends EFactory {
 	DomainServiceDeclaration createDomainServiceDeclaration();
 
 	/**
-	 * Returns a new object of class '<em>Domain Function Declaration</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Domain Function Declaration</em>'.
-	 * @generated
-	 */
-	DomainFunctionDeclaration createDomainFunctionDeclaration();
-
-	/**
 	 * Returns a new object of class '<em>Domain Service Definition</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -129,15 +120,6 @@ public interface StructureFactory extends EFactory {
 	 * @generated
 	 */
 	DomainServiceDefinition createDomainServiceDefinition();
-
-	/**
-	 * Returns a new object of class '<em>Domain Function Definition</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Domain Function Definition</em>'.
-	 * @generated
-	 */
-	DomainFunctionDefinition createDomainFunctionDefinition();
 
 	/**
 	 * Returns a new object of class '<em>Exception Declaration</em>'.
@@ -167,15 +149,6 @@ public interface StructureFactory extends EFactory {
 	TerminatorServiceDeclaration createTerminatorServiceDeclaration();
 
 	/**
-	 * Returns a new object of class '<em>Terminator Function Declaration</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Terminator Function Declaration</em>'.
-	 * @generated
-	 */
-	TerminatorFunctionDeclaration createTerminatorFunctionDeclaration();
-
-	/**
 	 * Returns a new object of class '<em>Terminator Service Definition</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -183,15 +156,6 @@ public interface StructureFactory extends EFactory {
 	 * @generated
 	 */
 	TerminatorServiceDefinition createTerminatorServiceDefinition();
-
-	/**
-	 * Returns a new object of class '<em>Terminator Function Definition</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Terminator Function Definition</em>'.
-	 * @generated
-	 */
-	TerminatorFunctionDefinition createTerminatorFunctionDefinition();
 
 	/**
 	 * Returns a new object of class '<em>Builtin Library Definition</em>'.
@@ -275,15 +239,6 @@ public interface StructureFactory extends EFactory {
 	ObjectServiceDeclaration createObjectServiceDeclaration();
 
 	/**
-	 * Returns a new object of class '<em>Object Function Declaration</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Object Function Declaration</em>'.
-	 * @generated
-	 */
-	ObjectFunctionDeclaration createObjectFunctionDeclaration();
-
-	/**
 	 * Returns a new object of class '<em>Object Service Definition</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -291,15 +246,6 @@ public interface StructureFactory extends EFactory {
 	 * @generated
 	 */
 	ObjectServiceDefinition createObjectServiceDefinition();
-
-	/**
-	 * Returns a new object of class '<em>Object Function Definition</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Object Function Definition</em>'.
-	 * @generated
-	 */
-	ObjectFunctionDefinition createObjectFunctionDefinition();
 
 	/**
 	 * Returns a new object of class '<em>Relationship Definition</em>'.

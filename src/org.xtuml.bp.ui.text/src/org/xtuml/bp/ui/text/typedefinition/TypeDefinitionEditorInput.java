@@ -13,7 +13,6 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
-
 import org.xtuml.bp.ui.text.AbstractModelElementPropertyEditorInput;
 import org.xtuml.bp.ui.text.IModelElementEditorInputFactory;
 import org.xtuml.bp.ui.text.ModelElementID;
@@ -21,7 +20,7 @@ import org.xtuml.bp.ui.text.ModelElementPropertyStorage;
 
 public class TypeDefinitionEditorInput extends AbstractModelElementPropertyEditorInput {
 
-	public final static String EDITOR_ID = "org.xtuml.bp.ui.text.typedefinition.TypeDefinitionEditor"; //$NON-NLS-1$
+	public final static String EDITOR_ID = "org.xtuml.bp.xtext.masl.MASLPartial"; //$NON-NLS-1$
 	public final static String FACTORY_ID = "org.xtuml.bp.ui.text.typedefinition.factory"; //$NON-NLS-1$
 
 	public TypeDefinitionEditorInput(ModelElementID modelElementID, IFile placeHolderFile) throws PartInitException {

@@ -457,14 +457,14 @@ public interface StructurePackage extends EPackage {
 	int ABSTRACT_ACTION_DEFINITION_OPERATION_COUNT = ABSTRACT_TOP_LEVEL_ELEMENT_OPERATION_COUNT + 0;
 
 	/**
-	 * The meta object id for the '{@link org.xtuml.bp.xtext.masl.masl.structure.impl.AbstractFunctionImpl <em>Abstract Function</em>}' class.
+	 * The meta object id for the '{@link org.xtuml.bp.xtext.masl.masl.structure.impl.AbstractServiceImpl <em>Abstract Service</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see org.xtuml.bp.xtext.masl.masl.structure.impl.AbstractFunctionImpl
-	 * @see org.xtuml.bp.xtext.masl.masl.structure.impl.StructurePackageImpl#getAbstractFunction()
+	 * @see org.xtuml.bp.xtext.masl.masl.structure.impl.AbstractServiceImpl
+	 * @see org.xtuml.bp.xtext.masl.masl.structure.impl.StructurePackageImpl#getAbstractService()
 	 * @generated
 	 */
-	int ABSTRACT_FUNCTION = 8;
+	int ABSTRACT_SERVICE = 8;
 
 	/**
 	 * The feature id for the '<em><b>Return Type</b></em>' containment reference.
@@ -473,25 +473,25 @@ public interface StructurePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ABSTRACT_FUNCTION__RETURN_TYPE = 0;
+	int ABSTRACT_SERVICE__RETURN_TYPE = 0;
 
 	/**
-	 * The number of structural features of the '<em>Abstract Function</em>' class.
+	 * The number of structural features of the '<em>Abstract Service</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ABSTRACT_FUNCTION_FEATURE_COUNT = 1;
+	int ABSTRACT_SERVICE_FEATURE_COUNT = 1;
 
 	/**
-	 * The number of operations of the '<em>Abstract Function</em>' class.
+	 * The number of operations of the '<em>Abstract Service</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ABSTRACT_FUNCTION_OPERATION_COUNT = 0;
+	int ABSTRACT_SERVICE_OPERATION_COUNT = 0;
 
 	/**
 	 * The meta object id for the '{@link org.xtuml.bp.xtext.masl.masl.structure.impl.PragmatizedImpl <em>Pragmatized</em>}' class.
@@ -779,22 +779,13 @@ public interface StructurePackage extends EPackage {
 	int DOMAIN_DEFINITION__SERVICES = ABSTRACT_TOP_LEVEL_ELEMENT_FEATURE_COUNT + 1;
 
 	/**
-	 * The feature id for the '<em><b>Functions</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DOMAIN_DEFINITION__FUNCTIONS = ABSTRACT_TOP_LEVEL_ELEMENT_FEATURE_COUNT + 2;
-
-	/**
 	 * The feature id for the '<em><b>Terminators</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int DOMAIN_DEFINITION__TERMINATORS = ABSTRACT_TOP_LEVEL_ELEMENT_FEATURE_COUNT + 3;
+	int DOMAIN_DEFINITION__TERMINATORS = ABSTRACT_TOP_LEVEL_ELEMENT_FEATURE_COUNT + 2;
 
 	/**
 	 * The feature id for the '<em><b>Relationships</b></em>' containment reference list.
@@ -803,7 +794,7 @@ public interface StructurePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int DOMAIN_DEFINITION__RELATIONSHIPS = ABSTRACT_TOP_LEVEL_ELEMENT_FEATURE_COUNT + 4;
+	int DOMAIN_DEFINITION__RELATIONSHIPS = ABSTRACT_TOP_LEVEL_ELEMENT_FEATURE_COUNT + 3;
 
 	/**
 	 * The feature id for the '<em><b>Object Defs</b></em>' containment reference list.
@@ -812,7 +803,7 @@ public interface StructurePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int DOMAIN_DEFINITION__OBJECT_DEFS = ABSTRACT_TOP_LEVEL_ELEMENT_FEATURE_COUNT + 5;
+	int DOMAIN_DEFINITION__OBJECT_DEFS = ABSTRACT_TOP_LEVEL_ELEMENT_FEATURE_COUNT + 4;
 
 	/**
 	 * The feature id for the '<em><b>Type Forwards</b></em>' containment reference list.
@@ -821,7 +812,7 @@ public interface StructurePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int DOMAIN_DEFINITION__TYPE_FORWARDS = ABSTRACT_TOP_LEVEL_ELEMENT_FEATURE_COUNT + 6;
+	int DOMAIN_DEFINITION__TYPE_FORWARDS = ABSTRACT_TOP_LEVEL_ELEMENT_FEATURE_COUNT + 5;
 
 	/**
 	 * The feature id for the '<em><b>Types</b></em>' containment reference list.
@@ -830,7 +821,7 @@ public interface StructurePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int DOMAIN_DEFINITION__TYPES = ABSTRACT_TOP_LEVEL_ELEMENT_FEATURE_COUNT + 7;
+	int DOMAIN_DEFINITION__TYPES = ABSTRACT_TOP_LEVEL_ELEMENT_FEATURE_COUNT + 6;
 
 	/**
 	 * The feature id for the '<em><b>Exceptions</b></em>' containment reference list.
@@ -839,7 +830,7 @@ public interface StructurePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int DOMAIN_DEFINITION__EXCEPTIONS = ABSTRACT_TOP_LEVEL_ELEMENT_FEATURE_COUNT + 8;
+	int DOMAIN_DEFINITION__EXCEPTIONS = ABSTRACT_TOP_LEVEL_ELEMENT_FEATURE_COUNT + 7;
 
 	/**
 	 * The number of structural features of the '<em>Domain Definition</em>' class.
@@ -848,7 +839,7 @@ public interface StructurePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int DOMAIN_DEFINITION_FEATURE_COUNT = ABSTRACT_TOP_LEVEL_ELEMENT_FEATURE_COUNT + 9;
+	int DOMAIN_DEFINITION_FEATURE_COUNT = ABSTRACT_TOP_LEVEL_ELEMENT_FEATURE_COUNT + 8;
 
 	/**
 	 * The number of operations of the '<em>Domain Definition</em>' class.
@@ -906,13 +897,22 @@ public interface StructurePackage extends EPackage {
 	int DOMAIN_SERVICE_DECLARATION__VISIBILITY = ABSTRACT_FEATURE_FEATURE_COUNT + 2;
 
 	/**
+	 * The feature id for the '<em><b>Return Type</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DOMAIN_SERVICE_DECLARATION__RETURN_TYPE = ABSTRACT_FEATURE_FEATURE_COUNT + 3;
+
+	/**
 	 * The number of structural features of the '<em>Domain Service Declaration</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int DOMAIN_SERVICE_DECLARATION_FEATURE_COUNT = ABSTRACT_FEATURE_FEATURE_COUNT + 3;
+	int DOMAIN_SERVICE_DECLARATION_FEATURE_COUNT = ABSTRACT_FEATURE_FEATURE_COUNT + 4;
 
 	/**
 	 * The number of operations of the '<em>Domain Service Declaration</em>' class.
@@ -924,79 +924,6 @@ public interface StructurePackage extends EPackage {
 	int DOMAIN_SERVICE_DECLARATION_OPERATION_COUNT = ABSTRACT_FEATURE_OPERATION_COUNT + 0;
 
 	/**
-	 * The meta object id for the '{@link org.xtuml.bp.xtext.masl.masl.structure.impl.DomainFunctionDeclarationImpl <em>Domain Function Declaration</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.xtuml.bp.xtext.masl.masl.structure.impl.DomainFunctionDeclarationImpl
-	 * @see org.xtuml.bp.xtext.masl.masl.structure.impl.StructurePackageImpl#getDomainFunctionDeclaration()
-	 * @generated
-	 */
-	int DOMAIN_FUNCTION_DECLARATION = 16;
-
-	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DOMAIN_FUNCTION_DECLARATION__NAME = ABSTRACT_FEATURE__NAME;
-
-	/**
-	 * The feature id for the '<em><b>Pragmas</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DOMAIN_FUNCTION_DECLARATION__PRAGMAS = ABSTRACT_FEATURE_FEATURE_COUNT + 0;
-
-	/**
-	 * The feature id for the '<em><b>Parameters</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DOMAIN_FUNCTION_DECLARATION__PARAMETERS = ABSTRACT_FEATURE_FEATURE_COUNT + 1;
-
-	/**
-	 * The feature id for the '<em><b>Visibility</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DOMAIN_FUNCTION_DECLARATION__VISIBILITY = ABSTRACT_FEATURE_FEATURE_COUNT + 2;
-
-	/**
-	 * The feature id for the '<em><b>Return Type</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DOMAIN_FUNCTION_DECLARATION__RETURN_TYPE = ABSTRACT_FEATURE_FEATURE_COUNT + 3;
-
-	/**
-	 * The number of structural features of the '<em>Domain Function Declaration</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DOMAIN_FUNCTION_DECLARATION_FEATURE_COUNT = ABSTRACT_FEATURE_FEATURE_COUNT + 4;
-
-	/**
-	 * The number of operations of the '<em>Domain Function Declaration</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DOMAIN_FUNCTION_DECLARATION_OPERATION_COUNT = ABSTRACT_FEATURE_OPERATION_COUNT + 0;
-
-	/**
 	 * The meta object id for the '{@link org.xtuml.bp.xtext.masl.masl.structure.impl.DomainServiceDefinitionImpl <em>Domain Service Definition</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1004,7 +931,7 @@ public interface StructurePackage extends EPackage {
 	 * @see org.xtuml.bp.xtext.masl.masl.structure.impl.StructurePackageImpl#getDomainServiceDefinition()
 	 * @generated
 	 */
-	int DOMAIN_SERVICE_DEFINITION = 17;
+	int DOMAIN_SERVICE_DEFINITION = 16;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -1061,13 +988,22 @@ public interface StructurePackage extends EPackage {
 	int DOMAIN_SERVICE_DEFINITION__BODY = ABSTRACT_ACTION_DEFINITION__BODY;
 
 	/**
+	 * The feature id for the '<em><b>Return Type</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DOMAIN_SERVICE_DEFINITION__RETURN_TYPE = ABSTRACT_ACTION_DEFINITION_FEATURE_COUNT + 0;
+
+	/**
 	 * The number of structural features of the '<em>Domain Service Definition</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int DOMAIN_SERVICE_DEFINITION_FEATURE_COUNT = ABSTRACT_ACTION_DEFINITION_FEATURE_COUNT + 0;
+	int DOMAIN_SERVICE_DEFINITION_FEATURE_COUNT = ABSTRACT_ACTION_DEFINITION_FEATURE_COUNT + 1;
 
 	/**
 	 * The number of operations of the '<em>Domain Service Definition</em>' class.
@@ -1079,97 +1015,6 @@ public interface StructurePackage extends EPackage {
 	int DOMAIN_SERVICE_DEFINITION_OPERATION_COUNT = ABSTRACT_ACTION_DEFINITION_OPERATION_COUNT + 0;
 
 	/**
-	 * The meta object id for the '{@link org.xtuml.bp.xtext.masl.masl.structure.impl.DomainFunctionDefinitionImpl <em>Domain Function Definition</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.xtuml.bp.xtext.masl.masl.structure.impl.DomainFunctionDefinitionImpl
-	 * @see org.xtuml.bp.xtext.masl.masl.structure.impl.StructurePackageImpl#getDomainFunctionDefinition()
-	 * @generated
-	 */
-	int DOMAIN_FUNCTION_DEFINITION = 18;
-
-	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DOMAIN_FUNCTION_DEFINITION__NAME = ABSTRACT_ACTION_DEFINITION__NAME;
-
-	/**
-	 * The feature id for the '<em><b>Pragmas</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DOMAIN_FUNCTION_DEFINITION__PRAGMAS = ABSTRACT_ACTION_DEFINITION__PRAGMAS;
-
-	/**
-	 * The feature id for the '<em><b>Parameters</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DOMAIN_FUNCTION_DEFINITION__PARAMETERS = ABSTRACT_ACTION_DEFINITION__PARAMETERS;
-
-	/**
-	 * The feature id for the '<em><b>Visibility</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DOMAIN_FUNCTION_DEFINITION__VISIBILITY = ABSTRACT_ACTION_DEFINITION__VISIBILITY;
-
-	/**
-	 * The feature id for the '<em><b>Domain</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DOMAIN_FUNCTION_DEFINITION__DOMAIN = ABSTRACT_ACTION_DEFINITION__DOMAIN;
-
-	/**
-	 * The feature id for the '<em><b>Body</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DOMAIN_FUNCTION_DEFINITION__BODY = ABSTRACT_ACTION_DEFINITION__BODY;
-
-	/**
-	 * The feature id for the '<em><b>Return Type</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DOMAIN_FUNCTION_DEFINITION__RETURN_TYPE = ABSTRACT_ACTION_DEFINITION_FEATURE_COUNT + 0;
-
-	/**
-	 * The number of structural features of the '<em>Domain Function Definition</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DOMAIN_FUNCTION_DEFINITION_FEATURE_COUNT = ABSTRACT_ACTION_DEFINITION_FEATURE_COUNT + 1;
-
-	/**
-	 * The number of operations of the '<em>Domain Function Definition</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DOMAIN_FUNCTION_DEFINITION_OPERATION_COUNT = ABSTRACT_ACTION_DEFINITION_OPERATION_COUNT + 0;
-
-	/**
 	 * The meta object id for the '{@link org.xtuml.bp.xtext.masl.masl.structure.impl.ExceptionDeclarationImpl <em>Exception Declaration</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1177,7 +1022,7 @@ public interface StructurePackage extends EPackage {
 	 * @see org.xtuml.bp.xtext.masl.masl.structure.impl.StructurePackageImpl#getExceptionDeclaration()
 	 * @generated
 	 */
-	int EXCEPTION_DECLARATION = 19;
+	int EXCEPTION_DECLARATION = 17;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -1232,7 +1077,7 @@ public interface StructurePackage extends EPackage {
 	 * @see org.xtuml.bp.xtext.masl.masl.structure.impl.StructurePackageImpl#getTerminatorDefinition()
 	 * @generated
 	 */
-	int TERMINATOR_DEFINITION = 20;
+	int TERMINATOR_DEFINITION = 18;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -1262,22 +1107,13 @@ public interface StructurePackage extends EPackage {
 	int TERMINATOR_DEFINITION__SERVICES = ABSTRACT_NAMED_FEATURE_COUNT + 1;
 
 	/**
-	 * The feature id for the '<em><b>Functions</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TERMINATOR_DEFINITION__FUNCTIONS = ABSTRACT_NAMED_FEATURE_COUNT + 2;
-
-	/**
 	 * The number of structural features of the '<em>Terminator Definition</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int TERMINATOR_DEFINITION_FEATURE_COUNT = ABSTRACT_NAMED_FEATURE_COUNT + 3;
+	int TERMINATOR_DEFINITION_FEATURE_COUNT = ABSTRACT_NAMED_FEATURE_COUNT + 2;
 
 	/**
 	 * The number of operations of the '<em>Terminator Definition</em>' class.
@@ -1296,7 +1132,7 @@ public interface StructurePackage extends EPackage {
 	 * @see org.xtuml.bp.xtext.masl.masl.structure.impl.StructurePackageImpl#getTerminatorServiceDeclaration()
 	 * @generated
 	 */
-	int TERMINATOR_SERVICE_DECLARATION = 21;
+	int TERMINATOR_SERVICE_DECLARATION = 19;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -1335,13 +1171,22 @@ public interface StructurePackage extends EPackage {
 	int TERMINATOR_SERVICE_DECLARATION__VISIBILITY = ABSTRACT_FEATURE_FEATURE_COUNT + 2;
 
 	/**
+	 * The feature id for the '<em><b>Return Type</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TERMINATOR_SERVICE_DECLARATION__RETURN_TYPE = ABSTRACT_FEATURE_FEATURE_COUNT + 3;
+
+	/**
 	 * The number of structural features of the '<em>Terminator Service Declaration</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int TERMINATOR_SERVICE_DECLARATION_FEATURE_COUNT = ABSTRACT_FEATURE_FEATURE_COUNT + 3;
+	int TERMINATOR_SERVICE_DECLARATION_FEATURE_COUNT = ABSTRACT_FEATURE_FEATURE_COUNT + 4;
 
 	/**
 	 * The number of operations of the '<em>Terminator Service Declaration</em>' class.
@@ -1353,79 +1198,6 @@ public interface StructurePackage extends EPackage {
 	int TERMINATOR_SERVICE_DECLARATION_OPERATION_COUNT = ABSTRACT_FEATURE_OPERATION_COUNT + 0;
 
 	/**
-	 * The meta object id for the '{@link org.xtuml.bp.xtext.masl.masl.structure.impl.TerminatorFunctionDeclarationImpl <em>Terminator Function Declaration</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.xtuml.bp.xtext.masl.masl.structure.impl.TerminatorFunctionDeclarationImpl
-	 * @see org.xtuml.bp.xtext.masl.masl.structure.impl.StructurePackageImpl#getTerminatorFunctionDeclaration()
-	 * @generated
-	 */
-	int TERMINATOR_FUNCTION_DECLARATION = 22;
-
-	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TERMINATOR_FUNCTION_DECLARATION__NAME = ABSTRACT_FEATURE__NAME;
-
-	/**
-	 * The feature id for the '<em><b>Pragmas</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TERMINATOR_FUNCTION_DECLARATION__PRAGMAS = ABSTRACT_FEATURE_FEATURE_COUNT + 0;
-
-	/**
-	 * The feature id for the '<em><b>Parameters</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TERMINATOR_FUNCTION_DECLARATION__PARAMETERS = ABSTRACT_FEATURE_FEATURE_COUNT + 1;
-
-	/**
-	 * The feature id for the '<em><b>Visibility</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TERMINATOR_FUNCTION_DECLARATION__VISIBILITY = ABSTRACT_FEATURE_FEATURE_COUNT + 2;
-
-	/**
-	 * The feature id for the '<em><b>Return Type</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TERMINATOR_FUNCTION_DECLARATION__RETURN_TYPE = ABSTRACT_FEATURE_FEATURE_COUNT + 3;
-
-	/**
-	 * The number of structural features of the '<em>Terminator Function Declaration</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TERMINATOR_FUNCTION_DECLARATION_FEATURE_COUNT = ABSTRACT_FEATURE_FEATURE_COUNT + 4;
-
-	/**
-	 * The number of operations of the '<em>Terminator Function Declaration</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TERMINATOR_FUNCTION_DECLARATION_OPERATION_COUNT = ABSTRACT_FEATURE_OPERATION_COUNT + 0;
-
-	/**
 	 * The meta object id for the '{@link org.xtuml.bp.xtext.masl.masl.structure.impl.TerminatorServiceDefinitionImpl <em>Terminator Service Definition</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1433,7 +1205,7 @@ public interface StructurePackage extends EPackage {
 	 * @see org.xtuml.bp.xtext.masl.masl.structure.impl.StructurePackageImpl#getTerminatorServiceDefinition()
 	 * @generated
 	 */
-	int TERMINATOR_SERVICE_DEFINITION = 23;
+	int TERMINATOR_SERVICE_DEFINITION = 20;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -1490,13 +1262,22 @@ public interface StructurePackage extends EPackage {
 	int TERMINATOR_SERVICE_DEFINITION__BODY = ABSTRACT_ACTION_DEFINITION__BODY;
 
 	/**
+	 * The feature id for the '<em><b>Return Type</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TERMINATOR_SERVICE_DEFINITION__RETURN_TYPE = ABSTRACT_ACTION_DEFINITION_FEATURE_COUNT + 0;
+
+	/**
 	 * The feature id for the '<em><b>Terminator</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int TERMINATOR_SERVICE_DEFINITION__TERMINATOR = ABSTRACT_ACTION_DEFINITION_FEATURE_COUNT + 0;
+	int TERMINATOR_SERVICE_DEFINITION__TERMINATOR = ABSTRACT_ACTION_DEFINITION_FEATURE_COUNT + 1;
 
 	/**
 	 * The number of structural features of the '<em>Terminator Service Definition</em>' class.
@@ -1505,7 +1286,7 @@ public interface StructurePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TERMINATOR_SERVICE_DEFINITION_FEATURE_COUNT = ABSTRACT_ACTION_DEFINITION_FEATURE_COUNT + 1;
+	int TERMINATOR_SERVICE_DEFINITION_FEATURE_COUNT = ABSTRACT_ACTION_DEFINITION_FEATURE_COUNT + 2;
 
 	/**
 	 * The number of operations of the '<em>Terminator Service Definition</em>' class.
@@ -1517,106 +1298,6 @@ public interface StructurePackage extends EPackage {
 	int TERMINATOR_SERVICE_DEFINITION_OPERATION_COUNT = ABSTRACT_ACTION_DEFINITION_OPERATION_COUNT + 0;
 
 	/**
-	 * The meta object id for the '{@link org.xtuml.bp.xtext.masl.masl.structure.impl.TerminatorFunctionDefinitionImpl <em>Terminator Function Definition</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.xtuml.bp.xtext.masl.masl.structure.impl.TerminatorFunctionDefinitionImpl
-	 * @see org.xtuml.bp.xtext.masl.masl.structure.impl.StructurePackageImpl#getTerminatorFunctionDefinition()
-	 * @generated
-	 */
-	int TERMINATOR_FUNCTION_DEFINITION = 24;
-
-	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TERMINATOR_FUNCTION_DEFINITION__NAME = ABSTRACT_ACTION_DEFINITION__NAME;
-
-	/**
-	 * The feature id for the '<em><b>Pragmas</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TERMINATOR_FUNCTION_DEFINITION__PRAGMAS = ABSTRACT_ACTION_DEFINITION__PRAGMAS;
-
-	/**
-	 * The feature id for the '<em><b>Parameters</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TERMINATOR_FUNCTION_DEFINITION__PARAMETERS = ABSTRACT_ACTION_DEFINITION__PARAMETERS;
-
-	/**
-	 * The feature id for the '<em><b>Visibility</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TERMINATOR_FUNCTION_DEFINITION__VISIBILITY = ABSTRACT_ACTION_DEFINITION__VISIBILITY;
-
-	/**
-	 * The feature id for the '<em><b>Domain</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TERMINATOR_FUNCTION_DEFINITION__DOMAIN = ABSTRACT_ACTION_DEFINITION__DOMAIN;
-
-	/**
-	 * The feature id for the '<em><b>Body</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TERMINATOR_FUNCTION_DEFINITION__BODY = ABSTRACT_ACTION_DEFINITION__BODY;
-
-	/**
-	 * The feature id for the '<em><b>Return Type</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TERMINATOR_FUNCTION_DEFINITION__RETURN_TYPE = ABSTRACT_ACTION_DEFINITION_FEATURE_COUNT + 0;
-
-	/**
-	 * The feature id for the '<em><b>Terminator</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TERMINATOR_FUNCTION_DEFINITION__TERMINATOR = ABSTRACT_ACTION_DEFINITION_FEATURE_COUNT + 1;
-
-	/**
-	 * The number of structural features of the '<em>Terminator Function Definition</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TERMINATOR_FUNCTION_DEFINITION_FEATURE_COUNT = ABSTRACT_ACTION_DEFINITION_FEATURE_COUNT + 2;
-
-	/**
-	 * The number of operations of the '<em>Terminator Function Definition</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TERMINATOR_FUNCTION_DEFINITION_OPERATION_COUNT = ABSTRACT_ACTION_DEFINITION_OPERATION_COUNT + 0;
-
-	/**
 	 * The meta object id for the '{@link org.xtuml.bp.xtext.masl.masl.structure.impl.BuiltinLibraryDefinitionImpl <em>Builtin Library Definition</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1624,7 +1305,7 @@ public interface StructurePackage extends EPackage {
 	 * @see org.xtuml.bp.xtext.masl.masl.structure.impl.StructurePackageImpl#getBuiltinLibraryDefinition()
 	 * @generated
 	 */
-	int BUILTIN_LIBRARY_DEFINITION = 25;
+	int BUILTIN_LIBRARY_DEFINITION = 21;
 
 	/**
 	 * The feature id for the '<em><b>Elements</b></em>' containment reference list.
@@ -1679,7 +1360,7 @@ public interface StructurePackage extends EPackage {
 	 * @see org.xtuml.bp.xtext.masl.masl.structure.impl.StructurePackageImpl#getCharacteristic()
 	 * @generated
 	 */
-	int CHARACTERISTIC = 26;
+	int CHARACTERISTIC = 22;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -1770,7 +1451,7 @@ public interface StructurePackage extends EPackage {
 	 * @see org.xtuml.bp.xtext.masl.masl.structure.impl.StructurePackageImpl#getTypeParameter()
 	 * @generated
 	 */
-	int TYPE_PARAMETER = 27;
+	int TYPE_PARAMETER = 23;
 
 	/**
 	 * The feature id for the '<em><b>Pragmas</b></em>' containment reference list.
@@ -1852,7 +1533,7 @@ public interface StructurePackage extends EPackage {
 	 * @see org.xtuml.bp.xtext.masl.masl.structure.impl.StructurePackageImpl#getRangeTypeReference()
 	 * @generated
 	 */
-	int RANGE_TYPE_REFERENCE = 28;
+	int RANGE_TYPE_REFERENCE = 24;
 
 	/**
 	 * The feature id for the '<em><b>Element Type</b></em>' containment reference.
@@ -1889,7 +1570,7 @@ public interface StructurePackage extends EPackage {
 	 * @see org.xtuml.bp.xtext.masl.masl.structure.impl.StructurePackageImpl#getObjectDeclaration()
 	 * @generated
 	 */
-	int OBJECT_DECLARATION = 29;
+	int OBJECT_DECLARATION = 25;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -1935,7 +1616,7 @@ public interface StructurePackage extends EPackage {
 	 * @see org.xtuml.bp.xtext.masl.masl.structure.impl.StructurePackageImpl#getObjectDefinition()
 	 * @generated
 	 */
-	int OBJECT_DEFINITION = 30;
+	int OBJECT_DEFINITION = 26;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -1983,22 +1664,13 @@ public interface StructurePackage extends EPackage {
 	int OBJECT_DEFINITION__SERVICES = ABSTRACT_NAMED_FEATURE_COUNT + 3;
 
 	/**
-	 * The feature id for the '<em><b>Functions</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int OBJECT_DEFINITION__FUNCTIONS = ABSTRACT_NAMED_FEATURE_COUNT + 4;
-
-	/**
 	 * The feature id for the '<em><b>Events</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int OBJECT_DEFINITION__EVENTS = ABSTRACT_NAMED_FEATURE_COUNT + 5;
+	int OBJECT_DEFINITION__EVENTS = ABSTRACT_NAMED_FEATURE_COUNT + 4;
 
 	/**
 	 * The feature id for the '<em><b>States</b></em>' containment reference list.
@@ -2007,7 +1679,7 @@ public interface StructurePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int OBJECT_DEFINITION__STATES = ABSTRACT_NAMED_FEATURE_COUNT + 6;
+	int OBJECT_DEFINITION__STATES = ABSTRACT_NAMED_FEATURE_COUNT + 5;
 
 	/**
 	 * The feature id for the '<em><b>Transitions</b></em>' containment reference list.
@@ -2016,7 +1688,7 @@ public interface StructurePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int OBJECT_DEFINITION__TRANSITIONS = ABSTRACT_NAMED_FEATURE_COUNT + 7;
+	int OBJECT_DEFINITION__TRANSITIONS = ABSTRACT_NAMED_FEATURE_COUNT + 6;
 
 	/**
 	 * The number of structural features of the '<em>Object Definition</em>' class.
@@ -2025,7 +1697,7 @@ public interface StructurePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int OBJECT_DEFINITION_FEATURE_COUNT = ABSTRACT_NAMED_FEATURE_COUNT + 8;
+	int OBJECT_DEFINITION_FEATURE_COUNT = ABSTRACT_NAMED_FEATURE_COUNT + 7;
 
 	/**
 	 * The number of operations of the '<em>Object Definition</em>' class.
@@ -2044,7 +1716,7 @@ public interface StructurePackage extends EPackage {
 	 * @see org.xtuml.bp.xtext.masl.masl.structure.impl.StructurePackageImpl#getAttributeDefinition()
 	 * @generated
 	 */
-	int ATTRIBUTE_DEFINITION = 31;
+	int ATTRIBUTE_DEFINITION = 27;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -2135,7 +1807,7 @@ public interface StructurePackage extends EPackage {
 	 * @see org.xtuml.bp.xtext.masl.masl.structure.impl.StructurePackageImpl#getIdentifierDefinition()
 	 * @generated
 	 */
-	int IDENTIFIER_DEFINITION = 32;
+	int IDENTIFIER_DEFINITION = 28;
 
 	/**
 	 * The feature id for the '<em><b>Pragmas</b></em>' containment reference list.
@@ -2181,7 +1853,7 @@ public interface StructurePackage extends EPackage {
 	 * @see org.xtuml.bp.xtext.masl.masl.structure.impl.StructurePackageImpl#getObjectServiceDeclaration()
 	 * @generated
 	 */
-	int OBJECT_SERVICE_DECLARATION = 33;
+	int OBJECT_SERVICE_DECLARATION = 29;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -2220,13 +1892,22 @@ public interface StructurePackage extends EPackage {
 	int OBJECT_SERVICE_DECLARATION__VISIBILITY = ABSTRACT_FEATURE_FEATURE_COUNT + 2;
 
 	/**
+	 * The feature id for the '<em><b>Return Type</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OBJECT_SERVICE_DECLARATION__RETURN_TYPE = ABSTRACT_FEATURE_FEATURE_COUNT + 3;
+
+	/**
 	 * The feature id for the '<em><b>Instance</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int OBJECT_SERVICE_DECLARATION__INSTANCE = ABSTRACT_FEATURE_FEATURE_COUNT + 3;
+	int OBJECT_SERVICE_DECLARATION__INSTANCE = ABSTRACT_FEATURE_FEATURE_COUNT + 4;
 
 	/**
 	 * The feature id for the '<em><b>Relationship</b></em>' reference.
@@ -2235,7 +1916,7 @@ public interface StructurePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int OBJECT_SERVICE_DECLARATION__RELATIONSHIP = ABSTRACT_FEATURE_FEATURE_COUNT + 4;
+	int OBJECT_SERVICE_DECLARATION__RELATIONSHIP = ABSTRACT_FEATURE_FEATURE_COUNT + 5;
 
 	/**
 	 * The number of structural features of the '<em>Object Service Declaration</em>' class.
@@ -2244,7 +1925,7 @@ public interface StructurePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int OBJECT_SERVICE_DECLARATION_FEATURE_COUNT = ABSTRACT_FEATURE_FEATURE_COUNT + 5;
+	int OBJECT_SERVICE_DECLARATION_FEATURE_COUNT = ABSTRACT_FEATURE_FEATURE_COUNT + 6;
 
 	/**
 	 * The number of operations of the '<em>Object Service Declaration</em>' class.
@@ -2256,97 +1937,6 @@ public interface StructurePackage extends EPackage {
 	int OBJECT_SERVICE_DECLARATION_OPERATION_COUNT = ABSTRACT_FEATURE_OPERATION_COUNT + 0;
 
 	/**
-	 * The meta object id for the '{@link org.xtuml.bp.xtext.masl.masl.structure.impl.ObjectFunctionDeclarationImpl <em>Object Function Declaration</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.xtuml.bp.xtext.masl.masl.structure.impl.ObjectFunctionDeclarationImpl
-	 * @see org.xtuml.bp.xtext.masl.masl.structure.impl.StructurePackageImpl#getObjectFunctionDeclaration()
-	 * @generated
-	 */
-	int OBJECT_FUNCTION_DECLARATION = 34;
-
-	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int OBJECT_FUNCTION_DECLARATION__NAME = ABSTRACT_FEATURE__NAME;
-
-	/**
-	 * The feature id for the '<em><b>Pragmas</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int OBJECT_FUNCTION_DECLARATION__PRAGMAS = ABSTRACT_FEATURE_FEATURE_COUNT + 0;
-
-	/**
-	 * The feature id for the '<em><b>Parameters</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int OBJECT_FUNCTION_DECLARATION__PARAMETERS = ABSTRACT_FEATURE_FEATURE_COUNT + 1;
-
-	/**
-	 * The feature id for the '<em><b>Visibility</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int OBJECT_FUNCTION_DECLARATION__VISIBILITY = ABSTRACT_FEATURE_FEATURE_COUNT + 2;
-
-	/**
-	 * The feature id for the '<em><b>Return Type</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int OBJECT_FUNCTION_DECLARATION__RETURN_TYPE = ABSTRACT_FEATURE_FEATURE_COUNT + 3;
-
-	/**
-	 * The feature id for the '<em><b>Instance</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int OBJECT_FUNCTION_DECLARATION__INSTANCE = ABSTRACT_FEATURE_FEATURE_COUNT + 4;
-
-	/**
-	 * The feature id for the '<em><b>Relationship</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int OBJECT_FUNCTION_DECLARATION__RELATIONSHIP = ABSTRACT_FEATURE_FEATURE_COUNT + 5;
-
-	/**
-	 * The number of structural features of the '<em>Object Function Declaration</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int OBJECT_FUNCTION_DECLARATION_FEATURE_COUNT = ABSTRACT_FEATURE_FEATURE_COUNT + 6;
-
-	/**
-	 * The number of operations of the '<em>Object Function Declaration</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int OBJECT_FUNCTION_DECLARATION_OPERATION_COUNT = ABSTRACT_FEATURE_OPERATION_COUNT + 0;
-
-	/**
 	 * The meta object id for the '{@link org.xtuml.bp.xtext.masl.masl.structure.impl.ObjectServiceDefinitionImpl <em>Object Service Definition</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2354,7 +1944,7 @@ public interface StructurePackage extends EPackage {
 	 * @see org.xtuml.bp.xtext.masl.masl.structure.impl.StructurePackageImpl#getObjectServiceDefinition()
 	 * @generated
 	 */
-	int OBJECT_SERVICE_DEFINITION = 35;
+	int OBJECT_SERVICE_DEFINITION = 30;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -2411,13 +2001,31 @@ public interface StructurePackage extends EPackage {
 	int OBJECT_SERVICE_DEFINITION__BODY = ABSTRACT_ACTION_DEFINITION__BODY;
 
 	/**
+	 * The feature id for the '<em><b>Return Type</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OBJECT_SERVICE_DEFINITION__RETURN_TYPE = ABSTRACT_ACTION_DEFINITION_FEATURE_COUNT + 0;
+
+	/**
 	 * The feature id for the '<em><b>Instance</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int OBJECT_SERVICE_DEFINITION__INSTANCE = ABSTRACT_ACTION_DEFINITION_FEATURE_COUNT + 0;
+	int OBJECT_SERVICE_DEFINITION__INSTANCE = ABSTRACT_ACTION_DEFINITION_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Relationship</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OBJECT_SERVICE_DEFINITION__RELATIONSHIP = ABSTRACT_ACTION_DEFINITION_FEATURE_COUNT + 2;
 
 	/**
 	 * The feature id for the '<em><b>Object</b></em>' reference.
@@ -2426,7 +2034,7 @@ public interface StructurePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int OBJECT_SERVICE_DEFINITION__OBJECT = ABSTRACT_ACTION_DEFINITION_FEATURE_COUNT + 1;
+	int OBJECT_SERVICE_DEFINITION__OBJECT = ABSTRACT_ACTION_DEFINITION_FEATURE_COUNT + 3;
 
 	/**
 	 * The number of structural features of the '<em>Object Service Definition</em>' class.
@@ -2435,7 +2043,7 @@ public interface StructurePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int OBJECT_SERVICE_DEFINITION_FEATURE_COUNT = ABSTRACT_ACTION_DEFINITION_FEATURE_COUNT + 2;
+	int OBJECT_SERVICE_DEFINITION_FEATURE_COUNT = ABSTRACT_ACTION_DEFINITION_FEATURE_COUNT + 4;
 
 	/**
 	 * The number of operations of the '<em>Object Service Definition</em>' class.
@@ -2447,124 +2055,6 @@ public interface StructurePackage extends EPackage {
 	int OBJECT_SERVICE_DEFINITION_OPERATION_COUNT = ABSTRACT_ACTION_DEFINITION_OPERATION_COUNT + 0;
 
 	/**
-	 * The meta object id for the '{@link org.xtuml.bp.xtext.masl.masl.structure.impl.ObjectFunctionDefinitionImpl <em>Object Function Definition</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.xtuml.bp.xtext.masl.masl.structure.impl.ObjectFunctionDefinitionImpl
-	 * @see org.xtuml.bp.xtext.masl.masl.structure.impl.StructurePackageImpl#getObjectFunctionDefinition()
-	 * @generated
-	 */
-	int OBJECT_FUNCTION_DEFINITION = 36;
-
-	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int OBJECT_FUNCTION_DEFINITION__NAME = ABSTRACT_ACTION_DEFINITION__NAME;
-
-	/**
-	 * The feature id for the '<em><b>Pragmas</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int OBJECT_FUNCTION_DEFINITION__PRAGMAS = ABSTRACT_ACTION_DEFINITION__PRAGMAS;
-
-	/**
-	 * The feature id for the '<em><b>Parameters</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int OBJECT_FUNCTION_DEFINITION__PARAMETERS = ABSTRACT_ACTION_DEFINITION__PARAMETERS;
-
-	/**
-	 * The feature id for the '<em><b>Visibility</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int OBJECT_FUNCTION_DEFINITION__VISIBILITY = ABSTRACT_ACTION_DEFINITION__VISIBILITY;
-
-	/**
-	 * The feature id for the '<em><b>Domain</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int OBJECT_FUNCTION_DEFINITION__DOMAIN = ABSTRACT_ACTION_DEFINITION__DOMAIN;
-
-	/**
-	 * The feature id for the '<em><b>Body</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int OBJECT_FUNCTION_DEFINITION__BODY = ABSTRACT_ACTION_DEFINITION__BODY;
-
-	/**
-	 * The feature id for the '<em><b>Return Type</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int OBJECT_FUNCTION_DEFINITION__RETURN_TYPE = ABSTRACT_ACTION_DEFINITION_FEATURE_COUNT + 0;
-
-	/**
-	 * The feature id for the '<em><b>Instance</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int OBJECT_FUNCTION_DEFINITION__INSTANCE = ABSTRACT_ACTION_DEFINITION_FEATURE_COUNT + 1;
-
-	/**
-	 * The feature id for the '<em><b>Relationship</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int OBJECT_FUNCTION_DEFINITION__RELATIONSHIP = ABSTRACT_ACTION_DEFINITION_FEATURE_COUNT + 2;
-
-	/**
-	 * The feature id for the '<em><b>Object</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int OBJECT_FUNCTION_DEFINITION__OBJECT = ABSTRACT_ACTION_DEFINITION_FEATURE_COUNT + 3;
-
-	/**
-	 * The number of structural features of the '<em>Object Function Definition</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int OBJECT_FUNCTION_DEFINITION_FEATURE_COUNT = ABSTRACT_ACTION_DEFINITION_FEATURE_COUNT + 4;
-
-	/**
-	 * The number of operations of the '<em>Object Function Definition</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int OBJECT_FUNCTION_DEFINITION_OPERATION_COUNT = ABSTRACT_ACTION_DEFINITION_OPERATION_COUNT + 0;
-
-	/**
 	 * The meta object id for the '{@link org.xtuml.bp.xtext.masl.masl.structure.impl.RelationshipDefinitionImpl <em>Relationship Definition</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2572,7 +2062,7 @@ public interface StructurePackage extends EPackage {
 	 * @see org.xtuml.bp.xtext.masl.masl.structure.impl.StructurePackageImpl#getRelationshipDefinition()
 	 * @generated
 	 */
-	int RELATIONSHIP_DEFINITION = 37;
+	int RELATIONSHIP_DEFINITION = 31;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -2618,7 +2108,7 @@ public interface StructurePackage extends EPackage {
 	 * @see org.xtuml.bp.xtext.masl.masl.structure.impl.StructurePackageImpl#getRegularRelationshipDefinition()
 	 * @generated
 	 */
-	int REGULAR_RELATIONSHIP_DEFINITION = 38;
+	int REGULAR_RELATIONSHIP_DEFINITION = 32;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -2682,7 +2172,7 @@ public interface StructurePackage extends EPackage {
 	 * @see org.xtuml.bp.xtext.masl.masl.structure.impl.StructurePackageImpl#getAssocRelationshipDefinition()
 	 * @generated
 	 */
-	int ASSOC_RELATIONSHIP_DEFINITION = 39;
+	int ASSOC_RELATIONSHIP_DEFINITION = 33;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -2764,7 +2254,7 @@ public interface StructurePackage extends EPackage {
 	 * @see org.xtuml.bp.xtext.masl.masl.structure.impl.StructurePackageImpl#getRelationshipEnd()
 	 * @generated
 	 */
-	int RELATIONSHIP_END = 40;
+	int RELATIONSHIP_END = 34;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -2837,7 +2327,7 @@ public interface StructurePackage extends EPackage {
 	 * @see org.xtuml.bp.xtext.masl.masl.structure.impl.StructurePackageImpl#getSubtypeRelationshipDefinition()
 	 * @generated
 	 */
-	int SUBTYPE_RELATIONSHIP_DEFINITION = 41;
+	int SUBTYPE_RELATIONSHIP_DEFINITION = 35;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -2901,7 +2391,7 @@ public interface StructurePackage extends EPackage {
 	 * @see org.xtuml.bp.xtext.masl.masl.structure.impl.StructurePackageImpl#getRelationshipNavigation()
 	 * @generated
 	 */
-	int RELATIONSHIP_NAVIGATION = 42;
+	int RELATIONSHIP_NAVIGATION = 36;
 
 	/**
 	 * The feature id for the '<em><b>Relationship</b></em>' reference.
@@ -2956,7 +2446,7 @@ public interface StructurePackage extends EPackage {
 	 * @see org.xtuml.bp.xtext.masl.masl.structure.impl.StructurePackageImpl#getObjectOrRole()
 	 * @generated
 	 */
-	int OBJECT_OR_ROLE = 43;
+	int OBJECT_OR_ROLE = 37;
 
 	/**
 	 * The number of structural features of the '<em>Object Or Role</em>' class.
@@ -2984,7 +2474,7 @@ public interface StructurePackage extends EPackage {
 	 * @see org.xtuml.bp.xtext.masl.masl.structure.impl.StructurePackageImpl#getEventDefinition()
 	 * @generated
 	 */
-	int EVENT_DEFINITION = 44;
+	int EVENT_DEFINITION = 38;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -3048,7 +2538,7 @@ public interface StructurePackage extends EPackage {
 	 * @see org.xtuml.bp.xtext.masl.masl.structure.impl.StructurePackageImpl#getStateDeclaration()
 	 * @generated
 	 */
-	int STATE_DECLARATION = 45;
+	int STATE_DECLARATION = 39;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -3121,7 +2611,7 @@ public interface StructurePackage extends EPackage {
 	 * @see org.xtuml.bp.xtext.masl.masl.structure.impl.StructurePackageImpl#getStateDefinition()
 	 * @generated
 	 */
-	int STATE_DEFINITION = 46;
+	int STATE_DEFINITION = 40;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -3221,7 +2711,7 @@ public interface StructurePackage extends EPackage {
 	 * @see org.xtuml.bp.xtext.masl.masl.structure.impl.StructurePackageImpl#getTransitionTable()
 	 * @generated
 	 */
-	int TRANSITION_TABLE = 47;
+	int TRANSITION_TABLE = 41;
 
 	/**
 	 * The feature id for the '<em><b>Pragmas</b></em>' containment reference list.
@@ -3276,7 +2766,7 @@ public interface StructurePackage extends EPackage {
 	 * @see org.xtuml.bp.xtext.masl.masl.structure.impl.StructurePackageImpl#getTransitionRow()
 	 * @generated
 	 */
-	int TRANSITION_ROW = 48;
+	int TRANSITION_ROW = 42;
 
 	/**
 	 * The feature id for the '<em><b>Pragmas</b></em>' containment reference list.
@@ -3340,7 +2830,7 @@ public interface StructurePackage extends EPackage {
 	 * @see org.xtuml.bp.xtext.masl.masl.structure.impl.StructurePackageImpl#getTransitionOption()
 	 * @generated
 	 */
-	int TRANSITION_OPTION = 49;
+	int TRANSITION_OPTION = 43;
 
 	/**
 	 * The feature id for the '<em><b>Event</b></em>' reference.
@@ -3404,7 +2894,7 @@ public interface StructurePackage extends EPackage {
 	 * @see org.xtuml.bp.xtext.masl.masl.structure.impl.StructurePackageImpl#getParameterMode()
 	 * @generated
 	 */
-	int PARAMETER_MODE = 50;
+	int PARAMETER_MODE = 44;
 
 	/**
 	 * The meta object id for the '{@link org.xtuml.bp.xtext.masl.masl.structure.Visibility <em>Visibility</em>}' enum.
@@ -3414,7 +2904,7 @@ public interface StructurePackage extends EPackage {
 	 * @see org.xtuml.bp.xtext.masl.masl.structure.impl.StructurePackageImpl#getVisibility()
 	 * @generated
 	 */
-	int VISIBILITY = 51;
+	int VISIBILITY = 45;
 
 	/**
 	 * The meta object id for the '{@link org.xtuml.bp.xtext.masl.masl.structure.Conditionality <em>Conditionality</em>}' enum.
@@ -3424,7 +2914,7 @@ public interface StructurePackage extends EPackage {
 	 * @see org.xtuml.bp.xtext.masl.masl.structure.impl.StructurePackageImpl#getConditionality()
 	 * @generated
 	 */
-	int CONDITIONALITY = 52;
+	int CONDITIONALITY = 46;
 
 	/**
 	 * The meta object id for the '{@link org.xtuml.bp.xtext.masl.masl.structure.Multiplicity <em>Multiplicity</em>}' enum.
@@ -3434,7 +2924,7 @@ public interface StructurePackage extends EPackage {
 	 * @see org.xtuml.bp.xtext.masl.masl.structure.impl.StructurePackageImpl#getMultiplicity()
 	 * @generated
 	 */
-	int MULTIPLICITY = 53;
+	int MULTIPLICITY = 47;
 
 	/**
 	 * The meta object id for the '{@link org.xtuml.bp.xtext.masl.masl.structure.EventType <em>Event Type</em>}' enum.
@@ -3444,7 +2934,7 @@ public interface StructurePackage extends EPackage {
 	 * @see org.xtuml.bp.xtext.masl.masl.structure.impl.StructurePackageImpl#getEventType()
 	 * @generated
 	 */
-	int EVENT_TYPE = 54;
+	int EVENT_TYPE = 48;
 
 	/**
 	 * The meta object id for the '{@link org.xtuml.bp.xtext.masl.masl.structure.StateType <em>State Type</em>}' enum.
@@ -3454,7 +2944,7 @@ public interface StructurePackage extends EPackage {
 	 * @see org.xtuml.bp.xtext.masl.masl.structure.impl.StructurePackageImpl#getStateType()
 	 * @generated
 	 */
-	int STATE_TYPE = 55;
+	int STATE_TYPE = 49;
 
 	/**
 	 * The meta object id for the '{@link org.xtuml.bp.xtext.masl.masl.structure.TransTableType <em>Trans Table Type</em>}' enum.
@@ -3464,7 +2954,7 @@ public interface StructurePackage extends EPackage {
 	 * @see org.xtuml.bp.xtext.masl.masl.structure.impl.StructurePackageImpl#getTransTableType()
 	 * @generated
 	 */
-	int TRANS_TABLE_TYPE = 56;
+	int TRANS_TABLE_TYPE = 50;
 
 
 	/**
@@ -3614,25 +3104,25 @@ public interface StructurePackage extends EPackage {
 	EReference getAbstractActionDefinition_Body();
 
 	/**
-	 * Returns the meta object for class '{@link org.xtuml.bp.xtext.masl.masl.structure.AbstractFunction <em>Abstract Function</em>}'.
+	 * Returns the meta object for class '{@link org.xtuml.bp.xtext.masl.masl.structure.AbstractService <em>Abstract Service</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Abstract Function</em>'.
-	 * @see org.xtuml.bp.xtext.masl.masl.structure.AbstractFunction
+	 * @return the meta object for class '<em>Abstract Service</em>'.
+	 * @see org.xtuml.bp.xtext.masl.masl.structure.AbstractService
 	 * @generated
 	 */
-	EClass getAbstractFunction();
+	EClass getAbstractService();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link org.xtuml.bp.xtext.masl.masl.structure.AbstractFunction#getReturnType <em>Return Type</em>}'.
+	 * Returns the meta object for the containment reference '{@link org.xtuml.bp.xtext.masl.masl.structure.AbstractService#getReturnType <em>Return Type</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the containment reference '<em>Return Type</em>'.
-	 * @see org.xtuml.bp.xtext.masl.masl.structure.AbstractFunction#getReturnType()
-	 * @see #getAbstractFunction()
+	 * @see org.xtuml.bp.xtext.masl.masl.structure.AbstractService#getReturnType()
+	 * @see #getAbstractService()
 	 * @generated
 	 */
-	EReference getAbstractFunction_ReturnType();
+	EReference getAbstractService_ReturnType();
 
 	/**
 	 * Returns the meta object for class '{@link org.xtuml.bp.xtext.masl.masl.structure.Pragmatized <em>Pragmatized</em>}'.
@@ -3805,17 +3295,6 @@ public interface StructurePackage extends EPackage {
 	EReference getDomainDefinition_Services();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.xtuml.bp.xtext.masl.masl.structure.DomainDefinition#getFunctions <em>Functions</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Functions</em>'.
-	 * @see org.xtuml.bp.xtext.masl.masl.structure.DomainDefinition#getFunctions()
-	 * @see #getDomainDefinition()
-	 * @generated
-	 */
-	EReference getDomainDefinition_Functions();
-
-	/**
 	 * Returns the meta object for the containment reference list '{@link org.xtuml.bp.xtext.masl.masl.structure.DomainDefinition#getTerminators <em>Terminators</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3892,16 +3371,6 @@ public interface StructurePackage extends EPackage {
 	EClass getDomainServiceDeclaration();
 
 	/**
-	 * Returns the meta object for class '{@link org.xtuml.bp.xtext.masl.masl.structure.DomainFunctionDeclaration <em>Domain Function Declaration</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Domain Function Declaration</em>'.
-	 * @see org.xtuml.bp.xtext.masl.masl.structure.DomainFunctionDeclaration
-	 * @generated
-	 */
-	EClass getDomainFunctionDeclaration();
-
-	/**
 	 * Returns the meta object for class '{@link org.xtuml.bp.xtext.masl.masl.structure.DomainServiceDefinition <em>Domain Service Definition</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3910,16 +3379,6 @@ public interface StructurePackage extends EPackage {
 	 * @generated
 	 */
 	EClass getDomainServiceDefinition();
-
-	/**
-	 * Returns the meta object for class '{@link org.xtuml.bp.xtext.masl.masl.structure.DomainFunctionDefinition <em>Domain Function Definition</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Domain Function Definition</em>'.
-	 * @see org.xtuml.bp.xtext.masl.masl.structure.DomainFunctionDefinition
-	 * @generated
-	 */
-	EClass getDomainFunctionDefinition();
 
 	/**
 	 * Returns the meta object for class '{@link org.xtuml.bp.xtext.masl.masl.structure.ExceptionDeclaration <em>Exception Declaration</em>}'.
@@ -3953,17 +3412,6 @@ public interface StructurePackage extends EPackage {
 	EReference getTerminatorDefinition_Services();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.xtuml.bp.xtext.masl.masl.structure.TerminatorDefinition#getFunctions <em>Functions</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Functions</em>'.
-	 * @see org.xtuml.bp.xtext.masl.masl.structure.TerminatorDefinition#getFunctions()
-	 * @see #getTerminatorDefinition()
-	 * @generated
-	 */
-	EReference getTerminatorDefinition_Functions();
-
-	/**
 	 * Returns the meta object for class '{@link org.xtuml.bp.xtext.masl.masl.structure.TerminatorServiceDeclaration <em>Terminator Service Declaration</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3972,16 +3420,6 @@ public interface StructurePackage extends EPackage {
 	 * @generated
 	 */
 	EClass getTerminatorServiceDeclaration();
-
-	/**
-	 * Returns the meta object for class '{@link org.xtuml.bp.xtext.masl.masl.structure.TerminatorFunctionDeclaration <em>Terminator Function Declaration</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Terminator Function Declaration</em>'.
-	 * @see org.xtuml.bp.xtext.masl.masl.structure.TerminatorFunctionDeclaration
-	 * @generated
-	 */
-	EClass getTerminatorFunctionDeclaration();
 
 	/**
 	 * Returns the meta object for class '{@link org.xtuml.bp.xtext.masl.masl.structure.TerminatorServiceDefinition <em>Terminator Service Definition</em>}'.
@@ -4003,27 +3441,6 @@ public interface StructurePackage extends EPackage {
 	 * @generated
 	 */
 	EReference getTerminatorServiceDefinition_Terminator();
-
-	/**
-	 * Returns the meta object for class '{@link org.xtuml.bp.xtext.masl.masl.structure.TerminatorFunctionDefinition <em>Terminator Function Definition</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Terminator Function Definition</em>'.
-	 * @see org.xtuml.bp.xtext.masl.masl.structure.TerminatorFunctionDefinition
-	 * @generated
-	 */
-	EClass getTerminatorFunctionDefinition();
-
-	/**
-	 * Returns the meta object for the reference '{@link org.xtuml.bp.xtext.masl.masl.structure.TerminatorFunctionDefinition#getTerminator <em>Terminator</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Terminator</em>'.
-	 * @see org.xtuml.bp.xtext.masl.masl.structure.TerminatorFunctionDefinition#getTerminator()
-	 * @see #getTerminatorFunctionDefinition()
-	 * @generated
-	 */
-	EReference getTerminatorFunctionDefinition_Terminator();
 
 	/**
 	 * Returns the meta object for class '{@link org.xtuml.bp.xtext.masl.masl.structure.BuiltinLibraryDefinition <em>Builtin Library Definition</em>}'.
@@ -4207,17 +3624,6 @@ public interface StructurePackage extends EPackage {
 	EReference getObjectDefinition_Services();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.xtuml.bp.xtext.masl.masl.structure.ObjectDefinition#getFunctions <em>Functions</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Functions</em>'.
-	 * @see org.xtuml.bp.xtext.masl.masl.structure.ObjectDefinition#getFunctions()
-	 * @see #getObjectDefinition()
-	 * @generated
-	 */
-	EReference getObjectDefinition_Functions();
-
-	/**
 	 * Returns the meta object for the containment reference list '{@link org.xtuml.bp.xtext.masl.masl.structure.ObjectDefinition#getEvents <em>Events</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -4369,38 +3775,6 @@ public interface StructurePackage extends EPackage {
 	EReference getObjectServiceDeclaration_Relationship();
 
 	/**
-	 * Returns the meta object for class '{@link org.xtuml.bp.xtext.masl.masl.structure.ObjectFunctionDeclaration <em>Object Function Declaration</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Object Function Declaration</em>'.
-	 * @see org.xtuml.bp.xtext.masl.masl.structure.ObjectFunctionDeclaration
-	 * @generated
-	 */
-	EClass getObjectFunctionDeclaration();
-
-	/**
-	 * Returns the meta object for the attribute '{@link org.xtuml.bp.xtext.masl.masl.structure.ObjectFunctionDeclaration#isInstance <em>Instance</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Instance</em>'.
-	 * @see org.xtuml.bp.xtext.masl.masl.structure.ObjectFunctionDeclaration#isInstance()
-	 * @see #getObjectFunctionDeclaration()
-	 * @generated
-	 */
-	EAttribute getObjectFunctionDeclaration_Instance();
-
-	/**
-	 * Returns the meta object for the reference '{@link org.xtuml.bp.xtext.masl.masl.structure.ObjectFunctionDeclaration#getRelationship <em>Relationship</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Relationship</em>'.
-	 * @see org.xtuml.bp.xtext.masl.masl.structure.ObjectFunctionDeclaration#getRelationship()
-	 * @see #getObjectFunctionDeclaration()
-	 * @generated
-	 */
-	EReference getObjectFunctionDeclaration_Relationship();
-
-	/**
 	 * Returns the meta object for class '{@link org.xtuml.bp.xtext.masl.masl.structure.ObjectServiceDefinition <em>Object Service Definition</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -4422,6 +3796,17 @@ public interface StructurePackage extends EPackage {
 	EAttribute getObjectServiceDefinition_Instance();
 
 	/**
+	 * Returns the meta object for the reference '{@link org.xtuml.bp.xtext.masl.masl.structure.ObjectServiceDefinition#getRelationship <em>Relationship</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Relationship</em>'.
+	 * @see org.xtuml.bp.xtext.masl.masl.structure.ObjectServiceDefinition#getRelationship()
+	 * @see #getObjectServiceDefinition()
+	 * @generated
+	 */
+	EReference getObjectServiceDefinition_Relationship();
+
+	/**
 	 * Returns the meta object for the reference '{@link org.xtuml.bp.xtext.masl.masl.structure.ObjectServiceDefinition#getObject <em>Object</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -4431,49 +3816,6 @@ public interface StructurePackage extends EPackage {
 	 * @generated
 	 */
 	EReference getObjectServiceDefinition_Object();
-
-	/**
-	 * Returns the meta object for class '{@link org.xtuml.bp.xtext.masl.masl.structure.ObjectFunctionDefinition <em>Object Function Definition</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Object Function Definition</em>'.
-	 * @see org.xtuml.bp.xtext.masl.masl.structure.ObjectFunctionDefinition
-	 * @generated
-	 */
-	EClass getObjectFunctionDefinition();
-
-	/**
-	 * Returns the meta object for the attribute '{@link org.xtuml.bp.xtext.masl.masl.structure.ObjectFunctionDefinition#isInstance <em>Instance</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Instance</em>'.
-	 * @see org.xtuml.bp.xtext.masl.masl.structure.ObjectFunctionDefinition#isInstance()
-	 * @see #getObjectFunctionDefinition()
-	 * @generated
-	 */
-	EAttribute getObjectFunctionDefinition_Instance();
-
-	/**
-	 * Returns the meta object for the reference '{@link org.xtuml.bp.xtext.masl.masl.structure.ObjectFunctionDefinition#getRelationship <em>Relationship</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Relationship</em>'.
-	 * @see org.xtuml.bp.xtext.masl.masl.structure.ObjectFunctionDefinition#getRelationship()
-	 * @see #getObjectFunctionDefinition()
-	 * @generated
-	 */
-	EReference getObjectFunctionDefinition_Relationship();
-
-	/**
-	 * Returns the meta object for the reference '{@link org.xtuml.bp.xtext.masl.masl.structure.ObjectFunctionDefinition#getObject <em>Object</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Object</em>'.
-	 * @see org.xtuml.bp.xtext.masl.masl.structure.ObjectFunctionDefinition#getObject()
-	 * @see #getObjectFunctionDefinition()
-	 * @generated
-	 */
-	EReference getObjectFunctionDefinition_Object();
 
 	/**
 	 * Returns the meta object for class '{@link org.xtuml.bp.xtext.masl.masl.structure.RelationshipDefinition <em>Relationship Definition</em>}'.
@@ -5135,14 +4477,14 @@ public interface StructurePackage extends EPackage {
 		EReference ABSTRACT_ACTION_DEFINITION__BODY = eINSTANCE.getAbstractActionDefinition_Body();
 
 		/**
-		 * The meta object literal for the '{@link org.xtuml.bp.xtext.masl.masl.structure.impl.AbstractFunctionImpl <em>Abstract Function</em>}' class.
+		 * The meta object literal for the '{@link org.xtuml.bp.xtext.masl.masl.structure.impl.AbstractServiceImpl <em>Abstract Service</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see org.xtuml.bp.xtext.masl.masl.structure.impl.AbstractFunctionImpl
-		 * @see org.xtuml.bp.xtext.masl.masl.structure.impl.StructurePackageImpl#getAbstractFunction()
+		 * @see org.xtuml.bp.xtext.masl.masl.structure.impl.AbstractServiceImpl
+		 * @see org.xtuml.bp.xtext.masl.masl.structure.impl.StructurePackageImpl#getAbstractService()
 		 * @generated
 		 */
-		EClass ABSTRACT_FUNCTION = eINSTANCE.getAbstractFunction();
+		EClass ABSTRACT_SERVICE = eINSTANCE.getAbstractService();
 
 		/**
 		 * The meta object literal for the '<em><b>Return Type</b></em>' containment reference feature.
@@ -5150,7 +4492,7 @@ public interface StructurePackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference ABSTRACT_FUNCTION__RETURN_TYPE = eINSTANCE.getAbstractFunction_ReturnType();
+		EReference ABSTRACT_SERVICE__RETURN_TYPE = eINSTANCE.getAbstractService_ReturnType();
 
 		/**
 		 * The meta object literal for the '{@link org.xtuml.bp.xtext.masl.masl.structure.impl.PragmatizedImpl <em>Pragmatized</em>}' class.
@@ -5293,14 +4635,6 @@ public interface StructurePackage extends EPackage {
 		EReference DOMAIN_DEFINITION__SERVICES = eINSTANCE.getDomainDefinition_Services();
 
 		/**
-		 * The meta object literal for the '<em><b>Functions</b></em>' containment reference list feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference DOMAIN_DEFINITION__FUNCTIONS = eINSTANCE.getDomainDefinition_Functions();
-
-		/**
 		 * The meta object literal for the '<em><b>Terminators</b></em>' containment reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -5359,16 +4693,6 @@ public interface StructurePackage extends EPackage {
 		EClass DOMAIN_SERVICE_DECLARATION = eINSTANCE.getDomainServiceDeclaration();
 
 		/**
-		 * The meta object literal for the '{@link org.xtuml.bp.xtext.masl.masl.structure.impl.DomainFunctionDeclarationImpl <em>Domain Function Declaration</em>}' class.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see org.xtuml.bp.xtext.masl.masl.structure.impl.DomainFunctionDeclarationImpl
-		 * @see org.xtuml.bp.xtext.masl.masl.structure.impl.StructurePackageImpl#getDomainFunctionDeclaration()
-		 * @generated
-		 */
-		EClass DOMAIN_FUNCTION_DECLARATION = eINSTANCE.getDomainFunctionDeclaration();
-
-		/**
 		 * The meta object literal for the '{@link org.xtuml.bp.xtext.masl.masl.structure.impl.DomainServiceDefinitionImpl <em>Domain Service Definition</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -5377,16 +4701,6 @@ public interface StructurePackage extends EPackage {
 		 * @generated
 		 */
 		EClass DOMAIN_SERVICE_DEFINITION = eINSTANCE.getDomainServiceDefinition();
-
-		/**
-		 * The meta object literal for the '{@link org.xtuml.bp.xtext.masl.masl.structure.impl.DomainFunctionDefinitionImpl <em>Domain Function Definition</em>}' class.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see org.xtuml.bp.xtext.masl.masl.structure.impl.DomainFunctionDefinitionImpl
-		 * @see org.xtuml.bp.xtext.masl.masl.structure.impl.StructurePackageImpl#getDomainFunctionDefinition()
-		 * @generated
-		 */
-		EClass DOMAIN_FUNCTION_DEFINITION = eINSTANCE.getDomainFunctionDefinition();
 
 		/**
 		 * The meta object literal for the '{@link org.xtuml.bp.xtext.masl.masl.structure.impl.ExceptionDeclarationImpl <em>Exception Declaration</em>}' class.
@@ -5417,14 +4731,6 @@ public interface StructurePackage extends EPackage {
 		EReference TERMINATOR_DEFINITION__SERVICES = eINSTANCE.getTerminatorDefinition_Services();
 
 		/**
-		 * The meta object literal for the '<em><b>Functions</b></em>' containment reference list feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference TERMINATOR_DEFINITION__FUNCTIONS = eINSTANCE.getTerminatorDefinition_Functions();
-
-		/**
 		 * The meta object literal for the '{@link org.xtuml.bp.xtext.masl.masl.structure.impl.TerminatorServiceDeclarationImpl <em>Terminator Service Declaration</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -5433,16 +4739,6 @@ public interface StructurePackage extends EPackage {
 		 * @generated
 		 */
 		EClass TERMINATOR_SERVICE_DECLARATION = eINSTANCE.getTerminatorServiceDeclaration();
-
-		/**
-		 * The meta object literal for the '{@link org.xtuml.bp.xtext.masl.masl.structure.impl.TerminatorFunctionDeclarationImpl <em>Terminator Function Declaration</em>}' class.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see org.xtuml.bp.xtext.masl.masl.structure.impl.TerminatorFunctionDeclarationImpl
-		 * @see org.xtuml.bp.xtext.masl.masl.structure.impl.StructurePackageImpl#getTerminatorFunctionDeclaration()
-		 * @generated
-		 */
-		EClass TERMINATOR_FUNCTION_DECLARATION = eINSTANCE.getTerminatorFunctionDeclaration();
 
 		/**
 		 * The meta object literal for the '{@link org.xtuml.bp.xtext.masl.masl.structure.impl.TerminatorServiceDefinitionImpl <em>Terminator Service Definition</em>}' class.
@@ -5461,24 +4757,6 @@ public interface StructurePackage extends EPackage {
 		 * @generated
 		 */
 		EReference TERMINATOR_SERVICE_DEFINITION__TERMINATOR = eINSTANCE.getTerminatorServiceDefinition_Terminator();
-
-		/**
-		 * The meta object literal for the '{@link org.xtuml.bp.xtext.masl.masl.structure.impl.TerminatorFunctionDefinitionImpl <em>Terminator Function Definition</em>}' class.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see org.xtuml.bp.xtext.masl.masl.structure.impl.TerminatorFunctionDefinitionImpl
-		 * @see org.xtuml.bp.xtext.masl.masl.structure.impl.StructurePackageImpl#getTerminatorFunctionDefinition()
-		 * @generated
-		 */
-		EClass TERMINATOR_FUNCTION_DEFINITION = eINSTANCE.getTerminatorFunctionDefinition();
-
-		/**
-		 * The meta object literal for the '<em><b>Terminator</b></em>' reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference TERMINATOR_FUNCTION_DEFINITION__TERMINATOR = eINSTANCE.getTerminatorFunctionDefinition_Terminator();
 
 		/**
 		 * The meta object literal for the '{@link org.xtuml.bp.xtext.masl.masl.structure.impl.BuiltinLibraryDefinitionImpl <em>Builtin Library Definition</em>}' class.
@@ -5629,14 +4907,6 @@ public interface StructurePackage extends EPackage {
 		EReference OBJECT_DEFINITION__SERVICES = eINSTANCE.getObjectDefinition_Services();
 
 		/**
-		 * The meta object literal for the '<em><b>Functions</b></em>' containment reference list feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference OBJECT_DEFINITION__FUNCTIONS = eINSTANCE.getObjectDefinition_Functions();
-
-		/**
 		 * The meta object literal for the '<em><b>Events</b></em>' containment reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -5755,32 +5025,6 @@ public interface StructurePackage extends EPackage {
 		EReference OBJECT_SERVICE_DECLARATION__RELATIONSHIP = eINSTANCE.getObjectServiceDeclaration_Relationship();
 
 		/**
-		 * The meta object literal for the '{@link org.xtuml.bp.xtext.masl.masl.structure.impl.ObjectFunctionDeclarationImpl <em>Object Function Declaration</em>}' class.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see org.xtuml.bp.xtext.masl.masl.structure.impl.ObjectFunctionDeclarationImpl
-		 * @see org.xtuml.bp.xtext.masl.masl.structure.impl.StructurePackageImpl#getObjectFunctionDeclaration()
-		 * @generated
-		 */
-		EClass OBJECT_FUNCTION_DECLARATION = eINSTANCE.getObjectFunctionDeclaration();
-
-		/**
-		 * The meta object literal for the '<em><b>Instance</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute OBJECT_FUNCTION_DECLARATION__INSTANCE = eINSTANCE.getObjectFunctionDeclaration_Instance();
-
-		/**
-		 * The meta object literal for the '<em><b>Relationship</b></em>' reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference OBJECT_FUNCTION_DECLARATION__RELATIONSHIP = eINSTANCE.getObjectFunctionDeclaration_Relationship();
-
-		/**
 		 * The meta object literal for the '{@link org.xtuml.bp.xtext.masl.masl.structure.impl.ObjectServiceDefinitionImpl <em>Object Service Definition</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -5799,46 +5043,20 @@ public interface StructurePackage extends EPackage {
 		EAttribute OBJECT_SERVICE_DEFINITION__INSTANCE = eINSTANCE.getObjectServiceDefinition_Instance();
 
 		/**
+		 * The meta object literal for the '<em><b>Relationship</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference OBJECT_SERVICE_DEFINITION__RELATIONSHIP = eINSTANCE.getObjectServiceDefinition_Relationship();
+
+		/**
 		 * The meta object literal for the '<em><b>Object</b></em>' reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
 		EReference OBJECT_SERVICE_DEFINITION__OBJECT = eINSTANCE.getObjectServiceDefinition_Object();
-
-		/**
-		 * The meta object literal for the '{@link org.xtuml.bp.xtext.masl.masl.structure.impl.ObjectFunctionDefinitionImpl <em>Object Function Definition</em>}' class.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see org.xtuml.bp.xtext.masl.masl.structure.impl.ObjectFunctionDefinitionImpl
-		 * @see org.xtuml.bp.xtext.masl.masl.structure.impl.StructurePackageImpl#getObjectFunctionDefinition()
-		 * @generated
-		 */
-		EClass OBJECT_FUNCTION_DEFINITION = eINSTANCE.getObjectFunctionDefinition();
-
-		/**
-		 * The meta object literal for the '<em><b>Instance</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute OBJECT_FUNCTION_DEFINITION__INSTANCE = eINSTANCE.getObjectFunctionDefinition_Instance();
-
-		/**
-		 * The meta object literal for the '<em><b>Relationship</b></em>' reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference OBJECT_FUNCTION_DEFINITION__RELATIONSHIP = eINSTANCE.getObjectFunctionDefinition_Relationship();
-
-		/**
-		 * The meta object literal for the '<em><b>Object</b></em>' reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference OBJECT_FUNCTION_DEFINITION__OBJECT = eINSTANCE.getObjectFunctionDefinition_Object();
 
 		/**
 		 * The meta object literal for the '{@link org.xtuml.bp.xtext.masl.masl.structure.impl.RelationshipDefinitionImpl <em>Relationship Definition</em>}' class.

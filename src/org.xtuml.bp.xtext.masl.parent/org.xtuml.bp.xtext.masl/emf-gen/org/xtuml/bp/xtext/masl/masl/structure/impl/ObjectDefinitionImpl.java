@@ -19,7 +19,6 @@ import org.xtuml.bp.xtext.masl.masl.structure.AttributeDefinition;
 import org.xtuml.bp.xtext.masl.masl.structure.EventDefinition;
 import org.xtuml.bp.xtext.masl.masl.structure.IdentifierDefinition;
 import org.xtuml.bp.xtext.masl.masl.structure.ObjectDefinition;
-import org.xtuml.bp.xtext.masl.masl.structure.ObjectFunctionDeclaration;
 import org.xtuml.bp.xtext.masl.masl.structure.ObjectServiceDeclaration;
 import org.xtuml.bp.xtext.masl.masl.structure.Pragma;
 import org.xtuml.bp.xtext.masl.masl.structure.Pragmatized;
@@ -39,7 +38,6 @@ import org.xtuml.bp.xtext.masl.masl.structure.TransitionTable;
  *   <li>{@link org.xtuml.bp.xtext.masl.masl.structure.impl.ObjectDefinitionImpl#getAttributes <em>Attributes</em>}</li>
  *   <li>{@link org.xtuml.bp.xtext.masl.masl.structure.impl.ObjectDefinitionImpl#getIdentifiers <em>Identifiers</em>}</li>
  *   <li>{@link org.xtuml.bp.xtext.masl.masl.structure.impl.ObjectDefinitionImpl#getServices <em>Services</em>}</li>
- *   <li>{@link org.xtuml.bp.xtext.masl.masl.structure.impl.ObjectDefinitionImpl#getFunctions <em>Functions</em>}</li>
  *   <li>{@link org.xtuml.bp.xtext.masl.masl.structure.impl.ObjectDefinitionImpl#getEvents <em>Events</em>}</li>
  *   <li>{@link org.xtuml.bp.xtext.masl.masl.structure.impl.ObjectDefinitionImpl#getStates <em>States</em>}</li>
  *   <li>{@link org.xtuml.bp.xtext.masl.masl.structure.impl.ObjectDefinitionImpl#getTransitions <em>Transitions</em>}</li>
@@ -87,16 +85,6 @@ public class ObjectDefinitionImpl extends AbstractNamedImpl implements ObjectDef
 	 * @ordered
 	 */
 	protected EList<ObjectServiceDeclaration> services;
-
-	/**
-	 * The cached value of the '{@link #getFunctions() <em>Functions</em>}' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getFunctions()
-	 * @generated
-	 * @ordered
-	 */
-	protected EList<ObjectFunctionDeclaration> functions;
 
 	/**
 	 * The cached value of the '{@link #getEvents() <em>Events</em>}' containment reference list.
@@ -200,18 +188,6 @@ public class ObjectDefinitionImpl extends AbstractNamedImpl implements ObjectDef
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<ObjectFunctionDeclaration> getFunctions() {
-		if (functions == null) {
-			functions = new EObjectContainmentEList<ObjectFunctionDeclaration>(ObjectFunctionDeclaration.class, this, StructurePackage.OBJECT_DEFINITION__FUNCTIONS);
-		}
-		return functions;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EList<EventDefinition> getEvents() {
 		if (events == null) {
 			events = new EObjectContainmentEList<EventDefinition>(EventDefinition.class, this, StructurePackage.OBJECT_DEFINITION__EVENTS);
@@ -259,8 +235,6 @@ public class ObjectDefinitionImpl extends AbstractNamedImpl implements ObjectDef
 				return ((InternalEList<?>)getIdentifiers()).basicRemove(otherEnd, msgs);
 			case StructurePackage.OBJECT_DEFINITION__SERVICES:
 				return ((InternalEList<?>)getServices()).basicRemove(otherEnd, msgs);
-			case StructurePackage.OBJECT_DEFINITION__FUNCTIONS:
-				return ((InternalEList<?>)getFunctions()).basicRemove(otherEnd, msgs);
 			case StructurePackage.OBJECT_DEFINITION__EVENTS:
 				return ((InternalEList<?>)getEvents()).basicRemove(otherEnd, msgs);
 			case StructurePackage.OBJECT_DEFINITION__STATES:
@@ -287,8 +261,6 @@ public class ObjectDefinitionImpl extends AbstractNamedImpl implements ObjectDef
 				return getIdentifiers();
 			case StructurePackage.OBJECT_DEFINITION__SERVICES:
 				return getServices();
-			case StructurePackage.OBJECT_DEFINITION__FUNCTIONS:
-				return getFunctions();
 			case StructurePackage.OBJECT_DEFINITION__EVENTS:
 				return getEvents();
 			case StructurePackage.OBJECT_DEFINITION__STATES:
@@ -323,10 +295,6 @@ public class ObjectDefinitionImpl extends AbstractNamedImpl implements ObjectDef
 			case StructurePackage.OBJECT_DEFINITION__SERVICES:
 				getServices().clear();
 				getServices().addAll((Collection<? extends ObjectServiceDeclaration>)newValue);
-				return;
-			case StructurePackage.OBJECT_DEFINITION__FUNCTIONS:
-				getFunctions().clear();
-				getFunctions().addAll((Collection<? extends ObjectFunctionDeclaration>)newValue);
 				return;
 			case StructurePackage.OBJECT_DEFINITION__EVENTS:
 				getEvents().clear();
@@ -364,9 +332,6 @@ public class ObjectDefinitionImpl extends AbstractNamedImpl implements ObjectDef
 			case StructurePackage.OBJECT_DEFINITION__SERVICES:
 				getServices().clear();
 				return;
-			case StructurePackage.OBJECT_DEFINITION__FUNCTIONS:
-				getFunctions().clear();
-				return;
 			case StructurePackage.OBJECT_DEFINITION__EVENTS:
 				getEvents().clear();
 				return;
@@ -396,8 +361,6 @@ public class ObjectDefinitionImpl extends AbstractNamedImpl implements ObjectDef
 				return identifiers != null && !identifiers.isEmpty();
 			case StructurePackage.OBJECT_DEFINITION__SERVICES:
 				return services != null && !services.isEmpty();
-			case StructurePackage.OBJECT_DEFINITION__FUNCTIONS:
-				return functions != null && !functions.isEmpty();
 			case StructurePackage.OBJECT_DEFINITION__EVENTS:
 				return events != null && !events.isEmpty();
 			case StructurePackage.OBJECT_DEFINITION__STATES:

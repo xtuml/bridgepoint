@@ -5,21 +5,17 @@ import org.xtuml.bp.xtext.masl.MASLExtensions
 import org.xtuml.bp.xtext.masl.masl.behavior.SimpleFeatureCall
 import org.xtuml.bp.xtext.masl.masl.behavior.TerminatorActionCall
 import org.xtuml.bp.xtext.masl.masl.structure.AbstractActionDefinition
-import org.xtuml.bp.xtext.masl.masl.structure.DomainFunctionDeclaration
-import org.xtuml.bp.xtext.masl.masl.structure.DomainServiceDeclaration
-import org.xtuml.bp.xtext.masl.masl.structure.ObjectFunctionDeclaration
-import org.xtuml.bp.xtext.masl.masl.structure.ObjectFunctionDefinition
-import org.xtuml.bp.xtext.masl.masl.structure.ObjectServiceDeclaration
-import org.xtuml.bp.xtext.masl.masl.structure.ObjectServiceDefinition
+import org.xtuml.bp.xtext.masl.masl.structure.AttributeDefinition
 import org.xtuml.bp.xtext.masl.masl.structure.StateDefinition
-import org.xtuml.bp.xtext.masl.masl.structure.TerminatorFunctionDeclaration
-import org.xtuml.bp.xtext.masl.masl.structure.TerminatorServiceDeclaration
 import org.xtuml.bp.xtext.masl.masl.structure.Visibility
 import org.xtuml.bp.xtext.masl.masl.structure.Visualized
 import org.xtuml.bp.xtext.masl.scoping.ProjectScopeIndexProvider
 
 import static extension org.eclipse.xtext.EcoreUtil2.*
-import org.xtuml.bp.xtext.masl.masl.structure.AttributeDefinition
+import org.xtuml.bp.xtext.masl.masl.structure.DomainServiceDeclaration
+import org.xtuml.bp.xtext.masl.masl.structure.TerminatorServiceDeclaration
+import org.xtuml.bp.xtext.masl.masl.structure.ObjectServiceDeclaration
+import org.xtuml.bp.xtext.masl.masl.structure.ObjectServiceDefinition
 
 class VisibilityProvider {
 	
@@ -32,18 +28,14 @@ class VisibilityProvider {
 		switch feature {
 			Visualized case feature.visibility == Visibility.PUBLIC:
 				true  
-			DomainFunctionDeclaration,
 			DomainServiceDeclaration:
 				feature.eContainer.domainName == callersActionDefinition.domain.name
 			AttributeDefinition:
 				feature.domainName == callersActionDefinition.domain.name
-			ObjectFunctionDeclaration,
 			ObjectServiceDeclaration: {
 				switch callersActionDefinition {
 					ObjectServiceDefinition:
-						callersActionDefinition.object.getObjectDefinition(feature.index) == feature.eContainer
-					ObjectFunctionDefinition:
-						callersActionDefinition.object.getObjectDefinition(feature.index) == feature.eContainer
+						callersActionDefinition.getObject.getObjectDefinition(feature.index) == feature.eContainer
 					StateDefinition:
 						callersActionDefinition.object.getObjectDefinition(feature.index) == feature.eContainer
 					default: false
@@ -58,7 +50,6 @@ class VisibilityProvider {
 		val feature = call.terminatorAction
 		val callersDomain = call.getContainerOfType(AbstractActionDefinition).domain
 		switch feature {
-			TerminatorFunctionDeclaration,
 			TerminatorServiceDeclaration:
 				feature.eContainer.eContainer.domainName == callersDomain.name
 			default: 
