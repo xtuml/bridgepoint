@@ -440,6 +440,7 @@ import org.xtuml.bp.ui.properties.ChooserPropertyDescriptor;
 import org.xtuml.bp.ui.properties.EnumPropertyDescriptor;
 import org.xtuml.bp.ui.properties.IntegerPropertyDescriptor;
 import org.xtuml.bp.ui.properties.ConstantValuePropertyDescriptor;
+import org.xtuml.bp.ui.properties.TypeDefinitionPropertyDescriptor;
 
 public class ${class_name}Data
 {
@@ -518,7 +519,11 @@ public class ${class_name}Data
                  .if ( (meta_model_obj.Key_Lett == "S_DPK") and (attr.Name == "Name") )
                PropertyDescriptor.class.getName(),
                  .else
+                   .if(attr.Name == "Definition")
+               TypeDefinitionPropertyDescriptor.class.getName(),
+                   .else
                TextPropertyDescriptor.class.getName(),
+                   .end if
               .end if
             .end if
           .end if
