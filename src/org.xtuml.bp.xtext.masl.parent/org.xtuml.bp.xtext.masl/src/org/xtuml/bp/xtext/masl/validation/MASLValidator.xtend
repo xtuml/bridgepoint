@@ -14,8 +14,6 @@ import org.xtuml.bp.xtext.masl.masl.behavior.ThisLiteral
 import org.xtuml.bp.xtext.masl.masl.structure.AbstractTopLevelElement
 import org.xtuml.bp.xtext.masl.masl.structure.DomainDefinition
 import org.xtuml.bp.xtext.masl.masl.structure.ObjectDeclaration
-import org.xtuml.bp.xtext.masl.masl.structure.ObjectFunctionDefinition
-import org.xtuml.bp.xtext.masl.masl.structure.ObjectServiceDefinition
 import org.xtuml.bp.xtext.masl.masl.structure.StateDefinition
 import org.xtuml.bp.xtext.masl.masl.structure.StructurePackage
 import org.xtuml.bp.xtext.masl.masl.structure.SubtypeRelationshipDefinition
@@ -23,6 +21,7 @@ import org.xtuml.bp.xtext.masl.masl.structure.SubtypeRelationshipDefinition
 import static org.xtuml.bp.xtext.masl.validation.MaslIssueCodesProvider.*
 
 import static extension org.eclipse.xtext.EcoreUtil2.*
+import org.xtuml.bp.xtext.masl.masl.structure.ObjectServiceDefinition
 
 /**
  * This class contains custom validation rules. 
@@ -57,9 +56,6 @@ class MASLValidator extends AbstractMASLValidator {
 	def checkThis(ThisLiteral it) {
 		val topLevelElement = getContainerOfType(AbstractTopLevelElement)
 		switch topLevelElement {
-			ObjectFunctionDefinition: 
-				if(!topLevelElement.isInstance)
-					addIssue("'this' is only allowed in instance functions", it, null, INVALID_THIS)	
 			ObjectServiceDefinition: 
 				if(!topLevelElement.isInstance)
 					addIssue("'this' is only allowed in instance services", it, null, INVALID_THIS)	

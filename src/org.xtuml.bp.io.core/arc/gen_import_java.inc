@@ -409,7 +409,6 @@ import org.xtuml.bp.io.core.CoreImport;
 import org.xtuml.bp.io.core.ImportHelper;
 .end if
 import org.xtuml.bp.io.core.ImportInteger;
-import org.xtuml.bp.io.core.SmaslScanner;
 import org.xtuml.bp.ui.canvas.*;
 import org.xtuml.bp.ui.text.activity.AllActivityModifier;
 

@@ -12,6 +12,7 @@ import org.xtuml.bp.xtext.masl.linking.RankedCandidate
 import org.xtuml.bp.xtext.masl.masl.behavior.ActionCall
 import org.xtuml.bp.xtext.masl.masl.behavior.BehaviorPackage
 import org.xtuml.bp.xtext.masl.masl.behavior.Expression
+import org.xtuml.bp.xtext.masl.masl.behavior.GenerateStatement
 import org.xtuml.bp.xtext.masl.masl.behavior.IndexedExpression
 import org.xtuml.bp.xtext.masl.masl.behavior.LinkExpression
 import org.xtuml.bp.xtext.masl.masl.behavior.NavigateExpression
@@ -19,12 +20,7 @@ import org.xtuml.bp.xtext.masl.masl.behavior.SimpleFeatureCall
 import org.xtuml.bp.xtext.masl.masl.behavior.StatementList
 import org.xtuml.bp.xtext.masl.masl.behavior.TerminatorActionCall
 import org.xtuml.bp.xtext.masl.masl.structure.AbstractActionDeclaration
-import org.xtuml.bp.xtext.masl.masl.structure.AbstractFeature
 import org.xtuml.bp.xtext.masl.masl.structure.AssocRelationshipDefinition
-import org.xtuml.bp.xtext.masl.masl.structure.ObjectFunctionDeclaration
-import org.xtuml.bp.xtext.masl.masl.structure.ObjectFunctionDefinition
-import org.xtuml.bp.xtext.masl.masl.structure.ObjectServiceDeclaration
-import org.xtuml.bp.xtext.masl.masl.structure.ObjectServiceDefinition
 import org.xtuml.bp.xtext.masl.masl.structure.Parameterized
 import org.xtuml.bp.xtext.masl.masl.structure.StructurePackage
 import org.xtuml.bp.xtext.masl.masl.structure.TerminatorDefinition
@@ -46,8 +42,8 @@ import org.xtuml.bp.xtext.masl.typesystem.StructureType
 
 import static org.xtuml.bp.xtext.masl.typesystem.BuiltinType.*
 import static org.xtuml.bp.xtext.masl.validation.MaslIssueCodesProvider.*
-import org.xtuml.bp.xtext.masl.masl.behavior.RaiseStatement
-import org.xtuml.bp.xtext.masl.masl.behavior.GenerateStatement
+import org.xtuml.bp.xtext.masl.masl.structure.ObjectServiceDeclaration
+import org.xtuml.bp.xtext.masl.masl.structure.ObjectServiceDefinition
 
 class TypeValidator extends AbstractMASLValidator {
 	
@@ -239,11 +235,8 @@ class TypeValidator extends AbstractMASLValidator {
 								defParams.get(i), parameter_Mode, DECLARATION_MISSMATCH)
 					}
 					switch definition {
-						ObjectFunctionDefinition:
-							if(definition.instance.xor((bestDeclaration as ObjectFunctionDeclaration).instance))
-								addIssue("Definition scope does not match declaration scope ('instance')", definition, structurePackage.abstractNamed_Name, DECLARATION_MISSMATCH)
 						ObjectServiceDefinition:
-							if(definition.instance.xor((bestDeclaration as ObjectServiceDeclaration).instance))
+							if(definition.isInstance.xor((bestDeclaration as ObjectServiceDeclaration).isInstance))
 								addIssue("Definition scope does not match declaration scope ('instance')", definition, structurePackage.abstractNamed_Name, DECLARATION_MISSMATCH)
 					}
 					if(definition instanceof Visualized) {

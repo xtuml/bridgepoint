@@ -59,14 +59,11 @@ import org.xtuml.bp.xtext.masl.masl.behavior.VariableDeclaration
 import org.xtuml.bp.xtext.masl.masl.behavior.WhileStatement
 import org.xtuml.bp.xtext.masl.masl.structure.AbstractActionDefinition
 import org.xtuml.bp.xtext.masl.masl.structure.AbstractFeature
-import org.xtuml.bp.xtext.masl.masl.structure.AbstractFunction
 import org.xtuml.bp.xtext.masl.masl.structure.AssocRelationshipDefinition
 import org.xtuml.bp.xtext.masl.masl.structure.AttributeDefinition
-import org.xtuml.bp.xtext.masl.masl.structure.DomainServiceDeclaration
 import org.xtuml.bp.xtext.masl.masl.structure.EventDefinition
 import org.xtuml.bp.xtext.masl.masl.structure.Multiplicity
 import org.xtuml.bp.xtext.masl.masl.structure.ObjectDeclaration
-import org.xtuml.bp.xtext.masl.masl.structure.ObjectServiceDeclaration
 import org.xtuml.bp.xtext.masl.masl.structure.Parameter
 import org.xtuml.bp.xtext.masl.masl.structure.RangeTypeReference
 import org.xtuml.bp.xtext.masl.masl.structure.RegularRelationshipDefinition
@@ -75,7 +72,6 @@ import org.xtuml.bp.xtext.masl.masl.structure.RelationshipNavigation
 import org.xtuml.bp.xtext.masl.masl.structure.StateDeclaration
 import org.xtuml.bp.xtext.masl.masl.structure.SubtypeRelationshipDefinition
 import org.xtuml.bp.xtext.masl.masl.structure.TerminatorDefinition
-import org.xtuml.bp.xtext.masl.masl.structure.TerminatorServiceDeclaration
 import org.xtuml.bp.xtext.masl.masl.structure.TypeParameter
 import org.xtuml.bp.xtext.masl.masl.types.AbstractTypeDefinition
 import org.xtuml.bp.xtext.masl.masl.types.AbstractTypeReference
@@ -98,6 +94,7 @@ import org.xtuml.bp.xtext.masl.masl.types.TypeDeclaration
 import org.xtuml.bp.xtext.masl.masl.types.UnconstrainedArrayDefinition
 
 import static org.xtuml.bp.xtext.masl.typesystem.BuiltinType.*
+import org.xtuml.bp.xtext.masl.masl.structure.AbstractService
 
 class MaslTypeProvider {
 
@@ -125,8 +122,11 @@ class MaslTypeProvider {
 					return maslTypeOfTypeDefinition
 				AbstractFeature:
 					return maslTypeOfFeature
-				AbstractFunction:
-					return returnType.maslTypeOfTypeReference
+				AbstractService:
+					if(getReturnType == null)
+						return NO_TYPE
+					else 
+						return getReturnType.maslTypeOfTypeReference
 				CodeBlockStatement,
 				ExitStatement,
 				ReturnStatement,
@@ -329,12 +329,11 @@ class MaslTypeProvider {
 				return feature.type.maslTypeOfTypeReference
 			TypeDeclaration:
 				return new TypeOfType(feature.getMaslTypeOfTypeDeclaration(false))
-			AbstractFunction:
-				return feature.returnType.maslTypeOfTypeReference
-			ObjectServiceDeclaration,
-			DomainServiceDeclaration,
-			TerminatorServiceDeclaration:
-				return NO_TYPE
+			AbstractService:
+				if (feature.getReturnType == null)
+					return NO_TYPE
+				else
+					return feature.getReturnType.maslTypeOfTypeReference
 			default:
 				throw new UnsupportedOperationException('Missing type for feature ' + feature?.eClass?.name)
 		}

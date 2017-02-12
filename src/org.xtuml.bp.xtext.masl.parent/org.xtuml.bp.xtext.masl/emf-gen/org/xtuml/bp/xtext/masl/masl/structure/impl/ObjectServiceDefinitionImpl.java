@@ -4,15 +4,20 @@
 package org.xtuml.bp.xtext.masl.masl.structure.impl;
 
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.NotificationChain;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
+import org.xtuml.bp.xtext.masl.masl.structure.AbstractService;
 import org.xtuml.bp.xtext.masl.masl.structure.ObjectDeclaration;
 import org.xtuml.bp.xtext.masl.masl.structure.ObjectServiceDefinition;
+import org.xtuml.bp.xtext.masl.masl.structure.RelationshipDefinition;
 import org.xtuml.bp.xtext.masl.masl.structure.StructurePackage;
+
+import org.xtuml.bp.xtext.masl.masl.types.AbstractTypeReference;
 
 /**
  * <!-- begin-user-doc -->
@@ -22,13 +27,25 @@ import org.xtuml.bp.xtext.masl.masl.structure.StructurePackage;
  * The following features are implemented:
  * </p>
  * <ul>
+ *   <li>{@link org.xtuml.bp.xtext.masl.masl.structure.impl.ObjectServiceDefinitionImpl#getReturnType <em>Return Type</em>}</li>
  *   <li>{@link org.xtuml.bp.xtext.masl.masl.structure.impl.ObjectServiceDefinitionImpl#isInstance <em>Instance</em>}</li>
+ *   <li>{@link org.xtuml.bp.xtext.masl.masl.structure.impl.ObjectServiceDefinitionImpl#getRelationship <em>Relationship</em>}</li>
  *   <li>{@link org.xtuml.bp.xtext.masl.masl.structure.impl.ObjectServiceDefinitionImpl#getObject <em>Object</em>}</li>
  * </ul>
  *
  * @generated
  */
 public class ObjectServiceDefinitionImpl extends AbstractActionDefinitionImpl implements ObjectServiceDefinition {
+	/**
+	 * The cached value of the '{@link #getReturnType() <em>Return Type</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getReturnType()
+	 * @generated
+	 * @ordered
+	 */
+	protected AbstractTypeReference returnType;
+
 	/**
 	 * The default value of the '{@link #isInstance() <em>Instance</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -48,6 +65,16 @@ public class ObjectServiceDefinitionImpl extends AbstractActionDefinitionImpl im
 	 * @ordered
 	 */
 	protected boolean instance = INSTANCE_EDEFAULT;
+
+	/**
+	 * The cached value of the '{@link #getRelationship() <em>Relationship</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getRelationship()
+	 * @generated
+	 * @ordered
+	 */
+	protected RelationshipDefinition relationship;
 
 	/**
 	 * The cached value of the '{@link #getObject() <em>Object</em>}' reference.
@@ -83,6 +110,49 @@ public class ObjectServiceDefinitionImpl extends AbstractActionDefinitionImpl im
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public AbstractTypeReference getReturnType() {
+		return returnType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetReturnType(AbstractTypeReference newReturnType, NotificationChain msgs) {
+		AbstractTypeReference oldReturnType = returnType;
+		returnType = newReturnType;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, StructurePackage.OBJECT_SERVICE_DEFINITION__RETURN_TYPE, oldReturnType, newReturnType);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setReturnType(AbstractTypeReference newReturnType) {
+		if (newReturnType != returnType) {
+			NotificationChain msgs = null;
+			if (returnType != null)
+				msgs = ((InternalEObject)returnType).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - StructurePackage.OBJECT_SERVICE_DEFINITION__RETURN_TYPE, null, msgs);
+			if (newReturnType != null)
+				msgs = ((InternalEObject)newReturnType).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - StructurePackage.OBJECT_SERVICE_DEFINITION__RETURN_TYPE, null, msgs);
+			msgs = basicSetReturnType(newReturnType, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, StructurePackage.OBJECT_SERVICE_DEFINITION__RETURN_TYPE, newReturnType, newReturnType));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public boolean isInstance() {
 		return instance;
 	}
@@ -97,6 +167,44 @@ public class ObjectServiceDefinitionImpl extends AbstractActionDefinitionImpl im
 		instance = newInstance;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, StructurePackage.OBJECT_SERVICE_DEFINITION__INSTANCE, oldInstance, instance));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public RelationshipDefinition getRelationship() {
+		if (relationship != null && relationship.eIsProxy()) {
+			InternalEObject oldRelationship = (InternalEObject)relationship;
+			relationship = (RelationshipDefinition)eResolveProxy(oldRelationship);
+			if (relationship != oldRelationship) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, StructurePackage.OBJECT_SERVICE_DEFINITION__RELATIONSHIP, oldRelationship, relationship));
+			}
+		}
+		return relationship;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public RelationshipDefinition basicGetRelationship() {
+		return relationship;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setRelationship(RelationshipDefinition newRelationship) {
+		RelationshipDefinition oldRelationship = relationship;
+		relationship = newRelationship;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, StructurePackage.OBJECT_SERVICE_DEFINITION__RELATIONSHIP, oldRelationship, relationship));
 	}
 
 	/**
@@ -143,10 +251,29 @@ public class ObjectServiceDefinitionImpl extends AbstractActionDefinitionImpl im
 	 * @generated
 	 */
 	@Override
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case StructurePackage.OBJECT_SERVICE_DEFINITION__RETURN_TYPE:
+				return basicSetReturnType(null, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
+			case StructurePackage.OBJECT_SERVICE_DEFINITION__RETURN_TYPE:
+				return getReturnType();
 			case StructurePackage.OBJECT_SERVICE_DEFINITION__INSTANCE:
 				return isInstance();
+			case StructurePackage.OBJECT_SERVICE_DEFINITION__RELATIONSHIP:
+				if (resolve) return getRelationship();
+				return basicGetRelationship();
 			case StructurePackage.OBJECT_SERVICE_DEFINITION__OBJECT:
 				if (resolve) return getObject();
 				return basicGetObject();
@@ -162,8 +289,14 @@ public class ObjectServiceDefinitionImpl extends AbstractActionDefinitionImpl im
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
+			case StructurePackage.OBJECT_SERVICE_DEFINITION__RETURN_TYPE:
+				setReturnType((AbstractTypeReference)newValue);
+				return;
 			case StructurePackage.OBJECT_SERVICE_DEFINITION__INSTANCE:
 				setInstance((Boolean)newValue);
+				return;
+			case StructurePackage.OBJECT_SERVICE_DEFINITION__RELATIONSHIP:
+				setRelationship((RelationshipDefinition)newValue);
 				return;
 			case StructurePackage.OBJECT_SERVICE_DEFINITION__OBJECT:
 				setObject((ObjectDeclaration)newValue);
@@ -180,8 +313,14 @@ public class ObjectServiceDefinitionImpl extends AbstractActionDefinitionImpl im
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
+			case StructurePackage.OBJECT_SERVICE_DEFINITION__RETURN_TYPE:
+				setReturnType((AbstractTypeReference)null);
+				return;
 			case StructurePackage.OBJECT_SERVICE_DEFINITION__INSTANCE:
 				setInstance(INSTANCE_EDEFAULT);
+				return;
+			case StructurePackage.OBJECT_SERVICE_DEFINITION__RELATIONSHIP:
+				setRelationship((RelationshipDefinition)null);
 				return;
 			case StructurePackage.OBJECT_SERVICE_DEFINITION__OBJECT:
 				setObject((ObjectDeclaration)null);
@@ -198,12 +337,48 @@ public class ObjectServiceDefinitionImpl extends AbstractActionDefinitionImpl im
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
+			case StructurePackage.OBJECT_SERVICE_DEFINITION__RETURN_TYPE:
+				return returnType != null;
 			case StructurePackage.OBJECT_SERVICE_DEFINITION__INSTANCE:
 				return instance != INSTANCE_EDEFAULT;
+			case StructurePackage.OBJECT_SERVICE_DEFINITION__RELATIONSHIP:
+				return relationship != null;
 			case StructurePackage.OBJECT_SERVICE_DEFINITION__OBJECT:
 				return object != null;
 		}
 		return super.eIsSet(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public int eBaseStructuralFeatureID(int derivedFeatureID, Class<?> baseClass) {
+		if (baseClass == AbstractService.class) {
+			switch (derivedFeatureID) {
+				case StructurePackage.OBJECT_SERVICE_DEFINITION__RETURN_TYPE: return StructurePackage.ABSTRACT_SERVICE__RETURN_TYPE;
+				default: return -1;
+			}
+		}
+		return super.eBaseStructuralFeatureID(derivedFeatureID, baseClass);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public int eDerivedStructuralFeatureID(int baseFeatureID, Class<?> baseClass) {
+		if (baseClass == AbstractService.class) {
+			switch (baseFeatureID) {
+				case StructurePackage.ABSTRACT_SERVICE__RETURN_TYPE: return StructurePackage.OBJECT_SERVICE_DEFINITION__RETURN_TYPE;
+				default: return -1;
+			}
+		}
+		return super.eDerivedStructuralFeatureID(baseFeatureID, baseClass);
 	}
 
 	/**

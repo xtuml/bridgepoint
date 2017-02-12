@@ -955,6 +955,259 @@ INSERT INTO PE_PE
 	"0eec87ca-63af-4b65-8769-1c99e84ebf64",
 	"00000000-0000-0000-0000-000000000000",
 	1);
+INSERT INTO S_SYNC
+	VALUES ("3bfe0910-4055-4bac-8541-6b6bf07472a2",
+	"00000000-0000-0000-0000-000000000000",
+	'get_formatted_body',
+	'This function uses the x2m functions to get a SMASL string which
+it then converts to an action body with a MASL signature
+
+Translate: native',
+	'NonRootModelElement inst = (NonRootModelElement)p_Inst;
+String signature = "";
+String body = "";
+if ( null != inst ) {
+
+    // navigate to the Action_c instance if it is a state or transition
+    if (inst instanceof StateMachineState_c) {
+        Action_c action = Action_c.getOneSM_ACTOnR514(ActionHome_c.getOneSM_AHOnR513((
+            MooreActionHome_c.getOneSM_MOAHOnR511((StateMachineState_c)inst))));
+        inst = (NonRootModelElement)action;
+    }
+    else if (inst instanceof Transition_c) {
+        Action_c action = Action_c.getOneSM_ACTOnR514(ActionHome_c.getOneSM_AHOnR513(
+            TransitionActionHome_c.getOneSM_TAHOnR530((Transition_c)inst)));
+        inst = (NonRootModelElement)action;
+    }
+
+    // get the dialect
+    int dialect = -1;
+    try {
+        Method getDialectMethod = inst.getClass().getMethod("getDialect");
+        dialect = (int) getDialectMethod.invoke(inst);
+    } catch ( NoSuchMethodException e ) {
+        System.out.println( e );
+    } catch ( NullPointerException e ) {
+        System.out.println( e );
+    } catch ( SecurityException e ) {
+        System.out.println( e );
+    } catch ( IllegalAccessException e ) {
+        System.out.println( e );
+    } catch ( IllegalArgumentException e ) {
+        System.out.println( e );
+    } catch ( InvocationTargetException e ) {
+        System.out.println( e );
+    } catch ( ExceptionInInitializerError e ) {
+        System.out.println( e );
+    }
+
+    IPreferenceStore store = org.xtuml.bp.core.CorePlugin.getDefault().getPreferenceStore();
+    String persistActivities = store.getString(BridgePointPreferencesStore.ACTIVITY_PERSISTENCE);
+    if ( persistActivities.equals(BridgePointPreferencesStore.PERSIST_ACTIVITY_FILES) && dialect == Actiondialect_c.masl ) {
+
+        if(inst != null && !inst.isProxy() && -1 != dialect){
+
+            String smasl = "";
+            if ( inst instanceof Function_c ) {
+                smasl = Ooaofooa.S_sync2routine( inst.getModelRoot(), ((Function_c)inst).getSync_id() );
+            }
+            else if ( inst instanceof Bridge_c ) {
+                smasl = Ooaofooa.S_brg2routine( inst.getModelRoot(), ((Bridge_c)inst).getBrg_id() );
+            }
+            else if ( inst instanceof Operation_c ) {
+                smasl = Ooaofooa.O_tfr2objectop( inst.getModelRoot(), ((Operation_c)inst).getTfr_id() );
+            }
+            else if ( inst instanceof DerivedBaseAttribute_c ) {
+                smasl = Ooaofooa.O_dbattr2attribute( inst.getModelRoot(), ((DerivedBaseAttribute_c)inst).getAttr_id() );
+            }
+            else if ( inst instanceof Action_c ) {
+                smasl = Ooaofooa.Sm_act2stateortxn( inst.getModelRoot(), ((Action_c)inst).getAct_id() );
+            }
+            else if ( inst instanceof ProvidedOperation_c ) {
+                smasl = Ooaofooa.Spr_po2routine( inst.getModelRoot(), ((ProvidedOperation_c)inst).getId() );
+            }
+            else if ( inst instanceof ProvidedSignal_c ) {
+                smasl = Ooaofooa.Spr_ps2routine( inst.getModelRoot(), ((ProvidedSignal_c)inst).getId() );
+            }
+            else if ( inst instanceof RequiredOperation_c ) {
+                smasl = Ooaofooa.Spr_ro2routine( inst.getModelRoot(), ((RequiredOperation_c)inst).getId() );
+            }
+            else if ( inst instanceof RequiredSignal_c ) {
+                smasl = Ooaofooa.Spr_rs2routine( inst.getModelRoot(), ((RequiredSignal_c)inst).getId() );
+            }
+            if ( !smasl.equals("") ) {
+                SmaslScanner sc = new SmaslScanner( smasl );
+                String[] values;
+
+                String preface = "";
+                String activity_type = "";
+                String sig_begin = "";
+                String parameter_list = "";
+                String sig_end = "";
+                String codeblock = "";
+                String end = "";
+
+                String ret_type = "";
+                String parameter_name = "";
+                String separator = " ";
+
+                // parse serial MASL
+                while ( sc.hasNext() ) {
+                    values = sc.next();
+                    if ( values[0].equals("routine") ) {
+                        if ( !values[4].equals("") ) {
+                            preface = values[3] + " ";
+                            activity_type = "service";
+                            sig_begin = " " + values[1] + "::";
+                            if ( !values[2].equals("") ) {
+                                sig_begin += values[2] + "~>";
+                            }
+                            sig_begin += values[4] + " ";
+                            parameter_list = "(";
+                        }
+                    }
+                    else if ( values[0].equals("operation")) {
+                        if ( !values[4].equals("") ) {
+                            preface = values[3] + " ";
+                            if ( !values[5].equals("") ) {
+                                preface += values[5] + " ";
+                            }
+                            activity_type = "service";
+                            sig_begin = " " + values[1] + "::" + values[2] + "." + values[4] + " ";
+                            parameter_list = "(";
+                        }
+                    }
+                    else if ( values[0].equals("state") ) {
+                        if ( !values[3].equals("") ) {
+                            preface = values[4];
+                            if ( !preface.equals("") ) {
+                                preface += " ";
+                            }
+                            activity_type = "state";
+                            sig_begin = " " + values[1] + "::" + values[2] + "." + values[3] + " ";
+                            parameter_list = "(";
+                        }
+                    }
+                    else if ( values[0].equals("attribute") ) {
+                        if ( !values[1].equals("") ) {
+                            activity_type = "attribute";
+                            sig_begin = " " + values[4] + "::" + values[5] + "." + values[1] + " ";
+                        }
+                    }
+                    else if ( values[0].equals("transition") ) {
+                        if ( !values[1].equals("") ) {
+                            activity_type = "transition";
+                            sig_begin = " " + values[2] + "::" + values[3] + " in " + values[1] + " receives " + values[4] + " ";
+                            parameter_list = "(";
+                        }
+                    }
+                    else if ( values[0].equals("parameter") ) {
+                        if ( !values[1].equals("") ) {
+                            parameter_name = values[1] + " : " + values[2];
+                        }
+                    }
+                    else if ( values[0].equals("typeref") ) {
+                        if ( !values[1].equals("") ) {
+                            if ( parameter_name.equals("") ) { // return type
+                                ret_type = "return " + values[1] + " ";
+                            }
+                            else { // parameter type
+                                parameter_name += " " + values[1];
+                                parameter_list += separator + parameter_name;
+                                separator = ",\n";
+                                parameter_name = "";
+                            }
+                        }
+                    }
+                    else if ( values[0].equals("codeblock") ) {
+                        if ( !values[1].equals("") ) {
+                            codeblock = Url_c.Decode( values[1] ).trim();
+                            if ( codeblock.endsWith("end") ) {
+                                codeblock += " ";
+                            }
+                            else {
+                                codeblock += "\n";
+                            }
+                        }
+                    }
+                    else {
+                    }
+                }
+
+                // fix end of signature format
+                if ( parameter_list.equals("") ) {
+                    sig_end = ret_type + "is\n";
+                }
+                else if ( parameter_list.equals("(") ) {
+                    sig_end = ") " + ret_type + "is\n";
+                }
+                else {
+                    sig_end = " ) " + ret_type + "is\n";
+                }
+                end = "\nend " + activity_type + ";\n\n";
+
+                // fix parameter list
+                int buf_len = (preface + activity_type + sig_begin).length();
+                String buf = "\n ";
+                for (int i = 0; i < buf_len; i++) {
+                    buf += " ";
+                }
+                parameter_list = parameter_list.replaceAll("\n", buf);
+
+                // fix codeblock
+                codeblock = codeblock.trim();
+                if ( codeblock.endsWith( "end" ) ) {
+                    // if the codeblock ends with end, the final ''end'' is removed because
+                    // the exporter will add it
+                    codeblock = codeblock.substring(0, codeblock.length()-3).trim();
+                }
+
+                signature = preface + activity_type + sig_begin + parameter_list + sig_end;
+                body = codeblock + end;
+            }
+        }
+    }
+}
+
+if ( p_Signature_only )
+    return signature;
+else
+    return signature + body;',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	0);
+INSERT INTO S_SPARM
+	VALUES ("5d2c2f4d-a3d4-4063-9735-169c4d3bd538",
+	"3bfe0910-4055-4bac-8541-6b6bf07472a2",
+	'inst',
+	"bc3722c8-5188-4529-8519-cf9eb9816b17",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("bc3722c8-5188-4529-8519-cf9eb9816b17",
+	"00000000-0000-0000-0000-000000000000",
+	'instance',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO S_SPARM
+	VALUES ("f9e36741-f954-452e-b152-69f72bde4dae",
+	"3bfe0910-4055-4bac-8541-6b6bf07472a2",
+	'signature_only',
+	"ba5eda7a-def5-0000-0000-000000000001",
+	0,
+	'',
+	"5d2c2f4d-a3d4-4063-9735-169c4d3bd538",
+	'');
+INSERT INTO PE_PE
+	VALUES ("3bfe0910-4055-4bac-8541-6b6bf07472a2",
+	1,
+	"0eec87ca-63af-4b65-8769-1c99e84ebf64",
+	"00000000-0000-0000-0000-000000000000",
+	1);
 INSERT INTO PE_PE
 	VALUES ("0eec87ca-63af-4b65-8769-1c99e84ebf64",
 	1,

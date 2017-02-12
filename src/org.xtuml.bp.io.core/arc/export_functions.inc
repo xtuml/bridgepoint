@@ -1080,189 +1080,35 @@ ${sql.body}\
 void write_${r.body}_actions(${r.body} inst)
 throws IOException
 {
+    // get the dialect
+    int dialect = -1;
+    try {
+        Method getDialectMethod = inst.getClass().getMethod("getDialect");
+        dialect = (int) getDialectMethod.invoke(inst);
+    } catch ( NoSuchMethodException e ) {
+        System.out.println( e );
+    } catch ( NullPointerException e ) {
+        System.out.println( e );
+    } catch ( SecurityException e ) {
+        System.out.println( e );
+    } catch ( IllegalAccessException e ) {
+        System.out.println( e );
+    } catch ( IllegalArgumentException e ) {
+        System.out.println( e );
+    } catch ( InvocationTargetException e ) {
+        System.out.println( e );
+    } catch ( ExceptionInInitializerError e ) {
+        System.out.println( e );
+    }
 
-// get the dialect
-int dialect = -1;
-try {
-    Method getDialectMethod = inst.getClass().getMethod("getDialect");
-    dialect = (int) getDialectMethod.invoke(inst);
-} catch ( NoSuchMethodException e ) {
-    System.out.println( e );
-} catch ( NullPointerException e ) {
-    System.out.println( e );
-} catch ( SecurityException e ) {
-    System.out.println( e );
-} catch ( IllegalAccessException e ) {
-    System.out.println( e );
-} catch ( IllegalArgumentException e ) {
-    System.out.println( e );
-} catch ( InvocationTargetException e ) {
-    System.out.println( e );
-} catch ( ExceptionInInitializerError e ) {
-    System.out.println( e );
-}
+    // get the body
+    String body = Ooaofooa.Get_formatted_body( inst.getModelRoot(), inst, false );
 
-IPreferenceStore store = org.xtuml.bp.core.CorePlugin.getDefault().getPreferenceStore();
-String persistActivities = store.getString(BridgePointPreferencesStore.ACTIVITY_PERSISTENCE);
-if ( persistActivities.equals(BridgePointPreferencesStore.PERSIST_ACTIVITY_FILES) && dialect == Actiondialect_c.masl ) {
-
-if(inst != null && !inst.isProxy() && -1 != dialect){
-  String smasl = "";
-    .if ( "S_SYNC" == action_body.Key_Lett )
-  smasl = Ooaofooa.S_sync2routine( inst.getModelRoot(), inst.getSync_id() );
-    .elif ( "S_BRG" == action_body.Key_Lett )
-  smasl = Ooaofooa.S_brg2routine( inst.getModelRoot(), inst.getBrg_id() );
-    .elif ( "O_TFR" == action_body.Key_Lett )
-  smasl = Ooaofooa.O_tfr2objectop( inst.getModelRoot(), inst.getTfr_id() );
-    .elif ( "O_DBATTR" == action_body.Key_Lett )
-  smasl = Ooaofooa.O_dbattr2attribute( inst.getModelRoot(), inst.getAttr_id() );
-    .elif ( "SM_ACT" == action_body.Key_Lett )
-  smasl = Ooaofooa.Sm_act2stateortxn( inst.getModelRoot(), inst.getAct_id() );
-    .elif ( "SPR_PO" == action_body.Key_Lett )
-  smasl = Ooaofooa.Spr_po2routine( inst.getModelRoot(), inst.getId() );
-    .elif ( "SPR_PS" == action_body.Key_Lett )
-  smasl = Ooaofooa.Spr_ps2routine( inst.getModelRoot(), inst.getId() );
-    .elif ( "SPR_RO" == action_body.Key_Lett )
-  smasl = Ooaofooa.Spr_ro2routine( inst.getModelRoot(), inst.getId() );
-    .elif ( "SPR_RS" == action_body.Key_Lett )
-  smasl = Ooaofooa.Spr_rs2routine( inst.getModelRoot(), inst.getId() );
-    .end if
-  if ( !smasl.equals("") ) {
-      SmaslScanner sc = new SmaslScanner( smasl );
-      String[] values;
-
-      String preface = "";
-      String activity_type = "";
-      String sig_begin = "";
-      String parameter_list = "";
-      String sig_end = "";
-      String codeblock = "";
-      String end = "";
-
-      String ret_type = "";
-      String parameter_name = "";
-      String separator = " ";
-
-      // parse serial MASL
-      while ( sc.hasNext() ) {
-          values = sc.next();
-          if ( values[0].equals("routine") ) {
-              if ( !values[4].equals("") ) {
-                  preface = values[3] + " ";
-                  activity_type = "service";
-                  sig_begin = " " + values[1] + "::";
-                  if ( !values[2].equals("") ) {
-                      sig_begin += values[2] + "~>";
-                  }
-                  sig_begin += values[4] + " ";
-                  parameter_list = "(";
-              }
-          }
-          else if ( values[0].equals("operation")) {
-              if ( !values[4].equals("") ) {
-                  preface = values[3] + " ";
-                  if ( !values[5].equals("") ) {
-                      preface += values[5] + " ";
-                  }
-                  activity_type = "service";
-                  sig_begin = " " + values[1] + "::" + values[2] + "." + values[4] + " ";
-                  parameter_list = "(";
-              }
-          }
-          else if ( values[0].equals("state") ) {
-              if ( !values[3].equals("") ) {
-                  preface = values[4];
-                  if ( !preface.equals("") ) {
-                      preface += " ";
-                  }
-                  activity_type = "state";
-                  sig_begin = " " + values[1] + "::" + values[2] + "." + values[3] + " ";
-                  parameter_list = "(";
-              }
-          }
-          else if ( values[0].equals("attribute") ) {
-              if ( !values[1].equals("") ) {
-                  activity_type = "attribute";
-                  sig_begin = " " + values[4] + "::" + values[5] + "." + values[1] + " ";
-              }
-          }
-          else if ( values[0].equals("transition") ) {
-              if ( !values[1].equals("") ) {
-                  activity_type = "transition";
-                  sig_begin = " " + values[2] + "::" + values[3] + " in " + values[1] + " receives " + values[4] + " ";
-                  parameter_list = "(";
-              }
-          }
-          else if ( values[0].equals("parameter") ) {
-              if ( !values[1].equals("") ) {
-                  parameter_name = values[1] + " : " + values[2];
-              }
-          }
-          else if ( values[0].equals("typeref") ) {
-              if ( !values[1].equals("") ) {
-                  if ( parameter_name.equals("") ) { // return type
-                      ret_type = "return " + values[1] + " ";
-                  }
-                  else { // parameter type
-                      parameter_name += " " + values[1];
-                      parameter_list += separator + parameter_name;
-                      separator = ",\n";
-                      parameter_name = "";
-                  }
-              }
-          }
-          else if ( values[0].equals("codeblock") ) {
-              if ( !values[1].equals("") ) {
-                  codeblock = Url_c.Decode( values[1] ).trim();
-                  if ( codeblock.endsWith("end") ) {
-                      codeblock += " ";
-                  }
-                  else {
-                      codeblock += "\n";
-                  }
-              }
-          }
-          else {
-            m_afh.get(dialect).print( "// Activity '" + values[0] + "'unsupported\n" ); //$$NON-NLS-1$$
-            m_updateActions = true;
-            return;
-          }
-      }
-
-      // fix end of signature format
-      if ( parameter_list.equals("") ) {
-          sig_end = ret_type + "is\n";
-      }
-      else if ( parameter_list.equals("(") ) {
-          sig_end = ") " + ret_type + "is\n";
-      }
-      else {
-          sig_end = " ) " + ret_type + "is\n";
-      }
-      end = "\nend " + activity_type + ";\n\n";
-
-      // fix parameter list
-      int buf_len = (preface + activity_type + sig_begin).length();
-      String buf = "\n ";
-      for (int i = 0; i < buf_len; i++) {
-          buf += " ";
-      }
-      parameter_list = parameter_list.replaceAll("\n", buf);
-
-      // fix codeblock
-      codeblock = codeblock.trim();
-      if ( codeblock.endsWith( "end" ) ) {
-          // if the codeblock ends with end, the final 'end' is removed because
-          // the exporter will add it
-          codeblock = codeblock.substring(0, codeblock.length()-3).trim();;
-      }
-
-      // output activity
-      m_afh.get(dialect).print( preface + activity_type + sig_begin + parameter_list + sig_end + codeblock + end ); //$$NON-NLS-1$$
-      m_updateActions = true;
-  }
-}
-}
+    // output activity
+    if ( !body.isEmpty() ) {
+        m_afh.get(dialect).print( body );
+        m_updateActions = true;
+    }
 }
   .end for
 .end function

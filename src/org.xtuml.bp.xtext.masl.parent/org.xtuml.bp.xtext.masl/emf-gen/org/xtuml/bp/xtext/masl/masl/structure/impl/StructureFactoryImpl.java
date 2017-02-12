@@ -68,15 +68,11 @@ public class StructureFactoryImpl extends EFactoryImpl implements StructureFacto
 			case StructurePackage.PROJECT_DEFINITION: return createProjectDefinition();
 			case StructurePackage.DOMAIN_DEFINITION: return createDomainDefinition();
 			case StructurePackage.DOMAIN_SERVICE_DECLARATION: return createDomainServiceDeclaration();
-			case StructurePackage.DOMAIN_FUNCTION_DECLARATION: return createDomainFunctionDeclaration();
 			case StructurePackage.DOMAIN_SERVICE_DEFINITION: return createDomainServiceDefinition();
-			case StructurePackage.DOMAIN_FUNCTION_DEFINITION: return createDomainFunctionDefinition();
 			case StructurePackage.EXCEPTION_DECLARATION: return createExceptionDeclaration();
 			case StructurePackage.TERMINATOR_DEFINITION: return createTerminatorDefinition();
 			case StructurePackage.TERMINATOR_SERVICE_DECLARATION: return createTerminatorServiceDeclaration();
-			case StructurePackage.TERMINATOR_FUNCTION_DECLARATION: return createTerminatorFunctionDeclaration();
 			case StructurePackage.TERMINATOR_SERVICE_DEFINITION: return createTerminatorServiceDefinition();
-			case StructurePackage.TERMINATOR_FUNCTION_DEFINITION: return createTerminatorFunctionDefinition();
 			case StructurePackage.BUILTIN_LIBRARY_DEFINITION: return createBuiltinLibraryDefinition();
 			case StructurePackage.CHARACTERISTIC: return createCharacteristic();
 			case StructurePackage.TYPE_PARAMETER: return createTypeParameter();
@@ -86,9 +82,7 @@ public class StructureFactoryImpl extends EFactoryImpl implements StructureFacto
 			case StructurePackage.ATTRIBUTE_DEFINITION: return createAttributeDefinition();
 			case StructurePackage.IDENTIFIER_DEFINITION: return createIdentifierDefinition();
 			case StructurePackage.OBJECT_SERVICE_DECLARATION: return createObjectServiceDeclaration();
-			case StructurePackage.OBJECT_FUNCTION_DECLARATION: return createObjectFunctionDeclaration();
 			case StructurePackage.OBJECT_SERVICE_DEFINITION: return createObjectServiceDefinition();
-			case StructurePackage.OBJECT_FUNCTION_DEFINITION: return createObjectFunctionDefinition();
 			case StructurePackage.RELATIONSHIP_DEFINITION: return createRelationshipDefinition();
 			case StructurePackage.REGULAR_RELATIONSHIP_DEFINITION: return createRegularRelationshipDefinition();
 			case StructurePackage.ASSOC_RELATIONSHIP_DEFINITION: return createAssocRelationshipDefinition();
@@ -266,29 +260,9 @@ public class StructureFactoryImpl extends EFactoryImpl implements StructureFacto
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public DomainFunctionDeclaration createDomainFunctionDeclaration() {
-		DomainFunctionDeclarationImpl domainFunctionDeclaration = new DomainFunctionDeclarationImpl();
-		return domainFunctionDeclaration;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public DomainServiceDefinition createDomainServiceDefinition() {
 		DomainServiceDefinitionImpl domainServiceDefinition = new DomainServiceDefinitionImpl();
 		return domainServiceDefinition;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public DomainFunctionDefinition createDomainFunctionDefinition() {
-		DomainFunctionDefinitionImpl domainFunctionDefinition = new DomainFunctionDefinitionImpl();
-		return domainFunctionDefinition;
 	}
 
 	/**
@@ -326,29 +300,9 @@ public class StructureFactoryImpl extends EFactoryImpl implements StructureFacto
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public TerminatorFunctionDeclaration createTerminatorFunctionDeclaration() {
-		TerminatorFunctionDeclarationImpl terminatorFunctionDeclaration = new TerminatorFunctionDeclarationImpl();
-		return terminatorFunctionDeclaration;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public TerminatorServiceDefinition createTerminatorServiceDefinition() {
 		TerminatorServiceDefinitionImpl terminatorServiceDefinition = new TerminatorServiceDefinitionImpl();
 		return terminatorServiceDefinition;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public TerminatorFunctionDefinition createTerminatorFunctionDefinition() {
-		TerminatorFunctionDefinitionImpl terminatorFunctionDefinition = new TerminatorFunctionDefinitionImpl();
-		return terminatorFunctionDefinition;
 	}
 
 	/**
@@ -446,29 +400,9 @@ public class StructureFactoryImpl extends EFactoryImpl implements StructureFacto
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public ObjectFunctionDeclaration createObjectFunctionDeclaration() {
-		ObjectFunctionDeclarationImpl objectFunctionDeclaration = new ObjectFunctionDeclarationImpl();
-		return objectFunctionDeclaration;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public ObjectServiceDefinition createObjectServiceDefinition() {
 		ObjectServiceDefinitionImpl objectServiceDefinition = new ObjectServiceDefinitionImpl();
 		return objectServiceDefinition;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public ObjectFunctionDefinition createObjectFunctionDefinition() {
-		ObjectFunctionDefinitionImpl objectFunctionDefinition = new ObjectFunctionDefinitionImpl();
-		return objectFunctionDefinition;
 	}
 
 	/**

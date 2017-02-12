@@ -92,17 +92,6 @@ This file is the plugin manifest for the BridgePoint core plugin.
    <extension
          point="org.eclipse.ui.editors">
       <editor
-            name="Type Definition Editor"
-            icon="platform:/plugin/org.xtuml.bp.core/icons/edit_tdf.gif"
-            extensions="tdf"
-            contributorClass="org.eclipse.ui.texteditor.BasicTextEditorActionContributor"
-            class="org.xtuml.bp.ui.text.typedefinition.TypeDefinitionEditor"
-            id="org.xtuml.bp.ui.text.typedefinition.TypeDefinitionEditor">
-      </editor>
-   </extension>
-   <extension
-         point="org.eclipse.ui.editors">
-      <editor
             name="Activity Editor"
             default="true"
             icon="platform:/plugin/org.xtuml.bp.core/icons/edit_oal.gif"
@@ -354,7 +343,7 @@ This file is the plugin manifest for the BridgePoint core plugin.
       </editor>
       <editor
             input="org.xtuml.bp.ui.text.typedefinition.TypeDefinitionEditorInput"
-            class="org.xtuml.bp.ui.text.typedefinition.TypeDefinitionEditor">
+			class="org.xtuml.bp.xtext.masl.MASLPartial">
 .assign dflt_tdf_obj_set = tdf_obj_set
 .assign index = 0
 .for each obj in dflt_tdf_obj_set

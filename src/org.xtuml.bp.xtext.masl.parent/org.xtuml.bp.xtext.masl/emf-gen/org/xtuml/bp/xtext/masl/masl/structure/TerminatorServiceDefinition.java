@@ -20,7 +20,7 @@ package org.xtuml.bp.xtext.masl.masl.structure;
  * @model
  * @generated
  */
-public interface TerminatorServiceDefinition extends AbstractActionDefinition {
+public interface TerminatorServiceDefinition extends AbstractActionDefinition, AbstractService {
 	/**
 	 * Returns the value of the '<em><b>Terminator</b></em>' reference.
 	 * <!-- begin-user-doc -->

@@ -959,7 +959,8 @@ public class ${viewer_name} extends ViewPart implements IModelViewerProvider {
 		    if (MASLEditorInput.EDITOR_ID == editorId) {
 			page.addPartListener((IPartListener2) new MASLPartListener());
 		    }
-		    return page.openEditor(input, editorId);
+		    IEditorPart editor = page.openEditor(input, editorId);
+		    return editor;
                 }
                 return null;
               }
