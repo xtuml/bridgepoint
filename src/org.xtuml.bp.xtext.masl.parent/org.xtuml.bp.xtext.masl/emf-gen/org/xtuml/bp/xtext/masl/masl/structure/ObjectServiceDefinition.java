@@ -14,6 +14,7 @@ package org.xtuml.bp.xtext.masl.masl.structure;
  * </p>
  * <ul>
  *   <li>{@link org.xtuml.bp.xtext.masl.masl.structure.ObjectServiceDefinition#isInstance <em>Instance</em>}</li>
+ *   <li>{@link org.xtuml.bp.xtext.masl.masl.structure.ObjectServiceDefinition#getRelationship <em>Relationship</em>}</li>
  *   <li>{@link org.xtuml.bp.xtext.masl.masl.structure.ObjectServiceDefinition#getObject <em>Object</em>}</li>
  * </ul>
  *
@@ -21,7 +22,7 @@ package org.xtuml.bp.xtext.masl.masl.structure;
  * @model
  * @generated
  */
-public interface ObjectServiceDefinition extends AbstractActionDefinition {
+public interface ObjectServiceDefinition extends AbstractActionDefinition, AbstractService {
 	/**
 	 * Returns the value of the '<em><b>Instance</b></em>' attribute.
 	 * <!-- begin-user-doc -->
@@ -47,6 +48,32 @@ public interface ObjectServiceDefinition extends AbstractActionDefinition {
 	 * @generated
 	 */
 	void setInstance(boolean value);
+
+	/**
+	 * Returns the value of the '<em><b>Relationship</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Relationship</em>' reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Relationship</em>' reference.
+	 * @see #setRelationship(RelationshipDefinition)
+	 * @see org.xtuml.bp.xtext.masl.masl.structure.StructurePackage#getObjectServiceDefinition_Relationship()
+	 * @model
+	 * @generated
+	 */
+	RelationshipDefinition getRelationship();
+
+	/**
+	 * Sets the value of the '{@link org.xtuml.bp.xtext.masl.masl.structure.ObjectServiceDefinition#getRelationship <em>Relationship</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Relationship</em>' reference.
+	 * @see #getRelationship()
+	 * @generated
+	 */
+	void setRelationship(RelationshipDefinition value);
 
 	/**
 	 * Returns the value of the '<em><b>Object</b></em>' reference.

@@ -88,17 +88,17 @@ class ValidatorTest {
 			domain dom is
 				object Foo;
 				object Foo is 
-					instance function iFunc() return instance of Foo;
+					instance service iFunc() return instance of Foo;
 					instance service iSvc();
-					function func() return instance of Foo;
+					service func() return instance of Foo;
 					service svc();
 				end;
-				function dFunc() return boolean
+				service dFunc() return boolean
 				service dSvc();
 			end;
 		''')
 		load('''
-			instance function dom::Foo.iFunc() return instance of Foo is
+			instance service dom::Foo.iFunc() return instance of Foo is
 			begin
 				return this;
 			end; 
@@ -110,7 +110,7 @@ class ValidatorTest {
 			end; 
 		''').assertNoError(INVALID_THIS)
 		load('''
-			function dom::Foo.func() return instance of Foo is
+			service dom::Foo.func() return instance of Foo is
 			begin
 				return this;
 			end;
@@ -122,7 +122,7 @@ class ValidatorTest {
 			end;
 		''').assertError(thisLiteral, INVALID_THIS)
 		load('''
-			function dom::dFunc() return boolean is
+			service dom::dFunc() return boolean is
 			begin
 				return this;
 			end;
@@ -139,10 +139,10 @@ class ValidatorTest {
 	def void testReturnTypeValidation() {
 		load('''
 			domain dom is 
-				function foo() return integer;
+				service foo() return integer;
 			end;
 			
-			function dom::foo() return integer is
+			service dom::foo() return integer is
 			begin
 				return "";
 			end;
@@ -153,10 +153,10 @@ class ValidatorTest {
 	def void testUnreachableCode() {
 		load('''
 			domain dom is 
-				function foo() return integer;
+				service foo() return integer;
 			end;
 			
-			function dom::foo() return integer is
+			service dom::foo() return integer is
 			begin
 				return 1;
 				delay 1;
@@ -168,16 +168,16 @@ class ValidatorTest {
 	def void testVisibilityValidation() { 
 		load('''
 			domain dom is 
-				public function func() return integer;
+				public service func() return integer;
 				private service serv();
 			end;
 		''').assertNoErrors()
 		load('''	
-			private function dom::func() return integer 
+			private service dom::func() return integer 
 			is
 			begin
 			end;
-		''').assertError(domainFunctionDefinition, DECLARATION_MISSMATCH)
+		''').assertError(domainServiceDefinition, DECLARATION_MISSMATCH)
 		load('''	
 			private service dom::serv() 
 			is
@@ -190,10 +190,10 @@ class ValidatorTest {
 	def void testParameterValidation() { 
 		load('''
 			domain dom is 
-				function func() return integer;
+				service func() return integer;
 			end;
 			
-			function dom::func() return integer 
+			service dom::func() return integer 
 			is
 			begin
 			end;
@@ -204,80 +204,80 @@ class ValidatorTest {
 	def void testParameterValidation1() { 
 		load('''
 			domain dom is 
-				function func(p: in integer) return integer;
+				service func(p: in integer) return integer;
 			end;
 			
-			function dom::func() return integer 
+			service dom::func() return integer 
 			is
 			begin
 			end;
-		''').elements.last.assertError(domainFunctionDefinition, DECLARATION_MISSMATCH)
+		''').elements.last.assertError(domainServiceDefinition, DECLARATION_MISSMATCH)
 	}
 
 	@Test 
 	def void testParameterValidation2() { 
 		load('''
 			domain dom is 
-				function func() return integer;
+				service func() return integer;
 			end;
 			
-			function dom::func(p: in integer) return integer 
+			service dom::func(p: in integer) return integer 
 			is
 			begin
 			end;
-		''').elements.last.assertError(domainFunctionDefinition, DECLARATION_MISSMATCH)
+		''').elements.last.assertError(domainServiceDefinition, DECLARATION_MISSMATCH)
 	}
 
 	@Test 
 	def void testParameterValidation3() { 
 		load('''
 			domain dom is 
-				function func(p: in string) return integer;
+				service func(p: in string) return integer;
 			end;
 			
-			function dom::func(p: in integer) return integer 
+			service dom::func(p: in integer) return integer 
 			is
 			begin
 			end;
-		''').elements.last.assertError(domainFunctionDefinition, DECLARATION_MISSMATCH)
+		''').elements.last.assertError(domainServiceDefinition, DECLARATION_MISSMATCH)
 	}
 
 	@Test 
 	def void testParameterValidation4() { 
 		load('''
 			domain dom is 
-				function func(p: in integer, p: in string) return integer;
+				service func(p: in integer, p: in string) return integer;
 			end;
 			
-			function dom::func(p: in integer) return integer 
+			service dom::func(p: in integer) return integer 
 			is
 			begin
 			end;
-		''').elements.last.assertError(domainFunctionDefinition, DECLARATION_MISSMATCH)
+		''').elements.last.assertError(domainServiceDefinition, DECLARATION_MISSMATCH)
 	}
 
 	@Test 
 	def void testParameterValidation5() { 
 		load('''
 			domain dom is 
-				function func(p: in integer) return integer;
+				service func(p: in integer) return integer;
 			end;
 			
-			function dom::func(p: in integer) return string
+			service dom::func(p: in integer) return string
 			is
 			begin
 			end;
-		''').elements.last.assertError(domainFunctionDefinition, DECLARATION_MISSMATCH)
+		''').elements.last.assertError(domainServiceDefinition, DECLARATION_MISSMATCH)
 	}
 
 	@Test 
 	def void testParameterValidation6() { 
 		load('''
 			domain dom is 
-				function func(p: in integer) return integer;
+				service func(p: in integer) return integer;
 			end;
 			
-			function dom::func(p: out integer) return integer
+			service dom::func(p: out integer) return integer
 			is
 			begin
 			end;
@@ -288,11 +288,11 @@ class ValidatorTest {
 	def void testParameterValidation7() { 
 		load('''
 			domain dom is 
-				function func(p: in integer) return integer;
-				function func(p: in real) return integer;
+				service func(p: in integer) return integer;
+				service func(p: in real) return integer;
 			end;
 			
-			function dom::func(p: in real) return integer
+			service dom::func(p: in real) return integer
 			is
 			begin
 			end;
@@ -303,20 +303,20 @@ class ValidatorTest {
 	def void testDomainActionVisibilities() {
 		load('''
 			domain dom0 is 
-				private function func() return integer;
+				private service func() return integer;
 				private service serv();
-				public function func0() return integer;
+				public service func0() return integer;
 				public service serv0();
 			end;
 			
 			domain dom1 is 
-				function func() return integer;
+				service func() return integer;
 				service serv();
 				service serv1();
 			end;
 		''').assertNoErrors
 		load('''
-			function dom1::func() return integer is
+			service dom1::func() return integer is
 			begin
 				return dom0::func();
 			end
@@ -342,9 +342,9 @@ class ValidatorTest {
 			domain dom is
 				object Foo;
 				object Foo is
-					private function func() return integer;
+					private service func() return integer;
 					private service serv();
-					public function func0() return integer;
+					public service func0() return integer;
 					public service serv0();
 					state s();
 				end;
@@ -396,8 +396,8 @@ class ValidatorTest {
 	def void testActionOverloading() {
 		load('''
 			domain dom is
-				function f(x: in integer) return integer;
-				function f(x: in string) return integer;
+				service f(x: in integer) return integer;
+				service f(x: in string) return integer;
 			end;
 		''').assertNoErrors(DUPLICATE_NAME)
 	}
@@ -406,18 +406,18 @@ class ValidatorTest {
 	def void testActionOverloading1() {
 		load('''
 			domain dom is
-				function f(x: in integer) return integer;
-				function f(y: in integer) return integer;
+				service f(x: in integer) return integer;
+				service f(y: in integer) return integer;
 			end;
-		''').assertError(domainFunctionDeclaration, DUPLICATE_NAME)
+		''').assertError(domainServiceDeclaration, DUPLICATE_NAME)
 	}
 	
 	@Test
 	def void testActionOverloading2() {
 		load('''
 			domain dom is
-				function f(x: in integer) return integer;
-				function f(x: in string) return string;
+				service f(x: in integer) return integer;
+				service f(x: in string) return string;
 			end;
 		''').assertNoErrors(DUPLICATE_NAME)
 	}
@@ -425,24 +425,24 @@ class ValidatorTest {
 	@Test
 	def void testActionOverloading3() {
 		load('''
-			function dom::f(x: in integer) return integer is begin end;
-			function dom::f(x: in string) return integer is begin end;
+			service dom::f(x: in integer) return integer is begin end;
+			service dom::f(x: in string) return integer is begin end;
 		''').assertNoErrors(DUPLICATE_NAME)
 	}
 	
 	@Test
 	def void testActionOverloading4() {
 		load('''
-			function dom::f(x: in integer) return integer is begin end;
-			function dom::f(y: in integer) return integer is begin end;
-		''').assertError(domainFunctionDefinition, DUPLICATE_NAME)
+			service dom::f(x: in integer) return integer is begin end;
+			service dom::f(y: in integer) return integer is begin end;
+		''').assertError(domainServiceDefinition, DUPLICATE_NAME)
 	}
 	
 	@Test
 	def void testActionOverloading5() {
 		load('''
-			function dom::f(x: in integer) return integer is begin end;
-			function dom::f(x: in string) return string is begin end;
+			service dom::f(x: in integer) return integer is begin end;
+			service dom::f(x: in string) return string is begin end;
 		''').assertNoErrors(DUPLICATE_NAME)
 	}
 	
@@ -451,7 +451,7 @@ class ValidatorTest {
 		load('''
 			domain dom is
 				terminator Foo is
-					function func() return integer;
+					service func() return integer;
 					service serv();
 				end;
 			end;

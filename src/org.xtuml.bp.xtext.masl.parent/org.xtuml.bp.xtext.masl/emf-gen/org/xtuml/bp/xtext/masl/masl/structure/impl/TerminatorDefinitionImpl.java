@@ -20,7 +20,6 @@ import org.xtuml.bp.xtext.masl.masl.structure.Pragma;
 import org.xtuml.bp.xtext.masl.masl.structure.Pragmatized;
 import org.xtuml.bp.xtext.masl.masl.structure.StructurePackage;
 import org.xtuml.bp.xtext.masl.masl.structure.TerminatorDefinition;
-import org.xtuml.bp.xtext.masl.masl.structure.TerminatorFunctionDeclaration;
 import org.xtuml.bp.xtext.masl.masl.structure.TerminatorServiceDeclaration;
 
 /**
@@ -33,7 +32,6 @@ import org.xtuml.bp.xtext.masl.masl.structure.TerminatorServiceDeclaration;
  * <ul>
  *   <li>{@link org.xtuml.bp.xtext.masl.masl.structure.impl.TerminatorDefinitionImpl#getPragmas <em>Pragmas</em>}</li>
  *   <li>{@link org.xtuml.bp.xtext.masl.masl.structure.impl.TerminatorDefinitionImpl#getServices <em>Services</em>}</li>
- *   <li>{@link org.xtuml.bp.xtext.masl.masl.structure.impl.TerminatorDefinitionImpl#getFunctions <em>Functions</em>}</li>
  * </ul>
  *
  * @generated
@@ -58,16 +56,6 @@ public class TerminatorDefinitionImpl extends AbstractNamedImpl implements Termi
 	 * @ordered
 	 */
 	protected EList<TerminatorServiceDeclaration> services;
-
-	/**
-	 * The cached value of the '{@link #getFunctions() <em>Functions</em>}' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getFunctions()
-	 * @generated
-	 * @ordered
-	 */
-	protected EList<TerminatorFunctionDeclaration> functions;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -117,18 +105,6 @@ public class TerminatorDefinitionImpl extends AbstractNamedImpl implements Termi
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<TerminatorFunctionDeclaration> getFunctions() {
-		if (functions == null) {
-			functions = new EObjectContainmentEList<TerminatorFunctionDeclaration>(TerminatorFunctionDeclaration.class, this, StructurePackage.TERMINATOR_DEFINITION__FUNCTIONS);
-		}
-		return functions;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -136,8 +112,6 @@ public class TerminatorDefinitionImpl extends AbstractNamedImpl implements Termi
 				return ((InternalEList<?>)getPragmas()).basicRemove(otherEnd, msgs);
 			case StructurePackage.TERMINATOR_DEFINITION__SERVICES:
 				return ((InternalEList<?>)getServices()).basicRemove(otherEnd, msgs);
-			case StructurePackage.TERMINATOR_DEFINITION__FUNCTIONS:
-				return ((InternalEList<?>)getFunctions()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -154,8 +128,6 @@ public class TerminatorDefinitionImpl extends AbstractNamedImpl implements Termi
 				return getPragmas();
 			case StructurePackage.TERMINATOR_DEFINITION__SERVICES:
 				return getServices();
-			case StructurePackage.TERMINATOR_DEFINITION__FUNCTIONS:
-				return getFunctions();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -177,10 +149,6 @@ public class TerminatorDefinitionImpl extends AbstractNamedImpl implements Termi
 				getServices().clear();
 				getServices().addAll((Collection<? extends TerminatorServiceDeclaration>)newValue);
 				return;
-			case StructurePackage.TERMINATOR_DEFINITION__FUNCTIONS:
-				getFunctions().clear();
-				getFunctions().addAll((Collection<? extends TerminatorFunctionDeclaration>)newValue);
-				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -199,9 +167,6 @@ public class TerminatorDefinitionImpl extends AbstractNamedImpl implements Termi
 			case StructurePackage.TERMINATOR_DEFINITION__SERVICES:
 				getServices().clear();
 				return;
-			case StructurePackage.TERMINATOR_DEFINITION__FUNCTIONS:
-				getFunctions().clear();
-				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -218,8 +183,6 @@ public class TerminatorDefinitionImpl extends AbstractNamedImpl implements Termi
 				return pragmas != null && !pragmas.isEmpty();
 			case StructurePackage.TERMINATOR_DEFINITION__SERVICES:
 				return services != null && !services.isEmpty();
-			case StructurePackage.TERMINATOR_DEFINITION__FUNCTIONS:
-				return functions != null && !functions.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

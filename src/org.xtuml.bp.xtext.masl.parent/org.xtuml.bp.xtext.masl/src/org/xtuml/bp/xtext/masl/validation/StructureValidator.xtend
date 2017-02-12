@@ -1,24 +1,18 @@
 package org.xtuml.bp.xtext.masl.validation
 
 import com.google.inject.Inject
+import org.eclipse.emf.ecore.EObject
+import org.eclipse.xtext.resource.FileExtensionProvider
 import org.eclipse.xtext.validation.Check
 import org.eclipse.xtext.validation.EValidatorRegistrar
 import org.xtuml.bp.xtext.masl.MASLExtensions
 import org.xtuml.bp.xtext.masl.layout.URI2DeclarationMapper
 import org.xtuml.bp.xtext.masl.masl.structure.AssocRelationshipDefinition
 import org.xtuml.bp.xtext.masl.masl.structure.DomainDefinition
-import org.xtuml.bp.xtext.masl.masl.structure.DomainFunctionDeclaration
-import org.xtuml.bp.xtext.masl.masl.structure.DomainFunctionDefinition
-import org.xtuml.bp.xtext.masl.masl.structure.DomainServiceDeclaration
-import org.xtuml.bp.xtext.masl.masl.structure.DomainServiceDefinition
 import org.xtuml.bp.xtext.masl.masl.structure.IdentifierDefinition
 import org.xtuml.bp.xtext.masl.masl.structure.MaslModel
 import org.xtuml.bp.xtext.masl.masl.structure.ObjectDeclaration
 import org.xtuml.bp.xtext.masl.masl.structure.ObjectDefinition
-import org.xtuml.bp.xtext.masl.masl.structure.ObjectFunctionDeclaration
-import org.xtuml.bp.xtext.masl.masl.structure.ObjectFunctionDefinition
-import org.xtuml.bp.xtext.masl.masl.structure.ObjectServiceDeclaration
-import org.xtuml.bp.xtext.masl.masl.structure.ObjectServiceDefinition
 import org.xtuml.bp.xtext.masl.masl.structure.Parameterized
 import org.xtuml.bp.xtext.masl.masl.structure.ProjectDefinition
 import org.xtuml.bp.xtext.masl.masl.structure.RegularRelationshipDefinition
@@ -29,10 +23,6 @@ import org.xtuml.bp.xtext.masl.masl.structure.StateDefinition
 import org.xtuml.bp.xtext.masl.masl.structure.StructurePackage
 import org.xtuml.bp.xtext.masl.masl.structure.SubtypeRelationshipDefinition
 import org.xtuml.bp.xtext.masl.masl.structure.TerminatorDefinition
-import org.xtuml.bp.xtext.masl.masl.structure.TerminatorFunctionDeclaration
-import org.xtuml.bp.xtext.masl.masl.structure.TerminatorFunctionDefinition
-import org.xtuml.bp.xtext.masl.masl.structure.TerminatorServiceDeclaration
-import org.xtuml.bp.xtext.masl.masl.structure.TerminatorServiceDefinition
 import org.xtuml.bp.xtext.masl.masl.structure.TransitionRow
 import org.xtuml.bp.xtext.masl.masl.types.EnumerationTypeDefinition
 import org.xtuml.bp.xtext.masl.masl.types.StructureTypeDefinition
@@ -41,7 +31,12 @@ import org.xtuml.bp.xtext.masl.scoping.ProjectScopeIndexProvider
 import static org.xtuml.bp.xtext.masl.validation.MaslIssueCodesProvider.*
 
 import static extension org.eclipse.emf.ecore.util.EcoreUtil.*
-import org.eclipse.emf.ecore.EObject
+import org.xtuml.bp.xtext.masl.masl.structure.DomainServiceDeclaration
+import org.xtuml.bp.xtext.masl.masl.structure.DomainServiceDefinition
+import org.xtuml.bp.xtext.masl.masl.structure.TerminatorServiceDeclaration
+import org.xtuml.bp.xtext.masl.masl.structure.TerminatorServiceDefinition
+import org.xtuml.bp.xtext.masl.masl.structure.ObjectServiceDeclaration
+import org.xtuml.bp.xtext.masl.masl.structure.ObjectServiceDefinition
 
 class StructureValidator extends AbstractMASLValidator {
 
@@ -49,31 +44,31 @@ class StructureValidator extends AbstractMASLValidator {
 	@Inject extension MASLExtensions
 	@Inject extension StructurePackage structurePackage
 	@Inject extension URI2DeclarationMapper
-
+	@Inject FileExtensionProvider fileExtensionProvider
+	
 	override register(EValidatorRegistrar registrar) {
 	}
 
 	@Check
 	def checkFileExtension(MaslModel model) {
 		val fileExtension = model.eResource.URI.fileExtension
-		model.elements.forEach [
-			val expectedFileExtensions = switch it {
-				ProjectDefinition: #['prj', 'masl']
-				DomainDefinition: #['mod', 'int', 'masl']
-				ObjectServiceDefinition: #['svc', 'masl']
-				DomainServiceDefinition: #['ext', 'scn', 'svc', 'masl']
-				ObjectFunctionDefinition,
-				DomainFunctionDefinition: #['fn', 'masl']
-				TerminatorServiceDefinition,
-				TerminatorFunctionDefinition: #['tr', 'masl']
-				StateDefinition: #['al', 'masl']
-			}
-			if (!expectedFileExtensions.contains(
-				fileExtension)) {
-				addIssue('''«eClass.name» elements should be defined in a file with extension «expectedFileExtensions.map['\'.'+ it + '\''].join(' or ')».''',
-					it, structurePackage.abstractNamed_Name, WRONG_STRUCTURE)
-			}
-		]
+		if(fileExtensionProvider.isValid(fileExtension)) {
+			model.elements.forEach [
+				val expectedFileExtensions = switch it {
+					ProjectDefinition: #['prj', 'masl']
+					DomainDefinition: #['mod', 'int', 'masl']
+					ObjectServiceDefinition,
+					DomainServiceDefinition: #['fn', 'masl']
+					TerminatorServiceDefinition: #['tr', 'masl']
+					StateDefinition: #['al', 'masl']
+				}
+				if (!expectedFileExtensions.contains(
+					fileExtension)) {
+					addIssue('''«eClass.name» elements should be defined in a file with extension «expectedFileExtensions.map['\'.'+ it + '\''].join(' or ')».''',
+						it, structurePackage.abstractNamed_Name, WRONG_STRUCTURE)
+				}
+			]
+		}
 	}
 
 	@Check
@@ -115,7 +110,7 @@ class StructureValidator extends AbstractMASLValidator {
 	@Check
 	def void domainDefinitionInProject(ProjectDefinition project) {
 		project.domains.forEach [
-			(objects + services + functions + relationships + objectDefs + typeForwards + types + exceptions).forEach [
+			(objects + services + relationships + objectDefs + typeForwards + types + exceptions).forEach [
 				addIssue('Only terminator definitions are allowed in a project', it,
 					structurePackage.abstractNamed_Name, WRONG_STRUCTURE)
 			]
@@ -176,13 +171,6 @@ class StructureValidator extends AbstractMASLValidator {
 	}
 
 	@Check
-	def declarationPresent(ObjectFunctionDefinition it) {
-		if (getDeclarations(objectFunctionDeclaration, index).empty)
-			addIssue('Object function has not been declared', it, structurePackage.abstractNamed_Name,
-				MISSING_DECLARATION)
-	}
-
-	@Check
 	def declarationPresent(ObjectServiceDefinition it) {
 		if (getDeclarations(objectServiceDeclaration, index).empty)
 			addIssue('Object service has not been declared', it, structurePackage.abstractNamed_Name,
@@ -196,23 +184,9 @@ class StructureValidator extends AbstractMASLValidator {
 	}
 
 	@Check
-	def declarationPresent(DomainFunctionDefinition it) {
-		if (getDeclarations(domainFunctionDeclaration, index).empty)
-			addIssue('Domain function has not been declared', it, structurePackage.abstractNamed_Name,
-				MISSING_DECLARATION)
-	}
-
-	@Check
 	def declarationPresent(DomainServiceDefinition it) {
 		if (getDeclarations(domainServiceDeclaration, index).empty)
 			addIssue('Domain service has not been declared', it, structurePackage.abstractNamed_Name,
-				MISSING_DECLARATION)
-	}
-
-	@Check
-	def declarationPresent(TerminatorFunctionDefinition it) {
-		if (getDeclarations(terminatorFunctionDeclaration, index).empty)
-			addIssue('Terminator function has not been declared', it, structurePackage.abstractNamed_Name,
 				MISSING_DECLARATION)
 	}
 
@@ -230,16 +204,10 @@ class StructureValidator extends AbstractMASLValidator {
 	}
 
 	@Check
-	def definitionPresent(ObjectFunctionDeclaration it) {
-		if (getDefinitions(objectFunctionDefinition, index).empty)
-			addIssue('Object function has not been implemented', it, structurePackage.abstractNamed_Name,
-				MISSING_IMPLEMENTATION)
-	}
-
-	@Check
 	def definitionPresent(ObjectServiceDeclaration it) {
 		if (getDefinitions(objectServiceDefinition, index).empty)
-			addIssue('Object service has not been implemented', it, structurePackage.abstractNamed_Name, MISSING_IMPLEMENTATION)
+			addIssue('Object service has not been implemented', it, structurePackage.abstractNamed_Name,
+				MISSING_IMPLEMENTATION)
 	}
 
 	@Check
@@ -249,22 +217,9 @@ class StructureValidator extends AbstractMASLValidator {
 	}
 
 	@Check
-	def definitionPresent(DomainFunctionDeclaration it) {
-		if (!isInterfaceFile && getDefinitions(domainFunctionDefinition, index).empty)
-			addIssue('Domain function has not been implemented', it, structurePackage.abstractNamed_Name,
-				MISSING_IMPLEMENTATION)
-	}
-
-	@Check
 	def definitionPresent(DomainServiceDeclaration it) {
 		if (!isInterfaceFile && getDefinitions(domainServiceDefinition, index).empty)
-			addIssue('Domain service has not been implemented', it, structurePackage.abstractNamed_Name, MISSING_IMPLEMENTATION)
-	}
-
-	@Check
-	def definitionPresent(TerminatorFunctionDeclaration it) {
-		if (!isInterfaceFile && getDefinitions(terminatorFunctionDefinition, index).empty)
-			addIssue('Terminator function has not been implemented', it, structurePackage.abstractNamed_Name,
+			addIssue('Domain service has not been implemented', it, structurePackage.abstractNamed_Name,
 				MISSING_IMPLEMENTATION)
 	}
 
@@ -272,7 +227,7 @@ class StructureValidator extends AbstractMASLValidator {
 	def definitionPresent(TerminatorServiceDeclaration it) {
 		if (!isInterfaceFile && getDefinitions(terminatorServiceDefinition, index).empty)
 			addIssue('Terminator service has not been implemented', it, structurePackage.abstractNamed_Name,
-				MISSING_DEFINITION)
+				MISSING_IMPLEMENTATION)
 	}
 
 	@Check
@@ -295,15 +250,12 @@ class StructureValidator extends AbstractMASLValidator {
 				if(model.isStateImplementation)
 					result += definition.states
 				else {
-					result += definition.functions
 					result += definition.services
 				}
 			DomainDefinition: {
-				result += definition.functions
 				result += definition.services
 			} 
 			TerminatorDefinition: {
-				result += definition.functions
 				result += definition.services
 			}
 		}

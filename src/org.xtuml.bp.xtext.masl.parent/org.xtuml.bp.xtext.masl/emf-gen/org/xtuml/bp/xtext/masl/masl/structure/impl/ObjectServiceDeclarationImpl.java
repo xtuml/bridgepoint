@@ -19,6 +19,7 @@ import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
 import org.xtuml.bp.xtext.masl.masl.structure.AbstractActionDeclaration;
+import org.xtuml.bp.xtext.masl.masl.structure.AbstractService;
 import org.xtuml.bp.xtext.masl.masl.structure.ObjectServiceDeclaration;
 import org.xtuml.bp.xtext.masl.masl.structure.Parameter;
 import org.xtuml.bp.xtext.masl.masl.structure.Parameterized;
@@ -28,6 +29,8 @@ import org.xtuml.bp.xtext.masl.masl.structure.RelationshipDefinition;
 import org.xtuml.bp.xtext.masl.masl.structure.StructurePackage;
 import org.xtuml.bp.xtext.masl.masl.structure.Visibility;
 import org.xtuml.bp.xtext.masl.masl.structure.Visualized;
+
+import org.xtuml.bp.xtext.masl.masl.types.AbstractTypeReference;
 
 /**
  * <!-- begin-user-doc -->
@@ -40,6 +43,7 @@ import org.xtuml.bp.xtext.masl.masl.structure.Visualized;
  *   <li>{@link org.xtuml.bp.xtext.masl.masl.structure.impl.ObjectServiceDeclarationImpl#getPragmas <em>Pragmas</em>}</li>
  *   <li>{@link org.xtuml.bp.xtext.masl.masl.structure.impl.ObjectServiceDeclarationImpl#getParameters <em>Parameters</em>}</li>
  *   <li>{@link org.xtuml.bp.xtext.masl.masl.structure.impl.ObjectServiceDeclarationImpl#getVisibility <em>Visibility</em>}</li>
+ *   <li>{@link org.xtuml.bp.xtext.masl.masl.structure.impl.ObjectServiceDeclarationImpl#getReturnType <em>Return Type</em>}</li>
  *   <li>{@link org.xtuml.bp.xtext.masl.masl.structure.impl.ObjectServiceDeclarationImpl#isInstance <em>Instance</em>}</li>
  *   <li>{@link org.xtuml.bp.xtext.masl.masl.structure.impl.ObjectServiceDeclarationImpl#getRelationship <em>Relationship</em>}</li>
  * </ul>
@@ -86,6 +90,16 @@ public class ObjectServiceDeclarationImpl extends AbstractFeatureImpl implements
 	 * @ordered
 	 */
 	protected Visibility visibility = VISIBILITY_EDEFAULT;
+
+	/**
+	 * The cached value of the '{@link #getReturnType() <em>Return Type</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getReturnType()
+	 * @generated
+	 * @ordered
+	 */
+	protected AbstractTypeReference returnType;
 
 	/**
 	 * The default value of the '{@link #isInstance() <em>Instance</em>}' attribute.
@@ -186,6 +200,49 @@ public class ObjectServiceDeclarationImpl extends AbstractFeatureImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public AbstractTypeReference getReturnType() {
+		return returnType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetReturnType(AbstractTypeReference newReturnType, NotificationChain msgs) {
+		AbstractTypeReference oldReturnType = returnType;
+		returnType = newReturnType;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, StructurePackage.OBJECT_SERVICE_DECLARATION__RETURN_TYPE, oldReturnType, newReturnType);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setReturnType(AbstractTypeReference newReturnType) {
+		if (newReturnType != returnType) {
+			NotificationChain msgs = null;
+			if (returnType != null)
+				msgs = ((InternalEObject)returnType).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - StructurePackage.OBJECT_SERVICE_DECLARATION__RETURN_TYPE, null, msgs);
+			if (newReturnType != null)
+				msgs = ((InternalEObject)newReturnType).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - StructurePackage.OBJECT_SERVICE_DECLARATION__RETURN_TYPE, null, msgs);
+			msgs = basicSetReturnType(newReturnType, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, StructurePackage.OBJECT_SERVICE_DECLARATION__RETURN_TYPE, newReturnType, newReturnType));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public boolean isInstance() {
 		return instance;
 	}
@@ -252,6 +309,8 @@ public class ObjectServiceDeclarationImpl extends AbstractFeatureImpl implements
 				return ((InternalEList<?>)getPragmas()).basicRemove(otherEnd, msgs);
 			case StructurePackage.OBJECT_SERVICE_DECLARATION__PARAMETERS:
 				return ((InternalEList<?>)getParameters()).basicRemove(otherEnd, msgs);
+			case StructurePackage.OBJECT_SERVICE_DECLARATION__RETURN_TYPE:
+				return basicSetReturnType(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -270,6 +329,8 @@ public class ObjectServiceDeclarationImpl extends AbstractFeatureImpl implements
 				return getParameters();
 			case StructurePackage.OBJECT_SERVICE_DECLARATION__VISIBILITY:
 				return getVisibility();
+			case StructurePackage.OBJECT_SERVICE_DECLARATION__RETURN_TYPE:
+				return getReturnType();
 			case StructurePackage.OBJECT_SERVICE_DECLARATION__INSTANCE:
 				return isInstance();
 			case StructurePackage.OBJECT_SERVICE_DECLARATION__RELATIONSHIP:
@@ -299,6 +360,9 @@ public class ObjectServiceDeclarationImpl extends AbstractFeatureImpl implements
 			case StructurePackage.OBJECT_SERVICE_DECLARATION__VISIBILITY:
 				setVisibility((Visibility)newValue);
 				return;
+			case StructurePackage.OBJECT_SERVICE_DECLARATION__RETURN_TYPE:
+				setReturnType((AbstractTypeReference)newValue);
+				return;
 			case StructurePackage.OBJECT_SERVICE_DECLARATION__INSTANCE:
 				setInstance((Boolean)newValue);
 				return;
@@ -326,6 +390,9 @@ public class ObjectServiceDeclarationImpl extends AbstractFeatureImpl implements
 			case StructurePackage.OBJECT_SERVICE_DECLARATION__VISIBILITY:
 				setVisibility(VISIBILITY_EDEFAULT);
 				return;
+			case StructurePackage.OBJECT_SERVICE_DECLARATION__RETURN_TYPE:
+				setReturnType((AbstractTypeReference)null);
+				return;
 			case StructurePackage.OBJECT_SERVICE_DECLARATION__INSTANCE:
 				setInstance(INSTANCE_EDEFAULT);
 				return;
@@ -350,6 +417,8 @@ public class ObjectServiceDeclarationImpl extends AbstractFeatureImpl implements
 				return parameters != null && !parameters.isEmpty();
 			case StructurePackage.OBJECT_SERVICE_DECLARATION__VISIBILITY:
 				return visibility != VISIBILITY_EDEFAULT;
+			case StructurePackage.OBJECT_SERVICE_DECLARATION__RETURN_TYPE:
+				return returnType != null;
 			case StructurePackage.OBJECT_SERVICE_DECLARATION__INSTANCE:
 				return instance != INSTANCE_EDEFAULT;
 			case StructurePackage.OBJECT_SERVICE_DECLARATION__RELATIONSHIP:
@@ -388,6 +457,12 @@ public class ObjectServiceDeclarationImpl extends AbstractFeatureImpl implements
 				default: return -1;
 			}
 		}
+		if (baseClass == AbstractService.class) {
+			switch (derivedFeatureID) {
+				case StructurePackage.OBJECT_SERVICE_DECLARATION__RETURN_TYPE: return StructurePackage.ABSTRACT_SERVICE__RETURN_TYPE;
+				default: return -1;
+			}
+		}
 		return super.eBaseStructuralFeatureID(derivedFeatureID, baseClass);
 	}
 
@@ -418,6 +493,12 @@ public class ObjectServiceDeclarationImpl extends AbstractFeatureImpl implements
 		}
 		if (baseClass == AbstractActionDeclaration.class) {
 			switch (baseFeatureID) {
+				default: return -1;
+			}
+		}
+		if (baseClass == AbstractService.class) {
+			switch (baseFeatureID) {
+				case StructurePackage.ABSTRACT_SERVICE__RETURN_TYPE: return StructurePackage.OBJECT_SERVICE_DECLARATION__RETURN_TYPE;
 				default: return -1;
 			}
 		}
