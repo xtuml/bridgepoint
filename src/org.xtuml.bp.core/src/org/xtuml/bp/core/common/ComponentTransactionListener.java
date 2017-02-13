@@ -25,6 +25,7 @@ package org.xtuml.bp.core.common;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
@@ -235,21 +236,21 @@ public class ComponentTransactionListener implements ITransactionListener {
 										modelElementRenamed((AttributeChangeModelDelta) delta);
 										persistRenamedME(element, element.getPersistableComponent());
 									}
-                                    // Refactor the action language with the newly named element
-									Display.getDefault().syncExec(new Runnable() {
-										public void run() {
-                                            RenameParticipantUtil rpu = new RenameParticipantUtil();
-                                            rpu.renameElement( modelElement, (String)modelDelta.getNewValue(),
-                                                               (String)modelDelta.getOldValue() );
-										}
-									});
-	                                setReloadActionsBeforePersist(true);
 								} else if(modelDelta.getAttributeName().equals("Represents")) {
 									// special case to avoid persistence caused by the setting
 									// of the represents attributes of GD_GE, GD_MD, and DIM_EL
 									// this will be removed when issue 2711 is fixed.
 									continue;
 								}
+                                // Invoke the rename refactoring util
+                                final AtomicBoolean renameSuccess = new AtomicBoolean();
+                                Display.getDefault().syncExec(new Runnable() {
+                                    public void run() {
+                                        RenameParticipantUtil rpu = new RenameParticipantUtil();
+                                        renameSuccess.set( rpu.renameElement( modelDelta ) );
+                                    }
+                                });
+                                if ( renameSuccess.get() ) setReloadActionsBeforePersist(true);
 								persist(target);
 							}
 						}
