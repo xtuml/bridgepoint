@@ -98,17 +98,17 @@ public class DuplicateRelationshipNumberParseAllTest extends UITextTest
         
         // have all activities parsed, so that the duplicate relationship
         // number causes problem markers to show up in the problems view
-        Package_c pkg = Package_c.PackageInstance(modelRoot);
         AllActivityModifier modifier = new AllActivityModifier(
-            pkg, new NullProgressMonitor());
+            m_sys, new NullProgressMonitor());
         modifier.processAllActivities(AllActivityModifier.PARSE);
         
+        Package_c pkg = Package_c.PackageInstance(modelRoot);
         PersistenceManager manager = PersistenceManager.getDefaultInstance();
         
         IPath path = manager.getComponent(pkg).getContainingDirectoryPath();
         
         path = path.append("Odms/Disk Ownership/ClassStateMachine/");
-        path = path.append("Disk_Ownership__Establishing_Ownership_of_an_Offline_Disk.oal");
+        path = path.append("Disk_Ownership__Establishing_Ownership_of_an_Offline_Disk.oal_err");
         
         // check that there are now problems associated with an
         // activity file for which we know there should be problems
