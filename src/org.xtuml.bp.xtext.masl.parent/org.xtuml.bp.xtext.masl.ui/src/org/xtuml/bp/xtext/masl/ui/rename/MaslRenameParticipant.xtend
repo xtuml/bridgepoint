@@ -14,6 +14,7 @@ import org.eclipse.xtext.ui.XtextProjectHelper
 import org.eclipse.xtext.ui.resource.XtextResourceSetProvider
 import org.xtuml.bp.core.common.NonRootModelElement
 import org.xtuml.bp.core.ui.IRenameElementParticipant
+import org.xtuml.bp.xtext.masl.masl.structure.StructurePackage
 
 class MaslRenameParticipant implements IRenameElementParticipant {
 	
@@ -21,6 +22,7 @@ class MaslRenameParticipant implements IRenameElementParticipant {
 	@Inject ResourceDescriptionsProvider rdp 
 	@Inject MaslRenameRefactoringExecutor executor
 	@Inject extension XtumlToMaslMapper 
+	@Inject extension StructurePackage
 	
 	IProject project
 	List<EClass> eClasses
@@ -50,7 +52,7 @@ class MaslRenameParticipant implements IRenameElementParticipant {
 				index.getExportedObjects(eClass as EClass, name, false)
 			].flatten
 			.toSet
-			.filter[EObjectURI.fileExtension == 'mod' || EObjectURI.fileExtension == 'int']
+			.filter[EClass==parameter || EObjectURI.fileExtension == 'mod' || EObjectURI.fileExtension == 'int']
 			.map[EObjectURI -> EClass]
 		return new XtumlRenameElementContext(uri2eClass)
 	}
