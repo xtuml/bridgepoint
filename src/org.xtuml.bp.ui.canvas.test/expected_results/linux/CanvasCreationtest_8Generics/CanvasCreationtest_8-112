@@ -1,6 +1,6 @@
 drawRectangle(...)
 drawText("+Unnamed Class", ...)
-drawText("{1,Unna...", ...)
+drawText("{1,UnnamedClass}", ...)
 drawline(...)
 drawline(...)
 drawRectangle(...)

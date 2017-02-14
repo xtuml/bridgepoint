@@ -128,7 +128,7 @@ public class IOMdlTestGenerics extends TestCase {
 	}
 
 	public void doTest() {
-		importModel(TestingUtilities.getExpectedResultsPath() + Ooaofooa.MODELS_DIRNAME + "/");
+		importModel("expected_results/" + Ooaofooa.MODELS_DIRNAME + "/");
 		exportModel(TestingUtilities.getExpectedResultsPath() + Ooaofooa.MODELS_DIRNAME + "/");
 	}
   
@@ -408,23 +408,14 @@ public class IOMdlTestGenerics extends TestCase {
         	resultFile += "actual_results/";
         }
         resultFile += "odmsGenerics";
-        if (BaseTest.testGlobals) {
-            resultFile += "Globals." + Ooaofooa.MODELS_EXT;        	
-        } else {
-            resultFile += "." + Ooaofooa.MODELS_EXT;        	
-        }
+        resultFile += "." + Ooaofooa.MODELS_EXT;        	
+
         TestingUtilities.exportModelUsingWizard(resultFile, true);
 		    
 		if (!generateResults) {
-			if(BaseTest.testGlobals) {
-			    TestingUtilities.fileContentsCompare(
-				        m_workspace_path + TestingUtilities.getExpectedResultsPath() +"odmsGenericsGlobals." + Ooaofooa.MODELS_EXT,
-				        m_workspace_path + "actual_results/odmsGenericsGlobals." + Ooaofooa.MODELS_EXT );				
-			} else {
-			    TestingUtilities.fileContentsCompare(
-			        m_workspace_path + TestingUtilities.getExpectedResultsPath() +"odmsGenericsGlobals." + Ooaofooa.MODELS_EXT,
-			        m_workspace_path + "actual_results/odmsGenerics." + Ooaofooa.MODELS_EXT );
-			}
+			TestingUtilities.fileContentsCompare(
+					m_workspace_path + TestingUtilities.getExpectedResultsPath() +"odmsGenerics." + Ooaofooa.MODELS_EXT,
+					m_workspace_path + "actual_results/odmsGenerics." + Ooaofooa.MODELS_EXT );
 		 }
 		
     }
@@ -461,11 +452,6 @@ public class IOMdlTestGenerics extends TestCase {
         String expectedResultsCompletePath = m_workspace_path
                 + expectedResultLocation + m_domain_name + "."
                 + Ooaofooa.MODELS_EXT;
-        if (BaseTest.testGlobals) {
-            expectedResultsCompletePath = m_workspace_path
-                    + expectedResultLocation + m_domain_name + "Globals" + "."
-                    + Ooaofooa.MODELS_EXT;
-        }
 
         // add the system and top-level packages to the selection
         m_system = SystemModel_c.SystemModelInstance(
@@ -488,10 +474,6 @@ public class IOMdlTestGenerics extends TestCase {
             String expected_path_start = m_workspace_path
                     + expectedResultLocation + m_domain_name;
 
-            if (BaseTest.testGlobals) {
-                expected_path_start = m_workspace_path + expectedResultLocation
-                        + m_domain_name + "Globals";
-            }
             String actual_path_start = m_workspace_path + "actual_results/" + Ooaofooa.MODELS_DIRNAME + "/" + m_domain_name; //$NON-NLS-1$//$NON-NLS-2$
             String path_end = "." + Ooaofooa.MODELS_EXT; //$NON-NLS-1$
             TestingUtilities.makeInsertsOneLine(actual_path_start + path_end, actual_path_start + "_a1" + path_end); //$NON-NLS-1$
