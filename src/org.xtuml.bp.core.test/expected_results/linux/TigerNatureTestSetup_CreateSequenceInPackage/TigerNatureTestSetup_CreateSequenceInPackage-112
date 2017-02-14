@@ -1,7 +1,7 @@
 drawRectangle(...)
 drawRectangle(...)
 drawText("«package»", ...)
-drawText("+CreatePackageInPa...", ...)
+drawText("+CreatePackageInPac...", ...)
 drawRectangle(...)
 drawRectangle(...)
 drawText("«pack...", ...)

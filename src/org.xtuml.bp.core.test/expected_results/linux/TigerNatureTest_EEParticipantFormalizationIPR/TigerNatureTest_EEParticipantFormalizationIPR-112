@@ -1,5 +1,5 @@
 drawRectangle(...)
 drawText("«external entity»", ...)
-drawText("test_project_referenc...", ...)
+drawText("test_project_reference...", ...)
 drawline(...)
 drawline(...)

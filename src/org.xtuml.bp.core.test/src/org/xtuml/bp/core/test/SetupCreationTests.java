@@ -46,6 +46,7 @@ import org.xtuml.bp.core.common.BridgePointPreferencesStore;
 import org.xtuml.bp.core.common.ClassQueryInterface_c;
 import org.xtuml.bp.core.common.NonRootModelElement;
 import org.xtuml.bp.core.common.Transaction;
+import org.xtuml.bp.test.common.BaseTest;
 import org.xtuml.bp.test.common.CanvasTestUtils;
 import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.test.common.TestingUtilities;
@@ -211,7 +212,7 @@ public class SetupCreationTests extends CanvasTest {
 		t = Cl_c.Starttransaction(mc, "Rename operation");
 		op.setName("testOp");
 		Cl_c.Endtransaction(op, t);
-		while (Display.getCurrent().readAndDispatch());
+		BaseTest.dispatchEvents(0);
 		CanvasTestUtils.openActivityEditor(op);
 		ActivityEditor ae = (ActivityEditor) PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage()
 				.getActiveEditor();

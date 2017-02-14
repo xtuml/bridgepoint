@@ -1,5 +1,5 @@
 drawRectangle(...)
-drawText("test_project_referenc...", ...)
+drawText("test_project_reference...", ...)
 drawText("{1,UnnamedClass}", ...)
 drawline(...)
 drawline(...)

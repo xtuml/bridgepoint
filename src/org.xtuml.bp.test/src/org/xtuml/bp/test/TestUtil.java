@@ -1168,7 +1168,7 @@ public class TestUtil
 			}
 			CorePlugin.logError("Unable to complete transaction.", e);
 		}
-		BaseTest.dispatchEvents(0);
+		BaseTest.dispatchEvents(200);
 	}
 
 	
