@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="mc-java-common" default="common_config" basedir=".">
 
-  <property name="util_bin_dir" value="/home/tlondon/engineering/ides/BridgePoint_v5.2.0/tools/mc/bin"/>
+  <property name="util_bin_dir" value="${eclipse.home}/tools/mc/bin"/>
   <property name="mcj_path" value="../MC-Java" />
   <property name="xtumlmc_build" value="${util_bin_dir}/xtumlmc_build"/>
 	
