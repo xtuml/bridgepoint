@@ -9,7 +9,10 @@ This work is licensed under the Creative Commons CC0 License
 
 1. Abstract
 -----------
-The unit tests for BridgePoint were moved from the bridgepoint repository into their own repository named, bptest, per [[2.2]](#2.2). This caused the unit test projects to no longer build due to relative paths to the Java model compiler contained in the bridgepoint repository.  
+The unit tests for BridgePoint were moved from the bridgepoint repository into 
+their own repository named, bptest, per [[2.2]](#2.2). This caused the unit 
+test projects to no longer build due to the use of relative paths to the Java 
+model compiler contained in the bridgepoint repository.  
 
 2. Document References
 ----------------------  
@@ -17,13 +20,24 @@ The unit tests for BridgePoint were moved from the bridgepoint repository into t
 <a id="2.2"></a>2.2 [BridgePoint DEI #8942](https://support.onefact.net/issues/8942) Segregate Tests from Source  
 <a id="2.3"></a>2.3 [Developer Getting Started Guide](https://github.com/xtuml/bridgepoint/blob/master/doc-bridgepoint/process/Developer%20Getting%20Started%20Guide.md)  
 <a id="2.4"></a>2.4 [HOWTO Run BridgePoint Unit Tests](https://github.com/xtuml/bridgepoint/blob/master/doc-bridgepoint/process/HOWTO-run-bridgepoint-unit-tests.md)  
+<a id="2.5"></a>2.5 [Implementation Note for #8942](https://github.com/xtuml/bridgepoint/blob/master/doc-bridgepoint/notes/8942_tests_int.md)  
+<a id="2.6"></a>2.6 [BridgePoint DEI #8944](https://support.onefact.net/issues/8944) Build BridgePoint with MC bits in toosl/mc folder  
+<a id="2.7"></a>2.7 [Implementation Note for #8944](https://github.com/xtuml/bridgepoint/blob/master/doc-bridgepoint/notes/8944_new_bp_build_int.md)  
 
 
 3. Background
 -------------
-BridgePoint is built using the Java model compiler in the MC-Java directory of the bridgepoint repository. The build uses Apache Ant and Maven and consists of many projects. Some projects are concerned with the build of the BridgePoint tool, and some projects are concerned with testing the BridgePoint tool. These latter projects were moved into their own repository.  
+BridgePoint is built using the Java model compiler in the MC-Java directory of 
+the bridgepoint repository. The build uses Apache Ant and Maven and consists of 
+many projects. Some projects are concerned with the build of the BridgePoint 
+tool, and some projects are concerned with testing the BridgePoint tool. These 
+latter projects were moved into their own repository.  
 
-A common repository guarantees every project in it a common root, so relative paths are guaranteed to work. Across repositories, there is no guarantee of a common root. Common practice is to co-locate repositories, but it isn't required. Relative paths are no longer assured to work.  
+A common repository guarantees every project in it a common root, so relative 
+paths are guaranteed to work. Across repositories, there is no guarantee of a 
+common root. Common practice is to co-locate repositories, but it isn't 
+required. Relative paths are no longer assured to work.  
+
 
 4. Requirements
 ---------------
@@ -31,14 +45,18 @@ A common repository guarantees every project in it a common root, so relative pa
 4.1 Developers can build BridgePoint per [[2.3]](#2.3)  
 
 4.2 Developers can build BridgePoint unit tests per [[2.4]](#2.4)  
-4.2.1 Unit tests will be imported into the the workspace; no copy/link of projects into another repository.  
+4.2.1 Unit tests will be imported into the the workspace; no copy/link of 
+projects into another repository.  
 
 
 5. Work Required
 ----------------
 
-<a id="5.1"></a>5.1 Create a method for specifying the repository paths without requiring the developer to place repositories in hard-coded locations.  
-5.1.1 Investigation resulted in adding paths via ant properties for the bridgepoint MC-Java project and bptest repository. Use of the git_work_tree variable allowed finding of absolute paths of projects in the workspace.  
+<a id="5.1"></a>5.1 Create a method for specifying the repository paths without 
+requiring the developer to place repositories in hard-coded locations.  
+5.1.1 Investigation resulted in adding paths via ant properties for the 
+bridgepoint MC-Java project and bptest repository. Use of the git_work_tree 
+variable allowed finding of absolute paths of projects in the workspace.  
 * Window > Preferences > Ant > Runtime > Properties
 
 5.2 Find and replace relative paths with fully qualified pathnames found in [[5.1]](#5.1)   
@@ -50,16 +68,37 @@ A common repository guarantees every project in it a common root, so relative pa
 6. Implementation Comments
 --------------------------
 
-6.1 MC-Java project contains build.xml and common.xml, which are required to build all the projects.  
-6.1.1 Relative paths in these files are evaluated relative to the repository for the project being built.  
+6.1 MC-Java project contains build.xml and common.xml, which are required to 
+build all the projects.  
+6.1.1 Relative paths in these files are evaluated relative to the repository 
+for the project being built.  
 6.1.2 Some parameters of build.xml targets used relative paths.  
-6.1.3 common.xml used to define the mcj_path property used to find the MC-Java project. This was replaced with an ant property of the same name.  
+6.1.3 common.xml used to define the mcj_path property used to find the MC-Java 
+project. This was replaced with an ant property of the same name.  
 
 
-6.2 Almost all projects have a generate.xml file that needed updated in both repositories.  
-6.2.1 Most changes in the bridgepoint repository was just changing the relative path to MC-Java to an absolute path.  
+6.2 Almost all projects have a generate.xml file that needed updated in both 
+repositories.  
+6.2.1 Most changes in the bridgepoint repository was just changing the relative 
+path to MC-Java to an absolute path.  
 
-6.3 Many other xml files in bptest required changes, as well as some arc files with relative paths.  
+6.3 Many other xml files in bptest required changes, as well as some arc files 
+with relative paths.  
+
+6.4 There are three ways that an existing BridgePoint development environment
+can be upgraded to use these changes:  
+6.4.1 Update to a newer version of BridgePoint that alread has these changes.  
+6.4.2 Merge the <pre>bridgepoint/utilities/build/preferences/org.eclipse.ant.core.prefs</pre> 
+file with the
+<pre>workspace/.metadata/.plugins/org.eclipse.core.runtime/.settings/org.eclipse.ant.core.prefs</pre> file (if exists, otherwise, just copy it.)  
+
+6.4.3 Add the ant property manually.  
+* Window > Preferences > Ant > Runtime > Properties > Add property...  
+<pre>
+Name: mcj_path 
+Value: ${git_work_tree:MC-Java}/src/MC-Java
+</pre>  
+
 
 7. Unit Test
 ------------
@@ -73,7 +112,8 @@ A common repository guarantees every project in it a common root, so relative pa
 
 8. User Documentation
 ---------------------
-Modification of [[2.4]](#2.4) was made with respect to repository structure changes; no modification was required for the changes outlined in this document.  
+Modification of [[2.4]](#2.4) was made with respect to repository structure 
+changes; no modification was required for the changes outlined in this document.  
 
 9. Code Changes
 ---------------
