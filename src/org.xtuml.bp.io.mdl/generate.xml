@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="bp.io.mdl" default="all" basedir=".">
 
-  <import file="../MC-Java/common.xml"/>
+  <import file="${mcj_path}/common.xml"/>
 
   <target name="all"
           description="Generate all code for this project"
@@ -31,7 +31,7 @@
   <target name="class2table.depends" >
     <uptodate property="class2table.buildNotNeeded" targetfile="sql/${class2table.output}">
        <srcfiles dir = "${core_path}"        includes = "${class2table.input}"/>
-       <srcfiles dir = "${canvas_path}"		includes = "${graphics.model}" />
+       <srcfiles dir = "${canvas_path}"      includes = "${graphics.model}" />
        <srcfiles dir = "${iocore_path}/arc"        includes = "class2table.arc"/>
        <srcfiles dir = "${mcj_path}" includes = "ooa_schema.sql"/>
     </uptodate>
@@ -45,7 +45,7 @@
     <exec dir="sql" vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
     <env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
     <arg line="xtumlmc_gen_erate -nopersist
-      -import ../${mcj_path}/ooa_schema.sql
+      -import ${mcj_path}/ooa_schema.sql
       -import ../${core_path}/${class2table.input}
       -import ../${canvas_path}/${graphics.model}
       -arch ../${iocore_path}/arc/class2table.arc" />
@@ -64,8 +64,8 @@
   <target name="import.depends" >
     <uptodate property="import.buildNotNeeded" targetfile="${import.output}">
        <srcfiles dir = "arc"        includes = "gen_import_java.arc,gen_xtuml_import_java.arc, gen_stream_import.arc"/>
-       <srcfiles dir = "${iocore_path}/arc"		includes = "gen_import_java.inc,import_functions.inc,generate_configurable_components.inc" />
-       <srcfiles dir = "${iocore_path}/sql"		includes = "${schema}" />
+       <srcfiles dir = "${iocore_path}/arc"     includes = "gen_import_java.inc,import_functions.inc,generate_configurable_components.inc" />
+       <srcfiles dir = "${iocore_path}/sql"     includes = "${schema}" />
      <srcfiles dir = "${core_path}/color" includes = "ooaofooa_package_spec.clr" />
      <srcfiles dir = "${core_path}/sql" includes = "${sql.output}" />
        <srcfiles dir = "sql"        includes = "${class2table.output},file_io.pei.sql"/>
@@ -80,8 +80,8 @@
   <target name="export.depends" >
     <uptodate property="export.buildNotNeeded" targetfile="${export.output}">
        <srcfiles dir = "arc"        includes = "gen_export_java.arc,gen_xtuml_export_java.arc"/>
-       <srcfiles dir = "${iocore_path}/arc"		includes = "gen_export_java.inc,export_functions.inc,generate_configurable_components.inc" />
-       <srcfiles dir = "${iocore_path}/sql"		includes = "${schema}" />
+       <srcfiles dir = "${iocore_path}/arc"     includes = "gen_export_java.inc,export_functions.inc,generate_configurable_components.inc" />
+       <srcfiles dir = "${iocore_path}/sql"     includes = "${schema}" />
      <srcfiles dir = "${core_path}/color" includes = "ooaofooa_package_spec.clr" />
      <srcfiles dir = "${core_path}/sql" includes = "${sql.output}" />
        <srcfiles dir = "sql"        includes = "${class2table.output},file_io.pei.sql"/>
@@ -92,8 +92,8 @@
   <target name="export_stream.depends" >
     <uptodate property="export_stream.buildNotNeeded" targetfile="${export_stream.output}">
        <srcfiles dir = "arc"        includes = "gen_stream_export.arc"/>
-       <srcfiles dir = "${iocore_path}/arc"		includes = "gen_export_java.inc, export_functions.inc,generate_configurable_components.inc" />
-       <srcfiles dir = "${iocore_path}/sql"		includes = "${schema}" />
+       <srcfiles dir = "${iocore_path}/arc"     includes = "gen_export_java.inc, export_functions.inc,generate_configurable_components.inc" />
+       <srcfiles dir = "${iocore_path}/sql"     includes = "${schema}" />
         <srcfiles dir = "${core_path}/color" includes = "ooaofooa_package_spec.clr" />
        <srcfiles dir = "${core_path}/sql" includes = "${sql.output}" />
        <srcfiles dir = "${core_path}/arc" includes = "parse_chain.inc" />
@@ -107,8 +107,8 @@
   <target name="persistence_meta_data.depends" >
       <uptodate property="persistence_meta_data.buildNotNeeded" targetfile="${persistence_meta_data.output}">
          <srcfiles dir = "arc"        includes = "create_persistence_meta_data.arc,"/>
-         <srcfiles dir = "${iocore_path}/arc"		includes = "generate_configurable_components.inc" />
-         <srcfiles dir = "${iocore_path}/sql"		includes = "${schema}" />
+         <srcfiles dir = "${iocore_path}/arc"      includes = "generate_configurable_components.inc" />
+         <srcfiles dir = "${iocore_path}/sql"      includes = "${schema}" />
        <srcfiles dir = "${core_path}/color" includes = "ooaofooa_package_spec.clr" />
        <srcfiles dir = "${core_path}/sql" includes = "${sql.output}" />
          <srcfiles dir = "sql"        includes = "${class2table.output},file_io.pei.sql"/>
@@ -121,8 +121,8 @@
   <target name="uuid_convert_util.depends" >
       <uptodate property="uuid_convert_util.buildNotNeeded" targetfile="${uuid_convert_util.output}">
          <srcfiles dir = "arc"        includes = "gen_uuid_convert_util.arc"/>
-         <srcfiles dir = "${iocore_path}/arc"		includes = "generate_configurable_components.inc" />
-         <srcfiles dir = "${iocore_path}/sql"		includes = "${schema}" />
+         <srcfiles dir = "${iocore_path}/arc"      includes = "generate_configurable_components.inc" />
+         <srcfiles dir = "${iocore_path}/sql"      includes = "${schema}" />
        <srcfiles dir = "${core_path}/color" includes = "ooaofooa_package_spec.clr" />
          <srcfiles dir = "sql"        includes = "${class2table.output},file_io.pei.sql"/>
          <srcfiles dir = "${mcj_path}" includes = "arch_utils.inc"/>
@@ -166,7 +166,7 @@
   <exec vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
         <env key="PTC_MC_ARC_DIR" value="${mcj_path}"/>
         <env key="CORE_ARC_DIR" value="../org.xtuml.bp.core/arc"/>
-      	<env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
+         <env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
     <arg line="xtumlmc_gen_erate -f gen_oal.gen
       -arch arc/gen_import_java.arc
       -arch arc/gen_xtuml_import_java.arc
@@ -203,7 +203,7 @@
   <exec vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
         <env key="PTC_MC_ARC_DIR" value="${mcj_path}"/>
         <env key="CORE_ARC_DIR" value="../org.xtuml.bp.core/arc"/>
-      	<env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
+         <env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
     <arg line="xtumlmc_gen_erate -f gen_stream.gen
       -import ${iocore_path}/sql/${schema}
       -import ${mcj_path}/ooa_schema.sql
@@ -228,7 +228,7 @@
       <env key="PTC_MC_ARC_DIR" value="${mcj_path}"/>
       <env key="IO_CORE_ARC_DIR" value="${iocore_path}/arc"/>
       <env key="CORE_ARC_DIR" value="../org.xtuml.bp.core/arc"/>
-	  <env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
+     <env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
       <arg line="xtumlmc_gen_erate -f gen_oal.gen
         -arch arc/gen_uuid_convert_util.arc" />
     </exec>
@@ -259,8 +259,8 @@
   <target name="external_link_evaluator.depends" >
     <uptodate property="external_link_evaluator.buildNotNeeded" targetfile="${external_link_evaluator.output}">
          <srcfiles dir = "arc"        includes = "create_external_link_evaluator.arc"/>
-         <srcfiles dir = "${iocore_path}/arc"		includes = "generate_configurable_components.inc" />
-         <srcfiles dir = "${iocore_path}/sql"		includes = "${schema}" />
+         <srcfiles dir = "${iocore_path}/arc"      includes = "generate_configurable_components.inc" />
+         <srcfiles dir = "${iocore_path}/sql"      includes = "${schema}" />
        <srcfiles dir = "${core_path}/color" includes = "ooaofooa_package_spec.clr" />
        <srcfiles dir = "${core_path}/sql" includes = "${sql.output}" />
          <srcfiles dir = "sql"        includes = "${class2table.output},file_io.pei.sql"/>
@@ -283,74 +283,74 @@
   <touch file="${external_link_evaluator.output}" />
   </target>
 
-	
-	<target name="gen_test_file"
-	          depends="create_gen.depends"
-	          description="Test the instance population" >
-	    <echo >Testing the instance population of what would be in gen_oal.gen...</echo>
-	  <exec vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
-	    <env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
-	    <env key="PTC_MC_ARC_DIR" value="${mcj_path}"/>
-	    <env key="CORE_ARC_DIR" value="../org.xtuml.bp.core/arc"/>
-	    <env key="IO_CORE_ARC_DIR" value="${iocore_path}/arc"/>
-	    <arg line="xtumlmc_gen_erate -nopersist
+   
+   <target name="gen_test_file"
+             depends="create_gen.depends"
+             description="Test the instance population" >
+       <echo >Testing the instance population of what would be in gen_oal.gen...</echo>
+     <exec vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
+       <env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
+       <env key="PTC_MC_ARC_DIR" value="${mcj_path}"/>
+       <env key="CORE_ARC_DIR" value="../org.xtuml.bp.core/arc"/>
+       <env key="IO_CORE_ARC_DIR" value="${iocore_path}/arc"/>
+       <arg line="xtumlmc_gen_erate -nopersist
 
-	      -import ${iocore_path}/sql/${schema}
-	      -import ${mcj_path}/ooa_schema.sql
-	      -import ${core_path}/sql/${sql.output}
-	      -import ${canvas_path}/sql/ooaofgraphics.sql
-	      -import sql/${class2table.output}
-	      -import sql/file_io.pei.sql
-	      -arch /home/robertmulvey/xtuml/BridgePoint/eclipse/check_instances.arc" />
-	  </exec>
-	</target>	
-	<target name="gen_test_stream"
-	          depends="create_gen.depends"
-	          description="Test the instance population" >
-	    <echo >Testing the instance population of what would be in gen_oal.gen...</echo>
-	  <exec vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
-	    <env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
-	    <env key="PTC_MC_ARC_DIR" value="${mcj_path}"/>
-	    <env key="CORE_ARC_DIR" value="../org.xtuml.bp.core/arc"/>
-	    <env key="IO_CORE_ARC_DIR" value="${iocore_path}/arc"/>
-	    <arg line="xtumlmc_gen_erate -nopersist
+         -import ${iocore_path}/sql/${schema}
+         -import ${mcj_path}/ooa_schema.sql
+         -import ${core_path}/sql/${sql.output}
+         -import ${canvas_path}/sql/ooaofgraphics.sql
+         -import sql/${class2table.output}
+         -import sql/file_io.pei.sql
+         -arch /home/robertmulvey/xtuml/BridgePoint/eclipse/check_instances.arc" />
+     </exec>
+   </target>   
+   <target name="gen_test_stream"
+             depends="create_gen.depends"
+             description="Test the instance population" >
+       <echo >Testing the instance population of what would be in gen_oal.gen...</echo>
+     <exec vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
+       <env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
+       <env key="PTC_MC_ARC_DIR" value="${mcj_path}"/>
+       <env key="CORE_ARC_DIR" value="../org.xtuml.bp.core/arc"/>
+       <env key="IO_CORE_ARC_DIR" value="${iocore_path}/arc"/>
+       <arg line="xtumlmc_gen_erate -nopersist
 
-	      -import ${iocore_path}/sql/${schema}
-	      -import ${mcj_path}/ooa_schema.sql
-	      -import ${core_path}/sql/${sql.output}
-	      -import ${canvas_path}/sql/ooaofgraphics.sql
-	      -import sql/${class2table.output}
-	      -import sql/stream.pei.sql
-	      -arch /home/robertmulvey/xtuml/BridgePoint/eclipse/check_instances.arc" />
-	  </exec>
-	</target>	
-	<target name="gen_all"
-	          depends="class2table,create_gen.depends"
-	          description="Create the generation database"
-	          unless="create_gen.buildNotNeeded" >
-	    <echo >Generating all.  This replace the targets that use the intermediate gen_oal.gen file ...</echo>
-	  <exec vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
-	    <env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
-	    <env key="PTC_MC_ARC_DIR" value="${mcj_path}"/>
-	    <env key="CORE_ARC_DIR" value="../org.xtuml.bp.core/arc"/>
-	    <env key="IO_CORE_ARC_DIR" value="${iocore_path}/arc"/>
-	    <arg line="xtumlmc_gen_erate -nopersist
+         -import ${iocore_path}/sql/${schema}
+         -import ${mcj_path}/ooa_schema.sql
+         -import ${core_path}/sql/${sql.output}
+         -import ${canvas_path}/sql/ooaofgraphics.sql
+         -import sql/${class2table.output}
+         -import sql/stream.pei.sql
+         -arch /home/robertmulvey/xtuml/BridgePoint/eclipse/check_instances.arc" />
+     </exec>
+   </target>   
+   <target name="gen_all"
+             depends="class2table,create_gen.depends"
+             description="Create the generation database"
+             unless="create_gen.buildNotNeeded" >
+       <echo >Generating all.  This replace the targets that use the intermediate gen_oal.gen file ...</echo>
+     <exec vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
+       <env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
+       <env key="PTC_MC_ARC_DIR" value="${mcj_path}"/>
+       <env key="CORE_ARC_DIR" value="../org.xtuml.bp.core/arc"/>
+       <env key="IO_CORE_ARC_DIR" value="${iocore_path}/arc"/>
+       <arg line="xtumlmc_gen_erate -nopersist
 
-	      -import ${iocore_path}/sql/${schema}
-	      -import ${mcj_path}/ooa_schema.sql
-	      -import ${core_path}/sql/${sql.output}
-	      -import ${canvas_path}/sql/ooaofgraphics.sql
-	      -import sql/${class2table.output}
-	      -import sql/file_io.pei.sql
+         -import ${iocore_path}/sql/${schema}
+         -import ${mcj_path}/ooa_schema.sql
+         -import ${core_path}/sql/${sql.output}
+         -import ${canvas_path}/sql/ooaofgraphics.sql
+         -import sql/${class2table.output}
+         -import sql/file_io.pei.sql
 
-	      -arch arc/gen_import_java.arc
-		  -arch arc/gen_xtuml_import_java.arc
-	      -arch arc/gen_stream_import.arc
-	      -arch arc/gen_export_java.arc
-	      -arch arc/gen_xtuml_export_java.arc" />
-	  </exec>
-	  <touch file="${external_link_evaluator.output}" />
-	</target>	
+         -arch arc/gen_import_java.arc
+        -arch arc/gen_xtuml_import_java.arc
+         -arch arc/gen_stream_import.arc
+         -arch arc/gen_export_java.arc
+         -arch arc/gen_xtuml_export_java.arc" />
+     </exec>
+     <touch file="${external_link_evaluator.output}" />
+   </target>   
   <target name="format_java"
         description="Format the generated java source" >
 

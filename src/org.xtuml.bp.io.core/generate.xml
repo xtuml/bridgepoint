@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="bp.io.core" default="all" basedir=".">
 
-  <import file="../MC-Java/common.xml"/>
+  <import file="${mcj_path}/common.xml"/>
 
   <target name="all"
           description="Generate all code for this project"
@@ -29,10 +29,10 @@
           description="Generate the sql version of the File IO model"
           unless="sql.buildNotNeeded" >
     <echo >Generating ${sql.output} ...</echo>
-  	<copy file="../org.xtuml.bp.pkg/globals/Globals.xtuml" tofile="${sql.input}/Globals.xtuml" />
-  	<exec vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
+   <copy file="../org.xtuml.bp.pkg/globals/Globals.xtuml" tofile="${sql.input}/Globals.xtuml" />
+   <exec vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
       <arg line="xtumlmc_cleanse_for_BridgePoint ${sql.input} sql/${sql.output} ${subsystems_to_remove}"/>
-  	</exec>
+   </exec>
     <delete file="${sql.input}/Globals.xtuml" />
   </target>
 
@@ -54,7 +54,7 @@
   <ant antfile="${mcj_path}/build.xml" target="generate.schema" useNativeBasedir="false">
     <property name="param1" value="${sql.output}" />
     <property name="param2" value="${mcj_path}" />
-  	<property name="param4" value="file_io" />
+   <property name="param4" value="file_io" />
   </ant>
   <!-- Need to touch the output file for the case where the input data
        changed, but the output didn't -->
@@ -103,13 +103,13 @@
 
     <echo >Eclipse home: ${eclipse.home}</echo>
     <echo >Plugins home: ${plugins-home}</echo>
-  	
+   
     <antlr target="${grammar-folder}/sql_insert.g" >
       <classpath>
-  	    <fileset dir="${plugins-home}/plugins" casesensitive="yes">
-  	      <include name="**/antlr.jar" />
-  	    </fileset>
-  	  </classpath>
+       <fileset dir="${plugins-home}/plugins" casesensitive="yes">
+         <include name="**/antlr.jar" />
+       </fileset>
+     </classpath>
     </antlr>
 
   </target>
@@ -130,20 +130,20 @@
 
     <echo >Eclipse home: ${eclipse.home}</echo>
     <echo >Plugins home: ${plugins-home}</echo>
-  	
+   
     <antlr target="${grammar-folder}/actions.g" >
       <classpath>
-  	    <fileset dir="${plugins-home}/plugins" casesensitive="yes">
-  	      <include name="**/antlr.jar" />
-  	    </fileset>
-  	  </classpath>
+       <fileset dir="${plugins-home}/plugins" casesensitive="yes">
+         <include name="**/antlr.jar" />
+       </fileset>
+     </classpath>
     </antlr>
     <antlr target="${grammar-folder}/body.g" >
       <classpath>
-  	    <fileset dir="${plugins-home}/plugins" casesensitive="yes">
-  	      <include name="**/antlr.jar" />
-  	    </fileset>
-  	  </classpath>
+       <fileset dir="${plugins-home}/plugins" casesensitive="yes">
+         <include name="**/antlr.jar" />
+       </fileset>
+     </classpath>
     </antlr>
 
   </target>
