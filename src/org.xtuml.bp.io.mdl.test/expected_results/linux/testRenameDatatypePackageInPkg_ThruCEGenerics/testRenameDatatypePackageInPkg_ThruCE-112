@@ -1,7 +1,7 @@
 drawRectangle(...)
 drawRectangle(...)
 drawText("«package»", ...)
-drawText("+SubDataTypes_n_n_n...", ...)
+drawText("+SubDataTypes_n_n_n_n", ...)
 drawRectangle(...)
 drawRectangle(...)
 drawText("«package»", ...)

@@ -80,7 +80,6 @@ import junit.framework.TestSuite;
 		AssignRemoveEventsGenerics.class, 
 		CantHappenEvtIgnoreEvtTestsGenerics.class,
 		OperationsTestGenerics.class,
-		DeleteTestGenerics.class,
 		TigerNatureTestGenerics.class,
 		// Travis says these tests are not ready to use yet (11-25-2016). ReferenceResolutionOnLoadTest.class
 })

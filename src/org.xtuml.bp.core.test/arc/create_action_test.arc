@@ -298,7 +298,7 @@
             LeafSymbolicConstant_c.getOneCNST_LFSCOnR1503(t1));
         t2.setName("${oldName}");
 
-        TestUtil.dismissDialog(500);
+        TestUtil.dismissDialog(100);
 
         updateTreeItem( t1, "${newName}", ${useFocus} );
         
@@ -306,7 +306,7 @@
   .elif ( action.Key_Lett == "O_ATTR" )
         t1.setRoot_nam("${oldName}");
 
-        TestUtil.dismissDialog(500);
+        TestUtil.dismissDialog(100);
 
         updateTreeItem( t1, "${newName}", ${useFocus} );
 
@@ -314,7 +314,7 @@
   .elif((action.Key_Lett == "MSG_A") or (action.Key_Lett == "SM_SGEVT"))
         t1.setInformalname("${oldName}");
 
-        TestUtil.dismissDialog(500);
+        TestUtil.dismissDialog(100);
 
         updateTreeItem( t1, "${newName}", ${useFocus} );
 
@@ -322,7 +322,7 @@
   .else
         t1.setName("${oldName}");
 
-        TestUtil.dismissDialog(500);
+        TestUtil.dismissDialog(100);
 
         updateTreeItem( t1, "${newName}", ${useFocus} );
         

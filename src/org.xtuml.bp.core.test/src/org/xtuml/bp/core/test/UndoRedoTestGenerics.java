@@ -23,9 +23,12 @@
 package org.xtuml.bp.core.test;
 
 import java.awt.geom.Point2D;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.gef.tools.AbstractTool;
 import org.eclipse.jface.action.Action;
@@ -41,6 +44,7 @@ import org.xtuml.bp.core.End_c;
 import org.xtuml.bp.core.ModelClass_c;
 import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.Package_c;
+import org.xtuml.bp.core.common.NonRootModelElement;
 import org.xtuml.bp.core.common.TransactionManager;
 import org.xtuml.bp.core.ui.DeleteAction;
 import org.xtuml.bp.core.ui.Selection;
@@ -349,10 +353,9 @@ public class UndoRedoTestGenerics extends CanvasTest {
 
 		IFile classFile = modelClass.getFile();
 		// make sure the class was persisted
-		TigerNatureTestGenerics tnt = new TigerNatureTestGenerics();
 		try {
-			assertTrue("create was not persisted.", tnt.checkIfPersisted(
-					project, modelClass, tnt.getClassString(modelClass)));
+			assertTrue("create was not persisted.", checkIfPersisted(
+					project, modelClass, getClassString(modelClass)));
 		} catch (IOException e) {
 			fail("Unable to open class file to check persistence");
 		}
@@ -372,8 +375,8 @@ public class UndoRedoTestGenerics extends CanvasTest {
 		transactionManager.getUndoAction().run();
 
 		try {
-			assertTrue("Undo revert was not persisted.", tnt.checkIfPersisted(
-					project, modelClass, tnt.getClassString(modelClass)));
+			assertTrue("Undo revert was not persisted.", checkIfPersisted(
+					project, modelClass, getClassString(modelClass)));
 		} catch (IOException e) {
 			fail("Unable to open class file to check persistence "
 					+ e.getMessage());
@@ -441,6 +444,113 @@ public class UndoRedoTestGenerics extends CanvasTest {
 		validateOrGenerateResults(baseEditor, generateResults);
 		resultNamePostFix = "";
 	}
+	
+	public boolean checkIfPersisted(IProject project, NonRootModelElement me,
+			String statement) throws IOException {
+		IFile file = me.getFile();
+
+		File diskModelFile = file.getLocation().toFile();
+		boolean result = searchForInsertStatement(statement, diskModelFile);
+		return result;
+	}
+
+	public String getClassString(ModelClass_c modelClass) {
+		String classInsert = "O_OBJ\n\tVALUES (" + '"' + modelClass.getObj_id()
+				+ '"' + ",\n\t'" + modelClass.getName() + "',\n\t"
+				+ modelClass.getNumb() + ",\n\t'" + modelClass.getKey_lett()
+				+ "',\n\t'" + modelClass.getDescrip() + "',\n\t" + '"'
+				+ modelClass.getSs_id() + '"' + ");";
+		return classInsert;
+	}
+	
+	public boolean searchForInsertStatement(String statement, File file)
+			throws IOException {
+		FileInputStream fis = new FileInputStream(file);
+		String startOf = "INSERT INTO ";
+		String endOf = ";";
+		byte[] byteBeingProcessed = new byte[1];
+		byte[] startOfStatement = new byte[startOf.toCharArray().length];
+		String startOfStatementString = "";
+		String statementReadString = "";
+		boolean result = false;
+		int x = 0;
+		int n = 0;
+		x = processLineUntilNL(fis, x);
+		while (!startOfStatementString.equals(startOf)) {
+			fis.read(startOfStatement);
+			startOfStatementString = new String(startOfStatement);
+			if (startOfStatementString.equals(startOf)) {
+				x = x + startOfStatement.length;
+				byte statementRead[] = new byte[statement.length()];
+				int y = 0;
+				String stringBeingProcessed = "";
+				while (!stringBeingProcessed.equals(endOf)) {
+					byteBeingProcessed = new byte[1];
+					x = x + 1;
+					fis.read(byteBeingProcessed);
+					if (y < statementRead.length) {
+						statementRead[y] = byteBeingProcessed[0];
+					}
+					y = y + 1;
+					statementReadString = new String(statementRead);
+					stringBeingProcessed = new String(byteBeingProcessed);
+					if (stringBeingProcessed.equals(endOf)) {
+						// Check next chars for \nINSERT INTO
+						String nextStartOfStatementString = "";
+						byte[] nextStartOfStatement = new byte[startOfStatement.length + 1];
+						n = fis.read(nextStartOfStatement);
+						nextStartOfStatementString = new String(
+								nextStartOfStatement);
+						String startOfStmt = new String("\n" + startOf);
+						if (!nextStartOfStatementString.equals(startOfStmt)) {
+							if ((x + nextStartOfStatement.length) < file
+									.length()) {
+								// found ; in action language keep processing
+								stringBeingProcessed = "";
+								fis.close();
+								fis = new FileInputStream(file);
+								fis.skip(x);
+							}
+						}
+					}
+				}
+				if (statementReadString.equals(statement)) {
+					fis.close();
+					result = true;
+					break;
+				} else {
+					startOfStatementString = "";
+					if (n == 1) {
+						fis.close();
+						break;
+					}
+				}
+			} else {
+				fis.close();
+				fis = new FileInputStream(file);
+				fis.skip(x);
+				x = processLineUntilNL(fis, x);
+			}
+		}
+		//}
+		return result;
+	}
+
+
+	private static int processLineUntilNL(FileInputStream fis, int x)
+			throws IOException {
+		String stringBeingProcessed = "";
+		byte[] byteBeingProcessed = new byte[1];
+		while (!stringBeingProcessed.equals("\n")) {
+			x = x + 1;
+			fis.read(byteBeingProcessed);
+			stringBeingProcessed = new String(byteBeingProcessed);
+		}
+		return x;
+	}
+
+
+
 
 	protected String getResultName() {
 		return "UndoRedo" + "_" + test_id;

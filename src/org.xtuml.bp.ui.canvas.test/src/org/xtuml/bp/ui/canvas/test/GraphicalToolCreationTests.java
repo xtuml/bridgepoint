@@ -89,9 +89,7 @@ public class GraphicalToolCreationTests extends BaseTest {
 		CanvasTestUtilities.createMouseEvent(500, 100, "MouseUp");
 		CanvasTestUtilities.createMouseEvent(250, 300, "MouseDown");
 		CanvasTestUtilities.createMouseEvent(250, 300, "MouseUp");
-		while(!checkDialogComplete) {
-			while(PlatformUI.getWorkbench().getDisplay().readAndDispatch());
-		}
+		BaseTest.dispatchEvents(0);
 		checkDialogComplete = false;
 		ModelClass_c[] classes = ModelClass_c
 				.getManyO_OBJsOnR8001(PackageableElement_c
