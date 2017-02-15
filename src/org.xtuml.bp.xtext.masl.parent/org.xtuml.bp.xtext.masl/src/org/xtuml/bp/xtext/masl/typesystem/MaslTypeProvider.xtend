@@ -627,7 +627,9 @@ class MaslTypeProvider {
 		switch a.primitiveType {
 			case LONG_INTEGER:
 				if (a == b)
-					return a 
+					return a
+				else if (b.primitiveType == LONG_INTEGER)
+					return ANONYMOUS_LONG_INTEGER 
 				else if (b.primitiveType == REAL) 
 					return ANONYMOUS_REAL
 			case REAL: {
