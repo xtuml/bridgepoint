@@ -64,7 +64,6 @@ import org.xtuml.bp.core.PackageableElement_c;
 import org.xtuml.bp.core.SystemModel_c;
 import org.xtuml.bp.core.XtUMLNature;
 import org.xtuml.bp.core.common.BridgePointPreferencesStore;
-import org.xtuml.bp.core.common.ClassQueryInterface_c;
 import org.xtuml.bp.core.common.PersistableModelComponent;
 import org.xtuml.bp.core.common.PersistenceManager;
 import org.xtuml.bp.core.common.Transaction;
@@ -335,34 +334,18 @@ public class TigerNatureTestGenerics extends CanvasTest {
 	@Test
 	public void testCancelAddToIdentifier() throws Exception {
 
-		IProject descriptionPersistenceProject = ResourcesPlugin.getWorkspace()
-				.getRoot().getProject("DescriptionPersistenceTestProject");
-		String modelRootId = Ooaofooa.createModelRootId(
-				descriptionPersistenceProject, "DescriptionPersistencePkg1",
-				true);
-
-		Ooaofooa packageModelRoot = Ooaofooa.getInstance(modelRootId);
-		Package_c dom = Package_c.PackageInstance(packageModelRoot);
-		PackageableElement_c[] temp = PackageableElement_c
-				.getManyPE_PEsOnR8000(dom);
-
-		Package_c subsystem = Package_c.getOneEP_PKGOnR8001(temp);
-		temp = PackageableElement_c.getManyPE_PEsOnR8000(subsystem);
-
-		ModelClass_c testclass = ModelClass_c.getOneO_OBJOnR8001(temp,
-				new ClassQueryInterface_c() {
-
-					public boolean evaluate(Object candidate) {
-						ModelClass_c selected = (ModelClass_c) candidate;
-						return selected.getName().equals(
-								"TestDescriptionClass 1");
-					}
-
-				});
+		TestUtil.executeInTransaction(m_sys, "Newpackage", new Object[0]);
+		Package_c pkg = Package_c.getOneEP_PKGOnR1401(m_sys);
+		
+		TestUtil.executeInTransaction(pkg, "Newclass", new Object[0]);
+		
+		
+		ModelClass_c testclass = ModelClass_c.getOneO_OBJOnR8001(PackageableElement_c.getManyPE_PEsOnR8000(pkg));
+		
 		testclass.Newattribute();
 		Attribute_c attr = Attribute_c.getOneO_ATTROnR102(testclass);
 
-		IFile mrFile = packageModelRoot.getFile();
+		IFile mrFile = pkg.getFile();
 		assertNotNull(mrFile);
 		long start = mrFile.getModificationStamp();
 
