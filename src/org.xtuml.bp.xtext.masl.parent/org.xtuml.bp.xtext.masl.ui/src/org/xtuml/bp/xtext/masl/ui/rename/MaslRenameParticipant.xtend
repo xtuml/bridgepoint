@@ -52,7 +52,14 @@ class MaslRenameParticipant implements IRenameElementParticipant {
 				index.getExportedObjects(eClass as EClass, name, false)
 			].flatten
 			.toSet
-			.filter[EClass==parameter || EObjectURI.fileExtension == 'mod' || EObjectURI.fileExtension == 'int']
+			.filter[
+				EObjectURI.isPlatformResource && EObjectURI.segment(2) == 'models'
+				&& (
+					EClass==parameter 
+					|| EObjectURI.fileExtension == 'mod' 
+					|| EObjectURI.fileExtension == 'int'					
+				)
+			]
 			.map[EObjectURI -> EClass]
 		return new XtumlRenameElementContext(uri2eClass)
 	}
