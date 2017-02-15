@@ -148,7 +148,7 @@ class MASLExtensions {
 			val entries = index.getExportedObjects(definitionClass, declaration.fullyQualifiedName, false)
 			return entries.map[EcoreUtil.resolve(EObjectOrProxy, declaration)]
 		}
-		return null
+		return emptyList
 	}
 
 	def Iterable<EObject> getDeclarations(EObject definition, EClass declarationClass, ISelectable index) {

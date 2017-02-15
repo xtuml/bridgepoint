@@ -107,6 +107,11 @@ class TypeProviderTest extends AbstractMaslModelTest {
 	}
 	
 	@Test 
+	def void testBug9184() {
+		assertType('bar / 2', 'bar: long_integer', 'anonymous long_integer')
+	}
+	
+	@Test 
 	def void testMultiplicativeCollectionOperators() {
 		'b intersection b'.assertType('b: bag of integer', 'bag of integer')
 		's intersection s'.assertType('s: sequence of integer', 'sequence of integer')

@@ -583,5 +583,10 @@
 			name="Partial MASL Editor">
 		</editor>
 	</extension>
-	
+    <extension
+         point="org.xtuml.bp.core.renameParticipants">
+      <renameParticipant
+            class="org.xtuml.bp.xtext.masl.ui.MASLExecutableExtensionFactory:org.xtuml.bp.xtext.masl.ui.rename.MaslRenameParticipant">
+      </renameParticipant>
+    </extension>
 </plugin>

@@ -1,7 +1,6 @@
 package org.xtuml.bp.xtext.masl.typesystem
 
 import com.google.inject.Inject
-import org.apache.log4j.Logger
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.xtend.lib.annotations.Data
 import org.xtuml.bp.xtext.masl.MASLExtensions
@@ -59,6 +58,7 @@ import org.xtuml.bp.xtext.masl.masl.behavior.VariableDeclaration
 import org.xtuml.bp.xtext.masl.masl.behavior.WhileStatement
 import org.xtuml.bp.xtext.masl.masl.structure.AbstractActionDefinition
 import org.xtuml.bp.xtext.masl.masl.structure.AbstractFeature
+import org.xtuml.bp.xtext.masl.masl.structure.AbstractService
 import org.xtuml.bp.xtext.masl.masl.structure.AssocRelationshipDefinition
 import org.xtuml.bp.xtext.masl.masl.structure.AttributeDefinition
 import org.xtuml.bp.xtext.masl.masl.structure.EventDefinition
@@ -94,11 +94,8 @@ import org.xtuml.bp.xtext.masl.masl.types.TypeDeclaration
 import org.xtuml.bp.xtext.masl.masl.types.UnconstrainedArrayDefinition
 
 import static org.xtuml.bp.xtext.masl.typesystem.BuiltinType.*
-import org.xtuml.bp.xtext.masl.masl.structure.AbstractService
 
 class MaslTypeProvider {
-
-	static val LOG = Logger.getLogger(MaslTypeProvider)
 	
 	@Inject extension MASLExtensions
 	@Inject extension TypeParameterResolver
@@ -149,7 +146,6 @@ class MaslTypeProvider {
 					throw new UnsupportedOperationException('Missing type for ' + eClass?.name)
 			}
 		} catch (Exception exc) {
-			LOG.error(exc.message)
 			return MISSING_TYPE
 		}
 	}
@@ -627,7 +623,9 @@ class MaslTypeProvider {
 		switch a.primitiveType {
 			case LONG_INTEGER:
 				if (a == b)
-					return a 
+					return a
+				else if (b.primitiveType == LONG_INTEGER)
+					return ANONYMOUS_LONG_INTEGER 
 				else if (b.primitiveType == REAL) 
 					return ANONYMOUS_REAL
 			case REAL: {

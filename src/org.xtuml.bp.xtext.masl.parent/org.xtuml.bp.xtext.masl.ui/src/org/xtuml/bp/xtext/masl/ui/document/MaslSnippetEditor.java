@@ -15,6 +15,7 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.texteditor.IDocumentProvider;
+import org.eclipse.ui.texteditor.IElementStateListener;
 import org.eclipse.xtext.ui.IImageHelper;
 import org.eclipse.xtext.ui.editor.XtextEditor;
 import org.eclipse.xtext.xbase.lib.ObjectExtensions;
@@ -26,6 +27,8 @@ import org.xtuml.bp.xtext.masl.ui.document.MaslDocumentProvider;
 public class MaslSnippetEditor extends XtextEditor {
   @Inject
   private IImageHelper imageHelper;
+  
+  private Label signatureLabel;
   
   @Override
   public boolean isSaveAsAllowed() {
@@ -48,10 +51,10 @@ public class MaslSnippetEditor extends XtextEditor {
         };
         GridLayout _doubleArrow = ObjectExtensions.<GridLayout>operator_doubleArrow(_gridLayout, _function);
         comp.setLayout(_doubleArrow);
-        final Label label = new Label(comp, SWT.WRAP);
+        Label _label = new Label(comp, SWT.WRAP);
+        this.signatureLabel = _label;
         Font _font = JFaceResources.getFont(JFaceResources.TEXT_FONT);
-        label.setFont(_font);
-        label.setText(header);
+        this.signatureLabel.setFont(_font);
         super.createPartControl(comp);
         Control[] _children = comp.getChildren();
         Control _get = _children[1];
@@ -67,15 +70,38 @@ public class MaslSnippetEditor extends XtextEditor {
       } else {
         super.createPartControl(parent);
       }
-      final String prefix = maslDocumentProvider.getPrefix(((AbstractModelElementPropertyEditorInput)input));
-      final String editable = maslDocumentProvider.getEditable(((AbstractModelElementPropertyEditorInput)input));
-      ISourceViewer _sourceViewer = this.getSourceViewer();
-      int _length = prefix.length();
-      int _length_1 = editable.length();
-      _sourceViewer.setVisibleRegion(_length, _length_1);
+      this.updateLabelAndVisibleRegion(maslDocumentProvider, ((AbstractModelElementPropertyEditorInput)input));
     } else {
       super.createPartControl(parent);
     }
+    IDocumentProvider _documentProvider_1 = this.getDocumentProvider();
+    _documentProvider_1.addElementStateListener(new IElementStateListener() {
+      @Override
+      public void elementContentAboutToBeReplaced(final Object element) {
+      }
+      
+      @Override
+      public void elementContentReplaced(final Object element) {
+        IEditorInput _editorInput = MaslSnippetEditor.this.getEditorInput();
+        if ((_editorInput instanceof AbstractModelElementPropertyEditorInput)) {
+          IDocumentProvider _documentProvider = MaslSnippetEditor.this.getDocumentProvider();
+          IEditorInput _editorInput_1 = MaslSnippetEditor.this.getEditorInput();
+          MaslSnippetEditor.this.updateLabelAndVisibleRegion(((MaslDocumentProvider) _documentProvider), ((AbstractModelElementPropertyEditorInput) _editorInput_1));
+        }
+      }
+      
+      @Override
+      public void elementDeleted(final Object element) {
+      }
+      
+      @Override
+      public void elementDirtyStateChanged(final Object element, final boolean isDirty) {
+      }
+      
+      @Override
+      public void elementMoved(final Object originalElement, final Object movedElement) {
+      }
+    });
   }
   
   @Override
@@ -90,5 +116,23 @@ public class MaslSnippetEditor extends XtextEditor {
       _xifexpression = super.getDefaultImage();
     }
     return _xifexpression;
+  }
+  
+  public void updateLabelAndVisibleRegion(final MaslDocumentProvider maslDocumentProvider, final AbstractModelElementPropertyEditorInput input) {
+    String _name = input.getName();
+    this.setPartName(_name);
+    final String prefix = maslDocumentProvider.getPrefix(input);
+    final String editable = maslDocumentProvider.getEditable(input);
+    ISourceViewer _sourceViewer = this.getSourceViewer();
+    int _length = prefix.length();
+    int _length_1 = editable.length();
+    _sourceViewer.setVisibleRegion(_length, _length_1);
+    boolean _notEquals = (!Objects.equal(this.signatureLabel, null));
+    if (_notEquals) {
+      String _header = maslDocumentProvider.getHeader(input);
+      this.signatureLabel.setText(_header);
+      Composite _parent = this.signatureLabel.getParent();
+      _parent.layout(true);
+    }
   }
 }
