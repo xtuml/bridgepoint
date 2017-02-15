@@ -83,6 +83,7 @@ class MaslSnippetEditor extends XtextEditor {
 		sourceViewer.setVisibleRegion(prefix.length, editable.length)
 		if(signatureLabel != null) {
 			signatureLabel.text = maslDocumentProvider.getHeader(input)
+			signatureLabel.parent.layout(true)
 		}
 	}
 }

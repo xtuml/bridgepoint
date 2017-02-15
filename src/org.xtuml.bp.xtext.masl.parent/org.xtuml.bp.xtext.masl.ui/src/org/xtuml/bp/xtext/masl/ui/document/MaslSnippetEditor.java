@@ -131,6 +131,8 @@ public class MaslSnippetEditor extends XtextEditor {
     if (_notEquals) {
       String _header = maslDocumentProvider.getHeader(input);
       this.signatureLabel.setText(_header);
+      Composite _parent = this.signatureLabel.getParent();
+      _parent.layout(true);
     }
   }
 }
