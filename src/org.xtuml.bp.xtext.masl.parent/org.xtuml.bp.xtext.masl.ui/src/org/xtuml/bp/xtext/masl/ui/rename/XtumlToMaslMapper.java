@@ -25,6 +25,7 @@ import org.xtuml.bp.core.ModelClass_c;
 import org.xtuml.bp.core.OperationParameter_c;
 import org.xtuml.bp.core.Operation_c;
 import org.xtuml.bp.core.Port_c;
+import org.xtuml.bp.core.PropertyParameter_c;
 import org.xtuml.bp.core.ProvidedExecutableProperty_c;
 import org.xtuml.bp.core.ProvidedOperation_c;
 import org.xtuml.bp.core.Provision_c;
@@ -203,6 +204,13 @@ public class XtumlToMaslMapper {
       }
     }
     if (!_matched) {
+      if (xtumlElement instanceof PropertyParameter_c) {
+        _matched=true;
+        EClass _parameter = this._structurePackage.getParameter();
+        _switchResult = Collections.<EClass>unmodifiableList(CollectionLiterals.<EClass>newArrayList(_parameter));
+      }
+    }
+    if (!_matched) {
       if (xtumlElement instanceof ModelClass_c) {
         _matched=true;
         EClass _objectDeclaration = this._structurePackage.getObjectDeclaration();
@@ -309,6 +317,35 @@ public class XtumlToMaslMapper {
           List<QualifiedName> _map_1 = ListExtensions.<ProvidedOperation_c, QualifiedName>map(((List<ProvidedOperation_c>)Conversions.doWrapArray(_manySPR_POsOnR4503)), _function_1);
           Iterables.<QualifiedName>addAll(ops, _map_1);
           _xblockexpression = ops;
+        }
+        _switchResult = _xblockexpression;
+      }
+    }
+    if (!_matched) {
+      if (xtumlElement instanceof PropertyParameter_c) {
+        _matched=true;
+        ArrayList<QualifiedName> _xblockexpression = null;
+        {
+          final ArrayList<QualifiedName> params = CollectionLiterals.<QualifiedName>newArrayList();
+          ExecutableProperty_c _oneC_EPOnR4006 = ExecutableProperty_c.getOneC_EPOnR4006(((PropertyParameter_c)xtumlElement));
+          RequiredExecutableProperty_c[] _manySPR_REPsOnR4500 = RequiredExecutableProperty_c.getManySPR_REPsOnR4500(_oneC_EPOnR4006);
+          RequiredOperation_c[] _manySPR_ROsOnR4502 = RequiredOperation_c.getManySPR_ROsOnR4502(_manySPR_REPsOnR4500);
+          final Function1<RequiredOperation_c, QualifiedName> _function = (RequiredOperation_c spr_ro) -> {
+            QualifiedName _maslQualifiedName = this.getMaslQualifiedName(spr_ro);
+            return _maslQualifiedName.append(name);
+          };
+          List<QualifiedName> _map = ListExtensions.<RequiredOperation_c, QualifiedName>map(((List<RequiredOperation_c>)Conversions.doWrapArray(_manySPR_ROsOnR4502)), _function);
+          Iterables.<QualifiedName>addAll(params, _map);
+          ExecutableProperty_c _oneC_EPOnR4006_1 = ExecutableProperty_c.getOneC_EPOnR4006(((PropertyParameter_c)xtumlElement));
+          ProvidedExecutableProperty_c[] _manySPR_PEPsOnR4501 = ProvidedExecutableProperty_c.getManySPR_PEPsOnR4501(_oneC_EPOnR4006_1);
+          ProvidedOperation_c[] _manySPR_POsOnR4503 = ProvidedOperation_c.getManySPR_POsOnR4503(_manySPR_PEPsOnR4501);
+          final Function1<ProvidedOperation_c, QualifiedName> _function_1 = (ProvidedOperation_c spr_po) -> {
+            QualifiedName _maslQualifiedName = this.getMaslQualifiedName(spr_po);
+            return _maslQualifiedName.append(name);
+          };
+          List<QualifiedName> _map_1 = ListExtensions.<ProvidedOperation_c, QualifiedName>map(((List<ProvidedOperation_c>)Conversions.doWrapArray(_manySPR_POsOnR4503)), _function_1);
+          Iterables.<QualifiedName>addAll(params, _map_1);
+          _xblockexpression = params;
         }
         _switchResult = _xblockexpression;
       }

@@ -28,6 +28,7 @@ import org.eclipse.xtext.xbase.lib.ListExtensions;
 import org.eclipse.xtext.xbase.lib.Pair;
 import org.xtuml.bp.core.ExecutableProperty_c;
 import org.xtuml.bp.core.InterfaceOperation_c;
+import org.xtuml.bp.core.PropertyParameter_c;
 import org.xtuml.bp.core.ProvidedExecutableProperty_c;
 import org.xtuml.bp.core.ProvidedOperation_c;
 import org.xtuml.bp.core.RequiredExecutableProperty_c;
@@ -186,6 +187,35 @@ public class MaslRenameParticipant implements IRenameElementParticipant {
           Iterables.<IProject>addAll(projects, _map);
           ExecutableProperty_c _oneC_EPOnR4004_1 = ExecutableProperty_c.getOneC_EPOnR4004(((InterfaceOperation_c)xtumlElement));
           ProvidedExecutableProperty_c[] _manySPR_PEPsOnR4501 = ProvidedExecutableProperty_c.getManySPR_PEPsOnR4501(_oneC_EPOnR4004_1);
+          ProvidedOperation_c[] _manySPR_POsOnR4503 = ProvidedOperation_c.getManySPR_POsOnR4503(_manySPR_PEPsOnR4501);
+          final Function1<ProvidedOperation_c, IProject> _function_1 = (ProvidedOperation_c spr_po) -> {
+            IFile _file = spr_po.getFile();
+            return _file.getProject();
+          };
+          List<IProject> _map_1 = ListExtensions.<ProvidedOperation_c, IProject>map(((List<ProvidedOperation_c>)Conversions.doWrapArray(_manySPR_POsOnR4503)), _function_1);
+          Iterables.<IProject>addAll(projects, _map_1);
+          _xblockexpression = projects;
+        }
+        _switchResult = _xblockexpression;
+      }
+    }
+    if (!_matched) {
+      if (xtumlElement instanceof PropertyParameter_c) {
+        _matched=true;
+        ArrayList<IProject> _xblockexpression = null;
+        {
+          final ArrayList<IProject> projects = CollectionLiterals.<IProject>newArrayList();
+          ExecutableProperty_c _oneC_EPOnR4006 = ExecutableProperty_c.getOneC_EPOnR4006(((PropertyParameter_c)xtumlElement));
+          RequiredExecutableProperty_c[] _manySPR_REPsOnR4500 = RequiredExecutableProperty_c.getManySPR_REPsOnR4500(_oneC_EPOnR4006);
+          RequiredOperation_c[] _manySPR_ROsOnR4502 = RequiredOperation_c.getManySPR_ROsOnR4502(_manySPR_REPsOnR4500);
+          final Function1<RequiredOperation_c, IProject> _function = (RequiredOperation_c spr_ro) -> {
+            IFile _file = spr_ro.getFile();
+            return _file.getProject();
+          };
+          List<IProject> _map = ListExtensions.<RequiredOperation_c, IProject>map(((List<RequiredOperation_c>)Conversions.doWrapArray(_manySPR_ROsOnR4502)), _function);
+          Iterables.<IProject>addAll(projects, _map);
+          ExecutableProperty_c _oneC_EPOnR4006_1 = ExecutableProperty_c.getOneC_EPOnR4006(((PropertyParameter_c)xtumlElement));
+          ProvidedExecutableProperty_c[] _manySPR_PEPsOnR4501 = ProvidedExecutableProperty_c.getManySPR_PEPsOnR4501(_oneC_EPOnR4006_1);
           ProvidedOperation_c[] _manySPR_POsOnR4503 = ProvidedOperation_c.getManySPR_POsOnR4503(_manySPR_PEPsOnR4501);
           final Function1<ProvidedOperation_c, IProject> _function_1 = (ProvidedOperation_c spr_po) -> {
             IFile _file = spr_po.getFile();

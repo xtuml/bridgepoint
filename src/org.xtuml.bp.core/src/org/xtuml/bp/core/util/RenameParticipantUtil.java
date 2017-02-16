@@ -43,12 +43,8 @@ public class RenameParticipantUtil {
         // special cases:
         // Attribute, Event param
         
-        // Terminator service param
-        if ( element instanceof PropertyParameter_c ) {
-            // TODO implement
-        }
         // DataType
-        else if ( element instanceof DataType_c ) {
+        if ( element instanceof DataType_c ) {
             if ( "Name".equals(modelDelta.getAttributeName()) ) {
                 UserDataType_c s_udt = UserDataType_c.getOneS_UDTOnR17((DataType_c)element);
                 status = merge(status, doRenameElement( s_udt, 

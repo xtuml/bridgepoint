@@ -21,6 +21,7 @@ import org.xtuml.bp.core.RequiredExecutableProperty_c
 import org.xtuml.bp.core.ExecutableProperty_c
 import org.xtuml.bp.core.ProvidedOperation_c
 import org.xtuml.bp.core.ProvidedExecutableProperty_c
+import org.xtuml.bp.core.PropertyParameter_c
 
 class MaslRenameParticipant implements IRenameElementParticipant {
 	
@@ -88,6 +89,19 @@ class MaslRenameParticipant implements IRenameElementParticipant {
                         spr_po.file.project
                     ]
                 projects
+            }
+            PropertyParameter_c: {
+                // for interface message parameters, navigate to get the projects of all referring messages
+                val projects = newArrayList
+                projects += RequiredOperation_c.getManySPR_ROsOnR4502(RequiredExecutableProperty_c.getManySPR_REPsOnR4500(
+                    ExecutableProperty_c.getOneC_EPOnR4006(xtumlElement))).map[ spr_ro |
+                        spr_ro.file.project
+                    ]
+                projects += ProvidedOperation_c.getManySPR_POsOnR4503(ProvidedExecutableProperty_c.getManySPR_PEPsOnR4501(
+                    ExecutableProperty_c.getOneC_EPOnR4006(xtumlElement))).map[ spr_po |
+                        spr_po.file.project
+                    ]
+                projects   
             }
 	        default:
 		        #[xtumlElement.file.project]
