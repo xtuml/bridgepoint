@@ -139,6 +139,7 @@
     .end if
         }
   .end if 
+		validateOrGenerateResults(ce, generateResults);
 .end function
 .//
 .//=======================================================================
@@ -183,6 +184,7 @@
 		Action a = new Action() {};
 		ufa.setActivePart(a, PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActivePart());
 		ufa.run(a);				
+		validateOrGenerateResults(ce, generateResults);
 .end function
 .//
 .//=======================================================================
@@ -527,6 +529,7 @@ ${ft.body}\
 		Action a = new Action() {};
 		ufa.setActivePart(a, PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActivePart());
 		ufa.run(a);				
+		validateOrGenerateResults(ce, generateResults);
 	}
 .end for
 
