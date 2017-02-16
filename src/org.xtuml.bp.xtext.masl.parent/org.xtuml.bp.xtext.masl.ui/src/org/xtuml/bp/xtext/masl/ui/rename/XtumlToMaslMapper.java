@@ -1,18 +1,25 @@
 package org.xtuml.bp.xtext.masl.ui.rename;
 
 import com.google.common.base.Objects;
+import com.google.common.collect.Iterables;
 import com.google.inject.Inject;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.xtext.naming.QualifiedName;
 import org.eclipse.xtext.xbase.lib.CollectionLiterals;
+import org.eclipse.xtext.xbase.lib.Conversions;
 import org.eclipse.xtext.xbase.lib.Extension;
+import org.eclipse.xtext.xbase.lib.Functions.Function1;
+import org.eclipse.xtext.xbase.lib.ListExtensions;
 import org.xtuml.bp.core.Attribute_c;
 import org.xtuml.bp.core.Component_c;
+import org.xtuml.bp.core.ExecutableProperty_c;
 import org.xtuml.bp.core.FunctionParameter_c;
 import org.xtuml.bp.core.Function_c;
 import org.xtuml.bp.core.InstanceStateMachine_c;
+import org.xtuml.bp.core.InterfaceOperation_c;
 import org.xtuml.bp.core.InterfaceReference_c;
 import org.xtuml.bp.core.ModelClass_c;
 import org.xtuml.bp.core.OperationParameter_c;
@@ -189,6 +196,13 @@ public class XtumlToMaslMapper {
       }
     }
     if (!_matched) {
+      if (xtumlElement instanceof InterfaceOperation_c) {
+        _matched=true;
+        EClass _terminatorServiceDeclaration = this._structurePackage.getTerminatorServiceDeclaration();
+        _switchResult = Collections.<EClass>unmodifiableList(CollectionLiterals.<EClass>newArrayList(_terminatorServiceDeclaration));
+      }
+    }
+    if (!_matched) {
       if (xtumlElement instanceof ModelClass_c) {
         _matched=true;
         EClass _objectDeclaration = this._structurePackage.getObjectDeclaration();
@@ -265,6 +279,43 @@ public class XtumlToMaslMapper {
       QualifiedName _maslQualifiedNamePrefix = this.getMaslQualifiedNamePrefix(xtumlElement);
       String _name = xtumlElement.getName();
       _switchResult = _maslQualifiedNamePrefix.append(_name);
+    }
+    return _switchResult;
+  }
+  
+  public List<QualifiedName> getMaslQualifiedNames(final NonRootModelElement xtumlElement, final String name) {
+    List<QualifiedName> _switchResult = null;
+    boolean _matched = false;
+    if (!_matched) {
+      if (xtumlElement instanceof InterfaceOperation_c) {
+        _matched=true;
+        ArrayList<QualifiedName> _xblockexpression = null;
+        {
+          final ArrayList<QualifiedName> ops = CollectionLiterals.<QualifiedName>newArrayList();
+          ExecutableProperty_c _oneC_EPOnR4004 = ExecutableProperty_c.getOneC_EPOnR4004(((InterfaceOperation_c)xtumlElement));
+          RequiredExecutableProperty_c[] _manySPR_REPsOnR4500 = RequiredExecutableProperty_c.getManySPR_REPsOnR4500(_oneC_EPOnR4004);
+          RequiredOperation_c[] _manySPR_ROsOnR4502 = RequiredOperation_c.getManySPR_ROsOnR4502(_manySPR_REPsOnR4500);
+          final Function1<RequiredOperation_c, QualifiedName> _function = (RequiredOperation_c spr_ro) -> {
+            return this.getMaslQualifiedName(spr_ro, name);
+          };
+          List<QualifiedName> _map = ListExtensions.<RequiredOperation_c, QualifiedName>map(((List<RequiredOperation_c>)Conversions.doWrapArray(_manySPR_ROsOnR4502)), _function);
+          Iterables.<QualifiedName>addAll(ops, _map);
+          ExecutableProperty_c _oneC_EPOnR4004_1 = ExecutableProperty_c.getOneC_EPOnR4004(((InterfaceOperation_c)xtumlElement));
+          ProvidedExecutableProperty_c[] _manySPR_PEPsOnR4501 = ProvidedExecutableProperty_c.getManySPR_PEPsOnR4501(_oneC_EPOnR4004_1);
+          ProvidedOperation_c[] _manySPR_POsOnR4503 = ProvidedOperation_c.getManySPR_POsOnR4503(_manySPR_PEPsOnR4501);
+          final Function1<ProvidedOperation_c, QualifiedName> _function_1 = (ProvidedOperation_c spr_po) -> {
+            return this.getMaslQualifiedName(spr_po, name);
+          };
+          List<QualifiedName> _map_1 = ListExtensions.<ProvidedOperation_c, QualifiedName>map(((List<ProvidedOperation_c>)Conversions.doWrapArray(_manySPR_POsOnR4503)), _function_1);
+          Iterables.<QualifiedName>addAll(ops, _map_1);
+          _xblockexpression = ops;
+        }
+        _switchResult = _xblockexpression;
+      }
+    }
+    if (!_matched) {
+      QualifiedName _maslQualifiedName = this.getMaslQualifiedName(xtumlElement, name);
+      _switchResult = Collections.<QualifiedName>unmodifiableList(CollectionLiterals.<QualifiedName>newArrayList(_maslQualifiedName));
     }
     return _switchResult;
   }

@@ -41,32 +41,10 @@ public class RenameParticipantUtil {
         IStatus status = null;
 
         // special cases:
-        // Terminator service, Attribute, Event param
-        if ( element instanceof InterfaceOperation_c ) {
-            if ( "Name".equals(modelDelta.getAttributeName()) ) {
-                // For interface operations call the rename refactor on each
-                // provided or required interface operation
-                InterfaceOperation_c c_io = (InterfaceOperation_c)element;
-                ProvidedOperation_c[] spr_pos = ProvidedOperation_c.getManySPR_POsOnR4503(
-                                                    ProvidedExecutableProperty_c.getManySPR_PEPsOnR4501(
-                                                    ExecutableProperty_c.getOneC_EPOnR4004(c_io)));
-                for ( NonRootModelElement el : spr_pos ) {
-                    status = merge(status, doRenameElement( el, 
-                                           (String)modelDelta.getNewValue(),
-                                           (String)modelDelta.getOldValue() ) );
-                }
-                RequiredOperation_c[] spr_ros = RequiredOperation_c.getManySPR_ROsOnR4502(
-                                                    RequiredExecutableProperty_c.getManySPR_REPsOnR4500(
-                                                    ExecutableProperty_c.getOneC_EPOnR4004(c_io)));
-                for ( NonRootModelElement el : spr_ros ) {
-                    status = merge(status, doRenameElement( el, 
-                                           (String)modelDelta.getNewValue(),
-                                           (String)modelDelta.getOldValue() ) );
-                }
-            }
-        }
+        // Attribute, Event param
+        
         // Terminator service param
-        else if ( element instanceof PropertyParameter_c ) {
+        if ( element instanceof PropertyParameter_c ) {
             // TODO implement
         }
         // DataType

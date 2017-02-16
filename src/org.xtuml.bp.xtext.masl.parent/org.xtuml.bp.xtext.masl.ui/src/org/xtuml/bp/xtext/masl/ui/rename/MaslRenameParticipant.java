@@ -4,6 +4,7 @@ import com.google.common.base.Objects;
 import com.google.common.collect.Iterables;
 import com.google.inject.Inject;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 import org.eclipse.core.resources.IFile;
@@ -19,11 +20,18 @@ import org.eclipse.xtext.resource.IResourceDescriptions;
 import org.eclipse.xtext.resource.impl.ResourceDescriptionsProvider;
 import org.eclipse.xtext.ui.resource.XtextResourceSetProvider;
 import org.eclipse.xtext.xbase.lib.CollectionLiterals;
+import org.eclipse.xtext.xbase.lib.Conversions;
 import org.eclipse.xtext.xbase.lib.Extension;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
 import org.eclipse.xtext.xbase.lib.ListExtensions;
 import org.eclipse.xtext.xbase.lib.Pair;
+import org.xtuml.bp.core.ExecutableProperty_c;
+import org.xtuml.bp.core.InterfaceOperation_c;
+import org.xtuml.bp.core.ProvidedExecutableProperty_c;
+import org.xtuml.bp.core.ProvidedOperation_c;
+import org.xtuml.bp.core.RequiredExecutableProperty_c;
+import org.xtuml.bp.core.RequiredOperation_c;
 import org.xtuml.bp.core.common.NonRootModelElement;
 import org.xtuml.bp.core.ui.IRenameElementParticipant;
 import org.xtuml.bp.xtext.masl.masl.structure.StructurePackage;
@@ -50,19 +58,18 @@ public class MaslRenameParticipant implements IRenameElementParticipant {
   @Extension
   private StructurePackage _structurePackage;
   
-  private IProject project;
+  private List<IProject> projects;
   
   private List<EClass> eClasses;
   
-  private QualifiedName oldQName;
+  private List<QualifiedName> oldQNames;
   
   private String newName;
   
   @Override
   public IStatus renameElement(final NonRootModelElement xtumlElement, final String newName, final String oldName) {
-    IFile _file = xtumlElement.getFile();
-    IProject _project = _file.getProject();
-    this.project = _project;
+    List<IProject> _projects = this.getProjects(xtumlElement);
+    this.projects = _projects;
     this.newName = newName;
     List<EClass> _maslEClasses = this._xtumlToMaslMapper.getMaslEClasses(xtumlElement);
     this.eClasses = _maslEClasses;
@@ -70,12 +77,13 @@ public class MaslRenameParticipant implements IRenameElementParticipant {
     if (_isEmpty) {
       return Status.OK_STATUS;
     }
-    QualifiedName _maslQualifiedName = this._xtumlToMaslMapper.getMaslQualifiedName(xtumlElement, oldName);
-    this.oldQName = _maslQualifiedName;
-    if ((this.oldQName == null)) {
+    List<QualifiedName> _maslQualifiedNames = this._xtumlToMaslMapper.getMaslQualifiedNames(xtumlElement, oldName);
+    this.oldQNames = _maslQualifiedNames;
+    boolean _equals = Objects.equal(this.oldQNames, null);
+    if (_equals) {
       return Status.OK_STATUS;
     }
-    final XtumlRenameElementContext renameElementContext = this.getRenameElementContext(this.eClasses, this.oldQName, this.project);
+    final XtumlRenameElementContext renameElementContext = this.getRenameElementContext(this.eClasses, this.oldQNames, this.projects);
     boolean _isEmpty_1 = renameElementContext.isEmpty();
     if (_isEmpty_1) {
       return Status.OK_STATUS;
@@ -83,16 +91,25 @@ public class MaslRenameParticipant implements IRenameElementParticipant {
     return this.executor.doRename(renameElementContext, newName);
   }
   
-  private XtumlRenameElementContext getRenameElementContext(final List<EClass> eClasses, final QualifiedName name, final IProject project) {
+  private XtumlRenameElementContext getRenameElementContext(final List<EClass> eClasses, final List<QualifiedName> names, final List<IProject> projects) {
     final ArrayList<Pair<URI, EClass>> uri2eClass = CollectionLiterals.<Pair<URI, EClass>>newArrayList();
     final Function1<EClass, Iterable<IEObjectDescription>> _function = (EClass eClass) -> {
-      Iterable<IEObjectDescription> _xblockexpression = null;
-      {
-        ResourceSet _get = this.rsp.get(project);
-        final IResourceDescriptions index = this.rdp.getResourceDescriptions(_get);
-        _xblockexpression = index.getExportedObjects(((EClass) eClass), name, false);
-      }
-      return _xblockexpression;
+      final Function1<IProject, Iterable<IEObjectDescription>> _function_1 = (IProject it) -> {
+        Iterable<IEObjectDescription> _xblockexpression = null;
+        {
+          IProject _project = it.getProject();
+          ResourceSet _get = this.rsp.get(_project);
+          final IResourceDescriptions index = this.rdp.getResourceDescriptions(_get);
+          final Function1<QualifiedName, Iterable<IEObjectDescription>> _function_2 = (QualifiedName name) -> {
+            return index.getExportedObjects(((EClass) eClass), name, false);
+          };
+          List<Iterable<IEObjectDescription>> _map = ListExtensions.<QualifiedName, Iterable<IEObjectDescription>>map(names, _function_2);
+          _xblockexpression = Iterables.<IEObjectDescription>concat(_map);
+        }
+        return _xblockexpression;
+      };
+      List<Iterable<IEObjectDescription>> _map = ListExtensions.<IProject, Iterable<IEObjectDescription>>map(projects, _function_1);
+      return Iterables.<IEObjectDescription>concat(_map);
     };
     List<Iterable<IEObjectDescription>> _map = ListExtensions.<EClass, Iterable<IEObjectDescription>>map(eClasses, _function);
     Iterable<IEObjectDescription> _flatten = Iterables.<IEObjectDescription>concat(_map);
@@ -147,5 +164,45 @@ public class MaslRenameParticipant implements IRenameElementParticipant {
     Iterable<Pair<URI, EClass>> _map_1 = IterableExtensions.<IEObjectDescription, Pair<URI, EClass>>map(_filter, _function_2);
     Iterables.<Pair<URI, EClass>>addAll(uri2eClass, _map_1);
     return new XtumlRenameElementContext(uri2eClass);
+  }
+  
+  private List<IProject> getProjects(final NonRootModelElement xtumlElement) {
+    List<IProject> _switchResult = null;
+    boolean _matched = false;
+    if (!_matched) {
+      if (xtumlElement instanceof InterfaceOperation_c) {
+        _matched=true;
+        ArrayList<IProject> _xblockexpression = null;
+        {
+          final ArrayList<IProject> projects = CollectionLiterals.<IProject>newArrayList();
+          ExecutableProperty_c _oneC_EPOnR4004 = ExecutableProperty_c.getOneC_EPOnR4004(((InterfaceOperation_c)xtumlElement));
+          RequiredExecutableProperty_c[] _manySPR_REPsOnR4500 = RequiredExecutableProperty_c.getManySPR_REPsOnR4500(_oneC_EPOnR4004);
+          RequiredOperation_c[] _manySPR_ROsOnR4502 = RequiredOperation_c.getManySPR_ROsOnR4502(_manySPR_REPsOnR4500);
+          final Function1<RequiredOperation_c, IProject> _function = (RequiredOperation_c spr_ro) -> {
+            IFile _file = spr_ro.getFile();
+            return _file.getProject();
+          };
+          List<IProject> _map = ListExtensions.<RequiredOperation_c, IProject>map(((List<RequiredOperation_c>)Conversions.doWrapArray(_manySPR_ROsOnR4502)), _function);
+          Iterables.<IProject>addAll(projects, _map);
+          ExecutableProperty_c _oneC_EPOnR4004_1 = ExecutableProperty_c.getOneC_EPOnR4004(((InterfaceOperation_c)xtumlElement));
+          ProvidedExecutableProperty_c[] _manySPR_PEPsOnR4501 = ProvidedExecutableProperty_c.getManySPR_PEPsOnR4501(_oneC_EPOnR4004_1);
+          ProvidedOperation_c[] _manySPR_POsOnR4503 = ProvidedOperation_c.getManySPR_POsOnR4503(_manySPR_PEPsOnR4501);
+          final Function1<ProvidedOperation_c, IProject> _function_1 = (ProvidedOperation_c spr_po) -> {
+            IFile _file = spr_po.getFile();
+            return _file.getProject();
+          };
+          List<IProject> _map_1 = ListExtensions.<ProvidedOperation_c, IProject>map(((List<ProvidedOperation_c>)Conversions.doWrapArray(_manySPR_POsOnR4503)), _function_1);
+          Iterables.<IProject>addAll(projects, _map_1);
+          _xblockexpression = projects;
+        }
+        _switchResult = _xblockexpression;
+      }
+    }
+    if (!_matched) {
+      IFile _file = xtumlElement.getFile();
+      IProject _project = _file.getProject();
+      _switchResult = Collections.<IProject>unmodifiableList(CollectionLiterals.<IProject>newArrayList(_project));
+    }
+    return _switchResult;
   }
 }
