@@ -62,7 +62,7 @@ class MaslRenameRefactoringExecutor {
 			if (processor instanceof AbstractRenameProcessor) {
 				processor.newName = newName
 			}
-			refactoring.execute(tryOnly)
+			return refactoring.execute(tryOnly)
 		}
 		return Status.OK_STATUS
 	}
@@ -110,6 +110,8 @@ class MaslRenameRefactoringExecutor {
 				syncUtil.reconcileAllEditors(workbench, false, new NullProgressMonitor)
 			}
 			return Status.OK_STATUS
+		} catch (InterruptedException exc) {
+			return new Status(IStatus.ERROR, MaslActivator.ORG_XTUML_BP_XTEXT_MASL_MASL, 'Refactoring cancelled.')
 		} catch (Exception exc) {
 			LOG.error("Error during refactoring", exc)
 			return new Status(IStatus.ERROR, MaslActivator.ORG_XTUML_BP_XTEXT_MASL_MASL, '''

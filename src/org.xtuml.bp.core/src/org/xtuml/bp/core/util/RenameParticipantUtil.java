@@ -131,8 +131,10 @@ public class RenameParticipantUtil {
 		case IStatus.CANCEL:
 			return false;
 		case IStatus.ERROR:
-			CorePlugin.getDefault().getLog().log(status);
-			UIUtil.openWarning(null, "Error during rename", status.getMessage() + "\nSee log for details.");
+			if(status.getException() != null) {
+				CorePlugin.getDefault().getLog().log(status);
+				UIUtil.openWarning(null, "Error during rename", status.getMessage() + "\nSee log for details.");
+			}
 			return false;
 		case IStatus.WARNING:
 			return UIUtil.openConfirm(null, "Problems during rename", status.getMessage() + "\nContinue refactoring?", true);

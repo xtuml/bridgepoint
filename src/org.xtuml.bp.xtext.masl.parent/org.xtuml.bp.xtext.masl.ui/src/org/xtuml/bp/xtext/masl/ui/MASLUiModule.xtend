@@ -27,6 +27,8 @@ import org.xtuml.bp.xtext.masl.ui.validation.MaslValidationConfigurationBlock
 import static org.eclipse.xtext.ui.editor.contentassist.XtextContentAssistProcessor.*
 import org.eclipse.xtext.ui.refactoring.impl.RefactoringCrossReferenceSerializer
 import org.xtuml.bp.xtext.masl.ui.rename.MaslRefactoringCrossReferenceSerializer
+import org.eclipse.xtext.ui.refactoring.impl.RenameElementProcessor
+import org.xtuml.bp.xtext.masl.ui.rename.MaslRenameElementProcessor
 
 /**
  * Use this class to register components to be used within the Eclipse IDE.
@@ -86,5 +88,9 @@ class MASLUiModule extends AbstractMASLUiModule {
 	
 	def Class<? extends RefactoringCrossReferenceSerializer> bindRefactoringCrossReferenceSerializer() {
 		MaslRefactoringCrossReferenceSerializer
+	}
+	
+	def Class<? extends RenameElementProcessor> bindRenameElementProcessor() {
+		MaslRenameElementProcessor
 	}
 }
