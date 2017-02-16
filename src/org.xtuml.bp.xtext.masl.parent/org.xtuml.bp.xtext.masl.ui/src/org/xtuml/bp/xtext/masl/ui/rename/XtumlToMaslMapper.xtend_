@@ -34,6 +34,9 @@ import org.xtuml.bp.core.UserDataType_c
 import org.xtuml.bp.core.common.NonRootModelElement
 import org.xtuml.bp.xtext.masl.masl.structure.StructurePackage
 import org.xtuml.bp.xtext.masl.masl.types.TypesPackage
+import org.xtuml.bp.core.InterfaceOperation_c
+import org.xtuml.bp.core.ExecutableProperty_c
+import org.xtuml.bp.core.PropertyParameter_c
 
 class XtumlToMaslMapper {
 	
@@ -87,6 +90,10 @@ class XtumlToMaslMapper {
 				#[terminatorServiceDeclaration]
 			ProvidedOperation_c:
 				#[terminatorServiceDeclaration]
+		    InterfaceOperation_c:
+				#[terminatorServiceDeclaration]
+		    PropertyParameter_c:
+				#[parameter]
 			ModelClass_c:
 				#[objectDeclaration]
 			Operation_c:
@@ -116,6 +123,40 @@ class XtumlToMaslMapper {
 				xtumlElement.maslQualifiedNamePrefix.append(xtumlElement.name)
 		}
 	} 
+
+    public def List<QualifiedName> getMaslQualifiedNames(NonRootModelElement xtumlElement, String name) {
+        switch xtumlElement {
+            InterfaceOperation_c: {
+                // for interface operations, navigate to get all the qualified names of all referring operations
+                val ops = newArrayList
+                ops += RequiredOperation_c.getManySPR_ROsOnR4502(RequiredExecutableProperty_c.getManySPR_REPsOnR4500(
+                    ExecutableProperty_c.getOneC_EPOnR4004(xtumlElement))).map[ spr_ro |
+                        getMaslQualifiedName(spr_ro, name)
+                    ]
+                ops += ProvidedOperation_c.getManySPR_POsOnR4503(ProvidedExecutableProperty_c.getManySPR_PEPsOnR4501(
+                    ExecutableProperty_c.getOneC_EPOnR4004(xtumlElement))).map[ spr_po |
+                        getMaslQualifiedName(spr_po, name)
+                    ]
+                ops
+            }
+            PropertyParameter_c: {
+                // for interface message parameters, navigate to get all the qualified names of
+                // all referring messages and add the parameter name
+                val params = newArrayList
+                params += RequiredOperation_c.getManySPR_ROsOnR4502(RequiredExecutableProperty_c.getManySPR_REPsOnR4500(
+                    ExecutableProperty_c.getOneC_EPOnR4006(xtumlElement))).map[ spr_ro |
+                        spr_ro.maslQualifiedName.append(name)
+                    ]
+                params += ProvidedOperation_c.getManySPR_POsOnR4503(ProvidedExecutableProperty_c.getManySPR_PEPsOnR4501(
+                    ExecutableProperty_c.getOneC_EPOnR4006(xtumlElement))).map[ spr_po |
+                        spr_po.maslQualifiedName.append(name)
+                    ]
+                params
+            }
+            default:
+                #[getMaslQualifiedName(xtumlElement, name)]
+        }
+	}
 
     public def QualifiedName getMaslQualifiedName(NonRootModelElement xtumlElement, String name) {
         val prefix = xtumlElement.maslQualifiedNamePrefix
