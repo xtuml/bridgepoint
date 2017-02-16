@@ -592,6 +592,29 @@ class DeclarationTypeProviderTest extends AbstractMaslModelTest {
 			end;
 		''', 'anonymous instance of Foo')
 	}
+	
+	@Test 
+	def void testBug9184() {
+		doAssertType('''
+			domain dom is 
+				public service test1();
+				object Obj1;
+				object Obj1 is
+					current_val1: long_integer;
+					current_val2: long_integer;
+				end;
+			end;
+		''', '''
+			public service dom::test1() is
+				val1 : long_integer;
+				obj1 : instance of Obj1;
+			begin
+				obj1 := find_one Obj1();
+				val1 := ^(obj1.current_val1 - (obj1.current_val2 / 2));
+			end service;
+		''', 'long_integer')
+	}
+	
 
 	protected def assertType(CharSequence domainDeclaration, CharSequence expression, String expected) {
 		doAssertType('''
