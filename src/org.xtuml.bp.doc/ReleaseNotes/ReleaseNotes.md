@@ -25,7 +25,7 @@ General Notes
 * A summary of the release highlights and new functionality is available on the 
 [What's New](../WhatsNew/WhatsNew.html) page.  
   
-* __IMPORTANT__: BridgePoint is a completely open source software. 
+* __IMPORTANT__: BridgePoint is completely open source software. 
 Please see [xtUML.org](http://xtuml.org) and [onefact.net](http://onefact.net) 
 for ongoing development and support of BridgePoint.  
   

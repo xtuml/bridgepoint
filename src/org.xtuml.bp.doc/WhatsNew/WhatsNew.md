@@ -12,9 +12,10 @@ Release Highlights
 MASL Editor
 ------
 * BridgePoint now supports a single-activity MASL editor (Figure 1).  The editor 
-displays the function signature at the top in a non-editable display field.  The 
-underlying data is still kept in a single ```.masl``` file for each action home. But, 
-the user no longer edits this file directly.    
+displays the function signature at the top in a non-editable display field.  This
+includes the return type as well as a listing of each parameter with associated 
+type.  This editor continues to support full syntax highlighting for the MASL 
+language.        
 
 ![MASL Editor](masl_editor.png)  
 __Figure 1__  
