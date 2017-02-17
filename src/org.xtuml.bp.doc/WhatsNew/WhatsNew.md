@@ -16,7 +16,7 @@ displays the function signature at the top in a non-editable display field.  The
 underlying data is still kept in a single ```.masl``` file for each action home. But, 
 the user no longer edits this file directly.    
 
-![MASL Editor](masl_editor.png)
+![MASL Editor](masl_editor.png)  
 __Figure 1__  
 
 * Additionally, BridgePoint now supports automatic reference maintenance, also 
