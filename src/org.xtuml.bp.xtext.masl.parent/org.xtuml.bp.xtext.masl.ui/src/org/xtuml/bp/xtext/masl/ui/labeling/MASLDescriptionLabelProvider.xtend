@@ -29,11 +29,7 @@ class MASLDescriptionLabelProvider extends DefaultDescriptionLabelProvider {
 			case domainServiceDeclaration,
 			case domainServiceDefinition,
 			case objectServiceDeclaration,
-			case objectServiceDefinition,
-			case domainFunctionDeclaration,
-			case domainFunctionDefinition,
-			case objectFunctionDeclaration,
-			case objectFunctionDefinition:
+			case objectServiceDefinition:
 				return 'model/Function.gif'
 			case relationshipDefinition:
 				return 'model/Associative.gif'
@@ -43,10 +39,8 @@ class MASLDescriptionLabelProvider extends DefaultDescriptionLabelProvider {
 				return 'model/Attribute.gif'
 			case terminatorDefinition:
 				return 'model/Port.gif'
-			case terminatorServiceDeclaration,
 			case terminatorServiceDefinition,
-			case terminatorFunctionDefinition,
-			case terminatorFunctionDeclaration:
+			case terminatorServiceDeclaration:
 				return 'model/Bridge.gif'
 			case typeDeclaration:
 				return 'model/Datatype.gif'

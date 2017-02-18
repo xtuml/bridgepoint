@@ -53,6 +53,7 @@ import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.xtuml.bp.core.ActionHome_c;
 import org.xtuml.bp.core.Action_c;
+import org.xtuml.bp.core.Actiondialect_c;
 import org.xtuml.bp.core.ActorParticipant_c;
 import org.xtuml.bp.core.AsynchronousMessage_c;
 import org.xtuml.bp.core.Attribute_c;
@@ -354,6 +355,7 @@ public class ImportHelper
      * Resolve the MASL project
      *   - Assign unassigned component references
      *   - Unhook temporary interface definitions and re-attach to existing interfaces in domains
+     *   - create satisfactions
      */
     public void resolveMASLproject( NonRootModelElement[] elements ) {    	
         if ( elements == null ) return;
@@ -390,6 +392,11 @@ public class ImportHelper
 	        			}
 	        		}
 	            }
+	        }
+	        
+	        if (m_maslProjectImported != null) {
+	            // create satisfactions
+	            createMASLSatisfactions(elements);
 	        }
 		} catch (Exception e) {
 			// revert the transation
@@ -432,6 +439,15 @@ public class ImportHelper
 				if (c_i.getName().equals(c_p_name)) {
 					// formalize the requirement
 					c_p.Formalize(c_i.getId(), true);
+					// Set all the dialects to OAL to avoid persisting empty MASL bodies
+					ProvidedOperation_c[] spr_pos = ProvidedOperation_c.getManySPR_POsOnR4503(ProvidedExecutableProperty_c.getManySPR_PEPsOnR4501(c_p));
+					for ( ProvidedOperation_c spr_po : spr_pos ) {
+					    spr_po.setDialect(Actiondialect_c.oal);	
+					}
+					ProvidedSignal_c[] spr_pss = ProvidedSignal_c.getManySPR_PSsOnR4503(ProvidedExecutableProperty_c.getManySPR_PEPsOnR4501(c_p));
+					for ( ProvidedSignal_c spr_ps : spr_pss ) {
+					    spr_ps.setDialect(Actiondialect_c.oal);	
+					}
 					break;
 				}
 			}
@@ -466,6 +482,15 @@ public class ImportHelper
 				if (c_i.getName().equals(c_r_name)) {
 					// formalize the requirement
 					c_r.Formalize(c_i.getId(), true);
+					// Set all the dialects to OAL to avoid persisting empty MASL bodies
+					RequiredOperation_c[] spr_ros = RequiredOperation_c.getManySPR_ROsOnR4502(RequiredExecutableProperty_c.getManySPR_REPsOnR4500(c_r));
+					for ( RequiredOperation_c spr_ro : spr_ros ) {
+					    spr_ro.setDialect(Actiondialect_c.oal);	
+					}
+					RequiredSignal_c[] spr_rss = RequiredSignal_c.getManySPR_RSsOnR4502(RequiredExecutableProperty_c.getManySPR_REPsOnR4500(c_r));
+					for ( RequiredSignal_c spr_rs : spr_rss ) {
+					    spr_rs.setDialect(Actiondialect_c.oal);	
+					}
 					break;
 				}
 			}
@@ -619,6 +644,32 @@ public class ImportHelper
      */
     public boolean maslModelWasImported() {
     	return m_maslDomainsImported != null || m_maslProjectImported != null;
+    }
+    
+    private void createMASLSatisfactions(NonRootModelElement[] nrmes) {    	
+		// Create satisfactions
+		for (NonRootModelElement nrme : nrmes) {
+			// process the unassigned component references
+			if (nrme instanceof Package_c) {
+
+				// check if containing package is a MASL project package
+				boolean masl_project = false;
+				Package_c pkg = (Package_c)nrme;
+				if (null != pkg) {
+					String pkg_descrip = pkg.getDescrip();
+					if (!pkg_descrip.isEmpty()) {
+						Matcher m = Pattern.compile("masl_project").matcher(pkg_descrip);
+						if (m.find()) {
+							masl_project = true;
+						}
+					}
+				}
+
+				if (masl_project) {
+					Ooaofooa.Autocreatemaslsatisfactions(pkg.getModelRoot(), pkg.getPackage_id());					
+				}
+			}
+		}
     }
     
     /**

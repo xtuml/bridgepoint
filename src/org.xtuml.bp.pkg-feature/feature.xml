@@ -2,7 +2,7 @@
 <feature
       id="org.xtuml.bp.pkg.feature"
       label="BridgePoint UML"
-      version="5.8.6"
+      version="6.1.0"
       provider-name="xtUML.org"
       plugin="org.xtuml.bp.pkg"
       image="images/GreenChip.gif">

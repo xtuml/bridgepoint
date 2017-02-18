@@ -1,7 +1,6 @@
 package org.xtuml.bp.xtext.masl.typesystem
 
 import com.google.inject.Inject
-import org.apache.log4j.Logger
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.xtend.lib.annotations.Data
 import org.xtuml.bp.xtext.masl.MASLExtensions
@@ -59,14 +58,12 @@ import org.xtuml.bp.xtext.masl.masl.behavior.VariableDeclaration
 import org.xtuml.bp.xtext.masl.masl.behavior.WhileStatement
 import org.xtuml.bp.xtext.masl.masl.structure.AbstractActionDefinition
 import org.xtuml.bp.xtext.masl.masl.structure.AbstractFeature
-import org.xtuml.bp.xtext.masl.masl.structure.AbstractFunction
+import org.xtuml.bp.xtext.masl.masl.structure.AbstractService
 import org.xtuml.bp.xtext.masl.masl.structure.AssocRelationshipDefinition
 import org.xtuml.bp.xtext.masl.masl.structure.AttributeDefinition
-import org.xtuml.bp.xtext.masl.masl.structure.DomainServiceDeclaration
 import org.xtuml.bp.xtext.masl.masl.structure.EventDefinition
 import org.xtuml.bp.xtext.masl.masl.structure.Multiplicity
 import org.xtuml.bp.xtext.masl.masl.structure.ObjectDeclaration
-import org.xtuml.bp.xtext.masl.masl.structure.ObjectServiceDeclaration
 import org.xtuml.bp.xtext.masl.masl.structure.Parameter
 import org.xtuml.bp.xtext.masl.masl.structure.RangeTypeReference
 import org.xtuml.bp.xtext.masl.masl.structure.RegularRelationshipDefinition
@@ -75,7 +72,6 @@ import org.xtuml.bp.xtext.masl.masl.structure.RelationshipNavigation
 import org.xtuml.bp.xtext.masl.masl.structure.StateDeclaration
 import org.xtuml.bp.xtext.masl.masl.structure.SubtypeRelationshipDefinition
 import org.xtuml.bp.xtext.masl.masl.structure.TerminatorDefinition
-import org.xtuml.bp.xtext.masl.masl.structure.TerminatorServiceDeclaration
 import org.xtuml.bp.xtext.masl.masl.structure.TypeParameter
 import org.xtuml.bp.xtext.masl.masl.types.AbstractTypeDefinition
 import org.xtuml.bp.xtext.masl.masl.types.AbstractTypeReference
@@ -100,8 +96,6 @@ import org.xtuml.bp.xtext.masl.masl.types.UnconstrainedArrayDefinition
 import static org.xtuml.bp.xtext.masl.typesystem.BuiltinType.*
 
 class MaslTypeProvider {
-
-	static val LOG = Logger.getLogger(MaslTypeProvider)
 	
 	@Inject extension MASLExtensions
 	@Inject extension TypeParameterResolver
@@ -125,8 +119,11 @@ class MaslTypeProvider {
 					return maslTypeOfTypeDefinition
 				AbstractFeature:
 					return maslTypeOfFeature
-				AbstractFunction:
-					return returnType.maslTypeOfTypeReference
+				AbstractService:
+					if(getReturnType == null)
+						return NO_TYPE
+					else 
+						return getReturnType.maslTypeOfTypeReference
 				CodeBlockStatement,
 				ExitStatement,
 				ReturnStatement,
@@ -149,7 +146,6 @@ class MaslTypeProvider {
 					throw new UnsupportedOperationException('Missing type for ' + eClass?.name)
 			}
 		} catch (Exception exc) {
-			LOG.error(exc.message)
 			return MISSING_TYPE
 		}
 	}
@@ -329,12 +325,11 @@ class MaslTypeProvider {
 				return feature.type.maslTypeOfTypeReference
 			TypeDeclaration:
 				return new TypeOfType(feature.getMaslTypeOfTypeDeclaration(false))
-			AbstractFunction:
-				return feature.returnType.maslTypeOfTypeReference
-			ObjectServiceDeclaration,
-			DomainServiceDeclaration,
-			TerminatorServiceDeclaration:
-				return NO_TYPE
+			AbstractService:
+				if (feature.getReturnType == null)
+					return NO_TYPE
+				else
+					return feature.getReturnType.maslTypeOfTypeReference
 			default:
 				throw new UnsupportedOperationException('Missing type for feature ' + feature?.eClass?.name)
 		}
@@ -628,7 +623,9 @@ class MaslTypeProvider {
 		switch a.primitiveType {
 			case LONG_INTEGER:
 				if (a == b)
-					return a 
+					return a
+				else if (b.primitiveType == LONG_INTEGER)
+					return ANONYMOUS_LONG_INTEGER 
 				else if (b.primitiveType == REAL) 
 					return ANONYMOUS_REAL
 			case REAL: {

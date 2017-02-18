@@ -31,7 +31,6 @@ import org.eclipse.ui.texteditor.MarkerAnnotation;
 import org.xtuml.bp.ui.text.activity.ActivityEditor;
 import org.xtuml.bp.ui.text.annotation.IActivityProblemAnnotation;
 import org.xtuml.bp.ui.text.description.DescriptionEditor;
-import org.xtuml.bp.ui.text.typedefinition.TypeDefinitionEditor;
 
 
 public class EditorHover implements ITextHover, IAnnotationHover {
@@ -138,8 +137,6 @@ public class EditorHover implements ITextHover, IAnnotationHover {
 		if (editor instanceof ActivityEditor)
 			m_editor = editor;
 		else if (editor instanceof DescriptionEditor)
-			m_editor = editor;
-		else if (editor instanceof TypeDefinitionEditor)
 			m_editor = editor;
 		else
 			m_editor = null;

@@ -14,5 +14,5 @@ package org.xtuml.bp.xtext.masl.masl.structure;
  * @model
  * @generated
  */
-public interface TerminatorServiceDeclaration extends AbstractFeature, AbstractActionDeclaration {
+public interface TerminatorServiceDeclaration extends AbstractFeature, AbstractActionDeclaration, AbstractService {
 } // TerminatorServiceDeclaration

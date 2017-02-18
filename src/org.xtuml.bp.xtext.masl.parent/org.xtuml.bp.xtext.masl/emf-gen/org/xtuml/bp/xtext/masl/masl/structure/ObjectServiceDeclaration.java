@@ -21,7 +21,7 @@ package org.xtuml.bp.xtext.masl.masl.structure;
  * @model
  * @generated
  */
-public interface ObjectServiceDeclaration extends AbstractFeature, AbstractActionDeclaration {
+public interface ObjectServiceDeclaration extends AbstractFeature, AbstractActionDeclaration, AbstractService {
 	/**
 	 * Returns the value of the '<em><b>Instance</b></em>' attribute.
 	 * <!-- begin-user-doc -->

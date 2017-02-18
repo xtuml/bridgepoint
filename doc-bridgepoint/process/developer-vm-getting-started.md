@@ -19,7 +19,7 @@ General Information
 * The VM image is based off Ubuntu 16.04 Desktop (LTS).
 * The username is "developer"; there is no password.  
 _Note: Due to a Unity bug, if the machine is "locked", the operating system will still require the password (which does not exist) to unlock. To Unlock the machine, click the gear in the upper right hand corner and select "Switch Account...". This will allow you to log in to the developer account without a password by clicking "Log In"._
-* BridgePoint 5.8.6 is installed at `~/xtuml/l586/`.
+* BridgePoint 6.0.0 is installed at `~/xtuml/l586/`.
 * The xtuml repositories bptest, bridgepoint, mc, models, and pt_antlr are cloned at `~/git/`.
   * Each repository has one remote repository called "upstream" that references the xtuml repositories on GitHub.
 * A development workspace is preconfigured at `~/workspace`. BridgePoint is pre-built in this workspace at revision `8f884be`

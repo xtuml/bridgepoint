@@ -409,7 +409,6 @@ import org.xtuml.bp.io.core.CoreImport;
 import org.xtuml.bp.io.core.ImportHelper;
 .end if
 import org.xtuml.bp.io.core.ImportInteger;
-import org.xtuml.bp.io.core.SmaslScanner;
 import org.xtuml.bp.ui.canvas.*;
 import org.xtuml.bp.ui.text.activity.AllActivityModifier;
 
@@ -429,6 +428,7 @@ public class ${class_name} extends CoreImport
     private IPath projRelPath = new Path("");
 
     private PersistenceHierarchyMetaData metadata = (PersistenceHierarchyMetaData)PersistenceManager.getHierarchyMetaData();
+    private boolean m_actionsOnly = false;
     .else
     private SystemModel_c m_parent;
     .end if
@@ -492,11 +492,12 @@ public class ${class_name} extends CoreImport
             .assign parentC = "SystemModel_c"
       .end if
     .if(multilevel and setComponent)
-    public ${class_name}(IFile file, ${var.main_class_name} aModelRoot, PersistableModelComponent component, boolean parseAll, boolean clearDatabase, boolean parseGraphics, boolean isTemplate) throws IOException {
+    public ${class_name}(IFile file, ${var.main_class_name} aModelRoot, PersistableModelComponent component, boolean parseAll, boolean clearDatabase, boolean parseGraphics, boolean isTemplate, boolean actionsOnly) throws IOException {
         super(aModelRoot, (file != null ? file.getLocation().toOSString() : ""), (component != null ? component.getActionFiles() : null), clearDatabase, isTemplate);
         m_component = component;
         m_parseAll = parseAll;
         m_parseGraphics = parseGraphics;
+        m_actionsOnly = actionsOnly;
 
          String fileName = super.getFilename();
         // Produce a path from the root of the project
@@ -556,7 +557,16 @@ public class ${class_name} extends CoreImport
     .if (callingProject == "NBP")
     	helper.eesToUpgradeForIsRealized.clear();
     .end if
+    .if (multilevel)
+        if ( !m_actionsOnly ) {
+            m_success = doLoadSql(pm);
+		} else {
+			rootModelElement = m_component == null ? null : m_component.getRootModelElement();
+			m_success = true;
+		}
+    .else
         m_success = doLoadSql(pm);
+    .end if
         .if(not setComponent)
         finishLoad(pm);
     .end if

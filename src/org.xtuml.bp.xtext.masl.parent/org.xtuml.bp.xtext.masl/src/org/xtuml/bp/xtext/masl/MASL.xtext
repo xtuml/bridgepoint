@@ -1,4 +1,3 @@
-
 grammar org.xtuml.bp.xtext.masl.MASL hidden(WS, SL_COMMENT)
 
 import "http://www.xtuml.org/bp/xtext/masl/MASLStructure"
@@ -13,12 +12,9 @@ MaslModel:
 AbstractTopLevelElement:
 	ProjectDefinition
 	| DomainDefinition
-	| DomainFunctionDefinition
 	| DomainServiceDefinition
-	| ObjectFunctionDefinition
 	| ObjectServiceDefinition
 	| StateDefinition
-	| TerminatorFunctionDefinition
 	| TerminatorServiceDefinition;
 
 //---------------------------------------------------------
@@ -66,7 +62,6 @@ DomainDefinition:
 	(
 		objects+=ObjectDeclaration
 		| services+=DomainServiceDeclaration
-		| functions+=DomainFunctionDeclaration
 		| terminators+=TerminatorDefinition
 		| relationships+=RelationshipDefinition
 		| objectDefs+=ObjectDefinition
@@ -125,7 +120,7 @@ TypeForwardDeclaration:
 TypeDeclaration:
 	visibility=Visibility? ('type' | subtype?='subtype') name=ID 'is'
 	definition=AbstractTypeDefinition 
-	';' PragmaList;
+	';' ';'? PragmaList;
 
 AbstractTypeDefinition:
 	StructureTypeDefinition
@@ -237,20 +232,14 @@ AbstractDictKeyTypeRef returns AbstractTypeReference:
 //---------------------------------------------------------
 TerminatorDefinition:
 	'terminator' name=ID 'is' 
-	(services+=TerminatorServiceDeclaration
-	| functions+=TerminatorFunctionDeclaration)*
+	services+=TerminatorServiceDeclaration*
 	'end' 'terminator'? 
 	';' PragmaList;
 
 TerminatorServiceDeclaration:
-	visibility=Visibility? 'service' name=ID
+	visibility=Visibility? ('service'|'function') name=ID
 	ParameterList
-	';' PragmaList;
-
-TerminatorFunctionDeclaration:
-	visibility=Visibility? 'function' name=ID
-	ParameterList
-	'return' returnType=AbstractTypeReference
+	('return' returnType=AbstractTypeReference)?
 	';' PragmaList;
 	
 //---------------------------------------------------------
@@ -265,7 +254,6 @@ ObjectDefinition:
 	(attributes+=AttributeDefinition
 	| identifiers+=IdentifierDefinition
 	| services+=ObjectServiceDeclaration
-	| functions+=ObjectFunctionDeclaration
 	| events+=EventDefinition
 	| states+=StateDeclaration
 	| transitions+=TransitionTable)*
@@ -294,17 +282,9 @@ ObjectServiceDeclaration:
 	visibility=Visibility?
 	instance?='instance'? 
 	('deferred' relationship=[RelationshipDefinition])?
-	'service' name=ID
+	('service'|'function') name=ID
 	ParameterList
-	';' PragmaList;
-
-ObjectFunctionDeclaration:
-	visibility=Visibility?
-	instance?='instance'? 
-	('deferred' relationship=[RelationshipDefinition])?
-	'function' name=ID
-	ParameterList
-	'return' returnType=AbstractTypeReference
+	('return' returnType=AbstractTypeReference)?
 	';' PragmaList;
 
 IdentifierDefinition:
@@ -350,16 +330,12 @@ TransitionOption:
 //---------------------------------------------------------
 // Service Declaration
 //---------------------------------------------------------
-DomainServiceDeclaration:
-	visibility=Visibility? 'service' name=ID
-	ParameterList
-	';' PragmaList;
 
-DomainFunctionDeclaration:
+DomainServiceDeclaration:
 	visibility=Visibility?
-	'function' name=ID
+	('service' | 'function') name=ID
 	ParameterList
-	'return' returnType=AbstractTypeReference
+	('return' returnType=AbstractTypeReference)?
 	';' PragmaList;
 
 enum ParameterMode:
@@ -413,56 +389,35 @@ RelationshipNavigation:
 //---------------------------------------------------------
 // Dynamic Behaviour
 //---------------------------------------------------------
-DomainServiceDefinition:
-	visibility=Visibility? 'service'
-	domain=[DomainDefinition] '::' name=ID
-	ParameterList
-	'is' body=CodeBlock
-	'service'? 
-	';'? PragmaList;
 
-DomainFunctionDefinition:
-	visibility=Visibility? 'function'
+DomainServiceDefinition:
+	visibility=Visibility? 
+	('service' | 'function')
 	domain=[DomainDefinition] '::' name=ID
 	ParameterList
-	'return' returnType=AbstractTypeReference
+	('return' returnType=AbstractTypeReference)?
 	'is' body=CodeBlock
-	'function'? 
+	('service' | 'function')?
 	';'? PragmaList;
 
 ObjectServiceDefinition:
-	visibility=Visibility? instance?='instance'? 'service'
+	visibility=Visibility? instance?='instance'? ('deferred' relationship=[RelationshipDefinition])? 
+	('service' | 'function')
 	domain=[DomainDefinition] '::' object=[ObjectDeclaration] '.' name=ID
 	ParameterList
+	('return' returnType=AbstractTypeReference)?
 	'is' body=CodeBlock
-	'service'? 
-	';'? PragmaList;
-
-// TODO: this looks strangely assymetric to ObjectServiceDefinition
-ObjectFunctionDefinition:
-	visibility=Visibility? instance?='instance'? ('deferred' relationship=[RelationshipDefinition])? 'function'
-	domain=[DomainDefinition] '::' object=[ObjectDeclaration] '.' name=ID
-	ParameterList
-	'return' returnType=AbstractTypeReference
-	'is' body=CodeBlock
-	'function'? 
+	('service' | 'function')?
 	';'? PragmaList;
 
 TerminatorServiceDefinition:
-	visibility=Visibility? 'service'
+	visibility=Visibility? 
+	('service' | 'function')	
 	domain=[DomainDefinition] '::' terminator=[TerminatorDefinition] '~>' name=ID
 	ParameterList
+	('return' returnType=AbstractTypeReference)?
 	'is' body=CodeBlock
-	'service'? 
-	';'? PragmaList;
-
-TerminatorFunctionDefinition:
-	visibility=Visibility? 'function'
-	domain=[DomainDefinition] '::' terminator=[TerminatorDefinition] '~>' name=ID
-	ParameterList
-	'return' returnType=AbstractTypeReference
-	'is' body=CodeBlock
-	'function'? 
+	('service' | 'function')? 
 	';'? PragmaList;
 
 StateDefinition:

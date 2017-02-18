@@ -51,13 +51,23 @@ class ExampleModelsIntegrationTest {
 	}
 
 	@Test
-	def void testSACExample() {
-		testProject('examples/SAC')
+	def void testSACExample_MASL() {
+		testProject('examples/SAC/masl')
+	}
+
+	@Test
+	def void testSACExample_xtUML() {
+		testProject('examples/SAC/models')
 	}
 
 	@Test
 	def void testWikiExamples() {
 		testProject('examples/wiki')
+	}
+
+	@Test
+	def void testServiceExamples() {
+		testProject('examples/test_dom')
 	}
 
 	protected def testProject(String folderName) {
