@@ -56,7 +56,7 @@ public class GraphicalToolCreationTests extends BaseTest {
 	private static boolean isFirstTime = true;
 	
 	@Override
-//	@Before
+	@Before
 	public void initialSetup() throws Exception {
 		if(!isFirstTime)
 			return;
@@ -70,7 +70,7 @@ public class GraphicalToolCreationTests extends BaseTest {
 			.toggleZoom(
 				PlatformUI.getWorkbench().getActiveWorkbenchWindow()
 						.getActivePage().getActivePartReference());
-		while(PlatformUI.getWorkbench().getDisplay().readAndDispatch());
+		BaseTest.dispatchEvents(0);
 	}
 
 	@Test

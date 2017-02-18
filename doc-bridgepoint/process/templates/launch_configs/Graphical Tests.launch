@@ -12,4 +12,8 @@
 <stringAttribute key="org.eclipse.cdt.launch.launchGroup.2.enabled" value="true"/>
 <stringAttribute key="org.eclipse.cdt.launch.launchGroup.2.mode" value="default"/>
 <stringAttribute key="org.eclipse.cdt.launch.launchGroup.2.name" value="UI Canvas Suite 2"/>
+<stringAttribute key="org.eclipse.cdt.launch.launchGroup.3.action" value="NONE"/>
+<stringAttribute key="org.eclipse.cdt.launch.launchGroup.3.enabled" value="true"/>
+<stringAttribute key="org.eclipse.cdt.launch.launchGroup.3.mode" value="debug"/>
+<stringAttribute key="org.eclipse.cdt.launch.launchGroup.3.name" value="UI Canvas Suite 3"/>
 </launchConfiguration>
