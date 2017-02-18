@@ -189,7 +189,9 @@ public class ProjectUtilities {
         while (ResourcesPlugin.getWorkspace().isTreeLocked())
             ;
         final Display disp = PlatformUI.getWorkbench().getDisplay();
-        while (!Job.getJobManager().isIdle()) {
+        Job active = Job.getJobManager().currentJob();
+        long count = Job.getJobManager().find(null).length;
+        while (!Job.getJobManager().isIdle() && count == 1 && active != null && active.getName().contains("Process Console Input Job")) {
             final Display current = Display.getCurrent();
             if ( current != null ) {
                 while (!disp.isDisposed() && !current.isDisposed()

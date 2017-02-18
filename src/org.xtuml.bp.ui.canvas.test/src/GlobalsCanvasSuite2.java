@@ -59,7 +59,13 @@ import junit.framework.TestSuite;
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
 	GlobalTestSetupClass.class,
+    ConnectorMoveTests_0.class,
 	GraphicalAnchorTests_0.class,
+    RectilinearRoutingTests_0.class,
+    RectilinearRoutingTests.class,
+    RectilinearRoutingTests2.class,
+    RectilinearRoutingTests3.class,
+    RectilinearRoutingTests4.class,
 	TestReflexiveConnectorCreation.class,
     GraphicalToolCreationTests.class,
 	GlobalsCanvasTestSuite2.class,
@@ -72,12 +78,6 @@ import junit.framework.TestSuite;
     FreeFloatingConnectorTest.class,
     I2053F2RenameTest.class,
     AutoReconciliationTests.class,
-    ConnectorMoveTests_0.class,
-    RectilinearRoutingTests_0.class,
-    RectilinearRoutingTests.class,
-    RectilinearRoutingTests2.class,
-    RectilinearRoutingTests3.class,
-    RectilinearRoutingTests4.class,
     InterfaceDrawingTests.class,
 	
 	

@@ -61,6 +61,8 @@ import org.xtuml.bp.test.common.BaseTest;
 import org.xtuml.bp.test.common.CanvasTestUtils;
 import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.test.common.UITestingUtilities;
+import org.xtuml.bp.ui.canvas.CanvasModelListener;
+import org.xtuml.bp.ui.canvas.CanvasTransactionListener;
 import org.xtuml.bp.ui.canvas.Connector_c;
 import org.xtuml.bp.ui.canvas.GraphicalElement_c;
 import org.xtuml.bp.ui.canvas.Model_c;
@@ -122,6 +124,7 @@ public class GraphicalAnchorTests extends CanvasTest {
 	@Before
 	public void setUp() throws Exception {
 		super.setUp();
+		CanvasTransactionListener.disableReconciler();
 		testPart = null;
 		// import the test model for the first
 		// setUp
@@ -154,6 +157,7 @@ public class GraphicalAnchorTests extends CanvasTest {
 		super.tearDown();
 		PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage()
 				.closeAllEditors(false);
+		CanvasTransactionListener.enableReconciler();
 	}
 
 	/**

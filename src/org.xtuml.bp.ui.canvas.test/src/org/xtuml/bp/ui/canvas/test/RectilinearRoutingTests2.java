@@ -17,7 +17,7 @@ public class RectilinearRoutingTests2 extends BaseTest {
 
 	private static boolean isFirstTime = true;
 	@Override
-//	@Before
+	@Before
 	public void initialSetup() throws Exception {
 		if (!isFirstTime)
 			return;

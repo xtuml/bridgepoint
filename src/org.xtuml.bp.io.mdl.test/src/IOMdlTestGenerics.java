@@ -134,20 +134,11 @@ public class IOMdlTestGenerics extends TestCase {
   
 	
 	@Test
-	public void test_InteractionDiagramUpgradeTestsGenerics() {
-		importModel(Ooaofooa.MODELS_DIRNAME + "/");
-		exportModel(TestingUtilities.getExpectedResultsPath() + Ooaofooa.MODELS_DIRNAME + "/");
-    }	
-    @Test
-    public void test_nested_testGenerics() {
-		importModel(Ooaofooa.MODELS_DIRNAME + "/");
-		exportModel(TestingUtilities.getExpectedResultsPath() + Ooaofooa.MODELS_DIRNAME + "/");
-	}
+	public void test_InteractionDiagramUpgradeTestsGenerics() { doTest(); }	
 	@Test
-	public void test_odmsGenerics() {
-		importModel(Ooaofooa.MODELS_DIRNAME + "/");
-		exportModel(TestingUtilities.getExpectedResultsPath() + Ooaofooa.MODELS_DIRNAME + "/");
-	}
+    public void test_nested_testGenerics() { doTest(); }
+	@Test
+	public void test_odmsGenerics() { doTest(); }
 	@Test
 	public void test_ooaofooa() { doTest(); }
 	@Test
@@ -440,7 +431,7 @@ public class IOMdlTestGenerics extends TestCase {
        String loc = m_workspace_path + path+m_domain_name+"." + Ooaofooa.MODELS_EXT;//$NON-NLS-1$
        TestingUtilities.importModelUsingWizard(m_system,loc, false);
        modelRoot.setLoadPathForTests(loc);
-       BaseTest.dispatchEvents(0);
+       BaseTest.dispatchEvents(200);
    }
 
     private void exportModel(String expectedResultLocation) {

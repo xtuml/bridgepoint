@@ -425,6 +425,12 @@ public class BaseTest extends TestCase {
 					    continue;
 					}
 					
+					if(entry.getMessage().contains("Could not load SWT style")) {
+						// ignore as it provides no benefit to our testing
+						// this it ouside of our code and related to OS configuration
+						continue;
+					}
+					
 					msg = prepend + ".log file is not empty";
 				}
 			}			

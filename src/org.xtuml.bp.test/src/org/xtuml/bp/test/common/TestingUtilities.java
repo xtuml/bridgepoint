@@ -748,7 +748,9 @@ public class TestingUtilities {
 	
 	public static boolean importModelUsingWizard(SystemModel_c systemModel,
 			String fullyQualifiedSingleFileModel, boolean parseOnImport) {
-	    return ProjectUtilities.importModelUsingWizard(systemModel, fullyQualifiedSingleFileModel, parseOnImport);
+	     boolean result = ProjectUtilities.importModelUsingWizard(systemModel, fullyQualifiedSingleFileModel, parseOnImport);
+	     BaseTest.dispatchEvents(0);
+	     return result;
 	}
 	
 	public static boolean importModelUsingWizard(SystemModel_c systemModel,
