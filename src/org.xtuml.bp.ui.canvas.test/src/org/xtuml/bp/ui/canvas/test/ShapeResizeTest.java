@@ -85,7 +85,7 @@ public class ShapeResizeTest extends BaseTest
                 return ((Connector_c)candidate).Getendx() == corner.x;
             }
         });
-        
+        BaseTest.dispatchEvents(0);
         // click within the state, to select it
         GraphicalEditor editor = CanvasTestUtils.getCanvasEditor(
             "Dialing Monitor");
