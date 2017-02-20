@@ -29,6 +29,7 @@ import org.xtuml.bp.core.InterfaceOperation_c;
 import org.xtuml.bp.core.InterfaceReference_c;
 import org.xtuml.bp.core.LinkedAssociation_c;
 import org.xtuml.bp.core.ModelClass_c;
+import org.xtuml.bp.core.NewStateTransition_c;
 import org.xtuml.bp.core.OperationParameter_c;
 import org.xtuml.bp.core.Operation_c;
 import org.xtuml.bp.core.Port_c;
@@ -39,10 +40,14 @@ import org.xtuml.bp.core.Provision_c;
 import org.xtuml.bp.core.RequiredExecutableProperty_c;
 import org.xtuml.bp.core.RequiredOperation_c;
 import org.xtuml.bp.core.Requirement_c;
+import org.xtuml.bp.core.SemEvent_c;
 import org.xtuml.bp.core.SimpleAssociation_c;
+import org.xtuml.bp.core.StateEventMatrixEntry_c;
+import org.xtuml.bp.core.StateMachineEventDataItem_c;
 import org.xtuml.bp.core.StateMachineEvent_c;
 import org.xtuml.bp.core.StateMachineState_c;
 import org.xtuml.bp.core.StateMachine_c;
+import org.xtuml.bp.core.Transition_c;
 import org.xtuml.bp.core.UserDataType_c;
 import org.xtuml.bp.core.common.NonRootModelElement;
 import org.xtuml.bp.core.common.PersistableModelComponent;
@@ -58,106 +63,6 @@ public class XtumlToMaslMapper {
   @Inject
   @Extension
   private TypesPackage _typesPackage;
-  
-  public List<EClass> getMaslDefinitionEClasses(final NonRootModelElement xtumlElement) {
-    List<EClass> _switchResult = null;
-    boolean _matched = false;
-    if (!_matched) {
-      if (xtumlElement instanceof Attribute_c) {
-        _matched=true;
-        EClass _attributeDefinition = this._structurePackage.getAttributeDefinition();
-        _switchResult = Collections.<EClass>unmodifiableList(CollectionLiterals.<EClass>newArrayList(_attributeDefinition));
-      }
-    }
-    if (!_matched) {
-      if (xtumlElement instanceof Component_c) {
-        _matched=true;
-        EClass _domainDefinition = this._structurePackage.getDomainDefinition();
-        _switchResult = Collections.<EClass>unmodifiableList(CollectionLiterals.<EClass>newArrayList(_domainDefinition));
-      }
-    }
-    if (!_matched) {
-      if (xtumlElement instanceof Function_c) {
-        _matched=true;
-        EClass _domainServiceDefinition = this._structurePackage.getDomainServiceDefinition();
-        _switchResult = Collections.<EClass>unmodifiableList(CollectionLiterals.<EClass>newArrayList(_domainServiceDefinition));
-      }
-    }
-    if (!_matched) {
-      if (xtumlElement instanceof FunctionParameter_c) {
-        _matched=true;
-        EClass _parameter = this._structurePackage.getParameter();
-        _switchResult = Collections.<EClass>unmodifiableList(CollectionLiterals.<EClass>newArrayList(_parameter));
-      }
-    }
-    if (!_matched) {
-      if (xtumlElement instanceof RequiredOperation_c) {
-        _matched=true;
-        EClass _terminatorServiceDefinition = this._structurePackage.getTerminatorServiceDefinition();
-        _switchResult = Collections.<EClass>unmodifiableList(CollectionLiterals.<EClass>newArrayList(_terminatorServiceDefinition));
-      }
-    }
-    if (!_matched) {
-      if (xtumlElement instanceof ProvidedOperation_c) {
-        _matched=true;
-        EClass _terminatorServiceDefinition = this._structurePackage.getTerminatorServiceDefinition();
-        _switchResult = Collections.<EClass>unmodifiableList(CollectionLiterals.<EClass>newArrayList(_terminatorServiceDefinition));
-      }
-    }
-    if (!_matched) {
-      if (xtumlElement instanceof ModelClass_c) {
-        _matched=true;
-        EClass _objectDeclaration = this._structurePackage.getObjectDeclaration();
-        _switchResult = Collections.<EClass>unmodifiableList(CollectionLiterals.<EClass>newArrayList(_objectDeclaration));
-      }
-    }
-    if (!_matched) {
-      if (xtumlElement instanceof Operation_c) {
-        _matched=true;
-        EClass _objectServiceDefinition = this._structurePackage.getObjectServiceDefinition();
-        _switchResult = Collections.<EClass>unmodifiableList(CollectionLiterals.<EClass>newArrayList(_objectServiceDefinition));
-      }
-    }
-    if (!_matched) {
-      if (xtumlElement instanceof OperationParameter_c) {
-        _matched=true;
-        EClass _parameter = this._structurePackage.getParameter();
-        _switchResult = Collections.<EClass>unmodifiableList(CollectionLiterals.<EClass>newArrayList(_parameter));
-      }
-    }
-    if (!_matched) {
-      if (xtumlElement instanceof Port_c) {
-        _matched=true;
-        EClass _terminatorDefinition = this._structurePackage.getTerminatorDefinition();
-        _switchResult = Collections.<EClass>unmodifiableList(CollectionLiterals.<EClass>newArrayList(_terminatorDefinition));
-      }
-    }
-    if (!_matched) {
-      if (xtumlElement instanceof StateMachineState_c) {
-        _matched=true;
-        EClass _stateDeclaration = this._structurePackage.getStateDeclaration();
-        _switchResult = Collections.<EClass>unmodifiableList(CollectionLiterals.<EClass>newArrayList(_stateDeclaration));
-      }
-    }
-    if (!_matched) {
-      if (xtumlElement instanceof StateMachineEvent_c) {
-        _matched=true;
-        EClass _eventDefinition = this._structurePackage.getEventDefinition();
-        _switchResult = Collections.<EClass>unmodifiableList(CollectionLiterals.<EClass>newArrayList(_eventDefinition));
-      }
-    }
-    if (!_matched) {
-      if (xtumlElement instanceof UserDataType_c) {
-        _matched=true;
-        EClass _typeDeclaration = this._typesPackage.getTypeDeclaration();
-        _switchResult = Collections.<EClass>unmodifiableList(CollectionLiterals.<EClass>newArrayList(_typeDeclaration));
-      }
-    }
-    if (!_matched) {
-      _switchResult = Collections.<EClass>unmodifiableList(CollectionLiterals.<EClass>newArrayList());
-    }
-    return _switchResult;
-  }
   
   public List<EClass> getMaslEClasses(final NonRootModelElement xtumlElement) {
     List<EClass> _switchResult = null;
@@ -258,6 +163,13 @@ public class XtumlToMaslMapper {
         _matched=true;
         EClass _eventDefinition = this._structurePackage.getEventDefinition();
         _switchResult = Collections.<EClass>unmodifiableList(CollectionLiterals.<EClass>newArrayList(_eventDefinition));
+      }
+    }
+    if (!_matched) {
+      if (xtumlElement instanceof StateMachineEventDataItem_c) {
+        _matched=true;
+        EClass _parameter = this._structurePackage.getParameter();
+        _switchResult = Collections.<EClass>unmodifiableList(CollectionLiterals.<EClass>newArrayList(_parameter));
       }
     }
     if (!_matched) {
@@ -362,6 +274,33 @@ public class XtumlToMaslMapper {
           };
           List<QualifiedName> _map_1 = ListExtensions.<ProvidedOperation_c, QualifiedName>map(((List<ProvidedOperation_c>)Conversions.doWrapArray(_manySPR_POsOnR4503)), _function_1);
           Iterables.<QualifiedName>addAll(params, _map_1);
+          _xblockexpression = params;
+        }
+        _switchResult = _xblockexpression;
+      }
+    }
+    if (!_matched) {
+      if (xtumlElement instanceof StateMachineEventDataItem_c) {
+        _matched=true;
+        ArrayList<QualifiedName> _xblockexpression = null;
+        {
+          final ArrayList<QualifiedName> params = CollectionLiterals.<QualifiedName>newArrayList();
+          StateMachineEvent_c _oneSM_EVTOnR532 = StateMachineEvent_c.getOneSM_EVTOnR532(((StateMachineEventDataItem_c)xtumlElement));
+          QualifiedName _maslQualifiedName = this.getMaslQualifiedName(_oneSM_EVTOnR532);
+          QualifiedName _append = _maslQualifiedName.append(name);
+          params.add(_append);
+          StateMachineEvent_c _oneSM_EVTOnR532_1 = StateMachineEvent_c.getOneSM_EVTOnR532(((StateMachineEventDataItem_c)xtumlElement));
+          SemEvent_c _oneSM_SEVTOnR525 = SemEvent_c.getOneSM_SEVTOnR525(_oneSM_EVTOnR532_1);
+          StateEventMatrixEntry_c[] _manySM_SEMEsOnR503 = StateEventMatrixEntry_c.getManySM_SEMEsOnR503(_oneSM_SEVTOnR525);
+          NewStateTransition_c[] _manySM_NSTXNsOnR504 = NewStateTransition_c.getManySM_NSTXNsOnR504(_manySM_SEMEsOnR503);
+          Transition_c[] _manySM_TXNsOnR507 = Transition_c.getManySM_TXNsOnR507(_manySM_NSTXNsOnR504);
+          StateMachineState_c[] _manySM_STATEsOnR506 = StateMachineState_c.getManySM_STATEsOnR506(_manySM_TXNsOnR507);
+          final Function1<StateMachineState_c, QualifiedName> _function = (StateMachineState_c sm_state) -> {
+            QualifiedName _maslQualifiedName_1 = this.getMaslQualifiedName(sm_state);
+            return _maslQualifiedName_1.append(name);
+          };
+          List<QualifiedName> _map = ListExtensions.<StateMachineState_c, QualifiedName>map(((List<StateMachineState_c>)Conversions.doWrapArray(_manySM_STATEsOnR506)), _function);
+          Iterables.<QualifiedName>addAll(params, _map);
           _xblockexpression = params;
         }
         _switchResult = _xblockexpression;

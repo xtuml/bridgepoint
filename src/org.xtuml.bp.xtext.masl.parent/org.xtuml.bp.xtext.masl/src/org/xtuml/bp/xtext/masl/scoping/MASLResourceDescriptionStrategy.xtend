@@ -22,6 +22,7 @@ import org.apache.log4j.Logger
 import org.xtuml.bp.xtext.masl.masl.structure.AbstractActionDefinition
 import org.xtuml.bp.xtext.masl.masl.structure.AbstractActionDeclaration
 import org.xtuml.bp.xtext.masl.masl.structure.RelationshipDefinition
+import org.xtuml.bp.xtext.masl.masl.structure.EventDefinition
 
 class MASLResourceDescriptionStrategy extends DefaultResourceDescriptionStrategy {
 
@@ -53,6 +54,7 @@ class MASLResourceDescriptionStrategy extends DefaultResourceDescriptionStrategy
 			|| eObject instanceof AbstractActionDeclaration
 			|| eObject instanceof AbstractActionDefinition
 			|| eObject instanceof RelationshipDefinition
+			|| eObject instanceof EventDefinition
 	}
 
 	private def doCreateEObjectDescriptions(EObject eObject, IAcceptor<IEObjectDescription> acceptor) {

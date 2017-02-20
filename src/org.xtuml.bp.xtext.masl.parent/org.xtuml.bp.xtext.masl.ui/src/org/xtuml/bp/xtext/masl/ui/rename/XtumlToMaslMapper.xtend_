@@ -38,45 +38,17 @@ import org.xtuml.bp.core.ClassAsAssociatedOneSide_c
 import org.xtuml.bp.core.ClassAsAssociatedOtherSide_c
 import org.xtuml.bp.core.LinkedAssociation_c
 import org.xtuml.bp.core.DataType_c
+import org.xtuml.bp.core.StateMachineEventDataItem_c
+import org.xtuml.bp.core.Transition_c
+import org.xtuml.bp.core.StateEventMatrixEntry_c
+import org.xtuml.bp.core.NewStateTransition_c
+import org.xtuml.bp.core.SemEvent_c
 
 class XtumlToMaslMapper {
 	
 	@Inject extension StructurePackage 
 	@Inject extension TypesPackage
 
-	public def List<EClass> getMaslDefinitionEClasses(NonRootModelElement xtumlElement) {
-		switch xtumlElement{
-			Attribute_c:
-				#[attributeDefinition]
-			Component_c:
-				#[domainDefinition]
-			Function_c:
-				#[domainServiceDefinition]
-			FunctionParameter_c:
-				#[parameter]
-			RequiredOperation_c:
-				#[terminatorServiceDefinition]
-			ProvidedOperation_c:
-				#[terminatorServiceDefinition]
-			ModelClass_c:
-				#[objectDeclaration]
-			Operation_c:
-				#[objectServiceDefinition]
-			OperationParameter_c:
-				#[parameter]
-			Port_c:
-				#[terminatorDefinition]
-			StateMachineState_c:
-				#[stateDeclaration]
-			StateMachineEvent_c:
-				#[eventDefinition]
-			UserDataType_c:
-				#[typeDeclaration]
-			default:			
-				#[]
-		}
-	} 
-	
 	public def List<EClass> getMaslEClasses(NonRootModelElement xtumlElement) {
 		switch xtumlElement{
 			Attribute_c:
@@ -107,6 +79,8 @@ class XtumlToMaslMapper {
 				#[stateDeclaration]
 			StateMachineEvent_c:
 				#[eventDefinition]
+		    StateMachineEventDataItem_c:
+		        #[parameter]
 			DataType_c:
 				#[typeDeclaration]
 			UserDataType_c:
@@ -150,6 +124,18 @@ class XtumlToMaslMapper {
                 params += ProvidedOperation_c.getManySPR_POsOnR4503(ProvidedExecutableProperty_c.getManySPR_PEPsOnR4501(
                     ExecutableProperty_c.getOneC_EPOnR4006(xtumlElement))).map[ spr_po |
                         spr_po.maslQualifiedName.append(name)
+                    ]
+                params
+            }
+            StateMachineEventDataItem_c: {
+                // for event parameters, we must get the qualified name of the event parameter and the state
+                // parameters of every state this event causes a transition to
+                val params = newArrayList
+                params += StateMachineEvent_c.getOneSM_EVTOnR532(xtumlElement).maslQualifiedName.append(name)
+                params += StateMachineState_c.getManySM_STATEsOnR506(Transition_c.getManySM_TXNsOnR507(
+                    NewStateTransition_c.getManySM_NSTXNsOnR504(StateEventMatrixEntry_c.getManySM_SEMEsOnR503(
+                    SemEvent_c.getOneSM_SEVTOnR525(StateMachineEvent_c.getOneSM_EVTOnR532(xtumlElement)))))).map[ sm_state |
+                        sm_state.maslQualifiedName.append(name)    
                     ]
                 params
             }
