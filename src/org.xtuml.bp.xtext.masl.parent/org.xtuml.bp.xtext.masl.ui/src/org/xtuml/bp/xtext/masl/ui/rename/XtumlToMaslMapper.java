@@ -20,6 +20,7 @@ import org.xtuml.bp.core.ClassAsAssociatedOtherSide_c;
 import org.xtuml.bp.core.ClassAsSimpleFormalizer_c;
 import org.xtuml.bp.core.ClassAsSimpleParticipant_c;
 import org.xtuml.bp.core.Component_c;
+import org.xtuml.bp.core.DataType_c;
 import org.xtuml.bp.core.ExecutableProperty_c;
 import org.xtuml.bp.core.FunctionParameter_c;
 import org.xtuml.bp.core.Function_c;
@@ -260,6 +261,13 @@ public class XtumlToMaslMapper {
       }
     }
     if (!_matched) {
+      if (xtumlElement instanceof DataType_c) {
+        _matched=true;
+        EClass _typeDeclaration = this._typesPackage.getTypeDeclaration();
+        _switchResult = Collections.<EClass>unmodifiableList(CollectionLiterals.<EClass>newArrayList(_typeDeclaration));
+      }
+    }
+    if (!_matched) {
       if (xtumlElement instanceof UserDataType_c) {
         _matched=true;
         EClass _typeDeclaration = this._typesPackage.getTypeDeclaration();
@@ -296,41 +304,6 @@ public class XtumlToMaslMapper {
     }
     if (!_matched) {
       _switchResult = Collections.<EClass>unmodifiableList(CollectionLiterals.<EClass>newArrayList());
-    }
-    return _switchResult;
-  }
-  
-  public QualifiedName getMaslQualifiedName(final NonRootModelElement xtumlElement) {
-    QualifiedName _switchResult = null;
-    boolean _matched = false;
-    if (!_matched) {
-      if (xtumlElement instanceof Component_c) {
-        _matched=true;
-        String _name = ((Component_c)xtumlElement).getName();
-        _switchResult = QualifiedName.create(_name);
-      }
-    }
-    if (!_matched) {
-      if (xtumlElement instanceof StateMachineEvent_c) {
-        _matched=true;
-        QualifiedName _maslQualifiedNamePrefix = this.getMaslQualifiedNamePrefix(xtumlElement);
-        String _mning = ((StateMachineEvent_c)xtumlElement).getMning();
-        _switchResult = _maslQualifiedNamePrefix.append(_mning);
-      }
-    }
-    if (!_matched) {
-      if (xtumlElement instanceof Association_c) {
-        _matched=true;
-        QualifiedName _maslQualifiedNamePrefix = this.getMaslQualifiedNamePrefix(xtumlElement);
-        int _numb = ((Association_c)xtumlElement).getNumb();
-        String _plus = ("R" + Integer.valueOf(_numb));
-        _switchResult = _maslQualifiedNamePrefix.append(_plus);
-      }
-    }
-    if (!_matched) {
-      QualifiedName _maslQualifiedNamePrefix = this.getMaslQualifiedNamePrefix(xtumlElement);
-      String _name = xtumlElement.getName();
-      _switchResult = _maslQualifiedNamePrefix.append(_name);
     }
     return _switchResult;
   }
@@ -397,6 +370,41 @@ public class XtumlToMaslMapper {
     if (!_matched) {
       QualifiedName _maslQualifiedName = this.getMaslQualifiedName(xtumlElement, name);
       _switchResult = Collections.<QualifiedName>unmodifiableList(CollectionLiterals.<QualifiedName>newArrayList(_maslQualifiedName));
+    }
+    return _switchResult;
+  }
+  
+  public QualifiedName getMaslQualifiedName(final NonRootModelElement xtumlElement) {
+    QualifiedName _switchResult = null;
+    boolean _matched = false;
+    if (!_matched) {
+      if (xtumlElement instanceof Component_c) {
+        _matched=true;
+        String _name = ((Component_c)xtumlElement).getName();
+        _switchResult = QualifiedName.create(_name);
+      }
+    }
+    if (!_matched) {
+      if (xtumlElement instanceof StateMachineEvent_c) {
+        _matched=true;
+        QualifiedName _maslQualifiedNamePrefix = this.getMaslQualifiedNamePrefix(xtumlElement);
+        String _mning = ((StateMachineEvent_c)xtumlElement).getMning();
+        _switchResult = _maslQualifiedNamePrefix.append(_mning);
+      }
+    }
+    if (!_matched) {
+      if (xtumlElement instanceof Association_c) {
+        _matched=true;
+        QualifiedName _maslQualifiedNamePrefix = this.getMaslQualifiedNamePrefix(xtumlElement);
+        int _numb = ((Association_c)xtumlElement).getNumb();
+        String _plus = ("R" + Integer.valueOf(_numb));
+        _switchResult = _maslQualifiedNamePrefix.append(_plus);
+      }
+    }
+    if (!_matched) {
+      QualifiedName _maslQualifiedNamePrefix = this.getMaslQualifiedNamePrefix(xtumlElement);
+      String _name = xtumlElement.getName();
+      _switchResult = _maslQualifiedNamePrefix.append(_name);
     }
     return _switchResult;
   }
@@ -505,6 +513,13 @@ public class XtumlToMaslMapper {
         InstanceStateMachine_c _oneSM_ISMOnR517 = InstanceStateMachine_c.getOneSM_ISMOnR517(_oneSM_SMOnR502);
         ModelClass_c _oneO_OBJOnR518 = ModelClass_c.getOneO_OBJOnR518(_oneSM_ISMOnR517);
         _switchResult = this.getMaslQualifiedName(_oneO_OBJOnR518);
+      }
+    }
+    if (!_matched) {
+      if (xtumlElement instanceof DataType_c) {
+        _matched=true;
+        UserDataType_c _oneS_UDTOnR17 = UserDataType_c.getOneS_UDTOnR17(((DataType_c)xtumlElement));
+        _switchResult = this.getMaslQualifiedNamePrefix(_oneS_UDTOnR17);
       }
     }
     if (!_matched) {

@@ -20,13 +20,6 @@ import org.xtuml.bp.core.Provision_c
 import org.xtuml.bp.core.RequiredExecutableProperty_c
 import org.xtuml.bp.core.RequiredOperation_c
 import org.xtuml.bp.core.Requirement_c
-import org.xtuml.bp.core.Function_c
-import org.xtuml.bp.core.InstanceStateMachine_c
-import org.xtuml.bp.core.RequiredOperation_c
-import org.xtuml.bp.core.ProvidedOperation_c
-import org.xtuml.bp.core.ModelClass_c
-import org.xtuml.bp.core.Operation_c
-import org.xtuml.bp.core.Port_c
 import org.xtuml.bp.core.StateMachineEvent_c
 import org.xtuml.bp.core.StateMachineState_c
 import org.xtuml.bp.core.StateMachine_c
@@ -44,6 +37,7 @@ import org.xtuml.bp.core.SimpleAssociation_c
 import org.xtuml.bp.core.ClassAsAssociatedOneSide_c
 import org.xtuml.bp.core.ClassAsAssociatedOtherSide_c
 import org.xtuml.bp.core.LinkedAssociation_c
+import org.xtuml.bp.core.DataType_c
 
 class XtumlToMaslMapper {
 	
@@ -113,6 +107,8 @@ class XtumlToMaslMapper {
 				#[stateDeclaration]
 			StateMachineEvent_c:
 				#[eventDefinition]
+			DataType_c:
+				#[typeDeclaration]
 			UserDataType_c:
 				#[typeDeclaration]
 		    ClassAsSimpleParticipant_c:
@@ -128,19 +124,6 @@ class XtumlToMaslMapper {
 		}
 	} 
 	
-	public def QualifiedName getMaslQualifiedName(NonRootModelElement xtumlElement) {
-		switch xtumlElement{
-			Component_c:
-				QualifiedName.create(xtumlElement.name)
-			StateMachineEvent_c:
-				xtumlElement.maslQualifiedNamePrefix.append(xtumlElement.mning)
-		    Association_c:
-		        xtumlElement.maslQualifiedNamePrefix.append("R" + xtumlElement.numb)
-			default:			
-				xtumlElement.maslQualifiedNamePrefix.append(xtumlElement.name)
-		}
-	} 
-
     public def List<QualifiedName> getMaslQualifiedNames(NonRootModelElement xtumlElement, String name) {
         switch xtumlElement {
             InterfaceOperation_c: {
@@ -174,6 +157,19 @@ class XtumlToMaslMapper {
                 #[getMaslQualifiedName(xtumlElement, name)]
         }
 	}
+
+	public def QualifiedName getMaslQualifiedName(NonRootModelElement xtumlElement) {
+		switch xtumlElement{
+			Component_c:
+				QualifiedName.create(xtumlElement.name)
+			StateMachineEvent_c:
+				xtumlElement.maslQualifiedNamePrefix.append(xtumlElement.mning)
+		    Association_c:
+		        xtumlElement.maslQualifiedNamePrefix.append("R" + xtumlElement.numb)
+			default:			
+				xtumlElement.maslQualifiedNamePrefix.append(xtumlElement.name)
+		}
+	} 
 
     public def QualifiedName getMaslQualifiedName(NonRootModelElement xtumlElement, String name) {
         val prefix = xtumlElement.maslQualifiedNamePrefix
@@ -211,6 +207,8 @@ class XtumlToMaslMapper {
 				ModelClass_c.getOneO_OBJOnR518(InstanceStateMachine_c.getOneSM_ISMOnR517(StateMachine_c.getOneSM_SMOnR501(xtumlElement))).maslQualifiedName
 			StateMachineEvent_c:
 				ModelClass_c.getOneO_OBJOnR518(InstanceStateMachine_c.getOneSM_ISMOnR517(StateMachine_c.getOneSM_SMOnR502(xtumlElement))).maslQualifiedName
+			DataType_c:
+				UserDataType_c.getOneS_UDTOnR17(xtumlElement).maslQualifiedNamePrefix
 			UserDataType_c:
 				xtumlElement.component.maslQualifiedName
 		    Association_c:
