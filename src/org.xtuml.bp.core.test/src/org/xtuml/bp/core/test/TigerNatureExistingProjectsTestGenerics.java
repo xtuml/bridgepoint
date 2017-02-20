@@ -96,7 +96,7 @@ public class TigerNatureExistingProjectsTestGenerics extends CanvasTest {
 	public TigerNatureExistingProjectsTestGenerics() {
 		super("org.xtuml.bp.core.test", null);
 		expected_string = new String[] { "drawRectangle(...)",
-				"drawText(" + String.valueOf('"') + "Unnamed ..." + String.valueOf('"') + ", ...)",
+				"drawText(" + String.valueOf('"') + "Unname..." + String.valueOf('"') + ", ...)",
 				"drawline(...)", "drawRectangle(...)",
 				"drawText(" + String.valueOf('"') + "U..." + String.valueOf('"') + ", ...)", "drawline(...)" };
 	}

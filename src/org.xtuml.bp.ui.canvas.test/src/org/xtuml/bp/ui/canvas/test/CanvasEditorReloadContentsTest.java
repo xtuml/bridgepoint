@@ -112,6 +112,8 @@ public class CanvasEditorReloadContentsTest extends CanvasTest
 
         // setup the test project and model
         loadProject(testModelName);
+        
+        BaseTest.dispatchEvents(0);
 
         // find a subsystem's shape that is in the canvas
         Package_c subsystem = Package_c.PackageInstance(modelRoot, new ClassQueryInterface_c() {
@@ -127,7 +129,7 @@ public class CanvasEditorReloadContentsTest extends CanvasTest
         GraphicalElement_c element = 
         	CanvasTestUtils.getGraphicalElement(graphicsRoot, subsystem);
         Shape_c shape = Shape_c.getOneGD_SHPOnR2(element);
-        
+        UITestingUtilities.addElementToGraphicalSelection(subsystem);
         // drag the subsystem's shape a bit, then let go to get the 
         // change persisted
         Model_c canvas = editor.getModel();
@@ -135,7 +137,7 @@ public class CanvasEditorReloadContentsTest extends CanvasTest
         Point mouse = CanvasTestUtils.convertToMouseCoor(oldCenter, canvas);
         CanvasTestUtils.createMouseEvent(
             mouse.x, mouse.y, "MouseDown");
-        int dx = 20, dy = 20;
+        int dx = 30, dy = 30;
         CanvasTestUtils.createMouseEvent(
             mouse.x + dx, mouse.y + dy, "MouseMove");
         CanvasTestUtils.createMouseEvent(
@@ -199,6 +201,7 @@ public class CanvasEditorReloadContentsTest extends CanvasTest
     	CanvasTestUtils.openCanvasEditor(uut);
     	GraphicalEditor editor = CanvasTestUtils.getCanvasEditor("Disk");
 
+    	BaseTest.dispatchEvents(0);
         // find a state's shape that is in the canvas
         StateMachineState_c state = StateMachineState_c.getOneSM_STATEOnR501(
         		StateMachine_c.getOneSM_SMOnR517(uut));

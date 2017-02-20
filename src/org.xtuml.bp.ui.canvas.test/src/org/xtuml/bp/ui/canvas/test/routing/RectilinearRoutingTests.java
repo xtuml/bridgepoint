@@ -48,6 +48,7 @@ import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.common.BridgePointPreferencesStore;
 import org.xtuml.bp.core.common.NonRootModelElement;
 import org.xtuml.bp.core.ui.Selection;
+import org.xtuml.bp.test.common.BaseTest;
 import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.test.common.UITestingUtilities;
 import org.xtuml.bp.ui.canvas.Connector_c;
@@ -761,7 +762,7 @@ public class RectilinearRoutingTests extends CanvasTest {
 	 */
 	boolean checkResult_segmentNewSideNorth(NonRootModelElement source,
 			NonRootModelElement destination) {
-		while(PlatformUI.getWorkbench().getDisplay().readAndDispatch());
+		BaseTest.dispatchEvents(0);
 		// the connector should have an additional point, and should come
 		// out of the east side of the terminal
 		PointList points = testElement.getConnectionFigure().getPoints();

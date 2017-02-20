@@ -57,8 +57,10 @@ import org.xtuml.bp.core.common.ClassQueryInterface_c;
 import org.xtuml.bp.core.common.NonRootModelElement;
 import org.xtuml.bp.core.common.PersistableModelComponent;
 import org.xtuml.bp.core.util.WorkspaceUtil;
+import org.xtuml.bp.test.common.BaseTest;
 import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.test.common.UITestingUtilities;
+import org.xtuml.bp.ui.canvas.CanvasTransactionListener;
 import org.xtuml.bp.ui.canvas.Connector_c;
 import org.xtuml.bp.ui.canvas.GraphicalElement_c;
 import org.xtuml.bp.ui.canvas.test.CanvasTest;
@@ -101,6 +103,7 @@ public class ConnectorMoveTests extends CanvasTest {
 	@Before
 	public void setUp() throws Exception {
 		super.setUp();
+		CanvasTransactionListener.disableReconciler();
 		ConnectorEditPart.setToleranceForTests(15);
 		// load the test model
 		if (!initialized) {
@@ -142,6 +145,7 @@ public class ConnectorMoveTests extends CanvasTest {
 		ConnectorEditPart.setToleranceForTests(-1);
 		PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage()
 				.closeAllEditors(false);
+		CanvasTransactionListener.enableReconciler();
 	}
 
 	/**
@@ -288,6 +292,7 @@ public class ConnectorMoveTests extends CanvasTest {
 			}
 		}
 		moveConnector(testPart, segmentOver);
+		BaseTest.dispatchEvents(50);
 	}
 
 	private void moveConnector(ConnectorEditPart testPart, int segmentOver) {
@@ -405,6 +410,7 @@ public class ConnectorMoveTests extends CanvasTest {
 									.getActivePartReference());
 		}
 		if(!diagramZoomed) { 
+			BaseTest.dispatchEvents(0);
 			// disable grid snapping to allow exact
 			// positions
 			CorePlugin.getDefault().getPreferenceStore().setValue(
@@ -466,7 +472,7 @@ public class ConnectorMoveTests extends CanvasTest {
 		testPart.getConnectionFigure().translateToAbsolute(point);
 		testPart.getConnectionFigure().translateToAbsolute(point2);
 		int difference = point.getDifference(point2).height;
-		return  Math.abs(difference) - 24 < 5;
+		return  Math.abs(difference) - 24 < 10;
 	}
 
 	/**

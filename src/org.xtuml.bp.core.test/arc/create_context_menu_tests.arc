@@ -28,6 +28,8 @@
   
   .if(kl == "S_SYS")
     .assign attr_result = true
+  .elif(kl == "S_EXP")
+    .assign attr_result = true
   .elif(kl == "EP_PKG")
     .assign attr_result = true
   .elif(kl == "SQ_S")
@@ -526,13 +528,14 @@ public class ContextMenuTestsGenerics extends BaseTest
     	}
 
     	HashMap< String, Integer> CME = new HashMap<String,Integer>();
-    	CME.put( "Activity",2);
-    	CME.put( "Classes",3);
-    	CME.put( "Components",4);
-    	CME.put( "External",5);
-    	CME.put( "Interaction",6);
-    	CME.put( "Types",7);
-    	CME.put( "Use Case",8);
+        CME.put( "Activity",2);
+        CME.put( "Classes",3);
+        CME.put( "Components",4);
+        CME.put( "Exceptions",5);
+        CME.put( "External",6);
+        CME.put( "Interaction",7);
+        CME.put( "Types",8);
+        CME.put( "Use Case",9);
 
     	HashMap< String, Integer> Activity = new HashMap<String,Integer>();
     	Activity.put( "Accept Event Action",2);
@@ -553,7 +556,7 @@ public class ContextMenuTestsGenerics extends BaseTest
 
     	HashMap< String, Integer> External = new HashMap<String,Integer>();
     	External.put( "External Entity",2);
-
+        
     	HashMap< String, Integer> Types = new HashMap<String,Integer>();
     	Types.put( "Constant Specification",2);
     	Types.put( "Enumeration Data Type",3);
@@ -561,6 +564,9 @@ public class ContextMenuTestsGenerics extends BaseTest
     	Types.put( "User Data Type",5);
     	Types.put( "Interaction",6);
 
+        HashMap< String, Integer> Exceptions = new HashMap<String, Integer>();
+        Exceptions.put( "Exception", 2);
+        
     	HashMap< String, Integer> Interaction = new HashMap<String,Integer>();
     	Interaction.put( "Actor",2);
     	Interaction.put( "Class",3);
@@ -621,7 +627,11 @@ public class ContextMenuTestsGenerics extends BaseTest
     								cme_label = true;
     							}
     						}
-
+                            else if (drawerName.equalsIgnoreCase( "Exceptions")){
+                                if ( Exceptions.get(toolName)!= null){
+                                    cme_label = true;
+                                }
+                            }
     						else if (drawerName.equalsIgnoreCase( "Use Case")){
     							if ( Usecase.get(toolName)!= null){
     								cme_label = true;

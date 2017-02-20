@@ -425,6 +425,12 @@ public class BaseTest extends TestCase {
 					    continue;
 					}
 					
+					if(entry.getMessage().contains("Could not load SWT style")) {
+						// ignore as it provides no benefit to our testing
+						// this it ouside of our code and related to OS configuration
+						continue;
+					}
+					
 					msg = prepend + ".log file is not empty";
 				}
 			}			
@@ -509,7 +515,7 @@ public class BaseTest extends TestCase {
 			TestingUtilities.importTestingProjectIntoWorkspace(projectName);
 			project = ResourcesPlugin.getWorkspace().getRoot().getProject(
 					projectName);
-			TestingUtilities.allowJobCompletion();
+			dispatchEvents(0);
 			m_sys = getSystemModel(projectName);
 		}
 		String modelRootId = Ooaofooa.createModelRootId(project, projectName, true);
@@ -1080,8 +1086,7 @@ public class BaseTest extends TestCase {
 		delay(delay);
 		waitForTransaction();
 		waitForPlaceHolderThread();
-		//waitForJobs(); 		// TODO : some junit tests hang here specially in getConsoleText invocation. 
-								// I could not figure out the unfinished job, and need to be investigated more.
+		waitForJobs();
 
 		waitForDecorator();
 		

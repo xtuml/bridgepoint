@@ -588,7 +588,7 @@ public class DebugUITestUtilities {
 		long start = System.currentTimeMillis();
 		if (expected.equals("")) {
 			while (!consoleText.equals(expected)) {
-				TestingUtilities.processDisplayEvents();
+				BaseTest.dispatchEvents(0);
 				processDebugEvents();
 				consoleText = console.getDocument().get();
 				long current = System.currentTimeMillis();
@@ -833,7 +833,7 @@ public class DebugUITestUtilities {
 	  Thread thread = ExecuteAction.getRunner();
 		if (thread != null) {
 		  while (thread.isAlive()) {
-		    Display.getCurrent().readAndDispatch();
+		    BaseTest.dispatchEvents(0);
 		}
 		}
 		processDebugEvents();

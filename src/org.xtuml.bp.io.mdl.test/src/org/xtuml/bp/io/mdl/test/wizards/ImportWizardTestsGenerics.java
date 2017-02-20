@@ -30,10 +30,13 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.gef.tools.AbstractTool;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.ui.PlatformUI;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.Package_c;
 import org.xtuml.bp.core.SystemModel_c;
+import org.xtuml.bp.core.common.BridgePointPreferencesStore;
 import org.xtuml.bp.core.common.ClassQueryInterface_c;
 import org.xtuml.bp.core.ui.Selection;
 import org.xtuml.bp.io.mdl.wizards.ModelExportPage;
@@ -51,6 +54,11 @@ import org.xtuml.bp.ui.canvas.test.CanvasTestUtilities;
 @RunWith(OrderedRunner.class)
 public class ImportWizardTestsGenerics extends BaseTest {
 
+	@Before
+	public void setUp() {
+		CorePlugin.getDefault().getPreferenceStore().setValue(BridgePointPreferencesStore.USE_DEFAULT_NAME_FOR_CREATION,
+				true);
+	}
 	/**
 	 * Tests that when importing a core data types package, the graphical
 	 * elements for the removed core types are also removed

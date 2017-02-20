@@ -10,6 +10,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.xtuml.bp.core.InstanceStateMachine_c;
 import org.xtuml.bp.core.common.ClassQueryInterface_c;
+import org.xtuml.bp.test.common.BaseTest;
 import org.xtuml.bp.test.common.CanvasTestUtils;
 import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.test.common.UITestingUtilities;
@@ -65,6 +66,7 @@ public class CreationTransitionTest extends CanvasTest {
 		CanvasTestUtils ctu = new CanvasTestUtils();
 		InstanceStateMachine_c uut = InstanceStateMachine_c.InstanceStateMachineInstance(modelRoot);
 		CanvasTestUtils.openCanvasEditor(uut);
+		BaseTest.dispatchEvents(0);
 	}
 	
 	public void setGenerateResults() {

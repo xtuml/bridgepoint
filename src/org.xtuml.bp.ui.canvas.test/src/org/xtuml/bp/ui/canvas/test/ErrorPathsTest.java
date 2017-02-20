@@ -69,106 +69,114 @@ public class ErrorPathsTest extends TestCase {
 	  return ret_val;
   }
   
-  @Test
-	public void testGetConnectorText() throws Exception {
-    // Method not implemented
-    String text = Cl_c.Getconnectortext(0, IdAssigner.NULL_UUID, false, new Object(), IdAssigner.NULL_UUID);
-    assertEquals("", text);
-    assertTrue("Log file is not present", logFilePresent());
-    // A class created by method is private
-    text = Cl_c.Getconnectortext(0, IdAssigner.NULL_UUID, false, new Association_c(modelRoot) {
-      public String Get_connector_text(UUID ooa_id, boolean ooa_type, int At, UUID parent_id) {
-        try {
-          Object testItem = Class.forName("org.xtuml.bp.core.EV_ACCESS_PATH");
-        }
-        catch (ClassNotFoundException e) {
-          // Should find it OK
-        }
-        return "";
-      }}, IdAssigner.NULL_UUID);
-    assertEquals("", text);
-    assertTrue("Log file is not present", logFilePresent());
-    // Method throws an exception
-    Tester target = new Tester(); 
-    text = Cl_c.Getconnectortext(0, IdAssigner.NULL_UUID, false, target, IdAssigner.NULL_UUID);
-    assertEquals("", text);
-    assertTrue("Log file is not present", logFilePresent());
-  }
-  @Test
-	public void testGetCompartmentText() throws Exception {
-    // Method not implemented
-    String text = Cl_c.Getcompartmenttext(0, 0, 0, new Object());
-    assertEquals("", text);
-    assertTrue("Log file is not present", logFilePresent());
-    // A class created by method is private
-    text = Cl_c.Getcompartmenttext(0, 0, 0, new Association_c(modelRoot) {
-      public String Get_compartment_text(int comp_id, int entry_id, int At) {
-        try {
-          Object testItem = Class.forName("org.xtuml.bp.core.EV_ACCESS_PATH");
-        }
-        catch (ClassNotFoundException e) {
-          // Should find it OK
-        }
-        return "";
-      }});
-    assertEquals("", text);
-    assertTrue("Log file is not present", logFilePresent());
-    // Method throws an exception
-    Tester target = new Tester(); 
-    text = Cl_c.Getcompartmenttext(0, 0, 0, target);
-    assertEquals("", text);
-    assertTrue("Log file is not present", logFilePresent());
-  }
-  @Test
-	public void testGetCompartments() throws Exception {
-    int testVal = -1;
-    testVal = Cl_c.Getcompartments(new Object());
-    assertEquals(0, testVal);
-    assertTrue("Log file is not present", logFilePresent());
-    // A class created by method is private
-    testVal = Cl_c.Getcompartments(new Association_c(modelRoot) {
-      public String Get_compartments() {
-        try {
-          Object testItem = Class.forName("org.xtuml.bp.core.EV_ACCESS_PATH");
-        }
-        catch (ClassNotFoundException e) {
-          // Should find it OK
-        }
-        return "";
-      }});
-    assertEquals(0, testVal);
-    assertTrue("Log file is not present", logFilePresent());
-    // Method throws an exception
-    Tester target = new Tester(); 
-    testVal = Cl_c.Getcompartments(target);
-    assertEquals(0, testVal);
-    assertTrue("Log file is not present", logFilePresent());
-  }
-  @Test
-	public void testGetConnectorStyle() throws Exception {
-    int testVal = -1;
-    testVal = Cl_c.Getconnectorstyle(0, new Object());
-    assertEquals(0, testVal);
-    assertTrue("Log file is not present", logFilePresent());
-    // A class created by method is private
-    testVal = Cl_c.Getconnectorstyle(0, new Association_c(modelRoot) {
-      public int Get_style(int At) {
-        try {
-          Object testItem = Class.forName("org.xtuml.bp.core.EV_ACCESS_PATH");
-        }
-        catch (ClassNotFoundException e) {
-          // Should find it OK
-        }
-        return 0;
-      }});
-    assertEquals(0, testVal);
-    assertTrue("Log file is not present", logFilePresent());
-    // Method throws an exception
-    Tester target = new Tester(); 
-    testVal = Cl_c.Getconnectorstyle(0, target);
-    assertEquals(0, testVal);
-    assertTrue("Log file is not present", logFilePresent());
-  }
+  /**
+   * The following tests are disabled until we remove the comment in 
+   * 
+   * Cl_c.findMethod() -
+   * 		// TODO: ClientNotFound operations are ignored right now because
+   * 		//                 OAL added in operations made inside GD_ARS.Reconcile are being made
+   * @throws Exception
+   */
+//  @Test
+//	public void testGetConnectorText() throws Exception {
+//    // Method not implemented
+//    String text = Cl_c.Getconnectortext(0, IdAssigner.NULL_UUID, false, new Object(), IdAssigner.NULL_UUID);
+//    assertEquals("", text);
+//    assertTrue("Log file is not present", logFilePresent());
+//    // A class created by method is private
+//    text = Cl_c.Getconnectortext(0, IdAssigner.NULL_UUID, false, new Association_c(modelRoot) {
+//      public String Get_connector_text(UUID ooa_id, boolean ooa_type, int At, UUID parent_id) {
+//        try {
+//          Object testItem = Class.forName("org.xtuml.bp.core.EV_ACCESS_PATH");
+//        }
+//        catch (ClassNotFoundException e) {
+//          // Should find it OK
+//        }
+//        return "";
+//      }}, IdAssigner.NULL_UUID);
+//    assertEquals("", text);
+//    assertTrue("Log file is not present", logFilePresent());
+//    // Method throws an exception
+//    Tester target = new Tester(); 
+//    text = Cl_c.Getconnectortext(0, IdAssigner.NULL_UUID, false, target, IdAssigner.NULL_UUID);
+//    assertEquals("", text);
+//    assertTrue("Log file is not present", logFilePresent());
+//  }
+//  @Test
+//	public void testGetCompartmentText() throws Exception {
+//    // Method not implemented
+//    String text = Cl_c.Getcompartmenttext(0, 0, 0, new Object());
+//    assertEquals("", text);
+//    assertTrue("Log file is not present", logFilePresent());
+//    // A class created by method is private
+//    text = Cl_c.Getcompartmenttext(0, 0, 0, new Association_c(modelRoot) {
+//      public String Get_compartment_text(int comp_id, int entry_id, int At) {
+//        try {
+//          Object testItem = Class.forName("org.xtuml.bp.core.EV_ACCESS_PATH");
+//        }
+//        catch (ClassNotFoundException e) {
+//          // Should find it OK
+//        }
+//        return "";
+//      }});
+//    assertEquals("", text);
+//    assertTrue("Log file is not present", logFilePresent());
+//    // Method throws an exception
+//    Tester target = new Tester(); 
+//    text = Cl_c.Getcompartmenttext(0, 0, 0, target);
+//    assertEquals("", text);
+//    assertTrue("Log file is not present", logFilePresent());
+//  }
+//  @Test
+//	public void testGetCompartments() throws Exception {
+//    int testVal = -1;
+//    testVal = Cl_c.Getcompartments(new Object());
+//    assertEquals(0, testVal);
+//    assertTrue("Log file is not present", logFilePresent());
+//    // A class created by method is private
+//    testVal = Cl_c.Getcompartments(new Association_c(modelRoot) {
+//      public String Get_compartments() {
+//        try {
+//          Object testItem = Class.forName("org.xtuml.bp.core.EV_ACCESS_PATH");
+//        }
+//        catch (ClassNotFoundException e) {
+//          // Should find it OK
+//        }
+//        return "";
+//      }});
+//    assertEquals(0, testVal);
+//    assertTrue("Log file is not present", logFilePresent());
+//    // Method throws an exception
+//    Tester target = new Tester(); 
+//    testVal = Cl_c.Getcompartments(target);
+//    assertEquals(0, testVal);
+//    assertTrue("Log file is not present", logFilePresent());
+//  }
+//  @Test
+//	public void testGetConnectorStyle() throws Exception {
+//    int testVal = -1;
+//    testVal = Cl_c.Getconnectorstyle(0, new Object());
+//    assertEquals(0, testVal);
+//    assertTrue("Log file is not present", logFilePresent());
+//    // A class created by method is private
+//    testVal = Cl_c.Getconnectorstyle(0, new Association_c(modelRoot) {
+//      public int Get_style(int At) {
+//        try {
+//          Object testItem = Class.forName("org.xtuml.bp.core.EV_ACCESS_PATH");
+//        }
+//        catch (ClassNotFoundException e) {
+//          // Should find it OK
+//        }
+//        return 0;
+//      }});
+//    assertEquals(0, testVal);
+//    assertTrue("Log file is not present", logFilePresent());
+//    // Method throws an exception
+//    Tester target = new Tester(); 
+//    testVal = Cl_c.Getconnectorstyle(0, target);
+//    assertEquals(0, testVal);
+//    assertTrue("Log file is not present", logFilePresent());
+//  }
 	@Test
 	public void testGetOOA_IDfromInstance() throws Exception {
     ExternalEntity_c ee = new ExternalEntity_c(modelRoot);

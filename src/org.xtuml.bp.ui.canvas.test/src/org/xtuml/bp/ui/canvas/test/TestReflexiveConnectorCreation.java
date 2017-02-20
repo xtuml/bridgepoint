@@ -108,7 +108,7 @@ public class TestReflexiveConnectorCreation extends BaseTest {
 								"Unnamed Package");
 					}
 				});
-		TestingUtilities.allowJobCompletion();
+		BaseTest.dispatchEvents(0);
 		CanvasUtilities.openCanvasEditor(testPackage);
 		AbstractTool classTool = UITestingUtilities.getTool("Classes", "Class");
 		UITestingUtilities.activateTool(classTool);

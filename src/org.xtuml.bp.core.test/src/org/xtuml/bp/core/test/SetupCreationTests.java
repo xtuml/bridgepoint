@@ -44,8 +44,10 @@ import org.xtuml.bp.core.PackageableElement_c;
 import org.xtuml.bp.core.SystemModel_c;
 import org.xtuml.bp.core.common.BridgePointPreferencesStore;
 import org.xtuml.bp.core.common.ClassQueryInterface_c;
+import org.xtuml.bp.core.common.ComponentResourceListener;
 import org.xtuml.bp.core.common.NonRootModelElement;
 import org.xtuml.bp.core.common.Transaction;
+import org.xtuml.bp.test.common.BaseTest;
 import org.xtuml.bp.test.common.CanvasTestUtils;
 import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.test.common.TestingUtilities;
@@ -192,7 +194,7 @@ public class SetupCreationTests extends CanvasTest {
 		t = Cl_c.Starttransaction(subsystem, "Rename model class");
 		mc.setName("TestClass1");
 		Cl_c.Endtransaction(subsystem, t);
-		while (Display.getCurrent().readAndDispatch());
+		BaseTest.dispatchEvents(0);
 		TextEditorUtils.openDescriptionEditor(mc);
 
 		//Adding markers as part of i673 test
@@ -207,11 +209,12 @@ public class SetupCreationTests extends CanvasTest {
 		t = Cl_c.Starttransaction(mc, "New operation");
 		mc.Newoperation();
 		Cl_c.Endtransaction(mc, t);
+		BaseTest.dispatchEvents(0);
 		Operation_c op = Operation_c.OperationInstance(mc.getModelRoot());
 		t = Cl_c.Starttransaction(mc, "Rename operation");
 		op.setName("testOp");
 		Cl_c.Endtransaction(op, t);
-		while (Display.getCurrent().readAndDispatch());
+		BaseTest.dispatchEvents(0);
 		CanvasTestUtils.openActivityEditor(op);
 		ActivityEditor ae = (ActivityEditor) PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage()
 				.getActiveEditor();
@@ -234,7 +237,7 @@ public class SetupCreationTests extends CanvasTest {
 		assertTrue(ae.isSaveOnCloseNeeded());
 		assertTrue(ae.isDirty());
 		ae.doSave(new NullProgressMonitor());
-		while (Display.getCurrent().readAndDispatch());
+		BaseTest.dispatchEvents(0);
 		IProject testproject2 = TestingUtilities.createProject("Test Project 2");
 		SystemModel_c sysModProject2 = SystemModel_c.SystemModelInstance(Ooaofooa.getDefaultInstance(),
 				new ClassQueryInterface_c() {
@@ -473,6 +476,9 @@ public class SetupCreationTests extends CanvasTest {
 	}
 
 	static IMarker callCreateNewMarker(Class<?> clazz, IFile file) {
+		// for now disable resource transaction listener
+		// when https://support.onefact.net/issues/9195 is resolved
+		ComponentResourceListener.setIgnoreResourceChanges(true);
 		Object ret = null;
 		try {
 			Method method = clazz.getMethod("createNewMarker", //$NON-NLS-1$

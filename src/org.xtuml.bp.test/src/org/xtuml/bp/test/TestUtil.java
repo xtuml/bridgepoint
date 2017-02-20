@@ -738,7 +738,10 @@ public class TestUtil
     /**
      * Returns the contents of the given text file as a string.
      */
-    public static String getTextFileContents(File file)
+    public static String getTextFileContents(File file) {
+    	return getTextFileContents(file, true);
+    }
+    public static String getTextFileContents(File file, boolean trim)
     {
         try {
             // open a reader on the file
@@ -758,7 +761,11 @@ public class TestUtil
                 
                 // add the line to the results string we're building
                 if (linesRead > 0) contents.append(lineSeparator);
-                contents.append(line.trim());
+                if(trim) {
+                	contents.append(line.trim());
+                } else {
+                	contents.append(line);
+                }
                 
                 linesRead++;
             }
@@ -1168,7 +1175,7 @@ public class TestUtil
 			}
 			CorePlugin.logError("Unable to complete transaction.", e);
 		}
-		BaseTest.dispatchEvents(0);
+		BaseTest.dispatchEvents(200);
 	}
 
 	

@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: Nucleus BridgePoint OAL Test Plug-in
 Bundle-SymbolicName: org.xtuml.bp.als.oal.test;singleton:=true
 Bundle-Version: 1.0.0
-Bundle-ClassPath: test.jar
+Bundle-ClassPath: oalTest.jar
 Bundle-Activator: org.xtuml.bp.als.oal.test.TestPlugin_Generics
 Bundle-Vendor: xtUML.org
 Require-Bundle: org.eclipse.core.runtime,
@@ -26,3 +26,4 @@ Require-Bundle: org.eclipse.core.runtime,
  org.xtuml.bp.ui.graphics
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Export-Package: org.xtuml.bp.als.oal.test

@@ -133,5 +133,11 @@ import junit.framework.TestSuite;
 	SupportConstantsViaIPRTests.class,
 })
 public class OALGlobalsTestSuite_Generics extends TestSuite {
-
+	/**
+	 * Returns the suite.  This is required to
+	 * use the JUnit Launcher.
+	 */
+	public static Test suite() {
+		return new OALGlobalsTestSuite_Generics();
+	}
 }

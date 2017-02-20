@@ -31,14 +31,12 @@ Transaction started: shape creation
  Attribute 'Printcols' of ui.canvas.Model changed ( '0' -> '1')
  Attribute 'Islandscape' of ui.canvas.Model changed ( 'false' -> 'true')
  Attribute 'Zoomfontsize' of ui.canvas.Model changed ( '0' -> '12')
- Attribute 'Viewportx' of ui.canvas.Diagram changed ( '0.0' -> '4000.0')
- Attribute 'Viewporty' of ui.canvas.Diagram changed ( '0.0' -> '3000.0')
  Attribute 'Zoom' of ui.canvas.Diagram changed ( '0.0' -> '1.0')
  Attribute 'Gridon' of ui.canvas.Model changed ( 'false' -> 'true')
  Attribute 'Represents' of ui.canvas.Model changed ( 'null' -> ' instance of [core.Package]')
  Attribute 'Represents' of ui.canvas.GraphicalElement changed ( 'null' -> ' instance of [core.Package]')
  Attribute 'Ooa_id' of ui.canvas.GraphicalElement changed ( '00000000-0000-0000-0000-000000000000' -> '4aef1abd-c838-8183-c53d-6cd0e2fb06f4')
   instance of [ui.canvas.ElementSpecification] UN-RelatedAcross R16 To:  instance of [ui.canvas.GraphicalElement]
- Attribute 'Width' of ui.canvas.Graphnode changed ( '0.0' -> '73.0')
- Attribute 'Height' of ui.canvas.Graphnode changed ( '0.0' -> '73.0')
-Transaction Ended: shape creation with delta size: 42
+ Attribute 'Width' of ui.canvas.Graphnode changed ( '0.0' -> '85.0')
+ Attribute 'Height' of ui.canvas.Graphnode changed ( '0.0' -> '85.0')
+Transaction Ended: shape creation with delta size: 40

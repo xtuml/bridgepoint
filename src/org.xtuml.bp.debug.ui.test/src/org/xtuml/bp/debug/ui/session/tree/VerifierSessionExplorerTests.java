@@ -158,7 +158,7 @@ public class VerifierSessionExplorerTests extends BaseTest {
 		Tree tree = sev.getTreeViewer().getTree();
 		String result = DebugUITestUtilities.getTreeTextRepresentation(tree);
 		File expectedResultsFile = new File(m_workspace_path + "expected_results/session_tree/component_session_tree.txt");
-		String expected_results = TestUtil.getTextFileContents(expectedResultsFile);
+		String expected_results = TestUtil.getTextFileContents(expectedResultsFile, false);
 		assertEquals(expected_results, result);
 	}
 	
@@ -347,7 +347,7 @@ public class VerifierSessionExplorerTests extends BaseTest {
 		String result = DebugUITestUtilities.getTreeTextRepresentation(tree);
 		result = result.trim();
 		File expectedResultsFile = new File(m_workspace_path + expected_result);
-		String expected_results = TestUtil.getTextFileContents(expectedResultsFile);
+		String expected_results = TestUtil.getTextFileContents(expectedResultsFile, false);
 		assertEquals(expected_results, result);
 	}
 
