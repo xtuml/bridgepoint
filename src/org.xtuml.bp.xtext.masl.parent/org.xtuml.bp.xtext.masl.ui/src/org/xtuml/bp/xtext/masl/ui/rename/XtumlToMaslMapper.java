@@ -13,7 +13,12 @@ import org.eclipse.xtext.xbase.lib.Conversions;
 import org.eclipse.xtext.xbase.lib.Extension;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.ListExtensions;
+import org.xtuml.bp.core.Association_c;
 import org.xtuml.bp.core.Attribute_c;
+import org.xtuml.bp.core.ClassAsAssociatedOneSide_c;
+import org.xtuml.bp.core.ClassAsAssociatedOtherSide_c;
+import org.xtuml.bp.core.ClassAsSimpleFormalizer_c;
+import org.xtuml.bp.core.ClassAsSimpleParticipant_c;
 import org.xtuml.bp.core.Component_c;
 import org.xtuml.bp.core.ExecutableProperty_c;
 import org.xtuml.bp.core.FunctionParameter_c;
@@ -21,6 +26,7 @@ import org.xtuml.bp.core.Function_c;
 import org.xtuml.bp.core.InstanceStateMachine_c;
 import org.xtuml.bp.core.InterfaceOperation_c;
 import org.xtuml.bp.core.InterfaceReference_c;
+import org.xtuml.bp.core.LinkedAssociation_c;
 import org.xtuml.bp.core.ModelClass_c;
 import org.xtuml.bp.core.OperationParameter_c;
 import org.xtuml.bp.core.Operation_c;
@@ -32,6 +38,7 @@ import org.xtuml.bp.core.Provision_c;
 import org.xtuml.bp.core.RequiredExecutableProperty_c;
 import org.xtuml.bp.core.RequiredOperation_c;
 import org.xtuml.bp.core.Requirement_c;
+import org.xtuml.bp.core.SimpleAssociation_c;
 import org.xtuml.bp.core.StateMachineEvent_c;
 import org.xtuml.bp.core.StateMachineState_c;
 import org.xtuml.bp.core.StateMachine_c;
@@ -260,6 +267,34 @@ public class XtumlToMaslMapper {
       }
     }
     if (!_matched) {
+      if (xtumlElement instanceof ClassAsSimpleParticipant_c) {
+        _matched=true;
+        EClass _relationshipEnd = this._structurePackage.getRelationshipEnd();
+        _switchResult = Collections.<EClass>unmodifiableList(CollectionLiterals.<EClass>newArrayList(_relationshipEnd));
+      }
+    }
+    if (!_matched) {
+      if (xtumlElement instanceof ClassAsSimpleFormalizer_c) {
+        _matched=true;
+        EClass _relationshipEnd = this._structurePackage.getRelationshipEnd();
+        _switchResult = Collections.<EClass>unmodifiableList(CollectionLiterals.<EClass>newArrayList(_relationshipEnd));
+      }
+    }
+    if (!_matched) {
+      if (xtumlElement instanceof ClassAsAssociatedOneSide_c) {
+        _matched=true;
+        EClass _relationshipEnd = this._structurePackage.getRelationshipEnd();
+        _switchResult = Collections.<EClass>unmodifiableList(CollectionLiterals.<EClass>newArrayList(_relationshipEnd));
+      }
+    }
+    if (!_matched) {
+      if (xtumlElement instanceof ClassAsAssociatedOtherSide_c) {
+        _matched=true;
+        EClass _relationshipEnd = this._structurePackage.getRelationshipEnd();
+        _switchResult = Collections.<EClass>unmodifiableList(CollectionLiterals.<EClass>newArrayList(_relationshipEnd));
+      }
+    }
+    if (!_matched) {
       _switchResult = Collections.<EClass>unmodifiableList(CollectionLiterals.<EClass>newArrayList());
     }
     return _switchResult;
@@ -281,6 +316,15 @@ public class XtumlToMaslMapper {
         QualifiedName _maslQualifiedNamePrefix = this.getMaslQualifiedNamePrefix(xtumlElement);
         String _mning = ((StateMachineEvent_c)xtumlElement).getMning();
         _switchResult = _maslQualifiedNamePrefix.append(_mning);
+      }
+    }
+    if (!_matched) {
+      if (xtumlElement instanceof Association_c) {
+        _matched=true;
+        QualifiedName _maslQualifiedNamePrefix = this.getMaslQualifiedNamePrefix(xtumlElement);
+        int _numb = ((Association_c)xtumlElement).getNumb();
+        String _plus = ("R" + Integer.valueOf(_numb));
+        _switchResult = _maslQualifiedNamePrefix.append(_plus);
       }
     }
     if (!_matched) {
@@ -468,6 +512,45 @@ public class XtumlToMaslMapper {
         _matched=true;
         NonRootModelElement _component = this.getComponent(xtumlElement);
         _switchResult = this.getMaslQualifiedName(_component);
+      }
+    }
+    if (!_matched) {
+      if (xtumlElement instanceof Association_c) {
+        _matched=true;
+        NonRootModelElement _component = this.getComponent(xtumlElement);
+        _switchResult = this.getMaslQualifiedName(_component);
+      }
+    }
+    if (!_matched) {
+      if (xtumlElement instanceof ClassAsSimpleParticipant_c) {
+        _matched=true;
+        SimpleAssociation_c _oneR_SIMPOnR207 = SimpleAssociation_c.getOneR_SIMPOnR207(((ClassAsSimpleParticipant_c)xtumlElement));
+        Association_c _oneR_RELOnR206 = Association_c.getOneR_RELOnR206(_oneR_SIMPOnR207);
+        _switchResult = this.getMaslQualifiedName(_oneR_RELOnR206);
+      }
+    }
+    if (!_matched) {
+      if (xtumlElement instanceof ClassAsSimpleFormalizer_c) {
+        _matched=true;
+        SimpleAssociation_c _oneR_SIMPOnR208 = SimpleAssociation_c.getOneR_SIMPOnR208(((ClassAsSimpleFormalizer_c)xtumlElement));
+        Association_c _oneR_RELOnR206 = Association_c.getOneR_RELOnR206(_oneR_SIMPOnR208);
+        _switchResult = this.getMaslQualifiedName(_oneR_RELOnR206);
+      }
+    }
+    if (!_matched) {
+      if (xtumlElement instanceof ClassAsAssociatedOneSide_c) {
+        _matched=true;
+        LinkedAssociation_c _oneR_ASSOCOnR209 = LinkedAssociation_c.getOneR_ASSOCOnR209(((ClassAsAssociatedOneSide_c)xtumlElement));
+        Association_c _oneR_RELOnR206 = Association_c.getOneR_RELOnR206(_oneR_ASSOCOnR209);
+        _switchResult = this.getMaslQualifiedName(_oneR_RELOnR206);
+      }
+    }
+    if (!_matched) {
+      if (xtumlElement instanceof ClassAsAssociatedOtherSide_c) {
+        _matched=true;
+        LinkedAssociation_c _oneR_ASSOCOnR210 = LinkedAssociation_c.getOneR_ASSOCOnR210(((ClassAsAssociatedOtherSide_c)xtumlElement));
+        Association_c _oneR_RELOnR206 = Association_c.getOneR_RELOnR206(_oneR_ASSOCOnR210);
+        _switchResult = this.getMaslQualifiedName(_oneR_RELOnR206);
       }
     }
     if (!_matched) {

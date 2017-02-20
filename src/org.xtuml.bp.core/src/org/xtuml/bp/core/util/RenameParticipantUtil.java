@@ -92,7 +92,9 @@ public class RenameParticipantUtil {
         }
         // Relationship specification
         else if ("Txt_phrs".equals(modelDelta.getAttributeName())) {
-            // TODO implement
+            status = merge(status, doRenameElement( element, 
+                                   (String)modelDelta.getNewValue(),
+                                   (String)modelDelta.getOldValue() ) );
         }
 
 

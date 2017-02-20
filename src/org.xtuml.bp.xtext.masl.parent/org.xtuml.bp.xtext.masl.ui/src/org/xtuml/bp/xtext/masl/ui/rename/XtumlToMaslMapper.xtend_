@@ -37,6 +37,13 @@ import org.xtuml.bp.xtext.masl.masl.types.TypesPackage
 import org.xtuml.bp.core.InterfaceOperation_c
 import org.xtuml.bp.core.ExecutableProperty_c
 import org.xtuml.bp.core.PropertyParameter_c
+import org.xtuml.bp.core.ClassAsSimpleParticipant_c
+import org.xtuml.bp.core.Association_c
+import org.xtuml.bp.core.ClassAsSimpleFormalizer_c
+import org.xtuml.bp.core.SimpleAssociation_c
+import org.xtuml.bp.core.ClassAsAssociatedOneSide_c
+import org.xtuml.bp.core.ClassAsAssociatedOtherSide_c
+import org.xtuml.bp.core.LinkedAssociation_c
 
 class XtumlToMaslMapper {
 	
@@ -108,6 +115,14 @@ class XtumlToMaslMapper {
 				#[eventDefinition]
 			UserDataType_c:
 				#[typeDeclaration]
+		    ClassAsSimpleParticipant_c:
+		        #[relationshipEnd]
+		    ClassAsSimpleFormalizer_c:
+		        #[relationshipEnd]
+		    ClassAsAssociatedOneSide_c:
+		        #[relationshipEnd]
+		    ClassAsAssociatedOtherSide_c:
+		        #[relationshipEnd]
 			default:			
 				#[]
 		}
@@ -119,6 +134,8 @@ class XtumlToMaslMapper {
 				QualifiedName.create(xtumlElement.name)
 			StateMachineEvent_c:
 				xtumlElement.maslQualifiedNamePrefix.append(xtumlElement.mning)
+		    Association_c:
+		        xtumlElement.maslQualifiedNamePrefix.append("R" + xtumlElement.numb)
 			default:			
 				xtumlElement.maslQualifiedNamePrefix.append(xtumlElement.name)
 		}
@@ -196,6 +213,16 @@ class XtumlToMaslMapper {
 				ModelClass_c.getOneO_OBJOnR518(InstanceStateMachine_c.getOneSM_ISMOnR517(StateMachine_c.getOneSM_SMOnR502(xtumlElement))).maslQualifiedName
 			UserDataType_c:
 				xtumlElement.component.maslQualifiedName
+		    Association_c:
+		        xtumlElement.component.maslQualifiedName
+		    ClassAsSimpleParticipant_c:
+		        Association_c.getOneR_RELOnR206(SimpleAssociation_c.getOneR_SIMPOnR207(xtumlElement)).maslQualifiedName
+		    ClassAsSimpleFormalizer_c:
+		        Association_c.getOneR_RELOnR206(SimpleAssociation_c.getOneR_SIMPOnR208(xtumlElement)).maslQualifiedName
+		    ClassAsAssociatedOneSide_c:
+		        Association_c.getOneR_RELOnR206(LinkedAssociation_c.getOneR_ASSOCOnR209(xtumlElement)).maslQualifiedName
+		    ClassAsAssociatedOtherSide_c:
+		        Association_c.getOneR_RELOnR206(LinkedAssociation_c.getOneR_ASSOCOnR210(xtumlElement)).maslQualifiedName
 			default:			
 				null
 		}
