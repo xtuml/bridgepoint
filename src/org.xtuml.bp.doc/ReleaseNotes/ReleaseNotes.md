@@ -105,11 +105,16 @@ Closed Issues
 [9135](https://support.onefact.net/issues/9135) | transition table generated for supertype with no state model
 [9136](https://support.onefact.net/issues/9136) | domain services tagged as scenario or external are generated twice
 [9145](https://support.onefact.net/issues/9145) | Whitespace differences in MASL actions on round-trip tests
+[9160](https://support.onefact.net/issues/9160) | Type name used as element name causes forward declaration of type
 [9163](https://support.onefact.net/issues/9163) | masl_round_trip generates two copies of each service file
-[9164](https://support.onefact.net/issues/9164) | Doc comments on MASL referential attributes not exported
+[9165](https://support.onefact.net/issues/9165) | Doc comments on MASL referential attributes not exported
 [9170](https://support.onefact.net/issues/9170) | Very long MASL action file fails to import
+[9171](https://support.onefact.net/issues/9171) | Update SAC example model
+[9176](https://support.onefact.net/issues/9176) | MASL deleted when saving file
 [9177](https://support.onefact.net/issues/9177) | Invalid syntax checking report
+[9181](https://support.onefact.net/issues/9181) | role phrase attached to wrong attribute on associative reflexive relationship
 [9196](https://support.onefact.net/issues/9196) | Build issue with xtext plugins
 [9197](https://support.onefact.net/issues/9197) | Terminator service parameter rename failure
+[9201](https://support.onefact.net/issues/9201) | Default attribute values with enum type are not present in exported MASL
    
    
