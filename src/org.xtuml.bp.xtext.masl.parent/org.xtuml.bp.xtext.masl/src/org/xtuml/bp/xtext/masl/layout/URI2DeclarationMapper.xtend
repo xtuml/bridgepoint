@@ -51,7 +51,7 @@ class URI2DeclarationMapper {
 					index.getExportedObjects(objectDefinition,
 						QualifiedName.create(domainName, parentFolderName), false)
 				}
-		}.head
+		}.filter[EObjectURI.fileExtension == 'mod'].head
 		if(description != null) 
 			return implementationModel.eResource.resourceSet.getEObject(description.EObjectURI, true)
 		else 

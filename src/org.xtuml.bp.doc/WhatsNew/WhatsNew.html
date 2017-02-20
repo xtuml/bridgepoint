@@ -12,43 +12,50 @@
   <![endif]-->
 </head>
 <body>
-<h1 id="whats-new-in-bridgepoint-6.0.0">What's New in BridgePoint 6.0.0</h1>
+<h1 id="whats-new-in-bridgepoint-6.2.0">What's New in BridgePoint 6.2.0</h1>
 <h2 id="release-highlights">Release Highlights</h2>
 <ul>
-<li>Marking Editor</li>
-<li>MASL</li>
-<li>Model Compilers</li>
-<li>Native platform builds (32 and 64 bit)</li>
+<li>MASL Editor</li>
+<li>MASL Flow</li>
+<li>OAL to MASL Converter</li>
 </ul>
 <hr />
-<h2 id="marking-editor">Marking Editor</h2>
-<p>BridgePoint now supports a general purpose marking editor. The editor relies on<br />
-feature markings specified by a model compiler architect. The user then provides<br />
-application-specific marking values.</p>
-<p><img src="marking_editor.png" alt="Marking Editor" /></p>
-<p>The BridgePoint documentation contains detailed information about the configuration<br />
-and use of the marking editor. See Help &gt; Help Contents &gt; BridgePoint UML Suite Help &gt; Reference &gt; User Interface &gt; Marking Editor.</p>
-<h2 id="masl">MASL</h2>
+<h2 id="masl-editor">MASL Editor</h2>
+<ul>
+<li>BridgePoint now supports a single-activity MASL editor (Figure 1). The editor<br />
+displays the function signature at the top in a non-editable display field. This<br />
+includes the return type as well as a listing of each parameter with associated<br />
+type. This editor continues to support full syntax highlighting for the MASL<br />
+language.</li>
+</ul>
+<p><img src="masl_editor.png" alt="MASL Editor" /><br />
+<strong>Figure 1</strong></p>
+<ul>
+<li><p>Additionally, BridgePoint now supports automatic reference maintenance, also<br />
+known as rename/refactor. This feature allows the user to rename a model element<br />
+(e.g. a function parameter) and the tool will automatically update the places in<br />
+the action language where the element is used to have the new name.</p></li>
+<li><p>Complex MASL types are now edited with a syntax checking editor (Figure 2). This<br />
+helps users catch syntax issue on initial input rather than during downstream processing.</p></li>
+</ul>
+<p><img src="type_editor.png" alt="Type Editor" /><br />
+<strong>Figure 2</strong></p>
+<h2 id="masl-flow">MASL Flow</h2>
 <p>This release includes many improvements in the convert/import/edit/export flow of MASL<br />
 models:</p>
 <ul>
 <li>Better handling of referential attributes during the model conversion process.<br />
 </li>
-<li>Pragmas are now handled during conversion. The imported model is marked using the new marking editor. The<br />
-MASL export process now outputs the marks as pragmas.<br />
+<li>Fixes to comment handling</li>
+<li>Deprecate the <code>function</code> keyword in MASL in favor of <code>service</code></li>
+<li>Automated round trip (MASL -&gt; xtUML -&gt; MASL) testing<br />
 </li>
-<li>Command line export of MASL models is now supported.<br />
-</li>
-<li>BridgePoint automatically creates graphics for converted models and automatically connects<br />
-satisfactions in MASL Projects during import.</li>
-<li>An example MASL Domain xtUML model is added to Help &gt; Welcome &gt; Quick Start.</li>
+<li>Terminator services are now treated as <code>public</code> rather than <code>private</code></li>
+<li>Better handling for large files and large activity bodies</li>
 </ul>
-<h2 id="model-compilers">Model Compilers</h2>
-<p>The model compiler files have moved from underneath individual plug-ins to the<br />
-top level folder <code>&lt;install dir&gt;/tools/mc/</code>.</p>
-<h2 id="native-platform-builds">Native Platform Builds</h2>
-<p>The BridgePoint tool build process has been improved to create 32 and 64-bit builds<br />
-specific to each platform. This allows the tool to have better integration with<br />
-the underlying OS.</p>
+<h2 id="oal-to-masl-converter">OAL to MASL Converter</h2>
+<p>This release includes a tool that can convert OAL activities into MASL activities.<br />
+The tool is useful for getting a jumpstart on converting an xtUML model into a<br />
+MASL model.</p>
 </body>
 </html>

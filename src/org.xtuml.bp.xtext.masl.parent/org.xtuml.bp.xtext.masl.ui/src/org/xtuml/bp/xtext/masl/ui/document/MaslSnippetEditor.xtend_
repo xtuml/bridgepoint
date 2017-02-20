@@ -10,11 +10,14 @@ import org.eclipse.swt.widgets.Label
 import org.eclipse.xtext.ui.IImageHelper
 import org.eclipse.xtext.ui.editor.XtextEditor
 import org.xtuml.bp.ui.text.AbstractModelElementPropertyEditorInput
+import org.eclipse.ui.texteditor.IElementStateListener
 
 class MaslSnippetEditor extends XtextEditor {
 	
 	@Inject IImageHelper imageHelper
 	 
+	Label signatureLabel 
+	
 	override isSaveAsAllowed() {
 		false
 	}
@@ -29,9 +32,8 @@ class MaslSnippetEditor extends XtextEditor {
 				comp.layout = new GridLayout => [
 					numColumns = 1
 				]
-				val label = new Label(comp, SWT.WRAP)
-				label.font = JFaceResources.getFont(JFaceResources.TEXT_FONT)
-				label.text = header
+				signatureLabel = new Label(comp, SWT.WRAP)
+				signatureLabel.font = JFaceResources.getFont(JFaceResources.TEXT_FONT)
 				super.createPartControl(comp)
 				comp.children.get(1).layoutData = new GridData => [
 					horizontalAlignment = GridData.FILL
@@ -42,20 +44,47 @@ class MaslSnippetEditor extends XtextEditor {
 			} else {
 				super.createPartControl(parent)
 			}
-			val prefix = maslDocumentProvider.getPrefix(input)
-			val editable = maslDocumentProvider.getEditable(input)
-			sourceViewer.setVisibleRegion(prefix.length, editable.length)
+			updateLabelAndVisibleRegion(maslDocumentProvider, input)
 		} else {
 			super.createPartControl(parent)
 		}
+		documentProvider.addElementStateListener(new IElementStateListener() {
+			
+			override elementContentAboutToBeReplaced(Object element) {
+			}
+			
+			override elementContentReplaced(Object element) {
+				if(editorInput instanceof AbstractModelElementPropertyEditorInput)
+					updateLabelAndVisibleRegion(documentProvider as MaslDocumentProvider, editorInput as AbstractModelElementPropertyEditorInput)
+			}
+			
+			override elementDeleted(Object element) {
+			}
+			
+			override elementDirtyStateChanged(Object element, boolean isDirty) {
+			}
+			
+			override elementMoved(Object originalElement, Object movedElement) {
+			}
+		})
 	}	
-	
 	
 	override getDefaultImage() {
 		if(editorInput instanceof AbstractModelElementPropertyEditorInput) 
 			imageHelper.getImage(editorInput.imageDescriptor)
 		else
 			super.getDefaultImage()
+	}
+	
+	def updateLabelAndVisibleRegion(MaslDocumentProvider maslDocumentProvider, AbstractModelElementPropertyEditorInput input) {
+		partName = input.name
+		val prefix = maslDocumentProvider.getPrefix(input)
+		val editable = maslDocumentProvider.getEditable(input)
+		sourceViewer.setVisibleRegion(prefix.length, editable.length)
+		if(signatureLabel != null) {
+			signatureLabel.text = maslDocumentProvider.getHeader(input)
+			signatureLabel.parent.layout(true)
+		}
 	}
 }
 	

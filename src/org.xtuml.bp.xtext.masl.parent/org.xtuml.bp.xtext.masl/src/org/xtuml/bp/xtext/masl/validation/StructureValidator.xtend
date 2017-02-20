@@ -58,7 +58,7 @@ class StructureValidator extends AbstractMASLValidator {
 					ProjectDefinition: #['prj', 'masl']
 					DomainDefinition: #['mod', 'int', 'masl']
 					ObjectServiceDefinition,
-					DomainServiceDefinition: #['fn', 'masl']
+					DomainServiceDefinition: #['ext', 'scn', 'svc', 'fn', 'masl']
 					TerminatorServiceDefinition: #['tr', 'masl']
 					StateDefinition: #['al', 'masl']
 				}
