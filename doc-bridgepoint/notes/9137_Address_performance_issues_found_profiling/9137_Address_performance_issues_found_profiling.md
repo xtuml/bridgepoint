@@ -42,7 +42,7 @@ During profiling for [2.2] is was noted that the only performance difference was
 9. Code Changes
 ---------------
 Fork/Repository: https://github.com/travislondon/bridgepoint
-Branch: 9147_Improve_unit_tests_for_6.0
+Branch: 9137_Address_performance_issues_found_profiling
 
 <pre>
 
