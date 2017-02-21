@@ -416,14 +416,30 @@ public class ComponentTransactionListener implements ITransactionListener {
 							.append(
 									oldName + "/" + newName + "."
 											+ Ooaofooa.MODELS_EXT));
+
+            String[] actionDialects = ActionFile.getAvailableDialects();
+            IFile[] oldActionFiles = new IFile[actionDialects.length];
+            IFile[] newActionFilesOldFolder = new IFile[actionDialects.length];
+            for ( int i = 0; i < actionDialects.length; i++ ) {
+                oldActionFiles[i] = wsRoot.getFile( 
+                    ActionFile.getPathFromComponent( oldFile, actionDialects[i] ) );
+                newActionFilesOldFolder[i] = wsRoot.getFile(
+                    ActionFile.getPathFromComponent( newFileOldFolder, actionDialects[i] ) );
+            }
+
 			IFolder oldFolder = wsRoot.getFolder(component
 					.getParentDirectoryPath().append(oldName));
 			IFolder newFolder = wsRoot.getFolder(component
 					.getParentDirectoryPath().append(newName));
 
 			try {
-				// Rename both the file and the folder
+				// Rename both the file and the folder and the corresponding action files
 				oldFile.move(newFileOldFolder.getFullPath(), true, true, null);
+                for ( int i = 0; i < oldActionFiles.length; i++ ) {
+                    if ( oldActionFiles[i].exists() ) {
+				        oldActionFiles[i].move(newActionFilesOldFolder[i].getFullPath(), true, true, null);
+                    }
+                }
 				oldFolder.move(newFolder.getFullPath(), true, true, null);
 				if (component.isRootComponent()) {
 					IProject oldProject = wsRoot.getProject(oldName);
