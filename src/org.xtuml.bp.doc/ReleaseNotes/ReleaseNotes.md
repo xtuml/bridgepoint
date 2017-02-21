@@ -1,7 +1,7 @@
 BridgePoint xtUML Release Notes
 ========================
 
-Release 6.2.0  
+Release 6.2.1  
 
 License
 -------
@@ -43,7 +43,7 @@ In this release the default is set to MASL.
   
 Interoperability with Previous Releases
 ------
-BridgePoint 6.2.0 is compatible with workspaces and projects created with prior 
+BridgePoint 6.2.1 is compatible with workspaces and projects created with prior 
 versions back to BridgePoint 5.0.  However, after opening the model in this version
 a modeler will not be able to open the model in a prior version.   
 
