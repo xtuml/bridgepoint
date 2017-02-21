@@ -346,7 +346,7 @@ public class ComponentTransactionListener implements ITransactionListener {
 				&& !component.getRootModelElement().isOrphaned()) {
 			try {
                 if ( reloadActionsBeforePersist() ) {
-                    component.load(new NullProgressMonitor(), false, true, true);
+                    component.load(new NullProgressMonitor(), false, true);
 	                setReloadActionsBeforePersist(false);
                 }
 				component.persist();
