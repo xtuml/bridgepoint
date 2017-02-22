@@ -12,15 +12,6 @@ import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.xtuml.bp.core.Attribute_c;
 import org.xtuml.bp.core.CorePlugin;
-import org.xtuml.bp.core.DataType_c;
-import org.xtuml.bp.core.ExecutableProperty_c;
-import org.xtuml.bp.core.InterfaceOperation_c;
-import org.xtuml.bp.core.PropertyParameter_c;
-import org.xtuml.bp.core.ProvidedExecutableProperty_c;
-import org.xtuml.bp.core.ProvidedOperation_c;
-import org.xtuml.bp.core.RequiredExecutableProperty_c;
-import org.xtuml.bp.core.RequiredOperation_c;
-import org.xtuml.bp.core.UserDataType_c;
 import org.xtuml.bp.core.common.AttributeChangeModelDelta;
 import org.xtuml.bp.core.common.NonRootModelElement;
 import org.xtuml.bp.core.ui.IRenameElementParticipant;
@@ -40,20 +31,9 @@ public class RenameParticipantUtil {
 
         IStatus status = null;
 
-        // special cases:
-        // Attribute, Event param
-        
-        // DataType
-        if ( element instanceof DataType_c ) {
-            if ( "Name".equals(modelDelta.getAttributeName()) ) {
-                UserDataType_c s_udt = UserDataType_c.getOneS_UDTOnR17((DataType_c)element);
-                status = merge(status, doRenameElement( s_udt, 
-                        (String)modelDelta.getNewValue(),
-                        (String)modelDelta.getOldValue() ) );
-            }
-        }
-        // Attribute
-        else if ( element instanceof Attribute_c ) {
+        // Attribute special case
+        // For attributes, the name can change if the prefix or the root name is changed
+        if ( element instanceof Attribute_c ) {
             Attribute_c o_attr = (Attribute_c)element;
             if ( o_attr.getPfx_mode() == 0 && "Root_nam".equals(modelDelta.getAttributeName()) ) {
                 status = merge(status, doRenameElement( o_attr, 
@@ -75,26 +55,13 @@ public class RenameParticipantUtil {
                 }
             }
         }
-
-        // regular cases:
-        // Domain, Domain service, Domain service param, Terminator,
-        // Object, Object service, Object service param, State, Event param
-        else if ("Name".equals(modelDelta.getAttributeName())) {
+        else if ( "Name".equals(modelDelta.getAttributeName()) ||
+                  "Mning".equals(modelDelta.getAttributeName()) ||
+                  "Txt_phrs".equals(modelDelta.getAttributeName()) ) {
             status = merge(status, doRenameElement( element, 
                                    (String)modelDelta.getNewValue(),
                                    (String)modelDelta.getOldValue() ) );
         }
-        // Event
-        else if ("Mning".equals(modelDelta.getAttributeName())) {
-            status = merge(status, doRenameElement( element, 
-                                   (String)modelDelta.getNewValue(),
-                                   (String)modelDelta.getOldValue() ) );
-        }
-        // Relationship specification
-        else if ("Txt_phrs".equals(modelDelta.getAttributeName())) {
-            // TODO implement
-        }
-
 
         return handleStatus( status );
     }
