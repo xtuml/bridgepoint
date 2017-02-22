@@ -42,6 +42,7 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.CoreException;
 import org.xtuml.bp.core.common.PersistableModelComponent;
 import org.xtuml.bp.core.common.PersistenceManager;
+import org.xtuml.bp.core.common.ComponentTransactionListener;
     .end if
 
 import java.io.File;
@@ -311,8 +312,11 @@ public class ${class_name} extends CoreExport
                                         if ( m_actionUpdateData.get(dialects[i]).toByteArray().length != 0 && m_updateActions ) {
                                             af.setContents(action_stream, true, true, pm);
                                         }
-                                        else {
+                                        else if ( !ComponentTransactionListener.noPersistActions() ) {
                                             af.delete(true, false, pm);
+                                        }
+                                        else {
+                                            // do nothing to the action file
                                         }
                                     }
                                 }
