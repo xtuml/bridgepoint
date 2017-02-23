@@ -26,9 +26,9 @@ The addition of xtext in the tool has provided refactoring support in .masl file
 
 5. Work Required
 ----------------
-5.1 On masl content update reload associated model elements   
+5.1 On masl content update reloaded associated model elements   
 
-We cannot use the component resource listener approach as the resource events are sent during the transaction that updates the model.  For many reasons we cannot listen to resource changes during a transaction.  Instead in MaslDocumentProvider.doSaveDocument() we now explicitly reload the associated persistable model component.  This will allow the in-memory action semantics to get updated.  In addition to this change the code is also changed to update any open masl editors such that the reloaded content is used for display.   
+Currently the tool is using the component resource listener to respond to resource change events from the rename refactoring.   This is not working as these events are occuring during a transaction.  The code that starts the refactoring is surrounded with a block that guarantees enablement of the resource listener during the refactoring.  To reload the editor input after the corresponding xtuml resource is reloaded a model listener is added to the ModelSnippetEditor class.  This listener simply points the open editor to the newly loaded model element.      
    
 6. Implementation Comments
 --------------------------
