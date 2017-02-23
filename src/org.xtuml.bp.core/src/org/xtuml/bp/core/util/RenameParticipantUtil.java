@@ -9,20 +9,13 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.MultiStatus;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Status;
-import org.eclipse.jface.viewers.IStructuredSelection;
 import org.xtuml.bp.core.Attribute_c;
 import org.xtuml.bp.core.CorePlugin;
-import org.xtuml.bp.core.DataType_c;
-import org.xtuml.bp.core.ExecutableProperty_c;
-import org.xtuml.bp.core.InterfaceOperation_c;
-import org.xtuml.bp.core.PropertyParameter_c;
-import org.xtuml.bp.core.ProvidedExecutableProperty_c;
-import org.xtuml.bp.core.ProvidedOperation_c;
-import org.xtuml.bp.core.RequiredExecutableProperty_c;
-import org.xtuml.bp.core.RequiredOperation_c;
-import org.xtuml.bp.core.UserDataType_c;
 import org.xtuml.bp.core.common.AttributeChangeModelDelta;
+import org.xtuml.bp.core.common.IModelDelta;
+import org.xtuml.bp.core.common.ModelRoot;
 import org.xtuml.bp.core.common.NonRootModelElement;
+import org.xtuml.bp.core.common.Transaction;
 import org.xtuml.bp.core.ui.IRenameElementParticipant;
 import org.xtuml.bp.core.util.UIUtil;
 
@@ -33,68 +26,62 @@ public class RenameParticipantUtil {
 	
 	private List<IRenameElementParticipant> participants = new ArrayList<>();
 
-    public boolean renameElement( AttributeChangeModelDelta modelDelta ) {
-        if ( null == modelDelta ) return false;
-        NonRootModelElement element = (NonRootModelElement)modelDelta.getModelElement();
-        if ( null == element ) return false;
+    public boolean renameElement( Transaction transaction ) {
+        if ( null == transaction ) return false;
 
         IStatus status = null;
 
-        // special cases:
-        // Attribute, Event param
-        
-        // DataType
-        if ( element instanceof DataType_c ) {
-            if ( "Name".equals(modelDelta.getAttributeName()) ) {
-                UserDataType_c s_udt = UserDataType_c.getOneS_UDTOnR17((DataType_c)element);
-                status = merge(status, doRenameElement( s_udt, 
-                        (String)modelDelta.getNewValue(),
-                        (String)modelDelta.getOldValue() ) );
-            }
-        }
-        // Attribute
-        else if ( element instanceof Attribute_c ) {
-            Attribute_c o_attr = (Attribute_c)element;
-            if ( o_attr.getPfx_mode() == 0 && "Root_nam".equals(modelDelta.getAttributeName()) ) {
-                status = merge(status, doRenameElement( o_attr, 
-                                       (String)modelDelta.getNewValue(),
-                                       (String)modelDelta.getOldValue() ) );
-            }
-            else if ( o_attr.getPfx_mode() == 1 ) {
-                String oldName = "";
-                String newName = "";
-                if ( "Root_nam".equals(modelDelta.getAttributeName()) ) {
-                    oldName = o_attr.getPrefix() + (String)modelDelta.getOldValue();
-                    newName = o_attr.getPrefix() + (String)modelDelta.getNewValue();
-                    status = merge(status, doRenameElement( o_attr, newName, oldName ) );
-                }
-                else if ( "Prefix".equals(modelDelta.getAttributeName()) ) {
-                    oldName = (String)modelDelta.getOldValue() + o_attr.getRoot_nam();
-                    newName = (String)modelDelta.getNewValue() + o_attr.getRoot_nam();
-                    status = merge(status, doRenameElement( o_attr, newName, oldName ) );
-                }
-            }
-        }
+		ModelRoot[] modelRoots = transaction.getParticipatingModelRoots();
+		for (int i = 0; i < modelRoots.length; i++) {
+			if (modelRoots[i].persistEnabled()) {
+				IModelDelta[] modelDeltas = transaction.getDeltas(modelRoots[i]);
+				for (int j = 0; j < modelDeltas.length; j++) {
+                    if ( modelDeltas[j] instanceof AttributeChangeModelDelta ) {
+                    	AttributeChangeModelDelta modelDelta = (AttributeChangeModelDelta)modelDeltas[j];
 
-        // regular cases:
-        // Domain, Domain service, Domain service param, Terminator,
-        // Object, Object service, Object service param, State, Event param
-        else if ("Name".equals(modelDelta.getAttributeName())) {
-            status = merge(status, doRenameElement( element, 
-                                   (String)modelDelta.getNewValue(),
-                                   (String)modelDelta.getOldValue() ) );
-        }
-        // Event
-        else if ("Mning".equals(modelDelta.getAttributeName())) {
-            status = merge(status, doRenameElement( element, 
-                                   (String)modelDelta.getNewValue(),
-                                   (String)modelDelta.getOldValue() ) );
-        }
-        // Relationship specification
-        else if ("Txt_phrs".equals(modelDelta.getAttributeName())) {
-            // TODO implement
-        }
+						NonRootModelElement element = (NonRootModelElement)modelDelta.getModelElement();
+						if ( null == element ) return false;
+						
+						// check the creation case
+						if ( modelDelta.getOldValue() instanceof String && ((String)modelDelta.getOldValue()).equals("") ) {
+							return false;
+						}
 
+						// Attribute special case
+						// For attributes, the name can change if the prefix or the root name is changed
+						if ( element instanceof Attribute_c ) {
+							Attribute_c o_attr = (Attribute_c)element;
+							if ( o_attr.getPfx_mode() == 0 && "Root_nam".equals(modelDelta.getAttributeName()) ) {
+								status = merge(status, doRenameElement( o_attr, 
+													   (String)modelDelta.getNewValue(),
+													   (String)modelDelta.getOldValue() ) );
+							}
+							else if ( o_attr.getPfx_mode() == 1 ) {
+								String oldName = "";
+								String newName = "";
+								if ( "Root_nam".equals(modelDelta.getAttributeName()) ) {
+									oldName = o_attr.getPrefix() + (String)modelDelta.getOldValue();
+									newName = o_attr.getPrefix() + (String)modelDelta.getNewValue();
+									status = merge(status, doRenameElement( o_attr, newName, oldName ) );
+								}
+								else if ( "Prefix".equals(modelDelta.getAttributeName()) ) {
+									oldName = (String)modelDelta.getOldValue() + o_attr.getRoot_nam();
+									newName = (String)modelDelta.getNewValue() + o_attr.getRoot_nam();
+									status = merge(status, doRenameElement( o_attr, newName, oldName ) );
+								}
+							}
+						}
+						else if ( "Name".equals(modelDelta.getAttributeName()) ||
+								  "Mning".equals(modelDelta.getAttributeName()) ||
+								  "Txt_phrs".equals(modelDelta.getAttributeName()) ) {
+							status = merge(status, doRenameElement( element, 
+												   (String)modelDelta.getNewValue(),
+												   (String)modelDelta.getOldValue() ) );
+						}
+                    }
+                }
+            }
+        }
 
         return handleStatus( status );
     }

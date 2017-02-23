@@ -62,8 +62,8 @@ public class ComponentTransactionListener implements ITransactionListener {
 	// if the resource has already been updated
 	static private boolean dontMakeResourceChanges = false;
 
-    // reload actions before persisitng
-	static private boolean reloadActionsBeforePersist = false;
+    // do not persist actions
+	static private boolean noPersistActions = false;
 
 	private HashSet<PersistableModelComponent> persisted = new HashSet<PersistableModelComponent>();
 
@@ -101,7 +101,19 @@ public class ComponentTransactionListener implements ITransactionListener {
 		persisted.clear();
 		ModelRoot[] modelRoots = transaction.getParticipatingModelRoots();
 		HashSet<PersistableModelComponent> rgosAffectedByMove = new HashSet<PersistableModelComponent> ();
-		
+
+		// Invoke the rename refactoring util
+        final AtomicBoolean refactorSuccess = new AtomicBoolean();
+        Display.getDefault().syncExec(new Runnable() {
+            public void run() {
+                RenameParticipantUtil rpu = new RenameParticipantUtil();
+                refactorSuccess.set( rpu.renameElement( transaction ) );
+            }
+        });
+        if ( refactorSuccess.get() ) {
+            setNoPersistActions(true);
+        }
+
 		// first persist all model elements created
 		// this is so later proxy changes in parent will work correctly
 		for (int i = 0; i < modelRoots.length; i++) {
@@ -250,22 +262,26 @@ public class ComponentTransactionListener implements ITransactionListener {
 									// this will be removed when issue 2711 is fixed.
 									continue;
 								}
-                                // Invoke the rename refactoring util
-                                final AtomicBoolean renameSuccess = new AtomicBoolean();
-                                Display.getDefault().syncExec(new Runnable() {
-                                    public void run() {
-                                        RenameParticipantUtil rpu = new RenameParticipantUtil();
-                                        renameSuccess.set( rpu.renameElement( modelDelta ) );
-                                    }
-                                });
-                                if ( renameSuccess.get() ) setReloadActionsBeforePersist(true);
-								persist(target);
+                                persist(target);
 							}
 						}
 					}
 				}
 			}
 		}
+
+        // reload to get changes refactoring made to the actions
+        if ( noPersistActions() ) {
+            setNoPersistActions(false);
+            for ( PersistableModelComponent persistedPMC : persisted ) {
+            	try {
+            		persistedPMC.load( new NullProgressMonitor(), false, true );
+				} catch (CoreException e) {
+					CorePlugin.logError("Could not reload component", e);
+				}
+            }
+        }
+
 		Ooaofooa[] instances = Ooaofooa.getInstances();
 		for(int i = 0; i < instances.length; i++) {
 			instances[i].clearUnreferencedProxies();
@@ -345,10 +361,6 @@ public class ComponentTransactionListener implements ITransactionListener {
 		if (!persisted.contains(component)
 				&& !component.getRootModelElement().isOrphaned()) {
 			try {
-                if ( reloadActionsBeforePersist() ) {
-                    component.load(new NullProgressMonitor(), false, true, true);
-	                setReloadActionsBeforePersist(false);
-                }
 				component.persist();
 				persisted.add(component);
 				return true;
@@ -416,14 +428,30 @@ public class ComponentTransactionListener implements ITransactionListener {
 							.append(
 									oldName + "/" + newName + "."
 											+ Ooaofooa.MODELS_EXT));
+
+            String[] actionDialects = ActionFile.getAvailableDialects();
+            IFile[] oldActionFiles = new IFile[actionDialects.length];
+            IFile[] newActionFilesOldFolder = new IFile[actionDialects.length];
+            for ( int i = 0; i < actionDialects.length; i++ ) {
+                oldActionFiles[i] = wsRoot.getFile( 
+                    ActionFile.getPathFromComponent( oldFile, actionDialects[i] ) );
+                newActionFilesOldFolder[i] = wsRoot.getFile(
+                    ActionFile.getPathFromComponent( newFileOldFolder, actionDialects[i] ) );
+            }
+
 			IFolder oldFolder = wsRoot.getFolder(component
 					.getParentDirectoryPath().append(oldName));
 			IFolder newFolder = wsRoot.getFolder(component
 					.getParentDirectoryPath().append(newName));
 
 			try {
-				// Rename both the file and the folder
+				// Rename both the file and the folder and the corresponding action files
 				oldFile.move(newFileOldFolder.getFullPath(), true, true, null);
+                for ( int i = 0; i < oldActionFiles.length; i++ ) {
+                    if ( oldActionFiles[i].exists() ) {
+				        oldActionFiles[i].move(newActionFilesOldFolder[i].getFullPath(), true, true, null);
+                    }
+                }
 				oldFolder.move(newFolder.getFullPath(), true, true, null);
 				if (component.isRootComponent()) {
 					IProject oldProject = wsRoot.getProject(oldName);
@@ -520,12 +548,12 @@ public class ComponentTransactionListener implements ITransactionListener {
 		return dontMakeResourceChanges;
 	}
 
-	public static void setReloadActionsBeforePersist(boolean newValue) {
-		reloadActionsBeforePersist = newValue;
+	public static void setNoPersistActions(boolean newValue) {
+		noPersistActions = newValue;
 	}
 
-	private static boolean reloadActionsBeforePersist() {
-		return reloadActionsBeforePersist;
+	public static boolean noPersistActions() {
+		return noPersistActions;
 	}
 
 }
