@@ -106,8 +106,19 @@ public class ComponentTransactionListener implements ITransactionListener {
         final AtomicBoolean refactorSuccess = new AtomicBoolean();
         Display.getDefault().syncExec(new Runnable() {
             public void run() {
-                RenameParticipantUtil rpu = new RenameParticipantUtil();
-                refactorSuccess.set( rpu.renameElement( transaction ) );
+            	// enable resource listener during this part if
+            	// disabled
+            	boolean disableListener = ComponentResourceListener.getIgnoreResourceChanges();
+            	boolean disableMarker = ComponentResourceListener.isIgnoreResourceChangesMarkerSet();
+            	try {
+            		ComponentResourceListener.setIgnoreResourceChanges(false);
+            		ComponentResourceListener.setIgnoreResourceChangesMarker(false);
+            		RenameParticipantUtil rpu = new RenameParticipantUtil();
+            		refactorSuccess.set( rpu.renameElement( transaction ) );
+            	} finally {
+            		ComponentResourceListener.setIgnoreResourceChanges(disableListener);
+            		ComponentResourceListener.setIgnoreResourceChangesMarker(disableMarker);
+            	}
             }
         });
         if ( refactorSuccess.get() ) {
