@@ -1,22 +1,35 @@
 package org.xtuml.bp.xtext.masl.ui.document;
 
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IWorkspaceRunnable;
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.jface.text.IDocument;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IEditorInput;
+import org.eclipse.ui.IEditorPart;
+import org.eclipse.ui.IEditorReference;
+import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.part.FileEditorInput;
 import org.eclipse.xtend2.lib.StringConcatenation;
 import org.eclipse.xtext.ui.editor.model.XtextDocument;
 import org.eclipse.xtext.ui.editor.model.XtextDocumentProvider;
 import org.eclipse.xtext.util.StringInputStream;
 import org.eclipse.xtext.xbase.lib.Exceptions;
+import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.UserDataType_c;
+import org.xtuml.bp.core.common.ModelElement;
 import org.xtuml.bp.core.common.ModelRoot;
 import org.xtuml.bp.core.common.NonRootModelElement;
+import org.xtuml.bp.core.common.PersistableModelComponent;
+import org.xtuml.bp.core.common.PersistenceManager;
+import org.xtuml.bp.ui.text.AbstractModelElementEditorInput;
 import org.xtuml.bp.ui.text.AbstractModelElementPropertyEditorInput;
+import org.xtuml.bp.ui.text.masl.MASLEditorInputFactory;
 
 @SuppressWarnings("all")
 public class MaslDocumentProvider extends XtextDocumentProvider {
@@ -233,9 +246,62 @@ public class MaslDocumentProvider extends XtextDocumentProvider {
         _default.asyncExec(_function);
       } else {
         super.doSaveDocument(monitor, element, document, overwrite);
+        // reload the PMC associated with this masl data, this will
+        // update the action semantics xtuml values
+        if(element instanceof FileEditorInput) {
+			PersistableModelComponent associatedPMC = PersistenceManager
+				.findComponent(((FileEditorInput) element).getFile().getFullPath().removeFileExtension()
+									.addFileExtension(Ooaofooa.MODELS_EXT));
+			ModelElement key = associatedPMC.getRootModelElement();
+			if(associatedPMC != null) {
+				// due this after the current transaction completes
+				ResourcesPlugin.getWorkspace().run(new IWorkspaceRunnable() {
+					
+					@Override
+					public void run(IProgressMonitor monitor) throws CoreException {
+						associatedPMC.load(monitor, true, true);
+						Ooaofooa.getDefaultInstance().fireModelElementReloaded(key, associatedPMC.getRootModelElement());
+						// refresh any open editors
+						synchronizeMaslEditors(associatedPMC.getRootModelElement());
+					}
+				}, new NullProgressMonitor());
+			}
+        }
       }
     } catch (Throwable _e) {
       throw Exceptions.sneakyThrow(_e);
     }
   }
+  
+	private void synchronizeMaslEditors(NonRootModelElement rootElement) {
+		try {
+			ResourcesPlugin.getWorkspace().run(new IWorkspaceRunnable() {
+				
+				@Override
+				public void run(IProgressMonitor monitor) throws CoreException {
+					IEditorReference[] editorReferences = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getEditorReferences();
+					for(IEditorReference editorReference: editorReferences) {
+						IEditorPart editor = editorReference.getEditor(false);
+						if(editor instanceof MaslSnippetEditor) {
+							IEditorInput editorInput = editor.getEditorInput();
+							String newDefinition;
+							try {
+								NonRootModelElement modelElement = ((AbstractModelElementEditorInput) editorInput).getModelElement();
+								((MaslSnippetEditor) editor)
+										.setInput(MASLEditorInputFactory.getDefaultInstance()
+												.createInstance(modelElement.getModelRoot()
+														.getInstanceList(modelElement.getClass())
+														.get(modelElement.getInstanceKey())));
+							} catch (CoreException e) {
+								CorePlugin.logError("Unable to set new definition for element.", e);
+							}
+						}
+					}				
+				}
+			}, new NullProgressMonitor());
+		} catch (CoreException e) {
+			CorePlugin.logError("Unable to update open masl editors.", e);
+		}
+	}
+
 }
