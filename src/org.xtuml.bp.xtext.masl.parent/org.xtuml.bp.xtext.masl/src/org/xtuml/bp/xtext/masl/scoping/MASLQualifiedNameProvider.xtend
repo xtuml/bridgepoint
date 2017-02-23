@@ -9,6 +9,7 @@ import org.xtuml.bp.xtext.masl.masl.structure.StateDefinition
 import org.xtuml.bp.xtext.masl.masl.structure.DomainServiceDefinition
 import org.xtuml.bp.xtext.masl.masl.structure.TerminatorServiceDefinition
 import org.xtuml.bp.xtext.masl.masl.structure.ObjectServiceDefinition
+import org.xtuml.bp.xtext.masl.masl.structure.RelationshipDefinition
 
 /** 
  * The qualified names of some top-level elements depend on the domain x-ref.
@@ -39,4 +40,9 @@ class MASLQualifiedNameProvider extends DefaultDeclarativeQualifiedNameProvider{
 	def protected qualifiedName(TerminatorServiceDefinition it) {
 		QualifiedName.create(domainName, terminatorName, name)
 	}
+
+	def protected qualifiedName(RelationshipDefinition it) {
+		QualifiedName.create(domainName, name)
+	}
+
 }
