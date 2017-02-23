@@ -14,7 +14,8 @@ This note describes the changes to reload associated xtuml files when a masl fil
 2. Document References
 ----------------------
 <a id="2.1"></a>2.1 [BridgePoint DEI #9220](https://support.onefact.net/issues/9220) Type refactoring not working properly  
-<a id="2.1"></a>2.2 [MASL rename refactoring with Xtext](https://github.com/xtuml/bridgepoint/blob/master/doc-bridgepoint/notes/8261_masl_refactor/8261_masl_refactor_dnt.md) Document describing masl editor flow   
+<a id="2.2"></a>2.2 [MASL rename refactoring with Xtext](https://github.com/xtuml/bridgepoint/blob/master/doc-bridgepoint/notes/8261_masl_refactor/8261_masl_refactor_dnt.md) Document describing masl editor flow   
+<a id="2.3"></a>2.3 [BridgePoint DEI #9174]( https://support.onefact.net/issues/9174) Refactoring is not reflected in an open masl editor  
 
 3. Background
 -------------
@@ -32,6 +33,7 @@ Currently the tool is using the component resource listener to respond to resour
    
 6. Implementation Comments
 --------------------------
+6.1 This change also resolves [2.3 - Refactoring is not reflected in an open masl editor](2.3)
 
 7. Unit Test
 ------------
