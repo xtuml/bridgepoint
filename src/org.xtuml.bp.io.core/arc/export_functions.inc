@@ -1026,7 +1026,9 @@ ${gpe.body}\
       .if ( ((multilevel) AND (not stream)) )
         .select one action_body related by eo->EI[R3]->AB[R12]
         .if ( not_empty action_body )
-        write_${parent_name}_actions(inst${extra_args});
+        if ( !ComponentTransactionListener.noPersistActions() ) {
+            write_${parent_name}_actions(inst${extra_args});
+        }
         .end if
       .end if
 

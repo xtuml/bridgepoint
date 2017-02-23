@@ -656,9 +656,9 @@ public class PersistableModelComponent implements Comparable {
         // was called, because in that case the underlyingResource path has
         // already been updated, but the model root id hasn't yet)
         if ( componentRootME != null ) {
-            load((Ooaofooa) componentRootME.getModelRoot(), monitor, false,false, false);
+            load((Ooaofooa) componentRootME.getModelRoot(), monitor, false,false);
         } else {
-            load(Ooaofooa.getInstance(getUniqueID()), monitor, false,false,false);
+            load(Ooaofooa.getInstance(getUniqueID()), monitor, false,false);
         }
     }
 
@@ -672,25 +672,9 @@ public class PersistableModelComponent implements Comparable {
           }
         // see above
         if ( componentRootME != null ) {
-            load((Ooaofooa) componentRootME.getModelRoot(), monitor, parseOal,reload, false);
+            load((Ooaofooa) componentRootME.getModelRoot(), monitor, parseOal,reload);
         } else {
-            load(Ooaofooa.getInstance(getUniqueID()), monitor, parseOal,reload, false);
-        }
-    }
-
-    public void load(IProgressMonitor monitor, boolean parseOal,boolean reload, boolean actionsOnly)
-            throws CoreException {
-        if (status == STATUS_LOADING) {
-            // recursive call from some where
-            // any code causing control to reach here should be addressed
-            // probably it requires disabled lazy loading
-            return;
-          }
-        // see above
-        if ( componentRootME != null ) {
-            load((Ooaofooa) componentRootME.getModelRoot(), monitor, parseOal,reload, actionsOnly);
-        } else {
-            load(Ooaofooa.getInstance(getUniqueID()), monitor, parseOal,reload, actionsOnly);
+            load(Ooaofooa.getInstance(getUniqueID()), monitor, parseOal,reload);
         }
     }
 
@@ -702,11 +686,11 @@ public class PersistableModelComponent implements Comparable {
             // probably it requires disabled lazy loading
             return;
           }
-        load(modelRoot, monitor, false,false, false);
+        load(modelRoot, monitor, false,false);
     }
     
     public synchronized void load(Ooaofooa modelRoot, IProgressMonitor monitor,
-            boolean parseOal,boolean reload, boolean actionsOnly) throws CoreException {
+            boolean parseOal,boolean reload) throws CoreException {
     	
         if(!reload && isLoaded())
         return;
@@ -735,7 +719,7 @@ public class PersistableModelComponent implements Comparable {
       try {
             status = STATUS_LOADING;    
         
-            IModelImport importer = createImporter(modelRoot, parseOal, actionsOnly);
+            IModelImport importer = createImporter(modelRoot, parseOal);
         if (importer == null) {
           // we're trying to load a file in a closed project
              status=oldStatus;
@@ -857,7 +841,7 @@ public class PersistableModelComponent implements Comparable {
     }
 
     private IModelImport createImporter(IFile file, Ooaofooa modelRoot,
-            boolean parseOal, boolean actionsOnly) throws IOException {
+            boolean parseOal) throws IOException {
         if (!file.exists() ) {
             // can't import file from a closed project or that doesn't exist
             return null;
@@ -870,13 +854,13 @@ public class PersistableModelComponent implements Comparable {
         }
         
         return factory.create(file, modelRoot, this, parseOal, true, true,
-                false, actionsOnly);
+                false);
     }
     
-    private IModelImport createImporter(Ooaofooa modelRoot, boolean parseOal, boolean actionsOnly)
+    private IModelImport createImporter(Ooaofooa modelRoot, boolean parseOal)
             throws IOException {
 
-        return createImporter(getFile(), modelRoot, parseOal, actionsOnly);
+        return createImporter(getFile(), modelRoot, parseOal);
     }
     
     public PersistableModelComponent getDomainComponent() {
@@ -915,7 +899,7 @@ public class PersistableModelComponent implements Comparable {
 
     private String getComponentType(IFile componentFile) throws CoreException {
         try {
-            IModelImport im = createImporter(componentFile, null, false, false);
+            IModelImport im = createImporter(componentFile, null, false);
             if (im == null) {
                 // we're trying to load a file in a closed project
                 return "";
