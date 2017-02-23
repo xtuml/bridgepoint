@@ -152,7 +152,12 @@ public class MaslSnippetEditor extends XtextEditor {
     return _xifexpression;
   }
   
-  public void updateLabelAndVisibleRegion(final MaslDocumentProvider maslDocumentProvider, final AbstractModelElementPropertyEditorInput input) {
+  @Override
+  public void dispose() {
+	  Ooaofooa.getDefaultInstance().removeModelChangeListener(modelChangeListener);
+  }
+
+public void updateLabelAndVisibleRegion(final MaslDocumentProvider maslDocumentProvider, final AbstractModelElementPropertyEditorInput input) {
     String _name = input.getName();
     this.setPartName(_name);
     final String prefix = maslDocumentProvider.getPrefix(input);
