@@ -106,8 +106,19 @@ public class ComponentTransactionListener implements ITransactionListener {
         final AtomicBoolean refactorSuccess = new AtomicBoolean();
         Display.getDefault().syncExec(new Runnable() {
             public void run() {
-                RenameParticipantUtil rpu = new RenameParticipantUtil();
-                refactorSuccess.set( rpu.renameElement( transaction ) );
+            	// enable resource listener during this part if
+            	// disabled
+            	boolean disableListener = ComponentResourceListener.getIgnoreResourceChanges();
+            	boolean disableMarker = ComponentResourceListener.isIgnoreResourceChangesMarkerSet();
+            	try {
+            		ComponentResourceListener.setIgnoreResourceChanges(false);
+            		ComponentResourceListener.setIgnoreResourceChangesMarker(false);
+            		RenameParticipantUtil rpu = new RenameParticipantUtil();
+            		refactorSuccess.set( rpu.renameElement( transaction ) );
+            	} finally {
+            		ComponentResourceListener.setIgnoreResourceChanges(disableListener);
+            		ComponentResourceListener.setIgnoreResourceChangesMarker(disableMarker);
+            	}
             }
         });
         if ( refactorSuccess.get() ) {
@@ -287,8 +298,34 @@ public class ComponentTransactionListener implements ITransactionListener {
 			instances[i].clearUnreferencedProxies();
 		}
 		IntegrityChecker.startIntegrityChecker(persisted);
+		synchronizeMaslEditors();
 	}
-		
+	
+	private void synchronizeMaslEditors() {
+		Display.getDefault().syncExec( new Runnable() {
+			@Override
+			public void run() {
+				IEditorReference[] editorReferences = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getEditorReferences();
+				for(IEditorReference editorReference: editorReferences) {
+					IEditorPart editor = editorReference.getEditor(false);
+					if(editor instanceof XtextEditor) {
+						IEditorInput editorInput = editor.getEditorInput();
+						IDocumentProvider documentProvider = ((XtextEditor)editor).getDocumentProvider();
+						if(documentProvider instanceof IDocumentProviderExtension) {
+							try {
+								((IDocumentProviderExtension)documentProvider).synchronize(editorInput);
+							} catch(CoreException exc) {
+								CorePlugin.getDefault().getLog().log(
+										new Status(IStatus.ERROR, CorePlugin.getDefault().getBundle().getSymbolicName(), 
+												"Error synchronizing editoras after refactoring", exc));
+							}
+						}
+					}
+				}				
+			}
+		});
+	}
+	
     private IPath[] getFoldersToBeRemoved(PersistableModelComponent pmc) {
     	Collection children = getChildrenOfDomainPMC(pmc);
         IPath[] oldFolders = new IPath[children.size()];
