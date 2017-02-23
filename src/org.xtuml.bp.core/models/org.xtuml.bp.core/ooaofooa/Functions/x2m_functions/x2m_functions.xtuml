@@ -459,7 +459,7 @@ if ( not_empty c_ep and not_empty c_po )
   end if;
 
   // message -> function/service
-  smasl = smasl + "routine," + c_c_name + "," + c_po.Name + ",private," + c_ep.Name + ",,,,\n";
+  smasl = smasl + "routine," + c_c_name + "," + c_po.Name + ",public," + c_ep.Name + ",,,,\n";
   
   select any c_pp related by c_ep->C_PP[R4006];
   first_c_pp = c_pp;
