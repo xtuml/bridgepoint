@@ -1,0 +1,139 @@
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("9536b91a-9ffb-4bfa-9322-6bbe0f02677a",
+	'OBJ_ASSR_REL 3',
+	1104,
+	'T_OBJ3',
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_REF
+	VALUES ("9536b91a-9ffb-4bfa-9322-6bbe0f02677a",
+	"ed4d534f-dba5-415c-975c-695db313a791",
+	0,
+	"c56a2e1a-7aeb-4757-88b6-f9a3e9d9578c",
+	"d378afe0-93e4-47a1-9045-9a97895f51ed",
+	"e42686d6-a0a3-441e-9e35-1dceffceb314",
+	"6d2fce39-57eb-4da1-a592-4b945d621194",
+	"93dcac40-05d2-4f7c-b0f3-9e7951aee467",
+	"da4ab90a-c83b-4015-9e36-019e4f906174",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Test Class OtherSide3',
+	'TestAttrFormalizer',
+	'R1102');
+INSERT INTO R_RGO_PROXY
+	VALUES ("9536b91a-9ffb-4bfa-9322-6bbe0f02677a",
+	"d378afe0-93e4-47a1-9045-9a97895f51ed",
+	"e42686d6-a0a3-441e-9e35-1dceffceb314",
+	'../O_OBJ_Delete.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("c56a2e1a-7aeb-4757-88b6-f9a3e9d9578c",
+	"ed4d534f-dba5-415c-975c-695db313a791",
+	0,
+	"d378afe0-93e4-47a1-9045-9a97895f51ed",
+	"6d2fce39-57eb-4da1-a592-4b945d621194",
+	'../O_OBJ_Delete.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("93dcac40-05d2-4f7c-b0f3-9e7951aee467",
+	"9536b91a-9ffb-4bfa-9322-6bbe0f02677a",
+	"c56a2e1a-7aeb-4757-88b6-f9a3e9d9578c",
+	"ed4d534f-dba5-415c-975c-695db313a791",
+	1,
+	'TestAttrFormalizer');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("c56a2e1a-7aeb-4757-88b6-f9a3e9d9578c",
+	"ed4d534f-dba5-415c-975c-695db313a791",
+	'../../OBJ Import/Test Class OtherSide3/Test Class OtherSide3.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("93dcac40-05d2-4f7c-b0f3-9e7951aee467",
+	"9536b91a-9ffb-4bfa-9322-6bbe0f02677a",
+	"00000000-0000-0000-0000-000000000000",
+	'TestAttrFormalizer',
+	'',
+	'',
+	'TestAttrFormalizer',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000007",
+	'',
+	'');
+INSERT INTO O_REF
+	VALUES ("9536b91a-9ffb-4bfa-9322-6bbe0f02677a",
+	"0a574f74-73db-4570-9011-34aa40658f65",
+	0,
+	"ff4d9eca-932f-4b63-affa-bf66cf92d7eb",
+	"d378afe0-93e4-47a1-9045-9a97895f51ed",
+	"e42686d6-a0a3-441e-9e35-1dceffceb314",
+	"12ed3699-9dca-497e-a0f7-1e82e68e290b",
+	"789c1ac3-c516-46b6-8401-4f4ec6208afd",
+	"fbef68bc-6a6c-48a9-82fd-75fecd90fada",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Test Class OtherSide4',
+	'TestAttrFormalizer',
+	'R1102');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("ff4d9eca-932f-4b63-affa-bf66cf92d7eb",
+	"0a574f74-73db-4570-9011-34aa40658f65",
+	0,
+	"d378afe0-93e4-47a1-9045-9a97895f51ed",
+	"12ed3699-9dca-497e-a0f7-1e82e68e290b",
+	'../O_OBJ_Delete.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("789c1ac3-c516-46b6-8401-4f4ec6208afd",
+	"9536b91a-9ffb-4bfa-9322-6bbe0f02677a",
+	"ff4d9eca-932f-4b63-affa-bf66cf92d7eb",
+	"0a574f74-73db-4570-9011-34aa40658f65",
+	1,
+	'TestAttrFormalizer');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("ff4d9eca-932f-4b63-affa-bf66cf92d7eb",
+	"0a574f74-73db-4570-9011-34aa40658f65",
+	'../../OBJ Import/Test Class OtherSide4/Test Class OtherSide4.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("789c1ac3-c516-46b6-8401-4f4ec6208afd",
+	"9536b91a-9ffb-4bfa-9322-6bbe0f02677a",
+	"93dcac40-05d2-4f7c-b0f3-9e7951aee467",
+	'TestAttrFormalizer',
+	'',
+	'',
+	'TestAttrFormalizer',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000007",
+	'',
+	'');
+INSERT INTO O_ID
+	VALUES (0,
+	"9536b91a-9ffb-4bfa-9322-6bbe0f02677a");
+INSERT INTO O_OIDA
+	VALUES ("93dcac40-05d2-4f7c-b0f3-9e7951aee467",
+	"9536b91a-9ffb-4bfa-9322-6bbe0f02677a",
+	0,
+	'TestAttrFormalizer');
+INSERT INTO O_OIDA
+	VALUES ("789c1ac3-c516-46b6-8401-4f4ec6208afd",
+	"9536b91a-9ffb-4bfa-9322-6bbe0f02677a",
+	0,
+	'TestAttrFormalizer');
+INSERT INTO O_ID
+	VALUES (1,
+	"9536b91a-9ffb-4bfa-9322-6bbe0f02677a");
+INSERT INTO O_ID
+	VALUES (2,
+	"9536b91a-9ffb-4bfa-9322-6bbe0f02677a");
+INSERT INTO PE_PE
+	VALUES ("9536b91a-9ffb-4bfa-9322-6bbe0f02677a",
+	1,
+	"98febc4c-4a55-4531-a561-2e7476fff98e",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
+	VALUES ("98febc4c-4a55-4531-a561-2e7476fff98e",
+	"00000000-0000-0000-0000-000000000000",
+	"c6693612-7c4f-42e5-b64f-16c64f288945",
+	'O_OBJ_Delete',
+	'',
+	0,
+	'../O_OBJ_Delete.xtuml');

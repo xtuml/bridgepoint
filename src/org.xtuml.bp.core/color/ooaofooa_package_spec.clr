@@ -48,6 +48,9 @@
   .invoke markComponentRoot("EP_PKG")
   .invoke markContainmentAssociation(1401, "S_SYS")
   .invoke markContainmentAssociation(8000, "PE_PE")
+  
+  .invoke markComponentRoot("C_I")
+  .invoke markContainmentAssociation(8000, "PE_PE")
 
 .end function
 .//

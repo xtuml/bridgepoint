@@ -1421,6 +1421,7 @@
 <plugin id="org.w3c.dom.svg" version="1.1.0.v201011041433"/>
 <plugin id="org.w3c.dom.svg.source" version="1.1.0.v201011041433"/>
 <plugin id="org.xtuml.bp.als.oal"/>
+<plugin id="org.xtuml.bp.bld.pkg"/>
 <plugin id="org.xtuml.bp.cdt"/>
 <plugin id="org.xtuml.bp.cli"/>
 <plugin id="org.xtuml.bp.compare"/>

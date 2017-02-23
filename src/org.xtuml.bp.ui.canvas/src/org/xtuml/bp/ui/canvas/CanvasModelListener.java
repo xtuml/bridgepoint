@@ -122,8 +122,15 @@ public class CanvasModelListener extends ModelChangeAdapter  {
         Model_c sysModel = null;
         if(graphicalElement != null) {
         	sysModel = Model_c.getOneGD_MDOnR1(graphicalElement);
-        	System.arraycopy(mdls, 0, newMdls, 0, mdls.length);
-        	newMdls[mdls.length] = sysModel;
+        	// only consider a system model, at times during execution
+        	// specially during tests this can return a component diagram
+        	// model
+        	if(sysModel.getOoa_type() == Ooatype_c.SystemModel) {
+        		System.arraycopy(mdls, 0, newMdls, 0, mdls.length);
+        		newMdls[mdls.length] = sysModel;
+        	} else {
+        		newMdls = mdls;
+        	}
         } else {
         	newMdls = mdls;
         }

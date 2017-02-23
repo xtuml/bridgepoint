@@ -1,0 +1,3 @@
+Transaction started: Edit property Action_semantics_internal
+ Attribute 'Action_semantics_internal' of core.Function changed ( '' -> 'select any a from instances of D;')
+Transaction Ended: Edit property Action_semantics_internal with delta size: 1

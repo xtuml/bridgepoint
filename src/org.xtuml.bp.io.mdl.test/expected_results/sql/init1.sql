@@ -1,0 +1,1671 @@
+-- BP 6.1D content: domain syschar: 3
+
+INSERT INTO S_DOM
+	VALUES (806980,
+	'init1',
+	'This test deals with having multiple initialization classes and ordering their execution in the Model Compiler.  
+
+**NOTE: This test is only a test of Model Compiler functionality and should not be run in Model Verifier.',
+	1,
+	1);
+INSERT INTO S_CDT
+	VALUES (524289,
+	0);
+INSERT INTO S_DT
+	VALUES (524289,
+	806980,
+	'void',
+	'');
+INSERT INTO S_CDT
+	VALUES (524290,
+	1);
+INSERT INTO S_DT
+	VALUES (524290,
+	806980,
+	'boolean',
+	'');
+INSERT INTO S_CDT
+	VALUES (524291,
+	2);
+INSERT INTO S_DT
+	VALUES (524291,
+	806980,
+	'integer',
+	'');
+INSERT INTO S_CDT
+	VALUES (524292,
+	3);
+INSERT INTO S_DT
+	VALUES (524292,
+	806980,
+	'real',
+	'');
+INSERT INTO S_CDT
+	VALUES (524293,
+	4);
+INSERT INTO S_DT
+	VALUES (524293,
+	806980,
+	'string',
+	'');
+INSERT INTO S_CDT
+	VALUES (524294,
+	5);
+INSERT INTO S_DT
+	VALUES (524294,
+	806980,
+	'unique_id',
+	'');
+INSERT INTO S_CDT
+	VALUES (524295,
+	6);
+INSERT INTO S_DT
+	VALUES (524295,
+	806980,
+	'state<State_Model>',
+	'');
+INSERT INTO S_CDT
+	VALUES (524296,
+	7);
+INSERT INTO S_DT
+	VALUES (524296,
+	806980,
+	'same_as<Base_Attribute>',
+	'');
+INSERT INTO S_CDT
+	VALUES (524297,
+	8);
+INSERT INTO S_DT
+	VALUES (524297,
+	806980,
+	'inst_ref<Object>',
+	'');
+INSERT INTO S_CDT
+	VALUES (524298,
+	9);
+INSERT INTO S_DT
+	VALUES (524298,
+	806980,
+	'inst_ref_set<Object>',
+	'');
+INSERT INTO S_CDT
+	VALUES (524299,
+	10);
+INSERT INTO S_DT
+	VALUES (524299,
+	806980,
+	'inst<Event>',
+	'');
+INSERT INTO S_CDT
+	VALUES (524300,
+	11);
+INSERT INTO S_DT
+	VALUES (524300,
+	806980,
+	'inst<Mapping>',
+	'');
+INSERT INTO S_CDT
+	VALUES (524301,
+	12);
+INSERT INTO S_DT
+	VALUES (524301,
+	806980,
+	'inst_ref<Mapping>',
+	'');
+INSERT INTO S_UDT
+	VALUES (524302,
+	524300,
+	1);
+INSERT INTO S_DT
+	VALUES (524302,
+	806980,
+	'date',
+	'');
+INSERT INTO S_UDT
+	VALUES (524303,
+	524300,
+	2);
+INSERT INTO S_DT
+	VALUES (524303,
+	806980,
+	'timestamp',
+	'');
+INSERT INTO S_UDT
+	VALUES (524304,
+	524301,
+	3);
+INSERT INTO S_DT
+	VALUES (524304,
+	806980,
+	'inst_ref<Timer>',
+	'');
+INSERT INTO S_UDT
+	VALUES (524305,
+	524293,
+	0);
+INSERT INTO S_DT
+	VALUES (524305,
+	806980,
+	'color',
+	'Enumeration: TRUE
+Enumerator0: BLUE
+Enumerator1: RED
+Enumerator2: GREEN
+Enumerator3: YELLOW
+Enumerator4: PURPLE
+Enumerator5: ORANGE
+
+');
+INSERT INTO S_EE
+	VALUES (524289,
+	'Logging',
+	'',
+	'LOG',
+	806980);
+INSERT INTO S_BRG
+	VALUES (524289,
+	524289,
+	'LogSuccess',
+	'',
+	0,
+	524289,
+	'',
+	1);
+INSERT INTO S_BPARM
+	VALUES (524289,
+	524289,
+	'message',
+	524293,
+	0);
+INSERT INTO S_BRG
+	VALUES (524290,
+	524289,
+	'LogFailure',
+	'',
+	0,
+	524289,
+	'',
+	1);
+INSERT INTO S_BPARM
+	VALUES (524290,
+	524290,
+	'message',
+	524293,
+	0);
+INSERT INTO S_BRG
+	VALUES (524291,
+	524289,
+	'LogInfo',
+	'',
+	0,
+	524289,
+	'',
+	1);
+INSERT INTO S_BPARM
+	VALUES (524291,
+	524291,
+	'message',
+	524293,
+	0);
+INSERT INTO S_EE
+	VALUES (524290,
+	'Time',
+	'',
+	'TIM',
+	806980);
+INSERT INTO S_BRG
+	VALUES (524292,
+	524290,
+	'current_date',
+	'',
+	1,
+	524302,
+	'',
+	0);
+INSERT INTO S_BRG
+	VALUES (524293,
+	524290,
+	'create_date',
+	'',
+	1,
+	524302,
+	'',
+	0);
+INSERT INTO S_BPARM
+	VALUES (524292,
+	524293,
+	'second',
+	524291,
+	0);
+INSERT INTO S_BPARM
+	VALUES (524293,
+	524293,
+	'minute',
+	524291,
+	0);
+INSERT INTO S_BPARM
+	VALUES (524294,
+	524293,
+	'hour',
+	524291,
+	0);
+INSERT INTO S_BPARM
+	VALUES (524295,
+	524293,
+	'day',
+	524291,
+	0);
+INSERT INTO S_BPARM
+	VALUES (524296,
+	524293,
+	'month',
+	524291,
+	0);
+INSERT INTO S_BPARM
+	VALUES (524297,
+	524293,
+	'year',
+	524291,
+	0);
+INSERT INTO S_BRG
+	VALUES (524294,
+	524290,
+	'get_second',
+	'',
+	1,
+	524291,
+	'',
+	0);
+INSERT INTO S_BPARM
+	VALUES (524298,
+	524294,
+	'date',
+	524302,
+	0);
+INSERT INTO S_BRG
+	VALUES (524295,
+	524290,
+	'get_minute',
+	'',
+	1,
+	524291,
+	'',
+	0);
+INSERT INTO S_BPARM
+	VALUES (524299,
+	524295,
+	'date',
+	524302,
+	0);
+INSERT INTO S_BRG
+	VALUES (524296,
+	524290,
+	'get_hour',
+	'',
+	1,
+	524291,
+	'',
+	0);
+INSERT INTO S_BPARM
+	VALUES (524300,
+	524296,
+	'date',
+	524302,
+	0);
+INSERT INTO S_BRG
+	VALUES (524297,
+	524290,
+	'get_day',
+	'',
+	1,
+	524291,
+	'',
+	0);
+INSERT INTO S_BPARM
+	VALUES (524301,
+	524297,
+	'date',
+	524302,
+	0);
+INSERT INTO S_BRG
+	VALUES (524298,
+	524290,
+	'get_month',
+	'',
+	1,
+	524291,
+	'',
+	0);
+INSERT INTO S_BPARM
+	VALUES (524302,
+	524298,
+	'date',
+	524302,
+	0);
+INSERT INTO S_BRG
+	VALUES (524299,
+	524290,
+	'get_year',
+	'',
+	1,
+	524291,
+	'',
+	0);
+INSERT INTO S_BPARM
+	VALUES (524303,
+	524299,
+	'date',
+	524302,
+	0);
+INSERT INTO S_BRG
+	VALUES (524300,
+	524290,
+	'current_clock',
+	'',
+	1,
+	524303,
+	'',
+	0);
+INSERT INTO S_BRG
+	VALUES (524301,
+	524290,
+	'timer_start',
+	'',
+	1,
+	524304,
+	'',
+	0);
+INSERT INTO S_BPARM
+	VALUES (524304,
+	524301,
+	'microseconds',
+	524291,
+	0);
+INSERT INTO S_BPARM
+	VALUES (524305,
+	524301,
+	'event_inst',
+	524299,
+	0);
+INSERT INTO S_BRG
+	VALUES (524302,
+	524290,
+	'timer_start_recurring',
+	'',
+	1,
+	524304,
+	'',
+	0);
+INSERT INTO S_BPARM
+	VALUES (524306,
+	524302,
+	'microseconds',
+	524291,
+	0);
+INSERT INTO S_BPARM
+	VALUES (524307,
+	524302,
+	'event_inst',
+	524299,
+	0);
+INSERT INTO S_BRG
+	VALUES (524303,
+	524290,
+	'timer_remaining_time',
+	'',
+	1,
+	524291,
+	'',
+	0);
+INSERT INTO S_BPARM
+	VALUES (524308,
+	524303,
+	'timer_inst_ref',
+	524304,
+	0);
+INSERT INTO S_BRG
+	VALUES (524304,
+	524290,
+	'timer_reset_time',
+	'',
+	1,
+	524290,
+	'',
+	0);
+INSERT INTO S_BPARM
+	VALUES (524309,
+	524304,
+	'timer_inst_ref',
+	524304,
+	0);
+INSERT INTO S_BPARM
+	VALUES (524310,
+	524304,
+	'microseconds',
+	524291,
+	0);
+INSERT INTO S_BRG
+	VALUES (524305,
+	524290,
+	'timer_add_time',
+	'',
+	1,
+	524290,
+	'',
+	0);
+INSERT INTO S_BPARM
+	VALUES (524311,
+	524305,
+	'timer_inst_ref',
+	524304,
+	0);
+INSERT INTO S_BPARM
+	VALUES (524312,
+	524305,
+	'microseconds',
+	524291,
+	0);
+INSERT INTO S_BRG
+	VALUES (524306,
+	524290,
+	'timer_cancel',
+	'',
+	1,
+	524290,
+	'',
+	0);
+INSERT INTO S_BPARM
+	VALUES (524313,
+	524306,
+	'timer_inst_ref',
+	524304,
+	0);
+INSERT INTO S_EE
+	VALUES (524291,
+	'Architecture',
+	'',
+	'ARCH',
+	806980);
+INSERT INTO S_BRG
+	VALUES (524307,
+	524291,
+	'shutdown',
+	'',
+	0,
+	524289,
+	'control stop;',
+	1);
+INSERT INTO S_EE
+	VALUES (524292,
+	'Bridge Op',
+	'',
+	'BR',
+	806980);
+INSERT INTO S_BRG
+	VALUES (524308,
+	524292,
+	'getandset',
+	'',
+	0,
+	524291,
+	'return param.i;',
+	1);
+INSERT INTO S_BPARM
+	VALUES (524314,
+	524308,
+	'i',
+	524291,
+	0);
+INSERT INTO GD_MD
+	VALUES (524289,
+	1,
+	806980,
+	1,
+	1,
+	0,
+	1,
+	1,
+	0,
+	12,
+	1495,
+	4165,
+	1.000000,
+	0);
+INSERT INTO GD_GE
+	VALUES (524321,
+	524289,
+	1048578,
+	11);
+INSERT INTO GD_SHP
+	VALUES (524321,
+	1904,
+	1424,
+	2064,
+	1520);
+INSERT INTO GD_GE
+	VALUES (524322,
+	524289,
+	2097156,
+	11);
+INSERT INTO GD_SHP
+	VALUES (524322,
+	1728,
+	1424,
+	1888,
+	1520);
+INSERT INTO GD_GE
+	VALUES (524323,
+	524289,
+	3145734,
+	11);
+INSERT INTO GD_SHP
+	VALUES (524323,
+	1728,
+	1312,
+	1888,
+	1408);
+INSERT INTO GD_GE
+	VALUES (524293,
+	524289,
+	524289,
+	12);
+INSERT INTO GD_SHP
+	VALUES (524293,
+	1728,
+	1536,
+	1888,
+	1632);
+INSERT INTO GD_GE
+	VALUES (524294,
+	524289,
+	524290,
+	12);
+INSERT INTO GD_SHP
+	VALUES (524294,
+	1728,
+	1648,
+	1888,
+	1744);
+INSERT INTO GD_GE
+	VALUES (524295,
+	524289,
+	524291,
+	12);
+INSERT INTO GD_SHP
+	VALUES (524295,
+	1904,
+	1648,
+	2064,
+	1744);
+INSERT INTO GD_GE
+	VALUES (524296,
+	524289,
+	524292,
+	12);
+INSERT INTO GD_SHP
+	VALUES (524296,
+	1904,
+	1536,
+	2064,
+	1632);
+INSERT INTO S_SS
+	VALUES (1048578,
+	'init one',
+	'',
+	'',
+	1,
+	806980,
+	1048578);
+INSERT INTO O_OBJ
+	VALUES (1048577,
+	'init object one',
+	8,
+	'INITONE',
+	'',
+	1048578);
+INSERT INTO O_NBATTR
+	VALUES (1048577,
+	1048577);
+INSERT INTO O_BATTR
+	VALUES (1048577,
+	1048577);
+INSERT INTO O_ATTR
+	VALUES (1048577,
+	1048577,
+	0,
+	'id',
+	'',
+	'',
+	'id',
+	0,
+	524294);
+INSERT INTO O_NBATTR
+	VALUES (1048578,
+	1048577);
+INSERT INTO O_BATTR
+	VALUES (1048578,
+	1048577);
+INSERT INTO O_ATTR
+	VALUES (1048578,
+	1048577,
+	1048577,
+	'current_state',
+	'',
+	'',
+	'current_state',
+	0,
+	524295);
+INSERT INTO O_ID
+	VALUES (0,
+	1048577);
+INSERT INTO O_OIDA
+	VALUES (1048577,
+	1048577,
+	0);
+INSERT INTO SM_ISM
+	VALUES (1572867,
+	1048577);
+INSERT INTO SM_SM
+	VALUES (1572867,
+	'',
+	3);
+INSERT INTO SM_MOORE
+	VALUES (1572867);
+INSERT INTO SM_STATE
+	VALUES (1572865,
+	1572867,
+	0,
+	'init state one',
+	1,
+	0);
+INSERT INTO SM_MOAH
+	VALUES (1572865,
+	1572867,
+	1572865);
+INSERT INTO SM_AH
+	VALUES (1572865,
+	1572867);
+INSERT INTO SM_ACT
+	VALUES (1572865,
+	1572867,
+	1,
+	'LOG::LogInfo(message:"Domain init1 - init state one");
+create object instance a1 of OA;
+create object instance b1 of OB;
+create object instance c1 of OC;
+
+//assign id attrs
+a1.oa_id=1;
+b1.ob_id=1;
+c1.oc_id=1;
+
+select many as from instances of OA;
+x = (cardinality as);
+if (x == 1)
+  LOG::LogSuccess(message:"OAS - init one one init");
+else
+  LOG::LogFailure(message:"OAS - init one one int");
+end if;
+
+select many bs from instances of OB;
+x = (cardinality bs);
+if (x == 1)
+  LOG::LogSuccess(message:"OBS - init one one init");
+else
+  LOG::LogFailure(message:"OBS - init one one int");
+end if;
+
+select many cs from instances of OC;
+x = (cardinality cs);
+if (x == 1)
+  LOG::LogSuccess(message:"OCS - init one one init");
+else
+  LOG::LogFailure(message:"OCS - init one one int");
+end if;
+LOG::LogInfo(message:"Ending in init state one");
+
+// The first time this bridge function is called, the value
+// should be 99.  We will check this, and set it to the 
+// next init state (2)
+
+nextinit_state=2;
+x=BR::getandset(i:nextinit_state);
+
+// make sure x = 99
+if (x == 99)
+  LOG::LogSuccess(message:"Domain init1 - init one - checking x == 99");
+else
+  LOG::LogFailure(message:"Domain init1 - init one - checking x == 99");
+end if;
+
+',
+	'');
+INSERT INTO SM_STATE
+	VALUES (1572866,
+	1572867,
+	0,
+	'init state two',
+	3,
+	0);
+INSERT INTO SM_MOAH
+	VALUES (1572866,
+	1572867,
+	1572866);
+INSERT INTO SM_AH
+	VALUES (1572866,
+	1572867);
+INSERT INTO SM_ACT
+	VALUES (1572866,
+	1572867,
+	1,
+	'LOG::LogInfo(message:"Domain init1 - Starting in init state two");
+
+x=BR::getandset(i:3);
+if (x == 2)
+  LOG::LogSuccess(message:"Domain init1 - state 2 - checking getandset");
+else
+  LOG::LogFailure(message:"Domain init1 - state 2 - checking getandset");
+end if;
+',
+	'');
+INSERT INTO GD_MD
+	VALUES (1572865,
+	8,
+	1572867,
+	40,
+	1,
+	0,
+	1,
+	1,
+	0,
+	12,
+	1600,
+	4200,
+	1.000000,
+	0);
+INSERT INTO GD_GE
+	VALUES (1572866,
+	1572865,
+	1572865,
+	41);
+INSERT INTO GD_SHP
+	VALUES (1572866,
+	1712,
+	1152,
+	2096,
+	1360);
+INSERT INTO GD_GE
+	VALUES (1572867,
+	1572865,
+	1572866,
+	41);
+INSERT INTO GD_SHP
+	VALUES (1572867,
+	1712,
+	1424,
+	2096,
+	1632);
+INSERT INTO CA_ACC
+	VALUES (1572868,
+	1048578,
+	1572867,
+	0);
+INSERT INTO CA_SMOA
+	VALUES (1572868,
+	3145729,
+	0);
+INSERT INTO CA_SMOAA
+	VALUES (1572868,
+	3145729,
+	3145729);
+INSERT INTO CA_ACC
+	VALUES (1572869,
+	1048578,
+	1572867,
+	0);
+INSERT INTO CA_SMOA
+	VALUES (1572869,
+	3145730,
+	0);
+INSERT INTO CA_SMOAA
+	VALUES (1572869,
+	3145730,
+	3145730);
+INSERT INTO CA_ACC
+	VALUES (1572870,
+	1048578,
+	1572867,
+	0);
+INSERT INTO CA_SMOA
+	VALUES (1572870,
+	3145731,
+	0);
+INSERT INTO CA_SMOAA
+	VALUES (1572870,
+	3145732,
+	3145731);
+INSERT INTO GD_MD
+	VALUES (1048585,
+	5,
+	1048578,
+	11,
+	1,
+	0,
+	1,
+	1,
+	0,
+	12,
+	1600,
+	4199,
+	1.000000,
+	0);
+INSERT INTO GD_GE
+	VALUES (1048588,
+	1048585,
+	1048577,
+	21);
+INSERT INTO GD_SHP
+	VALUES (1048588,
+	1936,
+	1216,
+	2144,
+	1360);
+INSERT INTO S_SS
+	VALUES (2097156,
+	'init two',
+	'',
+	'',
+	100,
+	806980,
+	2097156);
+INSERT INTO O_OBJ
+	VALUES (2097153,
+	'init object two',
+	100,
+	'INITTWO',
+	'',
+	2097156);
+INSERT INTO O_NBATTR
+	VALUES (2097153,
+	2097153);
+INSERT INTO O_BATTR
+	VALUES (2097153,
+	2097153);
+INSERT INTO O_ATTR
+	VALUES (2097153,
+	2097153,
+	0,
+	'id',
+	'',
+	'',
+	'id',
+	0,
+	524294);
+INSERT INTO O_NBATTR
+	VALUES (2097154,
+	2097153);
+INSERT INTO O_BATTR
+	VALUES (2097154,
+	2097153);
+INSERT INTO O_ATTR
+	VALUES (2097154,
+	2097153,
+	2097153,
+	'current_state',
+	'',
+	'',
+	'current_state',
+	0,
+	524295);
+INSERT INTO O_ID
+	VALUES (0,
+	2097153);
+INSERT INTO O_OIDA
+	VALUES (2097153,
+	2097153,
+	0);
+INSERT INTO SM_ISM
+	VALUES (2621445,
+	2097153);
+INSERT INTO SM_SM
+	VALUES (2621445,
+	'',
+	5);
+INSERT INTO SM_MOORE
+	VALUES (2621445);
+INSERT INTO SM_STATE
+	VALUES (2621441,
+	2621445,
+	0,
+	'init state five',
+	3,
+	0);
+INSERT INTO SM_MOAH
+	VALUES (2621441,
+	2621445,
+	2621441);
+INSERT INTO SM_AH
+	VALUES (2621441,
+	2621445);
+INSERT INTO SM_ACT
+	VALUES (2621441,
+	2621445,
+	1,
+	'LOG::LogInfo(message:"Domain init1 - Starting in init state five");
+
+x=BR::getandset(i:6);
+if (x == 5)
+  LOG::LogSuccess(message:"Domain init1 - state 5 - checking getandset");
+else
+  LOG::LogFailure(message:"Domain init1 - state 5 - checking getandset");
+end if;
+',
+	'');
+INSERT INTO SM_STATE
+	VALUES (2621442,
+	2621445,
+	0,
+	'init state six',
+	4,
+	0);
+INSERT INTO SM_MOAH
+	VALUES (2621442,
+	2621445,
+	2621442);
+INSERT INTO SM_AH
+	VALUES (2621442,
+	2621445);
+INSERT INTO SM_ACT
+	VALUES (2621442,
+	2621445,
+	1,
+	'LOG::LogInfo(message:"Domain init1 - Starting in init state six");
+
+x=BR::getandset(i:7);
+if (x == 6)
+  LOG::LogSuccess(message:"Domain init1 - state 6 - checking getandset");
+else
+  LOG::LogFailure(message:"Domain init1 - state 6 - checking getandset");
+end if;
+',
+	'');
+INSERT INTO GD_MD
+	VALUES (2621441,
+	8,
+	2621445,
+	40,
+	1,
+	0,
+	1,
+	1,
+	0,
+	12,
+	1600,
+	4200,
+	1.000000,
+	0);
+INSERT INTO GD_GE
+	VALUES (2621442,
+	2621441,
+	2621441,
+	41);
+INSERT INTO GD_SHP
+	VALUES (2621442,
+	1648,
+	1184,
+	2032,
+	1312);
+INSERT INTO GD_GE
+	VALUES (2621443,
+	2621441,
+	2621442,
+	41);
+INSERT INTO GD_SHP
+	VALUES (2621443,
+	1648,
+	1392,
+	2032,
+	1520);
+INSERT INTO GD_MD
+	VALUES (2097167,
+	5,
+	2097156,
+	11,
+	1,
+	0,
+	1,
+	1,
+	0,
+	12,
+	1600,
+	4199,
+	1.000000,
+	0);
+INSERT INTO GD_GE
+	VALUES (2097170,
+	2097167,
+	2097153,
+	21);
+INSERT INTO GD_SHP
+	VALUES (2097170,
+	1760,
+	1280,
+	2048,
+	1456);
+INSERT INTO S_SS
+	VALUES (3145734,
+	'init data',
+	'',
+	'',
+	200,
+	806980,
+	3145734);
+INSERT INTO O_OBJ
+	VALUES (3145729,
+	'Object A',
+	200,
+	'OA',
+	'',
+	3145734);
+INSERT INTO O_TFR
+	VALUES (3145729,
+	3145729,
+	'one',
+	'',
+	524289,
+	0,
+	'',
+	1);
+INSERT INTO O_NBATTR
+	VALUES (3145729,
+	3145729);
+INSERT INTO O_BATTR
+	VALUES (3145729,
+	3145729);
+INSERT INTO O_ATTR
+	VALUES (3145729,
+	3145729,
+	0,
+	'oa_id',
+	'',
+	'',
+	'oa_id',
+	0,
+	524291);
+INSERT INTO O_ID
+	VALUES (0,
+	3145729);
+INSERT INTO O_OIDA
+	VALUES (3145729,
+	3145729,
+	0);
+INSERT INTO O_OBJ
+	VALUES (3145730,
+	'Object B',
+	201,
+	'OB',
+	'',
+	3145734);
+INSERT INTO O_TFR
+	VALUES (3145730,
+	3145730,
+	'one',
+	'',
+	524289,
+	0,
+	'',
+	1);
+INSERT INTO O_NBATTR
+	VALUES (3145730,
+	3145730);
+INSERT INTO O_BATTR
+	VALUES (3145730,
+	3145730);
+INSERT INTO O_ATTR
+	VALUES (3145730,
+	3145730,
+	0,
+	'ob_id',
+	'',
+	'',
+	'ob_id',
+	0,
+	524291);
+INSERT INTO O_NBATTR
+	VALUES (3145731,
+	3145730);
+INSERT INTO O_BATTR
+	VALUES (3145731,
+	3145730);
+INSERT INTO O_ATTR
+	VALUES (3145731,
+	3145730,
+	3145730,
+	'current_state',
+	'',
+	'',
+	'current_state',
+	0,
+	524295);
+INSERT INTO O_ID
+	VALUES (0,
+	3145730);
+INSERT INTO O_OIDA
+	VALUES (3145730,
+	3145730,
+	0);
+INSERT INTO SM_ISM
+	VALUES (3670023,
+	3145730);
+INSERT INTO SM_SM
+	VALUES (3670023,
+	'',
+	7);
+INSERT INTO SM_MOORE
+	VALUES (3670023);
+INSERT INTO SM_LEVT
+	VALUES (3670017,
+	3670023,
+	0);
+INSERT INTO SM_SEVT
+	VALUES (3670017,
+	3670023,
+	0);
+INSERT INTO SM_EVT
+	VALUES (3670017,
+	3670023,
+	0,
+	1,
+	'one',
+	0,
+	'',
+	'OB1',
+	'');
+INSERT INTO SM_LEVT
+	VALUES (3670018,
+	3670023,
+	0);
+INSERT INTO SM_SEVT
+	VALUES (3670018,
+	3670023,
+	0);
+INSERT INTO SM_EVT
+	VALUES (3670018,
+	3670023,
+	0,
+	2,
+	'two',
+	0,
+	'',
+	'OB2',
+	'');
+INSERT INTO SM_STATE
+	VALUES (3670017,
+	3670023,
+	0,
+	'state one',
+	1,
+	0);
+INSERT INTO SM_SEME
+	VALUES (3670017,
+	3670017,
+	3670023,
+	0);
+INSERT INTO SM_SEME
+	VALUES (3670017,
+	3670018,
+	3670023,
+	0);
+INSERT INTO SM_MOAH
+	VALUES (3670017,
+	3670023,
+	3670017);
+INSERT INTO SM_AH
+	VALUES (3670017,
+	3670023);
+INSERT INTO SM_ACT
+	VALUES (3670017,
+	3670023,
+	1,
+	'LOG::LogInfo(message:"Object B - state one");',
+	'');
+INSERT INTO SM_STATE
+	VALUES (3670018,
+	3670023,
+	0,
+	'state two',
+	2,
+	0);
+INSERT INTO SM_CH
+	VALUES (3670018,
+	3670017,
+	3670023,
+	0,
+	'');
+INSERT INTO SM_SEME
+	VALUES (3670018,
+	3670017,
+	3670023,
+	0);
+INSERT INTO SM_CH
+	VALUES (3670018,
+	3670018,
+	3670023,
+	0,
+	'');
+INSERT INTO SM_SEME
+	VALUES (3670018,
+	3670018,
+	3670023,
+	0);
+INSERT INTO SM_MOAH
+	VALUES (3670018,
+	3670023,
+	3670018);
+INSERT INTO SM_AH
+	VALUES (3670018,
+	3670023);
+INSERT INTO SM_ACT
+	VALUES (3670018,
+	3670023,
+	1,
+	'LOG::LogInfo(message:"Object B - state two");
+LOG::LogInfo(message:"Shutting down.....");
+ARCH::shutdown();',
+	'');
+INSERT INTO SM_NSTXN
+	VALUES (3670017,
+	3670023,
+	3670017,
+	3670017,
+	0);
+INSERT INTO SM_TXN
+	VALUES (3670017,
+	3670023,
+	3670017,
+	0);
+INSERT INTO SM_NSTXN
+	VALUES (3670018,
+	3670023,
+	3670017,
+	3670018,
+	0);
+INSERT INTO SM_TXN
+	VALUES (3670018,
+	3670023,
+	3670018,
+	0);
+INSERT INTO GD_MD
+	VALUES (3670017,
+	8,
+	3670023,
+	40,
+	1,
+	0,
+	1,
+	1,
+	0,
+	12,
+	1600,
+	4200,
+	1.000000,
+	0);
+INSERT INTO GD_GE
+	VALUES (3670018,
+	3670017,
+	3670017,
+	41);
+INSERT INTO GD_SHP
+	VALUES (3670018,
+	1700,
+	1318,
+	1984,
+	1440);
+INSERT INTO GD_GE
+	VALUES (3670019,
+	3670017,
+	3670018,
+	41);
+INSERT INTO GD_SHP
+	VALUES (3670019,
+	1696,
+	1488,
+	1984,
+	1568);
+INSERT INTO GD_GE
+	VALUES (3670020,
+	3670017,
+	3670017,
+	42);
+INSERT INTO GD_CON
+	VALUES (3670020,
+	3670018,
+	3670018,
+	0);
+INSERT INTO GD_CTXT
+	VALUES (3670020,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	1800,
+	1224,
+	2078,
+	1270,
+	1,
+	-15,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+	VALUES (3670021,
+	3670020,
+	1728,
+	1318,
+	1728,
+	1264,
+	0);
+INSERT INTO GD_LS
+	VALUES (3670022,
+	3670020,
+	1728,
+	1264,
+	1920,
+	1264,
+	3670021);
+INSERT INTO GD_LS
+	VALUES (3670023,
+	3670020,
+	1920,
+	1264,
+	1920,
+	1318,
+	3670022);
+INSERT INTO GD_GE
+	VALUES (3670024,
+	3670017,
+	3670018,
+	42);
+INSERT INTO GD_CON
+	VALUES (3670024,
+	3670018,
+	3670019,
+	0);
+INSERT INTO GD_CTXT
+	VALUES (3670024,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	1851,
+	1442,
+	2049,
+	1486,
+	27,
+	-7,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+	VALUES (3670025,
+	3670024,
+	1840,
+	1440,
+	1840,
+	1488,
+	0);
+INSERT INTO SM_ASM
+	VALUES (4194312,
+	3145730);
+INSERT INTO SM_SM
+	VALUES (4194312,
+	'',
+	8);
+INSERT INTO SM_MOORE
+	VALUES (4194312);
+INSERT INTO SM_LEVT
+	VALUES (4194305,
+	4194312,
+	0);
+INSERT INTO SM_SEVT
+	VALUES (4194305,
+	4194312,
+	0);
+INSERT INTO SM_EVT
+	VALUES (4194305,
+	4194312,
+	0,
+	1,
+	'one',
+	0,
+	'',
+	'OB_A1',
+	'');
+INSERT INTO SM_STATE
+	VALUES (4194305,
+	4194312,
+	0,
+	'state one',
+	1,
+	0);
+INSERT INTO SM_SEME
+	VALUES (4194305,
+	4194305,
+	4194312,
+	0);
+INSERT INTO SM_MOAH
+	VALUES (4194305,
+	4194312,
+	4194305);
+INSERT INTO SM_AH
+	VALUES (4194305,
+	4194312);
+INSERT INTO SM_ACT
+	VALUES (4194305,
+	4194312,
+	1,
+	'LOG::LogInfo(message:"Object B Assigner - state one");
+select any b from instances of OB;
+generate OB2:''two''() to b;
+',
+	'');
+INSERT INTO SM_NSTXN
+	VALUES (4194305,
+	4194312,
+	4194305,
+	4194305,
+	0);
+INSERT INTO SM_TXN
+	VALUES (4194305,
+	4194312,
+	4194305,
+	0);
+INSERT INTO GD_MD
+	VALUES (4194305,
+	10,
+	4194312,
+	40,
+	1,
+	0,
+	1,
+	1,
+	0,
+	12,
+	1600,
+	4200,
+	1.000000,
+	0);
+INSERT INTO GD_GE
+	VALUES (4194306,
+	4194305,
+	4194305,
+	41);
+INSERT INTO GD_SHP
+	VALUES (4194306,
+	1808,
+	1328,
+	2096,
+	1584);
+INSERT INTO GD_GE
+	VALUES (4194307,
+	4194305,
+	4194305,
+	42);
+INSERT INTO GD_CON
+	VALUES (4194307,
+	4194306,
+	4194306,
+	0);
+INSERT INTO GD_CTXT
+	VALUES (4194307,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	1912,
+	1240,
+	2190,
+	1286,
+	1,
+	-15,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+	VALUES (4194308,
+	4194307,
+	1840,
+	1328,
+	1840,
+	1280,
+	0);
+INSERT INTO GD_LS
+	VALUES (4194309,
+	4194307,
+	1840,
+	1280,
+	2032,
+	1280,
+	4194308);
+INSERT INTO GD_LS
+	VALUES (4194310,
+	4194307,
+	2032,
+	1280,
+	2032,
+	1328,
+	4194309);
+INSERT INTO O_OBJ
+	VALUES (3145731,
+	'Object C',
+	202,
+	'OC',
+	'',
+	3145734);
+INSERT INTO O_TFR
+	VALUES (3145731,
+	3145731,
+	'one',
+	'',
+	524289,
+	0,
+	'',
+	1);
+INSERT INTO O_NBATTR
+	VALUES (3145732,
+	3145731);
+INSERT INTO O_BATTR
+	VALUES (3145732,
+	3145731);
+INSERT INTO O_ATTR
+	VALUES (3145732,
+	3145731,
+	0,
+	'oc_id',
+	'',
+	'',
+	'oc_id',
+	0,
+	524291);
+INSERT INTO O_ID
+	VALUES (0,
+	3145731);
+INSERT INTO O_OIDA
+	VALUES (3145732,
+	3145731,
+	0);
+INSERT INTO CA_COMM
+	VALUES (4194306,
+	3145734);
+INSERT INTO CA_SMSMC
+	VALUES (4194306,
+	4194312,
+	3670023,
+	0);
+INSERT INTO CA_SMSME
+	VALUES (4194306,
+	3670023,
+	3670018);
+INSERT INTO GD_MD
+	VALUES (3145749,
+	5,
+	3145734,
+	11,
+	1,
+	0,
+	1,
+	1,
+	0,
+	12,
+	1600,
+	4199,
+	1.000000,
+	0);
+INSERT INTO GD_GE
+	VALUES (3145752,
+	3145749,
+	3145729,
+	21);
+INSERT INTO GD_SHP
+	VALUES (3145752,
+	1632,
+	1232,
+	1936,
+	1392);
+INSERT INTO GD_GE
+	VALUES (3145753,
+	3145749,
+	3145730,
+	21);
+INSERT INTO GD_SHP
+	VALUES (3145753,
+	1952,
+	1232,
+	2240,
+	1392);
+INSERT INTO GD_GE
+	VALUES (3145754,
+	3145749,
+	3145731,
+	21);
+INSERT INTO GD_SHP
+	VALUES (3145754,
+	1664,
+	1440,
+	1872,
+	1584);

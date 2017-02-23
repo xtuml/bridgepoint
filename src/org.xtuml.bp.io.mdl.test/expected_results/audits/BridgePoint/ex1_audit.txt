@@ -1,0 +1,302 @@
+AUDIT RESULTS FOR DOMAIN ex1
+
+SUBSYSTEMS WITHOUT DESCRIPTIONS:
+ex
+
+EXTERNAL ENTITIES WITHOUT DESCRIPTIONS:
+External Entity Time
+External Entity Architecture
+External Entity Logging 
+
+BRIDGES WITHOUT DESCRIPTIONS:
+External Entity Bridge Architecture::shutdown
+External Entity Bridge Logging ::LogSuccess
+External Entity Bridge Logging ::LogFailure
+External Entity Bridge Logging ::LogInfo
+External Entity Bridge Logging ::LogDate
+External Entity Bridge Logging ::LogTime
+External Entity Bridge Logging ::LogReal
+
+CLASSES WITHOUT DESCRIPTIONS:
+Class ex::ex init
+Class ex::Expression Test
+Class ex::No Instances
+Class ex::One Instance
+Class ex::Many Instances
+Class ex::Any Object 
+Class ex::Expression Test Object B
+Class ex::Expression Test Object C
+Class ex::Boolean Expression Test
+Class ex::Other Boolean Expression Test
+Class ex::Third Boolean Expression Test
+Class ex::User Boolean Test
+Class ex::User Other Boolean Test
+Class ex::User Third Boolean Test
+Class ex::Event Instance
+
+ATTRIBUTES WITHOUT DESCRIPTIONS:
+Attribute ex init::id
+Attribute ex init::current_state
+Attribute Expression Test::et_id
+Attribute Expression Test::bfalse
+Attribute Expression Test::btrue
+Attribute Expression Test::i
+Attribute Expression Test::r
+Attribute Expression Test::d
+Attribute Expression Test::u
+Attribute Expression Test::s
+Attribute Expression Test::t
+Attribute Expression Test::tim
+Attribute Expression Test::ev
+Attribute Expression Test::log_id
+Attribute Expression Test::current_state
+Attribute Expression Test::my_b
+Attribute Expression Test::my_i
+Attribute Expression Test::my_r
+Attribute Expression Test::my_s
+Attribute Expression Test::my_u
+Attribute Expression Test::etob_id
+Attribute Expression Test::r1btrue
+Attribute Expression Test::r1bfalse
+Attribute Expression Test::r1r
+Attribute Expression Test::r1s
+Attribute Expression Test::r1u
+Attribute Expression Test::r1d
+Attribute Expression Test::r1t
+Attribute Expression Test::r1tim
+Attribute Expression Test::r1ev
+Attribute No Instances::noi_id
+Attribute No Instances::r2et_id
+Attribute No Instances::r5et_id
+Attribute One Instance::oi_id
+Attribute One Instance::et_id
+Attribute Many Instances::mi_id
+Attribute Many Instances::et_id
+Attribute Any Object ::ao_id
+Attribute Any Object ::b
+Attribute Any Object ::i
+Attribute Any Object ::r
+Attribute Any Object ::s
+Attribute Any Object ::u
+Attribute Expression Test Object B::etob_id
+Attribute Expression Test Object B::btrue
+Attribute Expression Test Object B::bfalse
+Attribute Expression Test Object B::r
+Attribute Expression Test Object B::s
+Attribute Expression Test Object B::u
+Attribute Expression Test Object B::d
+Attribute Expression Test Object B::t
+Attribute Expression Test Object B::tim
+Attribute Expression Test Object B::ev
+Attribute Expression Test Object B::et_id
+Attribute Expression Test Object B::etoc_id
+Attribute Expression Test Object B::r6btrue
+Attribute Expression Test Object B::r6bfalse
+Attribute Expression Test Object B::r6r
+Attribute Expression Test Object B::r6s
+Attribute Expression Test Object B::r6u
+Attribute Expression Test Object B::r6d
+Attribute Expression Test Object B::r6t
+Attribute Expression Test Object B::r6tim
+Attribute Expression Test Object B::r6ev
+Attribute Expression Test Object C::etoc_id
+Attribute Expression Test Object C::btrue
+Attribute Expression Test Object C::bfalse
+Attribute Expression Test Object C::r
+Attribute Expression Test Object C::s
+Attribute Expression Test Object C::u
+Attribute Expression Test Object C::d
+Attribute Expression Test Object C::t
+Attribute Expression Test Object C::tim
+Attribute Expression Test Object C::ev
+Attribute Boolean Expression Test::id
+Attribute Boolean Expression Test::btrue
+Attribute Boolean Expression Test::bfalse
+Attribute Boolean Expression Test::r9bfalse
+Attribute Boolean Expression Test::r9btrue
+Attribute Boolean Expression Test::current_state
+Attribute Other Boolean Expression Test::bfalse
+Attribute Other Boolean Expression Test::btrue
+Attribute Other Boolean Expression Test::id
+Attribute Other Boolean Expression Test::r11btrue
+Attribute Other Boolean Expression Test::r11bfalse
+Attribute Third Boolean Expression Test::btrue
+Attribute Third Boolean Expression Test::bfalse
+Attribute User Boolean Test::id
+Attribute User Boolean Test::btrue
+Attribute User Boolean Test::bfalse
+Attribute User Boolean Test::r9bfalse
+Attribute User Boolean Test::r9btrue
+Attribute User Boolean Test::current_state
+Attribute User Other Boolean Test::bfalse
+Attribute User Other Boolean Test::btrue
+Attribute User Other Boolean Test::id
+Attribute User Other Boolean Test::r11btrue
+Attribute User Other Boolean Test::r11bfalse
+Attribute User Third Boolean Test::btrue
+Attribute User Third Boolean Test::bfalse
+Attribute Event Instance::id
+Attribute Event Instance::shutdown_count
+Attribute Event Instance::current_state
+
+REFERENCES WITHOUT DESCRIPTIONS:
+Referential Attribute Expression Test::etob_id
+Referential Attribute Expression Test::r1btrue
+Referential Attribute Expression Test::r1bfalse
+Referential Attribute Expression Test::r1r
+Referential Attribute Expression Test::r1s
+Referential Attribute Expression Test::r1u
+Referential Attribute Expression Test::r1d
+Referential Attribute Expression Test::r1t
+Referential Attribute Expression Test::r1tim
+Referential Attribute Expression Test::r1ev
+Referential Attribute No Instances::r2et_id
+Referential Attribute No Instances::r5et_id
+Referential Attribute One Instance::et_id
+Referential Attribute Many Instances::et_id
+Referential Attribute Expression Test Object B::et_id
+Referential Attribute Expression Test Object B::etoc_id
+Referential Attribute Expression Test Object B::r6btrue
+Referential Attribute Expression Test Object B::r6bfalse
+Referential Attribute Expression Test Object B::r6r
+Referential Attribute Expression Test Object B::r6s
+Referential Attribute Expression Test Object B::r6u
+Referential Attribute Expression Test Object B::r6d
+Referential Attribute Expression Test Object B::r6t
+Referential Attribute Expression Test Object B::r6tim
+Referential Attribute Expression Test Object B::r6ev
+Referential Attribute Boolean Expression Test::r9bfalse
+Referential Attribute Boolean Expression Test::r9btrue
+Referential Attribute Other Boolean Expression Test::id
+Referential Attribute Other Boolean Expression Test::r11btrue
+Referential Attribute Other Boolean Expression Test::r11bfalse
+Referential Attribute User Boolean Test::r9bfalse
+Referential Attribute User Boolean Test::r9btrue
+Referential Attribute User Other Boolean Test::id
+Referential Attribute User Other Boolean Test::r11btrue
+Referential Attribute User Other Boolean Test::r11bfalse
+
+OPERATIONS WITHOUT DESCRIPTIONS:
+Operation Expression Test::no_parm_ret_void
+Operation Expression Test::i_parm_ret_i
+Operation Expression Test::r_parm_ret_r
+Operation Expression Test::b_parm_ret_b
+Operation Expression Test::s_parm_ret_s
+Operation Expression Test::u_parm_ret_u
+Operation Expression Test::d_parm_ret_d
+Operation Expression Test::t_parm_ret_t
+Operation Expression Test::i_parm_ret_void
+Operation Expression Test::waitOneSec
+Operation Any Object ::i_parm_ret_i
+
+RELATIONSHIPS WITHOUT DESCRIPTIONS:
+ex::R1
+ex::R2
+ex::R3
+ex::R4
+ex::R5
+ex::R6
+ex::R8
+ex::R9
+ex::R10
+ex::R11
+ex::R12
+ex::R13
+ex::R14
+
+STATE MODELS WITHOUT DESCRIPTIONS:
+State Model ex init
+State Model Expression Test
+State Model Boolean Expression Test
+State Model User Boolean Test
+State Model Event Instance
+
+EVENTS WITHOUT DESCRIPTIONS:
+Event USERINIT1
+Event ET1
+Event ET2
+Event ET3
+Event ET4
+Event ET5
+Event ET6
+Event ET7
+Event ET8
+Event ET9
+Event ET10
+Event ET11
+Event ET12
+Event ET13
+Event ET14
+Event ET15
+Event ET16
+Event ET17
+Event BET1
+Event BET3
+Event BET2
+Event BET4
+Event UBT1
+Event UBT2
+Event UBT3
+Event UBT4
+Event EV1
+Event EV2
+
+EVENT DATA WITHOUT DESCRIPTIONS:
+Event Data Expression Test::i
+Event Data Expression Test::b
+Event Data Expression Test::r
+Event Data Expression Test::s
+Event Data Expression Test::u
+Event Data Expression Test::my_b
+Event Data Expression Test::my_i
+Event Data Expression Test::my_r
+Event Data Expression Test::my_s
+Event Data Expression Test::my_u
+Event Data Expression Test::tfalse
+Event Data Expression Test::ttrue
+Event Data Expression Test::tint1
+Event Data Expression Test::tint2
+Event Data Expression Test::treal1
+Event Data Expression Test::treal2
+Event Data Expression Test::d
+Event Data Expression Test::ts
+Event Data Expression Test::tim
+Event Data Expression Test::ev
+Event Data Boolean Expression Test::tfalse
+Event Data Boolean Expression Test::ttrue
+Event Data User Boolean Test::tfalse
+Event Data User Boolean Test::ttrue
+Event Data Event Instance::message
+
+ACTION SPECIFICATIONS WITHOUT DESCRIPTIONS:
+ex init::ex init
+Expression Test::Starting Expression Test F1 and F2
+Expression Test::Run F3 through F14 Binary Operations
+Expression Test::Run F15 values
+Expression Test::Run F16 Transformers
+Expression Test::Shutting Down
+Expression Test::Runnning F17 Timestamp and F18 Date Operators
+Expression Test::Running F1 and F2 for User Defined Types
+Expression Test::Running F3 through F14 for User Defined Types
+Expression Test::Running F15 for User Defined Types
+Expression Test::Testing empty operator
+Expression Test::Testing not_empty operator
+Expression Test::Testing cardinality operator
+Expression Test::Testing not operator
+Expression Test::Testing subtraction operator
+Expression Test::Testing assign 
+Expression Test::Additional assign tests
+Boolean Expression Test::And test 1a
+Boolean Expression Test::And test 2
+Boolean Expression Test::Or test 1a
+Boolean Expression Test::Or test 2
+Boolean Expression Test::And test 1b
+Boolean Expression Test::Or test 1b
+User Boolean Test::And test 1a
+User Boolean Test::And test 1b
+User Boolean Test::And test 2
+User Boolean Test::Or test 1a
+User Boolean Test::Or test 1b
+User Boolean Test::Or test 2
+Event Instance::dummy
+Event Instance::shutdown

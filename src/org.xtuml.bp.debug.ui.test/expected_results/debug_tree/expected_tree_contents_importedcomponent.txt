@@ -1,0 +1,5 @@
+VerifierLaunchConfigurationTests::cp::c1 - 1.1 (Running) : ComponentReference_c
+nc1 (Running) : Component_c
+ncnc1 (Running) : Component_c
+VerifierLaunchConfigurationTests::cp::fc1 - 1.2 (Running) : ComponentReference_c
+VerifierLaunchConfigurationTests::cp::fc1 - 1.1 (Running) : ComponentReference_c

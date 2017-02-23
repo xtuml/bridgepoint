@@ -1,0 +1,5 @@
+drawRectangle(...)
+drawText("test_project_referenced:...", ...)
+drawText("{1,UnnamedClass}", ...)
+drawline(...)
+drawline(...)

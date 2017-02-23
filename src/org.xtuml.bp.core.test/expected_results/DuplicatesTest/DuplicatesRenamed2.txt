@@ -1,0 +1,17 @@
+Duplicates found in Security
+ 	securityCode	->	securityCode-2
+ 	getPerms	->	getPerms-2
+ 	checkPasswd	->	checkPasswd-2
+ 	addUser	->	addUser-2
+ 	addUserWithCode	->	addUserWithCode-2
+ 	changeUser	->	changeUser-2
+ 	changeUserWithCode	->	changeUserWithCode-2
+ 	deleteUser	->	deleteUser-2
+ 	getUserList	->	getUserList-2
+ 	getOwnershipForUser	->	getOwnershipForUser-2
+ 	getUserProfile	->	getUserProfile-2
+ 	stopUserSession	->	stopUserSession-2
+ 	serverReset	->	serverReset-2
+ 	ping	->	ping-2
+ Duplicates found in TestSS
+ 	changeUser	->	changeUser-2

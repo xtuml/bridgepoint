@@ -1,0 +1,348 @@
+-- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("ed000af8-f8c9-4601-8ab2-22765e71aace",
+	'Disk',
+	1,
+	'D_D',
+	'Object Description:
+
+Object Role:
+',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_NBATTR
+	VALUES ("1d6b6d86-0ec8-4579-8f54-b77d3d970382",
+	"ed000af8-f8c9-4601-8ab2-22765e71aace");
+INSERT INTO O_BATTR
+	VALUES ("1d6b6d86-0ec8-4579-8f54-b77d3d970382",
+	"ed000af8-f8c9-4601-8ab2-22765e71aace");
+INSERT INTO O_ATTR
+	VALUES ("1d6b6d86-0ec8-4579-8f54-b77d3d970382",
+	"ed000af8-f8c9-4601-8ab2-22765e71aace",
+	"00000000-0000-0000-0000-000000000000",
+	'Disk_ID',
+	'Attribute Description:
+
+Attribute Domain:
+',
+	'',
+	'Disk_ID',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000002",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("2267982d-31f2-4bee-a98d-c3bb5fad9070",
+	"ed000af8-f8c9-4601-8ab2-22765e71aace");
+INSERT INTO O_BATTR
+	VALUES ("2267982d-31f2-4bee-a98d-c3bb5fad9070",
+	"ed000af8-f8c9-4601-8ab2-22765e71aace");
+INSERT INTO O_ATTR
+	VALUES ("2267982d-31f2-4bee-a98d-c3bb5fad9070",
+	"ed000af8-f8c9-4601-8ab2-22765e71aace",
+	"1d6b6d86-0ec8-4579-8f54-b77d3d970382",
+	'Serial_Number',
+	'Attribute Description:
+
+Attribute Domain:
+',
+	'',
+	'Serial_Number',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000002",
+	'',
+	'');
+INSERT INTO O_REF
+	VALUES ("ed000af8-f8c9-4601-8ab2-22765e71aace",
+	"0dd7fc9d-8a4d-41b3-8369-f5d5b6d3583c",
+	0,
+	"229cf4f4-53ca-465d-85fd-ab26323d9761",
+	"663c0289-d236-46aa-b4a3-57c4463f3c13",
+	"5a75f04c-0aca-4934-942e-f5e8a0588cd2",
+	"96f7966e-8da7-4152-86e4-8b0208fdcf96",
+	"b5b8c8a2-0c6d-4e6f-9270-fd3e790a069d",
+	"644e8ae5-8bc0-4c97-a203-4c38b7655bd3",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'Reference Domain:
+',
+	'Permanent Home in Library',
+	'Row_Number',
+	'R4');
+INSERT INTO R_RGO_PROXY
+	VALUES ("ed000af8-f8c9-4601-8ab2-22765e71aace",
+	"663c0289-d236-46aa-b4a3-57c4463f3c13",
+	"5a75f04c-0aca-4934-942e-f5e8a0588cd2",
+	'../Odms.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("229cf4f4-53ca-465d-85fd-ab26323d9761",
+	"0dd7fc9d-8a4d-41b3-8369-f5d5b6d3583c",
+	0,
+	"663c0289-d236-46aa-b4a3-57c4463f3c13",
+	"96f7966e-8da7-4152-86e4-8b0208fdcf96",
+	'../Odms.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("b5b8c8a2-0c6d-4e6f-9270-fd3e790a069d",
+	"ed000af8-f8c9-4601-8ab2-22765e71aace",
+	"229cf4f4-53ca-465d-85fd-ab26323d9761",
+	"0dd7fc9d-8a4d-41b3-8369-f5d5b6d3583c",
+	1,
+	'Row_Number');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("229cf4f4-53ca-465d-85fd-ab26323d9761",
+	"0dd7fc9d-8a4d-41b3-8369-f5d5b6d3583c",
+	'../Permanent Home in Library/Permanent Home in Library.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("b5b8c8a2-0c6d-4e6f-9270-fd3e790a069d",
+	"ed000af8-f8c9-4601-8ab2-22765e71aace",
+	"2267982d-31f2-4bee-a98d-c3bb5fad9070",
+	'Row_Number',
+	'Attribute Description:
+
+Attribute Domain:
+',
+	'',
+	'Row_Number',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000007",
+	'',
+	'');
+INSERT INTO O_REF
+	VALUES ("ed000af8-f8c9-4601-8ab2-22765e71aace",
+	"0dd7fc9d-8a4d-41b3-8369-f5d5b6d3583c",
+	0,
+	"636a3579-1215-46fc-9754-c28290f351b6",
+	"663c0289-d236-46aa-b4a3-57c4463f3c13",
+	"5a75f04c-0aca-4934-942e-f5e8a0588cd2",
+	"96f7966e-8da7-4152-86e4-8b0208fdcf96",
+	"80c4fb6e-a0ac-42d5-b0f1-f2811d1dacbd",
+	"5e069e88-dbd5-40ef-a540-211761ebd046",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'Reference Domain:
+',
+	'Permanent Home in Library',
+	'Column_Number',
+	'R4');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("636a3579-1215-46fc-9754-c28290f351b6",
+	"0dd7fc9d-8a4d-41b3-8369-f5d5b6d3583c",
+	0,
+	"663c0289-d236-46aa-b4a3-57c4463f3c13",
+	"96f7966e-8da7-4152-86e4-8b0208fdcf96",
+	'../Odms.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("80c4fb6e-a0ac-42d5-b0f1-f2811d1dacbd",
+	"ed000af8-f8c9-4601-8ab2-22765e71aace",
+	"636a3579-1215-46fc-9754-c28290f351b6",
+	"0dd7fc9d-8a4d-41b3-8369-f5d5b6d3583c",
+	1,
+	'Column_Number');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("636a3579-1215-46fc-9754-c28290f351b6",
+	"0dd7fc9d-8a4d-41b3-8369-f5d5b6d3583c",
+	'../Permanent Home in Library/Permanent Home in Library.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("80c4fb6e-a0ac-42d5-b0f1-f2811d1dacbd",
+	"ed000af8-f8c9-4601-8ab2-22765e71aace",
+	"b5b8c8a2-0c6d-4e6f-9270-fd3e790a069d",
+	'Column_Number',
+	'Attribute Description:
+
+Attribute Domain:
+',
+	'',
+	'Column_Number',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000007",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("f97853f9-f40e-4911-94bb-7ebb971043ad",
+	"ed000af8-f8c9-4601-8ab2-22765e71aace");
+INSERT INTO O_BATTR
+	VALUES ("f97853f9-f40e-4911-94bb-7ebb971043ad",
+	"ed000af8-f8c9-4601-8ab2-22765e71aace");
+INSERT INTO O_ATTR
+	VALUES ("f97853f9-f40e-4911-94bb-7ebb971043ad",
+	"ed000af8-f8c9-4601-8ab2-22765e71aace",
+	"80c4fb6e-a0ac-42d5-b0f1-f2811d1dacbd",
+	'Number_of_Bytes_Available',
+	'Attribute Description:
+
+Attribute Domain:
+',
+	'',
+	'Number_of_Bytes_Available',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000002",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("c02aa16f-c742-4755-9917-5378c4c4d751",
+	"ed000af8-f8c9-4601-8ab2-22765e71aace");
+INSERT INTO O_BATTR
+	VALUES ("c02aa16f-c742-4755-9917-5378c4c4d751",
+	"ed000af8-f8c9-4601-8ab2-22765e71aace");
+INSERT INTO O_ATTR
+	VALUES ("c02aa16f-c742-4755-9917-5378c4c4d751",
+	"ed000af8-f8c9-4601-8ab2-22765e71aace",
+	"f97853f9-f40e-4911-94bb-7ebb971043ad",
+	'Address_to_Start_Writing',
+	'Attribute Description:
+
+Attribute Domain:
+',
+	'',
+	'Address_to_Start_Writing',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000002",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("739d1c43-40ae-414d-ad85-3b3c0098e9a9",
+	"ed000af8-f8c9-4601-8ab2-22765e71aace");
+INSERT INTO O_BATTR
+	VALUES ("739d1c43-40ae-414d-ad85-3b3c0098e9a9",
+	"ed000af8-f8c9-4601-8ab2-22765e71aace");
+INSERT INTO O_ATTR
+	VALUES ("739d1c43-40ae-414d-ad85-3b3c0098e9a9",
+	"ed000af8-f8c9-4601-8ab2-22765e71aace",
+	"c02aa16f-c742-4755-9917-5378c4c4d751",
+	'Write_Protect_ Status',
+	'Attribute Description:
+
+Attribute Domain:
+',
+	'',
+	'Write_Protect_ Status',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000001",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("acb669e8-f134-4f14-accd-5b356ba50f4f",
+	"ed000af8-f8c9-4601-8ab2-22765e71aace");
+INSERT INTO O_BATTR
+	VALUES ("acb669e8-f134-4f14-accd-5b356ba50f4f",
+	"ed000af8-f8c9-4601-8ab2-22765e71aace");
+INSERT INTO O_ATTR
+	VALUES ("acb669e8-f134-4f14-accd-5b356ba50f4f",
+	"ed000af8-f8c9-4601-8ab2-22765e71aace",
+	"739d1c43-40ae-414d-ad85-3b3c0098e9a9",
+	'Waiting_for_Slot',
+	'This attribute is set based on the current state of the state machine, it is always FALSE except when in the "Waiting for Slot" state.
+',
+	'',
+	'Waiting_for_Slot',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000001",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("1d9dc783-158a-4efa-bf0b-833095796081",
+	"ed000af8-f8c9-4601-8ab2-22765e71aace");
+INSERT INTO O_BATTR
+	VALUES ("1d9dc783-158a-4efa-bf0b-833095796081",
+	"ed000af8-f8c9-4601-8ab2-22765e71aace");
+INSERT INTO O_ATTR
+	VALUES ("1d9dc783-158a-4efa-bf0b-833095796081",
+	"ed000af8-f8c9-4601-8ab2-22765e71aace",
+	"acb669e8-f134-4f14-accd-5b356ba50f4f",
+	'Waiting_for_Drive',
+	'This attribute is TRUE only when the state machine is in the Waiting for Drive state.
+',
+	'',
+	'Waiting_for_Drive',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000001",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("3981c1e8-7d6c-4459-8818-f5481362ef8d",
+	"ed000af8-f8c9-4601-8ab2-22765e71aace");
+INSERT INTO O_BATTR
+	VALUES ("3981c1e8-7d6c-4459-8818-f5481362ef8d",
+	"ed000af8-f8c9-4601-8ab2-22765e71aace");
+INSERT INTO O_ATTR
+	VALUES ("3981c1e8-7d6c-4459-8818-f5481362ef8d",
+	"ed000af8-f8c9-4601-8ab2-22765e71aace",
+	"1d9dc783-158a-4efa-bf0b-833095796081",
+	'Unowned_in_Cabinet',
+	'This attribute is TRUE only when the state machine is in the Unowned in Cabinet state.',
+	'',
+	'Unowned_in_Cabinet',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000001",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("0a1014bb-84d6-4944-be5d-d11a97cf2f65",
+	"ed000af8-f8c9-4601-8ab2-22765e71aace");
+INSERT INTO O_BATTR
+	VALUES ("0a1014bb-84d6-4944-be5d-d11a97cf2f65",
+	"ed000af8-f8c9-4601-8ab2-22765e71aace");
+INSERT INTO O_ATTR
+	VALUES ("0a1014bb-84d6-4944-be5d-d11a97cf2f65",
+	"ed000af8-f8c9-4601-8ab2-22765e71aace",
+	"3981c1e8-7d6c-4459-8818-f5481362ef8d",
+	'Unowned_in_Library',
+	'This attribute is TRUE only when the state machine is in the Unowned in Library state',
+	'',
+	'Unowned_in_Library',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000001",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("202e3203-891b-46c1-93b8-b43398257b86",
+	"ed000af8-f8c9-4601-8ab2-22765e71aace");
+INSERT INTO O_BATTR
+	VALUES ("202e3203-891b-46c1-93b8-b43398257b86",
+	"ed000af8-f8c9-4601-8ab2-22765e71aace");
+INSERT INTO O_ATTR
+	VALUES ("202e3203-891b-46c1-93b8-b43398257b86",
+	"ed000af8-f8c9-4601-8ab2-22765e71aace",
+	"0a1014bb-84d6-4944-be5d-d11a97cf2f65",
+	'current_state',
+	'Attribute Description:
+
+Attribute Domain:
+',
+	'',
+	'current_state',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000006",
+	'',
+	'');
+INSERT INTO O_ID
+	VALUES (0,
+	"ed000af8-f8c9-4601-8ab2-22765e71aace");
+INSERT INTO O_OIDA
+	VALUES ("1d6b6d86-0ec8-4579-8f54-b77d3d970382",
+	"ed000af8-f8c9-4601-8ab2-22765e71aace",
+	0,
+	'Disk_ID');
+INSERT INTO O_ID
+	VALUES (1,
+	"ed000af8-f8c9-4601-8ab2-22765e71aace");
+INSERT INTO O_ID
+	VALUES (2,
+	"ed000af8-f8c9-4601-8ab2-22765e71aace");
+INSERT INTO PE_PE
+	VALUES ("ed000af8-f8c9-4601-8ab2-22765e71aace",
+	1,
+	"eaaadfae-a8a2-41c6-b417-100ae646942e",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
+	VALUES ("eaaadfae-a8a2-41c6-b417-100ae646942e",
+	"00000000-0000-0000-0000-000000000000",
+	"32def5f7-ad70-424b-8b01-6d644bf7c337",
+	'Odms',
+	'Subsystem Description:
+
+Relationship with other Subsystems:
+',
+	1,
+	'../Odms.xtuml');

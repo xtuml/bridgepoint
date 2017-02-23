@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="bp.ui.canvas.test" default="all" basedir=".">
+	
+	<import file="../MC-Java/common.xml"/>
+	
+	<property name="plugins-home" value="${ant.home}/../.."/>
+
+	<target name="nb_all" description="Generate all code for this project" depends="gen_testClass, generate_graphical_anchor_matrix_tests, generate_connector_move_matrix_tests, generate_rectilinear_matrix_tests">
+	</target>
+
+	<target name="all" description="Generate all data for tests" depends="gen_testClass, generate_graphical_anchor_matrix_tests, generate_connector_move_matrix_tests, generate_rectilinear_matrix_tests, format_java">
+		<echo>Done with ${ant.project.name}</echo>
+	</target>
+	<target name="instrument_for_jcoverage" description="Instrument the classes to produce JCoverage data">
+		<taskdef classpath="jcoverage.jar" resource="tasks.properties"/>
+		<instrument todir="../org.xtuml.bp.ui.canvas/coverage">
+			<fileset dir="../org.xtuml.bp.ui.canvas/bin">
+				<include name="**/*.class"/>
+			</fileset>
+		</instrument>
+	</target>
+
+	<target name="coverage">
+		<report srcdir="../org.xtuml.bp.ui.canvas/src" destdir="coverage"/>
+	</target>
+
+	<target name="test_gen"
+          description="Create the test specs">
+		<delete file="sql/____file.txt" />
+		<exec vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
+	        <env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
+			<arg line="xtumlmc_gen_erate -nopersist
+              	-import ../${mcj_path}/ooa_schema.sql
+              	-import ../../org.xtuml.bp.ui.canvas/sql/ooaofgraphics.sql
+              	-arch ../arc/gen_test_matrix.arc"/>
+		</exec>
+		<delete file="sql/____file.txt" />
+	</target>
+
+	<target name="skel_gen"
+          description="Create the test skeleton">
+		<delete file="sql/____file.txt" />
+		<exec vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
+			<env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
+			<arg line="xtumlmc_gen_erate -nopersist
+			    -import ../${mcj_path}/ooa_schema.sql
+			    -import ../../org.xtuml.bp.ui.canvas/sql/ooaofgraphics.sql
+			    -arch ../arc/gen_test_skel.arc"/>
+		</exec>
+		<delete file="sql/____file.txt" />
+	</target>
+	<property name="sql.input" value="../org.xtuml.bp.ui.canvas/models/org.xtuml.bp.ui.canvas/ooaofgraphics" />
+	<property name="sql.output" value="ooaofgraphics.sql" />
+
+	<property name="subsystems_to_remove" value="ACT_ V_ E_ GD_ CT_ TS_ DIM_ STY_" />
+
+	<target name="sql.depends">
+		<uptodate property="sql.buildNotNeeded" value="yes" targetfile="sql/${sql.output}">
+			<srcfiles dir= "${sql.input}" includes="**/*.xtuml" />
+		</uptodate>
+	</target>
+
+	<target name="sql" depends="sql.depends" description="Generate the sql version of the OoaofGraphics model" unless="sql.buildNotNeeded">
+		<echo>Generating ${sql.output} ...</echo>
+		<exec vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
+			<arg line="xtumlmc_cleanse_for_BridgePoint ${sql.input} sql/${sql.output} ${subsystems_to_remove}" />
+		</exec>
+	</target>
+
+	<property name="java.output" value="src/org/xtuml/bp/ui/canvas/test/I686ClearDatabaseTest.java" />
+	<target name="gen_testClass.depends" depends="sql">
+		<uptodate property="testClass.buildNotNeeded" value="yes" srcfile="arc/gen_testClearDatabaseClass.arc" targetfile="${java.output}" />
+	</target>
+
+	<target name="gen_testClass" depends="gen_testClass.depends" description="Create class for testing Ooaofooa.clearDatabase" unless="testClass.buildNotNeeded">
+		<exec vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
+			<env key="PTC_MC_ARC_DIR" value="${mcj_path}" />
+			<env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
+			<arg line="xtumlmc_gen_erate -nopersist
+				-import ${mcj_path}/ooa_schema.sql
+				-import sql/${sql.output}
+				-arch arc/gen_testClearDatabaseClass.arc"/>
+		</exec>
+
+		<touch file="${java.output}" />
+
+		<delete file="testClass.gen" />
+		<delete file="____file.txt" />
+	</target>
+
+	<target name="matrix.depends">
+		<uptodate property="matrix_graphical_anchor.buildNotNeeded" value="yes" srcfile="matrices/non_generated/graphical_anchors.txt" targetfile="src/org/xtuml/bp/ui/canvas/test/anchors/GraphicalAnchorTests_0.java" />
+		<uptodate property="matrix_connector_move.buildNotNeeded" value="yes" srcfile="matrices/non_generated/connector_move.txt" targetfile="src/org/xtuml/bp/ui/canvas/test/movement/ConnectorMoveTests_0.java" />
+		<uptodate property="matrix_rectilinear.buildNotNeeded" value="yes" srcfile="matrices/non_generated/rectilinear_routing.txt" targetfile="src/org/xtuml/bp/ui/canvas/test/routing/RectilinearRoutingTests_0.java" />
+	</target>
+
+	<target name="generate_graphical_anchor_matrix_tests" description="Generate code for graphical anchor matrix" depends="matrix.depends" unless="matrix_graphical_anchor.buildNotNeeded">
+		<exec vmlauncher="false" failonerror="true" executable="perl">
+			<arg line="../org.xtuml.bp.test/UnitTestGenerator.pl matrices/non_generated/graphical_anchors.txt src/org/xtuml/bp/ui/canvas/test/anchors/GraphicalAnchorTests.java
+        -n 250 -p org.xtuml.bp.ui.canvas.test.anchors -DNO" />
+		</exec>
+	</target>
+
+	<target name="generate_connector_move_matrix_tests" description="Generate code for connector move matrix" depends="matrix.depends" unless="matrix_connector_move.buildNotNeeded">
+		<exec vmlauncher="false" failonerror="true" executable="perl">
+			<arg line="../org.xtuml.bp.test/UnitTestGenerator.pl matrices/non_generated/connector_move.txt src/org/xtuml/bp/ui/canvas/test/movement/ConnectorMoveTests.java
+            -n 250 -p org.xtuml.bp.ui.canvas.test.movement -DNO" />
+		</exec>
+	</target>
+
+	<target name="generate_rectilinear_matrix_tests" description="Generate code for rectilinear behavior" depends="matrix.depends" unless="matrix_rectilinear.buildNotNeeded">
+		<exec vmlauncher="false" failonerror="true" executable="perl">
+			<arg line="../org.xtuml.bp.test/UnitTestGenerator.pl matrices/non_generated/rectilinear_routing.txt src/org/xtuml/bp/ui/canvas/test/routing/RectilinearRoutingTests.java
+            -n 250 -p org.xtuml.bp.ui.canvas.test.routing -DNO" />
+		</exec>
+	</target>
+
+	<target name="format_java" description="Format the generated java source">
+		<taskdef name="PTCodeFormat" classname="PTCodeFormatterTask">
+			<classpath>
+				<pathelement path="../org.xtuml.bp.core/tools/" />
+				<fileset dir="${plugins-home}/plugins" casesensitive="yes">
+					<include name="**/org.eclipse.text_*.jar" />
+					<include name="**/org.eclipse.ui_*.jar" />
+					<include name="**/org.eclipse.jdt.core_*.jar" />
+					<include name="**/org.eclipse.core.runtime_*.jar" />
+					<include name="**/org.eclipse.osgi_*.jar" />
+					<include name="**/org.eclipse.core.resources_*.jar" />
+					<include name="**/org.eclipse.equinox.common_*.jar" />
+				</fileset>
+			</classpath>
+		</taskdef>
+		<PTCodeFormat>
+			<fileset file="${java.output}" />
+			<fileset dir="src/org/xtuml/bp/ui/canvas/test/anchors">
+				<exclude name="GraphicalAnchorTests.java" />
+				<include name="**.java" />
+			</fileset>
+			<fileset dir="src/org/xtuml/bp/ui/canvas/test/movement">
+				<exclude name="ConnectorMoveTests.java" />
+				<include name="**.java" />
+			</fileset>
+			<fileset dir="src/org/xtuml/bp/ui/canvas/test/routing">
+				<exclude name="RectilinearRoutingTests.java" />
+				<include name="**.java" />
+			</fileset>
+		</PTCodeFormat>
+	</target>
+
+	<!-- CLEAN ALL -->
+	<target name="clean_all" description="Clean entire project" depends="clean_classes,clean_java,clean_sql">
+		<echo>Done cleaning for ${ant.project.name}</echo>
+	</target>
+
+	<target name="clean_sql" description="Remove the generated file: ${sql.output}">
+		<echo>Removing generated sql file: ${sql.output} ...</echo>
+		<delete file="sql/${sql.output}" />
+	</target>
+
+	<target name="clean_java" description="Remove generated java source files.">
+		<echo>Removing generated ${java.output} file</echo>
+		<delete file="${java.output}" />
+		<delete>
+			<fileset dir="src/org/xtuml/bp/ui/canvas/test/anchors">
+				<exclude name="GraphicalAnchorTests.java" />
+				<include name="**.java" />
+			</fileset>
+		</delete>
+		<delete>
+			<fileset dir="src/org/xtuml/bp/ui/canvas/test/movement">
+				<exclude name="ConnectorMoveTests.java" />
+				<include name="**.java" />
+			</fileset>
+		</delete>
+		<delete>
+			<fileset dir="src/org/xtuml/bp/ui/canvas/test/routing">
+				<exclude name="RectilinearRoutingTests.java" />
+				<include name="**.java" />
+			</fileset>
+		</delete>
+	</target>
+
+	<target name="clean_classes" description="Remove all compiled class files.">
+		<echo>Removing compiled class files ...</echo>
+		<delete verbose="true" dir="bin" />
+	</target>
+</project>

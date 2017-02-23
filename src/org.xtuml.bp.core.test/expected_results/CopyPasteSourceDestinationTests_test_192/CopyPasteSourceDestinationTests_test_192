@@ -1,0 +1,8 @@
+drawRectangle(397, 305, 166, 61)
+drawRectangle(397, 361, 555, 361)
+drawText("«data type»", 558, 372, true)
+drawText("Datatypes", 577, 516, true)
+drawRectangle(163, 138, 266, 94)
+drawRectangle(163, 227, 899, 477)
+drawText("«interface»", 505, 238, true)
+drawText("source_InterfacePackage_c", 349, 441, true)

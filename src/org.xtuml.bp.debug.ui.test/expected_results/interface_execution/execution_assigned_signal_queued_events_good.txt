@@ -1,0 +1,12 @@
+Simulation started.
+User invoked operation: start_test_good_state
+cls 2 dequeueing. Event: cls_2_A1: loop
+cls 2 transition. New State: State 2 Previous State: State 1
+User invoked interface message: sendClientServer
+cls 2 dequeueing. Event: cls_2_A1: loop
+cls 2 transition. New State: State 1 Previous State: State 2
+cls 2 dequeueing. Event: cls_2_A1: loop
+cls 2 transition. New State: State 2 Previous State: State 1
+cls 2 dequeueing. Event: Port2::clientserversig
+cls 2 transition. New State: State 3 Previous State: State 2
+

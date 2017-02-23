@@ -1,0 +1,12 @@
+ERROR: Found another event under the same state machine with a matching number.
+
+Element Name: EventSameSig
+Element Path: KEY1::Instance Based State Machine::ModelIntegrityTests::State Machine Event Tests::Class::Class
+
+
+ERROR: Found another event under the same state machine with a matching number.
+
+Element Name: EventSameSig
+Element Path: KEY1::Instance Based State Machine::ModelIntegrityTests::State Machine Event Tests::Class::Class
+
+

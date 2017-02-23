@@ -1,0 +1,32 @@
+Simulation started.
+User invoked function: test
+LogInfo:  Test Provider::executeOpTest() entered
+LogInfo:  Declared Root to Declared Root Operation Test: pingRequirer entered
+LogInfo:  Declared Root to Declared Root Operation Test: pingProvider entered
+LogInfo:  Declared Root to Declared Root Operation Test: pingRequirerS entered
+LogInfo:  Declared Root to Declared Root Operation Test: pingProviderS entered
+LogInfo:  Test Provider::replyToProvider() entered from pingRequirerS
+LogInfo:  Test Requirer::replyToRequirer() entered from pingProviderS
+LogInfo:  Test Provider::replyToProvider() entered from pingRequirer
+LogInfo:  Declared Root to Declared Root Operation Test: Passed.
+LogInfo:  Test Provider::executeSignalTest() entered
+LogInfo:  Test Requirer::replyToRequirer() entered from pingProvider
+LogInfo:  Test Requirer::replyToRequirer() entered from execute
+LogInfo:  Declared Root to Declared Root Signal Test: pingRequirerSig entered
+LogInfo:  Declared Root to Declared Root Signal Test: pingProviderSig entered
+LogInfo:  Test Requirer::replyToRequirer() entered from execute
+LogInfo:  Test Provider::replyToProvider() entered from pingRequirerSig
+LogInfo:  Declared Root to Declared Root Signal Test: pingRequirerSigS entered
+LogInfo:  Declared Root to Declared Root Signal Test: pingProviderSigS entered
+LogInfo:  Test Requirer::replyToRequirer() entered from pingProviderSig
+LogInfo:  Test Provider::replyToProvider() entered from pingRequirerSigS
+Test Class dequeueing. Event: same::pingRequirerSigC (simple_p:integer, array_p:integer, sdt_p:sdt_t, name:string)
+Test Class transition. New State: Requirer Test State Previous State: Requirer Test State
+LogInfo:  Declared Root to Declared Root Signal Test: Requirer Test Txn (pingRequirerSigC) entered
+Test Class dequeueing. Event: same::pingProviderSigC (simple_p:integer, array_p:integer, sdt_p:sdt_t, name:string)
+Test Class transition. New State: Provider Test State Previous State: Provider Test State
+LogInfo:  Declared Root to Declared Root Signal Test: Provider Test State (pingProviderSigC) entered
+LogInfo:  Test Requirer::replyToRequirer() entered from pingProviderSigS
+LogInfo:  Test Provider::replyToProvider() entered from Requirer Test Txn (pingRequirerSigC)
+LogInfo:  Declared Root to Declared Root Signal Test: Passed.
+

@@ -1,0 +1,74 @@
+AUDIT RESULTS FOR DOMAIN G_STE_del_inst_mult
+
+EXTERNAL ENTITIES WITHOUT DESCRIPTIONS:
+External Entity Time
+
+CLASSES WITHOUT DESCRIPTIONS:
+Class G_STE_del_inst_mult::Class with FST
+Class G_STE_del_inst_mult::Class to delete self twice
+Class G_STE_del_inst_mult::Class to delete self and local
+Class G_STE_del_inst_mult::Class to delete local twice
+Class G_STE_del_inst_mult::Class to be deleted
+Class G_STE_del_inst_mult::Class to delete local and self
+
+ATTRIBUTES WITHOUT DESCRIPTIONS:
+Attribute Initialization::Init_ID
+Attribute Initialization::current_state
+Attribute Driver::Driver_ID
+Attribute Driver::current_state
+Attribute Class with FST::current_state
+Attribute Class with FST::cw_fst_ID
+Attribute Class to delete self twice::ct_dst_ID
+Attribute Class to delete self twice::current_state
+Attribute Class to delete self and local::ct_dsl_ID
+Attribute Class to delete self and local::current_state
+Attribute Class to delete local twice::ct_dlt_ID
+Attribute Class to delete local twice::current_state
+Attribute Class to be deleted::ctbd_ID
+Attribute Class to delete local and self::ct_dls_ID
+Attribute Class to delete local and self::current_state
+
+STATE MODELS WITHOUT DESCRIPTIONS:
+State Model Initialization
+State Model Driver
+State Model Class with FST
+State Model Class to delete self twice
+State Model Class to delete self and local
+State Model Class to delete local twice
+State Model Class to delete local and self
+
+EVENTS WITHOUT DESCRIPTIONS:
+Event INIT1
+Event DRV1
+Event DRV2
+Event DRV3
+Event CW_FST1
+Event go_left1
+Event go_right2
+Event go_center3
+Event CT_DST1
+Event CT_DSL1
+Event CT_DLT1
+Event CT_DLS1
+
+EVENT DATA WITHOUT DESCRIPTIONS:
+Event Data Class with FST::which_path
+
+ACTION SPECIFICATIONS WITHOUT DESCRIPTIONS:
+Initialization::Initialize
+Driver::Begin Test
+Driver::End Test
+Driver::Delete self in FST
+Driver::Delete self twice
+Driver::Delete self and local
+Driver::Delete local and self
+Driver::Delete local twice
+Driver::Delete other class twice
+Class with FST::State One
+Class with FST::Left FST
+Class with FST::Right FST
+Class with FST::Center FST
+Class to delete self twice::Delete self twice
+Class to delete self and local::Delete self then local
+Class to delete local twice::Delete local twice
+Class to delete local and self::Delete local and then self

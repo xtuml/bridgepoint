@@ -178,7 +178,7 @@ public class ModelImportWizard extends Wizard implements IImportWizard {
 				ModelRoot.disableChangeNotification();
 				IPath sourceFileDirectory = templatePath.removeLastSegments(1);
 				ImportStreamStatus iss = new ImportStreamStatus(inStream);
-				if (getContainer() == null) {
+				if (getContainer() == null || Ooaofooa.inUnitTest()) {
 					// for unit tests to prevent displaying progress dialogs
 					iss.run(new NullProgressMonitor());
 				} else {

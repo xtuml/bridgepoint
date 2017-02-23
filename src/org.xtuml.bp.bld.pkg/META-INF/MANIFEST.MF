@@ -1,0 +1,11 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: BridgePoint Builder
+Bundle-SymbolicName: org.xtuml.bp.bld.pkg;singleton:=true
+Bundle-Version: 5.8.6
+Bundle-ClassPath: pkg.jar
+Bundle-Activator: org.xtuml.bp.bld.pkg.Unreferenced
+Bundle-Vendor: xtUML.org
+Bundle-Localization: plugin
+Bundle-ActivationPolicy: lazy
+Eclipse-BundleShape: dir

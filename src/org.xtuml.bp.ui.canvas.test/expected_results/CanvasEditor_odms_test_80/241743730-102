@@ -1,0 +1,6 @@
+drawRectangle(82, 261, 1066, 335)
+drawText("«external entity»", 523, 268, true)
+drawText("Unnamed External Entity", 480, 297, true)
+drawline(82, 334, 1148, 334)
+drawline(82, 347, 1148, 347)
+drawText("«operation»Unnamed Bridge Operation : void", 88, 353, true)

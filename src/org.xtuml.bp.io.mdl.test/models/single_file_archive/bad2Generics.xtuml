@@ -1,0 +1,25 @@
+-- BP 7.0 content: domain syschar: 3
+-- this is a bad file
+
+INSERT INTO S_DOM
+  VALUES (	16962681,
+	'odms1',
+	'Domain Mission:
+
+Bridges to other Domains:
+',
+	1,
+	1,
+	1);
+INSERT INTO S_DOM
+  VALUES (	16962682,
+	'odms2',
+	'Domain Mission:
+
+Bridges to other Domains:
+',
+	1,
+	1,
+	1);
+
+-- end of file

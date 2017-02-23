@@ -370,7 +370,7 @@ public class ComponentTransactionListener implements ITransactionListener {
 			return false;
 
 		if (!persisted.contains(component)
-				&& !component.getRootModelElement().isOrphaned()) {
+				&& component.getRootModelElement() != null && !component.getRootModelElement().isOrphaned()) {
 			try {
 				component.persist();
 				persisted.add(component);

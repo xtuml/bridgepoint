@@ -1,0 +1,3 @@
+Transaction started: Change in property: 'Name' of Model Class
+ Attribute 'Name' of core.ModelClass changed ( 'Test Class' -> 'PropertiesTestClass')
+Transaction Ended: Change in property: 'Name' of Model Class with delta size: 1

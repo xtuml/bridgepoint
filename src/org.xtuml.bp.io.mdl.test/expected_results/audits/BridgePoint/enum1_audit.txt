@@ -1,0 +1,84 @@
+AUDIT RESULTS FOR DOMAIN enum1
+
+SUBSYSTEMS WITHOUT DESCRIPTIONS:
+enum1
+Test Enums
+
+EXTERNAL ENTITIES WITHOUT DESCRIPTIONS:
+External Entity Logging 
+External Entity Time
+External Entity Architecture
+External Entity Enum Two
+External Entity Driver
+
+BRIDGES WITHOUT DESCRIPTIONS:
+External Entity Bridge Logging ::LogSuccess
+External Entity Bridge Logging ::LogFailure
+External Entity Bridge Logging ::LogInfo
+External Entity Bridge Architecture::shutdown
+External Entity Bridge Enum Two::send_colorsA_ret_colorsA
+External Entity Bridge Enum Two::send_colorsB_ret_colorsB
+External Entity Bridge Driver::checkin
+
+CLASSES WITHOUT DESCRIPTIONS:
+Class enum1::enum init
+Class enum1::Enum Bridge Object
+Class Test Enums::Test Enums
+
+ATTRIBUTES WITHOUT DESCRIPTIONS:
+Attribute enum init::id
+Attribute enum init::current_state
+Attribute Enum Bridge Object::id
+Attribute Enum Bridge Object::ra_send_colorsA_ret_colorsA
+Attribute Enum Bridge Object::ra_send_colorsB_ret_colorsB
+Attribute Enum Bridge Object::current_state
+Attribute Test Enums::id
+Attribute Test Enums::current_state
+Attribute Test Enums::colorA
+Attribute Test Enums::colorB
+
+OPERATIONS WITHOUT DESCRIPTIONS:
+Operation Test Enums::send_colorsA_ret_colorsA
+Operation Test Enums::send_colorsB_ret_colorsB
+
+STATE MODELS WITHOUT DESCRIPTIONS:
+State Model enum init
+State Model Enum Bridge Object
+State Model Test Enums
+State Model Test Enums
+
+EVENTS WITHOUT DESCRIPTIONS:
+Event INIT1
+Event B1
+Event B2
+Event B3
+Event B4
+Event B5
+Event B6
+Event TE1
+Event TE2
+Event TE3
+Event TE_A1
+Event TE_A2
+
+EVENT DATA WITHOUT DESCRIPTIONS:
+Event Data Enum Bridge Object::colorA
+Event Data Enum Bridge Object::colorB
+Event Data Test Enums::colorA
+Event Data Test Enums::colorB
+Event Data Test Enums (Class Based)::colorA
+Event Data Test Enums (Class Based)::colorB
+
+ACTION SPECIFICATIONS WITHOUT DESCRIPTIONS:
+enum init::init
+Enum Bridge Object::start instance
+Enum Bridge Object::shutdown instance
+Enum Bridge Object::start assigner
+Enum Bridge Object::shutdown assigner
+Enum Bridge Object::send_colorsA_ret_colorsA
+Enum Bridge Object::send_colorsB_ret_colorsB
+Test Enums::start
+Test Enums::finish
+Test Enums::done
+Test Enums::start (Class Based)
+Test Enums::finish (Class Based)

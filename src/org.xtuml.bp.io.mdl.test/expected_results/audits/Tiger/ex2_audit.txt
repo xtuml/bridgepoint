@@ -1,0 +1,113 @@
+AUDIT RESULTS FOR DOMAIN ex2
+
+SUBSYSTEMS WITHOUT DESCRIPTIONS:
+ex2
+
+EXTERNAL ENTITIES WITHOUT DESCRIPTIONS:
+External Entity Logging 
+External Entity Time
+External Entity Architecture
+External Entity Realized Bridge
+
+BRIDGES WITHOUT DESCRIPTIONS:
+External Entity Bridge Logging ::LogSuccess
+External Entity Bridge Logging ::LogFailure
+External Entity Bridge Logging ::LogInfo
+External Entity Bridge Architecture::shutdown
+External Entity Bridge Realized Bridge::ret_bool
+External Entity Bridge Realized Bridge::ret_int
+External Entity Bridge Realized Bridge::ret_real
+
+CLASSES WITHOUT DESCRIPTIONS:
+Class ex2::Test Compound Expressions
+Class ex2::A
+Class ex2::Driver
+Class ex2::ex init
+Class ex2::Transformer
+Class ex2::No Instances
+
+ATTRIBUTES WITHOUT DESCRIPTIONS:
+Attribute Test Compound Expressions::tce_id
+Attribute Test Compound Expressions::current_state
+Attribute Test Compound Expressions::ack_count
+Attribute Test Compound Expressions::a
+Attribute Test Compound Expressions::b
+Attribute Test Compound Expressions::b1
+Attribute Test Compound Expressions::b2
+Attribute Test Compound Expressions::i1
+Attribute Test Compound Expressions::i2
+Attribute Test Compound Expressions::r1
+Attribute Test Compound Expressions::r2
+Attribute A::a_id
+Attribute A::a
+Attribute Driver::dr_id
+Attribute Driver::current_state
+Attribute ex init::init_id
+Attribute ex init::current_state
+Attribute Transformer::tran_id
+Attribute No Instances::noi_id
+
+OPERATIONS WITHOUT DESCRIPTIONS:
+Operation Transformer::ret_int
+Operation Transformer::ret_string
+Operation Transformer::ret_bool
+Operation Transformer::ret_real
+
+STATE MODELS WITHOUT DESCRIPTIONS:
+State Model Test Compound Expressions
+State Model Driver
+State Model ex init
+
+EVENTS WITHOUT DESCRIPTIONS:
+Event TCE1
+Event TCE2
+Event TCE3
+Event TCE4
+Event TCE5
+Event TCE6
+Event DR1
+Event DR2
+Event DR3
+Event DR4
+Event DR5
+Event INIT1
+
+EVENT DATA WITHOUT DESCRIPTIONS:
+Event Data Test Compound Expressions::name
+Event Data Test Compound Expressions::age
+Event Data Test Compound Expressions::i1
+Event Data Test Compound Expressions::i2
+Event Data Test Compound Expressions::b1
+Event Data Test Compound Expressions::b2
+Event Data Test Compound Expressions::r1
+Event Data Test Compound Expressions::r2
+
+ACTION SPECIFICATIONS WITHOUT DESCRIPTIONS:
+Test Compound Expressions::Compound Expressions Using Constants
+Test Compound Expressions::Compound Expressions Using Local Variables
+Test Compound Expressions::Compound Expressions Using Object Attributes
+Test Compound Expressions::Compound Expressions Using Supplemental Data Items Received From An Event
+Test Compound Expressions::Compound Expressions Using Function Invocations
+Test Compound Expressions::Compound Expressions Using Transformer Invocations
+Test Compound Expressions::Compound Expressions Using Bridge Invocations
+Test Compound Expressions::Order of Operations
+Test Compound Expressions::Stress Limits of Compound Expressions
+Test Compound Expressions::Bridges Within Expressions
+Test Compound Expressions::Transforms Within Expressions
+Test Compound Expressions::Combinine Real and Integer Data Types
+Test Compound Expressions::Unary Ops
+Test Compound Expressions::If Expressions
+Test Compound Expressions::Expressions Within Parameters
+Test Compound Expressions::Count Acks from Bool Event
+Test Compound Expressions::Count Acks from Int Event
+Test Compound Expressions::More Expressions within Parms
+Test Compound Expressions::Bool Event Acks
+Test Compound Expressions::Int Event Acks
+Test Compound Expressions::Compound Expressions Using inst_ref_set<Object>
+Test Compound Expressions::Compound Expressions Using inst_ref<Object>
+Driver::Idle
+Driver::Test Complete
+Driver::Send Event With Supplemental Data
+Driver::Start Next Test
+Driver::Start Test
+ex init::Initialize System

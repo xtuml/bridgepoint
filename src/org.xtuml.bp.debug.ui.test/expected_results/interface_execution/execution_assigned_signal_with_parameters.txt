@@ -1,0 +1,5 @@
+Simulation started.
+User invoked interface message: sendServerClientParams
+cls dequeueing. Event: Port1::serverclientsigparams (x:integer, y:integer)
+cls transition. New State: State 4 Previous State: State 1
+

@@ -1,0 +1,139 @@
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("6913abad-5b18-48c1-8b16-511e0ad0d06e",
+	'IOBJ_ASSR_REL 1',
+	149,
+	'T_IMP50',
+	'GT:First',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_REF
+	VALUES ("6913abad-5b18-48c1-8b16-511e0ad0d06e",
+	"f97f48a8-1cd1-4963-8456-2b631ef30870",
+	0,
+	"f4f01970-9316-4142-92de-10bb4df02048",
+	"28a4894e-9e68-4e42-9b7a-a0d9c1513ad7",
+	"8393f3f6-f011-4846-9726-5cadc7ad8b28",
+	"49d5bc50-b2b5-41ca-b83b-3d6f16270a3c",
+	"d40cf074-38dc-437c-b306-2e7f9f0a1e5b",
+	"93406f5d-8592-4873-8d49-e6543a79b999",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Test Class OtherSide 51',
+	'TestAttrFormalizer',
+	'R36');
+INSERT INTO R_RGO_PROXY
+	VALUES ("6913abad-5b18-48c1-8b16-511e0ad0d06e",
+	"28a4894e-9e68-4e42-9b7a-a0d9c1513ad7",
+	"8393f3f6-f011-4846-9726-5cadc7ad8b28",
+	'../../O_IOBJ_Delete/O_IOBJ_Delete.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("f4f01970-9316-4142-92de-10bb4df02048",
+	"f97f48a8-1cd1-4963-8456-2b631ef30870",
+	0,
+	"28a4894e-9e68-4e42-9b7a-a0d9c1513ad7",
+	"49d5bc50-b2b5-41ca-b83b-3d6f16270a3c",
+	'../../O_IOBJ_Delete/O_IOBJ_Delete.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("d40cf074-38dc-437c-b306-2e7f9f0a1e5b",
+	"6913abad-5b18-48c1-8b16-511e0ad0d06e",
+	"f4f01970-9316-4142-92de-10bb4df02048",
+	"f97f48a8-1cd1-4963-8456-2b631ef30870",
+	1,
+	'TestAttrFormalizer');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("f4f01970-9316-4142-92de-10bb4df02048",
+	"f97f48a8-1cd1-4963-8456-2b631ef30870",
+	'../../O_IOBJ_Delete/Test Class OtherSide 51/Test Class OtherSide 51.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("d40cf074-38dc-437c-b306-2e7f9f0a1e5b",
+	"6913abad-5b18-48c1-8b16-511e0ad0d06e",
+	"00000000-0000-0000-0000-000000000000",
+	'TestAttrFormalizer',
+	'',
+	'',
+	'TestAttrFormalizer',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000007",
+	'',
+	'');
+INSERT INTO O_REF
+	VALUES ("6913abad-5b18-48c1-8b16-511e0ad0d06e",
+	"2c6bdc24-f07d-4194-afb0-814a5b74a470",
+	0,
+	"1a27ff68-574f-46e7-b8e4-00bc1e3fec06",
+	"28a4894e-9e68-4e42-9b7a-a0d9c1513ad7",
+	"8393f3f6-f011-4846-9726-5cadc7ad8b28",
+	"d5fcab74-0acd-46f3-9c90-de212001e3c5",
+	"659284b0-25fb-45a0-ac75-5595b2795adb",
+	"1a4e20f6-a86e-422b-b678-6b5995574593",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Test Class OtherSide 52',
+	'TestAttrFormalizer',
+	'R36');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("1a27ff68-574f-46e7-b8e4-00bc1e3fec06",
+	"2c6bdc24-f07d-4194-afb0-814a5b74a470",
+	0,
+	"28a4894e-9e68-4e42-9b7a-a0d9c1513ad7",
+	"d5fcab74-0acd-46f3-9c90-de212001e3c5",
+	'../../O_IOBJ_Delete/O_IOBJ_Delete.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("659284b0-25fb-45a0-ac75-5595b2795adb",
+	"6913abad-5b18-48c1-8b16-511e0ad0d06e",
+	"1a27ff68-574f-46e7-b8e4-00bc1e3fec06",
+	"2c6bdc24-f07d-4194-afb0-814a5b74a470",
+	1,
+	'TestAttrFormalizer');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("1a27ff68-574f-46e7-b8e4-00bc1e3fec06",
+	"2c6bdc24-f07d-4194-afb0-814a5b74a470",
+	'../../O_IOBJ_Delete/Test Class OtherSide 52/Test Class OtherSide 52.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("659284b0-25fb-45a0-ac75-5595b2795adb",
+	"6913abad-5b18-48c1-8b16-511e0ad0d06e",
+	"d40cf074-38dc-437c-b306-2e7f9f0a1e5b",
+	'TestAttrFormalizer',
+	'',
+	'',
+	'TestAttrFormalizer',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000007",
+	'',
+	'');
+INSERT INTO O_ID
+	VALUES (0,
+	"6913abad-5b18-48c1-8b16-511e0ad0d06e");
+INSERT INTO O_OIDA
+	VALUES ("d40cf074-38dc-437c-b306-2e7f9f0a1e5b",
+	"6913abad-5b18-48c1-8b16-511e0ad0d06e",
+	0,
+	'TestAttrFormalizer');
+INSERT INTO O_OIDA
+	VALUES ("659284b0-25fb-45a0-ac75-5595b2795adb",
+	"6913abad-5b18-48c1-8b16-511e0ad0d06e",
+	0,
+	'TestAttrFormalizer');
+INSERT INTO O_ID
+	VALUES (1,
+	"6913abad-5b18-48c1-8b16-511e0ad0d06e");
+INSERT INTO O_ID
+	VALUES (2,
+	"6913abad-5b18-48c1-8b16-511e0ad0d06e");
+INSERT INTO PE_PE
+	VALUES ("6913abad-5b18-48c1-8b16-511e0ad0d06e",
+	1,
+	"088644b1-71d8-46a1-a54c-48ed480c48c7",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
+	VALUES ("088644b1-71d8-46a1-a54c-48ed480c48c7",
+	"00000000-0000-0000-0000-000000000000",
+	"c6693612-7c4f-42e5-b64f-16c64f288945",
+	'IOBJ Import Subsystem',
+	'',
+	0,
+	'../IOBJ Import Subsystem.xtuml');

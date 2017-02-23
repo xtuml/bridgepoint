@@ -1,0 +1,190 @@
+-- BP 7.1 content: FunctionPackage syschar: 3 persistence-version: 7.1.5
+
+INSERT INTO S_FPK
+	VALUES ("4aa9d2a2-7a92-4dfd-b657-fc68bce4d70a",
+	'Invalid Array Element Test Invocation Functions',
+	"00000000-0000-0000-0000-000000000000",
+	"974d0af7-e621-4f96-be7d-955fc947d471");
+INSERT INTO GD_MD
+	VALUES ("a2db4740-a86b-47a8-862d-5674532d6f1b",
+	101,
+	"4aa9d2a2-7a92-4dfd-b657-fc68bce4d70a",
+	54,
+	0,
+	0,
+	1,
+	1,
+	1,
+	12,
+	1,
+	0,
+	0,
+	200,
+	150,
+	0,
+	'');
+INSERT INTO DIM_DIA
+	VALUES ("a2db4740-a86b-47a8-862d-5674532d6f1b",
+	'',
+	1.000000,
+	4000.000000,
+	3000.000000,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO S_FPIP
+	VALUES ("4aa9d2a2-7a92-4dfd-b657-fc68bce4d70a");
+INSERT INTO PL_FPID
+	VALUES ("4aa9d2a2-7a92-4dfd-b657-fc68bce4d70a",
+	"c3928f56-530d-4984-8114-35933dc4cb31");
+INSERT INTO S_DOM_PROXY
+	VALUES ("c3928f56-530d-4984-8114-35933dc4cb31",
+	'instRef',
+	'',
+	0,
+	"00000000-0000-0000-0000-000000000002",
+	"13c14d34-d225-4949-89b6-fe738cc62cbb",
+	'../../../instRef.xtuml');
+INSERT INTO S_FIP
+	VALUES ("4aa9d2a2-7a92-4dfd-b657-fc68bce4d70a",
+	"7cda84e4-da56-4737-97ec-f4b0984e6fba");
+INSERT INTO S_SYNC
+	VALUES ("7cda84e4-da56-4737-97ec-f4b0984e6fba",
+	"c3928f56-530d-4984-8114-35933dc4cb31",
+	'ArrayElement_booleanBinaryOperationLeftOperand_Invalid',
+	'',
+	'::setup(accessType:"Invalid",referenceType:"Array Element"); 
+select any test from instances of AER2;
+test.V_AER_booleanBinaryOperationLeftOperand();
+::dispose(accessType:"Invalid",referenceType:"Array Element");   ',
+	"63f91549-9407-42c4-a2c0-fdde2812f080",
+	1,
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("63f91549-9407-42c4-a2c0-fdde2812f080",
+	"c3928f56-530d-4984-8114-35933dc4cb31",
+	'void',
+	'',
+	'',
+	'../../../Datatypes/Datatypes.xtuml');
+INSERT INTO S_FIP
+	VALUES ("4aa9d2a2-7a92-4dfd-b657-fc68bce4d70a",
+	"9bbaaedf-2190-4587-b180-8c66461a235b");
+INSERT INTO S_SYNC
+	VALUES ("9bbaaedf-2190-4587-b180-8c66461a235b",
+	"c3928f56-530d-4984-8114-35933dc4cb31",
+	'ArrayElement_booleanBinaryOperationRightOperand_Invalid',
+	'',
+	'::setup(accessType:"Invalid",referenceType:"Array Element"); 
+select any test from instances of AER2;
+test.V_AER_booleanBinaryOperationRightOperand();
+::dispose(accessType:"Invalid",referenceType:"Array Element");   ',
+	"63f91549-9407-42c4-a2c0-fdde2812f080",
+	1,
+	'');
+INSERT INTO S_FIP
+	VALUES ("4aa9d2a2-7a92-4dfd-b657-fc68bce4d70a",
+	"d2b9f075-eff0-4ed1-b238-3e2ed807a7f9");
+INSERT INTO S_SYNC
+	VALUES ("d2b9f075-eff0-4ed1-b238-3e2ed807a7f9",
+	"c3928f56-530d-4984-8114-35933dc4cb31",
+	'ArrayElement_readAttr_Invalid',
+	'',
+	'::setup(accessType:"Invalid",referenceType:"Array Element"); 
+select any test from instances of AER2;
+test.V_AER_readAttr();
+::dispose(accessType:"Invalid",referenceType:"Array Element");   ',
+	"63f91549-9407-42c4-a2c0-fdde2812f080",
+	1,
+	'');
+INSERT INTO S_FIP
+	VALUES ("4aa9d2a2-7a92-4dfd-b657-fc68bce4d70a",
+	"814ad8dc-7549-410f-b835-2cfee1d66e82");
+INSERT INTO S_SYNC
+	VALUES ("814ad8dc-7549-410f-b835-2cfee1d66e82",
+	"c3928f56-530d-4984-8114-35933dc4cb31",
+	'ArrayElement_WhereClause_Invalid',
+	'',
+	'::setup(accessType:"Invalid",referenceType:"Array Element"); 
+select any test from instances of AER2;
+test.V_AER_WhereClause();
+::dispose(accessType:"Invalid",referenceType:"Array Element");   ',
+	"63f91549-9407-42c4-a2c0-fdde2812f080",
+	1,
+	'');
+INSERT INTO S_FIP
+	VALUES ("4aa9d2a2-7a92-4dfd-b657-fc68bce4d70a",
+	"cee401be-a044-4d77-bec6-69d84bb10adb");
+INSERT INTO S_SYNC
+	VALUES ("cee401be-a044-4d77-bec6-69d84bb10adb",
+	"c3928f56-530d-4984-8114-35933dc4cb31",
+	'ArrayElement_booleanBinaryOperationLeftOperandSet_Invalid',
+	'',
+	'::setup(accessType:"Invalid",referenceType:"Array Element"); 
+select any test from instances of AER2;
+test.V_AER_booleanBinaryOperationLeftOperandSet();
+::dispose(accessType:"Invalid",referenceType:"Array Element");   ',
+	"63f91549-9407-42c4-a2c0-fdde2812f080",
+	1,
+	'');
+INSERT INTO S_FIP
+	VALUES ("4aa9d2a2-7a92-4dfd-b657-fc68bce4d70a",
+	"050f9e5d-9778-462b-8393-aad9f4fd6585");
+INSERT INTO S_SYNC
+	VALUES ("050f9e5d-9778-462b-8393-aad9f4fd6585",
+	"c3928f56-530d-4984-8114-35933dc4cb31",
+	'ArrayElement_writeAttr_Invalid',
+	'',
+	'::setup(accessType:"Invalid",referenceType:"Array Element"); 
+select any test from instances of AER2;
+test.V_AER_writeAttr();
+::dispose(accessType:"Invalid",referenceType:"Array Element");   ',
+	"63f91549-9407-42c4-a2c0-fdde2812f080",
+	1,
+	'');
+INSERT INTO S_FIP
+	VALUES ("4aa9d2a2-7a92-4dfd-b657-fc68bce4d70a",
+	"b58a6d80-3696-4bde-9677-0588b1c6a286");
+INSERT INTO S_SYNC
+	VALUES ("b58a6d80-3696-4bde-9677-0588b1c6a286",
+	"c3928f56-530d-4984-8114-35933dc4cb31",
+	'ArrayElement_booleanBinaryOperationRightOperandSet_Invalid',
+	'',
+	'::setup(accessType:"Invalid",referenceType:"Array Element"); 
+select any test from instances of AER2;
+test.V_AER_booleanBinaryOperationRightOperandSet();
+::dispose(accessType:"Invalid",referenceType:"Array Element");   ',
+	"63f91549-9407-42c4-a2c0-fdde2812f080",
+	1,
+	'');
+INSERT INTO S_FIP
+	VALUES ("4aa9d2a2-7a92-4dfd-b657-fc68bce4d70a",
+	"bb881534-4dcb-4458-a643-8d5165425ee3");
+INSERT INTO S_SYNC
+	VALUES ("bb881534-4dcb-4458-a643-8d5165425ee3",
+	"c3928f56-530d-4984-8114-35933dc4cb31",
+	'ArrayElement_ActivitiesInvocation_Invalid',
+	'',
+	'::setup(accessType:"Invalid",referenceType:"Array Element"); 
+select any test from instances of AER2;
+test.V_AER_ActivitiesInvocation();
+::dispose(accessType:"Invalid",referenceType:"Array Element");   ',
+	"63f91549-9407-42c4-a2c0-fdde2812f080",
+	1,
+	'');
+INSERT INTO S_FIP
+	VALUES ("4aa9d2a2-7a92-4dfd-b657-fc68bce4d70a",
+	"791189a4-ca1b-4f69-b71f-31fe9586bc20");
+INSERT INTO S_SYNC
+	VALUES ("791189a4-ca1b-4f69-b71f-31fe9586bc20",
+	"c3928f56-530d-4984-8114-35933dc4cb31",
+	'ArrayElement_ActivitiesInvocationSet_Invalid',
+	'',
+	'::setup(accessType:"Invalid",referenceType:"Array Element"); 
+select any test from instances of AER2;
+test.V_AER_ActivitiesInvocationSet();
+::dispose(accessType:"Invalid",referenceType:"Array Element");   ',
+	"63f91549-9407-42c4-a2c0-fdde2812f080",
+	1,
+	'');
+INSERT INTO S_FPIP_PROXY
+	VALUES ("974d0af7-e621-4f96-be7d-955fc947d471",
+	'../Invalid Test Invocation Functions.xtuml');

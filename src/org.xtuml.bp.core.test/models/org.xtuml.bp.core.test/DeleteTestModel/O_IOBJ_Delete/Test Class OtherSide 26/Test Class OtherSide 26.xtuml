@@ -1,0 +1,55 @@
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("a694bb78-e959-4ef9-ad8c-a8ad28b57011",
+	'Test Class OtherSide 26',
+	17,
+	'T_CLSOTH26',
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_NBATTR
+	VALUES ("7b0347ca-ce24-4461-9290-45c8bc6fcd50",
+	"a694bb78-e959-4ef9-ad8c-a8ad28b57011");
+INSERT INTO O_BATTR
+	VALUES ("7b0347ca-ce24-4461-9290-45c8bc6fcd50",
+	"a694bb78-e959-4ef9-ad8c-a8ad28b57011");
+INSERT INTO O_ATTR
+	VALUES ("7b0347ca-ce24-4461-9290-45c8bc6fcd50",
+	"a694bb78-e959-4ef9-ad8c-a8ad28b57011",
+	"00000000-0000-0000-0000-000000000000",
+	'TestAttrFormalizer',
+	'',
+	'',
+	'TestAttrFormalizer',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000002",
+	'',
+	'');
+INSERT INTO O_ID
+	VALUES (0,
+	"a694bb78-e959-4ef9-ad8c-a8ad28b57011");
+INSERT INTO O_OIDA
+	VALUES ("7b0347ca-ce24-4461-9290-45c8bc6fcd50",
+	"a694bb78-e959-4ef9-ad8c-a8ad28b57011",
+	0,
+	'TestAttrFormalizer');
+INSERT INTO O_ID
+	VALUES (1,
+	"a694bb78-e959-4ef9-ad8c-a8ad28b57011");
+INSERT INTO O_ID
+	VALUES (2,
+	"a694bb78-e959-4ef9-ad8c-a8ad28b57011");
+INSERT INTO PE_PE
+	VALUES ("a694bb78-e959-4ef9-ad8c-a8ad28b57011",
+	1,
+	"1ce3cd09-b588-4ec8-9f14-162647fb79d6",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
+	VALUES ("1ce3cd09-b588-4ec8-9f14-162647fb79d6",
+	"00000000-0000-0000-0000-000000000000",
+	"c6693612-7c4f-42e5-b64f-16c64f288945",
+	'O_IOBJ_Delete',
+	'',
+	0,
+	'../O_IOBJ_Delete.xtuml');

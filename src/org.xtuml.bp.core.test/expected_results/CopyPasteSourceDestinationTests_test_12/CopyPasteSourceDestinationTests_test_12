@@ -1,0 +1,8 @@
+drawRectangle(110, 110, 132, 48)
+drawRectangle(110, 154, 442, 287)
+drawText("«data type»", 241, 163, true)
+drawText("Datatypes", 254, 278, true)
+drawRectangle(323, 296, 239, 84)
+drawRectangle(323, 376, 797, 371)
+drawText("«component»", 615, 385, true)
+drawText("source_ComponentPackage_c", 493, 542, true)

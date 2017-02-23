@@ -1,0 +1,6 @@
+-- BP 7.0 content: domain syschar: 3
+-- this is a bad file
+
+INSERT INTO S_DOM
+
+-- end of file

@@ -1,0 +1,139 @@
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("4e868087-d08c-4404-a8ac-f3dbb012784f",
+	'ASSR_IOBJ_REL 1',
+	900,
+	'T_IMPASSR',
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_REF
+	VALUES ("4e868087-d08c-4404-a8ac-f3dbb012784f",
+	"ee679a41-7af9-4a05-b796-eeadacc406f0",
+	0,
+	"91beeef6-4df1-4d02-8748-e77ebb882438",
+	"92fb69a6-2bc4-4ddd-b5f3-cc22bbd58d52",
+	"7f657497-424f-409a-9d0e-2ecdcdf3d43c",
+	"727ef920-309a-4b4c-8a3a-6e495fd99ebe",
+	"5a6d01d2-023e-4dfb-adf3-977e314c90e8",
+	"da05bcb4-abfb-417a-acdc-1b7e41751c20",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Test Class OtherSide 1',
+	'TestAttrFormalizer',
+	'R1000');
+INSERT INTO R_RGO_PROXY
+	VALUES ("4e868087-d08c-4404-a8ac-f3dbb012784f",
+	"92fb69a6-2bc4-4ddd-b5f3-cc22bbd58d52",
+	"7f657497-424f-409a-9d0e-2ecdcdf3d43c",
+	'../../R_ASSR_Delete/R_ASSR_Delete.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("91beeef6-4df1-4d02-8748-e77ebb882438",
+	"ee679a41-7af9-4a05-b796-eeadacc406f0",
+	0,
+	"92fb69a6-2bc4-4ddd-b5f3-cc22bbd58d52",
+	"727ef920-309a-4b4c-8a3a-6e495fd99ebe",
+	'../../R_ASSR_Delete/R_ASSR_Delete.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("5a6d01d2-023e-4dfb-adf3-977e314c90e8",
+	"4e868087-d08c-4404-a8ac-f3dbb012784f",
+	"91beeef6-4df1-4d02-8748-e77ebb882438",
+	"ee679a41-7af9-4a05-b796-eeadacc406f0",
+	1,
+	'TestAttrFormalizer');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("91beeef6-4df1-4d02-8748-e77ebb882438",
+	"ee679a41-7af9-4a05-b796-eeadacc406f0",
+	'../../R_ASSR_Delete/Test Class OtherSide 1/Test Class OtherSide 1.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("5a6d01d2-023e-4dfb-adf3-977e314c90e8",
+	"4e868087-d08c-4404-a8ac-f3dbb012784f",
+	"00000000-0000-0000-0000-000000000000",
+	'TestAttrFormalizer',
+	'',
+	'',
+	'TestAttrFormalizer',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000007",
+	'',
+	'');
+INSERT INTO O_REF
+	VALUES ("4e868087-d08c-4404-a8ac-f3dbb012784f",
+	"aadb8c1e-2bd3-4a50-935b-aadfd69913dd",
+	0,
+	"f96427c4-af49-49ed-abc9-423074be1d52",
+	"92fb69a6-2bc4-4ddd-b5f3-cc22bbd58d52",
+	"7f657497-424f-409a-9d0e-2ecdcdf3d43c",
+	"005fb7c1-9ec0-4a04-b1d2-f4acf86fc00c",
+	"f36fffe9-e6b2-410f-9322-0f408041a367",
+	"df1ccdb8-6fdc-44d0-b459-eb512cab9c09",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Test Class OtherSide 2',
+	'TestAttrFormalizer',
+	'R1000');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("f96427c4-af49-49ed-abc9-423074be1d52",
+	"aadb8c1e-2bd3-4a50-935b-aadfd69913dd",
+	0,
+	"92fb69a6-2bc4-4ddd-b5f3-cc22bbd58d52",
+	"005fb7c1-9ec0-4a04-b1d2-f4acf86fc00c",
+	'../../R_ASSR_Delete/R_ASSR_Delete.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("f36fffe9-e6b2-410f-9322-0f408041a367",
+	"4e868087-d08c-4404-a8ac-f3dbb012784f",
+	"f96427c4-af49-49ed-abc9-423074be1d52",
+	"aadb8c1e-2bd3-4a50-935b-aadfd69913dd",
+	1,
+	'TestAttrFormalizer');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("f96427c4-af49-49ed-abc9-423074be1d52",
+	"aadb8c1e-2bd3-4a50-935b-aadfd69913dd",
+	'../../R_ASSR_Delete/Test Class OtherSide 2/Test Class OtherSide 2.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("f36fffe9-e6b2-410f-9322-0f408041a367",
+	"4e868087-d08c-4404-a8ac-f3dbb012784f",
+	"5a6d01d2-023e-4dfb-adf3-977e314c90e8",
+	'TestAttrFormalizer',
+	'',
+	'',
+	'TestAttrFormalizer',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000007",
+	'',
+	'');
+INSERT INTO O_ID
+	VALUES (0,
+	"4e868087-d08c-4404-a8ac-f3dbb012784f");
+INSERT INTO O_OIDA
+	VALUES ("5a6d01d2-023e-4dfb-adf3-977e314c90e8",
+	"4e868087-d08c-4404-a8ac-f3dbb012784f",
+	0,
+	'TestAttrFormalizer');
+INSERT INTO O_OIDA
+	VALUES ("f36fffe9-e6b2-410f-9322-0f408041a367",
+	"4e868087-d08c-4404-a8ac-f3dbb012784f",
+	0,
+	'TestAttrFormalizer');
+INSERT INTO O_ID
+	VALUES (1,
+	"4e868087-d08c-4404-a8ac-f3dbb012784f");
+INSERT INTO O_ID
+	VALUES (2,
+	"4e868087-d08c-4404-a8ac-f3dbb012784f");
+INSERT INTO PE_PE
+	VALUES ("4e868087-d08c-4404-a8ac-f3dbb012784f",
+	1,
+	"4eaf2329-ad77-4c02-a278-9fbe085e7d10",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
+	VALUES ("4eaf2329-ad77-4c02-a278-9fbe085e7d10",
+	"00000000-0000-0000-0000-000000000000",
+	"c6693612-7c4f-42e5-b64f-16c64f288945",
+	'ASSR Import',
+	'',
+	0,
+	'../ASSR Import.xtuml');

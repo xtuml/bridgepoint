@@ -1,0 +1,98 @@
+AUDIT RESULTS FOR DOMAIN G_ALL_G_EVT_LE_precreated
+
+SUBSYSTEMS WITHOUT DESCRIPTIONS:
+G_ALL_G_EVT_LE_precreated
+
+EXTERNAL ENTITIES WITHOUT DESCRIPTIONS:
+External Entity Logging 
+External Entity Time
+External Entity Architecture
+External Entity Generate Event EE
+
+BRIDGES WITHOUT DESCRIPTIONS:
+External Entity Bridge Logging ::LogSuccess
+External Entity Bridge Logging ::LogFailure
+External Entity Bridge Logging ::LogInfo
+External Entity Bridge Architecture::shutdown
+
+CLASSES WITHOUT DESCRIPTIONS:
+Class G_ALL_G_EVT_LE_precreated::G
+Class G_ALL_G_EVT_LE_precreated::H
+Class G_ALL_G_EVT_LE_precreated::event init
+Class G_ALL_G_EVT_LE_precreated::Pre-created Event Driver
+
+ATTRIBUTES WITHOUT DESCRIPTIONS:
+Attribute G::g_id
+Attribute H::h_id
+Attribute H::current_state
+Attribute event init::id
+Attribute event init::current_state
+Attribute Pre-created Event Driver::dr_id
+Attribute Pre-created Event Driver::current_state
+
+STATE MODELS WITHOUT DESCRIPTIONS:
+State Model G
+State Model H
+State Model event init
+State Model Pre-created Event Driver
+
+EVENTS WITHOUT DESCRIPTIONS:
+Event G_A1
+Event G_A3
+Event G_A2
+Event G_A4
+Event G_A5
+Event H1
+Event H2
+Event H3
+Event H4
+Event INIT1
+Event PDR1
+Event PDR2
+Event PDR3
+
+EVENT DATA WITHOUT DESCRIPTIONS:
+Event Data G (Class Based)::evt
+Event Data H::evt
+Event Data Pre-created Event Driver::evt
+
+ACTION SPECIFICATIONS WITHOUT DESCRIPTIONS:
+G::Received Event with no supdata From Driver (Class Based)
+G::Waiting for Event from Driver (Class Based)
+G::Action Send Event to ASM (Class Based)
+G::Action Send Event to ASM 2 (Class Based)
+H::Creation State
+H::Param Creation State
+H::Generate from local
+H::Generate from obj attr
+event init::Initialize System
+Pre-created Event Driver::Bridge Send Event to ISM
+Pre-created Event Driver::Bridge Event Send to ISM 1
+Pre-created Event Driver::IOP Send Event to ISM
+Pre-created Event Driver::Created
+Pre-created Event Driver::IOP Send Event to ISM 1
+Pre-created Event Driver::Func Send Event to ISM 1
+Pre-created Event Driver::COP Send Event to ISM
+Pre-created Event Driver::COP Event Send to ISM 1
+Pre-created Event Driver::Func Send Event to ISM
+Pre-created Event Driver::Action Send Event to ISM 3
+Pre-created Event Driver::MDA Send Event to ISM
+Pre-created Event Driver::Action Event Send to ISM 1
+Pre-created Event Driver::Action Send Event to ISM 2
+Pre-created Event Driver::Bridge Send Event to ASM
+Pre-created Event Driver::IOP Send Event to ASM
+Pre-created Event Driver::COP Send Event to ASM
+Pre-created Event Driver::Func Send Event to ASM
+Pre-created Event Driver::MDA Send Event to ASM
+Pre-created Event Driver::Action Event Send to ASM 1
+Pre-created Event Driver::Bridge Send Event to Creator
+Pre-created Event Driver::Bridge Event Send to Creator 1
+Pre-created Event Driver::IOP Send Event to Creator
+Pre-created Event Driver::IOP Send Event to Creator 1
+Pre-created Event Driver::Func Send Event to Creator 1
+Pre-created Event Driver::COP Send Event to Creator
+Pre-created Event Driver::COP Event Send to Creator 1
+Pre-created Event Driver::Func Send Event to Creator
+Pre-created Event Driver::MDA Send Event to Creator
+Pre-created Event Driver::Action Event Send to Creator 1
+Pre-created Event Driver::Test Complete

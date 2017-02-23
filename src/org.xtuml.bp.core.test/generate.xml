@@ -1,0 +1,501 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="bp.core.test" default="all" basedir=".">
+
+  <import file="../MC-Java/common.xml"/>
+
+  <target name="all" description="Generate all code for this project" depends="dispose_test,action_test,delete_test,formalize_test,context_menu_tests,copy_paste_tests, rto_move_tests, consistency_all">
+  </target>
+
+  <target name="nb_all" description="Generate all code for this project" depends="dispose_test,action_test,delete_test,formalize_test,context_menu_tests,copy_paste_tests, rto_move_tests, nb_consistency_all">
+  </target>
+
+  <target name="consistency_all" description="Generate a test domain for the consistency checker" depends="sql,schema,java,format_java">
+  </target>
+
+  <target name="nb_consistency_all" description="Generate a test domain for the consistency checker" depends="sql,schema,java">
+  </target>
+
+  <property name="plugins-home" value="${ant.home}/../.."/>
+
+  <property name="dispose_test.output" value="src/org/xtuml/bp/core/test/DisposeTestGenerics.java" />
+
+  <target name="dispose_test.depends">
+    <uptodate property="dispose_test.buildNotNeeded" targetfile="${dispose_test.output}">
+      <srcfiles dir="../org.xtuml.bp.core/sql" includes="ooaofooa.sql" />
+      <srcfiles dir="arc" includes="create_dispose_test.arc" />
+      <srcfiles dir="${mcj_path}" includes="ooa_schema.sql,arch_utils.inc" />
+    </uptodate>
+  </target>
+
+  <target name="dispose_test" depends="dispose_test.depends" description="Generate the dispose test code" unless="dispose_test.buildNotNeeded">
+    <echo>Generating ${dispose_test.output} ...</echo>
+      <exec vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
+      <env key="PTC_MC_ARC_DIR" value="${mcj_path}" />
+      <env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
+      <arg line="xtumlmc_gen_erate -nopersist
+        -import ${mcj_path}/ooa_schema.sql
+        -import ../org.xtuml.bp.core/sql/ooaofooa.sql
+        -arch arc/create_dispose_test.arc" />
+    </exec>
+    <delete file="____file.txt" />
+    <!-- Need to touch the output file for the case where the input data
+       changed, but the output didn't -->
+    <touch file="${dispose_test.output}" />
+  </target>
+
+  <property name="action_test.input" value="context_menu.pei.sql" />
+  <property name="action_test.output" value="src/org/xtuml/bp/core/test/ActionTestGenerics.java" />
+
+  <target name="action_test.depends">
+    <uptodate property="action_test.buildNotNeeded" targetfile="${action_test.output}">
+      <srcfiles dir="../org.xtuml.bp.core/sql" includes="ooaofooa.sql" />
+      <srcfiles dir="../org.xtuml.bp.core/sql" includes="${action_test.input},context_menu_schema.sql" />
+      <srcfiles dir="../org.xtuml.bp.core/arc" includes="cmd_names.inc" />
+      <srcfiles dir="arc" includes="create_action_test.arc" />
+      <srcfiles dir="${mcj_path}" includes="ooa_schema.sql,arch_utils.inc" />
+    </uptodate>
+  </target>
+
+  <target name="action_test" depends="action_test.depends" description="Generate the Context Menu Entry action function bodies" unless="action_test.buildNotNeeded">
+    <echo>Generating ${action_test.output} ...</echo>
+
+      <exec vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
+      <env key="PTC_MC_ARC_DIR" value="${mcj_path}" />
+      <env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
+      <arg line="xtumlmc_gen_erate -nopersist
+        -import ${mcj_path}/ooa_schema.sql
+        -d 0 -import ../org.xtuml.bp.core/sql/ooaofooa.sql
+        -import ../org.xtuml.bp.core/sql/context_menu_schema.sql
+        -import ../org.xtuml.bp.core/sql/${action_test.input}
+        -arch arc/create_action_test.arc" />
+    </exec>
+
+    <delete file="____file.txt" />
+    <!-- Need to touch the output file for the case where the input data
+       changed, but the output didn't -->
+    <touch file="${action_test.output}" />
+  </target>
+
+  <property name="delete_test.output" value="src/org/xtuml/bp/core/test/DeleteTestGenerics.java" />
+  <property name="subsystems_to_remove" value="ACT_ V_ E_ GD_ CT_ TS_ DIM_ STY_" />
+
+  <target name="delete_test.depends">
+    <uptodate property="delete_test.buildNotNeeded" targetfile="${delete_test.output}">
+      <srcfiles dir="models/org.xtuml.bp.core.test/DeleteTestModel" includes="**/*.xtuml" />
+      <srcfiles dir="arc" includes="gen_delete_test.arc" />
+      <srcfiles dir="${mcj_path}" includes="ooa_schema.sql,arch_utils.inc" />
+    </uptodate>
+  </target>
+
+  <target name="delete_test" depends="delete_test.depends" description="Generate the delete test code" unless="delete_test.buildNotNeeded">
+    <exec vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
+      <arg line="xtumlmc_cleanse_for_BridgePoint models/org.xtuml.bp.core.test/DeleteTestModel sql/DeleteTestModel.sql ${subsystems_to_remove}" />
+    </exec>
+    <echo>Generating ${delete_test.output} ...</echo>
+      <exec vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
+      <env key="PTC_MC_ARC_DIR" value="${mcj_path}" />
+      <env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
+      <arg line="xtumlmc_gen_erate -nopersist
+        -import ${mcj_path}/ooa_schema.sql
+        -import sql/DeleteTestModel.sql
+        -arch arc/gen_delete_test.arc" />
+    </exec>
+    <delete file="____file.txt" />
+    <!-- Need to touch the output file for the case where the input data
+       changed, but the output didn't -->
+    <touch file="${delete_test.output}" />
+  </target>
+
+  <property name="formalize_test.output" value="src/org/xtuml/bp/core/test/FormalizeUnformalizeTestGenerics.java" />
+
+  <target name="formalize_test.depends">
+    <uptodate property="formalize_test.buildNotNeeded" targetfile="${formalize_test.output}">
+      <srcfiles dir="models/org.xtuml.bp.core.test/FormalizeUnformalizeTests/" includes="**/*.xtuml" />
+      <srcfiles dir="arc" includes="gen_Formalize_tests.arc" />
+      <srcfiles dir="${mcj_path}" includes="ooa_schema.sql,arch_utils.inc" />
+    </uptodate>
+  </target>
+
+  <target name="formalize_test" depends="formalize_test.depends" description="Generate the Formalize test code" unless="formalize_test.buildNotNeeded">
+    <exec vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
+      <arg line="xtumlmc_cleanse_for_BridgePoint models/org.xtuml.bp.core.test/FormalizeUnformalizeTests sql/FormalizeUnformalizeTests.sql ${subsystems_to_remove}" />
+    </exec>
+    <echo>Generating ${formalize_test.output} ...</echo>
+      <exec vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
+      <env key="PTC_MC_ARC_DIR" value="${mcj_path}" />
+      <env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
+      <arg line="xtumlmc_gen_erate -nopersist
+        -import ${mcj_path}/ooa_schema.sql
+        -import sql/FormalizeUnformalizeTests.sql
+        -arch arc/gen_Formalize_tests.arc" />
+    </exec>
+    <delete file="____file.txt" />
+    <!-- Need to touch the output file for the case where the input data
+       changed, but the output didn't -->
+    <touch file="${formalize_test.output}" />
+  </target>
+
+  <property name="copy_paste_tests.output" value="matrices/generated/CopyPasteSourceDestinationTestMatrix.txt" />
+  <property name="copy_paste_tests_full.output" value="matrices/generated/CopyPasteSourceDestinationTestMatrixFull.txt" />
+  <property name="copy_paste_test_location" value="src/org/xtuml/bp/core/test/cpts" />
+  <property name="copy_paste_test_location_full" value="src/org/xtuml/bp/core/test/cpts_full" />
+  <property name="copy_paste_test_files" value="CopyPasteSourceDestinationTests.java,CPSDTElementResolver.java" />
+  <property name="copy_paste_test_full_files" value="CopyPasteSourceDestinationTests.java" />
+  <property name="rto_move_test_files" value="RTOMoveTests.java" />
+  <property name="cvs_ui_java_files" value="DocGenTest.java" />
+
+  <target name="copy_paste_tests.depends" >
+    <uptodate property="copy_paste_tests.buildNotNeeded" targetfile="${copy_paste_test_location}/CopyPasteSourceDestinationTests_0.java">
+       <srcfiles dir = "../org.xtuml.bp.ui.explorer/sql" includes = "UITree.pei.sql" />
+       <srcfiles dir = "../org.xtuml.bp.core/sql" includes = "ooaofooa.sql" />
+       <srcfiles dir = "../org.xtuml.bp.core/sql" includes = "ooaofooa_hierarchy.pei.sql" />
+       <srcfiles dir = "arc"        includes = "generate_test_matrix_for_copy_paste.arc" />
+       <srcfiles dir = "matrices/generated"        includes = "CopyPasteSourceDestinationTestMatrix.txt" />
+        <srcfiles dir = "matrices/generated"        includes = "CopyPasteSourceDestinationTestMatrixFull.txt" />
+       <srcfiles dir = "../org.xtuml.bp.test" includes = "UnitTestGenerator.pl" />
+       <srcfiles dir = "${mcj_path}" includes = "ooa_schema.sql,arch_utils.inc"/>
+    </uptodate>
+  </target>
+
+  <target name="copy_paste_tests"
+          depends="copy_paste_tests.depends"
+          description="Generate the test matrix for copy paste"
+          unless="copy_paste_tests.buildNotNeeded" >
+    <echo >Generating ${copy_paste_tests.output} ...</echo>
+  <exec vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
+        <env key="PTC_MC_ARC_DIR" value="${mcj_path}"/>
+        <env key="CHAIN_UTIL_DIR" value="${chain_util_path}"/>
+      	<env key="GEN_FULL_TESTS" value=""/>
+    	<env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
+    <arg line="xtumlmc_gen_erate -nopersist
+      -import ${mcj_path}/ooa_schema.sql
+        -import ../org.xtuml.bp.ui.tree/sql/UITree_schema.sql
+        -import ../org.xtuml.bp.core/sql/ooaofooa.sql
+        -import ../org.xtuml.bp.ui.explorer/sql/UITree.pei.sql
+        -arch arc/generate_test_matrix_for_copy_paste.arc" />
+    </exec>
+    <exec vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
+          <env key="PTC_MC_ARC_DIR" value="${mcj_path}"/>
+          <env key="CHAIN_UTIL_DIR" value="${chain_util_path}"/>
+    	  <env key="GEN_FULL_TESTS" value="true"/>
+          <env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
+      <arg line="xtumlmc_gen_erate -nopersist
+        -import ${mcj_path}/ooa_schema.sql
+        -import ../org.xtuml.bp.ui.tree/sql/UITree_schema.sql
+      -import ../org.xtuml.bp.core/sql/ooaofooa.sql
+        -import ../org.xtuml.bp.ui.explorer/sql/UITree.pei.sql
+      -arch arc/generate_test_matrix_for_copy_paste.arc" />
+  </exec>
+    <delete file="____file.txt" />
+  <!-- Need to touch the output file for the case where the input data
+       changed, but the output didn't -->
+  <touch file="${copy_paste_tests.output}" />
+    <!-- now generate the tests -->
+    <exec vmlauncher="false" failonerror="true" executable="perl" >
+      <arg line="../org.xtuml.bp.test/UnitTestGenerator.pl ${copy_paste_tests.output} ${copy_paste_test_location}/CopyPasteSourceDestinationTests.java
+        -n 250 -p org.xtuml.bp.core.test.cpts -DNO" />
+    </exec>
+    <exec vmlauncher="false" failonerror="true" executable="perl" >
+      <arg line="../org.xtuml.bp.test/UnitTestGenerator.pl ${copy_paste_tests_full.output} ${copy_paste_test_location_full}/CopyPasteSourceDestinationTests.java
+         -n 250 -p org.xtuml.bp.core.test.cpts_full -DNO" />
+    </exec>
+  </target>
+
+  <target name="rto_move_tests.depends" >
+    <uptodate property="rto_move_tests.buildNotNeeded" targetfile="${rto_move_test_location}/RTOMoveTests_0.java">
+       <srcfiles dir = "arc" includes = "generate_rto_move_matrix.arc" />
+        <srcfiles dir = "." includes = "generate.xml" />
+       <srcfiles dir = "../org.xtuml.bp.core/arc" includes = "generate_RGO_resolution_methods.inc" />
+       <srcfiles dir = "../org.xtuml.bp.core/sql" includes = "ooaofooa.sql" />
+       <srcfiles dir = "matrices/generated"        includes = "RTOMoveMatrix.txt" />
+       <srcfiles dir = "../org.xtuml.bp.test" includes = "UnitTestGenerator.pl" />
+       <srcfiles dir = "${mcj_path}" includes = "ooa_schema.sql,arch_utils.inc"/>
+    </uptodate>
+  </target>
+
+  <property name="rto_move_test_location" value="src/org/xtuml/bp/core/test/rtomove" />
+  <target name="rto_move_tests" depends="rto_move_tests.depends" unless="rto_move_tests.buildNotNeeded">
+    <exec vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
+          <env key="PTC_MC_ARC_DIR" value="${mcj_path}"/>
+          <env key="CHAIN_UTIL_DIR" value="${chain_util_path}"/>
+        	<env key="GEN_FULL_TESTS" value=""/>
+          <env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
+      <arg line="xtumlmc_gen_erate -nopersist
+          -import ${mcj_path}/ooa_schema.sql
+          -import ../org.xtuml.bp.core/sql/ooaofooa.sql
+          -arch arc/generate_rto_move_matrix.arc" />
+    </exec>
+    <!-- generate the tests -->
+    <exec vmlauncher="false" failonerror="true" executable="perl" >
+      <arg line="../org.xtuml.bp.test/UnitTestGenerator.pl matrices/generated/RTOMoveMatrix.txt ${rto_move_test_location}/RTOMoveTests.java
+        -n 250 -p org.xtuml.bp.core.test.rtomove -DNO -suite" />
+    </exec>
+  </target>
+	
+  <property name="core_sql_dir" value="../org.xtuml.bp.core/sql"/>
+  <property name="context_menu_test.output" value="src/org/xtuml/bp/core/test/ui/ContextMenuTestsGenerics.java"/>
+
+  <target name="context_menu_tests.depends" >
+    <uptodate property="context_menu_tests.buildNotNeeded" srcfile="arc/create_context_menu_tests.arc"
+      targetfile="${context_menu_test.output}">
+    </uptodate>
+  </target>
+
+  <target name="context_menu_tests" depends="context_menu_tests.depends" unless="context_menu_tests.buildNotNeeded">
+    <delete file="____file.txt" />
+      <exec vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
+      <env key="PTC_MC_ARC_DIR" value="${mcj_path}" />
+      <env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
+      <arg line="xtumlmc_gen_erate -nopersist
+        -import ${mcj_path}/ooa_schema.sql
+        -import ${core_sql_dir}/context_menu_schema.sql
+        -import ${core_sql_dir}/context_menu.pei.sql
+        -import ${core_sql_dir}/ooaofooa.sql
+        -arch arc/create_context_menu_tests.arc" />
+    </exec>
+    <delete file="____file.txt" />
+    <!-- Need to touch the output file for the case where the input data
+       changed, but the output didn't -->
+    <touch file="${context_menu_test.output}" />
+  </target>
+
+  <property name="cvs_cst_java_files" value="ConsistencyBase.java"/>
+
+  <property name="cvs_java_files" value="AddRemoveDataItemsTest.java,
+    AssignClassTest.java, AssignRemoveEvents.java, AttributeMenuItemTest.java,
+    CantHappenEvtIgnoreEvtTests.java, CoreTest.java, CoreTestPlugin.java,
+    CoreTestResultCreator.java, DeleteAttributesTest.java,
+    DerivedAttributeTest.java, GetNameTest.java, NumberingTest.java,
+    CanRenameCanDeleteTest.java, CombineSplitReferentialsTest.java,
+    TigerNatureExistingProjectsTest.java,
+    TigerNatureWorkspaceSetupTest.java, TigerNatureTest.java,
+    OperationsTest.java, RenameInvolvingResourceTest.java,
+    I810_SlowDeletionTest.java, TwoModelsSelectionTest.java,
+    ModelTransactionTest.java, ModelChangeListenersBatchingTest.java,
+    ConsistencyTest.java, IdAssignerTest.java,
+    CreationTransitionEventReassignmentTest.java,
+  util/*.java, PolymorphicEventAssignmentTest.java, DomainIdInProxyTest.java, MultipleReload.java,
+  UndoRedoTest.java, SequenceTests.java, CommunicationTests.java, CommunicationMessageTests.java,
+  CommunicationLinkTests.java, UseCaseTests.java, RenameTest2.java, RefreshTestCore.java, ModificationValidationTests.java,
+  UniqueNameTest.java, ModifyNonFullyLoadedModelTests.java, ComponentFormalizationTests.java, ImportedComponentIFTests.java,
+  RemoveSignalTests.java, ComponentContextMenuTests.java,TransitionActionTest.java,ActivityTests.java,DeleteDatatypesTest.java,
+  CoreTestSuiteI.java,CoreTestSuiteII.java,SystemLevelTestsSuite.java,
+  	AssignClassTestGenerics.java,
+  	AssignComponentTestGenerics.java,
+  	AssignRemoveEventsGenerics.java,
+  	AttributeMenuItemTestGenerics.java,
+  	CantHappenEvtIgnoreEvtTestsGenerics.java,
+  	CommunicationMessageTestsGenerics.java,
+  	CommunicationTestsGenerics.java,
+  	CoreTestSuiteIGenerics.java,
+  	DeleteAttributesTestGenerics.java,
+  	DerivedAttributeTestGenerics.java,
+  	GetNameTestGenerics.java,
+  	MultipleReloadGenerics.java,
+  	NumberingTestGenerics.java,
+  	OperationsTestGenerics.java,
+  	PreferencesTests.java,
+  	RenameTest2Generics.java,
+  	SetTypeTestGenerics.java
+  	TigerNatureExistingProjectsTestGenerics.java,
+  	TigerNatureTestGenerics.java,
+  	TigerNatureWorkspaceSetupTestGenerics.java,
+  	ActivityTestsGenerics.java,
+  	FormalizeUnformalizeWithPrefixTestGenerics.java,
+  	CanRenameCanDeleteTestGenerics.java,
+	CombineSplitReferentialsTestGenerics.java,
+  	CommunicationLinkTestsGenerics.java,
+  	CreationTransitionEventReassignmentTestGenerics.java,
+  	DeleteDatatypesTestGenerics.java,
+  	I810_SlowDeletionTestGenerics.java,
+  	ModelChangeListenersBatchingTestGenerics.java,
+  	ModelTransactionTestGenerics.java,
+  	ModificationValidationTestsGenerics.java,
+  	ModifyNonFullyLoadedModelTestsGenerics.java,
+  	PolymorphicEventAssignmentTestGenerics.java,
+  	RefreshTestCoreGenerics.java,
+  	RenameInvolvingResourceTestGenerics.java,
+  	SequenceTestsGenerics.java,
+  	TransitionActionTestGenerics.java,
+  	TwoModelsSelectionTestGenerics.java,
+  	UndoRedoTestGenerics.java,
+  	UniqueNameTestGenerics.java,
+  	UseCaseTestsGenerics.java,
+  	TestVisibilityInElementChooser.java,
+  	MultipleSelectionAssignmentTests.java, 
+  	MultipleTargetPasteTests.java,
+  	ImportDuplicatedModelTest,
+  	PackageReconciliationTests.java,
+  	ImportDuplicatedModelTest.java,
+  	CopyPasteTestGlobals.java,
+	CoreGlobalsTestSuiteIGenerics.java,
+	CoreGlobalsTestSuiteIIGenerics.java,
+  	CoreIGlobalsTest.java,
+  	CoreIIGlobalsTest.java,
+  	SystemLevelGlobalsTest.java,
+  	ValidateEditTests.java,
+  	ComponentContextMenuTestsGenerics.java,
+  	DeleteProvidedAndRequiredSignalsAndOperations.java,
+  	InterfaceResolutionTests.java,
+  	InteractionResolutionTests.java,
+  	UserDataTypeCopyPasteTests.java,
+  	CopyPasteComponentReferences.java,
+  	HierarchyTests.java,
+  	LazyLoadingTests.java,
+  	SystemLevelTestsSuiteGenerics.java,
+  	ModelIntegrityTests.java,
+  	ClassKeyLetters.java,
+  	IntegrityIssueTests.java,
+  	ComponentContextMenuTests2.java,
+  	ExistingProjectsInitialChecks.java,
+	IPRSetupTests.java,
+  	NewShapeAfterRestart.java,
+  	SetupCreationTests.java,
+	GlobalTestSetupClass.java"
+  	
+    />
+	
+ 
+	
+  <target name="format_java.depends">
+    <uptodate property="format_java.buildNotNeeded" targetfile=".java_formatted">
+      <srcfiles dir="src/org/xtuml/bp/core/test" includes="*.java" excludes="${cvs_java_files}" />
+      <srcfiles dir="src/org/xtuml/bp/core/test/consistency" includes="*.java" excludes="${cvs_cst_java_files}" />
+      <srcfiles dir="src/org/xtuml/bp/core/test/ui" includes="*.java" />
+      <srcfiles dir="src/org/xtuml/bp/core/test/cpts" includes="*.java" excludes="${copy_paste_test_files}"/>
+    </uptodate>
+  </target>
+
+  <target name="format_java" description="Format the generated java source" depends="format_java.depends" unless="format_java.buildNotNeeded">
+
+    <taskdef name="PTCodeFormat" classname="PTCodeFormatterTask" >
+        <classpath>
+            <pathelement path="../org.xtuml.bp.core/tools/" />
+            <fileset dir="${plugins-home}/plugins" casesensitive="yes">
+                <include name="**/org.eclipse.text_*.jar" />
+                <include name="**/org.eclipse.ui_*.jar" />
+                <include name="**/org.eclipse.jdt.core_*.jar" />
+                <include name="**/org.eclipse.core.runtime_*.jar" />
+                <include name="**/org.eclipse.osgi_*.jar" />
+                <include name="**/org.eclipse.core.resources_*.jar" />
+                <include name="**/org.eclipse.equinox.common_*.jar" />
+            </fileset>
+        </classpath>
+    </taskdef>
+    <PTCodeFormat>
+      <fileset dir="src/org/xtuml/bp/core/test" includes="*.java" excludes="${cvs_java_files}" />
+      <fileset dir="src/org/xtuml/bp/core/test/consistency" includes="*.java" excludes="${cvs_cst_java_files}" />
+    </PTCodeFormat>
+    <touch file=".java_formatted"/>
+  </target>
+
+  <!-- Consistency Properties and Targets -->
+
+  <property file="${mcj_path}/mc_java.depends" />
+  <property name="sql.input" value="consistencyTest" />
+  <property name="sql.output" value="consistencyTest.sql" />
+  <property name="sg.dep" value="ooa_schema.sql,schema_gen.arc" />
+  <property name="schema.output" value="metamodel_schema.sql" />
+  <property name="java.output" value="src/org/xtuml/bp/core/test/consistency/Consistency.java" />
+  <property name="java.sql.dep" value="${sql.output}" />
+  <property name="java.color.dep" value="Consistencytest_startspec.clr,Consistencytest_import_spec.clr,Consistencytest_package_spec.clr" />
+  <property name="java.tj.dep" value="ooa_schema.sql,${java.arc.depends}" />
+
+  <target name="sql.depends">
+    <uptodate property="sql.buildNotNeeded" value="yes" srcfile="models/org.xtuml.bp.core.test/consistencyTest/${sql.input}" targetfile="sql/${sql.output}" />
+  </target>
+
+  <target name="sql" depends="sql.depends" description="Generate the sql version of the Consistency test model" unless="sql.buildNotNeeded">
+    <echo>Generating ${sql.output} ...</echo>
+    <copy file="../org.xtuml.bp.pkg/globals/Globals.xtuml" tofile="models/org.xtuml.bp.core.test/consistencyTest/${sql.input}/Globals.xtuml" />
+    <exec vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
+      <arg line="xtumlmc_cleanse_for_BridgePoint models/org.xtuml.bp.core.test/${sql.input} sql/${sql.output} ${subsystems_to_remove}" />
+    </exec>
+    <delete file="models/org.xtuml.bp.core.test/consistencyTest/${sql.input}/Globals.xtuml" />
+  </target>
+
+  <target name="schema.depends">
+    <uptodate property="schema.buildNotNeeded" targetfile="sql/${schema.output}">
+      <srcfiles dir="sql" includes="${sql.output}" />
+      <srcfiles dir="${mcj_path}" includes="${sg.dep}" />
+    </uptodate>
+  </target>
+
+  <target name="schema" depends="schema.depends" description="Generate the Consistency test database schema file" unless="schema.buildNotNeeded">
+    <echo>Generating ${schema.output} ...</echo>
+    <ant antfile="${mcj_path}/build.xml" target="generate.schema">
+      <property name="param1" value="${sql.output}" />
+      <property name="param2" value="${mcj_path}" />
+      <property name="param3" value="TRUE" />
+      <property name="param4" value="consistencyTest" />
+    </ant>
+    <!-- Need to move the output file since the archetype uses the domain
+       name as the base name of the output file -->
+    <move file="sql/consistencyTest_schema.sql" tofile="sql/${schema.output}" />
+  </target>
+
+  <target name="java.depends">
+    <uptodate property="java.buildNotNeeded" targetfile="${java.output}">
+      <srcfiles dir="../org.xtuml.bp.core/sql" includes="ooaofooa.sql" />
+      <srcfiles dir="sql" includes="consistencyTest.sql" />
+      <srcfiles dir="color" includes="${java.color.dep}" />
+      <srcfiles dir="${mcj_path}" includes="${java.tj.dep}" />
+    </uptodate>
+  </target>
+
+  <target name="java" depends="java.depends" description="Generate the Consistency test outline file" unless="java.buildNotNeeded">
+    <echo>Generating java files ...</echo>
+    <ant antfile="${mcj_path}/build.xml" target="generate.java">
+      <property name="param1" value="consistencyTest" />
+      <property name="param2" value="ConsistencyTest" />
+      <property name="param3" value="${mcj_path}" />
+      <property name="mcc" value="true" />
+      <property name="mcjava.project.root" value="${basedir}"/>
+      <property name="UUID_Seed" value="-u 1"/>
+    </ant>
+  </target>
+
+  <!-- End Consistency Properties and Targets -->
+
+  <!-- CLEAN TARGETS -->
+
+  <target name="clean_all" description="Clean entire project" depends="clean_classes,clean_java,clean_sql,clean_matrices">
+
+    <echo>Done cleaning for ${ant.project.name}</echo>
+  	<delete file="____file.txt" />
+  </target>
+
+  <target name="clean_java" description="Remove the java sources.">
+
+    <echo>Removing the generated java source files ...</echo>
+    <delete verbose="true">
+      <fileset dir="src/org/xtuml/bp/core/test" includes="*.java" excludes="${cvs_java_files}" />
+       <fileset dir="src/org/xtuml/bp/core/test/consistency" includes="*.java" excludes="${cvs_cst_java_files}" />
+       <fileset dir="src/org/xtuml/bp/core/test/ui" includes="*.java" excludes="${cvs_ui_java_files}" />
+       <fileset dir="src/org/xtuml/bp/core/test/cpts" includes="*.java" excludes="${copy_paste_test_files}"/>
+       <fileset dir="src/org/xtuml/bp/core/test/cpts_full" includes="*.java" excludes="${copy_paste_test_full_files}"/>
+       <fileset dir="src/org/xtuml/bp/core/test/rtomove" includes="*.java" excludes="${rto_move_test_files}"/>
+    </delete>
+
+  </target>
+
+  <target name="clean_sql" description="Remove generated sql files">
+  	<delete verbose="true">
+  	  <fileset dir="sql" includes="*.sql" />
+  	</delete>
+  </target>
+  	
+  <target name="clean_matrices" description="Remove all generated matrices." >
+  	<delete verbose="true">
+  	  <fileset dir="matrices/generated" includes="*.txt"/>
+  	</delete>
+  </target>
+	
+  <target name="clean_classes" description="Remove all compiled class files.">
+
+    <echo>Removing all compiled class files ...</echo>
+    <delete verbose="true" dir="bin" />
+
+  </target>
+
+</project>

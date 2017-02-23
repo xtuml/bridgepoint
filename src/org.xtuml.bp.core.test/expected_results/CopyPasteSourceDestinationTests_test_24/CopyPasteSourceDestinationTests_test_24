@@ -1,0 +1,8 @@
+drawRectangle(163, 173, 196, 72)
+drawRectangle(163, 238, 654, 425)
+drawText("«data type»", 353, 252, true)
+drawText("Datatypes", 376, 422, true)
+drawRectangle(163, 173, 265, 94)
+drawRectangle(163, 261, 903, 422)
+drawText("«data type»", 477, 275, true)
+drawText("source_DataTypePackage_c", 297, 441, true)

@@ -1,0 +1,9 @@
+Simulation started.
+User invoked function: runTest
+LogInfo:  Information logged.
+LogInfoWithReturn: Information logged.
+LogResult: true
+User invoked function: runTest
+External Entity: Logging is modeled and the bridge: LogInfo has no OAL to execute.  Skipping bridge invocation. at ExternalEntityRealizedTests::Package::Component::Package::LogInfo
+External Entity: Logging is modeled and the bridge: LogInfoWithReturn has no OAL to execute.  Returning default value. at ExternalEntityRealizedTests::Package::Component::Package::LogInfoWithReturn
+LogResult: false

@@ -1,0 +1,174 @@
+-- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("fc2fc5cd-35e0-4040-b028-abfd12e1515a",
+	'Entry_Exit Port',
+	8,
+	'D_P',
+	'Object Description:
+
+Object Role:
+',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_REF
+	VALUES ("fc2fc5cd-35e0-4040-b028-abfd12e1515a",
+	"43e63f35-40a3-4885-b614-059774a229a4",
+	0,
+	"a272836d-bb19-46d8-a2d3-ded8784c1b18",
+	"1e5aecd3-9bca-4cca-bb5a-b3265741c187",
+	"4ff13884-b40c-4be9-a403-9273b04c40ef",
+	"304839af-5d5a-4435-afc0-4492d6cc17b5",
+	"fad04632-3a1d-4913-a710-81024c6170c6",
+	"76d3bde5-2c4d-40cd-af78-8ea75aeee870",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'Reference Domain:
+',
+	'Online Location',
+	'Online_Location_ID',
+	'R7');
+INSERT INTO R_RGO_PROXY
+	VALUES ("fc2fc5cd-35e0-4040-b028-abfd12e1515a",
+	"1e5aecd3-9bca-4cca-bb5a-b3265741c187",
+	"4ff13884-b40c-4be9-a403-9273b04c40ef",
+	'../Odms.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("a272836d-bb19-46d8-a2d3-ded8784c1b18",
+	"43e63f35-40a3-4885-b614-059774a229a4",
+	0,
+	"1e5aecd3-9bca-4cca-bb5a-b3265741c187",
+	"304839af-5d5a-4435-afc0-4492d6cc17b5",
+	'../Odms.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("fad04632-3a1d-4913-a710-81024c6170c6",
+	"fc2fc5cd-35e0-4040-b028-abfd12e1515a",
+	"a272836d-bb19-46d8-a2d3-ded8784c1b18",
+	"43e63f35-40a3-4885-b614-059774a229a4",
+	0,
+	'Online_Location_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("a272836d-bb19-46d8-a2d3-ded8784c1b18",
+	"43e63f35-40a3-4885-b614-059774a229a4",
+	'../Online Location/Online Location.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("fad04632-3a1d-4913-a710-81024c6170c6",
+	"fc2fc5cd-35e0-4040-b028-abfd12e1515a",
+	"00000000-0000-0000-0000-000000000000",
+	'Port_ID',
+	'Attribute Description:
+
+Attribute Domain:
+',
+	'',
+	'Port_ID',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000007",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("15ed2a7c-1451-463f-83e5-2ec61b1bb094",
+	"fc2fc5cd-35e0-4040-b028-abfd12e1515a");
+INSERT INTO O_BATTR
+	VALUES ("15ed2a7c-1451-463f-83e5-2ec61b1bb094",
+	"fc2fc5cd-35e0-4040-b028-abfd12e1515a");
+INSERT INTO O_ATTR
+	VALUES ("15ed2a7c-1451-463f-83e5-2ec61b1bb094",
+	"fc2fc5cd-35e0-4040-b028-abfd12e1515a",
+	"fad04632-3a1d-4913-a710-81024c6170c6",
+	'current_state',
+	'Attribute Description:
+
+Attribute Domain:
+',
+	'',
+	'current_state',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000006",
+	'',
+	'');
+INSERT INTO O_REF
+	VALUES ("fc2fc5cd-35e0-4040-b028-abfd12e1515a",
+	"d7ded39b-6294-40e6-8576-f673dcdf6569",
+	0,
+	"51b8b50f-a642-4fab-9d01-afd1155b3710",
+	"82a2563f-4134-4742-bd54-68bf4c7df2c1",
+	"9b697754-c1de-4a18-be23-3c12fee95457",
+	"7987b6dd-7634-48c1-88d5-71fb364e932a",
+	"8cd709e5-8328-415e-9bdf-fe4aef588f07",
+	"372db431-0db3-4f2e-9a27-075c098cb18e",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'Reference Domain:
+',
+	'Disk Transfer',
+	'Disk_Transfer_ID',
+	'R8');
+INSERT INTO R_RGO_PROXY
+	VALUES ("fc2fc5cd-35e0-4040-b028-abfd12e1515a",
+	"82a2563f-4134-4742-bd54-68bf4c7df2c1",
+	"9b697754-c1de-4a18-be23-3c12fee95457",
+	'../Odms.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("51b8b50f-a642-4fab-9d01-afd1155b3710",
+	"d7ded39b-6294-40e6-8576-f673dcdf6569",
+	0,
+	"82a2563f-4134-4742-bd54-68bf4c7df2c1",
+	"7987b6dd-7634-48c1-88d5-71fb364e932a",
+	'../Odms.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("8cd709e5-8328-415e-9bdf-fe4aef588f07",
+	"fc2fc5cd-35e0-4040-b028-abfd12e1515a",
+	"51b8b50f-a642-4fab-9d01-afd1155b3710",
+	"d7ded39b-6294-40e6-8576-f673dcdf6569",
+	1,
+	'Disk_Transfer_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("51b8b50f-a642-4fab-9d01-afd1155b3710",
+	"d7ded39b-6294-40e6-8576-f673dcdf6569",
+	'../Disk Transfer/Disk Transfer.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("8cd709e5-8328-415e-9bdf-fe4aef588f07",
+	"fc2fc5cd-35e0-4040-b028-abfd12e1515a",
+	"15ed2a7c-1451-463f-83e5-2ec61b1bb094",
+	'Disk_Transfer_ID',
+	'Attribute Description:
+
+Attribute Domain:
+',
+	'',
+	'Disk_Transfer_ID',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000007",
+	'',
+	'');
+INSERT INTO O_ID
+	VALUES (0,
+	"fc2fc5cd-35e0-4040-b028-abfd12e1515a");
+INSERT INTO O_OIDA
+	VALUES ("fad04632-3a1d-4913-a710-81024c6170c6",
+	"fc2fc5cd-35e0-4040-b028-abfd12e1515a",
+	0,
+	'Port_ID');
+INSERT INTO O_ID
+	VALUES (1,
+	"fc2fc5cd-35e0-4040-b028-abfd12e1515a");
+INSERT INTO O_ID
+	VALUES (2,
+	"fc2fc5cd-35e0-4040-b028-abfd12e1515a");
+INSERT INTO PE_PE
+	VALUES ("fc2fc5cd-35e0-4040-b028-abfd12e1515a",
+	1,
+	"eaaadfae-a8a2-41c6-b417-100ae646942e",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
+	VALUES ("eaaadfae-a8a2-41c6-b417-100ae646942e",
+	"00000000-0000-0000-0000-000000000000",
+	"32def5f7-ad70-424b-8b01-6d644bf7c337",
+	'Odms',
+	'Subsystem Description:
+
+Relationship with other Subsystems:
+',
+	1,
+	'../Odms.xtuml');

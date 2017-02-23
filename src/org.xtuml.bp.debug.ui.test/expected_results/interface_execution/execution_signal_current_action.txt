@@ -1,0 +1,14 @@
+Simulation started.
+User invoked operation: start_test_current_action
+cls 2 dequeueing. Event: cls_2_A1: loop
+cls 2 transition. New State: State 2 Previous State: State 1
+cls 2 dequeueing. Event: cls_2_A1: loop
+cls 2 transition. New State: State 1 Previous State: State 2
+User invoked interface message: sendServerClientOAL
+cls 2 dequeueing. Event: cls_2_A1: loop
+cls 2 transition. New State: State 2 Previous State: State 1
+cls 2 dequeueing. Event: cls_2_A1: loop
+cls 2 transition. New State: State 1 Previous State: State 2
+cls 2 dequeueing. Event: cls_2_A1: loop
+cls 2 transition. New State: State 2 Previous State: State 1
+

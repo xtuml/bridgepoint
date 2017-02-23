@@ -1,0 +1,827 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!--
+Notes -
+  xsltproc docgen.xsl doc.xml > doc.html
+-->
+<!DOCTYPE article PUBLIC '-//OASIS//DTD DocBook XML V4.5//EN'
+  JUNIT REPLACED - DTD PATH [
+]>
+<article>
+<title>
+  <trademark class='registered'>BridgePoint</trademark>
+  xtUML Generated Documentation
+</title>
+<articleinfo>
+  <author>
+    <personname>
+      <firstname></firstname><surname></surname>
+    </personname>
+  </author>
+  <publisher>
+  <publishername>company name</publishername>
+  <address>
+  <pob>8005 SW Boeckman Road</pob>
+  <city>Wilsonville</city>, <state>OR</state>
+  <postcode>97070</postcode> <country>USA</country>
+  </address>
+  </publisher>
+</articleinfo>
+<toc></toc>
+<section>
+<title>DocGenTest</title>
+<subtitle>Generated Documentation</subtitle>
+<para>Please find below generated documentation for the system named DocGenTest.</para>
+<para></para>
+<section>
+<title>System-Level Packages</title>
+<subtitle></subtitle>
+<section>
+<title>system</title>
+<subtitle>Package</subtitle>
+<para><figure id='DocGenTest-system-PackageDiagram-figure'>
+<title id='DocGenTest-system-PackageDiagram-figure-title'>system Package Diagram</title>
+<mediaobject><imageobject>
+<imagedata fileref='images/DocGenTest-system-Package Diagram.png' scalefit='1' width='100%'/>
+</imageobject></mediaobject>
+</figure>
+</para>
+</section>
+<section>
+<title>library</title>
+<subtitle>Package</subtitle>
+<para><figure id='DocGenTest-library-PackageDiagram-figure'>
+<title id='DocGenTest-library-PackageDiagram-figure-title'>library Package Diagram</title>
+<mediaobject><imageobject>
+<imagedata fileref='images/DocGenTest-library-Package Diagram.png' scalefit='1' width='100%'/>
+</imageobject></mediaobject>
+</figure>
+</para>
+<section>
+<title>comptwo</title>
+<subtitle>Component</subtitle>
+<para><figure id='DocGenTest-library-comptwo-ComponentDiagram-figure'>
+<title id='DocGenTest-library-comptwo-ComponentDiagram-figure-title'>comptwo Component Diagram</title>
+<mediaobject><imageobject>
+<imagedata fileref='images/DocGenTest-library-comptwo-Component Diagram.png' scalefit='1' width='100%'/>
+</imageobject></mediaobject>
+</figure>
+</para>
+<para><table frame='all'>
+<title>comptwo Ports</title>
+<tgroup cols='5' align='left' colsep='0' rowsep='0'>
+<thead>
+<row>
+<entry>
+<para><mediaobject><imageobject>
+<imagedata fileref='images/Port.gif' scalefit='1' width='100%'/>
+</imageobject></mediaobject>
+</para>
+</entry>
+<entry>
+<para>Name</para>
+</entry>
+<entry>
+<para>Interface</para>
+</entry>
+<entry>
+<para>Type</para>
+</entry>
+<entry>
+<para>Multiplicity</para>
+</entry>
+</row>
+</thead>
+<tbody>
+<row>
+<entry>
+<para><mediaobject><imageobject>
+<imagedata fileref='images/Requirement.gif' scalefit='1' width='100%'/>
+</imageobject></mediaobject>
+</para>
+</entry>
+<entry>
+<para>Port1</para>
+</entry>
+<entry>
+<para>myif</para>
+</entry>
+<entry>
+<para>requirement</para>
+</entry>
+<entry>
+<para>0</para>
+</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+</para>
+<section>
+<title>Interface Activities</title>
+<subtitle></subtitle>
+<section>
+<title>Port: Port1, Interface: myif</title>
+<subtitle></subtitle>
+<section>
+<title>sig</title>
+<subtitle></subtitle>
+<para></para>
+<para><programlisting>
+</programlisting></para>
+</section>
+</section>
+</section>
+<section>
+<title>comptwo Packages</title>
+<subtitle></subtitle>
+<para>Rendered here are the contained package diagrams.</para>
+<section>
+<title>Functions</title>
+<subtitle>Package</subtitle>
+<para>This package is here to provide a package with the same name as one found in 
+the other component in the model.  Prior to BP3.5.5, this caused a duplicate ID
+in the doc.xml that manifested as an ugly error message at the end of the HTML
+file.  This issue is fixed by dts0100904555.<figure id='DocGenTest-library-comptwo-Functions-PackageDiagram-figure'>
+<title id='DocGenTest-library-comptwo-Functions-PackageDiagram-figure-title'>Functions Package Diagram</title>
+<mediaobject><imageobject>
+<imagedata fileref='images/DocGenTest-library-comptwo-Functions-Package Diagram.png' scalefit='1' width='100%'/>
+</imageobject></mediaobject>
+</figure>
+</para>
+</section>
+</section>
+</section>
+<section>
+<title>compone</title>
+<subtitle>Component</subtitle>
+<para><figure id='DocGenTest-library-compone-ComponentDiagram-figure'>
+<title id='DocGenTest-library-compone-ComponentDiagram-figure-title'>compone Component Diagram</title>
+<mediaobject><imageobject>
+<imagedata fileref='images/DocGenTest-library-compone-Component Diagram.png' scalefit='1' width='100%'/>
+</imageobject></mediaobject>
+</figure>
+</para>
+<para><table frame='all'>
+<title>compone Ports</title>
+<tgroup cols='5' align='left' colsep='0' rowsep='0'>
+<thead>
+<row>
+<entry>
+<para><mediaobject><imageobject>
+<imagedata fileref='images/Port.gif' scalefit='1' width='100%'/>
+</imageobject></mediaobject>
+</para>
+</entry>
+<entry>
+<para>Name</para>
+</entry>
+<entry>
+<para>Interface</para>
+</entry>
+<entry>
+<para>Type</para>
+</entry>
+<entry>
+<para>Multiplicity</para>
+</entry>
+</row>
+</thead>
+<tbody>
+<row>
+<entry>
+<para><mediaobject><imageobject>
+<imagedata fileref='images/Provision.gif' scalefit='1' width='100%'/>
+</imageobject></mediaobject>
+</para>
+</entry>
+<entry>
+<para>Port1</para>
+</entry>
+<entry>
+<para>myif</para>
+</entry>
+<entry>
+<para>provision</para>
+</entry>
+<entry>
+<para>0</para>
+</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+</para>
+<para><table frame='all'>
+<title>Datatypes</title>
+<tgroup cols='3' align='left' colsep='0' rowsep='0'>
+<thead>
+<row>
+<entry>
+<para><mediaobject><imageobject>
+<imagedata fileref='images/DataType.gif' scalefit='1' width='100%'/>
+</imageobject></mediaobject>
+</para>
+</entry>
+<entry>
+<para>Name</para>
+</entry>
+<entry>
+<para>Description</para>
+</entry>
+</row>
+</thead>
+<tbody>
+<row>
+<entry>
+<para><mediaobject><imageobject>
+<imagedata fileref='images/UserDefinedDataType.gif' scalefit='1' width='100%'/>
+</imageobject></mediaobject>
+</para>
+</entry>
+<entry>
+<para>nestedUDT</para>
+</entry>
+<entry>
+<para></para>
+</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+</para>
+<section>
+<title>Interface Activities</title>
+<subtitle></subtitle>
+<section>
+<title>Port: Port1, Interface: myif</title>
+<subtitle></subtitle>
+<section>
+<title>sig</title>
+<subtitle></subtitle>
+<para></para>
+<para><programlisting>
+</programlisting></para>
+</section>
+</section>
+</section>
+<section>
+<title>nestedif</title>
+<subtitle>Interface</subtitle>
+<para></para>
+<para><table frame='all'>
+<title>nestedif Messages</title>
+<tgroup cols='4' align='left' colsep='0' rowsep='0'>
+<thead>
+<row>
+<entry>
+<para><mediaobject><imageobject>
+<imagedata fileref='images/Message.gif' scalefit='1' width='100%'/>
+</imageobject></mediaobject>
+</para>
+</entry>
+<entry>
+<para>Name</para>
+</entry>
+<entry>
+<para>Direction</para>
+</entry>
+<entry>
+<para>Description</para>
+</entry>
+</row>
+</thead>
+<tbody>
+<row>
+<entry>
+<para><mediaobject><imageobject>
+<imagedata fileref='images/Operation.gif' scalefit='1' width='100%'/>
+</imageobject></mediaobject>
+</para>
+</entry>
+<entry>
+<para>oper</para>
+</entry>
+<entry>
+<para>Client to Server (Requirer to Provider)</para>
+</entry>
+<entry>
+<para></para>
+</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+</para>
+</section>
+<section>
+<title>compone Packages</title>
+<subtitle></subtitle>
+<para>Rendered here are the contained package diagrams.</para>
+<section>
+<title>subsystem</title>
+<subtitle>Package</subtitle>
+<para><figure id='DocGenTest-library-compone-subsystem-PackageDiagram-figure'>
+<title id='DocGenTest-library-compone-subsystem-PackageDiagram-figure-title'>subsystem Package Diagram</title>
+<mediaobject><imageobject>
+<imagedata fileref='images/DocGenTest-library-compone-subsystem-Package Diagram.png' scalefit='1' width='100%'/>
+</imageobject></mediaobject>
+</figure>
+</para>
+<para><table frame='all'>
+<title>subsystem</title>
+<tgroup cols='3' align='left' colsep='0' rowsep='0'>
+<thead>
+<row>
+<entry>
+<para><mediaobject><imageobject>
+<imagedata fileref='images/Class.gif' scalefit='1' width='100%'/>
+</imageobject></mediaobject>
+</para>
+</entry>
+<entry>
+<para>Name</para>
+</entry>
+<entry>
+<para>Description</para>
+</entry>
+</row>
+</thead>
+<tbody>
+<row>
+<entry>
+<para><mediaobject><imageobject>
+<imagedata fileref='images/Class.gif' scalefit='1' width='100%'/>
+</imageobject></mediaobject>
+</para>
+</entry>
+<entry>
+<para>Key</para>
+</entry>
+<entry>
+<para></para>
+</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+</para>
+<para><figure id='DocGenTest-library-compone-subsystem-Key-InstanceStateMachine-figure'>
+<title id='DocGenTest-library-compone-subsystem-Key-InstanceStateMachine-figure-title'>subsystem Key Instance State Machine</title>
+<mediaobject><imageobject>
+<imagedata fileref='images/DocGenTest-library-compone-subsystem-Key-Instance State Machine.png' scalefit='1' width='100%'/>
+</imageobject></mediaobject>
+</figure>
+</para>
+<section>
+<title>subsystem Classes</title>
+<subtitle>Class Package</subtitle>
+<section>
+<title>Class Activities</title>
+<subtitle></subtitle>
+<para>Here are listings of all of the activies in the class and its state machine(s).</para>
+<section>
+<title>Instance State Machine Actions</title>
+<subtitle></subtitle>
+</section>
+<section>
+<title>Class Operations</title>
+<subtitle></subtitle>
+<section>
+<title>subsystem:Key:  op</title>
+<subtitle></subtitle>
+<para></para>
+<para><programlisting>a = 1;
+b = 2;
+c = a + b;
+</programlisting></para>
+</section>
+</section>
+</section>
+</section>
+</section>
+<section>
+<title>Functions</title>
+<subtitle>Package</subtitle>
+<para>The functions package is here in the DocGenTest model to test the handling of
+diagrams/canvases with no graphics in the generated documentation.<figure id='DocGenTest-library-compone-Functions-PackageDiagram-figure'>
+<title id='DocGenTest-library-compone-Functions-PackageDiagram-figure-title'>Functions Package Diagram</title>
+<mediaobject><imageobject>
+<imagedata fileref='images/DocGenTest-library-compone-Functions-Package Diagram.png' scalefit='1' width='100%'/>
+</imageobject></mediaobject>
+</figure>
+</para>
+<section>
+<title>Functions Functions</title>
+<subtitle>Function Package</subtitle>
+<para><table frame='all'>
+<title>Functions</title>
+<tgroup cols='3' align='left' colsep='0' rowsep='0'>
+<thead>
+<row>
+<entry>
+<para><mediaobject><imageobject>
+<imagedata fileref='images/Function.gif' scalefit='1' width='100%'/>
+</imageobject></mediaobject>
+</para>
+</entry>
+<entry>
+<para>Name</para>
+</entry>
+<entry>
+<para>Description</para>
+</entry>
+</row>
+</thead>
+<tbody>
+<row>
+<entry>
+<para><mediaobject><imageobject>
+<imagedata fileref='images/Function.gif' scalefit='1' width='100%'/>
+</imageobject></mediaobject>
+</para>
+</entry>
+<entry>
+<para>test_func(i)</para>
+</entry>
+<entry>
+<para></para>
+</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+</para>
+<section>
+<title>Domain Function Activities</title>
+<subtitle></subtitle>
+<section>
+<title>test_func</title>
+<subtitle></subtitle>
+<para></para>
+<para><programlisting>a = 1 + param.i;
+b = 2;
+c = a + b;
+</programlisting></para>
+</section>
+</section>
+</section>
+</section>
+</section>
+</section>
+<section>
+<title>library Packages</title>
+<subtitle></subtitle>
+<para>Rendered here are the contained package diagrams.</para>
+<section>
+<title>analysis</title>
+<subtitle>Package</subtitle>
+<para><figure id='DocGenTest-library-analysis-PackageDiagram-figure'>
+<title id='DocGenTest-library-analysis-PackageDiagram-figure-title'>analysis Package Diagram</title>
+<mediaobject><imageobject>
+<imagedata fileref='images/DocGenTest-library-analysis-Package Diagram.png' scalefit='1' width='100%'/>
+</imageobject></mediaobject>
+</figure>
+</para>
+</section>
+</section>
+</section>
+<section>
+<title>interfaces</title>
+<subtitle>Package</subtitle>
+<para><figure id='DocGenTest-interfaces-PackageDiagram-figure'>
+<title id='DocGenTest-interfaces-PackageDiagram-figure-title'>interfaces Package Diagram</title>
+<mediaobject><imageobject>
+<imagedata fileref='images/DocGenTest-interfaces-Package Diagram.png' scalefit='1' width='100%'/>
+</imageobject></mediaobject>
+</figure>
+</para>
+<section>
+<title>myif</title>
+<subtitle>Interface</subtitle>
+<para></para>
+<para><table frame='all'>
+<title>myif Messages</title>
+<tgroup cols='4' align='left' colsep='0' rowsep='0'>
+<thead>
+<row>
+<entry>
+<para><mediaobject><imageobject>
+<imagedata fileref='images/Message.gif' scalefit='1' width='100%'/>
+</imageobject></mediaobject>
+</para>
+</entry>
+<entry>
+<para>Name</para>
+</entry>
+<entry>
+<para>Direction</para>
+</entry>
+<entry>
+<para>Description</para>
+</entry>
+</row>
+</thead>
+<tbody>
+<row>
+<entry>
+<para><mediaobject><imageobject>
+<imagedata fileref='images/SendSignal.gif' scalefit='1' width='100%'/>
+</imageobject></mediaobject>
+</para>
+</entry>
+<entry>
+<para>sig</para>
+</entry>
+<entry>
+<para>Client to Server (Requirer to Provider)</para>
+</entry>
+<entry>
+<para></para>
+</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+</para>
+</section>
+</section>
+</section>
+<section>
+<title>System-Level Data Type Packages</title>
+<subtitle></subtitle>
+<section>
+<title>Datatypes</title>
+<subtitle>Data Types Package</subtitle>
+<para><figure id='DocGenTest-Datatypes-DataTypePackageDiagram-figure'>
+<title id='DocGenTest-Datatypes-DataTypePackageDiagram-figure-title'>Datatypes Data Type Package Diagram</title>
+<mediaobject><imageobject>
+<imagedata fileref='images/DocGenTest-Datatypes-Data Type Package Diagram.png' scalefit='1' width='100%'/>
+</imageobject></mediaobject>
+</figure>
+</para>
+<para><table frame='all'>
+<title>Datatypes</title>
+<tgroup cols='3' align='left' colsep='0' rowsep='0'>
+<thead>
+<row>
+<entry>
+<para><mediaobject><imageobject>
+<imagedata fileref='images/DataType.gif' scalefit='1' width='100%'/>
+</imageobject></mediaobject>
+</para>
+</entry>
+<entry>
+<para>Name</para>
+</entry>
+<entry>
+<para>Description</para>
+</entry>
+</row>
+</thead>
+<tbody>
+<row>
+<entry>
+<para><mediaobject><imageobject>
+<imagedata fileref='images/UserDefinedDataType.gif' scalefit='1' width='100%'/>
+</imageobject></mediaobject>
+</para>
+</entry>
+<entry>
+<para>timestamp</para>
+</entry>
+<entry>
+<para></para>
+</entry>
+</row>
+<row>
+<entry>
+<para><mediaobject><imageobject>
+<imagedata fileref='images/UserDefinedDataType.gif' scalefit='1' width='100%'/>
+</imageobject></mediaobject>
+</para>
+</entry>
+<entry>
+<para>inst_ref&lt;Timer&gt;</para>
+</entry>
+<entry>
+<para></para>
+</entry>
+</row>
+<row>
+<entry>
+<para><mediaobject><imageobject>
+<imagedata fileref='images/UserDefinedDataType.gif' scalefit='1' width='100%'/>
+</imageobject></mediaobject>
+</para>
+</entry>
+<entry>
+<para>date</para>
+</entry>
+<entry>
+<para></para>
+</entry>
+</row>
+<row>
+<entry>
+<para><mediaobject><imageobject>
+<imagedata fileref='images/DataType.gif' scalefit='1' width='100%'/>
+</imageobject></mediaobject>
+</para>
+</entry>
+<entry>
+<para>component_ref</para>
+</entry>
+<entry>
+<para></para>
+</entry>
+</row>
+<row>
+<entry>
+<para><mediaobject><imageobject>
+<imagedata fileref='images/DataType.gif' scalefit='1' width='100%'/>
+</imageobject></mediaobject>
+</para>
+</entry>
+<entry>
+<para>inst_ref&lt;Mapping&gt;</para>
+</entry>
+<entry>
+<para></para>
+</entry>
+</row>
+<row>
+<entry>
+<para><mediaobject><imageobject>
+<imagedata fileref='images/DataType.gif' scalefit='1' width='100%'/>
+</imageobject></mediaobject>
+</para>
+</entry>
+<entry>
+<para>inst&lt;Mapping&gt;</para>
+</entry>
+<entry>
+<para></para>
+</entry>
+</row>
+<row>
+<entry>
+<para><mediaobject><imageobject>
+<imagedata fileref='images/DataType.gif' scalefit='1' width='100%'/>
+</imageobject></mediaobject>
+</para>
+</entry>
+<entry>
+<para>inst&lt;Event&gt;</para>
+</entry>
+<entry>
+<para></para>
+</entry>
+</row>
+<row>
+<entry>
+<para><mediaobject><imageobject>
+<imagedata fileref='images/DataType.gif' scalefit='1' width='100%'/>
+</imageobject></mediaobject>
+</para>
+</entry>
+<entry>
+<para>inst_ref_set&lt;Object&gt;</para>
+</entry>
+<entry>
+<para></para>
+</entry>
+</row>
+<row>
+<entry>
+<para><mediaobject><imageobject>
+<imagedata fileref='images/DataType.gif' scalefit='1' width='100%'/>
+</imageobject></mediaobject>
+</para>
+</entry>
+<entry>
+<para>inst_ref&lt;Object&gt;</para>
+</entry>
+<entry>
+<para></para>
+</entry>
+</row>
+<row>
+<entry>
+<para><mediaobject><imageobject>
+<imagedata fileref='images/DataType.gif' scalefit='1' width='100%'/>
+</imageobject></mediaobject>
+</para>
+</entry>
+<entry>
+<para>same_as&lt;Base_Attribute&gt;</para>
+</entry>
+<entry>
+<para></para>
+</entry>
+</row>
+<row>
+<entry>
+<para><mediaobject><imageobject>
+<imagedata fileref='images/DataType.gif' scalefit='1' width='100%'/>
+</imageobject></mediaobject>
+</para>
+</entry>
+<entry>
+<para>state&lt;State_Model&gt;</para>
+</entry>
+<entry>
+<para></para>
+</entry>
+</row>
+<row>
+<entry>
+<para><mediaobject><imageobject>
+<imagedata fileref='images/DataType.gif' scalefit='1' width='100%'/>
+</imageobject></mediaobject>
+</para>
+</entry>
+<entry>
+<para>unique_id</para>
+</entry>
+<entry>
+<para></para>
+</entry>
+</row>
+<row>
+<entry>
+<para><mediaobject><imageobject>
+<imagedata fileref='images/DataType.gif' scalefit='1' width='100%'/>
+</imageobject></mediaobject>
+</para>
+</entry>
+<entry>
+<para>string</para>
+</entry>
+<entry>
+<para></para>
+</entry>
+</row>
+<row>
+<entry>
+<para><mediaobject><imageobject>
+<imagedata fileref='images/DataType.gif' scalefit='1' width='100%'/>
+</imageobject></mediaobject>
+</para>
+</entry>
+<entry>
+<para>real</para>
+</entry>
+<entry>
+<para></para>
+</entry>
+</row>
+<row>
+<entry>
+<para><mediaobject><imageobject>
+<imagedata fileref='images/DataType.gif' scalefit='1' width='100%'/>
+</imageobject></mediaobject>
+</para>
+</entry>
+<entry>
+<para>integer</para>
+</entry>
+<entry>
+<para></para>
+</entry>
+</row>
+<row>
+<entry>
+<para><mediaobject><imageobject>
+<imagedata fileref='images/DataType.gif' scalefit='1' width='100%'/>
+</imageobject></mediaobject>
+</para>
+</entry>
+<entry>
+<para>boolean</para>
+</entry>
+<entry>
+<para></para>
+</entry>
+</row>
+<row>
+<entry>
+<para><mediaobject><imageobject>
+<imagedata fileref='images/DataType.gif' scalefit='1' width='100%'/>
+</imageobject></mediaobject>
+</para>
+</entry>
+<entry>
+<para>void</para>
+</entry>
+<entry>
+<para></para>
+</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+</para>
+</section>
+</section>
+</section>
+</article>

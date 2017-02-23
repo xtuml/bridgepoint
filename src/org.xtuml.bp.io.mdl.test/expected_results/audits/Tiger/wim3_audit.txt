@@ -1,0 +1,168 @@
+AUDIT RESULTS FOR DOMAIN wim3
+
+SUBSYSTEMS WITHOUT DESCRIPTIONS:
+wim3
+
+EXTERNAL ENTITIES WITHOUT DESCRIPTIONS:
+External Entity Logging 
+External Entity Time
+External Entity Architecture
+
+BRIDGES WITHOUT DESCRIPTIONS:
+External Entity Bridge Logging ::LogSuccess
+External Entity Bridge Logging ::LogFailure
+External Entity Bridge Logging ::LogInfo
+External Entity Bridge Architecture::shutdown
+
+CLASSES WITHOUT DESCRIPTIONS:
+Class wim3::wim3 init
+Class wim3::IC Driver
+Class wim3::Object I Directional Reflexive
+Class wim3::Object J Directional Reflexive
+Class wim3::Object K  Assoc Formalizing Reflexive
+Class wim3::Object J2
+Class wim3::Object K2
+Class wim3::Object I2 Directional Reflexive
+
+ATTRIBUTES WITHOUT DESCRIPTIONS:
+Attribute wim3 init::id
+Attribute wim3 init::current_state
+Attribute IC Driver::icd_id
+Attribute IC Driver::ack_count
+Attribute IC Driver::current_state
+Attribute Object I Directional Reflexive::oi_id
+Attribute Object I Directional Reflexive::i
+Attribute Object I Directional Reflexive::ack_count
+Attribute Object I Directional Reflexive::right_I
+Attribute Object I Directional Reflexive::current_state
+Attribute Object J Directional Reflexive::oj_id
+Attribute Object J Directional Reflexive::i
+Attribute Object J Directional Reflexive::ack_count
+Attribute Object J Directional Reflexive::attr a
+Attribute Object J Directional Reflexive::current_state
+Attribute Object K  Assoc Formalizing Reflexive::left_oj
+Attribute Object K  Assoc Formalizing Reflexive::right_oj
+Attribute Object K  Assoc Formalizing Reflexive::i
+Attribute Object K  Assoc Formalizing Reflexive::current_state
+Attribute Object J2::oj2_id
+Attribute Object J2::i
+Attribute Object J2::ack_count
+Attribute Object J2::current_state
+Attribute Object K2::following_oj2
+Attribute Object K2::preceding_oj2
+Attribute Object K2::i
+Attribute Object K2::current_state
+Attribute Object I2 Directional Reflexive::oi2_id
+Attribute Object I2 Directional Reflexive::i
+Attribute Object I2 Directional Reflexive::ack_count
+Attribute Object I2 Directional Reflexive::parent_oi2_id
+Attribute Object I2 Directional Reflexive::current_state
+
+REFERENCES WITHOUT DESCRIPTIONS:
+Referential Attribute Object I Directional Reflexive::right_I
+Referential Attribute Object K  Assoc Formalizing Reflexive::left_oj
+Referential Attribute Object K  Assoc Formalizing Reflexive::right_oj
+Referential Attribute Object K2::following_oj2
+Referential Attribute Object K2::preceding_oj2
+Referential Attribute Object I2 Directional Reflexive::parent_oi2_id
+
+RELATIONSHIPS WITHOUT DESCRIPTIONS:
+wim3::R4
+wim3::R5
+wim3::R12
+wim3::R13
+
+STATE MODELS WITHOUT DESCRIPTIONS:
+State Model wim3 init
+State Model IC Driver
+State Model Object I Directional Reflexive
+State Model Object J Directional Reflexive
+State Model Object K  Assoc Formalizing Reflexive
+State Model Object J2
+State Model Object K2
+State Model Object I2 Directional Reflexive
+
+EVENTS WITHOUT DESCRIPTIONS:
+Event INIT1
+Event ICD1
+Event ICD2
+Event ICD3
+Event OI1
+Event OI2
+Event OI5
+Event OI3
+Event OI4
+Event OI6
+Event OJ1
+Event OJ2
+Event OJ5
+Event OJ3
+Event OJ4
+Event OJ6
+Event OK1
+Event OJ21
+Event OJ22
+Event OJ25
+Event OJ23
+Event OJ24
+Event OJ26
+Event OK21
+Event OI21
+Event OI22
+Event OI23
+Event OI24
+
+EVENT DATA WITHOUT DESCRIPTIONS:
+Event Data Object I Directional Reflexive::id
+Event Data Object J Directional Reflexive::id
+Event Data Object K  Assoc Formalizing Reflexive::l_id
+Event Data Object K  Assoc Formalizing Reflexive::r_id
+Event Data Object K  Assoc Formalizing Reflexive::ack_id
+Event Data Object J2::id
+Event Data Object K2::l_id
+Event Data Object K2::r_id
+Event Data Object K2::ack_id
+Event Data Object I2 Directional Reflexive::id
+
+ACTION SPECIFICATIONS WITHOUT DESCRIPTIONS:
+wim3 init::init
+IC Driver::Running IC6 Test Suite
+IC Driver::Shutting Down
+IC Driver::Running IC6b Test Suite
+IC Driver::Running IC5 Test Suite
+IC Driver::Running IC5b Test Suite
+Object I Directional Reflexive::Starting IC5 Test
+Object I Directional Reflexive::Verifying Rel with Instance to Left of Me
+Object I Directional Reflexive::Waiting for Acks from Verify Rels
+Object I Directional Reflexive::Verifying Rel with Instance to Right of Me
+Object I Directional Reflexive::Finishing IC5 Test
+Object I Directional Reflexive::Initial State
+Object J Directional Reflexive::Starting IC6 Test
+Object J Directional Reflexive::Verifying Rel with Instance to Left of Me
+Object J Directional Reflexive::Waiting for Acks from Verify Rels
+Object J Directional Reflexive::Verifying Rel with Instance to Right of Me
+Object J Directional Reflexive::Finishing IC6 Test
+Object J Directional Reflexive::Initial State
+Object K  Assoc Formalizing Reflexive::Verify Rel with Associated Instances
+Object J2::Initial 2 Tests
+Object J2::Verifying Rel with Instance Before Me
+Object J2::Waiting for Acks from Verify Rels
+Object J2::Verifying Rel with Instance After Me
+Object J2::Finishing IC6b Test
+Object J2::Initial State
+Object J2::Initial Tests
+Object K2::Verify Rel with Associated Instances
+Object I2 Directional Reflexive::Starting IC5b Test
+Object I2 Directional Reflexive::Verifying Rel with Parent
+Object I2 Directional Reflexive::Waiting for Acks from Verify Rels
+Object I2 Directional Reflexive::Finishing IC5b Test
+
+UNPARSED ACTION SPECIFICATIONS:
+External Entity Bridge Logging ::LogSuccess has an Unparsed Action Specification
+External Entity Bridge Logging ::LogFailure has an Unparsed Action Specification
+External Entity Bridge Logging ::LogInfo has an Unparsed Action Specification
+
+ACTION SPECIFICATIONS WITH UNDEFINED SYMBOLS:
+External Entity Bridge Logging ::LogSuccess has Undefined Symbols
+External Entity Bridge Logging ::LogFailure has Undefined Symbols
+External Entity Bridge Logging ::LogInfo has Undefined Symbols

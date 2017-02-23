@@ -1,0 +1,8 @@
+drawRectangle(211, 98, 805, 663)
+drawText("«interface»", 539, 106, true)
+drawText("Child Interface", 515, 144, true)
+drawline(211, 187, 1017, 187)
+drawText("CDT_Operation(CDT_Parameter:component_ref):stringEDT_Operation(EDT_Parameter:EDT):EDTSDT_Operation(SDT_Parameter:SDT):SDTUDT_Operation(UDT_Parameter:UDT):UDT", 219, 195, true)
+drawline(211, 351, 1017, 351)
+drawText("signals", 568, 359, true)
+drawText("Signal 1(CDT_Parameter:unique_id)Signal 2(EDT_Parameter:EDT)Signal 3(SDT_Parameter:SDT)Signal 4(UDT_Parameter:UDT)", 219, 396, true)

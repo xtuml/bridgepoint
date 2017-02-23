@@ -1,0 +1,266 @@
+AUDIT RESULTS FOR DOMAIN im3
+
+SUBSYSTEMS WITHOUT DESCRIPTIONS:
+im3
+im3_extensive
+
+EXTERNAL ENTITIES WITHOUT DESCRIPTIONS:
+External Entity Logging 
+External Entity Time
+External Entity Architecture
+
+BRIDGES WITHOUT DESCRIPTIONS:
+External Entity Bridge Logging ::LogSuccess
+External Entity Bridge Logging ::LogFailure
+External Entity Bridge Logging ::LogInfo
+External Entity Bridge Architecture::shutdown
+
+CLASSES WITHOUT DESCRIPTIONS:
+Class im3::im3 init
+Class im3::IC Driver
+Class im3::Object I Directional Reflexive
+Class im3::Object J Directional Reflexive
+Class im3::Object K  Assoc Formalizing Reflexive
+Class im3::Object J2
+Class im3::Object K2
+Class im3::Object I2 Directional Reflexive
+Class im3_extensive::asc1
+Class im3_extensive::reflex
+Class im3_extensive::asc2
+Class im3_extensive::relation init
+Class im3_extensive::Test1
+Class im3_extensive::asc3
+Class im3_extensive::Test2
+Class im3_extensive::Test3
+Class im3_extensive::asc4
+Class im3_extensive::asc6
+Class im3_extensive::asc5
+Class im3_extensive::Scenario
+
+ATTRIBUTES WITHOUT DESCRIPTIONS:
+Attribute im3 init::id
+Attribute im3 init::current_state
+Attribute IC Driver::icd_id
+Attribute IC Driver::ack_count
+Attribute IC Driver::current_state
+Attribute Object I Directional Reflexive::oi_id
+Attribute Object I Directional Reflexive::i
+Attribute Object I Directional Reflexive::ack_count
+Attribute Object I Directional Reflexive::right_I
+Attribute Object I Directional Reflexive::current_state
+Attribute Object J Directional Reflexive::oj_id
+Attribute Object J Directional Reflexive::i
+Attribute Object J Directional Reflexive::ack_count
+Attribute Object J Directional Reflexive::attr a
+Attribute Object J Directional Reflexive::current_state
+Attribute Object K  Assoc Formalizing Reflexive::left_oj
+Attribute Object K  Assoc Formalizing Reflexive::right_oj
+Attribute Object K  Assoc Formalizing Reflexive::i
+Attribute Object K  Assoc Formalizing Reflexive::current_state
+Attribute Object J2::oj2_id
+Attribute Object J2::i
+Attribute Object J2::ack_count
+Attribute Object J2::current_state
+Attribute Object K2::following_oj2
+Attribute Object K2::preceding_oj2
+Attribute Object K2::i
+Attribute Object K2::current_state
+Attribute Object I2 Directional Reflexive::oi2_id
+Attribute Object I2 Directional Reflexive::i
+Attribute Object I2 Directional Reflexive::ack_count
+Attribute Object I2 Directional Reflexive::parent_oi2_id
+Attribute Object I2 Directional Reflexive::current_state
+Attribute asc1::id
+Attribute asc1::l_id
+Attribute asc1::r_id
+Attribute reflex::ref_id
+Attribute reflex::parent
+Attribute reflex::right
+Attribute asc2::id
+Attribute asc2::p_id
+Attribute asc2::c_id
+Attribute relation init::id
+Attribute relation init::current_state
+Attribute Test1::id
+Attribute Test1::current_state
+Attribute asc3::id
+Attribute asc3::l_id
+Attribute asc3::r_id
+Attribute Test2::id
+Attribute Test2::current_state
+Attribute Test3::id
+Attribute Test3::current_state
+Attribute asc4::id
+Attribute asc4::l_id
+Attribute asc4::r_id
+Attribute asc6::id
+Attribute asc6::p_id
+Attribute asc6::c_id
+Attribute asc5::id
+Attribute asc5::l_id
+Attribute asc5::r_id
+Attribute Scenario::id
+Attribute Scenario::current_state
+Attribute Scenario::count
+
+REFERENCES WITHOUT DESCRIPTIONS:
+Referential Attribute Object I Directional Reflexive::right_I
+Referential Attribute Object K  Assoc Formalizing Reflexive::left_oj
+Referential Attribute Object K  Assoc Formalizing Reflexive::right_oj
+Referential Attribute Object K2::following_oj2
+Referential Attribute Object K2::preceding_oj2
+Referential Attribute Object I2 Directional Reflexive::parent_oi2_id
+Referential Attribute asc1::l_id
+Referential Attribute asc1::r_id
+Referential Attribute reflex::parent
+Referential Attribute reflex::right
+Referential Attribute asc2::p_id
+Referential Attribute asc2::c_id
+Referential Attribute asc3::l_id
+Referential Attribute asc3::r_id
+Referential Attribute asc4::l_id
+Referential Attribute asc4::r_id
+Referential Attribute asc6::p_id
+Referential Attribute asc6::c_id
+Referential Attribute asc5::l_id
+Referential Attribute asc5::r_id
+
+RELATIONSHIPS WITHOUT DESCRIPTIONS:
+im3::R4
+im3::R5
+im3::R12
+im3::R13
+im3_extensive::R100
+im3_extensive::R101
+im3_extensive::R102
+im3_extensive::R103
+im3_extensive::R104
+im3_extensive::R105
+im3_extensive::R106
+im3_extensive::R107
+
+STATE MODELS WITHOUT DESCRIPTIONS:
+State Model im3 init
+State Model IC Driver
+State Model Object I Directional Reflexive
+State Model Object J Directional Reflexive
+State Model Object K  Assoc Formalizing Reflexive
+State Model Object J2
+State Model Object K2
+State Model Object I2 Directional Reflexive
+State Model relation init
+State Model Test1
+State Model Test2
+State Model Test3
+State Model Scenario
+
+EVENTS WITHOUT DESCRIPTIONS:
+Event INIT1
+Event ICD1
+Event ICD2
+Event ICD3
+Event OI1
+Event OI2
+Event OI5
+Event OI3
+Event OI4
+Event OI6
+Event OJ1
+Event OJ2
+Event OJ5
+Event OJ3
+Event OJ4
+Event OJ6
+Event OK1
+Event OJ21
+Event OJ22
+Event OJ25
+Event OJ23
+Event OJ24
+Event OJ26
+Event OK21
+Event OI21
+Event OI22
+Event OI23
+Event OI24
+Event USERINIT11
+Event TS11
+Event TS12
+Event TS13
+Event TS14
+Event TS21
+Event TS22
+Event TS23
+Event TS24
+Event TS31
+Event TS32
+Event TS33
+Event SC1
+Event SC2
+
+EVENT DATA WITHOUT DESCRIPTIONS:
+Event Data Object I Directional Reflexive::id
+Event Data Object J Directional Reflexive::id
+Event Data Object K  Assoc Formalizing Reflexive::l_id
+Event Data Object K  Assoc Formalizing Reflexive::r_id
+Event Data Object K  Assoc Formalizing Reflexive::ack_id
+Event Data Object J2::id
+Event Data Object K2::l_id
+Event Data Object K2::r_id
+Event Data Object K2::ack_id
+Event Data Object I2 Directional Reflexive::id
+
+ACTION SPECIFICATIONS WITHOUT DESCRIPTIONS:
+im3 init::init
+IC Driver::Running IC6 Test Suite
+IC Driver::Shutting Down
+IC Driver::Running IC6b Test Suite
+IC Driver::Running IC5 Test Suite
+IC Driver::Running IC5b Test Suite
+Object I Directional Reflexive::Starting IC5 Test
+Object I Directional Reflexive::Verifying Rel with Instance to Left of Me
+Object I Directional Reflexive::Waiting for Acks from Verify Rels
+Object I Directional Reflexive::Verifying Rel with Instance to Right of Me
+Object I Directional Reflexive::Finishing IC5 Test
+Object I Directional Reflexive::Initial State
+Object J Directional Reflexive::Starting IC6 Test
+Object J Directional Reflexive::Verifying Rel with Instance to Left of Me
+Object J Directional Reflexive::Waiting for Acks from Verify Rels
+Object J Directional Reflexive::Verifying Rel with Instance to Right of Me
+Object J Directional Reflexive::Finishing IC6 Test
+Object J Directional Reflexive::Initial State
+Object K  Assoc Formalizing Reflexive::Verify Rel with Associated Instances
+Object J2::Initial 2 Tests
+Object J2::Verifying Rel with Instance Before Me
+Object J2::Waiting for Acks from Verify Rels
+Object J2::Verifying Rel with Instance After Me
+Object J2::Finishing IC6b Test
+Object J2::Initial State
+Object J2::Initial Tests
+Object K2::Verify Rel with Associated Instances
+Object I2 Directional Reflexive::Starting IC5b Test
+Object I2 Directional Reflexive::Verifying Rel with Parent
+Object I2 Directional Reflexive::Waiting for Acks from Verify Rels
+Object I2 Directional Reflexive::Finishing IC5b Test
+relation init::INIT
+Test1::Testing_01_01
+Test1::Cleaning_01_01
+Test1::Testing_01_02
+Test1::Cleaning_01_02
+Test1::Testing_01_03
+Test1::Cleaning_01_03
+Test2::Testing_02_01
+Test2::Cleaning_02_01
+Test2::Testing_02_02
+Test2::Cleaning_02_02
+Test2::Testing_02_03
+Test2::Cleaning_02_03
+Test3::Testing_03_01
+Test3::Cleaning_03_01
+Test3::Testing_03_02
+Test3::Cleaning_03_02
+Scenario::Created
+Scenario::Testing_01
+Scenario::Testing_02
+Scenario::Testing_03
+Scenario::Loop

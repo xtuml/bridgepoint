@@ -1,0 +1,12 @@
+ERROR: Found another port under the same component with a matching name.
+
+Element Name: Port1
+Element Path: ModelIntegrityTests::Port Tests::Component::Port1
+
+
+ERROR: Found another port under the same component with a matching name.
+
+Element Name: Port1
+Element Path: ModelIntegrityTests::Port Tests::Component::Port1
+
+
