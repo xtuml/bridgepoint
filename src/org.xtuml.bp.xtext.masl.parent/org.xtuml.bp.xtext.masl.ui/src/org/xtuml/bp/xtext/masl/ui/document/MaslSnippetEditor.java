@@ -2,6 +2,8 @@ package org.xtuml.bp.xtext.masl.ui.document;
 
 import com.google.common.base.Objects;
 import com.google.inject.Inject;
+
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.resource.JFaceResources;
 import org.eclipse.jface.text.source.ISourceViewer;
@@ -20,7 +22,15 @@ import org.eclipse.xtext.ui.IImageHelper;
 import org.eclipse.xtext.ui.editor.XtextEditor;
 import org.eclipse.xtext.xbase.lib.ObjectExtensions;
 import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
+import org.xtuml.bp.core.CorePlugin;
+import org.xtuml.bp.core.Ooaofooa;
+import org.xtuml.bp.core.common.IModelChangeListener;
+import org.xtuml.bp.core.common.ModelChangeAdapter;
+import org.xtuml.bp.core.common.ModelChangedEvent;
+import org.xtuml.bp.core.common.NonRootModelElement;
+import org.xtuml.bp.ui.text.AbstractModelElementEditorInput;
 import org.xtuml.bp.ui.text.AbstractModelElementPropertyEditorInput;
+import org.xtuml.bp.ui.text.masl.MASLEditorInputFactory;
 import org.xtuml.bp.xtext.masl.ui.document.MaslDocumentProvider;
 
 @SuppressWarnings("all")
@@ -29,6 +39,30 @@ public class MaslSnippetEditor extends XtextEditor {
   private IImageHelper imageHelper;
   
   private Label signatureLabel;
+  private IModelChangeListener modelChangeListener;
+  
+  public MaslSnippetEditor() {
+	  super();
+	  modelChangeListener = new ModelChangeAdapter() {
+
+		@Override
+		public void modelElementReloaded(ModelChangedEvent event) {
+			NonRootModelElement modelElement = ((AbstractModelElementEditorInput) getEditorInput()).getModelElement();
+			try {
+				setInput(MASLEditorInputFactory.getDefaultInstance()
+								.createInstance(modelElement.getModelRoot()
+										.getInstanceList(modelElement.getClass())
+										.get(modelElement.getInstanceKey())));
+				updateLabelAndVisibleRegion((MaslDocumentProvider) getDocumentProvider(), (AbstractModelElementPropertyEditorInput) getEditorInput());
+			} catch (CoreException e) {
+				CorePlugin.logError("Unable to reload editor content", e);
+			}
+		}
+
+
+	  };
+	  Ooaofooa.getDefaultInstance().addModelChangeListener(modelChangeListener);
+  }
   
   @Override
   public boolean isSaveAsAllowed() {
@@ -118,7 +152,12 @@ public class MaslSnippetEditor extends XtextEditor {
     return _xifexpression;
   }
   
-  public void updateLabelAndVisibleRegion(final MaslDocumentProvider maslDocumentProvider, final AbstractModelElementPropertyEditorInput input) {
+  @Override
+  public void dispose() {
+	  Ooaofooa.getDefaultInstance().removeModelChangeListener(modelChangeListener);
+  }
+
+public void updateLabelAndVisibleRegion(final MaslDocumentProvider maslDocumentProvider, final AbstractModelElementPropertyEditorInput input) {
     String _name = input.getName();
     this.setPartName(_name);
     final String prefix = maslDocumentProvider.getPrefix(input);

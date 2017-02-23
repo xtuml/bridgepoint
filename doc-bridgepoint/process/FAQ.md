@@ -40,6 +40,7 @@
     * [How does the model of persistence work?](#persistence)
     * [How are ModelElements organized in memory?](#inmemory_arch)
     * [How can I examine the BridgePoint in-memory Instance Population? (Instance Population Monitor)](#instanceviewer)
+    * [What is the ComponentTransactionListener and how does it work?](#transactionlistener)  
   * [Miscellaneous](#misc)
     * [How do I append updates to BridgePoint issues via e-mail?](#emailissueupdates)   
     * [Is the xtUML.org ID connected to Redmine in any way?](#connectedids)  
@@ -364,6 +365,12 @@ BridgePoint Architecture <a id="bparchitecture"></a>
         - Parser NonRootModelElements
         - Runtime NonRootModelElements
   - ![bpinstanceviewer.png](bpinstanceviewer.png) 
+
+* **What is the ComponentTransactionListener and how does it work?** <a id="transactionlistener"></a>  
+  A brief explanation of the transaction listener can be found in this note:
+  [8261_masl_refactor_dnt.md](../notes/8261_masl_refactor/8261_masl_refactor_dnt.md).
+  The whole note contains good and relevant information, but section 7 focuses
+  on the transaction listener.
   
 Verifer <a id="verifier"></a>
 ------------
