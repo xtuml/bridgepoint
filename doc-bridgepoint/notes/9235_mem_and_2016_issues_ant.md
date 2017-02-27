@@ -16,9 +16,13 @@ by SAAB for Model Element Move and the 2016 Issues list.
 ----------------------
 <a id="2.1"></a>2.1 [BridgePoint DEI #9235](https://support.onefact.net/issues/9235) 
 This issue serves as an organizational parent task for issues that will be investigated and resolved.  
-<a id="2.2"></a>2.2 [BridgePoint DEI #8793](https://support.onefact.net/issues/8793) Model Element Move Statement of Work.  
-<a id="2.3"></a>2.3 [BridgePoint DEI #xxx3](https://support.onefact.net/issues/xxx3) One Fact Model Element Move Test Plan.  
-<a id="2.4"></a>2.4 [BridgePoint DEI #xxx3](https://support.onefact.net/issues/xxx3) One Fact Model Element Move Test Results.  
+<a id="2.2"></a>2.2 [Model Element Move Statement of Work](https://support.onefact.net/issues/8793)  
+<a id="2.3"></a>2.3 [2016 Issues Statement of Work](https://docs.google.com/document/d/1li2mQ-CVW0z5fm0qz6Bxw-zvalL1kPBc6sCgLQc9G8Y/edit)  
+<a id="2.3.1"></a>2.3.1 [2016 Issue List](https://support.onefact.net/projects/service-pro-saab/issues?utf8=%E2%9C%93&set_filter=1&f%5B%5D=status_id&op%5Bstatus_id%5D=*&f%5B%5D=cf_16&op%5Bcf_16%5D=%3D&v%5Bcf_16%5D%5B%5D=SAAB+2016+List+%28%238505%29&f%5B%5D=fixed_version_id&op%5Bfixed_version_id%5D=%3D&v%5Bfixed_version_id%5D%5B%5D=14&f%5B%5D=&c%5B%5D=project&c%5B%5D=status&c%5B%5D=subject&c%5B%5D=fixed_version&c%5B%5D=due_date&c%5B%5D=cf_14&c%5B%5D=cf_16&group_by=&t%5B%5D=) 
+This is a link to a query in the One Fact issue tracking system that shows the issues that were part of the 2016 Issue List project.  
+<a id="2.4"></a>2.4 [One Fact Model Element Move Test Plan](https://github.com/xtuml/bridgepoint/blob/master/doc-bridgepoint/notes/8458_model_element_move_tests/8458_Model_Element_Move_Tests.dnt.md)  
+<a id="2.4"></a>2.4 [One Fact Model Element Move Test Results](https://docs.google.com/spreadsheets/d/1eJmEWtx3EDawwCslxL2MfvaqoJm8JawFnoCTLPuX9SM/edit#gid=1793892663) 
+skdjnfkdsnfkndskfndsf  
 <a id="2.5"></a>2.5 [SAAB Model Element Move Test Plan](https://docs.google.com/document/d/1WsYH0_gSdhurP3-jo3oG_w6itWMGnhZ99RcurpJVv44/edit) 
 SAAB Model Element Move Test Plan.  
 <a id="2.6"></a>2.6 [SAAB Dynamics Test Results](https://docs.google.com/document/d/16YCPUdr2TZVdi92cRvLzog9Nw_UIsI99yheMr9u1HlA/edit) 
