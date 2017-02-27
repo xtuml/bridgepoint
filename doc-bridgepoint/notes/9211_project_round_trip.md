@@ -46,7 +46,7 @@ MASL domains.  We wish to support MASL Projects as well.
   and did not give the listeners and post-import processing time to run.  This is the
   same reason we saw graphics not being reconciled on CLI Import.  The issue is that
   these pending jobs needed to be serviced before exiting.   
-5.2.2  We added a call to ```allowJobCompletion()``` to make sure that the job queue
+5.2.2  We added a call inside ```allowJobCompletion()``` to make sure that the job queue
   is being emptied and pending jobs are woken up and serviced.  We then call 
   ```allowJobCompletion()``` at the end of the import before exiting.   
   
