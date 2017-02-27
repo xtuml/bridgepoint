@@ -4,7 +4,7 @@ This work is licensed under the Creative Commons CC0 License
 
 ---
 
-# Parent task for SAAB warranty issues associated with MEM and the 2016 issue list
+# Parent task for issues associated with Model Element Move and the 2016 issue list
 ### xtUML Project Analysis Note
 
 1. Abstract
