@@ -9,8 +9,8 @@ This work is licensed under the Creative Commons CC0 License
 
 1. Abstract
 -----------
-This issue is rasied to investigate the issues called out in the testing performed 
-by SAAB for Model Element Move and the 2016 Issues list.  
+This issue is rasied to investigate the issues called out in the acceptance testing performed 
+by SAAB for [Model Element Move](2.2) and the [2016 Issues list](2.3).  
 
 2. Document References
 ----------------------
