@@ -43,6 +43,8 @@ import org.xtuml.bp.core.Transition_c
 import org.xtuml.bp.core.StateEventMatrixEntry_c
 import org.xtuml.bp.core.NewStateTransition_c
 import org.xtuml.bp.core.SemEvent_c
+import org.xtuml.bp.core.PackageableElement_c
+import org.xtuml.bp.core.Package_c
 
 class XtumlToMaslMapper {
 	
@@ -111,7 +113,7 @@ class XtumlToMaslMapper {
                     ExecutableProperty_c.getOneC_EPOnR4004(xtumlElement))).map[ spr_po |
                         getMaslQualifiedName(spr_po, name)
                     ]
-                ops
+                ops.filter[ nonNull ].toList
             }
             PropertyParameter_c: {
                 // for interface message parameters, navigate to get all the qualified names of
@@ -119,28 +121,28 @@ class XtumlToMaslMapper {
                 val params = newArrayList
                 params += RequiredOperation_c.getManySPR_ROsOnR4502(RequiredExecutableProperty_c.getManySPR_REPsOnR4500(
                     ExecutableProperty_c.getOneC_EPOnR4006(xtumlElement))).map[ spr_ro |
-                        spr_ro.maslQualifiedName.append(name)
+                        spr_ro.maslQualifiedName?.append(name)
                     ]
                 params += ProvidedOperation_c.getManySPR_POsOnR4503(ProvidedExecutableProperty_c.getManySPR_PEPsOnR4501(
                     ExecutableProperty_c.getOneC_EPOnR4006(xtumlElement))).map[ spr_po |
-                        spr_po.maslQualifiedName.append(name)
+                        spr_po.maslQualifiedName?.append(name)
                     ]
-                params
+                params.filter[ nonNull ].toList
             }
             StateMachineEventDataItem_c: {
                 // for event parameters, we must get the qualified name of the event parameter and the state
                 // parameters of every state this event causes a transition to
                 val params = newArrayList
-                params += StateMachineEvent_c.getOneSM_EVTOnR532(xtumlElement).maslQualifiedName.append(name)
+                params += StateMachineEvent_c.getOneSM_EVTOnR532(xtumlElement).maslQualifiedName?.append(name)
                 params += StateMachineState_c.getManySM_STATEsOnR506(Transition_c.getManySM_TXNsOnR507(
                     NewStateTransition_c.getManySM_NSTXNsOnR504(StateEventMatrixEntry_c.getManySM_SEMEsOnR503(
                     SemEvent_c.getOneSM_SEVTOnR525(StateMachineEvent_c.getOneSM_EVTOnR532(xtumlElement)))))).map[ sm_state |
-                        sm_state.maslQualifiedName.append(name)    
+                        sm_state.maslQualifiedName?.append(name)    
                     ]
-                params
+                params.filter[ nonNull ].toList
             }
             default:
-                #[getMaslQualifiedName(xtumlElement, name)]
+                #[getMaslQualifiedName(xtumlElement, name)].filter[ nonNull ].toList
         }
 	}
 
@@ -149,20 +151,21 @@ class XtumlToMaslMapper {
 			Component_c:
 				QualifiedName.create(xtumlElement.name)
 			StateMachineEvent_c:
-				xtumlElement.maslQualifiedNamePrefix.append(xtumlElement.mning)
+				xtumlElement.maslQualifiedNamePrefix?.append(xtumlElement.mning)
 		    Association_c:
-		        xtumlElement.maslQualifiedNamePrefix.append("R" + xtumlElement.numb)
+		        xtumlElement.maslQualifiedNamePrefix?.append("R" + xtumlElement.numb)
 			default:			
-				xtumlElement.maslQualifiedNamePrefix.append(xtumlElement.name)
+				xtumlElement.maslQualifiedNamePrefix?.append(xtumlElement.name)
 		}
 	} 
 
     public def QualifiedName getMaslQualifiedName(NonRootModelElement xtumlElement, String name) {
-        val prefix = xtumlElement.maslQualifiedNamePrefix
-        if ( null != prefix )
-		    prefix.append(name)
-		else
-	        QualifiedName.create(name)
+        switch xtumlElement{
+            Component_c:
+	            QualifiedName.create(name)
+	        default:
+                xtumlElement.maslQualifiedNamePrefix?.append(name)
+        }
 	}
 
 	private def QualifiedName getMaslQualifiedNamePrefix(NonRootModelElement xtumlElement) {
@@ -194,9 +197,9 @@ class XtumlToMaslMapper {
 			StateMachineEvent_c:
 				ModelClass_c.getOneO_OBJOnR518(InstanceStateMachine_c.getOneSM_ISMOnR517(StateMachine_c.getOneSM_SMOnR502(xtumlElement))).maslQualifiedName
 			DataType_c:
-				UserDataType_c.getOneS_UDTOnR17(xtumlElement).maslQualifiedNamePrefix
-			UserDataType_c:
 				xtumlElement.component.maslQualifiedName
+			UserDataType_c:
+				DataType_c.getOneS_DTOnR17(xtumlElement).maslQualifiedNamePrefix
 		    Association_c:
 		        xtumlElement.component.maslQualifiedName
 		    ClassAsSimpleParticipant_c:
@@ -214,6 +217,8 @@ class XtumlToMaslMapper {
 	
 	
 	private def getComponent(NonRootModelElement xtumlElement) {
+	    if ( null == xtumlElement )
+	        return null
 		var parent = xtumlElement.persistableComponent
 		while (parent != null) {
 			if(parent.rootModelElement instanceof Component_c)
@@ -221,7 +226,24 @@ class XtumlToMaslMapper {
 			else 
 				parent = parent.parent 
 		}
+		// element is not in a component
+		if ( xtumlElement instanceof DataType_c ) {
+            // Select all components in the parent package of the package where the type is found
+            // in the MASL idiom, public types are in the "Shared" package which is a sibling of
+            // the domain component
+		    val components = Component_c.getManyC_CsOnR8001(PackageableElement_c.getManyPE_PEsOnR8000(
+		        Package_c.getOneEP_PKGOnR8000(PackageableElement_c.getOnePE_PEOnR8001(Package_c.getOneEP_PKGOnR8000(
+		        PackageableElement_c.getOnePE_PEOnR8001(xtumlElement))))))
+		    if ( components.length == 1 )
+		        return components.get(0)
+		}
 		return null
 		
 	}
+	
+	private def nonNull(Object obj) {
+	    if ( obj != null ) return true
+	    return false
+	}
+	
 }
