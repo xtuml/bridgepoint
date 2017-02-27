@@ -94,25 +94,25 @@ The items called out here are not part of the issues at hand.
 ----------------
 6.1 Dynamics: Section 2 - 2.2.3-N-extended  
 TODO: Reproduce and report. If this is a problem, add the test case to the MEM test plan  
-6.2 Dynamics: Section 2 - 2.4.1-Z and 2.4.1-Z-extended
+6.2 Dynamics: Section 2 - 2.4.1-Z and 2.4.1-Z-extended  
 TODO: Reproduce and report. If this is a problem, add the test case to the MEM test plan  
-6.3 Dynamics: Section 4 - Martin-1.5, Martin-1.6, Martin-1.7, Martin-1.8
-TODO: Create a One Fact test issue for these senarios. Reproduce. 
+6.3 Dynamics: Section 4 - Martin-1.5, Martin-1.6, Martin-1.7, Martin-1.8  
+TODO: Create a One Fact test issue for these senarios. Reproduce.  
 6.4 Dynamics: Section 8 - Martin-1.1  
 TODO: Reproduce. Add this test to the test case created for [#8557](https://support.onefact.net/issues/8557)  
 
 7. Acceptance Test
 ------------------
-7.1 Model Element Move Testing
-7.1.1 Enhance the One Fact Model Element Move test plan to include the following SAAB test plan tests
-7.1.1.1 item 1 
-7.1.1.1 item 2 
-7.1.1.1 item 3
+7.1 Model Element Move Testing  
+7.1.1 Enhance the One Fact Model Element Move test plan to include the following SAAB test plan tests  
+7.1.1.1 item 1  
+7.1.1.1 item 2  
+7.1.1.1 item 3  
 
-7.2 TODO: Retest 2016 issue failure case 1
+7.2 TODO: Retest 2016 issue failure case 1  
 7.2.1 TODO: Point to the One Fact test issue  
 
-7.3 TODO: Retest 2016 issue failure case 2
+7.3 TODO: Retest 2016 issue failure case 2  
 7.3.1 TODO: Point to the One Fact test issue  
 
 
