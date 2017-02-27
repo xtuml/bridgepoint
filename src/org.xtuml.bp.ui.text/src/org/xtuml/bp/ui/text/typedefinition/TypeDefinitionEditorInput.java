@@ -40,6 +40,12 @@ public class TypeDefinitionEditorInput extends AbstractModelElementPropertyEdito
 	    return (TypeDefinitionEditorInput)factory.createInstance(modelElementObject);
 	}
 
+    public static boolean isSupported(Object inputObject){
+    	TypeDefinitionEditorInputFactory factory = (TypeDefinitionEditorInputFactory)PlatformUI.getWorkbench()
+                                                        .getElementFactory(FACTORY_ID);
+		return factory.isSupported(inputObject);
+    }
+
 	/**
 	 * @see org.eclipse.ui.IPersistableElement#getFactoryId()
 	 */

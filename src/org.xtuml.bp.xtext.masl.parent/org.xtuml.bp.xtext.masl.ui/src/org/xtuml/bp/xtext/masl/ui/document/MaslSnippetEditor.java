@@ -31,6 +31,8 @@ import org.xtuml.bp.core.common.NonRootModelElement;
 import org.xtuml.bp.ui.text.AbstractModelElementEditorInput;
 import org.xtuml.bp.ui.text.AbstractModelElementPropertyEditorInput;
 import org.xtuml.bp.ui.text.masl.MASLEditorInputFactory;
+import org.xtuml.bp.ui.text.typedefinition.TypeDefinitionEditorInput;
+import org.xtuml.bp.ui.text.typedefinition.TypeDefinitionEditorInputFactory;
 import org.xtuml.bp.xtext.masl.ui.document.MaslDocumentProvider;
 
 @SuppressWarnings("all")
@@ -49,10 +51,18 @@ public class MaslSnippetEditor extends XtextEditor {
 		public void modelElementReloaded(ModelChangedEvent event) {
 			NonRootModelElement modelElement = ((AbstractModelElementEditorInput) getEditorInput()).getModelElement();
 			try {
-				setInput(MASLEditorInputFactory.getDefaultInstance()
+				if ( TypeDefinitionEditorInput.isSupported(modelElement) ) {
+					setInput(TypeDefinitionEditorInputFactory.getDefaultInstance()
 								.createInstance(modelElement.getModelRoot()
 										.getInstanceList(modelElement.getClass())
 										.get(modelElement.getInstanceKey())));
+				}
+				else {
+					setInput(MASLEditorInputFactory.getDefaultInstance()
+								.createInstance(modelElement.getModelRoot()
+										.getInstanceList(modelElement.getClass())
+										.get(modelElement.getInstanceKey())));
+				}
 				updateLabelAndVisibleRegion((MaslDocumentProvider) getDocumentProvider(), (AbstractModelElementPropertyEditorInput) getEditorInput());
 			} catch (CoreException e) {
 				CorePlugin.logError("Unable to reload editor content", e);
