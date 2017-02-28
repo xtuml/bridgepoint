@@ -16,7 +16,7 @@ by SAAB for [Model Element Move](2.2) and the [2016 Issues list](2.3).
 ----------------------
 <a id="2.1"></a>2.1 [BridgePoint DEI #9235](https://support.onefact.net/issues/9235) 
 This issue serves as an organizational parent task for issues that will be investigated and resolved.  
-<a id="2.2"></a>2.2 [SAAB Service Pro - Model Element Move DEI #8793](https://support.onefact.net/issues/8793) 
+<a id="2.2"></a>2.2 [SAAB Service Pro - Model Element Move DEI #8793](https://support.onefact.net/issues/8793)  
 <a id="2.2.1"></a>2.2.1 [Model Element Move Statement of Work](https://docs.google.com/document/d/1_T4H7StO-VM8zfIFjr-V7VwUQMXML1c7nFJJofU0vGs/edit#)  
 <a id="2.2.2"></a>2.2.2 [One Fact - Model Element Move Test Plan](https://github.com/xtuml/bridgepoint/blob/master/doc-bridgepoint/notes/8458_model_element_move_tests/8458_Model_Element_Move_Tests.dnt.md)  
 <a id="2.2.3"></a>2.2.3 [One Fact - Model Element Move Test Results](https://docs.google.com/spreadsheets/d/1eJmEWtx3EDawwCslxL2MfvaqoJm8JawFnoCTLPuX9SM/edit#gid=1793892663) 
@@ -78,7 +78,7 @@ This is a known issue, not new [2.7](2.7). It was not a requirement for the work
 5.2.2.2 Attempt to create an element after a cut and then paste into the new element fails
 This is by design. If any transation occurs between but and paste the cut is aborted and thus paste is not allowed.    
 5.2.2.3 Performance issue observed during testing  
-Investigation has been performed on this in BridgePoint v6.2 and an issue was addressed. Unable to tell if it is the same issue or not [2.8](2.8). No further action at this time.  
+Investigation has been performed on this in BridgePoint v6.2 and an issue was addressed. Unable to tell if it is the same issue or not ([2.8](2.8)). No further action at this time.  
 
 5.2.2 Analysis of notes taken by tester, PJ, from section 6  
 5.2.2.1 It is observed that PJ reported the same observations as JT, just in a slightly different way.  
