@@ -49,7 +49,7 @@ The goal of this analysis is to clearly call out the SAAB acceptance issues that
 
 5. Analysis
 -----------
-This section shall only address failure cases from the reports. Note that for clarity the SAAB test identifier are used instead of the usual BridgePoint section numbering.
+This section shall only address failure cases from the reports. Note that for clarity SAAB test identifiers are used below.
 5.1 Analysis of [Issues reported by SAAB Dynamics](2.5)  
 5.1.1 Acceptance testing of [Model Element Move](https://support.onefact.net/issues/8793) from Section 2  
 5.1.1.1 (2.2.3-N-extended)  - Move after model deletion causes error  
