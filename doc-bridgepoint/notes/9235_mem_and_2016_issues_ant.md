@@ -17,7 +17,7 @@ by SAAB for [Model Element Move](2.2) and the [2016 Issues list](2.3).
 <a id="2.1"></a>2.1 [BridgePoint DEI #9235](https://support.onefact.net/issues/9235) 
 This issue serves as an organizational parent task for issues that will be investigated and resolved.  
 <a id="2.2"></a>2.2 [SAAB Service Pro - Model Element Move DEI #8793](https://support.onefact.net/issues/8793)  
-<a id="2.2.1"></a>2.2.1 [Model Element Move Statement of Work](https://docs.google.com/document/d/1_T4H7StO-VM8zfIFjr-V7VwUQMXML1c7nFJJofU0vGs/edit#)  
+<a id="2.2.1"></a>2.2.1 [Model Element Move Statement of Work (One Fact Only)](https://docs.google.com/document/d/1_T4H7StO-VM8zfIFjr-V7VwUQMXML1c7nFJJofU0vGs/edit#)  
 <a id="2.2.2"></a>2.2.2 [One Fact - Model Element Move Test Plan](https://github.com/xtuml/bridgepoint/blob/master/doc-bridgepoint/notes/8458_model_element_move_tests/8458_Model_Element_Move_Tests.dnt.md)  
 <a id="2.2.3"></a>2.2.3 [One Fact - Model Element Move Test Results](https://docs.google.com/spreadsheets/d/1eJmEWtx3EDawwCslxL2MfvaqoJm8JawFnoCTLPuX9SM/edit#gid=1793892663) 
 The One Fact test plan was created using a 1:1 mapping of tests from the [Use Cases In The 
@@ -25,13 +25,12 @@ Model Element Move Statement of Work](https://docs.google.com/document/d/1_T4H7S
 most recent to the very first run of the tests. These results can be seen using the document revision history. Model Element Move was introduced as part of the [BridgePoint v5.8 release](https://support.onefact.net/versions/14) which was completed November 30, 2016.  
 <a id="2.3"></a>2.3 [SAAB Service Pro - 2016 Issues List](https://support.onefact.net/projects/service-pro-saab/issues?utf8=%E2%9C%93&set_filter=1&f%5B%5D=status_id&op%5Bstatus_id%5D=*&f%5B%5D=cf_16&op%5Bcf_16%5D=%3D&v%5Bcf_16%5D%5B%5D=SAAB+2016+List+%28%238505%29&f%5B%5D=fixed_version_id&op%5Bfixed_version_id%5D=%3D&v%5Bfixed_version_id%5D%5B%5D=14&f%5B%5D=&c%5B%5D=project&c%5B%5D=status&c%5B%5D=subject&c%5B%5D=fixed_version&c%5B%5D=due_date&c%5B%5D=cf_14&c%5B%5D=cf_16&group_by=&t%5B%5D=) 
 This is a link to a query in the One Fact issue tracking system that shows the issues that were part of the 2016 Issue List project.  
-<a id="2.3.1"></a>2.3.1 [2016 Issues Statement of Work](https://docs.google.com/document/d/1li2mQ-CVW0z5fm0qz6Bxw-zvalL1kPBc6sCgLQc9G8Y/edit)  
-<a id="2.4"></a>2.4 [SAAB - Model Element Move Test Plan](https://docs.google.com/document/d/1WsYH0_gSdhurP3-jo3oG_w6itWMGnhZ99RcurpJVv44/edit)  
-<a id="2.5"></a>2.5 [SAAB Dynamics - Test Results](https://docs.google.com/document/d/16YCPUdr2TZVdi92cRvLzog9Nw_UIsI99yheMr9u1HlA/edit)  
-<a id="2.6"></a>2.6 [SAAB Aero - Test Results](https://docs.google.com/document/d/1AzbJy9dVS2VSmNdBQ4RCtrn3vy21NYwBOEzTq6vdM-I/edit)  
+<a id="2.3.1"></a>2.3.1 [2016 Issues Statement of Work (One Fact Only)](https://docs.google.com/document/d/1li2mQ-CVW0z5fm0qz6Bxw-zvalL1kPBc6sCgLQc9G8Y/edit)  
+<a id="2.4"></a>2.4 [SAAB - Model Element Move Test Plan (One Fact Only)](https://docs.google.com/document/d/1WsYH0_gSdhurP3-jo3oG_w6itWMGnhZ99RcurpJVv44/edit)  
+<a id="2.5"></a>2.5 [SAAB Dynamics - Test Results (One Fact Only)](https://docs.google.com/document/d/16YCPUdr2TZVdi92cRvLzog9Nw_UIsI99yheMr9u1HlA/edit)  
+<a id="2.6"></a>2.6 [SAAB Aero - Test Results (One Fact Only)](https://docs.google.com/document/d/1AzbJy9dVS2VSmNdBQ4RCtrn3vy21NYwBOEzTq6vdM-I/edit)  
 <a id="2.7"></a>2.7 [BridgePoint DEI #8853](https://support.onefact.net/issues/8853) The result of an undo operation is not always the exact same file on disk.     
 <a id="2.8"></a>2.8 [BridgePoint DEI #9137](https://support.onefact.net/issues/9137) Address performance issues found profiling 5.2.2 vs 6.0.0.  
-<a id="2.9"></a>2.9 [BridgePoint DEI #xxx3](https://support.onefact.net/issues/xxx3) TODO: Add description here.  
 
 3. Background
 -------------
@@ -93,13 +92,13 @@ The items called out here are not part of the issues at hand.
 6. Work Required (Issues to be addressed)
 ----------------
 6.1 Dynamics: Section 2 - 2.2.3-N-extended  
-TODO: Reproduce and report. If this is a problem, add the test case to the MEM test plan  
+TODO: Add the test case to the MEM test plan  
 6.2 Dynamics: Section 2 - 2.4.1-Z and 2.4.1-Z-extended  
-TODO: Reproduce and report. If this is a problem, add the test case to the MEM test plan  
+TODO: Add the test case to the MEM test plan  
 6.3 Dynamics: Section 4 - Martin-1.5, Martin-1.6, Martin-1.7, Martin-1.8  
-TODO: Create a One Fact test issue for these senarios. Reproduce.  
+TODO: Create a One Fact test issue for these senarios or add to exiting test for this issue.   
 6.4 Dynamics: Section 8 - Martin-1.1  
-TODO: Reproduce. Add this test to the test case created for [#8557](https://support.onefact.net/issues/8557)  
+TODO: Add this test to the test case created for [#8557](https://support.onefact.net/issues/8557)  
 
 7. Acceptance Test
 ------------------
