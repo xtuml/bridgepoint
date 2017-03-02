@@ -58,8 +58,8 @@ public class MASLParser extends AbstractContentAssistParser {
 					put(grammarAccess.getStateTypeSyntaxAccess().getAlternatives(), "rule__StateTypeSyntax__Alternatives");
 					put(grammarAccess.getTransitionRowAccess().getAlternatives_0(), "rule__TransitionRow__Alternatives_0");
 					put(grammarAccess.getTransitionRowAccess().getNonExistantAlternatives_0_1_0(), "rule__TransitionRow__NonExistantAlternatives_0_1_0");
-					put(grammarAccess.getTransitionOptionAccess().getAlternatives_2(), "rule__TransitionOption__Alternatives_2");
-					put(grammarAccess.getTransitionOptionAccess().getCannotHappenAlternatives_2_2_0(), "rule__TransitionOption__CannotHappenAlternatives_2_2_0");
+					put(grammarAccess.getTransitionOptionAccess().getAlternatives_3(), "rule__TransitionOption__Alternatives_3");
+					put(grammarAccess.getTransitionOptionAccess().getCannotHappenAlternatives_3_2_0(), "rule__TransitionOption__CannotHappenAlternatives_3_2_0");
 					put(grammarAccess.getDomainServiceDeclarationAccess().getAlternatives_1(), "rule__DomainServiceDeclaration__Alternatives_1");
 					put(grammarAccess.getRelationshipDefinitionAccess().getAlternatives_1(), "rule__RelationshipDefinition__Alternatives_1");
 					put(grammarAccess.getDomainServiceDefinitionAccess().getAlternatives_1(), "rule__DomainServiceDefinition__Alternatives_1");
@@ -176,6 +176,7 @@ public class MASLParser extends AbstractContentAssistParser {
 					put(grammarAccess.getTransitionRowAccess().getGroup_2(), "rule__TransitionRow__Group_2__0");
 					put(grammarAccess.getTransitionRowAccess().getGroup_2_1(), "rule__TransitionRow__Group_2_1__0");
 					put(grammarAccess.getTransitionOptionAccess().getGroup(), "rule__TransitionOption__Group__0");
+					put(grammarAccess.getTransitionOptionAccess().getGroup_0(), "rule__TransitionOption__Group_0__0");
 					put(grammarAccess.getDomainServiceDeclarationAccess().getGroup(), "rule__DomainServiceDeclaration__Group__0");
 					put(grammarAccess.getDomainServiceDeclarationAccess().getGroup_4(), "rule__DomainServiceDeclaration__Group_4__0");
 					put(grammarAccess.getRelationshipDefinitionAccess().getGroup(), "rule__RelationshipDefinition__Group__0");
@@ -438,10 +439,11 @@ public class MASLParser extends AbstractContentAssistParser {
 					put(grammarAccess.getTransitionRowAccess().getNonExistantAssignment_0_1(), "rule__TransitionRow__NonExistantAssignment_0_1");
 					put(grammarAccess.getTransitionRowAccess().getOptionsAssignment_2_0(), "rule__TransitionRow__OptionsAssignment_2_0");
 					put(grammarAccess.getTransitionRowAccess().getOptionsAssignment_2_1_1(), "rule__TransitionRow__OptionsAssignment_2_1_1");
-					put(grammarAccess.getTransitionOptionAccess().getEventAssignment_0(), "rule__TransitionOption__EventAssignment_0");
-					put(grammarAccess.getTransitionOptionAccess().getEndStateAssignment_2_0(), "rule__TransitionOption__EndStateAssignment_2_0");
-					put(grammarAccess.getTransitionOptionAccess().getIgnoreAssignment_2_1(), "rule__TransitionOption__IgnoreAssignment_2_1");
-					put(grammarAccess.getTransitionOptionAccess().getCannotHappenAssignment_2_2(), "rule__TransitionOption__CannotHappenAssignment_2_2");
+					put(grammarAccess.getTransitionOptionAccess().getEventObjectAssignment_0_0(), "rule__TransitionOption__EventObjectAssignment_0_0");
+					put(grammarAccess.getTransitionOptionAccess().getEventAssignment_1(), "rule__TransitionOption__EventAssignment_1");
+					put(grammarAccess.getTransitionOptionAccess().getEndStateAssignment_3_0(), "rule__TransitionOption__EndStateAssignment_3_0");
+					put(grammarAccess.getTransitionOptionAccess().getIgnoreAssignment_3_1(), "rule__TransitionOption__IgnoreAssignment_3_1");
+					put(grammarAccess.getTransitionOptionAccess().getCannotHappenAssignment_3_2(), "rule__TransitionOption__CannotHappenAssignment_3_2");
 					put(grammarAccess.getDomainServiceDeclarationAccess().getVisibilityAssignment_0(), "rule__DomainServiceDeclaration__VisibilityAssignment_0");
 					put(grammarAccess.getDomainServiceDeclarationAccess().getNameAssignment_2(), "rule__DomainServiceDeclaration__NameAssignment_2");
 					put(grammarAccess.getDomainServiceDeclarationAccess().getReturnTypeAssignment_4_1(), "rule__DomainServiceDeclaration__ReturnTypeAssignment_4_1");

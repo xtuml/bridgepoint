@@ -7106,7 +7106,8 @@ public class MASLSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	 *
 	 * Constraint:
 	 *     (
-	 *         event=[EventDefinition|ScopedName] 
+	 *         eventObject=[ObjectDefinition|ID]? 
+	 *         event=[EventDefinition|ID] 
 	 *         (endState=[StateDeclaration|ID] | ignore?='Ignore' | cannotHappen?='Cannot_Happen' | cannotHappen?='cannot_happen')
 	 *     )
 	 */
