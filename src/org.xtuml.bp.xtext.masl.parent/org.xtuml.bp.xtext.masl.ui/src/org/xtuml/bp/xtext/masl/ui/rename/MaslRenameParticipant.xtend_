@@ -43,7 +43,7 @@ class MaslRenameParticipant implements IRenameElementParticipant {
 		if(eClasses.empty)
 			return Status.CANCEL_STATUS
 		this.oldQNames = getMaslQualifiedNames(xtumlElement, oldName)
-		if(oldQNames == null)
+		if(oldQNames == null || oldQNames.isEmpty )
 			return Status.CANCEL_STATUS
 		val renameElementContext = getRenameElementContext(eClasses, oldQNames, projects)
 		if(renameElementContext.empty) 

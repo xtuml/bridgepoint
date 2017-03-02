@@ -158,7 +158,7 @@ public class ImportWorkbenchAdvisor extends BPCLIWorkbenchAdvisor {
 			throw new BPCLIException("The single file import requires the target project already exist.");
 		}
 		
-		PlatformUI.getWorkbench().getDisplay().asyncExec(new Runnable() {
+		PlatformUI.getWorkbench().getDisplay().syncExec(new Runnable() {
 			
 			@Override
 			public void run() {
@@ -174,13 +174,16 @@ public class ImportWorkbenchAdvisor extends BPCLIWorkbenchAdvisor {
 					if(!setupSucceeded) {
 						throw new BPCLIException("The import process failed.");
 					}
+					
+					ProjectUtilities.allowJobCompletion();
+
 				} catch (CoreException e) {
 					System.out.println(e.toString());
 				} catch (BPCLIException e) {
 					System.out.println(e.toString());
 				}
 			}
-		});
+		});		
 	}
 	
 	

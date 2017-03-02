@@ -12,6 +12,7 @@ import org.eclipse.xtext.xbase.lib.CollectionLiterals;
 import org.eclipse.xtext.xbase.lib.Conversions;
 import org.eclipse.xtext.xbase.lib.Extension;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
+import org.eclipse.xtext.xbase.lib.IterableExtensions;
 import org.eclipse.xtext.xbase.lib.ListExtensions;
 import org.xtuml.bp.core.Association_c;
 import org.xtuml.bp.core.Attribute_c;
@@ -32,6 +33,8 @@ import org.xtuml.bp.core.ModelClass_c;
 import org.xtuml.bp.core.NewStateTransition_c;
 import org.xtuml.bp.core.OperationParameter_c;
 import org.xtuml.bp.core.Operation_c;
+import org.xtuml.bp.core.Package_c;
+import org.xtuml.bp.core.PackageableElement_c;
 import org.xtuml.bp.core.Port_c;
 import org.xtuml.bp.core.PropertyParameter_c;
 import org.xtuml.bp.core.ProvidedExecutableProperty_c;
@@ -226,7 +229,7 @@ public class XtumlToMaslMapper {
     if (!_matched) {
       if (xtumlElement instanceof InterfaceOperation_c) {
         _matched=true;
-        ArrayList<QualifiedName> _xblockexpression = null;
+        List<QualifiedName> _xblockexpression = null;
         {
           final ArrayList<QualifiedName> ops = CollectionLiterals.<QualifiedName>newArrayList();
           ExecutableProperty_c _oneC_EPOnR4004 = ExecutableProperty_c.getOneC_EPOnR4004(((InterfaceOperation_c)xtumlElement));
@@ -245,7 +248,11 @@ public class XtumlToMaslMapper {
           };
           List<QualifiedName> _map_1 = ListExtensions.<ProvidedOperation_c, QualifiedName>map(((List<ProvidedOperation_c>)Conversions.doWrapArray(_manySPR_POsOnR4503)), _function_1);
           Iterables.<QualifiedName>addAll(ops, _map_1);
-          _xblockexpression = ops;
+          final Function1<QualifiedName, Boolean> _function_2 = (QualifiedName it) -> {
+            return Boolean.valueOf(this.nonNull(it));
+          };
+          Iterable<QualifiedName> _filter = IterableExtensions.<QualifiedName>filter(ops, _function_2);
+          _xblockexpression = IterableExtensions.<QualifiedName>toList(_filter);
         }
         _switchResult = _xblockexpression;
       }
@@ -253,7 +260,7 @@ public class XtumlToMaslMapper {
     if (!_matched) {
       if (xtumlElement instanceof PropertyParameter_c) {
         _matched=true;
-        ArrayList<QualifiedName> _xblockexpression = null;
+        List<QualifiedName> _xblockexpression = null;
         {
           final ArrayList<QualifiedName> params = CollectionLiterals.<QualifiedName>newArrayList();
           ExecutableProperty_c _oneC_EPOnR4006 = ExecutableProperty_c.getOneC_EPOnR4006(((PropertyParameter_c)xtumlElement));
@@ -261,7 +268,11 @@ public class XtumlToMaslMapper {
           RequiredOperation_c[] _manySPR_ROsOnR4502 = RequiredOperation_c.getManySPR_ROsOnR4502(_manySPR_REPsOnR4500);
           final Function1<RequiredOperation_c, QualifiedName> _function = (RequiredOperation_c spr_ro) -> {
             QualifiedName _maslQualifiedName = this.getMaslQualifiedName(spr_ro);
-            return _maslQualifiedName.append(name);
+            QualifiedName _append = null;
+            if (_maslQualifiedName!=null) {
+              _append=_maslQualifiedName.append(name);
+            }
+            return _append;
           };
           List<QualifiedName> _map = ListExtensions.<RequiredOperation_c, QualifiedName>map(((List<RequiredOperation_c>)Conversions.doWrapArray(_manySPR_ROsOnR4502)), _function);
           Iterables.<QualifiedName>addAll(params, _map);
@@ -270,11 +281,19 @@ public class XtumlToMaslMapper {
           ProvidedOperation_c[] _manySPR_POsOnR4503 = ProvidedOperation_c.getManySPR_POsOnR4503(_manySPR_PEPsOnR4501);
           final Function1<ProvidedOperation_c, QualifiedName> _function_1 = (ProvidedOperation_c spr_po) -> {
             QualifiedName _maslQualifiedName = this.getMaslQualifiedName(spr_po);
-            return _maslQualifiedName.append(name);
+            QualifiedName _append = null;
+            if (_maslQualifiedName!=null) {
+              _append=_maslQualifiedName.append(name);
+            }
+            return _append;
           };
           List<QualifiedName> _map_1 = ListExtensions.<ProvidedOperation_c, QualifiedName>map(((List<ProvidedOperation_c>)Conversions.doWrapArray(_manySPR_POsOnR4503)), _function_1);
           Iterables.<QualifiedName>addAll(params, _map_1);
-          _xblockexpression = params;
+          final Function1<QualifiedName, Boolean> _function_2 = (QualifiedName it) -> {
+            return Boolean.valueOf(this.nonNull(it));
+          };
+          Iterable<QualifiedName> _filter = IterableExtensions.<QualifiedName>filter(params, _function_2);
+          _xblockexpression = IterableExtensions.<QualifiedName>toList(_filter);
         }
         _switchResult = _xblockexpression;
       }
@@ -282,12 +301,15 @@ public class XtumlToMaslMapper {
     if (!_matched) {
       if (xtumlElement instanceof StateMachineEventDataItem_c) {
         _matched=true;
-        ArrayList<QualifiedName> _xblockexpression = null;
+        List<QualifiedName> _xblockexpression = null;
         {
           final ArrayList<QualifiedName> params = CollectionLiterals.<QualifiedName>newArrayList();
           StateMachineEvent_c _oneSM_EVTOnR532 = StateMachineEvent_c.getOneSM_EVTOnR532(((StateMachineEventDataItem_c)xtumlElement));
           QualifiedName _maslQualifiedName = this.getMaslQualifiedName(_oneSM_EVTOnR532);
-          QualifiedName _append = _maslQualifiedName.append(name);
+          QualifiedName _append = null;
+          if (_maslQualifiedName!=null) {
+            _append=_maslQualifiedName.append(name);
+          }
           params.add(_append);
           StateMachineEvent_c _oneSM_EVTOnR532_1 = StateMachineEvent_c.getOneSM_EVTOnR532(((StateMachineEventDataItem_c)xtumlElement));
           SemEvent_c _oneSM_SEVTOnR525 = SemEvent_c.getOneSM_SEVTOnR525(_oneSM_EVTOnR532_1);
@@ -297,18 +319,30 @@ public class XtumlToMaslMapper {
           StateMachineState_c[] _manySM_STATEsOnR506 = StateMachineState_c.getManySM_STATEsOnR506(_manySM_TXNsOnR507);
           final Function1<StateMachineState_c, QualifiedName> _function = (StateMachineState_c sm_state) -> {
             QualifiedName _maslQualifiedName_1 = this.getMaslQualifiedName(sm_state);
-            return _maslQualifiedName_1.append(name);
+            QualifiedName _append_1 = null;
+            if (_maslQualifiedName_1!=null) {
+              _append_1=_maslQualifiedName_1.append(name);
+            }
+            return _append_1;
           };
           List<QualifiedName> _map = ListExtensions.<StateMachineState_c, QualifiedName>map(((List<StateMachineState_c>)Conversions.doWrapArray(_manySM_STATEsOnR506)), _function);
           Iterables.<QualifiedName>addAll(params, _map);
-          _xblockexpression = params;
+          final Function1<QualifiedName, Boolean> _function_1 = (QualifiedName it) -> {
+            return Boolean.valueOf(this.nonNull(it));
+          };
+          Iterable<QualifiedName> _filter = IterableExtensions.<QualifiedName>filter(params, _function_1);
+          _xblockexpression = IterableExtensions.<QualifiedName>toList(_filter);
         }
         _switchResult = _xblockexpression;
       }
     }
     if (!_matched) {
       QualifiedName _maslQualifiedName = this.getMaslQualifiedName(xtumlElement, name);
-      _switchResult = Collections.<QualifiedName>unmodifiableList(CollectionLiterals.<QualifiedName>newArrayList(_maslQualifiedName));
+      final Function1<QualifiedName, Boolean> _function = (QualifiedName it) -> {
+        return Boolean.valueOf(this.nonNull(it));
+      };
+      Iterable<QualifiedName> _filter = IterableExtensions.<QualifiedName>filter(Collections.<QualifiedName>unmodifiableList(CollectionLiterals.<QualifiedName>newArrayList(_maslQualifiedName)), _function);
+      _switchResult = IterableExtensions.<QualifiedName>toList(_filter);
     }
     return _switchResult;
   }
@@ -327,41 +361,57 @@ public class XtumlToMaslMapper {
       if (xtumlElement instanceof StateMachineEvent_c) {
         _matched=true;
         QualifiedName _maslQualifiedNamePrefix = this.getMaslQualifiedNamePrefix(xtumlElement);
-        String _mning = ((StateMachineEvent_c)xtumlElement).getMning();
-        _switchResult = _maslQualifiedNamePrefix.append(_mning);
+        QualifiedName _append = null;
+        if (_maslQualifiedNamePrefix!=null) {
+          String _mning = ((StateMachineEvent_c)xtumlElement).getMning();
+          _append=_maslQualifiedNamePrefix.append(_mning);
+        }
+        _switchResult = _append;
       }
     }
     if (!_matched) {
       if (xtumlElement instanceof Association_c) {
         _matched=true;
         QualifiedName _maslQualifiedNamePrefix = this.getMaslQualifiedNamePrefix(xtumlElement);
-        int _numb = ((Association_c)xtumlElement).getNumb();
-        String _plus = ("R" + Integer.valueOf(_numb));
-        _switchResult = _maslQualifiedNamePrefix.append(_plus);
+        QualifiedName _append = null;
+        if (_maslQualifiedNamePrefix!=null) {
+          int _numb = ((Association_c)xtumlElement).getNumb();
+          String _plus = ("R" + Integer.valueOf(_numb));
+          _append=_maslQualifiedNamePrefix.append(_plus);
+        }
+        _switchResult = _append;
       }
     }
     if (!_matched) {
       QualifiedName _maslQualifiedNamePrefix = this.getMaslQualifiedNamePrefix(xtumlElement);
-      String _name = xtumlElement.getName();
-      _switchResult = _maslQualifiedNamePrefix.append(_name);
+      QualifiedName _append = null;
+      if (_maslQualifiedNamePrefix!=null) {
+        String _name = xtumlElement.getName();
+        _append=_maslQualifiedNamePrefix.append(_name);
+      }
+      _switchResult = _append;
     }
     return _switchResult;
   }
   
   public QualifiedName getMaslQualifiedName(final NonRootModelElement xtumlElement, final String name) {
-    QualifiedName _xblockexpression = null;
-    {
-      final QualifiedName prefix = this.getMaslQualifiedNamePrefix(xtumlElement);
-      QualifiedName _xifexpression = null;
-      boolean _notEquals = (!Objects.equal(null, prefix));
-      if (_notEquals) {
-        _xifexpression = prefix.append(name);
-      } else {
-        _xifexpression = QualifiedName.create(name);
+    QualifiedName _switchResult = null;
+    boolean _matched = false;
+    if (!_matched) {
+      if (xtumlElement instanceof Component_c) {
+        _matched=true;
+        _switchResult = QualifiedName.create(name);
       }
-      _xblockexpression = _xifexpression;
     }
-    return _xblockexpression;
+    if (!_matched) {
+      QualifiedName _maslQualifiedNamePrefix = this.getMaslQualifiedNamePrefix(xtumlElement);
+      QualifiedName _append = null;
+      if (_maslQualifiedNamePrefix!=null) {
+        _append=_maslQualifiedNamePrefix.append(name);
+      }
+      _switchResult = _append;
+    }
+    return _switchResult;
   }
   
   private QualifiedName getMaslQualifiedNamePrefix(final NonRootModelElement xtumlElement) {
@@ -457,15 +507,15 @@ public class XtumlToMaslMapper {
     if (!_matched) {
       if (xtumlElement instanceof DataType_c) {
         _matched=true;
-        UserDataType_c _oneS_UDTOnR17 = UserDataType_c.getOneS_UDTOnR17(((DataType_c)xtumlElement));
-        _switchResult = this.getMaslQualifiedNamePrefix(_oneS_UDTOnR17);
+        NonRootModelElement _component = this.getComponent(xtumlElement);
+        _switchResult = this.getMaslQualifiedName(_component);
       }
     }
     if (!_matched) {
       if (xtumlElement instanceof UserDataType_c) {
         _matched=true;
-        NonRootModelElement _component = this.getComponent(xtumlElement);
-        _switchResult = this.getMaslQualifiedName(_component);
+        DataType_c _oneS_DTOnR17 = DataType_c.getOneS_DTOnR17(((UserDataType_c)xtumlElement));
+        _switchResult = this.getMaslQualifiedNamePrefix(_oneS_DTOnR17);
       }
     }
     if (!_matched) {
@@ -514,6 +564,10 @@ public class XtumlToMaslMapper {
   }
   
   private NonRootModelElement getComponent(final NonRootModelElement xtumlElement) {
+    boolean _equals = Objects.equal(null, xtumlElement);
+    if (_equals) {
+      return null;
+    }
     PersistableModelComponent parent = xtumlElement.getPersistableComponent();
     while ((!Objects.equal(parent, null))) {
       NonRootModelElement _rootModelElement = parent.getRootModelElement();
@@ -524,6 +578,27 @@ public class XtumlToMaslMapper {
         parent = _parent;
       }
     }
+    if ((xtumlElement instanceof DataType_c)) {
+      PackageableElement_c _onePE_PEOnR8001 = PackageableElement_c.getOnePE_PEOnR8001(((DataType_c)xtumlElement));
+      Package_c _oneEP_PKGOnR8000 = Package_c.getOneEP_PKGOnR8000(_onePE_PEOnR8001);
+      PackageableElement_c _onePE_PEOnR8001_1 = PackageableElement_c.getOnePE_PEOnR8001(_oneEP_PKGOnR8000);
+      Package_c _oneEP_PKGOnR8000_1 = Package_c.getOneEP_PKGOnR8000(_onePE_PEOnR8001_1);
+      PackageableElement_c[] _manyPE_PEsOnR8000 = PackageableElement_c.getManyPE_PEsOnR8000(_oneEP_PKGOnR8000_1);
+      final Component_c[] components = Component_c.getManyC_CsOnR8001(_manyPE_PEsOnR8000);
+      int _length = components.length;
+      boolean _equals_1 = (_length == 1);
+      if (_equals_1) {
+        return components[0];
+      }
+    }
     return null;
+  }
+  
+  private boolean nonNull(final Object obj) {
+    boolean _notEquals = (!Objects.equal(obj, null));
+    if (_notEquals) {
+      return true;
+    }
+    return false;
   }
 }

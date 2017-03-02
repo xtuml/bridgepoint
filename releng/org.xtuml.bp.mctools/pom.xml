@@ -95,18 +95,18 @@
                     <include>MASLParser.jar</include>
                     <include>xtumlmc_build</include>
                     <include>CLI.sh</include>
+                    <include>masl2xtuml</include>
+                    <include>masldiff</include>
+                    <include>xtuml2masl</include>
+                    <include>masl_round_trip</include>
+                    <include>importworkspace.zip</include>
                     <!-- Don't have mac versions of these yet
                     <include>docgen</include>
                     <include>mcmc</include>
                     <include>mcmc64</include>
                     <include>m2x</include>
                     <include>masl</include>
-                    <include>masl2xtuml</include>
-                    <include>masldiff</include>
                     <include>x2m</include>
-                    <include>xtuml2masl</include>
-                    <include>masl_round_trip</include>
-                    <include>importworkspace.zip</include>
                     -->
                   </includes>
                 </resource>
