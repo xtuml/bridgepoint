@@ -223,8 +223,8 @@ connection to the original MASL domain or MASL project is suggested.
 2. Enable the IPR preference for the created project using the steps described below.
 3. Select __File>Import__ to start a model import. This will open the Import model wizard.
 4. Expand the xtUML folder and select xtUML Model from the list of import sources.
-5. After __&lt;click&gt;__ing on Next, enter the full path to the MASL-infused xtUML model file 
-to be imported. Pressing the Browse button will open a file browser where __&lt;click&gt;__s are 
+5. After __&lt;click&gt;__ ing on Next, enter the full path to the MASL-infused xtUML model file 
+to be imported. Pressing the Browse button will open a file browser where __&lt;click&gt;__ s are 
 used to navigate through the folder list down to the file to be imported.
 6. Once the path is entered, __&lt;click&gt;__ Finish to initiate the import.
 7. Upon completion, the Model Explorer view will be updated.
@@ -384,8 +384,9 @@ you will find the subdirectories GPSWatch, HeartRateMonitor, Location, Tracking 
 3. To convert each MASL domain and MASL project to an equivalent xtUML model the ```masl2xtuml``` tool 
 is used. Each of the subdirectories will be converted individually in any order using this tool and 
 the converted projects placed in ```~/Tutorial/xtUMLprj```.
-4. The command to convert HeartRateMonitor is ```<installation>/tools/mc/bin/masl2xtuml -d ./HeartRateMonitor -o ../xtUMLprj```
-5. Repeat step 4 for the other MASL domains and MASL projects in the directory  
+4. The command to convert GPSWatch is ```<installation>/tools/mc/bin/masl2xtuml -p GPSWatch -o ../xtUMLprj```
+5. The command to convert HeartRateMonitor is ```<installation>/tools/mc/bin/masl2xtuml -d ./HeartRateMonitor -o ../xtUMLprj```
+6. Repeat step 5 for the other MASL domains in the directory: Location, Tracking, and UI  
   
 At the conclusion, the xtUMLprj directory will contain five subdirectories with names matching 
 the five subdirectories under ```~/Tutorial/MASLsrc```.
@@ -449,10 +450,9 @@ of steps:
 
 ### Modify MASL
 
-The selection of MASL and OAL code blocks is identical, and when there is only one or the 
-other then __&lt;dbl-click&gt;__ will open the default editor. As mentioned previously, when a model 
-contains MASL-infused xtUML model elements, the __&lt;dbl-click&gt;__ behavior is based on a preference 
-selection and the given dialect for an activity.  
+As mentioned previously, when a model contains MASL-infused xtUML model elements, the __&lt;dbl-click&gt;__ 
+behavior is based on the default action language preference selection and the given dialect for an 
+activity.  
   
 In the tutorial model, the Tracking domain contains MASL-infused model elements and MASL code 
 will be added to the stopped state within the WorkoutTimer state machine. The steps to make 
