@@ -91,33 +91,120 @@ The items called out here are not part of the issues at hand.
 
 6. Work Required (Issues to be addressed)
 ----------------
-6.1 Dynamics: Section 2 - 2.2.3-N-extended  
-TODO: Add the test case to the MEM test plan  
-6.2 Dynamics: Section 2 - 2.4.1-Z and 2.4.1-Z-extended  
-TODO: Add the test case to the MEM test plan  
-6.3 Dynamics: Section 4 - Martin-1.5, Martin-1.6, Martin-1.7, Martin-1.8  
-TODO: Create a One Fact test issue for these senarios or add to exiting test for this issue.   
-6.4 Dynamics: Section 8 - Martin-1.1  
-TODO: Add this test to the test case created for [#8557](https://support.onefact.net/issues/8557)  
+6.1 references to deleted projects seem to exist after deletion  
+SAAB reference: Dynamics: Section 2 - 2.2.3-N-extended  
+6.1.1 setup  
+* Models in BP_test in git,  
+* Model projects :  
+  * a) TC_2_2  
+  * b) TC_2_2_refA  
+  * c) TC_2_2refB  
+6.1.2 reproduction steps  
+* a), b) and c) in workspace  
+* create comp in c) using the If  
+* commit to CM  
+* delete c) from ws  
+* cut If from b) into a) the package there If was first defined  
+* Dialog that Visibility fails => Incorrect Error Report  
+* Shutdown of BP  
+* Delete of workspace  
+* Create of workspace and import of a) b and c)  
+  * 9a Restart of BP  
+* Try to repeat 5 above, same result  
+* Delete of c) from workspace  
+ 
+6.2 Graphics errors during move, port not connected  
+SAAB reference: Dynamics: Section 2 - 2.4.1-Z and 2.4.1-Z-extended  
+6.2.1 setup
+* Models in BP_test in git,  
+* Model projects :  
+  * a) TC_2_4  
+  * b) TC_2_4_refA    
+6.2.2 Move from not top level to not top level  
+* a ) and b) in workspace, Moved a comp to b)  
+* moved comp is not ok => Error multiple ports, graphic errors  
+* restart  
+* still error in moved comp => Error graphic, port not correct connected  
+* Revert the complete model  
+* Perform 1 again and result according to 2  
+* Perform Undo  
+
+6.2.3 Move from not top level to top level  
+* < repeat steps above for this senario >  
+
+6.3 Unable to formalize associations to a shared class  
+SAAB reference: Dynamics: Section 4 - Martin-1.5, Martin-1.6, Martin-1.7, Martin-1.8  
+6.3.1 setup  
+* Models in BP_Shared_Classes in git,  
+* Model projects :  
+  *  Initial_Test  
+  *  Initial_Test_refA  
+* BP installation configured for component ‘org.xtuml.bp.core/bridgepoint_prefs_opaque_components=true’  
+
+6.3.2  case 1  
+* create association between a component defined class and an imported class  
+  *  model is ok  
+* try formalize the association using the imported class  
+* not possible => Error, shall be allowed  
+* try formalize the association using the defined class  
+* possible, the imported class is updated, also in definition. => Error, class shall be readonly  
+* note: This was repeated a number of time under different conditions. Sometimes it were possible to formalize using the imported class, mostly not. Almost all the times it were possible to formalize using the defined class, which affected the imported class  
+
+6.3.3 case 2  
+* create association between a component defined class and an imported class  
+  * model is ok  
+* create a new class and use as an association class  
+* try formalize the association  
+* Nothing happens  
+* Error log indicates unhandled event loop exception  
+
+6.3.4 case 3  
+* 1 create super type of the imported class and a subtype of a component defined class  
+  * model is ok  
+* try formalize the association  
+* Formalize dialog is empty  
+* model is not ok, shall be possible => Error  
+* create super type of a defined class and a subtype of an imported class  
+  * model is ok  
+* try formalize the association  
+  * note: The defined class is possible to select => Error shall not be possible to select  
+* select ok,  
+* An error is displayed, Transaction: Inheritance Formalize failed . This is correct but shall be prohibited earlier in the phase  
+
+
+6.3.5 case 4  
+* import two classes using an imported package  
+* create an association between the class  
+* model is ok  
+* try formalize the association using any class  
+* possible => Error shall not be possible to modify the classes  
+* model is incorrect  
+ 
+ 
+6.4 When issue [#8641](https://support.onefact.net/issues/8641) was resolved it did not consider the data TYPE change.  Data type of a message parameter is allowed to be changed and should not be.    
+SAAB reference: Dynamics: Section 8 - Martin-1.1  
+6.4.1 setup  
+* Models in BP_PR in git,  
+* Model projects :  
+  * PR_7541  
+6.4.2 steps  
+* define interface with signal and op with parameter  in a)  
+* use if in a component  
+* create component reference  
+* Try change using component reference in model explorer view, Port-Name, Port-Message, Port-Message-Parameter, Port-Message_Operation-Return type  
+* model is ok, not possible change  
+* Try change using component definition in model explorer view, Port-Message, Port-Message-Parameter, Port-Message_Operation-Return type  
+* model is ok, not possible change  
+* Try change using component reference in model property view, Port-Name, Port-Message, Port-Message-Parameter, Port-Message_Operation-Return type  
+* model is not ok,  ERROR => possible to change message parameter type  
+* Try change using component definition in model property view, Port-Name, Port-Message, Port-Message-Parameter, Port-Message_Operation-Return type  
+* model is not ok,  ERROR => possible to changemessage parameter type  
 
 7. Acceptance Test
 ------------------
 7.1 Model Element Move Testing  
 7.1.1 Enhance the One Fact Model Element Move test plan to include the following SAAB test plan tests  
-7.1.1.1 
-1 a), b) and c) in workspace
- 2 create comp in c) using the If
- 3 commit to CM
- 4 delete c) from ws
- 5 cut If from b) into a) the package there If was first defined
- 6 Dialog that Visibility fails => Incorrect Error Report
- 7 Shutdown of BP
- 8 Delete of workspace
- 9 Create of workspace and import of a) b and c)
-9a Restart of BP
- 10 Try to repeat 5 above, same result
- 11 Delete of c) from workspace
- 
+7.1.1.1 Dynamics: Section 2 - 2.2.3-N-extended
 7.1.1.1 item 2  
 7.1.1.1 item 3  
 
