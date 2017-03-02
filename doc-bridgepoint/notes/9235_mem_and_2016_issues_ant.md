@@ -31,6 +31,12 @@ This is a link to a query in the One Fact issue tracking system that shows the i
 <a id="2.6"></a>2.6 [SAAB Aero - Test Results (One Fact Only)](https://docs.google.com/document/d/1AzbJy9dVS2VSmNdBQ4RCtrn3vy21NYwBOEzTq6vdM-I/edit)  
 <a id="2.7"></a>2.7 [BridgePoint DEI #8853](https://support.onefact.net/issues/8853) The result of an undo operation is not always the exact same file on disk.     
 <a id="2.8"></a>2.8 [BridgePoint DEI #9137](https://support.onefact.net/issues/9137) Address performance issues found profiling 5.2.2 vs 6.0.0.  
+<a id="2.9"></a>2.9 [Rename failure caused by reference to a deleted element #9246](https://support.onefact.net/issues/9246)  
+<a id="2.10"></a>2.10 [Graphics errors after element move DEI #9247](https://support.onefact.net/issues/9247)  
+<a id="2.11"></a>2.11 [Unable to formalize assocaitions to/from shared classes #9248](https://support.onefact.net/issues/9248) 
+<a id="2.12"></a>2.12 [Do not allow the data type to be changed in ports #9249](https://support.onefact.net/issues/9249)  
+
+
 
 3. Background
 -------------
@@ -89,17 +95,27 @@ Not part of the work at hand. No action.
 5.2.3 Analysis of notes in section 7 (other noteworthy discoveries)  
 The items called out here are not part of the issues at hand.  
 
-6. Work Required (Issues to be addressed)
+6. Issues to be addressed
 ----------------
-6.1 references to deleted projects seem to exist after deletion  
+6.1 [Rename failure caused by reference to a deleted element #9246](https://support.onefact.net/issues/9246)  
+6.2 [Graphics errors after element move DEI #9247](https://support.onefact.net/issues/9247)  
+6.3 [Unable to formalize assocaitions to/from shared classes #9248](https://support.onefact.net/issues/9248)  
+6.4 [Do not allow the data type to be changed in ports #9249](https://support.onefact.net/issues/9249)  
+
+
+7. SAAB Test Cases
+------------------
+The following test cases refer to SAAB test cases. In the specific issues raised in the section above these must be modified to refer to One Fact test cases that capture the reported problems such. This is simply here as an aide to the reader to get an idea of the steps to reproduce the problems.  
+
+7.1 references to deleted projects seem to exist after deletion  
 SAAB reference: Dynamics: Section 2 - 2.2.3-N-extended  
-6.1.1 setup  
+7.1.1 setup  
 * Models in BP_test in git,  
 * Model projects :  
   * a) TC_2_2  
   * b) TC_2_2_refA  
   * c) TC_2_2refB  
-6.1.2 reproduction steps  
+7.1.2 reproduction steps  
 * a), b) and c) in workspace  
 * create comp in c) using the If  
 * commit to CM  
@@ -113,14 +129,14 @@ SAAB reference: Dynamics: Section 2 - 2.2.3-N-extended
 * Try to repeat 5 above, same result  
 * Delete of c) from workspace  
  
-6.2 Graphics errors during move, port not connected  
+7.2 Graphics errors during move, port not connected  
 SAAB reference: Dynamics: Section 2 - 2.4.1-Z and 2.4.1-Z-extended  
-6.2.1 setup
+7.2.1 setup
 * Models in BP_test in git,  
 * Model projects :  
   * a) TC_2_4  
   * b) TC_2_4_refA    
-6.2.2 Move from not top level to not top level  
+7.2.2 Move from not top level to not top level  
 * a ) and b) in workspace, Moved a comp to b)  
 * moved comp is not ok => Error multiple ports, graphic errors  
 * restart  
@@ -129,10 +145,10 @@ SAAB reference: Dynamics: Section 2 - 2.4.1-Z and 2.4.1-Z-extended
 * Perform 1 again and result according to 2  
 * Perform Undo  
 
-6.2.3 Move from not top level to top level  
+7.2.3 Move from not top level to top level  
 * < repeat steps above for this senario >  
 
-6.3 Unable to formalize associations to a shared class  
+7.3 Unable to formalize associations to a shared class  
 SAAB reference: Dynamics: Section 4 - Martin-1.5, Martin-1.6, Martin-1.7, Martin-1.8  
 6.3.1 setup  
 * Models in BP_Shared_Classes in git,  
@@ -141,7 +157,7 @@ SAAB reference: Dynamics: Section 4 - Martin-1.5, Martin-1.6, Martin-1.7, Martin
   *  Initial_Test_refA  
 * BP installation configured for component ‘org.xtuml.bp.core/bridgepoint_prefs_opaque_components=true’  
 
-6.3.2  case 1  
+7.3.2  case 1  
 * create association between a component defined class and an imported class  
   *  model is ok  
 * try formalize the association using the imported class  
@@ -150,7 +166,7 @@ SAAB reference: Dynamics: Section 4 - Martin-1.5, Martin-1.6, Martin-1.7, Martin
 * possible, the imported class is updated, also in definition. => Error, class shall be readonly  
 * note: This was repeated a number of time under different conditions. Sometimes it were possible to formalize using the imported class, mostly not. Almost all the times it were possible to formalize using the defined class, which affected the imported class  
 
-6.3.3 case 2  
+7.3.3 case 2  
 * create association between a component defined class and an imported class  
   * model is ok  
 * create a new class and use as an association class  
@@ -158,7 +174,7 @@ SAAB reference: Dynamics: Section 4 - Martin-1.5, Martin-1.6, Martin-1.7, Martin
 * Nothing happens  
 * Error log indicates unhandled event loop exception  
 
-6.3.4 case 3  
+7.3.4 case 3  
 * 1 create super type of the imported class and a subtype of a component defined class  
   * model is ok  
 * try formalize the association  
@@ -172,7 +188,7 @@ SAAB reference: Dynamics: Section 4 - Martin-1.5, Martin-1.6, Martin-1.7, Martin
 * An error is displayed, Transaction: Inheritance Formalize failed . This is correct but shall be prohibited earlier in the phase  
 
 
-6.3.5 case 4  
+7.3.5 case 4  
 * import two classes using an imported package  
 * create an association between the class  
 * model is ok  
@@ -181,13 +197,13 @@ SAAB reference: Dynamics: Section 4 - Martin-1.5, Martin-1.6, Martin-1.7, Martin
 * model is incorrect  
  
  
-6.4 When issue [#8641](https://support.onefact.net/issues/8641) was resolved it did not consider the data TYPE change.  Data type of a message parameter is allowed to be changed and should not be.    
+7.4 When issue [#8641](https://support.onefact.net/issues/8641) was resolved it did not consider the data TYPE change.  Data type of a message parameter is allowed to be changed and should not be.    
 SAAB reference: Dynamics: Section 8 - Martin-1.1  
-6.4.1 setup  
+7.4.1 setup  
 * Models in BP_PR in git,  
 * Model projects :  
   * PR_7541  
-6.4.2 steps  
+7.4.2 steps  
 * define interface with signal and op with parameter  in a)  
 * use if in a component  
 * create component reference  
@@ -199,21 +215,6 @@ SAAB reference: Dynamics: Section 8 - Martin-1.1
 * model is not ok,  ERROR => possible to change message parameter type  
 * Try change using component definition in model property view, Port-Name, Port-Message, Port-Message-Parameter, Port-Message_Operation-Return type  
 * model is not ok,  ERROR => possible to changemessage parameter type  
-
-7. Acceptance Test
-------------------
-7.1 Model Element Move Testing  
-7.1.1 Enhance the One Fact Model Element Move test plan to include the following SAAB test plan tests  
-7.1.1.1 Dynamics: Section 2 - 2.2.3-N-extended
-7.1.1.1 item 2  
-7.1.1.1 item 3  
-
-7.2 TODO: Retest 2016 issue failure case 1  
-7.2.1 TODO: Point to the One Fact test issue  
-
-7.3 TODO: Retest 2016 issue failure case 2  
-7.3.1 TODO: Point to the One Fact test issue  
-
 
 End
 ---
