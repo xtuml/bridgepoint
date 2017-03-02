@@ -1,4 +1,7 @@
 package org.xtuml.bp.ui.text.activity;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+
 //====================================================================
 //
 // File:      $RCSfile: ShowActivityAction.java,v $
@@ -16,10 +19,15 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.ui.IActionDelegate;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.PlatformUI;
-
+import org.xtuml.bp.core.ActionHome_c;
+import org.xtuml.bp.core.Action_c;
+import org.xtuml.bp.core.Actiondialect_c;
 import org.xtuml.bp.core.Attribute_c;
 import org.xtuml.bp.core.BaseAttribute_c;
 import org.xtuml.bp.core.DerivedBaseAttribute_c;
+import org.xtuml.bp.core.MooreActionHome_c;
+import org.xtuml.bp.core.StateMachineState_c;
+import org.xtuml.bp.core.common.NonRootModelElement;
 import org.xtuml.bp.ui.text.IModelElementEditorInputFactory;
 import org.xtuml.bp.ui.text.TextPlugin;
 
@@ -56,5 +64,48 @@ public class ShowActivityAction implements IActionDelegate
   public void selectionChanged(IAction action, ISelection selection)
   {
     currentSelection = (IStructuredSelection) selection;
+    if ( currentSelection.size() == 1 ) {
+        Object element = currentSelection.getFirstElement();
+        action.setEnabled( editorEnabled((NonRootModelElement)element) );
+    }
   }
+
+   private static boolean editorEnabled( NonRootModelElement element ) {
+    	ActivityEditorInputFactory factory = ActivityEditorInputFactory.getDefaultInstance();
+        if ( factory.isSupported( element ) ) {
+            int dialect = -1;
+            NonRootModelElement dialectObj = element;
+            if (dialectObj instanceof StateMachineState_c) {
+                StateMachineState_c state = (StateMachineState_c) dialectObj;
+                Action_c action = Action_c.getOneSM_ACTOnR514(ActionHome_c
+                        .getOneSM_AHOnR513((MooreActionHome_c.getOneSM_MOAHOnR511(state))));
+                if (action != null) {
+                    dialectObj = action;
+                }
+            }
+            // Get the value of the dialect attribute
+            try {
+                Method getDialectMethod = dialectObj.getClass().getMethod("getDialect"); //$NON-NLS-1$
+                dialect = (int) getDialectMethod.invoke(dialectObj);
+            } catch (NoSuchMethodException e) {
+                System.out.println(e);
+            } catch (NullPointerException e) {
+                System.out.println(e);
+            } catch (SecurityException e) {
+                System.out.println(e);
+            } catch (IllegalAccessException e) {
+                System.out.println(e);
+            } catch (IllegalArgumentException e) {
+                System.out.println(e);
+            } catch (InvocationTargetException e) {
+                System.out.println(e);
+            } catch (ExceptionInInitializerError e) {
+                System.out.println(e);
+            }
+            if ( dialect != Actiondialect_c.none ) {
+                return true;
+            }
+        }
+        return false;
+    }
 }
