@@ -2776,71 +2776,91 @@ public class MASLGrammarAccess extends AbstractGrammarElementFinder {
 	public class TransitionOptionElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.xtuml.bp.xtext.masl.MASL.TransitionOption");
 		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Assignment cEventAssignment_0 = (Assignment)cGroup.eContents().get(0);
-		private final CrossReference cEventEventDefinitionCrossReference_0_0 = (CrossReference)cEventAssignment_0.eContents().get(0);
-		private final RuleCall cEventEventDefinitionScopedNameParserRuleCall_0_0_1 = (RuleCall)cEventEventDefinitionCrossReference_0_0.eContents().get(1);
-		private final Keyword cEqualsSignGreaterThanSignKeyword_1 = (Keyword)cGroup.eContents().get(1);
-		private final Alternatives cAlternatives_2 = (Alternatives)cGroup.eContents().get(2);
-		private final Assignment cEndStateAssignment_2_0 = (Assignment)cAlternatives_2.eContents().get(0);
-		private final CrossReference cEndStateStateDeclarationCrossReference_2_0_0 = (CrossReference)cEndStateAssignment_2_0.eContents().get(0);
-		private final RuleCall cEndStateStateDeclarationIDTerminalRuleCall_2_0_0_1 = (RuleCall)cEndStateStateDeclarationCrossReference_2_0_0.eContents().get(1);
-		private final Assignment cIgnoreAssignment_2_1 = (Assignment)cAlternatives_2.eContents().get(1);
-		private final Keyword cIgnoreIgnoreKeyword_2_1_0 = (Keyword)cIgnoreAssignment_2_1.eContents().get(0);
-		private final Assignment cCannotHappenAssignment_2_2 = (Assignment)cAlternatives_2.eContents().get(2);
-		private final Alternatives cCannotHappenAlternatives_2_2_0 = (Alternatives)cCannotHappenAssignment_2_2.eContents().get(0);
-		private final Keyword cCannotHappenCannot_HappenKeyword_2_2_0_0 = (Keyword)cCannotHappenAlternatives_2_2_0.eContents().get(0);
-		private final Keyword cCannotHappenCannot_happenKeyword_2_2_0_1 = (Keyword)cCannotHappenAlternatives_2_2_0.eContents().get(1);
+		private final Group cGroup_0 = (Group)cGroup.eContents().get(0);
+		private final Assignment cEventObjectAssignment_0_0 = (Assignment)cGroup_0.eContents().get(0);
+		private final CrossReference cEventObjectObjectDefinitionCrossReference_0_0_0 = (CrossReference)cEventObjectAssignment_0_0.eContents().get(0);
+		private final RuleCall cEventObjectObjectDefinitionIDTerminalRuleCall_0_0_0_1 = (RuleCall)cEventObjectObjectDefinitionCrossReference_0_0_0.eContents().get(1);
+		private final Keyword cFullStopKeyword_0_1 = (Keyword)cGroup_0.eContents().get(1);
+		private final Assignment cEventAssignment_1 = (Assignment)cGroup.eContents().get(1);
+		private final CrossReference cEventEventDefinitionCrossReference_1_0 = (CrossReference)cEventAssignment_1.eContents().get(0);
+		private final RuleCall cEventEventDefinitionIDTerminalRuleCall_1_0_1 = (RuleCall)cEventEventDefinitionCrossReference_1_0.eContents().get(1);
+		private final Keyword cEqualsSignGreaterThanSignKeyword_2 = (Keyword)cGroup.eContents().get(2);
+		private final Alternatives cAlternatives_3 = (Alternatives)cGroup.eContents().get(3);
+		private final Assignment cEndStateAssignment_3_0 = (Assignment)cAlternatives_3.eContents().get(0);
+		private final CrossReference cEndStateStateDeclarationCrossReference_3_0_0 = (CrossReference)cEndStateAssignment_3_0.eContents().get(0);
+		private final RuleCall cEndStateStateDeclarationIDTerminalRuleCall_3_0_0_1 = (RuleCall)cEndStateStateDeclarationCrossReference_3_0_0.eContents().get(1);
+		private final Assignment cIgnoreAssignment_3_1 = (Assignment)cAlternatives_3.eContents().get(1);
+		private final Keyword cIgnoreIgnoreKeyword_3_1_0 = (Keyword)cIgnoreAssignment_3_1.eContents().get(0);
+		private final Assignment cCannotHappenAssignment_3_2 = (Assignment)cAlternatives_3.eContents().get(2);
+		private final Alternatives cCannotHappenAlternatives_3_2_0 = (Alternatives)cCannotHappenAssignment_3_2.eContents().get(0);
+		private final Keyword cCannotHappenCannot_HappenKeyword_3_2_0_0 = (Keyword)cCannotHappenAlternatives_3_2_0.eContents().get(0);
+		private final Keyword cCannotHappenCannot_happenKeyword_3_2_0_1 = (Keyword)cCannotHappenAlternatives_3_2_0.eContents().get(1);
 		
 		//TransitionOption:
-		//	event=[EventDefinition|ScopedName] '=>' (endState=[StateDeclaration] | ignore?='Ignore' |
+		//	(eventObject=[ObjectDefinition] '.')? event=[EventDefinition] '=>' (endState=[StateDeclaration] | ignore?='Ignore' |
 		//	cannotHappen?=('Cannot_Happen' | 'cannot_happen'));
 		@Override public ParserRule getRule() { return rule; }
 		
-		//event=[EventDefinition|ScopedName] '=>' (endState=[StateDeclaration] | ignore?='Ignore' | cannotHappen?=('Cannot_Happen'
-		//| 'cannot_happen'))
+		//(eventObject=[ObjectDefinition] '.')? event=[EventDefinition] '=>' (endState=[StateDeclaration] | ignore?='Ignore' |
+		//cannotHappen?=('Cannot_Happen' | 'cannot_happen'))
 		public Group getGroup() { return cGroup; }
 		
-		//event=[EventDefinition|ScopedName]
-		public Assignment getEventAssignment_0() { return cEventAssignment_0; }
+		//(eventObject=[ObjectDefinition] '.')?
+		public Group getGroup_0() { return cGroup_0; }
 		
-		//[EventDefinition|ScopedName]
-		public CrossReference getEventEventDefinitionCrossReference_0_0() { return cEventEventDefinitionCrossReference_0_0; }
+		//eventObject=[ObjectDefinition]
+		public Assignment getEventObjectAssignment_0_0() { return cEventObjectAssignment_0_0; }
 		
-		//ScopedName
-		public RuleCall getEventEventDefinitionScopedNameParserRuleCall_0_0_1() { return cEventEventDefinitionScopedNameParserRuleCall_0_0_1; }
-		
-		//'=>'
-		public Keyword getEqualsSignGreaterThanSignKeyword_1() { return cEqualsSignGreaterThanSignKeyword_1; }
-		
-		//(endState=[StateDeclaration] | ignore?='Ignore' | cannotHappen?=('Cannot_Happen' | 'cannot_happen'))
-		public Alternatives getAlternatives_2() { return cAlternatives_2; }
-		
-		//endState=[StateDeclaration]
-		public Assignment getEndStateAssignment_2_0() { return cEndStateAssignment_2_0; }
-		
-		//[StateDeclaration]
-		public CrossReference getEndStateStateDeclarationCrossReference_2_0_0() { return cEndStateStateDeclarationCrossReference_2_0_0; }
+		//[ObjectDefinition]
+		public CrossReference getEventObjectObjectDefinitionCrossReference_0_0_0() { return cEventObjectObjectDefinitionCrossReference_0_0_0; }
 		
 		//ID
-		public RuleCall getEndStateStateDeclarationIDTerminalRuleCall_2_0_0_1() { return cEndStateStateDeclarationIDTerminalRuleCall_2_0_0_1; }
+		public RuleCall getEventObjectObjectDefinitionIDTerminalRuleCall_0_0_0_1() { return cEventObjectObjectDefinitionIDTerminalRuleCall_0_0_0_1; }
+		
+		//'.'
+		public Keyword getFullStopKeyword_0_1() { return cFullStopKeyword_0_1; }
+		
+		//event=[EventDefinition]
+		public Assignment getEventAssignment_1() { return cEventAssignment_1; }
+		
+		//[EventDefinition]
+		public CrossReference getEventEventDefinitionCrossReference_1_0() { return cEventEventDefinitionCrossReference_1_0; }
+		
+		//ID
+		public RuleCall getEventEventDefinitionIDTerminalRuleCall_1_0_1() { return cEventEventDefinitionIDTerminalRuleCall_1_0_1; }
+		
+		//'=>'
+		public Keyword getEqualsSignGreaterThanSignKeyword_2() { return cEqualsSignGreaterThanSignKeyword_2; }
+		
+		//(endState=[StateDeclaration] | ignore?='Ignore' | cannotHappen?=('Cannot_Happen' | 'cannot_happen'))
+		public Alternatives getAlternatives_3() { return cAlternatives_3; }
+		
+		//endState=[StateDeclaration]
+		public Assignment getEndStateAssignment_3_0() { return cEndStateAssignment_3_0; }
+		
+		//[StateDeclaration]
+		public CrossReference getEndStateStateDeclarationCrossReference_3_0_0() { return cEndStateStateDeclarationCrossReference_3_0_0; }
+		
+		//ID
+		public RuleCall getEndStateStateDeclarationIDTerminalRuleCall_3_0_0_1() { return cEndStateStateDeclarationIDTerminalRuleCall_3_0_0_1; }
 		
 		//ignore?='Ignore'
-		public Assignment getIgnoreAssignment_2_1() { return cIgnoreAssignment_2_1; }
+		public Assignment getIgnoreAssignment_3_1() { return cIgnoreAssignment_3_1; }
 		
 		//'Ignore'
-		public Keyword getIgnoreIgnoreKeyword_2_1_0() { return cIgnoreIgnoreKeyword_2_1_0; }
+		public Keyword getIgnoreIgnoreKeyword_3_1_0() { return cIgnoreIgnoreKeyword_3_1_0; }
 		
 		//cannotHappen?=('Cannot_Happen' | 'cannot_happen')
-		public Assignment getCannotHappenAssignment_2_2() { return cCannotHappenAssignment_2_2; }
+		public Assignment getCannotHappenAssignment_3_2() { return cCannotHappenAssignment_3_2; }
 		
 		//('Cannot_Happen' | 'cannot_happen')
-		public Alternatives getCannotHappenAlternatives_2_2_0() { return cCannotHappenAlternatives_2_2_0; }
+		public Alternatives getCannotHappenAlternatives_3_2_0() { return cCannotHappenAlternatives_3_2_0; }
 		
 		//'Cannot_Happen'
-		public Keyword getCannotHappenCannot_HappenKeyword_2_2_0_0() { return cCannotHappenCannot_HappenKeyword_2_2_0_0; }
+		public Keyword getCannotHappenCannot_HappenKeyword_3_2_0_0() { return cCannotHappenCannot_HappenKeyword_3_2_0_0; }
 		
 		//'cannot_happen'
-		public Keyword getCannotHappenCannot_happenKeyword_2_2_0_1() { return cCannotHappenCannot_happenKeyword_2_2_0_1; }
+		public Keyword getCannotHappenCannot_happenKeyword_3_2_0_1() { return cCannotHappenCannot_happenKeyword_3_2_0_1; }
 	}
 	public class DomainServiceDeclarationElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.xtuml.bp.xtext.masl.MASL.DomainServiceDeclaration");
@@ -8561,7 +8581,7 @@ public class MASLGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//TransitionOption:
-	//	event=[EventDefinition|ScopedName] '=>' (endState=[StateDeclaration] | ignore?='Ignore' |
+	//	(eventObject=[ObjectDefinition] '.')? event=[EventDefinition] '=>' (endState=[StateDeclaration] | ignore?='Ignore' |
 	//	cannotHappen?=('Cannot_Happen' | 'cannot_happen'));
 	public TransitionOptionElements getTransitionOptionAccess() {
 		return pTransitionOption;

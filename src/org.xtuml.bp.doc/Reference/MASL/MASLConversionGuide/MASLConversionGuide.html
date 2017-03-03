@@ -252,8 +252,8 @@ connection to the original MASL domain or MASL project is suggested.</li>
 <li>Enable the IPR preference for the created project using the steps described below.</li>
 <li>Select <strong>File&gt;Import</strong> to start a model import. This will open the Import model wizard.</li>
 <li>Expand the xtUML folder and select xtUML Model from the list of import sources.</li>
-<li>After __&lt;click&gt;<strong>ing on Next, enter the full path to the MASL-infused xtUML model file<br />
-to be imported. Pressing the Browse button will open a file browser where </strong>&lt;click&gt;__s are<br />
+<li>After <strong>&lt;click&gt;</strong> ing on Next, enter the full path to the MASL-infused xtUML model file<br />
+to be imported. Pressing the Browse button will open a file browser where <strong>&lt;click&gt;</strong> s are<br />
 used to navigate through the folder list down to the file to be imported.</li>
 <li>Once the path is entered, <strong>&lt;click&gt;</strong> Finish to initiate the import.</li>
 <li>Upon completion, the Model Explorer view will be updated.</li>
@@ -389,8 +389,9 @@ you will find the subdirectories GPSWatch, HeartRateMonitor, Location, Tracking 
 <li>To convert each MASL domain and MASL project to an equivalent xtUML model the <code>masl2xtuml</code> tool<br />
 is used. Each of the subdirectories will be converted individually in any order using this tool and<br />
 the converted projects placed in <code>~/Tutorial/xtUMLprj</code>.</li>
+<li>The command to convert GPSWatch is <code>&lt;installation&gt;/tools/mc/bin/masl2xtuml -p GPSWatch -o ../xtUMLprj</code></li>
 <li>The command to convert HeartRateMonitor is <code>&lt;installation&gt;/tools/mc/bin/masl2xtuml -d ./HeartRateMonitor -o ../xtUMLprj</code></li>
-<li>Repeat step 4 for the other MASL domains and MASL projects in the directory</li>
+<li>Repeat step 5 for the other MASL domains in the directory: Location, Tracking, and UI</li>
 </ol>
 <p>At the conclusion, the xtUMLprj directory will contain five subdirectories with names matching<br />
 the five subdirectories under <code>~/Tutorial/MASLsrc</code>.</p>
@@ -458,10 +459,9 @@ of steps:</p>
 <li>To open the file in a BridgePoint MASL editor, hover over filename and then <strong>&lt;dbl-click&gt;</strong>.</li>
 </ol>
 <h3 id="modify-masl">Modify MASL</h3>
-<p>The selection of MASL and OAL code blocks is identical, and when there is only one or the<br />
-other then <strong>&lt;dbl-click&gt;</strong> will open the default editor. As mentioned previously, when a model<br />
-contains MASL-infused xtUML model elements, the <strong>&lt;dbl-click&gt;</strong> behavior is based on a preference<br />
-selection and the given dialect for an activity.</p>
+<p>As mentioned previously, when a model contains MASL-infused xtUML model elements, the <strong>&lt;dbl-click&gt;</strong><br />
+behavior is based on the default action language preference selection and the given dialect for an<br />
+activity.</p>
 <p>In the tutorial model, the Tracking domain contains MASL-infused model elements and MASL code<br />
 will be added to the stopped state within the WorkoutTimer state machine. The steps to make<br />
 this change are:</p>
