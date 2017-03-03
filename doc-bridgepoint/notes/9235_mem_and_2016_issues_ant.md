@@ -95,7 +95,7 @@ Not part of the work at hand. No action.
 5.2.3 Analysis of notes in section 7 (other noteworthy discoveries)  
 The items called out here are not part of the issues at hand.  
 
-6. Issues to be addressed
+6. Issues Raised for further investigation
 ----------------
 6.1 [Rename failure caused by reference to a deleted element #9246](https://support.onefact.net/issues/9246)  
 6.2 [Graphics errors after element move DEI #9247](https://support.onefact.net/issues/9247)  
