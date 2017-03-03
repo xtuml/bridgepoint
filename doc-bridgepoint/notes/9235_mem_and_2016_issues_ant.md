@@ -33,7 +33,7 @@ This is a link to a query in the One Fact issue tracking system that shows the i
 <a id="2.8"></a>2.8 [BridgePoint DEI #9137](https://support.onefact.net/issues/9137) Address performance issues found profiling 5.2.2 vs 6.0.0.  
 <a id="2.9"></a>2.9 [Rename failure caused by reference to a deleted element #9246](https://support.onefact.net/issues/9246)  
 <a id="2.10"></a>2.10 [Graphics errors after element move DEI #9247](https://support.onefact.net/issues/9247)  
-<a id="2.11"></a>2.11 [Unable to formalize assocaitions to/from shared classes #9248](https://support.onefact.net/issues/9248) 
+<a id="2.11"></a>2.11 [Unable to formalize assocaitions to/from shared classes #9248](https://support.onefact.net/issues/9248)  
 <a id="2.12"></a>2.12 [Do not allow the data type to be changed in ports #9249](https://support.onefact.net/issues/9249)  
 
 
@@ -43,19 +43,19 @@ This is a link to a query in the One Fact issue tracking system that shows the i
 The [Model Element Move](2.2) and [2016 Issue List](2.3) tasks were completed as part of the 
 [BridgePoint v5.8 release](https://support.onefact.net/versions/14). The Model Element Move statement of work contains a clearly defined set of use cases, and [the One Fact test plan](2.2.2) contains tests that map directly to each use case. One Fact also created extended tests during the v5.8 test cycle and the [Model Element Move test document](https://docs.google.com/document/d/1WsYH0_gSdhurP3-jo3oG_w6itWMGnhZ99RcurpJVv44/edit) was extended to include these additional test cases.  
 
-For acceptance testing, [SAAB created a test procedure for Model Element Move](2.4) and SAAB performed testing based on that procedure. SAAB also performed "extended tests" during this testing.  SAAB's test results also include BridgePoint issues that are not related to the issues under test ([2.2](2.2), [2.3](2.3)). Two different SAAB groups reported results. 
+For acceptance testing, [SAAB created a test procedure for Model Element Move](2.4) and SAAB performed testing based on that procedure. SAAB also performed "extended tests" during this testing.  The SAAB test results include BridgePoint issues that are not related to the issues under test ([2.2](2.2), [2.3](2.3)). Two different SAAB groups reported results. 
 [SAAB Dynamics reported results](2.5), and [SAAB Aero reported results](2.6).  
 
-The goal of this analysis is to clearly call out the SAAB acceptance issues that are specific to the work performed by One Fact ([2.2](2.2), [2.3](2.3)) and to raise specific issues for these failures that will be addressed for the warrenty associated with tasks performed by One Fact.  To assure the issues are clear to both One Fact and SAAB, the issue associated with this note shall serve as a parent task for issues that shall be resolved under warranty.  
+The goal of this analysis is to clearly call out the SAAB acceptance issues that are specific to the work performed by One Fact ([2.2](2.2), [2.3](2.3)) and to raise tracking issues for these failures that will be addressed for the warrenty associated with tasks performed by One Fact.  To assure the issues are clear to both One Fact and SAAB, the issue associated with this note shall serve as a parent task for issues that shall be resolved under warranty.  
 
 4. Requirements
 ---------------
-4.1 Clearly define the SAAB failures that shall be addressed under warranty  
-4.2 For each defined failure, perform a high-level analysis of the failure case  
+4.1 Clearly define the SAAB failures that shall be addressed under warranty.  
+4.2 For each defined failure, perform a high-level analysis of the failure case.  
 
 5. Analysis
 -----------
-This section shall only address failure cases from the reports. Note that for clarity SAAB test identifiers are used below.
+This section shall only address failure cases from the reports. Note that for clarity SAAB test identifiers are used below.  
 5.1 Analysis of [Issues reported by SAAB Dynamics](2.5)  
 5.1.1 Acceptance testing of [Model Element Move](https://support.onefact.net/issues/8793) from Section 2  
 5.1.1.1 (2.2.3-N-extended)  - Move after model deletion causes error  
@@ -80,8 +80,8 @@ This is a known issue, not new [2.7](2.7). It was not a requirement for the work
 
 5.2.2 Analysis of notes taken by tester, JT, from section 5.4  
 5.2.2.1 Undo issues are already called out by VC-2.1.1  
-5.2.2.2 Attempt to create an element after a cut and then paste into the new element fails
-This is by design. If any transation occurs between cut and paste the cut is aborted and thus paste is not allowed.    
+5.2.2.2 Attempt to create an element after a cut and then paste into the new element fails.  
+This is by design. If any transation occurs between cut and paste the cut is aborted, and thus paste is not allowed.    
 5.2.2.3 Performance issue observed during testing  
 Investigation has been performed on this in BridgePoint v6.2 and an issue was addressed. Unable to tell if it is the same issue or not ([2.8](2.8)). No further action at this time.  
 
