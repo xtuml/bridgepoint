@@ -9,6 +9,9 @@
 //====================================================================
 package org.xtuml.bp.ui.properties;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+
 import org.eclipse.core.resources.IWorkspaceRunnable;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -20,8 +23,12 @@ import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.ui.views.properties.PropertyDescriptor;
-
+import org.xtuml.bp.core.ActionHome_c;
+import org.xtuml.bp.core.Action_c;
+import org.xtuml.bp.core.Actiondialect_c;
 import org.xtuml.bp.core.CorePlugin;
+import org.xtuml.bp.core.MooreActionHome_c;
+import org.xtuml.bp.core.StateMachineState_c;
 import org.xtuml.bp.ui.text.activity.ShowActivityAction;
 
 public class ActivityPropertyDescriptor extends PropertyDescriptor
@@ -74,6 +81,37 @@ public class ActivityPropertyDescriptor extends PropertyDescriptor
     
     static private void openActivityEditor( final Object inst )
     {
+        int dialect = -1;
+		// see if the current element should open
+		// something other than itself
+		Object dialectObj = inst;
+		if (dialectObj instanceof StateMachineState_c) {
+		    StateMachineState_c state = (StateMachineState_c) dialectObj;
+			Action_c action = Action_c.getOneSM_ACTOnR514(ActionHome_c.getOneSM_AHOnR513((MooreActionHome_c.getOneSM_MOAHOnR511(state))));
+			if (action != null) {
+				dialectObj = action;
+			}
+		}
+		// Get the value of the dialect attribute
+        try {
+            Method getDialectMethod = dialectObj.getClass().getMethod("getDialect"); //$$NON-NLS-1$$
+            dialect = (int) getDialectMethod.invoke(dialectObj);
+        } catch ( NoSuchMethodException e ) {
+            System.out.println( e );
+        } catch ( NullPointerException e ) {
+            System.out.println( e );
+        } catch ( SecurityException e ) {
+            System.out.println( e );
+        } catch ( IllegalAccessException e ) {
+            System.out.println( e );
+        } catch ( IllegalArgumentException e ) {
+            System.out.println( e );
+        } catch ( InvocationTargetException e ) {
+            System.out.println( e );
+        } catch ( ExceptionInInitializerError e ) {
+            System.out.println( e );
+        }
+        if ( dialect != Actiondialect_c.none ) {
     
         try
         {
@@ -93,6 +131,8 @@ public class ActivityPropertyDescriptor extends PropertyDescriptor
         catch (CoreException x)
         {
           CorePlugin.logError("open activity editor problem", x);
+        }
+
         }
     
     }
