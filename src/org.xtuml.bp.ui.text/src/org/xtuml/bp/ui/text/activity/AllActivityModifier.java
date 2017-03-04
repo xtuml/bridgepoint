@@ -23,6 +23,9 @@
 
 package org.xtuml.bp.ui.text.activity;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.resources.IResource;
@@ -32,13 +35,18 @@ import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.ui.texteditor.IElementStateListener;
 
 import org.xtuml.bp.als.oal.ParserAllActivityModifier;
+import org.xtuml.bp.core.ActionHome_c;
+import org.xtuml.bp.core.Action_c;
+import org.xtuml.bp.core.Actiondialect_c;
 import org.xtuml.bp.core.Component_c;
+import org.xtuml.bp.core.MooreActionHome_c;
 import org.xtuml.bp.core.Package_c;
 import org.xtuml.bp.core.Parsestatus_c;
 import org.xtuml.bp.core.ProvidedOperation_c;
 import org.xtuml.bp.core.ProvidedSignal_c;
 import org.xtuml.bp.core.RequiredOperation_c;
 import org.xtuml.bp.core.RequiredSignal_c;
+import org.xtuml.bp.core.StateMachineState_c;
 import org.xtuml.bp.core.SystemModel_c;
 import org.xtuml.bp.core.common.ModelRoot;
 import org.xtuml.bp.core.common.NonRootModelElement;
@@ -109,6 +117,40 @@ public class AllActivityModifier extends ParserAllActivityModifier
 
     public void parseAction(Object modelElement)
     {
+        // get dialect
+        int dialect = -1;
+		// see if the current element should open
+		// something other than itself
+		Object dialectObj = modelElement;
+		if (dialectObj instanceof StateMachineState_c) {
+		    StateMachineState_c state = (StateMachineState_c) dialectObj;
+			Action_c action = Action_c.getOneSM_ACTOnR514(ActionHome_c.getOneSM_AHOnR513((MooreActionHome_c.getOneSM_MOAHOnR511(state))));
+			if (action != null) {
+				dialectObj = action;
+			}
+		}
+		// Get the value of the dialect attribute
+        try {
+            Method getDialectMethod = dialectObj.getClass().getMethod("getDialect"); //$$NON-NLS-1$$
+            dialect = (int) getDialectMethod.invoke(dialectObj);
+        } catch ( NoSuchMethodException e ) {
+            System.out.println( e );
+        } catch ( NullPointerException e ) {
+            System.out.println( e );
+        } catch ( SecurityException e ) {
+            System.out.println( e );
+        } catch ( IllegalAccessException e ) {
+            System.out.println( e );
+        } catch ( IllegalArgumentException e ) {
+            System.out.println( e );
+        } catch ( InvocationTargetException e ) {
+            System.out.println( e );
+        } catch ( ExceptionInInitializerError e ) {
+            System.out.println( e );
+        }
+        // if none dialect, do not parse
+        if ( dialect == Actiondialect_c.none ) return;
+
     	if(!activityInputFactory.isSupported(modelElement)){
     		return;
         }
