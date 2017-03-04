@@ -189,6 +189,7 @@ import org.xtuml.bp.ui.graphics.selection.GraphicalSelectionManager;
 import org.xtuml.bp.ui.graphics.tools.GraphicalPanningSelectionTool;
 import org.xtuml.bp.ui.properties.BridgepointPropertySheetPage;
 import org.xtuml.bp.ui.text.activity.ActivityEditorInput;
+import org.xtuml.bp.ui.text.description.DescriptionEditorInput;
 import org.xtuml.bp.ui.text.masl.MASLEditorInput;
 import org.xtuml.bp.ui.text.masl.MASLPartListener;
 
@@ -1230,7 +1231,7 @@ public class GraphicalEditor extends GraphicalEditorWithFlyoutPalette implements
 										// If the "dialect" attribute is neither "oal" nor "masl",
 										// check the default language preference. Set "dialect" to
 										// be the preference value and open the proper editor.
-                                        if (dialect != Actiondialect_c.masl && dialect != Actiondialect_c.oal) {
+					                    if ( dialect != Actiondialect_c.masl && dialect != Actiondialect_c.oal && dialect != Actiondialect_c.none ) {
                                             IPreferenceStore store = CorePlugin.getDefault().getPreferenceStore();
                                             dialect = store
                                                     .getInt(BridgePointPreferencesStore.DEFAULT_ACTION_LANGUAGE_DIALECT);
@@ -1266,6 +1267,22 @@ public class GraphicalEditor extends GraphicalEditorWithFlyoutPalette implements
 											System.out.println(e);
 										}
 									}
+
+                                    // check to see if the dialect is "None" and this element has a description field
+                                    if (dialect == Actiondialect_c.none) {
+                                        if (DescriptionEditorInput.isSupported(current)) {
+                                            inputClass = bundle.loadClass("org.xtuml.bp.ui.text.description.DescriptionEditorInput"); //$$NON-NLS-1$$
+                                            try {
+                                                editorId = (String) inputClass.getField("EDITOR_ID").get(null); //$$NON-NLS-1$$
+                                            } catch (NoSuchFieldException e) {
+                                                System.out.println(e);
+                                            }
+                                        } else {
+                                            inputClass = null;
+                                        }
+                                    }
+
+                                    if ( inputClass != null ) {
 									
 									Class<?>[] type = new Class[1];
 									type[0] = Object.class;
@@ -1299,6 +1316,7 @@ public class GraphicalEditor extends GraphicalEditorWithFlyoutPalette implements
 										}
 										page.openEditor(input, editorId);
 									}
+                                    }
 									return;
 								} catch (ClassNotFoundException e) {
 									CanvasPlugin.logError(
