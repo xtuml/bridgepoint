@@ -31,13 +31,11 @@ This is a link to a query in the One Fact issue tracking system that shows the i
 <a id="2.6"></a>2.6 [SAAB Aero - Test Results (One Fact Only)](https://docs.google.com/document/d/1AzbJy9dVS2VSmNdBQ4RCtrn3vy21NYwBOEzTq6vdM-I/edit)  
 <a id="2.7"></a>2.7 [BridgePoint DEI #8853](https://support.onefact.net/issues/8853) The result of an undo operation is not always the exact same file on disk.     
 <a id="2.8"></a>2.8 [BridgePoint DEI #9137](https://support.onefact.net/issues/9137) Address performance issues found profiling 5.2.2 vs 6.0.0.  
-<a id="2.9"></a>2.9 [Rename of an interface without all referred-to projects present referring projects to be downgraded](https://support.onefact.net/issues/9246)  
+<a id="2.9"></a>2.9 [Rename of an interface without all referred-to projects present referring projects to be downgraded. DEI #9246](https://support.onefact.net/issues/9246)  
 <a id="2.9.1"></a>2.9.1 [dts0100841747 - Existing interface references are not updated when the interface is updated via a CM repository](https://github.com/xtuml/internal/tree/71c842bdcd937f946f977d529dc90e0f9a5f2486/Documentation_archive/20121102/technical/notes/dts0100841747)  
 <a id="2.10"></a>2.10 [Graphics errors after element move DEI #9247](https://support.onefact.net/issues/9247)  
-<a id="2.11"></a>2.11 [Unable to formalize assocaitions to/from shared classes #9248](https://support.onefact.net/issues/9248)  
-<a id="2.12"></a>2.12 [Do not allow the data type to be changed in ports #9249](https://support.onefact.net/issues/9249)  
-
-
+<a id="2.11"></a>2.11 [Unable to formalize assocaitions to/from shared classes. DEI #9248](https://support.onefact.net/issues/9248)  
+<a id="2.12"></a>2.12 [Do not allow the data type to be changed in ports. DEI #9249](https://support.onefact.net/issues/9249)  
 
 3. Background
 -------------
