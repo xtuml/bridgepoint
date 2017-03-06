@@ -879,6 +879,20 @@ public class ${viewer_name} extends ViewPart implements IModelViewerProvider {
 							dialectObj = action;
 						}
 					}
+					else if (dialectObj instanceof Transition_c) {
+						Action_c action = Action_c.getOneSM_ACTOnR514(ActionHome_c.getOneSM_AHOnR513(
+								TransitionActionHome_c.getOneSM_TAHOnR530((Transition_c)dialectObj)));
+						if (action != null) {
+							dialectObj = action;
+						}
+					}
+					else if ( dialectObj instanceof Attribute_c ) {
+						DerivedBaseAttribute_c dbattr = DerivedBaseAttribute_c.getOneO_DBATTROnR107(
+								BaseAttribute_c.getOneO_BATTROnR106((Attribute_c)dialectObj));
+						if ( dbattr != null ) {
+							dialectObj = dbattr;
+						}
+					}
 
 					// Get the value of the dialect attribute
                                         try {

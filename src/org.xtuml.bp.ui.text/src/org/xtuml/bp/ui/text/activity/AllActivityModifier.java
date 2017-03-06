@@ -38,7 +38,10 @@ import org.xtuml.bp.als.oal.ParserAllActivityModifier;
 import org.xtuml.bp.core.ActionHome_c;
 import org.xtuml.bp.core.Action_c;
 import org.xtuml.bp.core.Actiondialect_c;
+import org.xtuml.bp.core.Attribute_c;
+import org.xtuml.bp.core.BaseAttribute_c;
 import org.xtuml.bp.core.Component_c;
+import org.xtuml.bp.core.DerivedBaseAttribute_c;
 import org.xtuml.bp.core.MooreActionHome_c;
 import org.xtuml.bp.core.Package_c;
 import org.xtuml.bp.core.Parsestatus_c;
@@ -48,6 +51,8 @@ import org.xtuml.bp.core.RequiredOperation_c;
 import org.xtuml.bp.core.RequiredSignal_c;
 import org.xtuml.bp.core.StateMachineState_c;
 import org.xtuml.bp.core.SystemModel_c;
+import org.xtuml.bp.core.TransitionActionHome_c;
+import org.xtuml.bp.core.Transition_c;
 import org.xtuml.bp.core.common.ModelRoot;
 import org.xtuml.bp.core.common.NonRootModelElement;
 import org.xtuml.bp.core.util.UIUtil;
@@ -127,6 +132,20 @@ public class AllActivityModifier extends ParserAllActivityModifier
 			Action_c action = Action_c.getOneSM_ACTOnR514(ActionHome_c.getOneSM_AHOnR513((MooreActionHome_c.getOneSM_MOAHOnR511(state))));
 			if (action != null) {
 				dialectObj = action;
+			}
+		}
+		else if (dialectObj instanceof Transition_c) {
+			Action_c action = Action_c.getOneSM_ACTOnR514(ActionHome_c.getOneSM_AHOnR513(
+					TransitionActionHome_c.getOneSM_TAHOnR530((Transition_c)dialectObj)));
+			if (action != null) {
+				dialectObj = action;
+			}
+		}
+		else if ( dialectObj instanceof Attribute_c ) {
+			DerivedBaseAttribute_c dbattr = DerivedBaseAttribute_c.getOneO_DBATTROnR107(
+					BaseAttribute_c.getOneO_BATTROnR106((Attribute_c)dialectObj));
+			if ( dbattr != null ) {
+				dialectObj = dbattr;
 			}
 		}
 		// Get the value of the dialect attribute
