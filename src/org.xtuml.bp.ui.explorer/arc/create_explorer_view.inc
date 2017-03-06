@@ -820,7 +820,7 @@ public class ${viewer_name} extends ViewPart implements IModelViewerProvider {
   /**
    * Fire up an editor
    */
-  private IEditorPart handleOpen() {
+  public static IEditorPart handleOpen() {
     
     IStructuredSelection sel =  selection.getStructuredSelection();
 	if (sel.isEmpty())

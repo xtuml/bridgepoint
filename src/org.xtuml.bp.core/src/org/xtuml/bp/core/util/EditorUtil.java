@@ -22,8 +22,11 @@
 
 package org.xtuml.bp.core.util;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.Iterator;
 
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IEditorReference;
@@ -31,6 +34,7 @@ import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.internal.EditorReference;
+import org.osgi.framework.Bundle;
 import org.xtuml.bp.core.ActorParticipant_c;
 import org.xtuml.bp.core.ClassInstanceParticipant_c;
 import org.xtuml.bp.core.ClassParticipant_c;
@@ -52,6 +56,7 @@ import org.xtuml.bp.core.common.InstanceList;
 import org.xtuml.bp.core.common.ModelElement;
 import org.xtuml.bp.core.common.ModelRoot;
 import org.xtuml.bp.core.common.NonRootModelElement;
+import org.xtuml.bp.core.ui.Selection;
 
 /**
  * Holds utility methods that apply in some way to all editors
@@ -290,4 +295,22 @@ public class EditorUtil
 			  }
 		  }
 	  }
+
+	public static IEditorPart openEditorForElement(NonRootModelElement element) {
+		Selection.getInstance().clear();
+		Selection.getInstance().addToSelection(element);
+		// open the editor using the explorer view
+		final String packageName = "org.xtuml.bp.ui.explorer"; //$NON-NLS-1$
+		Bundle bundle = Platform.getBundle(packageName);
+		try {
+			Class<?> loadClass = bundle.loadClass(packageName + "." + "ExplorerView"); //$NON-NLS-1$ //$NON-NLS-2$
+			Method method = loadClass.getMethod("handleOpen", new Class[0]); //$NON-NLS-1$
+			Object result = method.invoke(null, new Object[0]);
+			return (IEditorPart) result;
+		} catch (ClassNotFoundException | NoSuchMethodException | SecurityException | IllegalAccessException
+				| IllegalArgumentException | InvocationTargetException e) {
+			CorePlugin.logError("Could not access ExplorerView class.", e);
+		}
+		return null;
+	}
 }
