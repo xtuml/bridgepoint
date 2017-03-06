@@ -71,7 +71,7 @@ if (param.comp_num == 1)
 elif (param.comp_num == 2)
  if (param.at == Justification::Left)
     select one moore_action related by self->SM_MOAH[R511]->SM_AH[R513]->SM_ACT[R514];
-    if (not_empty moore_action)
+    if (not_empty moore_action and ActionDialect::none != moore_action.Dialect )
       if (moore_action.Suc_Pars == ParseStatus::parseSuccessful)
         result = "entry/" + GD::newline();
       elif (moore_action.Suc_Pars == ParseStatus::parseUnsuccessful)

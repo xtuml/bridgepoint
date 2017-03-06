@@ -1106,8 +1106,8 @@ throws IOException
     // get the body
     String body = Ooaofooa.Get_formatted_body( inst.getModelRoot(), inst, false );
 
-    // output activity
-    if ( !body.isEmpty() ) {
+    // output activity (currently only for masl)
+    if ( !body.isEmpty() && dialect == Actiondialect_c.masl ) {
         m_afh.get(dialect).print( body );
         m_updateActions = true;
     }

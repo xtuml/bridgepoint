@@ -315,10 +315,12 @@ if ( not_empty battr )
   select one nbattr related by battr->O_NBATTR[R107];
   if ( not_empty nbattr )
     create object instance dbattr of O_DBATTR;
-    dbattr.Dialect = PREF::getActionDialect(name:"bridgepoint_prefs_default_action_language_dialect");
-	if ( dbattr.Dialect == ActionDialect::masl )
-	  // new MASL activities get initialized with the "null" statement
-	  dbattr.Action_Semantics_internal = "begin\n  null;\nend";
+    dialect = PREF::getActionDialect(name:"bridgepoint_prefs_default_action_language_dialect");
+	if ( dialect == ActionDialect::masl )
+      // Derived attributes actions are not supported by MASL
+	  dbattr.Dialect = ActionDialect::none;
+	else
+	  dbattr.Dialect = dialect;
 	end if;
     dbattr.Suc_Pars = ParseStatus::parseInitial;
     unrelate battr from nbattr across R107;
