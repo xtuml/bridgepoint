@@ -890,10 +890,12 @@ create object instance tah of SM_TAH;
 relate ah to tah across R513;
 select one sm related by self->SM_SM[R505];  
 create object instance act of SM_ACT;
-act.Dialect = PREF::getActionDialect(name:"bridgepoint_prefs_default_action_language_dialect");
-if ( act.Dialect == ActionDialect::masl )
-  // new MASL activities get initialized with the "null" statement
-  act.Action_Semantics_internal = "begin\n  null;\nend";
+dialect = PREF::getActionDialect(name:"bridgepoint_prefs_default_action_language_dialect");
+if ( dialect == ActionDialect::masl )
+  // Transition actions are not supported by MASL
+  act.Dialect = ActionDialect::none;
+else
+  act.Dialect = dialect;
 end if;
 act.Suc_Pars = ParseStatus::parseInitial;
 relate act to ah across R514;
