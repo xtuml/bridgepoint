@@ -27,11 +27,13 @@ implementation was reverted due to need for further analysis (see section 6.0).
 
 4. Requirements
 ---------------
-4.1 A mechanism shall be put in place to reliably prevent non-supported elements
-from producing MASL signatures  
+4.1 A mechanism shall be put in the editor to reliably prevent non-supported
+elements from producing MASL signatures  
 4.1.1 The mechanism shall be able to be toggled by the user  
 4.1.2 The mechanism shall be designed to default to the desired behavior when
 possible  
+4.1.3 The defaults shall be clearly enumerated as a table  
+4.2 `m2x` shall produce models that use the mechanism properly  
 
 5. Analysis
 -----------
@@ -166,6 +168,41 @@ None
 
 9. Unit Test
 ------------
+
+9.1 `m2x` and loader test  
+9.1.1 Convert and import `domain1` and `project1` attached to this issue
+[[2.1]](#2.1). Remember to enable IPRs on the `project1` before importing the
+xtUML model.  
+9.1.2 In the `domain1` project, verify that:  
+9.1.2.1 `Cstate` and `Dstate` in the instance state machine of `Aobject` exist
+and that their dialect is MASL.  
+9.1.2.2 The transition between `Cstate` and `Dstate` exists and its dialect is
+None.  
+9.1.2.3 Domain functions `foo` and `foo` exist and that their dialect is MASL.  
+9.1.2.4 Port messages `term_foo` and `term_bar` in port `Bterm` exist and that
+their dialect is MASL.  
+9.1.2.5 Port messages `foo` and `bar` in port `domain1` exist and that their
+dialect is None.  
+9.1.3 In the `project1` project, verify that:  
+9.1.3.1 The component reference has been assigned to the `domain1` component.  
+9.1.3.2 Port messages `foo` and `bar` in port `domain1` exist and that their
+dialect is None.  
+9.1.3.3 Port messages `term_foo` and `term_bar` in port `domain1Bterm` exist and
+that their dialect is MASL.  
+
+It is suggested that at this point the tester add these projects to a git
+repository. This will allow the tests to be repeated consistently.
+
+9.2 Default checks  
+9.2.1 Verify that the default action language dialect in the action language
+preferences is set to MASL.  
+9.2.2 Right click `id` in `Aobject`. Select "Set as Derived Attribute".  
+9.2.3 Verify that the dialect is initialized to None.  
+9.2.4 Open the instance state machine diagram in `Aobject`. Add a transition
+between `Cstate` and `Dstate`. Verify that the new transition has dialect None.
+
+9.3 UI checks  
+
 
 End
 ---
