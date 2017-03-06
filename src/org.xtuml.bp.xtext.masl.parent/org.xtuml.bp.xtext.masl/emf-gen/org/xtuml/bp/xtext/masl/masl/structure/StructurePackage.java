@@ -2833,13 +2833,22 @@ public interface StructurePackage extends EPackage {
 	int TRANSITION_OPTION = 43;
 
 	/**
+	 * The feature id for the '<em><b>Event Object</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TRANSITION_OPTION__EVENT_OBJECT = 0;
+
+	/**
 	 * The feature id for the '<em><b>Event</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int TRANSITION_OPTION__EVENT = 0;
+	int TRANSITION_OPTION__EVENT = 1;
 
 	/**
 	 * The feature id for the '<em><b>End State</b></em>' reference.
@@ -2848,7 +2857,7 @@ public interface StructurePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TRANSITION_OPTION__END_STATE = 1;
+	int TRANSITION_OPTION__END_STATE = 2;
 
 	/**
 	 * The feature id for the '<em><b>Ignore</b></em>' attribute.
@@ -2857,7 +2866,7 @@ public interface StructurePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TRANSITION_OPTION__IGNORE = 2;
+	int TRANSITION_OPTION__IGNORE = 3;
 
 	/**
 	 * The feature id for the '<em><b>Cannot Happen</b></em>' attribute.
@@ -2866,7 +2875,7 @@ public interface StructurePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TRANSITION_OPTION__CANNOT_HAPPEN = 3;
+	int TRANSITION_OPTION__CANNOT_HAPPEN = 4;
 
 	/**
 	 * The number of structural features of the '<em>Transition Option</em>' class.
@@ -2875,7 +2884,7 @@ public interface StructurePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TRANSITION_OPTION_FEATURE_COUNT = 4;
+	int TRANSITION_OPTION_FEATURE_COUNT = 5;
 
 	/**
 	 * The number of operations of the '<em>Transition Option</em>' class.
@@ -4212,6 +4221,17 @@ public interface StructurePackage extends EPackage {
 	EClass getTransitionOption();
 
 	/**
+	 * Returns the meta object for the reference '{@link org.xtuml.bp.xtext.masl.masl.structure.TransitionOption#getEventObject <em>Event Object</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Event Object</em>'.
+	 * @see org.xtuml.bp.xtext.masl.masl.structure.TransitionOption#getEventObject()
+	 * @see #getTransitionOption()
+	 * @generated
+	 */
+	EReference getTransitionOption_EventObject();
+
+	/**
 	 * Returns the meta object for the reference '{@link org.xtuml.bp.xtext.masl.masl.structure.TransitionOption#getEvent <em>Event</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -5379,6 +5399,14 @@ public interface StructurePackage extends EPackage {
 		 * @generated
 		 */
 		EClass TRANSITION_OPTION = eINSTANCE.getTransitionOption();
+
+		/**
+		 * The meta object literal for the '<em><b>Event Object</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference TRANSITION_OPTION__EVENT_OBJECT = eINSTANCE.getTransitionOption_EventObject();
 
 		/**
 		 * The meta object literal for the '<em><b>Event</b></em>' reference feature.

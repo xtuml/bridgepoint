@@ -324,7 +324,7 @@ TransitionRow:
 	';' PragmaList;
 
 TransitionOption:
-	event=[EventDefinition|ScopedName] '=>'
+	(eventObject=[ObjectDefinition] '.')? event=[EventDefinition] '=>'
 	(endState=[StateDeclaration] | ignore?='Ignore' | cannotHappen?=('Cannot_Happen' | 'cannot_happen'));
 
 //---------------------------------------------------------

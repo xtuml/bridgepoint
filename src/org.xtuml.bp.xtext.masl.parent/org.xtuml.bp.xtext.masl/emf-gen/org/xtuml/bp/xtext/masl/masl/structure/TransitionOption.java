@@ -14,6 +14,7 @@ import org.eclipse.emf.ecore.EObject;
  * The following features are supported:
  * </p>
  * <ul>
+ *   <li>{@link org.xtuml.bp.xtext.masl.masl.structure.TransitionOption#getEventObject <em>Event Object</em>}</li>
  *   <li>{@link org.xtuml.bp.xtext.masl.masl.structure.TransitionOption#getEvent <em>Event</em>}</li>
  *   <li>{@link org.xtuml.bp.xtext.masl.masl.structure.TransitionOption#getEndState <em>End State</em>}</li>
  *   <li>{@link org.xtuml.bp.xtext.masl.masl.structure.TransitionOption#isIgnore <em>Ignore</em>}</li>
@@ -25,6 +26,32 @@ import org.eclipse.emf.ecore.EObject;
  * @generated
  */
 public interface TransitionOption extends EObject {
+	/**
+	 * Returns the value of the '<em><b>Event Object</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Event Object</em>' reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Event Object</em>' reference.
+	 * @see #setEventObject(ObjectDefinition)
+	 * @see org.xtuml.bp.xtext.masl.masl.structure.StructurePackage#getTransitionOption_EventObject()
+	 * @model
+	 * @generated
+	 */
+	ObjectDefinition getEventObject();
+
+	/**
+	 * Sets the value of the '{@link org.xtuml.bp.xtext.masl.masl.structure.TransitionOption#getEventObject <em>Event Object</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Event Object</em>' reference.
+	 * @see #getEventObject()
+	 * @generated
+	 */
+	void setEventObject(ObjectDefinition value);
+
 	/**
 	 * Returns the value of the '<em><b>Event</b></em>' reference.
 	 * <!-- begin-user-doc -->
