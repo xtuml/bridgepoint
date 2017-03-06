@@ -91,8 +91,8 @@ shall be set to "MASL". If the default action language dialect is set to "OAL",
 the dialect shall be set to "OAL".
 
 Domain components and project components are identified by the existence of the
-string "masl_domain" in the component description and "masl_project" in the
-package description of the containing package.
+string "masl_domain" or "masl_project" in the package description of the
+containing package.
 
 5.3.3 Table of default dialect values on element creation
 
@@ -133,10 +133,10 @@ fields for "None" dialect elements from being edited.
 The table defined in section 5.3.3 shall be implemented in the `initialize`
 operation of each activity class. Here the default dialect preference will be
 checked. Additionally to determine if a message is in a MASL domain, the
-containing component description shall be searched for the string "masl_domain".
-To determine if a message is in a MASL project, the description of the package
-containing the containing component shall be searched for the string
-"masl_project".
+description of the package containing the containing component shall be
+searched for the string "masl_domain".  To determine if a message is in a MASL
+project, the description of the package containing the containing component
+shall be searched for the string "masl_project".
 
 This is not the safest way to determine the MASL-ness of an element. An issue
 has been raised to implement a better mechanism [[2.4]](#2.4).
