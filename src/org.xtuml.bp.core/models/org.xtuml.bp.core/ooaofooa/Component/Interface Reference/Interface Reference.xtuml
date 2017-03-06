@@ -593,8 +593,8 @@ if(not_empty interface)
       relate req_signal to req_ep across R4502;
 	  if ( req_signal.Dialect == ActionDialect::masl )
 	    // if the dialect is MASL check if it should be None dialect
-		select one component related by req_signal->SPR_REP[R4502]->C_R[R4500]->C_IR[R4009]->C_PO[R4016]->C_C[R4010];
-		if ( empty component and not Util::stringContains(haystack:component.Descrip, needle:"masl_domain") )
+		select one package related by req_signal->SPR_REP[R4502]->C_R[R4500]->C_IR[R4009]->C_PO[R4016]->C_C[R4010]->PE_PE[R8001]->EP_PKG[R8000];
+		if ( empty package or not Util::stringContains(haystack:package.Descrip, needle:"masl_domain") )
 		  req_signal.Dialect = ActionDialect::none;
 		  req_signal.Action_Semantics_internal = "";
 		end if;
@@ -609,8 +609,8 @@ if(not_empty interface)
       relate req_operation to req_ep across R4502;
 	  if ( req_operation.Dialect == ActionDialect::masl )
 	    // if the dialect is MASL check if it should be None dialect
-		select one component related by req_operation->SPR_REP[R4502]->C_R[R4500]->C_IR[R4009]->C_PO[R4016]->C_C[R4010];
-		if ( empty component and not Util::stringContains(haystack:component.Descrip, needle:"masl_domain") )
+		select one package related by req_operation->SPR_REP[R4502]->C_R[R4500]->C_IR[R4009]->C_PO[R4016]->C_C[R4010]->PE_PE[R8001]->EP_PKG[R8000];
+		if ( empty package or not Util::stringContains(haystack:package.Descrip, needle:"masl_domain") )
 		  req_operation.Dialect = ActionDialect::none;
 		  req_operation.Action_Semantics_internal = "";
 		end if;
