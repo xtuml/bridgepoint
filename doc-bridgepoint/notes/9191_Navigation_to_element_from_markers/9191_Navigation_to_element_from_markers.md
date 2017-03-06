@@ -32,65 +32,29 @@ This note describes an approach that allows proper navigation to model elements 
 5. Analysis
 -----------
 5.1 Support navigation from problem markers to expected editor   
+As the issue states we currently cannot navigate from a problem marker to the proper editor (in this case element editor).  The reason for this is that eclipse has a very strong tie between marker and resource.  What BridgePoint has done in the past is to create a real file to allow marker creation (visible marker in problems view).  Markers have to be associated with a physical resource, it can be fake but will never show in the problems view if not existent.  The masl partial editor is no different and considered an element editor.
 
-As the issue states we currently cannot navigate from a problem marker to the proper editor (in this case element editor).  The reason for this is that eclipse has a very strong tie between marker and resource.  What BridgePoint has done in the past is to create a fake file and persist to allow marker creation (visible marker in problems view).  Markers have to be associated with a physical resource, it can be fake but will never show in the problems view if not existent.   
+5.1.1 Support model marker   
+In order to provide enough data in the marker to resolve a model element we must create our own markers (model markers).  These markers shall have enough information to resolve an xtUML element given a resource.  To do this we must take over the existing marker creation from the xtext infrastructure.  We need to override the code that currently creates markers for masl resources.  We shall take over marker creation and create a marker that suits the needs of an xtUML element.  This provides a minimalist approach, providing the exact same creation/deletion updates as before.  
+
+5.1.2 Support model marker navigation   
+Given the data provided in the model marker we need to support navigation to the proper editor.  This editor shall be opened when the marker is double-clicked or the Go To menu item is selected.  Additionally, the line number containing the problem shall be set and the problem text shall be selected.
+
+5.2 Persistence   
+Markers shall not be persisted as per the requirements.  A simple flag shall be set in the marker plugin extension definitions.   
 
 6. Design
 ---------
-In this section, describe in detail each step of the Work Required section of
-the analysis, how the task will be accomplished, what technologies will
-be used, algorithms, etc. Here is an example reference to the Document References section [[2.1]](#2.1)
-
-6.1 Item 1  
-```java
-    // java code example
-    public void clearDatabase(IProgressMonitor pm) 
-    {
-        // clear the corresponding graphics-root's database
-        OoaofgraphicsUtil.clearGraphicsDatabase(rootId, pm);
-
-        Ooaofooa.getDefaultInstance().fireModelElementUnloaded(this);
-    }
-```
-6.1.1 Example sub-item
-* Example List Element
-
-6.2 Item 2  
-6.2.1 Example sub-item
-* Example List Element
 
 7. Design Comments
 ------------------
-If research carried out during this phase shows that a requirement stated in the
-analysis note is infeasible or needs some modification, enumerate those changes
-here. If there was no preceding analysis note, then this section documents any
-deviations from the design as presented at the design review. Here is an example reference to the Document References section [[2.1]](#2.1)
-
-7.1 Item 1  
-7.1.1 Example sub-item
-* Example List Element
-
-7.2 Item 2  
-7.2.1 Example sub-item
-* Example List Element
 
 8. User Documentation
 ---------------------
-Describe the end user documentation that was added for this change. 
 
 9. Unit Test
 ------------
-Outline all the unit tests that need to pass and describe the method that you
-will use to design and perform the tests. Here is an example reference to the Document References section [[2.1]](#2.1)
-
-9.1 Item 1  
-9.1.1 Example sub-item
-* Example List Element
-
-9.2 Item 2  
-9.2.1 Example sub-item
-* Example List Element
-
+<TODO>
 End
 ---
 
