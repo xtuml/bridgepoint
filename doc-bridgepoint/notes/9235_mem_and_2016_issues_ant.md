@@ -107,11 +107,11 @@ The items called out here are not part of the issues at hand.
 6. Issues to Resolve
 ----------------
 6.1 [Graphics errors after element move DEI #9247](https://support.onefact.net/issues/9247)  
-This problem appears to be resolved already in BridgePoint v6.2 see [#9247 comment 1]( https://support.onefact.net/issues/9247#note-1).  
+This problem appears to be resolved already in BridgePoint v6.2 see [#9247 comment 1]( https://support.onefact.net/issues/9247#note-1). This shall be fixed.  
 
 6.2 [Unable to formalize assocaitions to/from shared classes #9248](https://support.onefact.net/issues/9248)  
 The problem was that the requirements called out by the work done for shared classes did not include formalization. 
-The issue requirements can be seen in section 4 of the [#8061 implemenation note](https://github.com/xtuml/bridgepoint/blob/master/doc-bridgepoint/notes/8061_ipr_classes.md).
+The issue requirements can be seen in section 4 of the [#8061 implemenation note](https://github.com/xtuml/bridgepoint/blob/master/doc-bridgepoint/notes/8061_ipr_classes.md). This shall be fixed.  
 
 6.3 [Do not allow the data type to be changed in ports #9249](https://support.onefact.net/issues/9249)  
 The changes made fixed this issue for the Model Explorer view, but the test did properly consider the ability of the user to modify these artifcats from the properties view. This shall be fixed.  
