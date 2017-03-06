@@ -61,7 +61,6 @@ public class RoutingEditor extends TextEditor {
 		Class<?> clazz = Class.forName(type.split(" ")[1]);
 		Path path = new Path((String) marker.getAttribute(IntegrityChecker.PATH_TYPE));
 		PersistableModelComponent comp = PersistenceManager.findOrCreateComponent(path);
-		comp.loadComponentAndChildren(new NullProgressMonitor());
 		NonRootModelElement rootElem = comp.getRootModelElement();
 		NonRootModelElement element = (NonRootModelElement) rootElem.getModelRoot().getInstanceList(clazz).get(id);
 		return element;
