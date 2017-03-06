@@ -46,11 +46,15 @@ Markers shall not be persisted as per the requirements.  A simple flag shall be 
 6. Design
 ---------
 6.1 Support navigation from problem markers to expected editors   
+
 6.1.1 Support model marker   
+
 6.1.1.1 Override masl marker creation   
 Introuce a new class that overrides the default ResourceUIValidatorExtension.  This class shall perform creating markers when the xtext infrastructure demands.  The data given is used to create a model marker.  The masl model marked is defined as one which is nearly the same as the xtext marker, only it has xtuml related data attached.   
+
 6.1.1.2 Model marker   
 The class mentioned above creates the data exactly the same as before, only now it adds a model path, id and class type.   
+
 6.1.1.3 masl to xtUML   
 In order to provide the necessary data for a model marker from a masl resource we need to do the following:   
 
@@ -62,8 +66,10 @@ In order to provide the necessary data for a model marker from a masl resource w
 
 6.1.2 Support model marker navigation    
 Eclipse does not support navigation from a marker to a non-resource related element.  Opening a marker will ask the ide what editor it shall use given the attached resource from the marker.  There are a few lines of code that could be changed in eclipse to better support this, but for this issue they are not considered.  For this issue a workaround was determined.   This workaround uses the IGotoMarker infrastructure in order to navigate to the proper element editor.  Eclipse looks for editors associated with an extension, in our case xtuml.  It then looks for an editor defined in the marker if any.  We will use the editor id as a new lightweight editor (RoutingEditor).  We could use the existing editors but creating this new one will allow us to use the design for all existing editors and future ones.   
+
 6.1.2.1 RoutingEditor   
 A new editor is created in core.ui.editor, RoutingEditor.  This editor is simply an xml entry and provides minimal text editing support.  The editor is not registered as the default and only can be directly executed through the context menu when an xtuml file is selected.  If it is executed a text editor will open contianing the xtuml contents.  The implementation for the editor only overrides the getAdapter method, and only covers the IGotoMarker interface case.   
+
 6.1.2.2 IGotoMarker    
 As stated above the RoutingEditor implements the IGotoMarker.  This implementation does the following:   
 
