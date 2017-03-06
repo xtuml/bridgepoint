@@ -2464,6 +2464,36 @@ Translate:native',
 	0,
 	'',
 	0);
+INSERT INTO S_BRG
+	VALUES ("6481dc47-2797-4382-bf03-13083c2e7d15",
+	"b69262ac-62eb-4030-b329-b967033f0ee0",
+	'stringContains',
+	'Translate:native',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000001",
+	'if ( p_Haystack == null || p_Needle == null ) return false;
+return p_Haystack.contains(p_Needle);',
+	0,
+	'',
+	0);
+INSERT INTO S_BPARM
+	VALUES ("6e7fe8f3-ddea-48c8-be08-7b9bbf0e7436",
+	"6481dc47-2797-4382-bf03-13083c2e7d15",
+	'haystack',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_BPARM
+	VALUES ("12579d21-87b1-482e-9e85-433b0f6615e4",
+	"6481dc47-2797-4382-bf03-13083c2e7d15",
+	'needle',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"6e7fe8f3-ddea-48c8-be08-7b9bbf0e7436",
+	'');
 INSERT INTO PE_PE
 	VALUES ("b69262ac-62eb-4030-b329-b967033f0ee0",
 	1,
