@@ -18,7 +18,7 @@ This note describes an approach that allows proper navigation to model elements 
 
 3. Background
 -------------
-[2.2] introduced a single buffer editor for model elements.  This editor is much like the current OAL editor only it is xtext based.  We have a few editors that require editing model elements rather than the direct physical resource.  When OAL editor support was added, and now, there is little support for tying an editor to an in-memory resource.  Bridgepoint has always, in eclipse, had model elements which require eclipse editor support.  The OAL editor support introduced a work-around that was always problematic.  The new single buffer editor is still tied to a physical resource through its problem markers.  Therefore navigation from the Problems view to the actual problem does not work.       
+[2.2] introduced a single buffer editor for model elements.  We have a few editors that require editing model elements rather than the direct physical resource.  When OAL editor support was added, and now, there is little support for tying an editor to an in-memory resource.  Bridgepoint has always, in eclipse, had model elements which require eclipse editor support.  The OAL editor support introduced a work-around that was always problematic.  The new single buffer editor is still tied to a physical resource through its problem markers.  Therefore navigation from the Problems view to the actual problem does not work.       
 
 4. Requirements
 ---------------
@@ -26,20 +26,14 @@ This note describes an approach that allows proper navigation to model elements 
 4.2 Right clicking and choosing "Go To" shall open the required single buffer editor   
 4.3 The user shall be taken to the line number associated with the problem       
 4.4 Data shall not be persisted underneath the model structure  
-4.5 Problems shall remain upon restart of the tool   
+4.5 This work shall not support modifying the .masl files directly   
+4.6 This work shall not support masl file modification directly   
 
 5. Analysis
 -----------
-This section is only required if there is no preceding analysis note. If present
-it sets out a brief analysis of the problem to be resolved by this design note. Here is an example reference to the Document References section [[2.1]](#2.1)
+5.1 Support navigation from problem markers to expected editor   
 
-5.1 Item 1  
-5.1.1 Example sub-item
-* Example List Element
-
-5.2 Item 2  
-5.2.1 Example sub-item
-* Example List Element
+As the issue states we currently cannot navigate from a problem marker to the proper editor (in this case element editor).  The reason for this is that eclipse has a very strong tie between marker and resource.  What BridgePoint has done in the past is to create a fake file and persist to allow marker creation (visible marker in problems view).  Markers have to be associated with a physical resource, it can be fake but will never show in the problems view if not existent.   
 
 6. Design
 ---------
