@@ -439,14 +439,14 @@ public class ImportHelper
 				if (c_i.getName().equals(c_p_name)) {
 					// formalize the requirement
 					c_p.Formalize(c_i.getId(), true);
-					// Set all the dialects to OAL to avoid persisting empty MASL bodies
+					// Set all the dialects to None to avoid persisting empty MASL bodies
 					ProvidedOperation_c[] spr_pos = ProvidedOperation_c.getManySPR_POsOnR4503(ProvidedExecutableProperty_c.getManySPR_PEPsOnR4501(c_p));
 					for ( ProvidedOperation_c spr_po : spr_pos ) {
-					    spr_po.setDialect(Actiondialect_c.oal);	
+					    spr_po.setDialect(Actiondialect_c.none);	
 					}
 					ProvidedSignal_c[] spr_pss = ProvidedSignal_c.getManySPR_PSsOnR4503(ProvidedExecutableProperty_c.getManySPR_PEPsOnR4501(c_p));
 					for ( ProvidedSignal_c spr_ps : spr_pss ) {
-					    spr_ps.setDialect(Actiondialect_c.oal);	
+					    spr_ps.setDialect(Actiondialect_c.none);	
 					}
 					break;
 				}
@@ -482,14 +482,14 @@ public class ImportHelper
 				if (c_i.getName().equals(c_r_name)) {
 					// formalize the requirement
 					c_r.Formalize(c_i.getId(), true);
-					// Set all the dialects to OAL to avoid persisting empty MASL bodies
+					// Set all the dialects to None to avoid persisting empty MASL bodies
 					RequiredOperation_c[] spr_ros = RequiredOperation_c.getManySPR_ROsOnR4502(RequiredExecutableProperty_c.getManySPR_REPsOnR4500(c_r));
 					for ( RequiredOperation_c spr_ro : spr_ros ) {
-					    spr_ro.setDialect(Actiondialect_c.oal);	
+					    spr_ro.setDialect(Actiondialect_c.none);	
 					}
 					RequiredSignal_c[] spr_rss = RequiredSignal_c.getManySPR_RSsOnR4502(RequiredExecutableProperty_c.getManySPR_REPsOnR4500(c_r));
 					for ( RequiredSignal_c spr_rs : spr_rss ) {
-					    spr_rs.setDialect(Actiondialect_c.oal);	
+					    spr_rs.setDialect(Actiondialect_c.none);	
 					}
 					break;
 				}
