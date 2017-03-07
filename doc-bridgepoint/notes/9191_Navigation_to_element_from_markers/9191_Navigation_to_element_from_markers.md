@@ -26,8 +26,7 @@ This note describes an approach that allows proper navigation to model elements 
 4.2 Right clicking and choosing "Go To" shall open the required single buffer editor   
 4.3 The user shall be taken to the line number associated with the problem       
 4.4 Data shall not be persisted underneath the model structure  
-4.5 This work shall not support modifying the .masl files directly   
-4.6 This work shall not support masl file modification directly   
+4.5 This work shall not support modifying the .masl files directly     
 
 5. Analysis
 -----------
