@@ -457,9 +457,24 @@ if ( not_empty c_ep and not_empty c_po )
   if ( not_empty c_c )
 	c_c_name = c_c.Name;
   end if;
+  
+  dom_name = c_c_name;
+  term_name = c_po.Name;
+  
+  // if this is a project terminator service, the naming does not come from the component
+  // but from the port name only
+  select one ep_pkg related by c_c->PE_PE[R8001]->EP_PKG[R8000];
+  if ( not_empty ep_pkg and Util::stringContains(haystack:ep_pkg.Descrip, needle:"masl_project") )
+    tmp_dom_name = Util::stringSplit(s:c_po.Name, delimiter:"__", i:0);
+    tmp_term_name = Util::stringSplit(s:c_po.Name, delimiter:"__", i:1);
+    if ( "" != tmp_dom_name and "" != tmp_term_name )
+      dom_name = tmp_dom_name;
+      term_name = tmp_term_name;
+    end if;
+  end if;
 
   // message -> function/service
-  smasl = smasl + "routine," + c_c_name + "," + c_po.Name + ",public," + c_ep.Name + ",,,,\n";
+  smasl = smasl + "routine," + dom_name + "," + term_name + ",public," + c_ep.Name + ",,,,\n";
   
   select any c_pp related by c_ep->C_PP[R4006];
   first_c_pp = c_pp;
