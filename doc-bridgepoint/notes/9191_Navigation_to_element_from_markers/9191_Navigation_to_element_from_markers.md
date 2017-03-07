@@ -88,7 +88,42 @@ The plugin.xml that defines the marker support for masl data is modified to set 
 
 9. Unit Test
 ------------
-<TODO>
+<pre>  
+Test elements:
+1. Function
+2. Operation
+3. Provided Operation
+4. Provided Signal
+5. Required Operation
+6. Required Signal
+7. Bridge
+8. Derived Based Attribute
+9. State
+10. Transition
+11. Creation Transition 
+
+For each test element perform the test below:
+
+_- Create the test element
+_- Create another element with the same name, if allowed, but with a different
+   signature
+_- Open a MASL editor against the element with a different signature
+_- Create two problems on different lines
+_- Save the changes
+_R The problems view contains the problem markers
+_R The problems view does not contain any markers against the element with the
+   same name
+_- Look at the owning xtuml folder for the element
+_R There are no additional files created
+_- Double click each marker in the problems view
+_R The given line number is selected and the problem is hightlighted
+_- Right click each marker and choose Go To
+_R The given line number is selected and the problem is highlighted
+_- Repeat the last two actions but with the editor closed
+_R The results are the same as above
+_- Restart the tool
+_R None of the test problem created above exist in the problems view
+</pre>  
 End
 ---
 

@@ -5,12 +5,14 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.OperationCanceledException;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
@@ -20,11 +22,14 @@ import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.ui.ide.IDE;
 import org.eclipse.xtext.nodemodel.ICompositeNode;
 import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
+import org.eclipse.xtext.service.OperationCanceledError;
 import org.eclipse.xtext.ui.editor.quickfix.IssueResolutionProvider;
 import org.eclipse.xtext.ui.validation.DefaultResourceUIValidatorExtension;
 import org.eclipse.xtext.ui.validation.MarkerTypeProvider;
 import org.eclipse.xtext.util.LineAndColumn;
 import org.eclipse.xtext.util.Strings;
+import org.eclipse.xtext.validation.CheckMode;
+import org.eclipse.xtext.validation.IResourceValidator;
 import org.eclipse.xtext.validation.Issue;
 import org.xtuml.bp.core.Attribute_c;
 import org.xtuml.bp.core.Bridge_c;
@@ -60,6 +65,11 @@ public class ModelResourceUIValidatorExtension extends DefaultResourceUIValidato
 
 	@Inject
 	private MarkerTypeProvider markerTypeProvider;
+	
+	@Inject
+	private IResourceValidator resourceValidator;
+	
+	private Logger log = Logger.getLogger(DefaultResourceUIValidatorExtension.class);
 
 	@Inject(optional = true)
 	private IssueResolutionProvider resolutionProvider;
@@ -81,11 +91,13 @@ public class ModelResourceUIValidatorExtension extends DefaultResourceUIValidato
 			AbstractTopLevelElement topLevelElement = getServiceDefinition(eObject);
 			ICompositeNode actualNode = NodeModelUtils.findActualNodeFor(eObject);
 			ICompositeNode actionHostNode = NodeModelUtils.findActualNodeFor(topLevelElement);
-			int lineNumber = issue.getLineNumber() - actionHostNode.getStartLine();
-			int charStart = issue.getOffset();
-			if(issue.getOffset() > actualNode.getOffset()) {
-				charStart = issue.getOffset() - actualNode.getOffset();
+			// if we could not find an action host node, let xtext create the marker
+			if(actionHostNode == null) {
+				super.createMarkers(resource, issues, monitor);
+				continue;
 			}
+			int lineNumber = issue.getLineNumber() - actionHostNode.getStartLine() + 1;
+			int charStart = issue.getOffset() - actionHostNode.getOffset();
 			LineAndColumn lineAndColumn = NodeModelUtils.getLineAndColumn(actualNode, issue.getLineNumber());
 			// ignore if we did not find a service definition
 			if (topLevelElement == null) {
@@ -274,5 +286,36 @@ public class ModelResourceUIValidatorExtension extends DefaultResourceUIValidato
 			throw new IllegalArgumentException(String.valueOf(issue.getSeverity()));
 		}
 	}
-
+	
+	/**
+	 * Override addMarkers to prevent deletion of the one we created due
+	 * to a re-run of validation.  Otherwise a created marker will get 
+	 * removed just by switching to a different editor and causing validation
+	 * to occur
+	 */
+	@Override
+	protected void addMarkers(IFile file, Resource resource, CheckMode mode, IProgressMonitor monitor)
+			throws OperationCanceledException {
+		try {
+			List<Issue> list = resourceValidator.validate(resource, mode, getCancelIndicator(monitor));
+			if (monitor.isCanceled()) {
+				throw new OperationCanceledException();
+			}
+			// markers are still deleted when the problem
+			// is fixed, but we want them hanging around
+			// until the workspace is closed otherwise
+			// the below commented line is from the
+			// supertype, other than that comment the
+			// functionality is identical
+			// deleteMarkers(file, mode, monitor);
+			if (monitor.isCanceled()) {
+				throw new OperationCanceledException();
+			}
+			createMarkers(file, list, monitor);
+		} catch (OperationCanceledError error) {
+			throw error.getWrapped();
+		} catch (CoreException e) {
+			log.error(e.getMessage(), e);
+		}
+	}
 }

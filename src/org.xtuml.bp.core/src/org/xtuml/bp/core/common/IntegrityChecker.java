@@ -136,7 +136,7 @@ public class IntegrityChecker {
 			// no file
 			if (nrme.getFile() != null && nrme.getFile().isAccessible()) {
 				try {
-					nrme.getFile().deleteMarkers(IMarker.PROBLEM, true, IFile.DEPTH_ONE);
+					nrme.getFile().deleteMarkers(IMarker.PROBLEM, false, IFile.DEPTH_ONE);
 				} catch (CoreException e) {
 					CorePlugin.logError("Unable to delete existing integrity markers.", e);
 				}
