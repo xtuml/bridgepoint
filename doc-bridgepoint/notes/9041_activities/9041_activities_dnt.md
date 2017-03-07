@@ -18,6 +18,7 @@ generate a signature to a `.masl` file.
 <a id="2.2"></a>2.2 [#9039 Signatures for MASL project terminator services are generated wrong](https://support.onefact.net/issues/9039)  
 <a id="2.3"></a>2.3 [#9039 old implementation note](../9039_project_terminator_signatures/9039_project_terminator_signatures_int.md)  
 <a id="2.4"></a>2.4 [#9263 Add mechanism to distinguish MASL components and packages](https://support.onefact.net/issues/9263)  
+<a id="2.5"></a>2.5 [#9266 Assure that action bodies are not created when not needed for MASL](https://support.onefact.net/issues/9266)    
 
 3. Background
 -------------
@@ -168,40 +169,7 @@ None
 
 9. Unit Test
 ------------
-
-9.1 `m2x` and loader test  
-9.1.1 Convert and import `domain1` and `project1` attached to this issue
-[[2.1]](#2.1). Remember to enable IPRs on the `project1` before importing the
-xtUML model.  
-9.1.2 In the `domain1` project, verify that:  
-9.1.2.1 `Cstate` and `Dstate` in the instance state machine of `Aobject` exist
-and that their dialect is MASL.  
-9.1.2.2 The transition between `Cstate` and `Dstate` exists and its dialect is
-None.  
-9.1.2.3 Domain functions `foo` and `foo` exist and that their dialect is MASL.  
-9.1.2.4 Port messages `term_foo` and `term_bar` in port `Bterm` exist and that
-their dialect is MASL.  
-9.1.2.5 Port messages `foo` and `bar` in port `domain1` exist and that their
-dialect is None.  
-9.1.3 In the `project1` project, verify that:  
-9.1.3.1 The component reference has been assigned to the `domain1` component.  
-9.1.3.2 Port messages `foo` and `bar` in port `domain1` exist and that their
-dialect is None.  
-9.1.3.3 Port messages `term_foo` and `term_bar` in port `domain1Bterm` exist and
-that their dialect is MASL.  
-
-It is suggested that at this point the tester add these projects to a git
-repository. This will allow the tests to be repeated consistently.
-
-9.2 Default checks  
-9.2.1 Verify that the default action language dialect in the action language
-preferences is set to MASL.  
-9.2.2 Right click `id` in `Aobject`. Select "Set as Derived Attribute".  
-9.2.3 Verify that the dialect is initialized to None.  
-9.2.4 Open the instance state machine diagram in `Aobject`. Add a transition
-between `Cstate` and `Dstate`. Verify that the new transition has dialect None.
-
-9.3 UI checks  
+9.1 Run manual test [#9266](https://support.onefact.net/issues/9266)  
 
 
 End
