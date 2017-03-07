@@ -26,7 +26,7 @@ Support was added to support inter-project class referencing.  This did not call
 4. Requirements
 ---------------
 4.1 Formalization shall be supported on all association types when the association includes an inter-project class reference  
-4.2 No data under the Property Parameter propery page entry shall be modifiable  
+4.2 No data under the Property Parameter property page entry shall be modifiable  
 
 5. Work Required
 ----------------
