@@ -1,4 +1,4 @@
-MASL Conversion Guide
+MASL Modeling and Conversion Guide
 ===================
      
 Introduction
@@ -92,6 +92,17 @@ Each component representing a MASL domain sprouts a single provided interface co
 operation for each public service surfaced by the MASL domain as declared in the MASL domain interface 
 file. This provided interface covers all incoming interface operations for the domain component, and 
 the complementary interface is always located on the project component.  
+
+A special naming convention must be followed when creating a MASL Project component (in Figure 1 the
+green component) from scratch. After the provided interface is formalized, the port must be renamed
+from its default name (e.g. "Port1") to ```<domain>__<terminator>``` with the double-underscore 
+separating the domain and terminator names.  
+
+### Deferred Operations
+
+To create a deferred operation, create an operation with an identical signature in each subtype 
+class.  Then use the Properties view to set the dialect of the supertype class' operation to
+"None".  Each subtype class' operation dialect is set to "MASL".
 
 ## xtUML Model Packaging for System-wide MASL Visibility
 

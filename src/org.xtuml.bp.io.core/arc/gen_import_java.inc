@@ -742,6 +742,7 @@ public class ${class_name} extends CoreImport
             String activity_type = "";
             String body = "";
             String signature = "";
+            String domain_name = "";
             String port_name = "";
 
             // parse serial MASL
@@ -750,6 +751,7 @@ public class ${class_name} extends CoreImport
                 if ( values[0].equals("routine") ) {
                     if ( !values[4].equals("") ) {
                         name = values[4];
+                        domain_name = values[1];
                         port_name = values[2];
                         activity_type = "routine";
                     }
@@ -829,7 +831,7 @@ public class ${class_name} extends CoreImport
             }
             else if ( pmc_root_element instanceof Component_c ) {
                 Component_c inst = (Component_c)pmc_root_element;
-                Ooaofooa.C_csetactions( modelRoot, (Object)m_component, activity_type, body, inst.getId(), dialect, port_name, signature, startLine );
+                Ooaofooa.C_csetactions( modelRoot, (Object)m_component, activity_type, body, inst.getId(), dialect, domain_name, port_name, signature, startLine );
             }
             else if ( pmc_root_element instanceof InstanceStateMachine_c ) {
                 InstanceStateMachine_c inst = (InstanceStateMachine_c)pmc_root_element;

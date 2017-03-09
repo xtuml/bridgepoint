@@ -12,7 +12,7 @@
   <![endif]-->
 </head>
 <body>
-<h1 id="masl-conversion-guide">MASL Conversion Guide</h1>
+<h1 id="masl-modeling-and-conversion-guide">MASL Modeling and Conversion Guide</h1>
 <h2 id="introduction">Introduction</h2>
 <p>BridgePoint xtUML is designed to support the executable, translatable UML (xtUML) approach<br />
 to the Shlaer-Mellor methodology for Model-Driven Architecture (MDA). However, xtUML is not<br />
@@ -147,6 +147,14 @@ is a project component that implements the project­-specific bridge requirement
 operation for each public service surfaced by the MASL domain as declared in the MASL domain interface<br />
 file. This provided interface covers all incoming interface operations for the domain component, and<br />
 the complementary interface is always located on the project component.</p>
+<p>A special naming convention must be followed when creating a MASL Project component (in Figure 1 the<br />
+green component) from scratch. After the provided interface is formalized, the port must be renamed<br />
+from its default name (e.g. &quot;Port1&quot;) to <code>&lt;domain&gt;__&lt;terminator&gt;</code> with the double-underscore<br />
+separating the domain and terminator names.</p>
+<h3 id="deferred-operations">Deferred Operations</h3>
+<p>To create a deferred operation, create an operation with an identical signature in each subtype<br />
+class. Then use the Properties view to set the dialect of the supertype class' operation to<br />
+&quot;None&quot;. Each subtype class' operation dialect is set to &quot;MASL&quot;.</p>
 <h2 id="xtuml-model-packaging-for-system-wide-masl-visibility">xtUML Model Packaging for System-wide MASL Visibility</h2>
 <p>Under xtUML, model elements defined within one component have no knowledge or visibility of model<br />
 elements (including types) defined within another component. This is different from MASL where public<br />
