@@ -23,6 +23,7 @@ import org.xtuml.bp.xtext.masl.masl.structure.AbstractActionDefinition
 import org.xtuml.bp.xtext.masl.masl.structure.AbstractActionDeclaration
 import org.xtuml.bp.xtext.masl.masl.structure.RelationshipDefinition
 import org.xtuml.bp.xtext.masl.masl.structure.EventDefinition
+import org.xtuml.bp.xtext.masl.masl.structure.ProjectDefinition
 
 class MASLResourceDescriptionStrategy extends DefaultResourceDescriptionStrategy {
 
@@ -55,6 +56,7 @@ class MASLResourceDescriptionStrategy extends DefaultResourceDescriptionStrategy
 			|| eObject instanceof AbstractActionDefinition
 			|| eObject instanceof RelationshipDefinition
 			|| eObject instanceof EventDefinition
+			|| eObject instanceof ProjectDefinition
 	}
 
 	private def doCreateEObjectDescriptions(EObject eObject, IAcceptor<IEObjectDescription> acceptor) {
