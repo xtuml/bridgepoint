@@ -214,7 +214,7 @@ public class ModelResourceUIValidatorExtension extends DefaultResourceUIValidato
 			signatureElement = InterfaceOperation_c.getOneC_IOOnR4004(
 					ExecutableProperty_c.getOneC_EPOnR4501(ProvidedExecutableProperty_c.getOneSPR_PEPOnR4503(sig)));			
 		}
-		if(element instanceof ProvidedSignal_c) {
+		if(element instanceof RequiredSignal_c) {
 			RequiredSignal_c sig = (RequiredSignal_c) element;
 			signatureElement = InterfaceOperation_c.getOneC_IOOnR4004(
 					ExecutableProperty_c.getOneC_EPOnR4500(RequiredExecutableProperty_c.getOneSPR_REPOnR4502(sig)));			
