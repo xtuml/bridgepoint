@@ -91,9 +91,10 @@ public class ModelResourceUIValidatorExtension extends DefaultResourceUIValidato
 			AbstractTopLevelElement topLevelElement = getServiceDefinition(eObject);
 			ICompositeNode actualNode = NodeModelUtils.findActualNodeFor(eObject);
 			ICompositeNode actionHostNode = NodeModelUtils.findActualNodeFor(topLevelElement);
-			// if we could not find an action host node, let xtext create the marker
+			// if we could not find an action host node skip the problem
+			// this will prevent creating duplicate problems against the
+			// masl resource itself
 			if(actionHostNode == null) {
-				super.createMarkers(resource, issues, monitor);
 				continue;
 			}
 			int lineNumber = issue.getLineNumber() - actionHostNode.getStartLine() + 1;
