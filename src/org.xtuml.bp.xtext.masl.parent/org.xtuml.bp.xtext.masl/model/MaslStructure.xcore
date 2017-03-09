@@ -296,6 +296,7 @@ class TransitionRow extends Pragmatized {
 }
 
 class TransitionOption {
+    refers ObjectDefinition eventObject
 	refers EventDefinition event
 	refers StateDeclaration endState
 	boolean ignore

@@ -4572,23 +4572,39 @@ ruleTransitionOption returns [EObject current=null]
 	(
 		(
 			(
+				(
+					{
+						if ($current==null) {
+							$current = createModelElement(grammarAccess.getTransitionOptionRule());
+						}
+					}
+					otherlv_0=RULE_ID
+					{
+						newLeafNode(otherlv_0, grammarAccess.getTransitionOptionAccess().getEventObjectObjectDefinitionCrossReference_0_0_0());
+					}
+				)
+			)
+			otherlv_1=FullStop
+			{
+				newLeafNode(otherlv_1, grammarAccess.getTransitionOptionAccess().getFullStopKeyword_0_1());
+			}
+		)?
+		(
+			(
 				{
 					if ($current==null) {
 						$current = createModelElement(grammarAccess.getTransitionOptionRule());
 					}
 				}
+				otherlv_2=RULE_ID
 				{
-					newCompositeNode(grammarAccess.getTransitionOptionAccess().getEventEventDefinitionCrossReference_0_0());
-				}
-				ruleScopedName
-				{
-					afterParserOrEnumRuleCall();
+					newLeafNode(otherlv_2, grammarAccess.getTransitionOptionAccess().getEventEventDefinitionCrossReference_1_0());
 				}
 			)
 		)
-		otherlv_1=EqualsSignGreaterThanSign
+		otherlv_3=EqualsSignGreaterThanSign
 		{
-			newLeafNode(otherlv_1, grammarAccess.getTransitionOptionAccess().getEqualsSignGreaterThanSignKeyword_1());
+			newLeafNode(otherlv_3, grammarAccess.getTransitionOptionAccess().getEqualsSignGreaterThanSignKeyword_2());
 		}
 		(
 			(
@@ -4598,18 +4614,18 @@ ruleTransitionOption returns [EObject current=null]
 							$current = createModelElement(grammarAccess.getTransitionOptionRule());
 						}
 					}
-					otherlv_2=RULE_ID
+					otherlv_4=RULE_ID
 					{
-						newLeafNode(otherlv_2, grammarAccess.getTransitionOptionAccess().getEndStateStateDeclarationCrossReference_2_0_0());
+						newLeafNode(otherlv_4, grammarAccess.getTransitionOptionAccess().getEndStateStateDeclarationCrossReference_3_0_0());
 					}
 				)
 			)
 			    |
 			(
 				(
-					lv_ignore_3_0=Ignore
+					lv_ignore_5_0=Ignore
 					{
-						newLeafNode(lv_ignore_3_0, grammarAccess.getTransitionOptionAccess().getIgnoreIgnoreKeyword_2_1_0());
+						newLeafNode(lv_ignore_5_0, grammarAccess.getTransitionOptionAccess().getIgnoreIgnoreKeyword_3_1_0());
 					}
 					{
 						if ($current==null) {
@@ -4623,9 +4639,9 @@ ruleTransitionOption returns [EObject current=null]
 			(
 				(
 					(
-						lv_cannotHappen_4_1=Cannot_Happen
+						lv_cannotHappen_6_1=Cannot_Happen
 						{
-							newLeafNode(lv_cannotHappen_4_1, grammarAccess.getTransitionOptionAccess().getCannotHappenCannot_HappenKeyword_2_2_0_0());
+							newLeafNode(lv_cannotHappen_6_1, grammarAccess.getTransitionOptionAccess().getCannotHappenCannot_HappenKeyword_3_2_0_0());
 						}
 						{
 							if ($current==null) {
@@ -4634,9 +4650,9 @@ ruleTransitionOption returns [EObject current=null]
 							setWithLastConsumed($current, "cannotHappen", true, null);
 						}
 						    |
-						lv_cannotHappen_4_2=Cannot_happen
+						lv_cannotHappen_6_2=Cannot_happen
 						{
-							newLeafNode(lv_cannotHappen_4_2, grammarAccess.getTransitionOptionAccess().getCannotHappenCannot_happenKeyword_2_2_0_1());
+							newLeafNode(lv_cannotHappen_6_2, grammarAccess.getTransitionOptionAccess().getCannotHappenCannot_happenKeyword_3_2_0_1());
 						}
 						{
 							if ($current==null) {
