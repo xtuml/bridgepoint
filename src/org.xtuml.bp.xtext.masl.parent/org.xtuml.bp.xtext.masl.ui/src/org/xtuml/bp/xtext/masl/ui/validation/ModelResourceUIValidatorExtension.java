@@ -61,7 +61,6 @@ import org.xtuml.bp.xtext.masl.masl.structure.AbstractService;
 import org.xtuml.bp.xtext.masl.masl.structure.AbstractTopLevelElement;
 import org.xtuml.bp.xtext.masl.masl.structure.Parameter;
 import org.xtuml.bp.xtext.masl.masl.structure.Parameterized;
-import org.xtuml.bp.xtext.masl.masl.structure.TerminatorServiceDefinition;
 import org.xtuml.bp.xtext.masl.masl.types.AbstractTypeReference;
 import org.xtuml.bp.xtext.masl.masl.types.NamedTypeReference;
 import org.xtuml.bp.xtext.masl.masl.types.TypeDeclaration;
@@ -116,7 +115,7 @@ public class ModelResourceUIValidatorExtension extends DefaultResourceUIValidato
 			NonRootModelElement xtUMLRootElement = getXtumlElementFromProblemElement(topLevelElement,
 					signatureFromMasl);
 			if(xtUMLRootElement == null) {
-				return;
+				continue;
 			}
 			IMarker marker = xtUMLRootElement.getPersistableComponent().getFile()
 					.createMarker(markerTypeProvider.getMarkerType(issue));
