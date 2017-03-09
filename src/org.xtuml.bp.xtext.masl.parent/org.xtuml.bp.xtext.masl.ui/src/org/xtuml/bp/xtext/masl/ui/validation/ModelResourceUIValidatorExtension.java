@@ -131,13 +131,7 @@ public class ModelResourceUIValidatorExtension extends DefaultResourceUIValidato
 			// if return type is null, use void
 			if(returnType != null) {
 				signature += ((AbstractNamed) returnType).getName();
-			} else {
-				if(!(serviceDefinition instanceof TerminatorServiceDefinition)) {
-					signature += "void"; //$NON-NLS-1$
-				}
 			}
-		} else {
-			signature += "void"; //$NON-NLS-1$
 		}
 		if(!signature.equals("")) {
 			signature += " ";
@@ -231,7 +225,11 @@ public class ModelResourceUIValidatorExtension extends DefaultResourceUIValidato
 	private String getXtumlSignature(NonRootModelElement element) {
 		try {
 			Method method = element.getClass().getMethod("Getsignature", new Class[] {Integer.TYPE});
-			return (String) method.invoke(element, new Object[] {0});
+			String signature = (String) method.invoke(element, new Object[] {0});
+			// strip void out as it is not used in the masl signature
+			// and for interface op/sig there is no way to know which
+			// should have it
+			return signature.replaceAll("void ", ""); //$NON-NLS-1$
 		} catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException
 				| InvocationTargetException e) {
 			// throw an error as this logic assumes that all
