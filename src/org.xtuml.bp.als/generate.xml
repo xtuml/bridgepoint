@@ -189,7 +189,7 @@
     </taskdef>
         <PTCodeFormat>
           <fileset dir="../org.xtuml.bp.als.oal/src/org/xtuml/bp/als/oal"
-                 excludes="Err_c.java, OalPlugin.java, pt_SemanticException.java, TextParser.java, ParseRunnable.java"
+                 excludes="Err_c.java, OalPlugin.java, pt_SemanticException.java, TextParser.java, ParseRunnable.java, ParserAllActivityModifier.java"
           includes="*.java" />
         </PTCodeFormat>
   </target>
