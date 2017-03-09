@@ -94,6 +94,13 @@ class MASLScopeProvider extends AbstractMASLScopeProvider {
 				if(context instanceof TransitionRow) 
 					return createObjectScope(context.getContainerOfType(ObjectDefinition), [states])
 			}
+			case transitionOption_Event: {
+                if(context instanceof TransitionOption) {
+                    val contextObject = context?.eventObject
+                    if(contextObject != null)
+                        return createObjectScope(contextObject, [events]) 
+                }
+            }
 			case transitionOption_EndState: {
 				if(context instanceof TransitionOption) 
 					return createObjectScope(context.getContainerOfType(ObjectDefinition), [states])		

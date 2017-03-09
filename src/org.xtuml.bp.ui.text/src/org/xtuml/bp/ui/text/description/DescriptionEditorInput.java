@@ -62,7 +62,13 @@ public class DescriptionEditorInput extends AbstractModelElementPropertyEditorIn
 		return super.getName(); 
 	}
 
+    public static boolean isSupported(Object inputObject){
+    	DescriptionEditorInputFactory factory = (DescriptionEditorInputFactory)PlatformUI.getWorkbench().getElementFactory(FACTORY_ID);
+		return factory.isSupported(inputObject);
+    }
+
 	/**
+	 * 
 	 * @see org.xtuml.bp.ui.text.AbstractModelElementPropertyEditorInput#createStorage()
 	 */
 	protected ModelElementPropertyStorage createStorage() {
