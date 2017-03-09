@@ -91,7 +91,7 @@ public class IntegrityChecker {
 			manager.relateAcrossR1301To(system);
 			try {
 				if (elementToCheck.getFile() != null && elementToCheck.getFile().isAccessible()) {
-					elementToCheck.getFile().deleteMarkers(IMarker.PROBLEM, true, IFile.DEPTH_ONE);
+					elementToCheck.getFile().deleteMarkers(IMarker.PROBLEM, false, IFile.DEPTH_ONE);
 				}
 			} catch (CoreException e) {
 				CorePlugin.logError("Unable to delete existing integrity markers.", e);

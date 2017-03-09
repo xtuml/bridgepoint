@@ -9,6 +9,7 @@ import org.apache.log4j.Logger;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.resources.IResource;
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -35,11 +36,15 @@ import org.xtuml.bp.core.Attribute_c;
 import org.xtuml.bp.core.Bridge_c;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.CreationTransition_c;
+import org.xtuml.bp.core.ExecutableProperty_c;
 import org.xtuml.bp.core.Function_c;
+import org.xtuml.bp.core.InterfaceOperation_c;
 import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.Operation_c;
+import org.xtuml.bp.core.ProvidedExecutableProperty_c;
 import org.xtuml.bp.core.ProvidedOperation_c;
 import org.xtuml.bp.core.ProvidedSignal_c;
+import org.xtuml.bp.core.RequiredExecutableProperty_c;
 import org.xtuml.bp.core.RequiredOperation_c;
 import org.xtuml.bp.core.RequiredSignal_c;
 import org.xtuml.bp.core.StateMachineState_c;
@@ -183,12 +188,38 @@ public class ModelResourceUIValidatorExtension extends DefaultResourceUIValidato
 		PersistableModelComponent pmc = PersistenceManager.findOrCreateComponent(path);
 		List<NonRootModelElement> elementsByName = getModelElementsByName(pmc, name);
 		for(NonRootModelElement element : elementsByName) {
-			String xtUMLSignature = getXtumlSignature(element);
+			NonRootModelElement signatureElement = getSignatureElement(element);
+			String xtUMLSignature = getXtumlSignature(signatureElement);
 			if(signature.equals(xtUMLSignature)) {
 				return element;
 			}
 		}
 		return null;
+	}
+
+	private NonRootModelElement getSignatureElement(NonRootModelElement element) {
+		NonRootModelElement signatureElement = element;
+		if(element instanceof ProvidedOperation_c) {
+			ProvidedOperation_c op = (ProvidedOperation_c) element;
+			signatureElement = InterfaceOperation_c.getOneC_IOOnR4004(
+					ExecutableProperty_c.getOneC_EPOnR4501(ProvidedExecutableProperty_c.getOneSPR_PEPOnR4503(op)));
+		}
+		if(element instanceof RequiredOperation_c) {
+			RequiredOperation_c op = (RequiredOperation_c) element;
+			signatureElement = InterfaceOperation_c.getOneC_IOOnR4004(
+					ExecutableProperty_c.getOneC_EPOnR4500(RequiredExecutableProperty_c.getOneSPR_REPOnR4502(op)));			
+		}
+		if(element instanceof ProvidedSignal_c) {
+			ProvidedSignal_c sig = (ProvidedSignal_c) element;
+			signatureElement = InterfaceOperation_c.getOneC_IOOnR4004(
+					ExecutableProperty_c.getOneC_EPOnR4501(ProvidedExecutableProperty_c.getOneSPR_PEPOnR4503(sig)));			
+		}
+		if(element instanceof ProvidedSignal_c) {
+			RequiredSignal_c sig = (RequiredSignal_c) element;
+			signatureElement = InterfaceOperation_c.getOneC_IOOnR4004(
+					ExecutableProperty_c.getOneC_EPOnR4500(RequiredExecutableProperty_c.getOneSPR_REPOnR4502(sig)));			
+		}
+		return signatureElement;
 	}
 
 	private String getXtumlSignature(NonRootModelElement element) {
@@ -289,10 +320,7 @@ public class ModelResourceUIValidatorExtension extends DefaultResourceUIValidato
 	}
 	
 	/**
-	 * Override addMarkers to prevent deletion of the one we created due
-	 * to a re-run of validation.  Otherwise a created marker will get 
-	 * removed just by switching to a different editor and causing validation
-	 * to occur
+	 * Override addMarkers to delete markers against the xtuml Resource
 	 */
 	@Override
 	protected void addMarkers(IFile file, Resource resource, CheckMode mode, IProgressMonitor monitor)
@@ -302,13 +330,13 @@ public class ModelResourceUIValidatorExtension extends DefaultResourceUIValidato
 			if (monitor.isCanceled()) {
 				throw new OperationCanceledException();
 			}
-			// markers are still deleted when the problem
-			// is fixed, but we want them hanging around
-			// until the workspace is closed otherwise
-			// the below commented line is from the
-			// supertype, other than that comment the
-			// functionality is identical
-			// deleteMarkers(file, mode, monitor);
+			// we need to delete markers against the xtuml resource
+			IFile xtumlResource = ResourcesPlugin.getWorkspace().getRoot()
+					.getFile(file.getFullPath().removeFileExtension().addFileExtension(Ooaofooa.MODELS_EXT));
+			if(xtumlResource.exists()) {
+				file = xtumlResource;
+			}
+			deleteMarkers(file, mode, monitor);
 			if (monitor.isCanceled()) {
 				throw new OperationCanceledException();
 			}
