@@ -15,6 +15,7 @@ This note describes an approach that allows proper navigation to model elements 
 ----------------------
 <a id="2.1"></a>2.1 [BridgePoint DEI #9191](https://support.onefact.net/issues/9191) Using "Go To" from the problem Tab opens underlying file  
 <a id="2.2"></a>2.2 [BridgePoint DEI #9121](https://support.onefact.net/issues/9121) Introduction of single buffer editor  
+<a id="2.3"></a>2.3 [BridgePoint DEI #8953](https://support.onefact.net/issues/8953) High level manual test for MASL editor  
 
 3. Background
 -------------
@@ -88,42 +89,8 @@ The plugin.xml that defines the marker support for masl data is modified to set 
 
 9. Unit Test
 ------------
-<pre>  
-Test elements:
-1. Function
-2. Operation
-3. Provided Operation
-4. Provided Signal
-5. Required Operation
-6. Required Signal
-7. Bridge
-8. Derived Based Attribute
-9. State
-10. Transition
-11. Creation Transition 
-
-For each test element perform the test below:
-
-_- Create the test element
-_- Create another element with the same name, if allowed, but with a different
-   signature
-_- Open a MASL editor against the element with a different signature
-_- Create two problems on different lines
-_- Save the changes
-_R The problems view contains the problem markers
-_R The problems view does not contain any markers against the element with the
-   same name
-_- Look at the owning xtuml folder for the element
-_R There are no additional files created
-_- Double click each marker in the problems view
-_R The given line number is selected and the problem is hightlighted
-_- Right click each marker and choose Go To
-_R The given line number is selected and the problem is highlighted
-_- Repeat the last two actions but with the editor closed
-_R The results are the same as above
-_- Restart the tool
-_R None of the test problem created above exist in the problems view
-</pre>  
+9.1 The test procedure is defined by test number 4.8 in [#8953](https://support.onefact.net/issues/8953).  
+  
 End
 ---
 
