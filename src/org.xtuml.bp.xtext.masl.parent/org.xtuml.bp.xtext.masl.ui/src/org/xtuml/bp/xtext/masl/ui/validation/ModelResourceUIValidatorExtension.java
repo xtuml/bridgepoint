@@ -39,6 +39,7 @@ import org.xtuml.bp.core.CreationTransition_c;
 import org.xtuml.bp.core.ExecutableProperty_c;
 import org.xtuml.bp.core.Function_c;
 import org.xtuml.bp.core.InterfaceOperation_c;
+import org.xtuml.bp.core.InterfaceSignal_c;
 import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.Operation_c;
 import org.xtuml.bp.core.ProvidedExecutableProperty_c;
@@ -60,6 +61,7 @@ import org.xtuml.bp.xtext.masl.masl.structure.AbstractService;
 import org.xtuml.bp.xtext.masl.masl.structure.AbstractTopLevelElement;
 import org.xtuml.bp.xtext.masl.masl.structure.Parameter;
 import org.xtuml.bp.xtext.masl.masl.structure.Parameterized;
+import org.xtuml.bp.xtext.masl.masl.structure.TerminatorServiceDefinition;
 import org.xtuml.bp.xtext.masl.masl.types.AbstractTypeReference;
 import org.xtuml.bp.xtext.masl.masl.types.NamedTypeReference;
 import org.xtuml.bp.xtext.masl.masl.types.TypeDeclaration;
@@ -130,12 +132,16 @@ public class ModelResourceUIValidatorExtension extends DefaultResourceUIValidato
 			if(returnType != null) {
 				signature += ((AbstractNamed) returnType).getName();
 			} else {
-				signature += "void"; //$NON-NLS-1$
+				if(!(serviceDefinition instanceof TerminatorServiceDefinition)) {
+					signature += "void"; //$NON-NLS-1$
+				}
 			}
 		} else {
 			signature += "void"; //$NON-NLS-1$
 		}
-		signature += " ";
+		if(!signature.equals("")) {
+			signature += " ";
+		}
 		signature += serviceDefinition.getName();
 		if(serviceDefinition instanceof Parameterized) {
 			String parameterList = "";
@@ -211,12 +217,12 @@ public class ModelResourceUIValidatorExtension extends DefaultResourceUIValidato
 		}
 		if(element instanceof ProvidedSignal_c) {
 			ProvidedSignal_c sig = (ProvidedSignal_c) element;
-			signatureElement = InterfaceOperation_c.getOneC_IOOnR4004(
+			signatureElement = InterfaceSignal_c.getOneC_ASOnR4004(
 					ExecutableProperty_c.getOneC_EPOnR4501(ProvidedExecutableProperty_c.getOneSPR_PEPOnR4503(sig)));			
 		}
 		if(element instanceof RequiredSignal_c) {
 			RequiredSignal_c sig = (RequiredSignal_c) element;
-			signatureElement = InterfaceOperation_c.getOneC_IOOnR4004(
+			signatureElement = InterfaceSignal_c.getOneC_ASOnR4004(
 					ExecutableProperty_c.getOneC_EPOnR4500(RequiredExecutableProperty_c.getOneSPR_REPOnR4502(sig)));			
 		}
 		return signatureElement;
