@@ -35,7 +35,7 @@ Currently the tool is using the component resource listener to respond to resour
 --------------------------
 6.1 This change also resolves [2.3 - Refactoring is not reflected in an open masl editor](2.3)
 
-6.2 Do not update contents if the underlying resource is not being modified.  Additionally a check was added to prevent replacing the contents if the editor has modifications that are unsaved.  Note that this check cannot be made to prevent reloading the contents if there is more than one editor opened which both are backed by the same file (like elements under the same package).
+6.2 Do not update contents if the underlying resource is not being modified.  
 
 7. Unit Test
 ------------
