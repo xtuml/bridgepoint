@@ -29,6 +29,8 @@ import org.eclipse.xtext.ui.refactoring.impl.RefactoringCrossReferenceSerializer
 import org.xtuml.bp.xtext.masl.ui.rename.MaslRefactoringCrossReferenceSerializer
 import org.eclipse.xtext.ui.refactoring.impl.RenameElementProcessor
 import org.xtuml.bp.xtext.masl.ui.rename.MaslRenameElementProcessor
+import org.eclipse.xtext.ui.validation.DefaultResourceUIValidatorExtension
+import org.xtuml.bp.xtext.masl.ui.validation.ModelResourceUIValidatorExtension
 
 /**
  * Use this class to register components to be used within the Eclipse IDE.
@@ -64,6 +66,10 @@ class MASLUiModule extends AbstractMASLUiModule {
 	
 	override bindAbstractEditStrategyProvider() {
 		MaslAutoEditStrategyProvider
+	}
+	
+	def Class<? extends DefaultResourceUIValidatorExtension> bindResourceUIValidatorExtension() {
+		ModelResourceUIValidatorExtension
 	}
 	
 	def configureMaslAutoBuilder(Binder binder) {

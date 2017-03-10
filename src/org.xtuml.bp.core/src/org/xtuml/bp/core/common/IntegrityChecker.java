@@ -24,8 +24,6 @@ import java.util.List;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IMarker;
-import org.eclipse.core.resources.IProject;
-import org.eclipse.core.resources.ProjectScope;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.resources.WorkspaceJob;
 import org.eclipse.core.runtime.CoreException;
@@ -33,19 +31,15 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.Job;
-import org.eclipse.core.runtime.preferences.IScopeContext;
 import org.eclipse.jface.preference.IPreferenceStore;
-import org.osgi.service.prefs.Preferences;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.IntegrityIssue_c;
 import org.xtuml.bp.core.IntegrityManager_c;
 import org.xtuml.bp.core.Package_c;
-import org.xtuml.bp.core.Pref_c;
 import org.xtuml.bp.core.Severity_c;
 import org.xtuml.bp.core.SystemModel_c;
 import org.xtuml.bp.core.inspector.ModelInspector;
-import org.xtuml.bp.core.inspector.ObjectElement;
-import org.xtuml.bp.core.ui.preferences.BridgePointProjectPreferences; 
+import org.xtuml.bp.core.inspector.ObjectElement; 
 
 /**
  * This is a utility class which will trigger generation of any integrity issues
@@ -57,9 +51,9 @@ public class IntegrityChecker {
 
 	static ModelInspector inspector = new ModelInspector(false);
 
-	static final String ID_TYPE = "org.xtuml.core.integrity.element.id";
-	static final String TYPE_TYPE = "org.xtuml.core.integrity.element.type";
-	static final String PATH_TYPE = "org.xtuml.core.integrity.model.file.path";
+	public static final String ID_TYPE = "org.xtuml.core.integrity.element.id";
+	public static final String TYPE_TYPE = "org.xtuml.core.integrity.element.type";
+	public static final String PATH_TYPE = "org.xtuml.core.integrity.model.file.path";
 
 	public static IntegrityIssue_c[] runIntegrityCheck(final NonRootModelElement element,
 			final IntegrityManager_c manager) {
@@ -97,7 +91,7 @@ public class IntegrityChecker {
 			manager.relateAcrossR1301To(system);
 			try {
 				if (elementToCheck.getFile() != null && elementToCheck.getFile().isAccessible()) {
-					elementToCheck.getFile().deleteMarkers(IMarker.PROBLEM, true, IFile.DEPTH_ONE);
+					elementToCheck.getFile().deleteMarkers(IMarker.PROBLEM, false, IFile.DEPTH_ONE);
 				}
 			} catch (CoreException e) {
 				CorePlugin.logError("Unable to delete existing integrity markers.", e);
@@ -142,7 +136,7 @@ public class IntegrityChecker {
 			// no file
 			if (nrme.getFile() != null && nrme.getFile().isAccessible()) {
 				try {
-					nrme.getFile().deleteMarkers(IMarker.PROBLEM, true, IFile.DEPTH_ONE);
+					nrme.getFile().deleteMarkers(IMarker.PROBLEM, false, IFile.DEPTH_ONE);
 				} catch (CoreException e) {
 					CorePlugin.logError("Unable to delete existing integrity markers.", e);
 				}
