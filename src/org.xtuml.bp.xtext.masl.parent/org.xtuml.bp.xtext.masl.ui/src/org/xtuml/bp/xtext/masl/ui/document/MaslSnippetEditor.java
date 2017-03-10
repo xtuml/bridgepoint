@@ -48,26 +48,28 @@ public class MaslSnippetEditor extends XtextEditor {
 	  modelChangeListener = new ModelChangeAdapter() {
 
 		@Override
-		public void modelElementReloaded(ModelChangedEvent event) {
-			NonRootModelElement modelElement = ((AbstractModelElementEditorInput) getEditorInput()).getModelElement();
-			try {
-				if ( TypeDefinitionEditorInput.isSupported(modelElement) ) {
-					setInput(TypeDefinitionEditorInputFactory.getDefaultInstance()
-								.createInstance(modelElement.getModelRoot()
-										.getInstanceList(modelElement.getClass())
-										.get(modelElement.getInstanceKey())));
+			public void modelElementReloaded(ModelChangedEvent event) {
+				NonRootModelElement modelElement = ((AbstractModelElementEditorInput) getEditorInput())
+						.getModelElement();
+				NonRootModelElement newElement = (NonRootModelElement) event.getNewModelElement();
+				if (modelElement.getPersistableComponent().equals(newElement.getPersistableComponent())) {
+					try {
+						if (TypeDefinitionEditorInput.isSupported(modelElement)) {
+							setInput(TypeDefinitionEditorInputFactory.getDefaultInstance()
+									.createInstance(modelElement.getModelRoot().getInstanceList(modelElement.getClass())
+											.get(modelElement.getInstanceKey())));
+						} else {
+							setInput(
+									MASLEditorInputFactory.getDefaultInstance().createInstance(modelElement.getModelRoot()
+											.getInstanceList(modelElement.getClass()).get(modelElement.getInstanceKey())));
+						}
+						updateLabelAndVisibleRegion((MaslDocumentProvider) getDocumentProvider(),
+								(AbstractModelElementPropertyEditorInput) getEditorInput());
+					} catch (CoreException e) {
+						CorePlugin.logError("Unable to reload editor content", e);
+					}
 				}
-				else {
-					setInput(MASLEditorInputFactory.getDefaultInstance()
-								.createInstance(modelElement.getModelRoot()
-										.getInstanceList(modelElement.getClass())
-										.get(modelElement.getInstanceKey())));
-				}
-				updateLabelAndVisibleRegion((MaslDocumentProvider) getDocumentProvider(), (AbstractModelElementPropertyEditorInput) getEditorInput());
-			} catch (CoreException e) {
-				CorePlugin.logError("Unable to reload editor content", e);
 			}
-		}
 
 
 	  };
