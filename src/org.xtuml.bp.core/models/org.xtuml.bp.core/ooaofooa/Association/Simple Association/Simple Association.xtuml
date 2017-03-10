@@ -374,10 +374,11 @@ INSERT INTO O_TFR
     where selected.Obj_ID == param.id;
 canParticipate = false;
 for each part in parts
-  if ( not_empty part and not canParticipate)
-    select any oida related by part->R_RTO[R204]->R_OIR[R203]->O_OBJ[R201]->O_ID[R104]->O_OIDA[R105];
-    // a participant has to have an id with attributes and cardinality of one (value zero)
-    canParticipate =  not_empty oida and part.Mult == 0;
+  select any oida related by part->R_RTO[R204]->R_OIR[R203]->O_OBJ[R201]->O_ID[R104]->O_OIDA[R105];
+  // a participant has to have an id with attributes and cardinality of one (value zero)
+  if (not_empty oida and part.Mult == 0)
+    canParticipate = true;
+    break;
   end if;
 end for;
 return canParticipate;',
