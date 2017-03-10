@@ -48,33 +48,28 @@ public class MaslSnippetEditor extends XtextEditor {
 	  modelChangeListener = new ModelChangeAdapter() {
 
 		@Override
-		public void modelElementReloaded(ModelChangedEvent event) {
-			NonRootModelElement modelElement = ((AbstractModelElementEditorInput) getEditorInput()).getModelElement();
-			NonRootModelElement newElement = (NonRootModelElement) event.getNewModelElement();
-			if(modelElement.getPersistableComponent().equals(newElement.getPersistableComponent())) {
-				try {
-					if ( TypeDefinitionEditorInput.isSupported(modelElement) ) {
-						if(true) {//!getDirtyStateEditorSupport().doVerify()) {
+			public void modelElementReloaded(ModelChangedEvent event) {
+				NonRootModelElement modelElement = ((AbstractModelElementEditorInput) getEditorInput())
+						.getModelElement();
+				NonRootModelElement newElement = (NonRootModelElement) event.getNewModelElement();
+				if (modelElement.getPersistableComponent().equals(newElement.getPersistableComponent())) {
+					try {
+						if (TypeDefinitionEditorInput.isSupported(modelElement)) {
 							setInput(TypeDefinitionEditorInputFactory.getDefaultInstance()
-									.createInstance(newElement.getModelRoot()
-											.getInstanceList(newElement.getClass())
-											.get(newElement.getInstanceKey())));
+									.createInstance(modelElement.getModelRoot().getInstanceList(modelElement.getClass())
+											.get(modelElement.getInstanceKey())));
+						} else {
+							setInput(
+									MASLEditorInputFactory.getDefaultInstance().createInstance(modelElement.getModelRoot()
+											.getInstanceList(modelElement.getClass()).get(modelElement.getInstanceKey())));
 						}
+						updateLabelAndVisibleRegion((MaslDocumentProvider) getDocumentProvider(),
+								(AbstractModelElementPropertyEditorInput) getEditorInput());
+					} catch (CoreException e) {
+						CorePlugin.logError("Unable to reload editor content", e);
 					}
-					else {
-						if(true) { //!getDirtyStateEditorSupport().doVerify()) {
-							setInput(MASLEditorInputFactory.getDefaultInstance()
-									.createInstance(newElement.getModelRoot()
-											.getInstanceList(newElement.getClass())
-											.get(newElement.getInstanceKey())));
-						}
-					}
-					updateLabelAndVisibleRegion((MaslDocumentProvider) getDocumentProvider(), (AbstractModelElementPropertyEditorInput) getEditorInput());
-				} catch (CoreException e) {
-					CorePlugin.logError("Unable to reload editor content", e);
 				}
 			}
-		}
 
 
 	  };
