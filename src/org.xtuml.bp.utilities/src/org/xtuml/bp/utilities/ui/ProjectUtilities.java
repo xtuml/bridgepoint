@@ -190,6 +190,7 @@ public class ProjectUtilities {
             ;
         final Display disp = PlatformUI.getWorkbench().getDisplay();
         while (!Job.getJobManager().isIdle()) {
+        	Job.getJobManager().resume();  // Make sure the job manager is executing jobs if there are any in the queue
             final Display current = Display.getCurrent();
             if ( current != null ) {
                 while (!disp.isDisposed() && !current.isDisposed()

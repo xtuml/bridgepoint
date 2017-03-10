@@ -718,7 +718,11 @@ ruleTransitionRow:
 
 // Rule TransitionOption
 ruleTransitionOption:
-	ruleScopedName
+	(
+		RULE_ID
+		'.'
+	)?
+	RULE_ID
 	'=>'
 	(
 		RULE_ID
