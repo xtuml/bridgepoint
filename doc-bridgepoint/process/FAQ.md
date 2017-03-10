@@ -239,7 +239,7 @@ BridgePoint Developer Issues <a id="bpdevelopers"></a>
   - The actionFilter operation has OAL that acts as a filter to determine when to enable/disable the CME
   - There are exceptions to the above description. However, in general that is how it works.
   
-* ** How to generate code for a specific class without waiting for a full build** <a id="fast_build1"></a>
+* **How to generate code for a specific class without waiting for a full build** <a id="fast_build1"></a>
   - Edit bp.core/generate.properties 
     - To build a single class only:
       - Put the containing package name on the ptc_mcc_ss_only line (property).  
