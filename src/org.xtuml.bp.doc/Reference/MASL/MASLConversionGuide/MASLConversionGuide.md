@@ -42,7 +42,7 @@ following notation is used:
 | &lt;click&gt;      | Select using left-mouse button |
 | &lt;dbl-click&gt;  | Two rapid &lt;click&gt;s |
 | __&lt;Text-in-bold&gt;__  | A menu selection |
-| __&lt;Text-in-bold&gt;>__ | A sequence of progressive menu selections |   
+| __&lt;Text-in-bold&gt; >__ | A sequence of progressive menu selections |   
   
 
 The MASL - xtUML Modeling Idiom
@@ -104,6 +104,33 @@ To create a deferred operation, create an operation with an identical signature 
 class.  Then use the Properties view to set the dialect of the supertype class' operation to
 "None".  Each subtype class' operation dialect is set to "MASL".
 
+### Polymorphic Events
+
+Polymorphic events in MASL are different than polymorphic events in xtUML.  In xtUML a polymorphic 
+event may be acted upon at only one level of the subtype/supertype class hierarchy. For comparison
+and contrast we call these "abstract polymorphic events."  In MASL a polymorphic event declared in
+a supertype must be handled explicitly in the state transition table of each subtype.  We call
+these "concrete polymorphic events."   
+
+Due to this fundamental methodological difference, modeling MASL concrete polymorphic events inside 
+BridgePoint requires some special procedures. Currently, MASL polymorphic events are created and 
+managed only by convention (that is, by the user following the idiom described here).  This style 
+of polymorphic event is not enforced by the model editor interface. It is up to the modeler to 
+create and maintain each of the events that are treated as polymorphic in a MASL-idiom model.   
+
+To create a MASL concrete polymorphic event, first create an event in the supertype state machine
+using __&lt;RMB&gt; > New > Event__ and name the event.  Next, create an event in the subtype
+state machine and name the event ```<supertype class name>.<event name>``` (see Figure 2).  Repeat 
+this process, creating a new event inside each subtype state machine.  Note, again, that the editor 
+does not enforce or validate correct naming, so type carefully!   
+
+![MASL Idiom Concrete Polymorphic Events](images/image05.png)  
+__Figure 2__  
+
+When "Export MASL domain" runs, BridgePoint sees the events created with this naming convention 
+and generates a valid textual MASL model with concrete polymorphic events specified in the state
+transition tables.  
+ 
 ## xtUML Model Packaging for System-wide MASL Visibility
 
 Under xtUML, model elements defined within one component have no knowledge or visibility of model 
@@ -129,9 +156,9 @@ leveraged. Any project which enables IPRs will gain access to the components and
 projects in the workspace.  
 
 ![MASL Project Layout](images/image03.png)  
-__Figure 2__  
+__Figure 3__  
   
-A typical xtUML project using this approach is illustrated in Figure 2. Note that all shared types 
+A typical xtUML project using this approach is illustrated in Figure 3. Note that all shared types 
 defined in the MASL domain are contained within the Shared package associated with that MASL domain, 
 and these type definitions are not included in the component representing the MASL domain. With 
 BridgePoint xtUML, the conversion facility produces a single xtUML model file adhering to the 
@@ -228,11 +255,11 @@ As described earlier, the MASL-xtUML idiom organizes the BridgePoint workspace b
 and an xtUML project is needed for each converted domain and project. To perform each import from 
 inside BridgePoint, the xtUML modeling perspective is used following these steps:   
    
-1. Create an xtUML project using __File>New>xtUML Project__. This command will ask for a name 
+1. Create an xtUML project using __File > New > xtUML Project__. This command will ask for a name 
 which must be unique among all projects in the workspace. A descriptive name that includes a 
 connection to the original MASL domain or MASL project is suggested.
 2. Enable the IPR preference for the created project using the steps described below.
-3. Select __File>Import__ to start a model import. This will open the Import model wizard.
+3. Select __File > Import__ to start a model import. This will open the Import model wizard.
 4. Expand the xtUML folder and select xtUML Model from the list of import sources.
 5. After __&lt;click&gt;__ ing on Next, enter the full path to the MASL-infused xtUML model file 
 to be imported. Pressing the Browse button will open a file browser where __&lt;click&gt;__ s are 
@@ -253,8 +280,8 @@ The steps to export an xtUML model to MASL from BridgePoint start with the Model
 Here the source xtUML project is selected by clicking on the package containing the project to 
 be exported as either a MASL domain or MASL project.   
 
-The conversion is activated by selecting __&lt;RMB&gt;>Export MASL domains__ for a domain project 
-or __&lt;RMB&gt;>Export MASL project__ for a MASL project. During the export process, progress is 
+The conversion is activated by selecting __&lt;RMB&gt; > Export MASL domains__ for a domain project 
+or __&lt;RMB&gt; > Export MASL project__ for a MASL project. During the export process, progress is 
 reported in the Console view, and if errors occur an error log will appear at completion of 
 the operation.  
   
@@ -292,17 +319,17 @@ type provides a palette of drag and drop diagram elements.
 * Properties provides access to the list of properties associated with a model element.  
   
 Each of these views is documented in the BridgePoint Help facility which can be accessed 
-through __Help>Help Contents__.  
+through __Help > Help Contents__.  
 
 A popular addition to the default xtUML Editor perspective is the Navigator view which provides 
 easy navigation of the files and directories contained within an xtUML project. This view can 
-be added from within BridgePoint by selecting __Window>Show View>Navigator__.
+be added from within BridgePoint by selecting __Window > Show View > Navigator__.
    
 Each model element has an Editor that can be opened in a number of ways, and since the xtUML 
 Modeling perspective is model-aware, can be opened from within Editors and views. The most 
 common view for navigating and opening model elements is the Model Explorer view. In this view, 
 model elements can be opened for editing by select the model element and either __&lt;double-click&gt;__ it 
-or using  __&lt;RMB&gt;>Open With__ to choose an Editor. Once activated, a new tab will appear in the 
+or using  __&lt;RMB&gt; > Open With__ to choose an Editor. Once activated, a new tab will appear in the 
 canvas area and the contents of the model element presented inside the Editor.   
   
 #### The MASL Editor
@@ -312,7 +339,7 @@ MASL, the extensions to BridgePoint xtUML include a full featured text editor wi
 highlighting.   
 
 The editor will appear when a model element containing MASL is __&lt;dbl-click&gt;__ or when using 
-__&lt;RMB&gt;> Open MASL__. In the Navigator view, selecting a ```.masl``` file and __&lt;dbl-click&gt;__ will 
+__&lt;RMB&gt; > Open MASL__. In the Navigator view, selecting a ```.masl``` file and __&lt;dbl-click&gt;__ will 
 open the MASL editor as well.  
 
 #### When an Action contains both OAL and MASL
@@ -320,14 +347,14 @@ open the MASL editor as well.
 Initially, models developed in MASL are unlikely to contain OAL. However, as the model matures 
 inside BridgePoint, it is possible that new model content will be a mixture of MASL and OAL with 
 some model elements containing both. To Edit these MASL-infused components, select the model 
-element from within Model Explorer, and use __&lt;RMB&gt;>Open With__ to choose either the OAL or MASL 
+element from within Model Explorer, and use __&lt;RMB&gt; > Open With__ to choose either the OAL or MASL 
 editor options.  
 
 ![xtUML Preferences](images/image02.png)  
-__Figure 3__  
+__Figure 4__  
   
-An alternative means is to set a default choice using the Default Action Language preferences (__Figure 3__). 
-The preference is located under __Window>Preferences>xtUML__, and after selecting the button next to 
+An alternative means is to set a default choice using the Default Action Language preferences (__Figure 4__). 
+The preference is located under __Window > Preferences > xtUML__, and after selecting the button next to 
 desired editor, __&lt;click&gt; OK__ to close the window.
 
 #### Inter-Project References and MASL
@@ -338,14 +365,14 @@ be used in another xtUML project. For the access to be allowed the referring pro
 IPRs enabled.  
     
 To check if IPRs are enabled for a particular xtUML project, select that project in the Model 
-Explorer View and then select __&lt;RMB&gt;> Project Preferences__. This will open a popup window (Figure 4), 
+Explorer View and then select __&lt;RMB&gt; > Project Preferences__. This will open a popup window (Figure 5), 
 and selecting Inter-Project References will show the setting Allow inter-project model references. 
 The use of IPRs is enabled if the checkbox is marked. For the models based on the MASL-xtUML idiom, 
 all xtUML projects containing a domain component or a project package must have this checkbox marked, 
 and the preference must be set prior to importing the masl2xtuml created MASL-infused models.
   
 ![xtUML Project Preferences](images/image01.png)  
-__Figure 4__  
+__Figure 5__  
 
 When a domain component, shared data type or shared interface is modified, all projects referencing 
 that model element will be marked with a warning icon on all affected model elements. There are 
@@ -354,24 +381,24 @@ the referenced model element then the update must be done using the following st
 changes into the project:  
 
 1. Select the project folder in the Model Explorer view.  
-2. Synchronize the changes by selecting __&lt;RMB&gt;>Synchronize with Library__  
+2. Synchronize the changes by selecting __&lt;RMB&gt; > Synchronize with Library__  
   
 In cases where the modeler is owner of both the referenced and the referring projects then the 
 update can be globally pushed from the referenced project to the referring projects using the 
 following steps:  
 
 1. Select the project folder in the Model Explorer view.  
-2. Synchronize the changes by selecting __&lt;RMB&gt;>Synchronize references__    
+2. Synchronize the changes by selecting __&lt;RMB&gt; > Synchronize references__    
   
 Appendix A.  the GPS Watch Example
 ------------
-To demonstrate the MASL extensions of BridgePoint xtUML, the GPS Watch example (Figure 5) will 
+To demonstrate the MASL extensions of BridgePoint xtUML, the GPS Watch example (Figure 6) will 
 be used. This model represents an exercise watch that records location, heart rate, and elapsed 
 time as the wearer performs a physical activity. The model is composed of four components: a 
 heart rate monitor, a location component, a tracking component and a user interface.  
 
 ![GPS Watch](images/image00.png)  
-__Figure 5__  
+__Figure 6__  
 
 ### Create a local copy of the MASL model
 
@@ -421,20 +448,20 @@ Having produced the individual xtUML projects, they are ready to be assembled in
 model inside BridgePoint xtUML. The model structure described in an earlier section is used 
 here and implemented using the following steps:  
   
-1. Create an empty xtUML project using __File>New>xtUML Project__ and give it the name 
+1. Create an empty xtUML project using __File > New > xtUML Project__ and give it the name 
 HeartRateMonitor.  __&lt;click&gt; Next__. On the model compiler selection page choose “C Model 
 Compiler (Source)”. __&lt;click&gt; Finish__.  
 2. Select the HeartRateMonitor project folder in the Model Explorer view followed by select 
-__&lt;RMB&gt;>Project Preferences__. This will popup the Project Preferences window and after selecting 
+__&lt;RMB&gt; > Project Preferences__. This will popup the Project Preferences window and after selecting 
 Inter-project References should confirm that the preference Allow inter-project model references 
 is checked. If not, __&lt;click&gt;__ on the box and a checkmark will appear.  
-3. Import the converted xtUML model using __File>Import__ and select xtUML Model under the xtUML 
+3. Import the converted xtUML model using __File > Import__ and select xtUML Model under the xtUML 
 folder. Once selected, __&lt;click&gt; Next__.  
 4. Browse to the folder ```~/Tutorial/xtUMLprj/HeartRateMonitor``` and check mark HeartRateMonitor 
 for the destination.  
 5. Repeat steps 1 Through 4 for Location, Tracking and UI models.  
 6. The final step is to import the top level project GPSWatch, Again create an empty xtUML project 
-using __File>New>xtUML Project__, give it the name GPSWatch, and confirm that the preference 
+using __File > New > xtUML Project__, give it the name GPSWatch, and confirm that the preference 
 Inter-project model References is checkmarked using the steps outlined in previously.  
 7. Import the converted MASL project found in ```~/Tutorial/xtUMLprj/GPSWatch``` into the GPSWatch 
 xtUML project.  
@@ -472,7 +499,7 @@ this change are:
 1. Inside Model Explorer, expand the tree from the Tracking project folder down through the 
 tracking packages and WorkoutTimer class to the stopped state of the Instance State Machine  
 2. To open a new MASL activity and associate it with the stopped state, hover over the stopped 
-state inside Model Explorer. Next __&lt;RMB&gt;>Open With > MASL Editor__
+state inside Model Explorer. Next __&lt;RMB&gt; > Open With > MASL Editor__
 3. In the MASL editor, add the code  
   
 ```
@@ -494,12 +521,12 @@ The conversion of xtUML projects into MASL domains and MASL projects is convenie
 from the Model Explorer view by first selecting the top package within the xtUML project.  
 
 1. Begin with the xtUML project HeartRateMonitor which is a domain within the GPSWatch model.  
-2. Once the package is selected, convert the project into a MASL domain by __&lt;RMB&gt;>Export MASL domains__  
+2. Once the package is selected, convert the project into a MASL domain by __&lt;RMB&gt; > Export MASL domains__  
 3. When completed the ```export.log``` file will appear. Check the log for Errors or INFO 
 messages. During MASL export, a ```masl/``` directory is created in the project if not present and 
 the produced MASL files along with the export log will be stored below it. The contents of the 
 ```masl/``` directory are visible in the Navigator view.   
 4. Repeat steps 2 and 3 for xtUML projects UI, Location, and Tracking.
 5. The final conversion is for the GPSWatch project which will be converted into a MASL project. Select 
-the GPSWatch package and __&lt;RMB&gt;>Export MASL project__.
+the GPSWatch package and __&lt;RMB&gt; > Export MASL project__.
 
