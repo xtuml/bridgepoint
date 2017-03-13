@@ -240,11 +240,13 @@ related across R3 in Source package is moved to Destination package.
   * Perform undo.   
  
 7.13 Pessimistic Locking Test - Assure RGOs are not checked-out/dirtied by the move operation. (Uses test model [2.6](#2.6))  
-  * 1. Select BOTH mybasetype and mysubtype in Model Explorer from package name impl and cut
+  * 1. In Model Explorer
+    * select BOTH mybasetype and mysubtype from package name impl
+    * cut
   * 2. Paste into decl2  
   * 3. Results 
-  * 3.1 no dialog appears
-  * 3.2 the only packages marked dirty are impl and dest2
+    * 3.1 no dialog appears
+    * 3.2 the only packages marked dirty are impl and dest2
   * 4. select package named Functions in Model Explorer, RC, BridgePoint Utilities > Load and Persist
   * 5. Result - Functions is marked dirty
   * 6. Compare package Functions with the lastest from head
