@@ -1,0 +1,21 @@
+Simulation started.
+User invoked function: TestFunction
+1:TestDeletionStateClass1 dequeueing. Event: TDSC12: SomeEvent1
+1:TestDeletionStateClass1 transition. New State: SomeState1 Previous State: InitialState
+LogInfo:  Some Event1
+1:TestDeletionStateClass1 dequeueing. Event: TDSC13: Terminate2
+1:TestDeletionStateClass1 transition. New State: FinalState Previous State: SomeState1
+LogInfo:  TDSC13 termination transition executes
+LogInfo:  TDSC13 termination transition exits
+LogInfo:  TDSC1 instance enters final deletion state
+1:TestDeletionStateClass1 disposed.
+2:TestDeletionStateClass2 dequeueing. Event: TDSC22: SomeEvent
+2:TestDeletionStateClass2 transition. New State: FinalState Previous State: InitialState
+LogInfo:  TDSC22 termination transition executes
+LogInfo:  TDSC22 termination transition exits
+LogInfo:  TDSC2 instance enters final deletion state
+2:TestDeletionStateClass2 disposed.
+TestDeletionStateClass2 dequeueing. Event: TDSC21: CreationEvent
+3:TestDeletionStateClass2 dequeueing. Event: TDSC21: CreationEvent
+3:TestDeletionStateClass2 transition. New State: InitialState
+LogInfo:  CREATION TRANSITION

@@ -1,0 +1,136 @@
+AUDIT RESULTS FOR DOMAIN reflexive
+
+SUBSYSTEMS WITHOUT DESCRIPTIONS:
+relation
+
+EXTERNAL ENTITIES WITHOUT DESCRIPTIONS:
+External Entity Time
+External Entity Logging
+External Entity Architecture
+
+BRIDGES WITHOUT DESCRIPTIONS:
+External Entity Bridge Logging::LogInfo
+External Entity Bridge Logging::LogFailure
+External Entity Bridge Logging::LogSuccess
+External Entity Bridge Architecture::shutdown
+
+CLASSES WITHOUT DESCRIPTIONS:
+Class relation::reflex
+Class relation::asc2
+Class relation::relation init
+Class relation::asc1
+Class relation::Test1
+Class relation::asc3
+Class relation::Test2
+Class relation::Test3
+Class relation::asc4
+Class relation::asc6
+Class relation::asc5
+Class relation::Scenario
+
+ATTRIBUTES WITHOUT DESCRIPTIONS:
+Attribute reflex::ref_id
+Attribute reflex::parent
+Attribute reflex::right
+Attribute asc2::id
+Attribute asc2::p_id
+Attribute asc2::c_id
+Attribute relation init::id
+Attribute relation init::current_state
+Attribute asc1::id
+Attribute asc1::l_id
+Attribute asc1::r_id
+Attribute Test1::id
+Attribute Test1::current_state
+Attribute asc3::id
+Attribute asc3::l_id
+Attribute asc3::r_id
+Attribute Test2::id
+Attribute Test2::current_state
+Attribute Test3::id
+Attribute Test3::current_state
+Attribute asc4::id
+Attribute asc4::l_id
+Attribute asc4::r_id
+Attribute asc6::id
+Attribute asc6::p_id
+Attribute asc6::c_id
+Attribute asc5::id
+Attribute asc5::l_id
+Attribute asc5::r_id
+Attribute Scenario::id
+Attribute Scenario::current_state
+Attribute Scenario::count
+
+REFERENCES WITHOUT DESCRIPTIONS:
+Referential Attribute reflex::parent
+Referential Attribute reflex::right
+Referential Attribute asc2::p_id
+Referential Attribute asc2::c_id
+Referential Attribute asc1::l_id
+Referential Attribute asc1::r_id
+Referential Attribute asc3::l_id
+Referential Attribute asc3::r_id
+Referential Attribute asc4::l_id
+Referential Attribute asc4::r_id
+Referential Attribute asc6::p_id
+Referential Attribute asc6::c_id
+Referential Attribute asc5::l_id
+Referential Attribute asc5::r_id
+
+RELATIONSHIPS WITHOUT DESCRIPTIONS:
+relation::R2
+relation::R5
+relation::R4
+relation::R1
+relation::R3
+relation::R6
+relation::R7
+relation::R8
+
+STATE MODELS WITHOUT DESCRIPTIONS:
+State Model relation init
+State Model Test1
+State Model Test2
+State Model Test3
+State Model Scenario
+
+EVENTS WITHOUT DESCRIPTIONS:
+Event INIT1
+Event TS11
+Event TS12
+Event TS13
+Event TS14
+Event TS21
+Event TS22
+Event TS23
+Event TS24
+Event TS31
+Event TS32
+Event TS33
+Event SC1
+Event SC2
+
+ACTION SPECIFICATIONS WITHOUT DESCRIPTIONS:
+relation init::INIT
+Test1::Testing_01_01
+Test1::Cleaning_01_01
+Test1::Testing_01_02
+Test1::Cleaning_01_02
+Test1::Testing_01_03
+Test1::Cleaning_01_03
+Test2::Testing_02_01
+Test2::Cleaning_02_01
+Test2::Testing_02_02
+Test2::Cleaning_02_02
+Test2::Testing_02_03
+Test2::Cleaning_02_03
+Test3::Testing_03_01
+Test3::Cleaning_03_01
+Test3::Testing_03_02
+Test3::Cleaning_03_02
+Scenario::Created
+Scenario::Testing_01
+Scenario::Testing_02
+Scenario::Testing_03
+Scenario::Loop

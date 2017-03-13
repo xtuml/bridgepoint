@@ -1,0 +1,348 @@
+-- BP 7.1 content: FunctionPackage syschar: 3 persistence-version: 7.1.5
+
+INSERT INTO S_FPK
+	VALUES ("87a26207-728a-4f10-8e04-d7ac1a67f6e7",
+	'Nested Test Inovcation Functions',
+	"00000000-0000-0000-0000-000000000000",
+	"00eb78a1-4fd3-4de4-b0c4-82f871e6cea8");
+INSERT INTO GD_MD
+	VALUES ("765b45fb-5408-4c53-8b6c-3ecb0c23d3a0",
+	101,
+	"87a26207-728a-4f10-8e04-d7ac1a67f6e7",
+	54,
+	0,
+	0,
+	1,
+	1,
+	1,
+	12,
+	1,
+	0,
+	0,
+	0,
+	0,
+	0,
+	'3.2.3');
+INSERT INTO DIM_DIA
+	VALUES ("765b45fb-5408-4c53-8b6c-3ecb0c23d3a0",
+	'',
+	1.000000,
+	4000.000000,
+	3000.000000,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO PL_FPID
+	VALUES ("87a26207-728a-4f10-8e04-d7ac1a67f6e7",
+	"c3928f56-530d-4984-8114-35933dc4cb31");
+INSERT INTO S_DOM_PROXY
+	VALUES ("c3928f56-530d-4984-8114-35933dc4cb31",
+	'instRef',
+	'',
+	0,
+	"00000000-0000-0000-0000-000000000002",
+	"13c14d34-d225-4949-89b6-fe738cc62cbb",
+	'../../instRef.xtuml');
+INSERT INTO S_FIP
+	VALUES ("87a26207-728a-4f10-8e04-d7ac1a67f6e7",
+	"d1b495c2-dcdb-4a06-aabf-36b23354c73f");
+INSERT INTO S_SYNC
+	VALUES ("d1b495c2-dcdb-4a06-aabf-36b23354c73f",
+	"c3928f56-530d-4984-8114-35933dc4cb31",
+	'Attribute_Nested',
+	'',
+	'LOG::LogInfo(message:"Operation entered: Attribute Nested Test Started");
+
+::setup(accessType:"Nested",referenceType:"Attribute"); 
+select any test from instances of ATTR3;
+test.O_ATTR_readAttr();
+::dispose(accessType:"Nested",referenceType:"Attribute");  
+
+::setup(accessType:"Nested",referenceType:"Attribute"); 
+select any test from instances of ATTR3;
+test.O_ATTR_WhereClause();
+::dispose(accessType:"Nested",referenceType:"Attribute");  
+
+::setup(accessType:"Nested",referenceType:"Attribute"); 
+select any test from instances of ATTR3;
+test.O_ATTR_booleanBinaryOperationLeftOperand();
+::dispose(accessType:"Nested",referenceType:"Attribute");  
+
+::setup(accessType:"Nested",referenceType:"Attribute"); 
+select any test from instances of ATTR3;
+test.O_ATTR_booleanBinaryOperationRightOperand();
+::dispose(accessType:"Nested",referenceType:"Attribute");  
+
+::setup(accessType:"Nested",referenceType:"Attribute"); 
+select any test from instances of ATTR3;
+test.O_ATTR_writeAttr();
+::dispose(accessType:"Nested",referenceType:"Attribute");
+
+::setup(accessType:"Nested",referenceType:"Attribute"); 
+select any test from instances of ATTR3;
+test.O_ATTR_booleanBinaryOperationLeftOperandSet();
+::dispose(accessType:"Nested",referenceType:"Attribute");
+
+::setup(accessType:"Nested",referenceType:"Attribute"); 
+select any test from instances of ATTR3;
+test.O_ATTR_booleanBinaryOperationRightOperandSet();
+::dispose(accessType:"Nested",referenceType:"Attribute");
+
+::setup(accessType:"Nested",referenceType:"Attribute"); 
+select any test from instances of ATTR3;
+test.O_ATTR_ActivitiesInvocation();
+::dispose(accessType:"Nested",referenceType:"Attribute");
+
+::setup(accessType:"Nested",referenceType:"Attribute"); 
+select any test from instances of ATTR3;
+test.O_ATTR_ActivitiesInvocationSet();
+::dispose(accessType:"Nested",referenceType:"Attribute");
+
+LOG::LogInfo(message:"Operation entered: Attribute Parameter Nested Test Ended");',
+	"63f91549-9407-42c4-a2c0-fdde2812f080",
+	1,
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("63f91549-9407-42c4-a2c0-fdde2812f080",
+	"c3928f56-530d-4984-8114-35933dc4cb31",
+	'void',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO S_FIP
+	VALUES ("87a26207-728a-4f10-8e04-d7ac1a67f6e7",
+	"111e410c-6e06-461b-b98f-f85ad5109e1f");
+INSERT INTO S_SYNC
+	VALUES ("111e410c-6e06-461b-b98f-f85ad5109e1f",
+	"c3928f56-530d-4984-8114-35933dc4cb31",
+	'StructureMember_Nested',
+	'',
+	'LOG::LogInfo(message:"Operation entered: Structure Member Nested Test Started");
+
+::setup(accessType:"Nested",referenceType:"Structure Member"); 
+select any test from instances of MBR3;
+test.S_MBR_readAttr();
+::dispose(accessType:"Nested",referenceType:"Structure Member");  
+
+::setup(accessType:"Nested",referenceType:"Structure Member"); 
+select any test from instances of MBR3;
+test.S_MBR_WhereClause();
+::dispose(accessType:"Nested",referenceType:"Structure Member");  
+
+::setup(accessType:"Nested",referenceType:"Structure Member"); 
+select any test from instances of MBR3;
+test.S_MBR_booleanBinaryOperationLeftOperand();
+::dispose(accessType:"Nested",referenceType:"Structure Member");  
+
+::setup(accessType:"Nested",referenceType:"Structure Member"); 
+select any test from instances of MBR3;
+test.S_MBR_booleanBinaryOperationRightOperand();
+::dispose(accessType:"Nested",referenceType:"Structure Member");  
+
+::setup(accessType:"Nested",referenceType:"Structure Member"); 
+select any test from instances of MBR3;
+test.S_MBR_writeAttr();
+::dispose(accessType:"Nested",referenceType:"Structure Member");
+
+::setup(accessType:"Nested",referenceType:"Structure Member"); 
+select any test from instances of MBR3;
+test.S_MBR_booleanBinaryOperationLeftOperandSet();
+::dispose(accessType:"Nested",referenceType:"Structure Member");
+
+::setup(accessType:"Nested",referenceType:"Structure Member"); 
+select any test from instances of MBR3;
+test.S_MBR_booleanBinaryOperationRightOperandSet();
+::dispose(accessType:"Nested",referenceType:"Structure Member");
+
+::setup(accessType:"Nested",referenceType:"Structure Member"); 
+select any test from instances of MBR3;
+test.S_MBR_ActivitiesInvocation();
+::dispose(accessType:"Nested",referenceType:"Structure Member");
+
+::setup(accessType:"Nested",referenceType:"Structure Member"); 
+select any test from instances of MBR3;
+test.S_MBR_ActivitiesInvocationSet();
+::dispose(accessType:"Nested",referenceType:"Structure Member");
+
+LOG::LogInfo(message:"Operation entered: Structure Member Parameter Nested Test Ended");',
+	"63f91549-9407-42c4-a2c0-fdde2812f080",
+	1,
+	'');
+INSERT INTO S_FIP
+	VALUES ("87a26207-728a-4f10-8e04-d7ac1a67f6e7",
+	"4c63e48c-0c90-4efa-a4ac-a1fac0dcc729");
+INSERT INTO S_SYNC
+	VALUES ("4c63e48c-0c90-4efa-a4ac-a1fac0dcc729",
+	"c3928f56-530d-4984-8114-35933dc4cb31",
+	'MixedOne_Nested',
+	'',
+	'LOG::LogInfo(message:"Operation entered: Mixed One Nested Test Started");
+
+::setup(accessType:"Nested",referenceType:"Mixed One"); 
+select any car from instances of V;
+MIX1::MIX_readAttr(instRef:car);
+::dispose(accessType:"Nested",referenceType:"Mixed One");  
+
+::setup(accessType:"Nested",referenceType:"Mixed One"); 
+select any car from instances of V;
+MIX1::MIX_WhereClause(instRef:car);
+::dispose(accessType:"Nested",referenceType:"Mixed One");  
+
+::setup(accessType:"Nested",referenceType:"Mixed One"); 
+select any car from instances of V;
+MIX1::MIX_booleanBinaryOperationLeftOperand(instRef:car);
+::dispose(accessType:"Nested",referenceType:"Mixed One");  
+
+::setup(accessType:"Nested",referenceType:"Mixed One"); 
+select any car from instances of V;
+MIX1::MIX_booleanBinaryOperationRightOperand(instRef:car);
+::dispose(accessType:"Nested",referenceType:"Mixed One");  
+
+::setup(accessType:"Nested",referenceType:"Mixed One"); 
+select any car from instances of V;
+MIX1::MIX_writeAttr(instRef:car);
+::dispose(accessType:"Nested",referenceType:"Mixed One");
+
+::setup(accessType:"Nested",referenceType:"Mixed One"); 
+select many cars from instances of V;
+MIX1::MIX_booleanBinaryOperationLeftOperandSet(instRef_set:cars);
+::dispose(accessType:"Nested",referenceType:"Mixed One");
+
+::setup(accessType:"Nested",referenceType:"Mixed One"); 
+select many cars from instances of V;
+MIX1::MIX_booleanBinaryOperationRightOperandSet(instRef_set:cars);
+::dispose(accessType:"Nested",referenceType:"Mixed One");
+
+::setup(accessType:"Nested",referenceType:"Mixed One"); 
+select any car from instances of V;
+MIX1::MIX_ActivitiesInvocation(instRef:car);
+::dispose(accessType:"Nested",referenceType:"Mixed One");
+
+::setup(accessType:"Nested",referenceType:"Mixed One"); 
+select many cars from instances of V;
+MIX1::MIX_ActivitiesInvocationSet(instRef_set:cars);
+::dispose(accessType:"Nested",referenceType:"Mixed One");
+
+LOG::LogInfo(message:"Operation entered: Mixed One Nested Test Ended");',
+	"63f91549-9407-42c4-a2c0-fdde2812f080",
+	1,
+	'');
+INSERT INTO S_FIP
+	VALUES ("87a26207-728a-4f10-8e04-d7ac1a67f6e7",
+	"eea30057-08a6-40aa-bec0-f125e20e789e");
+INSERT INTO S_SYNC
+	VALUES ("eea30057-08a6-40aa-bec0-f125e20e789e",
+	"c3928f56-530d-4984-8114-35933dc4cb31",
+	'MixedTwo_Nested',
+	'',
+	'LOG::LogInfo(message:"Operation entered: Mixed Two Nested Test Started");
+
+::setup(accessType:"Nested",referenceType:"Mixed Two"); 
+select any test from instances of MIX2;
+test.MIX_readAttr();
+::dispose(accessType:"Nested",referenceType:"Mixed Two");  
+
+::setup(accessType:"Nested",referenceType:"Mixed Two"); 
+select any test from instances of MIX2;
+test.MIX_WhereClause();
+::dispose(accessType:"Nested",referenceType:"Mixed Two");  
+
+::setup(accessType:"Nested",referenceType:"Mixed Two"); 
+select any test from instances of MIX2;
+test.MIX_booleanBinaryOperationLeftOperand();
+::dispose(accessType:"Nested",referenceType:"Mixed Two");  
+
+::setup(accessType:"Nested",referenceType:"Mixed Two"); 
+select any test from instances of MIX2;
+test.MIX_booleanBinaryOperationRightOperand();
+::dispose(accessType:"Nested",referenceType:"Mixed Two");  
+
+::setup(accessType:"Nested",referenceType:"Mixed Two"); 
+select any test from instances of MIX2;
+test.MIX_writeAttr();
+::dispose(accessType:"Nested",referenceType:"Mixed Two");
+
+::setup(accessType:"Nested",referenceType:"Mixed Two"); 
+select any test from instances of MIX2;
+test.MIX_booleanBinaryOperationLeftOperandSet();
+::dispose(accessType:"Nested",referenceType:"Mixed Two");
+
+::setup(accessType:"Nested",referenceType:"Mixed Two"); 
+select any test from instances of MIX2;
+test.MIX_booleanBinaryOperationRightOperandSet();
+::dispose(accessType:"Nested",referenceType:"Mixed Two");
+
+::setup(accessType:"Nested",referenceType:"Mixed Two"); 
+select any test from instances of MIX2;
+test.MIX_ActivitiesInvocation();
+::dispose(accessType:"Nested",referenceType:"Mixed Two");
+
+::setup(accessType:"Nested",referenceType:"Mixed Two"); 
+select any test from instances of MIX2;
+test.MIX_ActivitiesInvocationSet();
+::dispose(accessType:"Nested",referenceType:"Mixed Two");
+
+LOG::LogInfo(message:"Operation entered: Mixed Two Parameter Nested Test Ended");',
+	"63f91549-9407-42c4-a2c0-fdde2812f080",
+	1,
+	'');
+INSERT INTO S_FIP
+	VALUES ("87a26207-728a-4f10-8e04-d7ac1a67f6e7",
+	"676ef44c-f6a7-4fd0-acc6-980acbdf1ad1");
+INSERT INTO S_SYNC
+	VALUES ("676ef44c-f6a7-4fd0-acc6-980acbdf1ad1",
+	"c3928f56-530d-4984-8114-35933dc4cb31",
+	'MixedThree_Nested',
+	'',
+	'LOG::LogInfo(message:"Operation entered: Mixed Three Nested Test Started");
+
+::setup(accessType:"Nested",referenceType:"Mixed Three"); 
+select any test from instances of MIX3;
+test.MIX_readAttr();
+::dispose(accessType:"Nested",referenceType:"Mixed Three");  
+
+::setup(accessType:"Nested",referenceType:"Mixed Three"); 
+select any test from instances of MIX3;
+test.MIX_WhereClause();
+::dispose(accessType:"Nested",referenceType:"Mixed Three");  
+
+::setup(accessType:"Nested",referenceType:"Mixed Three"); 
+select any test from instances of MIX3;
+test.MIX_booleanBinaryOperationLeftOperand();
+::dispose(accessType:"Nested",referenceType:"Mixed Three");  
+
+::setup(accessType:"Nested",referenceType:"Mixed Three"); 
+select any test from instances of MIX3;
+test.MIX_booleanBinaryOperationRightOperand();
+::dispose(accessType:"Nested",referenceType:"Mixed Three");  
+
+::setup(accessType:"Nested",referenceType:"Mixed Three"); 
+select any test from instances of MIX3;
+test.MIX_writeAttr();
+::dispose(accessType:"Nested",referenceType:"Mixed Three");
+
+::setup(accessType:"Nested",referenceType:"Mixed Three"); 
+select any test from instances of MIX3;
+test.MIX_booleanBinaryOperationLeftOperandSet();
+::dispose(accessType:"Nested",referenceType:"Mixed Three");
+
+::setup(accessType:"Nested",referenceType:"Mixed Three"); 
+select any test from instances of MIX3;
+test.MIX_booleanBinaryOperationRightOperandSet();
+::dispose(accessType:"Nested",referenceType:"Mixed Three");
+
+::setup(accessType:"Nested",referenceType:"Mixed Three"); 
+select any test from instances of MIX3;
+test.MIX_ActivitiesInvocation();
+::dispose(accessType:"Nested",referenceType:"Mixed Three");
+
+::setup(accessType:"Nested",referenceType:"Mixed Three"); 
+select any test from instances of MIX3;
+test.MIX_ActivitiesInvocationSet();
+::dispose(accessType:"Nested",referenceType:"Mixed Three");
+
+LOG::LogInfo(message:"Operation entered: Mixed Three Parameter Nested Test Ended");',
+	"63f91549-9407-42c4-a2c0-fdde2812f080",
+	1,
+	'');
+INSERT INTO S_FPIP_PROXY
+	VALUES ("00eb78a1-4fd3-4de4-b0c4-82f871e6cea8",
+	'../Invocation Test Functions.xtuml');

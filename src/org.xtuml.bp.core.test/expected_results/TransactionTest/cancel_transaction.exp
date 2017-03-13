@@ -1,0 +1,101 @@
+Transaction started: Segment creation
+ Creation of instance of type: ui.canvas.GraphicalElement
+  instance of [ui.canvas.GraphicalElement] RelatedAcross R10 To:  instance of [ui.canvas.ElementSpecification]
+  instance of [ui.canvas.ElementSpecification] RelatedAcross R16 To:  instance of [ui.canvas.GraphicalElement]
+  instance of [ui.canvas.GraphicalElement] RelatedAcross R1 To:  instance of [ui.canvas.Model]
+ Creation of instance of type: ui.canvas.Connector
+  instance of [ui.canvas.Connector] RelatedAcross R2 To:  instance of [ui.canvas.GraphicalElement]
+ Creation of instance of type: ui.canvas.Graphedge
+  instance of [ui.canvas.Connector] RelatedAcross R20 To:  instance of [ui.canvas.Graphedge]
+ Creation of instance of type: ui.canvas.Graphelement
+  instance of [ui.canvas.Graphedge] RelatedAcross R301 To:  instance of [ui.canvas.Graphelement]
+  instance of [ui.canvas.GraphicalElement] RelatedAcross R23 To:  instance of [ui.canvas.Graphelement]
+ Creation of instance of type: ui.canvas.Diagramelement
+  instance of [ui.canvas.Graphelement] RelatedAcross R302 To:  instance of [ui.canvas.Diagramelement]
+ Creation of instance of type: ui.canvas.LineSegment
+ Creation of instance of type: ui.canvas.Waypoint
+  instance of [ui.canvas.LineSegment] RelatedAcross R21 To:  instance of [ui.canvas.Waypoint]
+  instance of [ui.canvas.Waypoint] RelatedAcross R319 To:  instance of [ui.canvas.Graphedge]
+ Creation of instance of type: ui.canvas.Waypoint
+  instance of [ui.canvas.LineSegment] RelatedAcross R22 To:  instance of [ui.canvas.Waypoint]
+  instance of [ui.canvas.Waypoint] RelatedAcross R319 To:  instance of [ui.canvas.Graphedge]
+  instance of [ui.canvas.Waypoint] RelatedAcross R324 To:  instance of [ui.canvas.Waypoint]
+  instance of [ui.canvas.LineSegment] RelatedAcross R6 To:  instance of [ui.canvas.Connector]
+ Creation of instance of type: ui.canvas.FloatingText
+ Attribute 'End' of ui.canvas.FloatingText changed ( '-1' -> '1')
+  instance of [ui.canvas.FloatingText] RelatedAcross R8 To:  instance of [ui.canvas.Connector]
+ Creation of instance of type: ui.canvas.Graphnode
+  instance of [ui.canvas.FloatingText] RelatedAcross R19 To:  instance of [ui.canvas.Graphnode]
+ Creation of instance of type: ui.canvas.Graphelement
+  instance of [ui.canvas.Graphnode] RelatedAcross R301 To:  instance of [ui.canvas.Graphelement]
+ Creation of instance of type: ui.canvas.Diagramelement
+  instance of [ui.canvas.Graphelement] RelatedAcross R302 To:  instance of [ui.canvas.Diagramelement]
+ Creation of instance of type: ui.canvas.FloatingText
+ Attribute 'End' of ui.canvas.FloatingText changed ( '-1' -> '3')
+  instance of [ui.canvas.FloatingText] RelatedAcross R8 To:  instance of [ui.canvas.Connector]
+ Creation of instance of type: ui.canvas.Graphnode
+  instance of [ui.canvas.FloatingText] RelatedAcross R19 To:  instance of [ui.canvas.Graphnode]
+ Creation of instance of type: ui.canvas.Graphelement
+  instance of [ui.canvas.Graphnode] RelatedAcross R301 To:  instance of [ui.canvas.Graphelement]
+ Creation of instance of type: ui.canvas.Diagramelement
+  instance of [ui.canvas.Graphelement] RelatedAcross R302 To:  instance of [ui.canvas.Diagramelement]
+ Creation of instance of type: ui.canvas.FloatingText
+ Attribute 'End' of ui.canvas.FloatingText changed ( '-1' -> '2')
+  instance of [ui.canvas.FloatingText] RelatedAcross R8 To:  instance of [ui.canvas.Connector]
+ Creation of instance of type: ui.canvas.Graphnode
+  instance of [ui.canvas.FloatingText] RelatedAcross R19 To:  instance of [ui.canvas.Graphnode]
+ Creation of instance of type: ui.canvas.Graphelement
+  instance of [ui.canvas.Graphnode] RelatedAcross R301 To:  instance of [ui.canvas.Graphelement]
+ Creation of instance of type: ui.canvas.Diagramelement
+  instance of [ui.canvas.Graphelement] RelatedAcross R302 To:  instance of [ui.canvas.Diagramelement]
+ Attribute 'Positionx' of ui.canvas.Waypoint changed ( '0.0' -> '1806.0')
+ Attribute 'Positiony' of ui.canvas.Waypoint changed ( '0.0' -> '1338.0')
+ Attribute 'Positionx' of ui.canvas.Waypoint changed ( '0.0' -> '2070.0')
+ Attribute 'Positiony' of ui.canvas.Waypoint changed ( '0.0' -> '1296.0')
+  instance of [ui.canvas.Connector] UN-RelatedAcross R2 To:  instance of [ui.canvas.GraphicalElement]
+  instance of [ui.canvas.GraphicalElement] UN-RelatedAcross R23 To:  instance of [ui.canvas.Graphelement]
+  instance of [ui.canvas.Graphelement] UN-RelatedAcross R302 To:  instance of [ui.canvas.Diagramelement]
+  instance of [ui.canvas.Graphedge] UN-RelatedAcross R301 To:  instance of [ui.canvas.Graphelement]
+  instance of [ui.canvas.Waypoint] UN-RelatedAcross R319 To:  instance of [ui.canvas.Graphedge]
+  instance of [ui.canvas.LineSegment] UN-RelatedAcross R21 To:  instance of [ui.canvas.Waypoint]
+  instance of [ui.canvas.Waypoint] UN-RelatedAcross R324 To:  instance of [ui.canvas.Waypoint]
+ Deletion of instance of type: ui.canvas.Waypoint
+  instance of [ui.canvas.Waypoint] UN-RelatedAcross R319 To:  instance of [ui.canvas.Graphedge]
+  instance of [ui.canvas.LineSegment] UN-RelatedAcross R22 To:  instance of [ui.canvas.Waypoint]
+ Deletion of instance of type: ui.canvas.Waypoint
+  instance of [ui.canvas.Connector] UN-RelatedAcross R20 To:  instance of [ui.canvas.Graphedge]
+  instance of [ui.canvas.FloatingText] UN-RelatedAcross R8 To:  instance of [ui.canvas.Connector]
+  instance of [ui.canvas.Graphelement] UN-RelatedAcross R302 To:  instance of [ui.canvas.Diagramelement]
+  instance of [ui.canvas.Graphnode] UN-RelatedAcross R301 To:  instance of [ui.canvas.Graphelement]
+  instance of [ui.canvas.FloatingText] UN-RelatedAcross R19 To:  instance of [ui.canvas.Graphnode]
+ Deletion of instance of type: ui.canvas.FloatingText
+ Deletion of instance of type: ui.canvas.Graphnode
+ Deletion of instance of type: ui.canvas.Graphelement
+ Deletion of instance of type: ui.canvas.Diagramelement
+  instance of [ui.canvas.FloatingText] UN-RelatedAcross R8 To:  instance of [ui.canvas.Connector]
+  instance of [ui.canvas.Graphelement] UN-RelatedAcross R302 To:  instance of [ui.canvas.Diagramelement]
+  instance of [ui.canvas.Graphnode] UN-RelatedAcross R301 To:  instance of [ui.canvas.Graphelement]
+  instance of [ui.canvas.FloatingText] UN-RelatedAcross R19 To:  instance of [ui.canvas.Graphnode]
+ Deletion of instance of type: ui.canvas.FloatingText
+ Deletion of instance of type: ui.canvas.Graphnode
+ Deletion of instance of type: ui.canvas.Graphelement
+ Deletion of instance of type: ui.canvas.Diagramelement
+  instance of [ui.canvas.FloatingText] UN-RelatedAcross R8 To:  instance of [ui.canvas.Connector]
+  instance of [ui.canvas.Graphelement] UN-RelatedAcross R302 To:  instance of [ui.canvas.Diagramelement]
+  instance of [ui.canvas.Graphnode] UN-RelatedAcross R301 To:  instance of [ui.canvas.Graphelement]
+  instance of [ui.canvas.FloatingText] UN-RelatedAcross R19 To:  instance of [ui.canvas.Graphnode]
+ Deletion of instance of type: ui.canvas.FloatingText
+ Deletion of instance of type: ui.canvas.Graphnode
+ Deletion of instance of type: ui.canvas.Graphelement
+ Deletion of instance of type: ui.canvas.Diagramelement
+  instance of [ui.canvas.LineSegment] UN-RelatedAcross R6 To:  instance of [ui.canvas.Connector]
+ Deletion of instance of type: ui.canvas.LineSegment
+ Deletion of instance of type: ui.canvas.Connector
+ Deletion of instance of type: ui.canvas.Graphedge
+ Deletion of instance of type: ui.canvas.Graphelement
+ Deletion of instance of type: ui.canvas.Diagramelement
+  instance of [ui.canvas.ElementSpecification] UN-RelatedAcross R16 To:  instance of [ui.canvas.GraphicalElement]
+  instance of [ui.canvas.GraphicalElement] UN-RelatedAcross R10 To:  instance of [ui.canvas.ElementSpecification]
+  instance of [ui.canvas.GraphicalElement] UN-RelatedAcross R1 To:  instance of [ui.canvas.Model]
+ Deletion of instance of type: ui.canvas.GraphicalElement
+Transaction Cancelled: Segment creation with delta size: 99

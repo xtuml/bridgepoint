@@ -1,0 +1,60 @@
+AUDIT RESULTS FOR DOMAIN G_EVT_PE_G_EVT_NLE_nle_ignored
+
+EXTERNAL ENTITIES WITHOUT DESCRIPTIONS:
+External Entity Time
+
+CLASSES WITHOUT DESCRIPTIONS:
+Class G_EVT_PE_G_EVT_NLE_nle_ignored::Supertype with Polymorphic Events
+Class G_EVT_PE_G_EVT_NLE_nle_ignored::Subtype Ignores
+Class G_EVT_PE_G_EVT_NLE_nle_ignored::Initialization
+Class G_EVT_PE_G_EVT_NLE_nle_ignored::Driver
+Class G_EVT_PE_G_EVT_NLE_nle_ignored::Subtype Does Not Ignore
+
+ATTRIBUTES WITHOUT DESCRIPTIONS:
+Attribute Supertype with Polymorphic Events::id
+Attribute Supertype with Polymorphic Events::current_state
+Attribute Subtype Ignores::id
+Attribute Subtype Ignores::current_state
+Attribute Initialization::Init_ID
+Attribute Initialization::current_state
+Attribute Driver::Driver_ID
+Attribute Driver::timer
+Attribute Driver::current_state
+Attribute Subtype Does Not Ignore::id
+Attribute Subtype Does Not Ignore::current_state
+
+REFERENCES WITHOUT DESCRIPTIONS:
+Referential Attribute Subtype Ignores::id
+Referential Attribute Subtype Does Not Ignore::id
+
+RELATIONSHIPS WITHOUT DESCRIPTIONS:
+G_EVT_PE_G_EVT_NLE_nle_ignored::R1
+
+STATE MODELS WITHOUT DESCRIPTIONS:
+State Model Supertype with Polymorphic Events
+State Model Subtype Ignores
+State Model Initialization
+State Model Driver
+State Model Subtype Does Not Ignore
+
+EVENTS WITHOUT DESCRIPTIONS:
+Event SUP1
+Event INIT1
+Event DRV2
+Event DRV1
+Event DRV3
+Event DRV4
+
+EVENT DATA WITHOUT DESCRIPTIONS:
+Event Data Driver::num
+
+ACTION SPECIFICATIONS WITHOUT DESCRIPTIONS:
+Subtype Ignores::Exists
+Initialization::Initialize
+Driver::Begin Test
+Driver::Select Ignoring Supertype and Generate Event
+Driver::End Test
+Driver::Select Non Ignoring Subtype and Generate Event
+Driver::No Response Received
+Driver::Unexpected Response Received
+Subtype Does Not Ignore::Exists

@@ -1,0 +1,137 @@
+-- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("3b1edb98-1dc8-4158-b1c2-38c43712858d",
+	'Slot',
+	6,
+	'D_S',
+	'Object Description:
+
+Object Role:
+',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_REF
+	VALUES ("3b1edb98-1dc8-4158-b1c2-38c43712858d",
+	"43e63f35-40a3-4885-b614-059774a229a4",
+	0,
+	"a272836d-bb19-46d8-a2d3-ded8784c1b18",
+	"1e5aecd3-9bca-4cca-bb5a-b3265741c187",
+	"d0b0cce4-2092-4c5e-a2c6-d499e3bd02ee",
+	"304839af-5d5a-4435-afc0-4492d6cc17b5",
+	"367991e7-437a-4cee-8597-ed6b7e48202c",
+	"3ec1ab4f-442b-4e06-89e9-052feca5d154",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'Reference Domain:
+',
+	'Online Location',
+	'Online_Location_ID',
+	'R7');
+INSERT INTO R_RGO_PROXY
+	VALUES ("3b1edb98-1dc8-4158-b1c2-38c43712858d",
+	"1e5aecd3-9bca-4cca-bb5a-b3265741c187",
+	"d0b0cce4-2092-4c5e-a2c6-d499e3bd02ee",
+	'../Odms.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("a272836d-bb19-46d8-a2d3-ded8784c1b18",
+	"43e63f35-40a3-4885-b614-059774a229a4",
+	0,
+	"1e5aecd3-9bca-4cca-bb5a-b3265741c187",
+	"304839af-5d5a-4435-afc0-4492d6cc17b5",
+	'../Odms.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("367991e7-437a-4cee-8597-ed6b7e48202c",
+	"3b1edb98-1dc8-4158-b1c2-38c43712858d",
+	"a272836d-bb19-46d8-a2d3-ded8784c1b18",
+	"43e63f35-40a3-4885-b614-059774a229a4",
+	0,
+	'Online_Location_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("a272836d-bb19-46d8-a2d3-ded8784c1b18",
+	"43e63f35-40a3-4885-b614-059774a229a4",
+	'../Online Location/Online Location.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("367991e7-437a-4cee-8597-ed6b7e48202c",
+	"3b1edb98-1dc8-4158-b1c2-38c43712858d",
+	"00000000-0000-0000-0000-000000000000",
+	'Slot_ID',
+	'Attribute Description:
+
+Attribute Domain:
+',
+	'',
+	'Slot_ID',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000007",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("9a364dbc-c3e9-4e6f-adb9-82fd771a3877",
+	"3b1edb98-1dc8-4158-b1c2-38c43712858d");
+INSERT INTO O_BATTR
+	VALUES ("9a364dbc-c3e9-4e6f-adb9-82fd771a3877",
+	"3b1edb98-1dc8-4158-b1c2-38c43712858d");
+INSERT INTO O_ATTR
+	VALUES ("9a364dbc-c3e9-4e6f-adb9-82fd771a3877",
+	"3b1edb98-1dc8-4158-b1c2-38c43712858d",
+	"367991e7-437a-4cee-8597-ed6b7e48202c",
+	'Unassigned',
+	'This attributes is always FALSE except when the state machine is in the "Unassigned" state.',
+	'',
+	'Unassigned',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000001",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("f5a0647a-497d-4a68-91f7-ec1250b7510a",
+	"3b1edb98-1dc8-4158-b1c2-38c43712858d");
+INSERT INTO O_BATTR
+	VALUES ("f5a0647a-497d-4a68-91f7-ec1250b7510a",
+	"3b1edb98-1dc8-4158-b1c2-38c43712858d");
+INSERT INTO O_ATTR
+	VALUES ("f5a0647a-497d-4a68-91f7-ec1250b7510a",
+	"3b1edb98-1dc8-4158-b1c2-38c43712858d",
+	"9a364dbc-c3e9-4e6f-adb9-82fd771a3877",
+	'current_state',
+	'Attribute Description:
+
+Attribute Domain:
+',
+	'',
+	'current_state',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000006",
+	'',
+	'');
+INSERT INTO O_ID
+	VALUES (0,
+	"3b1edb98-1dc8-4158-b1c2-38c43712858d");
+INSERT INTO O_OIDA
+	VALUES ("367991e7-437a-4cee-8597-ed6b7e48202c",
+	"3b1edb98-1dc8-4158-b1c2-38c43712858d",
+	0,
+	'Slot_ID');
+INSERT INTO O_ID
+	VALUES (1,
+	"3b1edb98-1dc8-4158-b1c2-38c43712858d");
+INSERT INTO O_ID
+	VALUES (2,
+	"3b1edb98-1dc8-4158-b1c2-38c43712858d");
+INSERT INTO PE_PE
+	VALUES ("3b1edb98-1dc8-4158-b1c2-38c43712858d",
+	1,
+	"eaaadfae-a8a2-41c6-b417-100ae646942e",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
+	VALUES ("eaaadfae-a8a2-41c6-b417-100ae646942e",
+	"00000000-0000-0000-0000-000000000000",
+	"32def5f7-ad70-424b-8b01-6d644bf7c337",
+	'Odms',
+	'Subsystem Description:
+
+Relationship with other Subsystems:
+',
+	1,
+	'../Odms.xtuml');

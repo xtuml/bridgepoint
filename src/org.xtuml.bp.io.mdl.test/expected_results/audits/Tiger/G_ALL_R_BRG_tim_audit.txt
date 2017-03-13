@@ -1,0 +1,217 @@
+AUDIT RESULTS FOR DOMAIN G_ALL_R_BRG_tim
+
+CLASSES WITHOUT IDENTIFIERS:
+Class tm::Bogus Class
+Class tm::Bogus Class Two
+
+SUBSYSTEMS WITHOUT DESCRIPTIONS:
+Time Date Primitives
+Timer Primitives
+tm
+
+FUNCTIONS WITHOUT DESCRIPTIONS:
+LogDateAndTime
+TestTIM2
+
+EXTERNAL ENTITIES WITHOUT DESCRIPTIONS:
+External Entity Logging 
+External Entity Time
+External Entity Architecture
+External Entity Generated EE
+External Entity Realized EE
+
+BRIDGES WITHOUT DESCRIPTIONS:
+External Entity Bridge Logging ::LogSuccess
+External Entity Bridge Logging ::LogFailure
+External Entity Bridge Logging ::LogInfo
+External Entity Bridge Logging ::LogInt
+External Entity Bridge Logging ::LogDate
+External Entity Bridge Logging ::LogTime
+External Entity Bridge Architecture::shutdown
+External Entity Bridge Generated EE::TestTIM2
+
+CLASSES WITHOUT DESCRIPTIONS:
+Class Time Date Primitives::Time Date Primitive Test
+Class Time Date Primitives::TM Test Driver
+Class Timer Primitives::Timer Test Object A
+Class tm::tm init
+Class tm::Bogus Class
+Class tm::Bogus Class Two
+Class tm::Bogus Class Three
+
+ATTRIBUTES WITHOUT DESCRIPTIONS:
+Attribute Time Date Primitive Test::id
+Attribute Time Date Primitive Test::date
+Attribute Time Date Primitive Test::day
+Attribute Time Date Primitive Test::month
+Attribute Time Date Primitive Test::year
+Attribute Time Date Primitive Test::timestamp
+Attribute Time Date Primitive Test::second
+Attribute Time Date Primitive Test::minute
+Attribute Time Date Primitive Test::hour
+Attribute Time Date Primitive Test::int
+Attribute Time Date Primitive Test::current_state
+Attribute TM Test Driver::tmd_id
+Attribute TM Test Driver::current_state
+Attribute TM Test Driver::mda
+Attribute TM Test Driver::mda2
+Attribute Timer Test Object A::ttoa_id
+Attribute Timer Test Object A::ack_count
+Attribute Timer Test Object A::i
+Attribute Timer Test Object A::b
+Attribute Timer Test Object A::r
+Attribute Timer Test Object A::s
+Attribute Timer Test Object A::d
+Attribute Timer Test Object A::t
+Attribute Timer Test Object A::timer_ref
+Attribute Timer Test Object A::recurring_timer_ref
+Attribute Timer Test Object A::current_state
+Attribute tm init::id
+Attribute tm init::current_state
+Attribute Bogus Class::current_state
+Attribute Bogus Class::num_recur
+Attribute Bogus Class Two::current_state
+Attribute Bogus Class Three::type
+Attribute Bogus Class Three::timer
+
+OPERATIONS WITHOUT DESCRIPTIONS:
+Operation Bogus Class::TestTIM
+Operation Bogus Class::TestTIM2
+Operation Bogus Class::TestTIM3
+Operation Bogus Class::TestTIM4
+Operation Bogus Class::TestTIM5
+Operation Bogus Class::TestTIM6
+
+STATE MODELS WITHOUT DESCRIPTIONS:
+State Model Time Date Primitive Test
+State Model TM Test Driver
+State Model Timer Test Object A
+State Model tm init
+State Model Bogus Class
+State Model Bogus Class
+State Model Bogus Class Two
+
+EVENTS WITHOUT DESCRIPTIONS:
+Event TDPT2
+Event TDPT0
+Event TMD1
+Event TMD2
+Event TMD3
+Event TMD4
+Event TTOA1
+Event CHKEVDI0
+Event TTOA2
+Event TTOA3
+Event TTOA0
+Event TTOA4
+Event BOGUSEV5
+Event TTOA5
+Event TTOA6
+Event TTOA7
+Event TTOA8
+Event TTOA9
+Event TTOA10
+Event INIT1
+Event BC1
+Event BC2
+Event BC_A1
+Event BC_A2
+Event BC_A3
+Event BC21
+
+EVENT DATA WITHOUT DESCRIPTIONS:
+Event Data Timer Test Object A::i
+Event Data Timer Test Object A::r
+Event Data Timer Test Object A::b
+Event Data Timer Test Object A::s
+Event Data Timer Test Object A::u
+Event Data Timer Test Object A::d
+Event Data Timer Test Object A::t
+Event Data Bogus Class::create_date
+Event Data Bogus Class::current_clock
+Event Data Bogus Class::current_date
+Event Data Bogus Class::get_day
+Event Data Bogus Class::get_hour
+Event Data Bogus Class::get_minute
+Event Data Bogus Class::get_month
+Event Data Bogus Class::get_second
+Event Data Bogus Class::get_year
+Event Data Bogus Class::timer_time_add
+Event Data Bogus Class::timer_cancel
+Event Data Bogus Class::timer_remaining_time
+Event Data Bogus Class::timer_reset_time
+Event Data Bogus Class::timer_start
+Event Data Bogus Class::timer_start_recurring
+Event Data Bogus Class::type
+Event Data Bogus Class (Class Based)::timer_start_recurring
+Event Data Bogus Class (Class Based)::timer_reset_time
+Event Data Bogus Class (Class Based)::current_clock
+Event Data Bogus Class (Class Based)::timer_time_add
+Event Data Bogus Class (Class Based)::timer_cancel
+Event Data Bogus Class (Class Based)::get_minute
+Event Data Bogus Class (Class Based)::get_month
+Event Data Bogus Class (Class Based)::current_date
+Event Data Bogus Class (Class Based)::timer_start
+Event Data Bogus Class (Class Based)::get_hour
+Event Data Bogus Class (Class Based)::get_second
+Event Data Bogus Class (Class Based)::get_day
+Event Data Bogus Class (Class Based)::create_date
+Event Data Bogus Class (Class Based)::timer_remaining_time
+Event Data Bogus Class (Class Based)::get_year
+Event Data Bogus Class Two::create_date
+Event Data Bogus Class Two::current_clock
+Event Data Bogus Class Two::current_date
+Event Data Bogus Class Two::get_day
+Event Data Bogus Class Two::get_hour
+Event Data Bogus Class Two::get_minute
+Event Data Bogus Class Two::get_month
+Event Data Bogus Class Two::get_second
+Event Data Bogus Class Two::get_year
+Event Data Bogus Class Two::timer_time_add
+Event Data Bogus Class Two::timer_cancel
+Event Data Bogus Class Two::timer_remaining_time
+Event Data Bogus Class Two::timer_reset_time
+Event Data Bogus Class Two::timer_start
+Event Data Bogus Class Two::timer_start_recurring
+
+ACTION SPECIFICATIONS WITHOUT DESCRIPTIONS:
+Time Date Primitive Test::Running TM1 Test
+Time Date Primitive Test::Finishing TM1 Test
+TM Test Driver::Running TM1 Time Date Primitive Test
+TM Test Driver::Running TM2 Timer Primitive Test
+TM Test Driver::Shutting Down
+TM Test Driver::Function
+TM Test Driver::Generated Bridge
+TM Test Driver::Realized Bridge
+TM Test Driver::MDA
+TM Test Driver::Generated Class Operation
+TM Test Driver::Generated Instance Operation
+TM Test Driver::Realized Class Operation
+TM Test Driver::Realized Instance Operation
+TM Test Driver::Event Supplemental Data
+TM Test Driver::Assigner Event Supplemental Data
+TM Test Driver::Creation Event Supplemental Data
+TM Test Driver::Cleanup
+Timer Test Object A::Running TM2 timer_start Test
+Timer Test Object A::Checking TM2 timer_start Test
+Timer Test Object A::Running TM2 timer_start_recurring Test
+Timer Test Object A::Checking TM2 timer_start_recurring Test
+Timer Test Object A::Running TM2 timer_remaining_time Test
+Timer Test Object A::Running TM2 timer_reset_time Test
+Timer Test Object A::Running TM2 timer_add_time Test
+Timer Test Object A::Running TM2 timer_cancel Test
+Timer Test Object A::Checking Event Data Items
+Timer Test Object A::TM2 Test Suite Complete
+Timer Test Object A::Waiting
+Timer Test Object A::Running TM2 timer_cancel Test Continued
+Timer Test Object A::Waiting for Timer
+Timer Test Object A::TM2 timer_reset_time continued
+Timer Test Object A::Waiting on Timer
+Timer Test Object A::Wait until no time remaining
+tm init::tm init
+Bogus Class::Bogus
+Bogus Class::Bogus Two
+Bogus Class::Bogus (Class Based)
+Bogus Class::Bogus Two (Class Based)
+Bogus Class::Bogus Three (Class Based)
+Bogus Class Two::Bogus Two

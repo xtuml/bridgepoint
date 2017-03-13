@@ -1,0 +1,188 @@
+-- BP 7.1 content: FunctionPackage syschar: 3 persistence-version: 7.1.5
+
+INSERT INTO S_FPK
+	VALUES ("ad492683-959c-4a8e-964a-062331f52aa2",
+	'Event Parameter Direct Test Inocation Functions',
+	"00000000-0000-0000-0000-000000000000",
+	"7e742b18-0ba4-4936-b765-4ee4648411f2");
+INSERT INTO GD_MD
+	VALUES ("ee9c0da5-1058-4a1e-8d8e-fe79b9350474",
+	101,
+	"ad492683-959c-4a8e-964a-062331f52aa2",
+	54,
+	0,
+	0,
+	1,
+	1,
+	1,
+	12,
+	1,
+	0,
+	0,
+	0,
+	0,
+	0,
+	'');
+INSERT INTO DIM_DIA
+	VALUES ("ee9c0da5-1058-4a1e-8d8e-fe79b9350474",
+	'',
+	1.000000,
+	4000.000000,
+	3000.000000,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO PL_FPID
+	VALUES ("ad492683-959c-4a8e-964a-062331f52aa2",
+	"c3928f56-530d-4984-8114-35933dc4cb31");
+INSERT INTO S_DOM_PROXY
+	VALUES ("c3928f56-530d-4984-8114-35933dc4cb31",
+	'instRef',
+	'',
+	0,
+	"00000000-0000-0000-0000-000000000002",
+	"13c14d34-d225-4949-89b6-fe738cc62cbb",
+	'../../../instRef.xtuml');
+INSERT INTO S_FIP
+	VALUES ("ad492683-959c-4a8e-964a-062331f52aa2",
+	"a217b81f-051f-488c-9db8-60828cd57d94");
+INSERT INTO S_SYNC
+	VALUES ("a217b81f-051f-488c-9db8-60828cd57d94",
+	"c3928f56-530d-4984-8114-35933dc4cb31",
+	'EventParameter_ActivitiesInvocation_Direct',
+	'',
+	'//::setup(accessType:"Direct",referenceType:"Event Parameter"); 
+select any car from instances of V;
+	create object instance test of EVTDI;
+generate EVTDI1:SM_EVTDI_ActivitiesInvocation(instRef:car) to test;',
+	"63f91549-9407-42c4-a2c0-fdde2812f080",
+	1,
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("63f91549-9407-42c4-a2c0-fdde2812f080",
+	"c3928f56-530d-4984-8114-35933dc4cb31",
+	'void',
+	'',
+	'',
+	'../../../Datatypes/Datatypes.xtuml');
+INSERT INTO S_FIP
+	VALUES ("ad492683-959c-4a8e-964a-062331f52aa2",
+	"40472afc-dd99-461c-b432-72e17e488b5c");
+INSERT INTO S_SYNC
+	VALUES ("40472afc-dd99-461c-b432-72e17e488b5c",
+	"c3928f56-530d-4984-8114-35933dc4cb31",
+	'EventParameter_booleanBinaryOperationRightOperandSet_Direct',
+	'',
+	'//::setup(accessType:"Direct",referenceType:"Event Parameter"); 
+select many cars from instances of V;
+create object instance test of EVTDI;
+generate EVTDI6:SM_EVTDI_booleanBinaryOperationRightOperandSet(instRef_set:cars) to test;',
+	"63f91549-9407-42c4-a2c0-fdde2812f080",
+	1,
+	'');
+INSERT INTO S_FIP
+	VALUES ("ad492683-959c-4a8e-964a-062331f52aa2",
+	"4da3a47f-e723-424c-9357-82b2a27f2750");
+INSERT INTO S_SYNC
+	VALUES ("4da3a47f-e723-424c-9357-82b2a27f2750",
+	"c3928f56-530d-4984-8114-35933dc4cb31",
+	'EventParameter_booleanBinaryOperationRightOperand_Direct',
+	'',
+	'//::setup(accessType:"Direct",referenceType:"Event Parameter"); 
+select any car from instances of V;
+create object instance test of EVTDI;
+generate EVTDI5:SM_EVTDI_booleanBinaryOperationRightOperand(instRef:car) to test;',
+	"63f91549-9407-42c4-a2c0-fdde2812f080",
+	1,
+	'');
+INSERT INTO S_FIP
+	VALUES ("ad492683-959c-4a8e-964a-062331f52aa2",
+	"29b307db-0d54-4d22-98fe-f63abde80109");
+INSERT INTO S_SYNC
+	VALUES ("29b307db-0d54-4d22-98fe-f63abde80109",
+	"c3928f56-530d-4984-8114-35933dc4cb31",
+	'EventParameter_booleanBinaryOperationLeftOperandSet_Direct',
+	'',
+	'//::setup(accessType:"Direct",referenceType:"Event Parameter"); 
+select many cars from instances of V;
+create object instance test of EVTDI;
+generate EVTDI4:SM_EVTDI_booleanBinaryOperationLeftOperandSet(instRef_set:cars) to test;',
+	"63f91549-9407-42c4-a2c0-fdde2812f080",
+	1,
+	'');
+INSERT INTO S_FIP
+	VALUES ("ad492683-959c-4a8e-964a-062331f52aa2",
+	"8bcee806-a0f6-447c-b433-4d1dca0eed1b");
+INSERT INTO S_SYNC
+	VALUES ("8bcee806-a0f6-447c-b433-4d1dca0eed1b",
+	"c3928f56-530d-4984-8114-35933dc4cb31",
+	'EventParameter_booleanBinaryOperationLeftOperand_Direct',
+	'',
+	'//::setup(accessType:"Direct",referenceType:"Event Parameter"); 
+select any car from instances of V;
+create object instance test of EVTDI;
+generate EVTDI3:SM_EVTDI_booleanBinaryOperationLeftOperand(instRef:car) to test;',
+	"63f91549-9407-42c4-a2c0-fdde2812f080",
+	1,
+	'');
+INSERT INTO S_FIP
+	VALUES ("ad492683-959c-4a8e-964a-062331f52aa2",
+	"6293018e-e9b5-4730-9f70-97c5b5355839");
+INSERT INTO S_SYNC
+	VALUES ("6293018e-e9b5-4730-9f70-97c5b5355839",
+	"c3928f56-530d-4984-8114-35933dc4cb31",
+	'EventParameter_readAttr_Direct',
+	'',
+	'//::setup(accessType:"Direct",referenceType:"Event Parameter"); 
+select any car from instances of V;
+create object instance test of EVTDI; 
+generate EVTDI7:SM_EVTDI_readAttr(instRef:car) to test;',
+	"63f91549-9407-42c4-a2c0-fdde2812f080",
+	1,
+	'');
+INSERT INTO S_FIP
+	VALUES ("ad492683-959c-4a8e-964a-062331f52aa2",
+	"d15f3235-52a0-4c75-8354-a2b4d6bbaa7a");
+INSERT INTO S_SYNC
+	VALUES ("d15f3235-52a0-4c75-8354-a2b4d6bbaa7a",
+	"c3928f56-530d-4984-8114-35933dc4cb31",
+	'EventParameter_WhereClause_Direct',
+	'',
+	'//::setup(accessType:"Direct",referenceType:"Event Parameter"); 
+select any car from instances of V;
+create object instance test of EVTDI;
+generate EVTDI8:SM_EVTDI_WhereClause(instRef:car) to test;',
+	"63f91549-9407-42c4-a2c0-fdde2812f080",
+	1,
+	'');
+INSERT INTO S_FIP
+	VALUES ("ad492683-959c-4a8e-964a-062331f52aa2",
+	"8bf7ddb0-6d5c-4726-90c8-c244a5b66db4");
+INSERT INTO S_SYNC
+	VALUES ("8bf7ddb0-6d5c-4726-90c8-c244a5b66db4",
+	"c3928f56-530d-4984-8114-35933dc4cb31",
+	'EventParameter_writeAttr_Direct',
+	'',
+	'//::setup(accessType:"Direct",referenceType:"Event Parameter"); 
+select any car from instances of V;
+create object instance test of EVTDI;
+generate EVTDI9:SM_EVTDI_writeAttr(instRef:car) to test;',
+	"63f91549-9407-42c4-a2c0-fdde2812f080",
+	1,
+	'');
+INSERT INTO S_FIP
+	VALUES ("ad492683-959c-4a8e-964a-062331f52aa2",
+	"e7b93e9f-2c9d-4557-91ec-3b9489a1cc2f");
+INSERT INTO S_SYNC
+	VALUES ("e7b93e9f-2c9d-4557-91ec-3b9489a1cc2f",
+	"c3928f56-530d-4984-8114-35933dc4cb31",
+	'EventParameter_ActivitiesInvocationSet_Direct',
+	'',
+	'//::setup(accessType:"Direct",referenceType:"Event Parameter"); 
+select many cars from instances of V;
+create object instance test of EVTDI;
+generate EVTDI2:SM_EVTDI_ActivitiesInvocationSet(instRef_set:cars) to test;',
+	"63f91549-9407-42c4-a2c0-fdde2812f080",
+	1,
+	'');
+INSERT INTO S_FPIP_PROXY
+	VALUES ("7e742b18-0ba4-4936-b765-4ee4648411f2",
+	'../Direct Test Invocation Functions.xtuml');

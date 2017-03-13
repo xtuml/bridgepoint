@@ -1,0 +1,215 @@
+Transaction started: Delete model element instance(s)
+  instance of [core.ReferentialAttribute] UN-RelatedAcross R113 To:  instance of [core.BaseAttribute]
+  instance of [core.AttributeReferenceInClass] UN-RelatedAcross R108 To:  instance of [core.ReferentialAttribute]
+  instance of [core.AttributeReferenceInClass] UN-RelatedAcross R111 To:  instance of [core.ReferredToIdentifierAttribute]
+  instance of [core.AttributeReferenceInClass] UN-RelatedAcross R111 To:  instance of [core.ReferringClassInAssoc]
+ Deletion of instance of type: core.AttributeReferenceInClass
+  instance of [core.ReferentialAttribute] UN-RelatedAcross R106 To:  instance of [core.Attribute]
+ Deletion of instance of type: core.ReferentialAttribute
+  instance of [core.Attribute] UN-RelatedAcross R114 To:  instance of [core.DataType]
+  instance of [core.Attribute] UN-RelatedAcross R103 To:  instance of [core.Attribute]
+  instance of [core.Attribute] UN-RelatedAcross R102 To:  instance of [core.ModelClass]
+ Deletion of instance of type: core.Attribute
+  instance of [core.ReferredToIdentifierAttribute] UN-RelatedAcross R110 To:  instance of [core.ClassIdentifierAttribute]
+  instance of [core.ReferredToIdentifierAttribute] UN-RelatedAcross R110 To:  instance of [core.ReferredToClassInAssoc]
+ Deletion of instance of type: core.ReferredToIdentifierAttribute
+  instance of [core.ReferredToClassInAssoc] UN-RelatedAcross R109 To:  instance of [core.ClassIdentifier]
+ Creation of instance of type: core.ReferredToClassInAssoc
+ Creation of instance of type: core.ClassAsSimpleParticipant
+  instance of [core.ReferredToClassInAssoc] RelatedAcross R203 To:  instance of [core.ClassInAssociation]
+  instance of [core.ClassAsSimpleParticipant] RelatedAcross R204 To:  instance of [core.ReferredToClassInAssoc]
+  instance of [core.ClassAsSimpleParticipant] RelatedAcross R207 To:  instance of [core.SimpleAssociation]
+  instance of [core.ClassAsSimpleFormalizer] UN-RelatedAcross R208 To:  instance of [core.SimpleAssociation]
+  instance of [core.ClassAsSimpleFormalizer] UN-RelatedAcross R205 To:  instance of [core.ReferringClassInAssoc]
+ Deletion of instance of type: core.ClassAsSimpleFormalizer
+  instance of [core.ReferringClassInAssoc] UN-RelatedAcross R203 To:  instance of [core.ClassInAssociation]
+ Deletion of instance of type: core.ReferringClassInAssoc
+  instance of [core.ClassAsSimpleParticipant] UN-RelatedAcross R207 To:  instance of [core.SimpleAssociation]
+  instance of [core.ClassAsSimpleParticipant] UN-RelatedAcross R204 To:  instance of [core.ReferredToClassInAssoc]
+ Deletion of instance of type: core.ClassAsSimpleParticipant
+  instance of [core.ReferredToClassInAssoc] UN-RelatedAcross R203 To:  instance of [core.ClassInAssociation]
+ Deletion of instance of type: core.ReferredToClassInAssoc
+  instance of [core.ClassInAssociation] UN-RelatedAcross R201 To:  instance of [core.ModelClass]
+  instance of [core.ClassInAssociation] UN-RelatedAcross R201 To:  instance of [core.Association]
+ Deletion of instance of type: core.ClassInAssociation
+  instance of [core.ClassAsSimpleParticipant] UN-RelatedAcross R207 To:  instance of [core.SimpleAssociation]
+  instance of [core.ClassAsSimpleParticipant] UN-RelatedAcross R204 To:  instance of [core.ReferredToClassInAssoc]
+ Deletion of instance of type: core.ClassAsSimpleParticipant
+  instance of [core.ReferredToClassInAssoc] UN-RelatedAcross R203 To:  instance of [core.ClassInAssociation]
+ Deletion of instance of type: core.ReferredToClassInAssoc
+  instance of [core.ClassInAssociation] UN-RelatedAcross R201 To:  instance of [core.ModelClass]
+  instance of [core.ClassInAssociation] UN-RelatedAcross R201 To:  instance of [core.Association]
+  instance of [core.SimpleAssociation] UN-RelatedAcross R206 To:  instance of [core.Association]
+ Deletion of instance of type: core.SimpleAssociation
+  instance of [core.Association] UN-RelatedAcross R4 To:  instance of [core.Subsystem]
+ Deletion of instance of type: core.Association
+ Deletion of instance of type: core.ClassInAssociation
+  instance of [core.ReferentialAttribute] UN-RelatedAcross R113 To:  instance of [core.BaseAttribute]
+  instance of [core.AttributeReferenceInClass] UN-RelatedAcross R108 To:  instance of [core.ReferentialAttribute]
+  instance of [core.AttributeReferenceInClass] UN-RelatedAcross R111 To:  instance of [core.ReferredToIdentifierAttribute]
+  instance of [core.AttributeReferenceInClass] UN-RelatedAcross R111 To:  instance of [core.ReferringClassInAssoc]
+ Deletion of instance of type: core.AttributeReferenceInClass
+  instance of [core.ReferentialAttribute] UN-RelatedAcross R106 To:  instance of [core.Attribute]
+ Deletion of instance of type: core.ReferentialAttribute
+  instance of [core.Attribute] UN-RelatedAcross R114 To:  instance of [core.DataType]
+  instance of [core.Attribute] UN-RelatedAcross R102 To:  instance of [core.ModelClass]
+ Deletion of instance of type: core.Attribute
+  instance of [core.ReferredToIdentifierAttribute] UN-RelatedAcross R110 To:  instance of [core.ClassIdentifierAttribute]
+  instance of [core.ReferredToIdentifierAttribute] UN-RelatedAcross R110 To:  instance of [core.ReferredToClassInAssoc]
+ Deletion of instance of type: core.ReferredToIdentifierAttribute
+  instance of [core.ReferredToClassInAssoc] UN-RelatedAcross R109 To:  instance of [core.ClassIdentifier]
+ Creation of instance of type: core.ReferredToClassInAssoc
+ Creation of instance of type: core.ClassAsSimpleParticipant
+  instance of [core.ReferredToClassInAssoc] RelatedAcross R203 To:  instance of [core.ClassInAssociation]
+  instance of [core.ClassAsSimpleParticipant] RelatedAcross R204 To:  instance of [core.ReferredToClassInAssoc]
+  instance of [core.ClassAsSimpleParticipant] RelatedAcross R207 To:  instance of [core.SimpleAssociation]
+  instance of [core.ClassAsSimpleFormalizer] UN-RelatedAcross R208 To:  instance of [core.SimpleAssociation]
+  instance of [core.ClassAsSimpleFormalizer] UN-RelatedAcross R205 To:  instance of [core.ReferringClassInAssoc]
+ Deletion of instance of type: core.ClassAsSimpleFormalizer
+  instance of [core.ReferringClassInAssoc] UN-RelatedAcross R203 To:  instance of [core.ClassInAssociation]
+ Deletion of instance of type: core.ReferringClassInAssoc
+  instance of [core.ClassAsSimpleParticipant] UN-RelatedAcross R207 To:  instance of [core.SimpleAssociation]
+  instance of [core.ClassAsSimpleParticipant] UN-RelatedAcross R204 To:  instance of [core.ReferredToClassInAssoc]
+ Deletion of instance of type: core.ClassAsSimpleParticipant
+  instance of [core.ReferredToClassInAssoc] UN-RelatedAcross R203 To:  instance of [core.ClassInAssociation]
+ Deletion of instance of type: core.ReferredToClassInAssoc
+  instance of [core.ClassInAssociation] UN-RelatedAcross R201 To:  instance of [core.ModelClass]
+  instance of [core.ClassInAssociation] UN-RelatedAcross R201 To:  instance of [core.Association]
+ Deletion of instance of type: core.ClassInAssociation
+  instance of [core.ClassAsSimpleParticipant] UN-RelatedAcross R207 To:  instance of [core.SimpleAssociation]
+  instance of [core.ClassAsSimpleParticipant] UN-RelatedAcross R204 To:  instance of [core.ReferredToClassInAssoc]
+ Deletion of instance of type: core.ClassAsSimpleParticipant
+  instance of [core.ReferredToClassInAssoc] UN-RelatedAcross R203 To:  instance of [core.ClassInAssociation]
+ Deletion of instance of type: core.ReferredToClassInAssoc
+  instance of [core.ClassInAssociation] UN-RelatedAcross R201 To:  instance of [core.ModelClass]
+  instance of [core.ClassInAssociation] UN-RelatedAcross R201 To:  instance of [core.Association]
+  instance of [core.SimpleAssociation] UN-RelatedAcross R206 To:  instance of [core.Association]
+ Deletion of instance of type: core.SimpleAssociation
+  instance of [core.Association] UN-RelatedAcross R4 To:  instance of [core.Subsystem]
+ Deletion of instance of type: core.Association
+ Deletion of instance of type: core.ClassInAssociation
+  instance of [core.ClassIdentifier] UN-RelatedAcross R104 To:  instance of [core.ModelClass]
+ Deletion of instance of type: core.ClassIdentifier
+  instance of [core.ClassIdentifier] UN-RelatedAcross R104 To:  instance of [core.ModelClass]
+ Deletion of instance of type: core.ClassIdentifier
+  instance of [core.ClassIdentifier] UN-RelatedAcross R104 To:  instance of [core.ModelClass]
+ Deletion of instance of type: core.ClassIdentifier
+  instance of [core.ModelClass] UN-RelatedAcross R2 To:  instance of [core.Subsystem]
+ Deletion of instance of type: core.ModelClass
+  instance of [ui.canvas.Connector] UN-RelatedAcross R2 To:  instance of [ui.canvas.GraphicalElement]
+  instance of [ui.canvas.GraphicalElement] UN-RelatedAcross R23 To:  instance of [ui.canvas.Graphelement]
+  instance of [ui.canvas.Graphelement] UN-RelatedAcross R302 To:  instance of [ui.canvas.Diagramelement]
+  instance of [ui.canvas.Graphedge] UN-RelatedAcross R301 To:  instance of [ui.canvas.Graphelement]
+  instance of [ui.canvas.Graphedge] UN-RelatedAcross R320 To:  instance of [ui.canvas.Graphconnector]
+  instance of [ui.canvas.Graphedge] UN-RelatedAcross R321 To:  instance of [ui.canvas.Graphconnector]
+  instance of [ui.canvas.Waypoint] UN-RelatedAcross R319 To:  instance of [ui.canvas.Graphedge]
+  instance of [ui.canvas.LineSegment] UN-RelatedAcross R21 To:  instance of [ui.canvas.Waypoint]
+  instance of [ui.canvas.Waypoint] UN-RelatedAcross R324 To:  instance of [ui.canvas.Waypoint]
+ Deletion of instance of type: ui.canvas.Waypoint
+  instance of [ui.canvas.Waypoint] UN-RelatedAcross R319 To:  instance of [ui.canvas.Graphedge]
+  instance of [ui.canvas.LineSegment] UN-RelatedAcross R22 To:  instance of [ui.canvas.Waypoint]
+ Deletion of instance of type: ui.canvas.Waypoint
+  instance of [ui.canvas.Connector] UN-RelatedAcross R20 To:  instance of [ui.canvas.Graphedge]
+  instance of [ui.canvas.FloatingText] UN-RelatedAcross R8 To:  instance of [ui.canvas.Connector]
+  instance of [ui.canvas.Graphelement] UN-RelatedAcross R302 To:  instance of [ui.canvas.Diagramelement]
+  instance of [ui.canvas.Graphnode] UN-RelatedAcross R301 To:  instance of [ui.canvas.Graphelement]
+  instance of [ui.canvas.FloatingText] UN-RelatedAcross R19 To:  instance of [ui.canvas.Graphnode]
+ Deletion of instance of type: ui.canvas.FloatingText
+ Deletion of instance of type: ui.canvas.Graphnode
+ Deletion of instance of type: ui.canvas.Graphelement
+ Deletion of instance of type: ui.canvas.Diagramelement
+  instance of [ui.canvas.FloatingText] UN-RelatedAcross R8 To:  instance of [ui.canvas.Connector]
+  instance of [ui.canvas.Graphelement] UN-RelatedAcross R302 To:  instance of [ui.canvas.Diagramelement]
+  instance of [ui.canvas.Graphnode] UN-RelatedAcross R301 To:  instance of [ui.canvas.Graphelement]
+  instance of [ui.canvas.FloatingText] UN-RelatedAcross R19 To:  instance of [ui.canvas.Graphnode]
+ Deletion of instance of type: ui.canvas.FloatingText
+ Deletion of instance of type: ui.canvas.Graphnode
+ Deletion of instance of type: ui.canvas.Graphelement
+ Deletion of instance of type: ui.canvas.Diagramelement
+  instance of [ui.canvas.FloatingText] UN-RelatedAcross R8 To:  instance of [ui.canvas.Connector]
+  instance of [ui.canvas.Graphelement] UN-RelatedAcross R302 To:  instance of [ui.canvas.Diagramelement]
+  instance of [ui.canvas.Graphnode] UN-RelatedAcross R301 To:  instance of [ui.canvas.Graphelement]
+  instance of [ui.canvas.FloatingText] UN-RelatedAcross R19 To:  instance of [ui.canvas.Graphnode]
+ Deletion of instance of type: ui.canvas.FloatingText
+ Deletion of instance of type: ui.canvas.Graphnode
+ Deletion of instance of type: ui.canvas.Graphelement
+ Deletion of instance of type: ui.canvas.Diagramelement
+  instance of [ui.canvas.LineSegment] UN-RelatedAcross R6 To:  instance of [ui.canvas.Connector]
+ Deletion of instance of type: ui.canvas.LineSegment
+ Deletion of instance of type: ui.canvas.Connector
+ Deletion of instance of type: ui.canvas.Graphedge
+ Deletion of instance of type: ui.canvas.Graphelement
+ Deletion of instance of type: ui.canvas.Diagramelement
+  instance of [ui.canvas.GraphicalElement] UN-RelatedAcross R10 To:  instance of [ui.canvas.ElementSpecification]
+  instance of [ui.canvas.GraphicalElement] UN-RelatedAcross R1 To:  instance of [ui.canvas.Model]
+ Deletion of instance of type: ui.canvas.GraphicalElement
+  instance of [ui.canvas.Connector] UN-RelatedAcross R2 To:  instance of [ui.canvas.GraphicalElement]
+  instance of [ui.canvas.GraphicalElement] UN-RelatedAcross R23 To:  instance of [ui.canvas.Graphelement]
+  instance of [ui.canvas.Graphelement] UN-RelatedAcross R302 To:  instance of [ui.canvas.Diagramelement]
+  instance of [ui.canvas.Graphedge] UN-RelatedAcross R301 To:  instance of [ui.canvas.Graphelement]
+  instance of [ui.canvas.Graphedge] UN-RelatedAcross R320 To:  instance of [ui.canvas.Graphconnector]
+  instance of [ui.canvas.Graphedge] UN-RelatedAcross R321 To:  instance of [ui.canvas.Graphconnector]
+  instance of [ui.canvas.Waypoint] UN-RelatedAcross R319 To:  instance of [ui.canvas.Graphedge]
+  instance of [ui.canvas.LineSegment] UN-RelatedAcross R21 To:  instance of [ui.canvas.Waypoint]
+  instance of [ui.canvas.Waypoint] UN-RelatedAcross R324 To:  instance of [ui.canvas.Waypoint]
+ Deletion of instance of type: ui.canvas.Waypoint
+  instance of [ui.canvas.Waypoint] UN-RelatedAcross R319 To:  instance of [ui.canvas.Graphedge]
+  instance of [ui.canvas.LineSegment] UN-RelatedAcross R22 To:  instance of [ui.canvas.Waypoint]
+ Deletion of instance of type: ui.canvas.Waypoint
+  instance of [ui.canvas.Connector] UN-RelatedAcross R20 To:  instance of [ui.canvas.Graphedge]
+  instance of [ui.canvas.FloatingText] UN-RelatedAcross R8 To:  instance of [ui.canvas.Connector]
+  instance of [ui.canvas.Graphelement] UN-RelatedAcross R302 To:  instance of [ui.canvas.Diagramelement]
+  instance of [ui.canvas.Graphnode] UN-RelatedAcross R301 To:  instance of [ui.canvas.Graphelement]
+  instance of [ui.canvas.FloatingText] UN-RelatedAcross R19 To:  instance of [ui.canvas.Graphnode]
+ Deletion of instance of type: ui.canvas.FloatingText
+ Deletion of instance of type: ui.canvas.Graphnode
+ Deletion of instance of type: ui.canvas.Graphelement
+ Deletion of instance of type: ui.canvas.Diagramelement
+  instance of [ui.canvas.FloatingText] UN-RelatedAcross R8 To:  instance of [ui.canvas.Connector]
+  instance of [ui.canvas.Graphelement] UN-RelatedAcross R302 To:  instance of [ui.canvas.Diagramelement]
+  instance of [ui.canvas.Graphnode] UN-RelatedAcross R301 To:  instance of [ui.canvas.Graphelement]
+  instance of [ui.canvas.FloatingText] UN-RelatedAcross R19 To:  instance of [ui.canvas.Graphnode]
+ Deletion of instance of type: ui.canvas.FloatingText
+ Deletion of instance of type: ui.canvas.Graphnode
+ Deletion of instance of type: ui.canvas.Graphelement
+ Deletion of instance of type: ui.canvas.Diagramelement
+  instance of [ui.canvas.FloatingText] UN-RelatedAcross R8 To:  instance of [ui.canvas.Connector]
+  instance of [ui.canvas.Graphelement] UN-RelatedAcross R302 To:  instance of [ui.canvas.Diagramelement]
+  instance of [ui.canvas.Graphnode] UN-RelatedAcross R301 To:  instance of [ui.canvas.Graphelement]
+  instance of [ui.canvas.FloatingText] UN-RelatedAcross R19 To:  instance of [ui.canvas.Graphnode]
+ Deletion of instance of type: ui.canvas.FloatingText
+ Deletion of instance of type: ui.canvas.Graphnode
+ Deletion of instance of type: ui.canvas.Graphelement
+ Deletion of instance of type: ui.canvas.Diagramelement
+  instance of [ui.canvas.LineSegment] UN-RelatedAcross R6 To:  instance of [ui.canvas.Connector]
+ Deletion of instance of type: ui.canvas.LineSegment
+ Deletion of instance of type: ui.canvas.Connector
+ Deletion of instance of type: ui.canvas.Graphedge
+ Deletion of instance of type: ui.canvas.Graphelement
+ Deletion of instance of type: ui.canvas.Diagramelement
+  instance of [ui.canvas.GraphicalElement] UN-RelatedAcross R10 To:  instance of [ui.canvas.ElementSpecification]
+  instance of [ui.canvas.GraphicalElement] UN-RelatedAcross R1 To:  instance of [ui.canvas.Model]
+ Deletion of instance of type: ui.canvas.GraphicalElement
+  instance of [ui.canvas.Shape] UN-RelatedAcross R2 To:  instance of [ui.canvas.GraphicalElement]
+  instance of [ui.canvas.GraphicalElement] UN-RelatedAcross R23 To:  instance of [ui.canvas.Graphelement]
+  instance of [ui.canvas.Graphelement] UN-RelatedAcross R302 To:  instance of [ui.canvas.Diagramelement]
+  instance of [ui.canvas.Graphnode] UN-RelatedAcross R301 To:  instance of [ui.canvas.Graphelement]
+  instance of [ui.canvas.Shape] UN-RelatedAcross R19 To:  instance of [ui.canvas.Graphnode]
+  instance of [ui.canvas.NoncontainingShape] UN-RelatedAcross R28 To:  instance of [ui.canvas.Shape]
+ Deletion of instance of type: ui.canvas.NoncontainingShape
+ Deletion of instance of type: ui.canvas.Shape
+ Deletion of instance of type: ui.canvas.Graphnode
+  instance of [ui.canvas.Graphconnector] UN-RelatedAcross R311 To:  instance of [ui.canvas.Graphelement]
+ Deletion of instance of type: ui.canvas.Graphconnector
+  instance of [ui.canvas.Graphconnector] UN-RelatedAcross R311 To:  instance of [ui.canvas.Graphelement]
+ Deletion of instance of type: ui.canvas.Graphconnector
+  instance of [ui.canvas.Graphconnector] UN-RelatedAcross R311 To:  instance of [ui.canvas.Graphelement]
+ Deletion of instance of type: ui.canvas.Graphconnector
+  instance of [ui.canvas.Graphconnector] UN-RelatedAcross R311 To:  instance of [ui.canvas.Graphelement]
+ Deletion of instance of type: ui.canvas.Graphconnector
+ Deletion of instance of type: ui.canvas.Graphelement
+ Deletion of instance of type: ui.canvas.Diagramelement
+  instance of [ui.canvas.GraphicalElement] UN-RelatedAcross R10 To:  instance of [ui.canvas.ElementSpecification]
+  instance of [ui.canvas.GraphicalElement] UN-RelatedAcross R1 To:  instance of [ui.canvas.Model]
+ Deletion of instance of type: ui.canvas.GraphicalElement
+Transaction Ended: Delete model element instance(s) with delta size: 213

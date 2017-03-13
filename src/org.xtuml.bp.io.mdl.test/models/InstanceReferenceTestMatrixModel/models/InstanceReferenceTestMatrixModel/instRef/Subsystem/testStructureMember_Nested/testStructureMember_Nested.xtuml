@@ -1,0 +1,343 @@
+-- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.5
+
+INSERT INTO O_OBJ
+	VALUES ("62d70acf-2451-4bf0-90a4-3b7f2c728a3e",
+	'testStructureMember_Nested',
+	18,
+	'MBR3',
+	'',
+	"b8c699da-971a-421b-be92-50dd3d41b58b");
+INSERT INTO O_TFR
+	VALUES ("8d2f84da-2840-49b0-b8b8-66d05f092898",
+	"62d70acf-2451-4bf0-90a4-3b7f2c728a3e",
+	'S_MBR_booleanBinaryOperationLeftOperand',
+	'',
+	"63f91549-9407-42c4-a2c0-fdde2812f080",
+	1,
+	'LOG::LogInfo(message:"Operation entered: testStructureMember_Nested::S_MBR_booleanBinaryOperationLeftOperand, Matrix cell : A14 V3 I8");
+select any veh from instances of V;
+
+if ( empty veh)
+   LOG::LogFailure(message:"Failed to select veh");
+   LOG::LogFailure(message:"S_MBR_booleanBinaryOperationLeftOperand -A14 V3 I8-  test failed");
+   return;
+   
+end if;
+select any obj from instances of MBR3;
+if ( empty obj)
+   LOG::LogFailure(message:"Test setup failure : No instance for testStructureMember_Nested");
+   LOG::LogFailure(message:"S_MBR_booleanBinaryOperationLeftOperand -A14 V3 I8-  test failed");
+   return;
+   
+end if;
+
+if obj.sdtMember.nestedSDT.instRef == veh
+	LOG::LogSuccess(message:"S_MBR_booleanBinaryOperationLeftOperand -A14 V3 I8-  test passed");
+else
+	LOG::LogFailure(message:"S_MBR_booleanBinaryOperationLeftOperand -A14 V3 I8-  test failed");	
+end if;
+
+if obj.sdtMember.nestedSDT.instRef.model == veh.model
+	LOG::LogSuccess(message:"S_MBR_booleanBinaryOperationLeftOperand -A14 V3 I8-  test passed");
+else
+	LOG::LogFailure(message:"S_MBR_booleanBinaryOperationLeftOperand -A14 V3 I8-  test failed");	
+end if;
+',
+	1,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO S_DT_PROXY
+	VALUES ("63f91549-9407-42c4-a2c0-fdde2812f080",
+	"c3928f56-530d-4984-8114-35933dc4cb31",
+	'void',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("72943cd5-d397-4a0a-b051-c6f33ffa4982",
+	"62d70acf-2451-4bf0-90a4-3b7f2c728a3e",
+	'S_MBR_booleanBinaryOperationLeftOperandSet',
+	'',
+	"63f91549-9407-42c4-a2c0-fdde2812f080",
+	1,
+	'LOG::LogInfo(message:"Operation entered: testStructureMember_Nested::S_MBR_booleanBinaryOperationLeftOperandSet, Matrix cell : A30 V3 I8");
+select many vehs from instances of V;
+if ( empty vehs)
+   LOG::LogFailure(message:"vehs is empty instance reference set");
+   LOG::LogFailure(message:"S_MBR_booleanBinaryOperationLeftOperandSet -A30 V3 I8-  test failed");
+   return;
+   
+end if;
+select any obj from instances of MBR3;
+if ( empty obj)
+   LOG::LogFailure(message:"Test setup failure : No instance for testStructureMember_Nested");
+   LOG::LogFailure(message:"S_MBR_booleanBinaryOperationLeftOperand -A14 V3 I8-  test failed");
+   return;
+   
+end if;
+
+if obj.sdtMember.nestedSDT.instRef_set == vehs
+	LOG::LogSuccess(message:"S_MBR_booleanBinaryOperationLeftOperandSet -A30 V3 I8-  test passed");
+else
+	LOG::LogFailure(message:"S_MBR_booleanBinaryOperationLeftOperandSet -A30 V3 I8-  test failed");	
+end if;
+',
+	1,
+	'',
+	"8d2f84da-2840-49b0-b8b8-66d05f092898");
+INSERT INTO O_TFR
+	VALUES ("726582f5-61b7-4e83-a8fb-4a56b6797c56",
+	"62d70acf-2451-4bf0-90a4-3b7f2c728a3e",
+	'S_MBR_booleanBinaryOperationRightOperand',
+	'',
+	"63f91549-9407-42c4-a2c0-fdde2812f080",
+	1,
+	'LOG::LogInfo(message:"Operation entered: testStructureMember_Nested::S_MBR_booleanBinaryOperationRightOperand, Matrix cell : A15 V3 I8");
+select any veh from instances of V;
+if ( empty veh)
+   LOG::LogFailure(message:"Failed to select veh");
+   LOG::LogFailure(message:"S_MBR_booleanBinaryOperationRightOperand -A15 V3 I8-  test failed");
+   return;
+end if;
+
+select any obj from instances of MBR3;
+if ( empty obj)
+   LOG::LogFailure(message:"Test setup failure : No instance for testStructureMember_Nested");
+   LOG::LogFailure(message:"S_MBR_booleanBinaryOperationLeftOperand -A14 V3 I8-  test failed");
+   return;
+end if;
+
+if  veh == obj.sdtMember.nestedSDT.instRef
+	LOG::LogSuccess(message:"S_MBR_booleanBinaryOperationRightOperand -A14 V3 I8-  test passed");
+else
+	LOG::LogFailure(message:"S_MBR_booleanBinaryOperationRightOperand -A14 V3 I8-  test failed");
+end if;
+
+if  veh.model == obj.sdtMember.nestedSDT.instRef.model
+	LOG::LogSuccess(message:"S_MBR_booleanBinaryOperationRightOperand -A14 V3 I8-  test passed");
+else
+	LOG::LogFailure(message:"S_MBR_booleanBinaryOperationRightOperand -A14 V3 I8-  test failed");
+end if;
+',
+	1,
+	'',
+	"72943cd5-d397-4a0a-b051-c6f33ffa4982");
+INSERT INTO O_TFR
+	VALUES ("ba79983b-d3c5-4274-a2bd-a580e2a8926c",
+	"62d70acf-2451-4bf0-90a4-3b7f2c728a3e",
+	'S_MBR_booleanBinaryOperationRightOperandSet',
+	'',
+	"63f91549-9407-42c4-a2c0-fdde2812f080",
+	1,
+	'LOG::LogInfo(message:"Operation entered: testStructureMember_Nested::S_MBR_booleanBinaryOperationRightOperandSet, Matrix cell : A31 V3 I8");
+
+select many vehs from instances of V;
+if ( empty vehs)
+   LOG::LogFailure(message:"vehs is empty instance reference set");
+   LOG::LogFailure(message:"S_MBR_booleanBinaryOperationRightOperandSet -A31 V3 I8-  test failed");
+   return;
+end if;
+
+select any obj from instances of MBR3;
+if ( empty obj)
+   LOG::LogFailure(message:"Test setup failure : No instance for testStructureMember_Nested");
+   LOG::LogFailure(message:"S_MBR_booleanBinaryOperationLeftOperand -A14 V3 I8-  test failed");
+   return;
+end if;
+
+
+if  vehs == obj.sdtMember.nestedSDT.instRef_set
+	LOG::LogSuccess(message:"S_MBR_booleanBinaryOperationRightOperandSet -A31 V3 I8-  test passed");
+else
+	LOG::LogFailure(message:"S_MBR_booleanBinaryOperationRightOperandSet -A31 V3 I8-  test failed");
+end if;
+
+',
+	1,
+	'',
+	"726582f5-61b7-4e83-a8fb-4a56b6797c56");
+INSERT INTO O_TFR
+	VALUES ("c0050736-97b3-4db8-85d1-3d0d710d75c5",
+	"62d70acf-2451-4bf0-90a4-3b7f2c728a3e",
+	'S_MBR_readAttr',
+	'',
+	"63f91549-9407-42c4-a2c0-fdde2812f080",
+	1,
+	'LOG::LogInfo(message:"Operation entered: testStructureMember_Nested::S_MBR_readAttir, Matrix cell : A2 V3 I8");
+select any obj from instances of MBR3;
+if ( empty obj)
+   LOG::LogFailure(message:"Test setup failure : No instance for testStructureMember_Nested");
+   LOG::LogFailure(message:"S_MBR_booleanBinaryOperationLeftOperand -A14 V3 I8-  test failed");
+   return;
+end if;
+
+inst = obj.sdtMember.nestedSDT.instRef;
+if ( empty inst)
+	 LOG::LogFailure(message:"Failed to assign the IR to the transient variable inst");
+	 LOG::LogFailure(message:"S_MBR_readAttir -A2 V3 I8-  test failed");
+else
+	LOG::LogSuccess(message:"S_MBR_readAttir -A2 V3 I8-  test passed");
+end if;
+
+
+model = obj.sdtMember.nestedSDT.instRef.model;
+if ( model == "")
+	 LOG::LogFailure(message:"S_MBR_readAttir -A2 V3 I8-  test failed");
+else
+	LOG::LogSuccess(message:"S_MBR_readAttir -A2 V3 I8-  test passed");
+end if; 
+
+EOF = 1;',
+	1,
+	'',
+	"ba79983b-d3c5-4274-a2bd-a580e2a8926c");
+INSERT INTO O_TFR
+	VALUES ("0ffefb35-af3b-4e86-a163-1f2524c5b6f1",
+	"62d70acf-2451-4bf0-90a4-3b7f2c728a3e",
+	'S_MBR_WhereClause',
+	'',
+	"63f91549-9407-42c4-a2c0-fdde2812f080",
+	1,
+	'LOG::LogInfo(message:"Operation entered: testStructureMember_Nested::S_MBR_WhereClause, Matrix cell : A13 V3 I8");
+select any car from instances of V;
+if ( empty car)
+   LOG::LogFailure(message:"Failed to select car");
+   LOG::LogFailure(message:"S_MBR_WhereClause -A13 V3 I8-  test failed");
+   return;
+end if;
+select any obj from instances of MBR3;
+if ( empty obj)
+   LOG::LogFailure(message:"Test setup failure : No instance for testStructureMember_Nested");
+   LOG::LogFailure(message:"S_MBR_booleanBinaryOperationLeftOperand -A14 V3 I8-  test failed");
+   return;
+end if;
+
+select one ped related by car->P[R1] where( selected.vehicleReference == obj.sdtMember.nestedSDT.instRef);
+
+if ( empty ped)
+   LOG::LogFailure(message:"Failed to select ped");
+   LOG::LogFailure(message:"S_MBR_WhereClause -A13 V3 I8-  test failed");
+   return;
+else
+	LOG::LogSuccess(message:"S_MBR_WhereClause -A13 V3 I8-  test passed");   
+end if;
+
+select one ped related by car->P[R1] where( selected.vehicleReference.model == obj.sdtMember.nestedSDT.instRef.model); 
+if ( empty ped)
+   LOG::LogFailure(message:"Failed to select ped");
+   LOG::LogFailure(message:"S_MBR_WhereClause -A13 V3 I8-  test failed");
+   return;
+else 
+	LOG::LogSuccess(message:"S_MBR_WhereClause -A13 V3 I8-  test passed");   
+end if;
+ 
+EOF = true;
+
+',
+	1,
+	'',
+	"c0050736-97b3-4db8-85d1-3d0d710d75c5");
+INSERT INTO O_TFR
+	VALUES ("83f1b598-0dbd-402f-bb85-12bc7be560ce",
+	"62d70acf-2451-4bf0-90a4-3b7f2c728a3e",
+	'S_MBR_writeAttr',
+	'',
+	"63f91549-9407-42c4-a2c0-fdde2812f080",
+	1,
+	'LOG::LogInfo(message:"Operation entered: testStructureMember_Nested::S_MBR_writeAttr, Matrix cell : A19 V3 I8");
+create object instance newCar of V;   
+select any obj from instances of MBR3;
+if ( empty obj)
+   LOG::LogFailure(message:"Test setup failure : No instance for testStructureMember_Nested");
+   LOG::LogFailure(message:"S_MBR_booleanBinaryOperationLeftOperand -A14 V3 I8-  test failed");
+   return;
+end if;
+
+obj.sdtMember.nestedSDT.instRef = newCar;
+if ( obj.sdtMember.nestedSDT.instRef == newCar )
+	LOG::LogSuccess(message:"S_MBR_writeAttr -A19 V3 I8-  test passed");
+else
+	LOG::LogFailure(message:"S_MBR_writeAttr -A19 V3 I8-  test failed");
+end if; 
+obj.sdtMember.nestedSDT.instRef.model = "BMW";
+if ( obj.sdtMember.nestedSDT.instRef.model == "BMW" )
+	LOG::LogSuccess(message:"S_MBR_writeAttr -A19 V3 I8-  test passed");
+else
+	LOG::LogFailure(message:"S_MBR_writeAttr -A19 V3 I8-  test failed");
+end if; 
+EOF= true;
+ 
+',
+	1,
+	'',
+	"0ffefb35-af3b-4e86-a163-1f2524c5b6f1");
+INSERT INTO O_TFR
+	VALUES ("e9a1346d-bacf-46ea-8ead-7ac9d8b11860",
+	"62d70acf-2451-4bf0-90a4-3b7f2c728a3e",
+	'S_MBR_ActivitiesInvocation',
+	'',
+	"63f91549-9407-42c4-a2c0-fdde2812f080",
+	1,
+	'LOG::LogInfo(message:"Operation entered: testStructureMember_Nested::S_MBR_ActivitiesInvocation, Matrix cell : A36 V3 I8");
+
+::InstRefParameterSetupTest(inst: self.sdtMember.nestedSDT.instRef);
+',
+	1,
+	'',
+	"83f1b598-0dbd-402f-bb85-12bc7be560ce");
+INSERT INTO O_TFR
+	VALUES ("f093eb93-0dec-4f8a-8c5b-a4e35b093a84",
+	"62d70acf-2451-4bf0-90a4-3b7f2c728a3e",
+	'S_MBR_ActivitiesInvocationSet',
+	'',
+	"63f91549-9407-42c4-a2c0-fdde2812f080",
+	1,
+	'LOG::LogInfo(message:"Operation entered: testStructureMember_Nested::S_MBR_ActivitiesInvocationSet, Matrix cell : A36 V3 I8");
+
+::InstRefSetParameterSetupTest(instSet: self.sdtMember.nestedSDT.instRef_set); ',
+	1,
+	'',
+	"e9a1346d-bacf-46ea-8ead-7ac9d8b11860");
+INSERT INTO O_NBATTR
+	VALUES ("aace8b79-7611-45d6-ae38-9a9aedb64ca1",
+	"62d70acf-2451-4bf0-90a4-3b7f2c728a3e");
+INSERT INTO O_BATTR
+	VALUES ("aace8b79-7611-45d6-ae38-9a9aedb64ca1",
+	"62d70acf-2451-4bf0-90a4-3b7f2c728a3e");
+INSERT INTO O_ATTR
+	VALUES ("aace8b79-7611-45d6-ae38-9a9aedb64ca1",
+	"62d70acf-2451-4bf0-90a4-3b7f2c728a3e",
+	"00000000-0000-0000-0000-000000000000",
+	'sdtMember',
+	'',
+	'',
+	'sdtMember',
+	0,
+	"12c6ce98-bed9-42d1-b29c-24db4f6a6d4d",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("12c6ce98-bed9-42d1-b29c-24db4f6a6d4d",
+	"c3928f56-530d-4984-8114-35933dc4cb31",
+	'InstRef StructureType',
+	'',
+	'',
+	'../../Datatypes/InstanceReference Structure Types/InstanceReference Structure Types.xtuml');
+INSERT INTO O_ID
+	VALUES (0,
+	"62d70acf-2451-4bf0-90a4-3b7f2c728a3e");
+INSERT INTO O_ID
+	VALUES (1,
+	"62d70acf-2451-4bf0-90a4-3b7f2c728a3e");
+INSERT INTO O_ID
+	VALUES (2,
+	"62d70acf-2451-4bf0-90a4-3b7f2c728a3e");
+INSERT INTO S_SS_PROXY
+	VALUES ("b8c699da-971a-421b-be92-50dd3d41b58b",
+	'Subsystem',
+	'',
+	'',
+	0,
+	"c3928f56-530d-4984-8114-35933dc4cb31",
+	"00000000-0000-0000-0000-000000000000",
+	'../Subsystem.xtuml');

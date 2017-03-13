@@ -1,0 +1,1194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>BridgePoint� xtUML Generated Documentation</title><link rel="stylesheet" href="techpub.css" type="text/css" /><meta name="generator" content="DocBook XSL Stylesheets V1.75.1" /></head><body><div class="article" title="BridgePoint� xtUML Generated Documentation"><div class="titlepage"><div><div><h2 class="title"><a id=""></a>
+  <span class="trademark">BridgePoint</span>�
+  xtUML Generated Documentation
+</h2></div><div><div class="author"><h3 class="author"><span class="firstname"></span> <span class="surname"></span></h3></div></div></div><hr /></div><div class="toc"><p><b>Table of Contents</b></p><dl><dt><span class="section"><a href="#">1. CFMon</a></span></dt><dd><dl><dt><span class="section"><a href="#">1.1. System-Level Component Packages</a></span></dt><dd><dl><dt><span class="section"><a href="#">1.1.1. Test_Harness</a></span></dt><dd><dl><dt><span class="section"><a href="#">1.1.1.1. Test_Harness</a></span></dt><dd><dl><dt><span class="section"><a href="#">1.1.1.1.1. Interface Activities</a></span></dt><dt><span class="section"><a href="#">1.1.1.1.2. Test_Harness Packages</a></span></dt></dl></dd></dl></dd><dt><span class="section"><a href="#">1.1.2. Test_Driver</a></span></dt><dd><dl><dt><span class="section"><a href="#">1.1.2.1. Test Driver</a></span></dt><dd><dl><dt><span class="section"><a href="#">1.1.2.1.1. Interface Activities</a></span></dt><dt><span class="section"><a href="#">1.1.2.1.2. Test Driver Packages</a></span></dt></dl></dd></dl></dd><dt><span class="section"><a href="#">1.1.3. String_Handling</a></span></dt><dd><dl><dt><span class="section"><a href="#">1.1.3.1. String_Handling</a></span></dt><dd><dl><dt><span class="section"><a href="#">1.1.3.1.1. Interface Activities</a></span></dt><dt><span class="section"><a href="#">1.1.3.1.2. String_Handling Packages</a></span></dt></dl></dd></dl></dd><dt><span class="section"><a href="#">1.1.4. Page_Creator</a></span></dt><dd><dl><dt><span class="section"><a href="#">1.1.4.1. Page Creator</a></span></dt><dd><dl><dt><span class="section"><a href="#">1.1.4.1.1. Interface Activities</a></span></dt><dt><span class="section"><a href="#">1.1.4.1.2. Page Creator Packages</a></span></dt></dl></dd></dl></dd><dt><span class="section"><a href="#">1.1.5. Math_Library</a></span></dt><dd><dl><dt><span class="section"><a href="#">1.1.5.1. Math_Library</a></span></dt><dd><dl><dt><span class="section"><a href="#">1.1.5.1.1. Interface Activities</a></span></dt><dt><span class="section"><a href="#">1.1.5.1.2. Math_Library Packages</a></span></dt></dl></dd></dl></dd><dt><span class="section"><a href="#">1.1.6. IFS_FText_Sim</a></span></dt><dd><dl><dt><span class="section"><a href="#">1.1.6.1. IFS_FText_Sim</a></span></dt><dd><dl><dt><span class="section"><a href="#">1.1.6.1.1. Interface Activities</a></span></dt><dt><span class="section"><a href="#">1.1.6.1.2. IFS_FText_Sim Packages</a></span></dt></dl></dd></dl></dd><dt><span class="section"><a href="#">1.1.7. Function_Monitor</a></span></dt><dd><dl><dt><span class="section"><a href="#">1.1.7.1. Function Monitor</a></span></dt><dd><dl><dt><span class="section"><a href="#">1.1.7.1.1. Interface Activities</a></span></dt><dt><span class="section"><a href="#">1.1.7.1.2. Function Monitor Packages</a></span></dt></dl></dd></dl></dd><dt><span class="section"><a href="#">1.1.8. CFMon_Function_Monitor</a></span></dt><dt><span class="section"><a href="#">1.1.9. Architecture</a></span></dt><dd><dl><dt><span class="section"><a href="#">1.1.9.1. Architecture</a></span></dt><dd><dl><dt><span class="section"><a href="#">1.1.9.1.1. Interface Activities</a></span></dt><dt><span class="section"><a href="#">1.1.9.1.2. Architecture Packages</a></span></dt></dl></dd></dl></dd></dl></dd><dt><span class="section"><a href="#">1.2. System-Level Interface Packages</a></span></dt><dd><dl><dt><span class="section"><a href="#">1.2.1. Test_Run</a></span></dt><dd><dl><dt><span class="section"><a href="#">1.2.1.1. Test_Run</a></span></dt></dl></dd><dt><span class="section"><a href="#">1.2.2. Test_Deliver</a></span></dt><dd><dl><dt><span class="section"><a href="#">1.2.2.1. Test_Deliver</a></span></dt></dl></dd><dt><span class="section"><a href="#">1.2.3. TC_Interface</a></span></dt><dd><dl><dt><span class="section"><a href="#">1.2.3.1. TC_Interface</a></span></dt></dl></dd><dt><span class="section"><a href="#">1.2.4. String</a></span></dt><dd><dl><dt><span class="section"><a href="#">1.2.4.1. String</a></span></dt></dl></dd><dt><span class="section"><a href="#">1.2.5. Stream_Creation</a></span></dt><dd><dl><dt><span class="section"><a href="#">1.2.5.1. Stream_Creation</a></span></dt></dl></dd><dt><span class="section"><a href="#">1.2.6. Status</a></span></dt><dd><dl><dt><span class="section"><a href="#">1.2.6.1. Status</a></span></dt></dl></dd><dt><span class="section"><a href="#">1.2.7. Startup</a></span></dt><dd><dl><dt><span class="section"><a href="#">1.2.7.1. Startup</a></span></dt></dl></dd><dt><span class="section"><a href="#">1.2.8. Softkey</a></span></dt><dd><dl><dt><span class="section"><a href="#">1.2.8.1. Softkey</a></span></dt></dl></dd><dt><span class="section"><a href="#">1.2.9. Shutdown_CFMon</a></span></dt><dd><dl><dt><span class="section"><a href="#">1.2.9.1. Shutdown_CFMon</a></span></dt></dl></dd><dt><span class="section"><a href="#">1.2.10. Report</a></span></dt><dd><dl><dt><span class="section"><a href="#">1.2.10.1. Report</a></span></dt></dl></dd><dt><span class="section"><a href="#">1.2.11. Math_Func</a></span></dt><dd><dl><dt><span class="section"><a href="#">1.2.11.1. Math_Func</a></span></dt></dl></dd><dt><span class="section"><a href="#">1.2.12. Displayed_Data</a></span></dt><dd><dl><dt><span class="section"><a href="#">1.2.12.1. Displayed_Data</a></span></dt></dl></dd><dt><span class="section"><a href="#">1.2.13. Audio</a></span></dt><dd><dl><dt><span class="section"><a href="#">1.2.13.1. Audio</a></span></dt></dl></dd><dt><span class="section"><a href="#">1.2.14. Architecure_Interface</a></span></dt><dd><dl><dt><span class="section"><a href="#">1.2.14.1. Architecture_Interface</a></span></dt></dl></dd><dt><span class="section"><a href="#">1.2.15. Aircraft</a></span></dt><dd><dl><dt><span class="section"><a href="#">1.2.15.1. Aircraft</a></span></dt></dl></dd><dt><span class="section"><a href="#">1.2.16. Acknowledge</a></span></dt><dd><dl><dt><span class="section"><a href="#">1.2.16.1. Ackknowledge</a></span></dt></dl></dd></dl></dd><dt><span class="section"><a href="#">1.3. System-Level Data Type Packages</a></span></dt><dd><dl><dt><span class="section"><a href="#">1.3.1. Datatypes</a></span></dt></dl></dd><dt><span class="section"><a href="#">1.4. CFMon Component Domains</a></span></dt><dd><dl><dt><span class="section"><a href="#">1.4.1. Test Driver Domain</a></span></dt><dd><dl><dt><span class="section"><a href="#">1.4.1.1. Test Driver Domain-Level Data Type Packages</a></span></dt><dd><dl><dt><span class="section"><a href="#">1.4.1.1.1. Datatypes</a></span></dt></dl></dd><dt><span class="section"><a href="#">1.4.1.2. Verifier Start Functions</a></span></dt><dt><span class="section"><a href="#">1.4.1.3. Domain Function Activities</a></span></dt><dd><dl><dt><span class="section"><a href="#">1.4.1.3.1. Start_Verifier</a></span></dt></dl></dd><dt><span class="section"><a href="#">1.4.1.4. Test Driver Subsystems</a></span></dt><dd><dl><dt><span class="section"><a href="#">1.4.1.4.1. Test Driver TD</a></span></dt></dl></dd><dt><span class="section"><a href="#">1.4.1.5. External Entities EEs</a></span></dt><dd><dl><dt><span class="section"><a href="#">1.4.1.5.1. External Entity Activities</a></span></dt></dl></dd></dl></dd><dt><span class="section"><a href="#">1.4.2. Page Creator Domain</a></span></dt><dd><dl><dt><span class="section"><a href="#">1.4.2.1. Page Creator Domain-Level Data Type Packages</a></span></dt><dd><dl><dt><span class="section"><a href="#">1.4.2.1.1. Datatypes</a></span></dt></dl></dd><dt><span class="section"><a href="#">1.4.2.2. Page Creator Subsystems</a></span></dt><dd><dl><dt><span class="section"><a href="#">1.4.2.2.1. Page Creator PC</a></span></dt></dl></dd><dt><span class="section"><a href="#">1.4.2.3. External Entities EEs</a></span></dt><dd><dl><dt><span class="section"><a href="#">1.4.2.3.1. External Entity Activities</a></span></dt></dl></dd></dl></dd><dt><span class="section"><a href="#">1.4.3. Function Monitor Domain</a></span></dt><dd><dl><dt><span class="section"><a href="#">1.4.3.1. Function Monitor Domain-Level Data Type Packages</a></span></dt><dd><dl><dt><span class="section"><a href="#">1.4.3.1.1. Datatypes</a></span></dt></dl></dd><dt><span class="section"><a href="#">1.4.3.2. Function Monitor Subsystems</a></span></dt><dd><dl><dt><span class="section"><a href="#">1.4.3.2.1. Function Monitor FM</a></span></dt></dl></dd><dt><span class="section"><a href="#">1.4.3.3. External Entities EEs</a></span></dt><dd><dl><dt><span class="section"><a href="#">1.4.3.3.1. External Entity Activities</a></span></dt></dl></dd></dl></dd></dl></dd></dl></dd></dl></div><div class="list-of-figures"><p><b>List of Figures</b></p><dl><dt>1. <a href="#CFMon-Test_Harness-ComponentPackageDiagram-figure">Test_Harness Component Package Diagram</a></dt><dt>2. <a href="#CFMon-Test_Harness-Test_Harness-ComponentDiagram-figure">Test_Harness Component Diagram</a></dt><dt>3. <a href="#CFMon-Test_Driver-ComponentPackageDiagram-figure">Test_Driver Component Package Diagram</a></dt><dt>4. <a href="#CFMon-Test_Driver-TestDriver-TestDriver-ComponentDiagram-figure">Test Driver Component Diagram</a></dt><dt>5. <a href="#CFMon-String_Handling-ComponentPackageDiagram-figure">String_Handling Component Package Diagram</a></dt><dt>6. <a href="#CFMon-String_Handling-String_Handling-ComponentDiagram-figure">String_Handling Component Diagram</a></dt><dt>7. <a href="#CFMon-Page_Creator-ComponentPackageDiagram-figure">Page_Creator Component Package Diagram</a></dt><dt>8. <a href="#CFMon-Page_Creator-PageCreator-PageCreator-ComponentDiagram-figure">Page Creator Component Diagram</a></dt><dt>9. <a href="#CFMon-Math_Library-ComponentPackageDiagram-figure">Math_Library Component Package Diagram</a></dt><dt>10. <a href="#CFMon-Math_Library-Math_Library-ComponentDiagram-figure">Math_Library Component Diagram</a></dt><dt>11. <a href="#CFMon-IFS_FText_Sim-ComponentPackageDiagram-figure">IFS_FText_Sim Component Package Diagram</a></dt><dt>12. <a href="#CFMon-IFS_FText_Sim-IFS_FText_Sim-ComponentDiagram-figure">IFS_FText_Sim Component Diagram</a></dt><dt>13. <a href="#CFMon-Function_Monitor-ComponentPackageDiagram-figure">Function_Monitor Component Package Diagram</a></dt><dt>14. <a href="#CFMon-Function_Monitor-FunctionMonitor-FunctionMonitor-ComponentDiagram-figure">Function Monitor Component Diagram</a></dt><dt>15. <a href="#CFMon-CFMon_Function_Monitor-ComponentPackageDiagram-figure">CFMon_Function_Monitor Component Package Diagram</a></dt><dt>16. <a href="#CFMon-Architecture-ComponentPackageDiagram-figure">Architecture Component Package Diagram</a></dt><dt>17. <a href="#CFMon-Architecture-Architecture-ComponentDiagram-figure">Architecture Component Diagram</a></dt><dt>18. <a href="#CFMon-Test_Run-InterfacePackageDiagram-figure">Test_Run Interface Package Diagram</a></dt><dt>19. <a href="#CFMon-Test_Deliver-InterfacePackageDiagram-figure">Test_Deliver Interface Package Diagram</a></dt><dt>20. <a href="#CFMon-TC_Interface-InterfacePackageDiagram-figure">TC_Interface Interface Package Diagram</a></dt><dt>21. <a href="#CFMon-String-InterfacePackageDiagram-figure">String Interface Package Diagram</a></dt><dt>22. <a href="#CFMon-Stream_Creation-InterfacePackageDiagram-figure">Stream_Creation Interface Package Diagram</a></dt><dt>23. <a href="#CFMon-Status-InterfacePackageDiagram-figure">Status Interface Package Diagram</a></dt><dt>24. <a href="#CFMon-Startup-InterfacePackageDiagram-figure">Startup Interface Package Diagram</a></dt><dt>25. <a href="#CFMon-Softkey-InterfacePackageDiagram-figure">Softkey Interface Package Diagram</a></dt><dt>26. <a href="#CFMon-Shutdown_CFMon-InterfacePackageDiagram-figure">Shutdown_CFMon Interface Package Diagram</a></dt><dt>27. <a href="#CFMon-Report-InterfacePackageDiagram-figure">Report Interface Package Diagram</a></dt><dt>28. <a href="#CFMon-Math_Func-InterfacePackageDiagram-figure">Math_Func Interface Package Diagram</a></dt><dt>29. <a href="#CFMon-Displayed_Data-InterfacePackageDiagram-figure">Displayed_Data Interface Package Diagram</a></dt><dt>30. <a href="#CFMon-Audio-InterfacePackageDiagram-figure">Audio Interface Package Diagram</a></dt><dt>31. <a href="#CFMon-Architecure_Interface-InterfacePackageDiagram-figure">Architecure_Interface Interface Package Diagram</a></dt><dt>32. <a href="#CFMon-Aircraft-InterfacePackageDiagram-figure">Aircraft Interface Package Diagram</a></dt><dt>33. <a href="#CFMon-Acknowledge-InterfacePackageDiagram-figure">Acknowledge Interface Package Diagram</a></dt><dt>34. <a href="#CFMon-Datatypes-DataTypePackageDiagram-figure">Datatypes Data Type Package Diagram</a></dt><dt>35. <a href="#CFMon-Test_Driver-TestDriver-DomainPackageDiagram-figure">Test Driver Domain Package Diagram</a></dt><dt>36. <a href="#CFMon-Test_Driver-TestDriver-TestDriver-Datatypes-DataTypePackageDiagram-figure">Datatypes Data Type Package Diagram</a></dt><dt>37. <a href="#CFMon-Test_Driver-TestDriver-TestDriver-TD-ClassDiagram-figure">Test Driver TD Class Diagram</a></dt><dt>38. <a href="#CFMon-Test_Driver-TestDriver-TestDriver-ExternalEntities-ExternalEntityPackageDiagram-figure">Test Driver External Entities External Entity Package Diagram</a></dt><dt>39. <a href="#CFMon-Page_Creator-PageCreator-DomainPackageDiagram-figure">Page Creator Domain Package Diagram</a></dt><dt>40. <a href="#CFMon-Page_Creator-PageCreator-PageCreator-Datatypes-DataTypePackageDiagram-figure">Datatypes Data Type Package Diagram</a></dt><dt>41. <a href="#CFMon-Page_Creator-PageCreator-PageCreator-PC-ClassDiagram-figure">Page Creator PC Class Diagram</a></dt><dt>42. <a href="#CFMon-Page_Creator-PageCreator-PageCreator-PC-C-InstanceStateMachine-figure">Page Creator C Instance State Machine</a></dt><dt>43. <a href="#CFMon-Page_Creator-PageCreator-PageCreator-ExternalEntities-ExternalEntityPackageDiagram-figure">Page Creator External Entities External Entity Package Diagram</a></dt><dt>44. <a href="#CFMon-Function_Monitor-FunctionMonitor-DomainPackageDiagram-figure">Function Monitor Domain Package Diagram</a></dt><dt>45. <a href="#CFMon-Function_Monitor-FunctionMonitor-FunctionMonitor-Datatypes-DataTypePackageDiagram-figure">Datatypes Data Type Package Diagram</a></dt><dt>46. <a href="#CFMon-Function_Monitor-FunctionMonitor-FunctionMonitor-FM-ClassDiagram-figure">Function Monitor FM Class Diagram</a></dt><dt>47. <a href="#CFMon-Function_Monitor-FunctionMonitor-FunctionMonitor-FM-B-InstanceStateMachine-figure">Function Monitor B Instance State Machine</a></dt><dt>48. <a href="#CFMon-Function_Monitor-FunctionMonitor-FunctionMonitor-FM-A-ClassStateMachine-figure">Function Monitor A Class State Machine</a></dt><dt>49. <a href="#CFMon-Function_Monitor-FunctionMonitor-FunctionMonitor-ExternalEntities-ExternalEntityPackageDiagram-figure">Function Monitor External Entities External Entity Package Diagram</a></dt></dl></div><div class="list-of-tables"><p><b>List of Tables</b></p><dl><dt>1. <a href="#">Test_Harness Ports</a></dt><dt>2. <a href="#">Test Driver Ports</a></dt><dt>3. <a href="#">String_Handling Ports</a></dt><dt>4. <a href="#">Page Creator Ports</a></dt><dt>5. <a href="#">Math_Library Ports</a></dt><dt>6. <a href="#">IFS_FText_Sim Ports</a></dt><dt>7. <a href="#">Function Monitor Ports</a></dt><dt>8. <a href="#">Architecture Ports</a></dt><dt>9. <a href="#">Test_Run Messages</a></dt><dt>10. <a href="#">Test_Deliver Messages</a></dt><dt>11. <a href="#">TC_Interface Messages</a></dt><dt>12. <a href="#">String Messages</a></dt><dt>13. <a href="#">Stream_Creation Messages</a></dt><dt>14. <a href="#">Status Messages</a></dt><dt>15. <a href="#">Startup Messages</a></dt><dt>16. <a href="#">Softkey Messages</a></dt><dt>17. <a href="#">Shutdown_CFMon Messages</a></dt><dt>18. <a href="#">Report Messages</a></dt><dt>19. <a href="#">Math_Func Messages</a></dt><dt>20. <a href="#">Displayed_Data Messages</a></dt><dt>21. <a href="#">Audio Messages</a></dt><dt>22. <a href="#">Architecture_Interface Messages</a></dt><dt>23. <a href="#">Aircraft Messages</a></dt><dt>24. <a href="#">Ackknowledge Messages</a></dt><dt>25. <a href="#">Datatypes</a></dt><dt>26. <a href="#">Test Driver Verifier Start</a></dt><dt>27. <a href="#">Test Driver TD</a></dt><dt>28. <a href="#">Test Driver External Entities</a></dt><dt>29. <a href="#">Page Creator PC</a></dt><dt>30. <a href="#">Page Creator External Entities</a></dt><dt>31. <a href="#">Function Monitor FM</a></dt><dt>32. <a href="#">Function Monitor External Entities</a></dt></dl></div><div class="section" title="1.�CFMon"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id=""></a>1.�CFMon</h2></div><div><h3 class="subtitle">Generated Documentation</h3></div></div></div><p>Please find below generated documentation for the system named CFMon.</p><p></p><div class="section" title="1.1.�System-Level Component Packages"><div class="titlepage"><div><div><h3 class="title"><a id=""></a>1.1.�System-Level Component Packages</h3></div><div><h4 class="subtitle"></h4></div></div></div><div class="section" title="1.1.1.�Test_Harness"><div class="titlepage"><div><div><h4 class="title"><a id=""></a>1.1.1.�Test_Harness</h4></div><div><h5 class="subtitle">Component Package</h5></div></div></div><div class="figure"><a id="CFMon-Test_Harness-ComponentPackageDiagram-figure"></a><p class="title"><b>Figure�1.�Test_Harness Component Package Diagram</b></p><div class="figure-contents"><div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/CFMon-Test_Harness-Component Package Diagram.png" width="100%" alt="Test_Harness Component Package Diagram" /></td></tr></table></div></div></div><p><br class="figure-break" />
+</p><div class="section" title="1.1.1.1.�Test_Harness"><div class="titlepage"><div><div><h5 class="title"><a id=""></a>1.1.1.1.�Test_Harness</h5></div><div><h6 class="subtitle">Component</h6></div></div></div><div class="figure"><a id="CFMon-Test_Harness-Test_Harness-ComponentDiagram-figure"></a><p class="title"><b>Figure�2.�Test_Harness Component Diagram</b></p><div class="figure-contents"><div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/CFMon-Test_Harness-Test_Harness-Component Diagram.png" width="100%" alt="Test_Harness Component Diagram" /></td></tr></table></div></div></div><p><br class="figure-break" />
+</p><div class="table"><a id=""></a><p class="title"><b>Table�1.�Test_Harness Ports</b></p><div class="table-contents"><table summary="Test_Harness Ports" border="1"><colgroup><col /><col /><col /><col /><col /></colgroup><thead><tr><th align="left">
+<div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/Port.gif" width="100%" /></td></tr></table></div><p>
+</p>
+</th><th align="left">
+<p>Name</p>
+</th><th align="left">
+<p>Interface</p>
+</th><th align="left">
+<p>Type</p>
+</th><th align="left">
+<p>Multiplicity</p>
+</th></tr></thead><tbody><tr><td align="left">
+<div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/Provision.gif" width="100%" /></td></tr></table></div><p>
+</p>
+</td><td align="left">
+<p>Port2</p>
+</td><td align="left">
+<p>Test_Run</p>
+</td><td align="left">
+<p>provision</p>
+</td><td align="left">
+<p>0</p>
+</td></tr><tr><td align="left">
+<div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/Provision.gif" width="100%" /></td></tr></table></div><p>
+</p>
+</td><td align="left">
+<p>Port1</p>
+</td><td align="left">
+<p>Test_Deliver</p>
+</td><td align="left">
+<p>provision</p>
+</td><td align="left">
+<p>0</p>
+</td></tr></tbody></table></div></div><p><br class="table-break" />
+</p><div class="section" title="1.1.1.1.1.�Interface Activities"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>1.1.1.1.1.�Interface Activities</h6></div><div><h6 class="subtitle"></h6></div></div></div><div class="section" title="1.1.1.1.1.1.�Port: Port2, Interface: Test_Run"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>1.1.1.1.1.1.�Port: Port2, Interface: Test_Run</h6></div><div><h6 class="subtitle"></h6></div></div></div></div><div class="section" title="1.1.1.1.1.2.�Port: Port1, Interface: Test_Deliver"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>1.1.1.1.1.2.�Port: Port1, Interface: Test_Deliver</h6></div><div><h6 class="subtitle"></h6></div></div></div></div></div><div class="section" title="1.1.1.1.2.�Test_Harness Packages"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>1.1.1.1.2.�Test_Harness Packages</h6></div><div><h6 class="subtitle"></h6></div></div></div><p>Rendered here are the contained package diagrams.</p></div></div></div><div class="section" title="1.1.2.�Test_Driver"><div class="titlepage"><div><div><h4 class="title"><a id=""></a>1.1.2.�Test_Driver</h4></div><div><h5 class="subtitle">Component Package</h5></div></div></div><div class="figure"><a id="CFMon-Test_Driver-ComponentPackageDiagram-figure"></a><p class="title"><b>Figure�3.�Test_Driver Component Package Diagram</b></p><div class="figure-contents"><div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/CFMon-Test_Driver-Component Package Diagram.png" width="100%" alt="Test_Driver Component Package Diagram" /></td></tr></table></div></div></div><p><br class="figure-break" />
+</p><div class="section" title="1.1.2.1.�Test Driver"><div class="titlepage"><div><div><h5 class="title"><a id=""></a>1.1.2.1.�Test Driver</h5></div><div><h6 class="subtitle">Component</h6></div></div></div><div class="figure"><a id="CFMon-Test_Driver-TestDriver-TestDriver-ComponentDiagram-figure"></a><p class="title"><b>Figure�4.�Test Driver Component Diagram</b></p><div class="figure-contents"><div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/CFMon-Test_Driver-Test Driver-Test Driver-Component Diagram.png" width="100%" alt="Test Driver Component Diagram" /></td></tr></table></div></div></div><p><br class="figure-break" />
+</p><div class="table"><a id=""></a><p class="title"><b>Table�2.�Test Driver Ports</b></p><div class="table-contents"><table summary="Test Driver Ports" border="1"><colgroup><col /><col /><col /><col /><col /></colgroup><thead><tr><th align="left">
+<div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/Port.gif" width="100%" /></td></tr></table></div><p>
+</p>
+</th><th align="left">
+<p>Name</p>
+</th><th align="left">
+<p>Interface</p>
+</th><th align="left">
+<p>Type</p>
+</th><th align="left">
+<p>Multiplicity</p>
+</th></tr></thead><tbody><tr><td align="left">
+<div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/Provision.gif" width="100%" /></td></tr></table></div><p>
+</p>
+</td><td align="left">
+<p>Port13</p>
+</td><td align="left">
+<p>Audio</p>
+</td><td align="left">
+<p>provision</p>
+</td><td align="left">
+<p>0</p>
+</td></tr><tr><td align="left">
+<div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/Requirement.gif" width="100%" /></td></tr></table></div><p>
+</p>
+</td><td align="left">
+<p>Port1</p>
+</td><td align="left">
+<p>Startup</p>
+</td><td align="left">
+<p>requirement</p>
+</td><td align="left">
+<p>0</p>
+</td></tr><tr><td align="left">
+<div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/Provision.gif" width="100%" /></td></tr></table></div><p>
+</p>
+</td><td align="left">
+<p>Port14</p>
+</td><td align="left">
+<p>Ackknowledge</p>
+</td><td align="left">
+<p>provision</p>
+</td><td align="left">
+<p>0</p>
+</td></tr><tr><td align="left">
+<div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/Provision.gif" width="100%" /></td></tr></table></div><p>
+</p>
+</td><td align="left">
+<p>Port12</p>
+</td><td align="left">
+<p>TC_Interface</p>
+</td><td align="left">
+<p>provision</p>
+</td><td align="left">
+<p>0</p>
+</td></tr><tr><td align="left">
+<div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/Requirement.gif" width="100%" /></td></tr></table></div><p>
+</p>
+</td><td align="left">
+<p>Port11</p>
+</td><td align="left">
+<p>Test_Run</p>
+</td><td align="left">
+<p>requirement</p>
+</td><td align="left">
+<p>0</p>
+</td></tr><tr><td align="left">
+<div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/Requirement.gif" width="100%" /></td></tr></table></div><p>
+</p>
+</td><td align="left">
+<p>Port10</p>
+</td><td align="left">
+<p>Test_Deliver</p>
+</td><td align="left">
+<p>requirement</p>
+</td><td align="left">
+<p>0</p>
+</td></tr><tr><td align="left">
+<div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/Requirement.gif" width="100%" /></td></tr></table></div><p>
+</p>
+</td><td align="left">
+<p>Port9</p>
+</td><td align="left">
+<p>Stream_Creation</p>
+</td><td align="left">
+<p>requirement</p>
+</td><td align="left">
+<p>0</p>
+</td></tr><tr><td align="left">
+<div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/Requirement.gif" width="100%" /></td></tr></table></div><p>
+</p>
+</td><td align="left">
+<p>Port8</p>
+</td><td align="left">
+<p>Displayed_Data</p>
+</td><td align="left">
+<p>requirement</p>
+</td><td align="left">
+<p>0</p>
+</td></tr><tr><td align="left">
+<div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/Requirement.gif" width="100%" /></td></tr></table></div><p>
+</p>
+</td><td align="left">
+<p>Port7</p>
+</td><td align="left">
+<p>String</p>
+</td><td align="left">
+<p>requirement</p>
+</td><td align="left">
+<p>0</p>
+</td></tr><tr><td align="left">
+<div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/Requirement.gif" width="100%" /></td></tr></table></div><p>
+</p>
+</td><td align="left">
+<p>Port6</p>
+</td><td align="left">
+<p>Status</p>
+</td><td align="left">
+<p>requirement</p>
+</td><td align="left">
+<p>0</p>
+</td></tr><tr><td align="left">
+<div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/Requirement.gif" width="100%" /></td></tr></table></div><p>
+</p>
+</td><td align="left">
+<p>Port5</p>
+</td><td align="left">
+<p>Shutdown_CFMon</p>
+</td><td align="left">
+<p>requirement</p>
+</td><td align="left">
+<p>0</p>
+</td></tr><tr><td align="left">
+<div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/Requirement.gif" width="100%" /></td></tr></table></div><p>
+</p>
+</td><td align="left">
+<p>Port4</p>
+</td><td align="left">
+<p>Report</p>
+</td><td align="left">
+<p>requirement</p>
+</td><td align="left">
+<p>0</p>
+</td></tr><tr><td align="left">
+<div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/Requirement.gif" width="100%" /></td></tr></table></div><p>
+</p>
+</td><td align="left">
+<p>Port3</p>
+</td><td align="left">
+<p>Softkey</p>
+</td><td align="left">
+<p>requirement</p>
+</td><td align="left">
+<p>0</p>
+</td></tr><tr><td align="left">
+<div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/Provision.gif" width="100%" /></td></tr></table></div><p>
+</p>
+</td><td align="left">
+<p>Port2</p>
+</td><td align="left">
+<p>Aircraft</p>
+</td><td align="left">
+<p>provision</p>
+</td><td align="left">
+<p>0</p>
+</td></tr></tbody></table></div></div><p><br class="table-break" />
+</p><div class="section" title="1.1.2.1.1.�Interface Activities"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>1.1.2.1.1.�Interface Activities</h6></div><div><h6 class="subtitle"></h6></div></div></div><div class="section" title="1.1.2.1.1.1.�Port: Port13, Interface: Audio"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>1.1.2.1.1.1.�Port: Port13, Interface: Audio</h6></div><div><h6 class="subtitle"></h6></div></div></div></div><div class="section" title="1.1.2.1.1.2.�Port: Port1, Interface: Startup"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>1.1.2.1.1.2.�Port: Port1, Interface: Startup</h6></div><div><h6 class="subtitle"></h6></div></div></div></div><div class="section" title="1.1.2.1.1.3.�Port: Port14, Interface: Ackknowledge"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>1.1.2.1.1.3.�Port: Port14, Interface: Ackknowledge</h6></div><div><h6 class="subtitle"></h6></div></div></div></div><div class="section" title="1.1.2.1.1.4.�Port: Port12, Interface: TC_Interface"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>1.1.2.1.1.4.�Port: Port12, Interface: TC_Interface</h6></div><div><h6 class="subtitle"></h6></div></div></div><div class="section" title="1.1.2.1.1.4.1.�result"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>1.1.2.1.1.4.1.�result</h6></div><div><h6 class="subtitle"></h6></div></div></div><p></p><pre class="programlisting">LOG::LogInteger(message:param.value);
+</pre></div></div><div class="section" title="1.1.2.1.1.5.�Port: Port11, Interface: Test_Run"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>1.1.2.1.1.5.�Port: Port11, Interface: Test_Run</h6></div><div><h6 class="subtitle"></h6></div></div></div></div><div class="section" title="1.1.2.1.1.6.�Port: Port10, Interface: Test_Deliver"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>1.1.2.1.1.6.�Port: Port10, Interface: Test_Deliver</h6></div><div><h6 class="subtitle"></h6></div></div></div></div><div class="section" title="1.1.2.1.1.7.�Port: Port9, Interface: Stream_Creation"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>1.1.2.1.1.7.�Port: Port9, Interface: Stream_Creation</h6></div><div><h6 class="subtitle"></h6></div></div></div></div><div class="section" title="1.1.2.1.1.8.�Port: Port8, Interface: Displayed_Data"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>1.1.2.1.1.8.�Port: Port8, Interface: Displayed_Data</h6></div><div><h6 class="subtitle"></h6></div></div></div></div><div class="section" title="1.1.2.1.1.9.�Port: Port7, Interface: String"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>1.1.2.1.1.9.�Port: Port7, Interface: String</h6></div><div><h6 class="subtitle"></h6></div></div></div></div><div class="section" title="1.1.2.1.1.10.�Port: Port6, Interface: Status"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>1.1.2.1.1.10.�Port: Port6, Interface: Status</h6></div><div><h6 class="subtitle"></h6></div></div></div></div><div class="section" title="1.1.2.1.1.11.�Port: Port5, Interface: Shutdown_CFMon"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>1.1.2.1.1.11.�Port: Port5, Interface: Shutdown_CFMon</h6></div><div><h6 class="subtitle"></h6></div></div></div></div><div class="section" title="1.1.2.1.1.12.�Port: Port4, Interface: Report"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>1.1.2.1.1.12.�Port: Port4, Interface: Report</h6></div><div><h6 class="subtitle"></h6></div></div></div></div><div class="section" title="1.1.2.1.1.13.�Port: Port3, Interface: Softkey"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>1.1.2.1.1.13.�Port: Port3, Interface: Softkey</h6></div><div><h6 class="subtitle"></h6></div></div></div></div><div class="section" title="1.1.2.1.1.14.�Port: Port2, Interface: Aircraft"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>1.1.2.1.1.14.�Port: Port2, Interface: Aircraft</h6></div><div><h6 class="subtitle"></h6></div></div></div></div></div><div class="section" title="1.1.2.1.2.�Test Driver Packages"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>1.1.2.1.2.�Test Driver Packages</h6></div><div><h6 class="subtitle"></h6></div></div></div><p>Rendered here are the contained package diagrams.</p></div></div></div><div class="section" title="1.1.3.�String_Handling"><div class="titlepage"><div><div><h4 class="title"><a id=""></a>1.1.3.�String_Handling</h4></div><div><h5 class="subtitle">Component Package</h5></div></div></div><div class="figure"><a id="CFMon-String_Handling-ComponentPackageDiagram-figure"></a><p class="title"><b>Figure�5.�String_Handling Component Package Diagram</b></p><div class="figure-contents"><div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/CFMon-String_Handling-Component Package Diagram.png" width="100%" alt="String_Handling Component Package Diagram" /></td></tr></table></div></div></div><p><br class="figure-break" />
+</p><div class="section" title="1.1.3.1.�String_Handling"><div class="titlepage"><div><div><h5 class="title"><a id=""></a>1.1.3.1.�String_Handling</h5></div><div><h6 class="subtitle">Component</h6></div></div></div><div class="figure"><a id="CFMon-String_Handling-String_Handling-ComponentDiagram-figure"></a><p class="title"><b>Figure�6.�String_Handling Component Diagram</b></p><div class="figure-contents"><div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/CFMon-String_Handling-String_Handling-Component Diagram.png" width="100%" alt="String_Handling Component Diagram" /></td></tr></table></div></div></div><p><br class="figure-break" />
+</p><div class="table"><a id=""></a><p class="title"><b>Table�3.�String_Handling Ports</b></p><div class="table-contents"><table summary="String_Handling Ports" border="1"><colgroup><col /><col /><col /><col /><col /></colgroup><thead><tr><th align="left">
+<div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/Port.gif" width="100%" /></td></tr></table></div><p>
+</p>
+</th><th align="left">
+<p>Name</p>
+</th><th align="left">
+<p>Interface</p>
+</th><th align="left">
+<p>Type</p>
+</th><th align="left">
+<p>Multiplicity</p>
+</th></tr></thead><tbody><tr><td align="left">
+<div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/Provision.gif" width="100%" /></td></tr></table></div><p>
+</p>
+</td><td align="left">
+<p>Port1</p>
+</td><td align="left">
+<p>String</p>
+</td><td align="left">
+<p>provision</p>
+</td><td align="left">
+<p>0</p>
+</td></tr></tbody></table></div></div><p><br class="table-break" />
+</p><div class="section" title="1.1.3.1.1.�Interface Activities"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>1.1.3.1.1.�Interface Activities</h6></div><div><h6 class="subtitle"></h6></div></div></div><div class="section" title="1.1.3.1.1.1.�Port: Port1, Interface: String"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>1.1.3.1.1.1.�Port: Port1, Interface: String</h6></div><div><h6 class="subtitle"></h6></div></div></div></div></div><div class="section" title="1.1.3.1.2.�String_Handling Packages"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>1.1.3.1.2.�String_Handling Packages</h6></div><div><h6 class="subtitle"></h6></div></div></div><p>Rendered here are the contained package diagrams.</p></div></div></div><div class="section" title="1.1.4.�Page_Creator"><div class="titlepage"><div><div><h4 class="title"><a id=""></a>1.1.4.�Page_Creator</h4></div><div><h5 class="subtitle">Component Package</h5></div></div></div><div class="figure"><a id="CFMon-Page_Creator-ComponentPackageDiagram-figure"></a><p class="title"><b>Figure�7.�Page_Creator Component Package Diagram</b></p><div class="figure-contents"><div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/CFMon-Page_Creator-Component Package Diagram.png" width="100%" alt="Page_Creator Component Package Diagram" /></td></tr></table></div></div></div><p><br class="figure-break" />
+</p><div class="section" title="1.1.4.1.�Page Creator"><div class="titlepage"><div><div><h5 class="title"><a id=""></a>1.1.4.1.�Page Creator</h5></div><div><h6 class="subtitle">Component</h6></div></div></div><div class="figure"><a id="CFMon-Page_Creator-PageCreator-PageCreator-ComponentDiagram-figure"></a><p class="title"><b>Figure�8.�Page Creator Component Diagram</b></p><div class="figure-contents"><div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/CFMon-Page_Creator-Page Creator-Page Creator-Component Diagram.png" width="100%" alt="Page Creator Component Diagram" /></td></tr></table></div></div></div><p><br class="figure-break" />
+</p><div class="table"><a id=""></a><p class="title"><b>Table�4.�Page Creator Ports</b></p><div class="table-contents"><table summary="Page Creator Ports" border="1"><colgroup><col /><col /><col /><col /><col /></colgroup><thead><tr><th align="left">
+<div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/Port.gif" width="100%" /></td></tr></table></div><p>
+</p>
+</th><th align="left">
+<p>Name</p>
+</th><th align="left">
+<p>Interface</p>
+</th><th align="left">
+<p>Type</p>
+</th><th align="left">
+<p>Multiplicity</p>
+</th></tr></thead><tbody><tr><td align="left">
+<div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/Provision.gif" width="100%" /></td></tr></table></div><p>
+</p>
+</td><td align="left">
+<p>Port4</p>
+</td><td align="left">
+<p>Startup</p>
+</td><td align="left">
+<p>provision</p>
+</td><td align="left">
+<p>0</p>
+</td></tr><tr><td align="left">
+<div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/Requirement.gif" width="100%" /></td></tr></table></div><p>
+</p>
+</td><td align="left">
+<p>Port3</p>
+</td><td align="left">
+<p>Math_Func</p>
+</td><td align="left">
+<p>requirement</p>
+</td><td align="left">
+<p>0</p>
+</td></tr><tr><td align="left">
+<div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/Requirement.gif" width="100%" /></td></tr></table></div><p>
+</p>
+</td><td align="left">
+<p>Port2</p>
+</td><td align="left">
+<p>Architecture_Interface</p>
+</td><td align="left">
+<p>requirement</p>
+</td><td align="left">
+<p>0</p>
+</td></tr><tr><td align="left">
+<div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/Requirement.gif" width="100%" /></td></tr></table></div><p>
+</p>
+</td><td align="left">
+<p>Port1</p>
+</td><td align="left">
+<p>TC_Interface</p>
+</td><td align="left">
+<p>requirement</p>
+</td><td align="left">
+<p>0</p>
+</td></tr></tbody></table></div></div><p><br class="table-break" />
+</p><div class="section" title="1.1.4.1.1.�Interface Activities"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>1.1.4.1.1.�Interface Activities</h6></div><div><h6 class="subtitle"></h6></div></div></div><div class="section" title="1.1.4.1.1.1.�Port: Port4, Interface: Startup"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>1.1.4.1.1.1.�Port: Port4, Interface: Startup</h6></div><div><h6 class="subtitle"></h6></div></div></div><div class="section" title="1.1.4.1.1.1.1.�startup"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>1.1.4.1.1.1.1.�startup</h6></div><div><h6 class="subtitle"></h6></div></div></div><p></p><pre class="programlisting">i=0;
+while i &lt; 10
+ create object instance c of C;
+ c.Id = i;
+ create event instance dit of C1:''doIt3'' to c;
+ discard = TIM::timer_start_recurring(event_inst:dit, microseconds:4);
+ i = i + 1;
+end while;
+
+</pre></div></div><div class="section" title="1.1.4.1.1.2.�Port: Port3, Interface: Math_Func"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>1.1.4.1.1.2.�Port: Port3, Interface: Math_Func</h6></div><div><h6 class="subtitle"></h6></div></div></div></div><div class="section" title="1.1.4.1.1.3.�Port: Port2, Interface: Architecture_Interface"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>1.1.4.1.1.3.�Port: Port2, Interface: Architecture_Interface</h6></div><div><h6 class="subtitle"></h6></div></div></div></div><div class="section" title="1.1.4.1.1.4.�Port: Port1, Interface: TC_Interface"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>1.1.4.1.1.4.�Port: Port1, Interface: TC_Interface</h6></div><div><h6 class="subtitle"></h6></div></div></div></div></div><div class="section" title="1.1.4.1.2.�Page Creator Packages"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>1.1.4.1.2.�Page Creator Packages</h6></div><div><h6 class="subtitle"></h6></div></div></div><p>Rendered here are the contained package diagrams.</p></div></div></div><div class="section" title="1.1.5.�Math_Library"><div class="titlepage"><div><div><h4 class="title"><a id=""></a>1.1.5.�Math_Library</h4></div><div><h5 class="subtitle">Component Package</h5></div></div></div><div class="figure"><a id="CFMon-Math_Library-ComponentPackageDiagram-figure"></a><p class="title"><b>Figure�9.�Math_Library Component Package Diagram</b></p><div class="figure-contents"><div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/CFMon-Math_Library-Component Package Diagram.png" width="100%" alt="Math_Library Component Package Diagram" /></td></tr></table></div></div></div><p><br class="figure-break" />
+</p><div class="section" title="1.1.5.1.�Math_Library"><div class="titlepage"><div><div><h5 class="title"><a id=""></a>1.1.5.1.�Math_Library</h5></div><div><h6 class="subtitle">Component</h6></div></div></div><div class="figure"><a id="CFMon-Math_Library-Math_Library-ComponentDiagram-figure"></a><p class="title"><b>Figure�10.�Math_Library Component Diagram</b></p><div class="figure-contents"><div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/CFMon-Math_Library-Math_Library-Component Diagram.png" width="100%" alt="Math_Library Component Diagram" /></td></tr></table></div></div></div><p><br class="figure-break" />
+</p><div class="table"><a id=""></a><p class="title"><b>Table�5.�Math_Library Ports</b></p><div class="table-contents"><table summary="Math_Library Ports" border="1"><colgroup><col /><col /><col /><col /><col /></colgroup><thead><tr><th align="left">
+<div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/Port.gif" width="100%" /></td></tr></table></div><p>
+</p>
+</th><th align="left">
+<p>Name</p>
+</th><th align="left">
+<p>Interface</p>
+</th><th align="left">
+<p>Type</p>
+</th><th align="left">
+<p>Multiplicity</p>
+</th></tr></thead><tbody><tr><td align="left">
+<div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/Provision.gif" width="100%" /></td></tr></table></div><p>
+</p>
+</td><td align="left">
+<p>Port3</p>
+</td><td align="left">
+<p>&lt; not formalized &gt;</p>
+</td><td align="left">
+<p>provision</p>
+</td><td align="left">
+<p>0</p>
+</td></tr><tr><td align="left">
+<div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/Provision.gif" width="100%" /></td></tr></table></div><p>
+</p>
+</td><td align="left">
+<p>Port2</p>
+</td><td align="left">
+<p>&lt; not formalized &gt;</p>
+</td><td align="left">
+<p>provision</p>
+</td><td align="left">
+<p>0</p>
+</td></tr><tr><td align="left">
+<div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/Provision.gif" width="100%" /></td></tr></table></div><p>
+</p>
+</td><td align="left">
+<p>Port1</p>
+</td><td align="left">
+<p>Math_Func</p>
+</td><td align="left">
+<p>provision</p>
+</td><td align="left">
+<p>0</p>
+</td></tr></tbody></table></div></div><p><br class="table-break" />
+</p><div class="section" title="1.1.5.1.1.�Interface Activities"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>1.1.5.1.1.�Interface Activities</h6></div><div><h6 class="subtitle"></h6></div></div></div><div class="section" title="1.1.5.1.1.1.�Port: Port3"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>1.1.5.1.1.1.�Port: Port3</h6></div><div><h6 class="subtitle"></h6></div></div></div></div><div class="section" title="1.1.5.1.1.2.�Port: Port2"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>1.1.5.1.1.2.�Port: Port2</h6></div><div><h6 class="subtitle"></h6></div></div></div></div><div class="section" title="1.1.5.1.1.3.�Port: Port1, Interface: Math_Func"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>1.1.5.1.1.3.�Port: Port1, Interface: Math_Func</h6></div><div><h6 class="subtitle"></h6></div></div></div></div></div><div class="section" title="1.1.5.1.2.�Math_Library Packages"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>1.1.5.1.2.�Math_Library Packages</h6></div><div><h6 class="subtitle"></h6></div></div></div><p>Rendered here are the contained package diagrams.</p></div></div></div><div class="section" title="1.1.6.�IFS_FText_Sim"><div class="titlepage"><div><div><h4 class="title"><a id=""></a>1.1.6.�IFS_FText_Sim</h4></div><div><h5 class="subtitle">Component Package</h5></div></div></div><div class="figure"><a id="CFMon-IFS_FText_Sim-ComponentPackageDiagram-figure"></a><p class="title"><b>Figure�11.�IFS_FText_Sim Component Package Diagram</b></p><div class="figure-contents"><div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/CFMon-IFS_FText_Sim-Component Package Diagram.png" width="100%" alt="IFS_FText_Sim Component Package Diagram" /></td></tr></table></div></div></div><p><br class="figure-break" />
+</p><div class="section" title="1.1.6.1.�IFS_FText_Sim"><div class="titlepage"><div><div><h5 class="title"><a id=""></a>1.1.6.1.�IFS_FText_Sim</h5></div><div><h6 class="subtitle">Component</h6></div></div></div><div class="figure"><a id="CFMon-IFS_FText_Sim-IFS_FText_Sim-ComponentDiagram-figure"></a><p class="title"><b>Figure�12.�IFS_FText_Sim Component Diagram</b></p><div class="figure-contents"><div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/CFMon-IFS_FText_Sim-IFS_FText_Sim-Component Diagram.png" width="100%" alt="IFS_FText_Sim Component Diagram" /></td></tr></table></div></div></div><p><br class="figure-break" />
+</p><div class="table"><a id=""></a><p class="title"><b>Table�6.�IFS_FText_Sim Ports</b></p><div class="table-contents"><table summary="IFS_FText_Sim Ports" border="1"><colgroup><col /><col /><col /><col /><col /></colgroup><thead><tr><th align="left">
+<div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/Port.gif" width="100%" /></td></tr></table></div><p>
+</p>
+</th><th align="left">
+<p>Name</p>
+</th><th align="left">
+<p>Interface</p>
+</th><th align="left">
+<p>Type</p>
+</th><th align="left">
+<p>Multiplicity</p>
+</th></tr></thead><tbody><tr><td align="left">
+<div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/Requirement.gif" width="100%" /></td></tr></table></div><p>
+</p>
+</td><td align="left">
+<p>Port3</p>
+</td><td align="left">
+<p>Stream_Creation</p>
+</td><td align="left">
+<p>requirement</p>
+</td><td align="left">
+<p>0</p>
+</td></tr><tr><td align="left">
+<div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/Provision.gif" width="100%" /></td></tr></table></div><p>
+</p>
+</td><td align="left">
+<p>Port2</p>
+</td><td align="left">
+<p>Displayed_Data</p>
+</td><td align="left">
+<p>provision</p>
+</td><td align="left">
+<p>0</p>
+</td></tr><tr><td align="left">
+<div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/Requirement.gif" width="100%" /></td></tr></table></div><p>
+</p>
+</td><td align="left">
+<p>Port1</p>
+</td><td align="left">
+<p>String</p>
+</td><td align="left">
+<p>requirement</p>
+</td><td align="left">
+<p>0</p>
+</td></tr></tbody></table></div></div><p><br class="table-break" />
+</p><div class="section" title="1.1.6.1.1.�Interface Activities"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>1.1.6.1.1.�Interface Activities</h6></div><div><h6 class="subtitle"></h6></div></div></div><div class="section" title="1.1.6.1.1.1.�Port: Port3, Interface: Stream_Creation"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>1.1.6.1.1.1.�Port: Port3, Interface: Stream_Creation</h6></div><div><h6 class="subtitle"></h6></div></div></div></div><div class="section" title="1.1.6.1.1.2.�Port: Port2, Interface: Displayed_Data"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>1.1.6.1.1.2.�Port: Port2, Interface: Displayed_Data</h6></div><div><h6 class="subtitle"></h6></div></div></div></div><div class="section" title="1.1.6.1.1.3.�Port: Port1, Interface: String"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>1.1.6.1.1.3.�Port: Port1, Interface: String</h6></div><div><h6 class="subtitle"></h6></div></div></div></div></div><div class="section" title="1.1.6.1.2.�IFS_FText_Sim Packages"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>1.1.6.1.2.�IFS_FText_Sim Packages</h6></div><div><h6 class="subtitle"></h6></div></div></div><p>Rendered here are the contained package diagrams.</p></div></div></div><div class="section" title="1.1.7.�Function_Monitor"><div class="titlepage"><div><div><h4 class="title"><a id=""></a>1.1.7.�Function_Monitor</h4></div><div><h5 class="subtitle">Component Package</h5></div></div></div><div class="figure"><a id="CFMon-Function_Monitor-ComponentPackageDiagram-figure"></a><p class="title"><b>Figure�13.�Function_Monitor Component Package Diagram</b></p><div class="figure-contents"><div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/CFMon-Function_Monitor-Component Package Diagram.png" width="100%" alt="Function_Monitor Component Package Diagram" /></td></tr></table></div></div></div><p><br class="figure-break" />
+</p><div class="section" title="1.1.7.1.�Function Monitor"><div class="titlepage"><div><div><h5 class="title"><a id=""></a>1.1.7.1.�Function Monitor</h5></div><div><h6 class="subtitle">Component</h6></div></div></div><div class="figure"><a id="CFMon-Function_Monitor-FunctionMonitor-FunctionMonitor-ComponentDiagram-figure"></a><p class="title"><b>Figure�14.�Function Monitor Component Diagram</b></p><div class="figure-contents"><div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/CFMon-Function_Monitor-Function Monitor-Function Monitor-Component Diagram.png" width="100%" alt="Function Monitor Component Diagram" /></td></tr></table></div></div></div><p><br class="figure-break" />
+</p><div class="table"><a id=""></a><p class="title"><b>Table�7.�Function Monitor Ports</b></p><div class="table-contents"><table summary="Function Monitor Ports" border="1"><colgroup><col /><col /><col /><col /><col /></colgroup><thead><tr><th align="left">
+<div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/Port.gif" width="100%" /></td></tr></table></div><p>
+</p>
+</th><th align="left">
+<p>Name</p>
+</th><th align="left">
+<p>Interface</p>
+</th><th align="left">
+<p>Type</p>
+</th><th align="left">
+<p>Multiplicity</p>
+</th></tr></thead><tbody><tr><td align="left">
+<div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/Requirement.gif" width="100%" /></td></tr></table></div><p>
+</p>
+</td><td align="left">
+<p>Port11</p>
+</td><td align="left">
+<p>Startup</p>
+</td><td align="left">
+<p>requirement</p>
+</td><td align="left">
+<p>0</p>
+</td></tr><tr><td align="left">
+<div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/Requirement.gif" width="100%" /></td></tr></table></div><p>
+</p>
+</td><td align="left">
+<p>Port8</p>
+</td><td align="left">
+<p>Ackknowledge</p>
+</td><td align="left">
+<p>requirement</p>
+</td><td align="left">
+<p>0</p>
+</td></tr><tr><td align="left">
+<div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/Provision.gif" width="100%" /></td></tr></table></div><p>
+</p>
+</td><td align="left">
+<p>Port10</p>
+</td><td align="left">
+<p>Report</p>
+</td><td align="left">
+<p>provision</p>
+</td><td align="left">
+<p>0</p>
+</td></tr><tr><td align="left">
+<div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/Requirement.gif" width="100%" /></td></tr></table></div><p>
+</p>
+</td><td align="left">
+<p>Port9</p>
+</td><td align="left">
+<p>Audio</p>
+</td><td align="left">
+<p>requirement</p>
+</td><td align="left">
+<p>0</p>
+</td></tr><tr><td align="left">
+<div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/Requirement.gif" width="100%" /></td></tr></table></div><p>
+</p>
+</td><td align="left">
+<p>Port7</p>
+</td><td align="left">
+<p>String</p>
+</td><td align="left">
+<p>requirement</p>
+</td><td align="left">
+<p>0</p>
+</td></tr><tr><td align="left">
+<div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/Requirement.gif" width="100%" /></td></tr></table></div><p>
+</p>
+</td><td align="left">
+<p>Port6</p>
+</td><td align="left">
+<p>TC_Interface</p>
+</td><td align="left">
+<p>requirement</p>
+</td><td align="left">
+<p>0</p>
+</td></tr><tr><td align="left">
+<div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/Requirement.gif" width="100%" /></td></tr></table></div><p>
+</p>
+</td><td align="left">
+<p>Port5</p>
+</td><td align="left">
+<p>Aircraft</p>
+</td><td align="left">
+<p>requirement</p>
+</td><td align="left">
+<p>0</p>
+</td></tr><tr><td align="left">
+<div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/Provision.gif" width="100%" /></td></tr></table></div><p>
+</p>
+</td><td align="left">
+<p>Port4</p>
+</td><td align="left">
+<p>Softkey</p>
+</td><td align="left">
+<p>provision</p>
+</td><td align="left">
+<p>0</p>
+</td></tr><tr><td align="left">
+<div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/Provision.gif" width="100%" /></td></tr></table></div><p>
+</p>
+</td><td align="left">
+<p>Port3</p>
+</td><td align="left">
+<p>Shutdown_CFMon</p>
+</td><td align="left">
+<p>provision</p>
+</td><td align="left">
+<p>0</p>
+</td></tr><tr><td align="left">
+<div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/Provision.gif" width="100%" /></td></tr></table></div><p>
+</p>
+</td><td align="left">
+<p>Port2</p>
+</td><td align="left">
+<p>Status</p>
+</td><td align="left">
+<p>provision</p>
+</td><td align="left">
+<p>0</p>
+</td></tr><tr><td align="left">
+<div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/Provision.gif" width="100%" /></td></tr></table></div><p>
+</p>
+</td><td align="left">
+<p>Port1</p>
+</td><td align="left">
+<p>Startup</p>
+</td><td align="left">
+<p>provision</p>
+</td><td align="left">
+<p>0</p>
+</td></tr></tbody></table></div></div><p><br class="table-break" />
+</p><div class="section" title="1.1.7.1.1.�Interface Activities"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>1.1.7.1.1.�Interface Activities</h6></div><div><h6 class="subtitle"></h6></div></div></div><div class="section" title="1.1.7.1.1.1.�Port: Port11, Interface: Startup"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>1.1.7.1.1.1.�Port: Port11, Interface: Startup</h6></div><div><h6 class="subtitle"></h6></div></div></div></div><div class="section" title="1.1.7.1.1.2.�Port: Port8, Interface: Ackknowledge"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>1.1.7.1.1.2.�Port: Port8, Interface: Ackknowledge</h6></div><div><h6 class="subtitle"></h6></div></div></div><div class="section" title="1.1.7.1.1.2.1.�ack"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>1.1.7.1.1.2.1.�ack</h6></div><div><h6 class="subtitle"></h6></div></div></div><p></p><pre class="programlisting">generate A_A2:''ready'' to A class;
+</pre></div></div><div class="section" title="1.1.7.1.1.3.�Port: Port10, Interface: Report"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>1.1.7.1.1.3.�Port: Port10, Interface: Report</h6></div><div><h6 class="subtitle"></h6></div></div></div><div class="section" title="1.1.7.1.1.3.1.�report"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>1.1.7.1.1.3.1.�report</h6></div><div><h6 class="subtitle"></h6></div></div></div><p></p><pre class="programlisting">generate A_A2:''ready'' to A class;
+</pre></div></div><div class="section" title="1.1.7.1.1.4.�Port: Port9, Interface: Audio"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>1.1.7.1.1.4.�Port: Port9, Interface: Audio</h6></div><div><h6 class="subtitle"></h6></div></div></div></div><div class="section" title="1.1.7.1.1.5.�Port: Port7, Interface: String"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>1.1.7.1.1.5.�Port: Port7, Interface: String</h6></div><div><h6 class="subtitle"></h6></div></div></div></div><div class="section" title="1.1.7.1.1.6.�Port: Port6, Interface: TC_Interface"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>1.1.7.1.1.6.�Port: Port6, Interface: TC_Interface</h6></div><div><h6 class="subtitle"></h6></div></div></div></div><div class="section" title="1.1.7.1.1.7.�Port: Port5, Interface: Aircraft"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>1.1.7.1.1.7.�Port: Port5, Interface: Aircraft</h6></div><div><h6 class="subtitle"></h6></div></div></div></div><div class="section" title="1.1.7.1.1.8.�Port: Port4, Interface: Softkey"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>1.1.7.1.1.8.�Port: Port4, Interface: Softkey</h6></div><div><h6 class="subtitle"></h6></div></div></div></div><div class="section" title="1.1.7.1.1.9.�Port: Port3, Interface: Shutdown_CFMon"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>1.1.7.1.1.9.�Port: Port3, Interface: Shutdown_CFMon</h6></div><div><h6 class="subtitle"></h6></div></div></div></div><div class="section" title="1.1.7.1.1.10.�Port: Port2, Interface: Status"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>1.1.7.1.1.10.�Port: Port2, Interface: Status</h6></div><div><h6 class="subtitle"></h6></div></div></div></div><div class="section" title="1.1.7.1.1.11.�Port: Port1, Interface: Startup"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>1.1.7.1.1.11.�Port: Port1, Interface: Startup</h6></div><div><h6 class="subtitle"></h6></div></div></div><div class="section" title="1.1.7.1.1.11.1.�startup"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>1.1.7.1.1.11.1.�startup</h6></div><div><h6 class="subtitle"></h6></div></div></div><p></p><pre class="programlisting">generate A_A1:''doIt'' to A class;
+Port11::startup();
+</pre></div></div></div><div class="section" title="1.1.7.1.2.�Function Monitor Packages"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>1.1.7.1.2.�Function Monitor Packages</h6></div><div><h6 class="subtitle"></h6></div></div></div><p>Rendered here are the contained package diagrams.</p></div></div></div><div class="section" title="1.1.8.�CFMon_Function_Monitor"><div class="titlepage"><div><div><h4 class="title"><a id=""></a>1.1.8.�CFMon_Function_Monitor</h4></div><div><h5 class="subtitle">Component Package</h5></div></div></div><p>The Saab CFmon model has a Component Package named CFMon_Function_Monitor that 
+contains 8 components.  When reading the following document you should have that 
+Component Package open and be looking at it.
+This CFMon_Function_Monitor is what is being executed 
+during the test causes the majority of the problems we hit. All 4 critical bugs
+were hit during execution of this package.   Three of the 
+four critical bugs were seen during the load phase od the execution.  Only the 
+timer decrementing problem was</p><div class="figure"><a id="CFMon-CFMon_Function_Monitor-ComponentPackageDiagram-figure"></a><p class="title"><b>Figure�15.�CFMon_Function_Monitor Component Package Diagram</b></p><div class="figure-contents"><div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/CFMon-CFMon_Function_Monitor-Component Package Diagram.png" width="100%" alt="CFMon_Function_Monitor Component Package Diagram" /></td></tr></table></div></div></div><p><br class="figure-break" />
+</p></div><div class="section" title="1.1.9.�Architecture"><div class="titlepage"><div><div><h4 class="title"><a id=""></a>1.1.9.�Architecture</h4></div><div><h5 class="subtitle">Component Package</h5></div></div></div><div class="figure"><a id="CFMon-Architecture-ComponentPackageDiagram-figure"></a><p class="title"><b>Figure�16.�Architecture Component Package Diagram</b></p><div class="figure-contents"><div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/CFMon-Architecture-Component Package Diagram.png" width="100%" alt="Architecture Component Package Diagram" /></td></tr></table></div></div></div><p><br class="figure-break" />
+</p><div class="section" title="1.1.9.1.�Architecture"><div class="titlepage"><div><div><h5 class="title"><a id=""></a>1.1.9.1.�Architecture</h5></div><div><h6 class="subtitle">Component</h6></div></div></div><div class="figure"><a id="CFMon-Architecture-Architecture-ComponentDiagram-figure"></a><p class="title"><b>Figure�17.�Architecture Component Diagram</b></p><div class="figure-contents"><div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/CFMon-Architecture-Architecture-Component Diagram.png" width="100%" alt="Architecture Component Diagram" /></td></tr></table></div></div></div><p><br class="figure-break" />
+</p><div class="table"><a id=""></a><p class="title"><b>Table�8.�Architecture Ports</b></p><div class="table-contents"><table summary="Architecture Ports" border="1"><colgroup><col /><col /><col /><col /><col /></colgroup><thead><tr><th align="left">
+<div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/Port.gif" width="100%" /></td></tr></table></div><p>
+</p>
+</th><th align="left">
+<p>Name</p>
+</th><th align="left">
+<p>Interface</p>
+</th><th align="left">
+<p>Type</p>
+</th><th align="left">
+<p>Multiplicity</p>
+</th></tr></thead><tbody><tr><td align="left">
+<div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/Provision.gif" width="100%" /></td></tr></table></div><p>
+</p>
+</td><td align="left">
+<p>Port3</p>
+</td><td align="left">
+<p>Architecture_Interface</p>
+</td><td align="left">
+<p>provision</p>
+</td><td align="left">
+<p>0</p>
+</td></tr><tr><td align="left">
+<div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/Requirement.gif" width="100%" /></td></tr></table></div><p>
+</p>
+</td><td align="left">
+<p>Port2</p>
+</td><td align="left">
+<p>String</p>
+</td><td align="left">
+<p>requirement</p>
+</td><td align="left">
+<p>0</p>
+</td></tr><tr><td align="left">
+<div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/Provision.gif" width="100%" /></td></tr></table></div><p>
+</p>
+</td><td align="left">
+<p>Port1</p>
+</td><td align="left">
+<p>Stream_Creation</p>
+</td><td align="left">
+<p>provision</p>
+</td><td align="left">
+<p>0</p>
+</td></tr></tbody></table></div></div><p><br class="table-break" />
+</p><div class="section" title="1.1.9.1.1.�Interface Activities"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>1.1.9.1.1.�Interface Activities</h6></div><div><h6 class="subtitle"></h6></div></div></div><div class="section" title="1.1.9.1.1.1.�Port: Port3, Interface: Architecture_Interface"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>1.1.9.1.1.1.�Port: Port3, Interface: Architecture_Interface</h6></div><div><h6 class="subtitle"></h6></div></div></div></div><div class="section" title="1.1.9.1.1.2.�Port: Port2, Interface: String"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>1.1.9.1.1.2.�Port: Port2, Interface: String</h6></div><div><h6 class="subtitle"></h6></div></div></div></div><div class="section" title="1.1.9.1.1.3.�Port: Port1, Interface: Stream_Creation"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>1.1.9.1.1.3.�Port: Port1, Interface: Stream_Creation</h6></div><div><h6 class="subtitle"></h6></div></div></div></div></div><div class="section" title="1.1.9.1.2.�Architecture Packages"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>1.1.9.1.2.�Architecture Packages</h6></div><div><h6 class="subtitle"></h6></div></div></div><p>Rendered here are the contained package diagrams.</p></div></div></div></div><div class="section" title="1.2.�System-Level Interface Packages"><div class="titlepage"><div><div><h3 class="title"><a id=""></a>1.2.�System-Level Interface Packages</h3></div><div><h4 class="subtitle"></h4></div></div></div><div class="section" title="1.2.1.�Test_Run"><div class="titlepage"><div><div><h4 class="title"><a id=""></a>1.2.1.�Test_Run</h4></div><div><h5 class="subtitle">Interface Package</h5></div></div></div><div class="figure"><a id="CFMon-Test_Run-InterfacePackageDiagram-figure"></a><p class="title"><b>Figure�18.�Test_Run Interface Package Diagram</b></p><div class="figure-contents"><div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/CFMon-Test_Run-Interface Package Diagram.png" width="100%" alt="Test_Run Interface Package Diagram" /></td></tr></table></div></div></div><p><br class="figure-break" />
+</p><div class="section" title="1.2.1.1.�Test_Run"><div class="titlepage"><div><div><h5 class="title"><a id=""></a>1.2.1.1.�Test_Run</h5></div><div><h6 class="subtitle">Interface</h6></div></div></div><p></p><div class="table"><a id=""></a><p class="title"><b>Table�9.�Test_Run Messages</b></p><div class="table-contents"><table summary="Test_Run Messages" border="1"><colgroup><col /><col /><col /><col /></colgroup><thead><tr><th align="left">
+<div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/Message.gif" width="100%" /></td></tr></table></div><p>
+</p>
+</th><th align="left">
+<p>Name</p>
+</th><th align="left">
+<p>Direction</p>
+</th><th align="left">
+<p>Description</p>
+</th></tr></thead><tbody></tbody></table></div></div><p><br class="table-break" />
+</p></div></div><div class="section" title="1.2.2.�Test_Deliver"><div class="titlepage"><div><div><h4 class="title"><a id=""></a>1.2.2.�Test_Deliver</h4></div><div><h5 class="subtitle">Interface Package</h5></div></div></div><div class="figure"><a id="CFMon-Test_Deliver-InterfacePackageDiagram-figure"></a><p class="title"><b>Figure�19.�Test_Deliver Interface Package Diagram</b></p><div class="figure-contents"><div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/CFMon-Test_Deliver-Interface Package Diagram.png" width="100%" alt="Test_Deliver Interface Package Diagram" /></td></tr></table></div></div></div><p><br class="figure-break" />
+</p><div class="section" title="1.2.2.1.�Test_Deliver"><div class="titlepage"><div><div><h5 class="title"><a id=""></a>1.2.2.1.�Test_Deliver</h5></div><div><h6 class="subtitle">Interface</h6></div></div></div><p></p><div class="table"><a id=""></a><p class="title"><b>Table�10.�Test_Deliver Messages</b></p><div class="table-contents"><table summary="Test_Deliver Messages" border="1"><colgroup><col /><col /><col /><col /></colgroup><thead><tr><th align="left">
+<div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/Message.gif" width="100%" /></td></tr></table></div><p>
+</p>
+</th><th align="left">
+<p>Name</p>
+</th><th align="left">
+<p>Direction</p>
+</th><th align="left">
+<p>Description</p>
+</th></tr></thead><tbody></tbody></table></div></div><p><br class="table-break" />
+</p></div></div><div class="section" title="1.2.3.�TC_Interface"><div class="titlepage"><div><div><h4 class="title"><a id=""></a>1.2.3.�TC_Interface</h4></div><div><h5 class="subtitle">Interface Package</h5></div></div></div><div class="figure"><a id="CFMon-TC_Interface-InterfacePackageDiagram-figure"></a><p class="title"><b>Figure�20.�TC_Interface Interface Package Diagram</b></p><div class="figure-contents"><div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/CFMon-TC_Interface-Interface Package Diagram.png" width="100%" alt="TC_Interface Interface Package Diagram" /></td></tr></table></div></div></div><p><br class="figure-break" />
+</p><div class="section" title="1.2.3.1.�TC_Interface"><div class="titlepage"><div><div><h5 class="title"><a id=""></a>1.2.3.1.�TC_Interface</h5></div><div><h6 class="subtitle">Interface</h6></div></div></div><p></p><div class="table"><a id=""></a><p class="title"><b>Table�11.�TC_Interface Messages</b></p><div class="table-contents"><table summary="TC_Interface Messages" border="1"><colgroup><col /><col /><col /><col /></colgroup><thead><tr><th align="left">
+<div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/Message.gif" width="100%" /></td></tr></table></div><p>
+</p>
+</th><th align="left">
+<p>Name</p>
+</th><th align="left">
+<p>Direction</p>
+</th><th align="left">
+<p>Description</p>
+</th></tr></thead><tbody><tr><td align="left">
+<div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/Operation.gif" width="100%" /></td></tr></table></div><p>
+</p>
+</td><td align="left">
+<p>result</p>
+</td><td align="left">
+<p>Client to Server (Requirer to Provider)</p>
+</td><td align="left">
+<p></p>
+</td></tr></tbody></table></div></div><p><br class="table-break" />
+</p></div></div><div class="section" title="1.2.4.�String"><div class="titlepage"><div><div><h4 class="title"><a id=""></a>1.2.4.�String</h4></div><div><h5 class="subtitle">Interface Package</h5></div></div></div><div class="figure"><a id="CFMon-String-InterfacePackageDiagram-figure"></a><p class="title"><b>Figure�21.�String Interface Package Diagram</b></p><div class="figure-contents"><div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/CFMon-String-Interface Package Diagram.png" width="100%" alt="String Interface Package Diagram" /></td></tr></table></div></div></div><p><br class="figure-break" />
+</p><div class="section" title="1.2.4.1.�String"><div class="titlepage"><div><div><h5 class="title"><a id=""></a>1.2.4.1.�String</h5></div><div><h6 class="subtitle">Interface</h6></div></div></div><p></p><div class="table"><a id=""></a><p class="title"><b>Table�12.�String Messages</b></p><div class="table-contents"><table summary="String Messages" border="1"><colgroup><col /><col /><col /><col /></colgroup><thead><tr><th align="left">
+<div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/Message.gif" width="100%" /></td></tr></table></div><p>
+</p>
+</th><th align="left">
+<p>Name</p>
+</th><th align="left">
+<p>Direction</p>
+</th><th align="left">
+<p>Description</p>
+</th></tr></thead><tbody></tbody></table></div></div><p><br class="table-break" />
+</p></div></div><div class="section" title="1.2.5.�Stream_Creation"><div class="titlepage"><div><div><h4 class="title"><a id=""></a>1.2.5.�Stream_Creation</h4></div><div><h5 class="subtitle">Interface Package</h5></div></div></div><div class="figure"><a id="CFMon-Stream_Creation-InterfacePackageDiagram-figure"></a><p class="title"><b>Figure�22.�Stream_Creation Interface Package Diagram</b></p><div class="figure-contents"><div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/CFMon-Stream_Creation-Interface Package Diagram.png" width="100%" alt="Stream_Creation Interface Package Diagram" /></td></tr></table></div></div></div><p><br class="figure-break" />
+</p><div class="section" title="1.2.5.1.�Stream_Creation"><div class="titlepage"><div><div><h5 class="title"><a id=""></a>1.2.5.1.�Stream_Creation</h5></div><div><h6 class="subtitle">Interface</h6></div></div></div><p></p><div class="table"><a id=""></a><p class="title"><b>Table�13.�Stream_Creation Messages</b></p><div class="table-contents"><table summary="Stream_Creation Messages" border="1"><colgroup><col /><col /><col /><col /></colgroup><thead><tr><th align="left">
+<div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/Message.gif" width="100%" /></td></tr></table></div><p>
+</p>
+</th><th align="left">
+<p>Name</p>
+</th><th align="left">
+<p>Direction</p>
+</th><th align="left">
+<p>Description</p>
+</th></tr></thead><tbody></tbody></table></div></div><p><br class="table-break" />
+</p></div></div><div class="section" title="1.2.6.�Status"><div class="titlepage"><div><div><h4 class="title"><a id=""></a>1.2.6.�Status</h4></div><div><h5 class="subtitle">Interface Package</h5></div></div></div><div class="figure"><a id="CFMon-Status-InterfacePackageDiagram-figure"></a><p class="title"><b>Figure�23.�Status Interface Package Diagram</b></p><div class="figure-contents"><div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/CFMon-Status-Interface Package Diagram.png" width="100%" alt="Status Interface Package Diagram" /></td></tr></table></div></div></div><p><br class="figure-break" />
+</p><div class="section" title="1.2.6.1.�Status"><div class="titlepage"><div><div><h5 class="title"><a id=""></a>1.2.6.1.�Status</h5></div><div><h6 class="subtitle">Interface</h6></div></div></div><p></p><div class="table"><a id=""></a><p class="title"><b>Table�14.�Status Messages</b></p><div class="table-contents"><table summary="Status Messages" border="1"><colgroup><col /><col /><col /><col /></colgroup><thead><tr><th align="left">
+<div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/Message.gif" width="100%" /></td></tr></table></div><p>
+</p>
+</th><th align="left">
+<p>Name</p>
+</th><th align="left">
+<p>Direction</p>
+</th><th align="left">
+<p>Description</p>
+</th></tr></thead><tbody></tbody></table></div></div><p><br class="table-break" />
+</p></div></div><div class="section" title="1.2.7.�Startup"><div class="titlepage"><div><div><h4 class="title"><a id=""></a>1.2.7.�Startup</h4></div><div><h5 class="subtitle">Interface Package</h5></div></div></div><div class="figure"><a id="CFMon-Startup-InterfacePackageDiagram-figure"></a><p class="title"><b>Figure�24.�Startup Interface Package Diagram</b></p><div class="figure-contents"><div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/CFMon-Startup-Interface Package Diagram.png" width="100%" alt="Startup Interface Package Diagram" /></td></tr></table></div></div></div><p><br class="figure-break" />
+</p><div class="section" title="1.2.7.1.�Startup"><div class="titlepage"><div><div><h5 class="title"><a id=""></a>1.2.7.1.�Startup</h5></div><div><h6 class="subtitle">Interface</h6></div></div></div><p></p><div class="table"><a id=""></a><p class="title"><b>Table�15.�Startup Messages</b></p><div class="table-contents"><table summary="Startup Messages" border="1"><colgroup><col /><col /><col /><col /></colgroup><thead><tr><th align="left">
+<div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/Message.gif" width="100%" /></td></tr></table></div><p>
+</p>
+</th><th align="left">
+<p>Name</p>
+</th><th align="left">
+<p>Direction</p>
+</th><th align="left">
+<p>Description</p>
+</th></tr></thead><tbody><tr><td align="left">
+<div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/Operation.gif" width="100%" /></td></tr></table></div><p>
+</p>
+</td><td align="left">
+<p>startup</p>
+</td><td align="left">
+<p>Client to Server (Requirer to Provider)</p>
+</td><td align="left">
+<p></p>
+</td></tr></tbody></table></div></div><p><br class="table-break" />
+</p></div></div><div class="section" title="1.2.8.�Softkey"><div class="titlepage"><div><div><h4 class="title"><a id=""></a>1.2.8.�Softkey</h4></div><div><h5 class="subtitle">Interface Package</h5></div></div></div><div class="figure"><a id="CFMon-Softkey-InterfacePackageDiagram-figure"></a><p class="title"><b>Figure�25.�Softkey Interface Package Diagram</b></p><div class="figure-contents"><div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/CFMon-Softkey-Interface Package Diagram.png" width="100%" alt="Softkey Interface Package Diagram" /></td></tr></table></div></div></div><p><br class="figure-break" />
+</p><div class="section" title="1.2.8.1.�Softkey"><div class="titlepage"><div><div><h5 class="title"><a id=""></a>1.2.8.1.�Softkey</h5></div><div><h6 class="subtitle">Interface</h6></div></div></div><p></p><div class="table"><a id=""></a><p class="title"><b>Table�16.�Softkey Messages</b></p><div class="table-contents"><table summary="Softkey Messages" border="1"><colgroup><col /><col /><col /><col /></colgroup><thead><tr><th align="left">
+<div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/Message.gif" width="100%" /></td></tr></table></div><p>
+</p>
+</th><th align="left">
+<p>Name</p>
+</th><th align="left">
+<p>Direction</p>
+</th><th align="left">
+<p>Description</p>
+</th></tr></thead><tbody></tbody></table></div></div><p><br class="table-break" />
+</p></div></div><div class="section" title="1.2.9.�Shutdown_CFMon"><div class="titlepage"><div><div><h4 class="title"><a id=""></a>1.2.9.�Shutdown_CFMon</h4></div><div><h5 class="subtitle">Interface Package</h5></div></div></div><div class="figure"><a id="CFMon-Shutdown_CFMon-InterfacePackageDiagram-figure"></a><p class="title"><b>Figure�26.�Shutdown_CFMon Interface Package Diagram</b></p><div class="figure-contents"><div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/CFMon-Shutdown_CFMon-Interface Package Diagram.png" width="100%" alt="Shutdown_CFMon Interface Package Diagram" /></td></tr></table></div></div></div><p><br class="figure-break" />
+</p><div class="section" title="1.2.9.1.�Shutdown_CFMon"><div class="titlepage"><div><div><h5 class="title"><a id=""></a>1.2.9.1.�Shutdown_CFMon</h5></div><div><h6 class="subtitle">Interface</h6></div></div></div><p></p><div class="table"><a id=""></a><p class="title"><b>Table�17.�Shutdown_CFMon Messages</b></p><div class="table-contents"><table summary="Shutdown_CFMon Messages" border="1"><colgroup><col /><col /><col /><col /></colgroup><thead><tr><th align="left">
+<div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/Message.gif" width="100%" /></td></tr></table></div><p>
+</p>
+</th><th align="left">
+<p>Name</p>
+</th><th align="left">
+<p>Direction</p>
+</th><th align="left">
+<p>Description</p>
+</th></tr></thead><tbody></tbody></table></div></div><p><br class="table-break" />
+</p></div></div><div class="section" title="1.2.10.�Report"><div class="titlepage"><div><div><h4 class="title"><a id=""></a>1.2.10.�Report</h4></div><div><h5 class="subtitle">Interface Package</h5></div></div></div><div class="figure"><a id="CFMon-Report-InterfacePackageDiagram-figure"></a><p class="title"><b>Figure�27.�Report Interface Package Diagram</b></p><div class="figure-contents"><div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/CFMon-Report-Interface Package Diagram.png" width="100%" alt="Report Interface Package Diagram" /></td></tr></table></div></div></div><p><br class="figure-break" />
+</p><div class="section" title="1.2.10.1.�Report"><div class="titlepage"><div><div><h5 class="title"><a id=""></a>1.2.10.1.�Report</h5></div><div><h6 class="subtitle">Interface</h6></div></div></div><p></p><div class="table"><a id=""></a><p class="title"><b>Table�18.�Report Messages</b></p><div class="table-contents"><table summary="Report Messages" border="1"><colgroup><col /><col /><col /><col /></colgroup><thead><tr><th align="left">
+<div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/Message.gif" width="100%" /></td></tr></table></div><p>
+</p>
+</th><th align="left">
+<p>Name</p>
+</th><th align="left">
+<p>Direction</p>
+</th><th align="left">
+<p>Description</p>
+</th></tr></thead><tbody><tr><td align="left">
+<div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/Operation.gif" width="100%" /></td></tr></table></div><p>
+</p>
+</td><td align="left">
+<p>report</p>
+</td><td align="left">
+<p>Client to Server (Requirer to Provider)</p>
+</td><td align="left">
+<p></p>
+</td></tr></tbody></table></div></div><p><br class="table-break" />
+</p></div></div><div class="section" title="1.2.11.�Math_Func"><div class="titlepage"><div><div><h4 class="title"><a id=""></a>1.2.11.�Math_Func</h4></div><div><h5 class="subtitle">Interface Package</h5></div></div></div><div class="figure"><a id="CFMon-Math_Func-InterfacePackageDiagram-figure"></a><p class="title"><b>Figure�28.�Math_Func Interface Package Diagram</b></p><div class="figure-contents"><div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/CFMon-Math_Func-Interface Package Diagram.png" width="100%" alt="Math_Func Interface Package Diagram" /></td></tr></table></div></div></div><p><br class="figure-break" />
+</p><div class="section" title="1.2.11.1.�Math_Func"><div class="titlepage"><div><div><h5 class="title"><a id=""></a>1.2.11.1.�Math_Func</h5></div><div><h6 class="subtitle">Interface</h6></div></div></div><p></p><div class="table"><a id=""></a><p class="title"><b>Table�19.�Math_Func Messages</b></p><div class="table-contents"><table summary="Math_Func Messages" border="1"><colgroup><col /><col /><col /><col /></colgroup><thead><tr><th align="left">
+<div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/Message.gif" width="100%" /></td></tr></table></div><p>
+</p>
+</th><th align="left">
+<p>Name</p>
+</th><th align="left">
+<p>Direction</p>
+</th><th align="left">
+<p>Description</p>
+</th></tr></thead><tbody></tbody></table></div></div><p><br class="table-break" />
+</p></div></div><div class="section" title="1.2.12.�Displayed_Data"><div class="titlepage"><div><div><h4 class="title"><a id=""></a>1.2.12.�Displayed_Data</h4></div><div><h5 class="subtitle">Interface Package</h5></div></div></div><div class="figure"><a id="CFMon-Displayed_Data-InterfacePackageDiagram-figure"></a><p class="title"><b>Figure�29.�Displayed_Data Interface Package Diagram</b></p><div class="figure-contents"><div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/CFMon-Displayed_Data-Interface Package Diagram.png" width="100%" alt="Displayed_Data Interface Package Diagram" /></td></tr></table></div></div></div><p><br class="figure-break" />
+</p><div class="section" title="1.2.12.1.�Displayed_Data"><div class="titlepage"><div><div><h5 class="title"><a id=""></a>1.2.12.1.�Displayed_Data</h5></div><div><h6 class="subtitle">Interface</h6></div></div></div><p></p><div class="table"><a id=""></a><p class="title"><b>Table�20.�Displayed_Data Messages</b></p><div class="table-contents"><table summary="Displayed_Data Messages" border="1"><colgroup><col /><col /><col /><col /></colgroup><thead><tr><th align="left">
+<div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/Message.gif" width="100%" /></td></tr></table></div><p>
+</p>
+</th><th align="left">
+<p>Name</p>
+</th><th align="left">
+<p>Direction</p>
+</th><th align="left">
+<p>Description</p>
+</th></tr></thead><tbody></tbody></table></div></div><p><br class="table-break" />
+</p></div></div><div class="section" title="1.2.13.�Audio"><div class="titlepage"><div><div><h4 class="title"><a id=""></a>1.2.13.�Audio</h4></div><div><h5 class="subtitle">Interface Package</h5></div></div></div><div class="figure"><a id="CFMon-Audio-InterfacePackageDiagram-figure"></a><p class="title"><b>Figure�30.�Audio Interface Package Diagram</b></p><div class="figure-contents"><div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/CFMon-Audio-Interface Package Diagram.png" width="100%" alt="Audio Interface Package Diagram" /></td></tr></table></div></div></div><p><br class="figure-break" />
+</p><div class="section" title="1.2.13.1.�Audio"><div class="titlepage"><div><div><h5 class="title"><a id=""></a>1.2.13.1.�Audio</h5></div><div><h6 class="subtitle">Interface</h6></div></div></div><p></p><div class="table"><a id=""></a><p class="title"><b>Table�21.�Audio Messages</b></p><div class="table-contents"><table summary="Audio Messages" border="1"><colgroup><col /><col /><col /><col /></colgroup><thead><tr><th align="left">
+<div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/Message.gif" width="100%" /></td></tr></table></div><p>
+</p>
+</th><th align="left">
+<p>Name</p>
+</th><th align="left">
+<p>Direction</p>
+</th><th align="left">
+<p>Description</p>
+</th></tr></thead><tbody></tbody></table></div></div><p><br class="table-break" />
+</p></div></div><div class="section" title="1.2.14.�Architecure_Interface"><div class="titlepage"><div><div><h4 class="title"><a id=""></a>1.2.14.�Architecure_Interface</h4></div><div><h5 class="subtitle">Interface Package</h5></div></div></div><div class="figure"><a id="CFMon-Architecure_Interface-InterfacePackageDiagram-figure"></a><p class="title"><b>Figure�31.�Architecure_Interface Interface Package Diagram</b></p><div class="figure-contents"><div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/CFMon-Architecure_Interface-Interface Package Diagram.png" width="100%" alt="Architecure_Interface Interface Package Diagram" /></td></tr></table></div></div></div><p><br class="figure-break" />
+</p><div class="section" title="1.2.14.1.�Architecture_Interface"><div class="titlepage"><div><div><h5 class="title"><a id=""></a>1.2.14.1.�Architecture_Interface</h5></div><div><h6 class="subtitle">Interface</h6></div></div></div><p></p><div class="table"><a id=""></a><p class="title"><b>Table�22.�Architecture_Interface Messages</b></p><div class="table-contents"><table summary="Architecture_Interface Messages" border="1"><colgroup><col /><col /><col /><col /></colgroup><thead><tr><th align="left">
+<div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/Message.gif" width="100%" /></td></tr></table></div><p>
+</p>
+</th><th align="left">
+<p>Name</p>
+</th><th align="left">
+<p>Direction</p>
+</th><th align="left">
+<p>Description</p>
+</th></tr></thead><tbody></tbody></table></div></div><p><br class="table-break" />
+</p></div></div><div class="section" title="1.2.15.�Aircraft"><div class="titlepage"><div><div><h4 class="title"><a id=""></a>1.2.15.�Aircraft</h4></div><div><h5 class="subtitle">Interface Package</h5></div></div></div><div class="figure"><a id="CFMon-Aircraft-InterfacePackageDiagram-figure"></a><p class="title"><b>Figure�32.�Aircraft Interface Package Diagram</b></p><div class="figure-contents"><div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/CFMon-Aircraft-Interface Package Diagram.png" width="100%" alt="Aircraft Interface Package Diagram" /></td></tr></table></div></div></div><p><br class="figure-break" />
+</p><div class="section" title="1.2.15.1.�Aircraft"><div class="titlepage"><div><div><h5 class="title"><a id=""></a>1.2.15.1.�Aircraft</h5></div><div><h6 class="subtitle">Interface</h6></div></div></div><p></p><div class="table"><a id=""></a><p class="title"><b>Table�23.�Aircraft Messages</b></p><div class="table-contents"><table summary="Aircraft Messages" border="1"><colgroup><col /><col /><col /><col /></colgroup><thead><tr><th align="left">
+<div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/Message.gif" width="100%" /></td></tr></table></div><p>
+</p>
+</th><th align="left">
+<p>Name</p>
+</th><th align="left">
+<p>Direction</p>
+</th><th align="left">
+<p>Description</p>
+</th></tr></thead><tbody></tbody></table></div></div><p><br class="table-break" />
+</p></div></div><div class="section" title="1.2.16.�Acknowledge"><div class="titlepage"><div><div><h4 class="title"><a id=""></a>1.2.16.�Acknowledge</h4></div><div><h5 class="subtitle">Interface Package</h5></div></div></div><div class="figure"><a id="CFMon-Acknowledge-InterfacePackageDiagram-figure"></a><p class="title"><b>Figure�33.�Acknowledge Interface Package Diagram</b></p><div class="figure-contents"><div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/CFMon-Acknowledge-Interface Package Diagram.png" width="100%" alt="Acknowledge Interface Package Diagram" /></td></tr></table></div></div></div><p><br class="figure-break" />
+</p><div class="section" title="1.2.16.1.�Ackknowledge"><div class="titlepage"><div><div><h5 class="title"><a id=""></a>1.2.16.1.�Ackknowledge</h5></div><div><h6 class="subtitle">Interface</h6></div></div></div><p></p><div class="table"><a id=""></a><p class="title"><b>Table�24.�Ackknowledge Messages</b></p><div class="table-contents"><table summary="Ackknowledge Messages" border="1"><colgroup><col /><col /><col /><col /></colgroup><thead><tr><th align="left">
+<div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/Message.gif" width="100%" /></td></tr></table></div><p>
+</p>
+</th><th align="left">
+<p>Name</p>
+</th><th align="left">
+<p>Direction</p>
+</th><th align="left">
+<p>Description</p>
+</th></tr></thead><tbody><tr><td align="left">
+<div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/Operation.gif" width="100%" /></td></tr></table></div><p>
+</p>
+</td><td align="left">
+<p>ack</p>
+</td><td align="left">
+<p>Client to Server (Requirer to Provider)</p>
+</td><td align="left">
+<p></p>
+</td></tr></tbody></table></div></div><p><br class="table-break" />
+</p></div></div></div><div class="section" title="1.3.�System-Level Data Type Packages"><div class="titlepage"><div><div><h3 class="title"><a id=""></a>1.3.�System-Level Data Type Packages</h3></div><div><h4 class="subtitle"></h4></div></div></div><div class="section" title="1.3.1.�Datatypes"><div class="titlepage"><div><div><h4 class="title"><a id=""></a>1.3.1.�Datatypes</h4></div><div><h5 class="subtitle">Data Types Package</h5></div></div></div><div class="figure"><a id="CFMon-Datatypes-DataTypePackageDiagram-figure"></a><p class="title"><b>Figure�34.�Datatypes Data Type Package Diagram</b></p><div class="figure-contents"><div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/CFMon-Datatypes-Data Type Package Diagram.png" width="100%" alt="Datatypes Data Type Package Diagram" /></td></tr></table></div></div></div><p><br class="figure-break" />
+</p><div class="table"><a id=""></a><p class="title"><b>Table�25.�Datatypes</b></p><div class="table-contents"><table summary="Datatypes" border="1"><colgroup><col /><col /><col /></colgroup><thead><tr><th align="left">
+<div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/DataType.gif" width="100%" /></td></tr></table></div><p>
+</p>
+</th><th align="left">
+<p>Name</p>
+</th><th align="left">
+<p>Description</p>
+</th></tr></thead><tbody><tr><td align="left">
+<div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/UserDefinedDataType.gif" width="100%" /></td></tr></table></div><p>
+</p>
+</td><td align="left">
+<p>timestamp</p>
+</td><td align="left">
+<p></p>
+</td></tr><tr><td align="left">
+<div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/UserDefinedDataType.gif" width="100%" /></td></tr></table></div><p>
+</p>
+</td><td align="left">
+<p>inst_ref&lt;Timer&gt;</p>
+</td><td align="left">
+<p></p>
+</td></tr><tr><td align="left">
+<div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/UserDefinedDataType.gif" width="100%" /></td></tr></table></div><p>
+</p>
+</td><td align="left">
+<p>date</p>
+</td><td align="left">
+<p></p>
+</td></tr><tr><td align="left">
+<div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/DataType.gif" width="100%" /></td></tr></table></div><p>
+</p>
+</td><td align="left">
+<p>component_ref</p>
+</td><td align="left">
+<p></p>
+</td></tr><tr><td align="left">
+<div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/DataType.gif" width="100%" /></td></tr></table></div><p>
+</p>
+</td><td align="left">
+<p>inst_ref&lt;Mapping&gt;</p>
+</td><td align="left">
+<p></p>
+</td></tr><tr><td align="left">
+<div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/DataType.gif" width="100%" /></td></tr></table></div><p>
+</p>
+</td><td align="left">
+<p>inst&lt;Mapping&gt;</p>
+</td><td align="left">
+<p></p>
+</td></tr><tr><td align="left">
+<div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/DataType.gif" width="100%" /></td></tr></table></div><p>
+</p>
+</td><td align="left">
+<p>inst&lt;Event&gt;</p>
+</td><td align="left">
+<p></p>
+</td></tr><tr><td align="left">
+<div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/DataType.gif" width="100%" /></td></tr></table></div><p>
+</p>
+</td><td align="left">
+<p>inst_ref_set&lt;Object&gt;</p>
+</td><td align="left">
+<p></p>
+</td></tr><tr><td align="left">
+<div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/DataType.gif" width="100%" /></td></tr></table></div><p>
+</p>
+</td><td align="left">
+<p>inst_ref&lt;Object&gt;</p>
+</td><td align="left">
+<p></p>
+</td></tr><tr><td align="left">
+<div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/DataType.gif" width="100%" /></td></tr></table></div><p>
+</p>
+</td><td align="left">
+<p>same_as&lt;Base_Attribute&gt;</p>
+</td><td align="left">
+<p></p>
+</td></tr><tr><td align="left">
+<div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/DataType.gif" width="100%" /></td></tr></table></div><p>
+</p>
+</td><td align="left">
+<p>state&lt;State_Model&gt;</p>
+</td><td align="left">
+<p></p>
+</td></tr><tr><td align="left">
+<div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/DataType.gif" width="100%" /></td></tr></table></div><p>
+</p>
+</td><td align="left">
+<p>unique_id</p>
+</td><td align="left">
+<p></p>
+</td></tr><tr><td align="left">
+<div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/DataType.gif" width="100%" /></td></tr></table></div><p>
+</p>
+</td><td align="left">
+<p>string</p>
+</td><td align="left">
+<p></p>
+</td></tr><tr><td align="left">
+<div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/DataType.gif" width="100%" /></td></tr></table></div><p>
+</p>
+</td><td align="left">
+<p>real</p>
+</td><td align="left">
+<p></p>
+</td></tr><tr><td align="left">
+<div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/DataType.gif" width="100%" /></td></tr></table></div><p>
+</p>
+</td><td align="left">
+<p>integer</p>
+</td><td align="left">
+<p></p>
+</td></tr><tr><td align="left">
+<div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/DataType.gif" width="100%" /></td></tr></table></div><p>
+</p>
+</td><td align="left">
+<p>boolean</p>
+</td><td align="left">
+<p></p>
+</td></tr><tr><td align="left">
+<div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/DataType.gif" width="100%" /></td></tr></table></div><p>
+</p>
+</td><td align="left">
+<p>void</p>
+</td><td align="left">
+<p></p>
+</td></tr></tbody></table></div></div><p><br class="table-break" />
+</p></div></div><div class="section" title="1.4.�CFMon Component Domains"><div class="titlepage"><div><div><h3 class="title"><a id=""></a>1.4.�CFMon Component Domains</h3></div><div><h4 class="subtitle">Components with Domain Behavior</h4></div></div></div><p>This section renders the components having internal domain behavior.</p><div class="section" title="1.4.1.�Test Driver Domain"><div class="titlepage"><div><div><h4 class="title"><a id=""></a>1.4.1.�Test Driver Domain</h4></div><div><h5 class="subtitle"></h5></div></div></div><div class="figure"><a id="CFMon-Test_Driver-TestDriver-DomainPackageDiagram-figure"></a><p class="title"><b>Figure�35.�Test Driver Domain Package Diagram</b></p><div class="figure-contents"><div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/CFMon-Test_Driver-Test Driver-Domain Package Diagram.png" width="100%" alt="Test Driver Domain Package Diagram" /></td></tr></table></div></div></div><p><br class="figure-break" />
+</p><div class="section" title="1.4.1.1.�Test Driver Domain-Level Data Type Packages"><div class="titlepage"><div><div><h5 class="title"><a id=""></a>1.4.1.1.�Test Driver Domain-Level Data Type Packages</h5></div><div><h6 class="subtitle"></h6></div></div></div><div class="section" title="1.4.1.1.1.�Datatypes"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>1.4.1.1.1.�Datatypes</h6></div><div><h6 class="subtitle">Data Types Package</h6></div></div></div><div class="figure"><a id="CFMon-Test_Driver-TestDriver-TestDriver-Datatypes-DataTypePackageDiagram-figure"></a><p class="title"><b>Figure�36.�Datatypes Data Type Package Diagram</b></p><div class="figure-contents"><div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/CFMon-Test_Driver-Test Driver-Test Driver-Datatypes-Data Type Package Diagram.png" width="100%" alt="Datatypes Data Type Package Diagram" /></td></tr></table></div></div></div><p><br class="figure-break" />
+</p></div></div><div class="section" title="1.4.1.2.�Verifier Start Functions"><div class="titlepage"><div><div><h5 class="title"><a id=""></a>1.4.1.2.�Verifier Start Functions</h5></div><div><h6 class="subtitle">Function Package</h6></div></div></div><div class="table"><a id=""></a><p class="title"><b>Table�26.�Test Driver Verifier Start</b></p><div class="table-contents"><table summary="Test Driver Verifier Start" border="1"><colgroup><col /><col /><col /></colgroup><thead><tr><th align="left">
+<div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/Function.gif" width="100%" /></td></tr></table></div><p>
+</p>
+</th><th align="left">
+<p>Name</p>
+</th><th align="left">
+<p>Description</p>
+</th></tr></thead><tbody><tr><td align="left">
+<div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/Function.gif" width="100%" /></td></tr></table></div><p>
+</p>
+</td><td align="left">
+<p>Start_Verifier()</p>
+</td><td align="left">
+<p></p>
+</td></tr></tbody></table></div></div><p><br class="table-break" />
+</p></div><div class="section" title="1.4.1.3.�Domain Function Activities"><div class="titlepage"><div><div><h5 class="title"><a id=""></a>1.4.1.3.�Domain Function Activities</h5></div><div><h6 class="subtitle"></h6></div></div></div><div class="section" title="1.4.1.3.1.�Start_Verifier"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>1.4.1.3.1.�Start_Verifier</h6></div><div><h6 class="subtitle"></h6></div></div></div><p></p><pre class="programlisting">send Port1::startup();
+i = 0;
+while i &lt; 50
+  create object instance d of D;
+  i = i + 1;
+end while;
+send Port4::report();
+</pre></div></div><div class="section" title="1.4.1.4.�Test Driver Subsystems"><div class="titlepage"><div><div><h5 class="title"><a id=""></a>1.4.1.4.�Test Driver Subsystems</h5></div><div><h6 class="subtitle"></h6></div></div></div><p>Rendered here are the subsystem class diagrams.</p><div class="section" title="1.4.1.4.1.�Test Driver TD"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>1.4.1.4.1.�Test Driver TD</h6></div><div><h6 class="subtitle">Subsystem</h6></div></div></div><div class="figure"><a id="CFMon-Test_Driver-TestDriver-TestDriver-TD-ClassDiagram-figure"></a><p class="title"><b>Figure�37.�Test Driver TD Class Diagram</b></p><div class="figure-contents"><div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/CFMon-Test_Driver-Test Driver-Test Driver-TD-Class Diagram.png" width="100%" alt="Test Driver TD Class Diagram" /></td></tr></table></div></div></div><p><br class="figure-break" />
+</p><div class="table"><a id=""></a><p class="title"><b>Table�27.�Test Driver TD</b></p><div class="table-contents"><table summary="Test Driver TD" border="1"><colgroup><col /><col /><col /></colgroup><thead><tr><th align="left">
+<div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/Class.gif" width="100%" /></td></tr></table></div><p>
+</p>
+</th><th align="left">
+<p>Name</p>
+</th><th align="left">
+<p>Description</p>
+</th></tr></thead><tbody><tr><td align="left">
+<div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/Class.gif" width="100%" /></td></tr></table></div><p>
+</p>
+</td><td align="left">
+<p>D</p>
+</td><td align="left">
+<p></p>
+</td></tr></tbody></table></div></div><p><br class="table-break" />
+</p></div></div><div class="section" title="1.4.1.5.�External Entities EEs"><div class="titlepage"><div><div><h5 class="title"><a id=""></a>1.4.1.5.�External Entities EEs</h5></div><div><h6 class="subtitle">External Entity Package</h6></div></div></div><div class="figure"><a id="CFMon-Test_Driver-TestDriver-TestDriver-ExternalEntities-ExternalEntityPackageDiagram-figure"></a><p class="title"><b>Figure�38.�Test Driver External Entities External Entity Package Diagram</b></p><div class="figure-contents"><div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/CFMon-Test_Driver-Test Driver-Test Driver-External Entities-External Entity Package Diagram.png" width="100%" alt="Test Driver External Entities External Entity Package Diagram" /></td></tr></table></div></div></div><p><br class="figure-break" />
+</p><div class="table"><a id=""></a><p class="title"><b>Table�28.�Test Driver External Entities</b></p><div class="table-contents"><table summary="Test Driver External Entities" border="1"><colgroup><col /><col /><col /><col /></colgroup><thead><tr><th align="left">
+<div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/ExternalEntity.gif" width="100%" /></td></tr></table></div><p>
+</p>
+</th><th align="left">
+<p>Name</p>
+</th><th align="left">
+<p>Description</p>
+</th><th align="left">
+<p>Bridges</p>
+</th></tr></thead><tbody><tr><td align="left">
+<div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/ExternalEntity.gif" width="100%" /></td></tr></table></div><p>
+</p>
+</td><td align="left">
+<p>Logging</p>
+</td><td align="left">
+<p></p>
+</td><td align="left">
+<p>LogInteger, LogReal, LogTime, LogDate, LogInfo, LogFailure, LogSuccess</p>
+</td></tr><tr><td align="left">
+<div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/ExternalEntity.gif" width="100%" /></td></tr></table></div><p>
+</p>
+</td><td align="left">
+<p>Architecture</p>
+</td><td align="left">
+<p></p>
+</td><td align="left">
+<p>shutdown</p>
+</td></tr><tr><td align="left">
+<div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/ExternalEntity.gif" width="100%" /></td></tr></table></div><p>
+</p>
+</td><td align="left">
+<p>Time</p>
+</td><td align="left">
+<p>The Time external entity provides date, timestamp, and timer related operations.</p>
+</td><td align="left">
+<p>timer_cancel, timer_add_time, timer_reset_time, timer_remaining_time, timer_start_recurring, timer_start, current_clock, get_year, get_month, get_day, get_hour, get_minute, get_second, create_date, current_date</p>
+</td></tr></tbody></table></div></div><p><br class="table-break" />
+</p><div class="section" title="1.4.1.5.1.�External Entity Activities"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>1.4.1.5.1.�External Entity Activities</h6></div><div><h6 class="subtitle"></h6></div></div></div><div class="section" title="1.4.1.5.1.1.�Logging Activities"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>1.4.1.5.1.1.�Logging Activities</h6></div><div><h6 class="subtitle"></h6></div></div></div></div><div class="section" title="1.4.1.5.1.2.�Architecture Activities"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>1.4.1.5.1.2.�Architecture Activities</h6></div><div><h6 class="subtitle"></h6></div></div></div><div class="section" title="1.4.1.5.1.2.1.�shutdown"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>1.4.1.5.1.2.1.�shutdown</h6></div><div><h6 class="subtitle"></h6></div></div></div><p></p><pre class="programlisting">control stop;
+</pre></div></div><div class="section" title="1.4.1.5.1.3.�Time Activities"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>1.4.1.5.1.3.�Time Activities</h6></div><div><h6 class="subtitle"></h6></div></div></div><div class="section" title="1.4.1.5.1.3.1.�timer_cancel"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>1.4.1.5.1.3.1.�timer_cancel</h6></div><div><h6 class="subtitle"></h6></div></div></div><p>This bridge operation cancels and deletes the passed timer instance. If the 
+timer exists (that is, it had not expired), a TRUE value is returned. If the
+timer no longer exists, a FALSE value is returned.</p><pre class="programlisting">
+</pre></div><div class="section" title="1.4.1.5.1.3.2.�timer_add_time"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>1.4.1.5.1.3.2.�timer_add_time</h6></div><div><h6 class="subtitle"></h6></div></div></div><p>This bridge operation attempts to add the specified number of microseconds to a
+passed existing timer. If the timer exists (that is, it has not expired), a TRUE
+value is returned. If the timer no longer exists, a FALSE value is returned.</p><pre class="programlisting">
+</pre></div><div class="section" title="1.4.1.5.1.3.3.�timer_reset_time"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>1.4.1.5.1.3.3.�timer_reset_time</h6></div><div><h6 class="subtitle"></h6></div></div></div><p>This bridge operation attempts to set the passed existing timer to expire in
+the specified number of microseconds. If the timer exists (that is, it has not
+expired), a TRUE value is returned. If the timer no longer exists, a FALSE value
+is returned.</p><pre class="programlisting">
+</pre></div><div class="section" title="1.4.1.5.1.3.4.�timer_remaining_time"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>1.4.1.5.1.3.4.�timer_remaining_time</h6></div><div><h6 class="subtitle"></h6></div></div></div><p>Returns the time remaining (in microseconds) for the passed timer instance. If
+the timer has expired, a zero value is returned.</p><pre class="programlisting">
+</pre></div><div class="section" title="1.4.1.5.1.3.5.�timer_start_recurring"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>1.4.1.5.1.3.5.�timer_start_recurring</h6></div><div><h6 class="subtitle"></h6></div></div></div><p>This bridge operation starts a timer set to expire in the specified number of
+microseconds, generating the passed event upon expiration. Upon expiration, the
+timer will be restarted and fire again in the specified number of microseconds
+generating the passed event. This bridge operation returns the instance handle
+of the timer.</p><pre class="programlisting">
+</pre></div><div class="section" title="1.4.1.5.1.3.6.�timer_start"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>1.4.1.5.1.3.6.�timer_start</h6></div><div><h6 class="subtitle"></h6></div></div></div><p>This bridge operation starts a timer set to expire in the specified number of
+microseconds, generating the passed event upon expiration. Returns the instance
+handle of the timer.</p><pre class="programlisting">
+</pre></div></div></div></div></div><div class="section" title="1.4.2.�Page Creator Domain"><div class="titlepage"><div><div><h4 class="title"><a id=""></a>1.4.2.�Page Creator Domain</h4></div><div><h5 class="subtitle"></h5></div></div></div><div class="figure"><a id="CFMon-Page_Creator-PageCreator-DomainPackageDiagram-figure"></a><p class="title"><b>Figure�39.�Page Creator Domain Package Diagram</b></p><div class="figure-contents"><div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/CFMon-Page_Creator-Page Creator-Domain Package Diagram.png" width="100%" alt="Page Creator Domain Package Diagram" /></td></tr></table></div></div></div><p><br class="figure-break" />
+</p><div class="section" title="1.4.2.1.�Page Creator Domain-Level Data Type Packages"><div class="titlepage"><div><div><h5 class="title"><a id=""></a>1.4.2.1.�Page Creator Domain-Level Data Type Packages</h5></div><div><h6 class="subtitle"></h6></div></div></div><div class="section" title="1.4.2.1.1.�Datatypes"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>1.4.2.1.1.�Datatypes</h6></div><div><h6 class="subtitle">Data Types Package</h6></div></div></div><div class="figure"><a id="CFMon-Page_Creator-PageCreator-PageCreator-Datatypes-DataTypePackageDiagram-figure"></a><p class="title"><b>Figure�40.�Datatypes Data Type Package Diagram</b></p><div class="figure-contents"><div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/CFMon-Page_Creator-Page Creator-Page Creator-Datatypes-Data Type Package Diagram.png" width="100%" alt="Datatypes Data Type Package Diagram" /></td></tr></table></div></div></div><p><br class="figure-break" />
+</p></div></div><div class="section" title="1.4.2.2.�Page Creator Subsystems"><div class="titlepage"><div><div><h5 class="title"><a id=""></a>1.4.2.2.�Page Creator Subsystems</h5></div><div><h6 class="subtitle"></h6></div></div></div><p>Rendered here are the subsystem class diagrams.</p><div class="section" title="1.4.2.2.1.�Page Creator PC"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>1.4.2.2.1.�Page Creator PC</h6></div><div><h6 class="subtitle">Subsystem</h6></div></div></div><div class="figure"><a id="CFMon-Page_Creator-PageCreator-PageCreator-PC-ClassDiagram-figure"></a><p class="title"><b>Figure�41.�Page Creator PC Class Diagram</b></p><div class="figure-contents"><div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/CFMon-Page_Creator-Page Creator-Page Creator-PC-Class Diagram.png" width="100%" alt="Page Creator PC Class Diagram" /></td></tr></table></div></div></div><p><br class="figure-break" />
+</p><div class="table"><a id=""></a><p class="title"><b>Table�29.�Page Creator PC</b></p><div class="table-contents"><table summary="Page Creator PC" border="1"><colgroup><col /><col /><col /></colgroup><thead><tr><th align="left">
+<div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/Class.gif" width="100%" /></td></tr></table></div><p>
+</p>
+</th><th align="left">
+<p>Name</p>
+</th><th align="left">
+<p>Description</p>
+</th></tr></thead><tbody><tr><td align="left">
+<div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/Class.gif" width="100%" /></td></tr></table></div><p>
+</p>
+</td><td align="left">
+<p>C</p>
+</td><td align="left">
+<p></p>
+</td></tr></tbody></table></div></div><p><br class="table-break" />
+</p><div class="figure"><a id="CFMon-Page_Creator-PageCreator-PageCreator-PC-C-InstanceStateMachine-figure"></a><p class="title"><b>Figure�42.�Page Creator C Instance State Machine</b></p><div class="figure-contents"><div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/CFMon-Page_Creator-Page Creator-Page Creator-PC-C-Instance State Machine.png" width="100%" alt="Page Creator C Instance State Machine" /></td></tr></table></div></div></div><p><br class="figure-break" />
+</p></div></div><div class="section" title="1.4.2.3.�External Entities EEs"><div class="titlepage"><div><div><h5 class="title"><a id=""></a>1.4.2.3.�External Entities EEs</h5></div><div><h6 class="subtitle">External Entity Package</h6></div></div></div><div class="figure"><a id="CFMon-Page_Creator-PageCreator-PageCreator-ExternalEntities-ExternalEntityPackageDiagram-figure"></a><p class="title"><b>Figure�43.�Page Creator External Entities External Entity Package Diagram</b></p><div class="figure-contents"><div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/CFMon-Page_Creator-Page Creator-Page Creator-External Entities-External Entity Package Diagram.png" width="100%" alt="Page Creator External Entities External Entity Package Diagram" /></td></tr></table></div></div></div><p><br class="figure-break" />
+</p><div class="table"><a id=""></a><p class="title"><b>Table�30.�Page Creator External Entities</b></p><div class="table-contents"><table summary="Page Creator External Entities" border="1"><colgroup><col /><col /><col /><col /></colgroup><thead><tr><th align="left">
+<div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/ExternalEntity.gif" width="100%" /></td></tr></table></div><p>
+</p>
+</th><th align="left">
+<p>Name</p>
+</th><th align="left">
+<p>Description</p>
+</th><th align="left">
+<p>Bridges</p>
+</th></tr></thead><tbody><tr><td align="left">
+<div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/ExternalEntity.gif" width="100%" /></td></tr></table></div><p>
+</p>
+</td><td align="left">
+<p>Logging</p>
+</td><td align="left">
+<p></p>
+</td><td align="left">
+<p>LogInteger, LogReal, LogTime, LogDate, LogInfo, LogFailure, LogSuccess</p>
+</td></tr><tr><td align="left">
+<div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/ExternalEntity.gif" width="100%" /></td></tr></table></div><p>
+</p>
+</td><td align="left">
+<p>Architecture</p>
+</td><td align="left">
+<p></p>
+</td><td align="left">
+<p>shutdown</p>
+</td></tr><tr><td align="left">
+<div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/ExternalEntity.gif" width="100%" /></td></tr></table></div><p>
+</p>
+</td><td align="left">
+<p>Time</p>
+</td><td align="left">
+<p>The Time external entity provides date, timestamp, and timer related operations.</p>
+</td><td align="left">
+<p>timer_cancel, timer_add_time, timer_reset_time, timer_remaining_time, timer_start_recurring, timer_start, current_clock, get_year, get_month, get_day, get_hour, get_minute, get_second, create_date, current_date</p>
+</td></tr></tbody></table></div></div><p><br class="table-break" />
+</p><div class="section" title="1.4.2.3.1.�External Entity Activities"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>1.4.2.3.1.�External Entity Activities</h6></div><div><h6 class="subtitle"></h6></div></div></div><div class="section" title="1.4.2.3.1.1.�Logging Activities"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>1.4.2.3.1.1.�Logging Activities</h6></div><div><h6 class="subtitle"></h6></div></div></div></div><div class="section" title="1.4.2.3.1.2.�Architecture Activities"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>1.4.2.3.1.2.�Architecture Activities</h6></div><div><h6 class="subtitle"></h6></div></div></div><div class="section" title="1.4.2.3.1.2.1.�shutdown"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>1.4.2.3.1.2.1.�shutdown</h6></div><div><h6 class="subtitle"></h6></div></div></div><p></p><pre class="programlisting">control stop;
+</pre></div></div><div class="section" title="1.4.2.3.1.3.�Time Activities"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>1.4.2.3.1.3.�Time Activities</h6></div><div><h6 class="subtitle"></h6></div></div></div><div class="section" title="1.4.2.3.1.3.1.�timer_cancel"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>1.4.2.3.1.3.1.�timer_cancel</h6></div><div><h6 class="subtitle"></h6></div></div></div><p>This bridge operation cancels and deletes the passed timer instance. If the 
+timer exists (that is, it had not expired), a TRUE value is returned. If the
+timer no longer exists, a FALSE value is returned.</p><pre class="programlisting">
+</pre></div><div class="section" title="1.4.2.3.1.3.2.�timer_add_time"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>1.4.2.3.1.3.2.�timer_add_time</h6></div><div><h6 class="subtitle"></h6></div></div></div><p>This bridge operation attempts to add the specified number of microseconds to a
+passed existing timer. If the timer exists (that is, it has not expired), a TRUE
+value is returned. If the timer no longer exists, a FALSE value is returned.</p><pre class="programlisting">
+</pre></div><div class="section" title="1.4.2.3.1.3.3.�timer_reset_time"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>1.4.2.3.1.3.3.�timer_reset_time</h6></div><div><h6 class="subtitle"></h6></div></div></div><p>This bridge operation attempts to set the passed existing timer to expire in
+the specified number of microseconds. If the timer exists (that is, it has not
+expired), a TRUE value is returned. If the timer no longer exists, a FALSE value
+is returned.</p><pre class="programlisting">
+</pre></div><div class="section" title="1.4.2.3.1.3.4.�timer_remaining_time"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>1.4.2.3.1.3.4.�timer_remaining_time</h6></div><div><h6 class="subtitle"></h6></div></div></div><p>Returns the time remaining (in microseconds) for the passed timer instance. If
+the timer has expired, a zero value is returned.</p><pre class="programlisting">
+</pre></div><div class="section" title="1.4.2.3.1.3.5.�timer_start_recurring"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>1.4.2.3.1.3.5.�timer_start_recurring</h6></div><div><h6 class="subtitle"></h6></div></div></div><p>This bridge operation starts a timer set to expire in the specified number of
+microseconds, generating the passed event upon expiration. Upon expiration, the
+timer will be restarted and fire again in the specified number of microseconds
+generating the passed event. This bridge operation returns the instance handle
+of the timer.</p><pre class="programlisting">
+</pre></div><div class="section" title="1.4.2.3.1.3.6.�timer_start"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>1.4.2.3.1.3.6.�timer_start</h6></div><div><h6 class="subtitle"></h6></div></div></div><p>This bridge operation starts a timer set to expire in the specified number of
+microseconds, generating the passed event upon expiration. Returns the instance
+handle of the timer.</p><pre class="programlisting">
+</pre></div></div></div></div></div><div class="section" title="1.4.3.�Function Monitor Domain"><div class="titlepage"><div><div><h4 class="title"><a id=""></a>1.4.3.�Function Monitor Domain</h4></div><div><h5 class="subtitle"></h5></div></div></div><div class="figure"><a id="CFMon-Function_Monitor-FunctionMonitor-DomainPackageDiagram-figure"></a><p class="title"><b>Figure�44.�Function Monitor Domain Package Diagram</b></p><div class="figure-contents"><div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/CFMon-Function_Monitor-Function Monitor-Domain Package Diagram.png" width="100%" alt="Function Monitor Domain Package Diagram" /></td></tr></table></div></div></div><p><br class="figure-break" />
+</p><div class="section" title="1.4.3.1.�Function Monitor Domain-Level Data Type Packages"><div class="titlepage"><div><div><h5 class="title"><a id=""></a>1.4.3.1.�Function Monitor Domain-Level Data Type Packages</h5></div><div><h6 class="subtitle"></h6></div></div></div><div class="section" title="1.4.3.1.1.�Datatypes"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>1.4.3.1.1.�Datatypes</h6></div><div><h6 class="subtitle">Data Types Package</h6></div></div></div><div class="figure"><a id="CFMon-Function_Monitor-FunctionMonitor-FunctionMonitor-Datatypes-DataTypePackageDiagram-figure"></a><p class="title"><b>Figure�45.�Datatypes Data Type Package Diagram</b></p><div class="figure-contents"><div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/CFMon-Function_Monitor-Function Monitor-Function Monitor-Datatypes-Data Type Package Diagram.png" width="100%" alt="Datatypes Data Type Package Diagram" /></td></tr></table></div></div></div><p><br class="figure-break" />
+</p></div></div><div class="section" title="1.4.3.2.�Function Monitor Subsystems"><div class="titlepage"><div><div><h5 class="title"><a id=""></a>1.4.3.2.�Function Monitor Subsystems</h5></div><div><h6 class="subtitle"></h6></div></div></div><p>Rendered here are the subsystem class diagrams.</p><div class="section" title="1.4.3.2.1.�Function Monitor FM"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>1.4.3.2.1.�Function Monitor FM</h6></div><div><h6 class="subtitle">Subsystem</h6></div></div></div><div class="figure"><a id="CFMon-Function_Monitor-FunctionMonitor-FunctionMonitor-FM-ClassDiagram-figure"></a><p class="title"><b>Figure�46.�Function Monitor FM Class Diagram</b></p><div class="figure-contents"><div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/CFMon-Function_Monitor-Function Monitor-Function Monitor-FM-Class Diagram.png" width="100%" alt="Function Monitor FM Class Diagram" /></td></tr></table></div></div></div><p><br class="figure-break" />
+</p><div class="table"><a id=""></a><p class="title"><b>Table�31.�Function Monitor FM</b></p><div class="table-contents"><table summary="Function Monitor FM" border="1"><colgroup><col /><col /><col /></colgroup><thead><tr><th align="left">
+<div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/Class.gif" width="100%" /></td></tr></table></div><p>
+</p>
+</th><th align="left">
+<p>Name</p>
+</th><th align="left">
+<p>Description</p>
+</th></tr></thead><tbody><tr><td align="left">
+<div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/Class.gif" width="100%" /></td></tr></table></div><p>
+</p>
+</td><td align="left">
+<p>B</p>
+</td><td align="left">
+<p></p>
+</td></tr><tr><td align="left">
+<div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/Class.gif" width="100%" /></td></tr></table></div><p>
+</p>
+</td><td align="left">
+<p>A</p>
+</td><td align="left">
+<p></p>
+</td></tr></tbody></table></div></div><p><br class="table-break" />
+</p><div class="figure"><a id="CFMon-Function_Monitor-FunctionMonitor-FunctionMonitor-FM-B-InstanceStateMachine-figure"></a><p class="title"><b>Figure�47.�Function Monitor B Instance State Machine</b></p><div class="figure-contents"><div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/CFMon-Function_Monitor-Function Monitor-Function Monitor-FM-B-Instance State Machine.png" width="100%" alt="Function Monitor B Instance State Machine" /></td></tr></table></div></div></div><p><br class="figure-break" />
+</p><div class="figure"><a id="CFMon-Function_Monitor-FunctionMonitor-FunctionMonitor-FM-A-ClassStateMachine-figure"></a><p class="title"><b>Figure�48.�Function Monitor A Class State Machine</b></p><div class="figure-contents"><div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/CFMon-Function_Monitor-Function Monitor-Function Monitor-FM-A-Class State Machine.png" width="100%" alt="Function Monitor A Class State Machine" /></td></tr></table></div></div></div><p><br class="figure-break" />
+</p></div></div><div class="section" title="1.4.3.3.�External Entities EEs"><div class="titlepage"><div><div><h5 class="title"><a id=""></a>1.4.3.3.�External Entities EEs</h5></div><div><h6 class="subtitle">External Entity Package</h6></div></div></div><div class="figure"><a id="CFMon-Function_Monitor-FunctionMonitor-FunctionMonitor-ExternalEntities-ExternalEntityPackageDiagram-figure"></a><p class="title"><b>Figure�49.�Function Monitor External Entities External Entity Package Diagram</b></p><div class="figure-contents"><div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/CFMon-Function_Monitor-Function Monitor-Function Monitor-External Entities-External Entity Package Diagram.png" width="100%" alt="Function Monitor External Entities External Entity Package Diagram" /></td></tr></table></div></div></div><p><br class="figure-break" />
+</p><div class="table"><a id=""></a><p class="title"><b>Table�32.�Function Monitor External Entities</b></p><div class="table-contents"><table summary="Function Monitor External Entities" border="1"><colgroup><col /><col /><col /><col /></colgroup><thead><tr><th align="left">
+<div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/ExternalEntity.gif" width="100%" /></td></tr></table></div><p>
+</p>
+</th><th align="left">
+<p>Name</p>
+</th><th align="left">
+<p>Description</p>
+</th><th align="left">
+<p>Bridges</p>
+</th></tr></thead><tbody><tr><td align="left">
+<div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/ExternalEntity.gif" width="100%" /></td></tr></table></div><p>
+</p>
+</td><td align="left">
+<p>Logging</p>
+</td><td align="left">
+<p></p>
+</td><td align="left">
+<p>LogInteger, LogReal, LogTime, LogDate, LogInfo, LogFailure, LogSuccess</p>
+</td></tr><tr><td align="left">
+<div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/ExternalEntity.gif" width="100%" /></td></tr></table></div><p>
+</p>
+</td><td align="left">
+<p>Architecture</p>
+</td><td align="left">
+<p></p>
+</td><td align="left">
+<p>shutdown</p>
+</td></tr><tr><td align="left">
+<div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/ExternalEntity.gif" width="100%" /></td></tr></table></div><p>
+</p>
+</td><td align="left">
+<p>Time</p>
+</td><td align="left">
+<p>The Time external entity provides date, timestamp, and timer related operations.</p>
+</td><td align="left">
+<p>timer_cancel, timer_add_time, timer_reset_time, timer_remaining_time, timer_start_recurring, timer_start, current_clock, get_year, get_month, get_day, get_hour, get_minute, get_second, create_date, current_date</p>
+</td></tr></tbody></table></div></div><p><br class="table-break" />
+</p><div class="section" title="1.4.3.3.1.�External Entity Activities"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>1.4.3.3.1.�External Entity Activities</h6></div><div><h6 class="subtitle"></h6></div></div></div><div class="section" title="1.4.3.3.1.1.�Logging Activities"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>1.4.3.3.1.1.�Logging Activities</h6></div><div><h6 class="subtitle"></h6></div></div></div></div><div class="section" title="1.4.3.3.1.2.�Architecture Activities"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>1.4.3.3.1.2.�Architecture Activities</h6></div><div><h6 class="subtitle"></h6></div></div></div><div class="section" title="1.4.3.3.1.2.1.�shutdown"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>1.4.3.3.1.2.1.�shutdown</h6></div><div><h6 class="subtitle"></h6></div></div></div><p></p><pre class="programlisting">control stop;
+</pre></div></div><div class="section" title="1.4.3.3.1.3.�Time Activities"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>1.4.3.3.1.3.�Time Activities</h6></div><div><h6 class="subtitle"></h6></div></div></div><div class="section" title="1.4.3.3.1.3.1.�timer_cancel"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>1.4.3.3.1.3.1.�timer_cancel</h6></div><div><h6 class="subtitle"></h6></div></div></div><p>This bridge operation cancels and deletes the passed timer instance. If the 
+timer exists (that is, it had not expired), a TRUE value is returned. If the
+timer no longer exists, a FALSE value is returned.</p><pre class="programlisting">
+</pre></div><div class="section" title="1.4.3.3.1.3.2.�timer_add_time"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>1.4.3.3.1.3.2.�timer_add_time</h6></div><div><h6 class="subtitle"></h6></div></div></div><p>This bridge operation attempts to add the specified number of microseconds to a
+passed existing timer. If the timer exists (that is, it has not expired), a TRUE
+value is returned. If the timer no longer exists, a FALSE value is returned.</p><pre class="programlisting">
+</pre></div><div class="section" title="1.4.3.3.1.3.3.�timer_reset_time"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>1.4.3.3.1.3.3.�timer_reset_time</h6></div><div><h6 class="subtitle"></h6></div></div></div><p>This bridge operation attempts to set the passed existing timer to expire in
+the specified number of microseconds. If the timer exists (that is, it has not
+expired), a TRUE value is returned. If the timer no longer exists, a FALSE value
+is returned.</p><pre class="programlisting">
+</pre></div><div class="section" title="1.4.3.3.1.3.4.�timer_remaining_time"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>1.4.3.3.1.3.4.�timer_remaining_time</h6></div><div><h6 class="subtitle"></h6></div></div></div><p>Returns the time remaining (in microseconds) for the passed timer instance. If
+the timer has expired, a zero value is returned.</p><pre class="programlisting">
+</pre></div><div class="section" title="1.4.3.3.1.3.5.�timer_start_recurring"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>1.4.3.3.1.3.5.�timer_start_recurring</h6></div><div><h6 class="subtitle"></h6></div></div></div><p>This bridge operation starts a timer set to expire in the specified number of
+microseconds, generating the passed event upon expiration. Upon expiration, the
+timer will be restarted and fire again in the specified number of microseconds
+generating the passed event. This bridge operation returns the instance handle
+of the timer.</p><pre class="programlisting">
+</pre></div><div class="section" title="1.4.3.3.1.3.6.�timer_start"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>1.4.3.3.1.3.6.�timer_start</h6></div><div><h6 class="subtitle"></h6></div></div></div><p>This bridge operation starts a timer set to expire in the specified number of
+microseconds, generating the passed event upon expiration. Returns the instance
+handle of the timer.</p><pre class="programlisting">
+</pre></div></div></div></div></div></div></div></div></body></html>

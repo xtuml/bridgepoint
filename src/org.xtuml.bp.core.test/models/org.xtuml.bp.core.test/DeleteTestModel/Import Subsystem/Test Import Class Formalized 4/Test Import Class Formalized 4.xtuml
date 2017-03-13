@@ -1,0 +1,32 @@
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("b14dfe76-464b-4278-8ff2-8712527f98be",
+	'Test Import Class Formalized 4',
+	405,
+	'T_IMPFORM4',
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_ID
+	VALUES (0,
+	"b14dfe76-464b-4278-8ff2-8712527f98be");
+INSERT INTO O_ID
+	VALUES (1,
+	"b14dfe76-464b-4278-8ff2-8712527f98be");
+INSERT INTO O_ID
+	VALUES (2,
+	"b14dfe76-464b-4278-8ff2-8712527f98be");
+INSERT INTO PE_PE
+	VALUES ("b14dfe76-464b-4278-8ff2-8712527f98be",
+	1,
+	"b65b97e4-ed08-44c8-a9fe-7f72e3973ac6",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
+	VALUES ("b65b97e4-ed08-44c8-a9fe-7f72e3973ac6",
+	"00000000-0000-0000-0000-000000000000",
+	"c6693612-7c4f-42e5-b64f-16c64f288945",
+	'Import Subsystem',
+	'',
+	0,
+	'../Import Subsystem.xtuml');

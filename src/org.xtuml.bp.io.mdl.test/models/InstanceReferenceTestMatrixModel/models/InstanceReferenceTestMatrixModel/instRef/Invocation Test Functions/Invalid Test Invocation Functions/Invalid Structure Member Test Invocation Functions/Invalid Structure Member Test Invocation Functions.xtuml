@@ -1,0 +1,190 @@
+-- BP 7.1 content: FunctionPackage syschar: 3 persistence-version: 7.1.5
+
+INSERT INTO S_FPK
+	VALUES ("ce3a712d-8d23-4936-9b58-3e33199a8c02",
+	'Invalid Structure Member Test Invocation Functions',
+	"00000000-0000-0000-0000-000000000000",
+	"974d0af7-e621-4f96-be7d-955fc947d471");
+INSERT INTO GD_MD
+	VALUES ("d5928f2a-3a43-4728-a20d-00c42b65bc3d",
+	101,
+	"ce3a712d-8d23-4936-9b58-3e33199a8c02",
+	54,
+	0,
+	0,
+	1,
+	1,
+	1,
+	12,
+	1,
+	0,
+	0,
+	200,
+	150,
+	0,
+	'3.2.3');
+INSERT INTO DIM_DIA
+	VALUES ("d5928f2a-3a43-4728-a20d-00c42b65bc3d",
+	'',
+	1.000000,
+	4000.000000,
+	3000.000000,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO S_FPIP
+	VALUES ("ce3a712d-8d23-4936-9b58-3e33199a8c02");
+INSERT INTO PL_FPID
+	VALUES ("ce3a712d-8d23-4936-9b58-3e33199a8c02",
+	"c3928f56-530d-4984-8114-35933dc4cb31");
+INSERT INTO S_DOM_PROXY
+	VALUES ("c3928f56-530d-4984-8114-35933dc4cb31",
+	'instRef',
+	'',
+	0,
+	"00000000-0000-0000-0000-000000000002",
+	"13c14d34-d225-4949-89b6-fe738cc62cbb",
+	'../../../instRef.xtuml');
+INSERT INTO S_FIP
+	VALUES ("ce3a712d-8d23-4936-9b58-3e33199a8c02",
+	"311ffa38-9b51-439a-b021-bc654522722b");
+INSERT INTO S_SYNC
+	VALUES ("311ffa38-9b51-439a-b021-bc654522722b",
+	"c3928f56-530d-4984-8114-35933dc4cb31",
+	'StructureMember_booleanBinaryOperationLeftOperand_Invalid',
+	'',
+	'::setup(accessType:"Invalid",referenceType:"Structure Member"); 
+select any test from instances of MBR2;
+test.S_MBR_booleanBinaryOperationLeftOperand();
+::dispose(accessType:"Invalid",referenceType:"Structure Member");   ',
+	"63f91549-9407-42c4-a2c0-fdde2812f080",
+	1,
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("63f91549-9407-42c4-a2c0-fdde2812f080",
+	"c3928f56-530d-4984-8114-35933dc4cb31",
+	'void',
+	'',
+	'',
+	'../../../Datatypes/Datatypes.xtuml');
+INSERT INTO S_FIP
+	VALUES ("ce3a712d-8d23-4936-9b58-3e33199a8c02",
+	"cc3ce846-a365-4643-9fd0-7d4c188bee75");
+INSERT INTO S_SYNC
+	VALUES ("cc3ce846-a365-4643-9fd0-7d4c188bee75",
+	"c3928f56-530d-4984-8114-35933dc4cb31",
+	'StructureMember_booleanBinaryOperationRightOperand_Invalid',
+	'',
+	'::setup(accessType:"Invalid",referenceType:"Structure Member"); 
+select any test from instances of MBR2;
+test.S_MBR_booleanBinaryOperationRightOperand();
+::dispose(accessType:"Invalid",referenceType:"Structure Member");   ',
+	"63f91549-9407-42c4-a2c0-fdde2812f080",
+	1,
+	'');
+INSERT INTO S_FIP
+	VALUES ("ce3a712d-8d23-4936-9b58-3e33199a8c02",
+	"67b54669-4e3b-460d-b60d-2c129a865ab5");
+INSERT INTO S_SYNC
+	VALUES ("67b54669-4e3b-460d-b60d-2c129a865ab5",
+	"c3928f56-530d-4984-8114-35933dc4cb31",
+	'StructureMember_readAttr_Invalid',
+	'',
+	'::setup(accessType:"Invalid",referenceType:"Structure Member"); 
+select any test from instances of MBR2;
+test.S_MBR_readAttr();
+::dispose(accessType:"Invalid",referenceType:"Structure Member");   ',
+	"63f91549-9407-42c4-a2c0-fdde2812f080",
+	1,
+	'');
+INSERT INTO S_FIP
+	VALUES ("ce3a712d-8d23-4936-9b58-3e33199a8c02",
+	"53cec802-f943-43d2-8915-eb35e9fb2128");
+INSERT INTO S_SYNC
+	VALUES ("53cec802-f943-43d2-8915-eb35e9fb2128",
+	"c3928f56-530d-4984-8114-35933dc4cb31",
+	'StructureMember_WhereClause_Invalid',
+	'',
+	'::setup(accessType:"Invalid",referenceType:"Structure Member"); 
+select any test from instances of MBR2;
+test.S_MBR_WhereClause();
+::dispose(accessType:"Invalid",referenceType:"Structure Member");   ',
+	"63f91549-9407-42c4-a2c0-fdde2812f080",
+	1,
+	'');
+INSERT INTO S_FIP
+	VALUES ("ce3a712d-8d23-4936-9b58-3e33199a8c02",
+	"de800cb6-c190-470f-a166-6ee55f4c8448");
+INSERT INTO S_SYNC
+	VALUES ("de800cb6-c190-470f-a166-6ee55f4c8448",
+	"c3928f56-530d-4984-8114-35933dc4cb31",
+	'StructureMember_booleanBinaryOperationLeftOperandSet_Invalid',
+	'',
+	'::setup(accessType:"Invalid",referenceType:"Structure Member"); 
+select any test from instances of MBR2;
+test.S_MBR_booleanBinaryOperationLeftOperandSet();
+::dispose(accessType:"Invalid",referenceType:"Structure Member");   ',
+	"63f91549-9407-42c4-a2c0-fdde2812f080",
+	1,
+	'');
+INSERT INTO S_FIP
+	VALUES ("ce3a712d-8d23-4936-9b58-3e33199a8c02",
+	"f7db33b9-b5e0-4daa-a8b0-8ca6b87589ec");
+INSERT INTO S_SYNC
+	VALUES ("f7db33b9-b5e0-4daa-a8b0-8ca6b87589ec",
+	"c3928f56-530d-4984-8114-35933dc4cb31",
+	'StructureMember_writeAttr_Invalid',
+	'',
+	'::setup(accessType:"Invalid",referenceType:"Structure Member"); 
+select any test from instances of MBR2;
+test.S_MBR_writeAttr();
+::dispose(accessType:"Invalid",referenceType:"Structure Member");   ',
+	"63f91549-9407-42c4-a2c0-fdde2812f080",
+	1,
+	'');
+INSERT INTO S_FIP
+	VALUES ("ce3a712d-8d23-4936-9b58-3e33199a8c02",
+	"7386b182-583a-4313-9049-138727106896");
+INSERT INTO S_SYNC
+	VALUES ("7386b182-583a-4313-9049-138727106896",
+	"c3928f56-530d-4984-8114-35933dc4cb31",
+	'StructureMember_booleanBinaryOperationRightOperandSet_Invalid',
+	'',
+	'::setup(accessType:"Invalid",referenceType:"Structure Member"); 
+select any test from instances of MBR2;
+test.S_MBR_booleanBinaryOperationRightOperandSet();
+::dispose(accessType:"Invalid",referenceType:"Structure Member");   ',
+	"63f91549-9407-42c4-a2c0-fdde2812f080",
+	1,
+	'');
+INSERT INTO S_FIP
+	VALUES ("ce3a712d-8d23-4936-9b58-3e33199a8c02",
+	"1a4ef3c3-0527-4cfa-b5ee-2eed2853dc1c");
+INSERT INTO S_SYNC
+	VALUES ("1a4ef3c3-0527-4cfa-b5ee-2eed2853dc1c",
+	"c3928f56-530d-4984-8114-35933dc4cb31",
+	'StructureMember_ActivitiesInvocation_Invalid',
+	'',
+	'::setup(accessType:"Invalid",referenceType:"Structure Member"); 
+select any test from instances of MBR2;
+test.S_MBR_ActivitiesInvocation();
+::dispose(accessType:"Invalid",referenceType:"Structure Member");   ',
+	"63f91549-9407-42c4-a2c0-fdde2812f080",
+	1,
+	'');
+INSERT INTO S_FIP
+	VALUES ("ce3a712d-8d23-4936-9b58-3e33199a8c02",
+	"a43b6805-9799-4891-8e2e-996d64b5991a");
+INSERT INTO S_SYNC
+	VALUES ("a43b6805-9799-4891-8e2e-996d64b5991a",
+	"c3928f56-530d-4984-8114-35933dc4cb31",
+	'StructureMember_ActivitiesInvocationSet_Invalid',
+	'',
+	'::setup(accessType:"Invalid",referenceType:"Structure Member"); 
+select any test from instances of MBR2;
+test.S_MBR_ActivitiesInvocationSet();
+::dispose(accessType:"Invalid",referenceType:"Structure Member");   ',
+	"63f91549-9407-42c4-a2c0-fdde2812f080",
+	1,
+	'');
+INSERT INTO S_FPIP_PROXY
+	VALUES ("974d0af7-e621-4f96-be7d-955fc947d471",
+	'../Invalid Test Invocation Functions.xtuml');

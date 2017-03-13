@@ -1,0 +1,5 @@
+drawRectangle(268, 172, 688, 516)
+drawText("Child Component", 406, 399, true)
+drawRectangle(816, 227, 86, 68)
+drawRectangle(795, 234, 41, 20)
+drawRectangle(795, 261, 41, 20)

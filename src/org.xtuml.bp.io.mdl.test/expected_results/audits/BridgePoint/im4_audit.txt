@@ -1,0 +1,138 @@
+AUDIT RESULTS FOR DOMAIN im4
+
+SUBSYSTEMS WITHOUT DESCRIPTIONS:
+im4
+
+EXTERNAL ENTITIES WITHOUT DESCRIPTIONS:
+External Entity Logging 
+External Entity Time
+External Entity Architecture
+
+BRIDGES WITHOUT DESCRIPTIONS:
+External Entity Bridge Logging ::LogSuccess
+External Entity Bridge Logging ::LogFailure
+External Entity Bridge Logging ::LogInfo
+External Entity Bridge Architecture::shutdown
+
+CLASSES WITHOUT DESCRIPTIONS:
+Class im4::Object GG
+Class im4::Object HH
+Class im4::Object II
+Class im4::Object FF
+Class im4::Object EE
+Class im4::Object DD
+Class im4::Object CC
+Class im4::Object BB
+Class im4::Object AA
+Class im4::im4 init
+Class im4::IC Driver
+Class im4::Object A with One Instance
+Class im4::Object B with Many Instance
+Class im4::Object C with Many Instances
+
+ATTRIBUTES WITHOUT DESCRIPTIONS:
+Attribute Object GG::gg_id1
+Attribute Object GG::gg_id2
+Attribute Object HH::firsthh_id
+Attribute Object HH::secondhh_id
+Attribute Object HH::key
+Attribute Object HH::current_state
+Attribute Object II::gg_id1
+Attribute Object II::gg_id2
+Attribute Object FF::ff_id
+Attribute Object FF::ee_id
+Attribute Object FF::dd_id
+Attribute Object FF::bb_id
+Attribute Object EE::ee_id
+Attribute Object DD::dd_id
+Attribute Object CC::cc_id
+Attribute Object CC::dd_id
+Attribute Object CC::bb_id
+Attribute Object BB::bb_id
+Attribute Object AA::aa_id
+Attribute Object AA::key
+Attribute Object AA::current_state
+Attribute Object AA::bb_id
+Attribute im4 init::id
+Attribute im4 init::current_state
+Attribute IC Driver::icd_id
+Attribute IC Driver::ack_count
+Attribute IC Driver::current_state
+Attribute Object A with One Instance::id
+Attribute Object A with One Instance::current_state
+Attribute Object B with Many Instance::id
+Attribute Object B with Many Instance::b_id
+Attribute Object B with Many Instance::c_id
+Attribute Object C with Many Instances::id
+Attribute Object C with Many Instances::c_id
+
+REFERENCES WITHOUT DESCRIPTIONS:
+Referential Attribute Object GG::gg_id1
+Referential Attribute Object GG::gg_id2
+Referential Attribute Object HH::firsthh_id
+Referential Attribute Object HH::secondhh_id
+Referential Attribute Object II::gg_id1
+Referential Attribute Object II::gg_id2
+Referential Attribute Object FF::ee_id
+Referential Attribute Object FF::dd_id
+Referential Attribute Object FF::bb_id
+Referential Attribute Object CC::dd_id
+Referential Attribute Object CC::bb_id
+Referential Attribute Object AA::bb_id
+Referential Attribute Object B with Many Instance::b_id
+Referential Attribute Object B with Many Instance::c_id
+Referential Attribute Object C with Many Instances::c_id
+
+RELATIONSHIPS WITHOUT DESCRIPTIONS:
+im4::R100
+im4::R101
+im4::R102
+im4::R103
+im4::R104
+im4::R105
+im4::R106
+im4::R200
+im4::R202
+im4::R201
+
+STATE MODELS WITHOUT DESCRIPTIONS:
+State Model Object HH
+State Model Object AA
+State Model im4 init
+State Model IC Driver
+State Model Object A with One Instance
+
+EVENTS WITHOUT DESCRIPTIONS:
+Event HH1
+Event HH2
+Event HH3
+Event AA1
+Event AA2
+Event AA3
+Event INIT1
+Event ICD1
+Event ICD2
+Event ICD3
+Event ICD4
+Event OAOI1
+Event OAOI2
+
+EVENT DATA WITHOUT DESCRIPTIONS:
+Event Data Object HH::id
+Event Data Object AA::first_id
+Event Data Object AA::second_id
+
+ACTION SPECIFICATIONS WITHOUT DESCRIPTIONS:
+Object HH::Starting IC11 Test
+Object HH::Verifying Rel with AA Instance
+Object HH::Finishing IC11 Test
+Object AA::Starting IC11 Test
+Object AA::Verifying Rel with HH Instance
+Object AA::Finishing IC11 Test
+im4 init::init
+IC Driver::Running IC11 Test Suite
+IC Driver::Waiting for IC11 Completions
+IC Driver::Shutting Down
+IC Driver::Running IC12 Test Suite
+Object A with One Instance::Running IC12 Test Suite
+Object A with One Instance::Initial State

@@ -1,0 +1,167 @@
+AUDIT RESULTS FOR DOMAIN ims2
+
+SUBSYSTEMS WITHOUT DESCRIPTIONS:
+ims2
+Driver
+
+EXTERNAL ENTITIES WITHOUT DESCRIPTIONS:
+External Entity Logging 
+External Entity Time
+External Entity Architecture
+
+BRIDGES WITHOUT DESCRIPTIONS:
+External Entity Bridge Logging ::LogSuccess
+External Entity Bridge Logging ::LogFailure
+External Entity Bridge Logging ::LogInfo
+External Entity Bridge Architecture::shutdown
+
+CLASSES WITHOUT DESCRIPTIONS:
+Class ims2::A
+Class ims2::B
+Class ims2::C
+Class ims2::D
+Class ims2::E
+Class ims2::F
+Class ims2::G
+Class ims2::H
+Class ims2::I
+Class ims2::J
+Class ims2::K
+Class ims2::L
+Class ims2::M
+Class ims2::N
+Class ims2::O
+Class ims2::P
+Class ims2::Q
+Class ims2::R
+Class ims2::S
+Class ims2::T
+Class ims2::U
+Class ims2::V
+Class ims2::W
+Class ims2::X
+Class ims2::Y
+Class ims2::Z
+Class ims2::AA
+Class ims2::BB
+Class ims2::CC
+Class Driver::Driver
+Class Driver::Driver init
+
+ATTRIBUTES WITHOUT DESCRIPTIONS:
+Attribute A::a_id
+Attribute B::b_id
+Attribute B::a_id
+Attribute C::c_id
+Attribute C::b_id
+Attribute D::d_id
+Attribute E::e_id
+Attribute E::d_id
+Attribute F::f_id
+Attribute F::e_id
+Attribute G::g_id
+Attribute H::h_id
+Attribute H::g_id
+Attribute H::i_id
+Attribute I::i_id
+Attribute J::j_id
+Attribute K::k_id
+Attribute K::j_id
+Attribute L::l_id
+Attribute L::k_id
+Attribute M::m_id
+Attribute N::n_id
+Attribute N::m_id
+Attribute O::o_id
+Attribute O::n_id
+Attribute P::p_id
+Attribute Q::q_id
+Attribute Q::p_id
+Attribute Q::r_id
+Attribute R::r_id
+Attribute S::s_id
+Attribute S::t_id
+Attribute T::t_id
+Attribute U::u_id
+Attribute U::t_id
+Attribute V::v_id
+Attribute V::w_id
+Attribute W::w_id
+Attribute X::x_id
+Attribute X::w_id
+Attribute Y::y_id
+Attribute Y::z_id
+Attribute Z::z_id
+Attribute Z::aa_id
+Attribute AA::aa_id
+Attribute BB::aa_id
+Attribute BB::cc_id
+Attribute CC::cc_id
+Attribute Driver::DRId
+Attribute Driver::current_state
+Attribute Driver init::dr_id
+Attribute Driver init::current_state
+
+REFERENCES WITHOUT DESCRIPTIONS:
+Referential Attribute B::a_id
+Referential Attribute C::b_id
+Referential Attribute E::d_id
+Referential Attribute F::e_id
+Referential Attribute H::g_id
+Referential Attribute H::i_id
+Referential Attribute K::j_id
+Referential Attribute L::k_id
+Referential Attribute N::m_id
+Referential Attribute O::n_id
+Referential Attribute Q::p_id
+Referential Attribute Q::r_id
+Referential Attribute S::t_id
+Referential Attribute U::t_id
+Referential Attribute V::w_id
+Referential Attribute X::w_id
+Referential Attribute Y::z_id
+Referential Attribute Z::aa_id
+Referential Attribute BB::cc_id
+
+RELATIONSHIPS WITHOUT DESCRIPTIONS:
+ims2::R1
+ims2::R2
+ims2::R3
+ims2::R4
+ims2::R5
+ims2::R6
+ims2::R7
+ims2::R8
+ims2::R9
+ims2::R10
+ims2::R11
+ims2::R12
+ims2::R13
+ims2::R14
+ims2::R15
+ims2::R16
+ims2::R17
+ims2::R18
+ims2::R19
+
+STATE MODELS WITHOUT DESCRIPTIONS:
+State Model Driver
+State Model Driver init
+
+EVENTS WITHOUT DESCRIPTIONS:
+Event DR1
+Event DR2
+Event INIT1
+
+ACTION SPECIFICATIONS WITHOUT DESCRIPTIONS:
+Driver::Test 1_1 1_1
+Driver::Test 1_1 1_M
+Driver::Test 1_1 M_1
+Driver::Test 1_M 1_1
+Driver::Test 1_M 1_M
+Driver::Test 1_M M_1
+Driver::Test M_1 1_1
+Driver::Test M_1 1_M
+Driver::Test M_1 M_1
+Driver::Test M_1
+Driver init::Driver Initialization

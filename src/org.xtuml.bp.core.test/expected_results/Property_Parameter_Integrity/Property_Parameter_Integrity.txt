@@ -1,0 +1,12 @@
+ERROR: Found another parameter under the same executable property with a matching name.
+
+Element Name: param
+Element Path: ModelIntegrityTests::Property Parameter Tests
+
+
+ERROR: Found another parameter under the same executable property with a matching name.
+
+Element Name: param
+Element Path: ModelIntegrityTests::Property Parameter Tests
+
+

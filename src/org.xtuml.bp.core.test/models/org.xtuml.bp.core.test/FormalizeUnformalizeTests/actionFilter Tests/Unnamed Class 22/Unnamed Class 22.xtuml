@@ -1,0 +1,32 @@
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("36ee5f7a-09f3-4a17-b7a7-ef29a0f97edc",
+	'Unnamed Class 22',
+	22,
+	'KEY',
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_ID
+	VALUES (0,
+	"36ee5f7a-09f3-4a17-b7a7-ef29a0f97edc");
+INSERT INTO O_ID
+	VALUES (1,
+	"36ee5f7a-09f3-4a17-b7a7-ef29a0f97edc");
+INSERT INTO O_ID
+	VALUES (2,
+	"36ee5f7a-09f3-4a17-b7a7-ef29a0f97edc");
+INSERT INTO PE_PE
+	VALUES ("36ee5f7a-09f3-4a17-b7a7-ef29a0f97edc",
+	1,
+	"ae8fc2f3-685e-4dd8-af15-45564491650c",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
+	VALUES ("ae8fc2f3-685e-4dd8-af15-45564491650c",
+	"00000000-0000-0000-0000-000000000000",
+	"c6693612-7c4f-42e5-b64f-16c64f288945",
+	'actionFilter Tests',
+	'',
+	0,
+	'../actionFilter Tests.xtuml');

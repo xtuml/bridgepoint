@@ -1,0 +1,32 @@
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("56c9d2ab-d194-40a8-8acb-1b6d48a4a46c",
+	'SUPER_OBJ_SUB 2',
+	511,
+	'T_CLSSUPERCON',
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_ID
+	VALUES (0,
+	"56c9d2ab-d194-40a8-8acb-1b6d48a4a46c");
+INSERT INTO O_ID
+	VALUES (1,
+	"56c9d2ab-d194-40a8-8acb-1b6d48a4a46c");
+INSERT INTO O_ID
+	VALUES (2,
+	"56c9d2ab-d194-40a8-8acb-1b6d48a4a46c");
+INSERT INTO PE_PE
+	VALUES ("56c9d2ab-d194-40a8-8acb-1b6d48a4a46c",
+	1,
+	"dd50229e-fe26-4c24-be0a-ecdf60e337b7",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
+	VALUES ("dd50229e-fe26-4c24-be0a-ecdf60e337b7",
+	"00000000-0000-0000-0000-000000000000",
+	"c6693612-7c4f-42e5-b64f-16c64f288945",
+	'R_SUPER_Delete',
+	'',
+	0,
+	'../R_SUPER_Delete.xtuml');

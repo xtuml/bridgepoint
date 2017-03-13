@@ -1,0 +1,50 @@
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("6a696a6c-dec1-4302-a29f-86d61b0a3315",
+	'Test Import Class',
+	400,
+	'T_IMPCON',
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_NBATTR
+	VALUES ("6b85c92b-ed09-40c2-bd1c-86bb06e1e3c6",
+	"6a696a6c-dec1-4302-a29f-86d61b0a3315");
+INSERT INTO O_BATTR
+	VALUES ("6b85c92b-ed09-40c2-bd1c-86bb06e1e3c6",
+	"6a696a6c-dec1-4302-a29f-86d61b0a3315");
+INSERT INTO O_ATTR
+	VALUES ("6b85c92b-ed09-40c2-bd1c-86bb06e1e3c6",
+	"6a696a6c-dec1-4302-a29f-86d61b0a3315",
+	"00000000-0000-0000-0000-000000000000",
+	'current_state',
+	'',
+	'',
+	'current_state',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000006",
+	'',
+	'');
+INSERT INTO O_ID
+	VALUES (0,
+	"6a696a6c-dec1-4302-a29f-86d61b0a3315");
+INSERT INTO O_ID
+	VALUES (1,
+	"6a696a6c-dec1-4302-a29f-86d61b0a3315");
+INSERT INTO O_ID
+	VALUES (2,
+	"6a696a6c-dec1-4302-a29f-86d61b0a3315");
+INSERT INTO PE_PE
+	VALUES ("6a696a6c-dec1-4302-a29f-86d61b0a3315",
+	1,
+	"b65b97e4-ed08-44c8-a9fe-7f72e3973ac6",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
+	VALUES ("b65b97e4-ed08-44c8-a9fe-7f72e3973ac6",
+	"00000000-0000-0000-0000-000000000000",
+	"c6693612-7c4f-42e5-b64f-16c64f288945",
+	'Import Subsystem',
+	'',
+	0,
+	'../Import Subsystem.xtuml');

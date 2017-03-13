@@ -1,0 +1,8 @@
+drawText(" 1. one", 112, 351, true)
+drawline(103, 399, 503, 399)
+drawText(" 2. two", 786, 351, true)
+drawline(777, 399, 1127, 399)
+drawline(777, 517, 503, 517)
+drawText("KEY1:TestEvent", 573, 417, true)
+drawline(228, 343, 253, 143)
+drawText("KEY1:TestEvent", 87, 203, true)

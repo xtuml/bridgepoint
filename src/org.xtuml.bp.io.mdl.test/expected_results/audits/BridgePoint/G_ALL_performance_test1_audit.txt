@@ -1,0 +1,39 @@
+AUDIT RESULTS FOR DOMAIN G_ALL_performance_test1
+
+SUBSYSTEMS WITHOUT DESCRIPTIONS:
+Test1
+
+EXTERNAL ENTITIES WITHOUT DESCRIPTIONS:
+External Entity Architecture
+
+BRIDGES WITHOUT DESCRIPTIONS:
+External Entity Bridge Architecture::shutdown
+
+CLASSES WITHOUT DESCRIPTIONS:
+Class Test1::Initialization
+Class Test1::Test Class
+Class Test1::Op Class
+
+ATTRIBUTES WITHOUT DESCRIPTIONS:
+Attribute Initialization::id
+Attribute Initialization::current_state
+Attribute Test Class::id
+Attribute Test Class::current_state
+Attribute Op Class::id
+
+OPERATIONS WITHOUT DESCRIPTIONS:
+Operation Op Class::GetMasterStart
+Operation Op Class::GetMasterFinish
+Operation Op Class::CalculateTime
+Operation Op Class::IncreaseCount
+
+STATE MODELS WITHOUT DESCRIPTIONS:
+State Model Initialization
+State Model Test Class
+
+EVENTS WITHOUT DESCRIPTIONS:
+Event TC1
+
+ACTION SPECIFICATIONS WITHOUT DESCRIPTIONS:
+Initialization::Start
+Test Class::State One

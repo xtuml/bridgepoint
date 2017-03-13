@@ -1,0 +1,18 @@
+.//====================================================================
+.//
+.// File:      $RCSfile: Consistencytest_startspec.clr,v $
+.// Version:   $Revision: 1.8 $
+.// Modified:  $Date: 2013/01/10 22:49:26 $
+.//
+.// (c) Copyright 2005-2014 by Mentor Graphics Corporation.  All rights reserved.
+.//
+.//====================================================================
+.//
+.function define_startspec
+  .assign attr_init_type  = ""
+  .assign attr_init_var_name = ""
+  .assign attr_init_class = ""
+  .assign attr_init_stim  = ""
+  .assign attr_parameter1 = ""
+  .assign attr_parameter2 = ""
+.end function

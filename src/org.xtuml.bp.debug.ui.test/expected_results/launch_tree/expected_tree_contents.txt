@@ -1,0 +1,16 @@
+VerifierLaunchConfigurationTests : SystemModel_c
+  domain : Domain_c
+  Imported Component Container : ComponentPackage_c
+    VerifierLaunchConfigurationTests::cp::c1 : ComponentReference_c
+  cp : ComponentPackage_c
+    ncp1 : ComponentPackage_c
+      ncpc1 : Component_c
+    Imported Component Container : Component_c
+      VerifierLaunchConfigurationTests::cp::c1 : ComponentReference_c
+    c1 : Component_c
+      nc1 : Component_c
+        ncnc1 : Component_c
+        VerifierLaunchConfigurationTests::cp::fc1 : ComponentReference_c
+      VerifierLaunchConfigurationTests::cp::fc1 : ComponentReference_c
+    fc1 : Component_c
+    VerifierLaunchConfigurationTests::cp::ncp1::ncpc1 : ComponentReference_c

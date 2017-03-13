@@ -1,0 +1,66 @@
+AUDIT RESULTS FOR DOMAIN no_inst
+
+CLASSES WITHOUT IDENTIFIERS:
+Class No Such Instance::Initialization One
+Class No Such Instance::Initialization Two
+Class No Such Instance::Initialization Three
+Class No Such Instance::Driver
+Class No Such Instance::Generate Error
+
+SUBSYSTEMS WITHOUT DESCRIPTIONS:
+No Such Instance
+
+EXTERNAL ENTITIES WITHOUT DESCRIPTIONS:
+External Entity Time
+External Entity Logger
+External Entity Architecture
+
+BRIDGES WITHOUT DESCRIPTIONS:
+External Entity Bridge Logger::LogFailure
+External Entity Bridge Architecture::shutdown
+
+CLASSES WITHOUT DESCRIPTIONS:
+Class No Such Instance::Initialization One
+Class No Such Instance::Initialization Two
+Class No Such Instance::Initialization Three
+Class No Such Instance::Driver
+Class No Such Instance::Generate Error
+
+ATTRIBUTES WITHOUT DESCRIPTIONS:
+Attribute Initialization One::current_state
+Attribute Initialization One::init_type
+Attribute Initialization Two::current_state
+Attribute Initialization Two::init_type
+Attribute Initialization Three::current_state
+Attribute Initialization Three::init_type
+Attribute Driver::current_state
+Attribute Driver::event
+Attribute Generate Error::current_state
+
+STATE MODELS WITHOUT DESCRIPTIONS:
+State Model Initialization One
+State Model Initialization Two
+State Model Initialization Three
+State Model Driver
+State Model Generate Error
+
+EVENTS WITHOUT DESCRIPTIONS:
+Event INIT11
+Event INIT21
+Event INIT31
+Event D1
+Event D2
+Event D3
+Event GE1
+
+EVENT DATA WITHOUT DESCRIPTIONS:
+Event Data Driver::type
+
+ACTION SPECIFICATIONS WITHOUT DESCRIPTIONS:
+Initialization One::Init1
+Initialization Two::Init2
+Initialization Three::Init3
+Driver::Driver
+Driver::Attribute Event
+Driver::Done
+Generate Error::Deleted Already
