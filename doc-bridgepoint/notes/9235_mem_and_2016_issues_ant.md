@@ -35,7 +35,8 @@ This is a link to a query in the One Fact issue tracking system that shows the i
 <a id="2.9.1"></a>2.9.1 [dts0100841747 - Existing interface references are not updated when the interface is updated via a CM repository](https://github.com/xtuml/internal/tree/71c842bdcd937f946f977d529dc90e0f9a5f2486/Documentation_archive/20121102/technical/notes/dts0100841747)  
 <a id="2.10"></a>2.10 [Graphics errors after element move DEI #9247](https://support.onefact.net/issues/9247)  
 <a id="2.11"></a>2.11 [Unable to formalize assocaitions to/from shared classes. DEI #9248](https://support.onefact.net/issues/9248)  
-<a id="2.12"></a>2.12 [Do not allow the data type to be changed in ports. DEI #9249](https://support.onefact.net/issues/9249) <a id="2.13"></a>2.13 [In a pessimistic locking system a dialog appears during move that should not. DEI: #9281](https://support.onefact.net/issues/9281)  
+<a id="2.12"></a>2.12 [Do not allow the data type to be changed in ports. DEI #9249](https://support.onefact.net/issues/9249)  
+<a id="2.13"></a>2.13 [In a pessimistic locking system a dialog appears during move that should not. DEI: #9281](https://support.onefact.net/issues/9281)  
 <a id="2.14"></a>2.14 [Model Element Move (cut/paste) testing. DEI: #8837](https://support.onefact.net/issues/8837) This issue tracks the running of the One Fact manual test procedure associated with Model Element move.  
 
 3. Background
@@ -106,7 +107,7 @@ Not part of the work at hand. No action.
 
 An intermediate version of Model Element Move contained an implementation that caused proxies to be updated during move. The final implementation did NOT update proxies during move. The work done to remove the code that searched for proxies BEFORE move for the sole purpose of reporting them to the user in a pessimistic locking scenario was promoted by the following [pull request on November 17, 2016](https://github.com/xtuml/bridgepoint/pull/242)  
 
-This issue shall be investigated further to assure ti is resolved. See section 6.4 below for additional information.  
+This issue shall be investigated further to assure it is resolved. See section 6.4 below for additional information.  
 
 5.2.3 Analysis of notes in section 7 (other noteworthy discoveries)  
 The items called out here are not part of the issues at hand.  
@@ -123,7 +124,7 @@ The issue requirements can be seen in section 4 of the [#8061 implemenation note
 6.3 [Do not allow the data type to be changed in ports #9249](https://support.onefact.net/issues/9249)  
 The changes made fixed this issue for the Model Explorer view, but the test did properly consider the ability of the user to modify these artifcats from the properties view. This shall be fixed.  
 
-6.4 [In a pessimistic locking system a dialog appears during move that should not](https://support.onefact.net/issues/9281)  
+6.4 [In a pessimistic locking system a dialog appears during move that should not #9281](https://support.onefact.net/issues/9281)  
 As described in the analysis section, this issue shoould be resolved by the [pull request on November 17, 2016](https://github.com/xtuml/bridgepoint/pull/242). It observed that prior to this pull request being serviced, the One Fact Model Element move test plan contained an explicit test to assure this dialog DID appear when a pessimistic lock CM was in use This test is identified by section [7.13 of the Model Element Move Test Plan](https://github.com/xtuml/bridgepoint/blob/master/doc-bridgepoint/notes/8458_model_element_move_tests/8458_Model_Element_Move_Tests.dnt.md). When the pull request referenced above was serviced, test 7.13 was marked obsolete.
 
 Issue [#9235](https://support.onefact.net/issues/9235) has been raised to add this test back to the test plan, but to modify it to assure the dialog does NOT appear in this situation.    
