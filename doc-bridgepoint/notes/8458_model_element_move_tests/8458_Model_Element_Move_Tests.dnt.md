@@ -239,7 +239,7 @@ related across R3 in Source package is moved to Destination package.
       * Imported class reference to ModelElementMoveTests::Source::FailureCasesComponent::FailureCasesComponentPackage::InvisibleImports::InvisibleImportClass to unassigned
   * Perform undo.   
  
-7.13 Pessimistic Locking Test - Assure RGOs are not checked out. (Uses test model [2.6](#2.6))  
+7.13 Pessimistic Locking Test - Assure RGOs are not checked-out/dirtied by the move operation. (Uses test model [2.6](#2.6))  
   * 1. Select BOTH mybasetype and mysubtype in Model Explorer from package name impl and cut
   * 2. Paste into decl2  
   * 3. Results 
