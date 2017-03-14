@@ -46,7 +46,8 @@ by using the editor preference "Require MASL-style identifiers for model element
 
 6. Implementation Comments
 --------------------------
-None.  
+6.1  Fixed an issue in the clean step of ```bp.core/generate.xml```.  A recently introduced 
+  java file had not been put into the list of file to skip removing during clean.   
 
 7. Unit Test
 ------------
@@ -69,6 +70,7 @@ Branch: 9304_masl_names
 
 doc-bridgepoint/notes/9304_masl_names_int.md
 
+org.xtuml.bp.core/generate.xml
 org.xtuml.bp.core/arc/create_rename_action.inc
 
 org.xtuml.bp.pkg/plugin_customization.ini
