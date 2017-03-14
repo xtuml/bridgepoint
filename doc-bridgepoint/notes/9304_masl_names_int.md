@@ -67,7 +67,11 @@ Branch: 9304_masl_names
 
 <pre>
 
-< Put the file list here >
+doc-bridgepoint/notes/9304_masl_names_int.md
+
+org.xtuml.bp.core/arc/create_rename_action.inc
+
+org.xtuml.bp.pkg/plugin_customization.ini
 
 </pre>
 
