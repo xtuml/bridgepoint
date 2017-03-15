@@ -540,6 +540,17 @@ ${nav_string.body}\
 
     	if (CorePlugin.getDefault().getPreferenceStore().getBoolean(BridgePointPreferencesStore.REQUIRE_MASL_STYLE_IDENTIFIERS))
     	{
+			if ( element instanceof UserDataType_c ) {
+				// Due to the current limitations of the xtUML type system, for MASL the
+				// modeler creates UDTs to represent complex MASL types.  These are too hard
+				// for this simple character validator to deal with, so just let all UDT names through.
+				return null;
+			}
+			if ( element instanceof StateMachineEvent_c ) {
+				// Events may be of the form <super class name>.<super event name> so we allow a single dot by
+				// just removing the first dot we see from the name being validated.
+				name = name.replaceFirst("\\.", "");
+			}
     		// Make sure the name conforms to MASL identifier rule:
     		//   ( Letter | '_' )( Letter | Digit | '_' )*
 			if ( name.isEmpty() ) {
