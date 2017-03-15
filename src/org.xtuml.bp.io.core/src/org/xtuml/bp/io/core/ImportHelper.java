@@ -645,6 +645,10 @@ public class ImportHelper
     public boolean maslModelWasImported() {
     	return m_maslDomainsImported != null || m_maslProjectImported != null;
     }
+
+    public boolean maslProjectWasImported() {
+    	return m_maslProjectImported != null;
+    }
     
     private void createMASLSatisfactions(NonRootModelElement[] nrmes) {    	
 		// Create satisfactions
