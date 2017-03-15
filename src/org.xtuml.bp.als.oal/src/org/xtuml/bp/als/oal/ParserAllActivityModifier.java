@@ -312,7 +312,7 @@ public class ParserAllActivityModifier implements IAllActivityModifier {
 	public void parseAction(Object modelElement) {
 
         // get dialect
-        int dialect = -1;
+        int dialect = Actiondialect_c.OOA_UNINITIALIZED_ENUM;
 		// see if the current element should open
 		// something other than itself
 		Object dialectObj = modelElement;
@@ -341,20 +341,8 @@ public class ParserAllActivityModifier implements IAllActivityModifier {
         try {
             Method getDialectMethod = dialectObj.getClass().getMethod("getDialect"); //$$NON-NLS-1$$
             dialect = (int) getDialectMethod.invoke(dialectObj);
-        } catch ( NoSuchMethodException e ) {
-            System.out.println( e );
-        } catch ( NullPointerException e ) {
-            System.out.println( e );
-        } catch ( SecurityException e ) {
-            System.out.println( e );
-        } catch ( IllegalAccessException e ) {
-            System.out.println( e );
-        } catch ( IllegalArgumentException e ) {
-            System.out.println( e );
-        } catch ( InvocationTargetException e ) {
-            System.out.println( e );
-        } catch ( ExceptionInInitializerError e ) {
-            System.out.println( e );
+        } catch ( Exception e ) {
+        	// if we can not get the dialect then leave the default (uninitialized)
         }
         // if none dialect, do not parse
         if ( dialect == Actiondialect_c.none ) return;

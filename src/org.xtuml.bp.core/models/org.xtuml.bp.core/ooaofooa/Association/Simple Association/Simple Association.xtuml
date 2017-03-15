@@ -370,14 +370,18 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
-	'select any part related by self->R_PART[R207]
+	'select many parts related by self->R_PART[R207]
     where selected.Obj_ID == param.id;
-if ( not_empty part )
+canParticipate = false;
+for each part in parts
   select any oida related by part->R_RTO[R204]->R_OIR[R203]->O_OBJ[R201]->O_ID[R104]->O_OIDA[R105];
-  // participant has to have an id with attributes and cardinality of one (value zero)
-  return not_empty oida and part.Mult == 0;
-end if;
-return false;',
+  // a participant has to have an id with attributes and cardinality of one (value zero)
+  if (not_empty oida and part.Mult == 0)
+    canParticipate = true;
+    break;
+  end if;
+end for;
+return canParticipate;',
 	1,
 	'',
 	"00000000-0000-0000-0000-000000000000",

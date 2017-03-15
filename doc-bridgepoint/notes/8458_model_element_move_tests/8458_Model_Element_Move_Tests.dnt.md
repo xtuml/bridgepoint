@@ -239,9 +239,20 @@ related across R3 in Source package is moved to Destination package.
       * Imported class reference to ModelElementMoveTests::Source::FailureCasesComponent::FailureCasesComponentPackage::InvisibleImports::InvisibleImportClass to unassigned
   * Perform undo.   
  
-7.13 Obsolete - Pessimistic Locking Test - test checkout of RGOs with a Pessimistic locking RCS.   
-  * This test is obsolete with the fix to issue 7877 because we no longer force persistance of RGOs.
-  
+7.13 Pessimistic Locking Test - Assure RGOs are not checked-out/dirtied by the move operation. (Uses test model [2.6](#2.6))  
+  * 1. In Model Explorer
+    * select BOTH mybasetype and mysubtype from package name impl
+    * cut
+  * 2. Paste into decl2  
+  * 3. Results 
+    * 3.1 no dialog appears
+    * 3.2 the only packages marked dirty are impl and dest2
+  * 4. select package named Functions in Model Explorer, RC, BridgePoint Utilities > Load and Persist
+  * 5. Result - Functions is marked dirty
+  * 6. Compare package Functions with the lastest from head
+  * 7. Result - You should see that the proxy was modified to point to the moved datatype
+
+
 7.14 Moving a Package (use 2.7)
   * 1.    Cut pkg1_1
   * 2.    Paste into pkg2
