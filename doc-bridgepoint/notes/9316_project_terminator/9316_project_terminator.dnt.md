@@ -55,7 +55,7 @@ does not have to provide an implemenation of every opertion and signal for an in
 contain the signature for every operation and signal available. It is here that masl and xtuml differ. When a masl project 
 does not include a signature for a service that is specifed in the domain terminator it means that that masl domain's implemenation will be used.  
 
-Every action home in BridgePoint contains a attribute named dialect. The dialect attributes is an enumeration type that 
+Every action home in BridgePoint contains an attribute named dialect. The dialect attributes is an enumeration type that 
 specifies the action bodies that BridgePoint allows. For example:  
 3.3.1 OAL - this element may have an oal action body  
 3.3.2 MASL - this element may have a masl action body  
@@ -63,15 +63,14 @@ specifies the action bodies that BridgePoint allows. For example:
 3.3.4 NONE - This element has no action body  
 
 There are two possible dialect values for a terminator service in a masl domain:  
-1. MASL implementation (dialect MASL)  
-2. C++/external implementation (dialect None)  
+* MASL implementation (dialect MASL)  
+* C++/external implementation (dialect None)  
 
 There are three possible dialect values for a terminator service in a masl project:  
-1. Override with MASL implementation (dialect MASL)  
-2. Override with C++/external implementation (dialect None)  
-3. Don't override, implementation will fall back to domain implementation. (declaration not present in terminator)  
-
-It is this third possibility on the project side that is causing the issue here (but the bug with the second possibility is confusing the issue when the supposedly omitted service gets an incorrect .tr generated).  
+* Override with MASL implementation (dialect MASL)  
+* Override with C++/external implementation (dialect None)  
+* Don't override, implementation will fall back to domain implementation. (declaration not present in terminator)  
+  It is this possibility on the project side that is causing the issue here (but the bug with the second possibility is confusing the issue when the supposedly omitted service gets an incorrect .tr generated).  
 
 4. Requirements
 ---------------
