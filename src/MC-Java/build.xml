@@ -9,7 +9,10 @@
   	<!--Build required file.io schema-->
   	<!--No need for any conditions on this target, since the
   	    schema target already has the needed conditionals -->
-    <ant antfile="../org.xtuml.bp.io.core/generate.xml" target="schema" useNativeBasedir="true">
+  	<condition property="development_repository" value="${development_repository}" else="../">
+  		<isset property="development_repository"/>
+  	</condition>
+    <ant antfile="${development_repository}/src/org.xtuml.bp.io.core/generate.xml" target="schema" useNativeBasedir="true">
       <property name="sql.input" value="models/org.xtuml.bp.io.core/file_io" />
       <property name="sql.output" value="file_io.sql" />
       <property name="subsystems_to_remove" value="ACT_ V_ E_ GD_ CT_ TS_ DIM_ STY_" />
@@ -86,7 +89,7 @@
       mcjava.project.root = the root of the project being built
 -->
     <echo>Building from: gen/code_generation/${param1}.sql</echo>
-    <copy file="gen/code_generation/${param1}.sql" tofile="gen/code_generation/${param1}.xtuml"/>
+    <copy file="${mcjava.project.root}/gen/code_generation/${param1}.sql" tofile="${mcjava.project.root}/gen/code_generation/${param1}.xtuml"/>
     <exec vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
           <arg line="xtumlmc_cleanse_for_BridgePoint ${UUID_Seed} ${mcjava.project.root}/gen/code_generation sql/${param1}.sql" />
     </exec>
@@ -99,7 +102,7 @@
     	<env key="PROJECT_ROOT" value="${mcjava.project.root}" />
     	<env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
 		<arg line="xtumlmc_gen_erate -nopersist
-			-import ../org.xtuml.bp.io.core/sql/file_io_schema.sql
+			-import ${development_repository}/src/org.xtuml.bp.io.core/sql/file_io_schema.sql
 			-import ${param3}/ooa_schema.sql
 			-import sql/${param1}.sql
 			-arch ${param3}/verify_selects.arc
@@ -119,9 +122,9 @@
         <env key="PTC_MCC_ROOT" value="${param4}" />
     	<env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
 		<arg line="xtumlmc_gen_erate -nopersist
-			-import ../${param2}/ooa_schema.sql
+			-import ${param2}/ooa_schema.sql
 			-import ${param1}
-			-arch ../${param2}/schema_gen.arc" />
+			-arch ${param2}/schema_gen.arc" />
 	</exec>
 
     <delete file="sql/____file.txt" />
