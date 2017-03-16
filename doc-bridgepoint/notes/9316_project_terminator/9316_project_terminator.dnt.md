@@ -23,7 +23,7 @@ Implement mechanism to prevent non-supported elements from persisting MASL.
 
 3. Background
 -------------
-The [masl round trip test](https://github.com/xtuml/mc/blob/master/bin/masl_round_trip) is failing for masl project 
+The [masl round trip test](https://github.com/xtuml/mc/blob/master/bin/masl_round_trip) is failing for a masl project 
 that includes a domain terminator service that does not provide an implementation for every domain terminstor 
 service available. Following is what this model looks like:  
 <a id="3.1"></a>3.1 Example masl domain  
