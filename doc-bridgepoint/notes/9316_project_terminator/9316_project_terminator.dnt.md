@@ -70,7 +70,6 @@ There are three possible dialect values for a terminator service in a masl proje
 * Override with MASL implementation (dialect MASL)  
 * Override with C++/external implementation (dialect None)  
 * Don't override, implementation will fall back to domain implementation. (declaration not present in terminator)  
-  It is this possibility on the project side that is causing the issue here (but the bug with the second possibility is confusing the issue when the supposedly omitted service gets an incorrect .tr generated).  
 
 4. Requirements
 ---------------
