@@ -76,10 +76,10 @@ It is this third possibility on the project side that is causing the issue here 
 4. Requirements
 ---------------
 The following requirements all refer to the handling of a situation where a masl project is imported into 
-BridgePoint where the project includes a project terminator that does not provide an implemenation of all 
-the domain terminator services. The reader should read the background to understand and see such a model.  
-4.1 Bridgepoint shall create a the missing service signature in the port.  
-4.1.1 The missing service signature shall have a dialect NONE in BridgePoint  
+BridgePoint where the masl project includes a project terminator that does not provide an implemenation of all 
+the domain terminator services. Please read the background section before proceeding.  
+4.1 Bridgepoint shall create any missing service signatures in the port  
+4.1.1 The missing service signatures shall have a dialect NONE in BridgePoint  
 4.2 The x2m tool shall not write a domain terminator service signature for a masl project when an associated BridgePoint port has dialect NONE  
 4.3 The masl round trip test shall pass for the masl project specified by [3.2][#3.2].  
 
@@ -87,11 +87,11 @@ the domain terminator services. The reader should read the background to underst
 -----------
 Dialect type NONE was introduced when BridgePoint was modifed to [implement a mechanism to prevent 
 non-supported elements from persisting MASL](https://github.com/xtuml/bridgepoint/blob/master/doc-bridgepoint/notes/9041_activities/9041_activities_dnt.md). As described by that work, the goal was to 
-not persist masl action bodies, in masl ".tr" files, for cases where masl models do not support 
-action bodies that BridgePoint does support.
+not persist masl action bodies for cases where masl models do not support action bodies that BridgePoint does support.  
 
-The issue at hand is that not only must a .tr file not be created, but the BridgePoint m2x tool must not 
-generate a declaration for the service in the terminator declaration in the project file.  
+The issue at hand is that not only must an action body not be created, but the BridgePoint m2x tool must not 
+generate a domain terminator service signature for the service in the project's terminator declaration in the 
+project file.  
 
 6. Design
 ---------
