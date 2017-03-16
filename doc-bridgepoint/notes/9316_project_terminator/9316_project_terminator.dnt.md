@@ -79,7 +79,7 @@ the domain terminator services. Please read the background section before procee
 4.1 Bridgepoint shall create any missing service signatures in the port  
 4.1.1 The missing service signatures shall have a dialect NONE in BridgePoint  
 4.2 The x2m tool shall not write a domain terminator service signature for a masl project when an associated BridgePoint port has dialect NONE  
-4.3 The masl round trip test shall pass for the masl project specified by [3.2][#3.2].  
+4.3 The masl round trip test shall pass for the masl project specified by [3.2](#3.2).  
 
 5. Analysis
 -----------
@@ -118,7 +118,7 @@ none
 9. Unit Test
 ------------
 9.1 The model called out in [3.2](#3.2) shall be added to the masl regession test script  
-9.2 The masl regression test script will be run and must pass  
+9.2 The [masl regression test script](#2.4) will be run and must pass  
 
 End
 ---
