@@ -27,10 +27,12 @@ In BridgePoint, a masl project is represented by a BridgePoint project. Each mas
 BridgePoint interface. In BridgePoint, any component that uses an interface contains the full interface definition. Each 
 interface instance is represented in a port instance inside the component instance that uses.  A port in BridgePoint 
 does not have to provide an implemenation of every opertion and signal for an interface, but it does 
-contain the signature for every operation and signal available. It is here that masl and xtuml differ.  
+contain the signature for every operation and signal available. It is here that masl and xtuml differ. When a masl project  
+does not include a signature for a service specifed in the domain terminator it means that that masl domain implemenation 
+will be used.  
 
-5.1 The BridgePoint Dialect attribute  
-5.1 Every action body in BridgePoint contains a attribute named dialect. The current possible values for this attribute are:  
+5.1 Every action home in BridgePoint contains a attribute named dialect. The dialect attributes is an enumeration type that 
+specifies the action bodies that BridgePoint allows. For example:  
 5.1.1 OAL - this element may have an oal action body  
 5.1.2 MASL - this element may have a masl action body  
 5.1.3 C - this element may a defined action C but it is external  
@@ -60,23 +62,52 @@ project TerminatorServiceNotImplemented_PROC is
 end project;
 ```  
 
+There are two possible dialect values for a terminator service in a domain:  
+1. MASL implementation (dialect MASL)  
+2. C++/external implementation (dialect None)  
+
+There are three possible dialect values for a terminator service in a project:  
+1. Override with MASL implementation (dialect MASL)  
+2. Override with C++/external implementation (dialect None)  
+3. Don't override, implementation will fall back to domain implementation. (declaration not present in terminator)  
+
+It is this third possibility on the project side that is causing the issue here (but the bug with the second possibility is confusing the issue when the supposedly omitted service gets an incorrect .tr generated).  
+
 4. Requirements
 ---------------
 The following requirements all refer to the handling of a situation where a masl project is imported into 
 BridgePoint where the project includes a project terminator that does not provide an implemenation of all 
 the domain terminator services. The reader should read the background to understand and see such a model.  
 4.1 Bridgepoint shall create a the missing service signature in the port.  
-4.1.1 The missing service signature shall have a dialect NONE   
-4.2 TODO: There needs to be an addtional marking, or something, to account for the fact that x2m can NOT 
-create a masl signature to the masl project file for this service. If it does so, the round trip test will fail.
-4.3 The masl round trip test shall pass for the masl project specified by [3.2][#3.2].
+4.1.1 The missing service signature shall have a dialect NONE in BridgePoint  
+4.2 The x2m tool shall not write a domain terminator service signature for a masl project when an associated BridgePoint port has dialect NONE  
+4.3 The masl round trip test shall pass for the masl project specified by [3.2][#3.2].  
 
 5. Analysis
 -----------
+Dialect type NONE was introduced when BridgePoint was modifed to [implement a mechanism to prevent 
+non-supported elements from persisting MASL](https://github.com/xtuml/bridgepoint/blob/master/doc-bridgepoint/notes/9041_activities/9041_activities_dnt.md). As described by that work, the goal was to 
+not persist masl action bodies, in masl ".tr" files, for cases where masl models do not support 
+action bodies that BridgePoint does support.
+
+The issue at hand is that not only must a .tr file not be created, but the BridgePoint m2x tool must not 
+generate a declaration for the service in the terminator declaration in the project file.  
 
 6. Design
 ---------
-   
+6.1 Create the missing service signature in the BridgePoint port
+After a model is imported the importer looks to see if it was a masl model that was imported, and if it was 
+it process the imported instances. This check is done in ImportHelper.java::importModel(). Modify this code 
+so that for masl import we check to see if it was a masl project that was imported. If it is a masl project, call 
+"Synchronize With Library" (PullSynchronizationChanges.java::run()) to assure any missing interface operations are added.  
+6.1.1 PullSynchronizationChanges.java::run() shall be modified to differentiate the CME call from this call  
+This is needed because while the operation is very similar to what is required here, there are a couple of unique things this
+call must assure:  
+6.1.1.1 Assure no user interaction is required  
+6.1.1.1 Assure operations added are marked with Dialect NONE  
+
+6.2 Modify x2m to assure no domain terminator service signature is written to the masl project file when a project is being exported and it has a port with operation with dialect NONE  
+6.2.1 Also assure that no .tr file is written in this case  
 
 7. Design Comments
 ------------------
