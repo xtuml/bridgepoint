@@ -25,7 +25,7 @@ Implement mechanism to prevent non-supported elements from persisting MASL.
 -------------
 In BridgePoint, a masl project is represented by a BridgePoint project. Each masl project terminator is represented by a
 BridgePoint interface. In BridgePoint, any component that uses an interface contains the full interface definition. Each 
-interface instance is represented in a port instance inside the component instance that uses.  A port in BridgePoint 
+interface instance is represented in a port instance inside the component instance that uses it.  A port in BridgePoint 
 does not have to provide an implemenation of every opertion and signal for an interface, but it does 
 contain the signature for every operation and signal available. It is here that masl and xtuml differ. When a masl project  
 does not include a signature for a service specifed in the domain terminator it means that that masl domain implemenation 
