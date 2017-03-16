@@ -23,21 +23,6 @@ Implement mechanism to prevent non-supported elements from persisting MASL.
 
 3. Background
 -------------
-In BridgePoint, a masl project is represented by a BridgePoint project. Each masl project terminator is represented by a
-BridgePoint interface. In BridgePoint, any component that uses an interface contains the full interface definition. Each 
-interface instance is represented in a port instance inside the component instance that uses it.  A port in BridgePoint 
-does not have to provide an implemenation of every opertion and signal for an interface, but it does 
-contain the signature for every operation and signal available. It is here that masl and xtuml differ. When a masl project  
-does not include a signature for a service specifed in the domain terminator it means that that masl domain implemenation 
-will be used.  
-
-5.1 Every action home in BridgePoint contains a attribute named dialect. The dialect attributes is an enumeration type that 
-specifies the action bodies that BridgePoint allows. For example:  
-5.1.1 OAL - this element may have an oal action body  
-5.1.2 MASL - this element may have a masl action body  
-5.1.3 C - this element may a defined action C but it is external  
-5.1.4 NONE - This element has no action body  
-
 The [masl round trip test](https://github.com/xtuml/mc/blob/master/bin/masl_round_trip) is failing for masl project 
 that includes a domain terminator service that does not provide an implementation for every domain terminstor 
 service available. Following is what this model looks like:  
@@ -62,11 +47,26 @@ project TerminatorServiceNotImplemented_PROC is
 end project;
 ```  
 
-There are two possible dialect values for a terminator service in a domain:  
+3.3 BridgePoint MASL background related to this problem  
+In BridgePoint, a masl project is represented by a BridgePoint project. Each masl project terminator is represented by a
+BridgePoint interface. In BridgePoint, any component that uses an interface contains the full interface definition. Each 
+interface instance is represented in a port instance inside the component instance that uses it.  A port in BridgePoint 
+does not have to provide an implemenation of every opertion and signal for an interface, but it does 
+contain the signature for every operation and signal available. It is here that masl and xtuml differ. When a masl project 
+does not include a signature for a service that is specifed in the domain terminator it means that that masl domain's implemenation will be used.  
+
+Every action home in BridgePoint contains a attribute named dialect. The dialect attributes is an enumeration type that 
+specifies the action bodies that BridgePoint allows. For example:  
+3.3.1 OAL - this element may have an oal action body  
+3.3.2 MASL - this element may have a masl action body  
+3.3.3 C - this element may a defined action C but it is external  
+3.3.4 NONE - This element has no action body  
+
+There are two possible dialect values for a terminator service in a masl domain:  
 1. MASL implementation (dialect MASL)  
 2. C++/external implementation (dialect None)  
 
-There are three possible dialect values for a terminator service in a project:  
+There are three possible dialect values for a terminator service in a masl project:  
 1. Override with MASL implementation (dialect MASL)  
 2. Override with C++/external implementation (dialect None)  
 3. Don't override, implementation will fall back to domain implementation. (declaration not present in terminator)  
