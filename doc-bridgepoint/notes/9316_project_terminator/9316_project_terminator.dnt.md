@@ -87,7 +87,7 @@ Dialect type NONE was introduced when BridgePoint was modifed to [implement a me
 non-supported elements from persisting MASL](https://github.com/xtuml/bridgepoint/blob/master/doc-bridgepoint/notes/9041_activities/9041_activities_dnt.md). As described by that work, the goal was to 
 not persist masl action bodies for cases where masl models do not support action bodies that BridgePoint does support.  
 
-The issue at hand is that not only must an action body not be created, but the BridgePoint m2x tool must not 
+The issue at hand is that not only must an action body not be created, but the BridgePoint x2m tool must not 
 generate a domain terminator service signature for the service in the project's terminator declaration in the 
 project file.  
 
