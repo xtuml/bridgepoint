@@ -59,12 +59,12 @@ Every action home in BridgePoint contains an attribute named dialect. The dialec
 specifies the action bodies that BridgePoint allows. For example:  
 3.3.1 OAL - this element may have an oal action body  
 3.3.2 MASL - this element may have a masl action body  
-3.3.3 C - this element may a defined action C but it is external  
+3.3.3 C - this element may a C action body  
 3.3.4 NONE - This element has no action body  
 
 There are two possible dialect values for a terminator service in a masl domain:  
 * MASL implementation (dialect MASL)  
-* C++/external implementation (dialect None)  
+* C++/external implementation (dialect C)  
 
 There are three possible dialect values for a terminator service in a masl project:  
 * Override with MASL implementation (dialect MASL)  
