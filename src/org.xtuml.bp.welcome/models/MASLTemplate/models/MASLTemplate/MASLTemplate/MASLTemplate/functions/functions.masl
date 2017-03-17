@@ -1,4 +1,4 @@
-private service MASLTemplate::public_service_1 ( val : in ex_type ) is
+public service MASLTemplate::public_service_1 ( val : in ex_type ) is
 begin
   null;
 end service;
