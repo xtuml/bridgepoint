@@ -30,7 +30,6 @@ import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
-import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.ui.IActionDelegate;
 import org.eclipse.ui.PlatformUI;
 
@@ -50,14 +49,7 @@ public class PullSynchronizationChanges implements IActionDelegate {
 	private ISelection selection;
 	private static ModelInspector modelInspector = new ModelInspector();
 	private static String removalList = "";
-	private boolean interactWithUser = false;
 
-	public PullSynchronizationChanges(boolean interactWithUser, NonRootModelElement nrme) {
-		super();
-		this.interactWithUser = interactWithUser;
-		selection = new StructuredSelection(nrme);
-	}
-	
 	@Override
 	public void run(IAction action) {
 		IStructuredSelection ss = (IStructuredSelection) selection;
@@ -70,19 +62,14 @@ public class PullSynchronizationChanges implements IActionDelegate {
 		}
 		List<ElementChange> changes = collectChanges(references);
 		if (changes.size() == 0) {
-			if (interactWithUser) {
-				MessageDialog.openInformation(PlatformUI.getWorkbench()
+			MessageDialog.openInformation(PlatformUI.getWorkbench()
 					.getDisplay().getActiveShell(), "Synchronization",
 					"No references were found to be unsynchronized.");
-			}
 			return;
 		}
-		
-		if(interactWithUser) {
-			boolean result = displayRemovalChanges(changes);
-			if (!result) {
-				return;
-			}
+		boolean result = displayRemovalChanges(changes);
+		if (!result) {
+			return;
 		}
 		// ui will guarantee that all elements are systems
 		// perform in a transaction
@@ -102,9 +89,7 @@ public class PullSynchronizationChanges implements IActionDelegate {
 			return;
 		}
 		if(!canceled) {
-			if (interactWithUser) {
-				displayChanges(changes);
-			}
+			displayChanges(changes);
 			UIUtil.refresh(null);
 		}
 	}
