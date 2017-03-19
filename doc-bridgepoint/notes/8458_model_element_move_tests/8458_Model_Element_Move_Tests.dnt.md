@@ -243,7 +243,7 @@ related across R3 in Source package is moved to Destination package.
   * 1. In Model Explorer
     * select BOTH mybasetype and mysubtype from package name impl
     * cut
-  * 2. Paste into decl2  
+  * 2. Paste into dest2  
   * 3. Results 
     * 3.1 no dialog appears
     * 3.2 the only packages marked dirty are impl and dest2
