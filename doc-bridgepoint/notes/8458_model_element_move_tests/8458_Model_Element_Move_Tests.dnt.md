@@ -164,7 +164,7 @@ package is moved to Destination package.
 
 7.6 Use Case 4.6  (Uses test model [2.8](#2.8))  
 7.6.1. ComponentInComponentMovePass in ComponentMovePass2 in Source package is 
-moved to DestinationComponent in Destination package.  
+moved to DestinationComponentPackage in Destination package.  
   * Result is successful move with no option menu shown for list of lost 
 visibility items.  
   * Perform undo.  
@@ -243,7 +243,7 @@ related across R3 in Source package is moved to Destination package.
   * 1. In Model Explorer
     * select BOTH mybasetype and mysubtype from package name impl
     * cut
-  * 2. Paste into decl2  
+  * 2. Paste into dest2  
   * 3. Results 
     * 3.1 no dialog appears
     * 3.2 the only packages marked dirty are impl and dest2
@@ -363,7 +363,7 @@ related across R3 in Source package is moved to Destination package.
   * 4. Paste TestInterface to impl2
   * 5. Downgrade dialog indicates downgrade on TestInterface operations and signals use of UDT (the dest) since they lost visibility to type mysubtype under p1/impl
   * 6. Proceed with the move
-  * 7. p2/impl2 contains "Unassigned Imported Component", the graphics for the p2/impl2 canvas are correct.
+  * 7. p2/impl2 canvas is empty.
 
 7.27 Move imported class causing downgrade in destination (Uses test model [2.6](#2.6))
   * 1. Open the canvas for movetest/p1/impl/refs
@@ -375,7 +375,7 @@ related across R3 in Source package is moved to Destination package.
   * 7. p2/impl2 canvas contains "Unassigned Imported Class", the graphics are correct.
   * 8. Restart BridgePoint
   * 9. Open the p1/impl/refs canvas, the imported class is gone.
-  * 10. Open the p2/impl2 canvas, the Unassigned Imported Class shows
+  * 10. The p2/impl2 canvas is empty.
 
 7.28 Move package causing downgrade in destination (Uses test model [2.6](#2.6))
   * 1. Open the canvas for movetest/p1/impl
@@ -404,7 +404,7 @@ related across R3 in Source package is moved to Destination package.
 
 7.31 Non-visible move causes downgrades on sequence diagram  (Uses test model [2.8](#2.8))  
   * Cut Sequences in FailureCasesComponentPackage and paste into DestinationComponentPackage.  
-  * There should NOT be a downgrade message. BrdigePoint does not consider visibility for interaction elements.  You can see this by being able to assign to an EE contained within another component (like the destination container in the test).  Therefore the bridge should not be downgraded  
+  * There should NOT be a downgrade message. BridgePoint does not consider visibility for interaction elements.  You can see this by being able to assign to an EE contained within another component (like the destination container in the test).  Therefore the bridge should not be downgraded  
   * perform undo  
 
 
