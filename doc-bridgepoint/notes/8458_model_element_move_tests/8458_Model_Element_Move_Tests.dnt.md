@@ -164,7 +164,7 @@ package is moved to Destination package.
 
 7.6 Use Case 4.6  (Uses test model [2.8](#2.8))  
 7.6.1. ComponentInComponentMovePass in ComponentMovePass2 in Source package is 
-moved to DestinationComponent in Destination package.  
+moved to DestinationComponentPackage in Destination package.  
   * Result is successful move with no option menu shown for list of lost 
 visibility items.  
   * Perform undo.  
