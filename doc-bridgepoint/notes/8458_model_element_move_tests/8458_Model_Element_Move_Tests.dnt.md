@@ -404,7 +404,7 @@ related across R3 in Source package is moved to Destination package.
 
 7.31 Non-visible move causes downgrades on sequence diagram  (Uses test model [2.8](#2.8))  
   * Cut Sequences in FailureCasesComponentPackage and paste into DestinationComponentPackage.  
-  * There should NOT be a downgrade message. BrdigePoint does not consider visibility for interaction elements.  You can see this by being able to assign to an EE contained within another component (like the destination container in the test).  Therefore the bridge should not be downgraded  
+  * There should NOT be a downgrade message. BridgePoint does not consider visibility for interaction elements.  You can see this by being able to assign to an EE contained within another component (like the destination container in the test).  Therefore the bridge should not be downgraded  
   * perform undo  
 
 
