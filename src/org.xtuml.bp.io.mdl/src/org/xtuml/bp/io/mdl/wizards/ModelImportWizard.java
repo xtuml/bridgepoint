@@ -63,7 +63,6 @@ import org.xtuml.bp.core.common.PersistenceManager;
 import org.xtuml.bp.core.common.UpgradeJob;
 import org.xtuml.bp.core.ui.IModelImport;
 import org.xtuml.bp.core.ui.Selection;
-import org.xtuml.bp.core.ui.actions.PullSynchronizationChanges;
 import org.xtuml.bp.core.util.UIUtil;
 import org.xtuml.bp.io.core.CoreImport;
 import org.xtuml.bp.io.core.ImportHelper;
@@ -200,16 +199,9 @@ public class ModelImportWizard extends Wizard implements IImportWizard {
 
             // resolve component references and formalize interfaces in MASL projects
             ImportHelper helper = new ImportHelper((CoreImport)fImporter);
-            helper.resolveMASLproject( fImporter.getLoadedInstances() );
+            helper.resolveMASLproject( fSystem, fImporter.getLoadedInstances() );
             
 			if (helper.maslModelWasImported()) {
-	            if (helper.maslProjectWasImported()) {
-	            	// Synchronize with library to assure partial 
-	            	// reference specifications are implemented
-	            	PullSynchronizationChanges sync = new PullSynchronizationChanges(false, system);
-	            	sync.run(null);
-	            }
-	                
 				// Reconcile graphics.
 				PlatformUI.getWorkbench().getDisplay().syncExec(new Runnable() {
 					public void run() {

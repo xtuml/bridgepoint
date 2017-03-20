@@ -99,6 +99,7 @@ import org.xtuml.bp.core.PackageableElement_c;
 import org.xtuml.bp.core.Parsestatus_c;
 import org.xtuml.bp.core.PortReference_c;
 import org.xtuml.bp.core.Port_c;
+import org.xtuml.bp.core.Pref_c;
 import org.xtuml.bp.core.PropertyParameter_c;
 import org.xtuml.bp.core.ProvidedExecutableProperty_c;
 import org.xtuml.bp.core.ProvidedOperation_c;
@@ -139,9 +140,13 @@ import org.xtuml.bp.core.common.PersistableModelComponent;
 import org.xtuml.bp.core.common.PersistenceManager;
 import org.xtuml.bp.core.inspector.IModelClassInspector;
 import org.xtuml.bp.core.inspector.ModelInspector;
+import org.xtuml.bp.core.ui.actions.ElementChange;
 import org.xtuml.bp.core.ui.actions.GenericPackageAssignComponentOnCL_ICAction;
 import org.xtuml.bp.core.ui.actions.GenericPackageFormalizeOnC_PAction;
 import org.xtuml.bp.core.ui.actions.GenericPackageFormalizeOnC_RAction;
+import org.xtuml.bp.core.ui.actions.PullSynchronizationChanges;
+import org.xtuml.bp.core.ui.preferences.BridgePointProjectActionLanguagePreferences;
+import org.xtuml.bp.core.ui.preferences.BridgePointProjectPreferences;
 import org.xtuml.bp.core.util.TransactionUtil;
 import org.xtuml.bp.ui.canvas.AnchorOnSegment_c;
 import org.xtuml.bp.ui.canvas.CanvasTransactionListener;
@@ -357,7 +362,7 @@ public class ImportHelper
      *   - Unhook temporary interface definitions and re-attach to existing interfaces in domains
      *   - create satisfactions
      */
-    public void resolveMASLproject( NonRootModelElement[] elements ) {    	
+    public void resolveMASLproject( SystemModel_c system, NonRootModelElement[] elements ) {    	
         if ( elements == null ) return;
         
         boolean transaction_aborted = false;
@@ -394,7 +399,7 @@ public class ImportHelper
 	            }
 	        }
 	        
-	        if (m_maslProjectImported != null) {
+	        if (m_maslProjectImported != null) {	        	
 	            // create satisfactions
 	            createMASLSatisfactions(elements);
 	        }
@@ -409,6 +414,12 @@ public class ImportHelper
 				TransactionUtil.endTransactions(transactionGroup);				
 			}
 		}
+        if (m_maslProjectImported != null) {	        	
+	    	// create any missing port interface operations 
+	    	// MASL projects don't always declare all domain 
+	    	// terminator services in a masl project
+	    	synchronizeWithMASLDomain(system);
+        }		
     }
 
 	// process an unformalized provided interface
@@ -646,9 +657,32 @@ public class ImportHelper
     	return m_maslDomainsImported != null || m_maslProjectImported != null;
     }
 
-    public boolean maslProjectWasImported() {
-    	return m_maslProjectImported != null;
-    }
+    /**
+     * synchronize with the domain library to assure all domain 
+     * terminator services are represented as port operations in
+     * BridgePoint 
+     * @see issue https://support.onefact.net/issues/9316
+     */          
+	private void synchronizeWithMASLDomain(SystemModel_c system) {
+		// Set dialect to non while updating missing interfaces
+
+		int dialect = Pref_c.Getactiondialect(BridgePointPreferencesStore.DEFAULT_ACTION_LANGUAGE_DIALECT);
+		IPreferenceStore store = CorePlugin.getDefault().getPreferenceStore();
+
+		try {
+			// Set the dialect to none so the synchronized interfaces have
+			// Actiondialect_c.none as their dialect value
+			store.setValue(BridgePointPreferencesStore.DEFAULT_ACTION_LANGUAGE_DIALECT, Actiondialect_c.none); // $NON-NLS-1$
+			
+			// Synchronize with library to assure partial
+			// reference specifications are implemented
+			PullSynchronizationChanges sync = new PullSynchronizationChanges(false, system);
+			sync.run(null);
+		} finally {
+			// restore the dialect value
+			store.setValue(BridgePointPreferencesStore.DEFAULT_ACTION_LANGUAGE_DIALECT, dialect); // $NON-NLS-1$
+		}
+	}
     
     private void createMASLSatisfactions(NonRootModelElement[] nrmes) {    	
 		// Create satisfactions
