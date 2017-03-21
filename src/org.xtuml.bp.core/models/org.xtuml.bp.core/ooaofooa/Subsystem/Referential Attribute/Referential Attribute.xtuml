@@ -306,6 +306,13 @@ INSERT INTO O_TFR
 	1,
 	'// assure that the datatype is the correct one for
 // referential attributes
+
+// if the rattr is not related to a battr across R113
+// it is a recursive referential and should have its
+// own data type
+select one battr related by self->O_BATTR[R113];
+if ( not_empty battr )
+
 select one attr related by self->O_ATTR[R106];
 select one dt related by attr->S_DT[R114];
 if ( not_empty dt )
@@ -334,6 +341,7 @@ select one pkg related by attr->O_OBJ[R102]->PE_PE[R8001]->EP_PKG[R8000];
     relate attr to ref_attr_dt across R114;
   end if;
 
+end if;
 ',
 	1,
 	'',
