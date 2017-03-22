@@ -112,9 +112,6 @@ DestinationComponentPackage.
   * Options menu is shown for displaying downgrades.  
     * Check the following items to ensure a downgrade occurred:  
       * ComponentMovePass1.ComponentMovePassPort.VisibleInterface to unassigned
-      * ComponentMovePass3.ModelElementMoveTests::Source::VisibleComponent1.VisibleComponent1Port.VisibleInterface to unassigned
-      * ComponentMovePass4.ModelElementMoveTests::Source::VisibleComponent1.VisibleComponent1Port.VisibleInterface to unassigned
-      * ComponentMovePass4.ModelElementMoveTests::Source::VisibleComponent2.VisibleComponent2Port.VisibleInterface to unassigned
       * VisibleComponent1.VisibleComponent1Port.VisibleInterface to unassigned
       * VisibleComponent2.VisibleComponent2Port.VisibleInterface to unassigned
   * Perform undo.  
