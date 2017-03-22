@@ -73,6 +73,25 @@ public class RenameActionUtil {
 
 	}
 
+	public static String getAttributeNameForName(NonRootModelElement element) {
+		String elementName = "";
+		Class<? extends NonRootModelElement> classType = element.getClass();
+		if (classType == Attribute_c.class) {
+			elementName = "Root_nam"; //$NON-NLS-1$
+		} else if (classType == StateMachineEvent_c.class) {
+			elementName = "Mning"; //$NON-NLS-1$
+		} else if (classType == ComponentParticipant_c.class) {
+			elementName = "Informalcomponentname"; //$NON-NLS-1$
+		} else if (classType == InstanceAttributeValue_c.class || classType == ConstantSpecification_c.class
+				|| classType == MessageArgument_c.class || classType == ExternalEntityParticipant_c.class
+				|| classType == ClassParticipant_c.class || classType == PackageParticipant_c.class) {
+			elementName = "Informalname"; //$NON-NLS-1$
+		} else {
+			elementName = "Name"; //$NON-NLS-1$
+		}
+		return elementName;
+	}
+	
 	public static String getElementName(NonRootModelElement newElement) {
 		String elementName = "";
 		Class<? extends NonRootModelElement> classType = newElement.getClass();
