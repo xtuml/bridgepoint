@@ -13,8 +13,8 @@ This note describes a change to move refactoring logic to the attribute change l
 
 2. Document References
 ----------------------
-<a id="2.1"></a>2.1 [BridgePoint DEI #9](https://support.onefact.net/issues/9936) Investigate and resolve Model Element move problems from during 6.2.2 and 6.2.4 testing   
-<a id="2.2"></a>2.2 [BridgePoint DEI #xxx2](https://support.onefact.net/issues/8837) Model Element Move (cut/paste) testing  
+<a id="2.1"></a>2.1 [BridgePoint DEI #9336](https://support.onefact.net/issues/9936) Investigate and resolve Model Element move problems from during 6.2.2 and 6.2.4 testing   
+<a id="2.2"></a>2.2 [BridgePoint DEI #8837](https://support.onefact.net/issues/8837) Model Element Move (cut/paste) testing  
 
 3. Background
 -------------
@@ -29,7 +29,7 @@ Work done to allow MASL updates to be seen by the xtUML tool has triggered issue
 ----------------
 5.1 Move refactor logic into listener rename location   
 
-THe initial logic was set in the start of the listener, before determining what type of change it was.  This was causing the refactor to run when unnecessary.  The refactor logic was moved under the location which checks for an attribute value change (all nam changes).  Additionally, the RenameActionUtil.java class was modified to support determining the attribute value name.  This class defaults to return "Name", but is not an issue as it checks the attribute value changes name and if not "Name" or others will not trigger the code.    
+The initial logic was set in the start of the listener, before determining what type of change it was.  This was causing the refactor to run when unnecessary.  The refactor logic was moved under the location which checks for an attribute value change (all name changes).  Additionally, the RenameActionUtil.java class was modified to support determining the attribute value name.  This class defaults to return "Name", but is not an issue as it checks the attribute value changes name and if not "Name" or others it will not trigger the code.    
 
 6. Implementation Comments
 --------------------------
