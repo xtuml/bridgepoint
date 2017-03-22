@@ -31,6 +31,10 @@ Work done to allow MASL updates to be seen by the xtUML tool has triggered issue
 
 The initial logic was set in the start of the listener, before determining what type of change it was.  This was causing the refactor to run when unnecessary.  The refactor logic was moved under the location which checks for an attribute value change (all name changes).  Additionally, the RenameActionUtil.java class was modified to support determining the attribute value name.  This class defaults to return "Name", but is not an issue as it checks the attribute value changes name and if not "Name" or others it will not trigger the code.    
 
+5.2 Modify coloring to mark C_I as a component root   
+
+Core uses coloring to modify the way certain elements are treated in the tool.  Issue 8923 removed a group definitions for specialized packages.  This incorrectly included C_I, as it is a component root.  This was added back for this work as the marking allows for all necessary events to occur.   
+
 6. Implementation Comments
 --------------------------
 
