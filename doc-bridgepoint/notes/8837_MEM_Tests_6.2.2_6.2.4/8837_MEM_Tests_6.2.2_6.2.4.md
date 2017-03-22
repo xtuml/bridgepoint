@@ -13,7 +13,7 @@ This note describes a change to move refactoring logic to the attribute change l
 
 2. Document References
 ----------------------
-<a id="2.1"></a>2.1 [BridgePoint DEI #9336](https://support.onefact.net/issues/9936) Investigate and resolve Model Element move problems from during 6.2.2 and 6.2.4 testing   
+<a id="2.1"></a>2.1 [BridgePoint DEI #9336](https://support.onefact.net/issues/9336) Investigate and resolve Model Element move problems from during 6.2.2 and 6.2.4 testing   
 <a id="2.2"></a>2.2 [BridgePoint DEI #8837](https://support.onefact.net/issues/8837) Model Element Move (cut/paste) testing  
 
 3. Background
