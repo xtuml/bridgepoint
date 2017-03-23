@@ -238,6 +238,20 @@ elif (param.name == "can" )
                return true;
              end if;
            end for;
+         // combining is allowed for combining a referential with its own base
+         select many battr_candidate_set related by self->O_OBJ[R102]->O_ATTR[R102]->O_BATTR[R106]
+           where selected.Attr_ID == base_attr.Attr_ID;
+         if ( not_empty battr_candidate_set )
+           return true;
+         end if;
+       else
+         // combining is allowed for combining a referential with its own base
+         select one battr related by self->O_BATTR[R106];
+         select many battr_candidate_set related by self->O_OBJ[R102]->O_ATTR[R102]->O_RATTR[R106]->O_BATTR[R113]
+           where selected.Attr_ID == battr.Attr_ID;
+         if ( not_empty battr_candidate_set )
+           return true;
+         end if;
        end if;
        return false;
   elif ( param.value == "split" )
