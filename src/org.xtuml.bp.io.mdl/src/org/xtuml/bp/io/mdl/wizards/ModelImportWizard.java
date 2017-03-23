@@ -199,7 +199,7 @@ public class ModelImportWizard extends Wizard implements IImportWizard {
 
             // resolve component references and formalize interfaces in MASL projects
             ImportHelper helper = new ImportHelper((CoreImport)fImporter);
-            helper.resolveMASLproject( fImporter.getLoadedInstances() );
+            helper.resolveMASLproject( fSystem, fImporter.getLoadedInstances() );
             
 			if (helper.maslModelWasImported()) {
 				// Reconcile graphics.

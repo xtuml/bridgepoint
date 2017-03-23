@@ -673,7 +673,11 @@ if ( not_empty c_c )
         end if;
       end if;
     end for;
-    IMPORT_ERR::reportError( PMC:param.PMC, message:"Message parsed with signature: ''" + signature + "'' not found in component ''" + c_c.Name + "'' port ''" + c_po.Name + "''", line_num:param.start_line, dialect:dialect );
+    portName = "<port not found>";
+    if (not_empty c_po)
+      portName = c_po.Name;
+    end if;
+    IMPORT_ERR::reportError( PMC:param.PMC, message:"Message parsed with signature: ''" + signature + "'' not found in component ''" + c_c.Name + "'' port ''" + portName + "''", line_num:param.start_line, dialect:dialect );
   end if;
 end if;',
 	"ba5eda7a-def5-0000-0000-000000000000",
