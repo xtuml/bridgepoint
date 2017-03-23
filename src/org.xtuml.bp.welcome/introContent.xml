@@ -105,6 +105,9 @@
         <link id="folder" label="MASL Template" style-id="left" url="http://org.eclipse.ui.intro/runAction?pluginId=org.xtuml.bp.welcome&amp;class=org.xtuml.bp.welcome.gettingstarted.SampleProjectGettingStartedAction&amp;model=MASLTemplate&amp;SingleFileModel=false">
           <text>Click here to create an xtUML project that serves as a template for a MASL-idiom Domain</text>
         </link>
+        <link id="folder" label="MASL Project" style-id="left" url="http://org.eclipse.ui.intro/runAction?pluginId=org.xtuml.bp.welcome&amp;class=org.xtuml.bp.welcome.gettingstarted.SampleProjectGettingStartedAction&amp;model=MASLProject&amp;SingleFileModel=false">
+          <text>Click here to create an xtUML project that serves as a template for a MASL-idiom Project. Create this after creating MASL Template project.</text>
+        </link>
       </group>
     </group>
   </page>
