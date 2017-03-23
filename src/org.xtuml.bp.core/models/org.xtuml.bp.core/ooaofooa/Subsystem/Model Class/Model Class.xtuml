@@ -123,9 +123,9 @@ elif (param.comp_num == 2)
   end if;
   if (param.at == Justification::Left)
     select one dt related by attr->S_DT[R114];
-    select one rattr related by attr->O_RATTR[R106];
-    if (not_empty rattr)
-      select one dt related by rattr->O_BATTR[R113]->O_ATTR[R106]->S_DT[R114];
+    select one battr related by attr->O_RATTR[R106]->O_BATTR[R113];
+    if (not_empty battr)
+      select one dt related by battr->O_ATTR[R106]->S_DT[R114];
     end if;
     result = attr.Name;
     result = result + attr.Dimensions;
