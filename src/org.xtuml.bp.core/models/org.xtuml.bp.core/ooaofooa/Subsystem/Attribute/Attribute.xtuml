@@ -962,6 +962,78 @@ end if;
 	'',
 	"7fc66d55-cf5a-45dc-a26f-046c1b6338de",
 	0);
+INSERT INTO O_TFR
+	VALUES ("272c85e2-e64c-410e-959c-f6ac2a6a46c8",
+	"d931d595-21f3-4ce8-bad1-6661a0e261b8",
+	'canCombineWith',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000001",
+	1,
+	'select any o_attr from instances of O_ATTR where ( selected.Attr_ID == param.Attr_ID );
+
+can_combine = false;
+
+if ( self.Obj_ID == o_attr.Obj_ID )  // must be in the same class to combine
+	select one rattr related by self->O_RATTR[R106];
+	if ( not_empty rattr )
+	  select one other_rattr related by o_attr->O_RATTR[R106];
+	  if ( not_empty other_rattr )
+		// two rattrs pointing to the same base
+		can_combine = rattr.BAttr_ID == other_rattr.BAttr_ID and not rattr.alreadyCombinedWith( id: other_rattr.Attr_ID );
+	  else
+		select one other_battr related by o_attr->O_BATTR[R106];
+		if ( not_empty other_battr )
+		  // rattr pointing to base in same class
+		  can_combine = rattr.BAttr_ID == other_battr.Attr_ID;
+		end if;
+	  end if;
+	else
+	  select one battr related by self->O_BATTR[R106];
+	  if ( not_empty battr)
+	    select one other_rattr related by o_attr->O_RATTR[R106];
+	    if ( not_empty other_rattr )
+		  // rattr pointing to base in same class
+		  can_combine = battr.Attr_ID == other_rattr.BAttr_ID;
+		end if;
+	  end if;
+	end if;
+end if;
+
+return can_combine;',
+	1,
+	'',
+	"eb6ba56f-23ab-40d5-a84d-c4795119a7fb",
+	0);
+INSERT INTO O_TPARM
+	VALUES ("e21a9430-3421-48a1-abdc-f47ea6433bc4",
+	"272c85e2-e64c-410e-959c-f6ac2a6a46c8",
+	'Attr_ID',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("ee18eb51-0a2f-4723-a094-260891b4e7b4",
+	"d931d595-21f3-4ce8-bad1-6661a0e261b8",
+	'combine_refs',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'',
+	3,
+	'',
+	"272c85e2-e64c-410e-959c-f6ac2a6a46c8",
+	0);
+INSERT INTO O_TPARM
+	VALUES ("126f50c8-36af-440c-9e22-3fae1cace97c",
+	"ee18eb51-0a2f-4723-a094-260891b4e7b4",
+	'other_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
 INSERT INTO O_NBATTR
 	VALUES ("fcdcb857-f08e-413d-bf60-637f228f1941",
 	"d931d595-21f3-4ce8-bad1-6661a0e261b8");

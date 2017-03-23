@@ -3207,14 +3207,10 @@ INSERT INTO S_SYNC
 	'// UI: there is at least one other attr to combine with
 select any o_attr from instances of O_ATTR
    where USER::selectOne(id:selected.Attr_ID);
-select one rattr related by o_attr->O_RATTR[R106];
-select one base_attr related by rattr->O_BATTR[R113];
-select any Combine_with related by o_attr->O_OBJ[R102]->O_ATTR[R102]->O_RATTR[R106]
+select any Combine_with related by o_attr->O_OBJ[R102]->O_ATTR[R102]
     where USER::selectOne(id:selected.Attr_ID) and
-       selected.BAttr_ID == base_attr.Attr_ID and
-       selected.BObj_ID == base_attr.Obj_ID and
-       not rattr.alreadyCombinedWith( id: selected.Attr_ID );
-rattr.combine_refs( other_id: Combine_with.Attr_ID );
+       o_attr.canCombineWith(Attr_ID:selected.Attr_ID);
+o_attr.combine_refs( other_id: Combine_with.Attr_ID );
 ',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
