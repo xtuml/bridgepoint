@@ -230,6 +230,7 @@ elif (param.name == "can" )
      select one rattr related by self->O_RATTR[R106];
        if ( not_empty rattr )
          select one base_attr related by rattr->O_BATTR[R113];
+         if ( not_empty base_attr )
           select many candidate_set related by self->O_OBJ[R102]->O_ATTR[R102]->O_RATTR[R106]
             where selected.BAttr_ID == base_attr.Attr_ID and 
                   selected.BObj_ID == base_attr.Obj_ID;
@@ -243,6 +244,7 @@ elif (param.name == "can" )
            where selected.Attr_ID == base_attr.Attr_ID;
          if ( not_empty battr_candidate_set )
            return true;
+         end if;
          end if;
        else
          // combining is allowed for combining a referential with its own base
