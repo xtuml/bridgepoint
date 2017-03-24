@@ -21,6 +21,8 @@
 </listAttribute>
 <mapAttribute key="org.eclipse.debug.core.environmentVariables">
 <mapEntry key="PTC_MCC_ENABLED" value="true"/>
+<mapEntry key="XTUML_DEVELOPMENT_REPOSITORY" value="${system_property:XTUML_DEVELOPMENT_REPOSITORY}"/>
+<mapEntry key="XTUML_TEST_MODEL_REPOSITORY" value="${system_property:XTUML_TEST_MODEL_REPOSITORY}"/>
 </mapAttribute>
 <stringAttribute key="org.eclipse.jdt.junit.CONTAINER" value=""/>
 <booleanAttribute key="org.eclipse.jdt.junit.KEEPRUNNING_ATTR" value="false"/>

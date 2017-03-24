@@ -192,6 +192,10 @@ public class ProjectUtilities {
         while (!Job.getJobManager().isIdle()) {
         	Job.getJobManager().resume();  // Make sure the job manager is executing jobs if there are any in the queue
             final Display current = Display.getCurrent();
+        	Job currentJob = Job.getJobManager().currentJob();
+        	if(currentJob == null) {
+        		return;
+        	}
             if ( current != null ) {
                 while (!disp.isDisposed() && !current.isDisposed()
                        && disp.readAndDispatch())
