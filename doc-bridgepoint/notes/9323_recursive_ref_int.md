@@ -30,6 +30,18 @@ See [[2.2]].
 6. Implementation Comments
 --------------------------
 
+6.1 `BuildPropertySource.arc` change
+
+The change in `BuildPropertySource.arc` was introduced to allow the properties
+view to correctly display types for baseless referential attributes. Before the
+change, the property source did check if a base attribute across R113 is null,
+but in the case where no base attribute was found it would simply display the
+hardcoded value "same_as<Base_Attribute>". This is bad in many ways, but most
+relevantly, it obfuscates any data type that is related to a baseless
+referential attribute.  The code has been changed to instead display the name of
+the data type associated with the referential attribute in the case of no base
+attribute being found across R113.
+
 7. Unit Test
 ------------
 See [[2.2]].
