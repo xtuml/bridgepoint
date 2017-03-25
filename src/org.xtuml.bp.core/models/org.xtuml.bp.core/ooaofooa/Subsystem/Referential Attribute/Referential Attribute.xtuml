@@ -437,6 +437,33 @@ return result;',
 	'',
 	"3f0157c4-60a3-4114-9104-2ea9719ceda1",
 	0);
+INSERT INTO O_TFR
+	VALUES ("6cec27ed-0d63-4db0-9ac4-8d2b73570fc6",
+	"30c0ac88-8e1e-4d56-a78d-5df87501c11c",
+	'propagateBaseAttr',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'// propagate the attribute that is the base through the referential chain
+select one battr related by self->O_BATTR[R113];
+if ( not_empty battr )
+  select many o_ref_set related by self->O_REF[R108];
+  for each o_ref in o_ref_set
+    select one o_rattr related by o_ref->O_RTIDA[R111]->O_OIDA[R110]->O_ATTR[R105]->O_RATTR[R106];
+    if ( not_empty o_rattr )
+      select one old_battr related by o_rattr->O_BATTR[R113];
+      if ( not_empty old_battr )
+        unrelate old_battr from o_rattr across R113;
+      end if;
+      relate battr to o_rattr across R113;
+      o_rattr.propagateBaseAttr();
+    end if;
+  end for;
+end if;',
+	1,
+	'',
+	"04c5ebcb-01b5-4d2e-b66b-37bd44880329",
+	0);
 INSERT INTO O_REF
 	VALUES ("30c0ac88-8e1e-4d56-a78d-5df87501c11c",
 	"d931d595-21f3-4ce8-bad1-6661a0e261b8",
