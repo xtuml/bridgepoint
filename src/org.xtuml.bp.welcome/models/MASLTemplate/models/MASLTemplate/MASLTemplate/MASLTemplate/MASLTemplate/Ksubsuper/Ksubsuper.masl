@@ -1,0 +1,5 @@
+public instance service MASLTemplate::Ksubsuper.deferredOp () is
+begin
+  null;
+end service;
+

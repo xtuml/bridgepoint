@@ -4,7 +4,10 @@ INSERT INTO C_I
 	VALUES ("a5673f9b-0720-4b50-8f2f-b0121f67bd9b",
 	"00000000-0000-0000-0000-000000000000",
 	'MASLTemplate',
-	'');
+	'In the xtUML MASL idiom, there is an widely-visibile interface with the same 
+name as a component (domain).  This interface exposes to the outside world the 
+public domain services.  This interface contains messages with signatures that
+are identical to each of the public domain services. ');
 INSERT INTO C_EP
 	VALUES ("ffd58301-1fcf-4376-bc16-5ea0a2629c93",
 	"a5673f9b-0720-4b50-8f2f-b0121f67bd9b",
