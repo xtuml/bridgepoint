@@ -112,7 +112,7 @@ public class ModelResourceUIValidatorExtension extends DefaultResourceUIValidato
 			}
 			// get masl signature in xtUML format
 			String signatureFromMasl = getMaslSignature(topLevelElement);
-			NonRootModelElement xtUMLRootElement = getXtumlElementFromProblemElement(topLevelElement,
+			NonRootModelElement xtUMLRootElement = getXtumlElementFromProblemElement(resource, topLevelElement,
 					signatureFromMasl);
 			if(xtUMLRootElement == null) {
 				continue;
@@ -175,8 +175,16 @@ public class ModelResourceUIValidatorExtension extends DefaultResourceUIValidato
 		return null;
 	}
 
-	private NonRootModelElement getXtumlElementFromProblemElement(AbstractTopLevelElement serviceDefinition,
+	private NonRootModelElement getXtumlElementFromProblemElement(IFile resource, AbstractTopLevelElement serviceDefinition,
 			String signature) {
+		// For the initial release of the masl editor, v6.2, the masl partial
+		// editor (snippet editor) is being used. We are marking the errors in
+		// the .mod, .masl, .int, etc... files. Only .xtuml. 
+		String resourceExtension = resource.getFileExtension();
+		if (resourceExtension != Ooaofooa.MODELS_EXT && resourceExtension != "masl") {
+			return null;
+		}
+		
 		// get the name of the xtUML element first
 		// then if more than one get its signature and
 		// compare with the signature from the service
@@ -185,12 +193,14 @@ public class ModelResourceUIValidatorExtension extends DefaultResourceUIValidato
 		IPath path = new Path(serviceDefinition.eResource().getURI().toPlatformString(true)).removeFileExtension()
 				.addFileExtension(Ooaofooa.MODELS_EXT);
 		PersistableModelComponent pmc = PersistenceManager.findOrCreateComponent(path);
-		List<NonRootModelElement> elementsByName = getModelElementsByName(pmc, name);
-		for(NonRootModelElement element : elementsByName) {
-			NonRootModelElement signatureElement = getSignatureElement(element);
-			String xtUMLSignature = getXtumlSignature(signatureElement);
-			if(signature.equals(xtUMLSignature)) {
-				return element;
+		if (pmc != null) {
+			List<NonRootModelElement> elementsByName = getModelElementsByName(pmc, name);
+			for(NonRootModelElement element : elementsByName) {
+				NonRootModelElement signatureElement = getSignatureElement(element);
+				String xtUMLSignature = getXtumlSignature(signatureElement);
+				if(signature.equals(xtUMLSignature)) {
+					return element;
+				}
 			}
 		}
 		return null;
