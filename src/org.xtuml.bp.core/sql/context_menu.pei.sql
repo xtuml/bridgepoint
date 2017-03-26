@@ -145,7 +145,8 @@ INSERT INTO CME VALUES ('',     'Set as Base Attribute','O_ATTR',   '',         
 INSERT INTO CME VALUES ('',       'Move Up',            'O_ATTR',   '',                      false, '' );
 INSERT INTO CME VALUES ('',       'Move Down',          'O_ATTR',   '',                      false, '' );
 INSERT INTO CME VALUES ('',       'Combine With',       'O_ATTR',   '',                      false, 'Select attribute to combine with this one' );
-INSERT INTO CME VALUES ('',       'Split',              'O_ATTR',   '',                      false, 'Select reference to split from this one' );
+INSERT INTO CME VALUES ('Referential',       'Split',              'O_ATTR',   '',           false, 'Select reference to split from this one' );
+INSERT INTO CME VALUES ('Base And Ref',       'Split',              'O_ATTR',   '',            false, '' );
 INSERT INTO CME VALUES ('Binary',     'Formalize',      'R_REL',    '',                      false, 'Select the class whose identifier will be used to formalize the association' );
 INSERT INTO CME VALUES ('Linked',     'Formalize',      'R_REL',    '',                      false, 'Select the identifier to use from each class' );
 INSERT INTO CME VALUES ('Linked',     'Formalize',      'R_ASSR',   '',                      false, 'Select the identifier to use from each class' );
@@ -357,7 +358,8 @@ INSERT INTO MEF VALUES ('',       'Set as Base Attribute', 'O_ATTR', 'subtype', 
 INSERT INTO MEF VALUES ('',       'Move Up',       'O_ATTR',    'can', 'move up' );
 INSERT INTO MEF VALUES ('',       'Move Down',     'O_ATTR',    'can', 'move down' );
 INSERT INTO MEF VALUES ('',       'Combine With',  'O_ATTR',    'can', 'combine' );
-INSERT INTO MEF VALUES ('',       'Split',         'O_ATTR',    'can', 'split' );
+INSERT INTO MEF VALUES ('Referential',       'Split',         'O_ATTR',    'can', 'split ref' );
+INSERT INTO MEF VALUES ('Base And Ref',       'Split',         'O_ATTR',    'can', 'split base' );
 
 INSERT INTO MEF VALUES ('Generic Package',       'Assign Class',  'O_IOBJ', 'unassigned', 'generic pkg' );
 
