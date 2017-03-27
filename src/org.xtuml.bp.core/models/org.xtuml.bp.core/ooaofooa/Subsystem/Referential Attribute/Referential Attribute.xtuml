@@ -31,7 +31,7 @@ end if;
 delete object instance self;',
 	1,
 	'',
-	"7565c847-e1c4-4ed9-af28-a5a6f10f6321",
+	"02ec5b84-0de6-4c57-923c-1a1986a821a5",
 	0);
 INSERT INTO O_TFR
 	VALUES ("56a9a7cf-020a-4275-904f-00844fd0e719",
@@ -105,60 +105,6 @@ return empty rattr_root;
 	'',
 	"22e9c56e-b29a-4183-ad70-b90d4ff25bd2",
 	0);
-INSERT INTO O_TFR
-	VALUES ("7565c847-e1c4-4ed9-af28-a5a6f10f6321",
-	"30c0ac88-8e1e-4d56-a78d-5df87501c11c",
-	'combine_refs',
-	'',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'select any other_attr related by self->O_ATTR[R106]->O_OBJ[R102]->O_ATTR[R102]
-       where selected.Attr_ID == param.other_id;
-select one other_rattr related by other_attr->O_RATTR[R106];
-select many other_ref_set related by other_rattr->O_REF[R108];
-   
-   // find last O_REF in self''s ref list R112
-   select any ref related by self->O_REF[R108];
-   select one next_ref related by ref->O_REF[R112.''precedes''];
-   while (not_empty next_ref)
-     select one next_ref related by ref->O_REF[R112.''precedes''];
-     if (not_empty next_ref)
-       ref = next_ref;
-     end if;
-   end while;
-   
-   for each other_ref in other_ref_set
-     unrelate other_ref from other_rattr across R108;
-     relate other_ref to self across R108;  
-     // add other_ref to self''s ref list R112
-     relate other_ref to ref across R112.''succeeds'';
-     ref = other_ref;    
-   end for;
-   // Check for identifying
-   select one attr related by self->O_ATTR[R106];
-   select any oida related by attr->O_OIDA[R105];
-   if (empty oida)
-     select any oida related by other_attr->O_OIDA[R105];
-     if ( not_empty oida )
-       // Ensure combined attribute is identifying
-       select one id related by oida->O_ID[R105];
-       relate attr to id across R105 using oida; 
-     end if;
-   end if;
-   other_attr.dispose();',
-	1,
-	'',
-	"02ec5b84-0de6-4c57-923c-1a1986a821a5",
-	0);
-INSERT INTO O_TPARM
-	VALUES ("17f4b63e-7ae8-47ad-a576-112f3f9c77dc",
-	"7565c847-e1c4-4ed9-af28-a5a6f10f6321",
-	'other_id',
-	"ba5eda7a-def5-0000-0000-000000000005",
-	0,
-	'',
-	"00000000-0000-0000-0000-000000000000",
-	'');
 INSERT INTO O_TFR
 	VALUES ("04c5ebcb-01b5-4d2e-b66b-37bd44880329",
 	"30c0ac88-8e1e-4d56-a78d-5df87501c11c",
@@ -306,6 +252,13 @@ INSERT INTO O_TFR
 	1,
 	'// assure that the datatype is the correct one for
 // referential attributes
+
+// if the rattr is not related to a battr across R113
+// it is a recursive referential and should have its
+// own data type
+select one battr related by self->O_BATTR[R113];
+if ( not_empty battr )
+
 select one attr related by self->O_ATTR[R106];
 select one dt related by attr->S_DT[R114];
 if ( not_empty dt )
@@ -334,6 +287,7 @@ select one pkg related by attr->O_OBJ[R102]->PE_PE[R8001]->EP_PKG[R8000];
     relate attr to ref_attr_dt across R114;
   end if;
 
+end if;
 ',
 	1,
 	'',
@@ -482,6 +436,33 @@ return result;',
 	1,
 	'',
 	"3f0157c4-60a3-4114-9104-2ea9719ceda1",
+	0);
+INSERT INTO O_TFR
+	VALUES ("6cec27ed-0d63-4db0-9ac4-8d2b73570fc6",
+	"30c0ac88-8e1e-4d56-a78d-5df87501c11c",
+	'propagateBaseAttr',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'// propagate the attribute that is the base through the referential chain
+select one battr related by self->O_BATTR[R113];
+if ( not_empty battr )
+  select many o_ref_set related by self->O_REF[R108];
+  for each o_ref in o_ref_set
+    select one o_rattr related by o_ref->O_RTIDA[R111]->O_OIDA[R110]->O_ATTR[R105]->O_RATTR[R106];
+    if ( not_empty o_rattr )
+      select one old_battr related by o_rattr->O_BATTR[R113];
+      if ( not_empty old_battr )
+        unrelate old_battr from o_rattr across R113;
+      end if;
+      relate battr to o_rattr across R113;
+      o_rattr.propagateBaseAttr();
+    end if;
+  end for;
+end if;',
+	1,
+	'',
+	"04c5ebcb-01b5-4d2e-b66b-37bd44880329",
 	0);
 INSERT INTO O_REF
 	VALUES ("30c0ac88-8e1e-4d56-a78d-5df87501c11c",
