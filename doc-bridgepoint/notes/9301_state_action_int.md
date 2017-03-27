@@ -43,6 +43,8 @@ parameters
 subtype hierarchy to select the polymorphic event at the top  
 5.2 Introduce a call to `getConcretePoly` in `SM_STATE` `getSignature` to select
 a concrete poly in the supertype if it exists  
+5.3 `splitString` in the `Utilities` EE needed to be changed to allow splitting
+on "." without treating it as a wildcard character  
 
 6. Implementation Comments
 --------------------------
