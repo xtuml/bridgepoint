@@ -9,12 +9,12 @@
 <booleanAttribute key="clearConfig" value="true"/>
 <booleanAttribute key="clearws" value="true"/>
 <booleanAttribute key="clearwslog" value="false"/>
-<stringAttribute key="configLocation" value="${workspace_loc}/.metadata/.plugins/org.eclipse.pde.core/Core Test 2 - Consistency"/>
+<stringAttribute key="configLocation" value="${workspace_loc}/.metadata/.plugins/org.eclipse.pde.core/UI Canvas Suite 3"/>
 <booleanAttribute key="default" value="true"/>
 <booleanAttribute key="includeOptional" value="true"/>
-<stringAttribute key="location" value="${eclipse_home}/bp_tests/core"/>
+<stringAttribute key="location" value="${eclipse_home}/bp_tests/canvas"/>
 <listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_PATHS">
-<listEntry value="/org.xtuml.bp.core.test/src/org/xtuml/bp/core/test/ConsistencyTest.java"/>
+<listEntry value="/org.xtuml.bp.ui.canvas.test/src/GlobalsCanvasSuite3.java"/>
 </listAttribute>
 <listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_TYPES">
 <listEntry value="1"/>
@@ -29,11 +29,11 @@
 <stringAttribute key="org.eclipse.jdt.junit.TESTNAME" value=""/>
 <stringAttribute key="org.eclipse.jdt.junit.TEST_KIND" value="org.eclipse.jdt.junit.loader.junit4"/>
 <stringAttribute key="org.eclipse.jdt.launching.JRE_CONTAINER" value="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
-<stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="org.xtuml.bp.core.test.ConsistencyTest"/>
+<stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="GlobalsCanvasSuite3"/>
 <stringAttribute key="org.eclipse.jdt.launching.PROGRAM_ARGUMENTS" value="-pluginCustomization ${system_property:XTUML_DEVELOPMENT_REPOSITORY}/src/org.xtuml.bp.pkg/plugin_customization.ini"/>
-<stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="org.xtuml.bp.core.test"/>
+<stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="org.xtuml.bp.ui.canvas.test"/>
 <stringAttribute key="org.eclipse.jdt.launching.SOURCE_PATH_PROVIDER" value="org.eclipse.pde.ui.workbenchClasspathProvider"/>
-<stringAttribute key="org.eclipse.jdt.launching.VM_ARGUMENTS" value="-Xmx1024m -Xms512m -XX:MaxPermSize=512m -DWORKSPACE_PATH=${resource_loc:/org.xtuml.bp.test}/../org.xtuml.bp.core.test/ -DLOGFILE_PATH=${eclipse_home}/bp_tests/core/.metadata/.log -Dfile.encoding=UTF-8 -DXTUML_DEVELOPMENT_REPOSITORY=${system_property:XTUML_DEVELOPMENT_REPOSITORY} -DXTUML_TEST_MODEL_REPOSITORY=${system_property:XTUML_TEST_MODEL_REPOSITORY}"/>
+<stringAttribute key="org.eclipse.jdt.launching.VM_ARGUMENTS" value="-Xmx1024m -Xms512m -Dorg.eclipse.epp.logging.aeri.ui.skipReports=true -DWORKSPACE_PATH=${resource_loc:/org.xtuml.bp.test}/../org.xtuml.bp.ui.canvas.test/ -DLOGFILE_PATH=${eclipse_home}/bp_tests/canvas/.metadata/.log -Dfile.encoding=UTF-8 -DXTUML_DEVELOPMENT_REPOSITORY=${system_property:XTUML_DEVELOPMENT_REPOSITORY} -DXTUML_TEST_MODEL_REPOSITORY=${system_property:XTUML_TEST_MODEL_REPOSITORY}"/>
 <stringAttribute key="pde.version" value="3.3"/>
 <stringAttribute key="product" value="org.eclipse.platform.ide"/>
 <booleanAttribute key="run_in_ui_thread" value="true"/>
