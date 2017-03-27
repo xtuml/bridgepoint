@@ -46,7 +46,8 @@
   .invoke markContainmentAssociation(8003, "PE_PE")
 
   .invoke markComponentRoot("C_I")
-  .invoke markContainmentAssociation(4303, "IP_IP")
+  .invoke markContainmentAssociation(8003, "PE_PE")
+  .invoke markContainmentAssociation(8000, "PE_PE")
   
   .invoke markComponentRoot("EP_PKG")
   .invoke markContainmentAssociation(1401, "S_SYS")

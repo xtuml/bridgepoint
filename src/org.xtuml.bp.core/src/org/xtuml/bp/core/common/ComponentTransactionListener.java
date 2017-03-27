@@ -54,6 +54,7 @@ import org.xtuml.bp.core.Modeleventnotification_c;
 import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.ui.PasteAction;
 import org.xtuml.bp.core.util.CoreUtil;
+import org.xtuml.bp.core.util.RenameActionUtil;
 import org.xtuml.bp.core.util.RenameParticipantUtil;
 
 public class ComponentTransactionListener implements ITransactionListener {
@@ -100,30 +101,6 @@ public class ComponentTransactionListener implements ITransactionListener {
 
 		persisted.clear();
 		ModelRoot[] modelRoots = transaction.getParticipatingModelRoots();
-		HashSet<PersistableModelComponent> rgosAffectedByMove = new HashSet<PersistableModelComponent> ();
-
-		// Invoke the rename refactoring util
-        final AtomicBoolean refactorSuccess = new AtomicBoolean();
-        Display.getDefault().syncExec(new Runnable() {
-            public void run() {
-            	// enable resource listener during this part if
-            	// disabled
-            	boolean disableListener = ComponentResourceListener.getIgnoreResourceChanges();
-            	boolean disableMarker = ComponentResourceListener.isIgnoreResourceChangesMarkerSet();
-            	try {
-            		ComponentResourceListener.setIgnoreResourceChanges(false);
-            		ComponentResourceListener.setIgnoreResourceChangesMarker(false);
-            		RenameParticipantUtil rpu = new RenameParticipantUtil();
-            		refactorSuccess.set( rpu.renameElement( transaction ) );
-            	} finally {
-            		ComponentResourceListener.setIgnoreResourceChanges(disableListener);
-            		ComponentResourceListener.setIgnoreResourceChangesMarker(disableMarker);
-            	}
-            }
-        });
-        if ( refactorSuccess.get() ) {
-            setNoPersistActions(true);
-        }
 
 		// first persist all model elements created
 		// this is so later proxy changes in parent will work correctly
@@ -257,6 +234,35 @@ public class ComponentTransactionListener implements ITransactionListener {
 						target = PersistenceManager.findElementComponent(element, true);
 						if (target != null) {
 							AttributeChangeModelDelta modelDelta = (AttributeChangeModelDelta) delta;
+							if (RenameActionUtil.getAttributeNameForName(
+									(NonRootModelElement) modelDelta.getModelElement()).equals(modelDelta
+											.getAttributeName())) {
+								// Invoke the rename refactoring util
+								final AtomicBoolean refactorSuccess = new AtomicBoolean();
+								Display.getDefault().syncExec(new Runnable() {
+									public void run() {
+										// enable resource listener during
+										// this part if
+										// disabled
+										boolean disableListener = ComponentResourceListener
+												.getIgnoreResourceChanges();
+										boolean disableMarker = ComponentResourceListener
+												.isIgnoreResourceChangesMarkerSet();
+										try {
+											ComponentResourceListener.setIgnoreResourceChanges(false);
+											ComponentResourceListener.setIgnoreResourceChangesMarker(false);
+											RenameParticipantUtil rpu = new RenameParticipantUtil();
+											refactorSuccess.set(rpu.renameElement(transaction));
+										} finally {
+											ComponentResourceListener.setIgnoreResourceChanges(disableListener);
+											ComponentResourceListener.setIgnoreResourceChangesMarker(disableMarker);
+										}
+									}
+								});
+								if (refactorSuccess.get()) {
+									setNoPersistActions(true);
+								}
+							}
 							if (modelDelta.isPersistenceRelatedChange()) {
 								if ("Name".equals(modelDelta.getAttributeName())) { //$NON-NLS-1$
 									NonRootModelElement modelElement = (NonRootModelElement) modelDelta

@@ -97,7 +97,7 @@ containing package.
 
 5.3.3 Table of default dialect values on element creation
 
-| | Derived attribute | Transition | Port message (required port on domain component) | Port message (required port on non-domain component) | Port message (provided port on a project component) | Port message (required port on a non-project component) |
+| | Derived attribute | Transition | Port message (required port on domain component) | Port message (required port on project component) | Port message (provided port on a project component) | Port message (provided port on a domain component) |
 | ------------------- | ---- | ---- | ---- | ---- | ---- | ---- |
 | **Default is MASL** | None | None | MASL | None | MASL | None |
 | **Default is OAL**  | OAL  | OAL  | OAL  | OAL  | OAL  | OAL  |
