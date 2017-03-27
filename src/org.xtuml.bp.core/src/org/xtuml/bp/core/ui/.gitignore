@@ -556,3 +556,6 @@ SetToProviderOnC_IOAction.java
 SetFromProviderOnC_IOAction.java
 SetFromProviderOnC_ASAction.java
 SetToProviderOnC_ASAction.java
+SplitOnO_ATTRAction.java
+SplitOnO_ATTRWizard.java
+SplitOnO_ATTRWizardPage1.java
