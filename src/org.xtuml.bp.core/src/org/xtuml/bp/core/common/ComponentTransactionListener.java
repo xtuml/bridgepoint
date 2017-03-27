@@ -230,38 +230,43 @@ public class ComponentTransactionListener implements ITransactionListener {
 						}
 						persist(target);
                     } else if (delta instanceof AttributeChangeModelDelta) {
-                        NonRootModelElement element=(NonRootModelElement) delta.getModelElement();
-						target = PersistenceManager.findElementComponent(element, true);
-						if (target != null) {
-							AttributeChangeModelDelta modelDelta = (AttributeChangeModelDelta) delta;
-							if (RenameActionUtil.getAttributeNameForName(
-									(NonRootModelElement) modelDelta.getModelElement()).equals(modelDelta
-											.getAttributeName())) {
-								// Invoke the rename refactoring util
-								final AtomicBoolean refactorSuccess = new AtomicBoolean();
-								Display.getDefault().syncExec(new Runnable() {
-									public void run() {
-										// enable resource listener during
-										// this part if
-										// disabled
-										boolean disableListener = ComponentResourceListener
-												.getIgnoreResourceChanges();
-										boolean disableMarker = ComponentResourceListener
-												.isIgnoreResourceChangesMarkerSet();
-										try {
-											ComponentResourceListener.setIgnoreResourceChanges(false);
-											ComponentResourceListener.setIgnoreResourceChangesMarker(false);
-											RenameParticipantUtil rpu = new RenameParticipantUtil();
-											refactorSuccess.set(rpu.renameElement(transaction));
-										} finally {
-											ComponentResourceListener.setIgnoreResourceChanges(disableListener);
-											ComponentResourceListener.setIgnoreResourceChangesMarker(disableMarker);
-										}
-									}
-								});
-								if (refactorSuccess.get()) {
-									setNoPersistActions(true);
-								}
+                    	AttributeChangeModelDelta modelDelta = (AttributeChangeModelDelta) delta;
+                    	boolean masl_style_identifiers = CorePlugin.getDefault().getPreferenceStore().getBoolean(BridgePointPreferencesStore.REQUIRE_MASL_STYLE_IDENTIFIERS);
+                    	boolean defaultDialect = CorePlugin.getDefault().getPreferenceStore().getBoolean(BridgePointPreferencesStore.DEFAULT_ACTION_LANGUAGE_DIALECT);
+                    	if(masl_style_identifiers && !defaultDialect) {
+                    		NonRootModelElement element=(NonRootModelElement) delta.getModelElement();
+                    		target = PersistenceManager.findElementComponent(element, true);
+                    		if (target != null) {
+                    			if (RenameActionUtil.getAttributeNameForName(
+                    					(NonRootModelElement) modelDelta.getModelElement()).equals(modelDelta
+                    							.getAttributeName())) {
+                    				// Invoke the rename refactoring util
+                    				final AtomicBoolean refactorSuccess = new AtomicBoolean();
+                    				Display.getDefault().syncExec(new Runnable() {
+                    					public void run() {
+                    						// enable resource listener during
+                    						// this part if
+                    						// disabled
+                    						boolean disableListener = ComponentResourceListener
+                    								.getIgnoreResourceChanges();
+                    						boolean disableMarker = ComponentResourceListener
+                    								.isIgnoreResourceChangesMarkerSet();
+                    						try {
+                    							ComponentResourceListener.setIgnoreResourceChanges(false);
+                    							ComponentResourceListener.setIgnoreResourceChangesMarker(false);
+                    							RenameParticipantUtil rpu = new RenameParticipantUtil();
+                    							refactorSuccess.set(rpu.renameElement(transaction));
+                    						} finally {
+                    							ComponentResourceListener.setIgnoreResourceChanges(disableListener);
+                    							ComponentResourceListener.setIgnoreResourceChangesMarker(disableMarker);
+                    						}
+                    					}
+                    				});
+                    				if (refactorSuccess.get()) {
+                    					setNoPersistActions(true);
+                    				}
+                    			}
+                    			
 							}
 							if (modelDelta.isPersistenceRelatedChange()) {
 								if ("Name".equals(modelDelta.getAttributeName())) { //$NON-NLS-1$
