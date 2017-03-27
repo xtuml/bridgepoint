@@ -316,11 +316,20 @@ if ( not_empty sm_state and not_empty sm_act )
 
   // MASL states declare their parameter signatures.
   // Traverse to any event transitioning to this state and use its parameters.
-  select any sm_evtdi related by sm_state->SM_TXN[R506]->SM_NSTXN[R507]->SM_SEME[R504]->SM_SEVT[R503]->SM_EVT[R525]->SM_EVTDI[R532];
-  if ( empty sm_evtdi )	// if there are no state to state transitions to this state, it may be a creation
+  select any sm_evt related by sm_state->SM_TXN[R506]->SM_NSTXN[R507]->SM_SEME[R504]->SM_SEVT[R503]->SM_EVT[R525];
+  if ( empty sm_evt )	// if there are no state to state transitions to this state, it may be a creation
   						// state. Check the path to an event through a creation transition
-    select any sm_evtdi related by sm_state->SM_TXN[R506]->SM_CRTXN[R507]->SM_LEVT[R509]->SM_SEVT[R526]->SM_EVT[R525]->SM_EVTDI[R532];
+    select any sm_evt related by sm_state->SM_TXN[R506]->SM_CRTXN[R507]->SM_LEVT[R509]->SM_SEVT[R526]->SM_EVT[R525];
   end if;
+  if ( not_empty sm_evt )
+    // must check for polys
+    select any concrete_poly_evt from instances of SM_EVT where ( selected.SMevt_ID == sm_evt.getConcretePoly() );
+    if ( not_empty concrete_poly_evt )
+      sm_evt = concrete_poly_evt;
+    end if;
+  end if;
+  
+  select any sm_evtdi related by sm_evt->SM_EVTDI[R532];
   // Get first parameter.
   first_sm_evtdi = sm_evtdi;
   while ( not_empty sm_evtdi )
