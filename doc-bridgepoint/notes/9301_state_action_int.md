@@ -45,6 +45,8 @@ subtype hierarchy to select the polymorphic event at the top
 a concrete poly in the supertype if it exists  
 5.3 `splitString` in the `Utilities` EE needed to be changed to allow splitting
 on "." without treating it as a wildcard character  
+5.4 Add corresponding call to `getConcretePoly` in `SM_ACT2state` on the export
+side  
 
 6. Implementation Comments
 --------------------------
@@ -68,9 +70,10 @@ Branch: 9301_state_action
 
  doc-bridgepoint/notes/9301_state_action_int.md                                                                      | 73 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
  src/org.xtuml.bp.core/models/org.xtuml.bp.core/ooaofooa/External Entities/External Entities.xtuml                   |  4 +++-
+ src/org.xtuml.bp.core/models/org.xtuml.bp.core/ooaofooa/Functions/x2m_functions/x2m_functions.xtuml                 | 15 ++++++++++++---
  src/org.xtuml.bp.core/models/org.xtuml.bp.core/ooaofooa/State Machine/State Machine Event/State Machine Event.xtuml | 39 +++++++++++++++++++++++++++++++++++++++
  src/org.xtuml.bp.core/models/org.xtuml.bp.core/ooaofooa/State Machine/State Machine State/State Machine State.xtuml |  8 ++++++++
- 4 files changed, 123 insertions(+), 1 deletion(-)
+ 5 files changed, 123 insertions(+), 1 deletion(-)
 
 </pre>
 
