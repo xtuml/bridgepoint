@@ -80,11 +80,10 @@ public class ${class_name} extends CoreExport
 
 	protected PrintStream m_fh;
     protected boolean m_export_graphics;
-    boolean m_is_fully_derived = false;
     .if (callingProject == "NBP")
 	protected Path m_path;
-	boolean m_isUpdate = false;
-	ByteArrayOutputStream m_updateData;
+	private boolean m_isUpdate = false;
+	private ByteArrayOutputStream m_updateData;
         .if ( multilevel )
         boolean m_updateActions = false;
         protected Map<Integer,PrintStream> m_afh; // handle for actions
