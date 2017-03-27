@@ -1279,32 +1279,22 @@ INSERT INTO O_TFR
 if ( Util::stringContains( haystack:self.Mning, needle:"." ) )
   superclass_name = Util::stringSplit( s:self.Mning, delimiter:".", i:0 );
   evt_name = Util::stringSplit( s:self.Mning, delimiter:".", i:1 );
-  select one mc related by self->SM_SM[R502]->SM_ISM[R517]->O_OBJ[R518];
-  if ( empty mc )
-    select one mc related by self->SM_SM[R502]->SM_ASM[R517]->O_OBJ[R519];
-  end if;
-  select any superclass related by mc->R_OIR[R201]->R_RGO[R203]->R_SUB[R205]->R_SUBSUP[R213]->R_SUPER[R212]->R_RTO[R204]->R_OIR[R203]->O_OBJ[R201]
+
+  select one current_class related by self->SM_SM[R502]->SM_ISM[R517]->O_OBJ[R518];
+  select any superclass related by current_class->R_OIR[R201]->R_RGO[R203]->R_SUB[R205]->R_SUBSUP[R213]->R_SUPER[R212]->R_RTO[R204]->R_OIR[R203]->O_OBJ[R201]
     where ( selected.Name == superclass_name );
-  // check if the event is in the immediate supertype
-  select any concrete_poly_evt related by superclass->SM_ISM[R518]->SM_SM[R517]->SM_EVT[R502]
-    where ( selected.Mning == evt_name );
-  if ( empty concrete_poly_evt )
-    select any concrete_poly_evt related by superclass->SM_ASM[R519]->SM_SM[R517]->SM_EVT[R502]
+  select many classes related by current_class->R_OIR[R201]->R_RGO[R203]->R_SUB[R205]->R_SUBSUP[R213]->R_SUPER[R212]->R_RTO[R204]->R_OIR[R203]->O_OBJ[R201];
+
+  // select up the hierarchy until the right superclass is found or the hierarchy runs out
+  while ( empty superclass and not_empty classes )
+    select any superclass related by classes->R_OIR[R201]->R_RGO[R203]->R_SUB[R205]->R_SUBSUP[R213]->R_SUPER[R212]->R_RTO[R204]->R_OIR[R203]->O_OBJ[R201]
+      where ( selected.Name == superclass_name );
+    select many classes related by classes->R_OIR[R201]->R_RGO[R203]->R_SUB[R205]->R_SUBSUP[R213]->R_SUPER[R212]->R_RTO[R204]->R_OIR[R203]->O_OBJ[R201];
+  end while;
+
+  if ( not_empty superclass )
+    select any sm_evt related by superclass->SM_ISM[R518]->SM_SM[R517]->SM_EVT[R502]
       where ( selected.Mning == evt_name );
-  end if;
-  // check if the event is in the next supertype
-  if ( empty concrete_poly_evt )
-    select any concrete_poly_evt related by superclass->SM_ISM[R518]->SM_SM[R517]->SM_EVT[R502]
-      where ( Util::stringContains( haystack:selected.Mning, needle:"." + evt_name ) );
-    if ( empty concrete_poly_evt )
-      select any concrete_poly_evt related by superclass->SM_ASM[R519]->SM_SM[R517]->SM_EVT[R502]
-        where ( Util::stringContains( haystack:selected.Mning, needle:"." + evt_name ) );
-    end if;
-    if ( not_empty concrete_poly_evt )
-      select any sm_evt from instances of SM_EVT where ( selected.SMevt_ID == concrete_poly_evt.getConcretePoly() );
-    end if;
-  else
-    sm_evt = concrete_poly_evt;
   end if;
 end if;
 
