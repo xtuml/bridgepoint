@@ -66,6 +66,12 @@ Branch: 9301_state_action
 
 <pre>
 
+ doc-bridgepoint/notes/9301_state_action_int.md                                                                      | 73 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ src/org.xtuml.bp.core/models/org.xtuml.bp.core/ooaofooa/External Entities/External Entities.xtuml                   |  4 +++-
+ src/org.xtuml.bp.core/models/org.xtuml.bp.core/ooaofooa/State Machine/State Machine Event/State Machine Event.xtuml | 39 +++++++++++++++++++++++++++++++++++++++
+ src/org.xtuml.bp.core/models/org.xtuml.bp.core/ooaofooa/State Machine/State Machine State/State Machine State.xtuml |  8 ++++++++
+ 4 files changed, 123 insertions(+), 1 deletion(-)
+
 </pre>
 
 End
