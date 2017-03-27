@@ -3207,14 +3207,10 @@ INSERT INTO S_SYNC
 	'// UI: there is at least one other attr to combine with
 select any o_attr from instances of O_ATTR
    where USER::selectOne(id:selected.Attr_ID);
-select one rattr related by o_attr->O_RATTR[R106];
-select one base_attr related by rattr->O_BATTR[R113];
-select any Combine_with related by o_attr->O_OBJ[R102]->O_ATTR[R102]->O_RATTR[R106]
+select any Combine_with related by o_attr->O_OBJ[R102]->O_ATTR[R102]
     where USER::selectOne(id:selected.Attr_ID) and
-       selected.BAttr_ID == base_attr.Attr_ID and
-       selected.BObj_ID == base_attr.Obj_ID and
-       not rattr.alreadyCombinedWith( id: selected.Attr_ID );
-rattr.combine_refs( other_id: Combine_with.Attr_ID );
+       o_attr.canCombineWith(Attr_ID:selected.Attr_ID);
+o_attr.combine_refs( other_id: Combine_with.Attr_ID );
 ',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
@@ -3229,7 +3225,7 @@ INSERT INTO PE_PE
 INSERT INTO S_SYNC
 	VALUES ("efb4801a-2681-476b-97cb-e0c3de3d8cd5",
 	"00000000-0000-0000-0000-000000000000",
-	'O_ATTR_Split',
+	'O_ATTR_ReferentialSplit',
 	'ContextMenuFunction: TRUE
 ',
 	'// UI: there is at least one other attr to split from
@@ -7662,6 +7658,27 @@ end if;
 	0);
 INSERT INTO PE_PE
 	VALUES ("15d7024c-93d8-427d-ade3-8d3a49130db6",
+	1,
+	"42d5848f-dabe-43e1-9ac4-b840f2789360",
+	"00000000-0000-0000-0000-000000000000",
+	1);
+INSERT INTO S_SYNC
+	VALUES ("c636b7b4-2f10-4876-89d8-2dfa5951225a",
+	"00000000-0000-0000-0000-000000000000",
+	'O_ATTR_BaseAndRefSplit',
+	'ContextMenuFunction: TRUE
+',
+	'// UI: there is at least one other attr to split from
+select any o_attr from instances of O_ATTR
+   where USER::selectOne(id:selected.Attr_ID);
+o_attr.split_base_and_ref();
+',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'',
+	0);
+INSERT INTO PE_PE
+	VALUES ("c636b7b4-2f10-4876-89d8-2dfa5951225a",
 	1,
 	"42d5848f-dabe-43e1-9ac4-b840f2789360",
 	"00000000-0000-0000-0000-000000000000",
