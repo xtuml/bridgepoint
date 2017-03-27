@@ -253,6 +253,8 @@ public class ComponentTransactionListener implements ITransactionListener {
 											ComponentResourceListener.setIgnoreResourceChangesMarker(false);
 											RenameParticipantUtil rpu = new RenameParticipantUtil();
 											refactorSuccess.set(rpu.renameElement(transaction));
+										} catch (Exception e) {
+											CorePlugin.logError("MASL rename/refactor failed.", e);
 										} finally {
 											ComponentResourceListener.setIgnoreResourceChanges(disableListener);
 											ComponentResourceListener.setIgnoreResourceChangesMarker(disableMarker);
@@ -323,7 +325,7 @@ public class ComponentTransactionListener implements ITransactionListener {
 							} catch(CoreException exc) {
 								CorePlugin.getDefault().getLog().log(
 										new Status(IStatus.ERROR, CorePlugin.getDefault().getBundle().getSymbolicName(), 
-												"Error synchronizing editoras after refactoring", exc));
+												"Error synchronizing editors after refactoring", exc));
 							}
 						}
 					}
