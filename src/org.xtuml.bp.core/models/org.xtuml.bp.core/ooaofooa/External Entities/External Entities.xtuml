@@ -2515,7 +2515,9 @@ String[] substrs = { p_S, "" };
 
 // check if the string contains the delimiter
 if ( Stringcontains( p_S, p_Delimiter ) ) {
-  substrs = p_S.split( p_Delimiter, 2 );
+    String delim = p_Delimiter;
+    if ( delim.equals(".") ) delim = "\\.";
+    substrs = p_S.split(delim, 2);
 }
 
 // return the right substring
