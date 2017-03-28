@@ -234,37 +234,36 @@ public class ComponentTransactionListener implements ITransactionListener {
 						target = PersistenceManager.findElementComponent(element, true);
 						if (target != null) {
 							AttributeChangeModelDelta modelDelta = (AttributeChangeModelDelta) delta;
-							if (RenameActionUtil.getAttributeNameForName(
-									(NonRootModelElement) modelDelta.getModelElement()).equals(modelDelta
-											.getAttributeName())) {
-								// Invoke the rename refactoring util
-								final AtomicBoolean refactorSuccess = new AtomicBoolean();
-								Display.getDefault().syncExec(new Runnable() {
-									public void run() {
-										// enable resource listener during
-										// this part if
-										// disabled
-										boolean disableListener = ComponentResourceListener
-												.getIgnoreResourceChanges();
-										boolean disableMarker = ComponentResourceListener
-												.isIgnoreResourceChangesMarkerSet();
-										try {
-											ComponentResourceListener.setIgnoreResourceChanges(false);
-											ComponentResourceListener.setIgnoreResourceChangesMarker(false);
-											RenameParticipantUtil rpu = new RenameParticipantUtil();
-											refactorSuccess.set(rpu.renameElement(transaction));
-										} catch (Exception e) {
-											CorePlugin.logError("MASL rename/refactor failed.", e);
-										} finally {
-											ComponentResourceListener.setIgnoreResourceChanges(disableListener);
-											ComponentResourceListener.setIgnoreResourceChangesMarker(disableMarker);
-										}
-									}
-								});
-								if (refactorSuccess.get()) {
+							
+							// This is checking if masl rename/refactor needs to run
+							if (RenameParticipantUtil.isMASLChange(modelDelta)) {
+								boolean refactorSuccess = false;
+								// assure the resource change listener is
+								// enabled
+								boolean disableListener = ComponentResourceListener.getIgnoreResourceChanges();
+								boolean disableMarker = ComponentResourceListener.isIgnoreResourceChangesMarkerSet();
+								try {
+									// We have to assure that resource changes are ignored while
+									// masl refactors. If we do not, the change listener run
+									// before we have persisted this change and they reload the
+									// model from disk thus wiping out the in-memory change before
+									// it gets persisted.
+									ComponentResourceListener.setIgnoreResourceChanges(true);
+									ComponentResourceListener.setIgnoreResourceChangesMarker(true);
+									RenameParticipantUtil rpu = new RenameParticipantUtil();
+									refactorSuccess = rpu.renameElement(modelDelta);
+								} catch (Exception e) {
+									CorePlugin.logError("MASL rename/refactor failed.", e);
+								} finally {
+									// restore resource change listener
+									ComponentResourceListener.setIgnoreResourceChanges(disableListener);
+									ComponentResourceListener.setIgnoreResourceChangesMarker(disableMarker);
+								}
+								if (refactorSuccess) {
 									setNoPersistActions(true);
 								}
 							}
+							
 							if (modelDelta.isPersistenceRelatedChange()) {
 								if ("Name".equals(modelDelta.getAttributeName())) { //$NON-NLS-1$
 									NonRootModelElement modelElement = (NonRootModelElement) modelDelta
