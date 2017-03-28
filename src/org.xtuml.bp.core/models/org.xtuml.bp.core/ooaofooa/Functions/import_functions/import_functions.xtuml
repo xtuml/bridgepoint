@@ -622,11 +622,12 @@ if ( not_empty c_c )
     end for;
     IMPORT_ERR::reportError( PMC:param.PMC, message:"Function parsed with signature: ''" + signature + "'' not found in component ''" + c_c.Name + "''", line_num:param.start_line, dialect:dialect );
   elif ( "routine" == activity_type and "" != port )
-    select any c_po related by c_c->C_PO[R4010] where ( selected.Name == port );
+    // select for terminator ports in a project component first. look for
+    // a port named <domain>__<terminator>
+    select any c_po related by c_c->C_PO[R4010] where ( selected.Name == domain + "__" + port );
     if ( empty c_po )
-      // if a port is not found, the port may be in a project component. check for 
-      // a port named <domain>__<terminator>
-      select any c_po related by c_c->C_PO[R4010] where ( selected.Name == domain + "__" + port );
+      // if not found, check for terminator ports in a domain component
+      select any c_po related by c_c->C_PO[R4010] where ( selected.Name == port );
     end if;
     select many c_eps related by c_po->C_IR[R4016]->C_I[R4012]->C_EP[R4003];
     for each c_ep in c_eps
