@@ -5,12 +5,20 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.MultiStatus;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.ui.IEditorInput;
+import org.eclipse.ui.IEditorPart;
+import org.eclipse.ui.IEditorReference;
+import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.texteditor.IDocumentProvider;
+import org.eclipse.ui.texteditor.IDocumentProviderExtension;
+import org.eclipse.xtext.ui.editor.XtextEditor;
 import org.xtuml.bp.core.Attribute_c;
 import org.xtuml.bp.core.ClassParticipant_c;
 import org.xtuml.bp.core.ComponentParticipant_c;
@@ -240,4 +248,29 @@ public class RenameParticipantUtil {
 		}
 	}
 
+	public static void synchronizeMaslEditors() {
+		Display.getDefault().syncExec( new Runnable() {
+			@Override
+			public void run() {
+				IEditorReference[] editorReferences = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getEditorReferences();
+				for(IEditorReference editorReference: editorReferences) {
+					IEditorPart editor = editorReference.getEditor(false);
+					if(editor instanceof XtextEditor) {
+						IEditorInput editorInput = editor.getEditorInput();
+						IDocumentProvider documentProvider = ((XtextEditor)editor).getDocumentProvider();
+						if(documentProvider instanceof IDocumentProviderExtension) {
+							try {
+								((IDocumentProviderExtension)documentProvider).synchronize(editorInput);
+							} catch(CoreException exc) {
+								CorePlugin.getDefault().getLog().log(
+										new Status(IStatus.ERROR, CorePlugin.getDefault().getBundle().getSymbolicName(), 
+												"Error synchronizing editors after refactoring", exc));
+							}
+						}
+					}
+				}				
+			}
+		});
+	}
+	
 }

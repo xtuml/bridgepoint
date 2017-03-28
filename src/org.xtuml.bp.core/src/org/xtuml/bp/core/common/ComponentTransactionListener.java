@@ -305,32 +305,7 @@ public class ComponentTransactionListener implements ITransactionListener {
 			instances[i].clearUnreferencedProxies();
 		}
 		IntegrityChecker.startIntegrityChecker(persisted);
-		synchronizeMaslEditors();
-	}
-	
-	private void synchronizeMaslEditors() {
-		Display.getDefault().syncExec( new Runnable() {
-			@Override
-			public void run() {
-				IEditorReference[] editorReferences = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getEditorReferences();
-				for(IEditorReference editorReference: editorReferences) {
-					IEditorPart editor = editorReference.getEditor(false);
-					if(editor instanceof XtextEditor) {
-						IEditorInput editorInput = editor.getEditorInput();
-						IDocumentProvider documentProvider = ((XtextEditor)editor).getDocumentProvider();
-						if(documentProvider instanceof IDocumentProviderExtension) {
-							try {
-								((IDocumentProviderExtension)documentProvider).synchronize(editorInput);
-							} catch(CoreException exc) {
-								CorePlugin.getDefault().getLog().log(
-										new Status(IStatus.ERROR, CorePlugin.getDefault().getBundle().getSymbolicName(), 
-												"Error synchronizing editors after refactoring", exc));
-							}
-						}
-					}
-				}				
-			}
-		});
+		RenameParticipantUtil.synchronizeMaslEditors();
 	}
 	
     private IPath[] getFoldersToBeRemoved(PersistableModelComponent pmc) {
