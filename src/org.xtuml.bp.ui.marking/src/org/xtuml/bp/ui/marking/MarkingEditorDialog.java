@@ -30,7 +30,10 @@ import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.PlatformUI;
 import org.xtuml.bp.core.CorePlugin;
+import org.xtuml.bp.core.ExecutableProperty_c;
+import org.xtuml.bp.core.Function_c;
 import org.xtuml.bp.core.Ooaofooa;
+import org.xtuml.bp.core.Operation_c;
 import org.xtuml.bp.core.common.ModelRoot;
 import org.xtuml.bp.core.common.NonRootModelElement;
 
@@ -95,8 +98,7 @@ public class MarkingEditorDialog extends Dialog {
 			for (ModelRoot modelroot : roots) {
 				Object[] instances = (Object[]) instancesMethod.invoke(null, modelroot);
 				for (Object inst : instances) {
-					String entryText = ((NonRootModelElement) inst).getPath();
-					entryText = entryText.replaceFirst(project.getName() + "::", "");
+					String entryText = getPathkey((NonRootModelElement) inst);
 					modelElementCombo.add(entryText);
 				}
 			}
@@ -314,4 +316,19 @@ public class MarkingEditorDialog extends Dialog {
         return parent;
 	}
 
+	private String getPathkey(NonRootModelElement inst) {
+		String entryText = ((NonRootModelElement) inst).getPath();
+		
+		// If the instance requires a full signature, replace the last segment which
+		// is the name with the full signature
+		if (inst instanceof Function_c) {
+			
+		} else if (inst instanceof Operation_c) {
+			
+		} else if (inst instanceof ExecutableProperty_c) {
+			
+		}
+		entryText = entryText.replaceFirst(project.getName() + "::", "");
+		return entryText;
+	}
 }
