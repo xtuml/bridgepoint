@@ -131,7 +131,7 @@ public class CanvasModelListener extends ModelChangeAdapter  {
 		if (newMdls != null){
 		    for (int i = 0; i < newMdls.length; i++) {            
 				CanvasPlugin.setGraphicalRepresents(newMdls[i]);
-				newMdls[i].Elementdeleted(modelElement);
+	
 				UUID id = Cl_c.Getooa_idfrominstance(modelElement);
 				int type = GraphicsUtil.getOoaType(modelElement);
 				if (modelElement instanceof InstanceStateMachine_c)

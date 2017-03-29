@@ -56,6 +56,7 @@ import org.xtuml.bp.core.ui.PasteAction;
 import org.xtuml.bp.core.util.CoreUtil;
 import org.xtuml.bp.core.util.RenameActionUtil;
 import org.xtuml.bp.core.util.RenameParticipantUtil;
+import org.xtuml.bp.core.util.UIUtil;
 
 public class ComponentTransactionListener implements ITransactionListener {
 
@@ -297,7 +298,10 @@ public class ComponentTransactionListener implements ITransactionListener {
 			setNoPersistActions(false);
 			for (PersistableModelComponent persistedPMC : persisted) {
 				try {
+					NonRootModelElement originalRoot = persistedPMC.getRootModelElement();
+					Ooaofooa.getDefaultInstance().fireModelElementAboutToBeReloaded(persistedPMC.getRootModelElement());
 					persistedPMC.load(new NullProgressMonitor(), false, true);
+					Ooaofooa.getDefaultInstance().fireModelElementReloaded(originalRoot, persistedPMC.getRootModelElement());
 				} catch (CoreException e) {
 					CorePlugin.logError("Could not reload component", e);
 				}
