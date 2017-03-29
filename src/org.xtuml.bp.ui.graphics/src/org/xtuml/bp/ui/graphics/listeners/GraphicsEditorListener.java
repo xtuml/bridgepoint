@@ -87,8 +87,10 @@ public class GraphicsEditorListener extends ModelChangeAdapter implements ITrans
 		// listener
 		// note that all other refreshes occur at the end of a transaction
 		if (m_editor.getTransactionManager() != null
-				&& m_editor.getTransactionManager().getActiveTransaction() != null)
+				&& m_editor.getTransactionManager().getActiveTransaction() != null) {
+			m_editor.refreshPartName();
 			return;
+		}
 		if (event.getType() == Modeleventnotification_c.MODEL_ELEMENT_LOADED
 				|| event.getType() == Modeleventnotification_c.MODEL_ELEMENT_RELOAD) {
 			NonRootModelElement modelElement = (NonRootModelElement) event

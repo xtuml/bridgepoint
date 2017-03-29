@@ -192,7 +192,7 @@ public class CanvasModelListener extends ModelChangeAdapter  {
 			
 			for (int i = 0; i < mdls.length; i++) {
 				if (CanvasPlugin.classInView(mdls[i], modelElement)) {
-					mdls[i].Elementchanged(modelElement);
+					mdls[i].Elementchanged(modelElement);				
 				}
 			}
 		
