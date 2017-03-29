@@ -317,18 +317,31 @@ public class MarkingEditorDialog extends Dialog {
 	}
 
 	private String getPathkey(NonRootModelElement inst) {
-		String entryText = ((NonRootModelElement) inst).getPath();
+		String signature = new String("");
+		String pathkey = ((NonRootModelElement) inst).getPath();
 		
 		// If the instance requires a full signature, replace the last segment which
 		// is the name with the full signature
 		if (inst instanceof Function_c) {
-			
+			signature = ((Function_c) inst).Getsignature(1);
 		} else if (inst instanceof Operation_c) {
-			
+			signature = ((Operation_c) inst).Getsignature(1);
 		} else if (inst instanceof ExecutableProperty_c) {
-			
+			signature = ((ExecutableProperty_c) inst).Getsignature(1);
 		}
-		entryText = entryText.replaceFirst(project.getName() + "::", "");
-		return entryText;
+		
+		if (!signature.isEmpty()) {
+			signature = signature.replaceAll(", ", " ");
+			String[] pathPieces = pathkey.split("::");
+			String updatedPath = new String("");
+			for (int i=0; i<pathPieces.length-1; ++i) {
+				updatedPath = updatedPath.concat(pathPieces[i] + "::");
+			}
+			updatedPath = updatedPath.concat(signature);
+			pathkey = updatedPath;
+		}
+
+		pathkey = pathkey.replaceFirst(project.getName() + "::", "");
+		return pathkey;
 	}
 }
