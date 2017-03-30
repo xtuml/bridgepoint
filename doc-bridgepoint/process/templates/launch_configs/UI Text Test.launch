@@ -21,8 +21,6 @@
 </listAttribute>
 <mapAttribute key="org.eclipse.debug.core.environmentVariables">
 <mapEntry key="PTC_MCC_ENABLED" value="true"/>
-<mapEntry key="XTUML_DEVELOPMENT_REPOSITORY" value="${system_property:XTUML_DEVELOPMENT_REPOSITORY}"/>
-<mapEntry key="XTUML_TEST_MODEL_REPOSITORY" value="${system_property:XTUML_TEST_MODEL_REPOSITORY}"/>
 <mapEntry key="tmp" value="~/workspaces/test"/>
 </mapAttribute>
 <stringAttribute key="org.eclipse.jdt.junit.CONTAINER" value=""/>
@@ -31,10 +29,10 @@
 <stringAttribute key="org.eclipse.jdt.junit.TEST_KIND" value="org.eclipse.jdt.junit.loader.junit4"/>
 <stringAttribute key="org.eclipse.jdt.launching.JRE_CONTAINER" value="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
 <stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="UITextGlobalsSuite"/>
-<stringAttribute key="org.eclipse.jdt.launching.PROGRAM_ARGUMENTS" value="-pluginCustomization ${system_property:XTUML_DEVELOPMENT_REPOSITORY}/src/org.xtuml.bp.pkg/plugin_customization.ini"/>
+<stringAttribute key="org.eclipse.jdt.launching.PROGRAM_ARGUMENTS" value="-pluginCustomization ${resource_loc:/org.xtuml.bp.core}/../org.xtuml.bp.pkg/plugin_customization.ini"/>
 <stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="org.xtuml.bp.ui.text.test"/>
 <stringAttribute key="org.eclipse.jdt.launching.SOURCE_PATH_PROVIDER" value="org.eclipse.pde.ui.workbenchClasspathProvider"/>
-<stringAttribute key="org.eclipse.jdt.launching.VM_ARGUMENTS" value="-Xmx1024m -Xms512m -Dorg.eclipse.epp.logging.aeri.ui.skipReports=true -DWORKSPACE_PATH=${resource_loc:/org.xtuml.bp.test}/../org.xtuml.bp.ui.text.test/ -DLOGFILE_PATH=${eclipse_home}/bp_tests/ui_text/.metadata/.log -Dfile.encoding=UTF-8 -DXTUML_DEVELOPMENT_REPOSITORY=${system_property:XTUML_DEVELOPMENT_REPOSITORY} -DXTUML_TEST_MODEL_REPOSITORY=${system_property:XTUML_TEST_MODEL_REPOSITORY}"/>
+<stringAttribute key="org.eclipse.jdt.launching.VM_ARGUMENTS" value="-Xmx1024m -Xms512m -Dorg.eclipse.epp.logging.aeri.ui.skipReports=true -DWORKSPACE_PATH=${resource_loc:/org.xtuml.bp.core}/../org.xtuml.bp.ui.text.test/ -DLOGFILE_PATH=${eclipse_home}/bp_tests/ui_text/.metadata/.log -Dfile.encoding=UTF-8"/>
 <stringAttribute key="pde.version" value="3.3"/>
 <stringAttribute key="product" value="org.eclipse.platform.ide"/>
 <booleanAttribute key="run_in_ui_thread" value="true"/>
