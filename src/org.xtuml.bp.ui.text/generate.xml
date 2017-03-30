@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="bp.ui.text" default="all" basedir=".">
-	
-  <import file="../MC-Java/common.xml"/>
-	
+   
+  <import file="${mcj_path}/common.xml"/>
+   
   <property name="plugins-home" value="${ant.home}/../.."/>
 
   <target name="all"
@@ -39,7 +39,7 @@
     <exec dir="sql" vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
       <env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
       <arg line="xtumlmc_gen_erate -f db.gen
-        -import ../${mcj_path}/ooa_schema.sql
+        -import ${mcj_path}/ooa_schema.sql
         -import ../${core_sql_dir}/ooaofooa.sql
         -import clr_schema.sql
         -import clr_pei.sql" />
@@ -75,7 +75,7 @@
           unless="plugin_xml.buildNotNeeded" >
     <echo >Generating plugin.xml ...</echo>
   <exec vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
-  	<env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
+   <env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
     <arg line="xtumlmc_gen_erate -f sql/db.gen
       -arch arc/create_plugin_xml.arc" />
   </exec>
@@ -165,7 +165,7 @@
 
   <target name="literal_rule" description="Generate File OALKeywords.java for Syntax Highlighting" unless="literal_rule.buildNotNeeded" depends="literal_rule.depends">
     <exec vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
-    	<env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
+      <env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
     <arg line="xtumlmc_gen_erate -nopersist
       -import ${als.dir}/grammar_schema.sql
       -import ${als.dir}/oal_grammar.sql

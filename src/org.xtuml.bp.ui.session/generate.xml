@@ -16,9 +16,9 @@ the License.
 
 -->
 <project name="org.xtuml.bp.ui.session" default="all" basedir=".">
-	
-  <import file="../MC-Java/common.xml"/>
-	
+   
+  <import file="${mcj_path}/common.xml"/>
+   
   <target name="all"
           description="Generate all code for this project"
           depends="update_schema,java,format_java">

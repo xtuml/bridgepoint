@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="bp.ui.graphics" default="" basedir=".">
 
-  <import file="../MC-Java/common.xml"/>
-	
+  <import file="${mcj_path}/common.xml"/>
+   
   <!-- CLEAN TARGETS -->
 
   <target name="clean_all"

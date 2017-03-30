@@ -1,342 +1,342 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="bp.ui.canvas" default="all" basedir=".">
-	
-	<import file="../MC-Java/common.xml"/>
-	
-	<target name="all"
+   
+   <import file="${mcj_path}/common.xml"/>
+   
+   <target name="all"
           description="Generate all code for this project"
           depends="sql,schema,java,Build_Outline,inspector.java, cell_modifiers, format_java">
-	</target>
+   </target>
 
-	<target name="nb_all"
+   <target name="nb_all"
           description="Generate all code for this project"
           depends="sql,java,Build_Outline, inspector.java, cell_modifiers">
-	</target>
+   </target>
 
-	<property name="plugins-home" value="${ant.home}/../.."/>
+   <property name="plugins-home" value="${ant.home}/../.."/>
 
-	<property name="sql.input" value="models/org.xtuml.bp.ui.canvas/ooaofgraphics" />
-	<property name="sql.output" value="ooaofgraphics.sql" />
+   <property name="sql.input" value="models/org.xtuml.bp.ui.canvas/ooaofgraphics" />
+   <property name="sql.output" value="ooaofgraphics.sql" />
 
-	<property name="subsystems_to_remove" value="ACT_ V_ E_ GD_ CT_ TS_ DIM_ STY_" />
+   <property name="subsystems_to_remove" value="ACT_ V_ E_ GD_ CT_ TS_ DIM_ STY_" />
 
-	<target name="sql.depends" >
-		<uptodate property="sql.buildNotNeeded" value="yes" targetfile="sql/${sql.output}">
-			<srcfiles dir= "${sql.input}" includes="**/*.xtuml" />
-		</uptodate>
-	</target>
+   <target name="sql.depends" >
+      <uptodate property="sql.buildNotNeeded" value="yes" targetfile="sql/${sql.output}">
+         <srcfiles dir= "${sql.input}" includes="**/*.xtuml" />
+      </uptodate>
+   </target>
 
-	<target name="sql" depends="sql.depends"
+   <target name="sql" depends="sql.depends"
           description="Generate the sql version of the Canvas model"
           unless="sql.buildNotNeeded" >
-		<echo >Generating ${sql.output} ...</echo>
-		<copy file="../org.xtuml.bp.pkg/globals/Globals.xtuml" tofile="${sql.input}/Globals.xtuml" />
-		<exec vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
-			<arg line="xtumlmc_cleanse_for_BridgePoint -u 500000 ${sql.input} sql/${sql.output} ${subsystems_to_remove}" />
-		</exec>
-		<delete file="${sql.input}/Globals.xtuml" />
-	</target>
+      <echo >Generating ${sql.output} ...</echo>
+      <copy file="../org.xtuml.bp.pkg/globals/Globals.xtuml" tofile="${sql.input}/Globals.xtuml" />
+      <exec vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
+         <arg line="xtumlmc_cleanse_for_BridgePoint -u 500000 ${sql.input} sql/${sql.output} ${subsystems_to_remove}" />
+      </exec>
+      <delete file="${sql.input}/Globals.xtuml" />
+   </target>
 
-	<property file="${mcj_path}/mc_java.depends" />
+   <property file="${mcj_path}/mc_java.depends" />
 
-	<property name="sg.dep" value="ooa_schema.sql,schema_gen.arc" />
-	<property name="schema.output" value="metamodel_schema.sql" />
+   <property name="sg.dep" value="ooa_schema.sql,schema_gen.arc" />
+   <property name="schema.output" value="metamodel_schema.sql" />
 
-	<target name="schema.depends" >
-		<uptodate property="schema.buildNotNeeded" targetfile="sql/${schema.output}">
-			<srcfiles dir = "sql"        includes = "${sql.output}"/>
-			<srcfiles dir = "${mcj_path}" includes = "${sg.dep}"/>
-		</uptodate>
-	</target>
+   <target name="schema.depends" >
+      <uptodate property="schema.buildNotNeeded" targetfile="sql/${schema.output}">
+         <srcfiles dir = "sql"        includes = "${sql.output}"/>
+         <srcfiles dir = "${mcj_path}" includes = "${sg.dep}"/>
+      </uptodate>
+   </target>
 
-	<target name="schema"
+   <target name="schema"
           depends="schema.depends"
           description="Generate the Ooa of ooa database schema file"
           unless="schema.buildNotNeeded" >
-		<echo >Generating ${schema.output} ...</echo>
-		<ant antfile="${mcj_path}/build.xml" target="generate.schema" >
-			<property name="param1" value="${sql.output}" />
-			<property name="param2" value="${mcj_path}" />
-			<property name="param3" value="TRUE" />
-			<property name="param4" value="ooaofgraphics" />
-		</ant>
-		<!-- Need to move the output file since the archetype uses the domain
+      <echo >Generating ${schema.output} ...</echo>
+      <ant antfile="${mcj_path}/build.xml" target="generate.schema" >
+         <property name="param1" value="${sql.output}" />
+         <property name="param2" value="${mcj_path}" />
+         <property name="param3" value="TRUE" />
+         <property name="param4" value="ooaofgraphics" />
+      </ant>
+      <!-- Need to move the output file since the archetype uses the domain
        name as the base name of the output file -->
-		<move file="sql/ooaofgraphics_schema.sql" tofile="sql/${schema.output}" />
-	</target>
+      <move file="sql/ooaofgraphics_schema.sql" tofile="sql/${schema.output}" />
+   </target>
 
-	<property name="java.sql.dep" value="${sql.output}" />
-	<property name="java.color.dep" value="ooaofgraphics_startspec.clr,ooaofgraphics_import_spec.clr,ooaofgraphics_package_spec.clr" />
-	<property name="java.tj.dep" value="ooa_schema.sql,${java.arc.depends}" />
+   <property name="java.sql.dep" value="${sql.output}" />
+   <property name="java.color.dep" value="ooaofgraphics_startspec.clr,ooaofgraphics_import_spec.clr,ooaofgraphics_package_spec.clr" />
+   <property name="java.tj.dep" value="ooa_schema.sql,${java.arc.depends}" />
 
-	<property name="outline.output" value="src/org/xtuml/bp/ui/canvas/ModelOutlineSorter.java" />
-	<property name="java.output" value="src/org/xtuml/bp/ui/canvas/Ooaofgraphics.java" />
+   <property name="outline.output" value="src/org/xtuml/bp/ui/canvas/ModelOutlineSorter.java" />
+   <property name="java.output" value="src/org/xtuml/bp/ui/canvas/Ooaofgraphics.java" />
 
-	<property name="tree_schema.output_path" value="../org.xtuml.bp.ui.tree/sql" />
-	<property name="tree_schema.output" value="UITree_schema.sql" />
+   <property name="tree_schema.output_path" value="../org.xtuml.bp.ui.tree/sql" />
+   <property name="tree_schema.output" value="UITree_schema.sql" />
 
-	<target name="java.depends" >
-		<uptodate property="java.buildNotNeeded" targetfile="${java.output}">
-			<srcfiles dir = "sql" includes = "ooaofgraphics.sql" />
-			<srcfiles dir = "color"      includes = "${java.color.dep}" />
-			<srcfiles dir = "${mcj_path}" includes = "${java.tj.dep}"/>
-		</uptodate>
-	</target>
+   <target name="java.depends" >
+      <uptodate property="java.buildNotNeeded" targetfile="${java.output}">
+         <srcfiles dir = "sql" includes = "ooaofgraphics.sql" />
+         <srcfiles dir = "color"      includes = "${java.color.dep}" />
+         <srcfiles dir = "${mcj_path}" includes = "${java.tj.dep}"/>
+      </uptodate>
+   </target>
 
-	<target name="Build_Outline.depends" >
-		<uptodate property="Build_Outline.buildNotNeeded" targetfile="${outline.output}">
-			<srcfiles dir = "${tree_schema.output_path}" includes = "${tree_schema.output}" />
-			<srcfiles dir = "../org.xtuml.bp.ui.explorer/sql" includes = "UITree.pei.sql" />
-			<srcfiles dir = "../org.xtuml.bp.core/sql" includes = "ooaofooa.sql" />
-			<srcfiles dir = "arc"        includes = "BuildOutline.arc,create_outline_sorter.inc"/>
-			<srcfiles dir = "color"      includes = "${java.color.dep}" />
-			<srcfiles dir = "${mcj_path}" includes = "${java.tj.dep}"/>
-		</uptodate>
-	</target>
+   <target name="Build_Outline.depends" >
+      <uptodate property="Build_Outline.buildNotNeeded" targetfile="${outline.output}">
+         <srcfiles dir = "${tree_schema.output_path}" includes = "${tree_schema.output}" />
+         <srcfiles dir = "../org.xtuml.bp.ui.explorer/sql" includes = "UITree.pei.sql" />
+         <srcfiles dir = "../org.xtuml.bp.core/sql" includes = "ooaofooa.sql" />
+         <srcfiles dir = "arc"        includes = "BuildOutline.arc,create_outline_sorter.inc"/>
+         <srcfiles dir = "color"      includes = "${java.color.dep}" />
+         <srcfiles dir = "${mcj_path}" includes = "${java.tj.dep}"/>
+      </uptodate>
+   </target>
 
-	<target name="java"
+   <target name="java"
           depends="java.depends"
           description="Generate the Canvas java files"
           unless="java.buildNotNeeded" >
-		<echo >Generating java files ...</echo>
-		<ant antfile="${mcj_path}/build.xml" target="generate.java" >
-			<property name="param1" value="ooaofgraphics" />
-			<property name="param2" value="Ooaofgraphics" />
-			<property name="param3" value="${mcj_path}" />
-			<property name="verify_selects" value="false" />
-			<property name="UUID_Seed" value="-u 500000" />
-			<property name="mcjava.project.root" value="${basedir}"/>
-		</ant>
-		<!-- Need to touch the output file for the case where the input data
+      <echo >Generating java files ...</echo>
+      <ant antfile="${mcj_path}/build.xml" target="generate.java" >
+         <property name="param1" value="ooaofgraphics" />
+         <property name="param2" value="Ooaofgraphics" />
+         <property name="param3" value="${mcj_path}" />
+         <property name="verify_selects" value="false" />
+         <property name="UUID_Seed" value="-u 500000" />
+         <property name="mcjava.project.root" value="${basedir}"/>
+      </ant>
+      <!-- Need to touch the output file for the case where the input data
        changed, but the output didn't -->
-		<touch file="${java.output}" />
-	</target>
+      <touch file="${java.output}" />
+   </target>
 
-	<target name="Build_Outline"
+   <target name="Build_Outline"
           depends="Build_Outline.depends"
           description="Generate the Canvas outline file"
           unless="Build_Outline.buildNotNeeded" >
-		<echo >Generating ${outline.output} ...</echo>
-		<exec vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
-			<env key="PTC_MC_ARC_DIR" value="${mcj_path}"/>
-			<env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
-			<arg line="xtumlmc_gen_erate -nopersist
+      <echo >Generating ${outline.output} ...</echo>
+      <exec vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
+         <env key="PTC_MC_ARC_DIR" value="${mcj_path}"/>
+         <env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
+         <arg line="xtumlmc_gen_erate -nopersist
       -import ${mcj_path}/ooa_schema.sql
       -import ${tree_schema.output_path}/${tree_schema.output}
       -import ../org.xtuml.bp.core/sql/ooaofooa.sql
       -import ../org.xtuml.bp.ui.explorer/sql/UITree.pei.sql
       -arch arc/BuildOutline.arc" />
-		</exec>
-		<delete file="____file.txt" />
-		<!-- Need to touch the output file for the case where the input data
+      </exec>
+      <delete file="____file.txt" />
+      <!-- Need to touch the output file for the case where the input data
        changed, but the output didn't -->
-		<touch file="${outline.output}" />
-	</target>
+      <touch file="${outline.output}" />
+   </target>
 
-	<!-- ********************************************************************* -->
-	<!-- ************************* INSPECTOR SECTION ************************* -->
-	<property name="inspector.sql.input" value="../org.xtuml.bp.core/models/org.xtuml.bp.core/ooaofooa_hierarchy" />
-	<property name="inspector.sql.output" value="ooaofooa_hierarchy.sql" />
+   <!-- ********************************************************************* -->
+   <!-- ************************* INSPECTOR SECTION ************************* -->
+   <property name="inspector.sql.input" value="../org.xtuml.bp.core/models/org.xtuml.bp.core/ooaofooa_hierarchy" />
+   <property name="inspector.sql.output" value="ooaofooa_hierarchy.sql" />
 
-	<target name="inspector.sql.depends" >
-		<uptodate property="inspector.sql.buildNotNeeded" targetfile="sql/${inspector.sql.output}">
-			<srcfiles dir= "${inspector.sql.input}" includes="**/*.xtuml" />
-		</uptodate>
-	</target>
+   <target name="inspector.sql.depends" >
+      <uptodate property="inspector.sql.buildNotNeeded" targetfile="sql/${inspector.sql.output}">
+         <srcfiles dir= "${inspector.sql.input}" includes="**/*.xtuml" />
+      </uptodate>
+   </target>
 
-	<target name="inspector.sql" depends="inspector.sql.depends"
-	          description="Generate the sql version of the Core Hierarchy/Tree model"
-	          unless="inspector.sql.buildNotNeeded" >
-		<echo >Generating ${inspector.sql.output} ...</echo>
-		<copy file="../org.xtuml.bp.pkg/globals/Globals.xtuml" tofile="${inspector.sql.input}/Globals.xtuml" />
-		<exec vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
-			<arg line="xtumlmc_cleanse_for_BridgePoint ${inspector.sql.input} sql/${inspector.sql.output} ${subsystems_to_remove}" />
-		</exec>
-		<delete file="${inspector.sql.input}/Globals.xtuml" />
-	</target>
+   <target name="inspector.sql" depends="inspector.sql.depends"
+             description="Generate the sql version of the Core Hierarchy/Tree model"
+             unless="inspector.sql.buildNotNeeded" >
+      <echo >Generating ${inspector.sql.output} ...</echo>
+      <copy file="../org.xtuml.bp.pkg/globals/Globals.xtuml" tofile="${inspector.sql.input}/Globals.xtuml" />
+      <exec vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
+         <arg line="xtumlmc_cleanse_for_BridgePoint ${inspector.sql.input} sql/${inspector.sql.output} ${subsystems_to_remove}" />
+      </exec>
+      <delete file="${inspector.sql.input}/Globals.xtuml" />
+   </target>
 
-	<property name="inspector.schema.dep" value="ooa_schema.sql,schema_gen.arc" />
-	<property name="inspector.schema.output" value="ooaofooa_hierarchy_schema.sql" />
+   <property name="inspector.schema.dep" value="ooa_schema.sql,schema_gen.arc" />
+   <property name="inspector.schema.output" value="ooaofooa_hierarchy_schema.sql" />
 
-	<target name="inspector.schema.depends" >
-		<uptodate property="inspector.schema.buildNotNeeded" targetfile="sql/${inspector.schema.output}">
-			<srcfiles dir = "sql"        includes = "${inspector.sql.output}"/>
-			<srcfiles dir = "${mcj_path}" includes = "${inspector.schema.dep}"/>
-		</uptodate>
-	</target>
+   <target name="inspector.schema.depends" >
+      <uptodate property="inspector.schema.buildNotNeeded" targetfile="sql/${inspector.schema.output}">
+         <srcfiles dir = "sql"        includes = "${inspector.sql.output}"/>
+         <srcfiles dir = "${mcj_path}" includes = "${inspector.schema.dep}"/>
+      </uptodate>
+   </target>
 
-	<target name="inspector.schema"
-	          depends="inspector.sql,inspector.schema.depends"
-	          description="Generate the Core Tree/Hierarchy schema file"
-	          unless="inspector.schema.buildNotNeeded" >
-		<echo >Generating ${inspector.schema.output} ...</echo>
-		<ant antfile="${mcj_path}/build.xml" target="generate.schema" >
-			<property name="param1" value="${inspector.sql.output}" />
-			<property name="param2" value="${mcj_path}" />
-			<property name="param3" value="FALSE" />
-			<property name="param4" value="ooaofooa_hierarchy" />
-		</ant>
-		<!-- Need to touch the output file for the case where the input data
-	       changed, but the output didn't -->
-		<touch file="sql/${inspector.schema.output}" />
-	</target>
+   <target name="inspector.schema"
+             depends="inspector.sql,inspector.schema.depends"
+             description="Generate the Core Tree/Hierarchy schema file"
+             unless="inspector.schema.buildNotNeeded" >
+      <echo >Generating ${inspector.schema.output} ...</echo>
+      <ant antfile="${mcj_path}/build.xml" target="generate.schema" >
+         <property name="param1" value="${inspector.sql.output}" />
+         <property name="param2" value="${mcj_path}" />
+         <property name="param3" value="FALSE" />
+         <property name="param4" value="ooaofooa_hierarchy" />
+      </ant>
+      <!-- Need to touch the output file for the case where the input data
+          changed, but the output didn't -->
+      <touch file="sql/${inspector.schema.output}" />
+   </target>
 
-	<property name="chain_util_path" value="../org.xtuml.bp.core"/>
+   <property name="chain_util_path" value="../org.xtuml.bp.core"/>
 
-	<property name="inspector.java.output" value="src/org/xtuml/bp/ui/canvas/inspector/ModelInspector.java" />
+   <property name="inspector.java.output" value="src/org/xtuml/bp/ui/canvas/inspector/ModelInspector.java" />
 
-	<target name="inspector.java.depends" >
-		<uptodate property="inspector.java.buildNotNeeded" targetfile="${inspector.java.output}">
-			<srcfiles dir = "../org.xtuml.bp.core/sql" includes = "ooaofooa_hierarchy_schema.sql" />
-			<srcfiles dir = "sql" includes = "ooaofgraphics_hierarchy.pei.sql" />
-			<srcfiles dir = "sql" includes = "ooaofgraphics.sql" />
-			<srcfiles dir = "../org.xtuml.bp.core/arc"        includes = "parse_chain.inc,create_model_inspector.arc,create_object_inspector.inc,create_type_sorter.inc,create_core_plugin_class.arc,create_dependson.arc,create_metadata_elements_sorters.arc" />
-			<srcfiles dir = "${mcj_path}" includes = "ooa_schema.sql,arch_utils.inc"/>
-		</uptodate>
-	</target>
+   <target name="inspector.java.depends" >
+      <uptodate property="inspector.java.buildNotNeeded" targetfile="${inspector.java.output}">
+         <srcfiles dir = "../org.xtuml.bp.core/sql" includes = "ooaofooa_hierarchy_schema.sql" />
+         <srcfiles dir = "sql" includes = "ooaofgraphics_hierarchy.pei.sql" />
+         <srcfiles dir = "sql" includes = "ooaofgraphics.sql" />
+         <srcfiles dir = "../org.xtuml.bp.core/arc"        includes = "parse_chain.inc,create_model_inspector.arc,create_object_inspector.inc,create_type_sorter.inc,create_core_plugin_class.arc,create_dependson.arc,create_metadata_elements_sorters.arc" />
+         <srcfiles dir = "${mcj_path}" includes = "ooa_schema.sql,arch_utils.inc"/>
+      </uptodate>
+   </target>
 
-	<target name="inspector.java"
-	          depends="sql,inspector.sql,inspector.schema,inspector.java.depends"
-	          description="Generate the tree adapter files"
-	          unless="inspector.java.buildNotNeeded" >
-		<echo >Generating ${inspector.java.output} ...</echo>
-		<exec vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
-			<env key="PTC_MC_ARC_DIR" value="${mcj_path}"/>
-			<env key="CHAIN_UTIL_DIR" value="${chain_util_path}"/>
-			<env key="LOCAL_ARC_DIR" value="../org.xtuml.bp.core/arc" />
-			<env key="OUTPUT_PATH" value="org/xtuml/bp/ui/canvas" />
-			<env key="SOURCE_PACKAGE" value="org.xtuml.bp.ui.canvas" />
-			<env key="INSPECTOR_NAME" value="GraphicalModelInspector" />
-			<env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
-			<arg line="xtumlmc_gen_erate -nopersist
-	      -import ${mcj_path}/ooa_schema.sql
-	      -import sql/ooaofooa_hierarchy_schema.sql
-	      -import sql/ooaofgraphics.sql
-	      -import sql/ooaofgraphics_hierarchy.pei.sql
-	      -arch ../org.xtuml.bp.core/arc/create_model_inspector.arc" />
-		</exec>
-
-
-
-		<delete file="____file.txt" />
-		<delete file="key_lett.txt" />
-		<delete file="rel_chain.txt" />
-		<delete file="rel_num.txt" />
-		<delete file="remainder.txt" />
-		<!-- Need to touch the output file for the case where the input data
-	       changed, but the output didn't -->
-		<touch file="${inspector.java.output}" />
-	</target>
-
-	<property name="cell_modifier.output" value="src/org/xtuml/bp/ui/canvas/cells/CellModifierProvider.java" />
-
-	<target name="cell_modifier.depends" depends="inspector.java.depends">
-		<uptodate property="cell_modifier.buildNotNeeded" targetfile="${cell_modifier.output}">
-			<srcfiles dir = "../org.xtuml.bp.core/arc"        includes = "generate_cell_modifiers.arc" />
-		</uptodate>
-	</target>
-
-	<target name="cell_modifiers" depends="cell_modifier.depends" unless="cell_modifier.buildNotNeeded">
-		<echo >Generating ${cell_modifier.output} ...</echo>
-		<exec vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
-			<env key="PTC_MC_ARC_DIR" value="${mcj_path}"/>
-			<env key="CHAIN_UTIL_DIR" value="${chain_util_path}"/>
-			<env key="OUTPUT_PATH" value="org/xtuml/bp/ui/canvas/cells" />
-			<env key="SOURCE_PACKAGE" value="org.xtuml.bp.ui.canvas.cells" />
-			<env key="MODEL_ROOT" value="Ooaofgraphics" />
-			<env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
-			<arg line="xtumlmc_gen_erate -nopersist
-	      -import ${mcj_path}/ooa_schema.sql
-		  -import sql/ooaofooa_hierarchy_schema.sql
-	      -import sql/ooaofgraphics.sql
-	      -import sql/ooaofgraphics_hierarchy.pei.sql
-	      -arch ../org.xtuml.bp.core/arc/generate_cell_modifiers.arc" />
-		</exec>
-
-		<delete file="____file.txt" />
-		<delete file="key_lett.txt" />
-		<delete file="rel_chain.txt" />
-		<delete file="rel_num.txt" />
-		<delete file="remainder.txt" />
-		<!-- Need to touch the output file for the case where the input data
-	       changed, but the output didn't -->
-		<touch file="${cell_modifier.output}" />
-	</target>
+   <target name="inspector.java"
+             depends="sql,inspector.sql,inspector.schema,inspector.java.depends"
+             description="Generate the tree adapter files"
+             unless="inspector.java.buildNotNeeded" >
+      <echo >Generating ${inspector.java.output} ...</echo>
+      <exec vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
+         <env key="PTC_MC_ARC_DIR" value="${mcj_path}"/>
+         <env key="CHAIN_UTIL_DIR" value="${chain_util_path}"/>
+         <env key="LOCAL_ARC_DIR" value="../org.xtuml.bp.core/arc" />
+         <env key="OUTPUT_PATH" value="org/xtuml/bp/ui/canvas" />
+         <env key="SOURCE_PACKAGE" value="org.xtuml.bp.ui.canvas" />
+         <env key="INSPECTOR_NAME" value="GraphicalModelInspector" />
+         <env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
+         <arg line="xtumlmc_gen_erate -nopersist
+         -import ${mcj_path}/ooa_schema.sql
+         -import sql/ooaofooa_hierarchy_schema.sql
+         -import sql/ooaofgraphics.sql
+         -import sql/ooaofgraphics_hierarchy.pei.sql
+         -arch ../org.xtuml.bp.core/arc/create_model_inspector.arc" />
+      </exec>
 
 
-	<property name="cvs_java_files" value="preferences/*,Canvas*.java, GCDelegate.java, Gr_c.java,
+
+      <delete file="____file.txt" />
+      <delete file="key_lett.txt" />
+      <delete file="rel_chain.txt" />
+      <delete file="rel_num.txt" />
+      <delete file="remainder.txt" />
+      <!-- Need to touch the output file for the case where the input data
+          changed, but the output didn't -->
+      <touch file="${inspector.java.output}" />
+   </target>
+
+   <property name="cell_modifier.output" value="src/org/xtuml/bp/ui/canvas/cells/CellModifierProvider.java" />
+
+   <target name="cell_modifier.depends" depends="inspector.java.depends">
+      <uptodate property="cell_modifier.buildNotNeeded" targetfile="${cell_modifier.output}">
+         <srcfiles dir = "../org.xtuml.bp.core/arc"        includes = "generate_cell_modifiers.arc" />
+      </uptodate>
+   </target>
+
+   <target name="cell_modifiers" depends="cell_modifier.depends" unless="cell_modifier.buildNotNeeded">
+      <echo >Generating ${cell_modifier.output} ...</echo>
+      <exec vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
+         <env key="PTC_MC_ARC_DIR" value="${mcj_path}"/>
+         <env key="CHAIN_UTIL_DIR" value="${chain_util_path}"/>
+         <env key="OUTPUT_PATH" value="org/xtuml/bp/ui/canvas/cells" />
+         <env key="SOURCE_PACKAGE" value="org.xtuml.bp.ui.canvas.cells" />
+         <env key="MODEL_ROOT" value="Ooaofgraphics" />
+         <env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
+         <arg line="xtumlmc_gen_erate -nopersist
+         -import ${mcj_path}/ooa_schema.sql
+        -import sql/ooaofooa_hierarchy_schema.sql
+         -import sql/ooaofgraphics.sql
+         -import sql/ooaofgraphics_hierarchy.pei.sql
+         -arch ../org.xtuml.bp.core/arc/generate_cell_modifiers.arc" />
+      </exec>
+
+      <delete file="____file.txt" />
+      <delete file="key_lett.txt" />
+      <delete file="rel_chain.txt" />
+      <delete file="rel_num.txt" />
+      <delete file="remainder.txt" />
+      <!-- Need to touch the output file for the case where the input data
+          changed, but the output didn't -->
+      <touch file="${cell_modifier.output}" />
+   </target>
+
+
+   <property name="cvs_java_files" value="preferences/*,Canvas*.java, GCDelegate.java, Gr_c.java,
     ModelContentOutlinePage.java, ShowCanvasAction.java, Cl_c.java, ToolAction.java,
     ICanvasHelpContextIds.java, OoaofgraphicsBase.java, util/*, IEditorTabFactory.java, GraphicsReconcilerLauncher.java" />
 
-	<target name="format_java" description="Format the generated java source">
-		<taskdef name="PTCodeFormat" classname="PTCodeFormatterTask">
-			<classpath>
-				<pathelement path="../org.xtuml.bp.core/tools/" />
-				<fileset dir="${plugins-home}/plugins" casesensitive="yes">
-					<include name="**/org.eclipse.text_*.jar" />
-					<include name="**/org.eclipse.ui_*.jar" />
-					<include name="**/org.eclipse.jdt.core_*.jar" />
-					<include name="**/org.eclipse.core.runtime_*.jar" />
-					<include name="**/org.eclipse.osgi_*.jar" />
-					<include name="**/org.eclipse.core.resources_*.jar" />
-					<include name="**/org.eclipse.equinox.common_*.jar" />
-				</fileset>
-			</classpath>
-		</taskdef>
-		<PTCodeFormat>
-			<fileset dir="src/org/xtuml/bp/ui/canvas" excludes="${cvs_java_files}" includes="*.java" />
-			<fileset dir="src/org/xtuml/bp/ui/canvas/inspector" excludes="${cvs_java_files}" includes="*.java" />
-		</PTCodeFormat>
-	</target>
-	<target name="instrument_for_jcoverage" description="Instrument the classes to produce JCoverage data">
-		<taskdef classpath="jcoverage.jar" resource="tasks.properties"/>
-		<instrument todir="bin_coverage">
-			<fileset dir="bin">
-				<include name="**/*.class"/>
-			</fileset>
-		</instrument>
-	</target>
-	<target name="coverage">
-		<report srcdir="src" destdir="bin_coverage"/>
-	</target>
+   <target name="format_java" description="Format the generated java source">
+      <taskdef name="PTCodeFormat" classname="PTCodeFormatterTask">
+         <classpath>
+            <pathelement path="../org.xtuml.bp.core/tools/" />
+            <fileset dir="${plugins-home}/plugins" casesensitive="yes">
+               <include name="**/org.eclipse.text_*.jar" />
+               <include name="**/org.eclipse.ui_*.jar" />
+               <include name="**/org.eclipse.jdt.core_*.jar" />
+               <include name="**/org.eclipse.core.runtime_*.jar" />
+               <include name="**/org.eclipse.osgi_*.jar" />
+               <include name="**/org.eclipse.core.resources_*.jar" />
+               <include name="**/org.eclipse.equinox.common_*.jar" />
+            </fileset>
+         </classpath>
+      </taskdef>
+      <PTCodeFormat>
+         <fileset dir="src/org/xtuml/bp/ui/canvas" excludes="${cvs_java_files}" includes="*.java" />
+         <fileset dir="src/org/xtuml/bp/ui/canvas/inspector" excludes="${cvs_java_files}" includes="*.java" />
+      </PTCodeFormat>
+   </target>
+   <target name="instrument_for_jcoverage" description="Instrument the classes to produce JCoverage data">
+      <taskdef classpath="jcoverage.jar" resource="tasks.properties"/>
+      <instrument todir="bin_coverage">
+         <fileset dir="bin">
+            <include name="**/*.class"/>
+         </fileset>
+      </instrument>
+   </target>
+   <target name="coverage">
+      <report srcdir="src" destdir="bin_coverage"/>
+   </target>
 
-	<!-- CLEAN TARGETS -->
+   <!-- CLEAN TARGETS -->
 
-	<target name="clean_all"
+   <target name="clean_all"
         description="Clean entire project"
         depends="clean_classes,clean_java,clean_sql,clean_schema" >
-		<echo>Done cleaning for ${ant.project.name}</echo>
-	</target>
+      <echo>Done cleaning for ${ant.project.name}</echo>
+   </target>
 
-	<target name="clean_sql"
+   <target name="clean_sql"
     description="Remove the generated file: ${sql.output}">
-		<echo>Removing generated sql file: ${sql.output} ...</echo>
-		<delete file="sql/${sql.output}" />
-	</target>
+      <echo>Removing generated sql file: ${sql.output} ...</echo>
+      <delete file="sql/${sql.output}" />
+   </target>
 
-	<target name="clean_schema" description="Remove the Ooa of graphics database schema file" >
+   <target name="clean_schema" description="Remove the Ooa of graphics database schema file" >
 
-		<echo>Removing the generated schema file: ${schema.output} ...</echo>
-		<delete file="sql/${schema.output}" />
+      <echo>Removing the generated schema file: ${schema.output} ...</echo>
+      <delete file="sql/${schema.output}" />
 
-	</target>
+   </target>
 
-	<target name="clean_java"
+   <target name="clean_java"
      description="Remove generated java source files." >
-		<echo>Removing generated java source files ...</echo>
-		<delete verbose="true" >
-			<fileset dir="src/org/xtuml/bp/ui/canvas"
+      <echo>Removing generated java source files ...</echo>
+      <delete verbose="true" >
+         <fileset dir="src/org/xtuml/bp/ui/canvas"
            excludes="${cvs_java_files}" />
-			<fileset dir="src/org/xtuml/bp/ui/canvas/inspector"
+         <fileset dir="src/org/xtuml/bp/ui/canvas/inspector"
            excludes="${cvs_java_files}" />
-		</delete>
-		<echo>Removing generated sql file: Ooaofgraphics.bpi.sql ...</echo>
-		<delete verbose="true" file="sql/Ooaofgraphics.bpi.sql" />
-	</target>
+      </delete>
+      <echo>Removing generated sql file: Ooaofgraphics.bpi.sql ...</echo>
+      <delete verbose="true" file="sql/Ooaofgraphics.bpi.sql" />
+   </target>
 
-	<target name="clean_classes" description="Remove all compiled class files." >
-		<echo>Removing compiled class files ...</echo>
-		<delete verbose="true" dir="bin" />
-	</target>
+   <target name="clean_classes" description="Remove all compiled class files." >
+      <echo>Removing compiled class files ...</echo>
+      <delete verbose="true" dir="bin" />
+   </target>
 
 </project>
