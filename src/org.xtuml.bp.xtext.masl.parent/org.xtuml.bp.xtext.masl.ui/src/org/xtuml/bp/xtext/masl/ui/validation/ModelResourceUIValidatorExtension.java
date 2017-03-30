@@ -133,7 +133,14 @@ public class ModelResourceUIValidatorExtension extends DefaultResourceUIValidato
 				setMarkerAttributes(issue, resource, marker, xtUMLRootElement, lineNumber, lineAndColumn.getColumn(), charStart);
 			} else {
 				// If we can't find the xtuml resource then use the default marker creation
-				markerCreator.createMarker(issue, resource, markerTypeProvider.getMarkerType(issue));
+				// Note that we ignore errors in resource files that are not xtuml
+				// unless the errors are associated with xtuml model elements.
+				// The case where elements are associated with xtuml elements is handled 
+				// above.
+				String fileExtension = resource.getFileExtension();
+				if (fileExtension == Ooaofooa.MODELS_EXT) {
+					markerCreator.createMarker(issue, resource, markerTypeProvider.getMarkerType(issue));
+				} 				
 			}
 		}
 	}

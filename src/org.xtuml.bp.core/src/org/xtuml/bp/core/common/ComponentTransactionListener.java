@@ -56,7 +56,6 @@ import org.xtuml.bp.core.ui.PasteAction;
 import org.xtuml.bp.core.util.CoreUtil;
 import org.xtuml.bp.core.util.RenameActionUtil;
 import org.xtuml.bp.core.util.RenameParticipantUtil;
-import org.xtuml.bp.core.util.UIUtil;
 
 public class ComponentTransactionListener implements ITransactionListener {
 
@@ -234,39 +233,39 @@ public class ComponentTransactionListener implements ITransactionListener {
 						}
 						persist(target);
 					} else if (delta instanceof AttributeChangeModelDelta) {
-						AttributeChangeModelDelta modelDelta = (AttributeChangeModelDelta) delta;
-						NonRootModelElement element = (NonRootModelElement) delta.getModelElement();
+                        NonRootModelElement element=(NonRootModelElement) delta.getModelElement();
 						target = PersistenceManager.findElementComponent(element, true);
 						if (target != null) {
-							if (RenameActionUtil
-									.getAttributeNameForName((NonRootModelElement) modelDelta.getModelElement())
-									.equals(modelDelta.getAttributeName())) {
-								// Invoke the rename refactoring util
-								final AtomicBoolean refactorSuccess = new AtomicBoolean();
-								Display.getDefault().syncExec(new Runnable() {
-									public void run() {
-										// enable resource listener during
-										// this part if
-										// disabled
-										boolean disableListener = ComponentResourceListener.getIgnoreResourceChanges();
-										boolean disableMarker = ComponentResourceListener
-												.isIgnoreResourceChangesMarkerSet();
-										try {
-											ComponentResourceListener.setIgnoreResourceChanges(false);
-											ComponentResourceListener.setIgnoreResourceChangesMarker(false);
-											RenameParticipantUtil rpu = new RenameParticipantUtil();
-											refactorSuccess.set(rpu.renameElement(transaction));
-										} catch (Exception e) {
-											CorePlugin.logError("MASL rename/refactor failed.", e);
-										} finally {
-											ComponentResourceListener.setIgnoreResourceChanges(disableListener);
-											ComponentResourceListener.setIgnoreResourceChangesMarker(disableMarker);
-										}
-									}
-								});
-								if (refactorSuccess.get()) {
+							AttributeChangeModelDelta modelDelta = (AttributeChangeModelDelta) delta;
+							
+							// This is checking if masl rename/refactor needs to run
+							if (RenameParticipantUtil.isMASLChange(modelDelta)) {
+								boolean refactorSuccess = false;
+								// assure the resource change listener is
+								// enabled
+								boolean disableListener = ComponentResourceListener.getIgnoreResourceChanges();
+								boolean disableMarker = ComponentResourceListener.isIgnoreResourceChangesMarkerSet();
+								try {
+									// We have to assure that resource changes are ignored while
+									// masl refactors. If we do not, the change listener run
+									// before we have persisted this change and they reload the
+									// model from disk thus wiping out the in-memory change before
+									// it gets persisted.
+									ComponentResourceListener.setIgnoreResourceChanges(true);
+									ComponentResourceListener.setIgnoreResourceChangesMarker(true);
+									RenameParticipantUtil rpu = new RenameParticipantUtil();
+									refactorSuccess = rpu.renameElement(modelDelta);
+								} catch (Exception e) {
+									CorePlugin.logError("MASL rename/refactor failed.", e);
+								} finally {
+									// restore resource change listener
+									ComponentResourceListener.setIgnoreResourceChanges(disableListener);
+									ComponentResourceListener.setIgnoreResourceChangesMarker(disableMarker);
+								}
+								if (refactorSuccess) {
 									setNoPersistActions(true);
 								}
+
 							}
 							if (modelDelta.isPersistenceRelatedChange()) {
 								if ("Name".equals(modelDelta.getAttributeName())) { //$NON-NLS-1$
@@ -313,34 +312,7 @@ public class ComponentTransactionListener implements ITransactionListener {
 			instances[i].clearUnreferencedProxies();
 		}
 		IntegrityChecker.startIntegrityChecker(persisted);
-		synchronizeMaslEditors();
-	}
-
-	private void synchronizeMaslEditors() {
-		Display.getDefault().syncExec(new Runnable() {
-			@Override
-			public void run() {
-				IEditorReference[] editorReferences = PlatformUI.getWorkbench().getActiveWorkbenchWindow()
-						.getActivePage().getEditorReferences();
-				for (IEditorReference editorReference : editorReferences) {
-					IEditorPart editor = editorReference.getEditor(false);
-					if (editor instanceof XtextEditor) {
-						IEditorInput editorInput = editor.getEditorInput();
-						IDocumentProvider documentProvider = ((XtextEditor) editor).getDocumentProvider();
-						if (documentProvider instanceof IDocumentProviderExtension) {
-							try {
-								((IDocumentProviderExtension) documentProvider).synchronize(editorInput);
-							} catch (CoreException exc) {
-								CorePlugin.getDefault().getLog()
-										.log(new Status(IStatus.ERROR,
-												CorePlugin.getDefault().getBundle().getSymbolicName(),
-												"Error synchronizing editors after refactoring", exc));
-							}
-						}
-					}
-				}
-			}
-		});
+		RenameParticipantUtil.synchronizeMaslEditors();
 	}
 
 	private IPath[] getFoldersToBeRemoved(PersistableModelComponent pmc) {
