@@ -88,7 +88,13 @@ public class XtUMLNature implements IProjectNature {
 			if (!project.hasNature(ID)) {
 				IProjectDescription desc = project.getDescription();
 				String[] oldNatures = desc.getNatureIds();
-				String[] newNatures = new String[oldNatures.length + 2];
+				int numNewNatures = 1;
+				int dialect = Pref_c.Getactiondialect("bridgepoint_prefs_default_action_language_dialect");
+				boolean maslPreferenceIsSet = (dialect == Actiondialect_c.masl);
+				if (maslPreferenceIsSet) {
+					numNewNatures = 2;
+				}
+				String[] newNatures = new String[oldNatures.length + numNewNatures];
 				System.arraycopy(
 					oldNatures,
 					0,
@@ -96,7 +102,9 @@ public class XtUMLNature implements IProjectNature {
 					0,
 					oldNatures.length);
 				newNatures[oldNatures.length] = ID;
-				newNatures[oldNatures.length+1] = XtextProjectHelper.NATURE_ID;
+				if (maslPreferenceIsSet) {
+					newNatures[oldNatures.length+1] = XtextProjectHelper.NATURE_ID;
+				}
 				desc.setNatureIds(newNatures);
 				project.setDescription(desc, null);
 				addNatureResources(project);

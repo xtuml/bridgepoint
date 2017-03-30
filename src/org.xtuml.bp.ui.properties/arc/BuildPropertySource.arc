@@ -757,7 +757,8 @@ val = val${count};
               Attribute_c base_attr = Attribute_c.getOneO_ATTROnR106(BaseAttribute_c.getOneO_BATTROnR113(rattr));
               if ( (  (base_attr == null)) )
               {
-                return "same_as<Base_Attribute>";
+                DataType_c base_dt = DataType_c.getOneS_DTOnR114((Attribute_c)m_inst);
+                return base_dt.getName();
               }
               else {
                 DataType_c base_dt = DataType_c.getOneS_DTOnR114(base_attr);

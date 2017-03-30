@@ -25,6 +25,7 @@ import org.eclipse.xtext.nodemodel.ICompositeNode;
 import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
 import org.eclipse.xtext.service.OperationCanceledError;
 import org.eclipse.xtext.ui.editor.quickfix.IssueResolutionProvider;
+import org.eclipse.xtext.ui.editor.validation.MarkerCreator;
 import org.eclipse.xtext.ui.validation.DefaultResourceUIValidatorExtension;
 import org.eclipse.xtext.ui.validation.MarkerTypeProvider;
 import org.eclipse.xtext.util.LineAndColumn;
@@ -73,6 +74,9 @@ public class ModelResourceUIValidatorExtension extends DefaultResourceUIValidato
 	private MarkerTypeProvider markerTypeProvider;
 	
 	@Inject
+	private MarkerCreator markerCreator;
+	
+	@Inject
 	private IResourceValidator resourceValidator;
 	
 	private Logger log = Logger.getLogger(DefaultResourceUIValidatorExtension.class);
@@ -84,6 +88,15 @@ public class ModelResourceUIValidatorExtension extends DefaultResourceUIValidato
 	// it will not return it and allow us to xtUMLify it
 	private static final String FIXABLE_KEY = "FIXABLE_KEY";
 
+	/**
+	 * We override marker creation so we can associate the problem markers
+	 * with xtuml resources. 
+	 * 
+	 * If you want to see what the default marker creation would be if we do NOT
+	 * do this you would simply comment out this routine's marker creation and
+	 * call the super() be overridden here.
+	 * 
+	 */
 	@Override
 	protected void createMarkers(IFile resource, List<Issue> issues, IProgressMonitor monitor) throws CoreException {
 		/**
@@ -112,14 +125,23 @@ public class ModelResourceUIValidatorExtension extends DefaultResourceUIValidato
 			}
 			// get masl signature in xtUML format
 			String signatureFromMasl = getMaslSignature(topLevelElement);
-			NonRootModelElement xtUMLRootElement = getXtumlElementFromProblemElement(topLevelElement,
+			NonRootModelElement xtUMLRootElement = getXtumlElementFromProblemElement(resource, topLevelElement,
 					signatureFromMasl);
-			if(xtUMLRootElement == null) {
-				continue;
+			if(xtUMLRootElement != null) {
+				IMarker marker = xtUMLRootElement.getPersistableComponent().getFile()
+						.createMarker(markerTypeProvider.getMarkerType(issue));
+				setMarkerAttributes(issue, resource, marker, xtUMLRootElement, lineNumber, lineAndColumn.getColumn(), charStart);
+			} else {
+				// If we can't find the xtuml resource then use the default marker creation
+				// Note that we ignore errors in resource files that are not xtuml
+				// unless the errors are associated with xtuml model elements.
+				// The case where elements are associated with xtuml elements is handled 
+				// above.
+				String fileExtension = resource.getFileExtension();
+				if (fileExtension == Ooaofooa.MODELS_EXT) {
+					markerCreator.createMarker(issue, resource, markerTypeProvider.getMarkerType(issue));
+				} 				
 			}
-			IMarker marker = xtUMLRootElement.getPersistableComponent().getFile()
-					.createMarker(markerTypeProvider.getMarkerType(issue));
-			setMarkerAttributes(issue, resource, marker, xtUMLRootElement, lineNumber, lineAndColumn.getColumn(), charStart);
 		}
 	}
 
@@ -175,22 +197,52 @@ public class ModelResourceUIValidatorExtension extends DefaultResourceUIValidato
 		return null;
 	}
 
-	private NonRootModelElement getXtumlElementFromProblemElement(AbstractTopLevelElement serviceDefinition,
+	/**
+	 * This routine is used to find the xtuml file resource associated with the 
+	 * given "IFile fileContaininghError". When the given IFile is an
+	 * xtuml file this is easy. However when it is a masl resource this routine
+	 * attempts to map to the xtuml resource file associated with the given
+	 * IFile.
+	 * 
+	 * Errors markers are ALWAYS associated with file resources. Even the masl 
+	 * snippet editor associates its error markers with a file resource. This 
+	 * routine allows us to map errors in a ".masl" file to xtuml resources so we
+	 * can open the snippet editor for error markers associated  with masl.
+	 * 
+	 * @param fileContaininghError This is the file resource that the error marker is 
+	 *                 associated with.                 
+	 * @param serviceDefinition
+	 * @param signature
+	 * @return
+	 */
+	private NonRootModelElement getXtumlElementFromProblemElement(IFile fileContaininghError, AbstractTopLevelElement serviceDefinition,
 			String signature) {
-		// get the name of the xtUML element first
-		// then if more than one get its signature and
-		// compare with the signature from the service
-		// definition
-		String name = serviceDefinition.getName();
-		IPath path = new Path(serviceDefinition.eResource().getURI().toPlatformString(true)).removeFileExtension()
-				.addFileExtension(Ooaofooa.MODELS_EXT);
+
+		// This assumes that the xtuml resource associated with the 
+		// resource where the error is marked
+		IPath path = new Path(serviceDefinition.eResource().getURI().toPlatformString(true));
+		String fileExtension = path.getFileExtension();
+		if (fileExtension != Ooaofooa.MODELS_EXT) {
+			// When a masl error is named with the same prefix and in the same
+			// folder this allows us to look into the xtuml root to find the
+			// associated xtuml instance
+			path = path.removeFileExtension().addFileExtension(Ooaofooa.MODELS_EXT);
+		} 
+		
 		PersistableModelComponent pmc = PersistenceManager.findOrCreateComponent(path);
-		List<NonRootModelElement> elementsByName = getModelElementsByName(pmc, name);
-		for(NonRootModelElement element : elementsByName) {
-			NonRootModelElement signatureElement = getSignatureElement(element);
-			String xtUMLSignature = getXtumlSignature(signatureElement);
-			if(signature.equals(xtUMLSignature)) {
-				return element;
+		if (pmc != null) {
+			// get the name of the xtUML element first
+			// then if more than one get its signature and
+			// compare with the signature from the service
+			// definition
+			String name = serviceDefinition.getName();
+			List<NonRootModelElement> elementsByName = getModelElementsByName(pmc, name);
+			for(NonRootModelElement element : elementsByName) {
+				NonRootModelElement signatureElement = getSignatureElement(element);
+				String xtUMLSignature = getXtumlSignature(signatureElement);
+				if(signature.equals(xtUMLSignature)) {
+					return element;
+				}
 			}
 		}
 		return null;
