@@ -1,7 +1,7 @@
 BridgePoint xtUML Release Notes
 ========================
 
-Release 6.2.1  
+Release 6.2.2  
 
 License
 -------
@@ -39,7 +39,8 @@ and context-sensitive edit assistance.
 
 * BridgePoint supports two different action languages: OAL and MASL.  The default
 is set via workspace preferences at xtUML > Action Language > Default Action Language Dialect.
-In this release the default is set to MASL.   
+In this release the default is set to MASL.  Another preference that requires the
+use of MASL-style identifiers is also turned on in this release.     
   
 Interoperability with Previous Releases
 ------
@@ -135,6 +136,9 @@ Closed Issues
 [9241](https://support.onefact.net/issues/9241) | attribute named current_state is dropped
 [9242](https://support.onefact.net/issues/9242) | scope poly event with dot
 [9243](https://support.onefact.net/issues/9243) | Formalising against secondary identifier which is superset of primary identifier misses referential spec from attribute
+[9247](https://support.onefact.net/issues/9247) | Graphics errors after element move    
+[9248](https://support.onefact.net/issues/9248) | Unable to formalize associations to/from shared classes
+[9249](https://support.onefact.net/issues/9249) | Disallow parameter or return type to be changed in ports    
 [9251](https://support.onefact.net/issues/9251) | Default attribute values with expression values are not present in exported MASL
 [9252](https://support.onefact.net/issues/9252) | Referential added to wrong attribute on reflexive relationship
 [9253](https://support.onefact.net/issues/9253) | Formalising against secondary identifier which is superset of primary identifier misses referential spec from attribute
@@ -152,6 +156,7 @@ Closed Issues
 [9275](https://support.onefact.net/issues/9275) | Missing formalism for reflexive non-associative relationship with collapsed referential.
 [9276](https://support.onefact.net/issues/9276) | Missing Formalism for associative relationship with second relationship to the associative object
 [9280](https://support.onefact.net/issues/9280) | Supertype state table missing rows
+[9281](https://support.onefact.net/issues/9281) | In a pessimistic locking system a dialog appears during move that should not    
 [9284](https://support.onefact.net/issues/9284) | Edits disappear
 [9287](https://support.onefact.net/issues/9287) | Edits disappear
 [9289](https://support.onefact.net/issues/9289) | cannot formalize 1:M reflexive
