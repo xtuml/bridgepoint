@@ -369,10 +369,9 @@ related across R3 in Source package is moved to Destination package.
   * 4. Paste to impl2
   * 5. Downgrade dialog indicates downgrade of the imported class (in the dest) since it lost visibility to clz under p1/impl
   * 6. Proceed with the move
-  * 7. p2/impl2 canvas contains "Unassigned Imported Class", the graphics are correct.
-  * 8. Restart BridgePoint
-  * 9. Open the p1/impl/refs canvas, the imported class is gone.
-  * 10. The p2/impl2 canvas is empty.
+  * 7. Restart BridgePoint
+  * 8. Open the p1/impl/refs canvas, the imported class is gone.
+  * 9. The p2/impl2 canvas is empty.
 
 7.28 Move package causing downgrade in destination (Uses test model [2.6](#2.6))
   * 1. Open the canvas for movetest/p1/impl
@@ -413,7 +412,7 @@ related across R3 in Source package is moved to Destination package.
   * 5. paste the selection into the package named private
   * 6. The downgrade dialog should report that the component reference will be downgraded, select ok
   * 7. Result 1 - The satisfaction_test component diagram no longer shows comp-1 (it has been moved to "private".
-  * 8. Result 2 - The component reference to comp1 is present in satisfaction_test, but the satisfaction is no longer present.
+  * 8. Result 2 - The satisfaction is no longer present.
   * 9. select undo
   * 10. The mode is restored
   * 11. select redo

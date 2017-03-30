@@ -166,6 +166,8 @@ public class UIUtil
 						}
 					}
 				}
+				// tell the masl editors to refresh based on this change to the xtuml model
+				RenameParticipantUtil.synchronizeMaslEditors();
 			}
 		});
 	}

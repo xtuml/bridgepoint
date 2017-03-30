@@ -52,6 +52,10 @@ public class PullSynchronizationChanges implements IActionDelegate {
 	private static String removalList = "";
 	private boolean interactWithUser = false;
 
+	public PullSynchronizationChanges() {
+		super();
+	}
+	
 	public PullSynchronizationChanges(boolean interactWithUser, NonRootModelElement nrme) {
 		super();
 		this.interactWithUser = interactWithUser;

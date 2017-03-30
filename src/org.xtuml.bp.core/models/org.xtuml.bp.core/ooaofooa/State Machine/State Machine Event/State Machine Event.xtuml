@@ -1268,6 +1268,45 @@ INSERT INTO O_TPARM
 	'',
 	"00000000-0000-0000-0000-000000000000",
 	'');
+INSERT INTO O_TFR
+	VALUES ("78710614-5fc3-4822-9204-bf119dd0b55e",
+	"31832e28-c7f1-4e83-9c56-28614980fb33",
+	'getConcretePoly',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	1,
+	'select any sm_evt from instances of SM_EVT where false;
+if ( Util::stringContains( haystack:self.Mning, needle:"." ) )
+  superclass_name = Util::stringSplit( s:self.Mning, delimiter:".", i:0 );
+  evt_name = Util::stringSplit( s:self.Mning, delimiter:".", i:1 );
+
+  select one current_class related by self->SM_SM[R502]->SM_ISM[R517]->O_OBJ[R518];
+  select any superclass related by current_class->R_OIR[R201]->R_RGO[R203]->R_SUB[R205]->R_SUBSUP[R213]->R_SUPER[R212]->R_RTO[R204]->R_OIR[R203]->O_OBJ[R201]
+    where ( selected.Name == superclass_name );
+  select many classes related by current_class->R_OIR[R201]->R_RGO[R203]->R_SUB[R205]->R_SUBSUP[R213]->R_SUPER[R212]->R_RTO[R204]->R_OIR[R203]->O_OBJ[R201];
+
+  // select up the hierarchy until the right superclass is found or the hierarchy runs out
+  while ( empty superclass and not_empty classes )
+    select any superclass related by classes->R_OIR[R201]->R_RGO[R203]->R_SUB[R205]->R_SUBSUP[R213]->R_SUPER[R212]->R_RTO[R204]->R_OIR[R203]->O_OBJ[R201]
+      where ( selected.Name == superclass_name );
+    select many classes related by classes->R_OIR[R201]->R_RGO[R203]->R_SUB[R205]->R_SUBSUP[R213]->R_SUPER[R212]->R_RTO[R204]->R_OIR[R203]->O_OBJ[R201];
+  end while;
+
+  if ( not_empty superclass )
+    select any sm_evt related by superclass->SM_ISM[R518]->SM_SM[R517]->SM_EVT[R502]
+      where ( selected.Mning == evt_name );
+  end if;
+end if;
+
+if ( empty sm_evt )
+  return GD::NULL_UNIQUE_ID();
+else
+  return sm_evt.SMevt_ID;
+end if;',
+	1,
+	'',
+	"388f5142-ef39-449b-8bc0-c24e6b6fdf9f",
+	0);
 INSERT INTO O_NBATTR
 	VALUES ("230b2bab-457c-4eae-bfe1-b824ac2f5324",
 	"31832e28-c7f1-4e83-9c56-28614980fb33");
