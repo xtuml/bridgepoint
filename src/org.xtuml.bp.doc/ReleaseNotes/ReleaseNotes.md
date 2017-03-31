@@ -1,7 +1,7 @@
 BridgePoint xtUML Release Notes
 ========================
 
-Release 6.2.4  
+Release 6.2.5  
 
 License
 -------
