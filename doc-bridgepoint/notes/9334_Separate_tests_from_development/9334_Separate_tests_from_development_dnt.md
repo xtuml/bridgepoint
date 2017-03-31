@@ -14,9 +14,9 @@ This note describes the changes required to support a development workspace with
 2. Document References
 ----------------------
 <a id="2.1"></a>2.1 [BridgePoint DEI #9334](https://support.onefact.net/issues/9334) Perform unit testing from the xtuml/bptest repository  
-<a id="2.2"></a>2.2 [BridgePoint DEI #9088](https://support.onefact.net/issues/9088) Create a branch from which unit tests may be built and run 
-<a id="2.3"></a>2.3 [BridgePoint DEI #9029](https://support.onefact.net/issues/9029) Fix Unit test build problems caused by moving test plugins (and data) to their own repository 
-<a id="2.4"></a>2.4 [HOWTO-run-bridgepoint-unit-tests](https://github.com/travislondon/bridgepoint/blob/master/doc-bridgepoint/process/HOWTO-run-bridgepoint-unit-tests.md) 
+<a id="2.2"></a>2.2 [BridgePoint DEI #9088](https://support.onefact.net/issues/9088) Create a branch from which unit tests may be built and run  
+<a id="2.3"></a>2.3 [BridgePoint DEI #9029](https://support.onefact.net/issues/9029) Fix Unit test build problems caused by moving test plugins (and data) to their own repository  
+<a id="2.4"></a>2.4 [HOWTO-run-bridgepoint-unit-tests](https://github.com/travislondon/bridgepoint/blob/master/doc-bridgepoint/process/HOWTO-run-bridgepoint-unit-tests.md)  
 
 3. Background
 -------------
@@ -43,13 +43,13 @@ A bit of work was done prior to this issue which almost got it to the point wher
 
 5. Analysis
 -----------
-5.1 The build infrastructure is required to build both the development source and test source separately.  Building source only has always been present, but building tests will not work with the separation of MC-Java.  The work done in [2.3] addressed this issue by using the XTUML_DEVELOPMENT_REPOSITORY variable.  This variable is already set by the [2.4] instructions.
+5.1 The build infrastructure is required to build both the development source and test source separately.  Building source only has always been present, but building tests will not work with the separation of MC-Java.  The work done in [2.3] addressed this issue by using the XTUML_DEVELOPMENT_REPOSITORY variable.  This variable is already set by the [2.4] instructions.  
 
-5.2 Users shall import the test plug-ins from the bptest repository if desiring testing.  No copying and linking shall be required to include the test plug-ins.
+5.2 Users shall import the test plug-ins from the bptest repository if desiring testing.  No copying and linking shall be required to include the test plug-ins.  
 
-5.3 To run the tests a requirement is to use models from two different repository locations, without hard coded paths.  What is required is two variables to locate each of the supported repositories, bridgepoint and bptest.  These variables already exist and are part of the setup found in [2.4].  When looking for test models found in the development source XTUML_DEVELOPMENT_REPOSITORY shall be used.
+5.3 To run the tests a requirement is to use models from two different repository locations, without hard coded paths.  What is required is two variables to locate each of the supported repositories, bridgepoint and bptest.  These variables already exist and are part of the setup found in [2.4].  When looking for test models found in the development source XTUML_DEVELOPMENT_REPOSITORY shall be used.  
 
-5.4 The test results captured for release 6.2 where created by using a branch of the bridgepoint repository.  This branch was for the issue [4.2].  That branch shall be used to include all changes into the separated repositories.
+5.4 The test results captured for release 6.2 where created by using a branch of the bridgepoint repository.  This branch was for the issue [4.2].  That branch shall be used to include all changes into the separated repositories.  
 
 6. Design
 ---------
@@ -69,7 +69,7 @@ In order to merge these changes into the new bptest branch the testing branch wa
 
 6.7 In ComponentTransactionListener when reloading due to action elements not being persisted send a reload event so that editors may be notified.  
 
-6.8 Some refresh events are not seen with the new reload code for non-persisted action files during transaction end.  The reason is that the load is within a transaction listener, where the load events are not sent out.  Open editors require events sent during file load.  In GraphicalEditor the cached Model_c instance is not updated due to this.  GraphicalEditor.refresh() is modified to add a simple comparison against the cached Model_c and the one returned from the current instance list.  If they are different the cached value is updated.
+6.8 Some refresh events are not seen with the new reload code for non-persisted action files during transaction end.  The reason is that the load is within a transaction listener, where the load events are not sent out.  Open editors require events sent during file load.  In GraphicalEditor the cached Model_c instance is not updated due to this.  GraphicalEditor.refresh() is modified to add a simple comparison against the cached Model_c and the one returned from the current instance list.  If they are different the cached value is updated.  
 
 6.9 Refresh the title for graphical editors during reloads.  It was noticed that they were not being refreshed causing some tests to fail.  
 
@@ -77,7 +77,7 @@ In order to merge these changes into the new bptest branch the testing branch wa
 
 The new test results from this work are from two things.  One of which is a change in this work to only output a certain number of characters for the graphical string results.  This was done to limit the number of differences just from running with different windowing systems/themes.  The other change is related to the change to how referentials are handled, the output on the diagram no longer shows the relationship number in these cases.  All other changes are related to the merged in changes from the test branch used for [2.2].  
 
-6.x Other differences come from issues 9029 [2.3] and 7570 [2.4].
+6.x Other differences come from issues 9029 [2.3] and 7570 [2.4].  
 
 7. Design Comments
 ------------------
