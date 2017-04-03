@@ -63,21 +63,25 @@ A bit of work was done prior to this issue which almost got it to the point wher
 
 In order to merge these changes into the new bptest branch the testing branch was checked out.  Then two folders where created one with the source projects from the testing branch and one from the new bptest repository.  These folders were compared with each other, merging changes into the one with projects from the bptest repository.  The projects with the merged changes were then copied over the actual git repository projects.  
 
-6.5 Testing showed an issue with C_I instances and refreshing.  Research found that previous work had removed the coloring for C_I as a component root.  These removed changes were added back.  
+6.5 Support absolute and relative paths  
 
-6.6 Prevent NPE during tests where an event is received after an element has been deleted and the file is being persisted.  The delete event for a graphical element is received after persisting starts for its host file.  Persistence is calling Getpath on the elements in memory.  HierarchyUtil.Getpath is modified to check an element as being orphaned before calling the elements getName implementation.  
+The changes in 9029 allowed for a variable to be set, mcj_path.  This veriable is now defaulting to an absolute path.  MC-Java was modified to account for this in generate.schema by removing the .. as the target is run in the sql folder.  This is fine except that the variable only works in the UI, the build server POMs require a relavant path.  In order to support both approaches build.xml is changed to check for the existence of the required ooa_schema.sql file and call two new targets, one the original with .. and the other without.  The logic is that the file will only exist in one of the two locations.  The new targets are both called but only the one for which a variable was set to true depending on the existence of the file will run.  
 
-6.7 In ComponentTransactionListener when reloading due to action elements not being persisted send a reload event so that editors may be notified.  
+6.6 Testing showed an issue with C_I instances and refreshing.  Research found that previous work had removed the coloring for C_I as a component root.  These removed changes were added back.  
 
-6.8 Some refresh events are not seen with the new reload code for non-persisted action files during transaction end.  The reason is that the load is within a transaction listener, where the load events are not sent out.  Open editors require events sent during file load.  In GraphicalEditor the cached Model_c instance is not updated due to this.  GraphicalEditor.refresh() is modified to add a simple comparison against the cached Model_c and the one returned from the current instance list.  If they are different the cached value is updated.  
+6.7 Prevent NPE during tests where an event is received after an element has been deleted and the file is being persisted.  The delete event for a graphical element is received after persisting starts for its host file.  Persistence is calling Getpath on the elements in memory.  HierarchyUtil.Getpath is modified to check an element as being orphaned before calling the elements getName implementation.  
 
-6.9 Refresh the title for graphical editors during reloads.  It was noticed that they were not being refreshed causing some tests to fail.  
+6.8 In ComponentTransactionListener when reloading due to action elements not being persisted send a reload event so that editors may be notified.  
 
-6.10 Test result updates
+6.9 Some refresh events are not seen with the new reload code for non-persisted action files during transaction end.  The reason is that the load is within a transaction listener, where the load events are not sent out.  Open editors require events sent during file load.  In GraphicalEditor the cached Model_c instance is not updated due to this.  GraphicalEditor.refresh() is modified to add a simple comparison against the cached Model_c and the one returned from the current instance list.  If they are different the cached value is updated.  
+
+6.10 Refresh the title for graphical editors during reloads.  It was noticed that they were not being refreshed causing some tests to fail.  
+
+6.11 Test result updates
 
 The new test results from this work are from two things.  One of which is a change in this work to only output a certain number of characters for the graphical string results.  This was done to limit the number of differences just from running with different windowing systems/themes.  The other change is related to the change to how referentials are handled, the output on the diagram no longer shows the relationship number in these cases.  All other changes are related to the merged in changes from the test branch used for [2.2].  
 
-6.x Other differences come from issues 9029 [2.3] and 7570 [2.4].  
+6.12 Other differences come from issues 9029 [2.3] and 7570 [2.4].  
 
 7. Design Comments
 ------------------
