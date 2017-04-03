@@ -113,18 +113,45 @@
       param3 = TRANSLATE_FOR_EXTERNAL_USE environment variable value
       param4 = root package name
 -->
-    <exec dir="sql" vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
-      <env key="OS_CACHE_SIZE" value="64000000" />
-      <env key="TRANSLATE_FOR_EXTERNAL_USE" value="${param3}" />
-      <env key="PTC_MCC_ROOT" value="${param4}" />
-      <env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
-      <arg line="xtumlmc_gen_erate -nopersist
-         -import ${param2}/ooa_schema.sql
-         -import ${param1}
-         -arch ${param2}/schema_gen.arc" />
-   </exec>
-
-   <delete file="sql/____file.txt" />
+   	<!-- If the ooa_schema.sql file does not exist at the mc_java_path
+   	     location, we are dealing with a relative path.  We must account
+   	     for the sql directory by adding another ascension
+   	-->
+   	<ant dir="sql" antfile="${ant.file}" target="mcj_path_type" />
   </target>
 
+	<target name="mcj_path_type">
+   	   	<available file="${param2}" property="absolute.present"/>
+   	   	<available file="../${param2}" property="relative.present"/>
+   	   	<antcall target="generate.schema.absolute"/>
+   	   	<antcall target="generate.schema.relative"/>   		
+	</target>
+	
+	<target name="generate.schema.absolute" if="absolute.present">
+        <exec vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
+          <env key="OS_CACHE_SIZE" value="64000000" />
+          <env key="TRANSLATE_FOR_EXTERNAL_USE" value="${param3}" />
+          <env key="PTC_MCC_ROOT" value="${param4}" />
+	      <env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
+	      <arg line="xtumlmc_gen_erate -nopersist
+	         -import ${param2}/ooa_schema.sql
+	         -import ${param1}
+	         -arch ${param2}/schema_gen.arc" />
+	    </exec>	
+		<delete file="sql/____file.txt" />
+	</target>
+
+	<target name="generate.schema.relative" if="relative.present">
+        <exec vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
+          <env key="OS_CACHE_SIZE" value="64000000" />
+          <env key="TRANSLATE_FOR_EXTERNAL_USE" value="${param3}" />
+          <env key="PTC_MCC_ROOT" value="${param4}" />
+	      <env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
+	      <arg line="xtumlmc_gen_erate -nopersist
+	         -import ../${param2}/ooa_schema.sql
+	         -import ${param1}
+	         -arch ../${param2}/schema_gen.arc" />
+	    </exec>	
+		<delete file="sql/____file.txt" />
+	</target>
 </project>
