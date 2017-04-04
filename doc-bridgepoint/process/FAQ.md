@@ -170,13 +170,13 @@ BridgePoint Developer Issues <a id="bpdevelopers"></a>
   * Package Requirements for Various Linux Distributions  
     BridgePoint on Linux relies on packages that may not yet be installed on your system.  Included here are commands to install the necessary packages:
       * Ubuntu 14 and up:   
-        See the [Developer's Getting Started Guide](https://github.com/xtuml/bridgepoint/blob/master/doc-bridgepoint/process/Developer%20Getting%20Started%20Guide.md).
+        See the [Developer's Getting Started Guide](https://github.com/xtuml/bridgepoint/blob/master/doc-bridgepoint/process/Developer%20Getting%20Started%20Guide.md)  
       
       * Fedora 19:  
-        ```$ sudo yum install wine gcc-c++  dos2unix compat-libstdc++-33 gtk2.i686 ant git```
+        ```$ sudo yum install gcc-c++  dos2unix compat-libstdc++-33 gtk2 ant git```
       
-      * Debian Wheezy:  
-        ```$ sudo apt-get install ia32-libs ia32-libs-gtk libgtk2.0-0 lib32ncurses5 ant git```
+      * Debian Wheezy and later:  
+        Uses the same packages as specified for Ubuntu installation.
   
 * **Windows Unit Test Configuration**  <a id="windowstesting"></a>  
   This is used when runnning unit tests under Windows.  These instructions are used to prepare the Windows environment to run graphical compare tests.  If you do not want or need to run graphical compare tests, you do not have to perform these steps.  However, some BridgePoint unit tests will fail in Windows if you do not perform these steps.
