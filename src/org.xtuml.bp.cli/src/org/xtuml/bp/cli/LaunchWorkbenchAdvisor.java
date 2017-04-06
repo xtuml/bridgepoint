@@ -7,6 +7,7 @@ import java.io.OutputStream;
 import java.net.*;
 import java.util.concurrent.ConcurrentLinkedDeque;
 
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.ui.PlatformUI;
 
 public class LaunchWorkbenchAdvisor extends BPCLIWorkbenchAdvisor {
@@ -213,6 +214,30 @@ public class LaunchWorkbenchAdvisor extends BPCLIWorkbenchAdvisor {
                 try {
                     BPCLIPreferences cmdLine = new  BPCLIPreferences(context, Build.getCommandLineOptions());
                     executor = new BuildExecutor(cmdLine);
+                }
+                catch ( BPCLIException e ) {
+                    BPCLIPreferences.logError("Error during Launch: " + e.getMessage(), null);
+                }
+            }
+            else if ( cmd.startsWith("Merge") ) {
+                String[] context = cmd.replaceFirst("Merge", "").trim().split(" ");
+                try {
+                    BPCLIPreferences cmdLine = new  BPCLIPreferences(context, Merge.getCommandLineOptions());
+                    executor = new MergeExecutor(cmdLine);
+                }
+                catch ( BPCLIException e ) {
+                    BPCLIPreferences.logError("Error during Launch: " + e.getMessage(), null);
+                }
+            }
+            else if ( cmd.startsWith("Execute") ) {
+                String[] context = cmd.replaceFirst("Execute", "").trim().split(" ");
+                try {
+                    BPCLIPreferences cmdLine = new  BPCLIPreferences(context, Execute.getCommandLineOptions());
+                    try {
+                        executor = new ExecuteExecutor(cmdLine, false);
+                    } catch (CoreException e) {
+                        e.printStackTrace();
+                    }
                 }
                 catch ( BPCLIException e ) {
                     BPCLIPreferences.logError("Error during Launch: " + e.getMessage(), null);

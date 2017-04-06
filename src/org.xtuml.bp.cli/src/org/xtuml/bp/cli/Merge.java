@@ -56,7 +56,7 @@ public class Merge implements IApplication {
 		// nothing to do
 	}
 	
-    public CommandLineOption[] getCommandLineOptions() {
+    public static CommandLineOption[] getCommandLineOptions() {
         CommandLineOption[] cmdLineOptions = new CommandLineOption[] {
                 new CommandLineOption("-leftFile", "",
                         "The left file for the merge."),
