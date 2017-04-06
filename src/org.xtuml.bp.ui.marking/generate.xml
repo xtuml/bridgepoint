@@ -80,7 +80,7 @@
       <!-- TODO : current unused since we're not generating anything
       <taskdef name="PTCodeFormat" classname="PTCodeFormatterTask">
          <classpath>
-            <pathelement path="../org.xtuml.bp.core/tools/" />
+            <pathelement path="${mcj_path}/../org.xtuml.bp.core/tools/" />
             <fileset dir="${plugins-home}/plugins" casesensitive="yes">
                <include name="**/org.eclipse.text_*.jar" />
                <include name="**/org.eclipse.ui_*.jar" />

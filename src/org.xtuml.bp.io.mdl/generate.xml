@@ -36,11 +36,25 @@
        <srcfiles dir = "${mcj_path}" includes = "ooa_schema.sql"/>
     </uptodate>
   </target>
-
   <target name="class2table"
           depends="class2table.depends"
           description="Generate the Tiger OOA pre-existing instances file"
           unless="class2table.buildNotNeeded" >
+    <!-- If the ooa_schema.sql file does not exist at the mc_java_path
+    	 location, we are dealing with a relative path.  We must account
+    	 for the sql directory by adding another ascension
+    -->      
+    <ant dir="sql" antfile="${ant.file}" target="mcj_path_type" />
+  </target>
+
+  <target name="mcj_path_type">
+	  <available file="${mcj_path}" property="absolute.present"/>
+	  <available file="../${mcj_path}" property="relative.present"/>
+	  <antcall target="class2table.absolute"/>
+	  <antcall target="class2table.relative"/>   		
+  </target>
+
+  <target name="class2table.absolute" >
     <echo >Generating ${class2table.output} ...</echo>
     <exec dir="sql" vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
     <env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
@@ -54,6 +68,22 @@
   <!-- Need to touch the output file for the case where the input data
        changed, but the output didn't -->
   <touch file="sql/${class2table.output}" />
+  </target>
+
+  <target name="class2table.relative" >
+    <echo >Generating ${class2table.output} ...</echo>
+    <exec dir="sql" vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
+    <env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
+    <arg line="xtumlmc_gen_erate -nopersist
+    	 -import ../${mcj_path}/ooa_schema.sql
+    	 -import ../${core_path}/${class2table.input}
+    	 -import ../${canvas_path}/${graphics.model}
+    	 -arch ../${iocore_path}/arc/class2table.arc" />
+    </exec>
+    <delete file="sql/____file.txt" />
+    <!-- Need to touch the output file for the case where the input data
+    	 changed, but the output didn't -->
+    <touch file="sql/${class2table.output}" />
   </target>
 
   <property name="sql.output" value="ooaofooa-1.sql" />
@@ -356,7 +386,7 @@
 
     <taskdef name="PTCodeFormat" classname="PTCodeFormatterTask" >
         <classpath>
-            <pathelement path="../org.xtuml.bp.core/tools/" />
+            <pathelement path="${mcj_path}/../org.xtuml.bp.core/tools/" />
             <fileset dir="${plugins-home}/plugins" casesensitive="yes">
                 <include name="**/org.eclipse.text_*.jar" />
                 <include name="**/org.eclipse.ui_*.jar" />
