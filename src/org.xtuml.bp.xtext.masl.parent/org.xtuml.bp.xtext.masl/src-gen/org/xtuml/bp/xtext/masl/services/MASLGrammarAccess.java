@@ -2337,9 +2337,11 @@ public class MASLGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cInstanceInstanceKeyword_1_0 = (Keyword)cInstanceAssignment_1.eContents().get(0);
 		private final Group cGroup_2 = (Group)cGroup.eContents().get(2);
 		private final Keyword cDeferredKeyword_2_0 = (Keyword)cGroup_2.eContents().get(0);
-		private final Assignment cRelationshipAssignment_2_1 = (Assignment)cGroup_2.eContents().get(1);
-		private final CrossReference cRelationshipRelationshipDefinitionCrossReference_2_1_0 = (CrossReference)cRelationshipAssignment_2_1.eContents().get(0);
-		private final RuleCall cRelationshipRelationshipDefinitionIDTerminalRuleCall_2_1_0_1 = (RuleCall)cRelationshipRelationshipDefinitionCrossReference_2_1_0.eContents().get(1);
+		private final Keyword cLeftParenthesisKeyword_2_1 = (Keyword)cGroup_2.eContents().get(1);
+		private final Assignment cRelationshipAssignment_2_2 = (Assignment)cGroup_2.eContents().get(2);
+		private final CrossReference cRelationshipRelationshipDefinitionCrossReference_2_2_0 = (CrossReference)cRelationshipAssignment_2_2.eContents().get(0);
+		private final RuleCall cRelationshipRelationshipDefinitionIDTerminalRuleCall_2_2_0_1 = (RuleCall)cRelationshipRelationshipDefinitionCrossReference_2_2_0.eContents().get(1);
+		private final Keyword cRightParenthesisKeyword_2_3 = (Keyword)cGroup_2.eContents().get(3);
 		private final Alternatives cAlternatives_3 = (Alternatives)cGroup.eContents().get(3);
 		private final Keyword cServiceKeyword_3_0 = (Keyword)cAlternatives_3.eContents().get(0);
 		private final Keyword cFunctionKeyword_3_1 = (Keyword)cAlternatives_3.eContents().get(1);
@@ -2355,12 +2357,12 @@ public class MASLGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//ObjectServiceDeclaration:
 		//	visibility=Visibility?
-		//	instance?='instance'? ('deferred' relationship=[RelationshipDefinition])? ('service' | 'function') name=ID
+		//	instance?='instance'? ('deferred' '(' relationship=[RelationshipDefinition] ')')? ('service' | 'function') name=ID
 		//	ParameterList ('return' returnType=AbstractTypeReference)?
 		//	';' PragmaList;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//visibility=Visibility? instance?='instance'? ('deferred' relationship=[RelationshipDefinition])? ('service' |
+		//visibility=Visibility? instance?='instance'? ('deferred' '(' relationship=[RelationshipDefinition] ')')? ('service' |
 		//'function') name=ID ParameterList ('return' returnType=AbstractTypeReference)? ';' PragmaList
 		public Group getGroup() { return cGroup; }
 		
@@ -2376,20 +2378,26 @@ public class MASLGrammarAccess extends AbstractGrammarElementFinder {
 		//'instance'
 		public Keyword getInstanceInstanceKeyword_1_0() { return cInstanceInstanceKeyword_1_0; }
 		
-		//('deferred' relationship=[RelationshipDefinition])?
+		//('deferred' '(' relationship=[RelationshipDefinition] ')')?
 		public Group getGroup_2() { return cGroup_2; }
 		
 		//'deferred'
 		public Keyword getDeferredKeyword_2_0() { return cDeferredKeyword_2_0; }
 		
+		//'('
+		public Keyword getLeftParenthesisKeyword_2_1() { return cLeftParenthesisKeyword_2_1; }
+		
 		//relationship=[RelationshipDefinition]
-		public Assignment getRelationshipAssignment_2_1() { return cRelationshipAssignment_2_1; }
+		public Assignment getRelationshipAssignment_2_2() { return cRelationshipAssignment_2_2; }
 		
 		//[RelationshipDefinition]
-		public CrossReference getRelationshipRelationshipDefinitionCrossReference_2_1_0() { return cRelationshipRelationshipDefinitionCrossReference_2_1_0; }
+		public CrossReference getRelationshipRelationshipDefinitionCrossReference_2_2_0() { return cRelationshipRelationshipDefinitionCrossReference_2_2_0; }
 		
 		//ID
-		public RuleCall getRelationshipRelationshipDefinitionIDTerminalRuleCall_2_1_0_1() { return cRelationshipRelationshipDefinitionIDTerminalRuleCall_2_1_0_1; }
+		public RuleCall getRelationshipRelationshipDefinitionIDTerminalRuleCall_2_2_0_1() { return cRelationshipRelationshipDefinitionIDTerminalRuleCall_2_2_0_1; }
+		
+		//')'
+		public Keyword getRightParenthesisKeyword_2_3() { return cRightParenthesisKeyword_2_3; }
 		
 		//('service' | 'function')
 		public Alternatives getAlternatives_3() { return cAlternatives_3; }
@@ -8477,7 +8485,7 @@ public class MASLGrammarAccess extends AbstractGrammarElementFinder {
 	
 	//ObjectServiceDeclaration:
 	//	visibility=Visibility?
-	//	instance?='instance'? ('deferred' relationship=[RelationshipDefinition])? ('service' | 'function') name=ID
+	//	instance?='instance'? ('deferred' '(' relationship=[RelationshipDefinition] ')')? ('service' | 'function') name=ID
 	//	ParameterList ('return' returnType=AbstractTypeReference)?
 	//	';' PragmaList;
 	public ObjectServiceDeclarationElements getObjectServiceDeclarationAccess() {

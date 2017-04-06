@@ -3913,6 +3913,10 @@ ruleObjectServiceDeclaration returns [EObject current=null]
 			{
 				newLeafNode(otherlv_2, grammarAccess.getObjectServiceDeclarationAccess().getDeferredKeyword_2_0());
 			}
+			otherlv_3=LeftParenthesis
+			{
+				newLeafNode(otherlv_3, grammarAccess.getObjectServiceDeclarationAccess().getLeftParenthesisKeyword_2_1());
+			}
 			(
 				(
 					{
@@ -3920,29 +3924,33 @@ ruleObjectServiceDeclaration returns [EObject current=null]
 							$current = createModelElement(grammarAccess.getObjectServiceDeclarationRule());
 						}
 					}
-					otherlv_3=RULE_ID
+					otherlv_4=RULE_ID
 					{
-						newLeafNode(otherlv_3, grammarAccess.getObjectServiceDeclarationAccess().getRelationshipRelationshipDefinitionCrossReference_2_1_0());
+						newLeafNode(otherlv_4, grammarAccess.getObjectServiceDeclarationAccess().getRelationshipRelationshipDefinitionCrossReference_2_2_0());
 					}
 				)
 			)
+			otherlv_5=RightParenthesis
+			{
+				newLeafNode(otherlv_5, grammarAccess.getObjectServiceDeclarationAccess().getRightParenthesisKeyword_2_3());
+			}
 		)?
 		(
-			otherlv_4=Service
+			otherlv_6=Service
 			{
-				newLeafNode(otherlv_4, grammarAccess.getObjectServiceDeclarationAccess().getServiceKeyword_3_0());
+				newLeafNode(otherlv_6, grammarAccess.getObjectServiceDeclarationAccess().getServiceKeyword_3_0());
 			}
 			    |
-			otherlv_5=Function
+			otherlv_7=Function
 			{
-				newLeafNode(otherlv_5, grammarAccess.getObjectServiceDeclarationAccess().getFunctionKeyword_3_1());
+				newLeafNode(otherlv_7, grammarAccess.getObjectServiceDeclarationAccess().getFunctionKeyword_3_1());
 			}
 		)
 		(
 			(
-				lv_name_6_0=RULE_ID
+				lv_name_8_0=RULE_ID
 				{
-					newLeafNode(lv_name_6_0, grammarAccess.getObjectServiceDeclarationAccess().getNameIDTerminalRuleCall_4_0());
+					newLeafNode(lv_name_8_0, grammarAccess.getObjectServiceDeclarationAccess().getNameIDTerminalRuleCall_4_0());
 				}
 				{
 					if ($current==null) {
@@ -3951,7 +3959,7 @@ ruleObjectServiceDeclaration returns [EObject current=null]
 					setWithLastConsumed(
 						$current,
 						"name",
-						lv_name_6_0,
+						lv_name_8_0,
 						"org.xtuml.bp.xtext.masl.MASL.ID");
 				}
 			)
@@ -3962,22 +3970,22 @@ ruleObjectServiceDeclaration returns [EObject current=null]
 			}
 			newCompositeNode(grammarAccess.getObjectServiceDeclarationAccess().getParameterListParserRuleCall_5());
 		}
-		this_ParameterList_7=ruleParameterList[$current]
+		this_ParameterList_9=ruleParameterList[$current]
 		{
-			$current = $this_ParameterList_7.current;
+			$current = $this_ParameterList_9.current;
 			afterParserOrEnumRuleCall();
 		}
 		(
-			otherlv_8=Return
+			otherlv_10=Return
 			{
-				newLeafNode(otherlv_8, grammarAccess.getObjectServiceDeclarationAccess().getReturnKeyword_6_0());
+				newLeafNode(otherlv_10, grammarAccess.getObjectServiceDeclarationAccess().getReturnKeyword_6_0());
 			}
 			(
 				(
 					{
 						newCompositeNode(grammarAccess.getObjectServiceDeclarationAccess().getReturnTypeAbstractTypeReferenceParserRuleCall_6_1_0());
 					}
-					lv_returnType_9_0=ruleAbstractTypeReference
+					lv_returnType_11_0=ruleAbstractTypeReference
 					{
 						if ($current==null) {
 							$current = createModelElementForParent(grammarAccess.getObjectServiceDeclarationRule());
@@ -3985,16 +3993,16 @@ ruleObjectServiceDeclaration returns [EObject current=null]
 						set(
 							$current,
 							"returnType",
-							lv_returnType_9_0,
+							lv_returnType_11_0,
 							"org.xtuml.bp.xtext.masl.MASL.AbstractTypeReference");
 						afterParserOrEnumRuleCall();
 					}
 				)
 			)
 		)?
-		otherlv_10=Semicolon
+		otherlv_12=Semicolon
 		{
-			newLeafNode(otherlv_10, grammarAccess.getObjectServiceDeclarationAccess().getSemicolonKeyword_7());
+			newLeafNode(otherlv_12, grammarAccess.getObjectServiceDeclarationAccess().getSemicolonKeyword_7());
 		}
 		{
 			if ($current==null) {
@@ -4002,9 +4010,9 @@ ruleObjectServiceDeclaration returns [EObject current=null]
 			}
 			newCompositeNode(grammarAccess.getObjectServiceDeclarationAccess().getPragmaListParserRuleCall_8());
 		}
-		this_PragmaList_11=rulePragmaList[$current]
+		this_PragmaList_13=rulePragmaList[$current]
 		{
-			$current = $this_PragmaList_11.current;
+			$current = $this_PragmaList_13.current;
 			afterParserOrEnumRuleCall();
 		}
 	)

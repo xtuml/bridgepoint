@@ -281,7 +281,7 @@ AttributeReferential returns RelationshipNavigation:
 ObjectServiceDeclaration:
 	visibility=Visibility?
 	instance?='instance'? 
-	('deferred' relationship=[RelationshipDefinition])?
+	('deferred' '(' relationship=[RelationshipDefinition] ')')?
 	('service'|'function') name=ID
 	ParameterList
 	('return' returnType=AbstractTypeReference)?

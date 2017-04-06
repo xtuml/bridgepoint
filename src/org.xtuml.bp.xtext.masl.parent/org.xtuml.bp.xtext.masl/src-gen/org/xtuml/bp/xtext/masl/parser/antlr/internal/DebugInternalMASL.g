@@ -606,7 +606,9 @@ ruleObjectServiceDeclaration:
 	?
 	(
 		'deferred'
+		'('
 		RULE_ID
+		')'
 	)?
 	(
 		'service'

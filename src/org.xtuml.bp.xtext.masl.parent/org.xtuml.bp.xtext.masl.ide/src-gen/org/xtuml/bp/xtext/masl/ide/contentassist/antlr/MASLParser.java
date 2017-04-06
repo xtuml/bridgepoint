@@ -424,7 +424,7 @@ public class MASLParser extends AbstractContentAssistParser {
 					put(grammarAccess.getAttributeReferentialAccess().getAttributeAssignment_4(), "rule__AttributeReferential__AttributeAssignment_4");
 					put(grammarAccess.getObjectServiceDeclarationAccess().getVisibilityAssignment_0(), "rule__ObjectServiceDeclaration__VisibilityAssignment_0");
 					put(grammarAccess.getObjectServiceDeclarationAccess().getInstanceAssignment_1(), "rule__ObjectServiceDeclaration__InstanceAssignment_1");
-					put(grammarAccess.getObjectServiceDeclarationAccess().getRelationshipAssignment_2_1(), "rule__ObjectServiceDeclaration__RelationshipAssignment_2_1");
+					put(grammarAccess.getObjectServiceDeclarationAccess().getRelationshipAssignment_2_2(), "rule__ObjectServiceDeclaration__RelationshipAssignment_2_2");
 					put(grammarAccess.getObjectServiceDeclarationAccess().getNameAssignment_4(), "rule__ObjectServiceDeclaration__NameAssignment_4");
 					put(grammarAccess.getObjectServiceDeclarationAccess().getReturnTypeAssignment_6_1(), "rule__ObjectServiceDeclaration__ReturnTypeAssignment_6_1");
 					put(grammarAccess.getIdentifierDefinitionAccess().getAttributesAssignment_3_0(), "rule__IdentifierDefinition__AttributesAssignment_3_0");
