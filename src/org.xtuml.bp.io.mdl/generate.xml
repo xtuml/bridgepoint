@@ -64,10 +64,10 @@
       -import ../${canvas_path}/${graphics.model}
       -arch ../${iocore_path}/arc/class2table.arc" />
   </exec>
-    <delete file="sql/____file.txt" />
+    <delete file="____file.txt" />
   <!-- Need to touch the output file for the case where the input data
        changed, but the output didn't -->
-  <touch file="sql/${class2table.output}" />
+  <touch file="${class2table.output}" />
   </target>
 
   <target name="class2table.relative" if="relative.present" >
@@ -80,10 +80,10 @@
     	 -import ../${canvas_path}/${graphics.model}
     	 -arch ../${iocore_path}/arc/class2table.arc" />
     </exec>
-    <delete file="sql/____file.txt" />
+    <delete file="____file.txt" />
     <!-- Need to touch the output file for the case where the input data
     	 changed, but the output didn't -->
-    <touch file="sql/${class2table.output}" />
+    <touch file="${class2table.output}" />
   </target>
 
   <property name="sql.output" value="ooaofooa-1.sql" />
