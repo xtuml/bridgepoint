@@ -543,7 +543,7 @@ class MaslTypeProvider {
 				if(rType == lType) 
 					return ANONYMOUS_DURATION
 				else if(rType.primitiveType == DURATION)
-					return rType
+					return lType
 			case DURATION:
 				if(lType.anonymous && lType == DURATION) {
 					if (rType.primitiveType == DURATION)
