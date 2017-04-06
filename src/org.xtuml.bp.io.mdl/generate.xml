@@ -56,7 +56,7 @@
 
   <target name="class2table.absolute" if="absolute.present" >
     <echo >Generating ${class2table.output} ...</echo>
-    <exec dir="sql" vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
+    <exec vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
     <env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
     <arg line="xtumlmc_gen_erate -nopersist
       -import ${mcj_path}/ooa_schema.sql
@@ -72,7 +72,7 @@
 
   <target name="class2table.relative" if="relative.present" >
     <echo >Generating ${class2table.output} ...</echo>
-    <exec dir="sql" vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
+    <exec vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
     <env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
     <arg line="xtumlmc_gen_erate -nopersist
     	 -import ../${mcj_path}/ooa_schema.sql

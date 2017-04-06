@@ -50,7 +50,7 @@
 		
 		<target name="create_gen.absolute" if="absolute.present">
 			<delete file="sql/db.gen" />
-			<exec dir="sql" vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
+			<exec vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
 			      <env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
 			      <arg line="xtumlmc_gen_erate -f db.gen
 			        -import ${mcj_path}/ooa_schema.sql
@@ -62,7 +62,7 @@
 	
 		<target name="create_gen.relative" if="relative.present">
 			<delete file="sql/db.gen" />
-			<exec dir="sql" vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
+			<exec vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
 			      <env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
 			      <arg line="xtumlmc_gen_erate -f db.gen
 			        -import ../${mcj_path}/ooa_schema.sql
