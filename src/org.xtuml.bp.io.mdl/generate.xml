@@ -54,7 +54,7 @@
 	  <antcall target="class2table.relative"/>   		
   </target>
 
-  <target name="class2table.absolute" >
+  <target name="class2table.absolute" if="absolute.present" >
     <echo >Generating ${class2table.output} ...</echo>
     <exec dir="sql" vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
     <env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
@@ -70,7 +70,7 @@
   <touch file="sql/${class2table.output}" />
   </target>
 
-  <target name="class2table.relative" >
+  <target name="class2table.relative" if="relative.present" >
     <echo >Generating ${class2table.output} ...</echo>
     <exec dir="sql" vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
     <env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />

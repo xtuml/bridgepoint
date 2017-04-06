@@ -48,7 +48,7 @@
 	   	  <antcall target="create_gen.relative"/>   		
 	  </target>
 		
-		<target name="create_gen.absolute">
+		<target name="create_gen.absolute" if="absolute.present">
 			<delete file="sql/db.gen" />
 			<exec dir="sql" vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
 			      <env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
@@ -60,7 +60,7 @@
 			</exec>
 		</target>
 	
-		<target name="create_gen.relative">
+		<target name="create_gen.relative" if="relative.present">
 			<delete file="sql/db.gen" />
 			<exec dir="sql" vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
 			      <env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
