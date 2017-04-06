@@ -245,7 +245,6 @@ enum Multiplicity {
 class RelationshipNavigation {
 	refers RelationshipDefinition relationship
 	refers ObjectOrRole objectOrRole
-	refers ObjectDeclaration object
 }
 
 class ObjectOrRole {

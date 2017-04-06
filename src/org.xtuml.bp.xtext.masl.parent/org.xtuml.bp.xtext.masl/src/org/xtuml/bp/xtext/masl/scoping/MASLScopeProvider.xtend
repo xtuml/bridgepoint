@@ -49,6 +49,10 @@ import static org.eclipse.xtext.scoping.Scopes.*
 
 import static extension org.eclipse.xtext.EcoreUtil2.*
 import org.xtuml.bp.xtext.masl.masl.structure.ObjectServiceDefinition
+import org.xtuml.bp.xtext.masl.masl.structure.RelationshipEnd
+import org.eclipse.xtext.resource.EObjectDescription
+import org.eclipse.xtext.naming.QualifiedName
+import org.eclipse.xtext.scoping.impl.SimpleScope
 
 /**
  * This class contains custom scoping description.
@@ -128,40 +132,31 @@ class MASLScopeProvider extends AbstractMASLScopeProvider {
 							return scopeFor(#{relationShip.forwards, relationShip.backwards,
 								relationShip.forwards.from, relationShip.forwards.to, 
 								relationShip.backwards.from, relationShip.backwards.to
-							})
+							}, new SimpleScope(#[
+								qualifiedDescription(relationShip.forwards), 
+								qualifiedDescription(relationShip.backwards)
+							]))
 						AssocRelationshipDefinition:
 							return scopeFor(#{relationShip.forwards, relationShip.backwards,
 								relationShip.forwards.from, relationShip.forwards.to, 
 								relationShip.backwards.from, relationShip.backwards.to,
 								relationShip.object
-							})
+							}, new SimpleScope(#[
+								qualifiedDescription(relationShip.forwards), 
+								qualifiedDescription(relationShip.backwards)
+							]))
 						SubtypeRelationshipDefinition:
 							return scopeFor(relationShip.subtypes)
 							
 					}
  				}
 			}
-			case structurePackage.relationshipNavigation_Object: {
-				if(context instanceof RelationshipNavigation) {
-					val relationShip = context.relationship
-					switch relationShip {
-						RegularRelationshipDefinition:
-							return scopeFor(#{
-								relationShip.forwards.from, relationShip.forwards.to, 
-								relationShip.backwards.from, relationShip.backwards.to
-							})
-						AssocRelationshipDefinition:
-							return scopeFor(#{
-								relationShip.forwards.from, relationShip.forwards.to, 
-								relationShip.backwards.from, relationShip.backwards.to
-							})
-						SubtypeRelationshipDefinition:
-							return scopeFor(relationShip.subtypes)
-					}
- 				}
-			}
 		}
 		super.getScope(context, reference)
+	}
+	
+	private def qualifiedDescription(RelationshipEnd end) {
+		EObjectDescription.create(QualifiedName.create(end.name + '.' + end.to.name), end)
 	}
 	
 	private def <T extends EObject> createObjectScope(ObjectDefinition object, (ObjectDefinition)=>Iterable<? extends T> reference, IScope parentScope) {

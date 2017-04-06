@@ -273,10 +273,13 @@ AttributeDefinition:
 AttributeReferential returns RelationshipNavigation:
 	{AttributeReferential}
 	relationship=[RelationshipDefinition|ScopedName]
-	('.' objectOrRole=[ObjectOrRole] 
-		('.' object=[ObjectDeclaration])?
-	)?
-	'.' attribute=[AttributeDefinition];
+	'.' 
+	( objectOrRole=[ObjectOrRole|ObjectOrRoleName] '.' attribute=[AttributeDefinition]
+	| objectOrRole=[ObjectOrRole|ID] '.' attribute=[AttributeDefinition]
+	| attribute=[AttributeDefinition]);
+
+ObjectOrRoleName:
+	ID '.' ID;
 
 ObjectServiceDeclaration:
 	visibility=Visibility?
@@ -384,7 +387,7 @@ enum Multiplicity:
 
 RelationshipNavigation:
 	relationship=[RelationshipDefinition|ScopedName]
-	('.' objectOrRole=[ObjectOrRole] ('.' object=[ObjectDeclaration])?)?;
+	('.' (objectOrRole=[ObjectOrRole] | objectOrRole=[ObjectOrRole|ObjectOrRoleName]))?;
 
 //---------------------------------------------------------
 // Dynamic Behaviour

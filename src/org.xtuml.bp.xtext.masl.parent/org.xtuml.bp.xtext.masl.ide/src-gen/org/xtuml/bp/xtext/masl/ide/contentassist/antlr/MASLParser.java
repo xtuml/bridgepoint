@@ -54,6 +54,7 @@ public class MASLParser extends AbstractContentAssistParser {
 					put(grammarAccess.getAbstractDictKeyTypeRefAccess().getAlternatives(), "rule__AbstractDictKeyTypeRef__Alternatives");
 					put(grammarAccess.getTerminatorServiceDeclarationAccess().getAlternatives_1(), "rule__TerminatorServiceDeclaration__Alternatives_1");
 					put(grammarAccess.getObjectDefinitionAccess().getAlternatives_3(), "rule__ObjectDefinition__Alternatives_3");
+					put(grammarAccess.getAttributeReferentialAccess().getAlternatives_3(), "rule__AttributeReferential__Alternatives_3");
 					put(grammarAccess.getObjectServiceDeclarationAccess().getAlternatives_3(), "rule__ObjectServiceDeclaration__Alternatives_3");
 					put(grammarAccess.getStateTypeSyntaxAccess().getAlternatives(), "rule__StateTypeSyntax__Alternatives");
 					put(grammarAccess.getTransitionRowAccess().getAlternatives_0(), "rule__TransitionRow__Alternatives_0");
@@ -62,6 +63,7 @@ public class MASLParser extends AbstractContentAssistParser {
 					put(grammarAccess.getTransitionOptionAccess().getCannotHappenAlternatives_3_2_0(), "rule__TransitionOption__CannotHappenAlternatives_3_2_0");
 					put(grammarAccess.getDomainServiceDeclarationAccess().getAlternatives_1(), "rule__DomainServiceDeclaration__Alternatives_1");
 					put(grammarAccess.getRelationshipDefinitionAccess().getAlternatives_1(), "rule__RelationshipDefinition__Alternatives_1");
+					put(grammarAccess.getRelationshipNavigationAccess().getAlternatives_1_1(), "rule__RelationshipNavigation__Alternatives_1_1");
 					put(grammarAccess.getDomainServiceDefinitionAccess().getAlternatives_1(), "rule__DomainServiceDefinition__Alternatives_1");
 					put(grammarAccess.getDomainServiceDefinitionAccess().getAlternatives_9(), "rule__DomainServiceDefinition__Alternatives_9");
 					put(grammarAccess.getObjectServiceDefinitionAccess().getAlternatives_3(), "rule__ObjectServiceDefinition__Alternatives_3");
@@ -160,8 +162,9 @@ public class MASLParser extends AbstractContentAssistParser {
 					put(grammarAccess.getAttributeDefinitionAccess().getGroup_4_2_1(), "rule__AttributeDefinition__Group_4_2_1__0");
 					put(grammarAccess.getAttributeDefinitionAccess().getGroup_6(), "rule__AttributeDefinition__Group_6__0");
 					put(grammarAccess.getAttributeReferentialAccess().getGroup(), "rule__AttributeReferential__Group__0");
-					put(grammarAccess.getAttributeReferentialAccess().getGroup_2(), "rule__AttributeReferential__Group_2__0");
-					put(grammarAccess.getAttributeReferentialAccess().getGroup_2_2(), "rule__AttributeReferential__Group_2_2__0");
+					put(grammarAccess.getAttributeReferentialAccess().getGroup_3_0(), "rule__AttributeReferential__Group_3_0__0");
+					put(grammarAccess.getAttributeReferentialAccess().getGroup_3_1(), "rule__AttributeReferential__Group_3_1__0");
+					put(grammarAccess.getObjectOrRoleNameAccess().getGroup(), "rule__ObjectOrRoleName__Group__0");
 					put(grammarAccess.getObjectServiceDeclarationAccess().getGroup(), "rule__ObjectServiceDeclaration__Group__0");
 					put(grammarAccess.getObjectServiceDeclarationAccess().getGroup_2(), "rule__ObjectServiceDeclaration__Group_2__0");
 					put(grammarAccess.getObjectServiceDeclarationAccess().getGroup_6(), "rule__ObjectServiceDeclaration__Group_6__0");
@@ -188,7 +191,6 @@ public class MASLParser extends AbstractContentAssistParser {
 					put(grammarAccess.getSubtypeRelationshipDefinitionAccess().getGroup_5_1(), "rule__SubtypeRelationshipDefinition__Group_5_1__0");
 					put(grammarAccess.getRelationshipNavigationAccess().getGroup(), "rule__RelationshipNavigation__Group__0");
 					put(grammarAccess.getRelationshipNavigationAccess().getGroup_1(), "rule__RelationshipNavigation__Group_1__0");
-					put(grammarAccess.getRelationshipNavigationAccess().getGroup_1_2(), "rule__RelationshipNavigation__Group_1_2__0");
 					put(grammarAccess.getDomainServiceDefinitionAccess().getGroup(), "rule__DomainServiceDefinition__Group__0");
 					put(grammarAccess.getDomainServiceDefinitionAccess().getGroup_6(), "rule__DomainServiceDefinition__Group_6__0");
 					put(grammarAccess.getObjectServiceDefinitionAccess().getGroup(), "rule__ObjectServiceDefinition__Group__0");
@@ -419,9 +421,11 @@ public class MASLParser extends AbstractContentAssistParser {
 					put(grammarAccess.getAttributeDefinitionAccess().getTypeAssignment_5(), "rule__AttributeDefinition__TypeAssignment_5");
 					put(grammarAccess.getAttributeDefinitionAccess().getDefaultValueAssignment_6_1(), "rule__AttributeDefinition__DefaultValueAssignment_6_1");
 					put(grammarAccess.getAttributeReferentialAccess().getRelationshipAssignment_1(), "rule__AttributeReferential__RelationshipAssignment_1");
-					put(grammarAccess.getAttributeReferentialAccess().getObjectOrRoleAssignment_2_1(), "rule__AttributeReferential__ObjectOrRoleAssignment_2_1");
-					put(grammarAccess.getAttributeReferentialAccess().getObjectAssignment_2_2_1(), "rule__AttributeReferential__ObjectAssignment_2_2_1");
-					put(grammarAccess.getAttributeReferentialAccess().getAttributeAssignment_4(), "rule__AttributeReferential__AttributeAssignment_4");
+					put(grammarAccess.getAttributeReferentialAccess().getObjectOrRoleAssignment_3_0_0(), "rule__AttributeReferential__ObjectOrRoleAssignment_3_0_0");
+					put(grammarAccess.getAttributeReferentialAccess().getAttributeAssignment_3_0_2(), "rule__AttributeReferential__AttributeAssignment_3_0_2");
+					put(grammarAccess.getAttributeReferentialAccess().getObjectOrRoleAssignment_3_1_0(), "rule__AttributeReferential__ObjectOrRoleAssignment_3_1_0");
+					put(grammarAccess.getAttributeReferentialAccess().getAttributeAssignment_3_1_2(), "rule__AttributeReferential__AttributeAssignment_3_1_2");
+					put(grammarAccess.getAttributeReferentialAccess().getAttributeAssignment_3_2(), "rule__AttributeReferential__AttributeAssignment_3_2");
 					put(grammarAccess.getObjectServiceDeclarationAccess().getVisibilityAssignment_0(), "rule__ObjectServiceDeclaration__VisibilityAssignment_0");
 					put(grammarAccess.getObjectServiceDeclarationAccess().getInstanceAssignment_1(), "rule__ObjectServiceDeclaration__InstanceAssignment_1");
 					put(grammarAccess.getObjectServiceDeclarationAccess().getRelationshipAssignment_2_2(), "rule__ObjectServiceDeclaration__RelationshipAssignment_2_2");
@@ -465,8 +469,8 @@ public class MASLParser extends AbstractContentAssistParser {
 					put(grammarAccess.getSubtypeRelationshipDefinitionAccess().getSubtypesAssignment_5_0(), "rule__SubtypeRelationshipDefinition__SubtypesAssignment_5_0");
 					put(grammarAccess.getSubtypeRelationshipDefinitionAccess().getSubtypesAssignment_5_1_1(), "rule__SubtypeRelationshipDefinition__SubtypesAssignment_5_1_1");
 					put(grammarAccess.getRelationshipNavigationAccess().getRelationshipAssignment_0(), "rule__RelationshipNavigation__RelationshipAssignment_0");
-					put(grammarAccess.getRelationshipNavigationAccess().getObjectOrRoleAssignment_1_1(), "rule__RelationshipNavigation__ObjectOrRoleAssignment_1_1");
-					put(grammarAccess.getRelationshipNavigationAccess().getObjectAssignment_1_2_1(), "rule__RelationshipNavigation__ObjectAssignment_1_2_1");
+					put(grammarAccess.getRelationshipNavigationAccess().getObjectOrRoleAssignment_1_1_0(), "rule__RelationshipNavigation__ObjectOrRoleAssignment_1_1_0");
+					put(grammarAccess.getRelationshipNavigationAccess().getObjectOrRoleAssignment_1_1_1(), "rule__RelationshipNavigation__ObjectOrRoleAssignment_1_1_1");
 					put(grammarAccess.getDomainServiceDefinitionAccess().getVisibilityAssignment_0(), "rule__DomainServiceDefinition__VisibilityAssignment_0");
 					put(grammarAccess.getDomainServiceDefinitionAccess().getDomainAssignment_2(), "rule__DomainServiceDefinition__DomainAssignment_2");
 					put(grammarAccess.getDomainServiceDefinitionAccess().getNameAssignment_4(), "rule__DomainServiceDefinition__NameAssignment_4");

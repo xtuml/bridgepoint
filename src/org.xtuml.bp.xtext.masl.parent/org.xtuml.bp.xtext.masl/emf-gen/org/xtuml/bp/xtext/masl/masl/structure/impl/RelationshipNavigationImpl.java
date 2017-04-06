@@ -11,7 +11,6 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
-import org.xtuml.bp.xtext.masl.masl.structure.ObjectDeclaration;
 import org.xtuml.bp.xtext.masl.masl.structure.ObjectOrRole;
 import org.xtuml.bp.xtext.masl.masl.structure.RelationshipDefinition;
 import org.xtuml.bp.xtext.masl.masl.structure.RelationshipNavigation;
@@ -27,7 +26,6 @@ import org.xtuml.bp.xtext.masl.masl.structure.StructurePackage;
  * <ul>
  *   <li>{@link org.xtuml.bp.xtext.masl.masl.structure.impl.RelationshipNavigationImpl#getRelationship <em>Relationship</em>}</li>
  *   <li>{@link org.xtuml.bp.xtext.masl.masl.structure.impl.RelationshipNavigationImpl#getObjectOrRole <em>Object Or Role</em>}</li>
- *   <li>{@link org.xtuml.bp.xtext.masl.masl.structure.impl.RelationshipNavigationImpl#getObject <em>Object</em>}</li>
  * </ul>
  *
  * @generated
@@ -52,16 +50,6 @@ public class RelationshipNavigationImpl extends MinimalEObjectImpl.Container imp
 	 * @ordered
 	 */
 	protected ObjectOrRole objectOrRole;
-
-	/**
-	 * The cached value of the '{@link #getObject() <em>Object</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getObject()
-	 * @generated
-	 * @ordered
-	 */
-	protected ObjectDeclaration object;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -163,44 +151,6 @@ public class RelationshipNavigationImpl extends MinimalEObjectImpl.Container imp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public ObjectDeclaration getObject() {
-		if (object != null && object.eIsProxy()) {
-			InternalEObject oldObject = (InternalEObject)object;
-			object = (ObjectDeclaration)eResolveProxy(oldObject);
-			if (object != oldObject) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, StructurePackage.RELATIONSHIP_NAVIGATION__OBJECT, oldObject, object));
-			}
-		}
-		return object;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public ObjectDeclaration basicGetObject() {
-		return object;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setObject(ObjectDeclaration newObject) {
-		ObjectDeclaration oldObject = object;
-		object = newObject;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, StructurePackage.RELATIONSHIP_NAVIGATION__OBJECT, oldObject, object));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
@@ -210,9 +160,6 @@ public class RelationshipNavigationImpl extends MinimalEObjectImpl.Container imp
 			case StructurePackage.RELATIONSHIP_NAVIGATION__OBJECT_OR_ROLE:
 				if (resolve) return getObjectOrRole();
 				return basicGetObjectOrRole();
-			case StructurePackage.RELATIONSHIP_NAVIGATION__OBJECT:
-				if (resolve) return getObject();
-				return basicGetObject();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -230,9 +177,6 @@ public class RelationshipNavigationImpl extends MinimalEObjectImpl.Container imp
 				return;
 			case StructurePackage.RELATIONSHIP_NAVIGATION__OBJECT_OR_ROLE:
 				setObjectOrRole((ObjectOrRole)newValue);
-				return;
-			case StructurePackage.RELATIONSHIP_NAVIGATION__OBJECT:
-				setObject((ObjectDeclaration)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -252,9 +196,6 @@ public class RelationshipNavigationImpl extends MinimalEObjectImpl.Container imp
 			case StructurePackage.RELATIONSHIP_NAVIGATION__OBJECT_OR_ROLE:
 				setObjectOrRole((ObjectOrRole)null);
 				return;
-			case StructurePackage.RELATIONSHIP_NAVIGATION__OBJECT:
-				setObject((ObjectDeclaration)null);
-				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -271,8 +212,6 @@ public class RelationshipNavigationImpl extends MinimalEObjectImpl.Container imp
 				return relationship != null;
 			case StructurePackage.RELATIONSHIP_NAVIGATION__OBJECT_OR_ROLE:
 				return objectOrRole != null;
-			case StructurePackage.RELATIONSHIP_NAVIGATION__OBJECT:
-				return object != null;
 		}
 		return super.eIsSet(featureID);
 	}

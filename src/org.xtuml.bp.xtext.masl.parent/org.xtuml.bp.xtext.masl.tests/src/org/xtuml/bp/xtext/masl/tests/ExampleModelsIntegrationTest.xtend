@@ -41,8 +41,13 @@ class ExampleModelsIntegrationTest {
 	}
 
 	@Test
-	def void testPSCExample() {
-		testProject('examples/PSC')
+	def void testPSCExampleOOA() {
+		testProject('examples/PSC/PSC_OOA')
+	}
+
+	@Test
+	def void testPSCExamplePROC() {
+		testProject('examples/PSC/PETROL_PROC')
 	}
 
 	@Test

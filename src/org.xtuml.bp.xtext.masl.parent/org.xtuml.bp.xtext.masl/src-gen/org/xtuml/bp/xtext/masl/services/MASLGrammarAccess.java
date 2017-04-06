@@ -2249,29 +2249,37 @@ public class MASLGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cRelationshipAssignment_1 = (Assignment)cGroup.eContents().get(1);
 		private final CrossReference cRelationshipRelationshipDefinitionCrossReference_1_0 = (CrossReference)cRelationshipAssignment_1.eContents().get(0);
 		private final RuleCall cRelationshipRelationshipDefinitionScopedNameParserRuleCall_1_0_1 = (RuleCall)cRelationshipRelationshipDefinitionCrossReference_1_0.eContents().get(1);
-		private final Group cGroup_2 = (Group)cGroup.eContents().get(2);
-		private final Keyword cFullStopKeyword_2_0 = (Keyword)cGroup_2.eContents().get(0);
-		private final Assignment cObjectOrRoleAssignment_2_1 = (Assignment)cGroup_2.eContents().get(1);
-		private final CrossReference cObjectOrRoleObjectOrRoleCrossReference_2_1_0 = (CrossReference)cObjectOrRoleAssignment_2_1.eContents().get(0);
-		private final RuleCall cObjectOrRoleObjectOrRoleIDTerminalRuleCall_2_1_0_1 = (RuleCall)cObjectOrRoleObjectOrRoleCrossReference_2_1_0.eContents().get(1);
-		private final Group cGroup_2_2 = (Group)cGroup_2.eContents().get(2);
-		private final Keyword cFullStopKeyword_2_2_0 = (Keyword)cGroup_2_2.eContents().get(0);
-		private final Assignment cObjectAssignment_2_2_1 = (Assignment)cGroup_2_2.eContents().get(1);
-		private final CrossReference cObjectObjectDeclarationCrossReference_2_2_1_0 = (CrossReference)cObjectAssignment_2_2_1.eContents().get(0);
-		private final RuleCall cObjectObjectDeclarationIDTerminalRuleCall_2_2_1_0_1 = (RuleCall)cObjectObjectDeclarationCrossReference_2_2_1_0.eContents().get(1);
-		private final Keyword cFullStopKeyword_3 = (Keyword)cGroup.eContents().get(3);
-		private final Assignment cAttributeAssignment_4 = (Assignment)cGroup.eContents().get(4);
-		private final CrossReference cAttributeAttributeDefinitionCrossReference_4_0 = (CrossReference)cAttributeAssignment_4.eContents().get(0);
-		private final RuleCall cAttributeAttributeDefinitionIDTerminalRuleCall_4_0_1 = (RuleCall)cAttributeAttributeDefinitionCrossReference_4_0.eContents().get(1);
+		private final Keyword cFullStopKeyword_2 = (Keyword)cGroup.eContents().get(2);
+		private final Alternatives cAlternatives_3 = (Alternatives)cGroup.eContents().get(3);
+		private final Group cGroup_3_0 = (Group)cAlternatives_3.eContents().get(0);
+		private final Assignment cObjectOrRoleAssignment_3_0_0 = (Assignment)cGroup_3_0.eContents().get(0);
+		private final CrossReference cObjectOrRoleObjectOrRoleCrossReference_3_0_0_0 = (CrossReference)cObjectOrRoleAssignment_3_0_0.eContents().get(0);
+		private final RuleCall cObjectOrRoleObjectOrRoleObjectOrRoleNameParserRuleCall_3_0_0_0_1 = (RuleCall)cObjectOrRoleObjectOrRoleCrossReference_3_0_0_0.eContents().get(1);
+		private final Keyword cFullStopKeyword_3_0_1 = (Keyword)cGroup_3_0.eContents().get(1);
+		private final Assignment cAttributeAssignment_3_0_2 = (Assignment)cGroup_3_0.eContents().get(2);
+		private final CrossReference cAttributeAttributeDefinitionCrossReference_3_0_2_0 = (CrossReference)cAttributeAssignment_3_0_2.eContents().get(0);
+		private final RuleCall cAttributeAttributeDefinitionIDTerminalRuleCall_3_0_2_0_1 = (RuleCall)cAttributeAttributeDefinitionCrossReference_3_0_2_0.eContents().get(1);
+		private final Group cGroup_3_1 = (Group)cAlternatives_3.eContents().get(1);
+		private final Assignment cObjectOrRoleAssignment_3_1_0 = (Assignment)cGroup_3_1.eContents().get(0);
+		private final CrossReference cObjectOrRoleObjectOrRoleCrossReference_3_1_0_0 = (CrossReference)cObjectOrRoleAssignment_3_1_0.eContents().get(0);
+		private final RuleCall cObjectOrRoleObjectOrRoleIDTerminalRuleCall_3_1_0_0_1 = (RuleCall)cObjectOrRoleObjectOrRoleCrossReference_3_1_0_0.eContents().get(1);
+		private final Keyword cFullStopKeyword_3_1_1 = (Keyword)cGroup_3_1.eContents().get(1);
+		private final Assignment cAttributeAssignment_3_1_2 = (Assignment)cGroup_3_1.eContents().get(2);
+		private final CrossReference cAttributeAttributeDefinitionCrossReference_3_1_2_0 = (CrossReference)cAttributeAssignment_3_1_2.eContents().get(0);
+		private final RuleCall cAttributeAttributeDefinitionIDTerminalRuleCall_3_1_2_0_1 = (RuleCall)cAttributeAttributeDefinitionCrossReference_3_1_2_0.eContents().get(1);
+		private final Assignment cAttributeAssignment_3_2 = (Assignment)cAlternatives_3.eContents().get(2);
+		private final CrossReference cAttributeAttributeDefinitionCrossReference_3_2_0 = (CrossReference)cAttributeAssignment_3_2.eContents().get(0);
+		private final RuleCall cAttributeAttributeDefinitionIDTerminalRuleCall_3_2_0_1 = (RuleCall)cAttributeAttributeDefinitionCrossReference_3_2_0.eContents().get(1);
 		
 		//AttributeReferential RelationshipNavigation:
-		//	{AttributeReferential} relationship=[RelationshipDefinition|ScopedName] ('.' objectOrRole=[ObjectOrRole] ('.'
-		//	object=[ObjectDeclaration])?)?
-		//	'.' attribute=[AttributeDefinition]
+		//	{AttributeReferential} relationship=[RelationshipDefinition|ScopedName]
+		//	'.' (objectOrRole=[ObjectOrRole|ObjectOrRoleName] '.' attribute=[AttributeDefinition] | objectOrRole=[ObjectOrRole]
+		//	'.' attribute=[AttributeDefinition] | attribute=[AttributeDefinition])
 		@Override public ParserRule getRule() { return rule; }
 		
-		//{AttributeReferential} relationship=[RelationshipDefinition|ScopedName] ('.' objectOrRole=[ObjectOrRole] ('.'
-		//object=[ObjectDeclaration])?)? '.' attribute=[AttributeDefinition]
+		//{AttributeReferential} relationship=[RelationshipDefinition|ScopedName] '.'
+		//(objectOrRole=[ObjectOrRole|ObjectOrRoleName] '.' attribute=[AttributeDefinition] | objectOrRole=[ObjectOrRole] '.'
+		//attribute=[AttributeDefinition] | attribute=[AttributeDefinition])
 		public Group getGroup() { return cGroup; }
 		
 		//{AttributeReferential}
@@ -2286,47 +2294,92 @@ public class MASLGrammarAccess extends AbstractGrammarElementFinder {
 		//ScopedName
 		public RuleCall getRelationshipRelationshipDefinitionScopedNameParserRuleCall_1_0_1() { return cRelationshipRelationshipDefinitionScopedNameParserRuleCall_1_0_1; }
 		
-		//('.' objectOrRole=[ObjectOrRole] ('.' object=[ObjectDeclaration])?)?
-		public Group getGroup_2() { return cGroup_2; }
+		//'.'
+		public Keyword getFullStopKeyword_2() { return cFullStopKeyword_2; }
+		
+		//(objectOrRole=[ObjectOrRole|ObjectOrRoleName] '.' attribute=[AttributeDefinition] | objectOrRole=[ObjectOrRole] '.'
+		//attribute=[AttributeDefinition] | attribute=[AttributeDefinition])
+		public Alternatives getAlternatives_3() { return cAlternatives_3; }
+		
+		//objectOrRole=[ObjectOrRole|ObjectOrRoleName] '.' attribute=[AttributeDefinition]
+		public Group getGroup_3_0() { return cGroup_3_0; }
+		
+		//objectOrRole=[ObjectOrRole|ObjectOrRoleName]
+		public Assignment getObjectOrRoleAssignment_3_0_0() { return cObjectOrRoleAssignment_3_0_0; }
+		
+		//[ObjectOrRole|ObjectOrRoleName]
+		public CrossReference getObjectOrRoleObjectOrRoleCrossReference_3_0_0_0() { return cObjectOrRoleObjectOrRoleCrossReference_3_0_0_0; }
+		
+		//ObjectOrRoleName
+		public RuleCall getObjectOrRoleObjectOrRoleObjectOrRoleNameParserRuleCall_3_0_0_0_1() { return cObjectOrRoleObjectOrRoleObjectOrRoleNameParserRuleCall_3_0_0_0_1; }
 		
 		//'.'
-		public Keyword getFullStopKeyword_2_0() { return cFullStopKeyword_2_0; }
-		
-		//objectOrRole=[ObjectOrRole]
-		public Assignment getObjectOrRoleAssignment_2_1() { return cObjectOrRoleAssignment_2_1; }
-		
-		//[ObjectOrRole]
-		public CrossReference getObjectOrRoleObjectOrRoleCrossReference_2_1_0() { return cObjectOrRoleObjectOrRoleCrossReference_2_1_0; }
-		
-		//ID
-		public RuleCall getObjectOrRoleObjectOrRoleIDTerminalRuleCall_2_1_0_1() { return cObjectOrRoleObjectOrRoleIDTerminalRuleCall_2_1_0_1; }
-		
-		//('.' object=[ObjectDeclaration])?
-		public Group getGroup_2_2() { return cGroup_2_2; }
-		
-		//'.'
-		public Keyword getFullStopKeyword_2_2_0() { return cFullStopKeyword_2_2_0; }
-		
-		//object=[ObjectDeclaration]
-		public Assignment getObjectAssignment_2_2_1() { return cObjectAssignment_2_2_1; }
-		
-		//[ObjectDeclaration]
-		public CrossReference getObjectObjectDeclarationCrossReference_2_2_1_0() { return cObjectObjectDeclarationCrossReference_2_2_1_0; }
-		
-		//ID
-		public RuleCall getObjectObjectDeclarationIDTerminalRuleCall_2_2_1_0_1() { return cObjectObjectDeclarationIDTerminalRuleCall_2_2_1_0_1; }
-		
-		//'.'
-		public Keyword getFullStopKeyword_3() { return cFullStopKeyword_3; }
+		public Keyword getFullStopKeyword_3_0_1() { return cFullStopKeyword_3_0_1; }
 		
 		//attribute=[AttributeDefinition]
-		public Assignment getAttributeAssignment_4() { return cAttributeAssignment_4; }
+		public Assignment getAttributeAssignment_3_0_2() { return cAttributeAssignment_3_0_2; }
 		
 		//[AttributeDefinition]
-		public CrossReference getAttributeAttributeDefinitionCrossReference_4_0() { return cAttributeAttributeDefinitionCrossReference_4_0; }
+		public CrossReference getAttributeAttributeDefinitionCrossReference_3_0_2_0() { return cAttributeAttributeDefinitionCrossReference_3_0_2_0; }
 		
 		//ID
-		public RuleCall getAttributeAttributeDefinitionIDTerminalRuleCall_4_0_1() { return cAttributeAttributeDefinitionIDTerminalRuleCall_4_0_1; }
+		public RuleCall getAttributeAttributeDefinitionIDTerminalRuleCall_3_0_2_0_1() { return cAttributeAttributeDefinitionIDTerminalRuleCall_3_0_2_0_1; }
+		
+		//objectOrRole=[ObjectOrRole] '.' attribute=[AttributeDefinition]
+		public Group getGroup_3_1() { return cGroup_3_1; }
+		
+		//objectOrRole=[ObjectOrRole]
+		public Assignment getObjectOrRoleAssignment_3_1_0() { return cObjectOrRoleAssignment_3_1_0; }
+		
+		//[ObjectOrRole]
+		public CrossReference getObjectOrRoleObjectOrRoleCrossReference_3_1_0_0() { return cObjectOrRoleObjectOrRoleCrossReference_3_1_0_0; }
+		
+		//ID
+		public RuleCall getObjectOrRoleObjectOrRoleIDTerminalRuleCall_3_1_0_0_1() { return cObjectOrRoleObjectOrRoleIDTerminalRuleCall_3_1_0_0_1; }
+		
+		//'.'
+		public Keyword getFullStopKeyword_3_1_1() { return cFullStopKeyword_3_1_1; }
+		
+		//attribute=[AttributeDefinition]
+		public Assignment getAttributeAssignment_3_1_2() { return cAttributeAssignment_3_1_2; }
+		
+		//[AttributeDefinition]
+		public CrossReference getAttributeAttributeDefinitionCrossReference_3_1_2_0() { return cAttributeAttributeDefinitionCrossReference_3_1_2_0; }
+		
+		//ID
+		public RuleCall getAttributeAttributeDefinitionIDTerminalRuleCall_3_1_2_0_1() { return cAttributeAttributeDefinitionIDTerminalRuleCall_3_1_2_0_1; }
+		
+		//attribute=[AttributeDefinition]
+		public Assignment getAttributeAssignment_3_2() { return cAttributeAssignment_3_2; }
+		
+		//[AttributeDefinition]
+		public CrossReference getAttributeAttributeDefinitionCrossReference_3_2_0() { return cAttributeAttributeDefinitionCrossReference_3_2_0; }
+		
+		//ID
+		public RuleCall getAttributeAttributeDefinitionIDTerminalRuleCall_3_2_0_1() { return cAttributeAttributeDefinitionIDTerminalRuleCall_3_2_0_1; }
+	}
+	public class ObjectOrRoleNameElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.xtuml.bp.xtext.masl.MASL.ObjectOrRoleName");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final RuleCall cIDTerminalRuleCall_0 = (RuleCall)cGroup.eContents().get(0);
+		private final Keyword cFullStopKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		private final RuleCall cIDTerminalRuleCall_2 = (RuleCall)cGroup.eContents().get(2);
+		
+		//ObjectOrRoleName:
+		//	ID '.' ID;
+		@Override public ParserRule getRule() { return rule; }
+		
+		//ID '.' ID
+		public Group getGroup() { return cGroup; }
+		
+		//ID
+		public RuleCall getIDTerminalRuleCall_0() { return cIDTerminalRuleCall_0; }
+		
+		//'.'
+		public Keyword getFullStopKeyword_1() { return cFullStopKeyword_1; }
+		
+		//ID
+		public RuleCall getIDTerminalRuleCall_2() { return cIDTerminalRuleCall_2; }
 	}
 	public class ObjectServiceDeclarationElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.xtuml.bp.xtext.masl.MASL.ObjectServiceDeclaration");
@@ -3259,20 +3312,21 @@ public class MASLGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cRelationshipRelationshipDefinitionScopedNameParserRuleCall_0_0_1 = (RuleCall)cRelationshipRelationshipDefinitionCrossReference_0_0.eContents().get(1);
 		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
 		private final Keyword cFullStopKeyword_1_0 = (Keyword)cGroup_1.eContents().get(0);
-		private final Assignment cObjectOrRoleAssignment_1_1 = (Assignment)cGroup_1.eContents().get(1);
-		private final CrossReference cObjectOrRoleObjectOrRoleCrossReference_1_1_0 = (CrossReference)cObjectOrRoleAssignment_1_1.eContents().get(0);
-		private final RuleCall cObjectOrRoleObjectOrRoleIDTerminalRuleCall_1_1_0_1 = (RuleCall)cObjectOrRoleObjectOrRoleCrossReference_1_1_0.eContents().get(1);
-		private final Group cGroup_1_2 = (Group)cGroup_1.eContents().get(2);
-		private final Keyword cFullStopKeyword_1_2_0 = (Keyword)cGroup_1_2.eContents().get(0);
-		private final Assignment cObjectAssignment_1_2_1 = (Assignment)cGroup_1_2.eContents().get(1);
-		private final CrossReference cObjectObjectDeclarationCrossReference_1_2_1_0 = (CrossReference)cObjectAssignment_1_2_1.eContents().get(0);
-		private final RuleCall cObjectObjectDeclarationIDTerminalRuleCall_1_2_1_0_1 = (RuleCall)cObjectObjectDeclarationCrossReference_1_2_1_0.eContents().get(1);
+		private final Alternatives cAlternatives_1_1 = (Alternatives)cGroup_1.eContents().get(1);
+		private final Assignment cObjectOrRoleAssignment_1_1_0 = (Assignment)cAlternatives_1_1.eContents().get(0);
+		private final CrossReference cObjectOrRoleObjectOrRoleCrossReference_1_1_0_0 = (CrossReference)cObjectOrRoleAssignment_1_1_0.eContents().get(0);
+		private final RuleCall cObjectOrRoleObjectOrRoleIDTerminalRuleCall_1_1_0_0_1 = (RuleCall)cObjectOrRoleObjectOrRoleCrossReference_1_1_0_0.eContents().get(1);
+		private final Assignment cObjectOrRoleAssignment_1_1_1 = (Assignment)cAlternatives_1_1.eContents().get(1);
+		private final CrossReference cObjectOrRoleObjectOrRoleCrossReference_1_1_1_0 = (CrossReference)cObjectOrRoleAssignment_1_1_1.eContents().get(0);
+		private final RuleCall cObjectOrRoleObjectOrRoleObjectOrRoleNameParserRuleCall_1_1_1_0_1 = (RuleCall)cObjectOrRoleObjectOrRoleCrossReference_1_1_1_0.eContents().get(1);
 		
 		//RelationshipNavigation:
-		//	relationship=[RelationshipDefinition|ScopedName] ('.' objectOrRole=[ObjectOrRole] ('.' object=[ObjectDeclaration])?)?;
+		//	relationship=[RelationshipDefinition|ScopedName] ('.' (objectOrRole=[ObjectOrRole] |
+		//	objectOrRole=[ObjectOrRole|ObjectOrRoleName]))?;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//relationship=[RelationshipDefinition|ScopedName] ('.' objectOrRole=[ObjectOrRole] ('.' object=[ObjectDeclaration])?)?
+		//relationship=[RelationshipDefinition|ScopedName] ('.' (objectOrRole=[ObjectOrRole] |
+		//objectOrRole=[ObjectOrRole|ObjectOrRoleName]))?
 		public Group getGroup() { return cGroup; }
 		
 		//relationship=[RelationshipDefinition|ScopedName]
@@ -3284,35 +3338,32 @@ public class MASLGrammarAccess extends AbstractGrammarElementFinder {
 		//ScopedName
 		public RuleCall getRelationshipRelationshipDefinitionScopedNameParserRuleCall_0_0_1() { return cRelationshipRelationshipDefinitionScopedNameParserRuleCall_0_0_1; }
 		
-		//('.' objectOrRole=[ObjectOrRole] ('.' object=[ObjectDeclaration])?)?
+		//('.' (objectOrRole=[ObjectOrRole] | objectOrRole=[ObjectOrRole|ObjectOrRoleName]))?
 		public Group getGroup_1() { return cGroup_1; }
 		
 		//'.'
 		public Keyword getFullStopKeyword_1_0() { return cFullStopKeyword_1_0; }
 		
+		//(objectOrRole=[ObjectOrRole] | objectOrRole=[ObjectOrRole|ObjectOrRoleName])
+		public Alternatives getAlternatives_1_1() { return cAlternatives_1_1; }
+		
 		//objectOrRole=[ObjectOrRole]
-		public Assignment getObjectOrRoleAssignment_1_1() { return cObjectOrRoleAssignment_1_1; }
+		public Assignment getObjectOrRoleAssignment_1_1_0() { return cObjectOrRoleAssignment_1_1_0; }
 		
 		//[ObjectOrRole]
-		public CrossReference getObjectOrRoleObjectOrRoleCrossReference_1_1_0() { return cObjectOrRoleObjectOrRoleCrossReference_1_1_0; }
+		public CrossReference getObjectOrRoleObjectOrRoleCrossReference_1_1_0_0() { return cObjectOrRoleObjectOrRoleCrossReference_1_1_0_0; }
 		
 		//ID
-		public RuleCall getObjectOrRoleObjectOrRoleIDTerminalRuleCall_1_1_0_1() { return cObjectOrRoleObjectOrRoleIDTerminalRuleCall_1_1_0_1; }
+		public RuleCall getObjectOrRoleObjectOrRoleIDTerminalRuleCall_1_1_0_0_1() { return cObjectOrRoleObjectOrRoleIDTerminalRuleCall_1_1_0_0_1; }
 		
-		//('.' object=[ObjectDeclaration])?
-		public Group getGroup_1_2() { return cGroup_1_2; }
+		//objectOrRole=[ObjectOrRole|ObjectOrRoleName]
+		public Assignment getObjectOrRoleAssignment_1_1_1() { return cObjectOrRoleAssignment_1_1_1; }
 		
-		//'.'
-		public Keyword getFullStopKeyword_1_2_0() { return cFullStopKeyword_1_2_0; }
+		//[ObjectOrRole|ObjectOrRoleName]
+		public CrossReference getObjectOrRoleObjectOrRoleCrossReference_1_1_1_0() { return cObjectOrRoleObjectOrRoleCrossReference_1_1_1_0; }
 		
-		//object=[ObjectDeclaration]
-		public Assignment getObjectAssignment_1_2_1() { return cObjectAssignment_1_2_1; }
-		
-		//[ObjectDeclaration]
-		public CrossReference getObjectObjectDeclarationCrossReference_1_2_1_0() { return cObjectObjectDeclarationCrossReference_1_2_1_0; }
-		
-		//ID
-		public RuleCall getObjectObjectDeclarationIDTerminalRuleCall_1_2_1_0_1() { return cObjectObjectDeclarationIDTerminalRuleCall_1_2_1_0_1; }
+		//ObjectOrRoleName
+		public RuleCall getObjectOrRoleObjectOrRoleObjectOrRoleNameParserRuleCall_1_1_1_0_1() { return cObjectOrRoleObjectOrRoleObjectOrRoleNameParserRuleCall_1_1_1_0_1; }
 	}
 	public class DomainServiceDefinitionElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.xtuml.bp.xtext.masl.MASL.DomainServiceDefinition");
@@ -7569,6 +7620,7 @@ public class MASLGrammarAccess extends AbstractGrammarElementFinder {
 	private final ObjectDefinitionElements pObjectDefinition;
 	private final AttributeDefinitionElements pAttributeDefinition;
 	private final AttributeReferentialElements pAttributeReferential;
+	private final ObjectOrRoleNameElements pObjectOrRoleName;
 	private final ObjectServiceDeclarationElements pObjectServiceDeclaration;
 	private final IdentifierDefinitionElements pIdentifierDefinition;
 	private final EventDefinitionElements pEventDefinition;
@@ -7742,6 +7794,7 @@ public class MASLGrammarAccess extends AbstractGrammarElementFinder {
 		this.pObjectDefinition = new ObjectDefinitionElements();
 		this.pAttributeDefinition = new AttributeDefinitionElements();
 		this.pAttributeReferential = new AttributeReferentialElements();
+		this.pObjectOrRoleName = new ObjectOrRoleNameElements();
 		this.pObjectServiceDeclaration = new ObjectServiceDeclarationElements();
 		this.pIdentifierDefinition = new IdentifierDefinitionElements();
 		this.pEventDefinition = new EventDefinitionElements();
@@ -8472,15 +8525,25 @@ public class MASLGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//AttributeReferential RelationshipNavigation:
-	//	{AttributeReferential} relationship=[RelationshipDefinition|ScopedName] ('.' objectOrRole=[ObjectOrRole] ('.'
-	//	object=[ObjectDeclaration])?)?
-	//	'.' attribute=[AttributeDefinition]
+	//	{AttributeReferential} relationship=[RelationshipDefinition|ScopedName]
+	//	'.' (objectOrRole=[ObjectOrRole|ObjectOrRoleName] '.' attribute=[AttributeDefinition] | objectOrRole=[ObjectOrRole]
+	//	'.' attribute=[AttributeDefinition] | attribute=[AttributeDefinition])
 	public AttributeReferentialElements getAttributeReferentialAccess() {
 		return pAttributeReferential;
 	}
 	
 	public ParserRule getAttributeReferentialRule() {
 		return getAttributeReferentialAccess().getRule();
+	}
+	
+	//ObjectOrRoleName:
+	//	ID '.' ID;
+	public ObjectOrRoleNameElements getObjectOrRoleNameAccess() {
+		return pObjectOrRoleName;
+	}
+	
+	public ParserRule getObjectOrRoleNameRule() {
+		return getObjectOrRoleNameAccess().getRule();
 	}
 	
 	//ObjectServiceDeclaration:
@@ -8713,7 +8776,8 @@ public class MASLGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//RelationshipNavigation:
-	//	relationship=[RelationshipDefinition|ScopedName] ('.' objectOrRole=[ObjectOrRole] ('.' object=[ObjectDeclaration])?)?;
+	//	relationship=[RelationshipDefinition|ScopedName] ('.' (objectOrRole=[ObjectOrRole] |
+	//	objectOrRole=[ObjectOrRole|ObjectOrRoleName]))?;
 	public RelationshipNavigationElements getRelationshipNavigationAccess() {
 		return pRelationshipNavigation;
 	}
