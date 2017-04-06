@@ -72,7 +72,6 @@
                     <include>CLI.sh</include>
                     <include>launch-cli.py</include>
                     <include>masl_round_trip</include>
-                    <include>importworkspace.zip</include>
                   </includes>
                 </resource>
               </resources>              
@@ -101,7 +100,6 @@
                     <include>masldiff</include>
                     <include>xtuml2masl</include>
                     <include>masl_round_trip</include>
-                    <include>importworkspace.zip</include>
                     <!-- Don't have mac versions of these yet
                     <include>docgen</include>
                     <include>mcmc</include>
