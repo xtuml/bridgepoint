@@ -1421,15 +1421,6 @@ public class StructurePackageImpl extends EPackageImpl implements StructurePacka
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getRelationshipNavigation_Object() {
-		return (EReference)relationshipNavigationEClass.getEStructuralFeatures().get(2);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EClass getObjectOrRole() {
 		return objectOrRoleEClass;
 	}
@@ -1842,7 +1833,6 @@ public class StructurePackageImpl extends EPackageImpl implements StructurePacka
 		relationshipNavigationEClass = createEClass(RELATIONSHIP_NAVIGATION);
 		createEReference(relationshipNavigationEClass, RELATIONSHIP_NAVIGATION__RELATIONSHIP);
 		createEReference(relationshipNavigationEClass, RELATIONSHIP_NAVIGATION__OBJECT_OR_ROLE);
-		createEReference(relationshipNavigationEClass, RELATIONSHIP_NAVIGATION__OBJECT);
 
 		objectOrRoleEClass = createEClass(OBJECT_OR_ROLE);
 
@@ -2115,7 +2105,6 @@ public class StructurePackageImpl extends EPackageImpl implements StructurePacka
 		initEClass(relationshipNavigationEClass, RelationshipNavigation.class, "RelationshipNavigation", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getRelationshipNavigation_Relationship(), this.getRelationshipDefinition(), null, "relationship", null, 0, 1, RelationshipNavigation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getRelationshipNavigation_ObjectOrRole(), this.getObjectOrRole(), null, "objectOrRole", null, 0, 1, RelationshipNavigation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getRelationshipNavigation_Object(), this.getObjectDeclaration(), null, "object", null, 0, 1, RelationshipNavigation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(objectOrRoleEClass, ObjectOrRole.class, "ObjectOrRole", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 

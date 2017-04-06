@@ -16,7 +16,6 @@ import org.eclipse.emf.ecore.EObject;
  * <ul>
  *   <li>{@link org.xtuml.bp.xtext.masl.masl.structure.RelationshipNavigation#getRelationship <em>Relationship</em>}</li>
  *   <li>{@link org.xtuml.bp.xtext.masl.masl.structure.RelationshipNavigation#getObjectOrRole <em>Object Or Role</em>}</li>
- *   <li>{@link org.xtuml.bp.xtext.masl.masl.structure.RelationshipNavigation#getObject <em>Object</em>}</li>
  * </ul>
  *
  * @see org.xtuml.bp.xtext.masl.masl.structure.StructurePackage#getRelationshipNavigation()
@@ -75,31 +74,5 @@ public interface RelationshipNavigation extends EObject {
 	 * @generated
 	 */
 	void setObjectOrRole(ObjectOrRole value);
-
-	/**
-	 * Returns the value of the '<em><b>Object</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Object</em>' reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Object</em>' reference.
-	 * @see #setObject(ObjectDeclaration)
-	 * @see org.xtuml.bp.xtext.masl.masl.structure.StructurePackage#getRelationshipNavigation_Object()
-	 * @model
-	 * @generated
-	 */
-	ObjectDeclaration getObject();
-
-	/**
-	 * Sets the value of the '{@link org.xtuml.bp.xtext.masl.masl.structure.RelationshipNavigation#getObject <em>Object</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Object</em>' reference.
-	 * @see #getObject()
-	 * @generated
-	 */
-	void setObject(ObjectDeclaration value);
 
 } // RelationshipNavigation

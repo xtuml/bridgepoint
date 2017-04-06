@@ -586,14 +586,23 @@ ruleAttributeDefinition:
 // Rule AttributeReferential
 ruleAttributeReferential:
 	ruleScopedName
+	'.'
 	(
+		ruleObjectOrRoleName
 		'.'
 		RULE_ID
-		(
-			'.'
-			RULE_ID
-		)?
-	)?
+		    |
+		RULE_ID
+		'.'
+		RULE_ID
+		    |
+		RULE_ID
+	)
+;
+
+// Rule ObjectOrRoleName
+ruleObjectOrRoleName:
+	RULE_ID
 	'.'
 	RULE_ID
 ;
@@ -606,7 +615,9 @@ ruleObjectServiceDeclaration:
 	?
 	(
 		'deferred'
+		'('
 		RULE_ID
+		')'
 	)?
 	(
 		'service'
@@ -823,11 +834,11 @@ ruleRelationshipNavigation:
 	ruleScopedName
 	(
 		'.'
-		RULE_ID
 		(
-			'.'
 			RULE_ID
-		)?
+			    |
+			ruleObjectOrRoleName
+		)
 	)?
 ;
 

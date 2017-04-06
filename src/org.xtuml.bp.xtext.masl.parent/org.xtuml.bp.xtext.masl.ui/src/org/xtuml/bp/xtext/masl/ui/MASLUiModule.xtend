@@ -61,7 +61,7 @@ class MASLUiModule extends AbstractMASLUiModule {
 	}
 	
 	def configureContentAssistAutoActivation(Binder binder) {
-		binder.bind(String).annotatedWith(Names.named(COMPLETION_AUTO_ACTIVATION_CHARS)).toInstance('.')
+		binder.bind(String).annotatedWith(Names.named(COMPLETION_AUTO_ACTIVATION_CHARS)).toInstance('.->~:')
 	}
 	
 	override bindAbstractEditStrategyProvider() {

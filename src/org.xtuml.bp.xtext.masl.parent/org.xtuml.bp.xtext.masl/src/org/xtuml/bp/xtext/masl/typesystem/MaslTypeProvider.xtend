@@ -370,7 +370,7 @@ class MaslTypeProvider {
 	private def MaslType getMaslTypeOfRelationshipNavigation(RelationshipNavigation navigation) {
 		val relationship = navigation.relationship
 		if(relationship instanceof SubtypeRelationshipDefinition) {
-			return new InstanceType(navigation.object, true)
+			return new InstanceType(navigation.referredObject, true)
 		}
 		val parent = navigation.eContainer
 		val from = switch parent {
@@ -417,8 +417,6 @@ class MaslTypeProvider {
 			default: 
 				throw new UnsupportedOperationException('Cannot determine relationship ends of ' + relationship?.eClass?.name)
 		}
-		if(navigation.object != null) 
-			return ends.findFirst[to == navigation.object].toRelatedObject(isAssociationObject)
 		val objectOrRole = navigation.objectOrRole 
 		if(objectOrRole instanceof RelationshipEnd)
 			return objectOrRole.toRelatedObject(isAssociationObject)
@@ -545,7 +543,7 @@ class MaslTypeProvider {
 				if(rType == lType) 
 					return ANONYMOUS_DURATION
 				else if(rType.primitiveType == DURATION)
-					return rType
+					return lType
 			case DURATION:
 				if(lType.anonymous && lType == DURATION) {
 					if (rType.primitiveType == DURATION)
