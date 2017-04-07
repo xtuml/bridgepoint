@@ -70,7 +70,7 @@ Using the same build scripts used for BridgePoint deployment one can build and r
 	* org.xtuml.bp.core.test  
 	
     ```
-    /built/buildmt/BridgePoint/eclipse/CLI.sh Build -project [project] -prebuildOnly  
+    /build/buildmt/BridgePoint/eclipse/CLI.sh Build -project [project] -prebuildOnly  
     ```
 - Change directory to ~/git/bridgepoint/releng/org.xtuml.bp.releng.parent  
 - Run mvn -fae verify (This will build and run the tests, it will take a while)  
