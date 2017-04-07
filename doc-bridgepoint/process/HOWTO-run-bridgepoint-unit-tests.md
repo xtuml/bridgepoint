@@ -77,7 +77,7 @@ Using the same build scripts used for BridgePoint deployment one can build and r
 - Run mvn verify (This will build and run the tests, it will take a while)  
 - Run mvn surefire-report:report (This will generate a result file)  
 - View the file located under the current directory at: target/site/surefire-report.html for results  
-- At this point if you encounter failures or errors in the test runs you must switch to UI mode.  At this point debugging must be done within the UI.  This will require a UI build as well as a rerun of the test suites with issues.  
+- At this point if you encounter failures or errors in the test runs you must switch to UI mode.  Debugging must be done within the UI.  This will require a UI build as well as a rerun of the test suites with issues.  
 ### Alternatively, if you have access to the build server you can run the tests there following the instructions located at [Run Hudson build server.](https://docs.google.com/document/d/1B5sri4AyGV6lwe_BpIAsRPeX4eXPZTObCdEme53ZVVw/edit)
 
 FAQ/Troubleshooting
