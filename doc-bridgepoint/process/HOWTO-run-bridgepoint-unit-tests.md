@@ -7,19 +7,26 @@ Preparation
 
 2) This document uses ```~/git``` as the root folder for git repostiories, and it uses ```~/workspace``` as the development workspace. You may substitute any folder you desire, but you must be consistent.
 
-3) Edit ```~/xtuml/BridgePoint/eclipse/Launcher.sh``` in a text editor (in Windows Launcher.bat)
+3) Create the following environment variables only if you plan to use a non-default repository location.  You can simply create a script similar to below:
 
-- Directly after "export BP_JVM=..." add the following (on Windows substitute "set" for "export"):  
 ```
 export XTUML_DEVELOPMENT_REPOSITORY=~/git/bridgepoint
 export XTUML_TEST_MODEL_REPOSITORY=~/git/models/test/
-export XTUML_PRIVATE_MODEL_REPOSITORY=~/git/modelsmg/test/
+
+<BridgePoint_Install>/bridgepoint &
 ```
 
 4) If you want to run BridgePoint unit tests on MS Windows you must perform some additional steps [described here.](https://github.com/xtuml/bridgepoint/blob/master/doc-bridgepoint/process/FAQ.md#windowstesting) 
 
-Instructions
-------------
+5) Clone the bptest repository into the same folder as the bridgepoint repository:
+
+```
+cd ~/git
+git clone https://github.com/xtuml/bptest
+```  
+
+UI Instructions
+---------------
 In normal testing, **Run** is used to best simulate a runtime environment, while **Debug** is used to set breakpoints and debug the runtime environment.
 - Select **Run > Run Configurations...**, and note the following:
   - Section **Eclipse Application** contains the launchers for the BridgePoint builds
@@ -40,6 +47,38 @@ In normal testing, **Run** is used to best simulate a runtime environment, while
 1. Try running the test individually by selecting **Run > Run Configurations... > JUnit Plug-in Test** and selecting the test.
 2. To debug the test, select **Debug > Debug Configurations... > JUnit Plug-in Test** and select the test to debug.
 3. Set breakboints in the generated or realized BridgePoint java source code in your host environment as needed.
+
+Command Line Build/Test  
+-----------------------  
+Using the same build scripts used for BridgePoint deployment one can build and run the unit tests from the command line.  
+- Ensure that Maven is installed on your Operating System, consult the Download and Install sections at http://maven.apache.org for installation instructions.  
+- Create and install the official build server version of BridgePoint at this location: /build/buildmt  
+- Install the BridgePoint tools into the build server versions installation  
+  - Copy the folder at ~/git/bridgepoint/releng/org.xtuml.bp.mctools/<OS>.all/tools to /build/buildmt/BridgePoint  
+    ```
+    cp -r ~/git/bridgepoint/releng/org.xtuml.bp.mctools/linux.all/tools /build/builtmt/Bridgepoint  
+    ```
+- Add these additional environment variables:  
+    * INCLUDE_TESTS=true  
+    * maven.test.failure.ignore=true  
+    * aggregate=true  
+    * mcj_path=~/git/bridgepoint/src/MC-Java  
+    * bp_test_path=~/git/bptest    
+- If you have not built in the UI according to the [Developer Getting Started Guide](https://github.com/xtuml/bridgepoint/blob/master/doc-bridgepoint/process/Developer%20Getting%20Started%20Guide.md), then run prebuilder on the following projects:  
+	* org.xtuml.bp.core  
+	* org.xtuml.bp.als  
+	* org.xtuml.bp.ui.canvas  
+	* org.xtuml.bp.core.test  
+	
+    ```
+    /built/buildmt/BridgePoint/eclipse/CLI.sh Build -project <project> -prebuildOnly  
+    ```
+- Change directory to ~/git/bridgepoint/releng/org.xtuml.bp.releng.parent  
+- Run mvn verify (This will build and run the tests, it will take a while)  
+- Run mvn surefire-report:report (This will generate a result file)  
+- View the file located under the current directory at: target/site/surefire-report.html for results  
+
+### Alternatively, if you have access to the build server you can run the tests there following the instructions located at [Run Hudson build server.](https://docs.google.com/document/d/1B5sri4AyGV6lwe_BpIAsRPeX4eXPZTObCdEme53ZVVw/edit)
 
 FAQ/Troubleshooting
 ---------------
