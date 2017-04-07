@@ -60,7 +60,6 @@ Using the same build scripts used for BridgePoint deployment one can build and r
     ```
 - Add these additional environment variables:  
     * INCLUDE_TESTS=true  
-    * maven.test.failure.ignore=true  
     * mcj_path=~/git/bridgepoint/src/MC-Java  
     * bp_test_path=~/git/bptest    
 - If you have not built in the UI according to the [Developer Getting Started Guide](https://github.com/xtuml/bridgepoint/blob/master/doc-bridgepoint/process/Developer%20Getting%20Started%20Guide.md), then run prebuilder on the following projects:  
@@ -73,8 +72,14 @@ Using the same build scripts used for BridgePoint deployment one can build and r
     /build/buildmt/BridgePoint/eclipse/CLI.sh Build -project [project] -prebuildOnly  
     ```
 - Change directory to ~/git/bridgepoint/releng/org.xtuml.bp.releng.parent  
-- Run mvn -fae verify (This will build and run the tests, it will take a while)  
-- Run mvn -Daggregate=true surefire-report:report (This will generate a result file)  
+- Run maven verify (This will build and run the tests, it will take a while)  
+```
+   mvn -Dmaven.test.failure.ignore=true verify
+```
+- Run report generation (This will generate a result file)  
+```
+   mvn -Daggregate=true surefire-report:report
+```
 - View the file located under the current directory at: target/site/surefire-report.html for results  
 - At this point if you encounter failures or errors in the test runs you must switch to UI mode.  Debugging must be done within the UI.  This will require a UI build as well as a rerun of the test suites with issues.  
 ### Alternatively, if you have access to the build server you can run the tests there following the instructions located at [Run Hudson build server.](https://docs.google.com/document/d/1B5sri4AyGV6lwe_BpIAsRPeX4eXPZTObCdEme53ZVVw/edit)
