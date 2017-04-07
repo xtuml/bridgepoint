@@ -74,7 +74,7 @@ Using the same build scripts used for BridgePoint deployment one can build and r
     /built/buildmt/BridgePoint/eclipse/CLI.sh Build -project [project] -prebuildOnly  
     ```
 - Change directory to ~/git/bridgepoint/releng/org.xtuml.bp.releng.parent  
-- Run mvn verify (This will build and run the tests, it will take a while)  
+- Run mvn -fae verify (This will build and run the tests, it will take a while)  
 - Run mvn surefire-report:report (This will generate a result file)  
 - View the file located under the current directory at: target/site/surefire-report.html for results  
 - At this point if you encounter failures or errors in the test runs you must switch to UI mode.  Debugging must be done within the UI.  This will require a UI build as well as a rerun of the test suites with issues.  
