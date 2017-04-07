@@ -54,7 +54,7 @@ Using the same build scripts used for BridgePoint deployment one can build and r
 - Ensure that Maven is installed on your Operating System, consult the Download and Install sections at http://maven.apache.org for installation instructions.  
 - Create and install the official build server version of BridgePoint at this location: /build/buildmt  
 - Install the BridgePoint tools into the build server versions installation  
-  - Copy the folder at ~/git/bridgepoint/releng/org.xtuml.bp.mctools/<OS>.all/tools to /build/buildmt/BridgePoint  
+  - Copy the folder at ~/git/bridgepoint/releng/org.xtuml.bp.mctools/[OS].all/tools to /build/buildmt/BridgePoint  
     ```
     cp -r ~/git/bridgepoint/releng/org.xtuml.bp.mctools/linux.all/tools /build/builtmt/Bridgepoint  
     ```
@@ -71,7 +71,7 @@ Using the same build scripts used for BridgePoint deployment one can build and r
 	* org.xtuml.bp.core.test  
 	
     ```
-    /built/buildmt/BridgePoint/eclipse/CLI.sh Build -project <project> -prebuildOnly  
+    /built/buildmt/BridgePoint/eclipse/CLI.sh Build -project [project] -prebuildOnly  
     ```
 - Change directory to ~/git/bridgepoint/releng/org.xtuml.bp.releng.parent  
 - Run mvn verify (This will build and run the tests, it will take a while)  
