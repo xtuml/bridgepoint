@@ -25,32 +25,9 @@ cd ~/git
 git clone https://github.com/xtuml/bptest
 ```  
 
-UI Instructions
----------------
-In normal testing, **Run** is used to best simulate a runtime environment, while **Debug** is used to set breakpoints and debug the runtime environment.
-- Select **Run > Run Configurations...**, and note the following:
-  - Section **Eclipse Application** contains the launchers for the BridgePoint builds
-    - The **BP Application** launchers are for Windows.
-    - The **x BP Application** launchers are for Linux.
-    - **CLI** launchers are for the command line interface.
-  - Section **JUnit Plug-in Test** contains the individual launchers for the defined BridgePoint plug-in unit tests.
-  - Section **Launch Group** has a member called **BridgePoint Unit Tests**, which will launch all of the JUint plug-in tests.
-- To run the standard unit test suite, select the **Launch Group > BridgePoint Unit Tests** configuration.
-  - This will show a tabbed window with the **Launches** tab selected.
-    - The window contains a list of JUnit plug-in tests with checkboxes.
-  - Select the **Run** button to launch the tests.
-    - This will cause each selected test in the **Launches** tab to be executed.
-    - The builder will build BridgePoint, if necessary, and launch the build as the test target. Since all tests are being run, the execution will take a while.
-    - A summary of the results of the tests can be found in < BridgePoint installation >/eclipse/test_results/unit_test_summary.txt. The creation of this document is implemented in the org.xtuml.bp.test plugin.
-
-### If a test fails or you need to debug the test failure
-1. Try running the test individually by selecting **Run > Run Configurations... > JUnit Plug-in Test** and selecting the test.
-2. To debug the test, select **Debug > Debug Configurations... > JUnit Plug-in Test** and select the test to debug.
-3. Set breakboints in the generated or realized BridgePoint java source code in your host environment as needed.
-
-Command Line Build/Test  
------------------------  
-Using the same build scripts used for BridgePoint deployment one can build and run the unit tests from the command line.  
+Testing  
+-------  
+Using the same build scripts used for the BridgePoint deployment build the product and run the unit tests from the command line.  
 - Ensure that Maven is installed on your Operating System, consult the Download and Install sections at http://maven.apache.org for installation instructions.  
 - Copy the BridgePoint installation to this location: /build/buildmt  
 - Create an eclipse folder under the copied BridgePoint installation  
@@ -89,8 +66,35 @@ Using the same build scripts used for BridgePoint deployment one can build and r
    mvn -Daggregate=true surefire-report:report
 ```
 - View the file located under the current directory at: target/site/surefire-report.html for results  
-- At this point if you encounter failures or errors in the test runs you must switch to UI mode.  Debugging must be done within the UI.  This will require a UI build as well as a rerun of the test suites with issues.  
+- At this point if you encounter failures or errors in the test runs you must switch to UI mode described below.  Debugging must be done within the UI.  This will require a UI build as well as a rerun of the test suites with issues.  
 ### Alternatively, if you have access to the build server you can run the tests there following the instructions located at [Run Hudson build server.](https://docs.google.com/document/d/1B5sri4AyGV6lwe_BpIAsRPeX4eXPZTObCdEme53ZVVw/edit)
+
+Addressing Issues with UI
+-------------------------
+Use **Debug** to rerun any tests with issues, setting breakpoints as necessary.
+- Select **Debug > Debug Configurations...**, and note the following:
+  - Section **Eclipse Application** contains the launchers for the BridgePoint builds
+    - The **BP Application** launchers are for Windows.
+    - The **x BP Application** launchers are for Linux.
+    - **CLI** launchers are for the command line interface.
+  - Section **JUnit Plug-in Test** contains the individual launchers for the defined BridgePoint plug-in unit tests.
+  - Section **Launch Group** has a member called **BridgePoint Unit Tests**, which will launch all of the JUint plug-in tests.
+  - Select the **Debug** button to launch the tests.
+    - A summary of the results of the tests can be found in < BridgePoint installation >/eclipse/test_results/unit_test_summary.txt. The creation of this document is implemented in the org.xtuml.bp.test plugin.
+- Select the appropriate test suite with problems under the **JUnit Plug-in Test** section
+  - Select the **Debug** button to launch the test.
+    - This will cause the selected test to be executed.
+    - The builder will build BridgePoint, if necessary, and launch the build as the test target.  
+    - Examine any breakpoints set and address the issue.  
+    - Once the test run is complete with no failures or errors, navigate to the owning test plug-in on the command line.  
+    - Run maven again for that test plugin.  
+      ```
+      cd ~/git/bptest/src/[test-plugin]
+      mvn -Dmaven.test.failure.ignore=true verify
+      mvn -Daggregate=true surefire-report:report
+      ```
+- View the file located under the current directory at: target/site/surefire-report.html for results  
+- If there are still problems repeat the run in the UI, otherwise continue to the next problem if one exists.  
 
 FAQ/Troubleshooting
 ---------------
