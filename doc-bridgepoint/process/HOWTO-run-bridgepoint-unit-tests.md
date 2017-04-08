@@ -79,8 +79,6 @@ Use **Debug** to rerun any tests with issues, setting breakpoints as necessary.
     - **CLI** launchers are for the command line interface.
   - Section **JUnit Plug-in Test** contains the individual launchers for the defined BridgePoint plug-in unit tests.
   - Section **Launch Group** has a member called **BridgePoint Unit Tests**, which will launch all of the JUint plug-in tests.
-  - Select the **Debug** button to launch the tests.
-    - A summary of the results of the tests can be found in < BridgePoint installation >/eclipse/test_results/unit_test_summary.txt. The creation of this document is implemented in the org.xtuml.bp.test plugin.
 - Select the appropriate test suite with problems under the **JUnit Plug-in Test** section
   - Select the **Debug** button to launch the test.
     - This will cause the selected test to be executed.
