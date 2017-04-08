@@ -25,13 +25,6 @@ cd ~/git
 git clone https://github.com/xtuml/bptest
 ```  
 
-6) Clone the installer repository into the same folder as the bridgepoint repository:  
-
-```
-cd ~/git 
-git clone https://github.com/xtuml/installer
-```
-
 UI Instructions
 ---------------
 In normal testing, **Run** is used to best simulate a runtime environment, while **Debug** is used to set breakpoints and debug the runtime environment.
@@ -66,7 +59,7 @@ Using the same build scripts used for BridgePoint deployment one can build and r
     ```
 - Copy the CLI.sh script into the BridgePoint installation under /build/buildmt  
     ```
-    cp ~/git/installer/CLI.sh /build/buildmt/BridgePoint/eclipse
+    cp ~/git/bridgepoint/installer/CLI.sh /build/buildmt/BridgePoint/
     ```
 - Install the BridgePoint tools into the build server versions installation  
   - Copy the folder at ~/git/bridgepoint/releng/org.xtuml.bp.mctools/[OS].all/tools to /build/buildmt/BridgePoint  
