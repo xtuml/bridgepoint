@@ -83,7 +83,7 @@ Use **Debug** to rerun any tests with issues, setting breakpoints as necessary.
   - Select the **Debug** button to launch the test.
     - This will cause the selected test to be executed.
     - The builder will build BridgePoint, if necessary, and launch the build as the test target.  
-    - Examine any breakpoints set and address the issue.  
+    - Examine any stops caused by breakpoints set and address the issue.  
     - Once the test run is complete with no failures or errors, navigate to the owning test plug-in on the command line.  
     - Run maven again for that test plugin.  
       ```
