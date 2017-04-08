@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IProjectDescription;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.NullProgressMonitor;
@@ -67,15 +68,23 @@ public class ImportExecutor implements Executor {
         project = ResourcesPlugin.getWorkspace().getRoot()
                 .getProject(projectName);
 
-        project = prepareProject( project, false );
+        // delete an existing project
+        if (project.exists()) {
+            System.out.println("Deleting existing project...");
+            project.delete(true, true, new NullProgressMonitor());
+        } 
 
         System.out.println("Importing project: " + projectName);
         // create the project
         project.create(new NullProgressMonitor());
         // Copy source project contents
         copyFolder(new File(projectPath), project.getLocation().toFile());
-        project.close(new NullProgressMonitor());
         project.open(new NullProgressMonitor());
+        // force refresh of the description
+        IProjectDescription description = ResourcesPlugin.getWorkspace().loadProjectDescription( project.getLocation().append("/.project") );
+        project.setDescription(description, new NullProgressMonitor());
+
+        prepareProject( project );
     }
 
     private void copyFolder(File src, File dest) throws IOException {
@@ -124,8 +133,25 @@ public class ImportExecutor implements Executor {
         
         System.out.println("Importing file into project: " + targetProjectName);
         project = ResourcesPlugin.getWorkspace().getRoot().getProject(targetProjectName);
+
+        // delete existing project and create a new one
+        if (project.exists()) {
+            if (cmdLine.getBooleanValue("-deleteExisting")) {
+                System.out.println("Deleting existing project...");
+                project.delete(true, true, new NullProgressMonitor());
+            } 
+        } 
+        if (!project.exists()) {
+            if (cmdLine.getBooleanValue("-deleteExisting")) {
+                System.out.println("Creating project...");
+                project = ProjectUtilities.createProjectNoUI(targetProjectName);
+            } 
+            else {
+                throw new BPCLIException("The single file import requires the target project already exist.");
+            }
+        }
         
-        project = prepareProject( project, true );
+        prepareProject( project );
     
         // Import the file into the project
         SystemModel_c systemModel = ProjectUtilities.getSystemModel(project);
@@ -149,26 +175,7 @@ public class ImportExecutor implements Executor {
         }
     }
     
-    private IProject prepareProject( IProject project, boolean singleFile ) throws CoreException, BPCLIException {
-        if ( project == null ) return null;
-
-        // delete existing project and create a new one
-        if (project.exists()) {
-            if (cmdLine.getBooleanValue("-deleteExisting")) {
-                System.out.println("Deleting existing project...");
-                project.delete(true, true, new NullProgressMonitor());
-            } 
-        } 
-        if (!project.exists() && singleFile) {
-            if (cmdLine.getBooleanValue("-deleteExisting")) {
-                System.out.println("Creating project...");
-                project = ProjectUtilities.createProjectNoUI(targetProjectName);
-            } 
-            else {
-                throw new BPCLIException("The single file import requires the target project already exist.");
-            }
-        }
-
+    private void prepareProject( IProject project ) {
         // set IPR preference
         if (cmdLine.getBooleanValue("-allowIPRs")) {
             System.out.println("Enabling IPRs...");
@@ -182,8 +189,6 @@ public class ImportExecutor implements Executor {
                 System.out.println("Error updating project preferences");
             }
         }
-        
-        return project;
     }
     
 }
