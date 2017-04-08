@@ -5,7 +5,6 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
@@ -68,16 +67,8 @@ public class ImportExecutor implements Executor {
         project = ResourcesPlugin.getWorkspace().getRoot()
                 .getProject(projectName);
 
-        if(project.exists()) {
-            if(cmdLine.getBooleanValue("-deleteExisting")) {
-                project.delete(true, true, new NullProgressMonitor());
-            } else {
-                throw new BPCLIException("The specified project already exists in the workspace.");
-            }
-        }
-        if (!targetProjectName.isEmpty()) {
-            System.out.println("Note: the -targetProject argument is ignored when importing a project.");
-        }
+        project = prepareProject( project, false );
+
         System.out.println("Importing project: " + projectName);
         // create the project
         project.create(new NullProgressMonitor());
@@ -133,13 +124,42 @@ public class ImportExecutor implements Executor {
         
         System.out.println("Importing file into project: " + targetProjectName);
         project = ResourcesPlugin.getWorkspace().getRoot().getProject(targetProjectName);
+        
+        project = prepareProject( project, true );
+    
+        // Import the file into the project
+        SystemModel_c systemModel = ProjectUtilities.getSystemModel(project);
+        System.out.println("The system model is " + systemModel.getName());
+        try {
+            project.open(new NullProgressMonitor());
+            project.refreshLocal(IResource.DEPTH_INFINITE, null);
+
+            System.out.println("Proceeding with import of " + filePath);
+            boolean setupSucceeded = ProjectUtilities.importModelWithoutWizard(systemModel, filePath);
+            if(!setupSucceeded) {
+                throw new BPCLIException("The import process failed.");
+            }
+
+            project.refreshLocal(IResource.DEPTH_INFINITE, null);
+            
+        } catch (CoreException e) {
+            System.out.println(e.toString());
+        } catch (BPCLIException e) {
+            System.out.println(e.toString());
+        }
+    }
+    
+    private IProject prepareProject( IProject project, boolean singleFile ) throws CoreException, BPCLIException {
+        if ( project == null ) return null;
+
+        // delete existing project and create a new one
         if (project.exists()) {
             if (cmdLine.getBooleanValue("-deleteExisting")) {
                 System.out.println("Deleting existing project...");
                 project.delete(true, true, new NullProgressMonitor());
             } 
         } 
-        if (!project.exists()) {
+        if (!project.exists() && singleFile) {
             if (cmdLine.getBooleanValue("-deleteExisting")) {
                 System.out.println("Creating project...");
                 project = ProjectUtilities.createProjectNoUI(targetProjectName);
@@ -162,27 +182,8 @@ public class ImportExecutor implements Executor {
                 System.out.println("Error updating project preferences");
             }
         }
-    
-        // Import the file into the project
-        SystemModel_c systemModel = ProjectUtilities.getSystemModel(project);
-        System.out.println("The system model is " + systemModel.getName());
-        try {
-            project.open(new NullProgressMonitor());
-            project.refreshLocal(IResource.DEPTH_INFINITE, null);
-
-            System.out.println("Proceeding with import of " + filePath);
-            boolean setupSucceeded = ProjectUtilities.importModelWithoutWizard(systemModel, filePath);
-            if(!setupSucceeded) {
-                throw new BPCLIException("The import process failed.");
-            }
-
-            project.refreshLocal(IResource.DEPTH_INFINITE, null);
-            
-        } catch (CoreException e) {
-            System.out.println(e.toString());
-        } catch (BPCLIException e) {
-            System.out.println(e.toString());
-        }
+        
+        return project;
     }
     
 }
