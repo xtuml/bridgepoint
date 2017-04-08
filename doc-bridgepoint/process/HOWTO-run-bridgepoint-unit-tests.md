@@ -25,6 +25,13 @@ cd ~/git
 git clone https://github.com/xtuml/bptest
 ```  
 
+6) Clone the installer repository into the same folder as the bridgepoint repository:  
+
+```
+cd ~/git 
+git clone https://github.com/xtuml/installer
+```
+
 UI Instructions
 ---------------
 In normal testing, **Run** is used to best simulate a runtime environment, while **Debug** is used to set breakpoints and debug the runtime environment.
@@ -52,8 +59,16 @@ Command Line Build/Test
 -----------------------  
 Using the same build scripts used for BridgePoint deployment one can build and run the unit tests from the command line.  
 - Ensure that Maven is installed on your Operating System, consult the Download and Install sections at http://maven.apache.org for installation instructions.  
-- Create and install the official build server version of BridgePoint at this location: /build/buildmt  
-- Install the BridgePoint tools into the build server versions installation  
+- Copy the BridgePoint installation to this location: /build/buildmt  
+- Create an eclipse folder under the copied BridgePoint installation  
+    ```
+    mkdir /build/buildmt/BridgePoint/eclipse
+    ```
+- Copy the CLI.sh script into the BridgePoint installation under /build/buildmt  
+    ```
+    cp ~/git/installer/CLI.sh /build/buildmt/BridgePoint/eclipse
+    ```
+- Install the BridgePoint tools into the build server versions installation  
   - Copy the folder at ~/git/bridgepoint/releng/org.xtuml.bp.mctools/[OS].all/tools to /build/buildmt/BridgePoint  
     ```
     cp -r ~/git/bridgepoint/releng/org.xtuml.bp.mctools/linux.all/tools /build/builtmt/Bridgepoint  
@@ -69,7 +84,7 @@ Using the same build scripts used for BridgePoint deployment one can build and r
 	* org.xtuml.bp.core.test  
 	
     ```
-    /build/buildmt/BridgePoint/eclipse/CLI.sh Build -project [project] -prebuildOnly  
+    /build/buildmt/BridgePoint/CLI.sh Build -project [project] -prebuildOnly  
     ```
 - Change directory to ~/git/bridgepoint/releng/org.xtuml.bp.releng.parent  
 - Run maven verify (This will build and run the tests, it will take a while)  
