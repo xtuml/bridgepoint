@@ -59,7 +59,7 @@ Using the same build scripts used for BridgePoint deployment one can build and r
     ```
 - Copy the CLI.sh script into the BridgePoint installation under /build/buildmt  
     ```
-    cp ~/git/bridgepoint/installer/CLI.sh /build/buildmt/BridgePoint/
+    cp ~/git/bridgepoint/src/installer/CLI.sh /build/buildmt/BridgePoint/
     ```
 - Install the BridgePoint tools into the build server versions installation  
   - Copy the folder at ~/git/bridgepoint/releng/org.xtuml.bp.mctools/[OS].all/tools to /build/buildmt/BridgePoint  
