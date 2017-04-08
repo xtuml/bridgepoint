@@ -208,12 +208,15 @@ prepended by `#` are ignored by the `regression_test` script
 
 6. Implementation Comments
 --------------------------
+None
 
 7. Unit Test
 ------------
+See [[2.2]](#2.2)
 
 8. User Documentation
 ---------------------
+Documented in the script usage
 
 9. Code Changes
 ---------------
@@ -221,19 +224,61 @@ Fork/Repository: leviathan747/bridgepoint
 Branch: 9398_cli  
 
 <pre>
+
+ doc-bridgepoint/notes/9398_cli/9398_cli_int.md                                       | 240 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ doc-bridgepoint/notes/9398_cli/cmd.png                                               | Bin 0 -> 15199 bytes
+ doc-bridgepoint/notes/9398_cli/exit.png                                              | Bin 0 -> 16056 bytes
+ doc-bridgepoint/notes/9398_cli/launch.png                                            | Bin 0 -> 28432 bytes
+ releng/org.xtuml.bp.mctools/pom.xml                                                  |   4 +--
+ src/org.xtuml.bp.cli/plugin.xml                                                      |  12 +++++++++
+ src/org.xtuml.bp.cli/src/org/xtuml/bp/cli/BPCLIPreferences.java                      |  25 +++++++++++++++--
+ src/org.xtuml.bp.cli/src/org/xtuml/bp/cli/BPCLIWorkbenchAdvisor.java                 |  13 ++++++++-
+ src/org.xtuml.bp.cli/src/org/xtuml/bp/cli/Build.java                                 |  54 ++++++++++++++++++++-----------------
+ src/org.xtuml.bp.cli/src/org/xtuml/bp/cli/BuildExecutor.java                         | 308 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ src/org.xtuml.bp.cli/src/org/xtuml/bp/cli/BuildWorkbenchAdvisor.java                 | 307 +++++++-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ src/org.xtuml.bp.cli/src/org/xtuml/bp/cli/ErrorOutputStreamListener.java             |   2 --
+ src/org.xtuml.bp.cli/src/org/xtuml/bp/cli/Execute.java                               |  30 ++++++++++++---------
+ src/org.xtuml.bp.cli/src/org/xtuml/bp/cli/ExecuteExecutor.java                       |  70 +++++++++++++++++++++++++++++++++++++++++++++++
+ src/org.xtuml.bp.cli/src/org/xtuml/bp/cli/ExecuteWorkbenchAdvisor.java               |  74 +++++---------------------------------------------
+ src/org.xtuml.bp.cli/src/org/xtuml/bp/cli/Executor.java                              |   5 ++++
+ src/org.xtuml.bp.cli/src/org/xtuml/bp/cli/Import.java                                |  35 +++++++++++++++---------
+ src/org.xtuml.bp.cli/src/org/xtuml/bp/cli/ImportExecutor.java                        | 188 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ src/org.xtuml.bp.cli/src/org/xtuml/bp/cli/ImportWorkbenchAdvisor.java                | 174 ++++-----------------------------------------------------------------------------------------------------------------
+ src/org.xtuml.bp.cli/src/org/xtuml/bp/cli/Launch.java                                |  51 +++++++++++++++++++++++++++++++++++
+ src/org.xtuml.bp.cli/src/org/xtuml/bp/cli/LaunchWorkbenchAdvisor.java                | 282 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ src/org.xtuml.bp.cli/src/org/xtuml/bp/cli/Merge.java                                 |  43 ++++++++++++++++-------------
+ src/org.xtuml.bp.cli/src/org/xtuml/bp/cli/MergeExecutor.java                         | 292 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ src/org.xtuml.bp.cli/src/org/xtuml/bp/cli/MergeWorkbenchAdvisor.java                 | 286 +++++-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ src/org.xtuml.bp.io.mdl/src/org/xtuml/bp/io/mdl/wizards/ModelImportWizard.java       | 298 ++++++--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ src/org.xtuml.bp.io.mdl/src/org/xtuml/bp/io/mdl/wizards/ModelImportWizardHelper.java | 293 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ src/org.xtuml.bp.utilities/src/org/xtuml/bp/utilities/ui/ProjectUtilities.java       |  93 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 27 files changed, 2000 insertions(+), 1179 deletions(-)
+
 </pre>
 
 Fork/Repository: leviathan747/mc  
 Branch: 9398_cli  
 
 <pre>
-<
+
+ bin/CLI.sh              |  66 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++----
+ bin/importworkspace.zip | Bin 265031 -> 0 bytes
+ bin/launch-cli.py       | 116 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ bin/masl_round_trip     |  41 +++++++++++++++++++++++++++--------------
+ 4 files changed, 205 insertions(+), 18 deletions(-)
+
+</pre>
+
 Fork/Repository: leviathan747/models  
 Branch: 9398_cli  
 
 <pre>
+
+ masl/test/all_tests       | 51 +++++++++++++++++++++++++++++++++++++++++++++++++++
+ masl/test/regression_test | 93 +++++++++++++++++++++++++++++++++++++++------------------------------------------------------
+ 2 files changed, 90 insertions(+), 54 deletions(-)
+
 </pre>
-/pre>
 
 End
 ---
