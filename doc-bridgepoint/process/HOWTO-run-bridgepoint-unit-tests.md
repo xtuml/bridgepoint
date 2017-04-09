@@ -41,7 +41,7 @@ Using the same build scripts used for the BridgePoint deployment build the produ
 - Install the BridgePoint tools into the build server versions installation  
   - Copy the folder at ~/git/bridgepoint/releng/org.xtuml.bp.mctools/[OS].all/tools to /build/buildmt/BridgePoint  
     ```
-    cp -r ~/git/bridgepoint/releng/org.xtuml.bp.mctools/linux.all/tools /build/builtmt/Bridgepoint  
+    cp -r ~/git/bridgepoint/releng/org.xtuml.bp.mctools/linux.all/tools /build/buildmt/Bridgepoint  
     ```
 - Add these additional environment variables:  
     * INCLUDE_TESTS=true  
