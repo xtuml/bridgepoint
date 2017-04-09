@@ -30,10 +30,6 @@ Testing
 Using the same build scripts used for the BridgePoint deployment build the product and run the unit tests from the command line.  
 - Ensure that Maven is installed on your Operating System, consult the Download and Install sections at http://maven.apache.org for installation instructions.  
 - Copy the BridgePoint installation to this location: /build/buildmt  
-- Create an eclipse folder under the copied BridgePoint installation  
-    ```
-    mkdir /build/buildmt/BridgePoint/eclipse
-    ```
 - Copy the CLI.sh script into the BridgePoint installation under /build/buildmt  
     ```
     cp ~/git/bridgepoint/src/installer/CLI.sh /build/buildmt/BridgePoint/
