@@ -38,7 +38,7 @@ Using the same build scripts used for the BridgePoint deployment build the produ
     ```
     cp ~/git/bridgepoint/src/installer/CLI.sh /build/buildmt/BridgePoint/
     ```
-- Install the BridgePoint tools into the build server versions installation  
+- Install the BridgePoint tools into the copied BridgePoint installation under /build/buildmt  
   - Copy the folder at ~/git/bridgepoint/releng/org.xtuml.bp.mctools/[OS].all/tools to /build/buildmt/BridgePoint  
     ```
     cp -r ~/git/bridgepoint/releng/org.xtuml.bp.mctools/linux.all/tools /build/buildmt/Bridgepoint  
