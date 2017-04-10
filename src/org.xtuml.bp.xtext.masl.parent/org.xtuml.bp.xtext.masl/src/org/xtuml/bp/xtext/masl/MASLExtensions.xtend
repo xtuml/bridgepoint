@@ -164,10 +164,12 @@ class MASLExtensions {
 	 */
 	def ObjectDeclaration getReferredObject(RelationshipNavigation it) {
 		if (it != null) {
-			if (relationship instanceof SubtypeRelationshipDefinition)
-				return (relationship as SubtypeRelationshipDefinition).supertype
-			else if (object != null)
-				return object
+			if (relationship instanceof SubtypeRelationshipDefinition) {
+				if(objectOrRole instanceof ObjectDeclaration)				
+					return objectOrRole as ObjectDeclaration
+				else 
+					return (relationship as SubtypeRelationshipDefinition).supertype
+			}
 			else {
 				switch objectOrRole {
 					ObjectDeclaration:

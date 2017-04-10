@@ -27,8 +27,6 @@ import java.io.IOException;
 import org.eclipse.debug.core.IStreamListener;
 import org.eclipse.debug.core.model.IStreamMonitor;
 
-import org.xtuml.bp.core.CorePlugin;
-
 public class ErrorOutputStreamListener implements IStreamListener {
 
 	private ByteArrayOutputStream stream;

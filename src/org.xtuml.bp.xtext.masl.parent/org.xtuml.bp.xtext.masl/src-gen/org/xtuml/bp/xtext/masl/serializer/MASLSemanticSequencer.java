@@ -2937,8 +2937,11 @@ public class MASLSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	 * Constraint:
 	 *     (
 	 *         relationship=[RelationshipDefinition|ScopedName] 
-	 *         (objectOrRole=[ObjectOrRole|ID] object=[ObjectDeclaration|ID]?)? 
-	 *         attribute=[AttributeDefinition|ID]
+	 *         (
+	 *             (objectOrRole=[ObjectOrRole|ObjectOrRoleName] attribute=[AttributeDefinition|ID]) | 
+	 *             (objectOrRole=[ObjectOrRole|ID] attribute=[AttributeDefinition|ID]) | 
+	 *             attribute=[AttributeDefinition|ID]
+	 *         )
 	 *     )
 	 */
 	protected void sequence_AttributeReferential(ISerializationContext context, AttributeReferential semanticObject) {
@@ -6599,7 +6602,7 @@ public class MASLSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	 *     RelationshipNavigation returns RelationshipNavigation
 	 *
 	 * Constraint:
-	 *     (relationship=[RelationshipDefinition|ScopedName] (objectOrRole=[ObjectOrRole|ID] object=[ObjectDeclaration|ID]?)?)
+	 *     (relationship=[RelationshipDefinition|ScopedName] (objectOrRole=[ObjectOrRole|ID] | objectOrRole=[ObjectOrRole|ObjectOrRoleName])?)
 	 */
 	protected void sequence_RelationshipNavigation(ISerializationContext context, RelationshipNavigation semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

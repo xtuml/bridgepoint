@@ -14,6 +14,8 @@
 package org.xtuml.bp.utilities.ui;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IProjectDescription;
@@ -50,18 +52,83 @@ import org.xtuml.bp.core.XtUMLNature;
 import org.xtuml.bp.core.common.BaseModelDelta;
 import org.xtuml.bp.core.common.ClassQueryInterface_c;
 import org.xtuml.bp.core.common.ComponentResourceListener;
+import org.xtuml.bp.core.common.ModelStreamProcessor;
 import org.xtuml.bp.core.common.PersistableModelComponent;
 import org.xtuml.bp.core.common.PersistenceManager;
+import org.xtuml.bp.core.ui.IModelImport;
 import org.xtuml.bp.core.ui.Selection;
 import org.xtuml.bp.core.util.UIUtil;
 import org.xtuml.bp.io.mdl.wizards.ModelExportPage;
 import org.xtuml.bp.io.mdl.wizards.ModelExportWizard;
 import org.xtuml.bp.io.mdl.wizards.ModelImportPage;
 import org.xtuml.bp.io.mdl.wizards.ModelImportWizard;
+import org.xtuml.bp.io.mdl.wizards.ModelImportWizardHelper;
 
 public class ProjectUtilities {
 
     private static String perspective = "org.xtuml.bp.core.perspective"; //$NON-NLS-1$
+    
+    public static IProject createProjectNoUI(final String name ) throws CoreException {
+        IProject projectHandle = ResourcesPlugin.getWorkspace().getRoot().getProject(name);
+        if (projectHandle.exists()) {
+            // try to open a currently existing project
+            projectHandle.open(new NullProgressMonitor());
+            return projectHandle;
+        }
+
+        // project doesn't exist, create a new project
+        final IProjectDescription myTestProject = ResourcesPlugin
+                .getWorkspace().newProjectDescription(projectHandle.getName());
+        myTestProject.setLocation(null); // default location
+        projectHandle.create(myTestProject, new NullProgressMonitor());
+
+        projectHandle.open(new NullProgressMonitor());
+
+        XtUMLNature.addNature(projectHandle);
+
+        ClassQueryInterface_c query = new ClassQueryInterface_c() {
+            public boolean evaluate(Object candidate) {
+                return ((SystemModel_c) candidate).getName().equals(name);
+            }
+        };
+        SystemModel_c newModel = SystemModel_c.SystemModelInstance(Ooaofooa
+                .getDefaultInstance(), query);
+        if (newModel == null) {
+            newModel = new SystemModel_c(Ooaofooa.getDefaultInstance());
+            newModel.setUseglobals(true);
+			// need to fire a created event so that
+			// the diagram elements are created
+			Ooaofooa.getDefaultInstance().fireModelElementCreated(
+					new BaseModelDelta(Modeleventnotification_c.DELTA_NEW,
+							newModel));
+        }
+        newModel.setName(name);
+
+        PersistableModelComponent newComp = PersistenceManager
+                .createRootComponent(projectHandle, newModel);
+        if (!newComp.isPersisted()) {
+            try {
+                ComponentResourceListener.setIgnoreResourceChangesMarker(true);
+                newComp.persist();
+                ComponentResourceListener.setIgnoreResourceChangesMarker(false);
+            } catch (CoreException e) {
+                CorePlugin.logError("Failed to create System Model data file",
+                        e);
+            }
+        }
+        // close and reopen the project to get
+        // the system level graphics setup as
+        // well as the system level datatypes
+        try {
+            projectHandle.close(new NullProgressMonitor());
+            projectHandle.open(new NullProgressMonitor());
+        } catch (CoreException e1) {
+            CorePlugin.logError("Unable to open test project.", e1);
+        }
+
+        return projectHandle;
+        
+    }
 
     public static IProject createProject(String name) throws CoreException {
         return createProject(name, null);
@@ -273,6 +340,32 @@ public class ProjectUtilities {
         return getSystemModel(project.getName());
     }
 
+
+    public static boolean importModelWithoutWizard(SystemModel_c systemModel,
+            String filePath) {
+		IPath templatePath = new Path(filePath);
+		if (templatePath.getFileExtension().equals(Ooaofooa.MODELS_EXT)) {
+			File inputFile;
+			try {
+				inputFile = templatePath.toFile();
+				ModelImportWizardHelper importHelper = new ModelImportWizardHelper();
+				ModelStreamProcessor processor = new ModelStreamProcessor();
+				IProgressMonitor monitor = new NullProgressMonitor();
+				String message = "";
+				IModelImport importer = importHelper.doImportPhase1(processor, systemModel, inputFile, monitor);
+				importHelper.doImportPhase2(processor, systemModel, monitor, message, importer);
+				importHelper.doResolveMASL(importer, systemModel, false);
+			} catch (FileNotFoundException e) {
+				CorePlugin.logError("Internal error: failed to open " + filePath, e);
+				return false;
+			} catch (IOException e) {
+				CorePlugin.logError("There was an exception loading the give source file.",e);
+				return false;
+			}
+		}
+
+        return true;
+    }
 
     public static boolean importModelUsingWizard(SystemModel_c systemModel,
             String fullyQualifiedSingleFileModel, boolean parseOnImport) {

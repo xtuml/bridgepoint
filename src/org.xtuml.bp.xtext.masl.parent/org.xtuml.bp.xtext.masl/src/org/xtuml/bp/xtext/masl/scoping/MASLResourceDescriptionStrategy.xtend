@@ -42,6 +42,7 @@ class MASLResourceDescriptionStrategy extends DefaultResourceDescriptionStrategy
 				val definition = eObject.definition
 				if (definition instanceof EnumerationTypeDefinition) {
 					definition.enumerators.forEach [
+						acceptor.accept(EObjectDescription.create(qualifiedNameProvider.getFullyQualifiedName(it), it))
 						acceptor.accept(EObjectDescription.create(QualifiedName.create(domainName, name), it))
 					]
 				}
