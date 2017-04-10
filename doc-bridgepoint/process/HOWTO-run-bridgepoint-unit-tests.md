@@ -88,7 +88,7 @@ Use **Debug** to rerun any tests with issues, setting breakpoints as necessary.
     - Run maven again for that test plugin.  
       ```
       cd ~/git/bptest/src/[test-plugin]
-      mvn -Dmaven.test.failure.ignore=true verify
+      mvn -Dtycho.disableP2Mirrors=true -Dmaven.test.failure.ignore=true verify
       mvn -Daggregate=true surefire-report:report
       ```
 - View the file located under the current directory at: target/site/surefire-report.html for results  
