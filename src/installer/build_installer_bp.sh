@@ -16,7 +16,7 @@ if [ $# -lt 5 ]; then
     echo "      staging_path -- path to the location of the Eclipse bases and BridgePoint deliverables"
     echo "      output_dir -- path to the location to output the installers"
     echo "      os - windows, linux or osx"
-    echo "      release_version -- e.g. 6.2.1"
+    echo "      release_version -- e.g. 6.2.5"
     echo "   optional:"
     echo "      SCP_UPLOAD_FOLDER_SPEC -- folder specification for scp upload: user@myserver.com:/myfolder"
     echo

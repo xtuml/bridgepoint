@@ -38,6 +38,18 @@
       </application>
    </extension>
    <extension
+         id="Launch"
+         point="org.eclipse.core.runtime.applications">
+      <application
+            cardinality="singleton-global"
+            thread="main"
+            visible="true">
+         <run
+               class="org.xtuml.bp.cli.Launch">
+         </run>
+      </application>
+   </extension>
+   <extension
          id="Merge"
          point="org.eclipse.core.runtime.applications">
       <application

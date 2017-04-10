@@ -23,8 +23,6 @@ package org.xtuml.bp.cli;
 
 import org.eclipse.equinox.app.IApplicationContext;
 
-import org.xtuml.bp.core.CorePlugin;
-
 /**
  * This class manages command-line options
  *
@@ -82,6 +80,29 @@ public class BPCLIPreferences {
 				}
 			}
 		}
+	}
+
+	public BPCLIPreferences(String[] strs,
+			CommandLineOption[] defaultOptions) throws BPCLIException {
+		preferenceData = defaultOptions;
+        for (int i = 0; i < strs.length; i++) {
+            String key = strs[i];
+            i++;
+            String value = "";
+            if (i < strs.length) {
+                // If the current key does not have an associated value
+                // then we must take action here to assure we do not
+                // skip the next key.
+                if (strs[i].isEmpty() || strs[i].charAt(0) != '-') {
+                    value = strs[i];
+                } else {
+                    i--;
+                }
+            }
+            if (!key.isEmpty()) {
+                setPreference(key, value);
+            }
+        }
 	}
 
 	/**

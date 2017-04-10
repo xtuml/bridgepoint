@@ -41,8 +41,13 @@ class ExampleModelsIntegrationTest {
 	}
 
 	@Test
-	def void testPSCExample() {
-		testProject('examples/PSC')
+	def void testPSCExampleOOA() {
+		testProject('examples/PSC/PSC_OOA')
+	}
+
+	@Test
+	def void testPSCExamplePROC() {
+		testProject('examples/PSC/PETROL_PROC')
 	}
 
 	@Test
@@ -70,6 +75,25 @@ class ExampleModelsIntegrationTest {
 		testProject('examples/test_dom')
 	}
 
+	@Test 
+	def void testRegressionModels() {
+		val dir = new File('../../../../models/masl/test/')
+		if(dir.exists()) {
+			val success = dir.listFiles.filter[directory].map[
+				println('Testing ' + it)
+				try {
+					testProject(absolutePath)				
+				} catch (AssertionError e) {
+					println(e.message)
+					return false
+				}
+				return true
+			].reduce[$0 && $1]
+			if(!success)
+				fail('Regression errors!')
+		}
+	}
+	
 	protected def testProject(String folderName) {
 		val resourceSet = resourceSetProvider.get
 		load(new File(folderName), resourceSet)
@@ -79,7 +103,7 @@ class ExampleModelsIntegrationTest {
 			try {
 				resource.assertNoErrors()
 			} catch (AssertionError e) {
-				fail(resource.URI.lastSegment + ': ' + e.message)
+				fail(resource.URI + ': ' + e.message)
 			}
 			i++
 		}

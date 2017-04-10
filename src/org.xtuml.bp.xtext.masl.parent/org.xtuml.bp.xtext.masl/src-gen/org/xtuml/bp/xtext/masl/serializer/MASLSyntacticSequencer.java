@@ -498,7 +498,7 @@ public class MASLSyntacticSequencer extends AbstractSyntacticSequencer {
 	 * This ambiguous syntax occurs at:
 	 *     (rule start) (ambiguity) name=ID
 	 *     instance?='instance' (ambiguity) name=ID
-	 *     relationship=[RelationshipDefinition|ID] (ambiguity) name=ID
+	 *     relationship=[RelationshipDefinition|ID] ')' (ambiguity) name=ID
 	 *     visibility=Visibility (ambiguity) name=ID
 	 */
 	protected void emit_ObjectServiceDeclaration_FunctionKeyword_3_1_or_ServiceKeyword_3_0(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {

@@ -58,7 +58,7 @@ class MASLDelegatingAllContainerState implements IAllContainersState {
 				else
 					uri.trimFragment.segments 
 			val index = pathSegments.indexOf(delegateHandle)
-			if(index == -1 || index + 1 > pathSegments.size)
+			if(index == -1 || index + 2 > pathSegments.size)
 				return delegateHandle
 			else
 				return delegateHandle + SEPARATOR + pathSegments.get(index + 1)

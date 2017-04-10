@@ -2412,22 +2412,13 @@ public interface StructurePackage extends EPackage {
 	int RELATIONSHIP_NAVIGATION__OBJECT_OR_ROLE = 1;
 
 	/**
-	 * The feature id for the '<em><b>Object</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int RELATIONSHIP_NAVIGATION__OBJECT = 2;
-
-	/**
 	 * The number of structural features of the '<em>Relationship Navigation</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int RELATIONSHIP_NAVIGATION_FEATURE_COUNT = 3;
+	int RELATIONSHIP_NAVIGATION_FEATURE_COUNT = 2;
 
 	/**
 	 * The number of operations of the '<em>Relationship Navigation</em>' class.
@@ -4041,17 +4032,6 @@ public interface StructurePackage extends EPackage {
 	EReference getRelationshipNavigation_ObjectOrRole();
 
 	/**
-	 * Returns the meta object for the reference '{@link org.xtuml.bp.xtext.masl.masl.structure.RelationshipNavigation#getObject <em>Object</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Object</em>'.
-	 * @see org.xtuml.bp.xtext.masl.masl.structure.RelationshipNavigation#getObject()
-	 * @see #getRelationshipNavigation()
-	 * @generated
-	 */
-	EReference getRelationshipNavigation_Object();
-
-	/**
 	 * Returns the meta object for class '{@link org.xtuml.bp.xtext.masl.masl.structure.ObjectOrRole <em>Object Or Role</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -5249,14 +5229,6 @@ public interface StructurePackage extends EPackage {
 		 * @generated
 		 */
 		EReference RELATIONSHIP_NAVIGATION__OBJECT_OR_ROLE = eINSTANCE.getRelationshipNavigation_ObjectOrRole();
-
-		/**
-		 * The meta object literal for the '<em><b>Object</b></em>' reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference RELATIONSHIP_NAVIGATION__OBJECT = eINSTANCE.getRelationshipNavigation_Object();
 
 		/**
 		 * The meta object literal for the '{@link org.xtuml.bp.xtext.masl.masl.structure.impl.ObjectOrRoleImpl <em>Object Or Role</em>}' class.
