@@ -59,7 +59,7 @@ Using the same build scripts used for the BridgePoint deployment build the produ
 - Change directory to ~/git/bridgepoint/releng/org.xtuml.bp.releng.parent  
 - Run maven verify (This will build and run the tests, it will take a while)  
 ```
-   mvn -Dmaven.test.failure.ignore=true verify
+   mvn -Dtycho.disableP2Mirrors=true -Dmaven.test.failure.ignore=true verify
 ```
 - Run report generation (This will generate a result file)  
 ```
