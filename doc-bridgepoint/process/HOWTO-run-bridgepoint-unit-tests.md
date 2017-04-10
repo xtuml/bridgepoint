@@ -31,7 +31,7 @@ Testing
 Using the same build scripts used for the BridgePoint deployment build the product and run the unit tests from the command line.  
 - Ensure that Maven is installed on your Operating System, consult the Download and Install sections at http://maven.apache.org for installation instructions.  
 - Copy the BridgePoint installation to this location: /build/buildmt  
-  - If on Mac, create the BridgePoint directory and copy the installation contents as follows:
+  - If on building for osX, create the BridgePoint directory and copy the installation contents as follows:
     ```
     mkdir /build/buildmt/BridgePoint
     cp -r ~/xtuml/BridgePoint.app/Contents/Eclipse/* /build/buildmt/BridgePoint
@@ -59,7 +59,7 @@ Using the same build scripts used for the BridgePoint deployment build the produ
 - Change directory to ~/git/bridgepoint/releng/org.xtuml.bp.releng.parent  
 - Run maven verify (This will build and run the tests, it will take a while)  
 ```
-   mvn -fae -Dmaven.test.failure.ignore=true verify
+   mvn -Dmaven.test.failure.ignore=true verify
 ```
 - Run report generation (This will generate a result file)  
 ```
