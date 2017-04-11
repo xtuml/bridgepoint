@@ -60,7 +60,7 @@ Using the same build scripts used for the BridgePoint deployment build the produ
 - Change directory to ~/git/bridgepoint/releng/org.xtuml.bp.releng.parent  
 - Run maven verify (This will build and run the tests, it will take a while)  
 ```
-   mvn -Dtycho.disableP2Mirrors=true -Dmaven.test.failure.ignore=true verify
+   mvn -Dtycho.disableP2Mirrors=true -Dmaven.test.failure.ignore=true install
 ```
 - Run report generation (This will generate a result file)  
 ```
@@ -89,7 +89,8 @@ Use **Debug** to rerun any tests with issues, setting breakpoints as necessary.
     - Run maven again for that test plugin.  
       ```
       cd ~/git/bptest/src/[test-plugin]
-      mvn -Dtycho.disableP2Mirrors=true -Dmaven.test.failure.ignore=true verify
+      mvn -Dtycho.disableP2Mirrors=true -Dmaven.test.failure.ignore=true install
+      cd ~/git/bridgepoint-fork-main/releng/org.xtuml.bp.releng.parent
       mvn -Daggregate=true surefire-report:report
       ```
 - View the file located under the current directory at: target/site/surefire-report.html for results  
