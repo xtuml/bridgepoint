@@ -9,20 +9,24 @@ import org.xtuml.bp.xtext.masl.MASLExtensions
 import org.xtuml.bp.xtext.masl.layout.URI2DeclarationMapper
 import org.xtuml.bp.xtext.masl.masl.structure.AssocRelationshipDefinition
 import org.xtuml.bp.xtext.masl.masl.structure.DomainDefinition
+import org.xtuml.bp.xtext.masl.masl.structure.DomainServiceDeclaration
+import org.xtuml.bp.xtext.masl.masl.structure.DomainServiceDefinition
 import org.xtuml.bp.xtext.masl.masl.structure.IdentifierDefinition
 import org.xtuml.bp.xtext.masl.masl.structure.MaslModel
 import org.xtuml.bp.xtext.masl.masl.structure.ObjectDeclaration
 import org.xtuml.bp.xtext.masl.masl.structure.ObjectDefinition
+import org.xtuml.bp.xtext.masl.masl.structure.ObjectServiceDeclaration
+import org.xtuml.bp.xtext.masl.masl.structure.ObjectServiceDefinition
 import org.xtuml.bp.xtext.masl.masl.structure.Parameterized
 import org.xtuml.bp.xtext.masl.masl.structure.ProjectDefinition
 import org.xtuml.bp.xtext.masl.masl.structure.RegularRelationshipDefinition
-import org.xtuml.bp.xtext.masl.masl.structure.RelationshipEnd
-import org.xtuml.bp.xtext.masl.masl.structure.RelationshipNavigation
 import org.xtuml.bp.xtext.masl.masl.structure.StateDeclaration
 import org.xtuml.bp.xtext.masl.masl.structure.StateDefinition
 import org.xtuml.bp.xtext.masl.masl.structure.StructurePackage
 import org.xtuml.bp.xtext.masl.masl.structure.SubtypeRelationshipDefinition
 import org.xtuml.bp.xtext.masl.masl.structure.TerminatorDefinition
+import org.xtuml.bp.xtext.masl.masl.structure.TerminatorServiceDeclaration
+import org.xtuml.bp.xtext.masl.masl.structure.TerminatorServiceDefinition
 import org.xtuml.bp.xtext.masl.masl.structure.TransitionRow
 import org.xtuml.bp.xtext.masl.masl.types.EnumerationTypeDefinition
 import org.xtuml.bp.xtext.masl.masl.types.StructureTypeDefinition
@@ -31,12 +35,6 @@ import org.xtuml.bp.xtext.masl.scoping.ProjectScopeIndexProvider
 import static org.xtuml.bp.xtext.masl.validation.MaslIssueCodesProvider.*
 
 import static extension org.eclipse.emf.ecore.util.EcoreUtil.*
-import org.xtuml.bp.xtext.masl.masl.structure.DomainServiceDeclaration
-import org.xtuml.bp.xtext.masl.masl.structure.DomainServiceDefinition
-import org.xtuml.bp.xtext.masl.masl.structure.TerminatorServiceDeclaration
-import org.xtuml.bp.xtext.masl.masl.structure.TerminatorServiceDefinition
-import org.xtuml.bp.xtext.masl.masl.structure.ObjectServiceDeclaration
-import org.xtuml.bp.xtext.masl.masl.structure.ObjectServiceDefinition
 
 class StructureValidator extends AbstractMASLValidator {
 
@@ -146,21 +144,6 @@ class StructureValidator extends AbstractMASLValidator {
 				INCONSISTENT_RELATIONSHIP_ENDS)
 			addIssue('Relationship objects do not correlate', backwards, relationshipEnd_From,
 				INCONSISTENT_RELATIONSHIP_ENDS)
-		}
-	}
-
-	@Check
-	def void relationshipNavigation(RelationshipNavigation it) {
-		if (objectOrRole != null && object != null) {
-			if (objectOrRole instanceof RelationshipEnd) {
-				if ((objectOrRole as RelationshipEnd).to != object) {
-					addIssue('Role refers to another object', it, structurePackage.relationshipNavigation_ObjectOrRole,
-						INCONSISTENT_RELATIONSHIP_NAVIGATION)
-				}
-			} else {
-				addIssue('Role refers to an object', it, structurePackage.relationshipNavigation_ObjectOrRole,
-					INCONSISTENT_RELATIONSHIP_NAVIGATION)
-			}
 		}
 	}
 

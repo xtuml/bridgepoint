@@ -85,6 +85,9 @@ The new test results from this work are from two things.  One of which is a chan
 
 7. Design Comments
 ------------------
+7.1 CLI prebuild  
+
+During testing with building from the command line it was noted that the prebuild step for core.test was not producing the appropriate sql files.  In mc.java.source.ExportBuilder we override exportSystem() in order to make use of project settings that specify package roots to use for sql production.  At some point another exportSystem with a new parameter (doNotParse) was added.  This is the method being called from the CLI code.  In order to make use of the package root settings this method is also overridden in ExportBuilder, passing on the call to the existing exportSystem method.  
 
 8. User Documentation
 ---------------------

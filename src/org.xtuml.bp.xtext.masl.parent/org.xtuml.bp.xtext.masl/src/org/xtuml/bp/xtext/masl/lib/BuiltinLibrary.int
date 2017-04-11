@@ -58,6 +58,7 @@ builtin is
 	<enum E> E'range()             return range of integer;
 	<enum E> (E)'pred() return E;
 	<enum E> (E)'succ() return E;
+	<enum E> (E)'value() return integer;
 	
 	(string)'upper()                       return string;
 	(string)'lower()                       return string;

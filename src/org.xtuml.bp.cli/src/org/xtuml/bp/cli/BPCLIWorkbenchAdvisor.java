@@ -52,7 +52,6 @@ import org.eclipse.ui.application.IWorkbenchWindowConfigurer;
 import org.eclipse.ui.application.WorkbenchAdvisor;
 
 import org.xtuml.bp.core.util.CoreUtil;
-import org.xtuml.bp.core.util.UIUtil;
 import org.xtuml.bp.core.util.WorkspaceUtil;
 
 abstract public class BPCLIWorkbenchAdvisor extends WorkbenchAdvisor {
@@ -292,6 +291,7 @@ abstract public class BPCLIWorkbenchAdvisor extends WorkbenchAdvisor {
 			RandomAccessFile randomAccessFile = new RandomAccessFile(lockFile,
 					"rw");
 			workspaceLock = randomAccessFile.getChannel().tryLock();
+			randomAccessFile.close();
 		} catch (Exception e) {
 		} finally {
 			if (workspaceLock == null) {
@@ -301,6 +301,17 @@ abstract public class BPCLIWorkbenchAdvisor extends WorkbenchAdvisor {
 				System.exit(1);
 			}
 		}
+	}
+	
+	protected void shutdown( String command ) {
+        System.out.println(command + "complete.  Exiting.");
+        PlatformUI.getWorkbench().getDisplay().asyncExec(new Runnable() {
+            
+            @Override
+            public void run() {
+                PlatformUI.getWorkbench().close();
+            }
+        });
 	}
 }
 

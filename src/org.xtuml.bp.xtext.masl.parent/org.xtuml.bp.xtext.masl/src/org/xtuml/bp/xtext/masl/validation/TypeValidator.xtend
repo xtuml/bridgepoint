@@ -194,8 +194,6 @@ class TypeValidator extends AbstractMASLValidator {
 			val relationship = expr.navigation.relationship
 			if(!(relationship instanceof AssocRelationshipDefinition))
 				addIssue("Navigation expression with 'with' can only use an association relationship", expr.navigation, structurePackage.relationshipNavigation_Relationship, INCONSISTENT_RELATIONSHIP_NAVIGATION)
-			if(expr.navigation.object != null) 
-				addIssue("Navigation expression with 'with' can only use an association class", expr.navigation, structurePackage.relationshipNavigation_Object, INCONSISTENT_RELATIONSHIP_NAVIGATION)
 			if(expr.navigation.objectOrRole != (relationship as AssocRelationshipDefinition).object)
 				addIssue("Navigation expression with 'with' can only use an association class", expr.navigation, structurePackage.relationshipNavigation_ObjectOrRole, INCONSISTENT_RELATIONSHIP_NAVIGATION)
 		}
