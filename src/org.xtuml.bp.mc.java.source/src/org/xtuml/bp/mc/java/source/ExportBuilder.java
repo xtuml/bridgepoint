@@ -138,6 +138,13 @@ public class ExportBuilder extends AbstractExportBuilder {
 		//System.out.println(statusMsg);
 	}
 	
+	@Override
+	public List<SystemModel_c> exportSystem(SystemModel_c system,
+			String destDir, final IProgressMonitor monitor, boolean append,
+			String originalSystem, boolean doNotParse) throws CoreException {
+		return exportSystem(system, destDir, monitor, append, originalSystem);
+	}
+	
 	public List<SystemModel_c> exportSystem(SystemModel_c system,
 			String destDir, final IProgressMonitor monitor, boolean append,
 			String originalSystem) throws CoreException {

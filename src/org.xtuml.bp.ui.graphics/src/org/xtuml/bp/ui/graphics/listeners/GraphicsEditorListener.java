@@ -26,7 +26,6 @@ import org.eclipse.gef.GraphicalViewer;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
-
 import org.xtuml.bp.core.ClassStateMachine_c;
 import org.xtuml.bp.core.InstanceStateMachine_c;
 import org.xtuml.bp.core.ModelClass_c;
@@ -44,7 +43,6 @@ import org.xtuml.bp.core.common.ModelRoot;
 import org.xtuml.bp.core.common.NonRootModelElement;
 import org.xtuml.bp.core.common.PersistableModelComponent;
 import org.xtuml.bp.core.common.Transaction;
-import org.xtuml.bp.ui.canvas.CanvasModelListener;
 import org.xtuml.bp.ui.canvas.CanvasPlugin;
 import org.xtuml.bp.ui.canvas.Cl_c;
 import org.xtuml.bp.ui.canvas.ElementSpecification_c;
@@ -56,8 +54,7 @@ import org.xtuml.bp.ui.canvas.util.GraphicsUtil;
 import org.xtuml.bp.ui.graphics.editor.GraphicalEditor;
 import org.xtuml.bp.ui.graphics.editor.GraphicalEditorInput;
 
-public class GraphicsEditorListener extends ModelChangeAdapter implements ITransactionListener {
-
+public class GraphicsEditorListener extends ModelChangeAdapter implements ITransactionListener {	
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -87,15 +84,18 @@ public class GraphicsEditorListener extends ModelChangeAdapter implements ITrans
 		// listener
 		// note that all other refreshes occur at the end of a transaction
 		if (m_editor.getTransactionManager() != null
-				&& m_editor.getTransactionManager().getActiveTransaction() != null)
+				&& m_editor.getTransactionManager().getActiveTransaction() != null) {
+			m_editor.refreshPartName();
 			return;
+		}
 		if (event.getType() == Modeleventnotification_c.MODEL_ELEMENT_LOADED
 				|| event.getType() == Modeleventnotification_c.MODEL_ELEMENT_RELOAD) {
 			NonRootModelElement modelElement = (NonRootModelElement) event
 					.getModelElement();
 			if(modelElement == null)
 				modelElement = (NonRootModelElement) delta.getModelElement();
-			if (modelElement == m_editor.getModel().getRepresents()) {
+			if (modelElement.equals(m_editor.getModel().getRepresents())) {
+
 				Model_c model = Model_c.ModelInstance(Ooaofgraphics.getInstance(modelElement.getModelRoot().getId()), new ClassQueryInterface_c() {
 				
 					@Override
@@ -104,12 +104,26 @@ public class GraphicsEditorListener extends ModelChangeAdapter implements ITrans
 					}
 				});
 				if(model != m_editor.getModel()) {
-					m_editor.setModel(model);
-					CanvasPlugin.setGraphicalRepresents(model);
-					((GraphicalViewer) m_editor.getAdapter(GraphicalViewer.class)).setContents(model);
-					m_editor.refresh();
+					refreshEditor(model);
 				}
 			}
+		}
+	}
+
+	private void refreshEditor(Model_c model) {
+		m_editor.setModel(model);
+		CanvasPlugin.setGraphicalRepresents(model);
+		((GraphicalViewer) m_editor.getAdapter(GraphicalViewer.class)).setContents(model);
+		m_editor.refresh();
+		m_editor.refreshPartName();
+	}
+	
+	private void reloadEditorContentsIfRequired() {
+		Model_c model = m_editor.getModel();
+		Model_c otherModel = (Model_c) Ooaofgraphics.getDefaultInstance().getInstanceList(Model_c.class)
+				.get(model.getDiagramid());
+		if(otherModel != null && model != otherModel) {
+			refreshEditor(model);
 		}
 	}
 

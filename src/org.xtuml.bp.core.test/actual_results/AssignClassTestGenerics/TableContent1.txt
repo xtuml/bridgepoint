@@ -1,0 +1,4 @@
+classOne	AssignClassTests::AssignClassTests
+classThree	AssignClassTests::AssignClassTests
+classTwo	AssignClassTests::AssignClassTests
+IRDT	Delete Test::UDTPackage
