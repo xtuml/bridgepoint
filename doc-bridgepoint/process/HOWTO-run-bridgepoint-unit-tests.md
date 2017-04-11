@@ -34,7 +34,7 @@ Using the same build scripts used for the BridgePoint deployment build the produ
   - If on building for osX, create the BridgePoint directory and copy the installation contents as follows:
     ```
     mkdir /build/buildmt/BridgePoint
-    chown -R username:group /build
+    chown -R [username]:[group] /build
     cp -r ~/xtuml/BridgePoint.app/Contents/Eclipse/* /build/buildmt/BridgePoint
     ```
 - Prepare the CLI.sh script for the BridgePoint installation under /build/buildmt  
