@@ -58,7 +58,7 @@ Using the same build scripts used for the BridgePoint deployment build the produ
     /build/buildmt/BridgePoint/CLI.sh Build -project [project] -prebuildOnly  
     ```
 - Change directory to ~/git/bridgepoint/releng/org.xtuml.bp.releng.parent  
-- Run maven verify (This will build and run the tests, it will take a while)  
+- Run maven install (This will build and run the tests, it will take a while)  
 ```
    mvn -Dtycho.disableP2Mirrors=true -Dmaven.test.failure.ignore=true install
 ```
@@ -67,7 +67,31 @@ Using the same build scripts used for the BridgePoint deployment build the produ
    mvn -Daggregate=true surefire-report:report
 ```
 - View the file located under the current directory at: target/site/surefire-report.html for results  
-- At this point if you encounter failures or errors in the test runs you must switch to UI mode described below.  Debugging must be done within the UI.  This will require a UI build as well as a rerun of the test suites with issues.  
+- If you encounter any errors are failures that require debugging open the BridgePoint UI  
+- Set any breakpoints that are relevant to the issues  
+- Restart the tests for the project with issues including the debugging port option (Navigate to the test plugin folder):  
+     ```
+      cd ~/git/bptest/src/[test-plugin]
+      mvn -DdebugPort=8000 -Dtycho.disableP2Mirrors=true -Dmaven.test.failure.ignore=true install
+     ```
+- The tests will wait for a remote debugging session, create a new launch configuration in the UI using
+  - Select **Debug > Debug Configurations...**  
+  - Right click on Remote Java Application and select New
+  - Choose the test projet and click Debug
+- The maven build will continue once the remote debugger is fully connected
+- Any breakpoints set will now be hit as long as execution takes it through such a path
+- Debug just as one would if developing in the UI
+- Once the test run is complete with no failures or errors, navigate to the owning test plug-in on the command line.  
+- Run maven again for that test plugin.  
+     ```
+      cd ~/git/bptest/src/[test-plugin]
+      mvn -Dtycho.disableP2Mirrors=true -Dmaven.test.failure.ignore=true install
+      cd ~/git/bridgepoint-fork-main/releng/org.xtuml.bp.releng.parent
+      mvn -Daggregate=true surefire-report:report
+     ```
+- View the file located under the current directory at: target/site/surefire-report.html for results  
+- If there are still problems repeat the debug process, otherwise continue to the next problem if one exists.  
+
 ### Alternatively, if you have access to the build server you can run the tests there following the instructions located at [Run Hudson build server.](https://docs.google.com/document/d/1B5sri4AyGV6lwe_BpIAsRPeX4eXPZTObCdEme53ZVVw/edit)
 
 Addressing Issues with UI
