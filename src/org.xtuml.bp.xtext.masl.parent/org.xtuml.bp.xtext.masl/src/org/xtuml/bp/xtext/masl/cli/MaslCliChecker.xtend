@@ -32,11 +32,11 @@ class MaslCliChecker {
 	@Inject IResourceValidator resourceValidator
 
 	Severity minimumSeverity = Severity.ERROR
-	String domainDir
-	String projectDir
+	String inputDir
+	String modelDir
 	File outputDir
 
-	int numProjects = 0
+	int numModels = 0
 	int numFiles = 0
 	int numIssues = 0
 
@@ -47,10 +47,10 @@ class MaslCliChecker {
 			val option = theArgs.poll
 			val arg = theArgs.poll
 			switch option {
-				case '-d':
-					domainDir = arg
-				case '-p':
-					projectDir = arg
+				case '-I':
+					inputDir = arg
+				case '-i':
+					modelDir = arg
 				case '-o':
 					outputDir = new File(arg)
 				case '-s':
@@ -61,14 +61,14 @@ class MaslCliChecker {
 					showHelp = true
 			}
 		}
-		if (showHelp || theArgs.size > 0 || !((domainDir == null).xor(projectDir == null))) {
+		if (showHelp || theArgs.size > 0 || !((inputDir == null).xor(modelDir == null))) {
 			println('''
 				MaslCliCkecker
 				Checks MASL files in a given directory for syntax type and linking errors.
 				
 				Usage
-				 -d <domainDir> check all projects in <domainDir>
-				 -p <projectDir> check all fiels in <projectDir>
+				 -I <inputDir> check all MASL models in <inputDir>
+				 -i <modelDir> check all files in <modelDir>
 				 -o <outputDir> write output to <outputDir> (default: stderr)
 				 -s (ERROR|WARNING) severity threshold      (default ERROR)
 				 -? show this help
@@ -81,21 +81,21 @@ class MaslCliChecker {
 			if (!outputDir.isDirectory)
 				throw new IllegalArgumentException("Output directory must be a directory.")
 		}
-		if (projectDir != null)
-			checkProject(projectDir)
+		if (modelDir != null)
+			checkModel(modelDir)
 		else
-			checkDomainDir(domainDir)
-		println('''«numIssues» issues found in «numFiles» files in «numProjects» projects.''')
+			checkInputDir(inputDir)
+		println('''«numIssues» issues found in «numFiles» files in «numModels» models.''')
 	}
 
-	def void checkDomainDir(String folderName) {
+	def void checkInputDir(String folderName) {
 		val dir = new File(folderName)
 		if (!dir.exists || !dir.directory)
-			throw new IllegalArgumentException("Domain directory must exist and be a directory.")
+			throw new IllegalArgumentException("Input directory must exist and be a directory.")
 		dir.listFiles.filter[directory].map [
 			println('Testing ' + it)
 			try {
-				checkProject(absolutePath)
+				checkModel(absolutePath)
 			} catch (AssertionError e) {
 				println(e.message)
 				return false
@@ -104,15 +104,15 @@ class MaslCliChecker {
 		].reduce[$0 && $1]
 	}
 
-	protected def checkProject(String folderName) {
-		numProjects++
+	protected def checkModel(String folderName) {
+		numModels++
 		val buffer = new StringBuffer
 		val resourceSet = resourceSetProvider.get
 		val folder = new File(folderName)
 		if(folder.listFiles.exists[directory])
 			buffer.append('''
-				WARNING: Nested projects are likely to produce linking errors due to duplicate names.
-				Please check them as individual projects.
+				WARNING: Nested models are likely to produce linking errors due to duplicate names.
+				Please check them as individual models.
 			''')		
 		load(folder, resourceSet)
 		var i = 0
@@ -134,7 +134,7 @@ class MaslCliChecker {
 			i++
 		}
 		if (i == 0)
-			buffer.append('Project dir is empty.')
+			buffer.append('Model dir is empty.')
 		val errorMessages = buffer.toString
 		if (!errorMessages.empty) {
 			if (outputDir == null) {
