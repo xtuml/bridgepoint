@@ -47,7 +47,7 @@
 <stringAttribute key="org.eclipse.cdt.launch.launchGroup.19.action" value="WAIT_FOR_TERMINATION"/>
 <stringAttribute key="org.eclipse.cdt.launch.launchGroup.19.enabled" value="true"/>
 <stringAttribute key="org.eclipse.cdt.launch.launchGroup.19.mode" value="default"/>
-<stringAttribute key="org.eclipse.cdt.launch.launchGroup.19.name" value="UI Explorer Test"/>
+<stringAttribute key="org.eclipse.cdt.launch.launchGroup.19.name" value="UI Canvas Suite 3"/>
 <stringAttribute key="org.eclipse.cdt.launch.launchGroup.2.action" value="WAIT_FOR_TERMINATION"/>
 <stringAttribute key="org.eclipse.cdt.launch.launchGroup.2.enabled" value="true"/>
 <stringAttribute key="org.eclipse.cdt.launch.launchGroup.2.mode" value="default"/>
@@ -55,15 +55,19 @@
 <stringAttribute key="org.eclipse.cdt.launch.launchGroup.20.action" value="WAIT_FOR_TERMINATION"/>
 <stringAttribute key="org.eclipse.cdt.launch.launchGroup.20.enabled" value="true"/>
 <stringAttribute key="org.eclipse.cdt.launch.launchGroup.20.mode" value="default"/>
-<stringAttribute key="org.eclipse.cdt.launch.launchGroup.20.name" value="UI Properties Test"/>
+<stringAttribute key="org.eclipse.cdt.launch.launchGroup.20.name" value="UI Explorer Test"/>
 <stringAttribute key="org.eclipse.cdt.launch.launchGroup.21.action" value="WAIT_FOR_TERMINATION"/>
 <stringAttribute key="org.eclipse.cdt.launch.launchGroup.21.enabled" value="true"/>
 <stringAttribute key="org.eclipse.cdt.launch.launchGroup.21.mode" value="default"/>
-<stringAttribute key="org.eclipse.cdt.launch.launchGroup.21.name" value="UI Text Test"/>
+<stringAttribute key="org.eclipse.cdt.launch.launchGroup.21.name" value="UI Properties Test"/>
 <stringAttribute key="org.eclipse.cdt.launch.launchGroup.22.action" value="WAIT_FOR_TERMINATION"/>
 <stringAttribute key="org.eclipse.cdt.launch.launchGroup.22.enabled" value="true"/>
 <stringAttribute key="org.eclipse.cdt.launch.launchGroup.22.mode" value="default"/>
-<stringAttribute key="org.eclipse.cdt.launch.launchGroup.22.name" value="Welcome Test"/>
+<stringAttribute key="org.eclipse.cdt.launch.launchGroup.22.name" value="UI Text Test"/>
+<stringAttribute key="org.eclipse.cdt.launch.launchGroup.23.action" value="WAIT_FOR_TERMINATION"/>
+<stringAttribute key="org.eclipse.cdt.launch.launchGroup.23.enabled" value="true"/>
+<stringAttribute key="org.eclipse.cdt.launch.launchGroup.23.mode" value="default"/>
+<stringAttribute key="org.eclipse.cdt.launch.launchGroup.23.name" value="Welcome Test"/>
 <stringAttribute key="org.eclipse.cdt.launch.launchGroup.3.action" value="WAIT_FOR_TERMINATION"/>
 <stringAttribute key="org.eclipse.cdt.launch.launchGroup.3.enabled" value="true"/>
 <stringAttribute key="org.eclipse.cdt.launch.launchGroup.3.mode" value="default"/>
