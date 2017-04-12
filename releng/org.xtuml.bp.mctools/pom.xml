@@ -192,17 +192,17 @@
             <configuration>
               <target>
                 <move file="${basedir}/linux.all/tools/mc/bin/masl.linux.64" 
-                      dest="${basedir}/linux.all/tools/mc/bin/masl" />
+                      toFile="${basedir}/linux.all/tools/mc/bin/masl" />
                 <move file="${basedir}/linux.all/tools/mc/bin/m2x.linux.64" 
-                      dest="${basedir}/linux.all/tools/mc/bin/m2x" />
+                      toFile="${basedir}/linux.all/tools/mc/bin/m2x" />
                 <move file="${basedir}/linux.all/tools/mc/bin/x2m.linux.64" 
-                      dest="${basedir}/linux.all/tools/mc/bin/x2m" />
+                      toFile="${basedir}/linux.all/tools/mc/bin/x2m" />
                 <move file="${basedir}/mac.all/tools/mc/bin/masl.mac.64" 
-                      dest="${basedir}/mac.all/tools/mc/bin/masl" />
+                      toFile="${basedir}/mac.all/tools/mc/bin/masl" />
                 <move file="${basedir}/mac.all/tools/mc/bin/m2x.mac.64" 
-                      dest="${basedir}/mac.all/tools/mc/bin/m2x" />
+                      toFile="${basedir}/mac.all/tools/mc/bin/m2x" />
                 <move file="${basedir}/mac.all/tools/mc/bin/x2m.mac.64" 
-                      dest="${basedir}/mac.all/tools/mc/bin/x2m" />
+                      toFile="${basedir}/mac.all/tools/mc/bin/x2m" />
               </target>
             </configuration>
             <goals>
