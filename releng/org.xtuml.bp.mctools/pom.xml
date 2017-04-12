@@ -61,12 +61,12 @@
                     <include>gen_erate.pyz</include>
                     <include>mcmc</include>
                     <include>mcmc64</include>
-                    <include>m2x</include>
-                    <include>masl</include>
+                    <include>m2x.linux.64</include>
+                    <include>masl.linux.64</include>
                     <include>masl2xtuml</include>
                     <include>masldiff</include>
                     <include>MASLParser.jar</include>
-                    <include>x2m</include>
+                    <include>x2m.linux.64</include>
                     <include>xtuml2masl</include>
                     <include>xtumlmc_build</include>
                     <include>CLI.sh</include>
@@ -108,10 +108,10 @@
                     <include>docgen</include>
                     <include>mcmc</include>
                     <include>mcmc64</include>
-                    <include>m2x</include>
-                    <include>masl</include>
-                    <include>x2m</include>
                     -->
+                    <include>m2x.mac.64</include>
+                    <include>masl.mac.64</include>
+                    <include>x2m.mac.64</include>
                   </includes>
                 </resource>
               </resources>              
@@ -178,6 +178,31 @@
                 <copy file="${basedir}/linux.all/tools/mc/bin/antlr-3.5.2-complete.jar" 
                       tofile="${basedir}/mac.all/tools/mc/bin/antlr-3.5.2-complete.jar"
                       overwrite="true" />             
+              </target>
+            </configuration>
+            <goals>
+              <goal>run</goal>
+            </goals>
+          </execution>
+
+          <!--rename the mc tools-->
+          <execution>
+            <id>rename-resources</id>
+            <phase>validate</phase>
+            <configuration>
+              <target>
+                <move file="${basedir}/linux.all/tools/mc/bin/masl.linux.64" 
+                      dest="${basedir}/linux.all/tools/mc/bin/masl" />
+                <move file="${basedir}/linux.all/tools/mc/bin/m2x.linux.64" 
+                      dest="${basedir}/linux.all/tools/mc/bin/m2x" />
+                <move file="${basedir}/linux.all/tools/mc/bin/x2m.linux.64" 
+                      dest="${basedir}/linux.all/tools/mc/bin/x2m" />
+                <move file="${basedir}/mac.all/tools/mc/bin/masl.mac.64" 
+                      dest="${basedir}/mac.all/tools/mc/bin/masl" />
+                <move file="${basedir}/mac.all/tools/mc/bin/m2x.mac.64" 
+                      dest="${basedir}/mac.all/tools/mc/bin/m2x" />
+                <move file="${basedir}/mac.all/tools/mc/bin/x2m.mac.64" 
+                      dest="${basedir}/mac.all/tools/mc/bin/x2m" />
               </target>
             </configuration>
             <goals>
