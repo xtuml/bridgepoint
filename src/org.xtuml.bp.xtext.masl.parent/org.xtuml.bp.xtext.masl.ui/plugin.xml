@@ -353,21 +353,21 @@
 			name="MASL Problem"
 			point="org.eclipse.core.resources.markers">
 		<super type="org.eclipse.xtext.ui.check.fast"/>
-		<persistent value="true"/>
+		<persistent value="false"/>
 	</extension>
 	<extension
 			id="masl.check.normal"
 			name="MASL Problem"
 			point="org.eclipse.core.resources.markers">
 		<super type="org.eclipse.xtext.ui.check.normal"/>
-		<persistent value="true"/>
+		<persistent value="false"/>
 	</extension>
 	<extension
 			id="masl.check.expensive"
 			name="MASL Problem"
 			point="org.eclipse.core.resources.markers">
 		<super type="org.eclipse.xtext.ui.check.expensive"/>
-		<persistent value="true"/>
+		<persistent value="false"/>
 	</extension>
 	<extension point="org.eclipse.xtext.builder.participant">
 		<participant
@@ -572,4 +572,21 @@
 			type="text">
 		</fileTypes>
 	</extension>
+	<extension
+		point="org.eclipse.ui.editors">
+		<editor
+			class="org.xtuml.bp.xtext.masl.ui.MASLExecutableExtensionFactory:org.xtuml.bp.xtext.masl.ui.document.MaslSnippetEditor"
+			contributorClass="org.eclipse.ui.editors.text.TextEditorActionContributor"
+			default="true"
+			extensions="tpr"
+			id="org.xtuml.bp.xtext.masl.MASLPartial"
+			name="Partial MASL Editor">
+		</editor>
+	</extension>
+    <extension
+         point="org.xtuml.bp.core.renameParticipants">
+      <renameParticipant
+            class="org.xtuml.bp.xtext.masl.ui.MASLExecutableExtensionFactory:org.xtuml.bp.xtext.masl.ui.rename.MaslRenameParticipant">
+      </renameParticipant>
+    </extension>
 </plugin>

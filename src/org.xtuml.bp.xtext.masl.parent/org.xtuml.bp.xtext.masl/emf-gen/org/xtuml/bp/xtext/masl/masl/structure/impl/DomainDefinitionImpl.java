@@ -16,7 +16,6 @@ import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
 import org.xtuml.bp.xtext.masl.masl.structure.DomainDefinition;
-import org.xtuml.bp.xtext.masl.masl.structure.DomainFunctionDeclaration;
 import org.xtuml.bp.xtext.masl.masl.structure.DomainServiceDeclaration;
 import org.xtuml.bp.xtext.masl.masl.structure.ExceptionDeclaration;
 import org.xtuml.bp.xtext.masl.masl.structure.ObjectDeclaration;
@@ -38,7 +37,6 @@ import org.xtuml.bp.xtext.masl.masl.types.TypeForwardDeclaration;
  * <ul>
  *   <li>{@link org.xtuml.bp.xtext.masl.masl.structure.impl.DomainDefinitionImpl#getObjects <em>Objects</em>}</li>
  *   <li>{@link org.xtuml.bp.xtext.masl.masl.structure.impl.DomainDefinitionImpl#getServices <em>Services</em>}</li>
- *   <li>{@link org.xtuml.bp.xtext.masl.masl.structure.impl.DomainDefinitionImpl#getFunctions <em>Functions</em>}</li>
  *   <li>{@link org.xtuml.bp.xtext.masl.masl.structure.impl.DomainDefinitionImpl#getTerminators <em>Terminators</em>}</li>
  *   <li>{@link org.xtuml.bp.xtext.masl.masl.structure.impl.DomainDefinitionImpl#getRelationships <em>Relationships</em>}</li>
  *   <li>{@link org.xtuml.bp.xtext.masl.masl.structure.impl.DomainDefinitionImpl#getObjectDefs <em>Object Defs</em>}</li>
@@ -69,16 +67,6 @@ public class DomainDefinitionImpl extends AbstractTopLevelElementImpl implements
 	 * @ordered
 	 */
 	protected EList<DomainServiceDeclaration> services;
-
-	/**
-	 * The cached value of the '{@link #getFunctions() <em>Functions</em>}' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getFunctions()
-	 * @generated
-	 * @ordered
-	 */
-	protected EList<DomainFunctionDeclaration> functions;
 
 	/**
 	 * The cached value of the '{@link #getTerminators() <em>Terminators</em>}' containment reference list.
@@ -188,18 +176,6 @@ public class DomainDefinitionImpl extends AbstractTopLevelElementImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<DomainFunctionDeclaration> getFunctions() {
-		if (functions == null) {
-			functions = new EObjectContainmentEList<DomainFunctionDeclaration>(DomainFunctionDeclaration.class, this, StructurePackage.DOMAIN_DEFINITION__FUNCTIONS);
-		}
-		return functions;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EList<TerminatorDefinition> getTerminators() {
 		if (terminators == null) {
 			terminators = new EObjectContainmentEList<TerminatorDefinition>(TerminatorDefinition.class, this, StructurePackage.DOMAIN_DEFINITION__TERMINATORS);
@@ -279,8 +255,6 @@ public class DomainDefinitionImpl extends AbstractTopLevelElementImpl implements
 				return ((InternalEList<?>)getObjects()).basicRemove(otherEnd, msgs);
 			case StructurePackage.DOMAIN_DEFINITION__SERVICES:
 				return ((InternalEList<?>)getServices()).basicRemove(otherEnd, msgs);
-			case StructurePackage.DOMAIN_DEFINITION__FUNCTIONS:
-				return ((InternalEList<?>)getFunctions()).basicRemove(otherEnd, msgs);
 			case StructurePackage.DOMAIN_DEFINITION__TERMINATORS:
 				return ((InternalEList<?>)getTerminators()).basicRemove(otherEnd, msgs);
 			case StructurePackage.DOMAIN_DEFINITION__RELATIONSHIPS:
@@ -309,8 +283,6 @@ public class DomainDefinitionImpl extends AbstractTopLevelElementImpl implements
 				return getObjects();
 			case StructurePackage.DOMAIN_DEFINITION__SERVICES:
 				return getServices();
-			case StructurePackage.DOMAIN_DEFINITION__FUNCTIONS:
-				return getFunctions();
 			case StructurePackage.DOMAIN_DEFINITION__TERMINATORS:
 				return getTerminators();
 			case StructurePackage.DOMAIN_DEFINITION__RELATIONSHIPS:
@@ -343,10 +315,6 @@ public class DomainDefinitionImpl extends AbstractTopLevelElementImpl implements
 			case StructurePackage.DOMAIN_DEFINITION__SERVICES:
 				getServices().clear();
 				getServices().addAll((Collection<? extends DomainServiceDeclaration>)newValue);
-				return;
-			case StructurePackage.DOMAIN_DEFINITION__FUNCTIONS:
-				getFunctions().clear();
-				getFunctions().addAll((Collection<? extends DomainFunctionDeclaration>)newValue);
 				return;
 			case StructurePackage.DOMAIN_DEFINITION__TERMINATORS:
 				getTerminators().clear();
@@ -390,9 +358,6 @@ public class DomainDefinitionImpl extends AbstractTopLevelElementImpl implements
 			case StructurePackage.DOMAIN_DEFINITION__SERVICES:
 				getServices().clear();
 				return;
-			case StructurePackage.DOMAIN_DEFINITION__FUNCTIONS:
-				getFunctions().clear();
-				return;
 			case StructurePackage.DOMAIN_DEFINITION__TERMINATORS:
 				getTerminators().clear();
 				return;
@@ -427,8 +392,6 @@ public class DomainDefinitionImpl extends AbstractTopLevelElementImpl implements
 				return objects != null && !objects.isEmpty();
 			case StructurePackage.DOMAIN_DEFINITION__SERVICES:
 				return services != null && !services.isEmpty();
-			case StructurePackage.DOMAIN_DEFINITION__FUNCTIONS:
-				return functions != null && !functions.isEmpty();
 			case StructurePackage.DOMAIN_DEFINITION__TERMINATORS:
 				return terminators != null && !terminators.isEmpty();
 			case StructurePackage.DOMAIN_DEFINITION__RELATIONSHIPS:

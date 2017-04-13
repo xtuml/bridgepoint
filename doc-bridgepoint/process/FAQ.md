@@ -25,6 +25,7 @@
     * [How do I turn on Tracing/Debugging statements in BridgePoint](#tracing)
     * [Command Line Build Instructions](#clibuild)
     * [How do BridgePoint Context Menu Entries (CMEs) work?](#bp_cme)
+    * [How to generate code for a specific class without waiting for a full build](#fast_build1)
   * [Verifier](#verifier)
     * [What does "Nothing to verify." mean?](#nothingtoverify) 
   * [Model Translation / Model Compilers](#mcs)
@@ -40,6 +41,7 @@
     * [How does the model of persistence work?](#persistence)
     * [How are ModelElements organized in memory?](#inmemory_arch)
     * [How can I examine the BridgePoint in-memory Instance Population? (Instance Population Monitor)](#instanceviewer)
+    * [What is the ComponentTransactionListener and how does it work?](#transactionlistener)  
   * [Miscellaneous](#misc)
     * [How do I append updates to BridgePoint issues via e-mail?](#emailissueupdates)   
     * [Is the xtUML.org ID connected to Redmine in any way?](#connectedids)  
@@ -167,14 +169,14 @@ BridgePoint Developer Issues <a id="bpdevelopers"></a>
 * **Linux Distribution-Specific Instructions** <a id="linux"></a>
   * Package Requirements for Various Linux Distributions  
     BridgePoint on Linux relies on packages that may not yet be installed on your system.  Included here are commands to install the necessary packages:
-      * Ubuntu 14:   
-        ```$ sudo apt-get install libxtst6:i386 libgtk2.0-0:i386 gtk2-engines:i386 gtk2-engines-*:i386 --reinstall unity-gtk2-module:i386 libgtkmm-2.4-1c2:i386 libcanberra-gtk-module:i386 tofrodos wine libstdc++5 g++ ant git default-jdk```
+      * Ubuntu 14 and up:   
+        See the [Developer's Getting Started Guide](https://github.com/xtuml/bridgepoint/blob/master/doc-bridgepoint/process/Developer%20Getting%20Started%20Guide.md)  
       
       * Fedora 19:  
-        ```$ sudo yum install wine gcc-c++  dos2unix compat-libstdc++-33 gtk2.i686 ant git```
+        ```$ sudo yum install gcc-c++  dos2unix compat-libstdc++-33 gtk2 ant git```
       
-      * Debian Wheezy:  
-        ```$ sudo apt-get install ia32-libs ia32-libs-gtk libgtk2.0-0 lib32ncurses5 ant git```
+      * Debian Wheezy and later:  
+        Uses the same packages as specified for Ubuntu installation.
   
 * **Windows Unit Test Configuration**  <a id="windowstesting"></a>  
   This is used when runnning unit tests under Windows.  These instructions are used to prepare the Windows environment to run graphical compare tests.  If you do not want or need to run graphical compare tests, you do not have to perform these steps.  However, some BridgePoint unit tests will fail in Windows if you do not perform these steps.
@@ -236,7 +238,18 @@ BridgePoint Developer Issues <a id="bpdevelopers"></a>
   - Classes in bridgepoint that use CME have a operation named actionFilter. For example, class Model Class (O_OBJ) has this.
   - The actionFilter operation has OAL that acts as a filter to determine when to enable/disable the CME
   - There are exceptions to the above description. However, in general that is how it works.
-
+  
+* **How to generate code for a specific class without waiting for a full build** <a id="fast_build1"></a>
+  - Edit bp.core/generate.properties 
+    - To build a single class only:
+      - Put the containing package name on the ptc_mcc_ss_only line (property).  
+      - Put the name of the class on the ptc_mcc_class_only line (property).
+  - For example:  
+  ```
+  ptc_mcc_ss_only=Subsystem
+  ptc_mcc_class_only=Model Class
+  ```
+  
 BridgePoint Architecture <a id="bparchitecture"></a>
 ------------
 * **The following diagram is a simplified java class diagram that shows the 
@@ -364,6 +377,12 @@ BridgePoint Architecture <a id="bparchitecture"></a>
         - Parser NonRootModelElements
         - Runtime NonRootModelElements
   - ![bpinstanceviewer.png](bpinstanceviewer.png) 
+
+* **What is the ComponentTransactionListener and how does it work?** <a id="transactionlistener"></a>  
+  A brief explanation of the transaction listener can be found in this note:
+  [8261_masl_refactor_dnt.md](../notes/8261_masl_refactor/8261_masl_refactor_dnt.md).
+  The whole note contains good and relevant information, but section 7 focuses
+  on the transaction listener.
   
 Verifer <a id="verifier"></a>
 ------------

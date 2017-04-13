@@ -88,6 +88,7 @@ import org.xtuml.bp.ui.text.TextPlugin;
 import org.xtuml.bp.ui.text.activity.ActivityEditorInputFactory;
 import org.xtuml.bp.ui.text.activity.AllActivityModifier;
 import org.xtuml.bp.ui.text.description.DescriptionEditorInputFactory;
+import org.xtuml.bp.ui.text.masl.MASLEditorInputFactory;
 import org.xtuml.bp.ui.text.placeholder.PlaceHolderEntry.PlaceHolderFileProxy;
 import org.xtuml.bp.ui.text.typedefinition.TypeDefinitionEditorInputFactory;
 
@@ -101,7 +102,7 @@ public class PlaceHolderManager {
 	 * @see PlaceHolderFileReWriter
 	 */ 
 	public static String PLACEHOLDER_REWRITER_THREAD_NAME = "__PlaceHolderFileReWriter_Thread"; //$NON-NLS-1$
-	static String[] supportedExtensions = new String[]{ActivityEditorInputFactory.PLACEHOLDER_EXTENSION, DescriptionEditorInputFactory.PLACEHOLDER_EXTENSION, TypeDefinitionEditorInputFactory.PLACEHOLDER_EXTENSION};
+	static String[] supportedExtensions = new String[]{MASLEditorInputFactory.PLACEHOLDER_EXTENSION, ActivityEditorInputFactory.PLACEHOLDER_EXTENSION, DescriptionEditorInputFactory.PLACEHOLDER_EXTENSION, TypeDefinitionEditorInputFactory.PLACEHOLDER_EXTENSION};
 
 	Map<ModelElementID, PlaceHolderEntry> placeholderMap = new TreeMap<ModelElementID, PlaceHolderEntry>();
 	private boolean parseInProgress = false;

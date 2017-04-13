@@ -123,9 +123,9 @@ elif (param.comp_num == 2)
   end if;
   if (param.at == Justification::Left)
     select one dt related by attr->S_DT[R114];
-    select one rattr related by attr->O_RATTR[R106];
-    if (not_empty rattr)
-      select one dt related by rattr->O_BATTR[R113]->O_ATTR[R106]->S_DT[R114];
+    select one battr related by attr->O_RATTR[R106]->O_BATTR[R113];
+    if (not_empty battr)
+      select one dt related by battr->O_ATTR[R106]->S_DT[R114];
     end if;
     result = attr.Name;
     result = result + attr.Dimensions;
@@ -762,10 +762,8 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
-	'  select any ref_obj related by self->PE_PE[R8001]->EP_PKG[R8000]->S_SYS[R1405]->EP_PKG[R1405]->PE_PE[R8000]->O_OBJ[R8001]
-      where selected.Obj_ID == param.ref_obj_id;
-
-    
+	'select any ref_obj from instances of O_OBJ where selected.Obj_ID == param.ref_obj_id;
+  
 select any ref_oid related by ref_obj->O_ID[R104] 
     where selected.Oid_ID == param.ref_oid_id;
 select any ref_oida related by ref_oid->O_OIDA[R105] 

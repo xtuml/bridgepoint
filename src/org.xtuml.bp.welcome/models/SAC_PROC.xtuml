@@ -1,0 +1,238 @@
+-- root-types-contained: Package_c
+-- BP 7.1 content: StreamData syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO S_UDT VALUES ( 5,"ba5eda7a-def5-0000-0000-000000000004",0,'' );
+INSERT INTO S_UDT VALUES ( 8,5,0,'' );
+INSERT INTO S_UDT VALUES ( 11,5,0,'' );
+INSERT INTO S_UDT VALUES ( 14,5,0,'' );
+INSERT INTO S_UDT VALUES ( 17,"ba5eda7a-def5-0000-0000-00000000000a",0,'' );
+INSERT INTO S_UDT VALUES ( 20,"ba5eda7a-def5-0000-0000-00000000000f",0,'' );
+INSERT INTO S_UDT VALUES ( 23,5,0,'' );
+INSERT INTO S_UDT VALUES ( 26,"ba5eda7a-def5-0000-0000-000000000002",0,'' );
+INSERT INTO S_UDT VALUES ( 29,"ba5eda7a-def5-0000-0000-00000000000e",0,'' );
+INSERT INTO S_UDT VALUES ( 32,"ba5eda7a-def5-0000-0000-000000000004",0,'' );
+INSERT INTO S_UDT VALUES ( 35,"ba5eda7a-def5-0000-0000-000000000004",0,'' );
+INSERT INTO S_UDT VALUES ( 38,"ba5eda7a-def5-0000-0000-000000000003",0,'' );
+INSERT INTO S_UDT VALUES ( 41,"ba5eda7a-def5-0000-0000-000000000002",0,'' );
+INSERT INTO S_UDT VALUES ( 44,"ba5eda7a-def5-0000-0000-000000000002",0,'' );
+INSERT INTO S_UDT VALUES ( 47,"ba5eda7a-def5-0000-0000-000000000002",0,'' );
+INSERT INTO S_UDT VALUES ( 50,"ba5eda7a-def5-0000-0000-000000000002",0,'' );
+INSERT INTO S_UDT VALUES ( 53,"ba5eda7a-def5-0000-0000-000000000002",0,'' );
+INSERT INTO S_UDT VALUES ( 56,"ba5eda7a-def5-0000-0000-000000000001",0,'' );
+INSERT INTO S_UDT VALUES ( 59,"ba5eda7a-def5-0000-0000-000000000000",0,'' );
+INSERT INTO S_UDT VALUES ( 94,5,0,'' );
+INSERT INTO EP_PKG VALUES ( 3,1,1,'types','',0 );
+INSERT INTO EP_PKG VALUES ( 62,1,1,'SAC_PROC','masl_project',0 );
+INSERT INTO EP_PKG VALUES ( 66,0,1,'SAC_PROC','',0 );
+INSERT INTO EP_PKG VALUES ( 68,0,1,'Shared','',0 );
+INSERT INTO model VALUES ( '/tmp/sac/SAC_PROC/',0 );
+INSERT INTO C_C VALUES ( 64,0,0,'SAC_PROC','',0,0,0,'' );
+INSERT INTO C_I VALUES ( 75,0,'SACOperator','masl_temporary' );
+INSERT INTO C_P VALUES ( 77,'','SACOperator','','' );
+INSERT INTO C_R VALUES ( 72,'','masl_formalize','SAC','' );
+INSERT INTO C_R VALUES ( 184,'','masl_formalize','INI','' );
+INSERT INTO C_R VALUES ( 189,'','masl_formalize','SOA','' );
+INSERT INTO C_EP VALUES ( 79,75,0,'login_valid','' );
+INSERT INTO C_EP VALUES ( 87,75,0,'report_user','' );
+INSERT INTO C_EP VALUES ( 96,75,0,'user_removed','' );
+INSERT INTO C_EP VALUES ( 100,75,0,'report_user_session','' );
+INSERT INTO C_EP VALUES ( 108,75,0,'user_session_deleted','' );
+INSERT INTO C_EP VALUES ( 111,75,0,'report_group','' );
+INSERT INTO C_EP VALUES ( 114,75,0,'group_deleted','' );
+INSERT INTO C_EP VALUES ( 117,75,0,'report_group_operation','' );
+INSERT INTO C_EP VALUES ( 121,75,0,'group_operation_removed','' );
+INSERT INTO C_EP VALUES ( 125,75,0,'report_user_operation','' );
+INSERT INTO C_EP VALUES ( 131,75,0,'user_operation_removed','' );
+INSERT INTO C_EP VALUES ( 137,75,0,'report_user_group','' );
+INSERT INTO C_EP VALUES ( 143,75,0,'user_group_removed','' );
+INSERT INTO C_EP VALUES ( 149,75,0,'raise_notification','' );
+INSERT INTO C_IO VALUES ( 79,59,'login_valid','',0,'',0 );
+INSERT INTO C_IO VALUES ( 87,59,'report_user','',0,'',79 );
+INSERT INTO C_IO VALUES ( 96,59,'user_removed','',0,'',87 );
+INSERT INTO C_IO VALUES ( 100,59,'report_user_session','',0,'',96 );
+INSERT INTO C_IO VALUES ( 108,59,'user_session_deleted','',0,'',100 );
+INSERT INTO C_IO VALUES ( 111,59,'report_group','',0,'',108 );
+INSERT INTO C_IO VALUES ( 114,59,'group_deleted','',0,'',111 );
+INSERT INTO C_IO VALUES ( 117,59,'report_group_operation','',0,'',114 );
+INSERT INTO C_IO VALUES ( 121,59,'group_operation_removed','',0,'',117 );
+INSERT INTO C_IO VALUES ( 125,59,'report_user_operation','',0,'',121 );
+INSERT INTO C_IO VALUES ( 131,59,'user_operation_removed','',0,'',125 );
+INSERT INTO C_IO VALUES ( 137,59,'report_user_group','',0,'',131 );
+INSERT INTO C_IO VALUES ( 143,59,'user_group_removed','',0,'',137 );
+INSERT INTO C_IO VALUES ( 149,59,'raise_notification','',0,'',143 );
+INSERT INTO C_PP VALUES ( 81,79,53,'session_id','',0,'',0 );
+INSERT INTO C_PP VALUES ( 82,79,53,'user_id','',0,'',81 );
+INSERT INTO C_PP VALUES ( 83,79,56,'is_valid','',0,'',82 );
+INSERT INTO C_PP VALUES ( 84,79,35,'failure_reason','',0,'',83 );
+INSERT INTO C_PP VALUES ( 85,79,35,'workstation_hostname','',0,'',84 );
+INSERT INTO C_PP VALUES ( 86,79,35,'login_name','',0,'',85 );
+INSERT INTO C_PP VALUES ( 89,87,53,'user_id','',0,'',0 );
+INSERT INTO C_PP VALUES ( 90,87,35,'login_name','',0,'',89 );
+INSERT INTO C_PP VALUES ( 91,87,35,'user_name','',0,'',90 );
+INSERT INTO C_PP VALUES ( 92,87,94,'logged_on','',0,'',91 );
+INSERT INTO C_PP VALUES ( 98,96,53,'user_id','',0,'',0 );
+INSERT INTO C_PP VALUES ( 99,96,35,'login_name','',0,'',98 );
+INSERT INTO C_PP VALUES ( 102,100,53,'session_id','',0,'',0 );
+INSERT INTO C_PP VALUES ( 103,100,53,'user_id','',0,'',102 );
+INSERT INTO C_PP VALUES ( 104,100,23,'login_time','',0,'',103 );
+INSERT INTO C_PP VALUES ( 105,100,56,'session_timed_out','',0,'',104 );
+INSERT INTO C_PP VALUES ( 106,100,35,'workstation_hostname','',0,'',105 );
+INSERT INTO C_PP VALUES ( 107,100,35,'login_name','',0,'',106 );
+INSERT INTO C_PP VALUES ( 110,108,53,'session_id','',0,'',0 );
+INSERT INTO C_PP VALUES ( 113,111,35,'group_name','',0,'',0 );
+INSERT INTO C_PP VALUES ( 116,114,35,'group_name','',0,'',0 );
+INSERT INTO C_PP VALUES ( 119,117,35,'group_name','',0,'',0 );
+INSERT INTO C_PP VALUES ( 120,117,35,'operation_name','',0,'',119 );
+INSERT INTO C_PP VALUES ( 123,121,35,'group_name','',0,'',0 );
+INSERT INTO C_PP VALUES ( 124,121,35,'operation_name','',0,'',123 );
+INSERT INTO C_PP VALUES ( 127,125,53,'user_id','',0,'',0 );
+INSERT INTO C_PP VALUES ( 128,125,35,'operation_name','',0,'',127 );
+INSERT INTO C_PP VALUES ( 129,125,35,'login_name','',0,'',128 );
+INSERT INTO C_PP VALUES ( 130,125,53,'session_id','',0,'',129 );
+INSERT INTO C_PP VALUES ( 133,131,53,'user_id','',0,'',0 );
+INSERT INTO C_PP VALUES ( 134,131,35,'operation_name','',0,'',133 );
+INSERT INTO C_PP VALUES ( 135,131,35,'login_name','',0,'',134 );
+INSERT INTO C_PP VALUES ( 136,131,53,'session_id','',0,'',135 );
+INSERT INTO C_PP VALUES ( 139,137,53,'uid','',0,'',0 );
+INSERT INTO C_PP VALUES ( 140,137,35,'group_name','',0,'',139 );
+INSERT INTO C_PP VALUES ( 141,137,35,'login_name','',0,'',140 );
+INSERT INTO C_PP VALUES ( 142,137,53,'session_id','',0,'',141 );
+INSERT INTO C_PP VALUES ( 145,143,53,'uid','',0,'',0 );
+INSERT INTO C_PP VALUES ( 146,143,35,'group_name','',0,'',145 );
+INSERT INTO C_PP VALUES ( 147,143,35,'login_name','',0,'',146 );
+INSERT INTO C_PP VALUES ( 148,143,53,'session_id','',0,'',147 );
+INSERT INTO C_PP VALUES ( 151,149,35,'condition_description','',0,'',0 );
+INSERT INTO C_PP VALUES ( 152,149,35,'condition_name','',0,'',151 );
+INSERT INTO C_IR VALUES ( 72,0,0,73 );
+INSERT INTO C_IR VALUES ( 77,75,0,78 );
+INSERT INTO C_IR VALUES ( 184,0,0,185 );
+INSERT INTO C_IR VALUES ( 189,0,0,190 );
+INSERT INTO C_PO VALUES ( 73,64,'SAC',0,0 );
+INSERT INTO C_PO VALUES ( 78,64,'SAC__Operator',0,0 );
+INSERT INTO C_PO VALUES ( 185,64,'INI',0,0 );
+INSERT INTO C_PO VALUES ( 190,64,'SOA',0,0 );
+INSERT INTO SPR_PEP VALUES ( 153,79,77 );
+INSERT INTO SPR_PEP VALUES ( 155,87,77 );
+INSERT INTO SPR_PEP VALUES ( 157,96,77 );
+INSERT INTO SPR_PEP VALUES ( 159,100,77 );
+INSERT INTO SPR_PEP VALUES ( 161,108,77 );
+INSERT INTO SPR_PEP VALUES ( 163,111,77 );
+INSERT INTO SPR_PEP VALUES ( 165,114,77 );
+INSERT INTO SPR_PEP VALUES ( 167,117,77 );
+INSERT INTO SPR_PEP VALUES ( 169,121,77 );
+INSERT INTO SPR_PEP VALUES ( 171,125,77 );
+INSERT INTO SPR_PEP VALUES ( 173,131,77 );
+INSERT INTO SPR_PEP VALUES ( 175,137,77 );
+INSERT INTO SPR_PEP VALUES ( 177,143,77 );
+INSERT INTO SPR_PEP VALUES ( 179,149,77 );
+INSERT INTO SPR_PO VALUES ( 153,'','','begin
+   
+   I_ODGUI::login_valid(user_id, session_id, is_valid, failure_reason, workstation_hostname, login_name);
+end',3,1 );
+INSERT INTO SPR_PO VALUES ( 155,'','','begin
+   
+   I_DC::info_User(user_id, login_name, user_name, logged_on''image);
+end',3,1 );
+INSERT INTO SPR_PO VALUES ( 157,'','','begin
+   
+   I_DC::info_delete_User(login_name);
+end',3,1 );
+INSERT INTO SPR_PO VALUES ( 159,'','','begin
+   
+   I_DC::info_User_Session(session_id, login_time, session_timed_out, workstation_hostname, login_name);
+end',3,1 );
+INSERT INTO SPR_PO VALUES ( 161,'','','begin
+   
+   I_DC::info_delete_User_Session(session_id);
+end',3,1 );
+INSERT INTO SPR_PO VALUES ( 163,'','','begin
+   
+   I_DC::info_Group(group_name);
+end',3,1 );
+INSERT INTO SPR_PO VALUES ( 165,'','','begin
+   
+   I_DC::info_delete_Group(group_name);
+end',3,1 );
+INSERT INTO SPR_PO VALUES ( 167,'','','begin
+   
+   I_DC::info_Group_Operation(group_name, operation_name);
+end',3,1 );
+INSERT INTO SPR_PO VALUES ( 169,'','','begin
+   
+   I_DC::info_delete_Group_Operation(group_name, operation_name);
+end',3,1 );
+INSERT INTO SPR_PO VALUES ( 171,'','','begin
+   
+   I_DC::info_User_Operation(operation_name, login_name, session_id);
+end',3,1 );
+INSERT INTO SPR_PO VALUES ( 173,'','','begin
+   
+   I_DC::info_delete_User_Operation(operation_name, login_name, session_id);
+end',3,1 );
+INSERT INTO SPR_PO VALUES ( 175,'','','begin
+   
+   I_DC::info_User_Group(group_name, login_name, session_id);
+end',3,1 );
+INSERT INTO SPR_PO VALUES ( 177,'','','begin
+   
+   I_DC::info_delete_User_Group(group_name, login_name, session_id);
+end',3,1 );
+INSERT INTO SPR_PO VALUES ( 179,'','','begin
+   
+   NTF::Condition_Notification(condition_description, condition_name);
+end',3,1 );
+INSERT INTO CL_IC VALUES ( 70,0,0,0,0,'','SAC','name:SAC
+' );
+INSERT INTO CL_IC VALUES ( 182,0,0,0,0,'','INI','name:INI
+' );
+INSERT INTO CL_IC VALUES ( 187,0,0,0,0,'','SOA','name:SOA
+' );
+INSERT INTO PE_PE VALUES ( 3,1,0,0,7 );
+INSERT INTO PE_PE VALUES ( 5,1,3,0,3 );
+INSERT INTO PE_PE VALUES ( 8,1,3,0,3 );
+INSERT INTO PE_PE VALUES ( 11,1,3,0,3 );
+INSERT INTO PE_PE VALUES ( 14,1,3,0,3 );
+INSERT INTO PE_PE VALUES ( 17,1,3,0,3 );
+INSERT INTO PE_PE VALUES ( 20,1,3,0,3 );
+INSERT INTO PE_PE VALUES ( 23,1,3,0,3 );
+INSERT INTO PE_PE VALUES ( 26,1,3,0,3 );
+INSERT INTO PE_PE VALUES ( 29,1,3,0,3 );
+INSERT INTO PE_PE VALUES ( 32,1,3,0,3 );
+INSERT INTO PE_PE VALUES ( 35,1,3,0,3 );
+INSERT INTO PE_PE VALUES ( 38,1,3,0,3 );
+INSERT INTO PE_PE VALUES ( 41,1,3,0,3 );
+INSERT INTO PE_PE VALUES ( 44,1,3,0,3 );
+INSERT INTO PE_PE VALUES ( 47,1,3,0,3 );
+INSERT INTO PE_PE VALUES ( 50,1,3,0,3 );
+INSERT INTO PE_PE VALUES ( 53,1,3,0,3 );
+INSERT INTO PE_PE VALUES ( 56,1,3,0,3 );
+INSERT INTO PE_PE VALUES ( 59,1,3,0,3 );
+INSERT INTO PE_PE VALUES ( 62,1,0,0,7 );
+INSERT INTO PE_PE VALUES ( 64,1,62,0,2 );
+INSERT INTO PE_PE VALUES ( 66,1,0,64,7 );
+INSERT INTO PE_PE VALUES ( 68,1,62,0,7 );
+INSERT INTO PE_PE VALUES ( 70,1,62,0,21 );
+INSERT INTO PE_PE VALUES ( 75,1,68,0,6 );
+INSERT INTO PE_PE VALUES ( 94,1,68,0,3 );
+INSERT INTO PE_PE VALUES ( 182,1,62,0,21 );
+INSERT INTO PE_PE VALUES ( 187,1,62,0,21 );
+INSERT INTO S_DT VALUES ( 5,0,'MASLtype','','' );
+INSERT INTO S_DT VALUES ( 8,0,'structure','','' );
+INSERT INTO S_DT VALUES ( 11,0,'enum','','' );
+INSERT INTO S_DT VALUES ( 14,0,'device','','' );
+INSERT INTO S_DT VALUES ( 17,0,'event','','' );
+INSERT INTO S_DT VALUES ( 20,0,'timer','','' );
+INSERT INTO S_DT VALUES ( 23,0,'timestamp','','' );
+INSERT INTO S_DT VALUES ( 26,0,'duration','','' );
+INSERT INTO S_DT VALUES ( 29,0,'date','','' );
+INSERT INTO S_DT VALUES ( 32,0,'wstring','','' );
+INSERT INTO S_DT VALUES ( 35,0,'string','','' );
+INSERT INTO S_DT VALUES ( 38,0,'real','','' );
+INSERT INTO S_DT VALUES ( 41,0,'long_integer','','' );
+INSERT INTO S_DT VALUES ( 44,0,'byte','','' );
+INSERT INTO S_DT VALUES ( 47,0,'wcharacter','','' );
+INSERT INTO S_DT VALUES ( 50,0,'character','','' );
+INSERT INTO S_DT VALUES ( 53,0,'integer','','' );
+INSERT INTO S_DT VALUES ( 56,0,'boolean','','' );
+INSERT INTO S_DT VALUES ( 59,0,'void','','' );
+INSERT INTO S_DT VALUES ( 94,0,'logged_on_type','','' );

@@ -5,12 +5,13 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.xtuml.bp</groupId>
 	<artifactId>org.xtuml.bp.releng.parent</artifactId>
-	<version>6.1.0</version>
+	<version>6.2.5</version>
 	<packaging>pom</packaging>
 
 	<properties>
 		<tycho-version>0.25.0</tycho-version>
 		<ant-home-path>/build/buildmt/BridgePoint/eclipse/plugins/org.apache.ant_1.9.4.v201504302020</ant-home-path>
+		<eclipse-home-path>/build/buildmt/BridgePoint/</eclipse-home-path>
 	</properties>
 
 	<repositories>
@@ -27,7 +28,8 @@
 		<repository>
 			<id>antlr</id>
 			<layout>p2</layout>
-			<url>file:////build/buildmt/repository</url>
+			<!--<url>file:////build/buildmt/repository</url>-->
+			<url>https://s3.amazonaws.com/1f-outgoing/antlr_upsite/</url>
 		</repository>
 		<repository>
 			<id>cdt</id>
@@ -67,10 +69,11 @@
 		<module>../org.xtuml.bp.releng.p2</module>
 		<module>../org.xtuml.bp.releng.parent.generation</module>
 		<module>../org.xtuml.bp.releng.parent.product</module>
-        <module>../org.xtuml.bp.mctools.parent</module>
+		<module>../org.xtuml.bp.mctools.parent</module>
 		<module>../../../packaging/features/org.xtuml.bp.jre.parent</module>
-        <module>../../../packaging/features/org.xtuml.bp.docgen.parent</module>
-        <module>../../../packaging/features/org.xtuml.bp.MinGW.parent</module>
+		<module>../../../packaging/features/org.xtuml.bp.docgen.parent</module>
+		<module>../../../packaging/features/org.xtuml.bp.MinGW.parent</module>
+		<!--module>../../../bptest/releng/org.xtuml.bp.releng.parent.tests</module Include if tests shall be run as well -->
 	</modules>
 
 	<build>

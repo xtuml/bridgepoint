@@ -72,7 +72,7 @@ public class RenameActionUtil {
 		}
 
 	}
-
+	
 	public static String getElementName(NonRootModelElement newElement) {
 		String elementName = "";
 		Class<? extends NonRootModelElement> classType = newElement.getClass();

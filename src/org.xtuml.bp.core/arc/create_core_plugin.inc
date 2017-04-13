@@ -323,6 +323,17 @@ This file is the plugin manifest for the BridgePoint core plugin.
    <extension point="org.eclipse.team.core.fileTypes">
       <fileTypes extension="xtuml" type="binary" />
    </extension>
+   <!-- Editor support for routing from file to element -->
+   <extension
+        point="org.eclipse.ui.editors">
+     <editor
+           class="org.xtuml.bp.core.ui.editor.RoutingEditor"
+           default="false"
+           extensions="xtuml"
+           id="org.xtuml.bp.core.ui.editor.RoutingEditor"
+           name="Routing Editor">
+     </editor>
+  </extension>
    <!-- Quick Fix for dangling references -->
    <extension point="org.eclipse.ui.ide.markerResolution">
       <markerResolutionGenerator
@@ -333,6 +344,7 @@ This file is the plugin manifest for the BridgePoint core plugin.
   --> 
   <extension-point id="model-compilers" name="xtUML Model Compilers" schema="schema/model-compilers.exsd" /> 
   <extension-point id="code-builders" name="xtUML Code Builders" schema="schema/code-builders.exsd" /> 
+  <extension-point id="renameParticipants" name="xtUML Rename Refactoring Participants"  schema="schema/renameParticipants.exsd" />
 
 </plugin>
 .end function

@@ -534,11 +534,11 @@
       ui/ExecuteAction.java, ui/MonitorAction.java, ui/MonitorOffAction.java,
     ui/AbstractStreamExportFactory.java, ui/AbstractStreamImportFactory.java,
       lib/*.java,
-      common/OALPersistenceUtil.java, ui/marker/*.java, ui/ConvertToMultifile*.java,
+      common/OALPersistenceUtil.java, ui/editor/RoutingEditor.java, ui/marker/*.java, ui/ConvertToMultifile*.java,
       ui/tree/*.java, ui/dialogs/*.java, ui/SetValueOnConstantAction.java, ui/ConstantValueInputValidator.java,
   	ui/UpgradeToGlobalsAction.java, ui/DefaultValueInputValidator.java, Search_c.java, search/DocumentCharSequence.java,
   	ui/actions/PublishSynchronizationChanges.java, ui/actions/PullSynchronizationChanges.java, ui/actions/ElementChange.java, ui/actions/CreateBuiltInExternalEntitiesAction.java,
-  	ui/cells/ICellProvider.java, ui/cells/editors/*.java, inspector/MessageArgumentInspector.java, inspector/PackageInspector.java" />
+  	ui/cells/ICellProvider.java, ui/cells/editors/*.java, inspector/MessageArgumentInspector.java, inspector/PackageInspector.java, ui/IRenameElementParticipant.java, ui/RenameParticipantUtil.java" />
 
   <target name="format_java.depends" >
     <uptodate property="format_java.buildNotNeeded" targetfile="${java.output}">

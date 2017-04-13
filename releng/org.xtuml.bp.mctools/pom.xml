@@ -70,6 +70,10 @@
                     <include>xtuml2masl</include>
                     <include>xtumlmc_build</include>
                     <include>CLI.sh</include>
+                    <include>launch-cli.py</include>
+                    <include>masl_round_trip</include>
+                    <include>build_masl</include>
+                    <include>masl_check</include>
                   </includes>
                 </resource>
               </resources>              
@@ -93,16 +97,20 @@
                     <include>MASLParser.jar</include>
                     <include>xtumlmc_build</include>
                     <include>CLI.sh</include>
+                    <include>launch-cli.py</include>
+                    <include>masl2xtuml</include>
+                    <include>masldiff</include>
+                    <include>xtuml2masl</include>
+                    <include>masl_round_trip</include>
+                    <include>build_masl</include>
+                    <include>masl_check</include>
                     <!-- Don't have mac versions of these yet
                     <include>docgen</include>
                     <include>mcmc</include>
                     <include>mcmc64</include>
                     <include>m2x</include>
                     <include>masl</include>
-                    <include>masl2xtuml</include>
-                    <include>masldiff</include>
                     <include>x2m</include>
-                    <include>xtuml2masl</include>
                     -->
                   </includes>
                 </resource>

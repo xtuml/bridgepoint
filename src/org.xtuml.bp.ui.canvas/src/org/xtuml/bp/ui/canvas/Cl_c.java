@@ -2099,22 +2099,7 @@ public static void Settoolbarstate(boolean readonly) {
     public static Boolean Isreflexive(final Object connectorInstance) {
     	boolean isReflexive = false;
     	if (connectorInstance instanceof Association_c) {
-    		Association_c assoc = (Association_c)connectorInstance;
-			ClassAsSimpleParticipant_c[] parts = ClassAsSimpleParticipant_c
-					.getManyR_PARTsOnR207(SimpleAssociation_c.getOneR_SIMPOnR206(assoc));
-			if (parts.length == 1) {
-				// check for formalized reflexive
-				ClassAsSimpleFormalizer_c form = ClassAsSimpleFormalizer_c
-						.getOneR_FORMOnR208(SimpleAssociation_c.getOneR_SIMPOnR206(assoc));
-				if (parts[0].getObj_id() ==form.getObj_id()) {
-					isReflexive = true;
-	  			}
-			} else if (parts.length > 1) {
-    			// check for unformalized reflexive
-    			if (parts[0].getObj_id() == parts[1].getObj_id()) {
-      			  isReflexive = true;
-    			}
-    		}
+    		return ((Association_c) connectorInstance).Is_reflexive();
     	} else if (connectorInstance instanceof Transition_c) {
 			Transition_c trans = (Transition_c) connectorInstance;
 			StateMachineState_c smsDest = StateMachineState_c.getOneSM_STATEOnR506(trans);

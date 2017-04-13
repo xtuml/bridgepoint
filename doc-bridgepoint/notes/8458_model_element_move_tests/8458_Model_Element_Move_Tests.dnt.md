@@ -112,9 +112,6 @@ DestinationComponentPackage.
   * Options menu is shown for displaying downgrades.  
     * Check the following items to ensure a downgrade occurred:  
       * ComponentMovePass1.ComponentMovePassPort.VisibleInterface to unassigned
-      * ComponentMovePass3.ModelElementMoveTests::Source::VisibleComponent1.VisibleComponent1Port.VisibleInterface to unassigned
-      * ComponentMovePass4.ModelElementMoveTests::Source::VisibleComponent1.VisibleComponent1Port.VisibleInterface to unassigned
-      * ComponentMovePass4.ModelElementMoveTests::Source::VisibleComponent2.VisibleComponent2Port.VisibleInterface to unassigned
       * VisibleComponent1.VisibleComponent1Port.VisibleInterface to unassigned
       * VisibleComponent2.VisibleComponent2Port.VisibleInterface to unassigned
   * Perform undo.  
@@ -164,7 +161,7 @@ package is moved to Destination package.
 
 7.6 Use Case 4.6  (Uses test model [2.8](#2.8))  
 7.6.1. ComponentInComponentMovePass in ComponentMovePass2 in Source package is 
-moved to DestinationComponent in Destination package.  
+moved to DestinationComponentPackage in Destination package.  
   * Result is successful move with no option menu shown for list of lost 
 visibility items.  
   * Perform undo.  
@@ -239,9 +236,20 @@ related across R3 in Source package is moved to Destination package.
       * Imported class reference to ModelElementMoveTests::Source::FailureCasesComponent::FailureCasesComponentPackage::InvisibleImports::InvisibleImportClass to unassigned
   * Perform undo.   
  
-7.13 Obsolete - Pessimistic Locking Test - test checkout of RGOs with a Pessimistic locking RCS.   
-  * This test is obsolete with the fix to issue 7877 because we no longer force persistance of RGOs.
-  
+7.13 Pessimistic Locking Test - Assure RGOs are not checked-out/dirtied by the move operation. (Uses test model [2.6](#2.6))  
+  * 1. In Model Explorer
+    * select BOTH mybasetype and mysubtype from package name impl
+    * cut
+  * 2. Paste into dest2  
+  * 3. Results 
+    * 3.1 no dialog appears
+    * 3.2 the only packages marked dirty are impl and dest2
+  * 4. select package named Functions in Model Explorer, RC, BridgePoint Utilities > Load and Persist
+  * 5. Result - Functions is marked dirty
+  * 6. Compare package Functions with the lastest from head
+  * 7. Result - You should see that the proxy was modified to point to the moved datatype
+
+
 7.14 Moving a Package (use 2.7)
   * 1.    Cut pkg1_1
   * 2.    Paste into pkg2
@@ -352,7 +360,7 @@ related across R3 in Source package is moved to Destination package.
   * 4. Paste TestInterface to impl2
   * 5. Downgrade dialog indicates downgrade on TestInterface operations and signals use of UDT (the dest) since they lost visibility to type mysubtype under p1/impl
   * 6. Proceed with the move
-  * 7. p2/impl2 contains "Unassigned Imported Component", the graphics for the p2/impl2 canvas are correct.
+  * 7. p2/impl2 canvas is empty.
 
 7.27 Move imported class causing downgrade in destination (Uses test model [2.6](#2.6))
   * 1. Open the canvas for movetest/p1/impl/refs
@@ -361,10 +369,9 @@ related across R3 in Source package is moved to Destination package.
   * 4. Paste to impl2
   * 5. Downgrade dialog indicates downgrade of the imported class (in the dest) since it lost visibility to clz under p1/impl
   * 6. Proceed with the move
-  * 7. p2/impl2 canvas contains "Unassigned Imported Class", the graphics are correct.
-  * 8. Restart BridgePoint
-  * 9. Open the p1/impl/refs canvas, the imported class is gone.
-  * 10. Open the p2/impl2 canvas, the Unassigned Imported Class shows
+  * 7. Restart BridgePoint
+  * 8. Open the p1/impl/refs canvas, the imported class is gone.
+  * 9. The p2/impl2 canvas is empty.
 
 7.28 Move package causing downgrade in destination (Uses test model [2.6](#2.6))
   * 1. Open the canvas for movetest/p1/impl
@@ -393,24 +400,25 @@ related across R3 in Source package is moved to Destination package.
 
 7.31 Non-visible move causes downgrades on sequence diagram  (Uses test model [2.8](#2.8))  
   * Cut Sequences in FailureCasesComponentPackage and paste into DestinationComponentPackage.  
-  * There should NOT be a downgrade message. BrdigePoint does not consider visibility for interaction elements.  You can see this by being able to assign to an EE contained within another component (like the destination container in the test).  Therefore the bridge should not be downgraded  
+  * There should NOT be a downgrade message. BridgePoint does not consider visibility for interaction elements.  You can see this by being able to assign to an EE contained within another component (like the destination container in the test).  Therefore the bridge should not be downgraded  
   * perform undo  
 
 
 7.32 Test downgraded component reference with satisfaction (Uses test model [2.7](#2.7))  
-  * 1. open the satisfaction_test package diagram
-  * 2. select comp1 and its provision
-  * 3. select cut
-  * 4. paste the selection into the package named private
-  * 5. The downgrade dialog should report that the component reference will be downgraded, select ok
-  * 6. Result 1 - The satisfaction_test component diagram no longer shows compp-1 (it has been moved to "private".
-  * 7. Result 2 - The component reference to comp1 is present in satisfaction_test, but the satisfaction is no longer present.
-  * 8. select undo
-  * 9. The mode is restored
-  * 10. select redo
-  * 11. The change is performed again (same result as step 6 and 7)
-  * 12. restart BridgePoint
-  * 13. Result 3 - The satisfaction_test and "private" package diagrams are the same as before the restart (same result as step 6 and 7)
+  * 1. Make sure the package named private is private.
+  * 2. open the satisfaction_test package diagram
+  * 3. select comp1 and its provision
+  * 4. select cut
+  * 5. paste the selection into the package named private
+  * 6. The downgrade dialog should report that the component reference will be downgraded, select ok
+  * 7. Result 1 - The satisfaction_test component diagram no longer shows comp-1 (it has been moved to "private".
+  * 8. Result 2 - The satisfaction is no longer present.
+  * 9. select undo
+  * 10. The mode is restored
+  * 11. select redo
+  * 12. The change is performed again (same result as step 6 and 7)
+  * 13. restart BridgePoint
+  * 14. Result 3 - The satisfaction_test and "private" package diagrams are the same as before the restart (same result as step 6 and 7)
 
 End
 ---

@@ -42,6 +42,7 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.CoreException;
 import org.xtuml.bp.core.common.PersistableModelComponent;
 import org.xtuml.bp.core.common.PersistenceManager;
+import org.xtuml.bp.core.common.ComponentTransactionListener;
     .end if
 
 import java.io.File;
@@ -79,11 +80,10 @@ public class ${class_name} extends CoreExport
 
 	protected PrintStream m_fh;
     protected boolean m_export_graphics;
-    boolean m_is_fully_derived = false;
     .if (callingProject == "NBP")
 	protected Path m_path;
-	boolean m_isUpdate = false;
-	ByteArrayOutputStream m_updateData;
+	private boolean m_isUpdate = false;
+	private ByteArrayOutputStream m_updateData;
         .if ( multilevel )
         boolean m_updateActions = false;
         protected Map<Integer,PrintStream> m_afh; // handle for actions
@@ -311,8 +311,11 @@ public class ${class_name} extends CoreExport
                                         if ( m_actionUpdateData.get(dialects[i]).toByteArray().length != 0 && m_updateActions ) {
                                             af.setContents(action_stream, true, true, pm);
                                         }
-                                        else {
+                                        else if ( !ComponentTransactionListener.noPersistActions() ) {
                                             af.delete(true, false, pm);
+                                        }
+                                        else {
+                                            // do nothing to the action file
                                         }
                                     }
                                 }

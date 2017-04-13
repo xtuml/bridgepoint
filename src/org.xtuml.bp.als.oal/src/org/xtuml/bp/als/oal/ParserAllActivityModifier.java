@@ -22,6 +22,8 @@
 
 package org.xtuml.bp.als.oal;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -36,6 +38,7 @@ import org.eclipse.core.runtime.NullProgressMonitor;
 
 import org.xtuml.bp.core.ActionHome_c;
 import org.xtuml.bp.core.Action_c;
+import org.xtuml.bp.core.Actiondialect_c;
 import org.xtuml.bp.core.Attribute_c;
 import org.xtuml.bp.core.BaseAttribute_c;
 import org.xtuml.bp.core.BodyInComponent_c;
@@ -307,6 +310,43 @@ public class ParserAllActivityModifier implements IAllActivityModifier {
 	}
 
 	public void parseAction(Object modelElement) {
+
+        // get dialect
+        int dialect = Actiondialect_c.OOA_UNINITIALIZED_ENUM;
+		// see if the current element should open
+		// something other than itself
+		Object dialectObj = modelElement;
+		if (dialectObj instanceof StateMachineState_c) {
+		    StateMachineState_c state = (StateMachineState_c) dialectObj;
+			Action_c action = Action_c.getOneSM_ACTOnR514(ActionHome_c.getOneSM_AHOnR513((MooreActionHome_c.getOneSM_MOAHOnR511(state))));
+			if (action != null) {
+				dialectObj = action;
+			}
+		}
+		else if (dialectObj instanceof Transition_c) {
+			Action_c action = Action_c.getOneSM_ACTOnR514(ActionHome_c.getOneSM_AHOnR513(
+					TransitionActionHome_c.getOneSM_TAHOnR530((Transition_c)dialectObj)));
+			if (action != null) {
+				dialectObj = action;
+			}
+		}
+		else if ( dialectObj instanceof Attribute_c ) {
+			DerivedBaseAttribute_c dbattr = DerivedBaseAttribute_c.getOneO_DBATTROnR107(
+					BaseAttribute_c.getOneO_BATTROnR106((Attribute_c)dialectObj));
+			if ( dbattr != null ) {
+				dialectObj = dbattr;
+			}
+		}
+		// Get the value of the dialect attribute
+        try {
+            Method getDialectMethod = dialectObj.getClass().getMethod("getDialect"); //$$NON-NLS-1$$
+            dialect = (int) getDialectMethod.invoke(dialectObj);
+        } catch ( Exception e ) {
+        	// if we can not get the dialect then leave the default (uninitialized)
+        }
+        // if none dialect, do not parse
+        if ( dialect == Actiondialect_c.none ) return;
+
 		int toParse = ParserAllActivityModifier.accessSuc_Pars(false, 0, modelElement);
 		if (toParse == Parsestatus_c.doNotParse) {
 			if (modelElement instanceof ProvidedOperation_c) {
