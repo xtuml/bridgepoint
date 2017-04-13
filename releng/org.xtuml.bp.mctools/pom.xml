@@ -73,6 +73,7 @@
                     <include>launch-cli.py</include>
                     <include>masl_round_trip</include>
                     <include>build_masl</include>
+                    <include>masl_check</include>
                   </includes>
                 </resource>
               </resources>              
@@ -102,6 +103,7 @@
                     <include>xtuml2masl</include>
                     <include>masl_round_trip</include>
                     <include>build_masl</include>
+                    <include>masl_check</include>
                     <!-- Don't have mac versions of these yet
                     <include>docgen</include>
                     <include>mcmc</include>
