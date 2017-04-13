@@ -1421,15 +1421,6 @@ public class StructurePackageImpl extends EPackageImpl implements StructurePacka
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getRelationshipNavigation_Object() {
-		return (EReference)relationshipNavigationEClass.getEStructuralFeatures().get(2);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EClass getObjectOrRole() {
 		return objectOrRoleEClass;
 	}
@@ -1574,7 +1565,7 @@ public class StructurePackageImpl extends EPackageImpl implements StructurePacka
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getTransitionOption_Event() {
+	public EReference getTransitionOption_EventObject() {
 		return (EReference)transitionOptionEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -1583,7 +1574,7 @@ public class StructurePackageImpl extends EPackageImpl implements StructurePacka
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getTransitionOption_EndState() {
+	public EReference getTransitionOption_Event() {
 		return (EReference)transitionOptionEClass.getEStructuralFeatures().get(1);
 	}
 
@@ -1592,8 +1583,17 @@ public class StructurePackageImpl extends EPackageImpl implements StructurePacka
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getTransitionOption_EndState() {
+		return (EReference)transitionOptionEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EAttribute getTransitionOption_Ignore() {
-		return (EAttribute)transitionOptionEClass.getEStructuralFeatures().get(2);
+		return (EAttribute)transitionOptionEClass.getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -1602,7 +1602,7 @@ public class StructurePackageImpl extends EPackageImpl implements StructurePacka
 	 * @generated
 	 */
 	public EAttribute getTransitionOption_CannotHappen() {
-		return (EAttribute)transitionOptionEClass.getEStructuralFeatures().get(3);
+		return (EAttribute)transitionOptionEClass.getEStructuralFeatures().get(4);
 	}
 
 	/**
@@ -1833,7 +1833,6 @@ public class StructurePackageImpl extends EPackageImpl implements StructurePacka
 		relationshipNavigationEClass = createEClass(RELATIONSHIP_NAVIGATION);
 		createEReference(relationshipNavigationEClass, RELATIONSHIP_NAVIGATION__RELATIONSHIP);
 		createEReference(relationshipNavigationEClass, RELATIONSHIP_NAVIGATION__OBJECT_OR_ROLE);
-		createEReference(relationshipNavigationEClass, RELATIONSHIP_NAVIGATION__OBJECT);
 
 		objectOrRoleEClass = createEClass(OBJECT_OR_ROLE);
 
@@ -1857,6 +1856,7 @@ public class StructurePackageImpl extends EPackageImpl implements StructurePacka
 		createEReference(transitionRowEClass, TRANSITION_ROW__OPTIONS);
 
 		transitionOptionEClass = createEClass(TRANSITION_OPTION);
+		createEReference(transitionOptionEClass, TRANSITION_OPTION__EVENT_OBJECT);
 		createEReference(transitionOptionEClass, TRANSITION_OPTION__EVENT);
 		createEReference(transitionOptionEClass, TRANSITION_OPTION__END_STATE);
 		createEAttribute(transitionOptionEClass, TRANSITION_OPTION__IGNORE);
@@ -2105,7 +2105,6 @@ public class StructurePackageImpl extends EPackageImpl implements StructurePacka
 		initEClass(relationshipNavigationEClass, RelationshipNavigation.class, "RelationshipNavigation", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getRelationshipNavigation_Relationship(), this.getRelationshipDefinition(), null, "relationship", null, 0, 1, RelationshipNavigation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getRelationshipNavigation_ObjectOrRole(), this.getObjectOrRole(), null, "objectOrRole", null, 0, 1, RelationshipNavigation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getRelationshipNavigation_Object(), this.getObjectDeclaration(), null, "object", null, 0, 1, RelationshipNavigation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(objectOrRoleEClass, ObjectOrRole.class, "ObjectOrRole", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
@@ -2129,6 +2128,7 @@ public class StructurePackageImpl extends EPackageImpl implements StructurePacka
 		initEReference(getTransitionRow_Options(), this.getTransitionOption(), null, "options", null, 0, -1, TransitionRow.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(transitionOptionEClass, TransitionOption.class, "TransitionOption", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getTransitionOption_EventObject(), this.getObjectDefinition(), null, "eventObject", null, 0, 1, TransitionOption.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getTransitionOption_Event(), this.getEventDefinition(), null, "event", null, 0, 1, TransitionOption.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getTransitionOption_EndState(), this.getStateDeclaration(), null, "endState", null, 0, 1, TransitionOption.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getTransitionOption_Ignore(), theEcorePackage.getEBoolean(), "ignore", null, 0, 1, TransitionOption.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

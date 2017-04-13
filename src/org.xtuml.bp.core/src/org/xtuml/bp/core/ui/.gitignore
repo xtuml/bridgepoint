@@ -60,9 +60,10 @@ RemoveFromIdentifierOnO_ATTRWizardPage1.java
 RenameAction.java
 SetAsBaseAttributeOnO_ATTRAction.java
 SetAsDerivedAttributeOnO_ATTRAction.java
-SplitOnO_ATTRAction.java
-SplitOnO_ATTRWizard.java
-SplitOnO_ATTRWizardPage1.java
+BaseAndRefSplitOnO_ATTRAction.java
+ReferentialSplitOnO_ATTRAction.java
+ReferentialSplitOnO_ATTRWizard.java
+ReferentialSplitOnO_ATTRWizardPage1.java
 UnformalizeOnR_ASSRAction.java
 UnformalizeOnR_RELAction.java
 UnformalizeOnR_SUBAction.java
@@ -555,3 +556,6 @@ SetToProviderOnC_IOAction.java
 SetFromProviderOnC_IOAction.java
 SetFromProviderOnC_ASAction.java
 SetToProviderOnC_ASAction.java
+SplitOnO_ATTRAction.java
+SplitOnO_ATTRWizard.java
+SplitOnO_ATTRWizardPage1.java

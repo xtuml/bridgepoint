@@ -54,6 +54,7 @@ import org.xtuml.bp.core.Modeleventnotification_c;
 import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.ui.PasteAction;
 import org.xtuml.bp.core.util.CoreUtil;
+import org.xtuml.bp.core.util.RenameActionUtil;
 import org.xtuml.bp.core.util.RenameParticipantUtil;
 
 public class ComponentTransactionListener implements ITransactionListener {
@@ -62,8 +63,8 @@ public class ComponentTransactionListener implements ITransactionListener {
 	// if the resource has already been updated
 	static private boolean dontMakeResourceChanges = false;
 
-    // reload actions before persisitng
-	static private boolean reloadActionsBeforePersist = false;
+    // do not persist actions
+	static private boolean noPersistActions = false;
 
 	private HashSet<PersistableModelComponent> persisted = new HashSet<PersistableModelComponent>();
 
@@ -100,8 +101,7 @@ public class ComponentTransactionListener implements ITransactionListener {
 
 		persisted.clear();
 		ModelRoot[] modelRoots = transaction.getParticipatingModelRoots();
-		HashSet<PersistableModelComponent> rgosAffectedByMove = new HashSet<PersistableModelComponent> ();
-		
+
 		// first persist all model elements created
 		// this is so later proxy changes in parent will work correctly
 		for (int i = 0; i < modelRoots.length; i++) {
@@ -234,6 +234,36 @@ public class ComponentTransactionListener implements ITransactionListener {
 						target = PersistenceManager.findElementComponent(element, true);
 						if (target != null) {
 							AttributeChangeModelDelta modelDelta = (AttributeChangeModelDelta) delta;
+							
+							// This is checking if masl rename/refactor needs to run
+							if (RenameParticipantUtil.isMASLChange(modelDelta)) {
+								boolean refactorSuccess = false;
+								// assure the resource change listener is
+								// enabled
+								boolean disableListener = ComponentResourceListener.getIgnoreResourceChanges();
+								boolean disableMarker = ComponentResourceListener.isIgnoreResourceChangesMarkerSet();
+								try {
+									// We have to assure that resource changes are ignored while
+									// masl refactors. If we do not, the change listener run
+									// before we have persisted this change and they reload the
+									// model from disk thus wiping out the in-memory change before
+									// it gets persisted.
+									ComponentResourceListener.setIgnoreResourceChanges(true);
+									ComponentResourceListener.setIgnoreResourceChangesMarker(true);
+									RenameParticipantUtil rpu = new RenameParticipantUtil();
+									refactorSuccess = rpu.renameElement(modelDelta);
+								} catch (Exception e) {
+									CorePlugin.logError("MASL rename/refactor failed.", e);
+								} finally {
+									// restore resource change listener
+									ComponentResourceListener.setIgnoreResourceChanges(disableListener);
+									ComponentResourceListener.setIgnoreResourceChangesMarker(disableMarker);
+								}
+								if (refactorSuccess) {
+									setNoPersistActions(true);
+								}
+							}
+							
 							if (modelDelta.isPersistenceRelatedChange()) {
 								if ("Name".equals(modelDelta.getAttributeName())) { //$NON-NLS-1$
 									NonRootModelElement modelElement = (NonRootModelElement) modelDelta
@@ -250,53 +280,32 @@ public class ComponentTransactionListener implements ITransactionListener {
 									// this will be removed when issue 2711 is fixed.
 									continue;
 								}
-                                // Invoke the rename refactoring util
-                                final AtomicBoolean renameSuccess = new AtomicBoolean();
-                                Display.getDefault().syncExec(new Runnable() {
-                                    public void run() {
-                                        RenameParticipantUtil rpu = new RenameParticipantUtil();
-                                        renameSuccess.set( rpu.renameElement( modelDelta ) );
-                                    }
-                                });
-                                if ( renameSuccess.get() ) setReloadActionsBeforePersist(true);
-								persist(target);
+                                persist(target);
 							}
 						}
 					}
 				}
 			}
 		}
+
+        // reload to get changes refactoring made to the actions
+        if ( noPersistActions() ) {
+            setNoPersistActions(false);
+            for ( PersistableModelComponent persistedPMC : persisted ) {
+            	try {
+            		persistedPMC.load( new NullProgressMonitor(), false, true );
+				} catch (CoreException e) {
+					CorePlugin.logError("Could not reload component", e);
+				}
+            }
+        }
+
 		Ooaofooa[] instances = Ooaofooa.getInstances();
 		for(int i = 0; i < instances.length; i++) {
 			instances[i].clearUnreferencedProxies();
 		}
 		IntegrityChecker.startIntegrityChecker(persisted);
-		synchronizeMaslEditors();
-	}
-	
-	private void synchronizeMaslEditors() {
-		Display.getDefault().syncExec( new Runnable() {
-			@Override
-			public void run() {
-				IEditorReference[] editorReferences = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getEditorReferences();
-				for(IEditorReference editorReference: editorReferences) {
-					IEditorPart editor = editorReference.getEditor(false);
-					if(editor instanceof XtextEditor) {
-						IEditorInput editorInput = editor.getEditorInput();
-						IDocumentProvider documentProvider = ((XtextEditor)editor).getDocumentProvider();
-						if(documentProvider instanceof IDocumentProviderExtension) {
-							try {
-								((IDocumentProviderExtension)documentProvider).synchronize(editorInput);
-							} catch(CoreException exc) {
-								CorePlugin.getDefault().getLog().log(
-										new Status(IStatus.ERROR, CorePlugin.getDefault().getBundle().getSymbolicName(), 
-												"Error synchronizing editoras after refactoring", exc));
-							}
-						}
-					}
-				}				
-			}
-		});
+		RenameParticipantUtil.synchronizeMaslEditors();
 	}
 	
     private IPath[] getFoldersToBeRemoved(PersistableModelComponent pmc) {
@@ -345,10 +354,6 @@ public class ComponentTransactionListener implements ITransactionListener {
 		if (!persisted.contains(component)
 				&& !component.getRootModelElement().isOrphaned()) {
 			try {
-                if ( reloadActionsBeforePersist() ) {
-                    component.load(new NullProgressMonitor(), false, true, true);
-	                setReloadActionsBeforePersist(false);
-                }
 				component.persist();
 				persisted.add(component);
 				return true;
@@ -416,14 +421,30 @@ public class ComponentTransactionListener implements ITransactionListener {
 							.append(
 									oldName + "/" + newName + "."
 											+ Ooaofooa.MODELS_EXT));
+
+            String[] actionDialects = ActionFile.getAvailableDialects();
+            IFile[] oldActionFiles = new IFile[actionDialects.length];
+            IFile[] newActionFilesOldFolder = new IFile[actionDialects.length];
+            for ( int i = 0; i < actionDialects.length; i++ ) {
+                oldActionFiles[i] = wsRoot.getFile( 
+                    ActionFile.getPathFromComponent( oldFile, actionDialects[i] ) );
+                newActionFilesOldFolder[i] = wsRoot.getFile(
+                    ActionFile.getPathFromComponent( newFileOldFolder, actionDialects[i] ) );
+            }
+
 			IFolder oldFolder = wsRoot.getFolder(component
 					.getParentDirectoryPath().append(oldName));
 			IFolder newFolder = wsRoot.getFolder(component
 					.getParentDirectoryPath().append(newName));
 
 			try {
-				// Rename both the file and the folder
+				// Rename both the file and the folder and the corresponding action files
 				oldFile.move(newFileOldFolder.getFullPath(), true, true, null);
+                for ( int i = 0; i < oldActionFiles.length; i++ ) {
+                    if ( oldActionFiles[i].exists() ) {
+				        oldActionFiles[i].move(newActionFilesOldFolder[i].getFullPath(), true, true, null);
+                    }
+                }
 				oldFolder.move(newFolder.getFullPath(), true, true, null);
 				if (component.isRootComponent()) {
 					IProject oldProject = wsRoot.getProject(oldName);
@@ -520,12 +541,12 @@ public class ComponentTransactionListener implements ITransactionListener {
 		return dontMakeResourceChanges;
 	}
 
-	public static void setReloadActionsBeforePersist(boolean newValue) {
-		reloadActionsBeforePersist = newValue;
+	public static void setNoPersistActions(boolean newValue) {
+		noPersistActions = newValue;
 	}
 
-	private static boolean reloadActionsBeforePersist() {
-		return reloadActionsBeforePersist;
+	public static boolean noPersistActions() {
+		return noPersistActions;
 	}
 
 }

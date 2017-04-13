@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Graphics Plug-in
 Bundle-SymbolicName: org.xtuml.bp.ui.graphics;singleton:=true
-Bundle-Version: 6.1.0
+Bundle-Version: 6.2.5
 Bundle-Activator: org.xtuml.bp.ui.graphics.Activator
 Bundle-Vendor: xtUML.org
 Require-Bundle: org.eclipse.ui,
@@ -19,6 +19,7 @@ Require-Bundle: org.eclipse.ui,
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy
 Import-Package: org.xtuml.bp.ui.text.activity,
+ org.xtuml.bp.ui.text.description,
  org.xtuml.bp.ui.text.masl
 Export-Package: org.xtuml.bp.ui.graphics.actions,
  org.xtuml.bp.ui.graphics.commands,

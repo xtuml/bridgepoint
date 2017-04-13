@@ -76,18 +76,25 @@ public class MaslRenameParticipant implements IRenameElementParticipant {
     this.eClasses = _maslEClasses;
     boolean _isEmpty = this.eClasses.isEmpty();
     if (_isEmpty) {
-      return Status.OK_STATUS;
+      return Status.CANCEL_STATUS;
     }
     List<QualifiedName> _maslQualifiedNames = this._xtumlToMaslMapper.getMaslQualifiedNames(xtumlElement, oldName);
     this.oldQNames = _maslQualifiedNames;
+    boolean _or = false;
     boolean _equals = Objects.equal(this.oldQNames, null);
     if (_equals) {
-      return Status.OK_STATUS;
+      _or = true;
+    } else {
+      boolean _isEmpty_1 = this.oldQNames.isEmpty();
+      _or = _isEmpty_1;
+    }
+    if (_or) {
+      return Status.CANCEL_STATUS;
     }
     final XtumlRenameElementContext renameElementContext = this.getRenameElementContext(this.eClasses, this.oldQNames, this.projects);
-    boolean _isEmpty_1 = renameElementContext.isEmpty();
-    if (_isEmpty_1) {
-      return Status.OK_STATUS;
+    boolean _isEmpty_2 = renameElementContext.isEmpty();
+    if (_isEmpty_2) {
+      return Status.CANCEL_STATUS;
     }
     return this.executor.doRename(renameElementContext, newName);
   }

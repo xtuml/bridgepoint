@@ -1,0 +1,5 @@
+public instance service MASLTemplate::employee.get_name () return string is
+begin
+  return this.name;
+end service;
+

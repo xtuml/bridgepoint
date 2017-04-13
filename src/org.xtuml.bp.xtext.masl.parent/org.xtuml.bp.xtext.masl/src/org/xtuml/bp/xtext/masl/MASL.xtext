@@ -273,15 +273,18 @@ AttributeDefinition:
 AttributeReferential returns RelationshipNavigation:
 	{AttributeReferential}
 	relationship=[RelationshipDefinition|ScopedName]
-	('.' objectOrRole=[ObjectOrRole] 
-		('.' object=[ObjectDeclaration])?
-	)?
-	'.' attribute=[AttributeDefinition];
+	'.' 
+	( objectOrRole=[ObjectOrRole|ObjectOrRoleName] '.' attribute=[AttributeDefinition]
+	| objectOrRole=[ObjectOrRole|ID] '.' attribute=[AttributeDefinition]
+	| attribute=[AttributeDefinition]);
+
+ObjectOrRoleName:
+	ID '.' ID;
 
 ObjectServiceDeclaration:
 	visibility=Visibility?
 	instance?='instance'? 
-	('deferred' relationship=[RelationshipDefinition])?
+	('deferred' '(' relationship=[RelationshipDefinition] ')')?
 	('service'|'function') name=ID
 	ParameterList
 	('return' returnType=AbstractTypeReference)?
@@ -324,7 +327,7 @@ TransitionRow:
 	';' PragmaList;
 
 TransitionOption:
-	event=[EventDefinition|ScopedName] '=>'
+	(eventObject=[ObjectDefinition] '.')? event=[EventDefinition] '=>'
 	(endState=[StateDeclaration] | ignore?='Ignore' | cannotHappen?=('Cannot_Happen' | 'cannot_happen'));
 
 //---------------------------------------------------------
@@ -384,7 +387,7 @@ enum Multiplicity:
 
 RelationshipNavigation:
 	relationship=[RelationshipDefinition|ScopedName]
-	('.' objectOrRole=[ObjectOrRole] ('.' object=[ObjectDeclaration])?)?;
+	('.' (objectOrRole=[ObjectOrRole] | objectOrRole=[ObjectOrRole|ObjectOrRoleName]))?;
 
 //---------------------------------------------------------
 // Dynamic Behaviour

@@ -593,6 +593,7 @@ INSERT INTO S_SYNC
 	'C_CsetActions',
 	'',
 	'activity_type = param.activity_type;
+domain = param.domain;
 port = param.port;
 signature = param.signature;
 body = param.body;
@@ -621,7 +622,13 @@ if ( not_empty c_c )
     end for;
     IMPORT_ERR::reportError( PMC:param.PMC, message:"Function parsed with signature: ''" + signature + "'' not found in component ''" + c_c.Name + "''", line_num:param.start_line, dialect:dialect );
   elif ( "routine" == activity_type and "" != port )
-    select any c_po related by c_c->C_PO[R4010] where ( selected.Name == port );
+    // select for terminator ports in a project component first. look for
+    // a port named <domain>__<terminator>
+    select any c_po related by c_c->C_PO[R4010] where ( selected.Name == domain + "__" + port );
+    if ( empty c_po )
+      // if not found, check for terminator ports in a domain component
+      select any c_po related by c_c->C_PO[R4010] where ( selected.Name == port );
+    end if;
     select many c_eps related by c_po->C_IR[R4016]->C_I[R4012]->C_EP[R4003];
     for each c_ep in c_eps
       if ( c_ep.getSignature(flavor:1) == signature )
@@ -667,7 +674,11 @@ if ( not_empty c_c )
         end if;
       end if;
     end for;
-    IMPORT_ERR::reportError( PMC:param.PMC, message:"Message parsed with signature: ''" + signature + "'' not found in component ''" + c_c.Name + "'' port ''" + c_po.Name + "''", line_num:param.start_line, dialect:dialect );
+    portName = "<port not found>";
+    if (not_empty c_po)
+      portName = c_po.Name;
+    end if;
+    IMPORT_ERR::reportError( PMC:param.PMC, message:"Message parsed with signature: ''" + signature + "'' not found in component ''" + c_c.Name + "'' port ''" + portName + "''", line_num:param.start_line, dialect:dialect );
   end if;
 end if;',
 	"ba5eda7a-def5-0000-0000-000000000000",
@@ -726,7 +737,7 @@ INSERT INTO S_SPARM
 	"ba5eda7a-def5-0000-0000-000000000004",
 	0,
 	'',
-	"a694049c-c3db-4236-895f-3a8d4a050a29",
+	"35196955-7fb3-474c-a200-99a5cd06d33a",
 	'');
 INSERT INTO S_SPARM
 	VALUES ("032f6f4d-455e-464f-a085-808dec360a1d",
@@ -745,6 +756,15 @@ INSERT INTO S_SPARM
 	0,
 	'',
 	"032f6f4d-455e-464f-a085-808dec360a1d",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("35196955-7fb3-474c-a200-99a5cd06d33a",
+	"11781c06-7e09-45ea-a448-ab85e9fdb235",
+	'domain',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"a694049c-c3db-4236-895f-3a8d4a050a29",
 	'');
 INSERT INTO PE_PE
 	VALUES ("11781c06-7e09-45ea-a448-ab85e9fdb235",

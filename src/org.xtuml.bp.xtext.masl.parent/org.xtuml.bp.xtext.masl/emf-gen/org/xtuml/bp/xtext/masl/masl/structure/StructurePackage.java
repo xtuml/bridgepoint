@@ -2412,22 +2412,13 @@ public interface StructurePackage extends EPackage {
 	int RELATIONSHIP_NAVIGATION__OBJECT_OR_ROLE = 1;
 
 	/**
-	 * The feature id for the '<em><b>Object</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int RELATIONSHIP_NAVIGATION__OBJECT = 2;
-
-	/**
 	 * The number of structural features of the '<em>Relationship Navigation</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int RELATIONSHIP_NAVIGATION_FEATURE_COUNT = 3;
+	int RELATIONSHIP_NAVIGATION_FEATURE_COUNT = 2;
 
 	/**
 	 * The number of operations of the '<em>Relationship Navigation</em>' class.
@@ -2833,13 +2824,22 @@ public interface StructurePackage extends EPackage {
 	int TRANSITION_OPTION = 43;
 
 	/**
+	 * The feature id for the '<em><b>Event Object</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TRANSITION_OPTION__EVENT_OBJECT = 0;
+
+	/**
 	 * The feature id for the '<em><b>Event</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int TRANSITION_OPTION__EVENT = 0;
+	int TRANSITION_OPTION__EVENT = 1;
 
 	/**
 	 * The feature id for the '<em><b>End State</b></em>' reference.
@@ -2848,7 +2848,7 @@ public interface StructurePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TRANSITION_OPTION__END_STATE = 1;
+	int TRANSITION_OPTION__END_STATE = 2;
 
 	/**
 	 * The feature id for the '<em><b>Ignore</b></em>' attribute.
@@ -2857,7 +2857,7 @@ public interface StructurePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TRANSITION_OPTION__IGNORE = 2;
+	int TRANSITION_OPTION__IGNORE = 3;
 
 	/**
 	 * The feature id for the '<em><b>Cannot Happen</b></em>' attribute.
@@ -2866,7 +2866,7 @@ public interface StructurePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TRANSITION_OPTION__CANNOT_HAPPEN = 3;
+	int TRANSITION_OPTION__CANNOT_HAPPEN = 4;
 
 	/**
 	 * The number of structural features of the '<em>Transition Option</em>' class.
@@ -2875,7 +2875,7 @@ public interface StructurePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TRANSITION_OPTION_FEATURE_COUNT = 4;
+	int TRANSITION_OPTION_FEATURE_COUNT = 5;
 
 	/**
 	 * The number of operations of the '<em>Transition Option</em>' class.
@@ -4032,17 +4032,6 @@ public interface StructurePackage extends EPackage {
 	EReference getRelationshipNavigation_ObjectOrRole();
 
 	/**
-	 * Returns the meta object for the reference '{@link org.xtuml.bp.xtext.masl.masl.structure.RelationshipNavigation#getObject <em>Object</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Object</em>'.
-	 * @see org.xtuml.bp.xtext.masl.masl.structure.RelationshipNavigation#getObject()
-	 * @see #getRelationshipNavigation()
-	 * @generated
-	 */
-	EReference getRelationshipNavigation_Object();
-
-	/**
 	 * Returns the meta object for class '{@link org.xtuml.bp.xtext.masl.masl.structure.ObjectOrRole <em>Object Or Role</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -4210,6 +4199,17 @@ public interface StructurePackage extends EPackage {
 	 * @generated
 	 */
 	EClass getTransitionOption();
+
+	/**
+	 * Returns the meta object for the reference '{@link org.xtuml.bp.xtext.masl.masl.structure.TransitionOption#getEventObject <em>Event Object</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Event Object</em>'.
+	 * @see org.xtuml.bp.xtext.masl.masl.structure.TransitionOption#getEventObject()
+	 * @see #getTransitionOption()
+	 * @generated
+	 */
+	EReference getTransitionOption_EventObject();
 
 	/**
 	 * Returns the meta object for the reference '{@link org.xtuml.bp.xtext.masl.masl.structure.TransitionOption#getEvent <em>Event</em>}'.
@@ -5231,14 +5231,6 @@ public interface StructurePackage extends EPackage {
 		EReference RELATIONSHIP_NAVIGATION__OBJECT_OR_ROLE = eINSTANCE.getRelationshipNavigation_ObjectOrRole();
 
 		/**
-		 * The meta object literal for the '<em><b>Object</b></em>' reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference RELATIONSHIP_NAVIGATION__OBJECT = eINSTANCE.getRelationshipNavigation_Object();
-
-		/**
 		 * The meta object literal for the '{@link org.xtuml.bp.xtext.masl.masl.structure.impl.ObjectOrRoleImpl <em>Object Or Role</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -5379,6 +5371,14 @@ public interface StructurePackage extends EPackage {
 		 * @generated
 		 */
 		EClass TRANSITION_OPTION = eINSTANCE.getTransitionOption();
+
+		/**
+		 * The meta object literal for the '<em><b>Event Object</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference TRANSITION_OPTION__EVENT_OBJECT = eINSTANCE.getTransitionOption_EventObject();
 
 		/**
 		 * The meta object literal for the '<em><b>Event</b></em>' reference feature.

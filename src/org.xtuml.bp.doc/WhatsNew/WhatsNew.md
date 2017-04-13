@@ -1,49 +1,37 @@
-What's New in BridgePoint 6.1.0
+What's New in BridgePoint 6.2.5
 ========================
 
 Release Highlights
 -------
-* Marking Editor
-* MASL
-* Model Compilers
-* Native platform builds (32 and 64 bit)
+* MASL Support Enhancements
+* Copy/Paste Improvements
 
 -------------------------------------------------------------------------------
 
-Marking Editor
-------
-BridgePoint now supports a general purpose marking editor.  The editor relies on
-feature markings specified by a model compiler architect.  The user then provides
-application-specific marking values.      
-
-![Marking Editor](marking_editor.png)
-  
-The BridgePoint documentation contains detailed information about the configuration
-and use of the marking editor.  See Help > Help Contents > BridgePoint UML Suite Help > Reference > User Interface > Marking Editor.    
-
-
-MASL
+MASL Support Enhancements
 ------
 This release includes many improvements in the convert/import/edit/export flow of MASL 
 models:    
 
-  * Better handling of referential attributes during the model conversion process.   
-  * Pragmas are now handled during conversion.  The imported model is marked using the new marking editor. The
-  MASL export process now outputs the marks as pragmas.  
-  * Command line export of MASL models is now supported.  
-  * BridgePoint automatically creates graphics for converted models and automatically connects
-  satisfactions in MASL Projects during import.
-  * An example MASL Domain xtUML model is added to Help > Welcome > Quick Start.
+  * Support for concrete polymorphic events   
+  * Support for recursive referential attributes
+  * Enhancements to refactor/rename support
+  * Updates to MASL templates and example projects
+  * Support for pragmas on overloaded services
+  * Greatly expanded model set used for MASL regression testing
+  * ... and more.  See the full list of resolved issues in the Release Notes
 
-
-Model Compilers
+This release also includes updated documentation in the MASL Modeling and Conversion Guide
+regarding use and creation of MASL-idiom features.
+  
+Copy/Paste Improvements
 ------
-The model compiler files have moved from underneath individual plug-ins to the
-top level folder ```<install dir>/tools/mc/```.   
+Model element copy/paste was added to BridgePoint in version 5.8.  Usage of the new
+functionality identified several issues that are addressed in this release:  
+
+  * The graphics associated with model elements are now moved correctly in all cases     
+  * Associations between shared classes may now be formalized    
+  * Additional restrictions are added which disallow changes to parameters and return types in ports    
+  * Enhanced support for moving elements under pessimistic locking revision control    
 
 
-Native Platform Builds
-------
-The BridgePoint tool build process has been improved to create 32 and 64-bit builds
-specific to each platform.  This allows the tool to have better integration with 
-the underlying OS.   

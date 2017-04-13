@@ -1853,6 +1853,13 @@ INSERT INTO S_ENUM
 Full Name: C',
 	"7b54f646-a8a8-4b82-9bb0-cf5465115f3b",
 	"1ca866cf-5d48-474d-a751-31e4881f9eb0");
+INSERT INTO S_ENUM
+	VALUES ("ea44c033-c9b2-49e5-8576-294d13e8d339",
+	'none',
+	'Value: 5
+Full Name: None',
+	"7b54f646-a8a8-4b82-9bb0-cf5465115f3b",
+	"a7ddbfcf-db5b-4878-9c8f-9458b1b8d77e");
 INSERT INTO PE_PE
 	VALUES ("7b54f646-a8a8-4b82-9bb0-cf5465115f3b",
 	1,

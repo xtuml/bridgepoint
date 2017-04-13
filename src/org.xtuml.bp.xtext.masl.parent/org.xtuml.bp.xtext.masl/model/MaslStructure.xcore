@@ -245,7 +245,6 @@ enum Multiplicity {
 class RelationshipNavigation {
 	refers RelationshipDefinition relationship
 	refers ObjectOrRole objectOrRole
-	refers ObjectDeclaration object
 }
 
 class ObjectOrRole {
@@ -296,6 +295,7 @@ class TransitionRow extends Pragmatized {
 }
 
 class TransitionOption {
+    refers ObjectDefinition eventObject
 	refers EventDefinition event
 	refers StateDeclaration endState
 	boolean ignore

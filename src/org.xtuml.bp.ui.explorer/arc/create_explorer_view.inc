@@ -78,6 +78,7 @@ import org.xtuml.bp.ui.properties.BridgepointPropertySheetPage;
 import org.xtuml.bp.ui.properties.ModelPropertySourceProvider;
 
 import org.xtuml.bp.ui.text.activity.ActivityEditorInput;
+import org.xtuml.bp.ui.text.description.DescriptionEditorInput;
 import org.xtuml.bp.ui.text.masl.MASLEditorInput;
 import org.xtuml.bp.ui.text.masl.MASLPartListener;
 import org.eclipse.jface.preference.IPreferenceStore;
@@ -820,7 +821,7 @@ public class ${viewer_name} extends ViewPart implements IModelViewerProvider {
   /**
    * Fire up an editor
    */
-  private IEditorPart handleOpen() {
+  public static IEditorPart handleOpen() {
     
     IStructuredSelection sel =  selection.getStructuredSelection();
 	if (sel.isEmpty())
@@ -878,6 +879,20 @@ public class ${viewer_name} extends ViewPart implements IModelViewerProvider {
 							dialectObj = action;
 						}
 					}
+					else if (dialectObj instanceof Transition_c) {
+						Action_c action = Action_c.getOneSM_ACTOnR514(ActionHome_c.getOneSM_AHOnR513(
+								TransitionActionHome_c.getOneSM_TAHOnR530((Transition_c)dialectObj)));
+						if (action != null) {
+							dialectObj = action;
+						}
+					}
+					else if ( dialectObj instanceof Attribute_c ) {
+						DerivedBaseAttribute_c dbattr = DerivedBaseAttribute_c.getOneO_DBATTROnR107(
+								BaseAttribute_c.getOneO_BATTROnR106((Attribute_c)dialectObj));
+						if ( dbattr != null ) {
+							dialectObj = dbattr;
+						}
+					}
 
 					// Get the value of the dialect attribute
                                         try {
@@ -902,7 +917,7 @@ public class ${viewer_name} extends ViewPart implements IModelViewerProvider {
 					// If the "dialect" attribute is neither "oal" nor "masl",
 					// check the default language preference. Set "dialect" to
 					// be the preference value and open the proper editor.
-					if ( dialect != Actiondialect_c.masl && dialect != Actiondialect_c.oal ) {
+					if ( dialect != Actiondialect_c.masl && dialect != Actiondialect_c.oal && dialect != Actiondialect_c.none ) {
 						IPreferenceStore store = CorePlugin.getDefault().getPreferenceStore();
                                                 dialect = store.getInt(BridgePointPreferencesStore.DEFAULT_ACTION_LANGUAGE_DIALECT);
 
@@ -937,6 +952,22 @@ public class ${viewer_name} extends ViewPart implements IModelViewerProvider {
 					}
 				}
 
+                // check to see if the dialect is "None" and this element has a description field
+                if (dialect == Actiondialect_c.none) {
+                    if (DescriptionEditorInput.isSupported(current)) {
+					    inputClass = bundle.loadClass("org.xtuml.bp.ui.text.description.DescriptionEditorInput"); //$$NON-NLS-1$$
+                        try {
+						    editorId = (String) inputClass.getField("EDITOR_ID").get(null); //$$NON-NLS-1$$
+                        } catch (NoSuchFieldException e) {
+                            System.out.println(e);
+                        }
+                    } else {
+                        inputClass = null;
+                    }
+                }
+
+                if (inputClass != null) {
+
                 Class[] type = new Class[1];
                 type[0] = Object.class;
                 //
@@ -961,6 +992,7 @@ public class ${viewer_name} extends ViewPart implements IModelViewerProvider {
 		    }
 		    IEditorPart editor = page.openEditor(input, editorId);
 		    return editor;
+                }
                 }
                 return null;
               }

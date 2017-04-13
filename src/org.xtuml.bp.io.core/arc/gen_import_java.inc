@@ -428,7 +428,6 @@ public class ${class_name} extends CoreImport
     private IPath projRelPath = new Path("");
 
     private PersistenceHierarchyMetaData metadata = (PersistenceHierarchyMetaData)PersistenceManager.getHierarchyMetaData();
-    private boolean m_actionsOnly = false;
     .else
     private SystemModel_c m_parent;
     .end if
@@ -492,12 +491,11 @@ public class ${class_name} extends CoreImport
             .assign parentC = "SystemModel_c"
       .end if
     .if(multilevel and setComponent)
-    public ${class_name}(IFile file, ${var.main_class_name} aModelRoot, PersistableModelComponent component, boolean parseAll, boolean clearDatabase, boolean parseGraphics, boolean isTemplate, boolean actionsOnly) throws IOException {
+    public ${class_name}(IFile file, ${var.main_class_name} aModelRoot, PersistableModelComponent component, boolean parseAll, boolean clearDatabase, boolean parseGraphics, boolean isTemplate) throws IOException {
         super(aModelRoot, (file != null ? file.getLocation().toOSString() : ""), (component != null ? component.getActionFiles() : null), clearDatabase, isTemplate);
         m_component = component;
         m_parseAll = parseAll;
         m_parseGraphics = parseGraphics;
-        m_actionsOnly = actionsOnly;
 
          String fileName = super.getFilename();
         // Produce a path from the root of the project
@@ -557,16 +555,7 @@ public class ${class_name} extends CoreImport
     .if (callingProject == "NBP")
     	helper.eesToUpgradeForIsRealized.clear();
     .end if
-    .if (multilevel)
-        if ( !m_actionsOnly ) {
-            m_success = doLoadSql(pm);
-		} else {
-			rootModelElement = m_component == null ? null : m_component.getRootModelElement();
-			m_success = true;
-		}
-    .else
         m_success = doLoadSql(pm);
-    .end if
         .if(not setComponent)
         finishLoad(pm);
     .end if
@@ -753,6 +742,7 @@ public class ${class_name} extends CoreImport
             String activity_type = "";
             String body = "";
             String signature = "";
+            String domain_name = "";
             String port_name = "";
 
             // parse serial MASL
@@ -761,6 +751,7 @@ public class ${class_name} extends CoreImport
                 if ( values[0].equals("routine") ) {
                     if ( !values[4].equals("") ) {
                         name = values[4];
+                        domain_name = values[1];
                         port_name = values[2];
                         activity_type = "routine";
                     }
@@ -840,7 +831,7 @@ public class ${class_name} extends CoreImport
             }
             else if ( pmc_root_element instanceof Component_c ) {
                 Component_c inst = (Component_c)pmc_root_element;
-                Ooaofooa.C_csetactions( modelRoot, (Object)m_component, activity_type, body, inst.getId(), dialect, port_name, signature, startLine );
+                Ooaofooa.C_csetactions( modelRoot, (Object)m_component, activity_type, body, inst.getId(), dialect, domain_name, port_name, signature, startLine );
             }
             else if ( pmc_root_element instanceof InstanceStateMachine_c ) {
                 InstanceStateMachine_c inst = (InstanceStateMachine_c)pmc_root_element;

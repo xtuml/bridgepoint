@@ -316,11 +316,20 @@ if ( not_empty sm_state and not_empty sm_act )
 
   // MASL states declare their parameter signatures.
   // Traverse to any event transitioning to this state and use its parameters.
-  select any sm_evtdi related by sm_state->SM_TXN[R506]->SM_NSTXN[R507]->SM_SEME[R504]->SM_SEVT[R503]->SM_EVT[R525]->SM_EVTDI[R532];
-  if ( empty sm_evtdi )	// if there are no state to state transitions to this state, it may be a creation
+  select any sm_evt related by sm_state->SM_TXN[R506]->SM_NSTXN[R507]->SM_SEME[R504]->SM_SEVT[R503]->SM_EVT[R525];
+  if ( empty sm_evt )	// if there are no state to state transitions to this state, it may be a creation
   						// state. Check the path to an event through a creation transition
-    select any sm_evtdi related by sm_state->SM_TXN[R506]->SM_CRTXN[R507]->SM_LEVT[R509]->SM_SEVT[R526]->SM_EVT[R525]->SM_EVTDI[R532];
+    select any sm_evt related by sm_state->SM_TXN[R506]->SM_CRTXN[R507]->SM_LEVT[R509]->SM_SEVT[R526]->SM_EVT[R525];
   end if;
+  if ( not_empty sm_evt )
+    // must check for polys
+    select any concrete_poly_evt from instances of SM_EVT where ( selected.SMevt_ID == sm_evt.getConcretePoly() );
+    if ( not_empty concrete_poly_evt )
+      sm_evt = concrete_poly_evt;
+    end if;
+  end if;
+  
+  select any sm_evtdi related by sm_evt->SM_EVTDI[R532];
   // Get first parameter.
   first_sm_evtdi = sm_evtdi;
   while ( not_empty sm_evtdi )
@@ -457,9 +466,24 @@ if ( not_empty c_ep and not_empty c_po )
   if ( not_empty c_c )
 	c_c_name = c_c.Name;
   end if;
+  
+  dom_name = c_c_name;
+  term_name = c_po.Name;
+  
+  // if this is a project terminator service, the naming does not come from the component
+  // but from the port name only
+  select one ep_pkg related by c_c->PE_PE[R8001]->EP_PKG[R8000];
+  if ( not_empty ep_pkg and Util::stringContains(haystack:ep_pkg.Descrip, needle:"masl_project") )
+    tmp_dom_name = Util::stringSplit(s:c_po.Name, delimiter:"__", i:0);
+    tmp_term_name = Util::stringSplit(s:c_po.Name, delimiter:"__", i:1);
+    if ( "" != tmp_dom_name and "" != tmp_term_name )
+      dom_name = tmp_dom_name;
+      term_name = tmp_term_name;
+    end if;
+  end if;
 
   // message -> function/service
-  smasl = smasl + "routine," + c_c_name + "," + c_po.Name + ",private," + c_ep.Name + ",,,,\n";
+  smasl = smasl + "routine," + dom_name + "," + term_name + ",public," + c_ep.Name + ",,,,\n";
   
   select any c_pp related by c_ep->C_PP[R4006];
   first_c_pp = c_pp;
@@ -980,193 +1004,167 @@ if ( null != inst ) {
         inst = (NonRootModelElement)action;
     }
 
-    // get the dialect
-    int dialect = -1;
-    try {
-        Method getDialectMethod = inst.getClass().getMethod("getDialect");
-        dialect = (int) getDialectMethod.invoke(inst);
-    } catch ( NoSuchMethodException e ) {
-        System.out.println( e );
-    } catch ( NullPointerException e ) {
-        System.out.println( e );
-    } catch ( SecurityException e ) {
-        System.out.println( e );
-    } catch ( IllegalAccessException e ) {
-        System.out.println( e );
-    } catch ( IllegalArgumentException e ) {
-        System.out.println( e );
-    } catch ( InvocationTargetException e ) {
-        System.out.println( e );
-    } catch ( ExceptionInInitializerError e ) {
-        System.out.println( e );
-    }
+	if(inst != null && !inst.isProxy() ){
 
-    IPreferenceStore store = org.xtuml.bp.core.CorePlugin.getDefault().getPreferenceStore();
-    String persistActivities = store.getString(BridgePointPreferencesStore.ACTIVITY_PERSISTENCE);
-    if ( persistActivities.equals(BridgePointPreferencesStore.PERSIST_ACTIVITY_FILES) && dialect == Actiondialect_c.masl ) {
+		String smasl = "";
+		if ( inst instanceof Function_c ) {
+			smasl = Ooaofooa.S_sync2routine( inst.getModelRoot(), ((Function_c)inst).getSync_id() );
+		}
+		else if ( inst instanceof Bridge_c ) {
+			smasl = Ooaofooa.S_brg2routine( inst.getModelRoot(), ((Bridge_c)inst).getBrg_id() );
+		}
+		else if ( inst instanceof Operation_c ) {
+			smasl = Ooaofooa.O_tfr2objectop( inst.getModelRoot(), ((Operation_c)inst).getTfr_id() );
+		}
+		else if ( inst instanceof DerivedBaseAttribute_c ) {
+			smasl = Ooaofooa.O_dbattr2attribute( inst.getModelRoot(), ((DerivedBaseAttribute_c)inst).getAttr_id() );
+		}
+		else if ( inst instanceof Action_c ) {
+			smasl = Ooaofooa.Sm_act2stateortxn( inst.getModelRoot(), ((Action_c)inst).getAct_id() );
+		}
+		else if ( inst instanceof ProvidedOperation_c ) {
+			smasl = Ooaofooa.Spr_po2routine( inst.getModelRoot(), ((ProvidedOperation_c)inst).getId() );
+		}
+		else if ( inst instanceof ProvidedSignal_c ) {
+			smasl = Ooaofooa.Spr_ps2routine( inst.getModelRoot(), ((ProvidedSignal_c)inst).getId() );
+		}
+		else if ( inst instanceof RequiredOperation_c ) {
+			smasl = Ooaofooa.Spr_ro2routine( inst.getModelRoot(), ((RequiredOperation_c)inst).getId() );
+		}
+		else if ( inst instanceof RequiredSignal_c ) {
+			smasl = Ooaofooa.Spr_rs2routine( inst.getModelRoot(), ((RequiredSignal_c)inst).getId() );
+		}
+		if ( !smasl.equals("") ) {
+			SmaslScanner sc = new SmaslScanner( smasl );
+			String[] values;
 
-        if(inst != null && !inst.isProxy() && -1 != dialect){
+			String preface = "";
+			String activity_type = "";
+			String sig_begin = "";
+			String parameter_list = "";
+			String sig_end = "";
+			String codeblock = "";
+			String end = "";
 
-            String smasl = "";
-            if ( inst instanceof Function_c ) {
-                smasl = Ooaofooa.S_sync2routine( inst.getModelRoot(), ((Function_c)inst).getSync_id() );
-            }
-            else if ( inst instanceof Bridge_c ) {
-                smasl = Ooaofooa.S_brg2routine( inst.getModelRoot(), ((Bridge_c)inst).getBrg_id() );
-            }
-            else if ( inst instanceof Operation_c ) {
-                smasl = Ooaofooa.O_tfr2objectop( inst.getModelRoot(), ((Operation_c)inst).getTfr_id() );
-            }
-            else if ( inst instanceof DerivedBaseAttribute_c ) {
-                smasl = Ooaofooa.O_dbattr2attribute( inst.getModelRoot(), ((DerivedBaseAttribute_c)inst).getAttr_id() );
-            }
-            else if ( inst instanceof Action_c ) {
-                smasl = Ooaofooa.Sm_act2stateortxn( inst.getModelRoot(), ((Action_c)inst).getAct_id() );
-            }
-            else if ( inst instanceof ProvidedOperation_c ) {
-                smasl = Ooaofooa.Spr_po2routine( inst.getModelRoot(), ((ProvidedOperation_c)inst).getId() );
-            }
-            else if ( inst instanceof ProvidedSignal_c ) {
-                smasl = Ooaofooa.Spr_ps2routine( inst.getModelRoot(), ((ProvidedSignal_c)inst).getId() );
-            }
-            else if ( inst instanceof RequiredOperation_c ) {
-                smasl = Ooaofooa.Spr_ro2routine( inst.getModelRoot(), ((RequiredOperation_c)inst).getId() );
-            }
-            else if ( inst instanceof RequiredSignal_c ) {
-                smasl = Ooaofooa.Spr_rs2routine( inst.getModelRoot(), ((RequiredSignal_c)inst).getId() );
-            }
-            if ( !smasl.equals("") ) {
-                SmaslScanner sc = new SmaslScanner( smasl );
-                String[] values;
+			String ret_type = "";
+			String parameter_name = "";
+			String separator = " ";
 
-                String preface = "";
-                String activity_type = "";
-                String sig_begin = "";
-                String parameter_list = "";
-                String sig_end = "";
-                String codeblock = "";
-                String end = "";
+			// parse serial MASL
+			while ( sc.hasNext() ) {
+				values = sc.next();
+				if ( values[0].equals("routine") ) {
+					if ( !values[4].equals("") ) {
+						preface = values[3] + " ";
+						activity_type = "service";
+						sig_begin = " " + values[1] + "::";
+						if ( !values[2].equals("") ) {
+							sig_begin += values[2] + "~>";
+						}
+						sig_begin += values[4] + " ";
+						parameter_list = "(";
+					}
+				}
+				else if ( values[0].equals("operation")) {
+					if ( !values[4].equals("") ) {
+						preface = values[3] + " ";
+						if ( !values[5].equals("") ) {
+							preface += values[5] + " ";
+						}
+						activity_type = "service";
+						sig_begin = " " + values[1] + "::" + values[2] + "." + values[4] + " ";
+						parameter_list = "(";
+					}
+				}
+				else if ( values[0].equals("state") ) {
+					if ( !values[3].equals("") ) {
+						preface = values[4];
+						if ( !preface.equals("") ) {
+							preface += " ";
+						}
+						activity_type = "state";
+						sig_begin = " " + values[1] + "::" + values[2] + "." + values[3] + " ";
+						parameter_list = "(";
+					}
+				}
+				else if ( values[0].equals("attribute") ) {
+					if ( !values[1].equals("") ) {
+						activity_type = "attribute";
+						sig_begin = " " + values[4] + "::" + values[5] + "." + values[1] + " ";
+					}
+				}
+				else if ( values[0].equals("transition") ) {
+					if ( !values[1].equals("") ) {
+						activity_type = "transition";
+						sig_begin = " " + values[2] + "::" + values[3] + " in " + values[1] + " receives " + values[4] + " ";
+						parameter_list = "(";
+					}
+				}
+				else if ( values[0].equals("parameter") ) {
+					if ( !values[1].equals("") ) {
+						parameter_name = values[1] + " : " + values[2];
+					}
+				}
+				else if ( values[0].equals("typeref") ) {
+					if ( !values[1].equals("") ) {
+						if ( parameter_name.equals("") ) { // return type
+							ret_type = "return " + values[1] + " ";
+						}
+						else { // parameter type
+							parameter_name += " " + values[1];
+							parameter_list += separator + parameter_name;
+							separator = ",\n";
+							parameter_name = "";
+						}
+					}
+				}
+				else if ( values[0].equals("codeblock") ) {
+					if ( !values[1].equals("") ) {
+						codeblock = Url_c.Decode( values[1] ).trim();
+						if ( codeblock.endsWith("end") ) {
+							codeblock += " ";
+						}
+						else {
+							codeblock += "\n";
+						}
+					}
+				}
+				else {
+				}
+			}
 
-                String ret_type = "";
-                String parameter_name = "";
-                String separator = " ";
+			// fix end of signature format
+			if ( parameter_list.equals("") ) {
+				sig_end = ret_type + "is\n";
+			}
+			else if ( parameter_list.equals("(") ) {
+				sig_end = ") " + ret_type + "is\n";
+			}
+			else {
+				sig_end = " ) " + ret_type + "is\n";
+			}
+			end = "\nend " + activity_type + ";\n\n";
 
-                // parse serial MASL
-                while ( sc.hasNext() ) {
-                    values = sc.next();
-                    if ( values[0].equals("routine") ) {
-                        if ( !values[4].equals("") ) {
-                            preface = values[3] + " ";
-                            activity_type = "service";
-                            sig_begin = " " + values[1] + "::";
-                            if ( !values[2].equals("") ) {
-                                sig_begin += values[2] + "~>";
-                            }
-                            sig_begin += values[4] + " ";
-                            parameter_list = "(";
-                        }
-                    }
-                    else if ( values[0].equals("operation")) {
-                        if ( !values[4].equals("") ) {
-                            preface = values[3] + " ";
-                            if ( !values[5].equals("") ) {
-                                preface += values[5] + " ";
-                            }
-                            activity_type = "service";
-                            sig_begin = " " + values[1] + "::" + values[2] + "." + values[4] + " ";
-                            parameter_list = "(";
-                        }
-                    }
-                    else if ( values[0].equals("state") ) {
-                        if ( !values[3].equals("") ) {
-                            preface = values[4];
-                            if ( !preface.equals("") ) {
-                                preface += " ";
-                            }
-                            activity_type = "state";
-                            sig_begin = " " + values[1] + "::" + values[2] + "." + values[3] + " ";
-                            parameter_list = "(";
-                        }
-                    }
-                    else if ( values[0].equals("attribute") ) {
-                        if ( !values[1].equals("") ) {
-                            activity_type = "attribute";
-                            sig_begin = " " + values[4] + "::" + values[5] + "." + values[1] + " ";
-                        }
-                    }
-                    else if ( values[0].equals("transition") ) {
-                        if ( !values[1].equals("") ) {
-                            activity_type = "transition";
-                            sig_begin = " " + values[2] + "::" + values[3] + " in " + values[1] + " receives " + values[4] + " ";
-                            parameter_list = "(";
-                        }
-                    }
-                    else if ( values[0].equals("parameter") ) {
-                        if ( !values[1].equals("") ) {
-                            parameter_name = values[1] + " : " + values[2];
-                        }
-                    }
-                    else if ( values[0].equals("typeref") ) {
-                        if ( !values[1].equals("") ) {
-                            if ( parameter_name.equals("") ) { // return type
-                                ret_type = "return " + values[1] + " ";
-                            }
-                            else { // parameter type
-                                parameter_name += " " + values[1];
-                                parameter_list += separator + parameter_name;
-                                separator = ",\n";
-                                parameter_name = "";
-                            }
-                        }
-                    }
-                    else if ( values[0].equals("codeblock") ) {
-                        if ( !values[1].equals("") ) {
-                            codeblock = Url_c.Decode( values[1] ).trim();
-                            if ( codeblock.endsWith("end") ) {
-                                codeblock += " ";
-                            }
-                            else {
-                                codeblock += "\n";
-                            }
-                        }
-                    }
-                    else {
-                    }
-                }
+			// fix parameter list
+			int buf_len = (preface + activity_type + sig_begin).length();
+			String buf = "\n ";
+			for (int i = 0; i < buf_len; i++) {
+				buf += " ";
+			}
+			parameter_list = parameter_list.replaceAll("\n", buf);
 
-                // fix end of signature format
-                if ( parameter_list.equals("") ) {
-                    sig_end = ret_type + "is\n";
-                }
-                else if ( parameter_list.equals("(") ) {
-                    sig_end = ") " + ret_type + "is\n";
-                }
-                else {
-                    sig_end = " ) " + ret_type + "is\n";
-                }
-                end = "\nend " + activity_type + ";\n\n";
+			// fix codeblock
+			codeblock = codeblock.trim();
+			if ( codeblock.endsWith( "end" ) ) {
+				// if the codeblock ends with end, the final ''end'' is removed because
+				// the exporter will add it
+				codeblock = codeblock.substring(0, codeblock.length()-3).trim();
+			}
 
-                // fix parameter list
-                int buf_len = (preface + activity_type + sig_begin).length();
-                String buf = "\n ";
-                for (int i = 0; i < buf_len; i++) {
-                    buf += " ";
-                }
-                parameter_list = parameter_list.replaceAll("\n", buf);
-
-                // fix codeblock
-                codeblock = codeblock.trim();
-                if ( codeblock.endsWith( "end" ) ) {
-                    // if the codeblock ends with end, the final ''end'' is removed because
-                    // the exporter will add it
-                    codeblock = codeblock.substring(0, codeblock.length()-3).trim();
-                }
-
-                signature = preface + activity_type + sig_begin + parameter_list + sig_end;
-                body = codeblock + end;
-            }
-        }
-    }
+			signature = preface + activity_type + sig_begin + parameter_list + sig_end;
+			body = codeblock + end;
+		}
+	}
 }
 
 if ( p_Signature_only )

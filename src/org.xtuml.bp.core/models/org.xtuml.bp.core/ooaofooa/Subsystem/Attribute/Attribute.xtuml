@@ -230,6 +230,7 @@ elif (param.name == "can" )
      select one rattr related by self->O_RATTR[R106];
        if ( not_empty rattr )
          select one base_attr related by rattr->O_BATTR[R113];
+         if ( not_empty base_attr )
           select many candidate_set related by self->O_OBJ[R102]->O_ATTR[R102]->O_RATTR[R106]
             where selected.BAttr_ID == base_attr.Attr_ID and 
                   selected.BObj_ID == base_attr.Obj_ID;
@@ -238,13 +239,36 @@ elif (param.name == "can" )
                return true;
              end if;
            end for;
+         // combining is allowed for combining a referential with its own base
+         select many battr_candidate_set related by self->O_OBJ[R102]->O_ATTR[R102]->O_BATTR[R106]
+           where selected.Attr_ID == base_attr.Attr_ID;
+         if ( not_empty battr_candidate_set )
+           return true;
+         end if;
+         end if;
+       else
+         // combining is allowed for combining a referential with its own base
+         select one battr related by self->O_BATTR[R106];
+         select many battr_candidate_set related by self->O_OBJ[R102]->O_ATTR[R102]->O_RATTR[R106]->O_BATTR[R113]
+           where selected.Attr_ID == battr.Attr_ID;
+         if ( not_empty battr_candidate_set )
+           return true;
+         end if;
        end if;
        return false;
-  elif ( param.value == "split" )
+  elif ( param.value == "split ref" )
    	 select one rattr related by self->O_RATTR[R106];
    	  if ( not_empty rattr )
    	    select many ref_set related by rattr->O_REF[R108];
    	    return cardinality ref_set > 1;
+      end if;
+      return false;  
+  elif ( param.value == "split base" )
+   	 select one rattr related by self->O_RATTR[R106];
+   	  if ( not_empty rattr )
+   	    select many ref_set related by rattr->O_REF[R108];
+   	    select one battr related by rattr->O_BATTR[R113];
+   	    return empty battr and cardinality ref_set == 1;
       end if;
       return false;  
   elif(param.value == "SetType")
@@ -315,10 +339,12 @@ if ( not_empty battr )
   select one nbattr related by battr->O_NBATTR[R107];
   if ( not_empty nbattr )
     create object instance dbattr of O_DBATTR;
-    dbattr.Dialect = PREF::getActionDialect(name:"bridgepoint_prefs_default_action_language_dialect");
-	if ( dbattr.Dialect == ActionDialect::masl )
-	  // new MASL activities get initialized with the "null" statement
-	  dbattr.Action_Semantics_internal = "begin\n  null;\nend";
+    dialect = PREF::getActionDialect(name:"bridgepoint_prefs_default_action_language_dialect");
+	if ( dialect == ActionDialect::masl )
+      // Derived attributes actions are not supported by MASL
+	  dbattr.Dialect = ActionDialect::none;
+	else
+	  dbattr.Dialect = dialect;
 	end if;
     dbattr.Suc_Pars = ParseStatus::parseInitial;
     unrelate battr from nbattr across R107;
@@ -945,6 +971,189 @@ end if;
 	1,
 	'',
 	"7fc66d55-cf5a-45dc-a26f-046c1b6338de",
+	0);
+INSERT INTO O_TFR
+	VALUES ("272c85e2-e64c-410e-959c-f6ac2a6a46c8",
+	"d931d595-21f3-4ce8-bad1-6661a0e261b8",
+	'canCombineWith',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000001",
+	1,
+	'select any o_attr from instances of O_ATTR where ( selected.Attr_ID == param.Attr_ID );
+
+can_combine = false;
+
+if ( self.Obj_ID == o_attr.Obj_ID )  // must be in the same class to combine
+	select one rattr related by self->O_RATTR[R106];
+	if ( not_empty rattr )
+	  select one other_rattr related by o_attr->O_RATTR[R106];
+	  if ( not_empty other_rattr )
+		// two rattrs pointing to the same base
+		can_combine = rattr.BAttr_ID == other_rattr.BAttr_ID and not rattr.alreadyCombinedWith( id: other_rattr.Attr_ID );
+	  else
+		select one other_battr related by o_attr->O_BATTR[R106];
+		if ( not_empty other_battr )
+		  // rattr pointing to base in same class
+		  can_combine = rattr.BAttr_ID == other_battr.Attr_ID;
+		end if;
+	  end if;
+	else
+	  select one battr related by self->O_BATTR[R106];
+	  if ( not_empty battr)
+	    select one other_rattr related by o_attr->O_RATTR[R106];
+	    if ( not_empty other_rattr )
+		  // rattr pointing to base in same class
+		  can_combine = battr.Attr_ID == other_rattr.BAttr_ID;
+		end if;
+	  end if;
+	end if;
+end if;
+
+return can_combine;',
+	1,
+	'',
+	"eb6ba56f-23ab-40d5-a84d-c4795119a7fb",
+	0);
+INSERT INTO O_TPARM
+	VALUES ("e21a9430-3421-48a1-abdc-f47ea6433bc4",
+	"272c85e2-e64c-410e-959c-f6ac2a6a46c8",
+	'Attr_ID',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("ee18eb51-0a2f-4723-a094-260891b4e7b4",
+	"d931d595-21f3-4ce8-bad1-6661a0e261b8",
+	'combine_refs',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'select any other_attr related by self->O_OBJ[R102]->O_ATTR[R102]
+       where selected.Attr_ID == param.other_id;
+       
+select one rattr related by self->O_RATTR[R106];
+select one other_rattr related by other_attr->O_RATTR[R106];
+
+if ( not_empty rattr and not_empty other_rattr )
+  // two rattrs pointing to the same base
+
+  select one other_rattr related by other_attr->O_RATTR[R106];
+  select many other_ref_set related by other_rattr->O_REF[R108];
+
+  // find last O_REF in rattr''s ref list R112
+  select any ref related by rattr->O_REF[R108];
+  select one next_ref related by ref->O_REF[R112.''precedes''];
+  while (not_empty next_ref)
+    select one next_ref related by ref->O_REF[R112.''precedes''];
+    if (not_empty next_ref)
+      ref = next_ref;
+    end if;
+  end while;
+
+  for each other_ref in other_ref_set
+    unrelate other_ref from other_rattr across R108;
+    relate other_ref to rattr across R108;  
+    // add other_ref to rattr''s ref list R112
+    relate other_ref to ref across R112.''succeeds'';
+    ref = other_ref;    
+  end for;
+  // Check for identifying
+  select one attr related by rattr->O_ATTR[R106];
+  select any oida related by attr->O_OIDA[R105];
+  if (empty oida)
+    select any oida related by other_attr->O_OIDA[R105];
+    if ( not_empty oida )
+      // Ensure combined attribute is identifying
+      select one id related by oida->O_ID[R105];
+      relate attr to id across R105 using oida; 
+    end if;
+  end if;
+  other_attr.dispose();
+
+else
+  // on battr and one rattr where the rattr is based on the battr
+  select any battr from instances of O_BATTR where false;
+  if ( not_empty rattr )
+    select one battr related by other_attr->O_BATTR[R106];
+  else
+    select one rattr related by other_attr->O_RATTR[R106];
+    select one battr related by self->O_BATTR[R106];
+  end if;
+  if ( not_empty rattr and not_empty battr )
+  
+    // save old datatype
+    select one s_dt related by battr->O_ATTR[R106]->S_DT[R114];
+    
+    // save old referencing rattr set
+    select many ref_rattrs related by battr->O_RATTR[R113]->O_ATTR[R106];
+  
+    // migrate the battr to referential
+    select one battr_attr related by battr->O_ATTR[R106];
+    battr_attr.migrateBaseToReferential();
+    select one new_rattr related by battr_attr->O_RATTR[R106];
+    new_rattr.Ref_Mode = 0;
+    select one old_dt related by battr_attr->S_DT[R114];
+    if ( not_empty old_dt )
+      unrelate old_dt from battr_attr across R114;
+    end if;
+    relate s_dt to battr_attr across R114;
+    
+    // set the new data type
+    for each ref_rattr in ref_rattrs
+      select one old_dt related by ref_rattr->S_DT[R114];
+	  if ( not_empty old_dt )
+		unrelate old_dt from ref_rattr across R114;
+	  end if;
+	  relate s_dt to ref_rattr across R114;
+    end for;
+    
+    // combine refs
+    battr_attr.combine_refs(other_id:rattr.Attr_ID);
+  
+  end if;
+end if;',
+	1,
+	'',
+	"272c85e2-e64c-410e-959c-f6ac2a6a46c8",
+	0);
+INSERT INTO O_TPARM
+	VALUES ("126f50c8-36af-440c-9e22-3fae1cace97c",
+	"ee18eb51-0a2f-4723-a094-260891b4e7b4",
+	'other_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("8b3ab177-e9b5-4b5c-9f3d-92d4bc5d9ede",
+	"d931d595-21f3-4ce8-bad1-6661a0e261b8",
+	'split_base_and_ref',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'select one mc related by self->O_OBJ[R102];
+select any o_ref related by self->O_RATTR[R106]->O_REF[R108];
+
+// create new referential attribute with the o_ref
+newAttr_id = mc.newReferentialAttribute(ref_obj_id: o_ref.RObj_ID, 
+  ref_oid_id: o_ref.ROid_ID, ref_attr_id: o_ref.RAttr_ID, id:-1);
+select any new_rattr related by mc->O_ATTR[R102]->O_RATTR[R106] where ( selected.Attr_ID == newAttr_id );
+relate new_rattr to o_ref across R108;
+
+// migrate to base
+select one rattr related by self->O_RATTR[R106];
+rattr.migrateToBase();
+
+// find all the referentials in the chain and relate R113
+select one battr related by self->O_BATTR[R106];
+relate battr to new_rattr across R113;
+new_rattr.propagateBaseAttr();',
+	1,
+	'',
+	"ee18eb51-0a2f-4723-a094-260891b4e7b4",
 	0);
 INSERT INTO O_NBATTR
 	VALUES ("fcdcb857-f08e-413d-bf60-637f228f1941",

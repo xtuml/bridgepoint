@@ -12,6 +12,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 import org.xtuml.bp.xtext.masl.masl.structure.EventDefinition;
+import org.xtuml.bp.xtext.masl.masl.structure.ObjectDefinition;
 import org.xtuml.bp.xtext.masl.masl.structure.StateDeclaration;
 import org.xtuml.bp.xtext.masl.masl.structure.StructurePackage;
 import org.xtuml.bp.xtext.masl.masl.structure.TransitionOption;
@@ -24,6 +25,7 @@ import org.xtuml.bp.xtext.masl.masl.structure.TransitionOption;
  * The following features are implemented:
  * </p>
  * <ul>
+ *   <li>{@link org.xtuml.bp.xtext.masl.masl.structure.impl.TransitionOptionImpl#getEventObject <em>Event Object</em>}</li>
  *   <li>{@link org.xtuml.bp.xtext.masl.masl.structure.impl.TransitionOptionImpl#getEvent <em>Event</em>}</li>
  *   <li>{@link org.xtuml.bp.xtext.masl.masl.structure.impl.TransitionOptionImpl#getEndState <em>End State</em>}</li>
  *   <li>{@link org.xtuml.bp.xtext.masl.masl.structure.impl.TransitionOptionImpl#isIgnore <em>Ignore</em>}</li>
@@ -33,6 +35,16 @@ import org.xtuml.bp.xtext.masl.masl.structure.TransitionOption;
  * @generated
  */
 public class TransitionOptionImpl extends MinimalEObjectImpl.Container implements TransitionOption {
+	/**
+	 * The cached value of the '{@link #getEventObject() <em>Event Object</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getEventObject()
+	 * @generated
+	 * @ordered
+	 */
+	protected ObjectDefinition eventObject;
+
 	/**
 	 * The cached value of the '{@link #getEvent() <em>Event</em>}' reference.
 	 * <!-- begin-user-doc -->
@@ -110,6 +122,44 @@ public class TransitionOptionImpl extends MinimalEObjectImpl.Container implement
 	@Override
 	protected EClass eStaticClass() {
 		return StructurePackage.Literals.TRANSITION_OPTION;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ObjectDefinition getEventObject() {
+		if (eventObject != null && eventObject.eIsProxy()) {
+			InternalEObject oldEventObject = (InternalEObject)eventObject;
+			eventObject = (ObjectDefinition)eResolveProxy(oldEventObject);
+			if (eventObject != oldEventObject) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, StructurePackage.TRANSITION_OPTION__EVENT_OBJECT, oldEventObject, eventObject));
+			}
+		}
+		return eventObject;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ObjectDefinition basicGetEventObject() {
+		return eventObject;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setEventObject(ObjectDefinition newEventObject) {
+		ObjectDefinition oldEventObject = eventObject;
+		eventObject = newEventObject;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, StructurePackage.TRANSITION_OPTION__EVENT_OBJECT, oldEventObject, eventObject));
 	}
 
 	/**
@@ -238,6 +288,9 @@ public class TransitionOptionImpl extends MinimalEObjectImpl.Container implement
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
+			case StructurePackage.TRANSITION_OPTION__EVENT_OBJECT:
+				if (resolve) return getEventObject();
+				return basicGetEventObject();
 			case StructurePackage.TRANSITION_OPTION__EVENT:
 				if (resolve) return getEvent();
 				return basicGetEvent();
@@ -260,6 +313,9 @@ public class TransitionOptionImpl extends MinimalEObjectImpl.Container implement
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
+			case StructurePackage.TRANSITION_OPTION__EVENT_OBJECT:
+				setEventObject((ObjectDefinition)newValue);
+				return;
 			case StructurePackage.TRANSITION_OPTION__EVENT:
 				setEvent((EventDefinition)newValue);
 				return;
@@ -284,6 +340,9 @@ public class TransitionOptionImpl extends MinimalEObjectImpl.Container implement
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
+			case StructurePackage.TRANSITION_OPTION__EVENT_OBJECT:
+				setEventObject((ObjectDefinition)null);
+				return;
 			case StructurePackage.TRANSITION_OPTION__EVENT:
 				setEvent((EventDefinition)null);
 				return;
@@ -308,6 +367,8 @@ public class TransitionOptionImpl extends MinimalEObjectImpl.Container implement
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
+			case StructurePackage.TRANSITION_OPTION__EVENT_OBJECT:
+				return eventObject != null;
 			case StructurePackage.TRANSITION_OPTION__EVENT:
 				return event != null;
 			case StructurePackage.TRANSITION_OPTION__END_STATE:

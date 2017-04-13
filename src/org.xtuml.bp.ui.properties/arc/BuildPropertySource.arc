@@ -300,6 +300,11 @@ super.toString\
       .if (dynamicReadOnly != "")
         .assign readOnlyFlag = "readonly || m_inst.$Cr{dynamicReadOnly}()"
       .end if
+      .// for Property Parameters they are read-only if under
+      .// an Imported Port
+      .if(obj.Key_Lett == "C_PP")
+        .assign readonly = "true"
+      .end if
       .if ( ((not_empty dbattr) or (readonly == "true")) and (attr.Name != "Action_Semantics") )
           .if ( ("${attr.Descrip:enum0}" == "") and (empty edt) )
                 m_propertyDescriptors[${attr_num_attr}] = new PropertyDescriptor("${name}", "${fullname}");
@@ -752,7 +757,8 @@ val = val${count};
               Attribute_c base_attr = Attribute_c.getOneO_ATTROnR106(BaseAttribute_c.getOneO_BATTROnR113(rattr));
               if ( (  (base_attr == null)) )
               {
-                return "same_as<Base_Attribute>";
+                DataType_c base_dt = DataType_c.getOneS_DTOnR114((Attribute_c)m_inst);
+                return base_dt.getName();
               }
               else {
                 DataType_c base_dt = DataType_c.getOneS_DTOnR114(base_attr);
@@ -1050,8 +1056,14 @@ ${rad.instance_init}\
   .else
                 new PropertyDescriptor[${total_d}];
   .end if
+  .if(class.Key_Lett == "C_PP")
+    .// for property parameters that belong to a port reference
+    .// there is nothing to modify in the properties, all data
+    .// shall be changed within the associated interface
+            boolean readonly = Util_c.Isprovidedparameter();
+   .else
             boolean readonly = false;
-
+   .end if
 ${sad.body}
   .if (not is_special_case)
 ${rad.body}\

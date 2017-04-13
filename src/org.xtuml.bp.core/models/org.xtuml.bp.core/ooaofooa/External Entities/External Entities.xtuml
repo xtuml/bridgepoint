@@ -2464,6 +2464,94 @@ Translate:native',
 	0,
 	'',
 	0);
+INSERT INTO S_BRG
+	VALUES ("6481dc47-2797-4382-bf03-13083c2e7d15",
+	"b69262ac-62eb-4030-b329-b967033f0ee0",
+	'stringContains',
+	'Translate:native',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000001",
+	'if ( p_Haystack == null || p_Needle == null ) return false;
+return p_Haystack.contains(p_Needle);',
+	0,
+	'',
+	0);
+INSERT INTO S_BPARM
+	VALUES ("6e7fe8f3-ddea-48c8-be08-7b9bbf0e7436",
+	"6481dc47-2797-4382-bf03-13083c2e7d15",
+	'haystack',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_BPARM
+	VALUES ("12579d21-87b1-482e-9e85-433b0f6615e4",
+	"6481dc47-2797-4382-bf03-13083c2e7d15",
+	'needle',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"6e7fe8f3-ddea-48c8-be08-7b9bbf0e7436",
+	'');
+INSERT INTO S_BRG
+	VALUES ("95c04b25-27ab-49e6-a7e1-6a66f3acbaef",
+	"b69262ac-62eb-4030-b329-b967033f0ee0",
+	'stringSplit',
+	'This operation splits the string s on a delimiter into two substrings. Neither substring
+contains the delimiter itself. If the delimiter is not found, the first substring is the
+input string and the second is empty string. If more than one instance of the dilimiter is
+found, the first instance is the split point.
+
+The parameter i specifies which substring is returned. If 0 is passed, the first substring
+is returned. If 1 is passed the second substring is returned. If another value is passed,
+empty string is returned.
+
+Translate:native',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000004",
+	'if ( p_S == null || p_Delimiter == null || ( p_I != 0 && p_I != 1 ) ) return "";
+String[] substrs = { p_S, "" };
+
+// check if the string contains the delimiter
+if ( Stringcontains( p_S, p_Delimiter ) ) {
+    String delim = p_Delimiter;
+    if ( delim.equals(".") ) delim = "\\.";
+    substrs = p_S.split(delim, 2);
+}
+
+// return the right substring
+return substrs[p_I];',
+	0,
+	'',
+	0);
+INSERT INTO S_BPARM
+	VALUES ("1986813e-ad5b-4815-ab6e-8fdde9a2eac0",
+	"95c04b25-27ab-49e6-a7e1-6a66f3acbaef",
+	's',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_BPARM
+	VALUES ("fc364758-ede4-4248-8d4e-4acb2737d4d9",
+	"95c04b25-27ab-49e6-a7e1-6a66f3acbaef",
+	'delimiter',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"1986813e-ad5b-4815-ab6e-8fdde9a2eac0",
+	'');
+INSERT INTO S_BPARM
+	VALUES ("fda6d4a5-142f-42f1-88c6-59cc4655c06f",
+	"95c04b25-27ab-49e6-a7e1-6a66f3acbaef",
+	'i',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"fc364758-ede4-4248-8d4e-4acb2737d4d9",
+	'');
 INSERT INTO PE_PE
 	VALUES ("b69262ac-62eb-4030-b329-b967033f0ee0",
 	1,

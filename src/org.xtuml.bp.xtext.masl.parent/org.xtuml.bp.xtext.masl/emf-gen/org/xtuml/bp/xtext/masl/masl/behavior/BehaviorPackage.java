@@ -2489,15 +2489,6 @@ public interface BehaviorPackage extends EPackage {
 	int ATTRIBUTE_REFERENTIAL__OBJECT_OR_ROLE = StructurePackage.RELATIONSHIP_NAVIGATION__OBJECT_OR_ROLE;
 
 	/**
-	 * The feature id for the '<em><b>Object</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ATTRIBUTE_REFERENTIAL__OBJECT = StructurePackage.RELATIONSHIP_NAVIGATION__OBJECT;
-
-	/**
 	 * The feature id for the '<em><b>Attribute</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
