@@ -129,6 +129,11 @@ public class PrintDiagramOperation extends PrintGraphicalViewerOperation {
 		GC gc = new GC(image);
 		SWTGraphics graphics = new SWTGraphics(gc);
 		graphics.setFont(viewer.getControl().getFont());
+		printImage(image, viewer, printRegion, modelHasContainer, fitStyle, gc, graphics);
+	}
+	
+	public static void printImage(Image image, GraphicalViewer viewer, Rectangle printRegion, boolean modelHasContainer,
+			int fitStyle, GC gc, Graphics graphics) {
 		List<?> selected = viewer.getSelectedEditParts();
 		List<Object> maintainedSelection = new ArrayList<Object>(selected);
 		viewer.deselectAll();
