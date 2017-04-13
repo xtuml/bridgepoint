@@ -64,7 +64,7 @@ Using the same build scripts used for the BridgePoint deployment build the produ
 ```
 - Run report generation (This will generate a result file)  
 ```
-   mvn -Daggregate=true surefire-report:report
+   mvn -Daggregate=true surefire-report:failsafe-report-only
 ```
 - View the file located under the current directory at: target/site/surefire-report.html for results  
 - If you encounter any errors are failures that require debugging open the BridgePoint UI  
@@ -87,7 +87,7 @@ Using the same build scripts used for the BridgePoint deployment build the produ
       cd ~/git/bptest/src/[test-plugin]
       mvn -Dtycho.disableP2Mirrors=true -Dmaven.test.failure.ignore=true install
       cd ~/git/bridgepoint-fork-main/releng/org.xtuml.bp.releng.parent
-      mvn -Daggregate=true surefire-report:report
+      mvn -Daggregate=true surefire-report:failsafe-report-only
      ```
 - View the file located under the current directory at: target/site/surefire-report.html for results  
 - If there are still problems repeat the debug process, otherwise continue to the next problem if one exists.  
@@ -115,7 +115,7 @@ Use **Debug** to rerun any tests with issues, setting breakpoints as necessary.
       cd ~/git/bptest/src/[test-plugin]
       mvn -Dtycho.disableP2Mirrors=true -Dmaven.test.failure.ignore=true install
       cd ~/git/bridgepoint-fork-main/releng/org.xtuml.bp.releng.parent
-      mvn -Daggregate=true surefire-report:report
+      mvn -Daggregate=true surefire-report:failsafe-report-only
       ```
 - View the file located under the current directory at: target/site/surefire-report.html for results  
 - If there are still problems repeat the run in the UI, otherwise continue to the next problem if one exists.  
