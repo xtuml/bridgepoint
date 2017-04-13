@@ -60,7 +60,7 @@ Using the same build scripts used for the BridgePoint deployment build the produ
 - Change directory to ~/git/bridgepoint/releng/org.xtuml.bp.releng.parent  
 - Run maven install (This will build and run the tests, it will take a while)  
 ```
-   mvn -DCLI_TEST_RUN=true -Dtycho.disableP2Mirrors=true -Dmaven.test.failure.ignore=true install
+   mvn -Dtycho.disableP2Mirrors=true -Dmaven.test.failure.ignore=true install
 ```
 - Run report generation (This will generate a result file)  
 ```
@@ -72,7 +72,7 @@ Using the same build scripts used for the BridgePoint deployment build the produ
 - Restart the tests for the project with issues including the debugging port option (Navigate to the test plugin folder):  
      ```
       cd ~/git/bptest/src/[test-plugin]
-      mvn -DdebugPort=8000 -DCLI_TEST_RUN=true -Dtycho.disableP2Mirrors=true -Dmaven.test.failure.ignore=true install
+      mvn -DdebugPort=8000 -Dtycho.disableP2Mirrors=true -Dmaven.test.failure.ignore=true install
      ```
 - The tests will wait for a remote debugging session, create a new launch configuration in the UI using
   - Select **Debug > Debug Configurations...**  
@@ -85,7 +85,7 @@ Using the same build scripts used for the BridgePoint deployment build the produ
 - Run maven again for that test plugin.  
      ```
       cd ~/git/bptest/src/[test-plugin]
-      mvn -DCLI_TEST_RUN=true -Dtycho.disableP2Mirrors=true -Dmaven.test.failure.ignore=true install
+      mvn -Dtycho.disableP2Mirrors=true -Dmaven.test.failure.ignore=true install
       cd ~/git/bridgepoint-fork-main/releng/org.xtuml.bp.releng.parent
       mvn -Daggregate=true surefire-report:report
      ```
@@ -113,7 +113,7 @@ Use **Debug** to rerun any tests with issues, setting breakpoints as necessary.
     - Run maven again for that test plugin.  
       ```
       cd ~/git/bptest/src/[test-plugin]
-      mvn -DCLI_TEST_RUN=true -Dtycho.disableP2Mirrors=true -Dmaven.test.failure.ignore=true install
+      mvn -Dtycho.disableP2Mirrors=true -Dmaven.test.failure.ignore=true install
       cd ~/git/bridgepoint-fork-main/releng/org.xtuml.bp.releng.parent
       mvn -Daggregate=true surefire-report:report
       ```
