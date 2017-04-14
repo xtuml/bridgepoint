@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="bp.ui.text" default="all" basedir=".">
-	
-  <import file="../MC-Java/common.xml"/>
-	
+   
+  <import file="${mcj_path}/common.xml"/>
+   
   <property name="plugins-home" value="${ant.home}/../.."/>
 
   <target name="all"
@@ -31,20 +31,46 @@
     </condition>
   </target>
 
-  <target name="create_gen"
-          depends="create_gen.depends"
-          description="Create the generation database"
-          unless="create_gen.buildNotNeeded" >
-  <delete file="sql/db.gen" />
-    <exec dir="sql" vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
-      <env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
-      <arg line="xtumlmc_gen_erate -f db.gen
-        -import ../${mcj_path}/ooa_schema.sql
-        -import ../${core_sql_dir}/ooaofooa.sql
-        -import clr_schema.sql
-        -import clr_pei.sql" />
-  </exec>
-  </target>
+	   <target name="create_gen" depends="create_gen.depends"
+        	description="Create the generation database"
+        	unless="create_gen.buildNotNeeded">
+	   	<!-- If the ooa_schema.sql file does not exist at the mc_java_path
+	   	     location, we are dealing with a relative path.  We must account
+	   	     for the sql directory by adding another ascension
+	   	-->
+	   	<ant dir="sql" antfile="${ant.file}" target="mcj_path_type" />
+	  </target>
+
+	  <target name="mcj_path_type">
+	   	  <available file="${mcj_path}" property="absolute.present"/>
+	   	  <available file="../${mcj_path}" property="relative.present"/>
+	   	  <antcall target="create_gen.absolute"/>
+	   	  <antcall target="create_gen.relative"/>   		
+	  </target>
+		
+		<target name="create_gen.absolute" if="absolute.present">
+			<delete file="sql/db.gen" />
+			<exec vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
+			      <env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
+			      <arg line="xtumlmc_gen_erate -f db.gen
+			        -import ${mcj_path}/ooa_schema.sql
+			        -import ../${core_sql_dir}/ooaofooa.sql
+			        -import clr_schema.sql
+			        -import clr_pei.sql" />
+			</exec>
+		</target>
+	
+		<target name="create_gen.relative" if="relative.present">
+			<delete file="sql/db.gen" />
+			<exec vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
+			      <env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
+			      <arg line="xtumlmc_gen_erate -f db.gen
+			        -import ../${mcj_path}/ooa_schema.sql
+			        -import ../${core_sql_dir}/ooaofooa.sql
+			        -import clr_schema.sql
+			        -import clr_pei.sql" />
+			</exec>
+		</target>
 
   <target name="delete_gen"
           description="Delete the generation database" >
@@ -75,7 +101,7 @@
           unless="plugin_xml.buildNotNeeded" >
     <echo >Generating plugin.xml ...</echo>
   <exec vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
-  	<env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
+   <env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
     <arg line="xtumlmc_gen_erate -f sql/db.gen
       -arch arc/create_plugin_xml.arc" />
   </exec>
@@ -165,7 +191,7 @@
 
   <target name="literal_rule" description="Generate File OALKeywords.java for Syntax Highlighting" unless="literal_rule.buildNotNeeded" depends="literal_rule.depends">
     <exec vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
-    	<env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
+      <env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
     <arg line="xtumlmc_gen_erate -nopersist
       -import ${als.dir}/grammar_schema.sql
       -import ${als.dir}/oal_grammar.sql
@@ -177,7 +203,7 @@
   <target name="format_java" description="Format the generated java source" >
     <taskdef name="PTCodeFormat" classname="PTCodeFormatterTask" >
         <classpath>
-            <pathelement path="../org.xtuml.bp.core/tools/" />
+            <pathelement path="${mcj_path}/../org.xtuml.bp.core/tools/" />
             <fileset dir="${plugins-home}/plugins" casesensitive="yes">
                 <include name="**/org.eclipse.text_*.jar" />
                 <include name="**/org.eclipse.ui_*.jar" />

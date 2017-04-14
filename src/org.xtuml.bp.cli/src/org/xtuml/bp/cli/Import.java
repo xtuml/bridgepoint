@@ -69,6 +69,10 @@ public class Import implements IApplication {
                         "-allowIPRs",
                         false,
                         "Allow this project to refer to elements in other projects in the workspace."),
+                new CommandLineOption(
+                        "-workspacePreferences",
+                        "",
+                        "Worskpace preferences to set before import."),
                 new CommandLineOption("-help", false, "Display usage information.")
         };
 	    return cmdLineOptions;

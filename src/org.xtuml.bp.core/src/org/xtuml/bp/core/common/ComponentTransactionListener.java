@@ -294,7 +294,7 @@ public class ComponentTransactionListener implements ITransactionListener {
 
 		if (noPersistActions()) {
 			try {
-				// if a masl rename/refactor occurred rename the project
+				// if a masl rename/refactor occurred reload the project.
 				// we do this because we do not know which model roots masl had to update
 				PersistableModelComponent systemModelRoot = persisted.iterator().next();
 				systemModelRoot = systemModelRoot.getRootModelElement().getRoot().getPersistableComponent();
