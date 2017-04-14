@@ -95,6 +95,10 @@ Use **Debug** to rerun any tests with issues, setting breakpoints as necessary.
 - View the file located under the current directory at: target/site/surefire-report.html for results  
 - If there are still problems repeat the run in the UI, otherwise continue to the next problem if one exists.  
 
+Adding new tests  
+----------------  
+To add new tests to the BridgePoint testing environment see the [HOWTO add unit tests...](https://github.com/xtuml/bridgepoint/blob/master/doc-bridgepoint/process/HOWTO-add-unit-tests-to-testing-environment.md) document.  
+
 FAQ/Troubleshooting
 ---------------
 - Check the Unit Testing section of [BridgePoint FAQ](https://github.com/xtuml/bridgepoint/blob/master/doc-bridgepoint/process/FAQ.md#unittesting) 
