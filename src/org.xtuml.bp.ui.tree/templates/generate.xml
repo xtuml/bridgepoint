@@ -19,9 +19,9 @@ the License.
 
 -->
 <project name="**PROJECT**" default="all" basedir=".">
-	
-  <import file="../MC-Java/common.xml"/>
-	
+   
+  <import file="${mcj_path}/common.xml"/>
+   
   <target name="all"
           description="Generate all code for this project"
           depends="update_schema,java,format_java">
@@ -91,7 +91,7 @@ the License.
 
     <taskdef name="PTCodeFormat" classname="PTCodeFormatterTask" >
         <classpath>
-            <pathelement path="../org.xtuml.bp.core/tools/" />
+            <pathelement path="${mcj_path}/../org.xtuml.bp.core/tools/" />
             <fileset dir="${plugins-home}/plugins" casesensitive="yes">
                 <include name="**/org.eclipse.text_*.jar" />
                 <include name="**/org.eclipse.ui_*.jar" />
