@@ -31,7 +31,7 @@ Creating a new test
   - Create a tearDown method that overrides the BaseTest.tearDown() method, annotate the method with the After annotation:
   ```java
   @Override
-  @Before
+  @After
   public void tearDown() throws Exception {
        // calling the super tearDown will automatically
        // provide log file checking at the end of each
