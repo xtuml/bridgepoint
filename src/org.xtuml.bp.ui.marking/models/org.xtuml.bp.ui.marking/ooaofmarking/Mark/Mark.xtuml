@@ -110,7 +110,7 @@ INSERT INTO O_TFR
 	0,
 	'done = false;
 while ( not done )
-  // Read a line from the feature file populating line array.
+  // Read a line from the marking file populating line array.
   count = CSV::readline( filename:param.filename, values:param.values );
   if ( count > 0 )
     if ( count > 1 ) // valid non-comment line
