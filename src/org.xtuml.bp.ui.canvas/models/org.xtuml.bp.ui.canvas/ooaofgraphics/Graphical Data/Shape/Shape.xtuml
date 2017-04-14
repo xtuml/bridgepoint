@@ -186,7 +186,7 @@ if(not elemSpec.hasNameCompartment)
     entry_id = 1;
     compartmentTopY = y;
     entries = CL::getEntries(from:shape.represents, compartment_id:compartment_id);
-    while (entry_id <= entries and y <= lastAvailableVerticalPosn)
+    while (entry_id <= entries and (y <= lastAvailableVerticalPosn or CL::disableCropping()))
       //
       // Draw the left justified text for the compartment
       //
@@ -202,11 +202,15 @@ if(not elemSpec.hasNameCompartment)
       if (rightResult != "")
         widthLeftForLeftText = availableRHSpace + spacing;
         if (w - widthLeftForLeftText > 36) // (pixels)
-          leftResult = GR::fitTextTo(context:param.context, input:leftResult, width:w - widthLeftForLeftText, elideAtEnd:true);
+          if(not CL::disableCropping())
+            leftResult = GR::fitTextTo(context:param.context, input:leftResult, width:w - widthLeftForLeftText, elideAtEnd:true);
+          end if;
         else
           // Not enough room for left and right text blocks, so split the symbol 50-50
           availableRHSpace = w/2 - spacing;
-          leftResult = GR::fitTextTo(context:param.context, input:leftResult, width:availableRHSpace, elideAtEnd:true);
+          if(not CL::disableCropping())
+            leftResult = GR::fitTextTo(context:param.context, input:leftResult, width:availableRHSpace, elideAtEnd:true);
+          end if;
         end if;
       end if;
       Y_extent = 0;
@@ -215,13 +219,15 @@ if(not elemSpec.hasNameCompartment)
         // truncate the text block, note the function will
         // only truncate if necessary
         numLines = h / single_line_height;
-        leftResult = ::truncateTextBlock( text:leftResult, maxLines:numLines );
-        leftResult = GR::fitTextTo(context:param.context, input:leftResult, width:w - (unScaledSpacing * 2), elideAtEnd:true);
+        if(not CL::disableCropping())
+          leftResult = ::truncateTextBlock( text:leftResult, maxLines:numLines );
+          leftResult = GR::fitTextTo(context:param.context, input:leftResult, width:w - (unScaledSpacing * 2), elideAtEnd:true);
+        end if;
         verticalPosnAfterPrinting = y + GR::getTextExtent(context:param.context, text:leftResult,axis:Axis::Y);
         //
         // If the text won''t fit completely, then don''t show it unless it is a single entry like a state action
         //
-        if ((verticalPosnAfterPrinting < lastAvailableVerticalPosn) OR (entries == 1 AND OS::isMultiLine(text:leftResult)))
+        if ((verticalPosnAfterPrinting < lastAvailableVerticalPosn or CL::disableCropping()) OR (entries == 1 AND OS::isMultiLine(text:leftResult)))
           GR::drawText(context:param.context, text:leftResult,
   				x:x + spacing, 
 				y:y + spacing,
@@ -234,14 +240,16 @@ if(not elemSpec.hasNameCompartment)
       //
       if (rightResult != "")
         if (availableRHSpace < GR::getTextExtent(context:param.context, text:rightResult, axis:Axis::X))
-          rightResult = GR::fitTextTo(context:param.context, input:rightResult, width:availableRHSpace, elideAtEnd:true);
+          if(not CL::disableCropping())
+            rightResult = GR::fitTextTo(context:param.context, input:rightResult, width:availableRHSpace, elideAtEnd:true);
+          end if;
         end if;
         verticalPosnAfterPrinting = y + GR::getTextExtent(context:param.context, text:rightResult,axis:Axis::Y);
         //
         // As for left justified text, if the text won''t fit completely, then don''t
         //  show it (we don''t care about multiline-ism for right justified text).
         //
-        if (verticalPosnAfterPrinting < lastAvailableVerticalPosn)
+        if (verticalPosnAfterPrinting < lastAvailableVerticalPosn or CL::disableCropping())
           GR::drawText(context:param.context, text:rightResult, 
                                  x:x + w - spacing,
                                  y:y + spacing,
@@ -261,13 +269,15 @@ if(not elemSpec.hasNameCompartment)
 	  		element:shape.represents, compartmentNum:compartment_id,
         	entryNum:entry_id);
     
-        centerResult = GR::fitTextTo(context:param.context, input:centerResult, 
-        	width:w - (unScaledSpacing * 2), elideAtEnd:elideAtEnd);
+        if(not CL::disableCropping())
+	      centerResult = GR::fitTextTo(context:param.context, input:centerResult, 
+	        	width:w - (unScaledSpacing * 2), elideAtEnd:elideAtEnd);
+	     end if;
         verticalPosnAfterPrinting = y + GR::getTextExtent(context:param.context, text:centerResult,axis:Axis::Y);
         //
         // Again for centered text, don''t print partially visible text
         //
-        if (verticalPosnAfterPrinting < lastAvailableVerticalPosn)
+        if (verticalPosnAfterPrinting < lastAvailableVerticalPosn or CL::disableCropping())
           GR::drawText(context:param.context, text:centerResult, 
                                x:x + (w/2),
                                y:y + spacing,
@@ -353,7 +363,9 @@ if(not elemSpec.hasNameCompartment)
     elideAtEnd = CL::getElideCompartmentTextAtEnd(
 	    element:shape.represents, compartmentNum:compartment_id,
         entryNum:0);
-    result = GR::fitTextTo(context:param.context, input:result, width:w - (unScaledSpacing * 2), elideAtEnd:elideAtEnd);
+    if(not CL::disableCropping())
+      result = GR::fitTextTo(context:param.context, input:result, width:w - (unScaledSpacing * 2), elideAtEnd:elideAtEnd);
+    end if;
     labelVerticalPosn = y + (h/2) - (GR::getTextExtent(context:param.context, text:result, axis:Axis::Y) / 2);
     if (lastVerticalPosn < labelVerticalPosn)
       GR::drawText(context:param.context, text:result, 
