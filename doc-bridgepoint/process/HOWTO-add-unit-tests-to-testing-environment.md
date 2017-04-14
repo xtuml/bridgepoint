@@ -19,9 +19,9 @@ Creating a new test
   @Override
   @Before
   public void setUp() throws Exception {
-  	   // calling the super setup will create some common
-  	   // data used amongst most of the tests, see that
-  	   // method implementation for details
+       // calling the super setup will create some common
+       // data used amongst most of the tests, see that
+       // method implementation for details
        super.setUp();
        // add any code here that will run at
        // the start of each test defined later
