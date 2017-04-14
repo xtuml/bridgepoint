@@ -101,7 +101,7 @@ Adding a new test suite
 - Add the new test suite to the CLI  
   - Edit the pom.xml file located under the test project
     - Locate the <artifactId>tycho-surefire-plugin</artifactId> entry
-    - Under this entry locate the <includes> entry
+    - Under this entry locate the includes entry
     - Add a new include entry for the new test suite:
     ```
     <include>**/NewSuite.java</include> 
@@ -161,7 +161,7 @@ Adding a new test project
   ```  
 - Modify the parent test pom file located here: org.xtuml.bp.releng.parent.tests/pom.xml
   - Add a new module entry point at the new project's pom file
-    - Locate the <modules> entry and add a new module entry
+    - Locate the modules entry and add a new module entry
   ```xml
   <module>../../src/org.xtuml.bp.project.test</module>
   ```  
