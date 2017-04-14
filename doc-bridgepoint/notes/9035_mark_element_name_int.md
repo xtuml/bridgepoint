@@ -109,7 +109,7 @@ Branch: 9035_mark_element_name
  .../UserInterface/MarkingEditor/MarkingEditor.md   |  56 +++++-----
  .../src/org/xtuml/bp/ui/marking/MarkingData.java   |  79 +++++++++++---
  .../xtuml/bp/ui/marking/MarkingEditorDialog.java   |  15 ++-
-
+ .../uml.bp.ui.marking/ooaofmarking/Mark/Mark.xtuml |   8 +--
 
 </pre>
 
