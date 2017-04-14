@@ -40,7 +40,7 @@ import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
 import org.eclipse.gef.requests.SelectionRequest;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.swt.graphics.Color;
-
+import org.xtuml.bp.ui.canvas.CanvasPlugin;
 import org.xtuml.bp.ui.canvas.Connector_c;
 import org.xtuml.bp.ui.canvas.Elementstyle_c;
 import org.xtuml.bp.ui.canvas.Fillcolorstyle_c;
@@ -97,6 +97,11 @@ public class TextEditPart extends AbstractGraphicalEditPart {
 								lcs.getRed(), lcs.getGreen(), lcs.getBlue());
 						g.setForegroundColor(lineColor);
 					}
+				}
+				if(CanvasPlugin.disableCropping) {
+					// just draw the text
+					g.drawText(getText(), getLocation());
+					return;
 				}
 				super.paintFigure(g);
 			}
