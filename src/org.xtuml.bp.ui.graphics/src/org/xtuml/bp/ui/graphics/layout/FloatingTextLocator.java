@@ -67,14 +67,15 @@ public class FloatingTextLocator implements Locator {
 		// if the current width is 0 then the
 		// user has never set the width, calculate it
 		// here using a maximum number of 400
+		if(CanvasPlugin.disableCropping) {
+			bounds.width = 400;
+		}
 		boolean cropWidth = false;
-		if (bounds.width == 0) {
+		if (bounds.width == 0 && !CanvasPlugin.disableCropping) {
 			Dimension preferred = target.getPreferredSize();
 			bounds.width = preferred.width;
 			bounds.width = Math.min(400, bounds.width);
-			if(!CanvasPlugin.disableCropping) {
-				cropWidth = true;
-			}
+			cropWidth = true;
 		}
 		if (bounds.width < target.getBorder().getInsets(target).getWidth()) {
 			// do not allow resizing to zero
