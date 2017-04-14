@@ -18,6 +18,7 @@ import org.eclipse.draw2d.text.TextFlow;
 import org.eclipse.gef.GraphicalEditPart;
 
 import org.xtuml.bp.core.End_c;
+import org.xtuml.bp.ui.canvas.CanvasPlugin;
 import org.xtuml.bp.ui.graphics.parts.ConnectorEditPart;
 import org.xtuml.bp.ui.graphics.router.RectilinearRouter;
 
@@ -71,7 +72,9 @@ public class FloatingTextLocator implements Locator {
 			Dimension preferred = target.getPreferredSize();
 			bounds.width = preferred.width;
 			bounds.width = Math.min(400, bounds.width);
-			cropWidth = true;
+			if(!CanvasPlugin.disableCropping) {
+				cropWidth = true;
+			}
 		}
 		if (bounds.width < target.getBorder().getInsets(target).getWidth()) {
 			// do not allow resizing to zero
