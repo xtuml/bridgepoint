@@ -41,6 +41,7 @@ Creating a new test
        // the end of each test defined later
        // in this class
    }
+   ```
 
 Adding a single test to existing suite     
 -------  
@@ -158,11 +159,11 @@ Adding a new test project
 		</plugins>
 	</build>
 </project>
-  ```  
-- Modify the parent test pom file located here: org.xtuml.bp.releng.parent.tests/pom.xml
-  - Add a new module entry point at the new project's pom file
-    - Locate the modules entry and add a new module entry
-  ```xml
+   ```  
+- Modify the parent test pom file located here: org.xtuml.bp.releng.parent.tests/pom.xml. 
+  - Add a new module entry point at the new project's pom file. 
+    - Locate the modules entry and add a new module entry. 
+  ```xml
   <module>../../src/org.xtuml.bp.project.test</module>
   ```  
 - Follow the above sections for adding tests and suites to the new project  
