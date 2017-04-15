@@ -163,8 +163,8 @@ Adding a new test project
 - Modify the parent test pom file located here: org.xtuml.bp.releng.parent.tests/pom.xml.  
   - Add a new module entry point at the new project's pom file.  
   - Locate the modules entry and add a new module entry.  
-  ```
+```
 <module>../../src/org.xtuml.bp.project.test</module>
-  ```  
+```  
 - Follow the above sections for adding tests and suites to the new project  
 
