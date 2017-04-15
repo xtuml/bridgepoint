@@ -16,6 +16,7 @@ package org.xtuml.bp.utilities.ui;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IProjectDescription;
@@ -43,7 +44,10 @@ import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.WorkbenchException;
+import org.eclipse.ui.dialogs.IOverwriteQuery;
 import org.eclipse.ui.wizards.datatransfer.ExternalProjectImportWizard;
+import org.eclipse.ui.wizards.datatransfer.FileSystemStructureProvider;
+import org.eclipse.ui.wizards.datatransfer.ImportOperation;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.Modeleventnotification_c;
 import org.xtuml.bp.core.Ooaofooa;
@@ -456,6 +460,27 @@ public class ProjectUtilities {
     	return importExistingProject(rootProjectFolder, true);
     }
 
+	public static boolean importExistingProjectCLI(final String rootProjectFolder, final boolean copyIntoWorkspace) {
+		IOverwriteQuery overwriteQuery = new IOverwriteQuery() {
+			public String queryOverwrite(String file) {
+				return ALL;
+			}
+		};
+		IPath rootPath = new Path(rootProjectFolder);
+		IPath projectPath = new Path(rootPath.lastSegment());
+		ImportOperation importOperation = new ImportOperation(projectPath, new File(rootProjectFolder),
+				FileSystemStructureProvider.INSTANCE, overwriteQuery);
+		importOperation.setCreateContainerStructure(false);
+		try {
+			importOperation.run(new NullProgressMonitor());
+		} catch (InvocationTargetException e) {
+			CorePlugin.logError("Unable to import existing project: " + rootProjectFolder, e);
+		} catch (InterruptedException e) {
+			CorePlugin.logError("Unable to import existing project: " + rootProjectFolder, e);
+		}
+		return true;
+	}
+    
     public static boolean importExistingProject(final String rootProjectFolder, final boolean copyIntoWorkspace) {
 		final ExternalProjectImportWizard importWizard = new ExternalProjectImportWizard();
 		
