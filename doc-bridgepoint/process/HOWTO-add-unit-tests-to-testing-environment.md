@@ -101,12 +101,12 @@ Adding a new test suite
   - You can now run or debug the new test suite in the UI  
 - Add the new test suite to the CLI  
   - Edit the pom.xml file located under the test project
-    - Locate the <artifactId>tycho-surefire-plugin</artifactId> entry
-    - Under this entry locate the includes entry
-    - Add a new include entry for the new test suite:
-    ```
+    - Locate the tycho-surefire-plugin entry  
+    - Under this entry locate the includes entry  
+    - Add a new include entry for the new test suite:  
+  ```
     <include>**/NewSuite.java</include> 
-    ```  
+  ```  
   - The suite will now be run along with the CLI build and test procedure  
   
 Adding a new test project  
@@ -125,8 +125,8 @@ Adding a new test project
 - Create a pom.xml file at the root of the project  
   - Right click on the new project in Project Explorer and choose New > File  
   - Enter pom.xml for the file name  
-  - Enter the required surefire configuration data:  
-  ```xml
+  - Enter the required surefire configuration data: 
+```
 <?xml version="1.0" encoding="UTF-8"?>
 <project
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
@@ -163,7 +163,7 @@ Adding a new test project
 - Modify the parent test pom file located here: org.xtuml.bp.releng.parent.tests/pom.xml. 
   - Add a new module entry point at the new project's pom file. 
     - Locate the modules entry and add a new module entry. 
-  ```xml
+  ```
   <module>../../src/org.xtuml.bp.project.test</module>
   ```  
 - Follow the above sections for adding tests and suites to the new project  
