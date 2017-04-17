@@ -36,7 +36,7 @@ model
 
 ### 6. Implementation Comments
 
-None
+6.1 Refreshed the xtUML meta model example model.
 
 ### 7. Unit Test
 
