@@ -1103,13 +1103,14 @@ throws IOException
         System.out.println( e );
     }
 
-    // get the body
-    String body = Ooaofooa.Get_formatted_body( inst.getModelRoot(), inst, false );
-
     // output activity (currently only for masl)
-    if ( !body.isEmpty() && dialect == Actiondialect_c.masl ) {
-        m_afh.get(dialect).print( body );
-        m_updateActions = true;
+    if ( dialect == Actiondialect_c.masl ) {
+    	// get the body
+    	String body = Ooaofooa.Get_formatted_body( inst.getModelRoot(), inst, false );
+    	if ( !body.isEmpty() ) {
+    		m_afh.get(dialect).print( body );
+        	m_updateActions = true;
+    	}
     }
 }
   .end for
