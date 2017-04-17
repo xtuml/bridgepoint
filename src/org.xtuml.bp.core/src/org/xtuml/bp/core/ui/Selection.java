@@ -64,6 +64,14 @@ public class Selection implements ISelectionProvider
     private ListenerList selectionChangedListeners = new ListenerList(3);
     
     /**
+     * For unit tests: If focus is lost due to user interaction during test
+     * ignore any selection changes received.  This allows a test expecting
+     * a certain selection to have a guarantee of that selection, the test
+     * must assure this is unset when complete.
+     */
+    public static boolean ignoreSelectionChanges = false;
+    
+    /**
      * See field.
      */
     public static Selection getInstance()
@@ -135,6 +143,9 @@ public class Selection implements ISelectionProvider
      */
     public void clear()
     {
+    	if(ignoreSelectionChanges) {
+    		return;
+    	}
         elements.clear();
         StructuredSelection empty = new StructuredSelection();
         fireSelectionChanged(new SelectionChangedEvent(this, empty));
@@ -165,6 +176,9 @@ public class Selection implements ISelectionProvider
     }
     
     public void setSelection(ISelection selection, boolean fireChange) {
+    	if(ignoreSelectionChanges) {
+    		return;
+    	}
     	selection = adaptSelection(selection);
     	// wipe out the previous selection
     	elements.clear();
@@ -184,6 +198,9 @@ public class Selection implements ISelectionProvider
     }
 
     public void addToSelection(Object element, boolean fireChange) {
+    	if(ignoreSelectionChanges) {
+    		return;
+    	}
     	if(!(element instanceof NonRootModelElement)) {
     		element = adaptElement(element);
     	}
@@ -202,6 +219,9 @@ public class Selection implements ISelectionProvider
     }
     
 	public void removeFromSelection(Object element, boolean fireChange) {
+    	if(ignoreSelectionChanges) {
+    		return;
+    	}
 		if(!(element instanceof NonRootModelElement))
 			element = adaptElement(element);
         // if the current selection does not include the given element,
