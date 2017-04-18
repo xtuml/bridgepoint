@@ -15,5 +15,5 @@
 <stringAttribute key="org.eclipse.cdt.launch.launchGroup.3.action" value="WAIT_FOR_TERMINATION"/>
 <stringAttribute key="org.eclipse.cdt.launch.launchGroup.3.enabled" value="true"/>
 <stringAttribute key="org.eclipse.cdt.launch.launchGroup.3.mode" value="default"/>
-<stringAttribute key="org.eclipse.cdt.launch.launchGroup.3.name" value="Text Test (OSX)"/>
+<stringAttribute key="org.eclipse.cdt.launch.launchGroup.3.name" value="UI Tests (OSX)"/>
 </launchConfiguration>

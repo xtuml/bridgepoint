@@ -259,7 +259,6 @@ public class ProjectUtilities {
     public static void allowJobCompletion() {
         while (ResourcesPlugin.getWorkspace().isTreeLocked())
             ;
-        final Display disp = PlatformUI.getWorkbench().getDisplay();
         while (!Job.getJobManager().isIdle()) {
         	Job.getJobManager().resume();  // Make sure the job manager is executing jobs if there are any in the queue
         	// do not wait for console input job as it never goes
@@ -274,15 +273,7 @@ public class ProjectUtilities {
         	if(!foundHighPriorityJob) {
         		break;
         	}
-        	final Display current = Display.getCurrent();
-
-            if ( current != null ) {
-                while (!disp.isDisposed() && !current.isDisposed()
-                       && disp.readAndDispatch())
-                    ;
-            } else {
-                UIUtil.dispatchAll();
-            }
+        	while(PlatformUI.getWorkbench().getDisplay().readAndDispatch());
         }
     }
 
