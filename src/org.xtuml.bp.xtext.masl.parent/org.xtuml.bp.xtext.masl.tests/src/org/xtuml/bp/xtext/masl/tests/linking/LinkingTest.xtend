@@ -29,10 +29,10 @@ class LinkingTest extends AbstractMaslModelTest {
 			begin
 				p := ^RED; // OK, implicit disambiguation, assigning to variable of type PrimaryColor
 				r := ^RED; // OK, implicit disambiguation, assigning to variable of type RainbowColor
-				p := PrimaryColour::^RED; // OK, explicit disambiguation
-				r := RainbowColour::^RED; // OK, explicit disambiguation
-				i := PrimaryColour::^RED'value; // OK - explicit disambiguation				
-				i := RainbowColour::^RED'value; // OK - explicit disambiguation
+				p := PrimaryColour.^RED; // OK, explicit disambiguation
+				r := RainbowColour.^RED; // OK, explicit disambiguation
+				i := PrimaryColour.^RED'value; // OK - explicit disambiguation				
+				i := RainbowColour.^RED'value; // OK - explicit disambiguation
 			end
 		''')
 		assertEnumTypeLinked('PrimaryColour', elements.get(0))

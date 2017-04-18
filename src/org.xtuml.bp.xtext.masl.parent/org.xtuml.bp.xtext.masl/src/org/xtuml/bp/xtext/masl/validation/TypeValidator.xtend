@@ -44,6 +44,8 @@ import static org.xtuml.bp.xtext.masl.typesystem.BuiltinType.*
 import static org.xtuml.bp.xtext.masl.validation.MaslIssueCodesProvider.*
 import org.xtuml.bp.xtext.masl.masl.structure.ObjectServiceDeclaration
 import org.xtuml.bp.xtext.masl.masl.structure.ObjectServiceDefinition
+import org.xtuml.bp.xtext.masl.typesystem.TypeOfType
+import org.xtuml.bp.xtext.masl.typesystem.EnumType
 
 class TypeValidator extends AbstractMASLValidator {
 	
@@ -68,7 +70,9 @@ class TypeValidator extends AbstractMASLValidator {
 		if(receiver != null && !receiver.eIsProxy) {
 			val primitiveType = receiver.maslType.primitiveType
 			switch primitiveType {
-				InstanceType, StructureType: {
+				InstanceType, 
+				StructureType,
+				TypeOfType case primitiveType.type instanceof EnumType: {
 					// noop
 				} 
 				default:	
