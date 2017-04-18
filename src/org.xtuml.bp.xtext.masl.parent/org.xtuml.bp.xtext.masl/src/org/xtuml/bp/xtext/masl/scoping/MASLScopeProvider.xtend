@@ -57,6 +57,9 @@ import org.xtuml.bp.xtext.masl.typesystem.TypeParameterResolver
 import static org.eclipse.xtext.scoping.Scopes.*
 
 import static extension org.eclipse.xtext.EcoreUtil2.*
+import org.xtuml.bp.xtext.masl.masl.types.StructureComponentDefinition
+import org.xtuml.bp.xtext.masl.masl.types.AbstractTypeDefinition
+import org.xtuml.bp.xtext.masl.masl.structure.DomainDefinition
 
 /**
  * This class contains custom scoping description.
@@ -215,6 +218,11 @@ class MASLScopeProvider extends AbstractMASLScopeProvider {
 					val type = parent.lhs.maslType
 					if (type instanceof EnumType) 
 						return scopeFor(type.enumType.enumerators, localFeatureScope)
+				}
+				StructureComponentDefinition case call == parent.defaultValue: {
+					val type = parent.type.maslType
+					if (type instanceof EnumType) 
+						return scopeFor(type.enumType.enumerators, localFeatureScope)
 				}			
 			}
 			return localFeatureScope
@@ -269,6 +277,8 @@ class MASLScopeProvider extends AbstractMASLScopeProvider {
 				return getSimpleFeatureScopeForObjectAction(expr.parameters, expr.object, parentScope)
 			AbstractActionDefinition:
 				return scopeFor(expr.parameters, parentScope)
+			DomainDefinition:
+				return parentScope
 		}
 		return parent.getLocalSimpleFeatureScope(parentScope, expr.eContainmentFeature == findExpression_Expression)
 	}
