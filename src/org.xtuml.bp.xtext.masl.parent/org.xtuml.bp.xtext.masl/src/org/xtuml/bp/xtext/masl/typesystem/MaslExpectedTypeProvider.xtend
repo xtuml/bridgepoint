@@ -102,11 +102,11 @@ class MaslExpectedTypeProvider {
 		val relationship = navigation.relationship
 		if(relationship instanceof SubtypeRelationshipDefinition) {
 			if (navigation.objectOrRole == null) 
-				return (relationship.subtypes + #[relationship.supertype]).map[maslType]  
+				return (relationship.subtypes + #[relationship.supertype]).allCollectionTypes
 			else if (navigation.objectOrRole == relationship.supertype)
-				return relationship.subtypes.map[maslType]
+				return relationship.subtypes.allCollectionTypes
 			else 
-				return #[relationship.supertype.maslType]
+				return #[relationship.supertype].allCollectionTypes
 		}
 		val endObjects = switch relationship {
 			RegularRelationshipDefinition:
@@ -127,7 +127,7 @@ class MaslExpectedTypeProvider {
 		return allCollectionTypes(endObjects)
 	}
 
-	private def Set<MaslType> allCollectionTypes(List<ObjectDeclaration> objectsToMultiply) {
+	private def Set<MaslType> allCollectionTypes(Iterable<ObjectDeclaration> objectsToMultiply) {
 		val result = <MaslType>newHashSet
 		for(o: objectsToMultiply) {
 			val type = o.maslType

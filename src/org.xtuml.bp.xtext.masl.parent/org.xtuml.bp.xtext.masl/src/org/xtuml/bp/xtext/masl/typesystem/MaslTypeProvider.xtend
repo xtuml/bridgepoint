@@ -372,10 +372,6 @@ class MaslTypeProvider {
 	}
 	
 	private def MaslType getMaslTypeOfRelationshipNavigation(RelationshipNavigation navigation) {
-		val relationship = navigation.relationship
-		if(relationship instanceof SubtypeRelationshipDefinition) {
-			return new InstanceType(navigation.referredObject, true)
-		}
 		val parent = navigation.eContainer
 		val from = switch parent {
 			NavigateExpression: parent.lhs
@@ -418,6 +414,8 @@ class MaslTypeProvider {
 				#[relationship.forwards, relationship.backwards]
 			AssocRelationshipDefinition:
 				#[relationship.forwards, relationship.backwards]
+			SubtypeRelationshipDefinition:
+				#[]
 			default: 
 				throw new UnsupportedOperationException('Cannot determine relationship ends of ' + relationship?.eClass?.name)
 		}
@@ -425,11 +423,15 @@ class MaslTypeProvider {
 		if(objectOrRole instanceof RelationshipEnd)
 			return objectOrRole.toRelatedObject(isAssociationObject)
 		if(objectOrRole instanceof ObjectDeclaration) {
-			if(relationship instanceof AssocRelationshipDefinition) {
-				if(relationship.object == objectOrRole) {
-					val relationEnd = ends.findFirst[from.maslType == receiverType]		
-					return new RelatedObject(objectOrRole, relationEnd.multiplicity, true)
-				}
+			switch relationship {
+				AssocRelationshipDefinition: 
+					if(relationship.object == objectOrRole) {
+						val relationEnd = ends.findFirst[from.maslType == receiverType]		
+						return new RelatedObject(objectOrRole, relationEnd.multiplicity, true)
+					}
+				SubtypeRelationshipDefinition: {
+					return new RelatedObject(objectOrRole, Multiplicity.ONE, false)
+				} 
 			}
 			return ends.findFirst[to == objectOrRole].toRelatedObject(isAssociationObject)
 		}
@@ -437,6 +439,13 @@ class MaslTypeProvider {
 			RegularRelationshipDefinition, 
 			AssocRelationshipDefinition: 
 				return ends.findFirst[from.maslType == receiverType].toRelatedObject(isAssociationObject)
+			SubtypeRelationshipDefinition: {
+				val superType = relationship.supertype.maslType
+				if(receiverType != superType) 
+					return new RelatedObject(relationship.supertype, Multiplicity.ONE, false)
+				else if(relationship.subtypes.size == 1)
+					return new RelatedObject(relationship.subtypes.head, Multiplicity.ONE, false)
+			}
 		}
 		throw new UnsupportedOperationException('Cannot determine relationship ends of ' + relationship?.eClass?.name)
 	}
