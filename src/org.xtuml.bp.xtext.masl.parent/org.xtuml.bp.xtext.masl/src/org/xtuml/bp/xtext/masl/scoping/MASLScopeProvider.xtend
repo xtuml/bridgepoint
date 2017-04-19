@@ -31,6 +31,7 @@ import org.xtuml.bp.xtext.masl.masl.structure.AbstractActionDefinition
 import org.xtuml.bp.xtext.masl.masl.structure.AssocRelationshipDefinition
 import org.xtuml.bp.xtext.masl.masl.structure.AttributeDefinition
 import org.xtuml.bp.xtext.masl.masl.structure.Characteristic
+import org.xtuml.bp.xtext.masl.masl.structure.DomainDefinition
 import org.xtuml.bp.xtext.masl.masl.structure.ObjectDeclaration
 import org.xtuml.bp.xtext.masl.masl.structure.ObjectDefinition
 import org.xtuml.bp.xtext.masl.masl.structure.ObjectServiceDefinition
@@ -44,6 +45,7 @@ import org.xtuml.bp.xtext.masl.masl.structure.SubtypeRelationshipDefinition
 import org.xtuml.bp.xtext.masl.masl.structure.TerminatorDefinition
 import org.xtuml.bp.xtext.masl.masl.structure.TransitionOption
 import org.xtuml.bp.xtext.masl.masl.structure.TransitionRow
+import org.xtuml.bp.xtext.masl.masl.types.StructureComponentDefinition
 import org.xtuml.bp.xtext.masl.typesystem.CollectionType
 import org.xtuml.bp.xtext.masl.typesystem.EnumType
 import org.xtuml.bp.xtext.masl.typesystem.InstanceType

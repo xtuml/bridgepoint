@@ -190,10 +190,14 @@ class MaslTypeProvider {
 				return feature.maslTypeOfFeature
 			IndexedExpression: {
 				val maslType = receiver.maslTypeOfExpression
-				if (maslType == STRING)
-					return ANONYMOUS_CHARACTER
-				else
-					return maslType.componentType
+				val componentType = if (maslType == STRING)
+						ANONYMOUS_CHARACTER
+					else
+						maslType.componentType
+				if(brackets.maslTypeOfExpression instanceof RangeType) 
+					return new SequenceType(componentType, true)
+				else 
+					return componentType
 			}
 			TerminatorActionCall:
 				return terminatorAction.maslTypeOfFeature

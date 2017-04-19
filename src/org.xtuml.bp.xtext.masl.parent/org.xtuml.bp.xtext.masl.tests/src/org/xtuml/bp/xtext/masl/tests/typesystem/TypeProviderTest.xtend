@@ -153,6 +153,18 @@ class TypeProviderTest extends AbstractMaslModelTest {
 		assertType('bag of integer(null)', 'bag of integer')
 	}
 	
+	@Test 
+	def void testStringIndex() {
+		assertType('"foo"[1..2]', 'anonymous sequence of anonymous character')
+		assertType('"foo"[1]', 'anonymous character')
+	}
+	
+	@Test 
+	def void testCollectionIndex() {
+		's[0]'.assertType('s: sequence of integer', 'integer')
+		's[0..1]'.assertType('s: sequence of integer', 'anonymous sequence of integer')
+	}
+	
 	protected def assertType(CharSequence expression, String expected) {
 		expression.assertType('', expected)
 	}
