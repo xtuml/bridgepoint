@@ -461,6 +461,7 @@ public class ProjectUtilities {
 		IPath projectPath = new Path(rootPath.lastSegment());
 		ImportOperation importOperation = new ImportOperation(projectPath, new File(rootProjectFolder),
 				FileSystemStructureProvider.INSTANCE, overwriteQuery);
+		importOperation.setContext(new Shell(PlatformUI.getWorkbench().getDisplay()));
 		importOperation.setCreateContainerStructure(false);
 		try {
 			importOperation.run(new NullProgressMonitor());
