@@ -61,6 +61,6 @@ fi
 LAUNCHER="$BPHOMEDIR/plugins/org.eclipse.equinox.launcher_1.3.100.v20150511-1540.jar"
 APPLICATION="org.xtuml.bp.cli.$1"
 
-$BPHOMEDIR/jre/bin/java  -d32 -Xms256m -Xmx1g -jar $LAUNCHER -clean -noSplash -product org.xtuml.bp.pkg.BridgePoint -data $WORKSPACE -application $APPLICATION $2 "$3" $4 "$5" $6 "$7" $8 "$9"
+$BPHOMEDIR/jre/bin/java -Xms256m -Xmx1g -jar $LAUNCHER -clean -noSplash -product org.xtuml.bp.pkg.BridgePoint -data $WORKSPACE -application $APPLICATION $2 "$3" $4 "$5" $6 "$7" $8 "$9"
 
 exit 0
