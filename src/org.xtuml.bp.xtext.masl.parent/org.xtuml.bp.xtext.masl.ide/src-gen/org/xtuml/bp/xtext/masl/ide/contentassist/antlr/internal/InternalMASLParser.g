@@ -31605,9 +31605,9 @@ rule__IntegerLiteral__ValueAssignment
 	}
 :
 	(
-		{ before(grammarAccess.getIntegerLiteralAccess().getValueINTTerminalRuleCall_0()); }
-		RULE_INT
-		{ after(grammarAccess.getIntegerLiteralAccess().getValueINTTerminalRuleCall_0()); }
+		{ before(grammarAccess.getIntegerLiteralAccess().getValueINTEGERTerminalRuleCall_0()); }
+		RULE_INTEGER
+		{ after(grammarAccess.getIntegerLiteralAccess().getValueINTEGERTerminalRuleCall_0()); }
 	)
 ;
 finally {

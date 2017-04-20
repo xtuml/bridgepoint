@@ -174,4 +174,6 @@ begin
     raise Standard::constraint_error;
   end if;
 
+  // any
+  p := ps'any;
 end;

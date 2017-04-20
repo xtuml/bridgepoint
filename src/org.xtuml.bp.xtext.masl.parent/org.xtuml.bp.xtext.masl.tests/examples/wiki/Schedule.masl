@@ -16,7 +16,7 @@ instance service dom::StatefulObject.foo() is
   someInstance : instance of SomeObject;
   stateful     : instance of StatefulObject;
   timer_delay : duration;
-  absolute_time : duration;
+  absolute_time : timestamp;
 begin
   schedule someInstance.timer1 generate an_event(3) to stateful delay timer_delay;
   schedule someInstance.timer2 generate another_event(42) to stateful at absolute_time;

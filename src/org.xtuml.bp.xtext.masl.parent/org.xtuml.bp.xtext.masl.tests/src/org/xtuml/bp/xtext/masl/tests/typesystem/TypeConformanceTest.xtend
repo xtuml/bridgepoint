@@ -23,7 +23,25 @@ class TypeConformanceTest extends AbstractMaslModelTest {
 				s_list := (1, "");
 			end;
 		''')
-		
+	}
+	
+	@Test
+	def void testIntegerAssignment() {
+		assertNoError('''
+			domain IntegerAssignment is
+			  public service test();
+			end domain;
+		''', '''
+			public service IntegerAssignment::test() is
+			  l : long_integer;
+			  i : integer;
+			  r : real;
+			begin
+			  l := 0;
+			  i := 0;
+			  r := 0;
+			end;
+		''')
 	}
 	
 	protected def void assertNoError(CharSequence modFile, CharSequence extFile) {

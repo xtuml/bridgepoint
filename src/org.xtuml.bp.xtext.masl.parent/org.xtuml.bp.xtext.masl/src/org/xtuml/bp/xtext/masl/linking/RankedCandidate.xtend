@@ -2,8 +2,10 @@ package org.xtuml.bp.xtext.masl.linking
 
 import com.google.inject.Inject
 import java.util.List
+import org.eclipse.emf.ecore.EObject
 import org.eclipse.xtend.lib.annotations.Data
 import org.xtuml.bp.xtext.masl.masl.structure.AbstractFeature
+import org.xtuml.bp.xtext.masl.masl.structure.AbstractService
 import org.xtuml.bp.xtext.masl.masl.structure.Parameterized
 import org.xtuml.bp.xtext.masl.masl.types.TypeDeclaration
 import org.xtuml.bp.xtext.masl.typesystem.MaslType
@@ -11,7 +13,6 @@ import org.xtuml.bp.xtext.masl.typesystem.MaslTypeConformanceComputer
 import org.xtuml.bp.xtext.masl.typesystem.MaslTypeProvider
 
 import static java.lang.Math.*
-import org.eclipse.emf.ecore.EObject
 
 @Data
 class RankedCandidate implements Comparable<RankedCandidate> {
@@ -55,21 +56,21 @@ class RankedCandidate implements Comparable<RankedCandidate> {
 		@Inject extension MaslTypeProvider
 		@Inject extension MaslTypeConformanceComputer
 	
-		def RankedCandidate rank(AbstractFeature feature, List<MaslType> argumentTypes) {
+		def RankedCandidate rank(AbstractFeature feature, List<MaslType> argumentTypes, boolean expectReturnType) {
 			switch feature {
 				TypeDeclaration:
-					if(argumentTypes.size === 1)
+					if(argumentTypes.size === 1 && !expectReturnType)
 						return new RankedCandidate(feature, EXACT_MATCH)
 					else 
 						return new RankedCandidate(feature, JUST_NAME_MATCH)
 				Parameterized:
-					return feature.rankParameterized(argumentTypes)
+					return feature.rankParameterized(argumentTypes, expectReturnType)
 				default:
 					return new RankedCandidate(feature, JUST_NAME_MATCH)
 			}
 		}
 		
-		def RankedCandidate rankParameterized(Parameterized elementToRank, List<MaslType> givenTypes) {
+		def RankedCandidate rankParameterized(Parameterized elementToRank, List<MaslType> givenTypes, boolean expectReturnType) {
 			val parameters = elementToRank.parameters
 			var numSameType = 0
 			var numAssignableType = 0
@@ -82,12 +83,14 @@ class RankedCandidate implements Comparable<RankedCandidate> {
 					numAssignableType++
 			}
 			if (givenTypes.size == parameters.size) {
-				if (numSameType == givenTypes.size)
-					return new RankedCandidate(elementToRank, EXACT_MATCH)
-				if (numSameType + numAssignableType == givenTypes.size)
-					return new RankedCandidate(elementToRank, ACCEPTABLE_MATCH + numSameType)
-				else
-					return new RankedCandidate(elementToRank, JUST_NUMBER_OF_ARGUMENTS_MATCH + numSameType * 1000 + numAssignableType)
+				val hasReturnType = elementToRank instanceof AbstractService && (elementToRank as AbstractService).returnType != null
+				if(expectReturnType === hasReturnType) {
+					if (numSameType == givenTypes.size)
+						return new RankedCandidate(elementToRank, EXACT_MATCH)
+					if (numSameType + numAssignableType == givenTypes.size)
+						return new RankedCandidate(elementToRank, ACCEPTABLE_MATCH + numSameType)
+				}
+				return new RankedCandidate(elementToRank, JUST_NUMBER_OF_ARGUMENTS_MATCH + numSameType * 1000 + numAssignableType)
 			} else {
 				return new RankedCandidate(elementToRank, JUST_TYPE_MATCH + numSameType * 1000 + numAssignableType)
 			}

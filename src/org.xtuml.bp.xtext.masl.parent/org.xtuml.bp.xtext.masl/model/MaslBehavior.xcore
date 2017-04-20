@@ -204,11 +204,11 @@ class SimpleFeatureCall extends Expression , FeatureCall {
 }
 
 class RealLiteral extends Expression {
-	double value
+	String value
 }
 
 class IntegerLiteral extends Expression {
-	int value
+	String value
 }
 
 class StringLiteral extends Expression {

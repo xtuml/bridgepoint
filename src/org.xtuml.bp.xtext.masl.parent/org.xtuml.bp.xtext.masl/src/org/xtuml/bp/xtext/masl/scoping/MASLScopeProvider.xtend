@@ -31,6 +31,7 @@ import org.xtuml.bp.xtext.masl.masl.structure.AbstractActionDefinition
 import org.xtuml.bp.xtext.masl.masl.structure.AssocRelationshipDefinition
 import org.xtuml.bp.xtext.masl.masl.structure.AttributeDefinition
 import org.xtuml.bp.xtext.masl.masl.structure.Characteristic
+import org.xtuml.bp.xtext.masl.masl.structure.DomainDefinition
 import org.xtuml.bp.xtext.masl.masl.structure.ObjectDeclaration
 import org.xtuml.bp.xtext.masl.masl.structure.ObjectDefinition
 import org.xtuml.bp.xtext.masl.masl.structure.ObjectServiceDefinition
@@ -44,6 +45,7 @@ import org.xtuml.bp.xtext.masl.masl.structure.SubtypeRelationshipDefinition
 import org.xtuml.bp.xtext.masl.masl.structure.TerminatorDefinition
 import org.xtuml.bp.xtext.masl.masl.structure.TransitionOption
 import org.xtuml.bp.xtext.masl.masl.structure.TransitionRow
+import org.xtuml.bp.xtext.masl.masl.types.StructureComponentDefinition
 import org.xtuml.bp.xtext.masl.typesystem.CollectionType
 import org.xtuml.bp.xtext.masl.typesystem.EnumType
 import org.xtuml.bp.xtext.masl.typesystem.InstanceType
@@ -57,6 +59,7 @@ import org.xtuml.bp.xtext.masl.typesystem.TypeParameterResolver
 import static org.eclipse.xtext.scoping.Scopes.*
 
 import static extension org.eclipse.xtext.EcoreUtil2.*
+import org.xtuml.bp.xtext.masl.masl.behavior.Expression
 
 /**
  * This class contains custom scoping description.
@@ -198,7 +201,7 @@ class MASLScopeProvider extends AbstractMASLScopeProvider {
 	
 	private def dispatch IScope getFeatureScope(SimpleFeatureCall call) {
 		if(call.receiver == null) {
-			val localFeatureScope = call.getLocalSimpleFeatureScope(delegate.getScope(call, featureCall_Feature), false) 
+			val localFeatureScope = call.getLocalSimpleFeatureScope(delegate.getScope(call, featureCall_Feature), null) 
 			val parent = call.eContainer
 			switch parent {
 				AttributeDefinition case call == parent.defaultValue: {
@@ -213,6 +216,11 @@ class MASLScopeProvider extends AbstractMASLScopeProvider {
 				}
 				AssignStatement case call == parent.rhs: {
 					val type = parent.lhs.maslType
+					if (type instanceof EnumType) 
+						return scopeFor(type.enumType.enumerators, localFeatureScope)
+				}
+				StructureComponentDefinition case call == parent.defaultValue: {
+					val type = parent.type.maslType
 					if (type instanceof EnumType) 
 						return scopeFor(type.enumType.enumerators, localFeatureScope)
 				}			
@@ -233,46 +241,64 @@ class MASLScopeProvider extends AbstractMASLScopeProvider {
 				if (innerType instanceof StructureType)
 					return scopeFor(innerType.structureType.components)
 			}
+			TypeOfType: {
+				if(type.type instanceof EnumType)
+					return scopeFor((type.type as EnumType).enumType.enumerators)
+			} 
 			default:
 				return IScope.NULLSCOPE
 		}
 	}
 
-	private def IScope getLocalSimpleFeatureScope(EObject expr, IScope parentScope, boolean isFindExpression_Expression) {
+	private def IScope getLocalSimpleFeatureScope(EObject expr, IScope parentScope, EReference containmentFeature) {
 		if(expr == null)
 			return IScope.NULLSCOPE
 		val parent = expr.eContainer
 		switch expr {
-			FindExpression: {
-				if(!isFindExpression_Expression) {
-					val maslType = expr.expression.maslType
-					val instance = 
-						switch maslType {
-							InstanceType: 
-								 maslType.instance
-							CollectionType case maslType.componentType instanceof InstanceType:
-								(maslType.componentType as InstanceType).instance
-							default:
-								null							
-						}
-					if (instance != null)
-						return instance.createObjectScope([attributes + services], parent.getLocalSimpleFeatureScope(parentScope, false))
-				}
+			FindExpression case containmentFeature == findExpression_Where: {
+				val whereScope = getWhereScope(expr.expression, parentScope)
+				if(whereScope != null)
+					return whereScope
+			}
+			NavigateExpression case containmentFeature == navigateExpression_Where: {
+				val whereScope = getWhereScope(expr, parentScope)
+				if(whereScope != null)
+					return whereScope
 			}
 			CodeBlock:
-				return scopeFor(expr.variables, parent.getLocalSimpleFeatureScope(parentScope, false))
+				return scopeFor(expr.variables, parent.getLocalSimpleFeatureScope(parentScope, expr.eContainmentFeature))
 			ForStatement:
-				return scopeFor(#[expr.variable], parent.getLocalSimpleFeatureScope(parentScope, false))
+				return scopeFor(#[expr.variable], parent.getLocalSimpleFeatureScope(parentScope, expr.eContainmentFeature))
 			ObjectServiceDefinition:
 				return getSimpleFeatureScopeForObjectAction(expr.parameters, expr.getObject, parentScope)
 			StateDefinition:
 				return getSimpleFeatureScopeForObjectAction(expr.parameters, expr.object, parentScope)
 			AbstractActionDefinition:
 				return scopeFor(expr.parameters, parentScope)
+			DomainDefinition:
+				return parentScope
 		}
-		return parent.getLocalSimpleFeatureScope(parentScope, expr.eContainmentFeature == findExpression_Expression)
+		return parent.getLocalSimpleFeatureScope(parentScope, expr.eContainmentFeature)
 	}
 	
+	
+	private def getWhereScope(Expression expression, IScope parentScope) {
+		val maslType = expression.maslType
+		val instance = 
+			switch maslType {
+				InstanceType: 
+					 maslType.instance
+				CollectionType case maslType.componentType instanceof InstanceType:
+					(maslType.componentType as InstanceType).instance
+				default:
+					null							
+			}
+		if (instance != null)
+			return instance.createObjectScope([attributes + services], expression.eContainer.getLocalSimpleFeatureScope(parentScope, expression.eContainmentFeature))
+		else 
+			return null
+	}
+
 	private def getSimpleFeatureScopeForObjectAction(List<Parameter> parameters, ObjectDeclaration context, IScope parentScope) {
 		scopeFor(parameters, context.createObjectScope([attributes  + services], parentScope))
 	}

@@ -51,11 +51,11 @@ class LexerTest {
 	
 	@Test
 	def void testINT() {
-		"0".assertTokenTypes('RULE_INT')
-		"01".assertTokenTypes('RULE_INT')
-		"2#11111".assertTokenTypes('RULE_INT')
-		"16#abcde".assertTokenTypes('RULE_INT')
-		"36#Zz00aA".assertTokenTypes('RULE_INT')
+		"0".assertTokenTypes('RULE_INTEGER')
+		"01".assertTokenTypes('RULE_INTEGER')
+		"2#11111".assertTokenTypes('RULE_INTEGER')
+		"16#abcde".assertTokenTypes('RULE_INTEGER')
+		"36#Zz00aA".assertTokenTypes('RULE_INTEGER')
 	}
 	
 	@Test
@@ -101,7 +101,7 @@ class LexerTest {
 
 	@Test
 	def void testIntRange() {
-		'1..2'.assertTokenTypes('RULE_INT', "'..'", 'RULE_INT')
+		'1..2'.assertTokenTypes('RULE_INTEGER', "'..'", 'RULE_INTEGER')
 	}
 
 	protected def assertTokenTypes(CharSequence model, String... tokenTypes) {
