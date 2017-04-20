@@ -58,7 +58,7 @@ domain SOA is
 end domain;
 
 domain Test is
-	function check_equal(p0: in string, p1: in integer, p2: in integer, p3: in integer) return boolean;
+	function check_equal(p0: in string, p1: in integer, p2: in integer, p3: in integer);
 	function check_size(po: in string, p1: in integer, p2: in sequence of instance of SAC::_TEST_Operator_report_user, p3: in integer) return boolean;
 	function check_size(po: in string, p1: in integer, p2: in sequence of instance of SAC::_TEST_Operator_report_user_operation, p3: in integer) return boolean;
 	function check_size(po: in string, p1: in integer, p2: in sequence of instance of SAC::_TEST_Operator_report_user_session, p3: in integer) return boolean;

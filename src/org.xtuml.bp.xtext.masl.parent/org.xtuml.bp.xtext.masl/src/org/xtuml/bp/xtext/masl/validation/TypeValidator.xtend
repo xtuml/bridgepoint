@@ -104,10 +104,10 @@ class TypeValidator extends AbstractMASLValidator {
 									arguments.map[maslType.toString].join(', ')
 								»)''', it, actionCall_Receiver, WRONG_NUMBER_OF_ARGUMENTS)
 						else if(isStatement && parameterized.hasReturnType) 
-							addIssue('''Returned value of «
+							addIssue('''Cannot call function «
 								parameterized.fullyQualifiedName»«parameterized.parametersAsString
-								» is ignored.''',
-								it, actionCall_Receiver, IGNORED_RETURN_VALUE)
+								» with return value in statement context.''',
+								it, actionCall_Receiver, FUNCTION_CALLED_AS_SERVICE)
 					} else if(receiver.feature instanceof TypeDeclaration) {
 						if(arguments.size != 1) 
 							addIssue('Type cast must have exactly one argument', it, actionCall_Receiver, WRONG_NUMBER_OF_ARGUMENTS)
