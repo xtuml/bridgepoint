@@ -21,6 +21,8 @@ import org.xtuml.bp.xtext.masl.masl.behavior.StatementList
 import org.xtuml.bp.xtext.masl.masl.behavior.TerminatorActionCall
 import org.xtuml.bp.xtext.masl.masl.structure.AbstractActionDeclaration
 import org.xtuml.bp.xtext.masl.masl.structure.AssocRelationshipDefinition
+import org.xtuml.bp.xtext.masl.masl.structure.ObjectServiceDeclaration
+import org.xtuml.bp.xtext.masl.masl.structure.ObjectServiceDefinition
 import org.xtuml.bp.xtext.masl.masl.structure.Parameterized
 import org.xtuml.bp.xtext.masl.masl.structure.StructurePackage
 import org.xtuml.bp.xtext.masl.masl.structure.TerminatorDefinition
@@ -33,19 +35,17 @@ import org.xtuml.bp.xtext.masl.masl.types.UnconstrainedArrayDefinition
 import org.xtuml.bp.xtext.masl.scoping.ProjectScopeIndexProvider
 import org.xtuml.bp.xtext.masl.typesystem.BuiltinType
 import org.xtuml.bp.xtext.masl.typesystem.CollectionType
+import org.xtuml.bp.xtext.masl.typesystem.EnumType
 import org.xtuml.bp.xtext.masl.typesystem.InstanceType
 import org.xtuml.bp.xtext.masl.typesystem.MaslExpectedTypeProvider
 import org.xtuml.bp.xtext.masl.typesystem.MaslType
 import org.xtuml.bp.xtext.masl.typesystem.MaslTypeConformanceComputer
 import org.xtuml.bp.xtext.masl.typesystem.MaslTypeProvider
 import org.xtuml.bp.xtext.masl.typesystem.StructureType
+import org.xtuml.bp.xtext.masl.typesystem.TypeOfType
 
 import static org.xtuml.bp.xtext.masl.typesystem.BuiltinType.*
 import static org.xtuml.bp.xtext.masl.validation.MaslIssueCodesProvider.*
-import org.xtuml.bp.xtext.masl.masl.structure.ObjectServiceDeclaration
-import org.xtuml.bp.xtext.masl.masl.structure.ObjectServiceDefinition
-import org.xtuml.bp.xtext.masl.typesystem.TypeOfType
-import org.xtuml.bp.xtext.masl.typesystem.EnumType
 
 class TypeValidator extends AbstractMASLValidator {
 	
@@ -96,12 +96,18 @@ class TypeValidator extends AbstractMASLValidator {
 					if(receiver.feature.isAction) {
 						val parameterized = receiver.feature as Parameterized
 						val expectedNumParameters = (parameterized).parameters.size
+						val isStatement = eContainmentFeature.EType === abstractStatement
 						if(expectedNumParameters != arguments.size) 
 							addIssue('''The action «
 								parameterized.fullyQualifiedName»«parameterized.parametersAsString
 								» cannot be called with arguments («
 									arguments.map[maslType.toString].join(', ')
 								»)''', it, actionCall_Receiver, WRONG_NUMBER_OF_ARGUMENTS)
+						else if(isStatement && parameterized.hasReturnType) 
+							addIssue('''Returned value of «
+								parameterized.fullyQualifiedName»«parameterized.parametersAsString
+								» is ignored.''',
+								it, actionCall_Receiver, IGNORED_RETURN_VALUE)
 					} else if(receiver.feature instanceof TypeDeclaration) {
 						if(arguments.size != 1) 
 							addIssue('Type cast must have exactly one argument', it, actionCall_Receiver, WRONG_NUMBER_OF_ARGUMENTS)
@@ -132,7 +138,7 @@ class TypeValidator extends AbstractMASLValidator {
 	@Check 
 	def checkGenerateStatement(GenerateStatement it) {
 		val argTypes = arguments.map[maslType]
-		val ranked = rankParameterized(event, argTypes)
+		val ranked = rankParameterized(event, argTypes, false)
 		if(!ranked.acceptable) 
 			addIssue('''The event «
 				event.fullyQualifiedName»«event.parametersAsString
@@ -211,7 +217,7 @@ class TypeValidator extends AbstractMASLValidator {
 			val allDeclarations = definition
 							.getDeclarations(declarationClass, definition.index)
 							.filter(Parameterized)
-							.map[rankParameterized(defTypes)]
+							.map[rankParameterized(defTypes, hasReturnType)]
 			if(allDeclarations.empty) 
 				return
 			val bestMatch = allDeclarations.maxBy[score]

@@ -50,6 +50,7 @@ class MaslValidationConfigurationBlock extends AbstractValidatorConfigurationBlo
 		addComboBox(DECLARATION_MISSMATCH, 'Declaration type mismatch', composite, defaultIndent)
 		addComboBox(CYCLIC_INHERITANCE, 'Cyclic inheritance', composite, defaultIndent)
 		addComboBox(WRONG_TYPE, 'Incompatible types', composite, defaultIndent)
+		addComboBox(IGNORED_RETURN_VALUE, 'Ignored return values', composite, defaultIndent)
 		addComboBox(INVALID_FEATURE_CALL, 'Invalid feature calls', composite, defaultIndent)
 		addComboBox(INVISIBLE_FEATURE, 'Visibility problems', composite, defaultIndent)
 		addComboBox(INVALID_ACTION_CALL, 'Invalid action calls', composite, defaultIndent)

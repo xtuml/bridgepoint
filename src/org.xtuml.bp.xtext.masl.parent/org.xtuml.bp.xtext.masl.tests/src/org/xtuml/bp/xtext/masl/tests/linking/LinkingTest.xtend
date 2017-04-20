@@ -7,10 +7,12 @@ import com.google.inject.Inject
 import static org.junit.Assert.*
 import org.eclipse.emf.ecore.EObject
 import org.xtuml.bp.xtext.masl.masl.behavior.SimpleFeatureCall
+import org.xtuml.bp.xtext.masl.MASLExtensions
 
 class LinkingTest extends AbstractMaslModelTest {
 	
 	@Inject extension IQualifiedNameProvider
+	@Inject extension MASLExtensions
 	
 	@Test
 	def void testAmgibuousEnumLiterals() {
@@ -46,5 +48,24 @@ class LinkingTest extends AbstractMaslModelTest {
 	protected def assertEnumTypeLinked(String enumerationTypeName, EObject element) {
 		assertTrue(element instanceof SimpleFeatureCall)
 		assertEquals(enumerationTypeName, (element as SimpleFeatureCall).feature.fullyQualifiedName.getSegment(1))
+	}
+	
+	@Test
+	def void testServiceFunctionLinking() {
+		val elements = getElementsAtCarets('dom.masl' -> '''
+			domain test is
+				service foo();
+				service foo() return boolean;
+			end
+			
+			service test::foo() is
+				b: boolean;
+			begin 
+				^foo();
+				b := ^foo();
+			end;
+		''').filter(SimpleFeatureCall)
+		assertFalse(elements.head().feature.hasReturnType)
+		assertTrue(elements.last().feature.hasReturnType)
 	}
 }
