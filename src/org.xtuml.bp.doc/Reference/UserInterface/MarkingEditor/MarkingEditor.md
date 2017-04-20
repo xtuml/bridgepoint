@@ -144,28 +144,28 @@ a human-readable text file.  This file maps the unique path to the application m
 instance with the feature/value pair set by the user.  An example for the Microwave Oven
 project is provided in Figure 6.      
 ```
-components::MicrowaveOven::Microwave Oven::Turntable,id,2
-components::MicrowaveOven::Microwave Oven::Turntable,soa_remote,"aj", 0,    "keith", 2
-components::MicrowaveOven::Microwave Oven::Turntable,bar,doit
-components::MicrowaveOven::Microwave Oven::Turntable,baz,ajb
-components::MicrowaveOven::Microwave Oven::Door,id,1
-components::MicrowaveOven::Microwave Oven::Door,bar,ddd
-components::MicrowaveOven::Microwave Oven::Door,baz,"yepperdo"
-components::MicrowaveOven::Microwave Oven::Door,soa_remote,""
-components::MicrowaveOven,id,9
-components::MicrowaveOven,foo,fooval
-components::MicrowaveOven::Microwave Oven::Magnetron Tube,soa_remote,""
-components::MicrowaveOven::Microwave Oven::Magnetron Tube,baz,"999"
-components::MicrowaveOven::Microwave Oven::Magnetron Tube,bar,ddd
-components::MicrowaveOven::Microwave Oven::Internal Light,id,4
-components::MicrowaveOven::Microwave Oven::Oven,id,33
-components::MicrowaveOven::Microwave Oven::Oven,bar,barov
+components::MicrowaveOven::Microwave Oven::Turntable,id,Model Class,2
+components::MicrowaveOven::Microwave Oven::Turntable,soa_remote,Model Class,"aj", 0,    "keith", 2
+components::MicrowaveOven::Microwave Oven::Turntable,bar,Model Class,doit
+components::MicrowaveOven::Microwave Oven::Turntable,baz,Model Class,ajb
+components::MicrowaveOven::Microwave Oven::Door,id,Model Class,1
+components::MicrowaveOven::Microwave Oven::Door,bar,Model Class,ddd
+components::MicrowaveOven::Microwave Oven::Door,baz,Model Class,"yepperdo"
+components::MicrowaveOven::Microwave Oven::Door,soa_remote,Model Class,""
+components::MicrowaveOven,id,Component,9
+components::MicrowaveOven,foo,Component,fooval
+components::MicrowaveOven::Microwave Oven::Magnetron Tube,soa_remote,Model Class,""
+components::MicrowaveOven::Microwave Oven::Magnetron Tube,baz,Model Class,"999"
+components::MicrowaveOven::Microwave Oven::Magnetron Tube,bar,Model Class,ddd
+components::MicrowaveOven::Microwave Oven::Internal Light,id,Model Class,4
+components::MicrowaveOven::Microwave Oven::Oven,id,Model Class,33
+components::MicrowaveOven::Microwave Oven::Oven,bar,Model Class,barov
 ```   
 __Figure 6__  
   
-The file contains triples (3-tuples), one per line (Figure 7).  
+The file contains four columns, one per line (Figure 7).  
 ```
-<model instance path>,<feature name>,<value>
+<model instance path>,<feature name>,<xtUML element type>,<value>
 ```   
 __Figure 7__  
 
@@ -186,7 +186,7 @@ the same path entries are persisted back out in the order in which they were rea
 in.  Thus, if a user were to edit the file with a text editor and add a new line 
 at the end as in Figure 8:
 ```
-components::MicrowaveOven::Microwave Oven::Internal Light,soa_remote,""
+components::MicrowaveOven::Microwave Oven::Internal Light,soa_remote,Model Class,""
 ```
 __Figure 8__  
   
@@ -194,10 +194,10 @@ __Figure 8__
 then when the file is written out, the value is moved up (Figure 9):  
 ```
 ...
-components::MicrowaveOven::Microwave Oven::Magnetron Tube,bar,ddd
-components::MicrowaveOven::Microwave Oven::Internal Light,id,4
-components::MicrowaveOven::Microwave Oven::Internal Light,soa_remote,""
-components::MicrowaveOven::Microwave Oven::Oven,id,33
+components::MicrowaveOven::Microwave Oven::Magnetron Tube,bar,Model Class,ddd
+components::MicrowaveOven::Microwave Oven::Internal Light,id,Model Class,4
+components::MicrowaveOven::Microwave Oven::Internal Light,soa_remote,Model Class,""
+components::MicrowaveOven::Microwave Oven::Oven,id,Model Class,33
 ...
 ```   
 __Figure 9__  
@@ -207,11 +207,11 @@ path.  Therefore, if the user uses the marking editor to set value "1000" to the
 ```baz``` feature and change ```id``` to 5, the output will be as in Figure 10:  
 ```
 ...
-components::MicrowaveOven::Microwave Oven::Magnetron Tube,bar,ddd
-components::MicrowaveOven::Microwave Oven::Internal Light,id,5
-components::MicrowaveOven::Microwave Oven::Internal Light,soa_remote,""
-components::MicrowaveOven::Microwave Oven::Internal Light,baz,"1000"
-components::MicrowaveOven::Microwave Oven::Oven,id,33
+components::MicrowaveOven::Microwave Oven::Magnetron Tube,bar,Model Class,ddd
+components::MicrowaveOven::Microwave Oven::Internal Light,id,Model Class,5
+components::MicrowaveOven::Microwave Oven::Internal Light,soa_remote,Model Class,""
+components::MicrowaveOven::Microwave Oven::Internal Light,baz,Model Class,"1000"
+components::MicrowaveOven::Microwave Oven::Oven,id,Model Class,33
 ...
 ```  
 __Figure 10__  

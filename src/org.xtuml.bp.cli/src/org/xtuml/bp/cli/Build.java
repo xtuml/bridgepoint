@@ -81,6 +81,10 @@ public class Build implements IApplication {
                         "-debugCLI",
                         false,
                         "Launch a workbench and leave it open after executing the command."), 
+                new CommandLineOption(
+                        "-workspacePreferences",
+                        "",
+                        "Worskpace preferences to set before import."),
                 new CommandLineOption("-help", false, "Display usage information.")
 
         };

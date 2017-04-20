@@ -74,6 +74,10 @@ public class Merge implements IApplication {
                         "-disableIntegrityChecks",
                         false,
                         "Disable automatic integrity checking after a merge has completed."),
+                new CommandLineOption(
+                        "-workspacePreferences",
+                        "",
+                        "Worskpace preferences to set before import."),
                 new CommandLineOption("-help", false, "Display usage information.")
 
         };

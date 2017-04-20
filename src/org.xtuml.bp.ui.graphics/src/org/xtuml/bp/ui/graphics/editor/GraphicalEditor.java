@@ -1369,6 +1369,14 @@ public class GraphicalEditor extends GraphicalEditorWithFlyoutPalette implements
 	}
 
 	public void refresh() {
+		// in case a refresh occurs where we may have changed
+		// our Model_c instance like a file refresh update are
+		// cache here
+		Model_c inmemoryModel = (Model_c) Ooaofgraphics.getDefaultInstance().getInstanceList(Model_c.class)
+				.get(getModel().getDiagramid());
+		if(inmemoryModel != null && inmemoryModel != getModel()) {
+			setModel(inmemoryModel);
+		}
 		// this refresh will update contents, but
 		// not visually refresh children
 		if (getGraphicalViewer() != null

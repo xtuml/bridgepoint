@@ -43,6 +43,10 @@ public class Launch implements IApplication {
     public CommandLineOption[] getCommandLineOptions() {
         CommandLineOption[] cmdLineOptions = new CommandLineOption[] {
             new CommandLineOption("-port", "", "Local port to connect to."),
+            new CommandLineOption(
+                    "-workspacePreferences",
+                    "",
+                    "Worskpace preferences to set before import."),
             new CommandLineOption("-help", false, "Display usage information.")
         };
         return cmdLineOptions;

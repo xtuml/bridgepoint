@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="bp.model.compare" default="all" basedir=".">
 
-  <import file="../MC-Java/common.xml"/>
-	
+  <import file="${mcj_path}/common.xml"/>
+   
   <target name="all"
           description="Generate Compare tree"
           depends="java">
@@ -24,7 +24,7 @@
        <srcfiles dir = "../org.xtuml.bp.core/sql" includes = "ooaofooa.sql" />
         <srcfiles dir = "../org.xtuml.bp.ui.canvas/sql/" includes = "ooaofgraphics_hierarchy_schema.sql,ooaofgraphics_hierarchy.pei.sql" />
         <srcfiles dir = "../org.xtuml.bp.ui.canvas/sql" includes = "ooaofgraphics.sql" />
-    	<srcfiles dir = "arc"        includes = "BuildCompTree.arc, create_properties_file.inc, create_util_class.inc" />
+      <srcfiles dir = "arc"        includes = "BuildCompTree.arc, create_properties_file.inc, create_util_class.inc" />
        <srcfiles dir = "${mcj_path}" includes = "ooa_schema.sql,arch_names.inc"/>
     </uptodate>
   </target>
@@ -37,7 +37,7 @@
     <delete file="CompareTree.gen" />
     <exec vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
         <env key="PTC_MC_ARC_DIR" value="${mcj_path}"/>
-    	<env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
+      <env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
     <arg line="xtumlmc_gen_erate -nopersist
       -import ${mcj_path}/ooa_schema.sql
       -import ../org.xtuml.bp.core/sql/ooaofooa_hierarchy_schema.sql

@@ -26,9 +26,12 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.RandomAccessFile;
+import java.io.Reader;
+import java.io.StringReader;
 import java.nio.channels.FileLock;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
@@ -41,6 +44,8 @@ import org.eclipse.debug.core.ILaunchListener;
 import org.eclipse.debug.core.model.IProcess;
 import org.eclipse.debug.core.model.IStreamsProxy;
 import org.eclipse.jface.dialogs.ErrorDialog;
+import org.eclipse.jface.preference.IPersistentPreferenceStore;
+import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Display;
@@ -50,7 +55,9 @@ import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.application.IWorkbenchWindowConfigurer;
 import org.eclipse.ui.application.WorkbenchAdvisor;
-
+import org.xtuml.bp.core.CorePlugin;
+import org.xtuml.bp.core.common.BridgePointPreferencesModel;
+import org.xtuml.bp.core.common.BridgePointPreferencesStore;
 import org.xtuml.bp.core.util.CoreUtil;
 import org.xtuml.bp.core.util.WorkspaceUtil;
 
@@ -198,6 +205,12 @@ abstract public class BPCLIWorkbenchAdvisor extends WorkbenchAdvisor {
 	@Override
 	public void postStartup() {
 		verifyWorkspaceIsNotLocked();
+		// set workspace preferences
+		try {
+            setWorkspacePreferences();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 		// catch all console output
 		DebugPlugin.getDefault().getLaunchManager().addLaunchListener(
 				new ILaunchListener() {
@@ -312,6 +325,46 @@ abstract public class BPCLIWorkbenchAdvisor extends WorkbenchAdvisor {
                 PlatformUI.getWorkbench().close();
             }
         });
+	}
+	
+	private void setWorkspacePreferences() throws IOException {
+	    // set workspace preferences
+        if (!"".equals(cmdLine.getStringValue("-workspacePreferences"))) {
+            // get preference string from command line
+            String prefString = cmdLine.getStringValue("-workspacePreferences");
+            Reader prefReader = new StringReader( prefString.replaceAll(",", "\n").replaceAll("=", " "));
+            Properties prefProps = new Properties();
+            prefProps.load(prefReader);
+            
+            // get BridgePoint preferences
+            IPreferenceStore bpPrefs = CorePlugin.getDefault().getPreferenceStore();
+            
+            // set preferences
+            for ( String prop : prefProps.stringPropertyNames() ) {
+                if ( bpPrefs.contains(prop) ) {
+                    // divine the type of the property (int, boolean, or string)
+                    String propValue = prefProps.getProperty(prop);
+                    try {
+                        int value = Integer.parseInt(propValue);
+                        bpPrefs.setValue(prop, value);
+                    }
+                    catch ( NumberFormatException e ) {
+                        if ( "true".equals(propValue.toLowerCase()) || "false".equals(propValue.toLowerCase()) ) {
+                            boolean value = Boolean.parseBoolean(propValue);
+                            bpPrefs.setValue(prop, value);
+                        }
+                        else {
+                            bpPrefs.setValue(prop, propValue);
+                        }
+                    }
+                }
+            }
+            
+            // save the preferences
+            if ( bpPrefs instanceof IPersistentPreferenceStore ) {
+                ((IPersistentPreferenceStore) bpPrefs).save();
+            }
+        }
 	}
 }
 
