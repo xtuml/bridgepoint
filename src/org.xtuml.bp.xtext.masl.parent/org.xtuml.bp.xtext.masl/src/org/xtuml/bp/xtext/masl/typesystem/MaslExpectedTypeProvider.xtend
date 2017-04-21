@@ -28,6 +28,8 @@ import static org.xtuml.bp.xtext.masl.typesystem.BuiltinType.*
 
 import static extension org.eclipse.xtext.EcoreUtil2.*
 import org.xtuml.bp.xtext.masl.masl.structure.AbstractService
+import org.xtuml.bp.xtext.masl.masl.behavior.ScheduleStatement
+import static org.xtuml.bp.xtext.masl.masl.behavior.ScheduleType.*
 
 class MaslExpectedTypeProvider {
 
@@ -76,9 +78,12 @@ class MaslExpectedTypeProvider {
 		if(reference == scheduleStatement_TimerId 
 			||reference == cancelTimerStatement_TimerId)
 			return #[TIMER]
-		if(reference == scheduleStatement_Time) 
-			return #[DURATION]
-		
+		if(reference == scheduleStatement_Time && context instanceof ScheduleStatement) {
+			switch (context as ScheduleStatement).type {
+				case AT: return #[TIMESTAMP]
+				case DELAY: return #[DURATION] 
+			}
+		}
 		return #[]
 	}
 
@@ -102,11 +107,11 @@ class MaslExpectedTypeProvider {
 		val relationship = navigation.relationship
 		if(relationship instanceof SubtypeRelationshipDefinition) {
 			if (navigation.objectOrRole == null) 
-				return (relationship.subtypes + #[relationship.supertype]).map[maslType]  
+				return (relationship.subtypes + #[relationship.supertype]).allCollectionTypes
 			else if (navigation.objectOrRole == relationship.supertype)
-				return relationship.subtypes.map[maslType]
+				return relationship.subtypes.allCollectionTypes
 			else 
-				return #[relationship.supertype.maslType]
+				return #[relationship.supertype].allCollectionTypes
 		}
 		val endObjects = switch relationship {
 			RegularRelationshipDefinition:
@@ -127,7 +132,7 @@ class MaslExpectedTypeProvider {
 		return allCollectionTypes(endObjects)
 	}
 
-	private def Set<MaslType> allCollectionTypes(List<ObjectDeclaration> objectsToMultiply) {
+	private def Set<MaslType> allCollectionTypes(Iterable<ObjectDeclaration> objectsToMultiply) {
 		val result = <MaslType>newHashSet
 		for(o: objectsToMultiply) {
 			val type = o.maslType

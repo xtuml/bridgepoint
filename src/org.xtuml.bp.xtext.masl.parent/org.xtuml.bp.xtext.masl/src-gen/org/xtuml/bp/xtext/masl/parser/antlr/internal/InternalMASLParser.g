@@ -11398,9 +11398,9 @@ ruleIntegerLiteral returns [EObject current=null]
 }:
 	(
 		(
-			lv_value_0_0=RULE_INT
+			lv_value_0_0=RULE_INTEGER
 			{
-				newLeafNode(lv_value_0_0, grammarAccess.getIntegerLiteralAccess().getValueINTTerminalRuleCall_0());
+				newLeafNode(lv_value_0_0, grammarAccess.getIntegerLiteralAccess().getValueINTEGERTerminalRuleCall_0());
 			}
 			{
 				if ($current==null) {
@@ -11410,7 +11410,7 @@ ruleIntegerLiteral returns [EObject current=null]
 					$current,
 					"value",
 					lv_value_0_0,
-					"org.xtuml.bp.xtext.masl.MASL.INT");
+					"org.xtuml.bp.xtext.masl.MASL.INTEGER");
 			}
 		)
 	)

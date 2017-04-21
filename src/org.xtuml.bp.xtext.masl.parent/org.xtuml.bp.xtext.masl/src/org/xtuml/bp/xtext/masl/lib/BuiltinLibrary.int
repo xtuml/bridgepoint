@@ -82,13 +82,16 @@ builtin is
 	<T> (sequence of T)'last()       return integer;
 	<T> (sequence of T)'range()      return range of integer;
 	<T> (sequence of T)'get_unique() return sequence of T;
+	<T> (sequence of T)'any() 		 return T;
 
 	<T> (bag of T)'elements()   return range of T;
 	<T> (bag of T)'length()     return integer;
 	<T> (bag of T)'get_unique() return sequence of T;
+	<T> (bag of T)'any() 		return T;
 	
 	<T> (set of T)'elements() return range of T;
 	<T> (set of T)'length()   return integer;
+	<T> (set of T)'any() 	  return T;
 
 	<K,V> (dictionary K of V)'contains(key: in K) return boolean;
 	<K,V> (dictionary K of V)'keys() return set of K;

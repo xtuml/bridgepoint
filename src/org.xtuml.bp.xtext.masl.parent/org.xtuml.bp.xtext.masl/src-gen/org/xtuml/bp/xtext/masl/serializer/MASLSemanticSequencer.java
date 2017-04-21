@@ -4702,7 +4702,7 @@ public class MASLSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	 *     IntegerLiteral returns IntegerLiteral
 	 *
 	 * Constraint:
-	 *     value=INT
+	 *     value=INTEGER
 	 */
 	protected void sequence_IntegerLiteral(ISerializationContext context, IntegerLiteral semanticObject) {
 		if (errorAcceptor != null) {
@@ -4710,7 +4710,7 @@ public class MASLSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, BehaviorPackage.Literals.INTEGER_LITERAL__VALUE));
 		}
 		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
-		feeder.accept(grammarAccess.getIntegerLiteralAccess().getValueINTTerminalRuleCall_0(), semanticObject.getValue());
+		feeder.accept(grammarAccess.getIntegerLiteralAccess().getValueINTEGERTerminalRuleCall_0(), semanticObject.getValue());
 		feeder.finish();
 	}
 	
@@ -4720,7 +4720,7 @@ public class MASLSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	 *     AbstractStatement returns IntegerLiteral
 	 *
 	 * Constraint:
-	 *     (value=INT pragmas+=Pragma*)
+	 *     (value=INTEGER pragmas+=Pragma*)
 	 */
 	protected void sequence_IntegerLiteral_PragmaList(ISerializationContext context, IntegerLiteral semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

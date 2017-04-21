@@ -1808,7 +1808,7 @@ ruleRealLiteral:
 
 // Rule IntegerLiteral
 ruleIntegerLiteral:
-	RULE_INT
+	RULE_INTEGER
 ;
 
 // Rule StringLiteral
@@ -1958,9 +1958,9 @@ ruleFindType:
 
 RULE_ID : ('a'..'z'|'A'..'Z'|'_') ('a'..'z'|'A'..'Z'|'_'|'0'..'9')*;
 
-RULE_REAL : RULE_INT '.' RULE_INT;
+RULE_REAL : RULE_INTEGER '.' RULE_INTEGER;
 
-RULE_INT : ('0'..'9')+;
+RULE_INTEGER : ('0'..'9')+;
 
 RULE_STRING : '"' ('\\' .|~(('\\'|'"')))* '"';
 

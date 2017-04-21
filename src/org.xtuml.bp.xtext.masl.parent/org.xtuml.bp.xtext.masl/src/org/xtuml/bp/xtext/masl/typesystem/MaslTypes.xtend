@@ -281,6 +281,24 @@ class StructureType extends AbstractMaslType {
 				«c»;
 			«ENDFOR»	
 		end'''
+		
+	override equals(Object obj) {
+		if (this === obj)
+			return true
+		if (obj === null)
+			return false
+		if (class != obj.class)
+			return false
+		val other = obj as StructureType
+		if (this.structureType == other.structureType)
+			return true
+		if (this.components == null) {
+			if (other.components != null)
+				return false
+		} else if (!this.components.equals(other.components))
+			return false
+		return true
+	}
 }
 
 @Data

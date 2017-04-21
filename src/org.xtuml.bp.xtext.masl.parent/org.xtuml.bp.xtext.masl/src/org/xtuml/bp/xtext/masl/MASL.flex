@@ -15,7 +15,7 @@ REAL = {DIGIT}+ "." {DIGIT}+ (("e"|"E") ("+"|"-")? {DIGIT}+)?
 	 | {DIGIT}+ "#" {DIGIT36}+                ("#" ("+"|"-")? {DIGIT}+)
 
 DEC_INT = {DIGIT}+
-INT = {DEC_INT} ("#" {DIGIT36}+)?
+INTEGER = {DEC_INT} ("#" {DIGIT36}+)?
 
 DIGIT8  = [0-7]
 DIGIT   = [0-9]
