@@ -34,7 +34,7 @@ public class RealLiteralImpl extends ExpressionImpl implements RealLiteral {
 	 * @generated
 	 * @ordered
 	 */
-	protected static final double VALUE_EDEFAULT = 0.0;
+	protected static final String VALUE_EDEFAULT = null;
 
 	/**
 	 * The cached value of the '{@link #getValue() <em>Value</em>}' attribute.
@@ -44,7 +44,7 @@ public class RealLiteralImpl extends ExpressionImpl implements RealLiteral {
 	 * @generated
 	 * @ordered
 	 */
-	protected double value = VALUE_EDEFAULT;
+	protected String value = VALUE_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -70,7 +70,7 @@ public class RealLiteralImpl extends ExpressionImpl implements RealLiteral {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public double getValue() {
+	public String getValue() {
 		return value;
 	}
 
@@ -79,8 +79,8 @@ public class RealLiteralImpl extends ExpressionImpl implements RealLiteral {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setValue(double newValue) {
-		double oldValue = value;
+	public void setValue(String newValue) {
+		String oldValue = value;
 		value = newValue;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, BehaviorPackage.REAL_LITERAL__VALUE, oldValue, value));
@@ -109,7 +109,7 @@ public class RealLiteralImpl extends ExpressionImpl implements RealLiteral {
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case BehaviorPackage.REAL_LITERAL__VALUE:
-				setValue((Double)newValue);
+				setValue((String)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -139,7 +139,7 @@ public class RealLiteralImpl extends ExpressionImpl implements RealLiteral {
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case BehaviorPackage.REAL_LITERAL__VALUE:
-				return value != VALUE_EDEFAULT;
+				return VALUE_EDEFAULT == null ? value != null : !VALUE_EDEFAULT.equals(value);
 		}
 		return super.eIsSet(featureID);
 	}

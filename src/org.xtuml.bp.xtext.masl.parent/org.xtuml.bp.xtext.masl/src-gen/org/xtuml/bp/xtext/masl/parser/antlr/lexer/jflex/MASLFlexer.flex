@@ -88,7 +88,7 @@ REAL = {DIGIT}+ "." {DIGIT}+ (("e"|"E") ("+"|"-")? {DIGIT}+)?
 	 | {DIGIT}+ "#" {DIGIT36}+                ("#" ("+"|"-")? {DIGIT}+)
 
 DEC_INT = {DIGIT}+
-INT = {DEC_INT} ("#" {DIGIT36}+)?
+INTEGER = {DEC_INT} ("#" {DIGIT36}+)?
 
 DIGIT8  = [0-7]
 DIGIT   = [0-9]
@@ -258,7 +258,7 @@ ESCAPE_SEQUENCE = "\\" ([^0-9u] | {DIGIT8}{DIGIT8}{DIGIT8} | "u" {DIGIT16}+)
 
 <YYINITIAL> {ID} { return RULE_ID; }
 <YYINITIAL> {REAL} { return RULE_REAL; }
-<YYINITIAL> {INT} { return RULE_INT; }
+<YYINITIAL> {INTEGER} { return RULE_INTEGER; }
 <YYINITIAL> {STRING} { return RULE_STRING; }
 <YYINITIAL> {CHAR} { return RULE_CHAR; }
 <YYINITIAL> {DURATION} { return RULE_DURATION; }

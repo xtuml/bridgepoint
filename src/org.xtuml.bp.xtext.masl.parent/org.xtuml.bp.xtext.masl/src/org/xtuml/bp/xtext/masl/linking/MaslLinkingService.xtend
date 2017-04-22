@@ -33,6 +33,7 @@ class MaslLinkingService extends DefaultLinkingService {
 	}
 
 	private def List<EObject> getLinkedAction(ActionCall actionCall, SimpleFeatureCall featureCall, EReference reference, INode node) {
+		val needsReturnType = actionCall.eContainmentFeature.EType !== abstractStatement
 		val crossRefString = node.crossRefNodeAsString
 		if (crossRefString !== null && !crossRefString.equals("")) {
 			val scope = getScope(featureCall, reference)
@@ -43,7 +44,7 @@ class MaslLinkingService extends DefaultLinkingService {
 			var RankedCandidate currentBestMatch = null
 			var int numAcceptableMatches 
 			for(candidate: candidates.filter(AbstractFeature)) {
-				val ranked = candidate.rank(argumentTypes)
+				val ranked = candidate.rank(argumentTypes, needsReturnType)
 				if(ranked.isAcceptable) 
 					numAcceptableMatches ++
 				if(ranked > currentBestMatch) {

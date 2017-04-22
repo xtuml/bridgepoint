@@ -776,7 +776,7 @@ RealLiteral:
 	value=REAL;
 
 IntegerLiteral:
-	value=INT;
+	value=INTEGER;
 
 StringLiteral:
 	value=STRING;
@@ -822,8 +822,8 @@ FileNameLiteral:
 //---------------------------------------------------------
 
 terminal ID: 			('a'..'z'|'A'..'Z'|'_') ('a'..'z'|'A'..'Z'|'_'|'0'..'9')*;
-terminal REAL returns ecore::EDouble: INT '.' INT;
-terminal INT returns ecore::EInt: ('0'..'9')+;
+terminal REAL: 			INTEGER '.' INTEGER;
+terminal INTEGER: 		('0'..'9')+;
 terminal STRING: 		'"' ('\\' . | !('\\' | '"'))* '"';
 terminal CHAR:			'\'' . '\'';
 terminal DURATION:		'@P' -> '@';
