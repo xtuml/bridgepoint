@@ -110,11 +110,24 @@ INSERT INTO O_TFR
 	0,
 	'done = false;
 while ( not done )
-  // Read a line from the feature file populating line array.
+  // Read a line from the marking file populating line array.
   count = CSV::readline( filename:param.filename, values:param.values );
   if ( count > 0 )
     if ( count > 1 ) // valid non-comment line
-      mark = Mark::populate(  markable_name:"", feature_name:param.values[1], path:param.values[0], value:param.values[2] );
+      s = param.values[3];
+      if ( count > 4 )
+        s = s + "," + param.values[4];
+        if ( count > 5 )
+          s = s + "," + param.values[5];
+          if ( count > 6 )
+            s = s + "," + param.values[6];
+            if ( count > 7 )
+              s = s + "," + param.values[7];
+            end if;
+          end if;
+        end if;
+      end if;
+      mark = Mark::populate(  markable_name:param.values[2], feature_name:param.values[1], path:param.values[0], value:s );
     end if;
   else
     done = true;
@@ -171,11 +184,11 @@ INSERT INTO O_TFR
 	'newfilename = param.filename;
 select many marks from instances of Mark;
 for each mark in marks
-  // CDS - need mark.markable_name
   param.values[0] = mark.path;
   param.values[1] = mark.feature_name;
-  param.values[2] = mark.value;
-  param.values[3] = "";
+  param.values[2] = mark.markable_name;
+  param.values[3] = mark.value;
+  param.values[4] = "";
   r = CSV::writeline( filename:newfilename, values:param.values );
 end for;',
 	1,

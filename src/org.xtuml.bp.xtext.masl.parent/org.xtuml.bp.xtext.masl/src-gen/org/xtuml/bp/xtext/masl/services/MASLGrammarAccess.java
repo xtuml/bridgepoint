@@ -7077,17 +7077,17 @@ public class MASLGrammarAccess extends AbstractGrammarElementFinder {
 	public class IntegerLiteralElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.xtuml.bp.xtext.masl.MASL.IntegerLiteral");
 		private final Assignment cValueAssignment = (Assignment)rule.eContents().get(1);
-		private final RuleCall cValueINTTerminalRuleCall_0 = (RuleCall)cValueAssignment.eContents().get(0);
+		private final RuleCall cValueINTEGERTerminalRuleCall_0 = (RuleCall)cValueAssignment.eContents().get(0);
 		
 		//IntegerLiteral:
-		//	value=INT;
+		//	value=INTEGER;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//value=INT
+		//value=INTEGER
 		public Assignment getValueAssignment() { return cValueAssignment; }
 		
-		//INT
-		public RuleCall getValueINTTerminalRuleCall_0() { return cValueINTTerminalRuleCall_0; }
+		//INTEGER
+		public RuleCall getValueINTEGERTerminalRuleCall_0() { return cValueINTEGERTerminalRuleCall_0; }
 	}
 	public class StringLiteralElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.xtuml.bp.xtext.masl.MASL.StringLiteral");
@@ -7731,7 +7731,7 @@ public class MASLGrammarAccess extends AbstractGrammarElementFinder {
 	private final FileNameLiteralElements pFileNameLiteral;
 	private final TerminalRule tID;
 	private final TerminalRule tREAL;
-	private final TerminalRule tINT;
+	private final TerminalRule tINTEGER;
 	private final TerminalRule tSTRING;
 	private final TerminalRule tCHAR;
 	private final TerminalRule tDURATION;
@@ -7905,7 +7905,7 @@ public class MASLGrammarAccess extends AbstractGrammarElementFinder {
 		this.pFileNameLiteral = new FileNameLiteralElements();
 		this.tID = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "org.xtuml.bp.xtext.masl.MASL.ID");
 		this.tREAL = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "org.xtuml.bp.xtext.masl.MASL.REAL");
-		this.tINT = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "org.xtuml.bp.xtext.masl.MASL.INT");
+		this.tINTEGER = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "org.xtuml.bp.xtext.masl.MASL.INTEGER");
 		this.tSTRING = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "org.xtuml.bp.xtext.masl.MASL.STRING");
 		this.tCHAR = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "org.xtuml.bp.xtext.masl.MASL.CHAR");
 		this.tDURATION = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "org.xtuml.bp.xtext.masl.MASL.DURATION");
@@ -9669,7 +9669,7 @@ public class MASLGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//IntegerLiteral:
-	//	value=INT;
+	//	value=INTEGER;
 	public IntegerLiteralElements getIntegerLiteralAccess() {
 		return pIntegerLiteral;
 	}
@@ -9804,16 +9804,16 @@ public class MASLGrammarAccess extends AbstractGrammarElementFinder {
 		return tID;
 	}
 	
-	//terminal REAL returns ecore::EDouble:
-	//	INT '.' INT;
+	//terminal REAL:
+	//	INTEGER '.' INTEGER;
 	public TerminalRule getREALRule() {
 		return tREAL;
 	}
 	
-	//terminal INT returns ecore::EInt:
+	//terminal INTEGER:
 	//	'0'..'9'+;
-	public TerminalRule getINTRule() {
-		return tINT;
+	public TerminalRule getINTEGERRule() {
+		return tINTEGER;
 	}
 	
 	//terminal STRING:

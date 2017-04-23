@@ -129,7 +129,14 @@ public class CanvasModelListener extends ModelChangeAdapter  {
         }
 	    
 		if (newMdls != null){
-		    for (int i = 0; i < newMdls.length; i++) {            
+		    for (int i = 0; i < newMdls.length; i++) {   
+		    	if(newMdls[i].isOrphaned()) {
+		    		// there are some events received at
+		    		// times where a persist is called first
+		    		// this triggers listeners to receive 
+		    		// orphaned elements
+		    		continue;
+		    	}
 				CanvasPlugin.setGraphicalRepresents(newMdls[i]);
 				newMdls[i].Elementdeleted(modelElement);
 				UUID id = Cl_c.Getooa_idfrominstance(modelElement);

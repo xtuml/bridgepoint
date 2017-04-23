@@ -30,12 +30,12 @@ public interface RealLiteral extends Expression {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Value</em>' attribute.
-	 * @see #setValue(double)
+	 * @see #setValue(String)
 	 * @see org.xtuml.bp.xtext.masl.masl.behavior.BehaviorPackage#getRealLiteral_Value()
 	 * @model unique="false"
 	 * @generated
 	 */
-	double getValue();
+	String getValue();
 
 	/**
 	 * Sets the value of the '{@link org.xtuml.bp.xtext.masl.masl.behavior.RealLiteral#getValue <em>Value</em>}' attribute.
@@ -45,6 +45,6 @@ public interface RealLiteral extends Expression {
 	 * @see #getValue()
 	 * @generated
 	 */
-	void setValue(double value);
+	void setValue(String value);
 
 } // RealLiteral

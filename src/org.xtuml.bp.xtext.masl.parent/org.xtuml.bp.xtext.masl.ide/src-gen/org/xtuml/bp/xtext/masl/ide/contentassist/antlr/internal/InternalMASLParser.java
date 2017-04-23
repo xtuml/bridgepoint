@@ -25,7 +25,7 @@ import java.util.HashMap;
 @SuppressWarnings("all")
 public class InternalMASLParser extends AbstractInternalContentAssistParser {
     public static final String[] tokenNames = new String[] {
-        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "Reverse_ordered_by", "Unconditionally", "Cannot_Happen", "Current_State", "Cannot_happen", "Conditionally", "Non_Existant", "Non_Existent", "Intersection", "Non_existant", "Non_existent", "Relationship", "Referential", "Dictionary", "Identifier", "Ordered_by", "Terminator", "Transition", "Anonymous", "Exception", "Find_only", "Preferred", "Structure", "Assigner", "Creation", "Deferred", "Disunion", "Find_all", "Find_one", "Function", "Generate", "Instance", "Readonly", "Schedule", "Sequence", "Terminal", "Builtin", "Console", "Declare", "Private", "Project", "Reverse", "Service", "Subtype", "FILE", "LINE", "Ignore", "Cancel", "Create", "Delete", "Digits", "Domain", "Not_in", "Object", "Others", "Pragma", "Public", "Return", "Unique", "Unlink", "Array", "Begin", "Delay", "Delta", "Elsif", "Erase", "Event", "False", "Flush", "Raise", "Range", "Start", "State", "Union", "Using", "While", "Case", "Else", "Endl", "Enum", "Exit", "Find", "Is_a", "Link", "Loop", "Many", "Null", "Then", "This", "True", "Type", "When", "With", "LessThanSignLessThanSignLessThanSign", "GreaterThanSignGreaterThanSignGreaterThanSign", "Abs", "And", "Bag", "End", "For", "Mod", "Not", "One", "Out", "Rem", "Set", "Xor", "AsteriskAsterisk", "HyphenMinusGreaterThanSign", "FullStopFullStop", "SolidusEqualsSign", "ColonColon", "ColonEqualsSign", "LessThanSignLessThanSign", "LessThanSignEqualsSign", "LessThanSignGreaterThanSign", "EqualsSignGreaterThanSign", "GreaterThanSignEqualsSign", "GreaterThanSignGreaterThanSign", "At", "If", "In", "Is", "Of", "Or", "To", "TildeGreaterThanSign", "Ampersand", "Apostrophe", "LeftParenthesis", "RightParenthesis", "Asterisk", "PlusSign", "Comma", "HyphenMinus", "FullStop", "Solidus", "Colon", "Semicolon", "LessThanSign", "EqualsSign", "GreaterThanSign", "LeftSquareBracket", "RightSquareBracket", "VerticalLine", "RULE_ID", "RULE_INT", "RULE_REAL", "RULE_STRING", "RULE_CHAR", "RULE_DURATION", "RULE_TIMESTAMP", "RULE_SL_COMMENT", "RULE_WS", "RULE_ANY_OTHER"
+        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "Reverse_ordered_by", "Unconditionally", "Cannot_Happen", "Current_State", "Cannot_happen", "Conditionally", "Non_Existant", "Non_Existent", "Intersection", "Non_existant", "Non_existent", "Relationship", "Referential", "Dictionary", "Identifier", "Ordered_by", "Terminator", "Transition", "Anonymous", "Exception", "Find_only", "Preferred", "Structure", "Assigner", "Creation", "Deferred", "Disunion", "Find_all", "Find_one", "Function", "Generate", "Instance", "Readonly", "Schedule", "Sequence", "Terminal", "Builtin", "Console", "Declare", "Private", "Project", "Reverse", "Service", "Subtype", "FILE", "LINE", "Ignore", "Cancel", "Create", "Delete", "Digits", "Domain", "Not_in", "Object", "Others", "Pragma", "Public", "Return", "Unique", "Unlink", "Array", "Begin", "Delay", "Delta", "Elsif", "Erase", "Event", "False", "Flush", "Raise", "Range", "Start", "State", "Union", "Using", "While", "Case", "Else", "Endl", "Enum", "Exit", "Find", "Is_a", "Link", "Loop", "Many", "Null", "Then", "This", "True", "Type", "When", "With", "LessThanSignLessThanSignLessThanSign", "GreaterThanSignGreaterThanSignGreaterThanSign", "Abs", "And", "Bag", "End", "For", "Mod", "Not", "One", "Out", "Rem", "Set", "Xor", "AsteriskAsterisk", "HyphenMinusGreaterThanSign", "FullStopFullStop", "SolidusEqualsSign", "ColonColon", "ColonEqualsSign", "LessThanSignLessThanSign", "LessThanSignEqualsSign", "LessThanSignGreaterThanSign", "EqualsSignGreaterThanSign", "GreaterThanSignEqualsSign", "GreaterThanSignGreaterThanSign", "At", "If", "In", "Is", "Of", "Or", "To", "TildeGreaterThanSign", "Ampersand", "Apostrophe", "LeftParenthesis", "RightParenthesis", "Asterisk", "PlusSign", "Comma", "HyphenMinus", "FullStop", "Solidus", "Colon", "Semicolon", "LessThanSign", "EqualsSign", "GreaterThanSign", "LeftSquareBracket", "RightSquareBracket", "VerticalLine", "RULE_ID", "RULE_INTEGER", "RULE_REAL", "RULE_STRING", "RULE_CHAR", "RULE_DURATION", "RULE_TIMESTAMP", "RULE_SL_COMMENT", "RULE_WS", "RULE_ANY_OTHER"
     };
     public static final int Delete=53;
     public static final int Enum=83;
@@ -55,7 +55,6 @@ public class InternalMASLParser extends AbstractInternalContentAssistParser {
     public static final int Assigner=27;
     public static final int VerticalLine=148;
     public static final int PlusSign=136;
-    public static final int RULE_INT=150;
     public static final int Object=57;
     public static final int Xor=110;
     public static final int LeftSquareBracket=146;
@@ -182,6 +181,7 @@ public class InternalMASLParser extends AbstractInternalContentAssistParser {
     public static final int Of=127;
     public static final int Find=85;
     public static final int RULE_TIMESTAMP=155;
+    public static final int RULE_INTEGER=150;
     public static final int Builtin=40;
 
     // delegates
@@ -13697,7 +13697,7 @@ public class InternalMASLParser extends AbstractInternalContentAssistParser {
             if ( (LA4_0==RULE_ID) ) {
                 alt4=1;
             }
-            else if ( (LA4_0==Console||(LA4_0>=FILE && LA4_0<=LINE)||(LA4_0>=False && LA4_0<=Flush)||LA4_0==Endl||LA4_0==Null||(LA4_0>=This && LA4_0<=True)||(LA4_0>=RULE_INT && LA4_0<=RULE_TIMESTAMP)) ) {
+            else if ( (LA4_0==Console||(LA4_0>=FILE && LA4_0<=LINE)||(LA4_0>=False && LA4_0<=Flush)||LA4_0==Endl||LA4_0==Null||(LA4_0>=This && LA4_0<=True)||(LA4_0>=RULE_INTEGER && LA4_0<=RULE_TIMESTAMP)) ) {
                 alt4=2;
             }
             else {
@@ -19655,7 +19655,7 @@ public class InternalMASLParser extends AbstractInternalContentAssistParser {
             case Set:
             case LeftParenthesis:
             case RULE_ID:
-            case RULE_INT:
+            case RULE_INTEGER:
             case RULE_REAL:
             case RULE_STRING:
             case RULE_CHAR:
@@ -20344,7 +20344,7 @@ public class InternalMASLParser extends AbstractInternalContentAssistParser {
             case Null:
             case This:
             case True:
-            case RULE_INT:
+            case RULE_INTEGER:
             case RULE_REAL:
             case RULE_STRING:
             case RULE_CHAR:
@@ -20512,7 +20512,7 @@ public class InternalMASLParser extends AbstractInternalContentAssistParser {
             case Null:
             case This:
             case True:
-            case RULE_INT:
+            case RULE_INTEGER:
             case RULE_REAL:
             case RULE_STRING:
             case RULE_CHAR:
@@ -20786,7 +20786,7 @@ public class InternalMASLParser extends AbstractInternalContentAssistParser {
             // InternalMASLParser.g:5689:1: ( ( ruleIntegerLiteral ) | ( ruleRealLiteral ) | ( ruleCharacterLiteral ) | ( ruleStringLiteral ) | ( ruleDurationLiteral ) | ( ruleTimestampLiteral ) | ( ruleBooleanLiteral ) | ( ruleNullLiteral ) | ( ruleFlushLiteral ) | ( ruleThisLiteral ) | ( ruleConsoleLiteral ) | ( ruleEndlLiteral ) | ( ruleLineNoLiteral ) | ( ruleFileNameLiteral ) )
             int alt60=14;
             switch ( input.LA(1) ) {
-            case RULE_INT:
+            case RULE_INTEGER:
                 {
                 alt60=1;
                 }
@@ -102391,24 +102391,24 @@ public class InternalMASLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__IntegerLiteral__ValueAssignment"
-    // InternalMASLParser.g:31602:1: rule__IntegerLiteral__ValueAssignment : ( RULE_INT ) ;
+    // InternalMASLParser.g:31602:1: rule__IntegerLiteral__ValueAssignment : ( RULE_INTEGER ) ;
     public final void rule__IntegerLiteral__ValueAssignment() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalMASLParser.g:31606:1: ( ( RULE_INT ) )
-            // InternalMASLParser.g:31607:2: ( RULE_INT )
+            // InternalMASLParser.g:31606:1: ( ( RULE_INTEGER ) )
+            // InternalMASLParser.g:31607:2: ( RULE_INTEGER )
             {
-            // InternalMASLParser.g:31607:2: ( RULE_INT )
-            // InternalMASLParser.g:31608:3: RULE_INT
+            // InternalMASLParser.g:31607:2: ( RULE_INTEGER )
+            // InternalMASLParser.g:31608:3: RULE_INTEGER
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getIntegerLiteralAccess().getValueINTTerminalRuleCall_0()); 
+               before(grammarAccess.getIntegerLiteralAccess().getValueINTEGERTerminalRuleCall_0()); 
             }
-            match(input,RULE_INT,FOLLOW_2); if (state.failed) return ;
+            match(input,RULE_INTEGER,FOLLOW_2); if (state.failed) return ;
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getIntegerLiteralAccess().getValueINTTerminalRuleCall_0()); 
+               after(grammarAccess.getIntegerLiteralAccess().getValueINTEGERTerminalRuleCall_0()); 
             }
 
             }

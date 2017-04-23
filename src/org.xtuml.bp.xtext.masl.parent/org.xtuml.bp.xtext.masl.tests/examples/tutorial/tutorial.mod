@@ -81,10 +81,10 @@ domain Standard is
 end;
 
 domain Device_IO is
-	function create_file(name: in string, overwrite: in boolean) return device;
-	function delete_file(name: in string) return device;
-	function open(name: in string, access: in AccessType, dev: in device) return device;
-	function close(dev: in device) return device;
+	function create_file(name: in string, overwrite: in boolean);
+	function delete_file(name: in string);
+	function open(name: in string, access: in AccessType, dev: in device);
+	function close(dev: in device);
 	function eof(dev: in device) return boolean;
 	type AccessType is enum(OUT, IN);
 end;

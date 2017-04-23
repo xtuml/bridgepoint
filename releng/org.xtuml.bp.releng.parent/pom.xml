@@ -10,8 +10,10 @@
 
 	<properties>
 		<tycho-version>0.25.0</tycho-version>
-		<ant-home-path>/build/buildmt/BridgePoint/eclipse/plugins/org.apache.ant_1.9.4.v201504302020</ant-home-path>
+		<ant-home-path>/build/buildmt/BridgePoint/plugins/org.apache.ant_1.9.6.v201510161327</ant-home-path>
 		<eclipse-home-path>/build/buildmt/BridgePoint/</eclipse-home-path>
+		<mcj_path>../../src/MC-Java</mcj_path>
+                <bp_test_path>../../../bptest</bp_test_path>
 	</properties>
 
 	<repositories>
@@ -37,7 +39,7 @@
 			<url>http://download.eclipse.org/tools/cdt/releases/8.8.1</url>
 		</repository>
 	</repositories>
-
+	
 	<modules>
 		<module>../../src/org.xtuml.bp.als</module>
 		<module>../../src/org.xtuml.bp.als.oal</module>
@@ -73,9 +75,23 @@
 		<module>../../../packaging/features/org.xtuml.bp.jre.parent</module>
 		<module>../../../packaging/features/org.xtuml.bp.docgen.parent</module>
 		<module>../../../packaging/features/org.xtuml.bp.MinGW.parent</module>
-		<!--module>../../../bptest/releng/org.xtuml.bp.releng.parent.tests</module Include if tests shall be run as well -->
 	</modules>
-
+	
+	<profiles>
+        <profile>
+    	<id>includeTests</id>
+    	<activation>
+      	<property>
+        	<name>env.INCLUDE_TESTS</name>
+        	<value>true</value>
+      	</property>
+    	</activation>
+			<modules>
+				<module>../../../bptest/releng/org.xtuml.bp.releng.parent.tests</module>
+			</modules>
+	    </profile>
+	</profiles>
+	
 	<build>
 		<sourceDirectory>src</sourceDirectory>
 		<outputDirectory>bin</outputDirectory>
