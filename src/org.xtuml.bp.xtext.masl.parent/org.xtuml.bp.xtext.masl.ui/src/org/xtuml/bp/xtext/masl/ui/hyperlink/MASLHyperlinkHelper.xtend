@@ -1,6 +1,8 @@
 package org.xtuml.bp.xtext.masl.ui.hyperlink
 
 import com.google.inject.Inject
+import java.util.List
+import java.util.TreeSet
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.emf.ecore.util.EcoreUtil
 import org.eclipse.jface.text.Region
@@ -11,12 +13,10 @@ import org.eclipse.xtext.ui.editor.hyperlinking.IHyperlinkAcceptor
 import org.eclipse.xtext.util.ITextRegion
 import org.xtuml.bp.xtext.masl.MASLExtensions
 import org.xtuml.bp.xtext.masl.linking.RankedCandidate
-import org.xtuml.bp.xtext.masl.scoping.ProjectScopeIndexProvider
 import org.xtuml.bp.xtext.masl.masl.structure.Parameterized
-import org.xtuml.bp.xtext.masl.typesystem.MaslTypeProvider
-import java.util.List
+import org.xtuml.bp.xtext.masl.scoping.ProjectScopeIndexProvider
 import org.xtuml.bp.xtext.masl.typesystem.MaslType
-import java.util.TreeSet
+import org.xtuml.bp.xtext.masl.typesystem.MaslTypeProvider
 
 /**
  * Allows to navigate between definitions and declarations by means of a hyperlink
@@ -59,7 +59,7 @@ class MASLHyperlinkHelper extends HyperlinkHelper {
 		val exactCandidates = new TreeSet<RankedCandidate>()
 		val acceptableCandidates = new TreeSet<RankedCandidate>()
 		for(element: elements.filter(Parameterized)) {
-			val ranked = element.rankParameterized(paramTypes)
+			val ranked = element.rankParameterized(paramTypes, element.hasReturnType)
 			if(ranked.isExact)
 				exactCandidates += ranked	
 			else if(ranked.isAcceptable)

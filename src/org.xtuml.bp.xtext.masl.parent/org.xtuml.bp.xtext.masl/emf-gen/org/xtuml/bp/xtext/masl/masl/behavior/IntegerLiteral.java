@@ -30,12 +30,12 @@ public interface IntegerLiteral extends Expression {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Value</em>' attribute.
-	 * @see #setValue(int)
+	 * @see #setValue(String)
 	 * @see org.xtuml.bp.xtext.masl.masl.behavior.BehaviorPackage#getIntegerLiteral_Value()
 	 * @model unique="false"
 	 * @generated
 	 */
-	int getValue();
+	String getValue();
 
 	/**
 	 * Sets the value of the '{@link org.xtuml.bp.xtext.masl.masl.behavior.IntegerLiteral#getValue <em>Value</em>}' attribute.
@@ -45,6 +45,6 @@ public interface IntegerLiteral extends Expression {
 	 * @see #getValue()
 	 * @generated
 	 */
-	void setValue(int value);
+	void setValue(String value);
 
 } // IntegerLiteral

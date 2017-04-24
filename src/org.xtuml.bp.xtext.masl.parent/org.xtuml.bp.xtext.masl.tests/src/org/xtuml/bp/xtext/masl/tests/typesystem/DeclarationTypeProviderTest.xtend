@@ -160,20 +160,31 @@ class DeclarationTypeProviderTest extends AbstractMaslModelTest {
 		''', '''
 			service dom::svc() is
 				f: instance of Foo;
+				i: integer;
 			begin
-				^(f.foo());
+				i := ^(f.foo());
 			end;
 		''', 'integer')
 	}
 
 	@Test
 	def void testObjectServiceCall() {
-		'''
-			object Foo; 
-			object Foo is
-				service foo() return integer;
+		doAssertType('''
+			domain dom is
+				object Foo; 
+				object Foo is
+					service foo() return integer;
+				end;
+				service svc();
 			end;
-		'''.assertType('Foo::foo()', 'integer')
+		''', '''
+			service dom::svc() is
+				f: instance of Foo;
+				i: integer;
+			begin
+				i := f.^foo();
+			end;
+		''', 'integer')
 	}
 
 	@Test
@@ -188,9 +199,16 @@ class DeclarationTypeProviderTest extends AbstractMaslModelTest {
 
 	@Test
 	def void testDomainServiceCall() {
-		'''
-			service foo() return string;
-		'''.assertType('foo()', 'string')
+		doAssertType('''
+			domain dom is
+				service foo() return string;
+			end
+		''','''
+			service dom::foo() return string is
+			begin
+				return ^foo();
+			end
+		''', 'string')
 	}
 
 	@Test
@@ -413,8 +431,9 @@ class DeclarationTypeProviderTest extends AbstractMaslModelTest {
 			end;
 		''', '''
 			service dom::svc() is
+				i: integer;
 			begin
-				^(foo(1));
+				i := ^(foo(1));
 			end;
 		''', 'integer')	
 	}
