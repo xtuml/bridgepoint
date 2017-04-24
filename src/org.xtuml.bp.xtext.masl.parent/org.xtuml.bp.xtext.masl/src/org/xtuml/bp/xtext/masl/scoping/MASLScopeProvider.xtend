@@ -153,7 +153,7 @@ class MASLScopeProvider extends AbstractMASLScopeProvider {
 								qualifiedDescription(relationShip.backwards)
 							]))
 						SubtypeRelationshipDefinition:
-							return scopeFor(relationShip.subtypes)
+							return scopeFor(relationShip.subtypes + #[relationShip.supertype]) 
 							
 					}
  				}
