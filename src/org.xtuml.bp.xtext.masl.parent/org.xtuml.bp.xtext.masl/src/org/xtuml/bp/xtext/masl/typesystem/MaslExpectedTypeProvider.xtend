@@ -13,9 +13,11 @@ import org.xtuml.bp.xtext.masl.masl.behavior.CaseStatement
 import org.xtuml.bp.xtext.masl.masl.behavior.CreateArgument
 import org.xtuml.bp.xtext.masl.masl.behavior.IndexedExpression
 import org.xtuml.bp.xtext.masl.masl.behavior.NavigateExpression
+import org.xtuml.bp.xtext.masl.masl.behavior.ScheduleStatement
 import org.xtuml.bp.xtext.masl.masl.behavior.SimpleFeatureCall
 import org.xtuml.bp.xtext.masl.masl.behavior.TerminatorActionCall
 import org.xtuml.bp.xtext.masl.masl.behavior.VariableDeclaration
+import org.xtuml.bp.xtext.masl.masl.structure.AbstractService
 import org.xtuml.bp.xtext.masl.masl.structure.AbstractTopLevelElement
 import org.xtuml.bp.xtext.masl.masl.structure.AssocRelationshipDefinition
 import org.xtuml.bp.xtext.masl.masl.structure.ObjectDeclaration
@@ -27,9 +29,6 @@ import org.xtuml.bp.xtext.masl.masl.structure.SubtypeRelationshipDefinition
 import static org.xtuml.bp.xtext.masl.typesystem.BuiltinType.*
 
 import static extension org.eclipse.xtext.EcoreUtil2.*
-import org.xtuml.bp.xtext.masl.masl.structure.AbstractService
-import org.xtuml.bp.xtext.masl.masl.behavior.ScheduleStatement
-import static org.xtuml.bp.xtext.masl.masl.behavior.ScheduleType.*
 
 class MaslExpectedTypeProvider {
 
