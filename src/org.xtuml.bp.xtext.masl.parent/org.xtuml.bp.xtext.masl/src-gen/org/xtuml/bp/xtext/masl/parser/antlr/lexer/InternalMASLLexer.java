@@ -40,7 +40,6 @@ public class InternalMASLLexer extends Lexer {
     public static final int Assigner=27;
     public static final int VerticalLine=148;
     public static final int PlusSign=136;
-    public static final int RULE_INT=150;
     public static final int Object=57;
     public static final int Xor=110;
     public static final int LeftSquareBracket=146;
@@ -167,6 +166,7 @@ public class InternalMASLLexer extends Lexer {
     public static final int Of=127;
     public static final int Find=85;
     public static final int RULE_TIMESTAMP=155;
+    public static final int RULE_INTEGER=150;
     public static final int Builtin=40;
 
     // delegates
@@ -3275,12 +3275,12 @@ public class InternalMASLLexer extends Lexer {
         try {
             int _type = RULE_REAL;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalMASLLexer.g:308:11: ( RULE_INT '.' RULE_INT )
-            // InternalMASLLexer.g:308:13: RULE_INT '.' RULE_INT
+            // InternalMASLLexer.g:308:11: ( RULE_INTEGER '.' RULE_INTEGER )
+            // InternalMASLLexer.g:308:13: RULE_INTEGER '.' RULE_INTEGER
             {
-            mRULE_INT(); 
+            mRULE_INTEGER(); 
             match('.'); 
-            mRULE_INT(); 
+            mRULE_INTEGER(); 
 
             }
 
@@ -3292,15 +3292,15 @@ public class InternalMASLLexer extends Lexer {
     }
     // $ANTLR end "RULE_REAL"
 
-    // $ANTLR start "RULE_INT"
-    public final void mRULE_INT() throws RecognitionException {
+    // $ANTLR start "RULE_INTEGER"
+    public final void mRULE_INTEGER() throws RecognitionException {
         try {
-            int _type = RULE_INT;
+            int _type = RULE_INTEGER;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalMASLLexer.g:310:10: ( ( '0' .. '9' )+ )
-            // InternalMASLLexer.g:310:12: ( '0' .. '9' )+
+            // InternalMASLLexer.g:310:14: ( ( '0' .. '9' )+ )
+            // InternalMASLLexer.g:310:16: ( '0' .. '9' )+
             {
-            // InternalMASLLexer.g:310:12: ( '0' .. '9' )+
+            // InternalMASLLexer.g:310:16: ( '0' .. '9' )+
             int cnt2=0;
             loop2:
             do {
@@ -3314,7 +3314,7 @@ public class InternalMASLLexer extends Lexer {
 
                 switch (alt2) {
             	case 1 :
-            	    // InternalMASLLexer.g:310:13: '0' .. '9'
+            	    // InternalMASLLexer.g:310:17: '0' .. '9'
             	    {
             	    matchRange('0','9'); 
 
@@ -3339,7 +3339,7 @@ public class InternalMASLLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "RULE_INT"
+    // $ANTLR end "RULE_INTEGER"
 
     // $ANTLR start "RULE_STRING"
     public final void mRULE_STRING() throws RecognitionException {
@@ -3695,7 +3695,7 @@ public class InternalMASLLexer extends Lexer {
     // $ANTLR end "RULE_ANY_OTHER"
 
     public void mTokens() throws RecognitionException {
-        // InternalMASLLexer.g:1:8: ( Reverse_ordered_by | Unconditionally | Cannot_Happen | Current_State | Cannot_happen | Conditionally | Non_Existant | Non_Existent | Intersection | Non_existant | Non_existent | Relationship | Referential | Dictionary | Identifier | Ordered_by | Terminator | Transition | Anonymous | Exception | Find_only | Preferred | Structure | Assigner | Creation | Deferred | Disunion | Find_all | Find_one | Function | Generate | Instance | Readonly | Schedule | Sequence | Terminal | Builtin | Console | Declare | Private | Project | Reverse | Service | Subtype | FILE | LINE | Ignore | Cancel | Create | Delete | Digits | Domain | Not_in | Object | Others | Pragma | Public | Return | Unique | Unlink | Array | Begin | Delay | Delta | Elsif | Erase | Event | False | Flush | Raise | Range | Start | State | Union | Using | While | Case | Else | Endl | Enum | Exit | Find | Is_a | Link | Loop | Many | Null | Then | This | True | Type | When | With | LessThanSignLessThanSignLessThanSign | GreaterThanSignGreaterThanSignGreaterThanSign | Abs | And | Bag | End | For | Mod | Not | One | Out | Rem | Set | Xor | AsteriskAsterisk | HyphenMinusGreaterThanSign | FullStopFullStop | SolidusEqualsSign | ColonColon | ColonEqualsSign | LessThanSignLessThanSign | LessThanSignEqualsSign | LessThanSignGreaterThanSign | EqualsSignGreaterThanSign | GreaterThanSignEqualsSign | GreaterThanSignGreaterThanSign | At | If | In | Is | Of | Or | To | TildeGreaterThanSign | Ampersand | Apostrophe | LeftParenthesis | RightParenthesis | Asterisk | PlusSign | Comma | HyphenMinus | FullStop | Solidus | Colon | Semicolon | LessThanSign | EqualsSign | GreaterThanSign | LeftSquareBracket | RightSquareBracket | VerticalLine | RULE_ID | RULE_REAL | RULE_INT | RULE_STRING | RULE_CHAR | RULE_DURATION | RULE_TIMESTAMP | RULE_SL_COMMENT | RULE_WS | RULE_ANY_OTHER )
+        // InternalMASLLexer.g:1:8: ( Reverse_ordered_by | Unconditionally | Cannot_Happen | Current_State | Cannot_happen | Conditionally | Non_Existant | Non_Existent | Intersection | Non_existant | Non_existent | Relationship | Referential | Dictionary | Identifier | Ordered_by | Terminator | Transition | Anonymous | Exception | Find_only | Preferred | Structure | Assigner | Creation | Deferred | Disunion | Find_all | Find_one | Function | Generate | Instance | Readonly | Schedule | Sequence | Terminal | Builtin | Console | Declare | Private | Project | Reverse | Service | Subtype | FILE | LINE | Ignore | Cancel | Create | Delete | Digits | Domain | Not_in | Object | Others | Pragma | Public | Return | Unique | Unlink | Array | Begin | Delay | Delta | Elsif | Erase | Event | False | Flush | Raise | Range | Start | State | Union | Using | While | Case | Else | Endl | Enum | Exit | Find | Is_a | Link | Loop | Many | Null | Then | This | True | Type | When | With | LessThanSignLessThanSignLessThanSign | GreaterThanSignGreaterThanSignGreaterThanSign | Abs | And | Bag | End | For | Mod | Not | One | Out | Rem | Set | Xor | AsteriskAsterisk | HyphenMinusGreaterThanSign | FullStopFullStop | SolidusEqualsSign | ColonColon | ColonEqualsSign | LessThanSignLessThanSign | LessThanSignEqualsSign | LessThanSignGreaterThanSign | EqualsSignGreaterThanSign | GreaterThanSignEqualsSign | GreaterThanSignGreaterThanSign | At | If | In | Is | Of | Or | To | TildeGreaterThanSign | Ampersand | Apostrophe | LeftParenthesis | RightParenthesis | Asterisk | PlusSign | Comma | HyphenMinus | FullStop | Solidus | Colon | Semicolon | LessThanSign | EqualsSign | GreaterThanSign | LeftSquareBracket | RightSquareBracket | VerticalLine | RULE_ID | RULE_REAL | RULE_INTEGER | RULE_STRING | RULE_CHAR | RULE_DURATION | RULE_TIMESTAMP | RULE_SL_COMMENT | RULE_WS | RULE_ANY_OTHER )
         int alt10=155;
         alt10 = dfa10.predict(input);
         switch (alt10) {
@@ -4729,56 +4729,56 @@ public class InternalMASLLexer extends Lexer {
                 }
                 break;
             case 148 :
-                // InternalMASLLexer.g:1:1435: RULE_INT
+                // InternalMASLLexer.g:1:1435: RULE_INTEGER
                 {
-                mRULE_INT(); 
+                mRULE_INTEGER(); 
 
                 }
                 break;
             case 149 :
-                // InternalMASLLexer.g:1:1444: RULE_STRING
+                // InternalMASLLexer.g:1:1448: RULE_STRING
                 {
                 mRULE_STRING(); 
 
                 }
                 break;
             case 150 :
-                // InternalMASLLexer.g:1:1456: RULE_CHAR
+                // InternalMASLLexer.g:1:1460: RULE_CHAR
                 {
                 mRULE_CHAR(); 
 
                 }
                 break;
             case 151 :
-                // InternalMASLLexer.g:1:1466: RULE_DURATION
+                // InternalMASLLexer.g:1:1470: RULE_DURATION
                 {
                 mRULE_DURATION(); 
 
                 }
                 break;
             case 152 :
-                // InternalMASLLexer.g:1:1480: RULE_TIMESTAMP
+                // InternalMASLLexer.g:1:1484: RULE_TIMESTAMP
                 {
                 mRULE_TIMESTAMP(); 
 
                 }
                 break;
             case 153 :
-                // InternalMASLLexer.g:1:1495: RULE_SL_COMMENT
+                // InternalMASLLexer.g:1:1499: RULE_SL_COMMENT
                 {
                 mRULE_SL_COMMENT(); 
 
                 }
                 break;
             case 154 :
-                // InternalMASLLexer.g:1:1511: RULE_WS
+                // InternalMASLLexer.g:1:1515: RULE_WS
                 {
                 mRULE_WS(); 
 
                 }
                 break;
             case 155 :
-                // InternalMASLLexer.g:1:1519: RULE_ANY_OTHER
+                // InternalMASLLexer.g:1:1523: RULE_ANY_OTHER
                 {
                 mRULE_ANY_OTHER(); 
 
@@ -5547,7 +5547,7 @@ public class InternalMASLLexer extends Lexer {
             this.transition = DFA10_transition;
         }
         public String getDescription() {
-            return "1:1: Tokens : ( Reverse_ordered_by | Unconditionally | Cannot_Happen | Current_State | Cannot_happen | Conditionally | Non_Existant | Non_Existent | Intersection | Non_existant | Non_existent | Relationship | Referential | Dictionary | Identifier | Ordered_by | Terminator | Transition | Anonymous | Exception | Find_only | Preferred | Structure | Assigner | Creation | Deferred | Disunion | Find_all | Find_one | Function | Generate | Instance | Readonly | Schedule | Sequence | Terminal | Builtin | Console | Declare | Private | Project | Reverse | Service | Subtype | FILE | LINE | Ignore | Cancel | Create | Delete | Digits | Domain | Not_in | Object | Others | Pragma | Public | Return | Unique | Unlink | Array | Begin | Delay | Delta | Elsif | Erase | Event | False | Flush | Raise | Range | Start | State | Union | Using | While | Case | Else | Endl | Enum | Exit | Find | Is_a | Link | Loop | Many | Null | Then | This | True | Type | When | With | LessThanSignLessThanSignLessThanSign | GreaterThanSignGreaterThanSignGreaterThanSign | Abs | And | Bag | End | For | Mod | Not | One | Out | Rem | Set | Xor | AsteriskAsterisk | HyphenMinusGreaterThanSign | FullStopFullStop | SolidusEqualsSign | ColonColon | ColonEqualsSign | LessThanSignLessThanSign | LessThanSignEqualsSign | LessThanSignGreaterThanSign | EqualsSignGreaterThanSign | GreaterThanSignEqualsSign | GreaterThanSignGreaterThanSign | At | If | In | Is | Of | Or | To | TildeGreaterThanSign | Ampersand | Apostrophe | LeftParenthesis | RightParenthesis | Asterisk | PlusSign | Comma | HyphenMinus | FullStop | Solidus | Colon | Semicolon | LessThanSign | EqualsSign | GreaterThanSign | LeftSquareBracket | RightSquareBracket | VerticalLine | RULE_ID | RULE_REAL | RULE_INT | RULE_STRING | RULE_CHAR | RULE_DURATION | RULE_TIMESTAMP | RULE_SL_COMMENT | RULE_WS | RULE_ANY_OTHER );";
+            return "1:1: Tokens : ( Reverse_ordered_by | Unconditionally | Cannot_Happen | Current_State | Cannot_happen | Conditionally | Non_Existant | Non_Existent | Intersection | Non_existant | Non_existent | Relationship | Referential | Dictionary | Identifier | Ordered_by | Terminator | Transition | Anonymous | Exception | Find_only | Preferred | Structure | Assigner | Creation | Deferred | Disunion | Find_all | Find_one | Function | Generate | Instance | Readonly | Schedule | Sequence | Terminal | Builtin | Console | Declare | Private | Project | Reverse | Service | Subtype | FILE | LINE | Ignore | Cancel | Create | Delete | Digits | Domain | Not_in | Object | Others | Pragma | Public | Return | Unique | Unlink | Array | Begin | Delay | Delta | Elsif | Erase | Event | False | Flush | Raise | Range | Start | State | Union | Using | While | Case | Else | Endl | Enum | Exit | Find | Is_a | Link | Loop | Many | Null | Then | This | True | Type | When | With | LessThanSignLessThanSignLessThanSign | GreaterThanSignGreaterThanSignGreaterThanSign | Abs | And | Bag | End | For | Mod | Not | One | Out | Rem | Set | Xor | AsteriskAsterisk | HyphenMinusGreaterThanSign | FullStopFullStop | SolidusEqualsSign | ColonColon | ColonEqualsSign | LessThanSignLessThanSign | LessThanSignEqualsSign | LessThanSignGreaterThanSign | EqualsSignGreaterThanSign | GreaterThanSignEqualsSign | GreaterThanSignGreaterThanSign | At | If | In | Is | Of | Or | To | TildeGreaterThanSign | Ampersand | Apostrophe | LeftParenthesis | RightParenthesis | Asterisk | PlusSign | Comma | HyphenMinus | FullStop | Solidus | Colon | Semicolon | LessThanSign | EqualsSign | GreaterThanSign | LeftSquareBracket | RightSquareBracket | VerticalLine | RULE_ID | RULE_REAL | RULE_INTEGER | RULE_STRING | RULE_CHAR | RULE_DURATION | RULE_TIMESTAMP | RULE_SL_COMMENT | RULE_WS | RULE_ANY_OTHER );";
         }
         public int specialStateTransition(int s, IntStream _input) throws NoViableAltException {
             IntStream input = _input;
