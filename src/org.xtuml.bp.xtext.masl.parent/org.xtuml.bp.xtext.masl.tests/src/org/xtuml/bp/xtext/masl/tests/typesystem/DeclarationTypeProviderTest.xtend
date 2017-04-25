@@ -160,20 +160,31 @@ class DeclarationTypeProviderTest extends AbstractMaslModelTest {
 		''', '''
 			service dom::svc() is
 				f: instance of Foo;
+				i: integer;
 			begin
-				^(f.foo());
+				i := ^(f.foo());
 			end;
 		''', 'integer')
 	}
 
 	@Test
 	def void testObjectServiceCall() {
-		'''
-			object Foo; 
-			object Foo is
-				service foo() return integer;
+		doAssertType('''
+			domain dom is
+				object Foo; 
+				object Foo is
+					service foo() return integer;
+				end;
+				service svc();
 			end;
-		'''.assertType('Foo::foo()', 'integer')
+		''', '''
+			service dom::svc() is
+				f: instance of Foo;
+				i: integer;
+			begin
+				i := f.^foo();
+			end;
+		''', 'integer')
 	}
 
 	@Test
@@ -188,9 +199,16 @@ class DeclarationTypeProviderTest extends AbstractMaslModelTest {
 
 	@Test
 	def void testDomainServiceCall() {
-		'''
-			service foo() return string;
-		'''.assertType('foo()', 'string')
+		doAssertType('''
+			domain dom is
+				service foo() return string;
+			end
+		''','''
+			service dom::foo() return string is
+			begin
+				return ^foo();
+			end
+		''', 'string')
 	}
 
 	@Test
@@ -413,8 +431,9 @@ class DeclarationTypeProviderTest extends AbstractMaslModelTest {
 			end;
 		''', '''
 			service dom::svc() is
+				i: integer;
 			begin
-				^(foo(1));
+				i := ^(foo(1));
 			end;
 		''', 'integer')	
 	}
@@ -615,6 +634,47 @@ class DeclarationTypeProviderTest extends AbstractMaslModelTest {
 		''', 'long_integer')
 	}
 	
+	@Test
+	def void testRecursiveType() {
+		doAssertType('''
+			domain RecursiveStructure is
+			  public type Component;
+			  public type Device;
+			
+			  public type Device is structure
+			    components: sequence of Component;
+			  end structure;
+			
+			  public type Component is structure
+			    subDevices   : sequence of Device;
+			    subComponents : sequence of Component;
+			  end structure;
+			
+			  public service test();
+			
+			end domain;
+		''','''
+			public service RecursiveStructure::test() is
+			  component  : Component;
+			  device     : Device;
+			  components : sequence of Component;
+			  devices    : sequence of Device;
+			begin
+			  components := ^(component.subComponents);
+			  components := ^(device.components);
+			
+			  components := ^(component.subComponents[0].subComponents);
+			  components := ^(device.components[0].subComponents);
+			
+			end service;
+		''', '''
+			sequence of type Component is structure
+				subDevices : sequence of type Device is structure
+					components : sequence of Component;
+				end;
+				subComponents : sequence of Component;
+			end''')
+	}
 
 	protected def assertType(CharSequence domainDeclaration, CharSequence expression, String expected) {
 		doAssertType('''

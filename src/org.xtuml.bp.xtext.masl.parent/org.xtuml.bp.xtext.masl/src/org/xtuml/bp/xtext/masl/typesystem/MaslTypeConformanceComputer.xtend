@@ -2,7 +2,6 @@ package org.xtuml.bp.xtext.masl.typesystem
 
 import com.google.inject.Inject
 import org.xtuml.bp.xtext.masl.MASLExtensions
-import org.xtuml.bp.xtext.masl.masl.types.NamedTypeReference
 import org.xtuml.bp.xtext.masl.scoping.ProjectScopeIndexProvider
 
 import static org.xtuml.bp.xtext.masl.typesystem.BuiltinType.*
@@ -21,7 +20,7 @@ class MaslTypeConformanceComputer {
 		val sourcePrimitive = source.primitiveType
 		val targetPrimitive = target.primitiveType 
 		// covers 3) An named type is assignable to an anonymous type if they have the same primitive type
-		if (source instanceof NamedType && target.anonymous)
+		if (!source.anonymous && target.anonymous)
 			return sourcePrimitive == targetPrimitive
 
 		if (source instanceof InstanceType) {
@@ -37,8 +36,8 @@ class MaslTypeConformanceComputer {
 		if (source.anonymous) {
 			// covers 2) 
 			// An anonymous type is assignable to a named type if they have the same primitive type
-			if (target instanceof NamedTypeReference)
-				return sourcePrimitive == targetPrimitive
+			if (!target.anonymous && sourcePrimitive == targetPrimitive)
+				return true
 
 			// covers 4) 
 			// An anonymous integer type is assignable to any type with a primitive type of real

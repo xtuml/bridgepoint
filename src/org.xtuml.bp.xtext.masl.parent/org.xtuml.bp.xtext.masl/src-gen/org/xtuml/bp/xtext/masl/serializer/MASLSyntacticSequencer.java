@@ -592,7 +592,7 @@ public class MASLSyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     (rule start) (ambiguity) type=LinkType
 	 *     (rule start) (ambiguity) value=CHAR
 	 *     (rule start) (ambiguity) value=DURATION
-	 *     (rule start) (ambiguity) value=INT
+	 *     (rule start) (ambiguity) value=INTEGER
 	 *     (rule start) (ambiguity) value=REAL
 	 *     (rule start) (ambiguity) value=STRING
 	 *     (rule start) (ambiguity) value=TIMESTAMP
@@ -658,7 +658,7 @@ public class MASLSyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     (rule start) (ambiguity) type=LinkType
 	 *     (rule start) (ambiguity) value=CHAR
 	 *     (rule start) (ambiguity) value=DURATION
-	 *     (rule start) (ambiguity) value=INT
+	 *     (rule start) (ambiguity) value=INTEGER
 	 *     (rule start) (ambiguity) value=REAL
 	 *     (rule start) (ambiguity) value=STRING
 	 *     (rule start) (ambiguity) value=TIMESTAMP
