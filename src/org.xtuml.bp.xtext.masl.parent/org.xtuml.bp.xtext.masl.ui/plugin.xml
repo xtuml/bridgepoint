@@ -14,6 +14,7 @@
 	</extension>
 	<extension
 		point="org.eclipse.ui.handlers">
+		<!--
 		<handler
 			class="org.xtuml.bp.xtext.masl.ui.MASLExecutableExtensionFactory:org.eclipse.xtext.ui.editor.hyperlinking.OpenDeclarationHandler"
 			commandId="org.eclipse.xtext.ui.editor.hyperlinking.OpenDeclaration">
@@ -23,6 +24,7 @@
 				</reference>
 			</activeWhen>
 		</handler>
+		-->
 		<handler
 			class="org.xtuml.bp.xtext.masl.ui.MASLExecutableExtensionFactory:org.eclipse.xtext.ui.editor.handler.ValidateActionHandler"
 			commandId="org.xtuml.bp.xtext.masl.MASL.validate">
@@ -195,6 +197,7 @@
 			</command>
 		</menuContribution>
 	</extension>
+	<!--
 	<extension point="org.eclipse.ui.menus">
 		<menuContribution locationURI="popup:#TextEditorContext?endof=group.find">
 			<command commandId="org.eclipse.xtext.ui.editor.FindReferences">
@@ -205,6 +208,7 @@
 			</command>
 		</menuContribution>
 	</extension>
+	-->
 	<extension point="org.eclipse.ui.handlers">
 		<handler
 			class="org.xtuml.bp.xtext.masl.ui.MASLExecutableExtensionFactory:org.eclipse.xtext.ui.editor.findrefs.FindReferencesHandler"
@@ -396,6 +400,7 @@
 			<filter name="projectNature" value="org.eclipse.xtext.ui.shared.xtextNature"/>
 		</page>
 	</extension>
+	<!--
 	<extension point="org.eclipse.ui.menus">
 		<menuContribution locationURI="popup:#TextEditorContext?after=xtext.ui.openDeclaration">
 			<command
@@ -408,6 +413,7 @@
 			</command>
 		</menuContribution>
 	</extension>
+	-->
 	<extension point="org.eclipse.ui.handlers">
 		<handler
 			class="org.xtuml.bp.xtext.masl.ui.MASLExecutableExtensionFactory:org.eclipse.xtext.ui.generator.trace.OpenGeneratedFileHandler"
