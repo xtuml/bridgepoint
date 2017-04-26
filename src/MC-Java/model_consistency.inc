@@ -74,7 +74,7 @@
     System.out.println(
   .end if
 	  " Operation entered: ${object.Name}::checkConsistency");  //$$NON-NLS-1$$
-    if (Boolean.valueOf(System.getenv("PTC_MCC_ENABLED")) == false) {  //$$NON-NLS-1$$
+    if (Boolean.valueOf(System.getProperty("")) == false && Boolean.valueOf(System.getenv("PTC_MCC_ENABLED")) == false) {  //$$NON-NLS-1$$
       return true;
     }
 	ModelRoot modelRoot = getModelRoot();
