@@ -241,7 +241,9 @@ public class TransactionManager {
 			}
 			// if an exception was passed show a dialog to the user
 			if (exception != null) {
-				UIUtil.openError(null, null, "Unable to complete transaction.  The transaction was canceled.");
+				if(!Ooaofooa.inUnitTest()) {
+					UIUtil.openError(null, null, "Unable to complete transaction.  The transaction was canceled.");
+				}	
 			}
 			activeTransaction = null;
 		}

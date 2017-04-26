@@ -16,6 +16,7 @@ package org.xtuml.bp.utilities.ui;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IProjectDescription;
@@ -43,7 +44,10 @@ import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.WorkbenchException;
+import org.eclipse.ui.dialogs.IOverwriteQuery;
 import org.eclipse.ui.wizards.datatransfer.ExternalProjectImportWizard;
+import org.eclipse.ui.wizards.datatransfer.FileSystemStructureProvider;
+import org.eclipse.ui.wizards.datatransfer.ImportOperation;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.Modeleventnotification_c;
 import org.xtuml.bp.core.Ooaofooa;
@@ -255,21 +259,21 @@ public class ProjectUtilities {
     public static void allowJobCompletion() {
         while (ResourcesPlugin.getWorkspace().isTreeLocked())
             ;
-        final Display disp = PlatformUI.getWorkbench().getDisplay();
         while (!Job.getJobManager().isIdle()) {
         	Job.getJobManager().resume();  // Make sure the job manager is executing jobs if there are any in the queue
-            final Display current = Display.getCurrent();
-        	Job currentJob = Job.getJobManager().currentJob();
-        	if(currentJob == null) {
-        		return;
+        	// do not wait for console input job as it never goes
+        	// away
+        	Job[] jobs = Job.getJobManager().find(null);
+        	boolean foundHighPriorityJob = false;
+        	for(Job job : jobs) {
+        		if(job.getPriority() < 30) {
+        			foundHighPriorityJob = true;
+        		}
         	}
-            if ( current != null ) {
-                while (!disp.isDisposed() && !current.isDisposed()
-                       && disp.readAndDispatch())
-                    ;
-            } else {
-                UIUtil.dispatchAll();
-            }
+        	if(!foundHighPriorityJob) {
+        		break;
+        	}
+        	while(PlatformUI.getWorkbench().getDisplay().readAndDispatch());
         }
     }
 
@@ -447,6 +451,28 @@ public class ProjectUtilities {
     	return importExistingProject(rootProjectFolder, true);
     }
 
+	public static boolean importExistingProjectCLI(final String rootProjectFolder, final boolean copyIntoWorkspace) {
+		IOverwriteQuery overwriteQuery = new IOverwriteQuery() {
+			public String queryOverwrite(String file) {
+				return ALL;
+			}
+		};
+		IPath rootPath = new Path(rootProjectFolder);
+		IPath projectPath = new Path(rootPath.lastSegment());
+		ImportOperation importOperation = new ImportOperation(projectPath, new File(rootProjectFolder),
+				FileSystemStructureProvider.INSTANCE, overwriteQuery);
+		importOperation.setContext(new Shell(PlatformUI.getWorkbench().getDisplay()));
+		importOperation.setCreateContainerStructure(false);
+		try {
+			importOperation.run(new NullProgressMonitor());
+		} catch (InvocationTargetException e) {
+			CorePlugin.logError("Unable to import existing project: " + rootProjectFolder, e);
+		} catch (InterruptedException e) {
+			CorePlugin.logError("Unable to import existing project: " + rootProjectFolder, e);
+		}
+		return true;
+	}
+    
     public static boolean importExistingProject(final String rootProjectFolder, final boolean copyIntoWorkspace) {
 		final ExternalProjectImportWizard importWizard = new ExternalProjectImportWizard();
 		
