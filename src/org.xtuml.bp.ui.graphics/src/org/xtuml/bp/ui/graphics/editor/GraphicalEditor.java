@@ -1447,6 +1447,10 @@ public class GraphicalEditor extends GraphicalEditorWithFlyoutPalette implements
 		return diagramFont;
 	}
 	
+	public static void setFont(Font font) {
+		diagramFont = font;
+	}
+	
 	@Override
 	public void partActivated(IWorkbenchPart part) {
 		if (part == this || part == getParentEditor()) {

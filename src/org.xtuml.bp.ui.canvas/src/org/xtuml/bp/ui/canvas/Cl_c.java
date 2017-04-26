@@ -278,6 +278,10 @@ public class Cl_c {
         }
           return result;
         }
+    public static boolean Disablecropping() {
+    	return CanvasPlugin.disableCropping;
+    }
+    
     public static int Getcompartments(final Object From) {
         return i_invoke(From, "Get_compartments", new Class[0], new Object[0]);
     }

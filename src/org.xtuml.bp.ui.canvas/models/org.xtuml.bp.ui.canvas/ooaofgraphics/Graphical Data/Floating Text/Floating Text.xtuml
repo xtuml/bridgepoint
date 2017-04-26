@@ -280,7 +280,10 @@ if (text_w == 0 and text_h == 0)
   //
   text_w = GR::getDefaultTextWidth();
 end if;
-textToDraw = GR::wrapTextTo(context:param.context, input:param.text, width:text_w);
+textToDraw = param.text;
+if(not CL::disableCropping())
+  textToDraw = GR::wrapTextTo(context:param.context, input:param.text, width:text_w);
+end if;
 if (text_x == - diagram.viewportX AND text_y == - diagram.viewportY)
   //
   // Text is at default position
