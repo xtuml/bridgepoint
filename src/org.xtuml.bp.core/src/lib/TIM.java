@@ -160,7 +160,9 @@ public class TIM {
         	synchronized(timerLock) {
         	  timerLock.notify();
         	}
-        	realThread.join();
+        	if(realThread != null) {
+        		realThread.join();
+        	}
         	realThread = null;
           }
 		} catch (InterruptedException e) {

@@ -1832,6 +1832,17 @@ INSERT INTO S_BPARM
 	'',
 	"00000000-0000-0000-0000-000000000000",
 	'');
+INSERT INTO S_BRG
+	VALUES ("2d2dc382-1b4f-4878-9cc2-aa3de602899e",
+	"f168c92b-6d64-4ecb-a677-5a1d7cce8352",
+	'disableCropping',
+	'',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000001",
+	'',
+	0,
+	'',
+	0);
 INSERT INTO PE_PE
 	VALUES ("f168c92b-6d64-4ecb-a677-5a1d7cce8352",
 	1,

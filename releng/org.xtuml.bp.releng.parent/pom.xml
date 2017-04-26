@@ -13,7 +13,7 @@
 		<ant-home-path>/build/buildmt/BridgePoint/plugins/org.apache.ant_1.9.6.v201510161327</ant-home-path>
 		<eclipse-home-path>/build/buildmt/BridgePoint/</eclipse-home-path>
 		<mcj_path>../../src/MC-Java</mcj_path>
-                <bp_test_path>../../../bptest</bp_test_path>
+        <bp_test_path>../../../bptest</bp_test_path>
 	</properties>
 
 	<repositories>
