@@ -346,7 +346,7 @@ class StructureType extends AbstractMaslType {
 		if (class != obj.class)
 			return false
 		val other = obj as StructureType
-		if (this.structureType == other.structureType)
+		if (this.structureType == other.structureType && this.structureType != null)
 			return true
 		if (this.components == null) {
 			if (other.components != null)
