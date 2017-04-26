@@ -12,7 +12,10 @@ import org.eclipse.xtext.ui.editor.hyperlinking.IHyperlinkHelper
 import org.eclipse.xtext.ui.editor.model.XtextDocumentProvider
 import org.eclipse.xtext.ui.refactoring.impl.DefaultDependentElementsCalculator
 import org.eclipse.xtext.ui.refactoring.impl.DefaultRenameStrategyProvider
+import org.eclipse.xtext.ui.refactoring.impl.RefactoringCrossReferenceSerializer
+import org.eclipse.xtext.ui.refactoring.impl.RenameElementProcessor
 import org.eclipse.xtext.ui.validation.AbstractValidatorConfigurationBlock
+import org.eclipse.xtext.ui.validation.DefaultResourceUIValidatorExtension
 import org.xtuml.bp.xtext.masl.ide.highlighting.MaslSemanticHighligtingCalculator
 import org.xtuml.bp.xtext.masl.lib.MASLDelegatingAllContainerState
 import org.xtuml.bp.xtext.masl.ui.build.MaslAutoBuilder
@@ -21,16 +24,13 @@ import org.xtuml.bp.xtext.masl.ui.document.MaslResourceForIEditorInputFactory
 import org.xtuml.bp.xtext.masl.ui.edit.MaslAutoEditStrategyProvider
 import org.xtuml.bp.xtext.masl.ui.hyperlink.MASLHyperlinkHelper
 import org.xtuml.bp.xtext.masl.ui.rename.MaslDependentElementsCalculator
+import org.xtuml.bp.xtext.masl.ui.rename.MaslRefactoringCrossReferenceSerializer
+import org.xtuml.bp.xtext.masl.ui.rename.MaslRenameElementProcessor
 import org.xtuml.bp.xtext.masl.ui.rename.MaslRenameStrategyProvider
 import org.xtuml.bp.xtext.masl.ui.validation.MaslValidationConfigurationBlock
+import org.xtuml.bp.xtext.masl.ui.validation.ModelResourceUIValidatorExtension
 
 import static org.eclipse.xtext.ui.editor.contentassist.XtextContentAssistProcessor.*
-import org.eclipse.xtext.ui.refactoring.impl.RefactoringCrossReferenceSerializer
-import org.xtuml.bp.xtext.masl.ui.rename.MaslRefactoringCrossReferenceSerializer
-import org.eclipse.xtext.ui.refactoring.impl.RenameElementProcessor
-import org.xtuml.bp.xtext.masl.ui.rename.MaslRenameElementProcessor
-import org.eclipse.xtext.ui.validation.DefaultResourceUIValidatorExtension
-import org.xtuml.bp.xtext.masl.ui.validation.ModelResourceUIValidatorExtension
 
 /**
  * Use this class to register components to be used within the Eclipse IDE.
