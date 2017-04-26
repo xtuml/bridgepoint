@@ -47,27 +47,40 @@ class MaslTypeConformanceComputer {
 			if (source == ANY_TYPE) 
 				return target instanceof InstanceType
 
-			// covers 5) 
-			// An anonymous structure is assignable to a type with a primitive type of a structure
-			// if the individual components are assignable. If the primitive type of the expression to be 
-			// assigned is not a structure, it should be promoted to an anonymous structure with a single 
-			// component of the original expression before trying this test.
-			if (targetPrimitive instanceof StructureType) {
-				if(sourcePrimitive == targetPrimitive || sourcePrimitive.wrapInStructure.isAssignableTo(targetPrimitive))
-					return true
-			}
+			// covers 5b) 
+			// a) An anonymous structure is assignable to a type with a primitive type of a structure
+			//    if the individual components are assignable. 
+			if (targetPrimitive instanceof StructureType && sourcePrimitive == targetPrimitive)
+				return true
 				
-			// covers 6) 
-			// An anonymous collection (set, array, bag or sequence) is assignable to a type with a
-			// primitive type of sequence if the contained elements are assignable. If the primitive
-			// type of the expression to be assigned is not a sequence, it should be promoted to an 
-			// anonymous sequence with a single element of the original expression before trying this test.
-			if (targetPrimitive instanceof CollectionType) {
-				if(sourcePrimitive == targetPrimitive 
-					|| sourcePrimitive.wrapInSequence.isAssignableTo(targetPrimitive))
-					return true
-			}
+			// covers 6a) 
+			// a) An anonymous collection (set, array, bag or sequence) is assignable to a type with a
+			//    primitive type of sequence if the contained elements are assignable. 
+			if (targetPrimitive instanceof CollectionType && sourcePrimitive == targetPrimitive)
+				return true
 		}
+		// covers 5b) 
+		// a) An anonymous structure is assignable to a type with a primitive type of a structure
+		//    if the individual components are assignable. 
+		// b) If the primitive type of the expression to be assigned is not a structure, it should 
+		//    be promoted to an anonymous structure with a single component of the original expression 
+		//    before trying this test.
+		if (targetPrimitive instanceof StructureType
+				&& !(sourcePrimitive instanceof StructureType) 
+				&& sourcePrimitive.wrapInStructure.isAssignableTo(targetPrimitive))
+			return true
+		
+		// covers 6b) 
+		// a) An anonymous collection (set, array, bag or sequence) is assignable to a type with a
+		//    primitive type of sequence if the contained elements are assignable. 
+		// b) If the primitive type of the expression to be assigned is not a sequence, it should 
+		//    be promoted to an anonymous sequence with a single element of the original expression 
+		//    before trying this test.
+		if (targetPrimitive instanceof CollectionType 
+				&& !(sourcePrimitive instanceof SequenceType)
+				&& sourcePrimitive.wrapInSequence.isAssignableTo(targetPrimitive))
+			return true
+			
 		if(sourcePrimitive instanceof CollectionType && targetPrimitive instanceof CollectionType)
 			return sourcePrimitive.componentType.isAssignableTo(targetPrimitive.componentType)
 				|| targetPrimitive.componentType.isAssignableTo(sourcePrimitive.componentType)
