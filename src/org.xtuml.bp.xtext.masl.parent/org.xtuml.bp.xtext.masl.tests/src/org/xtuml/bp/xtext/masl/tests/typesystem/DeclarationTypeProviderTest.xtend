@@ -555,7 +555,7 @@ class DeclarationTypeProviderTest extends AbstractMaslModelTest {
 			begin
 				^(foo->R1.Baz);
 			end;
-		''', 'anonymous instance of Baz')
+		''', 'anonymous bag of instance of Baz')
 	}
 
 	@Test 
@@ -609,7 +609,7 @@ class DeclarationTypeProviderTest extends AbstractMaslModelTest {
 			begin
 				^(baz->R1.foo);
 			end;
-		''', 'anonymous instance of Foo')
+		''', 'anonymous bag of instance of Foo')
 	}
 	
 	@Test 

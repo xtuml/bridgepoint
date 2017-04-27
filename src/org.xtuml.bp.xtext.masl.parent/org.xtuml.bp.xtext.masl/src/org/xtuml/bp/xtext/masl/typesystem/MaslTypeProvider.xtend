@@ -3,6 +3,7 @@ package org.xtuml.bp.xtext.masl.typesystem
 import com.google.inject.Inject
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.xtend.lib.annotations.Data
+import org.eclipse.xtext.nodemodel.util.NodeModelUtils
 import org.xtuml.bp.xtext.masl.MASLExtensions
 import org.xtuml.bp.xtext.masl.masl.behavior.ActionCall
 import org.xtuml.bp.xtext.masl.masl.behavior.AdditiveExp
@@ -70,6 +71,7 @@ import org.xtuml.bp.xtext.masl.masl.structure.RegularRelationshipDefinition
 import org.xtuml.bp.xtext.masl.masl.structure.RelationshipEnd
 import org.xtuml.bp.xtext.masl.masl.structure.RelationshipNavigation
 import org.xtuml.bp.xtext.masl.masl.structure.StateDeclaration
+import org.xtuml.bp.xtext.masl.masl.structure.StructurePackage
 import org.xtuml.bp.xtext.masl.masl.structure.SubtypeRelationshipDefinition
 import org.xtuml.bp.xtext.masl.masl.structure.TerminatorDefinition
 import org.xtuml.bp.xtext.masl.masl.structure.TypeParameter
@@ -99,6 +101,7 @@ class MaslTypeProvider {
 	
 	@Inject extension MASLExtensions
 	@Inject extension TypeParameterResolver
+	@Inject extension StructurePackage
 	
 	def MaslType getMaslType(EObject it) {
 		try {
@@ -341,10 +344,33 @@ class MaslTypeProvider {
 	
 	private def MaslType getMaslTypeOfLinkExpression(LinkExpression it) {
 		val relationship = navigation.relationship
-		if(relationship instanceof AssocRelationshipDefinition)
-			relationship.object.maslTypeOfFeature
-		else 
-			NO_TYPE
+		if(relationship instanceof AssocRelationshipDefinition) {
+			val assocClassType = relationship.object.maslTypeOfFeature
+			val lhsMaslType = lhs.maslType
+			if(lhsMaslType instanceof CollectionType) 
+				return lhsMaslType.getSameCollectionOfDifferentComponentType(assocClassType)
+			val rhsMaslType = rhs.maslType
+			if(rhsMaslType instanceof CollectionType) 
+				return rhsMaslType.getSameCollectionOfDifferentComponentType(assocClassType)
+			val navigationType = navigation.maslType
+			if(navigationType instanceof CollectionType && rhs == null) 
+				return new SequenceType(assocClassType, true)			
+			return assocClassType
+		}
+		return NO_TYPE
+	}
+	
+	private def getSameCollectionOfDifferentComponentType(CollectionType collectionType, MaslType newComponentType) {
+		return switch collectionType {
+			SequenceType:
+				new SequenceType(newComponentType)
+			SetType:
+				new SetType(newComponentType)
+			BagType:
+				new BagType(newComponentType)
+			ArrayType:
+				new ArrayType(newComponentType)
+		}
 	}
 	
 	private def MaslType getMaslTypeOfFindExpression(FindExpression find) {
@@ -362,29 +388,33 @@ class MaslTypeProvider {
 	
 	private def MaslType getMaslTypeOfNavigateExpression(NavigateExpression navigate) {
 		if(navigate.navigation != null) {
-			if(navigate.with != null)
-				navigate.navigation.maslTypeOfRelationshipNavigation.componentType
-			else
+			if(navigate.with != null) {
+				val relationship = navigate.navigation.relationship
+				if(relationship instanceof AssocRelationshipDefinition) {
+					val componentType = relationship.object.maslType
+					if(navigate.lhs.maslType instanceof CollectionType || navigate.with.maslType instanceof CollectionType)
+						return new SequenceType(componentType, true)
+					else
+						return componentType
+									
+				}
+			} else {
 				navigate.navigation.maslTypeOfRelationshipNavigation
+			}
 		} else {
 			navigate.lhs.maslTypeOfExpression
 		}
 	}
 	
 	private def MaslType getMaslTypeOfRelationshipNavigation(RelationshipNavigation navigation) {
-		val parent = navigation.eContainer
-		val from = switch parent {
-			NavigateExpression: parent.lhs
-			LinkExpression:  parent.lhs
-		}
-		val receiverType = from.maslType.stripName
+		val receiverType = navigation.receiver.maslType.stripName
 		val relatedObject = getRelatedObject(navigation, receiverType.componentType)
 		val componentType = relatedObject.declaration.maslType
 		switch relatedObject.multiplicity {
 			case ONE:
-				if(!relatedObject.isAssociationClass && receiverType instanceof CollectionType)
+				if(receiverType instanceof CollectionType)
 					return new BagType(componentType, true)
-				else
+				else 
 					return new InstanceType(relatedObject.declaration, true)
 			case MANY:
 				if(receiverType instanceof CollectionType)
@@ -426,7 +456,17 @@ class MaslTypeProvider {
 			switch relationship {
 				AssocRelationshipDefinition: 
 					if(relationship.object == objectOrRole) {
-						val relationEnd = ends.findFirst[from.maslType == receiverType]		
+						val nodes = NodeModelUtils.findNodesForFeature(relationship, relationshipNavigation_ObjectOrRole)
+						val refNameSegments = nodes.map[leafNodes].flatten.filter[!hidden]
+						val firstRefNameSegment = if(refNameSegments.size > 1) 
+								refNameSegments.head.text
+							else
+								null
+							
+						val relationEnd = ends.findFirst[
+							from.maslType == receiverType 
+							&& (firstRefNameSegment == null || firstRefNameSegment == name) 
+						]		
 						return new RelatedObject(objectOrRole, relationEnd.multiplicity, true)
 					}
 				SubtypeRelationshipDefinition: {
@@ -646,4 +686,5 @@ class MaslTypeProvider {
 		}
 		return MISSING_TYPE
 	}
+	
 }
