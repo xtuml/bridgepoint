@@ -154,7 +154,7 @@ class NamedType extends AbstractMaslType {
 	}
 	
 	override stripName() {
-		type
+		type.stripName
 	}
 
 	override toString() {

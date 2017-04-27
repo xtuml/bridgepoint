@@ -90,9 +90,9 @@ class MaslExpectedTypeProvider {
 		val relationship = context?.navigation?.relationship
 		val types = switch relationship {
 			RegularRelationshipDefinition:
-				newArrayList(relationship.forwards.from.maslType, relationship.backwards.from.maslType)
+				newArrayList(relationship.forwards.from, relationship.backwards.from).allCollectionTypes
 			AssocRelationshipDefinition:
-				newArrayList(relationship.forwards.from.maslType, relationship.backwards.from.maslType)
+				newArrayList(relationship.forwards.from, relationship.backwards.from).allCollectionTypes
 			SubtypeRelationshipDefinition:
 				return #[]
 		}
