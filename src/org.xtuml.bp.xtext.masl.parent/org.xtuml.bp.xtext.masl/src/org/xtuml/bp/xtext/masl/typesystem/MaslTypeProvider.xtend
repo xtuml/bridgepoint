@@ -456,7 +456,7 @@ class MaslTypeProvider {
 			switch relationship {
 				AssocRelationshipDefinition: 
 					if(relationship.object == objectOrRole) {
-						val nodes = NodeModelUtils.findNodesForFeature(relationship, relationshipNavigation_ObjectOrRole)
+						val nodes = NodeModelUtils.findNodesForFeature(navigation, relationshipNavigation_ObjectOrRole)
 						val refNameSegments = nodes.map[leafNodes].flatten.filter[!hidden]
 						val firstRefNameSegment = if(refNameSegments.size > 1) 
 								refNameSegments.head.text
