@@ -98,7 +98,7 @@ public void relateAcrossR${gen_rel.Numb}To${func_suffix}(${tocn.body} target, bo
     
         ${ref_var_name.body}.clearBackPointerR${gen_rel.Numb}To${backPointSuffix}(this);
         
-		if (Boolean.valueOf(System.getenv("PTC_MCC_ENABLED")) == true) {   //$$NON-NLS-1$$
+		if (Boolean.valueOf(System.getenv("PTC_MCC_ENABLED")) == true && Boolean.valueOf(System.getProperty("PTC_MCC_ENABLED")) == true) {   //$$NON-NLS-1$$
 			.invoke className = get_class_name(loc_obj)
 		${package.application_root_class}.log.println(ILogger.CONSISTENCY, 
 			"${className.body}.relateAcrossR${gen_rel.Numb}To${func_suffix}(${tocn.body} target)", 
