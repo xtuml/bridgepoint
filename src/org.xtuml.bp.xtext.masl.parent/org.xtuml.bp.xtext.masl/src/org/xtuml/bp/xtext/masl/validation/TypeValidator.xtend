@@ -215,7 +215,7 @@ class TypeValidator extends AbstractMASLValidator {
 			val allDeclarations = definition
 							.getDeclarations(declarationClass, definition.index)
 							.filter(Parameterized)
-							.map[rankParameterized(defTypes, hasReturnType)]
+							.map[rankParameterized(defTypes, definition.hasReturnType)]
 			if(allDeclarations.empty) 
 				return
 			val bestMatch = allDeclarations.maxBy[score]
