@@ -19,6 +19,7 @@
                label="Export MASL project"
                menubarPath="org.xtuml.bp.ui.context-internal">
          </action>
+         <filter name="can" value="export project" />         
       </objectContribution>
       <objectContribution
             id="org.xtuml.bp.x2m.contribution2"
@@ -30,6 +31,7 @@
                label="Export MASL domains"
                menubarPath="org.xtuml.bp.ui.context-internal">
          </action>
+         <filter name="can" value="export project" />         
       </objectContribution>
       <objectContribution
             id="org.xtuml.bp.x2m.contribution3"
@@ -41,6 +43,19 @@
                label="Export MASL domain"
                menubarPath="org.xtuml.bp.ui.context-internal">
          </action>
+         <filter name="can" value="export domain" />                  
+      </objectContribution>
+      <objectContribution
+            id="org.xtuml.bp.x2m.contribution4"
+            objectClass="org.xtuml.bp.core.SystemModel_c">
+         <action
+               class="org.xtuml.bp.x2m.actions.RunMASLRefresherAction"
+               enablesFor="1"
+               id="org.xtuml.bp.x2m.RunMASLRefresherAction"
+               label="Run MASL Refresher"
+               menubarPath="org.xtuml.bp.ui.context-internal">
+         </action>
+         <filter name="can" value="run masl refresher" />         
       </objectContribution>
    </extension>
 </plugin>
