@@ -510,7 +510,7 @@ class MaslTypeProvider {
 			case '-':
 				return getMaslTypeOfMinus(lType, rType)
 			case '&':
-				if(lType == STRING || lType instanceof CollectionType) 
+				if(lType == STRING || lType.primitiveType instanceof CollectionType) 
 					return lType
 				else 
 					return NO_TYPE
