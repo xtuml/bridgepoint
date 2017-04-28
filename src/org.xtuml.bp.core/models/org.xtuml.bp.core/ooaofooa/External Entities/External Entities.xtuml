@@ -2377,7 +2377,7 @@ INSERT INTO S_BRG
 	'Translate:native',
 	0,
 	"ba5eda7a-def5-0000-0000-000000000005",
-	'		IdAssigner assigner = new IdAssigner();
+	'		IdAssigner assigner = new IdAssigner(StateMachine_c.class.getName());
 		int hashCode = p_Classid.hashCode() + p_Type.hashCode();
 		assigner.setSeed(hashCode);
 		UUID stateId = assigner.createUUID();
