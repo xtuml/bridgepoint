@@ -48,7 +48,7 @@ class MaslExpectedTypeProvider {
 			val topLevelElement = context.getContainerOfType(AbstractTopLevelElement)
 			switch topLevelElement {
 				AbstractService:
-					return #[topLevelElement.getReturnType.maslType]
+					return #[topLevelElement.getReturnType.maslTypeOfTypeReference]
 				default:
 					return #[NO_TYPE]
 			}
