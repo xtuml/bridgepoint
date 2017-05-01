@@ -518,7 +518,11 @@ public class PlaceHolderEntry {
     
                             // do the deletion
                             try {
-                    			originalFile.deleteMarkers(type, includeSubtypes, depth);
+                            	// do not delete if the resource has been removed
+                            	// already
+                            	if(originalFile.exists()) {
+                            		originalFile.deleteMarkers(type, includeSubtypes, depth);
+                            	}
                             } catch (CoreException e) {
                                 TextPlugin.logError("Could not delete problem markers for changed activity", e);
                             }
@@ -530,7 +534,10 @@ public class PlaceHolderEntry {
                 else {
                     // do the deletion right away
                     try {
-                        originalFile.deleteMarkers(type, includeSubtypes, depth);
+                    	// do not try to delete if the marker is already gone
+                    	if(originalFile.exists()) {
+                    		originalFile.deleteMarkers(type, includeSubtypes, depth);
+                    	}
                     } catch (CoreException e) {
                         TextPlugin.logError("Could not delete problem markers for changed activity", e);
                     }
