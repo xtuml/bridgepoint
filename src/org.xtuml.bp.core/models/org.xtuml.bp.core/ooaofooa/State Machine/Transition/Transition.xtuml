@@ -29,7 +29,7 @@ if (param.at == End::Middle)
     result = net.get_connector_text();
   end if;
   select one action related by self->SM_TAH[R530]->SM_AH[R513]->SM_ACT[R514];
-  if not_empty action and action.Action_Semantics != ""
+  if not_empty action and action.Action_Semantics != "" and ActionDialect::none != action.Dialect
     result = result + "/";
     if PREF::getBoolean(name:"bridgepoint_prefs_show_transition_actions")
       result = result + GD::newline() + action.Action_Semantics;
@@ -41,7 +41,8 @@ end if;
 return result;',
 	1,
 	'',
-	"d5e3199b-cad3-4acd-ad8a-640e15313f6e");
+	"d5e3199b-cad3-4acd-ad8a-640e15313f6e",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("0c213218-8b1d-484b-a6b5-e19994d7ce7a",
 	"9e21f547-a310-4180-884a-1b08e23cd285",
@@ -110,7 +111,8 @@ else
 end if;',
 	1,
 	'',
-	"3ba0b2a9-ae72-42bd-8f34-e5aa31b95634");
+	"3ba0b2a9-ae72-42bd-8f34-e5aa31b95634",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("964df52d-eacd-440a-a561-961a81548636",
 	"57cc9b18-ed63-483b-bd87-635f93c6e339",
@@ -188,7 +190,8 @@ end for;
 delete object instance self;',
 	1,
 	'',
-	"fa6f35aa-fbda-4b86-9c36-9ebc6f668d31");
+	"fa6f35aa-fbda-4b86-9c36-9ebc6f668d31",
+	0);
 INSERT INTO O_TFR
 	VALUES ("3ba0b2a9-ae72-42bd-8f34-e5aa31b95634",
 	"71e37b76-a350-435b-a3fd-e3d016eb39ef",
@@ -201,7 +204,8 @@ Bridge:GD',
 	'return self.Trans_ID;',
 	1,
 	'',
-	"b3b0fffb-865f-4a6a-864b-28f2e6210fc1");
+	"b3b0fffb-865f-4a6a-864b-28f2e6210fc1",
+	0);
 INSERT INTO O_TFR
 	VALUES ("0758a4ca-6233-491e-87db-54b4d7a5ea16",
 	"71e37b76-a350-435b-a3fd-e3d016eb39ef",
@@ -212,15 +216,11 @@ INSERT INTO O_TFR
 	1,
 	'if (param.name == "event" )
   
-  if (param.value == "exists spec pkg" ) or (param.value == "exists generic pkg" )
+  if (param.value == "exists generic pkg" )
   
     select one cls related by self->SM_SM[R505]->SM_ASM[R517]->O_OBJ[R519];
     if (empty cls)
       select one cls related by self->SM_SM[R505]->SM_ISM[R517]->O_OBJ[R518];
-    end if;
-
-    if (param.value == "exists spec pkg")
-      return false;
     end if;
       
     // might want to enforce data set consistency here
@@ -314,10 +314,10 @@ INSERT INTO O_TFR
     return not_empty levt;
   end if;
 elif param.name == "signal"
-  if (param.value == "exists spec pkg") or (param.value == "exists generic pkg") 
+  if (param.value == "exists generic pkg") 
     select one cls related by self->SM_SM[R505]->SM_ASM[R517]->O_OBJ[R519];
     if (empty cls)
-      select one cls related by self->SM_SM[R505]->SM_ISM[R517]->O_OBJ[R518];
+      return false;
     end if;
     select one packageableElem related by cls->PE_PE[R8001];
     select one package related by packageableElem->EP_PKG[R8000];
@@ -327,13 +327,9 @@ elif param.name == "signal"
       compId = package.getContainingComponentId();
       select any component from instances of C_C where (selected.Id == compId);
     end if;
-    isInGenericPackage = not_empty package or not_empty component;
     // if there is no containing component, then this action should be
     // filtered
     if(empty component)
-      return false;
-    end if;
-    if ((param.value == "exists spec pkg"))
       return false;
     end if;
       
@@ -360,7 +356,8 @@ end if;
 return false;',
 	1,
 	'',
-	"00000000-0000-0000-0000-000000000000");
+	"00000000-0000-0000-0000-000000000000",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("204ff673-c95b-41f5-80ea-d9056b9ee168",
 	"0758a4ca-6233-491e-87db-54b4d7a5ea16",
@@ -440,7 +437,8 @@ select any event from instances of SM_EVT where selected.SMevt_ID == eventId;
 ',
 	1,
 	'',
-	"0758a4ca-6233-491e-87db-54b4d7a5ea16");
+	"0758a4ca-6233-491e-87db-54b4d7a5ea16",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("15cce609-79e8-4f3c-a487-e9c56be91f97",
 	"ceb6881c-a63f-4a2b-9499-480d9fe6bb7a",
@@ -493,7 +491,8 @@ else
 end if;',
 	1,
 	'',
-	"bbde2032-356d-4c96-9035-a9a22daec4f0");
+	"bbde2032-356d-4c96-9035-a9a22daec4f0",
+	0);
 INSERT INTO O_TFR
 	VALUES ("fc8e9b56-669e-445e-9cce-8994d5f633a8",
 	"71e37b76-a350-435b-a3fd-e3d016eb39ef",
@@ -664,7 +663,8 @@ else // existing event was not found in this state machine
 end if;',
 	1,
 	'',
-	"b28bdaac-2d28-42b2-b4f8-8a6ec6761461");
+	"b28bdaac-2d28-42b2-b4f8-8a6ec6761461",
+	0);
 INSERT INTO O_TFR
 	VALUES ("bbde2032-356d-4c96-9035-a9a22daec4f0",
 	"71e37b76-a350-435b-a3fd-e3d016eb39ef",
@@ -725,7 +725,8 @@ end for;
 return GD::NULL_UNIQUE_ID();',
 	1,
 	'',
-	"b1e8ea2d-4216-4e63-80b5-16896d19670b");
+	"b1e8ea2d-4216-4e63-80b5-16896d19670b",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("e5b8506e-7aac-4f4b-8033-0ed300b1bd5d",
 	"bbde2032-356d-4c96-9035-a9a22daec4f0",
@@ -822,7 +823,8 @@ else
 end if;',
 	1,
 	'',
-	"ceb6881c-a63f-4a2b-9499-480d9fe6bb7a");
+	"ceb6881c-a63f-4a2b-9499-480d9fe6bb7a",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("684d659f-988e-4297-b76b-ecfc31188f64",
 	"fa6f35aa-fbda-4b86-9c36-9ebc6f668d31",
@@ -872,7 +874,8 @@ if ( not_empty ns_txn )
 end if;',
 	1,
 	'',
-	"07c41bac-ee71-4330-a146-8dcb09c75e70");
+	"07c41bac-ee71-4330-a146-8dcb09c75e70",
+	0);
 INSERT INTO O_TFR
 	VALUES ("b1e8ea2d-4216-4e63-80b5-16896d19670b",
 	"71e37b76-a350-435b-a3fd-e3d016eb39ef",
@@ -887,6 +890,13 @@ create object instance tah of SM_TAH;
 relate ah to tah across R513;
 select one sm related by self->SM_SM[R505];  
 create object instance act of SM_ACT;
+dialect = PREF::getActionDialect(name:"bridgepoint_prefs_default_action_language_dialect");
+if ( dialect == ActionDialect::masl )
+  // Transition actions are not supported by MASL
+  act.Dialect = ActionDialect::none;
+else
+  act.Dialect = dialect;
+end if;
 act.Suc_Pars = ParseStatus::parseInitial;
 relate act to ah across R514;
 relate act to sm across R515;
@@ -894,7 +904,8 @@ relate self to tah across R530;
 ',
 	1,
 	'',
-	"57cc9b18-ed63-483b-bd87-635f93c6e339");
+	"57cc9b18-ed63-483b-bd87-635f93c6e339",
+	0);
 INSERT INTO O_TFR
 	VALUES ("b3b0fffb-865f-4a6a-864b-28f2e6210fc1",
 	"71e37b76-a350-435b-a3fd-e3d016eb39ef",
@@ -925,7 +936,8 @@ end if;
 return result;',
 	1,
 	'',
-	"9e21f547-a310-4180-884a-1b08e23cd285");
+	"9e21f547-a310-4180-884a-1b08e23cd285",
+	0);
 INSERT INTO O_TFR
 	VALUES ("02e4369e-1d0b-4c86-85cb-907ef36c1618",
 	"71e37b76-a350-435b-a3fd-e3d016eb39ef",
@@ -1008,7 +1020,8 @@ if(not_empty component)
 end if;',
 	1,
 	'',
-	"fc8e9b56-669e-445e-9cce-8994d5f633a8");
+	"fc8e9b56-669e-445e-9cce-8994d5f633a8",
+	0);
 INSERT INTO O_TFR
 	VALUES ("6fa9b560-a9bd-4d8f-9e19-f87741e06207",
 	"71e37b76-a350-435b-a3fd-e3d016eb39ef",
@@ -1032,7 +1045,8 @@ if(not_empty evt)
 end if;',
 	1,
 	'',
-	"02e4369e-1d0b-4c86-85cb-907ef36c1618");
+	"02e4369e-1d0b-4c86-85cb-907ef36c1618",
+	0);
 INSERT INTO O_TFR
 	VALUES ("fcf90ea8-98b3-4136-8924-14d38378f154",
 	"71e37b76-a350-435b-a3fd-e3d016eb39ef",
@@ -1135,7 +1149,8 @@ else
 end if;',
 	1,
 	'',
-	"6fa9b560-a9bd-4d8f-9e19-f87741e06207");
+	"6fa9b560-a9bd-4d8f-9e19-f87741e06207",
+	0);
 INSERT INTO O_TFR
 	VALUES ("ea2bb04d-e77d-423b-84e0-e43c416d7457",
 	"71e37b76-a350-435b-a3fd-e3d016eb39ef",
@@ -1236,7 +1251,8 @@ else
 end if; ',
 	1,
 	'',
-	"fcf90ea8-98b3-4136-8924-14d38378f154");
+	"fcf90ea8-98b3-4136-8924-14d38378f154",
+	0);
 INSERT INTO O_TFR
 	VALUES ("14ea58fb-6e80-4594-9ad2-24b3db16d1c9",
 	"71e37b76-a350-435b-a3fd-e3d016eb39ef",
@@ -1262,7 +1278,8 @@ end if;
 return result;',
 	1,
 	'',
-	"ea2bb04d-e77d-423b-84e0-e43c416d7457");
+	"ea2bb04d-e77d-423b-84e0-e43c416d7457",
+	0);
 INSERT INTO O_TFR
 	VALUES ("ba33eab8-053d-4bed-9ca7-8735470fdd18",
 	"71e37b76-a350-435b-a3fd-e3d016eb39ef",
@@ -1323,7 +1340,8 @@ end for;
 delete object instance self;',
 	1,
 	'',
-	"14ea58fb-6e80-4594-9ad2-24b3db16d1c9");
+	"14ea58fb-6e80-4594-9ad2-24b3db16d1c9",
+	0);
 INSERT INTO O_TFR
 	VALUES ("a82fd3c8-fc51-48d6-b0ed-fe41f54aa2d8",
 	"71e37b76-a350-435b-a3fd-e3d016eb39ef",
@@ -1367,7 +1385,8 @@ for each transition in transitions
 end for;',
 	1,
 	'',
-	"ba33eab8-053d-4bed-9ca7-8735470fdd18");
+	"ba33eab8-053d-4bed-9ca7-8735470fdd18",
+	0);
 INSERT INTO O_TFR
 	VALUES ("903b5ac9-63cb-4fd0-9cfd-ee354a1eafd6",
 	"71e37b76-a350-435b-a3fd-e3d016eb39ef",
@@ -1382,7 +1401,8 @@ Translate: native',
 return this;',
 	0,
 	'',
-	"a82fd3c8-fc51-48d6-b0ed-fe41f54aa2d8");
+	"a82fd3c8-fc51-48d6-b0ed-fe41f54aa2d8",
+	0);
 INSERT INTO S_DT_PROXY
 	VALUES ("bc3722c8-5188-4529-8519-cf9eb9816b17",
 	"00000000-0000-0000-0000-000000000000",
@@ -1431,7 +1451,8 @@ end if;
 return false;',
 	1,
 	'',
-	"903b5ac9-63cb-4fd0-9cfd-ee354a1eafd6");
+	"903b5ac9-63cb-4fd0-9cfd-ee354a1eafd6",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("e77380c6-816a-479c-8fc0-c5d28e5bc9f2",
 	"02e1d375-517d-4275-9df2-1a0cf39d6b36",
@@ -1453,7 +1474,8 @@ INSERT INTO O_TFR
 return action.Descrip;',
 	1,
 	'',
-	"02e1d375-517d-4275-9df2-1a0cf39d6b36");
+	"02e1d375-517d-4275-9df2-1a0cf39d6b36",
+	0);
 INSERT INTO O_NBATTR
 	VALUES ("36961925-2727-4c75-b0bf-c2cd8bc2611d",
 	"71e37b76-a350-435b-a3fd-e3d016eb39ef");

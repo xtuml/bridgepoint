@@ -24,7 +24,8 @@ unrelate self from lfsc across R1503;
 delete object instance self;',
 	1,
 	'',
-	"b5cd4e85-7e13-475a-9cff-f781fe3b499f");
+	"b5cd4e85-7e13-475a-9cff-f781fe3b499f",
+	0);
 INSERT INTO O_TFR
 	VALUES ("375cde96-0f10-4d4d-845c-37f2d84bfba4",
 	"5abf1386-4a94-4a45-a9e4-cd8f42a1a63a",
@@ -59,7 +60,8 @@ select one component related by packageableElem->C_C[R8003];
 ',
 	1,
 	'',
-	"c46f3528-93d6-486f-89a5-f94aa270cd07");
+	"c46f3528-93d6-486f-89a5-f94aa270cd07",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("11aa9470-7c7d-4368-980d-79c00b1f9f24",
 	"375cde96-0f10-4d4d-845c-37f2d84bfba4",
@@ -87,7 +89,8 @@ return false;
 ',
 	1,
 	'',
-	"00000000-0000-0000-0000-000000000000");
+	"00000000-0000-0000-0000-000000000000",
+	0);
 INSERT INTO O_TFR
 	VALUES ("48428149-347b-41a1-b04c-6f9223100bb0",
 	"5abf1386-4a94-4a45-a9e4-cd8f42a1a63a",
@@ -105,7 +108,8 @@ end if;
 return false;',
 	1,
 	'',
-	"45ccaa55-9d66-4acc-a6bd-d8f8c6bedd20");
+	"45ccaa55-9d66-4acc-a6bd-d8f8c6bedd20",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("812ce8a1-4911-4f25-9382-ad97cd384d61",
 	"48428149-347b-41a1-b04c-6f9223100bb0",
@@ -146,7 +150,8 @@ else
 end if;         ',
 	1,
 	'',
-	"48428149-347b-41a1-b04c-6f9223100bb0");
+	"48428149-347b-41a1-b04c-6f9223100bb0",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("f7584ce5-ebf8-45a2-a630-1080ad5b1a8e",
 	"839baff2-bdf2-4479-aed1-487e317e7991",
@@ -169,7 +174,8 @@ Translate: native',
 return this;',
 	0,
 	'',
-	"da557ff3-e2c0-4759-9e3e-aeccf2d8e04a");
+	"da557ff3-e2c0-4759-9e3e-aeccf2d8e04a",
+	0);
 INSERT INTO S_DT_PROXY
 	VALUES ("bc3722c8-5188-4529-8519-cf9eb9816b17",
 	"00000000-0000-0000-0000-000000000000",
@@ -199,7 +205,8 @@ end if;
 ',
 	1,
 	'',
-	"375cde96-0f10-4d4d-845c-37f2d84bfba4");
+	"375cde96-0f10-4d4d-845c-37f2d84bfba4",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("8a502018-9009-40d9-a187-adeea81def81",
 	"da557ff3-e2c0-4759-9e3e-aeccf2d8e04a",
@@ -223,7 +230,8 @@ else
 end if;',
 	1,
 	'',
-	"bc1499f6-851b-4b19-b824-03f1f632cedd");
+	"bc1499f6-851b-4b19-b824-03f1f632cedd",
+	0);
 INSERT INTO O_TFR
 	VALUES ("818d7888-0b1e-48c8-b30a-ad014104ed53",
 	"5abf1386-4a94-4a45-a9e4-cd8f42a1a63a",
@@ -234,7 +242,8 @@ INSERT INTO O_TFR
 	'return GD::string_to_int(value:self.Value);',
 	1,
 	'',
-	"32a41185-1a03-4e15-938f-54ee0b7d0b7e");
+	"32a41185-1a03-4e15-938f-54ee0b7d0b7e",
+	0);
 INSERT INTO O_TFR
 	VALUES ("827d1c95-bbc8-4636-800d-b301590633f1",
 	"5abf1386-4a94-4a45-a9e4-cd8f42a1a63a",
@@ -245,7 +254,8 @@ INSERT INTO O_TFR
 	'return GD::string_to_real(value:self.Value);',
 	1,
 	'',
-	"818d7888-0b1e-48c8-b30a-ad014104ed53");
+	"818d7888-0b1e-48c8-b30a-ad014104ed53",
+	0);
 INSERT INTO O_TFR
 	VALUES ("45ccaa55-9d66-4acc-a6bd-d8f8c6bedd20",
 	"5abf1386-4a94-4a45-a9e4-cd8f42a1a63a",
@@ -256,7 +266,8 @@ INSERT INTO O_TFR
 	'return self.Value;',
 	1,
 	'',
-	"827d1c95-bbc8-4636-800d-b301590633f1");
+	"827d1c95-bbc8-4636-800d-b301590633f1",
+	0);
 INSERT INTO O_TFR
 	VALUES ("bdb8a64d-4180-45ff-ba98-cba5028c931f",
 	"5abf1386-4a94-4a45-a9e4-cd8f42a1a63a",
@@ -277,7 +288,8 @@ end if;
 ',
 	1,
 	'',
-	"839baff2-bdf2-4479-aed1-487e317e7991");
+	"839baff2-bdf2-4479-aed1-487e317e7991",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("4b7ffbdb-240f-4df2-b8fd-349263aa9dce",
 	"bdb8a64d-4180-45ff-ba98-cba5028c931f",
@@ -297,7 +309,23 @@ INSERT INTO O_TFR
 	'return self.Const_ID;',
 	1,
 	'',
-	"bdb8a64d-4180-45ff-ba98-cba5028c931f");
+	"bdb8a64d-4180-45ff-ba98-cba5028c931f",
+	0);
+INSERT INTO O_TFR
+	VALUES ("4690d46f-fc87-41bc-9c30-6d92d446ce95",
+	"5abf1386-4a94-4a45-a9e4-cd8f42a1a63a",
+	'get_name',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	1,
+	'select one symb_cnst related by self->CNST_LFSC[R1503]->CNST_SYC[R1502];
+
+return symb_cnst.Name;
+',
+	1,
+	'',
+	"3b350c62-1e8a-4bef-ae84-2305508021d0",
+	0);
 INSERT INTO O_NBATTR
 	VALUES ("6e5a5eff-cd31-48e6-897d-853878d5065f",
 	"5abf1386-4a94-4a45-a9e4-cd8f42a1a63a");

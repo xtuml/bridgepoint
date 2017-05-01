@@ -29,7 +29,8 @@ delete object instance self;
 ',
 	1,
 	'',
-	"00000000-0000-0000-0000-000000000000");
+	"00000000-0000-0000-0000-000000000000",
+	0);
 INSERT INTO O_TFR
 	VALUES ("dffe2eb3-3c17-4ddd-a272-1cf1a7184589",
 	"cf40c1ab-d375-4f8d-8664-2593f9c59401",
@@ -58,7 +59,8 @@ end if;
 return GD::string_to_instance(value:"Error");',
 	1,
 	'',
-	"aaf12aee-72a0-4fcd-afd0-e88be4d337cd");
+	"aaf12aee-72a0-4fcd-afd0-e88be4d337cd",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("10924281-1032-458e-9941-8f3dffe5bf93",
 	"dffe2eb3-3c17-4ddd-a272-1cf1a7184589",
@@ -511,7 +513,8 @@ pathMsg = "<No Path Available - Empty instance>";
 return false;',
 	1,
 	'',
-	"437b2013-27cc-4bcc-bff0-0403f6af02ae");
+	"437b2013-27cc-4bcc-bff0-0403f6af02ae",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("161690f1-dd7c-4066-874d-67c1a92c62d9",
 	"ce8a596d-7205-4f9a-90e2-817850e8b3e4",
@@ -556,7 +559,8 @@ return "";
 ',
 	1,
 	'',
-	"4b480d20-5645-4b2d-9c69-43c6379ebca5");
+	"4b480d20-5645-4b2d-9c69-43c6379ebca5",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("c6ba55e8-65b1-4e73-8b90-a4734f70e39d",
 	"aaf12aee-72a0-4fcd-afd0-e88be4d337cd",
@@ -615,7 +619,8 @@ return 0;
 ',
 	1,
 	'',
-	"ce8a596d-7205-4f9a-90e2-817850e8b3e4");
+	"ce8a596d-7205-4f9a-90e2-817850e8b3e4",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("2bea981d-9450-4f15-ac31-64be0b0a84b3",
 	"5a9a5d5b-8712-48a8-a01c-dbe411799c86",
@@ -687,7 +692,8 @@ pathMsg = "<No Path Available - Empty instance>";
 return 0;',
 	1,
 	'',
-	"5a9a5d5b-8712-48a8-a01c-dbe411799c86");
+	"5a9a5d5b-8712-48a8-a01c-dbe411799c86",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("7dc26011-09fa-492a-8583-e4d35f1d4dd9",
 	"4b480d20-5645-4b2d-9c69-43c6379ebca5",
@@ -750,7 +756,8 @@ for (rightIndex = 0; rightIndex < v_instancesRight.length; rightIndex++) {
 return true;',
 	0,
 	'',
-	"dffe2eb3-3c17-4ddd-a272-1cf1a7184589");
+	"dffe2eb3-3c17-4ddd-a272-1cf1a7184589",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("a8761cf8-c3aa-4b65-803f-e9b988d856b5",
 	"3fbaa48c-2c60-492c-bee8-b734aeb25b36",

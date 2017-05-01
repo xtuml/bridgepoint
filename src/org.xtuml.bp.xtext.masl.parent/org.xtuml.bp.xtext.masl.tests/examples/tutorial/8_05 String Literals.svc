@@ -1,0 +1,110 @@
+service tutorial::string_literals() is 
+  i    : integer   := 10;
+  r    : real      := 88.8;
+  c    : character := 'g';
+  s    : string    := "h";
+  b    : boolean   := false;
+  e    : Time_Unit := DAY;
+  f    : Calendar::time_unit_type;
+  ih   : instance of Pilot;
+  ihc  : sequence of instance of Pilot;
+  re   : record_structure_type;
+  rec  : sequence of record_structure_type;
+  date : Calendar::Date;
+  time : Calendar::Time_of_Day;
+begin
+  //literals
+  i :=  0;
+  i :=  99;
+  i := +99;
+  i := -99;
+  r :=  99.9;
+  r := +99;
+  r := -99;
+  r := 0.9;
+  c := 'f';
+  s := "";
+  s := "hello";
+  b := true;
+  b := false;
+  e := DAY;
+  f := Calendar::SECOND;
+  ih := null;
+  re := (4,5.0,"hello",date,time,green);
+
+  //names
+  i := 0;
+  s[4] := 'r';
+  ih := create Pilot(age=>44);
+  ih.NI := 99;
+  ihc := ihc & ih;
+  ihc[ihc'first].NI := 10;
+  re.int_field := 0;
+  rec := rec & re;
+  rec := rec & (4,5.0,"hello",date,time,blue);
+  rec[rec'first].int_field := 1;
+
+  //expressions, all on integers
+  i := 100;
+  if not (i=100 and i/=1) then
+    raise Standard::constraint_error;
+  elsif not (i<1000 or i>1) then
+    raise Standard::constraint_error;
+  elsif (i<=100 xor i>=100) then
+    raise Standard::constraint_error;
+  elsif not (i=99+1 or i=101-1) then
+    raise Standard::constraint_error;
+  elsif not (i=10*10) then
+    raise Standard::constraint_error;
+  elsif not (i=1000/10) then
+    raise Standard::constraint_error;
+  elsif not (i=10**2) then
+    raise Standard::constraint_error;
+  elsif not (i=1100 rem 1000) then
+    raise Standard::constraint_error;
+  elsif not (i mod 50 = 0) then
+    raise Standard::constraint_error;
+  elsif not (i = abs(-100)) then
+    raise Standard::constraint_error;
+  end if;
+
+  //various expressions on other all base types
+  r := 99.9;
+  c := 'f';
+  s := "hello";
+  b := true;
+  e := DAY;
+  f := Calendar::SECOND;
+  ih := null;
+  if (r<100-1.3) then
+    raise Standard::constraint_error;
+  elsif (c /= 'f') then
+    raise Standard::constraint_error;
+  elsif (c < 'a') then
+    raise Standard::constraint_error;
+  elsif not (c > 'a') then
+    raise Standard::constraint_error;
+  elsif (s /= "hello") then
+    raise Standard::constraint_error;
+  elsif not (s = "hello") then
+    raise Standard::constraint_error;
+  elsif not (s > "gello") then
+    raise Standard::constraint_error;
+  elsif (b=false) then
+    raise Standard::constraint_error;
+  elsif (e=SECOND) then
+    raise Standard::constraint_error;
+  elsif not (e>SECOND) then
+    raise Standard::constraint_error;
+  elsif (f=Calendar::DAY) then
+    raise Standard::constraint_error;
+  elsif not (f<Calendar::DAY) then
+    raise Standard::constraint_error;
+  elsif not (date.month=date.month) then
+    raise Standard::constraint_error;
+  elsif not (date.month<=date.month) then
+    raise Standard::constraint_error;
+  elsif (ih/=null) then
+    raise Standard::constraint_error;
+  end if;
+end;

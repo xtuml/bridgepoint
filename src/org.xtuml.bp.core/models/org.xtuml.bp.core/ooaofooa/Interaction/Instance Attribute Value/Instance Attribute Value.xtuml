@@ -41,7 +41,8 @@ end if;
 delete object instance self;',
 	1,
 	'',
-	"ac08968b-63f9-4052-a2cc-96c5074b744e");
+	"ac08968b-63f9-4052-a2cc-96c5074b744e",
+	0);
 INSERT INTO O_TFR
 	VALUES ("82c444a3-ebe3-4278-9906-035aef45f54b",
 	"cd73dfae-c851-4e8f-8e35-d581ce48620e",
@@ -58,7 +59,8 @@ else
 end if; ',
 	1,
 	'',
-	"bc2c2e78-1d3a-41d7-ac74-4d5dd9f1c02c");
+	"bc2c2e78-1d3a-41d7-ac74-4d5dd9f1c02c",
+	0);
 INSERT INTO O_TFR
 	VALUES ("bc2c2e78-1d3a-41d7-ac74-4d5dd9f1c02c",
 	"cd73dfae-c851-4e8f-8e35-d581ce48620e",
@@ -69,7 +71,8 @@ INSERT INTO O_TFR
 	'return self.Label;',
 	1,
 	'',
-	"1b5957d2-c2a7-4c3f-bb6e-d39aa14ca9e4");
+	"1b5957d2-c2a7-4c3f-bb6e-d39aa14ca9e4",
+	0);
 INSERT INTO O_TFR
 	VALUES ("ac08968b-63f9-4052-a2cc-96c5074b744e",
 	"cd73dfae-c851-4e8f-8e35-d581ce48620e",
@@ -80,7 +83,8 @@ INSERT INTO O_TFR
 	'return not self.isFormal;',
 	1,
 	'',
-	"7e296f8e-04fb-469d-99b2-a80d6b516e07");
+	"7e296f8e-04fb-469d-99b2-a80d6b516e07",
+	0);
 INSERT INTO O_TFR
 	VALUES ("7e296f8e-04fb-469d-99b2-a80d6b516e07",
 	"cd73dfae-c851-4e8f-8e35-d581ce48620e",
@@ -91,7 +95,8 @@ INSERT INTO O_TFR
 	'return not self.isFormal;',
 	1,
 	'',
-	"00000000-0000-0000-0000-000000000000");
+	"00000000-0000-0000-0000-000000000000",
+	0);
 INSERT INTO O_TFR
 	VALUES ("d0876137-9adf-4599-907a-3bd2062e13a2",
 	"cd73dfae-c851-4e8f-8e35-d581ce48620e",
@@ -105,7 +110,8 @@ Translate: native',
 	'return this;',
 	0,
 	'',
-	"1552837b-41d7-474f-91a8-e1082963d459");
+	"1552837b-41d7-474f-91a8-e1082963d459",
+	0);
 INSERT INTO S_DT_PROXY
 	VALUES ("bc3722c8-5188-4529-8519-cf9eb9816b17",
 	"00000000-0000-0000-0000-000000000000",
@@ -141,7 +147,8 @@ if(not_empty attrProxy) and
 end if;',
 	1,
 	'',
-	"82c444a3-ebe3-4278-9906-035aef45f54b");
+	"82c444a3-ebe3-4278-9906-035aef45f54b",
+	0);
 INSERT INTO O_NBATTR
 	VALUES ("4ba98415-2da7-4b4f-81d0-502b9ebd7fe0",
 	"cd73dfae-c851-4e8f-8e35-d581ce48620e");
@@ -228,7 +235,8 @@ else
     self.Label = self.InformalName;
   end if;
 end if;',
-	1);
+	1,
+	0);
 INSERT INTO O_BATTR
 	VALUES ("894c55a6-bded-4938-bc9d-bc8a7d6ab6b1",
 	"cd73dfae-c851-4e8f-8e35-d581ce48620e");
@@ -304,7 +312,8 @@ INSERT INTO O_DBATTR
 	"cd73dfae-c851-4e8f-8e35-d581ce48620e",
 	'select one inst related by self->SQ_CIP[R937];
 self.isFormal = not_empty inst;',
-	1);
+	1,
+	0);
 INSERT INTO O_BATTR
 	VALUES ("c00f26e2-7263-4aaf-891b-28388a9b9114",
 	"cd73dfae-c851-4e8f-8e35-d581ce48620e");

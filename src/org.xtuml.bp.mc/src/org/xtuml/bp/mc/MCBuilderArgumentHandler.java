@@ -1,6 +1,3 @@
-// ========================================================================
-// File: MCBuilderArgumentHandler.java
-// ========================================================================
 package org.xtuml.bp.mc;
 
 import java.io.File;
@@ -13,7 +10,6 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
-
 import org.xtuml.bp.core.util.UIUtil;
 import org.xtuml.bp.utilities.build.BuilderManagement;
 
@@ -51,11 +47,22 @@ public class MCBuilderArgumentHandler {
 		String srcDestFolder = AbstractProperties.getPropertyOrDefault(properties,
 				AbstractProperties.GENERATED_SOURCE_CODE_DEST);
 
+		boolean isWindows = false;
+		if( System.getProperty("os.name").startsWith("Windows") ){
+			isWindows = true;
+		}
+        String homedir = System.getProperty("eclipse.home.location"); //$NON-NLS-1$
+        if ( isWindows ) {
+        	homedir = homedir.replaceFirst("file:/", "");
+        } else {
+        	homedir = homedir.replaceFirst("file:", "");
+        }
+        homedir = homedir + "tools/";
 
-		String mc_plugin_dir = " -home \"" + m_activator.getPluginPathAbsolute() + "\" "; //$NON-NLS-1$ //$NON-NLS-2$
+		String mc_home_dir = " -home \"" + homedir + "\" "; //$NON-NLS-1$ //$NON-NLS-2$
 
 		String cmdLine = 
-					mc_plugin_dir                                   // Location of the model compiler plugin
+					mc_home_dir                                   // Location of the model compiler plugin
 			        + getBuilderDependantArguments() 			    // -i (XMI build) and/or -c (no builder specified)
 					+  getLicenseString(builderIDSelected)          // -l license string
 					+ " " + eclipseSpecificArg						// -e  to tell the xtumlmc_build this is eclipse
@@ -74,9 +81,14 @@ public class MCBuilderArgumentHandler {
 		// make sure the path for xtulmc_build is correct
 		String xbuild_path = AbstractProperties.getPropertyOrDefault(properties,
 				AbstractProperties.XBUILD_LOCAL_LOCATION);
+		if( isWindows && 
+				!xbuild_path.endsWith(".exe") &&
+				!xbuild_path.endsWith(".EXE")) {
+			xbuild_path = xbuild_path.concat(".exe");
+		}
 		BuilderManagement.replaceBuilderInfo(launchFile,
 				AbstractNature.LAUNCH_ATTR_TOOL_LOCATION,
-				m_activator.getPluginPathAbsolute() + xbuild_path);
+				homedir + xbuild_path);
 
 		String projPath = m_project.getLocation().toOSString();
         IPath outputPath = new Path(projPath + File.separator

@@ -12,7 +12,7 @@
 <stringAttribute key="configLocation" value="${workspace_loc}/.metadata/.plugins/org.eclipse.pde.core/Debug - Verifier Test 2"/>
 <booleanAttribute key="default" value="true"/>
 <booleanAttribute key="includeOptional" value="true"/>
-<stringAttribute key="location" value="${eclipse_home}/bp_tests/verifier"/>
+<stringAttribute key="location" value="${eclipse_home}/bp_tests/verifier_2"/>
 <listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_PATHS">
 <listEntry value="/org.xtuml.bp.debug.ui.test/src/VerifierTestSuite2.java"/>
 </listAttribute>
@@ -31,7 +31,7 @@
 <stringAttribute key="org.eclipse.jdt.launching.PROGRAM_ARGUMENTS" value="-pluginCustomization ${resource_loc:/org.xtuml.bp.core}/../org.xtuml.bp.pkg/plugin_customization.ini"/>
 <stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="org.xtuml.bp.debug.ui.test"/>
 <stringAttribute key="org.eclipse.jdt.launching.SOURCE_PATH_PROVIDER" value="org.eclipse.pde.ui.workbenchClasspathProvider"/>
-<stringAttribute key="org.eclipse.jdt.launching.VM_ARGUMENTS" value="-Xmx1024m -Xms512m  -Dorg.eclipse.epp.logging.aeri.ui.skipReports=true -DWORKSPACE_PATH=${resource_loc:/org.xtuml.bp.core}/../org.xtuml.bp.debug.ui.test/ -DLOGFILE_PATH=${eclipse_home}/bp_tests/verifier/.metadata/.log -Dfile.encoding=UTF-8 -Dtest.jni.lib=&quot;${env_var:XTUML_TEST_MODEL_REPOSITORY}/SR2569403761/Debug/libSR2569403761.dll&quot;"/>
+<stringAttribute key="org.eclipse.jdt.launching.VM_ARGUMENTS" value="-Xmx1024m -Xms512m  -Dorg.eclipse.epp.logging.aeri.ui.skipReports=true -DWORKSPACE_PATH=${resource_loc:/org.xtuml.bp.test}/../org.xtuml.bp.debug.ui.test/ -DLOGFILE_PATH=${eclipse_home}/bp_tests/verifier_2/.metadata/.log -Dfile.encoding=UTF-8 -Dtest.jni.lib=&quot;${env_var:XTUML_TEST_MODEL_REPOSITORY}/SR2569403761/Debug/libSR2569403761.dll&quot;"/>
 <stringAttribute key="pde.version" value="3.3"/>
 <stringAttribute key="product" value="org.eclipse.platform.ide"/>
 <booleanAttribute key="run_in_ui_thread" value="true"/>

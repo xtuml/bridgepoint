@@ -1,0 +1,113 @@
+package org.xtuml.bp.xtext.masl.ui.rename
+
+import com.google.inject.Inject
+import java.util.List
+import org.eclipse.core.resources.IProject
+import org.eclipse.core.resources.IncrementalProjectBuilder
+import org.eclipse.core.runtime.IStatus
+import org.eclipse.core.runtime.NullProgressMonitor
+import org.eclipse.core.runtime.Status
+import org.eclipse.emf.ecore.EClass
+import org.eclipse.xtext.naming.QualifiedName
+import org.eclipse.xtext.resource.impl.ResourceDescriptionsProvider
+import org.eclipse.xtext.ui.XtextProjectHelper
+import org.eclipse.xtext.ui.resource.XtextResourceSetProvider
+import org.xtuml.bp.core.common.NonRootModelElement
+import org.xtuml.bp.core.ui.IRenameElementParticipant
+import org.xtuml.bp.xtext.masl.masl.structure.StructurePackage
+import org.xtuml.bp.core.InterfaceOperation_c
+import org.xtuml.bp.core.RequiredOperation_c
+import org.xtuml.bp.core.RequiredExecutableProperty_c
+import org.xtuml.bp.core.ExecutableProperty_c
+import org.xtuml.bp.core.ProvidedOperation_c
+import org.xtuml.bp.core.ProvidedExecutableProperty_c
+import org.xtuml.bp.core.PropertyParameter_c
+
+class MaslRenameParticipant implements IRenameElementParticipant {
+	
+	@Inject XtextResourceSetProvider rsp
+	@Inject ResourceDescriptionsProvider rdp 
+	@Inject MaslRenameRefactoringExecutor executor
+	@Inject extension XtumlToMaslMapper 
+	@Inject extension StructurePackage
+	
+	List<IProject> projects
+	List<EClass> eClasses
+	List<QualifiedName> oldQNames
+	String newName
+	
+	override IStatus renameElement(NonRootModelElement xtumlElement, String newName, String oldName) {
+		this.projects = xtumlElement.projects
+		this.newName = newName
+		this.eClasses = xtumlElement.maslEClasses
+		if(eClasses.empty)
+			return Status.CANCEL_STATUS
+		this.oldQNames = getMaslQualifiedNames(xtumlElement, oldName)
+		if(oldQNames == null || oldQNames.isEmpty )
+			return Status.CANCEL_STATUS
+		val renameElementContext = getRenameElementContext(eClasses, oldQNames, projects)
+		if(renameElementContext.empty) 
+			return Status.CANCEL_STATUS
+		return executor.doRename(renameElementContext, newName)
+	}
+	
+	private def XtumlRenameElementContext getRenameElementContext(List<EClass> eClasses, List<QualifiedName> names, List<IProject> projects) {
+		val uri2eClass = newArrayList
+		uri2eClass += eClasses
+			.map [ eClass |
+			    projects.map[
+                    val index = rdp.getResourceDescriptions(rsp.get(project))
+                    names.map[ name |
+                        index.getExportedObjects(eClass as EClass, name, false)
+                    ].flatten
+				].flatten
+			].flatten
+			.toSet
+			.filter[
+				EObjectURI.isPlatformResource && EObjectURI.segment(2) == 'models'
+				&& (
+					EClass==parameter 
+					|| EObjectURI.fileExtension == 'mod' 
+					|| EObjectURI.fileExtension == 'int'					
+				)
+			]
+			.map[EObjectURI -> EClass]
+		return new XtumlRenameElementContext(uri2eClass)
+	}
+	
+	private def List<IProject> getProjects( NonRootModelElement xtumlElement ) {
+	    switch xtumlElement {
+	        InterfaceOperation_c: {
+                // for interface operations, navigate to get the projects of all referring operations
+                val projects = newArrayList
+                projects += RequiredOperation_c.getManySPR_ROsOnR4502(RequiredExecutableProperty_c.getManySPR_REPsOnR4500(
+                    ExecutableProperty_c.getOneC_EPOnR4004(xtumlElement))).map[ spr_ro |
+                        spr_ro.file.project
+                    ]
+                projects += ProvidedOperation_c.getManySPR_POsOnR4503(ProvidedExecutableProperty_c.getManySPR_PEPsOnR4501(
+                    ExecutableProperty_c.getOneC_EPOnR4004(xtumlElement))).map[ spr_po |
+                        spr_po.file.project
+                    ]
+                projects
+            }
+            PropertyParameter_c: {
+                // for interface message parameters, navigate to get the projects of all referring messages
+                val projects = newArrayList
+                projects += RequiredOperation_c.getManySPR_ROsOnR4502(RequiredExecutableProperty_c.getManySPR_REPsOnR4500(
+                    ExecutableProperty_c.getOneC_EPOnR4006(xtumlElement))).map[ spr_ro |
+                        spr_ro.file.project
+                    ]
+                projects += ProvidedOperation_c.getManySPR_POsOnR4503(ProvidedExecutableProperty_c.getManySPR_PEPsOnR4501(
+                    ExecutableProperty_c.getOneC_EPOnR4006(xtumlElement))).map[ spr_po |
+                        spr_po.file.project
+                    ]
+                projects   
+            }
+	        default:
+		        #[xtumlElement.file.project]
+	    }
+	}
+}
+
+	
+	

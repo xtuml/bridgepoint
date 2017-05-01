@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: None
 Bundle-SymbolicName: org.xtuml.bp.mc.none; singleton:=true
-Bundle-Version: 5.4.0
+Bundle-Version: 6.2.5
 Bundle-Activator: org.xtuml.bp.mc.none.Activator
 Bundle-Vendor: xtUML.org
 Require-Bundle: org.eclipse.ui,
@@ -17,7 +17,8 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.cdt.core,
  org.eclipse.cdt.ui,
  org.eclipse.cdt.managedbuilder.ui
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy
 Export-Package: org.xtuml.bp.mc.none
 Bundle-ClassPath: mcnone.jar
+Eclipse-BundleShape: dir

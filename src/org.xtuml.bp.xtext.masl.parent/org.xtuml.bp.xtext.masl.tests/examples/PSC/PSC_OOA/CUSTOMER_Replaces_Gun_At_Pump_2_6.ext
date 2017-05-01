@@ -1,0 +1,14 @@
+//
+// UK Crown Copyright (c) 2016. All rights reserved.
+//
+
+//! CUSTOMER Replaces Gun At Pump 2
+private service PSC::CUSTOMER_Replaces_Gun_At_Pump_2_6 () is
+  pump_instance : instance of PUMP; 
+
+begin
+  //# Customer replaces gun in pump 2's holster
+  
+  pump_instance := find_one PUMP (Pump_Number = 2);
+  generate PUMP.Gun_Replaced() to pump_instance;
+end service;

@@ -35,11 +35,18 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.WorkbenchException;
 
 import org.xtuml.bp.core.CorePlugin;
+import org.xtuml.bp.core.Ooaofooa;
+import org.xtuml.bp.core.common.ClassQueryInterface_c;
+import org.xtuml.bp.core.common.NonRootModelElement;
 import org.xtuml.bp.core.common.TransactionManager;
+import org.xtuml.bp.core.ui.PasteAction;
 import org.xtuml.bp.core.ui.Selection;
+import org.xtuml.bp.ui.canvas.CanvasPlugin;
 import org.xtuml.bp.ui.canvas.Graphelement_c;
+import org.xtuml.bp.ui.canvas.GraphicalElement_c;
 import org.xtuml.bp.ui.canvas.Graphnode_c;
 import org.xtuml.bp.ui.canvas.Model_c;
+import org.xtuml.bp.ui.canvas.Ooaofgraphics;
 import org.xtuml.bp.ui.canvas.Shape_c;
 import org.xtuml.bp.ui.explorer.ExplorerPlugin;
 import org.xtuml.bp.ui.explorer.ExplorerView;
@@ -547,5 +554,6 @@ public class CanvasUtilities {
     {
     	return explorer;
     }
+	
 
 }

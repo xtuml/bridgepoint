@@ -52,18 +52,18 @@ import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.ui.PlatformUI;
-import org.eclipse.ui.WorkbenchException;
 import org.osgi.framework.Bundle;
-
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.InteractionParticipant_c;
 import org.xtuml.bp.core.Message_c;
 import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.PackageableElement_c;
+import org.xtuml.bp.core.Pref_c;
 import org.xtuml.bp.core.SystemModel_c;
 import org.xtuml.bp.core.XtUMLNature;
 import org.xtuml.bp.core.ui.IModelImport;
 import org.xtuml.bp.core.ui.IModelImport.IFileHeader;
+import org.xtuml.bp.core.ui.preferences.BridgePointProjectReferencesPreferences;
 import org.xtuml.bp.core.util.SupertypeSubtypeUtil;
 import org.xtuml.bp.core.util.UIUtil;
 
@@ -810,20 +810,21 @@ public class PersistenceManager {
 
           IPath path = null;
 
-          // for the compare and clipboard roots return an empty list
-          // of components (there are never components related to these
-          // roots)
-          if (modelRoot.getId().equals(ModelRoot.CLIPBOARD_MODEL_ROOT_NAME)
-			   || modelRoot.getId().equals(ModelRoot.COMPARE_MODEL_ROOT_NAME)) {
-            return results;
-          }
-            
           if (modelRoot == null || !ModelRoot.isFileBasedID(modelRoot.getId())) {//$NON-NLS-1$
-            // for unit testing
+            // used to find components in the entire workspace
+        	// provides support for RTO resolution
             comps = Instances.values();
             path = new Path("/");
           }
           else {
+              // for the compare and clipboard roots return an empty list
+              // of components (there are never components related to these
+              // roots)
+            if (modelRoot.getId().equals(ModelRoot.CLIPBOARD_MODEL_ROOT_NAME)
+            		|| modelRoot.getId().equals(ModelRoot.COMPARE_MODEL_ROOT_NAME)) {
+              return results;
+            }
+
             path = new Path(modelRoot.getId());
             String domName = path.removeFileExtension().segment(1);
             if (domName == null){
@@ -856,22 +857,40 @@ public class PersistenceManager {
           return results;
         }
     }
-    
+
     static public void ensureAllInstancesLoaded(ModelRoot modelRoot,
             Class elementClass) {
-            List comps = findAllComponents(modelRoot, elementClass);
-            for (Iterator iter = comps.iterator(); iter.hasNext();) {
-                PersistableModelComponent component = (PersistableModelComponent) iter
-                        .next();
-                if (!component.isLoaded()) {
-                    try {
-                        component.load(new NullProgressMonitor());
-                    } catch (CoreException e) {
-                        CorePlugin.logError("Can't load component", e);
-                    }
-                }
-            }
-        }
+    	ensureAllInstancesLoaded(modelRoot, elementClass, null);
+    }
+    
+	static public void ensureAllInstancesLoaded(ModelRoot modelRoot, Class elementClass,
+			PersistableModelComponent ignoredComponent) {
+		List comps = findAllComponents(modelRoot, elementClass);
+		for (Iterator iter = comps.iterator(); iter.hasNext();) {
+			PersistableModelComponent component = (PersistableModelComponent) iter.next();
+			if(ignoredComponent != null) {
+				// only load cross project if IPRs are enabled
+				NonRootModelElement ignoredRoot = ignoredComponent.getRootModelElement().getRoot();
+				if(ignoredRoot != null) {
+					boolean iprsEnabled = Pref_c.Getsystemboolean(BridgePointProjectReferencesPreferences.BP_PROJECT_REFERENCES_ID,
+							ignoredRoot.getName());
+					if (component.isLoaded() && !iprsEnabled && !component.getRootModelElement().getRoot().getPersistableComponent()
+							.getFullPath().equals(ignoredRoot.getPersistableComponent().getFullPath())) {
+						return;
+					}
+				}
+			}
+			if (!component.isLoaded() && component.getStatus() != PersistableModelComponent.STATUS_LOADED
+					&& component.getStatus() != PersistableModelComponent.STATUS_LOADING) {
+				try {
+					component.load(new NullProgressMonitor());
+				} catch (CoreException e) {
+					CorePlugin.logError("Can't load component", e);
+				}
+			}
+		}
+	}
+
     static public List findAllChildComponents(PersistableModelComponent parent,
     		ModelRoot modelRoot, Class childType, boolean deep) {
         if (parent == null) {

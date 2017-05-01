@@ -19,7 +19,8 @@ INSERT INTO O_TFR
 	'return self.satisfiesWithImportedPro() or self.satisfiesWithImportedReq();',
 	1,
 	'',
-	"6bd34891-524e-4a57-ae9d-b54377968396");
+	"6bd34891-524e-4a57-ae9d-b54377968396",
+	0);
 INSERT INTO O_TFR
 	VALUES ("90ce5fb1-035e-4379-a2f7-768002f2dd24",
 	"31d55c78-4c8e-4706-afeb-da88c819c621",
@@ -67,7 +68,8 @@ end if;
 delete object instance self;',
 	1,
 	'',
-	"00000000-0000-0000-0000-000000000000");
+	"00000000-0000-0000-0000-000000000000",
+	0);
 INSERT INTO O_TFR
 	VALUES ("547e6b1b-e3e4-4bbb-8557-99c7fa5fbf78",
 	"31d55c78-4c8e-4706-afeb-da88c819c621",
@@ -82,7 +84,8 @@ end if;
 return false;',
 	1,
 	'',
-	"ba26d9f2-4de5-4127-98e2-4cb1fcf621b8");
+	"ba26d9f2-4de5-4127-98e2-4cb1fcf621b8",
+	0);
 INSERT INTO O_TFR
 	VALUES ("6bd34891-524e-4a57-ae9d-b54377968396",
 	"31d55c78-4c8e-4706-afeb-da88c819c621",
@@ -97,7 +100,8 @@ end if;
 return false;',
 	1,
 	'',
-	"90ce5fb1-035e-4379-a2f7-768002f2dd24");
+	"90ce5fb1-035e-4379-a2f7-768002f2dd24",
+	0);
 INSERT INTO O_TFR
 	VALUES ("af540aaa-52aa-4d95-9d19-1deb93808adb",
 	"31d55c78-4c8e-4706-afeb-da88c819c621",
@@ -108,7 +112,8 @@ INSERT INTO O_TFR
 	'return this;',
 	0,
 	'',
-	"547e6b1b-e3e4-4bbb-8557-99c7fa5fbf78");
+	"547e6b1b-e3e4-4bbb-8557-99c7fa5fbf78",
+	0);
 INSERT INTO S_DT_PROXY
 	VALUES ("bc3722c8-5188-4529-8519-cf9eb9816b17",
 	"00000000-0000-0000-0000-000000000000",
@@ -126,7 +131,20 @@ INSERT INTO O_TFR
 	'return self.Label;',
 	1,
 	'',
-	"af540aaa-52aa-4d95-9d19-1deb93808adb");
+	"af540aaa-52aa-4d95-9d19-1deb93808adb",
+	0);
+INSERT INTO O_TFR
+	VALUES ("4666356f-48d3-482b-9bbb-0433120753c2",
+	"31d55c78-4c8e-4706-afeb-da88c819c621",
+	'downgradeCheck',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'',
+	1,
+	'',
+	"d5c52dc2-bfc0-45a9-bbad-ac43019afa0d",
+	0);
 INSERT INTO O_NBATTR
 	VALUES ("4285213c-8da5-4c38-94fe-a6688d3a364f",
 	"31d55c78-4c8e-4706-afeb-da88c819c621");
@@ -300,7 +318,8 @@ if(not_empty requirement)
   requirement_path = requirement.reversePathFromComponent;
 end if;
 self.Label = provision_path + " -o)- " + requirement_path; ',
-	1);
+	1,
+	0);
 INSERT INTO O_BATTR
 	VALUES ("632fae61-92cc-47c2-83f2-83a1311f5db5",
 	"31d55c78-4c8e-4706-afeb-da88c819c621");

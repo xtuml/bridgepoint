@@ -23,7 +23,8 @@ end if;
 return "";',
 	1,
 	'',
-	"22fa8c45-3cd7-4a2b-9149-712b110e861a");
+	"22fa8c45-3cd7-4a2b-9149-712b110e861a",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("6cfb5e43-3ef5-4d0d-90d0-0d7f8e2565fe",
 	"923b7185-28b0-4b25-9379-cea9e08caa8c",
@@ -79,7 +80,8 @@ INSERT INTO O_TFR
 	'return self.Id;',
 	1,
 	'',
-	"923b7185-28b0-4b25-9379-cea9e08caa8c");
+	"923b7185-28b0-4b25-9379-cea9e08caa8c",
+	0);
 INSERT INTO O_TFR
 	VALUES ("c73bc4c8-2f1d-46e4-8641-32cfb9292238",
 	"fe361322-0fa4-4c04-a60c-db0fe0cf4b4e",
@@ -94,7 +96,8 @@ end if;
 return Style::None;',
 	1,
 	'',
-	"7dde88d6-264a-4756-bf18-58154431e96c");
+	"7dde88d6-264a-4756-bf18-58154431e96c",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("4a5d92ad-f146-40c1-b192-60b99c2dd705",
 	"c73bc4c8-2f1d-46e4-8641-32cfb9292238",
@@ -126,7 +129,8 @@ Translate: native',
 	'return this;',
 	0,
 	'',
-	"24807fe4-685b-49ae-a6af-f552dbb7dae2");
+	"24807fe4-685b-49ae-a6af-f552dbb7dae2",
+	0);
 INSERT INTO S_DT_PROXY
 	VALUES ("bc3722c8-5188-4529-8519-cf9eb9816b17",
 	"00000000-0000-0000-0000-000000000000",
@@ -150,7 +154,8 @@ end if;
 delete object instance self;',
 	1,
 	'',
-	"33d74c8e-025d-49ea-b6e8-0bce0fc36572");
+	"33d74c8e-025d-49ea-b6e8-0bce0fc36572",
+	0);
 INSERT INTO O_TFR
 	VALUES ("08e4b13c-5c05-4e5c-a6a1-5348ccbfea5d",
 	"fe361322-0fa4-4c04-a60c-db0fe0cf4b4e",
@@ -179,7 +184,8 @@ return false;
 ',
 	1,
 	'',
-	"c73bc4c8-2f1d-46e4-8641-32cfb9292238");
+	"c73bc4c8-2f1d-46e4-8641-32cfb9292238",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("c78b87f2-d886-4339-8059-1018e9827b21",
 	"08e4b13c-5c05-4e5c-a6a1-5348ccbfea5d",
@@ -205,7 +211,8 @@ for each satisfaction in satisfactions
 end for;',
 	1,
 	'',
-	"08e4b13c-5c05-4e5c-a6a1-5348ccbfea5d");
+	"08e4b13c-5c05-4e5c-a6a1-5348ccbfea5d",
+	0);
 INSERT INTO O_TFR
 	VALUES ("24807fe4-685b-49ae-a6af-f552dbb7dae2",
 	"fe361322-0fa4-4c04-a60c-db0fe0cf4b4e",
@@ -224,7 +231,8 @@ end if;
 return false;',
 	1,
 	'',
-	"00000000-0000-0000-0000-000000000000");
+	"00000000-0000-0000-0000-000000000000",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("a97f6a93-afd0-4882-96a0-4ca1bc5e436c",
 	"24807fe4-685b-49ae-a6af-f552dbb7dae2",
@@ -254,7 +262,8 @@ INSERT INTO O_TFR
 return cardinality satisfactions;',
 	1,
 	'',
-	"29dd683c-b67b-47d5-89a7-356da22517e6");
+	"29dd683c-b67b-47d5-89a7-356da22517e6",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("2f14097a-5220-4469-aed6-f7e5c3b6ac21",
 	"a764cf85-d02b-4459-9b44-38d3743e5466",
@@ -289,7 +298,8 @@ return isLinked;
 ',
 	1,
 	'',
-	"a764cf85-d02b-4459-9b44-38d3743e5466");
+	"a764cf85-d02b-4459-9b44-38d3743e5466",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("619232ae-4cdf-426c-8b4a-148939a59472",
 	"0dadfe54-33ea-4120-9158-b5b90b8a68e4",
@@ -316,7 +326,8 @@ end if;
 return "";',
 	1,
 	'',
-	"0dadfe54-33ea-4120-9158-b5b90b8a68e4");
+	"0dadfe54-33ea-4120-9158-b5b90b8a68e4",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("af29f362-040d-4f06-a31f-9dd285c8cdab",
 	"d3e4716e-658b-4c31-aa21-f8eca3b70de7",
@@ -341,7 +352,8 @@ end if;
 return self.convertToInstance();',
 	1,
 	'',
-	"d3e4716e-658b-4c31-aa21-f8eca3b70de7");
+	"d3e4716e-658b-4c31-aa21-f8eca3b70de7",
+	0);
 INSERT INTO O_TFR
 	VALUES ("71790d96-fe04-4070-b1b7-6afa6e04aedd",
 	"fe361322-0fa4-4c04-a60c-db0fe0cf4b4e",
@@ -357,7 +369,8 @@ end if;
 return true;',
 	1,
 	'',
-	"599c9c08-2ee0-4308-93e1-f4582c4a24c7");
+	"599c9c08-2ee0-4308-93e1-f4582c4a24c7",
+	0);
 INSERT INTO O_TFR
 	VALUES ("0806f1bf-9d2f-4e0d-99af-4ab015e98b97",
 	"fe361322-0fa4-4c04-a60c-db0fe0cf4b4e",
@@ -368,7 +381,8 @@ INSERT INTO O_TFR
 	'	return m_name;',
 	0,
 	'',
-	"71790d96-fe04-4070-b1b7-6afa6e04aedd");
+	"71790d96-fe04-4070-b1b7-6afa6e04aedd",
+	0);
 INSERT INTO O_TFR
 	VALUES ("59e42e3b-8633-495a-9419-49be224c2e7d",
 	"fe361322-0fa4-4c04-a60c-db0fe0cf4b4e",
@@ -379,7 +393,8 @@ INSERT INTO O_TFR
 	'	m_name = p_Name;',
 	0,
 	'',
-	"0806f1bf-9d2f-4e0d-99af-4ab015e98b97");
+	"0806f1bf-9d2f-4e0d-99af-4ab015e98b97",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("e77939e8-fd16-41bc-b011-d9762d809f9c",
 	"59e42e3b-8633-495a-9419-49be224c2e7d",
@@ -407,7 +422,8 @@ if(not self.isSynchronized())
 end if;',
 	1,
 	'',
-	"59e42e3b-8633-495a-9419-49be224c2e7d");
+	"59e42e3b-8633-495a-9419-49be224c2e7d",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("f61235a0-6671-49d1-a183-c438961de9f0",
 	"2276f499-5c58-440d-bbc0-b5fedd0e4fff",
@@ -432,7 +448,8 @@ if(not self.isSynchronized())
 end if;',
 	1,
 	'',
-	"2276f499-5c58-440d-bbc0-b5fedd0e4fff");
+	"2276f499-5c58-440d-bbc0-b5fedd0e4fff",
+	0);
 INSERT INTO O_TFR
 	VALUES ("732d7504-f549-4ea3-8251-a00d8615790e",
 	"fe361322-0fa4-4c04-a60c-db0fe0cf4b4e",
@@ -452,7 +469,51 @@ end if;
 return result;',
 	1,
 	'',
-	"cc7670bc-4871-40cc-a42b-298e99716eb5");
+	"cc7670bc-4871-40cc-a42b-298e99716eb5",
+	0);
+INSERT INTO O_TFR
+	VALUES ("69f708d0-f279-43ea-ae1c-705d30a2d945",
+	"fe361322-0fa4-4c04-a60c-db0fe0cf4b4e",
+	'isCuttable',
+	'A connector type is cuttable if it is selected, and if each shape anchored by it is also selected.',
+	"ba5eda7a-def5-0000-0000-000000000001",
+	1,
+	'cuttable = true;
+
+// check if this element is selected
+if ( not Sel::isSelected(element:self.convertToInstance()) )
+  cuttable = false;
+else
+  select one cl_ic related by self->CL_IIR[R4703]->CL_POR[R4708]->CL_IC[R4707];
+  if ( not Sel::isSelected(element:cl_ic.convertToInstance()) )
+    cuttable = false;
+  else
+    select many c_sfs related by self->C_SF[R4705];
+    for each c_sf in c_sfs
+      select one cl_ir related by c_sf->CL_IR[R4706];
+      // if an imported requirement is present, check its selection, otherwise it is
+	  // a real requirement
+	  if ( not_empty cl_ir )
+		if ( not Sel::isSelected(element:cl_ir.convertToInstance()) )
+		  cuttable = false;
+		  break;
+		end if;
+	  else
+		select one c_r related by c_sf->C_R[R4002];
+		if ( not Sel::isSelected(element:c_r.convertToInstance()) )
+		  cuttable = false;
+		  break;
+		end if;
+	  end if;
+    end for;
+  end if;
+end if;
+
+return cuttable;',
+	1,
+	'',
+	"732d7504-f549-4ea3-8251-a00d8615790e",
+	0);
 INSERT INTO O_DBATTR
 	VALUES ("ca46ed3b-50b1-48b7-82ed-3d2722ada32a",
 	"fe361322-0fa4-4c04-a60c-db0fe0cf4b4e",
@@ -463,7 +524,8 @@ if(not_empty provision)
 end if;
 self.setCachedName(name:name);
 self.Name = name;',
-	1);
+	1,
+	0);
 INSERT INTO O_BATTR
 	VALUES ("ca46ed3b-50b1-48b7-82ed-3d2722ada32a",
 	"fe361322-0fa4-4c04-a60c-db0fe0cf4b4e");

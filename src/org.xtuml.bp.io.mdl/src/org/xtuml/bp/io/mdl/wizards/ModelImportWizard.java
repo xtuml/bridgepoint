@@ -21,19 +21,12 @@
 //=====================================================================
 package org.xtuml.bp.io.mdl.wizards;
 
-import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
-import java.util.List;
-
-import org.eclipse.core.resources.IWorkspaceRunnable;
-import org.eclipse.core.resources.ResourcesPlugin;
-import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
@@ -41,7 +34,6 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.jface.dialogs.IDialogSettings;
 import org.eclipse.jface.dialogs.ProgressMonitorDialog;
 import org.eclipse.jface.operation.IRunnableWithProgress;
-import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.ui.IImportWizard;
@@ -50,31 +42,11 @@ import org.eclipse.ui.PlatformUI;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.SystemModel_c;
-import org.xtuml.bp.core.common.BridgePointPreferencesStore;
-import org.xtuml.bp.core.common.ClassQueryInterface_c;
-import org.xtuml.bp.core.common.ComponentResourceListener;
-import org.xtuml.bp.core.common.InstanceList;
 import org.xtuml.bp.core.common.ModelRoot;
 import org.xtuml.bp.core.common.ModelStreamProcessor;
-import org.xtuml.bp.core.common.NonRootModelElement;
-import org.xtuml.bp.core.common.PersistableModelComponent;
-import org.xtuml.bp.core.common.PersistenceManager;
-import org.xtuml.bp.core.common.UpgradeJob;
 import org.xtuml.bp.core.ui.IModelImport;
 import org.xtuml.bp.core.ui.Selection;
 import org.xtuml.bp.core.util.UIUtil;
-import org.xtuml.bp.io.core.CoreImport;
-import org.xtuml.bp.io.core.ImportHelper;
-import org.xtuml.bp.ui.canvas.Diagram_c;
-import org.xtuml.bp.ui.canvas.Gr_c;
-import org.xtuml.bp.ui.canvas.Graphelement_c;
-import org.xtuml.bp.ui.canvas.GraphicalElement_c;
-import org.xtuml.bp.ui.canvas.GraphicsReconcilerLauncher;
-import org.xtuml.bp.ui.canvas.Graphnode_c;
-import org.xtuml.bp.ui.canvas.Model_c;
-import org.xtuml.bp.ui.canvas.Ooaofgraphics;
-import org.xtuml.bp.ui.canvas.Shape_c;
-
 /**
  * This wizard imports model data from a system level export file, or from on
  * older BridgePoint single file model
@@ -83,6 +55,7 @@ public class ModelImportWizard extends Wizard implements IImportWizard {
 
 	public ModelImportWizard() {
 		super();
+		importHelper = new ModelImportWizardHelper();
 	}
 
 	
@@ -133,6 +106,8 @@ public class ModelImportWizard extends Wizard implements IImportWizard {
 	private ModelStreamProcessor fProcessor = new ModelStreamProcessor();
 
 	private SystemModel_c fSystem;
+	
+	private ModelImportWizardHelper importHelper;
 
 	public void init(IWorkbench workbench, IStructuredSelection selection) {
 		fPreviousSelection = Selection.getInstance().getStructuredSelection();
@@ -176,7 +151,6 @@ public class ModelImportWizard extends Wizard implements IImportWizard {
 			try {
 				// turn off model change listeners
 				ModelRoot.disableChangeNotification();
-				IPath sourceFileDirectory = templatePath.removeLastSegments(1);
 				ImportStreamStatus iss = new ImportStreamStatus(inStream);
 				if (getContainer() == null) {
 					// for unit tests to prevent displaying progress dialogs
@@ -197,53 +171,22 @@ public class ModelImportWizard extends Wizard implements IImportWizard {
 				ModelRoot.enableChangeNotification();	
 			}
 
-            // resolve component references and formalize interfaces in MASL projects
-            ImportHelper helper = new ImportHelper((CoreImport)fImporter);
-            NonRootModelElement[] elements = helper.resolveMASLproject( fImporter.getLoadedInstances() );
-
-            // load the MASL activities
-            IPath sourceFileDirectory = templatePath.removeLastSegments(1);
-            helper.loadMASLActivities((Ooaofooa)fImporter.getRootModelElement().getModelRoot(), sourceFileDirectory, elements);
+			importHelper.doResolveMASL( fImporter, fSystem, true );
+            
 		}
 		return true;
 	}
 
 	private class ImportStreamStatus implements IRunnableWithProgress {
-		InputStream fInStream;
-
 		String fMessage;
 
 		public ImportStreamStatus(InputStream inStream) {
-			fInStream = inStream;
 		}
 
 		public void run(final IProgressMonitor monitor)
 				throws InvocationTargetException, InterruptedException {
 			try {
-				fProcessor.setDestinationElement(fSystem);
-				// otherwise read the file contents into a string and
-				// pass into a byte array stream importer
-				FileInputStream fis = new FileInputStream(fInputFile);
-				byte[] fileBytes = new byte[Long.valueOf(fInputFile.length())
-						.intValue()];
-				fis.read(fileBytes);
-				fis.close();
-				String contents = new String(fileBytes);
-				fProcessor.setContents(contents);
-				ByteArrayInputStream is = new ByteArrayInputStream(fileBytes);
-				Ooaofooa.getInstance(Ooaofooa.CLIPBOARD_MODEL_ROOT_NAME)
-						.clearDatabase(monitor);
-				fImporter = CorePlugin.getStreamImportFactory().create(
-						is,
-						Ooaofooa.getInstance(
-								Ooaofooa.CLIPBOARD_MODEL_ROOT_NAME, false),
-						true, fSystem.getPersistableComponent().getFile().getFullPath());
-				  fProcessor.runImporter(fImporter, monitor);
-
-				fProcessor.processFirstStep(monitor);
-				handleImportedGraphicalElements();
-				fProcessor.processSecondStep(monitor);
-				IPreferenceStore store = CorePlugin.getDefault().getPreferenceStore();
+			    fImporter = importHelper.doImportPhase1(fProcessor, fSystem, fInputFile, monitor);
 				if (fImportPage.parseOnImport()) {
 					// this must be run on the display thread
 					PlatformUI.getWorkbench().getDisplay().syncExec(
@@ -269,34 +212,8 @@ public class ModelImportWizard extends Wizard implements IImportWizard {
 				// since this process is not contained within a
 				// transaction we must force persistence of the
 				// imported elements
-				persistImportedElements(monitor);
-				fMessage = fImporter.getErrorMessage();
-				String fileFormatVersion = fImporter.getHeader()
-						.getFileFormatVersion();
-				if (PersistenceManager.requiresUpgradeBeforeUse(
-						fileFormatVersion, "ModelClass")) {
-					PersistenceManager.markSystemFileForUpgrade(fSystem.getPersistableComponent());
-					UpgradeJob job = new UpgradeJob("Disable system",
-							fSystem.getPersistableComponent());
-					job.setRule(ResourcesPlugin.getWorkspace().getRoot());
-					job.schedule();
-				}
-				
-				boolean createGraphicsOnImport = store.getBoolean(BridgePointPreferencesStore.CREATE_GRAPHICS_DURING_IMPORT);
-				if (createGraphicsOnImport) {
-					// this must be run on the display thread
-					PlatformUI.getWorkbench().getDisplay().syncExec(
-							new Runnable() {
+			    importHelper.doImportPhase2(fProcessor, fSystem, monitor, fMessage, fImporter);
 
-								public void run() {
-									List<NonRootModelElement> systems = new ArrayList<NonRootModelElement>();
-									systems.add(fSystem);
-									GraphicsReconcilerLauncher reconciler = new GraphicsReconcilerLauncher(systems);
-									reconciler.runReconciler(false, true);
-								}
-
-							});
-				}
 			} catch (IOException e) {
 				org.xtuml.bp.io.core.CorePlugin.logError(
 						"There was an exception loading the give source file.",
@@ -304,210 +221,6 @@ public class ModelImportWizard extends Wizard implements IImportWizard {
 			}
 		}
 
-		String getMessage() {
-			return fMessage;
-		}
 	}
-
-	private GraphicalElement_c getGraphicalElementFor(NonRootModelElement element) {
-		GraphicalElement_c[] elements = GraphicalElement_c
-				.GraphicalElementInstances(Ooaofgraphics
-						.getInstance(Ooaofgraphics.CLIPBOARD_MODEL_ROOT_NAME));
-		for(int i = 0; i < elements.length; i++) {
-			if(elements[i].getRepresents() == element) {
-				return elements[i];
-			}
-		}
-		return null;
-	}
-
-	public void persistImportedElements(IProgressMonitor monitor) {
-		try {
-			ComponentResourceListener.setIgnoreResourceChanges(true);
-			ResourcesPlugin.getWorkspace().run(new IWorkspaceRunnable() {
-
-				public void run(IProgressMonitor monitor) throws CoreException {
-					NonRootModelElement[] elementsToBeImported = fProcessor
-							.getCachedExportedElements();
-					monitor.beginTask("Persisting imported elements...",
-							elementsToBeImported.length);
-					for (int i = 0; i < elementsToBeImported.length; i++) {
-						PersistableModelComponent component = elementsToBeImported[i]
-								.getPersistableComponent();
-						try {
-							component.persistSelfAndChildren();
-							monitor.worked(1);
-						} catch (CoreException e) {
-
-						}
-					}
-					fSystem.getPersistableComponent().persist();
-				}
-
-			}, monitor);
-		} catch (CoreException e) {
-			org.xtuml.bp.io.core.CorePlugin.logError(
-					"Unable to persist imported elements.", e);
-		}
-	}
-
-	public void handleImportedGraphicalElements() {
-		Model_c systemModel = getSystemModel();
-		GraphicalElement_c[] rootImportedElements = getRootImportedGraphicalElements();
-		for (int i = 0; i < rootImportedElements.length; i++) {
-			// first move the imported GD_GE to the destination
-			// GD_MD
-			Model_c prevModel = Model_c
-					.getOneGD_MDOnR1(rootImportedElements[i]);
-			if (prevModel != null) {
-				prevModel.unrelateAcrossR1From(rootImportedElements[i]);
-			}
-			systemModel.relateAcrossR1To(rootImportedElements[i]);
-			// now guarantee that it's placement will not overlap any
-			// other GD_GE
-			updateGraphicalPlacement(systemModel, rootImportedElements[i]);
-		}
-		updateGraphicalElementRoots(systemModel);
-	}
-
-	public void updateGraphicalPlacement(Model_c systemModel,
-			GraphicalElement_c importedElement) {
-		ModelRoot.disableChangeNotification();
-		boolean isOver = doesElementOverlapExisting(systemModel, importedElement);
-		while(isOver) {
-			Graphelement_c elem = Graphelement_c.getOneDIM_GEOnR23(importedElement);
-			elem.setPositionx(elem.getPositionx()
-					+ Ooaofgraphics.Getgridsnapincrement(systemModel
-							.getModelRoot(), false));
-			isOver = doesElementOverlapExisting(systemModel, importedElement);
-		}
-		ModelRoot.enableChangeNotification();
-	}
-
-	private boolean doesElementOverlapExisting(Model_c systemModel, GraphicalElement_c importedElement) {
-		boolean overlaps = false;
-		Diagram_c diagram = Diagram_c.getOneDIM_DIAOnR18(systemModel);
-		Graphelement_c elem = Graphelement_c.getOneDIM_GEOnR23(importedElement);
-		Graphnode_c node = Graphnode_c.getOneDIM_NDOnR19(Shape_c.getOneGD_SHPOnR2(importedElement));
-		GraphicalElement_c[] elements = GraphicalElement_c.getManyGD_GEsOnR1(systemModel);
-		for(int i = 0; i < elements.length; i++) {
-			// skip the imported element
-			if(elements[i] == importedElement) continue;
-			// first check to see if any of the points above
-			// are over this element
-			// first try the imported elements nw corner
-			overlaps = elements[i].Isover(Gr_c.Scale((int) (elem
-					.getPositionx() - diagram.getViewportx())),
-					Gr_c.Scale((int) (elem.getPositiony() - diagram
-							.getViewporty())));
-			if(!overlaps) {
-				// now try the sw corner
-				overlaps = elements[i].Isover(Gr_c.Scale((int) (elem
-						.getPositionx() - diagram.getViewportx())), Gr_c
-						.Scale((int) (elem.getPositiony()
-								- diagram.getViewporty() + node.getHeight())));
-				if(!overlaps) {
-					// and now the ne corner
-					overlaps = elements[i].Isover(Gr_c.Scale((int) (elem
-							.getPositionx()
-							- diagram.getViewportx() + node.getWidth())), Gr_c
-							.Scale((int) (elem.getPositiony() - diagram
-									.getViewporty())));
-					if(!overlaps) {
-						// and finally the se corner
-						overlaps = elements[i].Isover(Gr_c.Scale((int) (elem
-								.getPositionx()
-								- diagram.getViewportx() + node.getWidth())),
-								Gr_c.Scale((int) (elem.getPositiony()
-										- diagram.getViewporty() + node
-										.getHeight())));
-					}
-				}
-			}
-			// now switch the coordinates
-			if(!overlaps) {
-				Graphelement_c thisElem = Graphelement_c.getOneDIM_GEOnR23(elements[i]);
-				Graphnode_c thisNode = Graphnode_c.getOneDIM_NDOnR19(Shape_c.getOneGD_SHPOnR2(elements[i]));
-				// first try the elements nw corner
-				overlaps = importedElement.Isover(Gr_c.Scale((int) (thisElem
-						.getPositionx() - diagram.getViewportx())),
-						Gr_c.Scale((int) (thisElem.getPositiony() - diagram
-								.getViewporty())));
-				if(!overlaps) {
-					// now try the sw corner
-					overlaps = importedElement.Isover(Gr_c.Scale((int) (thisElem
-							.getPositionx() - diagram.getViewportx())), Gr_c
-							.Scale((int) (thisElem.getPositiony()
-									- diagram.getViewporty() + thisNode.getHeight())));
-					if(!overlaps) {
-						// and now the ne corner
-						overlaps = importedElement.Isover(Gr_c.Scale((int) (thisElem
-								.getPositionx()
-								- diagram.getViewportx() + thisNode.getWidth())), Gr_c
-								.Scale((int) (thisElem.getPositiony() - diagram
-										.getViewporty())));
-						if(!overlaps) {
-							// and finally the se corner
-							overlaps = importedElement.Isover(Gr_c.Scale((int) (thisElem
-									.getPositionx()
-									- diagram.getViewportx() + thisNode.getWidth())),
-									Gr_c.Scale((int) (thisElem.getPositiony()
-											- diagram.getViewporty() + thisNode
-											.getHeight())));
-						}
-					}
-				}
-			}
-			if(overlaps)
-				break;
-		}
-		return overlaps;
-	}
-
-	private Model_c getSystemModel() {
-		Model_c model = Model_c.ModelInstance(Ooaofgraphics
-				.getDefaultInstance(), new ClassQueryInterface_c() {
-
-			public boolean evaluate(Object candidate) {
-				return ((Model_c) candidate).getOoa_id().equals(
-						fSystem.Get_ooa_id());
-			}
-
-		});
-		return model;
-	}
-
-	private GraphicalElement_c[] getRootImportedGraphicalElements() {
-		ArrayList<GraphicalElement_c> list = new ArrayList<GraphicalElement_c>();
-		GraphicalElement_c[] pastedElems = GraphicalElement_c
-				.GraphicalElementInstances(Ooaofgraphics
-						.getInstance(Ooaofooa.CLIPBOARD_MODEL_ROOT_NAME));
-		for (int i = 0; i < pastedElems.length; i++) {
-			if (pastedElems[i].getRepresents() != null)
-				if (fProcessor
-						.isTypePartOfExport((NonRootModelElement) pastedElems[i]
-								.getRepresents())) {
-					list.add(pastedElems[i]);
-				}
-		}
-		return list.toArray(new GraphicalElement_c[list.size()]);
-	}
-
-	private void updateGraphicalElementRoots(Model_c model) {
-		NonRootModelElement[] elements = fProcessor.getImporter().getLoadedGraphicalInstances();
-		for (int i = 0; i < elements.length; i++) {
-			InstanceList list = elements[i].getModelRoot().getInstanceList(
-					elements[i].getClass());
-			synchronized (list) {
-				list.remove(elements[i]);
-			}
-			InstanceList parentList = model.getModelRoot().getInstanceList(
-					elements[i].getClass());
-			synchronized (list) {
-				parentList.add(elements[i]);
-			}
-			parentList.put(elements[i].getInstanceKey(), elements[i]);
-			elements[i].setModelRoot(model.getModelRoot());
-		}
-	}
+	
 }

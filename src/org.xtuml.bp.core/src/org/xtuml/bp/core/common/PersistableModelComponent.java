@@ -49,6 +49,7 @@ import org.xtuml.bp.core.Body_c;
 import org.xtuml.bp.core.BridgeBody_c;
 import org.xtuml.bp.core.Bridge_c;
 import org.xtuml.bp.core.ClassStateMachine_c;
+import org.xtuml.bp.core.Component_c;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.DataType_c;
 import org.xtuml.bp.core.DerivedAttributeBody_c;
@@ -57,11 +58,13 @@ import org.xtuml.bp.core.FunctionBody_c;
 import org.xtuml.bp.core.Function_c;
 import org.xtuml.bp.core.GlobalElementInSystem_c;
 import org.xtuml.bp.core.InstanceStateMachine_c;
+import org.xtuml.bp.core.ModelClass_c;
 import org.xtuml.bp.core.Modeleventnotification_c;
 import org.xtuml.bp.core.MooreActionHome_c;
 import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.OperationBody_c;
 import org.xtuml.bp.core.Operation_c;
+import org.xtuml.bp.core.Package_c;
 import org.xtuml.bp.core.PackageableElement_c;
 import org.xtuml.bp.core.StateActionBody_c;
 import org.xtuml.bp.core.StateMachineState_c;
@@ -104,6 +107,13 @@ public class PersistableModelComponent implements Comparable {
     private String componentType;
 
     private IFile underlyingResource;
+    private ActionFile afm;
+
+    private boolean activityImportFailures = false;
+    private String activityImportFailureMessage = "";
+
+    private ActivityCount importedActivityCount = new ActivityCount();
+    private ActivityCount activityCount = new ActivityCount();
 
     // instance of ME when component is loaded otherwise it will be null;
     private NonRootModelElement componentRootME;
@@ -130,6 +140,7 @@ public class PersistableModelComponent implements Comparable {
 
         underlyingResource = ResourcesPlugin.getWorkspace().getRoot().getFile(
                 modelFilePath);
+        afm = new ActionFile(modelFilePath);
         if (PersistenceManager.findComponent(modelFilePath) != null)
             throw new WorkbenchException(
                     "Another component with same path already exists");
@@ -171,6 +182,7 @@ public class PersistableModelComponent implements Comparable {
         IPath modelFilePath = getChildPath(parent.getFullPath(), name);
         underlyingResource = ResourcesPlugin.getWorkspace().getRoot().getFile(
                 modelFilePath);
+        afm = new ActionFile(modelFilePath);
         checkComponentConsistancy(null);
         
         // we don't check if underlying resource exists for the case when the ME
@@ -196,6 +208,7 @@ public class PersistableModelComponent implements Comparable {
         
         underlyingResource = ResourcesPlugin.getWorkspace().getRoot().getFile(
                 getRootComponentPath(systemModel.getName()));
+        afm = new ActionFile(getRootComponentPath(systemModel.getName()));
          checkComponentConsistancy(null);
         
         componentRootME = systemModel;
@@ -217,6 +230,7 @@ public class PersistableModelComponent implements Comparable {
         componentRootME = systemModel;
         componentType = PersistenceManager.getHierarchyMetaData().getComponentType(systemModel);
       underlyingResource=ResourcesPlugin.getWorkspace().getRoot().getFile(new Path(dummyCompareName));
+        afm = new ActionFile(new Path(dummyCompareName));
         setComponent(systemModel);
 
     }
@@ -503,6 +517,17 @@ public class PersistableModelComponent implements Comparable {
         return null;
     }
 
+    public IFile getActionFile( int dialect ) {
+      if (afm != null)
+        return afm.getFile(dialect);
+      else
+        return null;
+    }
+
+    public ActionFile getActionFiles() {
+        return afm;
+    }
+
     // we need to synchronized with loaded MEs
     public void refresh() throws CoreException {
         if (!isLoaded()) {
@@ -544,7 +569,7 @@ public class PersistableModelComponent implements Comparable {
         }
     }
     
-    boolean persisting = false;
+    private boolean persisting = false;
 
     public boolean isPersisting(){
       return persisting;
@@ -713,6 +738,12 @@ public class PersistableModelComponent implements Comparable {
                 .fillInStackTrace());
           }else{
             importer.finishComponentLoad(monitor, true);
+	    if ( !importer.getActionSuccessful() ) {
+	      CorePlugin.logError("Error while loading model from "
+			      + getFullPath() + " ERROR: "
+		  + importer.getErrorMessage(), null );
+	    }
+
             // check integrity after load, but not for the compare root
             if(!rootME.getModelRoot().isCompareRoot()) {
             	IntegrityChecker.createIntegrityIssuesForLoad(getRootModelElement());
@@ -773,8 +804,16 @@ public class PersistableModelComponent implements Comparable {
                 if (myParentRootME != null){// in case of component is being created and not yet relate with others.
                     PersistableModelComponent myParentPMC = myParentRootME.getPersistableComponent();
                     if (myParentPMC != getParent()){
+                    	String parentName = "null";
+                    	if (myParentPMC != null) {
+                    		parentName = myParentPMC.getName();
+                    	}
+                    	String childName = "null";
+                    	if (getParent() != null) {
+                    		childName = getParent().getName();
+                    	}
                         throw new WorkbenchException(
-                                "Component's Parent child ID Mismatch:" 
+                                "Component's Parent (" + parentName + ") and child (" + childName + ") ID Mismatch. Full path: " 
                                 + getFullPath());
                     }
                 }
@@ -795,7 +834,7 @@ public class PersistableModelComponent implements Comparable {
             }
             else if(fileNameWithoutExtension != null && ! fileNameWithoutExtension.equals(CoreUtil.getName(rootME))){
                 throw new WorkbenchException(
-                        "Component's file name and root model element name does not match:"
+                        "Component's file name (" + fileNameWithoutExtension + ") and root model element name (" + CoreUtil.getName(rootME) + ")does not match. Full path: "
                         + getFullPath());
             }
         }
@@ -1072,6 +1111,7 @@ public class PersistableModelComponent implements Comparable {
         }
         PersistenceManager.removeComponent(this);
         underlyingResource = newFile;
+        afm.updateFiles(newFile.getFullPath());
         PersistenceManager.addComponent(this);
         if (thisMe != null && thisMe.isProxy()) {
             thisMe.updateContentPath(underlyingResource.getFullPath());
@@ -1109,5 +1149,77 @@ public class PersistableModelComponent implements Comparable {
         return 1;
       }
       return getFullPath().toString().compareTo(pmc.getFullPath().toString());
+    }
+
+    // methods for handling import assertions
+    public boolean getActivityImportFailures() {
+        return activityImportFailures;
+    }
+
+    public void setActivityImportFailures( boolean failures ) {
+        activityImportFailures = failures;
+    }
+
+    public String getActivityImportFailureMessage() {
+        return activityImportFailureMessage;
+    }
+
+    public void appendActivityImportFailureMessage( String message ) {
+        activityImportFailureMessage += message;
+    }
+
+    public void resetActivityImportFailureMessage() {
+        activityImportFailureMessage = "";
+    }
+
+    public void incrementImportedActivities( String type, int dialect ) {
+        importedActivityCount.increment( type, dialect );
+    }
+
+    public void incrementActivities( String type, int dialect ) {
+        activityCount.increment( type, dialect );
+    }
+
+    public void resetActivityCounts() {
+        importedActivityCount = new ActivityCount();
+        activityCount = new ActivityCount();
+    }
+
+    public void assertActivityCountMatch( int dialect ) {
+        // count the existing activities
+        if ( componentRootME instanceof SystemModel_c ) {
+            SystemModel_c inst = (SystemModel_c)componentRootME;
+            Ooaofooa.S_syscountactivitiesforimport( componentRootME.getModelRoot(), (Object)this, dialect, inst.getSys_id() );
+        }
+        else if ( componentRootME instanceof Package_c ) {
+            Package_c inst = (Package_c)componentRootME;
+            Ooaofooa.Ep_pkgcountactivitiesforimport( componentRootME.getModelRoot(), (Object)this, dialect, inst.getPackage_id() );
+        }
+        else if ( componentRootME instanceof ModelClass_c ) {
+            ModelClass_c inst = (ModelClass_c)componentRootME;
+            Ooaofooa.O_objcountactivitiesforimport( componentRootME.getModelRoot(), (Object)this, dialect, inst.getObj_id() );
+        }
+        else if ( componentRootME instanceof Component_c ) {
+            Component_c inst = (Component_c)componentRootME;
+            Ooaofooa.C_ccountactivitiesforimport( componentRootME.getModelRoot(), (Object)this, inst.getId(), dialect );
+        }
+        else if ( componentRootME instanceof InstanceStateMachine_c ) {
+            InstanceStateMachine_c inst = (InstanceStateMachine_c)componentRootME;
+            Ooaofooa.Sm_ismcountactivitiesforimport( componentRootME.getModelRoot(), (Object)this, dialect, inst.getSm_id() );
+        }
+        else if ( componentRootME instanceof ClassStateMachine_c ) {
+            ClassStateMachine_c inst = (ClassStateMachine_c)componentRootME;
+            Ooaofooa.Sm_asmcountactivitiesforimport( componentRootME.getModelRoot(), (Object)this, dialect, inst.getSm_id() );
+        }
+        else {
+            // Root element type not supported
+        }
+
+        // compare with the imported activities
+        if( !activityCount.equals( importedActivityCount, dialect ) ) {
+	        String path = getActionFile(1).getName();
+            setActivityImportFailures(true);
+            appendActivityImportFailureMessage("File: " + path + ": Number of parsed activities does not match number of activities in model.\n");
+        }
     }
 }

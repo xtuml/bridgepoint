@@ -27,7 +27,8 @@ end if;
 delete object instance self;',
 	1,
 	'',
-	"00000000-0000-0000-0000-000000000000");
+	"00000000-0000-0000-0000-000000000000",
+	0);
 INSERT INTO O_TFR
 	VALUES ("91bcb888-c47e-42cc-b054-5ba38160047f",
 	"52851cb7-3b3b-43f8-a631-e850ba13a4b8",
@@ -42,7 +43,8 @@ Translate: native',
 return this;',
 	0,
 	'',
-	"20bd279f-1760-4fe2-a60f-ea0025641180");
+	"20bd279f-1760-4fe2-a60f-ea0025641180",
+	0);
 INSERT INTO S_DT_PROXY
 	VALUES ("bc3722c8-5188-4529-8519-cf9eb9816b17",
 	"00000000-0000-0000-0000-000000000000",
@@ -50,6 +52,74 @@ INSERT INTO S_DT_PROXY
 	'',
 	'',
 	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("68ca62fe-ab3c-48c6-956d-73ff8323db05",
+	"52851cb7-3b3b-43f8-a631-e850ba13a4b8",
+	'canReferToDataType',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000001",
+	1,
+	'select one dt related by self->S_DT[R16];
+if(not_empty dt)
+  select one packageableElem related by self->S_EE[R12]->PE_PE[R8001];
+  return packageableElem.canReferToDataType(dtID:dt.DT_ID, dtName: dt.Name);
+end if;
+return false;
+',
+	1,
+	'',
+	"91bcb888-c47e-42cc-b054-5ba38160047f",
+	0);
+INSERT INTO O_TFR
+	VALUES ("90cfd38d-9152-4125-a876-e926ec9ad748",
+	"52851cb7-3b3b-43f8-a631-e850ba13a4b8",
+	'setToDefaultDataType',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'elementType = Util::getSimpleClassName(element:self.convertToInstance());
+defaultTypeName = S_DT::getDefaultDataTypeName(elementType:elementType);
+
+select one system related by self->S_EE[R12]->PE_PE[R8001]->EP_PKG[R8000]->S_SYS[R1405];
+if not_empty system
+  // Unhook from the current data type (if any)
+  select one currentDt related by self->S_DT[R16];
+  if ( not_empty currentDt )
+    unrelate self from currentDt across R16;
+  end if;
+  // Now connect to the default type
+  dt_id = system.getCoreTypeId(name:defaultTypeName);
+  select any pe from instances of PE_PE where selected.Element_ID == dt_id;
+  select one defaultDt related by pe->S_DT[R8001]; 
+  relate self to defaultDt across R16;
+else
+  // this is an error, if the system is not
+  // found we cannot find the core type
+  USER::logError(msg:"Unable to locate system root for data type: " + defaultTypeName,path:"");
+end if;
+',
+	1,
+	'',
+	"68ca62fe-ab3c-48c6-956d-73ff8323db05",
+	0);
+INSERT INTO O_TFR
+	VALUES ("49f4ed38-4424-4425-9bc7-56fdabc91f81",
+	"52851cb7-3b3b-43f8-a631-e850ba13a4b8",
+	'downgradeCheck',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'isVisible = self.canReferToDataType();
+if ( not isVisible )
+  select one s_dt related by self->S_DT[R16];
+  Util::reportElementDowngraded(rto:s_dt.convertToInstance(), rgoDowngraded:self.convertToInstance(), relationship:"R16");
+  self.setToDefaultDataType();
+end if;
+',
+	1,
+	'',
+	"90cfd38d-9152-4125-a876-e926ec9ad748",
+	0);
 INSERT INTO O_NBATTR
 	VALUES ("49b657ac-2a2e-4dd0-a706-55f0f7c3beca",
 	"52851cb7-3b3b-43f8-a631-e850ba13a4b8");

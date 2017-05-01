@@ -31,7 +31,8 @@ end if;
 delete object instance self;',
 	1,
 	'',
-	"7565c847-e1c4-4ed9-af28-a5a6f10f6321");
+	"02ec5b84-0de6-4c57-923c-1a1986a821a5",
+	0);
 INSERT INTO O_TFR
 	VALUES ("56a9a7cf-020a-4275-904f-00844fd0e719",
 	"30c0ac88-8e1e-4d56-a78d-5df87501c11c",
@@ -70,7 +71,8 @@ self.dispose();
 ',
 	1,
 	'',
-	"5044a3df-4c5a-49b0-8be4-9bc3699a4275");
+	"5044a3df-4c5a-49b0-8be4-9bc3699a4275",
+	0);
 INSERT INTO O_TFR
 	VALUES ("6149488b-e3eb-4c40-bebc-370762d43fa1",
 	"30c0ac88-8e1e-4d56-a78d-5df87501c11c",
@@ -87,7 +89,8 @@ INSERT INTO O_TFR
    return result;',
 	1,
 	'',
-	"cb5cac17-93df-4e2b-bb26-ec69afc746fc");
+	"cb5cac17-93df-4e2b-bb26-ec69afc746fc",
+	0);
 INSERT INTO O_TFR
 	VALUES ("5044a3df-4c5a-49b0-8be4-9bc3699a4275",
 	"30c0ac88-8e1e-4d56-a78d-5df87501c11c",
@@ -100,54 +103,8 @@ return empty rattr_root;
 ',
 	1,
 	'',
-	"22e9c56e-b29a-4183-ad70-b90d4ff25bd2");
-INSERT INTO O_TFR
-	VALUES ("7565c847-e1c4-4ed9-af28-a5a6f10f6321",
-	"30c0ac88-8e1e-4d56-a78d-5df87501c11c",
-	'combine_refs',
-	'',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'select any other_attr related by self->O_ATTR[R106]->O_OBJ[R102]->O_ATTR[R102]
-       where selected.Attr_ID == param.other_id;
-select one other_rattr related by other_attr->O_RATTR[R106];
-select many other_ref_set related by other_rattr->O_REF[R108];
-   
-   // find last O_REF in self''s ref list R112
-   select any ref related by self->O_REF[R108];
-   select one next_ref related by ref->O_REF[R112.''precedes''];
-   while (not_empty next_ref)
-     select one next_ref related by ref->O_REF[R112.''precedes''];
-     if (not_empty next_ref)
-       ref = next_ref;
-     end if;
-   end while;
-   
-   for each other_ref in other_ref_set
-     unrelate other_ref from other_rattr across R108;
-     relate other_ref to self across R108;  
-     // add other_ref to self''s ref list R112
-     relate other_ref to ref across R112.''succeeds'';
-     ref = other_ref;    
-   end for;
-   select any oida related by other_attr->O_OIDA[R105];
-   if ( not_empty oida )  // attribute is identifying
-     other_rattr.migrateToBase();
-   else
-     other_attr.dispose();
-   end if;',
-	1,
-	'',
-	"02ec5b84-0de6-4c57-923c-1a1986a821a5");
-INSERT INTO O_TPARM
-	VALUES ("17f4b63e-7ae8-47ad-a576-112f3f9c77dc",
-	"7565c847-e1c4-4ed9-af28-a5a6f10f6321",
-	'other_id',
-	"ba5eda7a-def5-0000-0000-000000000005",
-	0,
-	'',
-	"00000000-0000-0000-0000-000000000000",
-	'');
+	"22e9c56e-b29a-4183-ad70-b90d4ff25bd2",
+	0);
 INSERT INTO O_TFR
 	VALUES ("04c5ebcb-01b5-4d2e-b66b-37bd44880329",
 	"30c0ac88-8e1e-4d56-a78d-5df87501c11c",
@@ -173,16 +130,22 @@ INSERT INTO O_TFR
     
    unrelate other_ref from self across R108;
    // create referential attribute
+   select any oida related by self->O_ATTR[R106]->O_OIDA[R105];
    select one mc related by self->O_ATTR[R106]->O_OBJ[R102];
+   rid = -1;
+   if (not empty oida)
+     rid = oida.Oid_ID;
+   end if;
    newAttr_id = mc.newReferentialAttribute(ref_obj_id: other_ref.RObj_ID, 
-       ref_oid_id: other_ref.ROid_ID, ref_attr_id: other_ref.RAttr_ID, id: -1 );
+       ref_oid_id: other_ref.ROid_ID, ref_attr_id: other_ref.RAttr_ID, id:rid);
    
    select any newRattr related by mc->O_ATTR[R102]->O_RATTR[R106] 
         where selected.Attr_ID == newAttr_id;
    relate other_ref to newRattr across R108;',
 	1,
 	'',
-	"151163eb-26ef-4501-9362-0eaa4aa4e3ff");
+	"151163eb-26ef-4501-9362-0eaa4aa4e3ff",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("3546c23d-9585-4fe7-bf30-b0eb82a2a2ea",
 	"04c5ebcb-01b5-4d2e-b66b-37bd44880329",
@@ -204,7 +167,8 @@ INSERT INTO O_TFR
 return not_empty ref;',
 	1,
 	'',
-	"1576224f-de97-402f-ae70-42d6866c181f");
+	"1576224f-de97-402f-ae70-42d6866c181f",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("ba18db4a-6c15-425d-8b1b-be1df0dc2994",
 	"02ec5b84-0de6-4c57-923c-1a1986a821a5",
@@ -244,7 +208,8 @@ return self.BaseAttrName;
 ',
 	1,
 	'',
-	"9e9ca7e7-fb7a-45bb-a0fb-dcb4818ad9cf");
+	"9e9ca7e7-fb7a-45bb-a0fb-dcb4818ad9cf",
+	0);
 INSERT INTO O_TFR
 	VALUES ("fc8d0bda-413f-4a98-bde5-8a9cdb614877",
 	"30c0ac88-8e1e-4d56-a78d-5df87501c11c",
@@ -276,7 +241,8 @@ end if;
 ',
 	1,
 	'',
-	"9ad2a7cd-6cef-411f-9e64-f90f2556b982");
+	"9ad2a7cd-6cef-411f-9e64-f90f2556b982",
+	0);
 INSERT INTO O_TFR
 	VALUES ("151163eb-26ef-4501-9362-0eaa4aa4e3ff",
 	"30c0ac88-8e1e-4d56-a78d-5df87501c11c",
@@ -286,6 +252,13 @@ INSERT INTO O_TFR
 	1,
 	'// assure that the datatype is the correct one for
 // referential attributes
+
+// if the rattr is not related to a battr across R113
+// it is a recursive referential and should have its
+// own data type
+select one battr related by self->O_BATTR[R113];
+if ( not_empty battr )
+
 select one attr related by self->O_ATTR[R106];
 select one dt related by attr->S_DT[R114];
 if ( not_empty dt )
@@ -314,10 +287,12 @@ select one pkg related by attr->O_OBJ[R102]->PE_PE[R8001]->EP_PKG[R8000];
     relate attr to ref_attr_dt across R114;
   end if;
 
+end if;
 ',
 	1,
 	'',
-	"56a9a7cf-020a-4275-904f-00844fd0e719");
+	"56a9a7cf-020a-4275-904f-00844fd0e719",
+	0);
 INSERT INTO O_TFR
 	VALUES ("fca0b91c-4c36-4144-9847-ab180bfe3992",
 	"30c0ac88-8e1e-4d56-a78d-5df87501c11c",
@@ -348,7 +323,8 @@ return tmp_root ;
 ',
 	1,
 	'',
-	"fc8d0bda-413f-4a98-bde5-8a9cdb614877");
+	"fc8d0bda-413f-4a98-bde5-8a9cdb614877",
+	0);
 INSERT INTO O_TFR
 	VALUES ("1576224f-de97-402f-ae70-42d6866c181f",
 	"30c0ac88-8e1e-4d56-a78d-5df87501c11c",
@@ -359,7 +335,8 @@ INSERT INTO O_TFR
 	'return "< Name Loop >";',
 	1,
 	'',
-	"92b1ac7c-9ab7-43ee-975d-08b5dd97f61e");
+	"92b1ac7c-9ab7-43ee-975d-08b5dd97f61e",
+	0);
 INSERT INTO O_TFR
 	VALUES ("92b1ac7c-9ab7-43ee-975d-08b5dd97f61e",
 	"30c0ac88-8e1e-4d56-a78d-5df87501c11c",
@@ -371,7 +348,8 @@ INSERT INTO O_TFR
 ',
 	1,
 	'',
-	"00000000-0000-0000-0000-000000000000");
+	"00000000-0000-0000-0000-000000000000",
+	0);
 INSERT INTO O_TFR
 	VALUES ("3f0157c4-60a3-4114-9104-2ea9719ceda1",
 	"30c0ac88-8e1e-4d56-a78d-5df87501c11c",
@@ -405,7 +383,8 @@ return tmp_prefix ;
 ',
 	1,
 	'',
-	"6149488b-e3eb-4c40-bebc-370762d43fa1");
+	"6149488b-e3eb-4c40-bebc-370762d43fa1",
+	0);
 INSERT INTO O_TFR
 	VALUES ("9e9ca7e7-fb7a-45bb-a0fb-dcb4818ad9cf",
 	"30c0ac88-8e1e-4d56-a78d-5df87501c11c",
@@ -430,7 +409,8 @@ end if;
 return result;',
 	1,
 	'',
-	"fca0b91c-4c36-4144-9847-ab180bfe3992");
+	"fca0b91c-4c36-4144-9847-ab180bfe3992",
+	0);
 INSERT INTO O_TFR
 	VALUES ("9ad2a7cd-6cef-411f-9e64-f90f2556b982",
 	"30c0ac88-8e1e-4d56-a78d-5df87501c11c",
@@ -455,7 +435,35 @@ end if;
 return result;',
 	1,
 	'',
-	"3f0157c4-60a3-4114-9104-2ea9719ceda1");
+	"3f0157c4-60a3-4114-9104-2ea9719ceda1",
+	0);
+INSERT INTO O_TFR
+	VALUES ("6cec27ed-0d63-4db0-9ac4-8d2b73570fc6",
+	"30c0ac88-8e1e-4d56-a78d-5df87501c11c",
+	'propagateBaseAttr',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'// propagate the attribute that is the base through the referential chain
+select one battr related by self->O_BATTR[R113];
+if ( not_empty battr )
+  select many o_ref_set related by self->O_REF[R108];
+  for each o_ref in o_ref_set
+    select one o_rattr related by o_ref->O_RTIDA[R111]->O_OIDA[R110]->O_ATTR[R105]->O_RATTR[R106];
+    if ( not_empty o_rattr )
+      select one old_battr related by o_rattr->O_BATTR[R113];
+      if ( not_empty old_battr )
+        unrelate old_battr from o_rattr across R113;
+      end if;
+      relate battr to o_rattr across R113;
+      o_rattr.propagateBaseAttr();
+    end if;
+  end for;
+end if;',
+	1,
+	'',
+	"04c5ebcb-01b5-4d2e-b66b-37bd44880329",
+	0);
 INSERT INTO O_REF
 	VALUES ("30c0ac88-8e1e-4d56-a78d-5df87501c11c",
 	"d931d595-21f3-4ce8-bad1-6661a0e261b8",
@@ -588,6 +596,7 @@ if (base_attr != null){
 else{
 	return m_baseattrname;
 }',
+	0,
 	0);
 INSERT INTO O_BATTR
 	VALUES ("04d2772e-021f-4f26-adec-895e77bb0e6c",

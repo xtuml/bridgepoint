@@ -48,7 +48,8 @@ end if;
 return result;',
 	1,
 	'',
-	"eb80a3b5-df3a-493e-ab28-504c26c892f1");
+	"eb80a3b5-df3a-493e-ab28-504c26c892f1",
+	0);
 INSERT INTO O_TFR
 	VALUES ("292cae89-a8bd-49a9-b632-d8341af8dd17",
 	"31832e28-c7f1-4e83-9c56-28614980fb33",
@@ -74,7 +75,8 @@ else
 end if;',
 	1,
 	'',
-	"df1c2a3b-dbef-468b-b5e6-2d10c1396074");
+	"df1c2a3b-dbef-468b-b5e6-2d10c1396074",
+	0);
 INSERT INTO O_TFR
 	VALUES ("0d6fcc24-125a-42ee-b558-df40e7d8e7f5",
 	"31832e28-c7f1-4e83-9c56-28614980fb33",
@@ -97,15 +99,6 @@ end if;
 select many dis related by self->SM_EVTDI[R532];
 for each di in dis
   di.dispose();
-end for;
-// Communication and Access Subsystem
-select many smsmes related by self->CA_SMSME[R409];
-for each smsme in smsmes
-  smsme.dispose();
-end for;
-select many eesmes related by self->CA_EESME[R405];
-for each eesme in eesmes
-  eesme.dispose();
 end for;
 //Event subsystem
 select many csmes related by self->E_CSME[R706];
@@ -142,7 +135,8 @@ end if;
 delete object instance self;',
 	1,
 	'',
-	"4898adfb-0c2c-44ab-9806-384d9c7e6b5a");
+	"4898adfb-0c2c-44ab-9806-384d9c7e6b5a",
+	0);
 INSERT INTO O_TFR
 	VALUES ("0b3653d7-c1c8-4e8d-b842-c77cbccd9f88",
 	"31832e28-c7f1-4e83-9c56-28614980fb33",
@@ -176,7 +170,8 @@ semEvt.createDefaultMatrixEntries();
 ',
 	1,
 	'',
-	"671594aa-d328-4b18-810b-6153bfa4dcd8");
+	"671594aa-d328-4b18-810b-6153bfa4dcd8",
+	0);
 INSERT INTO O_TFR
 	VALUES ("6997a327-062f-42b9-a3ee-da49ef802187",
 	"31832e28-c7f1-4e83-9c56-28614980fb33",
@@ -219,7 +214,8 @@ return false;
 ',
 	1,
 	'',
-	"00000000-0000-0000-0000-000000000000");
+	"00000000-0000-0000-0000-000000000000",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("2b8e5f53-33f3-43a7-ad8c-72a66c6554ac",
 	"6997a327-062f-42b9-a3ee-da49ef802187",
@@ -251,7 +247,8 @@ return not_empty item;
 ',
 	1,
 	'',
-	"a4b45c77-6717-48dd-9dc0-c13ac1e49d01");
+	"a4b45c77-6717-48dd-9dc0-c13ac1e49d01",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("3aacae36-2038-4a65-815f-f40f55503153",
 	"b41e6c6f-07c5-425e-a755-9a72798a885a",
@@ -345,7 +342,8 @@ return true;
 ',
 	1,
 	'',
-	"ab2847ac-b7b6-4eb5-bb56-997523f0992a");
+	"ab2847ac-b7b6-4eb5-bb56-997523f0992a",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("0fa464e0-0d1e-4534-a1ba-77fbfee6518c",
 	"4d8bbd8c-676e-4af9-87b5-cf00ab8bdadc",
@@ -407,7 +405,8 @@ return false;
 ',
 	1,
 	'',
-	"4d8bbd8c-676e-4af9-87b5-cf00ab8bdadc");
+	"4d8bbd8c-676e-4af9-87b5-cf00ab8bdadc",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("5cbb5ff0-8fe8-4685-b495-354cdcc164cc",
 	"6f2656eb-ab21-4857-9ce2-bfaa87e30ef7",
@@ -483,7 +482,8 @@ return false;
 ',
 	1,
 	'',
-	"6f2656eb-ab21-4857-9ce2-bfaa87e30ef7");
+	"6f2656eb-ab21-4857-9ce2-bfaa87e30ef7",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("a644c6c7-bc3d-4968-9197-7e9277f91cb5",
 	"a76c363c-3119-4a1d-89fc-9a6aa6674c7f",
@@ -515,7 +515,8 @@ return state.canIgnoreOrSayEventCantHappen(eventId:self.SMevt_ID,
 	',
 	1,
 	'',
-	"f6328893-6203-4cb9-a7da-c37b92d4dd9f");
+	"f6328893-6203-4cb9-a7da-c37b92d4dd9f",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("95f35a51-e693-42f8-a4d3-e0a929a4592f",
 	"cb77e0de-4c05-40e3-8bc4-b033255fcd57",
@@ -573,7 +574,8 @@ seme.migrateChToEi();
 ',
 	1,
 	'',
-	"b41e6c6f-07c5-425e-a755-9a72798a885a");
+	"b41e6c6f-07c5-425e-a755-9a72798a885a",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("c5734ba5-be89-43cc-ad36-ce4734ec2f57",
 	"671594aa-d328-4b18-810b-6153bfa4dcd8",
@@ -651,7 +653,8 @@ end if;
 ',
 	1,
 	'',
-	"0d6fcc24-125a-42ee-b558-df40e7d8e7f5");
+	"0d6fcc24-125a-42ee-b558-df40e7d8e7f5",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("b48c2187-398b-4b6b-8a52-078eea6f503b",
 	"eb80a3b5-df3a-493e-ab28-504c26c892f1",
@@ -690,7 +693,8 @@ seme.migrateEiToCh();
 ',
 	1,
 	'',
-	"16eb2204-feee-4583-91eb-45976c0330d3");
+	"16eb2204-feee-4583-91eb-45976c0330d3",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("a4c961e4-fc48-4d36-bd73-8df4a2fd6076",
 	"bce643f3-bd03-43d1-aa57-e50f3fe5fda4",
@@ -725,7 +729,8 @@ end if;
 return result;',
 	1,
 	'',
-	"a76c363c-3119-4a1d-89fc-9a6aa6674c7f");
+	"a76c363c-3119-4a1d-89fc-9a6aa6674c7f",
+	0);
 INSERT INTO O_TFR
 	VALUES ("4898adfb-0c2c-44ab-9806-384d9c7e6b5a",
 	"31832e28-c7f1-4e83-9c56-28614980fb33",
@@ -740,7 +745,8 @@ Translate: native',
 return this;',
 	0,
 	'',
-	"a0cd8bdd-c64a-41fb-a62f-92376a3fd0ff");
+	"a0cd8bdd-c64a-41fb-a62f-92376a3fd0ff",
+	0);
 INSERT INTO S_DT_PROXY
 	VALUES ("bc3722c8-5188-4529-8519-cf9eb9816b17",
 	"00000000-0000-0000-0000-000000000000",
@@ -758,7 +764,8 @@ INSERT INTO O_TFR
 	'return self.SMevt_ID;',
 	1,
 	'',
-	"292cae89-a8bd-49a9-b632-d8341af8dd17");
+	"292cae89-a8bd-49a9-b632-d8341af8dd17",
+	0);
 INSERT INTO O_TFR
 	VALUES ("a0cd8bdd-c64a-41fb-a62f-92376a3fd0ff",
 	"31832e28-c7f1-4e83-9c56-28614980fb33",
@@ -790,7 +797,8 @@ end if;
 return result;',
 	1,
 	'',
-	"cb77e0de-4c05-40e3-8bc4-b033255fcd57");
+	"cb77e0de-4c05-40e3-8bc4-b033255fcd57",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("ad74b4f8-fba0-427d-83b3-9c934ea5f487",
 	"a0cd8bdd-c64a-41fb-a62f-92376a3fd0ff",
@@ -839,7 +847,8 @@ if(not foundDuplicate and param.checkForDuplicate)
 end if;',
 	1,
 	'',
-	"bce643f3-bd03-43d1-aa57-e50f3fe5fda4");
+	"bce643f3-bd03-43d1-aa57-e50f3fe5fda4",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("e212767f-d0b4-4aea-be2f-4bdf7d30bbb4",
 	"6670b484-fcaa-48e2-a907-7d8474d12d75",
@@ -861,7 +870,8 @@ select one nlevt related by self->SM_SEVT[R525]->SM_NLEVT[R526];
 return empty nlevt;',
 	1,
 	'',
-	"6997a327-062f-42b9-a3ee-da49ef802187");
+	"6997a327-062f-42b9-a3ee-da49ef802187",
+	0);
 INSERT INTO O_TFR
 	VALUES ("16eb2204-feee-4583-91eb-45976c0330d3",
 	"31832e28-c7f1-4e83-9c56-28614980fb33",
@@ -878,7 +888,8 @@ newEvtdi.initialize();
 self.createMessageArgumentsForParameter(id:newEvtdi.SMedi_ID);',
 	1,
 	'',
-	"ab28e0f8-85b5-4a79-8e86-e50c8e7edf8b");
+	"ab28e0f8-85b5-4a79-8e86-e50c8e7edf8b",
+	0);
 INSERT INTO O_TFR
 	VALUES ("ab2847ac-b7b6-4eb5-bb56-997523f0992a",
 	"31832e28-c7f1-4e83-9c56-28614980fb33",
@@ -948,7 +959,8 @@ if (cardinality peers > 1)
 end if;',
 	1,
 	'',
-	"0b3653d7-c1c8-4e8d-b842-c77cbccd9f88");
+	"0b3653d7-c1c8-4e8d-b842-c77cbccd9f88",
+	0);
 INSERT INTO O_TFR
 	VALUES ("76bd93a6-4fbe-4c1d-8048-0f7916459402",
 	"31832e28-c7f1-4e83-9c56-28614980fb33",
@@ -978,7 +990,8 @@ if(not_empty item)
 end if;',
 	1,
 	'',
-	"6670b484-fcaa-48e2-a907-7d8474d12d75");
+	"6670b484-fcaa-48e2-a907-7d8474d12d75",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("b758306f-b6cc-45eb-861f-d7344da5dabe",
 	"76bd93a6-4fbe-4c1d-8048-0f7916459402",
@@ -1012,7 +1025,8 @@ if(not_empty item)
 end if;',
 	1,
 	'',
-	"76bd93a6-4fbe-4c1d-8048-0f7916459402");
+	"76bd93a6-4fbe-4c1d-8048-0f7916459402",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("32b2330b-f640-4fc6-9354-0853b64edeeb",
 	"d0c198a0-ac92-44cf-b6c7-bfb6dc96b784",
@@ -1047,7 +1061,8 @@ end if;
 ',
 	1,
 	'',
-	"d0c198a0-ac92-44cf-b6c7-bfb6dc96b784");
+	"d0c198a0-ac92-44cf-b6c7-bfb6dc96b784",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("0557b161-216d-4223-90f2-69a87cd0b0b9",
 	"137490a0-66bd-4078-b51e-32272119cd54",
@@ -1084,7 +1099,8 @@ return result;
 ',
 	1,
 	'',
-	"137490a0-66bd-4078-b51e-32272119cd54");
+	"137490a0-66bd-4078-b51e-32272119cd54",
+	0);
 INSERT INTO O_TFR
 	VALUES ("c2c86766-95cd-46dc-9d8d-49049892174c",
 	"31832e28-c7f1-4e83-9c56-28614980fb33",
@@ -1095,7 +1111,8 @@ INSERT INTO O_TFR
 	'	return m_drv_lbl;',
 	0,
 	'',
-	"348d4e2e-0a92-4b29-a8eb-2777f74326f3");
+	"348d4e2e-0a92-4b29-a8eb-2777f74326f3",
+	0);
 INSERT INTO O_TFR
 	VALUES ("8cc8f452-6a5b-42c2-850a-e3cbfd1e3e18",
 	"31832e28-c7f1-4e83-9c56-28614980fb33",
@@ -1130,17 +1147,25 @@ for each evt in events
                             id:self.SMevt_ID, element:self.convertToInstance());
   end if;
   if(evt != self and evt.Numb == self.Numb)
-    MI_IM::createIssue(sys_id:sys_id, description:
+    // Be sure that neither me nor the iterated event is polymorphic.
+    select one self_sm_nlevt related by self->SM_SEVT[R525]->SM_NLEVT[R526];
+    if ( empty self_sm_nlevt )
+      select one iterated_sm_nlevt related by evt->SM_SEVT[R525]->SM_NLEVT[R526];
+      if ( empty iterated_sm_nlevt )
+        MI_IM::createIssue(sys_id:sys_id, description:
                "Found another event under the same state machine with a " +
                                                           "matching number.",
                                       severity:Severity::Error, name:self.Mning,
                            path:self.getPath(),
                             id:self.SMevt_ID, element:self.convertToInstance());    
+      end if;
+    end if;
   end if;
 end for;',
 	1,
 	'',
-	"c2c86766-95cd-46dc-9d8d-49049892174c");
+	"c2c86766-95cd-46dc-9d8d-49049892174c",
+	0);
 INSERT INTO O_TFR
 	VALUES ("388f5142-ef39-449b-8bc0-c24e6b6fdf9f",
 	"31832e28-c7f1-4e83-9c56-28614980fb33",
@@ -1232,7 +1257,8 @@ end if;
 return signature;',
 	1,
 	'',
-	"8cc8f452-6a5b-42c2-850a-e3cbfd1e3e18");
+	"8cc8f452-6a5b-42c2-850a-e3cbfd1e3e18",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("2d089a33-201b-4408-8f24-68b6283227e7",
 	"388f5142-ef39-449b-8bc0-c24e6b6fdf9f",
@@ -1242,6 +1268,45 @@ INSERT INTO O_TPARM
 	'',
 	"00000000-0000-0000-0000-000000000000",
 	'');
+INSERT INTO O_TFR
+	VALUES ("78710614-5fc3-4822-9204-bf119dd0b55e",
+	"31832e28-c7f1-4e83-9c56-28614980fb33",
+	'getConcretePoly',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	1,
+	'select any sm_evt from instances of SM_EVT where false;
+if ( Util::stringContains( haystack:self.Mning, needle:"." ) )
+  superclass_name = Util::stringSplit( s:self.Mning, delimiter:".", i:0 );
+  evt_name = Util::stringSplit( s:self.Mning, delimiter:".", i:1 );
+
+  select one current_class related by self->SM_SM[R502]->SM_ISM[R517]->O_OBJ[R518];
+  select any superclass related by current_class->R_OIR[R201]->R_RGO[R203]->R_SUB[R205]->R_SUBSUP[R213]->R_SUPER[R212]->R_RTO[R204]->R_OIR[R203]->O_OBJ[R201]
+    where ( selected.Name == superclass_name );
+  select many classes related by current_class->R_OIR[R201]->R_RGO[R203]->R_SUB[R205]->R_SUBSUP[R213]->R_SUPER[R212]->R_RTO[R204]->R_OIR[R203]->O_OBJ[R201];
+
+  // select up the hierarchy until the right superclass is found or the hierarchy runs out
+  while ( empty superclass and not_empty classes )
+    select any superclass related by classes->R_OIR[R201]->R_RGO[R203]->R_SUB[R205]->R_SUBSUP[R213]->R_SUPER[R212]->R_RTO[R204]->R_OIR[R203]->O_OBJ[R201]
+      where ( selected.Name == superclass_name );
+    select many classes related by classes->R_OIR[R201]->R_RGO[R203]->R_SUB[R205]->R_SUBSUP[R213]->R_SUPER[R212]->R_RTO[R204]->R_OIR[R203]->O_OBJ[R201];
+  end while;
+
+  if ( not_empty superclass )
+    select any sm_evt related by superclass->SM_ISM[R518]->SM_SM[R517]->SM_EVT[R502]
+      where ( selected.Mning == evt_name );
+  end if;
+end if;
+
+if ( empty sm_evt )
+  return GD::NULL_UNIQUE_ID();
+else
+  return sm_evt.SMevt_ID;
+end if;',
+	1,
+	'',
+	"388f5142-ef39-449b-8bc0-c24e6b6fdf9f",
+	0);
 INSERT INTO O_NBATTR
 	VALUES ("230b2bab-457c-4eae-bfe1-b824ac2f5324",
 	"31832e28-c7f1-4e83-9c56-28614980fb33");
@@ -1510,7 +1575,8 @@ INSERT INTO O_DBATTR
 else
   self.Drv_Lbl = self.Unq_Lbl +  GD::int_to_string(value:self.Numb);
 end if;',
-	1);
+	1,
+	0);
 INSERT INTO O_BATTR
 	VALUES ("0905cdc5-bf50-4c29-9d2d-6f9e1524fd30",
 	"31832e28-c7f1-4e83-9c56-28614980fb33");

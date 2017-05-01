@@ -1,0 +1,12 @@
+//
+// Filename: OP_report_group.tr
+//
+// Description: Allows the domain to report the details of a group that has
+//              been added to the system.
+//
+// UK Crown Copyright (c) 2010. All rights reserved.
+//
+private service SAC::Operator~>report_group (group_name : in  string) is
+begin
+  null;
+end;

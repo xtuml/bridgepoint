@@ -74,7 +74,8 @@ for each participant in participants
 end for;',
 	1,
 	'',
-	"00000000-0000-0000-0000-000000000000");
+	"00000000-0000-0000-0000-000000000000",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("3903a341-f32a-402b-9429-0117c979fea1",
 	"4f267255-ee8b-402e-81d1-b638c8f4d1d1",

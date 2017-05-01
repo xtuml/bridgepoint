@@ -1,0 +1,4 @@
+private service X::terminator1~>term3() is
+begin
+  null;
+end service;

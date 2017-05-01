@@ -19,7 +19,8 @@ Bridge:GD',
 	'return 3;',
 	1,
 	'',
-	"aa5f57f9-4d45-42dd-8108-588f212c1226");
+	"aa5f57f9-4d45-42dd-8108-588f212c1226",
+	0);
 INSERT INTO O_TFR
 	VALUES ("051a8ae5-d474-4e10-925f-daa19ec88254",
 	"a361b553-b2e3-46ea-a8f4-8b8633921011",
@@ -33,7 +34,8 @@ Bridge:GD',
 	'return Style::Box;',
 	1,
 	'',
-	"64b117b8-bb50-4b4a-8653-a6f9645f158c");
+	"64b117b8-bb50-4b4a-8653-a6f9645f158c",
+	0);
 INSERT INTO S_DT_PROXY
 	VALUES ("6e636321-0fd1-4577-b185-e4d76b0d0c71",
 	"00000000-0000-0000-0000-000000000000",
@@ -130,7 +132,8 @@ end if;
 return result;',
 	1,
 	'',
-	"47b4912e-6356-420d-882b-4bc83d06ac61");
+	"47b4912e-6356-420d-882b-4bc83d06ac61",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("f358dea6-8a65-4aa3-a329-d50098bdb805",
 	"aa5f57f9-4d45-42dd-8108-588f212c1226",
@@ -189,7 +192,8 @@ else
 end if;',
 	1,
 	'',
-	"11fbbd9d-cfa9-48da-b85c-2f81a943df32");
+	"11fbbd9d-cfa9-48da-b85c-2f81a943df32",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("85f75223-c956-4ebd-82dd-62edc46cfeea",
 	"456c447e-08b7-4c37-92cf-949e7b12173f",
@@ -211,7 +215,8 @@ Bridge:GD',
 	'return Style::None;',
 	1,
 	'',
-	"051a8ae5-d474-4e10-925f-daa19ec88254");
+	"051a8ae5-d474-4e10-925f-daa19ec88254",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("d0e37499-e63f-43b8-a2a2-5d5fc6bf12fc",
 	"3bb8b8cb-581e-4676-99d9-29a0408f7f18",
@@ -258,7 +263,8 @@ else
 end if;        ',
 	1,
 	'',
-	"3bb8b8cb-581e-4676-99d9-29a0408f7f18");
+	"3bb8b8cb-581e-4676-99d9-29a0408f7f18",
+	0);
 INSERT INTO O_TFR
 	VALUES ("7ab78ccd-467f-4207-8ce6-479cc648f5d8",
 	"a361b553-b2e3-46ea-a8f4-8b8633921011",
@@ -312,7 +318,8 @@ end for;
 delete object instance self;',
 	1,
 	'',
-	"ac08f70f-08b8-4f6a-b394-0dd6be1c6193");
+	"ac08f70f-08b8-4f6a-b394-0dd6be1c6193",
+	0);
 INSERT INTO O_TFR
 	VALUES ("c6099bc7-cf40-4dc0-9253-e53ad114ffc3",
 	"a361b553-b2e3-46ea-a8f4-8b8633921011",
@@ -326,7 +333,8 @@ relate self to brg across R19;
 brg.initialize();',
 	1,
 	'',
-	"929d523b-5c18-41c9-9be4-ed1574afab27");
+	"929d523b-5c18-41c9-9be4-ed1574afab27",
+	0);
 INSERT INTO O_TFR
 	VALUES ("64b117b8-bb50-4b4a-8653-a6f9645f158c",
 	"a361b553-b2e3-46ea-a8f4-8b8633921011",
@@ -339,7 +347,8 @@ Bridge:GD',
 	'return self.EE_ID;',
 	1,
 	'',
-	"456c447e-08b7-4c37-92cf-949e7b12173f");
+	"456c447e-08b7-4c37-92cf-949e7b12173f",
+	0);
 INSERT INTO O_TFR
 	VALUES ("47b4912e-6356-420d-882b-4bc83d06ac61",
 	"a361b553-b2e3-46ea-a8f4-8b8633921011",
@@ -361,7 +370,8 @@ result="";
 return result;',
 	1,
 	'',
-	"7ab78ccd-467f-4207-8ce6-479cc648f5d8");
+	"7ab78ccd-467f-4207-8ce6-479cc648f5d8",
+	0);
 INSERT INTO O_TFR
 	VALUES ("ac08f70f-08b8-4f6a-b394-0dd6be1c6193",
 	"a361b553-b2e3-46ea-a8f4-8b8633921011",
@@ -376,7 +386,8 @@ Translate: native',
 return this;',
 	0,
 	'',
-	"00000000-0000-0000-0000-000000000000");
+	"00000000-0000-0000-0000-000000000000",
+	0);
 INSERT INTO S_DT_PROXY
 	VALUES ("bc3722c8-5188-4529-8519-cf9eb9816b17",
 	"00000000-0000-0000-0000-000000000000",
@@ -405,7 +416,8 @@ INSERT INTO O_TFR
 ',
 	1,
 	'',
-	"c6099bc7-cf40-4dc0-9253-e53ad114ffc3");
+	"c6099bc7-cf40-4dc0-9253-e53ad114ffc3",
+	0);
 INSERT INTO O_TFR
 	VALUES ("45c44bb8-b208-4224-9c8c-8a7beba6d6d6",
 	"a361b553-b2e3-46ea-a8f4-8b8633921011",
@@ -427,7 +439,8 @@ return GD::NULL_UNIQUE_ID();
 ',
 	1,
 	'',
-	"cd8830d0-53a6-4fcc-81a0-e5bbdcef7e33");
+	"cd8830d0-53a6-4fcc-81a0-e5bbdcef7e33",
+	0);
 INSERT INTO O_TFR
 	VALUES ("5b99f4e3-05b2-4f5c-9671-aeff98f8aba3",
 	"a361b553-b2e3-46ea-a8f4-8b8633921011",
@@ -449,7 +462,8 @@ if(not_empty operation)
 end if;',
 	1,
 	'',
-	"45c44bb8-b208-4224-9c8c-8a7beba6d6d6");
+	"45c44bb8-b208-4224-9c8c-8a7beba6d6d6",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("f6a596c6-c76f-4808-9cb9-e3f29c6e6e67",
 	"5b99f4e3-05b2-4f5c-9671-aeff98f8aba3",
@@ -459,6 +473,47 @@ INSERT INTO O_TPARM
 	'',
 	"00000000-0000-0000-0000-000000000000",
 	'');
+INSERT INTO O_TFR
+	VALUES ("b04655fc-86af-476d-ae98-a620d244abd9",
+	"a361b553-b2e3-46ea-a8f4-8b8633921011",
+	'downgradeCheck',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'// Check Bridges
+select many s_brgs related by self->S_BRG[R19];
+for each s_brg in s_brgs
+  s_brg.downgradeCheck();
+end for;
+
+// Check External Entity Data Items
+select many s_eedis related by self->S_EEDI[R11];
+for each s_eedi in s_eedis
+  s_eedi.downgradeCheck();
+end for;
+
+// Check External Entity Event Data Item
+select many s_eeedis related by self->S_EEEDI[R12];
+for each s_eeedi in s_eeedis
+  s_eeedi.downgradeCheck();
+end for;
+',
+	1,
+	'',
+	"5b99f4e3-05b2-4f5c-9671-aeff98f8aba3",
+	0);
+INSERT INTO O_TFR
+	VALUES ("d5225d5c-eae8-4b61-a84e-ef9fdab20ad8",
+	"a361b553-b2e3-46ea-a8f4-8b8633921011",
+	'isCuttable',
+	'A shape type is cuttable if it is selected, and if each connector anchored to it is also selected.',
+	"ba5eda7a-def5-0000-0000-000000000001",
+	1,
+	'return Sel::isSelected(element:self.convertToInstance());',
+	1,
+	'',
+	"b04655fc-86af-476d-ae98-a620d244abd9",
+	0);
 INSERT INTO O_NBATTR
 	VALUES ("d597da19-93f3-476f-9e24-db650e00c933",
 	"a361b553-b2e3-46ea-a8f4-8b8633921011");
@@ -597,7 +652,8 @@ if(self.isRealized)
   end if;
 end if;
 self.Label = self.Name + extension;',
-	1);
+	1,
+	0);
 INSERT INTO O_BATTR
 	VALUES ("2e57c2ac-1d9f-4505-b7aa-3af93d02cb5f",
 	"a361b553-b2e3-46ea-a8f4-8b8633921011");

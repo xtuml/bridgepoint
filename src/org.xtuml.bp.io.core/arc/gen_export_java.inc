@@ -42,6 +42,7 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.CoreException;
 import org.xtuml.bp.core.common.PersistableModelComponent;
 import org.xtuml.bp.core.common.PersistenceManager;
+import org.xtuml.bp.core.common.ComponentTransactionListener;
     .end if
 
 import java.io.File;
@@ -52,8 +53,10 @@ import java.io.PrintStream;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.text.NumberFormat;
+import java.util.Collection;
 import java.util.UUID;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Locale;
 .if ( multilevel )
 import java.util.HashSet;
@@ -62,6 +65,7 @@ import java.util.Set;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.jface.preference.IPreferenceStore;
 
 import org.xtuml.bp.core.*;
 import org.xtuml.bp.core.common.*;
@@ -76,14 +80,18 @@ public class ${class_name} extends CoreExport
 
 	protected PrintStream m_fh;
     protected boolean m_export_graphics;
-    boolean m_is_fully_derived = false;
     .if (callingProject == "NBP")
 	protected Path m_path;
-	boolean m_isUpdate = false;
-	ByteArrayOutputStream m_updateData;
+	private boolean m_isUpdate = false;
+	private ByteArrayOutputStream m_updateData;
+        .if ( multilevel )
+        boolean m_updateActions = false;
+        protected Map<Integer,PrintStream> m_afh; // handle for actions
+	protected Map<Integer,ByteArrayOutputStream> m_actionUpdateData;
+        .end if;
     .end if
 
-    public ${class_name}(${var.main_class_name} modelRoot, String outfileName, boolean export_graphics)
+    public ${class_name}(${var.main_class_name} modelRoot, String outfileName,boolean export_graphics)
     	throws FileNotFoundException 
     {
 		super(modelRoot, CoreExport.YES);
@@ -94,6 +102,15 @@ public class ${class_name} extends CoreExport
 		File fh = path.toFile();
 		FileOutputStream fs = new FileOutputStream(fh);
 		m_fh = new PrintStream(fs);
+                .if (multilevel)
+                m_afh = new HashMap<Integer,PrintStream>();
+                m_actionUpdateData = new HashMap<Integer,ByteArrayOutputStream>();
+                int[] dialects = ActionFile.getAvailableDialectCodes();
+                for (int i = 0; i < dialects.length; i++) {
+                    m_actionUpdateData.put( dialects[i], new ByteArrayOutputStream() );
+		    m_afh.put( dialects[i], new PrintStream(m_actionUpdateData.get(dialects[i])) );
+                }
+                .end if
 	.end if
         m_export_graphics = export_graphics;
     }
@@ -109,17 +126,31 @@ public class ${class_name} extends CoreExport
         m_fh = new PrintStream(fs);
 		m_inst = element;
 		m_export_graphics = true;
+            m_afh = new HashMap<Integer,PrintStream>();
+            m_actionUpdateData = new HashMap<Integer,ByteArrayOutputStream>();
+            int[] dialects = ActionFile.getAvailableDialectCodes();
+            for (int i = 0; i < dialects.length; i++) {
+                m_actionUpdateData.put( dialects[i], new ByteArrayOutputStream() );
+                m_afh.put( dialects[i], new PrintStream(m_actionUpdateData.get(dialects[i])) );
+            }
 	}
 	
 	public ExportModelComponent(Ooaofooa modelRoot, ByteArrayOutputStream baos,
 			NonRootModelElement element) {
     	super(modelRoot, CoreExport.YES);
     	m_fh = new PrintStream(baos);
+        m_afh = new HashMap<Integer,PrintStream>();
+        m_actionUpdateData = new HashMap<Integer,ByteArrayOutputStream>();
+        int[] dialects = ActionFile.getAvailableDialectCodes();
+        for (int i = 0; i < dialects.length; i++) {
+            m_actionUpdateData.put( dialects[i], new ByteArrayOutputStream() );
+            m_afh.put( dialects[i], new PrintStream(m_actionUpdateData.get(dialects[i])) );
+        }
     	m_inst = element;
     	m_export_graphics = true;
 	}
 	
-	public ${class_name}(${var.main_class_name} modelRoot, String outfileName, boolean export_graphics, NonRootModelElement instance)
+	public ${class_name}(${var.main_class_name} modelRoot, String outfileName,boolean export_graphics, NonRootModelElement instance)
     	throws FileNotFoundException 
     {
 		super(modelRoot, CoreExport.YES);
@@ -143,10 +174,28 @@ public class ${class_name} extends CoreExport
             m_isUpdate = true;
             m_updateData = new ByteArrayOutputStream();
             m_fh = new PrintStream(m_updateData);
+            .if (multilevel)
+            m_afh = new HashMap<Integer,PrintStream>();
+            m_actionUpdateData = new HashMap<Integer,ByteArrayOutputStream>();
+            int[] dialects = ActionFile.getAvailableDialectCodes();
+            for (int i = 0; i < dialects.length; i++) {
+                m_actionUpdateData.put( dialects[i], new ByteArrayOutputStream() );
+                m_afh.put( dialects[i], new PrintStream(m_actionUpdateData.get(dialects[i])) );
+            }
+            .end if
         } else {
             File fh = m_path.toFile();
             FileOutputStream fs = new FileOutputStream(fh);
             m_fh = new PrintStream(fs);
+            .if (multilevel)
+            m_afh = new HashMap<Integer,PrintStream>();
+            m_actionUpdateData = new HashMap<Integer,ByteArrayOutputStream>();
+            int[] dialects = ActionFile.getAvailableDialectCodes();
+            for (int i = 0; i < dialects.length; i++) {
+                m_actionUpdateData.put( dialects[i], new ByteArrayOutputStream() );
+                m_afh.put( dialects[i], new PrintStream(m_actionUpdateData.get(dialects[i])) );
+            }
+            .end if
         }
     }
     .end if	
@@ -233,6 +282,12 @@ public class ${class_name} extends CoreExport
          				.end if
             }
             m_fh.close();
+            .if ( multilevel )
+            Collection<PrintStream> actionStreams = m_afh.values();
+            for ( PrintStream actionStream : actionStreams ) {
+                actionStream.close();
+            }
+            .end if
     .if (callingProject == "NBP")
 			if (m_isUpdate) {
 				InputStream stream = new ByteArrayInputStream(m_updateData.toByteArray());
@@ -243,6 +298,28 @@ public class ${class_name} extends CoreExport
 				} else {
 				f.setContents(stream, true, true, pm);
 			}
+                                .if ( multilevel )
+                                int[] dialects = ActionFile.getAvailableDialectCodes();
+                                for ( int i = 0; i < dialects.length; i++ ) {
+                                    InputStream action_stream = new ByteArrayInputStream(m_actionUpdateData.get(dialects[i]).toByteArray());
+                                    IFile af = mc.getActionFile(dialects[i]);
+                                    if ( null != af && !af.exists()) {
+                                        if ( m_actionUpdateData.get(dialects[i]).toByteArray().length != 0 && m_updateActions ) {
+                                            af.create(action_stream, true, pm);
+                                        }
+                                    } else {
+                                        if ( m_actionUpdateData.get(dialects[i]).toByteArray().length != 0 && m_updateActions ) {
+                                            af.setContents(action_stream, true, true, pm);
+                                        }
+                                        else if ( !ComponentTransactionListener.noPersistActions() ) {
+                                            af.delete(true, false, pm);
+                                        }
+                                        else {
+                                            // do nothing to the action file
+                                        }
+                                    }
+                                }
+                                .end if
 			}
     .end if
 			pm.done();
@@ -256,11 +333,20 @@ public class ${class_name} extends CoreExport
     .end if
 	}
 
-    .invoke export_methods = gen_export_methods(multilevel, "", tool, false);
+    .assign stream_export = false
+    .if ( class_name == "ExportModelStream" )
+      .assign stream_export = true
+    .end if
+    .invoke export_methods = gen_export_methods(multilevel, stream_export, "", tool, false);
 ${export_methods.body}\
 
     .invoke sql_statements = gen_sql_write_statements(callingProject, multilevel, false);
 ${sql_statements.body}\
+
+    .if ( multilevel )
+      .invoke action_statements = gen_action_write_statements();
+${action_statements.body}\
+    .end if
 
 .invoke diagram_export = gen_diagram_export_statements();
 ${diagram_export.body}\

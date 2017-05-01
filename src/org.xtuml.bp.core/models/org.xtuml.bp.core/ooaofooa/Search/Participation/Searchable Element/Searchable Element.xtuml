@@ -36,7 +36,8 @@ end if;
 delete object instance self;',
 	1,
 	'',
-	"00000000-0000-0000-0000-000000000000");
+	"00000000-0000-0000-0000-000000000000",
+	0);
 INSERT INTO O_REF
 	VALUES ("4a414bd1-b825-4edf-a33e-21ea3a2eedc7",
 	"fa6af3d4-7158-42ce-a887-e54782dc21af",

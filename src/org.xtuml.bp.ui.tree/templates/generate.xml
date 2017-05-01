@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
- File:      $RCSfile$
- Version:   $Revision$
- Modified:  $Date$
-
- (c) Copyright 2006-2014 by Mentor Graphics Corp. All rights reserved.
+ File:      generate.xml
 
   ========================================================================
 Licensed under the Apache License, Version 2.0 (the "License"); you may not 
@@ -23,6 +19,9 @@ the License.
 
 -->
 <project name="**PROJECT**" default="all" basedir=".">
+   
+  <import file="${mcj_path}/common.xml"/>
+   
   <target name="all"
           description="Generate all code for this project"
           depends="update_schema,java,format_java">
@@ -33,11 +32,8 @@ the License.
           depends="update_schema,java">
   </target>
 
-  <property name="eclipse-home" value="${basedir}/../.."/>
   <property name="plugins-home" value="${ant.home}/../.."/>
-  <property name="util_bin_dir" value="${eclipse-home}/src/org.xtuml.bp.mc.c.source/mc3020/bin"/>
   <property name="chain_util_path" value="../org.xtuml.bp.core"/>
-  <property name="mcj_path" value="../MC-Java" />
   <property name="sg.dep" value="ooa_schema.sql,schema_gen.arc" />
   <property name="schema.output_path" value="../org.xtuml.bp.ui.tree/sql" />
   <target name="update_schema"
@@ -66,7 +62,7 @@ the License.
           description="Generate the tree explorer files"
           unless="java.buildNotNeeded" >
     <echo >Generating ${java.output} ...</echo>
-  <exec vmlauncher="false" failonerror="true" executable="${util_bin_dir}/xtumlmc_build.exe" >
+  <exec vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
         <env key="PTC_MC_ARC_DIR" value="${mcj_path}"/>
         <env key="CHAIN_UTIL_DIR" value="${chain_util_path}"/>
         <env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
@@ -95,7 +91,7 @@ the License.
 
     <taskdef name="PTCodeFormat" classname="PTCodeFormatterTask" >
         <classpath>
-            <pathelement path="../org.xtuml.bp.core/tools/" />
+            <pathelement path="${mcj_path}/../org.xtuml.bp.core/tools/" />
             <fileset dir="${plugins-home}/plugins" casesensitive="yes">
                 <include name="**/org.eclipse.text_*.jar" />
                 <include name="**/org.eclipse.ui_*.jar" />
@@ -111,38 +107,6 @@ the License.
           <fileset dir="src/**PROJECT_WITH_SLASH**" excludes="${cvs_java_files}"
           includes="adapters/*.java,*.java" />
         </PTCodeFormat>
-  </target>
-
-  <!-- COMPILE TARGETS -->
-
-  <!-- This target is not used in the eclipse environment.  The eclipse Java
-       builder handles the java compilation when building BridgePoint under
-       eclipse.  This target is used only when building BridgePoint from the
-       command line on the build server. -->
-  <target name="compile"
-                  description="Compile project" >
-
-    <echo>Compiling ${ant.project.name}</echo>
-
-    <mkdir dir="bin" />
-
-    <javac memoryinitialsize="512m" memorymaximumsize="512m" source="1.6"
-        fork="yes" destdir="bin" debug="true" debuglevel="lines,vars,source" encoding="UTF-8" >
-       <src path="src/**PROJECT_WITH_SLASH**" />
-       <classpath>
-         <pathelement path="../org.xtuml.bp.core/bin" />
-         <pathelement path="../org.xtuml.bp.ui.properties/bin" />
-         <pathelement path="${eclipse-home}/plugins/org.eclipse.osgi_3.3.1.R33x_v20070828.jar" />
-         <pathelement path="${eclipse-home}/plugins/org.eclipse.ui.ide_3.3.1.M20070910-0800b.jar" />
-         <pathelement path="${eclipse-home}/plugins/org.eclipse.jface_3.3.1.M20070910-0800b.jar" />
-         <pathelement path="${eclipse-home}/plugins/org.eclipse.core.runtime_3.3.100.v20070530.jar" />
-         <pathelement path="${eclipse-home}/plugins/org.eclipse.core.resources_3.3.0.v20070604.jar" />
-         <pathelement path="${eclipse-home}/plugins/org.eclipse.ui.workbench_3.3.1.M20070921-1200.jar" />
-         <pathelement path="${eclipse-home}/plugins/org.eclipse.swt.win32.win32.x86_3.3.2.v3347a.jar" />
-         <pathelement path="${eclipse-home}/plugins/org.eclipse.ui.views_3.2.101.M20070910-0800b.jar" />
-       </classpath>
-    </javac>
-
   </target>
 
   <!-- CLEAN TARGETS -->

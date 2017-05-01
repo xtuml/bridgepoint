@@ -1,0 +1,4 @@
+public function X::dom1() return integer is
+begin
+  null;
+end function;

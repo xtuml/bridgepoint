@@ -1,0 +1,4 @@
+private service SAC::Operator~>user_session_deleted (        session_id : in integer) is 
+begin
+  null;
+end service;

@@ -1,0 +1,15 @@
+docgen*
+xtumlmc_build*
+gen_erate*
+mcmc*
+antlr-3.5.2-complete.jar
+m2x
+masl
+x2m
+masl2xtuml
+masldiff
+xtuml2masl
+MASLParser.jar
+CLI.sh
+masl_round_trip
+importworkspace.zip

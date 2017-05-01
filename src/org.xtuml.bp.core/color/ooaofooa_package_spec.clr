@@ -34,28 +34,7 @@
   .// The following markings are derived from the instances in io.mdl/sql/file_io.pei.sql
   .//  where ExportOrdering.componentRoot == true (except for S_SYS, which is handled above)
   .//
-  .invoke markComponentRoot("S_DOM")
-  .invoke markContainmentAssociation(28, "S_SYS")
-
-  .invoke markComponentRoot("S_SS")
-  .invoke markContainmentAssociation(41, "S_SS")
-  .invoke markContainmentAssociation(43, "S_SID")
-
-  .invoke markComponentRoot("S_DPK")
-  .invoke markContainmentAssociation(38, "S_DPIP")
-  .invoke markContainmentAssociation(40, "S_DOM")
-  .invoke markContainmentAssociation(4400, "S_SYS")
-  
-  .invoke markComponentRoot("S_EEPK")
-  .invoke markContainmentAssociation(35, "S_EEPIP")
-  .invoke markContainmentAssociation(36, "S_DOM")
-
-  .invoke markComponentRoot("S_FPK")
-  .invoke markContainmentAssociation(29, "S_DOM")
-  .invoke markContainmentAssociation(32, "S_FPIP")
-
   .invoke markComponentRoot("O_OBJ")
-  .invoke markContainmentAssociation(2, "S_SS")
 
   .invoke markComponentRoot("SM_ISM")
   .invoke markContainmentAssociation(518, "O_OBJ")
@@ -63,60 +42,15 @@
   .invoke markComponentRoot("SM_ASM")
   .invoke markContainmentAssociation(519, "O_OBJ")
 
-  .invoke markComponentRoot("A_A")
-  .invoke markContainmentAssociation(1100, "S_DOM")
-  .invoke markContainmentAssociation(1108, "S_SS")
-  .invoke markContainmentAssociation(1110, "A_AIA")
-  .invoke markContainmentAssociation(1113, "S_SYS")
-  .invoke markContainmentAssociation(1114, "CP_CP")
- .invoke markContainmentAssociation(1115, "C_C")
-  
-  .invoke markComponentRoot("COMM_COMM")
-  .invoke markContainmentAssociation(1132, "S_DOM")
-  .invoke markContainmentAssociation(1131, "S_SS")
-  .invoke markContainmentAssociation(1130, "COMM_CIC")
-  .invoke markContainmentAssociation(1136, "S_SYS")
-  .invoke markContainmentAssociation(1137, "CP_CP")
-  .invoke markContainmentAssociation(1138, "C_C")
- 
-  .invoke markComponentRoot("SQ_S")
-  .invoke markContainmentAssociation(913, "S_DOM")
-  .invoke markContainmentAssociation(914, "S_SS")
-  .invoke markContainmentAssociation(911, "SQ_SIS")
-  .invoke markContainmentAssociation(950, "S_SYS")
-  .invoke markContainmentAssociation(951, "CP_CP")
-  .invoke markContainmentAssociation(952, "C_C")
-  
-  .invoke markComponentRoot("UC_UCC")
-  .invoke markContainmentAssociation(1201, "S_DOM")
-  .invoke markContainmentAssociation(1202, "S_SS")
-  .invoke markContainmentAssociation(1208, "UC_UIU")
-  .invoke markContainmentAssociation(1211, "S_SYS")
-  .invoke markContainmentAssociation(1212, "CP_CP")
-  .invoke markContainmentAssociation(1213, "C_C")
-  
   .invoke markComponentRoot("C_C")
-  .invoke markContainmentAssociation(4203, "CN_CIC")
   .invoke markContainmentAssociation(8003, "PE_PE")
 
-  .invoke markComponentRoot("CP_CP")
-  .invoke markContainmentAssociation(4604, "CP_CP")
-  .invoke markContainmentAssociation(4600, "CP_CPINCP")
-  .invoke markContainmentAssociation(4602, "S_SYS")
-  
   .invoke markComponentRoot("C_I")
-  .invoke markContainmentAssociation(4303, "IP_IP")
-    
-  .invoke markComponentRoot("IP_IP")
-  .invoke markContainmentAssociation(4302, "S_SYS")
-  .invoke markContainmentAssociation(4301, "IP_IPINIP")
-  .invoke markContainmentAssociation(4607, "CP_CP")
-  .invoke markContainmentAssociation(4206, "C_C")
+  .invoke markContainmentAssociation(8003, "PE_PE")
+  .invoke markContainmentAssociation(8000, "PE_PE")
   
   .invoke markComponentRoot("EP_PKG")
-  .invoke markContainmentAssociation(1400, "EP_SPKG")
   .invoke markContainmentAssociation(1401, "S_SYS")
-  .invoke markContainmentAssociation(1403, "EP_PIP")
   .invoke markContainmentAssociation(8000, "PE_PE")
 
 .end function

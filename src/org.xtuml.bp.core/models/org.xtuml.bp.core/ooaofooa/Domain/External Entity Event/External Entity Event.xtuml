@@ -22,7 +22,8 @@ return "";
 ',
 	1,
 	'',
-	"5000b34c-7ee4-4e33-9a13-1ccd949ccc36");
+	"5000b34c-7ee4-4e33-9a13-1ccd949ccc36",
+	0);
 INSERT INTO O_TFR
 	VALUES ("5000b34c-7ee4-4e33-9a13-1ccd949ccc36",
 	"5adc63b1-9773-4ea9-97ef-67828018b3a6",
@@ -34,14 +35,9 @@ INSERT INTO O_TFR
 select one ee related by self->S_EE[R10];
 unrelate self from ee across R10;
 // 
-// Communication and Access Subsystem
 select many eeedts related by self->S_EEEDT[R13];
 for each eeedt in eeedts
   eeedt.dispose();
-end for;
-select many smeecomms related by self->CA_SMEEE[R413];
-for each smeecomm in smeecomms
-  smeecomm.dispose();
 end for;
 //
 // Event Subsystem
@@ -58,7 +54,8 @@ end for;
 delete object instance self;',
 	1,
 	'',
-	"00000000-0000-0000-0000-000000000000");
+	"00000000-0000-0000-0000-000000000000",
+	0);
 INSERT INTO O_NBATTR
 	VALUES ("65df4a64-820f-444e-8188-d4d6f2d4cb86",
 	"5adc63b1-9773-4ea9-97ef-67828018b3a6");
@@ -168,7 +165,8 @@ else
   self.Drv_Lbl = self.Unq_Lbl + GD::int_to_string(value:self.Numb);
 end if;
 ',
-	1);
+	1,
+	0);
 INSERT INTO O_BATTR
 	VALUES ("37d1e323-9395-4f57-be3e-0f68f3bb6ad9",
 	"5adc63b1-9773-4ea9-97ef-67828018b3a6");

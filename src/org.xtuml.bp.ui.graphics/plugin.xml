@@ -75,8 +75,10 @@
        					the graphical data properly represents the actual
        					ooaofooa model elements.
 				
-               	targetSymbol:	This is the name is the "name" of the target model 
-               					element type to reconcile
+               	targetSymbol:	        This is the name is the "name" of the target model 
+               					element type to reconcile (this corresponds to R30 in the model)
+                sourceSymbol:           This is the name of the model element type used as a "template" to reconcile
+                                                the target symbol (this corresponds to R31 in the model).
                	Bridge_NumElements:	This is the name of the operation, found in the ooaofooa 
                					container we are reconciling , that is used to find out home
                					many of this type of targetSymbol exist in the container.
@@ -91,8 +93,12 @@
                							"". Otherwise, this is the name 
                							of an operation that test for the existence of 
                							any of the model elements of type targetSymbol in 
-               							the container. This is currently only used when 
-               							reconciling connectors.
+               							the container. This is currently used as a test
+               							to see if connectors are present when reconciling 
+               							to remove connectors. 
+               							Additionally, if not empty then this indicate that the
+               							operation specified in Bridge_NumElements requires 3 parameters,
+               							not 2 (in the oal it calls CL::Num_Connectors instead of CL_NumElements)               							
                							These operations are of the form: Has<symbol>id
                	Bridge_GetConnectorIDConditional: This is the same as Bridge_GetElementID, but this operation
                	                        uses an additional paramater of type boolean
@@ -520,6 +526,10 @@
             <dependsOn
                   class="org.xtuml.bp.core.Action_c">
             </dependsOn>
+            <autoReconcile
+               targetSymbol="Creation Transition"
+                Bridge_NumElements="Getcreationtransitioncount"
+                Bridge_GetElementID="Getcreationtransitionid"/>
 			<autoReconcile
 			   targetSymbol="Transition"
 			    Bridge_NumElements="Gettransitionsourcecount"
@@ -2288,14 +2298,14 @@
             </dependsOn>
             <autoReconcile
                   Bridge_NumElements="Getsatisfactioncount"
-                  Bridge_ConnectorExists="marker for boolean paramater"
-                  Bridge_GetElementID=""
+                  Bridge_ConnectorExists=""
+                  Bridge_GetElementID="Getsatisfactionid"
                   targetSymbol="Provided Interface">
             </autoReconcile>
             <autoReconcile
                   Bridge_NumElements="Getsatisfactioncount"
-                  Bridge_ConnectorExists="marker for boolean paramater"
-                  Bridge_GetElementID=""
+                  Bridge_ConnectorExists=""
+                  Bridge_GetElementID="Getsatisfactionid"
                   targetSymbol="Imported Provided Interface">
             </autoReconcile>
          </symbol>
@@ -2398,14 +2408,14 @@
             </dependsOn>
             <autoReconcile
                   Bridge_NumElements="Getsatisfactioncount"
-                  Bridge_ConnectorExists="marker for boolean paramater"
-                  Bridge_GetElementID=""
+                  Bridge_ConnectorExists=""
+                  Bridge_GetElementID="Getsatisfactionid"
                   targetSymbol="Provided Interface">
             </autoReconcile>
             <autoReconcile
                   Bridge_NumElements="Getsatisfactioncount"
-                  Bridge_ConnectorExists="marker for boolean paramater"
-                  Bridge_GetElementID=""
+                  Bridge_ConnectorExists=""
+                  Bridge_GetElementID="Getsatisfactionid"
                   targetSymbol="Imported Provided Interface">
             </autoReconcile>
          </symbol>
@@ -2566,6 +2576,12 @@
                class="org.xtuml.bp.core.ModelClass_c" />     
             <autoReconcile
                targetSymbol="Component"
+               Bridge_NumElements="Getcomponentcount"
+               Bridge_GetElementID="Getcomponentid"
+               
+               class="org.xtuml.bp.core.Component_c"/>     
+            <autoReconcile
+               targetSymbol="Component Container"
                Bridge_NumElements="Getcomponentcount"
                Bridge_GetElementID="Getcomponentid"
                

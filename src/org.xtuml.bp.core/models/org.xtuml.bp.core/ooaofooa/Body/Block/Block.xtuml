@@ -32,7 +32,8 @@ if(not_empty act)
 end if;',
 	1,
 	'',
-	"00000000-0000-0000-0000-000000000000");
+	"00000000-0000-0000-0000-000000000000",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("dfbc0f5d-0744-46d3-8467-9ff55ea90209",
 	"9a02c640-bc67-43d0-b82e-e55823be3101",
@@ -124,7 +125,8 @@ delete object instance self;
 ',
 	1,
 	'',
-	"9a02c640-bc67-43d0-b82e-e55823be3101");
+	"9a02c640-bc67-43d0-b82e-e55823be3101",
+	0);
 INSERT INTO O_TFR
 	VALUES ("2c6fa559-cae7-45ed-80aa-d72500f547fc",
 	"b7fa3f21-6c94-47c6-934b-a56a2b7d758e",
@@ -156,7 +158,8 @@ relate local to blk_in_stack across R3000;
 return local_ref.Local_ID;',
 	1,
 	'',
-	"1440d0c3-4c94-4b8e-86e5-df7c20021c76");
+	"1440d0c3-4c94-4b8e-86e5-df7c20021c76",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("64c01671-0bbc-4593-9a90-36041f29f7eb",
 	"2c6fa559-cae7-45ed-80aa-d72500f547fc",
@@ -195,7 +198,8 @@ relate local to blk_in_stack across R3000;
 return local_val.Local_ID;',
 	1,
 	'',
-	"2328d5bc-16fb-40ca-8031-a4798a29be74");
+	"2328d5bc-16fb-40ca-8031-a4798a29be74",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("4b2b1e17-4cd6-4afb-9d22-35fcbc225e75",
 	"50b1d8d6-3b39-440c-a311-76d41b100ccf",
@@ -235,7 +239,8 @@ return local_selected_ref.Local_ID;
 ',
 	1,
 	'',
-	"2c6fa559-cae7-45ed-80aa-d72500f547fc");
+	"2c6fa559-cae7-45ed-80aa-d72500f547fc",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("75af7524-e54f-40be-9134-3a280c23b983",
 	"2328d5bc-16fb-40ca-8031-a4798a29be74",
@@ -257,7 +262,8 @@ select one body related by self->ACT_ACT[R666];
 return not_empty body;',
 	1,
 	'',
-	"26fcc2ca-8a3b-4ba1-ab3d-9c1993735480");
+	"26fcc2ca-8a3b-4ba1-ab3d-9c1993735480",
+	0);
 INSERT INTO O_TFR
 	VALUES ("26fcc2ca-8a3b-4ba1-ab3d-9c1993735480",
 	"b7fa3f21-6c94-47c6-934b-a56a2b7d758e",
@@ -280,7 +286,8 @@ for each statement in statements
 end for;',
 	1,
 	'',
-	"4c1621a0-0dca-4de2-bdb9-41d700025737");
+	"4c1621a0-0dca-4de2-bdb9-41d700025737",
+	0);
 INSERT INTO O_TFR
 	VALUES ("89f09e06-8006-40f4-ba45-233816bdc2f1",
 	"b7fa3f21-6c94-47c6-934b-a56a2b7d758e",
@@ -395,7 +402,8 @@ else
 end if;',
 	1,
 	'',
-	"50b1d8d6-3b39-440c-a311-76d41b100ccf");
+	"50b1d8d6-3b39-440c-a311-76d41b100ccf",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("8cfede93-754d-466a-83c2-408d1a7f3a00",
 	"89f09e06-8006-40f4-ba45-233816bdc2f1",
@@ -469,7 +477,8 @@ end if;
     ',
 	1,
 	'',
-	"89f09e06-8006-40f4-ba45-233816bdc2f1");
+	"89f09e06-8006-40f4-ba45-233816bdc2f1",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("29ca50c1-a7a4-4eb9-b1e4-f33c9a2c82a0",
 	"941315c9-3b82-4a3e-bc3d-ef8d4747fc9d",

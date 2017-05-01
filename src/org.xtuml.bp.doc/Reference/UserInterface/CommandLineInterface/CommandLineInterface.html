@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="../../../github-pandoc.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<h1 id="command-line-interface">Command Line Interface</h1>
+<p>The Command Line Interface (CLI) provides a mechanism to automate the execution and translation<br />
+of xtUML projects. The CLI supports Import, Build and Execute tasks using the following command<br />
+structure:</p>
+<pre><code>CLI &lt;Build | Import | Execute | Merge&gt; &lt;Argument List&gt;</code></pre>
+<p>where <code>&lt;Argument List&gt;</code> depends on the task. Further details on the options available for each<br />
+CLI task can be found by entering</p>
+<pre><code>CLI &lt;Build | Import | Execute | Merge&gt; -help</code></pre>
+<p>Examples demonstrating the expected usage of the CLI are included in the BridgePoint and xtUML Editor<br />
+installation, and can be found in the folder <Installation root>/eclipse. Note, that the examples are<br />
+specific to the host operating system with CLI.bat intended for Windows and CLI.sh intended for Linux.</p>
+<h2 id="preparing-a-project-to-be-used-with-cli">Preparing a Project to be Used With CLI</h2>
+<p>Prior to invoking the CLI, the target project and associated workspace will require some setup. Initially,<br />
+the CLI script must be customized as follows:</p>
+<ol>
+<li>Copy the CLI script into the project workspace</li>
+<li>Modify the script to assign the WORKSPACE variable to the correct path</li>
+</ol>
+<p>For each target project, launch and build configurations are required under the following circumstances:</p>
+<ol>
+<li>For projects using the Build task, a CDT build configuration must exist for each name requested by option <code>-buildConfig</code></li>
+<li>For projects using the Execute task, a launch configuration must exist for each name requested by option <code>-launch</code> and each configuration must identify at least one Initializer (an interface operation, interface signal or state machine event). It is recommended that the &quot;Execution timeout (seconds)&quot; selection be set to a value great than 0 (no termination) which will force execution to terminate with a timeout error message if the execution time exceeds this limit.</li>
+</ol>
+<p><img src="debug_config.png" alt="Image of Debug Configurations Dialog" /></p>
+<h2 id="building-a-project-using-the-cli">Building a Project Using the CLI</h2>
+<p>The Build task is used to translate an xtUML model using the project’s selected model compiler. The task<br />
+is initiated by</p>
+<pre><code>CLI  Build  &lt;Argument List&gt;</code></pre>
+<p>where <code>&lt;Argument List&gt;</code> can contain any of the following options</p>
+<table style="width:93%;">
+<colgroup>
+<col style="width: 38%" />
+<col style="width: 54%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>-project &lt;name&gt;</td>
+<td>The name of the project to be built</td>
+</tr>
+<tr class="even">
+<td>-buildConfig &lt;name&gt;</td>
+<td>The name of the CDT build configuration to be used. If omitted then the current Active configuration is used</td>
+</tr>
+<tr class="odd">
+<td>-prebuildOnly</td>
+<td>Only the BridgePoint Model Compiler pre-builder will be executed</td>
+</tr>
+<tr class="even">
+<td>-doNotParse</td>
+<td>Do not parse the model during this build process. Only applies if -prebuildOnly is used.</td>
+</tr>
+<tr class="odd">
+<td>-cleanCLI</td>
+<td>Perform a clean build of the project</td>
+</tr>
+<tr class="even">
+<td>-debugCLI</td>
+<td>Launch a workbench and leave it open after executing</td>
+</tr>
+<tr class="odd">
+<td>-help</td>
+<td>Displays usage information</td>
+</tr>
+</tbody>
+</table>
+<h2 id="importing-a-project-using-the-cli">Importing a Project Using the CLI</h2>
+<p>The Import task is used to add the named project to the current workspace. The task is initiated by</p>
+<pre><code>CLI  Import  &lt;Argument List&gt;</code></pre>
+<p>where <code>&lt;Argument List&gt;</code> can contain any of the following options</p>
+<table style="width:96%;">
+<colgroup>
+<col style="width: 41%" />
+<col style="width: 54%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>-project &lt;directory&gt;</td>
+<td>The fully qualified path of the project to be Imported</td>
+</tr>
+<tr class="even">
+<td>-deleteExisting</td>
+<td>If a project with the same name exists in the workspace, this option will delete it before importing the named project.</td>
+</tr>
+<tr class="odd">
+<td>-file &lt;file&gt;</td>
+<td>The fully qualified path of the xtUML file to import.</td>
+</tr>
+<tr class="even">
+<td>-targetProject &lt;name&gt;</td>
+<td>This argument is used together with &quot;-file&quot;. Specify the name of project to import into. The project must already exist in the workspace. If this is not specified, the project name will be assumed to be the name (minus extension) of the file being imported.</td>
+</tr>
+<tr class="odd">
+<td>-help</td>
+<td>Displays usage information</td>
+</tr>
+</tbody>
+</table>
+<h2 id="executing-a-project-using-the-cli">Executing a Project Using the CLI</h2>
+<p>The Execute task is used to run an xtUML model using BridgePoint’s xtUML Debugging perspective. The<br />
+task is initiated by</p>
+<pre><code>CLI  Execute  &lt;Argument List&gt;</code></pre>
+<p>where <code>&lt;Argument List&gt;</code> can contain any of the following options</p>
+<table style="width:88%;">
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 54%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>-launch &lt;name&gt;</td>
+<td>The name of the launch configuration to execute</td>
+</tr>
+<tr class="even">
+<td>-debugCLI</td>
+<td>Launch a workbench and leave it open after executing the command</td>
+</tr>
+<tr class="odd">
+<td>-help</td>
+<td>Displays usage information</td>
+</tr>
+</tbody>
+</table>
+<h2 id="merging-changes-from-a-remote-version-into-the-local-project-using-the-cli">Merging Changes From a Remote Version into the Local Project Using the CLI</h2>
+<p>The Merge task is used to produce an xtUML model file containing the merged resultant from two<br />
+xtUML model files that are derived from a common ancestor. The task is initiated by</p>
+<pre><code>CLI  Merge  &lt;Argument List&gt;</code></pre>
+<p>where <code>&lt;Argument List&gt;</code> must contain either <code>-help</code> or the other arguments</p>
+<table style="width:94%;">
+<colgroup>
+<col style="width: 40%" />
+<col style="width: 54%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>-rightFile &lt;file&gt;</td>
+<td>The name of the remote file to be used in the comparison.</td>
+</tr>
+<tr class="even">
+<td>-leftFile &lt;file&gt;</td>
+<td>The name of the local file to be used in the comparison.</td>
+</tr>
+<tr class="odd">
+<td>-ancestorFile &lt;file&gt;</td>
+<td>The name of the common ancestor to the rightFile and the leftFile.</td>
+</tr>
+<tr class="even">
+<td>-outputFile &lt;file&gt;</td>
+<td>The name of the file to hold the result produced when the leftFile is merged with the rightFile.</td>
+</tr>
+<tr class="odd">
+<td>-help</td>
+<td>Displays usage information</td>
+</tr>
+</tbody>
+</table>
+<p>Note that the Merge task will fail and no output file generated, if conflicts exist between the<br />
+leftFile and the rightFile. Also, an absolute path must be specified for the left, right, ancestor<br />
+and output files.</p>
+<h2 id="suggestions-when-troubleshooting-cli-problems">Suggestions when Troubleshooting CLI Problems</h2>
+<p>When problems involving scripts that interact with CLI arise, consider these suggestions while<br />
+investigating the problem</p>
+<ol>
+<li>Interactively, repeat the scripted steps inside the tool GUI. The information contained in the console window will assist in isolating the problem and will confirm whether the issue relates to the CLI or other aspects of the scripted process.</li>
+<li>Once confirmed that the issue is most likely a CLI problem, modify the <code>eclipsec</code> invocation inside the CLI script to add <code>-debug -console -consoleLog</code> to the command just before <code>-application</code> and re-run the script. These additional settings will cause extra detail to be added to the console output.</li>
+<li>If the problem continues to be elusive, add <code>-debugCLI</code> to interesting CLI commands. The <code>-debugCLI</code> option is analogous to a breakpoint at the end of the CLI command that will leave the eclipse workbench open for further interactive probing.</li>
+</ol>
+<p>The combination of these four suggestions is often sufficient to isolate and correct CLI problems.</p>
+<h2 id="a-cli-example-for-the-gps-watch">A CLI Example for the GPS Watch</h2>
+<p>In this example, the GPS Watch project is imported from the workspace at <code>c:/Projects/BridgePoint/temp</code> into<br />
+the local workspace. Once imported, the project is built using the Debug configuration and then executed<br />
+using the <code>GPS_Watch_test</code> debug configuration. To perform this sequence, a simple script containing<br />
+the following CLI commands is sufficient:</p>
+<pre><code>CLI.bat Import -deleteExisting -project “C:/Projects/BridgePoint/temp/GPS_Watch”
+
+CLI.bat Build -project GPS_Watch -buildConfig Debug -cleanCLI
+
+CLI.bat Execute -launch “GPS Watch With Initializer”</code></pre>
+<p>If the GPS watch is modified in two branches, GPS1 and GPS2, then a merged model.xtuml file can be<br />
+produced from the CLI command</p>
+<pre><code>CLI.bat Merge -leftFile c:\workspace\GPS1\model.xtuml ^
+
+ -rightFile c:\workspace\GPS2\model.xtuml ^
+
+ -ancestorFile C:\MentorGraphics\BridgePoint\workspace\GPS_Watch\model.xtuml
+
+ -output\File c:\workspace\GPS_merge\model.xtuml</code></pre>
+</body>
+</html>

@@ -186,7 +186,7 @@ if(not elemSpec.hasNameCompartment)
     entry_id = 1;
     compartmentTopY = y;
     entries = CL::getEntries(from:shape.represents, compartment_id:compartment_id);
-    while (entry_id <= entries)
+    while (entry_id <= entries and (y <= lastAvailableVerticalPosn or CL::disableCropping()))
       //
       // Draw the left justified text for the compartment
       //
@@ -202,11 +202,15 @@ if(not elemSpec.hasNameCompartment)
       if (rightResult != "")
         widthLeftForLeftText = availableRHSpace + spacing;
         if (w - widthLeftForLeftText > 36) // (pixels)
-          leftResult = GR::fitTextTo(context:param.context, input:leftResult, width:w - widthLeftForLeftText, elideAtEnd:true);
+          if(not CL::disableCropping())
+            leftResult = GR::fitTextTo(context:param.context, input:leftResult, width:w - widthLeftForLeftText, elideAtEnd:true);
+          end if;
         else
           // Not enough room for left and right text blocks, so split the symbol 50-50
           availableRHSpace = w/2 - spacing;
-          leftResult = GR::fitTextTo(context:param.context, input:leftResult, width:availableRHSpace, elideAtEnd:true);
+          if(not CL::disableCropping())
+            leftResult = GR::fitTextTo(context:param.context, input:leftResult, width:availableRHSpace, elideAtEnd:true);
+          end if;
         end if;
       end if;
       Y_extent = 0;
@@ -215,13 +219,15 @@ if(not elemSpec.hasNameCompartment)
         // truncate the text block, note the function will
         // only truncate if necessary
         numLines = h / single_line_height;
-        leftResult = ::truncateTextBlock( text:leftResult, maxLines:numLines );
-        leftResult = GR::fitTextTo(context:param.context, input:leftResult, width:w - (unScaledSpacing * 2), elideAtEnd:true);
+        if(not CL::disableCropping())
+          leftResult = ::truncateTextBlock( text:leftResult, maxLines:numLines );
+          leftResult = GR::fitTextTo(context:param.context, input:leftResult, width:w - (unScaledSpacing * 2), elideAtEnd:true);
+        end if;
         verticalPosnAfterPrinting = y + GR::getTextExtent(context:param.context, text:leftResult,axis:Axis::Y);
         //
         // If the text won''t fit completely, then don''t show it unless it is a single entry like a state action
         //
-        if ((verticalPosnAfterPrinting < lastAvailableVerticalPosn) OR (entries == 1 AND OS::isMultiLine(text:leftResult)))
+        if ((verticalPosnAfterPrinting < lastAvailableVerticalPosn or CL::disableCropping()) OR (entries == 1 AND OS::isMultiLine(text:leftResult)))
           GR::drawText(context:param.context, text:leftResult,
   				x:x + spacing, 
 				y:y + spacing,
@@ -234,14 +240,16 @@ if(not elemSpec.hasNameCompartment)
       //
       if (rightResult != "")
         if (availableRHSpace < GR::getTextExtent(context:param.context, text:rightResult, axis:Axis::X))
-          rightResult = GR::fitTextTo(context:param.context, input:rightResult, width:availableRHSpace, elideAtEnd:true);
+          if(not CL::disableCropping())
+            rightResult = GR::fitTextTo(context:param.context, input:rightResult, width:availableRHSpace, elideAtEnd:true);
+          end if;
         end if;
         verticalPosnAfterPrinting = y + GR::getTextExtent(context:param.context, text:rightResult,axis:Axis::Y);
         //
         // As for left justified text, if the text won''t fit completely, then don''t
         //  show it (we don''t care about multiline-ism for right justified text).
         //
-        if (verticalPosnAfterPrinting < lastAvailableVerticalPosn)
+        if (verticalPosnAfterPrinting < lastAvailableVerticalPosn or CL::disableCropping())
           GR::drawText(context:param.context, text:rightResult, 
                                  x:x + w - spacing,
                                  y:y + spacing,
@@ -261,13 +269,15 @@ if(not elemSpec.hasNameCompartment)
 	  		element:shape.represents, compartmentNum:compartment_id,
         	entryNum:entry_id);
     
-        centerResult = GR::fitTextTo(context:param.context, input:centerResult, 
-        	width:w - (unScaledSpacing * 2), elideAtEnd:elideAtEnd);
+        if(not CL::disableCropping())
+	      centerResult = GR::fitTextTo(context:param.context, input:centerResult, 
+	        	width:w - (unScaledSpacing * 2), elideAtEnd:elideAtEnd);
+	     end if;
         verticalPosnAfterPrinting = y + GR::getTextExtent(context:param.context, text:centerResult,axis:Axis::Y);
         //
         // Again for centered text, don''t print partially visible text
         //
-        if (verticalPosnAfterPrinting < lastAvailableVerticalPosn)
+        if (verticalPosnAfterPrinting < lastAvailableVerticalPosn or CL::disableCropping())
           GR::drawText(context:param.context, text:centerResult, 
                                x:x + (w/2),
                                y:y + spacing,
@@ -353,7 +363,9 @@ if(not elemSpec.hasNameCompartment)
     elideAtEnd = CL::getElideCompartmentTextAtEnd(
 	    element:shape.represents, compartmentNum:compartment_id,
         entryNum:0);
-    result = GR::fitTextTo(context:param.context, input:result, width:w - (unScaledSpacing * 2), elideAtEnd:elideAtEnd);
+    if(not CL::disableCropping())
+      result = GR::fitTextTo(context:param.context, input:result, width:w - (unScaledSpacing * 2), elideAtEnd:elideAtEnd);
+    end if;
     labelVerticalPosn = y + (h/2) - (GR::getTextExtent(context:param.context, text:result, axis:Axis::Y) / 2);
     if (lastVerticalPosn < labelVerticalPosn)
       GR::drawText(context:param.context, text:result, 
@@ -395,7 +407,8 @@ if (shapeStyle == Style::Component)
 end if;',
 	1,
 	'',
-	"a10a2ca4-6ba2-41d7-a5c1-5056b8a193a4");
+	"a10a2ca4-6ba2-41d7-a5c1-5056b8a193a4",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("ad684483-79d6-48c8-9583-17452fc43913",
 	"45e75a8b-06d0-4716-898d-9f186a98ac23",
@@ -446,7 +459,8 @@ end if;
 return result;',
 	1,
 	'',
-	"d1be1ca8-be8f-4af5-9ab5-6d7df748ca80");
+	"d1be1ca8-be8f-4af5-9ab5-6d7df748ca80",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("5e5d34ca-c6a7-4665-8ffd-56d04bd24ba9",
 	"441df0f0-83bc-4a6f-be29-1008e48279e8",
@@ -491,7 +505,8 @@ end if;
 return result;',
 	1,
 	'',
-	"00fe897b-5412-46c0-858f-459cf0a48712");
+	"00fe897b-5412-46c0-858f-459cf0a48712",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("2a618af2-5339-45cf-9440-b548ff4f3b58",
 	"59b0c839-6253-4cf6-945c-ae659707bb69",
@@ -535,7 +550,8 @@ end if;
 return result;',
 	1,
 	'',
-	"5a9691a8-55f5-4ecf-a9f4-6497fbb5c8aa");
+	"5a9691a8-55f5-4ecf-a9f4-6497fbb5c8aa",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("da371bed-c796-48ca-91de-5756faeeb458",
 	"d1be1ca8-be8f-4af5-9ab5-6d7df748ca80",
@@ -579,7 +595,8 @@ end if;
 return result;',
 	1,
 	'',
-	"59b0c839-6253-4cf6-945c-ae659707bb69");
+	"59b0c839-6253-4cf6-945c-ae659707bb69",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("41ffb0fc-fa8a-47a1-9dbd-5a55541948b3",
 	"e00e60b3-d9b4-4748-a37b-fa63b6516431",
@@ -628,7 +645,8 @@ end if;
 return false;',
 	1,
 	'',
-	"e00e60b3-d9b4-4748-a37b-fa63b6516431");
+	"e00e60b3-d9b4-4748-a37b-fa63b6516431",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("afab5df2-8bcc-42d5-a3cf-c6ca3b784b87",
 	"3fdba803-3230-4923-9082-6d25addc07c8",
@@ -693,7 +711,8 @@ end if;
 return false;',
 	1,
 	'',
-	"04ffb50c-6c2c-4bbe-9935-999e3660cfbd");
+	"04ffb50c-6c2c-4bbe-9935-999e3660cfbd",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("680a8991-8a4a-429a-9acf-c7f2c1fd6048",
 	"062a32f4-b048-47b1-9ae4-fb9fb68b31d4",
@@ -837,7 +856,8 @@ if(not_empty containerShp)
 end if;',
 	1,
 	'',
-	"3fdba803-3230-4923-9082-6d25addc07c8");
+	"3fdba803-3230-4923-9082-6d25addc07c8",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("d7bebe4d-5ce9-4ef4-afa6-368b820485fb",
 	"499d85ee-8adc-44d6-a24d-e22cd50f68c8",
@@ -878,7 +898,8 @@ end if;
 return false;',
 	1,
 	'',
-	"85b41bfd-08c4-43c3-b21e-1b89a36870e2");
+	"85b41bfd-08c4-43c3-b21e-1b89a36870e2",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("fba230f0-234d-4311-9a28-9da5445218c2",
 	"04ffb50c-6c2c-4bbe-9935-999e3660cfbd",
@@ -1011,7 +1032,8 @@ end for;
 ',
 	1,
 	'',
-	"499d85ee-8adc-44d6-a24d-e22cd50f68c8");
+	"499d85ee-8adc-44d6-a24d-e22cd50f68c8",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("7fb58f20-d566-4e23-a8ef-c63d324dda96",
 	"91541727-bb2e-41d6-b9f7-9b32efff9761",
@@ -1197,7 +1219,8 @@ end if;
 ',
 	1,
 	'',
-	"331c01a1-086b-4673-b6bc-9ac00461f3df");
+	"331c01a1-086b-4673-b6bc-9ac00461f3df",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("787077be-b5b4-4109-b56a-8ddd820467ae",
 	"a99d7b2a-1eb6-4138-b1fd-4af72f1f1769",
@@ -1251,7 +1274,8 @@ INSERT INTO O_TFR
 	'return self.getIntersect(considerLine:param.considerLine, x1:param.x1, y1:param.y1, x2:param.x2, y2:param.y2, axis:Axis::X);',
 	1,
 	'',
-	"72938772-e2e6-4cc8-993f-9f4e6f1d8f1f");
+	"72938772-e2e6-4cc8-993f-9f4e6f1d8f1f",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("e6c636a7-74ee-4757-97db-0398486eec58",
 	"d72fc9ab-fbe0-497f-a9db-453526ab0410",
@@ -1307,7 +1331,8 @@ INSERT INTO O_TFR
 	'return self.getIntersect(considerLine:param.considerLine, x1:param.x1, y1:param.y1, x2:param.x2, y2:param.y2, axis:Axis::Y);',
 	1,
 	'',
-	"d72fc9ab-fbe0-497f-a9db-453526ab0410");
+	"d72fc9ab-fbe0-497f-a9db-453526ab0410",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("a0fe2cd9-a456-48f2-a652-1177a87fa38e",
 	"85b41bfd-08c4-43c3-b21e-1b89a36870e2",
@@ -1393,7 +1418,8 @@ return ::getIntersectionOfSegmentWithSquare(considerLine:param.considerLine, axi
 	x2:param.x2, y1:param.y1, y2:param.y2);',
 	1,
 	'',
-	"697144bc-d275-4491-bb16-16d4ef3f2fdd");
+	"697144bc-d275-4491-bb16-16d4ef3f2fdd",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("1ded558a-9c1a-4ba8-b976-55d81b791e07",
 	"555a1bb1-ba27-44f7-aaab-7cb379baa134",
@@ -1492,7 +1518,8 @@ end if;
 ',
 	1,
 	'',
-	"00000000-0000-0000-0000-000000000000");
+	"00000000-0000-0000-0000-000000000000",
+	0);
 INSERT INTO O_TFR
 	VALUES ("331c01a1-086b-4673-b6bc-9ac00461f3df",
 	"0dbd2431-e353-4456-9834-6923205e88d7",
@@ -1518,7 +1545,8 @@ if ( not_empty ge )
 end if;',
 	1,
 	'',
-	"91541727-bb2e-41d6-b9f7-9b32efff9761");
+	"91541727-bb2e-41d6-b9f7-9b32efff9761",
+	0);
 INSERT INTO O_TFR
 	VALUES ("1a77c978-55f0-4166-ab15-37cbbb081ab0",
 	"0dbd2431-e353-4456-9834-6923205e88d7",
@@ -1564,7 +1592,8 @@ return result.pointId;
 ',
 	1,
 	'',
-	"11776850-05ae-495a-a3d0-37edae315f25");
+	"11776850-05ae-495a-a3d0-37edae315f25",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("5230968c-719f-45fc-aaa7-e55710182807",
 	"1a77c978-55f0-4166-ab15-37cbbb081ab0",
@@ -1609,7 +1638,8 @@ end if;
 return element.represents;',
 	1,
 	'',
-	"1a77c978-55f0-4166-ab15-37cbbb081ab0");
+	"1a77c978-55f0-4166-ab15-37cbbb081ab0",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("dbb8cbce-d32e-4d42-a9df-78267bad5a8e",
 	"3e0e70b5-4f9d-46b5-b19f-89ca36e24c4a",
@@ -1666,7 +1696,8 @@ end if;
 return "";',
 	1,
 	'',
-	"3e0e70b5-4f9d-46b5-b19f-89ca36e24c4a");
+	"3e0e70b5-4f9d-46b5-b19f-89ca36e24c4a",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("18575a95-b416-43ea-9c84-072c7adcd071",
 	"72938772-e2e6-4cc8-993f-9f4e6f1d8f1f",
@@ -1727,7 +1758,8 @@ end if;
 return -1;',
 	1,
 	'',
-	"9ad6a60a-76b1-4b23-b8ee-b49141778584");
+	"9ad6a60a-76b1-4b23-b8ee-b49141778584",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("7e65a6f1-2ded-4bd2-b749-d706e3814639",
 	"697144bc-d275-4491-bb16-16d4ef3f2fdd",
@@ -1762,7 +1794,8 @@ h = graphNode.height;
 return param.x >= x and param.x < x + w and param.y >= y and param.y < y + h;',
 	1,
 	'',
-	"062a32f4-b048-47b1-9ae4-fb9fb68b31d4");
+	"062a32f4-b048-47b1-9ae4-fb9fb68b31d4",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("80fc7570-84a6-4345-a3f1-e1f9633b059e",
 	"51e07cfb-1fb0-47e9-bc10-db72cb286f0f",
@@ -1807,7 +1840,8 @@ GR::unClip(context:param.context);
 ',
 	1,
 	'',
-	"45e75a8b-06d0-4716-898d-9f186a98ac23");
+	"45e75a8b-06d0-4716-898d-9f186a98ac23",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("974952b1-bbfc-4ff7-96f2-f8bf9b31e903",
 	"8b73f96d-c169-468b-92e8-d808fcf962e9",
@@ -1923,7 +1957,8 @@ GR::drawText(context:param.context, justified_to:Justification::Left,
 	text:text, text_style:Style::None, x:param.x + 5, y:param.y);',
 	1,
 	'',
-	"8b73f96d-c169-468b-92e8-d808fcf962e9");
+	"8b73f96d-c169-468b-92e8-d808fcf962e9",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("42bbbfe0-bd1d-4409-9fca-dd9bdfff288f",
 	"9ad6a60a-76b1-4b23-b8ee-b49141778584",
@@ -2052,7 +2087,8 @@ return false;
 ',
 	1,
 	'',
-	"51e07cfb-1fb0-47e9-bc10-db72cb286f0f");
+	"51e07cfb-1fb0-47e9-bc10-db72cb286f0f",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("0fb80c91-78fc-4bdb-bd17-ee19927c240a",
 	"5a9691a8-55f5-4ecf-a9f4-6497fbb5c8aa",
@@ -2092,7 +2128,8 @@ end if;
 return false;',
 	1,
 	'',
-	"441df0f0-83bc-4a6f-be29-1008e48279e8");
+	"441df0f0-83bc-4a6f-be29-1008e48279e8",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("341ad819-5bb4-4e4e-8b85-77fbf41aa93e",
 	"00fe897b-5412-46c0-858f-459cf0a48712",
@@ -2124,7 +2161,8 @@ text = CL::getNameCompartmentText(element:ge.represents);
 return GR::getTextExtent(axis:Axis::X, context:GR::getContext(), text:text) + 10;',
 	1,
 	'',
-	"b2945bef-2689-4f7a-89d5-e9a332a51231");
+	"b2945bef-2689-4f7a-89d5-e9a332a51231",
+	0);
 INSERT INTO O_TFR
 	VALUES ("b2945bef-2689-4f7a-89d5-e9a332a51231",
 	"0dbd2431-e353-4456-9834-6923205e88d7",
@@ -2138,7 +2176,8 @@ text = CL::getNameCompartmentText(element:ge.represents);
 return GR::getTextExtent(axis:Axis::Y, context:GR::getContext(), text:text) + 5;',
 	1,
 	'',
-	"555a1bb1-ba27-44f7-aaab-7cb379baa134");
+	"555a1bb1-ba27-44f7-aaab-7cb379baa134",
+	0);
 INSERT INTO O_TFR
 	VALUES ("efac9523-b64d-44ee-be00-3ff5746e89d4",
 	"0dbd2431-e353-4456-9834-6923205e88d7",
@@ -2158,7 +2197,8 @@ end while;
 return numSlots;',
 	1,
 	'',
-	"a99d7b2a-1eb6-4138-b1fd-4af72f1f1769");
+	"a99d7b2a-1eb6-4138-b1fd-4af72f1f1769",
+	0);
 INSERT INTO O_TFR
 	VALUES ("cd01fd75-0e8d-4517-b8f9-6f69daa8c9de",
 	"0dbd2431-e353-4456-9834-6923205e88d7",
@@ -2169,7 +2209,8 @@ INSERT INTO O_TFR
 	'return "Shape";',
 	1,
 	'',
-	"efac9523-b64d-44ee-be00-3ff5746e89d4");
+	"efac9523-b64d-44ee-be00-3ff5746e89d4",
+	0);
 INSERT INTO O_REF
 	VALUES ("0dbd2431-e353-4456-9834-6923205e88d7",
 	"9d561ba9-b78b-4769-9ab2-c793c6b1b46c",

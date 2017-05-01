@@ -1,0 +1,35 @@
+-- BP 7.1.6 content: Interface syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO C_I
+	VALUES ("15e99221-9a1b-4f64-8337-a4048e2d2950",
+	"00000000-0000-0000-0000-000000000000",
+	'MASLTemplateExTerminator',
+	'');
+INSERT INTO C_EP
+	VALUES ("0e10f1d1-7547-400b-8d86-17b2ad2cf494",
+	"15e99221-9a1b-4f64-8337-a4048e2d2950",
+	-1,
+	'terminator_svc_1',
+	'');
+INSERT INTO C_IO
+	VALUES ("0e10f1d1-7547-400b-8d86-17b2ad2cf494",
+	"ba5eda7a-def5-0000-0000-000000000000",
+	'terminator_svc_1',
+	'',
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO PE_PE
+	VALUES ("15e99221-9a1b-4f64-8337-a4048e2d2950",
+	1,
+	"b1db067e-83ca-4e9e-a3cb-53134604edb3",
+	"00000000-0000-0000-0000-000000000000",
+	6);
+INSERT INTO EP_PKG_PROXY
+	VALUES ("b1db067e-83ca-4e9e-a3cb-53134604edb3",
+	"00000000-0000-0000-0000-000000000000",
+	"caeb992d-705b-4741-8e19-2e442e50c51e",
+	'Shared',
+	'',
+	0,
+	'../Shared.xtuml');

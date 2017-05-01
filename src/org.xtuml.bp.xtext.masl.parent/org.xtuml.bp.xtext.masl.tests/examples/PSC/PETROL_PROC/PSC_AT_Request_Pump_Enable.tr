@@ -1,0 +1,8 @@
+//
+// UK Crown Copyright (c) 2016. All rights reserved.
+//
+
+public service PSC::ATTENDANT~>Request_Pump_Enable () is
+begin
+  console << "Mr Attendant, enable the pump please!" << endl;
+end service;

@@ -102,10 +102,10 @@ public class BPClassLoader extends ClassLoader {
 				    return definitions.get(file.toString());
 				}
 			    byte[] classbytes;
-			    try {
-				  RandomAccessFile raf = new RandomAccessFile(file, "r");
+			    try (RandomAccessFile raf = new RandomAccessFile(file, "r")) {
 				  classbytes = new byte[(int) raf.length()];
 				  raf.read(classbytes);
+				  // raf is auto closed
 			    } catch (IOException e) {
 				  return null;
 			    }

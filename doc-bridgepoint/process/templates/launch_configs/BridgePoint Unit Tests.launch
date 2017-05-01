@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<launchConfiguration type="org.eclipse.cdt.launch.launchGroup">
+<stringAttribute key="org.eclipse.cdt.launch.launchGroup.0.action" value="WAIT_FOR_TERMINATION"/>
+<stringAttribute key="org.eclipse.cdt.launch.launchGroup.0.enabled" value="true"/>
+<stringAttribute key="org.eclipse.cdt.launch.launchGroup.0.mode" value="default"/>
+<stringAttribute key="org.eclipse.cdt.launch.launchGroup.0.name" value="Parser Tests"/>
+<stringAttribute key="org.eclipse.cdt.launch.launchGroup.1.action" value="WAIT_FOR_TERMINATION"/>
+<stringAttribute key="org.eclipse.cdt.launch.launchGroup.1.enabled" value="true"/>
+<stringAttribute key="org.eclipse.cdt.launch.launchGroup.1.mode" value="default"/>
+<stringAttribute key="org.eclipse.cdt.launch.launchGroup.1.name" value="Verifier Tests"/>
+<stringAttribute key="org.eclipse.cdt.launch.launchGroup.2.action" value="WAIT_FOR_TERMINATION"/>
+<stringAttribute key="org.eclipse.cdt.launch.launchGroup.2.enabled" value="true"/>
+<stringAttribute key="org.eclipse.cdt.launch.launchGroup.2.mode" value="default"/>
+<stringAttribute key="org.eclipse.cdt.launch.launchGroup.2.name" value="Core Tests"/>
+<stringAttribute key="org.eclipse.cdt.launch.launchGroup.3.action" value="WAIT_FOR_TERMINATION"/>
+<stringAttribute key="org.eclipse.cdt.launch.launchGroup.3.enabled" value="true"/>
+<stringAttribute key="org.eclipse.cdt.launch.launchGroup.3.mode" value="default"/>
+<stringAttribute key="org.eclipse.cdt.launch.launchGroup.3.name" value="Compare Tests"/>
+<stringAttribute key="org.eclipse.cdt.launch.launchGroup.4.action" value="WAIT_FOR_TERMINATION"/>
+<stringAttribute key="org.eclipse.cdt.launch.launchGroup.4.enabled" value="true"/>
+<stringAttribute key="org.eclipse.cdt.launch.launchGroup.4.mode" value="default"/>
+<stringAttribute key="org.eclipse.cdt.launch.launchGroup.4.name" value="IO Tests"/>
+<stringAttribute key="org.eclipse.cdt.launch.launchGroup.5.action" value="WAIT_FOR_TERMINATION"/>
+<stringAttribute key="org.eclipse.cdt.launch.launchGroup.5.enabled" value="true"/>
+<stringAttribute key="org.eclipse.cdt.launch.launchGroup.5.mode" value="default"/>
+<stringAttribute key="org.eclipse.cdt.launch.launchGroup.5.name" value="UI Tests"/>
+<stringAttribute key="org.eclipse.cdt.launch.launchGroup.6.action" value="WAIT_FOR_TERMINATION"/>
+<stringAttribute key="org.eclipse.cdt.launch.launchGroup.6.enabled" value="true"/>
+<stringAttribute key="org.eclipse.cdt.launch.launchGroup.6.mode" value="default"/>
+<stringAttribute key="org.eclipse.cdt.launch.launchGroup.6.name" value="Welcome Tests"/>
+<stringAttribute key="org.eclipse.cdt.launch.launchGroup.7.action" value="WAIT_FOR_TERMINATION"/>
+<stringAttribute key="org.eclipse.cdt.launch.launchGroup.7.enabled" value="true"/>
+<stringAttribute key="org.eclipse.cdt.launch.launchGroup.7.mode" value="default"/>
+<stringAttribute key="org.eclipse.cdt.launch.launchGroup.7.name" value="Existing Projects Tests"/>
+</launchConfiguration>

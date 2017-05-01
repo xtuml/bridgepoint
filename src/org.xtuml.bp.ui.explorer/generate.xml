@@ -1,14 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-
- File:      $RCSfile: generate.xml,v $
- Version:   $Revision: 1.50 $
- Modified:  $Date: 2013/01/10 23:15:53 $
-
- (c) Copyright 2004-2014 Mentor Graphics Corporation  All rights reserved.
-
--->
 <project name="bp.ui.explorer" default="all" basedir=".">
+   
+  <import file="${mcj_path}/common.xml"/>
+   
   <target name="all"
           description="Generate all code for this project"
           depends="update_schema,java,javamonitor,format_java">
@@ -19,13 +13,10 @@
           depends="update_schema,java,javamonitor">
   </target>
 
-  <property name="eclipse-home" value="${basedir}/../.."/>
   <property name="plugins-home" value="${ant.home}/../.."/>
-  <property name="util_bin_dir" value="${eclipse-home}/src/org.xtuml.bp.mc.c.source/mc3020/bin"/>
 
   <property name="chain_util_path" value="../org.xtuml.bp.core"/>
 
-  <property name="mcj_path" value="../MC-Java" />
   <property name="sg.dep" value="ooa_schema.sql,schema_gen.arc" />
   <property name="schema.output_path" value="../org.xtuml.bp.ui.tree/sql" />
   <target name="update_schema"
@@ -52,7 +43,7 @@
           description="Generate the tree explorer files"
           unless="java.buildNotNeeded" >
     <echo >Generating ${java.output} ...</echo>
-  <exec vmlauncher="false" failonerror="true" executable="${util_bin_dir}/xtumlmc_build.exe" >
+  <exec vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
         <env key="PTC_MC_ARC_DIR" value="${mcj_path}"/>
         <env key="CHAIN_UTIL_DIR" value="${chain_util_path}"/>
         <env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
@@ -88,7 +79,7 @@
             description="Generate the Monitor View files"
             unless="javamonitor.buildNotNeeded" >
       <echo >Generating ${javamonitor.output} ...</echo>
-    <exec vmlauncher="false" failonerror="true" executable="${util_bin_dir}/xtumlmc_build.exe" >
+    <exec vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
           <env key="PTC_MC_ARC_DIR" value="${mcj_path}"/>
           <env key="CHAIN_UTIL_DIR" value="${chain_util_path}"/>
           <env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
@@ -120,7 +111,7 @@
 
     <taskdef name="PTCodeFormat" classname="PTCodeFormatterTask" >
         <classpath>
-            <pathelement path="../org.xtuml.bp.core/tools/" />
+            <pathelement path="${mcj_path}/../org.xtuml.bp.core/tools/" />
             <fileset dir="${plugins-home}/plugins" casesensitive="yes">
                 <include name="**/org.eclipse.text_*.jar" />
                 <include name="**/org.eclipse.ui_*.jar" />
@@ -136,42 +127,6 @@
           <fileset dir="src/org/xtuml/bp/ui/explorer" excludes="${cvs_java_files}"
           includes="adapters/*.java,*.java" />
         </PTCodeFormat>
-  </target>
-
-  <!-- COMPILE TARGETS -->
-
-  <target name="compile"
-                  description="Compile project" >
-
-    <echo>Compiling ${ant.project.name}</echo>
-
-    <mkdir dir="bin" />
-
-    <javac memoryinitialsize="512m" memorymaximumsize="512m" source="1.6" fork="yes" destdir="bin" encoding="UTF-8" >
-       <src path="src/org/xtuml/bp/ui/explorer" />
-       <classpath>
-         <pathelement path="../org.xtuml.bp.core/bin" />
-         <pathelement path="../org.xtuml.bp.ui.properties/bin" />
-         <fileset dir="${eclipse-home}/plugins" casesensitive="yes">
-           <include name="**/org.eclipse.osgi_*.jar" />
-           <include name="**/org.eclipse.ui.ide_*.jar" />
-           <include name="**/org.eclipse.jface_*.jar" />
-           <include name="**/org.eclipse.core.runtime_*.jar" />
-           <include name="**/org.eclipse.core.resources_*.jar" />
-           <include name="**/org.eclipse.ui.workbench_*.jar" />
-           <include name="**/org.eclipse.swt.win32.win32.x86_*.jar" />
-           <include name="**/org.eclipse.ui.views_*.jar" />
-           <include name="**/org.eclipse.ui_*.jar" />
-           <include name="**/org.eclipse.ui.workbench.texteditor_*.jar" />
-           <include name="**/org.eclipse.ui.editors_*.jar" />
-           <include name="**/org.eclipse.equinox.common_*.jar"/>
-           <include name="**/org.eclipse.equinox.registry_*.jar"/>
-           <include name="**/org.eclipse.core.commands_*.jar"/>
-           <include name="**/org.eclipse.core.jobs_*.jar"/>
-         </fileset>
-       </classpath>
-    </javac>
-
   </target>
 
   <!-- CLEAN TARGETS -->

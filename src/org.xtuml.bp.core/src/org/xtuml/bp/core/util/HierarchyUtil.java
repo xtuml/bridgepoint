@@ -43,6 +43,10 @@ public class HierarchyUtil {
 	public static String Getpath(Object element) {
 			NonRootModelElement nrme = getElement(element);
 			ModelInspector inspector = new ModelInspector();
+			// if nrme has been disposed ignore here
+			if(nrme.isOrphaned()) {
+				return "";
+			}
 			String path = nrme.getName();
 			if(element instanceof ClassStateMachine_c) {
 				path = "Class State Machine";

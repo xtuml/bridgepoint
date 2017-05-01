@@ -31,26 +31,8 @@ public class Merge implements IApplication {
 	@Override
 	public Object start(IApplicationContext context) throws Exception {
 		try {
-			CommandLineOption[] cmdLineOptions = new CommandLineOption[] {
-					new CommandLineOption("-leftFile", "",
-							"The left file for the merge."),
-					new CommandLineOption("-rightFile", "",
-							"The right file for the merge."),
-					new CommandLineOption("-ancestorFile", "",
-							"The ancestor file for the merge."),
-				    new CommandLineOption("-outputFile", "",
-				    		"The merged output file.  If there are any conflicting changes no output will be created."),
-					new CommandLineOption(
-							"-debugCLI",
-							false,
-							"Launch a workbench and leave it open after executing the command."),
-					new CommandLineOption(
-							"-disableIntegrityChecks",
-							false,
-							"Disable automatic integrity checking after a merge has completed."),
-					new CommandLineOption("-help", false, "Display usage information.")
 
-			};
+		    CommandLineOption[] cmdLineOptions = getCommandLineOptions();
 
 			BPCLIPreferences cmdLine = new  BPCLIPreferences(context, cmdLineOptions);
 			if (cmdLine.getBooleanValue("-help")) {
@@ -73,5 +55,32 @@ public class Merge implements IApplication {
 	public void stop() {
 		// nothing to do
 	}
+	
+    public static CommandLineOption[] getCommandLineOptions() {
+        CommandLineOption[] cmdLineOptions = new CommandLineOption[] {
+                new CommandLineOption("-leftFile", "",
+                        "The left file for the merge."),
+                new CommandLineOption("-rightFile", "",
+                        "The right file for the merge."),
+                new CommandLineOption("-ancestorFile", "",
+                        "The ancestor file for the merge."),
+                new CommandLineOption("-outputFile", "",
+                        "The merged output file.  If there are any conflicting changes no output will be created."),
+                new CommandLineOption(
+                        "-debugCLI",
+                        false,
+                        "Launch a workbench and leave it open after executing the command."),
+                new CommandLineOption(
+                        "-disableIntegrityChecks",
+                        false,
+                        "Disable automatic integrity checking after a merge has completed."),
+                new CommandLineOption(
+                        "-workspacePreferences",
+                        "",
+                        "Worskpace preferences to set before import."),
+                new CommandLineOption("-help", false, "Display usage information.")
 
+        };
+        return cmdLineOptions;
+    }
 }

@@ -1,9 +1,5 @@
 .//=====================================================================
 .// 
-.// File:      $RCSfile: create_rename_action.inc,v $
-.// Version:   $Revision: 1.45 $
-.// Modified:  $Date: 2013/06/12 13:08:20 $
-.//
 .// (c) Copyright 2005-2014 by Mentor Graphics Corp. All rights reserved.
 .//
 .//=====================================================================
@@ -541,6 +537,35 @@ ${nav_string.body}\
      */
     public static String isNameValid(String name, ModelElement element)
     {
+
+    	if (CorePlugin.getDefault().getPreferenceStore().getBoolean(BridgePointPreferencesStore.REQUIRE_MASL_STYLE_IDENTIFIERS))
+    	{
+			if ( element instanceof UserDataType_c ) {
+				// Due to the current limitations of the xtUML type system, for MASL the
+				// modeler creates UDTs to represent complex MASL types.  These are too hard
+				// for this simple character validator to deal with, so just let all UDT names through.
+				return null;
+			}
+			if ( element instanceof StateMachineEvent_c ) {
+				// Events may be of the form <super class name>.<super event name> so we allow a single dot by
+				// just removing the first dot we see from the name being validated.
+				name = name.replaceFirst("\\.", "");
+			}
+    		// Make sure the name conforms to MASL identifier rule:
+    		//   ( Letter | '_' )( Letter | Digit | '_' )*
+			if ( name.isEmpty() ) {
+				return CorePlugin.INVALID_MASL_NAME;
+			}
+    		int i = 0;
+    		if ( !(Character.isLetter(name.charAt(i)) || name.charAt(i) == '_') ) {
+    		  return CorePlugin.INVALID_MASL_NAME;
+    		}
+    		for (i = 1; i < name.length(); i++) {
+        		if ( !(Character.isLetterOrDigit(name.charAt(i)) || name.charAt(i) == '_') ) {
+        		  return CorePlugin.INVALID_MASL_NAME;
+        		}
+    		}
+    	} else {
         // if the given element is of a type whose instances may not have
         // spaces in their names, and there is a space in the given name
         if ((element instanceof Attribute_c
@@ -564,7 +589,7 @@ ${nav_string.body}\
             // the name is not valid
             return CorePlugin.INVALID_NAME_SPACES;
         }
-
+    	}
 
 		final ModelRoot modelRoot = ((NonRootModelElement) element).getModelRoot();
 

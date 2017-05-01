@@ -1,11 +1,3 @@
-//=====================================================================
-//
-//File:      $RCSfile: ProjectUtilities.java,v $
-//Version:   $Revision: 1.11 $
-//Modified:  $Date: 2013/05/10 06:09:48 $
-//
-//(c) Copyright 2004-2014 by Mentor Graphics Corp. All rights reserved.
-//
 //========================================================================
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not 
 // use this file except in compliance with the License.  You may obtain a copy 
@@ -22,6 +14,9 @@
 package org.xtuml.bp.utilities.ui;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IProjectDescription;
@@ -45,9 +40,14 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
+import org.eclipse.ui.IWorkbench;
+import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.WorkbenchException;
+import org.eclipse.ui.dialogs.IOverwriteQuery;
 import org.eclipse.ui.wizards.datatransfer.ExternalProjectImportWizard;
+import org.eclipse.ui.wizards.datatransfer.FileSystemStructureProvider;
+import org.eclipse.ui.wizards.datatransfer.ImportOperation;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.Modeleventnotification_c;
 import org.xtuml.bp.core.Ooaofooa;
@@ -56,17 +56,83 @@ import org.xtuml.bp.core.XtUMLNature;
 import org.xtuml.bp.core.common.BaseModelDelta;
 import org.xtuml.bp.core.common.ClassQueryInterface_c;
 import org.xtuml.bp.core.common.ComponentResourceListener;
+import org.xtuml.bp.core.common.ModelStreamProcessor;
 import org.xtuml.bp.core.common.PersistableModelComponent;
 import org.xtuml.bp.core.common.PersistenceManager;
+import org.xtuml.bp.core.ui.IModelImport;
 import org.xtuml.bp.core.ui.Selection;
+import org.xtuml.bp.core.util.UIUtil;
 import org.xtuml.bp.io.mdl.wizards.ModelExportPage;
 import org.xtuml.bp.io.mdl.wizards.ModelExportWizard;
 import org.xtuml.bp.io.mdl.wizards.ModelImportPage;
 import org.xtuml.bp.io.mdl.wizards.ModelImportWizard;
+import org.xtuml.bp.io.mdl.wizards.ModelImportWizardHelper;
 
 public class ProjectUtilities {
 
     private static String perspective = "org.xtuml.bp.core.perspective"; //$NON-NLS-1$
+    
+    public static IProject createProjectNoUI(final String name ) throws CoreException {
+        IProject projectHandle = ResourcesPlugin.getWorkspace().getRoot().getProject(name);
+        if (projectHandle.exists()) {
+            // try to open a currently existing project
+            projectHandle.open(new NullProgressMonitor());
+            return projectHandle;
+        }
+
+        // project doesn't exist, create a new project
+        final IProjectDescription myTestProject = ResourcesPlugin
+                .getWorkspace().newProjectDescription(projectHandle.getName());
+        myTestProject.setLocation(null); // default location
+        projectHandle.create(myTestProject, new NullProgressMonitor());
+
+        projectHandle.open(new NullProgressMonitor());
+
+        XtUMLNature.addNature(projectHandle);
+
+        ClassQueryInterface_c query = new ClassQueryInterface_c() {
+            public boolean evaluate(Object candidate) {
+                return ((SystemModel_c) candidate).getName().equals(name);
+            }
+        };
+        SystemModel_c newModel = SystemModel_c.SystemModelInstance(Ooaofooa
+                .getDefaultInstance(), query);
+        if (newModel == null) {
+            newModel = new SystemModel_c(Ooaofooa.getDefaultInstance());
+            newModel.setUseglobals(true);
+			// need to fire a created event so that
+			// the diagram elements are created
+			Ooaofooa.getDefaultInstance().fireModelElementCreated(
+					new BaseModelDelta(Modeleventnotification_c.DELTA_NEW,
+							newModel));
+        }
+        newModel.setName(name);
+
+        PersistableModelComponent newComp = PersistenceManager
+                .createRootComponent(projectHandle, newModel);
+        if (!newComp.isPersisted()) {
+            try {
+                ComponentResourceListener.setIgnoreResourceChangesMarker(true);
+                newComp.persist();
+                ComponentResourceListener.setIgnoreResourceChangesMarker(false);
+            } catch (CoreException e) {
+                CorePlugin.logError("Failed to create System Model data file",
+                        e);
+            }
+        }
+        // close and reopen the project to get
+        // the system level graphics setup as
+        // well as the system level datatypes
+        try {
+            projectHandle.close(new NullProgressMonitor());
+            projectHandle.open(new NullProgressMonitor());
+        } catch (CoreException e1) {
+            CorePlugin.logError("Unable to open test project.", e1);
+        }
+
+        return projectHandle;
+        
+    }
 
     public static IProject createProject(String name) throws CoreException {
         return createProject(name, null);
@@ -97,7 +163,7 @@ public class ProjectUtilities {
         }
 
     	// Dispatch display events before deleting
-    	while ( Display.getCurrent().readAndDispatch() ) ;
+    	UIUtil.dispatchAll();
 
         // project doesn't exist, create a new project
         final IProjectDescription myTestProject = ResourcesPlugin
@@ -133,7 +199,7 @@ public class ProjectUtilities {
         if (projectHandle.exists()) {
         	
         	// Dispatch display events before deleting
-        	while ( Display.getCurrent().readAndDispatch() ) ;
+        	UIUtil.dispatchAll();
         	
     		WorkspaceJob job = new WorkspaceJob("Delete Project: " + projectHandle.getName()) {
     			
@@ -187,23 +253,27 @@ public class ProjectUtilities {
             CorePlugin.logError("Unable to open xtUML Modeling perspective", e);
         }
         // read and dispatch to insure focus on help
-        while(Display.getCurrent().readAndDispatch());
+        UIUtil.dispatchAll();
     }
 
     public static void allowJobCompletion() {
         while (ResourcesPlugin.getWorkspace().isTreeLocked())
             ;
-        final Display disp = PlatformUI.getWorkbench().getDisplay();
         while (!Job.getJobManager().isIdle()) {
-            final Display current = Display.getCurrent();
-            if ( current != null ) {
-                while (!disp.isDisposed() && !current.isDisposed()
-                       && disp.readAndDispatch())
-                    ;
-            } else {
-                while (!disp.isDisposed() && disp.readAndDispatch())
-                    ;
-            }
+        	Job.getJobManager().resume();  // Make sure the job manager is executing jobs if there are any in the queue
+        	// do not wait for console input job as it never goes
+        	// away
+        	Job[] jobs = Job.getJobManager().find(null);
+        	boolean foundHighPriorityJob = false;
+        	for(Job job : jobs) {
+        		if(job.getPriority() < 30) {
+        			foundHighPriorityJob = true;
+        		}
+        	}
+        	if(!foundHighPriorityJob) {
+        		break;
+        	}
+        	while(PlatformUI.getWorkbench().getDisplay().readAndDispatch());
         }
     }
 
@@ -279,6 +349,32 @@ public class ProjectUtilities {
     }
 
 
+    public static boolean importModelWithoutWizard(SystemModel_c systemModel,
+            String filePath) {
+		IPath templatePath = new Path(filePath);
+		if (templatePath.getFileExtension().equals(Ooaofooa.MODELS_EXT)) {
+			File inputFile;
+			try {
+				inputFile = templatePath.toFile();
+				ModelImportWizardHelper importHelper = new ModelImportWizardHelper();
+				ModelStreamProcessor processor = new ModelStreamProcessor();
+				IProgressMonitor monitor = new NullProgressMonitor();
+				String message = "";
+				IModelImport importer = importHelper.doImportPhase1(processor, systemModel, inputFile, monitor);
+				importHelper.doImportPhase2(processor, systemModel, monitor, message, importer);
+				importHelper.doResolveMASL(importer, systemModel, false);
+			} catch (FileNotFoundException e) {
+				CorePlugin.logError("Internal error: failed to open " + filePath, e);
+				return false;
+			} catch (IOException e) {
+				CorePlugin.logError("There was an exception loading the give source file.",e);
+				return false;
+			}
+		}
+
+        return true;
+    }
+
     public static boolean importModelUsingWizard(SystemModel_c systemModel,
             String fullyQualifiedSingleFileModel, boolean parseOnImport) {
         Selection.getInstance().clear();
@@ -288,8 +384,15 @@ public class ProjectUtilities {
         importWizard.init(PlatformUI.getWorkbench(), Selection.getInstance()
                 .getStructuredSelection());
 
-        WizardDialog dialog = new WizardDialog(PlatformUI.getWorkbench()
-                .getActiveWorkbenchWindow().getShell(), importWizard);
+        IWorkbench iwb = PlatformUI.getWorkbench();
+        IWorkbenchWindow iwbw = iwb.getActiveWorkbenchWindow();
+        Shell shell = null;
+        if ( iwbw != null ) { 
+        	shell = iwbw.getShell(); 
+        } else { 
+        	shell = iwb.getDisplay().getActiveShell(); 
+        }
+        WizardDialog dialog = new WizardDialog(shell, importWizard);
         dialog.create();
         ModelImportPage importPage = (ModelImportPage) importWizard
                 .getStartingPage();
@@ -348,6 +451,28 @@ public class ProjectUtilities {
     	return importExistingProject(rootProjectFolder, true);
     }
 
+	public static boolean importExistingProjectCLI(final String rootProjectFolder, final boolean copyIntoWorkspace) {
+		IOverwriteQuery overwriteQuery = new IOverwriteQuery() {
+			public String queryOverwrite(String file) {
+				return ALL;
+			}
+		};
+		IPath rootPath = new Path(rootProjectFolder);
+		IPath projectPath = new Path(rootPath.lastSegment());
+		ImportOperation importOperation = new ImportOperation(projectPath, new File(rootProjectFolder),
+				FileSystemStructureProvider.INSTANCE, overwriteQuery);
+		importOperation.setContext(new Shell(PlatformUI.getWorkbench().getDisplay()));
+		importOperation.setCreateContainerStructure(false);
+		try {
+			importOperation.run(new NullProgressMonitor());
+		} catch (InvocationTargetException e) {
+			CorePlugin.logError("Unable to import existing project: " + rootProjectFolder, e);
+		} catch (InterruptedException e) {
+			CorePlugin.logError("Unable to import existing project: " + rootProjectFolder, e);
+		}
+		return true;
+	}
+    
     public static boolean importExistingProject(final String rootProjectFolder, final boolean copyIntoWorkspace) {
 		final ExternalProjectImportWizard importWizard = new ExternalProjectImportWizard();
 		
@@ -433,10 +558,18 @@ public class ProjectUtilities {
 					if(allChildren[i+1] instanceof Combo) {
 						((Combo)allChildren[i+1]).setEnabled(!isArchive);
 						if (!isArchive) {
-							((Combo)allChildren[i+1]).setText(fqFilePath);					
-							((Combo)allChildren[i+1]).notifyListeners(SWT.FocusOut, new Event());
+							((Button)allChildren[i]).setSelection(!isArchive);
+							UIUtil.dispatchAll();
+							((Combo)allChildren[i+1]).setEnabled(true);
+							((Combo)allChildren[i+1]).forceFocus();
+							UIUtil.dispatchAll();
+							((Combo)allChildren[i+1]).setText(fqFilePath);							
+							((Combo)allChildren[i+1]).notifyListeners(SWT.KeyDown, createKeyEvent(SWT.NONE, SWT.CR, SWT.Selection));
+							UIUtil.dispatchAll();
 							// set focus elsewhere
-							((Combo)allChildren[i+1]).setEnabled(false);
+							((Button)allChildren[i]).setFocus();
+							((Combo)allChildren[i+1]).notifyListeners(SWT.FocusOut, new Event());
+							UIUtil.dispatchAll();
 						}
 					} else {
 						// for pre eclipse 4.4 use Text widget
@@ -452,15 +585,23 @@ public class ProjectUtilities {
 					optionsSet++;
 				} else if (btnText.equalsIgnoreCase("Select &archive file:")) {
 					// Set the text associated with this button to the 
-					// fully qualified folder name.  We then have to select 
+					// fully qualified archive file path.  We then have to select 
 					// the browse button
 					if(allChildren[i+1] instanceof Combo) {
 						((Combo)allChildren[i+1]).setEnabled(isArchive);
 						if (isArchive) {
+							((Button)allChildren[i]).setSelection(isArchive);
+							UIUtil.dispatchAll();
+							((Combo)allChildren[i+1]).setEnabled(true);
+							((Combo)allChildren[i+1]).forceFocus();
+							UIUtil.dispatchAll();
 							((Combo)allChildren[i+1]).setText(fqFilePath);					
-							((Combo)allChildren[i+1]).notifyListeners(SWT.FocusOut, new Event());
+							((Combo)allChildren[i+1]).notifyListeners(SWT.KeyDown, createKeyEvent(SWT.NONE, SWT.CR, SWT.Selection));
+							UIUtil.dispatchAll();
 							// set focus elsewhere
-							((Combo)allChildren[i+1]).setEnabled(false);
+							((Button)allChildren[i]).setFocus();
+							((Combo)allChildren[i+1]).notifyListeners(SWT.FocusOut, new Event());
+							UIUtil.dispatchAll();
 						}
 					} else {
 						// for pre eclipse 4.4 use Text widget
@@ -483,7 +624,7 @@ public class ProjectUtilities {
 					((Button)allChildren[i]).notifyListeners(SWT.Selection,  new Event());
 					optionsSet++;
 				}
-				while(PlatformUI.getWorkbench().getDisplay().readAndDispatch());
+				UIUtil.dispatchAll();
 				
 			} else {
 				Control temp = allChildren[i];
@@ -493,4 +634,12 @@ public class ProjectUtilities {
 		return optionsSet;
 	}
 
+	private static Event createKeyEvent(int modificationKey, char c, int keyCode) {
+		Event keyEvent = new Event();
+		keyEvent.stateMask = modificationKey;
+		keyEvent.character = c;
+		keyEvent.keyCode = keyCode;
+		return keyEvent;
+	}
+	
 }

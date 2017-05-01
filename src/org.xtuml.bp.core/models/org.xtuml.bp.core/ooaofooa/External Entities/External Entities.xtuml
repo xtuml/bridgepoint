@@ -21,8 +21,8 @@ INSERT INTO GD_MD
 	1,
 	0,
 	0,
-	0,
-	0,
+	200,
+	150,
 	0,
 	'3.2.5',
 	'org.xtuml.bp.core::ooaofooa::External Entities');
@@ -242,6 +242,54 @@ INSERT INTO DIM_ELE
 	VALUES ("9784dac7-b168-4653-abdc-9543614bc253",
 	0,
 	"00000000-0000-0000-0000-000000000000");
+INSERT INTO GD_GE
+	VALUES ("ce7f27ad-0051-4378-a2af-fbec7f6ee7a1",
+	"734339f1-ac44-4aee-b543-a8a885e6670b",
+	"6fb76ebe-620e-4fc2-b7be-5f29887b61c8",
+	12,
+	0,
+	'org.xtuml.bp.core::ooaofooa::External Entities::URL');
+INSERT INTO GD_SHP
+	VALUES ("ce7f27ad-0051-4378-a2af-fbec7f6ee7a1");
+INSERT INTO GD_NCS
+	VALUES ("ce7f27ad-0051-4378-a2af-fbec7f6ee7a1");
+INSERT INTO DIM_ND
+	VALUES (200.000000,
+	150.000000,
+	"ce7f27ad-0051-4378-a2af-fbec7f6ee7a1");
+INSERT INTO DIM_GE
+	VALUES (2744.000000,
+	1584.000000,
+	"ce7f27ad-0051-4378-a2af-fbec7f6ee7a1",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("ce7f27ad-0051-4378-a2af-fbec7f6ee7a1",
+	0,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO GD_GE
+	VALUES ("acc37ee1-886e-47e5-8c9c-832ce046638d",
+	"734339f1-ac44-4aee-b543-a8a885e6670b",
+	"f5fca9e3-9eba-4c8b-9f16-9f79f8b6cf9a",
+	12,
+	0,
+	'org.xtuml.bp.core::ooaofooa::External Entities::Import Error Reporting');
+INSERT INTO GD_SHP
+	VALUES ("acc37ee1-886e-47e5-8c9c-832ce046638d");
+INSERT INTO GD_NCS
+	VALUES ("acc37ee1-886e-47e5-8c9c-832ce046638d");
+INSERT INTO DIM_ND
+	VALUES (200.000000,
+	150.000000,
+	"acc37ee1-886e-47e5-8c9c-832ce046638d");
+INSERT INTO DIM_GE
+	VALUES (2964.000000,
+	1584.000000,
+	"acc37ee1-886e-47e5-8c9c-832ce046638d",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("acc37ee1-886e-47e5-8c9c-832ce046638d",
+	0,
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO DIM_DIA
 	VALUES ("734339f1-ac44-4aee-b543-a8a885e6670b",
 	'',
@@ -274,7 +322,8 @@ statement.',
 	"ba5eda7a-def5-0000-0000-000000000001",
 	'return true;',
 	1,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("fcc83234-c511-4fa0-94c2-013dc980c5ce",
 	"2065b330-f57e-4fb9-9d45-8503aaafb1a6",
@@ -296,7 +345,8 @@ select statement.',
 	"ba5eda7a-def5-0000-0000-000000000001",
 	'return true;',
 	1,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("19722b47-6703-456b-8e5e-9aa36ec333fe",
 	"560f2f75-4b37-4a00-bdf7-a5a338091e81",
@@ -320,7 +370,8 @@ org.eclipse.swt.widgets.Shell sh =
 org.eclipse.jface.dialogs.MessageDialog.openError(sh, "Warning", p_Msg);
 ',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("9096fca4-7551-4858-9631-79455b0fad90",
 	"d87ff96e-7786-4ec2-a2f3-216300eea0fe",
@@ -346,7 +397,8 @@ if (pathToUse == null || pathToUse.equals("")) {
 CorePlugin.err.println(p_Msg + " at " + pathToUse);
 ',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("9807b524-eee0-4c9c-aa67-915639217278",
 	"8ded5c6c-feb3-4990-95a4-12667b813fe0",
@@ -377,7 +429,8 @@ org.eclipse.swt.widgets.Shell sh =
    CorePlugin.getDefault().getWorkbench().getActiveWorkbenchWindow().getShell();
 org.eclipse.jface.dialogs.MessageDialog.openInformation(sh, p_Title, p_Msg);',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("55096a5a-53d5-46db-ad54-d569b73e83db",
 	"92dde1d3-df19-4ebb-bd91-e243a1363eea",
@@ -405,7 +458,8 @@ INSERT INTO S_BRG
 	"ba5eda7a-def5-0000-0000-000000000001",
 	'return true;',
 	1,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("2128ab16-fd84-4551-a50a-ae3e60d465f5",
 	"a830e074-22e7-4b5c-8b22-b7ca9b0478d9",
@@ -428,7 +482,8 @@ if (CorePlugin.loggingEnabled) {
 }
 ',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("5697c620-1cea-4089-8c86-75de77e1f6b0",
 	"f4ee0d25-18e8-449c-84c2-d99c28bf3c34",
@@ -448,7 +503,8 @@ of a select statement. It is used when an existing association must be known.',
 	"ba5eda7a-def5-0000-0000-000000000001",
 	'return true;',
 	1,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("8d25fc47-0ee8-4d6a-b54c-213276c7af78",
 	"1cddab61-6671-4d1e-b735-2092366c2dd4",
@@ -487,7 +543,8 @@ INSERT INTO S_BRG
 	"ba5eda7a-def5-0000-0000-000000000004",
 	'return "\n";',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BRG
 	VALUES ("7f7d3396-6a82-45b0-a649-7e779989b28d",
 	"058cdd28-59e8-461f-8413-8013501f3a1a",
@@ -497,7 +554,8 @@ INSERT INTO S_BRG
 	"ba5eda7a-def5-0000-0000-000000000004",
 	'return Integer.toString(p_Value);',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("27be4ece-d38a-4923-838b-1dd1dc61ec5f",
 	"7f7d3396-6a82-45b0-a649-7e779989b28d",
@@ -516,7 +574,8 @@ INSERT INTO S_BRG
 	"ba5eda7a-def5-0000-0000-000000000002",
 	'return Integer.MAX_VALUE;',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BRG
 	VALUES ("7fbabbee-2b1f-4848-89d0-13872e22dafc",
 	"058cdd28-59e8-461f-8413-8013501f3a1a",
@@ -526,7 +585,8 @@ INSERT INTO S_BRG
 	"ba5eda7a-def5-0000-0000-000000000005",
 	'return org.xtuml.bp.core.common.IdAssigner.NULL_UUID;',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BRG
 	VALUES ("dae43081-230a-4add-a820-b6e891b38b09",
 	"058cdd28-59e8-461f-8413-8013501f3a1a",
@@ -536,7 +596,8 @@ INSERT INTO S_BRG
 	"ba5eda7a-def5-0000-0000-000000000002",
 	'return p_S.length();',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("07fd734b-36c1-4e7d-a1ca-8ef927f5ae81",
 	"dae43081-230a-4add-a820-b6e891b38b09",
@@ -561,7 +622,8 @@ INSERT INTO S_BRG
         }
         return count;',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("771494d9-3032-43a1-8139-8f190d474a39",
 	"cd2767ff-da84-4d49-a675-f67709685de3",
@@ -606,7 +668,8 @@ try {
 	return -1;
 }',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("f76a32fa-8f02-4da7-a2cf-461347c9bc66",
 	"4c114c62-5c0c-4ce0-9fbc-fae22a0ad684",
@@ -643,7 +706,8 @@ try {
 }
 ',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("727f7be9-deb4-4dd5-9f0a-390b0759cbb3",
 	"5d827d91-c06f-4a46-bdd2-ddaf0001be68",
@@ -662,7 +726,8 @@ INSERT INTO S_BRG
 	"ba5eda7a-def5-0000-0000-000000000004",
 	'return Float.toString(p_Value);',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("fa8079f0-e0f6-4cc6-883f-fbf069176e59",
 	"74d2f03a-d966-4c00-a56a-d01368bc8070",
@@ -681,7 +746,8 @@ INSERT INTO S_BRG
 	"ba5eda7a-def5-0000-0000-000000000004",
 	'return p_Value.toString();',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("7aaf698d-0076-4632-ab5f-ab088d45aa13",
 	"da4b39d0-0c1f-4040-8065-21c88f121669",
@@ -700,7 +766,8 @@ INSERT INTO S_BRG
 	"ba5eda7a-def5-0000-0000-000000000004",
 	'return Boolean.toString(p_Value);',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("6a089b23-ba1e-4733-9d3f-06d6e1cc3a13",
 	"22a7744f-2593-4f4f-a741-08f7bd247917",
@@ -728,7 +795,8 @@ catch(Exception e)
   return false;
 }',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("0f7b04aa-0072-47ab-8c9c-0c5b8498fb3f",
 	"21ef174b-a0ee-4b5d-bd62-fa694a121253",
@@ -763,7 +831,8 @@ catch(Exception e)
 
 ',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("7f0ad304-9884-432f-8785-4b968ec262b2",
 	"4eee7b4c-3565-4006-a016-609f43e77e66",
@@ -782,7 +851,8 @@ INSERT INTO S_BRG
 	"ba5eda7a-def5-0000-0000-000000000004",
 	'return p_Value.toLowerCase();',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("a9d64973-91d1-4a6d-a950-1a159fa18ea3",
 	"e73be954-b3b6-43db-996b-ac51db522906",
@@ -802,7 +872,8 @@ INSERT INTO S_BRG
 	'return (Object)p_Value; 
 ',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("6270014a-2c42-42ef-9c07-8955fcbf7ea9",
 	"82aeb37a-9471-4bde-b93f-71fe10dfe063",
@@ -828,7 +899,8 @@ INSERT INTO S_BRG
 	"bc3722c8-5188-4529-8519-cf9eb9816b17",
 	'return (Object)Boolean.toString(p_Value);',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("9cb10127-3ba3-44e8-a6a3-4738afdbe3ef",
 	"8f23eac2-64f7-4881-863a-deae3f2eb94a",
@@ -889,7 +961,8 @@ catch (Exception e)
 }
 ',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("a0219cf6-5ae1-47ac-9ddc-2946b0f14bca",
 	"63ed819c-ce4c-4adf-b5d6-f32854f12778",
@@ -908,7 +981,8 @@ INSERT INTO S_BRG
 	"bc3722c8-5188-4529-8519-cf9eb9816b17",
 	'return (Object)Integer.toString(p_Value);',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("df5c7b4c-314a-4d92-af6a-e2e998a1ceaf",
 	"9c0ff08f-668d-470a-b64b-fca36ee0f267",
@@ -928,7 +1002,8 @@ INSERT INTO S_BRG
 	'return (Object)Float.toString(p_Value);
 ',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("7619855f-aa01-4477-8248-88e4e83daae5",
 	"1c39e132-cc7b-4832-ba47-58d8c3091678",
@@ -947,7 +1022,8 @@ INSERT INTO S_BRG
 	"bc3722c8-5188-4529-8519-cf9eb9816b17",
 	'return (Object) p_Value.toString();',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("a24f4ce1-2992-4a46-8a3d-ac22964167ba",
 	"eb8a02b6-4cea-45f1-b5b2-5867daf21e18",
@@ -985,7 +1061,8 @@ catch(Exception e)
   return false;
 }',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("75fddb96-8dbe-44e6-bbcb-b85373a906ce",
 	"497a1910-f6dc-441a-9cbe-55c1172686df",
@@ -1030,7 +1107,8 @@ catch(Exception e)
 }
 ',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("2c855e51-205f-42fd-bbc8-4fcf50315bed",
 	"018e5c17-9b19-4fe5-94b1-4713a5473339",
@@ -1080,7 +1158,8 @@ catch(Exception e)
   
 ',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("0a413536-2681-4274-8277-40360179bc59",
 	"2feb08fa-79ff-433c-b2f0-0cbcc250e2dd",
@@ -1125,7 +1204,8 @@ catch(Exception e)
 
 ',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("cf3c9e1d-9178-4fef-9e3b-abd90cd0000c",
 	"98496fdd-18c4-4d02-b818-b7c1fc03f9f6",
@@ -1144,7 +1224,8 @@ INSERT INTO S_BRG
 	"ba5eda7a-def5-0000-0000-000000000005",
 	'return ((PendingEvent_c)p_Value).getEvent_id();',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("f95337fd-14a7-4f04-837f-ca3d06850248",
 	"9f67f851-e9cd-4299-a4a1-3f975de86c02",
@@ -1167,11 +1248,11 @@ by reference into realized code.',
 	'try
 {
   if (p_Type.equals("boolean")) { //$NON-NLS-1$
-    return new lib.BPBoolean(new Boolean((String) p_Value).booleanValue());
+    return new lib.BPBoolean(Boolean.parseBoolean((String) p_Value));
   } else if (p_Type.equals("integer")) { //$NON-NLS-1$
-    return new lib.BPInteger(new Integer((String) p_Value).intValue());
+    return new lib.BPInteger(Integer.parseInt((String) p_Value));
   } else if (p_Type.equals("real")) { //$NON-NLS-1$
-    return new lib.BPFloat(new Float((String) p_Value).floatValue());
+    return new lib.BPFloat(Float.parseFloat((String) p_Value));
   } else if (p_Type.equals("string")) { //$NON-NLS-1$
     return new lib.BPString((String) p_Value);
   } else if (p_Type.equals("unique_id")) { //$NON-NLS-1$
@@ -1193,7 +1274,8 @@ catch (Exception e)
   return null;
 }',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("cdc906a3-9886-42e4-b558-acb39e8ab01f",
 	"b9381f88-0b02-4b85-a2fb-9b0763c78e22",
@@ -1227,11 +1309,14 @@ Import:org.xtuml.bp.core.common.IdAssigner',
 	'try
 {			
   if (p_Type.equals("boolean")) { //$NON-NLS-1$
-    return new Boolean(((lib.BPBoolean) p_Value).getValue());
+    Boolean b = new Boolean(((lib.BPBoolean) p_Value).getValue());
+    return String.valueOf(b);
   } else if (p_Type.equals("integer")) { //$NON-NLS-1$
-    return new Integer(((lib.BPInteger) p_Value).getValue());
+    Integer i = new Integer(((lib.BPInteger) p_Value).getValue());
+    return String.valueOf(i);
   } else if (p_Type.equals("real")) { //$NON-NLS-1$
-    return new Float(((lib.BPFloat) p_Value).getValue());
+    Float r = new Float(((lib.BPFloat) p_Value).getValue());
+    return String.valueOf(r);
   } else if (p_Type.equals("string")) { //$NON-NLS-1$
     return new String(((lib.BPString) p_Value).getValue());
   } else if (p_Type.equals("unique_id")) { //$NON-NLS-1$
@@ -1252,7 +1337,8 @@ catch (Exception e)
   return null;
 }	',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("af0db95f-1df5-4163-9e56-a01db94c90e3",
 	"5d6b1a41-dece-481c-817e-21bf5a4f78dd",
@@ -1281,7 +1367,8 @@ INSERT INTO S_BRG
 	'		return null;
 ',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BRG
 	VALUES ("88850001-99bb-41c8-bf8b-3cbf51990a11",
 	"058cdd28-59e8-461f-8413-8013501f3a1a",
@@ -1295,7 +1382,8 @@ INSERT INTO S_BRG
 		}
 		return "empty";',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("2ac9c6b0-ca62-4401-9109-1e3a29d1f4b0",
 	"88850001-99bb-41c8-bf8b-3cbf51990a11",
@@ -1319,7 +1407,8 @@ INSERT INTO S_BRG
 		return "empty";
 ',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("27b7b1fa-fa72-4d04-96de-d916bb9b1307",
 	"c411f94d-9a87-4e5a-b05e-6a0100d316dc",
@@ -1343,7 +1432,8 @@ INSERT INTO S_BRG
 		return "empty";
 ',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("eebeb125-1b2c-4590-a8f0-d7fff23af848",
 	"9679e887-5aa1-4331-b89d-9a53dfdfa983",
@@ -1367,7 +1457,8 @@ INSERT INTO S_BRG
 		return "empty";
 ',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("344c7105-ef3f-40c4-a380-f0fb203e8d47",
 	"e165ac09-51df-44eb-86f2-3ad76c8702a2",
@@ -1390,7 +1481,8 @@ if (rel_phrase.length() > 0 && rel_phrase.charAt(0) == ''\'''' && rel_phrase.cha
 }
 return rel_phrase;',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("ffccc460-cdb3-4883-b065-4969925c2998",
 	"d08b7fa6-fb27-4f0a-84e9-7a59cc15bbdc",
@@ -1419,7 +1511,8 @@ INSERT INTO S_BRG
 		}
 		return -1;',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("18989d0d-d143-4156-a3d4-91c3b3389d37",
 	"783f1358-4d16-4b1a-80a1-01055254cb10",
@@ -1456,7 +1549,8 @@ INSERT INTO S_BRG
 	    return -1;
 ',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("18383c3e-f355-4b0c-8af1-81e3fb8c08d1",
 	"5f7efd75-d59e-4dc2-99a3-97486478d243",
@@ -1492,7 +1586,8 @@ INSERT INTO S_BRG
 		return "Component not found";
 ',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("71fd6641-991d-4710-8f3e-ff164c1dee7c",
 	"3b0abf20-8a8a-4933-ae87-8a14e0d4d219",
@@ -1544,7 +1639,8 @@ Translate:native',
 		}
 		return result;',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("aa297f72-ae69-4c8b-b5d9-ada0925db090",
 	"043564b8-e004-4789-a29f-ca8ce63bad78",
@@ -1598,7 +1694,8 @@ Translate:native',
 		}
 		return false;',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("e45a3658-002e-4c16-8375-1ebdaa9400be",
 	"e3606522-cb06-4fd3-aa4d-507c1b5d8e1f",
@@ -1644,7 +1741,8 @@ Translate:native',
 		return pkg;
 ',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("4f67f9ee-4895-4962-b425-e1e332489e5b",
 	"69010dfb-3cf7-4655-b4f5-ba74b71e1b93",
@@ -1687,7 +1785,8 @@ if ((dt != null)) {
 }
 return false;',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("5127f43e-6036-41d6-ba8c-10ac18d0f425",
 	"51d5a656-4f1d-443f-8b6f-26d0ec03c6f9",
@@ -1734,7 +1833,8 @@ if ((dt != null)) {
 }
 return false;',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("7675da1d-1299-454d-b5f0-475128e35eee",
 	"643a880b-a9fa-4ab1-91a3-bbf5956fa225",
@@ -1767,7 +1867,8 @@ Translate:native',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	'PasteAction.addElementToProblemsList(p_Message, p_Elementname);',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("324d14db-9949-44a9-b914-8f0bdb7e22a4",
 	"4c87e9e5-1dbf-4a8f-ab50-e3154e9c1f2b",
@@ -1797,7 +1898,8 @@ Translate:native',
 	"ba5eda7a-def5-0000-0000-000000000001",
 	'return ((NonRootModelElement)p_Element).isProxy();',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("7f725a3a-cdc2-44f7-bc08-aa2f77e85be2",
 	"7b452fd4-51a6-4fb4-b888-b0323b43aa9e",
@@ -1818,7 +1920,8 @@ Translate:native',
 	"ba5eda7a-def5-0000-0000-000000000004",
 	'		return p_Element.getClass().getSimpleName().replaceAll("_c", "");',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("cacff3f1-00fb-4254-bb4a-a3fb177946aa",
 	"85c89d17-bdb8-422b-b5d9-f41b0e4a11ff",
@@ -1851,7 +1954,8 @@ if (p_Nrme1 != null && p_Nrme2 != null) {
 return hasSameRoot;
 ',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("b99ee637-e428-4cd0-9377-726b40fe00a1",
 	"99b12046-66bf-4b44-ade8-ca215461ca29",
@@ -1879,7 +1983,8 @@ INSERT INTO S_BRG
 	"f0e53f72-2765-4257-ae4c-e44680e63219",
 	'return p_Longvar + p_Intvar;',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("f00335a5-9373-473e-bbd5-fccda1973715",
 	"5a3b5d29-d3cb-4f92-abea-98473ee175ea",
@@ -1914,7 +2019,8 @@ INSERT INTO S_BRG
 	"ba5eda7a-def5-0000-0000-000000000002",
 	'return (int) (p_V1 - p_V2);',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("c3332f17-7b69-4abf-a89f-6e927814f823",
 	"c16d0058-eaf0-4678-bc4d-b25fcc12e562",
@@ -1947,7 +2053,8 @@ Translate:native
 	"ba5eda7a-def5-0000-0000-000000000000",
 	'TransactionManager.reportElementDowngraded(p_Rgodowngraded, p_Rto, p_Relationship);',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("fca3cf3f-a0ed-4315-9d88-b606c3889ee0",
 	"97dc6905-4d92-4135-9d67-fab99ffd9c52",
@@ -2026,7 +2133,8 @@ INSERT INTO S_BRG
 		return count;
 ',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("97505640-1072-47ba-a2b6-887fed001946",
 	"e1aec319-656f-4f73-884d-c58690aaaec6",
@@ -2062,7 +2170,8 @@ INSERT INTO S_BRG
 	'//native
 CorePlugin.logError(p_Message , null);',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("82c06be6-73b6-423d-b28f-8e3152252b46",
 	"8a4ff55e-4beb-4bb1-8ed2-45562292b10b",
@@ -2081,7 +2190,8 @@ INSERT INTO S_BRG
 	"ba5eda7a-def5-0000-0000-000000000004",
 	'return "";',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("6de76dba-c971-4d6f-bee3-dbab9f83e735",
 	"f10dea7b-7e6b-4491-a0ca-ecbc0ae610c8",
@@ -2100,7 +2210,8 @@ INSERT INTO S_BRG
 	"ba5eda7a-def5-0000-0000-000000000004",
 	'	return p_Element.getClass().getName();',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("7e7f4db0-7bf4-493a-981a-5df95e5545f3",
 	"e009f01d-2cab-48ec-8d8d-345b1478bd5c",
@@ -2128,7 +2239,8 @@ Translate:native',
 		List<Object> thisList = (List<Object>) p_Elementlist;
 		thisList.add(p_Element);',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("027ac6d2-f49f-4d4b-b1e8-2ae0f8bcadd0",
 	"473604b0-82fc-458e-a129-ec6500cb64f7",
@@ -2162,7 +2274,8 @@ INSERT INTO S_BRG
 		List<Object> thisList = (List<Object>) p_Changelist;
 		thisList.add(new ElementChange(p_Elementchanged, p_Isremoval, p_Changelabel));',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("84538dab-a52c-448c-98de-945465eb2a81",
 	"5f79a5c4-d98e-43b3-894f-24a34f38bbfb",
@@ -2210,7 +2323,8 @@ Translate:native',
 	'         return p_Element == null;
 ',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("c94e811d-0880-4c36-8a26-6f37db781fe5",
 	"1872d3cf-580b-4a95-bdec-ebe342cf6ca7",
@@ -2234,7 +2348,8 @@ INSERT INTO S_BRG
 		}
 		return resultPath;',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("7100070f-b998-41d9-8c9a-567f76fd46ae",
 	"c6f03ddc-2c37-4cbe-889c-8d1f74a77840",
@@ -2253,7 +2368,8 @@ INSERT INTO S_BRG
 	"ba5eda7a-def5-0000-0000-000000000004",
 	'return "''";',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BRG
 	VALUES ("c69d4b56-7ec3-45a4-9ac2-bca5ab6ca915",
 	"b69262ac-62eb-4030-b329-b967033f0ee0",
@@ -2267,7 +2383,8 @@ INSERT INTO S_BRG
 		UUID stateId = assigner.createUUID();
 		return stateId;',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("d4edd0a0-eb44-4195-9698-81dd3b2d47a8",
 	"c69d4b56-7ec3-45a4-9ac2-bca5ab6ca915",
@@ -2285,6 +2402,155 @@ INSERT INTO S_BPARM
 	0,
 	'',
 	"d4edd0a0-eb44-4195-9698-81dd3b2d47a8",
+	'');
+INSERT INTO S_BRG
+	VALUES ("cc133c4a-1bd5-4bf9-b44c-a3352007d628",
+	"b69262ac-62eb-4030-b329-b967033f0ee0",
+	'isProvidedParameter',
+	'This bridge is used to check the current selection to see if it is associated   
+with a provided interface.
+
+Import:java.lang.reflect.Method; import org.eclipse.core.runtime.Platform; import org.eclipse.swt.widgets.Tree; import org.eclipse.swt.widgets.TreeItem; import org.osgi.framework.Bundle
+Translate:native',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000001",
+	'        Object viewer = null;
+        Class<?> explorerViewClass = null;
+        Class<?> explorerTreeViewerClass = null;
+
+        try {
+            Bundle ui_explorer = Platform.getBundle("org.xtuml.bp.ui.explorer");//$NON-NLS-1$
+            explorerViewClass = ui_explorer.loadClass("org.xtuml.bp.ui.explorer.ExplorerView"); //$NON-NLS-1$
+            explorerTreeViewerClass = ui_explorer.loadClass("org.xtuml.bp.ui.explorer.ExplorerTreeViewer"); //$NON-NLS-1$
+        } catch (Exception cnf) {
+            CorePlugin.logError("Problem accessing GraphicsUtil class ", cnf); //$NON-NLS-1$
+            return false;
+        }
+
+        Class<?>[] type;
+        try {
+            type = new Class<?>[]{};
+
+            Method getExplorerTreeViewer = explorerViewClass.getMethod("getExplorerTreeViewer", type); //$NON-NLS-1$
+            Object[] args = new Object[]{};
+            viewer = getExplorerTreeViewer.invoke(explorerViewClass, args);
+        } catch (Exception e) {
+            CorePlugin.logError("Error invoking getExplorerTreeViewer in GraphicsUtil  ", e); //$NON-NLS-1$
+            return false;
+        }
+
+        Tree foundTree = null;
+        try {
+            type = new Class<?>[]{};
+            Method getTree = explorerTreeViewerClass.getMethod("getTree", type); //$NON-NLS-1$
+            Object[] args = new Object[]{};
+            foundTree = (Tree) getTree.invoke(viewer, args);
+        } catch (Exception e) {
+            CorePlugin.logError("Error invoking findTreeItem in GraphicsUtil  ", e); //$NON-NLS-1$
+            return false;
+        }
+
+        TreeItem[] foundItems = foundTree.getSelection();
+        if(foundItems.length != 0) {
+        	Object parent = foundItems[0].getParentItem().getData();
+        	if ((parent instanceof InterfaceSignal_c) || (parent instanceof InterfaceOperation_c)) {
+            	return false;
+        	}
+        } else {
+        	return false;
+        }
+        return true;
+        ',
+	0,
+	'',
+	0);
+INSERT INTO S_BRG
+	VALUES ("6481dc47-2797-4382-bf03-13083c2e7d15",
+	"b69262ac-62eb-4030-b329-b967033f0ee0",
+	'stringContains',
+	'Translate:native',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000001",
+	'if ( p_Haystack == null || p_Needle == null ) return false;
+return p_Haystack.contains(p_Needle);',
+	0,
+	'',
+	0);
+INSERT INTO S_BPARM
+	VALUES ("6e7fe8f3-ddea-48c8-be08-7b9bbf0e7436",
+	"6481dc47-2797-4382-bf03-13083c2e7d15",
+	'haystack',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_BPARM
+	VALUES ("12579d21-87b1-482e-9e85-433b0f6615e4",
+	"6481dc47-2797-4382-bf03-13083c2e7d15",
+	'needle',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"6e7fe8f3-ddea-48c8-be08-7b9bbf0e7436",
+	'');
+INSERT INTO S_BRG
+	VALUES ("95c04b25-27ab-49e6-a7e1-6a66f3acbaef",
+	"b69262ac-62eb-4030-b329-b967033f0ee0",
+	'stringSplit',
+	'This operation splits the string s on a delimiter into two substrings. Neither substring
+contains the delimiter itself. If the delimiter is not found, the first substring is the
+input string and the second is empty string. If more than one instance of the dilimiter is
+found, the first instance is the split point.
+
+The parameter i specifies which substring is returned. If 0 is passed, the first substring
+is returned. If 1 is passed the second substring is returned. If another value is passed,
+empty string is returned.
+
+Translate:native',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000004",
+	'if ( p_S == null || p_Delimiter == null || ( p_I != 0 && p_I != 1 ) ) return "";
+String[] substrs = { p_S, "" };
+
+// check if the string contains the delimiter
+if ( Stringcontains( p_S, p_Delimiter ) ) {
+    String delim = p_Delimiter;
+    if ( delim.equals(".") ) delim = "\\.";
+    substrs = p_S.split(delim, 2);
+}
+
+// return the right substring
+return substrs[p_I];',
+	0,
+	'',
+	0);
+INSERT INTO S_BPARM
+	VALUES ("1986813e-ad5b-4815-ab6e-8fdde9a2eac0",
+	"95c04b25-27ab-49e6-a7e1-6a66f3acbaef",
+	's',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_BPARM
+	VALUES ("fc364758-ede4-4248-8d4e-4acb2737d4d9",
+	"95c04b25-27ab-49e6-a7e1-6a66f3acbaef",
+	'delimiter',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"1986813e-ad5b-4815-ab6e-8fdde9a2eac0",
+	'');
+INSERT INTO S_BPARM
+	VALUES ("fda6d4a5-142f-42f1-88c6-59cc4655c06f",
+	"95c04b25-27ab-49e6-a7e1-6a66f3acbaef",
+	'i',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"fc364758-ede4-4248-8d4e-4acb2737d4d9",
 	'');
 INSERT INTO PE_PE
 	VALUES ("b69262ac-62eb-4030-b329-b967033f0ee0",
@@ -2314,7 +2580,8 @@ Translate:native',
 	"ba5eda7a-def5-0000-0000-000000000002",
 	'	return Selection.getInstance().getStructuredSelection().size();',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BRG
 	VALUES ("fb44d77f-14d1-4dd3-a620-2c0b32400214",
 	"ca7a7f08-4459-4ff5-bf0b-941446e8b3c5",
@@ -2327,6 +2594,30 @@ Translate:native',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	'	Selection.getInstance().clear();',
 	0,
+	'',
+	0);
+INSERT INTO S_BRG
+	VALUES ("9b7646f1-d383-4d87-a774-109a287f6fcd",
+	"ca7a7f08-4459-4ff5-bf0b-941446e8b3c5",
+	'isSelected',
+	'Check if an instance is part of the selection group
+
+Import:org.xtuml.bp.core.ui.Selection
+Translate:native',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000001",
+	'return Selection.getInstance().contains(p_Element);',
+	0,
+	'',
+	0);
+INSERT INTO S_BPARM
+	VALUES ("5920fd77-86ed-4aa9-9bd4-e55e292beee0",
+	"9b7646f1-d383-4d87-a774-109a287f6fcd",
+	'element',
+	"bc3722c8-5188-4529-8519-cf9eb9816b17",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
 	'');
 INSERT INTO PE_PE
 	VALUES ("ca7a7f08-4459-4ff5-bf0b-941446e8b3c5",
@@ -2359,7 +2650,8 @@ The error occured at line, in column col, and the error message is msg.',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	'',
 	1,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("969e1f97-ceb9-41a6-95d2-0c9793f68528",
 	"34c3f3bd-33fe-45ec-9185-fe08c495a9ea",
@@ -2398,7 +2690,8 @@ INSERT INTO S_BRG
 	"ba5eda7a-def5-0000-0000-000000000001",
 	'',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("433d5ba9-b31b-4e3b-b37f-8728b7d99459",
 	"c588786d-51c3-4b9d-bb25-b375dc1da919",
@@ -2449,7 +2742,8 @@ else
   }
 }',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("1435c008-0192-424f-b2ef-8e16d019cd33",
 	"4d05e188-4384-4ba1-9009-2280d1607161",
@@ -2477,7 +2771,8 @@ Translate: native',
 else
   return p_Ticked_string;',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("fee758b3-7651-458b-ac37-7541e10d2408",
 	"b6b63014-fcc5-4a70-9883-10a02bc3737c",
@@ -2502,7 +2797,8 @@ Translate: native',
 else
   return p_S;',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("6392cbb6-4ebe-495a-803d-1d719f100964",
 	"b4fc81f4-1c3d-43bb-9333-9dc5ca492c77",
@@ -2524,7 +2820,8 @@ Translate: native',
 	return Boolean.valueOf(env);
 ',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("4d954615-580d-4ea5-900e-e5d5e076c718",
 	"aaad8201-47a8-45cc-a463-c083687d3477",
@@ -2544,7 +2841,8 @@ Translate: native',
 	"ba5eda7a-def5-0000-0000-000000000004",
 	'return p_S.replaceAll("\\s", "");',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("669710fb-6b15-48fb-bfbf-7f0c79826061",
 	"1b92565a-b87d-49b6-a94c-bee969c9f3ad",
@@ -2581,7 +2879,8 @@ INSERT INTO S_BRG
 	"ba5eda7a-def5-0000-0000-000000000001",
 	'return true;',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("5caaecea-b7c0-47e0-b36c-fa7e31052cc1",
 	"c445c967-1cea-4769-93d0-bc54402626d2",
@@ -2609,7 +2908,8 @@ INSERT INTO S_BRG
 	"ba5eda7a-def5-0000-0000-000000000000",
 	'',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("1e769787-b626-453f-9853-384da76cb403",
 	"956df659-ebec-4959-b1e5-a526c1d6c08f",
@@ -2646,7 +2946,8 @@ INSERT INTO S_BRG
 	"ba5eda7a-def5-0000-0000-000000000000",
 	'',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BRG
 	VALUES ("257546af-7d40-40ee-986e-32b30248c248",
 	"78c0d209-aae1-4a81-a2d1-e5876d473deb",
@@ -2656,7 +2957,8 @@ INSERT INTO S_BRG
 	"ba5eda7a-def5-0000-0000-000000000001",
 	'return true;',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("909cf7cc-2491-4efb-8736-0b70478b0c1e",
 	"257546af-7d40-40ee-986e-32b30248c248",
@@ -2684,7 +2986,8 @@ INSERT INTO S_BRG
 	"ba5eda7a-def5-0000-0000-000000000000",
 	'',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("271c8756-460a-463f-b4d4-ed51bd8b043c",
 	"10f871d1-7bfd-4d67-a020-56ae1f5bc7ed",
@@ -2703,7 +3006,8 @@ INSERT INTO S_BRG
 	"bc3722c8-5188-4529-8519-cf9eb9816b17",
 	'',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BRG
 	VALUES ("59d05ddd-caeb-4856-8ea1-dfc69adc1727",
 	"78c0d209-aae1-4a81-a2d1-e5876d473deb",
@@ -2713,7 +3017,8 @@ INSERT INTO S_BRG
 	"ba5eda7a-def5-0000-0000-000000000000",
 	'',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("e0507dda-d697-48ac-a171-c963f0ce31f3",
 	"59d05ddd-caeb-4856-8ea1-dfc69adc1727",
@@ -2774,7 +3079,8 @@ Translate:native',
         }
 ',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("d42323bf-a51c-47c8-b0a3-4b5044947295",
 	"e505d8b9-b276-4891-b8ff-947bfc8e03e9",
@@ -2797,7 +3103,8 @@ Translate:native',
         return store.getInt(p_Name);
 ',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("9d12e986-980c-42c4-8844-636557d9a9e4",
 	"1307cd4c-ce03-40c3-ad3b-2f35feff9026",
@@ -2820,7 +3127,8 @@ Translate:native',
         return store.getFloat(p_Name);
 ',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("a291f0b0-9dfd-42fb-821d-b5da296553f5",
 	"4e35dbb7-f3aa-4251-ab07-62c634fb8a9a",
@@ -2843,7 +3151,8 @@ Translate:native',
         return store.getString(p_Name);
 ',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("51394d56-725c-4eb9-9c7b-30efdbbbce51",
 	"51381b07-e1f0-4932-9526-91ac41a3e81e",
@@ -2890,7 +3199,8 @@ Translate:native',
 		return false;
 ',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("1f776497-6d13-4ce2-bc93-c908403a74e0",
 	"ade6ea21-272c-4dbd-ad0a-052cfd976fe6",
@@ -2909,6 +3219,37 @@ INSERT INTO S_BPARM
 	'',
 	"1f776497-6d13-4ce2-bc93-c908403a74e0",
 	'');
+INSERT INTO S_BRG
+	VALUES ("6653cec6-27ab-42ed-9cce-caebdf952653",
+	"1b0b6da2-9849-46f1-8c76-390cd1e4f934",
+	'getActionDialect',
+	'This bridge is used to get an integer eclipse preference cast to an ActionDialect.
+
+Translate:native',
+	0,
+	"7b54f646-a8a8-4b82-9bb0-cf5465115f3b",
+	'        IPreferenceStore store = CorePlugin.getDefault().getPreferenceStore();
+        return store.getInt(p_Name);
+',
+	0,
+	'',
+	0);
+INSERT INTO S_BPARM
+	VALUES ("4cfdf4ff-b5d2-4ddd-9b6d-2015105ef173",
+	"6653cec6-27ab-42ed-9cce-caebdf952653",
+	'name',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("7b54f646-a8a8-4b82-9bb0-cf5465115f3b",
+	"00000000-0000-0000-0000-000000000000",
+	'ActionDialect',
+	'Enumerator for available action dialects',
+	'',
+	'../Datatypes/Datatypes.xtuml');
 INSERT INTO PE_PE
 	VALUES ("1b0b6da2-9849-46f1-8c76-390cd1e4f934",
 	1,
@@ -2933,7 +3274,8 @@ INSERT INTO S_BRG
 	"ba5eda7a-def5-0000-0000-000000000005",
 	'',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("d2534246-e53b-4de9-90c5-6004366314fb",
 	"a7a39a94-0ad3-4526-840c-33ae87608670",
@@ -2970,7 +3312,8 @@ INSERT INTO S_BRG
 	"ba5eda7a-def5-0000-0000-000000000000",
 	'',
 	1,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("49e01699-3cf7-4885-b6d5-f6444f4ae4c5",
 	"b898a62d-46bb-40c1-a570-9bc11e4397ec",
@@ -2998,7 +3341,8 @@ INSERT INTO S_BRG
 	"ba5eda7a-def5-0000-0000-000000000000",
 	'',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BRG
 	VALUES ("d295e3f0-c66c-4d0a-b6d1-a7116861ffbd",
 	"4dbc824e-7f35-4e67-b275-79632eac75cc",
@@ -3008,7 +3352,8 @@ INSERT INTO S_BRG
 	"ba5eda7a-def5-0000-0000-000000000001",
 	'',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("e0b47d22-4bac-4c1e-b69c-8d13ed057154",
 	"d295e3f0-c66c-4d0a-b6d1-a7116861ffbd",
@@ -3027,7 +3372,8 @@ INSERT INTO S_BRG
 	"ba5eda7a-def5-0000-0000-000000000000",
 	'',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("ac71fab2-958f-4a28-b203-db46a262cb25",
 	"995d7b4c-f149-410a-88ad-f46990d0c023",
@@ -3046,7 +3392,8 @@ INSERT INTO S_BRG
 	"ba5eda7a-def5-0000-0000-000000000000",
 	'',
 	0,
-	'');
+	'',
+	0);
 INSERT INTO S_BPARM
 	VALUES ("40275a35-1743-4a8a-815e-019069f145d5",
 	"3ec8e2b8-91e9-4011-b9be-e9cb24372044",
@@ -3074,6 +3421,263 @@ INSERT INTO S_BPARM
 	'');
 INSERT INTO PE_PE
 	VALUES ("4dbc824e-7f35-4e67-b275-79632eac75cc",
+	1,
+	"53bf3c8b-adde-4d47-8f16-aba92cc91cb2",
+	"00000000-0000-0000-0000-000000000000",
+	5);
+INSERT INTO S_EE
+	VALUES ("6fb76ebe-620e-4fc2-b7be-5f29887b61c8",
+	'URL',
+	'',
+	'URL',
+	"00000000-0000-0000-0000-000000000000",
+	'',
+	'URL',
+	1);
+INSERT INTO S_BRG
+	VALUES ("66e3eb90-4e9d-4385-849b-1e500b69f22d",
+	"6fb76ebe-620e-4fc2-b7be-5f29887b61c8",
+	'encode',
+	'Translate:native',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000004",
+	'/* 
+ * URL::encode
+ *
+ * This function encodes a serial MASL string, replacing
+ * special characters according to the following table:
+ *
+ * | Character | Encoding |
+ * |:---------:|:--------:|
+ * | %         | %25      |
+ * | ,         | %2C      |
+ * | \n        | %0A      |
+ * | \r        | %0D      |
+ *
+ * @arg string     String to encode
+ */
+ if ( null == p_String ) return "";
+ 
+ String ret_string = p_String.replaceAll("%", "%25").replaceAll(",", "%2C").replaceAll("\n", "%0A").replaceAll("\r", "%0D");
+ 
+ return ret_string;',
+	0,
+	'',
+	0);
+INSERT INTO S_BPARM
+	VALUES ("3a0bf209-d618-4568-afc5-e521ebb1731a",
+	"66e3eb90-4e9d-4385-849b-1e500b69f22d",
+	'string',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_BRG
+	VALUES ("b1c7182f-d06d-4cbe-9f3f-4b412a511be5",
+	"6fb76ebe-620e-4fc2-b7be-5f29887b61c8",
+	'decode',
+	'Translate:native',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000004",
+	'/* 
+ * URL::decode
+ *
+ * This function decodes a serial MASL string, replacing
+ * special characters according to the following table:
+ *
+ * | Character | Encoding |
+ * |:---------:|:--------:|
+ * | %         | %25      |
+ * | ,         | %2C      |
+ * | \n        | %0A      |
+ * | \r        | %0D      |
+ *
+ * @arg string     String to decode
+ */
+ if ( null == p_String ) return "";
+ 
+ String ret_string = p_String.replaceAll("%25", "%").replaceAll("%2C", ",").replaceAll("%0A", "\n").replaceAll("%0D", "\r");
+ 
+ return ret_string;',
+	0,
+	'',
+	0);
+INSERT INTO S_BPARM
+	VALUES ("7738b5ca-4b6c-4708-9524-e0930c3c29a6",
+	"b1c7182f-d06d-4cbe-9f3f-4b412a511be5",
+	'string',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO PE_PE
+	VALUES ("6fb76ebe-620e-4fc2-b7be-5f29887b61c8",
+	1,
+	"53bf3c8b-adde-4d47-8f16-aba92cc91cb2",
+	"00000000-0000-0000-0000-000000000000",
+	5);
+INSERT INTO S_EE
+	VALUES ("f5fca9e3-9eba-4c8b-9f16-9f79f8b6cf9a",
+	'Import Error Reporting',
+	'This EE allows the import functions to report errors raised from failed assertions loading action language
+for a persistable model component
+
+Import: org.xtuml.bp.core.common.PersistableModelComponent;',
+	'IMPORT_ERR',
+	"00000000-0000-0000-0000-000000000000",
+	'',
+	'Import Error Reporting',
+	1);
+INSERT INTO S_BRG
+	VALUES ("2c95b11e-f085-416a-8429-a9c2d2b5f4b9",
+	"f5fca9e3-9eba-4c8b-9f16-9f79f8b6cf9a",
+	'reportError',
+	'Translate:native',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000000",
+	'PersistableModelComponent pmc = (PersistableModelComponent)p_Pmc;
+String message = p_Message;
+int line = p_Line_num;
+int dialect = (int)p_Dialect;
+
+// check pmc
+if ( pmc == null ) return;
+
+// get action file path
+String path = pmc.getActionFile( dialect ).getName();
+
+// set errors and send message
+pmc.setActivityImportFailures( true );
+pmc.appendActivityImportFailureMessage( "File: " + path + ", line: " + Integer.toString(line) + ": " + message + "\n" );',
+	0,
+	'',
+	0);
+INSERT INTO S_BPARM
+	VALUES ("14ddd891-0f1a-4445-80c3-fbe969df39fb",
+	"2c95b11e-f085-416a-8429-a9c2d2b5f4b9",
+	'PMC',
+	"bc3722c8-5188-4529-8519-cf9eb9816b17",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_BPARM
+	VALUES ("04a98a77-a577-496f-b2f6-df0d7f835881",
+	"2c95b11e-f085-416a-8429-a9c2d2b5f4b9",
+	'message',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"14ddd891-0f1a-4445-80c3-fbe969df39fb",
+	'');
+INSERT INTO S_BPARM
+	VALUES ("7882dc78-fa6f-4920-bcc8-df4c4f0b1557",
+	"2c95b11e-f085-416a-8429-a9c2d2b5f4b9",
+	'line_num',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"04a98a77-a577-496f-b2f6-df0d7f835881",
+	'');
+INSERT INTO S_BPARM
+	VALUES ("7e8c2f26-c171-43df-a0a0-1c41c96ecda7",
+	"2c95b11e-f085-416a-8429-a9c2d2b5f4b9",
+	'dialect',
+	"7b54f646-a8a8-4b82-9bb0-cf5465115f3b",
+	0,
+	'',
+	"7882dc78-fa6f-4920-bcc8-df4c4f0b1557",
+	'');
+INSERT INTO S_BRG
+	VALUES ("e61f59ee-d7f3-4aca-a317-0dbce45923de",
+	"f5fca9e3-9eba-4c8b-9f16-9f79f8b6cf9a",
+	'incrementImportedActivities',
+	'Translate:native',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000000",
+	'PersistableModelComponent pmc = (PersistableModelComponent)p_Pmc;
+
+// check pmc
+if ( pmc == null ) return;
+
+pmc.incrementImportedActivities( p_Type, p_Dialect );',
+	0,
+	'',
+	0);
+INSERT INTO S_BPARM
+	VALUES ("40927d12-2c72-471d-89ad-2673f0aae2e3",
+	"e61f59ee-d7f3-4aca-a317-0dbce45923de",
+	'PMC',
+	"bc3722c8-5188-4529-8519-cf9eb9816b17",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_BPARM
+	VALUES ("930675ee-c3fb-403c-a75f-c6b71b754357",
+	"e61f59ee-d7f3-4aca-a317-0dbce45923de",
+	'type',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"40927d12-2c72-471d-89ad-2673f0aae2e3",
+	'');
+INSERT INTO S_BPARM
+	VALUES ("8705b4c1-7ecb-4264-b705-eb9c9b74f0d8",
+	"e61f59ee-d7f3-4aca-a317-0dbce45923de",
+	'dialect',
+	"7b54f646-a8a8-4b82-9bb0-cf5465115f3b",
+	0,
+	'',
+	"930675ee-c3fb-403c-a75f-c6b71b754357",
+	'');
+INSERT INTO S_BRG
+	VALUES ("1fe715f6-2f25-4a4b-bcf4-080cabb4898d",
+	"f5fca9e3-9eba-4c8b-9f16-9f79f8b6cf9a",
+	'incrementActivities',
+	'Translate:native',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000000",
+	'PersistableModelComponent pmc = (PersistableModelComponent)p_Pmc;
+
+// check pmc
+if ( pmc == null ) return;
+
+pmc.incrementActivities( p_Type, p_Dialect );',
+	0,
+	'',
+	0);
+INSERT INTO S_BPARM
+	VALUES ("2c231838-b2c2-4aea-8286-2069ad56a11d",
+	"1fe715f6-2f25-4a4b-bcf4-080cabb4898d",
+	'PMC',
+	"bc3722c8-5188-4529-8519-cf9eb9816b17",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_BPARM
+	VALUES ("d430b717-c988-4814-bea1-367006580d9f",
+	"1fe715f6-2f25-4a4b-bcf4-080cabb4898d",
+	'type',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"2c231838-b2c2-4aea-8286-2069ad56a11d",
+	'');
+INSERT INTO S_BPARM
+	VALUES ("ead1a176-6afa-42bd-8c03-b41801e5b01a",
+	"1fe715f6-2f25-4a4b-bcf4-080cabb4898d",
+	'dialect',
+	"7b54f646-a8a8-4b82-9bb0-cf5465115f3b",
+	0,
+	'',
+	"d430b717-c988-4814-bea1-367006580d9f",
+	'');
+INSERT INTO PE_PE
+	VALUES ("f5fca9e3-9eba-4c8b-9f16-9f79f8b6cf9a",
 	1,
 	"53bf3c8b-adde-4d47-8f16-aba92cc91cb2",
 	"00000000-0000-0000-0000-000000000000",

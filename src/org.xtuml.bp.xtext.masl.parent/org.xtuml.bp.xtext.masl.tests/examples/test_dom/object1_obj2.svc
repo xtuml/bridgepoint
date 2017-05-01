@@ -1,0 +1,4 @@
+public service X::object1.obj2() return integer is
+begin
+  null;
+end service;

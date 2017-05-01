@@ -19,7 +19,8 @@ Bridge:GD',
 	'return Style::RoundBox;',
 	1,
 	'',
-	"4a27a407-a227-420d-94fc-89d33625b328");
+	"4a27a407-a227-420d-94fc-89d33625b328",
+	0);
 INSERT INTO S_DT_PROXY
 	VALUES ("6e636321-0fd1-4577-b185-e4d76b0d0c71",
 	"00000000-0000-0000-0000-000000000000",
@@ -42,7 +43,8 @@ Bridge:GD',
 	'return 2;',
 	1,
 	'',
-	"bf09afa3-5c8e-4f69-8f48-e00e66da2ef4");
+	"bf09afa3-5c8e-4f69-8f48-e00e66da2ef4",
+	0);
 INSERT INTO O_TFR
 	VALUES ("bf09afa3-5c8e-4f69-8f48-e00e66da2ef4",
 	"aee0c0bf-2bc2-41e5-b9ad-01341d2944be",
@@ -69,7 +71,7 @@ if (param.comp_num == 1)
 elif (param.comp_num == 2)
  if (param.at == Justification::Left)
     select one moore_action related by self->SM_MOAH[R511]->SM_AH[R513]->SM_ACT[R514];
-    if (not_empty moore_action)
+    if (not_empty moore_action and ActionDialect::none != moore_action.Dialect )
       if (moore_action.Suc_Pars == ParseStatus::parseSuccessful)
         result = "entry/" + GD::newline();
       elif (moore_action.Suc_Pars == ParseStatus::parseUnsuccessful)
@@ -82,7 +84,8 @@ end if;
 return result;',
 	1,
 	'',
-	"2af32d7e-7732-4106-92d5-598638b4aaa9");
+	"2af32d7e-7732-4106-92d5-598638b4aaa9",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("879c5cf4-afd1-4d1a-94a5-bda7a9371ed8",
 	"bf09afa3-5c8e-4f69-8f48-e00e66da2ef4",
@@ -131,7 +134,8 @@ Bridge:GD',
 	'return 1;',
 	1,
 	'',
-	"9cd02649-4c5d-4574-8d32-1789e172d95a");
+	"9cd02649-4c5d-4574-8d32-1789e172d95a",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("40d4c7cd-0366-4e42-9e95-32b1d3e5ca56",
 	"cf6e13b3-694c-4bc8-8c42-0e8d3aeb62e3",
@@ -153,7 +157,8 @@ Bridge:GD',
 	'return Style::None;',
 	1,
 	'',
-	"68e8ad02-5475-4c27-b13a-44e32fa22df8");
+	"68e8ad02-5475-4c27-b13a-44e32fa22df8",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("5974ebb7-c047-4106-87a2-44abaec82d30",
 	"c473b275-55c7-448a-9df7-941fce821f03",
@@ -193,7 +198,8 @@ Bridge:GD',
 	'return self.SMstt_ID;',
 	1,
 	'',
-	"cf6e13b3-694c-4bc8-8c42-0e8d3aeb62e3");
+	"cf6e13b3-694c-4bc8-8c42-0e8d3aeb62e3",
+	0);
 INSERT INTO O_TFR
 	VALUES ("d2332fcb-2552-4d8f-9829-8101c4794061",
 	"aee0c0bf-2bc2-41e5-b9ad-01341d2944be",
@@ -248,10 +254,16 @@ for each event in event_set
   relate ch to sem across R504;
 end for;
 
+act.Dialect = PREF::getActionDialect(name:"bridgepoint_prefs_default_action_language_dialect");
+if ( act.Dialect == ActionDialect::masl )
+  // new MASL activities get initialized with the "null" statement
+  act.Action_Semantics_internal = "begin\n  null;\nend";
+end if;
 act.Suc_Pars = ParseStatus::parseInitial;',
 	1,
 	'',
-	"c473b275-55c7-448a-9df7-941fce821f03");
+	"c473b275-55c7-448a-9df7-941fce821f03",
+	0);
 INSERT INTO O_TFR
 	VALUES ("6e51271b-1366-4bbe-951b-eb26d274f736",
 	"aee0c0bf-2bc2-41e5-b9ad-01341d2944be",
@@ -300,7 +312,8 @@ delete object instance self;
 ',
 	1,
 	'',
-	"58d6466c-3542-49e5-a4b8-8325d7a1d3db");
+	"58d6466c-3542-49e5-a4b8-8325d7a1d3db",
+	0);
 INSERT INTO O_TFR
 	VALUES ("ec15da6a-0e42-44fc-bc8a-bec1e322f760",
 	"aee0c0bf-2bc2-41e5-b9ad-01341d2944be",
@@ -338,7 +351,8 @@ return false;
 ',
 	1,
 	'',
-	"00000000-0000-0000-0000-000000000000");
+	"00000000-0000-0000-0000-000000000000",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("6f94ac65-971a-47bd-b140-3f1f6478f98f",
 	"ec15da6a-0e42-44fc-bc8a-bec1e322f760",
@@ -390,7 +404,8 @@ end if;
 ',
 	1,
 	'',
-	"d2332fcb-2552-4d8f-9829-8101c4794061");
+	"d2332fcb-2552-4d8f-9829-8101c4794061",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("1b4176f2-995c-480e-9622-ebf82588c3b3",
 	"5ff5bb03-7c4c-45de-bd3d-b0e90a4f7774",
@@ -535,7 +550,8 @@ end if;
 return true;',
 	1,
 	'',
-	"ec15da6a-0e42-44fc-bc8a-bec1e322f760");
+	"ec15da6a-0e42-44fc-bc8a-bec1e322f760",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("7152cb17-7e6e-4445-aa27-180e8bdde757",
 	"4f57008f-b508-403c-9863-c4cdaf552437",
@@ -580,7 +596,8 @@ end if;
 return clazz.Key_Lett + ": " + self.Name;',
 	1,
 	'',
-	"6e51271b-1366-4bbe-951b-eb26d274f736");
+	"6e51271b-1366-4bbe-951b-eb26d274f736",
+	0);
 INSERT INTO O_TFR
 	VALUES ("58d6466c-3542-49e5-a4b8-8325d7a1d3db",
 	"aee0c0bf-2bc2-41e5-b9ad-01341d2944be",
@@ -595,7 +612,8 @@ Translate: native',
 return this;',
 	0,
 	'',
-	"af44da93-6c3b-45bf-a55f-e3a0873db086");
+	"af44da93-6c3b-45bf-a55f-e3a0873db086",
+	0);
 INSERT INTO S_DT_PROXY
 	VALUES ("bc3722c8-5188-4529-8519-cf9eb9816b17",
 	"00000000-0000-0000-0000-000000000000",
@@ -630,7 +648,8 @@ if (not_empty state_breakpoint)
 return result;',
 	1,
 	'',
-	"4f57008f-b508-403c-9863-c4cdaf552437");
+	"4f57008f-b508-403c-9863-c4cdaf552437",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("164007d4-df47-4c96-a161-0f902760224c",
 	"af44da93-6c3b-45bf-a55f-e3a0873db086",
@@ -689,7 +708,8 @@ for each state in states
 end for;',
 	1,
 	'',
-	"5ff5bb03-7c4c-45de-bd3d-b0e90a4f7774");
+	"5ff5bb03-7c4c-45de-bd3d-b0e90a4f7774",
+	0);
 INSERT INTO O_TFR
 	VALUES ("eb01618a-4f49-43d3-aa61-c89c8d8f408e",
 	"aee0c0bf-2bc2-41e5-b9ad-01341d2944be",
@@ -701,7 +721,8 @@ INSERT INTO O_TFR
 return action.Descrip;',
 	1,
 	'',
-	"d0c5877b-18e9-4c93-8b50-0a7a5e918a23");
+	"d0c5877b-18e9-4c93-8b50-0a7a5e918a23",
+	0);
 INSERT INTO O_TFR
 	VALUES ("19162a22-069c-46ed-a8d4-93b144f93327",
 	"aee0c0bf-2bc2-41e5-b9ad-01341d2944be",
@@ -709,11 +730,17 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000002",
 	1,
-	'select many transitions related by self->SM_TXN[R506];
-return cardinality transitions; ',
+	'// Destinations EXCLUDING creation transitions
+count = 0;
+select many netxns related by self->SM_TXN[R506]->SM_NETXN[R507];
+count = cardinality netxns;
+select many nstxns related by self->SM_TXN[R506]->SM_NSTXN[R507];
+count = count + (cardinality nstxns);
+return count; ',
 	1,
 	'',
-	"eb01618a-4f49-43d3-aa61-c89c8d8f408e");
+	"eb01618a-4f49-43d3-aa61-c89c8d8f408e",
+	0);
 INSERT INTO O_TFR
 	VALUES ("feca178a-c67a-4ad1-8c6a-aa39dbf6bdb5",
 	"aee0c0bf-2bc2-41e5-b9ad-01341d2944be",
@@ -721,21 +748,31 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
-	'id = GD::NULL_UNIQUE_ID();
-select many transitions related by self->SM_TXN[R506];
+	'// Destinations EXCLUDING creation transitions
 // We''re preincrementing the index
 count = -1;
-for each transition in transitions
+id = GD::NULL_UNIQUE_ID();
+select many netxns related by self->SM_TXN[R506]->SM_NETXN[R507];
+for each netxn in netxns
   count = count + 1;
   if (count == param.index)
-    id = transition.Trans_ID;
+    id = netxn.Trans_ID;
+    break;
+  end if;
+end for; 
+select many nstxns related by self->SM_TXN[R506]->SM_NSTXN[R507];
+for each nstxn in nstxns
+  count = count + 1;
+  if (count == param.index)
+    id = nstxn.Trans_ID;
     break;
   end if;
 end for; 
 return id;',
 	1,
 	'',
-	"19162a22-069c-46ed-a8d4-93b144f93327");
+	"19162a22-069c-46ed-a8d4-93b144f93327",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("2370ee8f-042c-43e7-8922-c188d2d12ce8",
 	"feca178a-c67a-4ad1-8c6a-aa39dbf6bdb5",
@@ -762,7 +799,8 @@ return count;
 ',
 	1,
 	'',
-	"feca178a-c67a-4ad1-8c6a-aa39dbf6bdb5");
+	"feca178a-c67a-4ad1-8c6a-aa39dbf6bdb5",
+	0);
 INSERT INTO O_TFR
 	VALUES ("07a6dc75-57c1-4bb6-99d7-9eae83b5fba2",
 	"aee0c0bf-2bc2-41e5-b9ad-01341d2944be",
@@ -795,11 +833,176 @@ return id;
 ',
 	1,
 	'',
-	"a87a0930-209e-47e6-b219-d11860329fa1");
+	"a87a0930-209e-47e6-b219-d11860329fa1",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("745b88f0-5196-4626-9578-0bb799cae5ea",
 	"07a6dc75-57c1-4bb6-99d7-9eae83b5fba2",
 	'index',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("1f0b27d4-a172-48d0-8a41-a9dc175c6128",
+	"aee0c0bf-2bc2-41e5-b9ad-01341d2944be",
+	'getCreationTransitionCount',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	1,
+	'select many netxns related by self->SM_TXN[R506]->SM_CRTXN[R507];
+return cardinality netxns;',
+	1,
+	'',
+	"07a6dc75-57c1-4bb6-99d7-9eae83b5fba2",
+	0);
+INSERT INTO O_TFR
+	VALUES ("a3030cdd-3eef-4b09-8ac7-8fab4558ab52",
+	"aee0c0bf-2bc2-41e5-b9ad-01341d2944be",
+	'getCreationTransitionId',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	1,
+	'// We''re preincrementing the index
+count = -1;
+id = GD::NULL_UNIQUE_ID();
+select many crtxns related by self->SM_TXN[R506]->SM_CRTXN[R507];
+for each crtxn in crtxns
+  count = count + 1;
+  if (count == param.index)
+    id = crtxn.Trans_ID;
+    break;
+  end if;
+end for; 
+return id;',
+	1,
+	'',
+	"1f0b27d4-a172-48d0-8a41-a9dc175c6128",
+	0);
+INSERT INTO O_TPARM
+	VALUES ("f1087bcc-13bd-40fe-b151-e9b9743d20c8",
+	"a3030cdd-3eef-4b09-8ac7-8fab4558ab52",
+	'index',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("b42261aa-ba93-4a7c-b449-248104125f46",
+	"aee0c0bf-2bc2-41e5-b9ad-01341d2944be",
+	'getSignature',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	1,
+	'/**
+ *  Return a string representation of this states signature
+ *  with the specified flavor
+ *  0 = named parameters
+ *  1 = positional parameters
+ *  named signature = void state(param1:type, param2:type, param3:type)
+ *  parameters for the named flavor are sorted alphanumerically
+ *  positional signature = void state(param1_type, param2_type, param3_type)
+ */
+ 
+signature = "";
+
+// Get name
+signature = signature + "void " + self.Name;
+
+// For states, the signature is the same as the signature of any incoming event
+// to get the parameters, we start by getting any event that transitions to this
+// state
+select any sm_evt related by self->SM_TXN[R506]->SM_NSTXN[R507]->SM_SEME[R504]->SM_SEVT[R503]->SM_EVT[R525];
+if ( empty sm_evt )
+  select any sm_evt related by self->SM_TXN[R506]->SM_CRTXN[R507]->SM_LEVT[R509]->SM_SEVT[R526]->SM_EVT[R525];
+end if;
+
+if ( not_empty sm_evt )
+
+  // check if this is a concrete poly event
+  // if so, select the corresponding event in the superclass
+  select any concrete_poly_evt from instances of SM_EVT where ( selected.SMevt_ID == sm_evt.getConcretePoly() );
+  if ( not_empty concrete_poly_evt )
+    sm_evt = concrete_poly_evt;
+  end if;
+  
+  // Get parameters
+  if ( 1 == param.flavor )
+
+    // Get the first parameter.
+    select any parameter related by sm_evt->SM_EVTDI[R532];
+    first_param = parameter;
+    while ( not_empty parameter )
+      first_param = parameter;
+      select one parameter related by parameter->SM_EVTDI[R533.''succeeds''];
+    end while;
+
+    if( not_empty first_param )
+      signature = signature + "(";
+    end if;
+    separator = "";
+    parameter = first_param;
+    while ( not_empty parameter )
+      select one type related by parameter->S_DT[R524];
+      signature = signature + separator + type.Name;
+      separator = ", ";
+      select one parameter related by parameter->SM_EVTDI[R533.''precedes''];
+    end while;
+    if( not_empty first_param )
+      signature = signature + ")";
+    end if;
+
+  elif ( 0 == param.flavor )
+
+    // get the parameters in sorted order
+    separator = "";
+    select many parameters related by sm_evt->SM_EVTDI[R532];
+    num_params = cardinality parameters; 
+    if ( num_params > 0 )
+      signature = signature + "(";
+    end if;
+
+    // the following time complexity is n^2
+    count = 0;
+    select any last_param from instances of SM_EVTDI where false;
+    select any curr_param from instances of SM_EVTDI where false;
+    while ( count < num_params )
+      for each parameter in parameters
+        if ( ( empty curr_param and empty last_param )
+             or ( empty curr_param and not_empty last_param and parameter != last_param and parameter.Name >= last_param.Name )
+             or ( not_empty curr_param and empty last_param and parameter.Name < curr_param.Name )
+             or ( not_empty curr_param and not_empty last_param and parameter != last_param and parameter.Name >= last_param.Name and parameter.Name < curr_param.Name ) )
+          curr_param = parameter;
+        end if;
+      end for;
+      
+      select one type related by curr_param->S_DT[R524];
+      signature = signature + separator + curr_param.Name + ":" + type.Name;
+      separator = ", ";
+
+      last_param = curr_param;
+      select any curr_param from instances of SM_EVTDI where false;
+      count = count + 1;
+    end while;
+
+    if ( num_params > 0 )
+      signature = signature + ")";
+    end if;
+    
+  end if;
+end if;
+
+return signature;',
+	1,
+	'',
+	"a3030cdd-3eef-4b09-8ac7-8fab4558ab52",
+	0);
+INSERT INTO O_TPARM
+	VALUES ("b42c439c-4ca8-4e22-bd85-1b627dddfc5a",
+	"b42261aa-ba93-4a7c-b449-248104125f46",
+	'flavor',
 	"ba5eda7a-def5-0000-0000-000000000002",
 	0,
 	'',

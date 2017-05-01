@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Java Model Compiler
 Bundle-SymbolicName: org.xtuml.bp.mc.java.source;singleton:=true
-Bundle-Version: 5.4.0
+Bundle-Version: 6.2.5
 Bundle-Activator: org.xtuml.bp.mc.java.source.Activator
 Bundle-Vendor: xtUML.org
 Require-Bundle: org.eclipse.ui,
@@ -18,8 +18,9 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.cdt.ui,
  org.eclipse.cdt.managedbuilder.ui,
  org.xtuml.bp.io.mdl
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy
 Export-Package: org.xtuml.bp.mc.java.source
 Bundle-ClassPath: mcjava.jar
 Import-Package: org.xtuml.bp.utilities.ui
+Eclipse-BundleShape: dir

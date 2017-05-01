@@ -1,4 +1,0 @@
-drawRectangle(11856, 9108, 163, 57)
-drawRectangle(11856, 9163, 563, 508)
-drawText("«sequence»", 12025, 9172, true)
-drawText("Unnamed Sequence", 11945, 9390, true)

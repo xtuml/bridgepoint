@@ -1,0 +1,99 @@
+domain INI is
+	type data_item_type is structure 
+		name_value: sequence of name_value; 
+		index: integer;
+		index_dtr_name: string;
+		index_config_file: string;
+	end;
+	type name_value is structure 
+		name: string;
+		value: string;
+	end;
+	service get_data(p0: in string, p1: in sequence of data_item_type); 
+	service reload_ini_files();
+	service get_indexed_data(p0: in string, p1: in integer, p2: in string, p3: in string, p4: in sequence of data_item_type);
+end domain;
+
+domain SAC is 
+	service user_logoff(session_id: in integer, user_id: in integer);
+	service session_activate(session_id: in integer, user_id: in integer);
+	object _TEST_Operator_report_group;
+	object _TEST_Operator_report_group is 
+	end;
+	object _TEST_Operator_report_group_operation;
+	object _TEST_Operator_report_group_operation is 
+	end;	
+	object _TEST_Operator_report_user; 
+	object _TEST_Operator_report_user is 
+		user_id: integer;
+		logged_on: logged_on_type;
+	end;
+	object _TEST_Operator_report_user_operation;
+	object _TEST_Operator_report_user_operation is
+		user_id: integer;
+		operation_name: string;
+	end;
+	object _TEST_Operator_report_user_session;
+	object _TEST_Operator_report_user_session is
+		user_id: integer;
+		workstation_hostname: string;
+		session_timed_out: boolean;
+	end;
+	object _TEST_Operator_user_session_deleted;
+	object _TEST_Operator_user_session_deleted is
+		session_id: integer;
+	end;
+	object _TEST_Operator_user_operation_removed;
+	object _TEST_Operator_user_operation_removed is
+		user_id: integer;
+		operation_name: string;
+	end;
+	object _TEST_Operator_user_removed;
+	object _TEST_Operator_user_removed is
+		user_id: integer;
+	end;
+end domain;
+
+domain SOA is
+	service subscribe(p: in string); 
+	service subscribe(p: in string, p1: in sequence of string); 
+end domain;
+
+domain Test is
+	function check_equal(p0: in string, p1: in integer, p2: in integer, p3: in integer);
+	function check_size(po: in string, p1: in integer, p2: in sequence of instance of SAC::_TEST_Operator_report_user, p3: in integer) return boolean;
+	function check_size(po: in string, p1: in integer, p2: in sequence of instance of SAC::_TEST_Operator_report_user_operation, p3: in integer) return boolean;
+	function check_size(po: in string, p1: in integer, p2: in sequence of instance of SAC::_TEST_Operator_report_user_session, p3: in integer) return boolean;
+	function check_size(po: in string, p1: in integer, p2: in sequence of instance of SAC::_TEST_Operator_user_session_deleted, p3: in integer) return boolean;
+	function check_size(po: in string, p1: in integer, p2: in sequence of instance of SAC::_TEST_Operator_user_operation_removed, p3: in integer) return boolean;
+	function check_size(po: in string, p1: in integer, p2: in sequence of instance of SAC::_TEST_Operator_user_removed, p3: in integer) return boolean;
+	service service_event_queue();
+	service print_results();
+end domain;
+
+domain Process is
+	service requestShutdown();
+end domain;
+
+domain I_DC is
+	service info_User(p0: in integer, p1: in string, p2: in string, p3: in string);
+	service info_User_Operation(p0: in string, p1: in string, p2: in integer);
+	service info_User_Group(p0: in string, p1: in string, p2: in integer);
+	service info_User_Session(p0: in integer, p1: in timestamp, p2: in boolean, p3: in string, p4: in string);
+	service info_Group(p0: in string);
+	service info_Group_Operation(p0: in string, p1: in string);
+	service info_delete_Group(p0: in string);
+	service info_delete_Group_Operation(p0: in string, p1: in string);
+	service info_delete_User(p0: in string);
+	service info_delete_User_Group(p0: in string, p1: in string, p2: in integer);
+	service info_delete_User_Operation(p0: in string, p1: in string, p2: in integer);
+	service info_delete_User_Session(p0: in integer);
+end domain;
+
+domain I_ODGUI is 
+	service login_valid(p0: in integer, p1: in integer, p2: in boolean, p3: in string, p4: in string, p5: in string);
+end domain;
+
+domain NTF is 
+	service Condition_Notification(p0: in string, p1: in string);
+end domain;

@@ -25,7 +25,8 @@ unrelate oida from rto across R110 using self;
 delete object instance self;',
 	1,
 	'',
-	"00000000-0000-0000-0000-000000000000");
+	"00000000-0000-0000-0000-000000000000",
+	0);
 INSERT INTO O_TFR
 	VALUES ("9770e4b4-87b1-419b-b3d7-632f0f0963b8",
 	"858066a7-431d-40c6-9e0f-ab4ec2e813ca",
@@ -41,7 +42,8 @@ result = result + "}";
 return result;',
 	1,
 	'',
-	"e01dd6ac-1975-44b3-989b-57de25d3375e");
+	"e01dd6ac-1975-44b3-989b-57de25d3375e",
+	0);
 INSERT INTO O_REF
 	VALUES ("858066a7-431d-40c6-9e0f-ab4ec2e813ca",
 	"9b35aece-af3e-4a8c-b571-557cffcd828f",

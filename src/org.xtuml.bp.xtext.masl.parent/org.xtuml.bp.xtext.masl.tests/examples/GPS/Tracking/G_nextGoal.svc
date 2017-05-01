@@ -1,0 +1,4 @@
+public  service Tracking::Goal.nextGoal () is
+begin
+  null;
+end service;

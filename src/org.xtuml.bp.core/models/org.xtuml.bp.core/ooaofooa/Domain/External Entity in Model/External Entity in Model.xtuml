@@ -16,23 +16,12 @@ INSERT INTO O_TFR
 	1,
 	'select one ee related by self->S_EE[R9];
 unrelate self from ee across R9;
-select many eesmcs related by self->CA_EESMC[R402];
-for each eesmc in eesmcs
-  eesmc.dispose();
-end for;
-select many smeecs related by self->CA_SMEEC[R411];
-for each smeec in smeecs
-  smeec.dispose();
-end for;
-select many accpaths related by self->CA_SMEEA[R421]->CA_ACC[R415];
-for each  accpath in accpaths
-  accpath.dispose();
-end for;
 delete object instance self;
 ',
 	1,
 	'',
-	"00000000-0000-0000-0000-000000000000");
+	"00000000-0000-0000-0000-000000000000",
+	0);
 INSERT INTO O_NBATTR
 	VALUES ("23b2e1a1-6545-41fc-8935-ad7b2f2755cd",
 	"370cf248-82e0-4e2f-ab33-dd7c04ece691");

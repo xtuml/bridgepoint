@@ -1,0 +1,1111 @@
+-- BP 7.1.6 content: Package syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO EP_PKG
+	VALUES ("6af64c1a-bd5b-4eb5-b9db-60839e11d10c",
+	"00000000-0000-0000-0000-000000000000",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
+	'import_functions',
+	'',
+	0);
+INSERT INTO GD_MD
+	VALUES ("73600197-0da5-4b8e-bae1-03995d712c8c",
+	112,
+	"6af64c1a-bd5b-4eb5-b9db-60839e11d10c",
+	108,
+	0,
+	0,
+	1,
+	1,
+	1,
+	12,
+	1,
+	0,
+	0,
+	0,
+	0,
+	0,
+	'',
+	'org.xtuml.bp.core::ooaofooa::Functions::import_functions');
+INSERT INTO DIM_DIA
+	VALUES ("73600197-0da5-4b8e-bae1-03995d712c8c",
+	'',
+	1.000000,
+	0.000000,
+	0.000000,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO S_SYNC
+	VALUES ("d75791e8-f025-4657-a7da-a8db6274d2d7",
+	"00000000-0000-0000-0000-000000000000",
+	'SM_ASMsetActions',
+	'',
+	'activity_type = param.activity_type;
+signature = param.signature;
+body = param.body;
+dialect = param.dialect;
+
+select any sm_asm from instances of SM_ASM where (selected.SM_ID == param.sm_asm);
+if ( not_empty sm_asm )
+  if ( dialect == ActionDialect::masl )
+	// check import assertion that MASL activities must have a non empty action
+	// body. Because the importer appends "\nend" to the end of MASL actions, an
+	// empty action body is defined as the string "\nend"
+	if ( "\nend" == body )
+	  IMPORT_ERR::reportError( PMC:param.PMC, message:"Activity has an empty action body", line_num:param.start_line, dialect:dialect );
+	end if;
+  end if;
+  if ( "state" == activity_type )
+    select many sm_states related by sm_asm->SM_SM[R517]->SM_STATE[R501];//->SM_MOAH[R511]->SM_AH[R513]->SM_ACT[R514];
+    for each sm_state in sm_states
+      if ( sm_state.getSignature(flavor:1) == signature )
+        select one sm_act related by sm_state->SM_MOAH[R511]->SM_AH[R513]->SM_ACT[R514];
+        sm_act.Action_Semantics_internal = body;
+        sm_act.Dialect = dialect;
+        IMPORT_ERR::incrementImportedActivities( PMC:param.PMC, type:"SM_ACT", dialect:param.dialect );
+        return;
+      end if;
+    end for;
+    IMPORT_ERR::reportError( PMC:param.PMC, message:"State parsed with signature: ''" + signature + "'' not found in class state machine", line_num:param.start_line, dialect:dialect );
+  elif ( "transition" == activity_type )
+  // TODO support transitions operations
+  end if;
+end if;',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'',
+	0);
+INSERT INTO S_SPARM
+	VALUES ("6f1d7bf2-659b-4c1c-b408-83a7a2451bea",
+	"d75791e8-f025-4657-a7da-a8db6274d2d7",
+	'sm_asm',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("674858af-c5ba-46f9-a50d-7e3ecfc05c2d",
+	"d75791e8-f025-4657-a7da-a8db6274d2d7",
+	'activity_type',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"6f1d7bf2-659b-4c1c-b408-83a7a2451bea",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("3857b207-5765-4706-b5fe-d4cad3ce2132",
+	"d75791e8-f025-4657-a7da-a8db6274d2d7",
+	'signature',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"674858af-c5ba-46f9-a50d-7e3ecfc05c2d",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("30a151d1-1ec7-4851-b205-4e0a2e9c84de",
+	"d75791e8-f025-4657-a7da-a8db6274d2d7",
+	'body',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"3857b207-5765-4706-b5fe-d4cad3ce2132",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("5e065c9e-bc3e-485e-ad35-b493c4ca9f95",
+	"d75791e8-f025-4657-a7da-a8db6274d2d7",
+	'dialect',
+	"7b54f646-a8a8-4b82-9bb0-cf5465115f3b",
+	0,
+	'',
+	"30a151d1-1ec7-4851-b205-4e0a2e9c84de",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("7b54f646-a8a8-4b82-9bb0-cf5465115f3b",
+	"00000000-0000-0000-0000-000000000000",
+	'ActionDialect',
+	'Enumerator for available action dialects',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO S_SPARM
+	VALUES ("6732f870-53c8-4744-8943-50a4593848e1",
+	"d75791e8-f025-4657-a7da-a8db6274d2d7",
+	'start_line',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"5e065c9e-bc3e-485e-ad35-b493c4ca9f95",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("8ef90653-e0ce-4d1b-b56e-28ee49057fd2",
+	"d75791e8-f025-4657-a7da-a8db6274d2d7",
+	'PMC',
+	"bc3722c8-5188-4529-8519-cf9eb9816b17",
+	0,
+	'',
+	"6732f870-53c8-4744-8943-50a4593848e1",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("bc3722c8-5188-4529-8519-cf9eb9816b17",
+	"00000000-0000-0000-0000-000000000000",
+	'instance',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO PE_PE
+	VALUES ("d75791e8-f025-4657-a7da-a8db6274d2d7",
+	1,
+	"6af64c1a-bd5b-4eb5-b9db-60839e11d10c",
+	"00000000-0000-0000-0000-000000000000",
+	1);
+INSERT INTO S_SYNC
+	VALUES ("d95d98c2-dac3-4f07-8e64-e6d8c6a49a7c",
+	"00000000-0000-0000-0000-000000000000",
+	'O_OBJsetActions',
+	'',
+	'activity_type = param.activity_type;
+signature = param.signature;
+body = param.body;
+dialect = param.dialect;
+
+select any o_obj from instances of O_OBJ where (selected.Obj_ID == param.o_obj);
+if ( not_empty o_obj )
+  if ( "operation" == activity_type )
+    if ( dialect == ActionDialect::masl )
+      // check import assertion that MASL activities must have a non empty action
+      // body. Because the importer appends "\nend" to the end of MASL actions, an
+      // empty action body is defined as the string "\nend"
+      if ( "\nend" == body )
+	    IMPORT_ERR::reportError( PMC:param.PMC, message:"Activity has an empty action body", line_num:param.start_line, dialect:dialect );
+      end if;
+    end if;
+    select many o_tfrs related by o_obj->O_TFR[R115];
+    for each o_tfr in o_tfrs
+      if ( o_tfr.getSignature(flavor:1) == signature )
+        o_tfr.Action_Semantics_internal = body;
+        o_tfr.Dialect = dialect;
+        IMPORT_ERR::incrementImportedActivities( PMC:param.PMC, type:"O_TFR", dialect:param.dialect );
+        return;
+      end if;
+    end for;
+    IMPORT_ERR::reportError( PMC:param.PMC, message:"Operation parsed with signature: ''" + signature + "'' not found in class ''" + o_obj.Name + "''", line_num:param.start_line, dialect:dialect );
+  elif ( "attribute" == activity_type )
+    // TODO implement derived attribute loading
+  end if;
+end if;',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'',
+	0);
+INSERT INTO S_SPARM
+	VALUES ("ba5c2e82-95d8-4828-b0f6-15159de12e30",
+	"d95d98c2-dac3-4f07-8e64-e6d8c6a49a7c",
+	'o_obj',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("e666bde9-31be-4508-8ebf-68793287bcc5",
+	"d95d98c2-dac3-4f07-8e64-e6d8c6a49a7c",
+	'activity_type',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"ba5c2e82-95d8-4828-b0f6-15159de12e30",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("4cffdd41-d9f1-4460-988a-88de2ec41d60",
+	"d95d98c2-dac3-4f07-8e64-e6d8c6a49a7c",
+	'signature',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"e666bde9-31be-4508-8ebf-68793287bcc5",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("8fdf5218-20f1-4b6a-b9e3-5cf01243fca6",
+	"d95d98c2-dac3-4f07-8e64-e6d8c6a49a7c",
+	'body',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"4cffdd41-d9f1-4460-988a-88de2ec41d60",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("f1d4f071-dd13-4a73-afa7-70aa0a137aec",
+	"d95d98c2-dac3-4f07-8e64-e6d8c6a49a7c",
+	'dialect',
+	"7b54f646-a8a8-4b82-9bb0-cf5465115f3b",
+	0,
+	'',
+	"8fdf5218-20f1-4b6a-b9e3-5cf01243fca6",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("dc57e706-d662-4957-9e68-5673d61ea4be",
+	"d95d98c2-dac3-4f07-8e64-e6d8c6a49a7c",
+	'start_line',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"f1d4f071-dd13-4a73-afa7-70aa0a137aec",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("adf99457-ae3c-4e3c-88f1-2a067ce2af48",
+	"d95d98c2-dac3-4f07-8e64-e6d8c6a49a7c",
+	'PMC',
+	"bc3722c8-5188-4529-8519-cf9eb9816b17",
+	0,
+	'',
+	"dc57e706-d662-4957-9e68-5673d61ea4be",
+	'');
+INSERT INTO PE_PE
+	VALUES ("d95d98c2-dac3-4f07-8e64-e6d8c6a49a7c",
+	1,
+	"6af64c1a-bd5b-4eb5-b9db-60839e11d10c",
+	"00000000-0000-0000-0000-000000000000",
+	1);
+INSERT INTO S_SYNC
+	VALUES ("a193cba0-de4d-497f-8cf7-b07ccf9d4270",
+	"00000000-0000-0000-0000-000000000000",
+	'S_SYSsetActions',
+	'',
+	'activity_type = param.activity_type;
+signature = param.signature;
+body = param.body;
+dialect = param.dialect;
+
+// TODO support bridge operations
+select any s_sys from instances of S_SYS where (selected.Sys_ID == param.s_sys);
+if ( not_empty s_sys )
+  if ( dialect == ActionDialect::masl )
+	// check import assertion that MASL activities must have a non empty action
+	// body. Because the importer appends "\nend" to the end of MASL actions, an
+	// empty action body is defined as the string "\nend"
+	if ( "\nend" == body )
+	  IMPORT_ERR::reportError( PMC:param.PMC, message:"Activity has an empty action body", line_num:param.start_line, dialect:dialect );
+	end if;
+  end if;
+  if ( "routine" == activity_type )
+    select many s_syncs related by s_sys->PE_PE[R9100]->S_SYNC[R8001];
+    for each s_sync in s_syncs
+      if ( s_sync.getSignature(flavor:1) == signature )
+        s_sync.Action_Semantics_internal = body;
+        s_sync.Dialect = dialect;
+        IMPORT_ERR::incrementImportedActivities( PMC:param.PMC, type:"S_SYNC", dialect:param.dialect );
+        return;
+      end if;
+    end for;
+    IMPORT_ERR::reportError( PMC:param.PMC, message:"Function parsed with signature: ''" + signature + "'' not found in system ''" + s_sys.Name + "''", line_num:param.start_line, dialect:dialect );
+  end if;
+end if;',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'',
+	0);
+INSERT INTO S_SPARM
+	VALUES ("cadc9684-39cf-4a8e-9ac7-63a232b2ebaf",
+	"a193cba0-de4d-497f-8cf7-b07ccf9d4270",
+	's_sys',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("4e46dc4d-5ea0-4b54-8bee-1a92731714a6",
+	"a193cba0-de4d-497f-8cf7-b07ccf9d4270",
+	'activity_type',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"cadc9684-39cf-4a8e-9ac7-63a232b2ebaf",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("e56867f9-2d1e-47c2-992f-382aba61c315",
+	"a193cba0-de4d-497f-8cf7-b07ccf9d4270",
+	'signature',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"4e46dc4d-5ea0-4b54-8bee-1a92731714a6",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("5a487009-020e-4e69-b1b6-9dc49fea8ff6",
+	"a193cba0-de4d-497f-8cf7-b07ccf9d4270",
+	'body',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"e56867f9-2d1e-47c2-992f-382aba61c315",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("3427f871-7ce0-495c-b6d9-0e424dec746c",
+	"a193cba0-de4d-497f-8cf7-b07ccf9d4270",
+	'dialect',
+	"7b54f646-a8a8-4b82-9bb0-cf5465115f3b",
+	0,
+	'',
+	"5a487009-020e-4e69-b1b6-9dc49fea8ff6",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("1da820d5-b82b-41d8-8e58-b82e6c1feb0b",
+	"a193cba0-de4d-497f-8cf7-b07ccf9d4270",
+	'start_line',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"3427f871-7ce0-495c-b6d9-0e424dec746c",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("fb29a153-8e5d-4ed5-9233-e6fc5fe66484",
+	"a193cba0-de4d-497f-8cf7-b07ccf9d4270",
+	'PMC',
+	"bc3722c8-5188-4529-8519-cf9eb9816b17",
+	0,
+	'',
+	"1da820d5-b82b-41d8-8e58-b82e6c1feb0b",
+	'');
+INSERT INTO PE_PE
+	VALUES ("a193cba0-de4d-497f-8cf7-b07ccf9d4270",
+	1,
+	"6af64c1a-bd5b-4eb5-b9db-60839e11d10c",
+	"00000000-0000-0000-0000-000000000000",
+	1);
+INSERT INTO S_SYNC
+	VALUES ("eeba59f4-8e74-4937-bbff-588d35c7ab45",
+	"00000000-0000-0000-0000-000000000000",
+	'EP_PKGsetActions',
+	'',
+	'activity_type = param.activity_type;
+signature = param.signature;
+body = param.body;
+dialect = param.dialect;
+
+// TODO support bridge operations
+select any ep_pkg from instances of EP_PKG where (selected.Package_ID == param.ep_pkg);
+if ( not_empty ep_pkg )
+  if ( dialect == ActionDialect::masl )
+	// check import assertion that MASL activities must have a non empty action
+	// body. Because the importer appends "\nend" to the end of MASL actions, an
+	// empty action body is defined as the string "\nend"
+	if ( "\nend" == body )
+	  IMPORT_ERR::reportError( PMC:param.PMC, message:"Activity has an empty action body", line_num:param.start_line, dialect:dialect );
+	end if;
+  end if;
+  if ( "routine" == activity_type )
+    select many s_syncs related by ep_pkg->PE_PE[R8000]->S_SYNC[R8001];
+    for each s_sync in s_syncs
+      if ( s_sync.getSignature(flavor:1) == signature )
+        s_sync.Action_Semantics_internal = body;
+        s_sync.Dialect = dialect;
+        IMPORT_ERR::incrementImportedActivities( PMC:param.PMC, type:"S_SYNC", dialect:param.dialect );
+        return;
+      end if;
+    end for;
+    IMPORT_ERR::reportError( PMC:param.PMC, message:"Function parsed with signature: ''" + signature + "'' not found in package ''" + ep_pkg.Name + "''", line_num:param.start_line, dialect:dialect );
+  end if;
+end if;',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'',
+	0);
+INSERT INTO S_SPARM
+	VALUES ("afdc89b2-013f-4bda-8d7d-d909180d5219",
+	"eeba59f4-8e74-4937-bbff-588d35c7ab45",
+	'ep_pkg',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("f5be6163-aa3a-4057-85d7-2b86bee5ff84",
+	"eeba59f4-8e74-4937-bbff-588d35c7ab45",
+	'activity_type',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"afdc89b2-013f-4bda-8d7d-d909180d5219",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("73af190c-d21e-46ce-bc04-4f26a61a1524",
+	"eeba59f4-8e74-4937-bbff-588d35c7ab45",
+	'signature',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"f5be6163-aa3a-4057-85d7-2b86bee5ff84",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("7b9bb6b8-bbb8-4429-9ce9-e069b3aeb6dd",
+	"eeba59f4-8e74-4937-bbff-588d35c7ab45",
+	'body',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"73af190c-d21e-46ce-bc04-4f26a61a1524",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("f4a3b11b-6efa-4dd8-9b84-e6fe7f824518",
+	"eeba59f4-8e74-4937-bbff-588d35c7ab45",
+	'dialect',
+	"7b54f646-a8a8-4b82-9bb0-cf5465115f3b",
+	0,
+	'',
+	"7b9bb6b8-bbb8-4429-9ce9-e069b3aeb6dd",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("ec76adcc-1696-46c5-9286-76cc0ca6d66a",
+	"eeba59f4-8e74-4937-bbff-588d35c7ab45",
+	'start_line',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"f4a3b11b-6efa-4dd8-9b84-e6fe7f824518",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("c617aaef-821f-4068-a7b8-f989e607fc66",
+	"eeba59f4-8e74-4937-bbff-588d35c7ab45",
+	'PMC',
+	"bc3722c8-5188-4529-8519-cf9eb9816b17",
+	0,
+	'',
+	"ec76adcc-1696-46c5-9286-76cc0ca6d66a",
+	'');
+INSERT INTO PE_PE
+	VALUES ("eeba59f4-8e74-4937-bbff-588d35c7ab45",
+	1,
+	"6af64c1a-bd5b-4eb5-b9db-60839e11d10c",
+	"00000000-0000-0000-0000-000000000000",
+	1);
+INSERT INTO S_SYNC
+	VALUES ("3bb908bd-182f-4fed-bb72-5c1822b2dd76",
+	"00000000-0000-0000-0000-000000000000",
+	'SM_ISMsetActions',
+	'',
+	'activity_type = param.activity_type;
+signature = param.signature;
+body = param.body;
+dialect = param.dialect;
+
+select any sm_ism from instances of SM_ISM where (selected.SM_ID == param.sm_ism);
+if ( not_empty sm_ism )
+  if ( dialect == ActionDialect::masl )
+	// check import assertion that MASL activities must have a non empty action
+	// body. Because the importer appends "\nend" to the end of MASL actions, an
+	// empty action body is defined as the string "\nend"
+	if ( "\nend" == body )
+	  IMPORT_ERR::reportError( PMC:param.PMC, message:"Activity has an empty action body", line_num:param.start_line, dialect:dialect );
+	end if;
+  end if;
+  if ( "state" == activity_type )
+    select many sm_states related by sm_ism->SM_SM[R517]->SM_STATE[R501];//->SM_MOAH[R511]->SM_AH[R513]->SM_ACT[R514];
+    for each sm_state in sm_states
+      if ( sm_state.getSignature(flavor:1) == signature )
+        select one sm_act related by sm_state->SM_MOAH[R511]->SM_AH[R513]->SM_ACT[R514];
+        sm_act.Action_Semantics_internal = body;
+        sm_act.Dialect = dialect;
+        IMPORT_ERR::incrementImportedActivities( PMC:param.PMC, type:"SM_ACT", dialect:param.dialect );
+        return;
+      end if;
+    end for;
+    IMPORT_ERR::reportError( PMC:param.PMC, message:"State parsed with signature: ''" + signature + "'' not found in instance state machine", line_num:param.start_line, dialect:dialect );
+  elif ( "transition" == activity_type )
+  // TODO support transitions operations
+  end if;
+end if;',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'',
+	0);
+INSERT INTO S_SPARM
+	VALUES ("86c2121d-c8e0-461f-a314-48a67ed5f4e1",
+	"3bb908bd-182f-4fed-bb72-5c1822b2dd76",
+	'sm_ism',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("4f6c4749-9c4e-40bd-9eb6-f6b9779a419b",
+	"3bb908bd-182f-4fed-bb72-5c1822b2dd76",
+	'activity_type',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"86c2121d-c8e0-461f-a314-48a67ed5f4e1",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("a2f5a53d-382f-4a89-a0e3-e2777282d196",
+	"3bb908bd-182f-4fed-bb72-5c1822b2dd76",
+	'signature',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"4f6c4749-9c4e-40bd-9eb6-f6b9779a419b",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("d6dc2231-c973-4e30-bd65-d0369db90b9d",
+	"3bb908bd-182f-4fed-bb72-5c1822b2dd76",
+	'body',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"a2f5a53d-382f-4a89-a0e3-e2777282d196",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("15031598-1ccd-4290-a82d-a917495b44e1",
+	"3bb908bd-182f-4fed-bb72-5c1822b2dd76",
+	'dialect',
+	"7b54f646-a8a8-4b82-9bb0-cf5465115f3b",
+	0,
+	'',
+	"d6dc2231-c973-4e30-bd65-d0369db90b9d",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("73f8a9cc-12cb-4b50-959e-de6f4b402cd4",
+	"3bb908bd-182f-4fed-bb72-5c1822b2dd76",
+	'start_line',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"15031598-1ccd-4290-a82d-a917495b44e1",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("623597a3-cf59-47b5-a9e5-9b4a344e6146",
+	"3bb908bd-182f-4fed-bb72-5c1822b2dd76",
+	'PMC',
+	"bc3722c8-5188-4529-8519-cf9eb9816b17",
+	0,
+	'',
+	"73f8a9cc-12cb-4b50-959e-de6f4b402cd4",
+	'');
+INSERT INTO PE_PE
+	VALUES ("3bb908bd-182f-4fed-bb72-5c1822b2dd76",
+	1,
+	"6af64c1a-bd5b-4eb5-b9db-60839e11d10c",
+	"00000000-0000-0000-0000-000000000000",
+	1);
+INSERT INTO S_SYNC
+	VALUES ("11781c06-7e09-45ea-a448-ab85e9fdb235",
+	"00000000-0000-0000-0000-000000000000",
+	'C_CsetActions',
+	'',
+	'activity_type = param.activity_type;
+domain = param.domain;
+port = param.port;
+signature = param.signature;
+body = param.body;
+dialect = param.dialect;
+
+// TODO support bridge operations
+select any c_c from instances of C_C where (selected.Id == param.c_c);
+if ( not_empty c_c )
+  if ( dialect == ActionDialect::masl )
+	// check import assertion that MASL activities must have a non empty action
+	// body. Because the importer appends "\nend" to the end of MASL actions, an
+	// empty action body is defined as the string "\nend"
+	if ( "\nend" == body )
+	  IMPORT_ERR::reportError( PMC:param.PMC, message:"Activity has an empty action body", line_num:param.start_line, dialect:dialect );
+	end if;
+  end if;
+  if ( "routine" == activity_type and "" == port )
+    select many s_syncs related by c_c->PE_PE[R8003]->S_SYNC[R8001];
+    for each s_sync in s_syncs
+      if ( s_sync.getSignature(flavor:1) == signature )
+        s_sync.Action_Semantics_internal = body;
+        s_sync.Dialect = dialect;
+        IMPORT_ERR::incrementImportedActivities( PMC:param.PMC, type:"S_SYNC", dialect:param.dialect );
+        return;
+      end if;
+    end for;
+    IMPORT_ERR::reportError( PMC:param.PMC, message:"Function parsed with signature: ''" + signature + "'' not found in component ''" + c_c.Name + "''", line_num:param.start_line, dialect:dialect );
+  elif ( "routine" == activity_type and "" != port )
+    // select for terminator ports in a project component first. look for
+    // a port named <domain>__<terminator>
+    select any c_po related by c_c->C_PO[R4010] where ( selected.Name == domain + "__" + port );
+    if ( empty c_po )
+      // if not found, check for terminator ports in a domain component
+      select any c_po related by c_c->C_PO[R4010] where ( selected.Name == port );
+    end if;
+    select many c_eps related by c_po->C_IR[R4016]->C_I[R4012]->C_EP[R4003];
+    for each c_ep in c_eps
+      if ( c_ep.getSignature(flavor:1) == signature )
+        // once the c_ep is found, find the spr_* instance in the port
+        select any requirement related by c_po->C_IR[R4016]->C_R[R4009];
+        if ( not_empty requirement )
+          select any spr_rep related by c_ep->SPR_REP[R4500] where ( selected.Requirement_Id == requirement.Requirement_Id );
+          select one spr_ro related by spr_rep->SPR_RO[R4502];
+          if ( not_empty spr_ro )
+			spr_ro.Action_Semantics_internal = body;
+			spr_ro.Dialect = dialect;
+            IMPORT_ERR::incrementImportedActivities( PMC:param.PMC, type:"SPR_RO", dialect:param.dialect );
+			return;
+          else
+            select one spr_rs related by spr_rep->SPR_RS[R4502];
+            if ( not_empty spr_rs )
+			  spr_rs.Action_Semantics_internal = body;
+			  spr_rs.Dialect = dialect;
+              IMPORT_ERR::incrementImportedActivities( PMC:param.PMC, type:"SPR_RS", dialect:param.dialect );
+			  return;
+            end if;
+          end if;
+        else
+          select any provision related by c_po->C_IR[R4016]->C_P[R4009];
+          if ( not_empty provision )
+			select any spr_pep related by c_ep->SPR_PEP[R4501] where ( selected.Provision_Id == provision.Provision_Id );
+			select one spr_po related by spr_pep->SPR_PO[R4503];
+			if ( not_empty spr_po )
+			  spr_po.Action_Semantics_internal = body;
+			  spr_po.Dialect = dialect;
+              IMPORT_ERR::incrementImportedActivities( PMC:param.PMC, type:"SPR_PO", dialect:param.dialect );
+			  return;
+			else
+			  select one spr_ps related by spr_pep->SPR_PS[R4503];
+			  if ( not_empty spr_ps )
+				spr_ps.Action_Semantics_internal = body;
+				spr_ps.Dialect = dialect;
+                IMPORT_ERR::incrementImportedActivities( PMC:param.PMC, type:"SPR_PS", dialect:param.dialect );
+			    return;
+			  end if;
+			end if;
+          end if;
+        end if;
+      end if;
+    end for;
+    portName = "<port not found>";
+    if (not_empty c_po)
+      portName = c_po.Name;
+    end if;
+    IMPORT_ERR::reportError( PMC:param.PMC, message:"Message parsed with signature: ''" + signature + "'' not found in component ''" + c_c.Name + "'' port ''" + portName + "''", line_num:param.start_line, dialect:dialect );
+  end if;
+end if;',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'',
+	0);
+INSERT INTO S_SPARM
+	VALUES ("6cbc34a6-0d55-4bbb-a547-cb8ff14ad79e",
+	"11781c06-7e09-45ea-a448-ab85e9fdb235",
+	'c_c',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("a694049c-c3db-4236-895f-3a8d4a050a29",
+	"11781c06-7e09-45ea-a448-ab85e9fdb235",
+	'activity_type',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"6cbc34a6-0d55-4bbb-a547-cb8ff14ad79e",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("334cfdae-5a0b-4bf0-8719-a6bac2ef9f2c",
+	"11781c06-7e09-45ea-a448-ab85e9fdb235",
+	'signature',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"38ae2ba8-e626-4d83-95c6-6aba3ff71d6c",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("01a90219-cf87-41a4-8275-0a32ccb7bae4",
+	"11781c06-7e09-45ea-a448-ab85e9fdb235",
+	'body',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"334cfdae-5a0b-4bf0-8719-a6bac2ef9f2c",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("008db13a-f446-4dcd-8f8a-1d02b71aa268",
+	"11781c06-7e09-45ea-a448-ab85e9fdb235",
+	'dialect',
+	"7b54f646-a8a8-4b82-9bb0-cf5465115f3b",
+	0,
+	'',
+	"01a90219-cf87-41a4-8275-0a32ccb7bae4",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("38ae2ba8-e626-4d83-95c6-6aba3ff71d6c",
+	"11781c06-7e09-45ea-a448-ab85e9fdb235",
+	'port',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"35196955-7fb3-474c-a200-99a5cd06d33a",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("032f6f4d-455e-464f-a085-808dec360a1d",
+	"11781c06-7e09-45ea-a448-ab85e9fdb235",
+	'start_line',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"008db13a-f446-4dcd-8f8a-1d02b71aa268",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("4f52c0c4-2df6-4693-8f18-9feedb9e4a6b",
+	"11781c06-7e09-45ea-a448-ab85e9fdb235",
+	'PMC',
+	"bc3722c8-5188-4529-8519-cf9eb9816b17",
+	0,
+	'',
+	"032f6f4d-455e-464f-a085-808dec360a1d",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("35196955-7fb3-474c-a200-99a5cd06d33a",
+	"11781c06-7e09-45ea-a448-ab85e9fdb235",
+	'domain',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"a694049c-c3db-4236-895f-3a8d4a050a29",
+	'');
+INSERT INTO PE_PE
+	VALUES ("11781c06-7e09-45ea-a448-ab85e9fdb235",
+	1,
+	"6af64c1a-bd5b-4eb5-b9db-60839e11d10c",
+	"00000000-0000-0000-0000-000000000000",
+	1);
+INSERT INTO S_SYNC
+	VALUES ("ef19a487-de93-4706-8be0-ec5c3d0a81fe",
+	"00000000-0000-0000-0000-000000000000",
+	'EP_PKGcountActivitiesForImport',
+	'',
+	'select any ep_pkg from instances of EP_PKG where (selected.Package_ID == param.ep_pkg);
+if ( not_empty ep_pkg )
+  select many s_syncs related by ep_pkg->PE_PE[R8000]->S_SYNC[R8001] where ( selected.Dialect == param.dialect );
+  for each s_sync in s_syncs
+    IMPORT_ERR::incrementActivities( PMC:param.PMC, type:"S_SYNC", dialect:param.dialect );
+  end for;
+  select many s_brgs related by ep_pkg->PE_PE[R8000]->S_EE[R8001]->S_BRG[R19] where ( selected.Dialect == param.dialect );
+  for each s_brg in s_brgs
+    IMPORT_ERR::incrementActivities( PMC:param.PMC, type:"S_BRG", dialect:param.dialect );
+  end for;
+end if;',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'',
+	0);
+INSERT INTO S_SPARM
+	VALUES ("e8637bba-881f-4a37-800a-3cab66c4c6c8",
+	"ef19a487-de93-4706-8be0-ec5c3d0a81fe",
+	'ep_pkg',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("657e4407-b5fd-401b-8132-55a1b8afacde",
+	"ef19a487-de93-4706-8be0-ec5c3d0a81fe",
+	'PMC',
+	"bc3722c8-5188-4529-8519-cf9eb9816b17",
+	0,
+	'',
+	"e8637bba-881f-4a37-800a-3cab66c4c6c8",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("d211561a-1f99-4eb2-a323-e50d54feebfe",
+	"ef19a487-de93-4706-8be0-ec5c3d0a81fe",
+	'dialect',
+	"7b54f646-a8a8-4b82-9bb0-cf5465115f3b",
+	0,
+	'',
+	"657e4407-b5fd-401b-8132-55a1b8afacde",
+	'');
+INSERT INTO PE_PE
+	VALUES ("ef19a487-de93-4706-8be0-ec5c3d0a81fe",
+	1,
+	"6af64c1a-bd5b-4eb5-b9db-60839e11d10c",
+	"00000000-0000-0000-0000-000000000000",
+	1);
+INSERT INTO S_SYNC
+	VALUES ("2cc10462-cc5c-4223-95eb-0f0095f3a2a2",
+	"00000000-0000-0000-0000-000000000000",
+	'O_OBJcountActivitiesForImport',
+	'',
+	'select any o_obj from instances of O_OBJ where (selected.Obj_ID == param.o_obj);
+if ( not_empty o_obj )
+    select many o_tfrs related by o_obj->O_TFR[R115] where ( selected.Dialect == param.dialect );
+    for each o_tfr in o_tfrs
+      IMPORT_ERR::incrementActivities( PMC:param.PMC, type:"O_TFR", dialect:param.dialect );
+    end for;
+    select many o_dbattrs related by o_obj->O_ATTR[R102]->O_BATTR[R106]->O_DBATTR[R107] where ( selected.Dialect == param.dialect );
+    for each o_dbattr in o_dbattrs
+      IMPORT_ERR::incrementActivities( PMC:param.PMC, type:"O_DBATTR", dialect:param.dialect );
+    end for;
+end if;',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'',
+	0);
+INSERT INTO S_SPARM
+	VALUES ("fc346394-7d44-4f1d-a995-90b740ce0a23",
+	"2cc10462-cc5c-4223-95eb-0f0095f3a2a2",
+	'o_obj',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("26380e66-93f4-428f-b618-48a00a8fd8ce",
+	"2cc10462-cc5c-4223-95eb-0f0095f3a2a2",
+	'PMC',
+	"bc3722c8-5188-4529-8519-cf9eb9816b17",
+	0,
+	'',
+	"fc346394-7d44-4f1d-a995-90b740ce0a23",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("2a610951-56a3-41a9-919e-8362ceda74c3",
+	"2cc10462-cc5c-4223-95eb-0f0095f3a2a2",
+	'dialect',
+	"7b54f646-a8a8-4b82-9bb0-cf5465115f3b",
+	0,
+	'',
+	"26380e66-93f4-428f-b618-48a00a8fd8ce",
+	'');
+INSERT INTO PE_PE
+	VALUES ("2cc10462-cc5c-4223-95eb-0f0095f3a2a2",
+	1,
+	"6af64c1a-bd5b-4eb5-b9db-60839e11d10c",
+	"00000000-0000-0000-0000-000000000000",
+	1);
+INSERT INTO S_SYNC
+	VALUES ("f21df801-b648-4605-b745-5e156808d1e8",
+	"00000000-0000-0000-0000-000000000000",
+	'SM_ASMcountActivitiesForImport',
+	'',
+	'select any sm_asm from instances of SM_ASM where (selected.SM_ID == param.sm_asm);
+if ( not_empty sm_asm )
+  select many sm_acts related by sm_asm->SM_SM[R517]->SM_ACT[R515] where ( selected.Dialect == param.dialect );
+  for each sm_act in sm_acts
+    IMPORT_ERR::incrementActivities( PMC:param.PMC, type:"SM_ACT", dialect:param.dialect );
+  end for;
+end if;',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'',
+	0);
+INSERT INTO S_SPARM
+	VALUES ("d9701929-2dd4-4ec0-8225-84927d3f5c19",
+	"f21df801-b648-4605-b745-5e156808d1e8",
+	'sm_asm',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("6959525c-0183-4f82-a348-b5d10642a426",
+	"f21df801-b648-4605-b745-5e156808d1e8",
+	'PMC',
+	"bc3722c8-5188-4529-8519-cf9eb9816b17",
+	0,
+	'',
+	"d9701929-2dd4-4ec0-8225-84927d3f5c19",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("d6cbbe92-e806-4b42-ac58-a9acdfb3044e",
+	"f21df801-b648-4605-b745-5e156808d1e8",
+	'dialect',
+	"7b54f646-a8a8-4b82-9bb0-cf5465115f3b",
+	0,
+	'',
+	"6959525c-0183-4f82-a348-b5d10642a426",
+	'');
+INSERT INTO PE_PE
+	VALUES ("f21df801-b648-4605-b745-5e156808d1e8",
+	1,
+	"6af64c1a-bd5b-4eb5-b9db-60839e11d10c",
+	"00000000-0000-0000-0000-000000000000",
+	1);
+INSERT INTO S_SYNC
+	VALUES ("4b552f5d-5a55-4adc-9bd3-4cc965503f53",
+	"00000000-0000-0000-0000-000000000000",
+	'S_SYScountActivitiesForImport',
+	'',
+	'select any s_sys from instances of S_SYS where (selected.Sys_ID == param.s_sys);
+if ( not_empty s_sys )
+  select many s_syncs related by s_sys->PE_PE[R9100]->S_SYNC[R8001] where ( selected.Dialect == param.dialect );
+  for each s_sync in s_syncs
+    IMPORT_ERR::incrementActivities( PMC:param.PMC, type:"S_SYNC", dialect:param.dialect );
+  end for;
+  select many s_brgs related by s_sys->PE_PE[R9100]->S_EE[R8001]->S_BRG[R19] where ( selected.Dialect == param.dialect );
+  for each s_brg in s_brgs
+    IMPORT_ERR::incrementActivities( PMC:param.PMC, type:"S_BRG", dialect:param.dialect );
+  end for;
+end if;',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'',
+	0);
+INSERT INTO S_SPARM
+	VALUES ("50579a54-d8c4-4bcf-be4c-803c5bd342f4",
+	"4b552f5d-5a55-4adc-9bd3-4cc965503f53",
+	's_sys',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("ccd5d7dc-6225-461a-8059-08df421898e5",
+	"4b552f5d-5a55-4adc-9bd3-4cc965503f53",
+	'PMC',
+	"bc3722c8-5188-4529-8519-cf9eb9816b17",
+	0,
+	'',
+	"50579a54-d8c4-4bcf-be4c-803c5bd342f4",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("5b09fbdb-0b09-45fb-8127-05231a96fb5f",
+	"4b552f5d-5a55-4adc-9bd3-4cc965503f53",
+	'dialect',
+	"7b54f646-a8a8-4b82-9bb0-cf5465115f3b",
+	0,
+	'',
+	"ccd5d7dc-6225-461a-8059-08df421898e5",
+	'');
+INSERT INTO PE_PE
+	VALUES ("4b552f5d-5a55-4adc-9bd3-4cc965503f53",
+	1,
+	"6af64c1a-bd5b-4eb5-b9db-60839e11d10c",
+	"00000000-0000-0000-0000-000000000000",
+	1);
+INSERT INTO S_SYNC
+	VALUES ("777167ea-ccae-4492-b2a0-7bc919e6f10e",
+	"00000000-0000-0000-0000-000000000000",
+	'C_CcountActivitiesForImport',
+	'',
+	'select any c_c from instances of C_C where (selected.Id == param.c_c);
+if ( not_empty c_c )
+  select many spr_pos related by c_c->C_PO[R4010]->C_IR[R4016]->C_P[R4009]->SPR_PEP[R4501]->SPR_PO[R4503] where ( selected.Dialect == param.dialect );
+  for each spr_po in spr_pos
+    IMPORT_ERR::incrementActivities( PMC:param.PMC, type:"SPR_PO", dialect:param.dialect );
+  end for;
+  select many spr_pss related by c_c->C_PO[R4010]->C_IR[R4016]->C_P[R4009]->SPR_PEP[R4501]->SPR_PS[R4503] where ( selected.Dialect == param.dialect );
+  for each spr_ps in spr_pss
+    IMPORT_ERR::incrementActivities( PMC:param.PMC, type:"SPR_PS", dialect:param.dialect );
+  end for;
+  select many spr_ros related by c_c->C_PO[R4010]->C_IR[R4016]->C_R[R4009]->SPR_REP[R4500]->SPR_RO[R4502] where ( selected.Dialect == param.dialect );
+  for each spr_ro in spr_ros
+    IMPORT_ERR::incrementActivities( PMC:param.PMC, type:"SPR_RO", dialect:param.dialect );
+  end for;
+  select many spr_rss related by c_c->C_PO[R4010]->C_IR[R4016]->C_R[R4009]->SPR_REP[R4500]->SPR_RS[R4502] where ( selected.Dialect == param.dialect );
+  for each spr_rs in spr_rss
+    IMPORT_ERR::incrementActivities( PMC:param.PMC, type:"SPR_RS", dialect:param.dialect );
+  end for;
+end if;',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'',
+	0);
+INSERT INTO S_SPARM
+	VALUES ("274226a6-904b-4ab1-a3e1-32faa73ef7c8",
+	"777167ea-ccae-4492-b2a0-7bc919e6f10e",
+	'c_c',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("fa793c0c-d7e0-4b83-8895-d161a61f2148",
+	"777167ea-ccae-4492-b2a0-7bc919e6f10e",
+	'PMC',
+	"bc3722c8-5188-4529-8519-cf9eb9816b17",
+	0,
+	'',
+	"274226a6-904b-4ab1-a3e1-32faa73ef7c8",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("e2f7ba89-12c9-40d3-812b-07274eb5d987",
+	"777167ea-ccae-4492-b2a0-7bc919e6f10e",
+	'dialect',
+	"7b54f646-a8a8-4b82-9bb0-cf5465115f3b",
+	0,
+	'',
+	"fa793c0c-d7e0-4b83-8895-d161a61f2148",
+	'');
+INSERT INTO PE_PE
+	VALUES ("777167ea-ccae-4492-b2a0-7bc919e6f10e",
+	1,
+	"6af64c1a-bd5b-4eb5-b9db-60839e11d10c",
+	"00000000-0000-0000-0000-000000000000",
+	1);
+INSERT INTO S_SYNC
+	VALUES ("44b50c19-43c3-4456-a66e-5a3b57191def",
+	"00000000-0000-0000-0000-000000000000",
+	'SM_ISMcountActivitiesForImport',
+	'',
+	'select any sm_ism from instances of SM_ISM where (selected.SM_ID == param.sm_ism);
+if ( not_empty sm_ism )
+  select many sm_acts related by sm_ism->SM_SM[R517]->SM_ACT[R515] where ( selected.Dialect == param.dialect );
+  for each sm_act in sm_acts
+    IMPORT_ERR::incrementActivities( PMC:param.PMC, type:"SM_ACT", dialect:param.dialect );
+  end for;
+end if;',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'',
+	0);
+INSERT INTO S_SPARM
+	VALUES ("0a5bc413-102a-4197-8d4e-d8e4d6b56f2b",
+	"44b50c19-43c3-4456-a66e-5a3b57191def",
+	'sm_ism',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("80f5d9ef-2f66-4f0a-a0c9-6c5e75239cb9",
+	"44b50c19-43c3-4456-a66e-5a3b57191def",
+	'PMC',
+	"bc3722c8-5188-4529-8519-cf9eb9816b17",
+	0,
+	'',
+	"0a5bc413-102a-4197-8d4e-d8e4d6b56f2b",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("dbb6b6f1-75eb-4d4f-a2dd-fb4c5b4248c8",
+	"44b50c19-43c3-4456-a66e-5a3b57191def",
+	'dialect',
+	"7b54f646-a8a8-4b82-9bb0-cf5465115f3b",
+	0,
+	'',
+	"80f5d9ef-2f66-4f0a-a0c9-6c5e75239cb9",
+	'');
+INSERT INTO PE_PE
+	VALUES ("44b50c19-43c3-4456-a66e-5a3b57191def",
+	1,
+	"6af64c1a-bd5b-4eb5-b9db-60839e11d10c",
+	"00000000-0000-0000-0000-000000000000",
+	1);
+INSERT INTO PE_PE
+	VALUES ("6af64c1a-bd5b-4eb5-b9db-60839e11d10c",
+	1,
+	"2467e6dc-9ef4-46c6-afa6-883c1e23a96c",
+	"00000000-0000-0000-0000-000000000000",
+	7);
+INSERT INTO EP_PKG_PROXY
+	VALUES ("2467e6dc-9ef4-46c6-afa6-883c1e23a96c",
+	"00000000-0000-0000-0000-000000000000",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
+	'Functions',
+	'',
+	0,
+	'../Functions.xtuml');
+INSERT INTO S_SYS_PROXY
+	VALUES ("d9bc5487-4193-4817-be1c-6c3f3339aebf",
+	'org.xtuml.bp.core',
+	1,
+	'../../../org.xtuml.bp.core.xtuml');

@@ -22,7 +22,8 @@ if (element.positionX != 0 and element.positionY != 0)
 end if;',
 	1,
 	'',
-	"7decbaf8-bad6-4393-875e-cd55d7bc29d4");
+	"7decbaf8-bad6-4393-875e-cd55d7bc29d4",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("4cb2bee7-54e3-4510-bdb5-b3668d948702",
 	"8b14fdcf-ceb2-4934-bb38-ee70bb870902",
@@ -58,7 +59,8 @@ end if;
 return false;',
 	1,
 	'',
-	"2dcf3fd0-e49c-4883-a93c-a6526e88913c");
+	"2dcf3fd0-e49c-4883-a93c-a6526e88913c",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("d244ab99-4467-41cc-8ac1-b30fb7e7d716",
 	"13f8f74c-ce35-4d3a-b7a8-b6bec0a27871",
@@ -106,7 +108,8 @@ else
 end if;',
 	1,
 	'',
-	"64b09408-52de-4277-9feb-11b4473c0ce4");
+	"64b09408-52de-4277-9feb-11b4473c0ce4",
+	0);
 INSERT INTO O_TFR
 	VALUES ("64b09408-52de-4277-9feb-11b4473c0ce4",
 	"36263303-f694-42bf-8e61-b117b1a89014",
@@ -123,7 +126,8 @@ relate diaElem to graphElem across R302;
 ',
 	1,
 	'',
-	"00000000-0000-0000-0000-000000000000");
+	"00000000-0000-0000-0000-000000000000",
+	0);
 INSERT INTO O_TFR
 	VALUES ("7decbaf8-bad6-4393-875e-cd55d7bc29d4",
 	"36263303-f694-42bf-8e61-b117b1a89014",
@@ -148,7 +152,8 @@ end if;
 return Vertex::None;',
 	1,
 	'',
-	"13f8f74c-ce35-4d3a-b7a8-b6bec0a27871");
+	"13f8f74c-ce35-4d3a-b7a8-b6bec0a27871",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("9c05713f-889e-4b4c-9a8d-ce6f2204efb8",
 	"7decbaf8-bad6-4393-875e-cd55d7bc29d4",
@@ -211,7 +216,8 @@ if ((se_x - nw_x > GR::getMinShapeSize()) AND (se_y- nw_y > GR::getMinShapeSize(
 end if;',
 	1,
 	'',
-	"8b14fdcf-ceb2-4934-bb38-ee70bb870902");
+	"8b14fdcf-ceb2-4934-bb38-ee70bb870902",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("52baf66d-633a-4bd7-afde-cb955cbbcf46",
 	"0940b2bd-8967-4253-947d-a4cb33e4b540",
@@ -274,7 +280,10 @@ if (text_w == 0 and text_h == 0)
   //
   text_w = GR::getDefaultTextWidth();
 end if;
-textToDraw = GR::wrapTextTo(context:param.context, input:param.text, width:text_w);
+textToDraw = param.text;
+if(not CL::disableCropping())
+  textToDraw = GR::wrapTextTo(context:param.context, input:param.text, width:text_w);
+end if;
 if (text_x == - diagram.viewportX AND text_y == - diagram.viewportY)
   //
   // Text is at default position
@@ -350,7 +359,8 @@ if (elem_selected AND NOT param.disable_selection)
 end if;',
 	1,
 	'',
-	"4babc621-7e39-40e0-b81e-6fa50e8b92d5");
+	"4babc621-7e39-40e0-b81e-6fa50e8b92d5",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("40484883-c45d-43dd-9fdc-2e14413de6c0",
 	"2dcf3fd0-e49c-4883-a93c-a6526e88913c",
@@ -547,7 +557,8 @@ graphElem.positionX = text_x;
 graphElem.positionY = text_y;',
 	1,
 	'',
-	"0940b2bd-8967-4253-947d-a4cb33e4b540");
+	"0940b2bd-8967-4253-947d-a4cb33e4b540",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("9268cdc8-f763-4740-829f-4a4230eff269",
 	"de21700d-dab5-49f9-9936-d10e3dca5d08",
@@ -576,7 +587,8 @@ INSERT INTO O_TFR
 	'return "Floating Text";',
 	1,
 	'',
-	"de21700d-dab5-49f9-9936-d10e3dca5d08");
+	"de21700d-dab5-49f9-9936-d10e3dca5d08",
+	0);
 INSERT INTO O_NBATTR
 	VALUES ("bf9fdcf6-d214-47c6-b53e-8f2e459cc8ae",
 	"36263303-f694-42bf-8e61-b117b1a89014");

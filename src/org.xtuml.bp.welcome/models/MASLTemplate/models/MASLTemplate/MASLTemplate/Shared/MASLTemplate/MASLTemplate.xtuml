@@ -1,0 +1,54 @@
+-- BP 7.1.6 content: Interface syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO C_I
+	VALUES ("a5673f9b-0720-4b50-8f2f-b0121f67bd9b",
+	"00000000-0000-0000-0000-000000000000",
+	'MASLTemplate',
+	'In the xtUML MASL idiom, there is an widely-visibile interface with the same 
+name as a component (domain).  This interface exposes to the outside world the 
+public domain services.  This interface contains messages with signatures that
+are identical to each of the public domain services. ');
+INSERT INTO C_EP
+	VALUES ("ffd58301-1fcf-4376-bc16-5ea0a2629c93",
+	"a5673f9b-0720-4b50-8f2f-b0121f67bd9b",
+	-1,
+	'public_service_1',
+	'');
+INSERT INTO C_IO
+	VALUES ("ffd58301-1fcf-4376-bc16-5ea0a2629c93",
+	"ba5eda7a-def5-0000-0000-000000000000",
+	'public_service_1',
+	'',
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO C_PP
+	VALUES ("25b96060-da49-4496-a176-d8aef39f0824",
+	"ffd58301-1fcf-4376-bc16-5ea0a2629c93",
+	"2ad9670a-a9a2-4c22-8c5d-9a5e656c4f56",
+	'val',
+	'',
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO S_DT_PROXY
+	VALUES ("2ad9670a-a9a2-4c22-8c5d-9a5e656c4f56",
+	"00000000-0000-0000-0000-000000000000",
+	'ex_type',
+	'',
+	'',
+	'../Shared.xtuml');
+INSERT INTO PE_PE
+	VALUES ("a5673f9b-0720-4b50-8f2f-b0121f67bd9b",
+	1,
+	"b1db067e-83ca-4e9e-a3cb-53134604edb3",
+	"00000000-0000-0000-0000-000000000000",
+	6);
+INSERT INTO EP_PKG_PROXY
+	VALUES ("b1db067e-83ca-4e9e-a3cb-53134604edb3",
+	"00000000-0000-0000-0000-000000000000",
+	"caeb992d-705b-4741-8e19-2e442e50c51e",
+	'Shared',
+	'',
+	0,
+	'../Shared.xtuml');

@@ -177,6 +177,7 @@ fi
 init_repository bridgepoint
 init_repository mc
 init_repository packaging
+init_repository pt_antlr
 
 echo -e "Exiting init_git_repositories.sh"
 

@@ -1,0 +1,4 @@
+public service X::object1.obj3() is
+begin
+  null;
+end service;

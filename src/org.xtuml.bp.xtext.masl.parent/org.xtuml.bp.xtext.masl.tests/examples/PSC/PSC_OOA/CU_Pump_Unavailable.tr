@@ -1,0 +1,11 @@
+//
+// UK Crown Copyright (c) 2016. All rights reserved.
+//
+
+public service PSC::CUSTOMER~>Pump_Unavailable () is
+
+begin
+begin
+    null;
+  end;
+end service;

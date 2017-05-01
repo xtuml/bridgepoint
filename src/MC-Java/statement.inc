@@ -27,17 +27,17 @@
 .// --------------------------------------------------------
 .function gen_for_statement
   .param inst_ref statement
-  .assign nestlevel = "${info.unique_num}"
   .select one tgt_obj related by statement->O_OBJ[R670]
   .select one set_var related by statement->V_VAR[R652]
   .select one loop_var related by statement->V_VAR[R614]
+  .assign nestlevel = "for_index_" + loop_var.Name
   .if ( statement.is_implicit == 1 )
     .invoke cn = get_class_name( tgt_obj )
 ${cn.body}  v_${loop_var.Name} = null;
   .end if
-for ( int i${nestlevel} = 0; i${nestlevel} < v_${set_var.Name}.length; i${nestlevel}++)
+for ( int ${nestlevel} = 0; ${nestlevel} < v_${set_var.Name}.length; ${nestlevel}++)
 {
-  v_${loop_var.Name} = v_${set_var.Name}[i${nestlevel}] ;
+  v_${loop_var.Name} = v_${set_var.Name}[${nestlevel}] ;
 .end function
 .//
 .// ----------------------------------------------------------
@@ -474,7 +474,7 @@ else {
   .if ( is_refl.result )
     .select one aone related by rel->R_ASSOC[R206]->R_AONE[R209]
     .select one aoth related by rel->R_ASSOC[R206]->R_AOTH[R210]
-    .select one one_obj related by rel_using_stmt->V_VAR[R617]->V_INT[R814]->O_OBJ[R815]
+    .select one one_obj related by rel_using_stmt->V_VAR[R617]->V_INT[R814]->O_OBJ[R818]
     .if ( one_obj.Obj_ID == aone.Obj_ID )
       .if ( aone.Txt_Phrs == rel_using_stmt.relationship_phrase )
         .assign one_rel_phrase = "$cr{aone.Txt_Phrs}"
@@ -501,7 +501,7 @@ if (v_${use_var.Name} != null) {
   v_${use_var.Name}.\
   .end if
   .select one rel related by rel_using_stmt->R_REL[R654]
-relateAcrossR${rel.Numb}To${one_rel_phrase}( \
+relateAcrossR${rel.Numb}To${oth_rel_phrase}( \
   .if ("$l{one_var.Name}" != "self")
 v_${one_var.Name} \
   .else
@@ -511,7 +511,7 @@ this \
   .if ("$l{use_var.Name}" != "self")
   v_${use_var.Name}.\
   .end if  
-relateAcrossR${rel.Numb}To${oth_rel_phrase}( \
+relateAcrossR${rel.Numb}To${one_rel_phrase}( \
   .if ("$l{oth_var.Name}" != "self")
 v_${oth_var.Name} \
   .else
@@ -624,7 +624,7 @@ if (v_${use_var.Name} != null) {
 v_${use_var.Name}.\
   .end if
   .select one rel related by unrel_using_stmt->R_REL[R656]
-unrelateAcrossR${rel.Numb}From${one_rel_phrase}( \
+unrelateAcrossR${rel.Numb}From${oth_rel_phrase}( \
   .if ("$l{one_var.Name}" != "self")
 v_${one_var.Name} \
   .else
@@ -634,7 +634,7 @@ this \
   .if ("$l{use_var.Name}" != "self")
 v_${use_var.Name}.\
   .end if
-unrelateAcrossR${rel.Numb}From${oth_rel_phrase}( \
+unrelateAcrossR${rel.Numb}From${one_rel_phrase}( \
   .if ("$l{oth_var.Name}" != "self")
 v_${oth_var.Name} \
   .else
@@ -707,13 +707,12 @@ v_${var.Name} = ${cn.body}.$cr{tgt_obj.Name}Instance(${mr}${where_clause_arg}) ;
     .if (not_empty assoc )
       .select one assr related by assoc->R_ASSR[R211]
       .if ( assr.Obj_ID != tgt_obj.Obj_ID )
-        .// phrases are reversed when navigating from assr to aone or aoth
         .select one aone related by assoc->R_AONE[R209]
         .select one aoth related by assoc->R_AOTH[R210]
         .if ( link_phrase == aone.Txt_Phrs )
-          .assign attr_result = "$cr{aoth.Txt_Phrs}"
-        .else
           .assign attr_result = "$cr{aone.Txt_Phrs}"
+        .else
+          .assign attr_result = "$cr{aoth.Txt_Phrs}"
         .end if
       .else
         .assign attr_result = "$cr{link_phrase}"
@@ -875,7 +874,7 @@ ${where_clause_arg}\
       .select one selected_ref related by attribute_val->V_VAL[R807]->V_SLR[R801]
       .select one operation_val related by p_val->V_TRV[R801]
       .if (((not_empty transient_val) or ((not_empty attribute_val) and (empty selected_ref))) or (not_empty operation_val))
-        .assign temp_var = "p${info.unique_num}"
+        .assign temp_var = "p${p_val.LineNumber}_${p_val.StartPosition}"
         .select any type from instances of S_DT where (selected.DT_ID == p_val.DT_ID)
         .invoke result = do_type(type)
         .assign attr_param_decl  = "${result.body} ${temp_var}"
@@ -894,11 +893,11 @@ ${where_clause_arg}\
   .param string root_pkg_name
   .param inst_ref tgt_obj
   .param inst_ref where_clause
+  .param string salt
   .//
   .invoke cn = get_class_name( tgt_obj )
-  .assign test_num = "${info.unique_num}"
   .invoke tcn = get_test_class_name()
-  .assign new_test_class_name = "$cr{tgt_obj.Name}_test${test_num}_c"
+  .assign new_test_class_name = "$cr{tgt_obj.Name}_test${salt}_c"
   class ${new_test_class_name} implements ${tcn.body}
   {
   .invoke twc = traverse_where_clause (root_pkg_name, where_clause )
@@ -924,10 +923,12 @@ ${twc.member_decl}
   .// select instance where statement
   .// --------------------------------------------------------
   .select any tgt_obj related by sel_inst_where->O_OBJ[R676]
-  .select one owner_action related by sel_inst_where->ACT_SMT[R603]->ACT_BLK[R602]->ACT_ACT[R601]
+  .select one act_smt related by sel_inst_where->ACT_SMT[R603]
+  .select one owner_action related by act_smt->ACT_BLK[R602]->ACT_ACT[R601]
   .select any where_clause related by sel_inst_where->V_VAL[R610]
   .select any src_tfr related by where_clause->V_TRV[R801]->O_TFR[R829]
   .select one src_obj related by src_tfr->O_OBJ[R115]
+  .assign salt = "gsiws${act_smt.LineNumber}"
   .assign non_single_unique_id = true
   .// only generate specific selections on ids for binary
   .// operations
@@ -1039,7 +1040,7 @@ v_${var.Name} = v_${var.Name}List.toArray(new ${cn.body}[v_${var.Name}List.size(
     .end for
   .end if
   .if(non_single_unique_id == true)
-    .invoke gcqd = get_class_query_decl(root_pkg_name, tgt_obj, where_clause )
+    .invoke gcqd = get_class_query_decl(root_pkg_name, tgt_obj, where_clause, salt )
 ${gcqd.body}\
     .invoke gss = gen_select_fiw_statement(sel_inst_where, gcqd.query_new )
 ${gss.body}\
@@ -1094,6 +1095,7 @@ v_${var.Name} = ${cn.body}.$cr{tgt_obj.Name}Instance(${mr}${where_clause_arg}) ;
   .param string cme_env
   .//
   .select one sel_rel_where related by sel_rel_where_subt->ACT_SEL[R664]
+  .select one act_smt related by sel_rel_where->ACT_SMT[R603]
   .// --------------------------------------------------------
   .// select related by where statement
   .// --------------------------------------------------------
@@ -1112,7 +1114,7 @@ v_${var.Name} = ${cn.body}.$cr{tgt_obj.Name}Instance(${mr}${where_clause_arg}) ;
     .end if
   .end if
   .if ( emit_code )
-    .invoke gcqd = get_class_query_decl(root_pkg_name, tgt_obj, where_clause )
+    .invoke gcqd = get_class_query_decl(root_pkg_name, tgt_obj, where_clause, "$r{last_link.Rel_Phrase}${act_smt.LineNumber}" )
 ${gcqd.body}\
     .invoke gss = gen_select_inst_rel_by_statement(sel_rel_where_subt, gcqd.query_new )
 ${gss.body}\

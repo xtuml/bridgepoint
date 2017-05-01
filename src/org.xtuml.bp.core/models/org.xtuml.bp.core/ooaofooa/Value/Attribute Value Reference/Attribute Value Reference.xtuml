@@ -29,7 +29,8 @@ delete object instance self;
 ',
 	1,
 	'',
-	"00000000-0000-0000-0000-000000000000");
+	"00000000-0000-0000-0000-000000000000",
+	0);
 INSERT INTO O_TFR
 	VALUES ("ce072d70-e496-4f88-80f9-c8016cd2c9ee",
 	"02e645a5-e9ac-4df7-9d22-22b6bf89a5af",
@@ -200,7 +201,8 @@ else
 end if;',
 	1,
 	'',
-	"52460e95-26d0-43f2-acbf-7c370f78b9b4");
+	"52460e95-26d0-43f2-acbf-7c370f78b9b4",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("2a42d45e-3f51-43f2-9e98-2047eaa85fa0",
 	"ce072d70-e496-4f88-80f9-c8016cd2c9ee",
@@ -254,7 +256,8 @@ pathMsg = "<No Path Available - Empty instance>";
 	USER::logError(msg:"Value:AttributeValueReference.setValue() error, data type not supported.",path:pathMsg);',
 	1,
 	'',
-	"ce072d70-e496-4f88-80f9-c8016cd2c9ee");
+	"ce072d70-e496-4f88-80f9-c8016cd2c9ee",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("b9c2863b-cb5a-46f3-81ed-7bc7e3b3fe82",
 	"554c16ac-d70a-4018-8725-c00b3a51a563",
@@ -330,7 +333,8 @@ end if;
 ',
 	1,
 	'',
-	"554c16ac-d70a-4018-8725-c00b3a51a563");
+	"554c16ac-d70a-4018-8725-c00b3a51a563",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("ffd983c8-7409-47fa-9d23-d52ddba6c6cb",
 	"29d658dd-ff84-4d1e-84ef-e29642d4866a",
@@ -590,7 +594,8 @@ else
 end if;',
 	1,
 	'',
-	"2b7bf217-4dfe-4298-a739-a7f4ab6518d1");
+	"2b7bf217-4dfe-4298-a739-a7f4ab6518d1",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("ef5edebb-ce3b-4985-aff0-6c0444349144",
 	"52460e95-26d0-43f2-acbf-7c370f78b9b4",

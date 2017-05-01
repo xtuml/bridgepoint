@@ -79,7 +79,8 @@ return result;
 ',
 	1,
 	'',
-	"5211e040-9664-4a90-bfe5-b7657a940ec0");
+	"5211e040-9664-4a90-bfe5-b7657a940ec0",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("9b965e97-81c1-4d07-bfec-92625354516b",
 	"2429bee2-78db-4411-b6ee-a300fb083edb",
@@ -127,7 +128,8 @@ end if;
 delete object instance self;',
 	1,
 	'',
-	"d307bb1d-0933-46cc-9cd0-82532dff50e8");
+	"d307bb1d-0933-46cc-9cd0-82532dff50e8",
+	0);
 INSERT INTO O_TFR
 	VALUES ("20dd5607-d958-4f5a-a12e-bf7de8724de8",
 	"12813ef2-4f83-46ab-a431-a727324be44d",
@@ -237,7 +239,8 @@ delete object instance self;
 ',
 	1,
 	'',
-	"a86047f7-23ce-4ceb-a25c-ce3ed069a544");
+	"a86047f7-23ce-4ceb-a25c-ce3ed069a544",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("2e07f806-057c-420b-a31d-1a53bb2df5ad",
 	"20dd5607-d958-4f5a-a12e-bf7de8724de8",
@@ -278,7 +281,8 @@ return false;
 ',
 	1,
 	'',
-	"2429bee2-78db-4411-b6ee-a300fb083edb");
+	"2429bee2-78db-4411-b6ee-a300fb083edb",
+	0);
 INSERT INTO O_TFR
 	VALUES ("5211e040-9664-4a90-bfe5-b7657a940ec0",
 	"12813ef2-4f83-46ab-a431-a727324be44d",
@@ -318,7 +322,8 @@ end for;
 ',
 	1,
 	'',
-	"e6d3b5ac-26c3-493d-8099-123939c26e52");
+	"e6d3b5ac-26c3-493d-8099-123939c26e52",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("92020e45-ed15-49d8-989b-504cf4c70dda",
 	"5211e040-9664-4a90-bfe5-b7657a940ec0",
@@ -356,7 +361,8 @@ form.migrateToParticipant();
 ',
 	1,
 	'',
-	"20dd5607-d958-4f5a-a12e-bf7de8724de8");
+	"20dd5607-d958-4f5a-a12e-bf7de8724de8",
+	0);
 INSERT INTO O_TFR
 	VALUES ("d307bb1d-0933-46cc-9cd0-82532dff50e8",
 	"12813ef2-4f83-46ab-a431-a727324be44d",
@@ -364,17 +370,22 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
-	'select any part related by self->R_PART[R207]
+	'select many parts related by self->R_PART[R207]
     where selected.Obj_ID == param.id;
-if ( not_empty part )
+canParticipate = false;
+for each part in parts
   select any oida related by part->R_RTO[R204]->R_OIR[R203]->O_OBJ[R201]->O_ID[R104]->O_OIDA[R105];
-  // participant has to have an id with attributes and cardinality of one (value zero)
-  return not_empty oida and part.Mult == 0;
-end if;
-return false;',
+  // a participant has to have an id with attributes and cardinality of one (value zero)
+  if (not_empty oida and part.Mult == 0)
+    canParticipate = true;
+    break;
+  end if;
+end for;
+return canParticipate;',
 	1,
 	'',
-	"00000000-0000-0000-0000-000000000000");
+	"00000000-0000-0000-0000-000000000000",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("859bc81f-3673-43e0-9a18-da0dae2d95d9",
 	"d307bb1d-0933-46cc-9cd0-82532dff50e8",

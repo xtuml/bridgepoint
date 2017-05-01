@@ -22,6 +22,11 @@
 .end if
 .//
 .//
+.// ss_only allows for a specific package and/or class to be generated alone
+.invoke mc_ss_only_check = GET_ENV_VAR( "PTC_MCC_SS_ONLY")
+.assign mc_ss_only = mc_ss_only_check.result
+.invoke mc_class_only_check = GET_ENV_VAR( "PTC_MCC_CLASS_ONLY")
+.assign mc_class_only = mc_class_only_check.result
 .invoke mc_ss_start_check = GET_ENV_VAR( "PTC_MCC_SS_START")
 .assign mc_ss_start = mc_ss_start_check.result
 .invoke mc_ss_end_check = GET_ENV_VAR( "PTC_MCC_SS_END")
@@ -81,11 +86,11 @@
       .if(not_empty part)
         .assign attr_result = "$cr{part.Txt_Phrs}"
       .else
-        .select one aone related by rto->R_AONE[R204]
-        .if (not_empty aone)
+        .select one aone related by rel->R_ASSOC[R206]->R_AONE[R209]
+        .select one aoth related by rel->R_ASSOC[R206]->R_AOTH[R210]
+        .if ( rto.OIR_ID == aone.OIR_ID )
           .assign attr_result = "$cr{aone.Txt_Phrs}"
         .else
-          .select one aoth related by rto->R_AOTH[R204]
           .assign attr_result = "$cr{aoth.Txt_Phrs}"
         .end if
       .end if
@@ -94,12 +99,12 @@
       .if (not_empty form)
         .assign attr_result = "$cr{form.Txt_Phrs}"
       .else
-        .select one aone related by rto->R_AONE[R204]
-        .if (not_empty aone)
-          .assign attr_result = "$cr{aone.Txt_Phrs}"
-        .else
-          .select one aoth related by rto->R_AOTH[R204]
+        .select one aone related by rel->R_ASSOC[R206]->R_AONE[R209]
+        .select one aoth related by rel->R_ASSOC[R206]->R_AOTH[R210]
+        .if ( rto.OIR_ID == aone.OIR_ID )
           .assign attr_result = "$cr{aoth.Txt_Phrs}"
+        .else
+          .assign attr_result = "$cr{aone.Txt_Phrs}"
         .end if
       .end if 
     .end if
@@ -508,7 +513,12 @@ p_${an.body}\
 .// - put in by wgt
 .print "Time is: ${info.date}"
 .assign send_changes = package.is_eclipse_plugin
-.invoke translate_all_oal( mc_root_pkg, application_root_class, send_changes );
+.assign already_translated = false
+.if ((mc_class_only == "") and (mc_ss_only == ""))
+  .// Translate all OAL unless looking for a specific package or class.
+  .invoke translate_all_oal( mc_root_pkg, application_root_class, send_changes );
+  .assign already_translated = true
+.end if
 .print "Time is: ${info.date}"
 .//
 .//
@@ -517,7 +527,7 @@ p_${an.body}\
   .assign translate_enabled = false
 .end if
 .//
-.if (translate_enabled == true)
+.if ((translate_enabled == true) and ((mc_ss_only == "") and (mc_class_only == "")))
   .invoke gen_enum_classes( package.name, package.location, project_root )
   .//
   .//
@@ -610,13 +620,19 @@ ${blck.body}
     .assign translate_enabled = false
     .break for
   .end if
-  .if (translate_enabled == true)
+  .if ((translate_enabled == true) and ((mc_ss_only == "") or (mc_ss_only == pkg.Name)))
     .if ("${pkg.Descrip:Translate}" == "false")
       .print "Package ${pkg.Name} ignored"
     .else
+      .if (mc_ss_only == pkg.Name)
+        .// Translate OAL before translating the specifically requested class.
+        .invoke translate_all_oal( mc_root_pkg, application_root_class, send_changes );
+        .assign already_translated = true
+      .end if
       .invoke tcn = get_test_class_name()
       .select many objects related by pkg->PE_PE[R8000]->O_OBJ[R8001]
       .for each object in objects
+        .if ((mc_class_only == "") or (mc_class_only == object.Name))
         .print " Translating Object:   ${object.Name}"
         .invoke cn = get_class_name ( object )
         .assign class_name = "${cn.body}"
@@ -1086,11 +1102,11 @@ ${gen_RGO_resolution.body}\
   
   public void batchRelate(ModelRoot modelRoot, boolean relateProxies, boolean notifyChanges, boolean searchAllRoots)
   {
+        .assign rto_ref_var_name = ""
         .if ( not_empty ref_rel_set )
         InstanceList instances=null;
         ModelRoot baseRoot = modelRoot;
           .for each ref_rel in ref_rel_set
-
             .select any frm_ref_end related by ref_rel->R_FORM[R205]
             .assign notAlreadyRelatedTest = ""
             .if (not_empty frm_ref_end)
@@ -1101,17 +1117,20 @@ ${gen_RGO_resolution.body}\
               .assign tar_txt_phrs = "${tar_rel_end.Txt_Phrs}"
               .invoke grvn = get_referential_var_name( tar_obj, tar_txt_phrs )
               .assign ref_var_name = "${grvn.body}"
-              .assign notAlreadyRelatedTest = "${grvn.body} == null"
+              .assign rto_ref_var_name = ref_var_name
+              .assign notAlreadyRelatedTest = "${grvn.body} == null || ${grvn.body}.isProxy()"
     if (${notAlreadyRelatedTest}) {          
             .end if
             .select one rel related by ref_rel->R_OIR[R203]->R_REL[R201]
             .select many rto_set related by rel->R_OIR[R201]->R_RTO[R203]
       // R${rel.Numb}
+            .assign rto_index = 0
             .for each rto in rto_set
+              .assign rto_index = rto_index + 1
               .select one rto_obj related by rto->R_OIR[R203]->O_OBJ[R201]
               .invoke rcn = get_class_name( rto_obj )
               .invoke guk = get_unique_instance_key_from_rto(object, rto)
-              .assign rel_inst_var_name = "relInst${info.unique_num}"
+              .assign rel_inst_var_name = "relInst${rto_obj.Key_Lett}${rel.Numb}_${rto_index}"
               .if ("${rto_obj.Descrip:PEI}" == "true")
       baseRoot = ${package.application_root_class}.getDefaultInstance();
       if(baseRoot != modelRoot && modelRoot.isCompareRoot()) {
@@ -1163,9 +1182,31 @@ ${gen_RGO_resolution.body}\
             if (${rel_inst_var_name} == null) {
                 ${rel_inst_var_name} = (${rcn.body}) Ooaofooa.getDefaultInstance().getInstanceList(${rcn.body}.class).get(new Object[] ${guk.key});
             }
+            // if we did not find the element, load all possible PMCs containing expected RTO type
+            // then search again by id
+            .// For now this is a workaround special case, the case is for Base Attribute
+            .// where there is a circular dependency between itself and a Referential Attribute
+            .if(object.Key_Lett != "O_BATTR")
+            Object[] ${rel_inst_var_name}_uk = new Object[] ${guk.key};
+            if(${rel_inst_var_name}_uk[0] instanceof UUID && ((UUID) ${rel_inst_var_name}_uk[0]).getLeastSignificantBits() != 0) {
+				if((${rel_inst_var_name} == null  || ${rel_inst_var_name}.isProxy()) && !baseRoot.isCompareRoot() && !isProxy() && !((UUID) ${rel_inst_var_name}_uk[0]).equals(Gd_c.Null_unique_id())) {
+					// load all potential PMCs that may contain our target 
+					PersistenceManager.ensureAllInstancesLoaded(null,
+							Package_c.class, getPersistableComponent());
+					PersistenceManager.ensureAllInstancesLoaded(null,
+							Component_c.class, getPersistableComponent());
+					PersistenceManager.ensureAllInstancesLoaded(null,
+							ModelClass_c.class, getPersistableComponent());
+					PersistenceManager.ensureAllInstancesLoaded(null,
+							InstanceStateMachine_c.class, getPersistableComponent());
+					PersistenceManager.ensureAllInstancesLoaded(null,
+							ClassStateMachine_c.class, getPersistableComponent());
+				}
+			}
+			.end if
                 .assign search_all_model_roots = package.search_all_model_roots
                 .if(search_all_model_roots)
-            if (${rel_inst_var_name} == null && searchAllRoots && !baseRoot.isCompareRoot()) {
+            if ((${rel_inst_var_name} == null  || ${rel_inst_var_name}.isProxy()) && searchAllRoots && !baseRoot.isCompareRoot()) {
                 ${application_root_class}[] roots = ${application_root_class}.getInstances();
                 for (int i = 0; i < roots.length; i++) {
                     if(roots[i].isCompareRoot()) {
@@ -1173,14 +1214,32 @@ ${gen_RGO_resolution.body}\
                          continue;
                     }
                     ${rel_inst_var_name} = (${rcn.body}) roots[i].getInstanceList(${rcn.body}.class).get(new Object[] ${guk.key});
+                  .if((not_empty frm_ref_end) and ("${rto_ref_var_name}" != ""))
+					if (${rel_inst_var_name} != null) {
+						if (!${rel_inst_var_name}.isProxy() && ${rto_ref_var_name} != null) {
+							// relate to the non proxy element if the current referred to
+							// is a proxy and we are not
+							if (!isProxy()) {
+								if (${rto_ref_var_name}.isProxy()) {
+									break;
+								}
+							}
+						} else {
+							if (${rto_ref_var_name} == null)
+								// relate to the found proxy (initial batch relate)
+								break;
+						}
+					}
+                  .else
                     if (${rel_inst_var_name} != null)
-                        break;
+                    	break;
+                  .end if
                 }
             }
                 .end if
               .end if
             //synchronized
-      if ( ${rel_inst_var_name} != null )
+      if ( ${rel_inst_var_name} != null ) 
       {
               .invoke grf = get_reflexive_phrase( rel, rto, false )
               .assign func_suffix = grf.result
@@ -2123,13 +2182,19 @@ ${gsm.body}\
 
           .emit to file "${project_root}/${package.location}/$cr{object.Name}_assgner_c.java"
         .end if
+        .end if .// mc_class_only
       .end for
     .end if
   .end if .// if translate_enabled
 .end for .// each package
 .//
 .//
-.if (translate_enabled == true)
+.if (((translate_enabled == true) or (mc_ss_only != "")) and (mc_class_only == ""))
+  .if (not already_translated)
+    .// Translate OAL before translating the specifically requested package.
+    .invoke translate_all_oal( mc_root_pkg, application_root_class, send_changes );
+    .assign already_translated = true
+  .end if
   .invoke gfh = get_file_header("${package.name}.${package.application_root_class}.java")
 ${gfh.body}\
 
@@ -2141,6 +2206,10 @@ package ${package.name};
 import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
+
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import org.eclipse.jface.preference.IPreferenceStore;
 
 import org.xtuml.bp.core.util.UIUtil;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -2301,8 +2370,9 @@ IProgressMonitor pm\
 ${dom_cons.body}
   //
   // Domain level functions
-  .// This should really recursively descend to find functions. At the moment it relies on functions being in the top tier of packages.
-  .select many functions related by root_pkg->PE_PE[R8000]->EP_PKG[R8001]->PE_PE[R8000]->S_SYNC[R8001] where (("$U_{selected.Descrip:ContextMenuFunction}" != "TRUE") and ("$U_{selected.Descrip:ParserValidateFunction}" != "TRUE"))
+  .select many pkgs related by root_pkg->PE_PE[R8000]->EP_PKG[R8001]
+  .select many functions related by pkgs->PE_PE[R8000]->S_SYNC[R8001] where (("$U_{selected.Descrip:ContextMenuFunction}" != "TRUE") and ("$U_{selected.Descrip:ParserValidateFunction}" != "TRUE"))
+  .while ( not_empty functions )
   .for each function in functions
     .select one ret_type related by function->S_DT[R25]
     .invoke type = do_type(ret_type)
@@ -2339,6 +2409,9 @@ ${blck.body}
    }  // End ${function.Name}
 
   .end for
+  .select many pkgs related by pkgs->PE_PE[R8000]->EP_PKG[R8001]
+  .select many functions related by pkgs->PE_PE[R8000]->S_SYNC[R8001] where (("$U_{selected.Descrip:ContextMenuFunction}" != "TRUE") and ("$U_{selected.Descrip:ParserValidateFunction}" != "TRUE"))
+  .end while
   // End Domain functions
 
     /**

@@ -93,7 +93,7 @@ public class ExportBuilder extends AbstractExportBuilder {
 	 * 
 	 * @throws CoreException
 	 */
-	private void setArgs(Map<String, String> args) throws CoreException{
+	public void setArgs(Map<String, String> args) throws CoreException{
 		String statusMsg = "ExportBuilder::setArgs()\n";
 		
 		// This is used when the project bring built is not the same as the one being
@@ -136,6 +136,13 @@ public class ExportBuilder extends AbstractExportBuilder {
 		}
 		
 		//System.out.println(statusMsg);
+	}
+	
+	@Override
+	public List<SystemModel_c> exportSystem(SystemModel_c system,
+			String destDir, final IProgressMonitor monitor, boolean append,
+			String originalSystem, boolean doNotParse) throws CoreException {
+		return exportSystem(system, destDir, monitor, append, originalSystem);
 	}
 	
 	public List<SystemModel_c> exportSystem(SystemModel_c system,
@@ -216,7 +223,7 @@ public class ExportBuilder extends AbstractExportBuilder {
 				if (!genFolder.exists()) {
 					genFolder.create(true, true, new NullProgressMonitor());
 				}
-				IFolder codeFolder = genFolder.getFolder(getCodeGenFolderPath()
+				IFolder codeFolder = genFolder.getFolder(getCodeGenFolderPath(proj)
 						.lastSegment());
 				if (!codeFolder.exists()) {
 					codeFolder.create(true, true, new NullProgressMonitor());

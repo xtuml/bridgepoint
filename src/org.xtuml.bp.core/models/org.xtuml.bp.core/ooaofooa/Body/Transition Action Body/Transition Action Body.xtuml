@@ -23,7 +23,8 @@ delete object instance self;
 ',
 	1,
 	'',
-	"00000000-0000-0000-0000-000000000000");
+	"00000000-0000-0000-0000-000000000000",
+	0);
 INSERT INTO O_TFR
 	VALUES ("fa111a01-72cc-4040-b6e7-473f85cca767",
 	"c0a292d0-892d-451f-a333-c6485a4a9686",
@@ -35,7 +36,8 @@ INSERT INTO O_TFR
 return stateMachine.getContainingComponentId();',
 	1,
 	'',
-	"9f21a40a-a650-455d-ad48-a4c89af72adf");
+	"9f21a40a-a650-455d-ad48-a4c89af72adf",
+	0);
 INSERT INTO O_TFR
 	VALUES ("a52e39d8-2e83-4a57-a010-a23b2de8ba44",
 	"c0a292d0-892d-451f-a333-c6485a4a9686",
@@ -48,7 +50,8 @@ select one stateMachine related by self->SM_ACT[R688]->SM_SM[R515];
 return stateMachine.getContainerId();',
 	1,
 	'',
-	"fa111a01-72cc-4040-b6e7-473f85cca767");
+	"fa111a01-72cc-4040-b6e7-473f85cca767",
+	0);
 INSERT INTO O_TFR
 	VALUES ("f40f8083-0147-4825-bfcf-46f6cd60ab47",
 	"c0a292d0-892d-451f-a333-c6485a4a9686",
@@ -77,7 +80,8 @@ end if;
 return actionPath;',
 	1,
 	'',
-	"a52e39d8-2e83-4a57-a010-a23b2de8ba44");
+	"a52e39d8-2e83-4a57-a010-a23b2de8ba44",
+	0);
 INSERT INTO O_REF
 	VALUES ("c0a292d0-892d-451f-a333-c6485a4a9686",
 	"d1c9af7b-9df6-432a-a25e-96cab24fc6af",

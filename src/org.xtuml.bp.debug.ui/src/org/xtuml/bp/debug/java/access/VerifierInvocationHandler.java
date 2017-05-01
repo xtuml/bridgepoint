@@ -11,13 +11,6 @@ import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 
-import lib.BPBoolean;
-import lib.BPFloat;
-import lib.BPInteger;
-import lib.BPString;
-import lib.BPUniqueId;
-import lib.LOG;
-
 import org.xtuml.bp.core.ActualParameter_c;
 import org.xtuml.bp.core.ArrayValue_c;
 import org.xtuml.bp.core.BlockInStackFrame_c;
@@ -75,9 +68,15 @@ import org.xtuml.bp.core.Variable_c;
 import org.xtuml.bp.core.Vm_c;
 import org.xtuml.bp.core.common.IdAssigner;
 import org.xtuml.bp.core.common.ModelRoot;
-import org.xtuml.bp.core.ui.cells.providers.ComponentInstanceCellProvider;
 import org.xtuml.bp.core.util.BPClassLoader;
 import org.xtuml.bp.debug.ui.model.BPThread;
+
+import lib.BPBoolean;
+import lib.BPFloat;
+import lib.BPInteger;
+import lib.BPString;
+import lib.BPUniqueId;
+import lib.LOG;
 
 public class VerifierInvocationHandler implements InvocationHandler {
 
@@ -161,10 +160,10 @@ public class VerifierInvocationHandler implements InvocationHandler {
 						.getModelRoot().getInstanceList(RuntimeChannel_c.class)
 						.getGlobal(channelID);
 				ComponentInstance_c targetEngine = ComponentInstance_c
-						.getOneI_EXEOnR2968IsInterfaceProviderTo(channel);
+						.getOneI_EXEOnR2968IsInterfaceRequirerOf(channel);
 				if (targetInterfaceIsRequired) {
 					targetEngine = ComponentInstance_c
-							.getOneI_EXEOnR2968IsInterfaceRequirerOf(channel);
+							.getOneI_EXEOnR2968IsInterfaceProviderTo(channel);
 				}
 				Stack_c targetStack = Stack_c
 						.getOneI_STACKOnR2930(targetEngine);
@@ -546,7 +545,7 @@ public class VerifierInvocationHandler implements InvocationHandler {
 				// Normal operation, do nothing ...
 			}
 			if (meth != null) {
-				Class<?> memberClass = getClassForType(type);
+				Class<?> memberClass = getClassForCoreTypeOf(type, false);
 				if (memberClass != null && 
 						   memberClass.isAssignableFrom(meth.getReturnType())) {
 					try {
@@ -1303,7 +1302,7 @@ ValueInStackFrame_c localVsf = ValueInStackFrame_c.getOneI_VSFOnR2951(localStack
 									LOG.LogInfo("Illegal access exception while getting field value for realized data type: " + ex);
 								}
 							}
-							setField(result, member, field, rVal, memberDt,
+							setField(clazz, result, member, field, rVal, memberDt,
 									value, ci);
 							// continue to next member
 							break;
@@ -1314,18 +1313,48 @@ ValueInStackFrame_c localVsf = ValueInStackFrame_c.getOneI_VSFOnR2951(localStack
 		return result;
 	}
 
-	private static void setField(Object result, StructureMember_c member,
+	private static void setField(Class<?> clazz, Object result, StructureMember_c member,
 			Field field, RuntimeValue_c rVal, DataType_c memberDt, Object value, ComponentInstance_c ci) {
 		Dimensions_c [] dims = Dimensions_c.getManyS_DIMsOnR53(member);
 		value = marshallContentOut(rVal, memberDt, value, dims.length, false, ci);
+
+		Method meth = null;
 		try {
-			field.set(result, value);
-		} catch (IllegalArgumentException e) {
+			meth = clazz.getDeclaredMethod("set" + field.getName(), 
+					getClassForCoreTypeOf(memberDt, false));
+		} catch (SecurityException e) {
 			String ex = e.getLocalizedMessage();
-			LOG.LogInfo("Illegal argument exception while setting field value for realized data type: " + ex);
-		} catch (IllegalAccessException e) {
-			String ex = e.getLocalizedMessage();
-			LOG.LogInfo("Illegal access exception while setting field value for realized data type: " + ex);
+			LOG.LogInfo("Security exception while calling setter for realized data type: " + ex);
+		} catch (NoSuchMethodException e) {
+			// Expected code path, do nothing
+		}
+		
+		if(meth != null) {
+			// Found setter, use it
+			try {
+				meth.invoke(result, value);
+			} catch (IllegalAccessException e) {
+				String ex = e.getLocalizedMessage();
+				LOG.LogInfo("Illegal access exception while calling setter for realized data type: " + ex);
+			} catch (IllegalArgumentException e) {
+				String ex = e.getLocalizedMessage();
+				LOG.LogInfo("Illegal argument exception while calling setter for realized data type: " + ex);
+			} catch (InvocationTargetException e) {
+				String ex = e.getLocalizedMessage();
+				LOG.LogInfo("Invocation target exception while calling setter for realized data type: " + ex);
+			}
+		}
+		else {
+			// No setter, fall back to direct field modification.
+			try {
+				field.set(result, value);
+			} catch (IllegalArgumentException e) {
+				String ex = e.getLocalizedMessage();
+				LOG.LogInfo("Illegal argument exception while setting field value for realized data type: " + ex);
+			} catch (IllegalAccessException e) {
+				String ex = e.getLocalizedMessage();
+				LOG.LogInfo("Illegal access exception while setting field value for realized data type: " + ex);
+			}
 		}
 	}
 
@@ -1486,6 +1515,73 @@ ValueInStackFrame_c localVsf = ValueInStackFrame_c.getOneI_VSFOnR2951(localStack
 		// Must be an enumerated or structured type, there is no core type
 		return dt;
 	}
+	
+    static Class<?> getClassForCoreTypeOf(DataType_c dt, boolean byRef) {
+        DataType_c coreDt = getCoreTypeForDt(dt);
+        CoreDataType_c cdt = CoreDataType_c.getOneS_CDTOnR17(coreDt);
+        StructuredDataType_c sdt = StructuredDataType_c
+                .getOneS_SDTOnR17(coreDt);
+        EnumerationDataType_c edt = EnumerationDataType_c
+                .getOneS_EDTOnR17(coreDt);
+        UserDataType_c udt = UserDataType_c.getOneS_UDTOnR17(dt);
+        if (cdt != null) {
+            DataType_c superType = DataType_c.getOneS_DTOnR17(cdt);
+            if (superType.getName().equals("integer")) {
+                return byRef ? BPInteger.class : int.class;
+            } else if (superType.getName().equals("real")) {
+                return byRef ? BPFloat.class : float.class;
+            } else if (superType.getName().equals("string")) {
+                return byRef ? BPString.class : java.lang.String.class;
+            } else if (superType.getName().equals("boolean")) {
+                return byRef ? BPBoolean.class : boolean.class;
+            } else if (superType.getName().equals("unique_id")) {
+                return byRef ? BPUniqueId.class : java.util.UUID.class;
+            } else if (superType.getName().equals("component_ref")) {
+                return java.lang.Object.class;
+            } else if (superType.getName().equals("state<State_Model>")) {
+                return java.lang.Object.class;
+            } else if (superType.getName().equals("inst_ref<Object>")) {
+                return java.lang.Object.class;
+            } else if (superType.getName().equals("inst_ref_set<Object>")) {
+                return java.lang.Object.class;
+            } else if (superType.getName().equals("inst<Event>")) {
+                return java.lang.Object.class;
+            } else if (superType.getName().equals("inst<Event>")) {
+                return java.lang.Object.class;
+            } else if (superType.getName().equals("date")) {
+                return java.lang.Object.class;
+            } else if (superType.getName().equals("inst_ref<Timer>")) {
+                return java.lang.Object.class;
+            } else if (superType.getName().equals("timestamp")) {
+                return java.lang.Object.class;
+            } else if (superType.getName().equals("void")) {
+                return void.class;
+            }
+        } else if (sdt != null || edt != null) {
+            Package_c pkg = Package_c.getOneEP_PKGOnR8000(PackageableElement_c
+                    .getOnePE_PEOnR8001(coreDt));
+            if (pkg != null) {
+                String typeName = pathToClassName(pkg.Getpath("") + "::" + coreDt.getName());
+                Class<?> realizedDT = null;
+                BPClassLoader bpcl = Vm_c.getVmCl(pkg.Getsystemid());
+                try {
+                    realizedDT = bpcl.loadClass(typeName);
+                } catch (ClassNotFoundException cnf) {
+                    // Do nothing, this will be reported elsewhere
+                }
+                if (realizedDT != null) {
+                    return realizedDT;
+                }
+            }
+        } else if (udt != null) {
+            DataType_c definition = DataType_c.getOneS_DTOnR18(udt);    
+            if (definition != null) {
+                return getClassForCoreTypeOf(definition, byRef);
+            }
+            
+        }
+        return null;
+    }
 
 	public static void handleReturnValue(Stack_c stack) {
 		ComponentInstance_c ci = ComponentInstance_c.getOneI_EXEOnR2930(stack);

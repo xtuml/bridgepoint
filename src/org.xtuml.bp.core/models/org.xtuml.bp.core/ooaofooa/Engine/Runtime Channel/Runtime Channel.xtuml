@@ -53,7 +53,8 @@ end if;
 delete object instance self;',
 	1,
 	'',
-	"00000000-0000-0000-0000-000000000000");
+	"00000000-0000-0000-0000-000000000000",
+	0);
 INSERT INTO O_NBATTR
 	VALUES ("33f9f584-888f-48c5-a37a-26b4838dc031",
 	"16cbdbda-fb38-48cf-83a9-c98dcd2053fc");
@@ -134,7 +135,7 @@ INSERT INTO O_REF
 	'',
 	'Component Instance',
 	'Execution_Engine_ID',
-	'R2968.''is interface provider to''');
+	'R2968.''is interface requirer of''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("16cbdbda-fb38-48cf-83a9-c98dcd2053fc",
 	"321ee7a6-f2fb-493d-a736-c7860d056e13",
@@ -185,7 +186,7 @@ INSERT INTO O_REF
 	'',
 	'Component Instance',
 	'Execution_Engine_ID',
-	'R2968.''is interface requirer of''');
+	'R2968.''is interface provider to''');
 INSERT INTO O_RTIDA_PROXY
 	VALUES ("28aa4283-2190-4d46-b247-2cf82958ad34",
 	"e31aa7b2-374b-4a6c-8c11-b9762ce9c824",

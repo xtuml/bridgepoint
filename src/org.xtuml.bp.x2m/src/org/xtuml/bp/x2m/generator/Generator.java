@@ -1,12 +1,3 @@
-//====================================================================
-//
-// File:      $RCSfile: Generator.java,v $
-// Version:   $Revision: 1.23 $
-// Modified:  $Date: 2013/01/10 23:43:41 $
-//
-// (c) Copyright 2004-2014 by Mentor Graphics Corp.  All rights reserved.
-//
-//====================================================================
 package org.xtuml.bp.x2m.generator;
 
 import java.io.BufferedOutputStream;
@@ -55,10 +46,9 @@ import org.xtuml.bp.mc.c.source.ExportBuilder;
 
 public class Generator extends Task {
     
-    public static final String X2M_DIR = "/tools/masl/lib/";
+    public static final String X2M_DIR = "/tools/mc/bin/";
     public static final String X2M_CMD = "xtuml2masl";
-    public static final String BIN_DIR = "/mc3020/bin/";
-    public static final String X2M_EXE = "xtumlmc_build.exe";
+    public static final String X2M_EXE = "xtumlmc_build";
     public static final String MASL_DIR = "/masl/";
     public static final String CODE_GEN_DIR = "/gen/code_generation/";
     public static final String LOGFILE = "export.log";
@@ -208,7 +198,7 @@ public class Generator extends Task {
                                     monitor.subTask("Gathering model information");
                                     ExportBuilder eb = new ExportBuilder();
                                     new File(codeGenPath).mkdirs();
-                                    eb.exportSystem(sys, codeGenPath, new NullProgressMonitor());
+                                    eb.exportSystem(sys, codeGenPath, new NullProgressMonitor(), false, "", false);
                                     monitor.worked(1);
                                     break;
                                 case 4:
@@ -291,12 +281,11 @@ public class Generator extends Task {
         throws IOException, RuntimeException, CoreException, InterruptedException 
     {
         // Call xtuml2masl
-        String homedir = System.getenv("BPHOMEDIR");
-        String masl_dir = homedir + X2M_DIR;
+        String homedir = System.getProperty("eclipse.home.location"); //$NON-NLS-1$
+        homedir = homedir.replaceFirst("file:", ""); //$NON-NLS-1$
+        String bin_dir = homedir + X2M_DIR;
 
-        AbstractActivator activator = org.xtuml.bp.mc.c.source.Activator.getDefault();
-        String plugin_dir = activator.getPluginPathAbsolute();
-        String app = plugin_dir + BIN_DIR + X2M_EXE;
+        String app = bin_dir + X2M_EXE;
 
         File err = new File(workingDir + LOGFILE);
 
@@ -324,11 +313,11 @@ public class Generator extends Task {
 
         // set up the environment
         Map<String, String> env = pb.environment();
-        env.put( "MASL_BIN_DIR", masl_dir );
+        env.put( "MASL_BIN_DIR", bin_dir );
 
         // set error redirect and change working dir
         pb.redirectError(err);
-        pb.directory(new File(workingDir));
+        pb.directory(new File(bin_dir));
 
         // start the process
         Process process = pb.start();

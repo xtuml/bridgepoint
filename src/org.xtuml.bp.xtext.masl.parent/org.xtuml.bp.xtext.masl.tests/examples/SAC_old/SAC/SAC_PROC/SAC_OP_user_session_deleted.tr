@@ -1,0 +1,13 @@
+//
+// Filename: SAC_OP_user_session_deleted.tr
+//
+// Description: 
+//
+// UK Crown Copyright (c) 2010. All rights reserved.
+//
+private service SAC::Operator~>user_session_deleted (session_id : in  integer) is
+begin
+   
+   I_DC::info_delete_User_Session(session_id);
+   
+end service;

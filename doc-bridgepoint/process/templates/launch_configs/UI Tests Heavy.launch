@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<launchConfiguration type="org.eclipse.cdt.launch.launchGroup">
+<stringAttribute key="org.eclipse.cdt.launch.launchGroup.0.action" value="NONE"/>
+<stringAttribute key="org.eclipse.cdt.launch.launchGroup.0.enabled" value="true"/>
+<stringAttribute key="org.eclipse.cdt.launch.launchGroup.0.mode" value="default"/>
+<stringAttribute key="org.eclipse.cdt.launch.launchGroup.0.name" value="Graphical Tests Heavy"/>
+<stringAttribute key="org.eclipse.cdt.launch.launchGroup.1.action" value="NONE"/>
+<stringAttribute key="org.eclipse.cdt.launch.launchGroup.1.enabled" value="true"/>
+<stringAttribute key="org.eclipse.cdt.launch.launchGroup.1.mode" value="default"/>
+<stringAttribute key="org.eclipse.cdt.launch.launchGroup.1.name" value="Explorer Tests"/>
+<stringAttribute key="org.eclipse.cdt.launch.launchGroup.2.action" value="NONE"/>
+<stringAttribute key="org.eclipse.cdt.launch.launchGroup.2.enabled" value="true"/>
+<stringAttribute key="org.eclipse.cdt.launch.launchGroup.2.mode" value="default"/>
+<stringAttribute key="org.eclipse.cdt.launch.launchGroup.2.name" value="Properties Tests"/>
+<stringAttribute key="org.eclipse.cdt.launch.launchGroup.3.action" value="NONE"/>
+<stringAttribute key="org.eclipse.cdt.launch.launchGroup.3.enabled" value="true"/>
+<stringAttribute key="org.eclipse.cdt.launch.launchGroup.3.mode" value="default"/>
+<stringAttribute key="org.eclipse.cdt.launch.launchGroup.3.name" value="Text Tests"/>
+</launchConfiguration>

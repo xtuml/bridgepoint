@@ -27,7 +27,8 @@ else
 end if;',
 	1,
 	'',
-	"4e20081b-f900-48c9-9d49-e85dc60c98fe");
+	"4e20081b-f900-48c9-9d49-e85dc60c98fe",
+	0);
 INSERT INTO S_DT_PROXY
 	VALUES ("6e636321-0fd1-4577-b185-e4d76b0d0c71",
 	"00000000-0000-0000-0000-000000000000",
@@ -56,7 +57,8 @@ else
 end if;',
 	1,
 	'',
-	"05c9eab9-c26d-4e88-85f3-e55c0dfc562f");
+	"05c9eab9-c26d-4e88-85f3-e55c0dfc562f",
+	0);
 INSERT INTO O_TFR
 	VALUES ("05c9eab9-c26d-4e88-85f3-e55c0dfc562f",
 	"fcc05ac4-6434-449e-9045-c76c52ee8c78",
@@ -92,7 +94,8 @@ else
 end if;',
 	1,
 	'',
-	"7ffab0fc-8fc5-4ee5-a71a-d3ba51543986");
+	"7ffab0fc-8fc5-4ee5-a71a-d3ba51543986",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("40757e82-e8b9-4fcd-b026-9f3622788a21",
 	"05c9eab9-c26d-4e88-85f3-e55c0dfc562f",
@@ -154,7 +157,8 @@ end if;
 ',
 	1,
 	'',
-	"77be2f77-200e-4237-8338-b8bc57e4590e");
+	"77be2f77-200e-4237-8338-b8bc57e4590e",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("98d952c6-685f-4208-927a-43a8e4f0d95b",
 	"2fcc2c57-0336-4ca2-8df4-cbb442c1ad89",
@@ -182,7 +186,8 @@ else
 end if;',
 	1,
 	'',
-	"bc91d7b0-cd37-4d71-a924-62c815956051");
+	"bc91d7b0-cd37-4d71-a924-62c815956051",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("f9c16a66-4847-484e-bd9a-ebb66d617f01",
 	"d0f91843-3568-459e-99b5-55cf53fee2df",
@@ -222,7 +227,8 @@ Bridge:GD',
 	'return self.IObj_ID;',
 	1,
 	'',
-	"e291e203-6773-458d-a76d-fdd8b295f052");
+	"e291e203-6773-458d-a76d-fdd8b295f052",
+	0);
 INSERT INTO O_TFR
 	VALUES ("8d02c619-b5eb-4173-8a8c-981d6d50fedf",
 	"fcc05ac4-6434-449e-9045-c76c52ee8c78",
@@ -230,43 +236,7 @@ INSERT INTO O_TFR
 	'The dispose operation for an Imported Class.',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
-	'// Subsystem Subsystem
-select one realObj related by self->O_OBJ[R101];
-if (not_empty realObj)
-  unrelate self from realObj across R101;
-end if;  
-// Association Subsystem
-select many oirs related by self->R_OIR[R202];
-for each oir in oirs
-  select one assoc related by oir->R_REL[R201];
-  if not_empty assoc
-    if realObj.isEssentialToAssoc(id: assoc.Rel_ID)
-      assoc.dispose();
-    else
-      oir.dispose();
-    end if;
-  else
-    oir.dispose();
-  end if;
-end for;
-//
-// Communication and Access Subsystem
-select many oaps related by self->CA_ACC[R425];
-for each oap in oaps
-  oap.dispose();
-end for;
-select many daps related by self->CA_SMOA[R420]->CA_ACC[R415];
-for each dap in daps
-  dap.dispose();
-end for;
-select many dcps related by self->CA_SMSMC[R414]->CA_COMM[R401];
-for each dcp in dcps
-  dcp.dispose();
-end for;
-select many ocps related by self->CA_SMSMC[R424]->CA_COMM[R401];
-for each ocp in ocps
-  ocp.dispose();
-end for;
+	'self.unAssign();
 select one pe related by self->PE_PE[R8001];
 if (not_empty pe)
   unrelate self from pe across R8001;
@@ -277,7 +247,8 @@ end if;
 delete object instance self;',
 	1,
 	'',
-	"f751e973-7ae0-4fe5-9dd7-d4d9d882d893");
+	"f751e973-7ae0-4fe5-9dd7-d4d9d882d893",
+	0);
 INSERT INTO O_TFR
 	VALUES ("e291e203-6773-458d-a76d-fdd8b295f052",
 	"fcc05ac4-6434-449e-9045-c76c52ee8c78",
@@ -294,7 +265,8 @@ end if;
 ',
 	1,
 	'',
-	"2fcc2c57-0336-4ca2-8df4-cbb442c1ad89");
+	"2fcc2c57-0336-4ca2-8df4-cbb442c1ad89",
+	0);
 INSERT INTO O_TFR
 	VALUES ("8fc3ef85-c77a-49b6-86b8-192a0dfb5c62",
 	"fcc05ac4-6434-449e-9045-c76c52ee8c78",
@@ -316,14 +288,17 @@ INSERT INTO O_TFR
     // collect visible classes, and return true if any
     // are available
     if(not_empty package)
+      select one sys related by package->S_SYS[R1405];
       // should never be empty until we support
       // classes directly on the component diagram
+      allowIPRClasses = PREF::getSystemBoolean(systemName:sys.Name,
+                     name:"bp.project.class_references");
       package.clearScope();
       package.collectVisibleElementsForName(name:"",
                          type:ElementTypeConstants::CLASS, descending:false,
                                       originatingContainerID:package.Package_ID,
                                           delegatingPkgID:GD::NULL_UNIQUE_ID(),
-                                                         collectGlobally:false);
+                                                         collectGlobally:allowIPRClasses);
       select many srs related by package->PE_SRS[R8005]
                            where (selected.Type == ElementTypeConstants::CLASS);
       select many pes related by srs->PE_VIS[R8006]->PE_PE[R8002];
@@ -334,7 +309,8 @@ return false;
 ',
 	1,
 	'',
-	"00000000-0000-0000-0000-000000000000");
+	"00000000-0000-0000-0000-000000000000",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("a65c7d22-f1e6-44c7-bced-52b191d2a658",
 	"8fc3ef85-c77a-49b6-86b8-192a0dfb5c62",
@@ -369,7 +345,8 @@ elideAtFront = param.compartmentNum == 1 and param.entryNum == 1
 return not elideAtFront;',
 	1,
 	'',
-	"8d02c619-b5eb-4173-8a8c-981d6d50fedf");
+	"8d02c619-b5eb-4173-8a8c-981d6d50fedf",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("fda67ed8-0d06-4dcb-8242-68b8428ca887",
 	"7ffab0fc-8fc5-4ee5-a71a-d3ba51543986",
@@ -454,7 +431,8 @@ end if;
 ',
 	1,
 	'',
-	"d0f91843-3568-459e-99b5-55cf53fee2df");
+	"d0f91843-3568-459e-99b5-55cf53fee2df",
+	0);
 INSERT INTO O_TFR
 	VALUES ("f751e973-7ae0-4fe5-9dd7-d4d9d882d893",
 	"fcc05ac4-6434-449e-9045-c76c52ee8c78",
@@ -465,7 +443,8 @@ INSERT INTO O_TFR
 	'return this;',
 	0,
 	'',
-	"8fc3ef85-c77a-49b6-86b8-192a0dfb5c62");
+	"8fc3ef85-c77a-49b6-86b8-192a0dfb5c62",
+	0);
 INSERT INTO S_DT_PROXY
 	VALUES ("bc3722c8-5188-4529-8519-cf9eb9816b17",
 	"00000000-0000-0000-0000-000000000000",
@@ -513,7 +492,8 @@ return false;
 ',
 	1,
 	'',
-	"b4220991-2026-46a9-a638-5ef9173565ee");
+	"b4220991-2026-46a9-a638-5ef9173565ee",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("7861a736-a70b-4827-93ab-89e0251ea66e",
 	"4d1f1e3b-fef4-41b9-9ab1-82f165f5ad34",
@@ -537,7 +517,8 @@ end if;
 return self.convertToInstance();',
 	1,
 	'',
-	"4d1f1e3b-fef4-41b9-9ab1-82f165f5ad34");
+	"4d1f1e3b-fef4-41b9-9ab1-82f165f5ad34",
+	0);
 INSERT INTO O_TFR
 	VALUES ("af2ef0ca-7ecc-4e76-a1b1-5a8dd3e17006",
 	"fcc05ac4-6434-449e-9045-c76c52ee8c78",
@@ -549,7 +530,8 @@ INSERT INTO O_TFR
 return cardinality rsimpParticipants; ',
 	1,
 	'',
-	"3191a426-dbbb-4691-b0f9-10628b7051b6");
+	"3191a426-dbbb-4691-b0f9-10628b7051b6",
+	0);
 INSERT INTO O_TFR
 	VALUES ("21c8dc5d-a56b-4a63-8902-b8d51b75f637",
 	"fcc05ac4-6434-449e-9045-c76c52ee8c78",
@@ -571,7 +553,8 @@ end for;
 return id;',
 	1,
 	'',
-	"af2ef0ca-7ecc-4e76-a1b1-5a8dd3e17006");
+	"af2ef0ca-7ecc-4e76-a1b1-5a8dd3e17006",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("6fa501a1-ec97-4442-b15f-3a9da7b80f3f",
 	"21c8dc5d-a56b-4a63-8902-b8d51b75f637",
@@ -592,7 +575,8 @@ INSERT INTO O_TFR
 return cardinality rSupers; ',
 	1,
 	'',
-	"21c8dc5d-a56b-4a63-8902-b8d51b75f637");
+	"21c8dc5d-a56b-4a63-8902-b8d51b75f637",
+	0);
 INSERT INTO O_TFR
 	VALUES ("ddababda-86c8-46d3-9c5a-ae4b86a2c9d3",
 	"fcc05ac4-6434-449e-9045-c76c52ee8c78",
@@ -614,7 +598,8 @@ end for;
 return id;',
 	1,
 	'',
-	"4072bf62-3db9-446d-8b9c-f56918c65560");
+	"4072bf62-3db9-446d-8b9c-f56918c65560",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("25a39b3a-0747-45f3-9a54-166b5ae6954b",
 	"ddababda-86c8-46d3-9c5a-ae4b86a2c9d3",
@@ -635,7 +620,8 @@ INSERT INTO O_TFR
 return cardinality rSubtypes; ',
 	1,
 	'',
-	"ddababda-86c8-46d3-9c5a-ae4b86a2c9d3");
+	"ddababda-86c8-46d3-9c5a-ae4b86a2c9d3",
+	0);
 INSERT INTO O_TFR
 	VALUES ("8bdc3e83-63a0-4949-8c3e-4fb9b15cde52",
 	"fcc05ac4-6434-449e-9045-c76c52ee8c78",
@@ -650,14 +636,15 @@ count = -1;
 for each rsub in rSubtypes
   count = count + 1;
   if (count == param.index)
-    id = rsub.Rel_ID;
+    id = rsub.OIR_ID;
     break;
   end if;
 end for; 
 return id;',
 	1,
 	'',
-	"4c05edac-d592-473a-98cf-26308922b9b4");
+	"4c05edac-d592-473a-98cf-26308922b9b4",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("555cb647-6825-489f-857a-dd1828106d4f",
 	"8bdc3e83-63a0-4949-8c3e-4fb9b15cde52",
@@ -678,7 +665,8 @@ INSERT INTO O_TFR
 return cardinality rAssocOnes; ',
 	1,
 	'',
-	"8bdc3e83-63a0-4949-8c3e-4fb9b15cde52");
+	"8bdc3e83-63a0-4949-8c3e-4fb9b15cde52",
+	0);
 INSERT INTO O_TFR
 	VALUES ("ee9706ab-871c-4161-bf74-9d890cd32893",
 	"fcc05ac4-6434-449e-9045-c76c52ee8c78",
@@ -700,7 +688,8 @@ end for;
 return id;',
 	1,
 	'',
-	"983c1f0d-04cf-4c60-b080-caf65d72ecbe");
+	"983c1f0d-04cf-4c60-b080-caf65d72ecbe",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("63e8e9a9-aff3-47f1-b39b-9c07cec845a8",
 	"ee9706ab-871c-4161-bf74-9d890cd32893",
@@ -721,7 +710,8 @@ INSERT INTO O_TFR
 return cardinality rsimpFormalizers; ',
 	1,
 	'',
-	"ee9706ab-871c-4161-bf74-9d890cd32893");
+	"ee9706ab-871c-4161-bf74-9d890cd32893",
+	0);
 INSERT INTO O_TFR
 	VALUES ("ff6170b7-41eb-4702-a8d9-31f260154fb2",
 	"fcc05ac4-6434-449e-9045-c76c52ee8c78",
@@ -743,7 +733,8 @@ end for;
 return id;',
 	1,
 	'',
-	"fd2be20b-0979-435e-b0a5-05e68b2f5889");
+	"fd2be20b-0979-435e-b0a5-05e68b2f5889",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("cd6078b9-2266-43b2-8728-47265503cd20",
 	"ff6170b7-41eb-4702-a8d9-31f260154fb2",
@@ -764,7 +755,8 @@ INSERT INTO O_TFR
 return cardinality rAssocOthers; ',
 	1,
 	'',
-	"ff6170b7-41eb-4702-a8d9-31f260154fb2");
+	"ff6170b7-41eb-4702-a8d9-31f260154fb2",
+	0);
 INSERT INTO O_TFR
 	VALUES ("d267768b-d798-499f-84be-9591d5f61455",
 	"fcc05ac4-6434-449e-9045-c76c52ee8c78",
@@ -786,7 +778,8 @@ end for;
 return id;',
 	1,
 	'',
-	"77736335-3fc8-41a5-82eb-5b81633cce42");
+	"77736335-3fc8-41a5-82eb-5b81633cce42",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("33bdbec1-fff7-4d31-b46c-8687129f8cd5",
 	"d267768b-d798-499f-84be-9591d5f61455",
@@ -808,7 +801,8 @@ return cardinality ClassAsLinks;
 ',
 	1,
 	'',
-	"d267768b-d798-499f-84be-9591d5f61455");
+	"d267768b-d798-499f-84be-9591d5f61455",
+	0);
 INSERT INTO O_TFR
 	VALUES ("8116a10e-3e77-4ef4-9e77-32ee055678d9",
 	"fcc05ac4-6434-449e-9045-c76c52ee8c78",
@@ -830,7 +824,8 @@ end for;
 return id;',
 	1,
 	'',
-	"6cdfb814-f4d0-4ed6-a53f-235eecc25c96");
+	"6cdfb814-f4d0-4ed6-a53f-235eecc25c96",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("960d59ef-01d2-4943-b18f-95626297114e",
 	"8116a10e-3e77-4ef4-9e77-32ee055678d9",
@@ -840,6 +835,128 @@ INSERT INTO O_TPARM
 	'',
 	"00000000-0000-0000-0000-000000000000",
 	'');
+INSERT INTO O_TFR
+	VALUES ("eda2bf77-e976-427f-9905-d631a8fa8690",
+	"fcc05ac4-6434-449e-9045-c76c52ee8c78",
+	'downgradeCheck',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'// Check if the assigned class is visible, unassign if not where unassign means
+// to unhook from the backing model class, delete associations, etc
+isAccessible = true; 
+
+// We only need to run this check if this component reference is assigned
+if ( self.isAssigned() )
+  isAccessible = self.canReferToClass();
+
+  if ( not isAccessible )
+    select one o_obj related by self->O_OBJ[R101];
+    self.dispose();
+    Util::reportElementDowngraded(rto:self.convertToInstance(), rgoDowngraded:o_obj.convertToInstance(), relationship:"R101");
+  end if;
+end if;
+',
+	1,
+	'',
+	"046e18dc-4636-496b-8ee5-910fc6ae82b4",
+	0);
+INSERT INTO O_TFR
+	VALUES ("8153f382-c914-47c5-8f37-71c307bca903",
+	"fcc05ac4-6434-449e-9045-c76c52ee8c78",
+	'canReferToClass',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000001",
+	1,
+	'select one o_obj related by self->O_OBJ[R101];
+select one pe related by self->PE_PE[R8001];
+isAccessible = true;
+if(not_empty pe)
+  // need to verify that the component in question
+  // is accessible
+  isAccessible = pe.isElementVisibleToSelf(type:
+                            ElementTypeConstants::CLASS, elementId:o_obj.Obj_ID);
+end if;
+return isAccessible and self.canAssignToClass(Id:o_obj.Obj_ID);',
+	1,
+	'',
+	"8116a10e-3e77-4ef4-9e77-32ee055678d9",
+	0);
+INSERT INTO O_TFR
+	VALUES ("398d015a-3d16-49a7-a385-0589b3c4a99e",
+	"fcc05ac4-6434-449e-9045-c76c52ee8c78",
+	'isAssigned',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000001",
+	1,
+	'select one o_obj related by self->O_OBJ[R101];
+return not_empty o_obj;
+',
+	1,
+	'',
+	"8153f382-c914-47c5-8f37-71c307bca903",
+	0);
+INSERT INTO O_TFR
+	VALUES ("046e18dc-4636-496b-8ee5-910fc6ae82b4",
+	"fcc05ac4-6434-449e-9045-c76c52ee8c78",
+	'unAssign',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'// Subsystem Subsystem
+select one o_obj related by self->O_OBJ[R101];
+if (not_empty o_obj)
+  unrelate self from o_obj across R101;
+end if;  
+// Association Subsystem
+select many oirs related by self->R_OIR[R202];
+for each oir in oirs
+  select one assoc related by oir->R_REL[R201];
+  if not_empty assoc
+    if o_obj.isEssentialToAssoc(id: assoc.Rel_ID)
+      assoc.dispose();
+    else
+      oir.dispose();
+    end if;
+  else
+    oir.dispose();
+  end if;
+end for;
+',
+	1,
+	'',
+	"398d015a-3d16-49a7-a385-0589b3c4a99e",
+	0);
+INSERT INTO O_TFR
+	VALUES ("e9ad7aac-ad15-45ca-b901-43414740f109",
+	"fcc05ac4-6434-449e-9045-c76c52ee8c78",
+	'isCuttable',
+	'A shape type is cuttable if it is selected, and if each connector anchored to it is also selected.',
+	"ba5eda7a-def5-0000-0000-000000000001",
+	1,
+	'cuttable = true;
+
+// check if this element is selected
+if ( not Sel::isSelected(element:self.convertToInstance()) )
+  cuttable = false;
+else
+  select many r_oirs related by self->R_OIR[R202];
+  for each r_oir in r_oirs
+    select one r_rel related by r_oir->R_REL[R201];
+    // if the association (connector) is not selected, this class is not
+    // cuttable. break from the loop
+    if ( not Sel::isSelected(element:r_rel.convertToInstance()) )
+      cuttable = false;
+      break;
+    end if;
+  end for;
+end if;
+
+return cuttable;',
+	1,
+	'',
+	"eda2bf77-e976-427f-9905-d631a8fa8690",
+	0);
 INSERT INTO O_NBATTR
 	VALUES ("a94ea28b-2350-4269-9287-788cea2336c6",
 	"fcc05ac4-6434-449e-9045-c76c52ee8c78");
@@ -877,7 +994,8 @@ else
 end if;
 
 ',
-	1);
+	1,
+	0);
 INSERT INTO O_BATTR
 	VALUES ("33d2117a-53d4-43f5-aee2-c79846f800cc",
 	"fcc05ac4-6434-449e-9045-c76c52ee8c78");
@@ -907,7 +1025,8 @@ else
 end if;
 
 ',
-	1);
+	1,
+	0);
 INSERT INTO O_BATTR
 	VALUES ("a879a86d-1c33-416d-a958-aa38606276ae",
 	"fcc05ac4-6434-449e-9045-c76c52ee8c78");

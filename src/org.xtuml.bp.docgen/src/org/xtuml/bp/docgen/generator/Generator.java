@@ -1,10 +1,6 @@
 //====================================================================
 //
-// File:      $RCSfile: Generator.java,v $
-// Version:   $Revision: 1.23 $
-// Modified:  $Date: 2013/01/10 23:43:41 $
-//
-// (c) Copyright 2004-2014 by Mentor Graphics Corp.  All rights reserved.
+// File:      Generator.java
 //
 //====================================================================
 package org.xtuml.bp.docgen.generator;
@@ -62,6 +58,7 @@ public class Generator extends Task {
     public static final String CORE_ICON_DIR = "icons/metadata/"; //$NON-NLS-1$
     public static final String IMAGE_DIR = "images/"; //$NON-NLS-1$
     public static final String DOCGEN_DIR = "/tools/docgen/"; //$NON-NLS-1$
+    public static final String DOCGEN_BIN_DIR = "/tools/mc/bin/"; //$NON-NLS-1$
     public static final String DOCGEN_EXE = "docgen"; //$NON-NLS-1$
     public static final String XSLTPROC_EXE = "docbook/xsltproc"; //$NON-NLS-1$
     public static final String XHTMLFILES = DOCGEN_DIR + "docbook/docbook-xsl-1.75.1/xhtml/"; //$NON-NLS-1$
@@ -76,6 +73,7 @@ public class Generator extends Task {
     private static final int SLEEPTIME = 500;
     private static final int KILLTIMEOUT = 20000;
 
+    private static String homedir = "";
     public static MessageConsole myConsole;
     public static MessageConsoleStream msgbuf;
     public static Generator self;
@@ -83,6 +81,8 @@ public class Generator extends Task {
     public Generator() {
         myConsole = findConsole(CONSOLE_NAME);
         msgbuf = myConsole.newMessageStream();
+        homedir = System.getProperty("eclipse.home.location"); //$NON-NLS-1$
+        homedir = homedir.replaceFirst("file:", ""); //$NON-NLS-1$
     }
     
     public static void genAll(SystemModel_c sys) {
@@ -378,8 +378,7 @@ public class Generator extends Task {
         throws IOException, RuntimeException, CoreException, InterruptedException 
     {
         // Call docgen.exe 
-        String homedir = System.getenv("BPHOMEDIR"); //$NON-NLS-1$
-        String app = homedir + DOCGEN_DIR + DOCGEN_EXE;
+        String app = homedir + DOCGEN_BIN_DIR + DOCGEN_EXE;
         String outputfile = DOC_XML;
         File output = new File(workingDir + outputfile);
         File input = new File(workingDir + DOCGEN_INPUT);
@@ -410,7 +409,6 @@ public class Generator extends Task {
         throws IOException, RuntimeException, CoreException, InterruptedException 
     {
         // Run xsltproc to convert doc.xml into doc.html
-        String homedir = System.getenv("BPHOMEDIR"); //$NON-NLS-1$
         String app = homedir + DOCGEN_DIR + XSLTPROC_EXE;
         String docbook_folder = homedir + XHTMLFILES;
         String workingDir = workDir.replaceAll("\\\\", "/"); //$NON-NLS-1$ //$NON-NLS-2$

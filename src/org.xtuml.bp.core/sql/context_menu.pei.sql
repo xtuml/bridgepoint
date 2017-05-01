@@ -1,11 +1,7 @@
 --
 --======================================================================
 --
--- File:      $RCSfile: context_menu.pei.sql,v $
--- Version:   $Revision: 1.68 $
--- Modified:  $Date: 2013/05/12 22:30:47 $
---
--- (c) Copyright 2003-2014 Mentor Graphics Corporation All rights reserved.
+-- File:      context_menu.pei.sql
 --
 --======================================================================
 -- Licensed under the Apache License, Version 2.0 (the "License"); you may not 
@@ -27,6 +23,7 @@ INSERT INTO CME VALUES ('Rename', '',                         'S_SYS',    '',   
 INSERT INTO CME VALUES ('New','Package',                      'S_SYS', 'EP_PKG',           false, '', '', false, '', false, false, '' ,'->EP_PKG[R1401]');
 INSERT INTO CME VALUES ('Delete', '',                         'CL_IC', '',                 true );
 INSERT INTO CME VALUES ('',       'Unassign',                 'CL_IC', '',                 false, '', '*');
+INSERT INTO CME VALUES ('',       'Unassign',                 'EP_PKG', '',                false, '', '*');
 INSERT INTO CME VALUES ('Delete', '',                         'C_C',   '',                 true );
 INSERT INTO CME VALUES ('Rename', '',                         'C_C',   '',                 true );
 INSERT INTO CME VALUES ('New',    'Package',                  'C_C',   'EP_PKG',           false , '', '', false, '', false, false, '' ,'->PE_PE[R8003]->EP_PKG[R8001]');
@@ -148,7 +145,8 @@ INSERT INTO CME VALUES ('',     'Set as Base Attribute','O_ATTR',   '',         
 INSERT INTO CME VALUES ('',       'Move Up',            'O_ATTR',   '',                      false, '' );
 INSERT INTO CME VALUES ('',       'Move Down',          'O_ATTR',   '',                      false, '' );
 INSERT INTO CME VALUES ('',       'Combine With',       'O_ATTR',   '',                      false, 'Select attribute to combine with this one' );
-INSERT INTO CME VALUES ('',       'Split',              'O_ATTR',   '',                      false, 'Select reference to split from this one' );
+INSERT INTO CME VALUES ('Referential',       'Split',              'O_ATTR',   '',           false, 'Select reference to split from this one' );
+INSERT INTO CME VALUES ('Base And Ref',       'Split',              'O_ATTR',   '',            false, '' );
 INSERT INTO CME VALUES ('Binary',     'Formalize',      'R_REL',    '',                      false, 'Select the class whose identifier will be used to formalize the association' );
 INSERT INTO CME VALUES ('Linked',     'Formalize',      'R_REL',    '',                      false, 'Select the identifier to use from each class' );
 INSERT INTO CME VALUES ('Linked',     'Formalize',      'R_ASSR',   '',                      false, 'Select the identifier to use from each class' );
@@ -268,6 +266,7 @@ INSERT INTO CME VALUES ('Set',       'Type',             'S_UDT',   'S_DT',     
 INSERT INTO CME VALUES ('Set',       'Type',             'CNST_LSC','S_DT',                  false, '', '*', false, '', true );
 INSERT INTO CME VALUES ('Generic Package', 'Assign Class', 'O_IOBJ', 'O_OBJ',                 false, 'Select class this imported class represents', '1', false, '', true, false, 'class' );
 INSERT INTO CME VALUES ('Generic Package', 'Assign Component', 'CL_IC', 'C_C',                false, 'Choose the component to reference', '*', false, '', true, false, 'component'); 
+INSERT INTO CME VALUES ('',                'Assign As Package Reference', 'EP_PKG', 'EP_PKG',false, 'Choose the package to reference', '1', false, '', true, false, 'package' );
 INSERT INTO CME VALUES ('',          'Make Public',      'O_OBJ',   '',                      false, '' );
 INSERT INTO CME VALUES ('',          'Make Protected',   'O_OBJ',   '',                      false, '' );
 INSERT INTO CME VALUES ('',          'Make Private',     'O_OBJ',   '',                      false, '' );
@@ -336,10 +335,6 @@ INSERT INTO CME VALUES ('New', 'Attribute',                   'SQ_CIP','SQ_AV', 
 INSERT INTO CME VALUES ('New', 'Attribute',                   'SQ_CP', 'SQ_CPA',           false , '', '', false, '', false, false, '' ,'->SQ_CPA[R935]');
 INSERT INTO CME VALUES ('',                                   'Unformalize',   'SQ_COP', '', false );
 
-INSERT INTO CME VALUES ('Delete', '',                         'SPR_RO', '',                 true );
-INSERT INTO CME VALUES ('Delete', '',                         'SPR_RS', '',                 true );
-INSERT INTO CME VALUES ('Delete', '',                         'SPR_PO', '',                 true );
-INSERT INTO CME VALUES ('Delete', '',                         'SPR_PS', '',                 true );
 INSERT INTO CME VALUES ('', 'Set To Provider',                         'C_AS', '',                 false );
 INSERT INTO CME VALUES ('', 'Set From Provider',                         'C_AS', '',                 false );
 INSERT INTO CME VALUES ('', 'Set To Provider',                         'C_IO', '',                 false );
@@ -363,7 +358,8 @@ INSERT INTO MEF VALUES ('',       'Set as Base Attribute', 'O_ATTR', 'subtype', 
 INSERT INTO MEF VALUES ('',       'Move Up',       'O_ATTR',    'can', 'move up' );
 INSERT INTO MEF VALUES ('',       'Move Down',     'O_ATTR',    'can', 'move down' );
 INSERT INTO MEF VALUES ('',       'Combine With',  'O_ATTR',    'can', 'combine' );
-INSERT INTO MEF VALUES ('',       'Split',         'O_ATTR',    'can', 'split' );
+INSERT INTO MEF VALUES ('Referential',       'Split',         'O_ATTR',    'can', 'split ref' );
+INSERT INTO MEF VALUES ('Base And Ref',       'Split',         'O_ATTR',    'can', 'split base' );
 
 INSERT INTO MEF VALUES ('Generic Package',       'Assign Class',  'O_IOBJ', 'unassigned', 'generic pkg' );
 
@@ -399,6 +395,8 @@ INSERT INTO MEF VALUES ('Generic Package',        'Formalize',  'C_DG',    'can'
 INSERT INTO MEF VALUES ('',    'Unformalize',  'C_DG',    'can', 'unformalize' );
 INSERT INTO MEF VALUES ('Generic Package',        'Assign Component',  'CL_IC',    'can', 'assign generic pkg' );
 INSERT INTO MEF VALUES ('',    'Unassign',  'CL_IC',    'can', 'unassign' );
+INSERT INTO MEF VALUES ('',    'Assign As Package Reference',  'EP_PKG',    'can', 'assign' );
+INSERT INTO MEF VALUES ('',    'Unassign',  'EP_PKG',    'can', 'unassign' ); 
 INSERT INTO MEF VALUES ('',       'Move Up',       'S_MBR',    'can', 'move up' );
 INSERT INTO MEF VALUES ('',       'Move Down',     'S_MBR',    'can', 'move down' );
 INSERT INTO MEF VALUES ('',       'Publish References',  'O_OBJ',    'can', 'publishRefs' );
@@ -412,6 +410,7 @@ INSERT INTO MEF VALUES ('',       'Move Up',       'SM_EVTDI',    'can', 'move u
 INSERT INTO MEF VALUES ('',       'Move Down',     'SM_EVTDI',    'can', 'move down' );
 INSERT INTO MEF VALUES ('',       'Move Up',       'C_PP',    'can', 'move up' );
 INSERT INTO MEF VALUES ('',       'Move Down',     'C_PP',    'can', 'move down' );
+INSERT INTO MEF VALUES ('Set',    'Type',          'C_PP',    'can', 'SetType' );
 INSERT INTO MEF VALUES ('',       'Move Up',       'O_TFR',    'can', 'move up' );
 INSERT INTO MEF VALUES ('',       'Move Down',     'O_TFR',    'can', 'move down' );
 INSERT INTO MEF VALUES ('',       'Move Up',       'C_AS',    'can', 'move up' );

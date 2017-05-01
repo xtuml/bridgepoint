@@ -1,10 +1,6 @@
 //========================================================================
 //
-//File:      $RCSfile: GraphicalEditor.java,v $
-//Version:   $Revision: 1.24 $
-//Modified:  $Date: 2013/05/10 05:37:55 $
-//
-//(c) Copyright 2005-2014 by Mentor Graphics Corp. All rights reserved.
+//File:      GraphicalEditor.java
 //
 //========================================================================
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not 
@@ -87,6 +83,7 @@ import org.eclipse.gef.ui.parts.ScrollingGraphicalViewer;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.dialogs.IDialogSettings;
+import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.preference.JFacePreferences;
 import org.eclipse.jface.resource.JFaceResources;
 import org.eclipse.jface.util.IPropertyChangeListener;
@@ -117,6 +114,8 @@ import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IEditorReference;
 import org.eclipse.ui.IEditorSite;
 import org.eclipse.ui.IPartListener;
+import org.eclipse.ui.IPartListener2;
+import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
@@ -126,13 +125,22 @@ import org.eclipse.ui.views.contentoutline.IContentOutlinePage;
 import org.eclipse.ui.views.properties.IPropertySheetPage;
 import org.eclipse.ui.views.properties.PropertySheetPage;
 import org.osgi.framework.Bundle;
-
+import org.xtuml.bp.core.ActionHome_c;
+import org.xtuml.bp.core.Action_c;
+import org.xtuml.bp.core.Actiondialect_c;
+import org.xtuml.bp.core.Attribute_c;
+import org.xtuml.bp.core.BaseAttribute_c;
 import org.xtuml.bp.core.Component_c;
 import org.xtuml.bp.core.CorePlugin;
+import org.xtuml.bp.core.DerivedBaseAttribute_c;
 import org.xtuml.bp.core.ModelClass_c;
+import org.xtuml.bp.core.MooreActionHome_c;
 import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.Package_c;
 import org.xtuml.bp.core.PackageableElement_c;
+import org.xtuml.bp.core.StateMachineState_c;
+import org.xtuml.bp.core.TransitionActionHome_c;
+import org.xtuml.bp.core.Transition_c;
 import org.xtuml.bp.core.common.BridgePointPreferencesStore;
 import org.xtuml.bp.core.common.ClassQueryInterface_c;
 import org.xtuml.bp.core.common.ModelRoot;
@@ -146,7 +154,6 @@ import org.xtuml.bp.core.ui.RenameAction;
 import org.xtuml.bp.core.ui.Selection;
 import org.xtuml.bp.core.util.EditorUtil;
 import org.xtuml.bp.core.util.HierarchyUtil;
-import org.xtuml.bp.ui.canvas.CanvasModelListener;
 import org.xtuml.bp.ui.canvas.CanvasPlugin;
 import org.xtuml.bp.ui.canvas.Cl_c;
 import org.xtuml.bp.ui.canvas.Connector_c;
@@ -186,6 +193,10 @@ import org.xtuml.bp.ui.graphics.providers.CanvasEditorContextMenuProvider;
 import org.xtuml.bp.ui.graphics.selection.GraphicalSelectionManager;
 import org.xtuml.bp.ui.graphics.tools.GraphicalPanningSelectionTool;
 import org.xtuml.bp.ui.properties.BridgepointPropertySheetPage;
+import org.xtuml.bp.ui.text.activity.ActivityEditorInput;
+import org.xtuml.bp.ui.text.description.DescriptionEditorInput;
+import org.xtuml.bp.ui.text.masl.MASLEditorInput;
+import org.xtuml.bp.ui.text.masl.MASLPartListener;
 
 public class GraphicalEditor extends GraphicalEditorWithFlyoutPalette implements
 		IPartListener, IPropertyChangeListener {
@@ -1185,6 +1196,113 @@ public class GraphicalEditor extends GraphicalEditorWithFlyoutPalette implements
 									Class<?> inputClass = bundle
 											.loadClass(elems[j]
 													.getAttribute("input")); //$NON-NLS-1$
+									
+									String editorId = elems[j].getAttribute("class"); //$NON-NLS-1$
+									
+								    int dialect = -1;
+									if (editorId.equals(ActivityEditorInput.EDITOR_ID)) {
+										// see if the current element should open
+										// something other than itself
+										Object dialectObj = current;
+										if (dialectObj instanceof StateMachineState_c) {
+											StateMachineState_c state = (StateMachineState_c) dialectObj;
+											Action_c action = Action_c.getOneSM_ACTOnR514(ActionHome_c
+													.getOneSM_AHOnR513((MooreActionHome_c.getOneSM_MOAHOnR511(state))));
+											if (action != null) {
+												dialectObj = action;
+											}
+										}
+										else if (dialectObj instanceof Transition_c) {
+											Action_c action = Action_c.getOneSM_ACTOnR514(ActionHome_c.getOneSM_AHOnR513(
+													TransitionActionHome_c.getOneSM_TAHOnR530((Transition_c)dialectObj)));
+											if (action != null) {
+												dialectObj = action;
+											}
+										}
+										else if ( dialectObj instanceof Attribute_c ) {
+											DerivedBaseAttribute_c dbattr = DerivedBaseAttribute_c.getOneO_DBATTROnR107(
+													BaseAttribute_c.getOneO_BATTROnR106((Attribute_c)dialectObj));
+											if ( dbattr != null ) {
+												dialectObj = dbattr;
+											}
+										}
+
+										// Get the value of the dialect attribute
+                                        try {
+                                            Method getDialectMethod = dialectObj.getClass().getMethod("getDialect"); //$NON-NLS-1$
+                                            dialect = (Integer) getDialectMethod.invoke(dialectObj);
+                                        } catch (NoSuchMethodException e) {
+                                            System.out.println(e);
+                                        } catch (NullPointerException e) {
+                                            System.out.println(e);
+                                        } catch (SecurityException e) {
+                                            System.out.println(e);
+                                        } catch (IllegalAccessException e) {
+                                            System.out.println(e);
+                                        } catch (IllegalArgumentException e) {
+                                            System.out.println(e);
+                                        } catch (InvocationTargetException e) {
+                                            System.out.println(e);
+                                        } catch (ExceptionInInitializerError e) {
+                                            System.out.println(e);
+                                        }
+
+										// If the "dialect" attribute is neither "oal" nor "masl",
+										// check the default language preference. Set "dialect" to
+										// be the preference value and open the proper editor.
+					                    if ( dialect != Actiondialect_c.masl && dialect != Actiondialect_c.oal && dialect != Actiondialect_c.none ) {
+                                            IPreferenceStore store = CorePlugin.getDefault().getPreferenceStore();
+                                            dialect = store
+                                                    .getInt(BridgePointPreferencesStore.DEFAULT_ACTION_LANGUAGE_DIALECT);
+
+                                            try {
+                                                Method setDialectMethod = dialectObj.getClass().getMethod("setDialect", //$NON-NLS-1$
+                                                        int.class);
+                                                setDialectMethod.invoke(dialectObj, dialect);
+                                            } catch (NoSuchMethodException e) {
+                                                System.out.println(e);
+                                            } catch (NullPointerException e) {
+                                                System.out.println(e);
+                                            } catch (SecurityException e) {
+                                                System.out.println(e);
+                                            } catch (IllegalAccessException e) {
+                                                System.out.println(e);
+                                            } catch (IllegalArgumentException e) {
+                                                System.out.println(e);
+                                            } catch (InvocationTargetException e) {
+                                                System.out.println(e);
+                                            } catch (ExceptionInInitializerError e) {
+                                                System.out.println(e);
+                                            }
+                                        }
+									}
+
+									// check to see if we need to open the MASL editor
+								    if (MASLEditorInput.isSupported(current) && dialect == Actiondialect_c.masl) { //$NON-NLS-1$
+										inputClass = bundle.loadClass("org.xtuml.bp.ui.text.masl.MASLEditorInput"); //$NON-NLS-1$
+										try {
+											editorId = (String) inputClass.getField("EDITOR_ID").get(null); //$NON-NLS-1$
+										} catch (NoSuchFieldException e) {
+											System.out.println(e);
+										}
+									}
+
+                                    // check to see if the dialect is "None" and this element has a description field
+                                    if (dialect == Actiondialect_c.none) {
+                                        if (DescriptionEditorInput.isSupported(current)) {
+                                            inputClass = bundle.loadClass("org.xtuml.bp.ui.text.description.DescriptionEditorInput"); //$$NON-NLS-1$$
+                                            try {
+                                                editorId = (String) inputClass.getField("EDITOR_ID").get(null); //$$NON-NLS-1$$
+                                            } catch (NoSuchFieldException e) {
+                                                System.out.println(e);
+                                            }
+                                        } else {
+                                            inputClass = null;
+                                        }
+                                    }
+
+                                    if ( inputClass != null ) {
+									
 									Class<?>[] type = new Class[1];
 									type[0] = Object.class;
 									//
@@ -1210,15 +1328,14 @@ public class GraphicalEditor extends GraphicalEditorWithFlyoutPalette implements
 									// the extending plugin.
 									//
 									if (input != null) {
-										PlatformUI
-												.getWorkbench()
-												.getActiveWorkbenchWindow()
-												.getActivePage()
-												.openEditor(
-														input,
-														elems[j]
-																.getAttribute("class")); //$NON-NLS-1$
+										IWorkbenchPage page = (IWorkbenchPage) PlatformUI.getWorkbench()
+												.getActiveWorkbenchWindow().getActivePage();
+										if (MASLEditorInput.EDITOR_ID == editorId) {
+											page.addPartListener((IPartListener2) new MASLPartListener());
+										}
+										page.openEditor(input, editorId);
 									}
+                                    }
 									return;
 								} catch (ClassNotFoundException e) {
 									CanvasPlugin.logError(
@@ -1252,6 +1369,14 @@ public class GraphicalEditor extends GraphicalEditorWithFlyoutPalette implements
 	}
 
 	public void refresh() {
+		// in case a refresh occurs where we may have changed
+		// our Model_c instance like a file refresh update are
+		// cache here
+		Model_c inmemoryModel = (Model_c) Ooaofgraphics.getDefaultInstance().getInstanceList(Model_c.class)
+				.get(getModel().getDiagramid());
+		if(inmemoryModel != null && inmemoryModel != getModel()) {
+			setModel(inmemoryModel);
+		}
 		// this refresh will update contents, but
 		// not visually refresh children
 		if (getGraphicalViewer() != null
@@ -1320,6 +1445,10 @@ public class GraphicalEditor extends GraphicalEditorWithFlyoutPalette implements
 			}
 		}
 		return diagramFont;
+	}
+	
+	public static void setFont(Font font) {
+		diagramFont = font;
 	}
 	
 	@Override

@@ -1,12 +1,3 @@
-//====================================================================
-//
-//File:      $RCSfile: DocGenPlugin.java,v $
-//Version:   $Revision: 1.6 $
-//Modified:  $Date: 2013/01/10 23:43:44 $
-//
-//(c) Copyright 2008-2014 by Mentor Graphics Corp.  All rights reserved.
-//
-//====================================================================
 package org.xtuml.bp.x2m;
 
 import java.io.IOException;
@@ -14,13 +5,20 @@ import java.net.URL;
 
 import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.jface.resource.ImageDescriptor;
+import org.eclipse.ui.IPartListener2;
+import org.eclipse.ui.IStartup;
+import org.eclipse.ui.IWorkbench;
+import org.eclipse.ui.IWorkbenchPage;
+import org.eclipse.ui.IWorkbenchWindow;
+import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
+import org.xtuml.bp.x2m.refresher.MASLEditorPartListener;
 
 /**
  * The main plugin class to be used in the desktop.
  */
-public class X2MPlugin extends AbstractUIPlugin {
+public class X2MPlugin extends AbstractUIPlugin implements IStartup {
 
 	//The shared instance.
 	private static X2MPlugin plugin;
@@ -75,5 +73,33 @@ public class X2MPlugin extends AbstractUIPlugin {
         }
         return resolvedURL.getPath();
     }
+    
+    public void earlyStartup() {
+		final IWorkbench workbench = PlatformUI.getWorkbench();
+		workbench.getDisplay().asyncExec(new Runnable() {
+			public void run() {
+				IWorkbenchWindow window = workbench.getActiveWorkbenchWindow();
+				IWorkbenchPage page = null;
+				if (window != null) {
+					page = window.getActivePage();
+				}
 
+				if (page == null) {
+					IWorkbenchWindow[] windows = workbench.getWorkbenchWindows();
+					for (int i = 0; i < windows.length; i++) {
+						if (windows[i] != null) {
+							window = windows[i];
+							page = windows[i].getActivePage();
+							if (page != null)
+								page.addPartListener((IPartListener2) new MASLEditorPartListener());
+						}
+					}
+				} else {
+					page.addPartListener((IPartListener2) new MASLEditorPartListener());
+				}
+			}
+		});
+
+    }
+    
 }

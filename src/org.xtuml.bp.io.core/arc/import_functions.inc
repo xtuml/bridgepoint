@@ -172,12 +172,6 @@
       parms.setSize(${no_of_cols});
         .// set columns size in case of backward compatibility
     .end if
-    .if ( table.Key_Lett == "CA_SMSMC" )
-        UUID val4 = IdAssigner.NULL_UUID;
-    if ( numParms == 5 ) {
-        val4 = IdAssigner.createUUIDFromString((String) parms.elementAt(4));
-    }
-    .end if
     .if (table.Key_Lett == "EP_PKG" )
       parms.setSize(${no_of_cols});
         .// set columns size in case of backward compatibility
@@ -741,7 +735,7 @@ ${setSize.body}
                 	}
                 }
                 helper.addPortReferenceInstances(loadedInstances);
-
+                if(createUniqueIds) {                
 	                // then for every loaded instance update
 	                // any unique id UUID value
 	                for (int i = 0; i < loadedInstances.size(); i++) {
@@ -786,6 +780,7 @@ ${setSize.body}
 	                        ges[i].setOoa_id(newId);
 	                    }
 	                }
+	           }
         .else
         helper.importPreBP7_1LineSegments();
         helper.importPreBP7_1Connectors();

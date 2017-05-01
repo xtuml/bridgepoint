@@ -1,0 +1,4 @@
+private service Tracking::Location~>getLocation (        longitude : in real,        latitude : in real) is
+begin
+  null;
+end service;

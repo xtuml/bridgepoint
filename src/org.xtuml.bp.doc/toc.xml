@@ -28,7 +28,7 @@ the License.
 <!-- ============================================================================= -->
 
 <toc label="BridgePoint UML Suite Help">
-	<topic label="Licensing" href="license/licenseagreement.htm" >
+	<topic label="Licensing">
 		<link toc="topics_license.xml" />
 	</topic>
 	<topic label="Getting Started" href="GettingStarted/HTML/GettingStarted.htm" >
@@ -37,7 +37,7 @@ the License.
 	<topic label="Reference">
 		<link toc="topics_Reference.xml" />
 	</topic>
-	<topic label="Release Notes" href="ReleaseNotes/HTML/ReleaseNotes.html" />
+	<topic label="Release Notes" href="ReleaseNotes/ReleaseNotes.html" />
 	<topic label="Tips and Tricks" href="TipsAndTricks/HTML/TipsAndTricks.htm" />
-	<topic label="What's New" href="WhatsNew/HTML/WhatsNew.html" />
+	<topic label="What's New" href="WhatsNew/WhatsNew.html" />
 </toc>

@@ -1,0 +1,24 @@
+domain dom is
+	object SomeObject;
+	object SomeObject is
+	   timer1 : timer;
+	   timer2 : timer;
+	end object;
+	object StatefulObject;
+	object StatefulObject is
+	 event an_event ( param1 : in integer );
+	 event another_event ( param1 : in integer );
+	 instance service foo();
+	end object;
+end;
+
+instance service dom::StatefulObject.foo() is
+  someInstance : instance of SomeObject;
+  stateful     : instance of StatefulObject;
+  timer_delay : duration;
+  absolute_time : timestamp;
+begin
+  schedule someInstance.timer1 generate an_event(3) to stateful delay timer_delay;
+  schedule someInstance.timer2 generate another_event(42) to stateful at absolute_time;
+  cancel someInstance.timer1;
+end;

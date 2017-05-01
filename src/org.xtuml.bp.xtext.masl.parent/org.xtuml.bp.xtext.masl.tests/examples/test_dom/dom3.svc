@@ -1,0 +1,4 @@
+public service X::dom3() is
+begin
+  null;
+end service;

@@ -97,12 +97,14 @@ import org.xtuml.bp.core.ReferredToClassInAssoc_c;
 import org.xtuml.bp.core.ReferringClassInAssoc_c;
 import org.xtuml.bp.core.Requirement_c;
 import org.xtuml.bp.core.ReturnMessage_c;
+import org.xtuml.bp.core.Satisfaction_c;
 import org.xtuml.bp.core.SendSignal_c;
 import org.xtuml.bp.core.SimpleAssociation_c;
 import org.xtuml.bp.core.StateEventMatrixEntry_c;
 import org.xtuml.bp.core.StateMachineState_c;
 import org.xtuml.bp.core.StateMachine_c;
 import org.xtuml.bp.core.StructuredDataType_c;
+import org.xtuml.bp.core.SubtypeSupertypeAssociation_c;
 import org.xtuml.bp.core.SynchronousMessage_c;
 import org.xtuml.bp.core.SystemModel_c;
 import org.xtuml.bp.core.TimeSpan_c;
@@ -276,6 +278,10 @@ public class Cl_c {
         }
           return result;
         }
+    public static boolean Disablecropping() {
+    	return CanvasPlugin.disableCropping;
+    }
+    
     public static int Getcompartments(final Object From) {
         return i_invoke(From, "Get_compartments", new Class[0], new Object[0]);
     }
@@ -1480,6 +1486,25 @@ public class Cl_c {
 	                    new Exception_Query_c());
             }
             return result;
+        } else if (Ooa_type == Ooatype_c.Satisfaction) {
+            Object result = modelRoot.getInstanceList(Satisfaction_c.class).get(
+                    Ooa_id);
+            if (result == null) {
+	            class Satisfaction_Query_c implements ClassQueryInterface_c {
+	                public boolean evaluate(Object candidate) {
+	                    if (((Satisfaction_c) candidate).Get_ooa_id().equals(
+	                            Ooa_id)) {
+	                        return true;
+	                    }
+	
+	                    return false;
+	                }
+	            }
+	
+	            result = Satisfaction_c.SatisfactionInstance(modelRoot,
+	                    new Satisfaction_Query_c());
+            }
+            return result;
         } else {
             return null;
         }
@@ -1736,7 +1761,7 @@ private static String s_invoke(
 				result = target.getClass().getMethod(methodName, argTypes);
 			}
 		} catch (NoSuchMethodException e) {
-			// TODO BOB FIXME: I am ignoring all ClientNotFound operations right now because
+			// TODO: ClientNotFound operations are ignored right now because
 			//                 OAL added in operations made inside GD_ARS.Reconcile are being made
 			//                 against items that are not present. These are not fatal though, 
 			//                 and they are causing too much "noise". This does need to be
@@ -1784,8 +1809,16 @@ public static Object doMethod (Method m, Object target, Object[] args)
         CanvasPlugin.logError(
                  "Client method, " + m.getName() + " cannot be accessed: ", e);
       } catch (InvocationTargetException e) {
-        CanvasPlugin.logError(
-                 "Client method, " + m.getName() + " is illegal target: ", e);
+			// TODO: ClientNotFound operations are ignored right now because
+			//                 OAL added in operations made inside GD_ARS.Reconcile are being made
+			//                 against items that are not present. These are not fatal though, 
+			//                 and they are causing too much "noise". This does need to be
+			//                 put back into place and resolved by not making calls that are 
+			//                 not needed, but right now attempts to do that cause this that
+			//                 do need to be called to not get called and it is not worth chasing 
+			//                 right now.
+//        CanvasPlugin.logError(
+//                 "Client method, " + m.getName() + " is illegal target: ", e);
       }
     return null;
   }
@@ -2070,22 +2103,7 @@ public static void Settoolbarstate(boolean readonly) {
     public static Boolean Isreflexive(final Object connectorInstance) {
     	boolean isReflexive = false;
     	if (connectorInstance instanceof Association_c) {
-    		Association_c assoc = (Association_c)connectorInstance;
-			ClassAsSimpleParticipant_c[] parts = ClassAsSimpleParticipant_c
-					.getManyR_PARTsOnR207(SimpleAssociation_c.getOneR_SIMPOnR206(assoc));
-			if (parts.length == 1) {
-				// check for formalized reflexive
-				ClassAsSimpleFormalizer_c form = ClassAsSimpleFormalizer_c
-						.getOneR_FORMOnR208(SimpleAssociation_c.getOneR_SIMPOnR206(assoc));
-				if (parts[0].getObj_id() ==form.getObj_id()) {
-					isReflexive = true;
-	  			}
-			} else if (parts.length > 1) {
-    			// check for unformalized reflexive
-    			if (parts[0].getObj_id() == parts[1].getObj_id()) {
-      			  isReflexive = true;
-    			}
-    		}
+    		return ((Association_c) connectorInstance).Is_reflexive();
     	} else if (connectorInstance instanceof Transition_c) {
 			Transition_c trans = (Transition_c) connectorInstance;
 			StateMachineState_c smsDest = StateMachineState_c.getOneSM_STATEOnR506(trans);
@@ -2103,15 +2121,90 @@ public static void Settoolbarstate(boolean readonly) {
     	return isReflexive;
     }
     
-    public static Boolean Isooalinkedassocinstance(final Object connectorInstance) {
+    /**
+     * This return true if the given connector instance is a type that is connected to another
+     * connector (a line) as opposed to being connected to a shape.
+     * 
+     * @param connectorInstance
+     * @return
+     */
+    public static Boolean Isconnectedtoline(final Object connectorInstance) {
     	Boolean result = false;
     	if (connectorInstance instanceof Association_c) {
     		LinkedAssociation_c linkedAssoc = LinkedAssociation_c.getOneR_ASSOCOnR206((Association_c)connectorInstance);    		
     		if (linkedAssoc != null) {
     			result = true;
+    		} else {
+        		SubtypeSupertypeAssociation_c subSuperdAssoc = SubtypeSupertypeAssociation_c.getOneR_SUBSUPOnR206((Association_c)connectorInstance);    		
+        		if (subSuperdAssoc != null) {
+        			result = true;
+        		}
     		}
     	}
     	return result;
     }
-        
+    
+    /**
+     * If the element passed in is a ClassAsSubtype_c (R_SUB) instance then return the associated 
+     * ClassAsSuperType (R_SUPER) instance.
+     * 
+     * @param connectorInstance
+     * @return
+     */
+	public static Object Getr_relfromsubtype(final Object connectorInstance) {
+		Object result = null;
+		if (connectorInstance instanceof ClassAsSubtype_c) {
+			result = Association_c.getOneR_RELOnR206(
+					SubtypeSupertypeAssociation_c.getOneR_SUBSUPOnR213((ClassAsSubtype_c) connectorInstance));
+		}
+
+		return result;
+	}
+	
+	/**
+	 * This routine was written for the case where the connector is 
+	 * directional. The only situation we have as of this time for directional 
+	 * connectors is transitions. This routine returns false by default and only returns 
+	 * true in the specific case where we are dealing with a transition and the connector
+	 * is the destination side of the transition.
+	 * 
+	 * @param shapeInstance
+	 * @param connectorInstance
+	 * @return
+	 */
+	public static Boolean Isdestination(final Object Connectorinstance, final Object Shapeinstance) {
+		Boolean isDestination = false;
+		if (Shapeinstance instanceof StateMachineState_c) {
+			if (Connectorinstance instanceof Transition_c) {
+				StateMachineState_c state  = (StateMachineState_c)Shapeinstance;
+				Transition_c transition = (Transition_c)Connectorinstance;
+				// If this is a creation transition, it is NOT a destination.
+				// The arrow on a creation transition may point to a shape, however,
+				// it is drawn starting from the shape and ending on whitespace.
+				CreationTransition_c crtx = CreationTransition_c.getOneSM_CRTXNOnR507(transition);
+				if (crtx == null) {
+					StateMachineState_c actualDestinationState = StateMachineState_c.getOneSM_STATEOnR506(transition);
+					if (state != null && actualDestinationState != null ) {
+						if (state.getSmstt_id() == actualDestinationState.getSmstt_id()) {
+							isDestination = true;
+						}				
+					}
+				}
+			}
+		}
+		
+		return isDestination;
+	}
+
+	public static Object Getprovisionfromsatisfaction(Object Satisfaction) {
+		Object result = null;
+		if (Satisfaction instanceof Satisfaction_c) {
+			result = ImportedProvision_c.getOneCL_IPOnR4705((Satisfaction_c)Satisfaction);
+			if (result == null) {
+				result = Provision_c.getOneC_POnR4002((Satisfaction_c)Satisfaction);				
+			}
+		}
+		return result;
+	}
+
 }// End Cl_c

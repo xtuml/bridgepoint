@@ -1,0 +1,1467 @@
+-- root-types-contained: Package_c
+-- BP 7.1 content: StreamData syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ VALUES ( 70,'Group',1,'Group',' Group is an object with two attributes 
+',0 );
+INSERT INTO O_OBJ VALUES ( 81,'Group_For_Session',2,'Group_For_Session','',0 );
+INSERT INTO O_OBJ VALUES ( 92,'Group_Operation',3,'Group_Operation','',0 );
+INSERT INTO O_OBJ VALUES ( 103,'Operation',4,'Operation','',0 );
+INSERT INTO O_OBJ VALUES ( 114,'Session',5,'Session','',0 );
+INSERT INTO O_OBJ VALUES ( 125,'Session_Operation',6,'Session_Operation','',0 );
+INSERT INTO O_OBJ VALUES ( 136,'Session_Specification',7,'Session_Specification','',0 );
+INSERT INTO O_OBJ VALUES ( 147,'User',8,'User','',0 );
+INSERT INTO O_OBJ VALUES ( 158,'Workstation',9,'Workstation','',0 );
+INSERT INTO O_ATTR VALUES ( 560,70,0,'',' Group has two class attributes
+','','group_id',0,569,'','' );
+INSERT INTO O_ATTR VALUES ( 571,70,560,'','','','group_name',0,35,'','' );
+INSERT INTO O_ATTR VALUES ( 609,103,0,'','','','operation_id',0,569,'','' );
+INSERT INTO O_ATTR VALUES ( 617,103,609,'','','','operation_name',0,35,'','' );
+INSERT INTO O_ATTR VALUES ( 629,114,1281,'','','','has_timed_out',0,56,'','' );
+INSERT INTO O_ATTR VALUES ( 641,114,1216,'','','','logon_time',0,23,'','' );
+INSERT INTO O_ATTR VALUES ( 647,114,641,'','','','session_heartbeat_failure',0,53,'','' );
+INSERT INTO O_ATTR VALUES ( 653,114,647,'','','','session_heartbeat_timer',0,20,'','' );
+INSERT INTO O_ATTR VALUES ( 659,114,653,'','','','session_id',0,569,'','' );
+INSERT INTO O_ATTR VALUES ( 683,114,1254,'','','','current_state',0,"ba5eda7a-def5-0000-0000-000000000006",'','' );
+INSERT INTO O_ATTR VALUES ( 933,136,0,'','','','access_specification_id',0,569,'','' );
+INSERT INTO O_ATTR VALUES ( 941,136,933,'','','','session_heartbeat_failure_threshold',0,53,'','' );
+INSERT INTO O_ATTR VALUES ( 947,136,941,'','','','session_heartbeat_time',0,26,'','' );
+INSERT INTO O_ATTR VALUES ( 953,147,0,'','','','is_logged_on',0,172,'','' );
+INSERT INTO O_ATTR VALUES ( 959,147,953,'','','','login_name',0,35,'','' );
+INSERT INTO O_ATTR VALUES ( 967,147,959,'','','','user_id',0,53,'','' );
+INSERT INTO O_ATTR VALUES ( 975,147,967,'','','','user_name',0,35,'','' );
+INSERT INTO O_ATTR VALUES ( 981,158,0,'','','','workstation_hostname',0,35,'','' );
+INSERT INTO O_ATTR VALUES ( 987,158,981,'','','','workstation_id',0,569,'','' );
+INSERT INTO O_ATTR VALUES ( 1174,125,0,'','','','operation_id',0,"ba5eda7a-def5-0000-0000-000000000007",'','' );
+INSERT INTO O_ATTR VALUES ( 1193,125,1174,'','','','session_id',0,"ba5eda7a-def5-0000-0000-000000000007",'','' );
+INSERT INTO O_ATTR VALUES ( 1216,114,629,'','','','login_name',0,"ba5eda7a-def5-0000-0000-000000000007",'','' );
+INSERT INTO O_ATTR VALUES ( 1235,114,659,'','','','user_id',0,"ba5eda7a-def5-0000-0000-000000000007",'','' );
+INSERT INTO O_ATTR VALUES ( 1254,114,1235,'','','','workstation_id',0,"ba5eda7a-def5-0000-0000-000000000007",'','' );
+INSERT INTO O_ATTR VALUES ( 1281,114,0,'','','','access_specification_id',0,"ba5eda7a-def5-0000-0000-000000000007",'','' );
+INSERT INTO O_ATTR VALUES ( 1300,92,0,'','','','group_id',0,"ba5eda7a-def5-0000-0000-000000000007",'','' );
+INSERT INTO O_ATTR VALUES ( 1319,92,1300,'','','','operation_id',0,"ba5eda7a-def5-0000-0000-000000000007",'','' );
+INSERT INTO O_ATTR VALUES ( 1342,81,0,'','','','group_id',0,"ba5eda7a-def5-0000-0000-000000000007",'','' );
+INSERT INTO O_ATTR VALUES ( 1361,81,1342,'','','','session_id',0,"ba5eda7a-def5-0000-0000-000000000007",'','' );
+INSERT INTO O_ID VALUES ( 0,70 );
+INSERT INTO O_ID VALUES ( 1,70 );
+INSERT INTO O_ID VALUES ( 2,70 );
+INSERT INTO O_ID VALUES ( 0,81 );
+INSERT INTO O_ID VALUES ( 1,81 );
+INSERT INTO O_ID VALUES ( 2,81 );
+INSERT INTO O_ID VALUES ( 0,92 );
+INSERT INTO O_ID VALUES ( 1,92 );
+INSERT INTO O_ID VALUES ( 2,92 );
+INSERT INTO O_ID VALUES ( 0,103 );
+INSERT INTO O_ID VALUES ( 1,103 );
+INSERT INTO O_ID VALUES ( 2,103 );
+INSERT INTO O_ID VALUES ( 0,114 );
+INSERT INTO O_ID VALUES ( 1,114 );
+INSERT INTO O_ID VALUES ( 2,114 );
+INSERT INTO O_ID VALUES ( 0,125 );
+INSERT INTO O_ID VALUES ( 1,125 );
+INSERT INTO O_ID VALUES ( 2,125 );
+INSERT INTO O_ID VALUES ( 0,136 );
+INSERT INTO O_ID VALUES ( 1,136 );
+INSERT INTO O_ID VALUES ( 2,136 );
+INSERT INTO O_ID VALUES ( 0,147 );
+INSERT INTO O_ID VALUES ( 1,147 );
+INSERT INTO O_ID VALUES ( 2,147 );
+INSERT INTO O_ID VALUES ( 0,158 );
+INSERT INTO O_ID VALUES ( 1,158 );
+INSERT INTO O_ID VALUES ( 2,158 );
+INSERT INTO O_OIDA VALUES ( 560,70,0,'' );
+INSERT INTO O_OIDA VALUES ( 609,103,0,'' );
+INSERT INTO O_OIDA VALUES ( 659,114,0,'' );
+INSERT INTO O_OIDA VALUES ( 933,136,0,'' );
+INSERT INTO O_OIDA VALUES ( 959,147,0,'' );
+INSERT INTO O_OIDA VALUES ( 967,147,0,'' );
+INSERT INTO O_OIDA VALUES ( 987,158,0,'' );
+INSERT INTO O_OIDA VALUES ( 1174,125,0,'' );
+INSERT INTO O_OIDA VALUES ( 1193,125,0,'' );
+INSERT INTO O_OIDA VALUES ( 1254,114,1,'' );
+INSERT INTO O_OIDA VALUES ( 1300,92,0,'' );
+INSERT INTO O_OIDA VALUES ( 1319,92,0,'' );
+INSERT INTO O_OIDA VALUES ( 1342,81,0,'' );
+INSERT INTO O_OIDA VALUES ( 1361,81,0,'' );
+INSERT INTO O_BATTR VALUES ( 560,70 );
+INSERT INTO O_BATTR VALUES ( 571,70 );
+INSERT INTO O_BATTR VALUES ( 609,103 );
+INSERT INTO O_BATTR VALUES ( 617,103 );
+INSERT INTO O_BATTR VALUES ( 629,114 );
+INSERT INTO O_BATTR VALUES ( 641,114 );
+INSERT INTO O_BATTR VALUES ( 647,114 );
+INSERT INTO O_BATTR VALUES ( 653,114 );
+INSERT INTO O_BATTR VALUES ( 659,114 );
+INSERT INTO O_BATTR VALUES ( 683,114 );
+INSERT INTO O_BATTR VALUES ( 933,136 );
+INSERT INTO O_BATTR VALUES ( 941,136 );
+INSERT INTO O_BATTR VALUES ( 947,136 );
+INSERT INTO O_BATTR VALUES ( 953,147 );
+INSERT INTO O_BATTR VALUES ( 959,147 );
+INSERT INTO O_BATTR VALUES ( 967,147 );
+INSERT INTO O_BATTR VALUES ( 975,147 );
+INSERT INTO O_BATTR VALUES ( 981,158 );
+INSERT INTO O_BATTR VALUES ( 987,158 );
+INSERT INTO O_NBATTR VALUES ( 560,70 );
+INSERT INTO O_NBATTR VALUES ( 571,70 );
+INSERT INTO O_NBATTR VALUES ( 609,103 );
+INSERT INTO O_NBATTR VALUES ( 617,103 );
+INSERT INTO O_NBATTR VALUES ( 629,114 );
+INSERT INTO O_NBATTR VALUES ( 641,114 );
+INSERT INTO O_NBATTR VALUES ( 647,114 );
+INSERT INTO O_NBATTR VALUES ( 653,114 );
+INSERT INTO O_NBATTR VALUES ( 659,114 );
+INSERT INTO O_NBATTR VALUES ( 683,114 );
+INSERT INTO O_NBATTR VALUES ( 933,136 );
+INSERT INTO O_NBATTR VALUES ( 941,136 );
+INSERT INTO O_NBATTR VALUES ( 947,136 );
+INSERT INTO O_NBATTR VALUES ( 953,147 );
+INSERT INTO O_NBATTR VALUES ( 959,147 );
+INSERT INTO O_NBATTR VALUES ( 967,147 );
+INSERT INTO O_NBATTR VALUES ( 975,147 );
+INSERT INTO O_NBATTR VALUES ( 981,158 );
+INSERT INTO O_NBATTR VALUES ( 987,158 );
+INSERT INTO O_RATTR VALUES ( 1174,125,609,103,0,'' );
+INSERT INTO O_RATTR VALUES ( 1193,125,659,114,0,'' );
+INSERT INTO O_RATTR VALUES ( 1216,114,959,147,0,'' );
+INSERT INTO O_RATTR VALUES ( 1235,114,967,147,0,'' );
+INSERT INTO O_RATTR VALUES ( 1254,114,987,158,0,'' );
+INSERT INTO O_RATTR VALUES ( 1281,114,933,136,0,'' );
+INSERT INTO O_RATTR VALUES ( 1300,92,560,70,0,'' );
+INSERT INTO O_RATTR VALUES ( 1319,92,609,103,0,'' );
+INSERT INTO O_RATTR VALUES ( 1342,81,560,70,0,'' );
+INSERT INTO O_RATTR VALUES ( 1361,81,659,114,0,'' );
+INSERT INTO O_REF VALUES ( 125,103,0,609,524,556,528,1174,1192,0,0,'','','','' );
+INSERT INTO O_REF VALUES ( 125,114,0,659,524,556,537,1193,1211,0,0,'','','','' );
+INSERT INTO O_REF VALUES ( 114,147,0,959,466,498,470,1216,1234,0,0,'','','','' );
+INSERT INTO O_REF VALUES ( 114,147,0,967,466,498,470,1235,1253,0,0,'','','','' );
+INSERT INTO O_REF VALUES ( 114,158,0,987,466,498,479,1254,1272,0,0,'','','','' );
+INSERT INTO O_REF VALUES ( 114,136,0,933,503,507,516,1281,1299,0,0,'','','','' );
+INSERT INTO O_REF VALUES ( 92,70,0,560,392,424,396,1300,1318,0,0,'','','','' );
+INSERT INTO O_REF VALUES ( 92,103,0,609,392,424,405,1319,1337,0,0,'','','','' );
+INSERT INTO O_REF VALUES ( 81,70,0,560,429,461,433,1342,1360,0,0,'','','','' );
+INSERT INTO O_REF VALUES ( 81,114,0,659,429,461,442,1361,1379,0,0,'','','','' );
+INSERT INTO O_RTIDA VALUES ( 609,103,0,524,528 );
+INSERT INTO O_RTIDA VALUES ( 659,114,0,524,537 );
+INSERT INTO O_RTIDA VALUES ( 959,147,0,466,470 );
+INSERT INTO O_RTIDA VALUES ( 967,147,0,466,470 );
+INSERT INTO O_RTIDA VALUES ( 987,158,0,466,479 );
+INSERT INTO O_RTIDA VALUES ( 933,136,0,503,516 );
+INSERT INTO O_RTIDA VALUES ( 560,70,0,392,396 );
+INSERT INTO O_RTIDA VALUES ( 609,103,0,392,405 );
+INSERT INTO O_RTIDA VALUES ( 560,70,0,429,433 );
+INSERT INTO O_RTIDA VALUES ( 659,114,0,429,442 );
+INSERT INTO O_TFR VALUES ( 679,114,'delete_session','',59,1,'the_user : instance of User;
+the_workstation : instance of Workstation;
+this_session_operations : sequence of instance of Operation;
+session_operation : instance of Session_Operation;
+operations_to_remove : sequence of instance of Operation;
+the_group : instance of Group;
+   
+begin
+   
+   the_user := this -> R3.User;
+   the_workstation := this -> R3.Workstation;
+   // inform the operator
+   Operator~>user_session_deleted(this.session_id);
+   
+   this_session_operations := this -> R5.Operation;
+   // remove the link to the groups
+   for a_group_session in (this -> R2.Group_For_Session)''elements loop
+      the_group := a_group_session->R2.Group;
+      Operator~>user_group_removed(the_user.user_id, the_group.group_name, the_user.login_name, this.session_id);
+      unlink this R2 (a_group_session->R2.Group) using a_group_session;
+      delete a_group_session;
+   end loop;
+   
+   // remove the operations that this user has that 
+   // do not apply to any other sessions for that user 
+   for a_session_operation in this_session_operations''elements loop
+      session_operation := a_session_operation with this -> R5.Session_Operation;
+      Operator~>user_operation_removed(this.user_id, a_session_operation.operation_name, the_user.login_name, this.session_id);
+      unlink a_session_operation R5 this using session_operation;
+      delete session_operation;
+      // check if the operation is no longer in use and if not then delete it
+      if (a_session_operation -> R5.Session)''length = 0 and (a_session_operation -> R1.Group)''length = 0 then
+         delete a_session_operation;
+      end if;
+   end loop;
+   
+   unlink the_workstation R3 the_user using this;
+   delete this;
+   
+   if (the_user -> R3.Session)''length = 0 then
+      Operator~>user_removed(the_user.user_id, the_user.login_name);
+      delete the_user;
+   else
+      // verify that the sessions have not timed out
+      if (find_one (the_user -> R3.Session)(has_timed_out = false)) = null then
+         // all sessions have timed out so report the user login as suspect
+         the_user.is_logged_on := suspect;
+         Operator~>report_user(the_user.user_id, the_user.login_name, 
+                                the_user.user_name, the_user.is_logged_on);
+      end if;
+   end if;
+end',3,'',0,1 );
+INSERT INTO S_UDT VALUES ( 5,"ba5eda7a-def5-0000-0000-000000000004",0,'' );
+INSERT INTO S_UDT VALUES ( 8,5,0,'' );
+INSERT INTO S_UDT VALUES ( 11,5,0,'' );
+INSERT INTO S_UDT VALUES ( 14,5,0,'' );
+INSERT INTO S_UDT VALUES ( 17,"ba5eda7a-def5-0000-0000-00000000000a",0,'' );
+INSERT INTO S_UDT VALUES ( 20,"ba5eda7a-def5-0000-0000-00000000000f",0,'' );
+INSERT INTO S_UDT VALUES ( 23,5,0,'' );
+INSERT INTO S_UDT VALUES ( 26,"ba5eda7a-def5-0000-0000-000000000002",0,'' );
+INSERT INTO S_UDT VALUES ( 29,"ba5eda7a-def5-0000-0000-00000000000e",0,'' );
+INSERT INTO S_UDT VALUES ( 32,"ba5eda7a-def5-0000-0000-000000000004",0,'' );
+INSERT INTO S_UDT VALUES ( 35,"ba5eda7a-def5-0000-0000-000000000004",0,'' );
+INSERT INTO S_UDT VALUES ( 38,"ba5eda7a-def5-0000-0000-000000000003",0,'' );
+INSERT INTO S_UDT VALUES ( 41,"ba5eda7a-def5-0000-0000-000000000002",0,'' );
+INSERT INTO S_UDT VALUES ( 44,"ba5eda7a-def5-0000-0000-000000000002",0,'' );
+INSERT INTO S_UDT VALUES ( 47,"ba5eda7a-def5-0000-0000-000000000002",0,'' );
+INSERT INTO S_UDT VALUES ( 50,"ba5eda7a-def5-0000-0000-000000000002",0,'' );
+INSERT INTO S_UDT VALUES ( 53,"ba5eda7a-def5-0000-0000-000000000002",0,'' );
+INSERT INTO S_UDT VALUES ( 56,"ba5eda7a-def5-0000-0000-000000000001",0,'' );
+INSERT INTO S_UDT VALUES ( 59,"ba5eda7a-def5-0000-0000-000000000000",0,'' );
+INSERT INTO S_UDT VALUES ( 169,5,0,'structure
+    group_name: string;     
+    operation_names: sequence of string;     
+  end structure' );
+INSERT INTO S_UDT VALUES ( 172,5,0,'enum ( logged_on, suspect )' );
+INSERT INTO S_UDT VALUES ( 204,5,0,'' );
+INSERT INTO S_UDT VALUES ( 377,5,0,'' );
+INSERT INTO S_UDT VALUES ( 569,5,0,'' );
+INSERT INTO EP_PKG VALUES ( 3,1,1,'types','',0 );
+INSERT INTO EP_PKG VALUES ( 62,1,1,'SAC','masl_domain',0 );
+INSERT INTO EP_PKG VALUES ( 66,0,1,'SAC','',0 );
+INSERT INTO EP_PKG VALUES ( 68,0,1,'Shared','',0 );
+INSERT INTO EP_PKG VALUES ( 175,0,1,'functions','',0 );
+INSERT INTO S_SYNC VALUES ( 177,0,'populate_domain_1',' Domain services
+','begin
+   
+   SAC::populate_domain(false);
+end',59,3,'',1 );
+INSERT INTO S_SYNC VALUES ( 179,0,'resend_infos_3','','begin
+   
+   SAC::resend_infos();
+end',59,3,'',1 );
+INSERT INTO S_SYNC VALUES ( 181,0,'soa_subscribe_2','','soa_messages : sequence of string;
+empty_soa_messages : sequence of string;
+
+begin
+
+  SOA::subscribe("SAC_user_logon");
+  SOA::subscribe("SAC_user_logoff");
+  SOA::subscribe("SAC_add_group");
+  SOA::subscribe("SAC_add_operation_to_group");
+  SOA::subscribe("SAC_session_active");
+  SOA::subscribe("SAC_delete_group");
+  SOA::subscribe("SAC_delete_group_operation");
+  SOA::subscribe("SAC_populate_domain");
+  soa_messages := empty_soa_messages & "I_DCP_resend_infos";
+  SOA::subscribe("SAC_resend_infos", soa_messages);
+end',59,3,'',1 );
+INSERT INTO S_SYNC VALUES ( 183,0,'test_SAC_1','','the_groups : sequence of string;
+empty_groups : sequence of string;
+the_session : instance of Session;
+
+begin
+   
+   // check that the groups and operations have been added
+   Test::check_equal ( #FILE#, #LINE#, ((find _TEST_Operator_report_group())''length), 4 );
+   Test::check_equal ( #FILE#, #LINE#, ((find _TEST_Operator_report_group_operation())''length), 8 );
+   
+   // login user 1 on workstation 1 with group 1
+   the_groups := empty_groups & "group1";
+   SAC::user_logon(1, "user1", "User One", "Workstation1", the_groups);
+   Test::service_event_queue();
+   if Test::check_size ( #FILE#, #LINE#, find _TEST_Operator_report_user(), 1 ) then
+      Test::check_equal ( #FILE#, #LINE#, ((find _TEST_Operator_report_user(user_id = 1 and logged_on = logged_on))''length), 1 );
+   end if;
+   if Test::check_size ( #FILE#, #LINE#, find _TEST_Operator_report_user_operation(), 2 ) then
+      Test::check_equal ( #FILE#, #LINE#, ((find _TEST_Operator_report_user_operation(
+                                                          (user_id = 1 and operation_name = "operation1") or 
+                                                           (user_id = 1 and operation_name = "operation2")))''length), 2 );
+   end if;
+   if Test::check_size ( #FILE#, #LINE#, find _TEST_Operator_report_user_session(), 1 ) then
+      Test::check_equal ( #FILE#, #LINE#, ((find _TEST_Operator_report_user_session(user_id = 1 and 
+                                                                                    workstation_hostname = "Workstation1" and
+                                                                                    session_timed_out = false))''length), 1 );
+   end if;
+   delete find _TEST_Operator_report_user();
+   delete find _TEST_Operator_report_user_operation();
+   delete find _TEST_Operator_report_user_session();
+      
+   // login user 1 on workstation 2 with group 1 + 2
+   the_groups := empty_groups & "group1" & "group2";
+   SAC::user_logon(1, "user1", "User One", "Workstation2", the_groups);
+   Test::service_event_queue();
+   if Test::check_size ( #FILE#, #LINE#, find _TEST_Operator_report_user(), 1 ) then
+      Test::check_equal ( #FILE#, #LINE#, ((find _TEST_Operator_report_user(user_id = 1 and logged_on = logged_on))''length), 1 );
+   end if;
+   if Test::check_size ( #FILE#, #LINE#, find _TEST_Operator_report_user_operation(), 4 ) then
+      Test::check_equal ( #FILE#, #LINE#, ((find _TEST_Operator_report_user_operation(
+                                                          (user_id = 1 and operation_name = "operation1") or 
+                                                           (user_id = 1 and operation_name = "operation2") or
+                                                           (user_id = 1 and operation_name = "operation3") or
+                                                           (user_id = 1 and operation_name = "operation4")))''length), 4 );
+   end if;
+   if Test::check_size ( #FILE#, #LINE#, find _TEST_Operator_report_user_session(), 1 ) then
+      Test::check_equal ( #FILE#, #LINE#, ((find _TEST_Operator_report_user_session(user_id = 1 and 
+                                                                                    workstation_hostname = "Workstation2" and
+                                                                                    session_timed_out = false))''length), 1 );
+   end if;
+   delete find _TEST_Operator_report_user();
+   delete find _TEST_Operator_report_user_operation();
+   delete find _TEST_Operator_report_user_session();
+   
+   // login user 2 on workstation 3 with group 3
+   the_groups := empty_groups & "group3";
+   SAC::user_logon(2, "user2", "User Two", "Workstation3", the_groups);
+   Test::service_event_queue();
+   if Test::check_size ( #FILE#, #LINE#, find _TEST_Operator_report_user(), 1 ) then
+      Test::check_equal ( #FILE#, #LINE#, ((find _TEST_Operator_report_user(user_id = 2 and logged_on = logged_on))''length), 1 );
+   end if;
+   if Test::check_size ( #FILE#, #LINE#, find _TEST_Operator_report_user_operation(), 2 ) then
+      Test::check_equal ( #FILE#, #LINE#, ((find _TEST_Operator_report_user_operation(
+                                                          (user_id = 2 and operation_name = "operation1") or 
+                                                           (user_id = 2 and operation_name = "operation3")))''length), 2 );
+   end if;
+   if Test::check_size ( #FILE#, #LINE#, find _TEST_Operator_report_user_session(), 1 ) then
+      Test::check_equal ( #FILE#, #LINE#, ((find _TEST_Operator_report_user_session(user_id = 2 and 
+                                                                                    workstation_hostname = "Workstation3" and
+                                                                                    session_timed_out = false))''length), 1 );
+   end if;
+   delete find _TEST_Operator_report_user();
+   delete find _TEST_Operator_report_user_operation();
+   delete find _TEST_Operator_report_user_session();
+   
+   // login user 2 on workstation 4 with group 3 + 4
+   the_groups := empty_groups & "group3" & "group4";
+   SAC::user_logon(2, "user2", "User Two", "Workstation4", the_groups);
+   Test::service_event_queue();
+   if Test::check_size ( #FILE#, #LINE#, find _TEST_Operator_report_user(), 1 ) then
+      Test::check_equal ( #FILE#, #LINE#, ((find _TEST_Operator_report_user(user_id = 2 and logged_on = logged_on))''length), 1 );
+   end if;
+   if Test::check_size ( #FILE#, #LINE#, find _TEST_Operator_report_user_operation(), 4 ) then
+      Test::check_equal ( #FILE#, #LINE#, ((find _TEST_Operator_report_user_operation(
+                                                          (user_id = 2 and operation_name = "operation1") or 
+                                                           (user_id = 2 and operation_name = "operation2") or
+                                                           (user_id = 2 and operation_name = "operation3") or
+                                                           (user_id = 2 and operation_name = "operation4")))''length), 4 );
+   end if;
+   if Test::check_size ( #FILE#, #LINE#, find _TEST_Operator_report_user_session(), 1 ) then
+      Test::check_equal ( #FILE#, #LINE#, ((find _TEST_Operator_report_user_session(user_id = 2 and 
+                                                                                    workstation_hostname = "Workstation4" and
+                                                                                    session_timed_out = false))''length), 1 );
+   end if;
+   delete find _TEST_Operator_report_user();
+   delete find _TEST_Operator_report_user_operation();
+   delete find _TEST_Operator_report_user_session();
+   
+   // fail the heartbeat 4 times on workstation 1 and get the session to become timed out
+   the_session:= find_one Session(user_id = 1 and workstation_id = 0);
+   generate Session.heartbeat_timeout_expired() to the_session;
+   Test::service_event_queue();
+   generate Session.heartbeat_timeout_expired() to the_session;
+   Test::service_event_queue();
+   generate Session.heartbeat_timeout_expired() to the_session;
+   Test::service_event_queue();
+   generate Session.heartbeat_timeout_expired() to the_session;
+   Test::service_event_queue();
+   if Test::check_size ( #FILE#, #LINE#, find _TEST_Operator_report_user_session(), 1 ) then
+      Test::check_equal ( #FILE#, #LINE#, ((find _TEST_Operator_report_user_session(user_id = 1 and 
+                                                                                    workstation_hostname = "Workstation1" and
+                                                                                    session_timed_out = true))''length), 1 );
+   end if;
+   delete find _TEST_Operator_report_user_session();
+   
+   // fail the heartbeat 4 times on workstation 2 and get the session to become 
+   // timed out and the user marked as suspect
+   the_session:= find_one Session(user_id = 1 and workstation_id = 1);
+   generate Session.heartbeat_timeout_expired() to the_session;
+   Test::service_event_queue();
+   generate Session.heartbeat_timeout_expired() to the_session;
+   Test::service_event_queue();
+   generate Session.heartbeat_timeout_expired() to the_session;
+   Test::service_event_queue();
+   generate Session.heartbeat_timeout_expired() to the_session;
+   Test::service_event_queue();
+   if Test::check_size ( #FILE#, #LINE#, find _TEST_Operator_report_user_session(), 1 ) then
+      Test::check_equal ( #FILE#, #LINE#, ((find _TEST_Operator_report_user_session(user_id = 1 and 
+                                                                                    workstation_hostname = "Workstation2" and
+                                                                                    session_timed_out = true))''length), 1 );
+   end if;
+   if Test::check_size ( #FILE#, #LINE#, find _TEST_Operator_report_user(), 1 ) then
+      Test::check_equal ( #FILE#, #LINE#, ((find _TEST_Operator_report_user(user_id = 1 and logged_on = suspect))''length), 1 );
+   end if;
+   delete find _TEST_Operator_report_user();
+   delete find _TEST_Operator_report_user_session();
+   
+   // start the heartbeat for workstation 1 and check that the session 
+   // is no longer timed out and the user becomes logged on
+   SAC::session_active(0, 1, "");
+   Test::service_event_queue();
+   if Test::check_size ( #FILE#, #LINE#, find _TEST_Operator_report_user_session(), 1 ) then
+      Test::check_equal ( #FILE#, #LINE#, ((find _TEST_Operator_report_user_session(user_id = 1 and 
+                                                                                    workstation_hostname = "Workstation1" and
+                                                                                    session_timed_out = false))''length), 1 );
+   end if;
+   if Test::check_size ( #FILE#, #LINE#, find _TEST_Operator_report_user(), 1 ) then
+      Test::check_equal ( #FILE#, #LINE#, ((find _TEST_Operator_report_user(user_id = 1 and logged_on = logged_on))''length), 1 );
+   end if;
+   delete find _TEST_Operator_report_user();
+   delete find _TEST_Operator_report_user_session();
+   
+   // login user 3 on workstation 3 with group 4 check user 2 is logged off the workstation and that 2 
+   // operations added for the new user 
+   the_groups := empty_groups & "group3";
+   SAC::user_logon(3, "user3", "User Three", "Workstation3", the_groups);
+   Test::service_event_queue();
+   if Test::check_size ( #FILE#, #LINE#, find _TEST_Operator_user_session_deleted(), 1 ) then
+      Test::check_equal ( #FILE#, #LINE#, ((find _TEST_Operator_user_session_deleted(session_id = 2))''length), 1 );
+   end if;
+   if Test::check_size ( #FILE#, #LINE#, find _TEST_Operator_report_user(), 1 ) then
+      Test::check_equal ( #FILE#, #LINE#, ((find _TEST_Operator_report_user(user_id = 3 and logged_on = logged_on))''length), 1 );
+   end if;
+   if Test::check_size ( #FILE#, #LINE#, find _TEST_Operator_report_user_operation(), 2 ) then
+      Test::check_equal ( #FILE#, #LINE#, ((find _TEST_Operator_report_user_operation(
+                                                          (user_id = 3 and operation_name = "operation1") or 
+                                                           (user_id = 3 and operation_name = "operation3")))''length), 2 );
+   end if;
+   if Test::check_size ( #FILE#, #LINE#, find _TEST_Operator_report_user_session(), 1 ) then
+      Test::check_equal ( #FILE#, #LINE#, ((find _TEST_Operator_report_user_session(user_id = 3 and 
+                                                                                    workstation_hostname = "Workstation3" and
+                                                                                    session_timed_out = false))''length), 1 );
+   end if;
+   delete find _TEST_Operator_user_session_deleted();
+   delete find _TEST_Operator_report_user();
+   delete find _TEST_Operator_report_user_operation();
+   delete find _TEST_Operator_report_user_session();
+   delete find _TEST_Operator_user_operation_removed();
+   
+   // log off workstation 4 user 2
+   SAC::user_logoff(3, 2, "");
+   Test::service_event_queue();
+   if Test::check_size ( #FILE#, #LINE#, find _TEST_Operator_user_session_deleted(), 1 ) then
+      Test::check_equal ( #FILE#, #LINE#, ((find _TEST_Operator_user_session_deleted(session_id = 3))''length), 1 );
+   end if;
+   if Test::check_size ( #FILE#, #LINE#, find _TEST_Operator_user_operation_removed(), 4 ) then
+      Test::check_equal ( #FILE#, #LINE#, ((find _TEST_Operator_user_operation_removed(
+                                                          (user_id = 2 and operation_name = "operation1") or 
+                                                          (user_id = 2 and operation_name = "operation2") or 
+                                                          (user_id = 2 and operation_name = "operation3") or 
+                                                           (user_id = 2 and operation_name = "operation4")))''length), 4 );
+   end if;
+   if Test::check_size ( #FILE#, #LINE#, find _TEST_Operator_user_removed(), 1 ) then
+      Test::check_equal ( #FILE#, #LINE#, ((find _TEST_Operator_user_removed(user_id = 2))''length), 1 );
+   end if;
+   delete find _TEST_Operator_user_session_deleted();
+   delete find _TEST_Operator_user_operation_removed();
+   delete find _TEST_Operator_user_removed();
+   
+   // log off workstation 3 user 3
+   SAC::user_logoff(4, 3, "");
+   Test::service_event_queue();
+   if Test::check_size ( #FILE#, #LINE#, find _TEST_Operator_user_session_deleted(), 1 ) then
+      Test::check_equal ( #FILE#, #LINE#, ((find _TEST_Operator_user_session_deleted(session_id = 4))''length), 1 );
+   end if;
+   if Test::check_size ( #FILE#, #LINE#, find _TEST_Operator_user_operation_removed(), 2 ) then
+      Test::check_equal ( #FILE#, #LINE#, ((find _TEST_Operator_user_operation_removed(
+                                                          (user_id = 3 and operation_name = "operation1") or 
+                                                           (user_id = 3 and operation_name = "operation3")))''length), 2 );
+   end if;
+   if Test::check_size ( #FILE#, #LINE#, find _TEST_Operator_user_removed(), 1 ) then
+      Test::check_equal ( #FILE#, #LINE#, ((find _TEST_Operator_user_removed(user_id = 3))''length), 1 );
+   end if;
+   delete find _TEST_Operator_user_session_deleted();
+   delete find _TEST_Operator_user_operation_removed();
+   delete find _TEST_Operator_user_removed();
+   
+   // log off workstation 1 user 1 check that the user becomes suspect
+   SAC::user_logoff(0, 1, "");
+   Test::service_event_queue();
+   if Test::check_size ( #FILE#, #LINE#, find _TEST_Operator_user_session_deleted(), 1 ) then
+      Test::check_equal ( #FILE#, #LINE#, ((find _TEST_Operator_user_session_deleted(session_id = 0))''length), 1 );
+   end if;
+   if Test::check_size ( #FILE#, #LINE#, find _TEST_Operator_report_user(), 1 ) then
+      Test::check_equal ( #FILE#, #LINE#, ((find _TEST_Operator_report_user(user_id = 1 and logged_on = suspect))''length), 1 );
+   end if;
+   delete find _TEST_Operator_user_session_deleted();
+   delete find _TEST_Operator_report_user();
+   
+   // start the heartbeat for workstation 2 and check that the session 
+   // is no longer timed out and the user becomes logged on
+   SAC::session_active(1, 1, "");
+   Test::service_event_queue();
+   if Test::check_size ( #FILE#, #LINE#, find _TEST_Operator_report_user_session(), 1 ) then
+      Test::check_equal ( #FILE#, #LINE#, ((find _TEST_Operator_report_user_session(user_id = 1 and 
+                                                                                    workstation_hostname = "Workstation2" and
+                                                                                    session_timed_out = false))''length), 1 );
+   end if;
+   if Test::check_size ( #FILE#, #LINE#, find _TEST_Operator_report_user(), 1 ) then
+      Test::check_equal ( #FILE#, #LINE#, ((find _TEST_Operator_report_user(user_id = 1 and logged_on = logged_on))''length), 1 );
+   end if;
+   delete find _TEST_Operator_report_user();
+   delete find _TEST_Operator_report_user_session();
+   
+   // log off workstation 2 user 1 
+   SAC::user_logoff(1, 1, "");
+   Test::service_event_queue();
+   if Test::check_size ( #FILE#, #LINE#, find _TEST_Operator_user_session_deleted(), 1 ) then
+      Test::check_equal ( #FILE#, #LINE#, ((find _TEST_Operator_user_session_deleted(session_id = 1))''length), 1 );
+   end if;
+   if Test::check_size ( #FILE#, #LINE#, find _TEST_Operator_user_operation_removed(), 4 ) then
+      Test::check_equal ( #FILE#, #LINE#, ((find _TEST_Operator_user_operation_removed(
+                                                          (user_id = 1 and operation_name = "operation1") or 
+                                                          (user_id = 1 and operation_name = "operation2") or 
+                                                          (user_id = 1 and operation_name = "operation3") or 
+                                                          (user_id = 1 and operation_name = "operation4")))''length), 4 );
+   end if;
+   if Test::check_size ( #FILE#, #LINE#, find _TEST_Operator_user_removed(), 1 ) then
+      Test::check_equal ( #FILE#, #LINE#, ((find _TEST_Operator_user_removed(user_id = 1))''length), 1 );
+   end if;
+   delete find _TEST_Operator_user_session_deleted();
+   delete find _TEST_Operator_report_user();
+   
+   Test::print_results();
+   Process::requestShutdown();
+end',59,3,'',1 );
+INSERT INTO S_SYNC VALUES ( 185,0,'add_group','','the_group : instance of Group;
+
+begin
+   
+   the_group := find_one Group(group_name = group_name);
+   if the_group = null then
+      the_group := create unique Group(group_name => group_name);
+      Operator~>report_group(group_name);
+   end if;
+end',59,3,'',1 );
+INSERT INTO S_SYNC VALUES ( 196,0,'add_operation_to_group','','the_group : instance of Group;
+the_operation : instance of Operation;
+group_operation : instance of Group_Operation;
+
+begin
+   
+   the_group := find_one Group(group_name = group_name);
+   if the_group = null then
+      the_group := create unique Group(group_name => group_name);
+      Operator~>report_group(group_name);
+   end if;
+   
+   for an_operation in operations''elements loop
+      the_operation := find_one Operation(operation_name = an_operation);
+      if the_operation = null then
+         the_operation := create unique Operation(operation_name => an_operation);
+      end if;
+      group_operation := the_group with the_operation -> R1.Group_Operation;
+      if group_operation = null then
+         group_operation := create Group_Operation(group_id => the_group.group_id, 
+                                                         operation_id => the_operation.operation_id);
+         link the_group R1 the_operation using group_operation;
+         Operator~>report_group_operation(group_name, an_operation);
+      end if;
+   end loop;
+end',59,3,'',1 );
+INSERT INTO S_SYNC VALUES ( 207,0,'delete_group','','the_group : instance of Group;
+the_operations : sequence of instance of Operation;
+the_group_operation : instance of Group_Operation;
+begin
+   
+   the_group := find_one Group(group_name = group_name);
+   if the_group /= null then
+      the_operations := the_group -> R1.Operation;
+      for an_operation in the_operations''elements loop
+         the_group_operation := the_group with an_operation -> R1.Group_Operation;
+         Operator~>group_operation_removed(group_name, an_operation.operation_name);
+         unlink the_group R1 an_operation using the_group_operation;
+         delete the_group_operation;
+      end loop;
+   end if;
+end',59,3,'',1 );
+INSERT INTO S_SYNC VALUES ( 213,0,'delete_group_operation','','the_group : instance of Group;
+the_operations : sequence of instance of Operation;
+the_operation : instance of Operation;
+the_group_operation : instance of Group_Operation;
+begin
+   
+   the_group := find_one Group(group_name = group_name);
+   if the_group /= null then
+      the_operations := the_group -> R1.Operation;
+      for an_operation in operations''elements loop
+         the_operation := find_one the_operations(operation_name = an_operation);
+         if the_operation /= null then
+            the_group_operation := the_group with the_operation -> R1.Group_Operation;
+            Operator~>group_operation_removed(group_name, the_operation.operation_name);
+            unlink the_group R1 the_operation using the_group_operation;
+            delete the_group_operation;
+         end if;
+         if (the_operation -> R1.Group)''length = 0 then
+            delete the_operation;
+         end if;
+      end loop;
+   end if;
+end',59,3,'',1 );
+INSERT INTO S_SYNC VALUES ( 221,0,'populate_domain','','the_groups : sequence of group_type;
+current_groups : sequence of instance of Group;
+the_group : instance of Group;
+required_groups : sequence of instance of Group;
+current_group_operations : sequence of instance of Group_Operation;
+the_operation : instance of Operation;
+the_group_operation : instance of Group_Operation;
+required_group_operations : sequence of instance of Group_Operation;
+unwanted_group_operations : sequence of instance of Group_Operation;
+the_unwanted_op : instance of Operation;
+unwanted_groups : sequence of instance of Group;   
+the_group_sessions : sequence of instance of Group_For_Session;
+session_heartbeat_time : duration;
+session_heartbeat_failure_threshold : integer;
+the_session_spec : instance of Session_Specification;
+the_user : instance of User;
+the_user_groups : sequence of instance of Group;
+
+begin
+   
+   if reload_config_files = true then
+      System_Configuration~>reload_config_files();
+   end if;
+   
+   // get the session spec data
+   System_Configuration~>get_session_specification(session_heartbeat_time, session_heartbeat_failure_threshold);
+   the_session_spec := find_one Session_Specification();
+   if the_session_spec = null then
+      the_session_spec := create unique Session_Specification(session_heartbeat_time => session_heartbeat_time,
+                                             session_heartbeat_failure_threshold => session_heartbeat_failure_threshold);
+   else
+      the_session_spec.session_heartbeat_time := session_heartbeat_time;
+      the_session_spec.session_heartbeat_failure_threshold := session_heartbeat_failure_threshold;
+   end if;
+   
+   // determine the set of current groups so that they 
+   // can be deleted if they are no longer valid
+   current_groups := find_all Group();
+   
+   // read in the configuration data
+   System_Configuration~>get_groups(the_groups);
+   for a_group in the_groups''elements loop
+      
+      // locate the group and if it does not exist create it
+      the_group := find_one Group(group_name = a_group.group_name);
+      if the_group = null then
+         the_group := create unique Group(group_name => a_group.group_name);
+         Operator~>report_group(a_group.group_name);
+      end if;
+      required_groups := required_groups & the_group;
+      
+      // add in the operations for the group
+      current_group_operations := the_group -> R1.Group_Operation;
+      for a_group_operation in a_group.operation_names''elements loop
+         the_operation := find_one Operation(operation_name = a_group_operation);
+         if the_operation = null then
+            the_operation := create unique Operation(operation_name => a_group_operation);
+         end if;
+         the_group_operation := the_group with the_operation -> R1.Group_Operation;
+         if the_group_operation = null then
+            the_group_operation := create Group_Operation(operation_id => the_operation.operation_id,
+                                                            group_id => the_group.group_id);
+            link the_group R1 the_operation using the_group_operation;
+            Operator~>report_group_operation(a_group.group_name, a_group_operation);
+         end if;
+         required_group_operations := required_group_operations & the_group_operation;
+      end loop;
+      
+      // remove any unwanted group operations
+      unwanted_group_operations := current_group_operations not_in required_group_operations;
+      for an_unwanted_group_op in unwanted_group_operations''elements loop
+         the_unwanted_op := an_unwanted_group_op -> R1.Operation;
+         Operator~>group_operation_removed((an_unwanted_group_op -> R1.Group).group_name, 
+                                           the_unwanted_op.operation_name);
+         unlink (an_unwanted_group_op -> R1.Group) R1 the_unwanted_op using an_unwanted_group_op;
+         delete an_unwanted_group_op;
+         
+         // if the op is not in use then remove it
+         if (the_unwanted_op -> R1.Group)''length = 0 and (the_unwanted_op -> R5.Session)''length = 0 then
+            delete the_unwanted_op;
+         end if;
+      end loop;
+      
+   end loop;
+   
+   // remove any unwanted groups
+   unwanted_groups := current_groups not_in required_groups;   
+   for an_unwanted_group in unwanted_groups''elements loop
+      Operator~>group_deleted(an_unwanted_group.group_name);
+      the_group_sessions := the_group -> R2.Group_For_Session;
+      for a_group_session in the_group_sessions''elements loop
+         the_user := a_group_session -> R2.Session -> R3.User;
+         unlink the_group R2 (a_group_session -> R2.Session) using a_group_session;
+         delete a_group_session;
+         the_user_groups := the_user -> R3.Session -> R2.Group;
+         if (find the_user_groups(group_name = an_unwanted_group.group_name))''length = 0 then
+            Operator~>user_group_removed(the_user.user_id, an_unwanted_group.group_name, the_user.login_name, a_group_session.session_id);
+         end if;
+      end loop;
+   end loop;
+end',59,3,'',1 );
+INSERT INTO S_SYNC VALUES ( 227,0,'resend_infos','','all_groups : sequence of instance of Group;
+the_operations : sequence of instance of Operation;
+all_users : sequence of instance of User;
+the_sessions : sequence of instance of Session;
+the_groups : sequence of instance of Group;
+
+begin
+   
+   // report all groups
+   all_groups := find_all Group();
+   for a_group in all_groups''elements loop
+      Operator~>report_group(a_group.group_name);
+      // report all group operations
+      the_operations := a_group -> R1.Operation;
+      for an_operation in the_operations''elements loop
+         Operator~>report_group_operation(a_group.group_name, an_operation.operation_name);
+      end loop;
+   end loop;   
+   
+   // report all users
+   all_users := find_all User();
+   for a_user in all_users''elements loop
+      Operator~>report_user(a_user.user_id, a_user.login_name, a_user.user_name, a_user.is_logged_on);
+      
+      // report all sessions
+      the_sessions := a_user -> R3.Session;
+      for a_session in the_sessions''elements loop
+         
+         Operator~>report_user_session(a_session.session_id, a_user.user_id, a_session.logon_time,
+                                       a_session.has_timed_out, (a_session -> R3.Workstation).workstation_hostname, 
+                                       a_user.login_name);
+         
+         // report all user groups
+         the_groups := a_session -> R2.Group;
+         for a_group in the_groups''elements loop
+            Operator~>report_user_operation(a_user.user_id, a_group.group_name, a_user.login_name, a_session.session_id);
+         end loop;
+      
+         // report all user operations
+         the_operations := a_session -> R2.Group -> R1.Operation;
+         for an_operation in the_operations''elements loop
+            Operator~>report_user_operation(a_user.user_id, an_operation.operation_name, a_user.login_name, a_session.session_id);
+         end loop;
+         
+      end loop;
+   
+   end loop;
+end',59,3,'',1 );
+INSERT INTO S_SYNC VALUES ( 231,0,'session_active','','the_session : instance of Session;
+
+begin
+   
+   // locate the session
+   the_session := find_one Session(session_id = session_id and user_id = user_id and login_name = login_name);
+   if the_session /= null then
+      generate Session.user_logged_on() to the_session;
+   else
+      // log an error as this is an invalid logoff request
+      console << "SAC::session-active - Invalid session active received, session_id = " << session_id''image  << 
+                 ", uid = " << user_id''image << ", sid = " << login_name << endl << flush;
+   end if;
+end',59,3,'',1 );
+INSERT INTO S_SYNC VALUES ( 241,0,'user_logoff','','the_session : instance of Session;
+the_workstation : instance of Workstation;
+
+begin
+   
+   // locate the session for the user
+   the_session := find_one Session(session_id = session_id and user_id = user_id and login_name = login_name);
+   if the_session /= null then
+      the_workstation := the_session -> R3.Workstation;
+      the_session.delete_session();
+      // remove the workstation if it is no longer in use
+      if (the_workstation -> R3.Session) = null then
+         delete the_workstation;
+      end if;
+   else
+      // log an error as this is an invalid logoff request
+      console << "SAC::user_logoff - Invalid logoff received, session_id = " << session_id''image  << 
+                 ", uid = " << user_id''image << ", sid = " << login_name << endl << flush;
+   end if;
+end',59,3,'',1 );
+INSERT INTO S_SYNC VALUES ( 251,0,'user_logon','','login_allowed : boolean := false;
+the_user : instance of User;
+the_workstation : instance of Workstation;
+the_session : instance of Session;
+the_group : instance of Group;
+the_group_for_session : instance of Group_For_Session;
+session_operations : sequence of instance of Operation;
+the_session_operation : instance of Session_Operation;
+message : string;
+
+begin
+   
+   // validate that at least one of the specified 
+   // groups is allowed on the system before proceeding
+   for a_group in groups''elements loop
+      if (find_one Group(group_name = a_group)) /= null then
+         login_allowed := true;
+         exit;
+      end if;
+   end loop;
+   
+   if login_allowed = true then
+      // locate the workstation and if it does not exist create it
+      the_workstation := find_one Workstation(workstation_hostname = workstation_hostname);
+      if the_workstation = null then
+         the_workstation := create unique Workstation(workstation_hostname => workstation_hostname);
+      end if;
+      the_session := the_workstation -> R3.Session;
+      if the_session /= null then
+         // log an error as this was unexpected due to the workstation still having a session
+         console << "Forced logout on workstation. Workstation = " << the_workstation.workstation_hostname
+                 << " User = " << (the_session -> R3.User).user_name << endl << flush;
+         // end the current session on this workstation
+         the_session.delete_session();
+      end if;
+      
+      // locate the user and if the user does not exist create it
+      the_user := find_one User(user_id = user_id and login_name = login_name);
+      if the_user = null then
+         the_user := create User(user_id => user_id, 
+                                   login_name => login_name, 
+                                   user_name => user_name,
+                                   is_logged_on => logged_on);
+      end if;
+      Operator~>report_user(the_user.user_id, the_user.login_name, the_user.user_name, the_user.is_logged_on);
+      // create the session
+      the_session := create unique Session(logon_time => timestamp''now, session_heartbeat_failure => 0,
+                                               has_timed_out => false, workstation_id => the_workstation.workstation_id,
+                                               Current_State => Created);
+      link the_user R3 the_workstation using the_session;
+      Operator~>report_user_session(the_session.session_id, the_session.user_id, the_session.logon_time,
+                                     the_session.has_timed_out, (the_session -> R3.Workstation).workstation_hostname,
+                                     the_session.login_name);
+      
+      // set up the groups for the session and 
+      // report the operations that are available to the user
+      for a_group in groups''elements loop
+         the_group := find_one Group(group_name = a_group);
+         if the_group /= null then
+            the_group_for_session := create Group_For_Session(group_id => the_group.group_id, 
+                                                                session_id => the_session.session_id);
+            link the_group R2 the_session using the_group_for_session;
+            Operator~>report_user_group(the_user.user_id, a_group, the_user.login_name, the_session.session_id);      
+         end if;
+      end loop;
+      session_operations := the_session -> R2.Group -> R1.Operation;
+      for a_session_operation in session_operations''elements loop
+         the_session_operation := the_session with a_session_operation -> R5.Session_Operation;
+         if the_session_operation = null then
+            the_session_operation := create Session_Operation(session_id => the_session.session_id, 
+                                                                operation_id => a_session_operation.operation_id);
+            link the_session R5 a_session_operation using the_session_operation;
+            Operator~>report_user_operation(the_user.user_id, a_session_operation.operation_name, the_user.login_name, the_session.session_id);
+         end if;
+      end loop;
+      
+      generate Session.user_logged_on() to the_session;      
+      Operator~>login_valid(the_session.session_id, user_id, true, "", workstation_hostname, login_name);
+   else
+      message := "Login failure due to invalid group specified, user = " & user_name & 
+                  " workstation = " & workstation_hostname & ".";
+      Operator~>raise_notification(message, "Info");
+      Operator~>login_valid(-1, user_id, false, "Invalid group specified", workstation_hostname, login_name);
+   end if;
+end',59,3,'',1 );
+INSERT INTO S_SPARM VALUES ( 193,185,'group_name',35,0,'',0,'' );
+INSERT INTO S_SPARM VALUES ( 199,196,'group_name',35,0,'',0,'' );
+INSERT INTO S_SPARM VALUES ( 201,196,'operations',204,0,'',199,'' );
+INSERT INTO S_SPARM VALUES ( 210,207,'group_name',35,0,'',0,'' );
+INSERT INTO S_SPARM VALUES ( 216,213,'group_name',35,0,'',0,'' );
+INSERT INTO S_SPARM VALUES ( 218,213,'operations',204,0,'',216,'' );
+INSERT INTO S_SPARM VALUES ( 224,221,'reload_config_files',56,0,'',0,'' );
+INSERT INTO S_SPARM VALUES ( 234,231,'session_id',53,0,'',0,'' );
+INSERT INTO S_SPARM VALUES ( 236,231,'user_id',53,0,'',234,'' );
+INSERT INTO S_SPARM VALUES ( 238,231,'login_name',35,0,'',236,'' );
+INSERT INTO S_SPARM VALUES ( 244,241,'session_id',53,0,'',0,'' );
+INSERT INTO S_SPARM VALUES ( 246,241,'user_id',53,0,'',244,'' );
+INSERT INTO S_SPARM VALUES ( 248,241,'login_name',35,0,'',246,'' );
+INSERT INTO S_SPARM VALUES ( 254,251,'user_id',53,0,'',0,'' );
+INSERT INTO S_SPARM VALUES ( 256,251,'login_name',35,0,'',254,'' );
+INSERT INTO S_SPARM VALUES ( 258,251,'user_name',35,0,'',256,'' );
+INSERT INTO S_SPARM VALUES ( 260,251,'workstation_hostname',35,0,'',258,'' );
+INSERT INTO S_SPARM VALUES ( 262,251,'groups',204,0,'',260,'' );
+INSERT INTO model VALUES ( '/tmp/sac/SAC_OOA/',0 );
+INSERT INTO R_REL VALUES ( 392,1,'',0 );
+INSERT INTO R_REL VALUES ( 429,2,'',0 );
+INSERT INTO R_REL VALUES ( 466,3,'',0 );
+INSERT INTO R_REL VALUES ( 503,4,'',0 );
+INSERT INTO R_REL VALUES ( 524,5,'',0 );
+INSERT INTO R_OIR VALUES ( 70,392,396,0 );
+INSERT INTO R_OIR VALUES ( 103,392,405,0 );
+INSERT INTO R_OIR VALUES ( 92,392,424,0 );
+INSERT INTO R_OIR VALUES ( 70,429,433,0 );
+INSERT INTO R_OIR VALUES ( 114,429,442,0 );
+INSERT INTO R_OIR VALUES ( 81,429,461,0 );
+INSERT INTO R_OIR VALUES ( 147,466,470,0 );
+INSERT INTO R_OIR VALUES ( 158,466,479,0 );
+INSERT INTO R_OIR VALUES ( 114,466,498,0 );
+INSERT INTO R_OIR VALUES ( 114,503,507,0 );
+INSERT INTO R_OIR VALUES ( 136,503,516,0 );
+INSERT INTO R_OIR VALUES ( 103,524,528,0 );
+INSERT INTO R_OIR VALUES ( 114,524,537,0 );
+INSERT INTO R_OIR VALUES ( 125,524,556,0 );
+INSERT INTO R_RTO VALUES ( 70,392,396,0 );
+INSERT INTO R_RTO VALUES ( 103,392,405,0 );
+INSERT INTO R_RTO VALUES ( 70,429,433,0 );
+INSERT INTO R_RTO VALUES ( 114,429,442,0 );
+INSERT INTO R_RTO VALUES ( 147,466,470,0 );
+INSERT INTO R_RTO VALUES ( 158,466,479,0 );
+INSERT INTO R_RTO VALUES ( 136,503,516,0 );
+INSERT INTO R_RTO VALUES ( 103,524,528,0 );
+INSERT INTO R_RTO VALUES ( 114,524,537,0 );
+INSERT INTO R_RGO VALUES ( 92,392,424 );
+INSERT INTO R_RGO VALUES ( 81,429,461 );
+INSERT INTO R_RGO VALUES ( 114,466,498 );
+INSERT INTO R_RGO VALUES ( 125,524,556 );
+INSERT INTO R_RGO VALUES ( 114,503,507 );
+INSERT INTO R_SIMP VALUES ( 503 );
+INSERT INTO R_PART VALUES ( 136,503,516,0,0,'rules_are_defined_by' );
+INSERT INTO R_FORM VALUES ( 114,503,507,1,1,'defines_rules_for' );
+INSERT INTO R_ASSOC VALUES ( 392 );
+INSERT INTO R_ASSOC VALUES ( 429 );
+INSERT INTO R_ASSOC VALUES ( 466 );
+INSERT INTO R_ASSOC VALUES ( 524 );
+INSERT INTO R_AONE VALUES ( 70,392,396,1,1,'can_be_performed_by' );
+INSERT INTO R_AONE VALUES ( 70,429,433,1,0,'is_member_of' );
+INSERT INTO R_AONE VALUES ( 147,466,470,0,0,'is_being_used_by' );
+INSERT INTO R_AONE VALUES ( 103,524,528,1,0,'has_allowed' );
+INSERT INTO R_AOTH VALUES ( 103,392,405,1,1,'can_perform' );
+INSERT INTO R_AOTH VALUES ( 114,429,442,1,0,'current_members_are' );
+INSERT INTO R_AOTH VALUES ( 158,466,479,1,1,'is_logged_on_to' );
+INSERT INTO R_AOTH VALUES ( 114,524,537,1,0,'has_been_allowed_for' );
+INSERT INTO R_ASSR VALUES ( 92,392,424,0 );
+INSERT INTO R_ASSR VALUES ( 81,429,461,0 );
+INSERT INTO R_ASSR VALUES ( 114,466,498,0 );
+INSERT INTO R_ASSR VALUES ( 125,524,556,0 );
+INSERT INTO S_IRDT VALUES ( 74,0,70 );
+INSERT INTO S_IRDT VALUES ( 77,1,70 );
+INSERT INTO S_IRDT VALUES ( 85,0,81 );
+INSERT INTO S_IRDT VALUES ( 88,1,81 );
+INSERT INTO S_IRDT VALUES ( 96,0,92 );
+INSERT INTO S_IRDT VALUES ( 99,1,92 );
+INSERT INTO S_IRDT VALUES ( 107,0,103 );
+INSERT INTO S_IRDT VALUES ( 110,1,103 );
+INSERT INTO S_IRDT VALUES ( 118,0,114 );
+INSERT INTO S_IRDT VALUES ( 121,1,114 );
+INSERT INTO S_IRDT VALUES ( 129,0,125 );
+INSERT INTO S_IRDT VALUES ( 132,1,125 );
+INSERT INTO S_IRDT VALUES ( 140,0,136 );
+INSERT INTO S_IRDT VALUES ( 143,1,136 );
+INSERT INTO S_IRDT VALUES ( 151,0,147 );
+INSERT INTO S_IRDT VALUES ( 154,1,147 );
+INSERT INTO S_IRDT VALUES ( 162,0,158 );
+INSERT INTO S_IRDT VALUES ( 165,1,158 );
+INSERT INTO C_C VALUES ( 64,0,0,'SAC',' System Access Control domain
+',0,0,0,'' );
+INSERT INTO C_I VALUES ( 187,0,'SAC','' );
+INSERT INTO C_I VALUES ( 265,0,'SACOperator','' );
+INSERT INTO C_I VALUES ( 369,0,'SACSystem_Configuration','' );
+INSERT INTO C_P VALUES ( 189,'','Unnamed_Interface','','' );
+INSERT INTO C_R VALUES ( 267,'','','Unnamed_Interface','' );
+INSERT INTO C_R VALUES ( 371,'','','Unnamed_Interface','' );
+INSERT INTO C_EP VALUES ( 191,187,0,'add_group','' );
+INSERT INTO C_EP VALUES ( 197,187,0,'add_operation_to_group','' );
+INSERT INTO C_EP VALUES ( 208,187,0,'delete_group','' );
+INSERT INTO C_EP VALUES ( 214,187,0,'delete_group_operation','' );
+INSERT INTO C_EP VALUES ( 222,187,0,'populate_domain','' );
+INSERT INTO C_EP VALUES ( 228,187,0,'resend_infos','' );
+INSERT INTO C_EP VALUES ( 232,187,0,'session_active','' );
+INSERT INTO C_EP VALUES ( 242,187,0,'user_logoff','' );
+INSERT INTO C_EP VALUES ( 252,187,0,'user_logon','' );
+INSERT INTO C_EP VALUES ( 269,265,0,'group_deleted','' );
+INSERT INTO C_EP VALUES ( 272,265,0,'group_operation_removed','' );
+INSERT INTO C_EP VALUES ( 276,265,0,'login_valid','' );
+INSERT INTO C_EP VALUES ( 284,265,0,'raise_notification','' );
+INSERT INTO C_EP VALUES ( 288,265,0,'report_group','' );
+INSERT INTO C_EP VALUES ( 291,265,0,'report_group_operation','' );
+INSERT INTO C_EP VALUES ( 295,265,0,'report_user','' );
+INSERT INTO C_EP VALUES ( 301,265,0,'report_user_group','' );
+INSERT INTO C_EP VALUES ( 307,265,0,'report_user_operation','' );
+INSERT INTO C_EP VALUES ( 313,265,0,'report_user_session','' );
+INSERT INTO C_EP VALUES ( 321,265,0,'user_group_removed','' );
+INSERT INTO C_EP VALUES ( 327,265,0,'user_operation_removed','' );
+INSERT INTO C_EP VALUES ( 333,265,0,'user_removed','' );
+INSERT INTO C_EP VALUES ( 337,265,0,'user_session_deleted','' );
+INSERT INTO C_EP VALUES ( 373,369,0,'get_groups','' );
+INSERT INTO C_EP VALUES ( 379,369,0,'get_session_specification','' );
+INSERT INTO C_EP VALUES ( 383,369,0,'reload_config_files','' );
+INSERT INTO C_IO VALUES ( 191,59,'add_group','',0,'',0 );
+INSERT INTO C_IO VALUES ( 197,59,'add_operation_to_group','',0,'',191 );
+INSERT INTO C_IO VALUES ( 208,59,'delete_group','',0,'',197 );
+INSERT INTO C_IO VALUES ( 214,59,'delete_group_operation','',0,'',208 );
+INSERT INTO C_IO VALUES ( 222,59,'populate_domain','',0,'',214 );
+INSERT INTO C_IO VALUES ( 228,59,'resend_infos','',0,'',222 );
+INSERT INTO C_IO VALUES ( 232,59,'session_active','',0,'',228 );
+INSERT INTO C_IO VALUES ( 242,59,'user_logoff','',0,'',232 );
+INSERT INTO C_IO VALUES ( 252,59,'user_logon','',0,'',242 );
+INSERT INTO C_IO VALUES ( 269,59,'group_deleted','',0,'',0 );
+INSERT INTO C_IO VALUES ( 272,59,'group_operation_removed','',0,'',269 );
+INSERT INTO C_IO VALUES ( 276,59,'login_valid','',0,'',272 );
+INSERT INTO C_IO VALUES ( 284,59,'raise_notification','',0,'',276 );
+INSERT INTO C_IO VALUES ( 288,59,'report_group','',0,'',284 );
+INSERT INTO C_IO VALUES ( 291,59,'report_group_operation','',0,'',288 );
+INSERT INTO C_IO VALUES ( 295,59,'report_user','',0,'',291 );
+INSERT INTO C_IO VALUES ( 301,59,'report_user_group','',0,'',295 );
+INSERT INTO C_IO VALUES ( 307,59,'report_user_operation','',0,'',301 );
+INSERT INTO C_IO VALUES ( 313,59,'report_user_session','',0,'',307 );
+INSERT INTO C_IO VALUES ( 321,59,'user_group_removed','',0,'',313 );
+INSERT INTO C_IO VALUES ( 327,59,'user_operation_removed','',0,'',321 );
+INSERT INTO C_IO VALUES ( 333,59,'user_removed','',0,'',327 );
+INSERT INTO C_IO VALUES ( 337,59,'user_session_deleted','',0,'',333 );
+INSERT INTO C_IO VALUES ( 373,59,'get_groups','',0,'',0 );
+INSERT INTO C_IO VALUES ( 379,59,'get_session_specification','',0,'',373 );
+INSERT INTO C_IO VALUES ( 383,59,'reload_config_files','',0,'',379 );
+INSERT INTO C_PP VALUES ( 194,191,35,'group_name','',0,'',0 );
+INSERT INTO C_PP VALUES ( 200,197,35,'group_name','',0,'',0 );
+INSERT INTO C_PP VALUES ( 202,197,204,'operations','',0,'',200 );
+INSERT INTO C_PP VALUES ( 211,208,35,'group_name','',0,'',0 );
+INSERT INTO C_PP VALUES ( 217,214,35,'group_name','',0,'',0 );
+INSERT INTO C_PP VALUES ( 219,214,204,'operations','',0,'',217 );
+INSERT INTO C_PP VALUES ( 225,222,56,'reload_config_files','',0,'',0 );
+INSERT INTO C_PP VALUES ( 235,232,53,'session_id','',0,'',0 );
+INSERT INTO C_PP VALUES ( 237,232,53,'user_id','',0,'',235 );
+INSERT INTO C_PP VALUES ( 239,232,35,'login_name','',0,'',237 );
+INSERT INTO C_PP VALUES ( 245,242,53,'session_id','',0,'',0 );
+INSERT INTO C_PP VALUES ( 247,242,53,'user_id','',0,'',245 );
+INSERT INTO C_PP VALUES ( 249,242,35,'login_name','',0,'',247 );
+INSERT INTO C_PP VALUES ( 255,252,53,'user_id','',0,'',0 );
+INSERT INTO C_PP VALUES ( 257,252,35,'login_name','',0,'',255 );
+INSERT INTO C_PP VALUES ( 259,252,35,'user_name','',0,'',257 );
+INSERT INTO C_PP VALUES ( 261,252,35,'workstation_hostname','',0,'',259 );
+INSERT INTO C_PP VALUES ( 263,252,204,'groups','',0,'',261 );
+INSERT INTO C_PP VALUES ( 271,269,35,'group_name','',0,'',0 );
+INSERT INTO C_PP VALUES ( 274,272,35,'group_name','',0,'',0 );
+INSERT INTO C_PP VALUES ( 275,272,35,'operation_name','',0,'',274 );
+INSERT INTO C_PP VALUES ( 278,276,53,'session_id','',0,'',0 );
+INSERT INTO C_PP VALUES ( 279,276,53,'user_id','',0,'',278 );
+INSERT INTO C_PP VALUES ( 280,276,56,'is_valid','',0,'',279 );
+INSERT INTO C_PP VALUES ( 281,276,35,'failure_reason','',0,'',280 );
+INSERT INTO C_PP VALUES ( 282,276,35,'workstation_hostname','',0,'',281 );
+INSERT INTO C_PP VALUES ( 283,276,35,'login_name','',0,'',282 );
+INSERT INTO C_PP VALUES ( 286,284,35,'condition_description','',0,'',0 );
+INSERT INTO C_PP VALUES ( 287,284,35,'condition_name','',0,'',286 );
+INSERT INTO C_PP VALUES ( 290,288,35,'group_name','',0,'',0 );
+INSERT INTO C_PP VALUES ( 293,291,35,'group_name','',0,'',0 );
+INSERT INTO C_PP VALUES ( 294,291,35,'operation_name','',0,'',293 );
+INSERT INTO C_PP VALUES ( 297,295,53,'user_id','',0,'',0 );
+INSERT INTO C_PP VALUES ( 298,295,35,'login_name','',0,'',297 );
+INSERT INTO C_PP VALUES ( 299,295,35,'user_name','',0,'',298 );
+INSERT INTO C_PP VALUES ( 300,295,172,'logged_on','',0,'',299 );
+INSERT INTO C_PP VALUES ( 303,301,53,'uid','',0,'',0 );
+INSERT INTO C_PP VALUES ( 304,301,35,'group_name','',0,'',303 );
+INSERT INTO C_PP VALUES ( 305,301,35,'login_name','',0,'',304 );
+INSERT INTO C_PP VALUES ( 306,301,53,'session_id','',0,'',305 );
+INSERT INTO C_PP VALUES ( 309,307,53,'user_id','',0,'',0 );
+INSERT INTO C_PP VALUES ( 310,307,35,'operation_name','',0,'',309 );
+INSERT INTO C_PP VALUES ( 311,307,35,'login_name','',0,'',310 );
+INSERT INTO C_PP VALUES ( 312,307,53,'session_id','',0,'',311 );
+INSERT INTO C_PP VALUES ( 315,313,53,'session_id','',0,'',0 );
+INSERT INTO C_PP VALUES ( 316,313,53,'user_id','',0,'',315 );
+INSERT INTO C_PP VALUES ( 317,313,23,'login_time','',0,'',316 );
+INSERT INTO C_PP VALUES ( 318,313,56,'session_timed_out','',0,'',317 );
+INSERT INTO C_PP VALUES ( 319,313,35,'workstation_hostname','',0,'',318 );
+INSERT INTO C_PP VALUES ( 320,313,35,'login_name','',0,'',319 );
+INSERT INTO C_PP VALUES ( 323,321,53,'uid','',0,'',0 );
+INSERT INTO C_PP VALUES ( 324,321,35,'group_name','',0,'',323 );
+INSERT INTO C_PP VALUES ( 325,321,35,'login_name','',0,'',324 );
+INSERT INTO C_PP VALUES ( 326,321,53,'session_id','',0,'',325 );
+INSERT INTO C_PP VALUES ( 329,327,53,'user_id','',0,'',0 );
+INSERT INTO C_PP VALUES ( 330,327,35,'operation_name','',0,'',329 );
+INSERT INTO C_PP VALUES ( 331,327,35,'login_name','',0,'',330 );
+INSERT INTO C_PP VALUES ( 332,327,53,'session_id','',0,'',331 );
+INSERT INTO C_PP VALUES ( 335,333,53,'user_id','',0,'',0 );
+INSERT INTO C_PP VALUES ( 336,333,35,'login_name','',0,'',335 );
+INSERT INTO C_PP VALUES ( 339,337,53,'session_id','',0,'',0 );
+INSERT INTO C_PP VALUES ( 375,373,377,'groups','',1,'',0 );
+INSERT INTO C_PP VALUES ( 381,379,26,'heartbeat_time','',1,'',0 );
+INSERT INTO C_PP VALUES ( 382,379,53,'heartbeat_failure_threshold','',1,'',381 );
+INSERT INTO C_IR VALUES ( 189,187,0,190 );
+INSERT INTO C_IR VALUES ( 267,265,0,268 );
+INSERT INTO C_IR VALUES ( 371,369,0,372 );
+INSERT INTO C_PO VALUES ( 190,64,'SAC',0,0 );
+INSERT INTO C_PO VALUES ( 268,64,'Operator',0,0 );
+INSERT INTO C_PO VALUES ( 372,64,'System_Configuration',0,0 );
+INSERT INTO SPR_REP VALUES ( 340,269,267 );
+INSERT INTO SPR_REP VALUES ( 342,272,267 );
+INSERT INTO SPR_REP VALUES ( 344,276,267 );
+INSERT INTO SPR_REP VALUES ( 346,284,267 );
+INSERT INTO SPR_REP VALUES ( 348,288,267 );
+INSERT INTO SPR_REP VALUES ( 350,291,267 );
+INSERT INTO SPR_REP VALUES ( 352,295,267 );
+INSERT INTO SPR_REP VALUES ( 354,301,267 );
+INSERT INTO SPR_REP VALUES ( 356,307,267 );
+INSERT INTO SPR_REP VALUES ( 358,313,267 );
+INSERT INTO SPR_REP VALUES ( 360,321,267 );
+INSERT INTO SPR_REP VALUES ( 362,327,267 );
+INSERT INTO SPR_REP VALUES ( 364,333,267 );
+INSERT INTO SPR_REP VALUES ( 366,337,267 );
+INSERT INTO SPR_REP VALUES ( 385,373,371 );
+INSERT INTO SPR_REP VALUES ( 387,379,371 );
+INSERT INTO SPR_REP VALUES ( 389,383,371 );
+INSERT INTO SPR_PEP VALUES ( 995,191,189 );
+INSERT INTO SPR_PEP VALUES ( 997,197,189 );
+INSERT INTO SPR_PEP VALUES ( 999,208,189 );
+INSERT INTO SPR_PEP VALUES ( 1001,214,189 );
+INSERT INTO SPR_PEP VALUES ( 1003,222,189 );
+INSERT INTO SPR_PEP VALUES ( 1005,228,189 );
+INSERT INTO SPR_PEP VALUES ( 1007,232,189 );
+INSERT INTO SPR_PEP VALUES ( 1009,242,189 );
+INSERT INTO SPR_PEP VALUES ( 1011,252,189 );
+INSERT INTO SPR_RO VALUES ( 340,'','','begin
+  null;
+end',3,1 );
+INSERT INTO SPR_RO VALUES ( 342,'','','begin
+  null;
+end',3,1 );
+INSERT INTO SPR_RO VALUES ( 344,'','','begin
+  null;
+end',3,1 );
+INSERT INTO SPR_RO VALUES ( 346,'','','begin
+  null;
+end',3,1 );
+INSERT INTO SPR_RO VALUES ( 348,'','','begin
+  null;
+end',3,1 );
+INSERT INTO SPR_RO VALUES ( 350,'','','begin
+  null;
+end',3,1 );
+INSERT INTO SPR_RO VALUES ( 352,'','','begin
+  null;
+end',3,1 );
+INSERT INTO SPR_RO VALUES ( 354,'','','begin
+  null;
+end',3,1 );
+INSERT INTO SPR_RO VALUES ( 356,'','','begin
+  null;
+end',3,1 );
+INSERT INTO SPR_RO VALUES ( 358,'','','begin
+  null;
+end',3,1 );
+INSERT INTO SPR_RO VALUES ( 360,'','','begin
+  null;
+end',3,1 );
+INSERT INTO SPR_RO VALUES ( 362,'','','begin
+  null;
+end',3,1 );
+INSERT INTO SPR_RO VALUES ( 364,'','','begin
+  null;
+end',3,1 );
+INSERT INTO SPR_RO VALUES ( 366,'','','begin
+  null;
+end',3,1 );
+INSERT INTO SPR_RO VALUES ( 385,'','','the_data : sequence of INI::data_item_type;
+the_indexed_data : sequence of INI::data_item_type;
+empty_indexed_data : sequence of INI::data_item_type;
+the_group_name : string;
+operation_name : string;
+operation_names : sequence of string;
+empty_operation_names : sequence of string;
+
+begin
+   
+   INI::get_data("group", the_data);
+   for data in the_data''elements loop
+      for a_name_value in data.name_value''elements loop
+         if a_name_value.name = "group name" then
+            the_group_name := a_name_value.value;
+         end if;
+      end loop;
+      INI::get_indexed_data("group operation", data.index, data.index_dtr_name, data.index_config_file, the_indexed_data);
+      for an_indexed_data in the_indexed_data''elements loop
+         for a_name_value in an_indexed_data.name_value''elements loop
+            if a_name_value.name = "operation name" then
+               operation_name := a_name_value.value;
+            end if;
+            operation_names := operation_names & operation_name;
+         end loop;
+      end loop;
+      groups := groups & (the_group_name, operation_names);
+      operation_names := empty_operation_names;
+      the_indexed_data := empty_indexed_data;
+   end loop;
+end',3,1 );
+INSERT INTO SPR_RO VALUES ( 387,'','','the_data : sequence of INI::data_item_type;
+
+begin
+   
+   INI::get_data("session spec", the_data);
+   for data in the_data''elements loop
+      for a_name_value in data.name_value''elements loop
+         if a_name_value.name = "heartbeat time" then
+            heartbeat_time := duration''parse(a_name_value.value);
+         elsif a_name_value.name = "heartbeat failure threshold" then
+            heartbeat_failure_threshold := integer''parse(a_name_value.value);
+         end if;
+      end loop;
+   end loop;
+end',3,1 );
+INSERT INTO SPR_RO VALUES ( 389,'','','begin
+   
+   INI::reload_ini_files();
+end',3,1 );
+INSERT INTO SPR_PO VALUES ( 995,'','','',3,5 );
+INSERT INTO SPR_PO VALUES ( 997,'','','',3,5 );
+INSERT INTO SPR_PO VALUES ( 999,'','','',3,5 );
+INSERT INTO SPR_PO VALUES ( 1001,'','','',3,5 );
+INSERT INTO SPR_PO VALUES ( 1003,'','','',3,5 );
+INSERT INTO SPR_PO VALUES ( 1005,'','','',3,5 );
+INSERT INTO SPR_PO VALUES ( 1007,'','','',3,5 );
+INSERT INTO SPR_PO VALUES ( 1009,'','','',3,5 );
+INSERT INTO SPR_PO VALUES ( 1011,'','','',3,5 );
+INSERT INTO SM_SM VALUES ( 681,'',0 );
+INSERT INTO SM_STATE VALUES ( 689,681,0,'Created',1,0 );
+INSERT INTO SM_STATE VALUES ( 698,681,0,'Session_Established',2,0 );
+INSERT INTO SM_STATE VALUES ( 707,681,0,'Session_Heartbeat_Failed',3,0 );
+INSERT INTO SM_STATE VALUES ( 716,681,0,'Session_Timed_Out',4,0 );
+INSERT INTO SM_EVT VALUES ( 725,681,0,1,'heartbeat_timeout_expired',0,'','','' );
+INSERT INTO SM_EVT VALUES ( 755,681,0,2,'session_timeout_reached',0,'','','' );
+INSERT INTO SM_EVT VALUES ( 785,681,0,3,'user_logged_on',0,'','','' );
+INSERT INTO SM_SEME VALUES ( 689,725,681,0 );
+INSERT INTO SM_SEME VALUES ( 698,725,681,0 );
+INSERT INTO SM_SEME VALUES ( 707,725,681,0 );
+INSERT INTO SM_SEME VALUES ( 716,725,681,0 );
+INSERT INTO SM_SEME VALUES ( 689,755,681,0 );
+INSERT INTO SM_SEME VALUES ( 698,755,681,0 );
+INSERT INTO SM_SEME VALUES ( 707,755,681,0 );
+INSERT INTO SM_SEME VALUES ( 716,755,681,0 );
+INSERT INTO SM_SEME VALUES ( 689,785,681,0 );
+INSERT INTO SM_SEME VALUES ( 698,785,681,0 );
+INSERT INTO SM_SEME VALUES ( 707,785,681,0 );
+INSERT INTO SM_SEME VALUES ( 716,785,681,0 );
+INSERT INTO SM_NSTXN VALUES ( 821,681,689,785,0 );
+INSERT INTO SM_NSTXN VALUES ( 835,681,698,725,0 );
+INSERT INTO SM_NSTXN VALUES ( 855,681,707,725,0 );
+INSERT INTO SM_NSTXN VALUES ( 869,681,707,755,0 );
+INSERT INTO SM_NSTXN VALUES ( 883,681,707,785,0 );
+INSERT INTO SM_NSTXN VALUES ( 903,681,716,785,0 );
+INSERT INTO SM_EIGN VALUES ( 689,725,681,0,'' );
+INSERT INTO SM_EIGN VALUES ( 689,755,681,0,'' );
+INSERT INTO SM_EIGN VALUES ( 698,755,681,0,'' );
+INSERT INTO SM_EIGN VALUES ( 698,785,681,0,'' );
+INSERT INTO SM_EIGN VALUES ( 716,725,681,0,'' );
+INSERT INTO SM_EIGN VALUES ( 716,755,681,0,'' );
+INSERT INTO SM_TXN VALUES ( 821,681,698,0 );
+INSERT INTO SM_TXN VALUES ( 835,681,707,0 );
+INSERT INTO SM_TXN VALUES ( 855,681,707,0 );
+INSERT INTO SM_TXN VALUES ( 869,681,716,0 );
+INSERT INTO SM_TXN VALUES ( 883,681,698,0 );
+INSERT INTO SM_TXN VALUES ( 903,681,698,0 );
+INSERT INTO SM_MOORE VALUES ( 681 );
+INSERT INTO SM_MOAH VALUES ( 691,681,689 );
+INSERT INTO SM_MOAH VALUES ( 700,681,698 );
+INSERT INTO SM_MOAH VALUES ( 709,681,707 );
+INSERT INTO SM_MOAH VALUES ( 718,681,716 );
+INSERT INTO SM_AH VALUES ( 691,681 );
+INSERT INTO SM_AH VALUES ( 700,681 );
+INSERT INTO SM_AH VALUES ( 709,681 );
+INSERT INTO SM_AH VALUES ( 718,681 );
+INSERT INTO SM_AH VALUES ( 825,681 );
+INSERT INTO SM_AH VALUES ( 839,681 );
+INSERT INTO SM_AH VALUES ( 859,681 );
+INSERT INTO SM_AH VALUES ( 873,681 );
+INSERT INTO SM_AH VALUES ( 887,681 );
+INSERT INTO SM_AH VALUES ( 907,681 );
+INSERT INTO SM_ACT VALUES ( 691,681,3,'begin
+  null;
+end','',1 );
+INSERT INTO SM_ACT VALUES ( 700,681,3,'the_session_spec : instance of Session_Specification;
+the_user : instance of User;
+
+begin
+   
+   // report the session details and setup the heartbeat timer
+   this.session_heartbeat_failure := 0;
+   the_user := this -> R3.User;
+   if the_user.is_logged_on = suspect then
+      the_user.is_logged_on := logged_on;
+      Operator~>report_user(the_user.user_id, the_user.login_name, the_user.user_name, the_user.is_logged_on);
+   end if;
+   if this.has_timed_out = true then
+      this.has_timed_out := false;
+      Operator~>report_user_session(this.session_id, this.user_id, this.logon_time,
+                                     this.has_timed_out, (this -> R3.Workstation).workstation_hostname, the_user.login_name);
+   end if;
+   the_session_spec := find_one Session_Specification();
+   schedule this.session_heartbeat_timer generate Session.heartbeat_timeout_expired() to this 
+                        delay the_session_spec.session_heartbeat_time;
+end','',1 );
+INSERT INTO SM_ACT VALUES ( 709,681,3,'the_session_spec : instance of Session_Specification;
+
+begin
+   
+   // increment the failure count and check if we have exceeded the threshold
+   the_session_spec := find_one Session_Specification();
+   this.session_heartbeat_failure := this.session_heartbeat_failure + 1;
+   if this.session_heartbeat_failure > the_session_spec.session_heartbeat_failure_threshold then
+      generate Session.session_timeout_reached() to this;
+   else
+      // reset the timer
+      schedule this.session_heartbeat_timer generate Session.heartbeat_timeout_expired() to this 
+                        delay the_session_spec.session_heartbeat_time;
+   end if;
+end','',1 );
+INSERT INTO SM_ACT VALUES ( 718,681,3,'the_user : instance of User;
+
+begin
+   
+   // report that the session has timed out
+   cancel this.session_heartbeat_timer;
+   this.has_timed_out := true;
+   Operator~>report_user_session(this.session_id, this.user_id, this.logon_time,
+                                  this.has_timed_out, (this -> R3.Workstation).workstation_hostname, this.login_name);
+   
+   // check if all the users session are timedout and 
+   // if they are mark the user logon as suspect
+   the_user := this -> R3.User;
+   if (find_one (the_user -> R3.Session)(has_timed_out = false)) = null then
+      // report the user login as suspect
+      the_user.is_logged_on := suspect;
+      Operator~>report_user(the_user.user_id, the_user.login_name, 
+                            the_user.user_name, the_user.is_logged_on);
+   end if;
+end','',1 );
+INSERT INTO SM_ACT VALUES ( 825,681,3,'','',5 );
+INSERT INTO SM_ACT VALUES ( 839,681,3,'','',5 );
+INSERT INTO SM_ACT VALUES ( 859,681,3,'','',5 );
+INSERT INTO SM_ACT VALUES ( 873,681,3,'','',5 );
+INSERT INTO SM_ACT VALUES ( 887,681,3,'','',5 );
+INSERT INTO SM_ACT VALUES ( 907,681,3,'','',5 );
+INSERT INTO SM_ISM VALUES ( 681,114 );
+INSERT INTO SM_SEVT VALUES ( 725,681,0 );
+INSERT INTO SM_SEVT VALUES ( 755,681,0 );
+INSERT INTO SM_SEVT VALUES ( 785,681,0 );
+INSERT INTO SM_LEVT VALUES ( 725,681,0 );
+INSERT INTO SM_LEVT VALUES ( 755,681,0 );
+INSERT INTO SM_LEVT VALUES ( 785,681,0 );
+INSERT INTO SM_TAH VALUES ( 825,681,821 );
+INSERT INTO SM_TAH VALUES ( 839,681,835 );
+INSERT INTO SM_TAH VALUES ( 859,681,855 );
+INSERT INTO SM_TAH VALUES ( 873,681,869 );
+INSERT INTO SM_TAH VALUES ( 887,681,883 );
+INSERT INTO SM_TAH VALUES ( 907,681,903 );
+INSERT INTO PE_PE VALUES ( 3,1,0,0,7 );
+INSERT INTO PE_PE VALUES ( 5,1,3,0,3 );
+INSERT INTO PE_PE VALUES ( 8,1,3,0,3 );
+INSERT INTO PE_PE VALUES ( 11,1,3,0,3 );
+INSERT INTO PE_PE VALUES ( 14,1,3,0,3 );
+INSERT INTO PE_PE VALUES ( 17,1,3,0,3 );
+INSERT INTO PE_PE VALUES ( 20,1,3,0,3 );
+INSERT INTO PE_PE VALUES ( 23,1,3,0,3 );
+INSERT INTO PE_PE VALUES ( 26,1,3,0,3 );
+INSERT INTO PE_PE VALUES ( 29,1,3,0,3 );
+INSERT INTO PE_PE VALUES ( 32,1,3,0,3 );
+INSERT INTO PE_PE VALUES ( 35,1,3,0,3 );
+INSERT INTO PE_PE VALUES ( 38,1,3,0,3 );
+INSERT INTO PE_PE VALUES ( 41,1,3,0,3 );
+INSERT INTO PE_PE VALUES ( 44,1,3,0,3 );
+INSERT INTO PE_PE VALUES ( 47,1,3,0,3 );
+INSERT INTO PE_PE VALUES ( 50,1,3,0,3 );
+INSERT INTO PE_PE VALUES ( 53,1,3,0,3 );
+INSERT INTO PE_PE VALUES ( 56,1,3,0,3 );
+INSERT INTO PE_PE VALUES ( 59,1,3,0,3 );
+INSERT INTO PE_PE VALUES ( 62,1,0,0,7 );
+INSERT INTO PE_PE VALUES ( 64,1,62,0,2 );
+INSERT INTO PE_PE VALUES ( 66,1,0,64,7 );
+INSERT INTO PE_PE VALUES ( 68,1,62,0,7 );
+INSERT INTO PE_PE VALUES ( 70,1,66,0,4 );
+INSERT INTO PE_PE VALUES ( 74,1,66,0,3 );
+INSERT INTO PE_PE VALUES ( 77,1,66,0,3 );
+INSERT INTO PE_PE VALUES ( 81,1,66,0,4 );
+INSERT INTO PE_PE VALUES ( 85,1,66,0,3 );
+INSERT INTO PE_PE VALUES ( 88,1,66,0,3 );
+INSERT INTO PE_PE VALUES ( 92,1,66,0,4 );
+INSERT INTO PE_PE VALUES ( 96,1,66,0,3 );
+INSERT INTO PE_PE VALUES ( 99,1,66,0,3 );
+INSERT INTO PE_PE VALUES ( 103,1,66,0,4 );
+INSERT INTO PE_PE VALUES ( 107,1,66,0,3 );
+INSERT INTO PE_PE VALUES ( 110,1,66,0,3 );
+INSERT INTO PE_PE VALUES ( 114,1,66,0,4 );
+INSERT INTO PE_PE VALUES ( 118,1,66,0,3 );
+INSERT INTO PE_PE VALUES ( 121,1,66,0,3 );
+INSERT INTO PE_PE VALUES ( 125,1,66,0,4 );
+INSERT INTO PE_PE VALUES ( 129,1,66,0,3 );
+INSERT INTO PE_PE VALUES ( 132,1,66,0,3 );
+INSERT INTO PE_PE VALUES ( 136,1,66,0,4 );
+INSERT INTO PE_PE VALUES ( 140,1,66,0,3 );
+INSERT INTO PE_PE VALUES ( 143,1,66,0,3 );
+INSERT INTO PE_PE VALUES ( 147,1,66,0,4 );
+INSERT INTO PE_PE VALUES ( 151,1,66,0,3 );
+INSERT INTO PE_PE VALUES ( 154,1,66,0,3 );
+INSERT INTO PE_PE VALUES ( 158,1,66,0,4 );
+INSERT INTO PE_PE VALUES ( 162,1,66,0,3 );
+INSERT INTO PE_PE VALUES ( 165,1,66,0,3 );
+INSERT INTO PE_PE VALUES ( 169,1,68,0,3 );
+INSERT INTO PE_PE VALUES ( 172,1,68,0,3 );
+INSERT INTO PE_PE VALUES ( 175,1,0,64,7 );
+INSERT INTO PE_PE VALUES ( 177,1,175,0,1 );
+INSERT INTO PE_PE VALUES ( 179,1,175,0,1 );
+INSERT INTO PE_PE VALUES ( 181,1,175,0,1 );
+INSERT INTO PE_PE VALUES ( 183,1,175,0,1 );
+INSERT INTO PE_PE VALUES ( 185,1,175,0,1 );
+INSERT INTO PE_PE VALUES ( 187,1,68,0,6 );
+INSERT INTO PE_PE VALUES ( 196,1,175,0,1 );
+INSERT INTO PE_PE VALUES ( 204,1,68,0,3 );
+INSERT INTO PE_PE VALUES ( 207,1,175,0,1 );
+INSERT INTO PE_PE VALUES ( 213,1,175,0,1 );
+INSERT INTO PE_PE VALUES ( 221,1,175,0,1 );
+INSERT INTO PE_PE VALUES ( 227,1,175,0,1 );
+INSERT INTO PE_PE VALUES ( 231,1,175,0,1 );
+INSERT INTO PE_PE VALUES ( 241,1,175,0,1 );
+INSERT INTO PE_PE VALUES ( 251,1,175,0,1 );
+INSERT INTO PE_PE VALUES ( 265,1,68,0,6 );
+INSERT INTO PE_PE VALUES ( 369,1,68,0,6 );
+INSERT INTO PE_PE VALUES ( 377,1,68,0,3 );
+INSERT INTO PE_PE VALUES ( 392,1,66,0,9 );
+INSERT INTO PE_PE VALUES ( 429,1,66,0,9 );
+INSERT INTO PE_PE VALUES ( 466,1,66,0,9 );
+INSERT INTO PE_PE VALUES ( 503,1,66,0,9 );
+INSERT INTO PE_PE VALUES ( 524,1,66,0,9 );
+INSERT INTO PE_PE VALUES ( 569,1,68,0,3 );
+INSERT INTO S_DT VALUES ( 5,0,'MASLtype','','' );
+INSERT INTO S_DT VALUES ( 8,0,'structure','','' );
+INSERT INTO S_DT VALUES ( 11,0,'enum','','' );
+INSERT INTO S_DT VALUES ( 14,0,'device','','' );
+INSERT INTO S_DT VALUES ( 17,0,'event','','' );
+INSERT INTO S_DT VALUES ( 20,0,'timer','','' );
+INSERT INTO S_DT VALUES ( 23,0,'timestamp','','' );
+INSERT INTO S_DT VALUES ( 26,0,'duration','','' );
+INSERT INTO S_DT VALUES ( 29,0,'date','','' );
+INSERT INTO S_DT VALUES ( 32,0,'wstring','','' );
+INSERT INTO S_DT VALUES ( 35,0,'string','','' );
+INSERT INTO S_DT VALUES ( 38,0,'real','','' );
+INSERT INTO S_DT VALUES ( 41,0,'long_integer','','' );
+INSERT INTO S_DT VALUES ( 44,0,'byte','','' );
+INSERT INTO S_DT VALUES ( 47,0,'wcharacter','','' );
+INSERT INTO S_DT VALUES ( 50,0,'character','','' );
+INSERT INTO S_DT VALUES ( 53,0,'integer','','' );
+INSERT INTO S_DT VALUES ( 56,0,'boolean','','' );
+INSERT INTO S_DT VALUES ( 59,0,'void','','' );
+INSERT INTO S_DT VALUES ( 74,0,'inst_ref<Group>','','' );
+INSERT INTO S_DT VALUES ( 77,0,'inst_ref_set<Group>','','' );
+INSERT INTO S_DT VALUES ( 85,0,'inst_ref<Group_For_Session>','','' );
+INSERT INTO S_DT VALUES ( 88,0,'inst_ref_set<Group_For_Session>','','' );
+INSERT INTO S_DT VALUES ( 96,0,'inst_ref<Group_Operation>','','' );
+INSERT INTO S_DT VALUES ( 99,0,'inst_ref_set<Group_Operation>','','' );
+INSERT INTO S_DT VALUES ( 107,0,'inst_ref<Operation>','','' );
+INSERT INTO S_DT VALUES ( 110,0,'inst_ref_set<Operation>','','' );
+INSERT INTO S_DT VALUES ( 118,0,'inst_ref<Session>','','' );
+INSERT INTO S_DT VALUES ( 121,0,'inst_ref_set<Session>','','' );
+INSERT INTO S_DT VALUES ( 129,0,'inst_ref<Session_Operation>','','' );
+INSERT INTO S_DT VALUES ( 132,0,'inst_ref_set<Session_Operation>','','' );
+INSERT INTO S_DT VALUES ( 140,0,'inst_ref<Session_Specification>','','' );
+INSERT INTO S_DT VALUES ( 143,0,'inst_ref_set<Session_Specification>','','' );
+INSERT INTO S_DT VALUES ( 151,0,'inst_ref<User>','','' );
+INSERT INTO S_DT VALUES ( 154,0,'inst_ref_set<User>','','' );
+INSERT INTO S_DT VALUES ( 162,0,'inst_ref<Workstation>','','' );
+INSERT INTO S_DT VALUES ( 165,0,'inst_ref_set<Workstation>','','' );
+INSERT INTO S_DT VALUES ( 169,0,'group_type','','' );
+INSERT INTO S_DT VALUES ( 172,0,'logged_on_type','','' );
+INSERT INTO S_DT VALUES ( 204,0,'sequence of string','','' );
+INSERT INTO S_DT VALUES ( 377,0,'sequence of group_type','','' );
+INSERT INTO S_DT VALUES ( 569,0,'MASLunique','','' );

@@ -1,0 +1,4 @@
+public service UI::setTime (        time : in integer) is
+begin
+  null;
+end service;

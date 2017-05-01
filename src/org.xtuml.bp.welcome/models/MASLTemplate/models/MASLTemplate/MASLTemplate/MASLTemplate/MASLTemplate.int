@@ -1,0 +1,13 @@
+domain MASLTemplate is
+  public type ex_type is structure
+    group_name: string;     
+    operation_names: sequence of string;     
+end structure
+  ;
+    public service public_service_1 (
+        val : in ex_type    );
+  terminator TermA is
+    public service terminator_svc_1 (
+    );
+  end terminator;
+end domain;

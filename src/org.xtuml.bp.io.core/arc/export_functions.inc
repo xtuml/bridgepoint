@@ -34,6 +34,8 @@
 .function gen_write_attr_function
   .param inst_ref table
   .param string callingProject
+  .param boolean multilevel
+  .param boolean stream
   .if (callingProject == "BP")
     .if (table.Key_Lett == "GD_MD")
   Diagram_c diagram = Diagram_c.getOneDIM_DIAOnR18(inst);
@@ -74,7 +76,38 @@
     .invoke a = get_attribute_accessor( col )
     .if ( col.type == "string" )
   m_fh.print( "'"); //$$NON-NLS-1$$
+      .if ( (((multilevel) AND (not stream)) AND (col.Name == "Action_Semantics_internal")) )
+        .// exclude action semantics
+
+    // get the dialect
+    int dialect = -1;
+    try {
+        Method getDialectMethod = inst.getClass().getMethod("getDialect");
+        dialect = (int) getDialectMethod.invoke(inst);
+    } catch ( NoSuchMethodException e ) {
+        System.out.println( e );
+    } catch ( NullPointerException e ) {
+        System.out.println( e );
+    } catch ( SecurityException e ) {
+        System.out.println( e );
+    } catch ( IllegalAccessException e ) {
+        System.out.println( e );
+    } catch ( IllegalArgumentException e ) {
+        System.out.println( e );
+    } catch ( InvocationTargetException e ) {
+        System.out.println( e );
+    } catch ( ExceptionInInitializerError e ) {
+        System.out.println( e );
+    }
+
+  IPreferenceStore store = org.xtuml.bp.core.CorePlugin.getDefault().getPreferenceStore();
+  String persistActivities = store.getString(BridgePointPreferencesStore.ACTIVITY_PERSISTENCE);
+  if ( persistActivities.equals(BridgePointPreferencesStore.NO_PERSIST_ACTIVITY_FILES) || dialect != Actiondialect_c.masl ) {
+      m_fh.print( inst.${a.body}().replaceAll( "'", "''" ) ); //$$NON-NLS-1$$ //$$NON-NLS-2$$
+  }
+      .else
   m_fh.print( inst.${a.body}().replaceAll( "'", "''" ) ); //$$NON-NLS-1$$ //$$NON-NLS-2$$
+      .end if
   m_fh.print( "'"); //$$NON-NLS-1$$
     .elif ( col.type == "boolean" )
       .if((table.Key_Lett == "S_SYS") and (col.Name == "useGlobals"))
@@ -245,19 +278,11 @@
     .//
     .select one col related by col->C[R6.'precedes']
     .if ( not_empty col )
-      .if ( (table.Key_Lett == "CA_SMSMC") and (col.Name == "OIObj_ID") )
-  if ( ! m_is_fully_derived )
-  {
-      .end if
       .// if code we're currently outputting is for BP 6.1 connector-texts, we
       .// don't need to output the enclosed delimeter, since the code
       .// for all columns is generated together in one block, above
       .if ((callingProject != "BP") or (table.Key_Lett != "GD_CTXT"))
   m_fh.print(",\n\t");  //$$NON-NLS-1$$
-      .end if
-    .else
-      .if (table.Key_Lett == "CA_SMSMC")
-  }
       .end if
     .end if
   .end while
@@ -273,7 +298,7 @@
   .// T
   .//
   .invoke r = get_class_name( table )
-  .invoke attrs = gen_write_attr_function(table, callingProject)
+  .invoke attrs = gen_write_attr_function(table, callingProject, multilevel, stream)
 void write_${r.body}_sql(${r.body} inst)
 throws IOException
 {
@@ -333,8 +358,15 @@ ${attrs.body}\
   .//
   .invoke rto_cn = get_class_name(obj)
   .assign temp_var = "temp${proxy_index}"
+  .assign phrase = ""
+  .if ("${rel.Numb}" == "1402")
+    .// R1402 and Package References are a special case where we allow using a
+    .// reflexive for persistence.  Those traversals require a relationship phrase
+    .// and this hardcodes the rel phrase to use.
+    .assign phrase = "RefersTo"
+  .end if
   .if(not many)
-            ${rto_cn.body} ${temp_var} = ${rto_cn.body}.getOne$U_{obj.Key_Lett}OnR${rel.Numb}(inst,true);
+            ${rto_cn.body} ${temp_var} = ${rto_cn.body}.getOne$U_{obj.Key_Lett}OnR${rel.Numb}${phrase}(inst,true);
   .if(checkParentForComponentContainment)
 	.// TODO The code below works for references to data
     .// types only. This all that the current global
@@ -472,10 +504,6 @@ ${attrs.body}\
 .//
 .//====================================================================
 .//
-.function is_containment
-  .param inst_ref rel   .// R_REL
-  .assign attr_result = false
-.end function
 .function should_export_rgo_proxy
   .param inst_ref object
   .param integer rel_numb
@@ -532,6 +560,7 @@ ${attrs.body}\
 .//
 .function gen_export_methods
   .param boolean multilevel
+  .param boolean stream
   .param String domain_class_name
   .param String tool
   .param boolean checkParentForComponentContainment
@@ -579,14 +608,13 @@ ${attrs.body}\
             .assign proxy_index = proxy_index + 1
             .select one rel related by rto->R_OIR[R203]->R_REL[R201]
             .invoke ir = is_reflexive(rel)
-            .invoke ic = is_containment(rel)
             .assign ignored = false
             .// some relationships should not be used for persistence,
             .// ignore them.
             .if("${rel.Descrip:Persistent}" == "false")
               .assign ignored = true
             .end if
-            .if(((not ir.result) and (not ic.result)) and (not ignored))
+            .if((not ir.result) and (not ignored))
               .select one rgoOBJ related by rto->R_PART[R204]->R_SIMP[R207]->R_FORM[R208]->R_RGO[R205]->R_OIR[R203]->O_OBJ[R201];
               .if(not_empty rgoOBJ)
                 .invoke rgoProxyResult = should_export_rgo_proxy(rgoOBJ, rel.Numb)
@@ -767,7 +795,7 @@ throws IOException
             .else
               .assign relNumbAndPhrase = "R${child.Numb}"
               .if(child.rel_phrase != "")
-                .assign relNumbAndPhrase = relNumbAndPhrase + ".'${child.rel_phrase}'"
+                .assign relNumbAndPhrase = relNumbAndPhrase + ".'$cr{child.rel_phrase}'"
               .end if
               .invoke nav = generate_backward_rel_chain_nav_from_kl(table.Key_Lett, "->${table.Key_Lett}[${relNumbAndPhrase}]", child.Card, "inst", variableName, false);
               .assign nav_string = nav.body
@@ -838,7 +866,11 @@ throws IOException
           .assign proxy_index = proxy_index + 1
           .select one rel related by rgo->R_OIR[R203]->R_REL[R201]
           .invoke ir = is_reflexive(rel)
-          .invoke ic = is_containment(rel)
+		  .if ("${rel.Numb}" == "1402")
+            .// R1402 and Package References are a special case where we allow using a
+            .// reflexive for proxy persistence.
+		    .assign ir.result = false
+		  .end if
           .assign ignored = false
           .// some relationships should not be used for persistence,
           .// ignore them.
@@ -847,7 +879,7 @@ throws IOException
           .end if
           .// reflexive relationships can't cross component boundaries
           .// proxies are not exported for containment relationships
-          .if ( (not ir.result) and ((not ic.result) and (not ignored)) )
+          .if ( (not ir.result) and (not ignored) )
             .select one form related by rgo->R_FORM[R205]
             .if ( not_empty form )
               .select one part_obj related by form->R_SIMP[R208]->R_PART[R207]->R_RTO[R204]->R_OIR[R203]->O_OBJ[R201]
@@ -864,10 +896,15 @@ ${gpe.body}\
     // select aone ${aone_obj.Key_Lett} on R${rel.Numb}
                 .invoke gpe = gen_proxy_export(aone_obj, rel, proxy_index, checkParentForComponentContainment, false)
 ${gpe.body}\
-                .assign proxy_index = proxy_index + 1
+                .if ("${rel.Numb}" != "1402")
+                  .// For this special case relationship, we only want to export the proxy to the RTO side, which we
+                  .// do in the lines just above this block. Th if test here then keeps us from outputting the RGO as
+				  .// a proxy.
+                  .assign proxy_index = proxy_index + 1
     // select aoth ${aoth_obj.Key_Lett} on R${rel.Numb}
-                .invoke gpe = gen_proxy_export(aoth_obj, rel, proxy_index, checkParentForComponentContainment, false)
+                  .invoke gpe = gen_proxy_export(aoth_obj, rel, proxy_index, checkParentForComponentContainment, false)
 ${gpe.body}\
+                .end if
               .else
 			    .if(checkParentForComponentContainment)
 				  .// for stream export, write each supertype
@@ -985,6 +1022,16 @@ ${gpe.body}\
         .end for
     }
       .end if
+
+      .if ( ((multilevel) AND (not stream)) )
+        .select one action_body related by eo->EI[R3]->AB[R12]
+        .if ( not_empty action_body )
+        if ( !ComponentTransactionListener.noPersistActions() ) {
+            write_${parent_name}_actions(inst${extra_args});
+        }
+        .end if
+      .end if
+
 }
     .end if
   .end for
@@ -1021,6 +1068,52 @@ ${gpe.body}\
       .invoke sql = gen_write_sql_function( table, callingProject, multilevel, stream )
 ${sql.body}\
     .end for
+.end function
+
+.//
+.//  This function generates methods
+.//  which will place the action semantics
+.//  into a file
+.//
+.function gen_action_write_statements
+  .select many ab_set from instances of AB
+  .for each action_body in ab_set
+    .invoke r = get_class_name( action_body )
+void write_${r.body}_actions(${r.body} inst)
+throws IOException
+{
+    // get the dialect
+    int dialect = -1;
+    try {
+        Method getDialectMethod = inst.getClass().getMethod("getDialect");
+        dialect = (int) getDialectMethod.invoke(inst);
+    } catch ( NoSuchMethodException e ) {
+        System.out.println( e );
+    } catch ( NullPointerException e ) {
+        System.out.println( e );
+    } catch ( SecurityException e ) {
+        System.out.println( e );
+    } catch ( IllegalAccessException e ) {
+        System.out.println( e );
+    } catch ( IllegalArgumentException e ) {
+        System.out.println( e );
+    } catch ( InvocationTargetException e ) {
+        System.out.println( e );
+    } catch ( ExceptionInInitializerError e ) {
+        System.out.println( e );
+    }
+
+    // output activity (currently only for masl)
+    if ( dialect == Actiondialect_c.masl ) {
+    	// get the body
+    	String body = Ooaofooa.Get_formatted_body( inst.getModelRoot(), inst, false );
+    	if ( !body.isEmpty() ) {
+    		m_afh.get(dialect).print( body );
+        	m_updateActions = true;
+    	}
+    }
+}
+  .end for
 .end function
 
 .//

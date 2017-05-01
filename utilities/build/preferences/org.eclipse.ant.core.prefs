@@ -1,0 +1,4 @@
+eclipse.preferences.version=1
+properties=mcj_path,bp_test_path,
+property.bp_test_path=${git_dir\:bptest}/..
+property.mcj_path=${git_work_tree\:MC-Java}/src/MC-Java

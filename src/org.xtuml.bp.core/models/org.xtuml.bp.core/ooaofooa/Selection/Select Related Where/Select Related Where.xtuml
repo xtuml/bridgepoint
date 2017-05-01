@@ -115,7 +115,8 @@ if (not_empty inst_in_where)
 end if;',
 	1,
 	'',
-	"00000000-0000-0000-0000-000000000000");
+	"00000000-0000-0000-0000-000000000000",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("5635cc16-1c5a-4db9-917f-a25a50421938",
 	"9de3f1ec-f200-4eab-ac6b-7fe2c1b3e13a",

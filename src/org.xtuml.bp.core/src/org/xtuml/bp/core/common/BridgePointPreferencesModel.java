@@ -47,7 +47,8 @@ public class BridgePointPreferencesModel implements IPreferenceModel {
     public String exportOAL;
     public String exportGraphics;
     public String messageDirection;  
-    public String defaultActivityEditor;  
+    public String activityPersistenceAsFiles;  
+    public int defaultActionLanguageDialect;  
     public boolean showTransitionActions;
 	public boolean showEventParameters;
     public boolean enableFLAs;
@@ -69,7 +70,8 @@ public class BridgePointPreferencesModel implements IPreferenceModel {
 	public boolean showReferenceRemovalDialog;
 	public boolean showReferenceSyncReport;
 	public boolean useDefaultNamesForNewModelElements;
-    public boolean createGraphicsDuringImport;
+    public boolean requireMaslStyleIdentifiers;
+    public boolean opaqueComponents;
 	
     
 	public Class getStoreClass() {
@@ -101,10 +103,10 @@ public class BridgePointPreferencesModel implements IPreferenceModel {
 
         emitRTOData = syncTo.emitRTOData;
         exportOAL = syncTo.exportOAL;
-        createGraphicsDuringImport = syncTo.createGraphicsDuringImport;
         exportGraphics = syncTo.exportGraphics;
         messageDirection = syncTo.messageDirection; 
-        defaultActivityEditor = syncTo.defaultActivityEditor; 
+        activityPersistenceAsFiles = syncTo.activityPersistenceAsFiles;
+        defaultActionLanguageDialect = syncTo.defaultActionLanguageDialect; 
         showTransitionActions = syncTo.showTransitionActions;
         showEventParameters = syncTo.showEventParameters;
         enableFLAs = syncTo.enableFLAs;
@@ -112,7 +114,6 @@ public class BridgePointPreferencesModel implements IPreferenceModel {
         enableDeterministicVerifier = syncTo.enableDeterministicVerifier;
         enableInstanceReferences = syncTo.enableInstanceReferences;
         enableModelIntegrityCheck = syncTo.enableModelIntegrityCheck;
-        createGraphicsDuringImport = syncTo.createGraphicsDuringImport;
 
         enableVerifierAudit = syncTo.enableVerifierAudit;
         enableSelectAudit = syncTo.enableSelectAudit;
@@ -128,7 +129,8 @@ public class BridgePointPreferencesModel implements IPreferenceModel {
         showReferenceRemovalDialog = syncTo.showReferenceRemovalDialog;
         showReferenceSyncReport = syncTo.showReferenceSyncReport;
         useDefaultNamesForNewModelElements = syncTo.useDefaultNamesForNewModelElements;
-        createGraphicsDuringImport = syncTo.createGraphicsDuringImport;
+        requireMaslStyleIdentifiers = syncTo.requireMaslStyleIdentifiers;;
+        opaqueComponents = syncTo.opaqueComponents;
 	}
 
     public Object deepClone() {
@@ -150,7 +152,8 @@ public class BridgePointPreferencesModel implements IPreferenceModel {
         prefs.exportOAL = exportOAL;
         prefs.exportGraphics = exportGraphics;
         prefs.messageDirection = messageDirection;
-        prefs.defaultActivityEditor = defaultActivityEditor;
+        prefs.activityPersistenceAsFiles = activityPersistenceAsFiles;
+        prefs.defaultActionLanguageDialect = defaultActionLanguageDialect;
         prefs.showTransitionActions = showTransitionActions;
         prefs.showEventParameters = showEventParameters;
         prefs.enableFLAs = enableFLAs;
@@ -174,7 +177,8 @@ public class BridgePointPreferencesModel implements IPreferenceModel {
         prefs.showReferenceRemovalDialog = showReferenceRemovalDialog;
         prefs.showReferenceSyncReport = showReferenceSyncReport;
         prefs.useDefaultNamesForNewModelElements = useDefaultNamesForNewModelElements;
-        prefs.createGraphicsDuringImport = createGraphicsDuringImport;
+        prefs.requireMaslStyleIdentifiers = requireMaslStyleIdentifiers;
+        prefs.opaqueComponents = opaqueComponents;
 
         return prefs;
     }

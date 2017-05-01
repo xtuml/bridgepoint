@@ -28,7 +28,8 @@ end for;
 delete object instance self;',
 	1,
 	'',
-	"00000000-0000-0000-0000-000000000000");
+	"00000000-0000-0000-0000-000000000000",
+	0);
 INSERT INTO O_TFR
 	VALUES ("109009bf-4b42-47a4-ae16-d8a3317f1304",
 	"e9a8dc7f-1edd-4949-94f3-2bec374f55ea",
@@ -40,7 +41,8 @@ INSERT INTO O_TFR
 ',
 	1,
 	'',
-	"e87c3281-ecd5-4760-84dd-f6e5ee53c701");
+	"e87c3281-ecd5-4760-84dd-f6e5ee53c701",
+	0);
 INSERT INTO O_TFR
 	VALUES ("31145c82-9972-4fa0-9d5b-b019a399321f",
 	"e9a8dc7f-1edd-4949-94f3-2bec374f55ea",
@@ -56,12 +58,23 @@ prevent a schema change.
 	'select any oid from instances of O_ID where selected.Obj_ID == param.obj_id
   and selected.Oid_ID == param.oid_id;
 
+// if we could not find the O_ID instance it is likely that
+// we are dealing with a global element where the architecture
+// will give the wrong model-root (based on selection)
+if(empty oid)
+  select any clazz from instances of O_OBJ where (selected.Obj_ID == param.obj_id);
+  if(not_empty clazz)
+    select any oid related by clazz->O_ID[R104] where (selected.Oid_ID == param.oid_id);
+  end if;
+end if;
+
 select any oida related by oid->O_OIDA[R105];
 return not_empty oida;
 ',
 	1,
 	'',
-	"109009bf-4b42-47a4-ae16-d8a3317f1304");
+	"109009bf-4b42-47a4-ae16-d8a3317f1304",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("8f9a910e-abbf-4adf-a787-422c6ba4de59",
 	"31145c82-9972-4fa0-9d5b-b019a399321f",

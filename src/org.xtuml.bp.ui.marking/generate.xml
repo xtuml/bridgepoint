@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="bp.ui.marking" default="all" basedir=".">
+
+    <import file="${mcj_path}/common.xml"/>
+
+   <target name="all"
+              description="Generate all code for this project"
+              depends="sql,java,format_java">
+    </target>
+
+    <target name="nb_all"
+              description="Generate all code for this project"
+              depends="sql,java">
+    </target>
+
+
+   <property name="plugins-home" value="${ant.home}/../.."/>
+
+   <property name="sql.input" value="models/org.xtuml.bp.ui.marking/ooaofmarking" />
+   <property name="sql.output" value="ooaofmarking.sql" />
+
+   <property name="subsystems_to_remove" value="ACT_ V_ E_ GD_ CT_ TS_ DIM_ STY_" />
+
+   <target name="sql.depends" >
+      <uptodate property="sql.buildNotNeeded" value="yes" targetfile="sql/${sql.output}">
+         <srcfiles dir= "${sql.input}" includes="**/*.xtuml" />
+      </uptodate>
+   </target>
+
+   <target name="sql" depends="sql.depends"
+             description="Generate the sql version of the marking model"
+             unless="sql.buildNotNeeded" >
+      <echo >Generating ${sql.output} ...</echo>
+      <copy file="../org.xtuml.bp.pkg/globals/Globals.xtuml" tofile="${sql.input}/Globals.xtuml" />
+      <exec vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
+         <arg line="xtumlmc_cleanse_for_BridgePoint -u 500000 ${sql.input} sql/${sql.output} ${subsystems_to_remove}" />
+      </exec>
+      <delete file="${sql.input}/Globals.xtuml" />
+   </target>
+
+   <property file="${mcj_path}/mc_java.depends" />
+
+   <property name="java.sql.dep" value="${sql.output}" />
+   <property name="java.color.dep" value="ooaofmarking_startspec.clr,ooaofmarking_import_spec.clr,ooaofmarking_package_spec.clr" />
+   <property name="java.tj.dep" value="ooa_schema.sql,${java.arc.depends}" />
+
+   <property name="java.output" value="src/org/xtuml/bp/ui/marking/Ooaofmarking.java" />
+
+   <target name="java.depends" >
+      <echo >Checking java build dependencies.</echo>
+      <uptodate property="java.buildNotNeeded" targetfile="${java.output}">
+         <srcfiles dir = "sql" includes = "ooaofmarking.sql" />
+         <srcfiles dir = "color"      includes = "${java.color.dep}" />
+         <srcfiles dir = "${mcj_path}" includes = "${java.tj.dep}"/>
+      </uptodate>
+   </target>
+
+   <target name="java"
+             depends="java.depends"
+             description="Generate the marking java files"
+             unless="java.buildNotNeeded" >
+      <echo >Generating java files ...</echo>
+      <!-- TODO - re-enable
+      <ant antfile="${mcj_path}/build.xml" target="generate.java" >
+         <property name="param1" value="ooaofmarking" />
+         <property name="param2" value="Ooaofmarking" />
+         <property name="param3" value="${mcj_path}" />
+         <property name="verify_selects" value="false" />
+         <property name="UUID_Seed" value="-u 500000" />
+         <property name="mcjava.project.root" value="${basedir}"/>
+      </ant>-->
+      <!-- Need to touch the output file for the case where the input data
+          changed, but the output didn't -->
+      <!-- TODO - re-enable <touch file="${java.output}" /> -->
+   </target>
+
+   <property name="rcs_java_files" value="Activator.java, LaunchMarkingEditorAction.java, MarkingEditorDialog.java, MarkingData.java" />
+
+   <target name="format_java" description="Format the generated java source">
+      <!-- TODO : current unused since we're not generating anything
+      <taskdef name="PTCodeFormat" classname="PTCodeFormatterTask">
+         <classpath>
+            <pathelement path="${mcj_path}/../org.xtuml.bp.core/tools/" />
+            <fileset dir="${plugins-home}/plugins" casesensitive="yes">
+               <include name="**/org.eclipse.text_*.jar" />
+               <include name="**/org.eclipse.ui_*.jar" />
+               <include name="**/org.eclipse.jdt.core_*.jar" />
+               <include name="**/org.eclipse.core.runtime_*.jar" />
+               <include name="**/org.eclipse.osgi_*.jar" />
+               <include name="**/org.eclipse.core.resources_*.jar" />
+               <include name="**/org.eclipse.equinox.common_*.jar" />
+            </fileset>
+         </classpath>
+      </taskdef>
+      <PTCodeFormat>
+         <fileset dir="src/org/xtuml/bp/ui/marking" excludes="${rcs_java_files}" includes="*.java" />
+      </PTCodeFormat>-->
+   </target>
+   
+   <target name="instrument_for_jcoverage" description="Instrument the classes to produce JCoverage data">
+      <taskdef classpath="jcoverage.jar" resource="tasks.properties"/>
+      <instrument todir="bin_coverage">
+         <fileset dir="bin">
+            <include name="**/*.class"/>
+         </fileset>
+      </instrument>
+   </target>
+   <target name="coverage">
+      <report srcdir="src" destdir="bin_coverage"/>
+   </target>
+
+   <!-- CLEAN TARGETS -->
+
+   <target name="clean_all"
+           description="Clean entire project"
+           depends="clean_classes,clean_java,clean_sql" >
+      <echo>Done cleaning for ${ant.project.name}</echo>
+   </target>
+
+   <target name="clean_sql"
+       description="Remove the generated file: ${sql.output}">
+      <echo>Removing generated sql file: ${sql.output} ...</echo>
+      <delete file="sql/${sql.output}" />
+   </target>
+
+   <target name="clean_java"
+        description="Remove generated java source files." >
+      <echo>Removing generated java source files ...</echo>
+      <delete verbose="true" >
+         <fileset dir="src/org/xtuml/bp/ui/marking"
+              excludes="${rcs_java_files}" />
+      </delete>
+   </target>
+
+   <target name="clean_classes" description="Remove all compiled class files." >
+      <echo>Removing compiled class files ...</echo>
+      <delete verbose="true" dir="bin" />
+   </target>
+
+</project>

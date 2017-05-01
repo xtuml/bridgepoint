@@ -83,7 +83,8 @@ end if;
 return "";',
 	1,
 	'',
-	"7c4387b1-b19a-4259-82c8-2dab99334c86");
+	"7c4387b1-b19a-4259-82c8-2dab99334c86",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("ea2efcb3-ea8f-4f31-9841-b21267dc7a7a",
 	"3d93391f-b3cb-4668-a5d6-131c911d49fa",
@@ -177,7 +178,8 @@ end if;
 return Style::None;',
 	1,
 	'',
-	"1853af01-663c-4e2d-9aa6-a5f28ac37ec2");
+	"1853af01-663c-4e2d-9aa6-a5f28ac37ec2",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("ab543b2f-17e6-4d02-9838-66683878d404",
 	"067f63fb-16e0-4b23-9c27-8b80c7477d35",
@@ -218,7 +220,8 @@ end for;
 delete object instance self;',
 	1,
 	'',
-	"407f25b7-0971-47c5-a221-b9fe5812d2d1");
+	"407f25b7-0971-47c5-a221-b9fe5812d2d1",
+	0);
 INSERT INTO O_TFR
 	VALUES ("f7a8c3b4-a247-48ba-b747-1e0681ab10b8",
 	"74121abd-8a97-4ef3-a0af-5cea170b182b",
@@ -292,7 +295,8 @@ end if;
 return false;',
 	1,
 	'',
-	"00000000-0000-0000-0000-000000000000");
+	"00000000-0000-0000-0000-000000000000",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("cb3e112f-d2cd-453e-999e-8f724c906cca",
 	"f7a8c3b4-a247-48ba-b747-1e0681ab10b8",
@@ -322,7 +326,8 @@ INSERT INTO O_TFR
 ir.formalize(id:param.Id, formalizeOther:param.formalizePro);',
 	1,
 	'',
-	"30a4a543-8c64-4bf9-a57a-11ebf2a0fb66");
+	"30a4a543-8c64-4bf9-a57a-11ebf2a0fb66",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("69d26485-1b69-4aff-80dc-1de0dc8a9d4e",
 	"7c4387b1-b19a-4259-82c8-2dab99334c86",
@@ -352,7 +357,8 @@ INSERT INTO O_TFR
 ir.unformalize(unformalizeOther:param.unformalizePro);',
 	1,
 	'',
-	"e5655eb1-7bb5-4b8c-bedc-2f9c028ffbde");
+	"e5655eb1-7bb5-4b8c-bedc-2f9c028ffbde",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("0e03aea3-982d-43d8-bc44-10556a4a7042",
 	"3a43f997-b801-4082-97f3-919bf5c1c868",
@@ -378,7 +384,8 @@ end if;
 return false;',
 	1,
 	'',
-	"0e1d0004-5f93-49a6-b09e-e76525309d82");
+	"0e1d0004-5f93-49a6-b09e-e76525309d82",
+	0);
 INSERT INTO O_TFR
 	VALUES ("b960f082-0c5c-46b3-9c49-194448641394",
 	"74121abd-8a97-4ef3-a0af-5cea170b182b",
@@ -389,7 +396,8 @@ INSERT INTO O_TFR
 	'return not self.isFormal();',
 	1,
 	'',
-	"f7a8c3b4-a247-48ba-b747-1e0681ab10b8");
+	"f7a8c3b4-a247-48ba-b747-1e0681ab10b8",
+	0);
 INSERT INTO O_TFR
 	VALUES ("0e1d0004-5f93-49a6-b09e-e76525309d82",
 	"74121abd-8a97-4ef3-a0af-5cea170b182b",
@@ -400,7 +408,8 @@ INSERT INTO O_TFR
 	'self.InformalName = "Unnamed Interface";',
 	1,
 	'',
-	"f61ac7f6-017c-4298-b090-4d978e652a85");
+	"f61ac7f6-017c-4298-b090-4d978e652a85",
+	0);
 INSERT INTO O_TFR
 	VALUES ("1853af01-663c-4e2d-9aa6-a5f28ac37ec2",
 	"74121abd-8a97-4ef3-a0af-5cea170b182b",
@@ -411,7 +420,8 @@ INSERT INTO O_TFR
 	'return self.Requirement_Id;',
 	1,
 	'',
-	"3d93391f-b3cb-4668-a5d6-131c911d49fa");
+	"3d93391f-b3cb-4668-a5d6-131c911d49fa",
+	0);
 INSERT INTO O_TFR
 	VALUES ("407f25b7-0971-47c5-a221-b9fe5812d2d1",
 	"74121abd-8a97-4ef3-a0af-5cea170b182b",
@@ -423,7 +433,8 @@ INSERT INTO O_TFR
 return ir.canUseInterfacesInPackage(Id:param.Id);',
 	1,
 	'',
-	"b960f082-0c5c-46b3-9c49-194448641394");
+	"b960f082-0c5c-46b3-9c49-194448641394",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("73046e49-cbe4-463d-a0f1-2707ce8df2cf",
 	"407f25b7-0971-47c5-a221-b9fe5812d2d1",
@@ -450,7 +461,8 @@ end for;
 return false;',
 	1,
 	'',
-	"067f63fb-16e0-4b23-9c27-8b80c7477d35");
+	"067f63fb-16e0-4b23-9c27-8b80c7477d35",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("3ac97ad0-5742-418e-9df9-e7c8e8063f2f",
 	"f61ac7f6-017c-4298-b090-4d978e652a85",
@@ -487,7 +499,8 @@ return false;
 ',
 	1,
 	'',
-	"481d6abc-1e96-4e28-b2e4-fee07b0d77bf");
+	"481d6abc-1e96-4e28-b2e4-fee07b0d77bf",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("d9c8f962-13db-4e23-a376-7c303259b535",
 	"1c8a572b-7b25-41d1-adfd-3b2bb96beac4",
@@ -508,7 +521,8 @@ INSERT INTO O_TFR
 return interfaceRef.getComponentId();',
 	1,
 	'',
-	"3a43f997-b801-4082-97f3-919bf5c1c868");
+	"3a43f997-b801-4082-97f3-919bf5c1c868",
+	0);
 INSERT INTO O_TFR
 	VALUES ("e5655eb1-7bb5-4b8c-bedc-2f9c028ffbde",
 	"74121abd-8a97-4ef3-a0af-5cea170b182b",
@@ -524,7 +538,8 @@ for each sat in sats
 end for;',
 	1,
 	'',
-	"1c8a572b-7b25-41d1-adfd-3b2bb96beac4");
+	"1c8a572b-7b25-41d1-adfd-3b2bb96beac4",
+	0);
 INSERT INTO O_TFR
 	VALUES ("6b194e32-a450-4ed1-b3db-258617a34396",
 	"74121abd-8a97-4ef3-a0af-5cea170b182b",
@@ -534,10 +549,12 @@ INSERT INTO O_TFR
 	1,
 	'count = 0;
 select one outerPkg related by self->C_IR[R4009]->C_PO[R4016]->C_C[R4010]->PE_PE[R8001]->EP_PKG[R8000];
+select one outerComp related by self->C_IR[R4009]->C_PO[R4016]->C_C[R4010]->PE_PE[R8001]->C_C[R8003];
 select many satisfactions related by self->C_SF[R4002];
 for each satisfaction in satisfactions
   select one sPkg related by satisfaction->PE_PE[R8001]->EP_PKG[R8000];
-  if (outerPkg.Package_ID == sPkg.Package_ID)
+  select one sComp related by satisfaction->PE_PE[R8001]->C_C[R8003];
+  if ((not_empty outerPkg and outerPkg.Package_ID == sPkg.Package_ID) or (not_empty outerComp and outerComp.Id == sComp.Id))
     count = count+1;
   end if;
 end for;
@@ -545,16 +562,8 @@ return count;
 ',
 	1,
 	'',
-	"ace34cf1-b65a-413a-a966-ced6165ba2bd");
-INSERT INTO O_TPARM
-	VALUES ("46672209-7f85-4a8b-8077-9d0469b9b8a4",
-	"6b194e32-a450-4ed1-b3db-258617a34396",
-	'filterDelegations',
-	"ba5eda7a-def5-0000-0000-000000000001",
-	0,
-	'',
-	"00000000-0000-0000-0000-000000000000",
-	'');
+	"ace34cf1-b65a-413a-a966-ced6165ba2bd",
+	0);
 INSERT INTO O_TFR
 	VALUES ("2a50f91d-864f-4387-b124-2e3b348d0bd9",
 	"74121abd-8a97-4ef3-a0af-5cea170b182b",
@@ -579,7 +588,8 @@ return isLinked;
 ',
 	1,
 	'',
-	"6b194e32-a450-4ed1-b3db-258617a34396");
+	"6b194e32-a450-4ed1-b3db-258617a34396",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("ba69b14f-7d79-4650-81f6-48f7e447efaa",
 	"2a50f91d-864f-4387-b124-2e3b348d0bd9",
@@ -609,7 +619,8 @@ end if;
 return "";',
 	1,
 	'',
-	"2a50f91d-864f-4387-b124-2e3b348d0bd9");
+	"2a50f91d-864f-4387-b124-2e3b348d0bd9",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("7da19f20-f117-4c8b-967d-b692bc827838",
 	"af4f14db-8c2d-4d4c-8a8d-9de03d772947",
@@ -629,7 +640,8 @@ INSERT INTO O_TFR
 	'return this;',
 	0,
 	'',
-	"af4f14db-8c2d-4d4c-8a8d-9de03d772947");
+	"af4f14db-8c2d-4d4c-8a8d-9de03d772947",
+	0);
 INSERT INTO S_DT_PROXY
 	VALUES ("bc3722c8-5188-4529-8519-cf9eb9816b17",
 	"00000000-0000-0000-0000-000000000000",
@@ -651,7 +663,8 @@ end if;
 return self.convertToInstance();',
 	1,
 	'',
-	"6393451f-8845-4042-9531-da2ef6dfd201");
+	"6393451f-8845-4042-9531-da2ef6dfd201",
+	0);
 INSERT INTO O_TFR
 	VALUES ("651c1aa6-e5e9-46ed-b00e-90293f0e49fa",
 	"74121abd-8a97-4ef3-a0af-5cea170b182b",
@@ -666,7 +679,8 @@ end if;
 return true;',
 	1,
 	'',
-	"d37ad2eb-0900-4faa-8779-3d6ff668f5cd");
+	"d37ad2eb-0900-4faa-8779-3d6ff668f5cd",
+	0);
 INSERT INTO O_TFR
 	VALUES ("cf471a77-6e78-4f19-accf-d1255f9ae909",
 	"74121abd-8a97-4ef3-a0af-5cea170b182b",
@@ -689,7 +703,8 @@ for each rs in rss
 end for;',
 	1,
 	'',
-	"651c1aa6-e5e9-46ed-b00e-90293f0e49fa");
+	"651c1aa6-e5e9-46ed-b00e-90293f0e49fa",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("f5ba3b03-0f99-4863-9e50-6c03e45952d8",
 	"cf471a77-6e78-4f19-accf-d1255f9ae909",
@@ -731,7 +746,8 @@ if(not_empty interfaceRef)
 end if;',
 	1,
 	'',
-	"cf471a77-6e78-4f19-accf-d1255f9ae909");
+	"cf471a77-6e78-4f19-accf-d1255f9ae909",
+	0);
 INSERT INTO O_TFR
 	VALUES ("a99a617e-b39b-45e8-9946-c79fe9312d7e",
 	"74121abd-8a97-4ef3-a0af-5cea170b182b",
@@ -771,7 +787,8 @@ if(not self.isSynchronized())
 end if;',
 	1,
 	'',
-	"375735e2-f1a6-4173-804e-740217547201");
+	"375735e2-f1a6-4173-804e-740217547201",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("da65e861-4321-429a-9d03-34e5bcdefbc7",
 	"a99a617e-b39b-45e8-9946-c79fe9312d7e",
@@ -791,7 +808,8 @@ INSERT INTO O_TFR
 	'	return m_reversepathfromcomponent;',
 	0,
 	'',
-	"a99a617e-b39b-45e8-9946-c79fe9312d7e");
+	"a99a617e-b39b-45e8-9946-c79fe9312d7e",
+	0);
 INSERT INTO O_TFR
 	VALUES ("76c4fb82-276e-4f0a-a998-edccecbee933",
 	"74121abd-8a97-4ef3-a0af-5cea170b182b",
@@ -802,7 +820,8 @@ INSERT INTO O_TFR
 	'	m_reversepathfromcomponent = p_Value;',
 	0,
 	'',
-	"247f1780-9896-4335-84bb-e9d9890229a2");
+	"247f1780-9896-4335-84bb-e9d9890229a2",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("b130f7e3-82c5-4d35-84a3-ff3239cdbc91",
 	"76c4fb82-276e-4f0a-a998-edccecbee933",
@@ -822,7 +841,8 @@ INSERT INTO O_TFR
 	'	return m_name;',
 	0,
 	'',
-	"76c4fb82-276e-4f0a-a998-edccecbee933");
+	"76c4fb82-276e-4f0a-a998-edccecbee933",
+	0);
 INSERT INTO O_TFR
 	VALUES ("60f023b8-16d9-4875-9e28-50b273813243",
 	"74121abd-8a97-4ef3-a0af-5cea170b182b",
@@ -833,7 +853,8 @@ INSERT INTO O_TFR
 	'	m_name = p_Value;',
 	0,
 	'',
-	"4b6a1831-6cf2-4996-829f-c968b7ca03cb");
+	"4b6a1831-6cf2-4996-829f-c968b7ca03cb",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("ee4045fc-4144-48ad-862d-388e89e28f1b",
 	"60f023b8-16d9-4875-9e28-50b273813243",
@@ -859,7 +880,106 @@ end if;
 ',
 	1,
 	'',
-	"60f023b8-16d9-4875-9e28-50b273813243");
+	"60f023b8-16d9-4875-9e28-50b273813243",
+	0);
+INSERT INTO O_TFR
+	VALUES ("363a633a-e234-44a0-914a-5c8dab31c998",
+	"74121abd-8a97-4ef3-a0af-5cea170b182b",
+	'isCuttable',
+	'A connector type is cuttable if it is selected, and if each shape anchored by it is also selected.',
+	"ba5eda7a-def5-0000-0000-000000000001",
+	1,
+	'cuttable = true;
+
+// check if this element is selected
+if ( not Sel::isSelected(element:self.convertToInstance()) )
+  cuttable = false;
+else
+  select one c_c related by self->C_IR[R4009]->C_PO[R4016]->C_C[R4010];
+  if ( not Sel::isSelected(element:c_c.convertToInstance()) )
+    cuttable = false;
+  else
+    select many c_sfs related by self->C_SF[R4002];
+    for each c_sf in c_sfs
+      select one cl_ir related by c_sf->CL_IR[R4706];
+      // if there is an instance of imported requirement present, then the satisfaction
+      // is on a different diagram and should be ignored
+      if ( empty cl_ir )
+        select one cl_ip related by c_sf->CL_IP[R4705];
+        // if an imported provision is present, check its selection, otherwise it is
+        // a real provision
+        if ( not_empty cl_ip )
+          if ( not Sel::isSelected(element:cl_ip.convertToInstance()) )
+            cuttable = false;
+            break;
+          end if;
+        else
+          select one c_p related by c_sf->C_P[R4002];
+          if ( not Sel::isSelected(element:c_p.convertToInstance()) )
+            cuttable = false;
+            break;
+          end if;
+        end if;
+      end if;
+    end for;
+  end if;
+end if;
+
+return cuttable;',
+	1,
+	'',
+	"f35ddeb4-154b-4f1b-9d9c-9f4f75f2187f",
+	0);
+INSERT INTO O_TFR
+	VALUES ("c8c34f79-e1b7-41b1-a7c6-48ea73600662",
+	"74121abd-8a97-4ef3-a0af-5cea170b182b",
+	'canDelete',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000001",
+	1,
+	'return not self.isFormal();
+',
+	1,
+	'',
+	"363a633a-e234-44a0-914a-5c8dab31c998",
+	0);
+INSERT INTO O_TFR
+	VALUES ("7c1c3a73-7984-4c60-a0c1-429e730a4ed3",
+	"74121abd-8a97-4ef3-a0af-5cea170b182b",
+	'getSatisfactionID',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	1,
+	'// We''re preincrementing the index
+count = -1;
+select one outerPkg related by self->C_IR[R4009]->C_PO[R4016]->C_C[R4010]->PE_PE[R8001]->EP_PKG[R8000];
+select one outerComp related by self->C_IR[R4009]->C_PO[R4016]->C_C[R4010]->PE_PE[R8001]->C_C[R8003];
+select many satisfactions related by self->C_SF[R4002];
+for each satisfaction in satisfactions
+  select one sPkg related by satisfaction->PE_PE[R8001]->EP_PKG[R8000];
+  select one sComp related by satisfaction->PE_PE[R8001]->C_C[R8003];
+  if ((not_empty outerPkg and outerPkg.Package_ID == sPkg.Package_ID) or (not_empty outerComp and outerComp.Id == sComp.Id))
+    count = count+1;
+  end if;
+  if (count == param.index)
+      return satisfaction.Id;  
+  end if;  
+end for;
+return GD::NULL_UNIQUE_ID();
+',
+	1,
+	'',
+	"c8c34f79-e1b7-41b1-a7c6-48ea73600662",
+	0);
+INSERT INTO O_TPARM
+	VALUES ("df3af8b0-9dcb-4dd3-8ee7-b3379d4352ad",
+	"7c1c3a73-7984-4c60-a0c1-429e730a4ed3",
+	'index',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
 INSERT INTO O_DBATTR
 	VALUES ("54fa393d-5a91-4fb6-869d-27b6c7e71af4",
 	"74121abd-8a97-4ef3-a0af-5cea170b182b",
@@ -878,7 +998,8 @@ if(empty ir)
   result = self.getCachedName();
 end if;
 self.Name = result;',
-	1);
+	1,
+	0);
 INSERT INTO O_BATTR
 	VALUES ("54fa393d-5a91-4fb6-869d-27b6c7e71af4",
 	"74121abd-8a97-4ef3-a0af-5cea170b182b");
@@ -999,7 +1120,8 @@ else
   self.setCachedReversePathFromComponent(value: result);
   self.reversePathFromComponent = result;
 end if;',
-	1);
+	1,
+	0);
 INSERT INTO O_BATTR
 	VALUES ("279d9cf8-4377-427f-aaee-13c50bdf2a04",
 	"74121abd-8a97-4ef3-a0af-5cea170b182b");

@@ -185,7 +185,8 @@ end if;
 delete object instance self;',
 	1,
 	'',
-	"223070b1-d040-4076-bcc0-cb4c2145e1b4");
+	"223070b1-d040-4076-bcc0-cb4c2145e1b4",
+	0);
 INSERT INTO O_TFR
 	VALUES ("b3bb0f76-820b-4040-a53b-141dcdc6e300",
 	"ead52fac-9782-434b-a35c-c07452c3b26d",
@@ -205,7 +206,8 @@ else
 end if;     ',
 	1,
 	'',
-	"6653bbe7-57b4-4d1f-85d0-82937828bcaf");
+	"6653bbe7-57b4-4d1f-85d0-82937828bcaf",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("4a90e171-d283-475a-abfc-8bd8c4eb180a",
 	"b3bb0f76-820b-4040-a53b-141dcdc6e300",
@@ -232,7 +234,8 @@ return TRUE;
 ',
 	1,
 	'',
-	"1ce2cce9-1750-477d-9888-58615de0caf9");
+	"1ce2cce9-1750-477d-9888-58615de0caf9",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("4ad15eda-c50f-467a-bdc3-608c933adc6f",
 	"0852d31a-5351-452a-bd25-93944aba561d",
@@ -282,7 +285,8 @@ end if;
 return false;',
 	1,
 	'',
-	"b3bb0f76-820b-4040-a53b-141dcdc6e300");
+	"b3bb0f76-820b-4040-a53b-141dcdc6e300",
+	0);
 INSERT INTO O_TFR
 	VALUES ("223070b1-d040-4076-bcc0-cb4c2145e1b4",
 	"ead52fac-9782-434b-a35c-c07452c3b26d",
@@ -297,7 +301,8 @@ Translate: native',
 return this;',
 	0,
 	'',
-	"00000000-0000-0000-0000-000000000000");
+	"00000000-0000-0000-0000-000000000000",
+	0);
 INSERT INTO S_DT_PROXY
 	VALUES ("bc3722c8-5188-4529-8519-cf9eb9816b17",
 	"00000000-0000-0000-0000-000000000000",
@@ -356,7 +361,8 @@ end if;
 return result;',
 	1,
 	'',
-	"3b698a92-8d02-4596-80e7-08b88c26c702");
+	"3b698a92-8d02-4596-80e7-08b88c26c702",
+	0);
 INSERT INTO O_TFR
 	VALUES ("1daa239e-9e31-445e-a0e9-e4c5faa914ae",
 	"ead52fac-9782-434b-a35c-c07452c3b26d",
@@ -418,7 +424,8 @@ else
 end if;',
 	1,
 	'',
-	"fed4c822-5710-4d4f-a1f9-11d58e0cdbe9");
+	"fed4c822-5710-4d4f-a1f9-11d58e0cdbe9",
+	0);
 INSERT INTO O_TFR
 	VALUES ("3b698a92-8d02-4596-80e7-08b88c26c702",
 	"ead52fac-9782-434b-a35c-c07452c3b26d",
@@ -458,11 +465,16 @@ elif(param.elementType == "UserDataType")
   return "integer";
 elif(param.elementType == "SymbolicConstant")
   return "integer";
+elif(param.elementType == "ExternalEntityDataItem")
+  return "integer";
+elif(param.elementType == "ExternalEntityEventDataItem")
+  return "integer";
 end if;
 return "";',
 	1,
 	'',
-	"1daa239e-9e31-445e-a0e9-e4c5faa914ae");
+	"1daa239e-9e31-445e-a0e9-e4c5faa914ae",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("a8a30cca-1084-44bd-b639-e2ccb9980f07",
 	"3b698a92-8d02-4596-80e7-08b88c26c702",
@@ -496,7 +508,7 @@ select one component related by self->PE_PE[R8001]->C_C[R8003];
     else
       path = package.getQualifiedName();
     end if;
-  else
+  elif not_empty component
     if(path != "")
       path = component.getQualifiedName() + "::" + path;
     else
@@ -506,7 +518,8 @@ select one component related by self->PE_PE[R8001]->C_C[R8003];
 return path;',
 	1,
 	'',
-	"0852d31a-5351-452a-bd25-93944aba561d");
+	"0852d31a-5351-452a-bd25-93944aba561d",
+	0);
 INSERT INTO O_TPARM
 	VALUES ("79908e4c-773d-436b-b634-fc00358e63b8",
 	"2bf571a5-4f94-404e-899f-1b2ed2dafc5a",
@@ -525,6 +538,149 @@ INSERT INTO O_TPARM
 	'',
 	"79908e4c-773d-436b-b634-fc00358e63b8",
 	'');
+INSERT INTO O_TFR
+	VALUES ("57932e59-c7e1-4095-97ff-031fd470e233",
+	"ead52fac-9782-434b-a35c-c07452c3b26d",
+	'downgradeCheck',
+	'This operation checks to see if downgrades need to be performed, either on elements
+that refer to this datatype, or other types this one itself refers to.',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'// Domain Subsystem
+select many brgs related by self->S_BRG[R20];
+for each brg in brgs
+  brg.downgradeCheck(); 
+end for;
+select many bparms related by self->S_BPARM[R22];
+for each bparm in bparms
+  bparm.downgradeCheck();
+end for;
+select many eedis related by self->S_EEDI[R15];
+for each eedi in eedis
+  eedi.downgradeCheck();
+end for;
+select many eeedis related by self->S_EEEDI[R16];
+for each eeedi in eeedis
+  eeedi.downgradeCheck(); 
+end for;
+select many sparms related by self->S_SPARM[R26];
+for each sparm in sparms
+  sparm.downgradeCheck();
+end for;
+select many fns related by self->S_SYNC[R25];
+for each fn in fns
+  fn.downgradeCheck();
+end for;
+select many evtdis related by self->SM_EVTDI[R524];
+for each evtdi in evtdis
+  evtdi.downgradeCheck();
+end for;
+select many opers related by self->O_TFR[R116];
+for each oper in opers
+  oper.downgradeCheck();
+end for;
+select many oparms related by self->O_TPARM[R118];
+for each oparm in oparms
+  oparm.downgradeCheck();
+end for;
+select many attrs related by self->O_ATTR[R114];
+for each attr in attrs
+  attr.downgradeCheck();
+end for;
+select many members related by self->S_MBR[R45];
+for each member in members
+  member.downgradeCheck();
+end for;
+select many sycs related by self->CNST_SYC[R1500];
+for each syc in sycs
+  syc.downgradeCheck();
+end for;
+select many udts related by self->S_UDT[R18];
+for each udt in udts
+  udt.downgradeCheck();
+end for;
+//
+// Value Subsystem
+/* NOTE: do we really need to update value instances on downgrade (or dispose)?
+     The model change listener does not apply the model change until a running 
+     verifier stops.  If verifier has stopped, do we really care if there is a
+     value instance that is hooked to a datatype that is no longer visible or 
+     no longer exists?  Those value instances will be thrown away during reparse
+     before verifier runs again or pre-builder runs.  If we do want to add downgrade
+     checking, we should implement downgradeCheck() operations on V_* instances
+     and call them here.
+select many vals related by self->V_VAL[R820];
+for each val in vals
+  unrelate self from val across R820;
+  relate val to intdt across R820;
+end for;
+select many tvars related by self->V_TRN[R821];
+for each tvar in tvars
+  unrelate self from tvar across R821;
+  relate tvar to intdt across R821;
+end for;
+select many vvars related by self->V_VAR[R848];
+for each vvar in vvars
+  unrelate self from vvar across R848;
+  relate vvar to intdt across R848;
+end for;*/
+
+// Component Subsystem
+select many ios related by self->C_IO[R4008];
+for each io in ios
+  io.downgradeCheck();
+end for;
+select many pps related by self->C_PP[R4007];
+for each pp in pps
+  pp.downgradeCheck();
+end for;
+
+// RTOs checking is done by the individual subtype downgradeCheck() operations
+',
+	1,
+	'',
+	"2bf571a5-4f94-404e-899f-1b2ed2dafc5a",
+	0);
+INSERT INTO O_TFR
+	VALUES ("9228ad21-9b7f-486b-85b4-f391a49acf26",
+	"ead52fac-9782-434b-a35c-c07452c3b26d",
+	'isCuttable',
+	'A shape type is cuttable if it is selected, and if each connector anchored to it is also selected.',
+	"ba5eda7a-def5-0000-0000-000000000001",
+	1,
+	'isselected = Sel::isSelected(element:self.convertToInstance());
+if ( not isselected )
+  select one s_sdt related by self->S_SDT[R17];
+  if ( not_empty s_sdt )
+    isselected = Sel::isSelected(element:s_sdt.convertToInstance());
+  else
+    select one s_irdt related by self->S_IRDT[R17];
+    if ( not_empty s_irdt )
+      isselected = Sel::isSelected(element:s_irdt.convertToInstance());
+    else
+      select one s_edt related by self->S_EDT[R17];
+      if ( not_empty s_edt )
+        isselected = Sel::isSelected(element:s_edt.convertToInstance());
+      else 
+        select one s_cdt related by self->S_CDT[R17];
+        if ( not_empty s_cdt )
+          isselected = Sel::isSelected(element:s_cdt.convertToInstance());
+        else
+          select one s_udt related by self->S_UDT[R17];
+          if ( not_empty s_udt )
+            isselected = Sel::isSelected(element:s_udt.convertToInstance());
+          end if;
+        end if;
+      end if;
+    end if;
+  end if;
+end if;
+
+return isselected;',
+	1,
+	'',
+	"57932e59-c7e1-4095-97ff-031fd470e233",
+	0);
 INSERT INTO O_NBATTR
 	VALUES ("cbfb448a-f0dc-4961-8e66-276b89eed6d4",
 	"ead52fac-9782-434b-a35c-c07452c3b26d");

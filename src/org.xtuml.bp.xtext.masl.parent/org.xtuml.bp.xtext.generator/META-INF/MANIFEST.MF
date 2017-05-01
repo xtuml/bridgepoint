@@ -1,0 +1,18 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Custom Lexer Generator Fragment
+Bundle-SymbolicName: org.xtuml.bp.xtext.generator
+Bundle-Version: 1.0.0.qualifier
+Bundle-Vendor: OneFact
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Require-Bundle: com.google.guava,
+ org.eclipse.xtext.xbase.lib,
+ org.eclipse.xtend.lib,
+ org.eclipse.xtend.lib.macro,
+ org.antlr.runtime;bundle-version="3.2.0",
+ org.eclipse.xtext.xtext.generator,
+ com.google.inject;bundle-version="3.0.0",
+ org.eclipse.xtext,
+ org.apache.log4j;bundle-version="1.2.15"
+Export-Package: org.xtuml.bp.xtext.generator
+

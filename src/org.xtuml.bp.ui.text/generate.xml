@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="bp.ui.text" default="all" basedir=".">
-  <!-- The property ${eclipse-home} should be passed into this script -->
-  <!-- Set a meaningful default value for when it is not. -->
-  <property name="eclipse-home" value="${basedir}/../.."/>
+   
+  <import file="${mcj_path}/common.xml"/>
+   
   <property name="plugins-home" value="${ant.home}/../.."/>
-  <property name="util_bin_dir" value="${eclipse-home}/src/org.xtuml.bp.mc.c.source/mc3020/bin"/>
 
   <target name="all"
           description="Generate all code for this project"
@@ -19,7 +18,6 @@
 
   <property name="core_sql_dir" value="../org.xtuml.bp.core/sql" />
 
-  <property name="mcj_path" value="../MC-Java" />
   <property name="src_path" value="src/org/xtuml/bp/ui/text" />
 
   <target name="create_gen.depends"
@@ -33,20 +31,46 @@
     </condition>
   </target>
 
-  <target name="create_gen"
-          depends="create_gen.depends"
-          description="Create the generation database"
-          unless="create_gen.buildNotNeeded" >
-  <delete file="sql/db.gen" />
-    <exec dir="sql" vmlauncher="false" failonerror="true" executable="${util_bin_dir}/xtumlmc_build.exe" >
-      <env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
-      <arg line="xtumlmc_gen_erate -f db.gen
-        -import ../${mcj_path}/ooa_schema.sql
-        -import ../${core_sql_dir}/ooaofooa.sql
-        -import clr_schema.sql
-        -import clr_pei.sql" />
-  </exec>
-  </target>
+	   <target name="create_gen" depends="create_gen.depends"
+        	description="Create the generation database"
+        	unless="create_gen.buildNotNeeded">
+	   	<!-- If the ooa_schema.sql file does not exist at the mc_java_path
+	   	     location, we are dealing with a relative path.  We must account
+	   	     for the sql directory by adding another ascension
+	   	-->
+	   	<ant dir="sql" antfile="${ant.file}" target="mcj_path_type" />
+	  </target>
+
+	  <target name="mcj_path_type">
+	   	  <available file="${mcj_path}" property="absolute.present"/>
+	   	  <available file="../${mcj_path}" property="relative.present"/>
+	   	  <antcall target="create_gen.absolute"/>
+	   	  <antcall target="create_gen.relative"/>   		
+	  </target>
+		
+		<target name="create_gen.absolute" if="absolute.present">
+			<delete file="sql/db.gen" />
+			<exec vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
+			      <env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
+			      <arg line="xtumlmc_gen_erate -f db.gen
+			        -import ${mcj_path}/ooa_schema.sql
+			        -import ../${core_sql_dir}/ooaofooa.sql
+			        -import clr_schema.sql
+			        -import clr_pei.sql" />
+			</exec>
+		</target>
+	
+		<target name="create_gen.relative" if="relative.present">
+			<delete file="sql/db.gen" />
+			<exec vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
+			      <env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
+			      <arg line="xtumlmc_gen_erate -f db.gen
+			        -import ../${mcj_path}/ooa_schema.sql
+			        -import ../${core_sql_dir}/ooaofooa.sql
+			        -import clr_schema.sql
+			        -import clr_pei.sql" />
+			</exec>
+		</target>
 
   <target name="delete_gen"
           description="Delete the generation database" >
@@ -76,8 +100,8 @@
           description="Generate the text plugin.xml file"
           unless="plugin_xml.buildNotNeeded" >
     <echo >Generating plugin.xml ...</echo>
-  <exec vmlauncher="false" failonerror="true" executable="${util_bin_dir}/xtumlmc_build.exe" >
-  	<env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
+  <exec vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
+   <env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
     <arg line="xtumlmc_gen_erate -f sql/db.gen
       -arch arc/create_plugin_xml.arc" />
   </exec>
@@ -104,7 +128,7 @@
           description="Generate the ModelAdapter.java file"
           unless="modeladapter_java.buildNotNeeded" >
     <echo >Generating ModelAdapter.java ...</echo>
-  <exec vmlauncher="false" failonerror="true" executable="${util_bin_dir}/xtumlmc_build.exe" >
+  <exec vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
         <env key="PTC_MC_ARC_DIR" value="${mcj_path}"/>
         <env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
     <arg line="xtumlmc_gen_erate -f sql/db.gen
@@ -117,10 +141,12 @@
 
   <property name="activity_editorinput_factory_java.output" value="activity/ActivityEditorInputFactory.java" />
   <property name="description_editorinput_factory_java.output" value="description/DescriptionEditorInputFactory.java" />
+  <property name="typedefinition_editorinput_factory_java.output" value="typedefinition/TypeDefinitionEditorInputFactory.java" />
 
   <target name="editorinputfactories_java.depends">
     <uptodate property="editorinputfactories_java.buildNotNeeded" targetfile="${src_path}/${activity_editorinput_factory_java.output}">
         <srcfiles dir = "${core_sql_dir}" includes = "ooaofooa.sql" />
+        <srcfiles dir = "arc" includes = "create_typedefinition_editorinput_factory_java.inc"/>
         <srcfiles dir = "arc" includes = "create_description_editorinput_factory_java.inc"/>
         <srcfiles dir = "arc" includes = "create_activity_editorinput_factory_java.inc"/>
         <srcfiles dir = "arc" includes = "create_util.inc"/>
@@ -135,10 +161,10 @@
 
   <target name="editorinputfactories_java"
           depends="create_gen,editorinputfactories_java.depends"
-          description="Generate the Activity and Description EditorInput java files"
+          description="Generate the Activity, Description, and TypeDefinition EditorInput java files"
           unless="editorinputfactories_java.buildNotNeeded" >
-    <echo >Activity and Description EditorInputFactory java files ...</echo>
-  <exec vmlauncher="false" failonerror="true" executable="${util_bin_dir}/xtumlmc_build.exe" >
+    <echo >Activity, Description, and TypeDefinition EditorInputFactory java files ...</echo>
+  <exec vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
         <env key="PTC_MC_ARC_DIR" value="${mcj_path}"/>
         <env key="CHAIN_UTIL_DIR" value="${chain_util_path}"/>
         <env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
@@ -164,8 +190,8 @@
   </target>
 
   <target name="literal_rule" description="Generate File OALKeywords.java for Syntax Highlighting" unless="literal_rule.buildNotNeeded" depends="literal_rule.depends">
-    <exec vmlauncher="false" failonerror="true" executable="${util_bin_dir}/xtumlmc_build.exe" >
-    	<env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
+    <exec vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
+      <env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
     <arg line="xtumlmc_gen_erate -nopersist
       -import ${als.dir}/grammar_schema.sql
       -import ${als.dir}/oal_grammar.sql
@@ -177,7 +203,7 @@
   <target name="format_java" description="Format the generated java source" >
     <taskdef name="PTCodeFormat" classname="PTCodeFormatterTask" >
         <classpath>
-            <pathelement path="../org.xtuml.bp.core/tools/" />
+            <pathelement path="${mcj_path}/../org.xtuml.bp.core/tools/" />
             <fileset dir="${plugins-home}/plugins" casesensitive="yes">
                 <include name="**/org.eclipse.text_*.jar" />
                 <include name="**/org.eclipse.ui_*.jar" />
@@ -191,54 +217,8 @@
     </taskdef>
      <PTCodeFormat>
         <fileset dir="${src_path}" excludes=""
-          includes="${modeladapter_java.output},${activity_editorinput_factory_java.output},${description_editorinput_factory_java.output},editor/oal/${literalrule_java.output}" />
+          includes="${modeladapter_java.output},${activity_editorinput_factory_java.output},${description_editorinput_factory_java.output},${typedefinition_editorinput_factory_java.output},editor/oal/${literalrule_java.output}" />
      </PTCodeFormat>
-  </target>
-
-  <!-- COMPILE TARGETS -->
-
-  <!-- This target is not used in the eclipse environment.  The eclipse Java
-       builder handles the java compilation when building BridgePoint under
-       eclipse.  This target is used only when building BridgePoint from the
-       command line on the build server. -->
-  <target name="compile"
-       description="Compile project" >
-    <echo>Compiling ${ant.project.name}</echo>
-    <mkdir dir="bin" />
-    <javac memoryinitialsize="512m" memorymaximumsize="512m" source="1.6"
-        fork="yes" destdir="bin" debug="true" debuglevel="lines,vars,source" encoding="UTF-8" >
-       <src path="${src_path}" />
-       <classpath>
-         <pathelement path="../org.xtuml.bp.core/bin" />
-         <pathelement path="../org.xtuml.bp.als.oal/bin" />
-         <fileset dir="${eclipse-home}/plugins" casesensitive="yes">
-           <include name="**/org.eclipse.osgi_*.jar" />
-           <include name="**/org.eclipse.ui.ide_*.jar" />
-           <include name="**/org.eclipse.core.filebuffers_*.jar" />
-           <include name="**/org.eclipse.core.resources_*.jar"/>
-           <include name="**/org.eclipse.jface_*.jar" />
-           <include name="**/org.eclipse.core.runtime_*.jar" />
-           <include name="**/org.eclipse.ui.workbench_*.jar" />
-           <include name="**/org.eclipse.swt.win32.win32.x86_*.jar" />
-           <include name="**/org.eclipse.ui_*.jar"/>
-           <include name="**/org.eclipse.text_*.jar"/>
-           <include name="**/org.eclipse.jface.text_*.jar"/>
-           <include name="**/org.eclipse.ui.views_*.jar"/>
-           <include name="**/org.eclipse.ui.win32_*.jar"/>
-           <include name="**/org.eclipse.ui.workbench.texteditor_*.jar"/>
-           <include name="**/org.eclipse.ui.editors_*.jar"/>
-           <include name="**/org.antlr_*/antlr.jar"/>
-           <include name="**/org.eclipse.core.boot_*.jar"/>
-           <include name="**/org.eclipse.equinox.common_*.jar"/>
-           <include name="**/org.eclipse.equinox.registry_*.jar"/>
-           <include name="**/org.eclipse.equinox.preferences_*.jar"/>
-           <include name="**/org.eclipse.core.commands_*.jar"/>
-           <include name="**/org.eclipse.core.jobs_*.jar"/>
-           <include name="**/org.eclipse.core.contenttype_*.jar"/>
-         </fileset>
-       </classpath>
-    </javac>
-
   </target>
 
   <!-- CLEAN TARGETS -->
@@ -264,10 +244,11 @@
   </target>
 
   <target name="clean_editorinput"
-    description="Remove the generated files: ${activity_editorinput_factory_java.output} and ${description_editorinput_factory_java.output}">
-    <echo>Removing generated files: ${activity_editorinput_factory_java.output} and ${description_editorinput_factory_java.output} ...</echo>
+    description="Remove the generated files: ${activity_editorinput_factory_java.output}, ${description_editorinput_factory_java.output}, and ${typedefinition_editorinput_factory_java.output}">
+    <echo>Removing generated files: ${activity_editorinput_factory_java.output}, ${description_editorinput_factory_java.output}, and ${typedefinition_editorinput_factory_java.output} ...</echo>
      <delete file="${src_path}/${activity_editorinput_factory_java.output}"/>
      <delete file="${src_path}/${description_editorinput_factory_java.output}"/>
+     <delete file="${src_path}/${typedefinition_editorinput_factory_java.output}"/>
   </target>
 
   <target name="clean_literalRule"

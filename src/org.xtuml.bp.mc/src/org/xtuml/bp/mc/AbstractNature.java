@@ -1,6 +1,3 @@
-//========================================================================
-//File:      AbstractNature.java
-//========================================================================
 package org.xtuml.bp.mc;
 
 import java.io.File;
@@ -63,10 +60,10 @@ public abstract class AbstractNature implements IProjectNature {
 
 	public static final String EXTERNALTOOLBUILDER_FOLDER = ".externalToolBuilders"; //$NON-NLS-1$
 
-	public static final String MANIFEST_FILE_NAME = "default-manifest.xml"; //$NON-NLS-1$
+	public static final String MC_ROOT_DIR = "tools/mc";
 
-	public static String MC_ROOT_DIR_ENV_VAR_REF = "mc3020"; //$NON-NLS-1$
-	private static boolean has_set_mc_root_dir = false;
+	public static final String MANIFEST_FILE_NAME = "default-manifest.xml"; //$NON-NLS-1$
+	public static final String MANIFEST_FILE_DIR = MC_ROOT_DIR + File.separator + "schema"; //$NON-NLS-1$
 
 	public static final String ARCHETYPE_FOLDER_NAME = "arc"; //$NON-NLS-1$
 	public static final String SPECIALIZED_ARCHETYPE_FOLDER_NAME = "specialized"; //$NON-NLS-1$
@@ -99,11 +96,6 @@ public abstract class AbstractNature implements IProjectNature {
 	public boolean hasNature(IProject project, final String natureId) {
 		boolean ret_val = false;
 		try {
-			if (!has_set_mc_root_dir) {
-				MC_ROOT_DIR_ENV_VAR_REF = abstractActivator.getEntryPath("") + MC_ROOT_DIR_ENV_VAR_REF; //$NON-NLS-1$
-				has_set_mc_root_dir = true;
-			}
-
 			ret_val = project.isOpen() && project.hasNature(natureId);
 		} catch (Exception e) {
 			abstractActivator.logError("Error checking for nature \"" + natureId
@@ -212,8 +204,9 @@ public abstract class AbstractNature implements IProjectNature {
 	 * IProjectDescription.setNatureIds() is made.
 	 */
 	public void configure() throws CoreException {
-		String src = VariablesPlugin.getDefault().getStringVariableManager()
-				.performStringSubstitution(MC_ROOT_DIR_ENV_VAR_REF);
+        String homedir = System.getProperty("eclipse.home.location"); //$NON-NLS-1$
+        homedir = homedir.replaceFirst("file:", "");
+		String src = homedir + File.separator + MC_ROOT_DIR;
 		String dest = project.getLocation().toOSString();
 
 		// Add required folders
@@ -393,9 +386,9 @@ public abstract class AbstractNature implements IProjectNature {
 	 */
 	public String[] getFiles(String type, String srcOrDest, String modelName) {
 		try {
-			String mc_path = VariablesPlugin.getDefault()
-					.getStringVariableManager().performStringSubstitution(
-							MC_ROOT_DIR_ENV_VAR_REF);
+            String homedir = System.getProperty("eclipse.home.location"); //$NON-NLS-1$
+            homedir = homedir.replaceFirst("file:", "");
+            String mc_path = homedir + File.separator + MANIFEST_FILE_DIR;
 			File manifest = new File(mc_path + File.separator
 					+ MANIFEST_FILE_NAME);
 			if (manifest.exists()) {
