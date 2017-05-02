@@ -57,16 +57,16 @@
                 <resource>
                   <directory>../../../mc/bin/</directory>
                   <includes>
-                    <include>docgen.linux.64</include>
+                    <include>docgen</include>
                     <include>gen_erate.pyz</include>
                     <include>mcmc</include>
                     <include>mcmc64</include>
-                    <include>m2x.linux.64</include>
-                    <include>masl.linux.64</include>
+                    <include>m2x</include>
+                    <include>masl</include>
                     <include>masl2xtuml</include>
                     <include>masldiff</include>
                     <include>MASLParser.jar</include>
-                    <include>x2m.linux.64</include>
+                    <include>x2m</include>
                     <include>xtuml2masl</include>
                     <include>xtumlmc_build</include>
                     <include>CLI.sh</include>
@@ -104,73 +104,55 @@
                     <include>masl_round_trip</include>
                     <include>build_masl</include>
                     <include>masl_check</include>
-                    <include>docgen.mac.64</include>
-                    <!-- Don't have mac versions of these yet
+                  </includes>
+                </resource>
+                <resource>
+                  <directory>../../../mc/bin/mac/</directory>
+                  <includes>
+                    <include>docgen</include>
                     <include>mcmc</include>
-                    <include>mcmc64</include>
-                    -->
-                    <include>m2x.mac.64</include>
-                    <include>masl.mac.64</include>
-                    <include>x2m.mac.64</include>
+                    <include>m2x</include>
+                    <include>masl</include>
+                    <include>x2m</include>
                   </includes>
                 </resource>
               </resources>              
             </configuration>            
           </execution>
 
-          <!-- Populate the win64.all/ folder with pre-compiled binaries -->
+          <!-- Populate the win.all/ folder with pre-compiled binaries -->
           <execution>
-            <id>copy-resources-win64</id>
+            <id>copy-resources-win</id>
             <phase>validate</phase>
             <goals>
               <goal>copy-resources</goal>
             </goals>
             <configuration>
-              <outputDirectory>${basedir}/win64.all/tools/mc/bin</outputDirectory>
+              <outputDirectory>${basedir}/win.all/tools/mc/bin</outputDirectory>
               <resources>          
                 <resource>
                   <directory>../../../mc/bin/</directory>
                   <includes>
-                    <include>docgen.win.64</include>
-                    <include>m2x.win.64</include>
-                    <include>masl.win.64</include>
-                    <include>x2m.win.64</include>
                     <include>gen_erate.exe</include>
                     <include>mcmc.exe</include>
                     <include>xtumlmc_build.exe</include>
                     <include>CLI.bat</include>
+                  </includes>
+                </resource>
+                <resource>
+                  <directory>../../../mc/bin/mac/</directory>
+                  <includes>
+                    <include>docgen.exe</include>
+                    <include>mcmc.exe</include>
+                    <include>m2x.exe</include>
+                    <include>masl.exe</include>
+                    <include>x2m.exe</include>
                   </includes>
                 </resource>
               </resources>              
             </configuration>            
           </execution>
 
-          <!-- Populate the win32.all/ folder with pre-compiled binaries -->
-          <execution>
-            <id>copy-resources-win32</id>
-            <phase>validate</phase>
-            <goals>
-              <goal>copy-resources</goal>
-            </goals>
-            <configuration>
-              <outputDirectory>${basedir}/win32.all/tools/mc/bin</outputDirectory>
-              <resources>          
-                <resource>
-                  <directory>../../../mc/bin/</directory>
-                  <includes>
-                    <include>docgen.win.32</include>
-                    <include>m2x.win.32</include>
-                    <include>masl.win.32</include>
-                    <include>x2m.win.32</include>
-                    <include>gen_erate.exe</include>
-                    <include>mcmc.exe</include>
-                    <include>xtumlmc_build.exe</include>
-                    <include>CLI.bat</include>
-                  </includes>
-                </resource>
-              </resources>              
-            </configuration>            
-          </execution>
         </executions>
       </plugin>
 
@@ -215,55 +197,6 @@
             </goals>
           </execution>
 
-          <!--rename the mc tools-->
-          <execution>
-            <id>rename-resources</id>
-            <phase>validate</phase>
-            <configuration>
-              <target>
-                <!--rename the linux mc tools-->
-                <move file="${basedir}/linux.all/tools/mc/bin/docgen.linux.64" 
-                      toFile="${basedir}/linux.all/tools/mc/bin/docgen" />
-                <move file="${basedir}/linux.all/tools/mc/bin/masl.linux.64" 
-                      toFile="${basedir}/linux.all/tools/mc/bin/masl" />
-                <move file="${basedir}/linux.all/tools/mc/bin/m2x.linux.64" 
-                      toFile="${basedir}/linux.all/tools/mc/bin/m2x" />
-                <move file="${basedir}/linux.all/tools/mc/bin/x2m.linux.64" 
-                      toFile="${basedir}/linux.all/tools/mc/bin/x2m" />
-                <!--rename the mac mc tools-->
-                <move file="${basedir}/mac.all/tools/mc/bin/docgen.mac.64" 
-                      toFile="${basedir}/mac.all/tools/mc/bin/docgen" />
-                <move file="${basedir}/mac.all/tools/mc/bin/masl.mac.64" 
-                      toFile="${basedir}/mac.all/tools/mc/bin/masl" />
-                <move file="${basedir}/mac.all/tools/mc/bin/m2x.mac.64" 
-                      toFile="${basedir}/mac.all/tools/mc/bin/m2x" />
-                <move file="${basedir}/mac.all/tools/mc/bin/x2m.mac.64" 
-                      toFile="${basedir}/mac.all/tools/mc/bin/x2m" />
-                <!--rename the win64 mc tools-->
-                <move file="${basedir}/win64.all/tools/mc/bin/docgen.win.64" 
-                      toFile="${basedir}/win64.all/tools/mc/bin/docgen.exe" />
-                <move file="${basedir}/win64.all/tools/mc/bin/masl.win.64" 
-                      toFile="${basedir}/win64.all/tools/mc/bin/masl" />
-                <move file="${basedir}/win64.all/tools/mc/bin/m2x.win.64" 
-                      toFile="${basedir}/win64.all/tools/mc/bin/m2x" />
-                <move file="${basedir}/win64.all/tools/mc/bin/x2m.win.64" 
-                      toFile="${basedir}/win64.all/tools/mc/bin/x2m" />
-                <!--rename the win32 mc tools-->
-                <move file="${basedir}/win32.all/tools/mc/bin/docgen.win.32" 
-                      toFile="${basedir}/win32.all/tools/mc/bin/docgen.exe" />
-                <move file="${basedir}/win32.all/tools/mc/bin/masl.win.32" 
-                      toFile="${basedir}/win32.all/tools/mc/bin/masl" />
-                <move file="${basedir}/win32.all/tools/mc/bin/m2x.win.32" 
-                      toFile="${basedir}/win32.all/tools/mc/bin/m2x" />
-                <move file="${basedir}/win32.all/tools/mc/bin/x2m.win.32" 
-                      toFile="${basedir}/win32.all/tools/mc/bin/x2m" />
-              </target>
-            </configuration>
-            <goals>
-              <goal>run</goal>
-            </goals>
-          </execution>
-          
         </executions>
       </plugin>
         
