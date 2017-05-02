@@ -311,7 +311,11 @@ public class BPThread extends BPDebugElement implements IThread {
     	}
     	else {
     		canvasRefreshPending = true;
-    		Display disp = DebugUIPlugin.getStandardDisplay();
+    		Display disp = PlatformUI.getWorkbench().getDisplay();
+    		if(disp.isDisposed()) {
+    			canvasRefreshPending = false;
+    			return;
+    		}
     		disp.asyncExec(new Runnable() {
     			public void run() {
     				GraphicalEditor.redrawAll();

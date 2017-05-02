@@ -71,6 +71,13 @@ public class CanvasPlugin extends AbstractUIPlugin {
   private CanvasModelListener modelChangeListener;
   private CanvasTransactionListener transactionListener;
   private static boolean isActivated;
+  // note this method is used to draw the entire text
+  // contents for shapes, preventing any truncating or 
+  // cropping.  It likely will never have use in the
+  // tool outside of testing.  For testing we require
+  // it to get around Windows system differences things
+  // like DPI differences
+  public static boolean disableCropping = false;
   
   public CanvasPlugin() {
     super();

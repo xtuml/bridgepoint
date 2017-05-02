@@ -100,7 +100,8 @@ class NameValidator extends AbstractMASLValidator {
 	
 	@Check
 	def relationNamesAreUnique(RegularRelationshipDefinition it) {
-		if(forwards.name == backwards.name) {
+		if(forwards.name == backwards.name 
+			&& forwards.to == forwards.from) {
 			error('Duplicate role name ' + forwards.name, forwards, structurePackage.abstractNamed_Name, DUPLICATE_NAME)
 			error('Duplicate role name ' + backwards.name, backwards, structurePackage.abstractNamed_Name, DUPLICATE_NAME)
 		}

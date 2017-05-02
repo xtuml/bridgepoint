@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<launchConfiguration type="org.eclipse.cdt.launch.launchGroup">
+<stringAttribute key="org.eclipse.cdt.launch.launchGroup.0.action" value="WAIT_FOR_TERMINATION"/>
+<stringAttribute key="org.eclipse.cdt.launch.launchGroup.0.enabled" value="true"/>
+<stringAttribute key="org.eclipse.cdt.launch.launchGroup.0.mode" value="default"/>
+<stringAttribute key="org.eclipse.cdt.launch.launchGroup.0.name" value="IO MDL PkgCM Tests"/>
+<stringAttribute key="org.eclipse.cdt.launch.launchGroup.1.action" value="WAIT_FOR_TERMINATION"/>
+<stringAttribute key="org.eclipse.cdt.launch.launchGroup.1.enabled" value="true"/>
+<stringAttribute key="org.eclipse.cdt.launch.launchGroup.1.mode" value="default"/>
+<stringAttribute key="org.eclipse.cdt.launch.launchGroup.1.name" value="IO MDL Tests"/>
+<stringAttribute key="org.eclipse.cdt.launch.launchGroup.2.action" value="WAIT_FOR_TERMINATION"/>
+<stringAttribute key="org.eclipse.cdt.launch.launchGroup.2.enabled" value="true"/>
+<stringAttribute key="org.eclipse.cdt.launch.launchGroup.2.mode" value="default"/>
+<stringAttribute key="org.eclipse.cdt.launch.launchGroup.2.name" value="IO MDL Tests 2"/>
+</launchConfiguration>

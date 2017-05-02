@@ -10,6 +10,7 @@ import org.eclipse.emf.ecore.EReference
 import org.eclipse.xtext.naming.QualifiedName
 import org.eclipse.xtext.resource.EObjectDescription
 import org.eclipse.xtext.scoping.IScope
+import org.eclipse.xtext.scoping.impl.MapBasedScope
 import org.eclipse.xtext.scoping.impl.SimpleScope
 import org.xtuml.bp.xtext.masl.MASLExtensions
 import org.xtuml.bp.xtext.masl.lib.MASLLibraryProvider
@@ -19,6 +20,7 @@ import org.xtuml.bp.xtext.masl.masl.behavior.BehaviorPackage
 import org.xtuml.bp.xtext.masl.masl.behavior.CharacteristicCall
 import org.xtuml.bp.xtext.masl.masl.behavior.CodeBlock
 import org.xtuml.bp.xtext.masl.masl.behavior.CreateExpression
+import org.xtuml.bp.xtext.masl.masl.behavior.Expression
 import org.xtuml.bp.xtext.masl.masl.behavior.FindExpression
 import org.xtuml.bp.xtext.masl.masl.behavior.ForStatement
 import org.xtuml.bp.xtext.masl.masl.behavior.GenerateStatement
@@ -59,7 +61,7 @@ import org.xtuml.bp.xtext.masl.typesystem.TypeParameterResolver
 import static org.eclipse.xtext.scoping.Scopes.*
 
 import static extension org.eclipse.xtext.EcoreUtil2.*
-import org.xtuml.bp.xtext.masl.masl.behavior.Expression
+import org.xtuml.bp.xtext.masl.typesystem.BuiltinType
 
 /**
  * This class contains custom scoping description.
@@ -133,27 +135,46 @@ class MASLScopeProvider extends AbstractMASLScopeProvider {
 			}
 			case structurePackage.relationshipNavigation_ObjectOrRole: {
 				if(context instanceof RelationshipNavigation) {
+					val receiverType = context.receiver.maslType.componentType
 					val relationShip = context.relationship
 					switch relationShip {
-						RegularRelationshipDefinition:
-							return scopeFor(#{relationShip.forwards, relationShip.backwards,
-								relationShip.forwards.from, relationShip.forwards.to, 
-								relationShip.backwards.from, relationShip.backwards.to
-							}, new SimpleScope(#[
-								qualifiedDescription(relationShip.forwards), 
-								qualifiedDescription(relationShip.backwards)
-							]))
-						AssocRelationshipDefinition:
-							return scopeFor(#{relationShip.forwards, relationShip.backwards,
-								relationShip.forwards.from, relationShip.forwards.to, 
-								relationShip.backwards.from, relationShip.backwards.to,
-								relationShip.object
-							}, new SimpleScope(#[
-								qualifiedDescription(relationShip.forwards), 
-								qualifiedDescription(relationShip.backwards)
-							]))
+						RegularRelationshipDefinition: {
+							val referrables = newArrayList()
+							for(end: #[relationShip.forwards, relationShip.backwards]) {
+								if(receiverType == BuiltinType.MISSING_TYPE || end.from.maslType.componentType == receiverType) {
+									referrables += EObjectDescription.create(
+										QualifiedName.create(end.name), end)
+									referrables += EObjectDescription.create(
+										QualifiedName.create(end.to.name), end)
+									referrables += qualifiedDescription(end)
+								}
+							}
+							return new SimpleScope(referrables)
+						}
+						AssocRelationshipDefinition: {
+							val referrables = newArrayList()
+							val receiverIsAssocObject = relationShip.object.maslType.componentType == receiverType
+							for(end: #[relationShip.forwards, relationShip.backwards]) {
+								if(receiverType == BuiltinType.MISSING_TYPE || end.from.maslType.componentType == receiverType || receiverIsAssocObject) {
+									referrables += EObjectDescription.create(
+										QualifiedName.create(end.name), end)
+									referrables += EObjectDescription.create(
+										QualifiedName.create(end.to.name), end)
+									referrables += qualifiedDescription(end)
+								}
+							}
+							referrables += EObjectDescription.create(
+								QualifiedName.create(relationShip.object.name), relationShip.object)
+							referrables += EObjectDescription.create(
+								QualifiedName.create(relationShip.forwards.name + '.' + relationShip.object.name), relationShip.object
+							)
+							referrables += EObjectDescription.create(
+								QualifiedName.create(relationShip.backwards.name + '.' + relationShip.object.name), relationShip.object
+							)
+							return new SimpleScope(referrables)
+						}
 						SubtypeRelationshipDefinition:
-							return scopeFor(relationShip.subtypes)
+							return scopeFor(relationShip.subtypes + #[relationShip.supertype]) 
 							
 					}
  				}
@@ -204,26 +225,14 @@ class MASLScopeProvider extends AbstractMASLScopeProvider {
 			val localFeatureScope = call.getLocalSimpleFeatureScope(delegate.getScope(call, featureCall_Feature), null) 
 			val parent = call.eContainer
 			switch parent {
-				AttributeDefinition case call == parent.defaultValue: {
-					val type = parent.type.maslType
-					if (type instanceof EnumType) 
-						return scopeFor(type.enumType.enumerators, localFeatureScope)
-				}
-				VariableDeclaration case call == parent.expression: {
-					val type = parent.type.maslType
-					if (type instanceof EnumType) 
-						return scopeFor(type.enumType.enumerators, localFeatureScope)
-				}
-				AssignStatement case call == parent.rhs: {
-					val type = parent.lhs.maslType
-					if (type instanceof EnumType) 
-						return scopeFor(type.enumType.enumerators, localFeatureScope)
-				}
-				StructureComponentDefinition case call == parent.defaultValue: {
-					val type = parent.type.maslType
-					if (type instanceof EnumType) 
-						return scopeFor(type.enumType.enumerators, localFeatureScope)
-				}			
+				AttributeDefinition case call == parent.defaultValue: 
+					return getEnumDisambiguationScope(parent.type.maslType, localFeatureScope)
+				VariableDeclaration case call == parent.expression: 
+					return getEnumDisambiguationScope(parent.type.maslType, localFeatureScope)
+				AssignStatement case call == parent.rhs: 
+					return getEnumDisambiguationScope(parent.lhs.maslType, localFeatureScope)
+				StructureComponentDefinition case call == parent.defaultValue: 
+					return getEnumDisambiguationScope(parent.type.maslType, localFeatureScope)
 			}
 			return localFeatureScope
 		} else {
@@ -231,6 +240,20 @@ class MASLScopeProvider extends AbstractMASLScopeProvider {
 			return getTypeFeatureScope(type)
 		}
 	}
+	
+	private def IScope getEnumDisambiguationScope(MaslType maslType, IScope parent) {
+		if(maslType instanceof EnumType) {
+			val domainName = maslType.enumType.domainName
+			return MapBasedScope.createScope(parent, maslType.enumType.enumerators.map[
+				#[
+					EObjectDescription.create(QualifiedName.create(name), it),
+					EObjectDescription.create(QualifiedName.create(domainName, name), it)
+				]
+			].flatten)
+		} else {
+			return parent
+		}
+	} 
 	
 	private def IScope getTypeFeatureScope(MaslType type) {
 		switch type {

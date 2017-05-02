@@ -30,6 +30,7 @@ import java.util.UUID;
 
 import org.eclipse.draw2d.ConnectionAnchor;
 import org.eclipse.draw2d.ConnectionRouter;
+import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.Label;
 import org.eclipse.draw2d.MarginBorder;
@@ -62,10 +63,12 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.ui.IActionFilter;
 
 import org.xtuml.bp.core.End_c;
+import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.Style_c;
 import org.xtuml.bp.core.common.ClassQueryInterface_c;
 import org.xtuml.bp.core.common.NonRootModelElement;
 import org.xtuml.bp.ui.canvas.AnchorOnSegment_c;
+import org.xtuml.bp.ui.canvas.CanvasPlugin;
 import org.xtuml.bp.ui.canvas.Cl_c;
 import org.xtuml.bp.ui.canvas.ConnectorSpecification_c;
 import org.xtuml.bp.ui.canvas.ConnectorTerminal_c;
@@ -599,7 +602,16 @@ public class ConnectorEditPart extends AbstractConnectionEditPart implements
 		if (!startTextFixed.equals("")) {
 			Label startFixed = fConnectorText.getLabelAt(End_c.Start_Fixed);
 			if (startFixed == null) {
-				startFixed = new Label(startTextFixed);
+				startFixed = new Label(startTextFixed) {
+					@Override
+					protected void paintFigure(Graphics graphics) {
+						if(CanvasPlugin.disableCropping) {
+							// just draw the full text
+							graphics.drawText(getText(), getTextLocation()) ;
+						}
+						super.paintFigure(graphics);
+					}					
+				};
 				fConnectorText.fStartFixedLabel = startFixed;
 				FixedTextLocator locator = new FixedTextLocator(
 						getConnectionFigure(), false);
@@ -619,7 +631,16 @@ public class ConnectorEditPart extends AbstractConnectionEditPart implements
 		if (!endTextFixed.equals("")) {
 			Label endFixed = fConnectorText.getLabelAt(End_c.End_Fixed);
 			if (endFixed == null) {
-				endFixed = new Label(endTextFixed);
+				endFixed = new Label(endTextFixed) {
+					@Override
+					protected void paintFigure(Graphics graphics) {
+						if(CanvasPlugin.disableCropping) {
+							// just draw the full text
+							graphics.drawText(getText(), getTextLocation()) ;
+						}
+						super.paintFigure(graphics);
+					}					
+				};
 				fConnectorText.fEndFixedLabel = endFixed;
 				FixedTextLocator locator = new FixedTextLocator(
 						getConnectionFigure(), true);

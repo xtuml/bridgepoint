@@ -32,6 +32,7 @@ import org.eclipse.swt.graphics.Font;
 import org.xtuml.bp.core.End_c;
 import org.xtuml.bp.core.Justification_c;
 import org.xtuml.bp.core.common.NonRootModelElement;
+import org.xtuml.bp.ui.canvas.CanvasPlugin;
 import org.xtuml.bp.ui.canvas.Cl_c;
 import org.xtuml.bp.ui.canvas.Connector_c;
 import org.xtuml.bp.ui.canvas.FloatingText_c;
@@ -45,6 +46,9 @@ import org.xtuml.bp.ui.graphics.parts.ConnectorEditPart;
 public class TextUtilities {
 
 	public static String wrapText(String value, Font font, int width) {
+		if(CanvasPlugin.disableCropping) {
+			return value;
+		}
 		String result = "";//$NON-NLS-1$
 		String[] lines = value.split("\n");//$NON-NLS-1$
 		for (int i = 0; i < lines.length; i++) {
