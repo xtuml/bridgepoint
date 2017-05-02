@@ -184,8 +184,7 @@ the package which the parent element is defined in for type visibility purposes
 5. If more than one type of the same name exists in the visibility of the typed
 element, the type that is "closest" (fewer packages between them) shall be
 chosen and the others shall be shadowed  
-6. Two types of the same name may not be defined in the same package with the
-same name  
+6. Two types of the same name may not be defined in the same package  
 
 5.3.1 Type references
 
@@ -196,6 +195,10 @@ in project B, as soon as project B is in a workspace apart from project A, the
 model is invalidated. With a type reference object, each typed element keeps a
 local handle to the type and then upon load, the type references are linked to
 the associated type by name.
+
+Type references have practical application in textual reqresentations of the
+model.  Examples include parameter and return value typing and local variable
+declaration.
 
 5.3.2 Type chooser and anonymous types
 
