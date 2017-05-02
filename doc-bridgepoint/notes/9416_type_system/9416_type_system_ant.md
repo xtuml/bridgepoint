@@ -233,14 +233,15 @@ class attributes.
 ### 6. Work Required
 
 6.1 Model type inheritence in the metamodel  
-6.1.1 Create a document explicityly noting divergences from the inheritance
+6.1.1 Create a document explicitly noting divergences from the inheritance
 model  
 6.2 Update the OAL parser with new type conversion and compatibility rules  
 6.2.1 Analyze introducing explicit type casting to OAL  
 6.3 Reorganize and revise xtUML builtin types into a proper hierarchy  
-6.4 Model MASL collection types and other features missing from xtUML  
+6.4 Model collection types and other features missing from xtUML
+6.4.1 Fully integrate the type linking to both OAL and MASL  
 6.5 Model type references and anonymous types  
-6.6 Define scoping rules in OAL search functions  
+6.6 Define scoping rules in action language search functions  
 6.7 Analyze the extent of the type system that should be persisted as text  
 6.8 Search and update all traversals from typed elements to their datatype and
 update with the new type reference traversal  
