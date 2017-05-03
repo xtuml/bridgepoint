@@ -41,13 +41,13 @@ class MASLHyperlinkHelper extends HyperlinkHelper {
 					val index = resource.index
 					val declarationClass = element.declarationClass
 					if(element.declarationClass != null) {
-						getDeclarations(element, declarationClass, index).rankByParameters(paramTypes).forEach[
+						getDeclarations(element, declarationClass, index).rankByParameters(paramTypes, element.hasReturnType).forEach[
 							createHyperlink('Go to declaration', region, acceptor)
 						]
 					} else {
 						val definitionClass = element.definitionClass
 						if(definitionClass != null) {
-							getDefinitions(element, definitionClass, index).rankByParameters(paramTypes).forEach[
+							getDefinitions(element, definitionClass, index).rankByParameters(paramTypes, element.hasReturnType).forEach[
 								createHyperlink('Go to definition', region, acceptor)
 							]
 						}
@@ -57,11 +57,11 @@ class MASLHyperlinkHelper extends HyperlinkHelper {
 		}
 	}
 	
-	private def rankByParameters(Iterable<EObject> elements, List<MaslType> paramTypes) {
+	private def rankByParameters(Iterable<EObject> elements, List<MaslType> paramTypes, boolean needsReturnType) {
 		val exactCandidates = new TreeSet<RankedCandidate>()
 		val acceptableCandidates = new TreeSet<RankedCandidate>()
 		for(element: elements.filter(Parameterized)) {
-			val ranked = element.rankParameterized(paramTypes, element.hasReturnType)
+			val ranked = element.rankParameterized(paramTypes, needsReturnType)
 			if(ranked.isExact)
 				exactCandidates += ranked	
 			else if(ranked.isAcceptable)

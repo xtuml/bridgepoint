@@ -48,7 +48,7 @@ class MaslExpectedTypeProvider {
 			val topLevelElement = context.getContainerOfType(AbstractTopLevelElement)
 			switch topLevelElement {
 				AbstractService:
-					return #[topLevelElement.getReturnType.maslType]
+					return #[topLevelElement.getReturnType.maslTypeOfTypeReference]
 				default:
 					return #[NO_TYPE]
 			}
@@ -90,9 +90,9 @@ class MaslExpectedTypeProvider {
 		val relationship = context?.navigation?.relationship
 		val types = switch relationship {
 			RegularRelationshipDefinition:
-				newArrayList(relationship.forwards.from.maslType, relationship.backwards.from.maslType)
+				newArrayList(relationship.forwards.from, relationship.backwards.from).allCollectionTypes
 			AssocRelationshipDefinition:
-				newArrayList(relationship.forwards.from.maslType, relationship.backwards.from.maslType)
+				newArrayList(relationship.forwards.from, relationship.backwards.from).allCollectionTypes
 			SubtypeRelationshipDefinition:
 				return #[]
 		}

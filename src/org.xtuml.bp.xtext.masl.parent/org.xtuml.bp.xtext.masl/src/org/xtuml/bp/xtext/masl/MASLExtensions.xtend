@@ -9,6 +9,8 @@ import org.eclipse.emf.ecore.util.EcoreUtil
 import org.eclipse.xtext.naming.IQualifiedNameProvider
 import org.eclipse.xtext.nodemodel.util.NodeModelUtils
 import org.eclipse.xtext.resource.ISelectable
+import org.xtuml.bp.xtext.masl.masl.behavior.LinkExpression
+import org.xtuml.bp.xtext.masl.masl.behavior.NavigateExpression
 import org.xtuml.bp.xtext.masl.masl.structure.AbstractActionDefinition
 import org.xtuml.bp.xtext.masl.masl.structure.AbstractNamed
 import org.xtuml.bp.xtext.masl.masl.structure.AbstractService
@@ -217,5 +219,14 @@ class MASLExtensions {
 	
 	def boolean hasReturnType(EObject action) {
 		return action instanceof AbstractService && (action as AbstractService).returnType !== null
+	}
+	
+	def getReceiver(RelationshipNavigation navigation) {
+		val parent = navigation.eContainer
+		return switch parent {
+			NavigateExpression: parent.lhs
+			LinkExpression:  parent.lhs
+			default: null
+		}
 	}
 }
