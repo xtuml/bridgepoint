@@ -48,6 +48,7 @@ INSERT INTO W_STEP VALUES ('${attr_id}', '${wfl.name}', '${blk.Block_Id}', \
   .assign w_step.Parent_Step_ID = parent_id
   .assign w_step.Previous_Step_ID = prev_id
   .assign w_step.buffer = ""
+  .assign attr_w_step = w_step
 .end function
 .//====================================================================
 .//
@@ -250,6 +251,9 @@ INSERT INTO W_FLD VALUES ('USER_${transient_asgn.Target_Variable_Name}', '${tran
 ${new_step.body}\
         .assign prev_step_id = new_step.id
 ${inner_blck.body}\
+      .else
+        .assign w_step = new_step.w_step
+        .delete object instance w_step
       .end if
     .end if
     .select any else_blk related by statement->ACT_E[R603]->ACT_BLK[R606]
@@ -260,6 +264,9 @@ ${inner_blck.body}\
 ${new_step.body}\
         .assign prev_step_id = new_step.id
 ${inner_blck.body}\
+      .else
+        .assign w_step = new_step.w_step
+        .delete object instance w_step
       .end if
     .end if
     .select any if_blk related by statement->ACT_IF[R603]->ACT_BLK[R607]
@@ -270,6 +277,9 @@ ${inner_blck.body}\
 ${new_step.body}\
         .assign prev_step_id = new_step.id
 ${inner_blck.body}\
+      .else
+        .assign w_step = new_step.w_step
+        .delete object instance w_step
       .end if
     .end if
     .select any whl_blk related by statement->ACT_WHL[R603]->ACT_BLK[R608]
@@ -280,6 +290,9 @@ ${inner_blck.body}\
 ${new_step.body}\
         .assign prev_step_id = new_step.id
 ${inner_blck.body}\
+      .else
+        .assign w_step = new_step.w_step
+        .delete object instance w_step
       .end if
     .end if
     .select any eli_blk related by statement->ACT_EL[R603]->ACT_BLK[R658]
@@ -290,8 +303,11 @@ ${inner_blck.body}\
 ${new_step.body}\
         .assign prev_step_id = new_step.id
 ${inner_blck.body}\
+      .else
+        .assign w_step = new_step.w_step
+        .delete object instance w_step
       .end if
-	.end if
+    .end if
     .select one next_statement related by statement->ACT_SMT[R661.'precedes']
     .assign statement = next_statement
   .end while
