@@ -1,7 +1,6 @@
 package org.xtuml.bp.xtext.masl.typesystem
 
 import java.util.List
-import java.util.Map
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.eclipse.xtend.lib.annotations.Data
 import org.eclipse.xtend.lib.annotations.FinalFieldsConstructor
@@ -23,8 +22,6 @@ interface MaslType {
 	def MaslType getComponentType()
 	
 	def MaslType stripName()
-	
-	def String toString(Map<MaslType, String> seenTypes)
 }
 
 @FinalFieldsConstructor
@@ -49,24 +46,7 @@ abstract class AbstractMaslType implements MaslType {
 		this
 	}
 	
-	override toString() {
-		toStringRecursionSafe
-	}
-	
-	protected def toStringRecursionSafe() {
-		toString(newHashMap)
-	}
-	
-	override String toString(Map<MaslType, String> seenTypes) {
-		val seenName = seenTypes.get(this)
-		if(seenName !== null)
-			return seenName
-		else
-			return toStringInternal(seenTypes)
-	}
-	
-	protected def String toStringInternal(Map<MaslType, String> map)
-	
+	override abstract toString()	
 }
 
 @Data
@@ -119,12 +99,8 @@ class BuiltinType extends AbstractMaslType {
 		}
 	}
 
-	override String toStringInternal(Map<MaslType, String> seenTypes) {
-		return prefix + name
-	}
-	
 	override toString() {
-		toStringRecursionSafe
+		return prefix + name
 	}
 }
 
@@ -132,7 +108,7 @@ class BuiltinType extends AbstractMaslType {
 @FinalFieldsConstructor
 class NamedType extends AbstractMaslType {
 	String name
-	MaslType type
+	transient MaslType type
 
 	new(String name, MaslType type, boolean anonymous) {
 		super(anonymous)
@@ -148,9 +124,8 @@ class NamedType extends AbstractMaslType {
 		type.componentType
 	}
 	
-	override String toStringInternal(Map<MaslType, String> seenTypes) {
-		seenTypes.put(this, name)
-		prefix + 'type ' + name + ' is ' + type.toString(seenTypes)
+	public def getType() {
+		type
 	}
 	
 	override stripName() {
@@ -158,7 +133,7 @@ class NamedType extends AbstractMaslType {
 	}
 
 	override toString() {
-		toStringRecursionSafe
+		prefix + 'type ' + name
 	}	
 }
 
@@ -180,12 +155,8 @@ class RangeType extends AbstractMaslType {
 		elementType
 	}
 	
-	override String toStringInternal(Map<MaslType, String> seenTypes) {
-		prefix + 'range of ' + elementType.toString(seenTypes)
-	}
-	
 	override toString() {
-		toStringRecursionSafe
+		prefix + 'range of ' + elementType.toString
 	}
 }
 
@@ -205,12 +176,8 @@ class TypeParameterType extends AbstractMaslType {
 		this
 	}
 	
-	override String toStringInternal(Map<MaslType, String> seenTypes) {
-		prefix + 'type parameter type ' + name 
-	}
-	
 	override toString() {
-		toStringRecursionSafe
+		prefix + 'type parameter type ' + name 
 	}
 }
 
@@ -227,10 +194,6 @@ abstract class CollectionType extends AbstractMaslType {
 	override getPrimitiveType() {
 		new SequenceType(componentType.primitiveType)
 	}
-	
-	override toString() {
-		toStringRecursionSafe
-	}
 }
 
 class SetType extends CollectionType {
@@ -242,8 +205,8 @@ class SetType extends CollectionType {
 		super(elementType, anonymous)
 	}
 
-	override String toStringInternal(Map<MaslType, String> seenTypes) {
-		prefix + 'set of ' + componentType.toString(seenTypes)
+	override String toString() {
+		prefix + 'set of ' + componentType.toString
 	}
 }
 
@@ -256,8 +219,8 @@ class BagType extends CollectionType {
 		super(elementType, anonymous)
 	}
 
-	override String toStringInternal(Map<MaslType, String> seenTypes) {
-		prefix + 'bag of ' + componentType.toString(seenTypes)
+	override String toString() {
+		prefix + 'bag of ' + componentType.toString
 	}
 }
 
@@ -270,8 +233,8 @@ class SequenceType extends CollectionType {
 		super(elementType, anonymous)
 	}
 
-	override String toStringInternal(Map<MaslType, String> seenTypes) {
-		prefix + 'sequence of ' + componentType.toString(seenTypes)
+	override String toString() {
+		prefix + 'sequence of ' + componentType.toString
 	}
 }
 
@@ -284,8 +247,8 @@ class ArrayType extends CollectionType {
 		super(elementType, anonymous)
 	}
 
-	override String toStringInternal(Map<MaslType, String> seenTypes) {
-		prefix + 'array of ' + componentType.toString(seenTypes)
+	override String toString() {
+		prefix + 'array of ' + componentType.toString
 	}
 }
 
@@ -298,22 +261,15 @@ class TypeOfType extends AbstractMaslType {
 		this
 	}
 	
-	override String toStringInternal(Map<MaslType, String> seenTypes) {
-		prefix + 'typeof ' + type.toString(seenTypes)
-	}
-
-	override toString() {
-		toStringRecursionSafe
+	override String toString() {
+		prefix + 'typeof ' + type.toString
 	}
 }
 
+@Data
 class StructureType extends AbstractMaslType {
-	@Accessors(PUBLIC_GETTER) val List<? extends StructureComponent> components
+	@Accessors(PUBLIC_GETTER) transient val List<? extends StructureComponent> components
 	@Accessors(PUBLIC_GETTER) val StructureTypeDefinition structureType
-
-	new(List<? extends StructureComponent> components) {
-		this(null, components, false)
-	}
 
 	new(StructureTypeDefinition structureType, List<? extends StructureComponent> components, boolean anonymous) {
 		super(anonymous)
@@ -322,47 +278,19 @@ class StructureType extends AbstractMaslType {
 	}
 
 	override getPrimitiveType() {
-		new StructureType(components.map [
-			new StructureComponent(null, type.primitiveType)
-		])
+		new StructureType(structureType, 
+			components.map [
+				new StructureComponent(null, type.primitiveType)
+			], anonymous)
 	}
 
-	override String toStringInternal(Map<MaslType, String> seenTypes) '''
+	override String toString() '''
 		«prefix»structure
 			«FOR c : components»
-				«c.toString(seenTypes)»;
+				«c.toString»;
 			«ENDFOR»	
-		end'''
-
-	override toString() {
-		toStringRecursionSafe
-	}
-		
-	override equals(Object obj) {
-		if(obj === this)
-			return true
-		if (obj === null)
-			return false
-		if (class != obj.class)
-			return false
-		val other = obj as StructureType
-		if (this.structureType == other.structureType && this.structureType != null)
-			return true
-		if (this.components == null) {
-			if (other.components != null)
-				return false
-		} else if (!this.components.equals(other.components))
-			return false
-		return true
-	}
-	
-	@Pure
-	override hashCode() {
-		if(structureType == null)
-			return 31
-		else 
-    	return structureType.hashCode
-	}
+		end
+	'''
 }
 
 @Data
@@ -370,8 +298,8 @@ class StructureComponent {
 	val String name
 	val MaslType type
 
-	def toString(Map<MaslType, String> seenTypes) {
-		(if(name != null) name + ' : ' else '') + type.toString(seenTypes)
+	override toString() {
+		(if(name != null) name + ' : ' else '') + type.toString
 	}  
 }
 
@@ -389,12 +317,8 @@ class EnumType extends AbstractMaslType {
 		new EnumType(enumType)
 	}
 
-	override toStringInternal(Map<MaslType, String> seenTypes) {
-		prefix + 'enum ' + (enumType.eContainer as TypeDeclaration).name
-	}
-
 	override toString() {
-		toStringRecursionSafe
+		prefix + 'enum ' + (enumType.eContainer as TypeDeclaration).name
 	}
 }
 
@@ -412,12 +336,8 @@ class InstanceType extends AbstractMaslType {
 		new InstanceType(instance)
 	}
 
-	override toStringInternal(Map<MaslType, String> seenTypes) {
-		prefix + 'instance of ' + instance.name
-	}
-
 	override toString() {
-		toStringRecursionSafe
+		prefix + 'instance of ' + instance.name
 	}
 }
 
@@ -429,12 +349,8 @@ class TerminatorType extends AbstractMaslType {
 		new TerminatorType(terminator)
 	}
 
-	override toStringInternal(Map<MaslType, String> seenTypes) {
-		prefix + 'terminator ' + terminator.name
-	}
-
 	override toString() {
-		toStringRecursionSafe
+		prefix + 'terminator ' + terminator.name
 	}
 }
 
@@ -454,12 +370,8 @@ class DictionaryType extends AbstractMaslType {
 		new DictionaryType(keyType.primitiveType, valueType.primitiveType)
 	}
 
-	override toStringInternal(Map<MaslType, String> seenTypes) {
-		prefix + 'dictionary ' + keyType.toString(seenTypes) + ' of ' + valueType.toString(seenTypes)
-	}
-
 	override toString() {
-		toStringRecursionSafe
+		prefix + 'dictionary ' + keyType.toString + ' of ' + valueType.toString
 	}
 }
 
