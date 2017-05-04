@@ -32,12 +32,12 @@ class MaslTypeConformanceComputer {
 
 		if (targetPrimitive instanceof StructureType) {
 			val targetComponents = targetPrimitive.components
-			if(targetComponents.size == 1 && isAssignableTo(sourcePrimitive, targetComponents.head.type)) 
+			if(targetComponents.size == 1 && isAssignableTo(source, targetComponents.head.type)) 
 				return true;
 		}
 	
 		if (targetPrimitive instanceof CollectionType 
-			&& isAssignableTo(sourcePrimitive, targetPrimitive.componentType)) 
+			&& isAssignableTo(source, targetPrimitive.componentType)) 
 			return true;
 
 		if (targetPrimitive instanceof InstanceType && sourcePrimitive == ANY_TYPE)

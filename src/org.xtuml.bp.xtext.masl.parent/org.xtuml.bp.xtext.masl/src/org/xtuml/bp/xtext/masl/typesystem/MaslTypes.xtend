@@ -92,10 +92,10 @@ class BuiltinType extends AbstractMaslType {
 	override MaslType getPrimitiveType() {
 		switch name {
 			case 'integer',
-			case 'byte': new BuiltinType('long_integer')
-			case 'string': new SequenceType(CHARACTER)
+			case 'byte': ANONYMOUS_LONG_INTEGER
+			case 'string': new SequenceType(CHARACTER, true)
 			default: 
-				new BuiltinType(name)
+				new BuiltinType(name, true)
 		}
 	}
 
@@ -148,7 +148,10 @@ class RangeType extends AbstractMaslType {
 	}
 
 	override getPrimitiveType() {
-		this
+		if(anonymous) 
+			this 
+		else 
+			new RangeType(elementType, true)
 	}
 	
 	override getComponentType() {
@@ -173,7 +176,10 @@ class TypeParameterType extends AbstractMaslType {
 	}
 
 	override getPrimitiveType() {
-		this
+		if(anonymous)
+			this
+		else
+			new TypeParameterType(name, enumeration, true)
 	}
 	
 	override toString() {
@@ -192,7 +198,7 @@ abstract class CollectionType extends AbstractMaslType {
 	}
 
 	override getPrimitiveType() {
-		new SequenceType(componentType.primitiveType)
+		new SequenceType(componentType, true)
 	}
 }
 
@@ -256,9 +262,17 @@ class ArrayType extends CollectionType {
 @FinalFieldsConstructor
 class TypeOfType extends AbstractMaslType {
 	MaslType type
+
+	new(MaslType type, boolean anonymous) {
+		super(anonymous)
+		this.type = type
+	}	
 	
 	override getPrimitiveType() {
-		this
+		if(anonymous) 
+			this
+		else 
+			new TypeOfType(type, true)
 	}
 	
 	override String toString() {
@@ -280,8 +294,8 @@ class StructureType extends AbstractMaslType {
 	override getPrimitiveType() {
 		new StructureType(structureType, 
 			components.map [
-				new StructureComponent(null, type.primitiveType)
-			], anonymous)
+				new StructureComponent(null, type)
+			], true)
 	}
 
 	override String toString() '''
@@ -314,7 +328,10 @@ class EnumType extends AbstractMaslType {
 	}
 	
 	override getPrimitiveType() {
-		new EnumType(enumType)
+		if(anonymous) 
+			this 
+		else 
+			new EnumType(enumType, true)
 	}
 
 	override toString() {
@@ -333,7 +350,10 @@ class InstanceType extends AbstractMaslType {
 	}
 
 	override getPrimitiveType() {
-		new InstanceType(instance)
+		if(anonymous) 
+			this
+		else
+			new InstanceType(instance, true)
 	}
 
 	override toString() {
@@ -342,11 +362,20 @@ class InstanceType extends AbstractMaslType {
 }
 
 @Data
+@FinalFieldsConstructor
 class TerminatorType extends AbstractMaslType {
 	TerminatorDefinition terminator
 
+	new(TerminatorDefinition terminator, boolean anonymous) {
+		super(anonymous)
+		this.terminator = terminator
+	}
+
 	override getPrimitiveType() {
-		new TerminatorType(terminator)
+		if(anonymous) 
+			this
+		else 
+			new TerminatorType(terminator, true)
 	}
 
 	override toString() {
@@ -367,7 +396,7 @@ class DictionaryType extends AbstractMaslType {
 	}
 	
 	override getPrimitiveType() {
-		new DictionaryType(keyType.primitiveType, valueType.primitiveType)
+		new DictionaryType(keyType.primitiveType, valueType.primitiveType, true)
 	}
 
 	override toString() {
