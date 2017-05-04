@@ -1670,7 +1670,7 @@ private static ${class_name} find$cr{object.Name}Instance(ModelRoot modelRoot, $
     /**
      * Assigns IDs to instances of this class.
      */
-    private static IdAssigner idAssigner = new IdAssigner();
+    private static IdAssigner idAssigner = new IdAssigner(${class_name}.class.getName());
     
     /**
      * See field.
