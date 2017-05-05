@@ -17,7 +17,7 @@ These platforms include UI (Mac/Linux)/CLI(Mac/Linux) and build servers.  While 
 2. Document References
 ----------------------
 <a id="2.1"></a>2.1 [BridgePoint DEI #8605](https://support.onefact.net/issues/8605) Complete build server unit test integration   
-<a id="2.2"></a>2.2 [BridgePoint DEI #xxx2](https://support.onefact.net/issues/9505) Disable remaining failing tests.    
+<a id="2.2"></a>2.2 [BridgePoint DEI #9505](https://support.onefact.net/issues/9505) Disable remaining failing tests.    
 
 3. Background
 -------------
