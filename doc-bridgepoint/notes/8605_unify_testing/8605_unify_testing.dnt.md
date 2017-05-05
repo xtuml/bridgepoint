@@ -86,7 +86,7 @@ The ShellProcessor is an interface with one method, processShell.  It requires t
 
 6.1.2 Handle all event dispatching  
 
-The same approach as with shell handling was taken with event dispatching.  There is now a thread the runs and any time notified it will process display events as well as file changes.  It handles file changes by registering its own resource listener.  This listener will notify the thread that it is done when a timeout with no resource events occur.  This timeout is currently set to 300 milliseconds.  
+The same approach as with shell handling was taken with event dispatching.  There is now a thread that gets notified which will process display events as well as file changes.  It handles file changes by registering its own resource listener.  This listener will notify the thread that it is done when a timeout with no resource events occur.  This timeout is currently set to 300 milliseconds.  
 
 6.2 Unify graphical test results  
 
