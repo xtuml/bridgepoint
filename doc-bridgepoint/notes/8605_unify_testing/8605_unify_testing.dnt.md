@@ -12,7 +12,7 @@ This work is licensed under the Creative Commons CC0 License
 -----------
 This note describes changes which allow for testing to occur across multiple platforms.  
 
-These platforms include UI (Mac/Linux)/CLI(Mac/Linux) and build servers.  While CLI and the build server should be identical, it is currently not true due to the use of vncserver on the build server.
+These platforms include UI (Mac/Linux)/CLI(Mac/Linux) and build servers.  While CLI and the build server should be identical, it is currently not true due to the use of vncserver on the build server.6.
 
 2. Document References
 ----------------------
