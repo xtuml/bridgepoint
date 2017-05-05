@@ -21,8 +21,8 @@ abstract class AbstractMaslModelTest {
 	
 	@Inject extension ParseHelper<MaslModel>
 	@Inject extension EObjectAtOffsetHelper 
-	@Inject extension ValidationTestHelper
-	@Inject Provider<XtextResourceSet> resourceSetProvider
+	@Inject protected extension ValidationTestHelper
+	@Inject protected Provider<XtextResourceSet> resourceSetProvider
 		
 	protected def EObject getElementAtCaret(Pair<String, CharSequence>... fileName2content) {
 		getElementsAtCarets(fileName2content).head
