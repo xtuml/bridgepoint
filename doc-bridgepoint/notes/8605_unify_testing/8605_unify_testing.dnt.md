@@ -99,6 +99,12 @@ We have the ability to run tests in three ways, UI CLI and Server.  From the res
 
 Currently every class that has a unique identifier also has an IdAssigner class initiated.  We use this class to generate unique ids, and further use it regenerate the same unique id for tests.  This is done by issuing a seed to the assigner.  This see is usually just a random number and works as long as the class loading occurs in the same order as the previous run.  Adding a new class or running tests on a different platform does not guarantee this ordering.  In order to guarantee the same result the class name's hashcode is now used as the incremental value to the seed counter.  
 
+6.5 Addressed pre-existing test issues  
+
+The following issues have been addressed as part of this task.  Most importantly is that verifier and model compare now run successfully.  
+
+https://support.onefact.net/projects/bridgepoint/issues?utf8=✓&set_filter=1&f%5B%5D=status_id&op%5Bstatus_id%5D=*&f%5B%5D=parent_id&op%5Bparent_id%5D=%7E&v%5Bparent_id%5D%5B%5D=8605&f%5B%5D=closed_on&op%5Bclosed_on%5D=%3E%3Ct-&v%5Bclosed_on%5D%5B%5D=100&f%5B%5D=&c%5B%5D=project&c%5B%5D=status&c%5B%5D=subject&c%5B%5D=due_date&c%5B%5D=assigned_to&group_by=&t%5B%5D=
+
 7. Design Comments
 ------------------
 
