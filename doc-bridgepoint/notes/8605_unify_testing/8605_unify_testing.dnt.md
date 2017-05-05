@@ -27,9 +27,18 @@ This work allows tests to run in all platforms.  Issue [2.2] describes some test
 
 4. Requirements
 ---------------
-4.1  Tests shall pass with a success rate of 100% on the build server  
-4.2  The HowTo Run BridgePoint unit tests shall be updated to described how to add new tests  
-4.3  Introduce a way to start a build from a script using an AWS instance  
+4.1 The BridgePoint unit tests shall report 100% passing (consistently) 
+4.2. Unused expected results shall be removed
+4.3. There shall be only 1 set of test results (no environment specific results)
+4.4. Unit tests shall run with the same result on linux and mac  
+4.5. The number of passing unit tests shall be greater than or equal the 6.2.4 result
+4.6. Redmine Issues shall be raised for any test/suites that are removed
+4.6.1 Any such issue shall use Redmine issue 8605 as a parent. 
+4.7 Enhance the HOWTO Run BridgePoint Unit Tests document to describe how to add a test suite. (https://github.com/xtuml/bridgepoint/blob/master/doc-bridgepoint/process/HOWTO-run-bridgepoint-unit-tests.md)
+4.8. Work with the One Fact team to improve the build server to automation to assure the build server can:
+4.8.1 Launch build with or without unit testing from a trigger (no need to log into AWS)
+4.8.2 Optionally terminate the instance when complete
+
 
 5. Analysis
 -----------
