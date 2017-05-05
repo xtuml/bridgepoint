@@ -62,21 +62,14 @@ In some tests we rely on unique ids that can be regenerated on each test run.  W
 Dialog dismissal now occurs on its own thread.  The original calling classes now notify this thread that the next UI element opened shall be handled.  There are some cases that do not simply dismiss the UI element, but make modifications.  This is handled using Java 8 lambdas.  Below is an example:  
 
 ```java
-						processShell(existingShells, shell -> {
-							if (shell != null) {
-								Dialog dialog = (Dialog) shell.getData();
-								Control[] children = dialog.getShell().getChildren();
-								for (int i = 0; i < children.length; i++) {
-									Table table = findTable(children);
-									if (table != null) {
-										// if a deselect all button is present
-										// press it before selecting the desired
-										// item
-										Button deselect = findButton(shell, "&Deselect All");
-										if (deselect != null) {
-											deselect.notifyListeners(SWT.Selection, new Event());
-											while (PlatformUI.getWorkbench().getDisplay().readAndDispatch())
-												;
+	processShell(existingShells, shell -> {
+	if (shell != null) {
+		Dialog dialog = (Dialog) shell.getData();
+		Control[] children = dialog.getShell().getChildren();
+		for (int i = 0; i < children.length; i++) {
+			Table table = findTable(children);
+			if (table != null) {
+			...										;
 										}
 ```   
 
