@@ -96,8 +96,6 @@ class MaslExpectedTypeProvider {
 			SubtypeRelationshipDefinition:
 				return #[]
 		}
-		val lhsType = context.lhs.maslType
-		types.remove(lhsType)
 		return types
 	}
 	
