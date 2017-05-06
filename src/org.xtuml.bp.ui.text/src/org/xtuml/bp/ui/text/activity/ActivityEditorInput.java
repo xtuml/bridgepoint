@@ -11,8 +11,11 @@ package org.xtuml.bp.ui.text.activity;
 //
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
+import org.eclipse.core.resources.IWorkspaceRunnable;
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.jface.text.IDocument;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
@@ -44,7 +47,14 @@ public class ActivityEditorInput extends AbstractModelElementPropertyEditorInput
 		// The step marker is only required to hold a physical file in existence long enough to satisfy the
 		// requirements of the Eclipse source code location system. Once we get here, it's OK to remove the marker.
 		try {
-		  placeHolderFile.deleteMarkers("org.xtuml.bp.ui.text.stepmarker", false, IResource.DEPTH_ZERO);
+		  ResourcesPlugin.getWorkspace().run(new IWorkspaceRunnable() {
+			
+			@Override
+			public void run(IProgressMonitor monitor) throws CoreException {
+				// delete the markers in a workspace runnable
+				placeHolderFile.deleteMarkers("org.xtuml.bp.ui.text.stepmarker", false, IResource.DEPTH_ZERO);
+			}
+		}, new NullProgressMonitor());	  
 	}
 		catch (CoreException ce) {
 			TextPlugin.logError("Error removing stepping marker: ", ce);

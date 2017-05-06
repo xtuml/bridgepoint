@@ -36,8 +36,9 @@ current and legacy versions of the manual differ on types and the current
 reference on the topic of types is incomplete. Both versions of the manual will
 be compared during design along with correspondence with the MASL team to get
 the most accurate picture of the MASL type system.  
-<a id="2.4"></a>2.4 [Types model](https://drive.google.com/file/d/0B834tggB4vylSXJvNUZkc0I2OGM/view)  
+<a id="2.6"></a>2.6 [Types model](https://drive.google.com/file/d/0B834tggB4vylSXJvNUZkc0I2OGM/view)  
 Current image of the xtUML metamodel section that models types  
+<a id="2.7"></a>2.7 [ADA reference manual](http://www.ada-auth.org/standards/12rm/RM-Final.pdf)  
 
 ### 3. Background
 
@@ -93,7 +94,9 @@ are also defined for `int`.
 
 The reader should also familiarize himself with the MASL reference manuals. As
 stated above, there is incompleteness and differences between the two manuals,
-so reading both is helpful to gain the most complete picture.
+so reading both is helpful to gain the most complete picture. Optionally review
+the ADA reference manual chapter 4 after which the MASL type system was
+modeled.
 
 ### 4. Requirements
 
@@ -126,8 +129,8 @@ wherever possible
 
 5.1 Modeling
 
-See below the current model of types in xtUML (also linked in [[2.4]](#2.4))
-![types](https://lh6.googleusercontent.com/eurxK4VfggBAEBya_xu4Jh5dckqFuBiMkOPUYk3eJtV9LMLMpC6jlYIuSmmDbqmWhCum5DzWzuqrz5c=w3360-h1906-rw)
+See below the current model of types in xtUML (also linked in [[2.6]](#2.6))
+![types](Domain-1.webp)
 
 Currently, five different classes of type are supported: structures,
 enumerations, instance (and instance set) references, user defined types, and
@@ -163,6 +166,13 @@ MASL supports collection types, types with constraints, and other type features.
 These will all be considered in the update to the model of types to assure that
 all MASL types can be represented in xtUML. See the MASL reference manual
 [[2.4]](#2.4) and [[2.5]](#2.5) for more details on the MASL types.
+
+5.2.1 Model of MASL types
+
+In early 2016, a model was built of the MASL type system based on the MASL
+parser and walker grammars. This model will be an important reference point in
+designing the modifications to the xtUML metamodel.  
+![masltypes](masltypes.png)  
 
 5.3 Scoping
 
