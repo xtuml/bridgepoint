@@ -28,8 +28,8 @@ These platforms include UI (Mac/Linux)/CLI(Mac/Linux) and build servers.  While 
 <a id="2.10"></a>2.10 [BridgePoint DEI #8609](https://support.onefact.net/issues/8609) The Verifier 2 unit test suite has failures  
 <a id="2.11"></a>2.11 [BridgePoint DEI #8608](https://support.onefact.net/issues/8608) The Verifier 1 unit test suite has failures  
 <a id="2.12"></a>2.12 [BridgePoint DEI #8607](https://support.onefact.net/issues/8607) The IO MDL PKG unit test suite is failing  
-<a id="2.13"></a>2.13 [BridgePoint DEI #8593](https://support.onefact.net/issues/8593) bp.io.mdl.test failures	
-<a id="2.14"></a>2.14 [BridgePoint DEI #7812](https://support.onefact.net/issues/7812) Clean up BridgePoint JUnit tests	 
+<a id="2.13"></a>2.13 [BridgePoint DEI #8593](https://support.onefact.net/issues/8593) bp.io.mdl.test failures  
+<a id="2.14"></a>2.14 [BridgePoint DEI #7812](https://support.onefact.net/issues/7812) Clean up BridgePoint JUnit tests  
 <a id="2.15"></a>2.15 [BridgePoint DEI #7659](https://support.onefact.net/issues/7659) failure for manual test testing Constant data and Array Attribute in SE & Spotlight views #1562		
 
 3. Background
