@@ -36,19 +36,26 @@ INSERT INTO W_WOF VALUES ( '${name}', ${s_sync.Sync_ID}, '${cme.Key_Lett}', \
   .param inst_ref blk
   .param string parent_id
   .param string prev_id
+  .param string id
   .//
   .assign attr_wfl = wfl
-  .assign attr_id = "${info.unique_num}"
-INSERT INTO W_STEP VALUES ('${attr_id}', '${wfl.name}', '${blk.Block_Id}', \
-'${parent_id}', '${prev_id}', '');\
-  .create object instance w_step of W_STEP
-  .assign w_step.Step_ID = attr_id
-  .assign w_step.Workflow_Name = wfl.name
-  .assign w_step.Block_ID = "${blk.Block_Id}"
-  .assign w_step.Parent_Step_ID = parent_id
-  .assign w_step.Previous_Step_ID = prev_id
-  .assign w_step.buffer = ""
-  .assign attr_w_step = w_step
+  .assign attr_id = ""
+  .// This may look a bit bizarre.  The first time create_step is called,
+  .// it simply returns a new ID.  This is because the step may or may not
+  .// be used.  It is conditioned upon further processing.  create_step is
+  .// called a second time when it is known to be needed.
+  .if ( "0" == id )
+    .assign attr_id = "${info.unique_num}"
+  .else
+    .assign attr_id = id
+    .create object instance w_step of W_STEP
+    .assign w_step.Step_ID = attr_id
+    .assign w_step.Workflow_Name = wfl.name
+    .assign w_step.Block_ID = blk.Block_Id
+    .assign w_step.Parent_Step_ID = parent_id
+    .assign w_step.Previous_Step_ID = prev_id
+    .assign w_step.buffer = ""
+  .end if
 .end function
 .//====================================================================
 .//
@@ -245,67 +252,52 @@ INSERT INTO W_FLD VALUES ('USER_${transient_asgn.Target_Variable_Name}', '${tran
     .end if
     .select any for_blk related by statement->ACT_FOR[R603]->ACT_BLK[R605]
     .if (not_empty for_blk)
-      .invoke new_step = create_step(step.wfl, for_blk, step.id, prev_step_id)
+      .invoke new_step = create_step(step.wfl, for_blk, step.id, prev_step_id, "0")
       .invoke inner_blck = wfl_pop_blck_xlate(new_step, for_blk)
       .if (inner_blck.body != "")
-${new_step.body}\
+        .invoke new_step = create_step(step.wfl, for_blk, step.id, prev_step_id, new_step.id)
         .assign prev_step_id = new_step.id
 ${inner_blck.body}\
-      .else
-        .assign w_step = new_step.w_step
-        .delete object instance w_step
       .end if
     .end if
     .select any else_blk related by statement->ACT_E[R603]->ACT_BLK[R606]
     .if (not_empty else_blk)
-      .invoke new_step = create_step(step.wfl, else_blk, step.id, prev_step_id)
+      .invoke new_step = create_step(step.wfl, else_blk, step.id, prev_step_id, "0")
       .invoke inner_blck = wfl_pop_blck_xlate(new_step, else_blk)
       .if (inner_blck.body != "")
-${new_step.body}\
+        .invoke new_step = create_step(step.wfl, else_blk, step.id, prev_step_id, new_step.id)
         .assign prev_step_id = new_step.id
 ${inner_blck.body}\
-      .else
-        .assign w_step = new_step.w_step
-        .delete object instance w_step
       .end if
     .end if
     .select any if_blk related by statement->ACT_IF[R603]->ACT_BLK[R607]
     .if (not_empty if_blk)
-      .invoke new_step = create_step(step.wfl, if_blk, step.id, prev_step_id)
+      .invoke new_step = create_step(step.wfl, if_blk, step.id, prev_step_id, "0")
       .invoke inner_blck = wfl_pop_blck_xlate(new_step, if_blk)
       .if (inner_blck.body != "")
-${new_step.body}\
+        .invoke new_step = create_step(step.wfl, if_blk, step.id, prev_step_id, new_step.id)
         .assign prev_step_id = new_step.id
 ${inner_blck.body}\
-      .else
-        .assign w_step = new_step.w_step
-        .delete object instance w_step
       .end if
     .end if
     .select any whl_blk related by statement->ACT_WHL[R603]->ACT_BLK[R608]
     .if (not_empty whl_blk)
-      .invoke new_step = create_step(step.wfl, whl_blk, step.id, prev_step_id)
+      .invoke new_step = create_step(step.wfl, whl_blk, step.id, prev_step_id, "0")
       .invoke inner_blck = wfl_pop_blck_xlate(new_step, whl_blk)
       .if (inner_blck.body != "")
-${new_step.body}\
+        .invoke new_step = create_step(step.wfl, whl_blk, step.id, prev_step_id, new_step.id)
         .assign prev_step_id = new_step.id
 ${inner_blck.body}\
-      .else
-        .assign w_step = new_step.w_step
-        .delete object instance w_step
       .end if
     .end if
     .select any eli_blk related by statement->ACT_EL[R603]->ACT_BLK[R658]
     .if (not_empty eli_blk)
-      .invoke new_step = create_step(step.wfl, eli_blk, step.id, prev_step_id)
+      .invoke new_step = create_step(step.wfl, eli_blk, step.id, prev_step_id, "0")
       .invoke inner_blck = wfl_pop_blck_xlate(new_step, eli_blk)
       .if (inner_blck.body != "")
-${new_step.body}\
+        .invoke new_step = create_step(step.wfl, eli_blk, step.id, prev_step_id, new_step.id)
         .assign prev_step_id = new_step.id
 ${inner_blck.body}\
-      .else
-        .assign w_step = new_step.w_step
-        .delete object instance w_step
       .end if
     .end if
     .select one next_statement related by statement->ACT_SMT[R661.'precedes']

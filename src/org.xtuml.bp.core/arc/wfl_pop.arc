@@ -41,7 +41,7 @@
       .if (not_empty action)
         .select any outer_blk related by action->ACT_BLK[R601] where (selected.Block_Id == action.Block_Id)
         .if (not_empty outer_blk)
-          .invoke step = create_step(wkfl, outer_blk, "0", "0")
+          .invoke step = create_step(wkfl, outer_blk, "0", "0", "${info.unique_num}")
           .invoke result = wfl_pop_blck_xlate(step, outer_blk)
           .if (result.body == "")
             .print "WARNING: Empty body for function ${function.Name}"
