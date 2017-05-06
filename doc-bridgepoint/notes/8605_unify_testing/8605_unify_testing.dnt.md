@@ -18,6 +18,19 @@ These platforms include UI (Mac/Linux)/CLI(Mac/Linux) and build servers.  While 
 ----------------------
 <a id="2.1"></a>2.1 [BridgePoint DEI #8605](https://support.onefact.net/issues/8605) Complete build server unit test integration   
 <a id="2.2"></a>2.2 [BridgePoint DEI #9505](https://support.onefact.net/issues/9505) Disable remaining failing tests.    
+<a id="2.3"></a>2.3 [BridgePoint DEI #9209](https://support.onefact.net/issues/9209) Rework compare test infrastructure and address any real issues found	
+<a id="2.4"></a>2.4 [BridgePoint DEI #9166](https://support.onefact.net/issues/9166) Failures in io.mdl.tests		
+<a id="2.5"></a>2.5 [BridgePoint DEI #8612](https://support.onefact.net/issues/8612) The Compare test suite has failures		
+<a id="2.6"></a>2.6 [BridgePoint DEI #8614](https://support.onefact.net/issues/8614) The Canvas 2 test suite has failures		
+<a id="2.7"></a>2.7 [BridgePoint DEI #8613](https://support.onefact.net/issues/8613) The Canvas 1 test suite has failures		
+<a id="2.8"></a>2.7 [BridgePoint DEI #8611](https://support.onefact.net/issues/8611) The Core Setup and Core Existing WS test suites has failures		
+<a id="2.9"></a>2.9 [BridgePoint DEI #8610](https://support.onefact.net/issues/8610) The Core 2 unit test suite has failures		
+<a id="2.10"></a>2.10 [BridgePoint DEI #8609](https://support.onefact.net/issues/8609) The Verifier 2 unit test suite has failures		
+<a id="2.11"></a>2.11 [BridgePoint DEI #8608](https://support.onefact.net/issues/8608) The Verifier 1 unit test suite has failures		
+<a id="2.12"></a>2.12 [BridgePoint DEI #8607](https://support.onefact.net/issues/8607) The IO MDL PKG unit test suite is failing		
+<a id="2.13"></a>2.13 [BridgePoint DEI #8593](https://support.onefact.net/issues/8593) bp.io.mdl.test failures		
+<a id="2.14"></a>2.14 [BridgePoint DEI #7812](https://support.onefact.net/issues/7812) Clean up BridgePoint JUnit tests		
+<a id="2.15"></a>2.15 [BridgePoint DEI #7659](https://support.onefact.net/issues/7659) failure for manual test testing Constant data and Array Attribute in SE & Spotlight views #1562		
 
 3. Background
 -------------
@@ -112,7 +125,22 @@ Currently every class that has a unique identifier also has an IdAssigner class 
 
 The following issues have been addressed as part of this task.  Most importantly is that verifier and model compare now run successfully.  
 
-https://support.onefact.net/projects/bridgepoint/issues?utf8=✓&set_filter=1&f%5B%5D=status_id&op%5Bstatus_id%5D=*&f%5B%5D=parent_id&op%5Bparent_id%5D=%7E&v%5Bparent_id%5D%5B%5D=8605&f%5B%5D=closed_on&op%5Bclosed_on%5D=%3E%3Ct-&v%5Bclosed_on%5D%5B%5D=100&f%5B%5D=&c%5B%5D=project&c%5B%5D=status&c%5B%5D=subject&c%5B%5D=due_date&c%5B%5D=assigned_to&group_by=&t%5B%5D=
+[2.3]
+[2.4]
+[2.5]
+[2.6]
+[2.7]
+[2.8]
+[2.9]
+[2.10]
+[2.11]
+[2.12]
+[2.13]
+[2.14]
+[2.15]
+[2.16]
+[2.17]z
+[2.18]
 
 7. Design Comments
 ------------------
