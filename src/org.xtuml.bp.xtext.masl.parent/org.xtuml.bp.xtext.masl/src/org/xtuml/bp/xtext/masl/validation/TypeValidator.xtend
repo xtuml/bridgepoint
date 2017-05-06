@@ -204,8 +204,6 @@ class TypeValidator extends AbstractMASLValidator {
 			val relationship = expr.navigation.relationship
 			if(!(relationship instanceof AssocRelationshipDefinition))
 				addIssue("Navigation expression with 'with' can only use an association relationship", expr.navigation, structurePackage.relationshipNavigation_Relationship, INCONSISTENT_RELATIONSHIP_NAVIGATION)
-			if(expr.navigation.objectOrRole != (relationship as AssocRelationshipDefinition).object)
-				addIssue("Navigation expression with 'with' can only use an association class", expr.navigation, structurePackage.relationshipNavigation_ObjectOrRole, INCONSISTENT_RELATIONSHIP_NAVIGATION)
 		}
 	}
 	
@@ -217,7 +215,7 @@ class TypeValidator extends AbstractMASLValidator {
 			val allDeclarations = definition
 							.getDeclarations(declarationClass, definition.index)
 							.filter(Parameterized)
-							.map[rankParameterized(defTypes, hasReturnType)]
+							.map[rankParameterized(defTypes, definition.hasReturnType)]
 			if(allDeclarations.empty) 
 				return
 			val bestMatch = allDeclarations.maxBy[score]

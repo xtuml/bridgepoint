@@ -25,7 +25,7 @@ class PrimitiveTypesTest extends AbstractMaslModelTest {
 				^b0;
 				^b1 := ^BAR;
 			end;
-		''', 'enum bar')		
+		''', 'anonymous enum bar')		
 	}
 	
 	@Test
@@ -46,7 +46,7 @@ class PrimitiveTypesTest extends AbstractMaslModelTest {
 					^b1;
 					1;
 				end;
-			''', 'long_integer')		
+			''', 'anonymous long_integer')		
 	}
 	
 	@Test
@@ -66,7 +66,7 @@ class PrimitiveTypesTest extends AbstractMaslModelTest {
 				^b1;
 				1;
 			end;
-		''', 'sequence of character')		
+		''', 'anonymous sequence of character')		
 	}
 	
 	@Test
@@ -87,7 +87,7 @@ class PrimitiveTypesTest extends AbstractMaslModelTest {
 					^b0;
 					^b1;
 				end;
-			''', '' + typeName)		
+			''', 'anonymous ' + typeName)		
 	}
 	
 	@Test
@@ -105,7 +105,7 @@ class PrimitiveTypesTest extends AbstractMaslModelTest {
 				^f0;
 				^f1;
 			end;
-		''', 'instance of Foo')		
+		''', 'anonymous instance of Foo')		
 	}
 //	
 	@Test
@@ -123,7 +123,7 @@ class PrimitiveTypesTest extends AbstractMaslModelTest {
 					^c0;
 					^c1;
 				end;
-			''', 'sequence of long_integer')		
+			''', 'anonymous sequence of integer')		
 	}
 
 	@Test
@@ -140,7 +140,7 @@ class PrimitiveTypesTest extends AbstractMaslModelTest {
 				^c0;
 				^c1;
 			end;
-		''', 'sequence of long_integer')		
+		''', 'anonymous sequence of integer')		
 	}
 
 	@Test
@@ -155,7 +155,7 @@ class PrimitiveTypesTest extends AbstractMaslModelTest {
 			begin
 				^Arnold;
 			end;
-		''', 'terminator Arnold')		
+		''', 'anonymous terminator Arnold')		
 	}
 	
 	@Test 
@@ -178,10 +178,10 @@ class PrimitiveTypesTest extends AbstractMaslModelTest {
 				^x;
 			end;
 		''', '''
-			structure
-				long_integer;
-				long_integer;
-				long_integer;
+			anonymous structure
+				integer;
+				type i;
+				type j;
 			end
 		''')		
 	}

@@ -110,11 +110,7 @@ class DeclarationTypeProviderTest extends AbstractMaslModelTest {
 
 	@Test
 	def void testStructureCall() {
-		assertType('type Foo is structure a: integer; end;', 'Foo', '''
-			typeof type Foo is structure
-				a : integer;
-			end
-		''')
+		assertType('type Foo is structure a: integer; end;', 'Foo', 'typeof type Foo')
 	}
 
 	@Test
@@ -144,7 +140,7 @@ class DeclarationTypeProviderTest extends AbstractMaslModelTest {
 
 	@Test
 	def void testTypeCall() {
-		assertType('type Foo is integer;', 'Foo', 'typeof type Foo is integer')
+		assertType('type Foo is integer;', 'Foo', 'typeof type Foo')
 	}
 
 	@Test
@@ -358,7 +354,7 @@ class DeclarationTypeProviderTest extends AbstractMaslModelTest {
 			begin
 				^a;
 			end;
-		''', 'type array3 is array of string')
+		''', 'type array3')
 	}
 
 	@Test
@@ -393,7 +389,7 @@ class DeclarationTypeProviderTest extends AbstractMaslModelTest {
 				^(d+t);
 				^(t-d);
 			end;
-		''', 'type myTimestamp is timestamp')
+		''', 'type myTimestamp')
 	}
 
 	@Test
@@ -418,7 +414,7 @@ class DeclarationTypeProviderTest extends AbstractMaslModelTest {
 				^(2*myD);
 				^(myD/2);
 			end;
-		''', 'type myDuration is duration')
+		''', 'type myDuration')
 	}
 
 	@Test
@@ -555,7 +551,7 @@ class DeclarationTypeProviderTest extends AbstractMaslModelTest {
 			begin
 				^(foo->R1.Baz);
 			end;
-		''', 'anonymous instance of Baz')
+		''', 'anonymous bag of instance of Baz')
 	}
 
 	@Test 
@@ -609,7 +605,7 @@ class DeclarationTypeProviderTest extends AbstractMaslModelTest {
 			begin
 				^(baz->R1.foo);
 			end;
-		''', 'anonymous instance of Foo')
+		''', 'anonymous bag of instance of Foo')
 	}
 	
 	@Test 
@@ -667,13 +663,7 @@ class DeclarationTypeProviderTest extends AbstractMaslModelTest {
 			  components := ^(device.components[0].subComponents);
 			
 			end service;
-		''', '''
-			sequence of type Component is structure
-				subDevices : sequence of type Device is structure
-					components : sequence of Component;
-				end;
-				subComponents : sequence of Component;
-			end''')
+		''', 'sequence of type Component')
 	}
 
 	protected def assertType(CharSequence domainDeclaration, CharSequence expression, String expected) {
