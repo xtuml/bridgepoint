@@ -28,7 +28,7 @@ import org.xtuml.bp.xtext.masl.masl.behavior.Expression;
  *
  * @generated
  */
-public class ExitStatementImpl extends AbstractStatementImpl implements ExitStatement {
+public class ExitStatementImpl extends StatementImpl implements ExitStatement {
 	/**
 	 * The cached value of the '{@link #getCondition() <em>Condition</em>}' containment reference.
 	 * <!-- begin-user-doc -->

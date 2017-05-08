@@ -96,7 +96,7 @@ class TypeValidator extends AbstractMASLValidator {
 					if(receiver.feature.isAction) {
 						val parameterized = receiver.feature as Parameterized
 						val expectedNumParameters = (parameterized).parameters.size
-						val isStatement = eContainmentFeature.EType === abstractStatement
+						val isStatement = eContainmentFeature.EType === statement
 						if(expectedNumParameters != arguments.size) 
 							addIssue('''The action «
 								parameterized.fullyQualifiedName»«parameterized.parametersAsString

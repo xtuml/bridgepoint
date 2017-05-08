@@ -251,7 +251,7 @@ public class MASLSyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     (rule start) (ambiguity) 'begin' 'exception'? 'end' ';' (rule start)
 	 *     (rule start) (ambiguity) 'begin' 'exception'? 'end' ';' pragmas+=Pragma
 	 *     (rule start) (ambiguity) 'begin' 'exception'? 'end' (rule start)
-	 *     (rule start) (ambiguity) 'begin' statements+=AbstractStatement
+	 *     (rule start) (ambiguity) 'begin' statements+=Statement
 	 *     (rule start) (ambiguity) variables+=VariableDeclaration
 	 */
 	protected void emit_CodeBlockStatement_DeclareKeyword_0_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
@@ -267,9 +267,9 @@ public class MASLSyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     (rule start) 'declare'? 'begin' (ambiguity) 'end' ';' (rule start)
 	 *     (rule start) 'declare'? 'begin' (ambiguity) 'end' ';' pragmas+=Pragma
 	 *     (rule start) 'declare'? 'begin' (ambiguity) 'end' (rule start)
-	 *     statements+=AbstractStatement (ambiguity) 'end' ';' (rule end)
-	 *     statements+=AbstractStatement (ambiguity) 'end' ';' pragmas+=Pragma
-	 *     statements+=AbstractStatement (ambiguity) 'end' (rule end)
+	 *     statements+=Statement (ambiguity) 'end' ';' (rule end)
+	 *     statements+=Statement (ambiguity) 'end' ';' pragmas+=Pragma
+	 *     statements+=Statement (ambiguity) 'end' (rule end)
 	 *     variables+=VariableDeclaration 'begin' (ambiguity) 'end' ';' (rule end)
 	 *     variables+=VariableDeclaration 'begin' (ambiguity) 'end' ';' pragmas+=Pragma
 	 *     variables+=VariableDeclaration 'begin' (ambiguity) 'end' (rule end)
@@ -437,9 +437,9 @@ public class MASLSyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     expression=Expression 'loop' 'end' (ambiguity) ';' (rule end)
 	 *     expression=Expression 'loop' 'end' (ambiguity) ';' pragmas+=Pragma
 	 *     expression=Expression 'loop' 'end' (ambiguity) (rule end)
-	 *     statements+=AbstractStatement 'end' (ambiguity) ';' (rule end)
-	 *     statements+=AbstractStatement 'end' (ambiguity) ';' pragmas+=Pragma
-	 *     statements+=AbstractStatement 'end' (ambiguity) (rule end)
+	 *     statements+=Statement 'end' (ambiguity) ';' (rule end)
+	 *     statements+=Statement 'end' (ambiguity) ';' pragmas+=Pragma
+	 *     statements+=Statement 'end' (ambiguity) (rule end)
 	 */
 	protected void emit_ForStatement_LoopKeyword_8_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
@@ -459,9 +459,9 @@ public class MASLSyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     elseIfs+=ElsifBlock 'end' (ambiguity) ';' (rule end)
 	 *     elseIfs+=ElsifBlock 'end' (ambiguity) ';' pragmas+=Pragma
 	 *     elseIfs+=ElsifBlock 'end' (ambiguity) (rule end)
-	 *     statements+=AbstractStatement 'end' (ambiguity) ';' (rule end)
-	 *     statements+=AbstractStatement 'end' (ambiguity) ';' pragmas+=Pragma
-	 *     statements+=AbstractStatement 'end' (ambiguity) (rule end)
+	 *     statements+=Statement 'end' (ambiguity) ';' (rule end)
+	 *     statements+=Statement 'end' (ambiguity) ';' pragmas+=Pragma
+	 *     statements+=Statement 'end' (ambiguity) (rule end)
 	 */
 	protected void emit_IfStatement_IfKeyword_7_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
@@ -869,9 +869,9 @@ public class MASLSyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     condition=Expression 'loop' 'end' (ambiguity) ';' (rule end)
 	 *     condition=Expression 'loop' 'end' (ambiguity) ';' pragmas+=Pragma
 	 *     condition=Expression 'loop' 'end' (ambiguity) (rule end)
-	 *     statements+=AbstractStatement 'end' (ambiguity) ';' (rule end)
-	 *     statements+=AbstractStatement 'end' (ambiguity) ';' pragmas+=Pragma
-	 *     statements+=AbstractStatement 'end' (ambiguity) (rule end)
+	 *     statements+=Statement 'end' (ambiguity) ';' (rule end)
+	 *     statements+=Statement 'end' (ambiguity) ';' pragmas+=Pragma
+	 *     statements+=Statement 'end' (ambiguity) (rule end)
 	 */
 	protected void emit_WhileStatement_LoopKeyword_5_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);

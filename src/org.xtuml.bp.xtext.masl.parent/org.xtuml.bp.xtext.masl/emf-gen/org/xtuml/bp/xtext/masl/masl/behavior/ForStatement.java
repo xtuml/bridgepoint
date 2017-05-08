@@ -22,7 +22,7 @@ package org.xtuml.bp.xtext.masl.masl.behavior;
  * @model
  * @generated
  */
-public interface ForStatement extends AbstractStatement, StatementList {
+public interface ForStatement extends Statement, StatementList {
 	/**
 	 * Returns the value of the '<em><b>Variable</b></em>' containment reference.
 	 * <!-- begin-user-doc -->

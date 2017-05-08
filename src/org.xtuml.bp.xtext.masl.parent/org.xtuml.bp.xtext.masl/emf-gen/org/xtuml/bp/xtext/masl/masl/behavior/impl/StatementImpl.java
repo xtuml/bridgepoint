@@ -5,25 +5,25 @@ package org.xtuml.bp.xtext.masl.masl.behavior.impl;
 
 import org.eclipse.emf.ecore.EClass;
 
-import org.xtuml.bp.xtext.masl.masl.behavior.AbstractStatement;
 import org.xtuml.bp.xtext.masl.masl.behavior.BehaviorPackage;
+import org.xtuml.bp.xtext.masl.masl.behavior.Statement;
 
 import org.xtuml.bp.xtext.masl.masl.structure.impl.PragmatizedImpl;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Abstract Statement</b></em>'.
+ * An implementation of the model object '<em><b>Statement</b></em>'.
  * <!-- end-user-doc -->
  *
  * @generated
  */
-public class AbstractStatementImpl extends PragmatizedImpl implements AbstractStatement {
+public class StatementImpl extends PragmatizedImpl implements Statement {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected AbstractStatementImpl() {
+	protected StatementImpl() {
 		super();
 	}
 
@@ -34,7 +34,7 @@ public class AbstractStatementImpl extends PragmatizedImpl implements AbstractSt
 	 */
 	@Override
 	protected EClass eStaticClass() {
-		return BehaviorPackage.Literals.ABSTRACT_STATEMENT;
+		return BehaviorPackage.Literals.STATEMENT;
 	}
 
-} //AbstractStatementImpl
+} //StatementImpl

@@ -23,7 +23,7 @@ import org.xtuml.bp.xtext.masl.masl.types.AbstractTypeReference
 // *  Code blocks
 // **********************************************************************
 class StatementList {
-	contains AbstractStatement[] statements
+	contains Statement[] statements
 }
 
 class CodeBlock extends CodeBlockStatement, StatementList {
@@ -48,34 +48,34 @@ class DefaultExceptionHandler extends StatementList {
 // **********************************************************************
 // *  Statements
 // **********************************************************************
-class AbstractStatement extends Pragmatized {
+class Statement extends Pragmatized {
 }
 
-class Expression extends AbstractStatement , ConstExpression {
+class Expression extends Statement , ConstExpression {
 }
 
-class ExitStatement extends AbstractStatement {
+class ExitStatement extends Statement {
 	contains Expression condition
 }
 
-class ReturnStatement extends AbstractStatement {
+class ReturnStatement extends Statement {
 	contains Expression value
 }
 
-class DelayStatement extends AbstractStatement {
+class DelayStatement extends Statement {
 	contains Expression value
 }
 
-class RaiseStatement extends AbstractStatement {
+class RaiseStatement extends Statement {
 	refers ExceptionDeclaration exception
 	contains Expression argument
 }
 
-class DeleteStatement extends AbstractStatement {
+class DeleteStatement extends Statement {
 	contains Expression value
 }
 
-class EraseStatement extends AbstractStatement {
+class EraseStatement extends Statement {
 	contains Expression value
 }
 
@@ -84,7 +84,7 @@ enum LinkType {
 	unlink = 1
 }
 
-class ScheduleStatement extends AbstractStatement {
+class ScheduleStatement extends Statement {
 	contains Expression timerId
 	contains GenerateStatement generateStatement
 	ScheduleType ^type
@@ -92,7 +92,7 @@ class ScheduleStatement extends AbstractStatement {
 	contains Expression period
 }
 
-class CancelTimerStatement extends AbstractStatement {
+class CancelTimerStatement extends Statement {
 	contains Expression timerId
 }
 
@@ -101,14 +101,14 @@ enum ScheduleType {
 	delay = 1
 }
 
-class GenerateStatement extends AbstractStatement {
+class GenerateStatement extends Statement {
 	refers ObjectDeclaration object
 	refers EventDefinition event
 	contains Expression[] arguments
 	contains Expression to
 }
 
-class IfStatement extends AbstractStatement, StatementList {
+class IfStatement extends Statement, StatementList {
 	contains Expression condition
 	contains ElsifBlock[] elseIfs
 	contains ElseBlock ^else
@@ -121,11 +121,11 @@ class ElsifBlock extends StatementList {
 class ElseBlock extends StatementList {
 }
 
-class WhileStatement extends AbstractStatement, StatementList  {
+class WhileStatement extends Statement, StatementList  {
 	contains Expression condition
 }
 
-class CaseStatement extends AbstractStatement {
+class CaseStatement extends Statement {
 	contains Expression value
 	contains CaseAlternative[] alternatives
 	contains CaseOthers ^default
@@ -138,7 +138,7 @@ class CaseAlternative extends StatementList {
 class CaseOthers extends StatementList {
 }
 
-class ForStatement extends AbstractStatement, StatementList {
+class ForStatement extends Statement, StatementList {
 	contains LoopVariable variable
 	boolean reverse
 	contains Expression expression
@@ -147,7 +147,7 @@ class ForStatement extends AbstractStatement, StatementList {
 class LoopVariable extends AbstractNamed , AbstractFeature {
 }
 
-class CodeBlockStatement extends AbstractStatement {
+class CodeBlockStatement extends Statement {
 }
 
 // **********************************************************************

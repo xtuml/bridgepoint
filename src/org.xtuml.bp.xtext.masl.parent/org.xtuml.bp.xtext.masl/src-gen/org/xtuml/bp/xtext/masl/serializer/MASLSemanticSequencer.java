@@ -68,6 +68,7 @@ import org.xtuml.bp.xtext.masl.masl.behavior.SimpleFeatureCall;
 import org.xtuml.bp.xtext.masl.masl.behavior.SortOrder;
 import org.xtuml.bp.xtext.masl.masl.behavior.SortOrderComponent;
 import org.xtuml.bp.xtext.masl.masl.behavior.SortOrderFeature;
+import org.xtuml.bp.xtext.masl.masl.behavior.Statement;
 import org.xtuml.bp.xtext.masl.masl.behavior.StreamExpression;
 import org.xtuml.bp.xtext.masl.masl.behavior.StringLiteral;
 import org.xtuml.bp.xtext.masl.masl.behavior.StructureAggregateExpression;
@@ -192,7 +193,7 @@ public class MASLSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 					sequence_PostfixExpression(context, (ActionCall) semanticObject); 
 					return; 
 				}
-				else if (rule == grammarAccess.getAbstractStatementRule()) {
+				else if (rule == grammarAccess.getStatementRule()) {
 					sequence_PostfixExpression_PragmaList(context, (ActionCall) semanticObject); 
 					return; 
 				}
@@ -242,7 +243,7 @@ public class MASLSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 					sequence_AdditiveExp(context, (AdditiveExp) semanticObject); 
 					return; 
 				}
-				else if (rule == grammarAccess.getAbstractStatementRule()) {
+				else if (rule == grammarAccess.getStatementRule()) {
 					sequence_AdditiveExp_PragmaList(context, (AdditiveExp) semanticObject); 
 					return; 
 				}
@@ -252,7 +253,7 @@ public class MASLSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 					sequence_AssignStatement(context, (AssignStatement) semanticObject); 
 					return; 
 				}
-				else if (rule == grammarAccess.getAbstractStatementRule()) {
+				else if (rule == grammarAccess.getStatementRule()) {
 					sequence_AssignStatement_PragmaList(context, (AssignStatement) semanticObject); 
 					return; 
 				}
@@ -307,7 +308,7 @@ public class MASLSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 					sequence_BooleanLiteral(context, (BooleanLiteral) semanticObject); 
 					return; 
 				}
-				else if (rule == grammarAccess.getAbstractStatementRule()) {
+				else if (rule == grammarAccess.getStatementRule()) {
 					sequence_BooleanLiteral_PragmaList(context, (BooleanLiteral) semanticObject); 
 					return; 
 				}
@@ -317,7 +318,7 @@ public class MASLSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 					sequence_CancelTimerStatement(context, (CancelTimerStatement) semanticObject); 
 					return; 
 				}
-				else if (rule == grammarAccess.getAbstractStatementRule()) {
+				else if (rule == grammarAccess.getStatementRule()) {
 					sequence_CancelTimerStatement_PragmaList(context, (CancelTimerStatement) semanticObject); 
 					return; 
 				}
@@ -333,7 +334,7 @@ public class MASLSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 					sequence_CaseStatement(context, (CaseStatement) semanticObject); 
 					return; 
 				}
-				else if (rule == grammarAccess.getAbstractStatementRule()) {
+				else if (rule == grammarAccess.getStatementRule()) {
 					sequence_CaseStatement_PragmaList(context, (CaseStatement) semanticObject); 
 					return; 
 				}
@@ -385,7 +386,7 @@ public class MASLSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 					sequence_CharacterLiteral(context, (CharacterLiteral) semanticObject); 
 					return; 
 				}
-				else if (rule == grammarAccess.getAbstractStatementRule()) {
+				else if (rule == grammarAccess.getStatementRule()) {
 					sequence_CharacterLiteral_PragmaList(context, (CharacterLiteral) semanticObject); 
 					return; 
 				}
@@ -438,7 +439,7 @@ public class MASLSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 					sequence_PostfixExpression_PostfixNoActionCallExpression(context, (CharacteristicCall) semanticObject); 
 					return; 
 				}
-				else if (rule == grammarAccess.getAbstractStatementRule()) {
+				else if (rule == grammarAccess.getStatementRule()) {
 					sequence_PostfixExpression_PragmaList(context, (CharacteristicCall) semanticObject); 
 					return; 
 				}
@@ -449,7 +450,7 @@ public class MASLSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 					sequence_CodeBlock(context, (CodeBlock) semanticObject); 
 					return; 
 				}
-				else if (rule == grammarAccess.getAbstractStatementRule()) {
+				else if (rule == grammarAccess.getStatementRule()) {
 					sequence_CodeBlock_PragmaList(context, (CodeBlock) semanticObject); 
 					return; 
 				}
@@ -501,7 +502,7 @@ public class MASLSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 					sequence_ConsoleLiteral(context, (ConsoleLiteral) semanticObject); 
 					return; 
 				}
-				else if (rule == grammarAccess.getAbstractStatementRule()) {
+				else if (rule == grammarAccess.getStatementRule()) {
 					sequence_ConsoleLiteral_PragmaList(context, (ConsoleLiteral) semanticObject); 
 					return; 
 				}
@@ -555,7 +556,7 @@ public class MASLSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 					sequence_CreateExpression(context, (CreateExpression) semanticObject); 
 					return; 
 				}
-				else if (rule == grammarAccess.getAbstractStatementRule()) {
+				else if (rule == grammarAccess.getStatementRule()) {
 					sequence_CreateExpression_PragmaList(context, (CreateExpression) semanticObject); 
 					return; 
 				}
@@ -568,7 +569,7 @@ public class MASLSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 					sequence_DelayStatement(context, (DelayStatement) semanticObject); 
 					return; 
 				}
-				else if (rule == grammarAccess.getAbstractStatementRule()) {
+				else if (rule == grammarAccess.getStatementRule()) {
 					sequence_DelayStatement_PragmaList(context, (DelayStatement) semanticObject); 
 					return; 
 				}
@@ -578,7 +579,7 @@ public class MASLSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 					sequence_DeleteStatement(context, (DeleteStatement) semanticObject); 
 					return; 
 				}
-				else if (rule == grammarAccess.getAbstractStatementRule()) {
+				else if (rule == grammarAccess.getStatementRule()) {
 					sequence_DeleteStatement_PragmaList(context, (DeleteStatement) semanticObject); 
 					return; 
 				}
@@ -630,7 +631,7 @@ public class MASLSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 					sequence_DurationLiteral(context, (DurationLiteral) semanticObject); 
 					return; 
 				}
-				else if (rule == grammarAccess.getAbstractStatementRule()) {
+				else if (rule == grammarAccess.getStatementRule()) {
 					sequence_DurationLiteral_PragmaList(context, (DurationLiteral) semanticObject); 
 					return; 
 				}
@@ -688,7 +689,7 @@ public class MASLSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 					sequence_EndlLiteral(context, (EndlLiteral) semanticObject); 
 					return; 
 				}
-				else if (rule == grammarAccess.getAbstractStatementRule()) {
+				else if (rule == grammarAccess.getStatementRule()) {
 					sequence_EndlLiteral_PragmaList(context, (EndlLiteral) semanticObject); 
 					return; 
 				}
@@ -738,7 +739,7 @@ public class MASLSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 					sequence_Equality(context, (Equality) semanticObject); 
 					return; 
 				}
-				else if (rule == grammarAccess.getAbstractStatementRule()) {
+				else if (rule == grammarAccess.getStatementRule()) {
 					sequence_Equality_PragmaList(context, (Equality) semanticObject); 
 					return; 
 				}
@@ -761,7 +762,7 @@ public class MASLSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 					sequence_EraseStatement(context, (EraseStatement) semanticObject); 
 					return; 
 				}
-				else if (rule == grammarAccess.getAbstractStatementRule()) {
+				else if (rule == grammarAccess.getStatementRule()) {
 					sequence_EraseStatement_PragmaList(context, (EraseStatement) semanticObject); 
 					return; 
 				}
@@ -774,7 +775,7 @@ public class MASLSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 					sequence_ExitStatement(context, (ExitStatement) semanticObject); 
 					return; 
 				}
-				else if (rule == grammarAccess.getAbstractStatementRule()) {
+				else if (rule == grammarAccess.getStatementRule()) {
 					sequence_ExitStatement_PragmaList(context, (ExitStatement) semanticObject); 
 					return; 
 				}
@@ -826,7 +827,7 @@ public class MASLSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 					sequence_FileNameLiteral(context, (FileNameLiteral) semanticObject); 
 					return; 
 				}
-				else if (rule == grammarAccess.getAbstractStatementRule()) {
+				else if (rule == grammarAccess.getStatementRule()) {
 					sequence_FileNameLiteral_PragmaList(context, (FileNameLiteral) semanticObject); 
 					return; 
 				}
@@ -877,7 +878,7 @@ public class MASLSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 					sequence_FindExpression(context, (FindExpression) semanticObject); 
 					return; 
 				}
-				else if (rule == grammarAccess.getAbstractStatementRule()) {
+				else if (rule == grammarAccess.getStatementRule()) {
 					sequence_FindExpression_PragmaList(context, (FindExpression) semanticObject); 
 					return; 
 				}
@@ -929,7 +930,7 @@ public class MASLSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 					sequence_FlushLiteral(context, (FlushLiteral) semanticObject); 
 					return; 
 				}
-				else if (rule == grammarAccess.getAbstractStatementRule()) {
+				else if (rule == grammarAccess.getStatementRule()) {
 					sequence_FlushLiteral_PragmaList(context, (FlushLiteral) semanticObject); 
 					return; 
 				}
@@ -939,7 +940,7 @@ public class MASLSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 					sequence_ForStatement(context, (ForStatement) semanticObject); 
 					return; 
 				}
-				else if (rule == grammarAccess.getAbstractStatementRule()) {
+				else if (rule == grammarAccess.getStatementRule()) {
 					sequence_ForStatement_PragmaList(context, (ForStatement) semanticObject); 
 					return; 
 				}
@@ -949,7 +950,7 @@ public class MASLSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 					sequence_GenerateStatement(context, (GenerateStatement) semanticObject); 
 					return; 
 				}
-				else if (rule == grammarAccess.getAbstractStatementRule()) {
+				else if (rule == grammarAccess.getStatementRule()) {
 					sequence_GenerateStatement_PragmaList(context, (GenerateStatement) semanticObject); 
 					return; 
 				}
@@ -959,7 +960,7 @@ public class MASLSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 					sequence_IfStatement(context, (IfStatement) semanticObject); 
 					return; 
 				}
-				else if (rule == grammarAccess.getAbstractStatementRule()) {
+				else if (rule == grammarAccess.getStatementRule()) {
 					sequence_IfStatement_PragmaList(context, (IfStatement) semanticObject); 
 					return; 
 				}
@@ -1031,7 +1032,7 @@ public class MASLSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 					sequence_PostfixExpression_PostfixNoActionCallExpression(context, (IndexedExpression) semanticObject); 
 					return; 
 				}
-				else if (rule == grammarAccess.getAbstractStatementRule()) {
+				else if (rule == grammarAccess.getStatementRule()) {
 					sequence_PostfixExpression_PragmaList(context, (IndexedExpression) semanticObject); 
 					return; 
 				}
@@ -1083,7 +1084,7 @@ public class MASLSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 					sequence_IntegerLiteral(context, (IntegerLiteral) semanticObject); 
 					return; 
 				}
-				else if (rule == grammarAccess.getAbstractStatementRule()) {
+				else if (rule == grammarAccess.getStatementRule()) {
 					sequence_IntegerLiteral_PragmaList(context, (IntegerLiteral) semanticObject); 
 					return; 
 				}
@@ -1135,7 +1136,7 @@ public class MASLSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 					sequence_LineNoLiteral(context, (LineNoLiteral) semanticObject); 
 					return; 
 				}
-				else if (rule == grammarAccess.getAbstractStatementRule()) {
+				else if (rule == grammarAccess.getStatementRule()) {
 					sequence_LineNoLiteral_PragmaList(context, (LineNoLiteral) semanticObject); 
 					return; 
 				}
@@ -1185,7 +1186,7 @@ public class MASLSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 					sequence_LinkExpression(context, (LinkExpression) semanticObject); 
 					return; 
 				}
-				else if (rule == grammarAccess.getAbstractStatementRule()) {
+				else if (rule == grammarAccess.getStatementRule()) {
 					sequence_LinkExpression_PragmaList(context, (LinkExpression) semanticObject); 
 					return; 
 				}
@@ -1247,7 +1248,7 @@ public class MASLSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 					sequence_LogicalAnd(context, (LogicalAnd) semanticObject); 
 					return; 
 				}
-				else if (rule == grammarAccess.getAbstractStatementRule()) {
+				else if (rule == grammarAccess.getStatementRule()) {
 					sequence_LogicalAnd_PragmaList(context, (LogicalAnd) semanticObject); 
 					return; 
 				}
@@ -1309,7 +1310,7 @@ public class MASLSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 					sequence_LogicalOr(context, (LogicalOr) semanticObject); 
 					return; 
 				}
-				else if (rule == grammarAccess.getAbstractStatementRule()) {
+				else if (rule == grammarAccess.getStatementRule()) {
 					sequence_LogicalOr_PragmaList(context, (LogicalOr) semanticObject); 
 					return; 
 				}
@@ -1371,7 +1372,7 @@ public class MASLSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 					sequence_LogicalXor(context, (LogicalXor) semanticObject); 
 					return; 
 				}
-				else if (rule == grammarAccess.getAbstractStatementRule()) {
+				else if (rule == grammarAccess.getStatementRule()) {
 					sequence_LogicalXor_PragmaList(context, (LogicalXor) semanticObject); 
 					return; 
 				}
@@ -1424,7 +1425,7 @@ public class MASLSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 					sequence_MultExp(context, (MultExp) semanticObject); 
 					return; 
 				}
-				else if (rule == grammarAccess.getAbstractStatementRule()) {
+				else if (rule == grammarAccess.getStatementRule()) {
 					sequence_MultExp_PragmaList(context, (MultExp) semanticObject); 
 					return; 
 				}
@@ -1474,7 +1475,7 @@ public class MASLSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 					sequence_NavigateExpression(context, (NavigateExpression) semanticObject); 
 					return; 
 				}
-				else if (rule == grammarAccess.getAbstractStatementRule()) {
+				else if (rule == grammarAccess.getStatementRule()) {
 					sequence_NavigateExpression_PragmaList(context, (NavigateExpression) semanticObject); 
 					return; 
 				}
@@ -1526,13 +1527,13 @@ public class MASLSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 					sequence_NullLiteral(context, (NullLiteral) semanticObject); 
 					return; 
 				}
-				else if (rule == grammarAccess.getAbstractStatementRule()) {
+				else if (rule == grammarAccess.getStatementRule()) {
 					sequence_NullLiteral_PragmaList(context, (NullLiteral) semanticObject); 
 					return; 
 				}
 				else break;
 			case BehaviorPackage.RAISE_STATEMENT:
-				if (rule == grammarAccess.getAbstractStatementRule()) {
+				if (rule == grammarAccess.getStatementRule()) {
 					sequence_PragmaList_RaiseStatement(context, (RaiseStatement) semanticObject); 
 					return; 
 				}
@@ -1542,7 +1543,7 @@ public class MASLSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 				}
 				else break;
 			case BehaviorPackage.RANGE_EXPRESSION:
-				if (rule == grammarAccess.getAbstractStatementRule()) {
+				if (rule == grammarAccess.getStatementRule()) {
 					sequence_PragmaList_RangeExpression(context, (RangeExpression) semanticObject); 
 					return; 
 				}
@@ -1592,7 +1593,7 @@ public class MASLSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 				}
 				else break;
 			case BehaviorPackage.REAL_LITERAL:
-				if (rule == grammarAccess.getAbstractStatementRule()) {
+				if (rule == grammarAccess.getStatementRule()) {
 					sequence_PragmaList_RealLiteral(context, (RealLiteral) semanticObject); 
 					return; 
 				}
@@ -1659,7 +1660,7 @@ public class MASLSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 					sequence_FindRelationExp(context, (RelationalExp) semanticObject); 
 					return; 
 				}
-				else if (rule == grammarAccess.getAbstractStatementRule()) {
+				else if (rule == grammarAccess.getStatementRule()) {
 					sequence_PragmaList_RelationalExp(context, (RelationalExp) semanticObject); 
 					return; 
 				}
@@ -1709,7 +1710,7 @@ public class MASLSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 				}
 				else break;
 			case BehaviorPackage.RETURN_STATEMENT:
-				if (rule == grammarAccess.getAbstractStatementRule()) {
+				if (rule == grammarAccess.getStatementRule()) {
 					sequence_PragmaList_ReturnStatement(context, (ReturnStatement) semanticObject); 
 					return; 
 				}
@@ -1719,7 +1720,7 @@ public class MASLSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 				}
 				else break;
 			case BehaviorPackage.SCHEDULE_STATEMENT:
-				if (rule == grammarAccess.getAbstractStatementRule()) {
+				if (rule == grammarAccess.getStatementRule()) {
 					sequence_PragmaList_ScheduleStatement(context, (ScheduleStatement) semanticObject); 
 					return; 
 				}
@@ -1759,7 +1760,7 @@ public class MASLSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 					sequence_PostfixExpression_PostfixNoActionCallExpression_SimpleFeatureCall(context, (SimpleFeatureCall) semanticObject); 
 					return; 
 				}
-				else if (rule == grammarAccess.getAbstractStatementRule()) {
+				else if (rule == grammarAccess.getStatementRule()) {
 					sequence_PostfixExpression_PragmaList_SimpleFeatureCall(context, (SimpleFeatureCall) semanticObject); 
 					return; 
 				}
@@ -1822,8 +1823,11 @@ public class MASLSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 			case BehaviorPackage.SORT_ORDER_FEATURE:
 				sequence_SortOrderFeature(context, (SortOrderFeature) semanticObject); 
 				return; 
+			case BehaviorPackage.STATEMENT:
+				sequence_PragmaList(context, (Statement) semanticObject); 
+				return; 
 			case BehaviorPackage.STREAM_EXPRESSION:
-				if (rule == grammarAccess.getAbstractStatementRule()) {
+				if (rule == grammarAccess.getStatementRule()) {
 					sequence_PragmaList_StreamExpression(context, (StreamExpression) semanticObject); 
 					return; 
 				}
@@ -1873,7 +1877,7 @@ public class MASLSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 				}
 				else break;
 			case BehaviorPackage.STRING_LITERAL:
-				if (rule == grammarAccess.getAbstractStatementRule()) {
+				if (rule == grammarAccess.getStatementRule()) {
 					sequence_PragmaList_StringLiteral(context, (StringLiteral) semanticObject); 
 					return; 
 				}
@@ -1925,7 +1929,7 @@ public class MASLSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 				}
 				else break;
 			case BehaviorPackage.STRUCTURE_AGGREGATE_EXPRESSION:
-				if (rule == grammarAccess.getAbstractStatementRule()) {
+				if (rule == grammarAccess.getStatementRule()) {
 					sequence_ParenthesisedExpression_PragmaList(context, (StructureAggregateExpression) semanticObject); 
 					return; 
 				}
@@ -1975,7 +1979,7 @@ public class MASLSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 				}
 				else break;
 			case BehaviorPackage.TERMINATOR_ACTION_CALL:
-				if (rule == grammarAccess.getAbstractStatementRule()) {
+				if (rule == grammarAccess.getStatementRule()) {
 					sequence_PostfixExpression_PragmaList(context, (TerminatorActionCall) semanticObject); 
 					return; 
 				}
@@ -2025,7 +2029,7 @@ public class MASLSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 				}
 				else break;
 			case BehaviorPackage.THIS_LITERAL:
-				if (rule == grammarAccess.getAbstractStatementRule()) {
+				if (rule == grammarAccess.getStatementRule()) {
 					sequence_PragmaList_ThisLiteral(context, (ThisLiteral) semanticObject); 
 					return; 
 				}
@@ -2077,7 +2081,7 @@ public class MASLSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 				}
 				else break;
 			case BehaviorPackage.TIMESTAMP_LITERAL:
-				if (rule == grammarAccess.getAbstractStatementRule()) {
+				if (rule == grammarAccess.getStatementRule()) {
 					sequence_PragmaList_TimestampLiteral(context, (TimestampLiteral) semanticObject); 
 					return; 
 				}
@@ -2129,7 +2133,7 @@ public class MASLSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 				}
 				else break;
 			case BehaviorPackage.UNARY_EXP:
-				if (rule == grammarAccess.getAbstractStatementRule()) {
+				if (rule == grammarAccess.getStatementRule()) {
 					sequence_PragmaList_UnaryExp(context, (UnaryExp) semanticObject); 
 					return; 
 				}
@@ -2182,7 +2186,7 @@ public class MASLSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 				sequence_PragmaList_VariableDeclaration(context, (VariableDeclaration) semanticObject); 
 				return; 
 			case BehaviorPackage.WHILE_STATEMENT:
-				if (rule == grammarAccess.getAbstractStatementRule()) {
+				if (rule == grammarAccess.getStatementRule()) {
 					sequence_PragmaList_WhileStatement(context, (WhileStatement) semanticObject); 
 					return; 
 				}
@@ -2369,7 +2373,7 @@ public class MASLSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 					sequence_ArrayTypeReference(context, (ArrayTypeReference) semanticObject); 
 					return; 
 				}
-				else if (rule == grammarAccess.getAbstractStatementRule()) {
+				else if (rule == grammarAccess.getStatementRule()) {
 					sequence_ArrayTypeReference_PragmaList(context, (ArrayTypeReference) semanticObject); 
 					return; 
 				}
@@ -2426,7 +2430,7 @@ public class MASLSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 					sequence_BagTypeReference(context, (BagTypeReference) semanticObject); 
 					return; 
 				}
-				else if (rule == grammarAccess.getAbstractStatementRule()) {
+				else if (rule == grammarAccess.getStatementRule()) {
 					sequence_BagTypeReference_PragmaList(context, (BagTypeReference) semanticObject); 
 					return; 
 				}
@@ -2495,7 +2499,7 @@ public class MASLSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 					sequence_DictionaryTypeReference(context, (DictionaryTypeReference) semanticObject); 
 					return; 
 				}
-				else if (rule == grammarAccess.getAbstractStatementRule()) {
+				else if (rule == grammarAccess.getStatementRule()) {
 					sequence_DictionaryTypeReference_PragmaList(context, (DictionaryTypeReference) semanticObject); 
 					return; 
 				}
@@ -2561,7 +2565,7 @@ public class MASLSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 					sequence_InstanceTypeReference(context, (InstanceTypeReference) semanticObject); 
 					return; 
 				}
-				else if (rule == grammarAccess.getAbstractStatementRule()) {
+				else if (rule == grammarAccess.getStatementRule()) {
 					sequence_InstanceTypeReference_PragmaList(context, (InstanceTypeReference) semanticObject); 
 					return; 
 				}
@@ -2573,7 +2577,7 @@ public class MASLSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 				sequence_RangeConstraint(context, (RangeConstraint) semanticObject); 
 				return; 
 			case TypesPackage.SEQUENCE_TYPE_REFERENCE:
-				if (rule == grammarAccess.getAbstractStatementRule()) {
+				if (rule == grammarAccess.getStatementRule()) {
 					sequence_PragmaList_SequenceTypeReference(context, (SequenceTypeReference) semanticObject); 
 					return; 
 				}
@@ -2630,7 +2634,7 @@ public class MASLSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 				}
 				else break;
 			case TypesPackage.SET_TYPE_REFERENCE:
-				if (rule == grammarAccess.getAbstractStatementRule()) {
+				if (rule == grammarAccess.getStatementRule()) {
 					sequence_PragmaList_SetTypeReference(context, (SetTypeReference) semanticObject); 
 					return; 
 				}
@@ -2760,7 +2764,7 @@ public class MASLSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	
 	/**
 	 * Contexts:
-	 *     AbstractStatement returns AdditiveExp
+	 *     Statement returns AdditiveExp
 	 *
 	 * Constraint:
 	 *     (
@@ -2836,7 +2840,7 @@ public class MASLSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	
 	/**
 	 * Contexts:
-	 *     AbstractStatement returns ArrayTypeReference
+	 *     Statement returns ArrayTypeReference
 	 *
 	 * Constraint:
 	 *     (anonymous?='anonymous'? expression=Expression elementType=AbstractTypeReference pragmas+=Pragma*)
@@ -2869,7 +2873,7 @@ public class MASLSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	
 	/**
 	 * Contexts:
-	 *     AbstractStatement returns AssignStatement
+	 *     Statement returns AssignStatement
 	 *
 	 * Constraint:
 	 *     (lhs=AssignStatement_AssignStatement_1_0 rhs=Expression pragmas+=Pragma*)
@@ -3010,7 +3014,7 @@ public class MASLSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	
 	/**
 	 * Contexts:
-	 *     AbstractStatement returns BagTypeReference
+	 *     Statement returns BagTypeReference
 	 *
 	 * Constraint:
 	 *     (anonymous?='anonymous'? elementType=AbstractTypeReference pragmas+=Pragma*)
@@ -3076,7 +3080,7 @@ public class MASLSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	
 	/**
 	 * Contexts:
-	 *     AbstractStatement returns BooleanLiteral
+	 *     Statement returns BooleanLiteral
 	 *
 	 * Constraint:
 	 *     (value?='true'? pragmas+=Pragma*)
@@ -3131,7 +3135,7 @@ public class MASLSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	
 	/**
 	 * Contexts:
-	 *     AbstractStatement returns CancelTimerStatement
+	 *     Statement returns CancelTimerStatement
 	 *
 	 * Constraint:
 	 *     (timerId=Expression pragmas+=Pragma*)
@@ -3146,7 +3150,7 @@ public class MASLSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	 *     CaseAlternative returns CaseAlternative
 	 *
 	 * Constraint:
-	 *     (choices+=Expression choices+=Expression* statements+=AbstractStatement*)
+	 *     (choices+=Expression choices+=Expression* statements+=Statement*)
 	 */
 	protected void sequence_CaseAlternative(ISerializationContext context, CaseAlternative semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -3158,7 +3162,7 @@ public class MASLSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	 *     CaseOthers returns CaseOthers
 	 *
 	 * Constraint:
-	 *     statements+=AbstractStatement*
+	 *     statements+=Statement*
 	 */
 	protected void sequence_CaseOthers(ISerializationContext context, CaseOthers semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -3179,7 +3183,7 @@ public class MASLSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	
 	/**
 	 * Contexts:
-	 *     AbstractStatement returns CaseStatement
+	 *     Statement returns CaseStatement
 	 *
 	 * Constraint:
 	 *     (value=Expression alternatives+=CaseAlternative* default=CaseOthers? pragmas+=Pragma*)
@@ -3251,7 +3255,7 @@ public class MASLSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	
 	/**
 	 * Contexts:
-	 *     AbstractStatement returns CharacterLiteral
+	 *     Statement returns CharacterLiteral
 	 *
 	 * Constraint:
 	 *     (value=CHAR pragmas+=Pragma*)
@@ -3285,7 +3289,7 @@ public class MASLSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	 *     CodeBlock returns CodeBlock
 	 *
 	 * Constraint:
-	 *     (variables+=VariableDeclaration* statements+=AbstractStatement* exceptionHandler+=ExceptionHandler* defaultHandler=DefaultExceptionHandler?)
+	 *     (variables+=VariableDeclaration* statements+=Statement* exceptionHandler+=ExceptionHandler* defaultHandler=DefaultExceptionHandler?)
 	 */
 	protected void sequence_CodeBlock(ISerializationContext context, CodeBlock semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -3294,12 +3298,12 @@ public class MASLSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	
 	/**
 	 * Contexts:
-	 *     AbstractStatement returns CodeBlock
+	 *     Statement returns CodeBlock
 	 *
 	 * Constraint:
 	 *     (
 	 *         variables+=VariableDeclaration* 
-	 *         statements+=AbstractStatement* 
+	 *         statements+=Statement* 
 	 *         exceptionHandler+=ExceptionHandler* 
 	 *         defaultHandler=DefaultExceptionHandler? 
 	 *         pragmas+=Pragma*
@@ -3366,7 +3370,7 @@ public class MASLSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	
 	/**
 	 * Contexts:
-	 *     AbstractStatement returns ConsoleLiteral
+	 *     Statement returns ConsoleLiteral
 	 *
 	 * Constraint:
 	 *     pragmas+=Pragma*
@@ -3488,7 +3492,7 @@ public class MASLSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	
 	/**
 	 * Contexts:
-	 *     AbstractStatement returns CreateExpression
+	 *     Statement returns CreateExpression
 	 *
 	 * Constraint:
 	 *     (unique?='unique'? object=[ObjectDeclaration|ID] (arguments+=CreateArgument arguments+=CreateArgument*)? pragmas+=Pragma*)
@@ -3503,7 +3507,7 @@ public class MASLSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	 *     DefaultExceptionHandler returns DefaultExceptionHandler
 	 *
 	 * Constraint:
-	 *     statements+=AbstractStatement*
+	 *     statements+=Statement*
 	 */
 	protected void sequence_DefaultExceptionHandler(ISerializationContext context, DefaultExceptionHandler semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -3530,7 +3534,7 @@ public class MASLSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	
 	/**
 	 * Contexts:
-	 *     AbstractStatement returns DelayStatement
+	 *     Statement returns DelayStatement
 	 *
 	 * Constraint:
 	 *     (value=Expression pragmas+=Pragma*)
@@ -3560,7 +3564,7 @@ public class MASLSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	
 	/**
 	 * Contexts:
-	 *     AbstractStatement returns DeleteStatement
+	 *     Statement returns DeleteStatement
 	 *
 	 * Constraint:
 	 *     (value=Expression pragmas+=Pragma*)
@@ -3653,7 +3657,7 @@ public class MASLSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	
 	/**
 	 * Contexts:
-	 *     AbstractStatement returns DictionaryTypeReference
+	 *     Statement returns DictionaryTypeReference
 	 *
 	 * Constraint:
 	 *     (anonymous?='anonymous'? (keyType=AbstractDictKeyTypeRef? elementType=AbstractTypeReference)? pragmas+=Pragma*)
@@ -3806,7 +3810,7 @@ public class MASLSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	
 	/**
 	 * Contexts:
-	 *     AbstractStatement returns DurationLiteral
+	 *     Statement returns DurationLiteral
 	 *
 	 * Constraint:
 	 *     (value=DURATION pragmas+=Pragma*)
@@ -3821,7 +3825,7 @@ public class MASLSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	 *     ElseBlock returns ElseBlock
 	 *
 	 * Constraint:
-	 *     statements+=AbstractStatement*
+	 *     statements+=Statement*
 	 */
 	protected void sequence_ElseBlock(ISerializationContext context, ElseBlock semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -3833,7 +3837,7 @@ public class MASLSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	 *     ElsifBlock returns ElsifBlock
 	 *
 	 * Constraint:
-	 *     (condition=Expression statements+=AbstractStatement*)
+	 *     (condition=Expression statements+=Statement*)
 	 */
 	protected void sequence_ElsifBlock(ISerializationContext context, ElsifBlock semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -3896,7 +3900,7 @@ public class MASLSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	
 	/**
 	 * Contexts:
-	 *     AbstractStatement returns EndlLiteral
+	 *     Statement returns EndlLiteral
 	 *
 	 * Constraint:
 	 *     pragmas+=Pragma*
@@ -3985,7 +3989,7 @@ public class MASLSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	
 	/**
 	 * Contexts:
-	 *     AbstractStatement returns Equality
+	 *     Statement returns Equality
 	 *
 	 * Constraint:
 	 *     (lhs=Equality_Equality_1_0 (operator='=' | operator='/=') rhs=RelationalExp pragmas+=Pragma*)
@@ -4015,7 +4019,7 @@ public class MASLSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	
 	/**
 	 * Contexts:
-	 *     AbstractStatement returns EraseStatement
+	 *     Statement returns EraseStatement
 	 *
 	 * Constraint:
 	 *     (value=Expression pragmas+=Pragma*)
@@ -4054,7 +4058,7 @@ public class MASLSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	 *     ExceptionHandler returns ExceptionHandler
 	 *
 	 * Constraint:
-	 *     (exception=[ExceptionDeclaration|ScopedName] statements+=AbstractStatement*)
+	 *     (exception=[ExceptionDeclaration|ScopedName] statements+=Statement*)
 	 */
 	protected void sequence_ExceptionHandler(ISerializationContext context, ExceptionHandler semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -4075,7 +4079,7 @@ public class MASLSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	
 	/**
 	 * Contexts:
-	 *     AbstractStatement returns ExitStatement
+	 *     Statement returns ExitStatement
 	 *
 	 * Constraint:
 	 *     (condition=Expression? pragmas+=Pragma*)
@@ -4141,7 +4145,7 @@ public class MASLSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	
 	/**
 	 * Contexts:
-	 *     AbstractStatement returns FileNameLiteral
+	 *     Statement returns FileNameLiteral
 	 *
 	 * Constraint:
 	 *     pragmas+=Pragma*
@@ -4227,7 +4231,7 @@ public class MASLSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	
 	/**
 	 * Contexts:
-	 *     AbstractStatement returns FindExpression
+	 *     Statement returns FindExpression
 	 *
 	 * Constraint:
 	 *     (type=FindType expression=PostfixNoActionCallExpression where=FindCondition? pragmas+=Pragma*)
@@ -4484,7 +4488,7 @@ public class MASLSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	
 	/**
 	 * Contexts:
-	 *     AbstractStatement returns FlushLiteral
+	 *     Statement returns FlushLiteral
 	 *
 	 * Constraint:
 	 *     pragmas+=Pragma*
@@ -4499,7 +4503,7 @@ public class MASLSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	 *     ForStatement returns ForStatement
 	 *
 	 * Constraint:
-	 *     (variable=LoopVariable reverse?='reverse'? expression=Expression statements+=AbstractStatement*)
+	 *     (variable=LoopVariable reverse?='reverse'? expression=Expression statements+=Statement*)
 	 */
 	protected void sequence_ForStatement(ISerializationContext context, ForStatement semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -4508,10 +4512,10 @@ public class MASLSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	
 	/**
 	 * Contexts:
-	 *     AbstractStatement returns ForStatement
+	 *     Statement returns ForStatement
 	 *
 	 * Constraint:
-	 *     (variable=LoopVariable reverse?='reverse'? expression=Expression statements+=AbstractStatement* pragmas+=Pragma*)
+	 *     (variable=LoopVariable reverse?='reverse'? expression=Expression statements+=Statement* pragmas+=Pragma*)
 	 */
 	protected void sequence_ForStatement_PragmaList(ISerializationContext context, ForStatement semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -4532,7 +4536,7 @@ public class MASLSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	
 	/**
 	 * Contexts:
-	 *     AbstractStatement returns GenerateStatement
+	 *     Statement returns GenerateStatement
 	 *
 	 * Constraint:
 	 *     (
@@ -4565,7 +4569,7 @@ public class MASLSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	 *     IfStatement returns IfStatement
 	 *
 	 * Constraint:
-	 *     (condition=Expression statements+=AbstractStatement* elseIfs+=ElsifBlock* else=ElseBlock?)
+	 *     (condition=Expression statements+=Statement* elseIfs+=ElsifBlock* else=ElseBlock?)
 	 */
 	protected void sequence_IfStatement(ISerializationContext context, IfStatement semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -4574,10 +4578,10 @@ public class MASLSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	
 	/**
 	 * Contexts:
-	 *     AbstractStatement returns IfStatement
+	 *     Statement returns IfStatement
 	 *
 	 * Constraint:
-	 *     (condition=Expression statements+=AbstractStatement* elseIfs+=ElsifBlock* else=ElseBlock? pragmas+=Pragma*)
+	 *     (condition=Expression statements+=Statement* elseIfs+=ElsifBlock* else=ElseBlock? pragmas+=Pragma*)
 	 */
 	protected void sequence_IfStatement_PragmaList(ISerializationContext context, IfStatement semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -4645,7 +4649,7 @@ public class MASLSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	
 	/**
 	 * Contexts:
-	 *     AbstractStatement returns InstanceTypeReference
+	 *     Statement returns InstanceTypeReference
 	 *
 	 * Constraint:
 	 *     (anonymous?='anonymous'? instance=[ObjectDeclaration|ScopedName] pragmas+=Pragma*)
@@ -4717,7 +4721,7 @@ public class MASLSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	
 	/**
 	 * Contexts:
-	 *     AbstractStatement returns IntegerLiteral
+	 *     Statement returns IntegerLiteral
 	 *
 	 * Constraint:
 	 *     (value=INTEGER pragmas+=Pragma*)
@@ -4783,7 +4787,7 @@ public class MASLSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	
 	/**
 	 * Contexts:
-	 *     AbstractStatement returns LineNoLiteral
+	 *     Statement returns LineNoLiteral
 	 *
 	 * Constraint:
 	 *     pragmas+=Pragma*
@@ -4847,7 +4851,7 @@ public class MASLSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	
 	/**
 	 * Contexts:
-	 *     AbstractStatement returns LinkExpression
+	 *     Statement returns LinkExpression
 	 *
 	 * Constraint:
 	 *     (type=LinkType lhs=NavigateExpression navigation=RelationshipNavigation (rhs=NavigateExpression assoc=NavigateExpression?)? pragmas+=Pragma*)
@@ -4923,7 +4927,7 @@ public class MASLSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	
 	/**
 	 * Contexts:
-	 *     AbstractStatement returns LogicalAnd
+	 *     Statement returns LogicalAnd
 	 *
 	 * Constraint:
 	 *     (lhs=LogicalAnd_LogicalAnd_1_0 operator='and' rhs=Equality pragmas+=Pragma*)
@@ -4999,7 +5003,7 @@ public class MASLSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	
 	/**
 	 * Contexts:
-	 *     AbstractStatement returns LogicalOr
+	 *     Statement returns LogicalOr
 	 *
 	 * Constraint:
 	 *     (lhs=LogicalOr_LogicalOr_1_0 operator='or' rhs=LogicalXor pragmas+=Pragma*)
@@ -5075,7 +5079,7 @@ public class MASLSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	
 	/**
 	 * Contexts:
-	 *     AbstractStatement returns LogicalXor
+	 *     Statement returns LogicalXor
 	 *
 	 * Constraint:
 	 *     (lhs=LogicalXor_LogicalXor_1_0 operator='xor' rhs=LogicalAnd pragmas+=Pragma*)
@@ -5181,7 +5185,7 @@ public class MASLSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	
 	/**
 	 * Contexts:
-	 *     AbstractStatement returns MultExp
+	 *     Statement returns MultExp
 	 *
 	 * Constraint:
 	 *     (
@@ -5283,7 +5287,7 @@ public class MASLSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	
 	/**
 	 * Contexts:
-	 *     AbstractStatement returns NavigateExpression
+	 *     Statement returns NavigateExpression
 	 *
 	 * Constraint:
 	 *     (
@@ -5358,7 +5362,7 @@ public class MASLSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	
 	/**
 	 * Contexts:
-	 *     AbstractStatement returns NullLiteral
+	 *     Statement returns NullLiteral
 	 *
 	 * Constraint:
 	 *     pragmas+=Pragma*
@@ -5540,7 +5544,7 @@ public class MASLSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	
 	/**
 	 * Contexts:
-	 *     AbstractStatement returns StructureAggregateExpression
+	 *     Statement returns StructureAggregateExpression
 	 *
 	 * Constraint:
 	 *     (elements+=ParenthesisedExpression_StructureAggregateExpression_2_0 elements+=Expression+ pragmas+=Pragma*)
@@ -5824,7 +5828,7 @@ public class MASLSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	
 	/**
 	 * Contexts:
-	 *     AbstractStatement returns ActionCall
+	 *     Statement returns ActionCall
 	 *
 	 * Constraint:
 	 *     (receiver=PostfixExpression_ActionCall_1_0_0 (arguments+=Expression arguments+=Expression*)? pragmas+=Pragma*)
@@ -5836,7 +5840,7 @@ public class MASLSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	
 	/**
 	 * Contexts:
-	 *     AbstractStatement returns CharacteristicCall
+	 *     Statement returns CharacteristicCall
 	 *
 	 * Constraint:
 	 *     (
@@ -5853,7 +5857,7 @@ public class MASLSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	
 	/**
 	 * Contexts:
-	 *     AbstractStatement returns IndexedExpression
+	 *     Statement returns IndexedExpression
 	 *
 	 * Constraint:
 	 *     (receiver=PostfixExpression_IndexedExpression_1_3_0 brackets=Expression pragmas+=Pragma*)
@@ -5865,7 +5869,7 @@ public class MASLSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	
 	/**
 	 * Contexts:
-	 *     AbstractStatement returns SimpleFeatureCall
+	 *     Statement returns SimpleFeatureCall
 	 *
 	 * Constraint:
 	 *     (((receiver=PostfixExpression_SimpleFeatureCall_1_1_0 feature=[AbstractFeature|ID]) | feature=[AbstractFeature|ScopedName]) pragmas+=Pragma*)
@@ -5877,7 +5881,7 @@ public class MASLSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	
 	/**
 	 * Contexts:
-	 *     AbstractStatement returns TerminatorActionCall
+	 *     Statement returns TerminatorActionCall
 	 *
 	 * Constraint:
 	 *     (
@@ -6007,7 +6011,7 @@ public class MASLSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	
 	/**
 	 * Contexts:
-	 *     AbstractStatement returns RaiseStatement
+	 *     Statement returns RaiseStatement
 	 *
 	 * Constraint:
 	 *     (exception=[ExceptionDeclaration|ScopedName] argument=Expression? pragmas+=Pragma*)
@@ -6019,7 +6023,7 @@ public class MASLSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	
 	/**
 	 * Contexts:
-	 *     AbstractStatement returns RangeExpression
+	 *     Statement returns RangeExpression
 	 *
 	 * Constraint:
 	 *     (from=RangeExpression_RangeExpression_1_0 operator='..' to=LogicalOr pragmas+=Pragma*)
@@ -6031,7 +6035,7 @@ public class MASLSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	
 	/**
 	 * Contexts:
-	 *     AbstractStatement returns RealLiteral
+	 *     Statement returns RealLiteral
 	 *
 	 * Constraint:
 	 *     (value=REAL pragmas+=Pragma*)
@@ -6055,7 +6059,7 @@ public class MASLSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	
 	/**
 	 * Contexts:
-	 *     AbstractStatement returns RelationalExp
+	 *     Statement returns RelationalExp
 	 *
 	 * Constraint:
 	 *     (lhs=RelationalExp_RelationalExp_1_0 (operator='<' | operator='>' | operator='<=' | operator='>=') rhs=AdditiveExp pragmas+=Pragma*)
@@ -6067,7 +6071,7 @@ public class MASLSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	
 	/**
 	 * Contexts:
-	 *     AbstractStatement returns ReturnStatement
+	 *     Statement returns ReturnStatement
 	 *
 	 * Constraint:
 	 *     (value=Expression pragmas+=Pragma*)
@@ -6079,7 +6083,7 @@ public class MASLSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	
 	/**
 	 * Contexts:
-	 *     AbstractStatement returns ScheduleStatement
+	 *     Statement returns ScheduleStatement
 	 *
 	 * Constraint:
 	 *     (
@@ -6098,7 +6102,7 @@ public class MASLSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	
 	/**
 	 * Contexts:
-	 *     AbstractStatement returns SequenceTypeReference
+	 *     Statement returns SequenceTypeReference
 	 *
 	 * Constraint:
 	 *     (anonymous?='anonymous'? expression=Expression? elementType=AbstractTypeReference pragmas+=Pragma*)
@@ -6110,7 +6114,7 @@ public class MASLSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	
 	/**
 	 * Contexts:
-	 *     AbstractStatement returns SetTypeReference
+	 *     Statement returns SetTypeReference
 	 *
 	 * Constraint:
 	 *     (anonymous?='anonymous'? elementType=AbstractTypeReference pragmas+=Pragma*)
@@ -6122,7 +6126,19 @@ public class MASLSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	
 	/**
 	 * Contexts:
-	 *     AbstractStatement returns StreamExpression
+	 *     Statement returns Statement
+	 *
+	 * Constraint:
+	 *     pragmas+=Pragma*
+	 */
+	protected void sequence_PragmaList(ISerializationContext context, Statement semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     Statement returns StreamExpression
 	 *
 	 * Constraint:
 	 *     (lhs=StreamExpression_StreamExpression_1_0 operator=StreamOperator rhs=RangeExpression pragmas+=Pragma*)
@@ -6134,7 +6150,7 @@ public class MASLSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	
 	/**
 	 * Contexts:
-	 *     AbstractStatement returns StringLiteral
+	 *     Statement returns StringLiteral
 	 *
 	 * Constraint:
 	 *     (value=STRING pragmas+=Pragma*)
@@ -6182,7 +6198,7 @@ public class MASLSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	
 	/**
 	 * Contexts:
-	 *     AbstractStatement returns ThisLiteral
+	 *     Statement returns ThisLiteral
 	 *
 	 * Constraint:
 	 *     pragmas+=Pragma*
@@ -6194,7 +6210,7 @@ public class MASLSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	
 	/**
 	 * Contexts:
-	 *     AbstractStatement returns TimestampLiteral
+	 *     Statement returns TimestampLiteral
 	 *
 	 * Constraint:
 	 *     (value=TIMESTAMP pragmas+=Pragma*)
@@ -6259,7 +6275,7 @@ public class MASLSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	
 	/**
 	 * Contexts:
-	 *     AbstractStatement returns UnaryExp
+	 *     Statement returns UnaryExp
 	 *
 	 * Constraint:
 	 *     (operator=UnaryOperator operand=UnaryExp pragmas+=Pragma*)
@@ -6283,10 +6299,10 @@ public class MASLSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	
 	/**
 	 * Contexts:
-	 *     AbstractStatement returns WhileStatement
+	 *     Statement returns WhileStatement
 	 *
 	 * Constraint:
-	 *     (condition=Expression statements+=AbstractStatement* pragmas+=Pragma*)
+	 *     (condition=Expression statements+=Statement* pragmas+=Pragma*)
 	 */
 	protected void sequence_PragmaList_WhileStatement(ISerializationContext context, WhileStatement semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -7219,7 +7235,7 @@ public class MASLSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	 *     WhileStatement returns WhileStatement
 	 *
 	 * Constraint:
-	 *     (condition=Expression statements+=AbstractStatement*)
+	 *     (condition=Expression statements+=Statement*)
 	 */
 	protected void sequence_WhileStatement(ISerializationContext context, WhileStatement semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
