@@ -10,6 +10,7 @@ import org.xtuml.bp.xtext.masl.masl.behavior.AssignStatement
 import org.xtuml.bp.xtext.masl.masl.behavior.BehaviorPackage
 import org.xtuml.bp.xtext.masl.masl.behavior.CaseAlternative
 import org.xtuml.bp.xtext.masl.masl.behavior.CaseStatement
+import org.xtuml.bp.xtext.masl.masl.behavior.CharacteristicCall
 import org.xtuml.bp.xtext.masl.masl.behavior.CreateArgument
 import org.xtuml.bp.xtext.masl.masl.behavior.IndexedExpression
 import org.xtuml.bp.xtext.masl.masl.behavior.NavigateExpression
@@ -83,9 +84,12 @@ class MaslExpectedTypeProvider {
 				case DELAY: return #[DURATION] 
 			}
 		}
+		if(reference == characteristicCall_Arguments && context instanceof CharacteristicCall) 
+			return getParameterType(context as CharacteristicCall, index)	
+		
 		return #[]
 	}
-
+	
 	private def Iterable<MaslType> getRelationshipNavigationWithExpectation(NavigateExpression context) {
 		val relationship = context?.navigation?.relationship
 		val types = switch relationship {
@@ -163,4 +167,29 @@ class MaslExpectedTypeProvider {
 			container.getExpectedTypes(reference, -1)
 	}
 	
+	private def getParameterType(CharacteristicCall call, int index) {
+		val parameters = call.characteristic.parameters
+		if(parameters.size > index) {
+			val paramType = parameters.get(index).maslType
+			if(paramType instanceof TypeParameterType) {
+				val receiverType = call.receiver.maslType.stripName
+				switch receiverType {
+					TypeOfType: 
+						return #[receiverType.type]							
+					CollectionType:
+						return #[receiverType.componentType]
+					DictionaryType: {
+						val typeParams = call.characteristic.typeParams
+						if(typeParams.head().name == paramType.name)
+							return #[receiverType.keyType]
+						else 
+							return #[receiverType.valueType] 
+					}
+				}
+			}
+			return #[paramType]
+		} else {
+			return #[]
+		}
+	}
 }

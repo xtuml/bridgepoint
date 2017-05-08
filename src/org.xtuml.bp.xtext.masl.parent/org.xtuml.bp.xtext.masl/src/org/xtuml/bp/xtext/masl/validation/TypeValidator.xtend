@@ -46,6 +46,8 @@ import org.xtuml.bp.xtext.masl.typesystem.TypeOfType
 
 import static org.xtuml.bp.xtext.masl.typesystem.BuiltinType.*
 import static org.xtuml.bp.xtext.masl.validation.MaslIssueCodesProvider.*
+import org.xtuml.bp.xtext.masl.masl.behavior.CharacteristicCall
+import org.xtuml.bp.xtext.masl.typesystem.DictionaryType
 
 class TypeValidator extends AbstractMASLValidator {
 	
@@ -135,6 +137,17 @@ class TypeValidator extends AbstractMASLValidator {
 		}
 	}
 	
+	@Check
+	def characteristicCall(CharacteristicCall it) {
+		if(arguments.size !== characteristic.parameters.size) {
+			addIssue('''The characteristic «
+				characteristic.name»«characteristic.parametersAsString
+				» cannot be called with arguments («
+					arguments.map[maslType.toString].join(', ')
+				»)''', it, characteristicCall_Characteristic, WRONG_NUMBER_OF_ARGUMENTS)
+		}
+	}
+	
 	@Check 
 	def checkGenerateStatement(GenerateStatement it) {
 		val argTypes = arguments.map[maslType]
@@ -153,11 +166,12 @@ class TypeValidator extends AbstractMASLValidator {
 			val primitiveType = receiver.maslType.primitiveType
 			switch primitiveType {
 				CollectionType,
+				DictionaryType,
 				BuiltinType case STRING: {
 					// noop
 				}
 				default:
-					addIssue('Cannot use ' + receiver.eClass.name + ' as indexed element', receiver, null)
+					addIssue('Cannot use ' + receiver.eClass.name + ' as indexed element', receiver, INVALID_INDEXED_EXPRESSION)
 			}
 		}
 	}
