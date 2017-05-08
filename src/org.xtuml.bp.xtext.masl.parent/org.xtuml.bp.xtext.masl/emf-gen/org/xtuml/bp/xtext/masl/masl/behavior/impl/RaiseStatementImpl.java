@@ -31,7 +31,7 @@ import org.xtuml.bp.xtext.masl.masl.structure.ExceptionDeclaration;
  *
  * @generated
  */
-public class RaiseStatementImpl extends AbstractStatementImpl implements RaiseStatement {
+public class RaiseStatementImpl extends StatementImpl implements RaiseStatement {
 	/**
 	 * The cached value of the '{@link #getException() <em>Exception</em>}' reference.
 	 * <!-- begin-user-doc -->

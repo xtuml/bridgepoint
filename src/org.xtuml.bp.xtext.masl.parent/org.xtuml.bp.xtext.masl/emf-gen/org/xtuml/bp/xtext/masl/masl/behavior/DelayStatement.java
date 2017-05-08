@@ -20,7 +20,7 @@ package org.xtuml.bp.xtext.masl.masl.behavior;
  * @model
  * @generated
  */
-public interface DelayStatement extends AbstractStatement {
+public interface DelayStatement extends Statement {
 	/**
 	 * Returns the value of the '<em><b>Value</b></em>' containment reference.
 	 * <!-- begin-user-doc -->

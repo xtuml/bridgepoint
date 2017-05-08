@@ -3862,8 +3862,8 @@ public class MASLGrammarAccess extends AbstractGrammarElementFinder {
 		//PragmaList
 		public RuleCall getPragmaListParserRuleCall_12() { return cPragmaListParserRuleCall_12; }
 	}
-	public class AbstractStatementElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.xtuml.bp.xtext.masl.MASL.AbstractStatement");
+	public class StatementElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.xtuml.bp.xtext.masl.MASL.Statement");
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Alternatives cAlternatives_0 = (Alternatives)cGroup.eContents().get(0);
 		private final RuleCall cCodeBlockStatementParserRuleCall_0_0 = (RuleCall)cAlternatives_0.eContents().get(0);
@@ -3887,7 +3887,7 @@ public class MASLGrammarAccess extends AbstractGrammarElementFinder {
 		////---------------------------------------------------------
 		//// Statements
 		////---------------------------------------------------------
-		//AbstractStatement:
+		//Statement:
 		//	(CodeBlockStatement
 		//	| AssignStatement
 		//	| ExitStatement
@@ -3902,18 +3902,18 @@ public class MASLGrammarAccess extends AbstractGrammarElementFinder {
 		//	| IfStatement
 		//	| CaseStatement
 		//	| ForStatement
-		//	| WhileStatement)
+		//	| WhileStatement)?
 		//	';' PragmaList;
 		@Override public ParserRule getRule() { return rule; }
 		
 		//(CodeBlockStatement | AssignStatement | ExitStatement | ReturnStatement | DelayStatement | RaiseStatement |
 		//DeleteStatement | EraseStatement | ScheduleStatement | CancelTimerStatement | GenerateStatement | IfStatement |
-		//CaseStatement | ForStatement | WhileStatement) ';' PragmaList
+		//CaseStatement | ForStatement | WhileStatement)? ';' PragmaList
 		public Group getGroup() { return cGroup; }
 		
 		//(CodeBlockStatement | AssignStatement | ExitStatement | ReturnStatement | DelayStatement | RaiseStatement |
 		//DeleteStatement | EraseStatement | ScheduleStatement | CancelTimerStatement | GenerateStatement | IfStatement |
-		//CaseStatement | ForStatement | WhileStatement)
+		//CaseStatement | ForStatement | WhileStatement)?
 		public Alternatives getAlternatives_0() { return cAlternatives_0; }
 		
 		//CodeBlockStatement
@@ -4374,7 +4374,7 @@ public class MASLGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cConditionExpressionParserRuleCall_1_0 = (RuleCall)cConditionAssignment_1.eContents().get(0);
 		private final Keyword cThenKeyword_2 = (Keyword)cGroup.eContents().get(2);
 		private final Assignment cStatementsAssignment_3 = (Assignment)cGroup.eContents().get(3);
-		private final RuleCall cStatementsAbstractStatementParserRuleCall_3_0 = (RuleCall)cStatementsAssignment_3.eContents().get(0);
+		private final RuleCall cStatementsStatementParserRuleCall_3_0 = (RuleCall)cStatementsAssignment_3.eContents().get(0);
 		private final Assignment cElseIfsAssignment_4 = (Assignment)cGroup.eContents().get(4);
 		private final RuleCall cElseIfsElsifBlockParserRuleCall_4_0 = (RuleCall)cElseIfsAssignment_4.eContents().get(0);
 		private final Assignment cElseAssignment_5 = (Assignment)cGroup.eContents().get(5);
@@ -4384,13 +4384,13 @@ public class MASLGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//IfStatement:
 		//	'if' condition=Expression 'then'
-		//	statements+=AbstractStatement*
+		//	statements+=Statement*
 		//	elseIfs+=ElsifBlock*
 		//	else=ElseBlock?
 		//	'end' 'if'?;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//'if' condition=Expression 'then' statements+=AbstractStatement* elseIfs+=ElsifBlock* else=ElseBlock? 'end' 'if'?
+		//'if' condition=Expression 'then' statements+=Statement* elseIfs+=ElsifBlock* else=ElseBlock? 'end' 'if'?
 		public Group getGroup() { return cGroup; }
 		
 		//'if'
@@ -4405,11 +4405,11 @@ public class MASLGrammarAccess extends AbstractGrammarElementFinder {
 		//'then'
 		public Keyword getThenKeyword_2() { return cThenKeyword_2; }
 		
-		//statements+=AbstractStatement*
+		//statements+=Statement*
 		public Assignment getStatementsAssignment_3() { return cStatementsAssignment_3; }
 		
-		//AbstractStatement
-		public RuleCall getStatementsAbstractStatementParserRuleCall_3_0() { return cStatementsAbstractStatementParserRuleCall_3_0; }
+		//Statement
+		public RuleCall getStatementsStatementParserRuleCall_3_0() { return cStatementsStatementParserRuleCall_3_0; }
 		
 		//elseIfs+=ElsifBlock*
 		public Assignment getElseIfsAssignment_4() { return cElseIfsAssignment_4; }
@@ -4437,14 +4437,14 @@ public class MASLGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cConditionExpressionParserRuleCall_1_0 = (RuleCall)cConditionAssignment_1.eContents().get(0);
 		private final Keyword cThenKeyword_2 = (Keyword)cGroup.eContents().get(2);
 		private final Assignment cStatementsAssignment_3 = (Assignment)cGroup.eContents().get(3);
-		private final RuleCall cStatementsAbstractStatementParserRuleCall_3_0 = (RuleCall)cStatementsAssignment_3.eContents().get(0);
+		private final RuleCall cStatementsStatementParserRuleCall_3_0 = (RuleCall)cStatementsAssignment_3.eContents().get(0);
 		
 		//ElsifBlock:
 		//	'elsif' condition=Expression 'then'
-		//	statements+=AbstractStatement*;
+		//	statements+=Statement*;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//'elsif' condition=Expression 'then' statements+=AbstractStatement*
+		//'elsif' condition=Expression 'then' statements+=Statement*
 		public Group getGroup() { return cGroup; }
 		
 		//'elsif'
@@ -4459,11 +4459,11 @@ public class MASLGrammarAccess extends AbstractGrammarElementFinder {
 		//'then'
 		public Keyword getThenKeyword_2() { return cThenKeyword_2; }
 		
-		//statements+=AbstractStatement*
+		//statements+=Statement*
 		public Assignment getStatementsAssignment_3() { return cStatementsAssignment_3; }
 		
-		//AbstractStatement
-		public RuleCall getStatementsAbstractStatementParserRuleCall_3_0() { return cStatementsAbstractStatementParserRuleCall_3_0; }
+		//Statement
+		public RuleCall getStatementsStatementParserRuleCall_3_0() { return cStatementsStatementParserRuleCall_3_0; }
 	}
 	public class ElseBlockElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.xtuml.bp.xtext.masl.MASL.ElseBlock");
@@ -4471,13 +4471,13 @@ public class MASLGrammarAccess extends AbstractGrammarElementFinder {
 		private final Action cElseBlockAction_0 = (Action)cGroup.eContents().get(0);
 		private final Keyword cElseKeyword_1 = (Keyword)cGroup.eContents().get(1);
 		private final Assignment cStatementsAssignment_2 = (Assignment)cGroup.eContents().get(2);
-		private final RuleCall cStatementsAbstractStatementParserRuleCall_2_0 = (RuleCall)cStatementsAssignment_2.eContents().get(0);
+		private final RuleCall cStatementsStatementParserRuleCall_2_0 = (RuleCall)cStatementsAssignment_2.eContents().get(0);
 		
 		//ElseBlock:
-		//	{ElseBlock} 'else' statements+=AbstractStatement*;
+		//	{ElseBlock} 'else' statements+=Statement*;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//{ElseBlock} 'else' statements+=AbstractStatement*
+		//{ElseBlock} 'else' statements+=Statement*
 		public Group getGroup() { return cGroup; }
 		
 		//{ElseBlock}
@@ -4486,11 +4486,11 @@ public class MASLGrammarAccess extends AbstractGrammarElementFinder {
 		//'else'
 		public Keyword getElseKeyword_1() { return cElseKeyword_1; }
 		
-		//statements+=AbstractStatement*
+		//statements+=Statement*
 		public Assignment getStatementsAssignment_2() { return cStatementsAssignment_2; }
 		
-		//AbstractStatement
-		public RuleCall getStatementsAbstractStatementParserRuleCall_2_0() { return cStatementsAbstractStatementParserRuleCall_2_0; }
+		//Statement
+		public RuleCall getStatementsStatementParserRuleCall_2_0() { return cStatementsStatementParserRuleCall_2_0; }
 	}
 	public class WhileStatementElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.xtuml.bp.xtext.masl.MASL.WhileStatement");
@@ -4500,18 +4500,18 @@ public class MASLGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cConditionExpressionParserRuleCall_1_0 = (RuleCall)cConditionAssignment_1.eContents().get(0);
 		private final Keyword cLoopKeyword_2 = (Keyword)cGroup.eContents().get(2);
 		private final Assignment cStatementsAssignment_3 = (Assignment)cGroup.eContents().get(3);
-		private final RuleCall cStatementsAbstractStatementParserRuleCall_3_0 = (RuleCall)cStatementsAssignment_3.eContents().get(0);
+		private final RuleCall cStatementsStatementParserRuleCall_3_0 = (RuleCall)cStatementsAssignment_3.eContents().get(0);
 		private final Keyword cEndKeyword_4 = (Keyword)cGroup.eContents().get(4);
 		private final Keyword cLoopKeyword_5 = (Keyword)cGroup.eContents().get(5);
 		
 		//WhileStatement:
 		//	'while' condition=Expression
 		//	'loop'
-		//	statements+=AbstractStatement*
+		//	statements+=Statement*
 		//	'end' 'loop'?;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//'while' condition=Expression 'loop' statements+=AbstractStatement* 'end' 'loop'?
+		//'while' condition=Expression 'loop' statements+=Statement* 'end' 'loop'?
 		public Group getGroup() { return cGroup; }
 		
 		//'while'
@@ -4526,11 +4526,11 @@ public class MASLGrammarAccess extends AbstractGrammarElementFinder {
 		//'loop'
 		public Keyword getLoopKeyword_2() { return cLoopKeyword_2; }
 		
-		//statements+=AbstractStatement*
+		//statements+=Statement*
 		public Assignment getStatementsAssignment_3() { return cStatementsAssignment_3; }
 		
-		//AbstractStatement
-		public RuleCall getStatementsAbstractStatementParserRuleCall_3_0() { return cStatementsAbstractStatementParserRuleCall_3_0; }
+		//Statement
+		public RuleCall getStatementsStatementParserRuleCall_3_0() { return cStatementsStatementParserRuleCall_3_0; }
 		
 		//'end'
 		public Keyword getEndKeyword_4() { return cEndKeyword_4; }
@@ -4604,13 +4604,13 @@ public class MASLGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cChoicesExpressionParserRuleCall_2_1_0 = (RuleCall)cChoicesAssignment_2_1.eContents().get(0);
 		private final Keyword cEqualsSignGreaterThanSignKeyword_3 = (Keyword)cGroup.eContents().get(3);
 		private final Assignment cStatementsAssignment_4 = (Assignment)cGroup.eContents().get(4);
-		private final RuleCall cStatementsAbstractStatementParserRuleCall_4_0 = (RuleCall)cStatementsAssignment_4.eContents().get(0);
+		private final RuleCall cStatementsStatementParserRuleCall_4_0 = (RuleCall)cStatementsAssignment_4.eContents().get(0);
 		
 		//CaseAlternative:
-		//	'when' choices+=Expression ('|' choices+=Expression)* '=>' statements+=AbstractStatement*;
+		//	'when' choices+=Expression ('|' choices+=Expression)* '=>' statements+=Statement*;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//'when' choices+=Expression ('|' choices+=Expression)* '=>' statements+=AbstractStatement*
+		//'when' choices+=Expression ('|' choices+=Expression)* '=>' statements+=Statement*
 		public Group getGroup() { return cGroup; }
 		
 		//'when'
@@ -4637,11 +4637,11 @@ public class MASLGrammarAccess extends AbstractGrammarElementFinder {
 		//'=>'
 		public Keyword getEqualsSignGreaterThanSignKeyword_3() { return cEqualsSignGreaterThanSignKeyword_3; }
 		
-		//statements+=AbstractStatement*
+		//statements+=Statement*
 		public Assignment getStatementsAssignment_4() { return cStatementsAssignment_4; }
 		
-		//AbstractStatement
-		public RuleCall getStatementsAbstractStatementParserRuleCall_4_0() { return cStatementsAbstractStatementParserRuleCall_4_0; }
+		//Statement
+		public RuleCall getStatementsStatementParserRuleCall_4_0() { return cStatementsStatementParserRuleCall_4_0; }
 	}
 	public class CaseOthersElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.xtuml.bp.xtext.masl.MASL.CaseOthers");
@@ -4651,13 +4651,13 @@ public class MASLGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cOthersKeyword_2 = (Keyword)cGroup.eContents().get(2);
 		private final Keyword cEqualsSignGreaterThanSignKeyword_3 = (Keyword)cGroup.eContents().get(3);
 		private final Assignment cStatementsAssignment_4 = (Assignment)cGroup.eContents().get(4);
-		private final RuleCall cStatementsAbstractStatementParserRuleCall_4_0 = (RuleCall)cStatementsAssignment_4.eContents().get(0);
+		private final RuleCall cStatementsStatementParserRuleCall_4_0 = (RuleCall)cStatementsAssignment_4.eContents().get(0);
 		
 		//CaseOthers:
-		//	{CaseOthers} 'when' 'others' '=>' statements+=AbstractStatement*;
+		//	{CaseOthers} 'when' 'others' '=>' statements+=Statement*;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//{CaseOthers} 'when' 'others' '=>' statements+=AbstractStatement*
+		//{CaseOthers} 'when' 'others' '=>' statements+=Statement*
 		public Group getGroup() { return cGroup; }
 		
 		//{CaseOthers}
@@ -4672,11 +4672,11 @@ public class MASLGrammarAccess extends AbstractGrammarElementFinder {
 		//'=>'
 		public Keyword getEqualsSignGreaterThanSignKeyword_3() { return cEqualsSignGreaterThanSignKeyword_3; }
 		
-		//statements+=AbstractStatement*
+		//statements+=Statement*
 		public Assignment getStatementsAssignment_4() { return cStatementsAssignment_4; }
 		
-		//AbstractStatement
-		public RuleCall getStatementsAbstractStatementParserRuleCall_4_0() { return cStatementsAbstractStatementParserRuleCall_4_0; }
+		//Statement
+		public RuleCall getStatementsStatementParserRuleCall_4_0() { return cStatementsStatementParserRuleCall_4_0; }
 	}
 	public class ForStatementElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.xtuml.bp.xtext.masl.MASL.ForStatement");
@@ -4691,19 +4691,18 @@ public class MASLGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cExpressionExpressionParserRuleCall_4_0 = (RuleCall)cExpressionAssignment_4.eContents().get(0);
 		private final Keyword cLoopKeyword_5 = (Keyword)cGroup.eContents().get(5);
 		private final Assignment cStatementsAssignment_6 = (Assignment)cGroup.eContents().get(6);
-		private final RuleCall cStatementsAbstractStatementParserRuleCall_6_0 = (RuleCall)cStatementsAssignment_6.eContents().get(0);
+		private final RuleCall cStatementsStatementParserRuleCall_6_0 = (RuleCall)cStatementsAssignment_6.eContents().get(0);
 		private final Keyword cEndKeyword_7 = (Keyword)cGroup.eContents().get(7);
 		private final Keyword cLoopKeyword_8 = (Keyword)cGroup.eContents().get(8);
 		
 		//ForStatement:
 		//	'for' variable=LoopVariable 'in' reverse?='reverse'? expression=Expression
 		//	'loop'
-		//	statements+=AbstractStatement*
+		//	statements+=Statement*
 		//	'end' 'loop'?;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//'for' variable=LoopVariable 'in' reverse?='reverse'? expression=Expression 'loop' statements+=AbstractStatement* 'end'
-		//'loop'?
+		//'for' variable=LoopVariable 'in' reverse?='reverse'? expression=Expression 'loop' statements+=Statement* 'end' 'loop'?
 		public Group getGroup() { return cGroup; }
 		
 		//'for'
@@ -4733,11 +4732,11 @@ public class MASLGrammarAccess extends AbstractGrammarElementFinder {
 		//'loop'
 		public Keyword getLoopKeyword_5() { return cLoopKeyword_5; }
 		
-		//statements+=AbstractStatement*
+		//statements+=Statement*
 		public Assignment getStatementsAssignment_6() { return cStatementsAssignment_6; }
 		
-		//AbstractStatement
-		public RuleCall getStatementsAbstractStatementParserRuleCall_6_0() { return cStatementsAbstractStatementParserRuleCall_6_0; }
+		//Statement
+		public RuleCall getStatementsStatementParserRuleCall_6_0() { return cStatementsStatementParserRuleCall_6_0; }
 		
 		//'end'
 		public Keyword getEndKeyword_7() { return cEndKeyword_7; }
@@ -4790,7 +4789,7 @@ public class MASLGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cVariablesVariableDeclarationParserRuleCall_1_0 = (RuleCall)cVariablesAssignment_1.eContents().get(0);
 		private final Keyword cBeginKeyword_2 = (Keyword)cGroup.eContents().get(2);
 		private final Assignment cStatementsAssignment_3 = (Assignment)cGroup.eContents().get(3);
-		private final RuleCall cStatementsAbstractStatementParserRuleCall_3_0 = (RuleCall)cStatementsAssignment_3.eContents().get(0);
+		private final RuleCall cStatementsStatementParserRuleCall_3_0 = (RuleCall)cStatementsAssignment_3.eContents().get(0);
 		private final Group cGroup_4 = (Group)cGroup.eContents().get(4);
 		private final Keyword cExceptionKeyword_4_0 = (Keyword)cGroup_4.eContents().get(0);
 		private final Assignment cExceptionHandlerAssignment_4_1 = (Assignment)cGroup_4.eContents().get(1);
@@ -4802,13 +4801,13 @@ public class MASLGrammarAccess extends AbstractGrammarElementFinder {
 		//CodeBlock:
 		//	{CodeBlock} variables+=VariableDeclaration*
 		//	'begin'
-		//	statements+=AbstractStatement* ('exception'
+		//	statements+=Statement* ('exception'
 		//	exceptionHandler+=ExceptionHandler*
 		//	defaultHandler=DefaultExceptionHandler?)?
 		//	'end';
 		@Override public ParserRule getRule() { return rule; }
 		
-		//{CodeBlock} variables+=VariableDeclaration* 'begin' statements+=AbstractStatement* ('exception'
+		//{CodeBlock} variables+=VariableDeclaration* 'begin' statements+=Statement* ('exception'
 		//exceptionHandler+=ExceptionHandler* defaultHandler=DefaultExceptionHandler?)? 'end'
 		public Group getGroup() { return cGroup; }
 		
@@ -4824,11 +4823,11 @@ public class MASLGrammarAccess extends AbstractGrammarElementFinder {
 		//'begin'
 		public Keyword getBeginKeyword_2() { return cBeginKeyword_2; }
 		
-		//statements+=AbstractStatement*
+		//statements+=Statement*
 		public Assignment getStatementsAssignment_3() { return cStatementsAssignment_3; }
 		
-		//AbstractStatement
-		public RuleCall getStatementsAbstractStatementParserRuleCall_3_0() { return cStatementsAbstractStatementParserRuleCall_3_0; }
+		//Statement
+		public RuleCall getStatementsStatementParserRuleCall_3_0() { return cStatementsStatementParserRuleCall_3_0; }
 		
 		//('exception' exceptionHandler+=ExceptionHandler* defaultHandler=DefaultExceptionHandler?)?
 		public Group getGroup_4() { return cGroup_4; }
@@ -4925,13 +4924,13 @@ public class MASLGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cExceptionExceptionDeclarationScopedNameParserRuleCall_1_0_1 = (RuleCall)cExceptionExceptionDeclarationCrossReference_1_0.eContents().get(1);
 		private final Keyword cEqualsSignGreaterThanSignKeyword_2 = (Keyword)cGroup.eContents().get(2);
 		private final Assignment cStatementsAssignment_3 = (Assignment)cGroup.eContents().get(3);
-		private final RuleCall cStatementsAbstractStatementParserRuleCall_3_0 = (RuleCall)cStatementsAssignment_3.eContents().get(0);
+		private final RuleCall cStatementsStatementParserRuleCall_3_0 = (RuleCall)cStatementsAssignment_3.eContents().get(0);
 		
 		//ExceptionHandler:
-		//	'when' exception=[ExceptionDeclaration|ScopedName] '=>' statements+=AbstractStatement*;
+		//	'when' exception=[ExceptionDeclaration|ScopedName] '=>' statements+=Statement*;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//'when' exception=[ExceptionDeclaration|ScopedName] '=>' statements+=AbstractStatement*
+		//'when' exception=[ExceptionDeclaration|ScopedName] '=>' statements+=Statement*
 		public Group getGroup() { return cGroup; }
 		
 		//'when'
@@ -4949,11 +4948,11 @@ public class MASLGrammarAccess extends AbstractGrammarElementFinder {
 		//'=>'
 		public Keyword getEqualsSignGreaterThanSignKeyword_2() { return cEqualsSignGreaterThanSignKeyword_2; }
 		
-		//statements+=AbstractStatement*
+		//statements+=Statement*
 		public Assignment getStatementsAssignment_3() { return cStatementsAssignment_3; }
 		
-		//AbstractStatement
-		public RuleCall getStatementsAbstractStatementParserRuleCall_3_0() { return cStatementsAbstractStatementParserRuleCall_3_0; }
+		//Statement
+		public RuleCall getStatementsStatementParserRuleCall_3_0() { return cStatementsStatementParserRuleCall_3_0; }
 	}
 	public class DefaultExceptionHandlerElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.xtuml.bp.xtext.masl.MASL.DefaultExceptionHandler");
@@ -4963,13 +4962,13 @@ public class MASLGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cOthersKeyword_2 = (Keyword)cGroup.eContents().get(2);
 		private final Keyword cEqualsSignGreaterThanSignKeyword_3 = (Keyword)cGroup.eContents().get(3);
 		private final Assignment cStatementsAssignment_4 = (Assignment)cGroup.eContents().get(4);
-		private final RuleCall cStatementsAbstractStatementParserRuleCall_4_0 = (RuleCall)cStatementsAssignment_4.eContents().get(0);
+		private final RuleCall cStatementsStatementParserRuleCall_4_0 = (RuleCall)cStatementsAssignment_4.eContents().get(0);
 		
 		//DefaultExceptionHandler:
-		//	{DefaultExceptionHandler} 'when' 'others' '=>' statements+=AbstractStatement*;
+		//	{DefaultExceptionHandler} 'when' 'others' '=>' statements+=Statement*;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//{DefaultExceptionHandler} 'when' 'others' '=>' statements+=AbstractStatement*
+		//{DefaultExceptionHandler} 'when' 'others' '=>' statements+=Statement*
 		public Group getGroup() { return cGroup; }
 		
 		//{DefaultExceptionHandler}
@@ -4984,11 +4983,11 @@ public class MASLGrammarAccess extends AbstractGrammarElementFinder {
 		//'=>'
 		public Keyword getEqualsSignGreaterThanSignKeyword_3() { return cEqualsSignGreaterThanSignKeyword_3; }
 		
-		//statements+=AbstractStatement*
+		//statements+=Statement*
 		public Assignment getStatementsAssignment_4() { return cStatementsAssignment_4; }
 		
-		//AbstractStatement
-		public RuleCall getStatementsAbstractStatementParserRuleCall_4_0() { return cStatementsAbstractStatementParserRuleCall_4_0; }
+		//Statement
+		public RuleCall getStatementsStatementParserRuleCall_4_0() { return cStatementsStatementParserRuleCall_4_0; }
 	}
 	public class FindConditionElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.xtuml.bp.xtext.masl.MASL.FindCondition");
@@ -7645,7 +7644,7 @@ public class MASLGrammarAccess extends AbstractGrammarElementFinder {
 	private final ObjectServiceDefinitionElements pObjectServiceDefinition;
 	private final TerminatorServiceDefinitionElements pTerminatorServiceDefinition;
 	private final StateDefinitionElements pStateDefinition;
-	private final AbstractStatementElements pAbstractStatement;
+	private final StatementElements pStatement;
 	private final AssignStatementElements pAssignStatement;
 	private final ExitStatementElements pExitStatement;
 	private final ReturnStatementElements pReturnStatement;
@@ -7819,7 +7818,7 @@ public class MASLGrammarAccess extends AbstractGrammarElementFinder {
 		this.pObjectServiceDefinition = new ObjectServiceDefinitionElements();
 		this.pTerminatorServiceDefinition = new TerminatorServiceDefinitionElements();
 		this.pStateDefinition = new StateDefinitionElements();
-		this.pAbstractStatement = new AbstractStatementElements();
+		this.pStatement = new StatementElements();
 		this.pAssignStatement = new AssignStatementElements();
 		this.pExitStatement = new ExitStatementElements();
 		this.pReturnStatement = new ReturnStatementElements();
@@ -8848,7 +8847,7 @@ public class MASLGrammarAccess extends AbstractGrammarElementFinder {
 	////---------------------------------------------------------
 	//// Statements
 	////---------------------------------------------------------
-	//AbstractStatement:
+	//Statement:
 	//	(CodeBlockStatement
 	//	| AssignStatement
 	//	| ExitStatement
@@ -8863,14 +8862,14 @@ public class MASLGrammarAccess extends AbstractGrammarElementFinder {
 	//	| IfStatement
 	//	| CaseStatement
 	//	| ForStatement
-	//	| WhileStatement)
+	//	| WhileStatement)?
 	//	';' PragmaList;
-	public AbstractStatementElements getAbstractStatementAccess() {
-		return pAbstractStatement;
+	public StatementElements getStatementAccess() {
+		return pStatement;
 	}
 	
-	public ParserRule getAbstractStatementRule() {
-		return getAbstractStatementAccess().getRule();
+	public ParserRule getStatementRule() {
+		return getStatementAccess().getRule();
 	}
 	
 	//AssignStatement Expression:
@@ -9000,7 +8999,7 @@ public class MASLGrammarAccess extends AbstractGrammarElementFinder {
 	
 	//IfStatement:
 	//	'if' condition=Expression 'then'
-	//	statements+=AbstractStatement*
+	//	statements+=Statement*
 	//	elseIfs+=ElsifBlock*
 	//	else=ElseBlock?
 	//	'end' 'if'?;
@@ -9014,7 +9013,7 @@ public class MASLGrammarAccess extends AbstractGrammarElementFinder {
 	
 	//ElsifBlock:
 	//	'elsif' condition=Expression 'then'
-	//	statements+=AbstractStatement*;
+	//	statements+=Statement*;
 	public ElsifBlockElements getElsifBlockAccess() {
 		return pElsifBlock;
 	}
@@ -9024,7 +9023,7 @@ public class MASLGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//ElseBlock:
-	//	{ElseBlock} 'else' statements+=AbstractStatement*;
+	//	{ElseBlock} 'else' statements+=Statement*;
 	public ElseBlockElements getElseBlockAccess() {
 		return pElseBlock;
 	}
@@ -9036,7 +9035,7 @@ public class MASLGrammarAccess extends AbstractGrammarElementFinder {
 	//WhileStatement:
 	//	'while' condition=Expression
 	//	'loop'
-	//	statements+=AbstractStatement*
+	//	statements+=Statement*
 	//	'end' 'loop'?;
 	public WhileStatementElements getWhileStatementAccess() {
 		return pWhileStatement;
@@ -9060,7 +9059,7 @@ public class MASLGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//CaseAlternative:
-	//	'when' choices+=Expression ('|' choices+=Expression)* '=>' statements+=AbstractStatement*;
+	//	'when' choices+=Expression ('|' choices+=Expression)* '=>' statements+=Statement*;
 	public CaseAlternativeElements getCaseAlternativeAccess() {
 		return pCaseAlternative;
 	}
@@ -9070,7 +9069,7 @@ public class MASLGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//CaseOthers:
-	//	{CaseOthers} 'when' 'others' '=>' statements+=AbstractStatement*;
+	//	{CaseOthers} 'when' 'others' '=>' statements+=Statement*;
 	public CaseOthersElements getCaseOthersAccess() {
 		return pCaseOthers;
 	}
@@ -9082,7 +9081,7 @@ public class MASLGrammarAccess extends AbstractGrammarElementFinder {
 	//ForStatement:
 	//	'for' variable=LoopVariable 'in' reverse?='reverse'? expression=Expression
 	//	'loop'
-	//	statements+=AbstractStatement*
+	//	statements+=Statement*
 	//	'end' 'loop'?;
 	public ForStatementElements getForStatementAccess() {
 		return pForStatement;
@@ -9118,7 +9117,7 @@ public class MASLGrammarAccess extends AbstractGrammarElementFinder {
 	//CodeBlock:
 	//	{CodeBlock} variables+=VariableDeclaration*
 	//	'begin'
-	//	statements+=AbstractStatement* ('exception'
+	//	statements+=Statement* ('exception'
 	//	exceptionHandler+=ExceptionHandler*
 	//	defaultHandler=DefaultExceptionHandler?)?
 	//	'end';
@@ -9143,7 +9142,7 @@ public class MASLGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//ExceptionHandler:
-	//	'when' exception=[ExceptionDeclaration|ScopedName] '=>' statements+=AbstractStatement*;
+	//	'when' exception=[ExceptionDeclaration|ScopedName] '=>' statements+=Statement*;
 	public ExceptionHandlerElements getExceptionHandlerAccess() {
 		return pExceptionHandler;
 	}
@@ -9153,7 +9152,7 @@ public class MASLGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//DefaultExceptionHandler:
-	//	{DefaultExceptionHandler} 'when' 'others' '=>' statements+=AbstractStatement*;
+	//	{DefaultExceptionHandler} 'when' 'others' '=>' statements+=Statement*;
 	public DefaultExceptionHandlerElements getDefaultExceptionHandlerAccess() {
 		return pDefaultExceptionHandler;
 	}

@@ -395,6 +395,10 @@ class DictionaryType extends AbstractMaslType {
 		this.valueType = elementType
 	}
 	
+	override getComponentType() {
+		valueType
+	}
+	
 	override getPrimitiveType() {
 		new DictionaryType(keyType.primitiveType, valueType.primitiveType, true)
 	}

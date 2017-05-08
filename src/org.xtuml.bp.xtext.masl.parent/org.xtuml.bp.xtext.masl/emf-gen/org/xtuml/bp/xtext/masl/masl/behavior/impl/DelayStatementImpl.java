@@ -28,7 +28,7 @@ import org.xtuml.bp.xtext.masl.masl.behavior.Expression;
  *
  * @generated
  */
-public class DelayStatementImpl extends AbstractStatementImpl implements DelayStatement {
+public class DelayStatementImpl extends StatementImpl implements DelayStatement {
 	/**
 	 * The cached value of the '{@link #getValue() <em>Value</em>}' containment reference.
 	 * <!-- begin-user-doc -->

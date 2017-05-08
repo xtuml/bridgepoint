@@ -20,7 +20,7 @@ package org.xtuml.bp.xtext.masl.masl.behavior;
  * @model
  * @generated
  */
-public interface WhileStatement extends AbstractStatement, StatementList {
+public interface WhileStatement extends Statement, StatementList {
 	/**
 	 * Returns the value of the '<em><b>Condition</b></em>' containment reference.
 	 * <!-- begin-user-doc -->

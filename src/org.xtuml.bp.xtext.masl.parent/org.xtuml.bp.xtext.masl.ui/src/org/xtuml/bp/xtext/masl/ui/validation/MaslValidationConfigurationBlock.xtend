@@ -55,6 +55,7 @@ class MaslValidationConfigurationBlock extends AbstractValidatorConfigurationBlo
 		addComboBox(INVISIBLE_FEATURE, 'Visibility problems', composite, defaultIndent)
 		addComboBox(INVALID_ACTION_CALL, 'Invalid action calls', composite, defaultIndent)
 		addComboBox(INVALID_LINK_EXPRESSION, 'Invalid relationship in link expression', composite, defaultIndent)
+		addComboBox(INVALID_INDEXED_EXPRESSION, 'Invalid indexed expression', composite, defaultIndent)
 	}
 
 	protected def Combo addComboBox(String prefKey, String label, Composite parent, int indent) {

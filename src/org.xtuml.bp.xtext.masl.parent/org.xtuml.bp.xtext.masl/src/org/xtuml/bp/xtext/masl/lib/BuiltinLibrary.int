@@ -96,6 +96,7 @@ builtin is
 	<K,V> (dictionary K of V)'contains(key: in K) return boolean;
 	<K,V> (dictionary K of V)'keys() return set of K;
 	<K,V> (dictionary K of V)'values() return bag of V;
+	<K,V> (dictionary K of V)'length() return integer;
 	
 	timestamp'now() return timestamp;
 	(timestamp)'date() return timestamp;

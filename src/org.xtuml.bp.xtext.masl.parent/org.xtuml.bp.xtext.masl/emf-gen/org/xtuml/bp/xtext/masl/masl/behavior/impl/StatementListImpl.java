@@ -17,8 +17,8 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
-import org.xtuml.bp.xtext.masl.masl.behavior.AbstractStatement;
 import org.xtuml.bp.xtext.masl.masl.behavior.BehaviorPackage;
+import org.xtuml.bp.xtext.masl.masl.behavior.Statement;
 import org.xtuml.bp.xtext.masl.masl.behavior.StatementList;
 
 /**
@@ -43,7 +43,7 @@ public class StatementListImpl extends MinimalEObjectImpl.Container implements S
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<AbstractStatement> statements;
+	protected EList<Statement> statements;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -69,9 +69,9 @@ public class StatementListImpl extends MinimalEObjectImpl.Container implements S
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<AbstractStatement> getStatements() {
+	public EList<Statement> getStatements() {
 		if (statements == null) {
-			statements = new EObjectContainmentEList<AbstractStatement>(AbstractStatement.class, this, BehaviorPackage.STATEMENT_LIST__STATEMENTS);
+			statements = new EObjectContainmentEList<Statement>(Statement.class, this, BehaviorPackage.STATEMENT_LIST__STATEMENTS);
 		}
 		return statements;
 	}
@@ -115,7 +115,7 @@ public class StatementListImpl extends MinimalEObjectImpl.Container implements S
 		switch (featureID) {
 			case BehaviorPackage.STATEMENT_LIST__STATEMENTS:
 				getStatements().clear();
-				getStatements().addAll((Collection<? extends AbstractStatement>)newValue);
+				getStatements().addAll((Collection<? extends Statement>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);

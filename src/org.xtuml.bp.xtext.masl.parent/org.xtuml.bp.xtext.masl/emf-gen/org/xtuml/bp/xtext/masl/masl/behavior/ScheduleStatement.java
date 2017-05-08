@@ -24,7 +24,7 @@ package org.xtuml.bp.xtext.masl.masl.behavior;
  * @model
  * @generated
  */
-public interface ScheduleStatement extends AbstractStatement {
+public interface ScheduleStatement extends Statement {
 	/**
 	 * Returns the value of the '<em><b>Timer Id</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
