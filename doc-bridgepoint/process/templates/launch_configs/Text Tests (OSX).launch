@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<launchConfiguration type="org.eclipse.cdt.launch.launchGroup">
+<stringAttribute key="org.eclipse.cdt.launch.launchGroup.0.action" value="NONE"/>
+<stringAttribute key="org.eclipse.cdt.launch.launchGroup.0.enabled" value="true"/>
+<stringAttribute key="org.eclipse.cdt.launch.launchGroup.0.mode" value="default"/>
+<stringAttribute key="org.eclipse.cdt.launch.launchGroup.0.name" value="UI Text Test (OSX)"/>
+</launchConfiguration>

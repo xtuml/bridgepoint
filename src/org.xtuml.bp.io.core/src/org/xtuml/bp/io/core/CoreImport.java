@@ -78,6 +78,7 @@ public abstract class CoreImport implements IModelImport {
     protected boolean m_templateFile;
 
     protected NonRootModelElement rootModelElement = null;
+    public static boolean createUniqueIds = true;
 
     /**
      * The version string found in BP SQL model files.

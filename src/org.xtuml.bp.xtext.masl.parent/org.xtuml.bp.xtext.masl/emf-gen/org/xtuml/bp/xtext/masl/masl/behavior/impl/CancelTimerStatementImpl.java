@@ -28,7 +28,7 @@ import org.xtuml.bp.xtext.masl.masl.behavior.Expression;
  *
  * @generated
  */
-public class CancelTimerStatementImpl extends AbstractStatementImpl implements CancelTimerStatement {
+public class CancelTimerStatementImpl extends StatementImpl implements CancelTimerStatement {
 	/**
 	 * The cached value of the '{@link #getTimerId() <em>Timer Id</em>}' containment reference.
 	 * <!-- begin-user-doc -->

@@ -26,7 +26,7 @@ import org.eclipse.emf.ecore.EObject;
 public interface StatementList extends EObject {
 	/**
 	 * Returns the value of the '<em><b>Statements</b></em>' containment reference list.
-	 * The list contents are of type {@link org.xtuml.bp.xtext.masl.masl.behavior.AbstractStatement}.
+	 * The list contents are of type {@link org.xtuml.bp.xtext.masl.masl.behavior.Statement}.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Statements</em>' containment reference list isn't clear,
@@ -38,6 +38,6 @@ public interface StatementList extends EObject {
 	 * @model containment="true"
 	 * @generated
 	 */
-	EList<AbstractStatement> getStatements();
+	EList<Statement> getStatements();
 
 } // StatementList

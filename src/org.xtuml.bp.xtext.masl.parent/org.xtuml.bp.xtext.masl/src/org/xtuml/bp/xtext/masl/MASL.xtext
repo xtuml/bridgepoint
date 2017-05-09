@@ -434,7 +434,7 @@ StateDefinition:
 //---------------------------------------------------------
 // Statements
 //---------------------------------------------------------
-AbstractStatement:
+Statement:
 	(CodeBlockStatement
 	| AssignStatement
 	| ExitStatement
@@ -449,7 +449,7 @@ AbstractStatement:
 	| IfStatement
 	| CaseStatement
 	| ForStatement
-	| WhileStatement)
+	| WhileStatement)?
 	';' PragmaList;
 
 AssignStatement returns Expression:
@@ -496,22 +496,22 @@ GenerateStatement:
 
 IfStatement:
 	'if' condition=Expression 'then'
-	statements+=AbstractStatement*
+	statements+=Statement*
 	elseIfs+=ElsifBlock*
 	else=ElseBlock?
 	'end' 'if'?;
 
 ElsifBlock:
 	'elsif' condition=Expression 'then'
-	statements+=AbstractStatement*;
+	statements+=Statement*;
 
 ElseBlock:
-	{ElseBlock} 'else' statements+=AbstractStatement*;
+	{ElseBlock} 'else' statements+=Statement*;
 
 WhileStatement:
 	'while' condition=Expression
 	'loop'
-	statements+=AbstractStatement*
+	statements+=Statement*
 	'end' 'loop'?;
 
 CaseStatement:
@@ -521,15 +521,15 @@ CaseStatement:
 	'end' 'case'?;
 
 CaseAlternative:
-	'when' choices+=Expression ('|' choices+=Expression)* '=>' statements+=AbstractStatement*;
+	'when' choices+=Expression ('|' choices+=Expression)* '=>' statements+=Statement*;
 
 CaseOthers:
-	{CaseOthers} 'when' 'others' '=>' statements+=AbstractStatement*;
+	{CaseOthers} 'when' 'others' '=>' statements+=Statement*;
 
 ForStatement:
 	'for' variable=LoopVariable 'in' reverse?='reverse'? expression=Expression
 	'loop'
-	statements+=AbstractStatement*
+	statements+=Statement*
 	'end' 'loop'?;
 
 LoopVariable:
@@ -545,7 +545,7 @@ CodeBlock:
 	{CodeBlock}
 	variables+=VariableDeclaration*
 	'begin'
-	statements+=AbstractStatement*
+	statements+=Statement*
 	('exception'
 	exceptionHandler+=ExceptionHandler*
 	defaultHandler=DefaultExceptionHandler?)?
@@ -558,10 +558,10 @@ VariableDeclaration:
 	';' PragmaList;
 
 ExceptionHandler:
-	'when' exception=[ExceptionDeclaration|ScopedName] '=>' statements+=AbstractStatement*;
+	'when' exception=[ExceptionDeclaration|ScopedName] '=>' statements+=Statement*;
 
 DefaultExceptionHandler:
-	{DefaultExceptionHandler} 'when' 'others' '=>' statements+=AbstractStatement*;
+	{DefaultExceptionHandler} 'when' 'others' '=>' statements+=Statement*;
 
 //---------------------------------------------------------
 // Find Condition Definition

@@ -354,7 +354,7 @@ public class ComponentTransactionListener implements ITransactionListener {
 		if (component == null || component.isOrphaned())
 			return false;
 
-		if (!persisted.contains(component)
+		if (!persisted.contains(component) && component.getRootModelElement() != null
 				&& !component.getRootModelElement().isOrphaned()) {
 			try {
 				component.persist();

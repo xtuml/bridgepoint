@@ -28,7 +28,7 @@ import org.xtuml.bp.xtext.masl.masl.behavior.Expression;
  *
  * @generated
  */
-public class DeleteStatementImpl extends AbstractStatementImpl implements DeleteStatement {
+public class DeleteStatementImpl extends StatementImpl implements DeleteStatement {
 	/**
 	 * The cached value of the '{@link #getValue() <em>Value</em>}' containment reference.
 	 * <!-- begin-user-doc -->

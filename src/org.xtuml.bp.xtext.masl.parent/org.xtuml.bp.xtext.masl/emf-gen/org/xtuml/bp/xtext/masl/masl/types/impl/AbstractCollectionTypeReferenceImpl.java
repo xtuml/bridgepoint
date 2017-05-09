@@ -18,9 +18,9 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
-import org.xtuml.bp.xtext.masl.masl.behavior.AbstractStatement;
 import org.xtuml.bp.xtext.masl.masl.behavior.ConstExpression;
 import org.xtuml.bp.xtext.masl.masl.behavior.Expression;
+import org.xtuml.bp.xtext.masl.masl.behavior.Statement;
 
 import org.xtuml.bp.xtext.masl.masl.structure.Pragma;
 import org.xtuml.bp.xtext.masl.masl.structure.Pragmatized;
@@ -290,7 +290,7 @@ public class AbstractCollectionTypeReferenceImpl extends AbstractTypeReferenceIm
 				default: return -1;
 			}
 		}
-		if (baseClass == AbstractStatement.class) {
+		if (baseClass == Statement.class) {
 			switch (derivedFeatureID) {
 				default: return -1;
 			}
@@ -321,7 +321,7 @@ public class AbstractCollectionTypeReferenceImpl extends AbstractTypeReferenceIm
 				default: return -1;
 			}
 		}
-		if (baseClass == AbstractStatement.class) {
+		if (baseClass == Statement.class) {
 			switch (baseFeatureID) {
 				default: return -1;
 			}

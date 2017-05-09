@@ -61,6 +61,7 @@ import org.xtuml.bp.xtext.masl.typesystem.TypeParameterResolver
 import static org.eclipse.xtext.scoping.Scopes.*
 
 import static extension org.eclipse.xtext.EcoreUtil2.*
+import org.xtuml.bp.xtext.masl.typesystem.BuiltinType
 
 /**
  * This class contains custom scoping description.
@@ -134,25 +135,44 @@ class MASLScopeProvider extends AbstractMASLScopeProvider {
 			}
 			case structurePackage.relationshipNavigation_ObjectOrRole: {
 				if(context instanceof RelationshipNavigation) {
+					val receiverType = context.receiver.maslType.componentType
 					val relationShip = context.relationship
 					switch relationShip {
-						RegularRelationshipDefinition:
-							return scopeFor(#{relationShip.forwards, relationShip.backwards,
-								relationShip.forwards.from, relationShip.forwards.to, 
-								relationShip.backwards.from, relationShip.backwards.to
-							}, new SimpleScope(#[
-								qualifiedDescription(relationShip.forwards), 
-								qualifiedDescription(relationShip.backwards)
-							]))
-						AssocRelationshipDefinition:
-							return scopeFor(#{relationShip.forwards, relationShip.backwards,
-								relationShip.forwards.from, relationShip.forwards.to, 
-								relationShip.backwards.from, relationShip.backwards.to,
-								relationShip.object
-							}, new SimpleScope(#[
-								qualifiedDescription(relationShip.forwards), 
-								qualifiedDescription(relationShip.backwards)
-							]))
+						RegularRelationshipDefinition: {
+							val referrables = newArrayList()
+							for(end: #[relationShip.forwards, relationShip.backwards]) {
+								if(receiverType == BuiltinType.MISSING_TYPE || end.from.maslType.componentType == receiverType) {
+									referrables += EObjectDescription.create(
+										QualifiedName.create(end.name), end)
+									referrables += EObjectDescription.create(
+										QualifiedName.create(end.to.name), end)
+									referrables += qualifiedDescription(end)
+								}
+							}
+							return new SimpleScope(referrables)
+						}
+						AssocRelationshipDefinition: {
+							val referrables = newArrayList()
+							val receiverIsAssocObject = relationShip.object.maslType.componentType == receiverType
+							for(end: #[relationShip.forwards, relationShip.backwards]) {
+								if(receiverType == BuiltinType.MISSING_TYPE || end.from.maslType.componentType == receiverType || receiverIsAssocObject) {
+									referrables += EObjectDescription.create(
+										QualifiedName.create(end.name), end)
+									referrables += EObjectDescription.create(
+										QualifiedName.create(end.to.name), end)
+									referrables += qualifiedDescription(end)
+								}
+							}
+							referrables += EObjectDescription.create(
+								QualifiedName.create(relationShip.object.name), relationShip.object)
+							referrables += EObjectDescription.create(
+								QualifiedName.create(relationShip.forwards.name + '.' + relationShip.object.name), relationShip.object
+							)
+							referrables += EObjectDescription.create(
+								QualifiedName.create(relationShip.backwards.name + '.' + relationShip.object.name), relationShip.object
+							)
+							return new SimpleScope(referrables)
+						}
 						SubtypeRelationshipDefinition:
 							return scopeFor(relationShip.subtypes + #[relationShip.supertype]) 
 							
@@ -222,9 +242,10 @@ class MASLScopeProvider extends AbstractMASLScopeProvider {
 	}
 	
 	private def IScope getEnumDisambiguationScope(MaslType maslType, IScope parent) {
-		if(maslType instanceof EnumType) {
-			val domainName = maslType.enumType.domainName
-			return MapBasedScope.createScope(parent, maslType.enumType.enumerators.map[
+		val enumType = maslType.expectedEnumType
+		if(enumType !== null) {
+			val domainName = enumType.enumType.domainName
+			return MapBasedScope.createScope(parent, enumType.enumType.enumerators.map[
 				#[
 					EObjectDescription.create(QualifiedName.create(name), it),
 					EObjectDescription.create(QualifiedName.create(domainName, name), it)
@@ -234,6 +255,20 @@ class MASLScopeProvider extends AbstractMASLScopeProvider {
 			return parent
 		}
 	} 
+	
+	private def EnumType getExpectedEnumType(MaslType maslType) {
+		switch maslType {
+			EnumType:
+				return maslType
+			CollectionType:
+				if(maslType.componentType instanceof EnumType)
+					return maslType.componentType as EnumType
+			StructureType:
+				if(maslType.components.size == 1 && maslType.components.head.type instanceof EnumType)
+					return maslType.components.head.type as EnumType
+		}
+		return null
+	}
 	
 	private def IScope getTypeFeatureScope(MaslType type) {
 		switch type {

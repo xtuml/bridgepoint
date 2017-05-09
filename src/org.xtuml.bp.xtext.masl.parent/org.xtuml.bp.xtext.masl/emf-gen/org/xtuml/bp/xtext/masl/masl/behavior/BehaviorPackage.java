@@ -99,14 +99,14 @@ public interface BehaviorPackage extends EPackage {
 	int STATEMENT_LIST_OPERATION_COUNT = 0;
 
 	/**
-	 * The meta object id for the '{@link org.xtuml.bp.xtext.masl.masl.behavior.impl.AbstractStatementImpl <em>Abstract Statement</em>}' class.
+	 * The meta object id for the '{@link org.xtuml.bp.xtext.masl.masl.behavior.impl.StatementImpl <em>Statement</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see org.xtuml.bp.xtext.masl.masl.behavior.impl.AbstractStatementImpl
-	 * @see org.xtuml.bp.xtext.masl.masl.behavior.impl.BehaviorPackageImpl#getAbstractStatement()
+	 * @see org.xtuml.bp.xtext.masl.masl.behavior.impl.StatementImpl
+	 * @see org.xtuml.bp.xtext.masl.masl.behavior.impl.BehaviorPackageImpl#getStatement()
 	 * @generated
 	 */
-	int ABSTRACT_STATEMENT = 5;
+	int STATEMENT = 5;
 
 	/**
 	 * The feature id for the '<em><b>Pragmas</b></em>' containment reference list.
@@ -115,25 +115,25 @@ public interface BehaviorPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ABSTRACT_STATEMENT__PRAGMAS = StructurePackage.PRAGMATIZED__PRAGMAS;
+	int STATEMENT__PRAGMAS = StructurePackage.PRAGMATIZED__PRAGMAS;
 
 	/**
-	 * The number of structural features of the '<em>Abstract Statement</em>' class.
+	 * The number of structural features of the '<em>Statement</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ABSTRACT_STATEMENT_FEATURE_COUNT = StructurePackage.PRAGMATIZED_FEATURE_COUNT + 0;
+	int STATEMENT_FEATURE_COUNT = StructurePackage.PRAGMATIZED_FEATURE_COUNT + 0;
 
 	/**
-	 * The number of operations of the '<em>Abstract Statement</em>' class.
+	 * The number of operations of the '<em>Statement</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ABSTRACT_STATEMENT_OPERATION_COUNT = StructurePackage.PRAGMATIZED_OPERATION_COUNT + 0;
+	int STATEMENT_OPERATION_COUNT = StructurePackage.PRAGMATIZED_OPERATION_COUNT + 0;
 
 	/**
 	 * The meta object id for the '{@link org.xtuml.bp.xtext.masl.masl.behavior.impl.CodeBlockStatementImpl <em>Code Block Statement</em>}' class.
@@ -152,7 +152,7 @@ public interface BehaviorPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CODE_BLOCK_STATEMENT__PRAGMAS = ABSTRACT_STATEMENT__PRAGMAS;
+	int CODE_BLOCK_STATEMENT__PRAGMAS = STATEMENT__PRAGMAS;
 
 	/**
 	 * The number of structural features of the '<em>Code Block Statement</em>' class.
@@ -161,7 +161,7 @@ public interface BehaviorPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CODE_BLOCK_STATEMENT_FEATURE_COUNT = ABSTRACT_STATEMENT_FEATURE_COUNT + 0;
+	int CODE_BLOCK_STATEMENT_FEATURE_COUNT = STATEMENT_FEATURE_COUNT + 0;
 
 	/**
 	 * The number of operations of the '<em>Code Block Statement</em>' class.
@@ -170,7 +170,7 @@ public interface BehaviorPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CODE_BLOCK_STATEMENT_OPERATION_COUNT = ABSTRACT_STATEMENT_OPERATION_COUNT + 0;
+	int CODE_BLOCK_STATEMENT_OPERATION_COUNT = STATEMENT_OPERATION_COUNT + 0;
 
 	/**
 	 * The meta object id for the '{@link org.xtuml.bp.xtext.masl.masl.behavior.impl.CodeBlockImpl <em>Code Block</em>}' class.
@@ -418,7 +418,7 @@ public interface BehaviorPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int EXPRESSION__PRAGMAS = ABSTRACT_STATEMENT__PRAGMAS;
+	int EXPRESSION__PRAGMAS = STATEMENT__PRAGMAS;
 
 	/**
 	 * The number of structural features of the '<em>Expression</em>' class.
@@ -427,7 +427,7 @@ public interface BehaviorPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int EXPRESSION_FEATURE_COUNT = ABSTRACT_STATEMENT_FEATURE_COUNT + 0;
+	int EXPRESSION_FEATURE_COUNT = STATEMENT_FEATURE_COUNT + 0;
 
 	/**
 	 * The number of operations of the '<em>Expression</em>' class.
@@ -436,7 +436,7 @@ public interface BehaviorPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int EXPRESSION_OPERATION_COUNT = ABSTRACT_STATEMENT_OPERATION_COUNT + 0;
+	int EXPRESSION_OPERATION_COUNT = STATEMENT_OPERATION_COUNT + 0;
 
 	/**
 	 * The meta object id for the '{@link org.xtuml.bp.xtext.masl.masl.behavior.impl.ExitStatementImpl <em>Exit Statement</em>}' class.
@@ -455,7 +455,7 @@ public interface BehaviorPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int EXIT_STATEMENT__PRAGMAS = ABSTRACT_STATEMENT__PRAGMAS;
+	int EXIT_STATEMENT__PRAGMAS = STATEMENT__PRAGMAS;
 
 	/**
 	 * The feature id for the '<em><b>Condition</b></em>' containment reference.
@@ -464,7 +464,7 @@ public interface BehaviorPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int EXIT_STATEMENT__CONDITION = ABSTRACT_STATEMENT_FEATURE_COUNT + 0;
+	int EXIT_STATEMENT__CONDITION = STATEMENT_FEATURE_COUNT + 0;
 
 	/**
 	 * The number of structural features of the '<em>Exit Statement</em>' class.
@@ -473,7 +473,7 @@ public interface BehaviorPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int EXIT_STATEMENT_FEATURE_COUNT = ABSTRACT_STATEMENT_FEATURE_COUNT + 1;
+	int EXIT_STATEMENT_FEATURE_COUNT = STATEMENT_FEATURE_COUNT + 1;
 
 	/**
 	 * The number of operations of the '<em>Exit Statement</em>' class.
@@ -482,7 +482,7 @@ public interface BehaviorPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int EXIT_STATEMENT_OPERATION_COUNT = ABSTRACT_STATEMENT_OPERATION_COUNT + 0;
+	int EXIT_STATEMENT_OPERATION_COUNT = STATEMENT_OPERATION_COUNT + 0;
 
 	/**
 	 * The meta object id for the '{@link org.xtuml.bp.xtext.masl.masl.behavior.impl.ReturnStatementImpl <em>Return Statement</em>}' class.
@@ -501,7 +501,7 @@ public interface BehaviorPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int RETURN_STATEMENT__PRAGMAS = ABSTRACT_STATEMENT__PRAGMAS;
+	int RETURN_STATEMENT__PRAGMAS = STATEMENT__PRAGMAS;
 
 	/**
 	 * The feature id for the '<em><b>Value</b></em>' containment reference.
@@ -510,7 +510,7 @@ public interface BehaviorPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int RETURN_STATEMENT__VALUE = ABSTRACT_STATEMENT_FEATURE_COUNT + 0;
+	int RETURN_STATEMENT__VALUE = STATEMENT_FEATURE_COUNT + 0;
 
 	/**
 	 * The number of structural features of the '<em>Return Statement</em>' class.
@@ -519,7 +519,7 @@ public interface BehaviorPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int RETURN_STATEMENT_FEATURE_COUNT = ABSTRACT_STATEMENT_FEATURE_COUNT + 1;
+	int RETURN_STATEMENT_FEATURE_COUNT = STATEMENT_FEATURE_COUNT + 1;
 
 	/**
 	 * The number of operations of the '<em>Return Statement</em>' class.
@@ -528,7 +528,7 @@ public interface BehaviorPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int RETURN_STATEMENT_OPERATION_COUNT = ABSTRACT_STATEMENT_OPERATION_COUNT + 0;
+	int RETURN_STATEMENT_OPERATION_COUNT = STATEMENT_OPERATION_COUNT + 0;
 
 	/**
 	 * The meta object id for the '{@link org.xtuml.bp.xtext.masl.masl.behavior.impl.DelayStatementImpl <em>Delay Statement</em>}' class.
@@ -547,7 +547,7 @@ public interface BehaviorPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int DELAY_STATEMENT__PRAGMAS = ABSTRACT_STATEMENT__PRAGMAS;
+	int DELAY_STATEMENT__PRAGMAS = STATEMENT__PRAGMAS;
 
 	/**
 	 * The feature id for the '<em><b>Value</b></em>' containment reference.
@@ -556,7 +556,7 @@ public interface BehaviorPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int DELAY_STATEMENT__VALUE = ABSTRACT_STATEMENT_FEATURE_COUNT + 0;
+	int DELAY_STATEMENT__VALUE = STATEMENT_FEATURE_COUNT + 0;
 
 	/**
 	 * The number of structural features of the '<em>Delay Statement</em>' class.
@@ -565,7 +565,7 @@ public interface BehaviorPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int DELAY_STATEMENT_FEATURE_COUNT = ABSTRACT_STATEMENT_FEATURE_COUNT + 1;
+	int DELAY_STATEMENT_FEATURE_COUNT = STATEMENT_FEATURE_COUNT + 1;
 
 	/**
 	 * The number of operations of the '<em>Delay Statement</em>' class.
@@ -574,7 +574,7 @@ public interface BehaviorPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int DELAY_STATEMENT_OPERATION_COUNT = ABSTRACT_STATEMENT_OPERATION_COUNT + 0;
+	int DELAY_STATEMENT_OPERATION_COUNT = STATEMENT_OPERATION_COUNT + 0;
 
 	/**
 	 * The meta object id for the '{@link org.xtuml.bp.xtext.masl.masl.behavior.impl.RaiseStatementImpl <em>Raise Statement</em>}' class.
@@ -593,7 +593,7 @@ public interface BehaviorPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int RAISE_STATEMENT__PRAGMAS = ABSTRACT_STATEMENT__PRAGMAS;
+	int RAISE_STATEMENT__PRAGMAS = STATEMENT__PRAGMAS;
 
 	/**
 	 * The feature id for the '<em><b>Exception</b></em>' reference.
@@ -602,7 +602,7 @@ public interface BehaviorPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int RAISE_STATEMENT__EXCEPTION = ABSTRACT_STATEMENT_FEATURE_COUNT + 0;
+	int RAISE_STATEMENT__EXCEPTION = STATEMENT_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Argument</b></em>' containment reference.
@@ -611,7 +611,7 @@ public interface BehaviorPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int RAISE_STATEMENT__ARGUMENT = ABSTRACT_STATEMENT_FEATURE_COUNT + 1;
+	int RAISE_STATEMENT__ARGUMENT = STATEMENT_FEATURE_COUNT + 1;
 
 	/**
 	 * The number of structural features of the '<em>Raise Statement</em>' class.
@@ -620,7 +620,7 @@ public interface BehaviorPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int RAISE_STATEMENT_FEATURE_COUNT = ABSTRACT_STATEMENT_FEATURE_COUNT + 2;
+	int RAISE_STATEMENT_FEATURE_COUNT = STATEMENT_FEATURE_COUNT + 2;
 
 	/**
 	 * The number of operations of the '<em>Raise Statement</em>' class.
@@ -629,7 +629,7 @@ public interface BehaviorPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int RAISE_STATEMENT_OPERATION_COUNT = ABSTRACT_STATEMENT_OPERATION_COUNT + 0;
+	int RAISE_STATEMENT_OPERATION_COUNT = STATEMENT_OPERATION_COUNT + 0;
 
 	/**
 	 * The meta object id for the '{@link org.xtuml.bp.xtext.masl.masl.behavior.impl.DeleteStatementImpl <em>Delete Statement</em>}' class.
@@ -648,7 +648,7 @@ public interface BehaviorPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int DELETE_STATEMENT__PRAGMAS = ABSTRACT_STATEMENT__PRAGMAS;
+	int DELETE_STATEMENT__PRAGMAS = STATEMENT__PRAGMAS;
 
 	/**
 	 * The feature id for the '<em><b>Value</b></em>' containment reference.
@@ -657,7 +657,7 @@ public interface BehaviorPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int DELETE_STATEMENT__VALUE = ABSTRACT_STATEMENT_FEATURE_COUNT + 0;
+	int DELETE_STATEMENT__VALUE = STATEMENT_FEATURE_COUNT + 0;
 
 	/**
 	 * The number of structural features of the '<em>Delete Statement</em>' class.
@@ -666,7 +666,7 @@ public interface BehaviorPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int DELETE_STATEMENT_FEATURE_COUNT = ABSTRACT_STATEMENT_FEATURE_COUNT + 1;
+	int DELETE_STATEMENT_FEATURE_COUNT = STATEMENT_FEATURE_COUNT + 1;
 
 	/**
 	 * The number of operations of the '<em>Delete Statement</em>' class.
@@ -675,7 +675,7 @@ public interface BehaviorPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int DELETE_STATEMENT_OPERATION_COUNT = ABSTRACT_STATEMENT_OPERATION_COUNT + 0;
+	int DELETE_STATEMENT_OPERATION_COUNT = STATEMENT_OPERATION_COUNT + 0;
 
 	/**
 	 * The meta object id for the '{@link org.xtuml.bp.xtext.masl.masl.behavior.impl.EraseStatementImpl <em>Erase Statement</em>}' class.
@@ -694,7 +694,7 @@ public interface BehaviorPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ERASE_STATEMENT__PRAGMAS = ABSTRACT_STATEMENT__PRAGMAS;
+	int ERASE_STATEMENT__PRAGMAS = STATEMENT__PRAGMAS;
 
 	/**
 	 * The feature id for the '<em><b>Value</b></em>' containment reference.
@@ -703,7 +703,7 @@ public interface BehaviorPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ERASE_STATEMENT__VALUE = ABSTRACT_STATEMENT_FEATURE_COUNT + 0;
+	int ERASE_STATEMENT__VALUE = STATEMENT_FEATURE_COUNT + 0;
 
 	/**
 	 * The number of structural features of the '<em>Erase Statement</em>' class.
@@ -712,7 +712,7 @@ public interface BehaviorPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ERASE_STATEMENT_FEATURE_COUNT = ABSTRACT_STATEMENT_FEATURE_COUNT + 1;
+	int ERASE_STATEMENT_FEATURE_COUNT = STATEMENT_FEATURE_COUNT + 1;
 
 	/**
 	 * The number of operations of the '<em>Erase Statement</em>' class.
@@ -721,7 +721,7 @@ public interface BehaviorPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ERASE_STATEMENT_OPERATION_COUNT = ABSTRACT_STATEMENT_OPERATION_COUNT + 0;
+	int ERASE_STATEMENT_OPERATION_COUNT = STATEMENT_OPERATION_COUNT + 0;
 
 	/**
 	 * The meta object id for the '{@link org.xtuml.bp.xtext.masl.masl.behavior.impl.ScheduleStatementImpl <em>Schedule Statement</em>}' class.
@@ -740,7 +740,7 @@ public interface BehaviorPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SCHEDULE_STATEMENT__PRAGMAS = ABSTRACT_STATEMENT__PRAGMAS;
+	int SCHEDULE_STATEMENT__PRAGMAS = STATEMENT__PRAGMAS;
 
 	/**
 	 * The feature id for the '<em><b>Timer Id</b></em>' containment reference.
@@ -749,7 +749,7 @@ public interface BehaviorPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SCHEDULE_STATEMENT__TIMER_ID = ABSTRACT_STATEMENT_FEATURE_COUNT + 0;
+	int SCHEDULE_STATEMENT__TIMER_ID = STATEMENT_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Generate Statement</b></em>' containment reference.
@@ -758,7 +758,7 @@ public interface BehaviorPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SCHEDULE_STATEMENT__GENERATE_STATEMENT = ABSTRACT_STATEMENT_FEATURE_COUNT + 1;
+	int SCHEDULE_STATEMENT__GENERATE_STATEMENT = STATEMENT_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Type</b></em>' attribute.
@@ -767,7 +767,7 @@ public interface BehaviorPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SCHEDULE_STATEMENT__TYPE = ABSTRACT_STATEMENT_FEATURE_COUNT + 2;
+	int SCHEDULE_STATEMENT__TYPE = STATEMENT_FEATURE_COUNT + 2;
 
 	/**
 	 * The feature id for the '<em><b>Time</b></em>' containment reference.
@@ -776,7 +776,7 @@ public interface BehaviorPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SCHEDULE_STATEMENT__TIME = ABSTRACT_STATEMENT_FEATURE_COUNT + 3;
+	int SCHEDULE_STATEMENT__TIME = STATEMENT_FEATURE_COUNT + 3;
 
 	/**
 	 * The feature id for the '<em><b>Period</b></em>' containment reference.
@@ -785,7 +785,7 @@ public interface BehaviorPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SCHEDULE_STATEMENT__PERIOD = ABSTRACT_STATEMENT_FEATURE_COUNT + 4;
+	int SCHEDULE_STATEMENT__PERIOD = STATEMENT_FEATURE_COUNT + 4;
 
 	/**
 	 * The number of structural features of the '<em>Schedule Statement</em>' class.
@@ -794,7 +794,7 @@ public interface BehaviorPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SCHEDULE_STATEMENT_FEATURE_COUNT = ABSTRACT_STATEMENT_FEATURE_COUNT + 5;
+	int SCHEDULE_STATEMENT_FEATURE_COUNT = STATEMENT_FEATURE_COUNT + 5;
 
 	/**
 	 * The number of operations of the '<em>Schedule Statement</em>' class.
@@ -803,7 +803,7 @@ public interface BehaviorPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SCHEDULE_STATEMENT_OPERATION_COUNT = ABSTRACT_STATEMENT_OPERATION_COUNT + 0;
+	int SCHEDULE_STATEMENT_OPERATION_COUNT = STATEMENT_OPERATION_COUNT + 0;
 
 	/**
 	 * The meta object id for the '{@link org.xtuml.bp.xtext.masl.masl.behavior.impl.CancelTimerStatementImpl <em>Cancel Timer Statement</em>}' class.
@@ -822,7 +822,7 @@ public interface BehaviorPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CANCEL_TIMER_STATEMENT__PRAGMAS = ABSTRACT_STATEMENT__PRAGMAS;
+	int CANCEL_TIMER_STATEMENT__PRAGMAS = STATEMENT__PRAGMAS;
 
 	/**
 	 * The feature id for the '<em><b>Timer Id</b></em>' containment reference.
@@ -831,7 +831,7 @@ public interface BehaviorPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CANCEL_TIMER_STATEMENT__TIMER_ID = ABSTRACT_STATEMENT_FEATURE_COUNT + 0;
+	int CANCEL_TIMER_STATEMENT__TIMER_ID = STATEMENT_FEATURE_COUNT + 0;
 
 	/**
 	 * The number of structural features of the '<em>Cancel Timer Statement</em>' class.
@@ -840,7 +840,7 @@ public interface BehaviorPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CANCEL_TIMER_STATEMENT_FEATURE_COUNT = ABSTRACT_STATEMENT_FEATURE_COUNT + 1;
+	int CANCEL_TIMER_STATEMENT_FEATURE_COUNT = STATEMENT_FEATURE_COUNT + 1;
 
 	/**
 	 * The number of operations of the '<em>Cancel Timer Statement</em>' class.
@@ -849,7 +849,7 @@ public interface BehaviorPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CANCEL_TIMER_STATEMENT_OPERATION_COUNT = ABSTRACT_STATEMENT_OPERATION_COUNT + 0;
+	int CANCEL_TIMER_STATEMENT_OPERATION_COUNT = STATEMENT_OPERATION_COUNT + 0;
 
 	/**
 	 * The meta object id for the '{@link org.xtuml.bp.xtext.masl.masl.behavior.impl.GenerateStatementImpl <em>Generate Statement</em>}' class.
@@ -868,7 +868,7 @@ public interface BehaviorPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GENERATE_STATEMENT__PRAGMAS = ABSTRACT_STATEMENT__PRAGMAS;
+	int GENERATE_STATEMENT__PRAGMAS = STATEMENT__PRAGMAS;
 
 	/**
 	 * The feature id for the '<em><b>Object</b></em>' reference.
@@ -877,7 +877,7 @@ public interface BehaviorPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GENERATE_STATEMENT__OBJECT = ABSTRACT_STATEMENT_FEATURE_COUNT + 0;
+	int GENERATE_STATEMENT__OBJECT = STATEMENT_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Event</b></em>' reference.
@@ -886,7 +886,7 @@ public interface BehaviorPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GENERATE_STATEMENT__EVENT = ABSTRACT_STATEMENT_FEATURE_COUNT + 1;
+	int GENERATE_STATEMENT__EVENT = STATEMENT_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Arguments</b></em>' containment reference list.
@@ -895,7 +895,7 @@ public interface BehaviorPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GENERATE_STATEMENT__ARGUMENTS = ABSTRACT_STATEMENT_FEATURE_COUNT + 2;
+	int GENERATE_STATEMENT__ARGUMENTS = STATEMENT_FEATURE_COUNT + 2;
 
 	/**
 	 * The feature id for the '<em><b>To</b></em>' containment reference.
@@ -904,7 +904,7 @@ public interface BehaviorPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GENERATE_STATEMENT__TO = ABSTRACT_STATEMENT_FEATURE_COUNT + 3;
+	int GENERATE_STATEMENT__TO = STATEMENT_FEATURE_COUNT + 3;
 
 	/**
 	 * The number of structural features of the '<em>Generate Statement</em>' class.
@@ -913,7 +913,7 @@ public interface BehaviorPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GENERATE_STATEMENT_FEATURE_COUNT = ABSTRACT_STATEMENT_FEATURE_COUNT + 4;
+	int GENERATE_STATEMENT_FEATURE_COUNT = STATEMENT_FEATURE_COUNT + 4;
 
 	/**
 	 * The number of operations of the '<em>Generate Statement</em>' class.
@@ -922,7 +922,7 @@ public interface BehaviorPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GENERATE_STATEMENT_OPERATION_COUNT = ABSTRACT_STATEMENT_OPERATION_COUNT + 0;
+	int GENERATE_STATEMENT_OPERATION_COUNT = STATEMENT_OPERATION_COUNT + 0;
 
 	/**
 	 * The meta object id for the '{@link org.xtuml.bp.xtext.masl.masl.behavior.impl.IfStatementImpl <em>If Statement</em>}' class.
@@ -941,7 +941,7 @@ public interface BehaviorPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int IF_STATEMENT__PRAGMAS = ABSTRACT_STATEMENT__PRAGMAS;
+	int IF_STATEMENT__PRAGMAS = STATEMENT__PRAGMAS;
 
 	/**
 	 * The feature id for the '<em><b>Statements</b></em>' containment reference list.
@@ -950,7 +950,7 @@ public interface BehaviorPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int IF_STATEMENT__STATEMENTS = ABSTRACT_STATEMENT_FEATURE_COUNT + 0;
+	int IF_STATEMENT__STATEMENTS = STATEMENT_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Condition</b></em>' containment reference.
@@ -959,7 +959,7 @@ public interface BehaviorPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int IF_STATEMENT__CONDITION = ABSTRACT_STATEMENT_FEATURE_COUNT + 1;
+	int IF_STATEMENT__CONDITION = STATEMENT_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Else Ifs</b></em>' containment reference list.
@@ -968,7 +968,7 @@ public interface BehaviorPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int IF_STATEMENT__ELSE_IFS = ABSTRACT_STATEMENT_FEATURE_COUNT + 2;
+	int IF_STATEMENT__ELSE_IFS = STATEMENT_FEATURE_COUNT + 2;
 
 	/**
 	 * The feature id for the '<em><b>Else</b></em>' containment reference.
@@ -977,7 +977,7 @@ public interface BehaviorPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int IF_STATEMENT__ELSE = ABSTRACT_STATEMENT_FEATURE_COUNT + 3;
+	int IF_STATEMENT__ELSE = STATEMENT_FEATURE_COUNT + 3;
 
 	/**
 	 * The number of structural features of the '<em>If Statement</em>' class.
@@ -986,7 +986,7 @@ public interface BehaviorPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int IF_STATEMENT_FEATURE_COUNT = ABSTRACT_STATEMENT_FEATURE_COUNT + 4;
+	int IF_STATEMENT_FEATURE_COUNT = STATEMENT_FEATURE_COUNT + 4;
 
 	/**
 	 * The number of operations of the '<em>If Statement</em>' class.
@@ -995,7 +995,7 @@ public interface BehaviorPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int IF_STATEMENT_OPERATION_COUNT = ABSTRACT_STATEMENT_OPERATION_COUNT + 0;
+	int IF_STATEMENT_OPERATION_COUNT = STATEMENT_OPERATION_COUNT + 0;
 
 	/**
 	 * The meta object id for the '{@link org.xtuml.bp.xtext.masl.masl.behavior.impl.ElsifBlockImpl <em>Elsif Block</em>}' class.
@@ -1097,7 +1097,7 @@ public interface BehaviorPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int WHILE_STATEMENT__PRAGMAS = ABSTRACT_STATEMENT__PRAGMAS;
+	int WHILE_STATEMENT__PRAGMAS = STATEMENT__PRAGMAS;
 
 	/**
 	 * The feature id for the '<em><b>Statements</b></em>' containment reference list.
@@ -1106,7 +1106,7 @@ public interface BehaviorPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int WHILE_STATEMENT__STATEMENTS = ABSTRACT_STATEMENT_FEATURE_COUNT + 0;
+	int WHILE_STATEMENT__STATEMENTS = STATEMENT_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Condition</b></em>' containment reference.
@@ -1115,7 +1115,7 @@ public interface BehaviorPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int WHILE_STATEMENT__CONDITION = ABSTRACT_STATEMENT_FEATURE_COUNT + 1;
+	int WHILE_STATEMENT__CONDITION = STATEMENT_FEATURE_COUNT + 1;
 
 	/**
 	 * The number of structural features of the '<em>While Statement</em>' class.
@@ -1124,7 +1124,7 @@ public interface BehaviorPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int WHILE_STATEMENT_FEATURE_COUNT = ABSTRACT_STATEMENT_FEATURE_COUNT + 2;
+	int WHILE_STATEMENT_FEATURE_COUNT = STATEMENT_FEATURE_COUNT + 2;
 
 	/**
 	 * The number of operations of the '<em>While Statement</em>' class.
@@ -1133,7 +1133,7 @@ public interface BehaviorPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int WHILE_STATEMENT_OPERATION_COUNT = ABSTRACT_STATEMENT_OPERATION_COUNT + 0;
+	int WHILE_STATEMENT_OPERATION_COUNT = STATEMENT_OPERATION_COUNT + 0;
 
 	/**
 	 * The meta object id for the '{@link org.xtuml.bp.xtext.masl.masl.behavior.impl.CaseStatementImpl <em>Case Statement</em>}' class.
@@ -1152,7 +1152,7 @@ public interface BehaviorPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CASE_STATEMENT__PRAGMAS = ABSTRACT_STATEMENT__PRAGMAS;
+	int CASE_STATEMENT__PRAGMAS = STATEMENT__PRAGMAS;
 
 	/**
 	 * The feature id for the '<em><b>Value</b></em>' containment reference.
@@ -1161,7 +1161,7 @@ public interface BehaviorPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CASE_STATEMENT__VALUE = ABSTRACT_STATEMENT_FEATURE_COUNT + 0;
+	int CASE_STATEMENT__VALUE = STATEMENT_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Alternatives</b></em>' containment reference list.
@@ -1170,7 +1170,7 @@ public interface BehaviorPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CASE_STATEMENT__ALTERNATIVES = ABSTRACT_STATEMENT_FEATURE_COUNT + 1;
+	int CASE_STATEMENT__ALTERNATIVES = STATEMENT_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Default</b></em>' containment reference.
@@ -1179,7 +1179,7 @@ public interface BehaviorPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CASE_STATEMENT__DEFAULT = ABSTRACT_STATEMENT_FEATURE_COUNT + 2;
+	int CASE_STATEMENT__DEFAULT = STATEMENT_FEATURE_COUNT + 2;
 
 	/**
 	 * The number of structural features of the '<em>Case Statement</em>' class.
@@ -1188,7 +1188,7 @@ public interface BehaviorPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CASE_STATEMENT_FEATURE_COUNT = ABSTRACT_STATEMENT_FEATURE_COUNT + 3;
+	int CASE_STATEMENT_FEATURE_COUNT = STATEMENT_FEATURE_COUNT + 3;
 
 	/**
 	 * The number of operations of the '<em>Case Statement</em>' class.
@@ -1197,7 +1197,7 @@ public interface BehaviorPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CASE_STATEMENT_OPERATION_COUNT = ABSTRACT_STATEMENT_OPERATION_COUNT + 0;
+	int CASE_STATEMENT_OPERATION_COUNT = STATEMENT_OPERATION_COUNT + 0;
 
 	/**
 	 * The meta object id for the '{@link org.xtuml.bp.xtext.masl.masl.behavior.impl.CaseAlternativeImpl <em>Case Alternative</em>}' class.
@@ -1299,7 +1299,7 @@ public interface BehaviorPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FOR_STATEMENT__PRAGMAS = ABSTRACT_STATEMENT__PRAGMAS;
+	int FOR_STATEMENT__PRAGMAS = STATEMENT__PRAGMAS;
 
 	/**
 	 * The feature id for the '<em><b>Statements</b></em>' containment reference list.
@@ -1308,7 +1308,7 @@ public interface BehaviorPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FOR_STATEMENT__STATEMENTS = ABSTRACT_STATEMENT_FEATURE_COUNT + 0;
+	int FOR_STATEMENT__STATEMENTS = STATEMENT_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Variable</b></em>' containment reference.
@@ -1317,7 +1317,7 @@ public interface BehaviorPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FOR_STATEMENT__VARIABLE = ABSTRACT_STATEMENT_FEATURE_COUNT + 1;
+	int FOR_STATEMENT__VARIABLE = STATEMENT_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Reverse</b></em>' attribute.
@@ -1326,7 +1326,7 @@ public interface BehaviorPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FOR_STATEMENT__REVERSE = ABSTRACT_STATEMENT_FEATURE_COUNT + 2;
+	int FOR_STATEMENT__REVERSE = STATEMENT_FEATURE_COUNT + 2;
 
 	/**
 	 * The feature id for the '<em><b>Expression</b></em>' containment reference.
@@ -1335,7 +1335,7 @@ public interface BehaviorPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FOR_STATEMENT__EXPRESSION = ABSTRACT_STATEMENT_FEATURE_COUNT + 3;
+	int FOR_STATEMENT__EXPRESSION = STATEMENT_FEATURE_COUNT + 3;
 
 	/**
 	 * The number of structural features of the '<em>For Statement</em>' class.
@@ -1344,7 +1344,7 @@ public interface BehaviorPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FOR_STATEMENT_FEATURE_COUNT = ABSTRACT_STATEMENT_FEATURE_COUNT + 4;
+	int FOR_STATEMENT_FEATURE_COUNT = STATEMENT_FEATURE_COUNT + 4;
 
 	/**
 	 * The number of operations of the '<em>For Statement</em>' class.
@@ -1353,7 +1353,7 @@ public interface BehaviorPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FOR_STATEMENT_OPERATION_COUNT = ABSTRACT_STATEMENT_OPERATION_COUNT + 0;
+	int FOR_STATEMENT_OPERATION_COUNT = STATEMENT_OPERATION_COUNT + 0;
 
 	/**
 	 * The meta object id for the '{@link org.xtuml.bp.xtext.masl.masl.behavior.impl.LoopVariableImpl <em>Loop Variable</em>}' class.
@@ -3828,14 +3828,14 @@ public interface BehaviorPackage extends EPackage {
 	EClass getDefaultExceptionHandler();
 
 	/**
-	 * Returns the meta object for class '{@link org.xtuml.bp.xtext.masl.masl.behavior.AbstractStatement <em>Abstract Statement</em>}'.
+	 * Returns the meta object for class '{@link org.xtuml.bp.xtext.masl.masl.behavior.Statement <em>Statement</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Abstract Statement</em>'.
-	 * @see org.xtuml.bp.xtext.masl.masl.behavior.AbstractStatement
+	 * @return the meta object for class '<em>Statement</em>'.
+	 * @see org.xtuml.bp.xtext.masl.masl.behavior.Statement
 	 * @generated
 	 */
-	EClass getAbstractStatement();
+	EClass getStatement();
 
 	/**
 	 * Returns the meta object for class '{@link org.xtuml.bp.xtext.masl.masl.behavior.Expression <em>Expression</em>}'.
@@ -5779,14 +5779,14 @@ public interface BehaviorPackage extends EPackage {
 		EClass DEFAULT_EXCEPTION_HANDLER = eINSTANCE.getDefaultExceptionHandler();
 
 		/**
-		 * The meta object literal for the '{@link org.xtuml.bp.xtext.masl.masl.behavior.impl.AbstractStatementImpl <em>Abstract Statement</em>}' class.
+		 * The meta object literal for the '{@link org.xtuml.bp.xtext.masl.masl.behavior.impl.StatementImpl <em>Statement</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see org.xtuml.bp.xtext.masl.masl.behavior.impl.AbstractStatementImpl
-		 * @see org.xtuml.bp.xtext.masl.masl.behavior.impl.BehaviorPackageImpl#getAbstractStatement()
+		 * @see org.xtuml.bp.xtext.masl.masl.behavior.impl.StatementImpl
+		 * @see org.xtuml.bp.xtext.masl.masl.behavior.impl.BehaviorPackageImpl#getStatement()
 		 * @generated
 		 */
-		EClass ABSTRACT_STATEMENT = eINSTANCE.getAbstractStatement();
+		EClass STATEMENT = eINSTANCE.getStatement();
 
 		/**
 		 * The meta object literal for the '{@link org.xtuml.bp.xtext.masl.masl.behavior.impl.ExpressionImpl <em>Expression</em>}' class.

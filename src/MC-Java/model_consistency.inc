@@ -25,7 +25,7 @@
   //
   public void checkDomainConsistency()  
   {
-    if (Boolean.valueOf(System.getenv("PTC_MCC_ENABLED")) == false) {  //$$NON-NLS-1$$
+    if (Boolean.valueOf(System.getenv("PTC_MCC_ENABLED")) == false && Boolean.valueOf(System.getProperty("PTC_MCC_ENABLED")) == false && Boolean.valueOf(System.getProperty("PTC_MCC_ENABLED")) == false) {  //$$NON-NLS-1$$
       return;
     }
     .if (package.ui_root_class_name != "" )
@@ -53,7 +53,7 @@
     System.out.println(
   .end if
 	  " Operation entered: ${object.Name}::checkClassConsistency"); //$$NON-NLS-1$$
-     if (Boolean.valueOf(System.getenv("PTC_MCC_ENABLED")) == false) {  //$$NON-NLS-1$$
+     if (Boolean.valueOf(System.getenv("PTC_MCC_ENABLED")) == false && Boolean.valueOf(System.getProperty("PTC_MCC_ENABLED")) == false) {  //$$NON-NLS-1$$
        return;
      }
      $cr{object.Name}_c [] objs = $cr{object.Name}_c.$cr{object.Name}Instances(modelRoot,null,false); 
@@ -74,7 +74,7 @@
     System.out.println(
   .end if
 	  " Operation entered: ${object.Name}::checkConsistency");  //$$NON-NLS-1$$
-    if (Boolean.valueOf(System.getenv("PTC_MCC_ENABLED")) == false) {  //$$NON-NLS-1$$
+    if (Boolean.valueOf(System.getenv("PTC_MCC_ENABLED")) == false && Boolean.valueOf(System.getProperty("PTC_MCC_ENABLED")) == false) {  //$$NON-NLS-1$$
       return true;
     }
 	ModelRoot modelRoot = getModelRoot();

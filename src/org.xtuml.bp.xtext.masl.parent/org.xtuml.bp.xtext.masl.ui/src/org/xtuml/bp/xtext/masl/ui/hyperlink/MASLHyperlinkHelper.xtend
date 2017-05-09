@@ -33,33 +33,35 @@ class MASLHyperlinkHelper extends HyperlinkHelper {
 	override createHyperlinksByOffset(XtextResource resource, int offset, IHyperlinkAcceptor acceptor) {
 		super.createHyperlinksByOffset(resource, offset, acceptor)
 		val element = EObjectAtOffsetHelper.resolveElementAt(resource, offset)
-		if(element instanceof Parameterized) {
-			val region = element.significantTextRegion
-			if(region.contains(offset)) {
-				val paramTypes = element.parameters.map[maslType]
-				val index = resource.index
-				val declarationClass = element.declarationClass
-				if(element.declarationClass != null) {
-					getDeclarations(element, declarationClass, index).rankByParameters(paramTypes).forEach[
-						createHyperlink('Go to declaration', region, acceptor)
-					]
-				} else {
-					val definitionClass = element.definitionClass
-					if(definitionClass != null) {
-						getDefinitions(element, definitionClass, index).rankByParameters(paramTypes).forEach[
-							createHyperlink('Go to definition', region, acceptor)
+		if(resource.URI.fileExtension == 'mod' || element.eResource.URI.fileExtension != 'mod') {
+			if(element instanceof Parameterized) {
+				val region = element.significantTextRegion
+				if(region.contains(offset)) {
+					val paramTypes = element.parameters.map[maslType]
+					val index = resource.index
+					val declarationClass = element.declarationClass
+					if(element.declarationClass != null) {
+						getDeclarations(element, declarationClass, index).rankByParameters(paramTypes, element.hasReturnType).forEach[
+							createHyperlink('Go to declaration', region, acceptor)
 						]
+					} else {
+						val definitionClass = element.definitionClass
+						if(definitionClass != null) {
+							getDefinitions(element, definitionClass, index).rankByParameters(paramTypes, element.hasReturnType).forEach[
+								createHyperlink('Go to definition', region, acceptor)
+							]
+						}
 					}
 				}
 			}
 		}
 	}
 	
-	private def rankByParameters(Iterable<EObject> elements, List<MaslType> paramTypes) {
+	private def rankByParameters(Iterable<EObject> elements, List<MaslType> paramTypes, boolean needsReturnType) {
 		val exactCandidates = new TreeSet<RankedCandidate>()
 		val acceptableCandidates = new TreeSet<RankedCandidate>()
 		for(element: elements.filter(Parameterized)) {
-			val ranked = element.rankParameterized(paramTypes, element.hasReturnType)
+			val ranked = element.rankParameterized(paramTypes, needsReturnType)
 			if(ranked.isExact)
 				exactCandidates += ranked	
 			else if(ranked.isAcceptable)
@@ -81,7 +83,8 @@ class MASLHyperlinkHelper extends HyperlinkHelper {
 	}
 	
 	override createHyperlinksTo(XtextResource from, Region region, EObject target, IHyperlinkAcceptor acceptor) {
-		if(target.eResource.URI.scheme!='classpath')
+		val targetResourceURI = target.eResource.URI
+		if(targetResourceURI.scheme != 'classpath' && (from.URI.fileExtension == 'mod' || targetResourceURI.fileExtension != 'mod'))
 			super.createHyperlinksTo(from, region, target, acceptor)
 	}
 }

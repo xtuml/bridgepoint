@@ -34,7 +34,7 @@ import org.xtuml.bp.xtext.masl.masl.behavior.ScheduleType;
  *
  * @generated
  */
-public class ScheduleStatementImpl extends AbstractStatementImpl implements ScheduleStatement {
+public class ScheduleStatementImpl extends StatementImpl implements ScheduleStatement {
 	/**
 	 * The cached value of the '{@link #getTimerId() <em>Timer Id</em>}' containment reference.
 	 * <!-- begin-user-doc -->
