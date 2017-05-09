@@ -46,6 +46,8 @@ import org.xtuml.bp.xtext.masl.typesystem.TypeOfType
 
 import static org.xtuml.bp.xtext.masl.typesystem.BuiltinType.*
 import static org.xtuml.bp.xtext.masl.validation.MaslIssueCodesProvider.*
+import org.xtuml.bp.xtext.masl.masl.behavior.CharacteristicCall
+import org.xtuml.bp.xtext.masl.typesystem.DictionaryType
 
 class TypeValidator extends AbstractMASLValidator {
 	
@@ -96,7 +98,7 @@ class TypeValidator extends AbstractMASLValidator {
 					if(receiver.feature.isAction) {
 						val parameterized = receiver.feature as Parameterized
 						val expectedNumParameters = (parameterized).parameters.size
-						val isStatement = eContainmentFeature.EType === abstractStatement
+						val isStatement = eContainmentFeature.EType === statement
 						if(expectedNumParameters != arguments.size) 
 							addIssue('''The action «
 								parameterized.fullyQualifiedName»«parameterized.parametersAsString
@@ -135,6 +137,17 @@ class TypeValidator extends AbstractMASLValidator {
 		}
 	}
 	
+	@Check
+	def characteristicCall(CharacteristicCall it) {
+		if(arguments.size !== characteristic.parameters.size) {
+			addIssue('''The characteristic «
+				characteristic.name»«characteristic.parametersAsString
+				» cannot be called with arguments («
+					arguments.map[maslType.toString].join(', ')
+				»)''', it, characteristicCall_Characteristic, WRONG_NUMBER_OF_ARGUMENTS)
+		}
+	}
+	
 	@Check 
 	def checkGenerateStatement(GenerateStatement it) {
 		val argTypes = arguments.map[maslType]
@@ -153,11 +166,12 @@ class TypeValidator extends AbstractMASLValidator {
 			val primitiveType = receiver.maslType.primitiveType
 			switch primitiveType {
 				CollectionType,
+				DictionaryType,
 				BuiltinType case STRING: {
 					// noop
 				}
 				default:
-					addIssue('Cannot use ' + receiver.eClass.name + ' as indexed element', receiver, null)
+					addIssue('Cannot use ' + receiver.eClass.name + ' as indexed element', receiver, INVALID_INDEXED_EXPRESSION)
 			}
 		}
 	}
@@ -204,8 +218,6 @@ class TypeValidator extends AbstractMASLValidator {
 			val relationship = expr.navigation.relationship
 			if(!(relationship instanceof AssocRelationshipDefinition))
 				addIssue("Navigation expression with 'with' can only use an association relationship", expr.navigation, structurePackage.relationshipNavigation_Relationship, INCONSISTENT_RELATIONSHIP_NAVIGATION)
-			if(expr.navigation.objectOrRole != (relationship as AssocRelationshipDefinition).object)
-				addIssue("Navigation expression with 'with' can only use an association class", expr.navigation, structurePackage.relationshipNavigation_ObjectOrRole, INCONSISTENT_RELATIONSHIP_NAVIGATION)
 		}
 	}
 	
@@ -217,7 +229,7 @@ class TypeValidator extends AbstractMASLValidator {
 			val allDeclarations = definition
 							.getDeclarations(declarationClass, definition.index)
 							.filter(Parameterized)
-							.map[rankParameterized(defTypes, hasReturnType)]
+							.map[rankParameterized(defTypes, definition.hasReturnType)]
 			if(allDeclarations.empty) 
 				return
 			val bestMatch = allDeclarations.maxBy[score]

@@ -14,5 +14,5 @@ package org.xtuml.bp.xtext.masl.masl.behavior;
  * @model
  * @generated
  */
-public interface CodeBlockStatement extends AbstractStatement {
+public interface CodeBlockStatement extends Statement {
 } // CodeBlockStatement

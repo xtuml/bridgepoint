@@ -15,7 +15,7 @@ import org.xtuml.bp.xtext.masl.masl.behavior.Expression;
  *
  * @generated
  */
-public class ExpressionImpl extends AbstractStatementImpl implements Expression {
+public class ExpressionImpl extends StatementImpl implements Expression {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

@@ -25,7 +25,9 @@ package org.xtuml.bp.core.common;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map.Entry;
 import java.util.UUID;
 
 import org.xtuml.bp.core.ComponentInstance_c;
@@ -46,7 +48,7 @@ public class IdAssigner
      * because this class has methods that need to operate on all the 
      * instances, such as seedForAllInstances(). 
      */
-    private static List<IdAssigner> instances = new ArrayList<IdAssigner>();
+    private static HashMap<String, IdAssigner> instances = new HashMap<String, IdAssigner>();
     
     /**
      * The seed supplied to the last call made to seedForAllInstances(), to 
@@ -55,13 +57,16 @@ public class IdAssigner
     private static long seedForAllInstances = 0;
 
 	public long seed = 0;
+	
+	private String className;
     
     /**
      * Constructor.
      */
-    public IdAssigner()
+    public IdAssigner(String className)
     {
-        instances.add(this);
+    	this.className = className;
+        instances.put(className, this);
         
         // if a seed for all instances has been set
         if (seedForAllInstances != 0) {
@@ -205,13 +210,20 @@ public class IdAssigner
     {
         seedForAllInstances = seed;
         
-        for (IdAssigner instance: instances) instance.setSeed(seed);
+        for (Entry<String, IdAssigner> entry : instances.entrySet()) {
+        	IdAssigner assigner = entry.getValue();
+        	assigner.setSeed(seed);
+        }
     }
     public static void setSeedOfAllInstances(long seed, boolean allocateHeterogeneousSeeds) 
     {
     	if (allocateHeterogeneousSeeds) {
           seedForAllInstances = seed;
-          for (IdAssigner instance: instances) instance.setSeed(seed++);
+          for (Entry<String, IdAssigner> entry : instances.entrySet()) {
+        	  IdAssigner assigner = entry.getValue();
+        	  long incrementBase = entry.getKey().hashCode();
+        	  assigner.setSeed(seed + incrementBase);
+          }
     	}
     	else {
     		setSeedOfAllInstances(seed);

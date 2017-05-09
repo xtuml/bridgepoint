@@ -31,23 +31,19 @@
 .select many cmes from instances of CME
 .for each cme in cmes
   .invoke fn = get_func_name(cme)
-  .select any function from instances of S_SYNC where (selected.Name == "${fn.body}")
+  .select any function from instances of S_SYNC where (selected.Name == fn.body)
   .if (not_empty function)
     .if ( "${function.Descrip:Translate}" == "native" )
       .print "WARNING: Function ${function.Name} has a native implementation; nothing done"
     .else
-      .invoke wkfl = create_wfl("${fn.body}", "${function.Sync_Id}", cme);
-${wkfl.body}
+      .invoke wkfl = create_wfl(fn.body, function, cme)
       .select one action related by function->ACT_FNB[R695]->ACT_ACT[R698]
       .if (not_empty action)
         .select any outer_blk related by action->ACT_BLK[R601] where (selected.Block_Id == action.Block_Id)
         .if (not_empty outer_blk)
-          .invoke step = create_step(wkfl, outer_blk, "0", "0")
+          .invoke step = create_step(wkfl, outer_blk, "0", "0", "${info.unique_num}")
           .invoke result = wfl_pop_blck_xlate(step, outer_blk)
-          .if ("${result.body}" != "")
-${step.body}
-${result.body}
-          .else
+          .if (result.body == "")
             .print "WARNING: Empty body for function ${function.Name}"
           .end if
         .else
@@ -55,10 +51,9 @@ ${result.body}
         .end if
       .else
         .print "ERROR: No action found for function ${function.Name}"
-	  .end if
+      .end if
     .end if
   .else
     .print "ERROR: No function, ${fn.body}, found for context menu entry: Specialism: ${cme.Specialism}  Label: ${cme.Label}  Key_Lett: ${cme.Key_Lett}"
   .end if
 .end for
-.emit to file "${sql_dir}/wfl.pei.sql"

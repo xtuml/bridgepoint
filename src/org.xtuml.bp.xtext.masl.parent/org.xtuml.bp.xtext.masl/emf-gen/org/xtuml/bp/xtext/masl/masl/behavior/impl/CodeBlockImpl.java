@@ -18,11 +18,11 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
-import org.xtuml.bp.xtext.masl.masl.behavior.AbstractStatement;
 import org.xtuml.bp.xtext.masl.masl.behavior.BehaviorPackage;
 import org.xtuml.bp.xtext.masl.masl.behavior.CodeBlock;
 import org.xtuml.bp.xtext.masl.masl.behavior.DefaultExceptionHandler;
 import org.xtuml.bp.xtext.masl.masl.behavior.ExceptionHandler;
+import org.xtuml.bp.xtext.masl.masl.behavior.Statement;
 import org.xtuml.bp.xtext.masl.masl.behavior.StatementList;
 import org.xtuml.bp.xtext.masl.masl.behavior.VariableDeclaration;
 
@@ -51,7 +51,7 @@ public class CodeBlockImpl extends CodeBlockStatementImpl implements CodeBlock {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<AbstractStatement> statements;
+	protected EList<Statement> statements;
 
 	/**
 	 * The cached value of the '{@link #getVariables() <em>Variables</em>}' containment reference list.
@@ -107,9 +107,9 @@ public class CodeBlockImpl extends CodeBlockStatementImpl implements CodeBlock {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<AbstractStatement> getStatements() {
+	public EList<Statement> getStatements() {
 		if (statements == null) {
-			statements = new EObjectContainmentEList<AbstractStatement>(AbstractStatement.class, this, BehaviorPackage.CODE_BLOCK__STATEMENTS);
+			statements = new EObjectContainmentEList<Statement>(Statement.class, this, BehaviorPackage.CODE_BLOCK__STATEMENTS);
 		}
 		return statements;
 	}
@@ -232,7 +232,7 @@ public class CodeBlockImpl extends CodeBlockStatementImpl implements CodeBlock {
 		switch (featureID) {
 			case BehaviorPackage.CODE_BLOCK__STATEMENTS:
 				getStatements().clear();
-				getStatements().addAll((Collection<? extends AbstractStatement>)newValue);
+				getStatements().addAll((Collection<? extends Statement>)newValue);
 				return;
 			case BehaviorPackage.CODE_BLOCK__VARIABLES:
 				getVariables().clear();

@@ -14,5 +14,5 @@ package org.xtuml.bp.xtext.masl.masl.behavior;
  * @model
  * @generated
  */
-public interface Expression extends AbstractStatement, ConstExpression {
+public interface Expression extends Statement, ConstExpression {
 } // Expression

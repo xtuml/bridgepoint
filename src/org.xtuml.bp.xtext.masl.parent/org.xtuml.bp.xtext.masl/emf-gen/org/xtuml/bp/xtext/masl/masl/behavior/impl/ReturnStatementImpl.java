@@ -28,7 +28,7 @@ import org.xtuml.bp.xtext.masl.masl.behavior.ReturnStatement;
  *
  * @generated
  */
-public class ReturnStatementImpl extends AbstractStatementImpl implements ReturnStatement {
+public class ReturnStatementImpl extends StatementImpl implements ReturnStatement {
 	/**
 	 * The cached value of the '{@link #getValue() <em>Value</em>}' containment reference.
 	 * <!-- begin-user-doc -->

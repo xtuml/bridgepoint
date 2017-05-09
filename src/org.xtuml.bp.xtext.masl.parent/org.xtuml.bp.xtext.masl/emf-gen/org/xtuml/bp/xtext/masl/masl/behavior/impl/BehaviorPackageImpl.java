@@ -12,7 +12,6 @@ import org.eclipse.emf.ecore.EcorePackage;
 
 import org.eclipse.emf.ecore.impl.EPackageImpl;
 
-import org.xtuml.bp.xtext.masl.masl.behavior.AbstractStatement;
 import org.xtuml.bp.xtext.masl.masl.behavior.ActionCall;
 import org.xtuml.bp.xtext.masl.masl.behavior.AdditiveExp;
 import org.xtuml.bp.xtext.masl.masl.behavior.AssignStatement;
@@ -76,6 +75,7 @@ import org.xtuml.bp.xtext.masl.masl.behavior.SimpleFeatureCall;
 import org.xtuml.bp.xtext.masl.masl.behavior.SortOrder;
 import org.xtuml.bp.xtext.masl.masl.behavior.SortOrderComponent;
 import org.xtuml.bp.xtext.masl.masl.behavior.SortOrderFeature;
+import org.xtuml.bp.xtext.masl.masl.behavior.Statement;
 import org.xtuml.bp.xtext.masl.masl.behavior.StatementList;
 import org.xtuml.bp.xtext.masl.masl.behavior.StreamExpression;
 import org.xtuml.bp.xtext.masl.masl.behavior.StringLiteral;
@@ -142,7 +142,7 @@ public class BehaviorPackageImpl extends EPackageImpl implements BehaviorPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass abstractStatementEClass = null;
+	private EClass statementEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -797,8 +797,8 @@ public class BehaviorPackageImpl extends EPackageImpl implements BehaviorPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getAbstractStatement() {
-		return abstractStatementEClass;
+	public EClass getStatement() {
+		return statementEClass;
 	}
 
 	/**
@@ -2377,7 +2377,7 @@ public class BehaviorPackageImpl extends EPackageImpl implements BehaviorPackage
 
 		defaultExceptionHandlerEClass = createEClass(DEFAULT_EXCEPTION_HANDLER);
 
-		abstractStatementEClass = createEClass(ABSTRACT_STATEMENT);
+		statementEClass = createEClass(STATEMENT);
 
 		expressionEClass = createEClass(EXPRESSION);
 
@@ -2655,32 +2655,32 @@ public class BehaviorPackageImpl extends EPackageImpl implements BehaviorPackage
 		variableDeclarationEClass.getESuperTypes().add(theStructurePackage.getAbstractFeature());
 		exceptionHandlerEClass.getESuperTypes().add(this.getStatementList());
 		defaultExceptionHandlerEClass.getESuperTypes().add(this.getStatementList());
-		abstractStatementEClass.getESuperTypes().add(theStructurePackage.getPragmatized());
-		expressionEClass.getESuperTypes().add(this.getAbstractStatement());
+		statementEClass.getESuperTypes().add(theStructurePackage.getPragmatized());
+		expressionEClass.getESuperTypes().add(this.getStatement());
 		expressionEClass.getESuperTypes().add(this.getConstExpression());
-		exitStatementEClass.getESuperTypes().add(this.getAbstractStatement());
-		returnStatementEClass.getESuperTypes().add(this.getAbstractStatement());
-		delayStatementEClass.getESuperTypes().add(this.getAbstractStatement());
-		raiseStatementEClass.getESuperTypes().add(this.getAbstractStatement());
-		deleteStatementEClass.getESuperTypes().add(this.getAbstractStatement());
-		eraseStatementEClass.getESuperTypes().add(this.getAbstractStatement());
-		scheduleStatementEClass.getESuperTypes().add(this.getAbstractStatement());
-		cancelTimerStatementEClass.getESuperTypes().add(this.getAbstractStatement());
-		generateStatementEClass.getESuperTypes().add(this.getAbstractStatement());
-		ifStatementEClass.getESuperTypes().add(this.getAbstractStatement());
+		exitStatementEClass.getESuperTypes().add(this.getStatement());
+		returnStatementEClass.getESuperTypes().add(this.getStatement());
+		delayStatementEClass.getESuperTypes().add(this.getStatement());
+		raiseStatementEClass.getESuperTypes().add(this.getStatement());
+		deleteStatementEClass.getESuperTypes().add(this.getStatement());
+		eraseStatementEClass.getESuperTypes().add(this.getStatement());
+		scheduleStatementEClass.getESuperTypes().add(this.getStatement());
+		cancelTimerStatementEClass.getESuperTypes().add(this.getStatement());
+		generateStatementEClass.getESuperTypes().add(this.getStatement());
+		ifStatementEClass.getESuperTypes().add(this.getStatement());
 		ifStatementEClass.getESuperTypes().add(this.getStatementList());
 		elsifBlockEClass.getESuperTypes().add(this.getStatementList());
 		elseBlockEClass.getESuperTypes().add(this.getStatementList());
-		whileStatementEClass.getESuperTypes().add(this.getAbstractStatement());
+		whileStatementEClass.getESuperTypes().add(this.getStatement());
 		whileStatementEClass.getESuperTypes().add(this.getStatementList());
-		caseStatementEClass.getESuperTypes().add(this.getAbstractStatement());
+		caseStatementEClass.getESuperTypes().add(this.getStatement());
 		caseAlternativeEClass.getESuperTypes().add(this.getStatementList());
 		caseOthersEClass.getESuperTypes().add(this.getStatementList());
-		forStatementEClass.getESuperTypes().add(this.getAbstractStatement());
+		forStatementEClass.getESuperTypes().add(this.getStatement());
 		forStatementEClass.getESuperTypes().add(this.getStatementList());
 		loopVariableEClass.getESuperTypes().add(theStructurePackage.getAbstractNamed());
 		loopVariableEClass.getESuperTypes().add(theStructurePackage.getAbstractFeature());
-		codeBlockStatementEClass.getESuperTypes().add(this.getAbstractStatement());
+		codeBlockStatementEClass.getESuperTypes().add(this.getStatement());
 		sortOrderFeatureEClass.getESuperTypes().add(this.getSimpleFeatureCall());
 		createExpressionEClass.getESuperTypes().add(this.getExpression());
 		findExpressionEClass.getESuperTypes().add(this.getExpression());
@@ -2723,7 +2723,7 @@ public class BehaviorPackageImpl extends EPackageImpl implements BehaviorPackage
 
 		// Initialize classes, features, and operations; add parameters
 		initEClass(statementListEClass, StatementList.class, "StatementList", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getStatementList_Statements(), this.getAbstractStatement(), null, "statements", null, 0, -1, StatementList.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getStatementList_Statements(), this.getStatement(), null, "statements", null, 0, -1, StatementList.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(codeBlockEClass, CodeBlock.class, "CodeBlock", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getCodeBlock_Variables(), this.getVariableDeclaration(), null, "variables", null, 0, -1, CodeBlock.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -2740,7 +2740,7 @@ public class BehaviorPackageImpl extends EPackageImpl implements BehaviorPackage
 
 		initEClass(defaultExceptionHandlerEClass, DefaultExceptionHandler.class, "DefaultExceptionHandler", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
-		initEClass(abstractStatementEClass, AbstractStatement.class, "AbstractStatement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEClass(statementEClass, Statement.class, "Statement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(expressionEClass, Expression.class, "Expression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 

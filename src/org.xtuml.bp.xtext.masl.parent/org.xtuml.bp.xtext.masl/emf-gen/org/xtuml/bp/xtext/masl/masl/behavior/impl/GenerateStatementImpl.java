@@ -41,7 +41,7 @@ import org.xtuml.bp.xtext.masl.masl.structure.ObjectDeclaration;
  *
  * @generated
  */
-public class GenerateStatementImpl extends AbstractStatementImpl implements GenerateStatement {
+public class GenerateStatementImpl extends StatementImpl implements GenerateStatement {
 	/**
 	 * The cached value of the '{@link #getObject() <em>Object</em>}' reference.
 	 * <!-- begin-user-doc -->

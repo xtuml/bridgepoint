@@ -13,12 +13,18 @@
 .//====================================================================
 .function create_wfl
   .param string name
-  .param string sync_id
+  .param inst_ref s_sync
   .param inst_ref cme
   .//
   .assign attr_name = name
-INSERT INTO W_WOF VALUES ( '${name}', ${sync_id}, '${cme.Key_Lett}', \
+INSERT INTO W_WOF VALUES ( '${name}', ${s_sync.Sync_ID}, '${cme.Key_Lett}', \
 '${cme.Specialism}', '${cme.Label}');\
+  .create object instance w_wof of W_WOF
+  .assign w_wof.Name = name
+  .assign w_wof.Sync_ID = s_sync.Sync_ID
+  .assign w_wof.Key_Lett = cme.Key_Lett
+  .assign w_wof.Specialism = cme.Specialism
+  .assign w_wof.Label = cme.Label
 .end function
 .//====================================================================
 .//
@@ -30,12 +36,26 @@ INSERT INTO W_WOF VALUES ( '${name}', ${sync_id}, '${cme.Key_Lett}', \
   .param inst_ref blk
   .param string parent_id
   .param string prev_id
+  .param string id
   .//
-  .assign attr_wfl_name = wfl.name
   .assign attr_wfl = wfl
-  .assign attr_id = "${info.unique_num}"
-INSERT INTO W_STEP VALUES ('${attr_id}', '${wfl.name}', '${blk.Block_Id}', \
-'${parent_id}', '${prev_id}', '');\
+  .assign attr_id = ""
+  .// This may look a bit bizarre.  The first time create_step is called,
+  .// it simply returns a new ID.  This is because the step may or may not
+  .// be used.  It is conditioned upon further processing.  create_step is
+  .// called a second time when it is known to be needed.
+  .if ( "0" == id )
+    .assign attr_id = "${info.unique_num}"
+  .else
+    .assign attr_id = id
+    .create object instance w_step of W_STEP
+    .assign w_step.Step_ID = attr_id
+    .assign w_step.Workflow_Name = wfl.name
+    .assign w_step.Block_ID = blk.Block_Id
+    .assign w_step.Parent_Step_ID = parent_id
+    .assign w_step.Previous_Step_ID = prev_id
+    .assign w_step.buffer = ""
+  .end if
 .end function
 .//====================================================================
 .//
@@ -101,10 +121,22 @@ INSERT INTO W_STEP VALUES ('${attr_id}', '${wfl.name}', '${blk.Block_Id}', \
           .select one var related by inst_ref->V_VAR[R814]
           .select one clazz related by inst_ref->O_OBJ[R818]
 INSERT INTO W_CTI VALUES ('${var.Name}', '${wfl.name}', '${statement.Statement_Id}', '${clazz.Key_Lett}', '${fiw_stmt.cardinality}');
+          .create object instance w_cti of W_CTI
+          .assign w_cti.Name = var.Name
+          .assign w_cti.Workflow_Name = wfl.name
+          .assign w_cti.Statement_ID = "${statement.Statement_Id}"
+          .assign w_cti.Key_Lett = clazz.Key_Lett
+          .assign w_cti.Type = fiw_stmt.cardinality
         .elif (not_empty inst_set)
           .select one var related by inst_set->V_VAR[R814]
           .select one clazz related by inst_set->O_OBJ[R819]
 INSERT INTO W_CTI VALUES ('${var.Name}', '${wfl.name}', '${statement.Statement_Id}', '${clazz.Key_Lett}', '${fiw_stmt.cardinality}');
+          .create object instance w_cti of W_CTI
+          .assign w_cti.Name = var.Name
+          .assign w_cti.Workflow_Name = wfl.name
+          .assign w_cti.Statement_ID = "${statement.Statement_Id}"
+          .assign w_cti.Key_Lett = clazz.Key_Lett
+          .assign w_cti.Type = fiw_stmt.cardinality
         .else
           .print "ERROR: From instances where statement does not specify instance reference or set . . . . internal generation error"
         .end if
@@ -129,6 +161,12 @@ INSERT INTO W_CTI VALUES ('${var.Name}', '${wfl.name}', '${statement.Statement_I
           .assign last_link = llic.last_link
           .select one clazz related by last_link->O_OBJ[R678]
 INSERT INTO W_CTI VALUES ('${result.Name}', '${wfl.name}', '${statement.Statement_Id}', '${clazz.Key_Lett}', 'one');
+          .create object instance w_cti of W_CTI
+          .assign w_cti.Name = result.Name
+          .assign w_cti.Workflow_Name = wfl.name
+          .assign w_cti.Statement_ID = "${statement.Statement_Id}"
+          .assign w_cti.Key_Lett = clazz.Key_Lett
+          .assign w_cti.Type = "one"
         .else
           .assign srw_stmt_num = srw_stmt_num + 1
           .select one result related by srw_stmt->ACT_SEL[R664]->V_VAR[R638]
@@ -139,14 +177,26 @@ INSERT INTO W_CTI VALUES ('${result.Name}', '${wfl.name}', '${statement.Statemen
 INSERT INTO W_FLD VALUES ('USER_${result.Name}', '${result.Name}', \
 '${statement.Statement_Id}', '${clazz.Key_Lett}', '${step.id}', \
 '${sel_stmt.cardinality}', \
+          .create object instance w_fld of W_FLD
+          .assign w_fld.Name = "USER_" + result.Name
+          .assign w_fld.Instance_Handle = result.Name
+          .assign w_fld.Statement_ID = "${statement.Statement_Id}"
+          .assign w_fld.Key_Lett = clazz.Key_Lett
+          .assign w_fld.Step_ID = step.id
+          .assign w_fld.Cardinality = sel_stmt.cardinality
+          .assign w_fld.buffer = ""
           .if (hubi.Method_Name == "selectOne")
 'Combo', '');
+            .assign w_fld.Type = "Combo"
           .elif (hubi.Method_Name == "selectOneWithInt")
 'Combo', '');
+            .assign w_fld.Type = "Combo"
           .elif (hubi.Method_Name == "selectMany")
 'List', '');
+            .assign w_fld.Type = "List"
           .else
 '${hubi.Method_Name}', '');
+            .assign w_fld.Type = hubi.Method_Name
           .end if
           .select one function related by blck->ACT_ACT[R601]->ACT_FNB[R698]->S_SYNC[R695]
           .// only support two custom labels
@@ -158,6 +208,10 @@ INSERT INTO W_FLD VALUES ('USER_${result.Name}', '${result.Name}', \
           .end if
           .if ( label != "" )
 INSERT INTO W_CFL VALUES ('USER_${result.Name}', '${step.id}', '${label}');
+            .create object instance w_cfl of W_CFL
+            .assign w_cfl.Name = "USER_" + result.Name
+            .assign w_cfl.Step_ID = step.id
+            .assign w_cfl.Label = label
           .end if
         .end if
       .else
@@ -176,65 +230,76 @@ INSERT INTO W_CFL VALUES ('USER_${result.Name}', '${step.id}', '${label}');
         .select one transient_asgn related by statement->ACT_AT[R603]
 INSERT INTO W_FLD VALUES ('USER_${transient_asgn.Target_Variable_Name}', '${transient_asgn.Target_Variable_Name}', \
 '${transient_asgn.Statement_Id}', '', '${step.id}', \
+        .create object instance w_fld of W_FLD
+        .assign w_fld.Name = "USER_" + transient_asgn.Target_Variable_Name
+        .assign w_fld.Instance_Handle = transient_asgn.Target_Variable_Name
+        .assign w_fld.Statement_ID = "${transient_asgn.Statement_Id}"
+        .assign w_fld.Key_Lett = ""
+        .assign w_fld.Step_ID = step.id
+        .assign w_fld.Cardinality = ""
+        .assign w_fld.buffer = ""
         .if ((hubi.Method_Name == "getString") OR (hubi.Method_Name == "getStringDef"))
 '', 'Text', '');
+          .assign w_fld.Type = "Text"
         .elif (hubi.Method_Name == "getMLString")
 '', 'MLText', '');
+          .assign w_fld.Type = "MLText"
         .else
 '', '${hubi.Method_Name}', '');
+          .assign w_fld.Type = hubi.Method_Name
         .end if
       .end if
     .end if
     .select any for_blk related by statement->ACT_FOR[R603]->ACT_BLK[R605]
     .if (not_empty for_blk)
-      .invoke new_step = create_step(step.wfl, for_blk, step.id, prev_step_id)
+      .invoke new_step = create_step(step.wfl, for_blk, step.id, prev_step_id, "0")
       .invoke inner_blck = wfl_pop_blck_xlate(new_step, for_blk)
-      .if ("${inner_blck.body}" != "")
-${new_step.body}\
+      .if (inner_blck.body != "")
+        .invoke new_step = create_step(step.wfl, for_blk, step.id, prev_step_id, new_step.id)
         .assign prev_step_id = new_step.id
 ${inner_blck.body}\
       .end if
     .end if
     .select any else_blk related by statement->ACT_E[R603]->ACT_BLK[R606]
     .if (not_empty else_blk)
-      .invoke new_step = create_step(step.wfl, else_blk, step.id, prev_step_id)
+      .invoke new_step = create_step(step.wfl, else_blk, step.id, prev_step_id, "0")
       .invoke inner_blck = wfl_pop_blck_xlate(new_step, else_blk)
-      .if ("${inner_blck.body}" != "")
-${new_step.body}\
+      .if (inner_blck.body != "")
+        .invoke new_step = create_step(step.wfl, else_blk, step.id, prev_step_id, new_step.id)
         .assign prev_step_id = new_step.id
 ${inner_blck.body}\
       .end if
     .end if
     .select any if_blk related by statement->ACT_IF[R603]->ACT_BLK[R607]
     .if (not_empty if_blk)
-      .invoke new_step = create_step(step.wfl, if_blk, step.id, prev_step_id)
+      .invoke new_step = create_step(step.wfl, if_blk, step.id, prev_step_id, "0")
       .invoke inner_blck = wfl_pop_blck_xlate(new_step, if_blk)
-      .if ("${inner_blck.body}" != "")
-${new_step.body}\
+      .if (inner_blck.body != "")
+        .invoke new_step = create_step(step.wfl, if_blk, step.id, prev_step_id, new_step.id)
         .assign prev_step_id = new_step.id
 ${inner_blck.body}\
       .end if
     .end if
     .select any whl_blk related by statement->ACT_WHL[R603]->ACT_BLK[R608]
     .if (not_empty whl_blk)
-      .invoke new_step = create_step(step.wfl, whl_blk, step.id, prev_step_id)
+      .invoke new_step = create_step(step.wfl, whl_blk, step.id, prev_step_id, "0")
       .invoke inner_blck = wfl_pop_blck_xlate(new_step, whl_blk)
-      .if ("${inner_blck.body}" != "")
-${new_step.body}\
+      .if (inner_blck.body != "")
+        .invoke new_step = create_step(step.wfl, whl_blk, step.id, prev_step_id, new_step.id)
         .assign prev_step_id = new_step.id
 ${inner_blck.body}\
       .end if
     .end if
     .select any eli_blk related by statement->ACT_EL[R603]->ACT_BLK[R658]
     .if (not_empty eli_blk)
-      .invoke new_step = create_step(step.wfl, eli_blk, step.id, prev_step_id)
+      .invoke new_step = create_step(step.wfl, eli_blk, step.id, prev_step_id, "0")
       .invoke inner_blck = wfl_pop_blck_xlate(new_step, eli_blk)
-      .if ("${inner_blck.body}" != "")
-${new_step.body}\
+      .if (inner_blck.body != "")
+        .invoke new_step = create_step(step.wfl, eli_blk, step.id, prev_step_id, new_step.id)
         .assign prev_step_id = new_step.id
 ${inner_blck.body}\
       .end if
-	.end if
+    .end if
     .select one next_statement related by statement->ACT_SMT[R661.'precedes']
     .assign statement = next_statement
   .end while
