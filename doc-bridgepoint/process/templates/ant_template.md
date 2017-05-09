@@ -31,7 +31,7 @@ In this section, outline the important points relating to this issue/bug that
 the reader would need to know in order to understand the rest of this
 document. Here is an example reference to the Document References section [[2.1]](#2.1)
 
-![myimage](myimage.jpg)  
+![My Image](myimage.jpg)  
 
 ### 4. Requirements
 
