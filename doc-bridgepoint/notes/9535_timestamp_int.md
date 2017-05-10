@@ -38,7 +38,7 @@ to be able to quantitatively compare the old and new data.
 6.1  Current ```org.xtuml.bp.core``` build log with new timestamps on Keith's
   2017 Macbook Pro (16 GB RAM).  
     
-  Summary:
+  Summary:  
   |  Target   |  Duration  | 
   |-----------|------------|
   | java 1    |  11 mins   |
