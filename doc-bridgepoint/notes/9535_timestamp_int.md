@@ -38,19 +38,20 @@ to be able to quantitatively compare the old and new data.
 6.1  Current ```org.xtuml.bp.core``` build log with new timestamps on Keith's
   2017 Macbook Pro (16 GB RAM).  
     
-  Summary:  
-  |  Target   |  Duration  | 
-  |-----------|------------|
-  | java 1    |  11 mins   |
-  | java 2    |  2 mins    |
-  | java 3    |  50 secs   |
-  | java 4    | 2 min 15 secs |
-  | cme_menus | 3 min 20 secs |
-  | inspector.java | 20 secs |
-  | cell_modifiers | 15 secs |
-  | generate_supertype_suptype_util | 10 secs |
-  | action_language_description_util | 10 secs |
-  | generate_rto_util | 15 secs |
+  Summary:   
+  
+|  Target   |  Duration  |   
+|-----------|------------|  
+| java 1    |  11 mins   |  
+| java 2    |  2 mins    |  
+| java 3    |  50 secs   |  
+| java 4    | 2 min 15 secs |  
+| cme_menus | 3 min 20 secs |  
+| inspector.java | 20 secs |  
+| cell_modifiers | 15 secs |  
+| generate_supertype_suptype_util | 10 secs |  
+| action_language_description_util | 10 secs |  
+| generate_rto_util | 15 secs |  
   
 Console output:  
 ```
@@ -250,7 +251,10 @@ Branch: 9535_timestamp
 
 <pre>
 
-< Put the file list here >
+doc-bridgepoint/notes/9535_timestamp_int.md
+src/MC-Java/build.xml
+src/MC-Java/common.xml
+src/org.xtuml.bp.core/generate.xml
 
 </pre>
 
