@@ -60,7 +60,11 @@ class MaslExpectedTypeProvider {
 				return action.feature.getParameterType(index)
 		}
 		if(reference == indexedExpression_Brackets && context instanceof IndexedExpression) {
-			return #[INTEGER, new RangeType(INTEGER)]
+			val receiverType = (context as IndexedExpression).receiver.maslType
+			if(receiverType instanceof DictionaryType)
+				return #[receiverType.keyType]
+			else
+				return #[INTEGER, new RangeType(INTEGER)]
 		}
 		if(reference == terminatorActionCall_Arguments && context instanceof TerminatorActionCall && index != -1) 
 			return (context as TerminatorActionCall).terminatorAction.getParameterType(index)
