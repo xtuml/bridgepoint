@@ -298,7 +298,7 @@
     <env key="CHECK_FUNCTIONS_ONLY" value="true" />
     <env key="GEN_CONTEXT_MENU_WIZARD" value="TRUE"/>
     <env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
-    <arg line="xtumlmc_gen_erate -nopersist
+    <arg line="xtumlmc_gen_erate -qim -nopersist
       -import ${mcj_path}/ooa_schema.sql
       -d 0 -import sql/ooaofooa-4.sql
       -arch ${mcj_path}/verify_selects.arc
@@ -394,7 +394,7 @@
         <env key="PTC_MC_ARC_DIR" value="${mcj_path}"/>
         <env key="CHAIN_UTIL_DIR" value="${chain_util_path}"/>
       <env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
-    <arg line="xtumlmc_gen_erate -nopersist
+    <arg line="xtumlmc_gen_erate -qim -nopersist
       -import ${mcj_path}/ooa_schema.sql
       -import sql/ooaofooa_hierarchy_schema.sql
       -import sql/ooaofooa.sql
@@ -435,7 +435,7 @@
            <env key="PTC_MC_ARC_DIR" value="${mcj_path}"/>
            <env key="CHAIN_UTIL_DIR" value="${chain_util_path}"/>
          <env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
-       <arg line="xtumlmc_gen_erate -nopersist
+       <arg line="xtumlmc_gen_erate -qim -nopersist
          -import ${mcj_path}/ooa_schema.sql
          -import sql/ooaofooa_hierarchy_schema.sql
          -import sql/ooaofooa.sql
