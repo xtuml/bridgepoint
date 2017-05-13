@@ -242,9 +242,10 @@ class MASLScopeProvider extends AbstractMASLScopeProvider {
 	}
 	
 	private def IScope getEnumDisambiguationScope(MaslType maslType, IScope parent) {
-		if(maslType instanceof EnumType) {
-			val domainName = maslType.enumType.domainName
-			return MapBasedScope.createScope(parent, maslType.enumType.enumerators.map[
+		val enumType = maslType.expectedEnumType
+		if(enumType !== null) {
+			val domainName = enumType.enumType.domainName
+			return MapBasedScope.createScope(parent, enumType.enumType.enumerators.map[
 				#[
 					EObjectDescription.create(QualifiedName.create(name), it),
 					EObjectDescription.create(QualifiedName.create(domainName, name), it)
@@ -254,6 +255,20 @@ class MASLScopeProvider extends AbstractMASLScopeProvider {
 			return parent
 		}
 	} 
+	
+	private def EnumType getExpectedEnumType(MaslType maslType) {
+		switch maslType {
+			EnumType:
+				return maslType
+			CollectionType:
+				if(maslType.componentType instanceof EnumType)
+					return maslType.componentType as EnumType
+			StructureType:
+				if(maslType.components.size == 1 && maslType.components.head.type instanceof EnumType)
+					return maslType.components.head.type as EnumType
+		}
+		return null
+	}
 	
 	private def IScope getTypeFeatureScope(MaslType type) {
 		switch type {

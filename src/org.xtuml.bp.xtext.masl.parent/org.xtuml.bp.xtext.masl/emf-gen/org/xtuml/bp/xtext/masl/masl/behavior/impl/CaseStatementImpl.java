@@ -39,7 +39,7 @@ import org.xtuml.bp.xtext.masl.masl.behavior.Expression;
  *
  * @generated
  */
-public class CaseStatementImpl extends AbstractStatementImpl implements CaseStatement {
+public class CaseStatementImpl extends StatementImpl implements CaseStatement {
 	/**
 	 * The cached value of the '{@link #getValue() <em>Value</em>}' containment reference.
 	 * <!-- begin-user-doc -->

@@ -83,7 +83,7 @@ public class BehaviorSwitch<T> extends Switch<T> {
 				T result = caseCodeBlock(codeBlock);
 				if (result == null) result = caseCodeBlockStatement(codeBlock);
 				if (result == null) result = caseStatementList(codeBlock);
-				if (result == null) result = caseAbstractStatement(codeBlock);
+				if (result == null) result = caseStatement(codeBlock);
 				if (result == null) result = casePragmatized(codeBlock);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
@@ -111,17 +111,17 @@ public class BehaviorSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case BehaviorPackage.ABSTRACT_STATEMENT: {
-				AbstractStatement abstractStatement = (AbstractStatement)theEObject;
-				T result = caseAbstractStatement(abstractStatement);
-				if (result == null) result = casePragmatized(abstractStatement);
+			case BehaviorPackage.STATEMENT: {
+				Statement statement = (Statement)theEObject;
+				T result = caseStatement(statement);
+				if (result == null) result = casePragmatized(statement);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case BehaviorPackage.EXPRESSION: {
 				Expression expression = (Expression)theEObject;
 				T result = caseExpression(expression);
-				if (result == null) result = caseAbstractStatement(expression);
+				if (result == null) result = caseStatement(expression);
 				if (result == null) result = caseConstExpression(expression);
 				if (result == null) result = casePragmatized(expression);
 				if (result == null) result = defaultCase(theEObject);
@@ -130,7 +130,7 @@ public class BehaviorSwitch<T> extends Switch<T> {
 			case BehaviorPackage.EXIT_STATEMENT: {
 				ExitStatement exitStatement = (ExitStatement)theEObject;
 				T result = caseExitStatement(exitStatement);
-				if (result == null) result = caseAbstractStatement(exitStatement);
+				if (result == null) result = caseStatement(exitStatement);
 				if (result == null) result = casePragmatized(exitStatement);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
@@ -138,7 +138,7 @@ public class BehaviorSwitch<T> extends Switch<T> {
 			case BehaviorPackage.RETURN_STATEMENT: {
 				ReturnStatement returnStatement = (ReturnStatement)theEObject;
 				T result = caseReturnStatement(returnStatement);
-				if (result == null) result = caseAbstractStatement(returnStatement);
+				if (result == null) result = caseStatement(returnStatement);
 				if (result == null) result = casePragmatized(returnStatement);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
@@ -146,7 +146,7 @@ public class BehaviorSwitch<T> extends Switch<T> {
 			case BehaviorPackage.DELAY_STATEMENT: {
 				DelayStatement delayStatement = (DelayStatement)theEObject;
 				T result = caseDelayStatement(delayStatement);
-				if (result == null) result = caseAbstractStatement(delayStatement);
+				if (result == null) result = caseStatement(delayStatement);
 				if (result == null) result = casePragmatized(delayStatement);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
@@ -154,7 +154,7 @@ public class BehaviorSwitch<T> extends Switch<T> {
 			case BehaviorPackage.RAISE_STATEMENT: {
 				RaiseStatement raiseStatement = (RaiseStatement)theEObject;
 				T result = caseRaiseStatement(raiseStatement);
-				if (result == null) result = caseAbstractStatement(raiseStatement);
+				if (result == null) result = caseStatement(raiseStatement);
 				if (result == null) result = casePragmatized(raiseStatement);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
@@ -162,7 +162,7 @@ public class BehaviorSwitch<T> extends Switch<T> {
 			case BehaviorPackage.DELETE_STATEMENT: {
 				DeleteStatement deleteStatement = (DeleteStatement)theEObject;
 				T result = caseDeleteStatement(deleteStatement);
-				if (result == null) result = caseAbstractStatement(deleteStatement);
+				if (result == null) result = caseStatement(deleteStatement);
 				if (result == null) result = casePragmatized(deleteStatement);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
@@ -170,7 +170,7 @@ public class BehaviorSwitch<T> extends Switch<T> {
 			case BehaviorPackage.ERASE_STATEMENT: {
 				EraseStatement eraseStatement = (EraseStatement)theEObject;
 				T result = caseEraseStatement(eraseStatement);
-				if (result == null) result = caseAbstractStatement(eraseStatement);
+				if (result == null) result = caseStatement(eraseStatement);
 				if (result == null) result = casePragmatized(eraseStatement);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
@@ -178,7 +178,7 @@ public class BehaviorSwitch<T> extends Switch<T> {
 			case BehaviorPackage.SCHEDULE_STATEMENT: {
 				ScheduleStatement scheduleStatement = (ScheduleStatement)theEObject;
 				T result = caseScheduleStatement(scheduleStatement);
-				if (result == null) result = caseAbstractStatement(scheduleStatement);
+				if (result == null) result = caseStatement(scheduleStatement);
 				if (result == null) result = casePragmatized(scheduleStatement);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
@@ -186,7 +186,7 @@ public class BehaviorSwitch<T> extends Switch<T> {
 			case BehaviorPackage.CANCEL_TIMER_STATEMENT: {
 				CancelTimerStatement cancelTimerStatement = (CancelTimerStatement)theEObject;
 				T result = caseCancelTimerStatement(cancelTimerStatement);
-				if (result == null) result = caseAbstractStatement(cancelTimerStatement);
+				if (result == null) result = caseStatement(cancelTimerStatement);
 				if (result == null) result = casePragmatized(cancelTimerStatement);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
@@ -194,7 +194,7 @@ public class BehaviorSwitch<T> extends Switch<T> {
 			case BehaviorPackage.GENERATE_STATEMENT: {
 				GenerateStatement generateStatement = (GenerateStatement)theEObject;
 				T result = caseGenerateStatement(generateStatement);
-				if (result == null) result = caseAbstractStatement(generateStatement);
+				if (result == null) result = caseStatement(generateStatement);
 				if (result == null) result = casePragmatized(generateStatement);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
@@ -202,7 +202,7 @@ public class BehaviorSwitch<T> extends Switch<T> {
 			case BehaviorPackage.IF_STATEMENT: {
 				IfStatement ifStatement = (IfStatement)theEObject;
 				T result = caseIfStatement(ifStatement);
-				if (result == null) result = caseAbstractStatement(ifStatement);
+				if (result == null) result = caseStatement(ifStatement);
 				if (result == null) result = caseStatementList(ifStatement);
 				if (result == null) result = casePragmatized(ifStatement);
 				if (result == null) result = defaultCase(theEObject);
@@ -225,7 +225,7 @@ public class BehaviorSwitch<T> extends Switch<T> {
 			case BehaviorPackage.WHILE_STATEMENT: {
 				WhileStatement whileStatement = (WhileStatement)theEObject;
 				T result = caseWhileStatement(whileStatement);
-				if (result == null) result = caseAbstractStatement(whileStatement);
+				if (result == null) result = caseStatement(whileStatement);
 				if (result == null) result = caseStatementList(whileStatement);
 				if (result == null) result = casePragmatized(whileStatement);
 				if (result == null) result = defaultCase(theEObject);
@@ -234,7 +234,7 @@ public class BehaviorSwitch<T> extends Switch<T> {
 			case BehaviorPackage.CASE_STATEMENT: {
 				CaseStatement caseStatement = (CaseStatement)theEObject;
 				T result = caseCaseStatement(caseStatement);
-				if (result == null) result = caseAbstractStatement(caseStatement);
+				if (result == null) result = caseStatement(caseStatement);
 				if (result == null) result = casePragmatized(caseStatement);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
@@ -256,7 +256,7 @@ public class BehaviorSwitch<T> extends Switch<T> {
 			case BehaviorPackage.FOR_STATEMENT: {
 				ForStatement forStatement = (ForStatement)theEObject;
 				T result = caseForStatement(forStatement);
-				if (result == null) result = caseAbstractStatement(forStatement);
+				if (result == null) result = caseStatement(forStatement);
 				if (result == null) result = caseStatementList(forStatement);
 				if (result == null) result = casePragmatized(forStatement);
 				if (result == null) result = defaultCase(theEObject);
@@ -273,7 +273,7 @@ public class BehaviorSwitch<T> extends Switch<T> {
 			case BehaviorPackage.CODE_BLOCK_STATEMENT: {
 				CodeBlockStatement codeBlockStatement = (CodeBlockStatement)theEObject;
 				T result = caseCodeBlockStatement(codeBlockStatement);
-				if (result == null) result = caseAbstractStatement(codeBlockStatement);
+				if (result == null) result = caseStatement(codeBlockStatement);
 				if (result == null) result = casePragmatized(codeBlockStatement);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
@@ -308,7 +308,7 @@ public class BehaviorSwitch<T> extends Switch<T> {
 				if (result == null) result = caseSimpleFeatureCall(sortOrderFeature);
 				if (result == null) result = caseFeatureCall(sortOrderFeature);
 				if (result == null) result = caseExpression(sortOrderFeature);
-				if (result == null) result = caseAbstractStatement(sortOrderFeature);
+				if (result == null) result = caseStatement(sortOrderFeature);
 				if (result == null) result = caseConstExpression(sortOrderFeature);
 				if (result == null) result = casePragmatized(sortOrderFeature);
 				if (result == null) result = defaultCase(theEObject);
@@ -318,7 +318,7 @@ public class BehaviorSwitch<T> extends Switch<T> {
 				CreateExpression createExpression = (CreateExpression)theEObject;
 				T result = caseCreateExpression(createExpression);
 				if (result == null) result = caseExpression(createExpression);
-				if (result == null) result = caseAbstractStatement(createExpression);
+				if (result == null) result = caseStatement(createExpression);
 				if (result == null) result = caseConstExpression(createExpression);
 				if (result == null) result = casePragmatized(createExpression);
 				if (result == null) result = defaultCase(theEObject);
@@ -334,7 +334,7 @@ public class BehaviorSwitch<T> extends Switch<T> {
 				FindExpression findExpression = (FindExpression)theEObject;
 				T result = caseFindExpression(findExpression);
 				if (result == null) result = caseExpression(findExpression);
-				if (result == null) result = caseAbstractStatement(findExpression);
+				if (result == null) result = caseStatement(findExpression);
 				if (result == null) result = caseConstExpression(findExpression);
 				if (result == null) result = casePragmatized(findExpression);
 				if (result == null) result = defaultCase(theEObject);
@@ -344,7 +344,7 @@ public class BehaviorSwitch<T> extends Switch<T> {
 				FeatureCall featureCall = (FeatureCall)theEObject;
 				T result = caseFeatureCall(featureCall);
 				if (result == null) result = caseExpression(featureCall);
-				if (result == null) result = caseAbstractStatement(featureCall);
+				if (result == null) result = caseStatement(featureCall);
 				if (result == null) result = caseConstExpression(featureCall);
 				if (result == null) result = casePragmatized(featureCall);
 				if (result == null) result = defaultCase(theEObject);
@@ -355,7 +355,7 @@ public class BehaviorSwitch<T> extends Switch<T> {
 				T result = caseSimpleFeatureCall(simpleFeatureCall);
 				if (result == null) result = caseFeatureCall(simpleFeatureCall);
 				if (result == null) result = caseExpression(simpleFeatureCall);
-				if (result == null) result = caseAbstractStatement(simpleFeatureCall);
+				if (result == null) result = caseStatement(simpleFeatureCall);
 				if (result == null) result = caseConstExpression(simpleFeatureCall);
 				if (result == null) result = casePragmatized(simpleFeatureCall);
 				if (result == null) result = defaultCase(theEObject);
@@ -365,7 +365,7 @@ public class BehaviorSwitch<T> extends Switch<T> {
 				RealLiteral realLiteral = (RealLiteral)theEObject;
 				T result = caseRealLiteral(realLiteral);
 				if (result == null) result = caseExpression(realLiteral);
-				if (result == null) result = caseAbstractStatement(realLiteral);
+				if (result == null) result = caseStatement(realLiteral);
 				if (result == null) result = caseConstExpression(realLiteral);
 				if (result == null) result = casePragmatized(realLiteral);
 				if (result == null) result = defaultCase(theEObject);
@@ -375,7 +375,7 @@ public class BehaviorSwitch<T> extends Switch<T> {
 				IntegerLiteral integerLiteral = (IntegerLiteral)theEObject;
 				T result = caseIntegerLiteral(integerLiteral);
 				if (result == null) result = caseExpression(integerLiteral);
-				if (result == null) result = caseAbstractStatement(integerLiteral);
+				if (result == null) result = caseStatement(integerLiteral);
 				if (result == null) result = caseConstExpression(integerLiteral);
 				if (result == null) result = casePragmatized(integerLiteral);
 				if (result == null) result = defaultCase(theEObject);
@@ -385,7 +385,7 @@ public class BehaviorSwitch<T> extends Switch<T> {
 				StringLiteral stringLiteral = (StringLiteral)theEObject;
 				T result = caseStringLiteral(stringLiteral);
 				if (result == null) result = caseExpression(stringLiteral);
-				if (result == null) result = caseAbstractStatement(stringLiteral);
+				if (result == null) result = caseStatement(stringLiteral);
 				if (result == null) result = caseConstExpression(stringLiteral);
 				if (result == null) result = casePragmatized(stringLiteral);
 				if (result == null) result = defaultCase(theEObject);
@@ -395,7 +395,7 @@ public class BehaviorSwitch<T> extends Switch<T> {
 				CharacterLiteral characterLiteral = (CharacterLiteral)theEObject;
 				T result = caseCharacterLiteral(characterLiteral);
 				if (result == null) result = caseExpression(characterLiteral);
-				if (result == null) result = caseAbstractStatement(characterLiteral);
+				if (result == null) result = caseStatement(characterLiteral);
 				if (result == null) result = caseConstExpression(characterLiteral);
 				if (result == null) result = casePragmatized(characterLiteral);
 				if (result == null) result = defaultCase(theEObject);
@@ -405,7 +405,7 @@ public class BehaviorSwitch<T> extends Switch<T> {
 				DurationLiteral durationLiteral = (DurationLiteral)theEObject;
 				T result = caseDurationLiteral(durationLiteral);
 				if (result == null) result = caseExpression(durationLiteral);
-				if (result == null) result = caseAbstractStatement(durationLiteral);
+				if (result == null) result = caseStatement(durationLiteral);
 				if (result == null) result = caseConstExpression(durationLiteral);
 				if (result == null) result = casePragmatized(durationLiteral);
 				if (result == null) result = defaultCase(theEObject);
@@ -415,7 +415,7 @@ public class BehaviorSwitch<T> extends Switch<T> {
 				TimestampLiteral timestampLiteral = (TimestampLiteral)theEObject;
 				T result = caseTimestampLiteral(timestampLiteral);
 				if (result == null) result = caseExpression(timestampLiteral);
-				if (result == null) result = caseAbstractStatement(timestampLiteral);
+				if (result == null) result = caseStatement(timestampLiteral);
 				if (result == null) result = caseConstExpression(timestampLiteral);
 				if (result == null) result = casePragmatized(timestampLiteral);
 				if (result == null) result = defaultCase(theEObject);
@@ -425,7 +425,7 @@ public class BehaviorSwitch<T> extends Switch<T> {
 				BooleanLiteral booleanLiteral = (BooleanLiteral)theEObject;
 				T result = caseBooleanLiteral(booleanLiteral);
 				if (result == null) result = caseExpression(booleanLiteral);
-				if (result == null) result = caseAbstractStatement(booleanLiteral);
+				if (result == null) result = caseStatement(booleanLiteral);
 				if (result == null) result = caseConstExpression(booleanLiteral);
 				if (result == null) result = casePragmatized(booleanLiteral);
 				if (result == null) result = defaultCase(theEObject);
@@ -435,7 +435,7 @@ public class BehaviorSwitch<T> extends Switch<T> {
 				NullLiteral nullLiteral = (NullLiteral)theEObject;
 				T result = caseNullLiteral(nullLiteral);
 				if (result == null) result = caseExpression(nullLiteral);
-				if (result == null) result = caseAbstractStatement(nullLiteral);
+				if (result == null) result = caseStatement(nullLiteral);
 				if (result == null) result = caseConstExpression(nullLiteral);
 				if (result == null) result = casePragmatized(nullLiteral);
 				if (result == null) result = defaultCase(theEObject);
@@ -445,7 +445,7 @@ public class BehaviorSwitch<T> extends Switch<T> {
 				FlushLiteral flushLiteral = (FlushLiteral)theEObject;
 				T result = caseFlushLiteral(flushLiteral);
 				if (result == null) result = caseExpression(flushLiteral);
-				if (result == null) result = caseAbstractStatement(flushLiteral);
+				if (result == null) result = caseStatement(flushLiteral);
 				if (result == null) result = caseConstExpression(flushLiteral);
 				if (result == null) result = casePragmatized(flushLiteral);
 				if (result == null) result = defaultCase(theEObject);
@@ -455,7 +455,7 @@ public class BehaviorSwitch<T> extends Switch<T> {
 				ThisLiteral thisLiteral = (ThisLiteral)theEObject;
 				T result = caseThisLiteral(thisLiteral);
 				if (result == null) result = caseExpression(thisLiteral);
-				if (result == null) result = caseAbstractStatement(thisLiteral);
+				if (result == null) result = caseStatement(thisLiteral);
 				if (result == null) result = caseConstExpression(thisLiteral);
 				if (result == null) result = casePragmatized(thisLiteral);
 				if (result == null) result = defaultCase(theEObject);
@@ -465,7 +465,7 @@ public class BehaviorSwitch<T> extends Switch<T> {
 				ConsoleLiteral consoleLiteral = (ConsoleLiteral)theEObject;
 				T result = caseConsoleLiteral(consoleLiteral);
 				if (result == null) result = caseExpression(consoleLiteral);
-				if (result == null) result = caseAbstractStatement(consoleLiteral);
+				if (result == null) result = caseStatement(consoleLiteral);
 				if (result == null) result = caseConstExpression(consoleLiteral);
 				if (result == null) result = casePragmatized(consoleLiteral);
 				if (result == null) result = defaultCase(theEObject);
@@ -475,7 +475,7 @@ public class BehaviorSwitch<T> extends Switch<T> {
 				EndlLiteral endlLiteral = (EndlLiteral)theEObject;
 				T result = caseEndlLiteral(endlLiteral);
 				if (result == null) result = caseExpression(endlLiteral);
-				if (result == null) result = caseAbstractStatement(endlLiteral);
+				if (result == null) result = caseStatement(endlLiteral);
 				if (result == null) result = caseConstExpression(endlLiteral);
 				if (result == null) result = casePragmatized(endlLiteral);
 				if (result == null) result = defaultCase(theEObject);
@@ -485,7 +485,7 @@ public class BehaviorSwitch<T> extends Switch<T> {
 				LineNoLiteral lineNoLiteral = (LineNoLiteral)theEObject;
 				T result = caseLineNoLiteral(lineNoLiteral);
 				if (result == null) result = caseExpression(lineNoLiteral);
-				if (result == null) result = caseAbstractStatement(lineNoLiteral);
+				if (result == null) result = caseStatement(lineNoLiteral);
 				if (result == null) result = caseConstExpression(lineNoLiteral);
 				if (result == null) result = casePragmatized(lineNoLiteral);
 				if (result == null) result = defaultCase(theEObject);
@@ -495,7 +495,7 @@ public class BehaviorSwitch<T> extends Switch<T> {
 				FileNameLiteral fileNameLiteral = (FileNameLiteral)theEObject;
 				T result = caseFileNameLiteral(fileNameLiteral);
 				if (result == null) result = caseExpression(fileNameLiteral);
-				if (result == null) result = caseAbstractStatement(fileNameLiteral);
+				if (result == null) result = caseStatement(fileNameLiteral);
 				if (result == null) result = caseConstExpression(fileNameLiteral);
 				if (result == null) result = casePragmatized(fileNameLiteral);
 				if (result == null) result = defaultCase(theEObject);
@@ -512,7 +512,7 @@ public class BehaviorSwitch<T> extends Switch<T> {
 				AssignStatement assignStatement = (AssignStatement)theEObject;
 				T result = caseAssignStatement(assignStatement);
 				if (result == null) result = caseExpression(assignStatement);
-				if (result == null) result = caseAbstractStatement(assignStatement);
+				if (result == null) result = caseStatement(assignStatement);
 				if (result == null) result = caseConstExpression(assignStatement);
 				if (result == null) result = casePragmatized(assignStatement);
 				if (result == null) result = defaultCase(theEObject);
@@ -522,7 +522,7 @@ public class BehaviorSwitch<T> extends Switch<T> {
 				StreamExpression streamExpression = (StreamExpression)theEObject;
 				T result = caseStreamExpression(streamExpression);
 				if (result == null) result = caseExpression(streamExpression);
-				if (result == null) result = caseAbstractStatement(streamExpression);
+				if (result == null) result = caseStatement(streamExpression);
 				if (result == null) result = caseConstExpression(streamExpression);
 				if (result == null) result = casePragmatized(streamExpression);
 				if (result == null) result = defaultCase(theEObject);
@@ -532,7 +532,7 @@ public class BehaviorSwitch<T> extends Switch<T> {
 				RangeExpression rangeExpression = (RangeExpression)theEObject;
 				T result = caseRangeExpression(rangeExpression);
 				if (result == null) result = caseExpression(rangeExpression);
-				if (result == null) result = caseAbstractStatement(rangeExpression);
+				if (result == null) result = caseStatement(rangeExpression);
 				if (result == null) result = caseConstExpression(rangeExpression);
 				if (result == null) result = casePragmatized(rangeExpression);
 				if (result == null) result = defaultCase(theEObject);
@@ -542,7 +542,7 @@ public class BehaviorSwitch<T> extends Switch<T> {
 				LogicalOr logicalOr = (LogicalOr)theEObject;
 				T result = caseLogicalOr(logicalOr);
 				if (result == null) result = caseExpression(logicalOr);
-				if (result == null) result = caseAbstractStatement(logicalOr);
+				if (result == null) result = caseStatement(logicalOr);
 				if (result == null) result = caseConstExpression(logicalOr);
 				if (result == null) result = casePragmatized(logicalOr);
 				if (result == null) result = defaultCase(theEObject);
@@ -552,7 +552,7 @@ public class BehaviorSwitch<T> extends Switch<T> {
 				LogicalXor logicalXor = (LogicalXor)theEObject;
 				T result = caseLogicalXor(logicalXor);
 				if (result == null) result = caseExpression(logicalXor);
-				if (result == null) result = caseAbstractStatement(logicalXor);
+				if (result == null) result = caseStatement(logicalXor);
 				if (result == null) result = caseConstExpression(logicalXor);
 				if (result == null) result = casePragmatized(logicalXor);
 				if (result == null) result = defaultCase(theEObject);
@@ -562,7 +562,7 @@ public class BehaviorSwitch<T> extends Switch<T> {
 				LogicalAnd logicalAnd = (LogicalAnd)theEObject;
 				T result = caseLogicalAnd(logicalAnd);
 				if (result == null) result = caseExpression(logicalAnd);
-				if (result == null) result = caseAbstractStatement(logicalAnd);
+				if (result == null) result = caseStatement(logicalAnd);
 				if (result == null) result = caseConstExpression(logicalAnd);
 				if (result == null) result = casePragmatized(logicalAnd);
 				if (result == null) result = defaultCase(theEObject);
@@ -572,7 +572,7 @@ public class BehaviorSwitch<T> extends Switch<T> {
 				Equality equality = (Equality)theEObject;
 				T result = caseEquality(equality);
 				if (result == null) result = caseExpression(equality);
-				if (result == null) result = caseAbstractStatement(equality);
+				if (result == null) result = caseStatement(equality);
 				if (result == null) result = caseConstExpression(equality);
 				if (result == null) result = casePragmatized(equality);
 				if (result == null) result = defaultCase(theEObject);
@@ -582,7 +582,7 @@ public class BehaviorSwitch<T> extends Switch<T> {
 				RelationalExp relationalExp = (RelationalExp)theEObject;
 				T result = caseRelationalExp(relationalExp);
 				if (result == null) result = caseExpression(relationalExp);
-				if (result == null) result = caseAbstractStatement(relationalExp);
+				if (result == null) result = caseStatement(relationalExp);
 				if (result == null) result = caseConstExpression(relationalExp);
 				if (result == null) result = casePragmatized(relationalExp);
 				if (result == null) result = defaultCase(theEObject);
@@ -592,7 +592,7 @@ public class BehaviorSwitch<T> extends Switch<T> {
 				AdditiveExp additiveExp = (AdditiveExp)theEObject;
 				T result = caseAdditiveExp(additiveExp);
 				if (result == null) result = caseExpression(additiveExp);
-				if (result == null) result = caseAbstractStatement(additiveExp);
+				if (result == null) result = caseStatement(additiveExp);
 				if (result == null) result = caseConstExpression(additiveExp);
 				if (result == null) result = casePragmatized(additiveExp);
 				if (result == null) result = defaultCase(theEObject);
@@ -602,7 +602,7 @@ public class BehaviorSwitch<T> extends Switch<T> {
 				MultExp multExp = (MultExp)theEObject;
 				T result = caseMultExp(multExp);
 				if (result == null) result = caseExpression(multExp);
-				if (result == null) result = caseAbstractStatement(multExp);
+				if (result == null) result = caseStatement(multExp);
 				if (result == null) result = caseConstExpression(multExp);
 				if (result == null) result = casePragmatized(multExp);
 				if (result == null) result = defaultCase(theEObject);
@@ -612,7 +612,7 @@ public class BehaviorSwitch<T> extends Switch<T> {
 				UnaryExp unaryExp = (UnaryExp)theEObject;
 				T result = caseUnaryExp(unaryExp);
 				if (result == null) result = caseExpression(unaryExp);
-				if (result == null) result = caseAbstractStatement(unaryExp);
+				if (result == null) result = caseStatement(unaryExp);
 				if (result == null) result = caseConstExpression(unaryExp);
 				if (result == null) result = casePragmatized(unaryExp);
 				if (result == null) result = defaultCase(theEObject);
@@ -622,7 +622,7 @@ public class BehaviorSwitch<T> extends Switch<T> {
 				LinkExpression linkExpression = (LinkExpression)theEObject;
 				T result = caseLinkExpression(linkExpression);
 				if (result == null) result = caseExpression(linkExpression);
-				if (result == null) result = caseAbstractStatement(linkExpression);
+				if (result == null) result = caseStatement(linkExpression);
 				if (result == null) result = caseConstExpression(linkExpression);
 				if (result == null) result = casePragmatized(linkExpression);
 				if (result == null) result = defaultCase(theEObject);
@@ -632,7 +632,7 @@ public class BehaviorSwitch<T> extends Switch<T> {
 				NavigateExpression navigateExpression = (NavigateExpression)theEObject;
 				T result = caseNavigateExpression(navigateExpression);
 				if (result == null) result = caseExpression(navigateExpression);
-				if (result == null) result = caseAbstractStatement(navigateExpression);
+				if (result == null) result = caseStatement(navigateExpression);
 				if (result == null) result = caseConstExpression(navigateExpression);
 				if (result == null) result = casePragmatized(navigateExpression);
 				if (result == null) result = defaultCase(theEObject);
@@ -642,7 +642,7 @@ public class BehaviorSwitch<T> extends Switch<T> {
 				ActionCall actionCall = (ActionCall)theEObject;
 				T result = caseActionCall(actionCall);
 				if (result == null) result = caseExpression(actionCall);
-				if (result == null) result = caseAbstractStatement(actionCall);
+				if (result == null) result = caseStatement(actionCall);
 				if (result == null) result = caseConstExpression(actionCall);
 				if (result == null) result = casePragmatized(actionCall);
 				if (result == null) result = defaultCase(theEObject);
@@ -652,7 +652,7 @@ public class BehaviorSwitch<T> extends Switch<T> {
 				TerminatorActionCall terminatorActionCall = (TerminatorActionCall)theEObject;
 				T result = caseTerminatorActionCall(terminatorActionCall);
 				if (result == null) result = caseExpression(terminatorActionCall);
-				if (result == null) result = caseAbstractStatement(terminatorActionCall);
+				if (result == null) result = caseStatement(terminatorActionCall);
 				if (result == null) result = caseConstExpression(terminatorActionCall);
 				if (result == null) result = casePragmatized(terminatorActionCall);
 				if (result == null) result = defaultCase(theEObject);
@@ -662,7 +662,7 @@ public class BehaviorSwitch<T> extends Switch<T> {
 				IndexedExpression indexedExpression = (IndexedExpression)theEObject;
 				T result = caseIndexedExpression(indexedExpression);
 				if (result == null) result = caseExpression(indexedExpression);
-				if (result == null) result = caseAbstractStatement(indexedExpression);
+				if (result == null) result = caseStatement(indexedExpression);
 				if (result == null) result = caseConstExpression(indexedExpression);
 				if (result == null) result = casePragmatized(indexedExpression);
 				if (result == null) result = defaultCase(theEObject);
@@ -672,7 +672,7 @@ public class BehaviorSwitch<T> extends Switch<T> {
 				CharacteristicCall characteristicCall = (CharacteristicCall)theEObject;
 				T result = caseCharacteristicCall(characteristicCall);
 				if (result == null) result = caseExpression(characteristicCall);
-				if (result == null) result = caseAbstractStatement(characteristicCall);
+				if (result == null) result = caseStatement(characteristicCall);
 				if (result == null) result = caseConstExpression(characteristicCall);
 				if (result == null) result = casePragmatized(characteristicCall);
 				if (result == null) result = defaultCase(theEObject);
@@ -682,7 +682,7 @@ public class BehaviorSwitch<T> extends Switch<T> {
 				StructureAggregateExpression structureAggregateExpression = (StructureAggregateExpression)theEObject;
 				T result = caseStructureAggregateExpression(structureAggregateExpression);
 				if (result == null) result = caseExpression(structureAggregateExpression);
-				if (result == null) result = caseAbstractStatement(structureAggregateExpression);
+				if (result == null) result = caseStatement(structureAggregateExpression);
 				if (result == null) result = caseConstExpression(structureAggregateExpression);
 				if (result == null) result = casePragmatized(structureAggregateExpression);
 				if (result == null) result = defaultCase(theEObject);
@@ -768,17 +768,17 @@ public class BehaviorSwitch<T> extends Switch<T> {
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Abstract Statement</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Statement</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Abstract Statement</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Statement</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseAbstractStatement(AbstractStatement object) {
+	public T caseStatement(Statement object) {
 		return null;
 	}
 

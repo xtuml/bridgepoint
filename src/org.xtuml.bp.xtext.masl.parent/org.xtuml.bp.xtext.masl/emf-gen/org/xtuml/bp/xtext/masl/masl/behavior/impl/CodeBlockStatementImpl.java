@@ -15,7 +15,7 @@ import org.xtuml.bp.xtext.masl.masl.behavior.CodeBlockStatement;
  *
  * @generated
  */
-public class CodeBlockStatementImpl extends AbstractStatementImpl implements CodeBlockStatement {
+public class CodeBlockStatementImpl extends StatementImpl implements CodeBlockStatement {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

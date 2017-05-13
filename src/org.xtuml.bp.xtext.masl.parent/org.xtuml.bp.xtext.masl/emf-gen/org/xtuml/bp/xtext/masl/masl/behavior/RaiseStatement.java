@@ -22,7 +22,7 @@ import org.xtuml.bp.xtext.masl.masl.structure.ExceptionDeclaration;
  * @model
  * @generated
  */
-public interface RaiseStatement extends AbstractStatement {
+public interface RaiseStatement extends Statement {
 	/**
 	 * Returns the value of the '<em><b>Exception</b></em>' reference.
 	 * <!-- begin-user-doc -->

@@ -94,8 +94,8 @@ public class BehaviorAdapterFactory extends AdapterFactoryImpl {
 				return createDefaultExceptionHandlerAdapter();
 			}
 			@Override
-			public Adapter caseAbstractStatement(AbstractStatement object) {
-				return createAbstractStatementAdapter();
+			public Adapter caseStatement(Statement object) {
+				return createStatementAdapter();
 			}
 			@Override
 			public Adapter caseExpression(Expression object) {
@@ -456,16 +456,16 @@ public class BehaviorAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.xtuml.bp.xtext.masl.masl.behavior.AbstractStatement <em>Abstract Statement</em>}'.
+	 * Creates a new adapter for an object of class '{@link org.xtuml.bp.xtext.masl.masl.behavior.Statement <em>Statement</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see org.xtuml.bp.xtext.masl.masl.behavior.AbstractStatement
+	 * @see org.xtuml.bp.xtext.masl.masl.behavior.Statement
 	 * @generated
 	 */
-	public Adapter createAbstractStatementAdapter() {
+	public Adapter createStatementAdapter() {
 		return null;
 	}
 

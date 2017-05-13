@@ -608,6 +608,7 @@ public class ConnectorEditPart extends AbstractConnectionEditPart implements
 						if(CanvasPlugin.disableCropping) {
 							// just draw the full text
 							graphics.drawText(getText(), getTextLocation()) ;
+							return;
 						}
 						super.paintFigure(graphics);
 					}					
@@ -637,6 +638,7 @@ public class ConnectorEditPart extends AbstractConnectionEditPart implements
 						if(CanvasPlugin.disableCropping) {
 							// just draw the full text
 							graphics.drawText(getText(), getTextLocation()) ;
+							return;
 						}
 						super.paintFigure(graphics);
 					}					

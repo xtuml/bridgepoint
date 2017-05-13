@@ -18,11 +18,11 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
-import org.xtuml.bp.xtext.masl.masl.behavior.AbstractStatement;
 import org.xtuml.bp.xtext.masl.masl.behavior.BehaviorPackage;
 import org.xtuml.bp.xtext.masl.masl.behavior.Expression;
 import org.xtuml.bp.xtext.masl.masl.behavior.ForStatement;
 import org.xtuml.bp.xtext.masl.masl.behavior.LoopVariable;
+import org.xtuml.bp.xtext.masl.masl.behavior.Statement;
 import org.xtuml.bp.xtext.masl.masl.behavior.StatementList;
 
 /**
@@ -41,7 +41,7 @@ import org.xtuml.bp.xtext.masl.masl.behavior.StatementList;
  *
  * @generated
  */
-public class ForStatementImpl extends AbstractStatementImpl implements ForStatement {
+public class ForStatementImpl extends StatementImpl implements ForStatement {
 	/**
 	 * The cached value of the '{@link #getStatements() <em>Statements</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
@@ -50,7 +50,7 @@ public class ForStatementImpl extends AbstractStatementImpl implements ForStatem
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<AbstractStatement> statements;
+	protected EList<Statement> statements;
 
 	/**
 	 * The cached value of the '{@link #getVariable() <em>Variable</em>}' containment reference.
@@ -116,9 +116,9 @@ public class ForStatementImpl extends AbstractStatementImpl implements ForStatem
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<AbstractStatement> getStatements() {
+	public EList<Statement> getStatements() {
 		if (statements == null) {
-			statements = new EObjectContainmentEList<AbstractStatement>(AbstractStatement.class, this, BehaviorPackage.FOR_STATEMENT__STATEMENTS);
+			statements = new EObjectContainmentEList<Statement>(Statement.class, this, BehaviorPackage.FOR_STATEMENT__STATEMENTS);
 		}
 		return statements;
 	}
@@ -279,7 +279,7 @@ public class ForStatementImpl extends AbstractStatementImpl implements ForStatem
 		switch (featureID) {
 			case BehaviorPackage.FOR_STATEMENT__STATEMENTS:
 				getStatements().clear();
-				getStatements().addAll((Collection<? extends AbstractStatement>)newValue);
+				getStatements().addAll((Collection<? extends Statement>)newValue);
 				return;
 			case BehaviorPackage.FOR_STATEMENT__VARIABLE:
 				setVariable((LoopVariable)newValue);

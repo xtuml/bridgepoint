@@ -27,7 +27,7 @@ import org.xtuml.bp.xtext.masl.masl.structure.ObjectDeclaration;
  * @model
  * @generated
  */
-public interface GenerateStatement extends AbstractStatement {
+public interface GenerateStatement extends Statement {
 	/**
 	 * Returns the value of the '<em><b>Object</b></em>' reference.
 	 * <!-- begin-user-doc -->

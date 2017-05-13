@@ -4,6 +4,16 @@
   <property name="util_bin_dir" value="${eclipse.home}/tools/mc/bin"/>
   <property name="xtumlmc_build" value="${util_bin_dir}/xtumlmc_build"/>
 	
+  <macrodef name="echotimestamp">
+    <sequential>
+	  <local name="timestamp" />
+	  <tstamp>
+	    <format property="timestamp" pattern="yyyy-MM-dd HH:mm:ss" />
+	  </tstamp>
+	  <echo message="${timestamp}" />
+	</sequential>
+  </macrodef>
+	
   <condition property="isWindows" value="true" else="false">
     <os family="windows" />
   </condition>

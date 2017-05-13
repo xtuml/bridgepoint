@@ -63,7 +63,7 @@ public class BehaviorFactoryImpl extends EFactoryImpl implements BehaviorFactory
 			case BehaviorPackage.VARIABLE_DECLARATION: return createVariableDeclaration();
 			case BehaviorPackage.EXCEPTION_HANDLER: return createExceptionHandler();
 			case BehaviorPackage.DEFAULT_EXCEPTION_HANDLER: return createDefaultExceptionHandler();
-			case BehaviorPackage.ABSTRACT_STATEMENT: return createAbstractStatement();
+			case BehaviorPackage.STATEMENT: return createStatement();
 			case BehaviorPackage.EXPRESSION: return createExpression();
 			case BehaviorPackage.EXIT_STATEMENT: return createExitStatement();
 			case BehaviorPackage.RETURN_STATEMENT: return createReturnStatement();
@@ -225,9 +225,9 @@ public class BehaviorFactoryImpl extends EFactoryImpl implements BehaviorFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public AbstractStatement createAbstractStatement() {
-		AbstractStatementImpl abstractStatement = new AbstractStatementImpl();
-		return abstractStatement;
+	public Statement createStatement() {
+		StatementImpl statement = new StatementImpl();
+		return statement;
 	}
 
 	/**
