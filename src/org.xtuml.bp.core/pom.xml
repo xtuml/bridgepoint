@@ -46,6 +46,9 @@
 					<execution>
 						<id>clean-ant</id>
 						<phase>clean</phase>
+						<goals>
+							<goal>run</goal>
+						</goals>
 						<configuration>
 							<tasks>
 								<property name="compile_classpath" refid="maven.compile.classpath" />

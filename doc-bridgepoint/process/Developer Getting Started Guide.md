@@ -34,6 +34,9 @@ Setup Instructions
       For MAC it is suggested that you unzip into the /Applications folder, doing so will create a folder named Eclipse.app with all files in it.
 
   - The following 3rd party tools are required to build BridgePoint.  Install them now.    
+    - __ALL__  
+      - [Maven](https://maven.apache.org/install.html)    
+
     - __LINUX__ - Linux Ubuntu installation commands are presented below.  If installing in a 
     different Linux distribution you must use the [commands appropriate for your Linux distribution](https://github.com/xtuml/bridgepoint/blob/master/doc-bridgepoint/process/FAQ.md#linux).
     ```
