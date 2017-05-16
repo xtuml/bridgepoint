@@ -470,7 +470,7 @@
        <exec vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
            <env key="PTC_MC_ARC_DIR" value="${mcj_path}"/>
          <env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
-         <arg line="xtumlmc_gen_erate -nopersist
+         <arg line="xtumlmc_gen_erate -qim -nopersist
             -import ${mcj_path}/ooa_schema.sql
             -import sql/ooaofooa.sql
             -arch arc/generate_supertype_subtype_util.arc" />
@@ -497,7 +497,7 @@
        <exec vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
            <env key="PTC_MC_ARC_DIR" value="${mcj_path}"/>
          <env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
-         <arg line="xtumlmc_gen_erate -nopersist
+         <arg line="xtumlmc_gen_erate -qim -nopersist
             -import ${mcj_path}/ooa_schema.sql
             -import sql/ooaofooa.sql
             -arch arc/generate_rto_util.arc" />
@@ -524,7 +524,7 @@
        <exec vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
            <env key="PTC_MC_ARC_DIR" value="${mcj_path}"/>
          <env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
-         <arg line="xtumlmc_gen_erate -nopersist
+         <arg line="xtumlmc_gen_erate -qim -nopersist
             -import ${mcj_path}/ooa_schema.sql
             -import sql/ooaofooa.sql
             -arch arc/action_language_description_util.arc" />
