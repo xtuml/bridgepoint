@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.eclipse.ui.views.properties.IPropertySheetEntry;
-import org.eclipse.ui.views.properties.PropertySheetEntry;
 import org.xtuml.bp.core.sorter.MetadataSortingManager.ISorter;
 
 /**

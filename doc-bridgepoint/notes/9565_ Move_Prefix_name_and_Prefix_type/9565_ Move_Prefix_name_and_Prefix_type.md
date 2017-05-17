@@ -92,7 +92,7 @@ The choice was made to go with 5.1.3.  This leaves the tool open for other custo
 
 ### 9. Unit Test
 
-9.1 For New Base Attribute, Referential Attribute and Derived Based Attribute open the properties view with the element selected      
+9.1 For an Attribute open the properties view with the element selected      
 9.1.1 Result ordering shall match that stated in the Requirement section  
 9.2 Run properties tests  
 9.2.1 Result is there are no failures  
