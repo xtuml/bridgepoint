@@ -14,8 +14,6 @@ Currently the properties view shows the Prefix Mode for an attribute four entrie
 
 ### 2. Document References
 
-In this section, list all the documents that the reader may need to refer to.
-Give the full path to reference a file.  
 <a id="2.1"></a>2.1 [BridgePoint DEI #9565](https://support.onefact.net/issues/9565) Saab- 10 : Move Prefix name and Prefix type  
 
 ### 3. Background
