@@ -40,7 +40,7 @@ Currently Eclipse alphanumerically orders property sheet entries.  This is the r
 5.1.2 Overriding Eclipse's ordering behavior  
 5.1.2.1 Leave ordering according to the attribute ordering in the metamodel  
 5.1.2.2 Adjust metamodel attribute ordering as needed to properly place the Prefix Mode  
-5.1.3 Provide a custom comparator for any class that requires one, defaulting to the alphanumeric ordering if one is not present  
+5.1.3 Provide a custom sorter for any class that requires one, defaulting to the alphanumeric ordering if one is not present  
 
 Here are examples of the properties view for each:  
 
@@ -68,7 +68,7 @@ Full control over ordering so any order is possible
 
 Anything in 5.1.2 is easy but may change the properties view ordering for any elements which have a property sheet.  For 5.1.2.2 this will require upgrade code, modified test results and likely more so it is not suggested.  
 
-5.1.3 is more work but will allow for customization for any other element simply by adding its own comparator.  
+5.1.3 is more work but will allow for customization for any other element simply by adding its own sorter.  
 
 5.1.3 is suggested even though it is a bit more work now.  The reason is that Prefix Mode is likely not going to be the only case we run into.  
 
