@@ -36,7 +36,7 @@ The BridgePoint tool has areas that require usability enhancements to allow engi
 
 Currently Eclipse alphanumerically orders property sheet entries.  This is the reason for the current location of Prefix Mode entry.  There are a few approaches that can be taken here.  
 
-5.1.1 Configure UI display name for Pfx_Mode to be Attribute Prefix Mode, allowing the current alphanumeric ordering to achieve the necessary ordering . 
+5.1.1 Configure UI display name for Pfx_Mode to be Attribute Prefix Mode, allowing the current alphanumeric ordering to achieve the necessary ordering   
 5.1.2 Overriding Eclipse's ordering behavior  
 5.1.2.1 Leave ordering according to the attribute ordering in the metamodel  
 5.1.2.2 Adjust metamodel attribute ordering as needed to properly place the Prefix Mode  
