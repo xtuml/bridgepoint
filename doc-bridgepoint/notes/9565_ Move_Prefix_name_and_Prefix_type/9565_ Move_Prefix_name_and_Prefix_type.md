@@ -9,108 +9,86 @@ This work is licensed under the Creative Commons CC0 License
 
 ### 1. Abstract
 
-Currently the properties view shows the Prefix Mode for an attribute four entries below the Attribute Name Prefix entry.  From a usability standpoint this is not good as the user must navigate the mouse the extra difference when configuring the Attribute name.  
+Currently the properties view shows the Prefix Mode for an attribute four entries below the Attribute Name Prefix entry.  From a usability standpoint this is not good as the user must navigate to the location the extra distance when configuring the Attribute name.  This is four key presses before configuring the Prefix Mode.    
 
 
 ### 2. Document References
 
 In this section, list all the documents that the reader may need to refer to.
 Give the full path to reference a file.  
-<a id="2.1"></a>2.1 [BridgePoint DEI #xxx1](https://support.onefact.net/issues/xxx1) TODO: Add description here.  
-<a id="2.2"></a>2.2 [BridgePoint DEI #xxx2](https://support.onefact.net/issues/xxx2) TODO: Add description here.  
-<a id="2.3"></a>2.3 [BridgePoint DEI #xxx3](https://support.onefact.net/issues/xxx3) TODO: Add description here.  
+<a id="2.1"></a>2.1 [BridgePoint DEI #9565](https://support.onefact.net/issues/9565) Saab- 10 : Move Prefix name and Prefix type  
 
 ### 3. Background
 
-In this section, outline the important points relating to this issue/bug that
-the reader would need to know in order to understand the rest of this
-document. Here is an example reference to the Document References section [[2.1]](#2.1)
-
-![My Image](myimage.jpg)  
+The BridgePoint tool areas that require usability enhancements to allow engineers to be more efficient.   
 
 ### 4. Requirements
 
-This section is only required if there is no preceding analysis note. 
-If present it describes the requirements that need to be satisfied.  If there 
-is an SRS, this section may simply refer to it.  Each requirement should be as 
-short and simple as possible and must be clearly defined. Here is an example reference to the Document References section [[2.1]](#2.1)
-
-4.1 Item 1  
-4.1.1 Example sub-item
-* Example List Element
-  * Example Sub list item
-
-4.2 Item 2  
-4.2.1 Example sub-item
-* Example List Element
+4.1 Order Attribute property entries more efficiently  
+4.1.1 Order shall match  
+- Array Dimensions  
+- Attribute Name  
+- Attribute Name Prefix  
+- Attribute Prefix Mode   
+- Attribute Root Name  
 
 ### 5. Analysis
 
-This section is only required if there is no preceding analysis note. If present
-it sets out a brief analysis of the problem to be resolved by this design note. Here is an example reference to the Document References section [[2.1]](#2.1)
+5.1 Place Prefix Mode entry under Attribute Name Prefix  
 
-5.1 Item 1  
-5.1.1 Example sub-item
-* Example List Element
+Currently Eclipse alphanumerically orders property sheet entries.  This is the reason for the current location of Prefix Mode entry.  There are a few approaches that can be taken here.  
 
-5.2 Item 2  
-5.2.1 Example sub-item
-* Example List Element
+5.1.1 Configure UI display name for Pfx_Mode to be Attribute Prefix Mode, allowing the current alphanumeric ordering to achieve the necessary ordering . 
+5.1.2 Overriding Eclipse's ordering behavior  
+5.1.2.1 Leave ordering according to the attribute ordering in the metamodel  
+5.1.2.2 Adjust metamodel attribute ordering as needed to properly place the Prefix Mode  
+5.1.3 Provide a custom comparator for any class that requires one, defaulting to the alphanumeric ordering if one is not present  
+
+Here are examples of the properties view for each:  
+
+Using 5.1.1  
+- Array Dimensions  
+- Attribute Name  
+- Attribute Name Prefix  
+- Attribute Prefix Mode  
+- Attribute Root Name  
+
+Using 5.1.2.1  
+- Array Dimensions  
+- Attribute Name  
+- Attribute Name Prefix  
+- Attribute Root Name  
+- Attribute Prefix Mode  
+
+Using 5.1.2.2  
+Same as 5.1.1  
+
+Using 5.1.3  
+Full control over ordering so any order is possible  
+
+5.1.1 is going to be the easiest with the least disruption.  
+
+Anything in 5.1.2 is easy but may change the properties view ordering for any elements which have a property sheet.  For 5.1.2.2 this will require upgrade code, modified test results and likely more so it is not suggested.  
+
+5.1.3 is more work but will allow for customization for any other element simply by adding its own comparator.  
+
+5.1.3 is suggested even though it is a bit more work now.  The reason is that Prefix Mode is likely not going to be the only case we run into.  
 
 ### 6. Design
 
-In this section, describe in detail each step of the Work Required section of
-the analysis, how the task will be accomplished, what technologies will
-be used, algorithms, etc. Here is an example reference to the Document References section [[2.1]](#2.1)
-
-6.1 Item 1  
-```java
-    // java code example
-    public void clearDatabase(IProgressMonitor pm) 
-    {
-        // clear the corresponding graphics-root's database
-        OoaofgraphicsUtil.clearGraphicsDatabase(rootId, pm);
-
-        Ooaofooa.getDefaultInstance().fireModelElementUnloaded(this);
-    }
-```
-6.1.1 Example sub-item
-* Example List Element
-
-6.2 Item 2  
-6.2.1 Example sub-item
-* Example List Element
+Will complete when design decision is made.
 
 ### 7. Design Comments
 
-If research carried out during this phase shows that a requirement stated in the
-analysis note is infeasible or needs some modification, enumerate those changes
-here. If there was no preceding analysis note, then this section documents any
-deviations from the design as presented at the design review. Here is an example reference to the Document References section [[2.1]](#2.1)
-
-7.1 Item 1  
-7.1.1 Example sub-item
-* Example List Element
-
-7.2 Item 2  
-7.2.1 Example sub-item
-* Example List Element
 
 ### 8. User Documentation
 
-Describe the end user documentation that was added for this change. 
 
 ### 9. Unit Test
 
-Outline all the unit tests that need to pass and describe the method that you
-will use to design and perform the tests. Here is an example reference to the Document References section [[2.1]](#2.1)
-
-9.1 Item 1  
-9.1.1 Example sub-item
-* Example List Element
-
-9.2 Item 2  
-9.2.1 Example sub-item
-* Example List Element
+9.1 Open property sheet for an Attribute that participates as referring    
+9.1.1 Result ordering shall match that stated in the Requirement section  
+9.2 Run properties tests  
+9.2.1 Result is there are no failures  
 
 ### End
