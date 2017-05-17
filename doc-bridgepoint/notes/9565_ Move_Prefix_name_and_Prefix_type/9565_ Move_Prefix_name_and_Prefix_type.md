@@ -18,7 +18,7 @@ Currently the properties view shows the Prefix Mode for an attribute four entrie
 
 ### 3. Background
 
-The BridgePoint tool areas that require usability enhancements to allow engineers to be more efficient.   
+The BridgePoint tool has areas that require usability enhancements to allow engineers to be more efficient.   
 
 ### 4. Requirements
 
