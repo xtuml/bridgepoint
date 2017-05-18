@@ -42,9 +42,19 @@ We could modify the line to be dashed when the association is formalized.  We wo
 
 A symbol could also be drawn just off of center and towards the formalizer class along the association line.  This could be a filled triangle pointing at the formalizer class for instance.  If this approach is taken we must consider direction of the arrow and whether or not it should be on or off the line.  
 
+5.1.5 Make all formalized associations bold  
+
+Differentiating from coloring we could consider making all formal associations bold.  This gives a clear picture of formal associations just be looking at the diagram.  Selection shall increase the thickness further indicating that the association is selected.  
+
 ### 6. Design
 
-Depends on direction taken.  
+6.1 Make formal associations bold  
+
+To easily distinguish between informal and formal associations we shall take the approach of drawn formal associations as bold.
+
+6.1.1 Introduce Style::Bold  
+6.1.2 When drawing a connector if the line style is Bold, set the line width to 2  
+6.1.3 In Association.get_connector_style() return Style::Bold if isFormal() is true
 
 ### 7. Design Comments
 
@@ -54,5 +64,12 @@ Depends on direction taken.
 
 ### 9. Unit Test
 
+9.1 Call get_connector_style on a formalized association  
+9.1.1 The Bold style is returned  
+9.2 Call get_connector_style on a formalized association  
+9.2.1 The None style is returned  
+9.3 For a simple, supertype/subtype, and linked association open a diagram with a formalized and unformalized variation
+9.3.1 The formalized association is drawn bold  
+9.3.2 The unformalized association is not drawn bold  
 
 ### End
