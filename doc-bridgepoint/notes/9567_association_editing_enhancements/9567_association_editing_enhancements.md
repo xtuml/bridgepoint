@@ -85,6 +85,10 @@ The original issue [[2.1]](#2.1) requests that a new menu item shall be added fo
 6.1.2.2.3.1.1 Use converted text to provide labels for all elements  
 6.1.2.2.3.1.2 Use CorePlugin to determine the appropriate icons for each entry  
 6.1.2.2.2.3 Always provide as the first two children the attribute hierarchy data (Numb and Descrip)  
+6.1.3 Rework the editor tab support to allow existence depending on state  
+6.1.3.1 Support plugin extension option for on-demand tabs  
+6.1.3.1.1 Define plugin extension as on-demand based on association selection  
+6.1.3.1.2 Support removal of tab when commanded to do so by extending plug-in  
 
 6.2 Editing support in tab and refreshing (Deliverable Two)  
 6.2.2 Refactor the ElementEditingSupport class from model.compare  
