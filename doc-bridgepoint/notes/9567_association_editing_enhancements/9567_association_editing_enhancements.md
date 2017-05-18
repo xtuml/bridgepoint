@@ -42,7 +42,7 @@ Given the requirement to not leave the diagram editor in-place editing is a stro
 1..*  
 *  
 
-For text entered on an association number validation must guarantee an integer.  And for Text Phrase there shall be no validation.  An error tip shall be shown indicating when entered values are not acceptable.  This may be a pop-up near the editing area, which does not interfere with the user modification.  It also may be Error text in the Eclipse notification area near the bottom of the tool.  
+For text entered on an association number, validation must guarantee an integer.  For Text Phrase modification there shall be no validation.  An error indication shall be shown when entered values are not acceptable.  This may be a pop-up near the editing area, which does not interfere with the user modification.  It also may be error text in the Eclipse notification area near the bottom of the tool.  
 
 Of course editing via in-place editing shall be treated just as editing is elsewhere.  Meaning changes are persisted, undoable etc,.  
 
@@ -52,7 +52,7 @@ Another possibility which does not leave the diagram editor is to add a new Asso
 
 5.1.2 Context menu item to modify Multiplicity  
 
-The original issue [[2.1]](#2.1) requests that a new menu item shall be added for adjusting Multiplicity.  This adheres to the requirements but does not fully cover modifying the association.  Such a dialog shall display two pull down menus allowing configuration of Multiplicity, with options of One or Many.  Each pull down menu shall have a label associated with the side of the associaton being modified.  In most cases this shall be the Class name at that end of the association.  In the case of a reflexive association the label shall indicate the referring Class (if formalized) by appending the Referred To Identifier Attribute text.  For example the label in a reflexive association could be: WorkoutSession {startDate, startTime}.  As with the other two approaches the change shall be handle just as any other editing action in the tool.  
+The original issue [[2.1]](#2.1) requests that a new menu item shall be added for adjusting Multiplicity.  This adheres to the requirements but does not fully cover modifying the association.  Such a dialog shall display two pull down menus allowing configuration of Multiplicity, with options of One or Many.  Each pull down menu shall have a label associated with the side of the associaton being modified.  In most cases this shall be the Class name at that end of the association.  In the case of a reflexive association the label shall indicate the referring Class (if formalized) by appending the Referred To Identifier Attribute text.  For example the label in a reflexive association could be: WorkoutSession {startDate, startTime}.  As with the other two approaches the change shall be handles just as any other editing action in the tool.  
 
 5.3 Suggestions on moving forward  
 
