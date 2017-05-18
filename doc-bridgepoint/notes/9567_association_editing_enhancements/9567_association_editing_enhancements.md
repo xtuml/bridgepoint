@@ -9,7 +9,7 @@ This work is licensed under the Creative Commons CC0 License
 
 ### 1. Abstract
 
-This note analyzes some approaches to which we could enhance editing support in the tool for associations.  
+This note analyzes some approaches to which we could enhance association editing support in the tool.  
 
 ### 2. Document References
 <a id="2.1"></a>2.1 [BridgePoint DEI #9567](https://support.onefact.net/issues/9567) Cardinality on right click menu  
