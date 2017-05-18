@@ -26,6 +26,10 @@
                      <id>org.xtuml.bp.product</id>
                      <rootFolder>BridgePoint</rootFolder>
                  </product>
+                 <product>
+                     <id>org.xtuml.bp-dev.product</id>
+                     <rootFolder>BridgePoint</rootFolder>
+                 </product>
              </products>
          </configuration>
          
