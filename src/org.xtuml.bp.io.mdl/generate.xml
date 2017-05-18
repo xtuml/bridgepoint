@@ -58,7 +58,7 @@
     <echo >Generating ${class2table.output} ...</echo>
     <exec vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
     <env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
-    <arg line="xtumlmc_gen_erate -nopersist
+    <arg line="xtumlmc_gen_erate -qim -nopersist
       -import ${mcj_path}/ooa_schema.sql
       -import ../${core_path}/${class2table.input}
       -import ../${canvas_path}/${graphics.model}
@@ -74,7 +74,7 @@
     <echo >Generating ${class2table.output} ...</echo>
     <exec vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
     <env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
-    <arg line="xtumlmc_gen_erate -nopersist
+    <arg line="xtumlmc_gen_erate -qim -nopersist
     	 -import ../${mcj_path}/ooa_schema.sql
     	 -import ../${core_path}/${class2table.input}
     	 -import ../${canvas_path}/${graphics.model}
@@ -234,7 +234,7 @@
         <env key="PTC_MC_ARC_DIR" value="${mcj_path}"/>
         <env key="CORE_ARC_DIR" value="../org.xtuml.bp.core/arc"/>
          <env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
-    <arg line="xtumlmc_gen_erate -f gen_stream.gen
+    <arg line="xtumlmc_gen_erate -qim -f gen_stream.gen
       -import ${iocore_path}/sql/${schema}
       -import ${mcj_path}/ooa_schema.sql
       -import ${core_path}/sql/${sql.output}
@@ -364,7 +364,7 @@
        <env key="PTC_MC_ARC_DIR" value="${mcj_path}"/>
        <env key="CORE_ARC_DIR" value="../org.xtuml.bp.core/arc"/>
        <env key="IO_CORE_ARC_DIR" value="${iocore_path}/arc"/>
-       <arg line="xtumlmc_gen_erate -nopersist
+       <arg line="xtumlmc_gen_erate -qim -nopersist
 
          -import ${iocore_path}/sql/${schema}
          -import ${mcj_path}/ooa_schema.sql

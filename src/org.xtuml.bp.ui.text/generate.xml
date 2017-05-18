@@ -192,7 +192,7 @@
   <target name="literal_rule" description="Generate File OALKeywords.java for Syntax Highlighting" unless="literal_rule.buildNotNeeded" depends="literal_rule.depends">
     <exec vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
       <env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
-    <arg line="xtumlmc_gen_erate -nopersist
+    <arg line="xtumlmc_gen_erate -qim -nopersist
       -import ${als.dir}/grammar_schema.sql
       -import ${als.dir}/oal_grammar.sql
       -arch arc/OALKeywords_gen.arc" />
