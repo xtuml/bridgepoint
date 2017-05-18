@@ -62,7 +62,46 @@ The original issue [[2.1]](#2.1) requests that a new menu item shall be added fo
 
 ### 6. Work Required
 
-Will complete once a decision is made.  
+6.1 Editing tab (Deliverable One)  
+6.1.1 Create a new plugin org.xtuml.bp.core.editors  
+6.1.1.1 Assure that the new plugin will make contributions to the UI  
+6.1.1.2 Add bp.core and bp.ui.graphics as requirements (as a minimum)  
+6.1.2 Add a plug-in extension to the org.xtuml.bp.ui.graphics.editorTab extension point  
+6.1.2.1 Create a new Page factory  
+6.1.2.1.1 Have the page factory create and return a SWT Composite that shall be created below  
+6.1.2.2 Create a new Page class which extends SWT Composite  
+6.1.2.2.1 Create a new TableViewer class   
+6.1.2.2.1.1 Create four columns: Class, Multiplicity, Conditionality and Text Phrase   
+6.1.2.2.1.2 Set headers visible for the Table Viewer  
+6.1.2.2.1.3 Create a GridLayout which splits the available space in two, vertically  
+6.1.2.2.1.4 Create a new Label which will have a value of Association  
+6.1.2.2.1.4.1 Create a new GridData for the Label which centers the label  
+6.1.2.2.2 Create a new TableContentProvider which when given an element will provide a parent and all children of the element  
+6.1.2.2.2.1 Use the HierarchyMetaData to locate the referential children of the root association for the TableViewer  
+6.1.2.2.2.2 Use the HierarchyMetaData to locate each referentials children  
+6.1.2.2.2.2.1 Use the referential and its children to populate the row in order  
+6.1.2.2.3 Create a new TableLabelProvider  
+6.1.2.2.3.1 Refactor archetype which converts hierarchy entries into UI consumable text (see model.compare)  
+6.1.2.2.3.1.1 Use converted text to provide labels for all elements  
+6.1.2.2.3.1.2 Use CorePlugin to determine the appropriate icons for each entry  
+6.1.2.2.2.3 Always provide as the first two children the attribute hierarchy data (Numb and Descrip)  
+
+6.2 Editing support in tab and refreshing (Deliverable Two)  
+6.2.2 Refactor the ElementEditingSupport class from model.compare  
+6.2.2.1 Move the ElementEditingSupport class and any common supporting classes to the plugin created in [[6.1.1]](#6.1.1)  
+6.2.2.2 Change from using a compare transaction manager to using the standard transaction manager TransactionManager.getSingleton()  
+6.2.2.3 Assure this refactored class supports model compare  
+6.2.3 Add support for element editing in the TableViewer class created in [[6.1.2.2.1]](#6.1.2.2.1)  
+6.2.3.1 Using the refactored ElementEditingSupport add support for all table cells  
+6.2.3.2 Assure that only those elements editable are  
+6.2.3.3 Introduce an error tool tip either refactoring what is used in model compare or creating another implementation  
+6.2.3.4 Modify the ElementEditingSupport to use an editor for text phrases  
+6.3 Add transaction listener to the TableViewer  
+6.3.1 Refresh the association label on transaction end  
+6.3.2 Refresh the contents of the table on transaction end  
+
+6.3 Describe test plan and automate (Final Deliverable)  
+
 
 ### 7. Acceptance Test
 
