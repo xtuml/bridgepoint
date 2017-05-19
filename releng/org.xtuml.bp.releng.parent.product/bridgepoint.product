@@ -3,7 +3,6 @@
 
 <product name="BridgePoint" uid="org.xtuml.bp.product" id="org.xtuml.bp.pkg.BridgePoint" application="org.eclipse.ui.ide.workbench" version="6.2.5" useFeatures="true" includeLaunchers="true">
 
-
    <configIni use="default">
    </configIni>
 
@@ -29,10 +28,8 @@
       </win>
    </launcher>
 
-
    <vm>
    </vm>
-
 
    <plugins>
    </plugins>
@@ -46,12 +43,8 @@
       <feature id="org.xtuml.bp.xtext.masl.feature"/>
       <feature id="org.eclipse.cdt"/>
       <feature id="org.antlr.ui"/>
-      <feature id="org.eclipse.cdt.gnu.dsf"/>
-      <feature id="org.eclipse.cdt.gnu.build"/>
-      <feature id="org.eclipse.cdt.platform"/>
-      <feature id="org.eclipse.cdt.native"/>
-      <feature id="org.eclipse.cdt.gnu.debug"/>
-      <feature id="org.eclipse.cdt.gdb"/>
+      <feature id="org.eclipse.platform"/>
+      <feature id="org.eclipse.help"/>
       <feature id="org.eclipse.egit"/>
    </features>
 
