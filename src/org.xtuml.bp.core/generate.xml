@@ -654,6 +654,9 @@
     <delete file="sql/${cme_actions.output}" />
     <echo>Removing generated sql file: cme_import.sql ...</echo>
     <delete file="sql/cme_import.sql"/>
+    <echo>Removing build touch file: ${cme_actions.touch} ...</echo>
+    <delete file="sql/${cme_actions.touch}" />
+
 
   </target>
 
