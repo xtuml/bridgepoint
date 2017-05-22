@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <launchConfiguration type="org.eclipse.ui.externaltools.ProgramBuilderLaunchConfigurationType">
+<stringAttribute key="org.eclipse.debug.core.ATTR_REFRESH_SCOPE" value="${workspace}"/>
 <mapAttribute key="org.eclipse.debug.core.environmentVariables">
 <mapEntry key="INCLUDE_TESTS" value="true"/>
 <mapEntry key="bp_install_dir" value="${eclipse_home}"/>
