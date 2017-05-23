@@ -8,9 +8,9 @@ import org.eclipse.emf.ecore.EPackage;
 
 import org.eclipse.emf.ecore.util.Switch;
 
-import org.xtuml.bp.xtext.masl.masl.behavior.AbstractStatement;
 import org.xtuml.bp.xtext.masl.masl.behavior.ConstExpression;
 import org.xtuml.bp.xtext.masl.masl.behavior.Expression;
+import org.xtuml.bp.xtext.masl.masl.behavior.Statement;
 
 import org.xtuml.bp.xtext.masl.masl.structure.AbstractFeature;
 import org.xtuml.bp.xtext.masl.masl.structure.AbstractNamed;
@@ -209,7 +209,7 @@ public class TypesSwitch<T> extends Switch<T> {
 				if (result == null) result = caseAbstractTypeReference(instanceTypeReference);
 				if (result == null) result = caseExpression(instanceTypeReference);
 				if (result == null) result = caseAbstractTypeDefinition(instanceTypeReference);
-				if (result == null) result = caseAbstractStatement(instanceTypeReference);
+				if (result == null) result = caseStatement(instanceTypeReference);
 				if (result == null) result = caseConstExpression(instanceTypeReference);
 				if (result == null) result = casePragmatized(instanceTypeReference);
 				if (result == null) result = defaultCase(theEObject);
@@ -237,7 +237,7 @@ public class TypesSwitch<T> extends Switch<T> {
 				if (result == null) result = caseAbstractTypeReference(abstractCollectionTypeReference);
 				if (result == null) result = caseExpression(abstractCollectionTypeReference);
 				if (result == null) result = caseAbstractTypeDefinition(abstractCollectionTypeReference);
-				if (result == null) result = caseAbstractStatement(abstractCollectionTypeReference);
+				if (result == null) result = caseStatement(abstractCollectionTypeReference);
 				if (result == null) result = caseConstExpression(abstractCollectionTypeReference);
 				if (result == null) result = casePragmatized(abstractCollectionTypeReference);
 				if (result == null) result = defaultCase(theEObject);
@@ -250,7 +250,7 @@ public class TypesSwitch<T> extends Switch<T> {
 				if (result == null) result = caseAbstractTypeReference(sequenceTypeReference);
 				if (result == null) result = caseExpression(sequenceTypeReference);
 				if (result == null) result = caseAbstractTypeDefinition(sequenceTypeReference);
-				if (result == null) result = caseAbstractStatement(sequenceTypeReference);
+				if (result == null) result = caseStatement(sequenceTypeReference);
 				if (result == null) result = caseConstExpression(sequenceTypeReference);
 				if (result == null) result = casePragmatized(sequenceTypeReference);
 				if (result == null) result = defaultCase(theEObject);
@@ -263,7 +263,7 @@ public class TypesSwitch<T> extends Switch<T> {
 				if (result == null) result = caseAbstractTypeReference(arrayTypeReference);
 				if (result == null) result = caseExpression(arrayTypeReference);
 				if (result == null) result = caseAbstractTypeDefinition(arrayTypeReference);
-				if (result == null) result = caseAbstractStatement(arrayTypeReference);
+				if (result == null) result = caseStatement(arrayTypeReference);
 				if (result == null) result = caseConstExpression(arrayTypeReference);
 				if (result == null) result = casePragmatized(arrayTypeReference);
 				if (result == null) result = defaultCase(theEObject);
@@ -276,7 +276,7 @@ public class TypesSwitch<T> extends Switch<T> {
 				if (result == null) result = caseAbstractTypeReference(setTypeReference);
 				if (result == null) result = caseExpression(setTypeReference);
 				if (result == null) result = caseAbstractTypeDefinition(setTypeReference);
-				if (result == null) result = caseAbstractStatement(setTypeReference);
+				if (result == null) result = caseStatement(setTypeReference);
 				if (result == null) result = caseConstExpression(setTypeReference);
 				if (result == null) result = casePragmatized(setTypeReference);
 				if (result == null) result = defaultCase(theEObject);
@@ -289,7 +289,7 @@ public class TypesSwitch<T> extends Switch<T> {
 				if (result == null) result = caseAbstractTypeReference(bagTypeReference);
 				if (result == null) result = caseExpression(bagTypeReference);
 				if (result == null) result = caseAbstractTypeDefinition(bagTypeReference);
-				if (result == null) result = caseAbstractStatement(bagTypeReference);
+				if (result == null) result = caseStatement(bagTypeReference);
 				if (result == null) result = caseConstExpression(bagTypeReference);
 				if (result == null) result = casePragmatized(bagTypeReference);
 				if (result == null) result = defaultCase(theEObject);
@@ -302,7 +302,7 @@ public class TypesSwitch<T> extends Switch<T> {
 				if (result == null) result = caseAbstractTypeReference(dictionaryTypeReference);
 				if (result == null) result = caseExpression(dictionaryTypeReference);
 				if (result == null) result = caseAbstractTypeDefinition(dictionaryTypeReference);
-				if (result == null) result = caseAbstractStatement(dictionaryTypeReference);
+				if (result == null) result = caseStatement(dictionaryTypeReference);
 				if (result == null) result = caseConstExpression(dictionaryTypeReference);
 				if (result == null) result = casePragmatized(dictionaryTypeReference);
 				if (result == null) result = defaultCase(theEObject);
@@ -748,17 +748,17 @@ public class TypesSwitch<T> extends Switch<T> {
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Abstract Statement</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Statement</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Abstract Statement</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Statement</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseAbstractStatement(AbstractStatement object) {
+	public T caseStatement(Statement object) {
 		return null;
 	}
 

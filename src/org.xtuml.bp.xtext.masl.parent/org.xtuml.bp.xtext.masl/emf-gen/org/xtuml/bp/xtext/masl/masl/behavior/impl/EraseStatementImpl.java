@@ -28,7 +28,7 @@ import org.xtuml.bp.xtext.masl.masl.behavior.Expression;
  *
  * @generated
  */
-public class EraseStatementImpl extends AbstractStatementImpl implements EraseStatement {
+public class EraseStatementImpl extends StatementImpl implements EraseStatement {
 	/**
 	 * The cached value of the '{@link #getValue() <em>Value</em>}' containment reference.
 	 * <!-- begin-user-doc -->

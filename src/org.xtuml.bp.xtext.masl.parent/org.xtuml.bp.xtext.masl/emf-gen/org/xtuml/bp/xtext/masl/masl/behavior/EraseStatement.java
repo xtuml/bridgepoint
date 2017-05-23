@@ -20,7 +20,7 @@ package org.xtuml.bp.xtext.masl.masl.behavior;
  * @model
  * @generated
  */
-public interface EraseStatement extends AbstractStatement {
+public interface EraseStatement extends Statement {
 	/**
 	 * Returns the value of the '<em><b>Value</b></em>' containment reference.
 	 * <!-- begin-user-doc -->

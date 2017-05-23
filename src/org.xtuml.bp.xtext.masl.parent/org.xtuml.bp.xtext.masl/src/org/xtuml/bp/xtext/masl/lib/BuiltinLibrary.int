@@ -96,6 +96,7 @@ builtin is
 	<K,V> (dictionary K of V)'contains(key: in K) return boolean;
 	<K,V> (dictionary K of V)'keys() return set of K;
 	<K,V> (dictionary K of V)'values() return bag of V;
+	<K,V> (dictionary K of V)'length() return integer;
 	
 	timestamp'now() return timestamp;
 	(timestamp)'date() return timestamp;
@@ -193,13 +194,13 @@ builtin is
 	(duration)'microsecond_of_millisecond() return integer;
 	(duration)'nanosecond_of_millisecond() return integer;
 	(duration)'nanosecond_of_microsecond() return integer;
-	duration'days(days: in integer) return duration;
-	duration'hours(hours: in integer) return duration;
-	duration'minutes(minutes: in integer) return duration;
-	duration'seconds(seconds: in integer) return duration;
-	duration'milliseconds(milliseconds: in integer) return duration;
-	duration'microseconds(microseconds: in integer) return duration;
-	duration'nanoseconds(nanoseconds: in integer) return duration;
+	duration'days(days: in anonymous real) return duration;
+	duration'hours(hours: in anonymous real) return duration;
+	duration'minutes(minutes: in anonymous real) return duration;
+	duration'seconds(seconds: in anonymous real) return duration;
+	duration'milliseconds(milliseconds: in anonymous real) return duration;
+	duration'microseconds(microseconds: in anonymous real) return duration;
+	duration'nanoseconds(nanoseconds: in anonymous real) return duration;
 	(duration)'weeks() return integer;
 	(duration)'days() return integer;
 	(duration)'hours() return integer;

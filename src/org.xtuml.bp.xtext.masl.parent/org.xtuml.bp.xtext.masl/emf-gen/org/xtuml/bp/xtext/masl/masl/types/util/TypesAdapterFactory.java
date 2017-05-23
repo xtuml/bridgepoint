@@ -10,9 +10,9 @@ import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
 
 import org.eclipse.emf.ecore.EObject;
 
-import org.xtuml.bp.xtext.masl.masl.behavior.AbstractStatement;
 import org.xtuml.bp.xtext.masl.masl.behavior.ConstExpression;
 import org.xtuml.bp.xtext.masl.masl.behavior.Expression;
+import org.xtuml.bp.xtext.masl.masl.behavior.Statement;
 
 import org.xtuml.bp.xtext.masl.masl.structure.AbstractFeature;
 import org.xtuml.bp.xtext.masl.masl.structure.AbstractNamed;
@@ -193,8 +193,8 @@ public class TypesAdapterFactory extends AdapterFactoryImpl {
 				return createAbstractFeatureAdapter();
 			}
 			@Override
-			public Adapter caseAbstractStatement(AbstractStatement object) {
-				return createAbstractStatementAdapter();
+			public Adapter caseStatement(Statement object) {
+				return createStatementAdapter();
 			}
 			@Override
 			public Adapter caseConstExpression(ConstExpression object) {
@@ -631,16 +631,16 @@ public class TypesAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.xtuml.bp.xtext.masl.masl.behavior.AbstractStatement <em>Abstract Statement</em>}'.
+	 * Creates a new adapter for an object of class '{@link org.xtuml.bp.xtext.masl.masl.behavior.Statement <em>Statement</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see org.xtuml.bp.xtext.masl.masl.behavior.AbstractStatement
+	 * @see org.xtuml.bp.xtext.masl.masl.behavior.Statement
 	 * @generated
 	 */
-	public Adapter createAbstractStatementAdapter() {
+	public Adapter createStatementAdapter() {
 		return null;
 	}
 

@@ -70,7 +70,7 @@ public class MASLParser extends AbstractContentAssistParser {
 					put(grammarAccess.getObjectServiceDefinitionAccess().getAlternatives_13(), "rule__ObjectServiceDefinition__Alternatives_13");
 					put(grammarAccess.getTerminatorServiceDefinitionAccess().getAlternatives_1(), "rule__TerminatorServiceDefinition__Alternatives_1");
 					put(grammarAccess.getTerminatorServiceDefinitionAccess().getAlternatives_11(), "rule__TerminatorServiceDefinition__Alternatives_11");
-					put(grammarAccess.getAbstractStatementAccess().getAlternatives_0(), "rule__AbstractStatement__Alternatives_0");
+					put(grammarAccess.getStatementAccess().getAlternatives_0(), "rule__Statement__Alternatives_0");
 					put(grammarAccess.getFindPrimaryAccess().getAlternatives(), "rule__FindPrimary__Alternatives");
 					put(grammarAccess.getFindUnaryAccess().getAlternatives(), "rule__FindUnary__Alternatives");
 					put(grammarAccess.getFindEqualityAccess().getOperatorAlternatives_1_1_0(), "rule__FindEquality__OperatorAlternatives_1_1_0");
@@ -199,7 +199,7 @@ public class MASLParser extends AbstractContentAssistParser {
 					put(grammarAccess.getTerminatorServiceDefinitionAccess().getGroup(), "rule__TerminatorServiceDefinition__Group__0");
 					put(grammarAccess.getTerminatorServiceDefinitionAccess().getGroup_8(), "rule__TerminatorServiceDefinition__Group_8__0");
 					put(grammarAccess.getStateDefinitionAccess().getGroup(), "rule__StateDefinition__Group__0");
-					put(grammarAccess.getAbstractStatementAccess().getGroup(), "rule__AbstractStatement__Group__0");
+					put(grammarAccess.getStatementAccess().getGroup(), "rule__Statement__Group__0");
 					put(grammarAccess.getAssignStatementAccess().getGroup(), "rule__AssignStatement__Group__0");
 					put(grammarAccess.getAssignStatementAccess().getGroup_1(), "rule__AssignStatement__Group_1__0");
 					put(grammarAccess.getExitStatementAccess().getGroup(), "rule__ExitStatement__Group__0");

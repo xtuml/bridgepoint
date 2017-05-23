@@ -18,9 +18,9 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
-import org.xtuml.bp.xtext.masl.masl.behavior.AbstractStatement;
 import org.xtuml.bp.xtext.masl.masl.behavior.BehaviorPackage;
 import org.xtuml.bp.xtext.masl.masl.behavior.Expression;
+import org.xtuml.bp.xtext.masl.masl.behavior.Statement;
 import org.xtuml.bp.xtext.masl.masl.behavior.StatementList;
 import org.xtuml.bp.xtext.masl.masl.behavior.WhileStatement;
 
@@ -38,7 +38,7 @@ import org.xtuml.bp.xtext.masl.masl.behavior.WhileStatement;
  *
  * @generated
  */
-public class WhileStatementImpl extends AbstractStatementImpl implements WhileStatement {
+public class WhileStatementImpl extends StatementImpl implements WhileStatement {
 	/**
 	 * The cached value of the '{@link #getStatements() <em>Statements</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
@@ -47,7 +47,7 @@ public class WhileStatementImpl extends AbstractStatementImpl implements WhileSt
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<AbstractStatement> statements;
+	protected EList<Statement> statements;
 
 	/**
 	 * The cached value of the '{@link #getCondition() <em>Condition</em>}' containment reference.
@@ -83,9 +83,9 @@ public class WhileStatementImpl extends AbstractStatementImpl implements WhileSt
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<AbstractStatement> getStatements() {
+	public EList<Statement> getStatements() {
 		if (statements == null) {
-			statements = new EObjectContainmentEList<AbstractStatement>(AbstractStatement.class, this, BehaviorPackage.WHILE_STATEMENT__STATEMENTS);
+			statements = new EObjectContainmentEList<Statement>(Statement.class, this, BehaviorPackage.WHILE_STATEMENT__STATEMENTS);
 		}
 		return statements;
 	}
@@ -176,7 +176,7 @@ public class WhileStatementImpl extends AbstractStatementImpl implements WhileSt
 		switch (featureID) {
 			case BehaviorPackage.WHILE_STATEMENT__STATEMENTS:
 				getStatements().clear();
-				getStatements().addAll((Collection<? extends AbstractStatement>)newValue);
+				getStatements().addAll((Collection<? extends Statement>)newValue);
 				return;
 			case BehaviorPackage.WHILE_STATEMENT__CONDITION:
 				setCondition((Expression)newValue);

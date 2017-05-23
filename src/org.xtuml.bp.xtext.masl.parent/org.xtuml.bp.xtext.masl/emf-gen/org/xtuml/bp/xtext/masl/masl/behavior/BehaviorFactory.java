@@ -68,13 +68,13 @@ public interface BehaviorFactory extends EFactory {
 	DefaultExceptionHandler createDefaultExceptionHandler();
 
 	/**
-	 * Returns a new object of class '<em>Abstract Statement</em>'.
+	 * Returns a new object of class '<em>Statement</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Abstract Statement</em>'.
+	 * @return a new object of class '<em>Statement</em>'.
 	 * @generated
 	 */
-	AbstractStatement createAbstractStatement();
+	Statement createStatement();
 
 	/**
 	 * Returns a new object of class '<em>Expression</em>'.

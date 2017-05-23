@@ -33,7 +33,7 @@ class MaslLinkingService extends DefaultLinkingService {
 	}
 
 	private def List<EObject> getLinkedAction(ActionCall actionCall, SimpleFeatureCall featureCall, EReference reference, INode node) {
-		val needsReturnType = actionCall.eContainmentFeature.EType !== abstractStatement
+		val needsReturnType = actionCall.eContainmentFeature.EType !== statement
 		val crossRefString = node.crossRefNodeAsString
 		if (crossRefString !== null && !crossRefString.equals("")) {
 			val scope = getScope(featureCall, reference)
