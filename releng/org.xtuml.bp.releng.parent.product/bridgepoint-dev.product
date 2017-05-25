@@ -3,7 +3,6 @@
 
 <product name="BridgePoint Dev" uid="org.xtuml.bp-dev.product" id="org.xtuml.bp.pkg.BridgePoint" application="org.eclipse.ui.ide.workbench" version="6.2.5" useFeatures="true" includeLaunchers="true">
 
-
    <configIni use="default">
    </configIni>
 
@@ -31,10 +30,8 @@
       </win>
    </launcher>
 
-
    <vm>
    </vm>
-
 
    <plugins>
    </plugins>
@@ -47,31 +44,13 @@
       <feature id="org.xtuml.bp.mctools"/>
       <feature id="org.xtuml.bp.xtext.masl.feature"/>
       <feature id="org.eclipse.cdt"/>
-      <feature id="org.eclipse.sdk.examples"/>
       <feature id="org.antlr.ui"/>
-      <feature id="org.eclipse.xtext.sdk"/>
       <feature id="org.eclipse.platform"/>
-      <feature id="org.eclipse.equinox.p2.user.ui"/>
       <feature id="org.eclipse.help"/>
-      <feature id="org.eclipse.jdt"/>
-      <feature id="org.eclipse.pde"/>
-      <feature id="org.eclipse.sdk"/>
-      <feature id="org.eclipse.rcp"/>
-      <feature id="org.eclipse.emf.sdk"/>
-      <feature id="org.eclipse.gef.sdk"/>
-      <feature id="org.eclipse.uml2.sdk"/>
-      <feature id="org.eclipse.ocl.all.sdk"/>
-      <feature id="org.eclipse.emf.transaction.sdk"/>
-      <feature id="org.eclipse.emf.ecoretools.design"/>
-      <feature id="org.eclipse.emf.query.sdk"/>
-      <feature id="org.eclipse.xsd.sdk"/>
-      <feature id="org.eclipse.emf.validation.sdk"/>
-      <feature id="org.eclipse.emf.compare.source"/>
-      <feature id="org.eclipse.emf.compare.ide.ui.source"/>
-      <feature id="org.eclipse.gmf.runtime.sdk"/>
       <feature id="org.eclipse.egit"/>
-      <feature id="org.eclipse.epp.package.common.feature"/>
-      <feature id="org.eclipse.emf.ecore.xcore.sdk"/>
+      <feature id="org.eclipse.jdt"/>
+      <feature id="org.eclipse.xtext.sdk"/>
+      <feature id="org.eclipse.sdk.examples"/>
    </features>
 
    <configurations>
