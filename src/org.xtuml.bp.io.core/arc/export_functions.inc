@@ -62,7 +62,7 @@
   .//
   .// find the first column to output
   .//
-  .select any col related by table->C[R5] where ( selected.nextName == "" )
+  .select any col related by table->C[R5] where ( not selected.nextName )
   .select many col_set related by table->C[R5]
   .assign x = (cardinality col_set) - 1
   .while ( x > 0 )
