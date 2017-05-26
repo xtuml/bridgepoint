@@ -55,11 +55,11 @@
 				<configuration>
 					<dependency-resolution>
 						<extraRequirements>
-<!--							<requirement>
+							<requirement>
 								<type>eclipse-feature</type>
 								<id>org.xtuml.bp.pkg.feature</id>
-								<versionRange>0.0.0</versionRange>
-							</requirement> -->
+								<versionRange>0.0.0</versionRange>	
+							</requirement>
 							<requirement>
 								<type>eclipse-feature</type>
 								<id>org.eclipse.cdt</id>
