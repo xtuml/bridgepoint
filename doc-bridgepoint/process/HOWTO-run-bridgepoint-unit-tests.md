@@ -66,7 +66,7 @@ Using the same build scripts used for the BridgePoint deployment build the produ
 - Restart the tests for the project with issues including the debugging port option (Navigate to the test plugin folder):  
      ```
       cd ~/git/bptest/src/[test-plugin]
-      mvn -DdebugPort=8000 -Dtycho.disableP2Mirrors=true -Dmaven.test.failure.ignore=true install
+      cwd=`pwd` && cd ../../../bridgepoint/src/org.xtuml.bp.pkg-feature && mvn -Dtycho.disableP2Mirrors=true -Dmaven.test.failure.ignore=true install && cd $cwd && mvn -Dtycho.disableP2Mirrors=true -Dmaven.test.failure.ignore=true install
      ```
 - The tests will wait for a remote debugging session, create a new launch configuration in the UI using
   - Select **Debug > Debug Configurations...**  
@@ -79,7 +79,7 @@ Using the same build scripts used for the BridgePoint deployment build the produ
 - Run maven again for that test plugin.  
      ```
       cd ~/git/bptest/src/[test-plugin]
-      mvn -Dtycho.disableP2Mirrors=true -Dmaven.test.failure.ignore=true install
+      cwd=`pwd` && cd ../../../bridgepoint/src/org.xtuml.bp.pkg-feature && mvn -Dtycho.disableP2Mirrors=true -Dmaven.test.failure.ignore=true install && cd $cwd && mvn -Dtycho.disableP2Mirrors=true -Dmaven.test.failure.ignore=true install
       cd ~/git/bridgepoint-fork-main/releng/org.xtuml.bp.releng.parent
       mvn -Daggregate=true surefire-report:failsafe-report-only
      ```
