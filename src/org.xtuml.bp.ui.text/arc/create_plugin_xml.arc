@@ -28,7 +28,7 @@
 .// Main code
 .// -------------------------------------------------------------
 .//
-.include "arc/create_util.inc"
+.include "create_util.inc"
 .//
 .assign path = "org.xtuml.bp.ui.text"
 .//
@@ -424,5 +424,5 @@ This file is the plugin manifest for the BridgePoint core plugin.
    </extension>
 </plugin>
 .//
-.emit to file "plugin.xml"
+.emit to file "../plugin.xml"
 .//

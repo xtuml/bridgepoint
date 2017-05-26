@@ -33,7 +33,7 @@
 .end if
 .//
 .include "${mc_archetypes}/arch_utils.inc"
-.include "arc/create_util.inc"
+.include "create_util.inc"
 .//
 .assign core_package = "org.xtuml.bp.core"
 .assign path = "org.xtuml.bp.ui.text"
