@@ -66,7 +66,7 @@ Using the same build scripts used for the BridgePoint deployment build the produ
 - Restart the tests for the project with issues including the debugging port option (Navigate to the test plugin folder):  
      ```
       cd ~/git/bptest/src/[test-plugin]
-      cwd=`pwd` && cd ../../../bridgepoint/src/org.xtuml.bp.pkg-feature && mvn -Dtycho.disableP2Mirrors=true -Dmaven.test.failure.ignore=true install && cd $cwd && mvn -Dtycho.disableP2Mirrors=true -Dmaven.test.failure.ignore=true install -debugPort=8000
+      cwd=`pwd` && cd ../../../bridgepoint/src/org.xtuml.bp.pkg-feature && mvn -Dtycho.disableP2Mirrors=true -Dmaven.test.failure.ignore=true install && cd $cwd && mvn -Dtycho.disableP2Mirrors=true -Dmaven.test.failure.ignore=true install -DdebugPort=8000
      ```
 - The tests will wait for a remote debugging session, create a new launch configuration in the UI using
   - Select **Debug > Debug Configurations...**  
