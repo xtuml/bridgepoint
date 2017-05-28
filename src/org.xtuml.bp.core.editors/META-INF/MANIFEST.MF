@@ -1,0 +1,22 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Core Editors
+Bundle-SymbolicName: org.xtuml.bp.core.editors;singleton:=true
+Bundle-Version: 6.2.5
+Bundle-Activator: org.xtuml.bp.core.editors.Activator
+Require-Bundle: org.eclipse.core.runtime,
+ org.eclipse.ui,
+ org.eclipse.ui.editors,
+ org.eclipse.jface,
+ org.xtuml.bp.core,
+ org.xtuml.bp.ui.canvas,
+ org.xtuml.bp.ui.graphics
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-ActivationPolicy: lazy
+Export-Package: org.xtuml.bp.core.editors,
+ org.xtuml.bp.core.editors.editing,
+ org.xtuml.bp.core.editors.focus.factories,
+ org.xtuml.bp.core.editors.focus.pages,
+ org.xtuml.bp.core.editors.focus.viewers,
+ org.xtuml.bp.core.editors.providers
+Bundle-ClassPath: editors.jar
