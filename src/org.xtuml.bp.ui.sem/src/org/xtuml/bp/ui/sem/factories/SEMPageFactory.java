@@ -35,6 +35,8 @@ import org.xtuml.bp.ui.sem.pages.SEMEditorPage;
 
 public class SEMPageFactory implements IEditorTabFactory {
 
+	private Object configuredInput;
+
 	@Override
 	public Composite createEditorTab(Composite parent, Object editorInput) {
 		if(editorInput instanceof InstanceStateMachine_c) {
@@ -46,6 +48,36 @@ public class SEMPageFactory implements IEditorTabFactory {
 			return page;			
 		}
 		return null;
+	}
+
+	@Override
+	public boolean getFocusBased() {
+		return false;
+	}
+
+	@Override
+	public void setFocusBased(boolean isFocusBased) {
+		// do nothing unless we change it later
+	}
+
+	@Override
+	public String getEditorTitle() {
+		return "State Event Matrix Editor";
+	}
+
+	@Override
+	public void setEditorTitle(String title) {
+		// do nothing for now
+	}
+
+	@Override
+	public Object getInput() {
+		return configuredInput;
+	}
+
+	@Override
+	public void setInput(Object input) {
+		configuredInput = input;
 	}
 	
 }

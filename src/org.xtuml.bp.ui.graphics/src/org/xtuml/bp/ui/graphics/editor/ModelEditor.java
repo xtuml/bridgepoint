@@ -23,6 +23,9 @@
 
 package org.xtuml.bp.ui.graphics.editor;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IExtension;
@@ -30,6 +33,7 @@ import org.eclipse.core.runtime.IExtensionPoint;
 import org.eclipse.core.runtime.IExtensionRegistry;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.InvalidRegistryObjectException;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.draw2d.FigureCanvas;
@@ -37,7 +41,9 @@ import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.Viewport;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
+import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.IEditorInput;
@@ -46,21 +52,21 @@ import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.part.FileEditorInput;
 import org.eclipse.ui.part.MultiPageEditorPart;
 import org.eclipse.ui.texteditor.InfoForm;
-
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.common.NonRootModelElement;
 import org.xtuml.bp.core.common.PersistableModelComponent;
 import org.xtuml.bp.core.common.PersistenceManager;
-import org.xtuml.bp.ui.canvas.CanvasPlugin;
+import org.xtuml.bp.core.ui.Selection;
 import org.xtuml.bp.ui.canvas.Model_c;
 import org.xtuml.bp.ui.canvas.util.GraphicsUtil;
 import org.xtuml.bp.ui.explorer.ILinkWithEditorListener;
 import org.xtuml.bp.ui.graphics.Activator;
 import org.xtuml.bp.ui.graphics.parts.ShapeEditPart;
 
-public class ModelEditor extends MultiPageEditorPart implements ILinkWithEditorListener {
+public class ModelEditor extends MultiPageEditorPart implements ILinkWithEditorListener, ISelectionChangedListener {
 
 	private GraphicalEditor fGraphicalEditor;
+	private List<IEditorTabFactory> focusBasedFactories = new ArrayList<IEditorTabFactory>();
 
 	@Override
 	protected void createPages() {
@@ -83,6 +89,7 @@ public class ModelEditor extends MultiPageEditorPart implements ILinkWithEditorL
 			}
 			int addPage = addPage(editor, getEditorInput());
 			setPageText(addPage, "Graphical Editor");
+			Selection.getInstance().addSelectionChangedListener(this);
 		} catch (PartInitException e) {
 			Activator.logError("Unable to create graphical editor.", e);
 		}
@@ -124,23 +131,56 @@ public class ModelEditor extends MultiPageEditorPart implements ILinkWithEditorL
 	    	for (int j = 0; j < configurationElements.length; j++) {
 	    		if (configurationElements[j].getName().equals("EditorTab")) { //$NON-NLS-1$
 	    			Object selection = configurationElements[j].getAttribute("Input"); //$NON-NLS-1$
-	    			if(selection.equals(model.getRepresents().getClass().getName())) {
-						try {
-							Object tabFactory = configurationElements[j].createExecutableExtension("EditorTabFactory"); //$NON-NLS-1$
-		    				String editorTitle = configurationElements[j].getAttribute("EditorTitle"); //$NON-NLS-1$
-		    				if(tabFactory instanceof IEditorTabFactory) {
-		    					IEditorTabFactory factory = (IEditorTabFactory) tabFactory;
-		    					Composite composite = factory.createEditorTab(container, model.getRepresents());
-		    					int newPage = addPage((Composite) composite);
-		    					setPageText(newPage, editorTitle);
-		    				}
-						} catch (CoreException e) {
-							CanvasPlugin.logError("Unable to create executable extension from point.", e); //$NON-NLS-1$
-						} 
-	    			}
+	    			try {
+	    				boolean focusBased = Boolean.valueOf(configurationElements[j].getAttribute("focusBased")); //$NON-NLS-1$
+	    				if(focusBased) {
+	    					storeFocusBasedTab(configurationElements[j], selection);
+	    				}
+						if(selection.equals(model.getRepresents().getClass().getName()) || selection.equals(NonRootModelElement.class.getName())) {
+							if(!focusBased) {
+								Object tabFactory = configurationElements[j].createExecutableExtension("EditorTabFactory"); //$NON-NLS-1$
+								String editorTitle = configurationElements[j].getAttribute("EditorTitle"); //$NON-NLS-1$
+								// if not focus based create the editor tab now
+								if(tabFactory instanceof IEditorTabFactory) {
+									IEditorTabFactory factory = (IEditorTabFactory) tabFactory;
+									factory.setEditorTitle(editorTitle);
+									createPageFromFactory(factory, container, model.getRepresents());
+								}
+							}
+						}
+					} catch (InvalidRegistryObjectException e) {
+						CorePlugin.logError("Unable to load registered class by name.", e);
+					} catch (CoreException e) {
+						CorePlugin.logError("Unable to load editor tab factory from configuration.", e);
+					}
 	    		}
 	    	}
 	    }
+	}
+
+	private void storeFocusBasedTab(IConfigurationElement configuration, Object input) {
+		try {
+			Object tabFactory = configuration.createExecutableExtension("EditorTabFactory"); //$NON-NLS-1$
+			String editorTitle = configuration.getAttribute("EditorTitle"); //$NON-NLS-1$
+			if(tabFactory instanceof IEditorTabFactory) {
+				((IEditorTabFactory) tabFactory).setFocusBased(true);
+				((IEditorTabFactory) tabFactory).setEditorTitle(editorTitle);
+				((IEditorTabFactory) tabFactory).setInput(input);
+				focusBasedFactories.add((IEditorTabFactory) tabFactory);
+				
+			}
+		} catch (CoreException e) {
+			CorePlugin.logError("Unable to create editor tab factory.", e);
+		}
+		
+	}
+
+	private void createPageFromFactory(IEditorTabFactory tabFactory, Composite container, Object represents) {
+		IEditorTabFactory factory = (IEditorTabFactory) tabFactory;
+		factory.setInput(represents.getClass().getName());
+		Composite composite = factory.createEditorTab(container, represents);
+		int newPage = addPage((Composite) composite);
+		setPageText(newPage, tabFactory.getEditorTitle());	
 	}
 
 	@Override
@@ -198,6 +238,12 @@ public class ModelEditor extends MultiPageEditorPart implements ILinkWithEditorL
 		return fGraphicalEditor;
 	}
 
+	@Override
+	public void dispose() {
+		super.dispose();
+		Selection.getInstance().removeSelectionChangedListener(this);
+	}
+
 	public void refresh() {
 		if(fGraphicalEditor != null && !fGraphicalEditor.getCanvas().isDisposed()) {
 			fGraphicalEditor.refresh();
@@ -247,5 +293,52 @@ public class ModelEditor extends MultiPageEditorPart implements ILinkWithEditorL
 			}
 		}
 		return null;
+	}
+
+	@Override
+	public void selectionChanged(SelectionChangedEvent event) {
+		// see if any tabs need to be added, or removed
+		for(IEditorTabFactory factory : focusBasedFactories) {
+			// look for a tab with the same configured type
+			// let any opened tabs worry about a selection change
+			// to refresh their content
+			Object configuredInput = factory.getInput();
+			// for now only support single selections
+			IStructuredSelection currentSelection = (IStructuredSelection) event.getSelection();
+			if(currentSelection.size() == 1) {
+				// create any non-existing editors
+				if(configuredInput.equals(currentSelection.getFirstElement().getClass().getName())) {
+					int pageCount = getPageCount();
+					boolean foundExistingEditor = false;
+					for(int i = 0; i < pageCount; i++) {
+						if (getPageText(i).equals(factory.getEditorTitle())) {
+							// found do not create a new tab
+							foundExistingEditor = true;
+							break;
+						}
+					}
+					if(!foundExistingEditor) {
+						// create a tab now
+						createPageFromFactory(factory, getContainer(), currentSelection.getFirstElement());
+					}
+				} else {
+					// current selection does not match, check all open
+					// editors matching this factory and close
+					for(int i = 0; i < getPageCount(); i++) {
+						if (getPageText(i).equals(factory.getEditorTitle())) {
+							// editor input and title match close here
+							removePage(i);
+						}
+					}
+				}
+			} else { 
+				// close all editors of this type
+				for(int i = 0; i < getPageCount(); i++) {
+					if(getPageText(i).equals(factory)) {
+						removePage(i);
+					}
+				}
+			}
+		}
 	}
 }
