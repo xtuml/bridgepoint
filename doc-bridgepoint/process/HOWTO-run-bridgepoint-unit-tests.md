@@ -30,18 +30,12 @@ Testing
 -------  
 Using the same build scripts used for the BridgePoint deployment build the product and run the unit tests from the command line.  
 - Ensure that Maven is installed on your Operating System, consult the Download and Install sections at http://maven.apache.org for installation instructions.  
-- Copy the BridgePoint installation to this location: /build/buildmt  
-  - If on building for osX, create the BridgePoint directory and copy the installation contents as follows:
+- Set bp_install_dir to the current BridgePoint installation    
+- Prepare the CLI.sh script for the BridgePoint installation    
     ```
-    mkdir /build/buildmt/BridgePoint
-    chown -R [username]:[group] /build
-    cp -r ~/xtuml/BridgePoint.app/Contents/Eclipse/* /build/buildmt/BridgePoint
-    ```
-- Prepare the CLI.sh script for the BridgePoint installation under /build/buildmt  
-    ```
-    cp ~/git/bridgepoint/src/installer/CLI.sh /build/buildmt/BridgePoint/
-    chmod u+x /build/buildmt/BridgePoint/CLI.sh
-    dos2unix /build/buildmt/BridgePoint/CLI.sh
+    cp ~/git/bridgepoint/src/installer/CLI.sh $bp_install_dir
+    chmod u+x $bp_install_dir/CLI.sh
+    dos2unix $bp_install_dir/CLI.sh
     ```
 - Modify CLI.sh to point at the development workspace if the location is different than the default ~/workspace.  Edit CLI.sh, setting the WORKSPACE variable to point at the location of the development workspace.
 - Add these additional environment variables:  
@@ -55,7 +49,7 @@ Using the same build scripts used for the BridgePoint deployment build the produ
 	* org.xtuml.bp.core.test  
 	
     ```
-    /build/buildmt/BridgePoint/CLI.sh Build -project [project] -prebuildOnly  
+    $bp_install_dir/CLI.sh Build -project [project] -prebuildOnly  
     ```
 - Change directory to ~/git/bridgepoint/releng/org.xtuml.bp.releng.parent  
 - Run maven install (This will build and run the tests, it will take a while)  
@@ -72,7 +66,7 @@ Using the same build scripts used for the BridgePoint deployment build the produ
 - Restart the tests for the project with issues including the debugging port option (Navigate to the test plugin folder):  
      ```
       cd ~/git/bptest/src/[test-plugin]
-      mvn -DdebugPort=8000 -Dtycho.disableP2Mirrors=true -Dmaven.test.failure.ignore=true install
+      cwd=`pwd` && cd ../../../bridgepoint/src/org.xtuml.bp.pkg-feature && mvn -Dtycho.disableP2Mirrors=true -Dmaven.test.failure.ignore=true install && cd $cwd && mvn -Dtycho.disableP2Mirrors=true -Dmaven.test.failure.ignore=true install -DdebugPort=8000
      ```
 - The tests will wait for a remote debugging session, create a new launch configuration in the UI using
   - Select **Debug > Debug Configurations...**  
@@ -85,7 +79,7 @@ Using the same build scripts used for the BridgePoint deployment build the produ
 - Run maven again for that test plugin.  
      ```
       cd ~/git/bptest/src/[test-plugin]
-      mvn -Dtycho.disableP2Mirrors=true -Dmaven.test.failure.ignore=true install
+      cwd=`pwd` && cd ../../../bridgepoint/src/org.xtuml.bp.pkg-feature && mvn -Dtycho.disableP2Mirrors=true -Dmaven.test.failure.ignore=true install && cd $cwd && mvn -Dtycho.disableP2Mirrors=true -Dmaven.test.failure.ignore=true install
       cd ~/git/bridgepoint-fork-main/releng/org.xtuml.bp.releng.parent
       mvn -Daggregate=true surefire-report:failsafe-report-only
      ```

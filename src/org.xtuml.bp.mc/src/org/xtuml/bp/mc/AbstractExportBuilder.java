@@ -93,7 +93,7 @@ public abstract class AbstractExportBuilder extends IncrementalProjectBuilder {
 	// The eclipse infrastructure calls this function in response to
 	// direct request by the user for a build or because auto building
 	// is turned on.
-	protected IProject[] build(int kind, Map args, IProgressMonitor monitor)
+	protected IProject[] build(int kind, Map<String, String> args, IProgressMonitor monitor)
 			throws CoreException {
 		boolean exportNeeded = readyBuildArea(monitor);
 
