@@ -62,8 +62,6 @@ The Integrity Checker is not explicitly an enforcer of referential integrity.
 
 ### 6. Work Required
 
-This work is estimated to take one man month.
-
 6.1 Generalized Referential Integrity Checking  
 Add a utility that interrogates the entire instance population of a model
 specifically ensuring that relationship links are present and that
