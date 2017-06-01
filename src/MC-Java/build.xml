@@ -27,6 +27,7 @@
          param7 = only package to gen
          param8 = only class to gen
    -->
+   <echotimestamp/>
    <echo>Building from: gen/code_generation/${param1}-${param6}.sql</echo>
    <copy file="gen/code_generation/${param1}-${param6}.sql" tofile="gen/code_generation/${param1}-${param6}.xtuml"/>
    <exec vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
@@ -74,6 +75,7 @@
             -arch ../../../${param3}/java.arc" />
       </exec>-->
         <delete file="gen/code_generation/${param1}-${param8}.xtuml" />
+     <echotimestamp/>
    </target>
 
    <target name="generate.java" description="Generate Java code for domain" depends="file_io.schema">
@@ -85,6 +87,7 @@
       param6 = end package
       mcjava.project.root = the root of the project being built
 -->
+    <echotimestamp/>
     <echo>Building from: gen/code_generation/${param1}.sql</echo>
     <copy file="gen/code_generation/${param1}.sql" tofile="gen/code_generation/${param1}.xtuml"/>
     <exec vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
@@ -105,6 +108,7 @@
             -arch ${param3}/verify_selects.arc
             -arch ${param3}/java.arc" />
     </exec>
+    <echotimestamp/>
   </target>
 
    <target name="generate.schema" description="Generate schema from sql file">

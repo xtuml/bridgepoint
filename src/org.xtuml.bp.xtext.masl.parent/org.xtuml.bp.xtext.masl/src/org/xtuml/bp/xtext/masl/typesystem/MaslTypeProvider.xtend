@@ -96,61 +96,70 @@ import org.xtuml.bp.xtext.masl.masl.types.TypeDeclaration
 import org.xtuml.bp.xtext.masl.masl.types.UnconstrainedArrayDefinition
 
 import static org.xtuml.bp.xtext.masl.typesystem.BuiltinType.*
+import org.eclipse.xtext.util.IResourceScopeCache
 
 class MaslTypeProvider {
 	
 	@Inject extension MASLExtensions
 	@Inject extension TypeParameterResolver
 	@Inject extension StructurePackage
+	@Inject IResourceScopeCache cache
+	
+	private static val CACHE_KEY = 'masltype'
+	private static val CACHE_KEY_TYPEREF = 'masltyperef'
 	
 	def MaslType getMaslType(EObject it) {
-		try {
-			switch it {
-				AssignStatement:
-					return NO_TYPE
-				Expression:
-					return maslTypeOfExpression
-				AttributeDefinition:
-					return type.maslTypeOfTypeReference
-				StructureComponentDefinition:
-					return type.maslTypeOfTypeReference
-				AbstractTypeReference:
-					return maslTypeOfTypeReference
-				RelationshipNavigation:
-					return maslTypeOfRelationshipNavigation
-				AbstractTypeDefinition:
-					return maslTypeOfTypeDefinition
-				AbstractFeature:
-					return maslTypeOfFeature
-				AbstractService:
-					if(getReturnType == null)
+		if(it === null) 
+			return MISSING_TYPE 
+		cache.get(CACHE_KEY -> it, eResource, [
+			try {
+				switch it {
+					AssignStatement:
 						return NO_TYPE
-					else 
-						return getReturnType.maslTypeOfTypeReference
-				CodeBlockStatement,
-				ExitStatement,
-				ReturnStatement,
-				DelayStatement,
-				RaiseStatement,
-				DeleteStatement,
-				EraseStatement,
-				ScheduleStatement,
-				CancelTimerStatement,
-				GenerateStatement,
-				IfStatement,
-				CaseStatement,
-				ForStatement,
-				WhileStatement,
-				AbstractActionDefinition,
-				StateDeclaration,
-				EventDefinition:
-					return NO_TYPE
-				default:
-					throw new UnsupportedOperationException('Missing type for ' + eClass?.name)
+					Expression:
+						return maslTypeOfExpression
+					AttributeDefinition:
+						return type.maslTypeOfTypeReference
+					StructureComponentDefinition:
+						return type.maslTypeOfTypeReference
+					AbstractTypeReference:
+						return maslTypeOfTypeReference
+					RelationshipNavigation:
+						return maslTypeOfRelationshipNavigation
+					AbstractTypeDefinition:
+						return maslTypeOfTypeDefinition
+					AbstractFeature:
+						return maslTypeOfFeature
+					AbstractService:
+						if(getReturnType == null)
+							return NO_TYPE
+						else 
+							return getReturnType.maslTypeOfTypeReference
+					CodeBlockStatement,
+					ExitStatement,
+					ReturnStatement,
+					DelayStatement,
+					RaiseStatement,
+					DeleteStatement,
+					EraseStatement,
+					ScheduleStatement,
+					CancelTimerStatement,
+					GenerateStatement,
+					IfStatement,
+					CaseStatement,
+					ForStatement,
+					WhileStatement,
+					AbstractActionDefinition,
+					StateDeclaration,
+					EventDefinition:
+						return NO_TYPE
+					default:
+						throw new UnsupportedOperationException('Missing type for ' + eClass?.name)
+				}
+			} catch (Exception exc) {
+				return MISSING_TYPE
 			}
-		} catch (Exception exc) {
-			return MISSING_TYPE
-		}
+		])
 	}
 	
 	private def MaslType getMaslTypeOfExpression(Expression it) {
@@ -241,38 +250,40 @@ class MaslTypeProvider {
 	}
 	
 	def MaslType getMaslTypeOfTypeReference(AbstractTypeReference it) {
-		switch it {
-			ArrayTypeReference:
-				return new ArrayType(elementType.maslTypeOfTypeReference, anonymous)
-			BagTypeReference:
-				return new BagType(elementType.maslTypeOfTypeReference, anonymous)
-			SequenceTypeReference:
-				return new SequenceType(elementType.maslTypeOfTypeReference, anonymous)
-			SetTypeReference:
-				return new SetType(elementType.maslTypeOfTypeReference, anonymous)
-			DictionaryTypeReference: 
-				return new DictionaryType(
-					keyType?.maslTypeOfTypeReference ?: ANONYMOUS_STRING, 
-					elementType?.maslTypeOfTypeReference ?: ANONYMOUS_STRING, anonymous)
-			RangeTypeReference:
-				return new RangeType(elementType.maslTypeOfTypeReference, true)
-			ConstrainedArrayTypeReference: {
-				val unconstrainedMaslType = unconstrained.getMaslTypeOfTypeDeclaration(false)
-				if(unconstrainedMaslType instanceof NamedType)
-					return unconstrainedMaslType.type
-				else				
-					return unconstrainedMaslType
+		cache.get(CACHE_KEY_TYPEREF -> it, eResource, [
+			switch it {
+				ArrayTypeReference:
+					return new ArrayType(elementType.maslTypeOfTypeReference, anonymous)
+				BagTypeReference:
+					return new BagType(elementType.maslTypeOfTypeReference, anonymous)
+				SequenceTypeReference:
+					return new SequenceType(elementType.maslTypeOfTypeReference, anonymous)
+				SetTypeReference:
+					return new SetType(elementType.maslTypeOfTypeReference, anonymous)
+				DictionaryTypeReference: 
+					return new DictionaryType(
+						keyType?.maslTypeOfTypeReference ?: ANONYMOUS_STRING, 
+						elementType?.maslTypeOfTypeReference ?: ANONYMOUS_STRING, anonymous)
+				RangeTypeReference:
+					return new RangeType(elementType.maslTypeOfTypeReference, true)
+				ConstrainedArrayTypeReference: {
+					val unconstrainedMaslType = unconstrained.getMaslTypeOfTypeDeclaration(false)
+					if(unconstrainedMaslType instanceof NamedType)
+						return unconstrainedMaslType.type
+					else				
+						return unconstrainedMaslType
+				}
+				InstanceTypeReference:
+					return new InstanceType(instance, anonymous)
+				NamedTypeReference: {
+					return type.getMaslTypeOfTypeDeclaration(anonymous)
+				}
+				TerminatorTypeReference:
+					return new TerminatorType(terminator)
+				default:
+					throw new UnsupportedOperationException('Missing type for type ref ' + it?.eClass?.name)
 			}
-			InstanceTypeReference:
-				return new InstanceType(instance, anonymous)
-			NamedTypeReference: {
-				return type.getMaslTypeOfTypeDeclaration(anonymous)
-			}
-			TerminatorTypeReference:
-				return new TerminatorType(terminator)
-			default:
-				throw new UnsupportedOperationException('Missing type for type ref ' + it?.eClass?.name)
-		}
+		])
 	}
 	
 	private def MaslType getMaslTypeOfTypeDeclaration(TypeDeclaration declaration, boolean anonymous) {

@@ -278,7 +278,8 @@
           description="Generate the Context Menu Entry action classes"
           unless="cme_menus.buildNotNeeded" >
     <echo >Generating Action Classes ...</echo>
-    <exec vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
+    <echotimestamp />
+  	<exec vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
         <env key="PTC_MC_ARC_DIR" value="${mcj_path}"/>
     <env key="VERIFY_SELECTS" value="false" />
     <env key="CHECK_FUNCTIONS_ONLY" value="true" />
@@ -297,6 +298,7 @@
       -arch arc/wizard.arc
       -arch arc/quick_fix.arc" />
   </exec>
+  <echotimestamp />
   <delete file="sql/____file.txt" />
   <delete file="sql/____actn.arc" />
   <delete file="sql/blck_id" />
@@ -374,6 +376,7 @@
           description="Generate the tree adapter files"
           unless="inspector.java.buildNotNeeded" >
     <echo >Generating ${inspector.java.output} ...</echo>
+    <echotimestamp />
     <exec vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
         <env key="PTC_MC_ARC_DIR" value="${mcj_path}"/>
         <env key="CHAIN_UTIL_DIR" value="${chain_util_path}"/>
@@ -387,7 +390,8 @@
       -arch arc/create_model_inspector.arc
       -arch arc/create_metadata_elements_sorters.arc
       -arch arc/create_dependson.arc" />
-  </exec>
+    </exec>
+    <echotimestamp />
 
     <delete file="____file.txt" />
     <delete file="key_lett.txt" />
@@ -413,6 +417,7 @@
    
    <target name="cell_modifiers" depends="cell_modifier.depends" unless="cell_modifier.buildNotNeeded">
        <echo >Generating ${cell_modifier.output} ...</echo>
+       <echotimestamp />
        <exec vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
            <env key="PTC_MC_ARC_DIR" value="${mcj_path}"/>
            <env key="CHAIN_UTIL_DIR" value="${chain_util_path}"/>
@@ -423,7 +428,8 @@
          -import sql/ooaofooa.sql
          -import sql/ooaofooa_hierarchy.pei.sql
          -arch arc/generate_cell_modifiers.arc" />
-     </exec>
+       </exec>
+       <echotimestamp />
 
        <delete file="____file.txt" />
        <delete file="key_lett.txt" />
@@ -447,6 +453,7 @@
 
    <target name="generate_supertype_subtype_util" unless="supertype_subtype_util.buildNotNeeded" depends="generate_supertype_subtype_util.depends" >
        <echo >Generating ${gssu.output} ...</echo>
+       <echotimestamp />
        <exec vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
            <env key="PTC_MC_ARC_DIR" value="${mcj_path}"/>
          <env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
@@ -454,7 +461,8 @@
             -import ${mcj_path}/ooa_schema.sql
             -import sql/ooaofooa.sql
             -arch arc/generate_supertype_subtype_util.arc" />
-      </exec>        
+       </exec>        
+       <echotimestamp />
     <!-- touch the output file in case generator believes there
          are no changes -->
     <touch file="${gssu.output}"/>
@@ -472,6 +480,7 @@
 
    <target name="generate_rto_util" unless="rto_util.buildNotNeeded" depends="generate_rto_util.depends" >
        <echo >Generating ${grtou.output} ...</echo>
+       <echotimestamp />
        <exec vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
            <env key="PTC_MC_ARC_DIR" value="${mcj_path}"/>
          <env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
@@ -480,6 +489,7 @@
             -import sql/ooaofooa.sql
             -arch arc/generate_rto_util.arc" />
       </exec>        
+      <echotimestamp />
       <!-- touch the output file in case generator believes there
            are no changes -->
       <touch file="${grtou.output}"/>
@@ -497,6 +507,7 @@
 
    <target name="action_language_description_util" unless="action_language_description_util.buildNotNeeded" depends="action_language_description_util.depends" >
        <echo >Generating ${ald.output} ...</echo>
+       <echotimestamp />
        <exec vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
            <env key="PTC_MC_ARC_DIR" value="${mcj_path}"/>
          <env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
@@ -504,7 +515,8 @@
             -import ${mcj_path}/ooa_schema.sql
             -import sql/ooaofooa.sql
             -arch arc/action_language_description_util.arc" />
-      </exec>        
+       </exec>        
+       <echotimestamp />
     <!-- touch the output file in case generator believes there
          are no changes -->
     <touch file="${ald.output}"/>
