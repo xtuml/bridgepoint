@@ -62,6 +62,8 @@ import static org.eclipse.xtext.scoping.Scopes.*
 
 import static extension org.eclipse.xtext.EcoreUtil2.*
 import org.xtuml.bp.xtext.masl.typesystem.BuiltinType
+import org.xtuml.bp.xtext.masl.masl.behavior.Equality
+import org.xtuml.bp.xtext.masl.masl.behavior.RelationalExp
 
 /**
  * This class contains custom scoping description.
@@ -222,7 +224,7 @@ class MASLScopeProvider extends AbstractMASLScopeProvider {
 	
 	private def dispatch IScope getFeatureScope(SimpleFeatureCall call) {
 		if(call.receiver == null) {
-			val localFeatureScope = call.getLocalSimpleFeatureScope(delegate.getScope(call, featureCall_Feature), null) 
+			val localFeatureScope = call.getLocalSimpleFeatureScope(delegate.getScope(call, featureCall_Feature), null, false) 
 			val parent = call.eContainer
 			switch parent {
 				AttributeDefinition case call == parent.defaultValue: 
@@ -288,12 +290,16 @@ class MASLScopeProvider extends AbstractMASLScopeProvider {
 		}
 	}
 
-	private def IScope getLocalSimpleFeatureScope(EObject expr, IScope parentScope, EReference containmentFeature) {
+	private def IScope getLocalSimpleFeatureScope(EObject expr, IScope parentScope, EReference containmentFeature, boolean isRightHandSide) {
 		if(expr == null)
 			return IScope.NULLSCOPE
 		val parent = expr.eContainer
 		switch expr {
-			FindExpression case containmentFeature == findExpression_Where: {
+			Equality case containmentFeature == equality_Rhs:
+				return parent.getLocalSimpleFeatureScope(parentScope, expr.eContainmentFeature, true)
+			RelationalExp case containmentFeature == equality_Rhs:
+				return parent.getLocalSimpleFeatureScope(parentScope, expr.eContainmentFeature, true)
+			FindExpression case containmentFeature == findExpression_Where && !isRightHandSide: {
 				val whereScope = getWhereScope(expr.expression, parentScope)
 				if(whereScope != null)
 					return whereScope
@@ -304,9 +310,9 @@ class MASLScopeProvider extends AbstractMASLScopeProvider {
 					return whereScope
 			}
 			CodeBlock:
-				return scopeFor(expr.variables, parent.getLocalSimpleFeatureScope(parentScope, expr.eContainmentFeature))
+				return scopeFor(expr.variables, parent.getLocalSimpleFeatureScope(parentScope, expr.eContainmentFeature, isRightHandSide))
 			ForStatement:
-				return scopeFor(#[expr.variable], parent.getLocalSimpleFeatureScope(parentScope, expr.eContainmentFeature))
+				return scopeFor(#[expr.variable], parent.getLocalSimpleFeatureScope(parentScope, expr.eContainmentFeature, isRightHandSide))
 			ObjectServiceDefinition:
 				return getSimpleFeatureScopeForObjectAction(expr.parameters, expr.getObject, parentScope)
 			StateDefinition:
@@ -316,7 +322,7 @@ class MASLScopeProvider extends AbstractMASLScopeProvider {
 			DomainDefinition:
 				return parentScope
 		}
-		return parent.getLocalSimpleFeatureScope(parentScope, expr.eContainmentFeature)
+		return parent.getLocalSimpleFeatureScope(parentScope, expr.eContainmentFeature, isRightHandSide)
 	}
 	
 	
@@ -332,7 +338,7 @@ class MASLScopeProvider extends AbstractMASLScopeProvider {
 					null							
 			}
 		if (instance != null)
-			return instance.createObjectScope([attributes + services], expression.eContainer.getLocalSimpleFeatureScope(parentScope, expression.eContainmentFeature))
+			return instance.createObjectScope([attributes + services], expression.eContainer.getLocalSimpleFeatureScope(parentScope, expression.eContainmentFeature, false))
 		else 
 			return null
 	}
