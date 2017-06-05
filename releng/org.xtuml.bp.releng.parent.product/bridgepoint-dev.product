@@ -50,6 +50,7 @@
       <feature id="org.eclipse.egit"/>
       <feature id="org.eclipse.jdt"/>
       <feature id="org.eclipse.xtext.sdk"/>
+      <feature id="org.eclipse.pde"/>
    </features>
 
    <configurations>
