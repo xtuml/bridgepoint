@@ -57,8 +57,7 @@ means that the installation package of BridgePoint itself is reduced in size.
 
 5.1 Organize product definitions  
 5.1.1  Add new product definition at ```releng/org.xtuml.bp.releng.parent.product/bridgepoint-dev.product```  
-5.1.2  The current product defintion remains at ```releng/org.xtuml.bp.releng.parent.product/bridgepoint.product```  
-5.1.3  The new "developer" product definition 
+5.1.2  The current product definition remains at ```releng/org.xtuml.bp.releng.parent.product/bridgepoint.product```  
 
 5.2 Disable Eclipse AERI (Automatic Error Reporting Interface)  
 5.2.1  Edit the vmargs definitions in both products to add the flag to disable
@@ -84,7 +83,6 @@ means that the installation package of BridgePoint itself is reduced in size.
      org.xtuml.bp.mctools
      org.xtuml.bp.xtext.masl.feature
      org.eclipse.cdt
-     org.antlr.ui
      org.eclipse.platform
      org.eclipse.help
      org.eclipse.egit
@@ -93,6 +91,7 @@ means that the installation package of BridgePoint itself is reduced in size.
 5.3.2  Developer version includes all the features of 5.3.1 plus
  
 ```
+     org.antlr.ui
      org.eclipse.jdt
      org.eclipse.xtext.sdk
      org.eclipse.pde
@@ -107,6 +106,9 @@ means that the installation package of BridgePoint itself is reduced in size.
 5.5  Update the JUnit code base to remove tests designed to use CVS.  These are
   no longer run as part of the unit test suite.  These tests were the reason we
   included the "SDK examples" feature, which is now removed.  
+  
+5.6  Update the html file created by the server build to include links to the 
+  developer version as well as the user version.  
   
 ### 6. Implementation Comments
 6.1  An observation on file sizes:  
