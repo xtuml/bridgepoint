@@ -50,6 +50,9 @@ means that the installation package of BridgePoint itself is reduced in size.
 4.3  Both versions shall be built, packaged, and published with a single build 
   invocation.  
 
+4.4  BridgePoint code/models and tests shall build and run successfully with the
+  updated developer version of the tool.  
+  
 ### 5. Work Required
 
 5.1 Organize product definitions  
@@ -95,18 +98,50 @@ means that the installation package of BridgePoint itself is reduced in size.
      org.eclipse.pde
 ```
  
+5.4  Build modifications
+5.4.1  Update ```releng/org.xtuml.bp.releng.parent.product/pom.xml``` to include
+  the new developer product in the active product configurations.  Adding the 
+  new product here causes both user and developer versions to be built and 
+  packaged in a single build invocation.  
+  
+5.5  Update the JUnit code base to remove tests designed to use CVS.  These are
+  no longer run as part of the unit test suite.  These tests were the reason we
+  included the "SDK examples" feature, which is now removed.  
+  
 ### 6. Implementation Comments
-
+6.1  An observation on file sizes:  
+* Linux  
+  * current: 584 MB
+  * user: 348 MB
+  * developer: 392 MB
+* Mac  
+  * current: 439 MB
+  * user: 203 MB 
+  * developer: 247 MB
 
 ### 7. Unit Test
 
-7.1 Item 1  
-7.1.1 Example sub-item
-* Example List Element
+7.1 Ran the following unit tests  
+
+| Test | Result | Time |  
+|------|--------|------|  
+| Core | pass   | 514s |  
+| Core2 | 1 Fail |  525s |  
+| Core RTO Move|  pass | 210s |   
+| io.mdl | pass | 173s |   
+| io.mdl2 | pass | 97s  |   
+| Parser | pass | 455s |   
+| ui.canvas | pass | 167s |   
+| ui.explorer | pass | 52s |   
+| ui.properties | pass | 36s |   
+| ui.text. | pass | 123s   |   
 
 
 ### 8. User Documentation
-
+8.1 Updated the buildfiles.html page to link both versions  
+8.2 Updated the developer getting started guide to specify downloading the 
+  BridgePoint Developer version   
+8.3 Updated the FAQ to explain the two versions  
 
 ### 9. Code Changes
 
@@ -114,14 +149,31 @@ Fork/Repository: keithbrown/bridgepoint
 Branch: 8930_multiple_products  
 
 <pre>
-
+doc-bridgepoint/notes/8930_multiple_products.int.md
+releng/org.xtuml.bp.releng.parent.product/bridgepoint-dev.product
+releng/org.xtuml.bp.releng.parent.product/bridgepoint.product
+releng/org.xtuml.bp.releng.parent.product/pom.xml
 </pre>
 
 Fork/Repository: keithbrown/bptest  
 Branch: 8930_multiple_products  
 
 <pre>
+src/org.xtuml.bp.core.test/META-INF/MANIFEST.MF 
+src/org.xtuml.bp.core.test/generate.xml         
+src/org.xtuml.bp.core.test/src/org/xtuml/bp/core/test/ImportDuplicatedModelTest.java
+src/org.xtuml.bp.debug.ui.test/META-INF/MANIFEST.MF
+src/org.xtuml.bp.test/META-INF/MANIFEST.MF         
+src/org.xtuml.bp.test/src/org/xtuml/bp/test/common/BaseTest.java 
+src/org.xtuml.bp.test/src/org/xtuml/bp/test/common/CVSUtils.java  
+src/org.xtuml.bp.ui.canvas.test/META-INF/MANIFEST.MF              
+</pre>
 
+Fork/Repository: keithbrown/buildmt  
+Branch: 8930_multiple_products  
+
+<pre>
+buildmt/jenkins-home/jobs/publish/config.xml
 </pre>
 
 ### End

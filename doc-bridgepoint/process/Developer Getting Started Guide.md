@@ -27,7 +27,7 @@ Setup Instructions
     - https://github.com/xtuml/pt_antlr
     - https://github.com/xtuml/models
     
-  - [Download the latest version of the tool](https://s3.amazonaws.com/xtuml-releases/nightly-build/buildfiles.html "https://s3.amazonaws.com/xtuml-releases/nightly-build/buildfiles.html").
+  - [Download the latest BridgePoint Developer version of the tool](https://s3.amazonaws.com/xtuml-releases/nightly-build/buildfiles.html "https://s3.amazonaws.com/xtuml-releases/nightly-build/buildfiles.html").
   
   - Install BridgePoint.  
     - You may unzip wherever you like, a suggestion is:  ```~/xtuml/BridgePoint```
