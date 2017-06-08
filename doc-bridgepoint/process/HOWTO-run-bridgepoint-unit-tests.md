@@ -49,7 +49,7 @@ Using the same build scripts used for the BridgePoint deployment build the produ
     chmod u+x $bp_install_dir/CLI.sh
     dos2unix $bp_install_dir/CLI.sh
     ```
-- Modify CLI.sh to point at the development workspace if the location is different than the default ~/workspace.  Edit CLI.sh, setting the WORKSPACE variable to point at the location of the development workspace.
+- Modify CLI.sh to point at the development workspace if the location is different than the default ~/workspace.  Edit CLI.sh, setting the WORKSPACE variable to point at the location of the development workspace.  If you did not following the [Developer Getting Started Guide](https://github.com/xtuml/bridgepoint/blob/master/doc-bridgepoint/process/Developer%20Getting%20Started%20Guide.md), go to the guide now and following the import projects step.    
 - Add these additional environment variables:  
     * INCLUDE_TESTS=true  
     * mcj_path=~/git/bridgepoint/src/MC-Java  
