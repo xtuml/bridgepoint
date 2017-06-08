@@ -198,12 +198,6 @@ useful OAL editor, but will not be rich with features.
 > | SE2 | Users shall be able to add parameters to a signature.                      |
 > | SE3 | Users shall be able to delete parameters from a signature.                 |
 > | SE4 | Signature changes made in the editor shall be reflected in Model Explorer. |
-> 
-> 4.7 Test requirements
-> 
-> | ID | Description                                                                                 |
-> |:---|:--------------------------------------------------------------------------------------------|
-> | T1 | Every requirement shall have an associated unit test that shall validate its functionality. |
 
 5.2.1 Summary
 
