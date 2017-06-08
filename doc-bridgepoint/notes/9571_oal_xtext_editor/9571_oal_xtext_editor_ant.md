@@ -4,7 +4,7 @@ This work is licensed under the Creative Commons CC0 License
 
 ---
 
-# OAL Xtext Editor
+# OAL Xtext Editor (phase 1)
 ### xtUML Project Analysis Note
 
 ### 1. Abstract
@@ -18,7 +18,7 @@ requirements to implement in phase one and provide analysis for them.
 
 ### 2. Document References
 
-<a id="2.1"></a>2.1 [#9571 Provide an analysis for OAL Xtext Editor](https://support.onefact.net/issues/9571)  
+<a id="2.1"></a>2.1 [#9571 Provide an analysis for OAL Xtext Editor (phase 1)](https://support.onefact.net/issues/9571)  
 <a id="2.2"></a>2.2 [OAL Xtext Editor SRS](https://docs.google.com/document/d/1gbqKooXBE5xBIv5bSS86pKOMKLS_W4t0GTjUfpvQvIY/edit)  
 <a id="2.3"></a>2.3 [#8417 design note for persistence as files](../8417_action_dialect_files/8417_action_dialect_files.dnt.md)  
 <a id="2.4"></a>2.4 [#8417 implementation note for persistence as files](../8417_action_dialect_files/8417_action_dialect_files.int.md)  
@@ -70,66 +70,66 @@ Sourced from the SRS [[2.2]](#2.2)
 
 4.1 Basic requirements  
 
-| ID  | Description                                                                                                        |
-|:----|:-------------------------------------------------------------------------------------------------------------------|
-| B1  | All BridgePoint action homes shall support the functionality described by the other requirements of this document. |
-| B2  | Textual OAL shall be persisted into `.oal` files.                                                                  |
-| B3  | Each `.oal` file shall be associated with its action home.                                                         |
-| B4  | Each `.oal` file shall be persisted beside the `.xtuml` file that represents the action home.                      |
+| ID  | Phase | Description                                                                                                        |
+|:----|:------|:-------------------------------------------------------------------------------------------------------------------|
+| B1  | 1     | All BridgePoint action homes shall support the functionality described by the other requirements of this document. |
+| B2  | 1     | Textual OAL shall be persisted into `.oal` files.                                                                  |
+| B3  | 1     | Each `.oal` file shall be associated with its action home.                                                         |
+| B4  | 1     | Each `.oal` file shall be persisted beside the `.xtuml` file that represents the action home.                      |
 
 4.2 Rename refactor requirements
 
 
-| ID  | Description                                                                                                     |
-|:----|:----------------------------------------------------------------------------------------------------------------|
-| RR1 | When a structural element is renamed in Model Explorer, referring instances shall be updated with the new name. |
-| RR2 | When a structural element is renamed on the Canvas, referring instances shall be updated with the new name.     |
+| ID  | Phase | Description                                                                                                     |
+|:----|:------|:----------------------------------------------------------------------------------------------------------------|
+| RR1 | 2     | When a structural element is renamed in Model Explorer, referring instances shall be updated with the new name. |
+| RR2 | 2     | When a structural element is renamed on the Canvas, referring instances shall be updated with the new name.     |
 
 4.3 Activity editor requirements
 
-| ID   | Description                                                                                                                                                  |
-|:-----|:-------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| AE1  | OAL keywords are highlighted when editing an OAL activity.                                                                                                   |
-| AE2  | When editing an OAL activity each user-defined identifier within the activity is validated to ensure it is legal within the context in which it is used.  Invalid identifiers are marked, and a message explaining the error is provided. |
-| AE3  | Context-sensitive completion assistance for user-defined identifiers is provided while editing OAL activities.                                               |
-| AE4  | The editor shall link to the Model Explorer element being edited when Eclipse “link with editor” is enabled.                                                 |
-| AE5  | Problem markers shall be created in the problems view for errors OAL editors present in the activity editor.                                                 |
-| AE6  | Opening a problem marker in the problems view shall open the activity editor and position the cursor at the error.                                           |
-| AE7  | Signatures shall be viewable in the activity editor. This includes all action bodies that have a signature. Examples: function, operation, event, etc.       |
-| AE8  | When a variable representing an OAL instance is selected in the editor, a CME shall be present that allows the user to find the declaration of the instance. |
-| AE9  | When a declaration is found using Find Declaration, the user shall be able to select it to navigate to the declaration.                                      |
-| AE10 | When a variable representing an OAL instance is selected in the editor, a CME shall be present that allows the user to find all instances of that signature that are used in the project. |
-| AE11 | When an instance is found using Find Instances, the user shall be able to select it to navigate to the instance.                                             |
+| ID   | Phase | Description                                                                                                                                                  |
+|:-----|:------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| AE1  | 1     | OAL keywords are highlighted when editing an OAL activity.                                                                                                   |
+| AE2  | 1     | When editing an OAL activity each user-defined identifier within the activity is validated to ensure it is legal within the context in which it is used.  Invalid identifiers are marked, and a message explaining the error is provided. |
+| AE3  | 2     | Context-sensitive completion assistance for user-defined identifiers is provided while editing OAL activities.                                               |
+| AE4  | 2     | The editor shall link to the Model Explorer element being edited when Eclipse “link with editor” is enabled.                                                 |
+| AE5  | 1     | Problem markers shall be created in the problems view for errors OAL editors present in the activity editor.                                                 |
+| AE6  | 1     | Opening a problem marker in the problems view shall open the activity editor and position the cursor at the error.                                           |
+| AE7  | 1     | Signatures shall be viewable in the activity editor. This includes all action bodies that have a signature. Examples: function, operation, event, etc.       |
+| AE8  | 2     | When a variable representing an OAL instance is selected in the editor, a CME shall be present that allows the user to find the declaration of the instance. |
+| AE9  | 2     | When a declaration is found using Find Declaration, the user shall be able to select it to navigate to the declaration.                                      |
+| AE10 | 2     | When a variable representing an OAL instance is selected in the editor, a CME shall be present that allows the user to find all instances of that signature that are used in the project. |
+| AE11 | 2     | When an instance is found using Find Instances, the user shall be able to select it to navigate to the instance.                                             |
 
 4.4 Single-body editor requirements
 
-| ID  | Description                                    |
-|:----|:-----------------------------------------------|
-| SB1 | A single body editor shall not be implemented. |
+| ID  | Phase | Description                                    |
+|:----|:------|:-----------------------------------------------|
+| SB1 | 1     | A single body editor shall not be implemented. |
 
 4.5 Multi-body editor requirements
 
-| ID  | Description                                                                                   |
-|:----|:----------------------------------------------------------------------------------------------|
-| MB1 | All action bodies associated with an action home shall be present and editable.               |
-| MB2 | User shall be able to delete one or many action bodies at once.                               |
-| MB3 | User shall be able to add an action body by manually typing into the activity editor.         |
-| MB4 | User shall be able to add one or many action bodies by pasting them into the activity editor. |
+| ID  | Phase | Description                                                                                   |
+|:----|:------|:----------------------------------------------------------------------------------------------|
+| MB1 | 1     | All action bodies associated with an action home shall be present and editable.               |
+| MB2 | 1     | User shall be able to delete one or many action bodies at once.                               |
+| MB3 | 1     | User shall be able to add an action body by manually typing into the activity editor.         |
+| MB4 | 1     | User shall be able to add one or many action bodies by pasting them into the activity editor. |
 
 4.6 Signature editing requirements
  
-| ID  | Description                                                                |
-|:----|:---------------------------------------------------------------------------|
-| SE1 | Users shall be able to edit the signature name.                            |
-| SE2 | Users shall be able to add parameters to a signature.                      |
-| SE3 | Users shall be able to delete parameters from a signature.                 |
-| SE4 | Signature changes made in the editor shall be reflected in Model Explorer. |
+| ID  | Phase | Description                                                                |
+|:----|:------|:---------------------------------------------------------------------------|
+| SE1 | 1     | Users shall be able to edit the signature name.                            |
+| SE2 | 1     | Users shall be able to add parameters to a signature.                      |
+| SE3 | 1     | Users shall be able to delete parameters from a signature.                 |
+| SE4 | 1     | Signature changes made in the editor shall be reflected in Model Explorer. |
 
 4.7 Test requirements
 
-| ID | Description                                                                                 |
-|:---|:--------------------------------------------------------------------------------------------|
-| T1 | Every requirement shall have an associated unit test that shall validate its functionality. |
+| ID | Phase | Description                                                                                 |
+|:---|:------|:--------------------------------------------------------------------------------------------|
+| T1 | 2     | Every requirement shall have an associated unit test that shall validate its functionality. |
 
 ### 5. Analysis
 
@@ -151,53 +151,10 @@ may cause the editor to be practically unuseable or produce a great deal of
 
 5.2 Phase one requirements
 
-Below is a possible subset of the overall requirements to be tackled in phase
+In secion 4, a subset of the requirements is called out as belonging to phase
 one. The theme will be creating a strong base on which to build up the required
 editor features in future phases. The deliverable will be a functional and
 useful OAL editor, but will not be rich with features.
-
-> 4.1 Basic requirements  
-> 
-> | ID  | Description                                                                                                        |
-> |:----|:-------------------------------------------------------------------------------------------------------------------|
-> | B1  | All BridgePoint action homes shall support the functionality described by the other requirements of this document. |
-> | B2  | Textual OAL shall be persisted into `.oal` files.                                                                  |
-> | B3  | Each `.oal` file shall be associated with its action home.                                                         |
-> | B4  | Each `.oal` file shall be persisted beside the `.xtuml` file that represents the action home.                      |
-> 
-> 4.3 Activity editor requirements
-> 
-> | ID   | Description                                                                                                                                                  |
-> |:-----|:-------------------------------------------------------------------------------------------------------------------------------------------------------------|
-> | AE1  | OAL keywords are highlighted when editing an OAL activity.                                                                                                   |
-> | AE2  | When editing an OAL activity each user-defined identifier within the activity is validated to ensure it is legal within the context in which it is used.  Invalid identifiers are marked, and a message explaining the error is provided. |
-> | AE5  | Problem markers shall be created in the problems view for errors OAL editors present in the activity editor.                                                 |
-> | AE6  | Opening a problem marker in the problems view shall open the activity editor and position the cursor at the error.                                           |
-> | AE7  | Signatures shall be viewable in the activity editor. This includes all action bodies that have a signature. Examples: function, operation, event, etc.       |
-> 
-> 4.4 Single-body editor requirements
-> 
-> | ID  | Description                                    |
-> |:----|:-----------------------------------------------|
-> | SB1 | A single body editor shall not be implemented. |
-> 
-> 4.5 Multi-body editor requirements
-> 
-> | ID  | Description                                                                                   |
-> |:----|:----------------------------------------------------------------------------------------------|
-> | MB1 | All action bodies associated with an action home shall be present and editable.               |
-> | MB2 | User shall be able to delete one or many action bodies at once.                               |
-> | MB3 | User shall be able to add an action body by manually typing into the activity editor.         |
-> | MB4 | User shall be able to add one or many action bodies by pasting them into the activity editor. |
-> 
-> 4.6 Signature editing requirements
->  
-> | ID  | Description                                                                |
-> |:----|:---------------------------------------------------------------------------|
-> | SE1 | Users shall be able to edit the signature name.                            |
-> | SE2 | Users shall be able to add parameters to a signature.                      |
-> | SE3 | Users shall be able to delete parameters from a signature.                 |
-> | SE4 | Signature changes made in the editor shall be reflected in Model Explorer. |
 
 5.2.1 Summary
 
@@ -342,18 +299,20 @@ be used to choose a final direction.
 ### 6. Work Required
 
 6.1 Extend action file persistence mechanism to persist OAL action bodies as
-text.  
+text (B1, B2, B3, B4, AE7, MB1).  
 6.2 Implement mechanism to parse signatures from `.oal` files and populate
-instances of the structural signatures  
-6.3 Introduce type reference to the meta-model and integrate with 6.2  
-6.4 Experiment with extending the current OAL grammar for an editor containing
+instances of the structural signatures (SB1, MB2, MB3, MB4, SE1, SE2, SE3,
+SE4).  
+6.2.1 Introduce type reference to the meta-model and integrate with 6.2.  
+6.3 Implement an OAL multi-body editor to operate on the `.oal` files (AE1,
+AE2, AE5, AE6).  
+6.3.1 Experiment with extending the current OAL grammar for an editor containing
 multiple bodies  
-6.5 Experiment with introducing a new OAL editor using the Xtext grammar
+6.3.2 Experiment with introducing a new OAL editor using the Xtext grammar
 created in [[2.12]](#2.12)  
-6.6 Choose a design from the results of 6.4 and 6.5 and implement the chosen
-design  
-6.7 Derive tests from each of the requirements for phase one  
-6.8 Ensure each test created in 6.7 passes  
+6.3.3 Choose a design from the results of 6.3.1 and 6.3.2 and implement the
+chosen design  
+6.4 Validate the work completed and issue promotion  
 
 ### 7. Acceptance Test
 
