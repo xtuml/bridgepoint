@@ -3,7 +3,7 @@ This document provides the information required to run the BridgePoint developme
 
 Preparation 
 -----------
-1) See the [Developer Getting Started Guide](https://github.com/xtuml/bridgepoint/blob/master/doc-bridgepoint/process/Developer%20Getting%20Started%20Guide.md) for getting the proper environment set for running the BridgePoint development unit tests.  Note that you may use only this document, but you still need to consult the getting started guide for download and installation of the BridgePoint tool.  
+1) See the [Developer Getting Started Guide](https://github.com/xtuml/bridgepoint/blob/master/doc-bridgepoint/process/Developer%20Getting%20Started%20Guide.md) for getting the proper environment set for running the BridgePoint development unit tests.  Note that you may use only this document, but you still need to consult the getting started guide for repository fork setup, download of the tool, and installation of the tool.  
 
 2) This document uses ```~/git``` as the root folder for git repostiories, and it uses ```~/workspace``` as the development workspace. You may substitute any folder you desire, but you must be consistent.
 
