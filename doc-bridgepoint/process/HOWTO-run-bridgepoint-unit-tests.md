@@ -3,7 +3,7 @@ This document provides the information required to run the BridgePoint developme
 
 Preparation 
 -----------
-1) See the [Developer Getting Started Guide](https://github.com/xtuml/bridgepoint/blob/master/doc-bridgepoint/process/Developer%20Getting%20Started%20Guide.md) for getting the proper environment set for running the BridgePoint development unit tests.  Note that you may use only this document, but you still need to consult the getting started guide for repository fork setup, download of the tool, and installation of the tool.  
+1) See the [Developer Getting Started Guide](https://github.com/xtuml/bridgepoint/blob/master/doc-bridgepoint/process/Developer%20Getting%20Started%20Guide.md) for getting the proper environment set for running the BridgePoint development unit tests.  If starting from this HOWTO you do NOT need to perform the build step at the end.    
 
 2) This document uses ```~/git``` as the root folder for git repostiories, and it uses ```~/workspace``` as the development workspace. You may substitute any folder you desire, but you must be consistent.
 
@@ -18,18 +18,11 @@ export XTUML_TEST_MODEL_REPOSITORY=~/git/models/test/
 
 4) If you want to run BridgePoint unit tests on MS Windows you must perform some additional steps [described here.](https://github.com/xtuml/bridgepoint/blob/master/doc-bridgepoint/process/FAQ.md#windowstesting) 
 
-5) Clone repositories required for building and testing using the build scripts:
+5) Clone the bptest and models repository if you had not done so when running the [Developer Getting Started Guide](https://github.com/xtuml/bridgepoint/blob/master/doc-bridgepoint/process/Developer%20Getting%20Started%20Guide.md)  
 
 ```
-cd ~/git
-# if developer guide was followed these should be cloned, if bptest and models
-# were not cloned then make sure to do so now
-git clone https://github.com/"username"/bridgepoint.git ~/git/bridgepoint
 git clone https://github.com/"username"/bptest.git ~/git/bptest
-git clone https://github.com/"username"/mc.git ~/git/mc
-git clone https://github.com/"username"/pt_antlr.git ~/git/pt_antlr
 git clone https://github.com/"username"/models.git ~/git/models
-git clone https://github.com/"username"/packaging.git ~/git/packaging
 ```  
 
 Testing  
@@ -49,7 +42,7 @@ Using the same build scripts used for the BridgePoint deployment build the produ
     chmod u+x $bp_install_dir/CLI.sh
     dos2unix $bp_install_dir/CLI.sh
     ```
-- Modify CLI.sh to point at the development workspace if the location is different than the default ~/workspace.  Edit CLI.sh, setting the WORKSPACE variable to point at the location of the development workspace.  If you did not following the [Developer Getting Started Guide](https://github.com/xtuml/bridgepoint/blob/master/doc-bridgepoint/process/Developer%20Getting%20Started%20Guide.md), go to the guide now and following the import projects step.    
+- Modify CLI.sh to point at the development workspace if the location is different than the default ~/workspace.  Edit CLI.sh, setting the WORKSPACE variable to point at the location of the development workspace.      
 - Add these additional environment variables:  
     * INCLUDE_TESTS=true  
     * mcj_path=~/git/bridgepoint/src/MC-Java  
