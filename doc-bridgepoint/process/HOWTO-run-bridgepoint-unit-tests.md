@@ -3,7 +3,7 @@ This document provides the information required to run the BridgePoint developme
 
 Preparation 
 -----------
-1) See the [Developer Getting Started Guide](https://github.com/xtuml/bridgepoint/blob/master/doc-bridgepoint/process/Developer%20Getting%20Started%20Guide.md) for getting the proper environment set for running the BridgePoint development unit tests.  If starting from this HOWTO you do NOT need to perform the build step at the end.  However, you do need to perform the import project steps for all projects under the bptest repository.  Do this in the same way as the import projects step was done for the bridgepoint repository.    
+1) See the [Developer Getting Started Guide](https://github.com/xtuml/bridgepoint/blob/master/doc-bridgepoint/process/Developer%20Getting%20Started%20Guide.md) for getting the proper environment set for running the BridgePoint development unit tests.  If starting from this HOWTO you do NOT need to perform the build step at the end.  However, you do need to perform the import project steps for all projects under the bptest repository.  Do this in the same way as the import projects step was done for the bridgepoint repository.  Ignore the warning about some projects already existing when importing projects from bptest.      
 
 2) This document uses ```~/git``` as the root folder for git repostiories, and it uses ```~/workspace``` as the development workspace. You may substitute any folder you desire, but you must be consistent.
 
