@@ -29,6 +29,7 @@ git clone https://github.com/"username"/bptest.git ~/git/bptest
 git clone https://github.com/"username"/mc.git ~/git/mc
 git clone https://github.com/"username"/pt_antlr.git ~/git/pt_antlr
 git clone https://github.com/"username"/models.git ~/git/models
+git clone https://github.com/"username"/packaging.git ~/git/packaging
 ```  
 
 Testing  
