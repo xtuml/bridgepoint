@@ -42,6 +42,7 @@ Using the same build scripts used for the BridgePoint deployment build the produ
     * INCLUDE_TESTS=true  
     * mcj_path=~/git/bridgepoint/src/MC-Java  
     * bp_test_path=~/git/bptest    
+- If you have not built in the UI according to the [Developer Getting Started Guide](https://github.com/xtuml/bridgepoint/blob/master/doc-bridgepoint/process/Developer%20Getting%20Started%20Guide.md), then you must check out all of the plug-ins from the bridgepoint repository according to the guide.  You also must import these plug-ins into the same workspace as specified in the CLI.sh preparation step.  
 - If you have not built in the UI according to the [Developer Getting Started Guide](https://github.com/xtuml/bridgepoint/blob/master/doc-bridgepoint/process/Developer%20Getting%20Started%20Guide.md), then run prebuilder on the following projects:  
 	* org.xtuml.bp.core  
 	* org.xtuml.bp.als  
