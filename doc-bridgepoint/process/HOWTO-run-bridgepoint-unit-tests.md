@@ -36,7 +36,7 @@ Testing
 -------  
 Using the same build scripts used for the BridgePoint deployment build the product and run the unit tests from the command line.  
 - Ensure that Maven is installed on your Operating System, consult the Download and Install sections at http://maven.apache.org for installation instructions.  
-- Set bp_install_dir to the current BridgePoint installation   
+- Set bp_install_dir to the current BridgePoint installation (note that ~/xtuml is the default, but whatever is here needs to match where BridgePoint was installed)      
 ```
     # for macos
     export bp_install_dir ~/xtuml/BridgePoint.app/Contents/Eclipse
