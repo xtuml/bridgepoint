@@ -38,8 +38,8 @@ goal of increasing engineering productivity. Many of these tooling capabilities
 are currently provided in BridgePoint as part of an advanced, MASL-aware
 activity editor. The MASL editor shown in the figure below supports syntax
 highlighting, context-sensitive editing assistance, and real-time semantic
-validation. References to structural in the action language is refactored upon
-name changes and deletions.
+validation. References to structural elements in the action language is
+refactored upon name changes and deletions.
 
 ![editor1.png](editor1.png)
 
@@ -154,7 +154,8 @@ may cause the editor to be practically unuseable or produce a great deal of
 In secion 4, a subset of the requirements is called out as belonging to phase
 one. The theme will be creating a strong base on which to build up the required
 editor features in future phases. The deliverable will be a functional and
-useful OAL editor, but will not be rich with features.
+useful OAL editor that can operate on multiple action bodies at once, and edit
+signatures through text.
 
 5.2.1 Summary
 
