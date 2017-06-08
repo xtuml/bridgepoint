@@ -151,7 +151,7 @@ may cause the editor to be practically unuseable or produce a great deal of
 
 5.2 Phase one requirements
 
-In secion 4, a subset of the requirements is called out as belonging to phase
+In section 4, a subset of the requirements is called out as belonging to phase
 one. The theme will be creating a strong base on which to build up the required
 editor features in future phases. The deliverable will be a functional and
 useful OAL editor that can operate on multiple action bodies at once, and edit
@@ -173,12 +173,12 @@ are met. There are two good examples of this in the previous MASL work:
 
 5.2.1.1 Snippet editor
 
-While implementing the MASL Xtext editor, the began to be persisted in text
-rather than in the SQL insert statements, however all of the instances that
-represent signatures (data types, parameters, dimensions, etc.) were still
-persisted in SQL. Because of this decision, it was dangerous to edit the
-multi-body files which contained the action language. To solve this problem a
-"snippet" editor for MASL was introduced which could edit a single body at a
+While implementing the MASL Xtext editor, the action bodies began to be
+persisted in text rather than in the SQL insert statements, however all of the
+instances that represent signatures (data types, parameters, dimensions, etc.)
+were still persisted in SQL. Because of this decision, it was dangerous to edit
+the multi-body files which contained the action language. To solve this problem
+a "snippet" editor for MASL was introduced which could edit a single body at a
 time. If the signatures were persisted fully as text, this snippet editor could
 be completely avoided. With respect to this work, we would like to avoid
 unnecessarily creating an "OAL snippet editor" because the requirement of the
@@ -313,7 +313,6 @@ multiple bodies
 created in [[2.12]](#2.12)  
 6.3.3 Choose a design from the results of 6.3.1 and 6.3.2 and implement the
 chosen design  
-6.4 Validate the work completed and issue promotion  
 
 ### 7. Acceptance Test
 
