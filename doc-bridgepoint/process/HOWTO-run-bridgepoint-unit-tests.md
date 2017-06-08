@@ -22,8 +22,13 @@ export XTUML_TEST_MODEL_REPOSITORY=~/git/models/test/
 
 ```
 cd ~/git
-git clone https://github.com/xtuml/bptest
-git clone https://github.com/xtuml/packaging
+# if developer guide was followed these should be cloned, if bptest and models
+# were not cloned then make sure to do so now
+git clone https://github.com/"username"/bridgepoint.git ~/git/bridgepoint
+git clone https://github.com/"username"/bptest.git ~/git/bptest
+git clone https://github.com/"username"/mc.git ~/git/mc
+git clone https://github.com/"username"/pt_antlr.git ~/git/pt_antlr
+git clone https://github.com/"username"/models.git ~/git/models
 ```  
 
 Testing  
@@ -42,7 +47,7 @@ Using the same build scripts used for the BridgePoint deployment build the produ
     * INCLUDE_TESTS=true  
     * mcj_path=~/git/bridgepoint/src/MC-Java  
     * bp_test_path=~/git/bptest    
-- If you have not built in the UI according to the [Developer Getting Started Guide](https://github.com/xtuml/bridgepoint/blob/master/doc-bridgepoint/process/Developer%20Getting%20Started%20Guide.md), then you must check out all of the plug-ins from the bridgepoint repository according to the guide.  You also must import these plug-ins into the same workspace as specified in the CLI.sh preparation step.  
+- If you have not built in the UI according to the [Developer Getting Started Guide](https://github.com/xtuml/bridgepoint/blob/master/doc-bridgepoint/process/Developer%20Getting%20Started%20Guide.md), then you must import the bridgepoint plug-ins into the same workspace as specified in the CLI.sh preparation step.  
 - If you have not built in the UI according to the [Developer Getting Started Guide](https://github.com/xtuml/bridgepoint/blob/master/doc-bridgepoint/process/Developer%20Getting%20Started%20Guide.md), then run prebuilder on the following projects:  
 	* org.xtuml.bp.core  
 	* org.xtuml.bp.als  
