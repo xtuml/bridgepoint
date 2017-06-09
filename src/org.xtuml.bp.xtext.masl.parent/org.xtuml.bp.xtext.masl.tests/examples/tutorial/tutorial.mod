@@ -76,6 +76,10 @@ domain tutorial is
 	service Array_passing(a: in my_int_array_type, b: in my_int_array_type);
 end;
 
+domain Standard is
+	exception constraint_error;
+end;
+
 domain Device_IO is
 	function create_file(name: in string, overwrite: in boolean);
 	function delete_file(name: in string);

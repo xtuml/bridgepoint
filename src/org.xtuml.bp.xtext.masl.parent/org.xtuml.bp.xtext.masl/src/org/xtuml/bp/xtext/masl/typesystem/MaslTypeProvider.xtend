@@ -654,7 +654,7 @@ class MaslTypeProvider {
 			case LONG_INTEGER:
 				return getCommonNumericType(lType, rType)
 			case TIMESTAMP:
-				if(rType == lType) 
+				if(rType.primitiveType == TIMESTAMP) 
 					return ANONYMOUS_DURATION
 				else if(rType.primitiveType == DURATION)
 					return lType
@@ -664,7 +664,7 @@ class MaslTypeProvider {
 						return rType
 					else if(rType == DURATION && rType.anonymous)
 						return ANONYMOUS_DURATION
-				} else if(rType == lType || (rType == DURATION && rType.anonymous)) {
+				} else if(rType.primitiveType == DURATION) {
 					return lType
 				}
 		}
@@ -716,12 +716,14 @@ class MaslTypeProvider {
 			case LONG_INTEGER:
 				return getCommonNumericType(lType, rType)
 			case DURATION:
-				switch rType {
+				switch rType.primitiveType {
 					case BYTE,
 					case INTEGER,
 					case LONG_INTEGER,
 					case REAL:
 						return lType
+					case DURATION:
+						return REAL
 				}
 		}
 		return MISSING_TYPE
