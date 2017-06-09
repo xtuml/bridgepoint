@@ -60,7 +60,7 @@ class MaslExpectedTypeProvider {
 				return action.feature.getParameterType(index)
 		}
 		if(reference == indexedExpression_Brackets && context instanceof IndexedExpression) {
-			val receiverType = (context as IndexedExpression).receiver.maslType
+			val receiverType = (context as IndexedExpression).receiver.maslType.stripName
 			if(receiverType instanceof DictionaryType)
 				return #[receiverType.keyType]
 			else
