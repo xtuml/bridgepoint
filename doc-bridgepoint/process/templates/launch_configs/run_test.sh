@@ -2,9 +2,9 @@
 # This script will run from a test project builder configuration, building org.xtuml.bp.pkg.feature before a test run
 cmd="install"
 skipTests=-DskipTests
-if [[ $# -eq 3 ]] ; then
+if [ $# -eq 3 ]; then
   # if not test, then we do not want skipTests
-  if [[ $3 = "test" ]]; then
+  if [ "$3" = "test" ]; then
 	skipTests=""
   else
     cmd="clean"
