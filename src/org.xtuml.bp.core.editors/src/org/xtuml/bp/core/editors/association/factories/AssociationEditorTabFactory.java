@@ -9,10 +9,12 @@ public class AssociationEditorTabFactory implements IEditorTabFactory {
 	private String editorTitle = "";
 	private Object configuredInput = null;
 	private boolean focusBased = false;
+	private AssociationEditorTab tab;
 	
 	@Override
 	public Composite createEditorTab(Composite parent, Object editorInput) {
-		return new AssociationEditorTab(parent, editorInput);
+		tab = new AssociationEditorTab(parent, editorInput);
+		return tab;
 	}
 
 	@Override

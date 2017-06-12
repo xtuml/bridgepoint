@@ -21,6 +21,8 @@ package org.xtuml.bp.core.editors.providers;
 // the License.
 //=====================================================================
 
+import java.util.ResourceBundle;
+
 import org.eclipse.jface.viewers.BaseLabelProvider;
 import org.eclipse.jface.viewers.DelegatingStyledCellLabelProvider.IStyledLabelProvider;
 import org.eclipse.jface.viewers.ITableLabelProvider;
@@ -43,10 +45,6 @@ public class MetaModelLabelProvider extends BaseLabelProvider implements ITableL
 	
 	@Override
 	public Image getColumnImage(Object element, int index) {
-		// only images for the first column for now
-		if(index == 1) {
-			return null;
-		}
 		if (element instanceof ObjectElement) {
 			ObjectElement objEle = (ObjectElement) element;
 			if (objEle.getValue() instanceof NonRootModelElement) {
@@ -69,7 +67,11 @@ public class MetaModelLabelProvider extends BaseLabelProvider implements ITableL
 			ObjectElement objEle = (ObjectElement) element;
 			if ((objEle.getName().equals("Descrip") || objEle.getName().equals("Action_Semantics")) && (((String) objEle.getValue()).length() > 30)) { //$NON-NLS-1$ //$NON-NLS-2$
 				if(index == 0) {
-					return objEle.getName();
+					return getResourceString(stripPackageName(objEle
+						.getParent())
+						+ "." //$NON-NLS-1$
+						+ "attribute_"
+						+ objEle.getName() + ".longname");
 				} else {
 					String value = objEle.getValue().toString();
 					// if any new lines exists, just get the first
@@ -99,7 +101,10 @@ public class MetaModelLabelProvider extends BaseLabelProvider implements ITableL
 						.getValue();
 				if (nrmeElement != null) {
 					if (index == 0) {
-						return objEle.getName();
+						return getResourceString(stripPackageName(objEle
+										.getParent())
+										+ "." //$NON-NLS-1$
+										+ objEle.getName() + ".longname");
 					} else {
 						NonRootModelElement refNrme = ((NonRootModelElement) objEle
 								.getValue());
@@ -107,12 +112,20 @@ public class MetaModelLabelProvider extends BaseLabelProvider implements ITableL
 					}
 				}
 			}
+			if (objEle.getType() == ObjectElement.RELATION_ROLE_ELEMENT) {
+				return getElementName((NonRootModelElement) objEle.getValue());
+			}
 			if(objEle.getType() == ObjectElement.ATTRIBUTE_ELEMENT) {
 				if(objEle.getValue() instanceof NonRootModelElement) {
 					String name = Cl_c.Getpath(((NonRootModelElement) objEle
 							.getValue()));
 					if (index == 0) {
-						return ((NonRootModelElement) objEle.getAttributeOwner()).getName();
+						return getResourceString(stripPackageName(objEle
+										.getParent())
+										+ "." //$NON-NLS-1$
+										+ "attribute_"
+										+ objEle.getName()
+										+ ".longname");
 					} else {
 						if (objEle.getName().equals("represents")) {
 							if (objEle.getParent() instanceof GraphicalElement_c) {
@@ -126,7 +139,12 @@ public class MetaModelLabelProvider extends BaseLabelProvider implements ITableL
 					}
 				}
 				if (index == 0) {
-					return objEle.getName();
+					return getResourceString(stripPackageName(objEle
+									.getParent())
+									+ "." //$NON-NLS-1$
+									+ "attribute_"
+									+ objEle.getName()
+									+ ".longname");
 				} else {
 					String result = CellModifierProvider.getValue((NonRootModelElement) objEle.getParent(), objEle);
 					if(result != null) {
@@ -135,14 +153,6 @@ public class MetaModelLabelProvider extends BaseLabelProvider implements ITableL
 					return objEle.getValue().toString();
 				}
 			}
-			if (index == 0) {
-				return ((NonRootModelElement) objEle.getAttributeOwner()).getName();
-			} else {
-				if(objEle.getValue() == null) {
-					return "unset";
-				}
-				return objEle.getValue().toString();
-			}
 		} else if (element instanceof NonRootModelElement) {
 			String name = getElementName((NonRootModelElement) element);
 			if(index == 0)
@@ -150,6 +160,11 @@ public class MetaModelLabelProvider extends BaseLabelProvider implements ITableL
 			return null;
 		}
 		return null;
+	}
+
+	private String getResourceString(String key) {
+		ResourceBundle bundle = ResourceBundle.getBundle("org.xtuml.bp.core.CorePluginMessages"); //$NON-NLS-1$
+		return bundle.getString(key);
 	}
 
 	private String getElementName(NonRootModelElement element) {

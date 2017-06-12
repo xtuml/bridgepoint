@@ -5,8 +5,11 @@ Bundle-SymbolicName: org.xtuml.bp.core.editors;singleton:=true
 Bundle-Version: 6.2.5
 Bundle-Activator: org.xtuml.bp.core.editors.Activator
 Require-Bundle: org.eclipse.core.runtime,
+ org.eclipse.jface.text,
  org.eclipse.ui,
  org.eclipse.ui.editors,
+ org.eclipse.ui.forms,
+ org.eclipse.ui.ide,
  org.eclipse.jface,
  org.xtuml.bp.core,
  org.xtuml.bp.ui.canvas,

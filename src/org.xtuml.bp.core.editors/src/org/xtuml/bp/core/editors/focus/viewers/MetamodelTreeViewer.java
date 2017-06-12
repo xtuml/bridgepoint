@@ -2,7 +2,6 @@ package org.xtuml.bp.core.editors.focus.viewers;
 
 import org.eclipse.jface.viewers.CellLabelProvider;
 import org.eclipse.jface.viewers.ColumnWeightData;
-import org.eclipse.jface.viewers.EditingSupport;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.TableLayout;
@@ -18,15 +17,16 @@ import org.eclipse.ui.PlatformUI;
 import org.xtuml.bp.core.common.ITransactionListener;
 import org.xtuml.bp.core.common.Transaction;
 import org.xtuml.bp.core.common.TransactionManager;
-import org.xtuml.bp.core.editors.editing.ElementEditingSupport;
-import org.xtuml.bp.core.editors.editing.ErrorToolTip;
+import org.xtuml.bp.core.editors.ErrorToolTip;
+import org.xtuml.bp.core.editors.ITabErrorSupport;
 import org.xtuml.bp.core.editors.providers.MetaModelContentProvider;
 import org.xtuml.bp.core.editors.providers.MetaModelLabelProvider;
 import org.xtuml.bp.core.ui.Selection;
 
-public class MetamodelTreeViewer extends TreeViewer implements ISelectionChangedListener {
+public class MetamodelTreeViewer extends TreeViewer implements ISelectionChangedListener, ITabErrorSupport {
 
 	private ErrorToolTip tip;
+	private TreeViewerColumn viewerColumn;
 
 	public MetamodelTreeViewer(Composite parent, Object objectInput) {
 		super(parent, SWT.H_SCROLL
@@ -47,13 +47,17 @@ public class MetamodelTreeViewer extends TreeViewer implements ISelectionChanged
 			@Override
 			public void transactionEnded(Transaction transaction) {
 				PlatformUI.getWorkbench().getDisplay().syncExec(() -> {
-					refresh();
+					// do not refresh if widget has not yet
+					// been created
+					if(!getTree().isDisposed()) {
+						refresh();
+					}
 				});
 			}
 		});
 		TreeColumn rootColumn = new TreeColumn(getTree(), SWT.LEAD);
 		rootColumn.setText("Elements");
-		TreeViewerColumn viewerColumn = new TreeViewerColumn(this, SWT.LEAD);
+		viewerColumn = new TreeViewerColumn(this, SWT.LEAD);
 		viewerColumn.setLabelProvider(new CellLabelProvider() {
 			
 			@Override
@@ -62,7 +66,7 @@ public class MetamodelTreeViewer extends TreeViewer implements ISelectionChanged
 			}
 		});
 		viewerColumn.getColumn().setText("Values");
-		initializeEditingSupport(viewerColumn);
+		initializeEditingSupport();
 		TableLayout layout = new TableLayout();
 		layout.addColumnData(new ColumnWeightData(50));
 		layout.addColumnData(new ColumnWeightData(50));
@@ -70,9 +74,7 @@ public class MetamodelTreeViewer extends TreeViewer implements ISelectionChanged
 		setInput(objectInput);
 	}
 	
-	private void initializeEditingSupport(TreeViewerColumn viewerColumn) {
-		EditingSupport editingSupport = new ElementEditingSupport(this);
-		viewerColumn.setEditingSupport(editingSupport);
+	private void initializeEditingSupport() {
 	}
 
 	@Override

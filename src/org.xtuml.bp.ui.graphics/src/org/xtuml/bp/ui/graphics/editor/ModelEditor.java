@@ -41,14 +41,17 @@ import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.Viewport;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
-import org.eclipse.jface.viewers.ISelectionChangedListener;
+import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
-import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorPart;
+import org.eclipse.ui.ISelectionListener;
+import org.eclipse.ui.ISelectionService;
+import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.PartInitException;
+import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.FileEditorInput;
 import org.eclipse.ui.part.MultiPageEditorPart;
 import org.eclipse.ui.texteditor.InfoForm;
@@ -62,17 +65,43 @@ import org.xtuml.bp.ui.canvas.util.GraphicsUtil;
 import org.xtuml.bp.ui.explorer.ILinkWithEditorListener;
 import org.xtuml.bp.ui.graphics.Activator;
 import org.xtuml.bp.ui.graphics.parts.ShapeEditPart;
+import org.xtuml.bp.ui.text.description.DescriptionEditor;
+import org.xtuml.bp.ui.text.description.DescriptionEditorInput;
 
-public class ModelEditor extends MultiPageEditorPart implements ILinkWithEditorListener, ISelectionChangedListener {
+public class ModelEditor extends MultiPageEditorPart implements ILinkWithEditorListener, ISelectionListener {
 
 	private GraphicalEditor fGraphicalEditor;
 	private List<IEditorTabFactory> focusBasedFactories = new ArrayList<IEditorTabFactory>();
+	private DescriptionEditor fDescripEditor;
 
 	@Override
 	protected void createPages() {
 		fGraphicalEditor = createGraphicalEditor(getContainer());
+		if(descriptionSupported(getGraphicalEditor().getModel().getRepresents())) {
+			fDescripEditor = new DescriptionEditor();
+			try {
+				DescriptionEditorInput descriptionInput = DescriptionEditorInput.createInstance(fGraphicalEditor.getModel().getRepresents());
+				int addPage = addPage((IEditorPart) fDescripEditor, descriptionInput);
+				setPageText(addPage, "Description Editor");
+			} catch (PartInitException e) {
+				CorePlugin.logError("Unable to add description editor tab.", e);
+			} catch (CoreException e) {
+				CorePlugin.logError("Unable to add description editor tab.", e);
+			}
+		}
 		if(fGraphicalEditor != null)
 			createPagesFromExtensionPoint(getContainer(), fGraphicalEditor.getModel());
+	}
+
+	private boolean descriptionSupported(Object represents) {
+		try {
+			return represents.getClass().getMethod("getDescrip", new Class<?>[0]) != null;
+		} catch (NoSuchMethodException e) {
+			return false;
+		} catch (SecurityException e) {
+			CorePlugin.logError("Security exception using reflection to locate getDescrip method.", e);
+		}
+		return false;
 	}
 
 	@SuppressWarnings("deprecation")
@@ -89,7 +118,8 @@ public class ModelEditor extends MultiPageEditorPart implements ILinkWithEditorL
 			}
 			int addPage = addPage(editor, getEditorInput());
 			setPageText(addPage, "Graphical Editor");
-			Selection.getInstance().addSelectionChangedListener(this);
+			ISelectionService selectionService = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getSelectionService();
+			selectionService.addPostSelectionListener(this);
 		} catch (PartInitException e) {
 			Activator.logError("Unable to create graphical editor.", e);
 		}
@@ -179,29 +209,50 @@ public class ModelEditor extends MultiPageEditorPart implements ILinkWithEditorL
 		IEditorTabFactory factory = (IEditorTabFactory) tabFactory;
 		factory.setInput(represents.getClass().getName());
 		Composite composite = factory.createEditorTab(container, represents);
-		int newPage = addPage((Composite) composite);
-		setPageText(newPage, tabFactory.getEditorTitle());	
+		// always insert right before the Description Editor tab
+		int index = getPageCount();
+		if(fDescripEditor != null) {
+			index = index - 1;
+		}
+		addPage(index, (Composite) composite);
+		setPageText(index, tabFactory.getEditorTitle());	
 	}
 
 	@Override
 	public void doSave(IProgressMonitor monitor) {
 		if(fGraphicalEditor == null)
 			return;
-		fGraphicalEditor.doSave(monitor);
+		if(getActivePage() == 0) {
+			fGraphicalEditor.doSave(monitor);
+			return;
+		}
+		// if the current editor is the description editor pass it along
+		if(fDescripEditor != null) {
+			if(getActivePage() == getPageCount() - 1) {
+				fDescripEditor.doSave(monitor);
+				return;
+			}
+		}
 	}
 
 	@Override
 	public void doSaveAs() {
 		if(fGraphicalEditor == null)
 			return;
-		fGraphicalEditor.doSaveAs();
+		if(getActivePage() == 0) {
+			fGraphicalEditor.doSaveAs();
+			return;
+		}
 	}
 
 	@Override
 	public boolean isSaveAsAllowed() {
 		if(fGraphicalEditor == null)
 			return false;
-		return fGraphicalEditor.isSaveAsAllowed();
+		if(getActivePage() == 0) {
+			return fGraphicalEditor.isSaveAsAllowed();
+		}
+		return false;
 	}
 
 	public IEditorPart getActivePart() {
@@ -238,15 +289,23 @@ public class ModelEditor extends MultiPageEditorPart implements ILinkWithEditorL
 		return fGraphicalEditor;
 	}
 
+	public DescriptionEditor getDescripEditor() {
+		return fDescripEditor;
+	}
+	
 	@Override
 	public void dispose() {
 		super.dispose();
-		Selection.getInstance().removeSelectionChangedListener(this);
+		ISelectionService selectionService = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getSelectionService();
+		selectionService.removePostSelectionListener(this);
 	}
 
 	public void refresh() {
 		if(fGraphicalEditor != null && !fGraphicalEditor.getCanvas().isDisposed()) {
 			fGraphicalEditor.refresh();
+		}
+		if(fDescripEditor != null) {
+			fDescripEditor.getTextViewer().refresh();
 		}
 	}
 	
@@ -296,46 +355,58 @@ public class ModelEditor extends MultiPageEditorPart implements ILinkWithEditorL
 	}
 
 	@Override
-	public void selectionChanged(SelectionChangedEvent event) {
-		// see if any tabs need to be added, or removed
-		for(IEditorTabFactory factory : focusBasedFactories) {
-			// look for a tab with the same configured type
-			// let any opened tabs worry about a selection change
-			// to refresh their content
-			Object configuredInput = factory.getInput();
-			// for now only support single selections
-			IStructuredSelection currentSelection = (IStructuredSelection) event.getSelection();
-			if(currentSelection.size() == 1) {
-				// create any non-existing editors
-				if(configuredInput.equals(currentSelection.getFirstElement().getClass().getName())) {
-					int pageCount = getPageCount();
-					boolean foundExistingEditor = false;
-					for(int i = 0; i < pageCount; i++) {
-						if (getPageText(i).equals(factory.getEditorTitle())) {
-							// found do not create a new tab
-							foundExistingEditor = true;
-							break;
+	public void selectionChanged(IWorkbenchPart part, ISelection selection) {
+		if(part == this) {
+			// see if any tabs need to be added, or removed
+			for(IEditorTabFactory factory : focusBasedFactories) {
+				// look for a tab with the same configured type
+				// let any opened tabs worry about a selection change
+				// to refresh their content
+				Object configuredInput = factory.getInput();
+				// if the input is an element already we will be
+				// updating the selection but need the class name
+				if(!(configuredInput instanceof String)) {
+					configuredInput = configuredInput.getClass().getName();
+				}
+				// for now only support single selections
+				IStructuredSelection currentSelection = (IStructuredSelection) selection;
+				if(currentSelection.size() == 1) {
+					// if the selection is a graphical element convert to
+					// core element
+					Object selected = Selection.getInstance().adaptElement(currentSelection.getFirstElement());
+					// create any non-existing editors
+					if(configuredInput.equals(selected.getClass().getName())) {
+						int pageCount = getPageCount();
+						boolean foundExistingEditor = false;
+						for(int i = 0; i < pageCount; i++) {
+							if (getPageText(i).equals(factory.getEditorTitle())) {
+								// found do not create a new tab
+								foundExistingEditor = true;
+								// update input for current tab
+								factory.setInput(selected);
+								break;
+							}
+						}
+						if(!foundExistingEditor) {
+							// create a tab now
+							createPageFromFactory(factory, getContainer(), selected);
+						}
+					} else {
+						// current selection does not match, check all open
+						// editors matching this factory and close
+						for(int i = 0; i < getPageCount(); i++) {
+							if (getPageText(i).equals(factory.getEditorTitle())) {
+								// editor input and title match close here
+								removePage(i);
+							}
 						}
 					}
-					if(!foundExistingEditor) {
-						// create a tab now
-						createPageFromFactory(factory, getContainer(), currentSelection.getFirstElement());
-					}
-				} else {
-					// current selection does not match, check all open
-					// editors matching this factory and close
+				} else { 
+					// close all editors of this type
 					for(int i = 0; i < getPageCount(); i++) {
-						if (getPageText(i).equals(factory.getEditorTitle())) {
-							// editor input and title match close here
+						if(getPageText(i).equals(factory.getEditorTitle())) {
 							removePage(i);
 						}
-					}
-				}
-			} else { 
-				// close all editors of this type
-				for(int i = 0; i < getPageCount(); i++) {
-					if(getPageText(i).equals(factory)) {
-						removePage(i);
 					}
 				}
 			}

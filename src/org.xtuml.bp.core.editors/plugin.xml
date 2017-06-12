@@ -10,11 +10,11 @@
       </EditorTab>
       <EditorTab
             EditorTabFactory="org.xtuml.bp.core.editors.association.factories.AssociationEditorTabFactory"
-            EditorTitle="Association Editor"
-            Input="org.xtuml.bp.core.Association_c"
+            EditorTitle="Associations Editor"
+            Input="org.xtuml.bp.core.Package_c"
             SelectionInput="org.xtuml.bp.core.Association_c"
             childObject="org.xtuml.bp.core.Association_c"
-            focusBased="true"
+            focusBased="false"
             selectionInput="org.xtuml.bp.core.Association_c">
       </EditorTab>
    </extension>
@@ -23,9 +23,10 @@
       <editor
             class="org.xtuml.bp.core.editors.ModelEditor"
             default="false"
+            extensions="xtuml"
             icon="icons/search.png"
             id="org.xtuml.bp.core.editors.ModelEditor"
-            name="Focus Editor">
+            name="Model Editor">
       </editor>
    </extension>
 </plugin>

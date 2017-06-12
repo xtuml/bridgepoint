@@ -23,38 +23,112 @@
 
 package org.xtuml.bp.core.editors;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.swt.widgets.Composite;
-import org.eclipse.ui.part.MultiPageEditorPart;
-import org.xtuml.bp.core.editors.focus.pages.MetamodelPage;
-import org.xtuml.bp.core.ui.Selection;
+import org.eclipse.swt.widgets.Control;
+import org.eclipse.ui.editors.text.TextEditor;
+import org.eclipse.ui.forms.IManagedForm;
+import org.eclipse.ui.forms.editor.FormEditor;
+import org.eclipse.ui.forms.editor.IFormPage;
 
-public class ModelEditor extends MultiPageEditorPart {
+public class ModelEditor extends FormEditor {
+	
+	private SourceEditor sourceEditor = new SourceEditor();
+	
+	class SourceEditor extends TextEditor implements IFormPage {
 
-	private List<Composite> pages = new ArrayList<Composite>();
+		@Override
+		public void initialize(FormEditor editor) {
+			// TODO Auto-generated method stub
+			
+		}
 
-	@Override
-	protected void createPages() {
-		MetamodelPage page = new MetamodelPage(getContainer(), Selection.getInstance());
-		pages.add(page);
+		@Override
+		public FormEditor getEditor() {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		@Override
+		public IManagedForm getManagedForm() {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		@Override
+		public void setActive(boolean active) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public boolean isActive() {
+			// TODO Auto-generated method stub
+			return false;
+		}
+
+		@Override
+		public boolean canLeaveThePage() {
+			// TODO Auto-generated method stub
+			return false;
+		}
+
+		@Override
+		public Control getPartControl() {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		@Override
+		public String getId() {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		@Override
+		public int getIndex() {
+			// TODO Auto-generated method stub
+			return 0;
+		}
+
+		@Override
+		public void setIndex(int index) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public boolean isEditor() {
+			// TODO Auto-generated method stub
+			return false;
+		}
+
+		@Override
+		public boolean selectReveal(Object object) {
+			// TODO Auto-generated method stub
+			return false;
+		}
+		
 	}
 
 	@Override
 	public void doSave(IProgressMonitor monitor) {
-		// no need
+		sourceEditor.doSave(monitor);
 	}
 
 	@Override
 	public void doSaveAs() {
-		// no need
+		sourceEditor.doSaveAs();
 	}
 
 	@Override
 	public boolean isSaveAsAllowed() {
-		return false;
+		return sourceEditor.isSaveAsAllowed();
+	}
+
+	@Override
+	protected void addPages() {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }
