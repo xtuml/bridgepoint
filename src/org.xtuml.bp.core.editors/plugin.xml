@@ -4,11 +4,6 @@
    <extension
          point="org.xtuml.bp.ui.graphics.editorTab">
       <EditorTab
-            EditorTabFactory="org.xtuml.bp.core.editors.focus.factories.MetamodelTabFactory"
-            EditorTitle="Tree Editor"
-            Input="org.xtuml.bp.core.common.NonRootModelElement">
-      </EditorTab>
-      <EditorTab
             EditorTabFactory="org.xtuml.bp.core.editors.association.factories.AssociationEditorTabFactory"
             EditorTitle="Associations Editor"
             Input="org.xtuml.bp.core.Package_c"
