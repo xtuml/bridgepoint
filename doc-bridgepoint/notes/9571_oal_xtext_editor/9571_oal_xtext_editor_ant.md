@@ -32,6 +32,7 @@ requirements to implement in phase one and provide analysis for them.
 <a id="2.10"></a>2.10 [#9416 analysis note of enhanced type system](../9416_type_system/9416_type_system_ant.md)  
 <a id="2.11"></a>2.11 [#506 analysis note for OAL Xtext editor](../506_enhanced_oal_editor/506_enhanced_oal_editor.ant.md)  
 <a id="2.12"></a>2.12 [#506 design note for OAL Xtext editor](../506_enhanced_oal_editor/506_enhanced_oal_editor_phase_1.dnt.md)  
+<a id="2.13"></a>2.13 [#1087 Provide a better way (faster) for defining and editing function signatures (class editor / multi-buffer editor)](https://support.onefact.net/issues/1087)  
 
 ### 3. Background
 
@@ -274,6 +275,11 @@ The grammar `oal.bnf` in the `org.xtuml.bp.als.oal` plugin will need to be
 extended to accept signatures. The activity editor classes associated with the
 OAL editor in the `org.xtuml.bp.ui.text` plugin will need to be modified to get
 their input from the `.oal` file instead of the `Action_Semantics` field.
+
+Several years ago, an attempt was made to create an editor that could edit
+multiple functions in a single buffer. The work was never promoted, but a lot
+of it can be leveraged to produce an editor from the current OAL grammar. See
+comment #82 in [[2.13]](#2.13) for the old engineering notes.
 
 6.4.2 Xtext
 
