@@ -10,4 +10,8 @@ if [ $# -eq 3 ]; then
     cmd="clean"
   fi
 fi
-cd ${1}/../src/org.xtuml.bp.pkg-feature && mvn -Dtycho.disableP2Mirrors=true $skipTests -Dmaven.test.failure.ignore=true install && cd ${2} && mvn -Dtycho.disableP2Mirrors=true $skipTests -Dmaven.test.failure.ignore=true $cmd
+# Use GTK 2 here as the development environment sets it with the launcher
+# and the setting does carry over to the test runs
+export SWT_GTK3=0
+export GDK_NATIVE_WINDOWS=true
+cd ${1}/../src/org.xtuml.bp.pkg-feature && mvn -o -Dtycho.disableP2Mirrors=true $skipTests -Dmaven.test.failure.ignore=true install && cd ${2} && mvn -o -Dtycho.disableP2Mirrors=true $skipTests -Dmaven.test.failure.ignore=true -fae $cmd
