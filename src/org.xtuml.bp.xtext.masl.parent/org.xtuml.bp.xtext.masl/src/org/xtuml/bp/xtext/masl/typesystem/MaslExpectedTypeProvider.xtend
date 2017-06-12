@@ -44,7 +44,7 @@ class MaslExpectedTypeProvider {
 		if (reference == caseAlternative_Choices && context instanceof CaseAlternative)
 			return #[((context as CaseAlternative).eContainer as CaseStatement).value.maslType]
 		if (reference == variableDeclaration_Expression && context instanceof VariableDeclaration)
-			return #[(context as VariableDeclaration).type.maslType]
+			return #[(context as VariableDeclaration).type.maslTypeOfTypeReference]
 		if (reference == returnStatement_Value) {
 			val topLevelElement = context.getContainerOfType(AbstractTopLevelElement)
 			switch topLevelElement {
