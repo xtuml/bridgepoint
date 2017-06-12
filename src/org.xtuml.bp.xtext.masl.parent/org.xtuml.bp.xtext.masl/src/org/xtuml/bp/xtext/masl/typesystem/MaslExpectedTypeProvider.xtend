@@ -30,6 +30,7 @@ import org.xtuml.bp.xtext.masl.masl.structure.SubtypeRelationshipDefinition
 import static org.xtuml.bp.xtext.masl.typesystem.BuiltinType.*
 
 import static extension org.eclipse.xtext.EcoreUtil2.*
+import org.xtuml.bp.xtext.masl.masl.behavior.GenerateStatement
 
 class MaslExpectedTypeProvider {
 
@@ -58,6 +59,10 @@ class MaslExpectedTypeProvider {
 			val action = (context as ActionCall).receiver
 			if(action instanceof SimpleFeatureCall)
 				return action.feature.getParameterType(index)
+		}
+		if(reference == generateStatement_Arguments && context instanceof GenerateStatement && index != -1) {
+			val event = (context as GenerateStatement).event
+			return event.getParameterType(index)
 		}
 		if(reference == indexedExpression_Brackets && context instanceof IndexedExpression) {
 			val receiverType = (context as IndexedExpression).receiver.maslType.stripName
