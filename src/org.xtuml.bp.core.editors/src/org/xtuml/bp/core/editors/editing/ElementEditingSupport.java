@@ -26,8 +26,10 @@ import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.jface.viewers.ColumnViewer;
 import org.eclipse.jface.viewers.EditingSupport;
 import org.eclipse.jface.viewers.ICellEditorListener;
+import org.eclipse.jface.viewers.ITableLabelProvider;
+import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.TableColumn;
+import org.eclipse.swt.widgets.Item;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.common.ModelElement;
@@ -36,6 +38,8 @@ import org.xtuml.bp.core.common.Transaction;
 import org.xtuml.bp.core.common.TransactionException;
 import org.xtuml.bp.core.common.TransactionManager;
 import org.xtuml.bp.core.editors.ITabErrorSupport;
+import org.xtuml.bp.core.editors.association.editing.ActivityCellEditor;
+import org.xtuml.bp.core.editors.association.editing.DescriptionCellEditor;
 import org.xtuml.bp.core.inspector.ObjectElement;
 import org.xtuml.bp.core.ui.cells.CellModifierProvider;
 import org.xtuml.bp.ui.canvas.Ooaofgraphics;
@@ -43,9 +47,9 @@ import org.xtuml.bp.ui.canvas.Ooaofgraphics;
 public class ElementEditingSupport extends EditingSupport {
 
 	private ColumnViewer viewer = null;
-	private TableColumn tableColumn;
+	private Item tableColumn;
 
-	public ElementEditingSupport(ColumnViewer viewer, TableColumn tableColumn) {
+	public ElementEditingSupport(ColumnViewer viewer, Item tableColumn) {
 		super(viewer);
 		this.viewer = viewer;
 		this.tableColumn = tableColumn;
@@ -100,6 +104,10 @@ public class ElementEditingSupport extends EditingSupport {
 			Object[] elements = (Object[]) element;
 			element = elements[index];
 		}
+		if(viewer instanceof TreeViewer) {
+			return ((ITableLabelProvider) viewer.getLabelProvider()).getColumnText(
+					element, 1);
+		}
 		return ((ObjectElement) element).getValue();
 	}
 
@@ -111,9 +119,6 @@ public class ElementEditingSupport extends EditingSupport {
 		}
 		if (element instanceof ObjectElement) {
 			ObjectElement object = (ObjectElement) element;
-			if (object.getName().equals("Descrip") || object.getName().equals("Action_Semantics")) { //$NON-NLS-1$ //$NON-NLS-2$
-				return false;
-			}
 			if(!object.isUserModifiable()) {
 				return false;
 			}
@@ -138,6 +143,12 @@ public class ElementEditingSupport extends EditingSupport {
 		}
 		if (element instanceof ObjectElement) {
 			ObjectElement objEle = (ObjectElement) element;
+			if(objEle.getName().equals("Descrip")) {
+				return new DescriptionCellEditor((Composite) viewer.getControl(), objEle.getParent());
+			}
+			if(objEle.getName().equals("Action_Semantics")) {
+				return new ActivityCellEditor((Composite) viewer.getControl(), objEle.getParent());
+			}
 			CellEditor editor = null;
 			if(((NonRootModelElement) objEle.getParent()).getModelRoot() instanceof Ooaofooa) {
 				editor = CellModifierProvider.getCellEditor(

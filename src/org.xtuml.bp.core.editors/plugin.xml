@@ -18,15 +18,4 @@
             selectionInput="org.xtuml.bp.core.Association_c">
       </EditorTab>
    </extension>
-   <extension
-         point="org.eclipse.ui.editors">
-      <editor
-            class="org.xtuml.bp.core.editors.ModelEditor"
-            default="false"
-            extensions="xtuml"
-            icon="icons/search.png"
-            id="org.xtuml.bp.core.editors.ModelEditor"
-            name="Model Editor">
-      </editor>
-   </extension>
 </plugin>
