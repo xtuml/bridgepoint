@@ -16,7 +16,7 @@ import org.xtuml.bp.xtext.masl.ui.tests.MASLUiInjectorProvider
 
 import static org.eclipse.xtext.junit4.ui.util.IResourcesSetupUtil.*
 import static org.junit.Assert.*
-import static org.xtuml.bp.xtext.masl.lib.MASLDelegatingAllContainerState.*
+import static org.xtuml.bp.xtext.masl.lib.MASLContainerManager.*
 
 @RunWith(XtextRunner)
 @InjectWith(MASLUiInjectorProvider)
@@ -81,8 +81,9 @@ class MaslAllContainerStatesTest {
 		val index = resourceDescriptionsProvider.getResourceDescriptions(rs)
 		val containerState = containerStateProvider.get(index)
 		
-		assertEquals(#{'test/masl', 'test1/masl', BUILTIN_LIBRARY_CONTAINER_HANDLE}, containerState.getVisibleContainerHandles('test1/masl').toSet)
-		assertEquals(#{'test/models', 'test1/models', BUILTIN_LIBRARY_CONTAINER_HANDLE}, containerState.getVisibleContainerHandles('test1/models').toSet)
+		assertEquals(#{'test/masl', BUILTIN_LIBRARY_CONTAINER_HANDLE}, containerState.getVisibleContainerHandles('test/masl').toSet)
+		assertEquals(#{'test1/masl', BUILTIN_LIBRARY_CONTAINER_HANDLE}, containerState.getVisibleContainerHandles('test1/masl').toSet)
+		assertEquals(#{'test1/models', BUILTIN_LIBRARY_CONTAINER_HANDLE}, containerState.getVisibleContainerHandles('test1/models').toSet)
 	} 
 	
 	private def createFileURI(String workspaceRelativePath) {

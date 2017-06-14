@@ -216,5 +216,19 @@ builtin is
 	(timer)'scheduled_at() return timestamp;
 	(timer)'missed()       return integer;
 	(timer)'delta()        return duration;
+	
+	///////////////////////////////////////////////////////////////////
+	// built-in exceptions
+	///////////////////////////////////////////////////////////////////
+
+	public exception program_error;
+	public exception deadlock_error;
+	public exception storage_error;
+	public exception constraint_error;
+	public exception relationship_error;
+	public exception referential_access_error;
+	public exception iop_error;
+	public exception io_error;
+	
 end builtin;
 	
