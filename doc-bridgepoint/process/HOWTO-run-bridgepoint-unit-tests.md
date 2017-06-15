@@ -30,6 +30,7 @@ Testing
 Using the same build scripts used for the BridgePoint deployment build the product and run the unit tests from the command line.  
 - Ensure that Maven is installed on your Operating System, consult the Download and Install sections at http://maven.apache.org for installation instructions.  
 - Modify ~/git/bridgepoint/utilities/build/build_and_test_bp.sh if any path is not standard (~/workspace, ~/git, etc.)  
+- Run ~/git/bridgepoint/utilities/build/prepare_build.sh
 - Run ~/git/bridgepoint/utilities/build/build_and_test_bp.sh  
 - View the file located under the ~/git/bridgepoint/releng/org.xtuml.bp.releng.parent directory at: target/site/surefire-report.html for results  
 - If you encounter any errors are failures that require debugging open the BridgePoint UI  
