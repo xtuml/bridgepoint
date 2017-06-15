@@ -8,7 +8,7 @@
 
 #!/bin/bash
 
-export XTUML_DEVELOPMENT_REPOSITORY=/Users/travislondon/git/bridgepoint-fork-main
+export XTUML_DEVELOPMENT_REPOSITORY=~/git/bridgepoint
 export INCLUDE_TESTS=true
 export mcj_path=~${XTUML_DEVELOPMENT_REPOSITORY}/src/MC-Java
 export bp_test_path=~${XTUML_DEVELOPMENT_REPOSITORY}/../bptest
