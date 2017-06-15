@@ -4,11 +4,11 @@ This work is licensed under the Creative Commons CC0 License
 
 ---
 
-# Title goes here
+# Build using maven scripts in UI
 ### xtUML Project Review Minutes
 
-Reviewed:  
-Present:  
+Reviewed: https://github.com/travislondon/bridgepoint/blob/9524_consistent_building_ide_server/doc-bridgepoint/notes/9524_consistent_building_ide_server/9524_consistent_building_ide_server.md 01f4db9  
+Present: Travis, Keith, Bob, Lee
 
 <pre>
 
