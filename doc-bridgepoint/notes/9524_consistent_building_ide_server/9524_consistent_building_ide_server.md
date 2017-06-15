@@ -95,7 +95,8 @@ An attempt was made to use the -o option for maven.  This puts maven into offlin
 We would also need to determine how to disable downloading upgrades or fully put maven into offline mode.  Therefore it was left so that online mode was used.  
 
 ### 7. Design Comments
-
+7.1  Building offline   
+Maven supports an option to build offline, preventing the need for downloading as long as all required data has already been downloaded.  Builders have been added for the org.xtuml.bp.releng.parent project.  The idea was that we could run the Build/Test from this project matching what occurs on the build server.  Other builders could then use the -o option to run offline.  During testing multiple occasions have shown maven expecting a download causing the build to fail.  Offline building was therefore not considered with this work.  
 ### 8. User Documentation
 
 ### 9. Unit Test
@@ -104,8 +105,8 @@ We would also need to determine how to disable downloading upgrades or fully put
 9.1.R The tool builds without error in the UI
 9.2 Modify something in a project causing errors and build  
 9.2.R Error markers are created  
-9.3 Clean a project that has a dependant plug-in  
-9.3.1 Build a dependant plug-in  
+9.3 Clean a project that has a dependent plug-in  
+9.3.1 Build a dependent plug-in  
 9.3.R The required plug-in is built  
 9.3 For each project containing a clean_all ant target  
 9.3.1 Run Clean... on selected project    
