@@ -38,6 +38,12 @@ cd $dir
 mvn $debug -Dtycho.disableP2Mirrors=true -Dmaven.test.failure.ignore=true install
 mvn -Daggregate=true surefire-report:report-only
 
+if [ "$(uname)" == "Darwin" ];then
+  open $dir/target/site/surefire-report.html
+else
+  firefox $dir/target/site/surefire-report.html
+fi
+
 cd $prev_dir
 
 exit 0
