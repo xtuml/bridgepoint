@@ -10,6 +10,7 @@
 
 export GIT_DIR=~/git
 export XTUML_DEVELOPMENT_REPOSITORY=~/git/bridgepoint
+export XTUML_TEST_MODEL_REPOSITORY=~/git/models/test
 export INCLUDE_TESTS=true
 export mcj_path=~${XTUML_DEVELOPMENT_REPOSITORY}/src/MC-Java
 export bp_test_path=~${XTUML_DEVELOPMENT_REPOSITORY}/../bptest
