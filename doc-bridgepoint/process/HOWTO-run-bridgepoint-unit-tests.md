@@ -32,9 +32,9 @@ Using the same build scripts used for the BridgePoint deployment build the produ
 - Set bp_install_dir to the current BridgePoint installation (note that ~/xtuml is the default, but whatever is here needs to match where BridgePoint was installed)      
 ```
     # for macos
-    export bp_install_dir ~/xtuml/BridgePoint.app/Contents/Eclipse
+    export bp_install_dir=~/xtuml/BridgePoint.app/Contents/Eclipse
     # for linux
-    export bp_install_dir ~/xtuml/BridgePoint
+    export bp_install_dir=~/xtuml/BridgePoint
 ```
 - Prepare the CLI.sh script for the BridgePoint installation    
     ```
