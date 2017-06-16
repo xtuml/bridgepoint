@@ -69,7 +69,8 @@ To add new tests to the BridgePoint testing environment see the [HOWTO add unit 
 
 Tips and Tricks
 ---------------  
-The UI build can be triggered by enabling the Build builder on the org.xtuml.bp.releng.parent project.  When build is run the entire xtuml tool will be built.  Note that testing will not occur with this build.  To test you can enable the Test builder on the org.xtuml.bp.releng.parent.tests project.  This will build all test projects and run each test suite.  
+1. The UI build can be triggered by enabling the Build builder on the org.xtuml.bp.releng.parent project.  When that build is run the entire xtuml tool will be built.  Note that testing will not occur with this build.  
+    * To test you can enable the Test builder on the org.xtuml.bp.releng.parent.tests project.  This will build all test projects and run each test suite.  
 
 FAQ/Troubleshooting
 ---------------
