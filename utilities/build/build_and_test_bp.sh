@@ -26,7 +26,7 @@ if [ "$2" == "-debug" ];then
 fi
 
 cd $dir 
-mvn $debug -Dtycho.disableP2Mirrors=true -Dmaven.test.failure.ignore=true install
+mvn $debug -Dtycho.disableP2Mirrors=true -Dmaven.test.failure.ignore=true -U install
 maven_return=$?
 if [ $maven_return == 0 ]; then
   mvn -Daggregate=true surefire-report:report-only
