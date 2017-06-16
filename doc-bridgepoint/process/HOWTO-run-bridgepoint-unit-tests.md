@@ -13,17 +13,10 @@ git clone https://github.com/"username"/bptest.git ~/git/bptest
 git clone https://github.com/"username"/models.git ~/git/models
 ```  
 2. Ensure that Maven is installed on your Operating System, consult the Download and Install sections at http://maven.apache.org for installation instructions.  
-
 3. Modify ```~/git/bridgepoint/utilities/build/build_configuration.sh``` to account for your local paths.
-     * XTUML_DEVELOPMENT_REPOSITORY
-     * mcj_path
-     * bp_test_path
-     * WORKSPACE  
+4. Assure that BridgePoint version 6.2.5 or later is installed before continuing.
+5. Run the following script to prepare your workspace: ```~/git/bridgepoint/utilities/build/prepare_build.sh```  
 
-4. Prepare the build workspace.  
-```
-~/git/bridgepoint/utilities/build/prepare_build.sh
-```
 Build and Test From the Command Line  
 -------  
 1. Run ~/git/bridgepoint/utilities/build/build_and_test_bp.sh  
