@@ -30,12 +30,11 @@ mvn $debug -Dtycho.disableP2Mirrors=true -Dmaven.test.failure.ignore=true instal
 maven_return=$?
 if [ $maven_return == 0 ]; then
   mvn -Daggregate=true surefire-report:report-only
-fi
-
-if [ "$(uname)" == "Darwin" ];then
-  open $dir/target/site/surefire-report.html
-else
-  xdg-open $dir/target/site/surefire-report.html
+  if [ "$(uname)" == "Darwin" ];then
+    open $dir/target/site/surefire-report.html
+  else
+    xdg-open $dir/target/site/surefire-report.html
+  fi
 fi
 
 cd $prev_dir
