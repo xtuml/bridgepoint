@@ -1,3 +1,6 @@
+# This script sets up environment variables that
+# are required to prepare a development workspace
+# as well as build such a workspace
 export GIT_DIR=~/git
 export XTUML_DEVELOPMENT_REPOSITORY=${GIT_DIR}/bridgepoint
 export XTUML_TEST_MODEL_REPOSITORY=${GIT_DIR}/models/test
