@@ -16,11 +16,12 @@ git clone https://github.com/"username"/models.git ~/git/models
 
 Build and Test From the Command Line  
 -------  
-1. Modify ```~/git/bridgepoint/utilities/build/build_and_test_bp.sh``` to account for your local paths.
+1. Modify ```~/git/bridgepoint/utilities/build/build_configuration.sh``` to account for your local paths.
      * XTUML_DEVELOPMENT_REPOSITORY
      * mcj_path
      * bp_test_path
-     * WORKSPACE
+     * WORKSPACE  
+2. Run ~/git/bridgepoint/utilities/build/prepare_build.sh
 2. Run ~/git/bridgepoint/utilities/build/build_and_test_bp.sh  
 3. Check the result
      * View the file located under the ~/git/bridgepoint/releng/org.xtuml.bp.releng.parent directory at: target/site/surefire-report.html for results  
@@ -61,6 +62,10 @@ Build and Test From the Command Line
 Adding new tests  
 ----------------  
 To add new tests to the BridgePoint testing environment see the [HOWTO add unit tests...](https://github.com/xtuml/bridgepoint/blob/master/doc-bridgepoint/process/HOWTO-add-unit-tests-to-testing-environment.md) document.  
+
+Tips and Tricks
+---------------  
+The UI build can be triggered by enabling the Build builder on the org.xtuml.bp.releng.parent project.  When build is run the entire xtuml tool will be built.  Note that testing will not occur with this build.  To test you can enable the Test builder on the org.xtuml.bp.releng.parent.tests project.  This will build all test projects and run each test suite.  
 
 FAQ/Troubleshooting
 ---------------
