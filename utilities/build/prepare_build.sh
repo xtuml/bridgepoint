@@ -1,21 +1,11 @@
-# This script will build the xtuml tool
-# it uses the maven scripts to build.  
-# There are two possible parameters one being
-# a test plugin name "core, ui.text". and
-# -debug which will start the test run in
-# remote debug mode (there is an eclipse 
-# lanuch config that points at port 8000).
+# This script is used to prepare an eclipse workspace for building.
+# It will copy the required configuration data to a new workspace
+# and pre-build all required xtuml projects.  After completing the
+# the tool is ready to build.
 
 #!/bin/bash
 
-export GIT_DIR=~/git
-export XTUML_DEVELOPMENT_REPOSITORY=~/git/bridgepoint
-export INCLUDE_TESTS=true
-export mcj_path=~${XTUML_DEVELOPMENT_REPOSITORY}/src/MC-Java
-export bp_test_path=~${XTUML_DEVELOPMENT_REPOSITORY}/../bptest
-# If on mac use the following
-export bp_install_dir=~/xtuml/BridgePoint.app/Contents/Eclipse/
-#export bp_install_dir=~/xtuml/BridgePoint
+source build_configuration.sh
 
 prev_dir=`pwd`
 
