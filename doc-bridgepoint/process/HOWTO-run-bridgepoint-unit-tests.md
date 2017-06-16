@@ -14,18 +14,22 @@ git clone https://github.com/"username"/models.git ~/git/models
 ```  
 2. Ensure that Maven is installed on your Operating System, consult the Download and Install sections at http://maven.apache.org for installation instructions.  
 
-Build and Test From the Command Line  
--------  
-1. Modify ```~/git/bridgepoint/utilities/build/build_configuration.sh``` to account for your local paths.
+3. Modify ```~/git/bridgepoint/utilities/build/build_configuration.sh``` to account for your local paths.
      * XTUML_DEVELOPMENT_REPOSITORY
      * mcj_path
      * bp_test_path
      * WORKSPACE  
-2. Run ~/git/bridgepoint/utilities/build/prepare_build.sh
-2. Run ~/git/bridgepoint/utilities/build/build_and_test_bp.sh  
-3. Check the result
+
+4. Prepare the build workspace.  
+```
+~/git/bridgepoint/utilities/build/prepare_build.sh
+```
+Build and Test From the Command Line  
+-------  
+1. Run ~/git/bridgepoint/utilities/build/build_and_test_bp.sh  
+2. Check the result
      * View the file located under the ~/git/bridgepoint/releng/org.xtuml.bp.releng.parent directory at: target/site/surefire-report.html for results  
-4. Debugging Errors  
+3. Debugging Errors  
      * **Debugging the command-line build** (this is done when there is a problem specific to the command-line build)  
           * Open the BridgePoint UI
           * Set any breakpoints that are relevant to the issues
@@ -65,7 +69,8 @@ To add new tests to the BridgePoint testing environment see the [HOWTO add unit 
 
 Tips and Tricks
 ---------------  
-The UI build can be triggered by enabling the Build builder on the org.xtuml.bp.releng.parent project.  When build is run the entire xtuml tool will be built.  Note that testing will not occur with this build.  To test you can enable the Test builder on the org.xtuml.bp.releng.parent.tests project.  This will build all test projects and run each test suite.  
+1. The UI build can be triggered by enabling the Build builder on the org.xtuml.bp.releng.parent project.  When that build is run the entire xtuml tool will be built.  Note that testing will not occur with this build.  
+    * To test you can enable the Test builder on the org.xtuml.bp.releng.parent.tests project.  This will build all test projects and run each test suite.  
 
 FAQ/Troubleshooting
 ---------------
