@@ -14,6 +14,8 @@ This note describes the changes to use the maven scripts in the UI for building.
 ### 2. Document References
 
 <a id="2.1"></a>2.1 [BridgePoint DEI #9524](https://support.onefact.net/issues/9524) Use consistent build and test approach  
+<a id="2.2"></a>2.1 [BridgePoint DEI #9636](https://support.onefact.net/issues/9636) Work in offline mode with maven    
+<a id="2.3"></a>2.1 [HOWTO Run unit tests](https://github.com/xtuml/bridgepoint/blob/master/doc-bridgepoint/process/HOWTO-run-bridgepoint-unit-tests.md) HOWTO-run-bridgepoint-unit-tests.md  
 
 ### 3. Background
 
@@ -28,6 +30,8 @@ The build server uses the maven build tool for building BridgePoint.  This tool 
 4.1.4 The build shall be incremental  
 4.1.5 Cleaning shall be done using the maven scripts  
 4.2 Allow unit testing to occur using the maven scripts  
+4.3 Builds shall not require the UI  
+4.4 It shall be possible to build using the maven scripts without a network connection  
 
 
 ### 5. Analysis
@@ -55,27 +59,24 @@ Cleaning shall be done using a similar builder as for building only it shall be 
 
 6.1 Exercise maven scripts to build BridgePoint in the UI  
 6.1.1 Add a Build and Clean external tool builder for every project with a pom file  
-6.1.1.1 Use this command for building and set to run on build, build auto and after clean    
+6.1.1.1 Use utilities/build/build_project.sh for building/cleaning/testing    
 ```  
-  mvn -Dtycho.disableP2Mirrors=true -Dmaven.test.failure.ignore=true -DskipTests=true -f ${git_dir:org.xtuml.bp.releng.parent}/../releng/org.xtuml.bp.releng.parent/pom.xml -pl project_name install
-```  
-6.1.1.2 Use this command for cleaning and set only to run on clean  
-```  
-  mvn clean
+  ${workspace_loc:/utilities/build/build_project.sh} [clean]
 ```  
 6.1.2. Add a Test external tool builder for every test project  
-6.1.2.1 Use this command for testing and set only to run on build, build auto and after clean.  
+6.1.2.1 Use this command for testing and set only to run on build, build auto and after clean.  The test builder is disabled for all projects by default.  This allows building in normal cases and testing when desired.    
 ```  
-  mvn -Dtycho.disableP2Mirrors=true -Dmaven.test.failure.ignore=true -f ${git_dir:org.xtuml.bp.releng.parent}/../releng/org.xtuml.bp.releng.parent/pom.xml -pl project_name install
+ ${workspace_loc:/utilities/build/build_project.sh} test
 ```  
 6.1.3 Remove existing external tool builders for ant scripts  
-6.3 Modify all .project files from projects with a pom file  
-6.3.1 Remove all existing external tool builders used to run ant scripts  
-6.3.2 Add new builders with Test disabled by default  
-6.4 Modify all projects which contain a clean_all ant target  
-6.4.1 Each project's pom file shall be modified to use the ant-run maven plug-in calling the clean_all ant target during the clean phase  
-6.5 Disable the parent pom project (releng) builders by default  
-6.5.1 They can be used and will build all child projects, however this will not run the necessary pre-builders and will create archives for the entire project.  This uses quite a bit of disk space.  
+6.2 Modify all .project files from projects with a pom file  
+6.2.1 Remove all existing external tool builders used to run ant scripts  
+6.2.2 Add new builders with Test disabled by default  
+6.2.3 All test projects from bptest shall have a Test builder  
+6.3 Modify all projects which contain a clean_all ant target  
+6.3.1 Each project's pom file shall be modified to use the ant-run maven plug-in calling the clean_all ant target during the clean phase  
+6.4 Disable the parent pom project (releng) builders by default  
+6.4.1 They can be used and will build all child projects, however this will not run the necessary pre-builders and will create archives for the entire project.  This uses quite a bit of disk space.  
 
 6.5 Support individual project builds  
 
@@ -94,20 +95,38 @@ An attempt was made to use the -o option for maven.  This puts maven into offlin
 
 We would also need to determine how to disable downloading upgrades or fully put maven into offline mode.  Therefore it was left so that online mode was used.  
 
+This issue was raised to further look into this problem, https://support.onefact.net/issues/9636.  
+
 ### 7. Design Comments
 7.1  Building offline   
 Maven supports an option to build offline, preventing the need for downloading as long as all required data has already been downloaded.  Builders have been added for the org.xtuml.bp.releng.parent project.  The idea was that we could run the Build/Test from this project matching what occurs on the build server.  Other builders could then use the -o option to run offline.  During testing multiple occasions have shown maven expecting a download causing the build to fail.  Offline building was therefore not considered with this work.  
+
+7.2 MASL build issues  
+Originally the MASL projects were left alone as they have always built fine with Maven.  Towards the end of this work the branch was updated with the latest master.  With this update the following failures occur:  
+
+ERROR: 	MASLRuntimeModule.xtend - /Users/travislondon/git/bridgepoint/src/org.xtuml.bp.xtext.masl.parent/org.xtuml.bp.xtext.masl/src/org/xtuml/bp/xtext/masl/MASLRuntimeModule.xtend
+14: org.xtuml.bp.xtext.masl.lib.MASLDelegatingAllContainerState cannot be resolved to a type.
+[ERROR] 
+ERROR: 	MASLRuntimeModule.xtend - /Users/travislondon/git/bridgepoint/src/org.xtuml.bp.xtext.masl.parent/org.xtuml.bp.xtext.masl/src/org/xtuml/bp/xtext/masl/MASLRuntimeModule.xtend
+54: The method or field MASLDelegatingAllContainerState is undefined
+
+To synchronize all projects the MASL parent project now has Build/Clean/Test builders.  
+
 ### 8. User Documentation
+8.1 Update testing howto  
+[2.3] was updated and simplified to account for the new build/test approach.  
+8.2 Three new scripts were added: bridgepoint/utilities/run_and_test_bp.sh, build_configuration.sh, prepare_build.sh  
+The build_configuration.sh script host common environment variables that are used through building and testing.  Both run_and_test_bp.sh and prepare_build.sh source this configuration script.  In order to build BridgePoint an eclipse workspace must be setup, this is what prepare_build.sh is used for.  It configures a workspace and pre-builds xtuml projects in order to prepare for building.  This script only needs to run once unless starting clean.  The run_and_test_bp.sh script will trigger the maven build and testing.  This script can be rerun as necessary.  
 
 ### 9. Unit Test
 
-9.1 Run the Developers Getting Started Guide
-9.1.R The tool builds without error in the UI
+9.1 Run the Developers Getting Started Guide  
+9.1.R The tool builds without error in the UI  
 9.2 Modify something in a project causing errors and build  
 9.2.R Error markers are created  
-9.3 Clean a project that has a dependent plug-in  
-9.3.1 Build a dependent plug-in  
-9.3.R The required plug-in is built  
+9.3 Clean ui.explorer  
+9.3.1 Build ui.canvas  
+9.3.R ui.explorer is built  
 9.3 For each project containing a clean_all ant target  
 9.3.1 Run Clean... on selected project    
 9.3.1.R The ant clean_all target is run as part of the maven clean  
@@ -115,5 +134,7 @@ Maven supports an option to build offline, preventing the need for downloading a
 9.4.R The build occurs and the UI test is launched and run  
 9.5 Run a build with testing on a build server  
 9.5.R The build is successful and the test results are at 100%  
+9.6 Run the [2.3] documemnt  
+9.6.R The tool is built and tests are run  
 
 ### End
