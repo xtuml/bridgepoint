@@ -20,5 +20,8 @@ Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy
 Export-Package: org.xtuml.bp.core.editors,
  org.xtuml.bp.core.editors.editing,
+ org.xtuml.bp.core.editors.focus.factories,
+ org.xtuml.bp.core.editors.focus.pages,
+ org.xtuml.bp.core.editors.focus.viewers,
  org.xtuml.bp.core.editors.providers
 Bundle-ClassPath: editors.jar
