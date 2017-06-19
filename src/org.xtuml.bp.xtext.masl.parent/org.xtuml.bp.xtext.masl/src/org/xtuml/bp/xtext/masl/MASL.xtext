@@ -79,6 +79,7 @@ BuiltinLibraryDefinition:
 	{BuiltinLibraryDefinition}
 	'builtin' 'is' 
 	(types+=BuiltinTypeDeclaration
+	| exceptions+=ExceptionDeclaration
 	| characteristics+=Characteristic)*	
 	'end' 'builtin'? ';';
 

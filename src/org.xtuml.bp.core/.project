@@ -16,37 +16,15 @@
 					<key>SplitAtPackage</key>
 					<value>Constants,Invocation,Use Case</value>
 				</dictionary>
-<!--    
-  The variables below are added as a potential shortcut for people who desire to
-  change the default behavior of what the bp.core mcjava prebuilder
-  will parse. 
-  Examples:
-    1. if you introduce ParseOnly with an empty
-  list it will not parse anything.
-  
-    2. if you introduce DontParse with an empty list it
-  will just behave as it does by default and parse everything.  
-  
-    3. The DontParse list is look at AFTER the ParseOnly list. Therefore,
-    if you were to put an item on BOTH lists it WOULD NOT be parsed.
-  
-                <dictionary>
-                    <key>ParseOnly</key>
-                    <value></value>
-                </dictionary>
-                <dictionary>
-                    <key>DontParse</key>
-                    <value></value>
-                </dictionary>
-                
--->			</arguments>
+			</arguments>
 		</buildCommand>
 		<buildCommand>
 			<name>org.eclipse.ui.externaltools.ExternalToolBuilder</name>
+			<triggers>auto,full,incremental,</triggers>
 			<arguments>
 				<dictionary>
 					<key>LaunchConfigHandle</key>
-					<value>&lt;project&gt;/.externalToolBuilders/Core Builder.launch</value>
+					<value>&lt;project&gt;/.externalToolBuilders/Build.launch</value>
 				</dictionary>
 			</arguments>
 		</buildCommand>
@@ -63,6 +41,16 @@
 		<buildCommand>
 			<name>org.eclipse.pde.SchemaBuilder</name>
 			<arguments>
+			</arguments>
+		</buildCommand>
+		<buildCommand>
+			<name>org.eclipse.ui.externaltools.ExternalToolBuilder</name>
+			<triggers>clean,</triggers>
+			<arguments>
+				<dictionary>
+					<key>LaunchConfigHandle</key>
+					<value>&lt;project&gt;/.externalToolBuilders/Clean.launch</value>
+				</dictionary>
 			</arguments>
 		</buildCommand>
 	</buildSpec>
