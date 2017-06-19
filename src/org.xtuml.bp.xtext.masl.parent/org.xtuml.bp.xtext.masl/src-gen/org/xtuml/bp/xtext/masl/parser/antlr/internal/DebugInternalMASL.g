@@ -140,6 +140,8 @@ ruleBuiltinLibraryDefinition:
 	(
 		ruleBuiltinTypeDeclaration
 		    |
+		ruleExceptionDeclaration
+		    |
 		ruleCharacteristic
 	)*
 	'end'

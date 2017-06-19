@@ -104,6 +104,7 @@ class MaslTypeProvider {
 	@Inject extension TypeParameterResolver
 	@Inject extension StructurePackage
 	@Inject IResourceScopeCache cache
+	@Inject extension MaslTypeConformanceComputer
 	
 	private static val CACHE_KEY = 'masltype'
 	private static val CACHE_KEY_TYPEREF = 'masltyperef'
@@ -561,18 +562,67 @@ class MaslTypeProvider {
 			case '-':
 				return getMaslTypeOfMinus(lType, rType)
 			case '&':
-				if(lType == STRING || lType.primitiveType instanceof CollectionType) 
-					return lType
-				else 
-					return NO_TYPE
+				return getMaslTypeOfCollectionOperation(lType, rType) 
 			case 'union', case 'not_in':
-				if(lType instanceof CollectionType) 
-					return lType 
-				else 
-					return NO_TYPE
+				return getMaslTypeOfCollectionOperation(lType, rType)
 			default:
 				throw new UnsupportedOperationException('Missing type for additive expression ' + eClass?.name)
 		}
+	}
+	
+	enum Priority {
+		LEFT, RIGHT, NONE
+	}
+	
+	private def getMaslTypeOfCollectionOperation(MaslType lType, MaslType rType) {
+		// Decide which side of the expression has priority
+		var priority = if (rType.anonymous === lType.anonymous)
+				Priority.NONE
+			else if (lType.anonymous)
+				Priority.RIGHT
+			else
+				Priority.LEFT
+
+		// Ensure both sides are collections and have the same depth
+		var lComp = lType.primitiveType.componentTypeOrNull
+		var rComp = rType.primitiveType.componentTypeOrNull
+		var lhs = lType
+		var rhs = rType
+		do {
+			if (lComp === null) {
+				lhs = new SequenceType(lhs, true)
+				if (priority === Priority.NONE)
+					priority = Priority.RIGHT
+			} else {
+				lComp = lComp.primitiveType.componentTypeOrNull
+			}
+
+			if (rComp === null) {
+				rhs = new SequenceType(rhs, true)
+				if (priority === Priority.NONE)
+					priority = Priority.LEFT;
+			} else {
+				rComp = rComp.primitiveType.componentTypeOrNull
+			}
+		} while (lComp !== null || rComp !== null)
+
+		// return a type that can be assigned to 
+		if (priority === Priority.LEFT && rhs.isAssignableTo(lhs))
+			return lhs
+		else if (priority === Priority.RIGHT && lhs.isAssignableTo(rhs))
+			return rhs
+		else if (rhs.isAssignableTo(lhs))
+			return lhs
+		else if(lhs.isAssignableTo(rhs)) 
+			return rhs 
+		else return MISSING_TYPE
+	}
+
+	private def getComponentTypeOrNull(MaslType type) {
+		if(type instanceof CollectionType)
+			type.componentType
+		else 
+			null
 	}
 	
 	private def MaslType getMaslTypeOfPlus(MaslType lType, MaslType rType) {
@@ -604,7 +654,7 @@ class MaslTypeProvider {
 			case LONG_INTEGER:
 				return getCommonNumericType(lType, rType)
 			case TIMESTAMP:
-				if(rType == lType) 
+				if(rType.primitiveType == TIMESTAMP) 
 					return ANONYMOUS_DURATION
 				else if(rType.primitiveType == DURATION)
 					return lType
@@ -614,7 +664,7 @@ class MaslTypeProvider {
 						return rType
 					else if(rType == DURATION && rType.anonymous)
 						return ANONYMOUS_DURATION
-				} else if(rType == lType || (rType == DURATION && rType.anonymous)) {
+				} else if(rType.primitiveType == DURATION) {
 					return lType
 				}
 		}
@@ -634,10 +684,7 @@ class MaslTypeProvider {
 			case '**':
 				return ANONYMOUS_REAL
 			case 'disunion', case 'intersection':
-				if(lType instanceof CollectionType) 
-					lType 
-				else 
-					NO_TYPE
+				return getMaslTypeOfCollectionOperation(lType, rType)
 			default:
 				throw new UnsupportedOperationException('Missing type for multiplicative expression ' + eClass?.name)
 		}
@@ -669,12 +716,14 @@ class MaslTypeProvider {
 			case LONG_INTEGER:
 				return getCommonNumericType(lType, rType)
 			case DURATION:
-				switch rType {
+				switch rType.primitiveType {
 					case BYTE,
 					case INTEGER,
 					case LONG_INTEGER,
 					case REAL:
 						return lType
+					case DURATION:
+						return REAL
 				}
 		}
 		return MISSING_TYPE

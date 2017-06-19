@@ -935,9 +935,29 @@ ruleBuiltinLibraryDefinition returns [EObject current=null]
 			(
 				(
 					{
-						newCompositeNode(grammarAccess.getBuiltinLibraryDefinitionAccess().getCharacteristicsCharacteristicParserRuleCall_3_1_0());
+						newCompositeNode(grammarAccess.getBuiltinLibraryDefinitionAccess().getExceptionsExceptionDeclarationParserRuleCall_3_1_0());
 					}
-					lv_characteristics_4_0=ruleCharacteristic
+					lv_exceptions_4_0=ruleExceptionDeclaration
+					{
+						if ($current==null) {
+							$current = createModelElementForParent(grammarAccess.getBuiltinLibraryDefinitionRule());
+						}
+						add(
+							$current,
+							"exceptions",
+							lv_exceptions_4_0,
+							"org.xtuml.bp.xtext.masl.MASL.ExceptionDeclaration");
+						afterParserOrEnumRuleCall();
+					}
+				)
+			)
+			    |
+			(
+				(
+					{
+						newCompositeNode(grammarAccess.getBuiltinLibraryDefinitionAccess().getCharacteristicsCharacteristicParserRuleCall_3_2_0());
+					}
+					lv_characteristics_5_0=ruleCharacteristic
 					{
 						if ($current==null) {
 							$current = createModelElementForParent(grammarAccess.getBuiltinLibraryDefinitionRule());
@@ -945,26 +965,26 @@ ruleBuiltinLibraryDefinition returns [EObject current=null]
 						add(
 							$current,
 							"characteristics",
-							lv_characteristics_4_0,
+							lv_characteristics_5_0,
 							"org.xtuml.bp.xtext.masl.MASL.Characteristic");
 						afterParserOrEnumRuleCall();
 					}
 				)
 			)
 		)*
-		otherlv_5=End
+		otherlv_6=End
 		{
-			newLeafNode(otherlv_5, grammarAccess.getBuiltinLibraryDefinitionAccess().getEndKeyword_4());
+			newLeafNode(otherlv_6, grammarAccess.getBuiltinLibraryDefinitionAccess().getEndKeyword_4());
 		}
 		(
-			otherlv_6=Builtin
+			otherlv_7=Builtin
 			{
-				newLeafNode(otherlv_6, grammarAccess.getBuiltinLibraryDefinitionAccess().getBuiltinKeyword_5());
+				newLeafNode(otherlv_7, grammarAccess.getBuiltinLibraryDefinitionAccess().getBuiltinKeyword_5());
 			}
 		)?
-		otherlv_7=Semicolon
+		otherlv_8=Semicolon
 		{
-			newLeafNode(otherlv_7, grammarAccess.getBuiltinLibraryDefinitionAccess().getSemicolonKeyword_6());
+			newLeafNode(otherlv_8, grammarAccess.getBuiltinLibraryDefinitionAccess().getSemicolonKeyword_6());
 		}
 	)
 ;
