@@ -121,6 +121,10 @@ means that the installation package of BridgePoint itself is reduced in size.
   * user: 203 MB 
   * developer: 247 MB
 
+6.2  In the user version, we found that "Installed JREs" list has no data and is
+  missing a path to the JRE on the system.  This prevented running the GPS Watch
+  UI launch until it is set.  
+  
 ### 7. Unit Test
 
 7.1 Ran the following unit tests  
