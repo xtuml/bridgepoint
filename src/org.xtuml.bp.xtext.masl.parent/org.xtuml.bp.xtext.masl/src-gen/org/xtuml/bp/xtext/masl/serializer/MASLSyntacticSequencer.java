@@ -216,6 +216,7 @@ public class MASLSyntacticSequencer extends AbstractSyntacticSequencer {
 	 * This ambiguous syntax occurs at:
 	 *     (rule start) 'builtin' 'is' 'end' (ambiguity) ';' (rule start)
 	 *     characteristics+=Characteristic 'end' (ambiguity) ';' (rule end)
+	 *     exceptions+=ExceptionDeclaration 'end' (ambiguity) ';' (rule end)
 	 *     types+=BuiltinTypeDeclaration 'end' (ambiguity) ';' (rule end)
 	 */
 	protected void emit_BuiltinLibraryDefinition_BuiltinKeyword_5_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
