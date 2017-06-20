@@ -62,8 +62,8 @@ if [ "$2" == "-debug" ];then
 fi
 
 cd $dir 
-# do not prepare the workspace if already done		+prepareDevelopmentWorkspace
-# here we lazily check for the presence of org.xtuml.bp.core.prefs		+importProjects
+# do not prepare the workspace if already done
+# here we lazily check for the presence of org.xtuml.bp.core.prefs
 # and antlr.jar		
 if [ ! -f $WORKSPACE/.metadata/.plugins/org.eclipse.core.runtime/.settings/org.xtuml.bp.core.prefs ] || [ ! -f $XTUML_DEVELOPMENT_REPOSITORY/src/org.xtuml.bp.als/lib/antlr.jar ]; then		
   prepareDevelopmentWorkspace		
