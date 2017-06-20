@@ -5,7 +5,9 @@
 
 #!/bin/bash
 
-source build_configuration.sh
+SCRIPTPATH=`dirname $0`
+
+source $SCRIPTPATH/build_configuration.sh
 
 prev_dir=`pwd`
 
