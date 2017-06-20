@@ -64,19 +64,19 @@ fi
 cd $dir 
 # do not prepare the workspace if already done
 # here we lazily check for the presence of org.xtuml.bp.core.prefs
-# and antlr.jar		
-if [ ! -f $WORKSPACE/.metadata/.plugins/org.eclipse.core.runtime/.settings/org.xtuml.bp.core.prefs ] || [ ! -f $XTUML_DEVELOPMENT_REPOSITORY/src/org.xtuml.bp.als/lib/antlr.jar ]; then		
-  prepareDevelopmentWorkspace		
-fi		
-# do not import projects unless those requiring		
-# prebuild are not present		
-if [ ! -d $WORKSPACE/.metadata/.plugins/org.eclipse.core.resources/.projects/org.xtuml.bp.core ] ||		
-   [ ! -d $WORKSPACE/.metadata/.plugins/org.eclipse.core.resources/.projects/org.xtuml.bp.als ] ||		
-   [ ! -d $WORKSPACE/.metadata/.plugins/org.eclipse.core.resources/.projects/org.xtuml.bp.ui.canvas ] ||		
-   [ ! -d $WORKSPACE/.metadata/.plugins/org.eclipse.core.resources/.projects/org.xtuml.bp.core ]; then		
-  importProjects		
-fi		
-# always prebuild for now rather than try to fully		
+# and antlr.jar
+if [ ! -f $WORKSPACE/.metadata/.plugins/org.eclipse.core.runtime/.settings/org.xtuml.bp.core.prefs ] || [ ! -f $XTUML_DEVELOPMENT_REPOSITORY/src/org.xtuml.bp.als/lib/antlr.jar ]; then
+  prepareDevelopmentWorkspace
+fi
+# do not import projects unless those requiring
+# prebuild are not present
+if [ ! -d $WORKSPACE/.metadata/.plugins/org.eclipse.core.resources/.projects/org.xtuml.bp.core ] ||
+   [ ! -d $WORKSPACE/.metadata/.plugins/org.eclipse.core.resources/.projects/org.xtuml.bp.als ] ||
+   [ ! -d $WORKSPACE/.metadata/.plugins/org.eclipse.core.resources/.projects/org.xtuml.bp.ui.canvas ] ||
+   [ ! -d $WORKSPACE/.metadata/.plugins/org.eclipse.core.resources/.projects/org.xtuml.bp.core ]; then
+  importProjects
+fi
+# always prebuild for now rather than try to fully
 # cover dependencies
 preBuildProjects
 
