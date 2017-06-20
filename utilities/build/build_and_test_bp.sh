@@ -8,13 +8,9 @@
 
 #!/bin/bash
 
-source build_configuration.sh
+SCRIPTPATH=`dirname $0`
 
-# Check for prebuild output in bp.core, if not
-# present then run the prepare script
-if [ ! -f $XTUML_DEVELOPMENT_REPOSITORY/src/org.xtuml.bp.core/sql/ooaofooa-1.sql ]; then
-  $XTUML_DEVELOPMENT_REPOSITORY/utilities/build/prepare_build.sh
-fi
+source $SCRIPTPATH/build_configuration.sh
 
 prev_dir=`pwd`
 
@@ -34,7 +30,7 @@ fi
 cd $dir 
 mvn $debug -Dtycho.disableP2Mirrors=true -Dmaven.test.failure.ignore=true -U install
 maven_return=$?
-if [ $maven_return == 0 ] && [ "${INCLUDE_TESTS}" == "true" ]; then
+if [[ $maven_return == 0 ] && [ "${INCLUDE_TESTS}" == "true" ]]; then
   mvn -Dtycho.disableP2Mirrors=true -Daggregate=true surefire-report:report-only
   if [ "$(uname)" == "Darwin" ];then
     open $dir/target/site/surefire-report.html
