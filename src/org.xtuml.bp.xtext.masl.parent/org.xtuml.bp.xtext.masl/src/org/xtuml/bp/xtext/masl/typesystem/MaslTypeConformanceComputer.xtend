@@ -28,6 +28,11 @@ class MaslTypeConformanceComputer {
 				&& sourcePrimitive instanceof CollectionType 
 				&& isAssignableTo(sourcePrimitive.componentType, targetPrimitive.componentType)) 
 				return true;
+				
+			if (targetPrimitive instanceof RangeType 
+				&& sourcePrimitive instanceof RangeType 
+				&& isAssignableTo(sourcePrimitive.componentType, targetPrimitive.componentType)) 
+				return true;
 		}
 
 		if (targetPrimitive instanceof StructureType) {
