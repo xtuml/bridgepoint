@@ -17,6 +17,7 @@ import org.xtuml.bp.xtext.masl.masl.types.TypeDeclaration;
  * </p>
  * <ul>
  *   <li>{@link org.xtuml.bp.xtext.masl.masl.structure.BuiltinLibraryDefinition#getTypes <em>Types</em>}</li>
+ *   <li>{@link org.xtuml.bp.xtext.masl.masl.structure.BuiltinLibraryDefinition#getExceptions <em>Exceptions</em>}</li>
  *   <li>{@link org.xtuml.bp.xtext.masl.masl.structure.BuiltinLibraryDefinition#getCharacteristics <em>Characteristics</em>}</li>
  * </ul>
  *
@@ -40,6 +41,22 @@ public interface BuiltinLibraryDefinition extends MaslModel {
 	 * @generated
 	 */
 	EList<TypeDeclaration> getTypes();
+
+	/**
+	 * Returns the value of the '<em><b>Exceptions</b></em>' containment reference list.
+	 * The list contents are of type {@link org.xtuml.bp.xtext.masl.masl.structure.ExceptionDeclaration}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Exceptions</em>' containment reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Exceptions</em>' containment reference list.
+	 * @see org.xtuml.bp.xtext.masl.masl.structure.StructurePackage#getBuiltinLibraryDefinition_Exceptions()
+	 * @model containment="true"
+	 * @generated
+	 */
+	EList<ExceptionDeclaration> getExceptions();
 
 	/**
 	 * Returns the value of the '<em><b>Characteristics</b></em>' containment reference list.
