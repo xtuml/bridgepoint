@@ -28,7 +28,7 @@ fi
 cd $dir 
 mvn $debug -Dtycho.disableP2Mirrors=true -Dmaven.test.failure.ignore=true -U install
 maven_return=$?
-if [[ $maven_return == 0 ] && [ "${INCLUDE_TESTS}" == "true" ]]; then
+if [ $maven_return == 0 ] && [ "${INCLUDE_TESTS}" == "true" ]; then
   mvn -Dtycho.disableP2Mirrors=true -Daggregate=true surefire-report:report-only
   if [ "$(uname)" == "Darwin" ];then
     open $dir/target/site/surefire-report.html
