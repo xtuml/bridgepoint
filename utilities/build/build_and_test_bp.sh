@@ -8,7 +8,9 @@
 
 #!/bin/bash
 
-source build_configuration.sh
+SCRIPTPATH=`dirname $0`
+
+source $SCRIPTPATH/build_configuration.sh
 
 # Check for prebuild output in bp.core, if not
 # present then run the prepare script
