@@ -76,6 +76,7 @@ import org.xtuml.bp.core.Package_c;
 import org.xtuml.bp.core.StateMachineState_c;
 import org.xtuml.bp.core.Transition_c;
 import org.xtuml.bp.core.common.NonRootModelElement;
+import org.xtuml.bp.core.editors.ModelEditor;
 import org.xtuml.bp.core.ui.Selection;
 import org.xtuml.bp.ui.canvas.Connector_c;
 import org.xtuml.bp.ui.canvas.GraphicalElement_c;
@@ -83,7 +84,6 @@ import org.xtuml.bp.ui.canvas.Shape_c;
 import org.xtuml.bp.ui.graphics.actions.OpenGraphicsEditor;
 import org.xtuml.bp.ui.graphics.editor.BPToolTipHelper;
 import org.xtuml.bp.ui.graphics.editor.GraphicalEditor;
-import org.xtuml.bp.ui.graphics.editor.ModelEditor;
 import org.xtuml.bp.ui.graphics.figures.DecoratedPolylineConnection;
 import org.xtuml.bp.ui.graphics.figures.ShapeImageFigure;
 import org.xtuml.bp.ui.graphics.parts.ConnectorEditPart;
@@ -223,7 +223,7 @@ public class DetailedToolTip {
 				GraphicalEditor gEditor = null;
 				if(activeEditor instanceof ModelEditor) {
 					ModelEditor editor = (ModelEditor)activeEditor;
-					gEditor = editor.getGraphicalEditor();
+					gEditor = (GraphicalEditor) editor.getActivePart();
 				}					
 				if(activeEditor instanceof GraphicalEditor) {
 					gEditor = (GraphicalEditor)activeEditor;

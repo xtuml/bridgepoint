@@ -47,7 +47,7 @@ public class OpenGraphicsEditor implements IActionDelegate {
       if (input != null) {
         PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().openEditor(
           input,
-          "org.xtuml.bp.ui.graphics.editor.ModelEditor");
+          "org.xtuml.bp.ui.graphics.editor.GraphicalEditor");
       }
     } catch (PartInitException e) {
       CanvasPlugin.logError("Failed to initialize Diagram Editor, reason:", e);

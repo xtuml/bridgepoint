@@ -25,6 +25,7 @@ import java.util.ResourceBundle;
 
 import org.eclipse.jface.viewers.BaseLabelProvider;
 import org.eclipse.jface.viewers.DelegatingStyledCellLabelProvider.IStyledLabelProvider;
+import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.jface.viewers.ITableLabelProvider;
 import org.eclipse.jface.viewers.StyledString;
 import org.eclipse.swt.graphics.Image;
@@ -35,13 +36,8 @@ import org.xtuml.bp.core.inspector.IModelClassInspector;
 import org.xtuml.bp.core.inspector.ModelInspector;
 import org.xtuml.bp.core.inspector.ObjectElement;
 import org.xtuml.bp.core.ui.cells.CellModifierProvider;
-import org.xtuml.bp.ui.canvas.Cl_c;
-import org.xtuml.bp.ui.canvas.GraphicalElement_c;
-import org.xtuml.bp.ui.canvas.Model_c;
-import org.xtuml.bp.ui.canvas.Ooaofgraphics;
-import org.xtuml.bp.ui.canvas.inspector.GraphicalModelInspector;
 
-public class MetaModelLabelProvider extends BaseLabelProvider implements ITableLabelProvider, IStyledLabelProvider {
+public class MetaModelLabelProvider extends BaseLabelProvider implements ILabelProvider, ITableLabelProvider, IStyledLabelProvider {
 	
 	@Override
 	public Image getColumnImage(Object element, int index) {
@@ -117,8 +113,7 @@ public class MetaModelLabelProvider extends BaseLabelProvider implements ITableL
 			}
 			if(objEle.getType() == ObjectElement.ATTRIBUTE_ELEMENT) {
 				if(objEle.getValue() instanceof NonRootModelElement) {
-					String name = Cl_c.Getpath(((NonRootModelElement) objEle
-							.getValue()));
+					String name = ((NonRootModelElement) objEle.getValue()).getPath();
 					if (index == 0) {
 						return getResourceString(stripPackageName(objEle
 										.getParent())
@@ -127,14 +122,6 @@ public class MetaModelLabelProvider extends BaseLabelProvider implements ITableL
 										+ objEle.getName()
 										+ ".longname");
 					} else {
-						if (objEle.getName().equals("represents")) {
-							if (objEle.getParent() instanceof GraphicalElement_c) {
-								return ((GraphicalElement_c) objEle.getParent()).Getcachedrepresentspath();
-							}
-							if (objEle.getParent() instanceof Model_c) {
-								return ((Model_c) objEle.getParent()).Getcachedrepresentspath();
-							}
-						}
 						return name;
 					}
 				}
@@ -170,9 +157,6 @@ public class MetaModelLabelProvider extends BaseLabelProvider implements ITableL
 	private String getElementName(NonRootModelElement element) {
 		// find the naming ObjectElement child
 		IModelClassInspector inspector = new ModelInspector();
-		if(element.getModelRoot() instanceof Ooaofgraphics) {
-			inspector = new GraphicalModelInspector();
-		}
 		ObjectElement namingElement = null;
 		ObjectElement[] children = inspector.getAttributes(element);
 		for(int i = 0; i < children.length; i++) {
@@ -207,6 +191,11 @@ public class MetaModelLabelProvider extends BaseLabelProvider implements ITableL
 	@Override
 	public Image getImage(Object element) {
 		return getColumnImage(element, 0);
+	}
+
+	@Override
+	public String getText(Object element) {
+		return getColumnText(element, 0);
 	}
 	
 }

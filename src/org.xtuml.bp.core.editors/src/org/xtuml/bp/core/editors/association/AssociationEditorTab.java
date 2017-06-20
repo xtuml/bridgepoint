@@ -488,4 +488,8 @@ public class AssociationEditorTab extends Composite implements ITransactionListe
 		});
 	}
 
+	public void setInput(Object input) {
+		fTableViewer.setInput(input);
+	}
+
 }

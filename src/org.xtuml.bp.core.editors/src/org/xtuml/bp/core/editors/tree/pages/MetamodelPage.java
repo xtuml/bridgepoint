@@ -1,11 +1,13 @@
-package org.xtuml.bp.core.editors.focus.pages;
+package org.xtuml.bp.core.editors.tree.pages;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.Composite;
-import org.xtuml.bp.core.editors.focus.viewers.MetamodelTreeViewer;
+import org.xtuml.bp.core.editors.tree.viewers.MetamodelTreeViewer;
 
 public class MetamodelPage extends Composite {
+
+	private MetamodelTreeViewer treeViewer;
 
 	public MetamodelPage(Composite parent, Object inputObject) {
 		super(parent, SWT.SINGLE);
@@ -14,7 +16,11 @@ public class MetamodelPage extends Composite {
 
 	private void createControls(Composite parent, Object inputObject) {
 		setLayout(new FillLayout());
-		new MetamodelTreeViewer(this, inputObject);
+		treeViewer = new MetamodelTreeViewer(this, inputObject);
+	}
+
+	public MetamodelTreeViewer getTreeViewer() {
+		return treeViewer;
 	}
 
 }

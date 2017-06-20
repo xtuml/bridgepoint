@@ -1,8 +1,10 @@
 package org.xtuml.bp.core.editors.association.factories;
 
 import org.eclipse.swt.widgets.Composite;
+import org.xtuml.bp.core.editors.IEditorTabFactory;
+import org.xtuml.bp.core.editors.ModelEditor;
 import org.xtuml.bp.core.editors.association.AssociationEditorTab;
-import org.xtuml.bp.ui.graphics.editor.IEditorTabFactory;
+import org.xtuml.bp.core.editors.input.IModelEditorInput;
 
 public class AssociationEditorTabFactory implements IEditorTabFactory {
 
@@ -12,8 +14,8 @@ public class AssociationEditorTabFactory implements IEditorTabFactory {
 	private AssociationEditorTab tab;
 	
 	@Override
-	public Composite createEditorTab(Composite parent, Object editorInput) {
-		tab = new AssociationEditorTab(parent, editorInput);
+	public Composite createEditorTab(ModelEditor editor, Composite parent, IModelEditorInput editorInput) {
+		tab = new AssociationEditorTab(parent, editorInput.getRepresents());
 		return tab;
 	}
 
@@ -45,6 +47,9 @@ public class AssociationEditorTabFactory implements IEditorTabFactory {
 	@Override
 	public void setInput(Object input) {
 		configuredInput = input;
+		if(tab != null) {
+			tab.setInput(input);
+		}
 	}
 
 }

@@ -21,12 +21,13 @@
 //======================================================================== 
 //
 
-package org.xtuml.bp.ui.graphics.editor;
+package org.xtuml.bp.core.editors;
 
 import org.eclipse.swt.widgets.Composite;
+import org.xtuml.bp.core.editors.input.IModelEditorInput;
 
 public interface IEditorTabFactory {
-	public Composite createEditorTab(Composite parent, Object editorInput);
+	public Composite createEditorTab(ModelEditor modelEditor, Composite parent, IModelEditorInput editorInput);
 	public boolean getFocusBased();
 	public void setFocusBased(boolean isFocusBased);
 	public String getEditorTitle();

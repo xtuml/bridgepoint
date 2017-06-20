@@ -12,7 +12,7 @@ package org.xtuml.bp.welcome.cheatsheets.utilities;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.PlatformUI;
 
-import org.xtuml.bp.ui.graphics.editor.ModelEditor;
+import org.xtuml.bp.core.editors.*;
 
 public class CheatSheetsUIUtilities {
 	

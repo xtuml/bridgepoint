@@ -38,8 +38,8 @@ import org.eclipse.jface.action.Separator;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.actions.ActionFactory;
 import org.eclipse.ui.actions.RetargetAction;
-
-import org.xtuml.bp.ui.graphics.editor.ModelEditor;
+import org.xtuml.bp.core.editors.ModelEditor;
+import org.xtuml.bp.ui.graphics.editor.GraphicalEditor;
 
 public class GraphicsActionBarContributor extends ActionBarContributor {
 
@@ -124,7 +124,7 @@ public class GraphicsActionBarContributor extends ActionBarContributor {
 	@Override
 	public void setActiveEditor(IEditorPart editor) {
 		ModelEditor mEditor = (ModelEditor) editor;
-		if(mEditor.getGraphicalEditor() == null) {
+		if(mEditor.getActivePart() instanceof GraphicalEditor) {
 			return;
 		}
 		if(mEditor.getActivePart() == null)
