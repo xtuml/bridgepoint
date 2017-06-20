@@ -10,6 +10,12 @@
 
 source build_configuration.sh
 
+# Check for prebuild output in bp.core, if not
+# present then run the prepare script
+if [ ! -f $XTUML_DEVELOPMENT_REPOSITORY/src/org.xtuml.bp.core/sql/ooaofooa-1.sql ]; then
+  $XTUML_DEVELOPMENT_REPOSITORY/utilities/build/prepare_build.sh
+fi
+
 prev_dir=`pwd`
 
 project="org.xtuml.bp.releng.parent"
