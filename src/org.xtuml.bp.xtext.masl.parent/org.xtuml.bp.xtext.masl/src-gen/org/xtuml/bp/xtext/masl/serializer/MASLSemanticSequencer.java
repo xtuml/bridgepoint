@@ -3096,7 +3096,7 @@ public class MASLSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	 *     BuiltinLibraryDefinition returns BuiltinLibraryDefinition
 	 *
 	 * Constraint:
-	 *     (types+=BuiltinTypeDeclaration | characteristics+=Characteristic)*
+	 *     (types+=BuiltinTypeDeclaration | exceptions+=ExceptionDeclaration | characteristics+=Characteristic)*
 	 */
 	protected void sequence_BuiltinLibraryDefinition(ISerializationContext context, BuiltinLibraryDefinition semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

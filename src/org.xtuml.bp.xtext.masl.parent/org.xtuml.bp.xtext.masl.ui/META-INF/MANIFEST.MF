@@ -17,8 +17,8 @@ Require-Bundle: org.xtuml.bp.xtext.masl;visibility:=reexport,
  org.eclipse.xtext.builder,
  org.eclipse.xtend.lib;resolution:=optional,
  org.eclipse.xtext.xbase.lib,
- org.xtuml.bp.core;bundle-version="6.2.5";resolution:=optional,
- org.xtuml.bp.ui.text;bundle-version="6.2.5";resolution:=optional,
+ org.xtuml.bp.core;resolution:=optional,
+ org.xtuml.bp.ui.text;resolution:=optional,
  org.eclipse.ltk.ui.refactoring;bundle-version="3.7.200"
 Import-Package: org.apache.log4j
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
