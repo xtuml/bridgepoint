@@ -12,7 +12,7 @@ This work is licensed under the Creative Commons CC0 License
 The MASL Xtext editor has been a successful project. We now would like to
 analyze an enhanced OAL editor using Xtext. The new editor will support editing
 multiple action bodies in one file and editing structural activity signatures
-throught text.
+through text.
 
 This note serves to analyze the OAL Xtext editor from the perspective of
 providing a plan for a "first step". This note will recommend a subset of the
