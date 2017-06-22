@@ -17,6 +17,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
 
 import org.xtuml.bp.xtext.masl.masl.structure.BuiltinLibraryDefinition;
 import org.xtuml.bp.xtext.masl.masl.structure.Characteristic;
+import org.xtuml.bp.xtext.masl.masl.structure.ExceptionDeclaration;
 import org.xtuml.bp.xtext.masl.masl.structure.StructurePackage;
 
 import org.xtuml.bp.xtext.masl.masl.types.TypeDeclaration;
@@ -30,6 +31,7 @@ import org.xtuml.bp.xtext.masl.masl.types.TypeDeclaration;
  * </p>
  * <ul>
  *   <li>{@link org.xtuml.bp.xtext.masl.masl.structure.impl.BuiltinLibraryDefinitionImpl#getTypes <em>Types</em>}</li>
+ *   <li>{@link org.xtuml.bp.xtext.masl.masl.structure.impl.BuiltinLibraryDefinitionImpl#getExceptions <em>Exceptions</em>}</li>
  *   <li>{@link org.xtuml.bp.xtext.masl.masl.structure.impl.BuiltinLibraryDefinitionImpl#getCharacteristics <em>Characteristics</em>}</li>
  * </ul>
  *
@@ -45,6 +47,16 @@ public class BuiltinLibraryDefinitionImpl extends MaslModelImpl implements Built
 	 * @ordered
 	 */
 	protected EList<TypeDeclaration> types;
+
+	/**
+	 * The cached value of the '{@link #getExceptions() <em>Exceptions</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getExceptions()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<ExceptionDeclaration> exceptions;
 
 	/**
 	 * The cached value of the '{@link #getCharacteristics() <em>Characteristics</em>}' containment reference list.
@@ -92,6 +104,18 @@ public class BuiltinLibraryDefinitionImpl extends MaslModelImpl implements Built
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EList<ExceptionDeclaration> getExceptions() {
+		if (exceptions == null) {
+			exceptions = new EObjectContainmentEList<ExceptionDeclaration>(ExceptionDeclaration.class, this, StructurePackage.BUILTIN_LIBRARY_DEFINITION__EXCEPTIONS);
+		}
+		return exceptions;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EList<Characteristic> getCharacteristics() {
 		if (characteristics == null) {
 			characteristics = new EObjectContainmentEList<Characteristic>(Characteristic.class, this, StructurePackage.BUILTIN_LIBRARY_DEFINITION__CHARACTERISTICS);
@@ -109,6 +133,8 @@ public class BuiltinLibraryDefinitionImpl extends MaslModelImpl implements Built
 		switch (featureID) {
 			case StructurePackage.BUILTIN_LIBRARY_DEFINITION__TYPES:
 				return ((InternalEList<?>)getTypes()).basicRemove(otherEnd, msgs);
+			case StructurePackage.BUILTIN_LIBRARY_DEFINITION__EXCEPTIONS:
+				return ((InternalEList<?>)getExceptions()).basicRemove(otherEnd, msgs);
 			case StructurePackage.BUILTIN_LIBRARY_DEFINITION__CHARACTERISTICS:
 				return ((InternalEList<?>)getCharacteristics()).basicRemove(otherEnd, msgs);
 		}
@@ -125,6 +151,8 @@ public class BuiltinLibraryDefinitionImpl extends MaslModelImpl implements Built
 		switch (featureID) {
 			case StructurePackage.BUILTIN_LIBRARY_DEFINITION__TYPES:
 				return getTypes();
+			case StructurePackage.BUILTIN_LIBRARY_DEFINITION__EXCEPTIONS:
+				return getExceptions();
 			case StructurePackage.BUILTIN_LIBRARY_DEFINITION__CHARACTERISTICS:
 				return getCharacteristics();
 		}
@@ -143,6 +171,10 @@ public class BuiltinLibraryDefinitionImpl extends MaslModelImpl implements Built
 			case StructurePackage.BUILTIN_LIBRARY_DEFINITION__TYPES:
 				getTypes().clear();
 				getTypes().addAll((Collection<? extends TypeDeclaration>)newValue);
+				return;
+			case StructurePackage.BUILTIN_LIBRARY_DEFINITION__EXCEPTIONS:
+				getExceptions().clear();
+				getExceptions().addAll((Collection<? extends ExceptionDeclaration>)newValue);
 				return;
 			case StructurePackage.BUILTIN_LIBRARY_DEFINITION__CHARACTERISTICS:
 				getCharacteristics().clear();
@@ -163,6 +195,9 @@ public class BuiltinLibraryDefinitionImpl extends MaslModelImpl implements Built
 			case StructurePackage.BUILTIN_LIBRARY_DEFINITION__TYPES:
 				getTypes().clear();
 				return;
+			case StructurePackage.BUILTIN_LIBRARY_DEFINITION__EXCEPTIONS:
+				getExceptions().clear();
+				return;
 			case StructurePackage.BUILTIN_LIBRARY_DEFINITION__CHARACTERISTICS:
 				getCharacteristics().clear();
 				return;
@@ -180,6 +215,8 @@ public class BuiltinLibraryDefinitionImpl extends MaslModelImpl implements Built
 		switch (featureID) {
 			case StructurePackage.BUILTIN_LIBRARY_DEFINITION__TYPES:
 				return types != null && !types.isEmpty();
+			case StructurePackage.BUILTIN_LIBRARY_DEFINITION__EXCEPTIONS:
+				return exceptions != null && !exceptions.isEmpty();
 			case StructurePackage.BUILTIN_LIBRARY_DEFINITION__CHARACTERISTICS:
 				return characteristics != null && !characteristics.isEmpty();
 		}

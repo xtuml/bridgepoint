@@ -944,8 +944,17 @@ public class StructurePackageImpl extends EPackageImpl implements StructurePacka
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getBuiltinLibraryDefinition_Characteristics() {
+	public EReference getBuiltinLibraryDefinition_Exceptions() {
 		return (EReference)builtinLibraryDefinitionEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getBuiltinLibraryDefinition_Characteristics() {
+		return (EReference)builtinLibraryDefinitionEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -1765,6 +1774,7 @@ public class StructurePackageImpl extends EPackageImpl implements StructurePacka
 
 		builtinLibraryDefinitionEClass = createEClass(BUILTIN_LIBRARY_DEFINITION);
 		createEReference(builtinLibraryDefinitionEClass, BUILTIN_LIBRARY_DEFINITION__TYPES);
+		createEReference(builtinLibraryDefinitionEClass, BUILTIN_LIBRARY_DEFINITION__EXCEPTIONS);
 		createEReference(builtinLibraryDefinitionEClass, BUILTIN_LIBRARY_DEFINITION__CHARACTERISTICS);
 
 		characteristicEClass = createEClass(CHARACTERISTIC);
@@ -2037,6 +2047,7 @@ public class StructurePackageImpl extends EPackageImpl implements StructurePacka
 
 		initEClass(builtinLibraryDefinitionEClass, BuiltinLibraryDefinition.class, "BuiltinLibraryDefinition", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getBuiltinLibraryDefinition_Types(), theTypesPackage.getTypeDeclaration(), null, "types", null, 0, -1, BuiltinLibraryDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getBuiltinLibraryDefinition_Exceptions(), this.getExceptionDeclaration(), null, "exceptions", null, 0, -1, BuiltinLibraryDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getBuiltinLibraryDefinition_Characteristics(), this.getCharacteristic(), null, "characteristics", null, 0, -1, BuiltinLibraryDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(characteristicEClass, Characteristic.class, "Characteristic", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);

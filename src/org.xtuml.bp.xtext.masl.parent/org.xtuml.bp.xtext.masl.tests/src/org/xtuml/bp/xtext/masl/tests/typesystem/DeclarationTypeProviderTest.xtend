@@ -257,7 +257,7 @@ class DeclarationTypeProviderTest extends AbstractMaslModelTest {
 			^(Foo'last);
 			^(Foo'size());
 			^(Foo'pos(BAR))
-		''', 'integer')
+		''', 'anonymous long_integer')
 	}
 
 	@Test
@@ -273,7 +273,7 @@ class DeclarationTypeProviderTest extends AbstractMaslModelTest {
 			begin
 				^(f'keys);
 			end;
-		''', 'set of integer')
+		''', 'anonymous set of integer')
 	}
 
 	@Test
@@ -289,7 +289,7 @@ class DeclarationTypeProviderTest extends AbstractMaslModelTest {
 			begin
 				^(f'values);
 			end;
-		''', 'bag of string')
+		''', 'anonymous bag of string')
 	}
 
 	@Test
@@ -305,7 +305,7 @@ class DeclarationTypeProviderTest extends AbstractMaslModelTest {
 			begin
 				^(f'contains(1));
 			end;
-		''', 'boolean')
+		''', 'anonymous boolean')
 	}
 
 	@Test
@@ -321,7 +321,7 @@ class DeclarationTypeProviderTest extends AbstractMaslModelTest {
 			begin
 				^(f'keys);
 			end;
-		''', 'set of anonymous string')
+		''', 'anonymous set of anonymous string')
 	}
 
 	@Test
@@ -337,7 +337,7 @@ class DeclarationTypeProviderTest extends AbstractMaslModelTest {
 			begin
 				^(f'values);
 			end;
-		''', 'bag of anonymous string')
+		''', 'anonymous bag of anonymous string')
 	}
 	
 	@Test

@@ -28,14 +28,18 @@ Setup Instructions
     - https://github.com/xtuml/pt_antlr
     - https://github.com/xtuml/packaging
     - https://github.com/xtuml/models
+    - https://github.com/xtuml/packaging
     
-  - [Download the latest developer version of the tool](https://s3.amazonaws.com/xtuml-releases/nightly-build/buildfiles.html "https://s3.amazonaws.com/xtuml-releases/nightly-build/buildfiles.html").
+  - [Download the latest BridgePoint Developer version of the tool](https://s3.amazonaws.com/xtuml-releases/nightly-build/buildfiles.html "https://s3.amazonaws.com/xtuml-releases/nightly-build/buildfiles.html").
   
   - Install BridgePoint.  
     - You may unzip wherever you like, a suggestion is:  ```~/xtuml/BridgePoint```
       For MAC it is suggested that you unzip into the /Applications folder, doing so will create a folder named Eclipse.app with all files in it.
 
   - The following 3rd party tools are required to build BridgePoint.  Install them now.    
+    - __ALL__  
+      - [Maven](https://maven.apache.org/install.html)    
+
     - __LINUX__ - Linux Ubuntu installation commands are presented below.  If installing in a 
     different Linux distribution you must use the [commands appropriate for your Linux distribution](https://github.com/xtuml/bridgepoint/blob/master/doc-bridgepoint/process/FAQ.md#linux).
     ```
@@ -68,7 +72,7 @@ The instructions in this section describe how to use the eclipse BridgePoint UI 
   git clone https://github.com/"username"/models.git ~/git/models
   git clone https://github.com/"username"/packaging.git ~/git/packaging
   ```
-  Note:  To build BridgePoint, you need only the bridgepoint, mc and pt_antlr
+  Note:  To build BridgePoint, you need only the bridgepoint, mc, packaging and pt_antlr
   repositories.  bptest and models are used for unit testing and application
   development.
     

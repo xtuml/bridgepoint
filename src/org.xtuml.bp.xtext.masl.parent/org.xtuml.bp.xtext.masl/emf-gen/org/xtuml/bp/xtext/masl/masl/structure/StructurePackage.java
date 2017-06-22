@@ -1326,13 +1326,22 @@ public interface StructurePackage extends EPackage {
 	int BUILTIN_LIBRARY_DEFINITION__TYPES = MASL_MODEL_FEATURE_COUNT + 0;
 
 	/**
+	 * The feature id for the '<em><b>Exceptions</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BUILTIN_LIBRARY_DEFINITION__EXCEPTIONS = MASL_MODEL_FEATURE_COUNT + 1;
+
+	/**
 	 * The feature id for the '<em><b>Characteristics</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int BUILTIN_LIBRARY_DEFINITION__CHARACTERISTICS = MASL_MODEL_FEATURE_COUNT + 1;
+	int BUILTIN_LIBRARY_DEFINITION__CHARACTERISTICS = MASL_MODEL_FEATURE_COUNT + 2;
 
 	/**
 	 * The number of structural features of the '<em>Builtin Library Definition</em>' class.
@@ -1341,7 +1350,7 @@ public interface StructurePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int BUILTIN_LIBRARY_DEFINITION_FEATURE_COUNT = MASL_MODEL_FEATURE_COUNT + 2;
+	int BUILTIN_LIBRARY_DEFINITION_FEATURE_COUNT = MASL_MODEL_FEATURE_COUNT + 3;
 
 	/**
 	 * The number of operations of the '<em>Builtin Library Definition</em>' class.
@@ -3464,6 +3473,17 @@ public interface StructurePackage extends EPackage {
 	EReference getBuiltinLibraryDefinition_Types();
 
 	/**
+	 * Returns the meta object for the containment reference list '{@link org.xtuml.bp.xtext.masl.masl.structure.BuiltinLibraryDefinition#getExceptions <em>Exceptions</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Exceptions</em>'.
+	 * @see org.xtuml.bp.xtext.masl.masl.structure.BuiltinLibraryDefinition#getExceptions()
+	 * @see #getBuiltinLibraryDefinition()
+	 * @generated
+	 */
+	EReference getBuiltinLibraryDefinition_Exceptions();
+
+	/**
 	 * Returns the meta object for the containment reference list '{@link org.xtuml.bp.xtext.masl.masl.structure.BuiltinLibraryDefinition#getCharacteristics <em>Characteristics</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -4775,6 +4795,14 @@ public interface StructurePackage extends EPackage {
 		 * @generated
 		 */
 		EReference BUILTIN_LIBRARY_DEFINITION__TYPES = eINSTANCE.getBuiltinLibraryDefinition_Types();
+
+		/**
+		 * The meta object literal for the '<em><b>Exceptions</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference BUILTIN_LIBRARY_DEFINITION__EXCEPTIONS = eINSTANCE.getBuiltinLibraryDefinition_Exceptions();
 
 		/**
 		 * The meta object literal for the '<em><b>Characteristics</b></em>' containment reference list feature.
