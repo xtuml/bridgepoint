@@ -11,24 +11,51 @@ source $SCRIPTPATH/build_configuration.sh
 
 prev_dir=`pwd`
 
+JAVA_ARGS=""
+if [ "$(uname)" == "Darwin" ]; then
+  JAVA_ARGS="-XstartOnFirstThread"
+fi
+
+
 function importProjects {
   dir=`pwd`
   cd $GIT_DIR
-  java -cp ${bp_install_dir}/plugins/org.eclipse.equinox.launcher_1.3.100.v20150511-1540.jar org.eclipse.equinox.launcher.Main -data $WORKSPACE -application org.eclipse.cdt.managedbuilder.core.headlessbuild -importAll bridgepoint/src
-  java -cp ${bp_install_dir}/plugins/org.eclipse.equinox.launcher_1.3.100.v20150511-1540.jar org.eclipse.equinox.launcher.Main -data $WORKSPACE -application org.eclipse.ereDevelopmentWorkspacedt.managedbuilder.core.headlessbuild -importAll bridgepoint/doc-bridgepoint
-  java -cp ${bp_install_dir}/plugins/org.eclipse.equinox.launcher_1.3.100.v20150511-1540.jar org.eclipse.equinox.launcher.Main -data $WORKSPACE -application org.eclipse.cdt.managedbuilder.core.headlessbuild -importAll bridgepoint/releng
-  java -cp ${bp_install_dir}/plugins/org.eclipse.equinox.launcher_1.3.100.v20150511-1540.jar org.eclipse.equinox.launcher.Main -data $WORKSPACE -application org.eclipse.cdt.managedbuilder.core.headlessbuild -importAll bridgepoint/utilities
+  cd bridgepoint/src
+  for file in `ls -1`; do
+    java -cp ${bp_install_dir}/plugins/org.eclipse.equinox.launcher_1.3.100.v20150511-1540.jar org.eclipse.equinox.launcher.Main -data $WORKSPACE -application org.eclipse.cdt.managedbuilder.core.headlessbuild -import $file 
+    # if this is the xtext parent, we need to import the nested projects
+    if [ $file == "org.xtuml.bp.xtext.masl.parent" ]; then
+      cd $file 
+      for nestedFile in `ls -1`; do
+        if [ -d $nestedFile ]; then
+           java -cp ${bp_install_dir}/plugins/org.eclipse.equinox.launcher_1.3.100.v20150511-1540.jar org.eclipse.equinox.launcher.Main -data $WORKSPACE -application org.eclipse.cdt.managedbuilder.core.headlessbuild -import $nestedFile
+        fi
+      done
+      cd ..
+    fi 
+  done
+  cd ../doc-bridgepoint
+  for file in `ls -1`; do
+    java -cp ${bp_install_dir}/plugins/org.eclipse.equinox.launcher_1.3.100.v20150511-1540.jar org.eclipse.equinox.launcher.Main -data $WORKSPACE -application org.eclipse.cdt.managedbuilder.core.headlessbuild -import $file
+  done
+  cd ../releng
+  for file in `ls -1`; do
+     java -cp ${bp_install_dir}/plugins/org.eclipse.equinox.launcher_1.3.100.v20150511-1540.jar org.eclipse.equinox.launcher.Main -data $WORKSPACE -application org.eclipse.cdt.managedbuilder.core.headlessbuild -import $file
+  done
+ cd ../utilities
+  for file in `ls -1`; do
+     java -cp ${bp_install_dir}/plugins/org.eclipse.equinox.launcher_1.3.100.v20150511-1540.jar org.eclipse.equinox.launcher.Main -data $WORKSPACE -application org.eclipse.cdt.managedbuilder.core.headlessbuild -import $file
+  done
   if [ "$INCLUDE_TESTS" == "true" ]; then
-    java -cp ${bp_install_dir}/plugins/org.eclipse.equinox.launcher_1.3.100.v20150511-1540.jar org.eclipse.equinox.launcher.Main -data $WORKSPACE -application org.eclipse.cdt.managedbuilder.core.headlessbuild -importAll bptest/src
+    cd ../../bptest/src
+    for file in `ls -1`; do
+       java -cp ${bp_install_dir}/plugins/org.eclipse.equinox.launcher_1.3.100.v20150511-1540.jar org.eclipse.equinox.launcher.Main -data $WORKSPACE -application org.eclipse.cdt.managedbuilder.core.headlessbuild -import $file
+    done
   fi
   cd $dir
 }
 
 function preBuildProjects {
-  JAVA_ARGS=""
-  if [ "$(uname)" == "Darwin" ];then
-    JAVA_ARGS="-XstartOnFirstThread"
-  fi
   java -Xms256m -Xmx1g $JAVA_ARGS -jar ${bp_install_dir}/plugins/org.eclipse.equinox.launcher_*.jar -clean -noSplash -product org.xtuml.bp.pkg.BridgePoint -data $WORKSPACE -application org.xtuml.bp.cli.Build -project org.xtuml.bp.core -prebuildOnly
   java -Xms256m -Xmx1g $JAVA_ARGS -jar ${bp_install_dir}/plugins/org.eclipse.equinox.launcher_*.jar -clean -noSplash -product org.xtuml.bp.pkg.BridgePoint -data $WORKSPACE -application org.xtuml.bp.cli.Build -project org.xtuml.bp.als -prebuildOnly
   java -Xms256m -Xmx1g $JAVA_ARGS -jar ${bp_install_dir}/plugins/org.eclipse.equinox.launcher_*.jar -clean -noSplash -product org.xtuml.bp.pkg.BridgePoint -data $WORKSPACE -application org.xtuml.bp.cli.Build -project org.xtuml.bp.ui.canvas -prebuildOnly
