@@ -315,7 +315,7 @@ class MASLScopeProvider extends AbstractMASLScopeProvider {
 			}
 			CodeBlock:
 				return scopeFor(expr.variables, parent.getLocalSimpleFeatureScope(parentScope, expr.eContainmentFeature, isRightHandSide))
-			ForStatement:
+			ForStatement case containmentFeature != forStatement_Expression:
 				return scopeFor(#[expr.variable], parent.getLocalSimpleFeatureScope(parentScope, expr.eContainmentFeature, isRightHandSide))
 			ObjectServiceDefinition:
 				return getSimpleFeatureScopeForObjectAction(expr.parameters, expr.getObject, parentScope)
