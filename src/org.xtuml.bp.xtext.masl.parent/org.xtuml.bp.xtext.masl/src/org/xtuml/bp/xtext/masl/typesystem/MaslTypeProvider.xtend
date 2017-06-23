@@ -411,10 +411,14 @@ class MaslTypeProvider {
 									
 				}
 			} else {
-				navigate.navigation.maslTypeOfRelationshipNavigation
+				return navigate.navigation.maslTypeOfRelationshipNavigation
 			}
 		} else {
-			navigate.lhs.maslTypeOfExpression
+			val lhsType = navigate.lhs.maslTypeOfExpression
+			if (navigate.order !== null || navigate.reverseOrder !== null)
+				return new SequenceType(lhsType.componentType, true)
+			else 
+				return lhsType
 		}
 	}
 	
