@@ -27,6 +27,33 @@ multi-body editing and persistence are of little importance.
 
 Read [[2.1]](#2.1)
 
+3.1 MASL Xtext editor
+
+We have already implemented a text editor for MASL using Xtext that does
+validation and context sensitive completion using information about the
+structural model elements. The MASL editor gets its data for validation and
+completion from a textual form of the model that is generated from the in memory
+model. The flow goes as follows:
+
+1. User creates or modifies a structural element (e.g. adds a class).  
+2. User double-clicks to open a MASL activity.  
+3. MASL "refresher" runs and produces a textual form of the model in MASL
+   syntax. This `.mod` file is created in the `models/` directory in the
+   project. This file contains in textual form the class that the user created.  
+4. MASL Xtext editor parses the `.mod` file and all of the other activity files
+   (including the file containing the activity that was double-clicked) into an
+   EMF model in memory.  
+5. User types `create object instance x of`.  
+6. The Xtext editor queries the in memory EMF model for class definitions.  
+7. The newly created class is displayed in a context sensitive completion pane.  
+
+As part of the MASL work, an xtUML to MASL exporter (`x2m`) had already been
+created and it made more sense to reuse this capability to leverage the natural
+use case of Xtext where all of the sources are text files parseable by a single
+grammar. It would have introduced much more code and would not have leveraged
+the built-in capabilities of Xtext to implement a direct interface into the
+meta-model.
+
 ### 4. Requirements
 
 Sourced from the SRS [[2.2]](#2.2). See section 3 of the SRS for the full list
@@ -69,43 +96,19 @@ Textual persistence and signature editing will be pushed to a later phase.
 By far the largest technical challenge presented by these requirements is how to
 parse the textual OAL and link to instances of structural xtUML elements.
 
-5.2.1 MASL Xtext editor
+There is no textual persistence format for structural xtUML and therefore there
+is no exporter like the MASL exporter described in 3.1 for xtUML.  For an OAL
+text editor to interface into the model, we will need to go one of two
+directions:
 
-We have already implemented a text editor for MASL using Xtext that does
-validation and context sensitive completion using information about the
-structural model elements. The MASL editor gets its data for validation and
-completion from a textual form of the model that is generated from the in memory
-model. The flow goes as follows:
-
-1. User creates or modifies a structural element (e.g. adds a class).  
-2. User double-clicks to open a MASL activity.  
-3. MASL "refresher" runs and produces a textual form of the model in MASL
-   syntax. This `.mod` file is created in the `models/` directory in the
-   project. This file contains in textual form the class that the user created.  
-4. MASL Xtext editor parses the `.mod` file and all of the other activity files
-   (including the file containing the activity that was double-clicked) into an
-   EMF model in memory.  
-5. User types `create object instance x of`.  
-6. The Xtext editor queries the in memory EMF model for class definitions.  
-7. The newly created class is displayed in a context sensitive completion pane.  
-
-As part of the MASL work, an xtUML to MASL exporter had already been created and
-it made more sense to reuse this capability to leverage the natural use case of
-Xtext where all of the sources are text files parseable by a single grammar. It
-would have introduced much more code and would not have leveraged the built-in
-capabilities of Xtext to implement a direct interface into the meta-model.
-
-5.2.2 What about xtUML?
-
-There is no such exporter for xtUML that converts from in memory OOA of OOA
-instances to a textual format. For an OAL text editor to interface into the
-model, we will need to go one of two directions:
-* Extend the MASL exporter to generate textual versions of the xtUML model for
-  validation, write an xtUML grammar to parse these new structural elements,
-  follow the current MASL pattern.  
-* Extend or implement a direct interface into the OOA of OOA using functions and
-  class operations, integrate this interface into the validation and completion
-  facilities of the OAL Xtext editor.  
+1. Extend the MASL exporter to generate textual versions of the xtUML model for
+   validation  
+   * Write an xtUML grammar to parse these new structural elements  
+   * Follow the current MASL pattern  
+2. Extend or implement a direct interface into the OOA of OOA  
+   * Using functions and class operations  
+   * Integrate this interface into the validation and completion facilities of
+     the OAL Xtext editor.  
 
 5.2.3 xtUML to text exporter
 
@@ -152,6 +155,92 @@ this in MASL with the MASL snippet editor which is able to load and persist MASL
 text from model instances. An OAL snippet editor must be produced which does the
 same for OAL.
 
+5.4 Implement editor enhancements using existing framework
+
+Using the existing OAL editor we can add auto-completion support be designing
+content assistant processors.  These processors are executed with a document
+region where context help was requested.  There shall be at least a keyword
+processor, an invocation processor, and a local variable processor.  Using a
+token scanner we can determine from the given region what processor is required.
+For instance if the token is white space or not a keyword then we shall use the
+keyword processor and local variable processor.  If the token is the '.'
+character or "::" characters we shall use the invocation processor. 
+
+5.4.1 Keyword processor
+
+The keyword processor shall only show during whitespace content assist requests.
+It also must locate the previous token to further filter what is shown.  For
+instance if content assist is requested for whitespace and the previous token is
+a keyword such as select, only one, any or many shall be given as proposals.
+
+In addition to filtering based on the previous token, the proposals shall be
+filtered based on current text.  An example would be sel, which should only show
+select.
+
+5.4.2 Invocation processor
+
+The invocation processor shall only show after the appropriate characters as
+stated above.  The proposal list must be determined by the token preceding the
+character.  Once this information is present its region shall be determined and
+the appropriate Statement class shall be located by matching the region values
+to the statements line number and start position.  With this information the
+available invocations can be determined via the associated variable.
+
+5.4.3 Local variable processor
+
+As stated above this processor shall be used with whitespace requests.  All
+Variable instances shall be considered as long as they are within scope.  This
+will be all values within the current Block and any others until the Body.  No
+variables defined below the current scope shall be considered.
+
+5.4.4 Parameter processor
+
+We should eventually have a parameter processor, which would allow completion of
+required parameters.  This is more work then should be for this issue.  It would
+require the tool to consider which parameters have been used to filter the
+available list.
+
+5.4.5 Comments
+
+When a request is made within any comment token, not proposals shall be given.
+
+5.4.6 Proposal display and completion
+
+The proposal display shall be as such:
+
+<element to be added> - Additional information such as owning element, next page
+xtUML element description
+
+Here is an example for an operation invocation:
+
+Pane 1                                                                      | Pane 2         
+operation(param1: type, param2: type) - Model::Classes::ClassOne::operation   This operation performs this.  
+
+5.4.6.1 Completion
+
+When a user chooses a proposal the tool needs to insert text.  For keywords and
+variables this is simply the keyword or variable name.  For invocations it is a
+bit more complicated.  JDT is very elegant with their completion, allowing
+current edit spots to allow the user to fully complete the assist.  For this
+work I suggest we simply enter something like empty or maybe the parameter
+names.
+
+5.4.7 Declaration and Reference searching
+
+The search infrastructure already considers declaration and reference searching
+in its design.  Further work would have to be completed to make use here.  The
+classes under the Search package of ooaofooa starting with Declarations and
+References would need to be fully implemented.  The engine classes would require
+a processQuery() operation.  This operation needs to search the participants
+associated with the Engine, for each create a match if the signature matches.
+The Query classes would require a configureParticipants and createParticipant
+operations.  Using the same logic as with the content assist processors, we can
+determine what element to search for.  A new context menu entry would be defined
+and present anytime a searchable reference was selected in the editor.  When
+executed the search infrastructure shall be called locating that element by
+signature.  All results will show in the search view as they do with JDT.  Those
+entries already allow traversal to the model element where expected.
+
 ### 6. Work Required
 
 6.1 Editor
@@ -163,7 +252,7 @@ string of activity instances.
 
 6.2 Meta-model interface (exporter option; see section 5.2.3)
 
-6.2.1 The MASL to xtUML exporter must be extended to export generic xtUML models  
+6.2.1 The xtUML to MASL exporter must be extended to export generic xtUML models  
 6.2.2 A textual xtUML format must be defined and discussed with the larger
 community  
 6.2.3 The OAL Xtext grammar must be extended to parse this additional part of
