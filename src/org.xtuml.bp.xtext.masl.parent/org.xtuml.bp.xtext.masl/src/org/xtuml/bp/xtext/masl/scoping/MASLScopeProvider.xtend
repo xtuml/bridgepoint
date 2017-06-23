@@ -66,6 +66,7 @@ import org.xtuml.bp.xtext.masl.masl.behavior.Equality
 import org.xtuml.bp.xtext.masl.masl.behavior.RelationalExp
 import org.xtuml.bp.xtext.masl.masl.behavior.CaseAlternative
 import org.xtuml.bp.xtext.masl.masl.behavior.CaseStatement
+import org.xtuml.bp.xtext.masl.masl.behavior.CreateArgument
 
 /**
  * This class contains custom scoping description.
@@ -239,6 +240,8 @@ class MASLScopeProvider extends AbstractMASLScopeProvider {
 					return getEnumDisambiguationScope(parent.type.maslType, localFeatureScope)
 				CaseAlternative case parent.choices.contains(call):
 					return getEnumDisambiguationScope((parent.eContainer as CaseStatement).value.maslType, localFeatureScope)
+				CreateArgument case call == parent.value:
+					return getEnumDisambiguationScope(parent.attribute.maslType, localFeatureScope)
 			}
 			return localFeatureScope
 		} else {
