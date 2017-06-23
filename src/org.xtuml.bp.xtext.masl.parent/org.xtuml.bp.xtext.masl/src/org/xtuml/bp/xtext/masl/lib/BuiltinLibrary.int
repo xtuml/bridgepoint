@@ -43,8 +43,10 @@ builtin is
 	///////////////////////////////////////////////////////////////////
 	 
 	<T> (T)       'image() return anonymous string;
-	<T> T'parse(s: in anonymous string) return anonymous T;
 	<T> T'parse(s: in anonymous string) return T;
+	<T> T'parse(s: in anonymous string, radix : in anonymous long_integer) return T; 
+	
+	(device)'eof() return anonymous boolean;
 
 	integer'first return integer;
 	integer'last  return integer;
@@ -53,7 +55,6 @@ builtin is
 	<enum E> E'first()             return anonymous long_integer;
 	<enum E> E'last()              return anonymous long_integer;
 	<enum E> E'size()              return anonymous long_integer;
-	<enum E> E'value(p: in anonymous string) return anonymous E;
 	<enum E> E'pos(p: in E)        return anonymous long_integer;
 	<enum E> E'value(p: in anonymous string) return E;
 	<enum E> E'range()             return range of integer;
