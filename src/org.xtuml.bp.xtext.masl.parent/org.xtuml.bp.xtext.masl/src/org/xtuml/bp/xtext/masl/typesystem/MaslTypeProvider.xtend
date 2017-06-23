@@ -4,6 +4,7 @@ import com.google.inject.Inject
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.xtend.lib.annotations.Data
 import org.eclipse.xtext.nodemodel.util.NodeModelUtils
+import org.eclipse.xtext.util.IResourceScopeCache
 import org.xtuml.bp.xtext.masl.MASLExtensions
 import org.xtuml.bp.xtext.masl.masl.behavior.ActionCall
 import org.xtuml.bp.xtext.masl.masl.behavior.AdditiveExp
@@ -96,7 +97,6 @@ import org.xtuml.bp.xtext.masl.masl.types.TypeDeclaration
 import org.xtuml.bp.xtext.masl.masl.types.UnconstrainedArrayDefinition
 
 import static org.xtuml.bp.xtext.masl.typesystem.BuiltinType.*
-import org.eclipse.xtext.util.IResourceScopeCache
 
 class MaslTypeProvider {
 	
@@ -504,14 +504,23 @@ class MaslTypeProvider {
 	
 	private def MaslType getMaslTypeOfCharacteristicCall(CharacteristicCall call) {
 		val characteristic = call.characteristic
-		val returnType = characteristic.returnType.maslTypeOfTypeReference
+		val declaredReceiverType = characteristic.receiverType.maslTypeOfTypeReference
+		val declaredReturnType = characteristic.returnType.maslTypeOfTypeReference
+		val bareReceiverType = call.receiver.maslType
+		if(declaredReturnType == declaredReceiverType) {
+			if(call.characteristic.isForValue) 
+				return bareReceiverType
+			else 
+				return (bareReceiverType as TypeOfType).type 				
+		} 
+		val returnType = declaredReturnType 
 		val typeParams = call.characteristic.typeParams
 		switch typeParams.size {
 			case 0:
 				return returnType
 			case 1: {
 				val replace = new TypeParameterType(typeParams.head.name, typeParams.head.enum, true)
-				val receiverType = call.receiver.maslType.stripName
+				val receiverType = bareReceiverType.stripName
 				val replacement = switch receiverType {
 					TypeOfType:
 						receiverType.type
