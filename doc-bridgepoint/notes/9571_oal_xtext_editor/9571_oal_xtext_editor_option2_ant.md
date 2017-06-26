@@ -65,22 +65,22 @@ mentioned in section 1.
 
 4.1 Basic requirements
 
-| ID  | Description                                                                                                        |
-|:----|:-------------------------------------------------------------------------------------------------------------------|
-| B1  | All BridgePoint action homes shall support the functionality described by the other requirements of this document. |
+| ID | Description                                                                                                        |
+|:---|:-------------------------------------------------------------------------------------------------------------------|
+| B1 | All BridgePoint action homes shall support the functionality described by the other requirements of this document. |
 
 4.2 Activity editor requirements
 
-| ID   | Description                                                                                                                                                  |
-|:-----|:-------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| AE1  | OAL keywords are highlighted when editing an OAL activity.                                                                                                   |
-| AE2  | When editing an OAL activity each user-defined identifier within the activity is validated to ensure it is legal within the context in which it is used.  Invalid identifiers are marked, and a message explaining the error is provided. |
-| AE3  | Context-sensitive completion assistance for user-defined identifiers is provided while editing OAL activities.                                               |
-| AE5  | Problem markers shall be created in the problems view for errors OAL editors present in the activity editor.                                                 |
-| AE6  | Opening a problem marker in the problems view shall open the activity editor and position the cursor at the error.                                           |
-| AE7  | Signatures shall be viewable in the activity editor. This includes all action bodies that have a signature. Examples: function, operation, etc.              |
-| AE8  | When a variable representing an OAL instance is selected in the editor, a CME shall be present that allows the user to find the declaration of the instance. |
-| AE9  | When a declaration is found using Find Declaration, the user shall be able to select it to navigate to the declaration.                                      |
+| ID  | Description                                                                                                                                                  |
+|:----|:-------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| AE1 | OAL keywords are highlighted when editing an OAL activity.                                                                                                   |
+| AE2 | When editing an OAL activity each user-defined identifier within the activity is validated to ensure it is legal within the context in which it is used.  Invalid identifiers are marked, and a message explaining the error is provided. |
+| AE3 | Context-sensitive completion assistance for user-defined identifiers is provided while editing OAL activities.                                               |
+| AE5 | Problem markers shall be created in the problems view for errors OAL editors present in the activity editor.                                                 |
+| AE6 | Opening a problem marker in the problems view shall open the activity editor and position the cursor at the error.                                           |
+| AE7 | Signatures shall be viewable in the activity editor. This includes all action bodies that have a signature. Examples: function, operation, etc.              |
+| AE8 | When a variable representing an OAL instance is selected in the editor, a CME shall be present that allows the user to find the declaration of the instance. |
+| AE9 | When a declaration is found using Find Declaration, the user shall be able to select it to navigate to the declaration.                                      |
 
 ### 5. Analysis
 
@@ -110,7 +110,7 @@ directions:
    * Integrate this interface into the validation and completion facilities of
      the OAL Xtext editor.  
 
-5.2.3 xtUML to text exporter
+5.2.1 xtUML to text exporter
 
 We already have a good deal of code in place which can take compatible xtUML
 models and generate MASL from them. This code could be extended to export any
@@ -118,20 +118,24 @@ xtUML model to a MASL-like textual format. Careful consideration and
 consultation from interested parties would be an important step if this path
 were taken.
 
-5.2.3.1 Xtext grammar
+5.2.1.1 Xtext grammar
 
 We already have an Xtext compatible grammar which can parse OAL bodies, however
 we will need to refine it and add production rules which can parse the newly
 created textual xtUML syntax discussed above.
 
-5.2.3.2 Validation, context assistance, etc.
+5.2.1.2 Validation, context assistance, etc.
 
 More work would have to be done to put into place the proper validation of OAL
 specific semantic rules including the handling of types. Context assistance code
 would need to be introduced. We have done this before with the MASL editor and
 have a good idea of the size of this undertaking.
 
-5.2.4 Direct interface
+Detailed information about the sizing of the original MASL editor to help with
+sizing of an OAL editor can be seen in an internal issue
+[here](https://support.onefact.net/issues/9543#note-9)
+
+5.2.2 Direct interface
 
 A large body of OAL validation functions already exist in the OOA of OOA which
 are automatically inserted into the ANTLR parser which is generated. A similar
@@ -145,6 +149,21 @@ and connectors while maintaining a loose coupling between the models. An
 interface similar to this one could be implemented such that the Xtext editor
 can query arbitrary lists of applicable elements without knowledge of the shape
 of the meta-model itself.
+
+5.2.3 Visibility and IPRs
+
+In each of the two options for interface, visibility must be considered. For
+the extended exporter option (5.2.1), some sort of containment syntax will need
+to be introduced to represent the packages for visibility purposes.
+
+IPRs must also be considered. In the MASL work, IPRs are not supported for
+elements in MASL activities. Instead interface (`.int`) files must be copied
+into the `models/` directory. This type of solution is unacceptable for this
+work. One option is to exend the exporter (5.2.1) to generate referred to
+elements into some sort of interface file.
+
+For the direct interface option (5.2.2), visibility and IPRs will be handled
+naturally because OAL functions will be used to access the elements.
 
 5.3 Snippet editor
 
@@ -241,16 +260,42 @@ executed the search infrastructure shall be called locating that element by
 signature.  All results will show in the search view as they do with JDT.  Those
 entries already allow traversal to the model element where expected.
 
+5.5 Verifier
+
+Any path that is taken must consider the ability to single step using verifier.
+Since OAL instances are still parsed by the OAL parser from the
+`Action_Semantics` string, no extra work must be done to provide line and column
+information to verifier. The `org.xtuml.debug.ui` plugin handles source location
+and will not care what the underlying editor is.  Since the parser will continue
+to populate the model data debugging shall continue to work.
+
+5.6 Find declaration and find references
+
+To satisfy the requirements, a mechanism must be introduced to locate
+declarations and references of model elements.
+
+5.6.1 Find declaration
+
+For the find declaration functionality, a new CME would have to be introduced in
+the OAL editor when an identifier is selected. A mapper would need to be
+implemented which could map a model element reference identifier to its
+referenced model element. We have already created such a mapper for MASL which
+was used with problem markers in the snippet editor. We would need to extend
+this mechanism to work for OAL. Once the reference is mapped to the declared
+model element, `handleOpen` can be invoked to reveal the element in the proper
+view.
+
 ### 6. Work Required
 
-6.1 Editor
+6.1 Editor (B1, AE1, AE2, AE5, AE6, AE7)
 
 6.1.1 An Xtext grammar must be produced which can parse OAL activities.  
 6.1.2 The existing code in this area must be extended and tested.  
-6.2.3 A snippet editor for OAL must be introduced to edit the `Action_Semantics`
+6.1.3 A snippet editor for OAL must be introduced to edit the `Action_Semantics`
 string of activity instances.  
+6.1.4 Code must be introduced to link problem markers to the snippet editor.  
 
-6.2 Meta-model interface (exporter option; see section 5.2.3)
+6.2 Meta-model interface (exporter option; see section 5.2.1) (AE3)
 
 6.2.1 The xtUML to MASL exporter must be extended to export generic xtUML models  
 6.2.2 A textual xtUML format must be defined and discussed with the larger
@@ -260,7 +305,7 @@ the language
 6.2.4 Validation including type system and context assistance must be
 implemented in Xtext  
 
-6.3 Meta-model interface (direct interface option; see section 5.2.4)
+6.3 Meta-model interface (direct interface option; see section 5.2.2) (AE3)
 
 6.3.1 The OAL validation functions must be analyzed and properly
 extended/adapted to work with the Xtext grammar produced in item 6.1.1  
@@ -270,6 +315,12 @@ elements to use for an interface for context assistance
 above (6.2.4), or some other interface  
 6.3.4 The context assistance interface must be integrated into the Xtext editor  
 described 
+
+6.4 Find declarations and find references (AE8, AE9)
+
+6.4.1 A mapper mechanism must be introduced to map OAL identifiers to xtUML
+model elements.  
+6.4.2 Code must be written to invoke `handleOpen` for the appropriate view.  
 
 ### 7. Acceptance Test
 
