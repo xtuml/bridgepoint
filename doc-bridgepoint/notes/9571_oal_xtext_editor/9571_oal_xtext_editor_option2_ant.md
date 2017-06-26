@@ -269,22 +269,6 @@ information to verifier. The `org.xtuml.debug.ui` plugin handles source location
 and will not care what the underlying editor is.  Since the parser will continue
 to populate the model data debugging shall continue to work.
 
-5.6 Find declaration and find references
-
-To satisfy the requirements, a mechanism must be introduced to locate
-declarations and references of model elements.
-
-5.6.1 Find declaration
-
-For the find declaration functionality, a new CME would have to be introduced in
-the OAL editor when an identifier is selected. A mapper would need to be
-implemented which could map a model element reference identifier to its
-referenced model element. We have already created such a mapper for MASL which
-was used with problem markers in the snippet editor. We would need to extend
-this mechanism to work for OAL. Once the reference is mapped to the declared
-model element, `handleOpen` can be invoked to reveal the element in the proper
-view.
-
 ### 6. Work Required
 
 6.1 Editor (B1, AE1, AE2, AE5, AE6, AE7)
@@ -314,7 +298,7 @@ elements to use for an interface for context assistance
 6.3.3 Context assistance must be implemented using an interface as described
 above (6.2.4), or some other interface  
 6.3.4 The context assistance interface must be integrated into the Xtext editor  
-described 
+descrxxxxx
 
 6.4 Find declarations and find references (AE8, AE9)
 
