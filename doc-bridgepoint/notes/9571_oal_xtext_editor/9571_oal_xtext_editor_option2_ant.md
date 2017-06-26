@@ -298,7 +298,7 @@ elements to use for an interface for context assistance
 6.3.3 Context assistance must be implemented using an interface as described
 above (6.2.4), or some other interface  
 6.3.4 The context assistance interface must be integrated into the Xtext editor  
-descrxxxxx
+described.  
 
 6.4 Find declarations and find references (AE8, AE9)
 
