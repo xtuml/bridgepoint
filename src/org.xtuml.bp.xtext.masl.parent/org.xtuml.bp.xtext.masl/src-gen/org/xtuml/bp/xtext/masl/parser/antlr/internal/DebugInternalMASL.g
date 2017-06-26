@@ -140,6 +140,8 @@ ruleBuiltinLibraryDefinition:
 	(
 		ruleBuiltinTypeDeclaration
 		    |
+		ruleExceptionDeclaration
+		    |
 		ruleCharacteristic
 	)*
 	'end'
@@ -1536,6 +1538,7 @@ ruleNavigateExpression:
 			(
 				'('
 				ruleFindCondition
+				?
 				')'
 			)?
 			    |
