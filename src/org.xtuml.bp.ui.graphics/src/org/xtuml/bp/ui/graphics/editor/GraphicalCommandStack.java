@@ -30,7 +30,6 @@ import org.eclipse.ui.PlatformUI;
 
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.common.Transaction;
-import org.xtuml.bp.core.editors.ModelEditor;
 import org.xtuml.bp.ui.canvas.Cl_c;
 import org.xtuml.bp.ui.graphics.commands.GraphicalCloneCommand;
 import org.xtuml.bp.ui.graphics.commands.IExecutionValidationCommand;
@@ -71,7 +70,7 @@ public class GraphicalCommandStack extends CommandStack {
 			if (transaction == null) {
 				((ModelEditor) PlatformUI.getWorkbench()
 						.getActiveWorkbenchWindow().getActivePage()
-						.getActiveEditor()).refresh();
+						.getActiveEditor()).getGraphicalEditor().refresh();
 			}
 		} catch (Exception e) {
 			Cl_c.Canceltransaction(fModelElement, transaction);

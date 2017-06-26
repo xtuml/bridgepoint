@@ -23,14 +23,28 @@
 package org.xtuml.bp.ui.text.editor.oal;
 
 import org.eclipse.jface.text.IDocument;
+import org.eclipse.jface.text.IRegion;
+import org.eclipse.jface.text.ITextViewer;
+import org.eclipse.jface.text.contentassist.ContentAssistant;
+import org.eclipse.jface.text.contentassist.ICompletionProposal;
+import org.eclipse.jface.text.contentassist.IContentAssistProcessor;
+import org.eclipse.jface.text.contentassist.IContentAssistant;
+import org.eclipse.jface.text.contentassist.IContextInformation;
+import org.eclipse.jface.text.contentassist.IContextInformationValidator;
 import org.eclipse.jface.text.presentation.IPresentationReconciler;
 import org.eclipse.jface.text.presentation.PresentationReconciler;
 import org.eclipse.jface.text.rules.DefaultDamagerRepairer;
+import org.eclipse.jface.text.rules.ICharacterScanner;
+import org.eclipse.jface.text.rules.IToken;
 import org.eclipse.jface.text.rules.ITokenScanner;
 import org.eclipse.jface.text.rules.RuleBasedScanner;
 import org.eclipse.jface.text.source.ISourceViewer;
 import org.eclipse.jface.text.source.SourceViewerConfiguration;
-
+import org.eclipse.jface.text.templates.Template;
+import org.eclipse.jface.text.templates.TemplateCompletionProcessor;
+import org.eclipse.jface.text.templates.TemplateContextType;
+import org.eclipse.swt.graphics.Image;
+import org.xtuml.bp.ui.text.OALEditorPlugin;
 import org.xtuml.bp.ui.text.editor.SyntaxHighlightingPreferences;
 
 public class OALEditorConfiguration extends SourceViewerConfiguration {
@@ -82,6 +96,49 @@ public class OALEditorConfiguration extends SourceViewerConfiguration {
 
 		}
 		return reconciler;
+	}
+
+	public class OALContentAssistProcessor extends TemplateCompletionProcessor {
+
+		@Override
+		protected Template[] getTemplates(String contextTypeId) {
+			if(contextTypeId.equals("__keyword")) {
+				return new Template[] { new Template("Test", "Test", "__keyword", "true", true)};
+			}
+			return new Template[0];
+		}
+
+		@Override
+		protected TemplateContextType getContextType(ITextViewer viewer, IRegion region) {
+			getActionLanguageScanner().setRange(viewer.getDocument(), region.getOffset(), region.getLength());
+	        SyntaxHighlightingPreferences prefs = 
+	                OALEditorPlugin.getDefaultOALPlugin().getSyntaxHighlightingPreferences();        
+	        IToken keyWord = prefs.getDefaultToken(OALTokenTypes.TOKEN_TYPE_keyword);
+	        OALKeywordRule rule = OALKeywordRule.createRule(prefs, keyWord);
+	        IToken evaluate = rule.evaluate((ICharacterScanner) getActionLanguageScanner());
+	        if(!evaluate.isEOF() && !evaluate.isOther() && !evaluate.isUndefined() && !evaluate.isWhitespace()) {
+	        	// found what we are looking for
+	        	System.out.println();
+	        }
+			return new TemplateContextType("__keyword");
+		}
+
+		@Override
+		protected Image getImage(Template template) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+		
+	}
+	
+	@Override
+	public IContentAssistant getContentAssistant(ISourceViewer sourceViewer) {
+	    ContentAssistant ca = new ContentAssistant();
+	    IContentAssistProcessor pr = new OALContentAssistProcessor();
+	    ca.setContentAssistProcessor(pr, "__keyword");
+	    ca.setContentAssistProcessor(pr, IDocument.DEFAULT_CONTENT_TYPE);
+	    ca.setInformationControlCreator(getInformationControlCreator(sourceViewer));
+	    return ca;
 	}
 
 }

@@ -32,9 +32,9 @@ import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.PlatformUI;
 
 import org.xtuml.bp.core.common.ClassQueryInterface_c;
-import org.xtuml.bp.core.editors.ModelEditor;
 import org.xtuml.bp.ui.canvas.Layer_c;
 import org.xtuml.bp.ui.graphics.editor.GraphicalEditor;
+import org.xtuml.bp.ui.graphics.editor.ModelEditor;
 import org.xtuml.bp.ui.graphics.layers.LayerUtils;
 import org.xtuml.bp.ui.graphics.layers.UserDefinedLayer;
 import org.xtuml.bp.ui.graphics.parts.DiagramEditPart;
@@ -49,11 +49,11 @@ public class DynamicLayersContributionItem extends ContributionItem {
 		// part is selected
 		IEditorPart activeEditor = PlatformUI.getWorkbench()
 				.getActiveWorkbenchWindow().getActivePage().getActiveEditor();
-		if(activeEditor == null || !(activeEditor instanceof ModelEditor) || !(((ModelEditor) activeEditor).getActivePart() instanceof GraphicalEditor)) {
+		if(activeEditor == null || !(activeEditor instanceof ModelEditor)) {
 			return;
 		}
-		final GraphicalEditor editor = (GraphicalEditor) ((ModelEditor) activeEditor).getActivePart()
-				;
+		final GraphicalEditor editor = ((ModelEditor) activeEditor)
+				.getGraphicalEditor();
 		if(editor == null || editor.getCanvas().getMenu() != menu) {
 			// only support the graphical menu
 			return;

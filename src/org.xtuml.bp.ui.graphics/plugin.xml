@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse version="3.4"?>
 <plugin>
+   <extension-point id="org.xtuml.bp.ui.graphics.editorTab" name="Graphical Editor Tab" schema="schema/editorTab.exsd"/>
+   <extension
+         point="org.eclipse.ui.editors">
+      <editor
+            class="org.xtuml.bp.ui.graphics.editor.ModelEditor"
+            contributorClass="org.xtuml.bp.ui.graphics.actions.GraphicsActionBarContributor"
+            default="true"
+            extensions="xtuml"
+            icon="icons/green-bp.gif"
+            id="org.xtuml.bp.ui.graphics.editor.ModelEditor"
+            name="xtUML Graphical Editor">
+      </editor>
+   </extension>
    <!--
                                       **** README ****
 	This section defines the graphics pei data. It populates the bp.ui.canvas/ooaofrgaphics model. The
@@ -115,7 +128,7 @@
          name="Diagram Editor"
          point="org.xtuml.bp.core.editors">
       <editor
-            class="org.xtuml.bp.ui.graphics.editor.GraphicalEditor"
+            class="org.xtuml.bp.ui.graphics.editor.ModelEditor"
             input="org.xtuml.bp.ui.graphics.editor.GraphicalEditorInput">
          <symbol
                class="org.xtuml.bp.core.ExternalEntity_c"
@@ -3322,15 +3335,6 @@
                type="org.eclipse.core.resources.IFile">
          </adapter>
       </factory>
-   </extension>
-   <extension
-         point="org.xtuml.bp.core.editors.editorTab">
-      <EditorTab
-            EditorTabFactory="org.xtuml.bp.ui.graphics.factories.GraphicalTabFactory"
-            EditorTitle="Graphical Editor"
-            Input="org.xtuml.bp.core.common.NonRootModelElement"
-            focusBased="true">
-      </EditorTab>
    </extension>
    
 

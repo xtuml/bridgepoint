@@ -25,7 +25,6 @@ import java.util.ResourceBundle;
 
 import org.eclipse.jface.viewers.BaseLabelProvider;
 import org.eclipse.jface.viewers.DelegatingStyledCellLabelProvider.IStyledLabelProvider;
-import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.jface.viewers.ITableLabelProvider;
 import org.eclipse.jface.viewers.StyledString;
 import org.eclipse.swt.graphics.Image;
@@ -37,7 +36,7 @@ import org.xtuml.bp.core.inspector.ModelInspector;
 import org.xtuml.bp.core.inspector.ObjectElement;
 import org.xtuml.bp.core.ui.cells.CellModifierProvider;
 
-public class MetaModelLabelProvider extends BaseLabelProvider implements ILabelProvider, ITableLabelProvider, IStyledLabelProvider {
+public class MetaModelLabelProvider extends BaseLabelProvider implements ITableLabelProvider, IStyledLabelProvider {
 	
 	@Override
 	public Image getColumnImage(Object element, int index) {
@@ -193,9 +192,4 @@ public class MetaModelLabelProvider extends BaseLabelProvider implements ILabelP
 		return getColumnImage(element, 0);
 	}
 
-	@Override
-	public String getText(Object element) {
-		return getColumnText(element, 0);
-	}
-	
 }

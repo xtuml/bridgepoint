@@ -150,7 +150,6 @@ import org.xtuml.bp.core.common.PersistenceManager;
 import org.xtuml.bp.core.common.Transaction;
 import org.xtuml.bp.core.common.TransactionException;
 import org.xtuml.bp.core.common.TransactionManager;
-import org.xtuml.bp.core.editors.ModelEditor;
 import org.xtuml.bp.core.ui.RenameAction;
 import org.xtuml.bp.core.ui.Selection;
 import org.xtuml.bp.core.util.EditorUtil;
@@ -1505,8 +1504,10 @@ public class GraphicalEditor extends GraphicalEditorWithFlyoutPalette implements
 				.getEditorReferences();
 		for (int i = 0; i < editorReferences.length; i++) {
 			IEditorPart editor = editorReferences[i].getEditor(false);
-			if (editor instanceof GraphicalEditor) {
-				((GraphicalEditor) editor).redraw();
+			if (editor instanceof ModelEditor) {
+				GraphicalEditor gEditor = ((ModelEditor) editor)
+						.getGraphicalEditor();
+				gEditor.redraw();
 			}
 		}
 	}
