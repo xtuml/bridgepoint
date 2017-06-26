@@ -47,6 +47,10 @@ The following scripts have been added and the howtos updated accordingly.  They 
 
 Testing showed that our build order was not being set perfectly, when running a Build All with the maven scripts this was causing test projects to fail builds.  The build order is modified to prevent this.  
 
+6.4 Update mc-java prebuilder  
+
+The command line build does not prevent prebuild when unnecessary.  The reason is that the logic in the mc builders to handle such a situation is only present when the build function is called.  This is only called when in the eclipse UI.  To handle this the readyBuildArea function is called from the mc-java prebuilder.  To handle the call to this function the project being built is captured and referenced.  If the project variable is null the existing getProject() call is used.  
+
 ### 7. Unit Test
 
 See [[2.2]](#2.2).  

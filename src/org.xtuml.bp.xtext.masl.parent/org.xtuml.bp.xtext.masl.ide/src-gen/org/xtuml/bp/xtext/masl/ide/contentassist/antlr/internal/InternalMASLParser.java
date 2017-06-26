@@ -14057,11 +14057,11 @@ public class InternalMASLParser extends AbstractInternalContentAssistParser {
                 {
                 int LA6_1 = input.LA(2);
 
-                if ( (LA6_1==Exception) ) {
-                    alt6=2;
-                }
-                else if ( (LA6_1==Subtype||LA6_1==Type) ) {
+                if ( (LA6_1==Subtype||LA6_1==Type) ) {
                     alt6=1;
+                }
+                else if ( (LA6_1==Exception) ) {
+                    alt6=2;
                 }
                 else {
                     if (state.backtracking>0) {state.failed=true; return ;}
@@ -14076,11 +14076,11 @@ public class InternalMASLParser extends AbstractInternalContentAssistParser {
                 {
                 int LA6_2 = input.LA(2);
 
-                if ( (LA6_2==Subtype||LA6_2==Type) ) {
-                    alt6=1;
-                }
-                else if ( (LA6_2==Exception) ) {
+                if ( (LA6_2==Exception) ) {
                     alt6=2;
+                }
+                else if ( (LA6_2==Subtype||LA6_2==Type) ) {
+                    alt6=1;
                 }
                 else {
                     if (state.backtracking>0) {state.failed=true; return ;}
@@ -14102,11 +14102,11 @@ public class InternalMASLParser extends AbstractInternalContentAssistParser {
                 {
                 int LA6_4 = input.LA(2);
 
-                if ( (LA6_4==Dictionary||LA6_4==Instance||LA6_4==Sequence||LA6_4==Array||LA6_4==Bag||LA6_4==Set||LA6_4==RULE_ID) ) {
-                    alt6=3;
-                }
-                else if ( (LA6_4==Builtin) ) {
+                if ( (LA6_4==Builtin) ) {
                     alt6=1;
+                }
+                else if ( (LA6_4==Dictionary||LA6_4==Instance||LA6_4==Sequence||LA6_4==Array||LA6_4==Bag||LA6_4==Set||LA6_4==RULE_ID) ) {
+                    alt6=3;
                 }
                 else {
                     if (state.backtracking>0) {state.failed=true; return ;}
@@ -15232,11 +15232,11 @@ public class InternalMASLParser extends AbstractInternalContentAssistParser {
                     if ( (LA16_3==RULE_ID) ) {
                         int LA16_5 = input.LA(4);
 
-                        if ( (LA16_5==EOF||LA16_5==ColonEqualsSign||LA16_5==Semicolon) ) {
-                            alt16=1;
-                        }
-                        else if ( (LA16_5==LeftParenthesis) ) {
+                        if ( (LA16_5==LeftParenthesis) ) {
                             alt16=2;
+                        }
+                        else if ( (LA16_5==EOF||LA16_5==ColonEqualsSign||LA16_5==Semicolon) ) {
+                            alt16=1;
                         }
                         else {
                             if (state.backtracking>0) {state.failed=true; return ;}
@@ -15255,16 +15255,16 @@ public class InternalMASLParser extends AbstractInternalContentAssistParser {
                     }
                     }
                     break;
+                case LeftParenthesis:
+                    {
+                    alt16=2;
+                    }
+                    break;
                 case EOF:
                 case ColonEqualsSign:
                 case Semicolon:
                     {
                     alt16=1;
-                    }
-                    break;
-                case LeftParenthesis:
-                    {
-                    alt16=2;
                     }
                     break;
                 default:
@@ -15365,14 +15365,14 @@ public class InternalMASLParser extends AbstractInternalContentAssistParser {
                     alt17=3;
                     }
                     break;
-                case Dictionary:
-                    {
-                    alt17=5;
-                    }
-                    break;
                 case Bag:
                     {
                     alt17=4;
+                    }
+                    break;
+                case Dictionary:
+                    {
+                    alt17=5;
                     }
                     break;
                 case Array:
@@ -15785,10 +15785,9 @@ public class InternalMASLParser extends AbstractInternalContentAssistParser {
             case Assigner:
                 {
                 switch ( input.LA(2) ) {
-                case Start:
-                case State:
+                case Transition:
                     {
-                    alt20=5;
+                    alt20=6;
                     }
                     break;
                 case Event:
@@ -15796,9 +15795,10 @@ public class InternalMASLParser extends AbstractInternalContentAssistParser {
                     alt20=4;
                     }
                     break;
-                case Transition:
+                case Start:
+                case State:
                     {
-                    alt20=6;
+                    alt20=5;
                     }
                     break;
                 default:
@@ -16060,13 +16060,10 @@ public class InternalMASLParser extends AbstractInternalContentAssistParser {
             if ( (LA21_0==RULE_ID) ) {
                 int LA21_1 = input.LA(2);
 
-                if ( (LA21_1==EOF||LA21_1==RightParenthesis||LA21_1==Comma) ) {
-                    alt21=3;
-                }
-                else if ( (LA21_1==FullStop) ) {
-                    int LA21_3 = input.LA(3);
+                if ( (LA21_1==FullStop) ) {
+                    int LA21_2 = input.LA(3);
 
-                    if ( (LA21_3==RULE_ID) ) {
+                    if ( (LA21_2==RULE_ID) ) {
                         int LA21_4 = input.LA(4);
 
                         if ( (LA21_4==EOF||LA21_4==RightParenthesis||LA21_4==Comma) ) {
@@ -16086,10 +16083,13 @@ public class InternalMASLParser extends AbstractInternalContentAssistParser {
                     else {
                         if (state.backtracking>0) {state.failed=true; return ;}
                         NoViableAltException nvae =
-                            new NoViableAltException("", 21, 3, input);
+                            new NoViableAltException("", 21, 2, input);
 
                         throw nvae;
                     }
+                }
+                else if ( (LA21_1==EOF||LA21_1==RightParenthesis||LA21_1==Comma) ) {
+                    alt21=3;
                 }
                 else {
                     if (state.backtracking>0) {state.failed=true; return ;}
@@ -17051,11 +17051,11 @@ public class InternalMASLParser extends AbstractInternalContentAssistParser {
             if ( (LA30_0==RULE_ID) ) {
                 int LA30_1 = input.LA(2);
 
-                if ( (LA30_1==FullStop) ) {
-                    alt30=2;
-                }
-                else if ( (LA30_1==EOF||LA30_1==Reverse_ordered_by||LA30_1==Intersection||LA30_1==Dictionary||LA30_1==Ordered_by||LA30_1==Anonymous||LA30_1==Find_only||(LA30_1>=Disunion && LA30_1<=Find_one)||(LA30_1>=Generate && LA30_1<=Instance)||LA30_1==Sequence||LA30_1==Console||(LA30_1>=FILE && LA30_1<=LINE)||LA30_1==Create||LA30_1==Not_in||LA30_1==Array||(LA30_1>=Delay && LA30_1<=Delta)||(LA30_1>=False && LA30_1<=Flush)||LA30_1==Range||(LA30_1>=Union && LA30_1<=Using)||LA30_1==Endl||LA30_1==Find||LA30_1==Loop||(LA30_1>=Null && LA30_1<=True)||(LA30_1>=With && LA30_1<=GreaterThanSignGreaterThanSignGreaterThanSign)||(LA30_1>=And && LA30_1<=Bag)||LA30_1==Mod||(LA30_1>=Rem && LA30_1<=SolidusEqualsSign)||(LA30_1>=ColonEqualsSign && LA30_1<=LessThanSignEqualsSign)||(LA30_1>=EqualsSignGreaterThanSign && LA30_1<=At)||LA30_1==Is||LA30_1==Or||LA30_1==Ampersand||(LA30_1>=LeftParenthesis && LA30_1<=HyphenMinus)||LA30_1==Solidus||(LA30_1>=Semicolon && LA30_1<=GreaterThanSign)||(LA30_1>=RightSquareBracket && LA30_1<=RULE_TIMESTAMP)) ) {
+                if ( (LA30_1==EOF||LA30_1==Reverse_ordered_by||LA30_1==Intersection||LA30_1==Dictionary||LA30_1==Ordered_by||LA30_1==Anonymous||LA30_1==Find_only||(LA30_1>=Disunion && LA30_1<=Find_one)||(LA30_1>=Generate && LA30_1<=Instance)||LA30_1==Sequence||LA30_1==Console||(LA30_1>=FILE && LA30_1<=LINE)||LA30_1==Create||LA30_1==Not_in||LA30_1==Array||(LA30_1>=Delay && LA30_1<=Delta)||(LA30_1>=False && LA30_1<=Flush)||LA30_1==Range||(LA30_1>=Union && LA30_1<=Using)||LA30_1==Endl||LA30_1==Find||LA30_1==Loop||(LA30_1>=Null && LA30_1<=True)||(LA30_1>=With && LA30_1<=GreaterThanSignGreaterThanSignGreaterThanSign)||(LA30_1>=And && LA30_1<=Bag)||LA30_1==Mod||(LA30_1>=Rem && LA30_1<=SolidusEqualsSign)||(LA30_1>=ColonEqualsSign && LA30_1<=LessThanSignEqualsSign)||(LA30_1>=EqualsSignGreaterThanSign && LA30_1<=At)||LA30_1==Is||LA30_1==Or||LA30_1==Ampersand||(LA30_1>=LeftParenthesis && LA30_1<=HyphenMinus)||LA30_1==Solidus||(LA30_1>=Semicolon && LA30_1<=GreaterThanSign)||(LA30_1>=RightSquareBracket && LA30_1<=RULE_TIMESTAMP)) ) {
                     alt30=1;
+                }
+                else if ( (LA30_1==FullStop) ) {
+                    alt30=2;
                 }
                 else {
                     if (state.backtracking>0) {state.failed=true; return ;}
@@ -37396,10 +37396,7 @@ public class InternalMASLParser extends AbstractInternalContentAssistParser {
             else if ( (LA108_0==RULE_ID) ) {
                 int LA108_2 = input.LA(2);
 
-                if ( (LA108_2==Of) ) {
-                    alt108=1;
-                }
-                else if ( (LA108_2==ColonColon) ) {
+                if ( (LA108_2==ColonColon) ) {
                     int LA108_4 = input.LA(3);
 
                     if ( (LA108_4==RULE_ID) ) {
@@ -37409,6 +37406,9 @@ public class InternalMASLParser extends AbstractInternalContentAssistParser {
                             alt108=1;
                         }
                     }
+                }
+                else if ( (LA108_2==Of) ) {
+                    alt108=1;
                 }
             }
             switch (alt108) {
@@ -78111,7 +78111,7 @@ public class InternalMASLParser extends AbstractInternalContentAssistParser {
             // InternalMASLParser.g:23492:1: ( rule__NavigateExpression__Group_1_1_0_2__0__Impl rule__NavigateExpression__Group_1_1_0_2__1 )
             // InternalMASLParser.g:23493:2: rule__NavigateExpression__Group_1_1_0_2__0__Impl rule__NavigateExpression__Group_1_1_0_2__1
             {
-            pushFollow(FOLLOW_122);
+            pushFollow(FOLLOW_145);
             rule__NavigateExpression__Group_1_1_0_2__0__Impl();
 
             state._fsp--;
@@ -78190,7 +78190,7 @@ public class InternalMASLParser extends AbstractInternalContentAssistParser {
             // InternalMASLParser.g:23519:1: ( rule__NavigateExpression__Group_1_1_0_2__1__Impl rule__NavigateExpression__Group_1_1_0_2__2 )
             // InternalMASLParser.g:23520:2: rule__NavigateExpression__Group_1_1_0_2__1__Impl rule__NavigateExpression__Group_1_1_0_2__2
             {
-            pushFollow(FOLLOW_36);
+            pushFollow(FOLLOW_145);
             rule__NavigateExpression__Group_1_1_0_2__1__Impl();
 
             state._fsp--;
@@ -78219,29 +78219,40 @@ public class InternalMASLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__NavigateExpression__Group_1_1_0_2__1__Impl"
-    // InternalMASLParser.g:23527:1: rule__NavigateExpression__Group_1_1_0_2__1__Impl : ( ( rule__NavigateExpression__WhereAssignment_1_1_0_2_1 ) ) ;
+    // InternalMASLParser.g:23527:1: rule__NavigateExpression__Group_1_1_0_2__1__Impl : ( ( rule__NavigateExpression__WhereAssignment_1_1_0_2_1 )? ) ;
     public final void rule__NavigateExpression__Group_1_1_0_2__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalMASLParser.g:23531:1: ( ( ( rule__NavigateExpression__WhereAssignment_1_1_0_2_1 ) ) )
-            // InternalMASLParser.g:23532:1: ( ( rule__NavigateExpression__WhereAssignment_1_1_0_2_1 ) )
+            // InternalMASLParser.g:23531:1: ( ( ( rule__NavigateExpression__WhereAssignment_1_1_0_2_1 )? ) )
+            // InternalMASLParser.g:23532:1: ( ( rule__NavigateExpression__WhereAssignment_1_1_0_2_1 )? )
             {
-            // InternalMASLParser.g:23532:1: ( ( rule__NavigateExpression__WhereAssignment_1_1_0_2_1 ) )
-            // InternalMASLParser.g:23533:2: ( rule__NavigateExpression__WhereAssignment_1_1_0_2_1 )
+            // InternalMASLParser.g:23532:1: ( ( rule__NavigateExpression__WhereAssignment_1_1_0_2_1 )? )
+            // InternalMASLParser.g:23533:2: ( rule__NavigateExpression__WhereAssignment_1_1_0_2_1 )?
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getNavigateExpressionAccess().getWhereAssignment_1_1_0_2_1()); 
             }
-            // InternalMASLParser.g:23534:2: ( rule__NavigateExpression__WhereAssignment_1_1_0_2_1 )
-            // InternalMASLParser.g:23534:3: rule__NavigateExpression__WhereAssignment_1_1_0_2_1
-            {
-            pushFollow(FOLLOW_2);
-            rule__NavigateExpression__WhereAssignment_1_1_0_2_1();
+            // InternalMASLParser.g:23534:2: ( rule__NavigateExpression__WhereAssignment_1_1_0_2_1 )?
+            int alt216=2;
+            int LA216_0 = input.LA(1);
 
-            state._fsp--;
-            if (state.failed) return ;
+            if ( (LA216_0==Not||LA216_0==LeftParenthesis||LA216_0==RULE_ID) ) {
+                alt216=1;
+            }
+            switch (alt216) {
+                case 1 :
+                    // InternalMASLParser.g:23534:3: rule__NavigateExpression__WhereAssignment_1_1_0_2_1
+                    {
+                    pushFollow(FOLLOW_2);
+                    rule__NavigateExpression__WhereAssignment_1_1_0_2_1();
+
+                    state._fsp--;
+                    if (state.failed) return ;
+
+                    }
+                    break;
 
             }
 
@@ -78432,7 +78443,7 @@ public class InternalMASLParser extends AbstractInternalContentAssistParser {
             // InternalMASLParser.g:23600:1: ( rule__NavigateExpression__Group_1_1_1__1__Impl rule__NavigateExpression__Group_1_1_1__2 )
             // InternalMASLParser.g:23601:2: rule__NavigateExpression__Group_1_1_1__1__Impl rule__NavigateExpression__Group_1_1_1__2
             {
-            pushFollow(FOLLOW_145);
+            pushFollow(FOLLOW_146);
             rule__NavigateExpression__Group_1_1_1__1__Impl();
 
             state._fsp--;
@@ -79089,7 +79100,7 @@ public class InternalMASLParser extends AbstractInternalContentAssistParser {
             // InternalMASLParser.g:23816:1: ( rule__SortOrder__Group__1__Impl rule__SortOrder__Group__2 )
             // InternalMASLParser.g:23817:2: rule__SortOrder__Group__1__Impl rule__SortOrder__Group__2
             {
-            pushFollow(FOLLOW_146);
+            pushFollow(FOLLOW_147);
             rule__SortOrder__Group__1__Impl();
 
             state._fsp--;
@@ -79168,7 +79179,7 @@ public class InternalMASLParser extends AbstractInternalContentAssistParser {
             // InternalMASLParser.g:23843:1: ( rule__SortOrder__Group__2__Impl rule__SortOrder__Group__3 )
             // InternalMASLParser.g:23844:2: rule__SortOrder__Group__2__Impl rule__SortOrder__Group__3
             {
-            pushFollow(FOLLOW_146);
+            pushFollow(FOLLOW_147);
             rule__SortOrder__Group__2__Impl();
 
             state._fsp--;
@@ -79213,13 +79224,13 @@ public class InternalMASLParser extends AbstractInternalContentAssistParser {
                before(grammarAccess.getSortOrderAccess().getGroup_2()); 
             }
             // InternalMASLParser.g:23858:2: ( rule__SortOrder__Group_2__0 )?
-            int alt216=2;
-            int LA216_0 = input.LA(1);
+            int alt217=2;
+            int LA217_0 = input.LA(1);
 
-            if ( (LA216_0==Reverse||LA216_0==RULE_ID) ) {
-                alt216=1;
+            if ( (LA217_0==Reverse||LA217_0==RULE_ID) ) {
+                alt217=1;
             }
-            switch (alt216) {
+            switch (alt217) {
                 case 1 :
                     // InternalMASLParser.g:23858:3: rule__SortOrder__Group_2__0
                     {
@@ -79471,17 +79482,17 @@ public class InternalMASLParser extends AbstractInternalContentAssistParser {
                before(grammarAccess.getSortOrderAccess().getGroup_2_1()); 
             }
             // InternalMASLParser.g:23938:2: ( rule__SortOrder__Group_2_1__0 )*
-            loop217:
+            loop218:
             do {
-                int alt217=2;
-                int LA217_0 = input.LA(1);
+                int alt218=2;
+                int LA218_0 = input.LA(1);
 
-                if ( (LA217_0==Comma) ) {
-                    alt217=1;
+                if ( (LA218_0==Comma) ) {
+                    alt218=1;
                 }
 
 
-                switch (alt217) {
+                switch (alt218) {
             	case 1 :
             	    // InternalMASLParser.g:23938:3: rule__SortOrder__Group_2_1__0
             	    {
@@ -79495,7 +79506,7 @@ public class InternalMASLParser extends AbstractInternalContentAssistParser {
             	    break;
 
             	default :
-            	    break loop217;
+            	    break loop218;
                 }
             } while (true);
 
@@ -79533,7 +79544,7 @@ public class InternalMASLParser extends AbstractInternalContentAssistParser {
             // InternalMASLParser.g:23951:1: ( rule__SortOrder__Group_2_1__0__Impl rule__SortOrder__Group_2_1__1 )
             // InternalMASLParser.g:23952:2: rule__SortOrder__Group_2_1__0__Impl rule__SortOrder__Group_2_1__1
             {
-            pushFollow(FOLLOW_147);
+            pushFollow(FOLLOW_148);
             rule__SortOrder__Group_2_1__0__Impl();
 
             state._fsp--;
@@ -79696,7 +79707,7 @@ public class InternalMASLParser extends AbstractInternalContentAssistParser {
             // InternalMASLParser.g:24005:1: ( rule__SortOrderComponent__Group__0__Impl rule__SortOrderComponent__Group__1 )
             // InternalMASLParser.g:24006:2: rule__SortOrderComponent__Group__0__Impl rule__SortOrderComponent__Group__1
             {
-            pushFollow(FOLLOW_147);
+            pushFollow(FOLLOW_148);
             rule__SortOrderComponent__Group__0__Impl();
 
             state._fsp--;
@@ -79741,13 +79752,13 @@ public class InternalMASLParser extends AbstractInternalContentAssistParser {
                before(grammarAccess.getSortOrderComponentAccess().getReverseAssignment_0()); 
             }
             // InternalMASLParser.g:24020:2: ( rule__SortOrderComponent__ReverseAssignment_0 )?
-            int alt218=2;
-            int LA218_0 = input.LA(1);
+            int alt219=2;
+            int LA219_0 = input.LA(1);
 
-            if ( (LA218_0==Reverse) ) {
-                alt218=1;
+            if ( (LA219_0==Reverse) ) {
+                alt219=1;
             }
-            switch (alt218) {
+            switch (alt219) {
                 case 1 :
                     // InternalMASLParser.g:24020:3: rule__SortOrderComponent__ReverseAssignment_0
                     {
@@ -79880,7 +79891,7 @@ public class InternalMASLParser extends AbstractInternalContentAssistParser {
             // InternalMASLParser.g:24059:1: ( rule__SortOrderFeature__Group__0__Impl rule__SortOrderFeature__Group__1 )
             // InternalMASLParser.g:24060:2: rule__SortOrderFeature__Group__0__Impl rule__SortOrderFeature__Group__1
             {
-            pushFollow(FOLLOW_147);
+            pushFollow(FOLLOW_148);
             rule__SortOrderFeature__Group__0__Impl();
 
             state._fsp--;
@@ -80088,21 +80099,21 @@ public class InternalMASLParser extends AbstractInternalContentAssistParser {
                before(grammarAccess.getSortOrderFeatureAccess().getGroup_2()); 
             }
             // InternalMASLParser.g:24127:2: ( rule__SortOrderFeature__Group_2__0 )*
-            loop219:
+            loop220:
             do {
-                int alt219=2;
-                int LA219_0 = input.LA(1);
+                int alt220=2;
+                int LA220_0 = input.LA(1);
 
-                if ( (LA219_0==FullStop) ) {
-                    alt219=1;
+                if ( (LA220_0==FullStop) ) {
+                    alt220=1;
                 }
 
 
-                switch (alt219) {
+                switch (alt220) {
             	case 1 :
             	    // InternalMASLParser.g:24127:3: rule__SortOrderFeature__Group_2__0
             	    {
-            	    pushFollow(FOLLOW_148);
+            	    pushFollow(FOLLOW_149);
             	    rule__SortOrderFeature__Group_2__0();
 
             	    state._fsp--;
@@ -80112,7 +80123,7 @@ public class InternalMASLParser extends AbstractInternalContentAssistParser {
             	    break;
 
             	default :
-            	    break loop219;
+            	    break loop220;
                 }
             } while (true);
 
@@ -80392,7 +80403,7 @@ public class InternalMASLParser extends AbstractInternalContentAssistParser {
             // InternalMASLParser.g:24221:1: ( rule__CreateExpression__Group__0__Impl rule__CreateExpression__Group__1 )
             // InternalMASLParser.g:24222:2: rule__CreateExpression__Group__0__Impl rule__CreateExpression__Group__1
             {
-            pushFollow(FOLLOW_149);
+            pushFollow(FOLLOW_150);
             rule__CreateExpression__Group__0__Impl();
 
             state._fsp--;
@@ -80471,7 +80482,7 @@ public class InternalMASLParser extends AbstractInternalContentAssistParser {
             // InternalMASLParser.g:24248:1: ( rule__CreateExpression__Group__1__Impl rule__CreateExpression__Group__2 )
             // InternalMASLParser.g:24249:2: rule__CreateExpression__Group__1__Impl rule__CreateExpression__Group__2
             {
-            pushFollow(FOLLOW_149);
+            pushFollow(FOLLOW_150);
             rule__CreateExpression__Group__1__Impl();
 
             state._fsp--;
@@ -80516,13 +80527,13 @@ public class InternalMASLParser extends AbstractInternalContentAssistParser {
                before(grammarAccess.getCreateExpressionAccess().getUniqueAssignment_1()); 
             }
             // InternalMASLParser.g:24263:2: ( rule__CreateExpression__UniqueAssignment_1 )?
-            int alt220=2;
-            int LA220_0 = input.LA(1);
+            int alt221=2;
+            int LA221_0 = input.LA(1);
 
-            if ( (LA220_0==Unique) ) {
-                alt220=1;
+            if ( (LA221_0==Unique) ) {
+                alt221=1;
             }
-            switch (alt220) {
+            switch (alt221) {
                 case 1 :
                     // InternalMASLParser.g:24263:3: rule__CreateExpression__UniqueAssignment_1
                     {
@@ -80660,7 +80671,7 @@ public class InternalMASLParser extends AbstractInternalContentAssistParser {
             // InternalMASLParser.g:24302:1: ( rule__CreateExpression__Group__3__Impl rule__CreateExpression__Group__4 )
             // InternalMASLParser.g:24303:2: rule__CreateExpression__Group__3__Impl rule__CreateExpression__Group__4
             {
-            pushFollow(FOLLOW_150);
+            pushFollow(FOLLOW_151);
             rule__CreateExpression__Group__3__Impl();
 
             state._fsp--;
@@ -80739,7 +80750,7 @@ public class InternalMASLParser extends AbstractInternalContentAssistParser {
             // InternalMASLParser.g:24329:1: ( rule__CreateExpression__Group__4__Impl rule__CreateExpression__Group__5 )
             // InternalMASLParser.g:24330:2: rule__CreateExpression__Group__4__Impl rule__CreateExpression__Group__5
             {
-            pushFollow(FOLLOW_150);
+            pushFollow(FOLLOW_151);
             rule__CreateExpression__Group__4__Impl();
 
             state._fsp--;
@@ -80784,13 +80795,13 @@ public class InternalMASLParser extends AbstractInternalContentAssistParser {
                before(grammarAccess.getCreateExpressionAccess().getGroup_4()); 
             }
             // InternalMASLParser.g:24344:2: ( rule__CreateExpression__Group_4__0 )?
-            int alt221=2;
-            int LA221_0 = input.LA(1);
+            int alt222=2;
+            int LA222_0 = input.LA(1);
 
-            if ( (LA221_0==Current_State||LA221_0==RULE_ID) ) {
-                alt221=1;
+            if ( (LA222_0==Current_State||LA222_0==RULE_ID) ) {
+                alt222=1;
             }
-            switch (alt221) {
+            switch (alt222) {
                 case 1 :
                     // InternalMASLParser.g:24344:3: rule__CreateExpression__Group_4__0
                     {
@@ -81042,17 +81053,17 @@ public class InternalMASLParser extends AbstractInternalContentAssistParser {
                before(grammarAccess.getCreateExpressionAccess().getGroup_4_1()); 
             }
             // InternalMASLParser.g:24424:2: ( rule__CreateExpression__Group_4_1__0 )*
-            loop222:
+            loop223:
             do {
-                int alt222=2;
-                int LA222_0 = input.LA(1);
+                int alt223=2;
+                int LA223_0 = input.LA(1);
 
-                if ( (LA222_0==Comma) ) {
-                    alt222=1;
+                if ( (LA223_0==Comma) ) {
+                    alt223=1;
                 }
 
 
-                switch (alt222) {
+                switch (alt223) {
             	case 1 :
             	    // InternalMASLParser.g:24424:3: rule__CreateExpression__Group_4_1__0
             	    {
@@ -81066,7 +81077,7 @@ public class InternalMASLParser extends AbstractInternalContentAssistParser {
             	    break;
 
             	default :
-            	    break loop222;
+            	    break loop223;
                 }
             } while (true);
 
@@ -81104,7 +81115,7 @@ public class InternalMASLParser extends AbstractInternalContentAssistParser {
             // InternalMASLParser.g:24437:1: ( rule__CreateExpression__Group_4_1__0__Impl rule__CreateExpression__Group_4_1__1 )
             // InternalMASLParser.g:24438:2: rule__CreateExpression__Group_4_1__0__Impl rule__CreateExpression__Group_4_1__1
             {
-            pushFollow(FOLLOW_151);
+            pushFollow(FOLLOW_152);
             rule__CreateExpression__Group_4_1__0__Impl();
 
             state._fsp--;
@@ -81761,7 +81772,7 @@ public class InternalMASLParser extends AbstractInternalContentAssistParser {
             // InternalMASLParser.g:24653:1: ( rule__FindExpression__Group__0__Impl rule__FindExpression__Group__1 )
             // InternalMASLParser.g:24654:2: rule__FindExpression__Group__0__Impl rule__FindExpression__Group__1
             {
-            pushFollow(FOLLOW_152);
+            pushFollow(FOLLOW_153);
             rule__FindExpression__Group__0__Impl();
 
             state._fsp--;
@@ -81939,7 +81950,7 @@ public class InternalMASLParser extends AbstractInternalContentAssistParser {
             // InternalMASLParser.g:24707:1: ( rule__FindExpression__Group__2__Impl rule__FindExpression__Group__3 )
             // InternalMASLParser.g:24708:2: rule__FindExpression__Group__2__Impl rule__FindExpression__Group__3
             {
-            pushFollow(FOLLOW_153);
+            pushFollow(FOLLOW_145);
             rule__FindExpression__Group__2__Impl();
 
             state._fsp--;
@@ -82018,7 +82029,7 @@ public class InternalMASLParser extends AbstractInternalContentAssistParser {
             // InternalMASLParser.g:24734:1: ( rule__FindExpression__Group__3__Impl rule__FindExpression__Group__4 )
             // InternalMASLParser.g:24735:2: rule__FindExpression__Group__3__Impl rule__FindExpression__Group__4
             {
-            pushFollow(FOLLOW_153);
+            pushFollow(FOLLOW_145);
             rule__FindExpression__Group__3__Impl();
 
             state._fsp--;
@@ -82063,13 +82074,13 @@ public class InternalMASLParser extends AbstractInternalContentAssistParser {
                before(grammarAccess.getFindExpressionAccess().getWhereAssignment_3()); 
             }
             // InternalMASLParser.g:24749:2: ( rule__FindExpression__WhereAssignment_3 )?
-            int alt223=2;
-            int LA223_0 = input.LA(1);
+            int alt224=2;
+            int LA224_0 = input.LA(1);
 
-            if ( (LA223_0==Not||LA223_0==LeftParenthesis||LA223_0==RULE_ID) ) {
-                alt223=1;
+            if ( (LA224_0==Not||LA224_0==LeftParenthesis||LA224_0==RULE_ID) ) {
+                alt224=1;
             }
-            switch (alt223) {
+            switch (alt224) {
                 case 1 :
                     // InternalMASLParser.g:24749:3: rule__FindExpression__WhereAssignment_3
                     {
@@ -82315,17 +82326,17 @@ public class InternalMASLParser extends AbstractInternalContentAssistParser {
                before(grammarAccess.getPostfixExpressionAccess().getAlternatives_1()); 
             }
             // InternalMASLParser.g:24829:2: ( rule__PostfixExpression__Alternatives_1 )*
-            loop224:
+            loop225:
             do {
-                int alt224=2;
-                int LA224_0 = input.LA(1);
+                int alt225=2;
+                int LA225_0 = input.LA(1);
 
-                if ( (LA224_0==TildeGreaterThanSign||(LA224_0>=Apostrophe && LA224_0<=LeftParenthesis)||LA224_0==FullStop||LA224_0==LeftSquareBracket) ) {
-                    alt224=1;
+                if ( (LA225_0==TildeGreaterThanSign||(LA225_0>=Apostrophe && LA225_0<=LeftParenthesis)||LA225_0==FullStop||LA225_0==LeftSquareBracket) ) {
+                    alt225=1;
                 }
 
 
-                switch (alt224) {
+                switch (alt225) {
             	case 1 :
             	    // InternalMASLParser.g:24829:3: rule__PostfixExpression__Alternatives_1
             	    {
@@ -82339,7 +82350,7 @@ public class InternalMASLParser extends AbstractInternalContentAssistParser {
             	    break;
 
             	default :
-            	    break loop224;
+            	    break loop225;
                 }
             } while (true);
 
@@ -82586,13 +82597,13 @@ public class InternalMASLParser extends AbstractInternalContentAssistParser {
                before(grammarAccess.getPostfixExpressionAccess().getGroup_1_0_2()); 
             }
             // InternalMASLParser.g:24911:2: ( rule__PostfixExpression__Group_1_0_2__0 )?
-            int alt225=2;
-            int LA225_0 = input.LA(1);
+            int alt226=2;
+            int LA226_0 = input.LA(1);
 
-            if ( (LA225_0==Dictionary||LA225_0==Anonymous||LA225_0==Find_only||(LA225_0>=Find_all && LA225_0<=Find_one)||LA225_0==Instance||LA225_0==Sequence||LA225_0==Console||(LA225_0>=FILE && LA225_0<=LINE)||LA225_0==Create||(LA225_0>=Unlink && LA225_0<=Array)||(LA225_0>=False && LA225_0<=Flush)||LA225_0==Endl||LA225_0==Find||LA225_0==Link||LA225_0==Null||(LA225_0>=This && LA225_0<=True)||LA225_0==Abs||LA225_0==Bag||LA225_0==Not||LA225_0==Set||LA225_0==LeftParenthesis||LA225_0==PlusSign||LA225_0==HyphenMinus||(LA225_0>=RULE_ID && LA225_0<=RULE_TIMESTAMP)) ) {
-                alt225=1;
+            if ( (LA226_0==Dictionary||LA226_0==Anonymous||LA226_0==Find_only||(LA226_0>=Find_all && LA226_0<=Find_one)||LA226_0==Instance||LA226_0==Sequence||LA226_0==Console||(LA226_0>=FILE && LA226_0<=LINE)||LA226_0==Create||(LA226_0>=Unlink && LA226_0<=Array)||(LA226_0>=False && LA226_0<=Flush)||LA226_0==Endl||LA226_0==Find||LA226_0==Link||LA226_0==Null||(LA226_0>=This && LA226_0<=True)||LA226_0==Abs||LA226_0==Bag||LA226_0==Not||LA226_0==Set||LA226_0==LeftParenthesis||LA226_0==PlusSign||LA226_0==HyphenMinus||(LA226_0>=RULE_ID && LA226_0<=RULE_TIMESTAMP)) ) {
+                alt226=1;
             }
-            switch (alt225) {
+            switch (alt226) {
                 case 1 :
                     // InternalMASLParser.g:24911:3: rule__PostfixExpression__Group_1_0_2__0
                     {
@@ -82844,17 +82855,17 @@ public class InternalMASLParser extends AbstractInternalContentAssistParser {
                before(grammarAccess.getPostfixExpressionAccess().getGroup_1_0_2_1()); 
             }
             // InternalMASLParser.g:24991:2: ( rule__PostfixExpression__Group_1_0_2_1__0 )*
-            loop226:
+            loop227:
             do {
-                int alt226=2;
-                int LA226_0 = input.LA(1);
+                int alt227=2;
+                int LA227_0 = input.LA(1);
 
-                if ( (LA226_0==Comma) ) {
-                    alt226=1;
+                if ( (LA227_0==Comma) ) {
+                    alt227=1;
                 }
 
 
-                switch (alt226) {
+                switch (alt227) {
             	case 1 :
             	    // InternalMASLParser.g:24991:3: rule__PostfixExpression__Group_1_0_2_1__0
             	    {
@@ -82868,7 +82879,7 @@ public class InternalMASLParser extends AbstractInternalContentAssistParser {
             	    break;
 
             	default :
-            	    break loop226;
+            	    break loop227;
                 }
             } while (true);
 
@@ -83682,13 +83693,13 @@ public class InternalMASLParser extends AbstractInternalContentAssistParser {
                before(grammarAccess.getPostfixExpressionAccess().getGroup_1_2_4()); 
             }
             // InternalMASLParser.g:25262:2: ( rule__PostfixExpression__Group_1_2_4__0 )?
-            int alt227=2;
-            int LA227_0 = input.LA(1);
+            int alt228=2;
+            int LA228_0 = input.LA(1);
 
-            if ( (LA227_0==Dictionary||LA227_0==Anonymous||LA227_0==Find_only||(LA227_0>=Find_all && LA227_0<=Find_one)||LA227_0==Instance||LA227_0==Sequence||LA227_0==Console||(LA227_0>=FILE && LA227_0<=LINE)||LA227_0==Create||(LA227_0>=Unlink && LA227_0<=Array)||(LA227_0>=False && LA227_0<=Flush)||LA227_0==Endl||LA227_0==Find||LA227_0==Link||LA227_0==Null||(LA227_0>=This && LA227_0<=True)||LA227_0==Abs||LA227_0==Bag||LA227_0==Not||LA227_0==Set||LA227_0==LeftParenthesis||LA227_0==PlusSign||LA227_0==HyphenMinus||(LA227_0>=RULE_ID && LA227_0<=RULE_TIMESTAMP)) ) {
-                alt227=1;
+            if ( (LA228_0==Dictionary||LA228_0==Anonymous||LA228_0==Find_only||(LA228_0>=Find_all && LA228_0<=Find_one)||LA228_0==Instance||LA228_0==Sequence||LA228_0==Console||(LA228_0>=FILE && LA228_0<=LINE)||LA228_0==Create||(LA228_0>=Unlink && LA228_0<=Array)||(LA228_0>=False && LA228_0<=Flush)||LA228_0==Endl||LA228_0==Find||LA228_0==Link||LA228_0==Null||(LA228_0>=This && LA228_0<=True)||LA228_0==Abs||LA228_0==Bag||LA228_0==Not||LA228_0==Set||LA228_0==LeftParenthesis||LA228_0==PlusSign||LA228_0==HyphenMinus||(LA228_0>=RULE_ID && LA228_0<=RULE_TIMESTAMP)) ) {
+                alt228=1;
             }
-            switch (alt227) {
+            switch (alt228) {
                 case 1 :
                     // InternalMASLParser.g:25262:3: rule__PostfixExpression__Group_1_2_4__0
                     {
@@ -83940,17 +83951,17 @@ public class InternalMASLParser extends AbstractInternalContentAssistParser {
                before(grammarAccess.getPostfixExpressionAccess().getGroup_1_2_4_1()); 
             }
             // InternalMASLParser.g:25342:2: ( rule__PostfixExpression__Group_1_2_4_1__0 )*
-            loop228:
+            loop229:
             do {
-                int alt228=2;
-                int LA228_0 = input.LA(1);
+                int alt229=2;
+                int LA229_0 = input.LA(1);
 
-                if ( (LA228_0==Comma) ) {
-                    alt228=1;
+                if ( (LA229_0==Comma) ) {
+                    alt229=1;
                 }
 
 
-                switch (alt228) {
+                switch (alt229) {
             	case 1 :
             	    // InternalMASLParser.g:25342:3: rule__PostfixExpression__Group_1_2_4_1__0
             	    {
@@ -83964,7 +83975,7 @@ public class InternalMASLParser extends AbstractInternalContentAssistParser {
             	    break;
 
             	default :
-            	    break loop228;
+            	    break loop229;
                 }
             } while (true);
 
@@ -84773,9 +84784,9 @@ public class InternalMASLParser extends AbstractInternalContentAssistParser {
                before(grammarAccess.getPostfixExpressionAccess().getGroup_1_4_3()); 
             }
             // InternalMASLParser.g:25612:2: ( rule__PostfixExpression__Group_1_4_3__0 )?
-            int alt229=2;
-            alt229 = dfa229.predict(input);
-            switch (alt229) {
+            int alt230=2;
+            alt230 = dfa230.predict(input);
+            switch (alt230) {
                 case 1 :
                     // InternalMASLParser.g:25612:3: rule__PostfixExpression__Group_1_4_3__0
                     {
@@ -84954,13 +84965,13 @@ public class InternalMASLParser extends AbstractInternalContentAssistParser {
                before(grammarAccess.getPostfixExpressionAccess().getGroup_1_4_3_1()); 
             }
             // InternalMASLParser.g:25667:2: ( rule__PostfixExpression__Group_1_4_3_1__0 )?
-            int alt230=2;
-            int LA230_0 = input.LA(1);
+            int alt231=2;
+            int LA231_0 = input.LA(1);
 
-            if ( (LA230_0==Dictionary||LA230_0==Anonymous||LA230_0==Find_only||(LA230_0>=Find_all && LA230_0<=Find_one)||LA230_0==Instance||LA230_0==Sequence||LA230_0==Console||(LA230_0>=FILE && LA230_0<=LINE)||LA230_0==Create||(LA230_0>=Unlink && LA230_0<=Array)||(LA230_0>=False && LA230_0<=Flush)||LA230_0==Endl||LA230_0==Find||LA230_0==Link||LA230_0==Null||(LA230_0>=This && LA230_0<=True)||LA230_0==Abs||LA230_0==Bag||LA230_0==Not||LA230_0==Set||LA230_0==LeftParenthesis||LA230_0==PlusSign||LA230_0==HyphenMinus||(LA230_0>=RULE_ID && LA230_0<=RULE_TIMESTAMP)) ) {
-                alt230=1;
+            if ( (LA231_0==Dictionary||LA231_0==Anonymous||LA231_0==Find_only||(LA231_0>=Find_all && LA231_0<=Find_one)||LA231_0==Instance||LA231_0==Sequence||LA231_0==Console||(LA231_0>=FILE && LA231_0<=LINE)||LA231_0==Create||(LA231_0>=Unlink && LA231_0<=Array)||(LA231_0>=False && LA231_0<=Flush)||LA231_0==Endl||LA231_0==Find||LA231_0==Link||LA231_0==Null||(LA231_0>=This && LA231_0<=True)||LA231_0==Abs||LA231_0==Bag||LA231_0==Not||LA231_0==Set||LA231_0==LeftParenthesis||LA231_0==PlusSign||LA231_0==HyphenMinus||(LA231_0>=RULE_ID && LA231_0<=RULE_TIMESTAMP)) ) {
+                alt231=1;
             }
-            switch (alt230) {
+            switch (alt231) {
                 case 1 :
                     // InternalMASLParser.g:25667:3: rule__PostfixExpression__Group_1_4_3_1__0
                     {
@@ -85212,17 +85223,17 @@ public class InternalMASLParser extends AbstractInternalContentAssistParser {
                before(grammarAccess.getPostfixExpressionAccess().getGroup_1_4_3_1_1()); 
             }
             // InternalMASLParser.g:25747:2: ( rule__PostfixExpression__Group_1_4_3_1_1__0 )*
-            loop231:
+            loop232:
             do {
-                int alt231=2;
-                int LA231_0 = input.LA(1);
+                int alt232=2;
+                int LA232_0 = input.LA(1);
 
-                if ( (LA231_0==Comma) ) {
-                    alt231=1;
+                if ( (LA232_0==Comma) ) {
+                    alt232=1;
                 }
 
 
-                switch (alt231) {
+                switch (alt232) {
             	case 1 :
             	    // InternalMASLParser.g:25747:3: rule__PostfixExpression__Group_1_4_3_1_1__0
             	    {
@@ -85236,7 +85247,7 @@ public class InternalMASLParser extends AbstractInternalContentAssistParser {
             	    break;
 
             	default :
-            	    break loop231;
+            	    break loop232;
                 }
             } while (true);
 
@@ -85560,17 +85571,17 @@ public class InternalMASLParser extends AbstractInternalContentAssistParser {
                before(grammarAccess.getPostfixNoActionCallExpressionAccess().getAlternatives_1()); 
             }
             // InternalMASLParser.g:25855:2: ( rule__PostfixNoActionCallExpression__Alternatives_1 )*
-            loop232:
+            loop233:
             do {
-                int alt232=2;
-                int LA232_0 = input.LA(1);
+                int alt233=2;
+                int LA233_0 = input.LA(1);
 
-                if ( (LA232_0==Apostrophe||LA232_0==FullStop||LA232_0==LeftSquareBracket) ) {
-                    alt232=1;
+                if ( (LA233_0==Apostrophe||LA233_0==FullStop||LA233_0==LeftSquareBracket) ) {
+                    alt233=1;
                 }
 
 
-                switch (alt232) {
+                switch (alt233) {
             	case 1 :
             	    // InternalMASLParser.g:25855:3: rule__PostfixNoActionCallExpression__Alternatives_1
             	    {
@@ -85584,7 +85595,7 @@ public class InternalMASLParser extends AbstractInternalContentAssistParser {
             	    break;
 
             	default :
-            	    break loop232;
+            	    break loop233;
                 }
             } while (true);
 
@@ -86634,13 +86645,13 @@ public class InternalMASLParser extends AbstractInternalContentAssistParser {
                before(grammarAccess.getParenthesisedExpressionAccess().getGroup_2()); 
             }
             // InternalMASLParser.g:26207:2: ( rule__ParenthesisedExpression__Group_2__0 )?
-            int alt233=2;
-            int LA233_0 = input.LA(1);
+            int alt234=2;
+            int LA234_0 = input.LA(1);
 
-            if ( (LA233_0==Comma) ) {
-                alt233=1;
+            if ( (LA234_0==Comma) ) {
+                alt234=1;
             }
-            switch (alt233) {
+            switch (alt234) {
                 case 1 :
                     // InternalMASLParser.g:26207:3: rule__ParenthesisedExpression__Group_2__0
                     {
@@ -86908,17 +86919,17 @@ public class InternalMASLParser extends AbstractInternalContentAssistParser {
                before(grammarAccess.getParenthesisedExpressionAccess().getGroup_2_1()); 
             }
             // InternalMASLParser.g:26293:3: ( rule__ParenthesisedExpression__Group_2_1__0 )*
-            loop234:
+            loop235:
             do {
-                int alt234=2;
-                int LA234_0 = input.LA(1);
+                int alt235=2;
+                int LA235_0 = input.LA(1);
 
-                if ( (LA234_0==Comma) ) {
-                    alt234=1;
+                if ( (LA235_0==Comma) ) {
+                    alt235=1;
                 }
 
 
-                switch (alt234) {
+                switch (alt235) {
             	case 1 :
             	    // InternalMASLParser.g:26293:4: rule__ParenthesisedExpression__Group_2_1__0
             	    {
@@ -86932,7 +86943,7 @@ public class InternalMASLParser extends AbstractInternalContentAssistParser {
             	    break;
 
             	default :
-            	    break loop234;
+            	    break loop235;
                 }
             } while (true);
 
@@ -102773,8 +102784,8 @@ public class InternalMASLParser extends AbstractInternalContentAssistParser {
     }
     // $ANTLR end "rule__BooleanLiteral__ValueAssignment_0"
 
-    // $ANTLR start synpred313_InternalMASLParser
-    public final void synpred313_InternalMASLParser_fragment() throws RecognitionException {   
+    // $ANTLR start synpred314_InternalMASLParser
+    public final void synpred314_InternalMASLParser_fragment() throws RecognitionException {   
         // InternalMASLParser.g:25612:3: ( rule__PostfixExpression__Group_1_4_3__0 )
         // InternalMASLParser.g:25612:3: rule__PostfixExpression__Group_1_4_3__0
         {
@@ -102786,15 +102797,15 @@ public class InternalMASLParser extends AbstractInternalContentAssistParser {
 
         }
     }
-    // $ANTLR end synpred313_InternalMASLParser
+    // $ANTLR end synpred314_InternalMASLParser
 
     // Delegated rules
 
-    public final boolean synpred313_InternalMASLParser() {
+    public final boolean synpred314_InternalMASLParser() {
         state.backtracking++;
         int start = input.mark();
         try {
-            synpred313_InternalMASLParser_fragment(); // can never throw exception
+            synpred314_InternalMASLParser_fragment(); // can never throw exception
         } catch (RecognitionException re) {
             System.err.println("impossible: "+re);
         }
@@ -102811,11 +102822,11 @@ public class InternalMASLParser extends AbstractInternalContentAssistParser {
     protected DFA12 dfa12 = new DFA12(this);
     protected DFA29 dfa29 = new DFA29(this);
     protected DFA37 dfa37 = new DFA37(this);
-    protected DFA229 dfa229 = new DFA229(this);
+    protected DFA230 dfa230 = new DFA230(this);
     static final String dfa_1s = "\16\uffff";
     static final String dfa_2s = "\1\33\2\uffff\2\35\2\u0095\2\uffff\1\163\1\u0095\1\u0082\2\uffff";
     static final String dfa_3s = "\1\114\2\uffff\2\56\2\u0095\2\uffff\1\163\1\u0095\1\u008b\2\uffff";
-    static final String dfa_4s = "\1\uffff\1\1\1\2\4\uffff\1\4\1\5\3\uffff\1\3\1\6";
+    static final String dfa_4s = "\1\uffff\1\1\1\2\4\uffff\1\4\1\5\3\uffff\1\6\1\3";
     static final String dfa_5s = "\16\uffff}>";
     static final String[] dfa_6s = {
             "\2\10\1\7\3\uffff\1\6\1\uffff\1\7\3\uffff\1\10\3\uffff\1\4\1\1\1\uffff\1\5\10\uffff\1\2\4\uffff\1\3\17\uffff\1\10",
@@ -102829,7 +102840,7 @@ public class InternalMASLParser extends AbstractInternalContentAssistParser {
             "",
             "\1\12",
             "\1\13",
-            "\1\15\2\uffff\1\14\5\uffff\1\7",
+            "\1\14\2\uffff\1\15\5\uffff\1\7",
             "",
             ""
     };
@@ -102908,9 +102919,9 @@ public class InternalMASLParser extends AbstractInternalContentAssistParser {
     }
     static final String dfa_13s = "\23\uffff";
     static final String dfa_14s = "\4\uffff\1\5\2\uffff\1\5\4\uffff\1\5\2\uffff\1\5\3\uffff";
-    static final String dfa_15s = "\1\21\2\uffff\1\21\1\66\1\uffff\1\u0085\1\66\1\u0095\1\uffff\1\21\1\u0095\1\66\1\21\1\4\1\66\1\uffff\1\u0095\1\4";
-    static final String dfa_16s = "\1\u0095\2\uffff\1\u0095\1\u008e\1\uffff\1\u0085\1\u008e\1\u0095\1\uffff\1\u009b\1\u0095\1\u008e\1\u0095\1\u0092\1\u008e\1\uffff\1\u0095\1\u0092";
-    static final String dfa_17s = "\1\uffff\1\1\1\2\2\uffff\1\4\3\uffff\1\3\6\uffff\1\5\2\uffff";
+    static final String dfa_15s = "\1\21\2\uffff\1\21\1\66\1\uffff\1\u0085\1\66\1\u0095\1\uffff\1\21\1\u0095\1\66\1\4\1\21\1\66\1\u0095\1\uffff\1\4";
+    static final String dfa_16s = "\1\u0095\2\uffff\1\u0095\1\u008e\1\uffff\1\u0085\1\u008e\1\u0095\1\uffff\1\u009b\1\u0095\1\u008e\1\u0092\1\u0095\1\u008e\1\u0095\1\uffff\1\u0092";
+    static final String dfa_17s = "\1\uffff\1\1\1\2\2\uffff\1\4\3\uffff\1\3\7\uffff\1\5\1\uffff";
     static final String dfa_18s = "\23\uffff}>";
     static final String[] dfa_19s = {
             "\1\5\4\uffff\1\3\3\uffff\1\1\10\uffff\1\5\2\uffff\1\5\31\uffff\1\6\22\uffff\1\2\21\uffff\1\5\7\uffff\1\5\47\uffff\1\4",
@@ -102923,15 +102934,15 @@ public class InternalMASLParser extends AbstractInternalContentAssistParser {
             "\1\11\14\uffff\1\11\6\uffff\1\11\50\uffff\1\13\32\uffff\1\5",
             "\1\14",
             "",
-            "\1\5\4\uffff\1\15\1\uffff\1\5\6\uffff\2\5\2\uffff\1\5\2\uffff\1\5\2\uffff\1\5\6\uffff\2\5\2\uffff\1\5\12\uffff\2\5\6\uffff\2\5\11\uffff\1\5\2\uffff\1\5\1\uffff\1\5\2\uffff\1\5\1\uffff\2\5\5\uffff\1\5\1\uffff\1\5\3\uffff\1\5\3\uffff\1\5\27\uffff\1\5\2\uffff\1\5\1\uffff\1\5\12\uffff\1\16\6\5",
+            "\1\5\4\uffff\1\16\1\uffff\1\5\6\uffff\2\5\2\uffff\1\5\2\uffff\1\5\2\uffff\1\5\6\uffff\2\5\2\uffff\1\5\12\uffff\2\5\6\uffff\2\5\11\uffff\1\5\2\uffff\1\5\1\uffff\1\5\2\uffff\1\5\1\uffff\2\5\5\uffff\1\5\1\uffff\1\5\3\uffff\1\5\3\uffff\1\5\27\uffff\1\5\2\uffff\1\5\1\uffff\1\5\12\uffff\1\15\6\5",
             "\1\17",
             "\1\11\14\uffff\1\11\6\uffff\1\11\72\uffff\1\5\10\uffff\1\5",
-            "\1\5\21\uffff\1\5\2\uffff\1\5\31\uffff\1\5\44\uffff\1\5\7\uffff\1\5\47\uffff\1\20",
-            "\1\5\7\uffff\1\5\6\uffff\1\5\12\uffff\1\5\31\uffff\1\5\21\uffff\1\20\2\uffff\1\5\22\uffff\3\5\1\uffff\1\5\3\uffff\1\5\3\uffff\1\5\1\uffff\5\5\1\21\1\uffff\2\5\2\uffff\2\5\5\uffff\1\5\1\uffff\7\5\1\uffff\3\5\2\uffff\4\5",
+            "\1\5\7\uffff\1\5\6\uffff\1\5\12\uffff\1\5\31\uffff\1\5\21\uffff\1\21\2\uffff\1\5\22\uffff\3\5\1\uffff\1\5\3\uffff\1\5\3\uffff\1\5\1\uffff\5\5\1\20\1\uffff\2\5\2\uffff\2\5\5\uffff\1\5\1\uffff\7\5\1\uffff\3\5\2\uffff\4\5",
+            "\1\5\21\uffff\1\5\2\uffff\1\5\31\uffff\1\5\44\uffff\1\5\7\uffff\1\5\47\uffff\1\21",
             "\1\11\14\uffff\1\11\6\uffff\1\11\103\uffff\1\5",
-            "",
             "\1\22",
-            "\1\5\7\uffff\1\5\6\uffff\1\5\12\uffff\1\5\31\uffff\1\5\21\uffff\1\20\2\uffff\1\5\22\uffff\3\5\1\uffff\1\5\3\uffff\1\5\3\uffff\1\5\1\uffff\5\5\2\uffff\2\5\2\uffff\2\5\5\uffff\1\5\1\uffff\7\5\1\uffff\3\5\2\uffff\4\5"
+            "",
+            "\1\5\7\uffff\1\5\6\uffff\1\5\12\uffff\1\5\31\uffff\1\5\21\uffff\1\21\2\uffff\1\5\22\uffff\3\5\1\uffff\1\5\3\uffff\1\5\3\uffff\1\5\1\uffff\5\5\2\uffff\2\5\2\uffff\2\5\5\uffff\1\5\1\uffff\7\5\1\uffff\3\5\2\uffff\4\5"
     };
 
     static final short[] dfa_13 = DFA.unpackEncodedString(dfa_13s);
@@ -102962,7 +102973,7 @@ public class InternalMASLParser extends AbstractInternalContentAssistParser {
     static final String dfa_20s = "\25\uffff";
     static final String dfa_21s = "\1\u0095\1\176\1\u0095\1\5\2\u0095\1\uffff\1\131\2\u0095\1\u0089\1\u0095\1\5\2\u0095\1\131\2\u0095\1\116\2\uffff";
     static final String dfa_22s = "\1\u0095\1\176\1\u0095\1\126\2\u0095\1\uffff\1\152\2\u0095\1\u0089\1\u0095\1\11\2\u0095\1\152\2\u0095\1\u008e\2\uffff";
-    static final String dfa_23s = "\6\uffff\1\3\14\uffff\1\1\1\2";
+    static final String dfa_23s = "\6\uffff\1\3\14\uffff\1\2\1\1";
     static final String dfa_24s = "\25\uffff}>";
     static final String[] dfa_25s = {
             "\1\1",
@@ -102983,7 +102994,7 @@ public class InternalMASLParser extends AbstractInternalContentAssistParser {
             "\1\21\20\uffff\1\20",
             "\1\22",
             "\1\22",
-            "\1\24\77\uffff\1\23",
+            "\1\23\77\uffff\1\24",
             "",
             ""
     };
@@ -103135,11 +103146,11 @@ public class InternalMASLParser extends AbstractInternalContentAssistParser {
     static final short[] dfa_38 = DFA.unpackEncodedString(dfa_38s);
     static final short[][] dfa_39 = unpackEncodedStringArray(dfa_39s);
 
-    class DFA229 extends DFA {
+    class DFA230 extends DFA {
 
-        public DFA229(BaseRecognizer recognizer) {
+        public DFA230(BaseRecognizer recognizer) {
             this.recognizer = recognizer;
-            this.decisionNumber = 229;
+            this.decisionNumber = 230;
             this.eot = dfa_33;
             this.eof = dfa_34;
             this.min = dfa_35;
@@ -103156,24 +103167,24 @@ public class InternalMASLParser extends AbstractInternalContentAssistParser {
         	int _s = s;
             switch ( s ) {
                     case 0 : 
-                        int LA229_1 = input.LA(1);
+                        int LA230_1 = input.LA(1);
 
                          
-                        int index229_1 = input.index();
+                        int index230_1 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (synpred313_InternalMASLParser()) ) {s = 54;}
+                        if ( (synpred314_InternalMASLParser()) ) {s = 54;}
 
                         else if ( (true) ) {s = 2;}
 
                          
-                        input.seek(index229_1);
+                        input.seek(index230_1);
                         if ( s>=0 ) return s;
                         break;
             }
             if (state.backtracking>0) {state.failed=true; return -1;}
             NoViableAltException nvae =
-                new NoViableAltException(getDescription(), 229, _s, input);
+                new NoViableAltException(getDescription(), 230, _s, input);
             error(nvae);
             throw nvae;
         }
@@ -103324,15 +103335,15 @@ public class InternalMASLParser extends AbstractInternalContentAssistParser {
     public static final BitSet FOLLOW_142 = new BitSet(new long[]{0x0013024981420000L,0x0000202034240181L,0x000000000FE00020L});
     public static final BitSet FOLLOW_143 = new BitSet(new long[]{0x0000000000080010L,0x0001000100000000L});
     public static final BitSet FOLLOW_144 = new BitSet(new long[]{0x0000000000080012L,0x0001000100000000L});
-    public static final BitSet FOLLOW_145 = new BitSet(new long[]{0x0000000000000000L,0x0001000000000000L});
-    public static final BitSet FOLLOW_146 = new BitSet(new long[]{0x0000200000000000L,0x0000000000000000L,0x0000000000200040L});
-    public static final BitSet FOLLOW_147 = new BitSet(new long[]{0x0000200000000000L,0x0000000000000000L,0x0000000000200000L});
-    public static final BitSet FOLLOW_148 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000000L,0x0000000000000800L});
-    public static final BitSet FOLLOW_149 = new BitSet(new long[]{0x4000000000000000L,0x0000000000000000L,0x0000000000200000L});
-    public static final BitSet FOLLOW_150 = new BitSet(new long[]{0x0000000000000080L,0x0000000000000000L,0x0000000000200040L});
-    public static final BitSet FOLLOW_151 = new BitSet(new long[]{0x0000000000000080L,0x0000000000000000L,0x0000000000200000L});
-    public static final BitSet FOLLOW_152 = new BitSet(new long[]{0x0003024800420000L,0x0000202034040181L,0x000000000FE00020L});
-    public static final BitSet FOLLOW_153 = new BitSet(new long[]{0x0000000000000000L,0x0000020000000000L,0x0000000000200060L});
+    public static final BitSet FOLLOW_145 = new BitSet(new long[]{0x0000000000000000L,0x0000020000000000L,0x0000000000200060L});
+    public static final BitSet FOLLOW_146 = new BitSet(new long[]{0x0000000000000000L,0x0001000000000000L});
+    public static final BitSet FOLLOW_147 = new BitSet(new long[]{0x0000200000000000L,0x0000000000000000L,0x0000000000200040L});
+    public static final BitSet FOLLOW_148 = new BitSet(new long[]{0x0000200000000000L,0x0000000000000000L,0x0000000000200000L});
+    public static final BitSet FOLLOW_149 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000000L,0x0000000000000800L});
+    public static final BitSet FOLLOW_150 = new BitSet(new long[]{0x4000000000000000L,0x0000000000000000L,0x0000000000200000L});
+    public static final BitSet FOLLOW_151 = new BitSet(new long[]{0x0000000000000080L,0x0000000000000000L,0x0000000000200040L});
+    public static final BitSet FOLLOW_152 = new BitSet(new long[]{0x0000000000000080L,0x0000000000000000L,0x0000000000200000L});
+    public static final BitSet FOLLOW_153 = new BitSet(new long[]{0x0003024800420000L,0x0000202034040181L,0x000000000FE00020L});
     public static final BitSet FOLLOW_154 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000040834L});
     public static final BitSet FOLLOW_155 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000000L,0x0000000000040834L});
     public static final BitSet FOLLOW_156 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000040000L});
