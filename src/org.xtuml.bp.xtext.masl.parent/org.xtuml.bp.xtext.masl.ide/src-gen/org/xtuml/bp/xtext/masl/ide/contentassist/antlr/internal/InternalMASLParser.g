@@ -4206,9 +4206,15 @@ rule__BuiltinLibraryDefinition__Alternatives_3
 	)
 	|
 	(
-		{ before(grammarAccess.getBuiltinLibraryDefinitionAccess().getCharacteristicsAssignment_3_1()); }
-		(rule__BuiltinLibraryDefinition__CharacteristicsAssignment_3_1)
-		{ after(grammarAccess.getBuiltinLibraryDefinitionAccess().getCharacteristicsAssignment_3_1()); }
+		{ before(grammarAccess.getBuiltinLibraryDefinitionAccess().getExceptionsAssignment_3_1()); }
+		(rule__BuiltinLibraryDefinition__ExceptionsAssignment_3_1)
+		{ after(grammarAccess.getBuiltinLibraryDefinitionAccess().getExceptionsAssignment_3_1()); }
+	)
+	|
+	(
+		{ before(grammarAccess.getBuiltinLibraryDefinitionAccess().getCharacteristicsAssignment_3_2()); }
+		(rule__BuiltinLibraryDefinition__CharacteristicsAssignment_3_2)
+		{ after(grammarAccess.getBuiltinLibraryDefinitionAccess().getCharacteristicsAssignment_3_2()); }
 	)
 ;
 finally {
@@ -23525,7 +23531,7 @@ rule__NavigateExpression__Group_1_1_0_2__1__Impl
 :
 (
 	{ before(grammarAccess.getNavigateExpressionAccess().getWhereAssignment_1_1_0_2_1()); }
-	(rule__NavigateExpression__WhereAssignment_1_1_0_2_1)
+	(rule__NavigateExpression__WhereAssignment_1_1_0_2_1)?
 	{ after(grammarAccess.getNavigateExpressionAccess().getWhereAssignment_1_1_0_2_1()); }
 )
 ;
@@ -27140,15 +27146,30 @@ finally {
 	restoreStackSize(stackSize);
 }
 
-rule__BuiltinLibraryDefinition__CharacteristicsAssignment_3_1
+rule__BuiltinLibraryDefinition__ExceptionsAssignment_3_1
 	@init {
 		int stackSize = keepStackSize();
 	}
 :
 	(
-		{ before(grammarAccess.getBuiltinLibraryDefinitionAccess().getCharacteristicsCharacteristicParserRuleCall_3_1_0()); }
+		{ before(grammarAccess.getBuiltinLibraryDefinitionAccess().getExceptionsExceptionDeclarationParserRuleCall_3_1_0()); }
+		ruleExceptionDeclaration
+		{ after(grammarAccess.getBuiltinLibraryDefinitionAccess().getExceptionsExceptionDeclarationParserRuleCall_3_1_0()); }
+	)
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+rule__BuiltinLibraryDefinition__CharacteristicsAssignment_3_2
+	@init {
+		int stackSize = keepStackSize();
+	}
+:
+	(
+		{ before(grammarAccess.getBuiltinLibraryDefinitionAccess().getCharacteristicsCharacteristicParserRuleCall_3_2_0()); }
 		ruleCharacteristic
-		{ after(grammarAccess.getBuiltinLibraryDefinitionAccess().getCharacteristicsCharacteristicParserRuleCall_3_1_0()); }
+		{ after(grammarAccess.getBuiltinLibraryDefinitionAccess().getCharacteristicsCharacteristicParserRuleCall_3_2_0()); }
 	)
 ;
 finally {

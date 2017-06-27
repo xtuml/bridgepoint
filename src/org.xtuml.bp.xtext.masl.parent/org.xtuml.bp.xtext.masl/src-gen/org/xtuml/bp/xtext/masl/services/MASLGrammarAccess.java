@@ -520,8 +520,10 @@ public class MASLGrammarAccess extends AbstractGrammarElementFinder {
 		private final Alternatives cAlternatives_3 = (Alternatives)cGroup.eContents().get(3);
 		private final Assignment cTypesAssignment_3_0 = (Assignment)cAlternatives_3.eContents().get(0);
 		private final RuleCall cTypesBuiltinTypeDeclarationParserRuleCall_3_0_0 = (RuleCall)cTypesAssignment_3_0.eContents().get(0);
-		private final Assignment cCharacteristicsAssignment_3_1 = (Assignment)cAlternatives_3.eContents().get(1);
-		private final RuleCall cCharacteristicsCharacteristicParserRuleCall_3_1_0 = (RuleCall)cCharacteristicsAssignment_3_1.eContents().get(0);
+		private final Assignment cExceptionsAssignment_3_1 = (Assignment)cAlternatives_3.eContents().get(1);
+		private final RuleCall cExceptionsExceptionDeclarationParserRuleCall_3_1_0 = (RuleCall)cExceptionsAssignment_3_1.eContents().get(0);
+		private final Assignment cCharacteristicsAssignment_3_2 = (Assignment)cAlternatives_3.eContents().get(2);
+		private final RuleCall cCharacteristicsCharacteristicParserRuleCall_3_2_0 = (RuleCall)cCharacteristicsAssignment_3_2.eContents().get(0);
 		private final Keyword cEndKeyword_4 = (Keyword)cGroup.eContents().get(4);
 		private final Keyword cBuiltinKeyword_5 = (Keyword)cGroup.eContents().get(5);
 		private final Keyword cSemicolonKeyword_6 = (Keyword)cGroup.eContents().get(6);
@@ -532,12 +534,13 @@ public class MASLGrammarAccess extends AbstractGrammarElementFinder {
 		//BuiltinLibraryDefinition:
 		//	{BuiltinLibraryDefinition}
 		//	'builtin' 'is' (types+=BuiltinTypeDeclaration
+		//	| exceptions+=ExceptionDeclaration
 		//	| characteristics+=Characteristic)*
 		//	'end' 'builtin'? ';';
 		@Override public ParserRule getRule() { return rule; }
 		
-		//{BuiltinLibraryDefinition} 'builtin' 'is' (types+=BuiltinTypeDeclaration | characteristics+=Characteristic)* 'end'
-		//'builtin'? ';'
+		//{BuiltinLibraryDefinition} 'builtin' 'is' (types+=BuiltinTypeDeclaration | exceptions+=ExceptionDeclaration |
+		//characteristics+=Characteristic)* 'end' 'builtin'? ';'
 		public Group getGroup() { return cGroup; }
 		
 		//{BuiltinLibraryDefinition}
@@ -549,7 +552,7 @@ public class MASLGrammarAccess extends AbstractGrammarElementFinder {
 		//'is'
 		public Keyword getIsKeyword_2() { return cIsKeyword_2; }
 		
-		//(types+=BuiltinTypeDeclaration | characteristics+=Characteristic)*
+		//(types+=BuiltinTypeDeclaration | exceptions+=ExceptionDeclaration | characteristics+=Characteristic)*
 		public Alternatives getAlternatives_3() { return cAlternatives_3; }
 		
 		//types+=BuiltinTypeDeclaration
@@ -558,11 +561,17 @@ public class MASLGrammarAccess extends AbstractGrammarElementFinder {
 		//BuiltinTypeDeclaration
 		public RuleCall getTypesBuiltinTypeDeclarationParserRuleCall_3_0_0() { return cTypesBuiltinTypeDeclarationParserRuleCall_3_0_0; }
 		
+		//exceptions+=ExceptionDeclaration
+		public Assignment getExceptionsAssignment_3_1() { return cExceptionsAssignment_3_1; }
+		
+		//ExceptionDeclaration
+		public RuleCall getExceptionsExceptionDeclarationParserRuleCall_3_1_0() { return cExceptionsExceptionDeclarationParserRuleCall_3_1_0; }
+		
 		//characteristics+=Characteristic
-		public Assignment getCharacteristicsAssignment_3_1() { return cCharacteristicsAssignment_3_1; }
+		public Assignment getCharacteristicsAssignment_3_2() { return cCharacteristicsAssignment_3_2; }
 		
 		//Characteristic
-		public RuleCall getCharacteristicsCharacteristicParserRuleCall_3_1_0() { return cCharacteristicsCharacteristicParserRuleCall_3_1_0; }
+		public RuleCall getCharacteristicsCharacteristicParserRuleCall_3_2_0() { return cCharacteristicsCharacteristicParserRuleCall_3_2_0; }
 		
 		//'end'
 		public Keyword getEndKeyword_4() { return cEndKeyword_4; }
@@ -6021,14 +6030,14 @@ public class MASLGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cReverseOrderSortOrderParserRuleCall_1_1_3_1_0 = (RuleCall)cReverseOrderAssignment_1_1_3_1.eContents().get(0);
 		
 		//NavigateExpression Expression:
-		//	ExtendedExpression ({NavigateExpression.lhs=current} ('->' navigation=RelationshipNavigation ('(' where=FindCondition
+		//	ExtendedExpression ({NavigateExpression.lhs=current} ('->' navigation=RelationshipNavigation ('(' where=FindCondition?
 		//	')')?
 		//	| 'with' ^with=ExtendedExpression '->' navigation=RelationshipNavigation
 		//	| 'ordered_by' order=SortOrder
 		//	| 'reverse_ordered_by' reverseOrder=SortOrder))*
 		@Override public ParserRule getRule() { return rule; }
 		
-		//ExtendedExpression ({NavigateExpression.lhs=current} ('->' navigation=RelationshipNavigation ('(' where=FindCondition
+		//ExtendedExpression ({NavigateExpression.lhs=current} ('->' navigation=RelationshipNavigation ('(' where=FindCondition?
 		//')')? | 'with' ^with=ExtendedExpression '->' navigation=RelationshipNavigation | 'ordered_by' order=SortOrder |
 		//'reverse_ordered_by' reverseOrder=SortOrder))*
 		public Group getGroup() { return cGroup; }
@@ -6036,7 +6045,7 @@ public class MASLGrammarAccess extends AbstractGrammarElementFinder {
 		//ExtendedExpression
 		public RuleCall getExtendedExpressionParserRuleCall_0() { return cExtendedExpressionParserRuleCall_0; }
 		
-		//({NavigateExpression.lhs=current} ('->' navigation=RelationshipNavigation ('(' where=FindCondition ')')? | 'with'
+		//({NavigateExpression.lhs=current} ('->' navigation=RelationshipNavigation ('(' where=FindCondition? ')')? | 'with'
 		//^with=ExtendedExpression '->' navigation=RelationshipNavigation | 'ordered_by' order=SortOrder | 'reverse_ordered_by'
 		//reverseOrder=SortOrder))*
 		public Group getGroup_1() { return cGroup_1; }
@@ -6044,11 +6053,11 @@ public class MASLGrammarAccess extends AbstractGrammarElementFinder {
 		//{NavigateExpression.lhs=current}
 		public Action getNavigateExpressionLhsAction_1_0() { return cNavigateExpressionLhsAction_1_0; }
 		
-		//('->' navigation=RelationshipNavigation ('(' where=FindCondition ')')? | 'with' ^with=ExtendedExpression '->'
+		//('->' navigation=RelationshipNavigation ('(' where=FindCondition? ')')? | 'with' ^with=ExtendedExpression '->'
 		//navigation=RelationshipNavigation | 'ordered_by' order=SortOrder | 'reverse_ordered_by' reverseOrder=SortOrder)
 		public Alternatives getAlternatives_1_1() { return cAlternatives_1_1; }
 		
-		//'->' navigation=RelationshipNavigation ('(' where=FindCondition ')')?
+		//'->' navigation=RelationshipNavigation ('(' where=FindCondition? ')')?
 		public Group getGroup_1_1_0() { return cGroup_1_1_0; }
 		
 		//'->'
@@ -6060,13 +6069,13 @@ public class MASLGrammarAccess extends AbstractGrammarElementFinder {
 		//RelationshipNavigation
 		public RuleCall getNavigationRelationshipNavigationParserRuleCall_1_1_0_1_0() { return cNavigationRelationshipNavigationParserRuleCall_1_1_0_1_0; }
 		
-		//('(' where=FindCondition ')')?
+		//('(' where=FindCondition? ')')?
 		public Group getGroup_1_1_0_2() { return cGroup_1_1_0_2; }
 		
 		//'('
 		public Keyword getLeftParenthesisKeyword_1_1_0_2_0() { return cLeftParenthesisKeyword_1_1_0_2_0; }
 		
-		//where=FindCondition
+		//where=FindCondition?
 		public Assignment getWhereAssignment_1_1_0_2_1() { return cWhereAssignment_1_1_0_2_1; }
 		
 		//FindCondition
@@ -8082,6 +8091,7 @@ public class MASLGrammarAccess extends AbstractGrammarElementFinder {
 	//BuiltinLibraryDefinition:
 	//	{BuiltinLibraryDefinition}
 	//	'builtin' 'is' (types+=BuiltinTypeDeclaration
+	//	| exceptions+=ExceptionDeclaration
 	//	| characteristics+=Characteristic)*
 	//	'end' 'builtin'? ';';
 	public BuiltinLibraryDefinitionElements getBuiltinLibraryDefinitionAccess() {
@@ -9432,7 +9442,7 @@ public class MASLGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//NavigateExpression Expression:
-	//	ExtendedExpression ({NavigateExpression.lhs=current} ('->' navigation=RelationshipNavigation ('(' where=FindCondition
+	//	ExtendedExpression ({NavigateExpression.lhs=current} ('->' navigation=RelationshipNavigation ('(' where=FindCondition?
 	//	')')?
 	//	| 'with' ^with=ExtendedExpression '->' navigation=RelationshipNavigation
 	//	| 'ordered_by' order=SortOrder

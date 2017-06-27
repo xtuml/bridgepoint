@@ -8,10 +8,15 @@
 
 #!/bin/bash
 
-export XTUML_DEVELOPMENT_REPOSITORY=/Users/travislondon/git/bridgepoint-fork-main
-export INCLUDE_TESTS=true
-export mcj_path=~${XTUML_DEVELOPMENT_REPOSITORY}/src/MC-Java
-export bp_test_path=~${XTUML_DEVELOPMENT_REPOSITORY}/../bptest
+SCRIPTPATH=`dirname $0`
+
+source $SCRIPTPATH/build_configuration.sh
+
+# Check for prebuild output in bp.core, if not
+# present then run the prepare script
+if [ ! -f $XTUML_DEVELOPMENT_REPOSITORY/src/org.xtuml.bp.core/sql/ooaofooa-1.sql ]; then
+  $XTUML_DEVELOPMENT_REPOSITORY/utilities/build/prepare_build.sh
+fi
 
 prev_dir=`pwd`
 
@@ -29,8 +34,16 @@ if [ "$2" == "-debug" ];then
 fi
 
 cd $dir 
-mvn -fae $debug -Dtycho.disableP2Mirrors=true -Dmaven.test.failure.ignore=true install
-mvn -Daggregate=true surefire-report:report-only
+mvn $debug -Dtycho.disableP2Mirrors=true -Dmaven.test.failure.ignore=true -U install
+maven_return=$?
+if [ $maven_return == 0 ] && [ "${INCLUDE_TESTS}" == "true" ]; then
+  mvn -Dtycho.disableP2Mirrors=true -Daggregate=true surefire-report:report-only
+  if [ "$(uname)" == "Darwin" ];then
+    open $dir/target/site/surefire-report.html
+  else
+    xdg-open $dir/target/site/surefire-report.html
+  fi
+fi
 
 cd $prev_dir
 
