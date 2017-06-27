@@ -20,11 +20,11 @@ x - 04  min  BM  5.2.1 Travis is concerned about memory consumption due to dupli
 x - 05  min  BM  5.2.2. Clarify (fix) some places where the document says “Xtext” and should just say editor.  
 x - 06  min  BM   General. Somehow make more clear that up to 5.3 assumes xtext and after does not  
 x - 07  min  BM  5.4 “be designing” > “by designing”  
-_ - 08  min  BM  5.4.2 Clarify that this includes events too  
-_ - 09  min  BM  5.4.x Add a relationship processor.  Likely tied to “->”.  
-_ - 10  min  BM  5.4.5 “not proposals” > “no proposals”  
-_ - 11  min  BM  5.4.6 Just call out here that the details of what will be shown will be finalized during the design phase  
-_ - 12  min  BM  5.4.6.1. Clarify here that we will list the signature out and the user will then edit it.  
+x - 08  min  BM  5.4.2 Clarify that this includes events too  
+x - 09  min  BM  5.4.x Add a relationship processor.  Likely tied to “->”.  
+x - 10  min  BM  5.4.5 “not proposals” > “no proposals”  
+x - 11  min  BM  5.4.6 Just call out here that the details of what will be shown will be finalized during the design phase  
+x - 12  min  BM  5.4.6.1. Clarify here that we will list the signature out and the user will then edit it.  
 x - 13  maj  BM  general  Change requirements section to leave only the requirements that are important for the Saab priorities.  Update the work required to reflect the narrowed scope.  
 x - 14  min  BM  general  Review brought up the possibility of splitting this into two notes, which was agreed this was OK.  
 o - 15  min  BM  7   Add some more detail to the test section.  
