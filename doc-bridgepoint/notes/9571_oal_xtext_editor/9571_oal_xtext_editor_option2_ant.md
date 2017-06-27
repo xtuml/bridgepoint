@@ -202,91 +202,79 @@ existing code may lead to "throw away" code, but it seems to be the most
 expedient for satisfying the customer requirements. The rest of the analysis
 will focus on options that do not include Xtext.
 
-5.4 Options using existing framework
+5.4 Implement editor enhancements using existing framework
 
-Using the existing OAL editor we can add auto-completion support by designing
-content assistant processors. These processors are executed with a document
-region where context help was requested. There shall be at least a keyword
-processor, an invocation processor, and a local variable processor. Using a
-token scanner we can determine from the given region what processor is required.
-For instance if the token is white space or not a keyword then we shall use the
-keyword processor and local variable processor. If the token is the '.'
-character or "::" characters we shall use the invocation processor. 
+Using the existing OAL editor we can add auto-completion support be designing content assistant processors. These processors are executed with a document region where context help was requested. There shall be at least a keyword processor, an invocation processor, an association processor and a local variable processor. Using a token scanner we can determine from the given region what processor is required. For instance if the token is white space or not a keyword then we shall use the keyword processor and local variable processor. If the token is the '.' character or "::" characters we shall use the invocation processor.
 
-5.4.1 Keyword processor
+5.4.1 Keyword processor  
 
-The keyword processor shall only show during whitespace content assist requests.
-It also must locate the previous token to further filter what is shown. For
-instance if content assist is requested for whitespace and the previous token is
-a keyword such as select, only one, any or many shall be given as proposals.
+The keyword processor shall only show during whitespace content assist requests. It also must locate the previous token to further filter what is shown. For instance if content assist is requested for whitespace and the previous token is a keyword such as select, only one, any or many shall be given as proposals.
 
-In addition to filtering based on the previous token, the proposals shall be
-filtered based on current text. An example would be sel, which should only show
-select.
+In addition to filtering based on the previous token, the proposals shall be filtered based on current text. An example would be sel, which should only show select.  
+
+5.4.1.2 Bridges and Classes  
+
+The keyword processor shall include in the keyword list all visible bridges and visible classes that have at least one class based operation.   
 
 5.4.2 Invocation processor
 
-The invocation processor shall only show after the appropriate characters as
-stated above. The proposal list must be determined by the token preceding the
-character. Once this information is present its region shall be determined and
-the appropriate Statement class shall be located by matching the region values
-to the statements line number and start position. With this information the
-available invocations can be determined via the associated variable.
+The invocation processor shall only show after the appropriate characters as stated above. The proposal list must be determined by the token preceding the character. Once this information is present its region shall be determined and the appropriate Statement class shall be located by matching the region values to the statements line number and start position. With this information the available invocations can be determined via the associated variable.  
 
-5.4.3 Local variable processor
+5.4.2.1 Event invocation  
 
-As stated above this processor shall be used with whitespace requests. All
-Variable instances shall be considered as long as they are within scope. This
-will be all values within the current Block and any others until the Body. No
-variables defined below the current scope shall be considered.
+Event generation shall be supported using the "generate" token.  When found completion shall include all event instances within scope.  No completion shall be supported for generation directly from event labels.  The reason being is that the "to" token must be known before anything valid can be offered.    
 
-5.4.4 Parameter processor
+5.4.2.2 Create  
 
-We should eventually have a parameter processor, which would allow completion of
-required parameters. This is more work then should be for this issue. It would
-require the tool to consider which parameters have been used to filter the
-available list.
+Instance and event instance creation shall be handled by the invocation processor.  When the "of" token is found the preceding tokens shall be considered to find either a visible object key letter, or in the case of an event instance a visible event.  
+
+5.4.2.3 Delete  
+
+Instance deletion shall consider the "instance" token, and validate proposals based on what local object variables are present.  
+
+5.4.2.4 Data Access  
+
+The invocation processor shall also produce attributes for clasess and data items for events.  
+
+5.4.3 Association processor  
+
+5.4.3.1 Selections
+
+The association processor shall execute when the -> "dagger" token is matched.  The preceding token shall be considered a value and if properly resolved shall allow the processor to show only associations that the value participates in.  This shall include a list of associated classes using their key letters and the association number.  At this point valid contexts would be all elements in association regardless of what the left value is/was.  The processor shall always use the full syntax in offerings, meaning text phrases are always presented in the offerings and always used.  The full association chain must be cnsidered for cases where the dagger is not the first dagger after a value instance.  In this case the object key letters in the chain shall be used to resolve the available associations.  
+
+5.4.3.2 Relate/Unrelate  
+
+The association processor needs to consider the two values in a relate statement to properly offer association completions.  The processor shall use the across token to trigger this functionality.  
+
+The "using" token shall change the processor behavior to consider linked classes only.  If none are present then no context help shall be offered.  
+
+5.4.4 Local variable processor
+
+As stated above this processor shall be used with whitespace requests. All Variable instances shall be considered as long as they are within scope. This will be all values within the current Block and any others until the Body. No variables defined below the current scope shall be considered.
 
 5.4.5 Comments
 
-When a request is made within any comment token, not proposals shall be given.
+When a request is made within any comment token, no proposals shall be given.
 
 5.4.6 Proposal display and completion
 
-The proposal display shall be as such:
+The design phase of this work shall determine the final display for context help.  Below is one possibility.  
 
-<element to be added> - Additional information such as owning element, next page
-xtUML element description
+- Additional information such as owning element, next page xtUML element description
 
-Here is an example for an operation invocation:
+Here is one example for an operation invocation:
 
-Pane 1                                                                      | Pane 2         
-operation(param1: type, param2: type) - Model::Classes::ClassOne::operation   This operation performs this.  
+Pane 1 | Pane 2
+operation(param1: type, param2: type) - Model::Classes::ClassOne::operation This operation performs this.
 
 5.4.6.1 Completion
 
-When a user chooses a proposal the tool needs to insert text. For keywords and
-variables this is simply the keyword or variable name. For invocations it is a
-bit more complicated. JDT is very elegant with their completion, allowing
-current edit spots to allow the user to fully complete the assist. For this
-work I suggest we simply enter something like empty or maybe the parameter
-names.
+When a user chooses a proposal the tool needs to insert text. For keywords and variables this is simply the keyword or variable name. For invocations it is a bit more complicated. JDT is very elegant with their completion, allowing current edit spots to allow the user to fully complete the assist. For this work the complete signature of the invocation will be listed in the proposals.  When selected the entire signature will be inserted leaving modification to the user for appropriate values.  
 
 5.4.7 Declaration and Reference searching
 
-The search infrastructure already considers declaration and reference searching
-in its design. Further work would have to be completed to make use here. The
-classes under the Search package of ooaofooa starting with Declarations and
-References would need to be fully implemented. The engine classes would require
-a processQuery() operation. This operation needs to search the participants
-associated with the Engine, for each create a match if the signature matches.
-The Query classes would require a configureParticipants and createParticipant
-operations. Using the same logic as with the content assist processors, we can
-determine what element to search for. A new context menu entry would be defined
-and present anytime a searchable reference was selected in the editor. When
-executed the search infrastructure shall be called locating that element by
-signature. All results will show in the search view as they do with JDT. Those
-entries already allow traversal to the model element where expected.
+The search infrastructure already considers declaration and reference searching in its design. Further work would have to be completed to make use here. The classes under the Search package of ooaofooa starting with Declarations and References would need to be fully implemented. The engine classes would require a processQuery() operation. This operation needs to search the participants associated with the Engine, for each create a match if the signature matches. The Query classes would require a configureParticipants and createParticipant operations. Using the same logic as with the content assist processors, we can determine what element to search for. A new context menu entry would be defined and present anytime a searchable reference was selected in the editor. When executed the search infrastructure shall be called locating that element by signature. All results will show in the search view as they do with JDT. Those entries already allow traversal to the model element where expected.
+
 
 5.5 Conclusion
 
@@ -333,6 +321,40 @@ described.
 6.4.1 A mapper mechanism must be introduced to map OAL identifiers to xtUML
 model elements.  
 6.4.2 Code must be written to invoke `handleOpen` for the appropriate view.  
+
+6.5 Implement editor enhancements using existing framework  
+6.5.1 Create a content assist processor for keywords  
+6.5.1.1 Return all OAL keywords in a list  
+6.5.1.2 Return all visible bridges and classes which have at least on class based operation  
+6.5.1.3 Use the keyword processor if dealing with whitespace or non-token partial entries  
+6.5.1.4 Look back at previous tokens to determine keywords to offer which make sense  
+6.5.2 Create a content assist processor for invocations  
+6.5.2.1 Return all invocation types available for the value preceding the . or :: characters  
+6.5.2.2 Support invocation types found in the Body SS (Operation, Signal, Interface Operation, Function, Bridge)  
+6.5.2.3 Support event creation and generation  
+6.5.2.4 Support the "instance" and "of" tokens  
+6.5.2.5 Support attributes and event data items  
+6.5.3 Create a content assist processor for associations  
+6.5.3.1 Support relate and unrelate  
+6.5.3.2 Support the "using" token  
+6.5.3.3 Support association chains  
+6.5.4 Create a content assist processor for local variables  
+6.5.4.1 During whitespace content assist provide a list of all local variables within scope  
+6.5.5 Assure that no proposals are allowed within comment tokens  
+6.5.6 All work will be handled by each individual content assist processor  
+6.5.7 Complete the described operations mentioned in the analysis note for the following classes  
+6.5.7.1 Declarations Engine, References Engine  
+6.5.7.1.1 Declarations Engine  
+6.5.7.1.1.1 processQuery, given a path, name or ID locate that element in the workspace and create Name Match instances  
+6.5.7.1.2 References Engine  
+6.5.7.1.2.1 processQuery, given a path, name or ID locate all places for which that element is a Value in OAL.  
+6.5.7.1.2.2 parse all before searching  
+6.5.7.2 Declarations Query, References Query  
+6.5.7.2.1 For each add a configureParticipants operation and a createParticipant operation  
+6.5.7.2.2 For configureParticipants call Search_c.java as we do in other searchs, modify Search_c.java to look for all elements that are visible  
+6.5.7.2.3 For createParticipant create an instance of Named Searchable with the given name, path or ID.  
+6.5.7.3 Add selection based CME for Open Declaration  
+6.5.7.3.1 On creation of the CM determine if the selection is against a value token which represents a declared element, if so produce search data given the selection information  
 
 ### 7. Acceptance Test
 
