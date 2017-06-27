@@ -243,9 +243,7 @@ available invocations can be determined via the associated variable.
 5.4.2.1 Event invocation
 
 Event generation shall be supported using the "generate" token. When found
-completion shall include all event instances within scope. No completion shall
-be supported for generation directly from event labels. The reason being is
-that the "to" token must be known before anything valid can be offered.
+completion shall include all event instances within scope. For event generation given an event label the only possible way to produce a good proposal list would be to know the "to" token value.  This is not generally helpful as one would be required to complete the statement before going back to the autocompletion support for the event label.
 
 5.4.2.2 Create
 
@@ -359,6 +357,7 @@ it is the most reasonable for us to use existing code.
 6.2.1 Return all invocation types available for the value preceding the . or :: characters  
 6.2.2 Support invocation types found in the Body SS (Operation, Signal, Interface Operation, Function, Bridge)  
 6.2.3 Support event creation and generation  
+6.2.3.1 Given the format for event generation using event labels, the approariate data is not in place so no work is required.  
 6.2.4 Support the "instance" and "of" tokens  
 6.2.5 Support attributes and event data items  
 6.3 Create a content assist processor for associations  
