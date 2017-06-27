@@ -78,7 +78,6 @@ mentioned in section 1.
 | AE3 | Context-sensitive completion assistance for user-defined identifiers is provided while editing OAL activities.                                               |
 | AE5 | Problem markers shall be created in the problems view for errors OAL editors present in the activity editor.                                                 |
 | AE6 | Opening a problem marker in the problems view shall open the activity editor and position the cursor at the error.                                           |
-| AE7 | Signatures shall be viewable in the activity editor. This includes all action bodies that have a signature. Examples: function, operation, etc.              |
 | AE8 | When a variable representing an OAL instance is selected in the editor, a CME shall be present that allows the user to find the declaration of the instance. |
 | AE9 | When a declaration is found using Find Declaration, the user shall be able to select it to navigate to the declaration.                                      |
 
@@ -271,7 +270,7 @@ to populate the model data debugging shall continue to work.
 
 ### 6. Work Required
 
-6.1 Editor (B1, AE1, AE2, AE5, AE6, AE7)
+6.1 Editor (B1, AE1, AE2, AE5, AE6)
 
 6.1.1 An Xtext grammar must be produced which can parse OAL activities.  
 6.1.2 The existing code in this area must be extended and tested.  
