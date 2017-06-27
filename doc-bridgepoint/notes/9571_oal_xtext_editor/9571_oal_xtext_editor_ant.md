@@ -33,6 +33,7 @@ requirements to implement in phase one and provide analysis for them.
 <a id="2.11"></a>2.11 [#506 analysis note for OAL Xtext editor](../506_enhanced_oal_editor/506_enhanced_oal_editor.ant.md)  
 <a id="2.12"></a>2.12 [#506 design note for OAL Xtext editor](../506_enhanced_oal_editor/506_enhanced_oal_editor_phase_1.dnt.md)  
 <a id="2.13"></a>2.13 [#1087 Provide a better way (faster) for defining and editing function signatures (class editor / multi-buffer editor)](https://support.onefact.net/issues/1087)  
+<a id="2.14"></a>2.14 [Second analysis note for this work](9571_oal_xtext_editor_option2_ant.md)  
 
 ### 3. Background
 
@@ -66,6 +67,10 @@ Where necessary the usage of certain terms is clarified in this section.
   structural element is the data and control part of the model. For example,
   classes, attributes, interfaces and state machines are structural elements.
   The OAL bnf does not include structural elements.  
+
+After this analysis was completed, a new analysis was done in response to a
+shift in priority of requirements in the SRS. That analysis can be seen in
+reference [[2.14]](#2.14)
 
 ### 4. Requirements
 

@@ -86,11 +86,23 @@ mentioned in section 1.
 5.1 Phase one requirements
 
 In section 4, a subset of the requirements is called out as belonging to phase
-one. In this version, theme will be providing an intelligent editor which can
-validate structural elements in text through an interface to the meta-model.
-Textual persistence and signature editing will be pushed to a later phase.
+one. In this version, the theme of the phase one requirements will be providing
+an intelligent editor which can validate structural elements in text through an
+interface to the meta-model. Textual persistence and signature editing will be
+pushed to a later phase.
 
-5.2 OOA of OOA interface
+5.2 Verifier
+
+Any path that is taken must consider the ability to single step using verifier.
+Since OAL instances are still parsed by the OAL parser from the
+`Action_Semantics` string, no extra work must be done to provide line and column
+information to verifier. The `org.xtuml.debug.ui` plugin handles source location
+and will not care what the underlying editor is. Since the parser will continue
+to populate the model data debugging shall continue to work.
+
+5.3 Options using Xtext
+
+5.3.1 OOA of OOA interface with Xtext
 
 By far the largest technical challenge presented by these requirements is how to
 parse the textual OAL and link to instances of structural xtUML elements.
@@ -100,16 +112,10 @@ is no exporter like the MASL exporter described in 3.1 for xtUML.  For an OAL
 text editor to interface into the model, we will need to go one of two
 directions:
 
-1. Extend the MASL exporter to generate textual versions of the xtUML model for
-   validation  
-   * Write an xtUML grammar to parse these new structural elements  
-   * Follow the current MASL pattern  
-2. Extend or implement a direct interface into the OOA of OOA  
-   * Using functions and class operations  
-   * Integrate this interface into the validation and completion facilities of
-     the OAL Xtext editor.  
-
-5.2.1 xtUML to text exporter
+5.3.1.1 Extend the MASL exporter to generate textual versions of the xtUML model for
+validation  
+  * Write an xtUML grammar to parse these new structural elements  
+  * Follow the current MASL pattern  
 
 We already have a good deal of code in place which can take compatible xtUML
 models and generate MASL from them. This code could be extended to export any
@@ -117,13 +123,13 @@ xtUML model to a MASL-like textual format. Careful consideration and
 consultation from interested parties would be an important step if this path
 were taken.
 
-5.2.1.1 Xtext grammar
+5.3.1.1.1 Xtext grammar
 
 We already have an Xtext compatible grammar which can parse OAL bodies, however
 we will need to refine it and add production rules which can parse the newly
 created textual xtUML syntax discussed above.
 
-5.2.1.2 Validation, context assistance, etc.
+5.3.1.1.2 Validation, context assistance, etc.
 
 More work would have to be done to put into place the proper validation of OAL
 specific semantic rules including the handling of types. Context assistance code
@@ -134,7 +140,19 @@ Detailed information about the sizing of the original MASL editor to help with
 sizing of an OAL editor can be seen in an internal issue
 [here](https://support.onefact.net/issues/9543#note-9)
 
-5.2.2 Direct interface
+5.3.1.1.3 Memory consumption
+
+It has been noted that for large models, a massive amount of memory is used to
+load the models. If we use a textual representation of xtUML to validate OAL
+activities using Xtext, we will likely double the memory consumption for loaded
+models because each class, operation, state, etc. will have an xtUML instance
+and a corresponding EMF instance in memory simultaneously. This is strong
+argument against this option.
+
+5.3.1.2 Extend or implement a direct interface into the OOA of OOA  
+  * Use functions and class operations  
+  * Integrate this interface into the validation and completion facilities of
+    the OAL Xtext editor.  
 
 A large body of OAL validation functions already exist in the OOA of OOA which
 are automatically inserted into the ANTLR parser which is generated. A similar
@@ -149,7 +167,7 @@ interface similar to this one could be implemented such that the Xtext editor
 can query arbitrary lists of applicable elements without knowledge of the shape
 of the meta-model itself.
 
-5.2.3 Visibility and IPRs
+5.3.1.3 Visibility and IPRs
 
 In each of the two options for interface, visibility must be considered. For
 the extended exporter option (5.2.1), some sort of containment syntax will need
@@ -164,7 +182,7 @@ elements into some sort of interface file.
 For the direct interface option (5.2.2), visibility and IPRs will be handled
 naturally because OAL functions will be used to access the elements.
 
-5.3 Snippet editor
+5.3.2 Snippet editor
 
 Because Xtext likes to work with files, and our current persistence architecture
 requires that buffers are populated and serialized to a live xtUML instance,
@@ -173,48 +191,59 @@ this in MASL with the MASL snippet editor which is able to load and persist MASL
 text from model instances. An OAL snippet editor must be produced which does the
 same for OAL.
 
-5.4 Implement editor enhancements using existing framework
+---
 
-Using the existing OAL editor we can add auto-completion support be designing
-content assistant processors.  These processors are executed with a document
-region where context help was requested.  There shall be at least a keyword
-processor, an invocation processor, and a local variable processor.  Using a
+Up to this point we have been working with the assumption that Xtext will be
+used to complete this work. Xtext is good because it is well supported and will
+help us to progress forward with future incremental improvements to the editor.
+However, the costs associated with using Xtext before we are ready or in the
+wrong context outweigh the costs extending existing framework. Extending
+existing code may lead to "throw away" code, but it seems to be the most
+expedient for satisfying the customer requirements. The rest of the analysis
+will focus on options that do not include Xtext.
+
+5.4 Options using existing framework
+
+Using the existing OAL editor we can add auto-completion support by designing
+content assistant processors. These processors are executed with a document
+region where context help was requested. There shall be at least a keyword
+processor, an invocation processor, and a local variable processor. Using a
 token scanner we can determine from the given region what processor is required.
 For instance if the token is white space or not a keyword then we shall use the
-keyword processor and local variable processor.  If the token is the '.'
+keyword processor and local variable processor. If the token is the '.'
 character or "::" characters we shall use the invocation processor. 
 
 5.4.1 Keyword processor
 
 The keyword processor shall only show during whitespace content assist requests.
-It also must locate the previous token to further filter what is shown.  For
+It also must locate the previous token to further filter what is shown. For
 instance if content assist is requested for whitespace and the previous token is
 a keyword such as select, only one, any or many shall be given as proposals.
 
 In addition to filtering based on the previous token, the proposals shall be
-filtered based on current text.  An example would be sel, which should only show
+filtered based on current text. An example would be sel, which should only show
 select.
 
 5.4.2 Invocation processor
 
 The invocation processor shall only show after the appropriate characters as
-stated above.  The proposal list must be determined by the token preceding the
-character.  Once this information is present its region shall be determined and
+stated above. The proposal list must be determined by the token preceding the
+character. Once this information is present its region shall be determined and
 the appropriate Statement class shall be located by matching the region values
-to the statements line number and start position.  With this information the
+to the statements line number and start position. With this information the
 available invocations can be determined via the associated variable.
 
 5.4.3 Local variable processor
 
-As stated above this processor shall be used with whitespace requests.  All
-Variable instances shall be considered as long as they are within scope.  This
-will be all values within the current Block and any others until the Body.  No
+As stated above this processor shall be used with whitespace requests. All
+Variable instances shall be considered as long as they are within scope. This
+will be all values within the current Block and any others until the Body. No
 variables defined below the current scope shall be considered.
 
 5.4.4 Parameter processor
 
 We should eventually have a parameter processor, which would allow completion of
-required parameters.  This is more work then should be for this issue.  It would
+required parameters. This is more work then should be for this issue. It would
 require the tool to consider which parameters have been used to filter the
 available list.
 
@@ -236,37 +265,37 @@ operation(param1: type, param2: type) - Model::Classes::ClassOne::operation   Th
 
 5.4.6.1 Completion
 
-When a user chooses a proposal the tool needs to insert text.  For keywords and
-variables this is simply the keyword or variable name.  For invocations it is a
-bit more complicated.  JDT is very elegant with their completion, allowing
-current edit spots to allow the user to fully complete the assist.  For this
+When a user chooses a proposal the tool needs to insert text. For keywords and
+variables this is simply the keyword or variable name. For invocations it is a
+bit more complicated. JDT is very elegant with their completion, allowing
+current edit spots to allow the user to fully complete the assist. For this
 work I suggest we simply enter something like empty or maybe the parameter
 names.
 
 5.4.7 Declaration and Reference searching
 
 The search infrastructure already considers declaration and reference searching
-in its design.  Further work would have to be completed to make use here.  The
+in its design. Further work would have to be completed to make use here. The
 classes under the Search package of ooaofooa starting with Declarations and
-References would need to be fully implemented.  The engine classes would require
-a processQuery() operation.  This operation needs to search the participants
+References would need to be fully implemented. The engine classes would require
+a processQuery() operation. This operation needs to search the participants
 associated with the Engine, for each create a match if the signature matches.
 The Query classes would require a configureParticipants and createParticipant
-operations.  Using the same logic as with the content assist processors, we can
-determine what element to search for.  A new context menu entry would be defined
-and present anytime a searchable reference was selected in the editor.  When
+operations. Using the same logic as with the content assist processors, we can
+determine what element to search for. A new context menu entry would be defined
+and present anytime a searchable reference was selected in the editor. When
 executed the search infrastructure shall be called locating that element by
-signature.  All results will show in the search view as they do with JDT.  Those
+signature. All results will show in the search view as they do with JDT. Those
 entries already allow traversal to the model element where expected.
 
-5.5 Verifier
+5.5 Conclusion
 
-Any path that is taken must consider the ability to single step using verifier.
-Since OAL instances are still parsed by the OAL parser from the
-`Action_Semantics` string, no extra work must be done to provide line and column
-information to verifier. The `org.xtuml.debug.ui` plugin handles source location
-and will not care what the underlying editor is.  Since the parser will continue
-to populate the model data debugging shall continue to work.
+After analysis it has been concluded that the best course to take would be to
+extend the existing infrastructure to support the new functionality. Xtext is a
+technology we would like to use in the future and would provide many benefits in
+editing and persistence (especially when/if the xtUML meta-model becomes
+compatible with EMF), however in the interest of the priorities of the customer,
+it is the most reasonable for us to use existing code.
 
 ### 6. Work Required
 
@@ -307,7 +336,7 @@ model elements.
 
 ### 7. Acceptance Test
 
-7.1 Use cases will be defined as part of the design process and manual tests
-created to validate this work.
+7.1 Use cases will be defined as part of the design process to validate this
+work.
 
 ### End

@@ -13,40 +13,25 @@ Present: Bob, Levi, Cort, Keith, Travis
 <pre>
 
 -- Num Type  Who  Section  Comment
-_- 01  min  BM  5.1  “theme” > “the theme of the phase 1 requirements”
-
-_- 02  min  BM  5.2 “Using functions” > “Use functions”
-
-_- 03  min  BM  5.2. either remove subitems 1 and 2 or explicitly state they tie to 5.2.1 and 5.2.2
-
-_- 04  min  BM  5.2.1 Travis is concerned about memory consumption due to duplication of instance data in EMF (as well as the current Java).  This would include OAL instance data when a model is loaded for debugging.
-
-_- 05  min  BM  5.2.2. Clarify (fix) some places where the document says “xText” and should just say editor.
-
-_- 06  min  BM   General. Somehow make more clear that up to 5.3 assumes xtext and after does not
-
-_- 07  min  BM  5.4 “be designing” > “by designing”
-
-_- 08  min  BM  5.4.2 Clarify that this includes events too
-
-_- 09  min  BM  5.4.x Add a relationship processor.  Likely tied to “->”.
-
-_- 10  min  BM  5.4.5 “not proposals” > “no proposals”
-
-_- 11  min  BM  5.4.6 Just call out here that the details of what will be shown will be finalized during the design phase
-
-_- 12  min  BM  5.4.6.1. Clarify here that we will list the signature out and the user will then edit it.
-
-_- 13  maj  BM  general  Change requirements section to leave only the requirements that are important for the Saab priorities.  Update the work required to reflect the narrowed scope.
-
-_- 14  min  BM  general  Review brought up the possibility of splitting this into two notes, which was agreed this was OK.
-
-_- 15  min  BM  7   Add some more detail to the test section.
+x - 01  min  BM  5.1  “theme” > “the theme of the phase 1 requirements”  
+x - 02  min  BM  5.2 “Using functions” > “Use functions”  
+x - 03  min  BM  5.2. either remove subitems 1 and 2 or explicitly state they tie to 5.2.1 and 5.2.2  
+x - 04  min  BM  5.2.1 Travis is concerned about memory consumption due to duplication of instance data in EMF (as well as the current Java).  This would include OAL instance data when a model is loaded for debugging.  
+x - 05  min  BM  5.2.2. Clarify (fix) some places where the document says “Xtext” and should just say editor.  
+x - 06  min  BM   General. Somehow make more clear that up to 5.3 assumes xtext and after does not  
+x - 07  min  BM  5.4 “be designing” > “by designing”  
+_ - 08  min  BM  5.4.2 Clarify that this includes events too  
+_ - 09  min  BM  5.4.x Add a relationship processor.  Likely tied to “->”.  
+_ - 10  min  BM  5.4.5 “not proposals” > “no proposals”  
+_ - 11  min  BM  5.4.6 Just call out here that the details of what will be shown will be finalized during the design phase  
+_ - 12  min  BM  5.4.6.1. Clarify here that we will list the signature out and the user will then edit it.  
+x - 13  maj  BM  general  Change requirements section to leave only the requirements that are important for the Saab priorities.  Update the work required to reflect the narrowed scope.  
+x - 14  min  BM  general  Review brought up the possibility of splitting this into two notes, which was agreed this was OK.  
+o - 15  min  BM  7   Add some more detail to the test section.  
 
 </pre>
-   
-Major observations were recorded, a re-review is required.
 
+Major observations were recorded, a re-review is required.
 
 End
 ---
