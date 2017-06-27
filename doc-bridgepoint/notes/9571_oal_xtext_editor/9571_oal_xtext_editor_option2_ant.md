@@ -243,7 +243,11 @@ available invocations can be determined via the associated variable.
 5.4.2.1 Event invocation
 
 Event generation shall be supported using the "generate" token. When found
-completion shall include all event instances within scope. For event generation given an event label the only possible way to produce a good proposal list would be to know the "to" token value.  This is not generally helpful as one would be required to complete the statement before going back to the autocompletion support for the event label.
+completion shall include all event instances within scope. For event generation
+given an event label the only possible way to produce a good proposal list
+would be to know the "to" token value. This is not generally helpful as one
+would be required to complete the statement before going back to the
+autocompletion support for the event label.
 
 5.4.2.2 Create
 
@@ -350,14 +354,20 @@ it is the most reasonable for us to use existing code.
 
 6.1 Create a content assist processor for keywords  
 6.1.1 Return all OAL keywords in a list  
-6.1.2 Return all visible bridges and classes which have at least on class based operation  
-6.1.3 Use the keyword processor if dealing with whitespace or non-token partial entries  
-6.1.4 Look back at previous tokens to determine keywords to offer which make sense  
+6.1.2 Return all visible bridges and classes which have at least on class based
+operation  
+6.1.3 Use the keyword processor if dealing with whitespace or non-token partial
+entries  
+6.1.4 Look back at previous tokens to determine keywords to offer which make
+sense  
 6.2 Create a content assist processor for invocations  
-6.2.1 Return all invocation types available for the value preceding the . or :: characters  
-6.2.2 Support invocation types found in the Body SS (Operation, Signal, Interface Operation, Function, Bridge)  
+6.2.1 Return all invocation types available for the value preceding the . or ::
+characters  
+6.2.2 Support invocation types found in the Body SS (Operation, Signal,
+Interface Operation, Function, Bridge)  
 6.2.3 Support event creation and generation  
-6.2.3.1 Given the format for event generation using event labels, the approariate data is not in place so no work is required.  
+6.2.3.1 Given the format for event generation using event labels, the
+approariate data is not in place so no work is required.  
 6.2.4 Support the "instance" and "of" tokens  
 6.2.5 Support attributes and event data items  
 6.3 Create a content assist processor for associations  
@@ -365,22 +375,31 @@ it is the most reasonable for us to use existing code.
 6.3.2 Support the "using" token  
 6.3.3 Support association chains  
 6.4 Create a content assist processor for local variables  
-6.4.1 During whitespace content assist provide a list of all local variables within scope  
+6.4.1 During whitespace content assist provide a list of all local variables
+within scope  
 6.5 Assure that no proposals are allowed within comment tokens  
 6.6 All work will be handled by each individual content assist processor  
-6.7 Complete the described operations mentioned in the analysis note for the following classes  
+6.7 Complete the described operations mentioned in the analysis note for the
+following classes  
 6.7.1 Declarations Engine, References Engine  
 6.7.1.1 Declarations Engine  
-6.7.1.1.1 processQuery, given a path, name or ID locate that element in the workspace and create Name Match instances  
+6.7.1.1.1 processQuery, given a path, name or ID locate that element in the
+workspace and create Name Match instances  
 6.7.1.2 References Engine  
-6.7.1.2.1 processQuery, given a path, name or ID locate all places for which that element is a Value in OAL.  
+6.7.1.2.1 processQuery, given a path, name or ID locate all places for which
+that element is a Value in OAL.  
 6.7.1.2.2 parse all before searching  
 6.7.2 Declarations Query, References Query  
-6.7.2.1 For each add a configureParticipants operation and a createParticipant operation  
-6.7.2.2 For configureParticipants call Search_c.java as we do in other searchs, modify Search_c.java to look for all elements that are visible  
-6.7.2.3 For createParticipant create an instance of Named Searchable with the given name, path or ID.  
+6.7.2.1 For each add a configureParticipants operation and a createParticipant
+operation  
+6.7.2.2 For configureParticipants call Search_c.java as we do in other searchs,
+modify Search_c.java to look for all elements that are visible  
+6.7.2.3 For createParticipant create an instance of Named Searchable with the
+given name, path or ID.  
 6.7.3 Add selection based CME for Open Declaration  
-6.7.3.1 On creation of the CM determine if the selection is against a value token which represents a declared element, if so produce search data given the selection information  
+6.7.3.1 On creation of the CM determine if the selection is against a value
+token which represents a declared element, if so produce search data given the
+selection information  
 
 ### 7. Acceptance Test
 
