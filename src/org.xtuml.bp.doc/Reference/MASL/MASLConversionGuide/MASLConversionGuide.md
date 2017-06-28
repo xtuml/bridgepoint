@@ -152,8 +152,8 @@ domain package which then contains:
 * all shared types and all interface definitions associated with the MASL domain  
   
 To support system-side visibility, BridgePoint’s support for inter-project references (IPR) is 
-leveraged. Any project which enables IPRs will gain access to the components and types shared by other 
-projects in the workspace.  
+leveraged. The xtUML Project in a workspace that is a MASL Project will enable IPRs and thus will gain 
+access to the components and types shared by other (MASL Domain) projects in the workspace.  
 
 ![MASL Project Layout](images/image03.png)  
 __Figure 3__  
@@ -168,8 +168,8 @@ they see fit, so long as these two conditions are met:
 * all elements shared among components are defined outside the components that refer to them  
 * all elements associated with a MASL domain reside within the domain package for that MASL domain  
   
-For xtUML models, packaged in this way, the export facility produces a MASL domain file (```.mod```) 
-that includes the shared types residing in the package associated with the MASL domain.  
+For xtUML models, packaged in this way, the export facility produces a MASL domain interface file (```.int```) 
+that includes the shared types residing in the package associated with the MASL Domain.  
    
 ### Keeping xtUML and MASL Types Separate
 
@@ -187,6 +187,12 @@ in MASL can further constrain the type that is applied to the affected model ele
 declarations exist only within activities expressed in MASL, these references do not receive special 
 handling and are kept with the MASL code block.  
 
+To access shared types from other domains in MASL action language, the modeler must copy the ```<other domain>.int```
+file into the local project's ```models/``` folder.  
+
+To access shared types from the structural part of the model, the modeler must create a type reference
+in the local domain.  This is done by creating a new UDT in the current domain with a special name that 
+references the domain where the type actually lives (e.g. ```OtherDom::someType```).  
 
 BridgePoint Extensions for MASL
 ------------
@@ -296,8 +302,10 @@ BridgePoint workspaces then the ```WORKSPACE``` variable must be modified betwee
 invocations.   
   
 To invoke the MASL export tool, the following syntax is used  
-```xtuml2masl  -i <eclipse project path> -d <package name> [-o <output directory> ]  |  
--i <eclispe project path> -p <package name> [-o <output directory> ]```  
+```
+xtuml2masl  -i <eclipse project path> -d <package name> [-o <output directory> ]  |  
+-i <eclispe project path> -p <package name> [-o <output directory> ]
+```  
 
 See the ```xtuml2masl``` reference page in BridgePoint Help for complete details. Note, if 
 the ```-o``` parameter is omitted, the current directory is used by default.  
@@ -368,12 +376,14 @@ To check if IPRs are enabled for a particular xtUML project, select that project
 Explorer View and then select __&lt;RMB&gt; > Project Preferences__. This will open a popup window (Figure 5), 
 and selecting Inter-Project References will show the setting Allow inter-project model references. 
 The use of IPRs is enabled if the checkbox is marked. For the models based on the MASL-xtUML idiom, 
-all xtUML projects containing a domain component or a project package must have this checkbox marked, 
-and the preference must be set prior to importing the masl2xtuml created MASL-infused models.
+all xtUML projects containing a MASL Domain component must have this checkbox unmarked and those xtUML 
+projects containing a MASL Project must have this checkbox marked.  For these xtUML/MASL Projects,  
+the preference must be set prior to importing the file created by masl2xtuml.
   
 ![xtUML Project Preferences](images/image01.png)  
 __Figure 5__  
 
+TODO
 When a domain component, shared data type or shared interface is modified, all projects referencing 
 that model element will be marked with a warning icon on all affected model elements. There are 
 two approaches to resolving these warnings. For projects where the modeler is not the owner of 
@@ -451,19 +461,18 @@ here and implemented using the following steps:
 1. Create an empty xtUML project using __File > New > xtUML Project__ and give it the name 
 HeartRateMonitor.  __&lt;click&gt; Next__. On the model compiler selection page choose “C Model 
 Compiler (Source)”. __&lt;click&gt; Finish__.  
-2. Select the HeartRateMonitor project folder in the Model Explorer view followed by select 
+2. Import the converted xtUML model using __File > Import__ and select xtUML Model under the xtUML 
+folder. Once selected, __&lt;click&gt; Next__.  
+3. Browse to the folder ```~/Tutorial/xtUMLprj/HeartRateMonitor``` and check mark HeartRateMonitor 
+for the destination.  
+4. Repeat steps 1 Through 3 for Location, Tracking and UI models.  
+5. The final step is to import the top level project GPSWatch, Again create an empty xtUML project 
+using __File > New > xtUML Project__, give it the name GPSWatch.  Select the GPSWatch project in the 
+Model Explorer view, then 
 __&lt;RMB&gt; > Project Preferences__. This will popup the Project Preferences window and after selecting 
 Inter-project References should confirm that the preference Allow inter-project model references 
 is checked. If not, __&lt;click&gt;__ on the box and a checkmark will appear.  
-3. Import the converted xtUML model using __File > Import__ and select xtUML Model under the xtUML 
-folder. Once selected, __&lt;click&gt; Next__.  
-4. Browse to the folder ```~/Tutorial/xtUMLprj/HeartRateMonitor``` and check mark HeartRateMonitor 
-for the destination.  
-5. Repeat steps 1 Through 4 for Location, Tracking and UI models.  
-6. The final step is to import the top level project GPSWatch, Again create an empty xtUML project 
-using __File > New > xtUML Project__, give it the name GPSWatch, and confirm that the preference 
-Inter-project model References is checkmarked using the steps outlined in previously.  
-7. Import the converted MASL project found in ```~/Tutorial/xtUMLprj/GPSWatch``` into the GPSWatch 
+6. Import the converted MASL project found in ```~/Tutorial/xtUMLprj/GPSWatch``` into the GPSWatch 
 xtUML project.  
 
 ### Navigating through the xtUML model
