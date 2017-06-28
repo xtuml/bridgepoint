@@ -29,8 +29,6 @@ Here Rule means the conditionality and the multiplicity.  This can be one of the
 1..*  
 *  
 
-The last Rule and Link Side columns are always present but empty with a non-linked association.  
-
 ### 4. Requirements
 
 4.1 User shall be able to modify an association without the properties view  
