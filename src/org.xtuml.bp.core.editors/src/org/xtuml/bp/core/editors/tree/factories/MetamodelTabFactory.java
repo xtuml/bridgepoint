@@ -19,7 +19,7 @@ public class MetamodelTabFactory implements IEditorTabFactory {
 		TreeEditor editor = new TreeEditor(modelEditor);
 		try {
 			int addPage = modelEditor.addPage(editor, editorInput);
-			modelEditor.setPageText(addPage, "Tree Editor");
+			modelEditor.setPageText(addPage, "Details");
 		} catch (PartInitException e) {
 			CorePlugin.logError("Unable to initialize tree editor.", e);
 		}
