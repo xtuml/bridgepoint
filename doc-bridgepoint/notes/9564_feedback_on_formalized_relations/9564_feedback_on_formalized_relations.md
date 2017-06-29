@@ -44,17 +44,19 @@ A symbol could also be drawn just off of center and towards the formalizer class
 
 5.1.5 Make all formalized associations bold  
 
-Differentiating from coloring we could consider making all formal associations bold.  This gives a clear picture of formal associations just be looking at the diagram.  Selection shall increase the thickness further indicating that the association is selected.  
+For another approach without coloring we could consider making all formal associations bold.  This gives a clear picture of formal associations just by looking at the diagram.  Selection shall increase the thickness further indicating that the association is selected.  More indication of formalization can be shown by making the referential text bold when selected.  This text is on the referential attribute within the associated class, for example {R1} after an attributes name and type.  
 
 ### 6. Design
 
 6.1 Make formal associations bold  
 
-To easily distinguish between informal and formal associations we shall take the approach of drawn formal associations as bold.
+To easily distinguish between informal and formal associations we shall take the approach of drawing formal associations as bold.
 
 6.1.1 Introduce Style::Bold  
 6.1.2 When drawing a connector if the line style is Bold, set the line width to 2  
-6.1.3 In Association.get_connector_style() return Style::Bold if isFormal() is true
+6.1.3 In Association.get_connector_style() return Style::Bold if isFormal() is true   
+6.1.4 Adjust Gr_c in ui.canvas to support the Bold style for compartment drawing  
+6.1.5 Change ModelClass.get_compartment_style to return Bold for entries at the right if the attribute is referential  
 
 ### 7. Design Comments
 
@@ -66,10 +68,11 @@ To easily distinguish between informal and formal associations we shall take the
 
 9.1 Call get_connector_style on a formalized association  
 9.1.1 The Bold style is returned  
-9.2 Call get_connector_style on a formalized association  
+9.2 Call get_connector_style on a unformalized association  
 9.2.1 The None style is returned  
 9.3 For a simple, supertype/subtype, and linked association open a diagram with a formalized and unformalized variation
 9.3.1 The formalized association is drawn bold  
-9.3.2 The unformalized association is not drawn bold  
+9.3.2 The referring class has its referential text bold   
+9.3.3 The unformalized association is not drawn bold  
 
 ### End
