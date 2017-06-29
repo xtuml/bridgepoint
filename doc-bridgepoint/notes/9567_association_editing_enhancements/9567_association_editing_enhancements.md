@@ -20,7 +20,7 @@ This note analyzes some approaches to which we could enhance association editing
 
 3.1  
 
-The requirement from [[2.2]](#2.2) is looking to allow association editing in a simpler way.  There is some data required that currently can only be edited from the properties view.  The issue title states modifying cardinality with a menu as described in [[5.1.2]](#5.1.2).  As the note describes that only covers part of the entire issue.  
+The requirement from [[2.2]](#2.2) is looking to allow association editing in a simpler way.  There is some data required that currently can only be edited from the properties view.  The issue title states modifying cardinality with a menu as described in [[2.1]](#2.1).  As the note describes, that only covers part of the entire issue.  
 
 Modifying association related data currently requires selecting the association, leaving the diagram editor, and navigating the properties view.  This is inconvenient and has potential of losing the selection along the way having the need to return to the diagram editor.  Along with its inconvenience it is also not as easy to understand the properties view as it is model data.  To the user an association should be what is seen on the diagram editor:  
 
