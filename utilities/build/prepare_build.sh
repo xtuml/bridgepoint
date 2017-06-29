@@ -5,28 +5,60 @@
 
 #!/bin/bash
 
-source build_configuration.sh
+SCRIPTPATH=`dirname $0`
+
+source $SCRIPTPATH/build_configuration.sh
 
 prev_dir=`pwd`
+
+JAVA_ARGS=""
+if [ "$(uname)" == "Darwin" ]; then
+  JAVA_ARGS="-XstartOnFirstThread"
+fi
+
 
 function importProjects {
   dir=`pwd`
   cd $GIT_DIR
-  java -cp ${bp_install_dir}/plugins/org.eclipse.equinox.launcher_1.3.100.v20150511-1540.jar org.eclipse.equinox.launcher.Main -data $WORKSPACE -application org.eclipse.cdt.managedbuilder.core.headlessbuild -importAll bridgepoint/src
-  java -cp ${bp_install_dir}/plugins/org.eclipse.equinox.launcher_1.3.100.v20150511-1540.jar org.eclipse.equinox.launcher.Main -data $WORKSPACE -application org.eclipse.ereDevelopmentWorkspacedt.managedbuilder.core.headlessbuild -importAll bridgepoint/doc-bridgepoint
-  java -cp ${bp_install_dir}/plugins/org.eclipse.equinox.launcher_1.3.100.v20150511-1540.jar org.eclipse.equinox.launcher.Main -data $WORKSPACE -application org.eclipse.cdt.managedbuilder.core.headlessbuild -importAll bridgepoint/releng
-  java -cp ${bp_install_dir}/plugins/org.eclipse.equinox.launcher_1.3.100.v20150511-1540.jar org.eclipse.equinox.launcher.Main -data $WORKSPACE -application org.eclipse.cdt.managedbuilder.core.headlessbuild -importAll bridgepoint/utilities
+  # Explicitly import doc-bridgepoint and utilities
+      java -cp ${bp_install_dir}/plugins/org.eclipse.equinox.launcher_1.3.100.v20150511-1540.jar org.eclipse.equinox.launcher.Main -data $WORKSPACE -application org.eclipse.cdt.managedbuilder.core.headlessbuild -import doc-bridgepoint 
+    java -cp ${bp_install_dir}/plugins/org.eclipse.equinox.launcher_1.3.100.v20150511-1540.jar org.eclipse.equinox.launcher.Main -data $WORKSPACE -application org.eclipse.cdt.managedbuilder.core.headlessbuild -import utilities 
+  cd bridgepoint/src
+  for file in `ls -1`; do
+    java -cp ${bp_install_dir}/plugins/org.eclipse.equinox.launcher_1.3.100.v20150511-1540.jar org.eclipse.equinox.launcher.Main -data $WORKSPACE -application org.eclipse.cdt.managedbuilder.core.headlessbuild -import $file 
+    # if this is the xtext parent, we need to import the nested projects
+    if [ $file == "org.xtuml.bp.xtext.masl.parent" ]; then
+      cd $file 
+      for nestedFile in `ls -1`; do
+        if [ -d $nestedFile ]; then
+           java -cp ${bp_install_dir}/plugins/org.eclipse.equinox.launcher_1.3.100.v20150511-1540.jar org.eclipse.equinox.launcher.Main -data $WORKSPACE -application org.eclipse.cdt.managedbuilder.core.headlessbuild -import $nestedFile
+        fi
+      done
+      cd ..
+    fi 
+  done
+  cd ../doc-bridgepoint
+  for file in `ls -1`; do
+    java -cp ${bp_install_dir}/plugins/org.eclipse.equinox.launcher_1.3.100.v20150511-1540.jar org.eclipse.equinox.launcher.Main -data $WORKSPACE -application org.eclipse.cdt.managedbuilder.core.headlessbuild -import $file
+  done
+  cd ../releng
+  for file in `ls -1`; do
+     java -cp ${bp_install_dir}/plugins/org.eclipse.equinox.launcher_1.3.100.v20150511-1540.jar org.eclipse.equinox.launcher.Main -data $WORKSPACE -application org.eclipse.cdt.managedbuilder.core.headlessbuild -import $file
+  done
+ cd ../utilities
+  for file in `ls -1`; do
+     java -cp ${bp_install_dir}/plugins/org.eclipse.equinox.launcher_1.3.100.v20150511-1540.jar org.eclipse.equinox.launcher.Main -data $WORKSPACE -application org.eclipse.cdt.managedbuilder.core.headlessbuild -import $file
+  done
   if [ "$INCLUDE_TESTS" == "true" ]; then
-    java -cp ${bp_install_dir}/plugins/org.eclipse.equinox.launcher_1.3.100.v20150511-1540.jar org.eclipse.equinox.launcher.Main -data $WORKSPACE -application org.eclipse.cdt.managedbuilder.core.headlessbuild -importAll bptest/src
+    cd ../../bptest/src
+    for file in `ls -1`; do
+       java -cp ${bp_install_dir}/plugins/org.eclipse.equinox.launcher_1.3.100.v20150511-1540.jar org.eclipse.equinox.launcher.Main -data $WORKSPACE -application org.eclipse.cdt.managedbuilder.core.headlessbuild -import $file
+    done
   fi
   cd $dir
 }
 
 function preBuildProjects {
-  JAVA_ARGS=""
-  if [ "$(uname)" == "Darwin" ];then
-    JAVA_ARGS="-XstartOnFirstThread"
-  fi
   java -Xms256m -Xmx1g $JAVA_ARGS -jar ${bp_install_dir}/plugins/org.eclipse.equinox.launcher_*.jar -clean -noSplash -product org.xtuml.bp.pkg.BridgePoint -data $WORKSPACE -application org.xtuml.bp.cli.Build -project org.xtuml.bp.core -prebuildOnly
   java -Xms256m -Xmx1g $JAVA_ARGS -jar ${bp_install_dir}/plugins/org.eclipse.equinox.launcher_*.jar -clean -noSplash -product org.xtuml.bp.pkg.BridgePoint -data $WORKSPACE -application org.xtuml.bp.cli.Build -project org.xtuml.bp.als -prebuildOnly
   java -Xms256m -Xmx1g $JAVA_ARGS -jar ${bp_install_dir}/plugins/org.eclipse.equinox.launcher_*.jar -clean -noSplash -product org.xtuml.bp.pkg.BridgePoint -data $WORKSPACE -application org.xtuml.bp.cli.Build -project org.xtuml.bp.ui.canvas -prebuildOnly
@@ -60,8 +92,22 @@ if [ "$2" == "-debug" ];then
 fi
 
 cd $dir 
-prepareDevelopmentWorkspace
-importProjects
+# do not prepare the workspace if already done
+# here we lazily check for the presence of org.xtuml.bp.core.prefs
+# and antlr.jar
+if [ ! -f $WORKSPACE/.metadata/.plugins/org.eclipse.core.runtime/.settings/org.xtuml.bp.core.prefs ] || [ ! -f $XTUML_DEVELOPMENT_REPOSITORY/src/org.xtuml.bp.als/lib/antlr.jar ]; then
+  prepareDevelopmentWorkspace
+fi
+# do not import projects unless those requiring
+# prebuild are not present
+if [ ! -d $WORKSPACE/.metadata/.plugins/org.eclipse.core.resources/.projects/org.xtuml.bp.core ] ||
+   [ ! -d $WORKSPACE/.metadata/.plugins/org.eclipse.core.resources/.projects/org.xtuml.bp.als ] ||
+   [ ! -d $WORKSPACE/.metadata/.plugins/org.eclipse.core.resources/.projects/org.xtuml.bp.ui.canvas ] ||
+   [ ! -d $WORKSPACE/.metadata/.plugins/org.eclipse.core.resources/.projects/org.xtuml.bp.core ]; then
+  importProjects
+fi
+# always prebuild for now rather than try to fully
+# cover dependencies
 preBuildProjects
 
 cd $prev_dir

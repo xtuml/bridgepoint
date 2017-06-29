@@ -66,6 +66,7 @@ import org.xtuml.bp.xtext.masl.masl.behavior.Equality
 import org.xtuml.bp.xtext.masl.masl.behavior.RelationalExp
 import org.xtuml.bp.xtext.masl.masl.behavior.CaseAlternative
 import org.xtuml.bp.xtext.masl.masl.behavior.CaseStatement
+import org.xtuml.bp.xtext.masl.masl.behavior.CreateArgument
 
 /**
  * This class contains custom scoping description.
@@ -226,7 +227,7 @@ class MASLScopeProvider extends AbstractMASLScopeProvider {
 	
 	private def dispatch IScope getFeatureScope(SimpleFeatureCall call) {
 		if(call.receiver == null) {
-			val localFeatureScope = call.getLocalSimpleFeatureScope(delegate.getScope(call, featureCall_Feature), null, false) 
+			val localFeatureScope = call.getLocalSimpleFeatureScope(delegate.getScope(call, featureCall_Feature), call.eContainmentFeature, false) 
 			val parent = call.eContainer
 			switch parent {
 				AttributeDefinition case call == parent.defaultValue: 
@@ -239,6 +240,8 @@ class MASLScopeProvider extends AbstractMASLScopeProvider {
 					return getEnumDisambiguationScope(parent.type.maslType, localFeatureScope)
 				CaseAlternative case parent.choices.contains(call):
 					return getEnumDisambiguationScope((parent.eContainer as CaseStatement).value.maslType, localFeatureScope)
+				CreateArgument case call == parent.value:
+					return getEnumDisambiguationScope(parent.attribute.maslType, localFeatureScope)
 			}
 			return localFeatureScope
 		} else {
@@ -301,21 +304,21 @@ class MASLScopeProvider extends AbstractMASLScopeProvider {
 		switch expr {
 			Equality case containmentFeature == equality_Rhs:
 				return parent.getLocalSimpleFeatureScope(parentScope, expr.eContainmentFeature, true)
-			RelationalExp case containmentFeature == equality_Rhs:
+			RelationalExp case containmentFeature == relationalExp_Rhs:
 				return parent.getLocalSimpleFeatureScope(parentScope, expr.eContainmentFeature, true)
 			FindExpression case containmentFeature == findExpression_Where && !isRightHandSide: {
 				val whereScope = getWhereScope(expr.expression, parentScope)
 				if(whereScope != null)
 					return whereScope
 			}
-			NavigateExpression case containmentFeature == navigateExpression_Where: {
+			NavigateExpression case containmentFeature == navigateExpression_Where && !isRightHandSide: {
 				val whereScope = getWhereScope(expr, parentScope)
 				if(whereScope != null)
 					return whereScope
 			}
 			CodeBlock:
 				return scopeFor(expr.variables, parent.getLocalSimpleFeatureScope(parentScope, expr.eContainmentFeature, isRightHandSide))
-			ForStatement:
+			ForStatement case containmentFeature != forStatement_Expression:
 				return scopeFor(#[expr.variable], parent.getLocalSimpleFeatureScope(parentScope, expr.eContainmentFeature, isRightHandSide))
 			ObjectServiceDefinition:
 				return getSimpleFeatureScopeForObjectAction(expr.parameters, expr.getObject, parentScope)

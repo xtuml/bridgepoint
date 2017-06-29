@@ -74,7 +74,15 @@ Anything in 5.1.2 is easy but may change the properties view ordering for any el
 
 ### 6. Design
 
-Will complete when design decision is made.
+The choice was made to go with 5.1.3.  This leaves the tool open for other custom sorters.  
+
+6.1 Introduce custom sorting for properties view  
+6.1.1 Override sort method in BridgePointPropertySheetSorter, asks the new class in 6.1.1.1 for a sorter  
+6.1.1.1 Introduce a new class, BridgePointPropertySheetSorters.  This class stores custom sorters in a static map and returns a sorter if present to the BridgePointPropertySheetSorter.  Later additions will add their class to the static map to use custom sorting.  Note at first an attempt was made to access the appropriate class from the data given to the class.  This was not possible so the current core selection is used.  The properties view relies on this selection to display any data it is therefore guaranteed the selection will be the owner for the properties entries to be sorted.  
+6.2 Introduce sorter for Attribute class, AttributeSorter.  
+6.2.1 A static map is used to predefine order of the display names for properties entries  
+6.2.2 If an entry is not found in this static map then the next count value (of the iteration over property entries) is used.  This would be the case where a new attribute is added.  
+ 
 
 ### 7. Design Comments
 
@@ -84,7 +92,7 @@ Will complete when design decision is made.
 
 ### 9. Unit Test
 
-9.1 Open property sheet for an Attribute that participates as referring    
+9.1 For an Attribute open the properties view with the element selected      
 9.1.1 Result ordering shall match that stated in the Requirement section  
 9.2 Run properties tests  
 9.2.1 Result is there are no failures  

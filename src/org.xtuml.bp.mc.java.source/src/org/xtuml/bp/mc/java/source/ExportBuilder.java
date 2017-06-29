@@ -149,6 +149,12 @@ public class ExportBuilder extends AbstractExportBuilder {
 			String destDir, final IProgressMonitor monitor, boolean append,
 			String originalSystem) throws CoreException {
 
+		boolean exportNeeded = readyBuildArea(monitor);
+		// if export is not needed do not perform this step
+		if(!exportNeeded) {
+			return new ArrayList<SystemModel_c>();
+		}
+
 		String errorMsg = "Unable to export to destination file.";
 		boolean exportSucceeded = false;
 		Exception exception = null;

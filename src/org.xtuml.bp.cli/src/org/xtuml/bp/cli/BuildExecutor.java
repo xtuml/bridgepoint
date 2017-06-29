@@ -283,6 +283,7 @@ public class BuildExecutor implements Executor {
 			Map<String, String> arguments = exportBuilderCommand.getArguments();
 			org.xtuml.bp.mc.java.source.ExportBuilder jeb = new org.xtuml.bp.mc.java.source.ExportBuilder();
 			jeb.setArgs(arguments);
+			jeb.setProject(project);
 
 			IPath destPath = jeb.getCodeGenFolderPath(project);
 			if (!destPath.toFile().exists()) {

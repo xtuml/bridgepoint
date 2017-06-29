@@ -1538,6 +1538,7 @@ ruleNavigateExpression:
 			(
 				'('
 				ruleFindCondition
+				?
 				')'
 			)?
 			    |

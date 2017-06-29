@@ -69,7 +69,7 @@ class MaslExpectedTypeProvider {
 			if(receiverType instanceof DictionaryType)
 				return #[receiverType.keyType]
 			else
-				return #[INTEGER, new RangeType(INTEGER)]
+				return #[ANONYMOUS_INTEGER, new RangeType(ANONYMOUS_INTEGER)]
 		}
 		if(reference == terminatorActionCall_Arguments && context instanceof TerminatorActionCall && index != -1) 
 			return (context as TerminatorActionCall).terminatorAction.getParameterType(index)
