@@ -245,22 +245,23 @@ public class PersistableModelComponent implements Comparable {
         
     }
     
+	public void loadComponentAndChildren(IProgressMonitor monitor, boolean parseOal, boolean reload) {
+		try {
+			load(monitor, parseOal, reload);
+		} catch (CoreException e) {
+			CorePlugin.logError("", e);
+		}
+		// now get the children and load
+		Collection children = getChildren();
+		Iterator iterator = children.iterator();
+		while (iterator.hasNext()) {
+			PersistableModelComponent child = (PersistableModelComponent) iterator.next();
+			child.loadComponentAndChildren(monitor, parseOal, reload);
+		}
+	}
+   
   public void loadComponentAndChildren(IProgressMonitor monitor) {
-    if (!isLoaded()) {
-      try {
-        load(monitor);
-      } catch (CoreException e) {
-        CorePlugin.logError("", e);
-      }
-    }
-    // now get the children and load
-    Collection children = getChildren();
-    Iterator iterator = children.iterator();
-    while (iterator.hasNext()) {
-      PersistableModelComponent child = (PersistableModelComponent) iterator
-          .next();
-      child.loadComponentAndChildren(monitor);
-    }
+	loadComponentAndChildren(monitor, false, false);
   }
   
     public static IPath getRootComponentPath(String name) {
