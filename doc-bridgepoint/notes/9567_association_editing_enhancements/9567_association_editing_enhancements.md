@@ -66,7 +66,7 @@ Supertypes and subtypes currently do not require any data other than the class n
 
 5.1.2.1  Associations tab  
 
-The tab shall show all associations for the package being edited.  Selection shall be shared among the graphical editor and the table based tab.    
+The tab shall show all associations for the package being edited.  Selection shall be shared among the graphical editor and the table based tab. [[2.3]]($2.3) demonstrates this capability.      
 
 5.1.2.2 Selection based tab  
 
