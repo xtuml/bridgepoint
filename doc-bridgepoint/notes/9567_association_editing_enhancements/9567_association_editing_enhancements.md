@@ -13,7 +13,7 @@ This note analyzes some approaches to which we could enhance association editing
 
 ### 2. Document References
 <a id="2.1"></a>2.1 [BridgePoint DEI #9567](https://support.onefact.net/issues/9567) Cardinality on right click menu  
-<a id="2.2"></a>2.2 [Requirements]() Issue requirements  
+<a id="2.2"></a>2.2 SRS-SAABSpring2017Issues-9501-v1.3.pdf  
 <a id="2.3"></a>2.3 [Demonstration](https://www.youtube.com/watch?v=VNV5OXtLwOo&feature=youtu.be) Demonstration of prototype  
 
 ### 3. Background
