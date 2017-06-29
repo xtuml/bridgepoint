@@ -128,9 +128,9 @@ The original issue [[2.1]](#2.1) requires that a new menu item shall be consider
 ### 7. Acceptance Test
 
 7.1 For both simple and linked associations (note supertypes are still managed through the diagram)     
-7.1.1 Associations shall be modifiable without the properties view  
-7.1.2 Association modification shall trigger persistence  
-7.1.3 Association modification shall support undo/redo  
-7.1.4 Association modification shall trigger refreshes within the UI  
+7.1.1 Associations shall be modifiable without the properties view   
+7.1.2 Association modification shall trigger persistence   
+7.1.3 Association modification shall support undo/redo   
+7.1.4 Association modification shall trigger refreshes within the UI   
 
 ### End
