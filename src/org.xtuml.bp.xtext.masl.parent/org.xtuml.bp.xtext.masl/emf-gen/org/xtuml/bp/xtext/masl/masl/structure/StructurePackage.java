@@ -1545,13 +1545,22 @@ public interface StructurePackage extends EPackage {
 	int RANGE_TYPE_REFERENCE = 24;
 
 	/**
+	 * The feature id for the '<em><b>Anonymous</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RANGE_TYPE_REFERENCE__ANONYMOUS = TypesPackage.ABSTRACT_TYPE_REFERENCE_FEATURE_COUNT + 0;
+
+	/**
 	 * The feature id for the '<em><b>Element Type</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int RANGE_TYPE_REFERENCE__ELEMENT_TYPE = TypesPackage.ABSTRACT_TYPE_REFERENCE_FEATURE_COUNT + 0;
+	int RANGE_TYPE_REFERENCE__ELEMENT_TYPE = TypesPackage.ABSTRACT_TYPE_REFERENCE_FEATURE_COUNT + 1;
 
 	/**
 	 * The number of structural features of the '<em>Range Type Reference</em>' class.
@@ -1560,7 +1569,7 @@ public interface StructurePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int RANGE_TYPE_REFERENCE_FEATURE_COUNT = TypesPackage.ABSTRACT_TYPE_REFERENCE_FEATURE_COUNT + 1;
+	int RANGE_TYPE_REFERENCE_FEATURE_COUNT = TypesPackage.ABSTRACT_TYPE_REFERENCE_FEATURE_COUNT + 2;
 
 	/**
 	 * The number of operations of the '<em>Range Type Reference</em>' class.
@@ -3580,6 +3589,17 @@ public interface StructurePackage extends EPackage {
 	EClass getRangeTypeReference();
 
 	/**
+	 * Returns the meta object for the attribute '{@link org.xtuml.bp.xtext.masl.masl.structure.RangeTypeReference#isAnonymous <em>Anonymous</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Anonymous</em>'.
+	 * @see org.xtuml.bp.xtext.masl.masl.structure.RangeTypeReference#isAnonymous()
+	 * @see #getRangeTypeReference()
+	 * @generated
+	 */
+	EAttribute getRangeTypeReference_Anonymous();
+
+	/**
 	 * Returns the meta object for the containment reference '{@link org.xtuml.bp.xtext.masl.masl.structure.RangeTypeReference#getElementType <em>Element Type</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -4881,6 +4901,14 @@ public interface StructurePackage extends EPackage {
 		 * @generated
 		 */
 		EClass RANGE_TYPE_REFERENCE = eINSTANCE.getRangeTypeReference();
+
+		/**
+		 * The meta object literal for the '<em><b>Anonymous</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute RANGE_TYPE_REFERENCE__ANONYMOUS = eINSTANCE.getRangeTypeReference_Anonymous();
 
 		/**
 		 * The meta object literal for the '<em><b>Element Type</b></em>' containment reference feature.

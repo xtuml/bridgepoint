@@ -12,8 +12,10 @@ import org.eclipse.xtext.naming.IQualifiedNameConverter
 import org.eclipse.xtext.nodemodel.INode
 import org.xtuml.bp.xtext.masl.masl.behavior.ActionCall
 import org.xtuml.bp.xtext.masl.masl.behavior.BehaviorPackage
+import org.xtuml.bp.xtext.masl.masl.behavior.CharacteristicCall
 import org.xtuml.bp.xtext.masl.masl.behavior.SimpleFeatureCall
 import org.xtuml.bp.xtext.masl.masl.structure.AbstractFeature
+import org.xtuml.bp.xtext.masl.masl.structure.Characteristic
 import org.xtuml.bp.xtext.masl.typesystem.MaslTypeProvider
 
 class MaslLinkingService extends DefaultLinkingService {
@@ -24,10 +26,13 @@ class MaslLinkingService extends DefaultLinkingService {
 	@Inject extension RankedCandidate.Factory
 	
 	override getLinkedObjects(EObject context, EReference ref, INode node) throws IllegalNodeException {
-		if (ref == featureCall_Feature && context instanceof SimpleFeatureCall) {
+		if (ref === featureCall_Feature && context instanceof SimpleFeatureCall) {
 			val container = context.eContainer
 			if(container instanceof ActionCall)
 				return getLinkedAction(container, context as SimpleFeatureCall, ref, node)
+		}
+		if(ref === characteristicCall_Characteristic && context instanceof CharacteristicCall) {
+			return getLinkedCharacteristic(context as CharacteristicCall, node)
 		}
 		return super.getLinkedObjects(context, ref, node)
 	}
@@ -58,6 +63,21 @@ class MaslLinkingService extends DefaultLinkingService {
 				}
 				return #[currentBestMatch.candidate]
 			}
+		}
+		return emptyList()
+	}
+	
+	private def List<EObject> getLinkedCharacteristic(CharacteristicCall characteristicCall, INode node) {
+		val crossRefString = node.crossRefNodeAsString
+		if (crossRefString !== null && !crossRefString.equals("")) {
+			val scope = getScope(characteristicCall, characteristicCall_Characteristic)
+			var qualifiedLinkName = crossRefString.toQualifiedName
+			var eObjectDescriptions = scope.getElements(qualifiedLinkName)
+			val candidates = eObjectDescriptions
+				.map[characteristicCall.eResource.resourceSet.getEObject(EObjectURI, true)]
+				.filter(Characteristic)
+				.filter[parameters.size == characteristicCall.arguments.size]
+			return newArrayList(candidates)
 		}
 		return emptyList()
 	}
