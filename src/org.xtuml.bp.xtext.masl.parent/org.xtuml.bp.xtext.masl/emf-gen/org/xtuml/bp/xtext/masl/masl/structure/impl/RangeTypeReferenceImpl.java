@@ -26,12 +26,33 @@ import org.xtuml.bp.xtext.masl.masl.types.impl.AbstractTypeReferenceImpl;
  * The following features are implemented:
  * </p>
  * <ul>
+ *   <li>{@link org.xtuml.bp.xtext.masl.masl.structure.impl.RangeTypeReferenceImpl#isAnonymous <em>Anonymous</em>}</li>
  *   <li>{@link org.xtuml.bp.xtext.masl.masl.structure.impl.RangeTypeReferenceImpl#getElementType <em>Element Type</em>}</li>
  * </ul>
  *
  * @generated
  */
 public class RangeTypeReferenceImpl extends AbstractTypeReferenceImpl implements RangeTypeReference {
+	/**
+	 * The default value of the '{@link #isAnonymous() <em>Anonymous</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isAnonymous()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean ANONYMOUS_EDEFAULT = false;
+
+	/**
+	 * The cached value of the '{@link #isAnonymous() <em>Anonymous</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isAnonymous()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean anonymous = ANONYMOUS_EDEFAULT;
+
 	/**
 	 * The cached value of the '{@link #getElementType() <em>Element Type</em>}' containment reference.
 	 * <!-- begin-user-doc -->
@@ -59,6 +80,27 @@ public class RangeTypeReferenceImpl extends AbstractTypeReferenceImpl implements
 	@Override
 	protected EClass eStaticClass() {
 		return StructurePackage.Literals.RANGE_TYPE_REFERENCE;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean isAnonymous() {
+		return anonymous;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setAnonymous(boolean newAnonymous) {
+		boolean oldAnonymous = anonymous;
+		anonymous = newAnonymous;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, StructurePackage.RANGE_TYPE_REFERENCE__ANONYMOUS, oldAnonymous, anonymous));
 	}
 
 	/**
@@ -126,6 +168,8 @@ public class RangeTypeReferenceImpl extends AbstractTypeReferenceImpl implements
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
+			case StructurePackage.RANGE_TYPE_REFERENCE__ANONYMOUS:
+				return isAnonymous();
 			case StructurePackage.RANGE_TYPE_REFERENCE__ELEMENT_TYPE:
 				return getElementType();
 		}
@@ -140,6 +184,9 @@ public class RangeTypeReferenceImpl extends AbstractTypeReferenceImpl implements
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
+			case StructurePackage.RANGE_TYPE_REFERENCE__ANONYMOUS:
+				setAnonymous((Boolean)newValue);
+				return;
 			case StructurePackage.RANGE_TYPE_REFERENCE__ELEMENT_TYPE:
 				setElementType((AbstractTypeReference)newValue);
 				return;
@@ -155,6 +202,9 @@ public class RangeTypeReferenceImpl extends AbstractTypeReferenceImpl implements
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
+			case StructurePackage.RANGE_TYPE_REFERENCE__ANONYMOUS:
+				setAnonymous(ANONYMOUS_EDEFAULT);
+				return;
 			case StructurePackage.RANGE_TYPE_REFERENCE__ELEMENT_TYPE:
 				setElementType((AbstractTypeReference)null);
 				return;
@@ -170,10 +220,28 @@ public class RangeTypeReferenceImpl extends AbstractTypeReferenceImpl implements
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
+			case StructurePackage.RANGE_TYPE_REFERENCE__ANONYMOUS:
+				return anonymous != ANONYMOUS_EDEFAULT;
 			case StructurePackage.RANGE_TYPE_REFERENCE__ELEMENT_TYPE:
 				return elementType != null;
 		}
 		return super.eIsSet(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public String toString() {
+		if (eIsProxy()) return super.toString();
+
+		StringBuffer result = new StringBuffer(super.toString());
+		result.append(" (anonymous: ");
+		result.append(anonymous);
+		result.append(')');
+		return result.toString();
 	}
 
 } //RangeTypeReferenceImpl
