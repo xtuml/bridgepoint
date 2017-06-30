@@ -18,7 +18,8 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.ui.workbench.texteditor,
  org.eclipse.ui.editors,
  org.xtuml.bp.core,
- org.xtuml.bp.ui.properties
+ org.xtuml.bp.ui.properties,
+ org.xtuml.bp.core.editors
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Import-Package: org.xtuml.bp.ui.text.activity,

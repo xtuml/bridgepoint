@@ -27,4 +27,10 @@ import org.eclipse.swt.widgets.Composite;
 
 public interface IEditorTabFactory {
 	public Composite createEditorTab(Composite parent, Object editorInput);
+	public boolean getFocusBased();
+	public void setFocusBased(boolean isFocusBased);
+	public String getEditorTitle();
+	public void setEditorTitle(String title);
+	public Object getInput();
+	public void setInput(Object input);
 }

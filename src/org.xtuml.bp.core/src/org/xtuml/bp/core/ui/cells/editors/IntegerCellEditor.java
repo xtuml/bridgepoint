@@ -68,7 +68,13 @@ public class IntegerCellEditor extends TextCellEditor {
 		 */
 		public String isValid(Object value) {
 			int val;
-			String val_str = (String) value;
+			String val_str = "";
+			if(value instanceof Integer) {
+				val_str = value.toString();
+			}
+			if(value instanceof String) {
+				val_str = (String) value;
+			}
 			if (val_str.length() == 0)
 				return "Value between " + m_min_value + " and " + m_max_value
 						+ " required";
