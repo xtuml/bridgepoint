@@ -48,6 +48,7 @@ import java.util.Iterator;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.*;
 import org.eclipse.jface.action.*;
 import org.eclipse.jface.resource.ImageDescriptor;
@@ -62,7 +63,6 @@ import org.eclipse.swt.widgets.TreeItem;
 import org.eclipse.ui.*;
 import org.eclipse.ui.actions.*;
 import org.eclipse.ui.part.ViewPart;
-import org.eclipse.ui.views.framelist.*;
 import org.eclipse.ui.views.properties.IPropertySheetPage;
 import org.eclipse.ui.views.properties.PropertySheetPage;
 import org.osgi.framework.Bundle;
@@ -98,12 +98,10 @@ public class ${viewer_name} extends ViewPart implements IModelViewerProvider {
   .for each node in tree_nodes 
   private static final String HIDE_$U_{node.CategoryName} = "Hide ${node.CategoryName}";
   .end for
-  private FrameList frames;
   protected static ExplorerTreeViewer treeViewer;
   protected ModelLabelProvider labelProvider;
   protected MenuManager menuManager;
   protected Action collapseAll, linkWithEditor;
-  protected Action back, fwd, up;
   protected Action cut, copy, paste;
   protected Action undo, redo;
   protected Action open, delete, rename; 
@@ -162,15 +160,7 @@ public class ${viewer_name} extends ViewPart implements IModelViewerProvider {
     // Create the view's layout
     FillLayout layout = new FillLayout();
     parent.setLayout(layout);
-    treeViewer = new ExplorerTreeViewer(parent);
-    treeViewer.setContentProvider(new ModelContentProvider());
-    labelProvider = new ModelLabelProvider();
-    treeViewer.setLabelProvider(labelProvider);
-    // This call must be disabled until eclipse bug 117534 is fixed
-    // Otherwise there are problems when a component file is reloaded
-    // TODO mfp issue 30 should add a unit test, and allow other unit tests
-    // (specifically core) to execute with the following line commented out
-    treeViewer.setUseHashlookup(true);
+    treeViewer = new ExplorerTreeViewer(parent, ResourcesPlugin.getWorkspace().getRoot());
     treeViewer.setComparer(new IElementComparer() {
 
             public int hashCode(Object element) {
@@ -188,8 +178,6 @@ public class ${viewer_name} extends ViewPart implements IModelViewerProvider {
     createToolbar();
     createFilters();
     hookListeners();
-    initLabelProvider(treeViewer);
-	treeViewer.setInput(Ooaofooa.getDefaultInstance());
     getViewSite().getActionBars().setGlobalActionHandler(
       ActionFactory.DELETE.getId(),
       delete);
@@ -489,19 +477,6 @@ public class ${viewer_name} extends ViewPart implements IModelViewerProvider {
    * Create the Actions provided by Model Explorer
    */
   protected void createActions() {
-    frames = new FrameList(new TreeViewerFrameSource(getTreeViewer()));
-    back = new BackAction(frames) {
-      public void run() {
-      }
-    };
-    fwd = new ForwardAction(frames) {
-      public void run() {
-      }
-    };
-    up = new UpAction(frames) {
-      public void run() {
-      }
-    };
     collapseAll = new Action(COLLAPSE) {
       public void run() {
         getTreeViewer().collapseAll();
@@ -773,15 +748,7 @@ public class ${viewer_name} extends ViewPart implements IModelViewerProvider {
    */  
   protected void createToolbar() {
     IActionBars actionBars = getViewSite().getActionBars();
-    actionBars.setGlobalActionHandler(ActionFactory.BACK.getId(), back);
-    actionBars.setGlobalActionHandler(
-       ActionFactory.FORWARD.getId(),
-       fwd);
-    actionBars.setGlobalActionHandler(ActionFactory.UP.getId(), up);
     IToolBarManager toolBarManager = actionBars.getToolBarManager();
-    toolBarManager.add(back);
-    toolBarManager.add(fwd);
-    toolBarManager.add(up);
     toolBarManager.add(new Separator());
     toolBarManager.add(collapseAll);
     toolBarManager.add(linkWithEditor);
