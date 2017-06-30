@@ -23,8 +23,10 @@ Setup Instructions
   - For each of the following git repositories create a fork:  
     __WARNING!:__ If you already have a fork, [assure your fork is up to date]( https://help.github.com/articles/merging-an-upstream-repository-into-your-fork).
     - https://github.com/xtuml/bridgepoint
+    - https://github.com/xtuml/bptest
     - https://github.com/xtuml/mc
     - https://github.com/xtuml/pt_antlr
+    - https://github.com/xtuml/packaging
     - https://github.com/xtuml/models
     - https://github.com/xtuml/packaging
     
@@ -41,7 +43,7 @@ Setup Instructions
     - __LINUX__ - Linux Ubuntu installation commands are presented below.  If installing in a 
     different Linux distribution you must use the [commands appropriate for your Linux distribution](https://github.com/xtuml/bridgepoint/blob/master/doc-bridgepoint/process/FAQ.md#linux).
     ```
-    sudo apt-get install tofrodos libstdc++5 g++ ant git default-jdk  
+    sudo apt-get install libstdc++5 g++ ant git default-jdk  
     ```  
     The build runs __a lot__ faster if the pypy python tool is available.  We recommend it be installed:
     ```
@@ -55,7 +57,7 @@ Setup Instructions
       - [Cygwin](http://cygwin.com/install.html "Cygwin Install") (Make sure to select Git)
      
     - __MAC__
-      - No action required
+      - Install pypy and git (we suggest via homebrew)
       
 GUI Build Instructions
 ------------

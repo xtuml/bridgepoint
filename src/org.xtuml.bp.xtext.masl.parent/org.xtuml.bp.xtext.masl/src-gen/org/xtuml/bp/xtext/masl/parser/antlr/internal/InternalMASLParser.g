@@ -9866,7 +9866,7 @@ ruleNavigateExpression returns [EObject current=null]
 									afterParserOrEnumRuleCall();
 								}
 							)
-						)
+						)?
 						otherlv_6=RightParenthesis
 						{
 							newLeafNode(otherlv_6, grammarAccess.getNavigateExpressionAccess().getRightParenthesisKeyword_1_1_0_2_2());

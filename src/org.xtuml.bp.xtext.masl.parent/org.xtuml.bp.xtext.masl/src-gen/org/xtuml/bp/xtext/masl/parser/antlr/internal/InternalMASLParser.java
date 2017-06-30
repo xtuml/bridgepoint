@@ -27869,7 +27869,7 @@ public class InternalMASLParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleNavigateExpression"
-    // InternalMASLParser.g:9797:1: ruleNavigateExpression returns [EObject current=null] : (this_ExtendedExpression_0= ruleExtendedExpression ( () ( (otherlv_2= HyphenMinusGreaterThanSign ( (lv_navigation_3_0= ruleRelationshipNavigation ) ) (otherlv_4= LeftParenthesis ( (lv_where_5_0= ruleFindCondition ) ) otherlv_6= RightParenthesis )? ) | (otherlv_7= With ( (lv_with_8_0= ruleExtendedExpression ) ) otherlv_9= HyphenMinusGreaterThanSign ( (lv_navigation_10_0= ruleRelationshipNavigation ) ) ) | (otherlv_11= Ordered_by ( (lv_order_12_0= ruleSortOrder ) ) ) | (otherlv_13= Reverse_ordered_by ( (lv_reverseOrder_14_0= ruleSortOrder ) ) ) ) )* ) ;
+    // InternalMASLParser.g:9797:1: ruleNavigateExpression returns [EObject current=null] : (this_ExtendedExpression_0= ruleExtendedExpression ( () ( (otherlv_2= HyphenMinusGreaterThanSign ( (lv_navigation_3_0= ruleRelationshipNavigation ) ) (otherlv_4= LeftParenthesis ( (lv_where_5_0= ruleFindCondition ) )? otherlv_6= RightParenthesis )? ) | (otherlv_7= With ( (lv_with_8_0= ruleExtendedExpression ) ) otherlv_9= HyphenMinusGreaterThanSign ( (lv_navigation_10_0= ruleRelationshipNavigation ) ) ) | (otherlv_11= Ordered_by ( (lv_order_12_0= ruleSortOrder ) ) ) | (otherlv_13= Reverse_ordered_by ( (lv_reverseOrder_14_0= ruleSortOrder ) ) ) ) )* ) ;
     public final EObject ruleNavigateExpression() throws RecognitionException {
         EObject current = null;
 
@@ -27899,11 +27899,11 @@ public class InternalMASLParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalMASLParser.g:9803:2: ( (this_ExtendedExpression_0= ruleExtendedExpression ( () ( (otherlv_2= HyphenMinusGreaterThanSign ( (lv_navigation_3_0= ruleRelationshipNavigation ) ) (otherlv_4= LeftParenthesis ( (lv_where_5_0= ruleFindCondition ) ) otherlv_6= RightParenthesis )? ) | (otherlv_7= With ( (lv_with_8_0= ruleExtendedExpression ) ) otherlv_9= HyphenMinusGreaterThanSign ( (lv_navigation_10_0= ruleRelationshipNavigation ) ) ) | (otherlv_11= Ordered_by ( (lv_order_12_0= ruleSortOrder ) ) ) | (otherlv_13= Reverse_ordered_by ( (lv_reverseOrder_14_0= ruleSortOrder ) ) ) ) )* ) )
-            // InternalMASLParser.g:9804:2: (this_ExtendedExpression_0= ruleExtendedExpression ( () ( (otherlv_2= HyphenMinusGreaterThanSign ( (lv_navigation_3_0= ruleRelationshipNavigation ) ) (otherlv_4= LeftParenthesis ( (lv_where_5_0= ruleFindCondition ) ) otherlv_6= RightParenthesis )? ) | (otherlv_7= With ( (lv_with_8_0= ruleExtendedExpression ) ) otherlv_9= HyphenMinusGreaterThanSign ( (lv_navigation_10_0= ruleRelationshipNavigation ) ) ) | (otherlv_11= Ordered_by ( (lv_order_12_0= ruleSortOrder ) ) ) | (otherlv_13= Reverse_ordered_by ( (lv_reverseOrder_14_0= ruleSortOrder ) ) ) ) )* )
+            // InternalMASLParser.g:9803:2: ( (this_ExtendedExpression_0= ruleExtendedExpression ( () ( (otherlv_2= HyphenMinusGreaterThanSign ( (lv_navigation_3_0= ruleRelationshipNavigation ) ) (otherlv_4= LeftParenthesis ( (lv_where_5_0= ruleFindCondition ) )? otherlv_6= RightParenthesis )? ) | (otherlv_7= With ( (lv_with_8_0= ruleExtendedExpression ) ) otherlv_9= HyphenMinusGreaterThanSign ( (lv_navigation_10_0= ruleRelationshipNavigation ) ) ) | (otherlv_11= Ordered_by ( (lv_order_12_0= ruleSortOrder ) ) ) | (otherlv_13= Reverse_ordered_by ( (lv_reverseOrder_14_0= ruleSortOrder ) ) ) ) )* ) )
+            // InternalMASLParser.g:9804:2: (this_ExtendedExpression_0= ruleExtendedExpression ( () ( (otherlv_2= HyphenMinusGreaterThanSign ( (lv_navigation_3_0= ruleRelationshipNavigation ) ) (otherlv_4= LeftParenthesis ( (lv_where_5_0= ruleFindCondition ) )? otherlv_6= RightParenthesis )? ) | (otherlv_7= With ( (lv_with_8_0= ruleExtendedExpression ) ) otherlv_9= HyphenMinusGreaterThanSign ( (lv_navigation_10_0= ruleRelationshipNavigation ) ) ) | (otherlv_11= Ordered_by ( (lv_order_12_0= ruleSortOrder ) ) ) | (otherlv_13= Reverse_ordered_by ( (lv_reverseOrder_14_0= ruleSortOrder ) ) ) ) )* )
             {
-            // InternalMASLParser.g:9804:2: (this_ExtendedExpression_0= ruleExtendedExpression ( () ( (otherlv_2= HyphenMinusGreaterThanSign ( (lv_navigation_3_0= ruleRelationshipNavigation ) ) (otherlv_4= LeftParenthesis ( (lv_where_5_0= ruleFindCondition ) ) otherlv_6= RightParenthesis )? ) | (otherlv_7= With ( (lv_with_8_0= ruleExtendedExpression ) ) otherlv_9= HyphenMinusGreaterThanSign ( (lv_navigation_10_0= ruleRelationshipNavigation ) ) ) | (otherlv_11= Ordered_by ( (lv_order_12_0= ruleSortOrder ) ) ) | (otherlv_13= Reverse_ordered_by ( (lv_reverseOrder_14_0= ruleSortOrder ) ) ) ) )* )
-            // InternalMASLParser.g:9805:3: this_ExtendedExpression_0= ruleExtendedExpression ( () ( (otherlv_2= HyphenMinusGreaterThanSign ( (lv_navigation_3_0= ruleRelationshipNavigation ) ) (otherlv_4= LeftParenthesis ( (lv_where_5_0= ruleFindCondition ) ) otherlv_6= RightParenthesis )? ) | (otherlv_7= With ( (lv_with_8_0= ruleExtendedExpression ) ) otherlv_9= HyphenMinusGreaterThanSign ( (lv_navigation_10_0= ruleRelationshipNavigation ) ) ) | (otherlv_11= Ordered_by ( (lv_order_12_0= ruleSortOrder ) ) ) | (otherlv_13= Reverse_ordered_by ( (lv_reverseOrder_14_0= ruleSortOrder ) ) ) ) )*
+            // InternalMASLParser.g:9804:2: (this_ExtendedExpression_0= ruleExtendedExpression ( () ( (otherlv_2= HyphenMinusGreaterThanSign ( (lv_navigation_3_0= ruleRelationshipNavigation ) ) (otherlv_4= LeftParenthesis ( (lv_where_5_0= ruleFindCondition ) )? otherlv_6= RightParenthesis )? ) | (otherlv_7= With ( (lv_with_8_0= ruleExtendedExpression ) ) otherlv_9= HyphenMinusGreaterThanSign ( (lv_navigation_10_0= ruleRelationshipNavigation ) ) ) | (otherlv_11= Ordered_by ( (lv_order_12_0= ruleSortOrder ) ) ) | (otherlv_13= Reverse_ordered_by ( (lv_reverseOrder_14_0= ruleSortOrder ) ) ) ) )* )
+            // InternalMASLParser.g:9805:3: this_ExtendedExpression_0= ruleExtendedExpression ( () ( (otherlv_2= HyphenMinusGreaterThanSign ( (lv_navigation_3_0= ruleRelationshipNavigation ) ) (otherlv_4= LeftParenthesis ( (lv_where_5_0= ruleFindCondition ) )? otherlv_6= RightParenthesis )? ) | (otherlv_7= With ( (lv_with_8_0= ruleExtendedExpression ) ) otherlv_9= HyphenMinusGreaterThanSign ( (lv_navigation_10_0= ruleRelationshipNavigation ) ) ) | (otherlv_11= Ordered_by ( (lv_order_12_0= ruleSortOrder ) ) ) | (otherlv_13= Reverse_ordered_by ( (lv_reverseOrder_14_0= ruleSortOrder ) ) ) ) )*
             {
             if ( state.backtracking==0 ) {
 
@@ -27921,20 +27921,20 @@ public class InternalMASLParser extends AbstractInternalAntlrParser {
               			afterParserOrEnumRuleCall();
               		
             }
-            // InternalMASLParser.g:9813:3: ( () ( (otherlv_2= HyphenMinusGreaterThanSign ( (lv_navigation_3_0= ruleRelationshipNavigation ) ) (otherlv_4= LeftParenthesis ( (lv_where_5_0= ruleFindCondition ) ) otherlv_6= RightParenthesis )? ) | (otherlv_7= With ( (lv_with_8_0= ruleExtendedExpression ) ) otherlv_9= HyphenMinusGreaterThanSign ( (lv_navigation_10_0= ruleRelationshipNavigation ) ) ) | (otherlv_11= Ordered_by ( (lv_order_12_0= ruleSortOrder ) ) ) | (otherlv_13= Reverse_ordered_by ( (lv_reverseOrder_14_0= ruleSortOrder ) ) ) ) )*
-            loop189:
+            // InternalMASLParser.g:9813:3: ( () ( (otherlv_2= HyphenMinusGreaterThanSign ( (lv_navigation_3_0= ruleRelationshipNavigation ) ) (otherlv_4= LeftParenthesis ( (lv_where_5_0= ruleFindCondition ) )? otherlv_6= RightParenthesis )? ) | (otherlv_7= With ( (lv_with_8_0= ruleExtendedExpression ) ) otherlv_9= HyphenMinusGreaterThanSign ( (lv_navigation_10_0= ruleRelationshipNavigation ) ) ) | (otherlv_11= Ordered_by ( (lv_order_12_0= ruleSortOrder ) ) ) | (otherlv_13= Reverse_ordered_by ( (lv_reverseOrder_14_0= ruleSortOrder ) ) ) ) )*
+            loop190:
             do {
-                int alt189=2;
-                int LA189_0 = input.LA(1);
+                int alt190=2;
+                int LA190_0 = input.LA(1);
 
-                if ( (LA189_0==Reverse_ordered_by||LA189_0==Ordered_by||LA189_0==With||LA189_0==HyphenMinusGreaterThanSign) ) {
-                    alt189=1;
+                if ( (LA190_0==Reverse_ordered_by||LA190_0==Ordered_by||LA190_0==With||LA190_0==HyphenMinusGreaterThanSign) ) {
+                    alt190=1;
                 }
 
 
-                switch (alt189) {
+                switch (alt190) {
             	case 1 :
-            	    // InternalMASLParser.g:9814:4: () ( (otherlv_2= HyphenMinusGreaterThanSign ( (lv_navigation_3_0= ruleRelationshipNavigation ) ) (otherlv_4= LeftParenthesis ( (lv_where_5_0= ruleFindCondition ) ) otherlv_6= RightParenthesis )? ) | (otherlv_7= With ( (lv_with_8_0= ruleExtendedExpression ) ) otherlv_9= HyphenMinusGreaterThanSign ( (lv_navigation_10_0= ruleRelationshipNavigation ) ) ) | (otherlv_11= Ordered_by ( (lv_order_12_0= ruleSortOrder ) ) ) | (otherlv_13= Reverse_ordered_by ( (lv_reverseOrder_14_0= ruleSortOrder ) ) ) )
+            	    // InternalMASLParser.g:9814:4: () ( (otherlv_2= HyphenMinusGreaterThanSign ( (lv_navigation_3_0= ruleRelationshipNavigation ) ) (otherlv_4= LeftParenthesis ( (lv_where_5_0= ruleFindCondition ) )? otherlv_6= RightParenthesis )? ) | (otherlv_7= With ( (lv_with_8_0= ruleExtendedExpression ) ) otherlv_9= HyphenMinusGreaterThanSign ( (lv_navigation_10_0= ruleRelationshipNavigation ) ) ) | (otherlv_11= Ordered_by ( (lv_order_12_0= ruleSortOrder ) ) ) | (otherlv_13= Reverse_ordered_by ( (lv_reverseOrder_14_0= ruleSortOrder ) ) ) )
             	    {
             	    // InternalMASLParser.g:9814:4: ()
             	    // InternalMASLParser.g:9815:5: 
@@ -27949,43 +27949,43 @@ public class InternalMASLParser extends AbstractInternalAntlrParser {
 
             	    }
 
-            	    // InternalMASLParser.g:9821:4: ( (otherlv_2= HyphenMinusGreaterThanSign ( (lv_navigation_3_0= ruleRelationshipNavigation ) ) (otherlv_4= LeftParenthesis ( (lv_where_5_0= ruleFindCondition ) ) otherlv_6= RightParenthesis )? ) | (otherlv_7= With ( (lv_with_8_0= ruleExtendedExpression ) ) otherlv_9= HyphenMinusGreaterThanSign ( (lv_navigation_10_0= ruleRelationshipNavigation ) ) ) | (otherlv_11= Ordered_by ( (lv_order_12_0= ruleSortOrder ) ) ) | (otherlv_13= Reverse_ordered_by ( (lv_reverseOrder_14_0= ruleSortOrder ) ) ) )
-            	    int alt188=4;
+            	    // InternalMASLParser.g:9821:4: ( (otherlv_2= HyphenMinusGreaterThanSign ( (lv_navigation_3_0= ruleRelationshipNavigation ) ) (otherlv_4= LeftParenthesis ( (lv_where_5_0= ruleFindCondition ) )? otherlv_6= RightParenthesis )? ) | (otherlv_7= With ( (lv_with_8_0= ruleExtendedExpression ) ) otherlv_9= HyphenMinusGreaterThanSign ( (lv_navigation_10_0= ruleRelationshipNavigation ) ) ) | (otherlv_11= Ordered_by ( (lv_order_12_0= ruleSortOrder ) ) ) | (otherlv_13= Reverse_ordered_by ( (lv_reverseOrder_14_0= ruleSortOrder ) ) ) )
+            	    int alt189=4;
             	    switch ( input.LA(1) ) {
             	    case HyphenMinusGreaterThanSign:
             	        {
-            	        alt188=1;
+            	        alt189=1;
             	        }
             	        break;
             	    case With:
             	        {
-            	        alt188=2;
+            	        alt189=2;
             	        }
             	        break;
             	    case Ordered_by:
             	        {
-            	        alt188=3;
+            	        alt189=3;
             	        }
             	        break;
             	    case Reverse_ordered_by:
             	        {
-            	        alt188=4;
+            	        alt189=4;
             	        }
             	        break;
             	    default:
             	        if (state.backtracking>0) {state.failed=true; return current;}
             	        NoViableAltException nvae =
-            	            new NoViableAltException("", 188, 0, input);
+            	            new NoViableAltException("", 189, 0, input);
 
             	        throw nvae;
             	    }
 
-            	    switch (alt188) {
+            	    switch (alt189) {
             	        case 1 :
-            	            // InternalMASLParser.g:9822:5: (otherlv_2= HyphenMinusGreaterThanSign ( (lv_navigation_3_0= ruleRelationshipNavigation ) ) (otherlv_4= LeftParenthesis ( (lv_where_5_0= ruleFindCondition ) ) otherlv_6= RightParenthesis )? )
+            	            // InternalMASLParser.g:9822:5: (otherlv_2= HyphenMinusGreaterThanSign ( (lv_navigation_3_0= ruleRelationshipNavigation ) ) (otherlv_4= LeftParenthesis ( (lv_where_5_0= ruleFindCondition ) )? otherlv_6= RightParenthesis )? )
             	            {
-            	            // InternalMASLParser.g:9822:5: (otherlv_2= HyphenMinusGreaterThanSign ( (lv_navigation_3_0= ruleRelationshipNavigation ) ) (otherlv_4= LeftParenthesis ( (lv_where_5_0= ruleFindCondition ) ) otherlv_6= RightParenthesis )? )
-            	            // InternalMASLParser.g:9823:6: otherlv_2= HyphenMinusGreaterThanSign ( (lv_navigation_3_0= ruleRelationshipNavigation ) ) (otherlv_4= LeftParenthesis ( (lv_where_5_0= ruleFindCondition ) ) otherlv_6= RightParenthesis )?
+            	            // InternalMASLParser.g:9822:5: (otherlv_2= HyphenMinusGreaterThanSign ( (lv_navigation_3_0= ruleRelationshipNavigation ) ) (otherlv_4= LeftParenthesis ( (lv_where_5_0= ruleFindCondition ) )? otherlv_6= RightParenthesis )? )
+            	            // InternalMASLParser.g:9823:6: otherlv_2= HyphenMinusGreaterThanSign ( (lv_navigation_3_0= ruleRelationshipNavigation ) ) (otherlv_4= LeftParenthesis ( (lv_where_5_0= ruleFindCondition ) )? otherlv_6= RightParenthesis )?
             	            {
             	            otherlv_2=(Token)match(input,HyphenMinusGreaterThanSign,FOLLOW_45); if (state.failed) return current;
             	            if ( state.backtracking==0 ) {
@@ -28028,55 +28028,66 @@ public class InternalMASLParser extends AbstractInternalAntlrParser {
 
             	            }
 
-            	            // InternalMASLParser.g:9846:6: (otherlv_4= LeftParenthesis ( (lv_where_5_0= ruleFindCondition ) ) otherlv_6= RightParenthesis )?
-            	            int alt187=2;
-            	            int LA187_0 = input.LA(1);
+            	            // InternalMASLParser.g:9846:6: (otherlv_4= LeftParenthesis ( (lv_where_5_0= ruleFindCondition ) )? otherlv_6= RightParenthesis )?
+            	            int alt188=2;
+            	            int LA188_0 = input.LA(1);
 
-            	            if ( (LA187_0==LeftParenthesis) ) {
-            	                alt187=1;
+            	            if ( (LA188_0==LeftParenthesis) ) {
+            	                alt188=1;
             	            }
-            	            switch (alt187) {
+            	            switch (alt188) {
             	                case 1 :
-            	                    // InternalMASLParser.g:9847:7: otherlv_4= LeftParenthesis ( (lv_where_5_0= ruleFindCondition ) ) otherlv_6= RightParenthesis
+            	                    // InternalMASLParser.g:9847:7: otherlv_4= LeftParenthesis ( (lv_where_5_0= ruleFindCondition ) )? otherlv_6= RightParenthesis
             	                    {
-            	                    otherlv_4=(Token)match(input,LeftParenthesis,FOLLOW_114); if (state.failed) return current;
+            	                    otherlv_4=(Token)match(input,LeftParenthesis,FOLLOW_130); if (state.failed) return current;
             	                    if ( state.backtracking==0 ) {
 
             	                      							newLeafNode(otherlv_4, grammarAccess.getNavigateExpressionAccess().getLeftParenthesisKeyword_1_1_0_2_0());
             	                      						
             	                    }
-            	                    // InternalMASLParser.g:9851:7: ( (lv_where_5_0= ruleFindCondition ) )
-            	                    // InternalMASLParser.g:9852:8: (lv_where_5_0= ruleFindCondition )
-            	                    {
-            	                    // InternalMASLParser.g:9852:8: (lv_where_5_0= ruleFindCondition )
-            	                    // InternalMASLParser.g:9853:9: lv_where_5_0= ruleFindCondition
-            	                    {
-            	                    if ( state.backtracking==0 ) {
+            	                    // InternalMASLParser.g:9851:7: ( (lv_where_5_0= ruleFindCondition ) )?
+            	                    int alt187=2;
+            	                    int LA187_0 = input.LA(1);
 
-            	                      									newCompositeNode(grammarAccess.getNavigateExpressionAccess().getWhereFindConditionParserRuleCall_1_1_0_2_1_0());
-            	                      								
+            	                    if ( (LA187_0==Not||LA187_0==LeftParenthesis||LA187_0==RULE_ID) ) {
+            	                        alt187=1;
             	                    }
-            	                    pushFollow(FOLLOW_28);
-            	                    lv_where_5_0=ruleFindCondition();
+            	                    switch (alt187) {
+            	                        case 1 :
+            	                            // InternalMASLParser.g:9852:8: (lv_where_5_0= ruleFindCondition )
+            	                            {
+            	                            // InternalMASLParser.g:9852:8: (lv_where_5_0= ruleFindCondition )
+            	                            // InternalMASLParser.g:9853:9: lv_where_5_0= ruleFindCondition
+            	                            {
+            	                            if ( state.backtracking==0 ) {
 
-            	                    state._fsp--;
-            	                    if (state.failed) return current;
-            	                    if ( state.backtracking==0 ) {
+            	                              									newCompositeNode(grammarAccess.getNavigateExpressionAccess().getWhereFindConditionParserRuleCall_1_1_0_2_1_0());
+            	                              								
+            	                            }
+            	                            pushFollow(FOLLOW_28);
+            	                            lv_where_5_0=ruleFindCondition();
 
-            	                      									if (current==null) {
-            	                      										current = createModelElementForParent(grammarAccess.getNavigateExpressionRule());
-            	                      									}
-            	                      									set(
-            	                      										current,
-            	                      										"where",
-            	                      										lv_where_5_0,
-            	                      										"org.xtuml.bp.xtext.masl.MASL.FindCondition");
-            	                      									afterParserOrEnumRuleCall();
-            	                      								
-            	                    }
+            	                            state._fsp--;
+            	                            if (state.failed) return current;
+            	                            if ( state.backtracking==0 ) {
 
-            	                    }
+            	                              									if (current==null) {
+            	                              										current = createModelElementForParent(grammarAccess.getNavigateExpressionRule());
+            	                              									}
+            	                              									set(
+            	                              										current,
+            	                              										"where",
+            	                              										lv_where_5_0,
+            	                              										"org.xtuml.bp.xtext.masl.MASL.FindCondition");
+            	                              									afterParserOrEnumRuleCall();
+            	                              								
+            	                            }
 
+            	                            }
+
+
+            	                            }
+            	                            break;
 
             	                    }
 
@@ -28121,7 +28132,7 @@ public class InternalMASLParser extends AbstractInternalAntlrParser {
             	              								newCompositeNode(grammarAccess.getNavigateExpressionAccess().getWithExtendedExpressionParserRuleCall_1_1_1_1_0());
             	              							
             	            }
-            	            pushFollow(FOLLOW_130);
+            	            pushFollow(FOLLOW_131);
             	            lv_with_8_0=ruleExtendedExpression();
 
             	            state._fsp--;
@@ -28306,7 +28317,7 @@ public class InternalMASLParser extends AbstractInternalAntlrParser {
             	    break;
 
             	default :
-            	    break loop189;
+            	    break loop190;
                 }
             } while (true);
 
@@ -28394,7 +28405,7 @@ public class InternalMASLParser extends AbstractInternalAntlrParser {
             // InternalMASLParser.g:9997:2: (this_PostfixExpression_0= rulePostfixExpression | this_CreateExpression_1= ruleCreateExpression | this_FindExpression_2= ruleFindExpression )
             {
             // InternalMASLParser.g:9997:2: (this_PostfixExpression_0= rulePostfixExpression | this_CreateExpression_1= ruleCreateExpression | this_FindExpression_2= ruleFindExpression )
-            int alt190=3;
+            int alt191=3;
             switch ( input.LA(1) ) {
             case Dictionary:
             case Anonymous:
@@ -28421,12 +28432,12 @@ public class InternalMASLParser extends AbstractInternalAntlrParser {
             case RULE_DURATION:
             case RULE_TIMESTAMP:
                 {
-                alt190=1;
+                alt191=1;
                 }
                 break;
             case Create:
                 {
-                alt190=2;
+                alt191=2;
                 }
                 break;
             case Find_only:
@@ -28434,18 +28445,18 @@ public class InternalMASLParser extends AbstractInternalAntlrParser {
             case Find_one:
             case Find:
                 {
-                alt190=3;
+                alt191=3;
                 }
                 break;
             default:
                 if (state.backtracking>0) {state.failed=true; return current;}
                 NoViableAltException nvae =
-                    new NoViableAltException("", 190, 0, input);
+                    new NoViableAltException("", 191, 0, input);
 
                 throw nvae;
             }
 
-            switch (alt190) {
+            switch (alt191) {
                 case 1 :
                     // InternalMASLParser.g:9998:3: this_PostfixExpression_0= rulePostfixExpression
                     {
@@ -28612,20 +28623,20 @@ public class InternalMASLParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_1=(Token)match(input,LeftParenthesis,FOLLOW_131); if (state.failed) return current;
+            otherlv_1=(Token)match(input,LeftParenthesis,FOLLOW_132); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
               			newLeafNode(otherlv_1, grammarAccess.getSortOrderAccess().getLeftParenthesisKeyword_1());
               		
             }
             // InternalMASLParser.g:10054:3: ( ( (lv_components_2_0= ruleSortOrderComponent ) ) (otherlv_3= Comma ( (lv_components_4_0= ruleSortOrderComponent ) ) )* )?
-            int alt192=2;
-            int LA192_0 = input.LA(1);
+            int alt193=2;
+            int LA193_0 = input.LA(1);
 
-            if ( (LA192_0==Reverse||LA192_0==RULE_ID) ) {
-                alt192=1;
+            if ( (LA193_0==Reverse||LA193_0==RULE_ID) ) {
+                alt193=1;
             }
-            switch (alt192) {
+            switch (alt193) {
                 case 1 :
                     // InternalMASLParser.g:10055:4: ( (lv_components_2_0= ruleSortOrderComponent ) ) (otherlv_3= Comma ( (lv_components_4_0= ruleSortOrderComponent ) ) )*
                     {
@@ -28665,21 +28676,21 @@ public class InternalMASLParser extends AbstractInternalAntlrParser {
                     }
 
                     // InternalMASLParser.g:10074:4: (otherlv_3= Comma ( (lv_components_4_0= ruleSortOrderComponent ) ) )*
-                    loop191:
+                    loop192:
                     do {
-                        int alt191=2;
-                        int LA191_0 = input.LA(1);
+                        int alt192=2;
+                        int LA192_0 = input.LA(1);
 
-                        if ( (LA191_0==Comma) ) {
-                            alt191=1;
+                        if ( (LA192_0==Comma) ) {
+                            alt192=1;
                         }
 
 
-                        switch (alt191) {
+                        switch (alt192) {
                     	case 1 :
                     	    // InternalMASLParser.g:10075:5: otherlv_3= Comma ( (lv_components_4_0= ruleSortOrderComponent ) )
                     	    {
-                    	    otherlv_3=(Token)match(input,Comma,FOLLOW_132); if (state.failed) return current;
+                    	    otherlv_3=(Token)match(input,Comma,FOLLOW_133); if (state.failed) return current;
                     	    if ( state.backtracking==0 ) {
 
                     	      					newLeafNode(otherlv_3, grammarAccess.getSortOrderAccess().getCommaKeyword_2_1_0());
@@ -28725,7 +28736,7 @@ public class InternalMASLParser extends AbstractInternalAntlrParser {
                     	    break;
 
                     	default :
-                    	    break loop191;
+                    	    break loop192;
                         }
                     } while (true);
 
@@ -28825,20 +28836,20 @@ public class InternalMASLParser extends AbstractInternalAntlrParser {
             // InternalMASLParser.g:10123:3: ( (lv_reverse_0_0= Reverse ) )? ( (lv_feature_1_0= ruleSortOrderFeature ) )
             {
             // InternalMASLParser.g:10123:3: ( (lv_reverse_0_0= Reverse ) )?
-            int alt193=2;
-            int LA193_0 = input.LA(1);
+            int alt194=2;
+            int LA194_0 = input.LA(1);
 
-            if ( (LA193_0==Reverse) ) {
-                alt193=1;
+            if ( (LA194_0==Reverse) ) {
+                alt194=1;
             }
-            switch (alt193) {
+            switch (alt194) {
                 case 1 :
                     // InternalMASLParser.g:10124:4: (lv_reverse_0_0= Reverse )
                     {
                     // InternalMASLParser.g:10124:4: (lv_reverse_0_0= Reverse )
                     // InternalMASLParser.g:10125:5: lv_reverse_0_0= Reverse
                     {
-                    lv_reverse_0_0=(Token)match(input,Reverse,FOLLOW_132); if (state.failed) return current;
+                    lv_reverse_0_0=(Token)match(input,Reverse,FOLLOW_133); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                       					newLeafNode(lv_reverse_0_0, grammarAccess.getSortOrderComponentAccess().getReverseReverseKeyword_0_0());
@@ -29018,17 +29029,17 @@ public class InternalMASLParser extends AbstractInternalAntlrParser {
             }
 
             // InternalMASLParser.g:10195:3: ( () otherlv_3= FullStop ( (otherlv_4= RULE_ID ) ) )*
-            loop194:
+            loop195:
             do {
-                int alt194=2;
-                int LA194_0 = input.LA(1);
+                int alt195=2;
+                int LA195_0 = input.LA(1);
 
-                if ( (LA194_0==FullStop) ) {
-                    alt194=1;
+                if ( (LA195_0==FullStop) ) {
+                    alt195=1;
                 }
 
 
-                switch (alt194) {
+                switch (alt195) {
             	case 1 :
             	    // InternalMASLParser.g:10196:4: () otherlv_3= FullStop ( (otherlv_4= RULE_ID ) )
             	    {
@@ -29081,7 +29092,7 @@ public class InternalMASLParser extends AbstractInternalAntlrParser {
             	    break;
 
             	default :
-            	    break loop194;
+            	    break loop195;
                 }
             } while (true);
 
@@ -29175,20 +29186,20 @@ public class InternalMASLParser extends AbstractInternalAntlrParser {
             // InternalMASLParser.g:10239:2: (otherlv_0= Create ( (lv_unique_1_0= Unique ) )? ( (otherlv_2= RULE_ID ) ) otherlv_3= LeftParenthesis ( ( (lv_arguments_4_0= ruleCreateArgument ) ) (otherlv_5= Comma ( (lv_arguments_6_0= ruleCreateArgument ) ) )* )? otherlv_7= RightParenthesis )
             // InternalMASLParser.g:10240:3: otherlv_0= Create ( (lv_unique_1_0= Unique ) )? ( (otherlv_2= RULE_ID ) ) otherlv_3= LeftParenthesis ( ( (lv_arguments_4_0= ruleCreateArgument ) ) (otherlv_5= Comma ( (lv_arguments_6_0= ruleCreateArgument ) ) )* )? otherlv_7= RightParenthesis
             {
-            otherlv_0=(Token)match(input,Create,FOLLOW_133); if (state.failed) return current;
+            otherlv_0=(Token)match(input,Create,FOLLOW_134); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
               			newLeafNode(otherlv_0, grammarAccess.getCreateExpressionAccess().getCreateKeyword_0());
               		
             }
             // InternalMASLParser.g:10244:3: ( (lv_unique_1_0= Unique ) )?
-            int alt195=2;
-            int LA195_0 = input.LA(1);
+            int alt196=2;
+            int LA196_0 = input.LA(1);
 
-            if ( (LA195_0==Unique) ) {
-                alt195=1;
+            if ( (LA196_0==Unique) ) {
+                alt196=1;
             }
-            switch (alt195) {
+            switch (alt196) {
                 case 1 :
                     // InternalMASLParser.g:10245:4: (lv_unique_1_0= Unique )
                     {
@@ -29243,20 +29254,20 @@ public class InternalMASLParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_3=(Token)match(input,LeftParenthesis,FOLLOW_134); if (state.failed) return current;
+            otherlv_3=(Token)match(input,LeftParenthesis,FOLLOW_135); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
               			newLeafNode(otherlv_3, grammarAccess.getCreateExpressionAccess().getLeftParenthesisKeyword_3());
               		
             }
             // InternalMASLParser.g:10275:3: ( ( (lv_arguments_4_0= ruleCreateArgument ) ) (otherlv_5= Comma ( (lv_arguments_6_0= ruleCreateArgument ) ) )* )?
-            int alt197=2;
-            int LA197_0 = input.LA(1);
+            int alt198=2;
+            int LA198_0 = input.LA(1);
 
-            if ( (LA197_0==Current_State||LA197_0==RULE_ID) ) {
-                alt197=1;
+            if ( (LA198_0==Current_State||LA198_0==RULE_ID) ) {
+                alt198=1;
             }
-            switch (alt197) {
+            switch (alt198) {
                 case 1 :
                     // InternalMASLParser.g:10276:4: ( (lv_arguments_4_0= ruleCreateArgument ) ) (otherlv_5= Comma ( (lv_arguments_6_0= ruleCreateArgument ) ) )*
                     {
@@ -29296,21 +29307,21 @@ public class InternalMASLParser extends AbstractInternalAntlrParser {
                     }
 
                     // InternalMASLParser.g:10295:4: (otherlv_5= Comma ( (lv_arguments_6_0= ruleCreateArgument ) ) )*
-                    loop196:
+                    loop197:
                     do {
-                        int alt196=2;
-                        int LA196_0 = input.LA(1);
+                        int alt197=2;
+                        int LA197_0 = input.LA(1);
 
-                        if ( (LA196_0==Comma) ) {
-                            alt196=1;
+                        if ( (LA197_0==Comma) ) {
+                            alt197=1;
                         }
 
 
-                        switch (alt196) {
+                        switch (alt197) {
                     	case 1 :
                     	    // InternalMASLParser.g:10296:5: otherlv_5= Comma ( (lv_arguments_6_0= ruleCreateArgument ) )
                     	    {
-                    	    otherlv_5=(Token)match(input,Comma,FOLLOW_135); if (state.failed) return current;
+                    	    otherlv_5=(Token)match(input,Comma,FOLLOW_136); if (state.failed) return current;
                     	    if ( state.backtracking==0 ) {
 
                     	      					newLeafNode(otherlv_5, grammarAccess.getCreateExpressionAccess().getCommaKeyword_4_1_0());
@@ -29356,7 +29367,7 @@ public class InternalMASLParser extends AbstractInternalAntlrParser {
                     	    break;
 
                     	default :
-                    	    break loop196;
+                    	    break loop197;
                         }
                     } while (true);
 
@@ -29457,23 +29468,23 @@ public class InternalMASLParser extends AbstractInternalAntlrParser {
             // InternalMASLParser.g:10343:2: ( ( ( (otherlv_0= RULE_ID ) ) otherlv_1= EqualsSignGreaterThanSign ( (lv_value_2_0= ruleExpression ) ) ) | (otherlv_3= Current_State otherlv_4= EqualsSignGreaterThanSign ( (otherlv_5= RULE_ID ) ) ) )
             {
             // InternalMASLParser.g:10343:2: ( ( ( (otherlv_0= RULE_ID ) ) otherlv_1= EqualsSignGreaterThanSign ( (lv_value_2_0= ruleExpression ) ) ) | (otherlv_3= Current_State otherlv_4= EqualsSignGreaterThanSign ( (otherlv_5= RULE_ID ) ) ) )
-            int alt198=2;
-            int LA198_0 = input.LA(1);
+            int alt199=2;
+            int LA199_0 = input.LA(1);
 
-            if ( (LA198_0==RULE_ID) ) {
-                alt198=1;
+            if ( (LA199_0==RULE_ID) ) {
+                alt199=1;
             }
-            else if ( (LA198_0==Current_State) ) {
-                alt198=2;
+            else if ( (LA199_0==Current_State) ) {
+                alt199=2;
             }
             else {
                 if (state.backtracking>0) {state.failed=true; return current;}
                 NoViableAltException nvae =
-                    new NoViableAltException("", 198, 0, input);
+                    new NoViableAltException("", 199, 0, input);
 
                 throw nvae;
             }
-            switch (alt198) {
+            switch (alt199) {
                 case 1 :
                     // InternalMASLParser.g:10344:3: ( ( (otherlv_0= RULE_ID ) ) otherlv_1= EqualsSignGreaterThanSign ( (lv_value_2_0= ruleExpression ) ) )
                     {
@@ -29700,7 +29711,7 @@ public class InternalMASLParser extends AbstractInternalAntlrParser {
               					newCompositeNode(grammarAccess.getFindExpressionAccess().getTypeFindTypeEnumRuleCall_0_0());
               				
             }
-            pushFollow(FOLLOW_136);
+            pushFollow(FOLLOW_137);
             lv_type_0_0=ruleFindType();
 
             state._fsp--;
@@ -29759,20 +29770,20 @@ public class InternalMASLParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_2=(Token)match(input,LeftParenthesis,FOLLOW_137); if (state.failed) return current;
+            otherlv_2=(Token)match(input,LeftParenthesis,FOLLOW_130); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
               			newLeafNode(otherlv_2, grammarAccess.getFindExpressionAccess().getLeftParenthesisKeyword_2());
               		
             }
             // InternalMASLParser.g:10467:3: ( (lv_where_3_0= ruleFindCondition ) )?
-            int alt199=2;
-            int LA199_0 = input.LA(1);
+            int alt200=2;
+            int LA200_0 = input.LA(1);
 
-            if ( (LA199_0==Not||LA199_0==LeftParenthesis||LA199_0==RULE_ID) ) {
-                alt199=1;
+            if ( (LA200_0==Not||LA200_0==LeftParenthesis||LA200_0==RULE_ID) ) {
+                alt200=1;
             }
-            switch (alt199) {
+            switch (alt200) {
                 case 1 :
                     // InternalMASLParser.g:10468:4: (lv_where_3_0= ruleFindCondition )
                     {
@@ -29946,39 +29957,39 @@ public class InternalMASLParser extends AbstractInternalAntlrParser {
               		
             }
             // InternalMASLParser.g:10517:3: ( ( () ( ( LeftParenthesis )=>otherlv_2= LeftParenthesis ) ( ( (lv_arguments_3_0= ruleExpression ) ) (otherlv_4= Comma ( (lv_arguments_5_0= ruleExpression ) ) )* )? otherlv_6= RightParenthesis ) | ( () otherlv_8= FullStop ( (otherlv_9= RULE_ID ) ) ) | ( () otherlv_11= TildeGreaterThanSign ( (otherlv_12= RULE_ID ) ) otherlv_13= LeftParenthesis ( ( (lv_arguments_14_0= ruleExpression ) ) (otherlv_15= Comma ( (lv_arguments_16_0= ruleExpression ) ) )* )? otherlv_17= RightParenthesis ) | ( () otherlv_19= LeftSquareBracket ( (lv_brackets_20_0= ruleExpression ) ) otherlv_21= RightSquareBracket ) | ( () otherlv_23= Apostrophe ( ( ruleCharacteristicID ) ) ( ( ( LeftParenthesis )=>otherlv_25= LeftParenthesis ) ( ( (lv_arguments_26_0= ruleExpression ) ) (otherlv_27= Comma ( (lv_arguments_28_0= ruleExpression ) ) )* )? otherlv_29= RightParenthesis )? ) )*
-            loop207:
+            loop208:
             do {
-                int alt207=6;
+                int alt208=6;
                 switch ( input.LA(1) ) {
                 case LeftParenthesis:
                     {
-                    alt207=1;
+                    alt208=1;
                     }
                     break;
                 case FullStop:
                     {
-                    alt207=2;
+                    alt208=2;
                     }
                     break;
                 case TildeGreaterThanSign:
                     {
-                    alt207=3;
+                    alt208=3;
                     }
                     break;
                 case LeftSquareBracket:
                     {
-                    alt207=4;
+                    alt208=4;
                     }
                     break;
                 case Apostrophe:
                     {
-                    alt207=5;
+                    alt208=5;
                     }
                     break;
 
                 }
 
-                switch (alt207) {
+                switch (alt208) {
             	case 1 :
             	    // InternalMASLParser.g:10518:4: ( () ( ( LeftParenthesis )=>otherlv_2= LeftParenthesis ) ( ( (lv_arguments_3_0= ruleExpression ) ) (otherlv_4= Comma ( (lv_arguments_5_0= ruleExpression ) ) )* )? otherlv_6= RightParenthesis )
             	    {
@@ -30011,13 +30022,13 @@ public class InternalMASLParser extends AbstractInternalAntlrParser {
             	    }
 
             	    // InternalMASLParser.g:10533:5: ( ( (lv_arguments_3_0= ruleExpression ) ) (otherlv_4= Comma ( (lv_arguments_5_0= ruleExpression ) ) )* )?
-            	    int alt201=2;
-            	    int LA201_0 = input.LA(1);
+            	    int alt202=2;
+            	    int LA202_0 = input.LA(1);
 
-            	    if ( (LA201_0==Dictionary||LA201_0==Anonymous||LA201_0==Find_only||(LA201_0>=Find_all && LA201_0<=Find_one)||LA201_0==Instance||LA201_0==Sequence||LA201_0==Console||(LA201_0>=FILE && LA201_0<=LINE)||LA201_0==Create||(LA201_0>=Unlink && LA201_0<=Array)||(LA201_0>=False && LA201_0<=Flush)||LA201_0==Endl||LA201_0==Find||LA201_0==Link||LA201_0==Null||(LA201_0>=This && LA201_0<=True)||LA201_0==Abs||LA201_0==Bag||LA201_0==Not||LA201_0==Set||LA201_0==LeftParenthesis||LA201_0==PlusSign||LA201_0==HyphenMinus||(LA201_0>=RULE_ID && LA201_0<=RULE_TIMESTAMP)) ) {
-            	        alt201=1;
+            	    if ( (LA202_0==Dictionary||LA202_0==Anonymous||LA202_0==Find_only||(LA202_0>=Find_all && LA202_0<=Find_one)||LA202_0==Instance||LA202_0==Sequence||LA202_0==Console||(LA202_0>=FILE && LA202_0<=LINE)||LA202_0==Create||(LA202_0>=Unlink && LA202_0<=Array)||(LA202_0>=False && LA202_0<=Flush)||LA202_0==Endl||LA202_0==Find||LA202_0==Link||LA202_0==Null||(LA202_0>=This && LA202_0<=True)||LA202_0==Abs||LA202_0==Bag||LA202_0==Not||LA202_0==Set||LA202_0==LeftParenthesis||LA202_0==PlusSign||LA202_0==HyphenMinus||(LA202_0>=RULE_ID && LA202_0<=RULE_TIMESTAMP)) ) {
+            	        alt202=1;
             	    }
-            	    switch (alt201) {
+            	    switch (alt202) {
             	        case 1 :
             	            // InternalMASLParser.g:10534:6: ( (lv_arguments_3_0= ruleExpression ) ) (otherlv_4= Comma ( (lv_arguments_5_0= ruleExpression ) ) )*
             	            {
@@ -30057,17 +30068,17 @@ public class InternalMASLParser extends AbstractInternalAntlrParser {
             	            }
 
             	            // InternalMASLParser.g:10553:6: (otherlv_4= Comma ( (lv_arguments_5_0= ruleExpression ) ) )*
-            	            loop200:
+            	            loop201:
             	            do {
-            	                int alt200=2;
-            	                int LA200_0 = input.LA(1);
+            	                int alt201=2;
+            	                int LA201_0 = input.LA(1);
 
-            	                if ( (LA200_0==Comma) ) {
-            	                    alt200=1;
+            	                if ( (LA201_0==Comma) ) {
+            	                    alt201=1;
             	                }
 
 
-            	                switch (alt200) {
+            	                switch (alt201) {
             	            	case 1 :
             	            	    // InternalMASLParser.g:10554:7: otherlv_4= Comma ( (lv_arguments_5_0= ruleExpression ) )
             	            	    {
@@ -30117,7 +30128,7 @@ public class InternalMASLParser extends AbstractInternalAntlrParser {
             	            	    break;
 
             	            	default :
-            	            	    break loop200;
+            	            	    break loop201;
             	                }
             	            } while (true);
 
@@ -30252,13 +30263,13 @@ public class InternalMASLParser extends AbstractInternalAntlrParser {
             	      				
             	    }
             	    // InternalMASLParser.g:10641:5: ( ( (lv_arguments_14_0= ruleExpression ) ) (otherlv_15= Comma ( (lv_arguments_16_0= ruleExpression ) ) )* )?
-            	    int alt203=2;
-            	    int LA203_0 = input.LA(1);
+            	    int alt204=2;
+            	    int LA204_0 = input.LA(1);
 
-            	    if ( (LA203_0==Dictionary||LA203_0==Anonymous||LA203_0==Find_only||(LA203_0>=Find_all && LA203_0<=Find_one)||LA203_0==Instance||LA203_0==Sequence||LA203_0==Console||(LA203_0>=FILE && LA203_0<=LINE)||LA203_0==Create||(LA203_0>=Unlink && LA203_0<=Array)||(LA203_0>=False && LA203_0<=Flush)||LA203_0==Endl||LA203_0==Find||LA203_0==Link||LA203_0==Null||(LA203_0>=This && LA203_0<=True)||LA203_0==Abs||LA203_0==Bag||LA203_0==Not||LA203_0==Set||LA203_0==LeftParenthesis||LA203_0==PlusSign||LA203_0==HyphenMinus||(LA203_0>=RULE_ID && LA203_0<=RULE_TIMESTAMP)) ) {
-            	        alt203=1;
+            	    if ( (LA204_0==Dictionary||LA204_0==Anonymous||LA204_0==Find_only||(LA204_0>=Find_all && LA204_0<=Find_one)||LA204_0==Instance||LA204_0==Sequence||LA204_0==Console||(LA204_0>=FILE && LA204_0<=LINE)||LA204_0==Create||(LA204_0>=Unlink && LA204_0<=Array)||(LA204_0>=False && LA204_0<=Flush)||LA204_0==Endl||LA204_0==Find||LA204_0==Link||LA204_0==Null||(LA204_0>=This && LA204_0<=True)||LA204_0==Abs||LA204_0==Bag||LA204_0==Not||LA204_0==Set||LA204_0==LeftParenthesis||LA204_0==PlusSign||LA204_0==HyphenMinus||(LA204_0>=RULE_ID && LA204_0<=RULE_TIMESTAMP)) ) {
+            	        alt204=1;
             	    }
-            	    switch (alt203) {
+            	    switch (alt204) {
             	        case 1 :
             	            // InternalMASLParser.g:10642:6: ( (lv_arguments_14_0= ruleExpression ) ) (otherlv_15= Comma ( (lv_arguments_16_0= ruleExpression ) ) )*
             	            {
@@ -30298,17 +30309,17 @@ public class InternalMASLParser extends AbstractInternalAntlrParser {
             	            }
 
             	            // InternalMASLParser.g:10661:6: (otherlv_15= Comma ( (lv_arguments_16_0= ruleExpression ) ) )*
-            	            loop202:
+            	            loop203:
             	            do {
-            	                int alt202=2;
-            	                int LA202_0 = input.LA(1);
+            	                int alt203=2;
+            	                int LA203_0 = input.LA(1);
 
-            	                if ( (LA202_0==Comma) ) {
-            	                    alt202=1;
+            	                if ( (LA203_0==Comma) ) {
+            	                    alt203=1;
             	                }
 
 
-            	                switch (alt202) {
+            	                switch (alt203) {
             	            	case 1 :
             	            	    // InternalMASLParser.g:10662:7: otherlv_15= Comma ( (lv_arguments_16_0= ruleExpression ) )
             	            	    {
@@ -30358,7 +30369,7 @@ public class InternalMASLParser extends AbstractInternalAntlrParser {
             	            	    break;
 
             	            	default :
-            	            	    break loop202;
+            	            	    break loop203;
             	                }
             	            } while (true);
 
@@ -30512,9 +30523,9 @@ public class InternalMASLParser extends AbstractInternalAntlrParser {
             	    }
 
             	    // InternalMASLParser.g:10758:5: ( ( ( LeftParenthesis )=>otherlv_25= LeftParenthesis ) ( ( (lv_arguments_26_0= ruleExpression ) ) (otherlv_27= Comma ( (lv_arguments_28_0= ruleExpression ) ) )* )? otherlv_29= RightParenthesis )?
-            	    int alt206=2;
-            	    alt206 = dfa206.predict(input);
-            	    switch (alt206) {
+            	    int alt207=2;
+            	    alt207 = dfa207.predict(input);
+            	    switch (alt207) {
             	        case 1 :
             	            // InternalMASLParser.g:10759:6: ( ( LeftParenthesis )=>otherlv_25= LeftParenthesis ) ( ( (lv_arguments_26_0= ruleExpression ) ) (otherlv_27= Comma ( (lv_arguments_28_0= ruleExpression ) ) )* )? otherlv_29= RightParenthesis
             	            {
@@ -30531,13 +30542,13 @@ public class InternalMASLParser extends AbstractInternalAntlrParser {
             	            }
 
             	            // InternalMASLParser.g:10766:6: ( ( (lv_arguments_26_0= ruleExpression ) ) (otherlv_27= Comma ( (lv_arguments_28_0= ruleExpression ) ) )* )?
-            	            int alt205=2;
-            	            int LA205_0 = input.LA(1);
+            	            int alt206=2;
+            	            int LA206_0 = input.LA(1);
 
-            	            if ( (LA205_0==Dictionary||LA205_0==Anonymous||LA205_0==Find_only||(LA205_0>=Find_all && LA205_0<=Find_one)||LA205_0==Instance||LA205_0==Sequence||LA205_0==Console||(LA205_0>=FILE && LA205_0<=LINE)||LA205_0==Create||(LA205_0>=Unlink && LA205_0<=Array)||(LA205_0>=False && LA205_0<=Flush)||LA205_0==Endl||LA205_0==Find||LA205_0==Link||LA205_0==Null||(LA205_0>=This && LA205_0<=True)||LA205_0==Abs||LA205_0==Bag||LA205_0==Not||LA205_0==Set||LA205_0==LeftParenthesis||LA205_0==PlusSign||LA205_0==HyphenMinus||(LA205_0>=RULE_ID && LA205_0<=RULE_TIMESTAMP)) ) {
-            	                alt205=1;
+            	            if ( (LA206_0==Dictionary||LA206_0==Anonymous||LA206_0==Find_only||(LA206_0>=Find_all && LA206_0<=Find_one)||LA206_0==Instance||LA206_0==Sequence||LA206_0==Console||(LA206_0>=FILE && LA206_0<=LINE)||LA206_0==Create||(LA206_0>=Unlink && LA206_0<=Array)||(LA206_0>=False && LA206_0<=Flush)||LA206_0==Endl||LA206_0==Find||LA206_0==Link||LA206_0==Null||(LA206_0>=This && LA206_0<=True)||LA206_0==Abs||LA206_0==Bag||LA206_0==Not||LA206_0==Set||LA206_0==LeftParenthesis||LA206_0==PlusSign||LA206_0==HyphenMinus||(LA206_0>=RULE_ID && LA206_0<=RULE_TIMESTAMP)) ) {
+            	                alt206=1;
             	            }
-            	            switch (alt205) {
+            	            switch (alt206) {
             	                case 1 :
             	                    // InternalMASLParser.g:10767:7: ( (lv_arguments_26_0= ruleExpression ) ) (otherlv_27= Comma ( (lv_arguments_28_0= ruleExpression ) ) )*
             	                    {
@@ -30577,17 +30588,17 @@ public class InternalMASLParser extends AbstractInternalAntlrParser {
             	                    }
 
             	                    // InternalMASLParser.g:10786:7: (otherlv_27= Comma ( (lv_arguments_28_0= ruleExpression ) ) )*
-            	                    loop204:
+            	                    loop205:
             	                    do {
-            	                        int alt204=2;
-            	                        int LA204_0 = input.LA(1);
+            	                        int alt205=2;
+            	                        int LA205_0 = input.LA(1);
 
-            	                        if ( (LA204_0==Comma) ) {
-            	                            alt204=1;
+            	                        if ( (LA205_0==Comma) ) {
+            	                            alt205=1;
             	                        }
 
 
-            	                        switch (alt204) {
+            	                        switch (alt205) {
             	                    	case 1 :
             	                    	    // InternalMASLParser.g:10787:8: otherlv_27= Comma ( (lv_arguments_28_0= ruleExpression ) )
             	                    	    {
@@ -30637,7 +30648,7 @@ public class InternalMASLParser extends AbstractInternalAntlrParser {
             	                    	    break;
 
             	                    	default :
-            	                    	    break loop204;
+            	                    	    break loop205;
             	                        }
             	                    } while (true);
 
@@ -30667,7 +30678,7 @@ public class InternalMASLParser extends AbstractInternalAntlrParser {
             	    break;
 
             	default :
-            	    break loop207;
+            	    break loop208;
                 }
             } while (true);
 
@@ -30751,32 +30762,32 @@ public class InternalMASLParser extends AbstractInternalAntlrParser {
             // InternalMASLParser.g:10837:2: (this_ID_0= RULE_ID | kw= Range | kw= Delta )
             {
             // InternalMASLParser.g:10837:2: (this_ID_0= RULE_ID | kw= Range | kw= Delta )
-            int alt208=3;
+            int alt209=3;
             switch ( input.LA(1) ) {
             case RULE_ID:
                 {
-                alt208=1;
+                alt209=1;
                 }
                 break;
             case Range:
                 {
-                alt208=2;
+                alt209=2;
                 }
                 break;
             case Delta:
                 {
-                alt208=3;
+                alt209=3;
                 }
                 break;
             default:
                 if (state.backtracking>0) {state.failed=true; return current;}
                 NoViableAltException nvae =
-                    new NoViableAltException("", 208, 0, input);
+                    new NoViableAltException("", 209, 0, input);
 
                 throw nvae;
             }
 
-            switch (alt208) {
+            switch (alt209) {
                 case 1 :
                     // InternalMASLParser.g:10838:3: this_ID_0= RULE_ID
                     {
@@ -30927,29 +30938,29 @@ public class InternalMASLParser extends AbstractInternalAntlrParser {
               		
             }
             // InternalMASLParser.g:10884:3: ( ( () otherlv_2= FullStop ( (otherlv_3= RULE_ID ) ) ) | ( () otherlv_5= LeftSquareBracket ( (lv_brackets_6_0= ruleExpression ) ) otherlv_7= RightSquareBracket ) | ( () otherlv_9= Apostrophe ( (otherlv_10= RULE_ID ) ) ) )*
-            loop209:
+            loop210:
             do {
-                int alt209=4;
+                int alt210=4;
                 switch ( input.LA(1) ) {
                 case FullStop:
                     {
-                    alt209=1;
+                    alt210=1;
                     }
                     break;
                 case LeftSquareBracket:
                     {
-                    alt209=2;
+                    alt210=2;
                     }
                     break;
                 case Apostrophe:
                     {
-                    alt209=3;
+                    alt210=3;
                     }
                     break;
 
                 }
 
-                switch (alt209) {
+                switch (alt210) {
             	case 1 :
             	    // InternalMASLParser.g:10885:4: ( () otherlv_2= FullStop ( (otherlv_3= RULE_ID ) ) )
             	    {
@@ -31136,7 +31147,7 @@ public class InternalMASLParser extends AbstractInternalAntlrParser {
             	    break;
 
             	default :
-            	    break loop209;
+            	    break loop210;
                 }
             } while (true);
 
@@ -31226,7 +31237,7 @@ public class InternalMASLParser extends AbstractInternalAntlrParser {
             // InternalMASLParser.g:10994:2: (this_Literal_0= ruleLiteral | this_ParenthesisedExpression_1= ruleParenthesisedExpression | this_SimpleFeatureCall_2= ruleSimpleFeatureCall | this_TypeNameExpression_3= ruleTypeNameExpression )
             {
             // InternalMASLParser.g:10994:2: (this_Literal_0= ruleLiteral | this_ParenthesisedExpression_1= ruleParenthesisedExpression | this_SimpleFeatureCall_2= ruleSimpleFeatureCall | this_TypeNameExpression_3= ruleTypeNameExpression )
-            int alt210=4;
+            int alt211=4;
             switch ( input.LA(1) ) {
             case Console:
             case FILE:
@@ -31244,17 +31255,17 @@ public class InternalMASLParser extends AbstractInternalAntlrParser {
             case RULE_DURATION:
             case RULE_TIMESTAMP:
                 {
-                alt210=1;
+                alt211=1;
                 }
                 break;
             case LeftParenthesis:
                 {
-                alt210=2;
+                alt211=2;
                 }
                 break;
             case RULE_ID:
                 {
-                alt210=3;
+                alt211=3;
                 }
                 break;
             case Dictionary:
@@ -31265,18 +31276,18 @@ public class InternalMASLParser extends AbstractInternalAntlrParser {
             case Bag:
             case Set:
                 {
-                alt210=4;
+                alt211=4;
                 }
                 break;
             default:
                 if (state.backtracking>0) {state.failed=true; return current;}
                 NoViableAltException nvae =
-                    new NoViableAltException("", 210, 0, input);
+                    new NoViableAltException("", 211, 0, input);
 
                 throw nvae;
             }
 
-            switch (alt210) {
+            switch (alt211) {
                 case 1 :
                     // InternalMASLParser.g:10995:3: this_Literal_0= ruleLiteral
                     {
@@ -31451,7 +31462,7 @@ public class InternalMASLParser extends AbstractInternalAntlrParser {
             // InternalMASLParser.g:11048:2: (this_Literal_0= ruleLiteral | this_ParenthesisedExpression_1= ruleParenthesisedExpression | this_SimpleFeatureCall_2= ruleSimpleFeatureCall | this_TypeNameExpression_3= ruleTypeNameExpression )
             {
             // InternalMASLParser.g:11048:2: (this_Literal_0= ruleLiteral | this_ParenthesisedExpression_1= ruleParenthesisedExpression | this_SimpleFeatureCall_2= ruleSimpleFeatureCall | this_TypeNameExpression_3= ruleTypeNameExpression )
-            int alt211=4;
+            int alt212=4;
             switch ( input.LA(1) ) {
             case Console:
             case FILE:
@@ -31469,17 +31480,17 @@ public class InternalMASLParser extends AbstractInternalAntlrParser {
             case RULE_DURATION:
             case RULE_TIMESTAMP:
                 {
-                alt211=1;
+                alt212=1;
                 }
                 break;
             case LeftParenthesis:
                 {
-                alt211=2;
+                alt212=2;
                 }
                 break;
             case RULE_ID:
                 {
-                alt211=3;
+                alt212=3;
                 }
                 break;
             case Dictionary:
@@ -31490,18 +31501,18 @@ public class InternalMASLParser extends AbstractInternalAntlrParser {
             case Bag:
             case Set:
                 {
-                alt211=4;
+                alt212=4;
                 }
                 break;
             default:
                 if (state.backtracking>0) {state.failed=true; return current;}
                 NoViableAltException nvae =
-                    new NoViableAltException("", 211, 0, input);
+                    new NoViableAltException("", 212, 0, input);
 
                 throw nvae;
             }
 
-            switch (alt211) {
+            switch (alt212) {
                 case 1 :
                     // InternalMASLParser.g:11049:3: this_Literal_0= ruleLiteral
                     {
@@ -31672,22 +31683,22 @@ public class InternalMASLParser extends AbstractInternalAntlrParser {
             // InternalMASLParser.g:11102:2: (this_InstanceTypeReference_0= ruleInstanceTypeReference | this_AbstractCollectionTypeReference_1= ruleAbstractCollectionTypeReference )
             {
             // InternalMASLParser.g:11102:2: (this_InstanceTypeReference_0= ruleInstanceTypeReference | this_AbstractCollectionTypeReference_1= ruleAbstractCollectionTypeReference )
-            int alt212=2;
+            int alt213=2;
             switch ( input.LA(1) ) {
             case Anonymous:
                 {
-                int LA212_1 = input.LA(2);
+                int LA213_1 = input.LA(2);
 
-                if ( (LA212_1==Dictionary||LA212_1==Sequence||LA212_1==Array||LA212_1==Bag||LA212_1==Set) ) {
-                    alt212=2;
+                if ( (LA213_1==Dictionary||LA213_1==Sequence||LA213_1==Array||LA213_1==Bag||LA213_1==Set) ) {
+                    alt213=2;
                 }
-                else if ( (LA212_1==Instance) ) {
-                    alt212=1;
+                else if ( (LA213_1==Instance) ) {
+                    alt213=1;
                 }
                 else {
                     if (state.backtracking>0) {state.failed=true; return current;}
                     NoViableAltException nvae =
-                        new NoViableAltException("", 212, 1, input);
+                        new NoViableAltException("", 213, 1, input);
 
                     throw nvae;
                 }
@@ -31695,7 +31706,7 @@ public class InternalMASLParser extends AbstractInternalAntlrParser {
                 break;
             case Instance:
                 {
-                alt212=1;
+                alt213=1;
                 }
                 break;
             case Dictionary:
@@ -31704,18 +31715,18 @@ public class InternalMASLParser extends AbstractInternalAntlrParser {
             case Bag:
             case Set:
                 {
-                alt212=2;
+                alt213=2;
                 }
                 break;
             default:
                 if (state.backtracking>0) {state.failed=true; return current;}
                 NoViableAltException nvae =
-                    new NoViableAltException("", 212, 0, input);
+                    new NoViableAltException("", 213, 0, input);
 
                 throw nvae;
             }
 
-            switch (alt212) {
+            switch (alt213) {
                 case 1 :
                     // InternalMASLParser.g:11103:3: this_InstanceTypeReference_0= ruleInstanceTypeReference
                     {
@@ -31977,13 +31988,13 @@ public class InternalMASLParser extends AbstractInternalAntlrParser {
               		
             }
             // InternalMASLParser.g:11184:3: ( () (otherlv_3= Comma ( (lv_elements_4_0= ruleExpression ) ) )+ )?
-            int alt214=2;
-            int LA214_0 = input.LA(1);
+            int alt215=2;
+            int LA215_0 = input.LA(1);
 
-            if ( (LA214_0==Comma) ) {
-                alt214=1;
+            if ( (LA215_0==Comma) ) {
+                alt215=1;
             }
-            switch (alt214) {
+            switch (alt215) {
                 case 1 :
                     // InternalMASLParser.g:11185:4: () (otherlv_3= Comma ( (lv_elements_4_0= ruleExpression ) ) )+
                     {
@@ -32001,18 +32012,18 @@ public class InternalMASLParser extends AbstractInternalAntlrParser {
                     }
 
                     // InternalMASLParser.g:11192:4: (otherlv_3= Comma ( (lv_elements_4_0= ruleExpression ) ) )+
-                    int cnt213=0;
-                    loop213:
+                    int cnt214=0;
+                    loop214:
                     do {
-                        int alt213=2;
-                        int LA213_0 = input.LA(1);
+                        int alt214=2;
+                        int LA214_0 = input.LA(1);
 
-                        if ( (LA213_0==Comma) ) {
-                            alt213=1;
+                        if ( (LA214_0==Comma) ) {
+                            alt214=1;
                         }
 
 
-                        switch (alt213) {
+                        switch (alt214) {
                     	case 1 :
                     	    // InternalMASLParser.g:11193:5: otherlv_3= Comma ( (lv_elements_4_0= ruleExpression ) )
                     	    {
@@ -32062,13 +32073,13 @@ public class InternalMASLParser extends AbstractInternalAntlrParser {
                     	    break;
 
                     	default :
-                    	    if ( cnt213 >= 1 ) break loop213;
+                    	    if ( cnt214 >= 1 ) break loop214;
                     	    if (state.backtracking>0) {state.failed=true; return current;}
                                 EarlyExitException eee =
-                                    new EarlyExitException(213, input);
+                                    new EarlyExitException(214, input);
                                 throw eee;
                         }
-                        cnt213++;
+                        cnt214++;
                     } while (true);
 
 
@@ -32189,88 +32200,88 @@ public class InternalMASLParser extends AbstractInternalAntlrParser {
             // InternalMASLParser.g:11240:2: (this_IntegerLiteral_0= ruleIntegerLiteral | this_RealLiteral_1= ruleRealLiteral | this_CharacterLiteral_2= ruleCharacterLiteral | this_StringLiteral_3= ruleStringLiteral | this_DurationLiteral_4= ruleDurationLiteral | this_TimestampLiteral_5= ruleTimestampLiteral | this_BooleanLiteral_6= ruleBooleanLiteral | this_NullLiteral_7= ruleNullLiteral | this_FlushLiteral_8= ruleFlushLiteral | this_ThisLiteral_9= ruleThisLiteral | this_ConsoleLiteral_10= ruleConsoleLiteral | this_EndlLiteral_11= ruleEndlLiteral | this_LineNoLiteral_12= ruleLineNoLiteral | this_FileNameLiteral_13= ruleFileNameLiteral )
             {
             // InternalMASLParser.g:11240:2: (this_IntegerLiteral_0= ruleIntegerLiteral | this_RealLiteral_1= ruleRealLiteral | this_CharacterLiteral_2= ruleCharacterLiteral | this_StringLiteral_3= ruleStringLiteral | this_DurationLiteral_4= ruleDurationLiteral | this_TimestampLiteral_5= ruleTimestampLiteral | this_BooleanLiteral_6= ruleBooleanLiteral | this_NullLiteral_7= ruleNullLiteral | this_FlushLiteral_8= ruleFlushLiteral | this_ThisLiteral_9= ruleThisLiteral | this_ConsoleLiteral_10= ruleConsoleLiteral | this_EndlLiteral_11= ruleEndlLiteral | this_LineNoLiteral_12= ruleLineNoLiteral | this_FileNameLiteral_13= ruleFileNameLiteral )
-            int alt215=14;
+            int alt216=14;
             switch ( input.LA(1) ) {
             case RULE_INTEGER:
                 {
-                alt215=1;
+                alt216=1;
                 }
                 break;
             case RULE_REAL:
                 {
-                alt215=2;
+                alt216=2;
                 }
                 break;
             case RULE_CHAR:
                 {
-                alt215=3;
+                alt216=3;
                 }
                 break;
             case RULE_STRING:
                 {
-                alt215=4;
+                alt216=4;
                 }
                 break;
             case RULE_DURATION:
                 {
-                alt215=5;
+                alt216=5;
                 }
                 break;
             case RULE_TIMESTAMP:
                 {
-                alt215=6;
+                alt216=6;
                 }
                 break;
             case False:
             case True:
                 {
-                alt215=7;
+                alt216=7;
                 }
                 break;
             case Null:
                 {
-                alt215=8;
+                alt216=8;
                 }
                 break;
             case Flush:
                 {
-                alt215=9;
+                alt216=9;
                 }
                 break;
             case This:
                 {
-                alt215=10;
+                alt216=10;
                 }
                 break;
             case Console:
                 {
-                alt215=11;
+                alt216=11;
                 }
                 break;
             case Endl:
                 {
-                alt215=12;
+                alt216=12;
                 }
                 break;
             case LINE:
                 {
-                alt215=13;
+                alt216=13;
                 }
                 break;
             case FILE:
                 {
-                alt215=14;
+                alt216=14;
                 }
                 break;
             default:
                 if (state.backtracking>0) {state.failed=true; return current;}
                 NoViableAltException nvae =
-                    new NoViableAltException("", 215, 0, input);
+                    new NoViableAltException("", 216, 0, input);
 
                 throw nvae;
             }
 
-            switch (alt215) {
+            switch (alt216) {
                 case 1 :
                     // InternalMASLParser.g:11241:3: this_IntegerLiteral_0= ruleIntegerLiteral
                     {
@@ -33289,23 +33300,23 @@ public class InternalMASLParser extends AbstractInternalAntlrParser {
             // InternalMASLParser.g:11594:2: ( ( (lv_value_0_0= True ) ) | ( () otherlv_2= False ) )
             {
             // InternalMASLParser.g:11594:2: ( ( (lv_value_0_0= True ) ) | ( () otherlv_2= False ) )
-            int alt216=2;
-            int LA216_0 = input.LA(1);
+            int alt217=2;
+            int LA217_0 = input.LA(1);
 
-            if ( (LA216_0==True) ) {
-                alt216=1;
+            if ( (LA217_0==True) ) {
+                alt217=1;
             }
-            else if ( (LA216_0==False) ) {
-                alt216=2;
+            else if ( (LA217_0==False) ) {
+                alt217=2;
             }
             else {
                 if (state.backtracking>0) {state.failed=true; return current;}
                 NoViableAltException nvae =
-                    new NoViableAltException("", 216, 0, input);
+                    new NoViableAltException("", 217, 0, input);
 
                 throw nvae;
             }
-            switch (alt216) {
+            switch (alt217) {
                 case 1 :
                     // InternalMASLParser.g:11595:3: ( (lv_value_0_0= True ) )
                     {
@@ -34109,23 +34120,23 @@ public class InternalMASLParser extends AbstractInternalAntlrParser {
             // InternalMASLParser.g:11844:2: ( (enumLiteral_0= Public ) | (enumLiteral_1= Private ) )
             {
             // InternalMASLParser.g:11844:2: ( (enumLiteral_0= Public ) | (enumLiteral_1= Private ) )
-            int alt217=2;
-            int LA217_0 = input.LA(1);
+            int alt218=2;
+            int LA218_0 = input.LA(1);
 
-            if ( (LA217_0==Public) ) {
-                alt217=1;
+            if ( (LA218_0==Public) ) {
+                alt218=1;
             }
-            else if ( (LA217_0==Private) ) {
-                alt217=2;
+            else if ( (LA218_0==Private) ) {
+                alt218=2;
             }
             else {
                 if (state.backtracking>0) {state.failed=true; return current;}
                 NoViableAltException nvae =
-                    new NoViableAltException("", 217, 0, input);
+                    new NoViableAltException("", 218, 0, input);
 
                 throw nvae;
             }
-            switch (alt217) {
+            switch (alt218) {
                 case 1 :
                     // InternalMASLParser.g:11845:3: (enumLiteral_0= Public )
                     {
@@ -34204,23 +34215,23 @@ public class InternalMASLParser extends AbstractInternalAntlrParser {
             // InternalMASLParser.g:11871:2: ( (enumLiteral_0= Assigner ) | (enumLiteral_1= Creation ) )
             {
             // InternalMASLParser.g:11871:2: ( (enumLiteral_0= Assigner ) | (enumLiteral_1= Creation ) )
-            int alt218=2;
-            int LA218_0 = input.LA(1);
+            int alt219=2;
+            int LA219_0 = input.LA(1);
 
-            if ( (LA218_0==Assigner) ) {
-                alt218=1;
+            if ( (LA219_0==Assigner) ) {
+                alt219=1;
             }
-            else if ( (LA218_0==Creation) ) {
-                alt218=2;
+            else if ( (LA219_0==Creation) ) {
+                alt219=2;
             }
             else {
                 if (state.backtracking>0) {state.failed=true; return current;}
                 NoViableAltException nvae =
-                    new NoViableAltException("", 218, 0, input);
+                    new NoViableAltException("", 219, 0, input);
 
                 throw nvae;
             }
-            switch (alt218) {
+            switch (alt219) {
                 case 1 :
                     // InternalMASLParser.g:11872:3: (enumLiteral_0= Assigner )
                     {
@@ -34347,23 +34358,23 @@ public class InternalMASLParser extends AbstractInternalAntlrParser {
             // InternalMASLParser.g:11915:2: ( (enumLiteral_0= In ) | (enumLiteral_1= Out ) )
             {
             // InternalMASLParser.g:11915:2: ( (enumLiteral_0= In ) | (enumLiteral_1= Out ) )
-            int alt219=2;
-            int LA219_0 = input.LA(1);
+            int alt220=2;
+            int LA220_0 = input.LA(1);
 
-            if ( (LA219_0==In) ) {
-                alt219=1;
+            if ( (LA220_0==In) ) {
+                alt220=1;
             }
-            else if ( (LA219_0==Out) ) {
-                alt219=2;
+            else if ( (LA220_0==Out) ) {
+                alt220=2;
             }
             else {
                 if (state.backtracking>0) {state.failed=true; return current;}
                 NoViableAltException nvae =
-                    new NoViableAltException("", 219, 0, input);
+                    new NoViableAltException("", 220, 0, input);
 
                 throw nvae;
             }
-            switch (alt219) {
+            switch (alt220) {
                 case 1 :
                     // InternalMASLParser.g:11916:3: (enumLiteral_0= In )
                     {
@@ -34442,23 +34453,23 @@ public class InternalMASLParser extends AbstractInternalAntlrParser {
             // InternalMASLParser.g:11942:2: ( (enumLiteral_0= Unconditionally ) | (enumLiteral_1= Conditionally ) )
             {
             // InternalMASLParser.g:11942:2: ( (enumLiteral_0= Unconditionally ) | (enumLiteral_1= Conditionally ) )
-            int alt220=2;
-            int LA220_0 = input.LA(1);
+            int alt221=2;
+            int LA221_0 = input.LA(1);
 
-            if ( (LA220_0==Unconditionally) ) {
-                alt220=1;
+            if ( (LA221_0==Unconditionally) ) {
+                alt221=1;
             }
-            else if ( (LA220_0==Conditionally) ) {
-                alt220=2;
+            else if ( (LA221_0==Conditionally) ) {
+                alt221=2;
             }
             else {
                 if (state.backtracking>0) {state.failed=true; return current;}
                 NoViableAltException nvae =
-                    new NoViableAltException("", 220, 0, input);
+                    new NoViableAltException("", 221, 0, input);
 
                 throw nvae;
             }
-            switch (alt220) {
+            switch (alt221) {
                 case 1 :
                     // InternalMASLParser.g:11943:3: (enumLiteral_0= Unconditionally )
                     {
@@ -34537,23 +34548,23 @@ public class InternalMASLParser extends AbstractInternalAntlrParser {
             // InternalMASLParser.g:11969:2: ( (enumLiteral_0= One ) | (enumLiteral_1= Many ) )
             {
             // InternalMASLParser.g:11969:2: ( (enumLiteral_0= One ) | (enumLiteral_1= Many ) )
-            int alt221=2;
-            int LA221_0 = input.LA(1);
+            int alt222=2;
+            int LA222_0 = input.LA(1);
 
-            if ( (LA221_0==One) ) {
-                alt221=1;
+            if ( (LA222_0==One) ) {
+                alt222=1;
             }
-            else if ( (LA221_0==Many) ) {
-                alt221=2;
+            else if ( (LA222_0==Many) ) {
+                alt222=2;
             }
             else {
                 if (state.backtracking>0) {state.failed=true; return current;}
                 NoViableAltException nvae =
-                    new NoViableAltException("", 221, 0, input);
+                    new NoViableAltException("", 222, 0, input);
 
                 throw nvae;
             }
-            switch (alt221) {
+            switch (alt222) {
                 case 1 :
                     // InternalMASLParser.g:11970:3: (enumLiteral_0= One )
                     {
@@ -34632,23 +34643,23 @@ public class InternalMASLParser extends AbstractInternalAntlrParser {
             // InternalMASLParser.g:11996:2: ( (enumLiteral_0= Link ) | (enumLiteral_1= Unlink ) )
             {
             // InternalMASLParser.g:11996:2: ( (enumLiteral_0= Link ) | (enumLiteral_1= Unlink ) )
-            int alt222=2;
-            int LA222_0 = input.LA(1);
+            int alt223=2;
+            int LA223_0 = input.LA(1);
 
-            if ( (LA222_0==Link) ) {
-                alt222=1;
+            if ( (LA223_0==Link) ) {
+                alt223=1;
             }
-            else if ( (LA222_0==Unlink) ) {
-                alt222=2;
+            else if ( (LA223_0==Unlink) ) {
+                alt223=2;
             }
             else {
                 if (state.backtracking>0) {state.failed=true; return current;}
                 NoViableAltException nvae =
-                    new NoViableAltException("", 222, 0, input);
+                    new NoViableAltException("", 223, 0, input);
 
                 throw nvae;
             }
-            switch (alt222) {
+            switch (alt223) {
                 case 1 :
                     // InternalMASLParser.g:11997:3: (enumLiteral_0= Link )
                     {
@@ -34727,23 +34738,23 @@ public class InternalMASLParser extends AbstractInternalAntlrParser {
             // InternalMASLParser.g:12023:2: ( (enumLiteral_0= At ) | (enumLiteral_1= Delay ) )
             {
             // InternalMASLParser.g:12023:2: ( (enumLiteral_0= At ) | (enumLiteral_1= Delay ) )
-            int alt223=2;
-            int LA223_0 = input.LA(1);
+            int alt224=2;
+            int LA224_0 = input.LA(1);
 
-            if ( (LA223_0==At) ) {
-                alt223=1;
+            if ( (LA224_0==At) ) {
+                alt224=1;
             }
-            else if ( (LA223_0==Delay) ) {
-                alt223=2;
+            else if ( (LA224_0==Delay) ) {
+                alt224=2;
             }
             else {
                 if (state.backtracking>0) {state.failed=true; return current;}
                 NoViableAltException nvae =
-                    new NoViableAltException("", 223, 0, input);
+                    new NoViableAltException("", 224, 0, input);
 
                 throw nvae;
             }
-            switch (alt223) {
+            switch (alt224) {
                 case 1 :
                     // InternalMASLParser.g:12024:3: (enumLiteral_0= At )
                     {
@@ -34824,37 +34835,37 @@ public class InternalMASLParser extends AbstractInternalAntlrParser {
             // InternalMASLParser.g:12050:2: ( (enumLiteral_0= Find ) | (enumLiteral_1= Find_all ) | (enumLiteral_2= Find_one ) | (enumLiteral_3= Find_only ) )
             {
             // InternalMASLParser.g:12050:2: ( (enumLiteral_0= Find ) | (enumLiteral_1= Find_all ) | (enumLiteral_2= Find_one ) | (enumLiteral_3= Find_only ) )
-            int alt224=4;
+            int alt225=4;
             switch ( input.LA(1) ) {
             case Find:
                 {
-                alt224=1;
+                alt225=1;
                 }
                 break;
             case Find_all:
                 {
-                alt224=2;
+                alt225=2;
                 }
                 break;
             case Find_one:
                 {
-                alt224=3;
+                alt225=3;
                 }
                 break;
             case Find_only:
                 {
-                alt224=4;
+                alt225=4;
                 }
                 break;
             default:
                 if (state.backtracking>0) {state.failed=true; return current;}
                 NoViableAltException nvae =
-                    new NoViableAltException("", 224, 0, input);
+                    new NoViableAltException("", 225, 0, input);
 
                 throw nvae;
             }
 
-            switch (alt224) {
+            switch (alt225) {
                 case 1 :
                     // InternalMASLParser.g:12051:3: (enumLiteral_0= Find )
                     {
@@ -35025,7 +35036,7 @@ public class InternalMASLParser extends AbstractInternalAntlrParser {
     protected DFA95 dfa95 = new DFA95(this);
     protected DFA121 dfa121 = new DFA121(this);
     protected DFA185 dfa185 = new DFA185(this);
-    protected DFA206 dfa206 = new DFA206(this);
+    protected DFA207 dfa207 = new DFA207(this);
     static final String dfa_1s = "\16\uffff";
     static final String dfa_2s = "\1\33\2\uffff\2\35\2\u0095\2\uffff\1\163\1\u0095\1\u0082\2\uffff";
     static final String dfa_3s = "\1\114\2\uffff\2\56\2\u0095\2\uffff\1\163\1\u0095\1\u008b\2\uffff";
@@ -35538,11 +35549,11 @@ public class InternalMASLParser extends AbstractInternalAntlrParser {
     static final short[] dfa_50 = DFA.unpackEncodedString(dfa_50s);
     static final short[][] dfa_51 = unpackEncodedStringArray(dfa_51s);
 
-    class DFA206 extends DFA {
+    class DFA207 extends DFA {
 
-        public DFA206(BaseRecognizer recognizer) {
+        public DFA207(BaseRecognizer recognizer) {
             this.recognizer = recognizer;
-            this.decisionNumber = 206;
+            this.decisionNumber = 207;
             this.eot = dfa_45;
             this.eof = dfa_46;
             this.min = dfa_47;
@@ -35559,10 +35570,10 @@ public class InternalMASLParser extends AbstractInternalAntlrParser {
         	int _s = s;
             switch ( s ) {
                     case 0 : 
-                        int LA206_1 = input.LA(1);
+                        int LA207_1 = input.LA(1);
 
                          
-                        int index206_1 = input.index();
+                        int index207_1 = input.index();
                         input.rewind();
                         s = -1;
                         if ( (synpred3_InternalMASLParser()) ) {s = 54;}
@@ -35570,13 +35581,13 @@ public class InternalMASLParser extends AbstractInternalAntlrParser {
                         else if ( (true) ) {s = 2;}
 
                          
-                        input.seek(index206_1);
+                        input.seek(index207_1);
                         if ( s>=0 ) return s;
                         break;
             }
             if (state.backtracking>0) {state.failed=true; return -1;}
             NoViableAltException nvae =
-                new NoViableAltException(getDescription(), 206, _s, input);
+                new NoViableAltException(getDescription(), 207, _s, input);
             error(nvae);
             throw nvae;
         }
@@ -35712,14 +35723,14 @@ public class InternalMASLParser extends AbstractInternalAntlrParser {
     public static final BitSet FOLLOW_127 = new BitSet(new long[]{0x0000000000000002L,0x0000000000004000L});
     public static final BitSet FOLLOW_128 = new BitSet(new long[]{0x0000000000080012L,0x0001000100000000L});
     public static final BitSet FOLLOW_129 = new BitSet(new long[]{0x0000000000080012L,0x0001000100000000L,0x0000000000000020L});
-    public static final BitSet FOLLOW_130 = new BitSet(new long[]{0x0000000000000000L,0x0001000000000000L});
-    public static final BitSet FOLLOW_131 = new BitSet(new long[]{0x0000200000000000L,0x0000000000000000L,0x0000000000200040L});
-    public static final BitSet FOLLOW_132 = new BitSet(new long[]{0x0000200000000000L,0x0000000000000000L,0x0000000000200000L});
-    public static final BitSet FOLLOW_133 = new BitSet(new long[]{0x4000000000000000L,0x0000000000000000L,0x0000000000200000L});
-    public static final BitSet FOLLOW_134 = new BitSet(new long[]{0x0000000000000080L,0x0000000000000000L,0x0000000000200040L});
-    public static final BitSet FOLLOW_135 = new BitSet(new long[]{0x0000000000000080L,0x0000000000000000L,0x0000000000200000L});
-    public static final BitSet FOLLOW_136 = new BitSet(new long[]{0x0003024800420000L,0x0000202034040181L,0x000000000FE00020L});
-    public static final BitSet FOLLOW_137 = new BitSet(new long[]{0x0000000000000000L,0x0000020000000000L,0x0000000000200060L});
+    public static final BitSet FOLLOW_130 = new BitSet(new long[]{0x0000000000000000L,0x0000020000000000L,0x0000000000200060L});
+    public static final BitSet FOLLOW_131 = new BitSet(new long[]{0x0000000000000000L,0x0001000000000000L});
+    public static final BitSet FOLLOW_132 = new BitSet(new long[]{0x0000200000000000L,0x0000000000000000L,0x0000000000200040L});
+    public static final BitSet FOLLOW_133 = new BitSet(new long[]{0x0000200000000000L,0x0000000000000000L,0x0000000000200000L});
+    public static final BitSet FOLLOW_134 = new BitSet(new long[]{0x4000000000000000L,0x0000000000000000L,0x0000000000200000L});
+    public static final BitSet FOLLOW_135 = new BitSet(new long[]{0x0000000000000080L,0x0000000000000000L,0x0000000000200040L});
+    public static final BitSet FOLLOW_136 = new BitSet(new long[]{0x0000000000000080L,0x0000000000000000L,0x0000000000200000L});
+    public static final BitSet FOLLOW_137 = new BitSet(new long[]{0x0003024800420000L,0x0000202034040181L,0x000000000FE00020L});
     public static final BitSet FOLLOW_138 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000000L,0x0000000000040834L});
     public static final BitSet FOLLOW_139 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000000L,0x0000000000040810L});
 

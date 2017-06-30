@@ -30,7 +30,10 @@ import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.PlatformUI;
 import org.xtuml.bp.core.CorePlugin;
+import org.xtuml.bp.core.ExecutableProperty_c;
+import org.xtuml.bp.core.Function_c;
 import org.xtuml.bp.core.Ooaofooa;
+import org.xtuml.bp.core.Operation_c;
 import org.xtuml.bp.core.common.ModelRoot;
 import org.xtuml.bp.core.common.NonRootModelElement;
 import org.xtuml.bp.ui.marking.MarkingData.Mark;
@@ -101,8 +104,7 @@ public class MarkingEditorDialog extends Dialog {
 			for (ModelRoot modelroot : roots) {
 				Object[] instances = (Object[]) instancesMethod.invoke(null, modelroot);
 				for (Object inst : instances) {
-					String entryText = ((NonRootModelElement) inst).getPath();
-					entryText = entryText.replaceFirst(project.getName() + "::", "");
+					String entryText = getPathkey((NonRootModelElement) inst);
 					modelElementCombo.add(entryText);
 				}
 			}
@@ -321,4 +323,32 @@ public class MarkingEditorDialog extends Dialog {
         return parent;
 	}
 
+	private String getPathkey(NonRootModelElement inst) {
+		String signature = new String("");
+		String pathkey = ((NonRootModelElement) inst).getPath();
+		
+		// If the instance requires a full signature, replace the last segment which
+		// is the name with the full signature
+		if (inst instanceof Function_c) {
+			signature = ((Function_c) inst).Getsignature(1);
+		} else if (inst instanceof Operation_c) {
+			signature = ((Operation_c) inst).Getsignature(1);
+		} else if (inst instanceof ExecutableProperty_c) {
+			signature = ((ExecutableProperty_c) inst).Getsignature(1);
+		}
+		
+		if (!signature.isEmpty()) {
+			signature = signature.replaceAll(", ", " ");
+			String[] pathPieces = pathkey.split("::");
+			String updatedPath = new String("");
+			for (int i=0; i<pathPieces.length-1; ++i) {
+				updatedPath = updatedPath.concat(pathPieces[i] + "::");
+			}
+			updatedPath = updatedPath.concat(signature);
+			pathkey = updatedPath;
+		}
+
+		pathkey = pathkey.replaceFirst(project.getName() + "::", "");
+		return pathkey;
+	}
 }
