@@ -315,7 +315,6 @@ public class ComponentTransactionListener implements ITransactionListener {
 			instances[i].clearUnreferencedProxies();
 		}
 		IntegrityChecker.startIntegrityChecker(persisted);
-		
 		RenameParticipantUtil.synchronizeMaslEditors();
 	}
 	

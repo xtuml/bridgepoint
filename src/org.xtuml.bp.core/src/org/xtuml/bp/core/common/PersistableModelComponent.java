@@ -247,7 +247,10 @@ public class PersistableModelComponent implements Comparable {
     
 	public void loadComponentAndChildren(IProgressMonitor monitor, boolean parseOal, boolean reload) {
 		try {
+      NonRootModelElement originalRoot = getRootModelElement();
+      Ooaofooa.getDefaultInstance().fireModelElementAboutToBeReloaded(getRootModelElement());
 			load(monitor, parseOal, reload);
+      Ooaofooa.getDefaultInstance().fireModelElementReloaded(originalRoot, getRootModelElement());
 		} catch (CoreException e) {
 			CorePlugin.logError("", e);
 		}
