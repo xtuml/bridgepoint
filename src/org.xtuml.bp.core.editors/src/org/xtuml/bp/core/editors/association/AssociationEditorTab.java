@@ -262,6 +262,9 @@ public class AssociationEditorTab extends Composite implements ITransactionListe
 								}
 							});
 				}
+				if(inputElement instanceof IStructuredSelection) {
+					return ((IStructuredSelection) inputElement).toArray();
+				}
 				if(inputElement instanceof Association_c) {
 					ArrayList<Object> data = new ArrayList<Object>();
 					ObjectElement[] childRelations = inspector.getChildRelations(inputElement);
@@ -486,6 +489,10 @@ public class AssociationEditorTab extends Composite implements ITransactionListe
 				fTableViewer.refresh();
 			}
 		});
+	}
+
+	public void setInput(Object input) {
+		fTableViewer.setInput(input);
 	}
 
 }
