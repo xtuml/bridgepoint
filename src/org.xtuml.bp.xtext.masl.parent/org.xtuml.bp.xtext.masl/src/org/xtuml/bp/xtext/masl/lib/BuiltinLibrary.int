@@ -51,6 +51,7 @@ builtin is
 	integer'first return integer;
 	integer'last  return integer;
 	integer'range return integer;
+	integer'value(p: in anonymous string) return integer;
 
 	<enum E> E'first()             return E;
 	<enum E> E'last()              return E;
