@@ -574,6 +574,7 @@ public class MASLSyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     (rule start) (ambiguity) '#LINE#' ';' pragmas+=Pragma
 	 *     (rule start) (ambiguity) '#LINE#' (rule start)
 	 *     (rule start) (ambiguity) 'array' '(' expression=Expression
+	 *     (rule start) (ambiguity) 'array' '(' indexType=RangeTypeReference
 	 *     (rule start) (ambiguity) 'bag' 'of' elementType=AbstractTypeReference
 	 *     (rule start) (ambiguity) 'console' ';' (rule start)
 	 *     (rule start) (ambiguity) 'console' ';' pragmas+=Pragma
@@ -647,6 +648,7 @@ public class MASLSyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     (rule start) (ambiguity) '#LINE#' ')' (rule start)
 	 *     (rule start) (ambiguity) '#LINE#' (rule start)
 	 *     (rule start) (ambiguity) 'array' '(' expression=Expression
+	 *     (rule start) (ambiguity) 'array' '(' indexType=RangeTypeReference
 	 *     (rule start) (ambiguity) 'bag' 'of' elementType=AbstractTypeReference
 	 *     (rule start) (ambiguity) 'console' ')' (rule start)
 	 *     (rule start) (ambiguity) 'console' (rule start)

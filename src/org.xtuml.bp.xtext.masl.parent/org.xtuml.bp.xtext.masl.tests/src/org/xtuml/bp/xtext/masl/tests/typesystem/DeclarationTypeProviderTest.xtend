@@ -246,6 +246,8 @@ class DeclarationTypeProviderTest extends AbstractMaslModelTest {
 				^(BAR'pred);
 				^(Foo'value(""));
 				f := f'succ;
+				^(Foo'first);			
+				^(Foo'last);
 			end;
 		''', 'enum Foo')
 	}
@@ -253,8 +255,6 @@ class DeclarationTypeProviderTest extends AbstractMaslModelTest {
 	@Test
 	def void testEnumTypeCharacteristics1() {
 		assertType('type Foo is enum(BAR, BAZ);', '''
-			^(Foo'first);			
-			^(Foo'last);
 			^(Foo'size());
 			^(Foo'pos(BAR))
 		''', 'anonymous long_integer')

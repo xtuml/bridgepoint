@@ -253,8 +253,13 @@ class MaslTypeProvider {
 	def MaslType getMaslTypeOfTypeReference(AbstractTypeReference it) {
 		cache.get(CACHE_KEY_TYPEREF -> it, eResource, [
 			switch it {
-				ArrayTypeReference:
-					return new ArrayType(elementType.maslTypeOfTypeReference, anonymous)
+				ArrayTypeReference: {
+					val indexType = expression.maslType
+					if(indexType instanceof RangeType) 
+						return new ArrayType(elementType.maslTypeOfTypeReference, anonymous, indexType)
+					else
+						return new ArrayType(elementType.maslTypeOfTypeReference, anonymous)
+				}
 				BagTypeReference:
 					return new BagType(elementType.maslTypeOfTypeReference, anonymous)
 				SequenceTypeReference:
@@ -549,6 +554,11 @@ class MaslTypeProvider {
 						.resolve(new TypeParameterType(typeParams.head.name, true), replacement.keyType)
 						.resolve(new TypeParameterType(typeParams.last.name, true), replacement.valueType)
 					return returnValue			
+				} else if(replacement instanceof ArrayType) {
+					val returnValue = returnType
+						.resolve(new TypeParameterType(typeParams.head.name, true), replacement.componentType)
+						.resolve(new TypeParameterType(typeParams.last.name, true), replacement.indexType.elementType)
+					return returnValue
 				} else {
 					throw new UnsupportedOperationException("Two type parameters are only supported for dictionary types")
 				}
