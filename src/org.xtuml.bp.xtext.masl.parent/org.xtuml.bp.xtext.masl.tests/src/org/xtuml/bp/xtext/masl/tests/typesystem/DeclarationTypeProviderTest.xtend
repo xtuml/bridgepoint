@@ -682,6 +682,6 @@ class DeclarationTypeProviderTest extends AbstractMaslModelTest {
 	
 	protected def doAssertType(CharSequence modFile, CharSequence extFile, String expected) {
 		for (expr: getElementsAtCarets('dummy.mod' -> modFile, 'dummy.ext' -> extFile)) 
-			assertEquals(expected.trim, getMaslType(expr)?.toString.trim)
+			assertEquals(expected.trim, getMaslType(expr)?.toString?.trim)
 	}
 }

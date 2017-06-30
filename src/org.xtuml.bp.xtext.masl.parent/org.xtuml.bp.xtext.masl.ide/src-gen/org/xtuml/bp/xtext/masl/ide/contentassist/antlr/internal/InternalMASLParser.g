@@ -23531,7 +23531,7 @@ rule__NavigateExpression__Group_1_1_0_2__1__Impl
 :
 (
 	{ before(grammarAccess.getNavigateExpressionAccess().getWhereAssignment_1_1_0_2_1()); }
-	(rule__NavigateExpression__WhereAssignment_1_1_0_2_1)
+	(rule__NavigateExpression__WhereAssignment_1_1_0_2_1)?
 	{ after(grammarAccess.getNavigateExpressionAccess().getWhereAssignment_1_1_0_2_1()); }
 )
 ;
