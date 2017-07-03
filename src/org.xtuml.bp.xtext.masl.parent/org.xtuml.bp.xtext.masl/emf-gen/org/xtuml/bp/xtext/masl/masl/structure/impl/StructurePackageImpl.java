@@ -944,8 +944,17 @@ public class StructurePackageImpl extends EPackageImpl implements StructurePacka
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getBuiltinLibraryDefinition_Characteristics() {
+	public EReference getBuiltinLibraryDefinition_Exceptions() {
 		return (EReference)builtinLibraryDefinitionEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getBuiltinLibraryDefinition_Characteristics() {
+		return (EReference)builtinLibraryDefinitionEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -1025,8 +1034,17 @@ public class StructurePackageImpl extends EPackageImpl implements StructurePacka
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getRangeTypeReference_Anonymous() {
+		return (EAttribute)rangeTypeReferenceEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EReference getRangeTypeReference_ElementType() {
-		return (EReference)rangeTypeReferenceEClass.getEStructuralFeatures().get(0);
+		return (EReference)rangeTypeReferenceEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -1765,6 +1783,7 @@ public class StructurePackageImpl extends EPackageImpl implements StructurePacka
 
 		builtinLibraryDefinitionEClass = createEClass(BUILTIN_LIBRARY_DEFINITION);
 		createEReference(builtinLibraryDefinitionEClass, BUILTIN_LIBRARY_DEFINITION__TYPES);
+		createEReference(builtinLibraryDefinitionEClass, BUILTIN_LIBRARY_DEFINITION__EXCEPTIONS);
 		createEReference(builtinLibraryDefinitionEClass, BUILTIN_LIBRARY_DEFINITION__CHARACTERISTICS);
 
 		characteristicEClass = createEClass(CHARACTERISTIC);
@@ -1777,6 +1796,7 @@ public class StructurePackageImpl extends EPackageImpl implements StructurePacka
 		createEAttribute(typeParameterEClass, TYPE_PARAMETER__ENUM);
 
 		rangeTypeReferenceEClass = createEClass(RANGE_TYPE_REFERENCE);
+		createEAttribute(rangeTypeReferenceEClass, RANGE_TYPE_REFERENCE__ANONYMOUS);
 		createEReference(rangeTypeReferenceEClass, RANGE_TYPE_REFERENCE__ELEMENT_TYPE);
 
 		objectDeclarationEClass = createEClass(OBJECT_DECLARATION);
@@ -2037,6 +2057,7 @@ public class StructurePackageImpl extends EPackageImpl implements StructurePacka
 
 		initEClass(builtinLibraryDefinitionEClass, BuiltinLibraryDefinition.class, "BuiltinLibraryDefinition", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getBuiltinLibraryDefinition_Types(), theTypesPackage.getTypeDeclaration(), null, "types", null, 0, -1, BuiltinLibraryDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getBuiltinLibraryDefinition_Exceptions(), this.getExceptionDeclaration(), null, "exceptions", null, 0, -1, BuiltinLibraryDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getBuiltinLibraryDefinition_Characteristics(), this.getCharacteristic(), null, "characteristics", null, 0, -1, BuiltinLibraryDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(characteristicEClass, Characteristic.class, "Characteristic", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -2049,6 +2070,7 @@ public class StructurePackageImpl extends EPackageImpl implements StructurePacka
 		initEAttribute(getTypeParameter_Enum(), theEcorePackage.getEBoolean(), "enum", null, 0, 1, TypeParameter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(rangeTypeReferenceEClass, RangeTypeReference.class, "RangeTypeReference", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getRangeTypeReference_Anonymous(), theEcorePackage.getEBoolean(), "anonymous", null, 0, 1, RangeTypeReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getRangeTypeReference_ElementType(), theTypesPackage.getAbstractTypeReference(), null, "elementType", null, 0, 1, RangeTypeReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(objectDeclarationEClass, ObjectDeclaration.class, "ObjectDeclaration", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);

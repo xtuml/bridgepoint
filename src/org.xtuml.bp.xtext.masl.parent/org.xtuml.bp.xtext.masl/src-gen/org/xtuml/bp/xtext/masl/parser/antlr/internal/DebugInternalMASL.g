@@ -140,6 +140,8 @@ ruleBuiltinLibraryDefinition:
 	(
 		ruleBuiltinTypeDeclaration
 		    |
+		ruleExceptionDeclaration
+		    |
 		ruleCharacteristic
 	)*
 	'end'
@@ -206,6 +208,8 @@ ruleAbstractTypeReferenceWithRange:
 
 // Rule RangeTypeReference
 ruleRangeTypeReference:
+	'anonymous'
+	?
 	'range'
 	'of'
 	ruleAbstractTypeReference
@@ -444,7 +448,11 @@ ruleArrayTypeReference:
 	?
 	'array'
 	'('
-	ruleExpression
+	(
+		ruleRangeTypeReference
+		    |
+		ruleExpression
+	)
 	')'
 	'of'
 	ruleAbstractTypeReference
@@ -1536,6 +1544,7 @@ ruleNavigateExpression:
 			(
 				'('
 				ruleFindCondition
+				?
 				')'
 			)?
 			    |
