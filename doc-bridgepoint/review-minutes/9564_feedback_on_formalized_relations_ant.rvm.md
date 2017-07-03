@@ -20,7 +20,7 @@ x- 04  min   TL . 5.1.4 .      Reword and add some detail
 x- 05  min   BM . 5.1.5 .      Clarify the wording here, use "shall be" instead of "can be"
 x- 06  min   BM . 5.1.5        attributes > attribute's
 x- 07 .min   BM . 5            make an explicit statement about which approach is selected
-_- 08 .min . BM . 8 .          we will need to update the documentation somewhere to note this new feature
+x- 08 .min . BM . 8 .          we will need to update the documentation somewhere to note this new feature
 x- 09 .min . BM . general .    if there is a picture, link it or even embed it
 x- 10  min . KB . 9.3.1 .      formatting issue in markdown
 x- 11 .min . BM . 9            note that the test is repeatable for each association type  
