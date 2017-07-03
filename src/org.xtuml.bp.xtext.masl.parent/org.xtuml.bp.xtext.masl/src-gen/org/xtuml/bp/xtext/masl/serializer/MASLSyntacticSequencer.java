@@ -38,6 +38,7 @@ public class MASLSyntacticSequencer extends AbstractSyntacticSequencer {
 	protected AbstractElementAlias match_FindUnary___NotKeyword_0_0_a_LeftParenthesisKeyword_1_0__p;
 	protected AbstractElementAlias match_ForStatement_LoopKeyword_8_q;
 	protected AbstractElementAlias match_IfStatement_IfKeyword_7_q;
+	protected AbstractElementAlias match_NavigateExpression___LeftParenthesisKeyword_1_1_0_2_0_RightParenthesisKeyword_1_1_0_2_2__q;
 	protected AbstractElementAlias match_ObjectDefinition_ObjectKeyword_5_q;
 	protected AbstractElementAlias match_ObjectServiceDeclaration_FunctionKeyword_3_1_or_ServiceKeyword_3_0;
 	protected AbstractElementAlias match_ObjectServiceDefinition_FunctionKeyword_3_1_or_ServiceKeyword_3_0;
@@ -80,6 +81,7 @@ public class MASLSyntacticSequencer extends AbstractSyntacticSequencer {
 		match_FindUnary___NotKeyword_0_0_a_LeftParenthesisKeyword_1_0__p = new GroupAlias(true, false, new TokenAlias(true, true, grammarAccess.getFindUnaryAccess().getNotKeyword_0_0()), new TokenAlias(false, false, grammarAccess.getFindUnaryAccess().getLeftParenthesisKeyword_1_0()));
 		match_ForStatement_LoopKeyword_8_q = new TokenAlias(false, true, grammarAccess.getForStatementAccess().getLoopKeyword_8());
 		match_IfStatement_IfKeyword_7_q = new TokenAlias(false, true, grammarAccess.getIfStatementAccess().getIfKeyword_7());
+		match_NavigateExpression___LeftParenthesisKeyword_1_1_0_2_0_RightParenthesisKeyword_1_1_0_2_2__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getNavigateExpressionAccess().getLeftParenthesisKeyword_1_1_0_2_0()), new TokenAlias(false, false, grammarAccess.getNavigateExpressionAccess().getRightParenthesisKeyword_1_1_0_2_2()));
 		match_ObjectDefinition_ObjectKeyword_5_q = new TokenAlias(false, true, grammarAccess.getObjectDefinitionAccess().getObjectKeyword_5());
 		match_ObjectServiceDeclaration_FunctionKeyword_3_1_or_ServiceKeyword_3_0 = new AlternativeAlias(false, false, new TokenAlias(false, false, grammarAccess.getObjectServiceDeclarationAccess().getFunctionKeyword_3_1()), new TokenAlias(false, false, grammarAccess.getObjectServiceDeclarationAccess().getServiceKeyword_3_0()));
 		match_ObjectServiceDefinition_FunctionKeyword_3_1_or_ServiceKeyword_3_0 = new AlternativeAlias(false, false, new TokenAlias(false, false, grammarAccess.getObjectServiceDefinitionAccess().getFunctionKeyword_3_1()), new TokenAlias(false, false, grammarAccess.getObjectServiceDefinitionAccess().getServiceKeyword_3_0()));
@@ -148,6 +150,8 @@ public class MASLSyntacticSequencer extends AbstractSyntacticSequencer {
 				emit_ForStatement_LoopKeyword_8_q(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if (match_IfStatement_IfKeyword_7_q.equals(syntax))
 				emit_IfStatement_IfKeyword_7_q(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if (match_NavigateExpression___LeftParenthesisKeyword_1_1_0_2_0_RightParenthesisKeyword_1_1_0_2_2__q.equals(syntax))
+				emit_NavigateExpression___LeftParenthesisKeyword_1_1_0_2_0_RightParenthesisKeyword_1_1_0_2_2__q(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if (match_ObjectDefinition_ObjectKeyword_5_q.equals(syntax))
 				emit_ObjectDefinition_ObjectKeyword_5_q(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if (match_ObjectServiceDeclaration_FunctionKeyword_3_1_or_ServiceKeyword_3_0.equals(syntax))
@@ -216,6 +220,7 @@ public class MASLSyntacticSequencer extends AbstractSyntacticSequencer {
 	 * This ambiguous syntax occurs at:
 	 *     (rule start) 'builtin' 'is' 'end' (ambiguity) ';' (rule start)
 	 *     characteristics+=Characteristic 'end' (ambiguity) ';' (rule end)
+	 *     exceptions+=ExceptionDeclaration 'end' (ambiguity) ';' (rule end)
 	 *     types+=BuiltinTypeDeclaration 'end' (ambiguity) ';' (rule end)
 	 */
 	protected void emit_BuiltinLibraryDefinition_BuiltinKeyword_5_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
@@ -469,6 +474,20 @@ public class MASLSyntacticSequencer extends AbstractSyntacticSequencer {
 	
 	/**
 	 * Ambiguous syntax:
+	 *     ('(' ')')?
+	 *
+	 * This ambiguous syntax occurs at:
+	 *     navigation=RelationshipNavigation (ambiguity) ')' (rule end)
+	 *     navigation=RelationshipNavigation (ambiguity) ';' (rule end)
+	 *     navigation=RelationshipNavigation (ambiguity) ';' pragmas+=Pragma
+	 *     navigation=RelationshipNavigation (ambiguity) (rule end)
+	 */
+	protected void emit_NavigateExpression___LeftParenthesisKeyword_1_1_0_2_0_RightParenthesisKeyword_1_1_0_2_2__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+		acceptNodes(transition, nodes);
+	}
+	
+	/**
+	 * Ambiguous syntax:
 	 *     'object'?
 	 *
 	 * This ambiguous syntax occurs at:
@@ -555,6 +574,7 @@ public class MASLSyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     (rule start) (ambiguity) '#LINE#' ';' pragmas+=Pragma
 	 *     (rule start) (ambiguity) '#LINE#' (rule start)
 	 *     (rule start) (ambiguity) 'array' '(' expression=Expression
+	 *     (rule start) (ambiguity) 'array' '(' indexType=RangeTypeReference
 	 *     (rule start) (ambiguity) 'bag' 'of' elementType=AbstractTypeReference
 	 *     (rule start) (ambiguity) 'console' ';' (rule start)
 	 *     (rule start) (ambiguity) 'console' ';' pragmas+=Pragma
@@ -628,6 +648,7 @@ public class MASLSyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     (rule start) (ambiguity) '#LINE#' ')' (rule start)
 	 *     (rule start) (ambiguity) '#LINE#' (rule start)
 	 *     (rule start) (ambiguity) 'array' '(' expression=Expression
+	 *     (rule start) (ambiguity) 'array' '(' indexType=RangeTypeReference
 	 *     (rule start) (ambiguity) 'bag' 'of' elementType=AbstractTypeReference
 	 *     (rule start) (ambiguity) 'console' ')' (rule start)
 	 *     (rule start) (ambiguity) 'console' (rule start)
