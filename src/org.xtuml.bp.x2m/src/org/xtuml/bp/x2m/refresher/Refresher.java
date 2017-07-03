@@ -184,7 +184,7 @@ public class Refresher extends Task {
 						}
 					}
             	});
-                refreshThread.run();
+                refreshThread.start();
             } catch (Throwable e) {
                 String errMsg = e.getMessage();
                 if ( (errMsg == null) || errMsg.isEmpty() ) {
@@ -258,13 +258,68 @@ public class Refresher extends Task {
 
         // start the process
         Process process = pb.start();
-        pb.wait(KILLTIMEOUT);
-        int exitVal = process.exitValue();
+        int exitVal = doWaitFor(process, null);
         
         if ( exitVal == -1 ) {
             RuntimeException re = new RuntimeException("xtuml2masl subprocess failed:" );
             throw re;            
         }
+    }
+
+    private static int doWaitFor(Process p, File output) {
+
+        int exitValue = -1; // returned to caller when p is finished
+        int totalTime = 0;
+
+        try {
+            BufferedReader is = new BufferedReader(new InputStreamReader(p.getInputStream()));
+            DataOutputStream dos = null;
+            
+            if (output != null) {
+                dos = new DataOutputStream(
+                    new BufferedOutputStream(new FileOutputStream(output)));
+            }
+            String line;
+
+            boolean finished = false; // Set to true when p is finished
+
+            while (!finished) {
+                try {
+                    while ((line = is.readLine()) != null) {
+                        if ( dos != null) {
+                            dos.writeBytes(line);
+                            dos.write('\n');
+                        }
+                    }
+
+                    // Ask the process for its exitValue. If the process
+                    // is not finished, an IllegalThreadStateException
+                    // is thrown. If it is finished, we fall through and
+                    // the variable finished is set to true.
+                    exitValue = p.exitValue();
+                    finished = true;
+                } catch (IllegalThreadStateException e) {
+                    // Process is not finished yet;
+                    // Sleep a little to save on CPU cycles
+                    Thread.sleep(SLEEPTIME);
+                    totalTime = totalTime + SLEEPTIME;
+                    
+                    if (totalTime > KILLTIMEOUT) {
+                        finished = true;
+                        p.destroy();
+                    }
+                }
+                if (dos != null) {
+                    dos.flush();
+                    dos.close();
+                }
+            }
+        } catch (Exception e) {
+            // unexpected exception! print it out for debugging...
+            CorePlugin.logError("doWaitFor(): unexpected exception", e);
+        }
+
+        return exitValue;
     }
 
 }
