@@ -211,6 +211,12 @@ Bridge:GD',
     return Style::None;
   end if;
 end if;
+showFormalizations = PREF::getBoolean(name:"bridgepoint_prefs_showFormalizations");
+if (param.at == End::Additional and showFormalizations)
+  if(self.isFormalized())
+    return Style::Bold;
+  end if;
+end if;
 return Style::None;',
 	1,
 	'',
