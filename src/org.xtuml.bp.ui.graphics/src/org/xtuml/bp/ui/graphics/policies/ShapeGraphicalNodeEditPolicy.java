@@ -151,7 +151,7 @@ public class ShapeGraphicalNodeEditPolicy extends ConnectionPolicy {
             return new UpdateEndPointLocationCommand(request);
         }
         if (request.getConnectionEditPart().getTarget() != getHost()) {
-            // if the host has the "linkConnector" operation reconnect
+            // if the host has the "moveAssociation" operation reconnect
             final Method moveMethod = Cl_c.findMethod(getConnectionRepresents(request), "Moveassociation", new Class[] { UUID.class, UUID.class });
             if ( moveMethod != null ) {
                 return new Command("Retarget Connection") {
@@ -178,8 +178,51 @@ public class ShapeGraphicalNodeEditPolicy extends ConnectionPolicy {
         return null;
     }
 
+    @Override
+    protected Command getSpecializedReconnectSourceCommand(final ReconnectRequest request) {
+        if (request.getConnectionEditPart().getTarget() != getHost()) {
+            // if the host has the "moveAssociation" operation reconnect
+            final Method moveMethod = Cl_c.findMethod(getConnectionRepresents(request), "Moveassociation", new Class[] { UUID.class, UUID.class });
+            if ( moveMethod != null ) {
+                return new Command("Retarget Connection") {
+                    @Override
+                    public void execute() {
+                        Object result = Cl_c.doMethod( moveMethod, getConnectionRepresents(request),
+                            new Object[] { Cl_c.Getooa_idfrominstance(getConnectionSourceRepresents(request)), Cl_c.Getooa_idfrominstance(getHostRepresents()) });
+                        if (result instanceof Boolean) {
+                            if (!((Boolean) result).booleanValue()) return;
+                        }
+                        // finalize the connector, this call will create the necessary graphical elements
+                        ModelTool_c tool = ModelTool_c.getOneCT_MTLOnR100(getHostModel());
+                        associateTerminalSpecs(GraphicalElement_c.getOneGD_GEOnR2((Connector_c) request.getConnectionEditPart().getModel()));
+                        tool.Moveconnector(((Connector_c) request.getConnectionEditPart().getModel()).getElementid(),
+                            ((Shape_c)request.getConnectionEditPart().getSource().getModel()).getElementid(),
+                            ((Shape_c)getHost().getModel()).getElementid() );
+                        ((ConnectorEditPart) request.getConnectionEditPart()).transferLocation();
+                        DiagramEditPart diagramPart = (DiagramEditPart) request.getConnectionEditPart().getViewer().getContents();
+                        diagramPart.resizeContainer();
+                    }
+                };
+            }
+        }
+        return null;
+    }
+
     protected Object getConnectionTargetRepresents( ReconnectRequest request ) {
 		Object model = request.getConnectionEditPart().getTarget().getModel();
+		if (model instanceof Connector_c) {
+			return GraphicalElement_c.getOneGD_GEOnR2((Connector_c) model)
+					.getRepresents();
+		}
+		else if (model instanceof Shape_c) {
+			return GraphicalElement_c.getOneGD_GEOnR2((Shape_c) model)
+					.getRepresents();
+		}
+		return null;
+	}
+
+    protected Object getConnectionSourceRepresents( ReconnectRequest request ) {
+		Object model = request.getConnectionEditPart().getSource().getModel();
 		if (model instanceof Connector_c) {
 			return GraphicalElement_c.getOneGD_GEOnR2((Connector_c) model)
 					.getRepresents();

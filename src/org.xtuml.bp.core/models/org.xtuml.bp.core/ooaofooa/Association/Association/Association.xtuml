@@ -661,7 +661,7 @@ end if;
 select any new_o_iobj from instances of O_IOBJ where false;
 select any new_o_obj from instances of O_OBJ where ( selected.Obj_ID == param.new_id );
 if ( empty new_o_obj )
-  select any new_o_iobj from instances of O_IOBJ where ( selected.Obj_ID == param.new_id );
+  select any new_o_iobj from instances of O_IOBJ where ( selected.IObj_ID == param.new_id );
   select one new_o_obj related by new_o_iobj->O_OBJ[R101];
 end if;
 
