@@ -644,6 +644,80 @@ return cuttable;',
 	'',
 	"564c0e16-6ce2-4864-880a-b9231370a188",
 	0);
+INSERT INTO O_TFR
+	VALUES ("d1d1a2e2-12ae-44ea-9cb3-e490457ab30d",
+	"fccf477f-dde6-4d1a-9020-5effbe338738",
+	'moveAssociation',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000001",
+	1,
+	'// TODO allow all association types
+
+select any current_o_obj from instances of O_OBJ where ( selected.Obj_ID == param.current_id );
+if ( empty current_o_obj )
+  select any current_o_iobj from instances of O_IOBJ where ( selected.Obj_ID == param.current_id );
+  select one current_o_obj related by current_o_iobj->O_OBJ[R101];
+end if;
+select any new_o_iobj from instances of O_IOBJ where false;
+select any new_o_obj from instances of O_OBJ where ( selected.Obj_ID == param.new_id );
+if ( empty new_o_obj )
+  select any new_o_iobj from instances of O_IOBJ where ( selected.Obj_ID == param.new_id );
+  select one new_o_obj related by new_o_iobj->O_OBJ[R101];
+end if;
+
+// check if the association is formalized
+if ( self.isFormalized() )
+  self.unformalize();
+end if;
+
+// copy over mult, cond, and txt_phrs
+select one r_simp related by self->R_SIMP[R206];
+select any current_part related by r_simp->R_PART[R207] where ( selected.Obj_ID == current_o_obj.Obj_ID );
+create object instance new_part of R_PART;
+new_part.Mult = current_part.Mult;
+new_part.Cond = current_part.Cond;
+new_part.Txt_Phrs = current_part.Txt_Phrs;
+
+// dispose the current oir
+select any r_oir related by self->R_OIR[R201] where ( selected.Obj_ID == current_o_obj.Obj_ID );
+if ( not_empty r_oir )
+  r_oir.dispose();
+end if;
+
+// add the new obj to the relationship
+create object instance new_oir of R_OIR;
+relate new_o_obj to self across R201 using new_oir;
+if ( not_empty new_o_iobj )
+  relate new_oir to new_o_iobj across R202;
+end if;
+create object instance new_rto of R_RTO;
+relate new_oir to new_rto across R203;
+relate new_rto to new_part across R204;
+relate new_part to r_simp across R207;
+
+return true;',
+	1,
+	'',
+	"fa50f390-f898-48d7-a9dd-02c23b73bb3f",
+	0);
+INSERT INTO O_TPARM
+	VALUES ("201576fb-05de-4a71-a031-581901d88999",
+	"d1d1a2e2-12ae-44ea-9cb3-e490457ab30d",
+	'new_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"5177d45c-50ed-4a04-bc71-a9daeb6e58c8",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("5177d45c-50ed-4a04-bc71-a9daeb6e58c8",
+	"d1d1a2e2-12ae-44ea-9cb3-e490457ab30d",
+	'current_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
 INSERT INTO O_NBATTR
 	VALUES ("40ed956f-425d-4976-8913-ae0859b64e93",
 	"fccf477f-dde6-4d1a-9020-5effbe338738");

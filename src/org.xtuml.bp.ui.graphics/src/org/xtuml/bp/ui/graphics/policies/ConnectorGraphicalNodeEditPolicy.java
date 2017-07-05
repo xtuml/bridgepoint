@@ -38,7 +38,6 @@ import org.xtuml.bp.ui.canvas.Connector_c;
 import org.xtuml.bp.ui.canvas.ElementSpecification_c;
 import org.xtuml.bp.ui.canvas.GraphicalElement_c;
 import org.xtuml.bp.ui.canvas.ModelTool_c;
-import org.xtuml.bp.ui.canvas.Model_c;
 import org.xtuml.bp.ui.canvas.TerminalSpecification_c;
 import org.xtuml.bp.ui.graphics.commands.CreateConnectionCommand;
 import org.xtuml.bp.ui.graphics.parts.DiagramEditPart;
@@ -188,31 +187,6 @@ public class ConnectorGraphicalNodeEditPolicy extends ConnectionPolicy {
 				};
 		}
 		return null;
-	}
-
-	protected Object getHostRepresents() {
-		Object model = getHost().getModel();
-		if (model instanceof Connector_c) {
-			return GraphicalElement_c.getOneGD_GEOnR2((Connector_c) model)
-					.getRepresents();
-		}
-		return null;
-	}
-
-	protected void associateTerminalSpecs(GraphicalElement_c sourceElement) {
-		ElementSpecification_c newSpec = ElementSpecification_c
-				.getOneGD_ESOnR10(sourceElement);
-		ConnectorTerminal_c endTerm = (ConnectorTerminal_c) getEndTerm(newSpec);
-		TerminalSpecification_c term = TerminalSpecification_c
-				.getOneTS_TSPOnR201(endTerm);
-		term.relateAcrossR206To(GraphicalElement_c
-				.getOneGD_GEOnR2((Connector_c) getHost().getModel()));
-	}
-
-	protected Model_c getHostModel() {
-		Connector_c model = (Connector_c) getHost().getModel();
-		return Model_c.getOneGD_MDOnR1(GraphicalElement_c
-				.getOneGD_GEOnR2(model));
 	}
 
 }
