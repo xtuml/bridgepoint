@@ -42,8 +42,9 @@ import org.xtuml.bp.ui.canvas.ShapeTerminal_c;
 import org.xtuml.bp.ui.canvas.Shape_c;
 import org.xtuml.bp.ui.canvas.TerminalSpecification_c;
 import org.xtuml.bp.ui.canvas.WhitespaceTerminal_c;
-import org.xtuml.bp.ui.graphics.commands.CreateConnectionCommand;
 import org.xtuml.bp.ui.graphics.commands.UpdateEndPointLocationCommand;
+import org.xtuml.bp.ui.graphics.parts.ConnectorEditPart;
+import org.xtuml.bp.ui.graphics.parts.DiagramEditPart;
 
 public class ShapeGraphicalNodeEditPolicy extends ConnectionPolicy {
 
@@ -149,7 +150,7 @@ public class ShapeGraphicalNodeEditPolicy extends ConnectionPolicy {
             request.setTargetEditPart(getHost().getParent());
             return new UpdateEndPointLocationCommand(request);
         }
-		if (request.getConnectionEditPart().getTarget() != getHost()) {
+        if (request.getConnectionEditPart().getTarget() != getHost()) {
             // if the host has the "linkConnector" operation reconnect
             final Method moveMethod = Cl_c.findMethod(getConnectionRepresents(request), "Moveassociation", new Class[] { UUID.class, UUID.class });
             if ( moveMethod != null ) {
@@ -161,16 +162,19 @@ public class ShapeGraphicalNodeEditPolicy extends ConnectionPolicy {
                         if (result instanceof Boolean) {
                             if (!((Boolean) result).booleanValue()) return;
                         }
-                        // finalize the connector, this call will create the
-                        // necessary graphical elements
+                        // finalize the connector, this call will create the necessary graphical elements
                         ModelTool_c tool = ModelTool_c.getOneCT_MTLOnR100(getHostModel());
                         associateTerminalSpecs(GraphicalElement_c.getOneGD_GEOnR2((Connector_c) request.getConnectionEditPart().getModel()));
-                        tool.Finalizeconnector(((Shape_c) getHost().getModel()).getElementid(),
-                            ((Connector_c) request.getConnectionEditPart().getModel()).getElementid());
+                        tool.Moveconnector(((Connector_c) request.getConnectionEditPart().getModel()).getElementid(),
+                            ((Shape_c)request.getConnectionEditPart().getTarget().getModel()).getElementid(),
+                            ((Shape_c)getHost().getModel()).getElementid() );
+                        ((ConnectorEditPart) request.getConnectionEditPart()).transferLocation();
+                        DiagramEditPart diagramPart = (DiagramEditPart) request.getConnectionEditPart().getViewer().getContents();
+                        diagramPart.resizeContainer();
                     }
                 };
             }
-		}
+        }
         return null;
     }
 

@@ -274,6 +274,79 @@ INSERT INTO O_TPARM
 	'',
 	"00000000-0000-0000-0000-000000000000",
 	'');
+INSERT INTO O_TFR
+	VALUES ("f4e07802-9581-45f0-8454-6f1beec22014",
+	"43aa371a-c94c-48a9-acb6-21b733e4a55e",
+	'moveConnector',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'select any new_element from instances of DIM_GE where ( selected.elementId == param.newelementId );
+select any connector from instances of DIM_ED where ( selected.elementId == param.connectorId );
+select one dim_con related by connector->DIM_CON[R320]; // start
+if ( not_empty dim_con and dim_con.elementId == param.elementId )
+  // dispose the old dim con
+  dim_con.dispose();
+  // find the first waypoint, update the location
+  select any first_waypoint related by connector->DIM_WAY[R319];
+  select one prev_waypoint related by first_waypoint->DIM_WAY[R324.''follows''];
+  while ( not_empty prev_waypoint )
+    first_waypoint = prev_waypoint;
+    select one prev_waypoint related by first_waypoint->DIM_WAY[R324.''follows''];
+  end while;
+  // create a new anchor and relate to the new element and the connector
+  create object instance anchor of DIM_CON;
+  relate anchor to new_element across R311;
+  relate anchor to connector across R320;
+else
+  select one dim_con related by connector->DIM_CON[R321]; // end
+  if ( not_empty dim_con and dim_con.elementId == param.elementId )
+    // dispose the old dim con
+    dim_con.dispose();
+    // find the last waypoint, update the location
+    select any last_waypoint related by connector->DIM_WAY[R319];
+    select one next_waypoint related by last_waypoint->DIM_WAY[R324.''precedes''];
+    while ( not_empty next_waypoint )
+      last_waypoint = next_waypoint;
+      select one next_waypoint related by last_waypoint->DIM_WAY[R324.''precedes''];
+    end while;
+    // create a new anchor and relate to the new element and the connector
+    create object instance anchor of DIM_CON;
+    relate anchor to new_element across R311;
+    relate anchor to connector across R321;
+  end if;
+end if;',
+	1,
+	'',
+	"c390427a-1e60-4f9f-aba9-0370066d1838",
+	0);
+INSERT INTO O_TPARM
+	VALUES ("99fbb092-1b04-4848-8e4d-f0eb4c130450",
+	"f4e07802-9581-45f0-8454-6f1beec22014",
+	'elementId',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("eac2f396-2e12-4621-8c89-132032a5d28b",
+	"f4e07802-9581-45f0-8454-6f1beec22014",
+	'connectorId',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"99fbb092-1b04-4848-8e4d-f0eb4c130450",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("14451840-a3d2-46ee-9dd1-41a3eb900b72",
+	"f4e07802-9581-45f0-8454-6f1beec22014",
+	'newelementId',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"eac2f396-2e12-4621-8c89-132032a5d28b",
+	'');
 INSERT INTO O_NBATTR
 	VALUES ("0304c426-4444-443b-a662-e29749249eb1",
 	"43aa371a-c94c-48a9-acb6-21b733e4a55e");
