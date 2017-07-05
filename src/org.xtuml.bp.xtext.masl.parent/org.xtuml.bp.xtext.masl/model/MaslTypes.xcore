@@ -18,6 +18,7 @@ import org.xtuml.bp.xtext.masl.masl.structure.ObjectDeclaration
 import org.xtuml.bp.xtext.masl.masl.structure.Pragmatized
 import org.xtuml.bp.xtext.masl.masl.structure.TerminatorDefinition
 import org.xtuml.bp.xtext.masl.masl.structure.Visibility
+import org.xtuml.bp.xtext.masl.masl.structure.RangeTypeReference
 
 class TypeDeclaration extends Pragmatized , AbstractFeature {
 	Visibility visibility
@@ -118,6 +119,7 @@ class SequenceTypeReference extends AbstractCollectionTypeReference {
 
 class ArrayTypeReference extends AbstractCollectionTypeReference {
 	contains Expression expression
+	contains RangeTypeReference indexType
 }
 
 class SetTypeReference extends AbstractCollectionTypeReference {

@@ -2831,7 +2831,7 @@ public class MASLSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	 *     ParenthesisedExpression.StructureAggregateExpression_2_0 returns ArrayTypeReference
 	 *
 	 * Constraint:
-	 *     (anonymous?='anonymous'? expression=Expression elementType=AbstractTypeReference)
+	 *     (anonymous?='anonymous'? (indexType=RangeTypeReference | expression=Expression) elementType=AbstractTypeReference)
 	 */
 	protected void sequence_ArrayTypeReference(ISerializationContext context, ArrayTypeReference semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -2843,7 +2843,7 @@ public class MASLSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	 *     Statement returns ArrayTypeReference
 	 *
 	 * Constraint:
-	 *     (anonymous?='anonymous'? expression=Expression elementType=AbstractTypeReference pragmas+=Pragma*)
+	 *     (anonymous?='anonymous'? (indexType=RangeTypeReference | expression=Expression) elementType=AbstractTypeReference pragmas+=Pragma*)
 	 */
 	protected void sequence_ArrayTypeReference_PragmaList(ISerializationContext context, ArrayTypeReference semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -6434,16 +6434,10 @@ public class MASLSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	 *     RangeTypeReference returns RangeTypeReference
 	 *
 	 * Constraint:
-	 *     elementType=AbstractTypeReference
+	 *     (anonymous?='anonymous'? elementType=AbstractTypeReference)
 	 */
 	protected void sequence_RangeTypeReference(ISerializationContext context, RangeTypeReference semanticObject) {
-		if (errorAcceptor != null) {
-			if (transientValues.isValueTransient(semanticObject, StructurePackage.Literals.RANGE_TYPE_REFERENCE__ELEMENT_TYPE) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, StructurePackage.Literals.RANGE_TYPE_REFERENCE__ELEMENT_TYPE));
-		}
-		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
-		feeder.accept(grammarAccess.getRangeTypeReferenceAccess().getElementTypeAbstractTypeReferenceParserRuleCall_2_0(), semanticObject.getElementType());
-		feeder.finish();
+		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	

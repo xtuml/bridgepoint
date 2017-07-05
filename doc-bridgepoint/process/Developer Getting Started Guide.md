@@ -23,8 +23,10 @@ Setup Instructions
   - For each of the following git repositories create a fork:  
     __WARNING!:__ If you already have a fork, [assure your fork is up to date]( https://help.github.com/articles/merging-an-upstream-repository-into-your-fork).
     - https://github.com/xtuml/bridgepoint
+    - https://github.com/xtuml/bptest
     - https://github.com/xtuml/mc
     - https://github.com/xtuml/pt_antlr
+    - https://github.com/xtuml/packaging
     - https://github.com/xtuml/models
     - https://github.com/xtuml/packaging
     
@@ -41,7 +43,7 @@ Setup Instructions
     - __LINUX__ - Linux Ubuntu installation commands are presented below.  If installing in a 
     different Linux distribution you must use the [commands appropriate for your Linux distribution](https://github.com/xtuml/bridgepoint/blob/master/doc-bridgepoint/process/FAQ.md#linux).
     ```
-    sudo apt-get install tofrodos libstdc++5 g++ ant git default-jdk  
+    sudo apt-get install libstdc++5 g++ ant git default-jdk  
     ```  
     The build runs __a lot__ faster if the pypy python tool is available.  We recommend it be installed:
     ```
@@ -55,12 +57,10 @@ Setup Instructions
       - [Cygwin](http://cygwin.com/install.html "Cygwin Install") (Make sure to select Git)
      
     - __MAC__
-      - No action required
+      - Install pypy and git (we suggest via homebrew)
       
-GUI Build Instructions
+Build Instructions
 ------------
-The instructions in this section describe how to use the eclipse BridgePoint UI to build the BridgePoint plug-ins.   
-
   - Clone the repositories:
   ```
   git clone https://github.com/"username"/bridgepoint.git ~/git/bridgepoint
@@ -73,39 +73,64 @@ The instructions in this section describe how to use the eclipse BridgePoint UI 
   Note:  To build BridgePoint, you need only the bridgepoint, mc, packaging and pt_antlr
   repositories.  bptest and models are used for unit testing and application
   development.
-    
-  - Prepare your development workspace with the required preferences. 
-  ```
-  mkdir -p ~/workspace/.metadata/.plugins/org.eclipse.core.runtime/.settings
-  cp -f ~/git/bridgepoint/utilities/build/preferences/*  ~/workspace/.metadata/.plugins/org.eclipse.core.runtime/.settings
-  ```
 
-  - Set up pt_antlr for building BridgePoint 
-  ```
-  cp -f ~/git/pt_antlr/pt_antlr/antlr.jar  ~/git/bridgepoint/src/org.xtuml.bp.als/lib/antlr.jar
-  ```
-  
-  - Launch BridgePoint (```<BridgePoint installation folder>/bridgepoint for MAC it is Eclipse.app```)
-    - During startup, enter the name of a new eclipse workspace that will become your development workspace.   
-    (Example:  ```~/workspace```)
+  - Modify ~/git/bridgepoint/utilities/build/build_configuration.sh to account for your local paths.  
 
-  - Switch to the git repository perspective and add the repositories that were cloned above.
-  
-  - Import existing projects from the BridgePoint repository into your workspace.
-    - __WARNING!:__ Ensure "Search for nested projects" is Unchecked.
-    - __WARNING!:__ Import all projects from this bridgepoint repository, but do NOT import any projects from the other repositories.  Only projects from bridgepoint are needed in the workspace.
-
-  - Switch to the Java perspective
-
-  - Select Project > Build Automatically
-    - This will cause each project in the workspace to build.  The builder will build dependent projects first. Since all projects are being processed, the build will take a while and should finish successfully.
-    
+  - Build BridgePoint:
+  ```~/git/bridgepoint/utilities/build/build_and_test_bp.sh```
 
 ### Congratulations!  Your environment is now built and ready for BridgePoint development.
 
-  - If you have had any problems building, or have questions, check the [FAQ](https://github.com/xtuml/bridgepoint/blob/master/doc-bridgepoint/process/FAQ.md#bpdevelopers) or post to the [xtUML.org Forums] (https://xtuml.org/community/forum/xtuml-forum/) for help.
-  - If you want to run BridgePoint unit tests, instructions are available in [HOWTO Run the BridgePoint Unit Tests](https://github.com/xtuml/bridgepoint/blob/master/doc-bridgepoint/process/HOWTO-run-bridgepoint-unit-tests.md)
-   
+  - Launch BridgePoint (```<BridgePoint installation folder>/bridgepoint for MAC it is Eclipse.app```)
+    - During startup, enter the the eclipse workspace specified in  
+    ```~/git/bridgepoint/utilities/build/build_configuration.sh``` above.  
 
-### Additional Notes
-  - Information about running the BridgePoint build via the command line may be found [in the FAQ](https://github.com/xtuml/bridgepoint/blob/master/doc-bridgepoint/process/FAQ.md#clibuild).
+  - Switch to the git repository perspective and add the repositories that were cloned above.
+  
+Debugging   
+---------
+     * **Debugging the command-line build** (this is done when there is a problem specific to the command-line build)  
+          * Open the BridgePoint UI
+          * Set any breakpoints that are relevant to the issues
+          * Restart the test(s) for the project with issues including the debug option:  ```~/git/bridgepoint/utilities/build/build_and_test_bp.sh [test plugin (example: core)] debug```
+          * The tests will wait for a remote debugging session, create a new launch configuration in the UI using
+          * Select **Debug > Debug Configurations...**  
+          * Right click on Remote Java Application and select New
+          * Choose the test projet and click Debug
+               * The maven build will continue once the remote debugger is fully connected
+                    * Any breakpoints set will now be hit as long as execution takes it through such a path
+                    * Debug just as one would if developing in the UI
+                    * Once the test run is complete with no failures or errors, Run the build again.
+          * View the file located under the current directory at: target/site/surefire-report.html for results  
+          * If there are still problems repeat the debug process, otherwise continue to the next problem if one exists.  
+     * **Debugging Issues From the Eclipse Launch Configurations** (this is done when there is a test bug)  
+          - Select **Debug > Debug Configurations...**, and note the following:
+            - Section **Eclipse Application** contains the launchers for the BridgePoint builds
+              - The **BP Application** launchers are for Windows.
+              - The **x BP Application** launchers are for Linux.
+              - **CLI** launchers are for the command line interface.
+            - Section **JUnit Plug-in Test** contains the individual launchers for the defined BridgePoint plug-in unit tests.
+            - Section **Launch Group** has a member called **BridgePoint Unit Tests**, which will launch all of the JUint plug-in tests.
+          - Select the appropriate test suite with problems under the **JUnit Plug-in Test** section
+            - Select the **Debug** button to launch the test.
+              - This will cause the selected test to be executed.
+              - The builder will build BridgePoint, if necessary, and launch the build as the test target.  
+              - Examine any stops caused by breakpoints set and address the issue.  
+              - Once the test run is complete with no failures or errors, navigate to the owning test plug-in on the command line. 
+              - Run maven again for that test plugin.  
+                ```
+                ~/git/bridgepoint/utilities/build/build_and_test_bp.sh [test plugin (example: core)]
+                ```
+
+Adding new unit tests  
+----------------  
+To add new tests to the BridgePoint testing environment see the [HOWTO add unit tests...](https://github.com/xtuml/bridgepoint/blob/master/doc-bridgepoint/process/HOWTO-add-unit-tests-to-testing-environment.md) document.  
+
+Tips and Tricks
+---------------  
+1. The UI build can be triggered by enabling the Build builder on the org.xtuml.bp.releng.parent project.  When that build is run the entire xtuml tool will be built.  Note that testing will not occur with this build.  
+    * To test you can enable the Test builder on the org.xtuml.bp.releng.parent.tests project.  This will build all test projects and run each test suite.  
+
+FAQ/Troubleshooting
+---------------
+- Check the Unit Testing section of [BridgePoint FAQ](https://github.com/xtuml/bridgepoint/blob/master/doc-bridgepoint/process/FAQ.md#unittesting) 

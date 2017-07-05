@@ -68,6 +68,8 @@ class MaslExpectedTypeProvider {
 			val receiverType = (context as IndexedExpression).receiver.maslType.stripName
 			if(receiverType instanceof DictionaryType)
 				return #[receiverType.keyType]
+			else if(receiverType instanceof ArrayType)
+				return #[receiverType.indexType, receiverType.indexType.elementType] 
 			else
 				return #[ANONYMOUS_INTEGER, new RangeType(ANONYMOUS_INTEGER)]
 		}
