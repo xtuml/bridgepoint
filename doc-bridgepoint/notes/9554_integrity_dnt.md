@@ -19,70 +19,99 @@ Perform complete (referential) integrity checking.
 <a id="2.4"></a>2.4 [8514](https://support.onefact.net/issues/8514) Add a preference to disable the model integrity checker  
 <a id="2.5"></a>2.5 [test_consistency.py](https://github.com/xtuml/pyxtuml/blob/master/tests/test_xtuml/test_consistency.py) pyxtuml consistency checker  
 <a id="2.6"></a>2.6 [9554 Integrity Analysis Note](https://github.com/xtuml/bridgepoint/blob/master/doc-bridgepoint/notes/9554_integrity_ant.md) 9554 Integrity Checker Analysis Note  
+<a id="2.7"></a>2.7 [Existing Integrity Checker Implementation Note](https://github.com/xtuml/internal/blob/master/doc-internal/notes/28_dts0100970501/28_dts0100970501_int.md) Integrity Checker Implementation  
 
 ### 3. Background
 
-[[2.6]](#2.6)  
+See [[2.6]](#2.6).  
 
 ### 4. Requirements
 
-4.1 (placeholder to match SRS)  
-4.2 The metamodel instance population of the application model shall be
-interrogated for the presence of all required association links.  
-4.3 The values of referential attributes of related metamodel instances
-shall be asserted to match the value of referred to identifier attributes.  
-4.4 Referential integrity assertion shall be applied to the entire
-metamodel instance population of the application model being edited.  
-4.5 Assertion failures shall be reported clearly.  
-4.6 The xtUML metamodel shall be repaired to fix specific cardinality
-errors.  
-4.7 The functionality of the checker shall be available from the user
-interface.  
-4.8 The functionality of the checker shall be available from the command
-line.  
+See [[2.6]](#2.6).  
 
 ### 5. Analysis
 
 5.1 Current Integrity Checker  
-The current integrity checker is an _ad hoc_ rule assertion utility.
-Various model elements in the ooaofooa have an operation called
-`checkIntegrity`.  These operations check for consistency in application
-specific ways.
+As stated in [[2.6]](#2.6), the current integrity checker is designed
+to allow arbitrary rules to be applied and enforced on a model element
+by model element basis.  The `NonRootModelElement` base class has an
+empty implementation of `checkIntegrity`.  Any model element can override
+this operation.  About a dozen elements do override it; most do not.
 
-There is a model to support tracking issues detected by the Integrity Checker.
-The model is called 'Model Integrity' and is formed to two classes named
-'Integrity Manager' and 'Integrity Issue'.
+The existing model called 'Model Integrity' can be leveraged in this
+present work to report issues discovered by new integrity checking.
 
 5.2 Referential Integrity  
-The Integrity Checker is not explicitly an enforcer of referential integrity.
+As stated in [[2.6]](#2.6), the current integrity checker is not
+explicitly an enforcer of referential integrity even though there
+is an operation on the `NonRootModelElement` base class called
+`Checkreferentialintegrity`.  This routine was designed to identify
+model elements that have been erroneously deleted or omitted from
+persistent storage (during a merge).  The routine is detecting the
+existence of a proxy with no associated model element.  This is not
+sufficient to detect true referential integrity violations such as
+missing links and incorrect referential attribute values.
 
+The current `Checkreferentialintegrity` does not traverse sub/supertype
+links.
 
 ### 6. Design
 
-6.1 Generalized Referential Integrity Checking  
-Add a utility that interrogates the entire instance population of a model
-specifically ensuring that relationship links are present and that
-referential attributes are in legal ranges.
+Consider prototyping in mcooa.
 
-6.1.1 uniqueness check  
-Verify that within each class extent that all instances are unique from
-one another.
+      6.1 Generalized Referential Integrity Checking  
+      Add a utility that interrogates the entire instance population of a model
+      specifically ensuring that relationship links are present and that
+      referential attributes are in legal ranges.
 
-6.1.2 link integrity  
-6.1.2.1 For each instance, verify that unconditional associations carry
-links to instances.  
-6.1.2.2 For each instance, verify that non-null referentials attributes
-are refering to attribute values in a existing instances.  
+      6.1.1 uniqueness check  
+      Verify that within each class extent that all instances are unique from
+      one another.
 
-6.1.3 subtype integrity  
-For each instance participating as a supertype, verify that exactly one
-subtype is linked.
+      6.1.2 link integrity  
+      6.1.2.1 For each instance, verify that unconditional associations carry
+      links to instances.  
+      6.1.2.2 For each instance, verify that non-null referentials attributes
+      are refering to attribute values in a existing instances.  
 
-6.1.4 referential integrity  
-6.1.4.1 Assert that referential attributes match their referred-to
-identifier attributes.  
-6.1.4.2 Assert that referential attributes not particpating in an
-association have appropriate not-participating values.  
+      6.1.3 subtype integrity  
+      For each instance participating as a supertype, verify that exactly one
+      subtype is linked.
+
+      6.1.4 referential integrity  
+      6.1.4.1 Assert that referential attributes match their referred-to
+      identifier attributes.  
+      6.1.4.2 Assert that referential attributes not particpating in an
+      association have appropriate not-participating values.  
+
+
+6.0 Orphans?  
+The requirements (and the current implementation) check for the existence
+of all links.  But this does not detect orphaned instances.  
+We currently use an RTO strategy.
+The failure case would be an RTO with nobody referring to it.
+How would we detect orphaned instances?
+
+6.1 Instance In
+
+6.2
+
+`RTOUtil.getRTOs` checks every class type.  if/else would short-circuit the check.  Checking the most common classes first would further optimize this routine.
+
+getRTOs does not deal with subtypes
+
+6.3 Referential Attribute Values  
+MC-Java omits referential attributes and generates read accessors that
+reference to base identifier attribute.  Therefore, this integrity check
+is automatically inforced by the architecture in the generated code.
+
+Hmm, maybe this is true in MC-Java, but the issue would be in the saved
+instance data.
+Perhaps if a referential is edited on disk to be the wrong value, one
+of the other tests will catch it?  (cuz batchRelate will not work?)
+
+6.4
+6.5
 
 6.6 OOA of OOA Repair  
 It looks to me like `V_LOC` may be deprecated.  Searches in bridgepoint/src
@@ -117,5 +146,19 @@ format data) under an Eclipse project.
 Expected results will be defined for each case.
 
 TODO:  finishing defining the tests  
+TODO:  consider the scenarios for missing files  
+
+7.2 Missing Link  
+7.2.1 Link Flavors  
+7.2.1.1 Missing Simple  
+7.2.1.1 Missing Simple Reflexive  
+7.2.1.1 Missing Associative  
+7.2.1.1 Missing Sub/Super  
+7.2.2 Orphaned Instance  
+7.2.2.1 Orphaned RTO  
+7.2.2.2 Orphaned RGO  
+7.3 Null Referential (referential integrity)  
+
+7.9 Duplicate Instances (uniqueness test)  
 
 ### End
