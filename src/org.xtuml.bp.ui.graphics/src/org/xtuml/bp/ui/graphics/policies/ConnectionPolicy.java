@@ -657,13 +657,14 @@ public abstract class ConnectionPolicy extends GraphicalNodeEditPolicy {
 	protected void associateTerminalSpecs(GraphicalElement_c sourceElement) {
 		ElementSpecification_c newSpec = ElementSpecification_c
 				.getOneGD_ESOnR10(sourceElement);
-		NonRootModelElement endTerm = getEndTerm(newSpec);
-		if ( endTerm instanceof ConnectorTerminal_c ) {
-		    TerminalSpecification_c term = TerminalSpecification_c.getOneTS_TSPOnR201((ConnectorTerminal_c)endTerm);
+		NonRootModelElement newTerm = getEndTerm(newSpec);
+		if ( null == newTerm ) newTerm = getStartTerm(newSpec);
+		if ( newTerm instanceof ConnectorTerminal_c ) {
+		    TerminalSpecification_c term = TerminalSpecification_c.getOneTS_TSPOnR201((ConnectorTerminal_c)newTerm);
 		    term.relateAcrossR206To(GraphicalElement_c.getOneGD_GEOnR2((Connector_c) getHost().getModel()));
 		}
 		else {
-		    TerminalSpecification_c term = TerminalSpecification_c.getOneTS_TSPOnR201((ShapeTerminal_c)endTerm);
+		    TerminalSpecification_c term = TerminalSpecification_c.getOneTS_TSPOnR201((ShapeTerminal_c)newTerm);
 		    term.relateAcrossR206To(GraphicalElement_c.getOneGD_GEOnR2((Shape_c) getHost().getModel()));
 		}
 
