@@ -67,6 +67,7 @@ public class Generator extends Task {
     public static final String DOC_XML = "doc.xml"; //$NON-NLS-1$
     public static final String DOCGEN_XSL = "docgen.xsl"; //$NON-NLS-1$
     public static final String CSSFILE = ".css"; //$NON-NLS-1$
+    public static final String EXEFILE = ".exe"; //$NON-NLS-1$
     public static final String CONSOLE_NAME = "Console"; //$NON-NLS-1$
     private static final String ACTIVITY_ICON = "Activity.gif"; //$NON-NLS-1$
     private static final int SLEEPTIME = 500;
@@ -408,7 +409,11 @@ public class Generator extends Task {
         throws IOException, RuntimeException, CoreException, InterruptedException 
     {
         // Run xsltproc to convert doc.xml into doc.html
-        String app = homedir + DOCGEN_DIR + DOCBOOK_DIR + XSLTPROC_EXE;
+    	String xsltprocexe = XSLTPROC_EXE;
+        if ( isWindows() ) {
+        	xsltprocexe = xsltprocexe.concat(EXEFILE);
+        }
+        String app = homedir + DOCGEN_DIR + DOCBOOK_DIR + xsltprocexe;
         File appFile = new File(app);
         String docbook_folder = homedir + XHTMLFILES;
         String workingDir = workDir.replaceAll("\\\\", "/"); //$NON-NLS-1$ //$NON-NLS-2$
@@ -416,9 +421,9 @@ public class Generator extends Task {
         File output = new File(workingDir + "/" + DOC_HTML);
 
         if ( ! appFile.exists() ) {
-        	Path appInPath = findProgramInPath(XSLTPROC_EXE);
+        	Path appInPath = findProgramInPath(xsltprocexe);
         	if ( appInPath == null ) {
-              RuntimeException re = new RuntimeException("Document generation requires the tool \"xsltproc\". Please install it.  See https://github.com/xtuml/bridgepoint/blob/master/doc-bridgepoint/process/FAQ.md for additional help.");
+              RuntimeException re = new RuntimeException("Can not find xsltproc at \"" + app + "\" or in the path.\n\nDocument generation requires the tool \"xsltproc\". Please install it.\nSee https://github.com/xtuml/bridgepoint/blob/master/doc-bridgepoint/process/FAQ.md for additional help.");
               throw re;            
         	} else {
         		app = appInPath.toOSString();
