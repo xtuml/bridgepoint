@@ -71,6 +71,19 @@ Consider prototyping in mcooa.
       6.1.2 link integrity  
       6.1.2.1 For each instance, verify that unconditional associations carry
       links to instances.  
+```
+Consider that rel phrases are tripping up the OAL parser.  Maybe the phrase was wrong?
+
+select many r_rels
+sort by relationship number
+for each r_rel in r_rels
+  if ( simple )
+    select many r_oirs related by r_rel->R_OIR[R201]
+  elif ( associative )
+  elif ( subsuper )
+  else
+    error
+```
       6.1.2.2 For each instance, verify that non-null referentials attributes
       are refering to attribute values in a existing instances.  
 
