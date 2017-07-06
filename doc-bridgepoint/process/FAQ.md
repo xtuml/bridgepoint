@@ -161,7 +161,7 @@ $ sudo ./eclipse -initialize
   data from the model elements.  This feature requires a common tool called ```xsltproc```.
   * MS Windows: ```xsltproc.exe``` is included in the BridgePoint distribution, no additional steps are required.
   * MacOS: ```xsltproc``` is included in the operating system software, no additional steps are required.
-  * Linux: ```xsltproc``` is included in some distributions and not in others.  In a terminal window, type ```$ which xsltproc```.  If the tool is found, no additional steps are requried.  If the tool is not found, use your package manager (```apt-get``` or ```yum```) to install it.  For example:
+  * Linux: ```xsltproc``` is included in some distributions and not in others.  In a terminal window, type ```$ which xsltproc```.  If the tool is found, no additional steps are required.  If the tool is not found, use your package manager (```apt-get``` or ```yum```) to install it.  For example:
   ```
   $ sudo apt-get install xsltproc
   ```
