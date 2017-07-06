@@ -41,7 +41,7 @@ Steps
   - Branch the xtuml/bridgepoint repository.
 
   - Edit bp.internal.tools/update_BP_version.xml to contain the new version and
-   commit this to the issue used for the version bump.  Make sure to leave the -SNAPSHOT (for pom files) and .qualifier for eclipse plugins.  The versions should be 6.2.5-SNAPSHOT and 6.2.5.qualifier repectively.
+   commit this to the issue used for the version bump.  Make sure to leave the -SNAPSHOT (for pom files) and .qualifier for eclipse plugins.  The versions should be 6.4.0-SNAPSHOT and 6.4.0.qualifier repectively.
    
   - Right-click update_BP_version.xml, select "Run As > Ant Build"
 
