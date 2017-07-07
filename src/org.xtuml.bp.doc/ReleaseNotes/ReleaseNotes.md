@@ -88,6 +88,7 @@ Closed Issues
 [9348](https://support.onefact.net/issues/9348) |  Terminator service rename in masl project fails
 [9349](https://support.onefact.net/issues/9349) |  Terminator service parameter rename in masl project fails
 [9351](https://support.onefact.net/issues/9351) |  Object rename in masl project fails
+[9352](https://support.onefact.net/issues/9352) |  Object service rename in masl project fails
 [9360](https://support.onefact.net/issues/9360) |  MASL editor incorrectly calls out syntax error on deferred operation
 [9380](https://support.onefact.net/issues/9380) |  Duplicate comment on referential attribute
 [9384](https://support.onefact.net/issues/9384) |  Use of undefined classes and associations
@@ -135,7 +136,7 @@ Closed Issues
 [9535](https://support.onefact.net/issues/9535) |  Add timestamps to BP build process
 [9537](https://support.onefact.net/issues/9537) |  Flip MASL settings on for upcoming 6.2.6 release.
 [9540](https://support.onefact.net/issues/9540) |  masl_check: scoping in find clause
-[9565](https://support.onefact.net/issues/9565) |  Move Prefix name and Prefix type
+[9565](https://support.onefact.net/issues/9565) |  Saab- 10 : Move Prefix name and Prefix type
 [9580](https://support.onefact.net/issues/9580) |  Ambiguous Enum lookup in object/instance services, event generation and terminator service parameters.
 [9582](https://support.onefact.net/issues/9582) |  masl_check: expressions containing function calls exponentially slower for each extra term
 [9590](https://support.onefact.net/issues/9590) |  Builtin exception types
@@ -148,9 +149,9 @@ Closed Issues
 [9638](https://support.onefact.net/issues/9638) |  masl_check: Empty where clause on navigate causes error
 [9639](https://support.onefact.net/issues/9639) |  masl_check: All characteristic signature parameters and return types of type integer should be anonymous long_integer
 [9641](https://support.onefact.net/issues/9641) |  masl_check: Ambiguous Enum lookup in instance creation statements
+[9644](https://support.onefact.net/issues/9644) |  type of enum'range should be range of enum
 [9646](https://support.onefact.net/issues/9646) |  typename resolution on rhs of find expression
 [9648](https://support.onefact.net/issues/9648) |  ordered_by result type
 [9649](https://support.onefact.net/issues/9649) |  return type of get_unique characteristic should be anonymous set
 [9650](https://support.onefact.net/issues/9650) |  Crash in masl_check for nested for loops with same loop variable name
 [9655](https://support.onefact.net/issues/9655) |  Masl mark value data not populated in marking editor
-    
