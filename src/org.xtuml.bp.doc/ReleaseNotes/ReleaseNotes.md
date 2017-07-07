@@ -1,7 +1,7 @@
 BridgePoint xtUML Release Notes
 ========================
 
-Release 6.4.0  
+Release 6.4.2  
 
 License
 -------
@@ -35,7 +35,8 @@ shortcut to start ```<install dir>/bridgepoint```.
 
 * BridgePoint supports two different action languages: OAL and MASL.  The default
 is set via workspace preferences at xtUML > Action Language > Default Action Language Dialect.
-In this release the default is set to OAL.       
+In this release the default is set to MASL.  Another preference that requires the 
+use of MASL-style identifiers is also turned on in this release.     
 
   
 Interoperability with Previous Releases
