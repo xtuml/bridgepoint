@@ -6,6 +6,7 @@ Release Highlights
 * MASL Support Enhancements
 * Document Generation Fixes
 * Task-specific BridgePoint Products
+* MacOS Support
 * Infrastructure Improvements
 
 -------------------------------------------------------------------------------
@@ -55,7 +56,17 @@ needed for xtUML application editing, translating, and debugging.
 
 The BridgePoint Developer version is a superset of the xtUML Modeler version. It 
 adds additional eclipse features that support Java and Xtext code development 
-and testing. 
+and testing.   
+
+
+MacOS Support
+------
+BridgePoint is now supported on MacOS.  
+
+Please note that the download for MacOS does not come with a JRE included. The tool
+relies on a JRE (version 8 or later) to already exist on the system.  
+
+Java installation [instructions are here](https://java.com/en/download/help/mac_install.xml).  
 
 
 Infrastructure Improvements

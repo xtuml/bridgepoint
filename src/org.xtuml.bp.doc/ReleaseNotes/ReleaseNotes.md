@@ -13,9 +13,9 @@ System Requirements
   
 | Category              | Requirement                          |
 |-----------------------|--------------------------------------|
-| Operating System      | Windows 7/8/10, Linux variants       |
+| Operating System      | Windows 7/8/10, Linux variants, MacOS|
 | *Eclipse              | Version 4.5                          |
-| *Java Virtual Machine | Version 1.8 or later                 |
+| *Java Virtual Machine | Version 8 or later                   |
 
 *(supplied by installer)
     
