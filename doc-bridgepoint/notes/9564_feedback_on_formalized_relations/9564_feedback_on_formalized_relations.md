@@ -79,8 +79,7 @@ To easily distinguish between informal and formal associations we shall take the
 9.1.2 Call get_connector_style on a unformalized association  
 9.1.2.1 The None style is returned  
 9.1.3 For a simple, supertype/subtype, and linked association open a diagram with a formalized and unformalized variation  
-9.1.3.1 The formalized association is drawn bold  
-9.1.3.2 The referring class has its referential text bold   
-9.1.3.3 The unformalized association is not drawn bold  
+9.1.3.1 The formalized association is drawn bold     
+9.1.3.2 The unformalized association is not drawn bold  
 
 ### End
