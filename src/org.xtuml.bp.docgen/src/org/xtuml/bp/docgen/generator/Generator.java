@@ -41,7 +41,6 @@ import org.eclipse.ui.console.IConsoleView;
 import org.eclipse.ui.console.MessageConsole;
 import org.eclipse.ui.console.MessageConsoleStream;
 import org.eclipse.ui.part.FileEditorInput;
-
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.SystemModel_c;
 import org.xtuml.bp.core.common.PersistableModelComponent;
@@ -58,9 +57,9 @@ public class Generator extends Task {
     public static final String CORE_ICON_DIR = "icons/metadata/"; //$NON-NLS-1$
     public static final String IMAGE_DIR = "images/"; //$NON-NLS-1$
     public static final String DOCGEN_DIR = "/tools/docgen/"; //$NON-NLS-1$
-    public static final String DOCGEN_BIN_DIR = "/tools/mc/bin/"; //$NON-NLS-1$
     public static final String DOCGEN_EXE = "docgen"; //$NON-NLS-1$
-    public static final String XSLTPROC_EXE = "docbook/xsltproc"; //$NON-NLS-1$
+    public static final String DOCBOOK_DIR = "docbook/"; //$NON-NLS-1$
+    public static final String XSLTPROC_EXE = "xsltproc"; //$NON-NLS-1$
     public static final String XHTMLFILES = DOCGEN_DIR + "docbook/docbook-xsl-1.75.1/xhtml/"; //$NON-NLS-1$
     public static final String DOC_DIR = "doc/"; //$NON-NLS-1$
     public static final String DOCGEN_INPUT = "a.xtuml"; //$NON-NLS-1$
@@ -68,6 +67,7 @@ public class Generator extends Task {
     public static final String DOC_XML = "doc.xml"; //$NON-NLS-1$
     public static final String DOCGEN_XSL = "docgen.xsl"; //$NON-NLS-1$
     public static final String CSSFILE = ".css"; //$NON-NLS-1$
+    public static final String EXEFILE = ".exe"; //$NON-NLS-1$
     public static final String CONSOLE_NAME = "Console"; //$NON-NLS-1$
     private static final String ACTIVITY_ICON = "Activity.gif"; //$NON-NLS-1$
     private static final int SLEEPTIME = 500;
@@ -378,7 +378,7 @@ public class Generator extends Task {
         throws IOException, RuntimeException, CoreException, InterruptedException 
     {
         // Call docgen.exe 
-        String app = homedir + DOCGEN_BIN_DIR + DOCGEN_EXE;
+        String app = homedir + DOCGEN_DIR + DOCGEN_EXE;
         String outputfile = DOC_XML;
         File output = new File(workingDir + outputfile);
         File input = new File(workingDir + DOCGEN_INPUT);
@@ -409,12 +409,27 @@ public class Generator extends Task {
         throws IOException, RuntimeException, CoreException, InterruptedException 
     {
         // Run xsltproc to convert doc.xml into doc.html
-        String app = homedir + DOCGEN_DIR + XSLTPROC_EXE;
+    	String xsltprocexe = XSLTPROC_EXE;
+        if ( isWindows() ) {
+        	xsltprocexe = xsltprocexe.concat(EXEFILE);
+        }
+        String app = homedir + DOCGEN_DIR + DOCBOOK_DIR + xsltprocexe;
+        File appFile = new File(app);
         String docbook_folder = homedir + XHTMLFILES;
         String workingDir = workDir.replaceAll("\\\\", "/"); //$NON-NLS-1$ //$NON-NLS-2$
         String input_xmlfile = workingDir + "/" + DOC_XML; 
         File output = new File(workingDir + "/" + DOC_HTML);
 
+        if ( ! appFile.exists() ) {
+        	Path appInPath = findProgramInPath(xsltprocexe);
+        	if ( appInPath == null ) {
+              RuntimeException re = new RuntimeException("Can not find xsltproc at \"" + app + "\" or in the path.\n\nDocument generation requires the tool \"xsltproc\". Please install it.\nSee https://github.com/xtuml/bridgepoint/blob/master/doc-bridgepoint/process/FAQ.md for additional help.");
+              throw re;            
+        	} else {
+        		app = appInPath.toOSString();
+        	}
+        }
+        
         if (output.exists()) {
             output.delete();
         }
@@ -547,4 +562,30 @@ public class Generator extends Task {
         return exitValue;
     }
 
+    public static Path findProgramInPath(String desiredProgram) {
+        ProcessBuilder pb = new ProcessBuilder(isWindows() ? "where" : "which", desiredProgram);
+        Path foundProgram = null;
+        try {
+            Process proc = pb.start();
+            int errCode = proc.waitFor();
+            if (errCode == 0) {
+                try (BufferedReader reader = new BufferedReader(new InputStreamReader(proc.getInputStream()))) {
+                	// Found it!
+                    foundProgram = new Path(reader.readLine());
+                }
+            } else {
+            	System.err.println(desiredProgram + " not in PATH");
+            }
+        } catch (IOException ex) {
+        	System.err.println("Something went wrong while searching for " + desiredProgram);
+        } catch (InterruptedException ex) {
+        	System.err.println("Something went wrong while searching for " + desiredProgram);
+        }
+        return foundProgram;
+    }
+    
+    private static boolean isWindows() {
+        return System.getProperty("os.name").toLowerCase().contains("windows");
+    }
+    
 }
