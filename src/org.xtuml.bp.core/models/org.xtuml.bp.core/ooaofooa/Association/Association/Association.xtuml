@@ -652,6 +652,7 @@ INSERT INTO O_TFR
 	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
 	'select any current_o_obj from instances of O_OBJ where ( selected.Obj_ID == param.current_id );
+select any current_o_iobj from instances of O_IOBJ where false;
 if ( empty current_o_obj )
   select any current_o_iobj from instances of O_IOBJ where ( selected.IObj_ID == param.current_id );
   select one current_o_obj related by current_o_iobj->O_OBJ[R101];
@@ -662,38 +663,16 @@ if ( empty new_o_obj )
   select any new_o_iobj from instances of O_IOBJ where ( selected.IObj_ID == param.new_id );
   select one new_o_obj related by new_o_iobj->O_OBJ[R101];
 end if;
+if ( empty current_o_obj or empty new_o_obj )
+  return false;
+end if;
 
 // check if the association is formalized
 if ( self.isFormalized() )
   self.unformalize();
 end if;
 
-// get the current oir
-select any current_oir related by self->R_OIR[R201] where ( selected.Obj_ID == current_o_obj.Obj_ID );
-
-// simple association
-select one r_simp related by self->R_SIMP[R206];
-if ( not_empty r_simp )
-  select any current_part related by r_simp->R_PART[R207] where ( selected.Obj_ID == current_o_obj.Obj_ID );
-  if ( not_empty current_part )
-    create object instance new_oir of R_OIR;
-    create object instance new_part of R_PART;
-    new_part.Mult = current_part.Mult;
-    new_part.Cond = current_part.Cond;
-    new_part.Txt_Phrs = current_part.Txt_Phrs;
-    current_oir.dispose();
-    create object instance new_rto of R_RTO;
-    relate r_simp to new_part across R207;
-    relate new_part to new_rto across R204;
-    relate new_rto to new_oir across R203;
-    relate new_o_obj to self across R201 using new_oir;
-    if ( not_empty new_o_iobj )
-      relate new_oir to new_o_iobj across R202;
-    end if;
-  else
-    return false;
-  end if;
-else
+// check relationship constraints
 // linked association
 select one r_assoc related by self->R_ASSOC[R206];
 if ( not_empty r_assoc )
@@ -701,22 +680,7 @@ if ( not_empty r_assoc )
   if ( not_empty current_one and current_one.Obj_ID == current_o_obj.Obj_ID )
     select one r_assr related by r_assoc->R_ASSR[R211];
     // assure that the new "one" is not the associative class
-    if ( new_o_obj.Obj_ID != r_assr.Obj_ID )
-      create object instance new_oir of R_OIR;
-      create object instance new_one of R_AONE;
-      new_one.Mult = current_one.Mult;
-      new_one.Cond = current_one.Cond;
-      new_one.Txt_Phrs = current_one.Txt_Phrs;
-      current_oir.dispose();
-      create object instance new_rto of R_RTO;
-      relate r_assoc to new_one across R209;
-      relate new_one to new_rto across R204;
-      relate new_rto to new_oir across R203;
-      relate new_o_obj to self across R201 using new_oir;
-      if ( not_empty new_o_iobj )
-        relate new_oir to new_o_iobj across R202;
-      end if;
-    else
+    if ( new_o_obj.Obj_ID == r_assr.Obj_ID )
       return false;
     end if;
   else
@@ -724,22 +688,7 @@ if ( not_empty r_assoc )
   if ( not_empty current_oth and current_oth.Obj_ID == current_o_obj.Obj_ID )
     select one r_assr related by r_assoc->R_ASSR[R211];
     // assure that the new "other" is not the associative class
-    if ( new_o_obj.Obj_ID != r_assr.Obj_ID )
-      create object instance new_oir of R_OIR;
-      create object instance new_oth of R_AOTH;
-      new_oth.Mult = current_oth.Mult;
-      new_oth.Cond = current_oth.Cond;
-      new_oth.Txt_Phrs = current_oth.Txt_Phrs;
-      current_oir.dispose();
-      create object instance new_rto of R_RTO;
-      relate r_assoc to new_oth across R210;
-      relate new_oth to new_rto across R204;
-      relate new_rto to new_oir across R203;
-      relate new_o_obj to self across R201 using new_oir;
-      if ( not_empty new_o_iobj )
-        relate new_oir to new_o_iobj across R202;
-      end if;
-    else
+    if ( new_o_obj.Obj_ID == r_assr.Obj_ID )
       return false;
     end if;
   else
@@ -748,22 +697,7 @@ if ( not_empty r_assoc )
     // assure that the new associative class is not the "one" or the "other"
     select one r_aone related by r_assoc->R_AONE[R209];
     select one r_aoth related by r_assoc->R_AOTH[R210];
-    if ( new_o_obj.Obj_ID != r_aone.Obj_ID and new_o_obj.Obj_ID != r_aoth.Obj_ID )
-      current_oir.dispose();
-      // In the case of an acciative object in relationship being disposed, the linked
-      // association is demoted to a simple. It made sense here to use the existing
-      // ''migrateToLinked'' operation instead of the normal pattern as above.
-      select one r_simp related by self->R_SIMP[R206];
-      if ( not_empty r_simp )
-        if ( not_empty new_o_iobj )
-          r_simp.migrateToLinked( imported_id:new_o_iobj.IObj_ID, using:new_o_obj.Obj_ID );
-        else
-          r_simp.migrateToLinked( imported_id:GD::NULL_UNIQUE_ID(), using:new_o_obj.Obj_ID );
-        end if;
-      else
-        return false;
-      end if;
-    else
+    if ( new_o_obj.Obj_ID == r_aone.Obj_ID or new_o_obj.Obj_ID == r_aoth.Obj_ID )
       return false;
     end if;
   else
@@ -779,19 +713,7 @@ if ( not_empty r_subsup )
   if ( not_empty current_sup and current_sup.Obj_ID == current_o_obj.Obj_ID )
     select any r_sub related by r_subsup->R_SUB[R213] where ( selected.Obj_ID == new_o_obj.Obj_ID );
     // assure that the new supertype is not an existing subtype
-    if ( empty r_sub )
-      create object instance new_oir of R_OIR;
-      create object instance new_sup of R_SUPER;
-      current_oir.dispose();
-      create object instance new_rto of R_RTO;
-      relate r_subsup to new_sup across R212;
-      relate new_sup to new_rto across R204;
-      relate new_rto to new_oir across R203;
-      relate new_o_obj to self across R201 using new_oir;
-      if ( not_empty new_o_iobj )
-        relate new_oir to new_o_iobj across R202;
-      end if;
-    else
+    if ( not_empty r_sub )
       return false;
     end if;
   else
@@ -800,29 +722,29 @@ if ( not_empty r_subsup )
     select any r_sub related by r_subsup->R_SUB[R213] where ( selected.Obj_ID == new_o_obj.Obj_ID );
     select one r_super related by r_subsup->R_SUPER[R212];
     // assure that the new subtype is not already a subtype or the supertype
-    if ( empty r_sub and new_o_obj.Obj_ID != r_super.Obj_ID )
-      create object instance new_oir of R_OIR;
-      create object instance new_sub of R_SUB;
-      current_oir.dispose();
-      create object instance new_rgo of R_RGO;
-      relate r_subsup to new_sub across R213;
-      relate new_sub to new_rgo across R205;
-      relate new_rgo to new_oir across R203;
-      relate new_o_obj to self across R201 using new_oir;
-      if ( not_empty new_o_iobj )
-        relate new_oir to new_o_iobj across R202;
-      end if;
-    else
+    if ( not_empty r_sub or new_o_obj.Obj_ID == r_super.Obj_ID )
       return false;
     end if;
   else
     return false;
   end if;
   end if;
-else
-  return false;
 end if;
 end if;
+
+// get the current oir
+select any current_oir related by self->R_OIR[R201] where ( selected.Obj_ID == current_o_obj.Obj_ID );
+
+// move relationship
+unrelate current_o_obj from self across R201 using current_oir;
+relate new_o_obj to self across R201 using current_oir;
+
+// update iobjs
+if ( not_empty current_o_iobj )
+  unrelate current_o_iobj from current_oir across R202;
+end if;
+if ( not_empty new_o_iobj )
+  relate new_o_iobj to current_oir across R202;
 end if;
 
 return true;',
