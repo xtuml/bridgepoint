@@ -1,7 +1,7 @@
 BridgePoint xtUML Release Notes
 ========================
 
-Release 6.2.5  
+Release 6.4.0  
 
 License
 -------
@@ -13,9 +13,9 @@ System Requirements
   
 | Category              | Requirement                          |
 |-----------------------|--------------------------------------|
-| Operating System      | Windows 7/8/10, Linux variants       |
+| Operating System      | Windows 7/8/10, Linux variants, MacOS|
 | *Eclipse              | Version 4.5                          |
-| *Java Virtual Machine | Version 1.8 or later                 |
+| *Java Virtual Machine | Version 8 or later                   |
 
 *(supplied by installer)
     
@@ -33,17 +33,14 @@ for ongoing development and support of BridgePoint.
 who wish to create desktop shortcuts to start BridgePoint should set the 
 shortcut to start ```<install dir>/bridgepoint```.  
 
-* BridgePoint 6.2 has enhanced support for modeling with the MASL action
-language.  An Xtext-based editor provides syntax highlighting, validation
-and context-sensitive edit assistance.  
-
 * BridgePoint supports two different action languages: OAL and MASL.  The default
 is set via workspace preferences at xtUML > Action Language > Default Action Language Dialect.
 In this release the default is set to OAL.       
+
   
 Interoperability with Previous Releases
 ------
-BridgePoint 6.2 is compatible with workspaces and projects created with prior 
+BridgePoint 6.4 is compatible with workspaces and projects created with prior 
 versions back to BridgePoint 5.0.  However, after opening the model in this version
 a modeler will not be able to open the model in a prior version.   
 
@@ -58,137 +55,103 @@ Closed Issues
   
 | Issue |  Subject |
 |-------|-----------------------------------------------------------------|
-[8256](https://support.onefact.net/issues/8256) | MASL Project Conversion Guide (System level Modeling flow)
-[8257](https://support.onefact.net/issues/8257) | OAL to MASL
-[8507](https://support.onefact.net/issues/8507) | Handle deferred activities
-[8628](https://support.onefact.net/issues/8628) | Update MASL Conversion Guide
-[8693](https://support.onefact.net/issues/8693) | Empty MASL files are exported
-[8706](https://support.onefact.net/issues/8706) | Empty MASL files exported
-[8740](https://support.onefact.net/issues/8740) | unformatted MASL is better than no MASL
-[8776](https://support.onefact.net/issues/8776) | Detect and report empty role phrases.
-[8777](https://support.onefact.net/issues/8777) | Raven Production
-[8987](https://support.onefact.net/issues/8987) | Renamining a class leaves inconsistent MASL files
-[8995](https://support.onefact.net/issues/8995) | Update all documentation to reflect new location of MASL utilities
-[9013](https://support.onefact.net/issues/9013) | Using CLI single-file import on MASL fails to autoreconcile graphics
-[9025](https://support.onefact.net/issues/9025) | MASL editor error marked in .tr files
-[9036](https://support.onefact.net/issues/9036) | Diffs appear in MASL due to untrimmed action bodies (masldiff)
-[9039](https://support.onefact.net/issues/9039) | Signatures for MASL project terminator services are generated wrong
-[9041](https://support.onefact.net/issues/9041) | Implement mechanism to prevent non-supported elements from persisting MASL
-[9047](https://support.onefact.net/issues/9047) | Have the multi-buffer masl editor index to the selected action body when opened by the user
-[9072](https://support.onefact.net/issues/9072) | Adding parameter to a MASL service gives an error.
-[9089](https://support.onefact.net/issues/9089) | Remove instance<Object> generic type from default MASL types
-[9092](https://support.onefact.net/issues/9092) | MASL style identifiers impedes creating typeref types
-[9101](https://support.onefact.net/issues/9101) | New transitions result in incorrect MASL being persisted
-[9110](https://support.onefact.net/issues/9110) | Research best tool for profiling BridgePoint and define profiling procedure
-[9111](https://support.onefact.net/issues/9111) | Profile BridgePoint using procedural techniques described by the engineering process
-[9132](https://support.onefact.net/issues/9132) | Analyze data found during profiling in 9111
-[9137](https://support.onefact.net/issues/9137) | Address performance issues found profiling 5.2.2 vs 6.0.0
-[9140](https://support.onefact.net/issues/9140) | Corruption in output from masl process during round trip testing
-[9148](https://support.onefact.net/issues/9148) | New transitions result in incorrect MASL being persisted
-[9149](https://support.onefact.net/issues/9149) | Attribute missing from identifier
-[9151](https://support.onefact.net/issues/9151) | Type name used as element name causes forward declaration of type
-[9152](https://support.onefact.net/issues/9152) | MASL style identifiers impedes creating typeref types
-[9155](https://support.onefact.net/issues/9155) | Implement mechanism to prevent non-supported elements from persisting MASL
-[9156](https://support.onefact.net/issues/9156) | Signatures for MASL project terminator services are generated wrong
-[9157](https://support.onefact.net/issues/9157) | Handle deferred activities
-[9159](https://support.onefact.net/issues/9159) | Attribute missing from identifier
-[9168](https://support.onefact.net/issues/9168) | referential attributes/classes/terminators not output in consistent order for MASL round trip tests
-[9169](https://support.onefact.net/issues/9169) | referential attributes not output in consistent order for MASL round trip tests
-[9173](https://support.onefact.net/issues/9173) | Creating a class in a top level package causes an error
-[9174](https://support.onefact.net/issues/9174) | Refactoring is not reflected in an open masl editor
-[9178](https://support.onefact.net/issues/9178) | MASL Polymorphic events and transition tables
-[9179](https://support.onefact.net/issues/9179) | Tool Hangs
-[9180](https://support.onefact.net/issues/9180) | Invalid snytax error on relationship navigate
-[9182](https://support.onefact.net/issues/9182) | Using "Go To" from the problem Tab opens underlying file
-[9187](https://support.onefact.net/issues/9187) | MASL polymorphic events and transition tables
-[9188](https://support.onefact.net/issues/9188) | Tool Hangs
-[9189](https://support.onefact.net/issues/9189) | duplicate referential attribute specs
-[9191](https://support.onefact.net/issues/9191) | Using "Go To" from the problem Tab opens underlying file (masl problem markers issue)
-[9192](https://support.onefact.net/issues/9192) | duplicate referential attribute specs
-[9193](https://support.onefact.net/issues/9193) | Unwanted warning in MASL editor
-[9194](https://support.onefact.net/issues/9194) | Raven Scorecard
-[9202](https://support.onefact.net/issues/9202) | Terminator service with no implementation file creates an implementation file on export.
-[9204](https://support.onefact.net/issues/9204) | Terminator service with no implementation file creates an implementation file on export.
-[9206](https://support.onefact.net/issues/9206) | Referential attribute going missing
-[9207](https://support.onefact.net/issues/9207) | Referential attribute going missing
-[9208](https://support.onefact.net/issues/9208) | reflexive graphic not connected
-[9210](https://support.onefact.net/issues/9210) | Relationship phrases not refactored
-[9211](https://support.onefact.net/issues/9211) | Support MASL Project projects in masl_round_trip
-[9212](https://support.onefact.net/issues/9212) | Package OAL to MASL converter
-[9218](https://support.onefact.net/issues/9218) | MASL event parameter data is not properly refactored by an edit operation
-[9220](https://support.onefact.net/issues/9220) | Type refactoring not working properly
-[9221](https://support.onefact.net/issues/9221) | Error when creating a user defined type
-[9222](https://support.onefact.net/issues/9222) | When adding attributes to a empty class with an association the addition of attributes does not make them available in the model explorer.
-[9223](https://support.onefact.net/issues/9223) | When adding a return type to a class operation an error dialog is displayed.
-[9224](https://support.onefact.net/issues/9224) | When adding attributes to a empty class with an association the addition of attributes does not make them available in the model explorer.
-[9225](https://support.onefact.net/issues/9225) | When adding a return type to a class operation an error dialog is displayed.
-[9226](https://support.onefact.net/issues/9226) | MASL Domain and MASL Project Templates
-[9227](https://support.onefact.net/issues/9227) | Unable to add an attribute to a subtype class.
-[9228](https://support.onefact.net/issues/9228) | Unable to add an attribute to a subtype class.
-[9229](https://support.onefact.net/issues/9229) | Error when creating a user defined type
-[9230](https://support.onefact.net/issues/9230) | MASL round trip issue in SAC_OOA domain
-[9231](https://support.onefact.net/issues/9231) | BridgePoint generates terminator signatures private
-[9234](https://support.onefact.net/issues/9234) | Logged error editing MASL UDT
-[9238](https://support.onefact.net/issues/9238) | MASL Template Updates
-[9239](https://support.onefact.net/issues/9239) | Default attribute values with expression values are not present in exported MASL
-[9240](https://support.onefact.net/issues/9240) | Referential added to wrong attribute on reflexive relationship
-[9241](https://support.onefact.net/issues/9241) | attribute named current_state is dropped
-[9242](https://support.onefact.net/issues/9242) | scope poly event with dot
-[9243](https://support.onefact.net/issues/9243) | Formalising against secondary identifier which is superset of primary identifier misses referential spec from attribute
-[9247](https://support.onefact.net/issues/9247) | Graphics errors after element move    
-[9248](https://support.onefact.net/issues/9248) | Unable to formalize associations to/from shared classes
-[9249](https://support.onefact.net/issues/9249) | Disallow parameter or return type to be changed in ports    
-[9251](https://support.onefact.net/issues/9251) | Default attribute values with expression values are not present in exported MASL
-[9252](https://support.onefact.net/issues/9252) | Referential added to wrong attribute on reflexive relationship
-[9253](https://support.onefact.net/issues/9253) | Formalising against secondary identifier which is superset of primary identifier misses referential spec from attribute
-[9255](https://support.onefact.net/issues/9255) | Pragmas on overloaded services appear on all versions of the service
-[9257](https://support.onefact.net/issues/9257) | Pragmas on overloaded services appear on all versions of the service
-[9264](https://support.onefact.net/issues/9264) | attribute named current_state is dropped
-[9265](https://support.onefact.net/issues/9265) | Remove instance<Object> generic type from default MASL types
-[9267](https://support.onefact.net/issues/9267) | Assigner state actions exported with wrong file name
-[9268](https://support.onefact.net/issues/9268) | Assigner state actions exported with wrong file name
-[9269](https://support.onefact.net/issues/9269) | Create (or update) a MASL modeling guide
-[9270](https://support.onefact.net/issues/9270) | Missing parameters on states on objects with polymorphic events
-[9271](https://support.onefact.net/issues/9271) | Event in subtype with same name as event in Supertype goes missing
-[9272](https://support.onefact.net/issues/9272) | Missing parameters on states on objects with polymorphic events
-[9273](https://support.onefact.net/issues/9273) | Event in subtype with same name as event in Supertype goes missing
-[9275](https://support.onefact.net/issues/9275) | Missing formalism for reflexive non-associative relationship with collapsed referential.
-[9276](https://support.onefact.net/issues/9276) | Missing Formalism for associative relationship with second relationship to the associative object
-[9280](https://support.onefact.net/issues/9280) | Supertype state table missing rows
-[9281](https://support.onefact.net/issues/9281) | In a pessimistic locking system a dialog appears during move that should not    
-[9284](https://support.onefact.net/issues/9284) | Edits disappear
-[9287](https://support.onefact.net/issues/9287) | Edits disappear
-[9289](https://support.onefact.net/issues/9289) | cannot formalize 1:M reflexive
-[9295](https://support.onefact.net/issues/9295) | Run masl_round_trip headlessly
-[9296](https://support.onefact.net/issues/9296) | Run masl_round_trip headlessly   
-[9297](https://support.onefact.net/issues/9297) | One-to-many associative formalises with wrong object in referential spec
-[9298](https://support.onefact.net/issues/9298) | One-to-many associative formalises with wrong object in referential spec
-[9299](https://support.onefact.net/issues/9299) | MASL Domain Export fails with core dump
-[9300](https://support.onefact.net/issues/9300) | Document MASL idiom for polys
-[9301](https://support.onefact.net/issues/9301) | MASL state action file not exported for state with entry from supertype and local events with paramters
-[9304](https://support.onefact.net/issues/9304) | Turn on preference for masl style identifiers in MASL-specific build
-[9307](https://support.onefact.net/issues/9307) | round-trip script only copes with five domains per .prj
-[9308](https://support.onefact.net/issues/9308) | Pragmas on terminator services not exported
-[9309](https://support.onefact.net/issues/9309) | round-trip script only copes with five domains per .prj
-[9310](https://support.onefact.net/issues/9310) | Pragmas on terminator services not exported
-[9312](https://support.onefact.net/issues/9312) | Description on project terminator services copied from the domain terminator service
-[9315](https://support.onefact.net/issues/9315) | Description on project terminator services copied from the domain terminator service
-[9317](https://support.onefact.net/issues/9317) | MASL Domain Export fails with core dump
-[9320](https://support.onefact.net/issues/9320) | Terminator in domain in project with same name as another domain doesn't get .tr files exported
-[9321](https://support.onefact.net/issues/9321) | Terminator in domain in project with same name as another domain doesn't get .tr files exported
-[9323](https://support.onefact.net/issues/9323) | Missing formalism for reflexive non-associative relationship with collapsed referential.
-[9325](https://support.onefact.net/issues/9325) | Don't always add xtext nature
-[9328](https://support.onefact.net/issues/9328) | NPE in MASL port rename
-[9354](https://support.onefact.net/issues/9354) | Attribute rename in masl project fails
-[9359](https://support.onefact.net/issues/9359) | Capture all masl models for testing
-[9361](https://support.onefact.net/issues/9361) | MASL Domain rename shows conflict error
-[9362](https://support.onefact.net/issues/9362) | MASL project descriptions not imported into BridgePoint
-[9363](https://support.onefact.net/issues/9363) | MASL project descriptions not imported into BridgePoint
-[9365](https://support.onefact.net/issues/9365) | preferred unique referential attribute is missing 'unique' tag
-[9366](https://support.onefact.net/issues/9366) | preferred unique referential attribute is missing 'unique' tag
-[9368](https://support.onefact.net/issues/9368) | Move PragmaTest model to regression test suite
-[9370](https://support.onefact.net/issues/9370) | Missing secondary identifier for combined referential attribute
-[9371](https://support.onefact.net/issues/9371) | Missing secondary identifier for combined referential attribute
-[9372](https://support.onefact.net/issues/9372) | Error UserEmptyHandleDetectedCallout O_ATTR masl2xtuml_O_ATTR_R114_unlink_is_defined_by
-[9373](https://support.onefact.net/issues/9373) | Error UserEmptyHandleDetectedCallout O_ATTR masl2xtuml_O_ATTR_R114_unlink_is_defined_by  
-    
+[7570](https://support.onefact.net/issues/7570) |  Create automated unit testing for build server
+[7659](https://support.onefact.net/issues/7659) |  failure for manual test testing Constant data and Array Attribute in SE & Spotlight views #1562
+[7812](https://support.onefact.net/issues/7812) |  Clean up BridgePoint JUnit tests
+[8033](https://support.onefact.net/issues/8033) |  Create No Variable (ACT_CNV) not translated correctly
+[8415](https://support.onefact.net/issues/8415) |  Use relate and unrelate of pyrsl.
+[8547](https://support.onefact.net/issues/8547) |  Use create for WFL instead of SQL
+[8593](https://support.onefact.net/issues/8593) |  bp.io.mdl.test failures
+[8605](https://support.onefact.net/issues/8605) |  Complete build server unit test integration
+[8608](https://support.onefact.net/issues/8608) |  The Verifier 1 unit test suite has failures
+[8612](https://support.onefact.net/issues/8612) |  The Compare test suite has failures
+[8930](https://support.onefact.net/issues/8930) |  Build "user" and "developer" versions of BridgePoint
+[8960](https://support.onefact.net/issues/8960) |  Enhance mechanism for selective core builds
+[9029](https://support.onefact.net/issues/9029) |  Fix Unit test build problems caused by moving test plugins (and data) to their own repository
+[9035](https://support.onefact.net/issues/9035) |  Add markable_name column to application.mark.
+[9037](https://support.onefact.net/issues/9037) |  support multiple pragma items in x2m
+[9040](https://support.onefact.net/issues/9040) |  No default marking files
+[9055](https://support.onefact.net/issues/9055) |  Docgen is failing
+[9166](https://support.onefact.net/issues/9166) |  Failures in io.mdl.tests
+[9209](https://support.onefact.net/issues/9209) |  Rework compare test infrastructure and address any real issues found
+[9214](https://support.onefact.net/issues/9214) |  Update hudson BridgePoint tooling
+[9217](https://support.onefact.net/issues/9217) |  Unable to rename a masl domain
+[9288](https://support.onefact.net/issues/9288) |  Invalid Syntax Error Highlight
+[9324](https://support.onefact.net/issues/9324) |  xtUML Metamodel example project creation hangs
+[9332](https://support.onefact.net/issues/9332) |  MASL export error on state machine without event
+[9334](https://support.onefact.net/issues/9334) |  Perform unit testing from the xtuml/bptest repository
+[9343](https://support.onefact.net/issues/9343) |  Content assist doesn't show first time some operators are typed
+[9344](https://support.onefact.net/issues/9344) |  Rename of Domain Service in masl project fails to update .mod
+[9345](https://support.onefact.net/issues/9345) |  Rename of masl datatype fails
+[9346](https://support.onefact.net/issues/9346) |  Domain Service Parameter in masl project rename failure
+[9347](https://support.onefact.net/issues/9347) |  Terminator rename in masl project fails
+[9348](https://support.onefact.net/issues/9348) |  Terminator service rename in masl project fails
+[9349](https://support.onefact.net/issues/9349) |  Terminator service parameter rename in masl project fails
+[9351](https://support.onefact.net/issues/9351) |  Object rename in masl project fails
+[9352](https://support.onefact.net/issues/9352) |  Object service rename in masl project fails
+[9360](https://support.onefact.net/issues/9360) |  MASL editor incorrectly calls out syntax error on deferred operation
+[9380](https://support.onefact.net/issues/9380) |  Duplicate comment on referential attribute
+[9384](https://support.onefact.net/issues/9384) |  Use of undefined classes and associations
+[9387](https://support.onefact.net/issues/9387) |  MASL parser does not distinguish ternary traversal.
+[9391](https://support.onefact.net/issues/9391) |  Run regression models through MASL integration test
+[9392](https://support.onefact.net/issues/9392) |  [masl] in the grammar, add parentheses around deferrd expressions
+[9393](https://support.onefact.net/issues/9393) |  [masl] allow both ends of a relationship to have the same name
+[9394](https://support.onefact.net/issues/9394) |  [masl] AbstractMaslModelTests only looks at first caret
+[9395](https://support.onefact.net/issues/9395) |  [masl] fix return type of timestamp - duration
+[9396](https://support.onefact.net/issues/9396) |  [masl] Multiple ArrayIndexOutOfBoundsExceptions when importing example models into workspace
+[9397](https://support.onefact.net/issues/9397) |  [masl] use context to disambiguate enumerator references
+[9398](https://support.onefact.net/issues/9398) |  Extend CLI to be able to run multiple commands in a single instance of Eclipse
+[9417](https://support.onefact.net/issues/9417) |  Domain terminator name clash
+[9432](https://support.onefact.net/issues/9432) |  masl_check reports error for default values with enumerate type
+[9433](https://support.onefact.net/issues/9433) |  masl_check fails with service/function overload
+[9435](https://support.onefact.net/issues/9435) |  masl_check: find expression cannot resolve attribute reference
+[9436](https://support.onefact.net/issues/9436) |  masl_check: assignment of integer literal to long_integer fails
+[9437](https://support.onefact.net/issues/9437) |  update masl_round_trip on build server
+[9438](https://support.onefact.net/issues/9438) |  Build mc executables on the build server
+[9441](https://support.onefact.net/issues/9441) |  masl_check: Expression types for Super-Subtype navigations
+[9443](https://support.onefact.net/issues/9443) |  masl_check: recursive structure causes stack overflow
+[9449](https://support.onefact.net/issues/9449) |  masl_check: 'any characteristic
+[9450](https://support.onefact.net/issues/9450) |  masl_check: Based literals
+[9452](https://support.onefact.net/issues/9452) |  masl_check: schedule event generation expecting duration for 'at' expression
+[9459](https://support.onefact.net/issues/9459) |  masl_check: Duplicate type definition from .mod and .int?
+[9461](https://support.onefact.net/issues/9461) |  masl_check: Promotion to sequence type failing
+[9463](https://support.onefact.net/issues/9463) |  masl_check: Enum lookup from another domain not resolving ambiguity correctly
+[9464](https://support.onefact.net/issues/9464) |  MASL Editor - Elements found by Open declaration/find references open the wrong editor
+[9470](https://support.onefact.net/issues/9470) |  masl_check: Relationship navigation, links and unlinks
+[9472](https://support.onefact.net/issues/9472) |  masl_check: assignment to anonymous types
+[9474](https://support.onefact.net/issues/9474) |  masl_check: Whitespace not ignored in domain scoping
+[9476](https://support.onefact.net/issues/9476) |  masl_check: 'length characteristic not found on nested type definition
+[9479](https://support.onefact.net/issues/9479) |  masl_check: instance return type error
+[9480](https://support.onefact.net/issues/9480) |  masl_check: recursive structure causing stack overflow on assignment
+[9508](https://support.onefact.net/issues/9508) |  Run masl_check on build server
+[9524](https://support.onefact.net/issues/9524) |  Use consistent build and test approach
+[9525](https://support.onefact.net/issues/9525) |  masl_check: empty statement
+[9526](https://support.onefact.net/issues/9526) |  masl_check: dictionary errors
+[9527](https://support.onefact.net/issues/9527) |  masl_check: promotion of ambiguous enum to sequence
+[9528](https://support.onefact.net/issues/9528) |  masl_check extremely slow and memory hungry for large domains
+[9531](https://support.onefact.net/issues/9531) |  MC3020 does not calculate derived attributes before copying over referentials
+[9532](https://support.onefact.net/issues/9532) |  masl_check: duration'seconds parameter type
+[9533](https://support.onefact.net/issues/9533) |  masl_check: Support non-integer dictionary keys
+[9534](https://support.onefact.net/issues/9534) |  Update note templates
+[9535](https://support.onefact.net/issues/9535) |  Add timestamps to BP build process
+[9537](https://support.onefact.net/issues/9537) |  Flip MASL settings on for upcoming 6.2.6 release.
+[9540](https://support.onefact.net/issues/9540) |  masl_check: scoping in find clause
+[9565](https://support.onefact.net/issues/9565) |  Saab- 10 : Move Prefix name and Prefix type
+[9580](https://support.onefact.net/issues/9580) |  Ambiguous Enum lookup in object/instance services, event generation and terminator service parameters.
+[9582](https://support.onefact.net/issues/9582) |  masl_check: expressions containing function calls exponentially slower for each extra term
+[9590](https://support.onefact.net/issues/9590) |  Builtin exception types
+[9618](https://support.onefact.net/issues/9618) |  masl_check: dictionary with non-integer keys for user defined type
+[9619](https://support.onefact.net/issues/9619) |  masl_check: Time arithmetic result types
+[9620](https://support.onefact.net/issues/9620) |  masl_check: inline initialisation of instance of variable
+[9621](https://support.onefact.net/issues/9621) |  masl_check: call to domain service in domain with same name as terminator service not resolving correctly
+[9625](https://support.onefact.net/issues/9625) |  masl_check: promotion to sequence for concatentation and other collection operators
+[9627](https://support.onefact.net/issues/9627) |  Clarify MASL Documentation
+[9638](https://support.onefact.net/issues/9638) |  masl_check: Empty where clause on navigate causes error
+[9639](https://support.onefact.net/issues/9639) |  masl_check: All characteristic signature parameters and return types of type integer should be anonymous long_integer
+[9641](https://support.onefact.net/issues/9641) |  masl_check: Ambiguous Enum lookup in instance creation statements
+[9644](https://support.onefact.net/issues/9644) |  type of enum'range should be range of enum
+[9646](https://support.onefact.net/issues/9646) |  typename resolution on rhs of find expression
+[9648](https://support.onefact.net/issues/9648) |  ordered_by result type
+[9649](https://support.onefact.net/issues/9649) |  return type of get_unique characteristic should be anonymous set
+[9650](https://support.onefact.net/issues/9650) |  Crash in masl_check for nested for loops with same loop variable name
+[9655](https://support.onefact.net/issues/9655) |  Masl mark value data not populated in marking editor
