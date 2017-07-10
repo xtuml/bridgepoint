@@ -1,7 +1,7 @@
 BridgePoint xtUML Release Notes
 ========================
 
-Release 6.2.5  
+Release 6.4.0  
 
 License
 -------
@@ -13,9 +13,9 @@ System Requirements
   
 | Category              | Requirement                          |
 |-----------------------|--------------------------------------|
-| Operating System      | Windows 7/8/10, Linux variants       |
+| Operating System      | Windows 7/8/10, Linux variants, MacOS|
 | *Eclipse              | Version 4.5                          |
-| *Java Virtual Machine | Version 1.8 or later                 |
+| *Java Virtual Machine | Version 8 or later                   |
 
 *(supplied by installer)
     
@@ -75,12 +75,20 @@ Closed Issues
 [9166](https://support.onefact.net/issues/9166) |  Failures in io.mdl.tests
 [9209](https://support.onefact.net/issues/9209) |  Rework compare test infrastructure and address any real issues found
 [9214](https://support.onefact.net/issues/9214) |  Update hudson BridgePoint tooling
+[9217](https://support.onefact.net/issues/9217) |  Unable to rename a masl domain
 [9288](https://support.onefact.net/issues/9288) |  Invalid Syntax Error Highlight
 [9324](https://support.onefact.net/issues/9324) |  xtUML Metamodel example project creation hangs
 [9332](https://support.onefact.net/issues/9332) |  MASL export error on state machine without event
 [9334](https://support.onefact.net/issues/9334) |  Perform unit testing from the xtuml/bptest repository
 [9343](https://support.onefact.net/issues/9343) |  Content assist doesn't show first time some operators are typed
+[9344](https://support.onefact.net/issues/9344) |  Rename of Domain Service in masl project fails to update .mod
+[9345](https://support.onefact.net/issues/9345) |  Rename of masl datatype fails
+[9346](https://support.onefact.net/issues/9346) |  Domain Service Parameter in masl project rename failure
+[9347](https://support.onefact.net/issues/9347) |  Terminator rename in masl project fails
+[9348](https://support.onefact.net/issues/9348) |  Terminator service rename in masl project fails
+[9349](https://support.onefact.net/issues/9349) |  Terminator service parameter rename in masl project fails
 [9351](https://support.onefact.net/issues/9351) |  Object rename in masl project fails
+[9352](https://support.onefact.net/issues/9352) |  Object service rename in masl project fails
 [9360](https://support.onefact.net/issues/9360) |  MASL editor incorrectly calls out syntax error on deferred operation
 [9380](https://support.onefact.net/issues/9380) |  Duplicate comment on referential attribute
 [9384](https://support.onefact.net/issues/9384) |  Use of undefined classes and associations
@@ -128,10 +136,9 @@ Closed Issues
 [9535](https://support.onefact.net/issues/9535) |  Add timestamps to BP build process
 [9537](https://support.onefact.net/issues/9537) |  Flip MASL settings on for upcoming 6.2.6 release.
 [9540](https://support.onefact.net/issues/9540) |  masl_check: scoping in find clause
-[9565](https://support.onefact.net/issues/9565) |  Move Prefix name and Prefix type
+[9565](https://support.onefact.net/issues/9565) |  Saab- 10 : Move Prefix name and Prefix type
 [9580](https://support.onefact.net/issues/9580) |  Ambiguous Enum lookup in object/instance services, event generation and terminator service parameters.
 [9582](https://support.onefact.net/issues/9582) |  masl_check: expressions containing function calls exponentially slower for each extra term
-[9589](https://support.onefact.net/issues/9589) |  masl_check: missing/incorrect characteristics
 [9590](https://support.onefact.net/issues/9590) |  Builtin exception types
 [9618](https://support.onefact.net/issues/9618) |  masl_check: dictionary with non-integer keys for user defined type
 [9619](https://support.onefact.net/issues/9619) |  masl_check: Time arithmetic result types
@@ -142,11 +149,9 @@ Closed Issues
 [9638](https://support.onefact.net/issues/9638) |  masl_check: Empty where clause on navigate causes error
 [9639](https://support.onefact.net/issues/9639) |  masl_check: All characteristic signature parameters and return types of type integer should be anonymous long_integer
 [9641](https://support.onefact.net/issues/9641) |  masl_check: Ambiguous Enum lookup in instance creation statements
+[9644](https://support.onefact.net/issues/9644) |  type of enum'range should be range of enum
 [9646](https://support.onefact.net/issues/9646) |  typename resolution on rhs of find expression
 [9648](https://support.onefact.net/issues/9648) |  ordered_by result type
 [9649](https://support.onefact.net/issues/9649) |  return type of get_unique characteristic should be anonymous set
 [9650](https://support.onefact.net/issues/9650) |  Crash in masl_check for nested for loops with same loop variable name
-[9654](https://support.onefact.net/issues/9654) |  Verifier fails to launch from debug configuration
 [9655](https://support.onefact.net/issues/9655) |  Masl mark value data not populated in marking editor
-[9659](https://support.onefact.net/issues/9659) |  v6.4 Release Prep
-    
