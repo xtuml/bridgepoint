@@ -7,12 +7,14 @@ import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Shell;
+import org.xtuml.bp.core.editors.association.AssociationEditorTab;
 import org.xtuml.bp.core.editors.association.factories.AssociationEditorTabFactory;
 
 public class AssociationTableDialog extends Dialog {
 	
 	String title = "Edit Associations";
 	IStructuredSelection selectedElements;
+	private Composite createdTab;
 
 	public AssociationTableDialog(Shell parentShell, String title, IStructuredSelection selectedElements) {
 		super(parentShell);
@@ -30,14 +32,14 @@ public class AssociationTableDialog extends Dialog {
 	protected Control createDialogArea(Composite parent) {
 		Composite composite = (Composite) super.createDialogArea(parent);
 		AssociationEditorTabFactory factory = new AssociationEditorTabFactory();
-		factory.createEditorTab(composite, selectedElements);
+		createdTab = factory.createEditorTab(composite, selectedElements);
 		composite.pack();
 		return composite;
 	}
 
 	@Override
 	protected Point getInitialSize() {
-		return new Point(850, 200);
+		return super.getInitialSize();
 	}
 
 	@Override
@@ -52,6 +54,8 @@ public class AssociationTableDialog extends Dialog {
 
 	@Override
 	protected void okPressed() {
+		// apply any current editor values
+		((AssociationEditorTab) createdTab).fTableViewer.applyEditorValue();
 		super.okPressed();
 	}
 

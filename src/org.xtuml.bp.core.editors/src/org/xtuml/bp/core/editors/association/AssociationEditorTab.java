@@ -1,6 +1,10 @@
 package org.xtuml.bp.core.editors.association;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IAction;
@@ -40,7 +44,9 @@ import org.xtuml.bp.core.ClassAsLink_c;
 import org.xtuml.bp.core.ClassAsSimpleFormalizer_c;
 import org.xtuml.bp.core.ClassAsSimpleParticipant_c;
 import org.xtuml.bp.core.CorePlugin;
+import org.xtuml.bp.core.ImportedClass_c;
 import org.xtuml.bp.core.LinkedAssociation_c;
+import org.xtuml.bp.core.ModelClass_c;
 import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.Package_c;
 import org.xtuml.bp.core.PackageableElement_c;
@@ -65,7 +71,7 @@ import org.xtuml.bp.core.ui.Selection;
 
 public class AssociationEditorTab extends Composite implements ITransactionListener {
 
-	private TableViewer fTableViewer;
+	public TableViewer fTableViewer;
 	private ModelInspector inspector = new ModelInspector();
 	private ErrorToolTip tip;
 	private Button formalizeButton;
@@ -75,10 +81,16 @@ public class AssociationEditorTab extends Composite implements ITransactionListe
 		super(parent, SWT.NONE);
 		GridLayout layout = new GridLayout(1, true);
 		setLayout(layout);
+		setLayoutData(new GridData(GridData.FILL_BOTH));
 		createTableViewer(this, inputObject);
 		createAssociationDetailArea(this, inputObject);
+		pack();
+		fTableViewer.getTable().setFocus();
+		if (fTableViewer.getElementAt(0) != null) {
+			fTableViewer.editElement(fTableViewer.getElementAt(0), 0);
+		}
 	}
-	
+
 	private void createAssociationDetailArea(Composite composite, Object inputObject) {
 		GridData data = new GridData(SWT.LEFT, SWT.CENTER, true, false, 1, 1);
 		Composite associationNumberArea = new Composite(composite, SWT.FLAT);
@@ -91,17 +103,17 @@ public class AssociationEditorTab extends Composite implements ITransactionListe
 		formalizeButton.setSelection(false);
 		formalizeButton.setEnabled(false);
 		formalizeButton.addSelectionListener(new SelectionListener() {
-			
+
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				boolean selected = formalizeButton.getSelection();
-				if(selected) {
+				if (selected) {
 					formalize();
 				} else {
 					unformalize();
 				}
 			}
-			
+
 			@Override
 			public void widgetDefaultSelected(SelectionEvent e) {
 				widgetSelected(e);
@@ -112,13 +124,14 @@ public class AssociationEditorTab extends Composite implements ITransactionListe
 		fEditDescripButton.setText("Edit Description...");
 		fEditDescripButton.setEnabled(false);
 		fEditDescripButton.addSelectionListener(new SelectionListener() {
-			
+
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				Association_c association = getSelectedAssociation();
-				TextDialog dialog = new TextDialog(getShell(), association.getDescrip(), association.getName() + " Description");
+				TextDialog dialog = new TextDialog(getShell(), association.getDescrip(),
+						association.getName() + " Description");
 				dialog.open();
-				if(!association.getDescrip().equals(dialog.getTextContents())) {
+				if (!association.getDescrip().equals(dialog.getTextContents())) {
 					try {
 						Transaction transaction = TransactionManager.getSingleton().startTransaction(
 								"Update association description", new ModelElement[] { Ooaofooa.getDefaultInstance() });
@@ -129,7 +142,7 @@ public class AssociationEditorTab extends Composite implements ITransactionListe
 					}
 				}
 			}
-			
+
 			@Override
 			public void widgetDefaultSelected(SelectionEvent e) {
 				widgetSelected(e);
@@ -139,7 +152,7 @@ public class AssociationEditorTab extends Composite implements ITransactionListe
 
 	protected Association_c getSelectedAssociation() {
 		ISelection selection = fTableViewer.getSelection();
-		if(selection instanceof IStructuredSelection) {
+		if (selection instanceof IStructuredSelection) {
 			IStructuredSelection ss = (IStructuredSelection) selection;
 			return (Association_c) ss.getFirstElement();
 		}
@@ -151,7 +164,7 @@ public class AssociationEditorTab extends Composite implements ITransactionListe
 		try {
 			Transaction transaction = TransactionManager.getSingleton().startTransaction("Unformalize association",
 					new ModelElement[] { Ooaofooa.getDefaultInstance() });
-			assoc.Unformalize();			
+			assoc.Unformalize();
 			TransactionManager.getSingleton().endTransaction(transaction);
 		} catch (TransactionException e) {
 			CorePlugin.logError("Unable to unformalize association", e);
@@ -163,32 +176,35 @@ public class AssociationEditorTab extends Composite implements ITransactionListe
 		// update the core selection temporarily
 		ISelection originalSelection = Selection.getInstance().getSelection();
 		try {
-			Selection.getInstance().clear(); Selection.getInstance().addToSelection(assoc);
+			Selection.getInstance().clear();
+			Selection.getInstance().addToSelection(assoc);
 			SimpleAssociation_c simp = SimpleAssociation_c.getOneR_SIMPOnR206(assoc);
 			LinkedAssociation_c linked = LinkedAssociation_c.getOneR_ASSOCOnR206(assoc);
 			SubtypeSupertypeAssociation_c subSup = SubtypeSupertypeAssociation_c.getOneR_SUBSUPOnR206(assoc);
-			IAction a = new Action() {};
-			if(simp != null) {
+			IAction a = new Action() {
+			};
+			if (simp != null) {
 				BinaryFormalizeOnR_RELAction action = new BinaryFormalizeOnR_RELAction();
-				action.setActivePart(a, PlatformUI.getWorkbench()
-						.getActiveWorkbenchWindow().getActivePage().getActivePart());
+				action.setActivePart(a,
+						PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActivePart());
 				action.run(null);
 			}
-			if(linked != null) {
-				Selection.getInstance().clear(); Selection.getInstance().addToSelection(ClassAsLink_c.getOneR_ASSROnR211(linked));
+			if (linked != null) {
+				Selection.getInstance().clear();
+				Selection.getInstance().addToSelection(ClassAsLink_c.getOneR_ASSROnR211(linked));
 				LinkedFormalizeOnR_ASSRAction action = new LinkedFormalizeOnR_ASSRAction();
-				action.setActivePart(a, PlatformUI.getWorkbench()
-						.getActiveWorkbenchWindow().getActivePage().getActivePart());
+				action.setActivePart(a,
+						PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActivePart());
 				action.run(null);
 			}
-			if(subSup != null) {
+			if (subSup != null) {
 				InheritanceFormalizeOnR_RELAction action = new InheritanceFormalizeOnR_RELAction();
-				action.setActivePart(a, PlatformUI.getWorkbench()
-						.getActiveWorkbenchWindow().getActivePage().getActivePart());
+				action.setActivePart(a,
+						PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActivePart());
 				action.run(null);
 			}
 			// user canceled formalization
-			if(!assoc.Isformalized()) {
+			if (!assoc.Isformalized()) {
 				formalizeButton.setSelection(false);
 			}
 		} finally {
@@ -204,10 +220,10 @@ public class AssociationEditorTab extends Composite implements ITransactionListe
 
 		@Override
 		public void setErrorMessage(String errorMessage) {
-			if(tip == null) {
+			if (tip == null) {
 				tip = new ErrorToolTip(getShell());
 			}
-			if((errorMessage != null) && !errorMessage.isEmpty()) {
+			if ((errorMessage != null) && !errorMessage.isEmpty()) {
 				tip.setVisible(false);
 				TableItem treeItem = fTableViewer.getTable().getSelection()[0];
 				TableColumn column = fTableViewer.getTable().getColumn(0);
@@ -215,19 +231,17 @@ public class AssociationEditorTab extends Composite implements ITransactionListe
 				Point location = new Point(column.getWidth(), treeItem.getBounds().y);
 				Point controlPoint = fTableViewer.getTable().toDisplay(location);
 				tip.autoSize();
-				tip.setLocation(controlPoint.x, controlPoint.y - tip.getHeight()
-						- 5);
+				tip.setLocation(controlPoint.x, controlPoint.y - tip.getHeight() - 5);
 				tip.setVisible(true);
 			} else {
 				tip.setVisible(false);
 			}
 		}
-		
+
 	}
-	
+
 	private void createTableViewer(Composite parent, final Object input) {
-		fTableViewer = new TabTableViewer(parent, SWT.H_SCROLL | SWT.V_SCROLL
-				| SWT.BORDER);
+		fTableViewer = new TabTableViewer(parent, SWT.H_SCROLL | SWT.V_SCROLL | SWT.BORDER);
 		fTableViewer.getTable().setLayoutData(new GridData(GridData.FILL_BOTH));
 		fTableViewer.setUseHashlookup(true);
 		fTableViewer.getTable().setHeaderVisible(true);
@@ -236,41 +250,111 @@ public class AssociationEditorTab extends Composite implements ITransactionListe
 		createInitialColumns(input);
 		fTableViewer.getTable().pack();
 		fTableViewer.setContentProvider(new IStructuredContentProvider() {
-		
+
 			@Override
 			public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
 				// nothing to do
 			}
-		
+
 			@Override
 			public void dispose() {
 				// nothing to do
 			}
-		
+
+			class NonSubSupClassQuery implements ClassQueryInterface_c {
+
+				@Override
+				public boolean evaluate(Object candidate) {
+					// for now ignore supertype/subtype the table doesn't much
+					// fit for
+					// them
+					Association_c test = (Association_c) candidate;
+					return SubtypeSupertypeAssociation_c.getOneR_SUBSUPOnR206(test) == null;
+				}
+
+			}
+
 			@Override
 			public Object[] getElements(Object inputElement) {
 				if (inputElement instanceof Package_c) {
-					return Association_c
-							.getManyR_RELsOnR8001(PackageableElement_c.getManyPE_PEsOnR8000((Package_c) inputElement), new ClassQueryInterface_c() {
-								
-								@Override
-								public boolean evaluate(Object candidate) {
-									// for now ignore supertype/subtype the table doesn't much fit for
-									// them
-									Association_c test = (Association_c) candidate;
-									return SubtypeSupertypeAssociation_c.getOneR_SUBSUPOnR206(test) == null;
-								}
-							});
+					return Association_c.getManyR_RELsOnR8001(
+							PackageableElement_c.getManyPE_PEsOnR8000((Package_c) inputElement),
+							new NonSubSupClassQuery());
 				}
-				if(inputElement instanceof IStructuredSelection) {
-					return ((IStructuredSelection) inputElement).toArray();
+				if (inputElement instanceof IStructuredSelection) {
+					Object[] selection = ((IStructuredSelection) inputElement).toArray();
+					Set<Association_c> associations = new HashSet<Association_c>();
+					for (Object selected : selection) {
+						if (selected instanceof ModelClass_c) {
+							ModelClass_c clazz = (ModelClass_c) selected;
+							associations.addAll(
+									Arrays.asList(Association_c.getManyR_RELsOnR201(clazz, new NonSubSupClassQuery())));
+						}
+						if (selected instanceof ImportedClass_c) {
+							ModelClass_c clazz = ModelClass_c.getOneO_OBJOnR101((ImportedClass_c) selected);
+							associations.addAll(
+									Arrays.asList(Association_c.getManyR_RELsOnR201(clazz, new ClassQueryInterface_c() {
+
+										@Override
+										public boolean evaluate(Object candidate) {
+											// first filter subsup assocs
+											NonSubSupClassQuery query = new NonSubSupClassQuery();
+											boolean result = query.evaluate(candidate);
+											if (result) {
+												// now check that it is a local
+												// association
+												Package_c importedClassPackage = Package_c
+														.getOneEP_PKGOnR8000(PackageableElement_c
+																.getManyPE_PEsOnR8001((ImportedClass_c) selected));
+												Package_c associationPackage = Package_c
+														.getOneEP_PKGOnR8000(PackageableElement_c
+																.getManyPE_PEsOnR8001((Association_c) candidate));
+												if (importedClassPackage == associationPackage) {
+													return true;
+												}
+											}
+											return false;
+										}
+									})));
+						}
+						if (selected instanceof ClassAsLink_c) {
+							return Association_c.getManyR_RELsOnR206(
+									LinkedAssociation_c.getManyR_ASSOCsOnR211((ClassAsLink_c) selected));
+						}
+						if (selected instanceof Package_c) {
+							Package_c pkg = (Package_c) selected;
+							associations.addAll(Arrays.asList(Association_c.getManyR_RELsOnR8001(
+									PackageableElement_c.getManyPE_PEsOnR8000(pkg), new NonSubSupClassQuery())));
+						}
+						if (selected instanceof Association_c) {
+							associations.add((Association_c) selected);
+						}
+					}
+					Object[] array = associations.toArray();
+					Arrays.sort(array, new Comparator<Object>() {
+						@Override
+						public int compare(Object o1, Object o2) {
+							Association_c one = (Association_c) o1;
+							Association_c two = (Association_c) o2;
+							if (one.getNumb() < two.getNumb()) {
+								return -1;
+							} else {
+								return 1;
+							}
+						}
+					});
+					return array;
 				}
-				if(inputElement instanceof Association_c) {
+				if (inputElement instanceof ModelClass_c) {
+					return Association_c.getManyR_RELsOnR201((ModelClass_c) inputElement, new NonSubSupClassQuery());
+				}
+				if (inputElement instanceof Association_c) {
 					ArrayList<Object> data = new ArrayList<Object>();
 					ObjectElement[] childRelations = inspector.getChildRelations(inputElement);
-					for(ObjectElement child : childRelations) {
-						// if child relation is a link class, output mult first then class as link
-						if(child.getValue() instanceof ClassAsLink_c) {
+					for (ObjectElement child : childRelations) {
+						// if child relation is a link class, output mult first
+						// then class as link
+						if (child.getValue() instanceof ClassAsLink_c) {
 							ObjectElement[] attributes = inspector.getAttributes(child.getValue());
 							data.add(attributes[0]);
 							data.add(child);
@@ -278,9 +362,9 @@ public class AssociationEditorTab extends Composite implements ITransactionListe
 						}
 						data.add(child);
 						ObjectElement[] attributes = inspector.getAttributes(child.getValue());
-						for(ObjectElement attribute : attributes) {
+						for (ObjectElement attribute : attributes) {
 							// skip cond
-							if(attribute.getName().equals("Cond")) { // $NON-NLS-1$
+							if (attribute.getName().equals("Cond")) { // $NON-NLS-1$
 								continue;
 							}
 							data.add(attribute);
@@ -292,13 +376,13 @@ public class AssociationEditorTab extends Composite implements ITransactionListe
 			}
 		});
 		fTableViewer.addSelectionChangedListener(new ISelectionChangedListener() {
-			
+
 			@Override
 			public void selectionChanged(SelectionChangedEvent event) {
 				ISelection selection = event.getSelection();
-				if(selection instanceof IStructuredSelection) {
+				if (selection instanceof IStructuredSelection) {
 					IStructuredSelection ss = (IStructuredSelection) selection;
-					if(ss.size() == 1) {
+					if (ss.size() == 1) {
 						// update formalized and descrip controls
 						Association_c selectedAssociation = getSelectedAssociation();
 						fEditDescripButton.setEnabled(true);
@@ -313,38 +397,40 @@ public class AssociationEditorTab extends Composite implements ITransactionListe
 				}
 			}
 		});
-		TableViewerFocusCellManager focusCellManager = new TableViewerFocusCellManager(fTableViewer,new FocusCellOwnerDrawHighlighter(fTableViewer));
+		TableViewerFocusCellManager focusCellManager = new TableViewerFocusCellManager(fTableViewer,
+				new FocusCellOwnerDrawHighlighter(fTableViewer));
 		ColumnViewerEditorActivationStrategy actSupport = new ColumnViewerEditorActivationStrategy(fTableViewer) {
-		    protected boolean isEditorActivationEvent(ColumnViewerEditorActivationEvent event) {
-		        return event.eventType == ColumnViewerEditorActivationEvent.TRAVERSAL 
-		            || event.eventType == ColumnViewerEditorActivationEvent.MOUSE_DOUBLE_CLICK_SELECTION 
-		            || event.eventType == ColumnViewerEditorActivationEvent.MOUSE_CLICK_SELECTION
-		            || (event.eventType == ColumnViewerEditorActivationEvent.KEY_PRESSED && event.keyCode == SWT.CR) 
-		            || event.eventType == ColumnViewerEditorActivationEvent.PROGRAMMATIC;
-		       }
+			protected boolean isEditorActivationEvent(ColumnViewerEditorActivationEvent event) {
+				return event.eventType == ColumnViewerEditorActivationEvent.TRAVERSAL
+						|| event.eventType == ColumnViewerEditorActivationEvent.MOUSE_DOUBLE_CLICK_SELECTION
+						|| event.eventType == ColumnViewerEditorActivationEvent.MOUSE_CLICK_SELECTION
+						|| event.eventType == ColumnViewerEditorActivationEvent.KEY_PRESSED
+						|| (event.eventType == ColumnViewerEditorActivationEvent.KEY_PRESSED && event.keyCode == SWT.CR)
+						|| event.eventType == ColumnViewerEditorActivationEvent.PROGRAMMATIC;
+			}
 		};
-		TableViewerEditor.create(fTableViewer, focusCellManager, actSupport, ColumnViewerEditor.TABBING_HORIZONTAL
-				| ColumnViewerEditor.TABBING_MOVE_TO_ROW_NEIGHBOR
-				| ColumnViewerEditor.TABBING_VERTICAL | ColumnViewerEditor.KEYBOARD_ACTIVATION);
+		TableViewerEditor.create(fTableViewer, focusCellManager, actSupport,
+				ColumnViewerEditor.TABBING_HORIZONTAL | ColumnViewerEditor.TABBING_MOVE_TO_ROW_NEIGHBOR
+						| ColumnViewerEditor.TABBING_VERTICAL | ColumnViewerEditor.KEYBOARD_ACTIVATION);
 		ColumnViewerEditorActivationListener activationListener = new ColumnViewerEditorActivationListener() {
-			
+
 			@Override
 			public void beforeEditorDeactivated(ColumnViewerEditorDeactivationEvent event) {
 				// do nothing
 			}
-			
+
 			@Override
 			public void beforeEditorActivated(ColumnViewerEditorActivationEvent event) {
 				// do nothing
 			}
-			
+
 			@Override
 			public void afterEditorDeactivated(ColumnViewerEditorDeactivationEvent event) {
 				ViewerCell cell = (ViewerCell) event.getSource();
 				fTableViewer.refresh(cell.getElement());
 				fTableViewer.getTable().update();
 			}
-			
+
 			@Override
 			public void afterEditorActivated(ColumnViewerEditorActivationEvent event) {
 				// do nothing
@@ -360,67 +446,41 @@ public class AssociationEditorTab extends Composite implements ITransactionListe
 	}
 
 	CellLabelProvider cellLabelProvider = new CellLabelProvider() {
-		
+
 		@Override
 		public void update(ViewerCell cell) {
 			MetaModelLabelProvider mmProvider = new MetaModelLabelProvider();
 			int index = cell.getColumnIndex();
-			if(index == 0) {
+			if (index == 0) {
 				ObjectElement[] attributes = inspector.getAttributes(cell.getElement());
-				for(ObjectElement attribute : attributes) {
+				for (ObjectElement attribute : attributes) {
 					// we only care about the Numb attribute
-					if(attribute.getName().equals("Numb")) { //$NON-NLS-1$
+					if (attribute.getName().equals("Numb")) { //$NON-NLS-1$
 						cell.setText(((Integer) attribute.getValue()).toString());
 						return;
 					}
 				}
 			}
 			Object cellObject = cell.getElement();
-			Object[] children = ((IStructuredContentProvider) fTableViewer.getContentProvider()).getElements(cellObject);
-			if(index - 1 < children.length) {
+			Object[] children = ((IStructuredContentProvider) fTableViewer.getContentProvider())
+					.getElements(cellObject);
+			if (index - 1 < children.length) {
 				Object child = children[index - 1];
 				// handle mult to combine with cond
-				if(child instanceof ObjectElement) {
+				if (child instanceof ObjectElement) {
 					ObjectElement objEle = (ObjectElement) child;
-					if(objEle.getName().equals("Mult")) { //$NON-NLS-1$
+					if (objEle.getName().equals("Mult")) { //$NON-NLS-1$
 						cell.setText(getRuleText(objEle));
 						return;
 					}
 				}
 				cell.setText(mmProvider.getColumnText(child, index - 1));
-				//cell.setImage(mmProvider.getImage(children[index]));
+				// cell.setImage(mmProvider.getImage(children[index]));
 			}
 		}
 	};
-	
+
 	private void createInitialColumns(Object input) {
-		/*
-		if(input instanceof Association_c) {
-			TableViewerColumn column = new TableViewerColumn(fTableViewer, SWT.LEAD);
-			column.getColumn().setText("Element");
-			column.getColumn().setWidth(200);
-			column.setLabelProvider(cellLabelProvider);
-			column = new TableViewerColumn(fTableViewer, SWT.LEAD);
-			column.getColumn().setWidth(80);
-			column.getColumn().setText("Multiplicity");
-			column.getColumn().setWidth(80);
-			column.setLabelProvider(cellLabelProvider);
-			column.setEditingSupport(new ElementEditingSupport(column.getViewer(), column.getColumn()));
-			column.getColumn().setData("index", new Integer(1));
-			column = new TableViewerColumn(fTableViewer, SWT.LEAD);
-			column.getColumn().setText("Conditionality");
-			column.getColumn().setWidth(120);
-			column.setLabelProvider(cellLabelProvider);
-			column.setEditingSupport(new ElementEditingSupport(column.getViewer(), column.getColumn()));
-			column.getColumn().setData("index", new Integer(2));
-			column = new TableViewerColumn(fTableViewer, SWT.LEAD);
-			column.getColumn().setText("Text Phrase");
-			column.getColumn().setWidth(400);
-			column.setLabelProvider(cellLabelProvider);
-			column.setEditingSupport(new ElementEditingSupport(column.getViewer(), column.getColumn()));
-			column.getColumn().setData("index", new Integer(3));
-		}
-		*/
 		createColumn("Number", 50, true, 0);
 		createColumn("One Side", 135, false, 1);
 		createColumn("Rule", 35, true, 2);
@@ -429,40 +489,41 @@ public class AssociationEditorTab extends Composite implements ITransactionListe
 		createColumn("Rule", 35, true, 5);
 		createColumn("Phrase", 135, true, 6);
 		createColumn("Rule", 35, true, 7);
-		createColumn("Link Side", 300, false, 8);
+		createColumn("Link Side", 135, false, 8);
 	}
-	
+
 	/**
 	 * We have the following rules:
-	 *  
-	 * 1 (unconditional one) mult = 0, cond = 0
-	 * 0..1 (conditional one) mult = 0, cond = 1
-	 * 1..* (unconditional many) mult = 1, cond = 0
-	 * * (conditional many) mult = 1, cond = 1
+	 * 
+	 * 1 (unconditional one) mult = 0, cond = 0 0..1 (conditional one) mult = 0,
+	 * cond = 1 1..* (unconditional many) mult = 1, cond = 0 * (conditional
+	 * many) mult = 1, cond = 1
 	 * 
 	 */
 	public static String getRuleText(ObjectElement objEle) {
 		Integer mult = (Integer) objEle.getValue();
 		Object attributeOwner = objEle.getParent();
 		Integer cond = 0;
-		if(attributeOwner instanceof ClassAsAssociatedOneSide_c) {
+		if (attributeOwner instanceof ClassAsAssociatedOneSide_c) {
 			cond = ((ClassAsAssociatedOneSide_c) attributeOwner).getCond();
-		} else if(attributeOwner instanceof ClassAsAssociatedOtherSide_c) {
+		} else if (attributeOwner instanceof ClassAsAssociatedOtherSide_c) {
 			cond = ((ClassAsAssociatedOtherSide_c) attributeOwner).getCond();
 		} else if (attributeOwner instanceof ClassAsLink_c) {
-			if(mult == 0) {
+			if (mult == 0) {
 				return "1";
 			} else {
 				return "*";
 			}
-		} else if(attributeOwner instanceof ClassAsSimpleFormalizer_c) {
+		} else if (attributeOwner instanceof ClassAsSimpleFormalizer_c) {
 			cond = ((ClassAsSimpleFormalizer_c) attributeOwner).getCond();
-		} else if(attributeOwner instanceof ClassAsSimpleParticipant_c) {
+		} else if (attributeOwner instanceof ClassAsSimpleParticipant_c) {
 			cond = ((ClassAsSimpleParticipant_c) attributeOwner).getCond();
 		}
 		return getRuleForMultCond(mult, cond);
 	}
-	static String[][] rules = new String[][]{new String[] {"1", "0..1"}, new String[] {"1..*", "*"}};
+
+	static String[][] rules = new String[][] { new String[] { "1", "0..1" }, new String[] { "1..*", "*" } };
+
 	public static String getRuleForMultCond(Integer mult, Integer cond) {
 		return rules[mult][cond];
 	}
@@ -472,8 +533,9 @@ public class AssociationEditorTab extends Composite implements ITransactionListe
 		column.getColumn().setText(name);
 		column.getColumn().setWidth(width);
 		column.setLabelProvider(cellLabelProvider);
-		if(supportsEditing) {
-			column.setEditingSupport(new AssociationEditingSupport(column.getViewer(), column.getColumn(), fTableViewer));
+		if (supportsEditing) {
+			column.setEditingSupport(
+					new AssociationEditingSupport(column.getViewer(), column.getColumn(), fTableViewer));
 		}
 		column.getColumn().setData("index", new Integer(index));
 	}
@@ -485,7 +547,7 @@ public class AssociationEditorTab extends Composite implements ITransactionListe
 	@Override
 	public void transactionEnded(Transaction transaction) {
 		PlatformUI.getWorkbench().getDisplay().asyncExec(() -> {
-			if(!fTableViewer.getTable().isDisposed() && !fTableViewer.isCellEditorActive()) {
+			if (!fTableViewer.getTable().isDisposed() && !fTableViewer.isCellEditorActive()) {
 				fTableViewer.refresh();
 			}
 		});

@@ -66,7 +66,6 @@ import org.xtuml.bp.ui.explorer.ILinkWithEditorListener;
 import org.xtuml.bp.ui.graphics.Activator;
 import org.xtuml.bp.ui.graphics.parts.ShapeEditPart;
 import org.xtuml.bp.ui.text.description.DescriptionEditor;
-import org.xtuml.bp.ui.text.description.DescriptionEditorInput;
 
 public class ModelEditor extends MultiPageEditorPart implements ILinkWithEditorListener, ISelectionListener {
 
@@ -77,31 +76,8 @@ public class ModelEditor extends MultiPageEditorPart implements ILinkWithEditorL
 	@Override
 	protected void createPages() {
 		fGraphicalEditor = createGraphicalEditor(getContainer());
-		if(descriptionSupported(getGraphicalEditor().getModel().getRepresents())) {
-			fDescripEditor = new DescriptionEditor();
-			try {
-				DescriptionEditorInput descriptionInput = DescriptionEditorInput.createInstance(fGraphicalEditor.getModel().getRepresents());
-				int addPage = addPage((IEditorPart) fDescripEditor, descriptionInput);
-				setPageText(addPage, "Description Editor");
-			} catch (PartInitException e) {
-				CorePlugin.logError("Unable to add description editor tab.", e);
-			} catch (CoreException e) {
-				CorePlugin.logError("Unable to add description editor tab.", e);
-			}
-		}
 		if(fGraphicalEditor != null)
 			createPagesFromExtensionPoint(getContainer(), fGraphicalEditor.getModel());
-	}
-
-	private boolean descriptionSupported(Object represents) {
-		try {
-			return represents.getClass().getMethod("getDescrip", new Class<?>[0]) != null;
-		} catch (NoSuchMethodException e) {
-			return false;
-		} catch (SecurityException e) {
-			CorePlugin.logError("Security exception using reflection to locate getDescrip method.", e);
-		}
-		return false;
 	}
 
 	@SuppressWarnings("deprecation")

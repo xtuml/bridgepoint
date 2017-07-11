@@ -3,9 +3,12 @@ package org.xtuml.bp.core.editors.association.actions;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.ui.IActionDelegate;
 import org.eclipse.ui.PlatformUI;
+import org.xtuml.bp.core.common.NonRootModelElement;
 import org.xtuml.bp.core.editors.association.dialogs.AssociationTableDialog;
+import org.xtuml.bp.core.ui.Selection;
 
 public class ConfigureAssociation implements IActionDelegate {
 
@@ -23,9 +26,10 @@ public class ConfigureAssociation implements IActionDelegate {
 		// capture the association selected
 		if (selection instanceof IStructuredSelection) {
 			// Eclipse configuration will only enable this
-			// for association selections
+			// for class selections
 			IStructuredSelection ss = (IStructuredSelection) selection;
-			selectedElements = ss;
+			NonRootModelElement[] nrmeSelection = Selection.getSelectedNonRootModelElements(ss);
+			selectedElements = new StructuredSelection(nrmeSelection);
 		}
 	}
 
