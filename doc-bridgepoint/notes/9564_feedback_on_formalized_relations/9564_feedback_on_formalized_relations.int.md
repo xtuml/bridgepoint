@@ -11,10 +11,7 @@ This work is licensed under the Creative Commons CC0 License
 
 This note describes the files changed for this work.
 
-### 2. Document References
-
-In this section, list all the documents that the reader may need to refer to.
-Give the full path to reference a file.  
+### 2. Document References 
 <a id="2.1"></a>2.1 [BridgePoint DEI #9564](https://support.onefact.net/issues/9564) Feedback on formalized relations  
 <a id="2.2"></a>2.2 [Design note](https://github.com/travislondon/bridgepoint/blob/9564_feedback_on_formalized_relations/doc-bridgepoint/notes/9564_feedback_on_formalized_relations/9564_feedback_on_formalized_relations.md) Project design note.  
 
@@ -36,11 +33,12 @@ None.
 
 ### 7. Unit Test
 
-See [[2.2]](#2.2).  
+The tests described in [[2.2]](#2.2) have been automated.  The AssociationFeedbackTestModel under the models directory was added to support the tests.  
 
 ### 8. User Documentation
+The following will be added to the Class Diagram help documentation:  
 
-Describe the end user documentation that was added for this change. 
+With xtUML, associations can be formalized by using a class identifier.  When formalized an association will place a reference in the formalizer class.  The BridgePoint tool will highlight these associations if the option found in Preferences > xtUML > Diagram Editors > Highlight Formalized Associations is checked.  This setting will allow the graphical editor to bolden all formalized associations including their text.  This setting is enabled by default.  
 
 ### 9. Code Changes
 
