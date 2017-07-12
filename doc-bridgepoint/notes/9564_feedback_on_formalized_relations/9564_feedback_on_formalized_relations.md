@@ -67,9 +67,11 @@ To easily distinguish between informal and formal associations we shall take the
 
 ### 7. Design Comments
 
+None.
 
 ### 8. User Documentation
 
+User documentation will be updated to account for the new highlighting features including the preference added to control the feature.
 
 ### 9. Unit Test
 
