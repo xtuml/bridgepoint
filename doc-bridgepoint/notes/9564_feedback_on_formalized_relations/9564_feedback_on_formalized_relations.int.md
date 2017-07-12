@@ -33,7 +33,7 @@ None.
 
 ### 7. Unit Test
 
-The tests described in [[2.2]](#2.2) have been automated.  The AssociationFeedbackTestModel under the models directory was added to support the tests.  
+The tests described in [[2.2]](#2.2) have been automated.  The AssociationFeedbackTestModel under the models repository was added to support the tests.  
 
 ### 8. User Documentation
 The following will be added to the Class Diagram help documentation:  
