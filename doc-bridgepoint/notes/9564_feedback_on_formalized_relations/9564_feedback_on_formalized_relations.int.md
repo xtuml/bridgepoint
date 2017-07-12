@@ -63,6 +63,9 @@ org.xtuml.bp.core/models/org.xtuml.bp.core/ooaofooa/Datatypes/Datatypes.xtuml
 org.xtuml.bp.core/src/org/xtuml/bp/core/common/BridgePointPreferencesModel.java
 org.xtuml.bp.core/src/org/xtuml/bp/core/common/BridgePointPreferencesStore.java
 
+org.xtuml.bp.doc/Reference/UserInterface/xtUMLModeling/ModelElements/HTML/
+    ClassDiagram.htm
+
 org.xtuml.bp.pkg/plugin_customization.ini
 
 org.xtuml.bp.ui.canvas/models/org.xtuml.bp.ui.canvas/ooaofgraphics/Datatypes/
