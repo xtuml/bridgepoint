@@ -5,6 +5,7 @@ import org.eclipse.jface.viewers.ColumnViewer;
 import org.eclipse.jface.viewers.ComboBoxCellEditor;
 import org.eclipse.jface.viewers.IStructuredContentProvider;
 import org.eclipse.jface.viewers.TableViewer;
+import org.eclipse.jface.viewers.ViewerCell;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.TableColumn;
 import org.xtuml.bp.core.Association_c;
@@ -28,6 +29,7 @@ public class AssociationEditingSupport extends ElementEditingSupport {
 
 	TableColumn column;
 	TableViewer tableViewer;
+	private CellEditor activeCellEditor;
 
 	public AssociationEditingSupport(ColumnViewer viewer, TableColumn tableColumn, TableViewer tableViewer) {
 		super(viewer, tableColumn);
@@ -35,6 +37,19 @@ public class AssociationEditingSupport extends ElementEditingSupport {
 		this.tableViewer = tableViewer;
 	}
 
+	@Override
+	protected void initializeCellEditorValue(CellEditor cellEditor, ViewerCell cell) {
+		// cache the cellEditor, even though we created it
+		// this is for unit testing if we were to just call
+		// getCellEditor it would return a new instance not
+		// the one the TableViewer is currently using
+		activeCellEditor = cellEditor;
+		super.initializeCellEditorValue(cellEditor, cell);
+	}
+
+	public CellEditor getActiveCellEditor() {
+		return activeCellEditor;
+	}
 	@Override
 	public void setValue(Object element, Object value) {
 		element = getCellElement(element);

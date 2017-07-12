@@ -71,11 +71,27 @@ import org.xtuml.bp.core.ui.Selection;
 
 public class AssociationEditorTab extends Composite implements ITransactionListener {
 
-	public TableViewer fTableViewer;
+	private TableViewer fTableViewer;
+	public TableViewer getTableViewer() {
+		return fTableViewer;
+	}
+
 	private ModelInspector inspector = new ModelInspector();
 	private ErrorToolTip tip;
+	public ErrorToolTip getTip() {
+		return tip;
+	}
+
 	private Button formalizeButton;
+	public Button getFormalizeButton() {
+		return formalizeButton;
+	}
+
 	private Button fEditDescripButton;
+
+	public Button getEditDescripButton() {
+		return fEditDescripButton;
+	}
 
 	public AssociationEditorTab(Composite parent, Object inputObject) {
 		super(parent, SWT.NONE);
@@ -475,23 +491,27 @@ public class AssociationEditorTab extends Composite implements ITransactionListe
 					}
 				}
 				cell.setText(mmProvider.getColumnText(child, index - 1));
-				// cell.setImage(mmProvider.getImage(children[index]));
 			}
 		}
 	};
-
+	
+	AssociationEditingSupport[] columnEditingSupport = new AssociationEditingSupport[9];
 	private void createInitialColumns(Object input) {
-		createColumn("Number", 50, true, 0);
-		createColumn("One Side", 135, false, 1);
-		createColumn("Rule", 35, true, 2);
-		createColumn("Phrase", 135, true, 3);
-		createColumn("Other Side", 135, false, 4);
-		createColumn("Rule", 35, true, 5);
-		createColumn("Phrase", 135, true, 6);
-		createColumn("Rule", 35, true, 7);
-		createColumn("Link Side", 135, false, 8);
+		columnEditingSupport[0] = createColumn("Number", 50, true, 0);
+		columnEditingSupport[1] = createColumn("One Side", 135, false, 1);
+		columnEditingSupport[2] = createColumn("Rule", 35, true, 2);
+		columnEditingSupport[3] = createColumn("Phrase", 135, true, 3);
+		columnEditingSupport[4] = createColumn("Other Side", 135, false, 4);
+		columnEditingSupport[5] = createColumn("Rule", 35, true, 5);
+		columnEditingSupport[6] = createColumn("Phrase", 135, true, 6);
+		columnEditingSupport[7] = createColumn("Rule", 35, true, 7);
+		columnEditingSupport[8] = createColumn("Link Side", 135, false, 8);
 	}
-
+	
+	public AssociationEditingSupport[] getEditingSupport() {
+		return columnEditingSupport;
+	}
+	
 	/**
 	 * We have the following rules:
 	 * 
@@ -528,16 +548,18 @@ public class AssociationEditorTab extends Composite implements ITransactionListe
 		return rules[mult][cond];
 	}
 
-	private void createColumn(String name, int width, boolean supportsEditing, int index) {
+	private AssociationEditingSupport createColumn(String name, int width, boolean supportsEditing, int index) {
+		AssociationEditingSupport editingSupport = null;
 		TableViewerColumn column = new TableViewerColumn(fTableViewer, SWT.LEAD);
 		column.getColumn().setText(name);
 		column.getColumn().setWidth(width);
 		column.setLabelProvider(cellLabelProvider);
 		if (supportsEditing) {
-			column.setEditingSupport(
-					new AssociationEditingSupport(column.getViewer(), column.getColumn(), fTableViewer));
+			editingSupport = new AssociationEditingSupport(column.getViewer(), column.getColumn(), fTableViewer);
+			column.setEditingSupport(editingSupport);
 		}
 		column.getColumn().setData("index", new Integer(index));
+		return editingSupport;
 	}
 
 	private void addTableListeners() {

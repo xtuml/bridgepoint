@@ -14,7 +14,7 @@ public class AssociationTableDialog extends Dialog {
 	
 	String title = "Edit Associations";
 	IStructuredSelection selectedElements;
-	private Composite createdTab;
+	public Composite createdTab;
 
 	public AssociationTableDialog(Shell parentShell, String title, IStructuredSelection selectedElements) {
 		super(parentShell);
@@ -55,7 +55,7 @@ public class AssociationTableDialog extends Dialog {
 	@Override
 	protected void okPressed() {
 		// apply any current editor values
-		((AssociationEditorTab) createdTab).fTableViewer.applyEditorValue();
+		((AssociationEditorTab) createdTab).getTableViewer().applyEditorValue();
 		super.okPressed();
 	}
 
