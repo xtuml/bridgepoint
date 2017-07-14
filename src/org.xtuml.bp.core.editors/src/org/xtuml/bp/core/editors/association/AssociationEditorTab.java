@@ -8,6 +8,7 @@ import java.util.Set;
 
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IAction;
+import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.viewers.CellLabelProvider;
 import org.eclipse.jface.viewers.ColumnViewerEditor;
 import org.eclipse.jface.viewers.ColumnViewerEditorActivationEvent;
@@ -27,6 +28,8 @@ import org.eclipse.jface.viewers.TableViewerFocusCellManager;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerCell;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.KeyEvent;
+import org.eclipse.swt.events.KeyListener;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.graphics.Point;
@@ -100,11 +103,39 @@ public class AssociationEditorTab extends Composite implements ITransactionListe
 		setLayoutData(new GridData(GridData.FILL_BOTH));
 		createTableViewer(this, inputObject);
 		createAssociationDetailArea(this, inputObject);
+		createMenus();
 		pack();
 		fTableViewer.getTable().setFocus();
 		if (fTableViewer.getElementAt(0) != null) {
 			fTableViewer.editElement(fTableViewer.getElementAt(0), 0);
 		}
+		fTableViewer.getTable().addKeyListener(new KeyListener() {
+			
+			@Override
+			public void keyReleased(KeyEvent e) {
+				// ignored
+			}
+			
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if (e.character == 'z' && ((e.stateMask & SWT.COMMAND) != 0) && ((e.stateMask & SWT.SHIFT) == 0)) {
+					// undo
+					TransactionManager.getSingleton().getUndoAction().run();
+				}
+				if (e.character == 'z' && ((e.stateMask & SWT.COMMAND) != 0) && ((e.stateMask & SWT.SHIFT) != 0)) {
+					// redo
+					TransactionManager.getSingleton().getRedoAction().run();
+				}
+			}
+		});
+	}
+
+	private void createMenus() {
+		MenuManager menu = new MenuManager();
+		menu.add(TransactionManager.getSingleton().getUndoAction());
+		menu.add(TransactionManager.getSingleton().getRedoAction());
+		menu.createContextMenu(this);
+		setMenu(menu.getMenu());
 	}
 
 	private void createAssociationDetailArea(Composite composite, Object inputObject) {
@@ -420,7 +451,6 @@ public class AssociationEditorTab extends Composite implements ITransactionListe
 				return event.eventType == ColumnViewerEditorActivationEvent.TRAVERSAL
 						|| event.eventType == ColumnViewerEditorActivationEvent.MOUSE_DOUBLE_CLICK_SELECTION
 						|| event.eventType == ColumnViewerEditorActivationEvent.MOUSE_CLICK_SELECTION
-						|| event.eventType == ColumnViewerEditorActivationEvent.KEY_PRESSED
 						|| (event.eventType == ColumnViewerEditorActivationEvent.KEY_PRESSED && event.keyCode == SWT.CR)
 						|| event.eventType == ColumnViewerEditorActivationEvent.PROGRAMMATIC;
 			}
@@ -515,9 +545,10 @@ public class AssociationEditorTab extends Composite implements ITransactionListe
 	/**
 	 * We have the following rules:
 	 * 
-	 * 1 (unconditional one) mult = 0, cond = 0 0..1 (conditional one) mult = 0,
-	 * cond = 1 1..* (unconditional many) mult = 1, cond = 0 * (conditional
-	 * many) mult = 1, cond = 1
+	 * 1 (unconditional one) mult = 0 cond = 0
+	 * 0..1 (conditional one) mult = 0 cond = 1
+	 * 1..* (unconditional many) mult = 1, cond = 0
+	 * * (conditional many) mult = 1, cond = 1
 	 * 
 	 */
 	public static String getRuleText(ObjectElement objEle) {
@@ -571,6 +602,7 @@ public class AssociationEditorTab extends Composite implements ITransactionListe
 		PlatformUI.getWorkbench().getDisplay().asyncExec(() -> {
 			if (!fTableViewer.getTable().isDisposed() && !fTableViewer.isCellEditorActive()) {
 				fTableViewer.refresh();
+				fTableViewer.getTable().update();
 			}
 		});
 	}

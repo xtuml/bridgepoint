@@ -131,13 +131,19 @@ public class AssociationEditingSupport extends ElementEditingSupport {
 		if (element instanceof ObjectElement) {
 			if (((ObjectElement) element).getName().equals("Mult")) { //$NON-NLS-1$
 				String rule = AssociationEditorTab.getRuleText((ObjectElement) element);
-				return getRuleComboboxLocation(rule);
+				Integer location = getRuleComboboxLocation(rule);
+				if(((ObjectElement) element).getParent() instanceof ClassAsLink_c) {
+					if(location == 3) {
+						return 1;
+					}
+				}
+				return location;
 			}
 		}
 		return super.getValue(element);
 	}
 
-	private Object getRuleComboboxLocation(String rule) {
+	private Integer getRuleComboboxLocation(String rule) {
 		if (rule.equals("0..1")) {
 			return 1;
 		}
