@@ -7,7 +7,7 @@ export bp_install_dir=~/xtuml/BridgePoint.app/Contents/Eclipse/
 # for linux uncomment this line and comment the mac version
 #export bp_install_dir=~/xtuml/BridgePoint
 export WORKSPACE=~/workspace
-export INCLUDE_TESTS=true
+export INCLUDE_TESTS=false
 export XTUML_DEVELOPMENT_REPOSITORY=${BP_GIT_DIR}/bridgepoint
 export XTUML_TEST_MODEL_REPOSITORY=${BP_GIT_DIR}/models/test
 export mcj_path=${XTUML_DEVELOPMENT_REPOSITORY}/src/MC-Java
