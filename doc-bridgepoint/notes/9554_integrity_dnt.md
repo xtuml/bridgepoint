@@ -20,6 +20,7 @@ Perform complete (referential) integrity checking.
 <a id="2.5"></a>2.5 [test_consistency.py](https://github.com/xtuml/pyxtuml/blob/master/tests/test_xtuml/test_consistency.py) pyxtuml consistency checker  
 <a id="2.6"></a>2.6 [9554 Integrity Analysis Note](https://github.com/xtuml/bridgepoint/blob/master/doc-bridgepoint/notes/9554_integrity_ant.md) 9554 Integrity Checker Analysis Note  
 <a id="2.7"></a>2.7 [Existing Integrity Checker Implementation Note](https://github.com/xtuml/internal/blob/master/doc-internal/notes/28_dts0100970501/28_dts0100970501_int.md) Integrity Checker Implementation  
+<a id="2.8"></a>2.8 [9681](https://support.onefact.net/issues/9681) OAL parser exits prematurely on select related role phrases when not reflexive  
 
 ### 3. Background
 
@@ -37,8 +38,9 @@ to allow arbitrary rules to be applied and enforced on a model element
 by model element basis.  The `NonRootModelElement` base class has an
 empty implementation of `checkIntegrity`.  Any model element can override
 this operation.  About a dozen elements do override it; most do not.
+The elements that do override checkIntegrity perform useful _ad hoc_ checks.
 
-The existing model called 'Model Integrity' can be leveraged in this
+The existing model called 'Model Integrity' may be leveraged in this
 present work to report issues discovered by new integrity checking.
 
 5.2 Referential Integrity  
@@ -57,7 +59,10 @@ links.
 
 ### 6. Design
 
+```
+notes and paste-in from requirements (just for now)
 Consider prototyping in mcooa.
+Consider the menu option in workspace preferences.
 
       6.1 Generalized Referential Integrity Checking  
       Add a utility that interrogates the entire instance population of a model
@@ -71,19 +76,7 @@ Consider prototyping in mcooa.
       6.1.2 link integrity  
       6.1.2.1 For each instance, verify that unconditional associations carry
       links to instances.  
-```
-Consider that rel phrases are tripping up the OAL parser.  Maybe the phrase was wrong?
 
-select many r_rels
-sort by relationship number
-for each r_rel in r_rels
-  if ( simple )
-    select many r_oirs related by r_rel->R_OIR[R201]
-  elif ( associative )
-  elif ( subsuper )
-  else
-    error
-```
       6.1.2.2 For each instance, verify that non-null referentials attributes
       are refering to attribute values in a existing instances.  
 
@@ -96,16 +89,26 @@ for each r_rel in r_rels
       identifier attributes.  
       6.1.4.2 Assert that referential attributes not particpating in an
       association have appropriate not-participating values.  
+```
 
 
-6.0 Orphans?  
-The requirements (and the current implementation) check for the existence
-of all links.  But this does not detect orphaned instances.  
-We currently use an RTO strategy.
-The failure case would be an RTO with nobody referring to it.
-How would we detect orphaned instances?
+6.0 General Flow
+```
+For each class in the model do the following:
+  Search for duplicate identifiers in the instance extent.
+  Match referential attribute values with identifier attribute values.
+  Find unconditional formalizer from a participant in a simple association.
+  Find unconditional participant from a formalizer in a simple association.
+  For an associator in a linked association ensure both ends have an instance.
+  From the one end of an associative, find the unconditional associator.
+  From the other end of an associative, find the unconditional associator.
+  For a subtype, ensure a supertype is present.
+  For a supertype, ensure exactly one subtype is present.
+```
 
-6.1 Instance In
+6.1 Check All Instances  
+To accomplish this, select all instances (using `SELECT MANY ... FROM INSTANCES OF ...`)
+of all classes in the OOA of OOA.  Exhaustively, iterate over the collections.
 
 6.2
 
@@ -149,6 +152,8 @@ This routine uses the getRTOs to find all instances referring to it.
 It seems to do most of the checking for instances that _should_ be there.
 However, it only checks if it can find them.  It does not check for the correct number of instances or duplicates.
 
+See [[2.8]](#2.8).  OAL parser exits prematurely on select related
+role phrases when not reflexive.  So, I avoided them.
 
 ### 7. Acceptance Test
 
