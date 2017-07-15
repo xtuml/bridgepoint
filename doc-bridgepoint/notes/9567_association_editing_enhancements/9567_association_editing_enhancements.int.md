@@ -110,8 +110,6 @@ org.xtuml.bp.pkg-feature/feature.xml
 
 org.xtuml.bp.releng.parent/pom.xml
 
-org.xtuml.bp.ui.graphics/.externalToolBuilders/Build.launch 
-
 </pre>
 
 Fork/Repository: https://github.com/travislondon/bptest
