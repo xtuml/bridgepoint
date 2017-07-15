@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: BridgePoint xtUML to MASL Plug-in
 Bundle-SymbolicName: org.xtuml.bp.x2m; singleton:=true
-Bundle-Version: 6.2.5.qualifier
+Bundle-Version: 6.4.3.qualifier
 Bundle-ClassPath: x2m.jar
 Bundle-Activator: org.xtuml.bp.x2m.X2MPlugin
 Bundle-Vendor: xtUML.org

@@ -34,18 +34,24 @@ Steps
   - Turn off Build Automatically if it is turned on
   
   - Update your development workspace with the latest version from github master
-   of all plug-in and support projects (e.g. installer, utilities)
+   of all plug-in, junit test, and support projects (e.g. utilities)
    
   - Create an issue in the issue tracker for the version bump.
   
-  - Branch the xtuml/bridgepoint repository.
+  - Branch the xtuml/bridgepoint and xtuml/bptest repositories.
 
   - Edit bp.internal.tools/update_BP_version.xml to contain the new version and
-   commit this to the issue used for the version bump.  Make sure to leave the -SNAPSHOT (for pom files) and .qualifier for eclipse plugins.  The versions should be 6.2.5-SNAPSHOT and 6.2.5.qualifier repectively.
+   commit this to the issue used for the version bump.  Make sure to leave the -SNAPSHOT 
+   (for pom files) and .qualifier for eclipse plug-ins.  The versions should be, for
+   example, 6.4.2-SNAPSHOT and 6.4.2.qualifier respectively.
    
   - Right-click update_BP_version.xml, select "Run As > Ant Build"
 
   - Select all projects in the workspace, refresh them to pick up the changes
+  
+  - Go to the org.xtuml.bp.doc plug-in.  Update, by hand, the Release Notes.md and 
+  Whats New.md files to reflect the proper version.  Rebuild the HTML versions of these 
+  files using pandoc (instructions in bp.doc/README.md)  
   
   R Version update is now complete, all files that must be modified are now
    "dirty" in your workspace.   

@@ -6,11 +6,14 @@
 -->
 <project name="bp.internal.tools" default="updateVersion" basedir="./../..">
 
-    <property name="currentVersion" value="6.2.5" />
-    <property name="newVersion" value="6.2.5.qualifier" />
+    <property name="currentVersion" value="6.4.0.qualifier" />
+    <property name="newVersion" value="6.4.3.qualifier" />
+    <property name="currentVersionSS" value="6.4.0-SNAPSHOT" />
+    <property name="newVersionSS" value="6.4.3-SNAPSHOT" />
+	<property name="bptestdir" value="${basedir}/../bptest"/>
 
     <target name="updateVersion" description="Update the version of BridgePoint">
-        <echo>Starting version update from ${currentVersion} to ${newVersion}</echo>
+        <echo>Starting version update from ${currentVersion} to ${newVersion} in bridgepoint repository</echo>
         <echo>Processing "${basedir}"</echo>
         <echo>This will take about minute or two...</echo>
         <replace dir="${basedir}" token="${currentVersion}" value="${newVersion}" defaultexcludes="yes" summary="yes">
@@ -29,11 +32,85 @@
         	<exclude name="**/*.gif"/>
             <exclude name="**/*.png"/>
         	<exclude name="**/*.bmp"/>
+            <exclude name="**/target/**"/>
             <exclude name="/.metadata/**"/>
             <exclude name="**/org.xtuml.bp.internal.tools/update_BP_version.xml"/>
             <exclude name="**/org.xtuml.bp.io.mdl/sql/file_io.pei.sql"/>
             <exclude name="**/org.xtuml.bp.io.mdl/sql/stream.pei.sql"/>
         </replace>
+        <echo>Starting version update from ${currentVersionSS} to ${newVersionSS} in bridgepoint repository</echo>
+        <echo>Processing "${basedir}"</echo>
+        <echo>This will take about minute or two...</echo>
+        <replace dir="${basedir}" token="${currentVersionSS}" value="${newVersionSS}" defaultexcludes="yes" summary="yes">
+            <exclude name="**/*.htm*"/>
+            <exclude name="**/*.ant"/>
+            <exclude name="**/*.dnt"/>
+            <exclude name="**/*.int"/>
+            <exclude name="**/*.tnt"/>
+            <exclude name="**/*.rvm"/>
+            <exclude name="**/*.chk"/>
+            <exclude name="**/*.xtuml"/>
+            <exclude name="**/*.txt"/>
+            <exclude name="**/*.ppnt"/>
+            <exclude name="**/*.doc*"/>
+            <exclude name="**/*.jpg"/>
+            <exclude name="**/*.gif"/>
+            <exclude name="**/*.png"/>
+            <exclude name="**/*.bmp"/>
+            <exclude name="**/target/**"/>
+            <exclude name="/.metadata/**"/>
+            <exclude name="**/org.xtuml.bp.internal.tools/update_BP_version.xml"/>
+            <exclude name="**/org.xtuml.bp.io.mdl/sql/file_io.pei.sql"/>
+            <exclude name="**/org.xtuml.bp.io.mdl/sql/stream.pei.sql"/>
+        </replace>
+    	
+        <echo>Starting version update from ${currentVersion} to ${newVersion} in bptest repository</echo>
+        <echo>Processing "${bptestdir}"</echo>
+        <echo>This will take about minute or two...</echo>
+        <replace dir="${bptestdir}" token="${currentVersion}" value="${newVersion}" defaultexcludes="yes" summary="yes">
+            <exclude name="**/*.htm*"/>
+            <exclude name="**/*.ant"/>
+            <exclude name="**/*.dnt"/>
+            <exclude name="**/*.int"/>
+            <exclude name="**/*.tnt"/>
+            <exclude name="**/*.rvm"/>
+            <exclude name="**/*.chk"/>
+            <exclude name="**/*.xtuml"/>
+            <exclude name="**/*.txt"/>
+            <exclude name="**/*.ppnt"/>
+            <exclude name="**/*.doc*"/>
+            <exclude name="**/*.jpg"/>
+            <exclude name="**/*.gif"/>
+            <exclude name="**/*.png"/>
+            <exclude name="**/*.bmp"/>
+            <exclude name="**/target/**"/>
+            <exclude name="/.metadata/**"/>
+        </replace>
+        <echo>Starting version update from ${currentVersionSS} to ${newVersionSS} in bptest repository</echo>
+        <echo>Processing "${bptestdir}"</echo>
+        <echo>This will take about minute or two...</echo>
+        <replace dir="${bptestdir}" token="${currentVersionSS}" value="${newVersionSS}" defaultexcludes="yes" summary="yes">
+            <exclude name="**/*.htm*"/>
+            <exclude name="**/*.ant"/>
+            <exclude name="**/*.dnt"/>
+            <exclude name="**/*.int"/>
+            <exclude name="**/*.tnt"/>
+            <exclude name="**/*.rvm"/>
+            <exclude name="**/*.chk"/>
+            <exclude name="**/*.xtuml"/>
+            <exclude name="**/*.txt"/>
+            <exclude name="**/*.ppnt"/>
+            <exclude name="**/*.doc*"/>
+            <exclude name="**/*.jpg"/>
+            <exclude name="**/*.gif"/>
+            <exclude name="**/*.png"/>
+            <exclude name="**/*.bmp"/>
+            <exclude name="**/target/**"/>
+            <exclude name="/.metadata/**"/>
+        </replace>
+ 
+    	<echo> </echo>
+    	<echo> </echo>
         <echo>Done updating version.  Please make the hand edits required under bp.doc now.</echo>
     </target>
 

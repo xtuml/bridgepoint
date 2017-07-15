@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: C++ Model Compiler (Source)
 Bundle-SymbolicName: org.xtuml.bp.mc.cpp.source; singleton:=true
-Bundle-Version: 6.2.5.qualifier
+Bundle-Version: 6.4.3.qualifier
 Bundle-Activator: org.xtuml.bp.mc.cpp.source.Activator
 Bundle-Vendor: xtUML.org
 Require-Bundle: org.eclipse.ui,

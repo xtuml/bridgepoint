@@ -13,6 +13,8 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
 import org.xtuml.bp.xtext.masl.masl.behavior.Expression;
 
+import org.xtuml.bp.xtext.masl.masl.structure.RangeTypeReference;
+
 import org.xtuml.bp.xtext.masl.masl.types.ArrayTypeReference;
 import org.xtuml.bp.xtext.masl.masl.types.TypesPackage;
 
@@ -25,6 +27,7 @@ import org.xtuml.bp.xtext.masl.masl.types.TypesPackage;
  * </p>
  * <ul>
  *   <li>{@link org.xtuml.bp.xtext.masl.masl.types.impl.ArrayTypeReferenceImpl#getExpression <em>Expression</em>}</li>
+ *   <li>{@link org.xtuml.bp.xtext.masl.masl.types.impl.ArrayTypeReferenceImpl#getIndexType <em>Index Type</em>}</li>
  * </ul>
  *
  * @generated
@@ -39,6 +42,16 @@ public class ArrayTypeReferenceImpl extends AbstractCollectionTypeReferenceImpl 
 	 * @ordered
 	 */
 	protected Expression expression;
+
+	/**
+	 * The cached value of the '{@link #getIndexType() <em>Index Type</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getIndexType()
+	 * @generated
+	 * @ordered
+	 */
+	protected RangeTypeReference indexType;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -107,11 +120,56 @@ public class ArrayTypeReferenceImpl extends AbstractCollectionTypeReferenceImpl 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public RangeTypeReference getIndexType() {
+		return indexType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetIndexType(RangeTypeReference newIndexType, NotificationChain msgs) {
+		RangeTypeReference oldIndexType = indexType;
+		indexType = newIndexType;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, TypesPackage.ARRAY_TYPE_REFERENCE__INDEX_TYPE, oldIndexType, newIndexType);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setIndexType(RangeTypeReference newIndexType) {
+		if (newIndexType != indexType) {
+			NotificationChain msgs = null;
+			if (indexType != null)
+				msgs = ((InternalEObject)indexType).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - TypesPackage.ARRAY_TYPE_REFERENCE__INDEX_TYPE, null, msgs);
+			if (newIndexType != null)
+				msgs = ((InternalEObject)newIndexType).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - TypesPackage.ARRAY_TYPE_REFERENCE__INDEX_TYPE, null, msgs);
+			msgs = basicSetIndexType(newIndexType, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, TypesPackage.ARRAY_TYPE_REFERENCE__INDEX_TYPE, newIndexType, newIndexType));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case TypesPackage.ARRAY_TYPE_REFERENCE__EXPRESSION:
 				return basicSetExpression(null, msgs);
+			case TypesPackage.ARRAY_TYPE_REFERENCE__INDEX_TYPE:
+				return basicSetIndexType(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -126,6 +184,8 @@ public class ArrayTypeReferenceImpl extends AbstractCollectionTypeReferenceImpl 
 		switch (featureID) {
 			case TypesPackage.ARRAY_TYPE_REFERENCE__EXPRESSION:
 				return getExpression();
+			case TypesPackage.ARRAY_TYPE_REFERENCE__INDEX_TYPE:
+				return getIndexType();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -140,6 +200,9 @@ public class ArrayTypeReferenceImpl extends AbstractCollectionTypeReferenceImpl 
 		switch (featureID) {
 			case TypesPackage.ARRAY_TYPE_REFERENCE__EXPRESSION:
 				setExpression((Expression)newValue);
+				return;
+			case TypesPackage.ARRAY_TYPE_REFERENCE__INDEX_TYPE:
+				setIndexType((RangeTypeReference)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -156,6 +219,9 @@ public class ArrayTypeReferenceImpl extends AbstractCollectionTypeReferenceImpl 
 			case TypesPackage.ARRAY_TYPE_REFERENCE__EXPRESSION:
 				setExpression((Expression)null);
 				return;
+			case TypesPackage.ARRAY_TYPE_REFERENCE__INDEX_TYPE:
+				setIndexType((RangeTypeReference)null);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -170,6 +236,8 @@ public class ArrayTypeReferenceImpl extends AbstractCollectionTypeReferenceImpl 
 		switch (featureID) {
 			case TypesPackage.ARRAY_TYPE_REFERENCE__EXPRESSION:
 				return expression != null;
+			case TypesPackage.ARRAY_TYPE_REFERENCE__INDEX_TYPE:
+				return indexType != null;
 		}
 		return super.eIsSet(featureID);
 	}

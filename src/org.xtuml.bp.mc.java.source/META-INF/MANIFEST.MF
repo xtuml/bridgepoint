@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Java Model Compiler
 Bundle-SymbolicName: org.xtuml.bp.mc.java.source;singleton:=true
-Bundle-Version: 6.2.5.qualifier
+Bundle-Version: 6.4.3.qualifier
 Bundle-Activator: org.xtuml.bp.mc.java.source.Activator
 Bundle-Vendor: xtUML.org
 Require-Bundle: org.eclipse.ui,

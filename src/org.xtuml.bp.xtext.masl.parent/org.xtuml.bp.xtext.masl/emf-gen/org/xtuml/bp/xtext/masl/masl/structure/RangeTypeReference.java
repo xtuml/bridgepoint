@@ -14,6 +14,7 @@ import org.xtuml.bp.xtext.masl.masl.types.AbstractTypeReference;
  * The following features are supported:
  * </p>
  * <ul>
+ *   <li>{@link org.xtuml.bp.xtext.masl.masl.structure.RangeTypeReference#isAnonymous <em>Anonymous</em>}</li>
  *   <li>{@link org.xtuml.bp.xtext.masl.masl.structure.RangeTypeReference#getElementType <em>Element Type</em>}</li>
  * </ul>
  *
@@ -22,6 +23,32 @@ import org.xtuml.bp.xtext.masl.masl.types.AbstractTypeReference;
  * @generated
  */
 public interface RangeTypeReference extends AbstractTypeReference {
+	/**
+	 * Returns the value of the '<em><b>Anonymous</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Anonymous</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Anonymous</em>' attribute.
+	 * @see #setAnonymous(boolean)
+	 * @see org.xtuml.bp.xtext.masl.masl.structure.StructurePackage#getRangeTypeReference_Anonymous()
+	 * @model unique="false"
+	 * @generated
+	 */
+	boolean isAnonymous();
+
+	/**
+	 * Sets the value of the '{@link org.xtuml.bp.xtext.masl.masl.structure.RangeTypeReference#isAnonymous <em>Anonymous</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Anonymous</em>' attribute.
+	 * @see #isAnonymous()
+	 * @generated
+	 */
+	void setAnonymous(boolean value);
+
 	/**
 	 * Returns the value of the '<em><b>Element Type</b></em>' containment reference.
 	 * <!-- begin-user-doc -->

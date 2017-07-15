@@ -51,13 +51,14 @@ builtin is
 	integer'first return integer;
 	integer'last  return integer;
 	integer'range return integer;
+	integer'value(p: in anonymous string) return integer;
 
-	<enum E> E'first()             return anonymous long_integer;
-	<enum E> E'last()              return anonymous long_integer;
+	<enum E> E'first()             return E;
+	<enum E> E'last()              return E;
 	<enum E> E'size()              return anonymous long_integer;
 	<enum E> E'pos(p: in E)        return anonymous long_integer;
 	<enum E> E'value(p: in anonymous string) return E;
-	<enum E> E'range()             return range of integer;
+	<enum E> E'range()             return anonymous range of E;
 	<enum E> (E)'pred() return E;
 	<enum E> (E)'succ() return E;
 	<enum E> (E)'value() return anonymous long_integer;
@@ -68,30 +69,30 @@ builtin is
 	(string)'first()                       return anonymous long_integer;
 	(string)'last()                        return anonymous long_integer;
 	(string)'length()                      return anonymous long_integer;
-	(string)'range()                       return range of integer;
-	(string)'elements()                    return range of character;
+	(string)'range()                       return anonymous range of integer;
+	(string)'elements()                    return anonymous range of character;
 
-	<T> (array (null) of T)'elements()   return range of T;
-	<T> (array (null) of T)'length()     return anonymous long_integer;
-	<T> (array (null) of T)'first()      return anonymous long_integer;
-	<T> (array (null) of T)'last()       return anonymous long_integer;
-	<T> (array (null) of T)'range()      return range of integer;
-	<T> (array (null) of T)'get_unique() return anonymous set of T;
+	<T, R> (array (range of R) of T)'elements()   return anonymous range of T;
+	<T, R> (array (range of R) of T)'length()     return anonymous long_integer;
+	<T, R> (array (range of R) of T)'first()      return anonymous R;
+	<T, R> (array (range of R) of T)'last()       return anonymous R;
+	<T, R> (array (range of R) of T)'range()      return anonymous range of R;
+	<T, R> (array (range of R) of T)'get_unique() return anonymous set of T;
 
-	<T> (sequence of T)'elements()   return range of T;
+	<T> (sequence of T)'elements()   return anonymous range of T;
 	<T> (sequence of T)'length()     return anonymous long_integer;
 	<T> (sequence of T)'first()      return anonymous long_integer;
 	<T> (sequence of T)'last()       return anonymous long_integer;
-	<T> (sequence of T)'range()      return range of integer;
+	<T> (sequence of T)'range()      return anonymous range of integer;
 	<T> (sequence of T)'get_unique() return anonymous set of T;
 	<T> (sequence of T)'any() 		 return T;
 
-	<T> (bag of T)'elements()   return range of T;
+	<T> (bag of T)'elements()   return anonymous range of T;
 	<T> (bag of T)'length()     return anonymous long_integer;
 	<T> (bag of T)'get_unique() return anonymous set of T;
 	<T> (bag of T)'any() 		return T;
 	
-	<T> (set of T)'elements() return range of T;
+	<T> (set of T)'elements() return anonymous range of T;
 	<T> (set of T)'length()   return anonymous long_integer;
 	<T> (set of T)'any() 	  return T;
 

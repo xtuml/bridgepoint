@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: BridgePoint Oal Plug-in
 Bundle-SymbolicName: org.xtuml.bp.als.oal;singleton:=true
-Bundle-Version: 6.2.5.qualifier
+Bundle-Version: 6.4.3.qualifier
 Bundle-ClassPath: oal.jar
 Bundle-Activator: org.xtuml.bp.als.oal.OalPlugin
 Bundle-Vendor: xtUML.org

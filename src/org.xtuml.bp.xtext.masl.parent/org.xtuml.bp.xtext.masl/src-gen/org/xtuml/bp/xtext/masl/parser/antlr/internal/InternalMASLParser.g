@@ -1368,20 +1368,34 @@ ruleRangeTypeReference returns [EObject current=null]
 	leaveRule();
 }:
 	(
-		otherlv_0=Range
+		(
+			(
+				lv_anonymous_0_0=Anonymous
+				{
+					newLeafNode(lv_anonymous_0_0, grammarAccess.getRangeTypeReferenceAccess().getAnonymousAnonymousKeyword_0_0());
+				}
+				{
+					if ($current==null) {
+						$current = createModelElement(grammarAccess.getRangeTypeReferenceRule());
+					}
+					setWithLastConsumed($current, "anonymous", true, "anonymous");
+				}
+			)
+		)?
+		otherlv_1=Range
 		{
-			newLeafNode(otherlv_0, grammarAccess.getRangeTypeReferenceAccess().getRangeKeyword_0());
+			newLeafNode(otherlv_1, grammarAccess.getRangeTypeReferenceAccess().getRangeKeyword_1());
 		}
-		otherlv_1=Of
+		otherlv_2=Of
 		{
-			newLeafNode(otherlv_1, grammarAccess.getRangeTypeReferenceAccess().getOfKeyword_1());
+			newLeafNode(otherlv_2, grammarAccess.getRangeTypeReferenceAccess().getOfKeyword_2());
 		}
 		(
 			(
 				{
-					newCompositeNode(grammarAccess.getRangeTypeReferenceAccess().getElementTypeAbstractTypeReferenceParserRuleCall_2_0());
+					newCompositeNode(grammarAccess.getRangeTypeReferenceAccess().getElementTypeAbstractTypeReferenceParserRuleCall_3_0());
 				}
-				lv_elementType_2_0=ruleAbstractTypeReference
+				lv_elementType_3_0=ruleAbstractTypeReference
 				{
 					if ($current==null) {
 						$current = createModelElementForParent(grammarAccess.getRangeTypeReferenceRule());
@@ -1389,7 +1403,7 @@ ruleRangeTypeReference returns [EObject current=null]
 					set(
 						$current,
 						"elementType",
-						lv_elementType_2_0,
+						lv_elementType_3_0,
 						"org.xtuml.bp.xtext.masl.MASL.AbstractTypeReference");
 					afterParserOrEnumRuleCall();
 				}
@@ -2849,37 +2863,59 @@ ruleArrayTypeReference returns [EObject current=null]
 		}
 		(
 			(
-				{
-					newCompositeNode(grammarAccess.getArrayTypeReferenceAccess().getExpressionExpressionParserRuleCall_3_0());
-				}
-				lv_expression_3_0=ruleExpression
-				{
-					if ($current==null) {
-						$current = createModelElementForParent(grammarAccess.getArrayTypeReferenceRule());
+				(
+					{
+						newCompositeNode(grammarAccess.getArrayTypeReferenceAccess().getIndexTypeRangeTypeReferenceParserRuleCall_3_0_0());
 					}
-					set(
-						$current,
-						"expression",
-						lv_expression_3_0,
-						"org.xtuml.bp.xtext.masl.MASL.Expression");
-					afterParserOrEnumRuleCall();
-				}
+					lv_indexType_3_0=ruleRangeTypeReference
+					{
+						if ($current==null) {
+							$current = createModelElementForParent(grammarAccess.getArrayTypeReferenceRule());
+						}
+						set(
+							$current,
+							"indexType",
+							lv_indexType_3_0,
+							"org.xtuml.bp.xtext.masl.MASL.RangeTypeReference");
+						afterParserOrEnumRuleCall();
+					}
+				)
+			)
+			    |
+			(
+				(
+					{
+						newCompositeNode(grammarAccess.getArrayTypeReferenceAccess().getExpressionExpressionParserRuleCall_3_1_0());
+					}
+					lv_expression_4_0=ruleExpression
+					{
+						if ($current==null) {
+							$current = createModelElementForParent(grammarAccess.getArrayTypeReferenceRule());
+						}
+						set(
+							$current,
+							"expression",
+							lv_expression_4_0,
+							"org.xtuml.bp.xtext.masl.MASL.Expression");
+						afterParserOrEnumRuleCall();
+					}
+				)
 			)
 		)
-		otherlv_4=RightParenthesis
+		otherlv_5=RightParenthesis
 		{
-			newLeafNode(otherlv_4, grammarAccess.getArrayTypeReferenceAccess().getRightParenthesisKeyword_4());
+			newLeafNode(otherlv_5, grammarAccess.getArrayTypeReferenceAccess().getRightParenthesisKeyword_4());
 		}
-		otherlv_5=Of
+		otherlv_6=Of
 		{
-			newLeafNode(otherlv_5, grammarAccess.getArrayTypeReferenceAccess().getOfKeyword_5());
+			newLeafNode(otherlv_6, grammarAccess.getArrayTypeReferenceAccess().getOfKeyword_5());
 		}
 		(
 			(
 				{
 					newCompositeNode(grammarAccess.getArrayTypeReferenceAccess().getElementTypeAbstractTypeReferenceParserRuleCall_6_0());
 				}
-				lv_elementType_6_0=ruleAbstractTypeReference
+				lv_elementType_7_0=ruleAbstractTypeReference
 				{
 					if ($current==null) {
 						$current = createModelElementForParent(grammarAccess.getArrayTypeReferenceRule());
@@ -2887,7 +2923,7 @@ ruleArrayTypeReference returns [EObject current=null]
 					set(
 						$current,
 						"elementType",
-						lv_elementType_6_0,
+						lv_elementType_7_0,
 						"org.xtuml.bp.xtext.masl.MASL.AbstractTypeReference");
 					afterParserOrEnumRuleCall();
 				}
