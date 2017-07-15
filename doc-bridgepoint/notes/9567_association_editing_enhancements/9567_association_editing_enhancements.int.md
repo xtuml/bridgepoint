@@ -46,7 +46,71 @@ Branch: 9567_association_editing_enhancements
 
 <pre>
 
-Put the file list here 
+doc-bridgepoint/notes/9567_association_editing_enhancements/
+9567_association_editing_enhancements.dnt.md
+doc-bridgepoint/notes/9567_association_editing_enhancements/
+9567_association_editing_enhancements.int.md
+doc-bridgepoint/notes/9567_association_editing_enhancements/
+9567_association_editing_enhancements.md
+doc-bridgepoint/review-minutes/9567_association_editing_enhancements_ant_rvm.md
+doc-bridgepoint/review-minutes/9567_association_editing_enhancements_ant_rvm2.md
+
+org.xtuml.bp.core/.externalToolBuilders/Build.launch
+org.xtuml.bp.core/arc/BuildHierarchyProperties.arc
+org.xtuml.bp.core/arc/create_properties_file.inc
+org.xtuml.bp.core/arc/generate_cell_modifiers.arc
+org.xtuml.bp.core/models/org.xtuml.bp.core/ooaofooa/Association/Association/
+Association.xtuml
+org.xtuml.bp.core/src/org/xtuml/bp/core/CorePluginMessages.properties
+org.xtuml.bp.core/src/org/xtuml/bp/core/common/ITransactionListener.java
+org.xtuml.bp.core/src/org/xtuml/bp/core/ui/Selection.java
+org.xtuml.bp.core/src/org/xtuml/bp/core/ui/cells/editors/IntegerCellEditor.java
+org.xtuml.bp.core/generate.xml
+
+org.xtuml.bp.core.editors/.externalToolBuilders/Build.launch
+org.xtuml.bp.core.editors/.externalToolBuilders/Clean.launch
+org.xtuml.bp.core.editors/.settings/org.eclipse.jdt.core.prefs
+org.xtuml.bp.core.editors/bin/.gitignore
+org.xtuml.bp.core.editors/META-INF/MANIFEST.MF
+org.xtuml.bp.core.editors/src/org/xtuml/bp/core/editors/Activator.java
+org.xtuml.bp.core.editors/src/org/xtuml/bp/core/editors/ErrorToolTip.java
+org.xtuml.bp.core.editors/src/org/xtuml/bp/core/editors/ITabErrorSupport.java
+org.xtuml.bp.core.editors/src/org/xtuml/bp/core/editors/actions/
+TreeCopyAction.java
+org.xtuml.bp.core.editors/src/org/xtuml/bp/core/editors/actions/
+TreeCutAction.java
+org.xtuml.bp.core.editors/src/org/xtuml/bp/core/editors/actions/
+TreePasteAction.java
+org.xtuml.bp.core.editors/src/org/xtuml/bp/core/editors/association/
+AssociationEditorTab.java
+org.xtuml.bp.core.editors/src/org/xtuml/bp/core/editors/association/
+TextDialog.java
+org.xtuml.bp.core.editors/src/org/xtuml/bp/core/editors/association/actions/
+ConfigureAssociation.java
+org.xtuml.bp.core.editors/src/org/xtuml/bp/core/editors/association/dialogs/
+AssociationTableDialog.java
+org.xtuml.bp.core.editors/src/org/xtuml/bp/core/editors/association/editing/
+AssociationEditingSupport.java
+org.xtuml.bp.core.editors/src/org/xtuml/bp/core/editors/association/factories/
+AssociationEditorTabFactory.java
+org.xtuml.bp.core.editors/src/org/xtuml/bp/core/editors/editing/
+ElementEditingSupport.java
+org.xtuml.bp.core.editors/src/org/xtuml/bp/core/editors/providers/
+MetaModelContentProvider.java
+org.xtuml.bp.core.editors/src/org/xtuml/bp/core/editors/providers/
+MetaModelLabelProvider.java
+org.xtuml.bp.core.editors/.classpath
+org.xtuml.bp.core.editors/.gitignore
+org.xtuml.bp.core.editors/.project
+org.xtuml.bp.core.editors/build.properties
+org.xtuml.bp.core.editors/plugin.xml
+org.xtuml.bp.core.editors/pom.xml
+
+org.xtuml.bp.pkg-feature/feature.xml
+
+org.xtuml.bp.releng.parent/pom.xml
+
+org.xtuml.bp.ui.graphics/.externalToolBuilders/Build.launch 
 
 </pre>
 
@@ -55,7 +119,12 @@ Branch: 9567_association_editing_enhancements
 
 <pre>
 
-Put the file list here 
+org.xtuml.bp.core.test/META-INF/MANIFEST.MF
+org.xtuml.bp.core.test/src/CoreGlobalsTestSuiteGenerics.java
+org.xtuml.bp.core.test/src/org/xtuml/bp/core/test/
+AssociationTableEditorTests.java
+
+org.xtuml.bp.test/src/org/xtuml/bp/test/TestUtil.java 
 
 </pre>
 

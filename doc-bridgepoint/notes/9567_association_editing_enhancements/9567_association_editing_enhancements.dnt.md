@@ -28,25 +28,25 @@ See [[2.1]](#2.1).
 
 6.1 Table based editing    
 6.1.1 Introduce new plug-in org.xtuml.bp.core.editors to house new editor variations  
-6.1.1.1 Introduce new table based control
+6.1.1.1 Introduce new table based control  
 6.1.1.1.1 Add class AssociationEditorTab, extending SWT Control  
 6.1.1.1.2 Add plug-in extension for EditorTab, named Associations Editor with input of Package_c  
-6.1.1.1.3 Add table viewer as main focus for the new control 
+6.1.1.1.3 Add table viewer as main focus for the new control  
 6.1.1.1.3.1 Define content and label providers, MetamodelContentProvider and MetamodelLabelProvider  
 6.1.1.1.3.1.1 Do not consider supertype/subtype associtions as content  
-6.1.1.1.3.2 Add BuildHierarchyProperties.arc, create_properties_file.inc to generate CorePluginMessages.propeties enabling proper labels for hierarchy object elements (for example, R_ONE)  
+6.1.1.1.3.2 Add BuildHierarchyProperties.arc, create_properties_file.inc to generate  CorePluginMessages.propeties enabling proper labels for hierarchy object elements (for example, R_ONE)  
 6.1.1.1.3.3 Add ErrorToolTip class, shown as a pop up in the table when an invalid entry is given  
 6.1.1.1.4 Add check box for formalization  
 6.1.1.1.5 Add Description button to open new text dialog for editing descriptions of an association  
 6.1.1.1.5.1 Add TextDialog class to handle text dialog support  
 6.1.1.1.6 Add cell editing support  
-6.1.1.1.6.1 Add ElementEditingSupport class, enabling editing of the various cell types
+6.1.1.1.6.1 Add ElementEditingSupport class, enabling editing of the various cell types  
 6.1.1.1.6.2 Add AssociationEditingSupport extending ElementEditingSupport to include handling edit of Rules  
-6.1.2 Fix IntergerCellEditor such that if dealing with a table based cell and Integer is passed rather than string it is converted  
+6.1.2 Fix IntergerCellEditor such that if dealing with a table based cell and Integer is passed rather than string it is converted   
 6.1.3 Modify generate_cell_modifiers.arc to generate validation for text phrases  
 6.1.4 Introduce AssociationTableDialog used to edit associations just as with the tab, only in a dialog  
 6.1.4.1 Introduce new action to open the AssociationTableDialog  
-6.1.4.2 Define new CMEs for Package, Association, Class As Link and Model Class
+6.1.4.2 Define new CMEs for Package, Association, Class As Link and Model Class  
 6.1.4.2.1 For Package edit all associations in the package  
 6.1.4.2.2 For Association edit all selected associations  
 6.1.4.2.3 For Class As Link edit the association, or all selected Class As Link instances  
