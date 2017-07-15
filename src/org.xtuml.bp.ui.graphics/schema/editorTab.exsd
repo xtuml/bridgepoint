@@ -2,9 +2,9 @@
 <!-- Schema file written by PDE -->
 <schema targetNamespace="org.xtuml.bp.ui.graphics" xmlns="http://www.w3.org/2001/XMLSchema">
 <annotation>
-      <appinfo>
+      <appInfo>
          <meta.schema plugin="org.xtuml.bp.ui.graphics" id="editorTab" name="Graphics Editor Tab"/>
-      </appinfo>
+      </appInfo>
       <documentation>
          Use this extension point to add tabs to the Graphical Editor.
       </documentation>
@@ -12,9 +12,9 @@
 
    <element name="extension">
       <annotation>
-         <appinfo>
+         <appInfo>
             <meta.element />
-         </appinfo>
+         </appInfo>
       </annotation>
       <complexType>
          <choice minOccurs="1" maxOccurs="unbounded">
@@ -39,9 +39,9 @@
                <documentation>
                   
                </documentation>
-               <appinfo>
+               <appInfo>
                   <meta.attribute translatable="true"/>
-               </appinfo>
+               </appInfo>
             </annotation>
          </attribute>
       </complexType>
@@ -54,9 +54,9 @@
                <documentation>
                   
                </documentation>
-               <appinfo>
+               <appInfo>
                   <meta.attribute kind="java" basedOn=":org.xtuml.bp.ui.graphics.IEditorTabFactory"/>
-               </appinfo>
+               </appInfo>
             </annotation>
          </attribute>
          <attribute name="Input" type="string" use="required">
@@ -64,9 +64,9 @@
                <documentation>
                   
                </documentation>
-               <appinfo>
+               <appInfo>
                   <meta.attribute kind="java" basedOn="org.xtuml.bp.core.common.NonRootModelElement:"/>
-               </appinfo>
+               </appInfo>
             </annotation>
          </attribute>
          <attribute name="EditorTitle" type="string" use="required">
@@ -76,47 +76,40 @@
                </documentation>
             </annotation>
          </attribute>
-         <attribute name="focusBased" type="boolean">
-            <annotation>
-               <documentation>
-                  A focus based editor will have tab editors show based on the current focus.
-               </documentation>
-            </annotation>
-         </attribute>
       </complexType>
    </element>
 
    <annotation>
-      <appinfo>
+      <appInfo>
          <meta.section type="since"/>
-      </appinfo>
+      </appInfo>
       <documentation>
          [Enter the first release in which this extension point appears.]
       </documentation>
    </annotation>
 
    <annotation>
-      <appinfo>
+      <appInfo>
          <meta.section type="examples"/>
-      </appinfo>
+      </appInfo>
       <documentation>
          [Enter extension point usage example here.]
       </documentation>
    </annotation>
 
    <annotation>
-      <appinfo>
+      <appInfo>
          <meta.section type="apiinfo"/>
-      </appinfo>
+      </appInfo>
       <documentation>
          [Enter API information here.]
       </documentation>
    </annotation>
 
    <annotation>
-      <appinfo>
+      <appInfo>
          <meta.section type="implementation"/>
-      </appinfo>
+      </appInfo>
       <documentation>
          [Enter information about supplied implementation of this extension point.]
       </documentation>

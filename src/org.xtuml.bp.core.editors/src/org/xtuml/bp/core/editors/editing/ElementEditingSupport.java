@@ -38,8 +38,6 @@ import org.xtuml.bp.core.common.Transaction;
 import org.xtuml.bp.core.common.TransactionException;
 import org.xtuml.bp.core.common.TransactionManager;
 import org.xtuml.bp.core.editors.ITabErrorSupport;
-import org.xtuml.bp.core.editors.association.editing.ActivityCellEditor;
-import org.xtuml.bp.core.editors.association.editing.DescriptionCellEditor;
 import org.xtuml.bp.core.inspector.ObjectElement;
 import org.xtuml.bp.core.ui.cells.CellModifierProvider;
 import org.xtuml.bp.ui.canvas.Ooaofgraphics;
@@ -144,10 +142,7 @@ public class ElementEditingSupport extends EditingSupport {
 		if (element instanceof ObjectElement) {
 			ObjectElement objEle = (ObjectElement) element;
 			if(objEle.getName().equals("Descrip")) {
-				return new DescriptionCellEditor((Composite) viewer.getControl(), objEle.getParent());
-			}
-			if(objEle.getName().equals("Action_Semantics")) {
-				return new ActivityCellEditor((Composite) viewer.getControl(), objEle.getParent());
+				return null;
 			}
 			CellEditor editor = null;
 			if(((NonRootModelElement) objEle.getParent()).getModelRoot() instanceof Ooaofooa) {
