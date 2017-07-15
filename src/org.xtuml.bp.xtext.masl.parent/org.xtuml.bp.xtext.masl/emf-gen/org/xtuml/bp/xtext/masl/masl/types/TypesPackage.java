@@ -1155,13 +1155,22 @@ public interface TypesPackage extends EPackage {
 	int ARRAY_TYPE_REFERENCE__EXPRESSION = ABSTRACT_COLLECTION_TYPE_REFERENCE_FEATURE_COUNT + 0;
 
 	/**
+	 * The feature id for the '<em><b>Index Type</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ARRAY_TYPE_REFERENCE__INDEX_TYPE = ABSTRACT_COLLECTION_TYPE_REFERENCE_FEATURE_COUNT + 1;
+
+	/**
 	 * The number of structural features of the '<em>Array Type Reference</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ARRAY_TYPE_REFERENCE_FEATURE_COUNT = ABSTRACT_COLLECTION_TYPE_REFERENCE_FEATURE_COUNT + 1;
+	int ARRAY_TYPE_REFERENCE_FEATURE_COUNT = ABSTRACT_COLLECTION_TYPE_REFERENCE_FEATURE_COUNT + 2;
 
 	/**
 	 * The number of operations of the '<em>Array Type Reference</em>' class.
@@ -1930,6 +1939,17 @@ public interface TypesPackage extends EPackage {
 	EReference getArrayTypeReference_Expression();
 
 	/**
+	 * Returns the meta object for the containment reference '{@link org.xtuml.bp.xtext.masl.masl.types.ArrayTypeReference#getIndexType <em>Index Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Index Type</em>'.
+	 * @see org.xtuml.bp.xtext.masl.masl.types.ArrayTypeReference#getIndexType()
+	 * @see #getArrayTypeReference()
+	 * @generated
+	 */
+	EReference getArrayTypeReference_IndexType();
+
+	/**
 	 * Returns the meta object for class '{@link org.xtuml.bp.xtext.masl.masl.types.SetTypeReference <em>Set Type Reference</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2478,6 +2498,14 @@ public interface TypesPackage extends EPackage {
 		 * @generated
 		 */
 		EReference ARRAY_TYPE_REFERENCE__EXPRESSION = eINSTANCE.getArrayTypeReference_Expression();
+
+		/**
+		 * The meta object literal for the '<em><b>Index Type</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference ARRAY_TYPE_REFERENCE__INDEX_TYPE = eINSTANCE.getArrayTypeReference_IndexType();
 
 		/**
 		 * The meta object literal for the '{@link org.xtuml.bp.xtext.masl.masl.types.impl.SetTypeReferenceImpl <em>Set Type Reference</em>}' class.

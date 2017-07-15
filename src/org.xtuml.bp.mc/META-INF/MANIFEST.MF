@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Model Compiler Interface
 Bundle-SymbolicName: org.xtuml.bp.mc;singleton:=true
-Bundle-Version: 6.2.5.qualifier
+Bundle-Version: 6.4.3.qualifier
 Bundle-Vendor: xtUML.org
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.core.resources,

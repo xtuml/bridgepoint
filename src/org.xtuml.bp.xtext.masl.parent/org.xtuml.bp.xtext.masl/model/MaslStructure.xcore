@@ -159,6 +159,7 @@ class TypeParameter extends TypeDeclaration {
 }
 
 class RangeTypeReference extends AbstractTypeReference {
+	boolean anonymous
 	contains AbstractTypeReference elementType
 }
 

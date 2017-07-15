@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: BridgePoint Properties Plug-in
 Bundle-SymbolicName: org.xtuml.bp.ui.properties;singleton:=true
-Bundle-Version: 6.2.5.qualifier
+Bundle-Version: 6.4.3.qualifier
 Bundle-ClassPath: properties.jar
 Bundle-Vendor: xtUML.org
 Export-Package: org.xtuml.bp.ui.properties

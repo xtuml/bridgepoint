@@ -51,6 +51,7 @@ public class MASLParser extends AbstractContentAssistParser {
 					put(grammarAccess.getAbstractTypeReferenceAccess().getAlternatives(), "rule__AbstractTypeReference__Alternatives");
 					put(grammarAccess.getAbstractTypeReferenceWithCAAccess().getAlternatives(), "rule__AbstractTypeReferenceWithCA__Alternatives");
 					put(grammarAccess.getAbstractCollectionTypeReferenceAccess().getAlternatives(), "rule__AbstractCollectionTypeReference__Alternatives");
+					put(grammarAccess.getArrayTypeReferenceAccess().getAlternatives_3(), "rule__ArrayTypeReference__Alternatives_3");
 					put(grammarAccess.getAbstractDictKeyTypeRefAccess().getAlternatives(), "rule__AbstractDictKeyTypeRef__Alternatives");
 					put(grammarAccess.getTerminatorServiceDeclarationAccess().getAlternatives_1(), "rule__TerminatorServiceDeclaration__Alternatives_1");
 					put(grammarAccess.getObjectDefinitionAccess().getAlternatives_3(), "rule__ObjectDefinition__Alternatives_3");
@@ -355,7 +356,8 @@ public class MASLParser extends AbstractContentAssistParser {
 					put(grammarAccess.getCharacteristicAccess().getReturnTypeAssignment_5_1(), "rule__Characteristic__ReturnTypeAssignment_5_1");
 					put(grammarAccess.getTypeParameterAccess().getEnumAssignment_0(), "rule__TypeParameter__EnumAssignment_0");
 					put(grammarAccess.getTypeParameterAccess().getNameAssignment_1(), "rule__TypeParameter__NameAssignment_1");
-					put(grammarAccess.getRangeTypeReferenceAccess().getElementTypeAssignment_2(), "rule__RangeTypeReference__ElementTypeAssignment_2");
+					put(grammarAccess.getRangeTypeReferenceAccess().getAnonymousAssignment_0(), "rule__RangeTypeReference__AnonymousAssignment_0");
+					put(grammarAccess.getRangeTypeReferenceAccess().getElementTypeAssignment_3(), "rule__RangeTypeReference__ElementTypeAssignment_3");
 					put(grammarAccess.getExceptionDeclarationAccess().getVisibilityAssignment_0(), "rule__ExceptionDeclaration__VisibilityAssignment_0");
 					put(grammarAccess.getExceptionDeclarationAccess().getNameAssignment_2(), "rule__ExceptionDeclaration__NameAssignment_2");
 					put(grammarAccess.getTypeForwardDeclarationAccess().getVisibilityAssignment_0(), "rule__TypeForwardDeclaration__VisibilityAssignment_0");
@@ -392,7 +394,8 @@ public class MASLParser extends AbstractContentAssistParser {
 					put(grammarAccess.getSequenceTypeReferenceAccess().getExpressionAssignment_2_1(), "rule__SequenceTypeReference__ExpressionAssignment_2_1");
 					put(grammarAccess.getSequenceTypeReferenceAccess().getElementTypeAssignment_4(), "rule__SequenceTypeReference__ElementTypeAssignment_4");
 					put(grammarAccess.getArrayTypeReferenceAccess().getAnonymousAssignment_0(), "rule__ArrayTypeReference__AnonymousAssignment_0");
-					put(grammarAccess.getArrayTypeReferenceAccess().getExpressionAssignment_3(), "rule__ArrayTypeReference__ExpressionAssignment_3");
+					put(grammarAccess.getArrayTypeReferenceAccess().getIndexTypeAssignment_3_0(), "rule__ArrayTypeReference__IndexTypeAssignment_3_0");
+					put(grammarAccess.getArrayTypeReferenceAccess().getExpressionAssignment_3_1(), "rule__ArrayTypeReference__ExpressionAssignment_3_1");
 					put(grammarAccess.getArrayTypeReferenceAccess().getElementTypeAssignment_6(), "rule__ArrayTypeReference__ElementTypeAssignment_6");
 					put(grammarAccess.getSetTypeReferenceAccess().getAnonymousAssignment_0(), "rule__SetTypeReference__AnonymousAssignment_0");
 					put(grammarAccess.getSetTypeReferenceAccess().getElementTypeAssignment_3(), "rule__SetTypeReference__ElementTypeAssignment_3");

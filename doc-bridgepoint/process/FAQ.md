@@ -17,6 +17,7 @@
     * [Errors During Unzip](#unziperrors)
     * [Shared/Multi-user Installation](#sharedinstall)
     * [Starting BridgePoint](#launchers)
+    * [Installing xsltproc](#xsltproc)
   * [BridgePoint Developer Issues](#bpdevelopers)
     * [ANTLR Build Error](#antlrbuilderror)
     * [Linux Distribution-Specific Instructions](#linux)
@@ -154,6 +155,17 @@ $ sudo ./eclipse -initialize
   ```BP5Dev```.  Either way, to start BridgePoint, navigate to the ```eclipse``` folder inside your installation
   folder and execute the ```Launcher.[bat|sh]``` script.
 
+* **Installing xsltproc**  <a id="xsltproc"></a>  
+  BridgePoint includes a feature to build documentation from a model.  Right-click on a xtUML project and select 
+  "Create documentation".  This tool creates a HTML document that contains images from the model along with description 
+  data from the model elements.  This feature requires a common tool called ```xsltproc```.
+  * MS Windows: ```xsltproc.exe``` is included in the BridgePoint distribution, no additional steps are required.
+  * MacOS: ```xsltproc``` is included in the operating system software, no additional steps are required.
+  * Linux: ```xsltproc``` is included in some distributions and not in others.  In a terminal window, type ```$ which xsltproc```.  If the tool is found, no additional steps are required.  If the tool is not found, use your package manager (```apt-get``` or ```yum```) to install it.  For example:
+  ```
+  $ sudo apt-get install xsltproc
+  ```
+  
 
 BridgePoint Developer Issues <a id="bpdevelopers"></a>
 ----------------------------

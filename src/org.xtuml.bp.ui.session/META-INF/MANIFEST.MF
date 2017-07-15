@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: BridgePoint Session UI Plug-in
 Bundle-SymbolicName: org.xtuml.bp.ui.session; singleton:=true
-Bundle-Version: 6.2.5.qualifier
+Bundle-Version: 6.4.3.qualifier
 Bundle-ClassPath: session.jar
 Bundle-Activator: org.xtuml.bp.ui.session.SessionExplorerPlugin
 Bundle-Vendor: xtUML.org
