@@ -4,18 +4,12 @@ This work is licensed under the Creative Commons CC0 License
 
 ---
 
-# Title goes here
+# Enhanced association editing
 ### xtUML Project Implementation Note
-
-Note: Each section has a description that states the purpose of that section.
-Delete these section descriptions before checking in your note.  Delete this
-note as well. __If you are using markdown formatting, don't forget to put 2 
-spaces at the end of lines where you want a hard break.__
 
 ### 1. Abstract
 
-In this section, give a summary of the design that this note aims to
-describe.
+This note describes the files changed to implement this issue.  
 
 ### 2. Document References
 
@@ -24,8 +18,6 @@ describe.
 ### 3. Background
 
 See [[2.1]](2.1).  
-
-![My Image](myimage.jpg)
 
 ### 4. Requirements
 
