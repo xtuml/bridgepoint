@@ -98,13 +98,48 @@ A context menu entry shall be added, Configure Association(s).  This context men
 
 The original issue [[2.1]](#2.1) requires that a new menu item shall be considered for adjusting Multiplicity.  However association side and conditionality need to be considered.  In order to consider the side two menu entries shall be added per association.  These shall have the name of the class on either side.  Each of those menu entries shall have two submenus, Multiplicity and Conditionality.  Under those submenus shall be the possibilities, One and Many or Conditional and Unconditional.  As with the other two approaches the change shall be handled just as any other editing action in the tool.  
 
+5.1.3.1 Option 4: Another CME Approach  
+
+After further brainstorming and discussion, another option using a context
+menu was identified.  This approach would provide a CME with access only
+to the cardinality (combined Multiplicity and Conditionality).  Role
+phrases and formalization are not addressed (not touched).  
+
+See picture below.  The flow would be as follows:  
+- Right click anywhere on association.
+- 'Cardinality' appears in conext menu.
+- Click on 'Cardinality', and sub-menu appears with the names of the
+participating classes (`dog` and `owner` in the example).  In the case
+of a reflexive, the role phrases would appear with the class names.
+- Click on the class name for the desired "end" of the association,
+and a sub-sub-menu appears listing the 4 possibilities for relationship
+cardinality on that end.
+
+![Cardinality Context Menu](9567_cardinality_CME_dog_owner.jpg)
+
+Not shown, but clicking on the link association (dotted line) would
+display the Cardinality menu item, too.  However, when this Cardinality
+menu is clicked only ` ` (blank, meaning One) or `{*}` (Many).
+Another possibility for the linked association Cardinality sub-menu
+is that only the opposite of the existing setting is shown.  Namely,
+`{*}` is shown when starting with multiplicity One; ` ` is shown when
+the current multiplicity is Many.
+
+
 5.2 Moving forward  
 
 [[5.1.3]](#5.1.3) seems like only a partial solution and would require the addition of two new menu items to complete Association modification.  This would be Set Text Phrases, and Set Rules.  
 
-[[5.1.1]](#5.1.1) and [[5.1.2]](#5.1.2) both seem like good choices and actually could compliment each other.  Either will fulfill the requirements.  This work will proceed with [[5.1.2.1]](#5.1.2.1) and [[5.1.2.3]](5.1.2.3).  [[5.1.1]](5.1.1) was not chosen as the work would be larger and the editing in a table would be easier and quicker.  
+[[5.1.1]](#5.1.1) and [[5.1.2]](#5.1.2) both seem like good choices and actually could compliment each other.  Either will fulfill the requirements.  
+
+[[5.1.3.1]](#5.1.3.1) will completely satisfy the requirements without adding unecessary functionality.  
+
+This work will proceed with [[5.1.3.1]](#5.1.3.1) .  This approach was chosen as it is the smallest changeset and completely satisfies the requirements.   
 
 ### 6. Work Required
+
+Work Required for editing tab [[5.1.2.1]](#5.1.2.1) and [[5.1.2.3]](#5.1.2.3)    
+----  
 
 6.1 Editing tab (Deliverable One)  
 6.1.1 Create a new plugin org.xtuml.bp.core.editors  
@@ -146,13 +181,39 @@ The original issue [[2.1]](#2.1) requires that a new menu item shall be consider
 
 6.4 Describe test plan and automate (Final Deliverable)  
 
+Work required for cardinality context menu entry  [[5.1.3.1]](#5.1.3.1)  
+----   
+
+6.5 Define menus and popup actions  
+6.5.1 Define menu structure extensions  
+6.5.1.1 Define Cardinality menu  
+6.5.1.1.1 Define dynamic population of entry to handle excluding supertype associations  
+6.5.1.2 Define dynamic class one side, class other side menus  
+6.5.1.3 Define cardinality option actions for rules [[3.3]](#3.3)  
+6.5.1.4 Define special case for associative links  
+6.5.2 Define action for each rule possibility  
 
 ### 7. Acceptance Test
+
+Acceptance test for editing tab [[5.1.2.1]](#5.1.2.1) and [[5.1.2.3]](#5.1.2.3)  
+----   
 
 7.1 For both simple and linked associations (note supertypes are still managed through the diagram)     
 7.1.1 Associations shall be modifiable without the properties view    
 7.1.2 Association modification shall trigger persistence    
 7.1.3 Association modification shall support undo/redo   
 7.1.4 Association modification shall trigger refreshes within the UI   
+
+Acceptance test for cardinality context menu entry  [[5.1.3.1]](#5.1.3.1)  
+----   
+
+7.2 For both simple and linked associations     
+7.2.1 Association cardinality shall be modifiable without the properties view    
+7.2.2 Association modification shall trigger persistence    
+7.2.3 Association modification shall support undo/redo   
+7.2.4 Association modification shall trigger refreshes within the UI   
+7.2.5 Context menu should not be available for supertypes or subtypes   
+7.2.6 Context menu for linked association shall include only the link class   
+7.2.7 Context menu entries for linked association shall include only " " or "*"   
 
 ### End
