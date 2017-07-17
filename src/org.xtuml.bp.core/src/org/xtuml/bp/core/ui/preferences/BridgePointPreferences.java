@@ -49,6 +49,7 @@ public class BridgePointPreferences
     private Button useDefaultNamesForNewModelElements;
     private Button requireMaslStyleIdentifiers;
     private Button enableModelIntegrityCheck;
+    private Button enableTableBasedAssociationEditing;
     
     protected IPreferenceModel model;
 
@@ -141,6 +142,11 @@ public class BridgePointPreferences
     enableModelIntegrityCheck.setText("Enable model integrity checks");
     enableModelIntegrityCheck.setLayoutData(new GridData());
     enableModelIntegrityCheck.setToolTipText(BridgePointPreferencesStore.EnableModelIntegrityToolTip);
+    
+    enableTableBasedAssociationEditing = new Button(composite, SWT.CHECK | SWT.LEFT );
+    enableTableBasedAssociationEditing.setText("Enable table based association editing");
+    enableTableBasedAssociationEditing.setLayoutData(new GridData());
+    enableTableBasedAssociationEditing.setToolTipText("This preference will enable table based association editing.");
         
     model = new BridgePointPreferencesModel();
     model.getStore().loadModel(getPreferenceStore(), null, model);
@@ -188,6 +194,7 @@ public class BridgePointPreferences
         bpPrefs.useDefaultNamesForNewModelElements = useDefaultNamesForNewModelElements.getSelection();
         bpPrefs.requireMaslStyleIdentifiers = requireMaslStyleIdentifiers.getSelection();
         bpPrefs.enableModelIntegrityCheck = enableModelIntegrityCheck.getSelection();
+        bpPrefs.enableTableBasedAssociationEditing = enableTableBasedAssociationEditing.getSelection();
         model.getStore().saveModel(getPreferenceStore(), model);
         return true;
 	}
@@ -229,7 +236,8 @@ public class BridgePointPreferences
         showReferenceSynchronizationReport.setSelection(bpPrefs.showReferenceSyncReport);
         useDefaultNamesForNewModelElements.setSelection(bpPrefs.useDefaultNamesForNewModelElements);          
         requireMaslStyleIdentifiers.setSelection(bpPrefs.requireMaslStyleIdentifiers);
-        enableModelIntegrityCheck.setSelection(bpPrefs.enableModelIntegrityCheck);          
+        enableModelIntegrityCheck.setSelection(bpPrefs.enableModelIntegrityCheck);  
+        enableTableBasedAssociationEditing.setSelection(bpPrefs.enableTableBasedAssociationEditing);
     }
 
     public IPreferenceStore getPreferenceStore() {

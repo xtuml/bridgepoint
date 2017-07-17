@@ -32,7 +32,7 @@ public class AssociationTableDialog extends Dialog {
 	protected Control createDialogArea(Composite parent) {
 		Composite composite = (Composite) super.createDialogArea(parent);
 		AssociationEditorTabFactory factory = new AssociationEditorTabFactory();
-		createdTab = factory.createEditorTab(composite, selectedElements);
+		createdTab = factory.createEditorTab(composite, selectedElements, "");
 		composite.pack();
 		return composite;
 	}

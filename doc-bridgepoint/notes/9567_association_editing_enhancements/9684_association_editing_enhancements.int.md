@@ -13,7 +13,7 @@ This note describes the files changed to implement this issue.
 
 ### 2. Document References
 
-<a id="2.1"></a>2.1 [Design Note](https://github.com/travislondon/bridgepoint/blob/master/doc-bridgepoint/notes/9567_association_editing_enhancements/9567_association_editing_enhancements.dnt.md) 9567 Design      
+<a id="2.1"></a>2.1 [Design Note](https://github.com/travislondon/bridgepoint/blob/master/doc-bridgepoint/notes/9684_association_editing_enhancements/9567_association_editing_enhancements.dnt.md) 9684 Design      
 
 ### 3. Background
 
@@ -29,7 +29,7 @@ See [[2.1]](2.1).
 
 ### 6. Implementation Comments
 
-None.
+A new preference was added, Enable table based association editing.  This preference is disabled by default.  The context menu entries for Configure Association were adjusted to be dynamic and check this preference before showing.  Additionally, preference based tab support was added to prevent the Associations Editor tab.
 
 ### 7. Unit Test
 
@@ -42,14 +42,14 @@ None.
 ### 9. Code Changes
 
 Fork/Repository: https://github.com/travislondon/bridgepoint
-Branch: 9567_association_editing_enhancements
+Branch: 9684_association_editing_enhancements
 
 <pre>
 
 doc-bridgepoint/notes/9567_association_editing_enhancements/
-9567_association_editing_enhancements.dnt.md
+9684_association_editing_enhancements.dnt.md
 doc-bridgepoint/notes/9567_association_editing_enhancements/
-9567_association_editing_enhancements.int.md
+9684_association_editing_enhancements.int.md
 doc-bridgepoint/notes/9567_association_editing_enhancements/
 9567_association_editing_enhancements.md
 doc-bridgepoint/review-minutes/9567_association_editing_enhancements_ant_rvm.md
@@ -59,12 +59,16 @@ org.xtuml.bp.core/.externalToolBuilders/Build.launch
 org.xtuml.bp.core/arc/BuildHierarchyProperties.arc
 org.xtuml.bp.core/arc/create_properties_file.inc
 org.xtuml.bp.core/arc/generate_cell_modifiers.arc
+
 org.xtuml.bp.core/models/org.xtuml.bp.core/ooaofooa/Association/Association/
 Association.xtuml
 org.xtuml.bp.core/src/org/xtuml/bp/core/CorePluginMessages.properties
 org.xtuml.bp.core/src/org/xtuml/bp/core/common/ITransactionListener.java
 org.xtuml.bp.core/src/org/xtuml/bp/core/ui/Selection.java
 org.xtuml.bp.core/src/org/xtuml/bp/core/ui/cells/editors/IntegerCellEditor.java
+org.xtuml.bp.core/src/org/xtuml/bp/core/common/BridgePointPreferencesModel.java
+org.xtuml.bp.core/src/org/xtuml/bp/core/common/BridgePointPreferencesStore.java
+org.xtuml.bp.core/src/org/xtuml/bp/core/ui/preferences/BridgePointPreferences.java
 org.xtuml.bp.core/generate.xml
 
 org.xtuml.bp.core.editors/.externalToolBuilders/Build.launch
@@ -106,14 +110,22 @@ org.xtuml.bp.core.editors/build.properties
 org.xtuml.bp.core.editors/plugin.xml
 org.xtuml.bp.core.editors/pom.xml
 
+org.xtuml.bp.pkg/plugin_customization.ini
+
 org.xtuml.bp.pkg-feature/feature.xml
 
 org.xtuml.bp.releng.parent/pom.xml
 
+org.xtuml.bp.ui.graphics/src/org/xtuml/bp/ui/graphics/editor/IEditorTabFactory.java
+org.xtuml.bp.ui.graphics/src/org/xtuml/bp/ui/graphics/editor/ModelEditor.java
+
+org.xtuml.bp.ui.sem/src/org/xtuml/bp/ui/sem/factories/SEMPageFactory.java
+
+
 </pre>
 
 Fork/Repository: https://github.com/travislondon/bptest
-Branch: 9567_association_editing_enhancements
+Branch: 9684_association_editing_enhancements
 
 <pre>
 
@@ -127,7 +139,7 @@ org.xtuml.bp.test/src/org/xtuml/bp/test/TestUtil.java
 </pre>
 
 Fork/Repository: https://github.com/travislondon/models
-Branch: 9567_association_editing_enhancements
+Branch: 9684_association_editing_enhancements
 
 <pre>
 

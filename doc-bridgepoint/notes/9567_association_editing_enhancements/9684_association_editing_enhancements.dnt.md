@@ -12,7 +12,7 @@ This work is licensed under the Creative Commons CC0 License
 This note describes the design required to support table based association editing.  
 
 ### 2. Document References
-<a id="2.1"></a>2.1 [Analysis Note](https://github.com/travislondon/bridgepoint/blob/master/doc-bridgepoint/notes/9567_association_editing_enhancements/9567_association_editing_enhancements.md) 9567 Analysis    
+<a id="2.1"></a>2.1 [Analysis Note](https://github.com/travislondon/bridgepoint/blob/master/doc-bridgepoint/notes/9684_association_editing_enhancements/9567_association_editing_enhancements.md) 9684 Analysis    
 
 ### 3. Background
 

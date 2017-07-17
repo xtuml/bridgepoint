@@ -23,6 +23,9 @@
 
 package org.xtuml.bp.ui.graphics.editor;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IExtension;
@@ -37,16 +40,18 @@ import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.Viewport;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
+import org.eclipse.jface.util.IPropertyChangeListener;
+import org.eclipse.jface.util.PropertyChangeEvent;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorPart;
+import org.eclipse.ui.IEditorSite;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.part.FileEditorInput;
 import org.eclipse.ui.part.MultiPageEditorPart;
 import org.eclipse.ui.texteditor.InfoForm;
-
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.common.NonRootModelElement;
 import org.xtuml.bp.core.common.PersistableModelComponent;
@@ -58,15 +63,22 @@ import org.xtuml.bp.ui.explorer.ILinkWithEditorListener;
 import org.xtuml.bp.ui.graphics.Activator;
 import org.xtuml.bp.ui.graphics.parts.ShapeEditPart;
 
-public class ModelEditor extends MultiPageEditorPart implements ILinkWithEditorListener {
+public class ModelEditor extends MultiPageEditorPart implements ILinkWithEditorListener, IPropertyChangeListener {
 
 	private GraphicalEditor fGraphicalEditor;
+	private List<IEditorTabFactory> preferenceControlledTabFactories = new ArrayList<IEditorTabFactory>();
 
 	@Override
 	protected void createPages() {
 		fGraphicalEditor = createGraphicalEditor(getContainer());
 		if(fGraphicalEditor != null)
 			createPagesFromExtensionPoint(getContainer(), fGraphicalEditor.getModel());
+	}
+
+	@Override
+	public void init(IEditorSite site, IEditorInput input) throws PartInitException {
+		super.init(site, input);
+		CorePlugin.getDefault().getPreferenceStore().addPropertyChangeListener(this);
 	}
 
 	@SuppressWarnings("deprecation")
@@ -130,9 +142,15 @@ public class ModelEditor extends MultiPageEditorPart implements ILinkWithEditorL
 		    				String editorTitle = configurationElements[j].getAttribute("EditorTitle"); //$NON-NLS-1$
 		    				if(tabFactory instanceof IEditorTabFactory) {
 		    					IEditorTabFactory factory = (IEditorTabFactory) tabFactory;
-		    					Composite composite = factory.createEditorTab(container, model.getRepresents());
-		    					int newPage = addPage((Composite) composite);
-		    					setPageText(newPage, editorTitle);
+		    					boolean enabled = factory.isEnabled();
+		    					factory.setTabText(editorTitle);
+		    					if(enabled) {
+		    						createTabFromFactory(container, editorTitle, model.getRepresents(), factory);
+		    						factory.setCreated(true);
+		    					}
+		    					if(factory.isPreferenceControlled()) {
+		    						preferenceControlledTabFactories.add(factory);
+		    					}
 		    				}
 						} catch (CoreException e) {
 							CanvasPlugin.logError("Unable to create executable extension from point.", e); //$NON-NLS-1$
@@ -141,6 +159,12 @@ public class ModelEditor extends MultiPageEditorPart implements ILinkWithEditorL
 	    		}
 	    	}
 	    }
+	}
+	
+	private void createTabFromFactory(Composite container, String title, Object represents, IEditorTabFactory factory) {
+		Composite composite = factory.createEditorTab(container, represents, title);
+		int newPage = addPage((Composite) composite);
+		setPageText(newPage, title);
 	}
 
 	@Override
@@ -247,5 +271,24 @@ public class ModelEditor extends MultiPageEditorPart implements ILinkWithEditorL
 			}
 		}
 		return null;
+	}
+
+	@Override
+	public void propertyChange(PropertyChangeEvent event) {
+		// ask all preference controlled tab factories if this preference
+		// change enables/disables them, add the tab if so
+		for(IEditorTabFactory factory : preferenceControlledTabFactories) {
+			if(factory.isEnabled() && !factory.created()) {
+				createTabFromFactory(getContainer(), factory.getTabText(), getGraphicalEditor().getModel().getRepresents(), factory);
+			} else {
+				factory.setCreated(false);
+				// remove tab
+				for(int i = 0; i < getPageCount(); i++) {
+					if(getPageText(i).equals(factory.getTabText())) {
+						removePage(i);
+					}
+				}
+			}
+		}
 	}
 }

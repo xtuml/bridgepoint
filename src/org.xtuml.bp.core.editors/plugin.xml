@@ -14,65 +14,13 @@
       </EditorTab>
    </extension>
    <extension
-         point="org.eclipse.ui.popupMenus">
-      <objectContribution
-            adaptable="true"
-            id="org.xtuml.bp.core.editors.openAssociationEditorModelClass"
-            objectClass="org.xtuml.bp.core.ModelClass_c">
-         <action
-               class="org.xtuml.bp.core.editors.association.actions.ConfigureAssociation"
-               id="org.xtuml.bp.core.editors.OpenModelEditorAction"
-               label="Configure Associations"
-               menubarPath="org.xtuml.bp.ui.context-internal">
-         </action>
-      </objectContribution>
-      <objectContribution
-            adaptable="true"
-            id="org.xtuml.bp.core.editors.openAssociationEditorImportedClass"
-            objectClass="org.xtuml.bp.core.ImportedClass_c">
-         <action
-               class="org.xtuml.bp.core.editors.association.actions.ConfigureAssociation"
-               id="org.xtuml.bp.core.editors.OpenModelEditorAction"
-               label="Configure Associations"
-               menubarPath="org.xtuml.bp.ui.context-internal">
-         </action>
-      </objectContribution>
-      <objectContribution
-            adaptable="true"
-            id="org.xtuml.bp.core.editors.openAssociationEditorPackage"
-            objectClass="org.xtuml.bp.core.Package_c">
-         <action
-               class="org.xtuml.bp.core.editors.association.actions.ConfigureAssociation"
-               id="org.xtuml.bp.core.editors.OpenModelEditorAction"
-               label="Configure Associations"
-               menubarPath="org.xtuml.bp.ui.context-internal">
-         </action>
-      </objectContribution>
-      <objectContribution
-            adaptable="true"
-            id="org.xtuml.bp.core.editors.openAssociationEditorAssociation"
-            objectClass="org.xtuml.bp.core.Association_c">
-         <action
-               class="org.xtuml.bp.core.editors.association.actions.ConfigureAssociation"
-               id="org.xtuml.bp.core.editors.OpenModelEditorAction"
-               label="Configure Association"
-               menubarPath="org.xtuml.bp.ui.context-internal">
-         </action>
-         <filter
-               name="can"
-               value="configure">
-         </filter>
-      </objectContribution>
-      <objectContribution
-            adaptable="true"
-            id="org.xtuml.bp.core.editors.openAssociationEditorClassAsLink"
-            objectClass="org.xtuml.bp.core.ClassAsLink_c">
-         <action
-               class="org.xtuml.bp.core.editors.association.actions.ConfigureAssociation"
-               id="org.xtuml.bp.core.editors.OpenModelEditorAction"
-               label="Configure Association"
-               menubarPath="org.xtuml.bp.ui.context-internal">
-         </action>
-      </objectContribution>
+         point="org.eclipse.ui.menus">
+      <menuContribution
+            locationURI="popup:org.eclipse.ui.popup.any?after=org.xtuml.bp.ui.context-internal">
+         <dynamic
+               class="org.xtuml.bp.core.editors.association.actions.ConfigureAssociationContributionItem"
+               id="org.xtuml.bp.core.editors.ConfigureAssociation">
+         </dynamic>
+      </menuContribution>
    </extension>
 </plugin>
