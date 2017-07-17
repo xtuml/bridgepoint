@@ -72,8 +72,8 @@ public class BridgePointPreferencesModel implements IPreferenceModel {
 	public boolean useDefaultNamesForNewModelElements;
     public boolean requireMaslStyleIdentifiers;
     public boolean opaqueComponents;
-    public boolean enableTableBasedAssociationEditing;
 	public boolean showFormalizations;
+    public boolean enableTableBasedAssociationEditing;
     
 	public Class getStoreClass() {
 		return BridgePointPreferencesStore.class;
