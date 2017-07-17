@@ -43,56 +43,93 @@ The elements that do override checkIntegrity perform useful _ad hoc_ checks.
 The existing model called 'Model Integrity' may be leveraged in this
 present work to report issues discovered by new integrity checking.
 
-5.2 Referential Integrity  
+5.2 Current Referential Integrity  
 As stated in [[2.6]](#2.6), the current integrity checker is not
-explicitly an enforcer of referential integrity even though there
+explicitly an enforcer of referential integrity, even though there
 is an operation on the `NonRootModelElement` base class called
 `Checkreferentialintegrity`.  This routine was designed to identify
 model elements that have been erroneously deleted or omitted from
 persistent storage (during a merge).  The routine is detecting the
 existence of a proxy with no associated model element.  This is not
 sufficient to detect true referential integrity violations such as
-missing links and incorrect referential attribute values.
+missing relational links and incorrect referential attribute values.
 
 The current `Checkreferentialintegrity` does not traverse sub/supertype
 links.
 
+5.3 Approaches to the Problem  
+There are a few ways this problem can be addressed.  Each approach needs
+to supply functionality that reads the model data and applies checking
+to meet the given requirements.  This includes checking for instance
+uniqueness (identifying attribute values) and traversing all unconditional
+associations from each end of the association (part, form, aone, aoth,
+assoc, sub, super).  Referential attribute values need to be compared
+with identifiers in all cases.
+
+Here are three approaches that have been considered:  
+  - Generate OAL-based integrity checking and then import OAL into
+    BridgePoint.  
+  - Generate OAL-based integrity checking and then compile with MC-3020
+    and compile a C executable.  
+  - Generate Java-based integrity checking directly.
+
+5.3.1 Generating OAL and Adding to BridgePoint  
+This approach generates a model-level model integrity checker.  The
+work required is to build an archetype that traverses `Association`
+and `Subtype` packages and generates OAL that performs the checking
+outlined above.
+
+Once the checking OAL has been generated, this OAL needs to be
+packaged into BridgePoint.  This can be done manually by pasting
+the generated OAL into an activity in `bp.core`.  Or it can be
+automated as part of the build process, so that the OAL checking
+is re-generated when the meta-model changes.
+
+5.3.2 Generating OAL and Compiling with MC-3020  
+The OOA of OOA is duplicated in stripped down form in `mcooa`.
+This model contains only the classes and none of the action
+langauge of the meta-model.  This makes is much lighter weight
+and easier to work with than the OOA of OOA in `bp.core`.
+
+`docgen` is a model-based model compiler that interrogates
+user model data and generates documentation.  It has in place
+all of the facilities to build the ooaofooa, load prebuilder
+output xtuml and run queries against the model data.  Thus,
+it serves as the perfect prototyping environment for a model
+data query like an integrity checker.
+
+It could also serve as the final solution.  The results could
+be packaged exactly like `docgen` is packaged.  The build and
+packaging could be automated in the same way that `docgen` and
+`x2m` are automated.
+
+5.3.3 Generating Java  
+A third option is to generate Java directly rather than generating OAL.
+During prototyping, OAL has been generated.  The queries to collect
+information to generate Java would be similar.  However, the templates
+would be much more complex.
+
+The OAL-generating templates are fairly simple (about 100 lines of RSL).
+The Java-generating templates would be much more complex.  Because
+the OAL contains virtually every form of `select` statement, a good
+deal of the complexity of MC-Java would need to be duplicated into
+the integrity checker template.
+
+5.3.4 Chosen Approach  
+The approach taken will be that described in 5.3.1.  First the OAL
+will be pasted into BridgePoint, and a promotion pull request will
+be prepared.  As a second (optional) step, the build process will be
+automated to reduce maintenance costs moving forward.
+
+The approach described in 5.3.2 will be used to prototype the
+solution.  Since working with `mcooa` is easier than working with
+`bp.core`, the development of the archetype will be done in the C
+environment.  Build times are faster, and MC-3020 is easier to
+debug than MC-Java.
+
 ### 6. Design
 
-```
-notes and paste-in from requirements (just for now)
-Consider prototyping in mcooa.
-Consider the menu option in workspace preferences.
-
-      6.1 Generalized Referential Integrity Checking  
-      Add a utility that interrogates the entire instance population of a model
-      specifically ensuring that relationship links are present and that
-      referential attributes are in legal ranges.
-
-      6.1.1 uniqueness check  
-      Verify that within each class extent that all instances are unique from
-      one another.
-
-      6.1.2 link integrity  
-      6.1.2.1 For each instance, verify that unconditional associations carry
-      links to instances.  
-
-      6.1.2.2 For each instance, verify that non-null referentials attributes
-      are refering to attribute values in a existing instances.  
-
-      6.1.3 subtype integrity  
-      For each instance participating as a supertype, verify that exactly one
-      subtype is linked.
-
-      6.1.4 referential integrity  
-      6.1.4.1 Assert that referential attributes match their referred-to
-      identifier attributes.  
-      6.1.4.2 Assert that referential attributes not particpating in an
-      association have appropriate not-participating values.  
-```
-
-
-6.0 General Flow
+6.0 General Flow  
 ```
 For each class in the model do the following:
   Search for duplicate identifiers in the instance extent.
@@ -106,9 +143,57 @@ For each class in the model do the following:
   For a supertype, ensure exactly one subtype is present.
 ```
 
-6.1 Check All Instances  
-To accomplish this, select all instances (using `SELECT MANY ... FROM INSTANCES OF ...`)
-of all classes in the OOA of OOA.  Exhaustively, iterate over the collections.
+6.1 Generalized Referential Integrity Checking  
+A function is added that interrogates the entire instance population of a model
+by selecting all instances of all Model Classes (`O_OBJ`) in the model data.
+A blind `select ... from instances of` is performed on each Model Class.
+The instance extent is exhaustively iterated.  Each of the required integrity
+checks is performed on each instance of each class.
+
+6.1.1 uniqueness check  
+While iterating over each instance, a second selection to the same
+Model Class which is formulated with a where clause that searches
+for duplicate instance identifier attribute values.  Assurance is
+made that exactly one instance with a particular identifier value
+is present.  Note, this is an expensive query of greater than
+order N squared, O(n^2), complexity.
+
+6.1.2 link integrity  
+6.1.2.1 unconditional participations  
+For each instance, selections are made across associations that the
+instance of the class participates in.  Only unconditional associations
+are queried.  Queries are made systematically across each form of
+_participation_.  Reflexive variations are included in eligible forms.
+The forms of participation are:  
+- simple participant  
+- simple formalizer  
+- associator  
+- associative participant on the 'one' side  
+- associative participant on the 'other' side  
+- subtype  
+- supertype  
+
+6.1.2.2 non-null referentials  
+For the simple association formalizer side, select across
+conditional associations when a referential attribute is non-null.
+Expect to find an instance.  Report discrepancies.
+
+6.1.3 subtype integrity  
+For each instance participating as a supertype, the expected supertype(s)
+is queried to assure exactly one is found.  
+
+6.1.4 referential integrity  
+6.1.4.1 An assertion is made that referential attribute sets match their
+corresponding referred-to identifier attribute sets.  Mismatches are
+reported.  
+Note, this query may be skipped for architectures that implement referential
+attributes as references to referred-to identifier attribute.  MC-Java is
+such an architecture.  
+6.1.4.2 Assert that referential attributes not particpating in an
+      association have appropriate not-participating values.  
+
+Hmmm, consider building null comparison in the existing routine.  Then 'when empty' check for appropriate nulls.
+
 
 6.2
 
@@ -146,6 +231,9 @@ and seems to be correct, but the instance population may be adding or missing st
 6.6.4 R4709
 is `C_PO 0..1-----R4709-----* CL_POR`  
 should be `C_PO 1-----R4709-----* CL_POR`  
+6.6.5 R612  
+is `ACT_BLK *-----R612-----1 ACT_ACT`  
+should be `ACT_BLK *-----R612-----0..1 ACT_ACT`  
 
 I find `checkReferentialIntegrity` in the common integrity checker.
 This routine uses the getRTOs to find all instances referring to it.
@@ -155,27 +243,40 @@ However, it only checks if it can find them.  It does not check for the correct 
 See [[2.8]](#2.8).  OAL parser exits prematurely on select related
 role phrases when not reflexive.  So, I avoided them.
 
+```
+Consider the menu option in workspace preferences.
+We may need to make a special case for EP_PKG at the top level.
+```
+
 ### 7. Acceptance Test
 
-A positive case and a negative case for each requirement above should
-be created as an xtUML model persisted as SQL instances (normal xtUML
-format data) under an Eclipse project.
+A positive case and a negative case for each requirement above is
+created as an xtUML model persisted as SQL instances (normal xtUML
+format data).
 
-Expected results will be defined for each case.
+Expected results are defined for each case.
 
-TODO:  finishing defining the tests  
-TODO:  consider the scenarios for missing files  
-
+7.1 Two Instances with Duplicate Identifiers  
 7.2 Missing Link  
 7.2.1 Link Flavors  
-7.2.1.1 Missing Simple  
-7.2.1.1 Missing Simple Reflexive  
-7.2.1.1 Missing Associative  
-7.2.1.1 Missing Sub/Super  
-7.2.2 Orphaned Instance  
-7.2.2.1 Orphaned RTO  
-7.2.2.2 Orphaned RGO  
-7.3 Null Referential (referential integrity)  
+7.2.1.1 Missing Simple Participant  
+7.2.1.2 Missing Simple Formalizer  
+7.2.1.3 Missing Simple Reflexive Participant  
+7.2.1.4 Missing Simple Reflexive Formalizer  
+7.2.1.5 Missing Associative Associator  
+7.2.1.6 Missing Associative One Side  
+7.2.1.7 Missing Associative Other Side  
+7.2.1.8 Missing Subtype  
+7.2.1.9 Extra Subtype  
+7.2.1.10 Missing Supertype  
+7.3 Null Referential  
+7.3.1 Null Formalizer Referential  
+7.3.2 Null Reflexive Formalizer Referential  
+7.3.3 Null Associator Referential  
+7.3.3 Null Subtype Referential  
+7.4 Non-Null Referential  
+7.4.1 Invalid Non-Null Conditional Formalizer Referential  
+7.4.2 Invalid Non-Null Conditional Reflexive Formalizer Referential  
 
 7.9 Duplicate Instances (uniqueness test)  
 
