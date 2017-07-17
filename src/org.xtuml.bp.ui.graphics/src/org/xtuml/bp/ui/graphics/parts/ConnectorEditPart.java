@@ -59,11 +59,15 @@ import org.eclipse.gef.requests.SelectionRequest;
 import org.eclipse.gmf.runtime.draw2d.ui.geometry.LineSeg;
 import org.eclipse.gmf.runtime.draw2d.ui.geometry.PointListUtilities;
 import org.eclipse.gmf.runtime.gef.ui.internal.tools.SelectConnectionEditPartTracker;
+import org.eclipse.jface.resource.FontDescriptor;
 import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.graphics.Font;
 import org.eclipse.ui.IActionFilter;
 
 import org.xtuml.bp.core.End_c;
 import org.xtuml.bp.core.Ooaofooa;
+import org.xtuml.bp.core.Pref_c;
 import org.xtuml.bp.core.Style_c;
 import org.xtuml.bp.core.common.ClassQueryInterface_c;
 import org.xtuml.bp.core.common.NonRootModelElement;
@@ -605,6 +609,16 @@ public class ConnectorEditPart extends AbstractConnectionEditPart implements
 				startFixed = new Label(startTextFixed) {
 					@Override
 					protected void paintFigure(Graphics graphics) {
+						// see if the font should be bold, this
+						// is true when the show formalization option
+						// is enabled
+						if(getStyleAt(End_c.Additional) == Style_c.Bold) {
+							FontDescriptor boldDescriptor = FontDescriptor.createFrom(graphics.getFont()).setStyle(SWT.BOLD);
+							Font boldFont = getViewer().getResourceManager().createFont(boldDescriptor);
+							graphics.setFont(boldFont);
+						} else {
+							graphics.setFont(getFont());		
+						}
 						if(CanvasPlugin.disableCropping) {
 							// just draw the full text
 							graphics.drawText(getText(), getTextLocation()) ;
@@ -635,6 +649,18 @@ public class ConnectorEditPart extends AbstractConnectionEditPart implements
 				endFixed = new Label(endTextFixed) {
 					@Override
 					protected void paintFigure(Graphics graphics) {
+						// see if the font should be bold, this
+						// is true when the show formalization option
+						// is enabled
+						if(getStyleAt(End_c.Additional) == Style_c.Bold) {
+							FontDescriptor boldDescriptor = FontDescriptor.createFrom(graphics.getFont()).setStyle(SWT.BOLD);
+							Font boldFont = getViewer().getResourceManager().createFont(boldDescriptor);
+							graphics.setFont(boldFont);
+						} else {
+							FontDescriptor regular = FontDescriptor.createFrom(graphics.getFont()).setStyle(SWT.None);
+							Font regularFont = getViewer().getResourceManager().createFont(regular);
+							graphics.setFont(regularFont);							
+						}
 						if(CanvasPlugin.disableCropping) {
 							// just draw the full text
 							graphics.drawText(getText(), getTextLocation()) ;
