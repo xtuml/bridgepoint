@@ -12,6 +12,7 @@ import org.xtuml.bp.core.Association_c;
 import org.xtuml.bp.core.ClassAsLink_c;
 import org.xtuml.bp.core.ImportedClass_c;
 import org.xtuml.bp.core.ModelClass_c;
+import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.Package_c;
 import org.xtuml.bp.core.Pref_c;
 import org.xtuml.bp.core.SubtypeSupertypeAssociation_c;
@@ -31,10 +32,13 @@ public class ConfigureAssociationContributionItem extends ContributionItem {
 		if (activeEditor == null || !(activeEditor instanceof ModelEditor)) {
 			return;
 		}
-		final GraphicalEditor editor = ((ModelEditor) activeEditor).getGraphicalEditor();
-		if (editor == null || editor.getCanvas().getMenu() != menu) {
-			// only support the graphical menu
-			return;
+		// skip the next text if in test, a test menu is created
+		if(!Ooaofooa.inUnitTest()) {
+			final GraphicalEditor editor = ((ModelEditor) activeEditor).getGraphicalEditor();
+			if (editor == null || editor.getCanvas().getMenu() != menu) {
+				// only support the graphical menu
+				return;
+			}
 		}
 		// selection must only contain Association, Model Class, Package or
 		// Class As Link
