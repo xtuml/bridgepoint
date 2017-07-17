@@ -180,7 +180,7 @@ public class ShapeGraphicalNodeEditPolicy extends ConnectionPolicy {
 
     @Override
     protected Command getSpecializedReconnectSourceCommand(final ReconnectRequest request) {
-        if (request.getConnectionEditPart().getTarget() != getHost()) {
+        if (request.getConnectionEditPart().getSource() != getHost()) {
             // if the host has the "moveAssociation" operation reconnect
             final Method moveMethod = Cl_c.findMethod(getConnectionRepresents(request), "Moveassociation", new Class[] { UUID.class, UUID.class });
             if ( moveMethod != null ) {
