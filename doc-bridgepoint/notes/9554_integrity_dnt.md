@@ -21,6 +21,7 @@ Perform complete (referential) integrity checking.
 <a id="2.6"></a>2.6 [9554 Integrity Analysis Note](https://github.com/xtuml/bridgepoint/blob/master/doc-bridgepoint/notes/9554_integrity_ant.md) 9554 Integrity Checker Analysis Note  
 <a id="2.7"></a>2.7 [Existing Integrity Checker Implementation Note](https://github.com/xtuml/internal/blob/master/doc-internal/notes/28_dts0100970501/28_dts0100970501_int.md) Integrity Checker Implementation  
 <a id="2.8"></a>2.8 [9681](https://support.onefact.net/issues/9681) OAL parser exits prematurely on select related role phrases when not reflexive  
+<a id="2.9"></a>2.9 [9690](https://support.onefact.net/issues/9690) Deprecate `V_LOC`.  
 
 ### 3. Background
 
@@ -64,7 +65,7 @@ to meet the given requirements.  This includes checking for instance
 uniqueness (identifying attribute values) and traversing all unconditional
 associations from each end of the association (part, form, aone, aoth,
 assoc, sub, super).  Referential attribute values need to be compared
-with identifiers in all cases.
+with identifiers.
 
 Here are three approaches that have been considered:  
   - Generate OAL-based integrity checking and then import OAL into
@@ -86,20 +87,26 @@ automated as part of the build process, so that the OAL checking
 is re-generated when the meta-model changes.
 
 5.3.2 Generating OAL and Compiling with MC-3020  
+This option takes the same approach as the previous option with
+regard to building an archetype that generates OAL.  However, the
+OAL is then deployed in a different rendition of the OOA of OOA
+in the C model compiler.
+
 The OOA of OOA is duplicated in stripped down form in `mcooa`.
-This model contains only the classes and none of the action
-langauge of the meta-model.  This makes is much lighter weight
-and easier to work with than the OOA of OOA in `bp.core`.
+This model is a "bare meta-model" and contains only the classes
+and none of the action langauge of the meta-model.  This makes
+is much lighter weight and easier-to-work-with than the
+OOA of OOA in `bp.core`.
 
 `docgen` is a model-based model compiler that interrogates
 user model data and generates documentation.  It has in place
 all of the facilities to build the ooaofooa, load prebuilder
-output xtuml and run queries against the model data.  Thus,
-it serves as the perfect prototyping environment for a model
-data query like an integrity checker.
+output and run queries against the model data.  Thus,
+it serves as a convenient prototyping environment for model
+data queries such as that required for an integrity checker.
 
-It could also serve as the final solution.  The results could
-be packaged exactly like `docgen` is packaged.  The build and
+This approach could also serve as the final solution.  The results
+could be packaged exactly like `docgen` is packaged.  The build and
 packaging could be automated in the same way that `docgen` and
 `x2m` are automated.
 
@@ -144,7 +151,7 @@ For each class in the model do the following:
 ```
 
 6.1 Generalized Referential Integrity Checking  
-A function is added that interrogates the entire instance population of a model
+Functions are added that interrogate the entire instance population of a model
 by selecting all instances of all Model Classes (`O_OBJ`) in the model data.
 A blind `select ... from instances of` is performed on each Model Class.
 The instance extent is exhaustively iterated.  Each of the required integrity
@@ -152,29 +159,29 @@ checks is performed on each instance of each class.
 
 6.1.1 uniqueness check  
 While iterating over each instance, a second selection to the same
-Model Class which is formulated with a where clause that searches
-for duplicate instance identifier attribute values.  Assurance is
+Model Class is made.  The selection is formulated with a where clause that
+searches for duplicate instance identifier attribute values.  Assurance is
 made that exactly one instance with a particular identifier value
 is present.  Note, this is an expensive query of greater than
-order N squared, O(n^2), complexity.
+order N squared, O(n^2), complexity.  Performance is a concern.
 
 6.1.2 link integrity  
 6.1.2.1 unconditional participations  
 For each instance, selections are made across associations that the
-instance of the class participates in.  Only unconditional associations
-are queried.  Queries are made systematically across each form of
-_participation_.  Reflexive variations are included in eligible forms.
+instance of the class participates in.  Queries are made systematically
+across each form of _participation_.  Reflexive variations are included
+in eligible forms.
 The forms of participation are:  
 - simple participant  
 - simple formalizer  
-- associator  
+- associator (two directions)  
 - associative participant on the 'one' side  
 - associative participant on the 'other' side  
 - subtype  
 - supertype  
 
 6.1.2.2 non-null referentials  
-For the simple association formalizer side, select across
+For the simple association formalizers and associators, select across
 conditional associations when a referential attribute is non-null.
 Expect to find an instance.  Report discrepancies.
 
@@ -182,6 +189,8 @@ Expect to find an instance.  Report discrepancies.
 6.1.3.1 subtype  
 For each instance participating as a subtype, the expected supertype(s)
 is queried to assure exactly one is found.  
+Note, a special case is made for top-level packages ("Model Roots").
+Top-level instances of `EP_PKG` have no supertype `PE_PE`.  
 6.1.3.2 supertype  
 For each instance participating as a supertype, select and find
 exactly one subtype instance.
@@ -194,45 +203,34 @@ Note, this query may be skipped for architectures that implement referential
 attributes as references to referred-to identifier attribute.  MC-Java is
 such an architecture.  
 6.1.4.2 An assertion is made that a referential attribute of a simple
-formalizer not particpating in a link has an appropriate not-participating
-value.  
-
-4.1 (placeholder to match SRS)
-4.2 The metamodel instance population of the application model shall be
-interrogated for the presence of all required association links.
-4.3 The values of referential attributes of related metamodel instances
-shall be asserted to match the value of referred to identifier attributes.
-4.4 Referential integrity assertion shall be applied to the entire
-metamodel instance population of the application model being edited.
-4.5 Assertion failures shall be reported clearly.
-4.6 The xtUML metamodel shall be repaired to fix specific cardinality
-errors.
-4.7 The functionality of the checker shall be available from the user
-interface.
-4.8 The functionality of the checker shall be available from the command
-line.
+formalizer or associator not particpating in a link has an appropriate
+not-participating value.  Note, that for complexity purposes only one
+of the referential attributes that is of type `unique_id` is interrogated.  
 
 6.2 OOA of OOA Repair  
-It looks to me like `V_LOC` may be deprecated.  Searches in bridgepoint/src
-for `V_LOC` seem to show that it is only ever created (and deleted upon
-cleanup) but never accessed.  Checking on this.  For this work, we will
-simply repair the conditionality.  Raise a follow-on issue.
 
 6.2.1 R110  
 is `O_OIDA 1..*-----R110-----* R_RTO - - - 1 O_RTIDA`  
 should be `O_OIDA *-----R110-----* R_RTO - - - 1 O_RTIDA`  
+This is because we now support associations that are not formalized.
+A Referred To Class in Association (`R_RTO`) is not required to
+have an identifier.  
 6.2.2 R835  
 is `V_VAR 0..1-----R835-----1..* V_LOC`  
 should be `V_VAR 1-----R835-----* V_LOC`  
-6.2.3 R4708  
-is `CL_POR 1-----R4708-----* CL_IIR`  
-and seems to be correct, but the instance population may be adding or missing stuff in a test model.  I am guessing this is a model that is not upgraded.
-6.2.4 R4709  
+It looks to me like `V_LOC` may be deprecated.  Searches in bridgepoint/src
+for `V_LOC` seem to show that it is only ever created (and deleted upon
+cleanup) but never accessed.  Checking on this.  For this work, we may
+simply repair the conditionality.  An issue will be raised to track this
+specific modification to meta-model.  See [[2.9]](#2.9).  
+6.2.3 R4709  
 is `C_PO 0..1-----R4709-----* CL_POR`  
 should be `C_PO 1-----R4709-----* CL_POR`  
+Every Port Reference must refer to exactly one Port.  
 6.2.5 R612  
 is `ACT_BLK *-----R612-----1 ACT_ACT`  
 should be `ACT_BLK *-----R612-----0..1 ACT_ACT`  
+This link is only present during parsing and needs to be biconditional.  
 
 6.3 Design Observations  
 See [[2.8]](#2.8).  OAL parser exits prematurely on select related
@@ -242,9 +240,8 @@ role phrases when not reflexive.  So, I avoided them.
 Consider the menu option in workspace preferences.  Should we allow
 this be messed with?  Should we never run integrity checker unless
 someone asks for it?
-```
-```
-We may need to make a special case for EP_PKG at the top level.
+We will likely need to make a special case for EP_PKG at the top level.
+Is the approach correct?  I am liking a "docgen" flavor better and better.
 ```
 
 ### 7. Acceptance Test
