@@ -66,6 +66,7 @@ public class BridgePointPreferencesStore implements IPreferenceModelStore {
     public static final String GRID_SPACING = PREFIX + "gridSpacing"; //$NON-NLS-1$
     public static final String EMIT_RTO_DATA = PREFIX + "emit_rto_data"; //$NON-NLS-1$
 	public static final String DEFAULT_ROUTING_STYLE = PREFIX + "defaultRoutingStyle"; //$NON-NLS-1$
+	public static final String SHOW_FORMALIZATIONS = PREFIX + "showFormalizations"; //$NON-NLS-1$
     public static final String SHOW_SYNC_DELETION_DIALOG = PREFIX + "show_reference_delete_warning"; //$NON-NLS-1$
     public static final String SHOW_SYNC_REPORT = PREFIX + "show_reference_sync_report"; //$NON-NLS-1$
     public static final String USE_DEFAULT_NAME_FOR_CREATION = PREFIX + "use_default_name_for_new_element_creation"; //$NON-NLS-1$
@@ -138,6 +139,7 @@ public class BridgePointPreferencesStore implements IPreferenceModelStore {
         store.setValue(USE_DEFAULT_NAME_FOR_CREATION, prefs.useDefaultNamesForNewModelElements);        
         store.setValue(REQUIRE_MASL_STYLE_IDENTIFIERS, prefs.requireMaslStyleIdentifiers);
         store.setValue(OPAQUE_COMPONENTS, prefs.opaqueComponents);
+        store.setValue(SHOW_FORMALIZATIONS, prefs.showFormalizations);
     }
 
     public IPreferenceModel loadModel(IPreferenceStore store, BasePlugin plugin, IPreferenceModel model) {
@@ -170,6 +172,7 @@ public class BridgePointPreferencesStore implements IPreferenceModelStore {
 				.getBoolean(BridgePointPreferencesStore.ENABLE_ERROR_FOR_EMPTY_SYNCHRONOUS_MESSAGE);
 		prefs.enableErrorForEmptySynchronousMessageRealized = store
 				.getBoolean(BridgePointPreferencesStore.ENABLE_ERROR_FOR_EMPTY_SYNCHRONOUS_MESSAGE_REALIZED);
+		prefs.showFormalizations = store.getBoolean(BridgePointPreferencesStore.SHOW_FORMALIZATIONS);
         prefs.disableGradients =
             store.getBoolean(BridgePointPreferencesStore.DISABLE_GRADIENTS);
         prefs.invertGradients =
@@ -292,5 +295,6 @@ public class BridgePointPreferencesStore implements IPreferenceModelStore {
         prefs.useDefaultNamesForNewModelElements = false;
         prefs.requireMaslStyleIdentifiers = false;
         prefs.opaqueComponents = false;
+        prefs.showFormalizations = true;
     }
 }

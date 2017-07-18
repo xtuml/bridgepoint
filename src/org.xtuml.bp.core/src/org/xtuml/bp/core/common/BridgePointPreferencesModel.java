@@ -72,6 +72,7 @@ public class BridgePointPreferencesModel implements IPreferenceModel {
 	public boolean useDefaultNamesForNewModelElements;
     public boolean requireMaslStyleIdentifiers;
     public boolean opaqueComponents;
+	public boolean showFormalizations;
 	
     
 	public Class getStoreClass() {
@@ -100,6 +101,7 @@ public class BridgePointPreferencesModel implements IPreferenceModel {
         disableGradients = syncTo.disableGradients;
         invertGradients = syncTo.invertGradients;
         gradientBaseColor = syncTo.gradientBaseColor;
+        showFormalizations = syncTo.showFormalizations;
 
         emitRTOData = syncTo.emitRTOData;
         exportOAL = syncTo.exportOAL;
@@ -147,6 +149,7 @@ public class BridgePointPreferencesModel implements IPreferenceModel {
         prefs.disableGradients = disableGradients;
         prefs.invertGradients = invertGradients;
         prefs.gradientBaseColor = gradientBaseColor;
+        prefs.showFormalizations = showFormalizations;
 
         prefs.emitRTOData = emitRTOData;
         prefs.exportOAL = exportOAL;
