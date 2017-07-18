@@ -715,7 +715,7 @@
   </target>
 	
   <target name="clean_core_properties" description="Remove the hierarchy properties file" >
-  	<delete verbose="true" file="src/org/xtuml/bp/model/compare/CorePluginMessages.properties" />
+  	<delete verbose="true" file="src/org/xtuml/bp/core/CorePluginMessages.properties" />
   </target>
 
 </project>
