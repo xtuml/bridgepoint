@@ -178,9 +178,13 @@ For the simple association formalizer side, select across
 conditional associations when a referential attribute is non-null.
 Expect to find an instance.  Report discrepancies.
 
-6.1.3 subtype integrity  
-For each instance participating as a supertype, the expected supertype(s)
+6.1.3 super/subtype integrity  
+6.1.3.1 subtype  
+For each instance participating as a subtype, the expected supertype(s)
 is queried to assure exactly one is found.  
+6.1.3.2 supertype  
+For each instance participating as a supertype, select and find
+exactly one subtype instance.
 
 6.1.4 referential integrity  
 6.1.4.1 An assertion is made that referential attribute sets match their
@@ -189,62 +193,57 @@ reported.
 Note, this query may be skipped for architectures that implement referential
 attributes as references to referred-to identifier attribute.  MC-Java is
 such an architecture.  
-6.1.4.2 Assert that referential attributes not particpating in an
-      association have appropriate not-participating values.  
+6.1.4.2 An assertion is made that a referential attribute of a simple
+formalizer not particpating in a link has an appropriate not-participating
+value.  
 
-Hmmm, consider building null comparison in the existing routine.  Then 'when empty' check for appropriate nulls.
+4.1 (placeholder to match SRS)
+4.2 The metamodel instance population of the application model shall be
+interrogated for the presence of all required association links.
+4.3 The values of referential attributes of related metamodel instances
+shall be asserted to match the value of referred to identifier attributes.
+4.4 Referential integrity assertion shall be applied to the entire
+metamodel instance population of the application model being edited.
+4.5 Assertion failures shall be reported clearly.
+4.6 The xtUML metamodel shall be repaired to fix specific cardinality
+errors.
+4.7 The functionality of the checker shall be available from the user
+interface.
+4.8 The functionality of the checker shall be available from the command
+line.
 
-
-6.2
-
-`RTOUtil.getRTOs` checks every class type.  if/else would short-circuit the check.  Checking the most common classes first would further optimize this routine.
-
-getRTOs does not deal with subtypes
-
-6.3 Referential Attribute Values  
-MC-Java omits referential attributes and generates read accessors that
-reference to base identifier attribute.  Therefore, this integrity check
-is automatically inforced by the architecture in the generated code.
-
-Hmm, maybe this is true in MC-Java, but the issue would be in the saved
-instance data.
-Perhaps if a referential is edited on disk to be the wrong value, one
-of the other tests will catch it?  (cuz batchRelate will not work?)
-
-6.4
-6.5
-
-6.6 OOA of OOA Repair  
+6.2 OOA of OOA Repair  
 It looks to me like `V_LOC` may be deprecated.  Searches in bridgepoint/src
 for `V_LOC` seem to show that it is only ever created (and deleted upon
-cleanup) but never accessed.  Checking on this...
+cleanup) but never accessed.  Checking on this.  For this work, we will
+simply repair the conditionality.  Raise a follow-on issue.
 
-6.6.1 R110
+6.2.1 R110  
 is `O_OIDA 1..*-----R110-----* R_RTO - - - 1 O_RTIDA`  
 should be `O_OIDA *-----R110-----* R_RTO - - - 1 O_RTIDA`  
-6.6.2 R835
+6.2.2 R835  
 is `V_VAR 0..1-----R835-----1..* V_LOC`  
 should be `V_VAR 1-----R835-----* V_LOC`  
-6.6.3 R4708
+6.2.3 R4708  
 is `CL_POR 1-----R4708-----* CL_IIR`  
 and seems to be correct, but the instance population may be adding or missing stuff in a test model.  I am guessing this is a model that is not upgraded.
-6.6.4 R4709
+6.2.4 R4709  
 is `C_PO 0..1-----R4709-----* CL_POR`  
 should be `C_PO 1-----R4709-----* CL_POR`  
-6.6.5 R612  
+6.2.5 R612  
 is `ACT_BLK *-----R612-----1 ACT_ACT`  
 should be `ACT_BLK *-----R612-----0..1 ACT_ACT`  
 
-I find `checkReferentialIntegrity` in the common integrity checker.
-This routine uses the getRTOs to find all instances referring to it.
-It seems to do most of the checking for instances that _should_ be there.
-However, it only checks if it can find them.  It does not check for the correct number of instances or duplicates.
-
+6.3 Design Observations  
 See [[2.8]](#2.8).  OAL parser exits prematurely on select related
 role phrases when not reflexive.  So, I avoided them.
 
 ```
-Consider the menu option in workspace preferences.
+Consider the menu option in workspace preferences.  Should we allow
+this be messed with?  Should we never run integrity checker unless
+someone asks for it?
+```
+```
 We may need to make a special case for EP_PKG at the top level.
 ```
 
@@ -277,7 +276,5 @@ Expected results are defined for each case.
 7.4 Non-Null Referential  
 7.4.1 Invalid Non-Null Conditional Formalizer Referential  
 7.4.2 Invalid Non-Null Conditional Reflexive Formalizer Referential  
-
-7.9 Duplicate Instances (uniqueness test)  
 
 ### End
