@@ -13,16 +13,12 @@ This note describes the implementation for context menu entries which support co
 
 ### 2. Document References
 
-In this section, list all the documents that the reader may need to refer to.
-Give the full path to reference a file.  
 <a id="2.1"></a>2.1 [BridgePoint DEI #9567](https://support.onefact.net/issues/9567) Cardinality on right click menu  
 <a id="2.2"></a>2.2 [BridgePoint DEI #xxx2](https://github.com/xtuml/bridgepoint/blob/9567_association_editing_enhancements/doc-bridgepoint/notes/9567_association_editing_enhancements/9567_association_editing_enhancements.md) Analysis   
 
 ### 3. Background
 
 See [[2.2]](2.2).  
-
-![My Image](myimage.jpg)
 
 ### 4. Requirements
 
