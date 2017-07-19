@@ -19,6 +19,7 @@ formalize sequence.
 <a id="2.1"></a>2.1 [#9561 Move relations](https://support.onefact.net/issues/9561)  
 
 ### 3. Background
+
 None
 
 ### 4. Requirements
@@ -41,7 +42,6 @@ move operation
 4.5 BridgePoint shall not attempt to reformalize a moved association  
 4.6 A context menu operation and graphical drag operation shall be considered
 in the design for moving an association  
-
 
 ### 5. Analysis
 
