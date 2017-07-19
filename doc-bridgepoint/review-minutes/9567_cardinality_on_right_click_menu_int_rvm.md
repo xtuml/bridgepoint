@@ -13,13 +13,13 @@ Present: keith, travis, levi
 <pre>
 
 --  Num Type  Who  Section   Comment
-_ - 01  min   LS   5.1.2.3   Discussion on why we navigate through the RTO/RGOs to get the object (instead of directly through R201)  
-_ - 02  min   KB   5.1.2.4.2 formatting issue (indention)  
-_ - 03  min   KB   5.1.3.5   add comment to note that it is not possible through the UI but leave saftety check in place  
-_ - 04  min   LS   5.1       remove 5.1 to simplify numbering scheme  
-_ - 05  min   KB   7         mention that the tests are implemented in JUnit; specify which suite/where they are located  
-_ - 06  min   KB   8         add documentation; screenshots, written documentation on the menu  
-_ - 07  min   KB   9         what changed in UITestingUtilities? Make a comment in implementation comments section  
+x - 01  min   LS   5.1.2.3   Discussion on why we navigate through the RTO/RGOs to get the object (instead of directly through R201)  
+x - 02  min   KB   5.1.2.4.2 formatting issue (indention)  
+x - 03  min   KB   5.1.3.5   add comment to note that it is not possible through the UI but leave saftety check in place  
+x - 04  min   LS   5.1       remove 5.1 to simplify numbering scheme  
+x - 05  min   KB   7         mention that the tests are implemented in JUnit; specify which suite/where they are located  
+x - 06  min   KB   8         add documentation; screenshots, written documentation on the menu  
+x - 07  min   KB   9         what changed in UITestingUtilities? Make a comment in implementation comments section  
 
 </pre>
    
