@@ -14,11 +14,11 @@ This note describes the implementation for context menu entries which support co
 ### 2. Document References
 
 <a id="2.1"></a>2.1 [BridgePoint DEI #9567](https://support.onefact.net/issues/9567) Cardinality on right click menu  
-<a id="2.2"></a>2.2 [BridgePoint DEI #xxx2](https://github.com/xtuml/bridgepoint/blob/9567_association_editing_enhancements/doc-bridgepoint/notes/9567_association_editing_enhancements/9567_association_editing_enhancements.md) Analysis   
+<a id="2.2"></a>2.2 [Analysis Note](https://github.com/travislondon/bridgepoint/blob/9567_association_editing_enhancements/doc-bridgepoint/notes/9567_association_editing_enhancements/9567_association_editing_enhancements.md) Analysis   
 
 ### 3. Background
 
-See [[2.2]](2.2).  
+See [[2.2]](2.2).  This work implements this analysis [[2.2]](#5.1.3.1).    
 
 ### 4. Requirements
 
