@@ -40,9 +40,9 @@ See [[2.2]](https://github.com/travislondon/bridgepoint/blob/9567_association_ed
 * 1  
 * 0..1  
 * 1..*  
-* *  
+* `*`  
 5.1.2.4.2 For Class As Link add the following sub menus:  
-*   
+* ` `  
 * {*}  
 5.1.2.4.3 In all cases filter out the current cardinality configuration  
 5.1.3 Add an action class to perform the cardinality change  
