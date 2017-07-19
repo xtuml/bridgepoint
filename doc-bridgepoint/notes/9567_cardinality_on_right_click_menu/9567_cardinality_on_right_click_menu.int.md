@@ -18,11 +18,11 @@ This note describes the implementation for context menu entries which support co
 
 ### 3. Background
 
-See [[2.2]](2.2).  This work implements this analysis [[2.2]](#5.1.3.1).    
+See [[2.2]](https://github.com/travislondon/bridgepoint/blob/9567_association_editing_enhancements/doc-bridgepoint/notes/9567_association_editing_enhancements/9567_association_editing_enhancements.md).  This work implements this analysis [[2.2]](https://github.com/travislondon/bridgepoint/blob/9567_association_editing_enhancements/doc-bridgepoint/notes/9567_association_editing_enhancements/9567_association_editing_enhancements.md#5.1.3.1).    
 
 ### 4. Requirements
 
-See [[2.2]](2.2).  
+See [[2.2]](https://github.com/travislondon/bridgepoint/blob/9567_association_editing_enhancements/doc-bridgepoint/notes/9567_association_editing_enhancements/9567_association_editing_enhancements.md#4).  
 
 ### 5. Work Required
 
