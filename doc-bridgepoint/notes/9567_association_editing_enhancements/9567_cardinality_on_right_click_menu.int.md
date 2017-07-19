@@ -60,7 +60,39 @@ See [[2.2]](2.2).
 None.   
 
 ### 7. Unit Test
-
+``` java
+testCardinalityPartOneUnformalized()
+testCardinalityPartTwoUnformalized()
+testCardinalityPartOneFormalized()
+testCardinalityFormOneFormalized()
+testCardinalityPartOneLinkedFormalized()
+testCardinalityPartTwoLinkedFormalized()
+testCardinalityMultipleSelection()
+testCardinalityNonAssociation()
+testCardinalityCasLinked()
+testCardinalityFilteringOneSideSimpleOneUnconditional()
+testCardinalityFilteringOneSideSimpleOneConditional()
+testCardinalityFilteringOneSideSimpleManyUnconditional()
+testCardinalityFilteringOneSideSimpleManyConditional()
+testCardinalityFilteringOtherSideSimpleOneUnconditional()
+testCardinalityFilteringOtherSideSimpleOneConditional()
+testCardinalityFilteringOtherSideSimpleManyUnconditional()
+testCardinalityFilteringOtherSideSimpleManyConditional()
+testCardinalityFilteringFormOneUnconditional()
+testCardinalityFilteringFormOneConditional()
+testCardinalityFilteringFormManyUnconditional()
+testCardinalityFilteringFormManyConditional()
+testCardinalityFilteringLinkedOneSideOneUnconditional()
+testCardinalityFilteringLinkedOneSideSimpleOneConditional()
+testCardinalityFilteringLinkedOneSideSimpleManyUnconditional()
+testCardinalityFilteringLinkedOneSideSimpleManyConditional()
+testCardinalityFilteringLinkedOtherSideUnconditional()
+testCardinalityFilteringLinkedOtherSideSimpleOneConditional()
+testCardinalityFilteringLinkedOtherSideSimpleManyUnconditional()
+testCardinalityFilteringLinkedOtherSideSimpleManyConditional()
+testCardinalityFilteringCasOne()
+testCardinalityFilteringCasMany()
+```
 
 ### 8. User Documentation
 
@@ -72,6 +104,8 @@ Fork/Repository: https://github.com/travislondon/bridgepoint
 Branch: 9567_cardinality_on_right_click_menu  
 
 <pre>
+
+doc-bridgepoint/notes/9567_association_editing_enhancements/9567_cardinality_on_right_click_menu.int.md
 
 org.xtuml.bp.core/src/org/xtuml/bp/core/ui/actions/AssociationCardinalityAction.java
 org.xtuml.bp.core/src/org/xtuml/bp/core/ui/actions/AssociationCardinalityContributionItem.java
