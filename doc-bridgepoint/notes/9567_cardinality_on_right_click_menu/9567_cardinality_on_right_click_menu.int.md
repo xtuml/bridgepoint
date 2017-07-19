@@ -50,12 +50,21 @@ See [[2.2]](https://github.com/travislondon/bridgepoint/blob/9567_association_ed
 5.1.3.2 Perform changes within a transaction  
 5.1.3.3 Navigate from the given referred to or referring element locating the necessary subtype to set the Mult and Cond attributes  
 5.1.3.4 For Class As Link switch the current value  
+5.1.3.5 If the resulting cardinality matches what is currently in memory do not complete the transaction  
 
 ### 6. Implementation Comments
 
 None.   
 
-### 7. Unit Test
+### 7. Unit Test  
+For all non-filtering related tests below the following is asserted:  
+
+* Menu existence  
+* Execution of entry produces a correct cardinality  
+* Changes are persisted  
+
+For the filtering tests all possible filtering scenarios are covered.  The tests assert that only options which can modify the association are present.  
+
 ``` java
 testCardinalityPartOneUnformalized()
 testCardinalityPartTwoUnformalized()
