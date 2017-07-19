@@ -26,34 +26,34 @@ See [[2.2]](https://github.com/travislondon/bridgepoint/blob/9567_association_ed
 
 ### 5. Work Required
 
-5.1 Introduce dynamic menu contribution  
-5.1.1 Add an entry for a menu to the eclipse popup extension  
-5.1.2 Create a new class to handle dynamic addition of the required Cardinality menu  
-5.1.2.1 When a single Association or Class As Link is selected add the Cardinality menu  
-5.1.2.2 When a supertype association is selected do not show the Cardinality menu  
-5.1.2.3 Navigate the referred to and referring associations for the selected element, add both the referred to class and referring class as sub menus.  Using R201 is possible in this situation but would not guarantee that the referred to element was first in the menu.  While this may not be important it was decided to go with traversals through the referred and referring classes.    
-5.1.2.3.1 Use the class name for the menu entry name  
-5.1.2.3.2 When a selected association is reflexive include the text phrase in the menu entry name, i.e, Class.'phrase'  
-5.1.2.3.3 When an unformalized simple association is selected use the second Class As Simple Participant rather than a Class as Formalizer to create a menu entry  
-5.1.2.4 Add the possible sub menus for the referred to and referring menus  
-5.1.2.4.1 For both simple and linked associations add the following sub menus:  
+5 Introduce dynamic menu contribution  
+5.1 Add an entry for a menu to the eclipse popup extension  
+5.2 Create a new class to handle dynamic addition of the required Cardinality menu  
+5.2.1 When a single Association or Class As Link is selected add the Cardinality menu  
+5.2.2 When a supertype association is selected do not show the Cardinality menu  
+5.2.3 Navigate the referred to and referring associations for the selected element, add both the referred to class and referring class as sub menus.  Using R201 is possible in this situation but would not guarantee that the referred to element was first in the menu.  While this may not be important it was decided to go with traversals through the referred and referring classes.    
+5.2.3.1 Use the class name for the menu entry name  
+5.2.3.2 When a selected association is reflexive include the text phrase in the menu entry name, i.e, Class.'phrase'  
+5.2.3.3 When an unformalized simple association is selected use the second Class As Simple Participant rather than a Class as Formalizer to create a menu entry  
+5.2.4 Add the possible sub menus for the referred to and referring menus  
+5.2.4.1 For both simple and linked associations add the following sub menus:  
 * 1  
 * 0..1  
 * 1..*  
 * `*`  
 
-5.1.2.4.2 For Class As Link add the following sub menus:  
+5.2.4.2 For Class As Link add the following sub menus:  
 
 * ` `  
 * {*}  
 
-5.1.2.4.3 In all cases filter out the current cardinality configuration  
-5.1.3 Add an action class to perform the cardinality change  
-5.1.3.1 Add a new action class, AssociationCardinalityAction  
-5.1.3.2 Perform changes within a transaction  
-5.1.3.3 Navigate from the given referred to or referring element locating the necessary subtype to set the Mult and Cond attributes  
-5.1.3.4 For Class As Link switch the current value  
-5.1.3.5 If the resulting cardinality matches what is currently in memory do not complete the transaction.  The UI will filter cardinalities that have no effect, however, the safety checks are left in place in case it is decided to remove filtering.    
+5.2.4.3 In all cases filter out the current cardinality configuration  
+5.3 Add an action class to perform the cardinality change  
+5.3.1 Add a new action class, AssociationCardinalityAction  
+5.3.2 Perform changes within a transaction  
+5.3.3 Navigate from the given referred to or referring element locating the necessary subtype to set the Mult and Cond attributes  
+5.3.4 For Class As Link switch the current value  
+5.3.5 If the resulting cardinality matches what is currently in memory do not complete the transaction.  The UI will filter cardinalities that have no effect, however, the safety checks are left in place in case it is decided to remove filtering.    
 
 ### 6. Implementation Comments
 
