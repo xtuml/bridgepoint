@@ -111,6 +111,7 @@ public abstract class AbstractExportBuilder extends IncrementalProjectBuilder {
 		if (exportNeeded) {
 			PersistenceManager.getDefaultInstance();
 			exportModel(monitor);
+			getProject().refreshLocal(IFile.DEPTH_INFINITE, null);
 		}
 		return null;
 	}
@@ -226,7 +227,7 @@ public abstract class AbstractExportBuilder extends IncrementalProjectBuilder {
             // the deletion happened and the folder then does not get created.
             project.refreshLocal(IFile.DEPTH_INFINITE, null);
             if (!path.toFile().exists()) {
-                path.toFile().mkdir();
+                path.toFile().mkdirs();
             }
         } else {
             // Clear the code generation folder of
