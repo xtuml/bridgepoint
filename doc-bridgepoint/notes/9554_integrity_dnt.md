@@ -22,6 +22,7 @@ Perform complete (referential) integrity checking.
 <a id="2.7"></a>2.7 [Existing Integrity Checker Implementation Note](https://github.com/xtuml/internal/blob/master/doc-internal/notes/28_dts0100970501/28_dts0100970501_int.md) Integrity Checker Implementation  
 <a id="2.8"></a>2.8 [9681](https://support.onefact.net/issues/9681) OAL parser exits prematurely on select related role phrases when not reflexive  
 <a id="2.9"></a>2.9 [9690](https://support.onefact.net/issues/9690) Deprecate `V_LOC`.  
+<a id="2.10"></a>2.10 [Model Integrity package in ooaofooa of bp.core](https://github.com/xtuml/bridgepoint/tree/master/src/org.xtuml.bp.core/models/org.xtuml.bp.core/ooaofooa/Model%20Integrity) Model Integrity  
 
 ### 3. Background
 
@@ -43,6 +44,7 @@ The elements that do override checkIntegrity perform useful _ad hoc_ checks.
 
 The existing model called 'Model Integrity' may be leveraged in this
 present work to report issues discovered by new integrity checking.
+See [[2.10]](#2.10).  
 
 5.2 Current Referential Integrity  
 As stated in [[2.6]](#2.6), the current integrity checker is not
@@ -64,7 +66,7 @@ to supply functionality that reads the model data and applies checking
 to meet the given requirements.  This includes checking for instance
 uniqueness (identifying attribute values) and traversing all unconditional
 associations from each end of the association (part, form, aone, aoth,
-assoc, sub, super).  Referential attribute values need to be compared
+assr, sub, super).  Referential attribute values need to be compared
 with identifiers.
 
 Here are three approaches that have been considered:  
@@ -123,16 +125,32 @@ deal of the complexity of MC-Java would need to be duplicated into
 the integrity checker template.
 
 5.3.4 Chosen Approach  
-The approach taken will be that described in 5.3.1.  First the OAL
-will be pasted into BridgePoint, and a promotion pull request will
-be prepared.  As a second (optional) step, the build process will be
-automated to reduce maintenance costs moving forward.
+The approach taken will be that described in 5.3.2.  If there is time,
+the approach described in 5.3.1 will be tested as a simple "paste-in".
+But any benefits of the 5.3.1 approach are outweighed by the risk of
+adding so much action language into BridgePoint proper.  There are
+weaknesses in MC-Java that would need to be dealt with such as model
+root locality.  The build process is also more complex.  Performance
+is a concern and would need benchmarking.
 
-The approach described in 5.3.2 will be used to prototype the
+The approach described in 5.3.2 has been used to prototype the
 solution.  Since working with `mcooa` is easier than working with
-`bp.core`, the development of the archetype will be done in the C
+`bp.core`, the development of the archetype is done in the C
 environment.  Build times are faster, and MC-3020 is easier to
 debug than MC-Java.
+
+After prototyping and doing some testing, this 'docgen-style' approach
+is proving to be the best Way Forward.
+
+Note that MC-3020 supports package references, and the meta-model
+has been refactored in this environment.  The new integrity checker
+can live in its own package/project/model.  It will be loosely
+coupled with the rest of the tooling.
+
+When Package Reference support is added to MC-Java, BridgePoint can
+be refactored, and the integrity tool can be integrated at the Java
+level.  This will open the door to finer granularity checking of
+individual packages or even indiviual model elements.
 
 ### 6. Design
 
@@ -187,10 +205,11 @@ Expect to find an instance.  Report discrepancies.
 
 6.1.3 super/subtype integrity  
 6.1.3.1 subtype  
-For each instance participating as a subtype, the expected supertype(s)
+For each instance participating as a subtype, the expected supertype
 is queried to assure exactly one is found.  
 Note, a special case is made for top-level packages ("Model Roots").
-Top-level instances of `EP_PKG` have no supertype `PE_PE`.  
+(A design idiosyncracy of BridgePoint is that top-level instances
+of `EP_PKG` have no supertype `PE_PE`.)  
 6.1.3.2 supertype  
 For each instance participating as a supertype, select and find
 exactly one subtype instance.
@@ -227,7 +246,7 @@ specific modification to meta-model.  See [[2.9]](#2.9).
 is `C_PO 0..1-----R4709-----* CL_POR`  
 should be `C_PO 1-----R4709-----* CL_POR`  
 Every Port Reference must refer to exactly one Port.  
-6.2.5 R612  
+6.2.4 R612  
 is `ACT_BLK *-----R612-----1 ACT_ACT`  
 should be `ACT_BLK *-----R612-----0..1 ACT_ACT`  
 This link is only present during parsing and needs to be biconditional.  
@@ -236,21 +255,30 @@ This link is only present during parsing and needs to be biconditional.
 See [[2.8]](#2.8).  OAL parser exits prematurely on select related
 role phrases when not reflexive.  So, I avoided them.
 
-```
-Consider the menu option in workspace preferences.  Should we allow
-this be messed with?  Should we never run integrity checker unless
-someone asks for it?
-We will likely need to make a special case for EP_PKG at the top level.
-Is the approach correct?  I am liking a "docgen" flavor better and better.
-```
+6.4 Report File  
+The implementation may consider storing the output to a file rather
+than simply using the Console.  The file could be marked up to make
+a more beautiful presentation.  However, the plan of record is to use
+the Console.
+
+6.5 User Interface  
+The user interface will be similar to the existing user interface.
+Under `BridgePoint Utilities` `Check Model Integrity` will run as
+it does today running the spot checking.
+
+A new menu item under `BridgePoint Utilities` will be named
+`Check Referential Integrity`.  It will run the new, exhaustive
+referential integrity checker (from this work).  The output will
+be displayed in the default Console.
+
+We can consider combining these options after some mileage and
+testing with both in place.
 
 ### 7. Acceptance Test
 
-A positive case and a negative case for each requirement above is
-created as an xtUML model persisted as SQL instances (normal xtUML
-format data).
-
-Expected results are defined for each case.
+The following tests will be created by editing valid models and
+introducing all of the various forms of missing link and incorrect
+referential attribute values.
 
 7.1 Two Instances with Duplicate Identifiers  
 7.2 Missing Link  
