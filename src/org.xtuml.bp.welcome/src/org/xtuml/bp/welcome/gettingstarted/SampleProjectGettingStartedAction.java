@@ -141,7 +141,7 @@ public class SampleProjectGettingStartedAction implements IIntroAction {
 	            modelPath = resolvePath(IGettingStartedConstants.modelFolder
 	                    + "/" + modelName); //$NON-NLS-1$
 
-	            if (enableImportIntoWorkspace.equalsIgnoreCase("true") && !modelPath.isEmpty()) {
+	            if (!modelPath.isEmpty()) {
 	            	setupSucceeded = ProjectUtilities.importExistingProject(modelPath, enableImportIntoWorkspace.equalsIgnoreCase("true"));
 	            }
            	}
