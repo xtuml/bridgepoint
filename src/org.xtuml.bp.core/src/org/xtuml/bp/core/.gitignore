@@ -1,4 +1,5 @@
 /*.java
+/CorePluginMessages.properties
 !/EclipseOoaofooa.java
 !/OoaofooaBase.java
 !/PropertyViewListener.java

@@ -141,6 +141,7 @@ public class BridgePointPreferences
     enableModelIntegrityCheck.setText("Enable model integrity checks");
     enableModelIntegrityCheck.setLayoutData(new GridData());
     enableModelIntegrityCheck.setToolTipText(BridgePointPreferencesStore.EnableModelIntegrityToolTip);
+   
         
     model = new BridgePointPreferencesModel();
     model.getStore().loadModel(getPreferenceStore(), null, model);
@@ -229,7 +230,7 @@ public class BridgePointPreferences
         showReferenceSynchronizationReport.setSelection(bpPrefs.showReferenceSyncReport);
         useDefaultNamesForNewModelElements.setSelection(bpPrefs.useDefaultNamesForNewModelElements);          
         requireMaslStyleIdentifiers.setSelection(bpPrefs.requireMaslStyleIdentifiers);
-        enableModelIntegrityCheck.setSelection(bpPrefs.enableModelIntegrityCheck);          
+        enableModelIntegrityCheck.setSelection(bpPrefs.enableModelIntegrityCheck);  
     }
 
     public IPreferenceStore getPreferenceStore() {

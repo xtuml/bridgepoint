@@ -36,7 +36,7 @@ import org.xtuml.bp.ui.sem.pages.SEMEditorPage;
 public class SEMPageFactory implements IEditorTabFactory {
 
 	@Override
-	public Composite createEditorTab(Composite parent, Object editorInput) {
+	public Composite createEditorTab(Composite parent, Object editorInput, String text) {
 		if(editorInput instanceof InstanceStateMachine_c) {
 			SEMEditorPage page = new SEMEditorPage(parent, StateMachine_c.getOneSM_SMOnR517((InstanceStateMachine_c) editorInput));
 			return page;
