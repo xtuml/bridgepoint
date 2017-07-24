@@ -18,13 +18,13 @@ Importing an existing project into a workspace sometimes results in the Model Ex
 ### 3. Background
 
 This issue is raised to resolve a problem that occurs when a user uses the Eclipse import functionality to import an existing
-Eclipse project into their workspace and they do NOT select the option to "import project into workspace". In this use case, the Model Explorer tree is not properly updated. When this occurs, the user must close and reopen the Model Explorer perspective to resolve the problem.  
+Eclipse project into their workspace and they do NOT select the option to "import project into workspace". In this use case, the Model Explorer tree is not properly updated. When this occurs, the user must close and reopen the Model Explorer view to resolve the problem.  
 
 ![Image showing the problem](9556_before_fix.png)
 
 ### 4. Requirements
 
-4.1 After importing an existing workspace which contains a xtUML model into 
+4.1 After importing an existing workspace which contains an xtUML model into 
 Eclipse, the Model Explorer tree shall show the full model when the tree is expanded.  
 
 4.1.1 This behavior shall be consisent regardless of the state of the "import project into workspace" preference.
@@ -34,9 +34,9 @@ Eclipse, the Model Explorer tree shall show the full model when the tree is expa
 
 5.1 Determine why the Model Explorer tree view is not being updated in this situation.  
 
-Investigation of this problem led us to the bp.core/PersistenceManager.java::ensureRootExists() opertion. 
+Investigation of this problem led us to the bp.core/PersistenceManager.java::ensureRootExists() operation. 
 This operation is called during model load to create the ModelRoot if it has not yet been created. A bug was found 
-in this routine. The bug was that model change listeners were being disabled prior to creation of the Model Root. The affect of this was the the Model Explorer model change listener did not receive the model change events that it requires to process the model being loaded. This is why the model tree was not displayed.  
+in this routine. The bug was that model change listeners were being disabled prior to creation of the Model Root. The affect of this was the Model Explorer model change listener did not receive the model change events that it requires to process the model being loaded. This is why the model tree was not displayed.  
 
 The ComponentResourceListener was generating the model loaded events, but since the flag to ignore
 resource change events had been enabled these events were not being sent to the Explorer View's 
@@ -65,10 +65,10 @@ modified to include the ability to introduce the option to "ImportIntoWorkspace"
 
 The following test has been added to the bp.welcome.test suite 
 as WelcomePageTestGPS.java::testProjectCreationNoImportIntoworkspace().   
-7.1 Import an existing project into the workspace and do NOT select the option to copy the files into the workspace.      
-7.1.1 Import > Existing Project into Workspace
-7.1.2 Do not select “copy into workspace”
-7.1.3 Result - In ME the project tree is NOT empty
+7.1 Import an existing project into the workspace and do NOT select the option to copy the files into the workspace.  
+7.1.1 Import > Existing Project into Workspace  
+7.1.2 Do not select “copy into workspace”  
+7.1.3 Result - In ME the project tree is NOT empty  
 
 
 ### 8. User Documentation
