@@ -22,7 +22,7 @@ Eclipse project into their workspace and they do NOT select the option to "impor
 Model Explorer tree is not properly updated. When this occurs, the user must close and reopen the Model Explorer perspective 
 to resolve the problem.  
 
-![Image showing the problem](9556_before_fix.jpg)
+![Image showing the problem](9556_before_fix.png)
 
 ### 4. Requirements
 
