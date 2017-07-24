@@ -96,6 +96,6 @@ format data) under an Eclipse project.
 
 Expected results will be defined for each case.
 
-TODO:  finishing defining the tests  
+Tests defined in the design note.
 
 ### End

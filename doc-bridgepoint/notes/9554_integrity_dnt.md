@@ -18,7 +18,7 @@ Perform complete (referential) integrity checking.
 <a id="2.3"></a>2.3 [653](https://support.onefact.net/issues/653) Check model integrity tool doesn't find problem  
 <a id="2.4"></a>2.4 [8514](https://support.onefact.net/issues/8514) Add a preference to disable the model integrity checker  
 <a id="2.5"></a>2.5 [test_consistency.py](https://github.com/xtuml/pyxtuml/blob/master/tests/test_xtuml/test_consistency.py) pyxtuml consistency checker  
-<a id="2.6"></a>2.6 [9554 Integrity Analysis Note](https://github.com/xtuml/bridgepoint/blob/master/doc-bridgepoint/notes/9554_integrity_ant.md) 9554 Integrity Checker Analysis Note  
+<a id="2.6"></a>2.6 [9554 Integrity Analysis Note](9554_integrity_ant.md) 9554 Integrity Checker Analysis Note  
 <a id="2.7"></a>2.7 [Existing Integrity Checker Implementation Note](https://github.com/xtuml/internal/blob/master/doc-internal/notes/28_dts0100970501/28_dts0100970501_int.md) Integrity Checker Implementation  
 <a id="2.8"></a>2.8 [9681](https://support.onefact.net/issues/9681) OAL parser exits prematurely on select related role phrases when not reflexive  
 <a id="2.9"></a>2.9 [9690](https://support.onefact.net/issues/9690) Deprecate `V_LOC`.  
@@ -242,11 +242,7 @@ for `V_LOC` seem to show that it is only ever created (and deleted upon
 cleanup) but never accessed.  Checking on this.  For this work, we may
 simply repair the conditionality.  An issue will be raised to track this
 specific modification to meta-model.  See [[2.9]](#2.9).  
-6.2.3 R4709  
-is `C_PO 0..1-----R4709-----* CL_POR`  
-should be `C_PO 1-----R4709-----* CL_POR`  
-Every Port Reference must refer to exactly one Port.  
-6.2.4 R612  
+6.2.3 R612  
 is `ACT_BLK *-----R612-----1 ACT_ACT`  
 should be `ACT_BLK *-----R612-----0..1 ACT_ACT`  
 This link is only present during parsing and needs to be biconditional.  
