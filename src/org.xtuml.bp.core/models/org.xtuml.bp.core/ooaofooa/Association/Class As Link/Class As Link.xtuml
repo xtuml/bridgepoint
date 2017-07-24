@@ -115,7 +115,14 @@ INSERT INTO O_TFR
 Bridge:GD',
 	"6e636321-0fd1-4577-b185-e4d76b0d0c71",
 	1,
-	'return Style::Broken;',
+	'showFormalizations = PREF::getBoolean(name:"bridgepoint_prefs_showFormalizations");
+if (param.at == End::Additional and showFormalizations)
+  select one assoc related by self->R_ASSOC[R211]->R_REL[R206];
+  if(assoc.isFormalized())
+    return Style::Bold;
+  end if;
+end if;
+return Style::Broken;',
 	1,
 	'',
 	"3180218e-9afb-44c8-a819-461cf2c915e7",

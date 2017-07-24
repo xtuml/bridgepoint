@@ -72,7 +72,8 @@ public class BridgePointPreferencesModel implements IPreferenceModel {
 	public boolean useDefaultNamesForNewModelElements;
     public boolean requireMaslStyleIdentifiers;
     public boolean opaqueComponents;
-	
+	public boolean showFormalizations;
+    public boolean enableTableBasedAssociationEditing;
     
 	public Class getStoreClass() {
 		return BridgePointPreferencesStore.class;
@@ -100,6 +101,7 @@ public class BridgePointPreferencesModel implements IPreferenceModel {
         disableGradients = syncTo.disableGradients;
         invertGradients = syncTo.invertGradients;
         gradientBaseColor = syncTo.gradientBaseColor;
+        showFormalizations = syncTo.showFormalizations;
 
         emitRTOData = syncTo.emitRTOData;
         exportOAL = syncTo.exportOAL;
@@ -114,6 +116,7 @@ public class BridgePointPreferencesModel implements IPreferenceModel {
         enableDeterministicVerifier = syncTo.enableDeterministicVerifier;
         enableInstanceReferences = syncTo.enableInstanceReferences;
         enableModelIntegrityCheck = syncTo.enableModelIntegrityCheck;
+        enableTableBasedAssociationEditing = syncTo.enableTableBasedAssociationEditing;
 
         enableVerifierAudit = syncTo.enableVerifierAudit;
         enableSelectAudit = syncTo.enableSelectAudit;
@@ -147,6 +150,7 @@ public class BridgePointPreferencesModel implements IPreferenceModel {
         prefs.disableGradients = disableGradients;
         prefs.invertGradients = invertGradients;
         prefs.gradientBaseColor = gradientBaseColor;
+        prefs.showFormalizations = showFormalizations;
 
         prefs.emitRTOData = emitRTOData;
         prefs.exportOAL = exportOAL;
@@ -161,6 +165,7 @@ public class BridgePointPreferencesModel implements IPreferenceModel {
         prefs.enableDeterministicVerifier = enableDeterministicVerifier;
         prefs.enableInstanceReferences = enableInstanceReferences;
         prefs.enableModelIntegrityCheck = enableModelIntegrityCheck;
+        prefs.enableTableBasedAssociationEditing = enableTableBasedAssociationEditing;
 
         prefs.enableVerifierAudit = enableVerifierAudit;
         prefs.enableSelectAudit = enableSelectAudit;

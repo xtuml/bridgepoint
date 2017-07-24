@@ -211,6 +211,12 @@ Bridge:GD',
     return Style::None;
   end if;
 end if;
+showFormalizations = PREF::getBoolean(name:"bridgepoint_prefs_showFormalizations");
+if (param.at == End::Additional and showFormalizations)
+  if(self.isFormalized())
+    return Style::Bold;
+  end if;
+end if;
 return Style::None;',
 	1,
 	'',
@@ -450,6 +456,15 @@ elif (param.name == "formalized" )
   if (param.value =="true" )
     return self.isFormalized();
   end if; 
+elif(param.name == "can")
+  if(param.value == "configure")
+    select one subsup related by self->R_SUBSUP[R206];
+    if(not_empty subsup)
+      // no configure support for supertype subtype
+      return false;
+    end if;
+    return true;
+  end if;
 end if;
 return false;
 ',

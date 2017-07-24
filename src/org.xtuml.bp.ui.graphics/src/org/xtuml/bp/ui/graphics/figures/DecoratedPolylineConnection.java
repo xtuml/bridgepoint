@@ -34,6 +34,7 @@ import org.eclipse.draw2d.geometry.PointList;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.draw2d.geometry.Translatable;
 import org.eclipse.gef.GraphicalEditPart;
+import org.eclipse.gef.editparts.AbstractEditPart;
 import org.eclipse.gef.handles.HandleBounds;
 import org.eclipse.gmf.runtime.draw2d.ui.mapmode.IMapMode;
 import org.eclipse.swt.SWT;
@@ -89,6 +90,12 @@ public class DecoratedPolylineConnection extends PolylineConnection implements
 		if (getLineStyle() == SWT.LINE_DASH) {
 			g.setLineStyle(SWT.LINE_CUSTOM);
 			g.setLineDash(new int[] { 5, 3 });
+		}
+		if(part.getStyleAt(End_c.Additional) == Style_c.Bold) {
+			g.setLineWidth(3);
+			if(part.getSelected() != AbstractEditPart.SELECTED_NONE) {
+				g.setLineWidth(5);
+			}
 		}
 		PointList pointListCopy = getPoints().getCopy();
 		if (part.getStyleAt(End_c.End) == Style_c.Circle) {

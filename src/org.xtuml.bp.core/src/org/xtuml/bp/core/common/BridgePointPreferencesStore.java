@@ -66,6 +66,7 @@ public class BridgePointPreferencesStore implements IPreferenceModelStore {
     public static final String GRID_SPACING = PREFIX + "gridSpacing"; //$NON-NLS-1$
     public static final String EMIT_RTO_DATA = PREFIX + "emit_rto_data"; //$NON-NLS-1$
 	public static final String DEFAULT_ROUTING_STYLE = PREFIX + "defaultRoutingStyle"; //$NON-NLS-1$
+	public static final String SHOW_FORMALIZATIONS = PREFIX + "showFormalizations"; //$NON-NLS-1$
     public static final String SHOW_SYNC_DELETION_DIALOG = PREFIX + "show_reference_delete_warning"; //$NON-NLS-1$
     public static final String SHOW_SYNC_REPORT = PREFIX + "show_reference_sync_report"; //$NON-NLS-1$
     public static final String USE_DEFAULT_NAME_FOR_CREATION = PREFIX + "use_default_name_for_new_element_creation"; //$NON-NLS-1$
@@ -73,6 +74,7 @@ public class BridgePointPreferencesStore implements IPreferenceModelStore {
     public static final String OPAQUE_COMPONENTS = PREFIX + "opaque_components"; //$NON-NLS-1$
     public static final String ENABLE_MODEL_INTEGRITY_CHECK = PREFIX + "enable_model_integrity_check"; //$NON-NLS-1$
 	public final static String EnableModelIntegrityToolTip = "When enabled, model integrity checks run during most BridgePoint model opertions and validate the integrity of the model for the opertion performed. This can be useful to assure there is no model corruption, but there is performance overhead when enabled.";
+	public static final String ENABLE_TABLE_BASED_ASSOCIATION_EDITING = PREFIX + "enable_table_based_association_editing"; //$NON-NLS-1$
 
 	public static final String RECTILINEAR_ROUTING = "RECTILINEAR_ROUTING"; //$NON-NLS-1$
 
@@ -118,6 +120,7 @@ public class BridgePointPreferencesStore implements IPreferenceModelStore {
         store.setValue(ENABLE_DETERMINISTIC_VERIFIER, prefs.enableDeterministicVerifier);
         store.setValue(ENABLE_INSTANCE_REFERENCES, prefs.enableInstanceReferences);
         store.setValue(ENABLE_MODEL_INTEGRITY_CHECK, prefs.enableModelIntegrityCheck);
+        store.setValue(ENABLE_TABLE_BASED_ASSOCIATION_EDITING, prefs.enableTableBasedAssociationEditing);
         
                 
 
@@ -138,6 +141,7 @@ public class BridgePointPreferencesStore implements IPreferenceModelStore {
         store.setValue(USE_DEFAULT_NAME_FOR_CREATION, prefs.useDefaultNamesForNewModelElements);        
         store.setValue(REQUIRE_MASL_STYLE_IDENTIFIERS, prefs.requireMaslStyleIdentifiers);
         store.setValue(OPAQUE_COMPONENTS, prefs.opaqueComponents);
+        store.setValue(SHOW_FORMALIZATIONS, prefs.showFormalizations);
     }
 
     public IPreferenceModel loadModel(IPreferenceStore store, BasePlugin plugin, IPreferenceModel model) {
@@ -170,6 +174,7 @@ public class BridgePointPreferencesStore implements IPreferenceModelStore {
 				.getBoolean(BridgePointPreferencesStore.ENABLE_ERROR_FOR_EMPTY_SYNCHRONOUS_MESSAGE);
 		prefs.enableErrorForEmptySynchronousMessageRealized = store
 				.getBoolean(BridgePointPreferencesStore.ENABLE_ERROR_FOR_EMPTY_SYNCHRONOUS_MESSAGE_REALIZED);
+		prefs.showFormalizations = store.getBoolean(BridgePointPreferencesStore.SHOW_FORMALIZATIONS);
         prefs.disableGradients =
             store.getBoolean(BridgePointPreferencesStore.DISABLE_GRADIENTS);
         prefs.invertGradients =
@@ -205,6 +210,9 @@ public class BridgePointPreferencesStore implements IPreferenceModelStore {
         
         prefs.enableModelIntegrityCheck =
                 store.getBoolean(ENABLE_MODEL_INTEGRITY_CHECK);
+        
+        prefs.enableTableBasedAssociationEditing =
+        		store.getBoolean(ENABLE_TABLE_BASED_ASSOCIATION_EDITING);
         
         prefs.enableVerifierAudit =
           store.getBoolean(BridgePointPreferencesStore.ENABLE_VERIFIER_AUDIT);
@@ -273,6 +281,7 @@ public class BridgePointPreferencesStore implements IPreferenceModelStore {
         prefs.messageDirection = TO_PROVIDER;
         prefs.activityPersistenceAsFiles = PERSIST_ACTIVITY_FILES;
         prefs.defaultActionLanguageDialect = Actiondialect_c.oal;
+        prefs.enableTableBasedAssociationEditing = false;
         
         prefs.enableVerifierAudit = false;
         prefs.enableSelectAudit = 1;
@@ -292,5 +301,6 @@ public class BridgePointPreferencesStore implements IPreferenceModelStore {
         prefs.useDefaultNamesForNewModelElements = false;
         prefs.requireMaslStyleIdentifiers = false;
         prefs.opaqueComponents = false;
+        prefs.showFormalizations = true;
     }
 }
