@@ -13,14 +13,12 @@ Importing an existing project into a workspace sometimes results in the Model Ex
 
 ### 2. Document References
 
-<a id="2.1"></a>2.1 [BridgePoint DEI #9556](https://support.onefact.net/issues/5556) This issue.  
+<a id="2.1"></a>2.1 [BridgePoint DEI #9556](https://support.onefact.net/issues/9556) This issue.  
 
 ### 3. Background
 
-This issue is raised to resolved a problem that occurs when a user uses the Eclipse import functionality to import an existing
-Eclipse project into their workspace and they do NOT select the option to "import project into workspace". In this use case, the
-Model Explorer tree is not properly updated. When this occurs, the user must close and reopen the Model Explorer perspective 
-to resolve the problem.  
+This issue is raised to resolve a problem that occurs when a user uses the Eclipse import functionality to import an existing
+Eclipse project into their workspace and they do NOT select the option to "import project into workspace". In this use case, the Model Explorer tree is not properly updated. When this occurs, the user must close and reopen the Model Explorer perspective to resolve the problem.  
 
 ![Image showing the problem](9556_before_fix.png)
 
@@ -29,29 +27,24 @@ to resolve the problem.
 4.1 After importing an existing workspace which contains a xtUML model into 
 Eclipse, the Model Explorer tree shall show the full model when the tree is expanded.  
 
-4.1.1 This requrement shall be true for the case where the option to import into workspace is selected or not.
+4.1.1 This behavior shall be consisent regardless of the state of the "import project into workspace" preference.
 
 
 ### 5. Work Required
 
-5.1 Determine why the Model Explorer view is not being updated in this situation.  
+5.1 Determine why the Model Explorer tree view is not being updated in this situation.  
 
 Investigation of this problem led us to the bp.core/PersistenceManager.java::ensureRootExists() opertion. 
 This operation is called during model load to create the ModelRoot if it has not yet been created. A bug was found 
-in this routine. The bug was that a flag that caused model change listeners to NOT be notified of model change events
-was being set prior to creation of the Model Root. The affect of this was the the Model Explorer model change listener 
-did not receive the model change events that it requires to process the model being loaded.
+in this routine. The bug was that model change listeners were being disabled prior to creation of the Model Root. The affect of this was the the Model Explorer model change listener did not receive the model change events that it requires to process the model being loaded. This is why the model tree was not displayed.  
 
-The ComponentResourceListener was generating the model loaded events, but since the flag to turn ignore
+The ComponentResourceListener was generating the model loaded events, but since the flag to ignore
 resource change events had been enabled these events were not being sent to the Explorer View's 
 ModelChangeListener::modelElementLoaded.
 
 The fix for this is to simply remove this call that disables resource change notifications.
 
-5.1.1 In the same routine modified to resolve this problem, it was observed that a call made to 
-refresh the explorer view after the model load was being performed asynchronously. A change was 
-made to perform this refresh synchrounously to block until the refresh is complete so there is not 
-a delay in the user experience to view the update in the explorer view.  
+5.1.1 In the same routine, it was observed that a call made to refresh the explorer view after the model change was being performed asynchronously. A change was made to perform this refresh synchrounously to block until the refresh is complete so there is not a delay in the user experience to view the update in the explorer view.  
 
 
 ### 6. Implementation Comments
