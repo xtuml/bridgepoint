@@ -52,7 +52,7 @@ The fix for this is to simply remove this call that disables resource change not
 6.1 While implementing the unit test for this issue it was observed that several 
 places in the GPS Watch unit test suite used a call to sleep that was not necessary. 
 These places were updated to use the TestingUtilities.allowJobCompletion() operation 
-which was designed for these situations where we want to wait for a baclground job to complete.  
+which was designed for these situations where we want to wait for a background job to complete.  
 
 6.2 While implementing this unit test it was observed that the welcome test suite was always launch the 
 help view after running the Welcome Getting Started Action. In most of these cases, this was not being 
@@ -86,7 +86,7 @@ org.xtuml.bp.welcome/src/org/xtuml/bp/welcome/gettingstarted/
     SampleProjectGettingStartedAction.java
 </pre>
 
-Fork/Repository: rmulvey/bridgepoint, rmulvey/bptest  
+Fork/Repository: rmulvey/bptest  
 Branch: 9556_import_existing_project  
 
 <pre>
