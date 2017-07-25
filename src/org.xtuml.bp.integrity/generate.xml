@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="bp.integrity" default="all" basedir=".">
+  <import file="${mcj_path}/common.xml"/>
+   
+  <target name="all"
+          description="Build entire project"
+          >
+  </target>
+
+  <!-- CLEAN TARGETS -->
+
+  <target name="clean_all"
+        description="Clean entire project"
+        depends="clean_classes" >
+
+    <echo>Done cleaning for ${ant.project.name}</echo>
+
+  </target>
+
+  <target name="clean_classes"
+    description="Remove all compiled classes">
+    <echo>Removing all compiled classes ...</echo>
+    <delete verbose="true" dir="bin" />
+  </target>
+
+  <target name="nb_all"
+  description="Perform nightly build actions (ignored for this plugin)"/>
+
+</project>

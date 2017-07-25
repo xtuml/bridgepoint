@@ -48,6 +48,7 @@
 		<module>../../src/org.xtuml.bp.debug.ui</module>
 		<module>../../src/org.xtuml.bp.doc</module>
 		<module>../../src/org.xtuml.bp.docgen</module>
+		<module>../../src/org.xtuml.bp.integrity</module>
 		<module>../../src/org.xtuml.bp.internal.tools</module>
 		<module>../../src/org.xtuml.bp.io.image</module>
 		<module>../../src/org.xtuml.bp.mc</module>
