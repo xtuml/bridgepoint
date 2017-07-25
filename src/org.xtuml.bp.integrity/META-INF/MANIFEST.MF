@@ -21,6 +21,7 @@ Require-Bundle: org.xtuml.bp.core,
  org.eclipse.ant.core,
  org.xtuml.bp.mc,
  org.xtuml.bp.mc.c.source,
+ org.xtuml.bp.io.image,
  org.eclipse.ui.console,
  org.eclipse.core.filesystem
 Bundle-ActivationPolicy: lazy
