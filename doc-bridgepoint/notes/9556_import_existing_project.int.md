@@ -61,6 +61,9 @@ running locally caused lots of tabs to be left open in the local browser. I made
 this by introducing a new filter, "LaunchGettingStartedHelp", in the same launch propererties that were 
 modified to include the ability to introduce the option to "ImportIntoWorkspace" for these test cases.  
 
+6.3 Fixed a problem found in the bp.test.common/ZipUtil.java utility. It was not properly handling folder 
+creation in all cases.  
+
 ### 7. Unit Test
 
 The following test has been added to the bp.welcome.test suite 
@@ -95,6 +98,8 @@ Branch: 9556_import_existing_project
     WelcomePageTestGPS.java
 > org.xtuml.bp.welcome.test/src/org/xtuml/bp/welcome/test/
     WelcomePageTestMetamodel.java
+> org.xtuml.bp.test.common/src/org/xtuml/bp/test/common/ZipUtil.java
+
 </pre>
 
 ### End

@@ -135,11 +135,15 @@ public class SampleProjectGettingStartedAction implements IIntroAction {
 	            	setupSucceeded = ProjectUtilities.importModelUsingWizard(systemModel, modelPath, false);
 	            }
             } else {
-            	if (singleFile.compareToIgnoreCase("false") != 0) {
+            	if (singleFile.compareToIgnoreCase("false") != 0 && enableImportIntoWorkspace.equalsIgnoreCase("true")) {
             		modelName += "." + singleFile;
             	}
-	            modelPath = resolvePath(IGettingStartedConstants.modelFolder
+            	if (enableImportIntoWorkspace.equalsIgnoreCase("true")) {
+            		modelPath = resolvePath(IGettingStartedConstants.modelFolder
 	                    + "/" + modelName); //$NON-NLS-1$
+            	} else {
+            		modelPath = singleFile;
+            	}
 
 	            if (!modelPath.isEmpty()) {
 	            	setupSucceeded = ProjectUtilities.importExistingProject(modelPath, enableImportIntoWorkspace.equalsIgnoreCase("true"));
