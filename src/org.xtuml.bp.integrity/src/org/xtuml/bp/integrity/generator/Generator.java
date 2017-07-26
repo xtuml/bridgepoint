@@ -217,7 +217,6 @@ public class Generator extends Task {
                     }
                 });
 
-                openOutput(project);
             } catch (Throwable e) {
                 String errMsg = e.getMessage();
                 if ( (errMsg == null) || errMsg.isEmpty() ) {
@@ -329,14 +328,8 @@ public class Generator extends Task {
     {
         // Call integrity.exe 
         String app = homedir + INTEGRITY_DIR + INTEGRITY_EXE;
-        String outputfile = DOC_XML;
-        File output = new File(workingDir + outputfile);
         File input = new File(workingDir + INTEGRITY_INPUT);
 
-        if (output.exists()) {
-            output.delete();
-        }
-        
         ProcessBuilder pb = new ProcessBuilder(app); 
         pb.directory(new File(workingDir));
         Process process = pb.start();
@@ -345,13 +338,8 @@ public class Generator extends Task {
         input.delete();
         project.refreshLocal(IResource.DEPTH_INFINITE, null);
         if ( exitVal == -1 ) {
-            RuntimeException re = new RuntimeException("check integrity subprocess failed: " +
-                    output.toString());
+            RuntimeException re = new RuntimeException("check integrity subprocess failed." );
             throw re;            
-        } else if ( !output.exists() ) {
-            RuntimeException re = new RuntimeException("Expected output file doesn't exist: " +
-                    output.toString());
-            throw re;
         }
     }
 
