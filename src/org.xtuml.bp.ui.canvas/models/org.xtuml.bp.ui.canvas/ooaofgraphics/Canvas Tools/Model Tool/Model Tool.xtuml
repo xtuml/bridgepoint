@@ -284,37 +284,15 @@ INSERT INTO O_TFR
 	'select any new_element from instances of DIM_GE where ( selected.elementId == param.newelementId );
 select any connector from instances of DIM_ED where ( selected.elementId == param.connectorId );
 select one dim_con related by connector->DIM_CON[R320]; // start
-if ( not_empty dim_con and dim_con.elementId == param.elementId )
-  // dispose the old dim con
-  dim_con.dispose();
-  // find the first waypoint, update the location
-  select any first_waypoint related by connector->DIM_WAY[R319];
-  select one prev_waypoint related by first_waypoint->DIM_WAY[R324.''follows''];
-  while ( not_empty prev_waypoint )
-    first_waypoint = prev_waypoint;
-    select one prev_waypoint related by first_waypoint->DIM_WAY[R324.''follows''];
-  end while;
-  // create a new anchor and relate to the new element and the connector
-  create object instance anchor of DIM_CON;
-  relate anchor to new_element across R311;
-  relate anchor to connector across R320;
-else
+if ( empty dim_con and dim_con.elementId == param.elementId )
   select one dim_con related by connector->DIM_CON[R321]; // end
-  if ( not_empty dim_con and dim_con.elementId == param.elementId )
-    // dispose the old dim con
-    dim_con.dispose();
-    // find the last waypoint, update the location
-    select any last_waypoint related by connector->DIM_WAY[R319];
-    select one next_waypoint related by last_waypoint->DIM_WAY[R324.''precedes''];
-    while ( not_empty next_waypoint )
-      last_waypoint = next_waypoint;
-      select one next_waypoint related by last_waypoint->DIM_WAY[R324.''precedes''];
-    end while;
-    // create a new anchor and relate to the new element and the connector
-    create object instance anchor of DIM_CON;
-    relate anchor to new_element across R311;
-    relate anchor to connector across R321;
-  end if;
+end if;
+if ( not_empty dim_con )
+  // unrelate from the old element
+  select one old_element related by dim_con->DIM_GE[R311];
+  unrelate dim_con from old_element across R311;
+  // relate to new element
+  relate dim_con to new_element across R311;
 end if;',
 	1,
 	'',
