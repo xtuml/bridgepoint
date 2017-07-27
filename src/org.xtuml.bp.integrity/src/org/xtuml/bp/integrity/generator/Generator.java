@@ -284,8 +284,6 @@ public class Generator extends Task {
         // Call xtumlmc_build.exe xtumlmc_cleanse_model <infile> <outfile>
         String app = AbstractNature.getLaunchAttribute(project, 
                     org.xtuml.bp.mc.AbstractNature.LAUNCH_ATTR_TOOL_LOCATION);
-        String args1 = "ConvertMultiFileToSingleFile";  //$NON-NLS-1$
-        String args2 = "xtumlmc_cleanse_model";  //$NON-NLS-1$
         String inputfile = project.getName() + ".sql"; //$NON-NLS-1$
         String middlefile = "z.xtuml";  //$NON-NLS-1$
         String outputfile = INTEGRITY_INPUT;
@@ -300,14 +298,16 @@ public class Generator extends Task {
             output.delete();
         }
 
-        ProcessBuilder pb = new ProcessBuilder(app, args1, modelsDir, inputfile);
+        String args = "ConvertMultiFileToSingleFile";  //$NON-NLS-1$
+        ProcessBuilder pb = new ProcessBuilder(app, args, modelsDir, inputfile);
         pb.directory(new File(workingDir));
         Process process = pb.start();
         process.waitFor();
 
-        ProcessBuilder pb = new ProcessBuilder(app, args2, inputfile, middlefile);
+        args = "xtumlmc_cleanse_model";  //$NON-NLS-1$
+        pb = new ProcessBuilder(app, args, inputfile, middlefile);
         pb.directory(new File(workingDir));
-        Process process = pb.start();
+        process = pb.start();
         process.waitFor();
         
         project.refreshLocal(IResource.DEPTH_INFINITE, null);
