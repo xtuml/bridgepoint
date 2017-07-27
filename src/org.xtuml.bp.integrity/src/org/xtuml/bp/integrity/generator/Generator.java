@@ -99,6 +99,9 @@ public class Generator extends Task {
         
         if ( (project != null) && !failed ) {
             String projPath = project.getLocation().toOSString();
+            final IPath modelspath = new Path(projPath + File.separator
+                    + "models");
+            final String modelsPath = modelspath.toOSString();
             final IPath path = new Path(projPath + File.separator
                     + DOC_DIR);
             final String destPath = path.toOSString();
@@ -181,9 +184,9 @@ public class Generator extends Task {
                                     monitor.worked(1);
                                     break;
                                 case 3:
-                                    monitor.subTask("Gathering model information");
-                                    ExportBuilder eb = new ExportBuilder();
-                                    exportedSystems = eb.exportSystem(sys, destPath, new NullProgressMonitor());
+                                    monitor.subTask("SKIPPING Gathering model information");
+                                    //ExportBuilder eb = new ExportBuilder();
+                                    //exportedSystems = eb.exportSystem(sys, destPath, new NullProgressMonitor(), false, "", false);
                                     monitor.worked(1);
                                     break;
                                 case 4:
@@ -192,7 +195,7 @@ public class Generator extends Task {
                                     break;
                                 case 5:
                                     monitor.subTask("Prepping model for document generation");
-                                    runXbuild(project, destPath);
+                                    runXbuild(project, destPath, modelsPath);
                                     monitor.worked(1);
                                     break;
                                 case 6:
@@ -275,13 +278,14 @@ public class Generator extends Task {
         }*/
     }
 
-    private static void runXbuild(IProject project, String workingDir) 
+    private static void runXbuild(IProject project, String workingDir, String modelsDir)
         throws IOException, RuntimeException, CoreException, InterruptedException
     {
         // Call xtumlmc_build.exe xtumlmc_cleanse_model <infile> <outfile>
         String app = AbstractNature.getLaunchAttribute(project, 
                     org.xtuml.bp.mc.AbstractNature.LAUNCH_ATTR_TOOL_LOCATION);
-        String args = "xtumlmc_cleanse_model";  //$NON-NLS-1$
+        String args1 = "ConvertMultiFileToSingleFile";  //$NON-NLS-1$
+        String args2 = "xtumlmc_cleanse_model";  //$NON-NLS-1$
         String inputfile = project.getName() + ".sql"; //$NON-NLS-1$
         String middlefile = "z.xtuml";  //$NON-NLS-1$
         String outputfile = INTEGRITY_INPUT;
@@ -296,7 +300,12 @@ public class Generator extends Task {
             output.delete();
         }
 
-        ProcessBuilder pb = new ProcessBuilder(app, args, inputfile, middlefile);
+        ProcessBuilder pb = new ProcessBuilder(app, args1, modelsDir, inputfile);
+        pb.directory(new File(workingDir));
+        Process process = pb.start();
+        process.waitFor();
+
+        ProcessBuilder pb = new ProcessBuilder(app, args2, inputfile, middlefile);
         pb.directory(new File(workingDir));
         Process process = pb.start();
         process.waitFor();
@@ -331,7 +340,7 @@ public class Generator extends Task {
     {
         // Call integrity.exe 
         String app = homedir + INTEGRITY_DIR + INTEGRITY_EXE;
-        app = app + " > " + INTEGRITY_TXT;
+        String args = " > " + INTEGRITY_TXT;
         String outputfile = INTEGRITY_TXT;
         File output = new File(workingDir + outputfile);
         File input = new File(workingDir + INTEGRITY_INPUT);
@@ -340,7 +349,7 @@ public class Generator extends Task {
             output.delete();
         }
 
-        ProcessBuilder pb = new ProcessBuilder(app); 
+        ProcessBuilder pb = new ProcessBuilder(app, args);
         pb.directory(new File(workingDir));
         Process process = pb.start();
         int exitVal = doWaitFor(process, output);
