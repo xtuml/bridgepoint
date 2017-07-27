@@ -108,8 +108,6 @@ Look in ui.graphics/plugin.xml "terminator" definitions
 
 ### 6. Work Required
 
-Estimated time: 1-2 man weeks
-
 ### 7. Acceptance Test
 
 ### End
