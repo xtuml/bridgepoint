@@ -19,7 +19,7 @@ fi
 
 function importProjects {
   dir=`pwd`
-  cd $GIT_DIR
+  cd $BP_GIT_DIR
   # Explicitly import doc-bridgepoint and utilities
       java -cp ${bp_install_dir}/plugins/org.eclipse.equinox.launcher_1.3.100.v20150511-1540.jar org.eclipse.equinox.launcher.Main -data $WORKSPACE -application org.eclipse.cdt.managedbuilder.core.headlessbuild -import doc-bridgepoint 
     java -cp ${bp_install_dir}/plugins/org.eclipse.equinox.launcher_1.3.100.v20150511-1540.jar org.eclipse.equinox.launcher.Main -data $WORKSPACE -application org.eclipse.cdt.managedbuilder.core.headlessbuild -import utilities 
@@ -73,8 +73,8 @@ function prepareDevelopmentWorkspace {
   if [ ! -d $WORKSPACE ]; then
     mkdir -p $WORKSPACE/.metadata/.plugins/org.eclipse.core.runtime/.settings
   fi
-  cp -f $GIT_DIR/bridgepoint/utilities/build/preferences/*  $WORKSPACE/.metadata/.plugins/org.eclipse.core.runtime/.settings
-  cp -f $GIT_DIR/pt_antlr/pt_antlr/antlr.jar  $GIT_DIR/bridgepoint/src/org.xtuml.bp.als/lib/antlr.jar
+  cp -f $BP_GIT_DIR/bridgepoint/utilities/build/preferences/*  $WORKSPACE/.metadata/.plugins/org.eclipse.core.runtime/.settings
+  cp -f $BP_GIT_DIR/pt_antlr/pt_antlr/antlr.jar  $BP_GIT_DIR/bridgepoint/src/org.xtuml.bp.als/lib/antlr.jar
   echo "Preparing workspace"
 }
 
