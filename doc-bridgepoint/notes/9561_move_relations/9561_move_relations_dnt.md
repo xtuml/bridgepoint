@@ -1,4 +1,4 @@
----
+--
 
 This work is licensed under the Creative Commons CC0 License
 
@@ -18,12 +18,15 @@ See [[2.2]](#2.2)
 <a id="2.3"></a>2.3 [test model](https://github.com/xtuml/models/tree/master/test/AssociationMoveTests)  
 <a id="2.4"></a>2.4 [test suite](https://github.com/xtuml/bptest/tree/master/src/org.xtuml.bp.ui.canvas.test/src/org/xtuml/bp/ui/canvas/test/assoc)  
 <a id="2.5"></a>2.5 [test matrix](https://github.com/xtuml/bptest/tree/master/src/org.xtuml.bp.ui.canvas.test/matrices/non_generated/association_move.txt)  
+<a id="2.6"></a>2.6 [#9501 2017 issues SRS](https://docs.google.com/document/d/1ZyV-FZt77RThTWFBUm3PfM1jxXL9baSeKQWYzfrmFrE/edit)  
 
 ### 3. Background
 
 None
 
 ### 4. Requirements
+
+These requirements are drawn from the SRS [[2.6]](#2.6) section 3.1.3
 
 The following definition shall be used for an association move operation:
 
