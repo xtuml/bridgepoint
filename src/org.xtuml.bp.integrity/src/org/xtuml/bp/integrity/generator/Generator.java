@@ -53,11 +53,11 @@ public class Generator extends Task {
     public static final String INTEGRITY_LAUNCH_ID = "Check Referential Integrity.launch"; //$NON-NLS-1$
     public static final String XBUILD_LAUNCH_ID = "Integrity xtumlmc build.launch"; //$NON-NLS-1$
     public static final String EXTERNALTOOLBUILDER_FOLDER = ".externalToolBuilders"; //$NON-NLS-1$
-    public static final String CORE_ICON_DIR = "icons/metadata/"; //$NON-NLS-1$
     public static final String INTEGRITY_DIR = "/tools/mc/bin/"; //$NON-NLS-1$
     public static final String INTEGRITY_EXE = "integrity"; //$NON-NLS-1$
     public static final String DOC_DIR = "doc/"; //$NON-NLS-1$
     public static final String INTEGRITY_INPUT = "a.xtuml"; //$NON-NLS-1$
+    public static final String INTEGRITY_TXT = "integrity.txt"; //$NON-NLS-1$
     public static final String EXEFILE = ".exe"; //$NON-NLS-1$
     public static final String CONSOLE_NAME = "Console"; //$NON-NLS-1$
     private static final int SLEEPTIME = 500;
@@ -88,6 +88,8 @@ public class Generator extends Task {
      * - Run the Model Compiler pre-builder 
      * - Call xtumlmc_build.exe xtumlmc_cleanse_model <model file> 
      * - Pass the stripped down model file to the integrity exe 
+     * - Store the integrity.txt output in the specified output folder
+     * - Display integrity.txt
      */
     private static void checkReferentialIntegrity(final SystemModel_c sys) {
 
@@ -217,6 +219,7 @@ public class Generator extends Task {
                     }
                 });
 
+                openOutput(project);
             } catch (Throwable e) {
                 String errMsg = e.getMessage();
                 if ( (errMsg == null) || errMsg.isEmpty() ) {
@@ -292,7 +295,7 @@ public class Generator extends Task {
         if ( output.exists() ) {
             output.delete();
         }
-        
+
         ProcessBuilder pb = new ProcessBuilder(app, args, inputfile, middlefile);
         pb.directory(new File(workingDir));
         Process process = pb.start();
@@ -328,19 +331,44 @@ public class Generator extends Task {
     {
         // Call integrity.exe 
         String app = homedir + INTEGRITY_DIR + INTEGRITY_EXE;
+        app = app + " > " + INTEGRITY_TXT;
+        String outputfile = INTEGRITY_TXT;
+        File output = new File(workingDir + outputfile);
         File input = new File(workingDir + INTEGRITY_INPUT);
+
+        if (output.exists()) {
+            output.delete();
+        }
 
         ProcessBuilder pb = new ProcessBuilder(app); 
         pb.directory(new File(workingDir));
         Process process = pb.start();
-        int exitVal = doWaitFor(process, null);
+        int exitVal = doWaitFor(process, output);
         
         input.delete();
         project.refreshLocal(IResource.DEPTH_INFINITE, null);
         if ( exitVal == -1 ) {
-            RuntimeException re = new RuntimeException("check integrity subprocess failed." );
-            throw re;            
+            RuntimeException re = new RuntimeException("check integrity subprocess failed." +
+                    output.toString());
+            throw re;
+        } else if ( !output.exists() ) {
+            RuntimeException re = new RuntimeException("Expected output file does not exist:  " +
+                    output.toString());
+            throw re;
         }
+    }
+
+    private static void openOutput(IProject project) 
+        throws IOException, RuntimeException, CoreException, InterruptedException 
+    {
+        // Open the integrity report
+        String txtfile = INTEGRITY_TXT;
+        IFile output = project.getFile(DOC_DIR + txtfile);
+
+        IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
+        IEditorDescriptor desc = PlatformUI.getWorkbench().
+            getEditorRegistry().getDefaultEditor(output.getName());
+        page.openEditor(new FileEditorInput(output), desc.getId());
     }
 
     private static MessageConsole findConsole(String name) {
