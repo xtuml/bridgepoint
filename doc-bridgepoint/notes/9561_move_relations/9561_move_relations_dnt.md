@@ -67,7 +67,13 @@ reference).
 The pattern of the second case above can be used to extend the editor to allow
 `ReconnectRequest`s when moving associations on classes and imported classes.
 
-The graphical drag and drop option shall be pursued. In the analysis, a
+5.2 Context menu
+
+Analyzed as part of [[2.2]](#2.2) section 5.2.1
+
+5.3 Conclusion
+
+The graphical drag and drop option shall be pursued. In the analysis [[2.2]](#2.2), a
 CME/wizard option was considered. The graphical option is much better for user
 experience and through this analysis it is determined that is attainable in the
 time frame of the project.
