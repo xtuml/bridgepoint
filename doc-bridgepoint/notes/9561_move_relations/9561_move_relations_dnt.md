@@ -202,7 +202,7 @@ association into a reflexive situation provides the same square feedback line.
 In the `ConnectionPolicy` class, there is a method called `showTargetFeedback`
 which modifies the feedback line before it is displayed in the case of a
 reflexive association. It does this using the `createBendpointsForFeedback`
-method. These two methods must be extended to handled `ReconnectRequest`
+method. These two methods must be extended to handle `ReconnectRequest`
 instances. Additionally, a new method `showSourceFeedback` must be implemented
 (actually, must override the default behavior of the method in the superclass)
 because reconnects can happen at both the source and target end of a connector.
