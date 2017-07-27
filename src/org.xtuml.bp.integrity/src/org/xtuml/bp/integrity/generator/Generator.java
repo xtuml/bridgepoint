@@ -178,9 +178,9 @@ public class Generator extends Task {
                                     monitor.worked(1);
                                     break;
                                 case 2:
-                                    monitor.subTask("Loading model");
-                                    PersistableModelComponent pmc = sys.getPersistableComponent();
-                                    pmc.loadComponentAndChildren(new NullProgressMonitor());
+                                    monitor.subTask("SKIPPING Loading model");
+                                    //PersistableModelComponent pmc = sys.getPersistableComponent();
+                                    //pmc.loadComponentAndChildren(new NullProgressMonitor());
                                     monitor.worked(1);
                                     break;
                                 case 3:
