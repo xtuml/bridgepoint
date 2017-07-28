@@ -43,7 +43,6 @@ import org.eclipse.ui.console.MessageConsoleStream;
 import org.eclipse.ui.part.FileEditorInput;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.SystemModel_c;
-import org.xtuml.bp.core.common.PersistableModelComponent;
 
 public class Generator extends Task {
     
@@ -76,7 +75,6 @@ public class Generator extends Task {
         if (self == null) {
             self = new Generator();
         }
-        
         checkReferentialIntegrity(sys);
     }
  
@@ -256,15 +254,8 @@ public class Generator extends Task {
         process = pb.start();
         process.waitFor();
         
-        project.refreshLocal(IResource.DEPTH_INFINITE, null);
-        if ( !middle.exists() ) {
-            RuntimeException re = new RuntimeException("Expected output file does not exist: " + middle.toString());
-            throw re;
-        }
-
         // Call xtumlmc_build.exe ReplaceUUIDWithLong <infile> <outfile>
         args = "ReplaceUUIDWithLong";  //$NON-NLS-1$
-
         pb = new ProcessBuilder(app, args, middlefile, outputfile);
         pb.directory(new File(workingDir));
         process = pb.start();
@@ -272,11 +263,6 @@ public class Generator extends Task {
         
         sqlfile.delete();
         middle.delete();
-        project.refreshLocal(IResource.DEPTH_INFINITE, null);
-        if ( !output.exists() ) {
-            RuntimeException re = new RuntimeException("Expected output file doesn't exist: " + output.toString());
-            throw re;
-        }
     }
     
     private static void runIntegrity(IProject project, String workingDir) 
@@ -288,10 +274,6 @@ public class Generator extends Task {
         String outputfile = INTEGRITY_TXT;
         File output = new File(workingDir + outputfile);
         File input = new File(workingDir + INTEGRITY_INPUT);
-
-        if (output.exists()) {
-            output.delete();
-        }
 
         ProcessBuilder pb = new ProcessBuilder(app, args);
         pb.directory(new File(workingDir));
@@ -404,30 +386,4 @@ public class Generator extends Task {
         return exitValue;
     }
 
-    public static Path findProgramInPath(String desiredProgram) {
-        ProcessBuilder pb = new ProcessBuilder(isWindows() ? "where" : "which", desiredProgram);
-        Path foundProgram = null;
-        try {
-            Process proc = pb.start();
-            int errCode = proc.waitFor();
-            if (errCode == 0) {
-                try (BufferedReader reader = new BufferedReader(new InputStreamReader(proc.getInputStream()))) {
-                	// Found it!
-                    foundProgram = new Path(reader.readLine());
-                }
-            } else {
-            	System.err.println(desiredProgram + " not in PATH");
-            }
-        } catch (IOException ex) {
-        	System.err.println("Something went wrong while searching for " + desiredProgram);
-        } catch (InterruptedException ex) {
-        	System.err.println("Something went wrong while searching for " + desiredProgram);
-        }
-        return foundProgram;
-    }
-    
-    private static boolean isWindows() {
-        return System.getProperty("os.name").toLowerCase().contains("windows");
-    }
-    
 }
