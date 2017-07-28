@@ -672,6 +672,16 @@ public class ProjectUtilities {
 		return project;
 	}
 
+	public static void refreshProject(String projectName) {
+		try {
+		    final IProject project = getProject(projectName);
+		    project.refreshLocal(IProject.DEPTH_INFINITE, null);
+            allowJobCompletion();
+		} catch (CoreException e) {
+			CorePlugin.logError(e.getMessage(), e);
+		}
+	}
+
 	public static IViewPart selectView(final IProject project, final String viewName) throws Exception {
 		g_view = null;
 		Runnable r = new Runnable() {
