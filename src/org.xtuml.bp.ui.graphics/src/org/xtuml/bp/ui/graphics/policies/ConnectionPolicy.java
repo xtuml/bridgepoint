@@ -377,51 +377,6 @@ public abstract class ConnectionPolicy extends GraphicalNodeEditPolicy {
 		}
 		super.showSourceFeedback(request);
 	}
-  
-    @Override
-    public void showTargetFeedback(Request request) {
-        translatedAdjustment = new Point(50, 50);
-        ((AbstractGraphicalEditPart) getHost().getRoot().getContents())
-                .getFigure().getParent().getParent().getParent()
-                .translateToParent(translatedAdjustment);
-        if (feedbackFigure == null) {
-            if ( request instanceof ReconnectRequest ) {
-                feedbackFigure = (PolylineConnection)((ReconnectRequest)request).getConnectionEditPart().getFigure();
-            }
-            else {
-                super.showTargetFeedback(request);
-                return;
-            }
-        }
-        //feedbackFigure.setRoutingConstraint(null);
-        if (request instanceof ReconnectRequest) {
-            ReconnectRequest rRequest = (ReconnectRequest) request;
-            if ( ( ( rRequest.isMovingStartAnchor() && rRequest.getConnectionEditPart().getTarget() == rRequest.getTarget() ) ||
-                ( !rRequest.isMovingStartAnchor() && rRequest.getConnectionEditPart().getSource() == rRequest.getTarget() ) ) &&
-                !( rRequest.getTarget() instanceof DiagramEditPart ) ) {
-                if(feedbackFigure.getConnectionRouter() instanceof RectilinearRouter) {
-                    // for this we use the BendpointConnectionRoutuer
-                    feedbackFigure.setConnectionRouter(new BendpointConnectionRouter());
-                }
-                List<Bendpoint> bendpoints = createBendpointsForFeedback(rRequest);
-                feedbackFigure.setRoutingConstraint(bendpoints);
-            } else {
-                if (feedbackFigure != null) {
-                    // set the connection router to the same as the
-                    // connection layer in case it was changed above
-                    feedbackFigure
-                            .setConnectionRouter(((ConnectionLayer) getLayer(LayerConstants.CONNECTION_LAYER))
-                                    .getConnectionRouter());
-                    PointList points = feedbackFigure.getPoints();
-                    if (points.size() > 2) {
-                        // clear the routing constraint
-                        feedbackFigure.setRoutingConstraint(null);
-                    }
-                }
-            }
-        }
-        super.showTargetFeedback(request);
-    }
 
 	private boolean isSourceContainer(EditPart sourceEditPart) {
 		if (sourceEditPart instanceof ShapeEditPart) {
@@ -433,83 +388,69 @@ public abstract class ConnectionPolicy extends GraphicalNodeEditPolicy {
 		return false;
 	}
 
-    private List<Bendpoint> createBendpointsForFeedback( ReconnectRequest request ) {
-        AbstractGraphicalEditPart sourcePart;
-        Point startPoint;
-        if ( request.isMovingStartAnchor() ) {
-            sourcePart = (AbstractGraphicalEditPart)request.getConnectionEditPart().getTarget();
-            startPoint = ((ConnectorEditPart)request.getConnectionEditPart()).getEndPoint();
-        }
-        else {
-            sourcePart = (AbstractGraphicalEditPart)request.getConnectionEditPart().getSource();
-            startPoint = ((ConnectorEditPart)request.getConnectionEditPart()).getStartPoint();
-        }
-        request.getConnectionEditPart().getFigure().translateToAbsolute(startPoint);
-        Point endPoint = request.getLocation();
-        return createBendpointsForFeedback( sourcePart, startPoint, endPoint );
-    }
-
-    private List<Bendpoint> createBendpointsForFeedback( CreateConnectionRequest request ) {
-        // determine the closest side of the start point
-        StartConnectionCommand command = (StartConnectionCommand) request.getStartCommand();
-        Point startPoint = command.getStartPoint().getCopy();
-        Point endPoint = request.getLocation().getCopy();
-        AbstractGraphicalEditPart sourcePart = (AbstractGraphicalEditPart)request.getSourceEditPart();
-        return createBendpointsForFeedback( sourcePart, startPoint, endPoint );
-    }
-
-    private List<Bendpoint> createBendpointsForFeedback( AbstractGraphicalEditPart sourcePart, Point startPoint, Point endPoint ) {
-        ArrayList<Bendpoint> constraint = new ArrayList<Bendpoint>();
-        Rectangle bounds = sourcePart.getFigure().getBounds().getCopy();
-        if(sourcePart instanceof ConnectorEditPart) {
-            // increase the bounds enough to allow proper bend point
-            // calculation below
-            int tolerance = (int) Math.max(((Shape) sourcePart.getFigure())
-                .getLineWidthFloat() / 2.0f, 15);
-            bounds.expand(tolerance, tolerance);
-        }
-        sourcePart.getFigure().translateToAbsolute(bounds);
-        int startSide = getClosestSide(startPoint, bounds);
-        int endSide = getClosestSide(endPoint, bounds);
-        constraint.add(getBendpointFor(startSide, startPoint, bounds));
-        if (sourcePart instanceof ConnectorEditPart) {
-            // always use the same side as the start point
-            constraint.add(getBendpointFor(startSide, endPoint, bounds));
-            // no need to process further, return the constraint
-            return constraint;
-        } else {
-            constraint.add(getBendpointFor(endSide, endPoint, bounds));
-        }
-        bounds = bounds.getCopy();
-        getFeedbackLayer().translateToRelative(bounds);
-        PointList list = new PointList();
-        list.addPoint(constraint.get(0).getLocation());
-        list.addPoint(constraint.get(1).getLocation());
-        PointList routeAroundRect = PointListUtilities.routeAroundRect(
-            list, bounds, 0, true, translatedAdjustment.x);
-        if (routeAroundRect != null) {
-            PointListUtilities.normalizeSegments(routeAroundRect, 5);
-            if(routeAroundRect.size() == 2) {
-                squareLines(routeAroundRect, startSide, endSide);
-            }
-            constraint.clear();
-            for (int i = 0; i < routeAroundRect.size(); i++) {
-                constraint.add(new PrecisionBendpoint(routeAroundRect
-                        .getPoint(i)));
-            }
-        } else {
-            if(startSide != endSide) {
-                // we need to check for the case where the start and end are
-                // not on the same side, and make sure the result is squared
-                squareLines(list, startSide, endSide);
-                constraint.clear();
-                for(int i = 0; i < list.size(); i++) {
-                    constraint.add(new PrecisionBendpoint(list.getPoint(i)));
-                }
-            }
-        }
-        return constraint;
-    }
+	private List<Bendpoint> createBendpointsForFeedback(
+			CreateConnectionRequest request) {
+		// determine the closest side of the start point
+		ArrayList<Bendpoint> constraint = new ArrayList<Bendpoint>();
+		StartConnectionCommand command = (StartConnectionCommand) request
+				.getStartCommand();
+		Point startPoint = command.getStartPoint().getCopy();
+		Point endPoint = request.getLocation().getCopy();
+		Rectangle bounds = ((AbstractGraphicalEditPart) request
+				.getSourceEditPart()).getFigure().getBounds().getCopy();
+		if(request.getSourceEditPart() instanceof ConnectorEditPart) {
+			// increase the bounds enough to allow proper bend point
+			// calculation below
+			int tolerance = (int) Math.max(
+					((Shape) ((AbstractGraphicalEditPart) request
+							.getSourceEditPart()).getFigure())
+							.getLineWidthFloat() / 2.0f, 15);
+			bounds.expand(tolerance, tolerance);
+		}
+		((AbstractGraphicalEditPart) request.getSourceEditPart()).getFigure()
+				.translateToAbsolute(bounds);
+		int startSide = getClosestSide(startPoint, bounds);
+		int endSide = getClosestSide(endPoint, bounds);
+		constraint.add(getBendpointFor(startSide, startPoint, bounds, request));
+		if (request.getSourceEditPart() instanceof ConnectorEditPart) {
+			// always use the same side as the start point
+			constraint
+					.add(getBendpointFor(startSide, endPoint, bounds, request));
+			// no need to process further, return the constraint
+			return constraint;
+		} else {
+			constraint.add(getBendpointFor(endSide, endPoint, bounds, request));
+		}
+		bounds = bounds.getCopy();
+		getFeedbackLayer().translateToRelative(bounds);
+		PointList list = new PointList();
+		list.addPoint(constraint.get(0).getLocation());
+		list.addPoint(constraint.get(1).getLocation());
+		PointList routeAroundRect = PointListUtilities.routeAroundRect(
+				list, bounds, 0, true, translatedAdjustment.x);
+		if (routeAroundRect != null) {
+			PointListUtilities.normalizeSegments(routeAroundRect, 5);
+			if(routeAroundRect.size() == 2) {
+				squareLines(routeAroundRect, startSide, endSide);
+			}
+			constraint.clear();
+			for (int i = 0; i < routeAroundRect.size(); i++) {
+				constraint.add(new PrecisionBendpoint(routeAroundRect
+						.getPoint(i)));
+			}
+		} else {
+			if(startSide != endSide) {
+				// we need to check for the case where the start and end are
+				// not on the same side, and make sure the result is squared
+				squareLines(list, startSide, endSide);
+				constraint.clear();
+				for(int i = 0; i < list.size(); i++) {
+					constraint.add(new PrecisionBendpoint(list.getPoint(i)));
+				}
+			}
+		}
+		return constraint;
+	}
 
 	/**
 	 * This method takes the given lines and assures that they are square, otherwise
@@ -545,7 +486,7 @@ public abstract class ConnectionPolicy extends GraphicalNodeEditPolicy {
 	}
 
 	private Bendpoint getBendpointFor(int startSide, Point point,
-			Rectangle bounds) {
+			Rectangle bounds, CreateConnectionRequest request) {
 		bounds = bounds.getCopy();
 		point = point.getCopy();
 		feedbackFigure.translateToRelative(bounds);
