@@ -16,17 +16,17 @@ Present: Levi, Bob, Keith, Cort
 <pre>
 
 -- Num Type  Who  Section  Comment
-_ - 01  min   bob  4.8.2   Remove this requiement. There is already a follow-on issue about this.
+x - 01  min   bob  4.8.2   Remove this requiement. There is already a follow-on issue about this.
                            Simply record this in the following issue, refer to it in the design comments.
-_ - 02  min   bob  2.2     Uncomfortable that the ant was used for sizing and not really reviewed fully. Furthermore this dnt
+x - 02  min   bob  2.2     Uncomfortable that the ant was used for sizing and not really reviewed fully. Furthermore this dnt
                            will be the "customer facing note".
                            Explain in the background that this note superceeds the analysis note.
-_ - 03  min   skb  6.1.3.2      numbering
-_ - 04  min   skb  6.3.1       are maintained in the subclasses
+x - 03  min   skb  6.1.3.2      numbering
+x - 04  min   skb  6.3.1       are maintained in the subclasses
                               ->
                                is maintained in the subclasses
-_ - 05  min   skb  6.3.2      repsectively (typo)
-_ - 06  min   bob  6.4      This is the piece where 4.8.2 comes into play. The issue raised to track 4.8.2 will be referenced here
+x - 05  min   skb  6.3.2      repsectively (typo)
+x - 06  min   bob  6.4      This is the piece where 4.8.2 comes into play. The issue raised to track 4.8.2 will be referenced here
 
 </pre>
    
