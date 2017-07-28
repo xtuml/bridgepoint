@@ -1,28 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?eclipse version="3.0"?>
+<?eclipse version="3.4"?>
 <plugin>
-
-     <extension
-         id="org.xtuml.ui.integrity.checkReferentialIntegrity"
-         point="org.eclipse.ui.popupMenus">
+   <extension point="org.eclipse.ui.popupMenus">
       <objectContribution
-            id="org.xtuml.bp.integrity.contribution1"
+            adaptable="true"
+            id="org.xtuml.bp.integrity.contribution"
             objectClass="org.xtuml.bp.core.SystemModel_c">
          <action
                class="org.xtuml.bp.integrity.actions.checkReferentialIntegrityAction"
                enablesFor="1"
                id="org.xtuml.bp.integrity.checkReferentialIntegrityAction"
                label="Check Referential Integrity"
-               menubarPath="org.xtuml.bp.ui.context-internal">
+               menubarPath="org.xtuml.bp.utilities/org.xtuml.bp.utilities.separator">
          </action>
       </objectContribution>
    </extension>
-  <extension point="org.eclipse.ant.core.antTasks">
-    <antTask
-          class="org.xtuml.bp.integrity.ant.tasks.IntegrityTask"
-          eclipseRuntime="true"
-          headless="true"
-          library="integrity.jar"
-          name="document.Emitter"/>
-  </extension>
 </plugin>
