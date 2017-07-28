@@ -44,9 +44,6 @@ import org.eclipse.ui.part.FileEditorInput;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.SystemModel_c;
 import org.xtuml.bp.core.common.PersistableModelComponent;
-import org.xtuml.bp.mc.AbstractActivator;
-import org.xtuml.bp.mc.AbstractNature;
-import org.xtuml.bp.mc.c.source.ExportBuilder;
 
 public class Generator extends Task {
     
@@ -85,9 +82,10 @@ public class Generator extends Task {
  
     /*
      * The flow of this function is: 
-     * - Run the Model Compiler pre-builder 
+     * - Call xtumlmc_build.exe ConvertMultiFileToSingleFile <model folder> <model file>
      * - Call xtumlmc_build.exe xtumlmc_cleanse_model <model file> 
-     * - Pass the stripped down model file to the integrity exe 
+     * - Call xtumlmc_build.exe ReplaceUUIDWithLong <model file> 
+     * - Pass the stripped down model file to the integrity checker exe 
      * - Store the integrity.txt output in the specified output folder
      * - Display integrity.txt
      */
@@ -99,11 +97,9 @@ public class Generator extends Task {
         
         if ( (project != null) && !failed ) {
             String projPath = project.getLocation().toOSString();
-            final IPath modelspath = new Path(projPath + File.separator
-                    + "models");
+            final IPath modelspath = new Path(projPath + File.separator + "models");
             final String modelsPath = modelspath.toOSString();
-            final IPath path = new Path(projPath + File.separator
-                    + DOC_DIR);
+            final IPath path = new Path(projPath + File.separator + DOC_DIR);
             final String destPath = path.toOSString();
 
             ProgressMonitorDialog pmd = new ProgressMonitorDialog(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell());
@@ -112,36 +108,7 @@ public class Generator extends Task {
             IProgressMonitor monitor = pmd.getProgressMonitor();
             
             try {
-                // Make sure the settings in the launch file are up to date so
-                // we can invoke xtumlmc_build properly.
-                AbstractNature nature = null;
-                AbstractActivator activator = null;
-                
-                // These are used for backwards compatibility in the newer BP without a binary MC
-            	final String BIN_C_MC_NATURE_ID = "org.xtuml.bp.mc.c.binary.MCNature"; //NON-NLS-1
-            	final String BIN_C_MC_NATURE_ID_OLD = "com.mentor.nucleus.bp.mc.c.binary.MCNature"; //NON-NLS-1
-
-                if ( project.hasNature(BIN_C_MC_NATURE_ID) || project.hasNature(BIN_C_MC_NATURE_ID_OLD) ) {
-                    nature = org.xtuml.bp.mc.c.source.MCNature.getDefault();
-                    activator = org.xtuml.bp.mc.c.source.Activator.getDefault();
-                }
-                else if ( project.hasNature(org.xtuml.bp.mc.c.source.MCNature.MC_NATURE_ID) || project.hasNature(org.xtuml.bp.mc.c.source.MCNature.MC_NATURE_ID_OLD) ) {
-                    nature = org.xtuml.bp.mc.c.source.MCNature.getDefault();
-                    activator = org.xtuml.bp.mc.c.source.Activator.getDefault();
-                }
-                else if ( project.hasNature(org.xtuml.bp.mc.cpp.source.MCNature.MC_NATURE_ID) || project.hasNature(org.xtuml.bp.mc.cpp.source.MCNature.MC_NATURE_ID_OLD) ) {
-                    nature = org.xtuml.bp.mc.cpp.source.MCNature.getDefault();
-                    activator = org.xtuml.bp.mc.cpp.source.Activator.getDefault();
-                }
-                else if ( project.hasNature(org.xtuml.bp.mc.systemc.source.MCNature.MC_NATURE_ID) || project.hasNature(org.xtuml.bp.mc.systemc.source.MCNature.MC_NATURE_ID_OLD) ) {
-                    nature = org.xtuml.bp.mc.systemc.source.MCNature.getDefault();
-                    activator = org.xtuml.bp.mc.systemc.source.Activator.getDefault();
-                }
-                org.xtuml.bp.mc.MCBuilderArgumentHandler argHandlerAbstract = new org.xtuml.bp.mc.MCBuilderArgumentHandler(
-                        project, activator, nature);
-                argHandlerAbstract.setArguments(nature.getBuilderID());                
-
-                // Next proceed with actually running integrity on the model
+                // Proceed with actually running integrity on the model
                 IWorkbenchPage page = PlatformUI.getWorkbench()
                         .getActiveWorkbenchWindow().getActivePage();
                 String id = IConsoleConstants.ID_CONSOLE_VIEW;
@@ -154,9 +121,8 @@ public class Generator extends Task {
                             throws InvocationTargetException,
                             InterruptedException {
 
-                        int steps = 8;
+                        int steps = 4;
                         int curStep = 1;
-                        List<SystemModel_c> exportedSystems = new ArrayList<SystemModel_c>();
 
                         monitor.beginTask("Check Referential Integrity", steps);
 
@@ -178,36 +144,16 @@ public class Generator extends Task {
                                     monitor.worked(1);
                                     break;
                                 case 2:
-                                    monitor.subTask("SKIPPING Loading model");
-                                    //PersistableModelComponent pmc = sys.getPersistableComponent();
-                                    //pmc.loadComponentAndChildren(new NullProgressMonitor());
-                                    monitor.worked(1);
-                                    break;
-                                case 3:
-                                    monitor.subTask("SKIPPING Gathering model information");
-                                    //ExportBuilder eb = new ExportBuilder();
-                                    //exportedSystems = eb.exportSystem(sys, destPath, new NullProgressMonitor(), false, "", false);
-                                    monitor.worked(1);
-                                    break;
-                                case 4:
-                                    monitor.subTask("SKIPPING Generating images");
-                                    monitor.worked(1);
-                                    break;
-                                case 5:
-                                    monitor.subTask("Prepping model for document generation");
+                                    monitor.subTask("Gathering model data");
                                     runXbuild(project, destPath, modelsPath);
                                     monitor.worked(1);
                                     break;
-                                case 6:
+                                case 3:
                                     monitor.subTask("Processing model");
                                     runIntegrity(project, destPath);
                                     monitor.worked(1);
                                     break;
-                                case 7:
-                                    monitor.subTask("not Generating display data");
-                                    monitor.worked(1);
-                                    break;
-                                case 8:
+                                case 4:
                                     monitor.subTask("Refreshing");
                                     project.refreshLocal(IResource.DEPTH_INFINITE, null);
                                     monitor.worked(1);
@@ -222,6 +168,7 @@ public class Generator extends Task {
                     }
                 });
 
+                // This opens the text file in an editor.
                 openOutput(project);
             } catch (Throwable e) {
                 String errMsg = e.getMessage();
@@ -282,8 +229,7 @@ public class Generator extends Task {
         throws IOException, RuntimeException, CoreException, InterruptedException
     {
         // Call xtumlmc_build.exe xtumlmc_cleanse_model <infile> <outfile>
-        String app = AbstractNature.getLaunchAttribute(project, 
-                    org.xtuml.bp.mc.AbstractNature.LAUNCH_ATTR_TOOL_LOCATION);
+        String app = homedir + INTEGRITY_DIR + "xtumlmc_build";
         String inputfile = project.getName() + ".sql"; //$NON-NLS-1$
         String middlefile = "z.xtuml";  //$NON-NLS-1$
         String outputfile = INTEGRITY_INPUT;
@@ -312,8 +258,7 @@ public class Generator extends Task {
         
         project.refreshLocal(IResource.DEPTH_INFINITE, null);
         if ( !middle.exists() ) {
-            RuntimeException re = new RuntimeException("Expected output file doesn't exist: " +
-                    middle.toString());
+            RuntimeException re = new RuntimeException("Expected output file does not exist: " + middle.toString());
             throw re;
         }
 
@@ -329,8 +274,7 @@ public class Generator extends Task {
         middle.delete();
         project.refreshLocal(IResource.DEPTH_INFINITE, null);
         if ( !output.exists() ) {
-            RuntimeException re = new RuntimeException("Expected output file doesn't exist: " +
-                    output.toString());
+            RuntimeException re = new RuntimeException("Expected output file doesn't exist: " + output.toString());
             throw re;
         }
     }
