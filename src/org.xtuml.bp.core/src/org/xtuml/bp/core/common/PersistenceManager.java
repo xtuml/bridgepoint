@@ -645,11 +645,10 @@ public class PersistenceManager {
     						if (component != null) {
     							// do not persist if the component could not be loaded
     							if(PersistenceManager.isPersistenceVersionAcceptable(component)) {
-	    							ComponentResourceListener.setIgnoreResourceChanges(true);
 	    							component.persist();
 	    							component.load(monitor, false, true);
 	    							final PersistableModelComponent finalComp = component;
-	    							PlatformUI.getWorkbench().getDisplay().asyncExec(new Runnable() {
+	    							PlatformUI.getWorkbench().getDisplay().syncExec(new Runnable() {
 										public void run() {
 			    							UIUtil.refresh(finalComp.getRootModelElement());								
 										}
