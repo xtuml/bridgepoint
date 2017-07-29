@@ -87,7 +87,7 @@
       	</property>
     	</activation>
 			<modules>
-				<module>../../../bptest/releng/org.xtuml.bp.releng.parent.tests</module>
+				<module>../../releng/org.xtuml.bp.releng.parent.tests</module>
 			</modules>
 	    </profile>
 	</profiles>
