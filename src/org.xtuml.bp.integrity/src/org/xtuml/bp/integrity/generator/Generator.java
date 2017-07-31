@@ -9,13 +9,14 @@ import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.net.URL;
+import java.io.OutputStream;
 import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
-import java.util.List;
+import java.net.URL;
 
 import org.apache.tools.ant.Task;
 import org.eclipse.core.resources.IFile;
@@ -270,13 +271,25 @@ public class Generator extends Task {
         if ( output.exists() ) {
             output.delete();
         }
-        logMsg(globalsfile);
+        //logMsg(globalsfile);
 
         String args = "ConvertMultiFileToSingleFile";  //$NON-NLS-1$
         ProcessBuilder pb = new ProcessBuilder(app, args, modelsDir, inputfile);
         pb.directory(new File(workingDir));
         Process process = pb.start();
         process.waitFor();
+
+        // Concatenate Globals.xtuml onto the accumulated SQL.
+        OutputStream out = new FileOutputStream(sqlfile,true); // append
+        byte[] buf = new byte[32000];
+        InputStream in = new FileInputStream(globalsfile);
+        int b = 0;
+        while ( (b = in.read(buf)) >= 0) {
+            out.write(buf, 0, b);
+            out.flush();
+        }
+        out.close();
+        in.close();
 
         args = "xtumlmc_cleanse_model";  //$NON-NLS-1$
         pb = new ProcessBuilder(app, args, inputfile, middlefile);
