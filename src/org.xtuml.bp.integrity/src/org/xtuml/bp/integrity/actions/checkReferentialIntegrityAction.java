@@ -6,7 +6,6 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.ui.IObjectActionDelegate;
 import org.eclipse.ui.IWorkbenchPart;
 
-import org.xtuml.bp.core.Component_c;
 import org.xtuml.bp.core.SystemModel_c;
 import org.xtuml.bp.integrity.generator.Generator;
 

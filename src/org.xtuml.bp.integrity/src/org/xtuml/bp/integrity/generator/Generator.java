@@ -12,22 +12,21 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.URL;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.tools.ant.Task;
-import org.eclipse.core.filesystem.EFS;
-import org.eclipse.core.filesystem.IFileStore;
-import org.eclipse.core.filesystem.IFileSystem;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.jface.dialogs.ProgressMonitorDialog;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.ui.IEditorDescriptor;
@@ -41,6 +40,7 @@ import org.eclipse.ui.console.IConsoleView;
 import org.eclipse.ui.console.MessageConsole;
 import org.eclipse.ui.console.MessageConsoleStream;
 import org.eclipse.ui.part.FileEditorInput;
+import org.osgi.framework.Bundle;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.SystemModel_c;
 
@@ -158,7 +158,7 @@ public class Generator extends Task {
                                     break;
                                 }
                             } catch (Throwable e) {
-                            	RuntimeException err = new RuntimeException(e.getMessage());
+                                RuntimeException err = new RuntimeException(e.getMessage());
                                 throw err;
                             } 
                             curStep++;
@@ -204,6 +204,34 @@ public class Generator extends Task {
         }
     }
  
+    private static String findGlobals() {
+        Bundle bpBundle = Platform.getBundle("org.xtuml.bp.pkg");
+        Path globalsPath = new Path("globals/Globals.xtuml");
+        URL fileURL = FileLocator.find(bpBundle, globalsPath, null);
+        String fileName = null;
+        try {
+            fileURL = FileLocator.resolve(fileURL);
+            fileName = fileURL.getFile();
+        } catch (IOException e) {    
+            String msg = "Unable to locate: globals/Globals.xtuml.  ";
+            if (bpBundle == null) {
+                msg += "Unable to get bundle: org.xtuml.bp.pkg  ";
+            }
+            if (fileURL == null) {
+                msg += "The file URL is null. ";
+            } else {
+                msg += "The file URL is: \n";
+                msg += "\tProtocol: " + fileURL.getProtocol() + "\n";
+                msg += "\tPort: " + fileURL.getPort() + "\n";
+                msg += "\tHost: " + fileURL.getHost() + "\n";
+                msg += "\tFile: " + fileURL.getFile() + "\n";
+                msg += "\tExternalForm: " + fileURL.toExternalForm() + "\n";
+            }
+            CorePlugin.logError(msg, e);  //$NON-NLS-1$
+        }
+        return fileName;
+    }
+
     private static void cleanup(String workingDir) 
         throws CoreException
     {
@@ -231,6 +259,7 @@ public class Generator extends Task {
         String inputfile = project.getName() + ".sql"; //$NON-NLS-1$
         String middlefile = "z.xtuml";  //$NON-NLS-1$
         String outputfile = INTEGRITY_INPUT;
+        String globalsfile = findGlobals();
         File output = new File(workingDir + outputfile);
         File middle = new File(workingDir + middlefile);
         File sqlfile = new File(workingDir + inputfile);
@@ -241,6 +270,7 @@ public class Generator extends Task {
         if ( output.exists() ) {
             output.delete();
         }
+        logMsg(globalsfile);
 
         String args = "ConvertMultiFileToSingleFile";  //$NON-NLS-1$
         ProcessBuilder pb = new ProcessBuilder(app, args, modelsDir, inputfile);

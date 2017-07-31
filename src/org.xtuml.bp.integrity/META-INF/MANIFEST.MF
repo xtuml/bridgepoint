@@ -8,7 +8,6 @@ Bundle-Activator: org.xtuml.bp.integrity.IntegrityPlugin
 Bundle-Vendor: xtUML.org
 Export-Package: org.xtuml.bp.integrity,
  org.xtuml.bp.integrity.actions,
- org.xtuml.bp.integrity.ant.tasks,
  org.xtuml.bp.integrity.generator
 Require-Bundle: org.xtuml.bp.core,
  org.xtuml.bp.ui.explorer,
