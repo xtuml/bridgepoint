@@ -323,7 +323,6 @@ public class Generator extends Task {
         Process process = pb.start();
         int exitVal = doWaitFor(process, output);
         
-        input.delete();
         project.refreshLocal(IResource.DEPTH_INFINITE, null);
         if ( exitVal == -1 ) {
             RuntimeException re = new RuntimeException("check integrity subprocess failed." +
