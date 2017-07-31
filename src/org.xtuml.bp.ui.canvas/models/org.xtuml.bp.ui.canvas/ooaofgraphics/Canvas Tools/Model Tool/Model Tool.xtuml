@@ -284,7 +284,7 @@ INSERT INTO O_TFR
 	'select any new_element from instances of DIM_GE where ( selected.elementId == param.newelementId );
 select any connector from instances of DIM_ED where ( selected.elementId == param.connectorId );
 select one dim_con related by connector->DIM_CON[R320]; // start
-if ( empty dim_con and dim_con.elementId == param.elementId )
+if ( empty dim_con or dim_con.elementId != param.elementId )
   select one dim_con related by connector->DIM_CON[R321]; // end
 end if;
 if ( not_empty dim_con )
