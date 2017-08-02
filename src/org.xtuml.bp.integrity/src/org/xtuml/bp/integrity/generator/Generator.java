@@ -34,21 +34,18 @@ import org.eclipse.ui.console.MessageConsole;
 import org.eclipse.ui.console.MessageConsoleStream;
 import org.eclipse.ui.part.FileEditorInput;
 import org.osgi.framework.Bundle;
-import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.SystemModel_c;
 
 public class Generator extends Task {
     
-    public static final String INTEGRITY_LAUNCH_ID = "Check Referential Integrity.launch"; //$NON-NLS-1$
-    public static final String XBUILD_LAUNCH_ID = "Integrity xtumlmc build.launch"; //$NON-NLS-1$
     public static final String INTEGRITY_DIR = "/tools/mc/bin/"; //$NON-NLS-1$
-    public static final String INTEGRITY_EXE = "integrity"; //$NON-NLS-1$
     public static final String DOC_DIR = "doc/"; //$NON-NLS-1$
-    public static final String INTEGRITY_INPUT = "integrity_model.sql"; //$NON-NLS-1$
     public static final String INTEGRITY_TXT = "integrity.txt"; //$NON-NLS-1$
     public static final String CONSOLE_NAME = "Console"; //$NON-NLS-1$
 
     private static String homedir = "";
+    private static String app = "";
+    private static String args = "";
     public static MessageConsole myConsole;
     public static MessageConsoleStream msgbuf;
     public static Generator self;
@@ -160,8 +157,7 @@ public class Generator extends Task {
                         errMsg = "";
                     }
                 }
-                logMsg("Error.  Check Referential Integrity failed: " + errMsg);
-                CorePlugin.logError("Error.  Check Referential Integrity failed: " + errMsg, e);
+                logMsg("Error.  Check Referential Integrity failed: " + errMsg + "\n" + app + " " + args);
                 failed = true;
             } finally {
                 if (failed) {
@@ -174,10 +170,9 @@ public class Generator extends Task {
                             errMsg = "CoreException";
                         }
                         logMsg("Error.  Check Referential Integrity failed during cleanup: " + errMsg);
-                        CorePlugin.logError("Error.  Check Referential Integrity failed during cleanup: " + errMsg, ce);
                     }
                 } else {
-                    logMsg("Check Referential Integrity finished successfully.");
+                    logMsg("Check Referential Integrity finished successfully." + "\n" + app + " " + args);
                 }
                 monitor.done();
             }
@@ -207,7 +202,6 @@ public class Generator extends Task {
                 msg += "\tFile: " + fileURL.getFile() + "\n";
                 msg += "\tExternalForm: " + fileURL.toExternalForm() + "\n";
             }
-            CorePlugin.logError(msg, e);  //$NON-NLS-1$
         }
         return fileName;
     }
@@ -236,12 +230,12 @@ public class Generator extends Task {
     {
         // Call xtumlmc_build xtuml_integrity -i <infile> -i <infile> -o <outfile>
         String globalsfile = findGlobals();
-        String sqlfile = workingDir + INTEGRITY_INPUT;
         String outputfile = workingDir + INTEGRITY_TXT;
         File outputFile = new File(outputfile);
 
-        String app = homedir + INTEGRITY_DIR + "xtumlmc_build xtuml_integrity"; //$NON-NLS-1$
-        String args = " -i " + sqlfile + " -i " + globalsfile + " -o " + outputfile; //$NON-NLS-1$
+        app = homedir + INTEGRITY_DIR + "xtumlmc_build"; //$NON-NLS-1$
+        args = "xtuml_integrity -i " + modelsDir + " -i " + globalsfile + " -m integrity.sql -o " + INTEGRITY_TXT; //$NON-NLS-1$
+        logMsg("Check Referential Integrity:  " + app + args);
         ProcessBuilder pb = new ProcessBuilder(app, args);
         pb.directory(new File(workingDir));
         Process process = pb.start();
