@@ -61,24 +61,25 @@ None.
 
 ### 9. Code Changes
 
-Fork/Repository: keithbrown/bridgepoint
+Fork/Repository: rmulvey/bridgepoint
 Branch: 9568_code_gen_dir 
 
 <pre>
 doc-bridgepoint/notes/9568_code_gen_folder_int.md
 src/org.xtuml.bp.mc/src/org/xtuml/bp/mc/AbstractExportBuilder.java
-src/org.xtuml.bp.utilities/org/xtuml/bp/utilities/ui/ProjectUtilities.java 
 </pre>
 
-Fork/Repository: keithbrown/bptest
+Fork/Repository: rmulvey/bptest
 Branch: 9568_code_gen_dir 
 
 <pre>
 src/org.xtuml.bp.test/src/org/xtuml/bp/test/common/BaseTest.java   |  12 ++-
+src/org.xtuml.bp.test/src/org/xtuml/bp/test/common/TestingUtilities.java
 src/org.xtuml.bp.welcome.test/META-INF/MANIFEST.MF                 |   3 +-
  .../src/org/xtuml/bp/welcome/test/WelcomePageTest.java             | 126 ++++++++++++++++++++++++------
  .../src/org/xtuml/bp/welcome/test/WelcomePageTestGPS.java          |  13 ++-
  .../src/org/xtuml/bp/welcome/test/WelcomeTestSuite.java            |  22 +-----
+ 
 
 </pre>
 
