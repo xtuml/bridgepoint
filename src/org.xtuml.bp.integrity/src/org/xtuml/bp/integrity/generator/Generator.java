@@ -5,16 +5,8 @@
 //====================================================================
 package org.xtuml.bp.integrity.generator;
 
-import java.io.BufferedOutputStream;
-import java.io.BufferedReader;
-import java.io.DataOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
 import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 
@@ -49,16 +41,12 @@ public class Generator extends Task {
     
     public static final String INTEGRITY_LAUNCH_ID = "Check Referential Integrity.launch"; //$NON-NLS-1$
     public static final String XBUILD_LAUNCH_ID = "Integrity xtumlmc build.launch"; //$NON-NLS-1$
-    public static final String EXTERNALTOOLBUILDER_FOLDER = ".externalToolBuilders"; //$NON-NLS-1$
     public static final String INTEGRITY_DIR = "/tools/mc/bin/"; //$NON-NLS-1$
     public static final String INTEGRITY_EXE = "integrity"; //$NON-NLS-1$
     public static final String DOC_DIR = "doc/"; //$NON-NLS-1$
-    public static final String INTEGRITY_INPUT = "a.xtuml"; //$NON-NLS-1$
+    public static final String INTEGRITY_INPUT = "integrity_model.sql"; //$NON-NLS-1$
     public static final String INTEGRITY_TXT = "integrity.txt"; //$NON-NLS-1$
-    public static final String EXEFILE = ".exe"; //$NON-NLS-1$
     public static final String CONSOLE_NAME = "Console"; //$NON-NLS-1$
-    private static final int SLEEPTIME = 500;
-    private static final int KILLTIMEOUT = 20000;
 
     private static String homedir = "";
     public static MessageConsole myConsole;
@@ -81,11 +69,7 @@ public class Generator extends Task {
  
     /*
      * The flow of this function is: 
-     * - Call xtumlmc_build.exe ConvertMultiFileToSingleFile <model folder> <model file>
-     * - Call xtumlmc_build.exe xtumlmc_cleanse_model <model file> 
-     * - Call xtumlmc_build.exe ReplaceUUIDWithLong <model file> 
-     * - Pass the stripped down model file to the integrity checker exe 
-     * - Store the integrity.txt output in the specified output folder
+     * - Call xtumlmc_build xtuml_integrity -i <model folder> -o <model file> > integrity.txt
      * - Display integrity.txt
      */
     private static void checkReferentialIntegrity(final SystemModel_c sys) {
@@ -120,7 +104,7 @@ public class Generator extends Task {
                             throws InvocationTargetException,
                             InterruptedException {
 
-                        int steps = 4;
+                        int steps = 3;
                         int curStep = 1;
 
                         monitor.beginTask("Check Referential Integrity", steps);
@@ -143,16 +127,11 @@ public class Generator extends Task {
                                     monitor.worked(1);
                                     break;
                                 case 2:
-                                    monitor.subTask("Gathering model data");
-                                    runXbuild(project, destPath, modelsPath);
+                                    monitor.subTask("Processing model data");
+                                    runIntegrity(project, destPath, modelsPath);
                                     monitor.worked(1);
                                     break;
                                 case 3:
-                                    monitor.subTask("Processing model");
-                                    runIntegrity(project, destPath);
-                                    monitor.worked(1);
-                                    break;
-                                case 4:
                                     monitor.subTask("Refreshing");
                                     project.refreshLocal(IResource.DEPTH_INFINITE, null);
                                     monitor.worked(1);
@@ -252,85 +231,28 @@ public class Generator extends Task {
         }*/
     }
 
-    private static void runXbuild(IProject project, String workingDir, String modelsDir)
+    private static void runIntegrity(IProject project, String workingDir, String modelsDir)
         throws IOException, RuntimeException, CoreException, InterruptedException
     {
-        // Call xtumlmc_build.exe xtumlmc_cleanse_model <infile> <outfile>
-        String app = homedir + INTEGRITY_DIR + "xtumlmc_build";
-        String inputfile = project.getName() + ".sql"; //$NON-NLS-1$
-        String middlefile = "z.xtuml";  //$NON-NLS-1$
-        String outputfile = INTEGRITY_INPUT;
+        // Call xtumlmc_build xtuml_integrity -i <infile> -i <infile> -o <outfile>
         String globalsfile = findGlobals();
-        File output = new File(workingDir + outputfile);
-        File middle = new File(workingDir + middlefile);
-        File sqlfile = new File(workingDir + inputfile);
+        String sqlfile = workingDir + INTEGRITY_INPUT;
+        String outputfile = workingDir + INTEGRITY_TXT;
+        File outputFile = new File(outputfile);
 
-        if ( middle.exists() ) {
-            middle.delete();
-        }
-        if ( output.exists() ) {
-            output.delete();
-        }
-        //logMsg(globalsfile);
-
-        String args = "ConvertMultiFileToSingleFile";  //$NON-NLS-1$
-        ProcessBuilder pb = new ProcessBuilder(app, args, modelsDir, inputfile);
-        pb.directory(new File(workingDir));
-        Process process = pb.start();
-        process.waitFor();
-
-        // Concatenate Globals.xtuml onto the accumulated SQL.
-        OutputStream out = new FileOutputStream(sqlfile,true); // append
-        byte[] buf = new byte[32000];
-        InputStream in = new FileInputStream(globalsfile);
-        int b = 0;
-        while ( (b = in.read(buf)) >= 0) {
-            out.write(buf, 0, b);
-            out.flush();
-        }
-        out.close();
-        in.close();
-
-        args = "xtumlmc_cleanse_model";  //$NON-NLS-1$
-        pb = new ProcessBuilder(app, args, inputfile, middlefile);
-        pb.directory(new File(workingDir));
-        process = pb.start();
-        process.waitFor();
-        
-        // Call xtumlmc_build.exe ReplaceUUIDWithLong <infile> <outfile>
-        args = "ReplaceUUIDWithLong";  //$NON-NLS-1$
-        pb = new ProcessBuilder(app, args, middlefile, outputfile);
-        pb.directory(new File(workingDir));
-        process = pb.start();
-        process.waitFor();
-        
-        sqlfile.delete();
-        middle.delete();
-    }
-    
-    private static void runIntegrity(IProject project, String workingDir) 
-        throws IOException, RuntimeException, CoreException, InterruptedException 
-    {
-        // Call integrity.exe 
-        String app = homedir + INTEGRITY_DIR + INTEGRITY_EXE;
-        String args = " > " + INTEGRITY_TXT;
-        String outputfile = INTEGRITY_TXT;
-        File output = new File(workingDir + outputfile);
-        File input = new File(workingDir + INTEGRITY_INPUT);
-
+        String app = homedir + INTEGRITY_DIR + "xtumlmc_build xtuml_integrity"; //$NON-NLS-1$
+        String args = " -i " + sqlfile + " -i " + globalsfile + " -o " + outputfile; //$NON-NLS-1$
         ProcessBuilder pb = new ProcessBuilder(app, args);
         pb.directory(new File(workingDir));
         Process process = pb.start();
-        int exitVal = doWaitFor(process, output);
+        Integer exitVal = process.waitFor();
         
         project.refreshLocal(IResource.DEPTH_INFINITE, null);
         if ( exitVal == -1 ) {
-            RuntimeException re = new RuntimeException("check integrity subprocess failed." +
-                    output.toString());
+            RuntimeException re = new RuntimeException("Referential Integrity subprocess failed." + outputFile.toString());
             throw re;
-        } else if ( !output.exists() ) {
-            RuntimeException re = new RuntimeException("Expected output file does not exist:  " +
-                    output.toString());
+        } else if ( !outputFile.exists() ) {
+            RuntimeException re = new RuntimeException("Expected output file does not exist:  " + outputFile.toString());
             throw re;
         }
     }
@@ -370,62 +292,6 @@ public class Generator extends Task {
             while(PlatformUI.getWorkbench().getDisplay().readAndDispatch());
         } catch (IOException ioe) {
         }
-    }
-
-    private static int doWaitFor(Process p, File output) {
-
-        int exitValue = -1; // returned to caller when p is finished
-        int totalTime = 0;
-
-        try {
-            BufferedReader is = new BufferedReader(new InputStreamReader(p.getInputStream()));
-            DataOutputStream dos = null;
-            
-            if (output != null) {
-                dos = new DataOutputStream(
-                    new BufferedOutputStream(new FileOutputStream(output)));
-            }
-            String line;
-
-            boolean finished = false; // Set to true when p is finished
-
-            while (!finished) {
-                try {
-                    while ((line = is.readLine()) != null) {
-                        if ( dos != null) {
-                            dos.writeBytes(line);
-                            dos.write('\n');
-                        }
-                    }
-
-                    // Ask the process for its exitValue. If the process
-                    // is not finished, an IllegalThreadStateException
-                    // is thrown. If it is finished, we fall through and
-                    // the variable finished is set to true.
-                    exitValue = p.exitValue();
-                    finished = true;
-                } catch (IllegalThreadStateException e) {
-                    // Process is not finished yet;
-                    // Sleep a little to save on CPU cycles
-                    Thread.sleep(SLEEPTIME);
-                    totalTime = totalTime + SLEEPTIME;
-                    
-                    if (totalTime > KILLTIMEOUT) {
-                        finished = true;
-                        p.destroy();
-                    }
-                }
-                if (dos != null) {
-                    dos.flush();
-                    dos.close();
-                }
-            }
-        } catch (Exception e) {
-            // unexpected exception! print it out for debugging...
-            System.err.println("doWaitFor(): unexpected exception - " + e.getMessage());
-        }
-
-        return exitValue;
     }
 
 }

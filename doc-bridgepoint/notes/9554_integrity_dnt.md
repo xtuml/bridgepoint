@@ -255,7 +255,8 @@ role phrases when not reflexive.  So, I avoided them.
 The implementation may consider storing the output to a file rather
 than simply using the Console.  The file could be marked up to make
 a more beautiful presentation.  However, the plan of record is to use
-the Console.
+output to a simple text file and open it in an editor upon completion
+of the integrity check.
 
 6.5 User Interface  
 The user interface will be similar to the existing user interface.
@@ -265,7 +266,7 @@ it does today running the spot checking.
 A new menu item under `BridgePoint Utilities` will be named
 `Check Referential Integrity`.  It will run the new, exhaustive
 referential integrity checker (from this work).  The output will
-be displayed in the default Console.
+be displayed as a text file in the editor view.
 
 We can consider combining these options after some mileage and
 testing with both in place.
