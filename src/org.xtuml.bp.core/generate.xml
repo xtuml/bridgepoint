@@ -144,7 +144,7 @@
   </ant>
   </target>
 
-  <property name="java.sql.dep" value="${sql.output}" />
+  <property name="java.sql.dep" value="gen/ooaofooa-1.sql, gen/ooaofooa-2.sql, gen/ooaofooa-3.sql, gen/ooaofooa-4.sql" />
   <property name="java.color.dep" value="ooaofooa_startspec.clr,ooaofooa_import_spec.clr,ooaofooa_package_spec.clr" />
   <property name="java.tj.dep" value="ooa_schema.sql,${java.arc.depends}" />
 
