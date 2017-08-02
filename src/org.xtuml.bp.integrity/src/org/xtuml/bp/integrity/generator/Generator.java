@@ -157,7 +157,7 @@ public class Generator extends Task {
                         errMsg = "";
                     }
                 }
-                logMsg("Error.  Check Referential Integrity failed: " + errMsg + "\n" + app + " " + args);
+                logMsg(app + args + "\nError.  Check Referential Integrity failed: " + errMsg);
                 failed = true;
             } finally {
                 if (failed) {
@@ -172,7 +172,7 @@ public class Generator extends Task {
                         logMsg("Error.  Check Referential Integrity failed during cleanup: " + errMsg);
                     }
                 } else {
-                    logMsg("Check Referential Integrity finished successfully." + "\n" + app + " " + args);
+                    logMsg(app + args + "\nCheck Referential Integrity finished successfully.");
                 }
                 monitor.done();
             }
@@ -234,9 +234,8 @@ public class Generator extends Task {
         File outputFile = new File(outputfile);
 
         app = homedir + INTEGRITY_DIR + "xtumlmc_build"; //$NON-NLS-1$
-        args = "xtuml_integrity -i " + modelsDir + " -i " + globalsfile + " -m integrity.sql -o " + INTEGRITY_TXT; //$NON-NLS-1$
-        logMsg("Check Referential Integrity:  " + app + args);
-        ProcessBuilder pb = new ProcessBuilder(app, args);
+        args = " xtuml_integrity -i " + modelsDir + " -i " + globalsfile + " -m integrity.sql -o " + INTEGRITY_TXT; //$NON-NLS-1$
+        ProcessBuilder pb = new ProcessBuilder(app, "xtuml_integrity", "-i", modelsDir, "-i", globalsfile, "-m", "integrity.sql", "-o", INTEGRITY_TXT );
         pb.directory(new File(workingDir));
         Process process = pb.start();
         Integer exitVal = process.waitFor();
