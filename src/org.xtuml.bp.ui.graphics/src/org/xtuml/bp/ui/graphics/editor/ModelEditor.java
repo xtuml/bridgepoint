@@ -53,6 +53,7 @@ import org.eclipse.ui.part.FileEditorInput;
 import org.eclipse.ui.part.MultiPageEditorPart;
 import org.eclipse.ui.texteditor.InfoForm;
 import org.xtuml.bp.core.CorePlugin;
+import org.xtuml.bp.core.common.BridgePointPreferencesStore;
 import org.xtuml.bp.core.common.NonRootModelElement;
 import org.xtuml.bp.core.common.PersistableModelComponent;
 import org.xtuml.bp.core.common.PersistenceManager;
@@ -275,17 +276,19 @@ public class ModelEditor extends MultiPageEditorPart implements ILinkWithEditorL
 
 	@Override
 	public void propertyChange(PropertyChangeEvent event) {
-		// ask all preference controlled tab factories if this preference
-		// change enables/disables them, add the tab if so
-		for(IEditorTabFactory factory : preferenceControlledTabFactories) {
-			if(factory.isEnabled() && !factory.created()) {
-				createTabFromFactory(getContainer(), factory.getTabText(), getGraphicalEditor().getModel().getRepresents(), factory);
-			} else {
-				factory.setCreated(false);
-				// remove tab
-				for(int i = 0; i < getPageCount(); i++) {
-					if(getPageText(i).equals(factory.getTabText())) {
-						removePage(i);
+		if(event.getProperty().equals(BridgePointPreferencesStore.ENABLE_TABLE_BASED_ASSOCIATION_EDITING)) {
+			// ask all preference controlled tab factories if this preference
+			// change enables/disables them, add the tab if so
+			for(IEditorTabFactory factory : preferenceControlledTabFactories) {
+				if(factory.isEnabled() && !factory.created()) {
+					createTabFromFactory(getContainer(), factory.getTabText(), getGraphicalEditor().getModel().getRepresents(), factory);
+				} else {
+					factory.setCreated(false);
+					// remove tab
+					for(int i = 0; i < getPageCount(); i++) {
+						if(getPageText(i).equals(factory.getTabText())) {
+							removePage(i);
+						}
 					}
 				}
 			}
