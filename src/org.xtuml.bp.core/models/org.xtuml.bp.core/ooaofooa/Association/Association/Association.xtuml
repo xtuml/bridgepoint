@@ -738,8 +738,38 @@ if ( not_empty r_subsup )
 end if;
 end if;
 
-// get the current oir
+// get the current oir (for reflexive associations, must determin which is the start/end)
 select any current_oir related by self->R_OIR[R201] where ( selected.Obj_ID == current_o_obj.Obj_ID );
+if ( self.is_reflexive() )
+  select one r_simp related by self->R_SIMP[R206];
+  if ( not_empty r_simp )
+    select many part_set related by r_simp->R_PART[R207];
+    if ( cardinality part_set > 1 ) // unformalized
+      select any part1 related by r_simp->R_PART[R207];
+      if ( End::Start == param.end )
+        select one current_oir related by part1->R_RTO[R204]->R_OIR[R203];
+      else
+        select any part2 related by r_simp->R_PART[R207] where selected.OIR_ID != part1.OIR_ID;
+        select one current_oir related by part2->R_RTO[R204]->R_OIR[R203];
+      end if;
+    else // formalized
+      if ( End::Start == param.end )
+        select any current_oir related by r_simp->R_PART[R207]->R_RTO[R204]->R_OIR[R203];
+      else
+        select one current_oir related by r_simp->R_FORM[R208]->R_RGO[R205]->R_OIR[R203];
+      end if;
+    end if;
+  else
+    select one r_assoc related by self->R_ASSOC[R206];
+    if ( not_empty r_assoc )
+      if ( End::Start == param.end )
+        select one current_oir related by r_assoc->R_AONE[R209]->R_RTO[R204]->R_OIR[R203];
+      else
+        select one current_oir related by r_assoc->R_AOTH[R210]->R_RTO[R204]->R_OIR[R203];
+      end if;
+    end if;
+  end if;
+end if;
 
 // move relationship
 unrelate current_o_obj from self across R201 using current_oir;
@@ -775,6 +805,15 @@ INSERT INTO O_TPARM
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("d0f0a227-16d5-4729-9390-0b64d5a1b9de",
+	"d1d1a2e2-12ae-44ea-9cb3-e490457ab30d",
+	'end',
+	"ae85eca6-6fe4-4125-95e6-95272f0fd7de",
+	0,
+	'',
+	"201576fb-05de-4a71-a031-581901d88999",
 	'');
 INSERT INTO O_NBATTR
 	VALUES ("40ed956f-425d-4976-8913-ae0859b64e93",

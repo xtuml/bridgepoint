@@ -28,7 +28,7 @@ import java.util.UUID;
 import org.eclipse.gef.ConnectionEditPart;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.requests.ReconnectRequest;
-
+import org.xtuml.bp.core.End_c;
 import org.xtuml.bp.core.common.ClassQueryInterface_c;
 import org.xtuml.bp.core.common.NonRootModelElement;
 import org.xtuml.bp.ui.canvas.Cl_c;
@@ -152,13 +152,13 @@ public class ShapeGraphicalNodeEditPolicy extends ConnectionPolicy {
         }
         if (request.getConnectionEditPart().getTarget() != getHost()) {
             // if the host has the "moveAssociation" operation reconnect
-            final Method moveMethod = Cl_c.findMethod(getConnectionRepresents(request), "Moveassociation", new Class[] { UUID.class, UUID.class });
+            final Method moveMethod = Cl_c.findMethod(getConnectionRepresents(request), "Moveassociation", new Class[] { UUID.class, int.class, UUID.class });
             if ( moveMethod != null ) {
                 return new Command("Retarget Connection") {
                     @Override
                     public void execute() {
                         Object result = Cl_c.doMethod( moveMethod, getConnectionRepresents(request),
-                            new Object[] { Cl_c.Getooa_idfrominstance(getConnectionTargetRepresents(request)), Cl_c.Getooa_idfrominstance(getHostRepresents()) });
+                            new Object[] { Cl_c.Getooa_idfrominstance(getConnectionTargetRepresents(request)), End_c.End, Cl_c.Getooa_idfrominstance(getHostRepresents()) });
                         if (result instanceof Boolean) {
                             if (!((Boolean) result).booleanValue()) return;
                         }
@@ -167,6 +167,7 @@ public class ShapeGraphicalNodeEditPolicy extends ConnectionPolicy {
                         associateTerminalSpecs(GraphicalElement_c.getOneGD_GEOnR2((Connector_c) request.getConnectionEditPart().getModel()));
                         tool.Moveconnector(((Connector_c) request.getConnectionEditPart().getModel()).getElementid(),
                             ((Shape_c)request.getConnectionEditPart().getTarget().getModel()).getElementid(),
+                            End_c.End,
                             ((Shape_c)getHost().getModel()).getElementid() );
                         ((ConnectorEditPart) request.getConnectionEditPart()).transferLocation();
                         DiagramEditPart diagramPart = (DiagramEditPart) request.getConnectionEditPart().getViewer().getContents();
@@ -182,13 +183,13 @@ public class ShapeGraphicalNodeEditPolicy extends ConnectionPolicy {
     protected Command getSpecializedReconnectSourceCommand(final ReconnectRequest request) {
         if (request.getConnectionEditPart().getSource() != getHost()) {
             // if the host has the "moveAssociation" operation reconnect
-            final Method moveMethod = Cl_c.findMethod(getConnectionRepresents(request), "Moveassociation", new Class[] { UUID.class, UUID.class });
+            final Method moveMethod = Cl_c.findMethod(getConnectionRepresents(request), "Moveassociation", new Class[] { UUID.class, int.class, UUID.class });
             if ( moveMethod != null ) {
                 return new Command("Retarget Connection") {
                     @Override
                     public void execute() {
                         Object result = Cl_c.doMethod( moveMethod, getConnectionRepresents(request),
-                            new Object[] { Cl_c.Getooa_idfrominstance(getConnectionSourceRepresents(request)), Cl_c.Getooa_idfrominstance(getHostRepresents()) });
+                            new Object[] { Cl_c.Getooa_idfrominstance(getConnectionSourceRepresents(request)), End_c.Start, Cl_c.Getooa_idfrominstance(getHostRepresents()) });
                         if (result instanceof Boolean) {
                             if (!((Boolean) result).booleanValue()) return;
                         }
@@ -197,6 +198,7 @@ public class ShapeGraphicalNodeEditPolicy extends ConnectionPolicy {
                         associateTerminalSpecs(GraphicalElement_c.getOneGD_GEOnR2((Connector_c) request.getConnectionEditPart().getModel()));
                         tool.Moveconnector(((Connector_c) request.getConnectionEditPart().getModel()).getElementid(),
                             ((Shape_c)request.getConnectionEditPart().getSource().getModel()).getElementid(),
+                            End_c.Start,
                             ((Shape_c)getHost().getModel()).getElementid() );
                         ((ConnectorEditPart) request.getConnectionEditPart()).transferLocation();
                         DiagramEditPart diagramPart = (DiagramEditPart) request.getConnectionEditPart().getViewer().getContents();

@@ -283,8 +283,10 @@ INSERT INTO O_TFR
 	1,
 	'select any new_element from instances of DIM_GE where ( selected.elementId == param.newelementId );
 select any connector from instances of DIM_ED where ( selected.elementId == param.connectorId );
-select one dim_con related by connector->DIM_CON[R320]; // start
-if ( empty dim_con or dim_con.elementId != param.elementId )
+select any dim_con from instances of DIM_CON where false;
+if ( End::Start == param.end )
+  select one dim_con related by connector->DIM_CON[R320]; // start
+else
   select one dim_con related by connector->DIM_CON[R321]; // end
 end if;
 if ( not_empty dim_con )
@@ -325,6 +327,22 @@ INSERT INTO O_TPARM
 	'',
 	"eac2f396-2e12-4621-8c89-132032a5d28b",
 	'');
+INSERT INTO O_TPARM
+	VALUES ("acc7e731-39b5-4fc3-9f66-fa0259742aed",
+	"f4e07802-9581-45f0-8454-6f1beec22014",
+	'end',
+	"ae246926-3437-45e4-9232-bcc0952dbcee",
+	0,
+	'',
+	"14451840-a3d2-46ee-9dd1-41a3eb900b72",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("ae246926-3437-45e4-9232-bcc0952dbcee",
+	"00000000-0000-0000-0000-000000000000",
+	'End',
+	'Translate:false',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_NBATTR
 	VALUES ("0304c426-4444-443b-a662-e29749249eb1",
 	"43aa371a-c94c-48a9-acb6-21b733e4a55e");
