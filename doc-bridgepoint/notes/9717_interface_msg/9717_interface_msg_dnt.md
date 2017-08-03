@@ -37,15 +37,63 @@ the tool to edit files by hand or to revert back to a prior version in revision 
 
 ### 5. Analysis
 
-5.1 Item 1  
+5.1  BridgePoint currently provides indication to the user when a changes need to be pulled
+  into the current project to synchronize with changed model elements.  The model elements
+  are decorated with a yellow warning triangle in the Model Explorer view.  This indication 
+  tells the user that they should run "Synchronize with library".   
+5.1.1  "Synchronize with library" pulls changes into the current project.  
+5.1.2  "Synchronize references" pushes changes from the current project out to other 
+  referring projects in the workspace.  
+  
+  TODO - locate historical docs about this behavior and reference them  
 
+5.2  Experimentation with various operation scenarios shows that the problem happens when
+  the modeler makes several changes to an interface and then attempts to synchronize all
+  the changes at once.  The mismatched activities issue does not occur if the user performs
+  synchronization as soon as it is indicated as necessary (warnings show).
+  
+5.3  Import/Open project checks if synchronization is needed.  The act of simply importing
+  a model or opening a closed project causes the project to be checked to see if synchronization
+  needs to be performed. 
+      TODO - what if the referring project is closed, multiple changes are made, then open the
+      referring project?  Does the dialog deal with this or does the model get hosed up? (Related to 5.2)
+  
+5.4  Options  
+5.4.1  Automatically synchronize  
+5.4.1.1  Recognize when a synchronization is detected to be needed and perform it automatically
+  instead of decorating the referring model with warning symbols.  
+5.4.1.2  The behavior is gated by a new preference the user must turn on to indicate they want
+  automatic synchronization updates.  The default is to not use automatic synchronization. This 
+  means there is no change to synchronization behavior for existing users.
+    
+5.4.2  User controlled synchronization with enhancements  
+5.4.2.1  Provide a dialog that is shown to the user when a synchronization is detected to be
+  needed.  The dialog allows the user to make a choice if they want to do the synchronization 
+  immediately or if they want to do it later.  
+5.4.2.2  The dialog is gated by a new preference the user must turn on to indicate they want
+  enhanced recognition and handling of synchronization changes.  The default is to not use
+  the enhanced recognition.  This means there is no change to synchronization behavior for 
+  existing users.
+
+5.5  Decision   
+5.5.1  Following the general BridgePoint policy of not taking action that will dirty the user's
+  revision controlled data behind their back, we will go with option 5.4.2 for user-controlled
+  synchronization.    
 
 ### 6. Design
 
-6.1 Item 1  
+6.1  Update ```bridgepoint/src/org.xtuml.bp.ui.explorer/src/org/xtuml/bp/ui/explorer/decorators/SynchronizationDecorator.java``` to 
+  add new code in the ```decorate()``` function.   
+6.1.1  He we look to see if the element being checked to see if it is synchronized is a ```SystemModel_c```.  If it is
+  then we proceed with the work.  This check makes sure that we only perform the work once for each project instead of
+  flooding the user with many dialogs as various elements in the project are checked.  
+6.1.2  It we determine that the system is out of synch, we show a dialog (Figure 2) that gives the user the 
+  choice if they want to synchronize now or not.    
 
 ![Synchronization Needed Dialog](synch_warning_dialog.png)  
+Figure 2  
 
+6.1.3  The appropriate action is taken based on the user selection.  
 
 ### 7. Design Comments
 
@@ -54,7 +102,8 @@ the tool to edit files by hand or to revert back to a prior version in revision 
 
 ### 8. User Documentation
 
-None.  
+8.1  The new preference has a hover text tooltip that explains the preference with
+  additional detail.  
 
 ### 9. Unit Test
 
@@ -71,14 +120,17 @@ None.
   * Choose Cancel
   * __R__ Foo is decorated with warning symbols
   * __R__ Foo's component C > Port 1 > LocationUtil does not show testop
+  * __R__ Foo.masl under ```Foo/models/...``` does not show the testop operation 
   * Run "Synchronize with library" on Foo
   * __R__ Warning symbols on Foo go away
   * __R__ Foo's component C > Port 1 > LocationUtil shows testop
+  * __R__ Foo.masl under ```Foo/models/...``` shows the testop operation 
   * Delete operation "testop" from LocationUtil definition in GPS Watch
   * __R__ Synchronization Needed dialog is shown
   * Choose OK
   * __R__ Foo is not decorated with warning symbols
   * __R__ Foo's component C > Port 1 > LocationUtil > testop is removed
+  * __R__ Foo.masl under ```Foo/models/...``` does not show the testop operation
 
 
 ### End
