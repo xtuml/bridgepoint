@@ -17,6 +17,7 @@ tool to help the modeler avoid the problem.
 
 <a id="2.1"></a>2.1 [BridgePoint DEI #9717](https://support.onefact.net/issues/9717) Headline issue   
 <a id="2.2"></a>2.2 [BridgePoint SR #9708](https://support.onefact.net/issues/9708) Headline SR    
+<a id="2.3"></a>2.3 [BridgePoint dts0100841747 Design Note](https://github.com/xtuml/internal/blob/71c842bdcd937f946f977d529dc90e0f9a5f2486/Documentation_archive/20121102/technical/notes/dts0100841747/dts0100841747.dnt) Note that this is a One Fact internal document      
 
 ### 3. Background
 
@@ -25,7 +26,7 @@ to problems with the underlying MASL data being out of synch with the modeled ap
 error dialog for this scenario is shown in Figure 1.
 
 ![Error Dialog](activities_mismatch_dialog.png)  
-Figure 1.  
+__Figure 1__    
 
 Once the model is in this state it is often quite challenging to recover.  BridgePoint does not allow
 you to forge ahead with one set of data or the other.  Generally the modeler is forced to go outside 
@@ -44,8 +45,7 @@ the tool to edit files by hand or to revert back to a prior version in revision 
 5.1.1  "Synchronize with library" pulls changes into the current project.  
 5.1.2  "Synchronize references" pushes changes from the current project out to other 
   referring projects in the workspace.  
-  
-  TODO - locate historical docs about this behavior and reference them  
+5.1.3  The original implementation of manual synchronization actions is described in 2.3.    
 
 5.2  Experimentation with various operation scenarios shows that the problem happens when
   the modeler makes several changes to an interface and then attempts to synchronize all
@@ -78,20 +78,25 @@ the tool to edit files by hand or to revert back to a prior version in revision 
 5.5  Decision   
 5.5.1  Following the general BridgePoint policy of not taking action that will dirty the user's
   revision controlled data behind their back, we will go with option 5.4.2 for user-controlled
-  synchronization.    
+  synchronization.  A historical design note [2.3] details why we moved away from automatic
+  synchronization to manual synchronization.     
 
 ### 6. Design
 
-6.1  Update ```bridgepoint/src/org.xtuml.bp.ui.explorer/src/org/xtuml/bp/ui/explorer/decorators/SynchronizationDecorator.java``` to 
+6.1  Add a new preference 
+TODO
+
+6.2  Update ```bridgepoint/src/org.xtuml.bp.ui.explorer/src/org/xtuml/bp/ui/explorer/decorators/SynchronizationDecorator.java``` to 
   add new code in the ```decorate()``` function.   
-6.1.1  He we look to see if the element being checked to see if it is synchronized is a ```SystemModel_c```.  If it is
+6.2.1  He we look at the element being checked to see if it is a ```SystemModel_c```.  We also see
+  if the preference for enhanced synchronization is enabled.  If both conditions are true 
   then we proceed with the work.  This check makes sure that we only perform the work once for each project instead of
   flooding the user with many dialogs as various elements in the project are checked.  
-6.1.2  It we determine that the system is out of synch, we show a dialog (Figure 2) that gives the user the 
+6.2.2  It we determine that the system is out of synch, we show a dialog (Figure 2) that gives the user the 
   choice if they want to synchronize now or not.    
 
 ![Synchronization Needed Dialog](synch_warning_dialog.png)  
-Figure 2  
+__Figure 2__  
 
 6.1.3  The appropriate action is taken based on the user selection.  
 
@@ -132,5 +137,8 @@ Figure 2
   * __R__ Foo's component C > Port 1 > LocationUtil > testop is removed
   * __R__ Foo.masl under ```Foo/models/...``` does not show the testop operation
 
+TODO - test for case where the whole interface is removed
+
+9.x Verify that existing synchronization tests are unaffected.  All existing Junits must pass.  
 
 ### End
