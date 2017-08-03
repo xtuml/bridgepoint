@@ -271,6 +271,21 @@ be displayed as a text file in the editor view.
 We can consider combining these options after some mileage and
 testing with both in place.
 
+All inter-dependent projects must be (multi-) selected to get a
+cohesive referential integrity check.
+
+The command line interface will be as such:
+```
+xtumlmc_build xtuml_integrity -i <models folder or file1> -i <models folder of file2> -i <globals file> -m <accumulated model file> -o <output file>
+```
+The models folders or files supplied with the `-i` switch point to xtuml
+files or folders (such as .../workspace/MicrowaveOven/models).  The path
+to the Globals.xtuml file in org.xtuml.bp.pkg is needed to get clean
+checking on native types.  The `-m` switch is optional and keeps the
+accumulated model data file to be used to track down integrity violations.
+The `-o` switch identifies an output file for the integrity report.
+Without `-o` the report is emitted to the standard output.
+
 ### 7. Acceptance Test
 
 The following tests will be created by editing valid models and
