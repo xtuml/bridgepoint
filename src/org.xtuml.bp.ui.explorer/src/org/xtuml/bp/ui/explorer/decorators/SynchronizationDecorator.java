@@ -52,7 +52,6 @@ public class SynchronizationDecorator implements ILightweightLabelDecorator {
 		// rather than check the class for the isSynchronizedMethod through
 		// reflection, only consider the known classes
 		if (!isSynchronized(element)) {
-			decoration.addOverlay(SYNC_OVERLAY, IDecoration.BOTTOM_LEFT);
 			if (element instanceof SystemModel_c) {
 				SystemModel_c sys = (SystemModel_c) element;
 				PlatformUI.getWorkbench().getDisplay().syncExec(new Runnable() {
@@ -69,11 +68,14 @@ public class SynchronizationDecorator implements ILightweightLabelDecorator {
 						if (runSynch) {
 					        PullSynchronizationChanges sync = new PullSynchronizationChanges(false, sys);
 							sync.run(null);
+						} else {
+                            decoration.addOverlay(SYNC_OVERLAY, IDecoration.BOTTOM_LEFT);
 						}
 				    }
 				});
+			} else {
+			    decoration.addOverlay(SYNC_OVERLAY, IDecoration.BOTTOM_LEFT);
 			}
-			UIUtil.refresh(null);
 		}
 	}
 
