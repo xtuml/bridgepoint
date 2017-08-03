@@ -29,11 +29,17 @@ import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.viewers.IDecoration;
 import org.eclipse.jface.viewers.ILabelProviderListener;
 import org.eclipse.jface.viewers.ILightweightLabelDecorator;
-
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.graphics.Image;
+import org.eclipse.swt.widgets.Shell;
+import org.eclipse.ui.PlatformUI;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.Synchronizationtype_c;
+import org.xtuml.bp.core.SystemModel_c;
 import org.xtuml.bp.core.common.NonRootModelElement;
+import org.xtuml.bp.core.ui.actions.PullSynchronizationChanges;
+import org.xtuml.bp.core.util.UIUtil;
 
 public class SynchronizationDecorator implements ILightweightLabelDecorator {
 
@@ -47,6 +53,27 @@ public class SynchronizationDecorator implements ILightweightLabelDecorator {
 		// reflection, only consider the known classes
 		if (!isSynchronized(element)) {
 			decoration.addOverlay(SYNC_OVERLAY, IDecoration.BOTTOM_LEFT);
+			if (element instanceof SystemModel_c) {
+				SystemModel_c sys = (SystemModel_c) element;
+				PlatformUI.getWorkbench().getDisplay().syncExec(new Runnable() {
+				    public void run() {
+						String messageText = "The project '" + sys.getName() + "' needs to be synchronized to pull in reference updates.\n\n" +
+								"Choose Cancel to run \"Synchronize with library\" manually at a later time.\n\n" + 
+								"Choose OK to synchronize now (recommended)."; 
+				    	Shell shell = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell();
+						Image image = PlatformUI.getWorkbench().getDisplay().getSystemImage(SWT.ICON_WARNING);
+						boolean runSynch = UIUtil.openMessageDialog(shell,
+								"Synchronization Needed", image, messageText,
+								UIUtil.BPMessageTypes.WARNING,
+								new String[] { "OK", "Cancel" }, 0);
+						if (runSynch) {
+					        PullSynchronizationChanges sync = new PullSynchronizationChanges(false, sys);
+							sync.run(null);
+						}
+				    }
+				});
+			}
+			UIUtil.refresh(null);
 		}
 	}
 
