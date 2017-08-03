@@ -34,20 +34,10 @@ if [ "$2" == "-debug" ];then
 fi
 
 cd $dir 
-if [ "${1}" != "" ]; then
-  mvn -o $debug -Dtycho.disableP2Mirrors=true -Dmaven.test.failure.ignore=true -U install
-else
-  mvn $debug -Dtycho.disableP2Mirrors=true -Dmaven.test.failure.ignore=true -U install
-fi
+mvn $debug -Dtycho.disableP2Mirrors=true -Dmaven.test.failure.ignore=true -U install
 maven_return=$?
-
-aggregate=""
-if [ "${1}" == "" ]; then
-  aggregate="-Daggregate=true"
-fi
-
 if [ $maven_return == 0 ] && [ "${INCLUDE_TESTS}" == "true" ]; then
-  mvn -Dtycho.disableP2Mirrors=true $aggregate surefire-report:report-only
+  mvn -Dtycho.disableP2Mirrors=true -Daggregate=true surefire-report:report-only
   if [ "$(uname)" == "Darwin" ];then
     open $dir/target/site/surefire-report.html
   else
