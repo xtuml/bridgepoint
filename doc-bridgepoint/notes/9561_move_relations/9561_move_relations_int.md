@@ -82,17 +82,18 @@ Branch: 9561_move_relations
 
  doc-bridgepoint/notes/9561_move_relations/9561_move_relations_ant.md                                            | 113 ++++++++++++++++++++++++++++++++++++++++++++++++++++
  doc-bridgepoint/notes/9561_move_relations/9561_move_relations_dnt.md                                            | 283 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ doc-bridgepoint/notes/9561_move_relations/9561_move_relations_int.md                                            | 123 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++
  doc-bridgepoint/notes/9561_move_relations/assoc.png                                                             | Bin 0 -> 981620 bytes
  doc-bridgepoint/review-minutes/9561_move_relations_dnt_rvm.md                                                   |  36 +++++++++++++++++
  src/org.xtuml.bp.core/models/org.xtuml.bp.core/ooaofooa/Association/Association/Association.xtuml               | 165 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
  src/org.xtuml.bp.core/models/org.xtuml.bp.core/ooaofooa/Association/Class As Link/Class As Link.xtuml           |  40 +++++++++++++++++++
  src/org.xtuml.bp.core/models/org.xtuml.bp.core/ooaofooa/Association/Class As Subtype/Class As Subtype.xtuml     |  40 +++++++++++++++++++
+ src/org.xtuml.bp.doc/Reference/UserInterface/xtUMLModeling/ModelElements/HTML/ClassDiagram.htm                  |  68 +++++++++++++++++++++++++-------
  src/org.xtuml.bp.ui.canvas/models/org.xtuml.bp.ui.canvas/ooaofgraphics/Canvas Tools/Model Tool/Model Tool.xtuml |  69 ++++++++++++++++++++++++++++++++
  src/org.xtuml.bp.ui.graphics/src/org/xtuml/bp/ui/graphics/policies/ConnectionPolicy.java                        |  51 +++++++++++++++++++++++-
  src/org.xtuml.bp.ui.graphics/src/org/xtuml/bp/ui/graphics/policies/ConnectorGraphicalNodeEditPolicy.java        |  26 ------------
  src/org.xtuml.bp.ui.graphics/src/org/xtuml/bp/ui/graphics/policies/ShapeGraphicalNodeEditPolicy.java            | 390 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++----------------------------------------------------------------------
- utilities/build/build_configuration.sh                                                                          |   4 +-
- 12 files changed, 1036 insertions(+), 181 deletions(-)
+ 13 files changed, 1210 insertions(+), 194 deletions(-)
 
 </pre>
 
