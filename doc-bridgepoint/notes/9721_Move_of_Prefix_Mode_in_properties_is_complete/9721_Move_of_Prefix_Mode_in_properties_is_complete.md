@@ -4,7 +4,7 @@ This work is licensed under the Creative Commons CC0 License
 
 ---
 
-# Move of prefix mode in properties is incomplete
+# In the properties tab for class view, move prefix name and prefix type together
 ### xtUML Project Analysis Note
 
 
@@ -33,14 +33,15 @@ Attribute Prefix Mode
 Attribute Root Name   
 
 ### 5. Analysis
+For this issue we just do not have the right information available.  Currently it looks at selection. The selection must be an Attribute.    
 
-There is no determined solution for the issue as of yet, we just do not have the right information available.  Currently it looks at selection. The selection must be an Attribute.    
+We get a list of property sheet entries which only have “Display Name” to check against.  This can allow us to check the count of property sheet entries or the display name to determine if the attribute sorter should do something.  The "Display Name" property can match other entries, which will cause the attribute sorter to break the order.  Consider "Description" as the display name.  A good number of elements have that attribute and "Display Name" property.  The count is likely not a good check either as many other ooaofooa classes may equal that count.     
 
-We get a list of property sheet entries which only have “Display Name” to check against.  This can allow us to check the count of property sheet entries or the display name to determine if the attribute sorter should do something.  The "Display Name" property can match other entries, which will cause the attribute sorter to break the order.  Consider "Description" as the display name.  A good number of elements have that attribute and "Display Name" property.   
+5.1 Options
 
-There is one approach: 5.1.1 or 5.1.2.2 of [[2.1]](#2.1).  That way allows us to just control the O_ATTR attributes.    
-
-We could also determine a way to take control of property sheet entry creation.  Then create our version of PropertySheetEntry, which could return the associated parent element.  Doing this would allow us to maintain the original issues [[2.1]](#2.1) focus to allow sorters for any element.
+* There is one approach: 5.1.1 or 5.1.2.2 of [[2.1]](#2.1).  That way allows us to just control the O_ATTR attributes.    
+* We could also determine a way to take control of property sheet entry creation.  Then create our version of PropertySheetEntry, which could return the associated parent element.  Doing this would allow us to maintain the original issues [[2.1]](#2.1) focus to allow sorters for any element.
+* Each individual "Display Name" value could be considered, and if they match we could just initiate the attribute entry sorter always.  This needs a good amount of consideration put to the effect on performance.  
 
 ### 6. Work Required
 
