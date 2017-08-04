@@ -56,7 +56,7 @@ We get a list of property sheet entries which only have “Display Name” to ch
 * System::Package::ModelClass  
 * System::Package::ModelClass::Attribute  
 
-7.1.1 Result ordering for the attribute shall match that stated in the Requirement section  
+7.1.1 Result ordering for the attribute shall match that stated in the Requirement section    
 7.2 Run properties tests  
 7.2.1 Result is there are no failures  
 
