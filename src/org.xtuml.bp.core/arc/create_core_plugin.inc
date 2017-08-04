@@ -294,6 +294,20 @@ This file is the plugin manifest for the BridgePoint core plugin.
             icon="icons/xtuml-nature.gif"
             id="org.xtuml.bp.core.natureimage"/>
    </extension>
+	<extension
+		point="org.eclipse.ui.menus">
+			<menuContribution
+				locationURI="popup:org.eclipse.ui.popup.any?before=additions">
+				<menu
+					id="org.xtuml.bp.core.ui.actions.cardinality"
+							label="Cardinality">
+				</menu>
+				<dynamic
+					class="org.xtuml.bp.core.ui.actions.AssociationCardinalityContributionItem"
+							id="org.xtuml.bp.core.ui.actions.cardinality.dynamic">
+				</dynamic>
+			</menuContribution>
+	</extension>
    <extension
          point="org.eclipse.ui.newWizards">
       <category
