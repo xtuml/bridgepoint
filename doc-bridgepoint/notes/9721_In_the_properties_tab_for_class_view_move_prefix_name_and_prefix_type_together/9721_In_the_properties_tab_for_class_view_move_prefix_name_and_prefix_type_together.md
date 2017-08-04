@@ -24,13 +24,13 @@ This issue was raised due to the fact that attributes cannot be ordered if a par
 
 ### 4. Requirements
 
-4.1 Order shall match the following even if a parent of the Attribute class is selected.
+4.1 Order shall match the following even if a parent of the Attribute class is selected.  
 
-Array Dimensions
-Attribute Name
-Attribute Name Prefix
-Attribute Prefix Mode
-Attribute Root Name   
+- Array Dimensions  
+- Attribute Name  
+- Attribute Name Prefix  
+- Attribute Prefix Mode   
+- Attribute Root Name  
 
 ### 5. Analysis
 For this issue we just do not have the right information available.  Currently it looks at selection. The selection must be an Attribute.    
@@ -40,7 +40,7 @@ We get a list of property sheet entries which only have “Display Name” to ch
 5.1 Options
 
 5.1.1 Two approaches that we could use are detailed in the initial issues analysis.  They are sections 5.1.1 and 5.1.2.2 of [[2.1]](#2.1).  Those approaches allow us to just control the O_ATTR attributes.  In the 5.1.1 section we simply adjust the Pfx_Mode UI attribute name which allows the alpha-numeric sorter to put the entry in the correct place.  In the 5.1.2.2 section we would actually reorder the meta-model attribute for Pfx_Mode and not use the alpha-numeric ordering.      
-5.1.2 We could also determine a way to take control of property sheet entry creation.  If we can take over creation of the IPropertySheetEntry classes we can simply store the root element for the entries.  This will let us check for an Attribute_c root and use the sorter appropriately.       
+5.1.2 We could determine a way to take control of property sheet entry creation.  If we can take over creation of the IPropertySheetEntry classes we can simply store the root element for the entries.  This will let us check for an Attribute_c root and use the sorter appropriately.       
 5.1.3 Each individual "Display Name" value could be considered, and if they match we could just initiate the attribute entry sorter always.  This needs a good amount of consideration put to the effect on performance.  
 
 5.2 Suggestion  
