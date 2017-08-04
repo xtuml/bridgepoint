@@ -43,6 +43,10 @@ We get a list of property sheet entries which only have “Display Name” to ch
 5.1.2 We could also determine a way to take control of property sheet entry creation.  Then create our version of PropertySheetEntry, which could return the associated parent element.  Doing this would allow us to maintain the original issues [[2.1]](#2.1) focus to allow sorters for any element.  
 5.1.3 Each individual "Display Name" value could be considered, and if they match we could just initiate the attribute entry sorter always.  This needs a good amount of consideration put to the effect on performance.  
 
+5.2 Suggestion  
+
+After analysis it is believed that option [[5.1.2]](#5.1.2) would be the best option.  The reason is that the initial design intent was to allow for many different sorters in a general way.  Option [[5.1.3]](#5.1.3) has some performance considerations and option [[5.1.1]](#5.1.1) will only address attributes.  
+
 ### 6. Work Required
 
 6.1 Pending...  
