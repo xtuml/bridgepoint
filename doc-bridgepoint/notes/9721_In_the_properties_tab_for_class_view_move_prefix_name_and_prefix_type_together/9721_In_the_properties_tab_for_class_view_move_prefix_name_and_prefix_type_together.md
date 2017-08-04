@@ -33,7 +33,7 @@ This issue was raised due to the fact that attributes cannot be ordered if a par
 - Attribute Root Name  
 
 ### 5. Analysis
-For this issue we just do not have the right information available.  Currently it looks at the selection to enable a specific sorter for property entries. The selection must be an Attribute.    
+For this issue we just do not have the right information available.  The work done for [[2.1]](2.1) looks at the current model selection to enable a specific sorter for the given property entries. The selection in this case must be an Attribute.    
 
 We get a list of property sheet entries which only have “Display Name” to check against.  This can allow us to check the count of property sheet entries or the display name to determine if the attribute sorter should do something.  The "Display Name" property can match other entries, which will cause the attribute sorter to break the order.  Consider "Description" as the display name.  A good number of elements have that attribute and "Display Name" property.  The count is likely not a good check either as many other ooaofooa classes may equal that count.     
 
