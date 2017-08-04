@@ -55,6 +55,7 @@ We get a list of property sheet entries which only have “Display Name” to ch
 * System::Package  
 * System::Package::ModelClass  
 * System::Package::ModelClass::Attribute  
+* System::Package::ImportedClass
 
 7.1.1 Result ordering for the attribute shall match that stated in the Requirement section    
 7.2 Run properties tests  
