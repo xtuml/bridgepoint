@@ -39,9 +39,9 @@ We get a list of property sheet entries which only have “Display Name” to ch
 
 5.1 Options
 
-1. Two approaches that we could use are detailed in the initial issues analysis.  They are sections, 5.1.1 and 5.1.2.2 of [[2.1]](#2.1).  Those approaches allow us to just control the O_ATTR attributes.    
-2. We could also determine a way to take control of property sheet entry creation.  Then create our version of PropertySheetEntry, which could return the associated parent element.  Doing this would allow us to maintain the original issues [[2.1]](#2.1) focus to allow sorters for any element.  
-3. Each individual "Display Name" value could be considered, and if they match we could just initiate the attribute entry sorter always.  This needs a good amount of consideration put to the effect on performance.  
+5.1.1 Two approaches that we could use are detailed in the initial issues analysis.  They are sections, 5.1.1 and 5.1.2.2 of [[2.1]](#2.1).  Those approaches allow us to just control the O_ATTR attributes.    
+5.1.2 We could also determine a way to take control of property sheet entry creation.  Then create our version of PropertySheetEntry, which could return the associated parent element.  Doing this would allow us to maintain the original issues [[2.1]](#2.1) focus to allow sorters for any element.  
+5.1.3 Each individual "Display Name" value could be considered, and if they match we could just initiate the attribute entry sorter always.  This needs a good amount of consideration put to the effect on performance.  
 
 ### 6. Work Required
 
