@@ -45,19 +45,13 @@ We get a list of property sheet entries which only have “Display Name” to ch
 
 5.2 Suggestion  
 
-After analysis it is believed that option [[5.1.1]](#5.1.1) would be the best option.  The chose option [[5.1.1]](#5.1.1) will only address attribute ordering.  
+After analysis it is believed that option [[5.1.1]](#5.1.1) will be the best.  The chosen option [[5.1.1]](#5.1.1) was discounted in the prior analysis because the thinking was that introducing a new sorting mechanism would be flexible and allow further sorting with other elements. However, the prior analysis did not consider the parent selection. This approach resolves the parent selection issue called out by this analysis.      
 
 ### 6. Work Required
 
 6.1 Change description for the O_ATTR class to use the name Attribute Prefix Mode  
-6.2 Add automated tests for selections against:  
-
-* System  
-* System::Package  
-* System::Package::ModelClass  
-* System::Package::ImportedClass  
-
-6.3 Adjust expected property name and assure original tests from [[2.1]](#2.1) pass.
+6.2 Add automated tests for acceptance tests.    
+6.3 Adjust expected property name and assure original tests from [[2.1]](#2.1) pass.  
 
 
 ### 7. Acceptance Test
