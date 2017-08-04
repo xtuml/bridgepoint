@@ -38,7 +38,7 @@ There is no determined solution for the issue as of yet, we just do not have the
 
 We get a list of property sheet entries which only have “Display Name” to check against.  This can allow us to check the count of property sheet entries or the display name to determine if the attribute sorter should do something.  The "Display Name" property can match other entries, which will cause the attribute sorter to break the order.  Consider "Description" as the display name.  A good number of elements have that attribute and "Display Name" property.   
 
-There is another approach: 5.1.2.2 of [[2.1]](#2.1).  That way allows us to just control the O_ATTR attributes.  
+There is another approach: 5.1.1 of [[2.1]](#2.1).  That way allows us to just control the specific O_ATTR attribute.  
 
 ### 6. Work Required
 
