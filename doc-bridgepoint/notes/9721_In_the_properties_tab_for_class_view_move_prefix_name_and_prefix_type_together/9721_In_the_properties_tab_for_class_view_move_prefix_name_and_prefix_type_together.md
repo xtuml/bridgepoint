@@ -29,7 +29,7 @@ This issue was raised due to the fact that attributes cannot be ordered if a par
 - Array Dimensions  
 - Attribute Name  
 - Attribute Name Prefix  
-- Attribute Prefix Mode   
+- Prefix Mode   
 - Attribute Root Name  
 
 ### 5. Analysis
