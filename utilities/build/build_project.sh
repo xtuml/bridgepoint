@@ -14,4 +14,4 @@ fi
 # and the setting does carry over to the test runs
 export SWT_GTK3=0
 export GDK_NATIVE_WINDOWS=true
-cd ${1}/../src/org.xtuml.bp.pkg-feature && mvn -o -Dtycho.disableP2Mirrors=true $skipTests -Dmaven.test.failure.ignore=true install && cd ${2} && mvn -o -Dtycho.disableP2Mirrors=true $skipTests -Dmaven.test.failure.ignore=true $cmd
+cd ${1}/../src/org.xtuml.bp.pkg-feature && mvn -Dtycho.disableP2Mirrors=true $skipTests -Dmaven.test.failure.ignore=true install && cd ${2} && mvn -Dtycho.disableP2Mirrors=true $skipTests -Dmaven.test.failure.ignore=true -U $cmd
