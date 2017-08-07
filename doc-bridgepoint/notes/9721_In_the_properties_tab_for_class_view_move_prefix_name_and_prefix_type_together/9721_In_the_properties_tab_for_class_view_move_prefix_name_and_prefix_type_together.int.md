@@ -13,7 +13,7 @@ This note describes the implementation for Issue 9721 [[2.1]](2.1).
 
 ### 2. Document References
 <a id="2.1"></a>2.1 [BridgePoint DEI #9721](https://support.onefact.net/issues/9721) In the properties tab for class view, move prefix name and prefix type together    
-<a id="2.2"></a>2.2 [BridgePoint 9721 Analyis note]https://github.com/travislondon/bridgepoint/blob/9721_In_the_properties_tab_for_class_view_move_prefix_name_and_prefix_type_together/doc-bridgepoint/notes/9721_In_the_properties_tab_for_class_view_move_prefix_name_and_prefix_type_together/9721_In_the_properties_tab_for_class_view_move_prefix_name_and_prefix_type_together.md) Analysis Note    
+<a id="2.2"></a>2.2 [BridgePoint 9721 Analyis note] https://github.com/travislondon/bridgepoint/blob/9721_In_the_properties_tab_for_class_view_move_prefix_name_and_prefix_type_together/doc-bridgepoint/notes/9721_In_the_properties_tab_for_class_view_move_prefix_name_and_prefix_type_together/9721_In_the_properties_tab_for_class_view_move_prefix_name_and_prefix_type_together.md) Analysis Note    
 <a id="2.3"></a>2.3 [BridgePoint DEI #9565](https://support.onefact.net/issues/9565) https://support.onefact.net/issues/9565 Original move prefix issue.    
 
 ### 3. Background
