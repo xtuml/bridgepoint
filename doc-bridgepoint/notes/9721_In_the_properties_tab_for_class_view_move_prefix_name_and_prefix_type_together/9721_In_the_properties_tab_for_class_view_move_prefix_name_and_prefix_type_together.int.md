@@ -64,8 +64,6 @@ Branch: 9721_In_the_properties_tab_for_class_view_move_prefix_name_and_prefix_ty
 
 <pre>
 
-org.xtuml.bp.core.test/src/CoreGlobalsTestSuiteGenerics.java
-
 org.xtuml.bp.test/src/org/xtuml/bp/test/common/UITestingUtilities.java
 
 org.xtuml.bp.ui.properties.test/src/org/xtuml/bp/ui/properties/test/
