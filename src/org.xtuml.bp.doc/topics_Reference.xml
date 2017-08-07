@@ -93,6 +93,7 @@ the License.
     </topic>
     <topic label="Model Verifier Java Interface" href="Reference/UserInterface/ModelVerifierJavaInterface/ModelVerifierJavaInterface.htm" />
     <topic label="Command Line Interface" href="Reference/UserInterface/CommandLineInterface/CommandLineInterface.html" />
+    <topic label="Check Referential Integrity" href="Reference/UserInterface/xtuml_integrity/xtuml_integrity.html" />
     <topic label="Package References" href="Reference/UserInterface/PackageReferences/PackageReferences.html" />
     <topic label="Revision Control" href="Reference/UserInterface/RevisionControl/HTML/RevisionControl.htm" />
     <topic label="OAL Reference">
