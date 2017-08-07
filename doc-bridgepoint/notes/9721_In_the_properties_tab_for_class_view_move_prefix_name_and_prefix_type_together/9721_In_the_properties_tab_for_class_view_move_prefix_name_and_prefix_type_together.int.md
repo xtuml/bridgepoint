@@ -34,7 +34,14 @@ None
 
 ### 7. Unit Test
 
-The tests described in [[2.1]](#2.2) have been implemented using j-unit.  
+The tests described in [[2.1]](#2.2) have been implemented using j-unit.  Here are the added tests to PropertiesCustomOrderingTests.java:  
+```java
+testAttributeSelectedOrdering()
+testAttributeParentPackageSelected()
+testAttributeParentModelClassSelected()
+testAttributeParentSystemSelected()
+testImportedClassSelectedOrdering()
+```
 
 ### 8. User Documentation
 
