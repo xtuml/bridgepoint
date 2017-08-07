@@ -22,10 +22,7 @@
 
 package org.xtuml.bp.ui.properties;
 
-import org.eclipse.ui.views.properties.IPropertySheetEntry;
 import org.eclipse.ui.views.properties.PropertySheetSorter;
-import org.xtuml.bp.core.sorter.MetadataSortingManager.ISorter;
-import org.xtuml.bp.ui.properties.sorters.BridgePointPropertySheetSorters;
 
 /**
  * Extends the normal sorter used for sorting property sheet categories
@@ -46,19 +43,5 @@ public class BridgepointPropertySheetSorter extends PropertySheetSorter
         
         return super.compareCategories(categoryA, categoryB);
     }
-
-    /**
-     * Override to allow custom ordering for elements
-     */
-	@Override
-	public void sort(IPropertySheetEntry[] entries) {
-		ISorter sorter = BridgePointPropertySheetSorters.getSorter();
-		if(sorter != null) {
-			sorter.sort(entries);
-		} else {
-			// default to super
-			super.sort(entries);
-		}
-	}
         
 }
