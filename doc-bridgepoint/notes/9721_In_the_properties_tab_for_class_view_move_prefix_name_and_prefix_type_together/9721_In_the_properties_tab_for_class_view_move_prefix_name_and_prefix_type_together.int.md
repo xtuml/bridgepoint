@@ -9,7 +9,7 @@ This work is licensed under the Creative Commons CC0 License
 
 ### 1. Abstract
 
-This note describes the implementation for Issue 9721 [[2.1]](2.1).  
+This note describes the implementation and code changes for the issue.  
 
 ### 2. Document References
 <a id="2.1"></a>2.1 [BridgePoint DEI #9721](https://support.onefact.net/issues/9721) In the properties tab for class view, move prefix name and prefix type together    
@@ -18,23 +18,23 @@ This note describes the implementation for Issue 9721 [[2.1]](2.1).
 
 ### 3. Background
 
-See [[2.2]](2.2).  
+See [[2.1]](#2.2).  
 
 ### 4. Requirements
 
-See [[2.2]](2.2).  
+See [[2.1]](#2.2).  
 
 ### 5. Work Required
 
 5.1 Modify O_ATTR Descrip attribute so that Full Name: equals Attribute Prefix Mode.  
-5.2 In BridgePointPropertySheetSorter, remove the custom ordering override added in [[2.3]](2.3).  
+5.2 In BridgePointPropertySheetSorter, remove the custom ordering override added in [[2.1]](#2.3).  
 
 ### 6. Implementation Comments
 None  
 
 ### 7. Unit Test
 
-The tests described in [[2.2]](2.2) have been implemented using j-unit.  
+The tests described in [[2.1]](#2.2) have been implemented using j-unit.  
 
 ### 8. User Documentation
 
