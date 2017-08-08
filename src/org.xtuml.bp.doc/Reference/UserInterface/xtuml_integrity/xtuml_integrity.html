@@ -16,7 +16,7 @@
 <p>This command line (and GUI) tool performs referential integrity checks on xtUML model data.</p>
 <h2 id="syntax">Syntax</h2>
 <h3 id="check-referential-integrity">Check Referential Integrity</h3>
-<pre><code>xtumlmc_build xtuml_integrity -i &lt;model folder or file1&gt; [-i &lt;another&gt;] [-m &lt;accumulated model data&gt;] [ -o &lt;report file&gt; ]</code></pre>
+<pre><code>xtumlmc_build xtuml_integrity -i &lt;model folder or file1&gt; [-i &lt;another&gt;] [-g] [-m &lt;accumulated model data&gt;] [ -o &lt;report file&gt; ]</code></pre>
 <table>
 <colgroup>
 <col style="width: 29%" />
@@ -38,10 +38,14 @@
 <td>Optionally specify another folder or file of model data.</td>
 </tr>
 <tr class="odd">
+<td>-g</td>
+<td>Optionally skip the inclusion of global native types in the integrity check.</td>
+</tr>
+<tr class="even">
 <td>-m &lt;accumulated model data&gt;</td>
 <td>Optionally specify a file into which to store the accumulated model data.</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>-o &lt;report file&gt;</td>
 <td>Optionally specify a file for the referential integrity report.</td>
 </tr>
@@ -57,15 +61,15 @@
 </li>
 <li>Invoking the tool with missing parameters or syntax errors produces a message indicating proper usage.<br />
 </li>
-<li>The path to the <code>Globals.xtuml</code> file must be supplied to complete the check against global native xtUML types unless running with output from the Prebuilder.<br />
+<li>Skipping global native types is useful when running with Prebuilder output which already includes these types.<br />
 </li>
-<li>The functionality of this tool is available within the graphical user interface (GUI) under the BridgePoint Utilities context menu. When invoking from the GUI, the <code>Global.xtuml</code> file is automatically located.<br />
+<li>The functionality of this tool is available within the graphical user interface (GUI) under the BridgePoint Utilities context menu.<br />
 </li>
 <li>From the GUI, projects using inter-project references (IPRs) must be multi-selected to get all dependent model data.</li>
 </ul>
 <h2 id="examples">Examples</h2>
-<pre><code>./xtumlmc_build xtuml_integrity -i ~/workspace/MicrowaveOven/models -i ~/bp/plugins/org.xtuml.bp.pkg/globals/Globals.xtuml -m integrity.sql -o integrity.txt  
-./xtumlmc_build xtuml_integrity -i /home/user/ws/IPRproj1/models -i /home/user/ws/IPRproj2 -i /home/user/bp/plugins/org.xtuml.bp.pkg_6.4.0/globals/Globals.xtuml -m integrity.sql -o integrity.txt  
+<pre><code>./xtumlmc_build xtuml_integrity -i ~/workspace/MicrowaveOven/models -m integrity.sql -o integrity.txt  
+./xtumlmc_build xtuml_integrity -i /home/user/ws/IPRproj1/models -i /home/user/ws/IPRproj2 -m integrity.sql -o integrity.txt  
 </code></pre>
 <h2 id="background">Background</h2>
 <p>Check Referential Integrity runs a model data consistency query. Model<br />

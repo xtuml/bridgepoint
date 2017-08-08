@@ -7,13 +7,14 @@ Syntax
 ------------
 ### Check Referential Integrity  
 ```
-xtumlmc_build xtuml_integrity -i <model folder or file1> [-i <another>] [-m <accumulated model data>] [ -o <report file> ]
+xtumlmc_build xtuml_integrity -i <model folder or file1> [-i <another>] [-g] [-m <accumulated model data>] [ -o <report file> ]
 ```
    
 | Parameter                         | Description                                                                        |
 |-----------------------------------|------------------------------------------------------------------------------------|
 | -i &lt;model folder or file&gt;   | Specify an absolute or relative path to a folder or file of model (`.xtuml`) data. |
 | -i &lt;another&gt;                | Optionally specify another folder or file of model data.                           |
+| -g                                | Optionally skip the inclusion of global native types in the integrity check.       |
 | -m &lt;accumulated model data&gt; | Optionally specify a file into which to store the accumulated model data.          |
 | -o &lt;report file&gt;            | Optionally specify a file for the referential integrity report.                    |
 
@@ -24,16 +25,16 @@ Notes
 * Output defaults to the standard out (STDOUT).  
 * Progress and error messages are reported to standard error (STDERR) (GUI Console).  
 * Invoking the tool with missing parameters or syntax errors produces a message indicating proper usage.  
-* The path to the `Globals.xtuml` file must be supplied to complete the check against global native xtUML types unless running with output from the Prebuilder.  
-* The functionality of this tool is available within the graphical user interface (GUI) under the BridgePoint Utilities context menu.  When invoking from the GUI, the `Global.xtuml` file is automatically located.  
+* Skipping global native types is useful when running with Prebuilder output which already includes these types.  
+* The functionality of this tool is available within the graphical user interface (GUI) under the BridgePoint Utilities context menu.  
 * From the GUI, projects using inter-project references (IPRs) must be multi-selected to get all dependent model data.  
 
 
 Examples
 ------------
 ```
-./xtumlmc_build xtuml_integrity -i ~/workspace/MicrowaveOven/models -i ~/bp/plugins/org.xtuml.bp.pkg/globals/Globals.xtuml -m integrity.sql -o integrity.txt  
-./xtumlmc_build xtuml_integrity -i /home/user/ws/IPRproj1/models -i /home/user/ws/IPRproj2 -i /home/user/bp/plugins/org.xtuml.bp.pkg_6.4.0/globals/Globals.xtuml -m integrity.sql -o integrity.txt  
+./xtumlmc_build xtuml_integrity -i ~/workspace/MicrowaveOven/models -m integrity.sql -o integrity.txt  
+./xtumlmc_build xtuml_integrity -i /home/user/ws/IPRproj1/models -i /home/user/ws/IPRproj2 -m integrity.sql -o integrity.txt  
 
 ```
 

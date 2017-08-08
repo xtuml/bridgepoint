@@ -179,33 +179,6 @@ public class Generator extends Task {
         }
     }
  
-    private static String findGlobals() {
-        Bundle bpBundle = Platform.getBundle("org.xtuml.bp.pkg");
-        Path globalsPath = new Path("globals/Globals.xtuml");
-        URL fileURL = FileLocator.find(bpBundle, globalsPath, null);
-        String fileName = null;
-        try {
-            fileURL = FileLocator.resolve(fileURL);
-            fileName = fileURL.getFile();
-        } catch (IOException e) {    
-            String msg = "Unable to locate: globals/Globals.xtuml.  ";
-            if (bpBundle == null) {
-                msg += "Unable to get bundle: org.xtuml.bp.pkg  ";
-            }
-            if (fileURL == null) {
-                msg += "The file URL is null. ";
-            } else {
-                msg += "The file URL is: \n";
-                msg += "\tProtocol: " + fileURL.getProtocol() + "\n";
-                msg += "\tPort: " + fileURL.getPort() + "\n";
-                msg += "\tHost: " + fileURL.getHost() + "\n";
-                msg += "\tFile: " + fileURL.getFile() + "\n";
-                msg += "\tExternalForm: " + fileURL.toExternalForm() + "\n";
-            }
-        }
-        return fileName;
-    }
-
     private static void cleanup(String workingDir) 
         throws CoreException
     {
@@ -229,13 +202,12 @@ public class Generator extends Task {
         throws IOException, RuntimeException, CoreException, InterruptedException
     {
         // Call xtumlmc_build xtuml_integrity -i <infile> -i <infile> -o <outfile>
-        String globalsfile = findGlobals();
         String outputfile = workingDir + INTEGRITY_TXT;
         File outputFile = new File(outputfile);
 
         app = homedir + INTEGRITY_DIR + "xtumlmc_build"; //$NON-NLS-1$
-        args = " xtuml_integrity -i " + modelsDir + " -i " + globalsfile + " -m integrity.sql -o " + INTEGRITY_TXT; //$NON-NLS-1$
-        ProcessBuilder pb = new ProcessBuilder(app, "xtuml_integrity", "-i", modelsDir, "-i", globalsfile, "-m", "integrity.sql", "-o", INTEGRITY_TXT );
+        args = " xtuml_integrity -i " + modelsDir + " -m integrity.sql -o " + INTEGRITY_TXT; //$NON-NLS-1$
+        ProcessBuilder pb = new ProcessBuilder(app, "xtuml_integrity", "-i", modelsDir, "-m", "integrity.sql", "-o", INTEGRITY_TXT );
         pb.directory(new File(workingDir));
         Process process = pb.start();
         Integer exitVal = process.waitFor();
