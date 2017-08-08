@@ -761,7 +761,8 @@ if ( self.is_reflexive() )
     end if;
   else
     select one r_assoc related by self->R_ASSOC[R206];
-    if ( not_empty r_assoc )
+    select one r_assr related by r_assoc->R_ASSR[R211];
+    if ( not_empty r_assoc and current_o_obj.Obj_ID != r_assr.Obj_ID )
       if ( End::Start == param.end )
         select one current_oir related by r_assoc->R_AONE[R209]->R_RTO[R204]->R_OIR[R203];
       else
