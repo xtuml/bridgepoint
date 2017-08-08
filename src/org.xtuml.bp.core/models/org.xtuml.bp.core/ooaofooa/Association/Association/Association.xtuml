@@ -650,6 +650,172 @@ return cuttable;',
 	'',
 	"564c0e16-6ce2-4864-880a-b9231370a188",
 	0);
+INSERT INTO O_TFR
+	VALUES ("d1d1a2e2-12ae-44ea-9cb3-e490457ab30d",
+	"fccf477f-dde6-4d1a-9020-5effbe338738",
+	'moveAssociation',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000001",
+	1,
+	'select any current_o_obj from instances of O_OBJ where ( selected.Obj_ID == param.current_id );
+select any current_o_iobj from instances of O_IOBJ where false;
+if ( empty current_o_obj )
+  select any current_o_iobj from instances of O_IOBJ where ( selected.IObj_ID == param.current_id );
+  select one current_o_obj related by current_o_iobj->O_OBJ[R101];
+end if;
+select any new_o_iobj from instances of O_IOBJ where false;
+select any new_o_obj from instances of O_OBJ where ( selected.Obj_ID == param.new_id );
+if ( empty new_o_obj )
+  select any new_o_iobj from instances of O_IOBJ where ( selected.IObj_ID == param.new_id );
+  select one new_o_obj related by new_o_iobj->O_OBJ[R101];
+end if;
+if ( empty current_o_obj or empty new_o_obj )
+  return false;
+end if;
+
+// check if the association is formalized
+if ( self.isFormalized() )
+  self.unformalize();
+end if;
+
+// check relationship constraints
+// linked association
+select one r_assoc related by self->R_ASSOC[R206];
+if ( not_empty r_assoc )
+  select one current_one related by r_assoc->R_AONE[R209];
+  if ( not_empty current_one and current_one.Obj_ID == current_o_obj.Obj_ID )
+    select one r_assr related by r_assoc->R_ASSR[R211];
+    // assure that the new "one" is not the associative class
+    if ( new_o_obj.Obj_ID == r_assr.Obj_ID )
+      return false;
+    end if;
+  else
+  select one current_oth related by r_assoc->R_AOTH[R210];
+  if ( not_empty current_oth and current_oth.Obj_ID == current_o_obj.Obj_ID )
+    select one r_assr related by r_assoc->R_ASSR[R211];
+    // assure that the new "other" is not the associative class
+    if ( new_o_obj.Obj_ID == r_assr.Obj_ID )
+      return false;
+    end if;
+  else
+  select one current_assr related by r_assoc->R_ASSR[R211];
+  if ( not_empty current_assr and current_assr.Obj_ID == current_o_obj.Obj_ID )
+    // assure that the new associative class is not the "one" or the "other"
+    select one r_aone related by r_assoc->R_AONE[R209];
+    select one r_aoth related by r_assoc->R_AOTH[R210];
+    if ( new_o_obj.Obj_ID == r_aone.Obj_ID or new_o_obj.Obj_ID == r_aoth.Obj_ID )
+      return false;
+    end if;
+  else
+    return false;
+  end if;
+  end if;
+  end if;
+else
+// subsuper association
+select one r_subsup related by self->R_SUBSUP[R206];
+if ( not_empty r_subsup )
+  select one current_sup related by r_subsup->R_SUPER[R212];
+  if ( not_empty current_sup and current_sup.Obj_ID == current_o_obj.Obj_ID )
+    select any r_sub related by r_subsup->R_SUB[R213] where ( selected.Obj_ID == new_o_obj.Obj_ID );
+    // assure that the new supertype is not an existing subtype
+    if ( not_empty r_sub )
+      return false;
+    end if;
+  else
+  select any current_sub related by r_subsup->R_SUB[R213] where ( selected.Obj_ID == current_o_obj.Obj_ID );
+  if ( not_empty current_sub )
+    select any r_sub related by r_subsup->R_SUB[R213] where ( selected.Obj_ID == new_o_obj.Obj_ID );
+    select one r_super related by r_subsup->R_SUPER[R212];
+    // assure that the new subtype is not already a subtype or the supertype
+    if ( not_empty r_sub or new_o_obj.Obj_ID == r_super.Obj_ID )
+      return false;
+    end if;
+  else
+    return false;
+  end if;
+  end if;
+end if;
+end if;
+
+// get the current oir (for reflexive associations, must determin which is the start/end)
+select any current_oir related by self->R_OIR[R201] where ( selected.Obj_ID == current_o_obj.Obj_ID );
+if ( self.is_reflexive() )
+  select one r_simp related by self->R_SIMP[R206];
+  if ( not_empty r_simp )
+    select many part_set related by r_simp->R_PART[R207];
+    if ( cardinality part_set > 1 ) // unformalized
+      select any part1 related by r_simp->R_PART[R207];
+      if ( End::Start == param.end )
+        select one current_oir related by part1->R_RTO[R204]->R_OIR[R203];
+      else
+        select any part2 related by r_simp->R_PART[R207] where selected.OIR_ID != part1.OIR_ID;
+        select one current_oir related by part2->R_RTO[R204]->R_OIR[R203];
+      end if;
+    else // formalized
+      if ( End::Start == param.end )
+        select any current_oir related by r_simp->R_PART[R207]->R_RTO[R204]->R_OIR[R203];
+      else
+        select one current_oir related by r_simp->R_FORM[R208]->R_RGO[R205]->R_OIR[R203];
+      end if;
+    end if;
+  else
+    select one r_assoc related by self->R_ASSOC[R206];
+    select one r_assr related by r_assoc->R_ASSR[R211];
+    if ( not_empty r_assoc and current_o_obj.Obj_ID != r_assr.Obj_ID )
+      if ( End::Start == param.end )
+        select one current_oir related by r_assoc->R_AONE[R209]->R_RTO[R204]->R_OIR[R203];
+      else
+        select one current_oir related by r_assoc->R_AOTH[R210]->R_RTO[R204]->R_OIR[R203];
+      end if;
+    end if;
+  end if;
+end if;
+
+// move relationship
+unrelate current_o_obj from self across R201 using current_oir;
+relate new_o_obj to self across R201 using current_oir;
+
+// update iobjs
+if ( not_empty current_o_iobj )
+  unrelate current_o_iobj from current_oir across R202;
+end if;
+if ( not_empty new_o_iobj )
+  relate new_o_iobj to current_oir across R202;
+end if;
+
+return true;',
+	1,
+	'',
+	"fa50f390-f898-48d7-a9dd-02c23b73bb3f",
+	0);
+INSERT INTO O_TPARM
+	VALUES ("201576fb-05de-4a71-a031-581901d88999",
+	"d1d1a2e2-12ae-44ea-9cb3-e490457ab30d",
+	'new_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"5177d45c-50ed-4a04-bc71-a9daeb6e58c8",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("5177d45c-50ed-4a04-bc71-a9daeb6e58c8",
+	"d1d1a2e2-12ae-44ea-9cb3-e490457ab30d",
+	'current_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("d0f0a227-16d5-4729-9390-0b64d5a1b9de",
+	"d1d1a2e2-12ae-44ea-9cb3-e490457ab30d",
+	'end',
+	"ae85eca6-6fe4-4125-95e6-95272f0fd7de",
+	0,
+	'',
+	"201576fb-05de-4a71-a031-581901d88999",
+	'');
 INSERT INTO O_NBATTR
 	VALUES ("40ed956f-425d-4976-8913-ae0859b64e93",
 	"fccf477f-dde6-4d1a-9020-5effbe338738");
