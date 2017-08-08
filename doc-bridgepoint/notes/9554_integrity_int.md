@@ -91,6 +91,12 @@ output report.
 6.9 bp.core ooaofooa  
 The ooaofooa has not been updated, yet.
 
+6.10 OOA of Graphics  
+Consider enhancing the escher loader to support these instances.
+
+6.11 Enhanced Loader  
+Fix the loader to deal with unrecognized data gracefully.  
+
 ### 7. Unit Test
 
 Testing is being performed in a way similar to `masl_round_trip`.
