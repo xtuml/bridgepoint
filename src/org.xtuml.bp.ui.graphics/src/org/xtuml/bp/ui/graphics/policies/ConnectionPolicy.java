@@ -60,6 +60,7 @@ import org.xtuml.bp.ui.canvas.ContainingShape_c;
 import org.xtuml.bp.ui.canvas.ElementSpecification_c;
 import org.xtuml.bp.ui.canvas.GraphicalElement_c;
 import org.xtuml.bp.ui.canvas.ModelTool_c;
+import org.xtuml.bp.ui.canvas.Model_c;
 import org.xtuml.bp.ui.canvas.ShapeTerminal_c;
 import org.xtuml.bp.ui.canvas.Shape_c;
 import org.xtuml.bp.ui.canvas.TerminalSpecification_c;
@@ -295,8 +296,9 @@ public abstract class ConnectionPolicy extends GraphicalNodeEditPolicy {
 	protected Command getReconnectSourceCommand(ReconnectRequest request) {
 		if (!isReconnectAllowed(request, true))
 			return null;
-		// For now will only allow moving the anchor on the
-		// already terminated to element
+		Command command = getSpecializedReconnectSourceCommand(request);
+		if (command != null)
+			return command;
 		if (request.getConnectionEditPart().getSource() == getHost()) {
 			return new UpdateEndPointLocationCommand(request);
 		}
@@ -307,6 +309,12 @@ public abstract class ConnectionPolicy extends GraphicalNodeEditPolicy {
 			boolean source);
 
 	protected Command getSpecializedReconnectTargetCommand(
+			ReconnectRequest request) {
+		// default is no command
+		return null;
+	}
+
+	protected Command getSpecializedReconnectSourceCommand(
 			ReconnectRequest request) {
 		// default is no command
 		return null;
@@ -631,6 +639,45 @@ public abstract class ConnectionPolicy extends GraphicalNodeEditPolicy {
 		// above, but if for some reason we do (the supertype added a newly
 		// supported request type) just return what the supertype gave us.
 		return targetEditPart;
+	}
+
+	protected Object getHostRepresents() {
+		Object model = getHost().getModel();
+		if (model instanceof Connector_c) {
+			return GraphicalElement_c.getOneGD_GEOnR2((Connector_c) model)
+					.getRepresents();
+		}
+		else if (model instanceof Shape_c) {
+			return GraphicalElement_c.getOneGD_GEOnR2((Shape_c) model)
+					.getRepresents();
+		}
+		return null;
+	}
+
+	protected void associateTerminalSpecs(GraphicalElement_c sourceElement) {
+		ElementSpecification_c newSpec = ElementSpecification_c
+				.getOneGD_ESOnR10(sourceElement);
+		NonRootModelElement newTerm = getEndTerm(newSpec);
+		if ( null == newTerm ) newTerm = getStartTerm(newSpec);
+		if ( newTerm instanceof ConnectorTerminal_c ) {
+		    TerminalSpecification_c term = TerminalSpecification_c.getOneTS_TSPOnR201((ConnectorTerminal_c)newTerm);
+		    term.relateAcrossR206To(GraphicalElement_c.getOneGD_GEOnR2((Connector_c) getHost().getModel()));
+		}
+		else {
+		    TerminalSpecification_c term = TerminalSpecification_c.getOneTS_TSPOnR201((ShapeTerminal_c)newTerm);
+		    term.relateAcrossR206To(GraphicalElement_c.getOneGD_GEOnR2((Shape_c) getHost().getModel()));
+		}
+
+	}
+
+	protected Model_c getHostModel() {
+	    Object model = getHost().getModel();
+		if ( model instanceof Connector_c ) {
+		    return Model_c.getOneGD_MDOnR1(GraphicalElement_c.getOneGD_GEOnR2((Connector_c)model));
+		}
+		else {
+		    return Model_c.getOneGD_MDOnR1(GraphicalElement_c.getOneGD_GEOnR2((Shape_c)model));
+		}
 	}
 
 }
