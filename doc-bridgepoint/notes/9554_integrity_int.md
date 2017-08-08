@@ -68,16 +68,36 @@ are not stored as part of the project xtUML model data.  Instead, they
 are loaded from within the tool.  This file is found in the org.xtuml.bp.pkg
 project at `globals/Globals.xtuml`.
 
-The GUI will automatically include this data along with the selected
-project(s) model data.  When using the command line, the user must supply
-the path to this file as part of the invocation.
+`xtumlmc_build xtuml_integrity` will automatically include this data along
+with the selected project(s) model data.  An option is provided to exclude
+this data so that Prebuilder output can be used as integrity input.
 
 6.5 Pathing  
 I am thinking about selecting all of PEs together, because I can create
 a path for these.
 
+6.6 Simplified Plugin  
+The plugin depends on io.image and `System_c` (`S_SYS`).  These dependencies
+are only in place because needing to have the _project_ variable.  This
+can be btained in simpler ways.
+
+6.7 Multi-Select  
+I need to figure out how to deal with multi-select from the GUI.
+
+6.8 Error Counter  
+I would like to count the number of errors found and include that in the
+output report.
+
+6.9 bp.core ooaofooa  
+The ooaofooa has not been updated, yet.
 
 ### 7. Unit Test
+
+Testing is being performed in a way similar to `masl_round_trip`.
+A script is designed that loops through a list of models passing the
+data to the referential integrity checker.  Results are compared
+against expected results.  Clean models and known corrupt models
+are part of the input.  This list of models can grow over time.
 
 7.1 Two Instances with Duplicate Identifiers
 7.2 Missing Link
