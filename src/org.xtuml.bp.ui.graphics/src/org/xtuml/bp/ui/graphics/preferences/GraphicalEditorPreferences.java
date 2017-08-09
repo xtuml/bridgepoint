@@ -39,6 +39,7 @@ public class GraphicalEditorPreferences extends FieldEditorPreferencePage implem
 	private BridgePointPreferencesModel model;
 
     private Button disableGradients;
+    private Button showFormalizations;
     private Button invertGradients;
     private Label clrLabel;
 	private ComboFieldEditor routingStyle;
@@ -163,10 +164,18 @@ public class GraphicalEditorPreferences extends FieldEditorPreferencePage implem
 	    disableGradients = new Button(composite, SWT.CHECK | SWT.LEFT);
 	    disableGradients.setText("Disable gradients");
 	    disableGradients.setLayoutData(new GridData());
-
+	    
+	    // show formalizations
+	    showFormalizations = new Button(composite, SWT.CHECK | SWT.LEFT);
+	    showFormalizations.setText("Highlight Formalized Associations");
+	    showFormalizations.setLayoutData(new GridData());
 	    GridData spacerGridData = new GridData(GridData.FILL_HORIZONTAL);
-	    // Spacer2
 	    Label spacer2 = new Label(composite, SWT.NONE);
+	    spacer2.setLayoutData(spacerGridData);
+	    
+	    spacerGridData = new GridData(GridData.FILL_HORIZONTAL);
+	    // Spacer2
+	    spacer2 = new Label(composite, SWT.NONE);
 	    spacer2.setLayoutData(spacerGridData);
 
 	    // Invert gradients checkbox
@@ -210,6 +219,12 @@ public class GraphicalEditorPreferences extends FieldEditorPreferencePage implem
 	        disableGradients.setSelection( false );
 	    }
 
+	    if (bpPrefs.showFormalizations == true) {
+	    	showFormalizations.setSelection(true);
+	    } else {
+	    	showFormalizations.setSelection(false);
+	    }
+	    
 	    if (bpPrefs.invertGradients == true) {
 	        invertGradients.setSelection( true );
 	    } else {
@@ -264,6 +279,11 @@ public class GraphicalEditorPreferences extends FieldEditorPreferencePage implem
 		} else {
 			bpPrefs.disableGradients = false;
 		}
+		if (showFormalizations.getSelection()) {
+			bpPrefs.showFormalizations = true;
+		} else {
+			bpPrefs.showFormalizations = false;
+		}
 		if (invertGradients.getSelection()) {
 			bpPrefs.invertGradients = true;
 		} else {
@@ -292,6 +312,12 @@ public class GraphicalEditorPreferences extends FieldEditorPreferencePage implem
             disableGradients.setSelection( true );
         } else {
             disableGradients.setSelection( false );
+        }
+        
+        if (bpPrefs.showFormalizations == true) {
+        	showFormalizations.setSelection(true);
+        } else {
+        	showFormalizations.setSelection(false);
         }
 
         if (bpPrefs.invertGradients == true) {

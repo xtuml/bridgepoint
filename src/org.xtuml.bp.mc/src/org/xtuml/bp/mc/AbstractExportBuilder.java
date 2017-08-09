@@ -51,6 +51,7 @@ public abstract class AbstractExportBuilder extends IncrementalProjectBuilder {
 	private List<SystemModel_c> m_exportedSystems;
 	private AbstractActivator m_activator = null;
 	private AbstractNature m_nature = null;
+	private IProject project = null;
 
 	protected AbstractExportBuilder(AbstractActivator activator, AbstractNature nature) {
 		super();
@@ -93,7 +94,7 @@ public abstract class AbstractExportBuilder extends IncrementalProjectBuilder {
 	// The eclipse infrastructure calls this function in response to
 	// direct request by the user for a build or because auto building
 	// is turned on.
-	protected IProject[] build(int kind, Map args, IProgressMonitor monitor)
+	protected IProject[] build(int kind, Map<String, String> args, IProgressMonitor monitor)
 			throws CoreException {
 		boolean exportNeeded = readyBuildArea(monitor);
 
@@ -110,6 +111,7 @@ public abstract class AbstractExportBuilder extends IncrementalProjectBuilder {
 		if (exportNeeded) {
 			PersistenceManager.getDefaultInstance();
 			exportModel(monitor);
+			getProject().refreshLocal(IFile.DEPTH_INFINITE, null);
 		}
 		return null;
 	}
@@ -146,8 +148,10 @@ public abstract class AbstractExportBuilder extends IncrementalProjectBuilder {
 	
 	
 	protected IPath getCodeGenFolderPath() {
-		IProject proj = getProject();
-		return getCodeGenFolderPath(proj);
+		if(project == null) {
+			project = getProject();
+		}
+		return getCodeGenFolderPath(project);
 	}
 	
     // Performs house-keeping at the start of the build
@@ -157,7 +161,10 @@ public abstract class AbstractExportBuilder extends IncrementalProjectBuilder {
         IPath path = getCodeGenFolderPath();
         IPath genPath = new Path(AbstractActivator.GEN_FOLDER_NAME
                 + File.separator + m_outputFolder + File.separator);
-        IFolder genFolder = getProject().getFolder(genPath);
+        if(project == null) {
+        	project = getProject();
+        }
+        IFolder genFolder = project.getFolder(genPath);
         genFolder.refreshLocal(IResource.DEPTH_ONE, null);
         if (genFolder.exists() && genFolder.members().length != 0) {
             // Obtain the timestamp of the oldest SQL file in the code generation folder.
@@ -183,7 +190,7 @@ public abstract class AbstractExportBuilder extends IncrementalProjectBuilder {
             // If any file is younger than the oldest output
             // file, we need to perform the export.
             IPath mdlPath = new Path(AbstractActivator.MDL_FOLDER_NAME + File.separator);
-            IFolder mdlFolder = getProject().getFolder(mdlPath);
+            IFolder mdlFolder = project.getFolder(mdlPath);
             mdlFolder.refreshLocal(IResource.DEPTH_INFINITE, null);
             final long lastBuilt = oldest;
             class ExportAssessorVisitor implements IResourceVisitor {
@@ -218,9 +225,9 @@ public abstract class AbstractExportBuilder extends IncrementalProjectBuilder {
 
             // We must force a refresh or eclipse will not always see that
             // the deletion happened and the folder then does not get created.
-            getProject().refreshLocal(IFile.DEPTH_INFINITE, null);
+            project.refreshLocal(IFile.DEPTH_INFINITE, null);
             if (!path.toFile().exists()) {
-                path.toFile().mkdir();
+                path.toFile().mkdirs();
             }
         } else {
             // Clear the code generation folder of
@@ -380,5 +387,8 @@ public abstract class AbstractExportBuilder extends IncrementalProjectBuilder {
 		
 		return m_exportedSystems;
 	}
-
+	
+	public void setProject(IProject project) {
+		this.project = project;
+	}
 }

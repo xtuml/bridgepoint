@@ -4,7 +4,7 @@
 	<parent>
 		<groupId>org.xtuml.bp</groupId>
 		<artifactId>org.xtuml.bp.releng.parent.generation</artifactId>
-		<version>6.2.5</version>
+		<version>6.4.3-SNAPSHOT</version>
 		<relativePath>../../releng/org.xtuml.bp.releng.parent.generation/</relativePath>
 	</parent>
 	<groupId>org.xtuml.bp.xtext.masl</groupId>
@@ -43,6 +43,16 @@
 				<artifactId>target-platform-configuration</artifactId>
 				<version>${tycho-version}</version>
 				<configuration>
+					<dependency-resolution>
+						<extraRequirements>
+							<requirement>
+								<type>eclipse-feature</type>
+								<id>org.xtuml.bp.pkg.feature</id>
+								<versionRange>0.0.0</versionRange>	
+							</requirement>
+						</extraRequirements>
+					</dependency-resolution>
+
 					<target>
 						<artifact>
 							<groupId>org.xtuml.bp.xtext.masl</groupId>

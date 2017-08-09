@@ -79,7 +79,7 @@ public class ExportBuilder extends AbstractExportBuilder {
 	// The eclipse infrastructure calls this function in response to
 	// direct request by the user for a build or because auto building
 	// is turned on.
-	protected IProject[] build(int kind, Map args, IProgressMonitor monitor)
+	protected IProject[] build(int kind, Map<String, String> args, IProgressMonitor monitor)
 			throws CoreException {
 		setArgs(args);
 		return super.build(kind, args, monitor);
@@ -148,6 +148,12 @@ public class ExportBuilder extends AbstractExportBuilder {
 	public List<SystemModel_c> exportSystem(SystemModel_c system,
 			String destDir, final IProgressMonitor monitor, boolean append,
 			String originalSystem) throws CoreException {
+
+		boolean exportNeeded = readyBuildArea(monitor);
+		// if export is not needed do not perform this step
+		if(!exportNeeded) {
+			return new ArrayList<SystemModel_c>();
+		}
 
 		String errorMsg = "Unable to export to destination file.";
 		boolean exportSucceeded = false;

@@ -142,9 +142,6 @@
     <property name="param3" value="FALSE" />
     <property name="param4" value="context_menu" />
   </ant>
-  <!-- Need to touch the output file for the case where the input data
-       changed, but the output didn't -->
-  <touch file="sql/${cme_schema.output}" />
   </target>
 
   <property name="java.sql.dep" value="${sql.output}" />
@@ -164,9 +161,6 @@
 
   <target name="java" description="Generate java code for this project"
           depends="java.depends,java1,java2,java3,java4" >
-  <!-- Need to touch the output file for the case where the input data
-       changed, but the output didn't -->
-    <touch file="${java.output}" />
   </target>
   <target name="java1" if="itemsfoundin1" unless="java.buildNotNeeded" >
     <echo >Generating java files 1...</echo>
@@ -247,7 +241,6 @@
     <exec vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
       <arg line="xtumlmc_cleanse_for_BridgePoint ${sql.input} ${cme_sql.output} ${subsystems_to_remove}" />
     </exec>
-    <touch file="${cme_sql.output}" />
   </target>
 
   <target name="cme_menus.depends" >
@@ -305,9 +298,6 @@
   <delete file="____actn.arc" />
   <delete file="____file.txt" />
   <delete file="blck_id" />
-  <!-- Need to touch the output file for the case where the input data
-       changed, but the output didn't -->
-  <touch file="${cme_menus.output}" />
   </target>
 
   <!-- ********************************************************************* -->
@@ -353,9 +343,6 @@
     <property name="param3" value="FALSE" />
     <property name="param4" value="ooaofooa_hierarchy" />
   </ant>
-  <!-- Need to touch the output file for the case where the input data
-       changed, but the output didn't -->
-  <touch file="sql/${inspector.schema.output}" />
   </target>
 
   <property name="chain_util_path" value="../org.xtuml.bp.core"/>
@@ -398,9 +385,6 @@
     <delete file="rel_chain.txt" />
     <delete file="rel_num.txt" />
     <delete file="remainder.txt" />
-  <!-- Need to touch the output file for the case where the input data
-       changed, but the output didn't -->
-  <touch file="${inspector.java.output}" />
   </target>
 
    <property name="cell_modifier.output" value="src/org/xtuml/bp/core/ui/cells/CellModifierProvider.java" />
@@ -436,9 +420,6 @@
        <delete file="rel_chain.txt" />
        <delete file="rel_num.txt" />
        <delete file="remainder.txt" />
-     <!-- Need to touch the output file for the case where the input data
-          changed, but the output didn't -->
-     <touch file="${cell_modifier.output}" />
    </target>
    
    <property name="gssu.output" value="src/org/xtuml/bp/core/util/SupertypeSubtypeUtil.java" />
@@ -463,9 +444,6 @@
             -arch arc/generate_supertype_subtype_util.arc" />
        </exec>        
        <echotimestamp />
-    <!-- touch the output file in case generator believes there
-         are no changes -->
-    <touch file="${gssu.output}"/>
    </target>
 
    <property name="grtou.output" value="src/org/xtuml/bp/core/util/RTOUtil.java" />
@@ -490,11 +468,8 @@
             -arch arc/generate_rto_util.arc" />
       </exec>        
       <echotimestamp />
-      <!-- touch the output file in case generator believes there
-           are no changes -->
-      <touch file="${grtou.output}"/>
    </target>
-   
+	
    <property name="ald.output" value="src/org/xtuml/bp/core/util/ActionLanguageDescriptionUtil.java" />
    
    <target name="action_language_description_util.depends" depends="sql" >
@@ -517,9 +492,6 @@
             -arch arc/action_language_description_util.arc" />
        </exec>        
        <echotimestamp />
-    <!-- touch the output file in case generator believes there
-         are no changes -->
-    <touch file="${ald.output}"/>
    </target>
          
   <!-- ********************************************************************* -->
@@ -588,9 +560,6 @@
           <fileset dir="../org.xtuml.bp.core/src/org/xtuml/bp/core/" excludes="${cvs_java_files}"
             includes="inspector/*.java,sorter/*.java,ui/*.java,*.java, ui/actions/*.java, util/SupertypeSubtypeUtil.java, util/ActionLanguageDescriptionUtil.java, util/RTOUtil.java, common/BPQuickFix.java" />
         </PTCodeFormat>
-  <!-- Need to touch the output file for the case where the input data
-       changed, but the output didn't -->
-  <touch file="${java.output}" />
   </target>
 
   <!-- CLEAN TARGETS -->

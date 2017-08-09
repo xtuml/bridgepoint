@@ -30,6 +30,7 @@ import org.xtuml.bp.xtext.masl.masl.structure.SubtypeRelationshipDefinition
 import static org.xtuml.bp.xtext.masl.typesystem.BuiltinType.*
 
 import static extension org.eclipse.xtext.EcoreUtil2.*
+import org.xtuml.bp.xtext.masl.masl.behavior.GenerateStatement
 
 class MaslExpectedTypeProvider {
 
@@ -44,7 +45,7 @@ class MaslExpectedTypeProvider {
 		if (reference == caseAlternative_Choices && context instanceof CaseAlternative)
 			return #[((context as CaseAlternative).eContainer as CaseStatement).value.maslType]
 		if (reference == variableDeclaration_Expression && context instanceof VariableDeclaration)
-			return #[(context as VariableDeclaration).type.maslType]
+			return #[(context as VariableDeclaration).type.maslTypeOfTypeReference]
 		if (reference == returnStatement_Value) {
 			val topLevelElement = context.getContainerOfType(AbstractTopLevelElement)
 			switch topLevelElement {
@@ -59,12 +60,18 @@ class MaslExpectedTypeProvider {
 			if(action instanceof SimpleFeatureCall)
 				return action.feature.getParameterType(index)
 		}
+		if(reference == generateStatement_Arguments && context instanceof GenerateStatement && index != -1) {
+			val event = (context as GenerateStatement).event
+			return event.getParameterType(index)
+		}
 		if(reference == indexedExpression_Brackets && context instanceof IndexedExpression) {
-			val receiverType = (context as IndexedExpression).receiver.maslType
+			val receiverType = (context as IndexedExpression).receiver.maslType.stripName
 			if(receiverType instanceof DictionaryType)
 				return #[receiverType.keyType]
+			else if(receiverType instanceof ArrayType)
+				return #[receiverType.indexType, receiverType.indexType.elementType] 
 			else
-				return #[INTEGER, new RangeType(INTEGER)]
+				return #[ANONYMOUS_INTEGER, new RangeType(ANONYMOUS_INTEGER)]
 		}
 		if(reference == terminatorActionCall_Arguments && context instanceof TerminatorActionCall && index != -1) 
 			return (context as TerminatorActionCall).terminatorAction.getParameterType(index)

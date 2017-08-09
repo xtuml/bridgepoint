@@ -43,4 +43,5 @@ public class BridgepointPropertySheetSorter extends PropertySheetSorter
         
         return super.compareCategories(categoryA, categoryB);
     }
+        
 }

@@ -52,18 +52,20 @@ public class SampleProjectGettingStartedAction implements IIntroAction {
         String modelName = params.getProperty("model", "load_error");
         String singleFile = params.getProperty("SingleFileModel", "false");
         String enableIPR = params.getProperty("enableIPR", "false");
+        String importIntoWorkspace = params.getProperty("ImportIntoWorkspace", "true");
+        String launchGettingStartedHelp = params.getProperty("LaunchGettingStartedHelp", "true");
         if (modelName.equals("load_error")) {
        		CorePlugin.logError(
                     "The SampleProjectGettingStartedAction could not determine the model requested.", null);
        		return;
         } else {
-        	setup(modelName, singleFile, enableIPR);
+        	setup(modelName, singleFile, enableIPR, importIntoWorkspace, launchGettingStartedHelp);
         }
     }
 
-	private void setup(String modelName, String singleFile, String enableIPR) {
+	private void setup(String modelName, String singleFile, String enableIPR, String enableImportIntoWorkspace, String launchGettingStarted) {
 		// create project and all necessary parts
-		if ( setupProject(modelName, singleFile, enableIPR) ) {
+		if ( setupProject(modelName, singleFile, enableIPR, enableImportIntoWorkspace) ) {
 		    // show the xtUML Modeling perspective if not shown
 		    ProjectUtilities.openxtUMLPerspective();
 		    // close welcome page for the xtUML perspective
@@ -75,12 +77,14 @@ public class SampleProjectGettingStartedAction implements IIntroAction {
 		    	openReadme(modelName);
 		    }
 
-		    // Display the getting started help
-		    PlatformUI.getWorkbench().getHelpSystem().displayHelpResource(IGettingStartedConstants.gpsGettingStartedLink);
+		    if (launchGettingStarted.equalsIgnoreCase("true")) {
+			    // Display the getting started help
+			    PlatformUI.getWorkbench().getHelpSystem().displayHelpResource(IGettingStartedConstants.gpsGettingStartedLink);
+		    }
 		}
 	}
 
-	private boolean setupProject(String modelName, String singleFile, String enableIPR) {
+	private boolean setupProject(String modelName, String singleFile, String enableIPR, String enableImportIntoWorkspace) {
         IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject(modelName);
         boolean setupSucceeded = false;
         try {
@@ -131,14 +135,18 @@ public class SampleProjectGettingStartedAction implements IIntroAction {
 	            	setupSucceeded = ProjectUtilities.importModelUsingWizard(systemModel, modelPath, false);
 	            }
             } else {
-            	if (singleFile.compareToIgnoreCase("false") != 0) {
+            	if (singleFile.compareToIgnoreCase("false") != 0 && enableImportIntoWorkspace.equalsIgnoreCase("true")) {
             		modelName += "." + singleFile;
             	}
-	            modelPath = resolvePath(IGettingStartedConstants.modelFolder
+            	if (enableImportIntoWorkspace.equalsIgnoreCase("true")) {
+            		modelPath = resolvePath(IGettingStartedConstants.modelFolder
 	                    + "/" + modelName); //$NON-NLS-1$
+            	} else {
+            		modelPath = singleFile;
+            	}
 
 	            if (!modelPath.isEmpty()) {
-	            	setupSucceeded = ProjectUtilities.importExistingProject(modelPath);
+	            	setupSucceeded = ProjectUtilities.importExistingProject(modelPath, enableImportIntoWorkspace.equalsIgnoreCase("true"));
 	            }
            	}
 

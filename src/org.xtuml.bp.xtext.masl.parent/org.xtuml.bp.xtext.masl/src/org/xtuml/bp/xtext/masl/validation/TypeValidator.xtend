@@ -48,6 +48,7 @@ import static org.xtuml.bp.xtext.masl.typesystem.BuiltinType.*
 import static org.xtuml.bp.xtext.masl.validation.MaslIssueCodesProvider.*
 import org.xtuml.bp.xtext.masl.masl.behavior.CharacteristicCall
 import org.xtuml.bp.xtext.masl.typesystem.DictionaryType
+import org.xtuml.bp.xtext.masl.masl.types.Enumerator
 
 class TypeValidator extends AbstractMASLValidator {
 	
@@ -148,18 +149,6 @@ class TypeValidator extends AbstractMASLValidator {
 		}
 	}
 	
-	@Check 
-	def checkGenerateStatement(GenerateStatement it) {
-		val argTypes = arguments.map[maslType]
-		val ranked = rankParameterized(event, argTypes, false)
-		if(!ranked.acceptable) 
-			addIssue('''The event «
-				event.fullyQualifiedName»«event.parametersAsString
-				» cannot be generated with arguments («
-					arguments.map[maslType.toString].join(', ')
-				»)''', it, generateStatement_Event, WRONG_TYPE)
-	}
-	
 	@Check
 	def indexedExpression(IndexedExpression it) {
 		if (receiver != null && !receiver.eIsProxy) {
@@ -200,8 +189,25 @@ class TypeValidator extends AbstractMASLValidator {
 	private def checkTypeExpectation(EObject element, Iterable<MaslType> expectedTypes, EObject owner, EReference reference, int index) {
 		if(!expectedTypes.empty) {
 			val realType = element.maslType
-			if(!expectedTypes.exists[realType.isAssignableTo(it)]) 
+			if(!expectedTypes.exists[realType.isAssignableTo(it)]) {
+				if(realType.primitiveType instanceof EnumType 
+					&& (owner instanceof ActionCall || owner instanceof TerminatorActionCall || owner instanceof GenerateStatement) 
+					&& element instanceof SimpleFeatureCall) {
+					val enumeratorCandidate = (element as SimpleFeatureCall).feature
+					if(enumeratorCandidate instanceof Enumerator) {
+						val enumeratorName = enumeratorCandidate.name
+						for(expectedType: expectedTypes) {
+							val enumTypeCandidate = expectedType.primitiveType 
+							if(enumTypeCandidate instanceof EnumType) {
+								if(enumTypeCandidate.enumType.enumerators.exists[name == enumeratorName])
+									// TODO re-link the enumerator in this case
+									return
+							}						
+						}
+					}
+				}			
 				addIssue('''Expected «expectedTypes.map[toString].join(' or ')» but was «realType».''', owner, reference, index, WRONG_TYPE)
+			}
 		}
 	}
 	

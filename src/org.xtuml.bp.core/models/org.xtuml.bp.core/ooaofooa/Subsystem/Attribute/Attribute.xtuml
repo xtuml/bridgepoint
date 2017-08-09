@@ -1333,7 +1333,7 @@ INSERT INTO O_ATTR
 	"d931d595-21f3-4ce8-bad1-6661a0e261b8",
 	"f7f59044-8902-42fa-95fd-e900f9817b71",
 	'Pfx_Mode',
-	'Full Name: Prefix Mode
+	'Full Name: Attribute Prefix Mode
 Description: Indicates usage of a prefix.
 Data Domain: 0 = uses no prefix, 1 = uses local prefix, 2 = uses referred to prefix
 

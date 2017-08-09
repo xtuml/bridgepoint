@@ -12,10 +12,12 @@
     * [Where can I find out more about xtUML methodology and tools?](#morextumlinfo)
     * [What happened to the xtUML Editor?](#xtumleditor)
   * [BridgePoint Installation](#installation)
+    * [What is the difference between the "xtUML Modeler" and "BridgePoint Development" versions?](#userdevversions)
     * [Machine Recomendations](#machinerecomendations)
     * [Errors During Unzip](#unziperrors)
     * [Shared/Multi-user Installation](#sharedinstall)
     * [Starting BridgePoint](#launchers)
+    * [Installing xsltproc](#xsltproc)
   * [BridgePoint Developer Issues](#bpdevelopers)
     * [ANTLR Build Error](#antlrbuilderror)
     * [Linux Distribution-Specific Instructions](#linux)
@@ -96,9 +98,19 @@ In September 2012 the front-end UML editor of the commercial BridgePoint xtUML e
 
 BridgePoint Installation <a id="installation"></a>
 ------------
+* **What is the difference between the "xtUML Modeler" and "BridgePoint Development" versions?]**  <a id="userdevversions"></a>  
+  The BridgePoint tool is modeled in xtUML and therefore BridgePoint is used to
+  create BridgePoint.  Most users simply wish to create xtUML applications and 
+  they do not need or want additional eclipse features to support BridgePoint 
+  tool development.  The xtUML Modeler version of BridgePoint fulfills this role.
+  It includes the smallest set of features needed for xtUML application editing,
+  translating, and debugging.  The BridgePoint Developer version is a superset 
+  of the xtUML Modeler version.  It adds additional eclipse features that support
+  Java and Xtext code development and testing. 
+
 * **Hardware Requirements and Recomendations**  <a id="machinerecomendations"></a>  
   BridgePoint runs under [Eclipse](https://www.eclipse.org/). Hence, machine resource usage comes largely from
-  Eclipse. As of this writting, there are no published hardware requirements for Eclipse.  Eclipse offers 32 and
+  Eclipse. As of this writing, there are no published hardware requirements for Eclipse.  Eclipse offers 32 and
   64-bit versions. BridgePoint is built using only the 32-bit version of Eclipse. BridgePoint plugins under
   Eclipse will never use more than 4GB of RAM while editing and executing models.  However, for people using
   BridgePoint model compilers, a seperate process runs during model translation.  This process is a stand-alone
@@ -143,6 +155,17 @@ $ sudo ./eclipse -initialize
   ```BP5Dev```.  Either way, to start BridgePoint, navigate to the ```eclipse``` folder inside your installation
   folder and execute the ```Launcher.[bat|sh]``` script.
 
+* **Installing xsltproc**  <a id="xsltproc"></a>  
+  BridgePoint includes a feature to build documentation from a model.  Right-click on a xtUML project and select 
+  "Create documentation".  This tool creates a HTML document that contains images from the model along with description 
+  data from the model elements.  This feature requires a common tool called ```xsltproc```.
+  * MS Windows: ```xsltproc.exe``` is included in the BridgePoint distribution, no additional steps are required.
+  * MacOS: ```xsltproc``` is included in the operating system software, no additional steps are required.
+  * Linux: ```xsltproc``` is included in some distributions and not in others.  In a terminal window, type ```$ which xsltproc```.  If the tool is found, no additional steps are required.  If the tool is not found, use your package manager (```apt-get``` or ```yum```) to install it.  For example:
+  ```
+  $ sudo apt-get install xsltproc
+  ```
+  
 
 BridgePoint Developer Issues <a id="bpdevelopers"></a>
 ----------------------------

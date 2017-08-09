@@ -79,6 +79,7 @@ BuiltinLibraryDefinition:
 	{BuiltinLibraryDefinition}
 	'builtin' 'is' 
 	(types+=BuiltinTypeDeclaration
+	| exceptions+=ExceptionDeclaration
 	| characteristics+=Characteristic)*	
 	'end' 'builtin'? ';';
 
@@ -101,7 +102,7 @@ AbstractTypeReferenceWithRange returns AbstractTypeReference:
 	| RangeTypeReference;
 	
 RangeTypeReference:
-	'range' 'of' elementType=AbstractTypeReference;
+	anonymous?='anonymous'? 'range' 'of' elementType=AbstractTypeReference;
 
 //---------------------------------------------------------
 // Exception Declaration
@@ -209,7 +210,7 @@ SequenceTypeReference:
 
 ArrayTypeReference:
 	anonymous?='anonymous'?
-	'array' '(' expression=Expression ')' 'of' elementType=AbstractTypeReference;
+	'array' '(' (indexType=RangeTypeReference | expression=Expression) ')' 'of' elementType=AbstractTypeReference;
 
 SetTypeReference:
 	anonymous?='anonymous'?
@@ -665,10 +666,11 @@ LinkExpression returns Expression:
 
 NavigateExpression returns Expression:
 	ExtendedExpression
-	({NavigateExpression.lhs=current} ('->' navigation=RelationshipNavigation ('(' where=FindCondition ')')?
-	| 'with' ^with=ExtendedExpression '->' navigation=RelationshipNavigation
-	| 'ordered_by' order=SortOrder
-	| 'reverse_ordered_by' reverseOrder=SortOrder))*;
+	({NavigateExpression.lhs=current} 
+		( '->' navigation=RelationshipNavigation ('(' where=FindCondition? ')')?
+		| 'with' ^with=ExtendedExpression '->' navigation=RelationshipNavigation
+		| 'ordered_by' order=SortOrder
+		| 'reverse_ordered_by' reverseOrder=SortOrder))*;
 
 ExtendedExpression returns Expression:
 	PostfixExpression

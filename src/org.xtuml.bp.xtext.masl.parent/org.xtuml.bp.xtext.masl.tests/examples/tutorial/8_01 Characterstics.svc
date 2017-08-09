@@ -13,123 +13,123 @@ begin
    //image 
   t := i'image;
   if (t/="1") then
-    raise Standard::constraint_error;
+    raise constraint_error;
   end if;
   t := r'image;
   if (t/="-99.900002") then
-    raise Standard::constraint_error;
+    raise constraint_error;
   end if;
   t := b'image;
   if (t/="FALSE") then
-    raise Standard::constraint_error;
+    raise constraint_error;
   end if;
   t := e'image;
   if (t/="DAY") then
-    raise Standard::constraint_error;
+    raise constraint_error;
   end if;
 
   //upper
   t := "loWer";
   t := t'upper;
   if (t/="LOWER") then
-    raise Standard::constraint_error;
+    raise constraint_error;
   end if;
 
   //lower
   t := "UppER";
   t := t'lower;
   if (t/="upper") then
-    raise Standard::constraint_error;
+    raise constraint_error;
   end if;
 
   //firstcharpos
   t := "upper";
   i := t'firstcharpos('u');
   if (i/=t'first) then
-    raise Standard::constraint_error;
+    raise constraint_error;
   end if;
   i := t'firstcharpos('r');
   if (i/=t'last) then
-    raise Standard::constraint_error;
+    raise constraint_error;
   end if;
   t := t[t'firstcharpos('p')..t'firstcharpos('e')];
   if (t/="ppe") then
-    raise Standard::constraint_error;
+    raise constraint_error;
   end if;
   begin
     t := t[t'firstcharpos('p')..t'firstcharpos('x')];
     t := "error";
   exception
-    when Standard::constraint_error =>
+    when constraint_error =>
       null;
   end;
   if (t = "error") then
-    raise Standard::constraint_error;
+    raise constraint_error;
   end if;
 
   //type first,last
   if (Time_Unit'first/=MILLISECOND) then
-    raise Standard::constraint_error;
+    raise constraint_error;
   end if;
   if (Time_Unit'last/=DAY) then
-    raise Standard::constraint_error;
+    raise constraint_error;
   end if;
   if (octal_type'first/=0) then
-    raise Standard::constraint_error;
+    raise constraint_error;
   end if;
   if (octal_type'last/=7) then
-    raise Standard::constraint_error;
+    raise constraint_error;
   end if;
 
 
   //string first,last,size
   t := "";
   if (t'first/=0 or t'last>=0 or t'length/=0)  then
-    raise Standard::constraint_error;
+    raise constraint_error;
   end if;
   t := t & " ";
   if (t'first/=0 or t'last/=0 or t'length/=1)  then
-    raise Standard::constraint_error;
+    raise constraint_error;
   end if;
   t := t & " ";
   if (t'first/=0 or t'last/=1 or t'length/=2)  then
-    raise Standard::constraint_error;
+    raise constraint_error;
   end if;
 
 
   //collection first,last,size
   if (ds'first/=0 or ds'last>=0 or ds'length/=0)  then
-    raise Standard::constraint_error;
+    raise constraint_error;
   end if;
   ds := ds & d;
   if (ds'first/=0 or ds'last/=0 or ds'length/=1)  then
-    raise Standard::constraint_error;
+    raise constraint_error;
   end if;
   ds := ds & d;
   if (ds'first/=0 or ds'last/=1 or ds'length/=2)  then
-    raise Standard::constraint_error;
+    raise constraint_error;
   end if;
   p := create Pilot (age=>33);
   if (ps'first/=0 or ps'last>=0 or ps'length/=0)  then
-    raise Standard::constraint_error;
+    raise constraint_error;
   end if;
   ps := ps & p;
   if (ps'first/=0 or ps'last/=0 or ps'length/=1)  then
-    raise Standard::constraint_error;
+    raise constraint_error;
   end if;
   ps := ps & p;
   if (ps'first/=0 or ps'last/=1 or ps'length/=2)  then
-    raise Standard::constraint_error;
+    raise constraint_error;
   end if;
 
   //pred,succ
   e := MILLISECOND;
   if (e'succ/=SECOND) then
-    raise Standard::constraint_error;
+    raise constraint_error;
   end if;
   e := e'succ;
   if (e'pred/=MILLISECOND) then
-    raise Standard::constraint_error;
+    raise constraint_error;
   end if;
 
   i := 0;
@@ -137,41 +137,41 @@ begin
     e := MILLISECOND;
     e := e'pred;
   exception
-    when Standard::constraint_error =>
+    when constraint_error =>
       i := i + 1;
   end;
   begin
     e := DAY;
     e := e'succ;
   exception
-    when Standard::constraint_error =>
+    when constraint_error =>
       i := i + 1;
   end;
   if (i /= 2) then
-    raise Standard::constraint_error;
+    raise constraint_error;
   end if;
 
   //pos
   i := Time_Unit'pos(MILLISECOND);
   if (i/=1) then
-    raise Standard::constraint_error;
+    raise constraint_error;
   end if;
 
   //value
   e := Time_Unit'value("MILLISECOND");
   if (e/=MILLISECOND) then
-    raise Standard::constraint_error;
+    raise constraint_error;
   end if;
   t := "DAY";
   e := Time_Unit'value(t);
   if (e/=DAY) then
-    raise Standard::constraint_error;
+    raise constraint_error;
   end if;
 
   //find length
   i := (find_all Pilot ())'length;
   if (i=0)  then
-    raise Standard::constraint_error;
+    raise constraint_error;
   end if;
 
   // any

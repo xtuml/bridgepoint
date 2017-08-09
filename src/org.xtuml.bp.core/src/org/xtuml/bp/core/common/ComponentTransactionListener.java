@@ -52,6 +52,7 @@ import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.DataType_c;
 import org.xtuml.bp.core.Modeleventnotification_c;
 import org.xtuml.bp.core.Ooaofooa;
+import org.xtuml.bp.core.SystemModel_c;
 import org.xtuml.bp.core.ui.PasteAction;
 import org.xtuml.bp.core.util.CoreUtil;
 import org.xtuml.bp.core.util.RenameActionUtil;
@@ -237,7 +238,7 @@ public class ComponentTransactionListener implements ITransactionListener {
 							
 							// This is checking if masl rename/refactor needs to run
 							if (RenameParticipantUtil.isMASLChange(modelDelta)) {
-								boolean refactorSuccess = false;
+								boolean maslRefactorCompleted = false;
 								// assure the resource change listener is
 								// enabled
 								boolean disableListener = ComponentResourceListener.getIgnoreResourceChanges();
@@ -251,7 +252,10 @@ public class ComponentTransactionListener implements ITransactionListener {
 									ComponentResourceListener.setIgnoreResourceChanges(true);
 									ComponentResourceListener.setIgnoreResourceChangesMarker(true);
 									RenameParticipantUtil rpu = new RenameParticipantUtil();
-									refactorSuccess = rpu.renameElement(modelDelta);
+									
+									// This gets called for masl and oal models, but it will only ever return true
+									// for models that are masl
+									maslRefactorCompleted = rpu.renameElement(modelDelta);
 								} catch (Exception e) {
 									CorePlugin.logError("MASL rename/refactor failed.", e);
 								} finally {
@@ -259,7 +263,7 @@ public class ComponentTransactionListener implements ITransactionListener {
 									ComponentResourceListener.setIgnoreResourceChanges(disableListener);
 									ComponentResourceListener.setIgnoreResourceChangesMarker(disableMarker);
 								}
-								if (refactorSuccess) {
+								if (maslRefactorCompleted) {
 									setNoPersistActions(true);
 								}
 							}
@@ -288,19 +292,22 @@ public class ComponentTransactionListener implements ITransactionListener {
 			}
 		}
 
-        // reload to get changes refactoring made to the actions
-        if ( noPersistActions() ) {
-            setNoPersistActions(false);
-            for ( PersistableModelComponent persistedPMC : persisted ) {
-            	try {
-					NonRootModelElement originalRoot = persistedPMC.getRootModelElement();
-					Ooaofooa.getDefaultInstance().fireModelElementAboutToBeReloaded(persistedPMC.getRootModelElement());
-					persistedPMC.load(new NullProgressMonitor(), false, true);
-					Ooaofooa.getDefaultInstance().fireModelElementReloaded(originalRoot, persistedPMC.getRootModelElement());
-				} catch (CoreException e) {
-					CorePlugin.logError("Could not reload component", e);
-				}
-            }
+		if (noPersistActions()) {
+			try {
+				// if a masl rename/refactor occurred reload the project.
+				// we do this because we do not know which model roots masl had to update
+				PersistableModelComponent systemModelRoot = persisted.iterator().next();
+				systemModelRoot = systemModelRoot.getRootModelElement().getRoot().getPersistableComponent();
+				systemModelRoot.loadComponentAndChildren(new NullProgressMonitor(), false, true);
+			} finally {
+				// reset the flag to allow actions to be persisted in BP again.
+				// Placement of this reset is not relevant to the reload. It 
+				// be be set before or after. It simply must be after the xtuml
+				// persist() so that xtuml persist does not overwrite the changes
+				// the masl editor made before we reload the model to update the
+				// in memory model with the changes from the masl editor.
+				setNoPersistActions(false);
+			}
         }
 
 		Ooaofooa[] instances = Ooaofooa.getInstances();

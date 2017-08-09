@@ -244,13 +244,17 @@ class SequenceType extends CollectionType {
 	}
 }
 
+@Data
+@FinalFieldsConstructor
 class ArrayType extends CollectionType {
+	val RangeType indexType
+	
 	new(MaslType elementType) {
-		super(elementType)
+		this(elementType, false, new RangeType(BuiltinType.ANONYMOUS_INTEGER))
 	}
 
 	new(MaslType elementType, boolean anonymous) {
-		super(elementType, anonymous)
+		this(elementType, anonymous, new RangeType(BuiltinType.ANONYMOUS_INTEGER))
 	}
 
 	override String toString() {

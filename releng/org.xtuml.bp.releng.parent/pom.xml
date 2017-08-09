@@ -5,13 +5,13 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.xtuml.bp</groupId>
 	<artifactId>org.xtuml.bp.releng.parent</artifactId>
-	<version>6.2.5</version>
+	<version>6.4.3-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
 	<properties>
 		<tycho-version>0.25.0</tycho-version>
-		<ant-home-path>/build/buildmt/BridgePoint/plugins/org.apache.ant_1.9.6.v201510161327</ant-home-path>
-		<eclipse-home-path>/build/buildmt/BridgePoint/</eclipse-home-path>
+		<ant-home-path>${env.bp_install_dir}/plugins/org.apache.ant_1.9.6.v201510161327</ant-home-path>
+		<eclipse-home-path>${env.bp_install_dir}</eclipse-home-path>
 		<mcj_path>../../src/MC-Java</mcj_path>
         <bp_test_path>../../../bptest</bp_test_path>
 	</properties>
@@ -87,7 +87,7 @@
       	</property>
     	</activation>
 			<modules>
-				<module>../../../bptest/releng/org.xtuml.bp.releng.parent.tests</module>
+				<module>../../releng/org.xtuml.bp.releng.parent.tests</module>
 			</modules>
 	    </profile>
 	</profiles>

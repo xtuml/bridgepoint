@@ -42,7 +42,14 @@ INSERT INTO O_TFR
 Bridge: GD',
 	"6e636321-0fd1-4577-b185-e4d76b0d0c71",
 	1,
-	'return Style::Solid;',
+	'showFormalizations = PREF::getBoolean(name:"bridgepoint_prefs_showFormalizations");
+if (param.at == End::Additional and showFormalizations)
+  select one assoc related by self->R_SUBSUP[R213]->R_REL[R206];
+  if(assoc.isFormalized())
+    return Style::Bold;
+  end if;
+end if;
+return Style::Solid;',
 	1,
 	'',
 	"a0776c1d-5b80-4331-952a-ccb2730fc66f",
@@ -184,6 +191,46 @@ INSERT INTO O_TPARM
 	0,
 	'',
 	"5043f56b-6820-47ce-853a-f01c601af549",
+	'');
+INSERT INTO O_TFR
+	VALUES ("0812d2b8-c1ad-42c0-940b-781801a65f76",
+	"10e7f438-baae-4666-b25a-b9ce383f89d1",
+	'moveAssociation',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000001",
+	1,
+	'select one r_rel related by self->R_SUBSUP[R213]->R_REL[R206];
+return r_rel.moveAssociation( current_id:param.current_id, new_id:param.new_id, end:param.end );',
+	1,
+	'',
+	"2fae8dec-fabd-4512-8ece-431b961c9c10",
+	0);
+INSERT INTO O_TPARM
+	VALUES ("75a70fa8-0cdb-49b6-9d27-f2d6553ec667",
+	"0812d2b8-c1ad-42c0-940b-781801a65f76",
+	'new_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"d5f31a7d-5f9f-4f9d-890c-63efe355439a",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("d5f31a7d-5f9f-4f9d-890c-63efe355439a",
+	"0812d2b8-c1ad-42c0-940b-781801a65f76",
+	'current_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("7f1a19ed-e0e6-4bfc-9ef8-f7152105b5ee",
+	"0812d2b8-c1ad-42c0-940b-781801a65f76",
+	'end',
+	"ae85eca6-6fe4-4125-95e6-95272f0fd7de",
+	0,
+	'',
+	"75a70fa8-0cdb-49b6-9d27-f2d6553ec667",
 	'');
 INSERT INTO O_REF
 	VALUES ("10e7f438-baae-4666-b25a-b9ce383f89d1",

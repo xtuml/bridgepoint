@@ -5,13 +5,17 @@ package org.xtuml.bp.xtext.masl
 
 import com.google.inject.Binder
 import com.google.inject.name.Names
+import org.eclipse.xtext.documentation.IEObjectDocumentationProvider
 import org.eclipse.xtext.naming.IQualifiedNameConverter
 import org.eclipse.xtext.resource.IDefaultResourceDescriptionStrategy
-import org.eclipse.xtext.resource.containers.IAllContainersState
+import org.eclipse.xtext.resource.impl.DefaultResourceDescriptionManager
 import org.eclipse.xtext.scoping.IScopeProvider
 import org.eclipse.xtext.scoping.impl.AbstractDeclarativeScopeProvider
+import org.eclipse.xtext.validation.ConfigurableIssueCodesProvider
+import org.xtuml.bp.xtext.masl.doc.MaslEObjectDocumentationProvider
+import org.xtuml.bp.xtext.masl.index.MaslResourceSetBasedAllContainersState
 import org.xtuml.bp.xtext.masl.lib.MASLContainerManager
-import org.xtuml.bp.xtext.masl.lib.MASLDelegatingAllContainerState
+import org.xtuml.bp.xtext.masl.linking.MaslLinkingService
 import org.xtuml.bp.xtext.masl.masl.behavior.BehaviorPackage
 import org.xtuml.bp.xtext.masl.masl.structure.StructurePackage
 import org.xtuml.bp.xtext.masl.masl.types.TypesPackage
@@ -20,13 +24,8 @@ import org.xtuml.bp.xtext.masl.scoping.MASLImportScopeProvider
 import org.xtuml.bp.xtext.masl.scoping.MASLQualifiedNameConverter
 import org.xtuml.bp.xtext.masl.scoping.MASLQualifiedNameProvider
 import org.xtuml.bp.xtext.masl.scoping.MASLResourceDescriptionStrategy
-import org.eclipse.xtext.documentation.IEObjectDocumentationProvider
-import org.xtuml.bp.xtext.masl.doc.MaslEObjectDocumentationProvider
-import org.eclipse.xtext.validation.ConfigurableIssueCodesProvider
-import org.xtuml.bp.xtext.masl.validation.MaslIssueCodesProvider
-import org.xtuml.bp.xtext.masl.linking.MaslLinkingService
-import org.eclipse.xtext.resource.impl.DefaultResourceDescriptionManager
 import org.xtuml.bp.xtext.masl.scoping.MaslResourceDescriptionManager
+import org.xtuml.bp.xtext.masl.validation.MaslIssueCodesProvider
 
 /**
  * Use this class to register components to be used at runtime / without the Equinox extension registry.
@@ -49,14 +48,8 @@ class MASLRuntimeModule extends AbstractMASLRuntimeModule {
 		MaslLinkingService
 	}
 
-	def configureIAllContainersState$Provider(Binder binder) {
-		binder.bind(IAllContainersState.Provider)
-			.annotatedWith(Names.named(MASLDelegatingAllContainerState.DELEGATE_BINDING))
-			.to(super.bindIAllContainersState$Provider)
-	}
-
 	override bindIAllContainersState$Provider() {
-		MASLDelegatingAllContainerState.Provider
+		MaslResourceSetBasedAllContainersState.Provider
 	}
 	
 	override bindIContainer$Manager() {
