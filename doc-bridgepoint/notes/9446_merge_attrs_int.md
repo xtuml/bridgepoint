@@ -44,7 +44,7 @@ should not be a MASL-specific setting.
 4.2.3  Referential attributes are currently shown in the combo box with only
   their name.  The combo box shall be enhanced to also show the participating 
   relationship information next to the name in ```{Rn}``` form as it appears 
-  in the canvas.  
+  in the canvas.  (Maybe make a follow-on issue?)    
 
 ### 5. Work Required
 
@@ -61,6 +61,10 @@ should not be a MASL-specific setting.
 5.2.2  TODO - What modifications needed?
 
 5.3  TODO - where do we put the enhancement to show the relationship in the combo?  
+  The reason for this relationship is that if the class contains more than two 
+  attributes with the same name it is impossible in the combine with dialog to determine
+  which one you are formalizing with.  We may want to handle this as a follow-on issue
+  and solve the original issue first...     
 
 ### 6. Implementation Comments
 
