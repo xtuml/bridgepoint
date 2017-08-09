@@ -55,12 +55,14 @@ all inter-dependent projects to run the Check Referential Integrity.
 From the command line, all inter-dependent projects must be passed
 as parameters on the command line.
 
+Alternatively, as discussed on August 9, 2017, we will automatically
+select all projects in the workspace in all cases.  This is the
+new plan of record.
+
 6.3 Command Line  
 Most of the interface to the integrity checker is supplied through
 `xtumlmc_build` passing `xtuml_integrity` as the first argument.
-Additional argument
-Update `xtumlmc_build` to simplify the interface and allow multiple
-folders to be passed in (or grep the proxies for the referred to projects).
+This keeps the GUI and command line close and simplifies the plugin.
 
 6.4 Global Native Types  
 BridgePoint supplies global, native xtUML types to projects.  These types
@@ -69,33 +71,30 @@ are loaded from within the tool.  This file is found in the org.xtuml.bp.pkg
 project at `globals/Globals.xtuml`.
 
 `xtumlmc_build xtuml_integrity` will automatically include this data along
-with the selected project(s) model data.  An option is provided to exclude
-this data so that Prebuilder output can be used as integrity input.
+with the selected project(s) model data.  An option is provided (`-g`) to
+exclude this data so that Prebuilder output can be used as integrity input.
 
-6.5 Pathing  
-I am thinking about selecting all of PEs together, because I can create
-a path for these.
-
-6.6 Simplified Plugin  
+6.5 Simplified Plugin  
 The plugin depends on io.image and `System_c` (`S_SYS`).  These dependencies
 are only in place because needing to have the _project_ variable.  This
 can be btained in simpler ways.
 
-6.7 Multi-Select  
-I need to figure out how to deal with multi-select from the GUI.
-
-6.8 Error Counter  
+6.6 Error Counter  
 I would like to count the number of errors found and include that in the
-output report.
+output report.  Currently, we break out a particular class as soon as one
+instance fails.  This should change to show N (5 or so) problems and then
+move on.
 
-6.9 bp.core ooaofooa  
+6.7 bp.core ooaofooa  
 The ooaofooa has not been updated, yet.
 
-6.10 OOA of Graphics  
+6.8 OOA of Graphics  
 Consider enhancing the escher loader to support these instances.
 
-6.11 Enhanced Loader  
+6.9 Enhanced Loader  
 Fix the loader to deal with unrecognized data gracefully.  
+
+6.10 Windows is broken at the moment.  
 
 ### 7. Unit Test
 
