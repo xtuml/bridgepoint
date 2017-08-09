@@ -57,8 +57,6 @@ specifications
 
 ### 6. Work Required
 
-This work is estimated to take 2 man weeks
-
 6.1 Rename `enumerator_access` to `scoped_access` in the grammar  
 6.2 Update the validation routine to validate and create constant values as well
 as enumerator values  
