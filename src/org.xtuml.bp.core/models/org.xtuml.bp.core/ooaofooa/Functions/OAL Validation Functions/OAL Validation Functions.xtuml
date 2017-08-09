@@ -11349,7 +11349,7 @@ INSERT INTO PE_PE
 INSERT INTO S_SYNC
 	VALUES ("216f77f6-fba9-4d73-9540-8e730176f6f4",
 	"00000000-0000-0000-0000-000000000000",
-	'Enumerator_access_start',
+	'Scoped_access_start',
 	'ParserValidateFunction: TRUE',
 	'return param.a1_ruleid_name;
 ',
@@ -11375,7 +11375,7 @@ INSERT INTO PE_PE
 INSERT INTO S_SYNC
 	VALUES ("e7c85bd3-098d-4081-a60f-2931cfbfba3c",
 	"00000000-0000-0000-0000-000000000000",
-	'Enum_data_type_validate',
+	'Scoped_data_type_validate',
 	'ParserValidateFunction: TRUE',
 	'current_scope = ::get_current_scope();
 select any block from instances of ACT_BLK where (selected.Block_ID == current_scope);
@@ -11533,7 +11533,7 @@ INSERT INTO PE_PE
 INSERT INTO S_SYNC
 	VALUES ("db30edfc-3cf5-4a51-ab22-8f89331bf09a",
 	"00000000-0000-0000-0000-000000000000",
-	'Enumerator_validate',
+	'Scoped_member_validate',
 	'ParserValidateFunction: TRUE',
 	'select any pe from instances of PE_PE where selected.Element_ID ==
                                                        param.a6_current_rule_id;
@@ -11627,10 +11627,10 @@ INSERT INTO PE_PE
 INSERT INTO S_SYNC
 	VALUES ("c72f1739-7267-480c-917d-bcca081eb867",
 	"00000000-0000-0000-0000-000000000000",
-	'Enumerator_access_end',
+	'Scoped_access_end',
 	'ParserValidateFunction: TRUE',
 	'select any enum from instances of S_ENUM 
-    where (selected.Enum_ID == param.b2_enumerator2_id );
+    where (selected.Enum_ID == param.b2_scoped_member2_id );
 if(empty enum)
   // if the enumerator was not found
   // check the system level
@@ -11638,7 +11638,7 @@ if(empty enum)
   select any system from instances of S_SYS where (selected.Name == sysName);
 
     select any enum related by system->G_EIS[R9100]->PE_PE[R9100]->S_DT[R8001]->
-    S_EDT[R17]->S_ENUM[R27] where (selected.Enum_ID == param.b2_enumerator2_id);
+    S_EDT[R17]->S_ENUM[R27] where (selected.Enum_ID == param.b2_scoped_member2_id);
 
 end if;
 
@@ -11707,7 +11707,7 @@ INSERT INTO S_SPARM
 INSERT INTO S_SPARM
 	VALUES ("f82ddf02-c3d9-4ad2-bb75-84fa3dde7faa",
 	"c72f1739-7267-480c-917d-bcca081eb867",
-	'b1_enum_data_type1_id',
+	'b1_scoped_data_type1_id',
 	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
@@ -11716,7 +11716,7 @@ INSERT INTO S_SPARM
 INSERT INTO S_SPARM
 	VALUES ("68ea48f3-1c25-4545-addc-5ee623349c02",
 	"c72f1739-7267-480c-917d-bcca081eb867",
-	'b2_enumerator2_id',
+	'b2_scoped_member2_id',
 	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
@@ -24039,7 +24039,7 @@ INSERT INTO PE_PE
 INSERT INTO S_SYNC
 	VALUES ("be1502d8-9620-4e7a-86e9-2fee92e17a9c",
 	"00000000-0000-0000-0000-000000000000",
-	'Enumerator_access_validate',
+	'Scoped_access_validate',
 	'ParserValidateFunction: TRUE',
 	'return param.a6_current_rule_id;
 
@@ -24956,7 +24956,7 @@ INSERT INTO S_SPARM
 INSERT INTO S_SPARM
 	VALUES ("072e9eb1-26f2-4e4b-8218-a7f7df45ac90",
 	"3e18effc-41a7-4216-8418-d941e75c1f35",
-	'b4_enumerator_access4_id',
+	'b4_scoped_access4_id',
 	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
