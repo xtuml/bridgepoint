@@ -13,8 +13,6 @@ This note describes a different approach to support offline mode.
 
 ### 2. Document References
 
-In this section, list all the documents that the reader may need to refer to.
-Give the full path to reference a file.  
 <a id="2.1"></a>2.1 [BridgePoint DEI #9726](https://support.onefact.net/issues/9726) Provide analysis and implementation for a solution to #9647    
 <a id="2.2"></a>2.2 [BridgePoint DEI #9647](https://support.onefact.net/issues/9647) Original offline mode issue    
 <a id="2.3"></a>2.3 [Eclipse tycho dependency bug](https://bugs.eclipse.org/bugs/show_bug.cgi?id=461787) Bug of example with dependency issues  
