@@ -98,7 +98,7 @@ Currently the command line build does not affect JDT, it has to run in eclipse. 
 
 6.3 Modify prepare_build.sh  
 6.3.1 Call mvn dependency:resolve-plugins if the current time is less than the timestamp created below  
-6.3.2 Manually create a version file under the bridgepoint repository and add the same version number in the script, this should only be changed according to [[5](5.1.1)  
+6.3.2 Manually create a version file under the bridgepoint repository and add the same version number in the script, this should only be changed according to [[5]](5.1.1)  
 6.3.3 Move ~/.m2 to ~/.m2_bridgepoint  
 6.3.4 Create settings.xml file under ~/.m2/settings.xml (create the directory)  
 ``` xml
