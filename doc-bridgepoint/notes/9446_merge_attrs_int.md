@@ -39,8 +39,8 @@ should not be a MASL-specific setting.
 4.2  The ```Combine With``` dialog shall populate the combo box with all valid
   attributes to combine with.  
 4.2.1  Currently supported cases shall not change.  
-4.2.2  The combo box shall show referential attributes that have the same name
-  and type as the current attribute that started the combination process.  
+4.2.2  The combo box shall show referential attributes that have the same 
+  type as the current attribute that started the combination process.  
 4.2.3  Referential attributes are currently shown in the combo box with only
   their name.  The combo box shall be enhanced to also show the participating 
   relationship information next to the name in ```{Rn}``` form as it appears 
@@ -58,7 +58,7 @@ should not be a MASL-specific setting.
   Java class (```CombineWithOnO_ATTRWizardPage1```) to be created during code 
   generation.  This dialog calls Attribute.canCombineWith() to present the user
   with a combo box of attributes to combine with.  
-5.2.2  Current code with addtions marked with "+"
+5.2.2  Current code with addtions marked by "+"
 
 ```
 select any o_attr from instances of O_ATTR where ( selected.Attr_ID == param.Attr_ID );
@@ -73,10 +73,9 @@ if ( self.Obj_ID == o_attr.Obj_ID )  // must be in the same class to combine
             // two rattrs pointing to the same base
             can_combine = rattr.BAttr_ID == other_rattr.BAttr_ID and not rattr.alreadyCombinedWith( id: other_rattr.Attr_ID );
 +           if ( not can_combine )
-+               // allow combination with other referentials with the same name and type
-+               name_match = self.Root_Nam == o_attr.Root_Nam
++               // allow combination with other referentials with the same type
 +               type_match = self.DT_ID == o_attr.DT_ID
-+               can_combine = name_match and type_match and not rattr.alreadyCombinedWith( id: other_rattr.Attr_ID );
++               can_combine = type_match and not rattr.alreadyCombinedWith( id: other_rattr.Attr_ID );
 +           end if
         else
     ...
