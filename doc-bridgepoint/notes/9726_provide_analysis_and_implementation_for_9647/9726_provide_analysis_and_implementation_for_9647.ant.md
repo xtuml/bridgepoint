@@ -38,7 +38,7 @@ The goal here is to allow building offline without issue for all cases.  A few i
 
 5.1 Dependency issues  
 
-The changes for the orginal issue [[2]](2.2) assumed that a connection was no longer required once a maven build was done using the install goal.  If truly without a connection the build will fail early during the checks for updates.  Once offline mode was enabled, the build would work until an update was found.  These updates should be ignored but are not.  According to [[2.1]](2.4) some plugins may not honor the offline mode setting.  There is another eclipse bug, [[2.1](2.3) that is claimed to be fixed in the version of tycho that we use.   
+The changes for the orginal issue [[2]](2.2) assumed that a connection was no longer required once a maven build was done using the install goal.  If truly without a connection the build will fail early during the checks for updates.  Once offline mode was enabled, the build would work until an update was found.  These updates should be ignored but are not.  According to [[2.1]](2.4) some plugins may not honor the offline mode setting.  There is another eclipse bug, [[2.1]](2.3) that is claimed to be fixed in the version of tycho that we use.   
 
 5.1.1 Use local repository as remote  
 
