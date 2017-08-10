@@ -58,7 +58,29 @@ should not be a MASL-specific setting.
   Java class (```CombineWithOnO_ATTRWizardPage1```) to be created during code 
   generation.  This dialog calls Attribute.canCombineWith() to present the user
   with a combo box of attributes to combine with.  
-5.2.2  TODO - What modifications needed?
+5.2.2  Current code with addtions marked with "+"
+
+```
+select any o_attr from instances of O_ATTR where ( selected.Attr_ID == param.Attr_ID );
+
+can_combine = false;
+
+if ( self.Obj_ID == o_attr.Obj_ID )  // must be in the same class to combine
+    select one rattr related by self->O_RATTR[R106];
+    if ( not_empty rattr )
+        select one other_rattr related by o_attr->O_RATTR[R106];
+        if ( not_empty other_rattr )
+            // two rattrs pointing to the same base
+            can_combine = rattr.BAttr_ID == other_rattr.BAttr_ID and not rattr.alreadyCombinedWith( id: other_rattr.Attr_ID );
++           if ( not can_combine )
++               // allow combination with other referentials with the same name and type
++               name_match = self.Root_Nam == o_attr.Root_Nam
++               type_match = self.DT_ID == o_attr.DT_ID
++               can_combine = name_match and type_match and not rattr.alreadyCombinedWith( id: other_rattr.Attr_ID );
++           end if
+        else
+    ...
+``` 
 
 5.3  TODO - where do we put the enhancement to show the relationship in the combo?  
   The reason for this relationship is that if the class contains more than two 
@@ -68,7 +90,7 @@ should not be a MASL-specific setting.
 
 ### 6. Implementation Comments
 
-None.  
+None.    
 
 ### 7. Unit Test
 
