@@ -20,4 +20,14 @@ public class checkReferentialIntegrityAction implements IObjectActionDelegate {
 	public void run(IAction action) {
 	  Generator.genAll();
 	}
+
+	@Override
+	public void selectionChanged(IAction action, ISelection selection) {
+		if (selection instanceof IStructuredSelection) {
+			IStructuredSelection sSel = (IStructuredSelection)selection;
+			Object selected = sSel.getFirstElement();
+		}
+
+	}
+
 }
