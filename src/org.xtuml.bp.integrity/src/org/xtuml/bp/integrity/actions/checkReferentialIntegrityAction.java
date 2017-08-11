@@ -6,7 +6,6 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.ui.IObjectActionDelegate;
 import org.eclipse.ui.IWorkbenchPart;
 
-import org.xtuml.bp.core.SystemModel_c;
 import org.xtuml.bp.integrity.generator.Generator;
 
 public class checkReferentialIntegrityAction implements IObjectActionDelegate {
@@ -19,21 +18,6 @@ public class checkReferentialIntegrityAction implements IObjectActionDelegate {
 
 	@Override
 	public void run(IAction action) {
-	    if (curSel instanceof SystemModel_c) {
-			Generator.genAll((SystemModel_c)curSel);
-		}
+	  Generator.genAll();
 	}
-
-	@Override
-	public void selectionChanged(IAction action, ISelection selection) {
-		if (selection instanceof IStructuredSelection) {
-			IStructuredSelection sSel = (IStructuredSelection)selection;
-			Object selected = sSel.getFirstElement();
-			if (selected instanceof SystemModel_c) {
-				curSel = selected;
-			}
-		}
-
-	}
-
 }

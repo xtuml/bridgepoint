@@ -8,6 +8,8 @@ package org.xtuml.bp.integrity.generator;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.tools.ant.Task;
 import org.eclipse.core.resources.IFile;
@@ -31,7 +33,6 @@ import org.eclipse.ui.console.IConsoleView;
 import org.eclipse.ui.console.MessageConsole;
 import org.eclipse.ui.console.MessageConsoleStream;
 import org.eclipse.ui.part.FileEditorInput;
-import org.xtuml.bp.core.SystemModel_c;
 
 public class Generator extends Task {
     
@@ -41,8 +42,11 @@ public class Generator extends Task {
     public static final String CONSOLE_NAME = "Console"; //$NON-NLS-1$
 
     private static String homedir = "";
-    private static String app = "";
+    private static String app = homedir + INTEGRITY_DIR + "xtumlmc_build"; //$NON-NLS-1$
     private static String args = "";
+    private static List<String> processArgs = new ArrayList<String>();
+    private static IProject firstProject;
+    private static String destPath = "";
     public static MessageConsole myConsole;
     public static MessageConsoleStream msgbuf;
     public static Generator self;
@@ -54,11 +58,11 @@ public class Generator extends Task {
         homedir = homedir.replaceFirst("file:", ""); //$NON-NLS-1$
     }
     
-    public static void genAll(SystemModel_c sys) {
+    public static void genAll() {
         if (self == null) {
             self = new Generator();
         }
-        checkReferentialIntegrity(sys);
+        checkReferentialIntegrity();
     }
  
     /*
@@ -66,19 +70,29 @@ public class Generator extends Task {
      * - Call xtumlmc_build xtuml_integrity -i <model folder> -o <model file> > integrity.txt
      * - Display integrity.txt
      */
-    private static void checkReferentialIntegrity(final SystemModel_c sys) {
+    private static void checkReferentialIntegrity() {
 
-        boolean failed = false;
-        IProject[] projects = ResourcesPlugin.getWorkspace().getRoot().getProjects();
+        IPath path;
+        List<String> modelsDir = new ArrayList<String>();
+        final IProject[] projects = ResourcesPlugin.getWorkspace().getRoot().getProjects();
+        // Build an array of string paths to model folders.
         for ( IProject project: projects ) {
-        if ( (project != null) && !failed ) {
             String projPath = project.getLocation().toOSString();
-            final IPath modelspath = new Path(projPath + File.separator + "models");
-            final String modelsPath = modelspath.toOSString();
+            IPath modelspath = new Path(projPath + File.separator + "models");
             if (modelspath.toFile().exists()) {
-            final IPath path = new Path(projPath + File.separator + DOC_DIR);
-            final String destPath = path.toOSString();
-
+                modelsDir.add("-i");
+                modelsDir.add(modelspath.toOSString());
+                if ( "" != destPath ) {
+                    path = new Path(projPath + File.separator + DOC_DIR);
+                    if (!path.toFile().exists()) {
+                        path.toFile().mkdir();
+                    }
+                    destPath = path.toOSString();
+                    firstProject = project;
+                }
+            }
+        }
+        if ( "" != destPath ) {
             ProgressMonitorDialog pmd = new ProgressMonitorDialog(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell());
             pmd.setCancelable(true);
             pmd.create();
@@ -86,8 +100,7 @@ public class Generator extends Task {
             
             try {
                 // Proceed with actually running integrity on the model
-                IWorkbenchPage page = PlatformUI.getWorkbench()
-                        .getActiveWorkbenchWindow().getActivePage();
+                IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
                 String id = IConsoleConstants.ID_CONSOLE_VIEW;
                 IConsoleView view = (IConsoleView) page.showView(id);
                 view.display(myConsole);
@@ -98,14 +111,10 @@ public class Generator extends Task {
                             throws InvocationTargetException,
                             InterruptedException {
 
-                        int steps = 3;
+                        int steps = 2;
                         int curStep = 1;
 
                         monitor.beginTask("Check Referential Integrity", steps);
-
-                        if (!path.toFile().exists()) {
-                            path.toFile().mkdir();
-                        }
 
                         while (curStep <= steps) {
                             if (monitor.isCanceled()) {
@@ -116,18 +125,13 @@ public class Generator extends Task {
                             try {
                                 switch (curStep) {
                                 case 1:
-                                    monitor.subTask("Cleaning");
-                                    cleanup(destPath);
+                                    monitor.subTask("Processing model data");
+                                    runIntegrity(firstProject, destPath, modelsDir);
                                     monitor.worked(1);
                                     break;
                                 case 2:
-                                    monitor.subTask("Processing model data");
-                                    runIntegrity(project, destPath, modelsPath);
-                                    monitor.worked(1);
-                                    break;
-                                case 3:
                                     monitor.subTask("Refreshing");
-                                    project.refreshLocal(IResource.DEPTH_INFINITE, null);
+                                    firstProject.refreshLocal(IResource.DEPTH_INFINITE, null);
                                     monitor.worked(1);
                                     break;
                                 }
@@ -141,7 +145,7 @@ public class Generator extends Task {
                 });
 
                 // This opens the text file in an editor.
-                openOutput(project);
+                openOutput(firstProject);
             } catch (Throwable e) {
                 String errMsg = e.getMessage();
                 if ( (errMsg == null) || errMsg.isEmpty() ) {
@@ -149,64 +153,34 @@ public class Generator extends Task {
                     if ( cause != null ) {
                         errMsg = cause.getMessage();
                     } 
-                    
                     if ((cause == null) || (errMsg == null)) {
                         errMsg = "";
                     }
                 }
                 logMsg(app + args + "\nError.  Check Referential Integrity failed: " + errMsg);
-                failed = true;
             } finally {
-                if (failed) {
-                    try {
-                        cleanup(destPath);
-                        project.refreshLocal(IResource.DEPTH_INFINITE, null);
-                    } catch (CoreException ce) {
-                        String errMsg = ce.getMessage();
-                        if ( (errMsg == null) || errMsg.isEmpty() ) {
-                            errMsg = "CoreException";
-                        }
-                        logMsg("Error.  Check Referential Integrity failed during cleanup: " + errMsg);
-                    }
-                } else {
-                    logMsg(app + args + "\nCheck Referential Integrity finished successfully.");
-                }
+                logMsg(app + args + "\nCheck Referential Integrity finished successfully.");
                 monitor.done();
             }
-            }
-        }
         }
     }
  
-    private static void cleanup(String workingDir) 
-        throws CoreException
-    {
-        /* NOTE: At initial implementation we have decide to leave the
-         * generated data alone so we don't delete any potential user 
-         * created data.
-         * 
-        File workDir = new File(workingDir);
-        File[] files = workDir.listFiles();
-        for (File file: files) {
-            if ( file.isDirectory() ) {
-                cleanup(file.toString());
-                file.delete();
-            } else {
-                file.delete();
-            }
-        }*/
-    }
-
-    private static void runIntegrity(IProject project, String workingDir, String modelsDir)
+    private static void runIntegrity(IProject project, String workingDir, List<String> modelsDir)
         throws IOException, RuntimeException, CoreException, InterruptedException
     {
         // Call xtumlmc_build xtuml_integrity -i <infile> -i <infile> -o <outfile>
         String outputfile = workingDir + INTEGRITY_TXT;
         File outputFile = new File(outputfile);
 
-        app = homedir + INTEGRITY_DIR + "xtumlmc_build"; //$NON-NLS-1$
         args = " xtuml_integrity -i " + modelsDir + " -m integrity.sql -o " + INTEGRITY_TXT; //$NON-NLS-1$
-        ProcessBuilder pb = new ProcessBuilder(app, "xtuml_integrity", "-i", modelsDir, "-m", "integrity.sql", "-o", INTEGRITY_TXT );
+        processArgs.add(app);
+        processArgs.add("xtuml_integrity");
+        processArgs.addAll(modelsDir);
+        processArgs.add("-m");
+        processArgs.add("integrity.sql");
+        processArgs.add("-o");
+        processArgs.add(INTEGRITY_TXT);
+        ProcessBuilder pb = new ProcessBuilder(processArgs);
         pb.directory(new File(workingDir));
         Process process = pb.start();
         Integer exitVal = process.waitFor();
@@ -257,5 +231,4 @@ public class Generator extends Task {
         } catch (IOException ioe) {
         }
     }
-
 }
