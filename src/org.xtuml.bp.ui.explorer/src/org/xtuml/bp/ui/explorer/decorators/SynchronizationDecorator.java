@@ -1,12 +1,4 @@
 //========================================================================
-//
-//File:      $RCSfile: SynchronizationDecorator.java,v $
-//Version:   $Revision: 1.3 $
-//Modified:  $Date: 2013/01/10 23:15:56 $
-//
-//Copyright 2005-2014 Mentor Graphics Corporation. All rights reserved.
-//
-//========================================================================
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not 
 // use this file except in compliance with the License.  You may obtain a copy 
 // of the License at
@@ -25,21 +17,22 @@ package org.xtuml.bp.ui.explorer.decorators;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.viewers.IDecoration;
 import org.eclipse.jface.viewers.ILabelProviderListener;
 import org.eclipse.jface.viewers.ILightweightLabelDecorator;
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.graphics.Image;
-import org.eclipse.swt.widgets.Shell;
+import org.eclipse.ui.IEditorPart;
+import org.eclipse.ui.IEditorReference;
 import org.eclipse.ui.PlatformUI;
+import org.xtuml.bp.core.Actiondialect_c;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.Ooaofooa;
+import org.xtuml.bp.core.Pref_c;
 import org.xtuml.bp.core.Synchronizationtype_c;
 import org.xtuml.bp.core.SystemModel_c;
 import org.xtuml.bp.core.common.NonRootModelElement;
 import org.xtuml.bp.core.ui.actions.PullSynchronizationChanges;
-import org.xtuml.bp.core.util.UIUtil;
 
 public class SynchronizationDecorator implements ILightweightLabelDecorator {
 
@@ -52,27 +45,29 @@ public class SynchronizationDecorator implements ILightweightLabelDecorator {
 		// rather than check the class for the isSynchronizedMethod through
 		// reflection, only consider the known classes
 		if (!isSynchronized(element)) {
-			if (element instanceof SystemModel_c) {
-				SystemModel_c sys = (SystemModel_c) element;
-				PlatformUI.getWorkbench().getDisplay().syncExec(new Runnable() {
-				    public void run() {
-						String messageText = "The project '" + sys.getName() + "' needs to be synchronized to pull in reference updates.\n\n" +
-								"Choose Cancel to run \"Synchronize with library\" manually at a later time.\n\n" + 
-								"Choose OK to synchronize now (recommended)."; 
-				    	Shell shell = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell();
-						Image image = PlatformUI.getWorkbench().getDisplay().getSystemImage(SWT.ICON_WARNING);
-						boolean runSynch = UIUtil.openMessageDialog(shell,
-								"Synchronization Needed", image, messageText,
-								UIUtil.BPMessageTypes.WARNING,
-								new String[] { "OK", "Cancel" }, 0);
-						if (runSynch) {
-					        PullSynchronizationChanges sync = new PullSynchronizationChanges(false, sys);
+			int  v_dialect = Pref_c.Getactiondialect("bridgepoint_prefs_default_action_language_dialect") ;
+
+			if ( (v_dialect == Actiondialect_c.masl) ) {
+				// For MASL projects we automatically synchronize
+  			    if (element instanceof SystemModel_c) { 			    	
+							SystemModel_c sys = (SystemModel_c) element;
+					PlatformUI.getWorkbench().getDisplay().syncExec(new Runnable() {
+						public void run() {
+
+							// Save dirty editors, otherwise changes in the editors are lost during the synch
+							IEditorReference[] editorReferences = PlatformUI.getWorkbench().getActiveWorkbenchWindow()
+									.getActivePage().getEditorReferences();
+							for (IEditorReference reference : editorReferences) {
+								IEditorPart editor = reference.getEditor(true);
+								editor.doSave(new NullProgressMonitor());
+							}
+
+							// Now synch
+							PullSynchronizationChanges sync = new PullSynchronizationChanges(false, sys);
 							sync.run(null);
-						} else {
-                            decoration.addOverlay(SYNC_OVERLAY, IDecoration.BOTTOM_LEFT);
 						}
-				    }
-				});
+					});
+				}
 			} else {
 			    decoration.addOverlay(SYNC_OVERLAY, IDecoration.BOTTOM_LEFT);
 			}
