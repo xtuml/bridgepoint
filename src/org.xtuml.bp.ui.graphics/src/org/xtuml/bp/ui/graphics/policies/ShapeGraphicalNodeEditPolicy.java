@@ -22,22 +22,29 @@
 //
 package org.xtuml.bp.ui.graphics.policies;
 
+import java.lang.reflect.Method;
+import java.util.UUID;
+
 import org.eclipse.gef.ConnectionEditPart;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.requests.ReconnectRequest;
-
+import org.xtuml.bp.core.End_c;
 import org.xtuml.bp.core.common.ClassQueryInterface_c;
 import org.xtuml.bp.core.common.NonRootModelElement;
+import org.xtuml.bp.ui.canvas.Cl_c;
 import org.xtuml.bp.ui.canvas.ConnectorSpecification_c;
 import org.xtuml.bp.ui.canvas.Connector_c;
 import org.xtuml.bp.ui.canvas.ContainingShape_c;
 import org.xtuml.bp.ui.canvas.ElementSpecification_c;
 import org.xtuml.bp.ui.canvas.GraphicalElement_c;
+import org.xtuml.bp.ui.canvas.ModelTool_c;
 import org.xtuml.bp.ui.canvas.ShapeTerminal_c;
 import org.xtuml.bp.ui.canvas.Shape_c;
 import org.xtuml.bp.ui.canvas.TerminalSpecification_c;
 import org.xtuml.bp.ui.canvas.WhitespaceTerminal_c;
 import org.xtuml.bp.ui.graphics.commands.UpdateEndPointLocationCommand;
+import org.xtuml.bp.ui.graphics.parts.ConnectorEditPart;
+import org.xtuml.bp.ui.graphics.parts.DiagramEditPart;
 
 public class ShapeGraphicalNodeEditPolicy extends ConnectionPolicy {
 
@@ -133,17 +140,98 @@ public class ShapeGraphicalNodeEditPolicy extends ConnectionPolicy {
 		return false;
 	}
 
-	@Override
-	protected Command getSpecializedReconnectTargetCommand(
-			ReconnectRequest request) {
-		// if the host is a container shape then return an
-		// update end point command
-		Shape_c shape = (Shape_c) getHost().getModel();
-		ContainingShape_c container = ContainingShape_c
-				.getOneGD_CTROnR28(shape);
-		if (container != null) {
-			request.setTargetEditPart(getHost().getParent());
-			return new UpdateEndPointLocationCommand(request);
+    @Override
+    protected Command getSpecializedReconnectTargetCommand(final ReconnectRequest request) {
+        // if the host is a container shape then return an
+        // update end point command
+        Shape_c shape = (Shape_c) getHost().getModel();
+        ContainingShape_c container = ContainingShape_c.getOneGD_CTROnR28(shape);
+        if (container != null) {
+            request.setTargetEditPart(getHost().getParent());
+            return new UpdateEndPointLocationCommand(request);
+        }
+        if (request.getConnectionEditPart().getTarget() != getHost()) {
+            // if the host has the "moveAssociation" operation reconnect
+            final Method moveMethod = Cl_c.findMethod(getConnectionRepresents(request), "Moveassociation", new Class[] { UUID.class, int.class, UUID.class });
+            if ( moveMethod != null ) {
+                return new Command("Retarget Connection") {
+                    @Override
+                    public void execute() {
+                        Object result = Cl_c.doMethod( moveMethod, getConnectionRepresents(request),
+                            new Object[] { Cl_c.Getooa_idfrominstance(getConnectionTargetRepresents(request)), End_c.End, Cl_c.Getooa_idfrominstance(getHostRepresents()) });
+                        if (result instanceof Boolean) {
+                            if (!((Boolean) result).booleanValue()) return;
+                        }
+                        // finalize the connector, this call will create the necessary graphical elements
+                        ModelTool_c tool = ModelTool_c.getOneCT_MTLOnR100(getHostModel());
+                        associateTerminalSpecs(GraphicalElement_c.getOneGD_GEOnR2((Connector_c) request.getConnectionEditPart().getModel()));
+                        tool.Moveconnector(((Connector_c) request.getConnectionEditPart().getModel()).getElementid(),
+                            ((Shape_c)request.getConnectionEditPart().getTarget().getModel()).getElementid(),
+                            End_c.End,
+                            ((Shape_c)getHost().getModel()).getElementid() );
+                        ((ConnectorEditPart) request.getConnectionEditPart()).transferLocation();
+                        DiagramEditPart diagramPart = (DiagramEditPart) request.getConnectionEditPart().getViewer().getContents();
+                        diagramPart.resizeContainer();
+                    }
+                };
+            }
+        }
+        return null;
+    }
+
+    @Override
+    protected Command getSpecializedReconnectSourceCommand(final ReconnectRequest request) {
+        if (request.getConnectionEditPart().getSource() != getHost()) {
+            // if the host has the "moveAssociation" operation reconnect
+            final Method moveMethod = Cl_c.findMethod(getConnectionRepresents(request), "Moveassociation", new Class[] { UUID.class, int.class, UUID.class });
+            if ( moveMethod != null ) {
+                return new Command("Retarget Connection") {
+                    @Override
+                    public void execute() {
+                        Object result = Cl_c.doMethod( moveMethod, getConnectionRepresents(request),
+                            new Object[] { Cl_c.Getooa_idfrominstance(getConnectionSourceRepresents(request)), End_c.Start, Cl_c.Getooa_idfrominstance(getHostRepresents()) });
+                        if (result instanceof Boolean) {
+                            if (!((Boolean) result).booleanValue()) return;
+                        }
+                        // finalize the connector, this call will create the necessary graphical elements
+                        ModelTool_c tool = ModelTool_c.getOneCT_MTLOnR100(getHostModel());
+                        associateTerminalSpecs(GraphicalElement_c.getOneGD_GEOnR2((Connector_c) request.getConnectionEditPart().getModel()));
+                        tool.Moveconnector(((Connector_c) request.getConnectionEditPart().getModel()).getElementid(),
+                            ((Shape_c)request.getConnectionEditPart().getSource().getModel()).getElementid(),
+                            End_c.Start,
+                            ((Shape_c)getHost().getModel()).getElementid() );
+                        ((ConnectorEditPart) request.getConnectionEditPart()).transferLocation();
+                        DiagramEditPart diagramPart = (DiagramEditPart) request.getConnectionEditPart().getViewer().getContents();
+                        diagramPart.resizeContainer();
+                    }
+                };
+            }
+        }
+        return null;
+    }
+
+    protected Object getConnectionTargetRepresents( ReconnectRequest request ) {
+		Object model = request.getConnectionEditPart().getTarget().getModel();
+		if (model instanceof Connector_c) {
+			return GraphicalElement_c.getOneGD_GEOnR2((Connector_c) model)
+					.getRepresents();
+		}
+		else if (model instanceof Shape_c) {
+			return GraphicalElement_c.getOneGD_GEOnR2((Shape_c) model)
+					.getRepresents();
+		}
+		return null;
+	}
+
+    protected Object getConnectionSourceRepresents( ReconnectRequest request ) {
+		Object model = request.getConnectionEditPart().getSource().getModel();
+		if (model instanceof Connector_c) {
+			return GraphicalElement_c.getOneGD_GEOnR2((Connector_c) model)
+					.getRepresents();
+		}
+		else if (model instanceof Shape_c) {
+			return GraphicalElement_c.getOneGD_GEOnR2((Shape_c) model)
+					.getRepresents();
 		}
 		return null;
 	}
