@@ -17,14 +17,10 @@ package org.xtuml.bp.ui.explorer.decorators;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.viewers.IDecoration;
 import org.eclipse.jface.viewers.ILabelProviderListener;
 import org.eclipse.jface.viewers.ILightweightLabelDecorator;
-import org.eclipse.ui.IEditorPart;
-import org.eclipse.ui.IEditorReference;
-import org.eclipse.ui.PlatformUI;
 import org.xtuml.bp.core.Actiondialect_c;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.Ooaofooa;
