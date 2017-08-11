@@ -18,6 +18,7 @@ tool to help the modeler avoid the problem.
 <a id="2.1"></a>2.1 [BridgePoint DEI #9717](https://support.onefact.net/issues/9717) Headline issue   
 <a id="2.2"></a>2.2 [BridgePoint SR #9708](https://support.onefact.net/issues/9708) Headline SR    
 <a id="2.3"></a>2.3 [BridgePoint dts0100841747 Design Note](https://github.com/xtuml/internal/blob/71c842bdcd937f946f977d529dc90e0f9a5f2486/Documentation_archive/20121102/technical/notes/dts0100841747/dts0100841747.dnt) Note that this is a One Fact internal document      
+<a id="2.4"></a>2.4 [BridgePoint DEI #9198](https://support.onefact.net/issues/9198) Unsaved editor changes in a masl editor are wiped out by a structural change      
 
 ### 3. Background
 
@@ -52,93 +53,87 @@ the tool to edit files by hand or to revert back to a prior version in revision 
   the changes at once.  The mismatched activities issue does not occur if the user performs
   synchronization as soon as it is indicated as necessary (warnings show).
   
-5.3  Import/Open project checks if synchronization is needed.  The act of simply importing
-  a model or opening a closed project causes the project to be checked to see if synchronization
-  needs to be performed. 
-      TODO - what if the referring project is closed, multiple changes are made, then open the
-      referring project?  Does the dialog deal with this or does the model get hosed up? (Related to 5.2)
-  
-5.4  Options  
-5.4.1  Automatically synchronize  
-5.4.1.1  Recognize when a synchronization is detected to be needed and perform it automatically
+5.3  Options  
+5.3.1  Automatically synchronize  
+5.3.1.1  Recognize when a synchronization is detected to be needed and perform it automatically
   instead of decorating the referring model with warning symbols.  
-5.4.1.2  The behavior is gated by a new preference the user must turn on to indicate they want
-  automatic synchronization updates.  The default is to not use automatic synchronization. This 
-  means there is no change to synchronization behavior for existing users.
+5.3.1.2  The behavior is gated by a preference check to see if the dialect that is currently 
+  selected is MASL. This means there is no change to synchronization behavior for existing OAL users.
     
-5.4.2  User controlled synchronization with enhancements  
-5.4.2.1  Provide a dialog that is shown to the user when a synchronization is detected to be
+5.3.2  User controlled synchronization with enhancements  
+5.3.2.1  Provide a dialog that is shown to the user when a synchronization is detected to be
   needed.  The dialog allows the user to make a choice if they want to do the synchronization 
   immediately or if they want to do it later.  
-5.4.2.2  The dialog is gated by a new preference the user must turn on to indicate they want
+5.3.2.2  The dialog is gated by a new preference the user must turn on to indicate they want
   enhanced recognition and handling of synchronization changes.  The default is to not use
   the enhanced recognition.  This means there is no change to synchronization behavior for 
   existing users.
 
-5.5  Decision   
-5.5.1  Following the general BridgePoint policy of not taking action that will dirty the user's
-  revision controlled data behind their back, we will go with option 5.4.2 for user-controlled
-  synchronization.  A historical design note [2.3] details why we moved away from automatic
-  synchronization to manual synchronization.     
+5.4  Decision   
+5.4.1  A historical design note [2.3] details why BridgePoint moved away from automatic 
+  synchronization to manual synchronization.  The reasons for that change still exist for 
+  OAL users.  However, for MASL users there is minimal concern about inter-project references
+  and great concern about the synchronization of data between the User Interface and the Xtext-
+  based MASL activity editors. Real-world usage of the tool in MASL environments has borne this
+  out.  Thus, we will implement option 5.3.1.     
 
 ### 6. Design
 
-6.1  Add a new preference 
-TODO
-
-6.2  Update ```bridgepoint/src/org.xtuml.bp.ui.explorer/src/org/xtuml/bp/ui/explorer/decorators/SynchronizationDecorator.java``` to 
+6.1  Update ```bridgepoint/src/org.xtuml.bp.ui.explorer/src/org/xtuml/bp/ui/explorer/decorators/SynchronizationDecorator.java``` to 
   add new code in the ```decorate()``` function.   
-6.2.1  He we look at the element being checked to see if it is a ```SystemModel_c```.  We also see
-  if the preference for enhanced synchronization is enabled.  If both conditions are true 
-  then we proceed with the work.  This check makes sure that we only perform the work once for each project instead of
-  flooding the user with many dialogs as various elements in the project are checked.  
-6.2.2  It we determine that the system is out of synch, we show a dialog (Figure 2) that gives the user the 
-  choice if they want to synchronize now or not.    
-
-![Synchronization Needed Dialog](synch_warning_dialog.png)  
-__Figure 2__  
-
-6.1.3  The appropriate action is taken based on the user selection.  
+6.1.1  He we first check the action language dialect and only proceed down the path if it is MASL. Next
+  we look at the element being checked to see if it is a ```SystemModel_c```.  If both conditions are true 
+  then we proceed with the work.  This check makes sure that we only perform the work once for each 
+  project instead of performing unnecessary synchronizations.  
+6.1.2  It we determine that the system is out of synch, we run the ```PullSynchronizationChanges``` class. 
 
 ### 7. Design Comments
 
-7.1 During the development, a typo in a dialog was noticed and fixed.  The changed file
+7.1  During the development, a typo in a dialog was noticed and fixed.  The changed file
   is ```TransactionManager.java``` in ```org.xtuml.bp.core```.   
 
+7.2  This implementation is affected by an existing bug [2.4].  The safest workaround is for users
+  to save activity editor changes before performing any structural work.  
+  
 ### 8. User Documentation
 
-8.1  The new preference has a hover text tooltip that explains the preference with
-  additional detail.  
+None.      
 
 ### 9. Unit Test
 
-9.1 Test 1  
+9.1 Test with dialect MASL  
+* Start BridgePoint, set the default action language preference to MASL
+* Import the example SAC model
+* Create a new interface "test9717" in SAC (package) > Shared
+* Add an operation "testop"
+* Add a new required interface to the SAC component, formalize it to "test9717"
+* Expand SAC (component) > Port1 > test9717
+* __R__ testop is visible
+* Add a new operation "testop2" to the test9717 interface
+* __R__ testop2 is visible in the interface and in the Port1 interface reference
+* Open testop2 in the Port1 interface reference
+* Add a comment "// testing" after the "null;"
+* Save the editor
+* Delete "testop" in the test9717 interface
+* __R__ testop is removed in the interface and in the Port1 interface reference
+* Edit the comment to say "// testing and testing"
+* Save the editor
+* __R__ No errors
+* Close the editor
+* Delete the test9717 interface
+* The Port1 interface reference is changed to "Unnamed interface"
+
+9.2 Test with dialect OAL
+* Start BridgePoint, set the default action language preference to OAL
 * Create example model GPS Watch
-* Create another model "Foo", enable IPRs on this project
-* Inside Foo
-  * Create package P
-  * Create component C
-  * Add required interface to C
-  * Formalize the interface to GPS Watch > LocationInterfaces > LocationUtil
-  * Add a new operation "testop" to LocationUtil
-  * __R__ Synchronization Needed dialog is shown
-  * Choose Cancel
-  * __R__ Foo is decorated with warning symbols
-  * __R__ Foo's component C > Port 1 > LocationUtil does not show testop
-  * __R__ Foo.masl under ```Foo/models/...``` does not show the testop operation 
-  * Run "Synchronize with library" on Foo
-  * __R__ Warning symbols on Foo go away
-  * __R__ Foo's component C > Port 1 > LocationUtil shows testop
-  * __R__ Foo.masl under ```Foo/models/...``` shows the testop operation 
-  * Delete operation "testop" from LocationUtil definition in GPS Watch
-  * __R__ Synchronization Needed dialog is shown
-  * Choose OK
-  * __R__ Foo is not decorated with warning symbols
-  * __R__ Foo's component C > Port 1 > LocationUtil > testop is removed
-  * __R__ Foo.masl under ```Foo/models/...``` does not show the testop operation
+* Add a new operation "testop" to LocationUtil
+* __R__ Synchronization warning decorations are added in the project to Location and Tracking components
+* Expand Library > Location > UTIL > LocationUtil
+* __R__ testop is not visible
+* Right-click on GPS Watch and choose "Synchronize with library"
+* Warning decorations are removed
+* __R__ testop is visible in LocationUtil interface reference
 
-TODO - test for case where the whole interface is removed
-
-9.x Verify that existing synchronization tests are unaffected.  All existing Junits must pass.  
+9.3  Verify that existing synchronization tests are unaffected.  All existing Junits must pass.  
 
 ### End
