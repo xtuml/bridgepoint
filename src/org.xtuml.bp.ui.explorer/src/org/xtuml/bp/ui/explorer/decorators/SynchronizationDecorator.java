@@ -50,23 +50,9 @@ public class SynchronizationDecorator implements ILightweightLabelDecorator {
 			if ( (v_dialect == Actiondialect_c.masl) ) {
 				// For MASL projects we automatically synchronize
   			    if (element instanceof SystemModel_c) { 			    	
-							SystemModel_c sys = (SystemModel_c) element;
-					PlatformUI.getWorkbench().getDisplay().syncExec(new Runnable() {
-						public void run() {
-
-							// Save dirty editors, otherwise changes in the editors are lost during the synch
-							IEditorReference[] editorReferences = PlatformUI.getWorkbench().getActiveWorkbenchWindow()
-									.getActivePage().getEditorReferences();
-							for (IEditorReference reference : editorReferences) {
-								IEditorPart editor = reference.getEditor(true);
-								editor.doSave(new NullProgressMonitor());
-							}
-
-							// Now synch
-							PullSynchronizationChanges sync = new PullSynchronizationChanges(false, sys);
-							sync.run(null);
-						}
-					});
+					SystemModel_c sys = (SystemModel_c) element;
+					PullSynchronizationChanges sync = new PullSynchronizationChanges(false, sys);
+					sync.run(null);
 				}
 			} else {
 			    decoration.addOverlay(SYNC_OVERLAY, IDecoration.BOTTOM_LEFT);
