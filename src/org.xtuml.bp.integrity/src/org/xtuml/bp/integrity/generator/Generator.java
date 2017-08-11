@@ -8,18 +8,16 @@ package org.xtuml.bp.integrity.generator;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
-import java.net.URL;
 
 import org.apache.tools.ant.Task;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Path;
-import org.eclipse.core.runtime.Platform;
 import org.eclipse.jface.dialogs.ProgressMonitorDialog;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.ui.IEditorDescriptor;
@@ -33,7 +31,6 @@ import org.eclipse.ui.console.IConsoleView;
 import org.eclipse.ui.console.MessageConsole;
 import org.eclipse.ui.console.MessageConsoleStream;
 import org.eclipse.ui.part.FileEditorInput;
-import org.osgi.framework.Bundle;
 import org.xtuml.bp.core.SystemModel_c;
 
 public class Generator extends Task {
@@ -71,14 +68,14 @@ public class Generator extends Task {
      */
     private static void checkReferentialIntegrity(final SystemModel_c sys) {
 
-        final IProject project = org.xtuml.bp.io.image.generator.Generator
-                .getProject(sys);
         boolean failed = false;
-        
+        IProject[] projects = ResourcesPlugin.getWorkspace().getRoot().getProjects();
+        for ( IProject project: projects ) {
         if ( (project != null) && !failed ) {
             String projPath = project.getLocation().toOSString();
             final IPath modelspath = new Path(projPath + File.separator + "models");
             final String modelsPath = modelspath.toOSString();
+            if (modelspath.toFile().exists()) {
             final IPath path = new Path(projPath + File.separator + DOC_DIR);
             final String destPath = path.toOSString();
 
@@ -176,6 +173,8 @@ public class Generator extends Task {
                 }
                 monitor.done();
             }
+            }
+        }
         }
     }
  
