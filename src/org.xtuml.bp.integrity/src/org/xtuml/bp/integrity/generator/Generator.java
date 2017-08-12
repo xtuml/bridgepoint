@@ -82,10 +82,10 @@ public class Generator extends Task {
                 modelsDir.add("-i");
                 modelsDir.add(modelspath.toOSString());
                 if ( "" == destPath ) {
-                    // only the set these up on the first project found
+                    // only set these up on the first project found
                     path = new Path(projPath + File.separator + DOC_DIR);
                     if (!path.toFile().exists()) {
-                        path.toFile().mkdir();
+                        path.mkdir();
                     }
                     destPath = path.toOSString();
                     firstProject = project;
@@ -111,7 +111,7 @@ public class Generator extends Task {
                             throws InvocationTargetException,
                             InterruptedException {
 
-                        int steps = 2;
+                        int steps = 3;
                         int curStep = 1;
 
                         monitor.beginTask("Check Referential Integrity", steps);
@@ -125,11 +125,15 @@ public class Generator extends Task {
                             try {
                                 switch (curStep) {
                                 case 1:
-                                    monitor.subTask("Processing model data");
-                                    runIntegrity(firstProject, destPath, modelsDir);
+                                    monitor.subTask("Accumulating model data for workspace");
                                     monitor.worked(1);
                                     break;
                                 case 2:
+                                    monitor.subTask("Processing model data for all projects");
+                                    runIntegrity(firstProject, destPath, modelsDir);
+                                    monitor.worked(1);
+                                    break;
+                                case 3:
                                     monitor.subTask("Refreshing");
                                     firstProject.refreshLocal(IResource.DEPTH_INFINITE, null);
                                     monitor.worked(1);
