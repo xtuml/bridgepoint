@@ -274,6 +274,75 @@ INSERT INTO O_TPARM
 	'',
 	"00000000-0000-0000-0000-000000000000",
 	'');
+INSERT INTO O_TFR
+	VALUES ("f4e07802-9581-45f0-8454-6f1beec22014",
+	"43aa371a-c94c-48a9-acb6-21b733e4a55e",
+	'moveConnector',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'select any new_element related by self->GD_MD[R100]->GD_GE[R1]->DIM_GE[R23] where ( selected.elementId == param.newelementId );
+select any edge related by self->GD_MD[R100]->GD_GE[R1]->GD_CON[R2]->DIM_ED[R20] where ( selected.elementId == param.connectorId );
+select any dim_con from instances of DIM_CON where false;
+if ( End::Start == param.end )
+  select one dim_con related by edge->DIM_CON[R320]; // start
+else
+  select one dim_con related by edge->DIM_CON[R321]; // end
+end if;
+if ( not_empty dim_con )
+  // unrelate from the old element
+  select one old_element related by dim_con->DIM_GE[R311];
+  unrelate dim_con from old_element across R311;
+  // relate to new element
+  relate dim_con to new_element across R311;
+end if;',
+	1,
+	'',
+	"c390427a-1e60-4f9f-aba9-0370066d1838",
+	0);
+INSERT INTO O_TPARM
+	VALUES ("99fbb092-1b04-4848-8e4d-f0eb4c130450",
+	"f4e07802-9581-45f0-8454-6f1beec22014",
+	'elementId',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("eac2f396-2e12-4621-8c89-132032a5d28b",
+	"f4e07802-9581-45f0-8454-6f1beec22014",
+	'connectorId',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"99fbb092-1b04-4848-8e4d-f0eb4c130450",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("14451840-a3d2-46ee-9dd1-41a3eb900b72",
+	"f4e07802-9581-45f0-8454-6f1beec22014",
+	'newelementId',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"eac2f396-2e12-4621-8c89-132032a5d28b",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("acc7e731-39b5-4fc3-9f66-fa0259742aed",
+	"f4e07802-9581-45f0-8454-6f1beec22014",
+	'end',
+	"ae246926-3437-45e4-9232-bcc0952dbcee",
+	0,
+	'',
+	"14451840-a3d2-46ee-9dd1-41a3eb900b72",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("ae246926-3437-45e4-9232-bcc0952dbcee",
+	"00000000-0000-0000-0000-000000000000",
+	'End',
+	'Translate:false',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_NBATTR
 	VALUES ("0304c426-4444-443b-a662-e29749249eb1",
 	"43aa371a-c94c-48a9-acb6-21b733e4a55e");

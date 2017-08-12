@@ -1,11 +1,11 @@
 <html>
 
 <head>
-<meta name=Title content="Subsystem Package">
+<meta name=Title content="Class Diagrams">
 <meta name=Keywords content="">
 <meta http-equiv=Content-Type content="text/html; charset=windows-1252">
 <meta name=Generator content="Microsoft Word 15 (filtered)">
-<title>Subsystem Package</title>
+<title>Class Diagrams</title>
 <style>
 <!--
  /* Font Definitions */
@@ -18,6 +18,9 @@
 @font-face
 	{font-family:"Cambria Math";
 	panose-1:0 0 0 0 0 0 0 0 0 0;}
+@font-face
+	{font-family:"Calibri Light";
+	panose-1:2 15 3 2 2 2 4 3 2 4;}
 @font-face
 	{font-family:Webdings;
 	panose-1:5 3 1 2 1 5 9 6 7 3;}
@@ -160,18 +163,44 @@ p.msochpdefault, li.msochpdefault, div.msochpdefault
 	font-size:10.0pt;
 	font-family:"Times New Roman",serif;}
 span.heading1char0
+	{font-family:"Calibri Light",sans-serif;
+	color:#2F5496;}
+span.heading2char0
+	{font-family:"Calibri Light",sans-serif;
+	color:#2F5496;}
+span.heading3char0
+	{font-family:"Calibri Light",sans-serif;
+	color:#1F3763;}
+span.heading4char0
+	{font-family:"Calibri Light",sans-serif;
+	color:#2F5496;
+	font-style:italic;}
+span.heading1char00
+	{font-family:"Calibri Light",sans-serif;
+	color:#2F5496;}
+span.heading2char00
+	{font-family:"Calibri Light",sans-serif;
+	color:#2F5496;}
+span.heading3char00
+	{font-family:"Calibri Light",sans-serif;
+	color:#1F3763;}
+span.heading4char00
+	{font-family:"Calibri Light",sans-serif;
+	color:#2F5496;
+	font-style:italic;}
+span.heading1char000
 	{font-family:"Cambria",serif;
 	color:#365F91;
 	font-weight:bold;}
-span.heading2char0
+span.heading2char000
 	{font-family:"Cambria",serif;
 	color:#4F81BD;
 	font-weight:bold;}
-span.heading3char0
+span.heading3char000
 	{font-family:"Cambria",serif;
 	color:#4F81BD;
 	font-weight:bold;}
-span.heading4char0
+span.heading4char000
 	{font-family:"Cambria",serif;
 	color:#4F81BD;
 	font-weight:bold;
@@ -225,8 +254,8 @@ class is represented by a rectangle with three compartments.&nbsp; </span></i></
 
 <p style='line-height:15.6pt'><span style='font-family:"Arial",sans-serif'>The
 name compartment (top) shows the name of the class centered in
-bold.&nbsp;&nbsp; Two properties of the class, class number and class key letter
-(in that order), are shown in the bottom right-hand corner of the name
+bold.&nbsp;&nbsp; Two properties of the class, class number and class key
+letter (in that order), are shown in the bottom right-hand corner of the name
 compartment surrounded by curly braces.&nbsp; Every class has a name, a number,
 and a key letter.</span></p>
 
@@ -279,8 +308,7 @@ parts that comprise the attribute name may be suppressed from the diagram
 except </span><span class=codechar><span style='font-size:11.0pt'>&lt;name&gt;</span></span><span
 style='font-family:"Arial",sans-serif'>.&nbsp; </span></p>
 
-<h4><a href="UseCase.htm"><i><span style='font-size:10.0pt;color:#0176B9'>Operation
-Compartment</span></i></a></h4>
+<h4><i><span style='font-size:10.0pt'>Operation Compartment</span></i></h4>
 
 <p style='line-height:15.6pt'><span style='font-family:"Arial",sans-serif'>Operations
 are shown in the bottom compartment preceded by a stereotype indicating </span><span
@@ -296,24 +324,27 @@ style='font-size:11.0pt'>&lt;name&gt; </span></i></span><span style='font-family
 and </span><span class=codechar><i><span style='font-size:11.0pt'>&lt;type&gt;</span></i></span><span
 style='font-family:"Arial",sans-serif'> is the return type.&nbsp; </span></p>
 
-<p style='line-height:15.6pt'><span class=codechar><span style='font-size:11.0pt;
-font-family:"Arial",sans-serif'>&lt;parameter_list&gt;</span></span><span
-class=codechar><span style='font-family:"Arial",sans-serif'> is a comma
-separated list of parameters specified as </span></span><span class=codechar><span
-style='font-size:11.0pt;font-family:"Arial",sans-serif'>&lt;name&gt; :
-&lt;type&gt;</span></span><span class=codechar><span style='font-family:"Arial",sans-serif'>,
-where </span></span><span class=codechar><span style='font-size:11.0pt;
-font-family:"Arial",sans-serif'>&lt;name&gt;</span></span><span class=codechar><span
-style='font-family:"Arial",sans-serif'> is the name of the parameter, and </span></span><span
-class=codechar><span style='font-size:11.0pt;font-family:"Arial",sans-serif'>&lt;type&gt;</span></span><span
-class=codechar><span style='font-family:"Arial",sans-serif'> is its type.</span></span></p>
+<p style='line-height:15.6pt'><span class=codechar><i><span style='font-size:
+11.0pt'>&lt;parameter_list&gt;</span></i></span><span class=codechar><span
+style='font-family:"Arial",sans-serif'> </span></span><span style='font-family:
+"Arial",sans-serif'>is a comma separated list of parameters specified as<span
+class=codechar><span style='font-family:"Arial",sans-serif'> </span></span></span><span
+class=codechar><i><span style='font-size:11.0pt'>&lt;name&gt; : &lt;type&gt;</span></i></span><span
+class=codechar><span style='font-family:"Arial",sans-serif'>, </span></span><span
+style='font-family:"Arial",sans-serif'>where </span><span class=codechar><i><span
+style='font-size:11.0pt'>&lt;name&gt;</span></i></span><span class=codechar><span
+style='font-family:"Arial",sans-serif'> </span></span><span style='font-family:
+"Arial",sans-serif'>is the name of the parameter, and<span class=codechar><span
+style='font-family:"Arial",sans-serif'> </span></span></span><span
+class=codechar><i><span style='font-size:11.0pt'>&lt;type&gt; </span></i></span><span
+style='font-family:"Arial",sans-serif'>is its type.</span></p>
 
 <h3><i>Imported Class</i></h3>
 
-<p style='line-height:15.6pt'><span style='font-family:"Arial",sans-serif'>An
-imported class represents a class defined in another Subsystem Package (on
-another Class Diagram).&nbsp; This is useful in representing associations that
-span subsystem packages.</span></p>
+<p style='line-height:15.6pt'><span style='font-family:"Arial",sans-serif'>An imported
+class represents a class defined in another Package (on another Class
+Diagram).&nbsp; This is useful in representing associations that span 
+packages.</span></p>
 
 <h4><i><span style='font-size:10.0pt'>Graphical Notation</span></i></h4>
 
@@ -387,19 +418,42 @@ free-form text.</span></p>
 <p style='line-height:15.6pt'><span style='font-family:"Arial",sans-serif'>The
 relationship number and the verb phrases are moveable as desired by the
 user.&nbsp; Multiplicity is fixed close to the association end and above the
-line.</span></p>
+line.&nbsp; Association cardinality may be modified using the Cardinality
+context menu. These include both sides of an association. The sub-menus are
+labeled with the associated class on either end. Under each of these sub-menus
+is the cardinality options.&nbsp; The current cardinality of the association is
+filtered from the list of possible options.</span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial",sans-serif'>Choosing
+any of the available cardinality options on an association modifies that
+association such that its multiplicity and conditionality match the desired
+option.&nbsp; The Cardinality menu is only available when selecting a single
+association or link.</span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial",sans-serif'><img
+width=757 height=414 id="_x0000_i1027" src="ClassDiagram.fld/image001.png"></span></p>
 
 <p style='line-height:15.6pt'><span style='font-family:"Arial",sans-serif'>With
-xtUML associations can be formalized by using a class identifier.&nbsp; When
-formalized an association will place a reference in the formalizer class.&nbsp;
-The BridgePoint tool will highlight these associations if the option found in </span><span
+xtUML, associations can be formalized by using a class identifier.&nbsp; A
+formalized association places a reference in the formalizer class.&nbsp; BridgePoint
+highlights formalized associations if the option found in </span><span
 style='font-family:"Courier New",serif'>Preferences &gt; xtUML &gt; Diagram
 Editors &gt; Highlight Formalized Associations</span><span style='font-family:
-"Arial",sans-serif'> is set.&nbsp; This setting will cause the graphical editor
-to draw all formalized associations in bold, including their text.&nbsp; This
+"Arial",sans-serif'> is set.&nbsp; This setting causes the graphical editor to
+draw all formalized associations in bold, including their text.&nbsp; This
 setting is enabled by default.</span></p>
 
-<h3><a href="UseCase.htm"><i><span style='color:navy'>Associative Link</span></i></a></h3>
+<h4><i><span style='font-size:10.0pt'>Graphical Manipulation</span></i></h4>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial",sans-serif'>Associations
+can be moved from one class to another simply by dragging one end of the
+association and dropping it on a new class or imported class. This saves the
+modeler the time of deleting and recreating an association with all the
+relationship information. If a formalized association participates in a move
+operation, the association will first be unformalized. No attempt will be made
+to automatically reformalize after the move is complete.</span></p>
+
+<h3><i>Associative Link</i></h3>
 
 <p style='line-height:15.6pt'><span style='font-family:"Arial",sans-serif'>An
 associative link represents the formalization of an association between two
@@ -411,17 +465,24 @@ classes, in a class called an associative class.&nbsp; </span></p>
 associative link is a dashed line that starts at an associative class and ends
 at an association line of a binary association.&nbsp; Associative classes look
 just like classes (i.e., the symbology is the same) and have the features and
-properties of classe s (attributes, operations, class number, class key letter,
+properties of classes (attributes, operations, class number, class key letter,
 etc.), and can have associations with other classes.</span></p>
 
 <p style='line-height:15.6pt'><span style='font-family:"Arial",sans-serif'>When
 an association is formalized in an associative class, the association can have
 a multiplicity of one or many:&nbsp; one in the case where only one instance of
 the association can exist between instances of the two associated classes, many
-when more than one instance of the association can exist.&nbsp; This
-multiplicity is shown as a property string enclosed in curly braces near the
-intersection of the association line and the associative link, {1} for one (the
-default), and {*} for many.</span></p>
+when more than one instance of the association can exist.&nbsp; For
+multiplicity many, {*} is shown near the intersection of the association line
+and the associative link.&nbsp; For multiplicity one (the default), no text is
+shown.</span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial",sans-serif'>The
+Cardinality context menu is available to modify the cardinality of the
+associative link, again filtering out the current setting of “{*}” or “”.</span></p>
+
+<p style='line-height:15.6pt'><img border=0 width=731 height=418
+id="_x0000_i1026" src="ClassDiagram.fld/image002.png"></p>
 
 <h3><i>Supertype/Subtype</i></h3>
 
@@ -436,18 +497,18 @@ of the association. </span></p>
 association is drawn by selecting the supertype button and drawing from the
 source to a position (waypoint) on the diagram.&nbsp; </span></p>
 
-<p style='line-height:15.6pt'><a href="UseCase.htm"><i><span style='font-family:
+<p style='line-height:15.6pt'><i><span style='font-family:
 "Arial",sans-serif;color:windowtext'><img border=0 width=219 height=262
-id="_x0000_i1025" src="ClassDiagram_files/image001.jpg"></span></i></a></p>
+id="_x0000_i1025" src="ClassDiagram_files/image001.jpg"></span></i></p>
 
 <p style='line-height:15.6pt'><span style='font-family:"Arial",sans-serif'>The
 user then selects the subtype button and finishes the association from the
 destination class to the waypoint.</span></p>
 
 <p style='line-height:15.6pt'><img width=297 height=328
-src="ClassDiagram_files/image002.jpg" align=left hspace=12><a href="UseCase.htm"><i><span
+src="ClassDiagram_files/image002.jpg" align=left hspace=12><i><span
 style='font-family:"Arial",sans-serif;color:windowtext'><br clear=all>
-</span></i></a></p>
+</span></i></p>
 
 <p style='line-height:15.6pt'><span style='font-family:"Arial",sans-serif'>The
 following adornments are shown:</span></p>
@@ -456,16 +517,16 @@ following adornments are shown:</span></p>
 class=MsoHyperlink><span style='font-family:Symbol;color:windowtext;font-style:
 normal'>·</span></span><span class=MsoHyperlink><span style='font-size:7.0pt;
 font-family:"Times New Roman",serif;color:windowtext;font-style:normal'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-</span></span><span style='font-family:"Arial",sans-serif'>The relationship
-number, e.g., R12, is placed near the hollow triangle.</span></p>
+</span></span><span style='font-family:"Arial",sans-serif'>The relationship number,
+e.g., R12, is placed near the hollow triangle.</span></p>
 
 <p style='margin-left:43.5pt;text-indent:-.25in;line-height:15.6pt'><span
 class=MsoHyperlink><span style='font-family:Symbol;color:windowtext;font-style:
 normal'>·</span></span><span class=MsoHyperlink><span style='font-size:7.0pt;
 font-family:"Times New Roman",serif;color:windowtext;font-style:normal'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 </span></span><span style='font-family:"Arial",sans-serif'>The property string
-{disjoint, complete} is shown near the hollow triangle to indicate that
-supertype/subtype associations are mutually exclusive.</span></p>
+{disjoint, complete} is shown near the hollow triangle to indicate that supertype/subtype
+associations are mutually exclusive.</span></p>
 
 </div>
 
