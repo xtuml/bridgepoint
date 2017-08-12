@@ -42,9 +42,8 @@ public class Generator extends Task {
     public static final String CONSOLE_NAME = "Console"; //$NON-NLS-1$
 
     private static String homedir = "";
-    private static String app = homedir + INTEGRITY_DIR + "xtumlmc_build"; //$NON-NLS-1$
+    private static String app = "";
     private static String args = "";
-    private static List<String> processArgs = new ArrayList<String>();
     private static IProject firstProject;
     private static String destPath = "";
     public static MessageConsole myConsole;
@@ -82,7 +81,8 @@ public class Generator extends Task {
             if (modelspath.toFile().exists()) {
                 modelsDir.add("-i");
                 modelsDir.add(modelspath.toOSString());
-                if ( "" != destPath ) {
+                if ( "" == destPath ) {
+                    // only the set these up on the first project found
                     path = new Path(projPath + File.separator + DOC_DIR);
                     if (!path.toFile().exists()) {
                         path.toFile().mkdir();
@@ -171,8 +171,10 @@ public class Generator extends Task {
         // Call xtumlmc_build xtuml_integrity -i <infile> -i <infile> -o <outfile>
         String outputfile = workingDir + INTEGRITY_TXT;
         File outputFile = new File(outputfile);
+        List<String> processArgs = new ArrayList<String>();
 
-        args = " xtuml_integrity -i " + modelsDir + " -m integrity.sql -o " + INTEGRITY_TXT; //$NON-NLS-1$
+        app = homedir + INTEGRITY_DIR + "xtumlmc_build"; //$NON-NLS-1$
+        args = " xtuml_integrity " + modelsDir + " -m integrity.sql -o " + INTEGRITY_TXT; //$NON-NLS-1$
         processArgs.add(app);
         processArgs.add("xtuml_integrity");
         processArgs.addAll(modelsDir);
