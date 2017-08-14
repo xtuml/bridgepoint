@@ -245,6 +245,27 @@ the appropriate instances.
 4. If not empty, create action language instances for a constant value  
 5. Return the value ID  
 
+6.3 Integrity checks
+
+In the `checkIntegrity` operation on the "Symbolic Constant" class, a check is
+made that no other constant in the system has a matching name. The message as it
+stands is a little bit misleading: "Found another constant under the same
+specification with a matching name." This check is made regardless of which
+specification the constant is defined in. Because this work opens up constants
+to be scoped by their constant specification, this check will be narrowed to
+only search within a single constant specification. The message is still
+appropriate and will be left the same.
+
+Additionally, a new `checkIntegrity` operation shall be added to the "Constant
+Specification" class which will check to make sure that no two constant
+specifications have the same name. An appropriate error message shall be chosen.
+
+6.4 Type checking
+
+TODO there is an issue with types where I can assign a constant value to a
+variable that is typed with an enumeration data type. This should show a parse
+error.
+
 ### 7. Design Comments
 
 None
@@ -255,6 +276,36 @@ TODO add to user docs
 
 ### 9. Unit Test
 
-TODO
+Test cases shall be produced which test scoped constant expressions by parsing
+an assignment expression in which a local variable is assigned the value of a
+constant.
+
+9.1 Parse errors
+
+The following cases will be tested for appropriate parse errors
+
+9.1.1 No constant specification (or enumerated data type) exists for the given
+name  
+9.1.2 Multiple constant specifications exist for the given name  
+9.1.3 A constant and enumerator exist with the same name and type/specification
+name  
+9.1.4 No constant (or enumerator) exist with the given name, but an EDT and CSP
+both exist  
+9.1.5 No constant exists with the given name, but a CSP does exist  
+
+9.2 Value checking
+
+The following valid cases shall be checked for the correct constant value
+
+9.2.1 Two constants with the same name but different CSP names  
+9.2.2 CSP and EDT with the same name, but constant with unique name  
+9.2.3 Multiple EDTs with the same name, but exactly one CSP with the given name  
+
+9.3 Type compatibility tests
+
+TODO add test for 6.4
+
+Test cases shall be implemented as JUnit tests and will be included in the OAL
+Parser test suite.
 
 ### End
