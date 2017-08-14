@@ -4,26 +4,32 @@ This work is licensed under the Creative Commons CC0 License
 
 ---
 
-# Title goes here
+# Constant group item visibility
 ### xtUML Project Review Minutes
 
-Reviewed:  
-Present:  
+Reviewed: https://github.com/leviathan747/bridgepoint/blob/9566_constants/doc-bridgepoint/notes/9566_constants/9566_constants_dnt.md 16acf85   
+Present:  Cort, Levi, Keith, Bob  
 
 <pre>
 
 -- Num Type  Who  Section  Comment
-_- 01  min   xxx  xxx      xxx
-_- 02  min   xxx  xxx      xxx
-_- 03  min   xxx  xxx      xxx
-_- 04  min   xxx  xxx      xxx
-_- 05  min   xxx  xxx      xxx
+_- 01  min   KB   2        numbering issue
+_- 02  min   LS   2        test model likely to be created, link it here
+_- 03  min   CS   3        "include" > "including"
+_- 04  min   BM   2        Call out that the second 2.2 is an internal doc
+_- 05  min   BM   3        Give a little history of the analysis...this DNT almost obsoletes that analysis
+_- 06  min   BM   6.2.1    Label the table under 6.2.1.1
+_- 07  min   BM   6.2.2    Label the table under 6.2.2.1
+_- 08  min   BM   6.3      Raise the problem as a bug and resolve it with this work
+_- 09  min   BM   6.4/9.3  Move this to TODO to the INT
+_- 10  min   LS   8        Note that documentation will be updated appropriately
+_- 11  min   KB   9        Add a line "Run existing JUnits, See no errors"
+_- 12  min   BM   9        Make a note that we're not testing in all action homes because the collectionVisibleElementsForName is not touched by this work and is already well tested.
+_- 13  min   CS   9        Need to test the use of scoped constants in array dimensions
 
 </pre>
    
 No major observations, a re-review is not required.
-(or... Major observations were recorded, a re-review is required.)
-
 
 End
 ---
