@@ -42,6 +42,7 @@ public class Generator extends Task {
     public static final String CONSOLE_NAME = "Console"; //$NON-NLS-1$
 
     private static String homedir = "";
+    private static String destPath = "";
     private static String app = "";
     private static String args = "";
     private static IProject firstProject;
@@ -72,7 +73,7 @@ public class Generator extends Task {
     private static void checkReferentialIntegrity() {
 
         IPath path;
-        String destPath = "";
+        destPath = "";
         List<String> modelsDir = new ArrayList<String>();
         final IProject[] projects = ResourcesPlugin.getWorkspace().getRoot().getProjects();
         // Build an array of string paths to model folders.
