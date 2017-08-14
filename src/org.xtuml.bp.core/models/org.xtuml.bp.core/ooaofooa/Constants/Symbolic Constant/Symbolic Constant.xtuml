@@ -353,8 +353,7 @@ sys_id = GD::NULL_UNIQUE_ID();
 if(not_empty system)
   sys_id = system.Sys_ID;
 end if;
-select many constants related by package->PE_PE[R8000]->CNST_CSP[R8001]
-                                                              ->CNST_SYC[R1504];
+select many constants related by spec->CNST_SYC[R1504];
 for each constant in constants
   if(constant != self and constant.Name == self.Name)
     MI_IM::createIssue(sys_id:sys_id, description:
