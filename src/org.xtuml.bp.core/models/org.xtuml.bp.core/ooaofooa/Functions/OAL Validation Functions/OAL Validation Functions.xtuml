@@ -11668,12 +11668,12 @@ elif ( not_empty csp and not_empty edt and empty const and empty enum )
           token: param.a1_rule_token );  
 elif ( not_empty csp and empty const and empty edt )
     ERR::reportParseError( msg: 
-    "Cannot find constant ->%s<- for ->"+csp.InformalGroupName+"<-",
+    "Cannot find constant ->%s<- for constant specification ->"+csp.InformalGroupName+"<-",
           token: param.a1_rule_token );  
 elif ( not_empty edt and empty enum and empty csp )
     select one dt related by edt->S_DT[R17];
     ERR::reportParseError( msg: 
-    "Cannot find enumerator ->%s<- for ->"+dt.Name+"<-",
+    "Cannot find enumerator ->%s<- for enumeration data type ->"+dt.Name+"<-",
           token: param.a1_rule_token );  
 else
   // here we just log an error, as there is
