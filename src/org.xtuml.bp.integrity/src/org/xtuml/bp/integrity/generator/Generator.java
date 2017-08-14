@@ -45,7 +45,6 @@ public class Generator extends Task {
     private static String app = "";
     private static String args = "";
     private static IProject firstProject;
-    private static String destPath = "";
     public static MessageConsole myConsole;
     public static MessageConsoleStream msgbuf;
     public static Generator self;
@@ -55,6 +54,7 @@ public class Generator extends Task {
         msgbuf = myConsole.newMessageStream();
         homedir = System.getProperty("eclipse.home.location"); //$NON-NLS-1$
         homedir = homedir.replaceFirst("file:", ""); //$NON-NLS-1$
+        app = homedir + INTEGRITY_DIR + "xtumlmc_build"; //$NON-NLS-1$
     }
     
     public static void genAll() {
@@ -72,6 +72,7 @@ public class Generator extends Task {
     private static void checkReferentialIntegrity() {
 
         IPath path;
+        String destPath = "";
         List<String> modelsDir = new ArrayList<String>();
         final IProject[] projects = ResourcesPlugin.getWorkspace().getRoot().getProjects();
         // Build an array of string paths to model folders.
@@ -177,7 +178,6 @@ public class Generator extends Task {
         File outputFile = new File(outputfile);
         List<String> processArgs = new ArrayList<String>();
 
-        app = homedir + INTEGRITY_DIR + "xtumlmc_build"; //$NON-NLS-1$
         args = " xtuml_integrity " + modelsDir + " -m integrity.sql -o " + INTEGRITY_TXT; //$NON-NLS-1$
         processArgs.add(app);
         processArgs.add("xtuml_integrity");
