@@ -17,6 +17,7 @@ Perform complete (referential) integrity checking.
 <a id="2.2"></a>2.2 [9554 Integrity Analysis Note](9554_integrity_ant.md) 9554 Integrity Checker Analysis Note  
 <a id="2.3"></a>2.3 [9554 Integrity Design Note](9554_integrity_dnt.md) 9554 Integrity Checker Design Note  
 <a id="2.4"></a>2.4 [9719](https://support.onefact.net/issues/9719) Automate build of integrity.exe.  
+<a id="2.5"></a>2.5 [9737](https://support.onefact.net/issues/9737) Update relations in OOA of OOA  
 
 ### 3. Background
 
@@ -74,37 +75,35 @@ project at `globals/Globals.xtuml`.
 with the selected project(s) model data.  An option is provided (`-g`) to
 exclude this data so that Prebuilder output can be used as integrity input.
 
-6.5 `defaults.xtuml`  
+6.5 Out-and-Back  
+A select out-and-back statement was added to detect when some associations
+may have been over-written with batch relate.  This covers the case of
+an extra subtype that the instance loader and batch relater would allow
+to occur.
+
+6.6 `defaults.xtuml`  
 This file was include in bp.core and is no longer used.  Deleting it.
 
-6.6 Error Counter  
+6.7 Error Counter  
 The number of errors found are counted and included in the output report.
 A counter local to each class type limits the number of errors found of
 one type of instance to 10.  This will prevent a waterfall of errors in
 the report.
 
-6.7 Simplified Plugin  
+6.8 Simplified Plugin  
 The plugin depends on io.image and `System_c` (`S_SYS`).  These dependencies
 are only in place because needing to have the _project_ variable.  This
 can be obtained in simpler ways.
 
-6.8 bp.core ooaofooa  
-The ooaofooa has not been updated, yet.
-
-6.9 OOA of Graphics  
-Consider enhancing the escher loader to support these instances.
+6.9 bp.core ooaofooa  
+See [[2.5]](#2.5).  
 
 6.10 Enhanced Loader  
-Fix the loader to deal with unrecognized data gracefully.  
+Consider fixing the loader to deal with unrecognized data gracefully.  
+Consider enhancing the escher loader to support OOA of Graphics instances.  
 
-6.11 Windows is broken at the moment.  
-
-6.12 Out-and-Back  
-I would like add a select out-and-back to detect when some associations
-may have been over-written with batch relate.  This covers the case of
-an extra subtype that the instance loader and batch relater would allow
-to occur.
-
+6.12 Windows is broken at the moment.  
+6.13 doc folder is not being created.  
 
 ### 7. Unit Test
 

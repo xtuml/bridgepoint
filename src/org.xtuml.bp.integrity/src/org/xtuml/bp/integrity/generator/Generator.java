@@ -36,8 +36,8 @@ import org.eclipse.ui.part.FileEditorInput;
 
 public class Generator extends Task {
     
-    public static final String INTEGRITY_DIR = "/tools/mc/bin/"; //$NON-NLS-1$
-    public static final String DOC_DIR = "doc/"; //$NON-NLS-1$
+    public static final String INTEGRITY_DIR = File.separator + "tools" + File.separator + "mc" + File.separator + "bin" + File.separator; //$NON-NLS-1$
+    public static final String DOC_DIR = "doc"; //$NON-NLS-1$
     public static final String INTEGRITY_TXT = "integrity.txt"; //$NON-NLS-1$
     public static final String CONSOLE_NAME = "Console"; //$NON-NLS-1$
 
@@ -83,9 +83,9 @@ public class Generator extends Task {
                 modelsDir.add(modelspath.toOSString());
                 if ( "" == destPath ) {
                     // only set these up on the first project found
-                    path = new Path(projPath + File.separator + DOC_DIR);
+                    path = new Path(projPath + File.separator + DOC_DIR + File.separator);
                     if (!path.toFile().exists()) {
-                        path.mkdir();
+                        path.toFile().mkdir();
                     }
                     destPath = path.toOSString();
                     firstProject = project;
@@ -206,7 +206,7 @@ public class Generator extends Task {
     {
         // Open the integrity report
         String txtfile = INTEGRITY_TXT;
-        IFile output = project.getFile(DOC_DIR + txtfile);
+        IFile output = project.getFile(DOC_DIR + File.separator + txtfile);
 
         IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
         IEditorDescriptor desc = PlatformUI.getWorkbench().
