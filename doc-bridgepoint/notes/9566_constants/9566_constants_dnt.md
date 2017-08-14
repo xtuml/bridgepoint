@@ -19,12 +19,14 @@ User requests:
 
 <a id="2.1"></a>2.1 [#9566 Constant group item visibility](https://support.onefact.net/issues/9566)  
 <a id="2.2"></a>2.2 [#9566 analysis note](9566_constants_ant.md)  
-<a id="2.3"></a>2.2 [#9501 SRS](https://docs.google.com/document/d/1ZyV-FZt77RThTWFBUm3PfM1jxXL9baSeKQWYzfrmFrE/edit)  
+<a id="2.3"></a>2.3 [#9501 SRS](https://docs.google.com/document/d/1ZyV-FZt77RThTWFBUm3PfM1jxXL9baSeKQWYzfrmFrE/edit) - One Fact internal document  
+<a id="2.4"></a>2.4 [#9738 problem created for constants with the same name in different specifications](https://support.onefact.net/issues/9738)  
+<a id="2.5"></a>2.5 [#9739 Constants in array dimensions not visible across model roots](https://support.onefact.net/issues/9739)  
 
 ### 3. Background
 
 Constants in OAL are currently parsed as a single identifier that must globally
-identify constants in the system (include inter-project references). This can
+identify constants in the system (including inter-project references). This can
 prove to be a problem for constants that happen to have the same name. Scoping
 using the constant specification group name can solve this issue.
 
@@ -34,6 +36,11 @@ also always associated with the enumeration data type they are defined in, while
 constants are associated with the primitive xtUML type that is assigned to them
 (i.e. a constant of type `integer` can be assigned to any variable of type
 `integer`).
+
+The analysis note [[2.2]](#2.2) for this work was written roughly and used
+internally for sizing. This note provides much more information and should be
+considered to supersede the analysis note, however the analysis note is still
+valuable for background.
 
 Throughout this note, "constant specification" may be referred to as "CSP" and
 enumeration data type may be referred to as "EDT".
@@ -116,7 +123,7 @@ following line of OAL:
 direction = directions::LEFT;
 ```
 At first glance it seems straightforward that the value of the constant `LEFT`
-should be stored in the variable `direction`, however to the parse it is not as
+should be stored in the variable `direction`, however to the parser it is not as
 simple. While parsing the identifier `directions`, the parser must search for
 matching EDTs and CSPs. In this example, one of both is found. Which one should
 the parser return? If it returns the EDT, then when the identifier `LEFT` is
@@ -125,11 +132,11 @@ created.
 
 One way to solve this issue is by looking ahead at the next token(s) to
 determine which path to take. That way the parser could see that although there
-is no enumeration `LEFT` for the EDT `directions`, there is a constant `LEFT`
-for the CSP `directions`.
+is no enumerator `LEFT` for the EDT `directions`, there is a constant `LEFT` for
+the CSP `directions`.
 
-Another way to solve this problem is to wait until no enumeration `LEFT` is
-found and then "take a step back" to look for a constant specification named
+Another way to solve this problem is to wait until no enumerator `LEFT` is found
+and then "take a step back" to look for a constant specification named
 `directions` and search there for a constant named `LEFT`. This second path is
 taken in this design because it better preserves the grammar.
 
@@ -173,7 +180,7 @@ EDT or CSP of the same name.
 7. If exactly one EDT or one CSP is found, return its unique ID\*, otherwise
 report a parse error  
 
-The following table aids in the visualization of the specific error that is
+6.2.1.1 The following table aids in the visualization of the specific error that is
 reported based on the number of EDTs and CSPs found.
 
 |                   | EDT count 0   | EDT count 1   | EDT count > 1 |
@@ -209,7 +216,7 @@ same name. Now it will return the ID of the enumerator or constant parsed.
 6. If exactly one of two (constant or enumerator) is not empty, return its
 unique ID, otherwise report a parse error  
 
-The following table aids in the visualization of the specific error that is
+6.2.2.1 The following table aids in the visualization of the specific error that is
 reported based on the emptiness or not emptiness of the instances. The table
 uses a few local variable references to make things easier to understand.
 
@@ -234,8 +241,8 @@ uses a few local variable references to make things easier to understand.
 
 6.2.3 `Scoped_access_end`
 
-This function is passed (among other things) the ID of the enumerator (or
-constant) parsed. At this step, the action language instances are created and
+This function is passed (among other things) the ID of the enumerator or
+constant parsed. At this step, the action language instances are created and
 related. Now we must distinguish between constant and enumeration and populate
 the appropriate instances.
 
@@ -256,15 +263,24 @@ to be scoped by their constant specification, this check will be narrowed to
 only search within a single constant specification. The message is still
 appropriate and will be left the same.
 
+The mismatch between functionality and error message described above has been
+raised as a bug ([[2.4]](#2.4) and will be resolved as part of this work.
+
 Additionally, a new `checkIntegrity` operation shall be added to the "Constant
 Specification" class which will check to make sure that no two constant
 specifications have the same name. An appropriate error message shall be chosen.
 
-6.4 Type checking
+6.4 Array dimensions
 
-TODO there is an issue with types where I can assign a constant value to a
-variable that is typed with an enumeration data type. This should show a parse
-error.
+Symbolic constants of type integer are allowed in array dimensions. The array
+dimensions are parsed using regular expressions. If an identifier is parsed, a
+search is made for the symbolic constant and its value is assessed. This must be
+extended to support scoped constants.
+
+There is a bug in this area that constants defined in separate model roots (root
+packages under system) are not visible for the purposes of array dimensions. An
+issue has been raised to track this, but it will not be resolved as part of this
+work as it is outside the scope of the requirements to fix existing bugs.
 
 ### 7. Design Comments
 
@@ -272,13 +288,16 @@ None
 
 ### 8. User Documentation
 
-TODO add to user docs
+Documentation shall be added to the reference manual to describe this feature.  
 
 ### 9. Unit Test
 
 Test cases shall be produced which test scoped constant expressions by parsing
 an assignment expression in which a local variable is assigned the value of a
-constant.
+constant. Test cases for each action home to test visibility rules is not
+necessary because the routine that handles element visibility
+(`collectVisibleElementsForName`) is not modified in this work and is well
+covered by the existing unit tests.
 
 9.1 Parse errors
 
@@ -301,9 +320,9 @@ The following valid cases shall be checked for the correct constant value
 9.2.2 CSP and EDT with the same name, but constant with unique name  
 9.2.3 Multiple EDTs with the same name, but exactly one CSP with the given name  
 
-9.3 Type compatibility tests
+9.3 A unit test to test array dimensions with scoped constants shall be created.
 
-TODO add test for 6.4
+9.4 Run existing JUnit tests, see no failures
 
 Test cases shall be implemented as JUnit tests and will be included in the OAL
 Parser test suite.
