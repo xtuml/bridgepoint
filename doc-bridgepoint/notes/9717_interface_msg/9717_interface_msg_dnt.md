@@ -85,7 +85,22 @@ the tool to edit files by hand or to revert back to a prior version in revision 
   we look at the element being checked to see if it is a ```SystemModel_c```.  If both conditions are true 
   then we proceed with the work.  This check makes sure that we only perform the work once for each 
   project instead of performing unnecessary synchronizations.  
-6.1.2  It we determine that the system is out of synch, we run the ```PullSynchronizationChanges``` class. 
+6.1.2  It we determine that the system is out of synch, we run the ```PullSynchronizationChanges``` class.   
+
+```
+        if (!isSynchronized(element)) {
++           if ( (v_dialect == Actiondialect_c.masl) ) {
++               // For MASL projects we automatically synchronize
++               if (element instanceof SystemModel_c) {                           
++                   SystemModel_c sys = (SystemModel_c) element;
++                   PullSynchronizationChanges sync = new PullSynchronizationChanges(false, sys);
++                   sync.run(null);
++               }
++           } else {
+                decoration.addOverlay(SYNC_OVERLAY, IDecoration.BOTTOM_LEFT);
++           }
+        }               
+```
 
 ### 7. Design Comments
 
