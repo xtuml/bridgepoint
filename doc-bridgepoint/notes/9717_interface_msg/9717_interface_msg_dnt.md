@@ -108,17 +108,17 @@ None.
 * Add an operation "testop"
 * Add a new required interface to the SAC component, formalize it to "test9717"
 * Expand SAC (component) > Port1 > test9717
-* __R__ testop is visible
+* :+1: testop is visible
 * Add a new operation "testop2" to the test9717 interface
-* __R__ testop2 is visible in the interface and in the Port1 interface reference
+* :+1: testop2 is visible in the interface and in the Port1 interface reference
 * Open testop2 in the Port1 interface reference
 * Add a comment "// testing" after the "null;"
 * Save the editor
 * Delete "testop" in the test9717 interface
-* __R__ testop is removed in the interface and in the Port1 interface reference
+* :+1: testop is removed in the interface and in the Port1 interface reference
 * Edit the comment to say "// testing and testing"
 * Save the editor
-* __R__ No errors
+* :+1: No errors
 * Close the editor
 * Delete the test9717 interface
 * The Port1 interface reference is changed to "Unnamed interface"
@@ -127,13 +127,14 @@ None.
 * Start BridgePoint, set the default action language preference to OAL
 * Create example model GPS Watch
 * Add a new operation "testop" to LocationUtil
-* __R__ Synchronization warning decorations are added in the project to Location and Tracking components
+* :+1: Synchronization warning decorations are added in the project to Location and Tracking components
 * Expand Library > Location > UTIL > LocationUtil
-* __R__ testop is not visible
+* :+1: testop is not visible
 * Right-click on GPS Watch and choose "Synchronize with library"
 * Warning decorations are removed
-* __R__ testop is visible in LocationUtil interface reference
+* :+1: testop is visible in LocationUtil interface reference
 
-9.3  Verify that existing synchronization tests are unaffected.  All existing Junits must pass.  
+9.3  Existing JUnits  
+* :+1: Existing synchronization tests are unaffected.  All existing JUnits pass.  
 
 ### End
