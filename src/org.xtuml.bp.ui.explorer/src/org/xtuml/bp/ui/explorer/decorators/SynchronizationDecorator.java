@@ -1,12 +1,4 @@
 //========================================================================
-//
-//File:      $RCSfile: SynchronizationDecorator.java,v $
-//Version:   $Revision: 1.3 $
-//Modified:  $Date: 2013/01/10 23:15:56 $
-//
-//Copyright 2005-2014 Mentor Graphics Corporation. All rights reserved.
-//
-//========================================================================
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not 
 // use this file except in compliance with the License.  You may obtain a copy 
 // of the License at
@@ -29,11 +21,14 @@ import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.viewers.IDecoration;
 import org.eclipse.jface.viewers.ILabelProviderListener;
 import org.eclipse.jface.viewers.ILightweightLabelDecorator;
-
+import org.xtuml.bp.core.Actiondialect_c;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.Ooaofooa;
+import org.xtuml.bp.core.Pref_c;
 import org.xtuml.bp.core.Synchronizationtype_c;
+import org.xtuml.bp.core.SystemModel_c;
 import org.xtuml.bp.core.common.NonRootModelElement;
+import org.xtuml.bp.core.ui.actions.PullSynchronizationChanges;
 
 public class SynchronizationDecorator implements ILightweightLabelDecorator {
 
@@ -46,7 +41,18 @@ public class SynchronizationDecorator implements ILightweightLabelDecorator {
 		// rather than check the class for the isSynchronizedMethod through
 		// reflection, only consider the known classes
 		if (!isSynchronized(element)) {
-			decoration.addOverlay(SYNC_OVERLAY, IDecoration.BOTTOM_LEFT);
+			int  v_dialect = Pref_c.Getactiondialect("bridgepoint_prefs_default_action_language_dialect") ;
+
+			if ( (v_dialect == Actiondialect_c.masl) ) {
+				// For MASL projects we automatically synchronize
+  			    if (element instanceof SystemModel_c) { 			    	
+					SystemModel_c sys = (SystemModel_c) element;
+					PullSynchronizationChanges sync = new PullSynchronizationChanges(false, sys);
+					sync.run(null);
+				}
+			} else {
+			    decoration.addOverlay(SYNC_OVERLAY, IDecoration.BOTTOM_LEFT);
+			}
 		}
 	}
 

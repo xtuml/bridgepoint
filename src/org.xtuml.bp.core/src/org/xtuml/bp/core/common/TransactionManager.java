@@ -384,7 +384,7 @@ public class TransactionManager {
         for ( PersistableModelComponent pmc : pmcs ) {
             if ( pmc.getActivityImportFailures() ) {
             	String message = "Errors in an action language file caused a load failure. " +
-                                 "It is likely that an activty signature was edited or deleted.\n" + 
+                                 "It is likely that an activity signature was edited or deleted.\n" + 
                                  "Ensure that function names, parameters, return types and end " +
                                  "tags are not modified by hand in the action language file.\n\n" +
                                  "Print to print this message. " +
