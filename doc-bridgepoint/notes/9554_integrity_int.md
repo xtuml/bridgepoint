@@ -18,6 +18,7 @@ Perform complete (referential) integrity checking.
 <a id="2.3"></a>2.3 [9554 Integrity Design Note](9554_integrity_dnt.md) 9554 Integrity Checker Design Note  
 <a id="2.4"></a>2.4 [9719](https://support.onefact.net/issues/9719) Automate build of integrity.exe.  
 <a id="2.5"></a>2.5 [9737](https://support.onefact.net/issues/9737) Update relations in OOA of OOA  
+<a id="2.6"></a>2.6 [9742](https://support.onefact.net/issues/9742) Display string UUIDs in referential integrity report  
 
 ### 3. Background
 
@@ -101,9 +102,6 @@ See [[2.5]](#2.5).
 6.10 Enhanced Loader  
 Consider fixing the loader to deal with unrecognized data gracefully.  
 Consider enhancing the escher loader to support OOA of Graphics instances.  
-
-6.12 Windows is broken at the moment.  
-6.13 doc folder is not being created.  
 
 ### 7. Unit Test
 
@@ -225,6 +223,7 @@ Fork/Repository: cortlandstarrett/mc   Branch: integrity2
  bin/mac/mcmc                                                                |   Bin 1450168 -> 1392120 bytes
  bin/mc3020.py                                                               |     4 +-
  bin/win/integrity.exe                                                       |   Bin 0 -> 961539 bytes
+ bin/win/xtumlmc_build.exe                                                   |   Bin
  bin/xtumlmc_build                                                           |    95 +-
  model/integrity/.cproject                                                   |    78 +
  model/integrity/.externalToolBuilders/Model Compiler.launch                 |    14 +
