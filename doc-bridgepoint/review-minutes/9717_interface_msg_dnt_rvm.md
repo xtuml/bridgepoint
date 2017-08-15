@@ -13,9 +13,9 @@ Present:  Cort, Levi, Keith
 <pre>
 
 -- Num Type  Who  Section  Comment
-_- 01  min   CS   5.1      Typo "a changes" -> "changes"
-_- 02  min   KB   6.1.1    "He" -> "Here"
-_- 03  min   LS   9.*      Create manual test issues for 9.1 and 9.2
+x- 01  min   CS   5.1      Typo "a changes" -> "changes"
+x- 02  min   KB   6.1.1    "He" -> "Here"
+x- 03  min   LS   9.*      Create manual test issues for 9.1 and 9.2
 
 </pre>
    

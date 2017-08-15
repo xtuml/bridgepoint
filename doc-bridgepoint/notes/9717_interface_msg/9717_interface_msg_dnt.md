@@ -10,7 +10,7 @@ This work is licensed under the Creative Commons CC0 License
 
 ### 1. Abstract
 
-This note describes an issue experience by a user and a change to the 
+This note describes an issue experienced by a user and a change to the 
 tool to help the modeler avoid the problem.
 
 ### 2. Document References
@@ -19,6 +19,7 @@ tool to help the modeler avoid the problem.
 <a id="2.2"></a>2.2 [BridgePoint SR #9708](https://support.onefact.net/issues/9708) Headline SR    
 <a id="2.3"></a>2.3 [BridgePoint dts0100841747 Design Note](https://github.com/xtuml/internal/blob/71c842bdcd937f946f977d529dc90e0f9a5f2486/Documentation_archive/20121102/technical/notes/dts0100841747/dts0100841747.dnt) Note that this is a One Fact internal document      
 <a id="2.4"></a>2.4 [BridgePoint DEI #9198](https://support.onefact.net/issues/9198) Unsaved editor changes in a masl editor are wiped out by a structural change      
+<a id="2.5"></a>2.5 [BridgePoint DEI #9740](https://support.onefact.net/issues/9740) Test automatic synchronization of references      
 
 ### 3. Background
 
@@ -39,14 +40,14 @@ the tool to edit files by hand or to revert back to a prior version in revision 
 
 ### 5. Analysis
 
-5.1  BridgePoint currently provides indication to the user when a changes need to be pulled
+5.1  BridgePoint currently provides indication to the user when changes need to be pulled
   into the current project to synchronize with changed model elements.  The model elements
   are decorated with a yellow warning triangle in the Model Explorer view.  This indication 
   tells the user that they should run "Synchronize with library".   
 5.1.1  "Synchronize with library" pulls changes into the current project.  
 5.1.2  "Synchronize references" pushes changes from the current project out to other 
   referring projects in the workspace.  
-5.1.3  The original implementation of manual synchronization actions is described in 2.3.    
+5.1.3  The original implementation of manual synchronization actions is described in [2.3].    
 
 5.2  Experimentation with various operation scenarios shows that the problem happens when
   the modeler makes several changes to an interface and then attempts to synchronize all
@@ -81,14 +82,19 @@ the tool to edit files by hand or to revert back to a prior version in revision 
 
 6.1  Update ```bridgepoint/src/org.xtuml.bp.ui.explorer/src/org/xtuml/bp/ui/explorer/decorators/SynchronizationDecorator.java``` to 
   add new code in the ```decorate()``` function.   
-6.1.1  He we first check the action language dialect and only proceed down the path if it is MASL. Next
+6.1.1  Here we first check the action language dialect and only proceed down the path if it is MASL. Next
   we look at the element being checked to see if it is a ```SystemModel_c```.  If both conditions are true 
   then we proceed with the work.  This check makes sure that we only perform the work once for each 
   project instead of performing unnecessary synchronizations.  
-6.1.2  It we determine that the system is out of synch, we run the ```PullSynchronizationChanges``` class.   
+6.1.2  If we determine that the system is out of synch, we run the ```PullSynchronizationChanges``` class.   
 
 ```
+    public void decorate(Object element, IDecoration decoration) {
+        // rather than check the class for the isSynchronizedMethod through
+        // reflection, only consider the known classes
         if (!isSynchronized(element)) {
++           int  v_dialect = Pref_c.Getactiondialect("bridgepoint_prefs_default_action_language_dialect") ;
++        
 +           if ( (v_dialect == Actiondialect_c.masl) ) {
 +               // For MASL projects we automatically synchronize
 +               if (element instanceof SystemModel_c) {                           
@@ -100,6 +106,7 @@ the tool to edit files by hand or to revert back to a prior version in revision 
                 decoration.addOverlay(SYNC_OVERLAY, IDecoration.BOTTOM_LEFT);
 +           }
         }               
+    }
 ```
 
 ### 7. Design Comments
@@ -115,6 +122,7 @@ the tool to edit files by hand or to revert back to a prior version in revision 
 None.      
 
 ### 9. Unit Test
+Note that 9.1 and 9.2 are captured as manual test [2.5].  
 
 9.1 Test with dialect MASL  
 * Start BridgePoint, set the default action language preference to MASL
