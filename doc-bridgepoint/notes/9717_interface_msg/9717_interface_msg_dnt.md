@@ -117,6 +117,10 @@ the tool to edit files by hand or to revert back to a prior version in revision 
 7.2  This implementation is affected by an existing bug [2.4].  The safest workaround is for users
   to save activity editor changes before performing any structural work.  
   
+7.3  The BP Application launch for use during development is switched back to not ask the
+  user about clearing the workspace at each launch.  If the user wants to clear the workspace
+  they will do it manually. 
+  
 ### 8. User Documentation
 
 None.      
