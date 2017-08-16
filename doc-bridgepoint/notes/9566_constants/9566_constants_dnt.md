@@ -313,6 +313,8 @@ name (exercises 6.2.2.1 error 1)
 both exist (exercises 6.2.2.1 error 2 )  
 9.1.5 No constant exists with the given name, but a CSP does exist (exercises
 6.2.2.1 error 3)  
+9.1.6 A constant is referenced (without scoping) where the same constant exists
+in more than one CSP  
 
 _Note that the other errors in the tables for 6.2.\*.1 tables are not tested
 here because they represent normal parser behavior for enumerated data type
