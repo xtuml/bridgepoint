@@ -30,20 +30,9 @@ See [[2.2]](#2.2) section 4
 
 ### 5. Work Required
 
-6.4 Type checking
-
-TODO there is an issue with types where I can assign a constant value to a
-variable that is typed with an enumeration data type. This should show a parse
-error.
-
-TODO add test for 6.4
-
 ### 7. Unit Test
 
-TODO add test for 6.4
-
 ### 8. User Documentation
-
 
 ### 9. Code Changes
 

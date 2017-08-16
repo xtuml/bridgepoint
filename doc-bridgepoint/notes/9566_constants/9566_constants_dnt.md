@@ -304,13 +304,19 @@ covered by the existing unit tests.
 The following cases will be tested for appropriate parse errors
 
 9.1.1 No constant specification (or enumerated data type) exists for the given
-name  
-9.1.2 Multiple constant specifications exist for the given name  
+name (exercises 6.2.1.1 error 1)  
+9.1.2 Multiple constant specifications exist for the given name (exercises
+6.2.1.1 error 2 )  
 9.1.3 A constant and enumerator exist with the same name and type/specification
-name  
+name (exercises 6.2.2.1 error 1)  
 9.1.4 No constant (or enumerator) exist with the given name, but an EDT and CSP
-both exist  
-9.1.5 No constant exists with the given name, but a CSP does exist  
+both exist (exercises 6.2.2.1 error 2 )  
+9.1.5 No constant exists with the given name, but a CSP does exist (exercises
+6.2.2.1 error 3)  
+
+_Note that the other errors in the tables for 6.2.\*.1 tables are not tested
+here because they represent normal parser behavior for enumerated data type
+parsing and are out of the scope of this work_
 
 9.2 Value checking
 
