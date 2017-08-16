@@ -83,7 +83,7 @@ an extra subtype that the instance loader and batch relater would allow
 to occur.
 
 6.6 `defaults.xtuml`  
-This file was include in bp.core and is no longer used.  Deleting it.
+This file was included in bp.core and is no longer used.  Deleting it.
 
 6.7 Error Counter  
 The number of errors found are counted and included in the output report.
