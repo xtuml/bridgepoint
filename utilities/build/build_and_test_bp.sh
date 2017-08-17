@@ -15,26 +15,17 @@ source $SCRIPTPATH/build_configuration.sh
 # Check for prebuild output in bp.core, if not
 # present then run the prepare script
 if [ ! -f $XTUML_DEVELOPMENT_REPOSITORY/src/org.xtuml.bp.core/sql/ooaofooa-1.sql ]; then
-  $XTUML_DEVELOPMENT_REPOSITORY/utilities/build/prepare_build.sh
+  echo "Disabling prepare_build for now"
+  #$XTUML_DEVELOPMENT_REPOSITORY/utilities/build/prepare_build.sh
 fi
 
 prev_dir=`pwd`
 
 project="org.xtuml.bp.releng.parent"
-dir="${XTUML_DEVELOPMENT_REPOSITORY}/releng/${project}"
-if [ "${1}" != "" ]; then
-  project="${1}"
-  dir="${XTUML_DEVELOPMENT_REPOSITORY}/../bptest/src/org.xtuml.bp.${project}.test" 
-  echo ${dir}
-fi
 
-debug=""
-if [ "$2" == "-debug" ];then
-  debug="-DdebugPort=8000"
-fi
-
-cd $dir 
-mvn $debug -Dtycho.disableP2Mirrors=true -Dmaven.test.failure.ignore=true -U install
+prev_dir=$(pwd)
+cd $XTUML_DEVELOPMENT_REPOSITORY/releng/$project
+$XTUML_DEVELOPMENT_REPOSITORY/utilities/build/build_project.sh $project -online
 maven_return=$?
 if [ $maven_return == 0 ] && [ "${INCLUDE_TESTS}" == "true" ]; then
   mvn -Dtycho.disableP2Mirrors=true -Daggregate=true surefire-report:report-only
