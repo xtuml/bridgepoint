@@ -11478,7 +11478,7 @@ if isInGenericPackage
     for each csp in csps
       select one result related by csp->PE_PE[R8001];
       resultList = resultList + sep + result.getQualifiedName();
-      sep = " ,";
+      sep = ", ";
     end for;
     ERR::reportParseError(msg: "Multiple constant specifications found for ->%s<-: " +
                                            resultList, token: param.a1_rule_token);

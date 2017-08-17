@@ -408,6 +408,10 @@ select one ee related by self->S_EE[R8001];
 if not_empty ee
   return ee.Name;
 end if;
+select one csp related by self->CNST_CSP[R8001];
+if not_empty csp
+  return csp.InformalGroupName;
+end if;
 return "";',
 	1,
 	'',
