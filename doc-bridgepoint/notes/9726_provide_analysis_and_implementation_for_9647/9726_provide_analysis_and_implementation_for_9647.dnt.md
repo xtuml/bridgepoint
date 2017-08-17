@@ -115,7 +115,7 @@ Describe the end user documentation that was added for this change.
 9.6 Modify build_and_test_bp.sh removing the "test" argument to build_project.sh  
 9.7 Run build_and_test_bp.sh  
 9.R Network is used, downloading maven repositories  
-9.R All projects are build successful, including test projects  
+9.R All projects are built successfully, including test projects  
 9.R No tests were run  
 9.8 Disable network connection  
 9.9 Start BridgePoint pointing at the test workspace  
