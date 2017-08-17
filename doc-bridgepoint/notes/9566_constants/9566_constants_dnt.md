@@ -277,10 +277,11 @@ dimensions are parsed using regular expressions. If an identifier is parsed, a
 search is made for the symbolic constant and its value is assessed. This must be
 extended to support scoped constants.
 
-There is a bug in this area that constants defined in separate model roots (root
-packages under system) are not visible for the purposes of array dimensions. An
-issue has been raised to track this, but it will not be resolved as part of this
-work as it is outside the scope of the requirements to fix existing bugs.
+There is a bug in this area that constants defined in separate model roots
+(root packages under system) are not visible for the purposes of array
+dimensions. An issue has been raised to track this (see [[2.5]](#2.5)), but it
+will not be resolved as part of this work as it is outside the scope of the
+requirements to fix existing bugs.
 
 ### 7. Design Comments
 
